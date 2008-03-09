@@ -1,0 +1,4 @@
+# Dolibarr language file - fr_FR - google
+GoogleSetup=Outils de configuration pour intégrer un agenda Google
+GoogleSetupHelp=L'aide pour définir les paramètres peut être trouvée à l'adresse suivante %s
+GoogleAgendaNb=Agenda no %s
