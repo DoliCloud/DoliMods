@@ -1,5 +1,7 @@
 <?php
 /* Copyright (C) 2008 Laurent Destailleur  <eldy@users.sourceforge.net>
+ *
+ * Licensed under the GNU GPL v3 or higher (See file gpl-3.0.html)
  */
 
 /**     \defgroup   awstats     Module AWStats
@@ -10,7 +12,7 @@
         \file       htdocs/includes/modules/modAWStats.class.php
         \ingroup    awstats
         \brief      Description and activation file for module AWStats
-		\version	$Id: modAWStats.class.php,v 1.1 2008/03/10 02:16:28 eldy Exp $
+		\version	$Id: modAWStats.class.php,v 1.2 2008/03/30 18:50:15 eldy Exp $
 */
 
 include_once(DOL_DOCUMENT_ROOT ."/includes/modules/DolibarrModules.class.php");

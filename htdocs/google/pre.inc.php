@@ -1,12 +1,14 @@
 <?php
 /* Copyright (C) 2008 Laurent Destailleur  <eldy@users.sourceforge.net>
+ *
+ * Licensed under the GNU GPL v3 or higher (See file gpl-3.0.html)
  */
 
 /**
 		\file 		htdocs/google/pre.inc.php
 		\ingroup    google
 		\brief      File to manage left menu for google module
-		\version    $Id: pre.inc.php,v 1.1 2008/03/09 23:36:48 eldy Exp $
+		\version    $Id: pre.inc.php,v 1.2 2008/03/30 18:50:15 eldy Exp $
 */
 
 $res=@include("../main.inc.php");

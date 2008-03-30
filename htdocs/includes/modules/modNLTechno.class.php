@@ -4,32 +4,32 @@
  * Licensed under the GNU GPL v3 or higher (See file gpl-3.0.html)
  */
 
-/**     \defgroup   google     Module Google
-        \brief      Module to Google tools integration.
+/**     \defgroup   nltechno     Module NLTechno
+        \brief      Module to NLTechno tools integration.
 */
 
 /**
-        \file       htdocs/includes/modules/modGoogle.class.php
-        \ingroup    google
-        \brief      Description and activation file for module Google
-		\version	$Id: modGoogle.class.php,v 1.2 2008/03/30 18:50:15 eldy Exp $
+        \file       htdocs/includes/modules/modNLTechno.class.php
+        \ingroup    nltechno
+        \brief      Description and activation file for module NLTechno
+		\version	$Id: modNLTechno.class.php,v 1.1 2008/03/30 18:50:15 eldy Exp $
 */
 
 include_once(DOL_DOCUMENT_ROOT ."/includes/modules/DolibarrModules.class.php");
 
 
-/**     \class      modGoogle
-        \brief      Description and activation class for module Google
+/**     \class      modNLTechno
+        \brief      Description and activation class for module MyModule
 */
 
-class modGoogle extends DolibarrModules
+class modNLTechno extends DolibarrModules
 {
 
     /**
     *   \brief      Constructor. Define names, constants, directories, boxes, permissions
     *   \param      DB      Database handler
     */
-	function modGoogle($DB)
+	function modNLTechno($DB)
 	{
 		$this->db = $DB;
 		
@@ -37,21 +37,21 @@ class modGoogle extends DolibarrModules
 		// Use here a free id (See in Home -> System information -> Dolibarr for list of used module id).
 		$this->numero = 11000;
 		// Key text used to identify module (for permission, menus, etc...)
-		$this->rights_class = 'google';
+		$this->rights_class = 'nltechno';
 		
 		// Family can be 'crm','financial','hr','projects','product','technic','other'
 		// It is used to group modules in module setup page 
-		$this->family = "projects";		
+		$this->family = "other";		
 		// Module title used if translation string 'ModuleXXXName' not found (XXX is value MyModule)
-		$this->name = "Google";	
+		$this->name = "NLTechno";	
 		// Module description used if translation string 'ModuleXXXDesc' not found (XXX is value MyModule)
-		$this->description = "Module to integrate Google tools in dolibarr";
+		$this->description = "Module to integrate NLTechno tools in dolibarr";
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
-		$this->version = '1.0.1';    
+		$this->version = '1.0';    
 		// Key used in llx_const table to save module status enabled/disabled (XXX is value MyModule)
-		$this->const_name = 'MAIN_MODULE_GOOGLE';
+		$this->const_name = 'MAIN_MODULE_NLTECHNO';
 		// Where to store the module in setup page (0=common,1=interface,2=other)
-		$this->special = 1;
+		$this->special = 2;
 		// Name of png file (without png) used for this module.
 		// Png file must be in theme/yourtheme/img directory under name object_pictovalue.png. 
 		$this->picto='generic';
@@ -62,7 +62,7 @@ class modGoogle extends DolibarrModules
         //$this->dirs[1] = DOL_DATA_ROOT.'/mymodule/temp;
  		
 		// Config pages. Put here list of php page names stored in admmin directory used to setup module
-		$this->config_page_url = array('google.php');
+		$this->config_page_url = array();
 		
 		// Dependencies
 		$this->depends = array();		// List of modules id that must be enabled if this module is enabled
@@ -102,7 +102,7 @@ class modGoogle extends DolibarrModules
 		$r=0;
 
 		$r++;
-		$this->menu[$r]=array('fk_menu'=>0,'type'=>'top','titre'=>'Agenda Google','mainmenu'=>'google','leftmenu'=>'google','url'=>'/google/index.php','langs'=>'google','position'=>100,'perms'=>'','target'=>'','user'=>0);
+		$this->menu[$r]=array('fk_menu'=>0,'type'=>'top','titre'=>'Admin NLTechno','mainmenu'=>'nltechno','leftmenu'=>'nltechno','url'=>'/nltechno/index.php','langs'=>'','position'=>100,'perms'=>'$user->admin=1','target'=>'','user'=>0);
 
 	}
 

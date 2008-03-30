@@ -1,21 +1,18 @@
 <?php
 /* Copyright (C) 2008 Laurent Destailleur  <eldy@users.sourceforge.net>
- *
- * Licensed under the GNU GPL v3 or higher (See file gpl-3.0.html)
  */
 
 /**
-		\file 		htdocs/betterawstats/pre.inc.php
-		\ingroup    google
-		\brief      File to manage left menu for betterawstats module
-		\version    $Id: pre.inc.php,v 1.2 2008/03/30 18:50:14 eldy Exp $
+		\file 		htdocs/nltechno/pre.inc.php
+		\ingroup    nltechno
+		\brief      File to manage left menu for NLTechno module
+		\version    $Id: pre.inc.php,v 1.1 2008/03/30 18:50:15 eldy Exp $
 */
 
 $res=@include("../main.inc.php");
 if (! $res) @include("../../../dolibarr/htdocs/main.inc.php");	// Used on dev env only
 
-$user->getrights('awstats');
-
+$user->getrights('nltechno');
 
 function llxHeader($head = "", $title="", $help_url='')
 {
@@ -26,10 +23,9 @@ function llxHeader($head = "", $title="", $help_url='')
 	
 	$menu = new Menu();
 
-//	$menu->add(DOL_URL_ROOT."/awstats/index.php?mainmenu=awstats&idmenu=".$_SESSION["idmenu"], $langs->trans("Agendas"));
+	$menu->add(DOL_URL_ROOT."/nltechno/index.php?mainmenu=nltechno&idmenu=".$_SESSION["idmenu"], $langs->trans("Admin NLTechno"));
 	
-/*
-	$MAXAGENDA=5;
+/*	$MAXAGENDA=5;
     $i=1;
 	while ($i <= $MAXAGENDA)
 	{
@@ -66,7 +62,8 @@ function llxHeader($head = "", $title="", $help_url='')
 		}
 		$i++;
 	}
-*/	
+*/
+
 	left_menu($menu->liste, $help_url);
 }
 ?>

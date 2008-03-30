@@ -1,12 +1,14 @@
 <?php
 /* Copyright (C) 2008 Laurent Destailleur  <eldy@users.sourceforge.net>
+ *
+ * Licensed under the GNU GPL v3 or higher (See file gpl-3.0.html)
  */
 
 /**
-    	\file       htdoc/google/index.php
+    	\file       htdocs/google/index.php
 		\ingroup    google
 		\brief      Main google area page
-		\version    $Id: index.php,v 1.1 2008/03/09 23:36:48 eldy Exp $
+		\version    $Id: index.php,v 1.2 2008/03/30 18:50:14 eldy Exp $
 		\author		Laurent Destailleur
 */
 
@@ -126,5 +128,5 @@ print $frame;
 // End of page
 $db->close();
 
-llxFooter('$Date: 2008/03/09 23:36:48 $ - $Revision: 1.1 $');
+llxFooter('$Date: 2008/03/30 18:50:14 $ - $Revision: 1.2 $');
 ?>

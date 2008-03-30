@@ -1,0 +1,113 @@
+<?php
+/* Copyright (C) 2008 Laurent Destailleur  <eldy@users.sourceforge.net>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+ */
+
+/**
+	    \file       htdocs/admin/awstats.php
+        \ingroup    awstats
+        \brief      Page de configuration du module AWStats
+		\version    $Id: awstats.php,v 1.1 2008/03/30 18:50:14 eldy Exp $
+*/
+
+$res=@include("./pre.inc.php");
+if (! $res) include("../../../dolibarr/htdocs/admin/pre.inc.php");	// Used on dev env only
+
+require_once(DOL_DOCUMENT_ROOT."/lib/admin.lib.php");
+require_once(DOL_DOCUMENT_ROOT.'/html.formadmin.class.php');
+
+
+if (!$user->admin)
+    accessforbidden();
+
+
+$langs->load("admin");
+$langs->load("other");
+
+$def = array();
+$actiontest=$_POST["test"];
+$actionsave=$_POST["save"];
+
+// Sauvegardes parametres
+if ($actionsave)
+{
+    $i=0;
+
+    $db->begin();
+    
+    $i+=dolibarr_set_const($db,'AWSTATS_DATA_DIR',trim($_POST["AWSTATS_DATA_DIR"]),'chaine',0);
+
+    if ($i >= 1)
+    {
+        $db->commit();
+        $mesg = "<font class=\"ok\">".$langs->trans("SetupSaved")."</font>";
+    }
+    else
+    {
+        $db->rollback();
+        header("Location: ".$_SERVER["PHP_SELF"]);
+        exit;
+    }
+}
+
+
+
+/**
+ * Affichage du formulaire de saisie
+ */
+
+llxHeader();
+
+$linkback='<a href="'.DOL_URL_ROOT.'/admin/modules.php">'.$langs->trans("BackToModuleList").'</a>';
+print_fiche_titre($langs->trans("AWStatsSetup"),$linkback,'setup');
+print '<br>';
+
+
+print '<form name="AWSTATS_DATA_DIR" action="'.$_SERVER["PHP_SELF"].'" method="post">';
+print "<table class=\"noborder\" width=\"100%\">";
+
+print "<tr class=\"liste_titre\">";
+print "<td width=\"30%\">".$langs->trans("Parameter")."</td>";
+print "<td>".$langs->trans("Value")."</td>";
+print "<td>".$langs->trans("Examples")."</td>";
+print "</tr>";
+
+print "<tr class=\"impair\">";
+print "<td>".$langs->trans("AWSTATS_DATA_DIR")."</td>";
+print "<td><input type=\"text\" class=\"flat\" name=\"AWSTATS_DATA_DIR\" value=\"". ($_POST["AWSTATS_DATA_DIR"]?$_POST["AWSTATS_DATA_DIR"]:$conf->global->AWSTATS_DATA_DIR) . "\" size=\"40\"></td>";
+print "<td>/usr/local/awstats/data/";
+print "</td>";
+print "</tr>";
+
+print "</table>";
+print "<br>";
+
+print '<br><center>';
+print "<input type=\"submit\" name=\"save\" class=\"button\" value=\"".$langs->trans("Save")."\">";
+print "</center>";
+
+print "</form>\n";
+
+
+clearstatcache();
+
+if ($mesg) print "<br>$mesg<br>";
+print "<br>";
+
+$db->close();
+
+llxFooter('$Date: 2008/03/30 18:50:14 $ - $Revision: 1.1 $');
+?>

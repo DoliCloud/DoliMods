@@ -1,10 +1,11 @@
 <?php
 /* Copyright (C) 2008 Laurent Destailleur  <eldy@users.sourceforge.net>
-
-This script was built from:
-Multiple Site Statistics Viewer
-Copyright (C)2002-2005 Jason Reid
-*/
+ * Licensed under the GNU GPL v3 or higher (See file gpl-3.0.html)
+ *
+ * This script was built from:
+ * Multiple Site Statistics Viewer
+ * Copyright (C)2002-2005 Jason Reid
+ */
 
 /**     \defgroup   awstats     Module AWStats
         \brief      Module to AWStats tools integration.
@@ -13,7 +14,7 @@ Copyright (C)2002-2005 Jason Reid
 /**
 	\file       htdocs/awstats/index.php
 	\brief      Page accueil module AWStats
-	\version    $Id: index.php,v 1.1 2008/03/10 02:16:28 eldy Exp $
+	\version    $Id: index.php,v 1.2 2008/03/30 18:50:14 eldy Exp $
 */
 
 include("./pre.inc.php");
@@ -672,5 +673,5 @@ if($system_stats_top == true) {
 #	Output to the screen
 echo $statistics;
 
-llxFooter('$Date: 2008/03/10 02:16:28 $ - $Revision: 1.1 $');
+llxFooter('$Date: 2008/03/30 18:50:14 $ - $Revision: 1.2 $');
 ?>
