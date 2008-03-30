@@ -8,7 +8,7 @@
 		\file 		htdocs/betterawstats/pre.inc.php
 		\ingroup    google
 		\brief      File to manage left menu for betterawstats module
-		\version    $Id: pre.inc.php,v 1.2 2008/03/30 18:50:14 eldy Exp $
+		\version    $Id: pre.inc.php,v 1.3 2008/03/30 20:23:33 eldy Exp $
 */
 
 $res=@include("../main.inc.php");
@@ -20,7 +20,7 @@ $user->getrights('awstats');
 function llxHeader($head = "", $title="", $help_url='')
 {
 	global $conf,$langs;
-	$langs->load("agenda");
+	$langs->load("other");
 	
 	top_menu($head, $title);
 	

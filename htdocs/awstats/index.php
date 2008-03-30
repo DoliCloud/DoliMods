@@ -1,5 +1,6 @@
 <?php
 /* Copyright (C) 2008 Laurent Destailleur  <eldy@users.sourceforge.net>
+ *
  * Licensed under the GNU GPL v3 or higher (See file gpl-3.0.html)
  *
  * This script was built from:
@@ -14,7 +15,7 @@
 /**
 	\file       htdocs/awstats/index.php
 	\brief      Page accueil module AWStats
-	\version    $Id: index.php,v 1.2 2008/03/30 18:50:14 eldy Exp $
+	\version    $Id: index.php,v 1.3 2008/03/30 20:23:33 eldy Exp $
 */
 
 include("./pre.inc.php");
@@ -61,7 +62,7 @@ $system_stats_top	=	false;						# Show system statistics above domain statistics
 
 $stylesheet			=	$_SERVER['PHP_SELF']."?get=css";	# Default StyleSheet.
 
-$table_width		=	"75%";						# Content table width
+$table_width		=	"99%";						# Content table width
 $table_align		=	"center";					# Content table alignment
 
 $logo_file			=	"/icons/other/awstats_logo6.png";	# Path to the AWSTATS logo
@@ -107,80 +108,6 @@ if($gzip_compression == true && function_exists("gzopen")) {
 	ob_start("ob_gzhandler");	# Start output buffering with gzip compression
 } else {
 	ob_start();					# Start output buffering without compression
-}
-
-if($_GET['get'] == "css") {
-	header('Content-type: text/css');
-	echo '* { 
-	font-family: '.$font_family.'; 
-	font-size: '.$font_size.'; 
-}
-h1 { 
-	font-size: '.$head_font_size.'; 
-	color: '.$head_font_color.';
-}
-a, a:visited,a:link { 
-	color: black; 
-	text-decoration: none;
-	font-weight: bold;
-}
-a:hover { 
-	color: navy; 
-}
-tr.header {
-	background-color: '.$header_bg.';
-}
-tr.first {
-	background-color: '.$first_bg.';
-}
-tr.second {
-	background-color: '.$second_bg.';
-}	
-td.pages {
-	color: '.$pages_color.';
-	text-align: right;
-}
-td.hits {
-	color: '.$hits_color.';
-	text-align: right;
-}
-td.visits {
-	color: '.$visits_color.';
-	text-align: right;
-}
-td.bandwidth {
-	color: '.$bandwidth_color.';
-	text-align: right;
-}
-td.domain {
-	color: '.$domain_color.';
-}
-
-td.pages-bold {
-	color: '.$pages_color.';
-	text-align: right;
-	font-weight: bold;
-}
-td.hits-bold {
-	color: '.$hits_color.';
-	text-align: right;
-	font-weight: bold;
-}
-td.visits-bold {
-	color: '.$visits_color.';
-	text-align: right;
-	font-weight: bold;
-}
-td.bandwidth-bold {
-	color: '.$bandwidth_color.';
-	text-align: right;
-	font-weight: bold;
-}
-td.domain-bold {
-	color: '.$domain_color.';
-	font-weight: bold;
-}';
-	exit;
 }
 
 # Record Starting Time
@@ -231,27 +158,30 @@ function read_file($file,$domain)
 	global $total;	
 	global $BIGVAR;
 	
+	if (! eregi('^awstats([0-9][0-9])([0-9][0-9][0-9][0-9])',$file,$reg))
+	{
+		return;
+	}
+	
+	$yyyy = $reg[2];
+	$mm = $reg[1];
+
 	$filename = $history_dir."/".$file;
 	$fd = fopen ($filename, "r");
-	$contents = fread ($fd, filesize ($filename));
-	$use = strpos($contents, "BEGIN_DAY"); 
+	$contents = fread ($fd, 4096);	// Suppose TIME section is at beginning
+	fclose ($fd);
+
+	$use = strpos($contents, "BEGIN_TIME"); 
 	$newline = strpos($contents, "\n", $use);
-	$end = strpos($contents, "END_DAY", $newline);
+	$end = strpos($contents, "END_TIME", $newline);
 	$data .= substr($contents,$newline+1,$end-$newline-2);
 	$data = explode("\n",$data);
-	fclose ($fd);
-	if($data[0] == "END_DAY") {
-		unset($data);
-	} else {
-		foreach($data as $info)	{
+	if($data[0] != "END_TIME")
+	{
+		foreach($data as $info)
+		{
 			$dom_info = explode(" ",$info);
-			if(count($dom_info) < 5) {
-				break;
-			}
-
-			$yyyy = substr($dom_info[0],0,4);
-			$mm = substr($dom_info[0],4,2);
-			$dd = substr($dom_info[0],6,2); 
+			if(count($dom_info) < 5) { break; }
 
 			# Record number of page views		
 			$domaininfo[$domain][$yyyy][$mm]['pages'] += $dom_info[1];
@@ -262,11 +192,34 @@ function read_file($file,$domain)
 			# Record ammount of traffic
 			$domaininfo[$domain][$yyyy][$mm]['traffic'] += $dom_info[3];
 			$total[$domain]['traffic'] += $dom_info[3];
-			# Record number of visits
-			$domaininfo[$domain][$yyyy][$mm]['visits'] += $dom_info[4];
-			$total[$domain]['visits'] += $dom_info[4];	
 		}	
 	}
+	
+	$use = strpos($contents, "BEGIN_GENERAL"); 
+	$newline = strpos($contents, "\n", $use);
+	$end = strpos($contents, "END_GENERAL", $newline);
+	$data .= substr($contents,$newline+1,$end-$newline-2);
+	$data = explode("\n",$data);
+	if($data[0] != "END_GENERAL")
+	{
+		foreach($data as $info)
+		{
+			$dom_info = explode(" ",$info);
+
+			if ($dom_info[0] == 'TotalVisits')
+			{
+				# Record number of visits
+				$domaininfo[$domain][$yyyy][$mm]['visits'] += $dom_info[1];
+				$total[$domain]['visits'] += $dom_info[1];	
+			}
+			if ($dom_info[0] == 'TotalUnique')
+			{
+				# Record number of visitors
+				$domaininfo[$domain][$yyyy][$mm]['visitors'] += $dom_info[1];
+				$total[$domain]['visitors'] += $dom_info[1];
+			}
+		}	
+	}	
 }
 
 #########################
@@ -277,83 +230,6 @@ function read_file($file,$domain)
 $xmldata = array();
 $bigarray = array();
 
-# Declare function
-function read_xml($file,$domain) {
-	global $xmldata;
-	global $domaininfo;
-	global $total;
-	$xml_parser = xml_parser_create();
-	
-	if (!($fp = fopen($file, "r"))) {
-		die("Could not open history file!");
-	}
-	
-	$data = fread($fp, filesize($file));
-	fclose($fp);
-	
-	# Move data into array
-	xml_parse_into_struct($xml_parser, $data, $vals, $index);
-	xml_parser_free($xml_parser);
-	
-	$level = array();
-	foreach ($vals as $xml_elem) {
-		if ($xml_elem['type'] == 'open') {
-			if (array_key_exists('attributes',$xml_elem)) {
-				list($level[$xml_elem['level']],$extra) = array_values($xml_elem['attributes']);
-			} else {
-				if($xml_elem['tag'] == "TR") {
-				$level[$xml_elem['level']] = $countr;
-				$prev = "";
-				$countr++;
-				$count3 = 0;			
-				} 
-				if($xml_elem['tag'] == "TD") {
-					if(strlen($prev) > 0 ){ 
-						$level[$xml_elem['level']] = $prev;
-					} else {
-						$level[$xml_elem['level']] = $count;
-					}
-					$prev = $xml_elem['tag'];
-					$count++;
-				}
-				if($xml_elem['tag'] != "TD" && $xml_elem['tag'] != "TR"){
-					$count = 0;
-					$countr = 0;
-					$prev = "";
-					$level[$xml_elem['level']] = $xml_elem['tag'];
-				}							
-			}
-		}
-		if ($xml_elem['type'] == 'complete') {
-			$start_level = 1;
-			$php_stmt = '$xmldata';
-			while($start_level < $xml_elem['level']) {
-				$php_stmt .= '[$level['.$start_level.']]';
-				$start_level++;
-			}
-			if($xml_elem['tag'] == "TD") {
-				$php_stmt .= '[$count3] = $xml_elem[\'value\'];';
-				$count3++;
-			} else {
-				$php_stmt .= '[$xml_elem[\'tag\']] = $xml_elem[\'value\'];';
-			}
-			eval($php_stmt);
-		}		
-	}
-	$month = substr($xmldata['XML']['day']['TABLE']['0']['1'],4,2);
-	$year = substr($xmldata['XML']['day']['TABLE']['0']['1'],0,4);
-	
-	foreach($xmldata['XML']['day']['TABLE'] as $data) {
-		$domaininfo[$domain][$year][$month]['pages'] += $data[2];
-		$total[$domain]['pages'] += $data[2];
-		$domaininfo[$domain][$year][$month]['hits'] += $data[3];
-		$total[$domain]['hits'] += $data[3];
-		$domaininfo[$domain][$year][$month]['traffic'] += $data[4];
-		$total[$domain]['traffic'] += $data[4];
-		$domaininfo[$domain][$year][$month]['visits'] += $data[5];
-		$total[$domain]['visits'] += $data[5];
-	}
-}
 
 #################################
 # Number formatting function	#
@@ -392,7 +268,8 @@ if(!$dir) {
 } 
 
 # Begin sorting and analyzing history files
-while(($file = readdir($dir)) !== false) { 
+while(($file = readdir($dir)) !== false) 
+{ 
     if(substr_count($file, "awstats") == 0 && strlen($file) >= 14 || substr_count($file,".") == 0 || $file == "." || $file == "..") continue;				# Drop all files except history files 
     { 
         $domname = substr($file,14);								# Find Domain Name
@@ -419,17 +296,21 @@ while(($file = readdir($dir)) !== false) {
 }
 
 # Check if there are any valid files, otherwise exit
-if(count($files) == 0) {
+if(count($files) == 0)
+{
 	$output_table = '
 	<div align="'.$table_align.'">Sorry, No Domains Found.</div>';
-} else {
+}
+else
+{
 	# Sort the files in ascending order and then reset the list of sites
 	sort($files);														
 	reset($sites);														
 	
 	# Check for file type
 	$curr = 0;
-	while($curr < count($files)) {
+	while($curr < count($files)) 
+	{
 		$file = $history_dir.'/'.$files[$curr];
 		$check = substr(file_get_contents($file),0,4);
 		if($check == "<xml") {
@@ -454,28 +335,32 @@ if(count($files) == 0) {
 				# Read the source file
 				read_file($files[$curr],$domain);
 			}
-			# Remove Duplicate Domains and resort
-			$domains = array_unique($domains);
-			sort($domains);
 		}
 		$curr++;
 	}
+	# Remove Duplicate Domains and resort
+	$domains = array_unique($domains);
+	sort($domains);
+
 	
 	##############################
 	# Start building the report  #
 	##############################
-	if($build_domains == true) {
-		if(! $filter_year) {
+	if ($build_domains == true)
+	{
+		if (! $filter_year)		// No filters on year
+		{
 			ksort($domaininfo);
 			foreach($domaininfo as $key => $ddata) {
 				ksort($ddata);
 				$output_table .= '<table width="'.$table_width.'" cellspacing="0" cellpadding="1" align="'.$table_align.'">
   <tr class="header">
     <td width="40%" class="domain-bold">Domain: '.$key.'</td>
-    <td width="15%" class="pages-bold">Pages:</td>
-    <td width="15%" class="hits-bold">Hits:</td>
-    <td width="15%" class="visits-bold">Visits:</td>
-    <td width="15%" class="bandwidth-bold">Bandwidth:</td>
+    <td width="12%" class="visitors-bold" nowrap="nowrap">Unique visitors:</td>
+    <td width="12%" class="visits-bold">Visits:</td>
+    <td width="12%" class="pages-bold">Pages:</td>
+    <td width="12%" class="hits-bold">Hits:</td>
+    <td width="12%" class="bandwidth-bold">Bandwidth:</td>
   </tr>';
 				foreach($ddata as $key2 => $data) {
 					foreach($data as $key3 => $ata) {
@@ -493,9 +378,10 @@ if(count($files) == 0) {
 					}					
 					$output_table .= '  <tr class="'.$bgc.'">
     <td class="domain">&nbsp;'.date("F", mktime (0,0,0,$key3+1,0,$key2)).' '.$key2.'</td>
+    <td class="visitors">'.format($domaininfo[$key][$key2][$key3]['visitors']).'</td>
+    <td class="visits">'.format($domaininfo[$key][$key2][$key3]['visits']).'</td>
     <td class="pages">'.format($domaininfo[$key][$key2][$key3]['pages']).'</td>
     <td class="hits">'.format($domaininfo[$key][$key2][$key3]['hits']).'</td>
-    <td class="visits">'.format($domaininfo[$key][$key2][$key3]['visits']).'</td>
     <td class="bandwidth">'.$traffic.'</td>
   </tr>';
 					$i++;
@@ -509,21 +395,24 @@ if(count($files) == 0) {
 					$traffic = sprintf("%.2f",$total[$key]['traffic']/1024).' KB';			
 				}
 				
-				$output_table .= '  <tr><td colspan=5><hr></td>
+				$output_table .= '  <tr><td colspan=6><hr></td>
   </tr>
   <tr class="header">
     <td class="domain-bold">TOTAL:</td>
-    <td class="pages-bold">'.format($total[$key]['pages']).'</td>
-    <td class="hits-bold">'.format($total[$key]['hits']).'</td>
-    <td class="visits-bold">'.format($total[$key]['visits']).'</td>
-    <td class="bandwidth-bold">'.$traffic.'</td>
+    <td class="domain-bold" style="text-align: right">'.format($total[$key]['visitors']).'</td>
+    <td class="domain-bold" style="text-align: right">'.format($total[$key]['visits']).'</td>
+    <td class="domain-bold" style="text-align: right">'.format($total[$key]['pages']).'</td>
+    <td class="domain-bold" style="text-align: right">'.format($total[$key]['hits']).'</td>
+    <td class="domain-bold" style="text-align: right">'.$traffic.'</td>
   </tr>
   <tr>
     <td colspan="5"><BR><BR><BR></td>
   </tr>
 </table>';
 			}
-		} else {
+		}		// End no filters on year
+		else
+		{
 			$thisyear = $filter_year;
 			ksort($domaininfo);
 			foreach($domaininfo as $key => $ddata) {
@@ -531,10 +420,11 @@ if(count($files) == 0) {
 				$output_table .= '<table width="'.$table_width.'" cellspacing="0" cellpadding="1" align="'.$table_align.'">
   <tr class="header">
     <td width="40%" class="domain-bold">Domain: '.$key.'</td>
-    <td width="15%" class="pages-bold">Pages:</td>
-    <td width="15%" class="hits-bold">Hits:</td>
-    <td width="15%" class="visits-bold">Visits:</td>
-    <td width="15%" class="bandwidth-bold">Bandwidth:</td>
+    <td width="12%" class="visitors-bold">Unique visitors:</td>
+    <td width="12%" class="visits-bold">Visits:</td>
+    <td width="12%" class="pages-bold">Pages:</td>
+    <td width="12%" class="hits-bold">Hits:</td>
+    <td width="12%" class="bandwidth-bold">Bandwidth:</td>
   </tr>';
 				foreach($ddata as $key2 => $data) {
 					foreach($data as $key3 => $ata) {
@@ -552,9 +442,10 @@ if(count($files) == 0) {
 					}						
 					$output_table .= '  <tr class="'.$bgc.'">
     <td class="domain">&nbsp;'.date("F", mktime (0,0,0,$key3+1,0,$thisyear)).' '.$thisyear.'</td>
+    <td class="visitors">'.format($domaininfo[$key][$thisyear][$key3]['visitors']).'</td>
+    <td class="visits">'.format($domaininfo[$key][$thisyear][$key3]['visits']).'</td>
     <td class="pages">'.format($domaininfo[$key][$thisyear][$key3]['pages']).'</td>
     <td class="hits">'.format($domaininfo[$key][$thisyear][$key3]['hits']).'</td>
-    <td class="visits">'.format($domaininfo[$key][$thisyear][$key3]['visits']).'</td>
     <td class="bandwidth">'.$traffic.'</td>
   </tr>';
 					$i++;
@@ -567,13 +458,14 @@ if(count($files) == 0) {
 				} else { # Under 1MB
 					$traffic = sprintf("%.2f",$total[$key]['traffic']/1024).' KB';			
 				}				
-				$output_table .= '  <tr><td colspan=5><hr></td></tr>
+				$output_table .= '  <tr><td colspan=6><hr></td></tr>
   <tr class="header">
     <td class="domain-bold">TOTAL:</td>
-    <td class="pages-bold">'.format($total[$key]['pages']).'</td>
-    <td class="hits-bold">'.format($total[$key]['hits']).'</td>
-    <td class="visits-bold">'.format($total[$key]['visits']).'</td>
-    <td class="bandwidth-bold">'.$traffic.'</td>
+    <td class="domain-bold" style="text-align: right">'.format($total[$key]['visitors']).'</td>
+    <td class="domain-bold" style="text-align: right">'.format($total[$key]['visits']).'</td>
+    <td class="domain-bold" style="text-align: right">'.format($total[$key]['pages']).'</td>
+    <td class="domain-bold" style="text-align: right">'.format($total[$key]['hits']).'</td>
+    <td class="domain-bold" style="text-align: right">'.$traffic.'</td>
   </tr>
   <tr>
     <td colspan="5"><BR><BR><BR></td>
@@ -582,10 +474,13 @@ if(count($files) == 0) {
 			}
 		}
 	}
+	
+	
 	#####################################
 	# Check and build system statistics table.  #
 	#####################################
-	if($build_system == true) {
+	if ($build_system == true)
+	{
 		# Calculate totals
 		$server = array();
 		ksort($domaininfo);
@@ -604,10 +499,11 @@ if(count($files) == 0) {
 		$system_table = '<table width="'.$table_width.'" cellspacing="0" cellpadding="1" align="'.$table_align.'">
   <tr class="header">
     <td width="40%" class="domain-bold">System Statistics</td>
-    <td width="15%" class="pages-bold">Pages:</td>
-    <td width="15%" class="hits-bold">Hits:</td>
-    <td width="15%" class="visits-bold">Visits:</td>
-    <td width="15%" class="bandwidth-bold">Bandwidth:</td>
+    <td width="12%" class="visitors-bold">Unique visitors:</td>
+    <td width="12%" class="visits-bold">Visits:</td>
+    <td width="12%" class="pages-bold">Pages:</td>
+    <td width="12%" class="hits-bold">Hits:</td>
+    <td width="12%" class="bandwidth-bold">Bandwidth:</td>
   </tr>';
 		ksort($server);	
 		foreach($server as $key1 => $data1) {
@@ -627,9 +523,10 @@ if(count($files) == 0) {
 				}				
 				$system_table .= '  <tr class="'.$bgc.'">
     <td class="domain">&nbsp;'.date("F", mktime (0,0,0,$key2+1,0,$key1)).' '.$key1.'</td>
+    <td class="visitors">'.format($server[$key1][$key2]['visitors']).'</td>
+    <td class="visits">'.format($server[$key1][$key2]['visits']).'</td>
     <td class="pages">'.format($server[$key1][$key2]['pages']).'</td>
     <td class="hits">'.format($server[$key1][$key2]['hits']).'</td>
-    <td class="visits">'.format($server[$key1][$key2]['visits']).'</td>
     <td class="bandwidth">'.$traffic.'</td>
   </tr>';
 		$i++;
@@ -642,12 +539,13 @@ if(count($files) == 0) {
 		} else { # Under 1MB
 			$traffic = sprintf("%.2f",$total2['traffic']/1024).' KB';			
 		}		
-		$system_table .= '  <tr><td colspan=5><hr></td></tr>
+		$system_table .= '  <tr><td colspan=6><hr></td></tr>
   <tr class="header">
     <td class="domain-bold">TOTAL:</td>
+    <td class="visitors-bold">'.format($total2['visitors']).'</td>
+    <td class="visits-bold">'.format($total2['visits']).'</td>
     <td class="pages-bold">'.format($total2['pages']).'</td>
     <td class="hits-bold">'.format($total2['hits']).'</td>
-    <td class="visits-bold">'.format($total2['visits']).'</td>
     <td class="bandwidth-bold">'.$traffic.'</td>
   </tr>
   <tr>
@@ -673,5 +571,5 @@ if($system_stats_top == true) {
 #	Output to the screen
 echo $statistics;
 
-llxFooter('$Date: 2008/03/30 18:50:14 $ - $Revision: 1.2 $');
+llxFooter('$Date: 2008/03/30 20:23:33 $ - $Revision: 1.3 $');
 ?>
