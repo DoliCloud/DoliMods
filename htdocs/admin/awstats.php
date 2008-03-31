@@ -20,7 +20,7 @@
 	    \file       htdocs/admin/awstats.php
         \ingroup    awstats
         \brief      Page de configuration du module AWStats
-		\version    $Id: awstats.php,v 1.1 2008/03/30 18:50:14 eldy Exp $
+		\version    $Id: awstats.php,v 1.2 2008/03/31 17:51:58 eldy Exp $
 */
 
 $res=@include("./pre.inc.php");
@@ -35,6 +35,7 @@ if (!$user->admin)
 
 
 $langs->load("admin");
+$langs->load("awstats");
 $langs->load("other");
 
 $def = array();
@@ -49,8 +50,9 @@ if ($actionsave)
     $db->begin();
     
     $i+=dolibarr_set_const($db,'AWSTATS_DATA_DIR',trim($_POST["AWSTATS_DATA_DIR"]),'chaine',0);
+    $i+=dolibarr_set_const($db,'AWSTATS_CGI_PATH',trim($_POST["AWSTATS_CGI_PATH"]),'chaine',0);
 
-    if ($i >= 1)
+    if ($i >= 2)
     {
         $db->commit();
         $mesg = "<font class=\"ok\">".$langs->trans("SetupSaved")."</font>";
@@ -76,8 +78,9 @@ print_fiche_titre($langs->trans("AWStatsSetup"),$linkback,'setup');
 print '<br>';
 
 
-print '<form name="AWSTATS_DATA_DIR" action="'.$_SERVER["PHP_SELF"].'" method="post">';
+print '<form name="awstatsform" action="'.$_SERVER["PHP_SELF"].'" method="post">';
 print "<table class=\"noborder\" width=\"100%\">";
+$var=true;
 
 print "<tr class=\"liste_titre\">";
 print "<td width=\"30%\">".$langs->trans("Parameter")."</td>";
@@ -85,10 +88,19 @@ print "<td>".$langs->trans("Value")."</td>";
 print "<td>".$langs->trans("Examples")."</td>";
 print "</tr>";
 
-print "<tr class=\"impair\">";
+$var=!$var;
+print "<tr ".$bc[$var].">";
 print "<td>".$langs->trans("AWSTATS_DATA_DIR")."</td>";
-print "<td><input type=\"text\" class=\"flat\" name=\"AWSTATS_DATA_DIR\" value=\"". ($_POST["AWSTATS_DATA_DIR"]?$_POST["AWSTATS_DATA_DIR"]:$conf->global->AWSTATS_DATA_DIR) . "\" size=\"40\"></td>";
+print "<td><input type=\"text\" class=\"flat\" name=\"AWSTATS_DATA_DIR\" value=\"". ($_POST["AWSTATS_DATA_DIR"]?$_POST["AWSTATS_DATA_DIR"]:$conf->global->AWSTATS_DATA_DIR) . "\" size=\"50\"></td>";
 print "<td>/usr/local/awstats/data/";
+print "</td>";
+print "</tr>";
+
+$var=!$var;
+print "<tr ".$bc[$var].">";
+print "<td>".$langs->trans("AWSTATS_CGI_PATH")."</td>";
+print "<td><input type=\"text\" class=\"flat\" name=\"AWSTATS_CGI_PATH\" value=\"". ($_POST["AWSTATS_CGI_PATH"]?$_POST["AWSTATS_CGI_PATH"]:$conf->global->AWSTATS_CGI_PATH) . "\" size=\"50\"></td>";
+print "<td>http://myserver/awstats/awstats.pl<br>http://myserver/cgi-bin/awstats.pl?configdir=/home/awstats/conf";
 print "</td>";
 print "</tr>";
 
@@ -109,5 +121,5 @@ print "<br>";
 
 $db->close();
 
-llxFooter('$Date: 2008/03/30 18:50:14 $ - $Revision: 1.1 $');
+llxFooter('$Date: 2008/03/31 17:51:58 $ - $Revision: 1.2 $');
 ?>
