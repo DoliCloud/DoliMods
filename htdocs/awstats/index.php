@@ -15,7 +15,7 @@
 /**
 	\file       htdocs/awstats/index.php
 	\brief      Page accueil module AWStats
-	\version    $Id: index.php,v 1.4 2008/03/31 17:51:59 eldy Exp $
+	\version    $Id: index.php,v 1.5 2008/03/31 20:58:41 eldy Exp $
 */
 
 include("./pre.inc.php");
@@ -42,9 +42,10 @@ if (! eregi('\?',$AWSTATS_CGI_PATH)) { $AWSTATS_CGI_PATH.='?'; }
 else $AWSTATS_CGI_PATH.='&amp;';
 
 $history_dir 		= 	$conf->global->AWSTATS_DATA_DIR;		# Location of history files
-$filter_year		=	isset($_REQUEST["filter_year"])?$_REQUEST["filter_year"]:'';	# year or all					# Show only current year statistics
+$filter_year		=	isset($_REQUEST["filter_year"])?$_REQUEST["filter_year"]:'';		# year or all
 if (empty($filter_year)) $filter_year=date("Y");
-$filter_domains		=	false;						# Show only certain domains
+$filter_domains		=	isset($_REQUEST["filter_domains"])?$_REQUEST["filter_domains"]:'';	# Show only current year statistics
+
 $domain_list		=	array();					# List of domains to show if filter_domains is true
 $build_domains		=	true;						# Show domain by domain statistics
 $build_system		=	false;						# Show system statistics
@@ -236,7 +237,7 @@ if(!$dir) {
 	exit; 
 } 
 
-# Begin sorting and analyzing history files
+# Define list of qualified files
 while(($file = readdir($dir)) !== false) 
 { 
     if(substr_count($file, "awstats") == 0 && strlen($file) >= 14 || substr_count($file,".") == 0 || $file == "." || $file == "..") continue;				# Drop all files except history files 
@@ -245,20 +246,20 @@ while(($file = readdir($dir)) !== false)
 		$domname = substr($domname,0,-4);							# And remove trailing
 
 		//print($filter_year);
-		if($filter_year == 'all' && $filter_domains == true && in_array($domname,$domain_list) == true) {
+		if($filter_year == 'all' && ! empty($filter_domains) && eregi($filter_domains,$domname)) {
 			$files[] = $file; 
 		}
-		else if($filter_year == 'all' && $filter_domains == false)
+		else if($filter_year == 'all' && empty($filter_domains))
 		{
 			$files[] = $file; 
 		}
-		elseif($filter_year != 'all' && $filter_domains == false && substr_count($file,$filter_year) == 1) {
+		elseif($filter_year != 'all' && empty($filter_domains) && substr_count($file,$filter_year) == 1) {
 			$files[] = $file; 
 		} 
-		elseif($filter_year != 'all' && $filter_domains == true && substr_count($file,$filter_year) == 1 && in_array($domname,$domain_list) == true) {
+		elseif($filter_year != 'all' && ! empty($filter_domains) && substr_count($file,$filter_year) == 1 && eregi($filter_domains,$domname)) {
 			$files[] = $file; 
 		}
-		elseif($filter_year != 'all' && substr_count($file,$filter_year) == 1 && $filter_domains == false) {		
+		elseif($filter_year != 'all' && substr_count($file,$filter_year) == 1 && empty($filter_domains)) {		
 			$files[] = $file; 	
 		}
     } 
@@ -492,8 +493,10 @@ print '<table class="border" width="100%"><tr><td>'.$langs->trans("Year").':</td
 $yearsarray=array('2004'=>'2004','2005'=>'2005','2006'=>'2006','2007'=>'2007','2008'=>'2008','2009'=>'2009','20010'=>'2010','all'=>$langs->trans("All"));
 $form->select_array('filter_year',$yearsarray,$filter_year,1);
 print '</td>';
-print '<td><input class="button" type="submit" value="'.$langs->trans("Update").'"></td>';
-print '</tr></table>';
+print '<td rowspan="2" align="center"><input class="button" type="submit" value="'.$langs->trans("Update").'"></td>';
+print '</tr>';
+print '<tr><td>'.$langs->trans("FilterDomain").':</td><td><input class="flat" type="text" name="filter_domains" value="'.$filter_domains.'"></td>';
+print '</table>';
 print '</form>';
 print '<br>';
 
@@ -507,5 +510,5 @@ if($system_stats_top == true) {
 #	Output to the screen
 echo $statistics;
 
-llxFooter('$Date: 2008/03/31 17:51:59 $ - $Revision: 1.4 $');
+llxFooter('$Date: 2008/03/31 20:58:41 $ - $Revision: 1.5 $');
 ?>

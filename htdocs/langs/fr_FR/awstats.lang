@@ -5,3 +5,4 @@ AWStatsSetupNotComplete=La configuration du module AWStats est incomplète
 AWSTATS_DATA_DIR=Répertoire stockage fichiers data AWStats
 AWSTATS_CGI_PATH=URL Programme CGI AWstats
 ShowStats=Afficher détail des statistiques
+FilterDomain=Filtrage configuration

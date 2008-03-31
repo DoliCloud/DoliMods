@@ -5,3 +5,4 @@ AWStatsSetupNotComplete=AWStats setup is not complete
 AWSTATS_DATA_DIR=AWStats data files directory
 AWSTATS_CGI_PATH=AWStats CGI URL
 ShowStats=Show detailed statistics
+FilterDomain=Config filter
