@@ -15,7 +15,7 @@
 /**
 	\file       htdocs/awstats/index.php
 	\brief      Page accueil module AWStats
-	\version    $Id: index.php,v 1.5 2008/03/31 20:58:41 eldy Exp $
+	\version    $Id: index.php,v 1.6 2008/04/13 19:54:14 eldy Exp $
 */
 
 include("./pre.inc.php");
@@ -90,8 +90,9 @@ unset($domains);
 $files 			= 		array();
 $sites 			=		array();
 $stats 			= 		array();
-$total			=		array();
 $domaininfo		=		array();
+$total			=		array();
+$max     		=		array();
 $sitecount		=		0;
 
 # Declare functions
@@ -113,7 +114,7 @@ function read_file($file,$domain)
 	global $history_dir; 												
 	global $domaininfo;
 	global $total;	
-	global $BIGVAR;
+	global $max;	
 	
 	if (! eregi('^awstats([0-9][0-9])([0-9][0-9][0-9][0-9])',$file,$reg))
 	{
@@ -160,8 +161,13 @@ function read_file($file,$domain)
 			# Record ammount of traffic
 			$domaininfo[$domain][$yyyy][$mm]['traffic'] += $dom_info[3];
 			$total[$domain]['traffic'] += $dom_info[3];
-		}	
+		}
 	}
+	$max['pages']=max($max['pages'],$domaininfo[$domain][$yyyy][$mm]['pages']);
+	$max['hits']=max($max['hits'],$domaininfo[$domain][$yyyy][$mm]['hits']);
+	$max['traffic']=max($max['traffic'],$domaininfo[$domain][$yyyy][$mm]['traffic']);
+	//print "<br>\n".$domain.' '.$dom_info[1].' '.$yyyy.$mm."<br>\n";
+	//var_dump($max);
 	
 	$use = strpos($contents, "BEGIN_GENERAL"); 
 	$newline = strpos($contents, "\n", $use);
@@ -179,15 +185,18 @@ function read_file($file,$domain)
 				# Record number of visits
 				$domaininfo[$domain][$yyyy][$mm]['visits'] += $dom_info[1];
 				$total[$domain]['visits'] += $dom_info[1];	
+				$max['visits']=max($max['visits'],$dom_info[1]);
 			}
 			if ($dom_info[0] == 'TotalUnique')
 			{
 				# Record number of visitors
 				$domaininfo[$domain][$yyyy][$mm]['visitors'] += $dom_info[1];
 				$total[$domain]['visitors'] += $dom_info[1];
+				$max['visitors']=max($max['visitors'],$dom_info[1]);
 			}
 		}	
-	}	
+	}
+	
 }
 
 #########################
@@ -307,6 +316,7 @@ else
 	##############################
 	# Start building the report  #
 	##############################
+	$maxwidth=160;
 	if ($build_domains == true)
 	{
 		ksort($domaininfo);
@@ -315,16 +325,16 @@ else
 			ksort($ddata);
 			$output_table .= '<table width="'.$table_width.'" cellspacing="0" cellpadding="1" align="'.$table_align.'">
 <tr class="header">
-<td width="40%" class="domain-bold">';
-$output_table .= 'Domain: ';
+<td class="domain-bold">';
 $output_table .= '<a href="'.$AWSTATS_CGI_PATH.'config='.$key.'" target="_blank">'.$key.' ';
-$output_table .= img_picto($langs->trans("ShowStats"),'object_bookmark').'</a>';
+$output_table .= img_picto($langs->trans("ShowStats"),'/awstats/images/menu2.png','',1).'</a>';
 $output_table .= '</td>
-<td width="12%" class="visitors-bold" nowrap="nowrap">Unique visitors:</td>
-<td width="12%" class="visits-bold">Visits:</td>
-<td width="12%" class="pages-bold">Pages:</td>
-<td width="12%" class="hits-bold">Hits:</td>
-<td width="12%" class="bandwidth-bold">Bandwidth:</td>
+<td width="80" class="visitors-bold" nowrap="nowrap">Visitors</td>
+<td width="80" class="visits-bold">Visits</td>
+<td width="80" class="pages-bold">Pages</td>
+<td width="80" class="hits-bold">Hits</td>
+<td width="80" class="bandwidth-bold">Bandwidth</td>
+<td width="'.$maxwidth.'">&nbsp;</td>
 </tr>';
 			foreach($ddata as $key2 => $data)
 			{
@@ -356,7 +366,23 @@ $output_table .= '</td>
 <td class="pages">'.format($domaininfo[$key][$key2][$key3]['pages']).'</td>
 <td class="hits">'.format($domaininfo[$key][$key2][$key3]['hits']).'</td>
 <td class="bandwidth">'.$traffic.'</td>
-</tr>';
+<td>';
+
+				$width['visitors']=$maxwidth*$domaininfo[$key][$key2][$key3]['visitors']/$max['visitors'];
+				$width['visits']=$maxwidth*$domaininfo[$key][$key2][$key3]['visits']/$max['visits'];
+				$width['pages']=$maxwidth*$domaininfo[$key][$key2][$key3]['pages']/$max['pages'];
+				$width['hits']=$maxwidth*$domaininfo[$key][$key2][$key3]['hits']/$max['hits'];
+				$width['traffic']=$maxwidth*$domaininfo[$key][$key2][$key3]['traffic']/$max['traffic'];
+				
+				$output_table .= '<table class="nobordernopadding">';
+				$output_table .= '<tr class="nobordernopadding" height="2"><td class="nobordernopadding" align="left"><img src="/awstats/images/hu.png" height="3" width="'.ceil($width['visitors']).'"></td></tr>';
+				$output_table .= '<tr class="nobordernopadding" height="2"><td class="nobordernopadding" align="left"><img src="/awstats/images/hv.png" height="3" width="'.ceil($width['visits']).'"></td></tr>';
+				$output_table .= '<tr class="nobordernopadding" height="2"><td class="nobordernopadding" align="left"><img src="/awstats/images/hp.png" height="3" width="'.ceil($width['pages']).'"></td></tr>';
+				$output_table .= '<tr class="nobordernopadding" height="2"><td class="nobordernopadding" align="left"><img src="/awstats/images/hh.png" height="3" width="'.ceil($width['hits']).'"></td></tr>';
+				$output_table .= '<tr class="nobordernopadding" height="2"><td class="nobordernopadding" align="left"><img src="/awstats/images/hk.png" height="3" width="'.ceil($width['traffic']).'"></td></tr>';
+				$output_table .= '</table>';
+
+				$output_table .= '</td>	</tr>';
 				$i++;
 				}
 			}
@@ -382,9 +408,10 @@ $output_table .= '</td>
 <td class="domain-bold" style="text-align: right">'.format($total[$key]['pages']).'</td>
 <td class="domain-bold" style="text-align: right">'.format($total[$key]['hits']).'</td>
 <td class="domain-bold" style="text-align: right">'.$traffic.'</td>
+<td>&nbsp;</td>
 </tr>
 <tr>
-<td colspan="5"><BR></td>
+<td colspan="6"><br></td>
 </tr>
 </table>';
 		}
@@ -414,11 +441,12 @@ $output_table .= '</td>
 		$system_table = '<table width="'.$table_width.'" cellspacing="0" cellpadding="1" align="'.$table_align.'">
   <tr class="header">
     <td width="40%" class="domain-bold">System Statistics</td>
-    <td width="12%" class="visitors-bold">Unique visitors:</td>
-    <td width="12%" class="visits-bold">Visits:</td>
-    <td width="12%" class="pages-bold">Pages:</td>
-    <td width="12%" class="hits-bold">Hits:</td>
-    <td width="12%" class="bandwidth-bold">Bandwidth:</td>
+    <td width="12%" class="visitors-bold">Visitors</td>
+    <td width="12%" class="visits-bold">Visits</td>
+    <td width="12%" class="pages-bold">Pages</td>
+    <td width="12%" class="hits-bold">Hits</td>
+    <td width="12%" class="bandwidth-bold">Bandwidth</td>
+	<td>&nbsp;</td>
   </tr>';
 		ksort($server);	
 		foreach($server as $key1 => $data1) {
@@ -450,6 +478,7 @@ $output_table .= '</td>
     <td class="pages">'.format($server[$key1][$key2]['pages']).'</td>
     <td class="hits">'.format($server[$key1][$key2]['hits']).'</td>
     <td class="bandwidth">'.$traffic.'</td>
+	<td>&nbsp;</td>
   </tr>';
 		$i++;
 			}
@@ -469,6 +498,7 @@ $output_table .= '</td>
     <td class="pages-bold">'.format($total2['pages']).'</td>
     <td class="hits-bold">'.format($total2['hits']).'</td>
     <td class="bandwidth-bold">'.$traffic.'</td>
+	<td>&nbsp;</td>
   </tr>
   <tr>
     <td colspan="5"><BR></td>
@@ -485,8 +515,7 @@ $etime = gettime();
 # Format HTML
 $html =	'';
 
-print_fiche_titre($langs->trans("AWStatsSummary"));
-print '<br>';
+print_fiche_titre(' &nbsp; '.$langs->trans("AWStatsSummary"),'','/awstats/images/awstats.png',1);
 
 print '<form action="'.$_SERVER["PHP_SELF"].'" method="POST">';
 print '<table class="border" width="100%"><tr><td>'.$langs->trans("Year").':</td><td>';
@@ -510,5 +539,5 @@ if($system_stats_top == true) {
 #	Output to the screen
 echo $statistics;
 
-llxFooter('$Date: 2008/03/31 20:58:41 $ - $Revision: 1.5 $');
+llxFooter('$Date: 2008/04/13 19:54:14 $ - $Revision: 1.6 $');
 ?>
