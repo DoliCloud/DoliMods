@@ -15,7 +15,7 @@
 /**
 	\file       htdocs/awstats/index.php
 	\brief      Page accueil module AWStats
-	\version    $Id: index.php,v 1.6 2008/04/13 19:54:14 eldy Exp $
+	\version    $Id: index.php,v 1.7 2008/04/14 00:23:31 eldy Exp $
 */
 
 include("./pre.inc.php");
@@ -327,7 +327,7 @@ else
 <tr class="header">
 <td class="domain-bold">';
 $output_table .= '<a href="'.$AWSTATS_CGI_PATH.'config='.$key.'" target="_blank">'.$key.' ';
-$output_table .= img_picto($langs->trans("ShowStats"),'/awstats/images/menu2.png','',1).'</a>';
+$output_table .= img_picto($langs->trans("ShowStats"),DOL_URL_ROOT.'/awstats/images/menu2.png','',1).'</a>';
 $output_table .= '</td>
 <td width="80" class="visitors-bold" nowrap="nowrap">Visitors</td>
 <td width="80" class="visits-bold">Visits</td>
@@ -375,11 +375,11 @@ $output_table .= '</td>
 				$width['traffic']=$maxwidth*$domaininfo[$key][$key2][$key3]['traffic']/$max['traffic'];
 				
 				$output_table .= '<table class="nobordernopadding">';
-				$output_table .= '<tr class="nobordernopadding" height="2"><td class="nobordernopadding" align="left"><img src="/awstats/images/hu.png" height="3" width="'.ceil($width['visitors']).'"></td></tr>';
-				$output_table .= '<tr class="nobordernopadding" height="2"><td class="nobordernopadding" align="left"><img src="/awstats/images/hv.png" height="3" width="'.ceil($width['visits']).'"></td></tr>';
-				$output_table .= '<tr class="nobordernopadding" height="2"><td class="nobordernopadding" align="left"><img src="/awstats/images/hp.png" height="3" width="'.ceil($width['pages']).'"></td></tr>';
-				$output_table .= '<tr class="nobordernopadding" height="2"><td class="nobordernopadding" align="left"><img src="/awstats/images/hh.png" height="3" width="'.ceil($width['hits']).'"></td></tr>';
-				$output_table .= '<tr class="nobordernopadding" height="2"><td class="nobordernopadding" align="left"><img src="/awstats/images/hk.png" height="3" width="'.ceil($width['traffic']).'"></td></tr>';
+				$output_table .= '<tr class="nobordernopadding" height="2"><td class="nobordernopadding" align="left"><img src="'.DOL_URL_ROOT.'/awstats/images/hu.png" height="3" width="'.ceil($width['visitors']).'"></td></tr>';
+				$output_table .= '<tr class="nobordernopadding" height="2"><td class="nobordernopadding" align="left"><img src="'.DOL_URL_ROOT.'/awstats/images/hv.png" height="3" width="'.ceil($width['visits']).'"></td></tr>';
+				$output_table .= '<tr class="nobordernopadding" height="2"><td class="nobordernopadding" align="left"><img src="'.DOL_URL_ROOT.'/awstats/images/hp.png" height="3" width="'.ceil($width['pages']).'"></td></tr>';
+				$output_table .= '<tr class="nobordernopadding" height="2"><td class="nobordernopadding" align="left"><img src="'.DOL_URL_ROOT.'/awstats/images/hh.png" height="3" width="'.ceil($width['hits']).'"></td></tr>';
+				$output_table .= '<tr class="nobordernopadding" height="2"><td class="nobordernopadding" align="left"><img src="'.DOL_URL_ROOT.'/awstats/images/hk.png" height="3" width="'.ceil($width['traffic']).'"></td></tr>';
 				$output_table .= '</table>';
 
 				$output_table .= '</td>	</tr>';
@@ -515,7 +515,7 @@ $etime = gettime();
 # Format HTML
 $html =	'';
 
-print_fiche_titre(' &nbsp; '.$langs->trans("AWStatsSummary"),'','/awstats/images/awstats.png',1);
+print_fiche_titre(' &nbsp; '.$langs->trans("AWStatsSummary"),'',DOL_URL_ROOT.'/awstats/images/awstats.png',1);
 
 print '<form action="'.$_SERVER["PHP_SELF"].'" method="POST">';
 print '<table class="border" width="100%"><tr><td>'.$langs->trans("Year").':</td><td>';
@@ -539,5 +539,5 @@ if($system_stats_top == true) {
 #	Output to the screen
 echo $statistics;
 
-llxFooter('$Date: 2008/04/13 19:54:14 $ - $Revision: 1.6 $');
+llxFooter('$Date: 2008/04/14 00:23:31 $ - $Revision: 1.7 $');
 ?>
