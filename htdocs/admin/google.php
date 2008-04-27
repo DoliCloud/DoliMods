@@ -6,7 +6,7 @@
 	    \file       htdocs/admin/google.php
         \ingroup    google
         \brief      Setup page for google module
-		\version    $Id: google.php,v 1.1 2008/03/09 23:36:48 eldy Exp $
+		\version    $Id: google.php,v 1.2 2008/04/27 22:16:57 eldy Exp $
 */
 
 $res=@include("./pre.inc.php");
@@ -154,5 +154,5 @@ print info_admin($message);
 
 $db->close();
 
-llxFooter('$Date: 2008/03/09 23:36:48 $ - $Revision: 1.1 $');
+llxFooter('$Date: 2008/04/27 22:16:57 $ - $Revision: 1.2 $');
 ?>
