@@ -12,7 +12,7 @@
         \file       htdocs/includes/modules/modGoogle.class.php
         \ingroup    google
         \brief      Description and activation file for module Google
-		\version	$Id: modGoogle.class.php,v 1.3 2008/05/02 03:55:32 eldy Exp $
+		\version	$Id: modGoogle.class.php,v 1.4 2008/05/02 14:27:27 eldy Exp $
 */
 
 include_once(DOL_DOCUMENT_ROOT ."/includes/modules/DolibarrModules.class.php");
@@ -102,7 +102,17 @@ class modGoogle extends DolibarrModules
 		$r=0;
 
 		$r++;
-		$this->menu[$r]=array('fk_menu'=>0,'type'=>'top','titre'=>'MenuAgendaGoogle','mainmenu'=>'google','leftmenu'=>'google','url'=>'/google/index.php','langs'=>'google','position'=>100,'perms'=>'','target'=>'','user'=>0);
+		$this->menu[$r]=array(	'fk_menu'=>0,
+								'type'=>'top',
+								'titre'=>'MenuAgendaGoogle',
+								'mainmenu'=>'google',
+								'leftmenu'=>'0',	// To say to not overwrite menu in pre.inc.php by dynamic database menu
+								'url'=>'/google/index.php',
+								'langs'=>'google',
+								'position'=>100,
+								'perms'=>'',
+								'target'=>'',
+								'user'=>0);
 
 	}
 

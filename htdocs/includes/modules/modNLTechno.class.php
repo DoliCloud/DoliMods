@@ -12,7 +12,7 @@
         \file       htdocs/includes/modules/modNLTechno.class.php
         \ingroup    nltechno
         \brief      Description and activation file for module NLTechno
-		\version	$Id: modNLTechno.class.php,v 1.2 2008/04/16 01:01:22 eldy Exp $
+		\version	$Id: modNLTechno.class.php,v 1.3 2008/05/02 14:27:27 eldy Exp $
 */
 
 include_once(DOL_DOCUMENT_ROOT ."/includes/modules/DolibarrModules.class.php");
@@ -102,7 +102,17 @@ class modNLTechno extends DolibarrModules
 		$r=0;
 
 		$r++;
-		$this->menu[$r]=array('fk_menu'=>0,'type'=>'top','titre'=>'Admin NLTechno','mainmenu'=>'nltechno','leftmenu'=>'nltechno','url'=>'/nltechno/index.php','langs'=>'','position'=>100,'perms'=>'$user->admin==1','target'=>'','user'=>0);
+		$this->menu[$r]=array(	'fk_menu'=>0,
+								'type'=>'top',
+								'titre'=>'Admin NLTechno',
+								'mainmenu'=>'nltechno',
+								'leftmenu'=>'0',	// To say to not overwrite menu in pre.inc.php by dynamic database menu
+								'url'=>'/nltechno/index.php',
+								'langs'=>'',
+								'position'=>100,
+								'perms'=>'$user->admin==1',
+								'target'=>'',
+								'user'=>0);
 
 	}
 
