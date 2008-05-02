@@ -12,7 +12,7 @@
         \file       htdocs/includes/modules/modAWStats.class.php
         \ingroup    awstats
         \brief      Description and activation file for module AWStats
-		\version	$Id: modAWStats.class.php,v 1.4 2008/04/03 00:33:27 eldy Exp $
+		\version	$Id: modAWStats.class.php,v 1.5 2008/05/02 03:55:32 eldy Exp $
 */
 
 include_once(DOL_DOCUMENT_ROOT ."/includes/modules/DolibarrModules.class.php");
@@ -105,7 +105,7 @@ class modAWStats extends DolibarrModules
 		$r=0;
 
 		$r++;
-		$this->menu[$r]=array('fk_menu'=>0,'type'=>'top','titre'=>'AWStats(dotnoloadlang)','mainmenu'=>'awstats','leftmenu'=>'awstats','url'=>'/awstats/index.php','langs'=>'awstats','position'=>100,'perms'=>'','target'=>'','user'=>0);
+		$this->menu[$r]=array('fk_menu'=>0,'type'=>'top','titre'=>'MenuAWStats','mainmenu'=>'awstats','leftmenu'=>'awstats','url'=>'/awstats/index.php','langs'=>'awstats','position'=>100,'perms'=>'','target'=>'','user'=>0);
 
 	}
 
