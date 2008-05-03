@@ -12,7 +12,7 @@
         \file       htdocs/includes/modules/modAWStats.class.php
         \ingroup    awstats
         \brief      Description and activation file for module AWStats
-		\version	$Id: modAWStats.class.php,v 1.6 2008/05/02 14:27:27 eldy Exp $
+		\version	$Id: modAWStats.class.php,v 1.7 2008/05/03 21:45:54 eldy Exp $
 */
 
 include_once(DOL_DOCUMENT_ROOT ."/includes/modules/DolibarrModules.class.php");
@@ -104,7 +104,6 @@ class modAWStats extends DolibarrModules
 		$this->menus = array();			// List of menus to add
 		$r=0;
 
-		$r++;
 		$this->menu[$r]=array(	'fk_menu'=>0,
 								'type'=>'top',
 								'titre'=>'MenuAWStats',
@@ -116,7 +115,8 @@ class modAWStats extends DolibarrModules
 								'perms'=>'',
 								'target'=>'',
 								'user'=>0);
-
+		$r++;
+		
 	}
 
 	/**
