@@ -167,15 +167,18 @@ class mailing_mailinglist_chiensderace extends MailingTargets
 	*					emails from a text file, this function must return 500.
 	*		\return		int
 	*/
-	function getNbOfRecipients()
+	function getNbOfRecipients($filter=1,$option='')
 	{
 		// CHANGE THIS: Optionnal
 
 		// Example: return parent::getNbOfRecipients("SELECT count(*) as nb from dolibarr_table");
 		// Example: return 500;
+		$a=parent::getNbOfRecipients("select count(*) as nb from chiensderace_db.T_PERSONNES where EMAIL_PERSO IS NOT NULL AND EMAIL_PERSO != '' and ML_PERSO = ".$filter);
+		$b=parent::getNbOfRecipients("select count(*) as nb from chiensderace_db.T_ADRESSES  where EMAIL_ADRES IS NOT NULL AND EMAIL_ADRES != '' and ML_ADRES = ".$filter);
 
-		$a=parent::getNbOfRecipients("select count(*) as nb from chiensderace_db.T_PERSONNES where EMAIL_PERSO IS NOT NULL AND EMAIL_PERSO != '' and ML_PERSO = 1");
-		$b=parent::getNbOfRecipients("select count(*) as nb from chiensderace_db.T_ADRESSES  where EMAIL_ADRES IS NOT NULL AND EMAIL_ADRES != '' and ML_ADRES = 1");
+		if ($a < 0 || $b < 0) return -1;
+		if ($option == 'personnes') return $a;
+		if ($option == 'adresses') return $b;
 		return ($a+$b);
 	}
 

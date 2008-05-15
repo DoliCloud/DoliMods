@@ -12,7 +12,7 @@
         \file       htdocs/includes/modules/modNLTechno.class.php
         \ingroup    nltechno
         \brief      Description and activation file for module NLTechno
-		\version	$Id: modNLTechno.class.php,v 1.4 2008/05/03 21:45:55 eldy Exp $
+		\version	$Id: modNLTechno.class.php,v 1.5 2008/05/15 18:05:03 eldy Exp $
 */
 
 include_once(DOL_DOCUMENT_ROOT ."/includes/modules/DolibarrModules.class.php");
@@ -133,6 +133,18 @@ class modNLTechno extends DolibarrModules
 								'url'=>'/nltechno/statsannonces.php',
 								'langs'=>'',
 								'position'=>101,
+								'perms'=>'$user->admin==1',
+								'target'=>'',
+								'user'=>0);
+		$r++;
+
+		$this->menu[$r]=array(	'fk_menu'=>'r=0',
+								'type'=>'left',
+								'titre'=>'Stats EMailings',
+								'mainmenu'=>'nltechno',
+								'url'=>'/nltechno/statsemailings.php',
+								'langs'=>'',
+								'position'=>102,
 								'perms'=>'$user->admin==1',
 								'target'=>'',
 								'user'=>0);

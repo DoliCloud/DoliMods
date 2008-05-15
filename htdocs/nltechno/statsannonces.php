@@ -6,7 +6,7 @@
     	\file       htdocs/nltechno/statsannonces.php
 		\ingroup    nltechno
 		\brief      Page des stats annonces
-		\version    $Id: statsannonces.php,v 1.1 2008/05/03 23:57:10 eldy Exp $
+		\version    $Id: statsannonces.php,v 1.2 2008/05/15 18:05:03 eldy Exp $
 		\author		Laurent Destailleur
 */
 
@@ -45,15 +45,15 @@ llxHeader();
 
 $form=new Form($db);
 
-$dbann=new DoliDb('mysqli', $dbhost, $dbuser, $dbpassword, $dbdatabase);
+$dbann=new DoliDb('mysqli', $dbhostann, $dbuserann, $dbpasswordann, $dbdatabaseann);
 if (! $dbann->connected)
 {
-	dolibarr_print_error($dbann,"Can not connect to server ".$dbhost." with user ".$dbuser);
+	dolibarr_print_error($dbann,"Can not connect to server ".$dbhostann." with user ".$dbuserann);
 	exit;
 }
 if (! $dbann->database_selected)
 {
-	dolibarr_print_error($dbann,"Database ".$dbdatabase." can not be selected");
+	dolibarr_print_error($dbann,"Database ".$dbdatabaseann." can not be selected");
 	exit;
 }
 
@@ -81,6 +81,7 @@ foreach ($listofcateg as $categ)
 {
 	// Get datas
 	$graph_data = array();
+	$lastval=array();
 	$relativepath=$dirtmp."statsannonces.png".$categ;
 	
 	$sql = "SELECT ".$dbann->pdate('DATE_STATS')." as d, KEY_STATS, VALUE_STATS";
@@ -115,6 +116,13 @@ foreach ($listofcateg as $categ)
 				}
 				
 				$oldday=$obj->d;
+				
+				$lastval[5]=$lastval[4];
+				$lastval[4]=$lastval[3];
+				$lastval[3]=$lastval[2];
+				$lastval[2]=$lastval[1];
+				$lastval[1]=$lastval[0];
+				$lastval[0]=$val1;
 			}
 		}
 	}
@@ -159,6 +167,17 @@ foreach ($listofcateg as $categ)
 	print '<center>';
 	print '<img src="'.$url.'" alt="'.$relativepath.'">';
 	print '</center>';
+	print '<br><table class="border">';
+	print '<tr><td>Dernières valeures</td><td align="right">J-5</td><td align="right">J-4</td><td align="right">J-3</td><td align="right">J-2</td><td align="right">J-1</td></tr>';
+	print '<tr>';
+	print '<td>Valeur</td>';
+	print '<td align="right">'.$lastval[4].'</td>';
+	print '<td align="right">'.$lastval[3].'</td>';
+	print '<td align="right">'.$lastval[2].'</td>';
+	print '<td align="right">'.$lastval[1].'</td>';
+	print '<td align="right">'.$lastval[0].'</td>';
+	print '</tr>';
+	print '</table><br>';
 }
 
 $dbann->close();
