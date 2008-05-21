@@ -3,15 +3,16 @@
  */
 
 /**
-    	\file       htdocs/nltechno/statschiensderace.php
+    	\file       htdocs/nltechno/statsemailings.php
 		\ingroup    nltechno
 		\brief      Page des stats
-		\version    $Id: statsemailings.php,v 1.1 2008/05/15 18:05:03 eldy Exp $
+		\version    $Id: statsemailings.php,v 1.2 2008/05/21 23:29:12 eldy Exp $
 		\author		Laurent Destailleur
 */
 
 include("./pre.inc.php");
 require_once(DOL_DOCUMENT_ROOT."/core/dolgraph.class.php");
+require_once DOL_DOCUMENT_ROOT.'/comm/mailing/mailing.class.php';
 
 // Load config
 $CALLFORCONFIG=1;
@@ -40,6 +41,40 @@ if (defined('DOL_DOCUMENT_ROOT_BIS')) $dirmod2=DOL_DOCUMENT_ROOT_BIS."/includes/
 $mesg = '';
 
 
+/*
+ * 	Actions
+ */
+
+if ($_GET["action"] == 'buildemailing')
+{
+	// Cree un emailing brouillon
+	$sujet='';
+	$body='';
+		
+	
+	// TODO A faire: Lire base des news et races et fabriquer variable sujet et body (en html)
+	
+		
+	
+	
+    $mil = new Mailing($db);
+
+    $mil->email_from   = 'noreply@monserver.com';
+    $mil->titre        = $sujet;
+    $mil->sujet        = $sujet;
+    $mil->body         = $body;
+
+    $result = $mil->create($user);
+    if ($result >= 0)
+    {
+        Header("Location: ".DOL_URL_ROOT.'/comm/mailing/fiche.php?id='.$mil->id);
+        exit;
+    }
+    else
+    {
+        $msg=$mil->error;
+    }
+}
 
 /***************************************************
 * PAGE
@@ -50,6 +85,9 @@ $mesg = '';
 llxHeader();
 
 $form=new Form($db);
+
+if ($msg) print $msg.'<br>';
+
 
 $dbann=new DoliDb('mysqli', $dbhostchien, $dbuserchien, $dbpasswordchien, $dbdatabasechien);
 if (! $dbann->connected)
@@ -303,6 +341,12 @@ if ($result)
 	print '</table><br>';
 */
 
+	print '<br><br>';
+	print '<form action="'.$_SERVER["PHP_SELF"].'">';
+	print '<input type="hidden" name="action" value="buildemailing">';
+	print '<input type="submit" value="Générer le mailing du moment"><br>';
+	print '</form>';
+		
 $dbann->close();
 
 llxFooter();
