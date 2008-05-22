@@ -6,7 +6,7 @@
     	\file       htdocs/nltechno/statsannonces.php
 		\ingroup    nltechno
 		\brief      Page des stats annonces
-		\version    $Id: statsannonces.php,v 1.2 2008/05/15 18:05:03 eldy Exp $
+		\version    $Id: statsannonces.php,v 1.3 2008/05/22 00:42:21 eldy Exp $
 		\author		Laurent Destailleur
 */
 
@@ -27,10 +27,10 @@ $langs->load("other");
 // Get parameters
 $socid = isset($_GET["socid"])?$_GET["socid"]:'';
 
-// Protection quand utilisateur externe
-if (! $user->admin)
+// Protection
+if (! $user->rights->nltechno->annonces->voir)
 {
-	access_forbidden();
+	accessforbidden();
 	exit;
 }
 

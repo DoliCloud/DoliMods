@@ -6,7 +6,7 @@
     	\file       htdocs/nltechno/statsemailings.php
 		\ingroup    nltechno
 		\brief      Page des stats
-		\version    $Id: statsemailings.php,v 1.3 2008/05/22 00:03:23 eldy Exp $
+		\version    $Id: statsemailings.php,v 1.4 2008/05/22 00:42:21 eldy Exp $
 		\author		Laurent Destailleur
 */
 
@@ -28,10 +28,10 @@ $langs->load("other");
 // Get parameters
 $socid = isset($_GET["socid"])?$_GET["socid"]:'';
 
-// Protection quand utilisateur externe
-if (! $user->admin)
+// Protection
+if (! $user->rights->nltechno->emailings->voir)
 {
-	access_forbidden();
+	accessforbidden();
 	exit;
 }
 
