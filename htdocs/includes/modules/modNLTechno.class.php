@@ -12,7 +12,7 @@
         \file       htdocs/includes/modules/modNLTechno.class.php
         \ingroup    nltechno
         \brief      Description and activation file for module NLTechno
-		\version	$Id: modNLTechno.class.php,v 1.6 2008/05/22 00:03:23 eldy Exp $
+		\version	$Id: modNLTechno.class.php,v 1.7 2008/05/22 00:11:15 eldy Exp $
 */
 
 include_once(DOL_DOCUMENT_ROOT ."/includes/modules/DolibarrModules.class.php");
@@ -124,7 +124,7 @@ class modNLTechno extends DolibarrModules
 								'url'=>'/nltechno/index.php',
 								'langs'=>'',
 								'position'=>100,
-								'perms'=>'$conf->nltechno->emailings->voir',
+								'perms'=>'$user->rights->nltechno->liens->voir||$user->rights->nltechno->annonces->voir||$user->rights->nltechno->emailings->voir',
 								'target'=>'',
 								'user'=>0);
 		$r++;
@@ -136,7 +136,7 @@ class modNLTechno extends DolibarrModules
 								'url'=>'/nltechno/index.php',
 								'langs'=>'',
 								'position'=>100,
-								'perms'=>'$conf->nltechno->liens->voir',
+								'perms'=>'$user->rights->nltechno->liens->voir',
 								'target'=>'',
 								'user'=>0);
 		$r++;
@@ -148,7 +148,7 @@ class modNLTechno extends DolibarrModules
 								'url'=>'/nltechno/statsannonces.php',
 								'langs'=>'',
 								'position'=>101,
-								'perms'=>'$conf->nltechno->annonces->voir',
+								'perms'=>'$user->rights->nltechno->annonces->voir',
 								'target'=>'',
 								'user'=>0);
 		$r++;
@@ -160,7 +160,7 @@ class modNLTechno extends DolibarrModules
 								'url'=>'/nltechno/statsemailings.php',
 								'langs'=>'',
 								'position'=>102,
-								'perms'=>'$user->admin==1 || $conf->nltechno->emailings->voir',
+								'perms'=>'$user->rights->nltechno->emailings->voir',
 								'target'=>'',
 								'user'=>0);
 		$r++;
