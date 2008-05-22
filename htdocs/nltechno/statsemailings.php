@@ -6,7 +6,7 @@
     	\file       htdocs/nltechno/statsemailings.php
 		\ingroup    nltechno
 		\brief      Page des stats
-		\version    $Id: statsemailings.php,v 1.4 2008/05/22 00:42:21 eldy Exp $
+		\version    $Id: statsemailings.php,v 1.5 2008/05/22 01:11:59 eldy Exp $
 		\author		Laurent Destailleur
 */
 
@@ -342,9 +342,10 @@ if ($result)
 */
 
 	print '<br><br>';
+	print 'Cliquer sur ce bouton pour fabriquer un emailing brouillon du moment';
 	print '<form action="'.$_SERVER["PHP_SELF"].'">';
 	print '<input type="hidden" name="action" value="buildemailing">';
-	print '<input type="submit" value="Générer brouillon mailing du moment"><br>';
+	print '<input type="submit" class="button" value="Générer brouillon mailing du moment"><br>';
 	print '</form>';
 		
 $dbann->close();
