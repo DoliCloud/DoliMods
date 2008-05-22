@@ -12,7 +12,7 @@
         \file       htdocs/includes/modules/modNLTechno.class.php
         \ingroup    nltechno
         \brief      Description and activation file for module NLTechno
-		\version	$Id: modNLTechno.class.php,v 1.5 2008/05/15 18:05:03 eldy Exp $
+		\version	$Id: modNLTechno.class.php,v 1.6 2008/05/22 00:03:23 eldy Exp $
 */
 
 include_once(DOL_DOCUMENT_ROOT ."/includes/modules/DolibarrModules.class.php");
@@ -90,13 +90,28 @@ class modNLTechno extends DolibarrModules
 		
 		// Add here list of permission defined by an id, a label, a boolean and two constant strings.
 		// Example:
-		// $this->rights[$r][0] = 2000; 				// Permission id (must not be already used)
-		// $this->rights[$r][1] = 'Permision label';	// Permission label
-		// $this->rights[$r][3] = 1; 					// Permission by default for new user (0/1)
-		// $this->rights[$r][4] = 'level1';				// In php code, permission will be checked by test if ($user->rights->permkey->level1->level2)
-		// $this->rights[$r][5] = 'level2';				// In php code, permission will be checked by test if ($user->rights->permkey->level1->level2)
-		// $r++;
-
+		$this->rights[$r][0] = 11001; 				// Permission id (must not be already used)
+		$this->rights[$r][1] = 'Voir page liens';	// Permission label
+		$this->rights[$r][2] = 'r'; 					// Permission by default for new user (0/1)
+		$this->rights[$r][3] = 0; 					// Permission by default for new user (0/1)
+		$this->rights[$r][4] = 'liens';				// In php code, permission will be checked by test if ($user->rights->permkey->level1->level2)
+		$this->rights[$r][5] = 'voir';				// In php code, permission will be checked by test if ($user->rights->permkey->level1->level2)
+		$r++;
+		$this->rights[$r][0] = 11002; 				// Permission id (must not be already used)
+		$this->rights[$r][1] = 'Voir page annonces';	// Permission label
+		$this->rights[$r][2] = 'r'; 					// Permission by default for new user (0/1)
+		$this->rights[$r][3] = 0; 					// Permission by default for new user (0/1)
+		$this->rights[$r][4] = 'annonces';				// In php code, permission will be checked by test if ($user->rights->permkey->level1->level2)
+		$this->rights[$r][5] = 'voir';				// In php code, permission will be checked by test if ($user->rights->permkey->level1->level2)
+		$r++;
+		$this->rights[$r][0] = 11003; 				// Permission id (must not be already used)
+		$this->rights[$r][1] = 'Voir page emailings';	// Permission label
+		$this->rights[$r][2] = 'r'; 					// Permission by default for new user (0/1)
+		$this->rights[$r][3] = 0; 					// Permission by default for new user (0/1)
+		$this->rights[$r][4] = 'emailings';				// In php code, permission will be checked by test if ($user->rights->permkey->level1->level2)
+		$this->rights[$r][5] = 'voir';				// In php code, permission will be checked by test if ($user->rights->permkey->level1->level2)
+		$r++;
+		
 		// Main menu entries
 		$this->menus = array();			// List of menus to add
 		$r=0;
@@ -105,11 +120,11 @@ class modNLTechno extends DolibarrModules
 								'type'=>'top',
 								'titre'=>'Admin NLTechno',
 								'mainmenu'=>'nltechno',
-								'leftmenu'=>'1',	// To say to not overwrite menu in pre.inc.php by dynamic database menu
+								'leftmenu'=>'0',	// To say to not overwrite menu in pre.inc.php by dynamic database menu
 								'url'=>'/nltechno/index.php',
 								'langs'=>'',
 								'position'=>100,
-								'perms'=>'$user->admin==1',
+								'perms'=>'$conf->nltechno->emailings->voir',
 								'target'=>'',
 								'user'=>0);
 		$r++;
@@ -121,31 +136,31 @@ class modNLTechno extends DolibarrModules
 								'url'=>'/nltechno/index.php',
 								'langs'=>'',
 								'position'=>100,
-								'perms'=>'$user->admin==1',
+								'perms'=>'$conf->nltechno->liens->voir',
 								'target'=>'',
 								'user'=>0);
 		$r++;
 	
 		$this->menu[$r]=array(	'fk_menu'=>'r=0',
 								'type'=>'left',
-								'titre'=>'Stats LBA',
+								'titre'=>'Outils Petites annonces',
 								'mainmenu'=>'nltechno',
 								'url'=>'/nltechno/statsannonces.php',
 								'langs'=>'',
 								'position'=>101,
-								'perms'=>'$user->admin==1',
+								'perms'=>'$conf->nltechno->annonces->voir',
 								'target'=>'',
 								'user'=>0);
 		$r++;
 
 		$this->menu[$r]=array(	'fk_menu'=>'r=0',
 								'type'=>'left',
-								'titre'=>'Stats EMailings',
+								'titre'=>'Outils EMailings',
 								'mainmenu'=>'nltechno',
 								'url'=>'/nltechno/statsemailings.php',
 								'langs'=>'',
 								'position'=>102,
-								'perms'=>'$user->admin==1',
+								'perms'=>'$user->admin==1 || $conf->nltechno->emailings->voir',
 								'target'=>'',
 								'user'=>0);
 		$r++;
