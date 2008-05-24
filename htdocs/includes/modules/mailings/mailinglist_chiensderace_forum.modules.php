@@ -12,12 +12,12 @@ include_once DOL_DOCUMENT_ROOT.'/includes/modules/mailings/modules_mailings.php'
 
 
 // CHANGE THIS: Class name must be called mailing_xxx with xxx=name of your selector
-class mailing_mailinglist_chatsderace extends MailingTargets
+class mailing_mailinglist_chiensderace_forum extends MailingTargets
 {
 	// CHANGE THIS: Put here a name not already used
-	var $name='mailinglist_chatsderace';
+	var $name='mailinglist_chiensderace_forum';
 	// CHANGE THIS: Put here a description of your selector module
-	var $desc='Inscrits mailings list ChatsDeRace';
+	var $desc='Inscrits mailings list ChiensDeRace Forum';
 	// CHANGE THIS: Set to 1 if selector is available for admin users only
 	var $require_admin=0;
 
@@ -27,7 +27,7 @@ class mailing_mailinglist_chatsderace extends MailingTargets
 
 
 	// CHANGE THIS: Constructor name must be called mailing_xxx with xxx=name of your selector
-	function mailing_mailinglist_chatsderace($DB)
+	function mailing_mailinglist_chiensderace_forum($DB)
 	{
 		$this->db=$DB;
 	}
@@ -47,11 +47,19 @@ class mailing_mailinglist_chatsderace extends MailingTargets
 		// ----- Your code start here -----
 
 		$cibles = array();
-		// ICI on fait la requete sur T_PERSONNES
+		// ICI on fait la requete
 		// La requete doit retourner: id, name, email
-		$sql = " select ID_PERSO as id, NOM_PERSO as name, EMAIL_PERSO as email from chatsderace_db.T_PERSONNES ";
-		$sql.= " where EMAIL_PERSO IS NOT NULL AND EMAIL_PERSO != '' and ML_PERSO = 1";
-		$sql.= " ORDER BY EMAIL_PERSO";
+		$sql = " select user_id as id, concat(user_nom,' ',user_prenom) as name, user_email as email from chiensderace_db.forum_users ";
+		$sql.= " where 1 = 1";
+	    foreach($filtersarray as $key)
+        {
+            if ($key == '0') return "Error: You must choose a filter";
+            if ($key == '1')  $sql.= " AND user_accept_parlonschat = 1";
+            if ($key == '-1')  $sql.= " AND user_accept_parlonschat = 0";
+            if ($key == '2')  $sql.= " AND user_accept_whiskas = 1";
+            if ($key == '-2')  $sql.= " AND user_accept_whiskas = 0";
+        }		
+		$sql.= " ORDER BY user_email";
 		
 		// Stocke destinataires dans cibles
 		$result=$this->db->query($sql);
@@ -61,7 +69,7 @@ class mailing_mailinglist_chatsderace extends MailingTargets
 			$i = 0;
 			$j = 0;
 
-			dolibarr_syslog("mailinglist_chatsderace.modules.php: mailing $num cibles trouvées");
+			dolibarr_syslog("mailinglist_chiensderace_forum.modules.php: mailing $num cibles trouvées");
 
 			$old = '';
 			while ($i < $num)
@@ -88,47 +96,6 @@ class mailing_mailinglist_chatsderace extends MailingTargets
 			return -1;
 		}
 
-		// ICI on fait la requete sur T_ADRESSES
-		// La requete doit retourner: id, email, nom
-		$sql = " select ID_ADRES as id, NOMRESP_ADRES as name, EMAIL_ADRES as email from chatsderace_db.T_ADRESSES ";
-		$sql.= " where EMAIL_ADRES IS NOT NULL AND EMAIL_ADRES != '' and ML_ADRES = 1";
-		$sql.= " ORDER BY EMAIL_ADRES";
-
-		// Stocke destinataires dans cibles
-		$result=$this->db->query($sql);
-		if ($result)
-		{
-			$num = $this->db->num_rows($result);
-			$i = 0;
-			# on garde j car on continue de remplir le tableau array
-			#$j = 0;
-
-			dolibarr_syslog("mailinglist_chatsderace.modules.php: mailing $num cibles trouvées");
-
-			$old = '';
-			while ($i < $num)
-			{
-				$obj = $this->db->fetch_object($result);
-				if ($old <> $obj->email)
-				{
-					$cibles[$j] = array(
-					'email' => $obj->email,
-					'name' => $obj->name,
-					'id' => $obj->id
-					);
-					$old = $obj->email;
-					$j++;
-				}
-
-				$i++;
-			}
-		}
-		else
-		{
-			dolibarr_syslog($this->db->error());
-			$this->error=$this->db->error();
-			return -1;
-		}
 
 		// You must fill the $target array with record like this
 		// $target[0]=array('email'=>'email_0','name'=>'name_0','firstname'=>'firstname_0');
@@ -167,19 +134,21 @@ class mailing_mailinglist_chatsderace extends MailingTargets
 	*					emails from a text file, this function must return 500.
 	*		\return		int
 	*/
-	function getNbOfRecipients($filter=1,$option='')
+	function getNbOfRecipients($filter=0,$option='')
 	{
 		// CHANGE THIS: Optionnal
 
 		// Example: return parent::getNbOfRecipients("SELECT count(*) as nb from dolibarr_table");
 		// Example: return 500;
-		$a=parent::getNbOfRecipients("select count(*) as nb from chatsderace_db.T_PERSONNES where EMAIL_PERSO IS NOT NULL AND EMAIL_PERSO != '' and ML_PERSO = ".$filter);
-		$b=parent::getNbOfRecipients("select count(*) as nb from chatsderace_db.T_ADRESSES  where EMAIL_ADRES IS NOT NULL AND EMAIL_ADRES != '' and ML_ADRES = ".$filter);
+		$sql="select count(*) as nb from chiensderace_db.forum_users where 1 = 1";
+		if ($filter == 1) $sql.=" AND user_accept_parlonschat = 1";
+		if ($filter == 2) $sql.=" AND user_accept_whiskas = 1";
+		if ($filter == -1) $sql.=" AND user_accept_parlonschat = 0";
+		if ($filter == -2) $sql.=" AND user_accept_whiskas = 0";
+		if (! $filter)    $sql.=" AND (user_accept_parlonschat = 1 OR user_accept_whiskas = 1)";
+		$a=parent::getNbOfRecipients($sql);
 
-		if ($a < 0 || $b < 0) return -1;
-		if ($option == 'personnes') return $a;
-		if ($option == 'adresses') return $b;
-		return ($a+$b);
+		return $a;
 	}
 
 	/**
@@ -191,7 +160,12 @@ class mailing_mailinglist_chatsderace extends MailingTargets
 	{
 		// CHANGE THIS: Optionnal
 
-		$s='';
+       	$s='';
+        $s.='<select name="filter" class="flat">';
+        $s.='<option value="0">&nbsp;</option>';
+        $s.='<option value="1">Inscrits newsletter</option>';
+        $s.='<option value="2">Inscrits offres commerciales</option>';
+        $s.='</select>';
 		return $s;
 	}
 

@@ -48,7 +48,7 @@ class mailing_mailinglist_chiensderace extends MailingTargets
 
 		$cibles = array();
 		// ICI on fait la requete sur T_PERSONNES
-		// La requete doit retourner: id, email, nom
+		// La requete doit retourner: id, name, email
 		$sql = " select ID_PERSO as id, NOM_PERSO as name, EMAIL_PERSO as email from chiensderace_db.T_PERSONNES ";
 		$sql.= " where EMAIL_PERSO IS NOT NULL AND EMAIL_PERSO != '' and ML_PERSO = 1";
 		$sql.= " ORDER BY EMAIL_PERSO";
