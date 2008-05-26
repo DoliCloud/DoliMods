@@ -6,7 +6,7 @@
     	\file       htdocs/nltechno/statsemailings.php
 		\ingroup    nltechno
 		\brief      Page des stats
-		\version    $Id: statsemailings.php,v 1.6 2008/05/24 01:01:28 eldy Exp $
+		\version    $Id: statsemailings.php,v 1.7 2008/05/26 22:10:05 eldy Exp $
 		\author		Laurent Destailleur
 */
 
@@ -48,14 +48,71 @@ $mesg = '';
 if ($_GET["action"] == 'buildemailing')
 {
 	// Cree un emailing brouillon
-	$sujet='';
+	$sujet='Nouveau : La Newsletter hebdomadaire de ChiensDeRace.com';
 	$body='';
+
+	// TODO A faire: Lire base des news et races et fabriquer variable sujet et body (en html)
+	// Connexion base
+	$dbchien = mysql_connect($dbhostchien, $dbuserchien, $dbpasswordchien);
+	mysql_select_db($dbdatabasechien,$dbchien);
+	
+	// sante
+	$sante='';
+	$REQUETE="select ID_NEWS, TITRE_NEWS, TEXTE_NEWS from T_NEWS where ID_CATEG = 20 AND (AUTEUR_NEWS ='1040' OR AUTEUR_NEWS='1038') ORDER by ID_NEWS DESC";
+	$result = mysql_query("$REQUETE",$dbchien);
+	
+	while ($row = mysql_fetch_object($result))
+	{
+		$ID_NEWS=$row->ID_NEWS;
+		$TITRE_NEWS=$row->TITRE_NEWS;
+		$TEXTE_NEWS=$row->TEXTE_NEWS;
+	}
+	$sante=$TITRE_NEWS."<br><br>".$TEXTE_NEWS."<br><a href='http://www.chiensderace.com/index.php?rub=/news/novel.php?ID=".$ID_NEWS."'>Lire cet article</a><br>";
+	
 		
+	// actualité
+	$actualite='';
+	$REQUETE="select ID_NEWS, TITRE_NEWS, TEXTE_NEWS from T_NEWS where (AUTEUR_NEWS ='1040' OR AUTEUR_NEWS='1038') ORDER by ID_NEWS DESC";
+	$result = mysql_query("$REQUETE",$dbchien);
+	
+	while ($row = mysql_fetch_object($result))
+	{
+		$ID_NEWS=$row->ID_NEWS;
+		$TITRE_NEWS=$row->TITRE_NEWS;
+		$TEXTE_NEWS=$row->TEXTE_NEWS;
+	}
+	$actualite=$TITRE_NEWS."<br><br>".$TEXTE_NEWS."<br><a href='http://www.chiensderace.com/index.php?rub=/news/novel.php?ID=".$ID_NEWS."'>Lire cet article</a><br>";
+	
+	$race_semaine='';
+	$REQUETE="select ID_RACES, LIB_RACES, ORIGINE_RACES from T_RACES";
+	$result = mysql_query("$REQUETE",$dbchien);
+	$i=0;
+	while ($row = mysql_fetch_object($result))
+	{
+		$ID_RACES[$i]=$row->ID_RACES;
+		$LIB_RACES[$i]=$row->LIB_RACES;
+		$ORIGINE_RACES[$i]=$row->ORIGINE_RACES;
+		$i++;
+	}
+	$j=rand(0,$i--);
+	$race_semaine=$LIB_RACES[$i]." (Origine : ".$ORIGINE_RACES[$i].")<br><br>Découvrez cette race cette semaine avec ChiensDeRace.com.<br><a href='http://www.chiensderace.com/index.php?rub=/php/fiche_race.php?RACE=".$ID_RACES[$i]."'>Voir la fiche de race</a><br>";	
+	
+	$file_in='newsletter_type_chien.html';
+        $fichier= fopen ($file_in, 'r');
+	$lines = file ($file_in);			
+
+	foreach ($lines as $line_num => $line)
+	{
+		// on vire les retour chariots
+		$line=trim(ereg_replace("[\n\r]",'',$line));
+		if ($line == '$sante') $line=$sante;
+	       	if ($line == '$actualite') $line=$actualite;
+	       	if ($line == '$race_semaine') $line=$race_semaine;
+		$body.=$line;
+	}
 	
 	// TODO A faire: Lire base des news et races et fabriquer variable sujet et body (en html)
-	
-		
-	
+
 	
     $mil = new Mailing($db);
 
