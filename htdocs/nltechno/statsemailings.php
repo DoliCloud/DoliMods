@@ -6,7 +6,7 @@
     	\file       htdocs/nltechno/statsemailings.php
 		\ingroup    nltechno
 		\brief      Page des stats
-		\version    $Id: statsemailings.php,v 1.7 2008/05/26 22:10:05 eldy Exp $
+		\version    $Id: statsemailings.php,v 1.8 2008/06/04 18:22:05 eldy Exp $
 		\author		Laurent Destailleur
 */
 
@@ -437,7 +437,7 @@ $relativepath=$dirtmp."statsannonces.png".$categ;
 	
 	
 	print '<br><br>';
-	print 'Cliquer sur ce bouton pour fabriquer un emailing brouillon du moment';
+	print '<b>Cliquer sur ce bouton pour fabriquer un emailing brouillon du moment</b>:<br><br>';
 	print '<form action="'.$_SERVER["PHP_SELF"].'">';
 	print '<input type="hidden" name="action" value="buildemailing">';
 	print '<input type="submit" class="button" value="Générer brouillon mailing du moment"><br>';
