@@ -2,10 +2,9 @@
  *
  * Licensed under the GNU GPL v3 or higher (See file gpl-3.0.html)
  *
- * $Id: awstats.css,v 1.1 2008/03/30 20:24:02 eldy Exp $
+ * $Id: awstats.css,v 1.2 2008/06/10 23:08:43 eldy Exp $
  */
 
-* { font-family: Arial,helvetica,sans-serif; font-size: 10pt; } 
 h1 { font-size: 16pt; color: black; } 
 a, a:visited,a:link { color: black; text-decoration: none; font-weight: bold; } 
 a:hover { color: navy; } tr.header { background-color: #CCCCCC; } 
