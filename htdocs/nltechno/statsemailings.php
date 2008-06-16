@@ -6,7 +6,7 @@
     	\file       htdocs/nltechno/statsemailings.php
 		\ingroup    nltechno
 		\brief      Page des stats
-		\version    $Id: statsemailings.php,v 1.10 2008/06/16 13:28:36 eldy Exp $
+		\version    $Id: statsemailings.php,v 1.11 2008/06/16 14:12:19 eldy Exp $
 		\author		Laurent Destailleur
 */
 
@@ -67,8 +67,9 @@ if ($_GET["action"] == 'buildemailingchien')
 		$ID_NEWS=$row->ID_NEWS;
 		$TITRE_NEWS=$row->TITRE_NEWS;
 		$TEXTE_NEWS=$row->TEXTE_NEWS;
+		$sante=$TITRE_NEWS."<br><br>".$TEXTE_NEWS."<br><a href='http://www.chiensderace.com/news/novel.php?ID=".$ID_NEWS."'>Lire cet article</a><br>";
+		break;
 	}
-	$sante=$TITRE_NEWS."<br><br>".$TEXTE_NEWS."<br><a href='http://www.chiensderace.com/news/novel.php?ID=".$ID_NEWS."'>Lire cet article</a><br>";
 	
 		
 	// actualité
@@ -82,8 +83,9 @@ if ($_GET["action"] == 'buildemailingchien')
 		$ID_NEWS=$row->ID_NEWS;
 		$TITRE_NEWS=$row->TITRE_NEWS;
 		$TEXTE_NEWS=$row->TEXTE_NEWS;
+		$actualite=$TITRE_NEWS."<br><br>".$TEXTE_NEWS."<br><a href='http://www.chiensderace.com/news/novel.php?ID=".$ID_NEWS."'>Lire cet article</a><br>";
+		break;
 	}
-	$actualite=$TITRE_NEWS."<br><br>".$TEXTE_NEWS."<br><a href='http://www.chiensderace.com/news/novel.php?ID=".$ID_NEWS."'>Lire cet article</a><br>";
 	
 	$race_semaine='';
 	$REQUETE="select ID_RACES, LIB_RACES, ORIGINE_RACES from T_RACES";
@@ -97,7 +99,7 @@ if ($_GET["action"] == 'buildemailingchien')
 		$i++;
 	}
 	$j=rand(0,$i--);
-	$race_semaine=$LIB_RACES[$i]." (Origine : ".$ORIGINE_RACES[$i].")<br><br>Découvrez cette race cette semaine avec ChiensDeRace.com.<br><a href='http://www.chiensderace.com/php/fiche_race.php?RACE=".$ID_RACES[$i]."'>Voir la fiche de race</a><br>";	
+	$race_semaine=$LIB_RACES[$j]." (Origine : ".$ORIGINE_RACES[$j].")<br><br>Découvrez cette race cette semaine avec ChiensDeRace.com.<br><a href='http://www.chiensderace.com/php/fiche_race.php?RACE=".$ID_RACES[$i]."'>Voir la fiche de race</a><br>";	
 	
 	$file_in='newsletter_type_chien.html';
     $fichier= fopen ($file_in, 'r');
@@ -118,7 +120,7 @@ if ($_GET["action"] == 'buildemailingchien')
 	
     $mil = new Mailing($db);
 
-    $mil->email_from   = 'noreply@monserver.com';
+    $mil->email_from   = 'newsletter@chiensderace.com';
     $mil->titre        = $sujet;
     $mil->sujet        = $sujet;
     $mil->body         = $body;
