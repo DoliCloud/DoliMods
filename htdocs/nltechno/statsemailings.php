@@ -6,7 +6,7 @@
     	\file       htdocs/nltechno/statsemailings.php
 		\ingroup    nltechno
 		\brief      Page des stats
-		\version    $Id: statsemailings.php,v 1.12 2008/06/16 14:19:57 eldy Exp $
+		\version    $Id: statsemailings.php,v 1.13 2008/06/16 21:15:49 eldy Exp $
 		\author		Laurent Destailleur
 */
 
@@ -99,7 +99,7 @@ if ($_GET["action"] == 'buildemailingchien')
 		$i++;
 	}
 	$j=rand(0,$i--);
-	$race_semaine=$LIB_RACES[$j]." (Origine : ".$ORIGINE_RACES[$j].")<br><br>Découvrez cette race cette semaine avec ChiensDeRace.com.<br><a href='http://www.chiensderace.com/php/fiche_race.php?RACE=".$ID_RACES[$i]."'>Voir la fiche de race</a><br>";	
+	$race_semaine=$LIB_RACES[$j]." (Origine : ".$ORIGINE_RACES[$j].")<br><br>Découvrez cette race cette semaine avec ChiensDeRace.com.<br><a href='http://www.chiensderace.com/php/fiche_race.php?RACE=".$ID_RACES[$j]."'>Voir la fiche de race</a><br>";	
 	
 	$file_in='newsletter_type_chien.html';
     $fichier= fopen ($file_in, 'r');
