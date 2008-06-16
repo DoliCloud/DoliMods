@@ -6,7 +6,7 @@
     	\file       htdocs/nltechno/statsemailings.php
 		\ingroup    nltechno
 		\brief      Page des stats
-		\version    $Id: statsemailings.php,v 1.11 2008/06/16 14:12:19 eldy Exp $
+		\version    $Id: statsemailings.php,v 1.12 2008/06/16 14:19:57 eldy Exp $
 		\author		Laurent Destailleur
 */
 
@@ -75,7 +75,7 @@ if ($_GET["action"] == 'buildemailingchien')
 	// actualité
 	$actualite='';
 	$REQUETE="select ID_NEWS, TITRE_NEWS, TEXTE_NEWS from T_NEWS";
-	$REQUETE.=" where (AUTEUR_NEWS ='1040' OR AUTEUR_NEWS='1038') ORDER by ID_NEWS DESC";
+	$REQUETE.=" where ID_CATEG = 73 AND (AUTEUR_NEWS ='1040' OR AUTEUR_NEWS='1038') ORDER by ID_NEWS DESC";
 	$result = mysql_query("$REQUETE",$dbchien);
 	
 	while ($row = mysql_fetch_object($result))
