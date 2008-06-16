@@ -12,7 +12,7 @@
         \file       htdocs/includes/modules/modNLTechno.class.php
         \ingroup    nltechno
         \brief      Description and activation file for module NLTechno
-		\version	$Id: modNLTechno.class.php,v 1.7 2008/05/22 00:11:15 eldy Exp $
+		\version	$Id: modNLTechno.class.php,v 1.8 2008/06/16 12:32:02 eldy Exp $
 */
 
 include_once(DOL_DOCUMENT_ROOT ."/includes/modules/DolibarrModules.class.php");
@@ -123,7 +123,7 @@ class modNLTechno extends DolibarrModules
 								'leftmenu'=>'0',	// To say to not overwrite menu in pre.inc.php by dynamic database menu
 								'url'=>'/nltechno/index.php',
 								'langs'=>'',
-								'position'=>100,
+								'position'=>200,
 								'perms'=>'$user->rights->nltechno->liens->voir||$user->rights->nltechno->annonces->voir||$user->rights->nltechno->emailings->voir',
 								'target'=>'',
 								'user'=>0);
@@ -135,7 +135,7 @@ class modNLTechno extends DolibarrModules
 								'mainmenu'=>'nltechno',
 								'url'=>'/nltechno/index.php',
 								'langs'=>'',
-								'position'=>100,
+								'position'=>200,
 								'perms'=>'$user->rights->nltechno->liens->voir',
 								'target'=>'',
 								'user'=>0);
@@ -147,7 +147,7 @@ class modNLTechno extends DolibarrModules
 								'mainmenu'=>'nltechno',
 								'url'=>'/nltechno/statsannonces.php',
 								'langs'=>'',
-								'position'=>101,
+								'position'=>201,
 								'perms'=>'$user->rights->nltechno->annonces->voir',
 								'target'=>'',
 								'user'=>0);
@@ -159,7 +159,7 @@ class modNLTechno extends DolibarrModules
 								'mainmenu'=>'nltechno',
 								'url'=>'/nltechno/statsemailings.php',
 								'langs'=>'',
-								'position'=>102,
+								'position'=>202,
 								'perms'=>'$user->rights->nltechno->emailings->voir',
 								'target'=>'',
 								'user'=>0);

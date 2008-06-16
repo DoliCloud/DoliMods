@@ -12,7 +12,7 @@
         \file       htdocs/includes/modules/modAWStats.class.php
         \ingroup    awstats
         \brief      Description and activation file for module AWStats
-		\version	$Id: modAWStats.class.php,v 1.7 2008/05/03 21:45:54 eldy Exp $
+		\version	$Id: modAWStats.class.php,v 1.8 2008/06/16 12:32:02 eldy Exp $
 */
 
 include_once(DOL_DOCUMENT_ROOT ."/includes/modules/DolibarrModules.class.php");
@@ -111,7 +111,7 @@ class modAWStats extends DolibarrModules
 								'leftmenu'=>'0',	// To say to not overwrite menu in pre.inc.php by dynamic database menu
 								'url'=>'/awstats/index.php',
 								'langs'=>'awstats',
-								'position'=>100,
+								'position'=>200,
 								'perms'=>'',
 								'target'=>'',
 								'user'=>0);
