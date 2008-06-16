@@ -6,7 +6,7 @@
     	\file       htdocs/nltechno/statsemailings.php
 		\ingroup    nltechno
 		\brief      Page des stats
-		\version    $Id: statsemailings.php,v 1.9 2008/06/16 12:57:29 eldy Exp $
+		\version    $Id: statsemailings.php,v 1.10 2008/06/16 13:28:36 eldy Exp $
 		\author		Laurent Destailleur
 */
 
@@ -48,7 +48,7 @@ $mesg = '';
 if ($_GET["action"] == 'buildemailingchien')
 {
 	// Cree un emailing brouillon
-	$sujet='Nouveau : La Newsletter hebdomadaire de ChiensDeRace.com';
+	$sujet='La Newsletter hebdomadaire de ChiensDeRace.com';
 	$body='';
 
 	// TODO A faire: Lire base des news et races et fabriquer variable sujet et body (en html)
@@ -58,7 +58,8 @@ if ($_GET["action"] == 'buildemailingchien')
 	
 	// sante
 	$sante='';
-	$REQUETE="select ID_NEWS, TITRE_NEWS, TEXTE_NEWS from T_NEWS where ID_CATEG = 20 AND (AUTEUR_NEWS ='1040' OR AUTEUR_NEWS='1038') ORDER by ID_NEWS DESC";
+	$REQUETE="select ID_NEWS, TITRE_NEWS, TEXTE_NEWS from T_NEWS";
+	$REQUETE.=" where ID_CATEG = 20 AND (AUTEUR_NEWS ='1040' OR AUTEUR_NEWS='1038') ORDER by ID_NEWS DESC";
 	$result = mysql_query("$REQUETE",$dbchien);
 	
 	while ($row = mysql_fetch_object($result))
@@ -67,12 +68,13 @@ if ($_GET["action"] == 'buildemailingchien')
 		$TITRE_NEWS=$row->TITRE_NEWS;
 		$TEXTE_NEWS=$row->TEXTE_NEWS;
 	}
-	$sante=$TITRE_NEWS."<br><br>".$TEXTE_NEWS."<br><a href='http://www.chiensderace.com/index.php?rub=/news/novel.php?ID=".$ID_NEWS."'>Lire cet article</a><br>";
+	$sante=$TITRE_NEWS."<br><br>".$TEXTE_NEWS."<br><a href='http://www.chiensderace.com/news/novel.php?ID=".$ID_NEWS."'>Lire cet article</a><br>";
 	
 		
 	// actualité
 	$actualite='';
-	$REQUETE="select ID_NEWS, TITRE_NEWS, TEXTE_NEWS from T_NEWS where (AUTEUR_NEWS ='1040' OR AUTEUR_NEWS='1038') ORDER by ID_NEWS DESC";
+	$REQUETE="select ID_NEWS, TITRE_NEWS, TEXTE_NEWS from T_NEWS";
+	$REQUETE.=" where (AUTEUR_NEWS ='1040' OR AUTEUR_NEWS='1038') ORDER by ID_NEWS DESC";
 	$result = mysql_query("$REQUETE",$dbchien);
 	
 	while ($row = mysql_fetch_object($result))
@@ -81,7 +83,7 @@ if ($_GET["action"] == 'buildemailingchien')
 		$TITRE_NEWS=$row->TITRE_NEWS;
 		$TEXTE_NEWS=$row->TEXTE_NEWS;
 	}
-	$actualite=$TITRE_NEWS."<br><br>".$TEXTE_NEWS."<br><a href='http://www.chiensderace.com/index.php?rub=/news/novel.php?ID=".$ID_NEWS."'>Lire cet article</a><br>";
+	$actualite=$TITRE_NEWS."<br><br>".$TEXTE_NEWS."<br><a href='http://www.chiensderace.com/news/novel.php?ID=".$ID_NEWS."'>Lire cet article</a><br>";
 	
 	$race_semaine='';
 	$REQUETE="select ID_RACES, LIB_RACES, ORIGINE_RACES from T_RACES";
@@ -95,7 +97,7 @@ if ($_GET["action"] == 'buildemailingchien')
 		$i++;
 	}
 	$j=rand(0,$i--);
-	$race_semaine=$LIB_RACES[$i]." (Origine : ".$ORIGINE_RACES[$i].")<br><br>Découvrez cette race cette semaine avec ChiensDeRace.com.<br><a href='http://www.chiensderace.com/index.php?rub=/php/fiche_race.php?RACE=".$ID_RACES[$i]."'>Voir la fiche de race</a><br>";	
+	$race_semaine=$LIB_RACES[$i]." (Origine : ".$ORIGINE_RACES[$i].")<br><br>Découvrez cette race cette semaine avec ChiensDeRace.com.<br><a href='http://www.chiensderace.com/php/fiche_race.php?RACE=".$ID_RACES[$i]."'>Voir la fiche de race</a><br>";	
 	
 	$file_in='newsletter_type_chien.html';
     $fichier= fopen ($file_in, 'r');
