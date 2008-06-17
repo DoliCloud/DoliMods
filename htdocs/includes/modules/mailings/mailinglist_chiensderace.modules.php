@@ -47,19 +47,23 @@ class mailing_mailinglist_chiensderace extends MailingTargets
 		// ----- Your code start here -----
 
 		$cibles = array();
-		// ICI on fait la requete sur T_PERSONNES
-		// La requete doit retourner: id, name, email
-		$sql = " select ID_PERSO as id, NOM_PERSO as name, EMAIL_PERSO as email from chiensderace_db.T_PERSONNES ";
-		$sql.= " where EMAIL_PERSO IS NOT NULL AND EMAIL_PERSO != '' and ML_PERSO = 1";
-		$sql.= " ORDER BY EMAIL_PERSO";
+		$j = 0;
 		
+		$sitedb='chiensderace_db';
+		
+		// ICI on fait la requete sur T_ADRESSES
+		// La requete doit retourner: id, email, nom
+		$sql = " select ID_ADRES as id, NOMRESP_ADRES as name, EMAIL_ADRES as email";
+		$sql.= " from ".$sitedb.".T_ADRESSES";
+		$sql.= " where EMAIL_ADRES IS NOT NULL AND EMAIL_ADRES != '' and ML_ADRES = 1";
+		$sql.= " ORDER BY EMAIL_ADRES";
+
 		// Stocke destinataires dans cibles
 		$result=$this->db->query($sql);
 		if ($result)
 		{
 			$num = $this->db->num_rows($result);
 			$i = 0;
-			$j = 0;
 
 			dolibarr_syslog("mailinglist_chiensderace.modules.php: mailing $num cibles trouvées");
 
@@ -88,20 +92,20 @@ class mailing_mailinglist_chiensderace extends MailingTargets
 			return -1;
 		}
 
-		// ICI on fait la requete sur T_ADRESSES
-		// La requete doit retourner: id, email, nom
-		$sql = " select ID_ADRES as id, NOMRESP_ADRES as name, EMAIL_ADRES as email from chiensderace_db.T_ADRESSES ";
-		$sql.= " where EMAIL_ADRES IS NOT NULL AND EMAIL_ADRES != '' and ML_ADRES = 1";
-		$sql.= " ORDER BY EMAIL_ADRES";
-
+		// ICI on fait la requete sur T_PERSONNES
+		// La requete doit retourner: id, name, email
+		$sql = " select ID_PERSO as id, NOM_PERSO as name, EMAIL_PERSO as email";
+		$sql.= " from ".$sitedb.".T_PERSONNES as p";
+		$sql.= " LEFT JOIN ".$sitedb.".T_ADRESSES as a ON p.EMAIL_PERSO = a.EMAIL_ADRES where EMAIL_ADRES IS NULL";
+		$sql.= " and EMAIL_PERSO IS NOT NULL AND EMAIL_PERSO != '' and ML_PERSO = 1";
+		$sql.= " ORDER BY EMAIL_PERSO";
+		
 		// Stocke destinataires dans cibles
 		$result=$this->db->query($sql);
 		if ($result)
 		{
 			$num = $this->db->num_rows($result);
 			$i = 0;
-			# on garde j car on continue de remplir le tableau array
-			#$j = 0;
 
 			dolibarr_syslog("mailinglist_chiensderace.modules.php: mailing $num cibles trouvées");
 
@@ -173,12 +177,13 @@ class mailing_mailinglist_chiensderace extends MailingTargets
 
 		// Example: return parent::getNbOfRecipients("SELECT count(*) as nb from dolibarr_table");
 		// Example: return 500;
-		$a=parent::getNbOfRecipients("select count(*) as nb from chiensderace_db.T_PERSONNES where EMAIL_PERSO IS NOT NULL AND EMAIL_PERSO != '' and ML_PERSO = ".$filter);
-		$b=parent::getNbOfRecipients("select count(*) as nb from chiensderace_db.T_ADRESSES  where EMAIL_ADRES IS NOT NULL AND EMAIL_ADRES != '' and ML_ADRES = ".$filter);
+		$sitedb='chiensderace_db';
+		$a=parent::getNbOfRecipients("select count(distinct(EMAIL_ADRES)) as nb from ".$sitedb.".T_ADRESSES  as p where EMAIL_ADRES IS NOT NULL AND EMAIL_ADRES != '' and ML_ADRES = ".$filter);
+		$b=parent::getNbOfRecipients("select count(distinct(EMAIL_PERSO)) as nb from ".$sitedb.".T_PERSONNES as p LEFT JOIN ".$sitedb.".T_ADRESSES as a ON p.EMAIL_PERSO = a.EMAIL_ADRES where EMAIL_ADRES IS NULL and EMAIL_PERSO IS NOT NULL and ML_PERSO = ".$filter);
 
 		if ($a < 0 || $b < 0) return -1;
-		if ($option == 'personnes') return $a;
-		if ($option == 'adresses') return $b;
+		if ($option == 'adresses') return $a;
+		if ($option == 'personnes') return $b;
 		return ($a+$b);
 	}
 

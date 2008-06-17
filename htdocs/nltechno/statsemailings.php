@@ -6,7 +6,7 @@
     	\file       htdocs/nltechno/statsemailings.php
 		\ingroup    nltechno
 		\brief      Page des stats
-		\version    $Id: statsemailings.php,v 1.13 2008/06/16 21:15:49 eldy Exp $
+		\version    $Id: statsemailings.php,v 1.14 2008/06/17 00:20:38 eldy Exp $
 		\author		Laurent Destailleur
 */
 
@@ -198,7 +198,7 @@ $relativepath=$dirtmp."statsannonces.png".$categ;
         $listdir=array();
         $listdir[]=$dirmod;
         if (! empty($dirmod2)) $listdir[]=$dirmod2;
-        $listtype=array('personnes','adresses');
+        $listtype=array('adresses','personnes');
         
         foreach ($listtype as $type)
         {
