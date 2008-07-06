@@ -47,9 +47,12 @@ class mailing_mailinglist_chatsderace_forum extends MailingTargets
 		// ----- Your code start here -----
 
 		$cibles = array();
+
+		$sitedb='parlonschats_db';
+		
 		// ICI on fait la requete
 		// La requete doit retourner: id, name, email
-		$sql = " select user_id as id, concat(user_nom,' ',user_prenom) as name, user_email as email from chatsderace_db.forum_users ";
+		$sql = " select user_id as id, concat(user_nom,' ',user_prenom) as name, user_email as email from ".$sitedb.".forum_users ";
 		$sql.= " where 1 = 1";
 	    foreach($filtersarray as $key)
         {
@@ -138,9 +141,11 @@ class mailing_mailinglist_chatsderace_forum extends MailingTargets
 	{
 		// CHANGE THIS: Optionnal
 
+		$sitedb='parlonschats_db';
+		
 		// Example: return parent::getNbOfRecipients("SELECT count(*) as nb from dolibarr_table");
 		// Example: return 500;
-		$sql="select count(*) as nb from chatsderace_db.forum_users where 1 = 1";
+		$sql="select count(*) as nb from ".$sitedb.".forum_users where 1 = 1";
 		if ($filter == 1) $sql.=" AND user_accept_parlonschat = 1";
 		if ($filter == 2) $sql.=" AND user_accept_whiskas = 1";
 		if ($filter == -1) $sql.=" AND user_accept_parlonschat = 0";
