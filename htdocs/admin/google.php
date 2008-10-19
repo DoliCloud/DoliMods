@@ -6,7 +6,7 @@
 	    \file       htdocs/admin/google.php
         \ingroup    google
         \brief      Setup page for google module
-		\version    $Id: google.php,v 1.2 2008/04/27 22:16:57 eldy Exp $
+		\version    $Id: google.php,v 1.3 2008/10/19 13:44:50 eldy Exp $
 */
 
 $res=@include("./pre.inc.php");
@@ -90,7 +90,7 @@ print "<table class=\"noborder\" width=\"100%\">";
 print "<tr class=\"liste_titre\">";
 print "<td>".$langs->trans("Parameter")."</td>";
 print "<td>".$langs->trans("Name")."</td>";
-print "<td>".$langs->trans("Src")."</td>";
+print "<td>".$langs->trans("GoogleIDAgenda")."</td>";
 print "<td>".$langs->trans("Color")."</td>";
 print "</tr>";
 
@@ -154,5 +154,5 @@ print info_admin($message);
 
 $db->close();
 
-llxFooter('$Date: 2008/04/27 22:16:57 $ - $Revision: 1.2 $');
+llxFooter('$Date: 2008/10/19 13:44:50 $ - $Revision: 1.3 $');
 ?>
