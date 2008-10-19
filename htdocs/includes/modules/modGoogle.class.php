@@ -12,7 +12,7 @@
         \file       htdocs/includes/modules/modGoogle.class.php
         \ingroup    google
         \brief      Description and activation file for module Google
-		\version	$Id: modGoogle.class.php,v 1.5 2008/05/03 21:45:55 eldy Exp $
+		\version	$Id: modGoogle.class.php,v 1.6 2008/10/19 20:07:00 eldy Exp $
 */
 
 include_once(DOL_DOCUMENT_ROOT ."/includes/modules/DolibarrModules.class.php");
@@ -42,14 +42,14 @@ class modGoogle extends DolibarrModules
 		// Family can be 'crm','financial','hr','projects','product','technic','other'
 		// It is used to group modules in module setup page 
 		$this->family = "projects";		
-		// Module title used if translation string 'ModuleXXXName' not found (XXX is value MyModule)
-		$this->name = "Google";	
+		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'numero' of module)
+		$this->name = eregi_replace('^mod','',get_class($this));
 		// Module description used if translation string 'ModuleXXXDesc' not found (XXX is value MyModule)
 		$this->description = "Module to integrate Google tools in dolibarr";
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
-		$this->version = '1.0.1';    
-		// Key used in llx_const table to save module status enabled/disabled (XXX is value MyModule)
-		$this->const_name = 'MAIN_MODULE_GOOGLE';
+		$this->version = '1.3.1';    
+		// Key used in llx_const table to save module status enabled/disabled (where MYMODULE is value of property name of module in uppercase)
+		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
 		// Where to store the module in setup page (0=common,1=interface,2=other)
 		$this->special = 1;
 		// Name of png file (without png) used for this module.
