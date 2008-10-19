@@ -1,5 +1,6 @@
 # Dolibarr language file - fr_FR - google
 GoogleSetup=Outils de configuration pour intégrer un agenda Google
-GoogleSetupHelp=L'id agenda est visible dans la page de paramétrage de l'agenda Google. Il s'agit d'un identifiant qui ressemble à un email.
+GoogleSetupHelp=L'ID Agenda est propre à chaque agenda et est visible dans la page de paramétrage Google de l'agenda. Il s'agit d'un identifiant qui ressemble à un email.
 GoogleAgendaNb=Agenda no %s
 GoogleIDAgenda=ID Agenda
+GoogleNbOfAgenda=Nombre d'agendas

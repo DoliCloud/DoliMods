@@ -8,7 +8,7 @@
     	\file       htdocs/google/index.php
 		\ingroup    google
 		\brief      Main google area page
-		\version    $Id: index.php,v 1.2 2008/03/30 18:50:14 eldy Exp $
+		\version    $Id: index.php,v 1.3 2008/10/19 19:59:13 eldy Exp $
 		\author		Laurent Destailleur
 */
 
@@ -31,6 +31,8 @@ if ($user->societe_id > 0)
     $action = '';
     $socid = $user->societe_id;
 }
+
+$MAXAGENDA=empty($conf->global->GOOGLE_AGENDA_NB)?5:$conf->global->GOOGLE_AGENDA_NB;
 
 
 
@@ -87,7 +89,6 @@ $frame.='&amp;wkst=2';
 $frame.='&amp;bgcolor=%23'.$bgcolor;
 
 	
-$MAXAGENDA=5;
 $i=1;
 while ($i <= $MAXAGENDA)
 {
@@ -128,5 +129,5 @@ print $frame;
 // End of page
 $db->close();
 
-llxFooter('$Date: 2008/03/30 18:50:14 $ - $Revision: 1.2 $');
+llxFooter('$Date: 2008/10/19 19:59:13 $ - $Revision: 1.3 $');
 ?>

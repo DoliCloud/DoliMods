@@ -8,7 +8,7 @@
 		\file 		htdocs/google/pre.inc.php
 		\ingroup    google
 		\brief      File to manage left menu for google module
-		\version    $Id: pre.inc.php,v 1.2 2008/03/30 18:50:15 eldy Exp $
+		\version    $Id: pre.inc.php,v 1.3 2008/10/19 19:59:13 eldy Exp $
 */
 
 $res=@include("../main.inc.php");
@@ -27,8 +27,8 @@ function llxHeader($head = "", $title="", $help_url='')
 
 	$menu->add(DOL_URL_ROOT."/google/index.php?mainmenu=google&idmenu=".$_SESSION["idmenu"], $langs->trans("Agendas"));
 	
-	$MAXAGENDA=5;
-    $i=1;
+	$MAXAGENDA=empty($conf->global->GOOGLE_AGENDA_NB)?5:$conf->global->GOOGLE_AGENDA_NB;
+	$i=1;
 	while ($i <= $MAXAGENDA)
 	{
 		$paramkey='GOOGLE_AGENDA_NAME'.$i;
