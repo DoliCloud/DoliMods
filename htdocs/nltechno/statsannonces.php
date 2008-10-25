@@ -6,7 +6,7 @@
     	\file       htdocs/nltechno/statsannonces.php
 		\ingroup    nltechno
 		\brief      Page des stats annonces
-		\version    $Id: statsannonces.php,v 1.3 2008/05/22 00:42:21 eldy Exp $
+		\version    $Id: statsannonces.php,v 1.4 2008/10/25 22:24:26 eldy Exp $
 		\author		Laurent Destailleur
 */
 
@@ -168,7 +168,7 @@ foreach ($listofcateg as $categ)
 	print '<img src="'.$url.'" alt="'.$relativepath.'">';
 	print '</center>';
 	print '<br><table class="border">';
-	print '<tr><td>Dernières valeures</td><td align="right">J-5</td><td align="right">J-4</td><td align="right">J-3</td><td align="right">J-2</td><td align="right">J-1</td></tr>';
+	print '<tr><td>Dernieres valeures</td><td align="right">J-5</td><td align="right">J-4</td><td align="right">J-3</td><td align="right">J-2</td><td align="right">J-1</td></tr>';
 	print '<tr>';
 	print '<td>Valeur</td>';
 	print '<td align="right">'.$lastval[4].'</td>';
