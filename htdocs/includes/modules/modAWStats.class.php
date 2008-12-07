@@ -12,7 +12,7 @@
         \file       htdocs/includes/modules/modAWStats.class.php
         \ingroup    awstats
         \brief      Description and activation file for module AWStats
-		\version	$Id: modAWStats.class.php,v 1.9 2008/10/19 20:07:00 eldy Exp $
+		\version	$Id: modAWStats.class.php,v 1.10 2008/12/07 19:27:54 eldy Exp $
 */
 
 include_once(DOL_DOCUMENT_ROOT ."/includes/modules/DolibarrModules.class.php");
@@ -72,6 +72,7 @@ class modAWStats extends DolibarrModules
 		$this->requiredby = array();	// List of modules id to disable if this one is disabled
 		$this->phpmin = array(4,1);					// Minimum version of PHP required by module
 		$this->need_dolibarr_version = array(2,4);	// Minimum version of Dolibarr required by module
+		$this->langfiles = array("@awstats");
 		
 		// Constants
 		$this->const = array();			// List of parameters
