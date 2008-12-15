@@ -6,7 +6,7 @@
     	\file       htdocs/nltechno/statsemailings.php
 		\ingroup    nltechno
 		\brief      Page des stats
-		\version    $Id: statsemailings.php,v 1.14 2008/06/17 00:20:38 eldy Exp $
+		\version    $Id: statsemailings.php,v 1.15 2008/12/15 11:47:39 eldy Exp $
 		\author		Laurent Destailleur
 */
 
@@ -187,7 +187,7 @@ $relativepath=$dirtmp."statsannonces.png".$categ;
 
         print '<table class="noborder" width="100%">';
         print '<tr class="liste_titre">';
-        print '<td>Groupe de données</td>';
+        print '<td>Groupe de donnees</td>';
         print '<td align="center">ML_XXX=-1</td>';
         print '<td align="center">ML_XXX=0</td>';
 		print '<td align="center">ML_XXX=1</td>';
@@ -429,8 +429,8 @@ $relativepath=$dirtmp."statsannonces.png".$categ;
         print '</table>';
 		print '<br>';
 	
-		print 'Les emails sont défini dans T_ADRESSES (inscription via adresse)+T_PERSONNES (inscription via la box)+FORUM_USERS (incription par forum)<br>';
-		print 'Si ML_XXX=-1, a demandé explicitement à etre désincrit<br>';
+		print 'Les emails sont definis dans T_ADRESSES (inscription via adresse)+T_PERSONNES (inscription via la box)+FORUM_USERS (incription par forum)<br>';
+		print 'Si ML_XXX=-1, a demande explicitement a etre desincrit<br>';
 		print 'Si ML_XXX=0,  ne s\'est pas inscrit<br>';
 		print 'Si ML_XXX=1,  s\'est inscrit (explicitement ou auto car avant loi optin)<br>';
 	
@@ -444,7 +444,7 @@ $relativepath=$dirtmp."statsannonces.png".$categ;
 	print '<b>Cliquer sur ce bouton pour fabriquer un emailing brouillon chiensderace du moment</b>:<br><br>';
 	print '<form action="'.$_SERVER["PHP_SELF"].'">';
 	print '<input type="hidden" name="action" value="buildemailingchien">';
-	print '<input type="submit" class="button" value="Générer newsletter brouillon"><br>';
+	print '<input type="submit" class="button" value="Generer newsletter brouillon"><br>';
 	print '</form>';
 		
 $dbann->close();
