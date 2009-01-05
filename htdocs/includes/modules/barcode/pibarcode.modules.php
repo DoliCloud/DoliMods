@@ -17,14 +17,14 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  * or see http://www.gnu.org/
  *
- * $Id: pibarcode.modules.php,v 1.1 2008/03/30 22:37:36 eldy Exp $
+ * $Id: pibarcode.modules.php,v 1.2 2009/01/05 00:37:45 eldy Exp $
  */
 
 /**
         \file       htdocs/includes/modules/barcode/pibarcode.modules.php
 		\ingroup    facture
 		\brief      Fichier contenant la classe du modèle de generation code barre pibarcode
-		\version    $Revision: 1.1 $
+		\version    $Revision: 1.2 $
 */
 
 require_once(DOL_DOCUMENT_ROOT ."/includes/modules/barcode/modules_barcode.php");
@@ -98,6 +98,33 @@ class modPibarcode extends ModeleBarCode
 		return 1;
     }
 
+    /**
+	 *		\brief      Save an image file on disk
+	 *		\param   	$code			Valeur numérique a coder
+	 *		\param   	$encoding		Mode de codage
+	 *		\param   	$readable		Code lisible
+     */
+    function writeBarCode($code,$encoding,$readable='Y')
+    { 
+    	global $conf;
+
+		create_exdir($conf->barcode->dir_temp);
+    	
+		ob_start();
+    	$result=$this->buildBarCode($code,$encoding,$readable);
+		$filecontent=ob_get_contents();
+		ob_end_clean();
+
+		//Remove warning line
+		//$filecontent=eregi_replace('^(.*)Warning.*PNG','PNG',$filecontent);
+		
+		$fp = fopen($conf->barcode->dir_temp.'/barcode_'.$code.'_'.$encoding.'.png', 'w');
+		fwrite($fp, $filecontent);
+		fclose($fp);		
+    	
+		return $result;
+    }
+        
 }
 
 ?>
