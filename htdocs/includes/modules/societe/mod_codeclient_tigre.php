@@ -23,7 +23,7 @@
         \file       htdocs/includes/modules/societe/mod_codeclient_tigre.class.php
         \ingroup    societe
         \brief      Fichier de la classe des gestion tigre des codes clients
-        \version    $Id: mod_codeclient_tigre.php,v 1.1 2009/01/31 13:59:47 eldy Exp $
+        \version    $Id: mod_codeclient_tigre.php,v 1.2 2009/01/31 14:00:07 eldy Exp $
 */
 
 require_once(DOL_DOCUMENT_ROOT."/includes/modules/societe/modules_societe.class.php");
@@ -53,7 +53,7 @@ class mod_codeclient_tigre extends ModeleThirdPartyCode
 	function mod_codeclient_tigre()
 	{
 		$this->nom = "Tigre";
-		$this->version = '$Revision $';
+		$this->version = '$Revision: 1.2 $';
 		$this->code_modifiable = 0;
 		$this->code_modifiable_invalide = 1;
 		$this->code_modifiable_null = 1;

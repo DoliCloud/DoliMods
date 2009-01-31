@@ -22,7 +22,7 @@
  *       \file       htdocs/includes/modules/societe/mod_codeclient_zebre.class.php
  *       \ingroup    societe
  *       \brief      Fichier de la classe des gestion zebre des codes clients
- *       \version    $Id: mod_codeclient_zebre.php,v 1.1 2009/01/31 13:48:57 eldy Exp $
+ *       \version    $Id: mod_codeclient_zebre.php,v 1.2 2009/01/31 14:00:25 eldy Exp $
  */
 
 require_once(DOL_DOCUMENT_ROOT."/includes/modules/societe/modules_societe.class.php");
@@ -48,7 +48,7 @@ class mod_codeclient_zebre extends ModeleThirdPartyCode
 	function mod_codeclient_zebre()
 	{
 		$this->nom = "Zebre";
-		$this->version = "dolibarr";
+		$this->version = '$Revision: 1.2 $';
 		$this->code_modifiable = 0;				// Can be changed if valid
 		$this->code_modifiable_invalide = 1;	// Can be changed if not valid
 		$this->code_modifiable_null = 1;		// Can be changed if not defined
