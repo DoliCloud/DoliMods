@@ -12,12 +12,12 @@ include_once DOL_DOCUMENT_ROOT.'/includes/modules/mailings/modules_mailings.php'
 
 
 // CHANGE THIS: Class name must be called mailing_xxx with xxx=name of your selector
-class mailing_mailinglist_chiensderace_pubadres extends MailingTargets
+class mailing_dolibarr_services_expired extends MailingTargets
 {
 	// CHANGE THIS: Put here a name not already used
-	var $name='mailinglist_chiensderace_pubadres';
+	var $name='dolibarr_services_expired';
 	// CHANGE THIS: Put here a description of your selector module
-	var $desc='Tiers avec service PUBADRESCHIEN expire';
+	var $desc='Tiers avec service expirÃ©';
 	// CHANGE THIS: Set to 1 if selector is available for admin users only
 	var $require_admin=0;
 
@@ -27,7 +27,7 @@ class mailing_mailinglist_chiensderace_pubadres extends MailingTargets
 
 
 	// CHANGE THIS: Constructor name must be called mailing_xxx with xxx=name of your selector
-	function mailing_mailinglist_chiensderace($DB)
+	function mailing_dolibarr_services_expired($DB)
 	{
 		$this->db=$DB;
 	}
@@ -49,12 +49,21 @@ class mailing_mailinglist_chiensderace_pubadres extends MailingTargets
 		$cibles = array();
 		$j = 0;
 
-		// La requete doit retourner: id, email, nom
-		$sql = " select s.rowid, s.email, s.nom, cd.date_ouverture, cd.date_fin_validite, cd.fk_contrat";
+		$product='';
+	    foreach($filtersarray as $key)
+        {
+            if ($key == '0') return "Error: You must choose a filter";
+            if ($key == '1')  $product= "PUBADRESCHIEN";
+            if ($key == '2')  $product= "PUBADRESCHAT";
+        }
+
+		// La requete doit retourner: id, email, name
+		$sql = " select s.rowid, s.email, s.nom as name, cd.rowid as cdid, cd.date_ouverture, cd.date_fin_validite, cd.fk_contrat";
 		$sql.= " from ".MAIN_DB_PREFIX."societe as s, ".MAIN_DB_PREFIX."contrat as c,";
 		$sql.= " ".MAIN_DB_PREFIX."contratdet as cd, ".MAIN_DB_PREFIX."product as p";
 		$sql.= " where s.rowid = c.fk_soc AND cd.fk_contrat = c.rowid AND s.email != ''";
-		$sql.= " AND cd.statut= 4 AND cd.fk_product=p.rowid AND p.ref = 'PUBADRESCHIEN'";
+		$sql.= " AND cd.statut= 4 AND cd.fk_product=p.rowid AND p.ref = '".$product."'";
+		$sql.= " AND cd.date_fin_validite < '".$this->db->idate(gmmktime())."'";
 		$sql.= " ORDER BY s.email";
 
 		// Stocke destinataires dans cibles
@@ -64,7 +73,7 @@ class mailing_mailinglist_chiensderace_pubadres extends MailingTargets
 			$num = $this->db->num_rows($result);
 			$i = 0;
 
-			dolibarr_syslog("mailinglist_chiensderace.modules.php: mailing $num cibles trouvées");
+			dolibarr_syslog("dolibarr_services_expired.modules.php: mailing $num cibles trouvï¿½es");
 
 			$old = '';
 			while ($i < $num)
@@ -76,7 +85,7 @@ class mailing_mailinglist_chiensderace_pubadres extends MailingTargets
 					'email' => $obj->email,
 					'name' => $obj->name,
 					'id' => $obj->id,
-					'other' => dolibarr_print_date($this->db->jdate($obj->date_ouverture),'day').';'.dolibarr_print_date($this->db->jdate($obj->date_fin_validite),'day').';'.$obj->fk_contrat
+					'other' => dolibarr_print_date($this->db->jdate($obj->date_ouverture),'day').';'.dolibarr_print_date($this->db->jdate($obj->date_fin_validite),'day').';'.$obj->fk_contrat.';'.$obj->cdid
 					);
 					$old = $obj->email;
 					$j++;
@@ -126,13 +135,14 @@ class mailing_mailinglist_chiensderace_pubadres extends MailingTargets
 	{
 		// CHANGE THIS: Optionnal
 
-		// Example: return parent::getNbOfRecipients("SELECT count(*) as nb from dolibarr_table");
+        // Example: return parent::getNbOfRecipients("SELECT count(*) as nb from dolibarr_table");
 		// Example: return 500;
 		$sql = " select count(*) as nb";
 		$sql.= " from ".MAIN_DB_PREFIX."societe as s, ".MAIN_DB_PREFIX."contrat as c,";
 		$sql.= " ".MAIN_DB_PREFIX."contratdet as cd, ".MAIN_DB_PREFIX."product as p";
 		$sql.= " where s.rowid = c.fk_soc AND cd.fk_contrat = c.rowid AND s.email != ''";
-		$sql.= " AND cd.statut= 4 AND cd.fk_product=p.rowid AND p.ref = 'PUBADRESCHIEN'";
+		$sql.= " AND cd.statut= 4 AND cd.fk_product=p.rowid AND p.ref in ('PUBADRESCHIEN','PUBADRESCHAT')";
+		$sql.= " AND cd.date_fin_validite < '".$this->db->idate(gmmktime())."'";
 		$sql.= " ORDER BY s.email";
 		//print $sql;
 		$a=parent::getNbOfRecipients($sql);
@@ -150,6 +160,11 @@ class mailing_mailinglist_chiensderace_pubadres extends MailingTargets
 		// CHANGE THIS: Optionnal
 
 		$s='';
+        $s.='<select name="filter" class="flat">';
+        $s.='<option value="0">&nbsp;</option>';
+        $s.='<option value="1">PUBADRESCHIEN</option>';
+        $s.='<option value="2">PUBADRESCHAT</option>';
+        $s.='</select>';
 		return $s;
 	}
 
