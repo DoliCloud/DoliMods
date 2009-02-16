@@ -53,8 +53,9 @@ class mailing_dolibarr_services_expired extends MailingTargets
 	    foreach($filtersarray as $key)
         {
             if ($key == '0') return "Error: You must choose a filter";
-            if ($key == '1')  $product= "PUBADRESCHIEN";
-            if ($key == '2')  $product= "PUBADRESCHAT";
+            if ($key == '1') $product= "PUBADRESCHIEN";
+            if ($key == '2') $product= "PUBADRESCHAT";
+            if ($key == '3') $product= "HEBERGDOMWEB";
         }
 
 		// La requete doit retourner: id, email, name
@@ -141,7 +142,7 @@ class mailing_dolibarr_services_expired extends MailingTargets
 		$sql.= " from ".MAIN_DB_PREFIX."societe as s, ".MAIN_DB_PREFIX."contrat as c,";
 		$sql.= " ".MAIN_DB_PREFIX."contratdet as cd, ".MAIN_DB_PREFIX."product as p";
 		$sql.= " where s.rowid = c.fk_soc AND cd.fk_contrat = c.rowid AND s.email != ''";
-		$sql.= " AND cd.statut= 4 AND cd.fk_product=p.rowid AND p.ref in ('PUBADRESCHIEN','PUBADRESCHAT')";
+		$sql.= " AND cd.statut= 4 AND cd.fk_product=p.rowid AND p.ref in ('PUBADRESCHIEN','PUBADRESCHAT','HEBERGDOMWEB')";
 		$sql.= " AND cd.date_fin_validite < '".$this->db->idate(gmmktime())."'";
 		$sql.= " ORDER BY s.email";
 		//print $sql;
@@ -164,6 +165,7 @@ class mailing_dolibarr_services_expired extends MailingTargets
         $s.='<option value="0">&nbsp;</option>';
         $s.='<option value="1">PUBADRESCHIEN</option>';
         $s.='<option value="2">PUBADRESCHAT</option>';
+        $s.='<option value="3">HEBERGDOMWEB</option>';
         $s.='</select>';
 		return $s;
 	}
