@@ -22,7 +22,7 @@ class mailing_dolibarr_services_expired extends MailingTargets
 	var $require_admin=0;
 
 	var $require_module=array();
-	var $picto='';
+	var $picto='company';
 	var $db;
 
 
