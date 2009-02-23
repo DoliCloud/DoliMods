@@ -1,0 +1,83 @@
+API Interfaces
+
+
+BDecode($string)
+---------------
+
+Takes input as a single string. This string should be the whole
+.torrent file or whatever encoded stream you want to decode.
+
+Returns the array of the original encoded data. For example, to
+get the URL of the tracker used by a .torrent, use
+
+	$fd = fopen("myfile.torrent", "rb");
+	$stream = fread($fd, filesize("myfile.torrent"));
+	fclose($fd);
+	
+	$array = BDecode($stream);
+	
+	echo "Url: ".$array["announce"]."\n";
+
+
+
+
+BEncode($array)
+---------------
+
+Pretty much the opposite of the decoder. It takes an array and
+outputs the encoded data as one large string. Assuming there
+are no bugs in the code, BEncode(BDecode($stream) should give
+the exact same string back.
+
+
+
+
+
+$array
+------
+
+My first impression of the whole BEncode system is that Python
+makes a distinction between lists and dictionaries. I'm sure that's
+a good thing for the Python programmers but we have a different
+problem.
+
+PHP doesn't really make a difference between lists and
+dictionaries. They're all arrays. As such, the difference
+between a dictionary and an array is simple: lists are numerically
+indexed only. If (isset($array[0])) is true, you may assume the
+array is a "list" and treat it as such. Iterate until !isset($array[$i]);
+
+In the event of a list that has zero entries ("le"), it will be represented
+as array() (is_array() && empty()). Dictionaries ("de") will be represented
+as the boolean type true, not an array.
+
+This should hold as long as Bram doesn't do something cruel in the
+near future. :)
+
+
+Notes
+-----
+
+The return value will always be an array if the response is one of the
+normal responses of BitTorrent, which are always dictionaries. But it will
+also accept non-dictionaries as input.
+
+For exmaple, BDecode("i15e") === (int) 15
+
+Finally, the decoder is a little more tolerant of bencoding errors than
+the Python becode library. Things like sorted dictionaries when decoding
+are not enforced.
+
+
+
+Dictionaries
+------------
+One last thing about dictionaries. If you were to do something like this:
+
+foreach ($array as $left => $right) { .. }
+ or similarly
+$array[$left] = $right;
+
+Then beware: $left has had addslashes applied to it. This is to work
+around a small quirk in PHP. Null bytes ("\0") would cause the value
+of $left to be truncated at the null byte.

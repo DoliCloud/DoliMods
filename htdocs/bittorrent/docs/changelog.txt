@@ -1,0 +1,143 @@
+RivetTracker is a modified version of PHPBTTracker Version 1.5rc3, written by "DeHackEd".
+
+Changes:
+
+---Version 1.0---
+
+-Changed database engine from default MyISAM to InnoDB, hopefully this will prevent table crashes
+-Changed CSS files
+-Changed session authentication to more secure method, does not store username or MD5 anymore
+-Passwords are now no longer stored in cleartext in the config.php file, they are computed as md5(username.password)
+
+---Version 0.9991---
+
+-Added information on upgrading in help file
+-Fixed install bug
+
+---Version 0.999---
+
+-Fixed bug where RSS feed was being displayed in header when it was disabled
+-Fixed rounding error in statistics.php where user was being shown as 100% done when they are only almost done (99.6%)
+-Changed display of bytes transferred on index.php page to correct units, before it defaulted to GB
+-Added check for stalled download in runSpeed() function
+-Fixed error where speed was set to 0 if seeders == 0, not always the case, can still be downloading even if there are no seeders (partial d/l)
+-took out repair statement in sanity.php and sanity_no_output.php
+-Added CSS page where you can change/swap/create CSS files and examine colors with the color picker
+-Added batch upload of torrents via ZIP file
+-Added help link to index.php
+-Used htmlspecialchars on inputs in order to prevent code injection
+-Added javascript row select in delete page
+-Fixed delete bug, URL bug
+-Added MySQL table prefix option
+-Sanitized some inputs (still more?), this way if someone gets your admin password they won't be able to execute malicious code
+
+---Version 0.995---
+
+-Fixed bug in namemap table where MySQL size variable INT type was being used, changed it to BIGINT
+-Fixed bug where single quotes were not being checked in torrent file, filenames, title, RSS description, and RSS title
+-Changed funcsv2.php and added in the clean() and addquotes() functions
+-Added REPAIR MySQL command to sanity.php and sanity_no_output.php (to fix table crashes, sometimes it happens, dunno why)
+-Fixed bug where null entry for filename search caused error
+-Added scrape option in config.php file, changed tracker to check for this before doling out scrape information to client
+-Changed location of announce URL to announce.php in order to enable support for scraping
+-Added display of files inside torrent via [+] button on index.php page
+-Added ability to disable RSS feed
+-Peercaching is now on by default, slightly more diskspace needed for this but it's worth it because of the lessened strain on database
+-Added ability to have a hiddentracker, this is not a private tracker, but hidden enough so that it requires a login, .htaccess or something
+similar will be needed to secure the "torrents" folder, also all BT clients can connect to the tracker still, there is no username authentication there
+-Added dltorrent.php that is used when in hiddentracker mode, no direct linking to .torrent file on main page
+-Removed updatePeer(), the function was emtpy so not a big deal...
+-Added ability to have legal terms and a policy agreement before logging in, if you want this create a file called legalterms.txt with the info in it
+-Changed edit database script so that you click on a file to edit it instead of displaying too much information on one screen
+-Various minor display improvements
+-Checked IE and Firefox for display issues
+-Updated documentation with some minor additions
+
+---Version 0.99---
+
+-Changed fonts in CSS file so they were easier to read/view in IE
+-Limit results on index.php page, can now switch between pages
+-Limit results on statistics.php page, can now switch between pages
+-Fixed bug install.php and editconfig.php where RSS information was not required, now it is
+-Torrent URL checked in newtorrents.php file, error message if it doesn't start with http://
+-Tracker announce URL checked in newtorrents.php file, if it doesn't match the tracker, user is asked to re-create torrent and re-upload
+-Added display of private torrent variable in DumpTorrentCGI.php
+-Fixed bug where uploaded torrent was being used even if there was an error
+-Displays torrent information after successful torrent added to database
+-Split functions used by DumpTorrentCGI.php into torrent_functions.php, now it can be used by any file to display torrent info
+-Changed index.php page to point to admin.php not authenticate.php login page
+-Fixed bug where in install or editing the config file, maxpeers could be set to negative number or zero
+-Added size to list of items displayed when removing a torrent
+-Fixed bug where in install or editing the config file, max reannounce interval and min reannounce interval could be negative or zero
+-Made speed estimate slightly more accurate, if no leechers, sets speed to zero
+-Added an aggregate total at the top of the index.php page
+-Added search functionality to statistics.php page using REGEXP in MySQL
+-Added sanity_no_output.php, a stripped down version of sanity.php that gets run by the index.php page every once in awhile
+-Added uploadstats.php in admin section that shows upload rates for HTTP seeding and regular bittorrent
+-Added support for GetRight HTTP seeding and Bittornado HTTP seeding
+-Changed doctype on all pages to <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+-Added help.html file in docs folder that consolidates all information into one file, help.pdf is the PDF equivalent
+
+---Version 0.9---
+
+-Added alt and title properties for all image files
+-added automatic creation of valid RSS 2.0 file (listed on main page, right side)
+-added pubDate (for RSS feed) to table namemap in MySQL
+-added index.php redirect file in rss folder
+-modified install.php and editconfig.php for additional RSS variables, timezone, and more
+-check at beginning of index.php if there is no config.php file, error out and display message
+-check at beginning of install.php, if there is a config.php file, this is an indication of an already
+ existing installation and thus the user should be warned and unable to continue
+-various minor display improvements
+-added RSS variables, timezone, and others to config.php file
+-changed 'info' in MySQL namemap table to 'size' and make it store total size of all file(s) in torrent in bytes
+This is related to an error where the filesize was reported as higher than actual when the file(s) in the torrent were very small
+-display total file(s) size in DumpTorrentCGI.php
+-added bytesToString() function in funcsv2.php
+-make sure install.php and editconfig.php check for blank entries for required variables so config.php isn't populated with null values
+-added check for install.php file in admin.php, if so, display strong warning message
+-added critical message icon to most class="error" areas
+-added page in admin section where user can edit torrents and values already in database
+-added errorMessage() in funcsv2.php that shows error message and icon, most errors that are displayed with die() now use this function
+-made installer easier to read and walkthrough
+-converted all uppercase HTML to lowercase
+-run optimize MySQL command after deleter.php runs
+-removed dynamic_torrents variable that allowed torrents to be added without authentication
+-fixed division by zero error in statistics.php
+
+---Version 0.8---
+
+-Adding a torrent file saves the file in the "torrents" folder and is displayed on the main statistics page.
+-Restructured files into more folders
+-Added icons from the Tango Project:
+http://tango.freedesktop.org/
+(creative commons license)
+http://creativecommons.org/licenses/by-sa/2.5/
+-Show tracker URL in newtorrents.php
+-Delete torrent from database will also delete the saved torrent file
+-Added index.php redirect file in images, docs, and torrents folders
+-Fixed DumpTorrentCGI.php MAX_FILE_SIZE error
+-Consolidated authentication to one script
+-Password protect newtorrents.php page to prevent people uploading items who don't actually have an account
+
+---Version 0.1---
+
+-minor formatting issues, addition of links to admin page and create torrent in index.php
+-each statistics column is totalled and displayed in the last row
+-admin page added with links to relevent scripts, each script except add torrent requires session authentication
+-added admin username and password in config.php
+-fixed index.php $GLOBALS bug for <title>
+-added title variable in config.php
+-upload user in config.php is able to add torrents but not access admin resources, this requires the separate admin user
+-admin user is able to access any page
+-if the number of leechers is zero, then the speed is zero
+-if the number of leechers is zero and the number of seeders is zero, then the speed is zero
+-mystats.php renamed to index.php
+-changed speed units to KB, MB, and GB
+-fixed installer.php writing to config.php to account for additional variables
+-added statistics.php script, admin resource that shows detailed information on each user the tracker has saved
+-removed "short description" in add torrent, now it just defaults to the size all the time
+-heavily modified install.php file to allow for a more robust and easier installation
+-allow config.php file to be saved to server or downloaded in install.php
+-added page in admin section where user can change config.php values right from webpage
+
