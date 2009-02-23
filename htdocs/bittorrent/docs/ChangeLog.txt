@@ -1,6 +1,18 @@
-RivetTracker is a modified version of PHPBTTracker Version 1.5rc3, written by "DeHackEd".
+This module is a modified version of RivetTracker.
+
+RiverTracker is a modified version of PHPBTTracker Version 1.5rc3,
+written by "DeHackEd".
+
 
 Changes:
+
+---Modification to work inside Dolibarr---
+
+-Initial change
+
+
+
+ChangLog of original RiverTracker:
 
 ---Version 1.0---
 
