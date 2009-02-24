@@ -15,8 +15,6 @@ $form=new Form($db);
 error_reporting(E_ALL);
 //header("Content-Type: text/plain");
 
-//require_once("config.php");
-//require_once("funcsv2.php");
 
 $summaryupdate = array();
 
@@ -181,8 +179,9 @@ while ($row = mysql_fetch_row($results))
 
 function myTrashCollector($hash, $timeout, $now, $writeout)
 {
-//	error_log("Trash collector working on $hash");
- 	require("config.php");
+	global $prefix;
+
+	//	error_log("Trash collector working on $hash");
  	$peers = loadLostPeers($hash, $timeout);
  	for ($i=0; $i < $peers["size"]; $i++)
 	        killPeer($peers[$i]["peer_id"], $hash, $peers[$i]["bytes"], $peers[$i]);
@@ -202,5 +201,5 @@ function myTrashCollector($hash, $timeout, $now, $writeout)
 <a href="admin.php"><img src="images/admin.png" border="0" class="icon" alt="Admin Page" title="Admin Page" /></a><a href="admin.php">Return to Admin Page</a>
 
 <?
-llxFooter('$Date: 2009/02/23 22:54:51 $ - $Revision: 1.1 $');
+llxFooter('$Date: 2009/02/24 02:39:39 $ - $Revision: 1.2 $');
 ?>

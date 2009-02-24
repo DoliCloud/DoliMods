@@ -1,5 +1,10 @@
-<?php header("Content-type: text/plain");
-   header("Pragma: no-cache"); 
+<?php
+
+$res=@include("../master.inc.php");
+if (! $res) @include("../../../dolibarr/htdocs/master.inc.php");	// Used on dev env only
+
+header("Content-type: text/plain");
+header("Pragma: no-cache");
 
 ignore_user_abort(1);
 
@@ -53,14 +58,14 @@ if (substr($_SERVER["PATH_INFO"],-7) == '/scrape')
 		$namemap = array();
 		while ($row = mysql_fetch_row($query))
 			$namemap[$row[0]] = $row[1];
-	
+
 		if ($usehash)
 			$query = mysql_query("SELECT info_hash, seeds, leechers, finished FROM ".$prefix."summary WHERE info_hash=\"$info_hash\"") or showError("Database error. Cannot complete request.");
 		else
 			$query = mysql_query("SELECT info_hash, seeds, leechers, finished FROM ".$prefix."summary ORDER BY info_hash") or showError("Database error. Cannot complete request.");
-	
+
 		echo "d5:filesd";
-	
+
 		while ($row = mysql_fetch_row($query))
 		{
 			$hash = hex2bin($row[0]);
@@ -72,7 +77,7 @@ if (substr($_SERVER["PATH_INFO"],-7) == '/scrape')
 				echo "4:name".strlen($namemap[$row[0]]).":".$namemap[$row[0]];
 			echo "e";
 		}
-		
+
 		echo "ee";
 		exit;
 	}
@@ -101,9 +106,12 @@ if (!isset($_GET["info_hash"]) || !isset($_GET["peer_id"]))
 	die("This file is for BitTorrent clients.\n");
 }
 
-// Many thanks to KktoMx for figuring out this head-ache causer, 
+// Many thanks to KktoMx for figuring out this head-ache causer,
 // and to bideomex for showing me how to do it PROPERLY... :)
-if (get_magic_quotes_gpc()) 
+
+dolibarr_syslog("Tracker.php info_hash=".$_GET["info_hash"]);
+
+if (get_magic_quotes_gpc())
 {
 	$info_hash = bin2hex(stripslashes($_GET["info_hash"]));
 	$peer_id = bin2hex(stripslashes($_GET["peer_id"]));
@@ -123,7 +131,6 @@ $downloaded = $_GET["downloaded"];
 $uploaded = $_GET["uploaded"];
 $left = $_GET["left"];
 
-
 if (isset($_GET["event"]))
 	$event = $_GET["event"];
 else
@@ -137,12 +144,14 @@ if (isset($_GET["numwant"]))
 		$GLOBALS["maxpeers"]=$_GET["numwant"];
 
 if (isset($_GET["trackerid"]))
-{	
+{
 	if (is_numeric($_GET["trackerid"]))
 		$GLOBALS["trackerid"] = mysql_escape_string($_GET["trackerid"]);
 }
 if (!is_numeric($port) || !is_numeric($downloaded) || !is_numeric($uploaded) || !is_numeric($left))
 	showError("Invalid numerical field(s) from client");
+
+dolibarr_syslog("Tracker.php trackerid=".$GLOBALS["trackerid"]." event=".$event." port=".$port." ip=".$ip." download=".$downloaded." uploaded=".$uploaded." left=".$left." info_hash=".$info_hash, LOG_DEBUG);
 
 
 
@@ -152,7 +161,10 @@ if (!is_numeric($port) || !is_numeric($downloaded) || !is_numeric($uploaded) || 
 
 function start($info_hash, $ip, $port, $peer_id, $left)
 {
-	require("config.php"); //need prefix value...
+	global $prefix;
+
+	dolibarr_syslog("Tracker.php::start info_hash=".$info_hash." ip=".$ip." port=".$port." peer_id=".$peer_id." left=".$left);
+
 	if (isset($_SERVER["HTTP_X_FORWARDED_FOR"]))
 	{
       foreach(explode(",",$_SERVER["HTTP_X_FORWARDED_FOR"]) as $address)
@@ -206,10 +218,10 @@ function start($info_hash, $ip, $port, $peer_id, $left)
 		$nat = "'Y'";
 	else
 		$nat = "'N'";
-	
+
 	$results = @mysql_query("INSERT INTO ".$prefix."x$info_hash SET peer_id=\"$peer_id\", port=\"$port\", ip=\"$ip\", lastupdate=UNIX_TIMESTAMP(), bytes=\"$left\", status=\"$status\", natuser=$nat");
 
-	// Special case: duplicated peer_id. 
+	// Special case: duplicated peer_id.
 	if (!$results)
 	{
 		$error = mysql_error();
@@ -260,7 +272,7 @@ function start($info_hash, $ip, $port, $peer_id, $left)
 
 if ($event == '')
 {
-	verifyTorrent($info_hash) or evilReject($ip, $peer_id,$port);
+	verifyTorrent($info_hash) or evilReject($ip, $peer_id, $port);
 	$peer_exists = getPeerInfo($peer_id, $info_hash);
 	$where = "WHERE natuser='N'";
 
@@ -286,7 +298,7 @@ else if ($event == "started")
 	verifyTorrent($info_hash) or evilReject($ip, $peer_id,$port);
 
 	$start = start($info_hash, $ip, $port, $peer_id, $left);
-	
+
 	// Don't send the tracker id for newly started clients. Send it next time. Make sure
 	// they get a good random list of peers to begin with.
 	sendRandomPeers($info_hash);
@@ -294,10 +306,10 @@ else if ($event == "started")
 else if ($event == "stopped")
 {
 	verifyTorrent($info_hash) or evilReject($ip, $peer_id,$port);
-	killPeer($peer_id, $info_hash, $left);	
+	killPeer($peer_id, $info_hash, $left);
 
 	// I don't know why, but the real tracker returns peers on event=stopped
-	// but I'll just send an empty list. On the other hand, 
+	// but I'll just send an empty list. On the other hand,
 	// TheSHADOW asked for this.
 	if (isset($_GET["tracker"]))
 		$peers = getRandomPeers($info_hash);
@@ -318,7 +330,7 @@ else if ($event == "completed") // now the same as an empty string
 		quickQuery("UPDATE ".$prefix."x$info_hash SET bytes=0, status=\"seeder\" WHERE sequence=\"${GLOBALS["trackerid"]}\"");
 
 		// Race check
-		if (mysql_affected_rows() == 1) 
+		if (mysql_affected_rows() == 1)
 		{
 			summaryAdd("leechers", -1);
 			summaryAdd("seeds", 1);
@@ -354,7 +366,7 @@ if ($GLOBALS["countbytes"])
 
 
 
-/* 
+/*
  * Under heavy loads, this will lighten the load slightly... very slightly...
  */
 //if (mt_rand(1,10) == 4)

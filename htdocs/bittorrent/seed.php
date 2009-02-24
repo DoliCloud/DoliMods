@@ -2,7 +2,14 @@
 //Used for HTTP seeding
 //Requires information in torrent file for client to use
 
+$res=@include("../master.inc.php");
+if (! $res) @include("../../../dolibarr/htdocs/master.inc.php");	// Used on dev env only
+
+
 header("Content-Type: text/plain");
+
+
+dolibarr_syslog("Seed.php called");
 
 //error_log("One");
 if (!isset($_GET["info_hash"]) || !isset($_GET["piece"]))
@@ -23,7 +30,6 @@ $info_hash = bin2hex($info_hash);
 
 //error_log("Info hash=$info_hash, piece numnber=$piece");
 
-require_once("config.php");
 
 //change from KB to bytes
 $max_upload_rate = $GLOBALS["max_upload_rate"] * 1024;
@@ -83,7 +89,10 @@ if ($result)
 	//error_log("Doing PHPBT check");
 	$row = mysql_fetch_assoc($result);
 	if ($row["seeds"] > 5) //if there are seeds available, don't use HTTP seeding
+	{
+		dolibarr_syslog("Seed.php There is more than 5 seeds availables. Don't use HTTP");
 		reject();
+	}
 }
 if (mysql_num_rows($result) == 0) //hash isn't even in database!
 {
@@ -123,6 +132,8 @@ $xmitbytes = 0;
 
 while ($row = mysql_fetch_assoc($result))
 {
+	dolibarr_syslog("Seed.php Loop on each seed");
+
 	if (!($piece >= $row["startpiece"] && $piece <= $row["endpiece"]))
 		continue;
 

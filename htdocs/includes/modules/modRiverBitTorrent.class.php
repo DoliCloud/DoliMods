@@ -26,7 +26,7 @@
  *      \file       htdocs/includes/modules/modRiverBitTorrent.class.php
  *      \ingroup    mymodule
  *      \brief      Description and activation file for module MyModule
- *		\version	$Id: modRiverBitTorrent.class.php,v 1.1 2009/02/23 22:54:51 eldy Exp $
+ *		\version	$Id: modRiverBitTorrent.class.php,v 1.2 2009/02/24 02:39:40 eldy Exp $
  */
 include_once(DOL_DOCUMENT_ROOT ."/includes/modules/DolibarrModules.class.php");
 
@@ -72,6 +72,7 @@ class modRiverBitTorrent extends DolibarrModules
 		$this->dirs[0] = DOL_DATA_ROOT.'/bittorrent';
         $this->dirs[1] = DOL_DATA_ROOT.'/bittorrent/torrents';
         $this->dirs[2] = DOL_DATA_ROOT.'/bittorrent/rss';
+        $this->dirs[3] = DOL_DATA_ROOT.'/bittorrent/files';
 
 		// Relative path to module style sheet if exists. Example: '/mymodule/mycss.css'.
 		$this->style_sheet = '';

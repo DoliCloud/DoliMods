@@ -35,7 +35,7 @@ else //otherwise, generate new rss.xml file
 	while ($row = mysql_fetch_row($results))
 	{
 		//figure out full torrent URL
-		$url = $website_url . $_SERVER['REQUEST_URI'];
+		$url = $website_url.DOL_URL_ROOT;
 		$url = str_replace("newtorrents.php", "", $url);
 		$url = str_replace("editconfig.php", "", $url);
 		$url = str_replace("deleter.php", "", $url);

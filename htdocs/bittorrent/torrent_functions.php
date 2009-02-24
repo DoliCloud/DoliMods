@@ -48,18 +48,6 @@ function announceoutput($array)
 	echo "</pre>";
 }
 
-function escapeURL($url)
-{
-	$ret = "";
-	$i=0;
-	while (strlen($url) > $i)
-	{
-		$ret .= "%".$url[$i].$url[$i + 1];
-		$i+=2;
-	}
-	return $ret;
-}
-
 
 function stringcleaner($str)
 {
@@ -262,7 +250,11 @@ if (isset($_FILES["torrent"]) || isset($_POST["url"]) || isset($_GET["url"]))
 		echo "<br><h2>Non-file data:</h2>";
 		echo "<table border=0 cellpadding=2 cellspacing=2><tr>";
 		echo "<td align=right>Info hash</td><td>=</td><td><TT>$infohash</TT></td></tr>\n";
+
 		echo "<tr><td align=right>Announce URL</td><td>=</td><td>".$array["announce"]."</td></tr>\n";
+
+		//echo "<tr><td align=right>Announce URL</td><td>=</td><td>".$array["announce"]."</td></tr>\n";
+
 		if (isset($array["creation date"]))
 		{
 			echo "<tr><td align=right>Creation date</td><td>=</td><td>";

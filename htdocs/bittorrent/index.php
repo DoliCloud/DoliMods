@@ -228,7 +228,10 @@ while ($data = mysql_fetch_row($results)) {
 	else
 		echo $data[5] . " - ";
 
+
 	echo "<a href=\"dltorrent.php?hash=" . $myhash . "\">  (Download Torrent)</a></td></tr>";
+	//echo "<a href=\"torrents/" . rawurlencode($data[5]) . ".torrent\">  (Download Torrent)</a></td></tr>";
+
 
 	if (strlen($data[7]) > 0) //show file size
 	{
@@ -317,6 +320,6 @@ if (rand(1, 10) == 1)
 <a href="admin.php"><img src="images/admin.png" border="0" class="icon" alt="Admin Page" title="Admin Page" /></a><a href="admin.php">Return to Admin Page</a>
 <?php
 
-llxFooter('$Date: 2009/02/23 22:54:51 $ - $Revision: 1.1 $');
+llxFooter('$Date: 2009/02/24 02:39:39 $ - $Revision: 1.2 $');
 ?>
 

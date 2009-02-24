@@ -14,7 +14,7 @@ if (isset($_FILES["torrent"]))
 {
 	addTorrent();
 
-	llxFooter('$Date: 2009/02/23 22:54:51 $ - $Revision: 1.1 $');
+	llxFooter('$Date: 2009/02/24 02:39:39 $ - $Revision: 1.2 $');
 	exit;
 }
 else
@@ -54,7 +54,7 @@ function addTorrent()
 		}
 		if (strtolower($array["announce"]) != $tracker_url)
 		{
-			echo errorMessage() . "Error: The tracker announce URL does not match this:<br>$tracker_url<br>Please re-create and re-upload the torrent.</p>\n";
+			echo errorMessage() . "Error: The tracker announce URL in .torrent (".$array["announce"].") does not match this tracker (".$tracker_url.")<br>Please re-create and re-upload the torrent.</p>\n";
 			endOutput();
 			exit;
 		}
@@ -147,17 +147,12 @@ function addTorrent()
 
 	$filename = mysql_escape_string($filename);
 	$filename = htmlspecialchars(clean($filename));
-	$url = htmlspecialchars(mysql_escape_string($url));
+	$url = '';
+
 
 	if ((strlen($hash) != 40) || !verifyHash($hash))
 	{
 		echo errorMessage() . "Error: Info hash must be exactly 40 hex bytes.</p>\n";
-		endOutput();
-	}
-
-	if (Substr($url, 0, 7) != "http://" && $url != "")
-	{
-		echo errorMessage() . "Error: The Torrent URL does not start with http:// Make sure you entered a correct URL.</p>\n";
 		endOutput();
 	}
 
@@ -220,19 +215,26 @@ function endOutput()
 	</tr>
 	<tr><td colspan="2"><hr></td></tr>
 	<tr>
-	<td class="center" colspan="2"><input type="checkbox" name="httpseed" value="enabled">Use BitTornado HTTP seeding specification (optional)</td>
+	<td class="center" colspan="2"><input type="checkbox" name="httpseed" value="enabled" disabled="true">Use BitTornado HTTP seeding specification (optional)</td>
 	</tr>
 	<tr>
-	<td class="right">Relative location of file or directory:<br>e.g. ../../files/file.zip</td>
-	<td class="left"><input type="text" name="relative_path" size="70"/></td>
+	<td class="right" valign="top">Relative location of file or directory:<br></td>
+	<td class="left"><input disabled="true" type="text" name="relative_path" size="70"/><br>
+	Example: ../../files/file.zip</td>
 	</tr>
 	<tr><td colspan="2"><hr></td></tr>
 	<tr>
 	<td class="center" colspan="2"><input type="checkbox" name="getrightseed" value="enabled">Use GetRight HTTP seeding specification (optional)</td>
 	</tr>
 	<tr>
-	<td class="right">FTP/HTTP URL of file or directory:<br>e.g. http://yourwebsite.com/file.zip</td>
-	<td class="left"><input type="text" name="httpftplocation" size="70"/></td>
+	<td class="right" valign="top">FTP/HTTP URL of file or directory:<br>
+	</td>
+	<td class="left"><input type="text" name="httpftplocation" size="70"/><br>
+	For example if file is myfile.zip on an external server:<br>
+	http://myserver/myfile.zip<br>
+	For example if file is myfile.zip inside <?php echo DOL_DATA_ROOT.'/bittorrent/files'; ?> directory:<br>
+	http://localhostdolibarr/document.php?modulepart=bittorrent&file=myfile.zip
+	</td>
 	</tr>
 	<tr><td colspan="2"><hr></td></tr>
 	<?php if (function_exists("sha1"))
@@ -262,7 +264,7 @@ function endOutput()
 	<a href="admin.php"><img src="images/admin.png" border="0" class="icon" alt="Admin Page" title="Admin Page" /></a><a href="admin.php">Return to Admin Page</a>
 	</div>
 	<?php
-	llxFooter('$Date: 2009/02/23 22:54:51 $ - $Revision: 1.1 $');
+	llxFooter('$Date: 2009/02/24 02:39:39 $ - $Revision: 1.2 $');
 
 	// Still in function endOutput()
 	exit;

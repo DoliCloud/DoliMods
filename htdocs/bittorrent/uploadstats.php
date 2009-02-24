@@ -11,7 +11,8 @@ $form=new Form($db);
 ?>
 
 <h1>Upload Statistics</h1>
-<h2>This may be wildly inaccurate because when torrents are deleted, the bittorrent traffic is removed yet the HTTP traffic stays the same.</h2>
+This may be wildly inaccurate because when torrents are deleted, the bittorrent traffic is removed yet the HTTP traffic stays the same.<br>
+
 <?php
 if ($GLOBALS["persist"])
 	$db = mysql_pconnect($dbhost, $dbuser, $dbpass) or die(errorMessage() . "Tracker error: can't connect to database - " . mysql_error() . "</p>");
@@ -80,5 +81,5 @@ echo "Total Uploaded: " . bytesToString($httpuploaded + $btuploaded);
 <a href="admin.php"><img src="images/admin.png" border="0" class="icon" alt="Admin Page" title="Admin Page" /></a><a href="admin.php">Return to Admin Page</a>
 
 <?php
-llxFooter('$Date: 2009/02/23 22:54:51 $ - $Revision: 1.1 $');
+llxFooter('$Date: 2009/02/24 02:39:39 $ - $Revision: 1.2 $');
 ?>

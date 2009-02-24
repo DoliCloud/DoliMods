@@ -57,13 +57,12 @@ if (isset($filename) && !isset($_POST["editdatabase"]))
 	<table border="0">
 	<tr><td><b>Info Hash: </b></td><td><?php echo $data[0];?></td></tr>
 	<tr><td><b>Filename:</b></td><td><input type="text" name="<?php echo $data[0] . "_filename";?>" size="60" value="<?php echo $data[1];?>"></td></tr>
-	<tr><td><b>URL:</b></td><td><input type="text" name="<?php echo $data[0] . "_url";?>" size="60" value="<?php echo $data[2];?>"></td></tr>
 	<tr><td><b>Publication Date:</b></td><td><input type="text" name="<?php echo $data[0] . "_pubDate";?>" size="60" value="<?php echo $data[3];?>"></td></tr>
 	<tr><td><hr></td><td><hr></td></tr>
 
 	</table>
 	<br>
-	<input type="submit" value="Edit Entry">
+	<input type="submit" value="<?php echo $langs->trans("Save"); ?>">
 	</form>
 
 	<?php
@@ -103,6 +102,6 @@ if (isset($_POST["editdatabase"]))
 <a href="admin.php"><img src="images/admin.png" border="0" class="icon" alt="Admin Page" title="Admin Page" /></a><a href="admin.php">Return to Admin Page</a>
 
 <?php
-llxFooter('$Date: 2009/02/23 22:54:51 $ - $Revision: 1.1 $');
+llxFooter('$Date: 2009/02/24 02:39:39 $ - $Revision: 1.2 $');
 ?>
 

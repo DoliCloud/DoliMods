@@ -1,5 +1,5 @@
 <?php
-require_once("config.php");
+include("./pre.inc.php");
 require_once("funcsv2.php");
 
 $summaryupdate = array();
@@ -34,7 +34,7 @@ while ($row = mysql_fetch_row($results))
 
 	$counts = array();
 	while ($row = mysql_fetch_row($results2))
-		$counts[$row[0]] = $row[1];	
+		$counts[$row[0]] = $row[1];
 	if (!isset($counts["leecher"]))
 		$counts["leecher"] = 0;
 	if (!isset($counts["seeder"]))
@@ -45,13 +45,13 @@ while ($row = mysql_fetch_row($results))
 
 	if ($counts["seeder"] != $seeders)
 		quickQuery("UPDATE ".$prefix."summary SET seeds=".$counts["seeder"]." WHERE info_hash=\"$hash\"");
-		
+
 	if ($counts["leecher"] == 0)
 	{
 		//If there are no leechers, set the speed to zero
 		quickQuery("UPDATE ".$prefix."summary set speed=0 WHERE info_hash=\"$hash\"");
 	}
-	
+
 
 	if ($bytes < 0)
 		quickQuery("UPDATE ".$prefix."summary SET dlbytes=0 WHERE info_hash=\"$hash\"");
@@ -62,12 +62,12 @@ while ($row = mysql_fetch_row($results))
 	if (mysql_num_rows($result) > 0)
 	{
 		$row = array();
-		
+
 		while ($data = mysql_fetch_row($result))
 				$row[] = "sequence=\"${data[0]}\"";
 		$where = implode(" OR ", $row);
 		$query = mysql_query("SELECT * FROM ".$prefix."x$hash WHERE $where");
-		
+
 		while ($row = mysql_fetch_assoc($query))
 		{
 			$compact = mysql_escape_string(pack('Nn', ip2long($row["ip"]), $row["port"]));
@@ -75,13 +75,13 @@ while ($row = mysql_fetch_row($results))
 			$no_peerid = mysql_escape_string('2:ip' . strlen($row["ip"]) . ':' . $row["ip"] . "4:porti{$row["port"]}e");
 			mysql_query("INSERT INTO ".$prefix."y$hash SET sequence=\"{$row["sequence"]}\", compact=\"$compact\", with_peerid=\"$peerid\", without_peerid=\"$no_peerid\"");
 		}
-	}	
+	}
 
 	$result = mysql_query("SELECT ".$prefix."y$hash.sequence FROM ".$prefix."y$hash LEFT JOIN ".$prefix."x$hash ON ".$prefix."y$hash.sequence = ".$prefix."x$hash.sequence WHERE ".$prefix."x$hash.sequence IS NULL");
 	if (mysql_num_rows($result) > 0)
 	{
 		$row = array();
-		
+
 		while ($data = mysql_fetch_row($result))
 			$row[] = "sequence=\"${data[0]}\"";
 		$where = implode(" OR ", $row);
@@ -92,7 +92,7 @@ while ($row = mysql_fetch_row($results))
 	$i ++;
 
 	quickQuery("UNLOCK TABLES");
-	
+
 	//Repair tables, is this necessary?  Sometimes the tables crash...
 	//Can't repair table if locked?
 	//quickQuery("REPAIR Table x$hash");
@@ -109,12 +109,14 @@ while ($row = mysql_fetch_row($results))
 		mysql_query("UPDATE ".$prefix."summary SET ".substr($stuff, 1)." WHERE info_hash=\"$hash\"");
 		$summaryupdate = array();
 	}
-		
+
 }
 
 
 function myTrashCollector($hash, $timeout, $now, $writeout)
 {
+	global $prefix;
+
  	$peers = loadLostPeers($hash, $timeout);
  	for ($i=0; $i < $peers["size"]; $i++)
 	        killPeer($peers[$i]["peer_id"], $hash, $peers[$i]["bytes"], $peers[$i]);
