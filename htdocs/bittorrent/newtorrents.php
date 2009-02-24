@@ -5,7 +5,7 @@ require_once("funcsv2.php");
 
 $tracker_url = $website_url . substr($_SERVER['REQUEST_URI'], 0, -15) . "announce.php";
 
-llxHeader('','BitTorrent',$website_url.DOL_URL_ROOT.'/bittorrent/docs/help.html');
+llxHeader('','BitTorrent',$website_url.'/bittorrent/docs/help.html');
 
 $form=new Form($db);
 
@@ -15,7 +15,7 @@ if (isset($_FILES["torrent"]))
 {
 	addTorrent();
 
-	llxFooter('$Date: 2009/02/24 18:41:00 $ - $Revision: 1.3 $');
+	llxFooter('$Date: 2009/02/24 21:45:17 $ - $Revision: 1.4 $');
 	exit;
 }
 else
@@ -231,7 +231,7 @@ function endOutput()
 	For example if file is myfile.zip on an external server:<br>
 	http://myserver/myfile.zip<br>
 	For example if file is myfile.zip inside <?php echo DOL_DATA_ROOT.'/bittorrent/files'; ?> directory:<br>
-	<?php echo $website_url.DOL_URL_ROOT.'/document.php?modulepart=bittorrent&file=myfile.zip'; ?>
+	<?php echo $website_url.'/document.php?modulepart=bittorrent&file=myfile.zip'; ?>
 	</td>
 	</tr>
 	<tr><td colspan="2"><hr></td></tr>
@@ -262,7 +262,7 @@ function endOutput()
 	<a href="admin.php"><img src="images/admin.png" border="0" class="icon" alt="Admin Page" title="Admin Page" /></a><a href="admin.php">Return to Admin Page</a>
 	</div>
 	<?php
-	llxFooter('$Date: 2009/02/24 18:41:00 $ - $Revision: 1.3 $');
+	llxFooter('$Date: 2009/02/24 21:45:17 $ - $Revision: 1.4 $');
 
 	// Still in function endOutput()
 	exit;
