@@ -15,7 +15,7 @@ if (isset($_FILES["torrent"]))
 {
 	addTorrent();
 
-	llxFooter('$Date: 2009/02/24 22:09:07 $ - $Revision: 1.6 $');
+	llxFooter('$Date: 2009/02/24 22:19:46 $ - $Revision: 1.7 $');
 	exit;
 }
 else
@@ -30,8 +30,8 @@ function addTorrent()
 	global $enablerss,$rss_title,$rss_link,$rss_description,$timezone;
 
 	$tracker_url = $website_url . '/bittorrent/announce.php';
-	$tracker_url_http  = eregi('^https:','http:',$tracker_url);
-	$tracker_url_https = eregi('^http:','https:',$tracker_url);
+	$tracker_url_http  = eregi_replace('^https:','http:',$tracker_url);
+	$tracker_url_https = eregi_replace('^http:','https:',$tracker_url);
 
 	$hash = strtolower($_POST["hash"]);
 
@@ -264,7 +264,7 @@ function endOutput()
 	<a href="admin.php"><img src="images/admin.png" border="0" class="icon" alt="Admin Page" title="Admin Page" /></a><a href="admin.php">Return to Admin Page</a>
 	</div>
 	<?php
-	llxFooter('$Date: 2009/02/24 22:09:07 $ - $Revision: 1.6 $');
+	llxFooter('$Date: 2009/02/24 22:19:46 $ - $Revision: 1.7 $');
 
 	// Still in function endOutput()
 	exit;

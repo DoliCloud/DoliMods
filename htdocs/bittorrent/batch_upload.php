@@ -25,8 +25,8 @@ if ($_FILES["zipfile"]["error"] != 4 && isset($_FILES["zipfile"]["tmp_name"])) /
 	<?php
 
 	$tracker_url = $website_url . '/bittorrent/announce.php';
-	$tracker_url_http  = eregi('^https:','http:',$tracker_url);
-	$tracker_url_https = eregi('^http:','https:',$tracker_url);
+	$tracker_url_http  = eregi_replace('^https:','http:',$tracker_url);
+	$tracker_url_https = eregi_replace('^http:','https:',$tracker_url);
 
 
 	$zip = zip_open($_FILES["zipfile"]["tmp_name"]);
@@ -174,5 +174,5 @@ else
 <a href="admin.php"><img src="images/admin.png" border="0" class="icon" alt="Admin Page" title="Admin Page" /></a><a href="admin.php">Return to Admin Page</a>
 
 <?php
-llxFooter('$Date: 2009/02/24 22:09:07 $ - $Revision: 1.4 $');
+llxFooter('$Date: 2009/02/24 22:19:46 $ - $Revision: 1.5 $');
 ?>
