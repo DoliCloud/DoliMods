@@ -15,7 +15,7 @@ if (isset($_FILES["torrent"]))
 {
 	addTorrent();
 
-	llxFooter('$Date: 2009/02/24 21:45:17 $ - $Revision: 1.4 $');
+	llxFooter('$Date: 2009/02/24 21:49:22 $ - $Revision: 1.5 $');
 	exit;
 }
 else
@@ -195,7 +195,7 @@ function endOutput()
 {
 	global $website_url;
 
-	$tracker_url = $website_url . substr($_SERVER['REQUEST_URI'], 0, -15) . "announce.php";
+	$tracker_url = $website_url . '/bittorrent/announce.php';
 	?>
 	<div class="center">
 	<h1>Add Torrent to Tracker Database</h1>
@@ -262,7 +262,7 @@ function endOutput()
 	<a href="admin.php"><img src="images/admin.png" border="0" class="icon" alt="Admin Page" title="Admin Page" /></a><a href="admin.php">Return to Admin Page</a>
 	</div>
 	<?php
-	llxFooter('$Date: 2009/02/24 21:45:17 $ - $Revision: 1.4 $');
+	llxFooter('$Date: 2009/02/24 21:49:22 $ - $Revision: 1.5 $');
 
 	// Still in function endOutput()
 	exit;
