@@ -23,8 +23,13 @@ if ($_FILES["zipfile"]["error"] != 4 && isset($_FILES["zipfile"]["tmp_name"])) /
 	<a href="admin.php"><img src="images/admin.png" border="0" class="icon" alt="Admin Page" title="Admin Page" /></a><a href="admin.php">Return to Admin Page</a>
 	<br><br>
 	<?php
-	$zip = zip_open($_FILES["zipfile"]["tmp_name"]);
 
+	$tracker_url = $website_url . '/bittorrent/announce.php';
+	$tracker_url_http  = eregi('^https:','http:',$tracker_url);
+	$tracker_url_https = eregi('^http:','https:',$tracker_url);
+
+
+	$zip = zip_open($_FILES["zipfile"]["tmp_name"]);
 	if ($zip == true)
 	{
 		$db = mysql_connect($dbhost, $dbuser, $dbpass) or die(errorMessage() . "Couldn't connect to the database, contact the administrator</p>");
@@ -44,17 +49,15 @@ if ($_FILES["zipfile"]["error"] != 4 && isset($_FILES["zipfile"]["tmp_name"])) /
 					require_once ("BDecode.php");
 					require_once ("BEncode.php");
 
-					$tracker_url = $website_url . substr($_SERVER['REQUEST_URI'], 0, -16) . "announce.php";
-
 					$array = BDecode($buffer);
 					if (!$array)
 					{
 						echo errorMessage() . "Error: The parser was unable to load this torrent.</p>\n";
 						$error_status = false;
 					}
-					if (strtolower($array["announce"]) != $tracker_url)
+					if (strtolower($array["announce"]) != $tracker_url_http && strtolower($array["announce"]) != $tracker_url_https)
 					{
-						echo errorMessage() . "Error: The tracker announce URL does not match this:<br>$tracker_url<br>Please re-create and re-upload the torrent.</p>\n";
+						echo errorMessage() . "Error: The tracker announce URL in .torrent (".$array["announce"].") does not match this tracker (".$tracker_url.")<br>Please re-create and re-upload the torrent.</p>\n";
 						$error_status = false;
 					}
 					if (function_exists("sha1"))
@@ -171,5 +174,5 @@ else
 <a href="admin.php"><img src="images/admin.png" border="0" class="icon" alt="Admin Page" title="Admin Page" /></a><a href="admin.php">Return to Admin Page</a>
 
 <?php
-llxFooter('$Date: 2009/02/24 21:45:17 $ - $Revision: 1.3 $');
+llxFooter('$Date: 2009/02/24 22:09:07 $ - $Revision: 1.4 $');
 ?>
