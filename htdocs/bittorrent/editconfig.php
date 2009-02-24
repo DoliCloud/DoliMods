@@ -183,12 +183,6 @@ if (!isset($_POST["saveconfig"]))
 	$temp = fgets($fr);
 	$temp = substr($temp, strpos($temp, "=")+3, -3);
 	?>
-	<tr><td><span class="notice">*</span> Main website url that the tracker runs on, example: http://www.mywebsite.com</td>
-	<td><input type="text" name="website_url" size="40" value="<?php echo $temp;?>"></td></tr>
-	<?php
-	$temp = fgets($fr);
-	$temp = substr($temp, strpos($temp, "=")+2, -2);
-	?>
 	<tr><td><span class="notice">*</span> For HTTP seeding, this is the maximum total upload rate per second in kilobytes, for example 100 would be 100 KB/s</td>
 	<td><input type="text" name="max_upload_rate" size="40" value="<?php echo $temp;?>"></td></tr>
 	<?php
@@ -435,6 +429,6 @@ if (isset($_POST["saveconfig"]))
 <a href="admin.php"><img src="images/admin.png" border="0" class="icon" alt="Admin Page" title="Admin Page" /></a><a href="admin.php">Return to Admin Page</a>
 
 <?php
-llxFooter('$Date: 2009/02/24 21:45:17 $ - $Revision: 1.3 $');
+llxFooter('$Date: 2009/02/24 21:57:54 $ - $Revision: 1.4 $');
 ?>
 

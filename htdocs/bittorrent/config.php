@@ -1,6 +1,5 @@
 <?php
 
-$GLOBALS['hiddentracker'] = true;
 $GLOBALS['scrape'] = false;
 $GLOBALS['report_interval'] = 1800;
 $GLOBALS['min_interval'] = 300;
