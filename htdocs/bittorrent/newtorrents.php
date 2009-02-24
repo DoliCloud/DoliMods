@@ -3,18 +3,19 @@ include("./pre.inc.php");
 require_once("funcsv2.php");
 
 
-llxHeader();
+$tracker_url = $website_url . substr($_SERVER['REQUEST_URI'], 0, -15) . "announce.php";
+
+llxHeader('','BitTorrent',$website_url.DOL_URL_ROOT.'/bittorrent/docs/help.html');
 
 $form=new Form($db);
 
 
-$tracker_url = $website_url . substr($_SERVER['REQUEST_URI'], 0, -15) . "announce.php";
 
 if (isset($_FILES["torrent"]))
 {
 	addTorrent();
 
-	llxFooter('$Date: 2009/02/24 02:39:39 $ - $Revision: 1.2 $');
+	llxFooter('$Date: 2009/02/24 18:41:00 $ - $Revision: 1.3 $');
 	exit;
 }
 else
@@ -162,8 +163,6 @@ function addTorrent()
 	if ($status)
 	{
 		echo "<p class=\"success\">Torrent was added successfully.</p>\n";
-		echo "<a href=\"newtorrents.php\"><img src=\"images/add.png\" border=\"0\" class=\"icon\" alt=\"Add Torrent\" title=\"Add Torrent\" /></a>";
-		echo "<a href=\"newtorrents.php\">Add Another Torrent</a><br>\n";
 		//rename torrent file to match filename
 		rename(DOL_DATA_ROOT."/bittorrent/torrents/" . clean($_FILES['torrent']['name']), DOL_DATA_ROOT."/bittorrent/torrents/" . $filename . ".torrent");
 		//make torrent file readable by all
@@ -198,7 +197,6 @@ function endOutput()
 
 	$tracker_url = $website_url . substr($_SERVER['REQUEST_URI'], 0, -15) . "announce.php";
 	?>
-	<p align="right"><a href="./docs/help.html"><img src="images/help.png" border="0" class="icon" alt="Help" title="Help" /></a><a href="./docs/help.html">Help</a></p>
 	<div class="center">
 	<h1>Add Torrent to Tracker Database</h1>
 	<h3>Tracker URL: <?php echo $tracker_url;?></h3>
@@ -224,7 +222,7 @@ function endOutput()
 	</tr>
 	<tr><td colspan="2"><hr></td></tr>
 	<tr>
-	<td class="center" colspan="2"><input type="checkbox" name="getrightseed" value="enabled">Use GetRight HTTP seeding specification (optional)</td>
+	<td class="center" colspan="2"><input type="checkbox" name="getrightseed" value="enabled">Use GetRight HTTP seeding specification (optional but highly recommanded to avoid to have a client running as a seed)</td>
 	</tr>
 	<tr>
 	<td class="right" valign="top">FTP/HTTP URL of file or directory:<br>
@@ -233,7 +231,7 @@ function endOutput()
 	For example if file is myfile.zip on an external server:<br>
 	http://myserver/myfile.zip<br>
 	For example if file is myfile.zip inside <?php echo DOL_DATA_ROOT.'/bittorrent/files'; ?> directory:<br>
-	http://localhostdolibarr/document.php?modulepart=bittorrent&file=myfile.zip
+	<?php echo $website_url.DOL_URL_ROOT.'/document.php?modulepart=bittorrent&file=myfile.zip'; ?>
 	</td>
 	</tr>
 	<tr><td colspan="2"><hr></td></tr>
@@ -264,7 +262,7 @@ function endOutput()
 	<a href="admin.php"><img src="images/admin.png" border="0" class="icon" alt="Admin Page" title="Admin Page" /></a><a href="admin.php">Return to Admin Page</a>
 	</div>
 	<?php
-	llxFooter('$Date: 2009/02/24 02:39:39 $ - $Revision: 1.2 $');
+	llxFooter('$Date: 2009/02/24 18:41:00 $ - $Revision: 1.3 $');
 
 	// Still in function endOutput()
 	exit;

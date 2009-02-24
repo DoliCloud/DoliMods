@@ -3,14 +3,15 @@
 include("./pre.inc.php");
 require ("funcsv2.php");
 
+$tracker_url = $website_url . substr($_SERVER['REQUEST_URI'], 0, -15) . "announce.php";
 
-llxHeader();
+llxHeader('','BitTorrent',$website_url.DOL_URL_ROOT.'/bittorrent/docs/help.html');
 
 $form=new Form($db);
 
-?>
+print_fiche_titre('River BitTorrent admin page');
 
-<h1>Admin Page</h1>
+?>
 
 <a href="newtorrents.php"><img src="images/add.png" border="0" class="icon" alt="Add Torrent" title="Add Torrent" /></a><a href="newtorrents.php">Add Torrent to Tracker Database</a><br>
 <a href="batch_upload.php"><img src="images/batch_upload.png" border="0" class="icon" alt="Batch Upload Torrents" title="Batch Upload Torrents" /></a><a href="batch_upload.php">Batch Upload Torrents</a><br>
@@ -22,7 +23,6 @@ $form=new Form($db);
 <a href="deleter.php"><img src="images/delete.png" border="0" class="icon" alt="Delete Torrent" title="Delete Torrent" /></a><a href="deleter.php">Delete Torrent from Tracker Database</a><br>
 <a href="editconfig.php"><img src="images/edit.png" border="0" class="icon" alt="View Config File" title="View Config File" /></a><a href="editconfig.php">View Configuration Settings</a><br>
 <a href="uploadstats.php"><img src="images/download.png" border="0" class="icon" alt="Upload Statistics" title="Upload Statistics" /></a><a href="uploadstats.php">Upload Statistics</a><br>
-<a href="./docs/help.html"><img src="images/help.png" border="0" class="icon" alt="Help" title="Help" /></a><a href="./docs/help.html">Help</a><br>
 
 <?php
 //Check for install.php file, security risk if still available
@@ -31,5 +31,5 @@ if (file_exists("install.php"))
 	echo errorMessage() . "Your install.php file has NOT been deleted.  This is a security risk, please delete it immediately.</p>\n";
 }
 
-llxFooter('$Date: 2009/02/23 22:54:51 $ - $Revision: 1.1 $');
+llxFooter('$Date: 2009/02/24 18:41:00 $ - $Revision: 1.2 $');
 ?>

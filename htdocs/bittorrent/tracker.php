@@ -109,18 +109,20 @@ if (!isset($_GET["info_hash"]) || !isset($_GET["peer_id"]))
 // Many thanks to KktoMx for figuring out this head-ache causer,
 // and to bideomex for showing me how to do it PROPERLY... :)
 
-dolibarr_syslog("Tracker.php info_hash=".$_GET["info_hash"]);
+dolibarr_syslog("Tracker.php info_hash=".$_GET["info_hash"]." length info_hash=".strlen($_GET["info_hash"]));
 
 if (get_magic_quotes_gpc())
 {
-	$info_hash = bin2hex(stripslashes($_GET["info_hash"]));
-	$peer_id = bin2hex(stripslashes($_GET["peer_id"]));
+	$hashtmp=stripslashes($_GET["info_hash"]);
+	$peertmp=stripslashes($_GET["peer_id"]);
 }
 else
 {
-	$info_hash = bin2hex($_GET["info_hash"]);
-	$peer_id = bin2hex($_GET["peer_id"]);
+	$hashtmp=$_GET["info_hash"];
+	$peertmp=$_GET["peer_id"];
 }
+$info_hash = bin2hex($hashtmp);
+$peer_id = bin2hex($peertmp);
 
 if (!isset($_GET["port"]) || !isset($_GET["downloaded"]) || !isset($_GET["uploaded"]) || !isset($_GET["left"]))
 	showError("Invalid information received from BitTorrent client");

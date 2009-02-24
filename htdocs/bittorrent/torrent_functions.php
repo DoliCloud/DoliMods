@@ -269,18 +269,26 @@ if (isset($_FILES["torrent"]) || isset($_POST["url"]) || isset($_GET["url"]))
 		else
 			echo "<tr><td align=right>Private (No DHT Allowed)</td><td>=</td><td>no</td></tr>\n";
 
+		$foundurl=false;
 		foreach ($array as $left => $right)
 		{
 			if ($left == "announce" || $left == "info" || $left == "creation date")
 				continue; // skip
 			if ($left == "url-list" || $left == "httpseeds")
 			{
+				$foundurl=true;
 				echo "<tr><td align=right>$left</td><td>=</td><td>";
 				print_r(cleaner($array[$left]));
 				echo "</td></tr>\n";
 				continue;
 			}
 			echo "<tr><td align=right>$left</td><td>=</td><td>".$array[$left]."</td></tr>\n";
+		}
+		if (! $foundurl)
+		{
+				echo "<tr><td align=right>url-list / httpseeds not defined</td><td>=</td><td>";
+				echo 'This means this file could be downloaded only if a first client is opened with file already present as a seeed';
+				echo "</td></tr>\n";
 		}
 
 		echo "</table><br><br><h2>File data:</h2><pre>";

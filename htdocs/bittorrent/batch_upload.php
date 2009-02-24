@@ -3,7 +3,9 @@
 include("./pre.inc.php");
 require_once("funcsv2.php");
 
-llxHeader();
+$tracker_url = $website_url . substr($_SERVER['REQUEST_URI'], 0, -15) . "announce.php";
+
+llxHeader('','BitTorrent',$website_url.DOL_URL_ROOT.'/bittorrent/docs/help.html');
 
 $form=new Form($db);
 
@@ -169,5 +171,5 @@ else
 <a href="admin.php"><img src="images/admin.png" border="0" class="icon" alt="Admin Page" title="Admin Page" /></a><a href="admin.php">Return to Admin Page</a>
 
 <?php
-llxFooter('$Date: 2009/02/23 22:54:51 $ - $Revision: 1.1 $');
+llxFooter('$Date: 2009/02/24 18:41:00 $ - $Revision: 1.2 $');
 ?>
