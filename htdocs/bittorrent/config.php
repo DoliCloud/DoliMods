@@ -14,12 +14,13 @@ $dbuser = $dolibarr_main_db_user;
 $dbpass = $dolibarr_main_db_pass;
 $database = $dolibarr_main_db_name;
 $enablerss = true;
-$rss_title = '';
+$rss_title = 'Dolibarr BitTorrent tracker';
 $rss_link = '';
-$rss_description = '';
+$rss_description = 'Files delivered by Dolibarr BitTorrent Tracker';
 $GLOBALS['max_upload_rate'] = 100;
 $GLOBALS['max_uploads'] = 5;
 $timezone = '+0100';
+
 $prefix = $conf->db->prefix.'bt_';
 
 // Should work with DOL_URL_ROOT='' or DOL_URL_ROOT='/dolibarr'
