@@ -14,18 +14,20 @@ print_fiche_titre("View config file");
 
 <form action="<?php echo $_SERVER["PHP_SELF"];?>" method="POST">
 <input type="hidden" name="saveconfig" value="1">
-This page allows you to view the BitTorrent "config.php" settings.  This file stores all the necessary
-settings for your tracker.<br>
-<span class="notice">*</span> - required value<br>
+This page allows you to view the BitTorrent "bittorrent/config.php" settings.
+This file stores all secondary settings for your tracker.<br>
+You can change this values by editing this files manually.<br>
+<br>
 <table border="1" cellpadding="3">
 <?php
 //open up config file
 $fr = fopen("config.php", "r") or die(errorMessage() . "Error: couldn't read config.php!</p>");
 $temp = fgets($fr);
 $temp = fgets($fr);
+$temp = fgets($fr);
 $temp = substr($temp, strpos($temp, "=")+2, -2);
 ?>
-<tr><td>Enable or disable scraping by clients.  Generally it is safe to leave this on unless
+<tr><td>Tell if scraping by clients is enabled. Generally it is safe to leave this on unless
 you have a large number of torrents or users which can lead to increased bandwidth usage.  Also, scraping
 can possibily be used maliciously by abusive clients.</td>
 <td><input type="checkbox" value="<?php if($temp == "true") echo "on"; else echo "off"?>" name="scrape"<?php if ($temp == "true") echo " checked";?>></td></tr>
@@ -83,43 +85,6 @@ the load.</td>
 <td><input type="checkbox" value="<?php if($temp == "true") echo "on"; else echo "off"?>" name="countbytes"<?php if ($temp == "true") echo " checked";?>></td></tr>
 <?php
 $temp = fgets($fr);
-$temp = substr($temp, strpos($temp, "=")+3, -3);
-?>
-<tr><td><span class="notice">*</span> Username for individual who can add torrents to tracker database.
-This user is only able to create, and not delete torrents to the tracker.
-For full privileges, see the admin user.</td>
-<td><input type="text" name="upload_username" size="40" value="<?php echo $temp;?>"></td></tr>
-<?php
-$temp = fgets($fr);
-$temp = substr($temp, strpos($temp, "=")+3, -3);
-?>
-<tr><td><span class="notice">*</span> Password for individual who can add torrents to tracker database.
-Again, this user is only able to create, and not delete torrents to the tracker.
-For full privileges, see the admin user.<br><br>
-<input type="hidden" name="old_upload_password" value="<?php echo $temp;?>">
-<b>Current MD5 hashed username+password: <?php echo $temp;?></b></td>
-<td><input type="password" name="upload_password" size="40" value=""></td></tr>
-<?php
-$temp = fgets($fr);
-$temp = substr($temp, strpos($temp, "=")+3, -3);
-?>
-<tr><td><span class="notice">*</span> Admin username. The admin is able to go to the admin page and show detailed
-information about the tracker as well as access a few other important tools.
-The admin is also able to upload torrents to the database
-just like the previous account.</td>
-<td><input type="text" name="admin_username" size="40" value="<?php echo $temp;?>"></td></tr>
-<?php
-$temp = fgets($fr);
-$temp = substr($temp, strpos($temp, "=")+3, -3);
-?>
-<tr><td><span class="notice">*</span> Password for admin.  Again, The admin is able to go to the admin page and show detailed
-information about the tracker as well as access a few other important tools.
-The admin is also able to upload torrents to the database.<br><br>
-<input type="hidden" name="old_admin_password" value="<?php echo $temp;?>">
-<b>Current MD5 hashed username+password: <?php echo $temp;?></b></td>
-<td><input type="password" name="admin_password" size="40" value=""></td></tr>
-<?php
-$temp = fgets($fr);
 $temp = clean(substr($temp, strpos($temp, "=")+3, -3));
 ?>
 <tr><td>Title on index.php statistics page, if not set, defaults to "Tracker Statistics"</td>
@@ -130,28 +95,28 @@ $temp = substr($temp, strpos($temp, "=")+3, -3);
 ?>
 <tr><td><span class="notice">*</span> Database Hostname: This is the MySQL database hostname, if it is the local machine, it should
 be set to localhost.</td>
-<td><input type="text" name="dbhost" size="40" value="<?php echo $temp;?>"></td></tr>
+<td><input type="text" name="dbhost" size="40" value="<?php echo $dbhost;?>"></td></tr>
 <?php
 $temp = fgets($fr);
 $temp = substr($temp, strpos($temp, "=")+3, -3);
 ?>
 <tr><td><span class="notice">*</span> Database Username: This is the user who has access to the database table.  If you are unsure,
 check with your system administrator.</td>
-<td><input type="text" name="dbuser" size="40" value="<?php echo $temp;?>"></td></tr>
+<td><input type="text" name="dbuser" size="40" value="<?php echo $dbuser;?>"></td></tr>
 <?php
 $temp = fgets($fr);
 $temp = substr($temp, strpos($temp, "=")+3, -3);
 ?>
 <tr><td><span class="notice">*</span> Database Password: This is the password for the user who has access to the database table.
 If you are unsure, check with your system administrator.</td>
-<td><input type="text" name="dbpass" size="40" value="<?php echo $temp;?>"></td></tr>
+<td><input type="text" name="dbpass" size="40" value="<?php echo $dbpass;?>"></td></tr>
 <?php
 $temp = fgets($fr);
 $temp = substr($temp, strpos($temp, "=")+3, -3);
 ?>
 <tr><td><span class="notice">*</span> Database name: This is the name of the database.  If you are unsure, check with
 your system administrator.</td>
-<td><input type="text" name="database" size="40" value="<?php echo $temp;?>"></td></tr>
+<td><input type="text" name="database" size="40" value="<?php echo $database;?>"></td></tr>
 <?php
 $temp = fgets($fr);
 $temp = substr($temp, strpos($temp, "=")+2, -2);
@@ -254,6 +219,6 @@ fclose($fr);
 <a href="admin.php"><img src="images/admin.png" border="0" class="icon" alt="Admin Page" title="Admin Page" /></a><a href="admin.php">Return to Admin Page</a>
 
 <?php
-llxFooter('$Date: 2009/03/03 19:39:21 $ - $Revision: 1.5 $');
+llxFooter('$Date: 2009/03/03 20:43:12 $ - $Revision: 1.6 $');
 ?>
 
