@@ -8,10 +8,9 @@ llxHeader('','BitTorrent',$website_url.'/bittorrent/docs/help.html');
 
 $form=new Form($db);
 
+print_fiche_titre('Tracker user statistics');
 
 ?>
-
-<h1>Tracker User Statistics</h1>
 
 <form action="<?php echo $_SERVER["PHP_SELF"];?>" method="POST">
 Filename Search:<input type="text" name="filename_search" size="40"<?php if (isset($_POST["filename_search"]))echo " value=\"" . $_POST["filename_search"] . "\"";?>>
@@ -170,6 +169,6 @@ if (!isset($_POST["filename_search"]))
 <a href="admin.php"><img src="images/admin.png" border="0" class="icon" alt="Admin Page" title="Admin Page" /></a><a href="admin.php">Return to Admin Page</a>
 
 <?php
-llxFooter('$Date: 2009/02/24 21:45:17 $ - $Revision: 1.3 $');
+llxFooter('$Date: 2009/03/03 19:39:21 $ - $Revision: 1.4 $');
 ?>
 

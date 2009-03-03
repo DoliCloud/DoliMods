@@ -1,11 +1,11 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<title>RivetTracker Help</title>
+<title>Dolibarr BitTorrent addon help (Modified version of RivetTracker)</title>
 </head>
 <body>
 <center>
-<h3>RivetTracker Help</h3>
+<h3>Dolibarr BitTorrent addon help (Modified version of RivetTracker)</h3>
 </center>
 <hr>
 <table border="0">
@@ -16,10 +16,7 @@
 <li><a href="#bittorrent">What is BitTorrent?</a></li>
 <li><a href="#tracker">What is a Tracker?</a></li>
 <li><a href="#requirements">Requirements</a></li>
-<li><a href="#installation">RivetTracker Installation</a></li>
-<li><a href="#upgrading">Upgrading</a></li>
 <li><a href="#httpseeding">HTTP Seeding</a></li>
-<li><a href="#help">Support/Help</a></li>
 <li><a href="#contribute">Contribute</a></li>
 <li><a href="#thanksto">Thanks To</a></li>
 </ul>
@@ -30,6 +27,8 @@
 <a name="about"></a>
 <h3>About</h3>
 
+<p>The Dolibarr BitTorrent module is a Dolibarr addon to make your Dolibarr to be a BitTorrent tracker.
+It was build from <a href="http://www.rivetcode.com/software/rivettracker/">RivetTracker software</a>.</p>
 <p>RivetTracker is a modified version of <a href="http://dehacked.2y.net/BT/">PHPBTTracker Version 1.5rc3</a>,
 written by "DeHackEd".  This program provides the same functionality as most other BitTorrent trackers and uses MySQL as the database backend.
 It provides an RSS feed, optional support for HTTP seeding, detailed connection statistics, and much more.</p>
@@ -74,82 +73,33 @@ and have a tracker that people around the world are able to connect to.  The web
 <a name="requirements"></a>
 <h3>Requirements</h3>
 
+This module need Dolibarr 2.6 or more to work.
 
-<ul>
-<li>A webserver, <a href="http://www.apache.org">Apache</a> is a great one.</li>
-<li>A recent version of <a href="http://www.php.net">PHP.</a></li>
-<li>The <a href="http://www.mysql.org">MySQL Database.</a></li>
-</ul>
 
-<p>RivetTracker has been tested under <a href="http://www.ubuntu.com">Ubuntu Linux</a>,
-support under Windows is unknown at this time.</p>
+<a name="howtouse"></a>
+<h3>How to use</h3>
 
-<a name="installation"></a>
-<h3>RivetTracker Installation</h3>
+<p>First step is to build a Torrent file (.torrent file).
+For this, you cmust use an external tool like <b>maketorrent</b>.</p>
 
-<p>Installation is very easy, just copy the folder and all the files to your webserver.
-Next, run install.php to create the MySQL database and setup the configuration.</p>
-<a href="./imgs/1.gif"><img src="./imgs/1.gif" border="0" alt="Installation" /></a>
-<p>In this case, I want to create a new database and user that only has access rights to that database.
-For security reasons, it is recommended that you go with the second option.</p>
-<a href="./imgs/2.gif"><img src="./imgs/2.gif" border="0" alt="Database Setup"/></a>
-<p>In this step I provided the installer with a user that can create other users.  You will also be required to specify
-the hostname of the MySQL server, user that will be created, and the database name.  As you can see in the image
-I have provided all the necessary information.  Click install and the script will go through the process of connecting
-to the MySQL server and running the appropriate setup commands.</p>
-<a href="./imgs/3.gif"><img src="./imgs/3.gif" border="0" alt="Configuration File"/></a>
-<p>This section lets you setup the configuration file that stores all your settings about the tracker.  Make sure you
-read the directions carefully about each item.  It's fairly self-explanatory, just take your time.  When you are
-ready click on the create config file button to continue.</p>
-<p>An important note about the hidden tracker feature is that it requires a login by either the admin or upload
-account in order to even view the main torrents page and download them.  However, the /torrents folder is NOT
-protected in any way.  You will have to go in and create a .htaccess file or something else to protect that folder.
-Also, having the hidden tracker on does not mean this is a private tracker.  People will still be able to connect to
-your torrents and use the tracker system if they can get a copy of the torrent.  Also, it may be possible if you
-also have scrape support enabled that a client could connect and get information about what files are on your tracker
-through the scrape.  Unfortunately, I do not know all the details of how scrape works.  If you need a very secure
-tracker, I would suggest checking out the other programs that are available.</p>
-<p>At this point, your installation is finished.</p>
-<p><font color="red"><big>***MAKE SURE YOU DELETE install.php AFTER YOU ARE FINISHED INSTALLING!***</big></font></p>
-<p>Also, make sure that the "torrents" and "rss" folders are writeable by your webserver.</p>
-<p>Click on the link to go to your main statistics page.</p>
-<a href="./imgs/4.gif"><img src="./imgs/4.gif" border="0" alt="Main Page"/></a>
-<p>There are no torrents yet because you have not added them to the database.</p>
-<p>At this point you can start adding torrents to the database by logging in as either the upload user
-or as the administrator.  When you get to the add torrent page you should see something like this:</p>
-<a href="./imgs/5.gif"><img src="./imgs/5.gif" border="0" alt="Add Torrent"/></a>
-<p>Simply provide a .torrent file that you have created and specify whether you want one, both, or neither of the
-web seeding features.  Most information can be automatically gathered from the torrent file but if you wish, you can
+<p>At this point you can start adding torrents to the database. Go to the add torrent file page.
+<p>Simply provide the .torrent file that you have created and specify whether you want one, both, or neither of the
+web seeding features. Most information can be automatically gathered from the torrent file but if you wish, you can
 provide a specific filename and URL for the database to use.</p>
 <p>Click add and you have just added your first torrent to the database.  If you go back to the statistics page
 you should see it listed as well as a link to download the torrent file.</p>
 <p>If you want <a href="http://www.azureuswiki.com/index.php/Scrape">scrape</a> functionality, 
-check the appropriate box in the configuration settings.  It is generally safe to leave this enabled, however,
+edit the config.php file in bittorent directory to enable this.
+It is generally safe to leave this enabled, however,
 there is the possiblity that BitTorrent clients could use this abusively and request this information too much.
 For trackers that serve large numbers of torrents with many users, this will also increase bandwidth usage.
 Scraping is used in order to figure out if a request for additional peers is warranted.  This request for peers
 eats up a lot of bandwidth and it is usually better to try to guage this by asking the tracker via a scrape.</p>
 <p>The speed information is a rough estimate and only gets updated when a client
 connects to the tracker.</p>
-<p>If you don't like the color scheme you can change it by editing the provided CSS file.
-Go into the admin page and click on "Change CSS File".  From there you will be able to create new
-CSS files or edit existing ones.</p>
+
 <p>The RSS feed that is available is great for people who publish files on a regular basis, for example audio or
 video podcasts.</p>
-<p>If you want to have legal information like a use policy, create a file called "legalterms.txt" in the main directory
-where the index.php file is.  Inside the legalterms text file, put your information.  Now, when people go to login
-they will have to agree to the terms before it will let them on.</p>
-
-<a name="upgrading"></a>
-<h3>Upgrading</h3>
-
-<p>If you are upgrading from a previous installation of RivetTracker there is an easy way to save your
-torrents.  Because there might be changes to the database or changes to the configuration file, it is
-much easier just to delete the existing database and installation and start from scratch.  Before you do this
-however, go into your current 'torrents' folder and ZIP them all up into one file.  Next, delete your current
-database and do a complete reinstall of RivetTracker.  After this, go into the admin page and use the batch
-upload system to upload the ZIP file you created.  This will load each torrent file in the ZIP one by one.
-It makes it much easier to upload large quantities of torrent files into the database.</p>
 
 <a name="httpseeding"></a>
 <h3>HTTP Seeding</h3>
@@ -172,21 +122,11 @@ open to abuse from clients potentially hotlinking directly to the file.</p>
 a torrent to the database, there is an option to add web seeding support.  Simply fill in the required information and when
 the torrent is uploaded this information is added into the .torrent file.  This makes migration of old torrent files a snap.</p>
 
-<a name="help"></a>
-<h3>Support/Help</h3>
-
-<p>If this document was unable to answer your question or you're stuck on something please visit the RivetCode
-<a href="http://forums.rivetcode.com">forums</a> or <a href="http://www.rivetcode.com/contact/">contact me</a>.
-
 <a name="contribute"></a>
 <h3>Contribute</h3>
 
-<p>Want to contribute to future RivetTracker development and releases?  There are a couple ways
-in which you can help.  First of all, try to find bugs and submit <a href="http://www.rivetcode.com/contact/">bug reports</a>.
-You can also submit suggestions for future versions <a href="http://www.rivetcode.com/contact/">here</a>.
-If you know PHP and are willing to dive into the code, adding features and improving on the project would also be immensely
-helpful.<p>
-<p>Finally, if you want to consider donating a few dollars for further development of this software and future projects that
+<p>This module was build using Rivet Tracker software.
+<p>If you want to thanks author of this tool, consider donating a few dollars for further development of this software and future projects that
 would be fantastic.  Every little bit helps, thanks!</p>
 <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
 <input type="hidden" name="cmd" value="_s-xclick">

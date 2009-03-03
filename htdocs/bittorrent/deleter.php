@@ -55,8 +55,8 @@ else
 	$GLOBALS["maydelete"] = false;
 }
 
+print_fiche_titre('Delete torrent(s) from database');
 ?>
-<h1>Delete Torrent(s) From Database</h1>
 <table class="torrentlist" cellspacing="1">
 <tr>
 	<th>Name/Info Hash</th>
@@ -95,12 +95,14 @@ while ($data = mysql_fetch_row($results)) {
 
 ?>
 </table>
-<p class="error">Warning: there is no confirmation for deleting files. Clicking this button is final.</p>
-<p class="center"><input type="submit" value="Delete" /></p>
+
+<br>
+<font class="warning">Warning: there is no confirmation for deleting files. Clicking this button is final.</font>
+<p class="center"><input type="submit" value="Delete" class="button"/></p>
 </form>
 <a href="admin.php"><img src="images/admin.png" border="0" class="icon" alt="Admin Page" title="Admin Page" /></a><a href="admin.php">Return to Admin Page</a>
 
 <?php
-llxFooter('$Date: 2009/02/24 21:45:17 $ - $Revision: 1.3 $');
+llxFooter('$Date: 2009/03/03 19:39:21 $ - $Revision: 1.4 $');
 ?>
 

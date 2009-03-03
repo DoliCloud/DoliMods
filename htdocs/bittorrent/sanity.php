@@ -8,11 +8,9 @@ $tracker_url = $website_url . substr($_SERVER['REQUEST_URI'], 0, -15) . "announc
 llxHeader('','BitTorrent',$website_url.'/bittorrent/docs/help.html');
 
 $form=new Form($db);
-?>
 
-<h1>Check Tracker for Expired Peers</h1>
+print_fiche_titre('Check tracker for expired peers');
 
-<?php
 
 error_reporting(E_ALL);
 //header("Content-Type: text/plain");
@@ -203,5 +201,5 @@ function myTrashCollector($hash, $timeout, $now, $writeout)
 <a href="admin.php"><img src="images/admin.png" border="0" class="icon" alt="Admin Page" title="Admin Page" /></a><a href="admin.php">Return to Admin Page</a>
 
 <?
-llxFooter('$Date: 2009/02/24 21:45:17 $ - $Revision: 1.4 $');
+llxFooter('$Date: 2009/03/03 19:39:21 $ - $Revision: 1.5 $');
 ?>

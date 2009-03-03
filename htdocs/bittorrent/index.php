@@ -3,6 +3,7 @@
 include("./pre.inc.php");
 require_once ("funcsv2.php");
 
+
 /*
 *	View
 */
@@ -35,6 +36,12 @@ mysql_select_db($database) or die(errorMessage() . "Tracker error: can't open da
 $query = "SELECT SUM(".$prefix."namemap.size), SUM(".$prefix."summary.seeds), SUM(".$prefix."summary.leechers), SUM(".$prefix."summary.finished), SUM(".$prefix."summary.dlbytes), SUM(".$prefix."summary.speed) FROM ".$prefix."summary LEFT JOIN ".$prefix."namemap ON ".$prefix."summary.info_hash = ".$prefix."namemap.info_hash";
 $results = mysql_query($query) or die(errorMessage() . "Can't do SQL query - " . mysql_error() . "</p>");
 $data = mysql_fetch_row($results);
+
+
+if ($GLOBALS["title"] != "") $titre=$GLOBALS["title"]; 
+else $titre="Tracker Statistics";
+
+print_fiche_titre($titre);
 ?>
 
 <center>
@@ -72,7 +79,6 @@ if ($data[0] != null) //if there are no torrents in database, don't show anythin
 </center>
 <br>
 
-<h1><?php if ($GLOBALS["title"] != "") echo $GLOBALS["title"]; else echo "Tracker Statistics";?></h1>
 <table width="100%">
 <tr>
 <td width="25%">
@@ -279,28 +285,21 @@ if ($i == 0)
 
 //show totals in last row
 echo "<tr>";
-echo "<th>Space Used: " . bytesToString($total_disk_usage) . "</th>";
-echo "<th>" . $total_seeders . "</th>";
-echo "<th>" . $total_leechers . "</th>";
-echo "<th>" . $total_downloads . "</th>";
+echo '<th align="center">Space Used: ' . bytesToString($total_disk_usage) . "</th>";
+echo '<th align="center">' . $total_seeders . "</th>";
+echo '<th align="center">' . $total_leechers . "</th>";
+echo '<th align="center">' . $total_downloads . "</th>";
 if ($GLOBALS["countbytes"]) //stop count bytes variable
 {
-	echo "<th>" . bytestoString($total_bytes_transferred) . "</th>";
+	echo '<th align="center">' . bytestoString($total_bytes_transferred) . "</th>";
 	if ($total_speed > 2097152)
-		echo "<th>" . round($total_speed / 1048576, 2) . " MB/sec</th>";
+		echo '<th align="center">' . round($total_speed / 1048576, 2) . " MB/sec</th>";
 	else
-		echo "<th>" . round($total_speed / 1024, 2) . " KB/sec</th>";
+		echo '<th align="center">' . round($total_speed / 1024, 2) . " KB/sec</th>";
 }
 echo "</tr>";
 ?>
 	</table></td></tr>
-	<tr class="details">
-		<td align="left"><a href="http://www.rivetcode.com">RivetTracker</a> Version: 1.0</td>
-		<?php
-		if (file_exists("legalterms.txt"))
-			echo "<td align=\"right\"><a href=\"legalterms.txt\">Use Policy and Terms of Service</a></td>";
-		?>
-	</tr>
 </table>
 <h3>Notes</h3>
 <?php
@@ -321,6 +320,6 @@ if (rand(1, 10) == 1)
 <a href="admin.php"><img src="images/admin.png" border="0" class="icon" alt="Admin Page" title="Admin Page" /></a><a href="admin.php">Return to Admin Page</a>
 <?php
 
-llxFooter('$Date: 2009/02/24 21:45:17 $ - $Revision: 1.4 $');
+llxFooter('$Date: 2009/03/03 19:39:21 $ - $Revision: 1.5 $');
 ?>
 

@@ -15,7 +15,7 @@ if (isset($_FILES["torrent"]))
 {
 	addTorrent();
 
-	llxFooter('$Date: 2009/02/24 22:19:46 $ - $Revision: 1.7 $');
+	llxFooter('$Date: 2009/03/03 19:39:21 $ - $Revision: 1.8 $');
 	exit;
 }
 else
@@ -200,7 +200,9 @@ function endOutput()
 	$tracker_url = $website_url . '/bittorrent/announce.php';
 	?>
 	<div class="center">
-	<h1>Add Torrent to Tracker Database</h1>
+	<?php 
+	print_fiche_titre('Add Torrent to Tracker Database');
+	?>
 	<h3>Tracker URL: <?php echo $tracker_url;?></h3>
 	<form enctype="multipart/form-data" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
 	<table>
@@ -254,7 +256,7 @@ function endOutput()
 	</tr>
 	<tr><td colspan="2"><hr></td></tr>
 	<tr>
-		<td class="center" colspan="2"><input type="submit" value="Add Torrent to Database"/> - <input type="reset" value="Clear Settings"/></td>
+		<td class="center" colspan="2"><input type="submit" value="Add Torrent to Database" class="button"/> - <input type="reset" value="Clear Settings" class="button"/></td>
 	</tr>
 	</table>
 	<br>
@@ -264,7 +266,7 @@ function endOutput()
 	<a href="admin.php"><img src="images/admin.png" border="0" class="icon" alt="Admin Page" title="Admin Page" /></a><a href="admin.php">Return to Admin Page</a>
 	</div>
 	<?php
-	llxFooter('$Date: 2009/02/24 22:19:46 $ - $Revision: 1.7 $');
+	llxFooter('$Date: 2009/03/03 19:39:21 $ - $Revision: 1.8 $');
 
 	// Still in function endOutput()
 	exit;

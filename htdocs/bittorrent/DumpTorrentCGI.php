@@ -8,6 +8,7 @@ llxHeader('','BitTorrent',$website_url.'/bittorrent/docs/help.html');
 
 $form=new Form($db);
 
+print_fiche_titre('Informations of an external torrent file');
 
 require_once("torrent_functions.php");
 ?>
@@ -28,12 +29,13 @@ Output type: <select name="output">
 <option value="2">/scrape
 <option value="3">/announce
 </select><br><br>
-<input type="submit" value="Decode">
+<input type="submit" value="Decode" class="button">
 </form>
+<br>
 
 <a href="admin.php"><img src="images/admin.png" border="0" class="icon" alt="Admin Page" title="Admin Page" /></a><a href="admin.php">Return to Admin Page</a>
 
 <?php
-llxFooter('$Date: 2009/02/24 21:45:17 $ - $Revision: 1.3 $');
+llxFooter('$Date: 2009/03/03 19:39:21 $ - $Revision: 1.4 $');
 ?>
 

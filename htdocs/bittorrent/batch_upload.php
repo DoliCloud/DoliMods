@@ -9,13 +9,8 @@ llxHeader('','BitTorrent',$website_url.'/bittorrent/docs/help.html');
 
 $form=new Form($db);
 
-?>
-<center>
-<h1>Batch Upload Torrents</h1>
-</center>
-<br>
+print_fiche_titre('Batch Upload Torrents');
 
-<?php
 
 if ($_FILES["zipfile"]["error"] != 4 && isset($_FILES["zipfile"]["tmp_name"])) //4 corresponds to the error no file uploaded
 {
@@ -159,7 +154,7 @@ else
 		?>
 		<form enctype="multipart/form-data" action="<?php echo $_SERVER["PHP_SELF"];?>" method="post">
 		<b>Zip File:</b><input type="file" name="zipfile" size="50"/>
-		<input type="submit" value="Upload ZIP File"/>
+		<input type="submit" value="Upload ZIP File" class="button" />
 		</form>
 		<?php
 	}
@@ -174,5 +169,5 @@ else
 <a href="admin.php"><img src="images/admin.png" border="0" class="icon" alt="Admin Page" title="Admin Page" /></a><a href="admin.php">Return to Admin Page</a>
 
 <?php
-llxFooter('$Date: 2009/02/24 22:19:46 $ - $Revision: 1.5 $');
+llxFooter('$Date: 2009/03/03 19:39:21 $ - $Revision: 1.6 $');
 ?>
