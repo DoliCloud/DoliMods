@@ -13,8 +13,8 @@ print_fiche_titre('Tracker user statistics');
 ?>
 
 <form action="<?php echo $_SERVER["PHP_SELF"];?>" method="POST">
-Filename Search:<input type="text" name="filename_search" size="40"<?php if (isset($_POST["filename_search"]))echo " value=\"" . $_POST["filename_search"] . "\"";?>>
-<input type="submit" value="Search">
+Filename Search: <input type="text" name="filename_search" size="40"<?php if (isset($_POST["filename_search"]))echo " value=\"" . $_POST["filename_search"] . "\"";?>> &nbsp;
+<input type="submit" class="button" value="<?php echo $langs->trans("Filter"); ?>">
 </form>
 <br>
 
@@ -62,11 +62,11 @@ else //display everything
 	while($count < $res)
 	{
 		if (isset($_GET["page_number"]) && $page == $_GET["page_number"])
-			echo "<b><a href=\"$scriptname" . "page_number=$page\">($page)</a></b>-\n";
+			echo "<b><a href=\"$scriptname" . "page_number=$page\">($page)</a></b> &nbsp; \n";
 		else if (!isset($_GET["page_number"]) && $page == 1)
-			echo "<b><a href=\"$scriptname" . "page_number=$page\">($page)</a></b>-\n";
+			echo "<b><a href=\"$scriptname" . "page_number=$page\">($page)</a></b> &nbsp; \n";
 		else
-			echo "<a href=\"$scriptname" . "page_number=$page\">$page</a>-\n";
+			echo "<a href=\"$scriptname" . "page_number=$page\">$page</a> &nbsp; \n";
 		$page++;
 		$count = $count + 5;
 	}
@@ -111,7 +111,7 @@ while ($data = mysql_fetch_row($results))
 	{
 		//grab information on each user
 		echo "<tr><td>" . $data2[2] . "</td>\n";
-		echo "<td>" . bytesToString($data2[1]) . "</td>\n";
+		echo "<td align=\"right\">" . bytesToString($data2[1]) . "</td>\n";
 
 		//calculate percent done for user
 		$percent_done = 1.00;
@@ -131,7 +131,7 @@ while ($data = mysql_fetch_row($results))
 		<td align="right" class="percent" width="<?php echo round($percent_done * 200, 0); ?>" height="15">
 		<?php if ($percent_done > .5) echo $percent_done * 100 . "%"; ?>
 		</td>
-		<td align="left" class="percentleft" width="<?php echo 200 - round($percent_done * 200, 0); ?>" height="15">
+		<td align="right" class="percentleft" width="<?php echo 200 - round($percent_done * 200, 0); ?>" height="15">
 		<?php if ($percent_done <= .5) echo $percent_done * 100 . "%"; ?>
 		</td>
 		</tr>
@@ -140,7 +140,7 @@ while ($data = mysql_fetch_row($results))
 		<?php
 		echo "<td>" . $data2[3] . "</td>\n"; //port
 		echo "<td>" . date('g:ia m-d-Y', $data2[5]) . "</td>\n"; //last time check-in
-		echo "<td>" . $data2[7] . "</td>\n"; //NAT user
+		echo "<td align=\"center\">" . $data2[7] . "</td>\n"; //NAT user
 		echo "</tr>\n";
 	}
 	echo "</table><br>\n";
@@ -154,11 +154,11 @@ if (!isset($_POST["filename_search"]))
 	while($count < $res)
 	{
 	if (isset($_GET["page_number"]) && $page == $_GET["page_number"])
-		echo "<b><a href=\"$scriptname" . "page_number=$page\">($page)</a></b>-\n";
+		echo "<b><a href=\"$scriptname" . "page_number=$page\">($page)</a></b> &nbsp; \n";
 	else if (!isset($_GET["page_number"]) && $page == 1)
-		echo "<b><a href=\"$scriptname" . "page_number=$page\">($page)</a></b>-\n";
+		echo "<b><a href=\"$scriptname" . "page_number=$page\">($page)</a></b> &nbsp; \n";
 	else
-		echo "<a href=\"$scriptname" . "page_number=$page\">$page</a>-\n";
+		echo "<a href=\"$scriptname" . "page_number=$page\">$page</a> &nbsp; \n";
 	$page++;
 	$count = $count + 5;
 	}
@@ -169,6 +169,6 @@ if (!isset($_POST["filename_search"]))
 <a href="admin.php"><img src="images/admin.png" border="0" class="icon" alt="Admin Page" title="Admin Page" /></a><a href="admin.php">Return to Admin Page</a>
 
 <?php
-llxFooter('$Date: 2009/03/03 19:39:21 $ - $Revision: 1.4 $');
+llxFooter('$Date: 2009/03/04 18:56:24 $ - $Revision: 1.5 $');
 ?>
 

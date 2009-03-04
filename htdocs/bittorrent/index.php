@@ -168,11 +168,11 @@ $page = 1;
 while($count < $res)
 {
 	if (isset($_GET["page_number"]) && $page == $_GET["page_number"])
-		echo "<b><a href=\"$scriptname" . "page_number=$page\">($page)</a></b>-\n";
+		echo "<b><a href=\"$scriptname" . "page_number=$page\">($page)</a></b> &nbsp;\n";
 	else if (!isset($_GET["page_number"]) && $page == 1)
-		echo "<b><a href=\"$scriptname" . "page_number=$page\">($page)</a></b>-\n";
+		echo "<b><a href=\"$scriptname" . "page_number=$page\">($page)</a></b> &nbsp;\n";
 	else
-		echo "<a href=\"$scriptname" . "page_number=$page\">$page</a>-\n";
+		echo "<a href=\"$scriptname" . "page_number=$page\">$page</a> &nbsp;\n";
 	$page++;
 	$count = $count + 10;
 }
@@ -232,7 +232,7 @@ while ($data = mysql_fetch_row($results)) {
 	echo "\t<table class=\"nopadding\" border=\"0\"><tr><td valign=\"top\" align=\"left\" width=\"10%\">\n";
 	echo "\t<form method='post' action='torrent_functions.php'>\n";
 	echo "\t<input type='hidden' name='hash' value='" . $data[0] . "'/>\n";
-	echo "\t<input type='submit' value=' + '/></form>\n";
+	echo "\t<input type='submit' value='".$langs->trans("Infos")."'/></form>\n";
 	echo "\t</td><td valign=\"top\" align=\"left\">\n";
 	if (strlen($data[6]) > 0)
 		echo "<a href=\"${data[6]}\">${data[5]}</a> - ";
@@ -327,6 +327,6 @@ if (rand(1, 10) == 1)
 <a href="admin.php"><img src="images/admin.png" border="0" class="icon" alt="Admin Page" title="Admin Page" /></a><a href="admin.php">Return to Admin Page</a>
 <?php
 
-llxFooter('$Date: 2009/03/04 18:43:35 $ - $Revision: 1.6 $');
+llxFooter('$Date: 2009/03/04 18:56:24 $ - $Revision: 1.7 $');
 ?>
 
