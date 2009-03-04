@@ -9,7 +9,7 @@ llxHeader('','BitTorrent',$website_url.'/bittorrent/docs/help.html');
 
 $form=new Form($db);
 
-print_fiche_titre('River BitTorrent admin page');
+print_fiche_titre('BitTorrent admin page');
 
 ?>
 <br>
@@ -40,5 +40,5 @@ if (file_exists("install.php"))
 	echo errorMessage() . "Your install.php file has NOT been deleted.  This is a security risk, please delete it immediately.</p>\n";
 }
 
-llxFooter('$Date: 2009/03/03 19:39:21 $ - $Revision: 1.4 $');
+llxFooter('$Date: 2009/03/04 18:43:35 $ - $Revision: 1.5 $');
 ?>

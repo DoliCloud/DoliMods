@@ -38,7 +38,7 @@ $results = mysql_query($query) or die(errorMessage() . "Can't do SQL query - " .
 $data = mysql_fetch_row($results);
 
 
-if ($GLOBALS["title"] != "") $titre=$GLOBALS["title"]; 
+if ($GLOBALS["title"] != "") $titre=$GLOBALS["title"];
 else $titre="Tracker Statistics";
 
 print_fiche_titre($titre);
@@ -187,6 +187,7 @@ echo "</p>\n";
 	<!-- Column Headers -->
 	<tr>
 		<th>Name/Info Hash</th>
+		<th>Size</th>
 		<th>Seeders</th>
 		<th>Leechers</th>
 		<th>Completed D/Ls</th>
@@ -225,6 +226,8 @@ while ($data = mysql_fetch_row($results)) {
 	$myhash = $data[0];
 	$writeout = "row" . $i % 2;
 	echo "<tr class=\"$writeout\">\n";
+
+	// File
 	echo "\t<td>";
 	echo "\t<table class=\"nopadding\" border=\"0\"><tr><td valign=\"top\" align=\"left\" width=\"10%\">\n";
 	echo "\t<form method='post' action='torrent_functions.php'>\n";
@@ -240,16 +243,19 @@ while ($data = mysql_fetch_row($results)) {
 	echo "<a href=\"dltorrent.php?hash=" . $myhash . "\">  (Download Torrent)</a></td></tr>";
 	//echo "<a href=\"torrents/" . rawurlencode($data[5]) . ".torrent\">  (Download Torrent)</a></td></tr>";
 
+	echo "</table></td>\n";
 
+	echo "<td align=\"right\">";
 	if (strlen($data[7]) > 0) //show file size
 	{
-		echo "<tr><td>&nbsp;</td><td>" . bytesToString($data[7]) . "</td>";
+		echo bytesToString($data[7]);
 		$total_disk_usage = $total_disk_usage + $data[7]; //total up file sizes
 	}
-	echo "</tr></table></td>\n";
+	echo "</td>";
+
 	for ($j=1; $j < 4; $j++) //show seeders, leechers, and completed downloads
 	{
-		echo "\t<td class=\"center\">$data[$j]</td>\n";
+		echo "\t<td align=\"right\">$data[$j]</td>\n";
 		if ($j == 1) //add to total seeders
 			$total_seeders = $total_seeders + $data[1];
 		if ($j == 2) //add to total leechers
@@ -260,7 +266,7 @@ while ($data = mysql_fetch_row($results)) {
 
 	if ($GLOBALS["countbytes"])
 	{
-		echo "\t<td class=\"center\">" . bytestoString($data[4]) . "</td>\n";
+		echo "\t<td align=\"right\">" . bytestoString($data[4]) . "</td>\n";
 		$total_bytes_transferred = $total_bytes_transferred + $data[4]; //add to total GB transferred
 
 		// The SPEED column calculations.
@@ -273,7 +279,7 @@ while ($data = mysql_fetch_row($results)) {
 			$speed = round($data[8] / 1048576, 2) . " MB/sec";
 		else
 			$speed = round($data[8] / 1024, 2) . " KB/sec";
-		echo "\t<td class=\"center\">$speed</td>\n";
+		echo "\t<td align=\"right\">$speed</td>\n";
 		$total_speed = $total_speed + $data[8]; //add to total speed, in bytes
 	}
 	echo "</tr>\n";
@@ -285,17 +291,18 @@ if ($i == 0)
 
 //show totals in last row
 echo "<tr>";
-echo '<th align="center">Space Used: ' . bytesToString($total_disk_usage) . "</th>";
-echo '<th align="center">' . $total_seeders . "</th>";
-echo '<th align="center">' . $total_leechers . "</th>";
-echo '<th align="center">' . $total_downloads . "</th>";
+echo "<th>".$langs->trans("Total")."</th>";
+echo '<th align="right">' . bytesToString($total_disk_usage) . "</th>";
+echo '<th align="right">' . $total_seeders . "</th>";
+echo '<th align="right">' . $total_leechers . "</th>";
+echo '<th align="right">' . $total_downloads . "</th>";
 if ($GLOBALS["countbytes"]) //stop count bytes variable
 {
-	echo '<th align="center">' . bytestoString($total_bytes_transferred) . "</th>";
+	echo '<th align="right">' . bytestoString($total_bytes_transferred) . "</th>";
 	if ($total_speed > 2097152)
-		echo '<th align="center">' . round($total_speed / 1048576, 2) . " MB/sec</th>";
+		echo '<th align="right">' . round($total_speed / 1048576, 2) . " MB/sec</th>";
 	else
-		echo '<th align="center">' . round($total_speed / 1024, 2) . " KB/sec</th>";
+		echo '<th align="right">' . round($total_speed / 1024, 2) . " KB/sec</th>";
 }
 echo "</tr>";
 ?>
@@ -320,6 +327,6 @@ if (rand(1, 10) == 1)
 <a href="admin.php"><img src="images/admin.png" border="0" class="icon" alt="Admin Page" title="Admin Page" /></a><a href="admin.php">Return to Admin Page</a>
 <?php
 
-llxFooter('$Date: 2009/03/03 19:39:21 $ - $Revision: 1.5 $');
+llxFooter('$Date: 2009/03/04 18:43:35 $ - $Revision: 1.6 $');
 ?>
 
