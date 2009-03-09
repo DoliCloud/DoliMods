@@ -6,7 +6,7 @@
     	\file       htdocs/nltechno/statsemailings.php
 		\ingroup    nltechno
 		\brief      Page des stats
-		\version    $Id: statsemailings.php,v 1.15 2008/12/15 11:47:39 eldy Exp $
+		\version    $Id: statsemailings.php,v 1.16 2009/03/09 21:55:36 eldy Exp $
 		\author		Laurent Destailleur
 */
 
@@ -51,17 +51,16 @@ if ($_GET["action"] == 'buildemailingchien')
 	$sujet='La Newsletter hebdomadaire de ChiensDeRace.com';
 	$body='';
 
-	// TODO A faire: Lire base des news et races et fabriquer variable sujet et body (en html)
 	// Connexion base
 	$dbchien = mysql_connect($dbhostchien, $dbuserchien, $dbpasswordchien);
 	mysql_select_db($dbdatabasechien,$dbchien);
-	
+
 	// sante
 	$sante='';
 	$REQUETE="select ID_NEWS, TITRE_NEWS, TEXTE_NEWS from T_NEWS";
 	$REQUETE.=" where ID_CATEG = 20 AND (AUTEUR_NEWS ='1040' OR AUTEUR_NEWS='1038') ORDER by ID_NEWS DESC";
 	$result = mysql_query("$REQUETE",$dbchien);
-	
+
 	while ($row = mysql_fetch_object($result))
 	{
 		$ID_NEWS=$row->ID_NEWS;
@@ -70,14 +69,14 @@ if ($_GET["action"] == 'buildemailingchien')
 		$sante=$TITRE_NEWS."<br><br>".$TEXTE_NEWS."<br><a href='http://www.chiensderace.com/news/novel.php?ID=".$ID_NEWS."'>Lire cet article</a><br>";
 		break;
 	}
-	
-		
+
+
 	// actualité
 	$actualite='';
 	$REQUETE="select ID_NEWS, TITRE_NEWS, TEXTE_NEWS from T_NEWS";
 	$REQUETE.=" where ID_CATEG = 73 AND (AUTEUR_NEWS ='1040' OR AUTEUR_NEWS='1038') ORDER by ID_NEWS DESC";
 	$result = mysql_query("$REQUETE",$dbchien);
-	
+
 	while ($row = mysql_fetch_object($result))
 	{
 		$ID_NEWS=$row->ID_NEWS;
@@ -86,7 +85,7 @@ if ($_GET["action"] == 'buildemailingchien')
 		$actualite=$TITRE_NEWS."<br><br>".$TEXTE_NEWS."<br><a href='http://www.chiensderace.com/news/novel.php?ID=".$ID_NEWS."'>Lire cet article</a><br>";
 		break;
 	}
-	
+
 	$race_semaine='';
 	$REQUETE="select ID_RACES, LIB_RACES, ORIGINE_RACES from T_RACES";
 	$result = mysql_query("$REQUETE",$dbchien);
@@ -99,11 +98,11 @@ if ($_GET["action"] == 'buildemailingchien')
 		$i++;
 	}
 	$j=rand(0,$i--);
-	$race_semaine=$LIB_RACES[$j]." (Origine : ".$ORIGINE_RACES[$j].")<br><br>Découvrez cette race cette semaine avec ChiensDeRace.com.<br><a href='http://www.chiensderace.com/php/fiche_race.php?RACE=".$ID_RACES[$j]."'>Voir la fiche de race</a><br>";	
-	
+	$race_semaine=$LIB_RACES[$j]." (Origine : ".$ORIGINE_RACES[$j].")<br><br>Découvrez cette race cette semaine avec ChiensDeRace.com.<br><a href='http://www.chiensderace.com/php/fiche_race.php?RACE=".$ID_RACES[$j]."'>Voir la fiche de race</a><br>";
+
 	$file_in='newsletter_type_chien.html';
     $fichier= fopen ($file_in, 'r');
-	$lines = file ($file_in);			
+	$lines = file ($file_in);
 
 	foreach ($lines as $line_num => $line)
 	{
@@ -114,10 +113,8 @@ if ($_GET["action"] == 'buildemailingchien')
 	       	if ($line == '$race_semaine') $line=$race_semaine;
 		$body.=$line;
 	}
-	
-	// TODO A faire: Lire base des news et races et fabriquer variable sujet et body (en html)
 
-	
+
     $mil = new Mailing($db);
 
     $mil->email_from   = 'newsletter@chiensderace.com';
@@ -177,7 +174,7 @@ if (! file_exists($dir.$dirtmp))
 		$mesg = $langs->trans("ErrorCanNotCreateDir",$dir.$dirtmp);
 	}
 }
-	
+
 
 // Get datas
 $graph_data = array();
@@ -192,20 +189,20 @@ $relativepath=$dirtmp."statsannonces.png".$categ;
         print '<td align="center">ML_XXX=0</td>';
 		print '<td align="center">ML_XXX=1</td>';
         print "</tr>\n";
-        
+
         clearstatcache();
-        
+
         $listdir=array();
         $listdir[]=$dirmod;
         if (! empty($dirmod2)) $listdir[]=$dirmod2;
         $listtype=array('adresses','personnes');
-        
+
         foreach ($listtype as $type)
         {
         foreach ($listdir as $dir)
         {
         $handle=opendir($dir);
-        
+
         $var=True;
         while (($file = readdir($handle))!==false)
         {
@@ -215,12 +212,12 @@ $relativepath=$dirtmp."statsannonces.png".$categ;
                 {
             		$modulename=$reg[1];
         			if ($modulename == 'example') continue;
-        			
+
                     // Chargement de la classe
                     $file = $dir."/".$modulename.".modules.php";
                     $classname = "mailing_".$modulename;
                     require_once($file);
-        
+
                     $obj = new $classname($db);
 
                     $qualified=1;
@@ -233,19 +230,19 @@ $relativepath=$dirtmp."statsannonces.png".$categ;
                             break;
                         }
                     }
-                    
+
                     // Si le module mailing est qualifié
                     if ($qualified)
                     {
                         $var = !$var;
                         print '<tr '.$bc[$var].'>';
-                        
+
                         print '<td>';
                         if (! $obj->picto) $obj->picto='generic';
                         print img_object('',$obj->picto).' '.$obj->getDesc();
                         print ' - Newsletter '.$type;
                         print '</td>';
-            
+
                         /*
                         print '<td width=\"100\">';
                         print $modulename;
@@ -262,7 +259,7 @@ $relativepath=$dirtmp."statsannonces.png".$categ;
                         	print $langs->trans("Error").' '.img_error($obj->error);
                         }
                         print '</td>';
-                        
+
                         $nbofrecipient=$obj->getNbOfRecipients(0,$type);
                         print '<td align="center">';
                         if ($nbofrecipient >= 0)
@@ -274,7 +271,7 @@ $relativepath=$dirtmp."statsannonces.png".$categ;
                         	print $langs->trans("Error").' '.img_error($obj->error);
                         }
                         print '</td>';
-                        
+
                         $nbofrecipient=$obj->getNbOfRecipients(1,$type);
                         print '<td align="center">';
                         if ($nbofrecipient >= 0)
@@ -286,7 +283,7 @@ $relativepath=$dirtmp."statsannonces.png".$categ;
                         	print $langs->trans("Error").' '.img_error($obj->error);
                         }
                         print '</td>';
-                        
+
                         print "</tr>\n";
                     }
                 }
@@ -295,34 +292,34 @@ $relativepath=$dirtmp."statsannonces.png".$categ;
         closedir($handle);
         }
         }
-                
-                
+
+
         $listdir=array();
         $listdir[]=$dirmod;
         if (! empty($dirmod2)) $listdir[]=$dirmod2;
         $listtype=array('forum');
-        
+
         foreach ($listtype as $type)
         {
         foreach ($listdir as $dir)
         {
         $handle=opendir($dir);
-        
+
         $var=True;
         while (($file = readdir($handle))!==false)
         {
             if (substr($file, 0, 1) <> '.' && substr($file, 0, 3) <> 'CVS')
-            {                
+            {
                 if (eregi("(.*(chiensderace|chatsderace)_forum)\.modules\.php$",$file,$reg))
                 {
                 	$modulename=$reg[1];
         			if ($modulename == 'example') continue;
-        			
+
                     // Chargement de la classe
                     $file = $dir."/".$modulename.".modules.php";
                     $classname = "mailing_".$modulename;
                     require_once($file);
-        
+
                     $obj = new $classname($db);
 
                     $qualified=1;
@@ -335,24 +332,24 @@ $relativepath=$dirtmp."statsannonces.png".$categ;
                             break;
                         }
                     }
-                    
+
                     // Si le module mailing est qualifié
                     if ($qualified)
                     {
                         $var = !$var;
 
                         // Newsletter
-                        
+
                         print '<tr '.$bc[$var].'>';
-                        
+
                         print '<td>';
                         if (! $obj->picto) $obj->picto='generic';
                         print img_object('',$obj->picto).' '.$obj->getDesc();
                         print ' - Newsletter '.$type;
                         print '</td>';
-            
+
                         print '<td>&nbsp;</td>';
-                        
+
                         $nbofrecipient=$obj->getNbOfRecipients(-1,$type);
                         print '<td align="center">';
                         if ($nbofrecipient >= 0)
@@ -364,7 +361,7 @@ $relativepath=$dirtmp."statsannonces.png".$categ;
                         	print $langs->trans("Error").' '.img_error($obj->error);
                         }
                         print '</td>';
-                        
+
                         $nbofrecipient=$obj->getNbOfRecipients(1,$type);
                         print '<td align="center">';
                         if ($nbofrecipient >= 0)
@@ -376,23 +373,23 @@ $relativepath=$dirtmp."statsannonces.png".$categ;
                         	print $langs->trans("Error").' '.img_error($obj->error);
                         }
                         print '</td>';
-                        
+
                         print "</tr>\n";
-                        
-                        
+
+
                         // Offres commerciales
-                        
+
                         $var = !$var;
                         print '<tr '.$bc[$var].'>';
-                        
+
                         print '<td>';
                         if (! $obj->picto) $obj->picto='generic';
                         print img_object('',$obj->picto).' '.$obj->getDesc();
                         print ' - Offres commerciales '.$type;
                         print '</td>';
-            
+
                         print '<td>&nbsp;</td>';
-                        
+
                         $nbofrecipient=$obj->getNbOfRecipients(-2,$type);
                         print '<td align="center">';
                         if ($nbofrecipient >= 0)
@@ -404,7 +401,7 @@ $relativepath=$dirtmp."statsannonces.png".$categ;
                         	print $langs->trans("Error").' '.img_error($obj->error);
                         }
                         print '</td>';
-                        
+
                         $nbofrecipient=$obj->getNbOfRecipients(2,$type);
                         print '<td align="center">';
                         if ($nbofrecipient >= 0)
@@ -416,37 +413,37 @@ $relativepath=$dirtmp."statsannonces.png".$categ;
                         	print $langs->trans("Error").' '.img_error($obj->error);
                         }
                         print '</td>';
-                        
-                        print "</tr>\n";                        
-                    }		                
+
+                        print "</tr>\n";
+                    }
                 }
             }
         }
         closedir($handle);
         }
         }
-                
+
         print '</table>';
 		print '<br>';
-	
+
 		print 'Les emails sont definis dans T_ADRESSES (inscription via adresse)+T_PERSONNES (inscription via la box)+FORUM_USERS (incription par forum)<br>';
 		print 'Si ML_XXX=-1, a demande explicitement a etre desincrit<br>';
 		print 'Si ML_XXX=0,  ne s\'est pas inscrit<br>';
 		print 'Si ML_XXX=1,  s\'est inscrit (explicitement ou auto car avant loi optin)<br>';
-	
 
-	
-	
-	
-	
-	
+
+
+
+
+
+
 	print '<br><br>';
 	print '<b>Cliquer sur ce bouton pour fabriquer un emailing brouillon chiensderace du moment</b>:<br><br>';
 	print '<form action="'.$_SERVER["PHP_SELF"].'">';
 	print '<input type="hidden" name="action" value="buildemailingchien">';
 	print '<input type="submit" class="button" value="Generer newsletter brouillon"><br>';
 	print '</form>';
-		
+
 $dbann->close();
 
 llxFooter();

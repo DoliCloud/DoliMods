@@ -15,7 +15,7 @@ if (isset($_FILES["torrent"]))
 {
 	addTorrent();
 
-	llxFooter('$Date: 2009/03/03 19:39:21 $ - $Revision: 1.8 $');
+	llxFooter('$Date: 2009/03/09 21:55:36 $ - $Revision: 1.9 $');
 	exit;
 }
 else
@@ -200,7 +200,7 @@ function endOutput()
 	$tracker_url = $website_url . '/bittorrent/announce.php';
 	?>
 	<div class="center">
-	<?php 
+	<?php
 	print_fiche_titre('Add Torrent to Tracker Database');
 	?>
 	<h3>Tracker URL: <?php echo $tracker_url;?></h3>
@@ -217,11 +217,11 @@ function endOutput()
 	</tr>
 	<tr><td colspan="2"><hr></td></tr>
 	<tr>
-	<td class="center" colspan="2"><input type="checkbox" name="httpseed" value="enabled" disabled="true">Use BitTornado HTTP seeding specification (optional)</td>
+	<td class="center" colspan="2"><input type="checkbox" name="httpseed" value="enabled" disabled>Use BitTornado HTTP seeding specification (optional)</td>
 	</tr>
 	<tr>
 	<td class="right" valign="top">Relative location of file or directory:<br></td>
-	<td class="left"><input disabled="true" type="text" name="relative_path" size="70"/><br>
+	<td class="left"><input disabled type="text" name="relative_path" size="70"/><br>
 	Example: ../../files/file.zip</td>
 	</tr>
 	<tr><td colspan="2"><hr></td></tr>
@@ -266,7 +266,7 @@ function endOutput()
 	<a href="admin.php"><img src="images/admin.png" border="0" class="icon" alt="Admin Page" title="Admin Page" /></a><a href="admin.php">Return to Admin Page</a>
 	</div>
 	<?php
-	llxFooter('$Date: 2009/03/03 19:39:21 $ - $Revision: 1.8 $');
+	llxFooter('$Date: 2009/03/09 21:55:36 $ - $Revision: 1.9 $');
 
 	// Still in function endOutput()
 	exit;
