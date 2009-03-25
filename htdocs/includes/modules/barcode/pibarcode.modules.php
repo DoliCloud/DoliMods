@@ -1,5 +1,5 @@
 <?php
-/* Copyright (C) 2005-2008 Laurent Destailleur  <eldy@users.sourceforge.net>
+/* Copyright (C) 2005-2009 Laurent Destailleur  <eldy@users.sourceforge.net>
  * Copyright (C) 2005      Regis Houssin        <regis@dolibarr.fr>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -16,28 +16,25 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  * or see http://www.gnu.org/
- *
- * $Id: pibarcode.modules.php,v 1.2 2009/01/05 00:37:45 eldy Exp $
  */
 
 /**
-        \file       htdocs/includes/modules/barcode/pibarcode.modules.php
-		\ingroup    facture
-		\brief      Fichier contenant la classe du modèle de generation code barre pibarcode
-		\version    $Revision: 1.2 $
-*/
+ *      \file       htdocs/includes/modules/barcode/pibarcode.modules.php
+ *		\ingroup    facture
+ *		\brief      Fichier contenant la classe du modèle de generation code barre pibarcode
+ *		\version    $Id: pibarcode.modules.php,v 1.3 2009/03/25 20:17:14 eldy Exp $
+ */
 
 require_once(DOL_DOCUMENT_ROOT ."/includes/modules/barcode/modules_barcode.php");
 
 /**	    \class      modPibarcode
 		\brief      Classe du modèle de generation code barre pibarcode
 */
-
 class modPibarcode extends ModeleBarCode
 {
 	var $version='dolibarr';		// 'development', 'experimental', 'dolibarr'
 	var $error='';
-	
+
     /**     \brief      Renvoi la description du modele de numérotation
      *      \return     string      Texte descripif
      */
@@ -60,9 +57,9 @@ class modPibarcode extends ModeleBarCode
     }
 
 	/**
-		\brief		Return true if encodinf is supported
-		\return		int		>0 if supported, 0 if not
-	*/
+	 *	\brief		Return true if encodinf is supported
+	 *	\return		int		>0 if supported, 0 if not
+	 */
     function encodingIsSupported($encoding)
 	{
 		$supported=0;
@@ -73,17 +70,17 @@ class modPibarcode extends ModeleBarCode
 		if ($encoding == 'C128')  $supported=1;
 		return $supported;
 	}
-	
+
     /**
-			\brief      Retourne fichier image
-			\param   	$code			Valeur numérique a coder
-			\param   	$encoding		Mode de codage
-			\param   	$readable		Code lisible
+	 *		\brief      Retourne fichier image
+	 *		\param   	$code			Valeur numérique a coder
+	 *		\param   	$encoding		Mode de codage
+	 *		\param   	$readable		Code lisible
      */
     function buildBarCode($code,$encoding,$readable='Y')
     {
 		global $_GET;
-		
+
 		if (! $this->encodingIsSupported($encoding)) return -1;
 
 		if ($encoding == 'EAN8' || $encoding == 'EAN13') $encoding = 'EAN';
@@ -94,7 +91,7 @@ class modPibarcode extends ModeleBarCode
 		$_GET["readable"]=$readable;
 
 		require_once(DOL_DOCUMENT_ROOT.'/includes/barcode/pi_barcode/pi_barcode.php');
-		
+
 		return 1;
     }
 
@@ -105,26 +102,42 @@ class modPibarcode extends ModeleBarCode
 	 *		\param   	$readable		Code lisible
      */
     function writeBarCode($code,$encoding,$readable='Y')
-    { 
-    	global $conf;
+    {
+    	global $conf,$filebarcode;
 
 		create_exdir($conf->barcode->dir_temp);
-    	
-		ob_start();
-    	$result=$this->buildBarCode($code,$encoding,$readable);
-		$filecontent=ob_get_contents();
-		ob_end_clean();
 
-		//Remove warning line
-		//$filecontent=eregi_replace('^(.*)Warning.*PNG','PNG',$filecontent);
-		
-		$fp = fopen($conf->barcode->dir_temp.'/barcode_'.$code.'_'.$encoding.'.png', 'w');
-		fwrite($fp, $filecontent);
-		fclose($fp);		
-    	
+		$file=$conf->barcode->dir_temp.'/barcode_'.$code.'_'.$encoding.'.png';
+
+		$olderrlevel=error_reporting(0);
+
+		ob_flush();
+		ob_start();
+
+		$filebarcode=$file;	// global var to be used in buildBarCode
+    	$result=$this->buildBarCode($code,$encoding,$readable);
+
+    	$content=ob_get_clean();
+		//print "xx".$content."zz";
+
+	    if (!$handle = fopen($file, 'w'))
+	    {
+    	    echo "Cannot open file ($file)";
+    	}
+    	else
+    	{
+			// Write $content to our opened file.
+	    	if (fwrite($handle, $content) === FALSE) {
+	        	echo "Cannot write to file ($file)";
+	    	}
+		    fclose($handle);
+    	}
+
+    	error_reporting($olderrlevel);
+
 		return $result;
     }
-        
+
 }
 
 ?>
