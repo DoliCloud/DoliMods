@@ -1,0 +1,160 @@
+html, body { background: #fff; border: 0; font-family: arial, helvetica, sans-serif; font-size: 12px; height: 100%; margin: 0; padding: 0; }
+h1,h2,div,img,span { border: 0; margin: 0; padding: 0; }
+
+a { color: #0e1875; text-decoration: none; }
+a:hover { text-decoration: underline; }
+div, img, span { border: 0; padding: 0; margin: 0; }
+
+h1 { color: #eee; font-size: 22px; font-weight: normal; }
+h1 span { color: #cccc9f !important; font-size: 16px; }
+h1.modal { color: #33332d; font-size: 22px; font-weight: normal; }
+
+h2 { background: #fff; color: #33332d; font-size: 20px; font-weight: normal; margin-bottom: 2px; }
+h2 span { background: #fff; color: #345678 !important; font-size: 15px; }
+
+img.externallink { padding: 0 0 10px 2px; }
+
+input.button { border: 1px solid #999; font-size: 18px; margin: 10px 0 0 4px; line-height: 18px; padding: 3px 3px; }
+input.text { border: 1px solid #999; font-size: 18px; line-height: 18px; margin-top: 10px; padding: 4px 3px; width: 200px; }
+
+span.submenu { background: #fff; color: #0e1875 !important; cursor: pointer; }
+span.submenu:hover { background: #fff; text-decoration: underline; }
+span.submenuselect { background: #fff; color: #0e1875 !important; font-weight: bold; cursor: pointer; text-decoration: underline; }
+
+td.countryflag { border: 0; text-align: center; width: 16px; }
+td.countryflag img { height: 11px; width: 16px; }
+
+.center { text-align: center; }
+.change { color: #9fb4cc !important; cursor: pointer; font-size: 11px; }
+.change:hover { color: #fff !important; text-decoration: underline; }
+.changemonth { cursor: pointer; height: 9px; margin: 0 1px -1px 1px; width: 9px; }
+.changemonthOff { height: 9px; margin: 0 1px -1px 1px; width: 9px; }
+.changedivider { color: #71716c !important; font-size: 11px; }
+.fauxlink { color: #333 !important; cursor: pointer; }
+.fauxlink:hover { color: #000; text-decoration: underline; }
+.hidden { display: none; }
+.negative { color: #b00; }
+.positive { color: #060; }
+.right { text-align: right; }
+.tiny { font-size: 11px; }
+
+#changesitecontainer { height: 350px; overflow: auto; _overflow: none; _overflow-y: auto; padding: 0 20px 0 0; }
+#footer { clear: both; padding: 6px 12px 12px 0; text-align: right; }
+#footer span { font-size: 11px; }
+#main { background: #fff; clear: both; padding: 15px 0 20px 0; }
+#main .container { background: transparent; margin: 0 auto; max-width: 970px; padding: 0; position: relative; }
+#content { background: transparent; }
+#header { background: #33332d; }
+#header .container { background: #33332d; margin: 0 auto; max-width: 970px; padding: 5px 0 0 0; position: relative; }
+#summary { color: #cccc9f; padding: 3px 0; }
+#summary span { color: #fff; font-weight: bold; }
+#menu { padding: 4px 0 0 0; }
+#loading { background: #fff url('images/loading.gif'); display: none; height: 16px; overflow: hidden; padding: 0 !important; position: absolute; top: 10px; right: 10px; width: 14px; }
+#submenu { padding: 0 0 20px 0; }
+#toolmenu { background: #4e5150; color: #fc0; font-size: 11px !important; line-height: 20px; }
+#toolmenu .container { margin: 0 auto; max-width: 970px; text-align: right; }
+#toolmenu .container span { border-left: 1px solid #33332d; color: #bccbdb; cursor: pointer; margin: 0 0 0 1px; padding: 0 11px; }
+#toolmenu .container span:hover { color: #ffffff; }
+#toolmenu .container span:last-child { border-right: 1px solid #33332d; }
+#toolmenu .container span img { padding: 0 1px; }
+#toolmenu .container span span { border: 0; padding: 0 6px; }
+#tools { background: #bccbdb; }
+#tools h1 { color: #33332d; margin-bottom: 4px; }
+#tools .tool { display: none; padding:  0; margin: 0 auto; width: 970px; }
+#tools .tool div { color: #515356; padding: 10px 0 18px 0; }
+#tools .tool div h1 span { color: #33332d !important; cursor: pointer; font-size: 11px; padding: 0 0 0 10px; }
+#version { background: #ff0; border: 1px solid #9e9e7d; display: none; padding: 3px 6px; }
+
+#menu ul { margin:0; padding:0; list-style:none; }
+#menu li { background: #fff url("images/tab_right.gif") no-repeat right top; border-bottom: 1px solid #fff; cursor: pointer; font-weight: bold; float:left; margin: 1px 1px 0 1px; }
+#menu span { background: url("images/tab_left.gif") no-repeat left top; display: block; padding: 5px 5px 4px 5px; }
+#menu li.off { background: #33332d url("images/taboff_right.gif") no-repeat right top; border-bottom: 1px solid #33332d; cursor: pointer; float:left; font-weight: normal; margin: 1px 0 0 0; }
+#menu li.off span { background: url("images/taboff_left.gif") no-repeat left top; color: #012345; display: block; padding: 7px 6px 2px 6px;  }
+
+#main .graph { background: #fff; height: 150px; margin: 0 0 7px 0; padding: 4px; width: 100%; }
+#main .pie { background: #fff; float: left; height: 380px; margin-right: 1%; padding: 4px; vertical-align: top; width: 21%; }
+#main .tableFull { border: 1px solid #9e9e7d; clear: both; padding: 4px; width: 100%;}
+#main .tablePie { border: 1px solid #9e9e7d; float: right; padding: 4px; width: 75%;}
+
+/* tools content */
+#datepicker { width: 100%; }
+#datepicker tr td { border-top: 1px solid #aab9d3; color: #444444; }
+#datepicker tr td:first-child { font-size: 18px; line-height: 30px; text-align: center; width: 10%; }
+#datepicker tr:first-child td { border-top: 0; }
+#datepicker td.date { cursor: pointer; text-align: center; width: 7.5%; }
+#datepicker td.date:hover { background: #dee5ed; text-decoration: underline; }
+#datepicker td.selected { background: #dee5ed; cursor: pointer; text-align: center; width: 7.5%; }
+#datepicker td.fade { color: #a0acba; text-align: center; width: 7.5%; }
+
+#langpicker, #sitepicker { width: 100%; }
+#langpicker ul, #sitepicker ul { margin: 0 12px; padding: 0; }
+#langpicker ul li, #sitepicker ul li { border-top: 1px solid #aab9d3; cursor: pointer; line-height: 28px; list-style: none; margin: 0; padding: 0 0 0 10px; }
+#langpicker ul li:first-child, #sitepicker ul li:first-child { border-top: 0; }
+#langpicker ul li.selected, #sitepicker ul li.selected { background: #dee5ed; }
+#langpicker ul li:hover, #sitepicker ul li:hover { background: #dee5ed; text-decoration: underline; }
+#langpicker tr td, #sitepicker tr td { border-left: 1px solid #aab9d3; vertical-align: top; width: 33%; }
+#langpicker tr td:first-child, #sitepicker tr td:first-child { border-left: 0; }
+
+#siteupdate { margin: 12px 0 0 0 !important; padding: 0 !important; text-align: center; }
+#siteupdate input[type=password] { border: 1px solid #444444; font-size: 19px; line-height: 34px; width: 300px; }
+#siteupdate input[type=button] { border: 1px solid #444444; font-size: 19px; line-height: 34px; }
+
+#toolLanguageButton img { padding: 0 0 0 8px !important; }
+
+/* calendar */
+table.calendar { width: 100%; }
+table.calendar td { text-align: left; vertical-align: top;}
+table.calendar td.labelSide { font-size: 11px; padding-right: 4px; text-align: right; vertical-align: middle; width: 1% !important; }
+table.calendar td.labelTop { font-size: 11px; height: 13px; text-align: center; }
+table.calendar td.labelTopSpacer { font-size: 11px; height: 13px; text-align: center; width: 2%; }
+td.calDay { background: #f5f5f2; height: 52px; width: 11%; }
+td.calDay div.date { color: #ccc; font-size: 15px; font-weight: bold; }
+td.calDayPopulated { background: #e2e2d8; height: 52px; padding: 0 2px; width: 11%;}
+td.calDayPopulated div.date { color: #aaa; font-size: 15px; font-weight: bold; height: 15px; }
+td.calDayPopulated div.value { color: #333; font-size: 15px; font-weight: bold; text-align: center; }
+td.calTotWk { background: #cccc9f; vertical-align: middle !important; width: 9%; }
+td.calTotWk div { color: #333; font-size: 15px; font-weight: bold; text-align: center; }
+td.calAvgWk { background: #b7bad6; vertical-align: middle !important; width: 9%; }
+td.calAvgWk div { color: #333; font-size: 15px; font-weight: bold; text-align: center; }
+td.calTotDay { background: #cccc9f; height: 40px; vertical-align: middle !important; }
+td.calTotDay div { color: #333; font-size: 15px; font-weight: bold; text-align: center; }
+td.calTotDay div span { font-size: 11px; font-weight: normal; }
+td.calAvgDay { background: #b7bad6; height: 40px; vertical-align: middle !important; }
+td.calAvgDay div { color: #333; font-size: 15px; font-weight: bold; text-align: center; }
+td.calAvgDay div span { font-size: 11px; font-weight: normal; }
+td.calGraph { height: 130px; vertical-align: bottom !important; }
+
+/* logos */
+td.browserlogo { text-align: center; }
+td.browserlogo img { height: 15px; width: 15px; }
+td.oslogo { text-align: center; }
+td.oslogo img { height: 15px; width: 15px; }
+td.searchenginelogo { text-align: center; }
+td.searchenginelogo img { height: 16px; width: 16px; }
+
+/* paging */
+#paging { padding: 7px 20px 3px 0; text-align: right; }
+#paging img { padding: 0 3px; }
+#paging input { border: 1px solid #333; padding: 1px 4px; text-align: right; width: 40px; }
+#paging span { padding: 0 7px; }
+#paging span:first-child { padding: 0 20px 0 0; }
+
+/* tablesorter */
+table.tablesorter { font-family: arial, helvetica, sans-serif; background-color: #789abc; margin: 0; font-size: 12px; text-align: left; width: 100% }
+table.tablesorter thead tr th { background-color: #cccc9f; border-right: 1px solid #eee; font-size: 12px; font-weight: normal; padding: 7px 30px 7px 7px; }
+table.tablesorter thead tr .header { background-image: url('images/tablesorter_bg.gif'); background-repeat: no-repeat; background-position: center right; cursor: pointer; }
+table.tablesorter tbody td { background: #f5f5f2 !important; color: #333; padding: 5px; background-color: #fff; border-right: 1px solid #eee; vertical-align: top; }
+table.tablesorter tbody tr.odd td { background: #e2e2d8 !important; }
+table.tablesorter tbody tr.saturday td { background: #d3d389 !important; }
+table.tablesorter tbody tr.sunday td { background: #d3d389 !important; }
+table.tablesorter tbody tr.highlight td { background: #fc3 !important; }
+table.tablesorter thead tr .headerSortUp { background-image: url('images/tablesorter_asc.gif'); }
+table.tablesorter thead tr .headerSortDown { background-image: url('images/tablesorter_desc.gif'); }
+table.tablesorter thead tr .headerSortDown,
+table.tablesorter thead tr .headerSortUp { background-color: #9e9e7d; color: #fff; }
+table.tablesorter tfoot tr td { background-color: #9fb4cc; border-right: 1px solid #eee; color: #333; font-size: 13px; font-weight: bold; padding: 7px 5px; }
+table.tablesorter .noborder { border: 0; }
+
+/* tag cloud */
+.tagcloud { margin-bottom: 20px; text-align: center; }
+.tagcloud span { color: #333; padding: 0 16px; white-space: nowrap; }

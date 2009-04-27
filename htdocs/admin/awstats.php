@@ -1,5 +1,5 @@
 <?php
-/* Copyright (C) 2008 Laurent Destailleur  <eldy@users.sourceforge.net>
+/* Copyright (C) 2008-2009 Laurent Destailleur  <eldy@users.sourceforge.net>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,11 +17,11 @@
  */
 
 /**
-	    \file       htdocs/admin/awstats.php
-        \ingroup    awstats
-        \brief      Page de configuration du module AWStats
-		\version    $Id: awstats.php,v 1.2 2008/03/31 17:51:58 eldy Exp $
-*/
+ *	    \file       htdocs/admin/awstats.php
+ *      \ingroup    awstats
+ *      \brief      Page de configuration du module AWStats
+ *		\version    $Id: awstats.php,v 1.3 2009/04/27 19:24:58 eldy Exp $
+ */
 
 $res=@include("./pre.inc.php");
 if (! $res) include("../../../dolibarr/htdocs/admin/pre.inc.php");	// Used on dev env only
@@ -48,11 +48,12 @@ if ($actionsave)
     $i=0;
 
     $db->begin();
-    
+
     $i+=dolibarr_set_const($db,'AWSTATS_DATA_DIR',trim($_POST["AWSTATS_DATA_DIR"]),'chaine',0);
     $i+=dolibarr_set_const($db,'AWSTATS_CGI_PATH',trim($_POST["AWSTATS_CGI_PATH"]),'chaine',0);
+    $i+=dolibarr_set_const($db,'AWSTATS_PROG_PATH',trim($_POST["AWSTATS_PROG_PATH"]),'chaine',0);
 
-    if ($i >= 2)
+    if ($i >= 3)
     {
         $db->commit();
         $mesg = "<font class=\"ok\">".$langs->trans("SetupSaved")."</font>";
@@ -104,6 +105,14 @@ print "<td>http://myserver/awstats/awstats.pl<br>http://myserver/cgi-bin/awstats
 print "</td>";
 print "</tr>";
 
+$var=!$var;
+print "<tr ".$bc[$var].">";
+print "<td>".$langs->trans("AWSTATS_PROG_PATH")."</td>";
+print "<td><input type=\"text\" class=\"flat\" name=\"AWSTATS_PROG_PATH\" value=\"". ($_POST["AWSTATS_CGI_PATH"]?$_POST["AWSTATS_PROG_PATH"]:$conf->global->AWSTATS_PROG_PATH) . "\" size=\"50\"></td>";
+print "<td>/usr/local/awstats/wwwroot/cgi-bin/awstats.pl<br>c:\MyDir\awstats.pl";
+print "</td>";
+print "</tr>";
+
 print "</table>";
 print "<br>";
 
@@ -121,5 +130,5 @@ print "<br>";
 
 $db->close();
 
-llxFooter('$Date: 2008/03/31 17:51:58 $ - $Revision: 1.2 $');
+llxFooter('$Date: 2009/04/27 19:24:58 $ - $Revision: 1.3 $');
 ?>

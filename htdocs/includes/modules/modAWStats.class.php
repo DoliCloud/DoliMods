@@ -12,7 +12,7 @@
         \file       htdocs/includes/modules/modAWStats.class.php
         \ingroup    awstats
         \brief      Description and activation file for module AWStats
-		\version	$Id: modAWStats.class.php,v 1.11 2009/02/23 22:54:51 eldy Exp $
+		\version	$Id: modAWStats.class.php,v 1.12 2009/04/27 19:24:58 eldy Exp $
 */
 
 include_once(DOL_DOCUMENT_ROOT ."/includes/modules/DolibarrModules.class.php");
@@ -54,7 +54,7 @@ class modAWStats extends DolibarrModules
 		$this->special = 1;
 		// Name of png file (without png) used for this module.
 		// Png file must be in theme/yourtheme/img directory under name object_pictovalue.png.
-		$this->picto='generic';
+		$this->picto='/awstats/images/object_awstats.png';
 
 		// Data directories to create when module is enabled
 		$this->dirs = array();

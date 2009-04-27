@@ -1,9 +1,9 @@
 <?php
-/* Copyright (C) 2008 Laurent Destailleur  <eldy@users.sourceforge.net>
+/* Copyright (C) 2008-2009 Laurent Destailleur  <eldy@users.sourceforge.net>
  *
  * Licensed under the GNU GPL v3 or higher (See file gpl-3.0.html)
  *
- * This script was built from: 
+ * This script was built from:
  * Multiple Site Statistics Viewer
  * Copyright (C)2002-2005 Jason Reid
  */
@@ -13,10 +13,10 @@
 */
 
 /**
-	\file       htdocs/awstats/index.php
-	\brief      Page accueil module AWStats
-	\version    $Id: index.php,v 1.7 2008/04/14 00:23:31 eldy Exp $
-*/
+ *	\file       htdocs/awstats/index.php
+ *	\brief      Page accueil module AWStats
+ *	\version    $Id: index.php,v 1.8 2009/04/27 19:24:57 eldy Exp $
+ */
 
 include("./pre.inc.php");
 $ret=include_once(DOL_DOCUMENT_ROOT."/html.formfile.class.php");
@@ -32,7 +32,7 @@ $langs->load("others");
 if (empty($conf->global->AWSTATS_DATA_DIR))
 {
 	llxHeader();
-	print '<div class="error">'.$langs->trans("AWStatsSetupNotComplete").'</div>';	
+	print '<div class="error">'.$langs->trans("AWStatsSetupNotComplete").'</div>';
 	llxFooter;
 	exit;
 }
@@ -100,9 +100,9 @@ $sitecount		=		0;
 #####################
 # Timer Function	#
 #####################
-function gettime() { 
-   list($usec, $sec) = explode(" ", microtime()); 
-   return ((float)$usec + (float)$sec); 
+function gettime() {
+   list($usec, $sec) = explode(" ", microtime());
+   return ((float)$usec + (float)$sec);
 }
 
 #########################
@@ -111,16 +111,16 @@ function gettime() {
 
 function read_file($file,$domain)
 {
-	global $history_dir; 												
+	global $history_dir;
 	global $domaininfo;
-	global $total;	
-	global $max;	
-	
+	global $total;
+	global $max;
+
 	if (! eregi('^awstats([0-9][0-9])([0-9][0-9][0-9][0-9])',$file,$reg))
 	{
 		return -1;
 	}
-	
+
 	$yyyy = $reg[2];
 	$mm = $reg[1];
 
@@ -140,7 +140,7 @@ function read_file($file,$domain)
 		return -2;
 	}
 
-	$use = strpos($contents, "BEGIN_TIME"); 
+	$use = strpos($contents, "BEGIN_TIME");
 	$newline = strpos($contents, "\n", $use);
 	$end = strpos($contents, "END_TIME", $newline);
 	$data .= substr($contents,$newline+1,$end-$newline-2);
@@ -152,7 +152,7 @@ function read_file($file,$domain)
 			$dom_info = explode(" ",$info);
 			if(count($dom_info) < 5) { break; }
 
-			# Record number of page views		
+			# Record number of page views
 			$domaininfo[$domain][$yyyy][$mm]['pages'] += $dom_info[1];
 			$total[$domain]['pages'] += $dom_info[1];
 			# Record number of hits
@@ -168,8 +168,8 @@ function read_file($file,$domain)
 	$max['traffic']=max($max['traffic'],$domaininfo[$domain][$yyyy][$mm]['traffic']);
 	//print "<br>\n".$domain.' '.$dom_info[1].' '.$yyyy.$mm."<br>\n";
 	//var_dump($max);
-	
-	$use = strpos($contents, "BEGIN_GENERAL"); 
+
+	$use = strpos($contents, "BEGIN_GENERAL");
 	$newline = strpos($contents, "\n", $use);
 	$end = strpos($contents, "END_GENERAL", $newline);
 	$data .= substr($contents,$newline+1,$end-$newline-2);
@@ -184,7 +184,7 @@ function read_file($file,$domain)
 			{
 				# Record number of visits
 				$domaininfo[$domain][$yyyy][$mm]['visits'] += $dom_info[1];
-				$total[$domain]['visits'] += $dom_info[1];	
+				$total[$domain]['visits'] += $dom_info[1];
 				$max['visits']=max($max['visits'],$dom_info[1]);
 			}
 			if ($dom_info[0] == 'TotalUnique')
@@ -194,9 +194,9 @@ function read_file($file,$domain)
 				$total[$domain]['visitors'] += $dom_info[1];
 				$max['visitors']=max($max['visitors'],$dom_info[1]);
 			}
-		}	
+		}
 	}
-	
+
 }
 
 #########################
@@ -213,7 +213,7 @@ $bigarray = array();
 #################################
 function format($number) {
 	global $format_numbers;
-	
+
 	if($format_numbers == false) {
 		return $number;
 	} else {
@@ -229,10 +229,10 @@ function format($number) {
 #############################
 
 # Open History Directory
-$dir = @opendir($history_dir);	
+$dir = @opendir($history_dir);
 
 # Check if History Directory Exists
-if(!$dir) { 
+if(!$dir) {
 	echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -242,36 +242,36 @@ if(!$dir) {
 <h1>Error</h1>
 <br>Incorrect History File Path. Remember to set $history_dir to the correct path.
 </body>
-</html>'; 
-	exit; 
-} 
+</html>';
+	exit;
+}
 
 # Define list of qualified files
-while(($file = readdir($dir)) !== false) 
-{ 
-    if(substr_count($file, "awstats") == 0 && strlen($file) >= 14 || substr_count($file,".") == 0 || $file == "." || $file == "..") continue;				# Drop all files except history files 
-    { 
+while(($file = readdir($dir)) !== false)
+{
+    if((substr_count($file, "awstats") == 0 && strlen($file) >= 14) || substr_count($file,".") == 0 || $file == "." || $file == "..") continue;				# Drop all files except history files
+    {
         $domname = substr($file,14);								# Find Domain Name
 		$domname = substr($domname,0,-4);							# And remove trailing
 
-		//print($filter_year);
+		//print($filter_year."-".$filer_domains."-".$domname);
 		if($filter_year == 'all' && ! empty($filter_domains) && eregi($filter_domains,$domname)) {
-			$files[] = $file; 
+			$files[] = $file;
 		}
 		else if($filter_year == 'all' && empty($filter_domains))
 		{
-			$files[] = $file; 
+			$files[] = $file;
 		}
 		elseif($filter_year != 'all' && empty($filter_domains) && substr_count($file,$filter_year) == 1) {
-			$files[] = $file; 
-		} 
+			$files[] = $file;
+		}
 		elseif($filter_year != 'all' && ! empty($filter_domains) && substr_count($file,$filter_year) == 1 && eregi($filter_domains,$domname)) {
-			$files[] = $file; 
+			$files[] = $file;
 		}
-		elseif($filter_year != 'all' && substr_count($file,$filter_year) == 1 && empty($filter_domains)) {		
-			$files[] = $file; 	
+		elseif($filter_year != 'all' && substr_count($file,$filter_year) == 1 && empty($filter_domains)) {
+			$files[] = $file;
 		}
-    } 
+    }
 }
 
 # Check if there are any valid files, otherwise exit
@@ -283,20 +283,20 @@ if(count($files) == 0)
 else
 {
 	# Sort the files in ascending order and then reset the list of sites
-	sort($files);														
-	reset($sites);														
-	
+	sort($files);
+	reset($sites);
+
 	# Check for file type
 	$curr = 0;
-	while($curr < count($files)) 
+	while($curr < count($files))
 	{
 		$file = $history_dir.'/'.$files[$curr];
 		$month = substr($files[$curr], 7, 2);
-		$year = substr($files[$curr],9,4);	
-		$domain = substr($files[$curr],14,-4);				
+		$year = substr($files[$curr],9,4);
+		$domain = substr($files[$curr],14,-4);
 
 		$domains[] = $domain;
-		
+
 		//print dolibarr_print_date(mktime(),'Y%m%d%H%M%S')." Process file ".$files[$curr]."<br>\n";
 		# Check if we are filtering the domains
 		if($filter_domains == true && array_search($domain,$domain_list) == false) {
@@ -312,7 +312,7 @@ else
 	$domains = array_unique($domains);
 	sort($domains);
 
-	
+
 	##############################
 	# Start building the report  #
 	##############################
@@ -323,11 +323,31 @@ else
 		foreach($domaininfo as $key => $ddata)
 		{
 			ksort($ddata);
+
+			//$output_table .= '<table><tr><td>'.$langs->trans("Config").':<br>';
+			//$output_table .= $key;
+			//$output_table .= '</td><td>';
+			//$output_table .= ' &nbsp; <a href="'.$conf->global->AWSTATS_CGI_PATH.'config='.$key.'" target="_blank">';
+			//$output_table .= '<img src="'.DOL_URL_ROOT.'/awstats/images/awstats_screen.png">';
+			//$output_table .= '</a>';
+			//$output_table .= '</td><td>';
+			//$output_table .= ' &nbsp; <a href="'.DOL_URL_ROOT.'/awstats/jawstats/index.php?config='.$key.'">';
+			//$output_table .= '<img src="'.DOL_URL_ROOT.'/awstats/images/awstats_screen.png">';
+			//$output_table .= '</a>';
+			//$output_table .= '</td></tr></table><br>';
 			$output_table .= '<table width="'.$table_width.'" cellspacing="0" cellpadding="1" align="'.$table_align.'">
 <tr class="header">
 <td class="domain-bold">';
-$output_table .= '<a href="'.$AWSTATS_CGI_PATH.'config='.$key.'" target="_blank">'.$key.' ';
-$output_table .= img_picto($langs->trans("ShowStats"),DOL_URL_ROOT.'/awstats/images/menu2.png','',1).'</a>';
+//$output_table .= '&nbsp;';
+$output_table .= '<b>'.$key.'</b> ';
+$output_table .= '<a href="'.$conf->global->AWSTATS_CGI_PATH.'?config='.$key.'" alt="AWStats" title="AWStats" target="_blank">';
+$output_table .= '<img src="'.DOL_URL_ROOT.'/awstats/images/awstats_screen.png">';
+//$output_table .= img_picto($langs->trans("ShowStats"),DOL_URL_ROOT.'/awstats/images/menu2.png','',1).'</a>';
+$output_table .= ' &nbsp; ';
+$output_table .= '<a href="'.DOL_URL_ROOT.'/awstats/jawstats/index.php?config='.$key.'" alt="JAWStats" title="JAWStats" >';
+$output_table .= '<img src="'.DOL_URL_ROOT.'/awstats/images/jawstats_screen.png">';
+$output_table .= '</a>';
+
 $output_table .= '</td>
 <td width="80" class="visitors-bold" nowrap="nowrap">Visitors</td>
 <td width="80" class="visits-bold">Visits</td>
@@ -344,8 +364,8 @@ $output_table .= '</td>
 					$bgc = "first";		# Use first bg color
 				} else {
 					$bgc = "second";	# Use second bg color
-				}	
-				
+				}
+
 				// Define traffic
 				if (eregi('^XML',$domaininfo[$key][$key2][$key3]['traffic'])) $traffic=$domaininfo[$key][$key2][$key3]['traffic'];
 				else
@@ -355,10 +375,10 @@ $output_table .= '</td>
 					} elseif($domaininfo[$key][$key2][$key3]['traffic'] > 1048576) { # Over 1MB
 						$traffic = sprintf("%.2f",$domaininfo[$key][$key2][$key3]['traffic']/1024/1024).' MB';
 					} else { # Under 1MB
-						$traffic = sprintf("%.2f",$domaininfo[$key][$key2][$key3]['traffic']/1024).' KB';			
-					}					
+						$traffic = sprintf("%.2f",$domaininfo[$key][$key2][$key3]['traffic']/1024).' KB';
+					}
 				}
-				
+
 				$output_table .= '  <tr class="'.$bgc.'">
 <td class="domain">'.$key3.' '.$key2.'</td>
 <td class="visitors">'.format($domaininfo[$key][$key2][$key3]['visitors']).'</td>
@@ -373,7 +393,7 @@ $output_table .= '</td>
 				$width['pages']=$maxwidth*$domaininfo[$key][$key2][$key3]['pages']/$max['pages'];
 				$width['hits']=$maxwidth*$domaininfo[$key][$key2][$key3]['hits']/$max['hits'];
 				$width['traffic']=$maxwidth*$domaininfo[$key][$key2][$key3]['traffic']/$max['traffic'];
-				
+
 				$output_table .= '<table class="nobordernopadding">';
 				$output_table .= '<tr class="nobordernopadding" height="2"><td class="nobordernopadding" align="left"><img src="'.DOL_URL_ROOT.'/awstats/images/hu.png" height="3" width="'.ceil($width['visitors']).'"></td></tr>';
 				$output_table .= '<tr class="nobordernopadding" height="2"><td class="nobordernopadding" align="left"><img src="'.DOL_URL_ROOT.'/awstats/images/hv.png" height="3" width="'.ceil($width['visits']).'"></td></tr>';
@@ -386,7 +406,7 @@ $output_table .= '</td>
 				$i++;
 				}
 			}
-			
+
 			// Define traffic
 			if (eregi('^XML',$total[$key]['traffic'])) $traffic=$total[$key]['traffic'];
 			else
@@ -396,10 +416,10 @@ $output_table .= '</td>
 				} elseif($total[$key]['traffic'] > 1048576) { # Over 1MB
 					$traffic = sprintf("%.2f",$total[$key]['traffic']/1024/1024).' MB';
 				} else { # Under 1MB
-					$traffic = sprintf("%.2f",$total[$key]['traffic']/1024).' KB';			
+					$traffic = sprintf("%.2f",$total[$key]['traffic']/1024).' KB';
 				}
 			}
-			
+
 			$output_table .= '
 <tr class="liste_total">
 <td class="domain-bold">'.$langs->trans("Total").':</td>
@@ -416,8 +436,8 @@ $output_table .= '</td>
 </table>';
 		}
 	}
-	
-	
+
+
 	#####################################
 	# Check and build system statistics table.  #
 	#####################################
@@ -437,7 +457,7 @@ $output_table .= '</td>
 				}
 			}
 		}
-		
+
 		$system_table = '<table width="'.$table_width.'" cellspacing="0" cellpadding="1" align="'.$table_align.'">
   <tr class="header">
     <td width="40%" class="domain-bold">System Statistics</td>
@@ -448,7 +468,7 @@ $output_table .= '</td>
     <td width="12%" class="bandwidth-bold">Bandwidth</td>
 	<td>&nbsp;</td>
   </tr>';
-		ksort($server);	
+		ksort($server);
 		foreach($server as $key1 => $data1) {
 			ksort($data1);
 			foreach($data1 as $key2 => $data2) {
@@ -457,7 +477,7 @@ $output_table .= '</td>
 				} else {
 					$bgc = "second";
 				}
-				
+
 				// Define traffic
 				if (eregi('^XML',$server[$key1][$key2]['traffic'])) $traffic=$server[$key1][$key2]['traffic'];
 				else
@@ -467,10 +487,10 @@ $output_table .= '</td>
 					} elseif($server[$key1][$key2]['traffic'] > 1048576) { # Over 1MB
 						$traffic = sprintf("%.2f",$server[$key1][$key2]['traffic']/1024/1024).' MB';
 					} else { # Under 1MB
-						$traffic = sprintf("%.2f",$server[$key1][$key2]['traffic']/1024).' KB';			
-					}				
+						$traffic = sprintf("%.2f",$server[$key1][$key2]['traffic']/1024).' KB';
+					}
 				}
-				
+
 				$system_table .= '  <tr class="'.$bgc.'">
     <td class="domain">'.$key2.' '.$key1.'</td>
     <td class="visitors">'.format($server[$key1][$key2]['visitors']).'</td>
@@ -488,8 +508,8 @@ $output_table .= '</td>
 		} elseif($total2['traffic'] > 1048576) { # Over 1MB
 			$traffic = sprintf("%.2f",$total2['traffic']/1024/1024).' MB';
 		} else { # Under 1MB
-			$traffic = sprintf("%.2f",$total2['traffic']/1024).' KB';			
-		}		
+			$traffic = sprintf("%.2f",$total2['traffic']/1024).' KB';
+		}
 		$system_table .= '
   <tr class="liste_total">
     <td class="domain-bold">'.$langs->trans("Total").':</td>
@@ -519,7 +539,7 @@ print_fiche_titre(' &nbsp; '.$langs->trans("AWStatsSummary"),'',DOL_URL_ROOT.'/a
 
 print '<form action="'.$_SERVER["PHP_SELF"].'" method="POST">';
 print '<table class="border" width="100%"><tr><td>'.$langs->trans("Year").':</td><td>';
-$yearsarray=array('2004'=>'2004','2005'=>'2005','2006'=>'2006','2007'=>'2007','2008'=>'2008','2009'=>'2009','20010'=>'2010','all'=>$langs->trans("All"));
+$yearsarray=array('2000'=>'2000','2001'=>'2001','2002'=>'2002','2003'=>'2003','2004'=>'2004','2005'=>'2005','2006'=>'2006','2007'=>'2007','2008'=>'2008','2009'=>'2009','2010'=>'2010','2011'=>'2011','all'=>$langs->trans("All"));
 $form->select_array('filter_year',$yearsarray,$filter_year,1);
 print '</td>';
 print '<td rowspan="2" align="center"><input class="button" type="submit" value="'.$langs->trans("Update").'"></td>';
@@ -539,5 +559,5 @@ if($system_stats_top == true) {
 #	Output to the screen
 echo $statistics;
 
-llxFooter('$Date: 2008/04/14 00:23:31 $ - $Revision: 1.7 $');
+llxFooter('$Date: 2009/04/27 19:24:57 $ - $Revision: 1.8 $');
 ?>
