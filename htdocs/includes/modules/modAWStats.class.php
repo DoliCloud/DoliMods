@@ -12,7 +12,7 @@
         \file       htdocs/includes/modules/modAWStats.class.php
         \ingroup    awstats
         \brief      Description and activation file for module AWStats
-		\version	$Id: modAWStats.class.php,v 1.12 2009/04/27 19:24:58 eldy Exp $
+		\version	$Id: modAWStats.class.php,v 1.13 2009/04/29 22:11:38 eldy Exp $
 */
 
 include_once(DOL_DOCUMENT_ROOT ."/includes/modules/DolibarrModules.class.php");
@@ -52,9 +52,10 @@ class modAWStats extends DolibarrModules
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
 		// Where to store the module in setup page (0=common,1=interface,2=others,3=very specific)
 		$this->special = 1;
-		// Name of png file (without png) used for this module.
-		// Png file must be in theme/yourtheme/img directory under name object_pictovalue.png.
-		$this->picto='/awstats/images/object_awstats.png';
+		// Name of image file used for this module.
+		// If file is in theme/yourtheme/img directory under name object_pictovalue.png, use this->picto='pictovalue'
+		// If file is in module/images directory, use this->picto=DOL_URL_ROOT.'/module/images/file.png'
+		$this->picto=DOL_URL_ROOT.'/awstats/images/object_awstats.png';
 
 		// Data directories to create when module is enabled
 		$this->dirs = array();
