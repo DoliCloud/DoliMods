@@ -22,7 +22,7 @@
  *      \file       htdocs/includes/modules/barcode/pibarcode.modules.php
  *		\ingroup    facture
  *		\brief      Fichier contenant la classe du modèle de generation code barre pibarcode
- *		\version    $Id: pibarcode.modules.php,v 1.3 2009/03/25 20:17:14 eldy Exp $
+ *		\version    $Id: pibarcode.modules.php,v 1.4 2009/05/03 23:11:46 eldy Exp $
  */
 
 require_once(DOL_DOCUMENT_ROOT ."/includes/modules/barcode/modules_barcode.php");
@@ -57,7 +57,7 @@ class modPibarcode extends ModeleBarCode
     }
 
 	/**
-	 *	\brief		Return true if encodinf is supported
+	 *	\brief		Return true if encoding is supported
 	 *	\return		int		>0 if supported, 0 if not
 	 */
     function encodingIsSupported($encoding)
@@ -80,6 +80,7 @@ class modPibarcode extends ModeleBarCode
     function buildBarCode($code,$encoding,$readable='Y')
     {
 		global $_GET;
+		//global $filebarcode;
 
 		if (! $this->encodingIsSupported($encoding)) return -1;
 
@@ -91,6 +92,17 @@ class modPibarcode extends ModeleBarCode
 		$_GET["readable"]=$readable;
 
 		require_once(DOL_DOCUMENT_ROOT.'/includes/barcode/pi_barcode/pi_barcode.php');
+
+		$objCode = new pi_barcode() ;
+
+		$objCode->setSize(50);
+		$objCode->hideCodeType();
+		$objCode->setColors('#000000');
+		$objCode->setType($encoding) ;
+		$objCode->setCode($code) ;
+
+		//$objCode->writeBarcodeFile($filebarcode) ;
+		$objCode->showBarcodeImage();
 
 		return 1;
     }
@@ -106,36 +118,31 @@ class modPibarcode extends ModeleBarCode
     	global $conf,$filebarcode;
 
 		create_exdir($conf->barcode->dir_temp);
-
 		$file=$conf->barcode->dir_temp.'/barcode_'.$code.'_'.$encoding.'.png';
-
-		$olderrlevel=error_reporting(0);
-
-		ob_flush();
-		ob_start();
-
 		$filebarcode=$file;	// global var to be used in buildBarCode
-    	$result=$this->buildBarCode($code,$encoding,$readable);
 
-    	$content=ob_get_clean();
-		//print "xx".$content."zz";
+		if (! $this->encodingIsSupported($encoding)) return -1;
 
-	    if (!$handle = fopen($file, 'w'))
-	    {
-    	    echo "Cannot open file ($file)";
-    	}
-    	else
-    	{
-			// Write $content to our opened file.
-	    	if (fwrite($handle, $content) === FALSE) {
-	        	echo "Cannot write to file ($file)";
-	    	}
-		    fclose($handle);
-    	}
+		if ($encoding == 'EAN8' || $encoding == 'EAN13') $encoding = 'EAN';
 
-    	error_reporting($olderrlevel);
+		$_GET["code"]=$code;
+		$_GET["type"]=$encoding;
+		$_GET["height"]=50;
+		$_GET["readable"]=$readable;
 
-		return $result;
+		require_once(DOL_DOCUMENT_ROOT.'/includes/barcode/pi_barcode/pi_barcode.php');
+
+		$objCode = new pi_barcode() ;
+
+		$objCode->setSize(50);
+		$objCode->hideCodeType();
+		$objCode->setColors('#000000');
+		$objCode->setType($encoding) ;
+		$objCode->setCode($code) ;
+
+		$objCode->writeBarcodeFile($filebarcode) ;
+
+		return 1;
     }
 
 }
