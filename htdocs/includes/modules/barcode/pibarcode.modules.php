@@ -22,7 +22,7 @@
  *      \file       htdocs/includes/modules/barcode/pibarcode.modules.php
  *		\ingroup    facture
  *		\brief      Fichier contenant la classe du modèle de generation code barre pibarcode
- *		\version    $Id: pibarcode.modules.php,v 1.5 2009/05/04 00:40:11 eldy Exp $
+ *		\version    $Id: pibarcode.modules.php,v 1.6 2009/05/04 09:57:24 eldy Exp $
  */
 
 require_once(DOL_DOCUMENT_ROOT ."/includes/modules/barcode/modules_barcode.php");
@@ -72,10 +72,10 @@ class modPibarcode extends ModeleBarCode
 	}
 
     /**
-	 *		\brief      Retourne fichier image
-	 *		\param   	$code			Valeur numérique a coder
-	 *		\param   	$encoding		Mode de codage
-	 *		\param   	$readable		Code lisible
+	 *		\brief      Return an image file on the fly (no need to write on disk)
+	 *		\param   	$code			Value to encode
+	 *		\param   	$encoding		Mode of encoding
+	 *		\param   	$readable		Code can be read
      */
     function buildBarCode($code,$encoding,$readable='Y')
     {
@@ -115,11 +115,11 @@ class modPibarcode extends ModeleBarCode
 		return 1;
     }
 
-    /**
-	 *		\brief      Save an image file on disk
-	 *		\param   	$code			Valeur numérique a coder
-	 *		\param   	$encoding		Mode de codage
-	 *		\param   	$readable		Code lisible
+	/**
+     *		\brief      Save an image file on disk (with no output)
+	 *		\param   	$code			Value to encode
+	 *		\param   	$encoding		Mode of encoding
+	 *		\param   	$readable		Code can be read
      */
     function writeBarCode($code,$encoding,$readable='Y')
     {
