@@ -22,7 +22,7 @@
  *      \file       htdocs/includes/modules/barcode/pibarcode.modules.php
  *		\ingroup    facture
  *		\brief      Fichier contenant la classe du modèle de generation code barre pibarcode
- *		\version    $Id: pibarcode.modules.php,v 1.4 2009/05/03 23:11:46 eldy Exp $
+ *		\version    $Id: pibarcode.modules.php,v 1.5 2009/05/04 00:40:11 eldy Exp $
  */
 
 require_once(DOL_DOCUMENT_ROOT ."/includes/modules/barcode/modules_barcode.php");
@@ -79,7 +79,7 @@ class modPibarcode extends ModeleBarCode
      */
     function buildBarCode($code,$encoding,$readable='Y')
     {
-		global $_GET;
+		global $conf,$_GET;
 		//global $filebarcode;
 
 		if (! $this->encodingIsSupported($encoding)) return -1;
@@ -91,7 +91,14 @@ class modPibarcode extends ModeleBarCode
 		$_GET["height"]=50;
 		$_GET["readable"]=$readable;
 
-		require_once(DOL_DOCUMENT_ROOT.'/includes/barcode/pi_barcode/pi_barcode.php');
+		// Chargement de la classe de codage
+		foreach ($conf->dol_document_root as $dirroot)
+		{
+			$file=$dirroot . '/includes/barcode/pi_barcode/pi_barcode.php';
+			$result=@include_once($file);
+			if ($result) break;
+		}
+		//require_once(DOL_DOCUMENT_ROOT.'/includes/barcode/pi_barcode/pi_barcode.php');
 
 		$objCode = new pi_barcode() ;
 
@@ -102,6 +109,7 @@ class modPibarcode extends ModeleBarCode
 		$objCode->setCode($code) ;
 
 		//$objCode->writeBarcodeFile($filebarcode) ;
+		dol_syslog("pibarcode::buildBarCode");
 		$objCode->showBarcodeImage();
 
 		return 1;
@@ -130,7 +138,14 @@ class modPibarcode extends ModeleBarCode
 		$_GET["height"]=50;
 		$_GET["readable"]=$readable;
 
-		require_once(DOL_DOCUMENT_ROOT.'/includes/barcode/pi_barcode/pi_barcode.php');
+		// Chargement de la classe de codage
+		foreach ($conf->dol_document_root as $dirroot)
+		{
+			$file=$dirroot . '/includes/barcode/pi_barcode/pi_barcode.php';
+			$result=@include_once($file);
+			if ($result) break;
+		}
+		//require_once(DOL_DOCUMENT_ROOT.'/includes/barcode/pi_barcode/pi_barcode.php');
 
 		$objCode = new pi_barcode() ;
 
