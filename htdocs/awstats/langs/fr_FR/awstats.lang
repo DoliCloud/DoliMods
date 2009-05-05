@@ -2,7 +2,9 @@
 AWStatsSetup=Configuration du module AWStats
 AWStatsSummary=Synthèse AWStats
 AWStatsSetupNotComplete=La configuration du module AWStats est incomplète
-AWSTATS_DATA_DIR=Répertoire stockage fichiers data AWStats
-AWSTATS_CGI_PATH=URL Programme CGI AWstats
+AWSTATS_DATA_DIR=Répertoire stockage fichiers data AWStats (chemin disque)
+AWSTATS_CGI_PATH=URL accès du programme AWstats (en CGI)
+AWSTATS_PROG_PATH=Localisation du programme AWStats (chemin complet disque)
+AWSTATS_LIMIT_CONF=Limiter les config affichées à cette liste (vide pour aucun filtre sinon séparées par une ",")
 ShowStats=Afficher détail des statistiques
 FilterDomain=Filtrage configuration

@@ -9,18 +9,18 @@
  */
 
 /**     \defgroup   awstats     Module AWStats
-        \brief      Module to AWStats tools integration.
-*/
+ \brief      Module to AWStats tools integration.
+ */
 
 /**
  *	\file       htdocs/awstats/index.php
  *	\brief      Page accueil module AWStats
- *	\version    $Id: index.php,v 1.8 2009/04/27 19:24:57 eldy Exp $
+ *	\version    $Id: index.php,v 1.9 2009/05/05 14:02:03 eldy Exp $
  */
 
 include("./pre.inc.php");
+include("./awstats.lib.php");
 $ret=include_once(DOL_DOCUMENT_ROOT."/html.formfile.class.php");
-if (! $ret) include_once(DOL_DOCUMENT_ROOT_BIS."/html.formfile.class.php");
 
 $langs->load("awstats");
 $langs->load("others");
@@ -43,14 +43,17 @@ else $AWSTATS_CGI_PATH.='&amp;';
 
 $history_dir 		= 	$conf->global->AWSTATS_DATA_DIR;		# Location of history files
 $filter_year		=	isset($_REQUEST["filter_year"])?$_REQUEST["filter_year"]:'';		# year or all
-if (empty($filter_year)) $filter_year=date("Y");
-$filter_domains		=	isset($_REQUEST["filter_domains"])?$_REQUEST["filter_domains"]:'';	# Show only current year statistics
+if (empty($filter_year)) $filter_year=date("Y");	# Show only current year statistics
+$filter_domains		=	isset($_REQUEST["filter_domains"])?$_REQUEST["filter_domains"]:'';
+$limittoconf=array();
+if (! empty($conf->global->AWSTATS_LIMIT_CONF)) $limittoconf=split(',',$conf->global->AWSTATS_LIMIT_CONF);
+
 
 $domain_list		=	array();					# List of domains to show if filter_domains is true
 $build_domains		=	true;						# Show domain by domain statistics
 $build_system		=	false;						# Show system statistics
 $accept_query		=	true;						# Accept domain list via query string (adds to $domain_list)
-													# in format ?domains=domain1.com,domain2.com,domain3.com
+# in format ?domains=domain1.com,domain2.com,domain3.com
 $format_numbers		=	true;						# Format numbers with comma's to indicate thousands
 $gzip_compression	=	false;						# Enable gzip compression
 $system_stats_top	=	false;						# Show system statistics above domain statistics
@@ -61,10 +64,10 @@ $table_align		=	"center";					# Content table alignment
 
 
 /*
-*	View
-*/
+ *	View
+ */
 
-llxHeader();
+llxHeader('AWStats','AWStats',$linktohelp);
 
 $form=new Form($db);
 
@@ -101,8 +104,8 @@ $sitecount		=		0;
 # Timer Function	#
 #####################
 function gettime() {
-   list($usec, $sec) = explode(" ", microtime());
-   return ((float)$usec + (float)$sec);
+	list($usec, $sec) = explode(" ", microtime());
+	return ((float)$usec + (float)$sec);
 }
 
 #########################
@@ -249,10 +252,16 @@ if(!$dir) {
 # Define list of qualified files
 while(($file = readdir($dir)) !== false)
 {
-    if((substr_count($file, "awstats") == 0 && strlen($file) >= 14) || substr_count($file,".") == 0 || $file == "." || $file == "..") continue;				# Drop all files except history files
-    {
-        $domname = substr($file,14);								# Find Domain Name
+	if((substr_count($file, "awstats") == 0 && strlen($file) >= 14) || substr_count($file,".") == 0 || $file == "." || $file == "..") continue;				# Drop all files except history files
+	{
+		$domname = substr($file,14);								# Find Domain Name
 		$domname = substr($domname,0,-4);							# And remove trailing
+
+		// If a limit has been set
+		if (sizeof($limittoconf))
+		{
+			if (! in_array($domname, $limittoconf)) continue;	// Not qualified
+		}
 
 		//print($filter_year."-".$filer_domains."-".$domname);
 		if($filter_year == 'all' && ! empty($filter_domains) && eregi($filter_domains,$domname)) {
@@ -271,7 +280,7 @@ while(($file = readdir($dir)) !== false)
 		elseif($filter_year != 'all' && substr_count($file,$filter_year) == 1 && empty($filter_domains)) {
 			$files[] = $file;
 		}
-    }
+	}
 }
 
 # Check if there are any valid files, otherwise exit
@@ -336,50 +345,52 @@ else
 			//$output_table .= '</a>';
 			//$output_table .= '</td></tr></table><br>';
 			$output_table .= '<table width="'.$table_width.'" cellspacing="0" cellpadding="1" align="'.$table_align.'">
-<tr class="header">
-<td class="domain-bold">';
-//$output_table .= '&nbsp;';
-$output_table .= '<b>'.$key.'</b> ';
-$output_table .= '<a href="'.$conf->global->AWSTATS_CGI_PATH.'?config='.$key.'" alt="AWStats" title="AWStats" target="_blank">';
-$output_table .= '<img src="'.DOL_URL_ROOT.'/awstats/images/awstats_screen.png">';
-//$output_table .= img_picto($langs->trans("ShowStats"),DOL_URL_ROOT.'/awstats/images/menu2.png','',1).'</a>';
-$output_table .= ' &nbsp; ';
-$output_table .= '<a href="'.DOL_URL_ROOT.'/awstats/jawstats/index.php?config='.$key.'" alt="JAWStats" title="JAWStats" >';
-$output_table .= '<img src="'.DOL_URL_ROOT.'/awstats/images/jawstats_screen.png">';
-$output_table .= '</a>';
-
-$output_table .= '</td>
+<tr>
+<td>';
+			//$output_table .= '&nbsp;';
+			$output_table .= '<b>'.$key.'</b> ';
+			$output_table .= '</td>
 <td width="80" class="visitors-bold" nowrap="nowrap">Visitors</td>
 <td width="80" class="visits-bold">Visits</td>
 <td width="80" class="pages-bold">Pages</td>
 <td width="80" class="hits-bold">Hits</td>
 <td width="80" class="bandwidth-bold">Bandwidth</td>
-<td width="'.$maxwidth.'">&nbsp;</td>
-</tr>';
+<td width="'.$maxwidth.'" align="center">';
+			$output_table .= '<a href="'.$conf->global->AWSTATS_CGI_PATH.'?config='.$key.'" alt="AWStats" title="AWStats" target="_blank">';
+			$output_table .= '<img src="'.DOL_URL_ROOT.'/awstats/images/awstats_screen.png">';
+			//$output_table .= img_picto($langs->trans("ShowStats"),DOL_URL_ROOT.'/awstats/images/menu2.png','',1).'</a>';
+			$output_table .= ' &nbsp; ';
+			$output_table .= '<a href="'.DOL_URL_ROOT.'/awstats/jawstats/index.php?config='.$key.'" alt="JAWStats" title="JAWStats" >';
+			$output_table .= '<img src="'.DOL_URL_ROOT.'/awstats/images/jawstats_screen.png">';
+			$output_table .= '</a>';
+			$output_table .= '</td>';
+			$output_table .= '</tr>';
 			foreach($ddata as $key2 => $data)
 			{
+				$i=0;
+				// List of month
 				foreach($data as $key3 => $ata)
 				{
-				if($i % 2) {			# Alternate colors
-					$bgc = "first";		# Use first bg color
-				} else {
-					$bgc = "second";	# Use second bg color
-				}
-
-				// Define traffic
-				if (eregi('^XML',$domaininfo[$key][$key2][$key3]['traffic'])) $traffic=$domaininfo[$key][$key2][$key3]['traffic'];
-				else
-				{
-					if($domaininfo[$key][$key2][$key3]['traffic'] > 1073741824) {	# Over 1GB
-						$traffic = sprintf("%.2f",$domaininfo[$key][$key2][$key3]['traffic']/1024/1024/1024).' GB';
-					} elseif($domaininfo[$key][$key2][$key3]['traffic'] > 1048576) { # Over 1MB
-						$traffic = sprintf("%.2f",$domaininfo[$key][$key2][$key3]['traffic']/1024/1024).' MB';
-					} else { # Under 1MB
-						$traffic = sprintf("%.2f",$domaininfo[$key][$key2][$key3]['traffic']/1024).' KB';
+					if($i % 2) {			# Alternate colors
+						$bgc = "first";		# Use first bg color
+					} else {
+						$bgc = "second";	# Use second bg color
 					}
-				}
 
-				$output_table .= '  <tr class="'.$bgc.'">
+					// Define traffic
+					if (eregi('^XML',$domaininfo[$key][$key2][$key3]['traffic'])) $traffic=$domaininfo[$key][$key2][$key3]['traffic'];
+					else
+					{
+						if($domaininfo[$key][$key2][$key3]['traffic'] > 1073741824) {	# Over 1GB
+							$traffic = sprintf("%.2f",$domaininfo[$key][$key2][$key3]['traffic']/1024/1024/1024).' GB';
+						} elseif($domaininfo[$key][$key2][$key3]['traffic'] > 1048576) { # Over 1MB
+							$traffic = sprintf("%.2f",$domaininfo[$key][$key2][$key3]['traffic']/1024/1024).' MB';
+						} else { # Under 1MB
+							$traffic = sprintf("%.2f",$domaininfo[$key][$key2][$key3]['traffic']/1024).' KB';
+						}
+					}
+
+					$output_table .= '  <tr class="'.$bgc.'">
 <td class="domain">'.$key3.' '.$key2.'</td>
 <td class="visitors">'.format($domaininfo[$key][$key2][$key3]['visitors']).'</td>
 <td class="visits">'.format($domaininfo[$key][$key2][$key3]['visits']).'</td>
@@ -388,22 +399,22 @@ $output_table .= '</td>
 <td class="bandwidth">'.$traffic.'</td>
 <td>';
 
-				$width['visitors']=$maxwidth*$domaininfo[$key][$key2][$key3]['visitors']/$max['visitors'];
-				$width['visits']=$maxwidth*$domaininfo[$key][$key2][$key3]['visits']/$max['visits'];
-				$width['pages']=$maxwidth*$domaininfo[$key][$key2][$key3]['pages']/$max['pages'];
-				$width['hits']=$maxwidth*$domaininfo[$key][$key2][$key3]['hits']/$max['hits'];
-				$width['traffic']=$maxwidth*$domaininfo[$key][$key2][$key3]['traffic']/$max['traffic'];
+					$width['visitors']=$maxwidth*$domaininfo[$key][$key2][$key3]['visitors']/$max['visitors'];
+					$width['visits']=$maxwidth*$domaininfo[$key][$key2][$key3]['visits']/$max['visits'];
+					$width['pages']=$maxwidth*$domaininfo[$key][$key2][$key3]['pages']/$max['pages'];
+					$width['hits']=$maxwidth*$domaininfo[$key][$key2][$key3]['hits']/$max['hits'];
+					$width['traffic']=$maxwidth*$domaininfo[$key][$key2][$key3]['traffic']/$max['traffic'];
 
-				$output_table .= '<table class="nobordernopadding">';
-				$output_table .= '<tr class="nobordernopadding" height="2"><td class="nobordernopadding" align="left"><img src="'.DOL_URL_ROOT.'/awstats/images/hu.png" height="3" width="'.ceil($width['visitors']).'"></td></tr>';
-				$output_table .= '<tr class="nobordernopadding" height="2"><td class="nobordernopadding" align="left"><img src="'.DOL_URL_ROOT.'/awstats/images/hv.png" height="3" width="'.ceil($width['visits']).'"></td></tr>';
-				$output_table .= '<tr class="nobordernopadding" height="2"><td class="nobordernopadding" align="left"><img src="'.DOL_URL_ROOT.'/awstats/images/hp.png" height="3" width="'.ceil($width['pages']).'"></td></tr>';
-				$output_table .= '<tr class="nobordernopadding" height="2"><td class="nobordernopadding" align="left"><img src="'.DOL_URL_ROOT.'/awstats/images/hh.png" height="3" width="'.ceil($width['hits']).'"></td></tr>';
-				$output_table .= '<tr class="nobordernopadding" height="2"><td class="nobordernopadding" align="left"><img src="'.DOL_URL_ROOT.'/awstats/images/hk.png" height="3" width="'.ceil($width['traffic']).'"></td></tr>';
-				$output_table .= '</table>';
+					$output_table .= '<table class="nobordernopadding">';
+					$output_table .= '<tr class="nobordernopadding" height="2"><td class="nobordernopadding" align="left"><img src="'.DOL_URL_ROOT.'/awstats/images/hu.png" height="3" width="'.ceil($width['visitors']).'"></td></tr>';
+					$output_table .= '<tr class="nobordernopadding" height="2"><td class="nobordernopadding" align="left"><img src="'.DOL_URL_ROOT.'/awstats/images/hv.png" height="3" width="'.ceil($width['visits']).'"></td></tr>';
+					$output_table .= '<tr class="nobordernopadding" height="2"><td class="nobordernopadding" align="left"><img src="'.DOL_URL_ROOT.'/awstats/images/hp.png" height="3" width="'.ceil($width['pages']).'"></td></tr>';
+					$output_table .= '<tr class="nobordernopadding" height="2"><td class="nobordernopadding" align="left"><img src="'.DOL_URL_ROOT.'/awstats/images/hh.png" height="3" width="'.ceil($width['hits']).'"></td></tr>';
+					$output_table .= '<tr class="nobordernopadding" height="2"><td class="nobordernopadding" align="left"><img src="'.DOL_URL_ROOT.'/awstats/images/hk.png" height="3" width="'.ceil($width['traffic']).'"></td></tr>';
+					$output_table .= '</table>';
 
-				$output_table .= '</td>	</tr>';
-				$i++;
+					$output_table .= '</td>	</tr>';
+					$i++;
 				}
 			}
 
@@ -500,7 +511,7 @@ $output_table .= '</td>
     <td class="bandwidth">'.$traffic.'</td>
 	<td>&nbsp;</td>
   </tr>';
-		$i++;
+				$i++;
 			}
 		}
 		if($total2['traffic'] > 1073741824) {	# Over 1GB
@@ -559,5 +570,5 @@ if($system_stats_top == true) {
 #	Output to the screen
 echo $statistics;
 
-llxFooter('$Date: 2009/04/27 19:24:57 $ - $Revision: 1.8 $');
+llxFooter('$Date: 2009/05/05 14:02:03 $ - $Revision: 1.9 $');
 ?>
