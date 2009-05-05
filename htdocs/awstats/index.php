@@ -15,7 +15,7 @@
 /**
  *	\file       htdocs/awstats/index.php
  *	\brief      Page accueil module AWStats
- *	\version    $Id: index.php,v 1.9 2009/05/05 14:02:03 eldy Exp $
+ *	\version    $Id: index.php,v 1.10 2009/05/05 14:35:34 eldy Exp $
  */
 
 include("./pre.inc.php");
@@ -336,7 +336,7 @@ else
 			//$output_table .= '<table><tr><td>'.$langs->trans("Config").':<br>';
 			//$output_table .= $key;
 			//$output_table .= '</td><td>';
-			//$output_table .= ' &nbsp; <a href="'.$conf->global->AWSTATS_CGI_PATH.'config='.$key.'" target="_blank">';
+			//$output_table .= ' &nbsp; <a href="'.$AWSTATS_CGI_PATH.'config='.$key.'" target="_blank">';
 			//$output_table .= '<img src="'.DOL_URL_ROOT.'/awstats/images/awstats_screen.png">';
 			//$output_table .= '</a>';
 			//$output_table .= '</td><td>';
@@ -356,7 +356,7 @@ else
 <td width="80" class="hits-bold">Hits</td>
 <td width="80" class="bandwidth-bold">Bandwidth</td>
 <td width="'.$maxwidth.'" align="center">';
-			$output_table .= '<a href="'.$conf->global->AWSTATS_CGI_PATH.'?config='.$key.'" alt="AWStats" title="AWStats" target="_blank">';
+			$output_table .= '<a href="'.$AWSTATS_CGI_PATH.'config='.$key.'" alt="AWStats" title="AWStats" target="_blank">';
 			$output_table .= '<img src="'.DOL_URL_ROOT.'/awstats/images/awstats_screen.png">';
 			//$output_table .= img_picto($langs->trans("ShowStats"),DOL_URL_ROOT.'/awstats/images/menu2.png','',1).'</a>';
 			$output_table .= ' &nbsp; ';
@@ -570,5 +570,5 @@ if($system_stats_top == true) {
 #	Output to the screen
 echo $statistics;
 
-llxFooter('$Date: 2009/05/05 14:02:03 $ - $Revision: 1.9 $');
+llxFooter('$Date: 2009/05/05 14:35:34 $ - $Revision: 1.10 $');
 ?>
