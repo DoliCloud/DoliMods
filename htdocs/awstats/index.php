@@ -15,7 +15,7 @@
 /**
  *	\file       htdocs/awstats/index.php
  *	\brief      Page accueil module AWStats
- *	\version    $Id: index.php,v 1.10 2009/05/05 14:35:34 eldy Exp $
+ *	\version    $Id: index.php,v 1.11 2009/05/07 00:13:09 eldy Exp $
  */
 
 include("./pre.inc.php");
@@ -357,11 +357,11 @@ else
 <td width="80" class="bandwidth-bold">Bandwidth</td>
 <td width="'.$maxwidth.'" align="center">';
 			$output_table .= '<a href="'.$AWSTATS_CGI_PATH.'config='.$key.'" alt="AWStats" title="AWStats" target="_blank">';
-			$output_table .= '<img src="'.DOL_URL_ROOT.'/awstats/images/awstats_screen.png">';
+			$output_table .= '<img src="'.DOL_URL_ROOT.'/awstats/images/awstats_screen.png" border="0">';
 			//$output_table .= img_picto($langs->trans("ShowStats"),DOL_URL_ROOT.'/awstats/images/menu2.png','',1).'</a>';
 			$output_table .= ' &nbsp; ';
 			$output_table .= '<a href="'.DOL_URL_ROOT.'/awstats/jawstats/index.php?config='.$key.'" alt="JAWStats" title="JAWStats" >';
-			$output_table .= '<img src="'.DOL_URL_ROOT.'/awstats/images/jawstats_screen.png">';
+			$output_table .= '<img src="'.DOL_URL_ROOT.'/awstats/images/jawstats_screen.png" border="0">';
 			$output_table .= '</a>';
 			$output_table .= '</td>';
 			$output_table .= '</tr>';
@@ -570,5 +570,5 @@ if($system_stats_top == true) {
 #	Output to the screen
 echo $statistics;
 
-llxFooter('$Date: 2009/05/05 14:35:34 $ - $Revision: 1.10 $');
+llxFooter('$Date: 2009/05/07 00:13:09 $ - $Revision: 1.11 $');
 ?>
