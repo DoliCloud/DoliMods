@@ -17,16 +17,16 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-/**     \defgroup   mymodule     Module RiverBitTorrent
+/**     \defgroup   mymodule     Module BitTorrent
  *      \brief      Example of a module descriptor.
  *					Such a file must be copied into htdocs/includes/module directory.
  */
 
 /**
- *      \file       htdocs/includes/modules/modRiverBitTorrent.class.php
+ *      \file       htdocs/includes/modules/modBitTorrent.class.php
  *      \ingroup    mymodule
  *      \brief      Description and activation file for module MyModule
- *		\version	$Id: modRiverBitTorrent.class.php,v 1.2 2009/02/24 02:39:40 eldy Exp $
+ *		\version	$Id: modBitTorrent.class.php,v 1.1 2009/05/08 19:56:15 eldy Exp $
  */
 include_once(DOL_DOCUMENT_ROOT ."/includes/modules/DolibarrModules.class.php");
 
@@ -34,13 +34,13 @@ include_once(DOL_DOCUMENT_ROOT ."/includes/modules/DolibarrModules.class.php");
 /**     \class      modRiverBitTorrent
  *      \brief      Description and activation class for module RiverBitTorrent
  */
-class modRiverBitTorrent extends DolibarrModules
+class modBitTorrent extends DolibarrModules
 {
     /**
     *   \brief      Constructor. Define names, constants, directories, boxes, permissions
     *   \param      DB      Database handler
     */
-	function modRiverBitTorrent($DB)
+	function modBitTorrent($DB)
 	{
 		$this->db = $DB;
 
@@ -68,11 +68,7 @@ class modRiverBitTorrent extends DolibarrModules
 		$this->picto='generic';
 
 		// Data directories to create when module is enabled.
-		$this->dirs = array();
-		$this->dirs[0] = DOL_DATA_ROOT.'/bittorrent';
-        $this->dirs[1] = DOL_DATA_ROOT.'/bittorrent/torrents';
-        $this->dirs[2] = DOL_DATA_ROOT.'/bittorrent/rss';
-        $this->dirs[3] = DOL_DATA_ROOT.'/bittorrent/files';
+		$this->dirs = array("/bittorrent/torrents","/bittorrent/rss","/bittorrents/files");
 
 		// Relative path to module style sheet if exists. Example: '/mymodule/mycss.css'.
 		$this->style_sheet = '';
@@ -84,7 +80,7 @@ class modRiverBitTorrent extends DolibarrModules
 		$this->depends = array();		// List of modules id that must be enabled if this module is enabled
 		$this->requiredby = array();	// List of modules id to disable if this one is disabled
 		$this->phpmin = array(4,3);					// Minimum version of PHP required by module
-		$this->need_dolibarr_version = array(2,5);	// Minimum version of Dolibarr required by module
+		$this->need_dolibarr_version = array(2,7);	// Minimum version of Dolibarr required by module
 		$this->langfiles = array("bittorrent");
 
 		// Constants
