@@ -12,7 +12,7 @@
         \file       htdocs/includes/modules/modGoogle.class.php
         \ingroup    google
         \brief      Description and activation file for module Google
-		\version	$Id: modGoogle.class.php,v 1.8 2009/02/23 22:54:51 eldy Exp $
+		\version	$Id: modGoogle.class.php,v 1.9 2009/05/18 17:28:15 eldy Exp $
 */
 
 include_once(DOL_DOCUMENT_ROOT ."/includes/modules/DolibarrModules.class.php");
@@ -54,7 +54,7 @@ class modGoogle extends DolibarrModules
 		$this->special = 1;
 		// Name of png file (without png) used for this module.
 		// Png file must be in theme/yourtheme/img directory under name object_pictovalue.png.
-		$this->picto='generic';
+		$this->picto=DOL_URL_ROOT.'/google/images/google.png';
 
 		// Data directories to create when module is enabled
 		$this->dirs = array();
