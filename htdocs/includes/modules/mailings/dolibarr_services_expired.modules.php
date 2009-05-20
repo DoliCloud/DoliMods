@@ -11,25 +11,22 @@
 include_once DOL_DOCUMENT_ROOT.'/includes/modules/mailings/modules_mailings.php';
 
 
-// CHANGE THIS: Class name must be called mailing_xxx with xxx=name of your selector
 class mailing_dolibarr_services_expired extends MailingTargets
 {
-	// CHANGE THIS: Put here a name not already used
 	var $name='dolibarr_services_expired';
-	// CHANGE THIS: Put here a description of your selector module
 	var $desc='Tiers avec service expiré';
-	// CHANGE THIS: Set to 1 if selector is available for admin users only
 	var $require_admin=0;
 
 	var $require_module=array();
 	var $picto='company';
 	var $db;
+	var $arrayofproducts=array();
 
 
-	// CHANGE THIS: Constructor name must be called mailing_xxx with xxx=name of your selector
 	function mailing_dolibarr_services_expired($DB)
 	{
 		$this->db=$DB;
+		$this->arrayofproducts=array(1=>"PUBADRESCHIEN",2=>"PUBADRESCHAT",3=>"HEBERGDOMWEB");
 	}
 
 
@@ -43,7 +40,6 @@ class mailing_dolibarr_services_expired extends MailingTargets
 	{
 		$target = array();
 
-		// CHANGE THIS
 		// ----- Your code start here -----
 
 		$cibles = array();
@@ -53,9 +49,7 @@ class mailing_dolibarr_services_expired extends MailingTargets
 	    foreach($filtersarray as $key)
         {
             if ($key == '0') return "Error: You must choose a filter";
-            if ($key == '1') $product= "PUBADRESCHIEN";
-            if ($key == '2') $product= "PUBADRESCHAT";
-            if ($key == '3') $product= "HEBERGDOMWEB";
+            $product=$this->arrayofproducts[$key];
         }
 
 		// La requete doit retourner: id, email, name
@@ -74,7 +68,7 @@ class mailing_dolibarr_services_expired extends MailingTargets
 			$num = $this->db->num_rows($result);
 			$i = 0;
 
-			dolibarr_syslog("dolibarr_services_expired.modules.php: mailing $num cibles trouv�es");
+			dolibarr_syslog("dolibarr_services_expired.modules.php:add_to_target ".$num." targets found");
 
 			$old = '';
 			while ($i < $num)
@@ -117,7 +111,6 @@ class mailing_dolibarr_services_expired extends MailingTargets
 	*/
 	function getSqlArrayForStats()
 	{
-		// CHANGE THIS: Optionnal
 
 		//var $statssql=array();
 		//$this->statssql[0]="SELECT field1 as label, count(distinct(email)) as nb FROM mytable WHERE email IS NOT NULL";
@@ -134,7 +127,6 @@ class mailing_dolibarr_services_expired extends MailingTargets
 	*/
 	function getNbOfRecipients($filter=1,$option='')
 	{
-		// CHANGE THIS: Optionnal
 
         // Example: return parent::getNbOfRecipients("SELECT count(*) as nb from dolibarr_table");
 		// Example: return 500;
@@ -142,7 +134,8 @@ class mailing_dolibarr_services_expired extends MailingTargets
 		$sql.= " from ".MAIN_DB_PREFIX."societe as s, ".MAIN_DB_PREFIX."contrat as c,";
 		$sql.= " ".MAIN_DB_PREFIX."contratdet as cd, ".MAIN_DB_PREFIX."product as p";
 		$sql.= " where s.rowid = c.fk_soc AND cd.fk_contrat = c.rowid AND s.email != ''";
-		$sql.= " AND cd.statut= 4 AND cd.fk_product=p.rowid AND p.ref in ('PUBADRESCHIEN','PUBADRESCHAT','HEBERGDOMWEB')";
+		$sql.= " AND cd.statut= 4 AND cd.fk_product=p.rowid";
+		$sql.= " AND p.ref in ('".join("','",$this->arrayofproducts)."')";
 		$sql.= " AND cd.date_fin_validite < '".$this->db->idate(gmmktime())."'";
 		$sql.= " ORDER BY s.email";
 		//print $sql;
@@ -158,28 +151,26 @@ class mailing_dolibarr_services_expired extends MailingTargets
 	*/
 	function formFilter()
 	{
-		// CHANGE THIS: Optionnal
 
 		$s='';
         $s.='<select name="filter" class="flat">';
         $s.='<option value="0">&nbsp;</option>';
-        $s.='<option value="1">PUBADRESCHIEN</option>';
-        $s.='<option value="2">PUBADRESCHAT</option>';
-        $s.='<option value="3">HEBERGDOMWEB</option>';
+        foreach($this->arrayofproducts as $key => $val)
+        {
+        	$s.='<option value="'.$key.'">'.$val.'</option>';
+        }
         $s.='</select>';
 		return $s;
 	}
 
 
 	/**
-	*      \brief      Can include an URL link on each record provided by selector
+	*      \brief      	Can include an URL link on each record provided by selector
 	*					shown on target page.
-	*      \return     string      Url link
+	*      \return     	string      Url link
 	*/
 	function url($id)
 	{
-		// CHANGE THIS: Optionnal
-
 		return '';
 	}
 
