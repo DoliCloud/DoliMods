@@ -17,7 +17,7 @@ class mailing_mailinglist_chatsderace extends MailingTargets
 	// CHANGE THIS: Put here a name not already used
 	var $name='mailinglist_chatsderace';
 	// CHANGE THIS: Put here a description of your selector module
-	var $desc='Inscrits mailings list ChatsDeRace';
+	var $desc='Inscrits ML ChatsDeRace';
 	// CHANGE THIS: Set to 1 if selector is available for admin users only
 	var $require_admin=0;
 
@@ -48,7 +48,7 @@ class mailing_mailinglist_chatsderace extends MailingTargets
 
 		$cibles = array();
 		$j = 0;
-		
+
 		$sitedb='chatsderace_db';
 
 		// ICI on fait la requete sur T_ADRESSES
@@ -99,7 +99,7 @@ class mailing_mailinglist_chatsderace extends MailingTargets
 		$sql.= " LEFT JOIN ".$sitedb.".T_ADRESSES as a ON p.EMAIL_PERSO = a.EMAIL_ADRES where EMAIL_ADRES IS NULL";
 		$sql.= " and EMAIL_PERSO IS NOT NULL AND EMAIL_PERSO != '' and ML_PERSO = 1";
 		$sql.= " ORDER BY EMAIL_PERSO";
-		
+
 		// Stocke destinataires dans cibles
 		$result=$this->db->query($sql);
 		if ($result)

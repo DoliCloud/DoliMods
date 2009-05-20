@@ -17,7 +17,7 @@ class mailing_mailinglist_chiensderace_forum extends MailingTargets
 	// CHANGE THIS: Put here a name not already used
 	var $name='mailinglist_chiensderace_forum';
 	// CHANGE THIS: Put here a description of your selector module
-	var $desc='Inscrits mailings list ChiensDeRace Forum';
+	var $desc='Inscrits ML ChiensDeRace Forum';
 	// CHANGE THIS: Set to 1 if selector is available for admin users only
 	var $require_admin=0;
 
@@ -61,9 +61,9 @@ class mailing_mailinglist_chiensderace_forum extends MailingTargets
             if ($key == '-1')  $sql.= " AND user_accept_parlonschat = 0";
             if ($key == '2')  $sql.= " AND user_accept_whiskas = 1";
             if ($key == '-2')  $sql.= " AND user_accept_whiskas = 0";
-        }		
+        }
 		$sql.= " ORDER BY user_email";
-		
+
 		// Stocke destinataires dans cibles
 		$result=$this->db->query($sql);
 		if ($result)
@@ -142,7 +142,7 @@ class mailing_mailinglist_chiensderace_forum extends MailingTargets
 		// CHANGE THIS: Optionnal
 
 		$sitedb='chiensderace_db';
-		
+
 		// Example: return parent::getNbOfRecipients("SELECT count(*) as nb from dolibarr_table");
 		// Example: return 500;
 		$sql="select count(*) as nb from ".$sitedb.".forum_users where 1 = 1";
