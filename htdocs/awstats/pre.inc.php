@@ -1,5 +1,5 @@
 <?php
-/* Copyright (C) 2008 Laurent Destailleur  <eldy@users.sourceforge.net>
+/* Copyright (C) 2008-2009 Laurent Destailleur  <eldy@users.sourceforge.net>
  *
  * Licensed under the GNU GPL v3 or higher (See file gpl-3.0.html)
  */
@@ -8,8 +8,10 @@
  *		\file 		htdocs/awstats/pre.inc.php
  *		\ingroup    awstats
  *		\brief      File to manage left menu for awstats module
- *		\version    $Id: pre.inc.php,v 1.5 2009/04/27 19:24:57 eldy Exp $
+ *		\version    $Id: pre.inc.php,v 1.7 2009/05/21 17:52:25 eldy Exp $
  */
+
+define('NOCSRFCHECK',1);
 
 $res=@include("../main.inc.php");
 if (! $res) $res=@include("../../main.inc.php");	// If pre.inc.php is called by jawstats

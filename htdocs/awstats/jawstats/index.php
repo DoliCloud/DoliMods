@@ -1,11 +1,12 @@
 <?php
 // LDR Change TO WORK WITH DOLIBARR
+define('NOCSRFCHECK',1);
+define('DISABLE_PROTOTYPE',1);
+define('DISABLE_SCRIPTACULOUS',1);
 include("../pre.inc.php");
 $ret=include_once(DOL_DOCUMENT_ROOT."/html.formfile.class.php");
 if (! $ret) include_once(DOL_DOCUMENT_ROOT_BIS."/html.formfile.class.php");
 global $conf;
-define('DISABLE_PROTOTYPE',1);
-define('DISABLE_SCRIPTACULOUS',1);
 
 
 /*

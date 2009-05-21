@@ -1,13 +1,15 @@
 <?php
-/* Copyright (C) 2008 Laurent Destailleur  <eldy@users.sourceforge.net>
+/* Copyright (C) 2008-2009 Laurent Destailleur  <eldy@users.sourceforge.net>
  */
 
 /**
-		\file 		htdocs/nltechno/pre.inc.php
-		\ingroup    nltechno
-		\brief      File to manage left menu for NLTechno module
-		\version    $Id: pre.inc.php,v 1.1 2008/03/30 18:50:15 eldy Exp $
-*/
+ *		\file 		htdocs/nltechno/pre.inc.php
+ *		\ingroup    nltechno
+ *		\brief      File to manage left menu for NLTechno module
+ *		\version    $Id: pre.inc.php,v 1.2 2009/05/21 17:51:18 eldy Exp $
+ */
+
+define('NOCSRFCHECK',1);
 
 $res=@include("../main.inc.php");
 if (! $res) @include("../../../dolibarr/htdocs/main.inc.php");	// Used on dev env only
@@ -18,13 +20,13 @@ function llxHeader($head = "", $title="", $help_url='')
 {
 	global $conf,$langs;
 	$langs->load("agenda");
-	
+
 	top_menu($head, $title);
-	
+
 	$menu = new Menu();
 
 	$menu->add(DOL_URL_ROOT."/nltechno/index.php?mainmenu=nltechno&idmenu=".$_SESSION["idmenu"], $langs->trans("Admin NLTechno"));
-	
+
 /*	$MAXAGENDA=5;
     $i=1;
 	while ($i <= $MAXAGENDA)
@@ -40,9 +42,9 @@ function llxHeader($head = "", $title="", $help_url='')
 				if ($_GET["nocal"] == $i) $addcolor=true;
 			}
 			else $addcolor=true;
-			
+
 			$link=DOL_URL_ROOT."/google/index.php?mainmenu=google&idmenu=".$_SESSION["idmenu"]."&nocal=".$i;
-			
+
 			$text='';
 			$text.='<table class="nobordernopadding"><tr valign="middle" class="nobordernopadding"><td style="padding-left: 4px; padding-right: 4px" nowrap="nowrap">';
 			$box ='<!-- Box color '.$selected.' -->';

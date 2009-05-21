@@ -5,11 +5,13 @@
  */
 
 /**
-		\file 		htdocs/google/pre.inc.php
-		\ingroup    google
-		\brief      File to manage left menu for google module
-		\version    $Id: pre.inc.php,v 1.3 2008/10/19 19:59:13 eldy Exp $
-*/
+ *		\file 		htdocs/google/pre.inc.php
+ *		\ingroup    google
+ *		\brief      File to manage left menu for google module
+ *		\version    $Id: pre.inc.php,v 1.4 2009/05/21 17:51:17 eldy Exp $
+ */
+
+define('NOCSRFCHECK',1);
 
 $res=@include("../main.inc.php");
 if (! $res) @include("../../../dolibarr/htdocs/main.inc.php");	// Used on dev env only
@@ -20,13 +22,13 @@ function llxHeader($head = "", $title="", $help_url='')
 {
 	global $conf,$langs;
 	$langs->load("agenda");
-	
+
 	top_menu($head, $title);
-	
+
 	$menu = new Menu();
 
 	$menu->add(DOL_URL_ROOT."/google/index.php?mainmenu=google&idmenu=".$_SESSION["idmenu"], $langs->trans("Agendas"));
-	
+
 	$MAXAGENDA=empty($conf->global->GOOGLE_AGENDA_NB)?5:$conf->global->GOOGLE_AGENDA_NB;
 	$i=1;
 	while ($i <= $MAXAGENDA)
@@ -42,9 +44,9 @@ function llxHeader($head = "", $title="", $help_url='')
 				if ($_GET["nocal"] == $i) $addcolor=true;
 			}
 			else $addcolor=true;
-			
+
 			$link=DOL_URL_ROOT."/google/index.php?mainmenu=google&idmenu=".$_SESSION["idmenu"]."&nocal=".$i;
-			
+
 			$text='';
 			$text.='<table class="nobordernopadding"><tr valign="middle" class="nobordernopadding"><td style="padding-left: 4px; padding-right: 4px" nowrap="nowrap">';
 			$box ='<!-- Box color '.$selected.' -->';
@@ -64,7 +66,7 @@ function llxHeader($head = "", $title="", $help_url='')
 		}
 		$i++;
 	}
-	
+
 	left_menu($menu->liste, $help_url);
 }
 ?>
