@@ -6,8 +6,10 @@
 	    \file       htdocs/admin/google.php
         \ingroup    google
         \brief      Setup page for google module
-		\version    $Id: google.php,v 1.4 2008/10/19 19:59:13 eldy Exp $
+		\version    $Id: google.php,v 1.5 2009/05/28 20:31:40 eldy Exp $
 */
+
+define('NOCSRFCHECK',1);
 
 $res=@include("./pre.inc.php");
 if (! $res) include("../../../dolibarr/htdocs/admin/pre.inc.php");	// Used on dev env only
@@ -40,16 +42,16 @@ $colorlist=array('29527A','5229A3','A32929','7A367A','B1365F','0D7813');
 if ($actionsave)
 {
     $db->begin();
-    
+
     $i=1;
 	$error=0;
-	
+
 	// Save agendas
 	while ($i <= $MAXAGENDA)
 	{
 		$color=trim($_POST["google_agenda_color".$i]);
 		if ($color=='-1') $color='';
-		
+
 		//print 'color='.$color;
 		$res=dolibarr_set_const($db,'GOOGLE_AGENDA_NAME'.$i,trim($_POST["google_agenda_name".$i]),'chaine',0);
 		if (! $res > 0) $error++;
@@ -70,7 +72,7 @@ if ($actionsave)
 	if (! $res > 0) $error++;
 	if (empty($conf->global->GOOGLE_AGENDA_NB)) $conf->global->GOOGLE_AGENDA_NB=5;
 	$MAXAGENDA=empty($conf->global->GOOGLE_AGENDA_NB)?5:$conf->global->GOOGLE_AGENDA_NB;
-	
+
     if (! $error)
     {
         $db->commit();
@@ -183,5 +185,5 @@ print info_admin($message);
 
 $db->close();
 
-llxFooter('$Date: 2008/10/19 19:59:13 $ - $Revision: 1.4 $');
+llxFooter('$Date: 2009/05/28 20:31:40 $ - $Revision: 1.5 $');
 ?>

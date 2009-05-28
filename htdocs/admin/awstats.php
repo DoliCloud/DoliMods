@@ -20,8 +20,10 @@
  *	    \file       htdocs/admin/awstats.php
  *      \ingroup    awstats
  *      \brief      Page de configuration du module AWStats
- *		\version    $Id: awstats.php,v 1.4 2009/05/05 14:02:04 eldy Exp $
+ *		\version    $Id: awstats.php,v 1.5 2009/05/28 20:31:40 eldy Exp $
  */
+
+define('NOCSRFCHECK',1);
 
 $res=@include("./pre.inc.php");
 include("../awstats/awstats.lib.php");
@@ -140,5 +142,5 @@ print "<br>";
 
 $db->close();
 
-llxFooter('$Date: 2009/05/05 14:02:04 $ - $Revision: 1.4 $');
+llxFooter('$Date: 2009/05/28 20:31:40 $ - $Revision: 1.5 $');
 ?>

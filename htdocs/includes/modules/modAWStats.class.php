@@ -12,7 +12,7 @@
         \file       htdocs/includes/modules/modAWStats.class.php
         \ingroup    awstats
         \brief      Description and activation file for module AWStats
-		\version	$Id: modAWStats.class.php,v 1.13 2009/04/29 22:11:38 eldy Exp $
+		\version	$Id: modAWStats.class.php,v 1.14 2009/05/28 20:34:56 eldy Exp $
 */
 
 include_once(DOL_DOCUMENT_ROOT ."/includes/modules/DolibarrModules.class.php");
@@ -110,15 +110,31 @@ class modAWStats extends DolibarrModules
 								'type'=>'top',
 								'titre'=>'MenuAWStats',
 								'mainmenu'=>'awstats',
-								'leftmenu'=>'0',	// To say to not overwrite menu in pre.inc.php by dynamic database menu
+								'leftmenu'=>'0',	// Use 1 if you also want to add left menu entries using this descriptor. Use 0 if left menu entries are defined in a file pre.inc.php (old school).
 								'url'=>'/awstats/index.php',
 								'langs'=>'awstats',
 								'position'=>200,
-								'perms'=>'',
+								'enabled'=>'$conf->awstats->enabled',			// Define condition to show or hide menu entry. Use '$conf->mymodule->enabled' if entry must be visible if module is enabled.
+								'perms'=>'',			// Use 'perms'=>'$user->rights->mymodule->level1->level2' if you want your menu with a permission rules
 								'target'=>'',
 								'user'=>0);
 		$r++;
 
+		/*
+		$this->menu[$r]=array(	'fk_menu'=>'tools',
+								'type'=>'left',
+								'titre'=>'MenuLeftAWStats',
+								'mainmenu'=>'awstats',
+								'leftmenu'=>'1',	// Use 1 if you also want to add left menu entries using this descriptor. Use 0 if left menu entries are defined in a file pre.inc.php (old school).
+								'url'=>'/awstats/xxx.php',
+								'langs'=>'awstats',
+								'position'=>200,
+								'enabled'=>'$conf->awstats->enabled',			// Define condition to show or hide menu entry. Use '$conf->mymodule->enabled' if entry must be visible if module is enabled.
+								'perms'=>'',			// Use 'perms'=>'$user->rights->mymodule->level1->level2' if you want your menu with a permission rules
+								'target'=>'',
+								'user'=>0);
+		$r++;
+		*/
 	}
 
 	/**
