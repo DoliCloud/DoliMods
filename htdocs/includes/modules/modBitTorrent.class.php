@@ -26,7 +26,7 @@
  *      \file       htdocs/includes/modules/modBitTorrent.class.php
  *      \ingroup    mymodule
  *      \brief      Description and activation file for module MyModule
- *		\version	$Id: modBitTorrent.class.php,v 1.1 2009/05/08 19:56:15 eldy Exp $
+ *		\version	$Id: modBitTorrent.class.php,v 1.2 2009/06/05 19:01:21 eldy Exp $
  */
 include_once(DOL_DOCUMENT_ROOT ."/includes/modules/DolibarrModules.class.php");
 
@@ -68,7 +68,7 @@ class modBitTorrent extends DolibarrModules
 		$this->picto='generic';
 
 		// Data directories to create when module is enabled.
-		$this->dirs = array("/bittorrent/torrents","/bittorrent/rss","/bittorrents/files");
+		$this->dirs = array("/bittorrent/torrents","/bittorrent/rss","/bittorrent/files");
 
 		// Relative path to module style sheet if exists. Example: '/mymodule/mycss.css'.
 		$this->style_sheet = '';
