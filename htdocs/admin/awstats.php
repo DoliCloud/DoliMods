@@ -20,7 +20,7 @@
  *	    \file       htdocs/admin/awstats.php
  *      \ingroup    awstats
  *      \brief      Page de configuration du module AWStats
- *		\version    $Id: awstats.php,v 1.5 2009/05/28 20:31:40 eldy Exp $
+ *		\version    $Id: awstats.php,v 1.6 2009/06/15 12:57:31 eldy Exp $
  */
 
 define('NOCSRFCHECK',1);
@@ -45,28 +45,38 @@ $def = array();
 $actiontest=$_POST["test"];
 $actionsave=$_POST["save"];
 
-// Sauvegardes parametres
+// Save parameters
 if ($actionsave)
 {
-    $i=0;
+    $error=0;
+	$i=0;
 
     $db->begin();
 
-    $i+=dolibarr_set_const($db,'AWSTATS_DATA_DIR',trim($_POST["AWSTATS_DATA_DIR"]),'chaine',0);
-    $i+=dolibarr_set_const($db,'AWSTATS_CGI_PATH',trim($_POST["AWSTATS_CGI_PATH"]),'chaine',0);
-    $i+=dolibarr_set_const($db,'AWSTATS_PROG_PATH',trim($_POST["AWSTATS_PROG_PATH"]),'chaine',0);
-    $i+=dolibarr_set_const($db,'AWSTATS_LIMIT_CONF',trim($_POST["AWSTATS_LIMIT_CONF"]),'chaine',0);
-
-    if ($i >= 3)
+    if (! eregi('[\\\/]$',$_POST["AWSTATS_DATA_DIR"]))
     {
-        $db->commit();
-        $mesg = "<font class=\"ok\">".$langs->trans("SetupSaved")."</font>";
+    	$mesg="<div class=\"error\">".$langs->trans("ErrorAWStatsDataDirMustEndWithASlash")."</div>";
+    	$error++;
     }
-    else
+
+    if (! $error)
     {
-        $db->rollback();
-        header("Location: ".$_SERVER["PHP_SELF"]);
-        exit;
+	    $i+=dolibarr_set_const($db,'AWSTATS_DATA_DIR',trim($_POST["AWSTATS_DATA_DIR"]),'chaine',0);
+	    $i+=dolibarr_set_const($db,'AWSTATS_CGI_PATH',trim($_POST["AWSTATS_CGI_PATH"]),'chaine',0);
+	    $i+=dolibarr_set_const($db,'AWSTATS_PROG_PATH',trim($_POST["AWSTATS_PROG_PATH"]),'chaine',0);
+	    $i+=dolibarr_set_const($db,'AWSTATS_LIMIT_CONF',trim($_POST["AWSTATS_LIMIT_CONF"]),'chaine',0);
+
+	    if ($i >= 3)
+	    {
+	        $db->commit();
+	        $mesg = "<div class=\"ok\">".$langs->trans("SetupSaved")."</div>";
+	    }
+	    else
+	    {
+	        $db->rollback();
+	        header("Location: ".$_SERVER["PHP_SELF"]);
+	        exit;
+	    }
     }
 }
 
@@ -142,5 +152,5 @@ print "<br>";
 
 $db->close();
 
-llxFooter('$Date: 2009/05/28 20:31:40 $ - $Revision: 1.5 $');
+llxFooter('$Date: 2009/06/15 12:57:31 $ - $Revision: 1.6 $');
 ?>
