@@ -9,13 +9,13 @@
  */
 
 /**     \defgroup   awstats     Module AWStats
- \brief      Module to AWStats tools integration.
+ *		\brief      Module to AWStats tools integration.
  */
 
 /**
  *	\file       htdocs/awstats/index.php
  *	\brief      Page accueil module AWStats
- *	\version    $Id: index.php,v 1.11 2009/05/07 00:13:09 eldy Exp $
+ *	\version    $Id: index.php,v 1.12 2009/06/15 17:19:52 eldy Exp $
  */
 
 include("./pre.inc.php");
@@ -570,5 +570,5 @@ if($system_stats_top == true) {
 #	Output to the screen
 echo $statistics;
 
-llxFooter('$Date: 2009/05/07 00:13:09 $ - $Revision: 1.11 $');
+llxFooter('$Date: 2009/06/15 17:19:52 $ - $Revision: 1.12 $');
 ?>
