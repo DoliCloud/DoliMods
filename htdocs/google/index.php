@@ -8,7 +8,7 @@
     	\file       htdocs/google/index.php
 		\ingroup    google
 		\brief      Main google area page
-		\version    $Id: index.php,v 1.3 2008/10/19 19:59:13 eldy Exp $
+		\version    $Id: index.php,v 1.4 2009/07/15 13:55:08 eldy Exp $
 		\author		Laurent Destailleur
 */
 
@@ -68,7 +68,7 @@ if ($_REQUEST["action"] == 'add')
 * Put here all code to build page
 ****************************************************/
 
-llxHeader();
+llxHeader('','Google',"EN:Module_GoogleEn|FR:Module_Google|ES:Modulo_Google");
 
 $form=new Form($db);
 
@@ -88,7 +88,7 @@ $frame.='&amp;height=600';
 $frame.='&amp;wkst=2';
 $frame.='&amp;bgcolor=%23'.$bgcolor;
 
-	
+
 $i=1;
 while ($i <= $MAXAGENDA)
 {
@@ -102,7 +102,7 @@ while ($i <= $MAXAGENDA)
 	{
 		if (isset($_GET["nocal"]))
 		{
-			if ($_GET["nocal"] == $i) 
+			if ($_GET["nocal"] == $i)
 			{
 				$frame.='&amp;src='.$conf->global->$paramsrc;
 				$frame.='&amp;color=%23'.$conf->global->$paramcolor;
@@ -129,5 +129,5 @@ print $frame;
 // End of page
 $db->close();
 
-llxFooter('$Date: 2008/10/19 19:59:13 $ - $Revision: 1.3 $');
+llxFooter('$Date: 2009/07/15 13:55:08 $ - $Revision: 1.4 $');
 ?>
