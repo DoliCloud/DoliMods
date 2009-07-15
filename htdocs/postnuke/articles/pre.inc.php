@@ -21,7 +21,7 @@
  *		\file 		htdocs/postnuke/pre.inc.php
  *		\ingroup    postnuke
  *		\brief      File to manage left menu for postnuke module
- *		\version    $Id: pre.inc.php,v 1.1 2009/06/15 17:19:52 eldy Exp $
+ *		\version    $Id: pre.inc.php,v 1.2 2009/07/15 13:55:20 eldy Exp $
  */
 
 define('NOCSRFCHECK',1);
@@ -32,7 +32,7 @@ if (! $res) $res=@include("../../../dolibarr/htdocs/main.inc.php");		// Used on 
 if (! $res) $res=@include("../../../../dolibarr/htdocs/main.inc.php");	// Used on dev env only
 
 
-function llxHeader($head = "", $urlp = "")
+function llxHeader($head = "", $title="", $help_url = "")
 {
 	global $user, $conf, $langs;
 
@@ -40,7 +40,7 @@ function llxHeader($head = "", $urlp = "")
 	 *
 	 *
 	 */
-	top_menu($head);
+	top_menu($head, $title);
 
 	$menu = new Menu();
 
