@@ -5,11 +5,20 @@ require ("funcsv2.php");
 
 $tracker_url = $website_url . substr($_SERVER['REQUEST_URI'], 0, -15) . "announce.php";
 
+
+/*
+ * View
+ */
+
 llxHeader('','BitTorrent',$website_url.'/bittorrent/docs/help.html');
 
 $form=new Form($db);
 
 print_fiche_titre('BitTorrent admin page');
+
+print '<br>';
+print '<b>Tracker URL:</b> '.$tracker_url.'<br>';
+print '<br>';
 
 ?>
 <br>
@@ -40,5 +49,5 @@ if (file_exists("install.php"))
 	echo errorMessage() . "Your install.php file has NOT been deleted.  This is a security risk, please delete it immediately.</p>\n";
 }
 
-llxFooter('$Date: 2009/03/04 18:43:35 $ - $Revision: 1.5 $');
+llxFooter('$Date: 2009/07/22 23:39:17 $ - $Revision: 1.6 $');
 ?>
