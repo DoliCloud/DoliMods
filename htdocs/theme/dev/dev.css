@@ -19,7 +19,7 @@
 /**
 		\file       htdocs/theme/dev/dev.css.php
 		\brief      Fichier de style CSS du theme Dev
-		\version    $Id: dev.css,v 1.1 2009/03/12 20:33:13 eldy Exp $
+		\version    $Id: dev.css,v 1.2 2009/08/19 17:19:33 eldy Exp $
 */
 
 /***** Style du fond *****/
@@ -830,7 +830,7 @@ td.valid {
 td.small { 
            font-size: 0.6em; }
 
-tr.nonpayed { 
+tr.nonpaid { 
               font-size: 0.6em;
               font-weight: bold; }
 
