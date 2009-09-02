@@ -15,7 +15,7 @@
 /**
  *	\file       htdocs/awstats/index.php
  *	\brief      Page accueil module AWStats
- *	\version    $Id: index.php,v 1.12 2009/06/15 17:19:52 eldy Exp $
+ *	\version    $Id: index.php,v 1.13 2009/09/02 15:23:08 eldy Exp $
  */
 
 include("./pre.inc.php");
@@ -242,8 +242,9 @@ if(!$dir) {
 <title>Error Occured</title>
 </head>
 <body>
-<h1>Error</h1>
-<br>Incorrect History File Path. Remember to set $history_dir to the correct path.
+<h1>Error</h1><br>
+Failed to open directory defined in AWStats config page (AWSTATS_DATA_DIR = '.$history_dir.')<br>
+Check your AWStats seyup and open_basedir PHP setup.
 </body>
 </html>';
 	exit;
@@ -570,5 +571,5 @@ if($system_stats_top == true) {
 #	Output to the screen
 echo $statistics;
 
-llxFooter('$Date: 2009/06/15 17:19:52 $ - $Revision: 1.12 $');
+llxFooter('$Date: 2009/09/02 15:23:08 $ - $Revision: 1.13 $');
 ?>
