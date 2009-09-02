@@ -21,9 +21,9 @@
  *  \file       htdocs/lib/awstats.lib.php
  *  \brief      Ensemble de fonctions de base pour le module awstats
  *  \ingroup    awstats
- *  \version    $Id: awstats.lib.php,v 1.1 2009/05/05 14:02:03 eldy Exp $
+ *  \version    $Id: awstats.lib.php,v 1.2 2009/09/02 16:37:31 eldy Exp $
  */
 
-$linktohelp='EN:Module_AWStatsEn|FR:Module_AWStats|ES:Modulo_AWStats';
+$linktohelp='EN:Module_AWStats_En|FR:Module_AWStats|ES:Modulo_AWStats';
 
 ?>
