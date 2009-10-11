@@ -6,7 +6,7 @@
     	\file       htdocs/nltechno/statsannonces.php
 		\ingroup    nltechno
 		\brief      Page des stats annonces
-		\version    $Id: statsannonces.php,v 1.5 2009/10/11 19:44:13 eldy Exp $
+		\version    $Id: statsannonces.php,v 1.6 2009/10/11 23:57:25 eldy Exp $
 		\author		Laurent Destailleur
 */
 
@@ -189,7 +189,7 @@ if (1 == 1)
 	$prixarray=array();
 	$sql = "SELECT DISTINCT PRIX_ANNONCE as prix";
 	$sql.= " FROM T_ANNONCES as a";
-	$sql.= " WHERE a.VALID_ANNONCE >= 1";
+	$sql.= " WHERE a.VALID_ANNONCE in ('1','2','3')";
 	$sql.= " ORDER BY PRIX_ANNONCE";
 	dolibarr_syslog("statsannonces.php sql=".$sql, LOG_DEBUG);
 	$result = $dbann->query($sql);
@@ -205,7 +205,7 @@ if (1 == 1)
 	$bytypearray=array();
 	$sql = "SELECT ID_CATEG, ID_TYPE, ID_MODE, PRIX_ANNONCE, ID_ORIGINE, COUNT(*) as nb";
 	$sql.= " FROM T_ANNONCES as a";
-	$sql.= " WHERE VALID_ANNONCE >= 1";
+	$sql.= " WHERE VALID_ANNONCE in ('1','2','3')";
 	$sql.= " GROUP BY ID_CATEG, ID_TYPE, ID_MODE, PRIX_ANNONCE, ID_ORIGINE";
 	$sql.= " HAVING nb > 0";
 	$sql.= " ORDER BY ID_CATEG, ID_TYPE, ID_MODE, PRIX_ANNONCE, ID_ORIGINE";
