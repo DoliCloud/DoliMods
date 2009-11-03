@@ -1,14 +1,14 @@
 <?php
-/* Copyright (C) 2008 Laurent Destailleur  <eldy@users.sourceforge.net>
+/* Copyright (C) 2008-2009 Laurent Destailleur  <eldy@users.sourceforge.net>
  */
 
 /**
-    	\file       htdocs/nltechno/statsannonces.php
-		\ingroup    nltechno
-		\brief      Page des stats annonces
-		\version    $Id: statsannonces.php,v 1.6 2009/10/11 23:57:25 eldy Exp $
-		\author		Laurent Destailleur
-*/
+ *   	\file       htdocs/nltechno/statsannonces.php
+ *		\ingroup    nltechno
+ *		\brief      Page des stats annonces
+ *		\version    $Id: statsannonces.php,v 1.7 2009/11/03 12:42:30 eldy Exp $
+ *		\author		Laurent Destailleur
+ */
 
 include("./pre.inc.php");
 require_once(DOL_DOCUMENT_ROOT."/core/dolgraph.class.php");
@@ -241,7 +241,7 @@ if (1 == 1)
 		$tmp=split('_',$key);
 		if ($oldcateg && ($tmp[0] != $oldcateg))
 		{
-			print '<tr class="total"><td>Total categorie '.$oldcateg.'</td><td></td>';
+			print '<tr class="liste_total"><td>Total categorie '.$oldcateg.'</td><td></td>';
 			foreach ($prixarray as $pval)
 			{
 				print '<td nowrap="nowrap"></td>';
@@ -273,7 +273,7 @@ if (1 == 1)
 			print '</tr>';
 		}
 	}
-	print '<tr class="total"><td>Total categorie '.$oldcateg.'</td><td></td>';
+	print '<tr class="liste_total"><td>Total categorie '.$oldcateg.'</td><td></td>';
 	foreach ($prixarray as $pval)
 	{
 		print '<td nowrap="nowrap"></td>';
