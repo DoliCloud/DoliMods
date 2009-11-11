@@ -4,38 +4,38 @@
  * Licensed under the GNU GPL v3 or higher (See file gpl-3.0.html)
  */
 
-/**     \defgroup   awstats     Module AWStats
- *      \brief      Module to AWStats tools integration.
+/**     \defgroup   survey     Module Survey
+ *      \brief      Module Survey
  */
 
 /**
- *      \file       htdocs/includes/modules/modAWStats.class.php
- *      \ingroup    awstats
- *      \brief      Description and activation file for module AWStats
- *		\version	$Id: modAWStats.class.php,v 1.15 2009/11/11 23:49:12 eldy Exp $
+ *      \file       htdocs/includes/modules/modSurvey.class.php
+ *      \ingroup    survey
+ *      \brief      Description and activation file for module Survey
+ * 		\version	$Id: modSurvey.class.php,v 1.1 2009/11/11 23:49:12 eldy Exp $
  */
 include_once(DOL_DOCUMENT_ROOT ."/includes/modules/DolibarrModules.class.php");
 
 
-/**		\class      modAWStats
- *      \brief      Description and activation class for module AWStats
+/**		\class      modSurvey
+ *      \brief      Description and activation class for module MyModule
  */
-class modAWStats extends DolibarrModules
+class modSurvey extends DolibarrModules
 {
 
-	/**
-	 *   \brief      Constructor. Define names, constants, directories, boxes, permissions
-	 *   \param      DB      Database handler
-	 */
-	function modAWStats($DB)
+    /**
+    *   \brief      Constructor. Define names, constants, directories, boxes, permissions
+    *   \param      DB      Database handler
+    */
+	function modSurvey($DB)
 	{
 		$this->db = $DB;
 
 		// Id for module (must be unique).
 		// Use here a free id (See in Home -> System information -> Dolibarr for list of used module id).
-		$this->numero = 12000;
+		$this->numero = 12100;
 		// Key text used to identify module (for permission, menus, etc...)
-		$this->rights_class = 'awstats';
+		$this->rights_class = 'survey';
 
 		// Family can be 'crm','financial','hr','projects','product','technic','other'
 		// It is used to group modules in module setup page
@@ -43,9 +43,9 @@ class modAWStats extends DolibarrModules
 		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'numero' of module)
 		$this->name = eregi_replace('^mod','',get_class($this));
 		// Module description used if translation string 'ModuleXXXDesc' not found (XXX is value MyModule)
-		$this->description = "Module to integrate AWStats stats in dolibarr";
+		$this->description = "Module to manage and run surveys";
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
-		$this->version = '1.3';
+		$this->version = '1.0';
 		// Key used in llx_const table to save module status enabled/disabled (where MYMODULE is value of property name of module in uppercase)
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
 		// Where to store the module in setup page (0=common,1=interface,2=others,3=very specific)
@@ -53,25 +53,25 @@ class modAWStats extends DolibarrModules
 		// Name of image file used for this module.
 		// If file is in theme/yourtheme/img directory under name object_pictovalue.png, use this->picto='pictovalue'
 		// If file is in module/images directory, use this->picto=DOL_URL_ROOT.'/module/images/file.png'
-		$this->picto=DOL_URL_ROOT.'/awstats/images/object_awstats.png';
+		$this->picto='generic';
 
 		// Data directories to create when module is enabled
 		$this->dirs = array();
 		//$this->dirs[0] = DOL_DATA_ROOT.'/mymodule;
-		//$this->dirs[1] = DOL_DATA_ROOT.'/mymodule/temp;
+        //$this->dirs[1] = DOL_DATA_ROOT.'/mymodule/temp;
 
 		// Relative path to module style sheet if exists
-		$this->style_sheet = '/awstats/awstats.css';
+		$this->style_sheet = '';
 
 		// Config pages. Put here list of php page names stored in admmin directory used to setup module
-		$this->config_page_url = array('awstats.php');
+		$this->config_page_url = array();
 
 		// Dependencies
 		$this->depends = array();		// List of modules id that must be enabled if this module is enabled
 		$this->requiredby = array();	// List of modules id to disable if this one is disabled
 		$this->phpmin = array(4,1);					// Minimum version of PHP required by module
 		$this->need_dolibarr_version = array(2,4);	// Minimum version of Dolibarr required by module
-		$this->langfiles = array("@awstats");
+		$this->langfiles = array();
 
 		// Constants
 		$this->const = array();			// List of parameters
@@ -82,10 +82,10 @@ class modAWStats extends DolibarrModules
 
 		// Add here list of php file(s) stored in includes/boxes that contains class to show a box.
 		// Example:
-		//$this->boxes[$r][1] = "myboxa.php";
-		//$r++;
-		//$this->boxes[$r][1] = "myboxb.php";
-		//$r++;
+        //$this->boxes[$r][1] = "myboxa.php";
+    	//$r++;
+        //$this->boxes[$r][1] = "myboxb.php";
+    	//$r++;
 
 		// Permissions
 		$this->rights = array();		// Permission array used by this module
@@ -106,58 +106,42 @@ class modAWStats extends DolibarrModules
 
 		$this->menu[$r]=array(	'fk_menu'=>0,
 								'type'=>'top',
-								'titre'=>'MenuAWStats',
-								'mainmenu'=>'awstats',
+								'titre'=>'MenuSurvey',
+								'mainmenu'=>'survey',
 								'leftmenu'=>'0',	// Use 1 if you also want to add left menu entries using this descriptor. Use 0 if left menu entries are defined in a file pre.inc.php (old school).
-								'url'=>'/awstats/index.php',
-								'langs'=>'awstats',
+								'url'=>'/survey/index.php',
+								'langs'=>'survey',
 								'position'=>200,
-								'enabled'=>'$conf->awstats->enabled',			// Define condition to show or hide menu entry. Use '$conf->mymodule->enabled' if entry must be visible if module is enabled.
+								'enabled'=>'$conf->survey->enabled',			// Define condition to show or hide menu entry. Use '$conf->mymodule->enabled' if entry must be visible if module is enabled.
 								'perms'=>'',			// Use 'perms'=>'$user->rights->mymodule->level1->level2' if you want your menu with a permission rules
 								'target'=>'',
 								'user'=>0);
 		$r++;
-
-		/*
-		 $this->menu[$r]=array(	'fk_menu'=>'tools',
-		 'type'=>'left',
-		 'titre'=>'MenuLeftAWStats',
-		 'mainmenu'=>'awstats',
-		 'leftmenu'=>'1',	// Use 1 if you also want to add left menu entries using this descriptor. Use 0 if left menu entries are defined in a file pre.inc.php (old school).
-		 'url'=>'/awstats/xxx.php',
-		 'langs'=>'awstats',
-		 'position'=>200,
-		 'enabled'=>'$conf->awstats->enabled',			// Define condition to show or hide menu entry. Use '$conf->mymodule->enabled' if entry must be visible if module is enabled.
-		 'perms'=>'',			// Use 'perms'=>'$user->rights->mymodule->level1->level2' if you want your menu with a permission rules
-		 'target'=>'',
-		 'user'=>0);
-		 $r++;
-		 */
 	}
 
 	/**
-	 *		\brief      Function called when module is enabled.
-	 *					The init function add previous constants, boxes and permissions into Dolibarr database.
-	 *					It also creates data directories.
-	 */
+     *		\brief      Function called when module is enabled.
+     *					The init function add previous constants, boxes and permissions into Dolibarr database.
+     *					It also creates data directories.
+     */
 	function init()
-	{
-		$sql = array();
+  	{
+    	$sql = array();
 
-		return $this->_init($sql);
-	}
+    	return $this->_init($sql);
+  	}
 
 	/**
 	 *		\brief		Function called when module is disabled.
-	 *              	Remove from database constants, boxes and permissions from Dolibarr database.
-	 *					Data directories are not deleted.
-	 */
+ 	 *              	Remove from database constants, boxes and permissions from Dolibarr database.
+ 	 *					Data directories are not deleted.
+ 	 */
 	function remove()
 	{
-		$sql = array();
+    	$sql = array();
 
-		return $this->_remove($sql);
-	}
+    	return $this->_remove($sql);
+  	}
 
 }
 
