@@ -5,30 +5,27 @@
  */
 
 /**     \defgroup   google     Module Google
-        \brief      Module to Google tools integration.
-*/
+ *      \brief      Module to Google tools integration.
+ */
 
 /**
-        \file       htdocs/includes/modules/modGoogle.class.php
-        \ingroup    google
-        \brief      Description and activation file for module Google
-		\version	$Id: modGoogle.class.php,v 1.9 2009/05/18 17:28:15 eldy Exp $
-*/
-
+ *      \file       htdocs/includes/modules/modGoogle.class.php
+ *      \ingroup    google
+ *      \brief      Description and activation file for module Google
+ *		\version	$Id: modGoogle.class.php,v 1.10 2010/01/17 18:43:49 eldy Exp $
+ */
 include_once(DOL_DOCUMENT_ROOT ."/includes/modules/DolibarrModules.class.php");
 
 
 /**     \class      modGoogle
-        \brief      Description and activation class for module Google
-*/
-
+ *       \brief     Description and activation class for module Google
+ */
 class modGoogle extends DolibarrModules
 {
-
-    /**
-    *   \brief      Constructor. Define names, constants, directories, boxes, permissions
-    *   \param      DB      Database handler
-    */
+	/**
+	 *   \brief      Constructor. Define names, constants, directories, boxes, permissions
+	 *   \param      DB      Database handler
+	 */
 	function modGoogle($DB)
 	{
 		$this->db = $DB;
@@ -43,7 +40,7 @@ class modGoogle extends DolibarrModules
 		// It is used to group modules in module setup page
 		$this->family = "projects";
 		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'numero' of module)
-		$this->name = eregi_replace('^mod','',get_class($this));
+		$this->name = preg_replace('/^mod/i','',get_class($this));
 		// Module description used if translation string 'ModuleXXXDesc' not found (XXX is value MyModule)
 		$this->description = "Module to integrate Google tools in dolibarr";
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
@@ -52,14 +49,15 @@ class modGoogle extends DolibarrModules
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
 		// Where to store the module in setup page (0=common,1=interface,2=others,3=very specific)
 		$this->special = 1;
-		// Name of png file (without png) used for this module.
-		// Png file must be in theme/yourtheme/img directory under name object_pictovalue.png.
+		// Name of image file used for this module.
+		// If file is in theme/yourtheme/img directory under name object_pictovalue.png, use this->picto='pictovalue'
+		// If file is in module/images directory, use this->picto=DOL_URL_ROOT.'/module/images/file.png'
 		$this->picto=DOL_URL_ROOT.'/google/images/google.png';
 
 		// Data directories to create when module is enabled
 		$this->dirs = array();
 		//$this->dirs[0] = DOL_DATA_ROOT.'/mymodule;
-        //$this->dirs[1] = DOL_DATA_ROOT.'/mymodule/temp;
+		//$this->dirs[1] = DOL_DATA_ROOT.'/mymodule/temp;
 
 		// Config pages. Put here list of php page names stored in admmin directory used to setup module
 		$this->config_page_url = array('google.php');
@@ -80,10 +78,10 @@ class modGoogle extends DolibarrModules
 
 		// Add here list of php file(s) stored in includes/boxes that contains class to show a box.
 		// Example:
-        //$this->boxes[$r][1] = "myboxa.php";
-    	//$r++;
-        //$this->boxes[$r][1] = "myboxb.php";
-    	//$r++;
+		//$this->boxes[$r][1] = "myboxa.php";
+		//$r++;
+		//$this->boxes[$r][1] = "myboxb.php";
+		//$r++;
 
 		// Permissions
 		$this->rights = array();		// Permission array used by this module
@@ -102,6 +100,21 @@ class modGoogle extends DolibarrModules
 		$this->menus = array();			// List of menus to add
 		$r=0;
 
+		// Add here entries to declare new menus
+		// Example to declare the Top Menu entry:
+		// $this->menu[$r]=array(	'fk_menu'=>0,			// Put 0 if this is a top menu
+		//							'type'=>'top',			// This is a Top menu entry
+		//							'titre'=>'MyModule top menu',
+		//							'mainmenu'=>'mymodule',
+		//							'leftmenu'=>'1',		// Use 1 if you also want to add left menu entries using this descriptor. Use 0 if left menu entries are defined in a file pre.inc.php (old school).
+		//							'url'=>'/mymodule/pagetop.php',
+		//							'langs'=>'mylangfile',	// Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
+		//							'position'=>100,
+		//							'enabled'=>'1',			// Define condition to show or hide menu entry. Use '$conf->mymodule->enabled' if entry must be visible if module is enabled.
+		//							'perms'=>'1',			// Use 'perms'=>'$user->rights->mymodule->level1->level2' if you want your menu with a permission rules
+		//							'target'=>'',
+		//							'user'=>2);				// 0=Menu for internal users, 1=external users, 2=both
+		// $r++;
 		$this->menu[$r]=array(	'fk_menu'=>0,
 								'type'=>'top',
 								'titre'=>'MenuAgendaGoogle',
@@ -110,36 +123,36 @@ class modGoogle extends DolibarrModules
 								'url'=>'/google/index.php',
 								'langs'=>'google',
 								'position'=>100,
+								'enabled'=>'$conf->google->enabled && $conf->global->GOOGLE_ENABLE_AGENDA',
 								'perms'=>'',
 								'target'=>'',
 								'user'=>0);
 		$r++;
-
 	}
 
 	/**
-     *		\brief      Function called when module is enabled.
-     *					The init function add previous constants, boxes and permissions into Dolibarr database.
-     *					It also creates data directories.
-     */
+	 *		\brief      Function called when module is enabled.
+	 *					The init function add previous constants, boxes and permissions into Dolibarr database.
+	 *					It also creates data directories.
+	 */
 	function init()
-  	{
-    	$sql = array();
+	{
+		$sql = array();
 
-    	return $this->_init($sql);
-  	}
+		return $this->_init($sql);
+	}
 
 	/**
 	 *		\brief		Function called when module is disabled.
- 	 *              	Remove from database constants, boxes and permissions from Dolibarr database.
- 	 *					Data directories are not deleted.
- 	 */
+	 *              	Remove from database constants, boxes and permissions from Dolibarr database.
+	 *					Data directories are not deleted.
+	 */
 	function remove()
 	{
-    	$sql = array();
+		$sql = array();
 
-    	return $this->_remove($sql);
-  	}
+		return $this->_remove($sql);
+	}
 
 }
 

@@ -3,11 +3,11 @@
  */
 
 /**
-	    \file       htdocs/admin/google.php
-        \ingroup    google
-        \brief      Setup page for google module
-		\version    $Id: google.php,v 1.5 2009/05/28 20:31:40 eldy Exp $
-*/
+ *	    \file       htdocs/admin/google.php
+ *      \ingroup    google
+ *      \brief      Setup page for google module
+ *		\version    $Id: google.php,v 1.6 2010/01/17 18:43:51 eldy Exp $
+ */
 
 define('NOCSRFCHECK',1);
 
@@ -17,6 +17,8 @@ if (! $res) include("../../../dolibarr/htdocs/admin/pre.inc.php");	// Used on de
 require_once(DOL_DOCUMENT_ROOT."/lib/admin.lib.php");
 require_once(DOL_DOCUMENT_ROOT.'/html.formadmin.class.php');
 
+$res=@include_once("../google/google.lib.php");
+if (! $res) include_once(DOL_DOCUMENT_ROOT."/lib/google.lib.php");
 
 if (!$user->admin)
     accessforbidden();
@@ -43,7 +45,9 @@ if ($actionsave)
 {
     $db->begin();
 
-    $i=1;
+	$res=dolibarr_set_const($db,'GOOGLE_ENABLE_AGENDA'.$i,trim($_POST["GOOGLE_ENABLE_AGENDA".$i]),'chaine',0);
+
+	$i=1;
 	$error=0;
 
 	// Save agendas
@@ -93,6 +97,7 @@ if ($actionsave)
  */
 
 
+$form=new Form($db);
 $formadmin=new FormAdmin($db);
 
 llxHeader();
@@ -102,7 +107,15 @@ print_fiche_titre($langs->trans("GoogleSetup"),$linkback,'setup');
 print '<br>';
 
 
+$head=googleadmin_prepare_head();
+
+dol_fiche_head($head, 'agenda', $langs->trans("GoogleTools"));
+
+
 print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
+
+print $langs->trans("GoogleEnableThisTool").' '.$form->selectyesno("GOOGLE_ENABLE_AGENDA",isset($_POST["GOOGLE_ENABLE_AGENDA"])?$_POST["GOOGLE_ENABLE_AGENDA"]:0,1).'<br><br>';
+
 
 $var=false;
 print "<table class=\"noborder\" width=\"100%\">";
@@ -173,6 +186,8 @@ print "</center>";
 
 print "</form>\n";
 
+print '</div>';
+
 
 if ($mesg) print "<br>$mesg<br>";
 print "<br>";
@@ -185,5 +200,5 @@ print info_admin($message);
 
 $db->close();
 
-llxFooter('$Date: 2009/05/28 20:31:40 $ - $Revision: 1.5 $');
+llxFooter('$Date: 2010/01/17 18:43:51 $ - $Revision: 1.6 $');
 ?>

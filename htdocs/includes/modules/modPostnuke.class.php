@@ -1,6 +1,6 @@
 <?php
 /* Copyright (C) 2003      Rodolphe Quiedeville <rodolphe@quiedeville.org>
- * Copyright (C) 2004-2009 Laurent Destailleur  <eldy@users.sourceforge.net>
+ * Copyright (C) 2004-2010 Laurent Destailleur  <eldy@users.sourceforge.net>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,16 +18,15 @@
  */
 
 /**     \defgroup   postnuke     Module postnuke
- \brief      Module d'interfacage avec Postnuke
+ *		\brief      Module d'interfacage avec Postnuke
  */
 
 /**
  *	\file       htdocs/includes/modules/modPostnuke.class.php
  *	\ingroup    postnuke
  *	\brief      Fichier de description et activation du module Postnuke
- *	\version	$Id: modPostnuke.class.php,v 1.1 2009/06/15 17:19:52 eldy Exp $
+ *	\version	$Id: modPostnuke.class.php,v 1.2 2010/01/17 18:43:49 eldy Exp $
  */
-
 include_once(DOL_DOCUMENT_ROOT ."/includes/modules/DolibarrModules.class.php");
 
 
@@ -35,7 +34,6 @@ include_once(DOL_DOCUMENT_ROOT ."/includes/modules/DolibarrModules.class.php");
  *	\class      modPostnuke
  *	\brief      Classe de description et activation du module Postnuke
  */
-
 class modPostnuke extends DolibarrModules
 {
 
@@ -50,7 +48,7 @@ class modPostnuke extends DolibarrModules
 
 		$this->family = "technic";
 		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'numero' of module)
-		$this->name = eregi_replace('^mod','',get_class($this));
+		$this->name = preg_replace('/^mod/i','',get_class($this));
 		$this->description = "PostNuke integration";
 		$this->version = 'development';    // 'development' or 'experimental' or 'dolibarr' or version
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);

@@ -26,7 +26,7 @@
  *      \file       htdocs/includes/modules/modPHPSane.class.php
  *      \ingroup    phpsane
  *      \brief      Description and activation file for module PHPSane
- *		\version	$Id: modPHPSane.class.php,v 1.2 2009/08/19 17:19:34 eldy Exp $
+ *		\version	$Id: modPHPSane.class.php,v 1.3 2010/01/17 18:43:49 eldy Exp $
  */
 include_once(DOL_DOCUMENT_ROOT ."/includes/modules/DolibarrModules.class.php");
 
@@ -54,7 +54,7 @@ class modPHPSane extends DolibarrModules
 		// It is used to group modules in module setup page
 		$this->family = "other";
 		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'numero' of module)
-		$this->name = eregi_replace('^mod','',get_class($this));
+		$this->name = preg_replace('/^mod/i','',get_class($this));
 		// Module description, used if translation string 'ModuleXXXDesc' not found (where XXX is value of numeric property 'numero' of module)
 		$this->description = "Description of module PHPSane";
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version

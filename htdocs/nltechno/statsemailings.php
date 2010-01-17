@@ -6,7 +6,7 @@
     	\file       htdocs/nltechno/statsemailings.php
 		\ingroup    nltechno
 		\brief      Page des stats
-		\version    $Id: statsemailings.php,v 1.16 2009/03/09 21:55:36 eldy Exp $
+		\version    $Id: statsemailings.php,v 1.17 2010/01/17 18:43:51 eldy Exp $
 		\author		Laurent Destailleur
 */
 
@@ -107,7 +107,7 @@ if ($_GET["action"] == 'buildemailingchien')
 	foreach ($lines as $line_num => $line)
 	{
 		// on vire les retour chariots
-		$line=trim(ereg_replace("[\n\r]",'',$line));
+		$line=trim(preg_replace("/[\n\r]/",'',$line));
 		if ($line == '$sante') $line=$sante;
 	       	if ($line == '$actualite') $line=$actualite;
 	       	if ($line == '$race_semaine') $line=$race_semaine;
