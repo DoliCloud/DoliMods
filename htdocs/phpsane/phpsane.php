@@ -20,7 +20,7 @@
         \ingroup    phpsane
 		\brief      Page générant 2 frames, une pour le menu Dolibarr, l'autre pour l'affichage de PHPSane
 		\author	    Laurent Destailleur
-		\version    $Id: phpsane.php,v 1.1 2009/07/06 13:22:46 eldy Exp $
+		\version    $Id: phpsane.php,v 1.2 2010/04/03 15:06:05 eldy Exp $
 */
 
 include("./pre.inc.php");
@@ -29,7 +29,7 @@ include("./pre.inc.php");
 {
 	llxHeader();
 	print '<div class="error">Module Webcalendar was not configured properly.</div>';
-	llxFooter('$Date: 2009/07/06 13:22:46 $ - $Revision: 1.1 $');
+	llxFooter('$Date: 2010/04/03 15:06:05 $ - $Revision: 1.2 $');
 }
 */
 
@@ -42,7 +42,7 @@ print "
 <title>Dolibarr frame for PHPSane</title>
 </head>
 
-<frameset rows=\"28,*\" border=0 framespacing=0 frameborder=0>
+<frameset rows=\"".$heightforframes.",*\" border=0 framespacing=0 frameborder=0>
     <frame name=\"barre\" src=\"".DOL_URL_ROOT."/phpsane/phpsanetop.php?mainmenu=".$mainmenu."&leftmenu=".$leftmenu."\" noresize scrolling=\"NO\" noborder>
     <frame name=\"main\" src=\"".DOL_URL_ROOT."/includes/phpsane/phpSane/phpsane.php\">
     <noframes>
