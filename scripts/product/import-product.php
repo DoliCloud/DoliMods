@@ -16,10 +16,10 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *
- * $Id: import-product.php,v 1.1 2009/08/22 03:42:30 eldy Exp $
+ * $Id: import-product.php,v 1.2 2010/04/28 07:39:01 eldy Exp $
  * $Source: /cvsroot/dolibarr/dolibarrmod/scripts/product/import-product.php,v $
  *
- * 
+ *
  * Import des produits depuis un fichier XML
  * Ce script est un exemple et a pour vocation a servir de base pour le dev
  * de script personnalise, il utilise les donnes du catalogue de materiel.net
@@ -29,6 +29,13 @@
  * wget "http://materiel.net/partenaire/search.php3?format=xml&nobanner=1"
  */
 
+require("../../htdocs/master.inc.php");
+require_once(DOL_DOCUMENT_ROOT ."/product.class.php");
+
+/*
+ *
+ */
+
 $opt = getopt("f:u:");
 
 $userid = $opt['u'];
@@ -36,18 +43,12 @@ $file = $opt['f'];
 
 if (strlen(trim($file)) == 0 || strlen(trim($userid)) == 0)
 {
-  print "Usage :\n php import-product.php -f <filename> -i <id_fournisseur> -u <userid>\n";
+  print "Usage :\n php import-product.php -f <filename> -i <id_fournisseur> -u <login>\n";
   exit;
 }
-/*
- *
- *
- */
-require("../../htdocs/master.inc.php");
-require_once(DOL_DOCUMENT_ROOT ."/product.class.php");
 
 $user = new User($db);
-$result = $user->fetch($userid);
+$result = $user->fetch('',$userid);
 if ($user->id == 0)
   die("Identifiant utilisateur incorrect : $userid\n");
 
@@ -57,32 +58,32 @@ $items = array();
 $current = '';
 
 /*
- * Parse le fichier XML et l'insère dans un tableau
- *
+ * Parse le fichier XML et l'insere dans un tableau
  */
+
 $xml_parser = xml_parser_create();
 
 xml_set_element_handler($xml_parser, "debutElement", "finElement");
 xml_set_character_data_handler($xml_parser,"charData");
 
-if (!($fp = fopen($file, "r"))) 
+if (!($fp = fopen($file, "r")))
 {
   die("Impossible d'ouvrir le fichier XML");
 }
 
-while ($data = fread($fp, 4096) ) 
+while ($data = fread($fp, 4096) )
 {
-  if (!xml_parse($xml_parser, $data, feof($fp))) 
+  if (!xml_parse($xml_parser, $data, feof($fp)))
     {
-      die(sprintf("erreur XML : %s à la ligne %d",
+      die(sprintf("erreur XML : %s a la ligne %d",
 		  xml_error_string(xml_get_error_code($xml_parser)),
 		  xml_get_current_line_number($xml_parser)));
     }
 }
 xml_parser_free($xml_parser);
+
 /*
- * Traite les données du tableau
- *
+ * Traite les donnees du tableau
  */
 if (sizeof($items) > 0)
 {
@@ -135,7 +136,7 @@ function debutElement($parser, $name, $attrs)
   elseif ($name == 'NAME')
     {
       $current = "name";
-    }  
+    }
   elseif ($name == 'CODE')
     {
       $current = "code";
