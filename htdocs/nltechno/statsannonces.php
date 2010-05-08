@@ -6,7 +6,7 @@
  *   	\file       htdocs/nltechno/statsannonces.php
  *		\ingroup    nltechno
  *		\brief      Page des stats annonces
- *		\version    $Id: statsannonces.php,v 1.7 2009/11/03 12:42:30 eldy Exp $
+ *		\version    $Id: statsannonces.php,v 1.8 2010/05/08 20:54:03 eldy Exp $
  *		\author		Laurent Destailleur
  */
 
@@ -86,7 +86,7 @@ if (1 == 1)
 		$lastval=array();
 		$relativepath=$dirtmp."statsannonces_".$categ.".png";
 
-		$sql = "SELECT ".$dbann->pdate('DATE_STATS')." as d, KEY_STATS, VALUE_STATS";
+		$sql = "SELECT DATE_STATS, KEY_STATS, VALUE_STATS";
 		$sql.= " FROM T_STATS as s";
 		$sql.= " WHERE KEY_STATS in ('".$categ."')";
 		$sql.= " AND DATE_STATS >= '".$datestart."'";
@@ -107,8 +107,8 @@ if (1 == 1)
 						$val1=$obj->VALUE_STATS;
 					}
 
-					$day=dolibarr_print_date($obj->d,'%d');
-					if ($day == '15') $labelx=dolibarr_print_date($obj->d,'%b');
+					$day=dolibarr_print_date($db->jdate($obj->DATE_START),'%d');
+					if ($day == '15') $labelx=dolibarr_print_date($db->jdate($obj->DATE_START),'%b');
 					else $labelx='';
 
 					if ($obj->d != $oldday && $oldday)

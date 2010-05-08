@@ -15,7 +15,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *
- * $Id: bilan.php,v 1.1 2009/09/29 17:45:27 eldy Exp $
+ * $Id: bilan.php,v 1.2 2010/05/08 20:54:03 eldy Exp $
  * $Source: /cvsroot/dolibarr/dolibarrmod/htdocs/voyage/bilan.php,v $
  *
  */
@@ -56,7 +56,7 @@ if ($vline) {
 $sql = "SELECT rowid, label FROM ".MAIN_DB_PREFIX."voyage_reduc;";
 $result = $db->query($sql);
 if ($result) {
-  $var=True;  
+  $var=True;
   $num = $db->num_rows();
   $i = 0;
   $options = "<option value=\"0\" selected=\"true\"></option>";
@@ -104,12 +104,12 @@ for ($j = 0 ; $j < sizeof($cartes) ; $j++) {
 
   print '<tr><td colspan="2">'.$reduc->label.'</td><td align="right">'.$reduc->price.'</td>';
   print '<td>&nbsp;</TD></tr>';
- 
+
   /*
    *
    */
-  $sql = "SELECT b.rowid,".$db->pdate("b.date_depart")." as date_depart,".$db->pdate("b.date_arrivee")." as date_arrivee, b.amount, b.depart, b.arrivee , b.reduction";
-  $sql .= " FROM ".MAIN_DB_PREFIX."voyage as b WHERE fk_reduc=".$reduc->id." ORDER BY b.date_depart ASC"; 
+  $sql = "SELECT b.rowid,b.date_depart,b.date_arrivee, b.amount, b.depart, b.arrivee , b.reduction";
+  $sql .= " FROM ".MAIN_DB_PREFIX."voyage as b WHERE fk_reduc=".$reduc->id." ORDER BY b.date_depart ASC";
 
   $result = $db->query($sql);
   if ($result) {
@@ -119,11 +119,11 @@ for ($j = 0 ; $j < sizeof($cartes) ; $j++) {
     print "<td align=\"right\">Montant</td>";
     print "<td align=\"right\">Réduction</td>";
     print "</tr>\n";
-  
 
-    $var=True;  
+
+    $var=True;
     $num = $db->num_rows();
-    $i = 0; 
+    $i = 0;
     $total = 0;
     $total_reduc = 0;
 
@@ -136,8 +136,8 @@ for ($j = 0 ; $j < sizeof($cartes) ; $j++) {
       $var=!$var;
 
       print "<tr $bc[$var]>";
-      print "<td>".strftime("%d&nbsp;%b&nbsp;%y&nbsp;%H:%M",$objp->date_depart)."<br>\n";
-      print "".strftime("%d %b %y %H:%M",$objp->date_arrivee)."</TD>\n";
+      print "<td>".strftime("%d&nbsp;%b&nbsp;%y&nbsp;%H:%M",$db->jdate($objp->date_depart))."<br>\n";
+      print "".strftime("%d %b %y %H:%M",$db->jdate($objp->date_arrivee))."</TD>\n";
 
       print "<td>$objp->depart<br>$objp->arrivee</td>";
 
@@ -172,5 +172,5 @@ for ($j = 0 ; $j < sizeof($cartes) ; $j++) {
 
 $db->close();
 
-llxFooter("<em>Derni&egrave;re modification $Date: 2009/09/29 17:45:27 $ r&eacute;vision $Revision: 1.1 $</em>");
+llxFooter("<em>Derni&egrave;re modification $Date: 2010/05/08 20:54:03 $ r&eacute;vision $Revision: 1.2 $</em>");
 ?>

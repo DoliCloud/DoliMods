@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *
- * $Id: index.php,v 1.1 2009/09/29 17:45:27 eldy Exp $
+ * $Id: index.php,v 1.2 2010/05/08 20:54:03 eldy Exp $
  * $Source: /cvsroot/dolibarr/dolibarrmod/htdocs/voyage/index.php,v $
  *
  */
@@ -55,7 +55,7 @@ if ($vline) {
 $sql = "SELECT rowid, label FROM ".MAIN_DB_PREFIX."voyage_reduc;";
 $result = $db->query($sql);
 if ($result) {
-  $var=True;  
+  $var=True;
   $num = $db->num_rows();
   $i = 0;
   $options = "<option value=\"0\" selected=\"true\"></option>";
@@ -70,8 +70,8 @@ if ($result) {
 print_titre("Voyages");
 
 
-$sql = "SELECT b.rowid,".$db->pdate("b.date_depart")." as date_depart,".$db->pdate("b.date_arrivee")." as date_arrivee, b.amount, b.reduction,b.depart, b.arrivee ";
-$sql .= " FROM ".MAIN_DB_PREFIX."voyage as b ORDER BY b.date_depart ASC"; 
+$sql = "SELECT b.rowid,b.date_depart,b.date_arrivee, b.amount, b.reduction,b.depart, b.arrivee ";
+$sql .= " FROM ".MAIN_DB_PREFIX."voyage as b ORDER BY b.date_depart ASC";
 
 $result = $db->query($sql);
 if ($result) {
@@ -85,9 +85,9 @@ if ($result) {
   print "<td align=\"right\">Montant</td>";
   print "<td align=\"right\">Réduction</td>";
   print "</tr>\n";
-  
 
-  $var=True;  
+
+  $var=True;
   $num = $db->num_rows();
   $i = 0; $total = 0;
 
@@ -101,14 +101,14 @@ if ($result) {
     $var=!$var;
 
     print "<tr $bc[$var]>";
-    print "<td>".strftime("%d&nbsp;%b&nbsp;%y&nbsp;%H:%M",$objp->date_depart)."<br>\n";
-    print "".strftime("%d %b %y %H:%M",$objp->date_arrivee)."</TD>\n";
+    print "<td>".strftime("%d&nbsp;%b&nbsp;%y&nbsp;%H:%M",$db->jdate($objp->date_depart))."<br>\n";
+    print "".strftime("%d %b %y %H:%M",$db->jdate($objp->date_arrivee))."</TD>\n";
 
     print "<td>$objp->depart - $objp->arrivee</td>";
 
     print "<td align=\"right\">".price($objp->amount)."</TD>\n";
     print "<td align=\"right\">".price($objp->reduction)."</TD>\n";
-    print "<td align=\"center\"><a href=\"index.php?action=del&rowid=$objp->rowid\">[Del]</a></td>";    
+    print "<td align=\"center\"><a href=\"index.php?action=del&rowid=$objp->rowid\">[Del]</a></td>";
     print "</tr>";
 
 
@@ -143,5 +143,5 @@ if ($result) {
 
 $db->close();
 
-llxFooter("<em>Derni&egrave;re modification $Date: 2009/09/29 17:45:27 $ r&eacute;vision $Revision: 1.1 $</em>");
+llxFooter("<em>Derni&egrave;re modification $Date: 2010/05/08 20:54:03 $ r&eacute;vision $Revision: 1.2 $</em>");
 ?>

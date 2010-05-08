@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *
- * $Id: reduc.php,v 1.1 2009/09/29 17:45:27 eldy Exp $
+ * $Id: reduc.php,v 1.2 2010/05/08 20:54:03 eldy Exp $
  * $Source: /cvsroot/dolibarr/dolibarrmod/htdocs/voyage/reduc.php,v $
  *
  */
@@ -34,33 +34,33 @@ print "<td align=\"right\"><a href=\"reduc.php?vue=credit\">Montant</a></td>";
 print "</tr>\n";
 
 
-$sql = "SELECT b.rowid,".$db->pdate("b.date_debut")." as debut,".$db->pdate("b.date_fin")." as fin, b.amount, b.label ";
-$sql .= " FROM ".MAIN_DB_PREFIX."voyage_reduc as b "; 
+$sql = "SELECT b.rowid, b.date_debut as debut, b.date_fin as fin, b.amount, b.label";
+$sql .= " FROM ".MAIN_DB_PREFIX."voyage_reduc as b ";
 
 $result = $db->query($sql);
 if ($result) {
-  $var=True;  
-  $num = $db->num_rows();
-  $i = 0; $total = 0;
+	$var=True;
+	$num = $db->num_rows();
+	$i = 0; $total = 0;
 
-  $sep = 0;
+	$sep = 0;
 
-  while ($i < $num) {
-    $objp = $db->fetch_object($result);
-    $total = $total + $objp->amount;
-    $time = time();
+	while ($i < $num) {
+		$objp = $db->fetch_object($result);
+		$total = $total + $objp->amount;
+		$time = time();
 
-    $var=!$var;
+		$var=!$var;
 
-    print "<tr $bc[$var]>";
-    print "<td>".strftime("%d %b %y",$objp->debut)." au ".strftime("%d %b %y",$objp->fin)."</TD>\n";
-    print "<td>$objp->label</td>";
-    print "<td align=\"right\">".price($objp->amount)."</TD>\n";
-    print "</tr>";
-    
-    $i++;
-  }
-  $db->free();
+		print "<tr $bc[$var]>";
+		print "<td>".strftime("%d %b %y",$db->jdate($objp->debut))." au ".strftime("%d %b %y",$db->jdate($objp->fin))."</TD>\n";
+		print "<td>".$objp->label."</td>";
+		print "<td align=\"right\">".price($objp->amount)."</TD>\n";
+		print "</tr>";
+
+		$i++;
+	}
+	$db->free();
 }
 
 print "<tr><td align=\"right\" colspan=\"2\">".$langs->trans("TotalHT").":</td>";
@@ -72,5 +72,5 @@ print "</table>";
 
 $db->close();
 
-llxFooter("<em>Derni&egrave;re modification $Date: 2009/09/29 17:45:27 $ r&eacute;vision $Revision: 1.1 $</em>");
+llxFooter("<em>Derni&egrave;re modification $Date: 2010/05/08 20:54:03 $ r&eacute;vision $Revision: 1.2 $</em>");
 ?>

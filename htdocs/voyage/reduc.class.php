@@ -1,9 +1,6 @@
 <?php
 /* Copyright (C) 2001-2002 Rodolphe Quiedeville <rodolphe@quiedeville.org>
  *
- * $Id: reduc.class.php,v 1.1 2009/09/29 17:45:27 eldy Exp $
- * $Source: /cvsroot/dolibarr/dolibarrmod/htdocs/voyage/reduc.class.php,v $
- *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
@@ -18,39 +15,43 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *
+ * $Id: reduc.class.php,v 1.2 2010/05/08 20:54:03 eldy Exp $
  */
 
 class Reduc {
-  var $id;
-  var $price;
-  var $label;
+	var $id;
+	var $price;
+	var $label;
 
-  function Reduc($DB, $rowid=0) {
-    global $config;
+	function Reduc($DB, $rowid=0) {
+		global $config;
 
-    $this->db = $DB;
-    $this->rowid = $rowid;
-    
-    return 1;
-  }
+		$this->db = $DB;
+		$this->rowid = $rowid;
 
-  function fetch($id) {
-    $sql = "SELECT b.rowid,".$this->db->pdate("b.date_debut")." as debut,".$this->db->pdate("b.date_fin")." as fin, b.amount, b.label ";
-    $sql .= " FROM ".MAIN_DB_PREFIX."voyage_reduc as b WHERE rowid = $id"; 
+		return 1;
+	}
 
-    $result = $this->db->query($sql);
+	function fetch($id)
+	{
+		$sql = "SELECT b.rowid,b.date_debut as debut,b.date_fin as fin, b.amount, b.label";
+		$sql.= " FROM ".MAIN_DB_PREFIX."voyage_reduc as b WHERE rowid = $id";
 
-    if ($result) {
-      if ($this->db->num_rows()) {
-	$obj = $this->db->fetch_object($result);
+		$result = $this->db->query($sql);
 
-	$this->id = $obj->rowid;
-	$this->price = $obj->amount;
-	$this->label = $obj->label;
-      }
-      $this->db->free();
-    }
-  }
+		if ($result)
+		{
+			if ($this->db->num_rows())
+			{
+				$obj = $this->db->fetch_object($result);
+
+				$this->id = $obj->rowid;
+				$this->price = $obj->amount;
+				$this->label = $obj->label;
+			}
+			$this->db->free();
+		}
+	}
 
 
 }
