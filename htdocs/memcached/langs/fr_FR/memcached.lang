@@ -1,0 +1,14 @@
+# Dolibarr language file - fr_FR - memcached
+CHARSET=UTF-8
+MemcachedServer=Serveur Memcached
+MemcachedSetup=Configuration d'utilisation d'un serveur Memcached
+MemcachedDesc=Renseigner ici les coordonnées du serveur Memcached. Automatiquement, Dolibarr l'utilisera pour réduire les temps de traitements (mise en cache des traduction par exemple).
+SizeOfCache=Taille du cache
+ItemsInCache=Nombre d'objets dans le cache
+NumberOfCacheInsert=Nombre d'écriture d'objets dans le cache
+NumberOfCacheRead=Nombre de lecture du cache (succès/total tentatives)
+FlushCache=Vider le cache
+Flushed=Cache purgé
+InformationsOnCacheServer=Informations et statistiques sur le serveur Memcached
+FailedToReadServer=Echec de l'interrogation du serveur Memcached
+ConfigureParametersFirst=Configurer le serveur d'abord...

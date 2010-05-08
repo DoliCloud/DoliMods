@@ -1,0 +1,14 @@
+# Dolibarr language file - en_US - memcached
+CHARSET=UTF-8
+MemcachedServer=Memcached server
+MemcachedSetup=Memcached usage setup
+MemcachedDesc=Set here properties of Memcached server. Automatically, Dolibarr will use it to reduce process speed (using cache for language translations for example).
+SizeOfCache=Size of cache
+ItemsInCache=Number of objects into cache
+NumberOfCacheInsert=Number of cache write
+NumberOfCacheRead=Number of cache read (success/total tries)
+FlushCache=Flush cache
+Flushed=Cache flushed
+InformationsOnCacheServer=Informations and statistics about the Memcached server
+FailedToReadServer=Failed to read the Memcached server
+ConfigureParametersFirst=Setup the server first...
