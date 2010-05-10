@@ -19,10 +19,13 @@
 /**
  *     \file       htdocs/memcached/admin/memcached.php
  *     \brief      Page administration de memcached
- *     \version    $Id: memcached.php,v 1.1 2010/05/08 15:09:32 eldy Exp $
+ *     \version    $Id: memcached.php,v 1.2 2010/05/10 18:30:12 eldy Exp $
  */
 
-require("../../main.inc.php");
+$res=@include("../main.inc.php");
+if (! $res) $res=@include("../../main.inc.php");	// If pre.inc.php is called by jawstats
+if (! $res) $res=@include("../../../dolibarr/htdocs/main.inc.php");		// Used on dev env only
+if (! $res) $res=@include("../../../../dolibarr/htdocs/main.inc.php");	// Used on dev env only
 require_once(DOL_DOCUMENT_ROOT."/lib/admin.lib.php");
 
 // Security check
@@ -61,7 +64,7 @@ llxHeader();
 if (!class_exists('Memcached'))
 {
 	print 'Memcached PHP features are not installed.';
-	llxfooter('$Date: 2010/05/08 15:09:32 $ - $Revision: 1.1 $');
+	llxfooter('$Date: 2010/05/10 18:30:12 $ - $Revision: 1.2 $');
 	exit;
 }
 
@@ -188,5 +191,5 @@ else
 print '</table>';
 
 
-llxfooter('$Date: 2010/05/08 15:09:32 $ - $Revision: 1.1 $');
+llxfooter('$Date: 2010/05/10 18:30:12 $ - $Revision: 1.2 $');
 ?>
