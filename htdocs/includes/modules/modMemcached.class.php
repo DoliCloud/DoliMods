@@ -18,7 +18,7 @@
 
 /**     \defgroup   memcached		Module Memcached
  *      \brief      Module for memcached server
- *		\version	$Id: modMemcached.class.php,v 1.1 2010/05/08 15:09:32 eldy Exp $
+ *		\version	$Id: modMemcached.class.php,v 1.2 2010/05/24 22:21:04 eldy Exp $
  */
 
 /**
@@ -54,7 +54,7 @@ class modMemcached extends DolibarrModules
 		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'numero' of module)
 		$this->name = preg_replace('/^mod/i','',get_class($this));
 		// Module description used if translation string 'ModuleXXXDesc' not found (XXX is id value)
-		$this->description = "Use a memcached server to increase Dolibarr speed";
+		$this->description = "Use a memcached server to increase Dolibarr speed (need PHP functions Memcached or Memcache)";
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
 		$this->version = 'dolibarr';
 		// Key used in llx_const table to save module status enabled/disabled (XXX is id value)

@@ -19,7 +19,7 @@
 /**
  *     \file       htdocs/memcached/admin/memcached.php
  *     \brief      Page administration de memcached
- *     \version    $Id: memcached.php,v 1.2 2010/05/10 18:30:12 eldy Exp $
+ *     \version    $Id: memcached.php,v 1.3 2010/05/24 22:21:07 eldy Exp $
  */
 
 $res=@include("../main.inc.php");
@@ -58,13 +58,21 @@ if ($_POST["action"] == 'set')
  * View
  */
 
-llxHeader();
+$help_url="EN:Module_Memcached_En|FR:Module_Memcached|ES:M&oacute;dulo_Memcached";
+llxHeader("",$langs->trans("MemcachedSetup"),$help_url);
+
+$html=new Form($db);
+print_fiche_titre($langs->trans('MemcachedSetup'),'','setup');
+
+print $langs->trans("MemcachedDesc")."<br>\n";
+print "<br>\n";
 
 
-if (!class_exists('Memcached'))
+// Test if a memcached client exists
+if (!class_exists('Memcached') && !class_exists('Memcache'))
 {
-	print 'Memcached PHP features are not installed.';
-	llxfooter('$Date: 2010/05/10 18:30:12 $ - $Revision: 1.2 $');
+	print 'Your PHP must support Memcached client features (Nor the Memcached, nor the Memcache verion of client was found).';
+	llxfooter('$Date: 2010/05/24 22:21:07 $ - $Revision: 1.3 $');
 	exit;
 }
 
@@ -72,13 +80,6 @@ if (!class_exists('Memcached'))
 $m=new Memcached();
 $result=$m->addServer($conf->global->MEMCACHED_SERVER, $conf->global->MEMCACHED_PORT);
 //$m->setOption(Memcached::OPT_COMPRESSION, false);
-
-
-$html=new Form($db);
-print_fiche_titre($langs->trans('MemcachedSetup'),'','setup');
-
-print $langs->trans("MemcachedDesc")."<br>\n";
-print "<br>\n";
 
 
 // Param
@@ -191,5 +192,5 @@ else
 print '</table>';
 
 
-llxfooter('$Date: 2010/05/10 18:30:12 $ - $Revision: 1.2 $');
+llxfooter('$Date: 2010/05/24 22:21:07 $ - $Revision: 1.3 $');
 ?>
