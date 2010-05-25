@@ -19,7 +19,7 @@
 /**
  *     \file       htdocs/memcached/admin/memcached.php
  *     \brief      Page administration de memcached
- *     \version    $Id: memcached.php,v 1.3 2010/05/24 22:21:07 eldy Exp $
+ *     \version    $Id: memcached.php,v 1.4 2010/05/25 22:46:31 eldy Exp $
  */
 
 $res=@include("../main.inc.php");
@@ -67,19 +67,29 @@ print_fiche_titre($langs->trans('MemcachedSetup'),'','setup');
 print $langs->trans("MemcachedDesc")."<br>\n";
 print "<br>\n";
 
+$error=0;
 
-// Test if a memcached client exists
-if (!class_exists('Memcached') && !class_exists('Memcache'))
+// Check prerequisites
+if (! class_exists("Memcache") && ! class_exists("Memcached"))
 {
 	print 'Your PHP must support Memcached client features (Nor the Memcached, nor the Memcache verion of client was found).';
-	llxfooter('$Date: 2010/05/24 22:21:07 $ - $Revision: 1.3 $');
-	exit;
+	$error++;
 }
-
-
-$m=new Memcached();
-$result=$m->addServer($conf->global->MEMCACHED_SERVER, $conf->global->MEMCACHED_PORT);
-//$m->setOption(Memcached::OPT_COMPRESSION, false);
+else
+{
+	print $langs->trans("MemcachedClient","Memcache").' ';
+	if (class_exists("Memcache")) print $langs->trans("Available");
+	else print $langs->trans("NotAvailable");
+	print '<br>';
+	print $langs->trans("MemcachedClient","Memcached").' ';
+	if (class_exists("Memcache")) print $langs->trans("Available");
+	else print $langs->trans("NotAvailable");
+	print '<br>';
+	if (class_exists("Memcache") && class_exists("Memcached")) print $langs->trans("MemcachedClientBothAvailable").'<br>';
+	else if (class_exists("Memcache")) print $langs->trans("OnlyClientAvailable",'Memcache').'<br>';
+	else if (class_exists("Memcached")) print $langs->trans("OnlyClientAvailable",'Memcached').'<br>';
+}
+print '<br>';
 
 
 // Param
@@ -113,84 +123,91 @@ print '</table>';
 
 print "</form>\n";
 
-
-// This action must be set here and not in actions to be sure all lang files are already loaded
-if ($_GET["action"] == 'clear')
+if (! $error)
 {
-	$error=0;
-	if (! $error)
-	{
-		$m->flush();
 
-		$mesg='<div class="ok">'.$langs->trans("Flushed").'</div>';
+	$m=new Memcached();
+	$result=$m->addServer($conf->global->MEMCACHED_SERVER, $conf->global->MEMCACHED_PORT);
+	//$m->setOption(Memcached::OPT_COMPRESSION, false);
+
+	// This action must be set here and not in actions to be sure all lang files are already loaded
+	if ($_GET["action"] == 'clear')
+	{
+		$error=0;
+		if (! $error)
+		{
+			$m->flush();
+
+			$mesg='<div class="ok">'.$langs->trans("Flushed").'</div>';
+		}
 	}
-}
 
-if ($mesg) print '<br>'.$mesg;
-
-
-// Read cache
-$arraycache=$m->getStats();
-$resultcode=$m->getResultCode();
-//var_dump($arraycache);
-
-// Action
-print '<div class="tabsAction">';
-if ($resultcode == 0)
-{
-	print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?action=clear">'.$langs->trans("FlushCache").'</a>';
-}
-else
-{
-	print '<a class="butActionRefused" href="#">'.$langs->trans("FlushCache").'</a>';
-}
-print '</div>';
-print '<br>';
+	if ($mesg) print '<br>'.$mesg;
 
 
-// Statistics of cache server
-print '<table class="noborder">';
-print '<tr class="liste_titre"><td colspan="2">'.$langs->trans("InformationsOnCacheServer").'</td></tr>';
+	// Read cache
+	$arraycache=$m->getStats();
+	$resultcode=$m->getResultCode();
+	//var_dump($arraycache);
 
-if (empty($conf->global->MEMCACHED_SERVER) || empty($conf->global->MEMCACHED_PORT))
-{
-	print '<tr><td colspan="2">'.$langs->trans("ConfigureParametersFirst").'</td></tr>';
-}
-else if ($resultcode == 0)
-{
-	foreach($arraycache as $key => $val)
+	// Action
+	print '<div class="tabsAction">';
+	if ($resultcode == 0)
 	{
-		print '<tr '.$bc[0].'><td>'.$langs->trans("MemcachedServer").'</td>';
-		print '<td>'.$key.'</td></tr>';
+		print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?action=clear">'.$langs->trans("FlushCache").'</a>';
+	}
+	else
+	{
+		print '<a class="butActionRefused" href="#">'.$langs->trans("FlushCache").'</a>';
+	}
+	print '</div>';
+	print '<br>';
 
-		print '<tr '.$bc[1].'><td>'.$langs->trans("Version").'</td>';
-		print '<td>'.$val['version'].'</td></tr>';
 
-		print '<tr '.$bc[0].'><td>'.$langs->trans("ItemsInCache").'</td>';
-		print '<td>'.$val['curr_items'].'</td></tr>';
+	// Statistics of cache server
+	print '<table class="noborder">';
+	print '<tr class="liste_titre"><td colspan="2">'.$langs->trans("InformationsOnCacheServer").'</td></tr>';
 
-		print '<tr '.$bc[1].'><td>'.$langs->trans("SizeOfCache").'</td>';
-		print '<td>'.$val['bytes'].'</td></tr>';
+	if (empty($conf->global->MEMCACHED_SERVER) || empty($conf->global->MEMCACHED_PORT))
+	{
+		print '<tr><td colspan="2">'.$langs->trans("ConfigureParametersFirst").'</td></tr>';
+	}
+	else if ($resultcode == 0)
+	{
+		foreach($arraycache as $key => $val)
+		{
+			print '<tr '.$bc[0].'><td>'.$langs->trans("MemcachedServer").'</td>';
+			print '<td>'.$key.'</td></tr>';
 
-		print '<tr '.$bc[0].'><td>'.$langs->trans("NumberOfCacheInsert").'</td>';
-		print '<td>'.$val['cmd_set'].'</td></tr>';
+			print '<tr '.$bc[1].'><td>'.$langs->trans("Version").'</td>';
+			print '<td>'.$val['version'].'</td></tr>';
 
-		print '<tr '.$bc[1].'><td>'.$langs->trans("NumberOfCacheRead").'</td>';
-		print '<td>'.$val['get_hits'].'/'.$val['cmd_get'].'</td></tr>';
+			print '<tr '.$bc[0].'><td>'.$langs->trans("ItemsInCache").'</td>';
+			print '<td>'.$val['curr_items'].'</td></tr>';
 
-/*		print '<tr '.$bc[1].'><td>Content</td>';
-		print '<td>';
-		// Show list of items
-		print '</td></tr>';
-*/	}
+			print '<tr '.$bc[1].'><td>'.$langs->trans("SizeOfCache").'</td>';
+			print '<td>'.$val['bytes'].'</td></tr>';
+
+			print '<tr '.$bc[0].'><td>'.$langs->trans("NumberOfCacheInsert").'</td>';
+			print '<td>'.$val['cmd_set'].'</td></tr>';
+
+			print '<tr '.$bc[1].'><td>'.$langs->trans("NumberOfCacheRead").'</td>';
+			print '<td>'.$val['get_hits'].'/'.$val['cmd_get'].'</td></tr>';
+
+	/*		print '<tr '.$bc[1].'><td>Content</td>';
+			print '<td>';
+			// Show list of items
+			print '</td></tr>';
+	*/	}
+	}
+	else
+	{
+		print '<tr><td colspan="2">'.$langs->trans("FailedToReadServer").' - Result code = '.$resultcode.'</td></tr>';
+	}
+
+	print '</table>';
+
 }
-else
-{
-	print '<tr><td colspan="2">'.$langs->trans("FailedToReadServer").' - Result code = '.$resultcode.'</td></tr>';
-}
 
-print '</table>';
-
-
-llxfooter('$Date: 2010/05/24 22:21:07 $ - $Revision: 1.3 $');
+llxfooter('$Date: 2010/05/25 22:46:31 $ - $Revision: 1.4 $');
 ?>
