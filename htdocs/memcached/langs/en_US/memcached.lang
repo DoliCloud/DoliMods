@@ -12,3 +12,6 @@ Flushed=Cache flushed
 InformationsOnCacheServer=Informations and statistics about the Memcached server
 FailedToReadServer=Failed to read the Memcached server
 ConfigureParametersFirst=Setup the server first...
+MemcachedClient=PHP client functions <b>%s</b>
+MemcachedClientBothAvailable=Both PHP client functions ara available. Dolibarr will use the <b>%s</b> client functions.
+OnlyClientAvailable=At least one of the two PHP client libraries is available. Dolibarr will use it.

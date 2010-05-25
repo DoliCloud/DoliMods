@@ -13,5 +13,5 @@ InformationsOnCacheServer=Informations et statistiques sur le serveur Memcached
 FailedToReadServer=Echec de l'interrogation du serveur Memcached
 ConfigureParametersFirst=Configurer le serveur d'abord...
 MemcachedClient=Couche cliente PHP <b>%s</b>
-MemcachedClientBothAvailable=Les 2 couches clients PHP sont disponibles. Dolibarr utilisera les fonctions clients <b>%s</b>.
+MemcachedClientBothAvailable=Les 2 couches clients PHP pour le serveur Memcached sont disponibles. Dolibarr utilisera les fonctions clients <b>%s</b>.
 OnlyClientAvailable=Au moins une des 2 couches clients du serveur Memcached est disponible. Dolibarr l'utilisera.

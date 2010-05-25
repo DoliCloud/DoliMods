@@ -19,7 +19,7 @@
 /**
  *     \file       htdocs/memcached/admin/memcached.php
  *     \brief      Page administration de memcached
- *     \version    $Id: memcached.php,v 1.4 2010/05/25 22:46:31 eldy Exp $
+ *     \version    $Id: memcached.php,v 1.5 2010/05/25 22:49:30 eldy Exp $
  */
 
 $res=@include("../main.inc.php");
@@ -77,11 +77,11 @@ if (! class_exists("Memcache") && ! class_exists("Memcached"))
 }
 else
 {
-	print $langs->trans("MemcachedClient","Memcache").' ';
+	print $langs->trans("MemcachedClient","Memcache").': ';
 	if (class_exists("Memcache")) print $langs->trans("Available");
 	else print $langs->trans("NotAvailable");
 	print '<br>';
-	print $langs->trans("MemcachedClient","Memcached").' ';
+	print $langs->trans("MemcachedClient","Memcached").': ';
 	if (class_exists("Memcache")) print $langs->trans("Available");
 	else print $langs->trans("NotAvailable");
 	print '<br>';
@@ -209,5 +209,5 @@ if (! $error)
 
 }
 
-llxfooter('$Date: 2010/05/25 22:46:31 $ - $Revision: 1.4 $');
+llxfooter('$Date: 2010/05/25 22:49:30 $ - $Revision: 1.5 $');
 ?>
