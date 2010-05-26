@@ -19,7 +19,7 @@
 /**
  *     \file       htdocs/memcached/admin/memcached.php
  *     \brief      Page administration de memcached
- *     \version    $Id: memcached.php,v 1.7 2010/05/26 00:16:42 eldy Exp $
+ *     \version    $Id: memcached.php,v 1.9 2010/05/26 00:35:57 eldy Exp $
  */
 
 $res=@include("../main.inc.php");
@@ -58,11 +58,13 @@ if ($_POST["action"] == 'set')
  * View
  */
 
+$html=new Form($db);
+
 $help_url="EN:Module_MemCached_En|FR:Module_MemCached|ES:M&oacute;dulo_MemCached";
 llxHeader("",$langs->trans("MemcachedSetup"),$help_url);
 
-$html=new Form($db);
-print_fiche_titre($langs->trans('MemcachedSetup'),'','setup');
+$linkback='<a href="'.DOL_URL_ROOT.'/admin/modules.php">'.$langs->trans("BackToModuleList").'</a>';
+print_fiche_titre($langs->trans('MemcachedSetup'),$linkback,'setup');
 
 print $langs->trans("MemcachedDesc")."<br>\n";
 print "<br>\n";
@@ -81,17 +83,17 @@ if (! class_exists("Memcache") && ! class_exists("Memcached"))
 }
 else
 {
+	print $langs->trans("MemcachedClient","Memcached").': ';
+	if (class_exists("Memcached")) print $langs->trans("Available");
+	else print $langs->trans("NotAvailable");
+	print '<br>';
 	print $langs->trans("MemcachedClient","Memcache").': ';
 	if (class_exists("Memcache")) print $langs->trans("Available");
 	else print $langs->trans("NotAvailable");
 	print '<br>';
-	print $langs->trans("MemcachedClient","Memcached").': ';
-	if (class_exists("Memcache")) print $langs->trans("Available");
-	else print $langs->trans("NotAvailable");
-	print '<br>';
-	if (class_exists("Memcache") && class_exists("Memcached")) print $langs->trans("MemcachedClientBothAvailable",'Memcached').'<br>';
-	else if (class_exists("Memcache")) print $langs->trans("OnlyClientAvailable",'Memcache').'<br>';
+	if (class_exists("Memcached") && class_exists("Memcache")) print $langs->trans("MemcachedClientBothAvailable",'Memcached').'<br>';
 	else if (class_exists("Memcached")) print $langs->trans("OnlyClientAvailable",'Memcached').'<br>';
+	else if (class_exists("Memcache")) print $langs->trans("OnlyClientAvailable",'Memcache').'<br>';
 }
 print '<br>';
 
@@ -177,9 +179,14 @@ if (! $error)
 	{
 		print '<tr><td colspan="2">'.$langs->trans("ConfigureParametersFirst").'</td></tr>';
 	}
-	else if ($resultcode == 0)
+	else if (is_array($arraycache))
 	{
-		foreach($arraycache as $key => $val)
+		$newarraycache=array();
+		if (class_exists("Memcached")) $newarraycache=$arraycache;
+		else if (class_exists("Memcache")) $newarraycache[]=$arraycache;
+		else dol_print_error('','Should not happen');
+
+		foreach($newarraycache as $key => $val)
 		{
 			print '<tr '.$bc[0].'><td>'.$langs->trans("MemcachedServer").'</td>';
 			print '<td>'.$key.'</td></tr>';
@@ -217,5 +224,5 @@ if (! $error)
 
 }
 
-llxfooter('$Date: 2010/05/26 00:16:42 $ - $Revision: 1.7 $');
+llxfooter('$Date: 2010/05/26 00:35:57 $ - $Revision: 1.9 $');
 ?>
