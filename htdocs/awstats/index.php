@@ -15,7 +15,7 @@
 /**
  *	\file       htdocs/awstats/index.php
  *	\brief      Page accueil module AWStats
- *	\version    $Id: index.php,v 1.14 2010/05/24 22:21:04 eldy Exp $
+ *	\version    $Id: index.php,v 1.15 2010/05/26 11:29:13 eldy Exp $
  */
 
 include("./pre.inc.php");
@@ -68,7 +68,7 @@ $table_align		=	"center";					# Content table alignment
  */
 
 $help_url="EN:Module_AWStats_En|FR:Module_AWStats|ES:M&oacute;dulo_AWStats";
-llxHeader('AWStats','AWStats',$help_url);
+llxHeader('','AWStats',$help_url);
 
 $form=new Form($db);
 
@@ -572,5 +572,5 @@ if($system_stats_top == true) {
 #	Output to the screen
 echo $statistics;
 
-llxFooter('$Date: 2010/05/24 22:21:04 $ - $Revision: 1.14 $');
+llxFooter('$Date: 2010/05/26 11:29:13 $ - $Revision: 1.15 $');
 ?>

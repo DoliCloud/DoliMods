@@ -20,7 +20,7 @@
  *	    \file       htdocs/admin/awstats.php
  *      \ingroup    awstats
  *      \brief      Page de configuration du module AWStats
- *		\version    $Id: awstats.php,v 1.6 2009/06/15 12:57:31 eldy Exp $
+ *		\version    $Id: awstats.php,v 1.7 2010/05/26 11:29:13 eldy Exp $
  */
 
 define('NOCSRFCHECK',1);
@@ -86,7 +86,7 @@ if ($actionsave)
  * View
  */
 
-llxHeader('AWStats','AWStats',$linktohelp);
+llxHeader('','AWStats',$linktohelp);
 
 $linkback='<a href="'.DOL_URL_ROOT.'/admin/modules.php">'.$langs->trans("BackToModuleList").'</a>';
 print_fiche_titre($langs->trans("AWStatsSetup"),$linkback,'setup');
@@ -152,5 +152,5 @@ print "<br>";
 
 $db->close();
 
-llxFooter('$Date: 2009/06/15 12:57:31 $ - $Revision: 1.6 $');
+llxFooter('$Date: 2010/05/26 11:29:13 $ - $Revision: 1.7 $');
 ?>
