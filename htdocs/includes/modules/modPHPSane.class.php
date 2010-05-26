@@ -26,7 +26,7 @@
  *      \file       htdocs/includes/modules/modPHPSane.class.php
  *      \ingroup    phpsane
  *      \brief      Description and activation file for module PHPSane
- *		\version	$Id: modPHPSane.class.php,v 1.4 2010/05/26 00:16:42 eldy Exp $
+ *		\version	$Id: modPHPSane.class.php,v 1.5 2010/05/26 13:06:08 eldy Exp $
  */
 include_once(DOL_DOCUMENT_ROOT ."/includes/modules/DolibarrModules.class.php");
 
@@ -84,7 +84,7 @@ class modPHPSane extends DolibarrModules
 		$this->requiredby = array();	// List of modules id to disable if this one is disabled
 		$this->phpmin = array(4,3);					// Minimum version of PHP required by module
 		$this->need_dolibarr_version = array(2,5);	// Minimum version of Dolibarr required by module
-		$this->langfiles = array("phpsane");
+		$this->langfiles = array("phpsane@phpsane");
 
 		// Constants
 		$this->const = array();			// List of particular constants to add when module is enabled

@@ -6,6 +6,7 @@ AWSTATS_DATA_DIR=AWStats data files directory (path on disk)
 AWSTATS_CGI_PATH=AWStats URL (CGI)
 AWSTATS_PROG_PATH=Localisation of AWStats program (path on disk)
 AWSTATS_LIMIT_CONF=Limit config shown to this list (empty for no filter or use "," as separator)
-
 ShowStats=Show detailed statistics
 FilterDomain=Config filter
+Module12000Name=AWStats
+Module12000Desc=Module to integrate AWStats log analyzer reports in Dolibarr

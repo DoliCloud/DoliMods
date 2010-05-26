@@ -18,7 +18,7 @@
 
 /**     \defgroup   memcached		Module Memcached
  *      \brief      Module for memcached server
- *		\version	$Id: modMemcached.class.php,v 1.4 2010/05/26 11:33:34 eldy Exp $
+ *		\version	$Id: modMemcached.class.php,v 1.5 2010/05/26 13:06:08 eldy Exp $
  */
 
 /**
@@ -68,7 +68,7 @@ class modMemcached extends DolibarrModules
 		$this->dirs = array();
 
 		// Langs file within the module
-		$this->langfiles = array("@memcached");
+		$this->langfiles = array("memcached@memcached");
 
 		// Config pages. Put here list of php page names stored in admin directory used to setup module
 		$this->config_page_url = array('memcached.php@memcached');

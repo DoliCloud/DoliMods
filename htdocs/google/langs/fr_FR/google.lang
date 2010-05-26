@@ -6,3 +6,5 @@ GoogleIDAgenda=ID Agenda
 GoogleNbOfAgenda=Nombre d'agendas
 GoogleTools=Outils Google
 GoogleEnableThisTool=Activer cet outils
+Module11000Name=Google
+Module11000Desc=Module pour intégrer les outils Google dans Dolibarr

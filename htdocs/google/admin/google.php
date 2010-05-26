@@ -6,24 +6,24 @@
  *	    \file       htdocs/admin/google.php
  *      \ingroup    google
  *      \brief      Setup page for google module
- *		\version    $Id: google.php,v 1.6 2010/01/17 18:43:51 eldy Exp $
+ *		\version    $Id: google.php,v 1.1 2010/05/26 13:06:08 eldy Exp $
  */
 
 define('NOCSRFCHECK',1);
 
-$res=@include("./pre.inc.php");
-if (! $res) include("../../../dolibarr/htdocs/admin/pre.inc.php");	// Used on dev env only
+$res=@include("../../main.inc.php");
+if (! $res) include("../../../../dolibarr/htdocs/main.inc.php");	// Used on dev env only
 
 require_once(DOL_DOCUMENT_ROOT."/lib/admin.lib.php");
-require_once(DOL_DOCUMENT_ROOT.'/html.formadmin.class.php');
+require_once(DOL_DOCUMENT_ROOT.'/core/class/html.formadmin.class.php');
 
-$res=@include_once("../google/google.lib.php");
-if (! $res) include_once(DOL_DOCUMENT_ROOT."/lib/google.lib.php");
+$res=@include_once("../google.lib.php");
+if (! $res) include_once(DOL_DOCUMENT_ROOT."/google/google.lib.php");
 
 if (!$user->admin)
     accessforbidden();
 
-$langs->load("google");
+$langs->load("google@google");
 $langs->load("admin");
 $langs->load("other");
 
@@ -100,7 +100,8 @@ if ($actionsave)
 $form=new Form($db);
 $formadmin=new FormAdmin($db);
 
-llxHeader();
+$help_url='EN:Module_Google_EN|FR:Module_Google|ES:Modulo_Google';
+llxHeader('',$langs->trans("GoogleSetup"),$help_url);
 
 $linkback='<a href="'.DOL_URL_ROOT.'/admin/modules.php">'.$langs->trans("BackToModuleList").'</a>';
 print_fiche_titre($langs->trans("GoogleSetup"),$linkback,'setup');
@@ -200,5 +201,5 @@ print info_admin($message);
 
 $db->close();
 
-llxFooter('$Date: 2010/01/17 18:43:51 $ - $Revision: 1.6 $');
+llxFooter('$Date: 2010/05/26 13:06:08 $ - $Revision: 1.1 $');
 ?>

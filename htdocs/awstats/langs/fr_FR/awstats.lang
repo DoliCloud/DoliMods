@@ -8,3 +8,5 @@ AWSTATS_PROG_PATH=Localisation du programme AWStats (chemin complet disque)
 AWSTATS_LIMIT_CONF=Limiter les config affichées à cette liste (vide pour aucun filtre sinon séparées par une ",")
 ShowStats=Afficher détail des statistiques
 FilterDomain=Filtrage configuration
+Module12000Name=AWStats
+Module12000Desc=Module pour intégrer les rapports de l'analyseur de log AWStats dans Dolibarr

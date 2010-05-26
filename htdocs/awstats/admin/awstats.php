@@ -20,17 +20,19 @@
  *	    \file       htdocs/admin/awstats.php
  *      \ingroup    awstats
  *      \brief      Page de configuration du module AWStats
- *		\version    $Id: awstats.php,v 1.7 2010/05/26 11:29:13 eldy Exp $
+ *		\version    $Id: awstats.php,v 1.1 2010/05/26 13:06:08 eldy Exp $
  */
 
 define('NOCSRFCHECK',1);
 
-$res=@include("./pre.inc.php");
-include("../awstats/awstats.lib.php");
-if (! $res) include("../../../dolibarr/htdocs/admin/pre.inc.php");	// Used on dev env only
+$res=@include("../../main.inc.php");
+if (! $res) include("../../../../dolibarr/htdocs/main.inc.php");	// Used on dev env only
 
 require_once(DOL_DOCUMENT_ROOT."/lib/admin.lib.php");
-require_once(DOL_DOCUMENT_ROOT.'/html.formadmin.class.php');
+require_once(DOL_DOCUMENT_ROOT.'/core/class/html.formadmin.class.php');
+
+$res=@include_once("../awstats.lib.php");
+if (! $res) include_once(DOL_DOCUMENT_ROOT."/awstats/awstats.lib.php");
 
 
 if (!$user->admin)
@@ -38,7 +40,7 @@ if (!$user->admin)
 
 
 $langs->load("admin");
-$langs->load("awstats");
+$langs->load("awstats@awstats");
 $langs->load("other");
 
 $def = array();
@@ -86,7 +88,8 @@ if ($actionsave)
  * View
  */
 
-llxHeader('','AWStats',$linktohelp);
+$help_url='EN:Module_AWStats_EN|FR:Module_AWStats|ES:Modulo_AWStats';
+llxHeader('','AWStats',$help_url);
 
 $linkback='<a href="'.DOL_URL_ROOT.'/admin/modules.php">'.$langs->trans("BackToModuleList").'</a>';
 print_fiche_titre($langs->trans("AWStatsSetup"),$linkback,'setup');
@@ -152,5 +155,5 @@ print "<br>";
 
 $db->close();
 
-llxFooter('$Date: 2010/05/26 11:29:13 $ - $Revision: 1.7 $');
+llxFooter('$Date: 2010/05/26 13:06:08 $ - $Revision: 1.1 $');
 ?>
