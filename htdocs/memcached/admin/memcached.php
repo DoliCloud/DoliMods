@@ -19,7 +19,7 @@
 /**
  *     \file       htdocs/memcached/admin/memcached.php
  *     \brief      Page administration de memcached
- *     \version    $Id: memcached.php,v 1.8 2010/05/26 00:33:24 eldy Exp $
+ *     \version    $Id: memcached.php,v 1.10 2010/05/26 00:38:26 eldy Exp $
  */
 
 $res=@include("../main.inc.php");
@@ -84,16 +84,16 @@ if (! class_exists("Memcache") && ! class_exists("Memcached"))
 else
 {
 	print $langs->trans("MemcachedClient","Memcached").': ';
-	if (class_exists("Memcache")) print $langs->trans("Available");
+	if (class_exists("Memcached")) print $langs->trans("Available");
 	else print $langs->trans("NotAvailable");
 	print '<br>';
 	print $langs->trans("MemcachedClient","Memcache").': ';
 	if (class_exists("Memcache")) print $langs->trans("Available");
 	else print $langs->trans("NotAvailable");
 	print '<br>';
-	if (class_exists("Memcache") && class_exists("Memcached")) print $langs->trans("MemcachedClientBothAvailable",'Memcached').'<br>';
-	else if (class_exists("Memcache")) print $langs->trans("OnlyClientAvailable",'Memcache').'<br>';
+	if (class_exists("Memcached") && class_exists("Memcache")) print $langs->trans("MemcachedClientBothAvailable",'Memcached').'<br>';
 	else if (class_exists("Memcached")) print $langs->trans("OnlyClientAvailable",'Memcached').'<br>';
+	else if (class_exists("Memcache")) print $langs->trans("OnlyClientAvailable",'Memcache').'<br>';
 }
 print '<br>';
 
@@ -183,7 +183,7 @@ if (! $error)
 	{
 		$newarraycache=array();
 		if (class_exists("Memcached")) $newarraycache=$arraycache;
-		else if (class_exists("Memcache")) $newarraycache[]=$arraycache;
+		else if (class_exists("Memcache")) $newarraycache[$conf->global->MEMCACHED_SERVER.":".$conf->global->MEMCACHED_PORT]=$arraycache;
 		else dol_print_error('','Should not happen');
 
 		foreach($newarraycache as $key => $val)
@@ -224,5 +224,5 @@ if (! $error)
 
 }
 
-llxfooter('$Date: 2010/05/26 00:33:24 $ - $Revision: 1.8 $');
+llxfooter('$Date: 2010/05/26 00:38:26 $ - $Revision: 1.10 $');
 ?>
