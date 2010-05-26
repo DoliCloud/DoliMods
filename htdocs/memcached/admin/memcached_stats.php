@@ -18,13 +18,15 @@
   +----------------------------------------------------------------------+
 */
 
-$VERSION='$Id: memcache_stats.php,v 1.1 2010/05/26 09:05:45 eldy Exp $';
+$VERSION='$Id: memcached_stats.php,v 1.1 2010/05/26 11:21:46 eldy Exp $';
 
 
-$res=@include("../main.inc.php");
-if (! $res) $res=@include("../../main.inc.php");	// If pre.inc.php is called by jawstats
-if (! $res) $res=@include("../../../dolibarr/htdocs/main.inc.php");		// Used on dev env only
-if (! $res) $res=@include("../../../../dolibarr/htdocs/main.inc.php");	// Used on dev env only
+$res=@include_once("../main.inc.php");
+if (! $res) $res=@include_once("../../main.inc.php");	// If pre.inc.php is called by jawstats
+if (! $res) $res=@include_once("../../../dolibarr/htdocs/main.inc.php");		// Used on dev env only
+if (! $res) $res=@include_once("../../../../dolibarr/htdocs/main.inc.php");	// Used on dev env only
+$res=@include_once(DOL_DOCUMENT_ROOT."/lib/memcached.lib.php");
+if (! $res) @include_once("./memcached.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/lib/admin.lib.php");
 
 // Security check
@@ -44,13 +46,19 @@ define('GRAPH_SIZE',200);
 define('MAX_ITEM_DUMP',50);
 
 $MEMCACHE_SERVERS=array();
-foreach($conf->global->MEMCACHED_SERVERS as $val)
+$tmplist=explode(',',$conf->global->MEMCACHED_SERVER);
+foreach($tmplist as $val)
 {
 	$MEMCACHE_SERVERS[] = $val;
 }
 
+//
+// don't cache this page
+//
+header("Cache-Control: no-store, no-cache, must-revalidate");  // HTTP/1.1
+header("Cache-Control: post-check=0, pre-check=0", false);
+header("Pragma: no-cache");                                    // HTTP/1.0
 
-////////// END OF DEFAULT CONFIG AREA /////////////////////////////////////////////////////////////
 
 ///////////MEMCACHE FUNCTIONS /////////////////////////////////////////////////////////////////////
 
@@ -238,12 +246,6 @@ function getMemcacheStats($total=true){
 
 //////////////////////////////////////////////////////
 
-//
-// don't cache this page
-//
-header("Cache-Control: no-store, no-cache, must-revalidate");  // HTTP/1.1
-header("Cache-Control: post-check=0, pre-check=0", false);
-header("Pragma: no-cache");                                    // HTTP/1.0
 
 function duration($ts) {
     global $time;
@@ -273,41 +275,18 @@ function graphics_avail() {
 	return extension_loaded('gd');
 }
 
-function bsize($s) {
-	foreach (array('','K','M','G') as $i => $k) {
-		if ($s < 1024) break;
-		$s/=1024;
-	}
-	return sprintf("%5.1f %sBytes",$s,$k);
-}
-
 // create menu entry
 function menu_entry($ob,$title) {
 	global $PHP_SELF;
 	if ($ob==$_GET['op']){
-	    return "<li><a class=\"child_active\" href=\"$PHP_SELF&op=$ob\">$title</a></li>";
+	    return "<li><a class=\"active\" href=\"$PHP_SELF&op=$ob\">$title</a></li>";
 	}
 	return "<li><a class=\"active\" href=\"$PHP_SELF&op=$ob\">$title</a></li>";
 }
 
 function getHeader(){
     $header = <<<EOB
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
-<head><title>MEMCACHE INFO</title>
 <style type="text/css"><!--
-body { background:white; font-size:100.01%; margin:0; padding:0; }
-body,p,td,th,input,submit { font-size:0.8em;font-family:arial,helvetica,sans-serif; }
-* html body   {font-size:0.8em}
-* html p      {font-size:0.8em}
-* html td     {font-size:0.8em}
-* html th     {font-size:0.8em}
-* html input  {font-size:0.8em}
-* html submit {font-size:0.8em}
-td { vertical-align:top }
-a { color:black; font-weight:none; text-decoration:none; }
-a:hover { text-decoration:underline; }
-div.content { padding:1em 1em 1em 1em; position:absolute; width:97%; z-index:100; }
 
 h1.memcache { background:rgb(153,153,204); margin:0; padding:0.5em 1em 0.5em 1em; }
 * html h1.memcache { margin-bottom:-7px; }
@@ -388,36 +367,35 @@ ol.menu a:hover {
 	}
 
 
-div.info {
+div.infomemcached {
 	background:rgb(204,204,204);
 	border:solid rgb(204,204,204) 1px;
 	margin-bottom:1em;
 	}
-div.info h2 {
+div.infomemcached h2 {
 	background:rgb(204,204,204);
 	color:black;
 	font-size:1em;
 	margin:0;
 	padding:0.1em 1em 0.1em 1em;
 	}
-div.info table {
+div.infomemcached table {
 	border:solid rgb(204,204,204) 1px;
 	border-spacing:0;
 	width:100%;
 	}
-div.info table th {
+div.infomemcached table th {
 	background:rgb(204,204,204);
-	color:white;
 	margin:0;
 	padding:0.1em 1em 0.1em 1em;
 	}
-div.info table th a.sortable { color:black; }
-div.info table tr.tr-0 { background:rgb(238,238,238); }
-div.info table tr.tr-1 { background:rgb(221,221,221); }
-div.info table td { padding:0.3em 1em 0.3em 1em; }
-div.info table td.td-0 { border-right:solid rgb(102,102,153) 1px; white-space:nowrap; }
-div.info table td.td-n { border-right:solid rgb(102,102,153) 1px; }
-div.info table td h3 {
+div.infomemcached table th a.sortable { color:black; }
+div.infomemcached table tr.tr-0 { background:rgb(238,238,238); }
+div.infomemcached table tr.tr-1 { background:rgb(221,221,221); }
+div.infomemcached table td { padding:0.3em 1em 0.3em 1em; }
+div.infomemcached table td.td-0 { border-right:solid rgb(102,102,153) 1px; white-space:nowrap; }
+div.infomemcached table td.td-n { border-right:solid rgb(102,102,153) 1px; }
+div.infomemcached table td h3 {
 	color:black;
 	font-size:1.1em;
 	margin-left:-0.3em;
@@ -432,9 +410,7 @@ div.graph table td.td-0 { background:rgb(238,238,238); }
 div.graph table td.td-1 { background:rgb(221,221,221); }
 div.graph table td { padding:0.2em 1em 0.4em 1em; }
 
-div.div1,div.div2 { margin-bottom:1em; width:35em; }
-div.div3 { position:absolute; left:40em; top:1em; width:580px; }
-//div.div3 { position:absolute; left:37em; top:1em; right:1em; }
+div.div1,div.div2 { margin-bottom:1em; width:60%; }
 
 div.sorting { margin:1.5em 0em 1.5em 2em }
 .center { text-align:center }
@@ -453,35 +429,8 @@ span.box {
 span.green { background:#60F060; padding:0 0.5em 0 0.5em}
 span.red { background:#D06030; padding:0 0.5em 0 0.5em }
 
-div.authneeded {
-	background:rgb(238,238,238);
-	border:solid rgb(204,204,204) 1px;
-	color:rgb(200,0,0);
-	font-size:1.2em;
-	font-weight:bold;
-	padding:2em;
-	text-align:center;
-	}
-
-input {
-	background:rgb(153,153,204);
-	border:solid rgb(102,102,153) 2px;
-	color:white;
-	font-weight:bold;
-	margin-right:1em;
-	padding:0.1em 0.5em 0.1em 0.5em;
-	}
 //-->
 </style>
-</head>
-<body>
-<div class="head">
-	<h1 class="memcache">
-		<span class="logo"><a href="http://pecl.php.net/package/memcache">memcache</a></span>
-		<span class="nameinfo">memcache.php by <a href="http://livebookmark.net">Harun Yayli</a></span>
-	</h1>
-	<hr class="memcache">
-</div>
 <div class=content>
 EOB;
 
@@ -497,21 +446,10 @@ function getFooter(){
 
 }
 function getMenu(){
-    global $PHP_SELF;
+    global $PHP_SELF,$langs;
 echo "<ol class=menu>";
-if ($_GET['op']!=4){
-echo <<<EOB
-    <li><a href="$PHP_SELF&op={$_GET['op']}">Refresh Data</a></li>
-EOB;
-}
-else {
-echo <<<EOB
-    <li><a href="$PHP_SELF&op=2}">Back</a></li>
-EOB;
-}
-echo
-	menu_entry(1,'View Host Stats'),
-	menu_entry(2,'Variables');
+echo menu_entry(1,$langs->trans("Refresh"));
+// echo	menu_entry(2,$langs->trans('Variables'));
 
 echo <<<EOB
 	</ol>
@@ -519,7 +457,7 @@ echo <<<EOB
 EOB;
 }
 
-// TODO, AUTH
+
 
 $_GET['op'] = !isset($_GET['op'])? '1':$_GET['op'];
 $PHP_SELF= isset($_SERVER['PHP_SELF']) ? htmlentities(strip_tags($_SERVER['PHP_SELF'],'')) : '';
@@ -532,6 +470,10 @@ foreach($_GET as $key=>$g){
     $_GET[$key]=htmlentities($g);
 }
 
+
+/*
+ * Actions
+ */
 
 // singleout
 // when singleout is set, it only gives details for that server.
@@ -673,8 +615,30 @@ if (isset($_GET['IMG'])){
 	exit;
 }
 
-echo getHeader();
-echo getMenu();
+
+/*
+ * View
+ */
+
+$header=getHeader();
+
+$html=new Form($db);
+
+$help_url="EN:Module_MemCached_En|FR:Module_MemCached|ES:M&oacute;dulo_MemCached";
+llxHeader($header,$langs->trans("MemcachedSetup"),$help_url);
+
+$linkback='<a href="'.DOL_URL_ROOT.'/admin/modules.php">'.$langs->trans("BackToModuleList").'</a>';
+print_fiche_titre($langs->trans('MemcachedSetup'),$linkback,'setup');
+
+$head=memcached_prepare_head();
+$tabval='serverstats';
+if ($_GET["op"] > 1) $tabval='cachebrowser';
+dol_fiche_head($head, $tabval, $langs->trans("MemCached"));
+
+
+// Show refresh button
+//if ($_GET["op"] != 2) print getMenu();
+
 
 switch ($_GET['op']) {
 
@@ -699,12 +663,14 @@ switch ($_GET['op']) {
 	    $miss_rate = sprintf("%.2f",($misses)/($time-$startTime));
 	    $set_rate = sprintf("%.2f",($sets)/($time-$startTime));
 
+	    print $langs->trans("WarningStatsForAllServer").'<br>';
+		print '<br>';
+
 	    echo <<< EOB
-		<div class="info div1"><h2>General Cache Information</h2>
+		<div class="infomemcached div1"><h2>General Cache Information</h2>
 		<table cellspacing=0><tbody>
-		<tr class=tr-1><td class=td-0>PHP Version</td><td>$phpversion</td></tr>
 EOB;
-		echo "<tr class=tr-0><td class=td-0>Memcached Host". ((count($MEMCACHE_SERVERS)>1) ? 's':'')."</td><td>";
+		echo "<tr class=tr-0><td class=td-0 width=\"250px\">Memcached Host". ((count($MEMCACHE_SERVERS)>1) ? 's':'')."</td><td>";
 		$i=0;
 		if (!isset($_GET['singleout']) && count($MEMCACHE_SERVERS)>1){
     		foreach($MEMCACHE_SERVERS as $server){
@@ -718,22 +684,22 @@ EOB;
 		      echo '<a href="'.$PHP_SELF.'">(all servers)</a><br/>';
 		}
 		echo "</td></tr>\n";
-		echo "<tr class=tr-1><td class=td-0>Total Memcache Cache</td><td>".bsize($memcacheStats['limit_maxbytes'])."</td></tr>\n";
+		echo "<tr class=tr-1><td class=td-0>Total Memcache Cache</td><td>".dol_print_size($memcacheStats['limit_maxbytes'],1)."</td></tr>\n";
 
 	echo <<<EOB
 		</tbody></table>
 		</div>
 
-		<div class="info div1"><h2>Memcache Server Information</h2>
+		<div class="infomemcached div1"><h2>Memcache Server Information</h2>
 EOB;
         foreach($MEMCACHE_SERVERS as $server){
             echo '<table cellspacing=0><tbody>';
-            echo '<tr class=tr-1><td class=td-1>'.$server.'</td><td><a href="'.$PHP_SELF.'&server='.array_search($server,$MEMCACHE_SERVERS).'&op=6">[<b>Flush this server</b>]</a></td></tr>';
+            echo '<tr class=tr-1><td class=td-1 width="250px">'.$server.'</td><td>&nbsp;</td></tr>';
     		echo '<tr class=tr-0><td class=td-0>Start Time</td><td>',date(DATE_FORMAT,$memcacheStatsSingle[$server]['STAT']['time']-$memcacheStatsSingle[$server]['STAT']['uptime']),'</td></tr>';
     		echo '<tr class=tr-1><td class=td-0>Uptime</td><td>',duration($memcacheStatsSingle[$server]['STAT']['time']-$memcacheStatsSingle[$server]['STAT']['uptime']),'</td></tr>';
     		echo '<tr class=tr-0><td class=td-0>Memcached Server Version</td><td>'.$memcacheStatsSingle[$server]['STAT']['version'].'</td></tr>';
-    		echo '<tr class=tr-1><td class=td-0>Used Cache Size</td><td>',bsize($memcacheStatsSingle[$server]['STAT']['bytes']),'</td></tr>';
-    		echo '<tr class=tr-0><td class=td-0>Total Cache Size</td><td>',bsize($memcacheStatsSingle[$server]['STAT']['limit_maxbytes']),'</td></tr>';
+    		echo '<tr class=tr-1><td class=td-0>Used Cache Size</td><td>',dol_print_size($memcacheStatsSingle[$server]['STAT']['bytes'],1),'</td></tr>';
+    		echo '<tr class=tr-0><td class=td-0>Total Cache Size</td><td>',dol_print_size($memcacheStatsSingle[$server]['STAT']['limit_maxbytes'],1),'</td></tr>';
     		echo '</tbody></table>';
 	   }
     echo <<<EOB
@@ -758,25 +724,31 @@ EOB;
 			  "<td class=td-1><img alt=\"\" $size src=\"$PHP_SELF&IMG=2&".(isset($_GET['singleout'])? 'singleout='.$_GET['singleout'].'&':'')."$time\"></td></tr>\n"
 			: "",
 		'<tr>',
-		'<td class=td-0><span class="green box">&nbsp;</span>Free: ',bsize($mem_avail).sprintf(" (%.1f%%)",$mem_avail*100/$mem_size),"</td>\n",
+		'<td class=td-0><span class="green box">&nbsp;</span>Free: ',dol_print_size($mem_avail,1).sprintf(" (%.1f%%)",$mem_avail*100/$mem_size),"</td>\n",
 		'<td class=td-1><span class="green box">&nbsp;</span>Hits: ',$hits.sprintf(" (%.1f%%)",$hits*100/($hits+$misses)),"</td>\n",
 		'</tr>',
 		'<tr>',
-		'<td class=td-0><span class="red box">&nbsp;</span>Used: ',bsize($mem_used ).sprintf(" (%.1f%%)",$mem_used *100/$mem_size),"</td>\n",
+		'<td class=td-0><span class="red box">&nbsp;</span>Used: ',dol_print_size($mem_used,1).sprintf(" (%.1f%%)",$mem_used *100/$mem_size),"</td>\n",
 		'<td class=td-1><span class="red box">&nbsp;</span>Misses: ',$misses.sprintf(" (%.1f%%)",$misses*100/($hits+$misses)),"</td>\n";
 		echo <<< EOB
 	</tr>
 	</tbody></table>
 <br/>
-	<div class="info"><h2>Cache Information</h2>
-		<table cellspacing=0><tbody>
-		<tr class=tr-0><td class=td-0>Current Items(total)</td><td>$curr_items ($total_items)</td></tr>
-		<tr class=tr-1><td class=td-0>Hits</td><td>{$hits}</td></tr>
-		<tr class=tr-0><td class=td-0>Misses</td><td>{$misses}</td></tr>
-		<tr class=tr-1><td class=td-0>Request Rate (hits, misses)</td><td>$req_rate cache requests/second</td></tr>
-		<tr class=tr-0><td class=td-0>Hit Rate</td><td>$hit_rate cache requests/second</td></tr>
-		<tr class=tr-1><td class=td-0>Miss Rate</td><td>$miss_rate cache requests/second</td></tr>
-		<tr class=tr-0><td class=td-0>Set Rate</td><td>$set_rate cache requests/second</td></tr>
+	<div class="infomemcached"><h2>Cache Information</h2>
+		<table class="border" width="100%"><tbody>
+EOB;
+
+			print '<tr '.$bc[1].'><td>'.$langs->trans("ItemsInCache").'</td>';
+			print '<td>'.$curr_items.' ('.$total_items.')</td></tr>';
+			print '<tr '.$bc[0].'><td>'.$langs->trans("NumberOfCacheInsert").'</td>';
+			print '<td>'.$sets.'</td></tr>';
+			print '<tr '.$bc[1].'><td>'.$langs->trans("NumberOfCacheRead").'</td>';
+			print '<td>'.$hits.' / '.($hits+$misses).' &nbsp; '.sprintf(" (%.1f%%)",$hits*100/($hits+$misses)).'</td></tr>';
+			print '<tr '.$bc[0].'><td>Request Rate (hits, misses)</td><td>'.$req_rate.' cache requests/second</td></tr>';
+			print '<tr '.$bc[1].'><td>Hit Rate</td><td>'.$hit_rate.' cache requests/second</td></tr>';
+			print '<tr '.$bc[0].'><td>Miss Rate</td><td>'.$miss_rate.' cache requests/second</td></tr>';
+			print '<tr '.$bc[1].'><td>Set Rate</td><td>'.$set_rate.' cache requests/second</td></tr>';
+print <<<EOB
 		</tbody></table>
 		</div>
 
@@ -793,9 +765,11 @@ EOB;
 		$maxDump = MAX_ITEM_DUMP;
 		foreach($items as $server => $entries) {
 
-    	echo <<< EOB
+		print $langs->trans("PrefixForKeysInCache").': '.session_name().'_'.'<br>';
+		print '<br>';
 
-			<div class="info"><table cellspacing=0><tbody>
+		print <<<EOB
+		<table class="border" width="100%"><tbody>
 			<tr><th colspan="2">$server</th></tr>
 			<tr><th>Slab Id</th><th>Info</th></tr>
 EOB;
@@ -830,7 +804,6 @@ EOB;
 			}
 		echo <<<EOB
 			</tbody></table>
-			</div><hr/>
 EOB;
 }
 		break;
@@ -850,18 +823,21 @@ EOB;
         $theserver = $MEMCACHE_SERVERS[(int)$_GET['server']];
         list($h,$p) = explode(':',$theserver);
         $r = sendMemcacheCommand($h,$p,'get '.$theKey);
-        echo <<<EOB
-        <div class="info"><table cellspacing=0><tbody>
+
+		print $langs->trans("PrefixForKeysInCache").': '.session_name().'_'.'<br>';
+		print '<br>';
+
+		print <<<EOB
+        <table class="border" width="100%"><tbody>
 			<tr><th>Server<th>Key</th><th>Value</th><th>Delete</th></tr>
 EOB;
         echo "<tr><td class=td-0>",$theserver,"</td><td class=td-0>",$theKey,
              " <br/>flag:",$r['VALUE'][$theKey]['stat']['flag'],
-             " <br/>Size:",bsize($r['VALUE'][$theKey]['stat']['size']),
+             " <br/>Size:",dol_print_size($r['VALUE'][$theKey]['stat']['size'],1),
              "</td><td>",chunk_split($r['VALUE'][$theKey]['value'],40),"</td>",
              '<td><a href="',$PHP_SELF,'&op=5&server=',(int)$_GET['server'],'&key=',base64_encode($theKey),"\">Delete</a></td>","</tr>";
         echo <<<EOB
 			</tbody></table>
-			</div><hr/>
 EOB;
     break;
     case 5: // item delete

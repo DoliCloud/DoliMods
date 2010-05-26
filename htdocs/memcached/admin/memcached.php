@@ -19,13 +19,15 @@
 /**
  *     \file       htdocs/memcached/admin/memcached.php
  *     \brief      Page administration de memcached
- *     \version    $Id: memcached.php,v 1.10 2010/05/26 00:38:26 eldy Exp $
+ *     \version    $Id: memcached.php,v 1.11 2010/05/26 11:21:46 eldy Exp $
  */
 
-$res=@include("../main.inc.php");
-if (! $res) $res=@include("../../main.inc.php");	// If pre.inc.php is called by jawstats
-if (! $res) $res=@include("../../../dolibarr/htdocs/main.inc.php");		// Used on dev env only
-if (! $res) $res=@include("../../../../dolibarr/htdocs/main.inc.php");	// Used on dev env only
+$res=@include_once("../main.inc.php");
+if (! $res) $res=@include_once("../../main.inc.php");	// If pre.inc.php is called by jawstats
+if (! $res) $res=@include_once("../../../dolibarr/htdocs/main.inc.php");		// Used on dev env only
+if (! $res) $res=@include_once("../../../../dolibarr/htdocs/main.inc.php");	// Used on dev env only
+$res=@include_once(DOL_DOCUMENT_ROOT."/lib/memcached.lib.php");
+if (! $res) @include_once("./memcached.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/lib/admin.lib.php");
 
 // Security check
@@ -47,7 +49,6 @@ if ($_POST["action"] == 'set')
 	if (! $error)
 	{
 		dolibarr_set_const($db,"MEMCACHED_SERVER",$_POST["MEMCACHED_SERVER"],'chaine',0,'',$conf->entity);
-		dolibarr_set_const($db,"MEMCACHED_PORT",$_POST["MEMCACHED_PORT"],'chaine',0,'',$conf->entity);
 	}
 }
 
@@ -65,6 +66,9 @@ llxHeader("",$langs->trans("MemcachedSetup"),$help_url);
 
 $linkback='<a href="'.DOL_URL_ROOT.'/admin/modules.php">'.$langs->trans("BackToModuleList").'</a>';
 print_fiche_titre($langs->trans('MemcachedSetup'),$linkback,'setup');
+
+$head=memcached_prepare_head();
+dol_fiche_head($head, 'serversetup', $langs->trans("MemCached"));
 
 print $langs->trans("MemcachedDesc")."<br>\n";
 print "<br>\n";
@@ -112,22 +116,18 @@ print '</td>';
 print "</tr>\n";
 
 $var=!$var;
-print '<tr '.$bc[$var].'><td width=\"50%\">'.$langs->trans("Server").'</td>';
+print '<tr '.$bc[$var].'><td>'.$langs->trans("Server").':'.$langs->trans("Port").'</td>';
 print '<td colspan="2">';
-print '<input size="20" type="text" name="MEMCACHED_SERVER" value="'.$conf->global->MEMCACHED_SERVER.'">';
-print ' (localhost)';
-print '</td></tr>';
-
-$var=!$var;
-print '<tr '.$bc[$var].'><td width=\"50%\">'.$langs->trans("Port").'</td>';
-print '<td colspan="2">';
-print '<input size="20" type="text" name="MEMCACHED_PORT" value="'.$conf->global->MEMCACHED_PORT.'">';
-print ' (11211)';
+print '<input size="40" type="text" name="MEMCACHED_SERVER" value="'.$conf->global->MEMCACHED_SERVER.'">';
+print ' ('.$langs->trans("Example").': localhost:11211)';
 print '</td></tr>';
 
 print '</table>';
 
 print "</form>\n";
+
+print '</div>';
+
 
 if (! $error)
 {
@@ -135,7 +135,8 @@ if (! $error)
 	elseif (class_exists("Memcache")) $m=new Memcache();
 	else dol_print_error('','Should not happen');
 
-	$result=$m->addServer($conf->global->MEMCACHED_SERVER, $conf->global->MEMCACHED_PORT);
+	$tmparray=explode(':',$conf->global->MEMCACHED_SERVER);
+	$result=$m->addServer($tmparray[0], $tmparray[1]?$tmparray[1]:11211);
 	//$m->setOption(Memcached::OPT_COMPRESSION, false);
 
 	// This action must be set here and not in actions to be sure all lang files are already loaded
@@ -172,10 +173,10 @@ if (! $error)
 
 
 	// Statistics of cache server
-	print '<table class="noborder">';
-	print '<tr class="liste_titre"><td colspan="2">'.$langs->trans("InformationsOnCacheServer").'</td></tr>';
+	print '<table class="noborder" width="60%">';
+	print '<tr class="liste_titre"><td colspan="2">'.$langs->trans("Status").'</td></tr>';
 
-	if (empty($conf->global->MEMCACHED_SERVER) || empty($conf->global->MEMCACHED_PORT))
+	if (empty($conf->global->MEMCACHED_SERVER))
 	{
 		print '<tr><td colspan="2">'.$langs->trans("ConfigureParametersFirst").'</td></tr>';
 	}
@@ -183,7 +184,7 @@ if (! $error)
 	{
 		$newarraycache=array();
 		if (class_exists("Memcached")) $newarraycache=$arraycache;
-		else if (class_exists("Memcache")) $newarraycache[$conf->global->MEMCACHED_SERVER.":".$conf->global->MEMCACHED_PORT]=$arraycache;
+		else if (class_exists("Memcache")) $newarraycache[$conf->global->MEMCACHED_SERVER]=$arraycache;
 		else dol_print_error('','Should not happen');
 
 		foreach($newarraycache as $key => $val)
@@ -194,26 +195,9 @@ if (! $error)
 			print '<tr '.$bc[1].'><td>'.$langs->trans("Version").'</td>';
 			print '<td>'.$val['version'].'</td></tr>';
 
-			print '<tr '.$bc[0].'><td>'.$langs->trans("PrefixForKeysInCache").'</td>';
-			print '<td>'.session_name().'_'.'</td></tr>';
-
-			print '<tr '.$bc[1].'><td>'.$langs->trans("ItemsInCache").'</td>';
-			print '<td>'.$val['curr_items'].'</td></tr>';
-
-			print '<tr '.$bc[0].'><td>'.$langs->trans("SizeOfCache").'</td>';
-			print '<td>'.$val['bytes'].'</td></tr>';
-
-			print '<tr '.$bc[1].'><td>'.$langs->trans("NumberOfCacheInsert").'</td>';
-			print '<td>'.$val['cmd_set'].'</td></tr>';
-
-			print '<tr '.$bc[0].'><td>'.$langs->trans("NumberOfCacheRead").'</td>';
-			print '<td>'.$val['get_hits'].'/'.$val['cmd_get'].'</td></tr>';
-
-	/*		print '<tr '.$bc[1].'><td>Content</td>';
-			print '<td>';
-			// Show list of items
-			print '</td></tr>';
-	*/	}
+			print '<tr '.$bc[0].'><td>'.$langs->trans("Status").'</td>';
+			print '<td>'.$langs->trans("On").'</td></tr>';
+		}
 	}
 	else
 	{
@@ -224,5 +208,5 @@ if (! $error)
 
 }
 
-llxfooter('$Date: 2010/05/26 00:38:26 $ - $Revision: 1.10 $');
+llxfooter('$Date: 2010/05/26 11:21:46 $ - $Revision: 1.11 $');
 ?>
