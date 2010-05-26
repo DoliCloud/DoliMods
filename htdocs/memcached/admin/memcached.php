@@ -19,7 +19,7 @@
 /**
  *     \file       htdocs/memcached/admin/memcached.php
  *     \brief      Page administration de memcached
- *     \version    $Id: memcached.php,v 1.6 2010/05/25 23:24:21 eldy Exp $
+ *     \version    $Id: memcached.php,v 1.7 2010/05/26 00:16:42 eldy Exp $
  */
 
 $res=@include("../main.inc.php");
@@ -58,7 +58,7 @@ if ($_POST["action"] == 'set')
  * View
  */
 
-$help_url="EN:Module_Memcached_En|FR:Module_Memcached|ES:M&oacute;dulo_Memcached";
+$help_url="EN:Module_MemCached_En|FR:Module_MemCached|ES:M&oacute;dulo_MemCached";
 llxHeader("",$langs->trans("MemcachedSetup"),$help_url);
 
 $html=new Form($db);
@@ -72,7 +72,11 @@ $error=0;
 // Check prerequisites
 if (! class_exists("Memcache") && ! class_exists("Memcached"))
 {
-	print 'Your PHP must support Memcached client features (Nor the Memcached, nor the Memcache verion of client was found).';
+	print '<div class="error">';
+	//var_dump($langs->tab_translate['ClientNotFound']);
+	//var_dump($langs->trans('ClientNotFound'));
+	print $langs->trans("ClientNotFound");
+	print '</div>';
 	$error++;
 }
 else
@@ -125,8 +129,10 @@ print "</form>\n";
 
 if (! $error)
 {
+	if (class_exists("Memcached")) $m=new Memcached();
+	elseif (class_exists("Memcache")) $m=new Memcache();
+	else dol_print_error('','Should not happen');
 
-	$m=new Memcached();
 	$result=$m->addServer($conf->global->MEMCACHED_SERVER, $conf->global->MEMCACHED_PORT);
 	//$m->setOption(Memcached::OPT_COMPRESSION, false);
 
@@ -147,12 +153,11 @@ if (! $error)
 
 	// Read cache
 	$arraycache=$m->getStats();
-	$resultcode=$m->getResultCode();
 	//var_dump($arraycache);
 
 	// Action
 	print '<div class="tabsAction">';
-	if ($resultcode == 0)
+	if (is_array($arraycache))
 	{
 		print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?action=clear">'.$langs->trans("FlushCache").'</a>';
 	}
@@ -182,16 +187,19 @@ if (! $error)
 			print '<tr '.$bc[1].'><td>'.$langs->trans("Version").'</td>';
 			print '<td>'.$val['version'].'</td></tr>';
 
-			print '<tr '.$bc[0].'><td>'.$langs->trans("ItemsInCache").'</td>';
+			print '<tr '.$bc[0].'><td>'.$langs->trans("PrefixForKeysInCache").'</td>';
+			print '<td>'.session_name().'_'.'</td></tr>';
+
+			print '<tr '.$bc[1].'><td>'.$langs->trans("ItemsInCache").'</td>';
 			print '<td>'.$val['curr_items'].'</td></tr>';
 
-			print '<tr '.$bc[1].'><td>'.$langs->trans("SizeOfCache").'</td>';
+			print '<tr '.$bc[0].'><td>'.$langs->trans("SizeOfCache").'</td>';
 			print '<td>'.$val['bytes'].'</td></tr>';
 
-			print '<tr '.$bc[0].'><td>'.$langs->trans("NumberOfCacheInsert").'</td>';
+			print '<tr '.$bc[1].'><td>'.$langs->trans("NumberOfCacheInsert").'</td>';
 			print '<td>'.$val['cmd_set'].'</td></tr>';
 
-			print '<tr '.$bc[1].'><td>'.$langs->trans("NumberOfCacheRead").'</td>';
+			print '<tr '.$bc[0].'><td>'.$langs->trans("NumberOfCacheRead").'</td>';
 			print '<td>'.$val['get_hits'].'/'.$val['cmd_get'].'</td></tr>';
 
 	/*		print '<tr '.$bc[1].'><td>Content</td>';
@@ -209,5 +217,5 @@ if (! $error)
 
 }
 
-llxfooter('$Date: 2010/05/25 23:24:21 $ - $Revision: 1.6 $');
+llxfooter('$Date: 2010/05/26 00:16:42 $ - $Revision: 1.7 $');
 ?>

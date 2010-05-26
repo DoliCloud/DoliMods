@@ -12,7 +12,7 @@
  *      \file       htdocs/includes/modules/modGoogle.class.php
  *      \ingroup    google
  *      \brief      Description and activation file for module Google
- *		\version	$Id: modGoogle.class.php,v 1.10 2010/01/17 18:43:49 eldy Exp $
+ *		\version	$Id: modGoogle.class.php,v 1.11 2010/05/26 00:16:42 eldy Exp $
  */
 include_once(DOL_DOCUMENT_ROOT ."/includes/modules/DolibarrModules.class.php");
 
@@ -44,7 +44,7 @@ class modGoogle extends DolibarrModules
 		// Module description used if translation string 'ModuleXXXDesc' not found (XXX is value MyModule)
 		$this->description = "Module to integrate Google tools in dolibarr";
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
-		$this->version = '1.3.1';
+		$this->version = '2.9';
 		// Key used in llx_const table to save module status enabled/disabled (where MYMODULE is value of property name of module in uppercase)
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
 		// Where to store the module in setup page (0=common,1=interface,2=others,3=very specific)

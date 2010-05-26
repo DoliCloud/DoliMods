@@ -12,7 +12,7 @@
  *      \file       htdocs/includes/modules/modAWStats.class.php
  *      \ingroup    awstats
  *      \brief      Description and activation file for module AWStats
- *		\version	$Id: modAWStats.class.php,v 1.16 2010/01/17 18:43:49 eldy Exp $
+ *		\version	$Id: modAWStats.class.php,v 1.17 2010/05/26 00:16:42 eldy Exp $
  */
 include_once(DOL_DOCUMENT_ROOT ."/includes/modules/DolibarrModules.class.php");
 
@@ -43,9 +43,9 @@ class modAWStats extends DolibarrModules
 		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'numero' of module)
 		$this->name = preg_replace('/^mod/i','',get_class($this));
 		// Module description used if translation string 'ModuleXXXDesc' not found (XXX is value MyModule)
-		$this->description = "Module to integrate AWStats stats in dolibarr";
+		$this->description = "Module to integrate AWStats statistics reports into Dolibarr";
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
-		$this->version = '1.3';
+		$this->version = '2.9';
 		// Key used in llx_const table to save module status enabled/disabled (where MYMODULE is value of property name of module in uppercase)
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
 		// Where to store the module in setup page (0=common,1=interface,2=others,3=very specific)

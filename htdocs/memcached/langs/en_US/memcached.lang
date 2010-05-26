@@ -15,3 +15,4 @@ ConfigureParametersFirst=Setup the server first...
 MemcachedClient=PHP client functions <b>%s</b>
 MemcachedClientBothAvailable=Both PHP client functions ara available. Dolibarr will use the <b>%s</b> client functions.
 OnlyClientAvailable=At least one of the two PHP client libraries is available. Dolibarr will use it.
+ClientNotFound=Your PHP must support Memcached client features (Nor the Memcached, nor the Memcache version of client was found). This module can't work.
