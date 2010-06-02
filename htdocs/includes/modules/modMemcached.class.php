@@ -18,7 +18,7 @@
 
 /**     \defgroup   memcached		Module Memcached
  *      \brief      Module for memcached server
- *		\version	$Id: modMemcached.class.php,v 1.5 2010/05/26 13:06:08 eldy Exp $
+ *		\version	$Id: modMemcached.class.php,v 1.6 2010/06/02 19:56:00 eldy Exp $
  */
 
 /**
@@ -62,7 +62,7 @@ class modMemcached extends DolibarrModules
 		// Where to store the module in setup page (0=common,1=interface,2=others,3=very specific)
 		$this->special = 1;
 		// Name of png file (without png) used for this module
-		$this->picto='generic';
+		$this->picto='technic';
 
 		// Data directories to create when module is enabled
 		$this->dirs = array();
