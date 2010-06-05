@@ -1,18 +1,18 @@
 <?php
-/* Copyright (C) 2008 Laurent Destailleur  <eldy@users.sourceforge.net>
+/* Copyright (C) 2008-2010 Laurent Destailleur  <eldy@users.sourceforge.net>
  */
 
 /**
-    	\file       htdocs/nltechno/statsemailings.php
-		\ingroup    nltechno
-		\brief      Page des stats
-		\version    $Id: statsemailings.php,v 1.17 2010/01/17 18:43:51 eldy Exp $
-		\author		Laurent Destailleur
-*/
+ *    	\file       htdocs/nltechno/statsemailings.php
+ *		\ingroup    nltechno
+ *		\brief      Page des stats
+ *		\version    $Id: statsemailings.php,v 1.18 2010/06/05 15:32:13 eldy Exp $
+ *		\author		Laurent Destailleur
+ */
 
 include("./pre.inc.php");
 require_once(DOL_DOCUMENT_ROOT."/core/dolgraph.class.php");
-require_once DOL_DOCUMENT_ROOT.'/comm/mailing/mailing.class.php';
+require_once DOL_DOCUMENT_ROOT.'/comm/mailing/class/mailing.class.php';
 
 // Load config
 $CALLFORCONFIG=1;
