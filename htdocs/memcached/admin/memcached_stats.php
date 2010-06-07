@@ -18,7 +18,7 @@
   +----------------------------------------------------------------------+
 */
 
-$VERSION='$Id: memcached_stats.php,v 1.1 2010/05/26 11:21:46 eldy Exp $';
+$VERSION='$Id: memcached_stats.php,v 1.2 2010/06/07 18:07:36 eldy Exp $';
 
 
 $res=@include_once("../main.inc.php");
@@ -32,6 +32,8 @@ require_once(DOL_DOCUMENT_ROOT."/lib/admin.lib.php");
 // Security check
 if (!$user->admin)
 accessforbidden();
+if (! empty($dolibarr_memcached_view_disable))	// Hidden variable to add to conf file to disable browsing
+accessforbidden();
 
 $langs->load("admin");
 $langs->load("errors");
@@ -39,9 +41,6 @@ $langs->load("install");
 $langs->load("memcached@memcached");
 
 
-define('ADMIN_USERNAME','memcache'); 	// Admin Username
-define('ADMIN_PASSWORD','password');  	// Admin Password
-define('DATE_FORMAT','Y/m/d H:i:s');
 define('GRAPH_SIZE',200);
 define('MAX_ITEM_DUMP',50);
 
@@ -695,7 +694,7 @@ EOB;
         foreach($MEMCACHE_SERVERS as $server){
             echo '<table cellspacing=0><tbody>';
             echo '<tr class=tr-1><td class=td-1 width="250px">'.$server.'</td><td>&nbsp;</td></tr>';
-    		echo '<tr class=tr-0><td class=td-0>Start Time</td><td>',date(DATE_FORMAT,$memcacheStatsSingle[$server]['STAT']['time']-$memcacheStatsSingle[$server]['STAT']['uptime']),'</td></tr>';
+    		echo '<tr class=tr-0><td class=td-0>Start Time</td><td>',dol_print_date($memcacheStatsSingle[$server]['STAT']['time']-$memcacheStatsSingle[$server]['STAT']['uptime'],'dayhour'),'</td></tr>';
     		echo '<tr class=tr-1><td class=td-0>Uptime</td><td>',duration($memcacheStatsSingle[$server]['STAT']['time']-$memcacheStatsSingle[$server]['STAT']['uptime']),'</td></tr>';
     		echo '<tr class=tr-0><td class=td-0>Memcached Server Version</td><td>'.$memcacheStatsSingle[$server]['STAT']['version'].'</td></tr>';
     		echo '<tr class=tr-1><td class=td-0>Used Cache Size</td><td>',dol_print_size($memcacheStatsSingle[$server]['STAT']['bytes'],1),'</td></tr>';

@@ -19,7 +19,7 @@
 /**
  *     \file       htdocs/memcached/admin/memcached.php
  *     \brief      Page administration de memcached
- *     \version    $Id: memcached.php,v 1.11 2010/05/26 11:21:46 eldy Exp $
+ *     \version    $Id: memcached.php,v 1.12 2010/06/07 18:07:36 eldy Exp $
  */
 
 $res=@include_once("../main.inc.php");
@@ -32,6 +32,8 @@ require_once(DOL_DOCUMENT_ROOT."/lib/admin.lib.php");
 
 // Security check
 if (!$user->admin)
+accessforbidden();
+if (! empty($dolibarr_memcached_view_disable))	// Hidden variable to add to conf file to disable browsing
 accessforbidden();
 
 $langs->load("admin");
@@ -208,5 +210,5 @@ if (! $error)
 
 }
 
-llxfooter('$Date: 2010/05/26 11:21:46 $ - $Revision: 1.11 $');
+llxfooter('$Date: 2010/06/07 18:07:36 $ - $Revision: 1.12 $');
 ?>

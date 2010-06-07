@@ -21,13 +21,13 @@
 /**
  *	\file			htdocs/lib/admin.lib.php
  *  \brief			Library of admin functions
- *  \version		$Id: memcached.lib.php,v 1.1 2010/05/26 11:21:46 eldy Exp $
+ *  \version		$Id: memcached.lib.php,v 1.2 2010/06/07 18:07:31 eldy Exp $
  */
 
 /**
  *  \brief      	Define head array for tabs of security setup pages
  *  \return			Array of head
- *  \version    	$Id: memcached.lib.php,v 1.1 2010/05/26 11:21:46 eldy Exp $
+ *  \version    	$Id: memcached.lib.php,v 1.2 2010/06/07 18:07:31 eldy Exp $
  */
 function memcached_prepare_head()
 {
@@ -42,15 +42,18 @@ function memcached_prepare_head()
 
 	if (class_exists("Memcache") || class_exists("Memcached"))
 	{
-		$head[$h][0] = DOL_URL_ROOT."/memcached/admin/memcached_stats.php?op=1";
-		$head[$h][1] = $langs->trans("ServerStatistics");
-		$head[$h][2] = 'serverstats';
-		$h++;
+		if (empty($dolibarr_memcached_view_disable))	// Hidden variable to add to conf file to disable browsing
+		{
+			$head[$h][0] = DOL_URL_ROOT."/memcached/admin/memcached_stats.php?op=1";
+			$head[$h][1] = $langs->trans("ServerStatistics");
+			$head[$h][2] = 'serverstats';
+			$h++;
 
-		$head[$h][0] = DOL_URL_ROOT."/memcached/admin/memcached_stats.php?op=2";
-		$head[$h][1] = $langs->trans("CacheBrowser");
-		$head[$h][2] = 'cachebrowser';
-		$h++;
+			$head[$h][0] = DOL_URL_ROOT."/memcached/admin/memcached_stats.php?op=2";
+			$head[$h][1] = $langs->trans("CacheBrowser");
+			$head[$h][2] = 'cachebrowser';
+			$h++;
+		}
 	}
 
 	return $head;
