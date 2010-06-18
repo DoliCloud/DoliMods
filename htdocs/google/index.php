@@ -8,7 +8,7 @@
     	\file       htdocs/google/index.php
 		\ingroup    google
 		\brief      Main google area page
-		\version    $Id: index.php,v 1.4 2009/07/15 13:55:08 eldy Exp $
+		\version    $Id: index.php,v 1.5 2010/06/18 22:26:07 eldy Exp $
 		\author		Laurent Destailleur
 */
 
@@ -85,7 +85,9 @@ if (is_readable($color_file))
 $frame ='<iframe src="http://www.google.com/calendar/embed?';
 $frame.='showTitle=0';
 $frame.='&amp;height=600';
-$frame.='&amp;wkst=2';
+// Define first day of week (wkst=1 for sunday, wkst=2 for monday, ...)
+//var_dump($conf->global->MAIN_START_WEEK);
+$frame.='&amp;wkst='.($conf->global->MAIN_START_WEEK+1);
 $frame.='&amp;bgcolor=%23'.$bgcolor;
 
 
@@ -104,19 +106,26 @@ while ($i <= $MAXAGENDA)
 		{
 			if ($_GET["nocal"] == $i)
 			{
-				$frame.='&amp;src='.$conf->global->$paramsrc;
-				$frame.='&amp;color=%23'.$conf->global->$paramcolor;
+				$frame.='&amp;src='.urlencode($conf->global->$paramsrc);
+				$frame.='&amp;color='.urlencode('#'.preg_replace('/#/','',$conf->global->$paramcolor));
 			}
 		}
 		else
 		{
-			$frame.='&amp;src='.$conf->global->$paramsrc;
-			$frame.='&amp;color=%23'.$conf->global->$paramcolor;
+			$frame.='&amp;src='.urlencode($conf->global->$paramsrc);
+			$frame.='&amp;color='.urlencode('#'.preg_replace('/#/','',$conf->global->$paramcolor));
 		}
 	}
 
 	$i++;
 }
+
+// Add number of weeks (only if first day is monday)
+if ($conf->global->MAIN_START_WEEK == 1)
+{
+	$frame.='&amp;src='.urlencode('e_2_fr#weeknum@group.v.calendar.google.com');
+}
+
 $frame.='&amp;ctz='.urlencode($conf->global->GOOGLE_AGENDA_TIMEZONE);
 $frame.='" style=" border-width:0 " ';
 $frame.='width="800" ';
@@ -129,5 +138,5 @@ print $frame;
 // End of page
 $db->close();
 
-llxFooter('$Date: 2009/07/15 13:55:08 $ - $Revision: 1.4 $');
+llxFooter('$Date: 2010/06/18 22:26:07 $ - $Revision: 1.5 $');
 ?>

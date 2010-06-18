@@ -6,7 +6,7 @@
  *	    \file       htdocs/admin/google.php
  *      \ingroup    google
  *      \brief      Setup page for google module
- *		\version    $Id: google.php,v 1.2 2010/06/18 07:32:42 eldy Exp $
+ *		\version    $Id: google.php,v 1.3 2010/06/18 22:26:16 eldy Exp $
  */
 
 define('NOCSRFCHECK',1);
@@ -16,6 +16,7 @@ if (! $res) include("../../../../dolibarr/htdocs/main.inc.php");	// Used on dev 
 
 require_once(DOL_DOCUMENT_ROOT."/lib/admin.lib.php");
 require_once(DOL_DOCUMENT_ROOT.'/core/class/html.formadmin.class.php');
+require_once(DOL_DOCUMENT_ROOT.'/core/class/html.formother.class.php');
 
 $res=@include_once("../google.lib.php");
 if (! $res) include_once(DOL_DOCUMENT_ROOT."/google/google.lib.php");
@@ -34,7 +35,7 @@ $actionsave=$_POST["save"];
 if (empty($conf->global->GOOGLE_AGENDA_NB)) $conf->global->GOOGLE_AGENDA_NB=5;
 $MAXAGENDA=empty($conf->global->GOOGLE_AGENDA_NB)?5:$conf->global->GOOGLE_AGENDA_NB;
 
-// List of Google colors
+// List of Google colors (A lot of colors are ignored by Google)
 $colorlist=array('29527A','5229A3','A32929','7A367A','B1365F','0D7813');
 
 
@@ -99,6 +100,7 @@ if ($actionsave)
 
 $form=new Form($db);
 $formadmin=new FormAdmin($db);
+$formother=new FormOther($db);
 
 $help_url='EN:Module_Google_EN|FR:Module_Google|ES:Modulo_Google';
 llxHeader('',$langs->trans("GoogleSetup"),$help_url);
@@ -150,7 +152,7 @@ print "<table class=\"noborder\" width=\"100%\">";
 print "<tr class=\"liste_titre\">";
 print "<td>".$langs->trans("Parameter")."</td>";
 print "<td>".$langs->trans("Name")."</td>";
-print "<td>".$langs->trans("GoogleIDAgenda")."</td>";
+print "<td>".$langs->trans("GoogleIDAgenda")." (".$langs->trans("Example").': assodolibarr@gmail.com)</td>';
 print "<td>".$langs->trans("Color")."</td>";
 print "</tr>";
 
@@ -169,7 +171,8 @@ while ($i <= $MAXAGENDA)
 	print "<td><input type=\"text\" class=\"flat\" name=\"google_agenda_src".$key."\" value=\"". $conf->global->$src . "\" size=\"60\"></td>";
 	print '<td nowrap="nowrap">';
 	// Possible colors are limited by Google
-	print $formadmin->select_colors($conf->global->$color, "google_agenda_color".$key, $colorlist);
+	//print $formadmin->select_colors($conf->global->$color, "google_agenda_color".$key, $colorlist);
+	print $formother->select_color($conf->global->$color, "google_agenda_color".$key, 'googleconfig', 1, $colorlist);
 	print '</td>';
 	print "</tr>";
 	$i++;
@@ -201,5 +204,5 @@ print info_admin($message);
 
 $db->close();
 
-llxFooter('$Date: 2010/06/18 07:32:42 $ - $Revision: 1.2 $');
+llxFooter('$Date: 2010/06/18 22:26:16 $ - $Revision: 1.3 $');
 ?>

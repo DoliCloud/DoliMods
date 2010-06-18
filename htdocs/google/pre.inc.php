@@ -8,7 +8,7 @@
  *		\file 		htdocs/google/pre.inc.php
  *		\ingroup    google
  *		\brief      File to manage left menu for google module
- *		\version    $Id: pre.inc.php,v 1.4 2009/05/21 17:51:17 eldy Exp $
+ *		\version    $Id: pre.inc.php,v 1.5 2010/06/18 22:26:07 eldy Exp $
  */
 
 define('NOCSRFCHECK',1);
@@ -18,6 +18,13 @@ if (! $res) @include("../../../dolibarr/htdocs/main.inc.php");	// Used on dev en
 
 $user->getrights('google');
 
+/**
+ * Enter description here...
+ *
+ * @param unknown_type $head
+ * @param unknown_type $title
+ * @param unknown_type $help_url
+ */
 function llxHeader($head = "", $title="", $help_url='')
 {
 	global $conf,$langs;
@@ -48,10 +55,13 @@ function llxHeader($head = "", $title="", $help_url='')
 			$link=DOL_URL_ROOT."/google/index.php?mainmenu=google&idmenu=".$_SESSION["idmenu"]."&nocal=".$i;
 
 			$text='';
-			$text.='<table class="nobordernopadding"><tr valign="middle" class="nobordernopadding"><td style="padding-left: 4px; padding-right: 4px" nowrap="nowrap">';
+			$text.='<table class="nobordernopadding">';
+			$text.='<tr valign="middle" class="nobordernopadding">';
+			$text.='<td style="padding-left: 4px; padding-right: 4px" nowrap="nowrap">';
+
 			$box ='<!-- Box color '.$selected.' -->';
 			$box.='<table style="border-collapse: collapse; margin:0px; padding: 0px; border: 1px solid #888888;';
-			if ($addcolor) $box.=' background: #'.$conf->global->$paramcolor.';';
+			if ($addcolor) $box.=' background: #'.(preg_replace('/#/','',$conf->global->$paramcolor)).';';
 			$box.='" width="12" height="10">';
 			$box.='<tr class="nocellnopadd"><td></td></tr>';
 			$box.='</table>';
