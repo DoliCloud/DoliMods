@@ -6,7 +6,7 @@
  *	    \file       htdocs/admin/google.php
  *      \ingroup    google
  *      \brief      Setup page for google module
- *		\version    $Id: google.php,v 1.1 2010/05/26 13:06:08 eldy Exp $
+ *		\version    $Id: google.php,v 1.2 2010/06/18 07:32:42 eldy Exp $
  */
 
 define('NOCSRFCHECK',1);
@@ -115,7 +115,7 @@ dol_fiche_head($head, 'agenda', $langs->trans("GoogleTools"));
 
 print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
 
-print $langs->trans("GoogleEnableThisTool").' '.$form->selectyesno("GOOGLE_ENABLE_AGENDA",isset($_POST["GOOGLE_ENABLE_AGENDA"])?$_POST["GOOGLE_ENABLE_AGENDA"]:0,1).'<br><br>';
+print $langs->trans("GoogleEnableThisTool").' '.$form->selectyesno("GOOGLE_ENABLE_AGENDA",isset($_POST["GOOGLE_ENABLE_AGENDA"])?$_POST["GOOGLE_ENABLE_AGENDA"]:$conf->global->GOOGLE_ENABLE_AGENDA,1).'<br><br>';
 
 
 $var=false;
@@ -201,5 +201,5 @@ print info_admin($message);
 
 $db->close();
 
-llxFooter('$Date: 2010/05/26 13:06:08 $ - $Revision: 1.1 $');
+llxFooter('$Date: 2010/06/18 07:32:42 $ - $Revision: 1.2 $');
 ?>
