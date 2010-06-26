@@ -8,7 +8,7 @@
  *		\file 		htdocs/google/pre.inc.php
  *		\ingroup    google
  *		\brief      File to manage left menu for google module
- *		\version    $Id: pre.inc.php,v 1.5 2010/06/18 22:26:07 eldy Exp $
+ *		\version    $Id: pre.inc.php,v 1.6 2010/06/26 00:58:52 eldy Exp $
  */
 
 define('NOCSRFCHECK',1);
@@ -56,23 +56,27 @@ function llxHeader($head = "", $title="", $help_url='')
 
 			$text='';
 			$text.='<table class="nobordernopadding">';
-			$text.='<tr valign="middle" class="nobordernopadding">';
-			$text.='<td style="padding-left: 4px; padding-right: 4px" nowrap="nowrap">';
 
+			$text.='<tr valign="middle" class="nobordernopadding">';
+
+			// Color of agenda
+			$text.='<td style="padding-left: 4px; padding-right: 4px" nowrap="nowrap">';
 			$box ='<!-- Box color '.$selected.' -->';
 			$box.='<table style="border-collapse: collapse; margin:0px; padding: 0px; border: 1px solid #888888;';
 			if ($addcolor) $box.=' background: #'.(preg_replace('/#/','',$conf->global->$paramcolor)).';';
 			$box.='" width="12" height="10">';
-			$box.='<tr class="nocellnopadd"><td></td></tr>';
+			$box.='<tr class="nocellnopadd"><td></td></tr>';	// To show box
 			$box.='</table>';
 			$text.=$box;
+			$text.='</td>';
 
-			$text.='</td><td>';
+			// Name of agenda
+			$text.='<td>';
 			$text.='<a class="vsmenu" href="'.$link.'">'.$conf->global->$paramkey.'</a>';
 			$text.='</td></tr>';
 			$text.='</table>';
 
-			$menu->add_submenu($link, $text);
+			$menu->add_submenu('', $text);
 		}
 		$i++;
 	}
