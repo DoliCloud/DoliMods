@@ -22,7 +22,7 @@
  *      \file       htdocs/includes/modules/barcode/pibarcode.modules.php
  *		\ingroup    facture
  *		\brief      Fichier contenant la classe du modèle de generation code barre pibarcode
- *		\version    $Id: pibarcode.modules.php,v 1.6 2009/05/04 09:57:24 eldy Exp $
+ *		\version    $Id: pibarcode.modules.php,v 1.7 2010/06/27 15:17:46 eldy Exp $
  */
 
 require_once(DOL_DOCUMENT_ROOT ."/includes/modules/barcode/modules_barcode.php");
@@ -139,7 +139,7 @@ class modPibarcode extends ModeleBarCode
 		$_GET["readable"]=$readable;
 
 		// Chargement de la classe de codage
-		foreach ($conf->dol_document_root as $dirroot)
+		foreach ($conf->file->dol_document_root as $dirroot)
 		{
 			$file=$dirroot . '/includes/barcode/pi_barcode/pi_barcode.php';
 			$result=@include_once($file);
