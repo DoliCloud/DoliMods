@@ -26,7 +26,7 @@
  *      \file       htdocs/includes/modules/modPHPSysInfo.class.php
  *      \ingroup    PHPSysInfo
  *      \brief      Description and activation file for module PHPSysInfo
- *		\version	$Id: modPHPSysInfo.class.php,v 1.3 2010/07/19 20:46:06 eldy Exp $
+ *		\version	$Id: modPHPSysInfo.class.php,v 1.4 2010/07/19 20:57:39 eldy Exp $
  */
 include_once(DOL_DOCUMENT_ROOT ."/includes/modules/DolibarrModules.class.php");
 
@@ -62,11 +62,11 @@ class modPHPSysInfo extends DolibarrModules
 		// Key used in llx_const table to save module status enabled/disabled (where MYMODULE is value of property name of module in uppercase)
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
 		// Where to store the module in setup page (0=common,1=interface,2=others,3=very specific)
-		$this->special = 1;
+		$this->special = 2;
 		// Name of image file used for this module.
 		// If file is in theme/yourtheme/img directory under name object_pictovalue.png, use this->picto='pictovalue'
 		// If file is in module/images directory, use this->picto=DOL_URL_ROOT.'/module/images/file.png'
-		$this->picto='generic';
+		$this->picto='technic';
 
 		// Data directories to create when module is enabled.
 		// Example: this->dirs = array("/PHPSysInfo/temp");
@@ -83,7 +83,7 @@ class modPHPSysInfo extends DolibarrModules
 		$this->depends = array();		// List of modules id that must be enabled if this module is enabled
 		$this->requiredby = array();	// List of modules id to disable if this one is disabled
 		$this->phpmin = array(5,2);					// Minimum version of PHP required by module
-		$this->need_dolibarr_version = array(2,9);	// Minimum version of Dolibarr required by module
+		$this->need_dolibarr_version = array(2,9,-1);	// Minimum version of Dolibarr required by module
 		$this->langfiles = array("phpsysinfo@phpsysinfo");
 
 		// Constants
