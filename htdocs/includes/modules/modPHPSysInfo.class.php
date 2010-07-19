@@ -26,7 +26,7 @@
  *      \file       htdocs/includes/modules/modPHPSysInfo.class.php
  *      \ingroup    PHPSysInfo
  *      \brief      Description and activation file for module PHPSysInfo
- *		\version	$Id: modPHPSysInfo.class.php,v 1.1 2010/07/19 18:45:48 eldy Exp $
+ *		\version	$Id: modPHPSysInfo.class.php,v 1.2 2010/07/19 20:45:19 eldy Exp $
  */
 include_once(DOL_DOCUMENT_ROOT ."/includes/modules/DolibarrModules.class.php");
 
@@ -46,7 +46,7 @@ class modPHPSysInfo extends DolibarrModules
 
 		// Id for module (must be unique).
 		// Use here a free id (See in Home -> System information -> Dolibarr for list of used modules id).
-		$this->numero = 13000;
+		$this->numero = 10500;
 		// Key text used to identify module (for permissions, menus, etc...)
 		$this->rights_class = 'phpsysinfo';
 
