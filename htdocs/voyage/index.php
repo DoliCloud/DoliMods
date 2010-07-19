@@ -16,12 +16,10 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *
- * $Id: index.php,v 1.2 2010/05/08 20:54:03 eldy Exp $
- * $Source: /cvsroot/dolibarr/dolibarrmod/htdocs/voyage/index.php,v $
- *
+ * $Id: index.php,v 1.3 2010/07/19 18:20:19 eldy Exp $
  */
 
-require("./pre.inc.php");
+require("../main.inc.php");
 
 llxHeader();
 
@@ -83,7 +81,7 @@ if ($result) {
   print "<tr class=\"liste_titre\">";
   print '<td>Date</td><td>'.$langs->trans("Description").'</td>';
   print "<td align=\"right\">Montant</td>";
-  print "<td align=\"right\">Réduction</td>";
+  print "<td align=\"right\">Rï¿½duction</td>";
   print "</tr>\n";
 
 
@@ -125,7 +123,7 @@ if ($result) {
   print "<td><input name=\"amount\" type=\"text\" size=8></td>";
 
   print "<td colspan=\"2\" align=\"center\"><input type=\"submit\" value=\"".$langs->trans("Add")."\"</td>";
-  print "</tr><tr><td colspan=\"1\">Réduction</td>";
+  print "</tr><tr><td colspan=\"1\">Rï¿½duction</td>";
 
   print "<td><select name=\"reducid\">$options";
 
@@ -143,5 +141,5 @@ if ($result) {
 
 $db->close();
 
-llxFooter("<em>Derni&egrave;re modification $Date: 2010/05/08 20:54:03 $ r&eacute;vision $Revision: 1.2 $</em>");
+llxFooter("<em>Derni&egrave;re modification $Date: 2010/07/19 18:20:19 $ r&eacute;vision $Revision: 1.3 $</em>");
 ?>

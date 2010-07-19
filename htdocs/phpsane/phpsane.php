@@ -18,18 +18,21 @@
 
 /**	    \file       htdocs/phpsane/phpsane.php
         \ingroup    phpsane
-		\brief      Page générant 2 frames, une pour le menu Dolibarr, l'autre pour l'affichage de PHPSane
+		\brief      Page generant 2 frames, une pour le menu Dolibarr, l'autre pour l'affichage de PHPSane
 		\author	    Laurent Destailleur
-		\version    $Id: phpsane.php,v 1.2 2010/04/03 15:06:05 eldy Exp $
+		\version    $Id: phpsane.php,v 1.3 2010/07/19 18:20:21 eldy Exp $
 */
 
-include("./pre.inc.php");
+$res=@include("../main.inc.php");
+if (! $res) $res=@include("../../main.inc.php");	// If pre.inc.php is called by jawstats
+if (! $res) $res=@include("../../../dolibarr/htdocs/main.inc.php");		// Used on dev env only
+if (! $res) $res=@include("../../../../dolibarr/htdocs/main.inc.php");	// Used on dev env only
 
 /*if (empty($conf->global->PHPWEBCALENDAR_URL))
 {
 	llxHeader();
 	print '<div class="error">Module Webcalendar was not configured properly.</div>';
-	llxFooter('$Date: 2010/04/03 15:06:05 $ - $Revision: 1.2 $');
+	llxFooter('$Date: 2010/07/19 18:20:21 $ - $Revision: 1.3 $');
 }
 */
 
@@ -56,7 +59,7 @@ print "
 <body>
 	<br><center>
 	Malheureusement, votre navigateur est trop vieux pour visualiser cette zone.<br>
-	Il vous faut un navigateur gérant les frames.<br>
+	Il vous faut un navigateur gï¿½rant les frames.<br>
 	</center>
 </body>
 </noframes>

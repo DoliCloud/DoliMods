@@ -15,14 +15,12 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *
- * $Id: voyage.php,v 1.1 2009/09/29 17:45:27 eldy Exp $
- * $Source: /cvsroot/dolibarr/dolibarrmod/htdocs/voyage/voyage.php,v $
- *
+ * $Id: voyage.php,v 1.2 2010/07/19 18:20:19 eldy Exp $
  */
 
-require("./pre.inc.php");
+require("../main.inc.php");
 
 llxHeader();
 
-llxFooter("<em>Derni&egrave;re modification $Date: 2009/09/29 17:45:27 $ r&eacute;vision $Revision: 1.1 $</em>");
+llxFooter('$Date: 2010/07/19 18:20:19 $ - $Revision: 1.2 $');
 ?>

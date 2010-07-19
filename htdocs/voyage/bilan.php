@@ -15,14 +15,16 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *
- * $Id: bilan.php,v 1.2 2010/05/08 20:54:03 eldy Exp $
- * $Source: /cvsroot/dolibarr/dolibarrmod/htdocs/voyage/bilan.php,v $
- *
+ * $Id: bilan.php,v 1.3 2010/07/19 18:20:19 eldy Exp $
  */
 
-require("./pre.inc.php");
+require("../main.inc.php");
 require("./reduc.class.php");
 
+
+/*
+ * View
+ */
 
 llxHeader();
 
@@ -117,7 +119,7 @@ for ($j = 0 ; $j < sizeof($cartes) ; $j++) {
     print "<tr class=\"liste_titre\">";
     print '<td>Date</td><td>'.$langs->trans("Description").'</td>';
     print "<td align=\"right\">Montant</td>";
-    print "<td align=\"right\">Réduction</td>";
+    print "<td align=\"right\">Rï¿½duction</td>";
     print "</tr>\n";
 
 
@@ -172,5 +174,5 @@ for ($j = 0 ; $j < sizeof($cartes) ; $j++) {
 
 $db->close();
 
-llxFooter("<em>Derni&egrave;re modification $Date: 2010/05/08 20:54:03 $ r&eacute;vision $Revision: 1.2 $</em>");
+llxFooter("<em>Derni&egrave;re modification $Date: 2010/07/19 18:20:19 $ r&eacute;vision $Revision: 1.3 $</em>");
 ?>

@@ -6,11 +6,11 @@
  *    	\file       htdocs/nltechno/statsemailings.php
  *		\ingroup    nltechno
  *		\brief      Page des stats
- *		\version    $Id: statsemailings.php,v 1.18 2010/06/05 15:32:13 eldy Exp $
+ *		\version    $Id: statsemailings.php,v 1.19 2010/07/19 18:20:22 eldy Exp $
  *		\author		Laurent Destailleur
  */
 
-include("./pre.inc.php");
+include("../main.inc.php");
 require_once(DOL_DOCUMENT_ROOT."/core/dolgraph.class.php");
 require_once DOL_DOCUMENT_ROOT.'/comm/mailing/class/mailing.class.php';
 
@@ -71,7 +71,7 @@ if ($_GET["action"] == 'buildemailingchien')
 	}
 
 
-	// actualité
+	// actualite
 	$actualite='';
 	$REQUETE="select ID_NEWS, TITRE_NEWS, TEXTE_NEWS from T_NEWS";
 	$REQUETE.=" where ID_CATEG = 73 AND (AUTEUR_NEWS ='1040' OR AUTEUR_NEWS='1038') ORDER by ID_NEWS DESC";
@@ -98,7 +98,7 @@ if ($_GET["action"] == 'buildemailingchien')
 		$i++;
 	}
 	$j=rand(0,$i--);
-	$race_semaine=$LIB_RACES[$j]." (Origine : ".$ORIGINE_RACES[$j].")<br><br>Découvrez cette race cette semaine avec ChiensDeRace.com.<br><a href='http://www.chiensderace.com/php/fiche_race.php?RACE=".$ID_RACES[$j]."'>Voir la fiche de race</a><br>";
+	$race_semaine=$LIB_RACES[$j]." (Origine : ".$ORIGINE_RACES[$j].")<br><br>Dï¿½couvrez cette race cette semaine avec ChiensDeRace.com.<br><a href='http://www.chiensderace.com/php/fiche_race.php?RACE=".$ID_RACES[$j]."'>Voir la fiche de race</a><br>";
 
 	$file_in='newsletter_type_chien.html';
     $fichier= fopen ($file_in, 'r');
@@ -226,12 +226,12 @@ $relativepath=$dirtmp."statsannonces.png".$categ;
                         if (! $conf->$key->enabled || (! $user->admin && $obj->require_admin))
                         {
                             $qualified=0;
-                            //print "Les prérequis d'activation du module mailing ne sont pas respectés. Il ne sera pas actif";
+                            //print "Les prï¿½requis d'activation du module mailing ne sont pas respectï¿½s. Il ne sera pas actif";
                             break;
                         }
                     }
 
-                    // Si le module mailing est qualifié
+                    // Si le module mailing est qualifiï¿½
                     if ($qualified)
                     {
                         $var = !$var;
@@ -328,12 +328,12 @@ $relativepath=$dirtmp."statsannonces.png".$categ;
                         if (! $conf->$key->enabled || (! $user->admin && $obj->require_admin))
                         {
                             $qualified=0;
-                            //print "Les prérequis d'activation du module mailing ne sont pas respectés. Il ne sera pas actif";
+                            //print "Les prï¿½requis d'activation du module mailing ne sont pas respectï¿½s. Il ne sera pas actif";
                             break;
                         }
                     }
 
-                    // Si le module mailing est qualifié
+                    // Si le module mailing est qualifiï¿½
                     if ($qualified)
                     {
                         $var = !$var;

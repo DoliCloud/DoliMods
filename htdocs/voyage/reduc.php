@@ -16,16 +16,14 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *
- * $Id: reduc.php,v 1.2 2010/05/08 20:54:03 eldy Exp $
- * $Source: /cvsroot/dolibarr/dolibarrmod/htdocs/voyage/reduc.php,v $
- *
+ * $Id: reduc.php,v 1.3 2010/07/19 18:20:19 eldy Exp $
  */
 
-require("./pre.inc.php");
+require("../main.inc.php");
 
 llxHeader();
 
-print_titre ("Abonnement de réduction");
+print_titre ("Abonnement de reduction");
 
 print "<table class=\"border\" width=\"100%\" cellspacing=\"0\" cellpadding=\"2\">";
 print "<tr class=\"liste_titre\">";
@@ -72,5 +70,5 @@ print "</table>";
 
 $db->close();
 
-llxFooter("<em>Derni&egrave;re modification $Date: 2010/05/08 20:54:03 $ r&eacute;vision $Revision: 1.2 $</em>");
+llxFooter("<em>Derni&egrave;re modification $Date: 2010/07/19 18:20:19 $ r&eacute;vision $Revision: 1.3 $</em>");
 ?>
