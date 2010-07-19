@@ -9,7 +9,7 @@
  * @author    Michael Cramer <BigMichi1@users.sourceforge.net>
  * @copyright 2009 phpSysInfo
  * @license   http://opensource.org/licenses/gpl-2.0.php GNU General Public License
- * @version   SVN: $Id: config.php,v 1.1 2010/07/19 18:45:44 eldy Exp $
+ * @version   SVN: $Id: config.php,v 1.2 2010/07/19 20:05:54 eldy Exp $
  * @link      http://phpsysinfo.sourceforge.net
  */
 
@@ -56,7 +56,7 @@ define('PSI_ADD_PATHS', false);
  * - BAT      - show battery state on a laptop
  * - ipmi     - show IPMI status
  */
-define('PSI_PLUGINS', false);
+define('PSI_PLUGINS', 'PS,PSStatus,Quotas,SMART');
 
 
 // ********************************
@@ -96,7 +96,7 @@ define('PSI_REFRESH', 60000);
  * - true = displayed, but it's a performance hit (because we have to wait to get a value, 1 second)
  * - false = will not be displayed
  */
-define('PSI_LOAD_BAR', true);
+define('PSI_LOAD_BAR', false);
 
 /**
  * Display the virtual host name and address
