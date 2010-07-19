@@ -26,7 +26,7 @@
  *      \file       htdocs/includes/modules/modPHPSysInfo.class.php
  *      \ingroup    PHPSysInfo
  *      \brief      Description and activation file for module PHPSysInfo
- *		\version	$Id: modPHPSysInfo.class.php,v 1.2 2010/07/19 20:45:19 eldy Exp $
+ *		\version	$Id: modPHPSysInfo.class.php,v 1.3 2010/07/19 20:46:06 eldy Exp $
  */
 include_once(DOL_DOCUMENT_ROOT ."/includes/modules/DolibarrModules.class.php");
 
@@ -58,7 +58,7 @@ class modPHPSysInfo extends DolibarrModules
 		// Module description, used if translation string 'ModuleXXXDesc' not found (where XXX is value of numeric property 'numero' of module)
 		$this->description = "Description of module PHPSysInfo";
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
-		$this->version = 'experimental';
+		$this->version = '2.9';
 		// Key used in llx_const table to save module status enabled/disabled (where MYMODULE is value of property name of module in uppercase)
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
 		// Where to store the module in setup page (0=common,1=interface,2=others,3=very specific)
