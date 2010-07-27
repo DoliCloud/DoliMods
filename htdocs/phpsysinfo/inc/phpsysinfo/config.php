@@ -9,7 +9,7 @@
  * @author    Michael Cramer <BigMichi1@users.sourceforge.net>
  * @copyright 2009 phpSysInfo
  * @license   http://opensource.org/licenses/gpl-2.0.php GNU General Public License
- * @version   SVN: $Id: config.php,v 1.3 2010/07/27 20:59:40 eldy Exp $
+ * @version   SVN: $Id: config.php,v 1.4 2010/07/27 22:06:50 eldy Exp $
  * @link      http://phpsysinfo.sourceforge.net
  */
 
@@ -20,11 +20,9 @@
 
 // DOL_CHANGE LDR
 define('NOCSRFCHECK',1);
-$res=@include("../master.inc.php");
-if (! $res) $res=@include("../../master.inc.php");
-if (! $res) $res=@include("../../../dolibarr/htdocs/master.inc.php");     // Used on dev env only
-if (! $res) $res=@include("../../../../dolibarr/htdocs/master.inc.php");     // Used on dev env only
-if (! $res) $res=@include("../../../../../dolibarr/htdocs/master.inc.php");	// Used on dev env only
+$res=false;
+if (file_exists("../../../master.inc.php") && ! $res) $res=@include("../../../master.inc.php");
+if (file_exists("../../../../../dolibarr/htdocs/master.inc.php") && ! $res) $res=@include("../../../../../dolibarr/htdocs/master.inc.php");
 
 
 /**

@@ -9,7 +9,7 @@
  * @author    Michael Cramer <BigMichi1@users.sourceforge.net>
  * @copyright 2009 phpSysInfo
  * @license   http://opensource.org/licenses/gpl-2.0.php GNU General Public License
- * @version   SVN: $Id: autoloader.inc.php,v 1.2 2010/07/27 20:59:43 eldy Exp $
+ * @version   SVN: $Id: autoloader.inc.php,v 1.3 2010/07/27 22:06:51 eldy Exp $
  * @link      http://phpsysinfo.sourceforge.net
  */
 
@@ -58,4 +58,5 @@ function errorHandlerPsi($level, $message, $file, $line)
 
 // DOL_CHANGE LDR
 //set_error_handler('errorHandlerPsi');
+set_error_handler('errorHandlerPsi', E_ERROR | E_WARNING);
 ?>
