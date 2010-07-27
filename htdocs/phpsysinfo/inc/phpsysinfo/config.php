@@ -9,7 +9,7 @@
  * @author    Michael Cramer <BigMichi1@users.sourceforge.net>
  * @copyright 2009 phpSysInfo
  * @license   http://opensource.org/licenses/gpl-2.0.php GNU General Public License
- * @version   SVN: $Id: config.php,v 1.2 2010/07/19 20:05:54 eldy Exp $
+ * @version   SVN: $Id: config.php,v 1.3 2010/07/27 20:59:40 eldy Exp $
  * @link      http://phpsysinfo.sourceforge.net
  */
 
@@ -19,14 +19,12 @@
 
 
 // DOL_CHANGE LDR
-/*
-error_reporting(E_ALL);
+define('NOCSRFCHECK',1);
 $res=@include("../master.inc.php");
 if (! $res) $res=@include("../../master.inc.php");
-if (! $res) $res=@include("../../../dolibarr/htdocs/master.inc.php");		// Used on dev env only
-if (! $res) $res=@include("../../../../dolibarr/htdocs/master.inc.php");	// Used on dev env only
-error_reporting(E_ALL | E_STRICT);
-*/
+if (! $res) $res=@include("../../../dolibarr/htdocs/master.inc.php");     // Used on dev env only
+if (! $res) $res=@include("../../../../dolibarr/htdocs/master.inc.php");     // Used on dev env only
+if (! $res) $res=@include("../../../../../dolibarr/htdocs/master.inc.php");	// Used on dev env only
 
 
 /**
@@ -67,6 +65,7 @@ define('PSI_PLUGINS', 'PS,PSStatus,Quotas,SMART');
  * Define the default language
  */
 define('PSI_DEFAULT_LANG', 'en');
+//define('PSI_DEFAULT_LANG', preg_replace('/_[a-zA-Z]+$/','',$langs->defaultlang));
 
 /**
  * Define the default template
@@ -89,7 +88,7 @@ define('PSI_SHOW_PICKLIST_TEMPLATE', false);
  * - 1000 = 1 second
  * - Default is 60 seconds
  */
-define('PSI_REFRESH', 60000);
+define('PSI_REFRESH', 0);
 
 /**
  * Show a graph for current cpuload
