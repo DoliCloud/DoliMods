@@ -24,7 +24,7 @@
  *	\file       htdocs/includes/modules/facture/mercure/mercure.modules.php
  *	\ingroup    facture
  *	\brief      Class filte of Mercure numbering module for invoice
- *	\version    $Id: mercure2.modules.php,v 1.1 2009/11/06 19:47:45 eldy Exp $
+ *	\version    $Id: mercure2.modules.php,v 1.2 2010/07/27 22:41:24 eldy Exp $
  */
 require_once(DOL_DOCUMENT_ROOT ."/includes/modules/facture/modules_facture.php");
 
@@ -150,14 +150,14 @@ class mod_facture_mercure2 extends ModeleNumRefFactures
 	/**
 	 * Return next value for a mask
 	 *
-	 * @param unknown_type 	$db				Database handler
-	 * @param 				$mask			Mask to use
-	 * @param unknown_type 	$table			Table containing field with counter
-	 * @param unknown_type 	$field			Field containing already used values of counter
-	 * @param unknown_type 	$where			To add a filter on selection (for exemple to filter on invoice types)
-	 * @param unknown_type 	$objsoc			The company that own the object we need a counter for
- 	 * @param unknown_type 	$date			Date to use for the {y},{m},{d} tags.
-	 * @return 	string		New value
+	 * @param  $db				Database handler
+	 * @param  $mask			Mask to use
+	 * @param  $table			Table containing field with counter
+	 * @param  $field			Field containing already used values of counter
+	 * @param  $where			To add a filter on selection (for exemple to filter on invoice types)
+	 * @param  $objsoc			The company that own the object we need a counter for
+ 	 * @param  $date			Date to use for the {y},{m},{d} tags.
+	 * @return string      		New value
 	 */
 	function get_next_value($db,$mask,$table,$field,$where='',$objsoc='',$date='')
 	{

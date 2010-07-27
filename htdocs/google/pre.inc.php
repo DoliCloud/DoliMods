@@ -8,7 +8,7 @@
  *		\file 		htdocs/google/pre.inc.php
  *		\ingroup    google
  *		\brief      File to manage left menu for google module
- *		\version    $Id: pre.inc.php,v 1.6 2010/06/26 00:58:52 eldy Exp $
+ *		\version    $Id: pre.inc.php,v 1.7 2010/07/27 22:41:24 eldy Exp $
  */
 
 define('NOCSRFCHECK',1);
@@ -21,9 +21,9 @@ $user->getrights('google');
 /**
  * Enter description here...
  *
- * @param unknown_type $head
- * @param unknown_type $title
- * @param unknown_type $help_url
+ * @param   $head
+ * @param   $title
+ * @param   $help_url
  */
 function llxHeader($head = "", $title="", $help_url='')
 {
