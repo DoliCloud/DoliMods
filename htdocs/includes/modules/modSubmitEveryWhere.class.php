@@ -19,31 +19,31 @@
  */
 
 /**
- * 		\defgroup   NewsSubmitter     Module NewsSubmitter
+ * 		\defgroup   SubmitEveryWhere     Module SubmitEveryWhere
  *      \brief      Example of a module descriptor.
  *					Such a file must be copied into htdocs/includes/module directory.
  */
 
 /**
- *      \file       htdocs/includes/modules/modNewsSubmitter.class.php
- *      \ingroup    NewsSubmitter
- *      \brief      Description and activation file for module NewsSubmitter
- *		\version	$Id: modNewsSubmitter.class.php,v 1.1 2010/06/23 12:14:29 eldy Exp $
+ *      \file       htdocs/includes/modules/modSubmitEveryWhere.class.php
+ *      \ingroup    submiteverywhere
+ *      \brief      Description and activation file for module SubmitEveryWhere
+ *		\version	$Id: modSubmitEveryWhere.class.php,v 1.1 2010/07/28 22:06:29 eldy Exp $
  */
 include_once(DOL_DOCUMENT_ROOT ."/includes/modules/DolibarrModules.class.php");
 
 
 /**
- * 		\class      modNewsSubmitter
- *      \brief      Description and activation class for module NewsSubmitter
+ * 		\class      modSubmitEveryWhere
+ *      \brief      Description and activation class for module SubmitEveryWhere
  */
-class modNewsSubmitter extends DolibarrModules
+class modSubmitEveryWhere extends DolibarrModules
 {
 	/**
 	 *   \brief      Constructor. Define names, constants, directories, boxes, permissions
 	 *   \param      DB      Database handler
 	 */
-	function modNewsSubmitter($DB)
+	function modSubmitEveryWhere($DB)
 	{
 		$this->db = $DB;
 
@@ -51,7 +51,7 @@ class modNewsSubmitter extends DolibarrModules
 		// Use here a free id (See in Home -> System information -> Dolibarr for list of used modules id).
 		$this->numero = 102000;
 		// Key text used to identify module (for permissions, menus, etc...)
-		$this->rights_class = 'newssubmitter';
+		$this->rights_class = 'submiteverywhere';
 
 		// Family can be 'crm','financial','hr','projects','products','ecm','technic','other'
 		// It is used to group modules in module setup page
@@ -59,7 +59,7 @@ class modNewsSubmitter extends DolibarrModules
 		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'numero' of module)
 		$this->name = preg_replace('/^mod/i','',get_class($this));
 		// Module description, used if translation string 'ModuleXXXDesc' not found (where XXX is value of numeric property 'numero' of module)
-		$this->description = "A manager to help to submit an article/scoop towards several targets (Twitter, Facebook, Digg, Major news web sites...)";
+		$this->description = "A manager to help to submit an article/scoop towards several targets (Twitter, Facebook, Digg, EMail, Major news web sites...)";
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
 		$this->version = '1.0';
 		// Key used in llx_const table to save module status enabled/disabled (where NewsSubmitter is value of property name of module in uppercase)
@@ -69,7 +69,7 @@ class modNewsSubmitter extends DolibarrModules
 		// Name of image file used for this module.
 		// If file is in theme/yourtheme/img directory under name object_pictovalue.png, use this->picto='pictovalue'
 		// If file is in module/img directory under name object_pictovalue.png, use this->picto='pictovalue@module'
-		$this->picto='technic';
+		$this->picto='globe';
 
 		// Defined if the directory /NewsSubmitter/inc/triggers/ contains triggers or not
 		$this->triggers = 0;
@@ -83,14 +83,14 @@ class modNewsSubmitter extends DolibarrModules
 		$this->style_sheet = '';
 
 		// Config pages. Put here list of php page names stored in admmin directory used to setup module.
-		$this->config_page_url = array("newssubmittersetuppage.php@newssubmitter");
+		$this->config_page_url = array("submiteverywheresetuppage.php@submiteverywhere");
 
 		// Dependencies
 		$this->depends = array();		// List of modules id that must be enabled if this module is enabled
 		$this->requiredby = array();	// List of modules id to disable if this one is disabled
 		$this->phpmin = array(4,3);					// Minimum version of PHP required by module
-		$this->need_dolibarr_version = array(2,5);	// Minimum version of Dolibarr required by module
-		$this->langfiles = array("newssubmitter");
+		$this->need_dolibarr_version = array(2,9,-1);	// Minimum version of Dolibarr required by module
+		$this->langfiles = array("submiteverywhere@submiteverywhere");
 
 		// Constants
 		// Example: $this->const=array(0=>array('NewsSubmitter_MYNEWCONST1','chaine','myvalue','This is a constant to add',0),
@@ -98,7 +98,7 @@ class modNewsSubmitter extends DolibarrModules
 		$this->const = array();			// List of particular constants to add when module is enabled (key, 'chaine', value, desc, visible, 0 or 'allentities')
 
 		// Array to add new pages in new tabs
-		$this->tabs = array('entity:Title:@newssubmitter:/newssubmitter/mynewtab.php?id=__ID__');
+		$this->tabs = array();
 		// where entity can be
 		// 'thirdparty'       to add a tab in third party view
 		// 'intervention'     to add a tab in intervention view
@@ -242,7 +242,7 @@ class modNewsSubmitter extends DolibarrModules
 	 */
 	function load_tables()
 	{
-		return $this->_load_tables('/newssubmitter/sql/');
+		return $this->_load_tables('/submiteverywhere/sql/');
 	}
 }
 

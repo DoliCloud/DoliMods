@@ -24,35 +24,28 @@
  *      \file       htdocs/newssubmitter/admin/newssubmittersetuppage.php
  *      \ingroup    newssubmitter
  *      \brief      Page to setup module NewsSubmitter
- *      \version    $Id: newssubmittersetuppage.php,v 1.1 2010/06/23 12:14:29 eldy Exp $
+ *      \version    $Id: submiteverywheresetuppage.php,v 1.1 2010/07/28 22:06:29 eldy Exp $
  */
 
-require("../main.inc.php");
+$res=false;
+if (file_exists("../../main.inc.php") && ! $res) $res=@include("../../main.inc.php");
+if (file_exists("../../../../dolibarr/htdocs/main.inc.php") && ! $res) $res=@include("../../../../dolibarr/htdocs/main.inc.php");
+
 require_once(DOL_DOCUMENT_ROOT."/lib/admin.lib.php");
-include_once(MAGPIERSS_PATH."rss_fetch.inc");
+require_once(DOL_DOCUMENT_ROOT."/core/class/html.formadmin.class.php");
 
 
 $langs->load("admin");
+$langs->load("submiteverywhere@submiteverywhere");
 
 if (!$user->admin) accessforbidden();
 
-$def = array();
-$lastexternalrss=0;
 
-// positionne la variable pour le nombre de rss externes
-$sql ="select MAX(name) as name from ".MAIN_DB_PREFIX."const";
-$sql.=" WHERE name like 'EXTERNAL_RSS_URLRSS_%'";
-$result=$db->query($sql);
-if ($result)
-{
-    $obj = $db->fetch_object($result);
-    preg_match('/([0-9]+)$/i',$obj->name,$reg);
-	if ($reg[1]) $lastexternalrss = $reg[1];
-}
-else
-{
-    dol_print_error($db);
-}
+
+
+/*
+ * Action
+ */
 
 if ($_POST["action"] == 'add' || $_POST["modify"])
 {
@@ -178,42 +171,58 @@ if ($_POST["delete"])
 
 
 /*
- * Affichage page
+ * View
  */
+
+$htmladmin=new FormAdmin($db);
 
 llxHeader();
 
 $linkback='<a href="'.DOL_URL_ROOT.'/admin/modules.php">'.$langs->trans("BackToModuleList").'</a>';
-print_fiche_titre($langs->trans("ExternalRSSSetup"), $linkback, 'setup');
+print_fiche_titre($langs->trans("SubmitEveryWhereSetup"), $linkback, 'setup');
 print '<br>';
 
-// Formulaire ajout
+// Form to add entry
 print '<form name="externalrssconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
 print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
 
 print '<table class="nobordernopadding" width="100%">';
 print '<tr class="liste_titre">';
-print '<td colspan="2">'.$langs->trans("NewRSS").'</td>';
-print '<td>'.$langs->trans("Example").'</td>';
+print '<td>'.$langs->trans("Label").'</td>';
+print '<td align="left">'.$langs->trans("TargetType").'</td>';
+print '<td align="left">'.$langs->trans("TargetLang").'</td>';
 print '</tr>';
-print '<tr class="impair">';
-print '<td width="100">'.$langs->trans("Title").'</td>';
-print '<td><input type="text" name="external_rss_title_'.($lastexternalrss+1).'" value="'.@constant("EXTERNAL_RSS_TITLE_" . ($lastexternalrss+1)).'" size="64"></td>';
-print '<td>April,<br>LinuxFR,<br>Lolix</td>';
+
+print '<tr class="liste_titre">';
+// Label
+print '<td>';
+print '<input type="text" name="label" value="'.($_POST["label"]?$_POST["label"]:'').'">';
+print '</td>';
+// Type
+print '<td align="left">';
+print '<select class="flat" name="type">';
+print '<option value="">&nbsp;</option>';
+print '<option value="dig">'.$langs->trans("Dig").'</option>';
+print '<option value="email">'.$langs->trans("Email").'</option>';
+print '<option value="facebook">'.$langs->trans("Facebook").'</option>';
+print '<option value="linkedin">'.$langs->trans("LinkedIn").'</option>';
+print '<option value="twitter">'.$langs->trans("Twitter").'</option>';
+print '<option value="web">'.$langs->trans("GenericWebSite").'</option>';
+print '</select>';
+print '</td>';
+// Language
+print '<td align="left">';
+print $htmladmin->select_lang($langs->defaultlang);
+print '</td>';
+
 print '</tr>';
-?>
-<tr class="pair">
-  <td>URL du RSS</td>
-  <td><input type="text" name="external_rss_urlrss_<?php echo ($lastexternalrss+1) ?>" value="<?php echo @constant("EXTERNAL_RSS_URLRSS_" . ($lastexternalrss+1)) ?>" size="64"></td>
-  <td>http://wiki.april.org/RecentChanges?format=rss<br>http://linuxfr.org/backend/news/rss20.rss<br>http://back.fr.lolix.org/jobs.rss.php3</td>
-</tr>
-<tr><td colspan="3" align="center">
-<input type="submit" class="button" value="<?php echo $langs->trans("Add") ?>">
-<input type="hidden" name="action" value="add">
-<input type="hidden" name="norss" value="<?php echo ($lastexternalrss+1) ?>">
-</td>
-</tr>
-<?php
+
+print '<tr><td colspan="3" align="center">';
+print '<input type="submit" class="button" value="'.$langs->trans("Add").'">';
+print '<input type="hidden" name="action" value="add">';
+print '</td>';
+print '</tr>';
+
 print '</table>';
 print '</form>';
 
@@ -221,13 +230,19 @@ print '</form>';
 print '<br>';
 
 
+
+
+
+
+
+
 print '<table class="nobordernopadding" width="100%">';
 
-$sql ="select rowid, file, note from ".MAIN_DB_PREFIX."boxes_def";
-$sql.=" WHERE file = 'box_external_rss.php'";
-$sql.=" ORDER BY note";
+$sql ="SELECT rowid, label, targetcode, langcode, url, login, pass, comment, position";
+$sql.=" FROM ".MAIN_DB_PREFIX."submiteverywhere_targets";
+$sql.=" ORDER BY label";
 
-dol_syslog("external_rss select rss boxes sql=".$sql,LOG_DEBUG);
+dol_syslog("Get list of targets sql=".$sql,LOG_DEBUG);
 $resql=$db->query($sql);
 if ($resql)
 {
@@ -237,18 +252,6 @@ if ($resql)
 	while ($i < $num)
 	{
 		$obj = $db->fetch_object($resql);
-
-	    preg_match('/^([0-9]+)/i',$obj->note,$reg);
-		$idrss = $reg[1];
-		//print "x".$idrss;
-
-		$var=true;
-
-		$rss = fetch_rss( @constant("EXTERNAL_RSS_URLRSS_".$idrss) );
-		// fetch_rss initialise les objets suivant:
-		// print_r($rss->channel);
-		// print_r($rss->image);
-		// print_r($rss->items);
 
 		print "<form name=\"externalrssconfig\" action=\"".$_SERVER["PHP_SELF"]."\" method=\"post\">";
 		print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
@@ -284,18 +287,6 @@ if ($resql)
 		print "</td>";
 		print "</tr>";
 
-		// Logo
-	    if (! $rss->ERROR && $rss->image['url'])
-	    {
-			$var=!$var;
-			print "<tr ".$bc[$var].">";
-			print "<td>".$langs->trans("Logo")."</td>";
-			print '<td>';
-			print '<img height="32" src="'.$rss->image['url'].'">';
-			print '</td>';
-			print "</tr>";
-		}
-
 		print "<tr>";
 		print "<td colspan=\"2\" align=\"center\">";
 		print "<input type=\"submit\" class=\"button\" name=\"modify\" value=\"".$langs->trans("Modify")."\">";
@@ -320,5 +311,5 @@ print '</table>'."\n";
 
 $db->close();
 
-llxFooter('$Date: 2010/06/23 12:14:29 $ - $Revision: 1.1 $');
+llxFooter('$Date: 2010/07/28 22:06:29 $ - $Revision: 1.1 $');
 ?>

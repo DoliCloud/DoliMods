@@ -1,0 +1,6 @@
+# Dolibarr language file - fr_FR - submiteverywhere
+CHARSET=UTF-8
+SubmitEveryWhereSetup=Configuration du module "Submit EveryWhere"
+TargetName=Nom de la cible
+TargetType=Type of target
+TargetLang=Langue de la cible
