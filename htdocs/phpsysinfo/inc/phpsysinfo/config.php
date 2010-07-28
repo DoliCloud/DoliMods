@@ -9,7 +9,7 @@
  * @author    Michael Cramer <BigMichi1@users.sourceforge.net>
  * @copyright 2009 phpSysInfo
  * @license   http://opensource.org/licenses/gpl-2.0.php GNU General Public License
- * @version   SVN: $Id: config.php,v 1.4 2010/07/27 22:06:50 eldy Exp $
+ * @version   SVN: $Id: config.php,v 1.5 2010/07/28 19:25:08 eldy Exp $
  * @link      http://phpsysinfo.sourceforge.net
  */
 
@@ -52,7 +52,8 @@ define('PSI_ADD_PATHS', false);
  * - BAT      - show battery state on a laptop
  * - ipmi     - show IPMI status
  */
-define('PSI_PLUGINS', 'PS,PSStatus,Quotas,SMART');
+//define('PSI_PLUGINS', 'PS,PSStatus,Quotas,SMART');
+define('PSI_PLUGINS', '');
 
 
 // ********************************
