@@ -6,12 +6,12 @@
  */
 
 /**
- *	\file       htdocs/thomsonphonebook.php
+ *	\file       htdocs/thomsonphonebook/thomsonphonebook.php
  *  \ingroup    thomsonphonebook
  *	\brief      Recherche dans l'annuaire pour les telephones SIP Thomson
  *				You configure your phones to call URL
  *				http://mydolibarr/thomsonphonebook/thomsonphonebook.php?search=...
- *	\version    $Revision: 1.2 $
+ *	\version    $Revision: 1.3 $
  */
 
 define('NOCSRFCHECK',1);
@@ -25,11 +25,16 @@ $search=isset($_GET["search"])?$_GET["search"]:$_POST["search"];
 // Check parameters
 if (! $search)
 {
-	dolibarr_print_error($db,'Parameter "search" not provided');
+	dol_print_error($db,'Parameter "search" not provided');
 	exit;
 }
 
 
+if (empty($conf->thomsonphonebook->enabled))
+{
+	dol_print_error($db,'Module was not enabled');
+    exit;
+}
 
 $sql = "select p.name,p.firstname,p.phone from llx_socpeople as p,llx_societe as s WHERE p.fk_soc=s.rowid AND (p.name LIKE '%$search' OR p.firstname LIKE '%$search');";
 //print $req;

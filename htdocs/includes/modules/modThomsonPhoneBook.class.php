@@ -1,6 +1,6 @@
 <?php
 /* Copyright (C) 2003      Rodolphe Quiedeville <rodolphe@quiedeville.org>
- * Copyright (C) 2004-2008 Laurent Destailleur  <eldy@users.sourceforge.net>
+ * Copyright (C) 2004-2010 Laurent Destailleur  <eldy@users.sourceforge.net>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,38 +17,38 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-/**     \defgroup   mymodule     Module BitTorrent
+/**     \defgroup   mymodule     Module ThomsonPhoneBook
  *      \brief      Example of a module descriptor.
  *					Such a file must be copied into htdocs/includes/module directory.
  */
 
 /**
- *      \file       htdocs/includes/modules/modBitTorrent.class.php
- *      \ingroup    mymodule
+ *      \file       htdocs/includes/modules/modThomsonPhoneBook.class.php
+ *      \ingroup    thomsonphonebook
  *      \brief      Description and activation file for module MyModule
- *		\version	$Id: modBitTorrent.class.php,v 1.7 2010/08/09 22:09:53 eldy Exp $
+ *		\version	$Id: modThomsonPhoneBook.class.php,v 1.1 2010/08/09 22:09:49 eldy Exp $
  */
 include_once(DOL_DOCUMENT_ROOT ."/includes/modules/DolibarrModules.class.php");
 
 
-/**     \class      modBitTorrent
+/**     \class      modThomsonPhoneBook
  *      \brief      Description and activation class for module RiverBitTorrent
  */
-class modBitTorrent extends DolibarrModules
+class modThomsonPhoneBook extends DolibarrModules
 {
     /**
     *   \brief      Constructor. Define names, constants, directories, boxes, permissions
     *   \param      DB      Database handler
     */
-	function modBitTorrent($DB)
+	function modThomsonPhoneBook($DB)
 	{
 		$this->db = $DB;
 
 		// Id for module (must be unique).
 		// Use here a free id (See in Home -> System information -> Dolibarr for list of used modules id).
-		$this->numero = 101000;
+		$this->numero = 101100;
 		// Key text used to identify module (for permissions, menus, etc...)
-		$this->rights_class = 'bittorrent';
+		$this->rights_class = 'thomsonphonebook';
 
 		// Family can be 'crm','financial','hr','projects','products','ecm','technic','other'
 		// It is used to group modules in module setup page
@@ -56,7 +56,7 @@ class modBitTorrent extends DolibarrModules
 		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'numero' of module)
 		$this->name = preg_replace('/^mod/i','',get_class($this));
 		// Module description, used if translation string 'ModuleXXXDesc' not found (where XXX is value of numeric property 'numero' of module)
-		$this->description = "Make your Dolibarr able to be a BitTorrent tracker (and serve .torrent files)";
+		$this->description = "Make your Dolibarr able to answer a thomson phone request for annuary content";
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
 		$this->version = '2.9';
 		// Key used in llx_const table to save module status enabled/disabled (where MYMODULE is value of property name of module in uppercase)
@@ -68,7 +68,7 @@ class modBitTorrent extends DolibarrModules
 		$this->picto='globe';
 
 		// Data directories to create when module is enabled.
-		$this->dirs = array("/bittorrent/torrents","/bittorrent/rss","/bittorrent/files");
+		$this->dirs = array();
 
 		// Relative path to module style sheet if exists. Example: '/mymodule/mycss.css'.
 		$this->style_sheet = '';
@@ -81,7 +81,7 @@ class modBitTorrent extends DolibarrModules
 		$this->requiredby = array();	// List of modules id to disable if this one is disabled
 		$this->phpmin = array(4,3);					// Minimum version of PHP required by module
 		$this->need_dolibarr_version = array(2,9);	// Minimum version of Dolibarr required by module
-		$this->langfiles = array("bittorrent");
+		$this->langfiles = array();
 
 		// Constants
 		$this->const = array();			// List of particular constants to add when module is enabled
