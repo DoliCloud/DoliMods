@@ -26,7 +26,7 @@
  *      \file       htdocs/includes/modules/modThomsonPhoneBook.class.php
  *      \ingroup    thomsonphonebook
  *      \brief      Description and activation file for module MyModule
- *		\version	$Id: modThomsonPhoneBook.class.php,v 1.2 2010/08/09 22:17:48 eldy Exp $
+ *		\version	$Id: modThomsonPhoneBook.class.php,v 1.3 2010/08/09 22:32:45 eldy Exp $
  */
 include_once(DOL_DOCUMENT_ROOT ."/includes/modules/DolibarrModules.class.php");
 
@@ -181,18 +181,6 @@ class modThomsonPhoneBook extends DolibarrModules
     	return $this->_remove($sql);
   	}
 
-
-	/**
-	*		\brief		Create tables and keys required by module
-	* 					Files mymodule.sql and mymodule.key.sql with create table and create keys
-	* 					commands must be stored in directory /mymodule/sql/
-	*					This function is called by this->init.
-	* 		\return		int		<=0 if KO, >0 if OK
-	*/
-	function load_tables()
-	{
-		return $this->_load_tables();
-	}
 }
 
 ?>
