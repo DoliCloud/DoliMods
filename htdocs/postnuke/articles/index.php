@@ -24,7 +24,7 @@
 /**
  *	\file       htdocs/awstats/index.php
  *	\brief      Page accueil module AWStats
- *	\version    $Id: index.php,v 1.1 2009/06/15 17:19:52 eldy Exp $
+ *	\version    $Id: index.php,v 1.2 2010/08/09 15:42:17 eldy Exp $
  */
 
 require("./pre.inc.php");
@@ -51,9 +51,10 @@ $sql = "SELECT p.pn_sid, p.pn_title FROM " . PN_DB_NAME . "." . PN_TABLE_STORIES
 $sql .= " ORDER BY $sortfield $sortorder ";
 $sql .= $db->plimit( $limit ,$offset);
 
-if ( $db->query($sql) )
+$resql=$db->query($sql);
+if ($resql)
 {
-  $num = $db->num_rows();
+  $num = $db->num_rows($resql);
   $i = 0;
   print "<table class=\"noborder\" width=\"100%\">";
   print "<tr class=\"liste_titre\">";
@@ -63,7 +64,7 @@ if ( $db->query($sql) )
   $var=True;
   while ($i < $num)
     {
-      $objp = $db->fetch_object();
+      $objp = $db->fetch_object($resql);
       $var=!$var;
       print "<tr $bc[$var]>";
 
@@ -85,5 +86,5 @@ else
 
 $db->close();
 
-llxFooter("<em>Derni&egrave;re modification $Date: 2009/06/15 17:19:52 $ r&eacute;vision $Revision: 1.1 $</em>");
+llxFooter("<em>Derni&egrave;re modification $Date: 2010/08/09 15:42:17 $ r&eacute;vision $Revision: 1.2 $</em>");
 ?>
