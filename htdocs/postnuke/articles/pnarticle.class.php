@@ -15,91 +15,90 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *
- * $Id: pnarticle.class.php,v 1.1 2009/06/15 17:19:52 eldy Exp $
+ * $Id: pnarticle.class.php,v 1.2 2010/08/09 15:57:54 eldy Exp $
  * $Source: /cvsroot/dolibarr/dolibarrmod/htdocs/postnuke/articles/pnarticle.class.php,v $
  *
  */
 
 class pnArticle {
-  var $db ;
+	var $db ;
 
-  var $id ;
+	var $id ;
 
-  var $titre;
-  var $body;
+	var $titre;
+	var $body;
 
-  function pnArticle($DB, $id=0) {
-    $this->db = $DB;
-    $this->id   = $id ;
-  }  
+	function pnArticle($DB, $id=0) {
+		$this->db = $DB;
+		$this->id   = $id ;
+	}
 
-  /*
-   *
-   *
-   */
-  function update($id, $user)
-  {
+	/*
+	 *
+	 *
+	 */
+	function update($id, $user)
+	{
 
-    if (strlen($this->annee)==0)
-      {
-	$this->annee = 0;
-      }
+		if (strlen($this->annee)==0)
+		{
+			$this->annee = 0;
+		}
 
-    $sql = "UPDATE ". PN_DB_NAME . "." . PN_TABLE_STORIES_NAME;
-    $sql .= " SET pn_hometext = '" . nl2br(trim($this->body)) ."'";
-    //$sql .= ", pn_title = '" . trim($this->titre) ."'";
-
-
-    $sql .= " WHERE pn_sid = " . $id;
-
-    if ( $this->db->query($sql) )
-      {
-	return 1;
-      }
-    else
-      {
-	print $this->db->error() . ' in ' . $sql;
-      }
-  }
-  /*
-   *
-   *
-   *
-   */
-  function fetch ($id) {
-    
-    $sql = "SELECT p.pn_sid, p.pn_title, p.pn_hometext FROM " . PN_DB_NAME . "." . PN_TABLE_STORIES_NAME . " as p";
-
-    if ($id)
-      {
-	$sql .= " WHERE p.pn_sid = $id";
-      }
-
-    $result = $this->db->query($sql) ;
-
-    if ( $result )
-      {
-	$result = $this->db->fetch_array();
-
-	$this->id         = $result["pn_id"];
-	$this->titre      = $result["pn_title"];
-	$this->body       = $result["pn_hometext"];
-
-	$this->db->free();
-      }
-    else
-      {
-	print $this->db->error();
-      }
-    
-    return $result;
-  }
+		$sql = "UPDATE ". PN_DB_NAME . "." . PN_TABLE_STORIES_NAME;
+		$sql .= " SET pn_hometext = '" . nl2br(trim($this->body)) ."'";
+		//$sql .= ", pn_title = '" . trim($this->titre) ."'";
 
 
-  /*
-   *
-   *
-   */
+		$sql .= " WHERE pn_sid = " . $id;
+
+		if ( $this->db->query($sql) )
+		{
+			return 1;
+		}
+		else
+		{
+			print $this->db->error() . ' in ' . $sql;
+		}
+	}
+	/*
+	 *
+	 *
+	 *
+	 */
+	function fetch ($id) {
+
+		$sql = "SELECT p.pn_sid, p.pn_title, p.pn_hometext FROM " . PN_DB_NAME . "." . PN_TABLE_STORIES_NAME . " as p";
+
+		if ($id)
+		{
+			$sql .= " WHERE p.pn_sid = $id";
+		}
+
+		$result = $this->db->query($sql) ;
+		if ( $result )
+		{
+			$result = $this->db->fetch_array($result);
+
+			$this->id         = $result["pn_id"];
+			$this->titre      = $result["pn_title"];
+			$this->body       = $result["pn_hometext"];
+
+			$this->db->free($result);
+		}
+		else
+		{
+			print $this->db->error();
+		}
+
+		return $result;
+	}
+
+
+	/*
+	 *
+	 *
+	 */
 
 
 }
