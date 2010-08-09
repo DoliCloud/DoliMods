@@ -26,7 +26,7 @@
  *      \file       htdocs/includes/modules/modThomsonPhoneBook.class.php
  *      \ingroup    thomsonphonebook
  *      \brief      Description and activation file for module MyModule
- *		\version	$Id: modThomsonPhoneBook.class.php,v 1.1 2010/08/09 22:09:49 eldy Exp $
+ *		\version	$Id: modThomsonPhoneBook.class.php,v 1.2 2010/08/09 22:17:48 eldy Exp $
  */
 include_once(DOL_DOCUMENT_ROOT ."/includes/modules/DolibarrModules.class.php");
 
@@ -122,34 +122,6 @@ class modThomsonPhoneBook extends DolibarrModules
 		$this->menus = array();			// List of menus to add
 		$r=0;
 
-		// Add here entries to declare new menus
-		// Example to declare the Top Menu entry:
-		$this->menu[$r]=array(	'fk_menu'=>0,			// Put 0 if this is a top menu
-									'type'=>'top',			// This is a Top menu entry
-									'titre'=>'BitTorrent',
-									'mainmenu'=>'bittorrent',
-									'leftmenu'=>'1',		// Use 1 if you also want to add left menu entries using this descriptor. Use 0 if left menu entries are defined in a file pre.inc.php (old school).
-									'url'=>'/bittorrent/admin.php',
-									'langs'=>'bittorrent',	// Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
-									'position'=>100,
-									'perms'=>'1',			// Use 'perms'=>'$user->rights->mymodule->level1->level2' if you want your menu with a permission rules
-									'target'=>'',
-									'user'=>2);				// 0=Menu for internal users, 1=external users, 2=both
-		$r++;
-
-		// Example to declare a Left Menu entry:
-		$this->menu[$r]=array(	'fk_menu'=>'r=0',		// Use r=value where r is index key used for the parent menu entry (higher parent must be a top menu entry)
-									'type'=>'left',			// This is a Left menu entry
-									'titre'=>'Admin',
-									'mainmenu'=>'bittorrent',
-									'url'=>'/bittorrent/admin.php',
-									'langs'=>'bittorrent',	// Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
-									'position'=>100,
-									'perms'=>$user->admin,			// Use 'perms'=>'$user->rights->mymodule->level1->level2' if you want your menu with a permission rules
-									'target'=>'',
-									'user'=>2);				// 0=Menu for internal users, 1=external users, 2=both
-		$r++;
-
 		// Example to declare another Left Menu entry:
 		// $this->menu[$r]=array(	'fk_menu'=>'r=1',		// Use r=value where r is index key used for the parent menu entry (higher parent must be a top menu entry)
 		//							'type'=>'left',			// This is a Left menu entry
@@ -219,7 +191,7 @@ class modThomsonPhoneBook extends DolibarrModules
 	*/
 	function load_tables()
 	{
-		return $this->_load_tables('/bittorrent/sql/');
+		return $this->_load_tables();
 	}
 }
 
