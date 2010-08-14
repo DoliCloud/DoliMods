@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *
- * $Id: index.php,v 1.3 2010/07/19 18:20:19 eldy Exp $
+ * $Id: index.php,v 1.4 2010/08/14 02:43:14 eldy Exp $
  */
 
 require("../main.inc.php");
@@ -54,14 +54,14 @@ $sql = "SELECT rowid, label FROM ".MAIN_DB_PREFIX."voyage_reduc;";
 $result = $db->query($sql);
 if ($result) {
   $var=True;
-  $num = $db->num_rows();
+  $num = $db->num_rows($result);
   $i = 0;
   $options = "<option value=\"0\" selected=\"true\"></option>";
   while ($i < $num) {
     $obj = $db->fetch_object($result);
     $options .= "<option value=\"$obj->rowid\">$obj->label</option>\n"; $i++;
   }
-  $db->free();
+  $db->free($result);
 }
 
 
@@ -86,7 +86,7 @@ if ($result) {
 
 
   $var=True;
-  $num = $db->num_rows();
+  $num = $db->num_rows($result);
   $i = 0; $total = 0;
 
   $sep = 0;
@@ -112,7 +112,7 @@ if ($result) {
 
     $i++;
   }
-  $db->free();
+  $db->free($result);
 
   print "<tr>";
   print "<td><input name=\"date_depart\" type=\"text\" size=16 maxlength=16><br>";
@@ -141,5 +141,5 @@ if ($result) {
 
 $db->close();
 
-llxFooter("<em>Derni&egrave;re modification $Date: 2010/07/19 18:20:19 $ r&eacute;vision $Revision: 1.3 $</em>");
+llxFooter("<em>Derni&egrave;re modification $Date: 2010/08/14 02:43:14 $ r&eacute;vision $Revision: 1.4 $</em>");
 ?>

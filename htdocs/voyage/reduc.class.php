@@ -15,7 +15,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *
- * $Id: reduc.class.php,v 1.2 2010/05/08 20:54:03 eldy Exp $
+ * $Id: reduc.class.php,v 1.3 2010/08/14 02:43:14 eldy Exp $
  */
 
 class Reduc {
@@ -38,10 +38,9 @@ class Reduc {
 		$sql.= " FROM ".MAIN_DB_PREFIX."voyage_reduc as b WHERE rowid = $id";
 
 		$result = $this->db->query($sql);
-
 		if ($result)
 		{
-			if ($this->db->num_rows())
+			if ($this->db->num_rows($result))
 			{
 				$obj = $this->db->fetch_object($result);
 
@@ -49,7 +48,7 @@ class Reduc {
 				$this->price = $obj->amount;
 				$this->label = $obj->label;
 			}
-			$this->db->free();
+			$this->db->free($result);
 		}
 	}
 
