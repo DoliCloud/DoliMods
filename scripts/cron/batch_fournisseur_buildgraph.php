@@ -22,13 +22,13 @@
  \ingroup    	fournisseur
  \brief      	Script de generation graph ca fournisseur depuis tables fournisseur_ca
  \deprecated	Ces graph ne sont pas utilises car sont generes dynamiquement maintenant.
- \version		$Id: batch_fournisseur_buildgraph.php,v 1.1 2009/07/10 09:13:54 eldy Exp $
+ \version		$Id: batch_fournisseur_buildgraph.php,v 1.2 2010/08/18 11:29:13 eldy Exp $
  */
 
 // Test si mode CLI
 $sapi_type = php_sapi_name();
 $script_file=__FILE__;
-if (eregi('([^\\\/]+)$',$script_file,$reg)) $script_file=$reg[1];
+if (preg_match('/([^\\\/]+)$/',$script_file,$reg)) $script_file=$reg[1];
 
 if (substr($sapi_type, 0, 3) == 'cgi') {
 	echo "Erreur: Vous utilisez l'interpreteur PHP pour le mode CGI. Pour executer $script_file en ligne de commande, vous devez utiliser l'interpreteur PHP pour le mode CLI.\n";
@@ -36,8 +36,8 @@ if (substr($sapi_type, 0, 3) == 'cgi') {
 }
 
 // Recupere env dolibarr
-$version='$Revision: 1.1 $';
-$path=eregi_replace($script_file,'',$_SERVER["PHP_SELF"]);
+$version='$Revision: 1.2 $';
+$path=preg_replace('/'.$script_file.'/','',$_SERVER["PHP_SELF"]);
 
 require_once($path."../../htdocs/master.inc.php");
 require_once(DOL_DOCUMENT_ROOT."/core/dolgraph.class.php");

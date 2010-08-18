@@ -22,7 +22,7 @@
  *       \file       htdocs/includes/modules/societe/mod_codeclient_lion.class.php
  *       \ingroup    societe
  *       \brief      Fichier de la classe des gestion lion des codes clients
- *       \version    $Id: mod_codeclient_lion.php,v 1.3 2010/08/09 22:51:56 eldy Exp $
+ *       \version    $Id: mod_codeclient_lion.php,v 1.4 2010/08/18 11:29:35 eldy Exp $
  */
 
 require_once(DOL_DOCUMENT_ROOT."/includes/modules/societe/modules_societe.class.php");
@@ -48,7 +48,7 @@ class mod_codeclient_lion extends ModeleThirdPartyCode
 	function mod_codeclient_lion()
 	{
 		$this->nom = "Lion";
-		$this->version = '$Revision: 1.3 $';
+		$this->version = '$Revision: 1.4 $';
 		$this->code_modifiable = 0;
 		$this->code_modifiable_invalide = 1;
 		$this->code_modifiable_null = 1;
@@ -205,7 +205,7 @@ class mod_codeclient_lion extends ModeleThirdPartyCode
 		}
 		else
 		{
-			if (eregi('[0-9][0-9][0-9]+',$code))
+			if (preg_match('/[0-9][0-9][0-9]+/',$code))
 			{
 				$res = 0;
 			}

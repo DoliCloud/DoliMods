@@ -22,13 +22,13 @@
  *	\ingroup    	fournisseur
  *	\brief      	Update table Calcul le CA genere par chaque fournisseur et met a jour les tables fournisseur_ca et produit_ca
  *	\deprecated		Ce script et ces tables ne sont pas utilisees car graph generes dynamiquement maintenant.
- *	\version		$Id: batch_fournisseur_updateturnover.php,v 1.1 2009/07/10 09:13:54 eldy Exp $
+ *	\version		$Id: batch_fournisseur_updateturnover.php,v 1.2 2010/08/18 11:29:14 eldy Exp $
  */
 
 // Test si mode CLI
 $sapi_type = php_sapi_name();
 $script_file=__FILE__;
-if (eregi('([^\\\/]+)$',$script_file,$reg)) $script_file=$reg[1];
+if (preg_match('/([^\\\/]+)$/',$script_file,$reg)) $script_file=$reg[1];
 
 if (substr($sapi_type, 0, 3) == 'cgi') {
 	echo "Erreur: Vous utilisez l'interpreteur PHP pour le mode CGI. Pour executer $script_file en ligne de commande, vous devez utiliser l'interpreteur PHP pour le mode CLI.\n";
@@ -43,8 +43,8 @@ if (substr($sapi_type, 0, 3) == 'cgi') {
  */
 
 // Recupere env dolibarr
-$version='$Revision: 1.1 $';
-$path=eregi_replace($script_file,'',$_SERVER["PHP_SELF"]);
+$version='$Revision: 1.2 $';
+$path=preg_replace('/'.$script_file.'/','',$_SERVER["PHP_SELF"]);
 
 require_once($path."../../htdocs/master.inc.php");
 require_once(DOL_DOCUMENT_ROOT."/cron/functions_cron.lib.php");

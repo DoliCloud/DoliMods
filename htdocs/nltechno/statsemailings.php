@@ -6,7 +6,7 @@
  *    	\file       htdocs/nltechno/statsemailings.php
  *		\ingroup    nltechno
  *		\brief      Page des stats
- *		\version    $Id: statsemailings.php,v 1.19 2010/07/19 18:20:22 eldy Exp $
+ *		\version    $Id: statsemailings.php,v 1.20 2010/08/18 11:29:25 eldy Exp $
  *		\author		Laurent Destailleur
  */
 
@@ -208,7 +208,7 @@ $relativepath=$dirtmp."statsannonces.png".$categ;
         {
             if (substr($file, 0, 1) <> '.' && substr($file, 0, 3) <> 'CVS')
             {
-                if (eregi("(.*(chiensderace|chatsderace))\.modules\.php$",$file,$reg))
+                if (preg_match("/(.*(chiensderace|chatsderace))\.modules\.php$/",$file,$reg))
                 {
             		$modulename=$reg[1];
         			if ($modulename == 'example') continue;
@@ -310,7 +310,7 @@ $relativepath=$dirtmp."statsannonces.png".$categ;
         {
             if (substr($file, 0, 1) <> '.' && substr($file, 0, 3) <> 'CVS')
             {
-                if (eregi("(.*(chiensderace|chatsderace)_forum)\.modules\.php$",$file,$reg))
+                if (preg_match("/(.*(chiensderace|chatsderace)_forum)\.modules\.php$/",$file,$reg))
                 {
                 	$modulename=$reg[1];
         			if ($modulename == 'example') continue;
