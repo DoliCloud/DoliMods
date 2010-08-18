@@ -1,0 +1,11 @@
+# Dolibarr language file - fr_FR - filemanager
+CHARSET=UTF-8
+FileManager=Gestionnaire fichier
+FileManagerSetup=Configuration module FileManager
+LabelForRootFileManager=Libellé de racine/raccourci accessible
+RootFileManager=Racine/raccourci accessible
+PathForRootFileManager=Emplacement du répertoire racine sur le disque
+NoteOnFileManagerPathLocation=Tous les répertoires doivent avoir des permissions qui permettent à votre serveur Web de les lire/consulter.
+ListForRootPath=Liste des racines/raccourcies accessibles
+PleaseSelectARoot=Merci de sélectionner une racine à explorer...
+SelectAFile=Sélectionner un fichier

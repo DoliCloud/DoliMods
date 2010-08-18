@@ -1,0 +1,11 @@
+# Dolibarr language file - en_US - filemanager
+CHARSET=UTF-8
+FileManager=File manager
+FileManagerSetup=Setup of FileManager module
+LabelForRootFileManager=Label for visible root path/shortcut
+RootFileManager=Visible root path/shortcut
+PathForRootFileManager=Location of root path/shortcut on disk
+NoteOnFileManagerPathLocation=All directories must be have permission to allow your web server to read/scan them.
+ListForRootPath=List of visible root path/shortcuts
+PleaseSelectARoot=Please, select a root directory to scan...
+SelectAFile=Select a file
