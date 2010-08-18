@@ -1,12 +1,14 @@
 # Dolibarr language file - fr_FR - awstats
+CHARSET= UTF-8
 AWStatsSetup=Configuration du module AWStats
-AWStatsSummary=SynthËse AWStats
-AWStatsSetupNotComplete=La configuration du module AWStats est incomplËte
-AWSTATS_DATA_DIR=RÈpertoire stockage fichiers data AWStats (chemin disque)
-AWSTATS_CGI_PATH=URL accËs du programme AWstats (en CGI)
+AWStatsSummary=Synth√®se AWStats
+AWStatsSetupNotComplete=La configuration du module AWStats est incompl√®te
+AWSTATS_DATA_DIR=R√©pertoire stockage fichiers data AWStats (chemin disque)
+AWSTATS_CGI_PATH=URL acc√®s du programme AWstats (en CGI)
 AWSTATS_PROG_PATH=Localisation du programme AWStats (chemin complet disque)
-AWSTATS_LIMIT_CONF=Limiter les config affichÈes ‡ cette liste (vide pour aucun filtre sinon sÈparÈes par une ",")
-ShowStats=Afficher dÈtail des statistiques
+AWSTATS_LIMIT_CONF=Limiter les config affich√©es √† cette liste (vide pour aucun filtre sinon s√©par√©es par une ",")
+ShowStats=Afficher d√©tail des statistiques
 FilterDomain=Filtrage configuration
 Module12000Name=AWStats
-Module12000Desc=Module pour intÈgrer les rapports de l'analyseur de log AWStats dans Dolibarr
+Module12000Desc=Module pour int√©grer les rapports de l'analyseur de log AWStats dans Dolibarr
+ErrorAWStatsDataDirMustEndWithASlash=Le nom de r√©pertoire doit se terminer par un / ou \ 

@@ -1,4 +1,5 @@
 # Dolibarr language file - en_EN - awstats
+CHARSET= UTF-8
 AWStatsSetup=AWStats module setup
 AWStatsSummary=AWStats summary
 AWStatsSetupNotComplete=AWStats setup is not complete
@@ -10,3 +11,4 @@ ShowStats=Show detailed statistics
 FilterDomain=Config filter
 Module12000Name=AWStats
 Module12000Desc=Module to integrate AWStats log analyzer reports in Dolibarr
+ErrorAWStatsDataDirMustEndWithASlash=Directory must end with / or \
