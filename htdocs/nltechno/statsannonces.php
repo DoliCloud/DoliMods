@@ -6,7 +6,7 @@
  *   	\file       htdocs/nltechno/statsannonces.php
  *		\ingroup    nltechno
  *		\brief      Page des stats annonces
- *		\version    $Id: statsannonces.php,v 1.9 2010/07/19 18:20:22 eldy Exp $
+ *		\version    $Id: statsannonces.php,v 1.10 2010/08/18 11:36:11 eldy Exp $
  *		\author		Laurent Destailleur
  */
 
@@ -238,7 +238,7 @@ if (1 == 1)
 	foreach ($bytypearray as $key => $val)
 	{
 		// Rupture sur categorie ?
-		$tmp=split('_',$key);
+		$tmp=explode('_',$key);
 		if ($oldcateg && ($tmp[0] != $oldcateg))
 		{
 			print '<tr class="liste_total"><td>Total categorie '.$oldcateg.'</td><td></td>';

@@ -15,12 +15,13 @@
 /**
  *	\file       htdocs/awstats/index.php
  *	\brief      Page accueil module AWStats
- *	\version    $Id: index.php,v 1.15 2010/05/26 11:29:13 eldy Exp $
+ *	\version    $Id: index.php,v 1.16 2010/08/18 11:36:11 eldy Exp $
  */
 
 include("./pre.inc.php");
 include("./awstats.lib.php");
-$ret=include_once(DOL_DOCUMENT_ROOT."/html.formfile.class.php");
+if (file_exists(DOL_DOCUMENT_ROOT."/html.formfile.class.php")) $ret=include_once(DOL_DOCUMENT_ROOT."/html.formfile.class.php");
+else $ret=include_once(DOL_DOCUMENT_ROOT."/core/class/html.formfile.class.php");
 
 $langs->load("awstats");
 $langs->load("others");
@@ -38,7 +39,7 @@ if (empty($conf->global->AWSTATS_DATA_DIR))
 }
 
 $AWSTATS_CGI_PATH=$conf->global->AWSTATS_CGI_PATH;
-if (! eregi('\?',$AWSTATS_CGI_PATH)) { $AWSTATS_CGI_PATH.='?'; }
+if (! preg_match('/\?/',$AWSTATS_CGI_PATH)) { $AWSTATS_CGI_PATH.='?'; }
 else $AWSTATS_CGI_PATH.='&amp;';
 
 $history_dir 		= 	$conf->global->AWSTATS_DATA_DIR;		# Location of history files
@@ -46,7 +47,7 @@ $filter_year		=	isset($_REQUEST["filter_year"])?$_REQUEST["filter_year"]:'';		# 
 if (empty($filter_year)) $filter_year=date("Y");	# Show only current year statistics
 $filter_domains		=	isset($_REQUEST["filter_domains"])?$_REQUEST["filter_domains"]:'';
 $limittoconf=array();
-if (! empty($conf->global->AWSTATS_LIMIT_CONF)) $limittoconf=split(',',$conf->global->AWSTATS_LIMIT_CONF);
+if (! empty($conf->global->AWSTATS_LIMIT_CONF)) $limittoconf=explode(',',$conf->global->AWSTATS_LIMIT_CONF);
 
 
 $domain_list		=	array();					# List of domains to show if filter_domains is true
@@ -120,7 +121,7 @@ function read_file($file,$domain)
 	global $total;
 	global $max;
 
-	if (! eregi('^awstats([0-9][0-9])([0-9][0-9][0-9][0-9])',$file,$reg))
+	if (! preg_match('/^awstats([0-9][0-9])([0-9][0-9][0-9][0-9])/',$file,$reg))
 	{
 		return -1;
 	}
@@ -133,7 +134,7 @@ function read_file($file,$domain)
 	$contents = fread ($fd, 4096);	// Suppose TIME section is at beginning
 	fclose ($fd);
 
-	if (eregi('^<xml',$contents))
+	if (preg_match('^/<xml/',$contents))
 	{
 		// It's an xml file
 		$domaininfo[$domain][$yyyy][$mm]['pages'] = 'XML file';
@@ -221,7 +222,7 @@ function format($number) {
 	if($format_numbers == false) {
 		return $number;
 	} else {
-		if (eregi('^XML',$number)) return $number;
+		if (preg_match('/^XML/',$number)) return $number;
 		return number_format($number);
 	}
 }
@@ -266,7 +267,7 @@ while(($file = readdir($dir)) !== false)
 		}
 
 		//print($filter_year."-".$filer_domains."-".$domname);
-		if($filter_year == 'all' && ! empty($filter_domains) && eregi($filter_domains,$domname)) {
+		if($filter_year == 'all' && ! empty($filter_domains) && preg_match('/'.$filter_domains.'/',$domname)) {
 			$files[] = $file;
 		}
 		else if($filter_year == 'all' && empty($filter_domains))
@@ -276,7 +277,7 @@ while(($file = readdir($dir)) !== false)
 		elseif($filter_year != 'all' && empty($filter_domains) && substr_count($file,$filter_year) == 1) {
 			$files[] = $file;
 		}
-		elseif($filter_year != 'all' && ! empty($filter_domains) && substr_count($file,$filter_year) == 1 && eregi($filter_domains,$domname)) {
+		elseif($filter_year != 'all' && ! empty($filter_domains) && substr_count($file,$filter_year) == 1 && preg_match('/'.$filter_domains.'/',$domname)) {
 			$files[] = $file;
 		}
 		elseif($filter_year != 'all' && substr_count($file,$filter_year) == 1 && empty($filter_domains)) {
@@ -380,7 +381,7 @@ else
 					}
 
 					// Define traffic
-					if (eregi('^XML',$domaininfo[$key][$key2][$key3]['traffic'])) $traffic=$domaininfo[$key][$key2][$key3]['traffic'];
+					if (preg_match('/^XML/',$domaininfo[$key][$key2][$key3]['traffic'])) $traffic=$domaininfo[$key][$key2][$key3]['traffic'];
 					else
 					{
 						if($domaininfo[$key][$key2][$key3]['traffic'] > 1073741824) {	# Over 1GB
@@ -421,7 +422,7 @@ else
 			}
 
 			// Define traffic
-			if (eregi('^XML',$total[$key]['traffic'])) $traffic=$total[$key]['traffic'];
+			if (preg_match('/^XML/',$total[$key]['traffic'])) $traffic=$total[$key]['traffic'];
 			else
 			{
 				if($total[$key]['traffic'] > 1073741824) {	# Over 1GB
@@ -492,7 +493,7 @@ else
 				}
 
 				// Define traffic
-				if (eregi('^XML',$server[$key1][$key2]['traffic'])) $traffic=$server[$key1][$key2]['traffic'];
+				if (preg_match('/^XML/',$server[$key1][$key2]['traffic'])) $traffic=$server[$key1][$key2]['traffic'];
 				else
 				{
 					if($server[$key1][$key2]['traffic'] > 1073741824) {	# Over 1GB
@@ -572,5 +573,5 @@ if($system_stats_top == true) {
 #	Output to the screen
 echo $statistics;
 
-llxFooter('$Date: 2010/05/26 11:29:13 $ - $Revision: 1.15 $');
+llxFooter('$Date: 2010/08/18 11:36:11 $ - $Revision: 1.16 $');
 ?>

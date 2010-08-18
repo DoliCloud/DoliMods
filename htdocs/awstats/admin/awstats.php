@@ -20,7 +20,7 @@
  *	    \file       htdocs/admin/awstats.php
  *      \ingroup    awstats
  *      \brief      Page de configuration du module AWStats
- *		\version    $Id: awstats.php,v 1.1 2010/05/26 13:06:08 eldy Exp $
+ *		\version    $Id: awstats.php,v 1.2 2010/08/18 11:36:11 eldy Exp $
  */
 
 define('NOCSRFCHECK',1);
@@ -55,7 +55,7 @@ if ($actionsave)
 
     $db->begin();
 
-    if (! eregi('[\\\/]$',$_POST["AWSTATS_DATA_DIR"]))
+    if (! preg_match('|[\\\/]$|',$_POST["AWSTATS_DATA_DIR"]))
     {
     	$mesg="<div class=\"error\">".$langs->trans("ErrorAWStatsDataDirMustEndWithASlash")."</div>";
     	$error++;
@@ -155,5 +155,5 @@ print "<br>";
 
 $db->close();
 
-llxFooter('$Date: 2010/05/26 13:06:08 $ - $Revision: 1.1 $');
+llxFooter('$Date: 2010/08/18 11:36:11 $ - $Revision: 1.2 $');
 ?>

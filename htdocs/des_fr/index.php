@@ -19,7 +19,7 @@ function do_line($fic,$line)
 
 function deb_fic($fic,$mo)
 {
-	$mois = split('/',$mo);
+	$mois = explode('/',$mo);
 
 	$m = $mois[0];
 
@@ -52,7 +52,7 @@ function deb_fic($fic,$mo)
 function lin_fic($fic,$num,$mo,$tva,$mnt)
 { // lignes xml
 
-$mois = split('/',$mo);
+$mois = explode('/',$mo);
 
 $m = $mois[0];
 
@@ -92,7 +92,7 @@ foreach($t as $tx)
 
 llxHeader();
 
-// Et la boucle principale qui génère la table de visu et un fichier xml
+// Et la boucle principale qui gï¿½nï¿½re la table de visu et un fichier xml
 // par mois :
 
 $des ='<table  class="notopnoleftnoright" width="50%">  ';
