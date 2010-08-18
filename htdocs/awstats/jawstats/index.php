@@ -1,11 +1,12 @@
 <?php
 // LDR Change TO WORK WITH DOLIBARR
-define('NOCSRFCHECK',1);
-define('DISABLE_PROTOTYPE',1);
-define('DISABLE_SCRIPTACULOUS',1);
+if (! defined('NOCSRFCHECK')) define('NOCSRFCHECK',1);
+if (! defined('DISABLE_PROTOTYPE')) define('DISABLE_PROTOTYPE',1);
+if (! defined('DISABLE_SCRIPTACULOUS')) define('DISABLE_SCRIPTACULOUS',1);
 include("../pre.inc.php");
-$ret=include_once(DOL_DOCUMENT_ROOT."/html.formfile.class.php");
-if (! $ret) include_once(DOL_DOCUMENT_ROOT_BIS."/html.formfile.class.php");
+$ret=0;
+if (! $ret && file_exists(DOL_DOCUMENT_ROOT."/core/class/html.formfile.class.php")) $ret=include_once(DOL_DOCUMENT_ROOT."/core/class/html.formfile.class.php");
+if (! $ret) include_once(DOL_DOCUMENT_ROOT_BIS."/core/class/html.formfile.class.php");
 global $conf;
 
 
@@ -325,7 +326,7 @@ print '</html>';
       case "NoLogsFound":
         $sStatsPath = $GLOBALS["aConfig"][$GLOBALS["g_sConfig"]]["statspath"];
         $sProblem     = Lang("No AWStats Log Files Found");
-        $sResolution  = "<p>JAWStats cannot find any AWStats log files in the specified directory: <strong>" . $sStatsPath . "</strong><br />" .
+        $sResolution  = "<p>JAWStats cannot find any AWStats data files in the specified directory: <strong>" . $sStatsPath . "</strong><br />" .
                         "Is this the correct folder? Is your config name, <i>" . $GLOBALS["g_sConfig"] . "</i>, correct?</p>\n";
         break;
       case "Unknown":

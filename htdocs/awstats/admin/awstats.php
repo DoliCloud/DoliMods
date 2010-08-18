@@ -20,7 +20,7 @@
  *	    \file       htdocs/admin/awstats.php
  *      \ingroup    awstats
  *      \brief      Page de configuration du module AWStats
- *		\version    $Id: awstats.php,v 1.2 2010/08/18 11:36:11 eldy Exp $
+ *		\version    $Id: awstats.php,v 1.3 2010/08/18 15:24:17 eldy Exp $
  */
 
 define('NOCSRFCHECK',1);
@@ -63,10 +63,10 @@ if ($actionsave)
 
     if (! $error)
     {
-	    $i+=dolibarr_set_const($db,'AWSTATS_DATA_DIR',trim($_POST["AWSTATS_DATA_DIR"]),'chaine',0);
-	    $i+=dolibarr_set_const($db,'AWSTATS_CGI_PATH',trim($_POST["AWSTATS_CGI_PATH"]),'chaine',0);
-	    $i+=dolibarr_set_const($db,'AWSTATS_PROG_PATH',trim($_POST["AWSTATS_PROG_PATH"]),'chaine',0);
-	    $i+=dolibarr_set_const($db,'AWSTATS_LIMIT_CONF',trim($_POST["AWSTATS_LIMIT_CONF"]),'chaine',0);
+	    if ($i >= 0) $i+=dolibarr_set_const($db,'AWSTATS_DATA_DIR',trim($_POST["AWSTATS_DATA_DIR"]),'chaine',0);
+	    if ($i >= 0) $i+=dolibarr_set_const($db,'AWSTATS_CGI_PATH',trim($_POST["AWSTATS_CGI_PATH"]),'chaine',0);
+	    if ($i >= 0) $i+=dolibarr_set_const($db,'AWSTATS_PROG_PATH',trim($_POST["AWSTATS_PROG_PATH"]),'chaine',0);
+	    if ($i >= 0) $i+=dolibarr_set_const($db,'AWSTATS_LIMIT_CONF',trim($_POST["AWSTATS_LIMIT_CONF"]),'chaine',0);
 
 	    if ($i >= 3)
 	    {
@@ -76,8 +76,9 @@ if ($actionsave)
 	    else
 	    {
 	        $db->rollback();
-	        header("Location: ".$_SERVER["PHP_SELF"]);
-	        exit;
+	        $mesg=$db->lasterror();
+	        //header("Location: ".$_SERVER["PHP_SELF"]);
+	        //exit;
 	    }
     }
 }
@@ -155,5 +156,5 @@ print "<br>";
 
 $db->close();
 
-llxFooter('$Date: 2010/08/18 11:36:11 $ - $Revision: 1.2 $');
+llxFooter('$Date: 2010/08/18 15:24:17 $ - $Revision: 1.3 $');
 ?>

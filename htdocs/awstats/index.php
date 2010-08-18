@@ -15,7 +15,7 @@
 /**
  *	\file       htdocs/awstats/index.php
  *	\brief      Page accueil module AWStats
- *	\version    $Id: index.php,v 1.16 2010/08/18 11:36:11 eldy Exp $
+ *	\version    $Id: index.php,v 1.17 2010/08/18 15:24:18 eldy Exp $
  */
 
 include("./pre.inc.php");
@@ -134,7 +134,7 @@ function read_file($file,$domain)
 	$contents = fread ($fd, 4096);	// Suppose TIME section is at beginning
 	fclose ($fd);
 
-	if (preg_match('^/<xml/',$contents))
+	if (preg_match('/^<xml/',$contents))
 	{
 		// It's an xml file
 		$domaininfo[$domain][$yyyy][$mm]['pages'] = 'XML file';
@@ -266,7 +266,7 @@ while(($file = readdir($dir)) !== false)
 			if (! in_array($domname, $limittoconf)) continue;	// Not qualified
 		}
 
-		//print($filter_year."-".$filer_domains."-".$domname);
+		//print($file."-".$filter_year."-".$filer_domains."-".$domname."<br>\n");
 		if($filter_year == 'all' && ! empty($filter_domains) && preg_match('/'.$filter_domains.'/',$domname)) {
 			$files[] = $file;
 		}
@@ -290,7 +290,7 @@ while(($file = readdir($dir)) !== false)
 if(count($files) == 0)
 {
 	$output_table = '
-	<div align="'.$table_align.'">Sorry, No Data files Found.</div>';
+	<div align="'.$table_align.'">Sorry, No AWStats data files (awstatsYYYYMMDD.*) found into directory <b>'.$history_dir.'</b> for the selected filters.</div>';
 }
 else
 {
@@ -334,6 +334,8 @@ else
 		ksort($domaininfo);
 		foreach($domaininfo as $key => $ddata)
 		{
+			//if (empty($key)) continue;
+
 			ksort($ddata);
 
 			//$output_table .= '<table><tr><td>'.$langs->trans("Config").':<br>';
@@ -351,7 +353,7 @@ else
 <tr>
 <td>';
 			//$output_table .= '&nbsp;';
-			$output_table .= '<b>'.$key.'</b> ';
+			$output_table .= '<b>'.(empty($key)?'No name':$key).'</b> ';
 			$output_table .= '</td>
 <td width="80" class="visitors-bold" nowrap="nowrap">Visitors</td>
 <td width="80" class="visits-bold">Visits</td>
@@ -359,13 +361,16 @@ else
 <td width="80" class="hits-bold">Hits</td>
 <td width="80" class="bandwidth-bold">Bandwidth</td>
 <td width="'.$maxwidth.'" align="center">';
-			$output_table .= '<a href="'.$AWSTATS_CGI_PATH.'config='.$key.'" alt="AWStats" title="AWStats" target="_blank">';
+			$output_table .= '<a href="'.$AWSTATS_CGI_PATH.($key?'config='.$key:'').'" alt="AWStats" title="AWStats" target="_blank">';
 			$output_table .= '<img src="'.DOL_URL_ROOT.'/awstats/images/awstats_screen.png" border="0">';
 			//$output_table .= img_picto($langs->trans("ShowStats"),DOL_URL_ROOT.'/awstats/images/menu2.png','',1).'</a>';
-			$output_table .= ' &nbsp; ';
-			$output_table .= '<a href="'.DOL_URL_ROOT.'/awstats/jawstats/index.php?config='.$key.'" alt="JAWStats" title="JAWStats" >';
-			$output_table .= '<img src="'.DOL_URL_ROOT.'/awstats/images/jawstats_screen.png" border="0">';
-			$output_table .= '</a>';
+			if ($key)
+			{
+				$output_table .= ' &nbsp; ';
+				$output_table .= '<a href="'.DOL_URL_ROOT.'/awstats/jawstats/index.php'.($key?'?config='.$key:'').'" alt="JAWStats" title="JAWStats" >';
+				$output_table .= '<img src="'.DOL_URL_ROOT.'/awstats/images/jawstats_screen.png" border="0">';
+				$output_table .= '</a>';
+			}
 			$output_table .= '</td>';
 			$output_table .= '</tr>';
 			foreach($ddata as $key2 => $data)
@@ -554,7 +559,7 @@ print_fiche_titre(' &nbsp; '.$langs->trans("AWStatsSummary"),'',DOL_URL_ROOT.'/a
 print '<form action="'.$_SERVER["PHP_SELF"].'" method="POST">';
 print '<table class="border" width="100%"><tr><td>'.$langs->trans("Year").':</td><td>';
 $yearsarray=array('2000'=>'2000','2001'=>'2001','2002'=>'2002','2003'=>'2003','2004'=>'2004','2005'=>'2005','2006'=>'2006','2007'=>'2007','2008'=>'2008','2009'=>'2009','2010'=>'2010','2011'=>'2011','all'=>$langs->trans("All"));
-$form->select_array('filter_year',$yearsarray,$filter_year,1);
+$form->select_array('filter_year',$yearsarray,($filter_year?$filter_year:'all'),0);
 print '</td>';
 print '<td rowspan="2" align="center"><input class="button" type="submit" value="'.$langs->trans("Update").'"></td>';
 print '</tr>';
@@ -565,7 +570,7 @@ print '<br>';
 
 # Format CSS
 # Piece it all together
-if($system_stats_top == true) {
+if ($system_stats_top == true) {
 	$statistics = $html.$title.$system_table.$output_table.$html2;
 } else {
 	$statistics = $html.$title.$output_table.$system_table.$html2;
@@ -573,5 +578,5 @@ if($system_stats_top == true) {
 #	Output to the screen
 echo $statistics;
 
-llxFooter('$Date: 2010/08/18 11:36:11 $ - $Revision: 1.16 $');
+llxFooter('$Date: 2010/08/18 15:24:18 $ - $Revision: 1.17 $');
 ?>
