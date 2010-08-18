@@ -2,7 +2,7 @@
  *
  * Licensed under the GNU GPL v3 or higher (See file gpl-3.0.html)
  *
- * $Id: awstats.css,v 1.3 2009/04/27 19:24:57 eldy Exp $
+ * $Id: awstats.css,v 1.4 2010/08/18 15:32:40 eldy Exp $
  */
 
 h1 { font-size: 16pt; color: black; } 
@@ -68,17 +68,16 @@ td.countryflag img { height: 11px; width: 16px; }
 #main { clear: both; padding: 15px 0 20px 0; }
 #main .container { background: transparent; margin: 0 auto; max-width: 950px; padding: 0; position: relative; }
 #content { background: transparent; }
-#header { background: #33332d; }
-#header .container { background: #33332d; margin: 0 auto; max-width: 950px; padding: 5px 0 0 0; position: relative; }
+#header .container { background: #888888; margin: 0 auto; max-width: 950px; padding: 5px 0 0 0; position: relative; }
 #summary { color: #cccc9f; padding: 3px 0; }
 #summary span { color: #fff; font-weight: bold; }
 #menu { padding: 4px 0 0 0; }
 #loading { background: #fff url('images/loading.gif'); display: none; height: 16px; overflow: hidden; padding: 0 !important; position: absolute; top: 10px; right: 10px; width: 14px; }
 #submenu { padding: 0 0 20px 0; }
-#toolmenu { background: #4e5150; color: #fc0; font-size: 11px !important; line-height: 20px; }
+#toolmenu {color: #fc0; font-size: 11px !important; line-height: 20px; }
 #toolmenu .container { margin: 0 auto; max-width: 950px; text-align: right; }
-#toolmenu .container span { border-left: 1px solid #33332d; color: #bccbdb; cursor: pointer; margin: 0 0 0 1px; padding: 0 11px; }
-#toolmenu .container span:hover { color: #ffffff; }
+#toolmenu .container span { border-left: 1px solid #33332d; color: #333333; cursor: pointer; margin: 0 0 0 1px; padding: 0 11px; }
+#toolmenu .container span:hover { color: #000000; }
 #toolmenu .container span:last-child { border-right: 1px solid #33332d; }
 #toolmenu .container span img { padding: 0 1px; }
 #toolmenu .container span span { border: 0; padding: 0 6px; }
