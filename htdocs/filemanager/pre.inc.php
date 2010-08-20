@@ -20,10 +20,10 @@
  */
 
 /**
-		\file   	htdocs/compta/bank/pre.inc.php
+		\file   	htdocs/filemanager/pre.inc.php
 		\ingroup    compta
-		\brief  	Fichier gestionnaire du menu compta banque
-		\version	$Id: pre.inc.php,v 1.1 2010/08/18 22:10:40 eldy Exp $
+		\brief  	Fichier gestionnaire du menu filemanager
+		\version	$Id: pre.inc.php,v 1.2 2010/08/20 16:42:31 eldy Exp $
 */
 
 $res=@include("../main.inc.php");

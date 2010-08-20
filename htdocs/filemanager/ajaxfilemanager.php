@@ -22,11 +22,11 @@
  */
 
 /**
- *	\file       htdocs/filemanager/document.php
- *  \brief      Wrapper to download data files
- *  \version    $Id: ajaxfilemanager.php,v 1.1 2010/08/18 22:10:40 eldy Exp $
+ *	\file       htdocs/filemanager/ajaxfilemanager.php
+ *  \brief      Wrapper to download data files for filemanager module
+ *  \version    $Id: ajaxfilemanager.php,v 1.2 2010/08/20 16:46:53 eldy Exp $
  *  \remarks    Call of this wrapper is made with URL:
- * 				document.php?modulepart=repfichierconcerne&file=pathrelatifdufichier
+ * 				ajaxfilemanager.php?modulepart=repfichierconcerne&file=pathrelatifdufichier
  */
 
 define('NOTOKENRENEWAL',1); // Disables token renewal
