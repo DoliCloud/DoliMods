@@ -21,7 +21,7 @@
  *   	\file       dev/skeletons/skeleton_page.php
  *		\ingroup    mymodule othermodule1 othermodule2
  *		\brief      This file is an example of a php page
- *		\version    $Id: index.php,v 1.1 2010/08/18 22:10:40 eldy Exp $
+ *		\version    $Id: index.php,v 1.2 2010/08/20 16:51:58 eldy Exp $
  *		\author		Put author name here
  *		\remarks	Put here some comments
  */
@@ -205,21 +205,9 @@ jQuery(document).ready( function() {
 	<div class="pane ui-layout-west">
 <?php
 
-//print '<table width="100%"><tr><td width="360">';
-
 // Show filemanager tree
 print '<div id="filetree" class="filetree">';
 print '</div>';
-
-//print '</td><td>';
-
-//print '<div id="fileview" class="fileview">';
-
-//print $langs->trans("SelectAFile");
-
-//print '</div>';
-
-//print '</td></tr></table>';
 
 ?>
 
