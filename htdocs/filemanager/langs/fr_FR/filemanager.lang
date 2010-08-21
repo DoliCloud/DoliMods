@@ -8,4 +8,4 @@ PathForRootFileManager=Emplacement du répertoire racine sur le disque
 NoteOnFileManagerPathLocation=Tous les répertoires doivent avoir des permissions qui permettent à votre serveur Web de les lire/consulter.
 ListForRootPath=Liste des racines/raccourcies accessibles
 PleaseSelectARoot=Merci de sélectionner une racine à explorer...
-SelectAFile=Sélectionner un fichier
+SelectAFile=Sélectionner un répertoire ou fichier sur le panneau de gauche

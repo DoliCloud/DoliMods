@@ -22,22 +22,14 @@
  */
 
 /**
- *	\file       htdocs/filemanager/ajaxfilemanager.php
- *  \brief      Wrapper to download data files for filemanager module
- *  \version    $Id: ajaxfilemanager.php,v 1.2 2010/08/20 16:46:53 eldy Exp $
- *  \remarks    Call of this wrapper is made with URL:
- * 				ajaxfilemanager.php?modulepart=repfichierconcerne&file=pathrelatifdufichier
+ *	\file       htdocs/filemanager/ajaxshowconyent.php
+ *  \brief      Service to return a HTML view of a file
+ *  \version    $Id: ajaxshowcontent.php,v 1.1 2010/08/21 16:39:00 eldy Exp $
+ *  \remarks    Call of this service is made with URL:
+ *              ajaxpreview.php?action=preview&modulepart=repfichierconcerne&file=pathrelatifdufichier
  */
 
-define('NOTOKENRENEWAL',1); // Disables token renewal
-
-// Do not use urldecode here ($_GET and $_REQUEST are already decoded by PHP).
-$action = isset($_GET["action"])?$_GET["action"]:'';
-$original_file = isset($_GET["file"])?$_GET["file"]:'';
-$modulepart = isset($_GET["modulepart"])?$_GET["modulepart"]:'';
-$urlsource = isset($_GET["urlsource"])?$_GET["urlsource"]:'';
-$rootpath = isset($_GET["rootpath"])?$_GET["rootpath"]:'';
-
+if (! defined('NOTOKENRENEWAL')) define('NOTOKENRENEWAL',1); // Disables token renewal
 if (! defined('NOREQUIREMENU')) define('NOREQUIREMENU','1');
 if (! defined('NOREQUIREHTML')) define('NOREQUIREHTML','1');
 if (! defined('NOREQUIREAJAX')) define('NOREQUIREAJAX','1');
@@ -48,6 +40,13 @@ function llxHeader() { }
 if (file_exists("../main.inc.php")) require("../main.inc.php");	// Load $user and permissions
 else require("../../../dolibarr/htdocs/main.inc.php");    // Load $user and permissions
 require_once(DOL_DOCUMENT_ROOT.'/lib/files.lib.php');
+
+// Do not use urldecode here ($_GET and $_REQUEST are already decoded by PHP).
+$action = isset($_GET["action"])?$_GET["action"]:'';
+$original_file = isset($_GET["file"])?$_GET["file"]:'';
+$modulepart = isset($_GET["modulepart"])?$_GET["modulepart"]:'';
+$urlsource = isset($_GET["urlsource"])?$_GET["urlsource"]:'';
+$rootpath = isset($_GET["rootpath"])?$_GET["rootpath"]:'';
 
 // Define mime type
 $type = 'application/octet-stream';
@@ -147,7 +146,8 @@ if ($action == 'remove_file')	// Remove a file
 
 	return;
 }
-else						// Open and return file
+
+if ($action == 'view')   // Return file content
 {
 	clearstatcache();
 

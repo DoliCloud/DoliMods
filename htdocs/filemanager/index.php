@@ -1,6 +1,5 @@
 <?php
 /* Copyright (C) 2007-2010 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) ---Put here your own copyright and developer email---
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,12 +17,10 @@
  */
 
 /**
- *   	\file       dev/skeletons/skeleton_page.php
- *		\ingroup    mymodule othermodule1 othermodule2
- *		\brief      This file is an example of a php page
- *		\version    $Id: index.php,v 1.3 2010/08/21 02:00:49 eldy Exp $
- *		\author		Put author name here
- *		\remarks	Put here some comments
+ *   	\file       htdocs/filemanager/index.php
+ *		\ingroup    filemanager
+ *		\brief      This is home page of filemanager module
+ *		\version    $Id: index.php,v 1.5 2010/08/21 16:39:00 eldy Exp $
  */
 
 //if (! defined('NOREQUIREUSER'))  define('NOREQUIREUSER','1');
@@ -81,12 +78,10 @@ if ($user->societe_id > 0)
 ****************************************************/
 
 $morejs=array(
-//"/includes/jquery/jquery.min.js",
-//"/includes/jquery/jquery-ui-latest.js",
 "/includes/jquery/js/jquery.layout-latest.js",
 "/filemanager/inc/jqueryFileTree/jqueryFileTree.js",
 );
-$morecss=array("/filemanager/css/jqueryFileTree.css","/filemanager/css/jqueryLayout.css");
+$morecss=array("/filemanager/css/filemanager.css.php");
 $morehead="<style type=\"text/css\">
 html, body {
 		width:		100%;
@@ -100,7 +95,6 @@ html, body {
 		height:		700px;
 		margin:		0 auto;
 		width:		100%;
-/*		max-width:	900px; */
 		min-width:	700px;
 		_width:		700px; /* min-width for IE6 */
 	}
@@ -112,11 +106,12 @@ html, body {
 	jQuery(document).ready(function () {
 		jQuery('#containerlayout').layout({
 			resizable: true
-		, 	north__size:         30
+		, 	north__size:         42
 		,   north__resizable:   false
+		,   north__closable:  false
 		,	west__size:			300
 		,	west__minSize:		200
-		,	useStateCookie:		false
+		,	useStateCookie:		false  /* Put this to false for dev */
         ,   west__resizable:    true
 			});
 	});
@@ -132,6 +127,8 @@ html, body {
 
 
 llxHeader($morehead,'MyPageName','','','','',$morejs,$morecss,0,0);
+
+print_fiche_titre($langs->trans("FileManager"));
 
 $form=new Form($db);
 
@@ -157,27 +154,38 @@ else
 print "<br>\n";
 
 
-
 // Javascript part
 ?>
 <script type="text/javascript">
-
-function urlencode(s) {
-	return s.replace(/\+/gi,'%2B');
-}
-
 <?php
 if ($filemanagerroots->rootpath)
 {
 ?>
-jQuery(document).ready( function() {
+    var fileactive='';
 
-	function loadanshowfile(filename)
+    function loadanshowpreview(filename)
+    {
+        fileactive=filename;    /* Save current filename */
+
+        /*alert('filename='+filename);*/
+        jQuery('#fileview').empty();
+
+        url='<?php echo DOL_URL_ROOT ?>/filemanager/ajaxshowpreview.php?action=preview&rootpath=<?php echo $filemanagerroots->id ?>&modulepart=filemanager&type=auto&file='+urlencode(filename);
+        jQuery.get(url, function(data) {
+            //alert('Load of url '+url+' was performed : '+data);
+            //alert('Load of url '+url+' was performed');
+            jQuery('#fileview').append(data);
+        });
+    }
+
+    function loadanshowcontent()
 	{
-		/*alert('filename='+filename);*/
+    	filename=fileactive;   /* Get current filename */
+
+        /*alert('filename='+filename);*/
 		jQuery('#fileview').empty();
 
-		url='<?php echo DOL_URL_ROOT ?>/filemanager/ajaxfilemanager.php?action=download&rootpath=<?php echo $filemanagerroots->id ?>&modulepart=filemanager&type=auto&file='+urlencode(filename);
+		url='<?php echo DOL_URL_ROOT ?>/filemanager/ajaxshowcontent.php?action=view&rootpath=<?php echo $filemanagerroots->id ?>&modulepart=filemanager&type=auto&file='+urlencode(filename);
 		jQuery.get(url, function(data) {
   			//alert('Load of url '+url+' was performed : '+data);
   			//alert('Load of url '+url+' was performed');
@@ -185,8 +193,10 @@ jQuery(document).ready( function() {
 		});
 	}
 
-	jQuery('#filetree').fileTree({ root: '<?php echo dol_escape_js($filemanagerroots->rootpath); ?>', script: 'jqueryFileTree.php', folderEvent: 'click', multiFolder: false  }, function(file) {
-			loadanshowfile(file);
+    // Init content of tree
+    jQuery(document).ready( function() {
+        jQuery('#filetree').fileTree({ root: '<?php echo dol_escape_js($filemanagerroots->rootpath); ?>', script: 'ajaxFileTree.php', folderEvent: 'click', multiFolder: false  }, function(file) {
+			loadanshowpreview(file);
 	});
 });
 <?php
@@ -197,9 +207,13 @@ jQuery(document).ready( function() {
 
 
 <div id="containerlayout">
-    <div class="pane ui-layout-north">
-
-
+    <div class="pane ui-layout-north filetoolbar">
+<?php
+// Toolbar
+print '<div class="filetoolbarbutton">';
+print '<a href="#" onClick="loadandshowcontent()"><img width="32" height="32" src="'.DOL_URL_ROOT.'/filemanager/images/imagen_pegar.png"></a>';
+print '</div>';
+?>
     </div>
 
 	<div class="pane ui-layout-west">
@@ -210,11 +224,9 @@ print '<div id="filetree" class="filetree">';
 print '</div>';
 
 ?>
-
 	</div>
 
 	<div class="pane ui-layout-center">
-
 <?php
 print '<div id="fileview" class="fileview">';
 
@@ -222,11 +234,12 @@ if ($filemanagerroots->id) print $langs->trans("SelectAFile");
 
 print '</div>';
 ?>
-
 	</div>
+
 <!--	<div class="pane ui-layout-east"></div> -->
 
 <!--	<div class="pane ui-layout-south"></div> -->
+
 </div>
 
 
