@@ -12,3 +12,6 @@ SelectAFile=Sélectionner un répertoire ou fichier sur le panneau de gauche
 DateLastAccess=Date dernier accès
 DateLastChange=Date derniere modification
 FullPath=Chemin complet
+PreviewNotAvailableForThisType=Aperçu non disponible pour les fichiers de ce type.
+NotEnoughMemoryForSyntaxColor=Votre PHP n'a pas assez de mémoire pour activer la coloration syntaxique sur les aperçus de fichiers textes.
+YouMustSelectAFileToUseFileEditorTool=Vous devez sélectionner un fichier sur le panneau gauche pour utiliser l'outil d'édition de fichier.

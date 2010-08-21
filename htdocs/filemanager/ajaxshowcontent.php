@@ -24,7 +24,7 @@
 /**
  *	\file       htdocs/filemanager/ajaxshowconyent.php
  *  \brief      Service to return a HTML view of a file
- *  \version    $Id: ajaxshowcontent.php,v 1.1 2010/08/21 16:39:00 eldy Exp $
+ *  \version    $Id: ajaxshowcontent.php,v 1.2 2010/08/21 21:42:22 eldy Exp $
  *  \remarks    Call of this service is made with URL:
  *              ajaxpreview.php?action=preview&modulepart=repfichierconcerne&file=pathrelatifdufichier
  */
@@ -124,6 +124,12 @@ if (preg_match('/\.\./',$original_file) || preg_match('/[<>|]/',$original_file))
 }
 
 
+
+
+/*
+ * Action
+ */
+
 if ($action == 'remove_file')	// Remove a file
 {
 	clearstatcache();
@@ -149,7 +155,13 @@ if ($action == 'remove_file')	// Remove a file
 
 if ($action == 'view')   // Return file content
 {
-	clearstatcache();
+    if (dol_is_dir($original_file))
+    {
+        print $langs->trans("YouMustSelectAFileToUseFileEditorTool");
+        return;
+    }
+
+    clearstatcache();
 
 	$filename = basename($original_file);
 

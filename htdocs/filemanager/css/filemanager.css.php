@@ -49,7 +49,7 @@ $fontlist='arial,tahoma,verdana,helvetica';
     height: 34px;
     background: #FFFFFF;
     }
-	
+
 .filetree {
 /*				width: 350px; */
 				width: 99%;
@@ -59,7 +59,7 @@ $fontlist='arial,tahoma,verdana,helvetica';
 				border-left: solid 1px #BBB;
 				border-bottom: solid 1px #FFF;
 				border-right: solid 1px #FFF;
-*/				
+*/
 				background: #FFF;
 /*				overflow: scroll; */
 				padding-left: 2px;
@@ -84,12 +84,11 @@ $fontlist='arial,tahoma,verdana,helvetica';
 div.filedirelem {
     position: relative;
     display: block;
-    white-space: nowrap;
     text-decoration: none;
 }
 
 ul.filedirelem {
-    line-height: 120px;
+/*    line-height: 120px; */
     padding: 2px;
     margin: 0 5px 5px 5px;
 }
@@ -97,7 +96,7 @@ ul.filedirelem li {
     list-style: none;
     padding: 2px;
     margin: 0 10px 20px 10px;
-    width: 180px;
+    width: 160px;
     height: 120px;
     text-align: center;
     text-valign: middle;
@@ -111,11 +110,11 @@ ul.filedirelem li {
 
 
 ui-layout-north {
-	
-	
+
+
 	}
-	
-	
+
+
 UL.jqueryFileTree {
 	font-family: Verdana, sans-serif;
 	font-size: 11px;
@@ -216,12 +215,12 @@ UL.jqueryFileTree A:hover {
  *  PANES & CONTENT-DIVs
  */
 .ui-layout-pane { /* all 'panes' */
-    background: #FFF; 
+    background: #FFF;
     border:     1px solid #BBB;
     /* DO NOT add scrolling (or padding) to 'panes' that have a content-div,
        otherwise you may get double-scrollbars - on the pane AND on the content-div
     */
-    padding:    0px; 
+    padding:    0px;
     overflow:   auto;
     }
     /* (scrolling) content-div inside pane allows for fixed header(s) and/or footer(s) */
@@ -269,7 +268,7 @@ UL.jqueryFileTree A:hover {
             opacity: 1.00; /* on-hover, show the resizer-bar normally */
             filter:  alpha(opacity=100);
         }
-        /* sliding resizer - add 'outside-border' to resizer on-hover 
+        /* sliding resizer - add 'outside-border' to resizer on-hover
          * this sample illustrates how to target specific panes and states */
         .ui-layout-resizer-north-sliding-hover  { border-bottom-width:  1px; }
         .ui-layout-resizer-south-sliding-hover  { border-top-width:     1px; }

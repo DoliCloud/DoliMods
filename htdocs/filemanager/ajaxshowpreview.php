@@ -24,7 +24,7 @@
 /**
  *	\file       htdocs/filemanager/ajaxshowpreview.php
  *  \brief      Service to return a HTML preview of a file
- *  \version    $Id: ajaxshowpreview.php,v 1.2 2010/08/21 17:26:08 eldy Exp $
+ *  \version    $Id: ajaxshowpreview.php,v 1.3 2010/08/21 21:42:22 eldy Exp $
  *  \remarks    Call of this service is made with URL:
  * 				ajaxpreview.php?action=preview&modulepart=repfichierconcerne&file=pathrelatifdufichier
  */
@@ -114,6 +114,13 @@ if (preg_match('/\.\./',$original_file) || preg_match('/[<>|]/',$original_file))
 	exit;
 }
 
+// Ajout directives pour resoudre bug IE
+header('Cache-Control: Public, must-revalidate');
+header('Pragma: public');
+
+print '<!-- Ajax page called with url '.$_SERVER["PHP_SELF"].'?'.$_SERVER["QUERY_STRING"].' -->'."\n";
+
+
 
 /*
  * Action
@@ -178,13 +185,9 @@ if ($action == 'preview')   // Show preview
 		exit;
 	}
 
-    // Ajout directives pour resoudre bug IE
-    header('Cache-Control: Public, must-revalidate');
-    header('Pragma: public');
-
 	// Les drois sont ok et fichier trouve, et fichier texte, on l'envoie
     print '<b><font class="liste_titre">'.$langs->trans("Information").'</font></b><br>';
-    print '<hr><br>';
+    print '<hr>';
 
     // Dir
     if ($type == 'directory')
@@ -207,7 +210,7 @@ if ($action == 'preview')   // Show preview
         print '<b>'.$langs->trans("Content")."</b><br>\n";
         print '<hr><br>';
 
-        print '<div class="filedirelem"><ul class="filedirelem">';
+        print '<div class="filedirelem"><ul class="filedirelem">'."\n";
 
         // Return content of dir
         $dircontent=dol_dir_list($original_file,'all',0,'','','name',SORT_ASC,0);
@@ -218,11 +221,11 @@ if ($action == 'preview')   // Show preview
 
             print '<li class="filedirelem">';
             print '<img src="'.DOL_URL_ROOT.'/theme/common/mime/'.$mimeimg.'"><br>';
-            print dol_trunc($val['name'],40,'middle');
-            print '</li>';
+            print dol_nl2br(dol_trunc($val['name'],24,'wrap'),1);
+            print '</li>'."\n";
         }
 
-        print '</ul></div>';
+        print '</ul></div>'."\n";
     }
     else {
         print $langs->trans("FullPath").': '.$original_file_osencoded.'<br>';
@@ -237,36 +240,103 @@ if ($action == 'preview')   // Show preview
         print $langs->trans("DateLastChange").": ".dol_print_date($info['mtime'],'%Y-%m-%d %H:%M:%S')."<br>\n";
         //print $langs->trans("Ctime").": ".$info['ctime']."<br>\n";
 
+
+        // Flush content before preview generation
+        flush();    // This send all data to browser. Browser however may wait to have message complete or aborted before showing it.
+
+
         // File
         if (preg_match('/text/i',$type))
         {
-            print '<br><br>';
-            print '<b>'.$langs->trans("Preview")."</b><br>\n";
-            print '<hr><br>';
-
-            $maxsize=4096;
-            $maxlines=25;
-            $i=0;$more=0;
-            $handle = fopen($original_file_osencoded, "r");
-            if ($handle)
+            // Define memmax (memory_limit in bytes)
+            $memmaxorig=@ini_get("memory_limit");
+            $memmax=@ini_get("memory_limit");
+            if ($memmaxorig != '')
             {
-                while (!feof($handle) && $i < $maxlines) {
-                    $buffer = fgets($handle, $maxsize);
-                    //print dol_htmlentities($buffer,ENT_COMPAT,'UTF-8')."\n";
-                    if (preg_match('/html/i',$type)) print $buffer."\n";
-                    else print dol_htmlentities($buffer,ENT_COMPAT,'UTF-8')."<br>\n";
-                    $i++;
+                preg_match('/([0-9]+)([a-zA-Z]*)/i',$memmax,$reg);
+                if ($reg[2])
+                {
+                    if (strtoupper($reg[2]) == 'M') $memmax=$reg[1]*1024*1024;
+                    if (strtoupper($reg[2]) == 'K') $memmax=$reg[1]*1024;
                 }
-                if (!feof($handle)) $more=1;
             }
-            fclose($handle);
-            print '<br>';
 
-            if ($more)
+
+            $out='';
+            $srclang=dol_mimetype($original_file,'text/plain',3);
+
+            if (preg_match('/html/i',$type))
             {
-                print '<b>...'.$langs->trans("More").'...</b><br>'."\n";
-            }
+                print '<br><br>';
+                print '<b>'.$langs->trans("Preview")."</b><br>\n";
+                print '<hr>';
 
+                readfile($original_file_osencoded);
+                //$out=file_get_contents($original_file_osencoded);
+                //print $out;
+            }
+            else
+            {
+                $warn='';
+
+                // Check if enouch memory for Geshi
+                if ($memmax < 128*1024*1024)
+                {
+                    $warn=img_warning().' '.$langs->trans("NotEnoughMemoryForSyntaxColor");
+                    $srclang='';    // We disable geshi
+                }
+
+                if (! empty($srclang))
+                {
+                    print '<br><br>';
+                    print '<b>'.$langs->trans("Preview")."</b> (".$srclang.")<br>\n";
+                    print '<hr>';
+
+                    // Translate with Geshi
+                    include_once('inc/geshi/geshi.php');
+
+                    $res='';
+                    $out=file_get_contents($original_file_osencoded);
+                    if ($srclang=='php') $srclang='php-brief';
+                    $geshi = new GeSHi($out, $srclang);
+                    $geshi->enable_strict_mode(false);
+                    $res=$geshi->parse_code();
+
+                    print $res;
+                }
+                else
+                {
+                    print '<br><br>';
+                    print '<b>'.$langs->trans("Preview")."</b>";
+                    if ($warn) print ' '.$warn;
+                    print "<br>\n";
+                    print '<hr>';
+
+                    $maxsize=4096;
+                    $maxlines=25;
+                    $i=0;$more=0;
+                    $handle = fopen($original_file_osencoded, "r");
+                    if ($handle)
+                    {
+                        while (!feof($handle) && $i < $maxlines) {
+                            $buffer = fgets($handle, $maxsize);
+                            $out.=dol_htmlentities($buffer,ENT_COMPAT,'UTF-8')."<br>\n";
+                            $i++;
+                        }
+                        if (!feof($handle)) $more=1;
+                    }
+                    fclose($handle);
+
+                    print $out;
+
+                    print '<br>';
+
+                    if ($more)
+                    {
+                        print '<b>...'.$langs->trans("More").'...</b><br>'."\n";
+                    }
+                }
+            }
     	}
     	else if (preg_match('/image/i',$type))
     	{
@@ -278,7 +348,11 @@ if ($action == 'preview')   // Show preview
     	}
     	else
     	{
-            // Nothing is done
+            print '<br><br>';
+            print '<b>'.$langs->trans("Preview")."</b><br>\n";
+            print '<hr>';
+
+            print $langs->trans("PreviewNotAvailableForThisType");
     	}
     }
 

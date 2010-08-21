@@ -20,7 +20,7 @@
  *   	\file       htdocs/filemanager/index.php
  *		\ingroup    filemanager
  *		\brief      This is home page of filemanager module
- *		\version    $Id: index.php,v 1.6 2010/08/21 17:26:08 eldy Exp $
+ *		\version    $Id: index.php,v 1.7 2010/08/21 21:42:22 eldy Exp $
  */
 
 //if (! defined('NOREQUIREUSER'))  define('NOREQUIREUSER','1');
@@ -92,7 +92,7 @@ html, body {
 	}
 	#containerlayout {
 		background:	#999;
-		height:		700px;
+		height:		660px;
 		margin:		0 auto;
 		width:		100%;
 		min-width:	700px;
@@ -106,13 +106,15 @@ html, body {
 	jQuery(document).ready(function () {
 		jQuery('#containerlayout').layout({
 			resizable: true
-		, 	north__size:         42
+		, 	north__size:        42
 		,   north__resizable:   false
-		,   north__closable:  false
-		,	west__size:			300
+		,   north__closable:    false
+		,	west__size:			280
 		,	west__minSize:		200
-		,	useStateCookie:		false  /* Put this to false for dev */
+		,   west__slidable:     true
         ,   west__resizable:    true
+        ,   west__togglerLength_closed: '100%'
+		,	useStateCookie:		false  /* Put this to false for dev */
 			});
 	});
 </SCRIPT>";
@@ -126,7 +128,7 @@ html, body {
 //		,	slidable:				true	// when closed, pane can 'slide' open over other panes - closes on mouse-out
 
 
-llxHeader($morehead,'MyPageName','','','','',$morejs,$morecss,0,0);
+llxHeader($morehead,$langs->trans("FileManager"),'','','','',$morejs,$morecss,0,0);
 
 print_fiche_titre($langs->trans("FileManager"));
 
