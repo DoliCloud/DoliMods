@@ -24,7 +24,7 @@
 /**
  *	\file       htdocs/filemanager/ajaxshowconyent.php
  *  \brief      Service to return a HTML view of a file
- *  \version    $Id: ajaxshowcontent.php,v 1.2 2010/08/21 21:42:22 eldy Exp $
+ *  \version    $Id: ajaxshowcontent.php,v 1.3 2010/08/21 21:53:54 eldy Exp $
  *  \remarks    Call of this service is made with URL:
  *              ajaxpreview.php?action=preview&modulepart=repfichierconcerne&file=pathrelatifdufichier
  */
@@ -123,6 +123,11 @@ if (preg_match('/\.\./',$original_file) || preg_match('/[<>|]/',$original_file))
 	exit;
 }
 
+// Check permissions
+if (! $user->rights->filemanager->read)
+{
+    accessforbidden();
+}
 
 
 
@@ -155,6 +160,13 @@ if ($action == 'remove_file')	// Remove a file
 
 if ($action == 'view')   // Return file content
 {
+    // Ajout directives pour resoudre bug IE
+    header('Cache-Control: Public, must-revalidate');
+    header('Pragma: public');
+
+    print '<!-- Ajax page called with url '.$_SERVER["PHP_SELF"].'?'.$_SERVER["QUERY_STRING"].' -->'."\n";
+
+
     if (dol_is_dir($original_file))
     {
         print $langs->trans("YouMustSelectAFileToUseFileEditorTool");

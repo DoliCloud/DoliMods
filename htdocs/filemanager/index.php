@@ -20,7 +20,7 @@
  *   	\file       htdocs/filemanager/index.php
  *		\ingroup    filemanager
  *		\brief      This is home page of filemanager module
- *		\version    $Id: index.php,v 1.7 2010/08/21 21:42:22 eldy Exp $
+ *		\version    $Id: index.php,v 1.8 2010/08/21 21:53:54 eldy Exp $
  */
 
 //if (! defined('NOREQUIREUSER'))  define('NOREQUIREUSER','1');
@@ -50,10 +50,10 @@ $langs->load("other");
 // Get parameters
 $myparam = isset($_GET["myparam"])?$_GET["myparam"]:'';
 
-// Protection if external user
-if ($user->societe_id > 0)
+// Check permissions
+if (! $user->rights->filemanager->read)
 {
-	//accessforbidden();
+    accessforbidden();
 }
 
 

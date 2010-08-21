@@ -24,7 +24,7 @@
 /**
  *	\file       htdocs/filemanager/ajaxshowpreview.php
  *  \brief      Service to return a HTML preview of a file
- *  \version    $Id: ajaxshowpreview.php,v 1.3 2010/08/21 21:42:22 eldy Exp $
+ *  \version    $Id: ajaxshowpreview.php,v 1.4 2010/08/21 21:53:54 eldy Exp $
  *  \remarks    Call of this service is made with URL:
  * 				ajaxpreview.php?action=preview&modulepart=repfichierconcerne&file=pathrelatifdufichier
  */
@@ -114,11 +114,13 @@ if (preg_match('/\.\./',$original_file) || preg_match('/[<>|]/',$original_file))
 	exit;
 }
 
-// Ajout directives pour resoudre bug IE
-header('Cache-Control: Public, must-revalidate');
-header('Pragma: public');
+// Check permissions
+if (! $user->rights->filemanager->read)
+{
+    accessforbidden();
+}
 
-print '<!-- Ajax page called with url '.$_SERVER["PHP_SELF"].'?'.$_SERVER["QUERY_STRING"].' -->'."\n";
+
 
 
 
@@ -154,6 +156,13 @@ if ($action == 'remove_file')   // Remove a file
 /*
  * View
  */
+
+// Ajout directives pour resoudre bug IE
+header('Cache-Control: Public, must-revalidate');
+header('Pragma: public');
+
+print '<!-- Ajax page called with url '.$_SERVER["PHP_SELF"].'?'.$_SERVER["QUERY_STRING"].' -->'."\n";
+
 
 if ($action == 'preview')   // Show preview
 {
@@ -220,6 +229,7 @@ if ($action == 'preview')   // Show preview
             else $mimeimg=dol_mimetype($val['name'],'application/octet-stream',2);
 
             print '<li class="filedirelem">';
+            print '<br><br>';
             print '<img src="'.DOL_URL_ROOT.'/theme/common/mime/'.$mimeimg.'"><br>';
             print dol_nl2br(dol_trunc($val['name'],24,'wrap'),1);
             print '</li>'."\n";

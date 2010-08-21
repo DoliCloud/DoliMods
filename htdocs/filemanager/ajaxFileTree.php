@@ -20,7 +20,7 @@
  *      \file       htdocs/filemanager/ajaxFileTree.php
  *      \ingroup    filemanager
  *      \brief      This script returns content of a directory for filetree
- *      \version    $Id: ajaxFileTree.php,v 1.2 2010/08/21 17:26:08 eldy Exp $
+ *      \version    $Id: ajaxFileTree.php,v 1.3 2010/08/21 21:53:54 eldy Exp $
  */
 
 
@@ -43,6 +43,28 @@ require_once(DOL_DOCUMENT_ROOT.'/lib/files.lib.php');
 // Do not use urldecode here ($_GET and $_REQUEST are already decoded by PHP).
 $selecteddir = urldecode($_POST['dir']);
 
+// Security:
+// On interdit les remontees de repertoire ainsi que les pipe dans
+// les noms de fichiers.
+if (preg_match('/\.\./',$original_file) || preg_match('/[<>|]/',$original_file))
+{
+    dol_syslog("Refused to deliver file ".$original_file);
+    // Do no show plain path in shown error message
+    dol_print_error(0,$langs->trans("ErrorFileNameInvalid",$_GET["file"]));
+    exit;
+}
+
+// Check permissions
+if (! $user->rights->filemanager->read)
+{
+    accessforbidden();
+}
+
+
+
+/*
+ * View
+ */
 
 if( file_exists($selecteddir) ) {
 	$files = scandir($selecteddir);

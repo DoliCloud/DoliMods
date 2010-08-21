@@ -24,7 +24,7 @@
 /**
  *		\defgroup   FileManager     Module FileManager
  *      \brief      Module pour gerer l'FileManager et actions
- *		\brief		$Id: modFileManager.class.php,v 1.1 2010/08/20 20:53:15 eldy Exp $
+ *		\brief		$Id: modFileManager.class.php,v 1.2 2010/08/21 21:54:10 eldy Exp $
  */
 
 /**
@@ -71,7 +71,7 @@ class modFileManager extends DolibarrModules
 		//-------------
 		$this->depends = array();
 		$this->requiredby = array();
-		$this->langfiles = array("companies");
+		$this->langfiles = array("companies","filemanager@filemanager");
 
 		// Constantes
 		//-----------
