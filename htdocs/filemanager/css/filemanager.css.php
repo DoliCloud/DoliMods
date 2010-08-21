@@ -77,6 +77,7 @@ $fontlist='arial,tahoma,verdana,helvetica';
 				background: #FFF;
 /*				overflow: scroll; */
 				padding-left: 2px;
+				padding-top: 4px;
 				font-weight: normal;
 			}
 
@@ -90,12 +91,12 @@ div.filedirelem {
 ul.filedirelem {
     line-height: 120px;
     padding: 2px;
-    margin: 5px;
+    margin: 0 5px 5px 5px;
 }
 ul.filedirelem li {
     list-style: none;
     padding: 2px;
-    margin: 10px;
+    margin: 0 10px 20px 10px;
     width: 180px;
     height: 120px;
     text-align: center;

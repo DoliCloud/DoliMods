@@ -20,7 +20,7 @@
  *      \file       htdocs/filemanager/ajaxFileTree.php
  *      \ingroup    filemanager
  *      \brief      This script returns content of a directory for filetree
- *      \version    $Id: ajaxFileTree.php,v 1.1 2010/08/21 16:39:00 eldy Exp $
+ *      \version    $Id: ajaxFileTree.php,v 1.2 2010/08/21 17:26:08 eldy Exp $
  */
 
 
@@ -53,7 +53,7 @@ if( file_exists($selecteddir) ) {
 		foreach( $files as $file ) {
 			if( file_exists($selecteddir . $file) && $file != '.' && $file != '..' && is_dir($selecteddir . $file) ) {
 				print "<li class=\"directory collapsed\"><a href=\"#\" rel=\"" . htmlentities($selecteddir . $file) . "/\"";
-				print " onClick=\"loadanshowpreview('".dol_escape_js($selecteddir . $file)."')\"";
+				print " onClick=\"loadandshowpreview('".dol_escape_js($selecteddir . $file)."')\"";
 				print ">" . htmlentities($file) . "</a></li>";
 			}
 		}
@@ -68,9 +68,9 @@ if( file_exists($selecteddir) ) {
 	}
 }
 
-// This ajax service is called only when a directory $selecteddir is opened.
-print '<script language="javascript">';
-//print "loadanshowpreview('".dol_escape_js($selecteddir)."');";
-print '</script>';
+// This ajax service is called only when a directory $selecteddir is opened but not closed.
+//print '<script language="javascript">';
+//print "loadandshowpreview('".dol_escape_js($selecteddir)."');";
+//print '</script>';
 
 ?>

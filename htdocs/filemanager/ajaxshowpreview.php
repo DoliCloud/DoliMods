@@ -24,7 +24,7 @@
 /**
  *	\file       htdocs/filemanager/ajaxshowpreview.php
  *  \brief      Service to return a HTML preview of a file
- *  \version    $Id: ajaxshowpreview.php,v 1.1 2010/08/21 16:39:00 eldy Exp $
+ *  \version    $Id: ajaxshowpreview.php,v 1.2 2010/08/21 17:26:08 eldy Exp $
  *  \remarks    Call of this service is made with URL:
  * 				ajaxpreview.php?action=preview&modulepart=repfichierconcerne&file=pathrelatifdufichier
  */
@@ -48,6 +48,7 @@ $modulepart = isset($_GET["modulepart"])?$_GET["modulepart"]:'';
 $urlsource = isset($_GET["urlsource"])?$_GET["urlsource"]:'';
 $rootpath = isset($_GET["rootpath"])?$_GET["rootpath"]:'';
 
+$langs->load("filemanager@filemanager");
 
 // Suppression de la chaine de caractere ../ dans $original_file
 $original_file = str_replace("../","/", $original_file);
@@ -182,14 +183,29 @@ if ($action == 'preview')   // Show preview
     header('Pragma: public');
 
 	// Les drois sont ok et fichier trouve, et fichier texte, on l'envoie
-    print '<b><font class="liste_titre">'.$langs->trans("Preview").'</font></b><br><br>';
-
-    print $langs->trans("Mime").': '.$type.'<br>';
+    print '<b><font class="liste_titre">'.$langs->trans("Information").'</font></b><br>';
+    print '<hr><br>';
 
     // Dir
     if ($type == 'directory')
     {
-        print '<br><hr><br>';
+
+        print $langs->trans("FullPath").': '.$original_file_osencoded.'<br>';
+        //print $langs->trans("Mime-type").': '.$type.'<br>';
+
+        $info=stat($original_file_osencoded);
+        //print '<br>'."\n";
+        //print $langs->trans("Owner").": ".$info['udi']."<br>\n";
+        //print $langs->trans("Group").": ".$info['gdi']."<br>\n";
+        //print $langs->trans("Size").": ".dol_print_size($info['size'])."<br>\n";
+        print $langs->trans("DateLastAccess").": ".dol_print_date($info['atime'],'%Y-%m-%d %H:%M:%S')."<br>\n";
+        print $langs->trans("DateLastChange").": ".dol_print_date($info['mtime'],'%Y-%m-%d %H:%M:%S')."<br>\n";
+        //print $langs->trans("Ctime").": ".$info['ctime']."<br>\n";
+
+
+        print '<br><br>';
+        print '<b>'.$langs->trans("Content")."</b><br>\n";
+        print '<hr><br>';
 
         print '<div class="filedirelem"><ul class="filedirelem">';
 
@@ -202,13 +218,16 @@ if ($action == 'preview')   // Show preview
 
             print '<li class="filedirelem">';
             print '<img src="'.DOL_URL_ROOT.'/theme/common/mime/'.$mimeimg.'"><br>';
-            print $val['name'];
+            print dol_trunc($val['name'],40,'middle');
             print '</li>';
         }
 
         print '</ul></div>';
     }
     else {
+        print $langs->trans("FullPath").': '.$original_file_osencoded.'<br>';
+        print $langs->trans("Mime-type").': '.$type.'<br>';
+
         $info=stat($original_file_osencoded);
         //print '<br>'."\n";
         //print $langs->trans("Owner").": ".$info['udi']."<br>\n";
@@ -218,25 +237,48 @@ if ($action == 'preview')   // Show preview
         print $langs->trans("DateLastChange").": ".dol_print_date($info['mtime'],'%Y-%m-%d %H:%M:%S')."<br>\n";
         //print $langs->trans("Ctime").": ".$info['ctime']."<br>\n";
 
-        print '<br><hr><br>';
-
         // File
         if (preg_match('/text/i',$type))
         {
-            print '<center><img src="'.DOL_URL_ROOT.'/filemanager/images/imagen_archivo.png"></center>';
+            print '<br><br>';
+            print '<b>'.$langs->trans("Preview")."</b><br>\n";
+            print '<hr><br>';
+
+            $maxsize=4096;
+            $maxlines=25;
+            $i=0;$more=0;
+            $handle = fopen($original_file_osencoded, "r");
+            if ($handle)
+            {
+                while (!feof($handle) && $i < $maxlines) {
+                    $buffer = fgets($handle, $maxsize);
+                    //print dol_htmlentities($buffer,ENT_COMPAT,'UTF-8')."\n";
+                    if (preg_match('/html/i',$type)) print $buffer."\n";
+                    else print dol_htmlentities($buffer,ENT_COMPAT,'UTF-8')."<br>\n";
+                    $i++;
+                }
+                if (!feof($handle)) $more=1;
+            }
+            fclose($handle);
+            print '<br>';
+
+            if ($more)
+            {
+                print '<b>...'.$langs->trans("More").'...</b><br>'."\n";
+            }
 
     	}
     	else if (preg_match('/image/i',$type))
     	{
-            print '<center><img src="'.DOL_URL_ROOT.'/filemanager/images/imagen_archivo.png"></center>';
+            print '<br><br>';
+            print '<b>'.$langs->trans("Preview")."</b><br>\n";
+            print '<hr><br>';
 
-
+    	    print '<center><img src="'.DOL_URL_ROOT.'/filemanager/viewimage.php?modulepart=filemanager&file='.urlencode($original_file).'"></center>';
     	}
     	else
     	{
-            print '<center><img src="'.DOL_URL_ROOT.'/filemanager/images/imagen_archivo.png"></center>';
-
-
+            // Nothing is done
     	}
     }
 

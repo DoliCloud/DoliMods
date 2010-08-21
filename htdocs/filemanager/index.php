@@ -20,7 +20,7 @@
  *   	\file       htdocs/filemanager/index.php
  *		\ingroup    filemanager
  *		\brief      This is home page of filemanager module
- *		\version    $Id: index.php,v 1.5 2010/08/21 16:39:00 eldy Exp $
+ *		\version    $Id: index.php,v 1.6 2010/08/21 17:26:08 eldy Exp $
  */
 
 //if (! defined('NOREQUIREUSER'))  define('NOREQUIREUSER','1');
@@ -163,7 +163,7 @@ if ($filemanagerroots->rootpath)
 ?>
     var fileactive='';
 
-    function loadanshowpreview(filename)
+    function loadandshowpreview(filename)
     {
         fileactive=filename;    /* Save current filename */
 
@@ -178,7 +178,7 @@ if ($filemanagerroots->rootpath)
         });
     }
 
-    function loadanshowcontent()
+    function loadandshowcontent()
 	{
     	filename=fileactive;   /* Get current filename */
 
@@ -196,7 +196,7 @@ if ($filemanagerroots->rootpath)
     // Init content of tree
     jQuery(document).ready( function() {
         jQuery('#filetree').fileTree({ root: '<?php echo dol_escape_js($filemanagerroots->rootpath); ?>', script: 'ajaxFileTree.php', folderEvent: 'click', multiFolder: false  }, function(file) {
-			loadanshowpreview(file);
+			loadandshowpreview(file);
 	});
 });
 <?php
