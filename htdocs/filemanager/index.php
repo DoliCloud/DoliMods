@@ -21,7 +21,7 @@
  *   	\file       dev/skeletons/skeleton_page.php
  *		\ingroup    mymodule othermodule1 othermodule2
  *		\brief      This file is an example of a php page
- *		\version    $Id: index.php,v 1.2 2010/08/20 16:51:58 eldy Exp $
+ *		\version    $Id: index.php,v 1.4 2010/08/21 02:02:28 eldy Exp $
  *		\author		Put author name here
  *		\remarks	Put here some comments
  */
@@ -81,8 +81,8 @@ if ($user->societe_id > 0)
 ****************************************************/
 
 $morejs=array(
-"/includes/jquery/jquery.min.js",
-"/includes/jquery/jquery-ui-latest.js",
+//"/includes/jquery/jquery.min.js",
+//"/includes/jquery/jquery-ui-latest.js",
 "/includes/jquery/js/jquery.layout-latest.js",
 "/filemanager/inc/jqueryFileTree/jqueryFileTree.js",
 );
@@ -210,11 +210,9 @@ print '<div id="filetree" class="filetree">';
 print '</div>';
 
 ?>
-
 	</div>
 
 	<div class="pane ui-layout-center">
-
 <?php
 print '<div id="fileview" class="fileview">';
 
@@ -222,11 +220,12 @@ if ($filemanagerroots->id) print $langs->trans("SelectAFile");
 
 print '</div>';
 ?>
-
 	</div>
+
 <!--	<div class="pane ui-layout-east"></div> -->
 
 <!--	<div class="pane ui-layout-south"></div> -->
+
 </div>
 
 

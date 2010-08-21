@@ -2,10 +2,10 @@
 CHARSET=UTF-8
 FileManager=Gestionnaire fichier
 FileManagerSetup=Configuration module FileManager
-LabelForRootFileManager=LibellÈ de racine/raccourci accessible
-RootFileManager=Racine/raccourci accessible
-PathForRootFileManager=Emplacement du rÈpertoire racine sur le disque
-NoteOnFileManagerPathLocation=Tous les rÈpertoires doivent avoir des permissions qui permettent ‡ votre serveur Web de les lire/consulter.
+LabelForRootFileManager=Libell√© de racine/raccourci accessible
+RootFileManager=Racine/raccourci explor√©
+PathForRootFileManager=Emplacement du r√©pertoire racine sur le disque
+NoteOnFileManagerPathLocation=Tous les r√©pertoires doivent avoir des permissions qui permettent √† votre serveur Web de les lire/consulter.
 ListForRootPath=Liste des racines/raccourcies accessibles
-PleaseSelectARoot=Merci de sÈlectionner une racine ‡ explorer...
-SelectAFile=SÈlectionner un fichier
+PleaseSelectARoot=Merci de s√©lectionner une racine √† explorer...
+SelectAFile=S√©lectionner un fichier

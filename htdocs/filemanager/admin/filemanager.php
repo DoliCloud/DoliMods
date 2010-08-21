@@ -20,12 +20,14 @@
  *	\file       htdocs/filemanage/admin/filemanager.php
  *	\ingroup    filemanager
  *	\brief      Setup page for filemanager module
- *	\version    $Id: filemanager.php,v 1.1 2010/08/18 22:10:40 eldy Exp $
+ *	\version    $Id: filemanager.php,v 1.2 2010/08/21 02:00:04 eldy Exp $
  */
 
-if (file_exists("../../main.inc.php")) require("../../main.inc.php");
+if (file_exists("../../../../dolibarr/htdocs/main.inc.php")) require("../../../../dolibarr/htdocs/main.inc.php");
+else require("../../main.inc.php");
 require_once(DOL_DOCUMENT_ROOT."/lib/admin.lib.php");
-require_once(DOL_DOCUMENT_ROOT."/filemanager/class/filemanagerroots.class.php");
+if (file_exists("../class/filemanagerroots.class.php")) require_once("../class/filemanagerroots.class.php");
+else require_once(DOL_DOCUMENT_ROOT."/filemanager/class/filemanagerroots.class.php");
 
 // Security check
 if (!$user->admin)
@@ -76,7 +78,7 @@ if ($_POST["action"] == 'set')
 		$mesg='<div class="error">'.$langs->trans("ErrorDirNotFound",$_POST["FILEMANAGER_ROOT_PATH"]).'</div>';
 		$error++;
 	}
-	
+
 	if (! $error)
 	{
 		$filemanagerroots=new FilemanagerRoots($db);
@@ -125,11 +127,11 @@ print '<td>'.$langs->trans("Example").'</td>';
 print "</tr>\n";
 
 $var=!$var;
-print '<tr '.$bc[$var].'><td width=\"50%\">'.$langs->trans("LabelForRootFileManager").'</td>';
+print '<tr '.$bc[$var].'><td width="50%">'.$langs->trans("LabelForRootFileManager").'</td>';
 print '<td>';
 print '<input size="12" type="text" name="FILEMANAGER_ROOT_LABEL" value="'.$_POST["FILEMANAGER_ROOT_LABEL"].'">';
 print '</td><td>MyRoot</td></tr>';
-print '<tr '.$bc[$var].'><td width=\"50%\">'.$langs->trans("PathForRootFileManager").'</td>';
+print '<tr '.$bc[$var].'><td width="50%">'.$langs->trans("PathForRootFileManager").'</td>';
 print '<td>';
 print '<input size="50" type="text" name="FILEMANAGER_ROOT_PATH" value="'.$_POST["FILEMANAGER_ROOT_PATH"].'">';
 print '</td><td>/home/mydir, c:/</td></tr>';
@@ -187,5 +189,5 @@ else
 }
 
 
-llxFooter('$Date: 2010/08/18 22:10:40 $ - $Revision: 1.1 $');
+llxFooter('$Date: 2010/08/21 02:00:04 $ - $Revision: 1.2 $');
 ?>
