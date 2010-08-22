@@ -24,7 +24,7 @@
 /**
  *	\file       htdocs/filemanager/ajaxshowpreview.php
  *  \brief      Service to return a HTML preview of a file
- *  \version    $Id: ajaxshowpreview.php,v 1.4 2010/08/21 21:53:54 eldy Exp $
+ *  \version    $Id: ajaxshowpreview.php,v 1.5 2010/08/22 12:44:17 eldy Exp $
  *  \remarks    Call of this service is made with URL:
  * 				ajaxpreview.php?action=preview&modulepart=repfichierconcerne&file=pathrelatifdufichier
  */
@@ -290,7 +290,8 @@ if ($action == 'preview')   // Show preview
                 $warn='';
 
                 // Check if enouch memory for Geshi
-                if ($memmax < 128*1024*1024)
+                $minmem=64;
+                if ($memmax < $minmem*1024*1024)
                 {
                     $warn=img_warning().' '.$langs->trans("NotEnoughMemoryForSyntaxColor");
                     $srclang='';    // We disable geshi
