@@ -1,10 +1,5 @@
 <?php
-/* Copyright (C) 2003,2005 Rodolphe Quiedeville <rodolphe@quiedeville.org>
- * Copyright (C) 2003      Jean-Louis Bergamo   <jlb@j1b.org>
- * Copyright (C) 2004-2010 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2004      Sebastien Di Cintio  <sdicintio@ressource-toi.org>
- * Copyright (C) 2004      Benoit Mortier       <benoit.mortier@opensides.be>
- * Copyright (C) 2009      Regis Houssin        <regis@dolibarr.fr>
+/* Copyright (C) 2010 Laurent Destailleur  <eldy@users.sourceforge.net>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,8 +18,8 @@
 
 /**
  *		\defgroup   FileManager     Module FileManager
- *      \brief      Module pour gerer l'FileManager et actions
- *		\brief		$Id: modFileManager.class.php,v 1.2 2010/08/21 21:54:10 eldy Exp $
+ *      \brief      Module to get a file browser and manager into Dolibarr
+ *		\brief		$Id: modFileManager.class.php,v 1.3 2010/08/24 21:32:20 eldy Exp $
  */
 
 /**
@@ -54,7 +49,7 @@ class modFileManager extends DolibarrModules
 		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'numero' of module)
 		$this->name = preg_replace('/^mod/i','',get_class($this));
 		$this->description = "A file manager";
-		$this->version = 'dolibarr';                        // 'experimental' or 'dolibarr' or version
+		$this->version = '1.0';                        // 'experimental' or 'dolibarr' or version
 		// Key used in llx_const table to save module status enabled/disabled (where MYMODULE is value of property name of module in uppercase)
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
 		$this->special = 0;
