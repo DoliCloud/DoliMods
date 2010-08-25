@@ -19,7 +19,7 @@
 /**
  *		\defgroup   FileManager     Module FileManager
  *      \brief      Module to get a file browser and manager into Dolibarr
- *		\brief		$Id: modFileManager.class.php,v 1.3 2010/08/24 21:32:20 eldy Exp $
+ *		\brief		$Id: modFileManager.class.php,v 1.4 2010/08/25 23:26:40 eldy Exp $
  */
 
 /**
@@ -57,6 +57,9 @@ class modFileManager extends DolibarrModules
 
 		// Data directories to create when module is enabled
 		$this->dirs = array("/filemanager/temp");
+
+		// Relative path to module style sheet if exists. Example: '/mymodule/css/mycss.css'.
+		$this->style_sheet = '/filemanager/filemanager.css.php';
 
 		// Config pages
 		//-------------

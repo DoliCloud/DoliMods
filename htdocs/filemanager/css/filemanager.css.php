@@ -37,6 +37,14 @@ $fontlist='arial,tahoma,verdana,helvetica';
 
 ?>
 
+
+/* For themes that use menu images */
+div.mainmenu.filemanager {
+	background-image: url(<?php echo DOL_URL_ROOT.'/theme/eldy/img/menus/globe.png' ?>);
+}
+
+
+
 .filetoolbar {
     background-image: url(<?php echo DOL_URL_ROOT ?>/theme/<?php echo $conf->theme ?>/img/liste_titre.png) !important;
     background-repeat: repeat-x !important;
