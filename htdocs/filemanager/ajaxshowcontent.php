@@ -24,7 +24,7 @@
 /**
  *	\file       htdocs/filemanager/ajaxshowconyent.php
  *  \brief      Service to return a HTML view of a file
- *  \version    $Id: ajaxshowcontent.php,v 1.3 2010/08/21 21:53:54 eldy Exp $
+ *  \version    $Id: ajaxshowcontent.php,v 1.4 2010/08/26 01:20:32 eldy Exp $
  *  \remarks    Call of this service is made with URL:
  *              ajaxpreview.php?action=preview&modulepart=repfichierconcerne&file=pathrelatifdufichier
  */
@@ -139,7 +139,7 @@ if ($action == 'remove_file')	// Remove a file
 {
 	clearstatcache();
 
-	dol_syslog("document.php remove $original_file $urlsource", LOG_DEBUG);
+	dol_syslog(__FILE__." remove $original_file $urlsource", LOG_DEBUG);
 
 	// This test should be useless. We keep it to find bug more easily
 	$original_file_osencoded=dol_osencode($original_file);	// New file name encoded in OS encoding charset
@@ -151,19 +151,26 @@ if ($action == 'remove_file')	// Remove a file
 
 	dol_delete_file($original_file);
 
-	dol_syslog("document.php back to ".urldecode($urlsource), LOG_DEBUG);
+	dol_syslog(__FILE__." back to ".urldecode($urlsource), LOG_DEBUG);
 
 	header("Location: ".urldecode($urlsource));
 
 	return;
 }
 
+
+
+/*
+ * View
+ */
+
+// Ajout directives pour resoudre bug IE
+header('Cache-Control: Public, must-revalidate');
+header('Pragma: public');
+
+
 if ($action == 'view')   // Return file content
 {
-    // Ajout directives pour resoudre bug IE
-    header('Cache-Control: Public, must-revalidate');
-    header('Pragma: public');
-
     print '<!-- Ajax page called with url '.$_SERVER["PHP_SELF"].'?'.$_SERVER["QUERY_STRING"].' -->'."\n";
 
 
@@ -178,7 +185,7 @@ if ($action == 'view')   // Return file content
 	$filename = basename($original_file);
 
 	// Output file on browser
-	dol_syslog("document.php download $original_file $filename content-type=$type");
+	dol_syslog(__FILE__." download $original_file $filename content-type=$type");
 	$original_file_osencoded=dol_osencode($original_file);	// New file name encoded in OS encoding charset
 
 	// This test if file exists should be useless. We keep it to find bug more easily
@@ -192,15 +199,6 @@ if ($action == 'view')   // Return file content
 
 	if (preg_match('/text/i',$type))
 	{
-		if ($encoding)   header('Content-Encoding: '.$encoding);
-		if ($type)       header('Content-Type: '.$type);
-		if ($attachment) header('Content-Disposition: attachment; filename="'.$filename.'"');
-		else header('Content-Disposition: inline; filename="'.$filename.'"');
-
-		// Ajout directives pour resoudre bug IE
-		header('Cache-Control: Public, must-revalidate');
-		header('Pragma: public');
-
 		$maxsize=50000;
 
         $handle = fopen($original_file_osencoded, "r");

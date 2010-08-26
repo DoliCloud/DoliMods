@@ -24,7 +24,7 @@
 /**
  *	\file       htdocs/filemanager/ajaxshowpreview.php
  *  \brief      Service to return a HTML preview of a file
- *  \version    $Id: ajaxshowpreview.php,v 1.5 2010/08/22 12:44:17 eldy Exp $
+ *  \version    $Id: ajaxshowpreview.php,v 1.6 2010/08/26 01:20:32 eldy Exp $
  *  \remarks    Call of this service is made with URL:
  * 				ajaxpreview.php?action=preview&modulepart=repfichierconcerne&file=pathrelatifdufichier
  */
@@ -60,47 +60,47 @@ $accessallowed=0;
 $sqlprotectagainstexternals='';
 if ($modulepart)
 {
-	// On fait une verification des droits et on definit le repertoire concerne
+    // On fait une verification des droits et on definit le repertoire concerne
 
-	// Wrapping for filemanager
-	if ($modulepart == 'filemanager')
-	{
-		$accessallowed=1;
-		// TODO Test on $rootpath
-		//$original_file=$conf->societe->dir_output.'/'.$original_file;
-		//$sqlprotectagainstexternals = "SELECT rowid as fk_soc FROM ".MAIN_DB_PREFIX."societe WHERE rowid='".$refname."' AND entity=".$conf->entity;
-	}
+    // Wrapping for filemanager
+    if ($modulepart == 'filemanager')
+    {
+        $accessallowed=1;
+        // TODO Test on $rootpath
+        //$original_file=$conf->societe->dir_output.'/'.$original_file;
+        //$sqlprotectagainstexternals = "SELECT rowid as fk_soc FROM ".MAIN_DB_PREFIX."societe WHERE rowid='".$refname."' AND entity=".$conf->entity;
+    }
 }
 
 // Basic protection (against external users only)
 if ($user->societe_id > 0)
 {
-	if ($sqlprotectagainstexternals)
-	{
-		$resql = $db->query($sqlprotectagainstexternals);
-		if ($resql)
-		{
-			$num=$db->num_rows($resql);
-			$i=0;
-			while ($i < $num)
-			{
-				$obj = $db->fetch_object($resql);
-				if ($user->societe_id != $obj->fk_soc)
-				{
-					$accessallowed=0;
-					break;
-				}
-				$i++;
-			}
-		}
-	}
+    if ($sqlprotectagainstexternals)
+    {
+        $resql = $db->query($sqlprotectagainstexternals);
+        if ($resql)
+        {
+            $num=$db->num_rows($resql);
+            $i=0;
+            while ($i < $num)
+            {
+                $obj = $db->fetch_object($resql);
+                if ($user->societe_id != $obj->fk_soc)
+                {
+                    $accessallowed=0;
+                    break;
+                }
+                $i++;
+            }
+        }
+    }
 }
 
 // Security:
 // Limite acces si droits non corrects
 if (! $accessallowed)
 {
-	accessforbidden();
+    accessforbidden();
 }
 
 // Security:
@@ -108,10 +108,10 @@ if (! $accessallowed)
 // les noms de fichiers.
 if (preg_match('/\.\./',$original_file) || preg_match('/[<>|]/',$original_file))
 {
-	dol_syslog("Refused to deliver file ".$original_file);
-	// Do no show plain path in shown error message
-	dol_print_error(0,$langs->trans("ErrorFileNameInvalid",$_GET["file"]));
-	exit;
+    dol_syslog(__FILE__." Refused to deliver file ".$original_file);
+    // Do no show plain path in shown error message
+    dol_print_error(0,$langs->trans("ErrorFileNameInvalid",$_GET["file"]));
+    exit;
 }
 
 // Check permissions
@@ -132,23 +132,23 @@ if ($action == 'remove_file')   // Remove a file
 {
     clearstatcache();
 
-	dol_syslog("document.php remove $original_file $urlsource", LOG_DEBUG);
+    dol_syslog(__FILE__." remove $original_file $urlsource", LOG_DEBUG);
 
-	// This test should be useless. We keep it to find bug more easily
-	$original_file_osencoded=dol_osencode($original_file);	// New file name encoded in OS encoding charset
-	if (! file_exists($original_file_osencoded))
-	{
-		dol_print_error(0,$langs->trans("ErrorFileDoesNotExists",$_GET["file"]));
-		exit;
-	}
+    // This test should be useless. We keep it to find bug more easily
+    $original_file_osencoded=dol_osencode($original_file);	// New file name encoded in OS encoding charset
+    if (! file_exists($original_file_osencoded))
+    {
+        dol_print_error(0,$langs->trans("ErrorFileDoesNotExists",$_GET["file"]));
+        exit;
+    }
 
-	dol_delete_file($original_file);
+    dol_delete_file($original_file);
 
-	dol_syslog("document.php back to ".urldecode($urlsource), LOG_DEBUG);
+    dol_syslog(__FILE__." back to ".urldecode($urlsource), LOG_DEBUG);
 
-	header("Location: ".urldecode($urlsource));
+    header("Location: ".urldecode($urlsource));
 
-	return;
+    return;
 }
 
 
@@ -161,212 +161,209 @@ if ($action == 'remove_file')   // Remove a file
 header('Cache-Control: Public, must-revalidate');
 header('Pragma: public');
 
+if (dol_is_dir($original_file))
+{
+    $type='directory';
+}
+else
+{
+    // Define mime type
+    $type = 'application/octet-stream';
+    if (! empty($_GET["type"]) && $_GET["type"] != 'auto') $type=$_GET["type"];
+    else $type=dol_mimetype($original_file,'text/plain');
+    //print 'X'.$type.'-'.$original_file;exit;
+}
+
+clearstatcache();
+
+$filename = basename($original_file);
+
+print '<!-- TYPE='.$type.' -->'."\n";
 print '<!-- Ajax page called with url '.$_SERVER["PHP_SELF"].'?'.$_SERVER["QUERY_STRING"].' -->'."\n";
 
+// Output file on browser
+dol_syslog("document.php download $original_file $filename content-type=$type");
+$original_file_osencoded=dol_osencode($original_file);	// New file name encoded in OS encoding charset
 
-if ($action == 'preview')   // Show preview
+// This test if file exists should be useless. We keep it to find bug more easily
+if (! file_exists($original_file_osencoded))
 {
-    if (dol_is_dir($original_file))
+    dol_print_error(0,$langs->trans("ErrorFileDoesNotExists",$original_file));
+    exit;
+}
+
+// Les drois sont ok et fichier trouve, et fichier texte, on l'envoie
+print '<b><font class="liste_titre">'.$langs->trans("Information").'</font></b><br>';
+print '<hr>';
+
+// Dir
+if ($type == 'directory')
+{
+
+    print $langs->trans("FullPath").': '.$original_file_osencoded.'<br>';
+    //print $langs->trans("Mime-type").': '.$type.'<br>';
+
+    $info=stat($original_file_osencoded);
+    //print '<br>'."\n";
+    //print $langs->trans("Owner").": ".$info['udi']."<br>\n";
+    //print $langs->trans("Group").": ".$info['gdi']."<br>\n";
+    //print $langs->trans("Size").": ".dol_print_size($info['size'])."<br>\n";
+    print $langs->trans("DateLastAccess").": ".dol_print_date($info['atime'],'%Y-%m-%d %H:%M:%S')."<br>\n";
+    print $langs->trans("DateLastChange").": ".dol_print_date($info['mtime'],'%Y-%m-%d %H:%M:%S')."<br>\n";
+    //print $langs->trans("Ctime").": ".$info['ctime']."<br>\n";
+
+
+    print '<br><br>';
+    print '<b>'.$langs->trans("Content")."</b><br>\n";
+    print '<hr><br>';
+
+    print '<div class="filedirelem"><ul class="filedirelem">'."\n";
+
+    // Return content of dir
+    $dircontent=dol_dir_list($original_file,'all',0,'','','name',SORT_ASC,0);
+    foreach($dircontent as $key => $val)
     {
-        $type='directory';
-    }
-    else
-    {
-        // Define mime type
-        $type = 'application/octet-stream';
-        if (! empty($_GET["type"]) && $_GET["type"] != 'auto') $type=$_GET["type"];
-        else $type=dol_mimetype($original_file,'text/plain');
-        //print 'X'.$type.'-'.$original_file;exit;
-    }
+        if (dol_is_dir($val['name'])) $mimeimg='other.png';
+        else $mimeimg=dol_mimetype($val['name'],'application/octet-stream',2);
 
-    clearstatcache();
-
-	$filename = basename($original_file);
-
-	// Output file on browser
-	dol_syslog("document.php download $original_file $filename content-type=$type");
-	$original_file_osencoded=dol_osencode($original_file);	// New file name encoded in OS encoding charset
-
-	// This test if file exists should be useless. We keep it to find bug more easily
-	if (! file_exists($original_file_osencoded))
-	{
-		dol_print_error(0,$langs->trans("ErrorFileDoesNotExists",$original_file));
-		exit;
-	}
-
-	// Les drois sont ok et fichier trouve, et fichier texte, on l'envoie
-    print '<b><font class="liste_titre">'.$langs->trans("Information").'</font></b><br>';
-    print '<hr>';
-
-    // Dir
-    if ($type == 'directory')
-    {
-
-        print $langs->trans("FullPath").': '.$original_file_osencoded.'<br>';
-        //print $langs->trans("Mime-type").': '.$type.'<br>';
-
-        $info=stat($original_file_osencoded);
-        //print '<br>'."\n";
-        //print $langs->trans("Owner").": ".$info['udi']."<br>\n";
-        //print $langs->trans("Group").": ".$info['gdi']."<br>\n";
-        //print $langs->trans("Size").": ".dol_print_size($info['size'])."<br>\n";
-        print $langs->trans("DateLastAccess").": ".dol_print_date($info['atime'],'%Y-%m-%d %H:%M:%S')."<br>\n";
-        print $langs->trans("DateLastChange").": ".dol_print_date($info['mtime'],'%Y-%m-%d %H:%M:%S')."<br>\n";
-        //print $langs->trans("Ctime").": ".$info['ctime']."<br>\n";
-
-
+        print '<li class="filedirelem">';
         print '<br><br>';
-        print '<b>'.$langs->trans("Content")."</b><br>\n";
-        print '<hr><br>';
+        print '<img src="'.DOL_URL_ROOT.'/theme/common/mime/'.$mimeimg.'"><br>';
+        print dol_nl2br(dol_trunc($val['name'],24,'wrap'),1);
+        print '</li>'."\n";
+    }
 
-        print '<div class="filedirelem"><ul class="filedirelem">'."\n";
+    print '</ul></div>'."\n";
+}
+else {
+    print $langs->trans("FullPath").': '.$original_file_osencoded.'<br>';
+    print $langs->trans("Mime-type").': '.$type.'<br>';
 
-        // Return content of dir
-        $dircontent=dol_dir_list($original_file,'all',0,'','','name',SORT_ASC,0);
-        foreach($dircontent as $key => $val)
+    $info=stat($original_file_osencoded);
+    //print '<br>'."\n";
+    //print $langs->trans("Owner").": ".$info['udi']."<br>\n";
+    //print $langs->trans("Group").": ".$info['gdi']."<br>\n";
+    print $langs->trans("Size").": ".dol_print_size($info['size'])."<br>\n";
+    print $langs->trans("DateLastAccess").": ".dol_print_date($info['atime'],'%Y-%m-%d %H:%M:%S')."<br>\n";
+    print $langs->trans("DateLastChange").": ".dol_print_date($info['mtime'],'%Y-%m-%d %H:%M:%S')."<br>\n";
+    //print $langs->trans("Ctime").": ".$info['ctime']."<br>\n";
+
+
+    // Flush content before preview generation
+    flush();    // This send all data to browser. Browser however may wait to have message complete or aborted before showing it.
+
+
+    // File
+    if (preg_match('/text/i',$type))
+    {
+        // Define memmax (memory_limit in bytes)
+        $memmaxorig=@ini_get("memory_limit");
+        $memmax=@ini_get("memory_limit");
+        if ($memmaxorig != '')
         {
-            if (dol_is_dir($val['name'])) $mimeimg='other.png';
-            else $mimeimg=dol_mimetype($val['name'],'application/octet-stream',2);
-
-            print '<li class="filedirelem">';
-            print '<br><br>';
-            print '<img src="'.DOL_URL_ROOT.'/theme/common/mime/'.$mimeimg.'"><br>';
-            print dol_nl2br(dol_trunc($val['name'],24,'wrap'),1);
-            print '</li>'."\n";
+            preg_match('/([0-9]+)([a-zA-Z]*)/i',$memmax,$reg);
+            if ($reg[2])
+            {
+                if (strtoupper($reg[2]) == 'M') $memmax=$reg[1]*1024*1024;
+                if (strtoupper($reg[2]) == 'K') $memmax=$reg[1]*1024;
+            }
         }
 
-        print '</ul></div>'."\n";
-    }
-    else {
-        print $langs->trans("FullPath").': '.$original_file_osencoded.'<br>';
-        print $langs->trans("Mime-type").': '.$type.'<br>';
 
-        $info=stat($original_file_osencoded);
-        //print '<br>'."\n";
-        //print $langs->trans("Owner").": ".$info['udi']."<br>\n";
-        //print $langs->trans("Group").": ".$info['gdi']."<br>\n";
-        print $langs->trans("Size").": ".dol_print_size($info['size'])."<br>\n";
-        print $langs->trans("DateLastAccess").": ".dol_print_date($info['atime'],'%Y-%m-%d %H:%M:%S')."<br>\n";
-        print $langs->trans("DateLastChange").": ".dol_print_date($info['mtime'],'%Y-%m-%d %H:%M:%S')."<br>\n";
-        //print $langs->trans("Ctime").": ".$info['ctime']."<br>\n";
+        $out='';
+        $srclang=dol_mimetype($original_file,'text/plain',3);
 
-
-        // Flush content before preview generation
-        flush();    // This send all data to browser. Browser however may wait to have message complete or aborted before showing it.
-
-
-        // File
-        if (preg_match('/text/i',$type))
+        if (preg_match('/html/i',$type))
         {
-            // Define memmax (memory_limit in bytes)
-            $memmaxorig=@ini_get("memory_limit");
-            $memmax=@ini_get("memory_limit");
-            if ($memmaxorig != '')
-            {
-                preg_match('/([0-9]+)([a-zA-Z]*)/i',$memmax,$reg);
-                if ($reg[2])
-                {
-                    if (strtoupper($reg[2]) == 'M') $memmax=$reg[1]*1024*1024;
-                    if (strtoupper($reg[2]) == 'K') $memmax=$reg[1]*1024;
-                }
-            }
-
-
-            $out='';
-            $srclang=dol_mimetype($original_file,'text/plain',3);
-
-            if (preg_match('/html/i',$type))
-            {
-                print '<br><br>';
-                print '<b>'.$langs->trans("Preview")."</b><br>\n";
-                print '<hr>';
-
-                readfile($original_file_osencoded);
-                //$out=file_get_contents($original_file_osencoded);
-                //print $out;
-            }
-            else
-            {
-                $warn='';
-
-                // Check if enouch memory for Geshi
-                $minmem=64;
-                if ($memmax < $minmem*1024*1024)
-                {
-                    $warn=img_warning().' '.$langs->trans("NotEnoughMemoryForSyntaxColor");
-                    $srclang='';    // We disable geshi
-                }
-
-                if (! empty($srclang))
-                {
-                    print '<br><br>';
-                    print '<b>'.$langs->trans("Preview")."</b> (".$srclang.")<br>\n";
-                    print '<hr>';
-
-                    // Translate with Geshi
-                    include_once('inc/geshi/geshi.php');
-
-                    $res='';
-                    $out=file_get_contents($original_file_osencoded);
-                    if ($srclang=='php') $srclang='php-brief';
-                    $geshi = new GeSHi($out, $srclang);
-                    $geshi->enable_strict_mode(false);
-                    $res=$geshi->parse_code();
-
-                    print $res;
-                }
-                else
-                {
-                    print '<br><br>';
-                    print '<b>'.$langs->trans("Preview")."</b>";
-                    if ($warn) print ' '.$warn;
-                    print "<br>\n";
-                    print '<hr>';
-
-                    $maxsize=4096;
-                    $maxlines=25;
-                    $i=0;$more=0;
-                    $handle = fopen($original_file_osencoded, "r");
-                    if ($handle)
-                    {
-                        while (!feof($handle) && $i < $maxlines) {
-                            $buffer = fgets($handle, $maxsize);
-                            $out.=dol_htmlentities($buffer,ENT_COMPAT,'UTF-8')."<br>\n";
-                            $i++;
-                        }
-                        if (!feof($handle)) $more=1;
-                    }
-                    fclose($handle);
-
-                    print $out;
-
-                    print '<br>';
-
-                    if ($more)
-                    {
-                        print '<b>...'.$langs->trans("More").'...</b><br>'."\n";
-                    }
-                }
-            }
-    	}
-    	else if (preg_match('/image/i',$type))
-    	{
-            print '<br><br>';
-            print '<b>'.$langs->trans("Preview")."</b><br>\n";
-            print '<hr><br>';
-
-    	    print '<center><img src="'.DOL_URL_ROOT.'/filemanager/viewimage.php?modulepart=filemanager&file='.urlencode($original_file).'"></center>';
-    	}
-    	else
-    	{
             print '<br><br>';
             print '<b>'.$langs->trans("Preview")."</b><br>\n";
             print '<hr>';
 
-            print $langs->trans("PreviewNotAvailableForThisType");
-    	}
-    }
+            readfile($original_file_osencoded);
+            //$out=file_get_contents($original_file_osencoded);
+            //print $out;
+        }
+        else
+        {
+            $warn='';
 
+            // Check if enouch memory for Geshi
+            $minmem=64;
+            if ($memmax < $minmem*1024*1024)
+            {
+                $warn=img_warning().' '.$langs->trans("NotEnoughMemoryForSyntaxColor");
+                $srclang='';    // We disable geshi
+            }
+
+            if (! empty($srclang))
+            {
+                print '<br><br>';
+                print '<b>'.$langs->trans("Preview")."</b> (".$srclang.")<br>\n";
+                print '<hr>';
+
+                // Translate with Geshi
+                include_once('inc/geshi/geshi.php');
+
+                $res='';
+                $out=file_get_contents($original_file_osencoded);
+                if ($srclang=='php') $srclang='php-brief';
+                $geshi = new GeSHi($out, $srclang);
+                $geshi->enable_strict_mode(false);
+                $res=$geshi->parse_code();
+
+                print $res;
+            }
+            else
+            {
+                print '<br><br>';
+                print '<b>'.$langs->trans("Preview")."</b>";
+                if ($warn) print ' '.$warn;
+                print "<br>\n";
+                print '<hr>';
+
+                $maxsize=4096;
+                $maxlines=25;
+                $i=0;$more=0;
+                $handle = fopen($original_file_osencoded, "r");
+                if ($handle)
+                {
+                    while (!feof($handle) && $i < $maxlines) {
+                        $buffer = fgets($handle, $maxsize);
+                        $out.=dol_htmlentities($buffer,ENT_COMPAT,'UTF-8')."<br>\n";
+                        $i++;
+                    }
+                    if (!feof($handle)) $more=1;
+                }
+                fclose($handle);
+
+                print $out;
+
+                print '<br>';
+
+                if ($more)
+                {
+                    print '<b>...'.$langs->trans("More").'...</b><br>'."\n";
+                }
+            }
+        }
+    }
+    else if (preg_match('/image/i',$type))
+    {
+        print '<br><br>';
+        print '<b>'.$langs->trans("Preview")."</b><br>\n";
+        print '<hr><br>';
+
+        print '<center><img src="'.DOL_URL_ROOT.'/filemanager/viewimage.php?modulepart=filemanager&file='.urlencode($original_file).'"></center>';
+    }
+    else
+    {
+        print '<br><br>';
+        print '<b>'.$langs->trans("Preview")."</b><br>\n";
+        print '<hr>';
+
+        print $langs->trans("PreviewNotAvailableForThisType");
+    }
 }
+
 
 ?>

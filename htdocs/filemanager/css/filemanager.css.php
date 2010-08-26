@@ -51,12 +51,13 @@ div.mainmenu.filemanager {
 }
 
 .filetoolbarbutton {
-    margin: 2px;
-    border: solid 1px #AAAAAA;
-    width: 34px;
+    margin-top: 2px;
+    margin-left: 4px;
+/*    border: solid 1px #AAAAAA;
+    width: 34px;*/
     height: 34px;
-    background: #FFFFFF;
-    }
+/*    background: #FFFFFF;*/
+}
 
 .filetree {
 /*				width: 350px; */
@@ -116,7 +117,6 @@ ul.filedirelem li {
 
 
 
-
 ui-layout-north {
 
 
@@ -140,6 +140,13 @@ UL.jqueryFileTree LI {
 	white-space: nowrap;
 }
 
+/* Seems to have all links "visited"
+UL.jqueryFileTree A:active {
+    background: #BDF !important;
+}
+UL.jqueryFileTree A:visited {
+    background: #BDF !important;
+}*/
 UL.jqueryFileTree A {
 	color: #333;
 	text-decoration: none;
@@ -149,8 +156,9 @@ UL.jqueryFileTree A {
 }
 
 UL.jqueryFileTree A:hover {
-	background: #BDF;
+    background: #BDF;
 }
+
 
 
 /* Core Styles */
