@@ -1,9 +1,9 @@
 <?php
-/* Copyright (C) 2008 Laurent Destailleur  <eldy@users.sourceforge.net> 
+/* Copyright (C) 2008 Laurent Destailleur  <eldy@users.sourceforge.net>
  *
  * Licensed under the GNU GPL v3 or higher (See file gpl-3.0.html)
  *
- * $Id: awstats.css.php,v 1.1 2010/08/26 01:33:25 eldy Exp $
+ * $Id: awstats.css.php,v 1.2 2010/08/26 02:07:20 eldy Exp $
  */
 
 //if (! defined('NOREQUIREUSER')) define('NOREQUIREUSER','1');  // Not disabled cause need to load personalized language
@@ -44,23 +44,31 @@ $fontlist='arial,tahoma,verdana,helvetica';
 
 ?>
 
-h1 { font-size: 16pt; color: black; } 
-a, a:visited,a:link { color: black; text-decoration: none; font-weight: bold; } 
-a:hover { color: navy; } tr.header { background-color: #CCCCCC; } 
-tr.first { background-color: #EEEEEE; } tr.second { background-color: #DCDCDC; } 
 
-td.visitors { color: #000000; text-align: right; } 
-td.visits { color: #000000; text-align: right; } 
+/* For themes that use menu images */
+div.mainmenu.awstats {
+    background-image: url(<?php echo DOL_URL_ROOT.'/theme/awstats/images/awstats.png' ?>);
+}
+
+
+
+h1 { font-size: 16pt; color: black; }
+a, a:visited,a:link { color: black; text-decoration: none; font-weight: bold; }
+a:hover { color: navy; } tr.header { background-color: #CCCCCC; }
+tr.first { background-color: #EEEEEE; } tr.second { background-color: #DCDCDC; }
+
+td.visitors { color: #000000; text-align: right; }
+td.visits { color: #000000; text-align: right; }
 td.pages { color: #000000; text-align: right; }
-td.hits { color: #000000; text-align: right; } 
-td.bandwidth { color: #000000; text-align: right; } 
-td.domain { color: #000000; } 
+td.hits { color: #000000; text-align: right; }
+td.bandwidth { color: #000000; text-align: right; }
+td.domain { color: #000000; }
 
-td.visitors-bold { background-color: #FFB055; color: #000000; text-align: right; font-weight: bold; } 
-td.visits-bold { background-color: #F8E880; color: #000000; text-align: right; font-weight: bold; } 
-td.pages-bold { background-color: #4477DD; color: #000000; text-align: right; font-weight: bold; } 
-td.hits-bold { background-color: #66F0FF; color: #000000; text-align: right; font-weight: bold; } 
-td.bandwidth-bold { background-color: #2EA495; color: #000000; text-align: right; font-weight: bold; } 
+td.visitors-bold { background-color: #FFB055; color: #000000; text-align: right; font-weight: bold; }
+td.visits-bold { background-color: #F8E880; color: #000000; text-align: right; font-weight: bold; }
+td.pages-bold { background-color: #4477DD; color: #000000; text-align: right; font-weight: bold; }
+td.hits-bold { background-color: #66F0FF; color: #000000; text-align: right; font-weight: bold; }
+td.bandwidth-bold { background-color: #2EA495; color: #000000; text-align: right; font-weight: bold; }
 td.domain-bold { background-color: #AAAAAA; color: #000000; font-weight: bold; }
 
 
