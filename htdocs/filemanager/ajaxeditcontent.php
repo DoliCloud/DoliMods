@@ -22,9 +22,9 @@
  */
 
 /**
- *	\file       htdocs/filemanager/ajaxshowconyent.php
+ *	\file       htdocs/filemanager/ajaxeditcontent.php
  *  \brief      Service to return a HTML view of a file
- *  \version    $Id: ajaxshowcontent.php,v 1.4 2010/08/26 01:20:32 eldy Exp $
+ *  \version    $Id: ajaxeditcontent.php,v 1.1 2010/08/26 23:27:15 eldy Exp $
  *  \remarks    Call of this service is made with URL:
  *              ajaxpreview.php?action=preview&modulepart=repfichierconcerne&file=pathrelatifdufichier
  */
@@ -40,6 +40,8 @@ function llxHeader() { }
 if (file_exists("../main.inc.php")) require("../main.inc.php");	// Load $user and permissions
 else require("../../../dolibarr/htdocs/main.inc.php");    // Load $user and permissions
 require_once(DOL_DOCUMENT_ROOT.'/lib/files.lib.php');
+require_once(DOL_DOCUMENT_ROOT.'/lib/doleditor.class.php');
+
 
 // Do not use urldecode here ($_GET and $_REQUEST are already decoded by PHP).
 $action = isset($_GET["action"])?$_GET["action"]:'';
@@ -169,10 +171,11 @@ header('Cache-Control: Public, must-revalidate');
 header('Pragma: public');
 
 
-if ($action == 'view')   // Return file content
+if ($action == 'edit')   // Return file content
 {
     print '<!-- Ajax page called with url '.$_SERVER["PHP_SELF"].'?'.$_SERVER["QUERY_STRING"].' -->'."\n";
 
+    $langs->load("filemanager@filemanager");
 
     if (dol_is_dir($original_file))
     {
@@ -202,22 +205,23 @@ if ($action == 'view')   // Return file content
 		$maxsize=50000;
 
         $handle = fopen($original_file_osencoded, "r");
-        $contents = fread($handle, $maxsize);
+        $content = fread($handle, $maxsize);
         fclose($handle);
 
-        print $contents;
+        $doleditor=new DolEditor('fmeditor',$content,500,'Basic','In',true,true);
+        $doleditor->Create();
+
+        //print $content;
 	}
 	else if (preg_match('/image/i',$type))
 	{
-		print "Image file with type ".$type;
-
-
+		print "Image file with type ".$type.'<br>';
+        print $langs->trans("NoEditorForThisFormat");
 	}
 	else
 	{
-		print "Binary file with type ".$type;
-
-
+		print "Binary file with type ".$type.'<br>';
+        print $langs->trans("NoEditorForThisFormat");
 	}
 
 }
