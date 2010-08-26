@@ -12,7 +12,7 @@
  *      \file       htdocs/includes/modules/modAWStats.class.php
  *      \ingroup    awstats
  *      \brief      Description and activation file for module AWStats
- *		\version	$Id: modAWStats.class.php,v 1.18 2010/05/26 13:06:08 eldy Exp $
+ *		\version	$Id: modAWStats.class.php,v 1.19 2010/08/26 01:33:45 eldy Exp $
  */
 include_once(DOL_DOCUMENT_ROOT ."/includes/modules/DolibarrModules.class.php");
 
@@ -61,7 +61,7 @@ class modAWStats extends DolibarrModules
 		//$this->dirs[1] = DOL_DATA_ROOT.'/mymodule/temp;
 
 		// Relative path to module style sheet if exists
-		$this->style_sheet = '/awstats/awstats.css';
+		$this->style_sheet = '/awstats/css/awstats.css.php';
 
 		// Config pages. Put here list of php page names stored in admmin directory used to setup module
 		$this->config_page_url = array('awstats.php@awstats');

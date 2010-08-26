@@ -18,10 +18,10 @@
  */
 
 /**
- *  \file       htdocs/lib/awstats.lib.php
+ *  \file       htdocs/awstats/lib/awstats.lib.php
  *  \brief      Ensemble de fonctions de base pour le module awstats
  *  \ingroup    awstats
- *  \version    $Id: awstats.lib.php,v 1.2 2009/09/02 16:37:31 eldy Exp $
+ *  \version    $Id: awstats.lib.php,v 1.3 2010/08/26 01:33:25 eldy Exp $
  */
 
 $linktohelp='EN:Module_AWStats_En|FR:Module_AWStats|ES:Modulo_AWStats';

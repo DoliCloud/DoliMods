@@ -12,7 +12,7 @@
  *      \file       htdocs/includes/modules/modWebMail.class.php
  *      \ingroup    webmail
  *      \brief      Description and activation file for module WebMail
- *		\version	$Id: modWebMail.class.php,v 1.1 2010/08/17 23:02:45 eldy Exp $
+ *		\version	$Id: modWebMail.class.php,v 1.2 2010/08/26 01:33:45 eldy Exp $
  */
 include_once(DOL_DOCUMENT_ROOT ."/includes/modules/DolibarrModules.class.php");
 
@@ -61,7 +61,7 @@ class modWebMail extends DolibarrModules
 		//$this->dirs[1] = DOL_DATA_ROOT.'/mymodule/temp;
 
 		// Relative path to module style sheet if exists
-		$this->style_sheet = '/webmail/webmail.css';
+		$this->style_sheet = '/webmail/css/webmail.css.php';
 
 		// Config pages. Put here list of php page names stored in admmin directory used to setup module
 		$this->config_page_url = array('webmail.php@webmail');
