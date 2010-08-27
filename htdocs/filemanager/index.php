@@ -20,7 +20,7 @@
  *   	\file       htdocs/filemanager/index.php
  *		\ingroup    filemanager
  *		\brief      This is home page of filemanager module
- *		\version    $Id: index.php,v 1.11 2010/08/26 23:27:15 eldy Exp $
+ *		\version    $Id: index.php,v 1.12 2010/08/27 20:52:34 eldy Exp $
  */
 
 //if (! defined('NOREQUIREUSER'))  define('NOREQUIREUSER','1');
@@ -104,7 +104,10 @@ html, body {
 <SCRIPT type=\"text/javascript\">
 	jQuery(document).ready(function () {
 		jQuery('#containerlayout').layout({
-			resizable: true
+            center__paneSelector:   \".ui-layout-center\"
+        ,   north__paneSelector:    \".ui-layout-north\"
+        ,   west__paneSelector:     \".ui-layout-west\"
+		,   resizable: true
 		, 	north__size:        42
 		,   north__resizable:   false
 		,   north__closable:    false
@@ -267,10 +270,10 @@ if ($filemanagerroots->rootpath)
 
 
 <div id="containerlayout">
-    <div class="pane ui-layout-north filetoolbar">
+    <div class="pane ui-layout-north toolbar">
 <?php
 // Toolbar
-print '<div class="filetoolbarbutton">';
+print '<div class="toolbarbutton">';
 print '<a href="#" onClick="newdir()" class="fmbuttondir" title="'.dol_escape_htmltag($langs->trans("NewDir")).'"><img width="32" height="32" src="'.DOL_URL_ROOT.'/filemanager/images/folder-new.png"></a>'."\n";
 print '<a href="#" onClick="deletedir()" class="fmbuttondir" title="'.dol_escape_htmltag($langs->trans("DeleteDir")).'"><img width="32" height="32" src="'.DOL_URL_ROOT.'/filemanager/images/folder-delete.png"></a>'."\n";
 print '<a href="#" onClick="newfile()" class="fmbuttondir" title="'.dol_escape_htmltag($langs->trans("NewFile")).'"><img width="32" height="32" src="'.DOL_URL_ROOT.'/filemanager/images/document-new.png"></a>'."\n";
