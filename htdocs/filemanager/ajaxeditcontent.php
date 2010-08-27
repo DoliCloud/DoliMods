@@ -24,7 +24,7 @@
 /**
  *	\file       htdocs/filemanager/ajaxeditcontent.php
  *  \brief      Service to return a HTML view of a file
- *  \version    $Id: ajaxeditcontent.php,v 1.1 2010/08/26 23:27:15 eldy Exp $
+ *  \version    $Id: ajaxeditcontent.php,v 1.2 2010/08/27 00:09:55 eldy Exp $
  *  \remarks    Call of this service is made with URL:
  *              ajaxpreview.php?action=preview&modulepart=repfichierconcerne&file=pathrelatifdufichier
  */
@@ -208,7 +208,7 @@ if ($action == 'edit')   // Return file content
         $content = fread($handle, $maxsize);
         fclose($handle);
 
-        $doleditor=new DolEditor('fmeditor',$content,500,'Basic','In',true,true);
+        $doleditor=new DolEditor('fmeditor',$content,700,'Basic','In',true,true,false,36,120);
         $doleditor->Create();
 
         //print $content;
