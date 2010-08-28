@@ -20,7 +20,7 @@
  *   	\file       htdocs/filemanager/index.php
  *		\ingroup    filemanager
  *		\brief      This is home page of filemanager module
- *		\version    $Id: index.php,v 1.12 2010/08/27 20:52:34 eldy Exp $
+ *		\version    $Id: index.php,v 1.13 2010/08/28 21:32:33 eldy Exp $
  */
 
 //if (! defined('NOREQUIREUSER'))  define('NOREQUIREUSER','1');
@@ -274,12 +274,12 @@ if ($filemanagerroots->rootpath)
 <?php
 // Toolbar
 print '<div class="toolbarbutton">';
-print '<a href="#" onClick="newdir()" class="fmbuttondir" title="'.dol_escape_htmltag($langs->trans("NewDir")).'"><img width="32" height="32" src="'.DOL_URL_ROOT.'/filemanager/images/folder-new.png"></a>'."\n";
-print '<a href="#" onClick="deletedir()" class="fmbuttondir" title="'.dol_escape_htmltag($langs->trans("DeleteDir")).'"><img width="32" height="32" src="'.DOL_URL_ROOT.'/filemanager/images/folder-delete.png"></a>'."\n";
-print '<a href="#" onClick="newfile()" class="fmbuttondir" title="'.dol_escape_htmltag($langs->trans("NewFile")).'"><img width="32" height="32" src="'.DOL_URL_ROOT.'/filemanager/images/document-new.png"></a>'."\n";
-print '<a href="#" onClick="loadandeditcontent()" class="fmbuttonfile" title="'.dol_escape_htmltag($langs->trans("Edit")).'"><img width="32" height="32" src="'.DOL_URL_ROOT.'/filemanager/images/edit-copy.png"></a>'."\n";
-print '<a href="#" onClick="deletefile()" class="fmbuttonfile" title="'.dol_escape_htmltag($langs->trans("DeleteFile")).'"><img width="32" height="32" src="'.DOL_URL_ROOT.'/filemanager/images/document-delete.png"></a>'."\n";
-//print '<a href="#" onClick="save()" class="fmbuttonfileedit" alt="'.dol_escape_htmltag($langs->trans("Save")).'"><img width="32" height="32" src="'.DOL_URL_ROOT.'/filemanager/images/edit-copy.png"></a>'."\n";
+print '<a href="#" onClick="newdir()" class="fmbuttondir" title="'.dol_escape_htmltag($langs->trans("NewDir")).'"><img border="0" width="32" height="32" src="'.DOL_URL_ROOT.'/filemanager/images/folder-new.png"></a>'."\n";
+print '<a href="#" onClick="deletedir()" class="fmbuttondir" title="'.dol_escape_htmltag($langs->trans("DeleteDir")).'"><img border="0" width="32" height="32" src="'.DOL_URL_ROOT.'/filemanager/images/folder-delete.png"></a>'."\n";
+print '<a href="#" onClick="newfile()" class="fmbuttondir" title="'.dol_escape_htmltag($langs->trans("NewFile")).'"><img border="0" width="32" height="32" src="'.DOL_URL_ROOT.'/filemanager/images/document-new.png"></a>'."\n";
+print '<a href="#" onClick="loadandeditcontent()" class="fmbuttonfile" title="'.dol_escape_htmltag($langs->trans("Edit")).'"><img border="0" width="32" height="32" src="'.DOL_URL_ROOT.'/filemanager/images/edit-copy.png"></a>'."\n";
+print '<a href="#" onClick="deletefile()" class="fmbuttonfile" title="'.dol_escape_htmltag($langs->trans("DeleteFile")).'"><img border="0" width="32" height="32" src="'.DOL_URL_ROOT.'/filemanager/images/document-delete.png"></a>'."\n";
+//print '<a href="#" onClick="save()" class="fmbuttonfileedit" alt="'.dol_escape_htmltag($langs->trans("Save")).'"><img border="0" width="32" height="32" src="'.DOL_URL_ROOT.'/filemanager/images/edit-copy.png"></a>'."\n";
 print '</div>';
 ?>
     </div>
