@@ -3,7 +3,7 @@
  *
  * Licensed under the GNU GPL v3 or higher (See file gpl-3.0.html)
  *
- * $Id: awstats.css.php,v 1.2 2010/08/26 02:07:20 eldy Exp $
+ * $Id: awstats.css.php,v 1.3 2010/08/29 18:28:30 eldy Exp $
  */
 
 //if (! defined('NOREQUIREUSER')) define('NOREQUIREUSER','1');  // Not disabled cause need to load personalized language
@@ -53,8 +53,7 @@ div.mainmenu.awstats {
 
 
 h1 { font-size: 16pt; color: black; }
-a, a:visited,a:link { color: black; text-decoration: none; font-weight: bold; }
-a:hover { color: navy; } tr.header { background-color: #CCCCCC; }
+tr.header { background-color: #CCCCCC; }
 tr.first { background-color: #EEEEEE; } tr.second { background-color: #DCDCDC; }
 
 td.visitors { color: #000000; text-align: right; }
