@@ -12,7 +12,7 @@
  *      \file       htdocs/includes/modules/modNLTechno.class.php
  *      \ingroup    nltechno
  *      \brief      Description and activation file for module NLTechno
- *		\version	$Id: modNLTechno.class.php,v 1.13 2010/05/26 00:16:42 eldy Exp $
+ *		\version	$Id: modNLTechno.class.php,v 1.14 2010/08/31 22:40:00 eldy Exp $
  */
 include_once(DOL_DOCUMENT_ROOT ."/includes/modules/DolibarrModules.class.php");
 
@@ -49,7 +49,7 @@ class modNLTechno extends DolibarrModules
 		// Key used in llx_const table to save module status enabled/disabled (where MYMODULE is value of property name of module in uppercase)
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
 		// Where to store the module in setup page (0=common,1=interface,2=others,3=very specific)
-		$this->special = 3;
+		$this->special = 2;
 		// Name of png file (without png) used for this module.
 		// Png file must be in theme/yourtheme/img directory under name object_pictovalue.png.
 		$this->picto='generic';
