@@ -20,7 +20,7 @@
  *   	\file       htdocs/filemanager/index.php
  *		\ingroup    filemanager
  *		\brief      This is home page of filemanager module
- *		\version    $Id: index.php,v 1.14 2010/09/01 17:56:03 eldy Exp $
+ *		\version    $Id: index.php,v 1.15 2010/09/01 18:37:08 eldy Exp $
  */
 
 //if (! defined('NOREQUIREUSER'))  define('NOREQUIREUSER','1');
@@ -342,7 +342,6 @@ if ($filemanagerroots->rootpath)
     // Init content of tree
     // --------------------
     jQuery(document).ready( function() {
-    	jQuery("#dialog-confirm").hide();
         jQuery('#filetree').fileTree({ root: '<?php echo dol_escape_js($filemanagerroots->rootpath); ?>',
                                        script: 'ajaxFileTree.php?openeddir=<?php echo urlencode($openeddir); ?>',
                                        folderEvent: 'click',
@@ -379,6 +378,11 @@ if ($filemanagerroots->rootpath)
 <?php
 }
 ?>
+/* Hide toolbar */
+jQuery(document).ready( function() {
+    jQuery("#dialog-confirm").hide();
+});
+
 </script>
 
 <?php

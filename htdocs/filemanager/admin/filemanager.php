@@ -20,7 +20,7 @@
  *	\file       htdocs/filemanage/admin/filemanager.php
  *	\ingroup    filemanager
  *	\brief      Setup page for filemanager module
- *	\version    $Id: filemanager.php,v 1.2 2010/08/21 02:00:04 eldy Exp $
+ *	\version    $Id: filemanager.php,v 1.3 2010/09/01 18:37:08 eldy Exp $
  */
 
 if (file_exists("../../../../dolibarr/htdocs/main.inc.php")) require("../../../../dolibarr/htdocs/main.inc.php");
@@ -59,6 +59,14 @@ if ($_GET["action"] == 'delete')
 		}
 	}
 }
+
+if ($_POST["action"] == 'setparam')
+{
+    $param='FILEMANAGER_DISABLE_COLORSYNTAXING';
+    $value=$_POST['FILEMANAGER_DISABLE_COLORSYNTAXING'];
+    dolibarr_set_const($db,$param,$value,'chaine',0,'',$conf->entity);
+}
+
 
 if ($_POST["action"] == 'set')
 {
@@ -102,7 +110,7 @@ if ($_POST["action"] == 'set')
  * View
  */
 
- $form=new Form($db);
+$form=new Form($db);
 
 llxHeader();
 
@@ -113,6 +121,37 @@ print '<br>';
 //if ($mesg) print '<div class="error">'.$langs->trans($mesg).'</div><br>';
 if ($mesg) print $mesg.'<br>';
 
+
+// Param
+$var=true;
+print '<form action="'.$_SERVER["PHP_SELF"].'" method="post">';
+print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
+print '<input type="hidden" name="action" value="setparam">';
+
+print '<table class="noborder" width="100%">';
+print '<tr class="liste_titre">';
+print '<td>'.$langs->trans("Parameter").'</td><td align="center">'.$langs->trans("Value").'</td>';
+print '<td>&nbsp;</td>';
+print "</tr>\n";
+
+$var=!$var;
+print '<tr '.$bc[$var].'>';
+print '<td>';
+print $langs->trans("UseColorSyntaxing");
+print '</td><td align="center">';
+print $form->selectyesno("FILEMANAGER_DISABLE_COLORSYNTAXING",$conf->global->FILEMANAGER_DISABLE_COLORSYNTAXING);
+print '</td><td align="right">';
+print '<input type="submit" class="button" value="'.$langs->trans("Modify").'">';
+print '</td>';
+print '</tr>';
+
+print '</table>';
+print '</form>';
+
+print '<br><br>';
+
+
+print_titre($langs->trans("AddRootPath"));
 
 // Mode
 $var=true;
@@ -142,16 +181,10 @@ print '<center><input type="submit" class="button" value="'.$langs->trans("Add")
 
 print "</form>\n";
 
-print '<br>';
-
-print $langs->trans("NoteOnFileManagerPathLocation").'<br>';
-
 //print $langs->trans("More");
 
 print '<br>';
 
-
-print '<br><br>';
 
 print_titre($langs->trans("ListForRootPath"));
 
@@ -187,7 +220,12 @@ else
 {
 	dol_print_error($db);
 }
+print '</table>';
+
+print '<br>';
+
+print info_admin($langs->trans("NoteOnFileManagerPathLocation")).'<br>';
 
 
-llxFooter('$Date: 2010/08/21 02:00:04 $ - $Revision: 1.2 $');
+llxFooter('$Date: 2010/09/01 18:37:08 $ - $Revision: 1.3 $');
 ?>
