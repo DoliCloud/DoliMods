@@ -20,7 +20,7 @@
  *   	\file       htdocs/filemanager/index.php
  *		\ingroup    filemanager
  *		\brief      This is home page of filemanager module
- *		\version    $Id: index.php,v 1.13 2010/08/28 21:32:33 eldy Exp $
+ *		\version    $Id: index.php,v 1.14 2010/09/01 17:56:03 eldy Exp $
  */
 
 //if (! defined('NOREQUIREUSER'))  define('NOREQUIREUSER','1');
@@ -49,6 +49,7 @@ $langs->load("other");
 
 // Get parameters
 $myparam = isset($_GET["myparam"])?$_GET["myparam"]:'';
+$openeddir = GETPOST('openeddir');
 
 // Check permissions
 if (! $user->rights->filemanager->read)
@@ -116,7 +117,7 @@ html, body {
 		,   west__slidable:     true
         ,   west__resizable:    true
         ,   west__togglerLength_closed: '100%'
-		,	useStateCookie:		false  /* Put this to false for dev */
+		,	useStateCookie:		true  /* Put this to false for dev */
 			});
 	});
 </SCRIPT>";
@@ -159,7 +160,11 @@ if (empty($_GET["id"]))
 if (! empty($_GET["id"]))
 {
 	$result=$filemanagerroots->fetch($_GET["id"]);
-	if (! preg_match('|[\//]$|',$filemanagerroots->rootpath)) $filemanagerroots->rootpath.='/';
+	//$filemanagerroots->rootpath="c:/ee";
+    //print "xx".$filemanagerroots->rootpath."ee";
+    // Add an end slash
+	if (! preg_match('/[\\\\\/]$/',$filemanagerroots->rootpath)) $filemanagerroots->rootpath.='/';
+    //print "xx".$filemanagerroots->rootpath."ee";
 }
 
 
@@ -175,7 +180,9 @@ else
 print "<br>\n";
 
 
+
 // Javascript part
+// ---------------------------------------------
 ?>
 <script type="text/javascript">
 <?php
@@ -183,6 +190,7 @@ if ($filemanagerroots->rootpath)
 {
 ?>
     var fileactive='';
+    var diractive='';
     var filetypeactive='';
 
     function newdir(dirname)
@@ -195,14 +203,85 @@ if ($filemanagerroots->rootpath)
 
     function deletedir(dirname)
     {
+<?php
+        // New code using jQuery only
+        $formconfirm= '
+            var choice=\'ko\';
+            jQuery("#dialog-confirm").attr("title", \''.dol_escape_js($langs->trans("DeleteDir")).'\');
+            jQuery("#dialog-confirm").empty();
+            jQuery("#dialog-confirm").append(\''.img_help('','').' '.dol_escape_js($langs->trans("DeleteDirName")).' <b>\'+dirname+\'</b>\');
+            jQuery("#dialog-confirm").dialog({
+                autoOpen: true,
+                resizable: false,
+                height:160,
+                width:580,
+                modal: true,
+                closeOnEscape: false,
+                close: function(event, ui) {
+                     if (choice == \'ok\') { alert(\'ok\'); }
+                     if (choice == \'ko\') { alert(\'ko\'); }
+                  },
+                buttons: {
+                    \''.dol_escape_js($langs->transnoentities("Yes")).'\': function() {
+                         choice=\'ok\';
+                        jQuery(this).dialog(\'close\');
+                    },
+                    \''.dol_escape_js($langs->transnoentities("No")).'\': function() {
+                         choice=\'ko\';
+                        jQuery(this).dialog(\'close\');
+                    }
+                }
+            });
+        ';
+
+        $formconfirm.= "\n";
+        print $formconfirm;
+?>
     }
 
     function deletefile(filename)
     {
+    	<?php
+    	        // New code using jQuery only
+    	        $formconfirm= '
+    	            var choice=\'ko\';
+                    jQuery("#dialog-confirm").attr("title", \''.dol_escape_js($langs->trans("DeleteFile")).'\');
+    	            jQuery("#dialog-confirm").empty();
+    	            jQuery("#dialog-confirm").append(\''.img_help('','').' '.dol_escape_js($langs->trans("DeleteFileName")).' <b>\'+filename+\'</b>\');
+    	            jQuery("#dialog-confirm").dialog({
+    	                autoOpen: true,
+    	                resizable: false,
+    	                height:160,
+    	                width:580,
+    	                modal: true,
+    	                closeOnEscape: false,
+    	                close: function(event, ui) {
+    	                     if (choice == \'ok\') { alert(\'ok\'); }
+    	                     if (choice == \'ko\') { alert(\'ko\'); }
+    	                  },
+    	                buttons: {
+    	                    \''.dol_escape_js($langs->transnoentities("Yes")).'\': function() {
+    	                         choice=\'ok\';
+    	                        jQuery(this).dialog(\'close\');
+    	                    },
+    	                    \''.dol_escape_js($langs->transnoentities("No")).'\': function() {
+    	                         choice=\'ko\';
+    	                        jQuery(this).dialog(\'close\');
+    	                    }
+    	                }
+    	            });
+    	        ';
+
+    	        $formconfirm.= "\n";
+    	        print $formconfirm;
+    	?>
     }
 
-    function save(filename)
+    function savefile(filename)
     {
+        content=jQuery('#fmeditor').val();
+        // TODO Save content
+        alert(content);
     }
 
     function loadandshowpreview(filename)
@@ -240,7 +319,9 @@ if ($filemanagerroots->rootpath)
     	filename=fileactive;       /* Get current filename */
 
         /*alert('filename='+filename);*/
-		jQuery('#fileview').empty();
+        jQuery('#fileview').empty();
+        jQuery('#asavefile').show();
+        jQuery('#aloadandeditcontent').hide();
 
         if (filename != '')
         {
@@ -256,17 +337,55 @@ if ($filemanagerroots->rootpath)
         }
 	}
 
+
+
     // Init content of tree
+    // --------------------
     jQuery(document).ready( function() {
-        jQuery('#filetree').fileTree({ root: '<?php echo dol_escape_js($filemanagerroots->rootpath); ?>', script: 'ajaxFileTree.php', folderEvent: 'click', multiFolder: false  }, function(file) {
+    	jQuery("#dialog-confirm").hide();
+        jQuery('#filetree').fileTree({ root: '<?php echo dol_escape_js($filemanagerroots->rootpath); ?>',
+                                       script: 'ajaxFileTree.php?openeddir=<?php echo urlencode($openeddir); ?>',
+                                       folderEvent: 'click',
+                                       multiFolder: false  },
+                                      function(file) {
 			loadandshowpreview(file);
-	});
-});
+		});
+
+        jQuery("#anewdir").show();
+        jQuery("#anewdir").click(function() {
+        });
+        jQuery("#adeletedir").hide();
+        jQuery("#adeletedir").click(function() {
+            deletedir();
+        });
+        jQuery("#anewfile").show();
+        jQuery("#anewfile").click(function() {
+            newfile();
+        });
+        jQuery("#asavefile").hide();
+        jQuery("#asavefile").click(function() {
+            savefile();
+        });
+        jQuery("#aloadandeditcontent").hide();
+        jQuery("#aloadandeditcontent").click(function() {
+        	loadandeditcontent();
+        });
+        jQuery("#adeletefile").hide();
+        jQuery("#adeletefile").click(function() {
+        	deletefile(fileactive);
+        });
+    });
+
 <?php
 }
 ?>
 </script>
 
+<?php
+print '<div id="dialog-confirm" title="NOTITLE">';
+print img_help('','').' NOTEXT';
+print '</div>'."\n";
+?>
 
 
 <div id="containerlayout">
@@ -274,12 +393,12 @@ if ($filemanagerroots->rootpath)
 <?php
 // Toolbar
 print '<div class="toolbarbutton">';
-print '<a href="#" onClick="newdir()" class="fmbuttondir" title="'.dol_escape_htmltag($langs->trans("NewDir")).'"><img border="0" width="32" height="32" src="'.DOL_URL_ROOT.'/filemanager/images/folder-new.png"></a>'."\n";
-print '<a href="#" onClick="deletedir()" class="fmbuttondir" title="'.dol_escape_htmltag($langs->trans("DeleteDir")).'"><img border="0" width="32" height="32" src="'.DOL_URL_ROOT.'/filemanager/images/folder-delete.png"></a>'."\n";
-print '<a href="#" onClick="newfile()" class="fmbuttondir" title="'.dol_escape_htmltag($langs->trans("NewFile")).'"><img border="0" width="32" height="32" src="'.DOL_URL_ROOT.'/filemanager/images/document-new.png"></a>'."\n";
-print '<a href="#" onClick="loadandeditcontent()" class="fmbuttonfile" title="'.dol_escape_htmltag($langs->trans("Edit")).'"><img border="0" width="32" height="32" src="'.DOL_URL_ROOT.'/filemanager/images/edit-copy.png"></a>'."\n";
-print '<a href="#" onClick="deletefile()" class="fmbuttonfile" title="'.dol_escape_htmltag($langs->trans("DeleteFile")).'"><img border="0" width="32" height="32" src="'.DOL_URL_ROOT.'/filemanager/images/document-delete.png"></a>'."\n";
-//print '<a href="#" onClick="save()" class="fmbuttonfileedit" alt="'.dol_escape_htmltag($langs->trans("Save")).'"><img border="0" width="32" height="32" src="'.DOL_URL_ROOT.'/filemanager/images/edit-copy.png"></a>'."\n";
+print '<a href="#" id="anewdir" class="fmbuttondir" title="'.dol_escape_htmltag($langs->trans("NewDir")).'"><img border="0" width="32" height="32" src="'.DOL_URL_ROOT.'/filemanager/images/folder-new.png"></a>'."\n";
+print '<a href="#" id="adeletedir" class="fmbuttondir" title="'.dol_escape_htmltag($langs->trans("DeleteDir")).'"><img border="0" width="32" height="32" src="'.DOL_URL_ROOT.'/filemanager/images/folder-delete.png"></a>'."\n";
+print '<a href="#" id="anewfile" title="'.dol_escape_htmltag($langs->trans("NewFile")).'"><img border="0" width="32" height="32" src="'.DOL_URL_ROOT.'/filemanager/images/document-new.png"></a>'."\n";
+print '<a href="#" id="asavefile" class="fmbuttonsave" title="'.dol_escape_htmltag($langs->trans("SaveFile")).'"><img border="0" width="32" height="32" src="'.DOL_URL_ROOT.'/filemanager/images/media-floppy.png"></a>'."\n";
+print '<a href="#" id="aloadandeditcontent" class="fmbuttonfile" title="'.dol_escape_htmltag($langs->trans("Edit")).'"><img border="0" width="32" height="32" src="'.DOL_URL_ROOT.'/filemanager/images/edit-copy.png"></a>'."\n";
+print '<a href="#" id="adeletefile" class="fmbuttonfile" title="'.dol_escape_htmltag($langs->trans("DeleteFile")).'"><img border="0" width="32" height="32" src="'.DOL_URL_ROOT.'/filemanager/images/document-delete.png"></a>'."\n";
 print '</div>';
 ?>
     </div>

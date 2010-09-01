@@ -20,7 +20,7 @@
  *      \file       htdocs/filemanager/ajaxFileTree.php
  *      \ingroup    filemanager
  *      \brief      This script returns content of a directory for filetree
- *      \version    $Id: ajaxFileTree.php,v 1.3 2010/08/21 21:53:54 eldy Exp $
+ *      \version    $Id: ajaxFileTree.php,v 1.4 2010/09/01 17:56:03 eldy Exp $
  */
 
 
@@ -41,7 +41,8 @@ else require("../../../dolibarr/htdocs/main.inc.php");    // Load $user and perm
 require_once(DOL_DOCUMENT_ROOT.'/lib/files.lib.php');
 
 // Do not use urldecode here ($_GET and $_REQUEST are already decoded by PHP).
-$selecteddir = urldecode($_POST['dir']);
+$selecteddir = urldecode(GETPOST('dir'));
+$openeddir = GETPOST('openeddir');
 
 // Security:
 // On interdit les remontees de repertoire ainsi que les pipe dans
@@ -74,7 +75,7 @@ if( file_exists($selecteddir) ) {
 		// All dirs
 		foreach( $files as $file ) {
 			if( file_exists($selecteddir . $file) && $file != '.' && $file != '..' && is_dir($selecteddir . $file) ) {
-				print "<li class=\"directory collapsed\"><a href=\"#\" rel=\"" . htmlentities($selecteddir . $file) . "/\"";
+				print "<li class=\"directory collapsed\"><a class=\"fmdirlia\" href=\"#\" rel=\"" . htmlentities($selecteddir . $file) . "/\"";
 				print " onClick=\"loadandshowpreview('".dol_escape_js($selecteddir . $file)."')\"";
 				print ">" . htmlentities($file) . "</a></li>";
 			}
@@ -83,7 +84,7 @@ if( file_exists($selecteddir) ) {
 		foreach( $files as $file ) {
 			if( file_exists($selecteddir . $file) && $file != '.' && $file != '..' && !is_dir($selecteddir . $file) ) {
 				$ext = preg_replace('/^.*\./', '', $file);
-				print "<li class=\"file ext_".$ext."\"><a href=\"#\" rel=\"" . htmlentities($selecteddir . $file) . "\">" . htmlentities($file) . "</a></li>";
+				print "<li class=\"file ext_".$ext."\"><a class=\"fmfilelia\" href=\"#\" rel=\"" . htmlentities($selecteddir . $file) . "\">" . htmlentities($file) . "</a></li>";
 			}
 		}
 		echo "</ul>";
