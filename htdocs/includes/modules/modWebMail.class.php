@@ -12,7 +12,7 @@
  *      \file       htdocs/includes/modules/modWebMail.class.php
  *      \ingroup    webmail
  *      \brief      Description and activation file for module WebMail
- *		\version	$Id: modWebMail.class.php,v 1.2 2010/08/26 01:33:45 eldy Exp $
+ *		\version	$Id: modWebMail.class.php,v 1.3 2010/09/04 16:16:35 eldy Exp $
  */
 include_once(DOL_DOCUMENT_ROOT ."/includes/modules/DolibarrModules.class.php");
 
@@ -69,8 +69,8 @@ class modWebMail extends DolibarrModules
 		// Dependencies
 		$this->depends = array();		// List of modules id that must be enabled if this module is enabled
 		$this->requiredby = array();	// List of modules id to disable if this one is disabled
-		$this->phpmin = array(4,1);					// Minimum version of PHP required by module
-		$this->need_dolibarr_version = array(2,4);	// Minimum version of Dolibarr required by module
+		$this->phpmin = array(5,0);					// Minimum version of PHP required by module
+		$this->need_dolibarr_version = array(3,0,-1);	// Minimum version of Dolibarr required by module
 		$this->langfiles = array("webmail@webmail");
 
 		// Constants
