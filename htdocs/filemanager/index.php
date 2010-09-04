@@ -20,7 +20,7 @@
  *   	\file       htdocs/filemanager/index.php
  *		\ingroup    filemanager
  *		\brief      This is home page of filemanager module
- *		\version    $Id: index.php,v 1.16 2010/09/04 14:30:38 eldy Exp $
+ *		\version    $Id: index.php,v 1.17 2010/09/04 15:49:00 eldy Exp $
  */
 
 //if (! defined('NOREQUIREUSER'))  define('NOREQUIREUSER','1');
@@ -41,6 +41,8 @@ if (! defined("DISABLE_PWC"))            define("DISABLE_PWC",'1');		// If this 
 require_once("../filemanager/pre.inc.php");
 if (file_exists("./class/filemanagerroots.class.php")) require_once("./class/filemanagerroots.class.php");
 else if (file_exists(DOL_DOCUMENT_ROOT."/filemanager/class/filemanagerroots.class.php")) require_once(DOL_DOCUMENT_ROOT."/filemanager/class/filemanagerroots.class.php");
+if (file_exists("./class/filemanagerroots.class.php")) require_once("./class/filemanagerroots.class.php");
+require_once(DOL_DOCUMENT_ROOT."/lib/files.lib.php");
 
 // Load traductions files requiredby by page
 $langs->load("companies");
@@ -50,6 +52,7 @@ $langs->load("other");
 // Get parameters
 $myparam = isset($_GET["myparam"])?$_GET["myparam"]:'';
 $openeddir = GETPOST('openeddir');
+$id=$_GET["id"];
 
 // Check permissions
 if (! $user->rights->filemanager->read)
@@ -65,9 +68,49 @@ if (! $user->rights->filemanager->read)
 * Put here all code to do according to value of "action" parameter
 ********************************************************************/
 
+if (GETPOST('action')=='deletefile')
+{
+    if (empty($user->rights->filemanager->delete))
+    {
+        $mesg='<div class="error">'.$langs->trans("NotEnoughPermissions").'</div>';
+    }
+    else
+    {
+        $filetodelete=GETPOST('file');
+        if (! dol_is_file($filetodelete))
+        {
+            $mesg='<div class="error">'.$langs->trans("ErrorFileNotFound",$filtetodelete).'</div>';
+        }
+        else
+        {
+            $result=dol_delete_file($filetodelete);
+            if ($result) $mesg='<div class="ok">'.$langs->trans("FileWasRemoved",$filetodelete).'</div>';
+            else $mesg='<div class="error">'.$langs->trans("ErrorFailedToDeleteFile",$filetodelete).'</div>';
+        }
+    }
+}
 
-
-
+if (GETPOST('action')=='deletedir')
+{
+    if (empty($user->rights->filemanager->delete))
+    {
+        $mesg='<div class="error">'.$langs->trans("NotEnoughPermissions").'</div>';
+    }
+    else
+    {
+        $dirtodelete=GETPOST('dir');
+        if (! dol_is_file($filetodelete))
+        {
+            $mesg='<div class="error">'.$langs->trans("ErrorDirNotFound",$dirtodelete).'</div>';
+        }
+        else
+        {
+            $result=dol_remove_dir($dirdelete);
+            if ($result) $mesg='<div class="ok">'.$langs->trans("DirWasRemoved",$dirtodelete).'</div>';
+            else $mesg='<div class="error">'.$langs->trans("ErrorFailedToDeleteFile",$dirtodelete).'</div>';
+        }
+    }
+}
 
 
 
@@ -121,7 +164,6 @@ html, body {
 			});
 	});
 </SCRIPT>";
-
 //		,	north__slidable:		false	// OVERRIDE the pane-default of 'slidable=true'
 //		,	north__togglerLength_closed: '100%'	// toggle-button is full-width of resizer-bar
 //		,	north__spacing_closed:	20		// big resizer-bar when open (zero height)
@@ -140,7 +182,7 @@ $form=new Form($db);
 // Define root to scan
 $filemanagerroots=new FilemanagerRoots($db);
 
-if (empty($_GET["id"]))
+if (empty($id))
 {
     $sql = "SELECT";
     $sql.= " t.rowid";
@@ -157,9 +199,9 @@ if (empty($_GET["id"]))
 }
 
 
-if (! empty($_GET["id"]))
+if (! empty($id))
 {
-	$result=$filemanagerroots->fetch($_GET["id"]);
+	$result=$filemanagerroots->fetch($id);
 	//$filemanagerroots->rootpath="c:/ee";
     //print "xx".$filemanagerroots->rootpath."ee";
     // Add an end slash
@@ -168,7 +210,7 @@ if (! empty($_GET["id"]))
 }
 
 
-if (empty($_GET["id"]))
+if (empty($id))
 {
 	// No root selected
 	print $langs->trans("PleaseSelectARoot")."<br>\n";
@@ -179,6 +221,8 @@ else
 }
 print "<br>\n";
 
+
+if ($mesg) print '<div id="mesg">'.$mesg.'<br></div>';
 
 
 // Javascript part
@@ -220,8 +264,10 @@ if ($filemanagerroots->rootpath)
                 modal: true,
                 closeOnEscape: false,
                 close: function(event, ui) {
-                     if (choice == \'ok\') { alert(\'ok\'); }
-                     if (choice == \'ko\') { alert(\'ko\'); }
+                         if (choice == \'ok\') {
+                            location.href=\''.$_SERVER["PHP_SELF"].'?action=deletedir&id='.$id.'&dir=\'+urlencode(dirname);
+                         }
+                         if (choice == \'ko\') { }
                   },
                 buttons: {
                     \''.dol_escape_js($langs->transnoentities("Yes")).'\': function() {
@@ -261,8 +307,10 @@ if ($filemanagerroots->rootpath)
 	                modal: true,
 	                closeOnEscape: false,
 	                close: function(event, ui) {
-	                     if (choice == \'ok\') { alert(\'ok\'); }
-	                     if (choice == \'ko\') { alert(\'ko\'); }
+	                     if (choice == \'ok\') {
+                            location.href=\''.$_SERVER["PHP_SELF"].'?action=deletefile&id='.$id.'&file=\'+urlencode(filename);
+	                     }
+	                     if (choice == \'ko\') { }
 	                  },
 	                buttons: {
 	                    \''.dol_escape_js($langs->transnoentities("Yes")).'\': function() {
@@ -288,8 +336,11 @@ if ($filemanagerroots->rootpath)
         if (filetypeactive == 'file')
         {
             content=jQuery('#fmeditor').val();
-            // TODO Save content
-            alert(content);
+            if (content)
+            {
+                // TODO Save content
+                alert(content);
+            }
         }
     }
 
@@ -358,9 +409,10 @@ if ($filemanagerroots->rootpath)
                                        script: 'ajaxFileTree.php?openeddir=<?php echo urlencode($openeddir); ?>',
                                        folderEvent: 'click',
                                        multiFolder: false  },
-                                      function(file) {
-			loadandshowpreview(file);
-		});
+                                     function(file) {
+                                    	   jQuery("#mesg").remove();
+                                    	   loadandshowpreview(file);
+                               		 });
 
         jQuery("#anewdir").attr('href','#').animate({ opacity: 1 }, "fast");
         jQuery("#anewdir").click(function() {

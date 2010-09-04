@@ -19,7 +19,7 @@
 /**
  *		\defgroup   FileManager     Module FileManager
  *      \brief      Module to get a file browser and manager into Dolibarr
- *		\brief		$Id: modFileManager.class.php,v 1.5 2010/08/26 01:33:45 eldy Exp $
+ *		\brief		$Id: modFileManager.class.php,v 1.6 2010/09/04 15:49:00 eldy Exp $
  */
 
 /**
@@ -98,14 +98,22 @@ class modFileManager extends DolibarrModules
 		// $r++;
 
 		$this->rights[$r][0] = 10601;
-		$this->rights[$r][1] = 'Read/Browse into the file manager';
+		$this->rights[$r][1] = 'Read/Browse directories and files from the file manager';
 		$this->rights[$r][2] = 'r';
 		$this->rights[$r][3] = 1;
 		$this->rights[$r][4] = 'read';
 		$this->rights[$r][5] = '';
 		$r++;
 
-		// Main menu entries
+        $this->rights[$r][0] = 10602;
+        $this->rights[$r][1] = 'Delete directories or files from the file manager';
+        $this->rights[$r][2] = 'w';
+        $this->rights[$r][3] = 0;
+        $this->rights[$r][4] = 'delete';
+        $this->rights[$r][5] = '';
+        $r++;
+
+        // Main menu entries
 		$this->menu = array();			// List of menus to add
 		$r=0;
 

@@ -24,7 +24,7 @@
 /**
  *	\file       htdocs/filemanager/ajaxshowpreview.php
  *  \brief      Service to return a HTML preview of a file
- *  \version    $Id: ajaxshowpreview.php,v 1.8 2010/09/04 14:30:38 eldy Exp $
+ *  \version    $Id: ajaxshowpreview.php,v 1.9 2010/09/04 15:49:00 eldy Exp $
  *  \remarks    Call of this service is made with URL:
  * 				ajaxpreview.php?action=preview&modulepart=repfichierconcerne&file=pathrelatifdufichier
  */
@@ -200,7 +200,7 @@ print '<hr>';
 if ($type == 'directory')
 {
     print '<table class="nobordernopadding">';
-    print '<tr><td>'.$langs->trans("Directory").':</td><td> <b><span class="fmvalue">'.$original_file_osencoded.'</span></b></td></tr>';
+    print '<tr><td>'.$langs->trans("Directory").':</td><td> <b><span class="fmvalue">'.$original_file.'</span></b></td></tr>';
 
     //print $langs->trans("FullPath").': '.$original_file_osencoded.'<br>';
     //print $langs->trans("Mime-type").': '.$type.'<br>';
@@ -239,7 +239,7 @@ if ($type == 'directory')
 }
 else {
     print '<table class="nobordernopadding">';
-    print '<tr><td>'.$langs->trans("File").':</td><td> <b><span class="fmvalue">'.$original_file_osencoded.'</span></b></td></tr>';
+    print '<tr><td>'.$langs->trans("File").':</td><td> <b><span class="fmvalue">'.$original_file.'</span></b></td></tr>';
     print '<tr><td>'.$langs->trans("Mime-type").':</td><td> <span class="fmvalue">'.$type.'</span></td></tr>';
 
     $info=stat($original_file_osencoded);

@@ -20,7 +20,7 @@
  *	\file       htdocs/filemanage/admin/filemanager.php
  *	\ingroup    filemanager
  *	\brief      Setup page for filemanager module
- *	\version    $Id: filemanager.php,v 1.3 2010/09/01 18:37:08 eldy Exp $
+ *	\version    $Id: filemanager.php,v 1.4 2010/09/04 15:49:00 eldy Exp $
  */
 
 if (file_exists("../../../../dolibarr/htdocs/main.inc.php")) require("../../../../dolibarr/htdocs/main.inc.php");
@@ -170,6 +170,7 @@ print '<tr '.$bc[$var].'><td width="50%">'.$langs->trans("LabelForRootFileManage
 print '<td>';
 print '<input size="12" type="text" name="FILEMANAGER_ROOT_LABEL" value="'.$_POST["FILEMANAGER_ROOT_LABEL"].'">';
 print '</td><td>MyRoot</td></tr>';
+$var=!$var;
 print '<tr '.$bc[$var].'><td width="50%">'.$langs->trans("PathForRootFileManager").'</td>';
 print '<td>';
 print '<input size="50" type="text" name="FILEMANAGER_ROOT_PATH" value="'.$_POST["FILEMANAGER_ROOT_PATH"].'">';
@@ -227,5 +228,5 @@ print '<br>';
 print info_admin($langs->trans("NoteOnFileManagerPathLocation")).'<br>';
 
 
-llxFooter('$Date: 2010/09/01 18:37:08 $ - $Revision: 1.3 $');
+llxFooter('$Date: 2010/09/04 15:49:00 $ - $Revision: 1.4 $');
 ?>
