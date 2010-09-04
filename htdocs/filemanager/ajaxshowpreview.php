@@ -24,7 +24,7 @@
 /**
  *	\file       htdocs/filemanager/ajaxshowpreview.php
  *  \brief      Service to return a HTML preview of a file
- *  \version    $Id: ajaxshowpreview.php,v 1.7 2010/09/01 17:56:03 eldy Exp $
+ *  \version    $Id: ajaxshowpreview.php,v 1.8 2010/09/04 14:30:38 eldy Exp $
  *  \remarks    Call of this service is made with URL:
  * 				ajaxpreview.php?action=preview&modulepart=repfichierconcerne&file=pathrelatifdufichier
  */
@@ -199,8 +199,10 @@ print '<hr>';
 // Dir
 if ($type == 'directory')
 {
+    print '<table class="nobordernopadding">';
+    print '<tr><td>'.$langs->trans("Directory").':</td><td> <b><span class="fmvalue">'.$original_file_osencoded.'</span></b></td></tr>';
 
-    print $langs->trans("FullPath").': '.$original_file_osencoded.'<br>';
+    //print $langs->trans("FullPath").': '.$original_file_osencoded.'<br>';
     //print $langs->trans("Mime-type").': '.$type.'<br>';
 
     $info=stat($original_file_osencoded);
@@ -208,10 +210,10 @@ if ($type == 'directory')
     //print $langs->trans("Owner").": ".$info['udi']."<br>\n";
     //print $langs->trans("Group").": ".$info['gdi']."<br>\n";
     //print $langs->trans("Size").": ".dol_print_size($info['size'])."<br>\n";
-    print $langs->trans("DateLastAccess").": ".dol_print_date($info['atime'],'%Y-%m-%d %H:%M:%S')."<br>\n";
-    print $langs->trans("DateLastChange").": ".dol_print_date($info['mtime'],'%Y-%m-%d %H:%M:%S')."<br>\n";
+    print '<tr><td>'.$langs->trans("DateLastAccess").':</td><td> <span class="fmvalue">'.dol_print_date($info['atime'],'%Y-%m-%d %H:%M:%S')."</span></td></tr>\n";
+    print '<tr><td>'.$langs->trans("DateLastChange").':</td><td> <span class="fmvalue">'.dol_print_date($info['mtime'],'%Y-%m-%d %H:%M:%S')."</span></td></tr>\n";
     //print $langs->trans("Ctime").": ".$info['ctime']."<br>\n";
-
+    print '</table>'."\n";
 
     print '<br><br>';
     print '<b>'.$langs->trans("Content")."</b><br>\n";
@@ -236,18 +238,27 @@ if ($type == 'directory')
     print '</ul></div>'."\n";
 }
 else {
-    print $langs->trans("FullPath").': '.$original_file_osencoded.'<br>';
-    print $langs->trans("Mime-type").': '.$type.'<br>';
+    print '<table class="nobordernopadding">';
+    print '<tr><td>'.$langs->trans("File").':</td><td> <b><span class="fmvalue">'.$original_file_osencoded.'</span></b></td></tr>';
+    print '<tr><td>'.$langs->trans("Mime-type").':</td><td> <span class="fmvalue">'.$type.'</span></td></tr>';
 
     $info=stat($original_file_osencoded);
     //print '<br>'."\n";
     //print $langs->trans("Owner").": ".$info['udi']."<br>\n";
     //print $langs->trans("Group").": ".$info['gdi']."<br>\n";
-    print $langs->trans("Size").": ".dol_print_size($info['size'])."<br>\n";
-    print $langs->trans("DateLastAccess").": ".dol_print_date($info['atime'],'%Y-%m-%d %H:%M:%S')."<br>\n";
-    print $langs->trans("DateLastChange").": ".dol_print_date($info['mtime'],'%Y-%m-%d %H:%M:%S')."<br>\n";
+    print '<tr><td>'.$langs->trans("Size").':</td><td> <span class="fmvalue">'.dol_print_size($info['size'])."</span></td></tr>\n";
+    print '<tr><td>'.$langs->trans("DateLastAccess").':</td><td> <span class="fmvalue">'.dol_print_date($info['atime'],'%Y-%m-%d %H:%M:%S')."</span></td></tr>\n";
+    print '<tr><td>'.$langs->trans("DateLastChange").':</td><td> <span class="fmvalue">'.dol_print_date($info['mtime'],'%Y-%m-%d %H:%M:%S')."</span></td></tr>\n";
     //print $langs->trans("Ctime").": ".$info['ctime']."<br>\n";
-
+    $sizearray=array();
+    if (preg_match('/image/i',$type))
+    {
+        require_once(DOL_DOCUMENT_ROOT.'/lib/images.lib.php');
+        $sizearray=dol_getImageSize($original_file_osencoded);
+        print '<tr><td>'.$langs->trans("Width").':</td><td> <span class="fmvalue">'.$sizearray['width'].'px</span></td></tr>';
+        print '<tr><td>'.$langs->trans("Height").':</td><td> <span class="fmvalue">'.$sizearray['height'].'px</span></td></tr>';
+    }
+    print '</table>'."\n";
 
     // Flush content before preview generation
     flush();    // This send all data to browser. Browser however may wait to have message complete or aborted before showing it.
@@ -330,7 +341,7 @@ else {
                 $maxsize=4096;
                 $maxlines=25;
                 $i=0;$more=0;
-                $handle = fopen($original_file_osencoded, "r");
+                $handle = @fopen($original_file_osencoded, "r");
                 if ($handle)
                 {
                     while (!feof($handle) && $i < $maxlines) {
@@ -339,8 +350,12 @@ else {
                         $i++;
                     }
                     if (!feof($handle)) $more=1;
+                    fclose($handle);
                 }
-                fclose($handle);
+                else
+                {
+                    print '<div class="error">'.$langs->trans("ErrorFailedToOpenFile",$original_file).'</div>';
+                }
 
                 print $out;
 
@@ -359,7 +374,10 @@ else {
         print '<b>'.$langs->trans("Preview")."</b><br>\n";
         print '<hr><br>';
 
-        print '<center><img src="'.DOL_URL_ROOT.'/filemanager/viewimage.php?modulepart=filemanager&file='.urlencode($original_file).'"></center>';
+
+        print '<center><img';
+        if (! empty($sizearray['width']) && $sizearray['width'] > 500) print ' width="500"';
+        print ' src="'.DOL_URL_ROOT.'/filemanager/viewimage.php?modulepart=filemanager&file='.urlencode($original_file).'"></center>';
     }
     else
     {

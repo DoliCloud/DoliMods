@@ -20,7 +20,7 @@
  *   	\file       htdocs/filemanager/index.php
  *		\ingroup    filemanager
  *		\brief      This is home page of filemanager module
- *		\version    $Id: index.php,v 1.15 2010/09/01 18:37:08 eldy Exp $
+ *		\version    $Id: index.php,v 1.16 2010/09/04 14:30:38 eldy Exp $
  */
 
 //if (! defined('NOREQUIREUSER'))  define('NOREQUIREUSER','1');
@@ -203,7 +203,9 @@ if ($filemanagerroots->rootpath)
 
     function deletedir(dirname)
     {
-<?php
+        if (filetypeactive == 'directory')
+        {
+        <?php
         // New code using jQuery only
         $formconfirm= '
             var choice=\'ko\';
@@ -236,52 +238,59 @@ if ($filemanagerroots->rootpath)
 
         $formconfirm.= "\n";
         print $formconfirm;
-?>
+        ?>
+        }
     }
 
     function deletefile(filename)
     {
+        if (filetypeactive == 'file')
+        {
     	<?php
-    	        // New code using jQuery only
-    	        $formconfirm= '
-    	            var choice=\'ko\';
-                    jQuery("#dialog-confirm").attr("title", \''.dol_escape_js($langs->trans("DeleteFile")).'\');
-    	            jQuery("#dialog-confirm").empty();
-    	            jQuery("#dialog-confirm").append(\''.img_help('','').' '.dol_escape_js($langs->trans("DeleteFileName")).' <b>\'+filename+\'</b>\');
-    	            jQuery("#dialog-confirm").dialog({
-    	                autoOpen: true,
-    	                resizable: false,
-    	                height:160,
-    	                width:580,
-    	                modal: true,
-    	                closeOnEscape: false,
-    	                close: function(event, ui) {
-    	                     if (choice == \'ok\') { alert(\'ok\'); }
-    	                     if (choice == \'ko\') { alert(\'ko\'); }
-    	                  },
-    	                buttons: {
-    	                    \''.dol_escape_js($langs->transnoentities("Yes")).'\': function() {
-    	                         choice=\'ok\';
-    	                        jQuery(this).dialog(\'close\');
-    	                    },
-    	                    \''.dol_escape_js($langs->transnoentities("No")).'\': function() {
-    	                         choice=\'ko\';
-    	                        jQuery(this).dialog(\'close\');
-    	                    }
-    	                }
-    	            });
-    	        ';
+	        // New code using jQuery only
+	        $formconfirm= '
+	            var choice=\'ko\';
+                jQuery("#dialog-confirm").attr("title", \''.dol_escape_js($langs->trans("DeleteFile")).'\');
+	            jQuery("#dialog-confirm").empty();
+	            jQuery("#dialog-confirm").append(\''.img_help('','').' '.dol_escape_js($langs->trans("DeleteFileName")).' <b>\'+filename+\'</b>\');
+	            jQuery("#dialog-confirm").dialog({
+	                autoOpen: true,
+	                resizable: false,
+	                height:160,
+	                width:580,
+	                modal: true,
+	                closeOnEscape: false,
+	                close: function(event, ui) {
+	                     if (choice == \'ok\') { alert(\'ok\'); }
+	                     if (choice == \'ko\') { alert(\'ko\'); }
+	                  },
+	                buttons: {
+	                    \''.dol_escape_js($langs->transnoentities("Yes")).'\': function() {
+	                         choice=\'ok\';
+	                        jQuery(this).dialog(\'close\');
+	                    },
+	                    \''.dol_escape_js($langs->transnoentities("No")).'\': function() {
+	                         choice=\'ko\';
+	                        jQuery(this).dialog(\'close\');
+	                    }
+	                }
+	            });
+	        ';
 
-    	        $formconfirm.= "\n";
-    	        print $formconfirm;
+	        $formconfirm.= "\n";
+	        print $formconfirm;
     	?>
+        }
     }
 
     function savefile(filename)
     {
-        content=jQuery('#fmeditor').val();
-        // TODO Save content
-        alert(content);
+        if (filetypeactive == 'file')
+        {
+            content=jQuery('#fmeditor').val();
+            // TODO Save content
+            alert(content);
+        }
     }
 
     function loadandshowpreview(filename)
@@ -299,15 +308,15 @@ if ($filemanagerroots->rootpath)
             if ((pos > 0) && (pos < 20))
             {
                 filetypeactive='directory';
-                jQuery('.fmbuttondir').show(0);
-                jQuery('.fmbuttonfile').hide(0);
+                jQuery('.fmbuttondir').attr('href','#').animate({ opacity: 1 }, "fast");
+                jQuery('.fmbuttonfile').removeAttr('href').animate({ opacity: 0.2 }, "fast");
             }
             else
             {
                 filetypeactive='file';
-                //jQuery('.fmbuttondir').addClass('hidden');
-                jQuery('.fmbuttondir').hide(0);
-                jQuery('.fmbuttonfile').show(0);
+                jQuery('.fmbuttondir').removeAttr('href').animate({ opacity: 0.2 }, "fast");
+                jQuery('#asavefile').removeAttr('href').animate({ opacity: 0.2 }, "fast");
+                jQuery('.fmbuttonfile').attr('href','#').animate({ opacity: 1 }, "fast");
             }
             //filetype='dir';
             jQuery('#fileview').append(data);
@@ -316,24 +325,27 @@ if ($filemanagerroots->rootpath)
 
     function loadandeditcontent()
 	{
-    	filename=fileactive;       /* Get current filename */
-
-        /*alert('filename='+filename);*/
-        jQuery('#fileview').empty();
-        jQuery('#asavefile').show();
-        jQuery('#aloadandeditcontent').hide();
-
-        if (filename != '')
+        if (filetypeactive == 'file')
         {
-    		url='<?php echo DOL_URL_ROOT ?>/filemanager/ajaxeditcontent.php?action=edit&rootpath=<?php echo $filemanagerroots->id ?>&modulepart=filemanager&type=auto&file='+urlencode(filename);
-    		jQuery.get(url, function(data) {
-                //alert('Load of url '+url+' was performed : '+data);
-      			jQuery('#fileview').append(data);
-    		});
-        }
-        else
-        {
-            jQuery('#fileview').append('<?php echo dol_escape_js($langs->trans("SelectAFile")); ?>');
+        	filename=fileactive;       /* Get current filename */
+
+            /*alert('filename='+filename);*/
+            jQuery('#fileview').empty();
+            jQuery('#asavefile').attr('href','#').animate({ opacity: 1 }, "fast");
+            jQuery('#aloadandeditcontent').removeAttr('href').animate({ opacity: 0.2 }, "fast");
+
+            if (filename != '')
+            {
+        		url='<?php echo DOL_URL_ROOT ?>/filemanager/ajaxeditcontent.php?action=edit&rootpath=<?php echo $filemanagerroots->id ?>&modulepart=filemanager&type=auto&file='+urlencode(filename);
+        		jQuery.get(url, function(data) {
+                    //alert('Load of url '+url+' was performed : '+data);
+          			jQuery('#fileview').append(data);
+        		});
+            }
+            else
+            {
+                jQuery('#fileview').append('<?php echo dol_escape_js($langs->trans("SelectAFile")); ?>');
+            }
         }
 	}
 
@@ -350,26 +362,26 @@ if ($filemanagerroots->rootpath)
 			loadandshowpreview(file);
 		});
 
-        jQuery("#anewdir").show();
+        jQuery("#anewdir").attr('href','#').animate({ opacity: 1 }, "fast");
         jQuery("#anewdir").click(function() {
         });
-        jQuery("#adeletedir").hide();
+        jQuery("#adeletedir").removeAttr('href').animate({ opacity: 0.2 }, "fast");
         jQuery("#adeletedir").click(function() {
             deletedir();
         });
-        jQuery("#anewfile").show();
+        jQuery("#anewfile").attr('href','#').animate({ opacity: 1 }, "fast");
         jQuery("#anewfile").click(function() {
             newfile();
         });
-        jQuery("#asavefile").hide();
+        jQuery("#asavefile").removeAttr('href').animate({ opacity: 0.2 }, "fast");
         jQuery("#asavefile").click(function() {
             savefile();
         });
-        jQuery("#aloadandeditcontent").hide();
+        jQuery("#aloadandeditcontent").removeAttr('href').animate({ opacity: 0.2 }, "fast");
         jQuery("#aloadandeditcontent").click(function() {
         	loadandeditcontent();
         });
-        jQuery("#adeletefile").hide();
+        jQuery("#adeletefile").removeAttr('href').animate({ opacity: 0.2 }, "fast");
         jQuery("#adeletefile").click(function() {
         	deletefile(fileactive);
         });
@@ -397,9 +409,9 @@ print '</div>'."\n";
 <?php
 // Toolbar
 print '<div class="toolbarbutton">';
-print '<a href="#" id="anewdir" class="fmbuttondir" title="'.dol_escape_htmltag($langs->trans("NewDir")).'"><img border="0" width="32" height="32" src="'.DOL_URL_ROOT.'/filemanager/images/folder-new.png"></a>'."\n";
+print '<a href="#" id="anewdir" disabled="disabled" class="fmbuttondir" title="'.dol_escape_htmltag($langs->trans("NewDir")).'"><img border="0" width="32" height="32" src="'.DOL_URL_ROOT.'/filemanager/images/folder-new.png"></a>'."\n";
 print '<a href="#" id="adeletedir" class="fmbuttondir" title="'.dol_escape_htmltag($langs->trans("DeleteDir")).'"><img border="0" width="32" height="32" src="'.DOL_URL_ROOT.'/filemanager/images/folder-delete.png"></a>'."\n";
-print '<a href="#" id="anewfile" title="'.dol_escape_htmltag($langs->trans("NewFile")).'"><img border="0" width="32" height="32" src="'.DOL_URL_ROOT.'/filemanager/images/document-new.png"></a>'."\n";
+print '<a href="#" id="anewfile" class="fmbuttondir" title="'.dol_escape_htmltag($langs->trans("NewFile")).'"><img border="0" width="32" height="32" src="'.DOL_URL_ROOT.'/filemanager/images/document-new.png"></a>'."\n";
 print '<a href="#" id="asavefile" class="fmbuttonsave" title="'.dol_escape_htmltag($langs->trans("SaveFile")).'"><img border="0" width="32" height="32" src="'.DOL_URL_ROOT.'/filemanager/images/media-floppy.png"></a>'."\n";
 print '<a href="#" id="aloadandeditcontent" class="fmbuttonfile" title="'.dol_escape_htmltag($langs->trans("Edit")).'"><img border="0" width="32" height="32" src="'.DOL_URL_ROOT.'/filemanager/images/edit-copy.png"></a>'."\n";
 print '<a href="#" id="adeletefile" class="fmbuttonfile" title="'.dol_escape_htmltag($langs->trans("DeleteFile")).'"><img border="0" width="32" height="32" src="'.DOL_URL_ROOT.'/filemanager/images/document-delete.png"></a>'."\n";

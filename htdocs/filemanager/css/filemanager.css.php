@@ -213,3 +213,10 @@ UL.jqueryFileTree A:hover {
 .jqueryFileTree LI.ext_xls { background: url(../inc/jqueryFileTree/images/xls.png) left top no-repeat; }
 .jqueryFileTree LI.ext_xml { background: url(../inc/jqueryFileTree/images/code.png) left top no-repeat; }
 .jqueryFileTree LI.ext_zip { background: url(../inc/jqueryFileTree/images/zip.png) left top no-repeat; }
+
+
+/* Right panel */
+
+.fmvalue {
+    color: #001166;
+}
