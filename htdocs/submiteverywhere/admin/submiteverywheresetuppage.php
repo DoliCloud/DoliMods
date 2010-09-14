@@ -24,7 +24,7 @@
  *      \file       htdocs/newssubmitter/admin/newssubmittersetuppage.php
  *      \ingroup    newssubmitter
  *      \brief      Page to setup module NewsSubmitter
- *      \version    $Id: submiteverywheresetuppage.php,v 1.1 2010/07/28 22:06:29 eldy Exp $
+ *      \version    $Id: submiteverywheresetuppage.php,v 1.2 2010/09/14 20:42:43 eldy Exp $
  */
 
 $res=false;
@@ -212,7 +212,7 @@ print '</select>';
 print '</td>';
 // Language
 print '<td align="left">';
-print $htmladmin->select_lang($langs->defaultlang);
+print $htmladmin->select_language($langs->defaultlang);
 print '</td>';
 
 print '</tr>';
@@ -311,5 +311,5 @@ print '</table>'."\n";
 
 $db->close();
 
-llxFooter('$Date: 2010/07/28 22:06:29 $ - $Revision: 1.1 $');
+llxFooter('$Date: 2010/09/14 20:42:43 $ - $Revision: 1.2 $');
 ?>
