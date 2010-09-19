@@ -20,7 +20,7 @@
  *   	\file       htdocs/filemanager/index.php
  *		\ingroup    filemanager
  *		\brief      This is home page of filemanager module
- *		\version    $Id: index.php,v 1.17 2010/09/04 15:49:00 eldy Exp $
+ *		\version    $Id: index.php,v 1.18 2010/09/19 18:13:24 eldy Exp $
  */
 
 //if (! defined('NOREQUIREUSER'))  define('NOREQUIREUSER','1');
@@ -233,8 +233,7 @@ if ($mesg) print '<div id="mesg">'.$mesg.'<br></div>';
 if ($filemanagerroots->rootpath)
 {
 ?>
-    var fileactive='';
-    var diractive='';
+    var filediractive='';
     var filetypeactive='';
 
     function newdir(dirname)
@@ -245,10 +244,11 @@ if ($filemanagerroots->rootpath)
     {
     }
 
-    function deletedir(dirname)
+    function deletedir()
     {
         if (filetypeactive == 'directory')
         {
+            dirname=filediractive;
         <?php
         // New code using jQuery only
         $formconfirm= '
@@ -288,10 +288,11 @@ if ($filemanagerroots->rootpath)
         }
     }
 
-    function deletefile(filename)
+    function deletefile()
     {
         if (filetypeactive == 'file')
         {
+        	filename=filediractive;
     	<?php
 	        // New code using jQuery only
 	        $formconfirm= '
@@ -331,54 +332,28 @@ if ($filemanagerroots->rootpath)
         }
     }
 
-    function savefile(filename)
+    function savefile()
     {
         if (filetypeactive == 'file')
         {
+            filename=filediractive;
             content=jQuery('#fmeditor').val();
             if (content)
             {
                 // TODO Save content
-                alert(content);
+                //alert(content);
+                url='<?php echo DOL_URL_ROOT ?>/filemanager/ajaxfileactions.php?action=save&rootpath=<?php echo $filemanagerroots->id ?>&modulepart=filemanager&type=auto&file='+urlencode(filename);
+                // jQuery.post("test.php", $("#testform").serialize());
+                jQuery.post(url, { action: 'save', str: content });
             }
         }
-    }
-
-    function loadandshowpreview(filename)
-    {
-        fileactive=filename;    /* Save current filename */
-
-        /*alert('filename='+filename);*/
-        jQuery('#fileview').empty();
-
-        url='<?php echo DOL_URL_ROOT ?>/filemanager/ajaxshowpreview.php?action=preview&rootpath=<?php echo $filemanagerroots->id ?>&modulepart=filemanager&type=auto&file='+urlencode(filename);
-        jQuery.get(url, function(data) {
-            //alert('Load of url '+url+' was performed : '+data);
-            pos=data.indexOf("TYPE=directory",0);
-            //alert(pos);
-            if ((pos > 0) && (pos < 20))
-            {
-                filetypeactive='directory';
-                jQuery('.fmbuttondir').attr('href','#').animate({ opacity: 1 }, "fast");
-                jQuery('.fmbuttonfile').removeAttr('href').animate({ opacity: 0.2 }, "fast");
-            }
-            else
-            {
-                filetypeactive='file';
-                jQuery('.fmbuttondir').removeAttr('href').animate({ opacity: 0.2 }, "fast");
-                jQuery('#asavefile').removeAttr('href').animate({ opacity: 0.2 }, "fast");
-                jQuery('.fmbuttonfile').attr('href','#').animate({ opacity: 1 }, "fast");
-            }
-            //filetype='dir';
-            jQuery('#fileview').append(data);
-        });
     }
 
     function loadandeditcontent()
 	{
         if (filetypeactive == 'file')
         {
-        	filename=fileactive;       /* Get current filename */
+        	filename=filediractive;       /* Get current filename */
 
             /*alert('filename='+filename);*/
             jQuery('#fileview').empty();
@@ -387,7 +362,7 @@ if ($filemanagerroots->rootpath)
 
             if (filename != '')
             {
-        		url='<?php echo DOL_URL_ROOT ?>/filemanager/ajaxeditcontent.php?action=edit&rootpath=<?php echo $filemanagerroots->id ?>&modulepart=filemanager&type=auto&file='+urlencode(filename);
+        		url='<?php echo DOL_URL_ROOT ?>/filemanager/ajaxfileactions.php?action=edit&rootpath=<?php echo $filemanagerroots->id ?>&modulepart=filemanager&type=auto&file='+urlencode(filename);
         		jQuery.get(url, function(data) {
                     //alert('Load of url '+url+' was performed : '+data);
           			jQuery('#fileview').append(data);
@@ -400,6 +375,36 @@ if ($filemanagerroots->rootpath)
         }
 	}
 
+
+    function loadandshowpreview(filedirname)
+    {
+        //alert('filename='+filename);
+        jQuery('#fileview').empty();
+
+        url='<?php echo DOL_URL_ROOT ?>/filemanager/ajaxshowpreview.php?action=preview&rootpath=<?php echo $filemanagerroots->id ?>&modulepart=filemanager&type=auto&file='+urlencode(filedirname);
+        jQuery.get(url, function(data) {
+            //alert('Load of url '+url+' was performed : '+data);
+            pos=data.indexOf("TYPE=directory",0);
+            //alert(pos);
+            if ((pos > 0) && (pos < 20))
+            {
+                filediractive=filedirname;    // Save current dirname
+                filetypeactive='directory';
+                jQuery('.fmbuttondir').attr('href','#').animate({ opacity: 1 }, "fast");
+                jQuery('.fmbuttonfile').removeAttr('href').animate({ opacity: 0.2 }, "fast");
+            }
+            else
+            {
+                filediractive=filedirname;    // Save current dirname
+                filetypeactive='file';
+                jQuery('.fmbuttondir').removeAttr('href').animate({ opacity: 0.2 }, "fast");
+                jQuery('#asavefile').removeAttr('href').animate({ opacity: 0.2 }, "fast");
+                jQuery('.fmbuttonfile').attr('href','#').animate({ opacity: 1 }, "fast");
+            }
+            //filetype='dir';
+            jQuery('#fileview').append(data);
+        });
+    }
 
 
     // Init content of tree
@@ -435,7 +440,7 @@ if ($filemanagerroots->rootpath)
         });
         jQuery("#adeletefile").removeAttr('href').animate({ opacity: 0.2 }, "fast");
         jQuery("#adeletefile").click(function() {
-        	deletefile(fileactive);
+        	deletefile();
         });
     });
 

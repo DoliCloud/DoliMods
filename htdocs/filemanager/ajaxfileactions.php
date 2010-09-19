@@ -24,7 +24,7 @@
 /**
  *	\file       htdocs/filemanager/ajaxeditcontent.php
  *  \brief      Service to return a HTML view of a file
- *  \version    $Id: ajaxeditcontent.php,v 1.2 2010/08/27 00:09:55 eldy Exp $
+ *  \version    $Id: ajaxfileactions.php,v 1.1 2010/09/19 18:13:24 eldy Exp $
  *  \remarks    Call of this service is made with URL:
  *              ajaxpreview.php?action=preview&modulepart=repfichierconcerne&file=pathrelatifdufichier
  */
@@ -137,27 +137,33 @@ if (! $user->rights->filemanager->read)
  * Action
  */
 
-if ($action == 'remove_file')	// Remove a file
+if ($action == 'save')   // Remove a file
 {
-	clearstatcache();
+    clearstatcache();
 
-	dol_syslog(__FILE__." remove $original_file $urlsource", LOG_DEBUG);
+    dol_syslog(__FILE__." save $original_file", LOG_DEBUG);
 
-	// This test should be useless. We keep it to find bug more easily
-	$original_file_osencoded=dol_osencode($original_file);	// New file name encoded in OS encoding charset
-	if (! file_exists($original_file_osencoded))
-	{
-		dol_print_error(0,$langs->trans("ErrorFileDoesNotExists",$_GET["file"]));
-		exit;
-	}
+    // This test should be useless. We keep it to find bug more easily
+    $original_file_osencoded=dol_osencode($original_file);  // New file name encoded in OS encoding charset
+    if (! file_exists($original_file_osencoded))
+    {
+        dol_print_error(0,$langs->trans("ErrorFileDoesNotExists",$_GET["file"]));
+        exit;
+    }
 
-	dol_delete_file($original_file);
+    $f=fopen($original_file_osencoded, 'r');    // 'w'
+    if ($f)
+    {
+        //fwrite($f,$content);
 
-	dol_syslog(__FILE__." back to ".urldecode($urlsource), LOG_DEBUG);
+        fclose($f);
+    }
+    else
+    {
+        dol_syslog("Failed to open file ".$original_file, LOG_ERR);
+    }
 
-	header("Location: ".urldecode($urlsource));
-
-	return;
+    return;
 }
 
 
