@@ -24,7 +24,7 @@
 /**
  *	\file       htdocs/filemanager/ajaxeditcontent.php
  *  \brief      Service to return a HTML view of a file
- *  \version    $Id: ajaxfileactions.php,v 1.1 2010/09/19 18:13:24 eldy Exp $
+ *  \version    $Id: ajaxfileactions.php,v 1.2 2010/09/19 18:37:30 eldy Exp $
  *  \remarks    Call of this service is made with URL:
  *              ajaxpreview.php?action=preview&modulepart=repfichierconcerne&file=pathrelatifdufichier
  */
@@ -141,7 +141,7 @@ if ($action == 'save')   // Remove a file
 {
     clearstatcache();
 
-    dol_syslog(__FILE__." save $original_file", LOG_DEBUG);
+    dol_syslog(__FILE__." save ".$original_file." ", LOG_DEBUG);
 
     // This test should be useless. We keep it to find bug more easily
     $original_file_osencoded=dol_osencode($original_file);  // New file name encoded in OS encoding charset
@@ -151,16 +151,27 @@ if ($action == 'save')   // Remove a file
         exit;
     }
 
-    $f=fopen($original_file_osencoded, 'r');    // 'w'
-    if ($f)
-    {
-        //fwrite($f,$content);
+    $content=GETPOST('str');
+    $sizeofcontent=GETPOST('sizeofcontent');
 
-        fclose($f);
+    if (sizeof($content) != $sizeofcontent)
+    {
+        dol_syslog("Size of content for new file differs of size expected. May be a limit in POST/GET request. We ignore save to keep file integrity.", LOG_ERR);
     }
     else
     {
-        dol_syslog("Failed to open file ".$original_file, LOG_ERR);
+        $f=fopen($original_file_osencoded, 'r');    // 'w'
+        if ($f)
+        {
+            fwrite($f,$content);
+            fclose($f);
+
+            dol_syslog("Saved file ".$original_file);
+        }
+        else
+        {
+            dol_syslog("Failed to open file ".$original_file, LOG_ERR);
+        }
     }
 
     return;

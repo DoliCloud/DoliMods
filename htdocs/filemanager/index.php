@@ -20,7 +20,7 @@
  *   	\file       htdocs/filemanager/index.php
  *		\ingroup    filemanager
  *		\brief      This is home page of filemanager module
- *		\version    $Id: index.php,v 1.18 2010/09/19 18:13:24 eldy Exp $
+ *		\version    $Id: index.php,v 1.19 2010/09/19 18:37:30 eldy Exp $
  */
 
 //if (! defined('NOREQUIREUSER'))  define('NOREQUIREUSER','1');
@@ -344,7 +344,7 @@ if ($filemanagerroots->rootpath)
                 //alert(content);
                 url='<?php echo DOL_URL_ROOT ?>/filemanager/ajaxfileactions.php?action=save&rootpath=<?php echo $filemanagerroots->id ?>&modulepart=filemanager&type=auto&file='+urlencode(filename);
                 // jQuery.post("test.php", $("#testform").serialize());
-                jQuery.post(url, { action: 'save', str: content });
+                jQuery.post(url, { action: 'save', str: content, sizeofcontent: content.length });
             }
         }
     }
