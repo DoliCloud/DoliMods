@@ -24,7 +24,7 @@
 /**
  *	\file       htdocs/filemanager/ajaxshowpreview.php
  *  \brief      Service to return a HTML preview of a file
- *  \version    $Id: ajaxshowpreview.php,v 1.9 2010/09/04 15:49:00 eldy Exp $
+ *  \version    $Id: ajaxshowpreview.php,v 1.10 2010/09/28 18:54:06 eldy Exp $
  *  \remarks    Call of this service is made with URL:
  * 				ajaxpreview.php?action=preview&modulepart=repfichierconcerne&file=pathrelatifdufichier
  */
@@ -52,6 +52,7 @@ $langs->load("filemanager@filemanager");
 
 // Suppression de la chaine de caractere ../ dans $original_file
 $original_file = str_replace("../","/", $original_file);
+$original_file_osencoded=dol_osencode($original_file);  // New file name encoded in OS encoding charset
 
 // find the subdirectory name as the reference
 $refname=basename(dirname($original_file)."/");
@@ -135,7 +136,6 @@ if ($action == 'remove_file')   // Remove a file
     dol_syslog(__FILE__." remove $original_file $urlsource", LOG_DEBUG);
 
     // This test should be useless. We keep it to find bug more easily
-    $original_file_osencoded=dol_osencode($original_file);	// New file name encoded in OS encoding charset
     if (! file_exists($original_file_osencoded))
     {
         dol_print_error(0,$langs->trans("ErrorFileDoesNotExists",$_GET["file"]));
@@ -161,6 +161,9 @@ if ($action == 'remove_file')   // Remove a file
 header('Cache-Control: Public, must-revalidate');
 header('Pragma: public');
 
+$filename = basename($original_file_osencoded);
+$sizeoffile = filesize($original_file_osencoded);
+
 if (dol_is_dir($original_file))
 {
     $type='directory';
@@ -176,14 +179,8 @@ else
 
 clearstatcache();
 
-$filename = basename($original_file);
-
-print '<!-- TYPE='.$type.' -->'."\n";
-print '<!-- Ajax page called with url '.$_SERVER["PHP_SELF"].'?'.$_SERVER["QUERY_STRING"].' -->'."\n";
-
 // Output file on browser
 dol_syslog("document.php download $original_file $filename content-type=$type");
-$original_file_osencoded=dol_osencode($original_file);	// New file name encoded in OS encoding charset
 
 // This test if file exists should be useless. We keep it to find bug more easily
 if (! file_exists($original_file_osencoded))
@@ -191,6 +188,10 @@ if (! file_exists($original_file_osencoded))
     dol_print_error(0,$langs->trans("ErrorFileDoesNotExists",$original_file));
     exit;
 }
+
+print '<!-- TYPE='.$type.' -->'."\n";
+print '<!-- SIZE='.$sizeoffile.' -->'."\n";
+print '<!-- Ajax page called with url '.$_SERVER["PHP_SELF"].'?'.$_SERVER["QUERY_STRING"].' -->'."\n";
 
 // Les drois sont ok et fichier trouve, et fichier texte, on l'envoie
 print '<b><font class="liste_titre">'.$langs->trans("Information").'</font></b><br>';
