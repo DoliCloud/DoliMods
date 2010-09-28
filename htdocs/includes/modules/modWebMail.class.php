@@ -12,7 +12,7 @@
  *      \file       htdocs/includes/modules/modWebMail.class.php
  *      \ingroup    webmail
  *      \brief      Description and activation file for module WebMail
- *		\version	$Id: modWebMail.class.php,v 1.3 2010/09/04 16:16:35 eldy Exp $
+ *		\version	$Id: modWebMail.class.php,v 1.4 2010/09/28 18:50:41 eldy Exp $
  */
 include_once(DOL_DOCUMENT_ROOT ."/includes/modules/DolibarrModules.class.php");
 
@@ -45,7 +45,7 @@ class modWebMail extends DolibarrModules
 		// Module description used if translation string 'ModuleXXXDesc' not found (XXX is value MyModule)
 		$this->description = "Module to integrate the emmbended WebMail (RoundCube)";
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
-		$this->version = '2.9';
+		$this->version = '1.0';
 		// Key used in llx_const table to save module status enabled/disabled (where MYMODULE is value of property name of module in uppercase)
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
 		// Where to store the module in setup page (0=common,1=interface,2=others,3=very specific)
