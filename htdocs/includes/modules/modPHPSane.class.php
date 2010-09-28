@@ -26,7 +26,7 @@
  *      \file       htdocs/includes/modules/modPHPSane.class.php
  *      \ingroup    phpsane
  *      \brief      Description and activation file for module PHPSane
- *		\version	$Id: modPHPSane.class.php,v 1.6 2010/06/02 19:56:00 eldy Exp $
+ *		\version	$Id: modPHPSane.class.php,v 1.7 2010/09/28 18:49:49 eldy Exp $
  */
 include_once(DOL_DOCUMENT_ROOT ."/includes/modules/DolibarrModules.class.php");
 
@@ -58,7 +58,7 @@ class modPHPSane extends DolibarrModules
 		// Module description, used if translation string 'ModuleXXXDesc' not found (where XXX is value of numeric property 'numero' of module)
 		$this->description = "Description of module PHPSane";
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
-		$this->version = 'experimental';
+		$this->version = 'development';
 		// Key used in llx_const table to save module status enabled/disabled (where MYMODULE is value of property name of module in uppercase)
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
 		// Where to store the module in setup page (0=common,1=interface,2=others,3=very specific)
