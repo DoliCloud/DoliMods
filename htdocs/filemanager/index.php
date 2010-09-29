@@ -20,7 +20,7 @@
  *   	\file       htdocs/filemanager/index.php
  *		\ingroup    filemanager
  *		\brief      This is home page of filemanager module
- *		\version    $Id: index.php,v 1.19 2010/09/19 18:37:30 eldy Exp $
+ *		\version    $Id: index.php,v 1.20 2010/09/29 13:15:15 eldy Exp $
  */
 
 //if (! defined('NOREQUIREUSER'))  define('NOREQUIREUSER','1');
@@ -99,15 +99,15 @@ if (GETPOST('action')=='deletedir')
     else
     {
         $dirtodelete=GETPOST('dir');
-        if (! dol_is_file($filetodelete))
+        if (! dol_is_dir($dirtodelete))
         {
             $mesg='<div class="error">'.$langs->trans("ErrorDirNotFound",$dirtodelete).'</div>';
         }
         else
         {
-            $result=dol_remove_dir($dirdelete);
+            $result=dol_delete_dir($dirtodelete);
             if ($result) $mesg='<div class="ok">'.$langs->trans("DirWasRemoved",$dirtodelete).'</div>';
-            else $mesg='<div class="error">'.$langs->trans("ErrorFailedToDeleteFile",$dirtodelete).'</div>';
+            else $mesg='<div class="error">'.$langs->trans("ErrorFailedToDeleteDir",$dirtodelete).'</div>';
         }
     }
 }
@@ -405,28 +405,39 @@ if ($filemanagerroots->rootpath)
             jQuery('#fileview').append(data);
         });
     }
-
+<?php
+}
+?>
 
     // Init content of tree
     // --------------------
     jQuery(document).ready( function() {
+        <?php if ($filemanagerroots->rootpath) { ?>
         jQuery('#filetree').fileTree({ root: '<?php echo dol_escape_js($filemanagerroots->rootpath); ?>',
-                                       script: 'ajaxFileTree.php?openeddir=<?php echo urlencode($openeddir); ?>',
-                                       folderEvent: 'click',
-                                       multiFolder: false  },
-                                     function(file) {
-                                    	   jQuery("#mesg").remove();
-                                    	   loadandshowpreview(file);
-                               		 });
-
+                       script: 'ajaxFileTree.php?openeddir=<?php echo urlencode($openeddir); ?>',
+                       folderEvent: 'click',
+                       multiFolder: false  },
+                     function(file) {
+                    	   jQuery("#mesg").remove();
+                    	   loadandshowpreview(file);
+               		 });
+        <?php } ?>
+        <?php if (! $filemanagerroots->rootpath) { ?>
+        jQuery("#anewdir").removeAttr('href').animate({ opacity: 0.2 }, "fast");
+        <?php } else { ?>
         jQuery("#anewdir").attr('href','#').animate({ opacity: 1 }, "fast");
+        <?php } ?>
         jQuery("#anewdir").click(function() {
         });
         jQuery("#adeletedir").removeAttr('href').animate({ opacity: 0.2 }, "fast");
         jQuery("#adeletedir").click(function() {
             deletedir();
         });
+        <?php if (! $filemanagerroots->rootpath) { ?>
+        jQuery("#anewfile").removeAttr('href').animate({ opacity: 0.2 }, "fast");
+        <?php } else { ?>
         jQuery("#anewfile").attr('href','#').animate({ opacity: 1 }, "fast");
+        <?php } ?>
         jQuery("#anewfile").click(function() {
             newfile();
         });
@@ -444,9 +455,7 @@ if ($filemanagerroots->rootpath)
         });
     });
 
-<?php
-}
-?>
+
 /* Hide toolbar */
 jQuery(document).ready( function() {
     jQuery("#dialog-confirm").hide();
