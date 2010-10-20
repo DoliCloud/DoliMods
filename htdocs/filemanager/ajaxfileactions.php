@@ -24,7 +24,7 @@
 /**
  *	\file       htdocs/filemanager/ajaxeditcontent.php
  *  \brief      Service to return a HTML view of a file
- *  \version    $Id: ajaxfileactions.php,v 1.2 2010/09/19 18:37:30 eldy Exp $
+ *  \version    $Id: ajaxfileactions.php,v 1.3 2010/10/20 16:18:23 eldy Exp $
  *  \remarks    Call of this service is made with URL:
  *              ajaxpreview.php?action=preview&modulepart=repfichierconcerne&file=pathrelatifdufichier
  */
@@ -76,10 +76,12 @@ if ($modulepart)
 	// Wrapping for filemanager
 	if ($modulepart == 'filemanager')
 	{
-		$accessallowed=1;
-		// TODO Test on $rootpath
-		//$original_file=$conf->societe->dir_output.'/'.$original_file;
-		//$sqlprotectagainstexternals = "SELECT rowid as fk_soc FROM ".MAIN_DB_PREFIX."societe WHERE rowid='".$refname."' AND entity=".$conf->entity;
+		$dirnameslash=str_replace(array("\\","/"),"/",dirname($original_file));
+        $rootpathslash=str_replace(array("\\","/"),"/",$rootpath);
+        if (preg_match('/^'.preg_quote($rootpathslash).'/',$dirnameslash))
+        {
+            $accessallowed=1;
+        }
 	}
 }
 
