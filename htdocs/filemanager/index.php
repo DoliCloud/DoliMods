@@ -20,8 +20,10 @@
  *   	\file       htdocs/filemanager/index.php
  *		\ingroup    filemanager
  *		\brief      This is home page of filemanager module
- *		\version    $Id: index.php,v 1.20 2010/09/29 13:15:15 eldy Exp $
+ *		\version    $Id: index.php,v 1.21 2010/11/05 20:14:05 eldy Exp $
  */
+
+if (! defined('REQUIRE_JQUERY_LAYOUT'))  define('REQUIRE_JQUERY_LAYOUT','1');
 
 //if (! defined('NOREQUIREUSER'))  define('NOREQUIREUSER','1');
 //if (! defined('NOREQUIREDB'))    define('NOREQUIREDB','1');
@@ -122,7 +124,6 @@ if (GETPOST('action')=='deletedir')
 ****************************************************/
 
 $morejs=array(
-"/includes/jquery/js/jquery.layout-latest.js",
 "/filemanager/inc/jqueryFileTree/jqueryFileTree.js",
 );
 $morehead="<style type=\"text/css\">
@@ -148,9 +149,10 @@ html, body {
 <SCRIPT type=\"text/javascript\">
 	jQuery(document).ready(function () {
 		jQuery('#containerlayout').layout({
-            center__paneSelector:   \".ui-layout-center\"
-        ,   north__paneSelector:    \".ui-layout-north\"
-        ,   west__paneSelector:     \".ui-layout-west\"
+                name: \"ecmlayout\"
+		,   center__paneSelector:   \"#ecm-layout-center\"
+        ,   north__paneSelector:    \"#ecm-layout-north\"
+        ,   west__paneSelector:     \"#ecm-layout-west\"
 		,   resizable: true
 		, 	north__size:        42
 		,   north__resizable:   false
@@ -160,7 +162,7 @@ html, body {
 		,   west__slidable:     true
         ,   west__resizable:    true
         ,   west__togglerLength_closed: '100%'
-		,	useStateCookie:		true  /* Put this to false for dev */
+		,	useStateCookie:		true
 			});
 	});
 </SCRIPT>";
@@ -470,8 +472,8 @@ print '</div>'."\n";
 ?>
 
 
-<div id="containerlayout">
-    <div class="pane ui-layout-north toolbar">
+<div id="containerlayout"> <!-- begin div id="containerlayout" -->
+    <div id="ecm-layout-north" class="pane toolbar">
 <?php
 // Toolbar
 print '<div class="toolbarbutton">';
@@ -485,7 +487,7 @@ print '</div>';
 ?>
     </div>
 
-	<div class="pane ui-layout-west">
+	<div id="ecm-layout-west" class="pane">
 <?php
 
 // Show filemanager tree
@@ -495,7 +497,7 @@ print '</div>';
 ?>
 	</div>
 
-	<div class="pane ui-layout-center">
+	<div id="ecm-layout-center" class="pane">
 <?php
 print '<div id="fileview" class="fileview">';
 
@@ -505,9 +507,9 @@ print '</div>';
 ?>
 	</div>
 
-<!--	<div class="pane ui-layout-east"></div> -->
+<!--	<div id="ecm-layout-east" class="pane"></div> -->
 
-<!--	<div class="pane ui-layout-south"></div> -->
+<!--	<div id="ecm-layout-south" class="pane"></div> -->
 
 </div>
 

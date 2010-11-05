@@ -23,7 +23,7 @@
 		\file   	htdocs/filemanager/pre.inc.php
 		\ingroup    compta
 		\brief  	Fichier gestionnaire du menu filemanager
-		\version	$Id: pre.inc.php,v 1.2 2010/08/20 16:42:31 eldy Exp $
+		\version	$Id: pre.inc.php,v 1.3 2010/11/05 20:14:05 eldy Exp $
 */
 
 $res=@include("../main.inc.php");
@@ -85,6 +85,10 @@ function llxHeader($head = '', $title='', $help_url='', $target='', $disablejs=0
 	$db->free($resql);
 
 
-	if (empty($noleftmenu)) left_menu('', $help_url, '', $menu->liste);
+	if (empty($noleftmenu))
+	{
+	    left_menu('', $help_url, '', $menu->liste, 1);
+	    main_area();
+	}
 }
 ?>

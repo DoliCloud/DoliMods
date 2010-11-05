@@ -19,7 +19,7 @@
 /**
  *		\defgroup   FileManager     Module FileManager
  *      \brief      Module to get a file browser and manager into Dolibarr
- *		\brief		$Id: modFileManager.class.php,v 1.7 2010/09/04 16:03:15 eldy Exp $
+ *		\brief		$Id: modFileManager.class.php,v 1.8 2010/11/05 20:14:06 eldy Exp $
  */
 
 /**
@@ -70,7 +70,7 @@ class modFileManager extends DolibarrModules
 		$this->depends = array();
 		$this->requiredby = array();
         $this->phpmin = array(4,1);                 // Minimum version of PHP required by module
-        $this->need_dolibarr_version = array(3,0,-1);  // Minimum version of Dolibarr required by module
+        $this->need_dolibarr_version = array(3,0,-2);  // Minimum version of Dolibarr required by module
 		$this->langfiles = array("companies","filemanager@filemanager");
 
 		// Constantes
