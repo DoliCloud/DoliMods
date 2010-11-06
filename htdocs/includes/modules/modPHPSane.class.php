@@ -26,7 +26,7 @@
  *      \file       htdocs/includes/modules/modPHPSane.class.php
  *      \ingroup    phpsane
  *      \brief      Description and activation file for module PHPSane
- *		\version	$Id: modPHPSane.class.php,v 1.7 2010/09/28 18:49:49 eldy Exp $
+ *		\version	$Id: modPHPSane.class.php,v 1.8 2010/11/06 16:29:29 eldy Exp $
  */
 include_once(DOL_DOCUMENT_ROOT ."/includes/modules/DolibarrModules.class.php");
 
@@ -70,20 +70,20 @@ class modPHPSane extends DolibarrModules
 
 		// Data directories to create when module is enabled.
 		// Example: this->dirs = array("/phpsane/temp");
-		$this->dirs = array();
+		$this->dirs = array("/phpsane/temp");
 		$r=0;
 
 		// Relative path to module style sheet if exists. Example: '/phpsane/mycss.css'.
 		$this->style_sheet = '';
 
 		// Config pages. Put here list of php page names stored in admmin directory used to setup module.
-		$this->config_page_url = array("sanesetuppage.php");
+		$this->config_page_url = array("phpsanesetuppage.php@phpsane");
 
 		// Dependencies
 		$this->depends = array();		// List of modules id that must be enabled if this module is enabled
 		$this->requiredby = array();	// List of modules id to disable if this one is disabled
 		$this->phpmin = array(4,3);					// Minimum version of PHP required by module
-		$this->need_dolibarr_version = array(2,5);	// Minimum version of Dolibarr required by module
+		$this->need_dolibarr_version = array(3,0);	// Minimum version of Dolibarr required by module
 		$this->langfiles = array("phpsane@phpsane");
 
 		// Constants
@@ -92,7 +92,7 @@ class modPHPSane extends DolibarrModules
 		//                            1=>array('MODULE_MY_NEW_CONST2','chaine','myvalue','This is another constant to add',0) );
 
 		// Array to add new pages in new tabs
-		$this->tabs = array('entity:Title:@phpsane:/phpsane/mynewtab.php?id=__ID__');
+		//$this->tabs = array('entity:Title:@phpsane:/phpsane/mynewtab.php?id=__ID__');
 		// where entity can be
 		// 'thirdparty'       to add a tab in third party view
 		// 'intervention'     to add a tab in intervention view
