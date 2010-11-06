@@ -154,7 +154,7 @@ if ($error_input == 0)
     if ($action == $lang[$lang_id][26])
     {
         $file_save = $file_base . ".txt";
-        $cmd_device = $cmd_scan." | ".$OCR." - > ".$file_save;
+        $cmd_device = $cmd_scan." | ".$OCR." - > \"".$file_save."\"";
     }
 }
 
