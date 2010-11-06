@@ -20,7 +20,7 @@
  *	    \file       htdocs/admin/awstats.php
  *      \ingroup    awstats
  *      \brief      Page de configuration du module AWStats
- *		\version    $Id: awstats.php,v 1.3 2010/08/18 15:24:17 eldy Exp $
+ *		\version    $Id: awstats.php,v 1.4 2010/11/06 15:00:30 eldy Exp $
  */
 
 define('NOCSRFCHECK',1);
@@ -126,7 +126,7 @@ print "</tr>";
 $var=!$var;
 print "<tr ".$bc[$var].">";
 print "<td>".$langs->trans("AWSTATS_PROG_PATH")."</td>";
-print "<td><input type=\"text\" class=\"flat\" name=\"AWSTATS_PROG_PATH\" value=\"". ($_POST["AWSTATS_CGI_PATH"]?$_POST["AWSTATS_PROG_PATH"]:$conf->global->AWSTATS_PROG_PATH) . "\" size=\"50\"></td>";
+print "<td><input type=\"text\" class=\"flat\" name=\"AWSTATS_PROG_PATH\" value=\"". ($_POST["AWSTATS_PROG_PATH"]?$_POST["AWSTATS_PROG_PATH"]:$conf->global->AWSTATS_PROG_PATH) . "\" size=\"50\"></td>";
 print "<td>/usr/local/awstats/wwwroot/cgi-bin/awstats.pl<br>c:\MyDir\awstats.pl";
 print "</td>";
 print "</tr>";
@@ -156,5 +156,5 @@ print "<br>";
 
 $db->close();
 
-llxFooter('$Date: 2010/08/18 15:24:17 $ - $Revision: 1.3 $');
+llxFooter('$Date: 2010/11/06 15:00:30 $ - $Revision: 1.4 $');
 ?>
