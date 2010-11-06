@@ -1,0 +1,23 @@
+   Changelog
+  ~~~~~~~~~~~
+
+------------------------------------------------------------------------
+
+* 0.5.0 - major update by John Walsh <john.walsh@mini-net.co.uk>
+
+June 2009
+
+- updated/fixed code for latest PHP 5
+
+- fixed all functionality for scan options and file types
+
+- added 'Extra' user options input area
+
+- added 'help' page to web interface
+
+- re-write of html and css for more standard/flexible page layout
+
+- cleaned up the config file, and made all options configurable
+  from the config.php so that no other files need changing
+
+------------------------------------------------------------------------

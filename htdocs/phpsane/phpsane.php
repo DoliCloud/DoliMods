@@ -1,71 +1,225 @@
-<?php
-/* Copyright (C) 2004-2007 Laurent Destailleur <eldy@users.sourceforge.net>
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+<?PHP
+
+// phpSANE
+// Version: 0.5.0
+// John Walsh <john.walsh@mini-net.co.uk>
+
+
+if (! defined('NOCSRFCHECK')) define('NOCSRFCHECK',1);
+$res=0;
+if (! $res && file_exists("../main.inc.php")) $res=@include("../main.inc.php");
+if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.php");   // If pre.inc.php is called by jawstats
+if (! $res && file_exists("../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../dolibarr/htdocs/main.inc.php");     // Used on dev env only
+if (! $res && file_exists("../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
+if (! $res && file_exists("../../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
+
+include("functions.php");
+include("language.php");
+include("config.php");
+include("scan.php");
+
+
+/*
+ * View
  */
 
-/**	    \file       htdocs/phpsane/phpsane.php
-        \ingroup    phpsane
-		\brief      Page generant 2 frames, une pour le menu Dolibarr, l'autre pour l'affichage de PHPSane
-		\author	    Laurent Destailleur
-		\version    $Id: phpsane.php,v 1.3 2010/07/19 18:20:21 eldy Exp $
-*/
+$help_url="EN:Module_PHPSane_En|FR:Module_PHPSane|ES:M&oacute;dulo_PHPSane";
+llxHeader('','PHPSane',$help_url);
 
-$res=@include("../main.inc.php");
-if (! $res) $res=@include("../../main.inc.php");	// If pre.inc.php is called by jawstats
-if (! $res) $res=@include("../../../dolibarr/htdocs/main.inc.php");		// Used on dev env only
-if (! $res) $res=@include("../../../../dolibarr/htdocs/main.inc.php");	// Used on dev env only
+$form=new Form($db);
 
-/*if (empty($conf->global->PHPWEBCALENDAR_URL))
+
+////////////////////////////////////////////////////////////////////////
+
+if (0)
 {
-	llxHeader();
-	print '<div class="error">Module Webcalendar was not configured properly.</div>';
-	llxFooter('$Date: 2010/07/19 18:20:21 $ - $Revision: 1.3 $');
+echo "<style type=\"text/css\">\n";
+echo "<!--\n";
+include("css/style.css");
+echo "-->\n";
+echo "</style>\n";
 }
+
+////////////////////////////////////////////////////////////////////////
+
+echo "<FORM name=\"menueForm\" action=\"phpsane.php\" method=\"GET\">\n";
+
+echo "<input type=hidden name=\"first\" value=\"$first\">\n";
+echo "<input type=hidden name=\"lang_id\" value=\"$lang_id\">\n";
+echo "<input type=hidden name=\"sid\" value=\"$sid\">\n";
+echo "<input type=hidden name=\"preview_images\" value=\"$preview_images\">\n";
+echo "<input type=hidden name=\"preview_width\" value=\"$PREVIEW_WIDTH_MM\">\n";
+echo "<input type=hidden name=\"preview_height\" value=\"$PREVIEW_HEIGHT_MM\">\n";
+echo "<input type=hidden name=\"preview_border\" value=\"$PREVIEW_BORDER_PX\">\n";
+echo "<input type=hidden name=\"preview_scale\" value=\"$facktor\">\n";
+
+////////////////////////////////////////////////////////////////////////
+
+// page header
+
+// DOL_CHANGE LDR
+/*
+echo "<table class=\"page_header\">\n";
+echo "  <tr>\n";
+echo "    <td width=1px>\n";
+echo "      <input type=\"image\" name=\"lang_id\" value=\"0\" src=\"./bilder/de.gif\">\n";
+echo "      &nbsp;\n";
+echo "      <input type=\"image\" name=\"lang_id\" value=\"1\" src=\"./bilder/en.gif\">\n";
+echo "    </td>\n";
+echo "    <td align=\"center\">\n";
+echo "      <img src=\"./bilder/logo.jpg\" alt=\"phpSANE\" border=\"0\">\n";
+echo "    </td>\n";
+echo "  </tr>\n";
+echo "  <tr>\n";
+echo "    <td colspan=2>\n";
+echo "<IMG src=\"./bilder/black.gif\" width=\"100%\" height=\"2px\" align=\"middle\" border=\"0\">\n";
+echo "    </td>\n";
+echo "  </tr>\n";
+echo "</table>\n";
 */
 
-$mainmenu=isset($_GET["mainmenu"])?$_GET["mainmenu"]:"";
-$leftmenu=isset($_GET["leftmenu"])?$_GET["leftmenu"]:"";
+// page header - end
 
-print "
-<html>
-<head>
-<title>Dolibarr frame for PHPSane</title>
-</head>
+////////////////////////////////////////////////////////////////////////
 
-<frameset rows=\"".$heightforframes.",*\" border=0 framespacing=0 frameborder=0>
-    <frame name=\"barre\" src=\"".DOL_URL_ROOT."/phpsane/phpsanetop.php?mainmenu=".$mainmenu."&leftmenu=".$leftmenu."\" noresize scrolling=\"NO\" noborder>
-    <frame name=\"main\" src=\"".DOL_URL_ROOT."/includes/phpsane/phpSane/phpsane.php\">
-    <noframes>
-    <body>
+// testing debug box
 
-    </body>
-    </noframes>
-</frameset>
-
-<noframes>
-<body>
-	<br><center>
-	Malheureusement, votre navigateur est trop vieux pour visualiser cette zone.<br>
-	Il vous faut un navigateur g�rant les frames.<br>
-	</center>
-</body>
-</noframes>
-
-</html>
-";
+if ($do_test_mode)
+{
+echo "<table class=\"page_body\">\n";
+echo "<tr>\n";
+echo "<td align=\"center\">\n";
+echo "Debug <INPUT type=\"text\" name=\"debug\" value=\"\" size=\"64\">\n";
+echo "</td>\n";
+echo "</tr>\n";
+echo "</table>\n";
+}
 
 
+////////////////////////////////////////////////////////////////////////
+
+// page body
+
+echo "<table class=\"page_body\">\n";
+echo "<tr>\n";
+
+////////////////////////////////////////////////////////////////////////
+
+// control panel area
+
+echo "<td>\n";
+
+if (strlen($scanner) > 2)
+{
+include("menu.php");
+}
+else
+{
+if (0)
+{
+echo "<input type=hidden name=\"geometry_l\" value=\"".$geometry_l."\">\n";
+echo "<input type=hidden name=\"geometry_t\" value=\"".$geometry_t."\">\n";
+echo "<input type=hidden name=\"geometry_x\" value=\"".$geometry_x."\">\n";
+echo "<input type=hidden name=\"geometry_y\" value=\"".$geometry_y."\">\n";
+echo "<input type=hidden name=\"format\" value=\"".$format."\">\n";
+echo "<input type=hidden name=\"mode\" value=\"".$mode."\">\n";
+echo "<input type=hidden name=\"resolution\" value=\"".$resolution."\">\n";
+echo "<input type=hidden name=\"negative\" value=\"".$negative."\">\n";
+echo "<input type=hidden name=\"quality_cal\" value=\"".$quality_cal."\">\n";
+echo "<input type=hidden name=\"brightness\" value=\"".$brightness."\">\n";
+}
+
+echo "<table cellspacing=\"0\" border=\"0\" cellpadding=\"0\" align=\"left\">\n";
+echo "<tr>\n";
+echo "<td class=\"achtung\" align=\"center\" valign=\"middle\">".$lang[$lang_id][33]."<br><br></td>\n";
+echo "</tr>\n";
+echo "<tr>\n";
+echo "<td align=\"center\" valign=\"middle\"><INPUT type=\"submit\" name=\"action\" value=\"".$lang[$lang_id][34]."\"></td>\n";
+echo "</tr>\n";
+echo "</table>\n";
+}
+
+echo "</td>\n";
+
+////////////////////////////////////////////////////////////////////////
+
+// preview area
+
+// TODO Use viewimage wrapper
+echo "<td class=\"tab_preview\">\n";
+
+//echo '<img src="'.DOL_URL_ROOT.'/viewimage.php?file=pathrelatifdufichier&modulepart=repfichierconcerne">'
+echo "<IMG src=\"".DOL_URL_ROOT.'/viewimage.php?file='.basename($preview_images).'&modulepart=phpsane'."\" width=\"$PREVIEW_WIDTH_PX\" height=\"$PREVIEW_HEIGHT_PX\" border=\"{$PREVIEW_BORDER_PX}px\" name=\"Preview\"><br>\n";
+
+echo "</td>\n";
+
+////////////////////////////////////////////////////////////////////////
+
+echo "</tr>\n";
+echo "</table>\n";
+
+// page body - end
+
+////////////////////////////////////////////////////////////////////////
+
+// page footer
+
+echo "<table class=\"page_footer\">\n";
+
+////////////////////////////////////////////////////////////////////////
+
+echo "<tr>\n";
+echo "<td>\n";
+echo "<IMG src=\"./bilder/black.gif\" width=\"100%\" height=\"2px\" align=\"middle\" border=\"0\">\n";
+echo "</td>\n";
+echo "</tr>\n";
+
+////////////////////////////////////////////////////////////////////////
+
+// jdw:
+echo "<tr>\n";
+echo "<td>\n";
+echo "# $cmd_device\n";
+echo "</td>\n";
+echo "</tr>\n";
+
+////////////////////////////////////////////////////////////////////////
+
+if (0)
+{
+echo "<tr>\n";
+echo "<td>\n";
+echo "$lang[$lang_id][30]</td>\n";
+echo "</td>\n";
+echo "</tr>\n";
+}
+
+////////////////////////////////////////////////////////////////////////
+
+echo "<tr>\n";
+echo "<td>\n";
+echo "<IMG src=\"./bilder/black.gif\" width=\"100%\" height=\"2px\" align=\"middle\" border=\"0\">\n";
+echo "</td>\n";
+echo "</tr>\n";
+
+////////////////////////////////////////////////////////////////////////
+
+echo "</table>\n";
+
+// page footer - end
+
+////////////////////////////////////////////////////////////////////////
+
+// inline javascript functions, after form areas
+
+echo "<script language=\"JavaScript\" type=\"text/javascript\">\n";
+echo "<!--\n";
+include("javascript/js_fns.js");
+echo "//-->\n";
+echo "</script>\n";
+
+echo "</FORM>\n";
 ?>
+
+</body>
+</html>
