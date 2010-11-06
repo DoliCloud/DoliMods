@@ -24,7 +24,7 @@
 /**
  *	\file       htdocs/filemanager/ajaxshowpreview.php
  *  \brief      Service to return a HTML preview of a file
- *  \version    $Id: ajaxshowpreview.php,v 1.11 2010/10/20 16:18:23 eldy Exp $
+ *  \version    $Id: ajaxshowpreview.php,v 1.12 2010/11/06 23:18:31 eldy Exp $
  *  \remarks    Call of this service is made with URL:
  * 				ajaxpreview.php?action=preview&modulepart=repfichierconcerne&file=pathrelatifdufichier
  */
@@ -39,6 +39,8 @@ function llxHeader() { }
 
 if (file_exists("../main.inc.php")) require("../main.inc.php");	// Load $user and permissions
 else require("../../../dolibarr/htdocs/main.inc.php");    // Load $user and permissions
+if (file_exists("./class/filemanagerroots.class.php")) require_once("./class/filemanagerroots.class.php");
+else if (file_exists(DOL_DOCUMENT_ROOT."/filemanager/class/filemanagerroots.class.php")) require_once(DOL_DOCUMENT_ROOT."/filemanager/class/filemanagerroots.class.php");
 require_once(DOL_DOCUMENT_ROOT.'/lib/files.lib.php');
 
 // Do not use urldecode here ($_GET and $_REQUEST are already decoded by PHP).
@@ -57,6 +59,16 @@ $original_file_osencoded=dol_osencode($original_file);  // New file name encoded
 // find the subdirectory name as the reference
 $refname=basename(dirname($original_file)."/");
 
+// Define root to scan
+$filemanagerroots=new FilemanagerRoots($db);
+
+if (! empty($rootpath) && is_numeric($rootpath))
+{
+    $result=$filemanagerroots->fetch($rootpath);
+    //var_dump($filemanagerroots);
+    $rootpath=$filemanagerroots->rootpath;
+}
+
 $accessallowed=0;
 $sqlprotectagainstexternals='';
 if ($modulepart)
@@ -68,7 +80,8 @@ if ($modulepart)
     {
         $dirnameslash=str_replace(array("\\","/"),"/",dirname($original_file));
         $rootpathslash=str_replace(array("\\","/"),"/",$rootpath);
-        if (preg_match('/^'.preg_quote($rootpathslash).'/',$dirnameslash))
+        //print "x".$dirnameslash." - ".preg_quote($rootpathslash,'/');
+        if (preg_match('/^'.preg_quote($rootpathslash,'/').'/',$dirnameslash))
         {
             $accessallowed=1;
         }

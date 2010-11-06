@@ -20,7 +20,7 @@
  *   	\file       htdocs/filemanager/index.php
  *		\ingroup    filemanager
  *		\brief      This is home page of filemanager module
- *		\version    $Id: index.php,v 1.21 2010/11/05 20:14:05 eldy Exp $
+ *		\version    $Id: index.php,v 1.22 2010/11/06 23:18:31 eldy Exp $
  */
 
 if (! defined('REQUIRE_JQUERY_LAYOUT'))  define('REQUIRE_JQUERY_LAYOUT','1');
@@ -43,7 +43,6 @@ if (! defined("DISABLE_PWC"))            define("DISABLE_PWC",'1');		// If this 
 require_once("../filemanager/pre.inc.php");
 if (file_exists("./class/filemanagerroots.class.php")) require_once("./class/filemanagerroots.class.php");
 else if (file_exists(DOL_DOCUMENT_ROOT."/filemanager/class/filemanagerroots.class.php")) require_once(DOL_DOCUMENT_ROOT."/filemanager/class/filemanagerroots.class.php");
-if (file_exists("./class/filemanagerroots.class.php")) require_once("./class/filemanagerroots.class.php");
 require_once(DOL_DOCUMENT_ROOT."/lib/files.lib.php");
 
 // Load traductions files requiredby by page

@@ -24,7 +24,7 @@
 /**
  *	\file       htdocs/filemanager/ajaxeditcontent.php
  *  \brief      Service to return a HTML view of a file
- *  \version    $Id: ajaxfileactions.php,v 1.3 2010/10/20 16:18:23 eldy Exp $
+ *  \version    $Id: ajaxfileactions.php,v 1.4 2010/11/06 23:18:31 eldy Exp $
  *  \remarks    Call of this service is made with URL:
  *              ajaxpreview.php?action=preview&modulepart=repfichierconcerne&file=pathrelatifdufichier
  */
@@ -78,7 +78,7 @@ if ($modulepart)
 	{
 		$dirnameslash=str_replace(array("\\","/"),"/",dirname($original_file));
         $rootpathslash=str_replace(array("\\","/"),"/",$rootpath);
-        if (preg_match('/^'.preg_quote($rootpathslash).'/',$dirnameslash))
+        if (preg_match('/^'.preg_quote($rootpathslash,'/').'/',$dirnameslash))
         {
             $accessallowed=1;
         }
