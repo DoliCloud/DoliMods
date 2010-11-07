@@ -141,74 +141,23 @@ echo "</table>\n";
 
 echo "</td>\n";
 
-////////////////////////////////////////////////////////////////////////
+// Preview
 
-// preview area
-
-// TODO Use viewimage wrapper
 echo "<td class=\"tab_preview\">\n";
-
-//echo '<img src="'.DOL_URL_ROOT.'/viewimage.php?file=pathrelatifdufichier&modulepart=repfichierconcerne">'
-echo "<IMG src=\"".DOL_URL_ROOT.'/viewimage.php?file='.basename($preview_images).'&modulepart=phpsane'."\" width=\"$PREVIEW_WIDTH_PX\" height=\"$PREVIEW_HEIGHT_PX\" border=\"{$PREVIEW_BORDER_PX}px\" name=\"Preview\"><br>\n";
-
+echo "<IMG src=\"".DOL_URL_ROOT.'/viewimage.php?file='.basename($preview_images).'&modulepart=phpsane_user_temp'."\" width=\"$PREVIEW_WIDTH_PX\" height=\"$PREVIEW_HEIGHT_PX\" border=\"{$PREVIEW_BORDER_PX}px\" name=\"Preview\"><br>\n";
 echo "</td>\n";
-
-////////////////////////////////////////////////////////////////////////
 
 echo "</tr>\n";
 echo "</table>\n";
 
-// page body - end
-
-////////////////////////////////////////////////////////////////////////
-
-// page footer
-
-echo "<table class=\"page_footer\">\n";
-
-////////////////////////////////////////////////////////////////////////
-
-echo "<tr>\n";
-echo "<td>\n";
-echo "<IMG src=\"./bilder/black.gif\" width=\"100%\" height=\"2px\" align=\"middle\" border=\"0\">\n";
-echo "</td>\n";
-echo "</tr>\n";
-
-////////////////////////////////////////////////////////////////////////
-
-// jdw:
+echo "<table class=\"border\">\n";
 echo "<tr>\n";
 echo "<td>\n";
 echo "# $cmd_device\n";
 echo "</td>\n";
 echo "</tr>\n";
-
-////////////////////////////////////////////////////////////////////////
-
-if (0)
-{
-echo "<tr>\n";
-echo "<td>\n";
-echo "$lang[$lang_id][30]</td>\n";
-echo "</td>\n";
-echo "</tr>\n";
-}
-
-////////////////////////////////////////////////////////////////////////
-
-echo "<tr>\n";
-echo "<td>\n";
-echo "<IMG src=\"./bilder/black.gif\" width=\"100%\" height=\"2px\" align=\"middle\" border=\"0\">\n";
-echo "</td>\n";
-echo "</tr>\n";
-
-////////////////////////////////////////////////////////////////////////
-
 echo "</table>\n";
 
-// page footer - end
-
-////////////////////////////////////////////////////////////////////////
 
 // inline javascript functions, after form areas
 
@@ -219,7 +168,7 @@ echo "//-->\n";
 echo "</script>\n";
 
 echo "</FORM>\n";
-?>
 
-</body>
-</html>
+
+llxFooter();
+?>
