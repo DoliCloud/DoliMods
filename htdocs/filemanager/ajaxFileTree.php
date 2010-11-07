@@ -20,7 +20,7 @@
  *      \file       htdocs/filemanager/ajaxFileTree.php
  *      \ingroup    filemanager
  *      \brief      This script returns content of a directory for filetree
- *      \version    $Id: ajaxFileTree.php,v 1.4 2010/09/01 17:56:03 eldy Exp $
+ *      \version    $Id: ajaxFileTree.php,v 1.5 2010/11/07 00:54:49 eldy Exp $
  */
 
 
@@ -38,6 +38,8 @@ function llxHeader() { }
 
 if (file_exists("../main.inc.php")) require("../main.inc.php"); // Load $user and permissions
 else require("../../../dolibarr/htdocs/main.inc.php");    // Load $user and permissions
+if (file_exists("./class/filemanagerroots.class.php")) require_once("./class/filemanagerroots.class.php");
+else if (file_exists(DOL_DOCUMENT_ROOT."/filemanager/class/filemanagerroots.class.php")) require_once(DOL_DOCUMENT_ROOT."/filemanager/class/filemanagerroots.class.php");
 require_once(DOL_DOCUMENT_ROOT.'/lib/files.lib.php');
 
 // Do not use urldecode here ($_GET and $_REQUEST are already decoded by PHP).
@@ -67,28 +69,33 @@ if (! $user->rights->filemanager->read)
  * View
  */
 
-if( file_exists($selecteddir) ) {
+if( file_exists($selecteddir) )
+{
 	$files = scandir($selecteddir);
-	natcasesort($files);
-	if( count($files) > 2 ) { /* The 2 accounts for . and .. */
-		echo "<ul class=\"jqueryFileTree\" style=\"display: none;\">";
-		// All dirs
-		foreach( $files as $file ) {
-			if( file_exists($selecteddir . $file) && $file != '.' && $file != '..' && is_dir($selecteddir . $file) ) {
-				print "<li class=\"directory collapsed\"><a class=\"fmdirlia\" href=\"#\" rel=\"" . htmlentities($selecteddir . $file) . "/\"";
-				print " onClick=\"loadandshowpreview('".dol_escape_js($selecteddir . $file)."')\"";
-				print ">" . htmlentities($file) . "</a></li>";
-			}
-		}
-		// All files
-		foreach( $files as $file ) {
-			if( file_exists($selecteddir . $file) && $file != '.' && $file != '..' && !is_dir($selecteddir . $file) ) {
-				$ext = preg_replace('/^.*\./', '', $file);
-				print "<li class=\"file ext_".$ext."\"><a class=\"fmfilelia\" href=\"#\" rel=\"" . htmlentities($selecteddir . $file) . "\">" . htmlentities($file) . "</a></li>";
-			}
-		}
-		echo "</ul>";
-	}
+    if ($files)
+    {
+    	natcasesort($files);
+    	if( count($files) > 2 )
+    	{ /* The 2 accounts for . and .. */
+    		echo "<ul class=\"jqueryFileTree\" style=\"display: none;\">";
+    		// All dirs
+    		foreach( $files as $file ) {
+    			if( file_exists($selecteddir . $file) && $file != '.' && $file != '..' && is_dir($selecteddir . $file) ) {
+    				print "<li class=\"directory collapsed\"><a class=\"fmdirlia\" href=\"#\" rel=\"" . htmlentities($selecteddir . $file) . "/\"";
+    				print " onClick=\"loadandshowpreview('".dol_escape_js($selecteddir . $file)."')\"";
+    				print ">" . htmlentities($file) . "</a></li>";
+    			}
+    		}
+    		// All files
+    		foreach( $files as $file ) {
+    			if( file_exists($selecteddir . $file) && $file != '.' && $file != '..' && !is_dir($selecteddir . $file) ) {
+    				$ext = preg_replace('/^.*\./', '', $file);
+    				print "<li class=\"file ext_".$ext."\"><a class=\"fmfilelia\" href=\"#\" rel=\"" . htmlentities($selecteddir . $file) . "\">" . htmlentities($file) . "</a></li>";
+    			}
+    		}
+    		echo "</ul>";
+    	}
+    }
 }
 
 // This ajax service is called only when a directory $selecteddir is opened but not closed.

@@ -23,13 +23,14 @@
  *		\file       htdocs/viewimage.php
  *		\brief      Wrapper permettant l'affichage de fichiers images Dolibarr
  *      \remarks    L'appel est viewimage.php?file=pathrelatifdufichier&modulepart=repfichierconcerne
- *		\version    $Id: viewimage.php,v 1.1 2010/08/21 17:26:08 eldy Exp $
+ *		\version    $Id: viewimage.php,v 1.2 2010/11/07 00:54:49 eldy Exp $
  */
 
 // Do not use urldecode here ($_GET and $_REQUEST are already decoded by PHP).
 $original_file = isset($_GET["file"])?$_GET["file"]:'';
 $modulepart = isset($_GET["modulepart"])?$_GET["modulepart"]:'';
 $urlsource = isset($_GET["urlsource"])?$_GET["urlsource"]:'';
+$rootpath = isset($_GET["rootpath"])?$_GET["rootpath"]:'';
 
 //if (! defined('NOREQUIREUSER'))   define('NOREQUIREUSER','1');	// Not disabled cause need to load personalized language
 //if (! defined('NOREQUIREDB'))   define('NOREQUIREDB','1');		// Not disabled cause need to load personalized language
@@ -43,13 +44,13 @@ if (! defined('NOREQUIREAJAX'))  define('NOREQUIREAJAX','1');
 // Pour autre que companylogo, on charge environnement + info issus de logon comme le user
 if (($modulepart == 'companylogo') && ! defined("NOLOGIN")) define("NOLOGIN",'1');
 
-
 // C'est un wrapper, donc header vierge
 function llxHeader() { }
 
-
 if (file_exists("../main.inc.php")) require("../main.inc.php"); // Load $user and permissions
 else require("../../../dolibarr/htdocs/main.inc.php");    // Load $user and permissions
+if (file_exists("./class/filemanagerroots.class.php")) require_once("./class/filemanagerroots.class.php");
+else if (file_exists(DOL_DOCUMENT_ROOT."/filemanager/class/filemanagerroots.class.php")) require_once(DOL_DOCUMENT_ROOT."/filemanager/class/filemanagerroots.class.php");
 require_once(DOL_DOCUMENT_ROOT.'/lib/files.lib.php');
 
 // Define mime type
@@ -60,28 +61,69 @@ else $type=dol_mimetype($original_file);
 // Suppression de la chaine de caractere ../ dans $original_file
 $original_file = str_replace("../","/", $original_file);
 
+// Define root to scan
+$filemanagerroots=new FilemanagerRoots($db);
+
+if (! empty($rootpath) && is_numeric($rootpath))
+{
+    $result=$filemanagerroots->fetch($rootpath);
+    //var_dump($filemanagerroots);
+    $rootpath=$filemanagerroots->rootpath;
+}
+
+// Security checks
 $accessallowed=0;
+$sqlprotectagainstexternals='';
 if ($modulepart)
 {
-	// Check permissions and define directory
+    // On fait une verification des droits et on definit le repertoire concerne
 
-	// Wrapping pour les photo utilisateurs
-	if ($modulepart == 'filemanager')
-	{
-		$accessallowed=1;
-	}
+    // Wrapping for filemanager
+    if ($modulepart == 'filemanager')
+    {
+        $dirnameslash=str_replace(array("\\","/"),"/",dirname($original_file));
+        $rootpathslash=str_replace(array("\\","/"),"/",$rootpath);
+        //print "x".$dirnameslash." - ".preg_quote($rootpathslash,'/');
+        if (preg_match('/^'.preg_quote($rootpathslash,'/').'/',$dirnameslash))
+        {
+            $accessallowed=1;
+        }
+    }
+}
+
+// Basic protection (against external users only)
+if ($user->societe_id > 0)
+{
+    if ($sqlprotectagainstexternals)
+    {
+        $resql = $db->query($sqlprotectagainstexternals);
+        if ($resql)
+        {
+            $num=$db->num_rows($resql);
+            $i=0;
+            while ($i < $num)
+            {
+                $obj = $db->fetch_object($resql);
+                if ($user->societe_id != $obj->fk_soc)
+                {
+                    $accessallowed=0;
+                    break;
+                }
+                $i++;
+            }
+        }
+    }
 }
 
 // Security:
-// Limit access if permissions are wrong
+// Limite acces si droits non corrects
 if (! $accessallowed)
 {
-	accessforbidden();
+    accessforbidden();
 }
 
 // Security:
-// On interdit les remontees de repertoire ainsi que les pipe dans
-// les noms de fichiers.
+// On interdit les remontees de repertoire ainsi que les pipe dans les noms de fichiers.
 if (preg_match('/\.\./',$original_file) || preg_match('/[<>|]/',$original_file))
 {
 	dol_syslog("Refused to deliver file ".$original_file, LOG_WARNING);
@@ -94,27 +136,29 @@ if (preg_match('/\.\./',$original_file) || preg_match('/[<>|]/',$original_file))
 
 clearstatcache();
 
+
 // Output files on browser
 dol_syslog("viewimage.php return file $original_file content-type=$type");
 $original_file_osencoded=dol_osencode($original_file);
 
 // This test if file exists should be useless. We keep it to find bug more easily
-if (! file_exists($original_file_osencoded))
+if (! dol_is_file($original_file_osencoded))
 {
-	dol_print_error(0,'Error: File '.$_GET["file"].' does not exists');
+    dol_print_error(0,'Error: File '.$_GET["file"].' does not exists or filesystems permissions are not allowed');
 	exit;
 }
 
 // Les drois sont ok et fichier trouve
 if ($type)
 {
-	header('Content-type: '.$type);
+    //print "eeee".$type;exit;
+    header('Content-type: '.$type);
 }
 else
 {
 	header('Content-type: image/png');
 }
 
-readfile($original_file_osencoded);
+$result=readfile($original_file_osencoded);
 
 ?>

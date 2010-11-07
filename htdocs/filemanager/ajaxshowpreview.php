@@ -24,7 +24,7 @@
 /**
  *	\file       htdocs/filemanager/ajaxshowpreview.php
  *  \brief      Service to return a HTML preview of a file
- *  \version    $Id: ajaxshowpreview.php,v 1.12 2010/11/06 23:18:31 eldy Exp $
+ *  \version    $Id: ajaxshowpreview.php,v 1.13 2010/11/07 00:54:49 eldy Exp $
  *  \remarks    Call of this service is made with URL:
  * 				ajaxpreview.php?action=preview&modulepart=repfichierconcerne&file=pathrelatifdufichier
  */
@@ -69,6 +69,7 @@ if (! empty($rootpath) && is_numeric($rootpath))
     $rootpath=$filemanagerroots->rootpath;
 }
 
+// Security checks
 $accessallowed=0;
 $sqlprotectagainstexternals='';
 if ($modulepart)
@@ -283,6 +284,9 @@ else {
     // File
     if (preg_match('/text/i',$type))
     {
+        $minmem=64;        // Minimum of memory required to use Geshi (color syntax on text files)
+        $maxsize=65536;      // Max size of data to read for text preview
+
         // Define memmax (memory_limit in bytes)
         $memmaxorig=@ini_get("memory_limit");
         $memmax=@ini_get("memory_limit");
@@ -295,12 +299,12 @@ else {
                 if (strtoupper($reg[2]) == 'K') $memmax=$reg[1]*1024;
             }
         }
-
+        //print "memmax php=".$memmax;
 
         $out='';
         $srclang=dol_mimetype($original_file,'text/plain',3);
 
-        if (preg_match('/html/i',$type))
+        if (preg_match('/html/i',$type))    // If HTML file
         {
             print '<br><br>';
             print '<b>'.$langs->trans("Preview")."</b><br>\n";
@@ -310,15 +314,15 @@ else {
             //$out=file_get_contents($original_file_osencoded);
             //print $out;
         }
-        else
+        else                                // If not a HTML file
         {
             $warn='';
 
-            // Check if enouch memory for Geshi
-            $minmem=64;
+            // Check if we have enough memory for Geshi
             if ($memmax < $minmem*1024*1024)
             {
                 $warn=img_warning().' '.$langs->trans("NotEnoughMemoryForSyntaxColor");
+                $warn.=' (Have '.$memmax.' - Need '.$minmem.')';
                 $srclang='';    // We disable geshi
             }
 
@@ -327,6 +331,22 @@ else {
                 $warn=' ('.$langs->trans("ColoringDisabled").')';
                 $srclang='';    // We disable geshi
             }
+
+            // Clean values for srclang
+            if ($type=='text/plain' && empty($srclang))    // Try to enhance MIME detection with first line content
+            {
+                //print "rr".$srclang;
+                $firstline=file_get_contents($original_file_osencoded,false,null,0,32);
+                $texts = preg_split("/((\r(?!\n))|((?<!\r)\n)|(\r\n))/", strtolower($firstline));
+                if (preg_match('/^#!.*\/bin\/(.*)$/',$texts[0],$reg))
+                {
+                    $converttogeshicode=array('ksh'=>'bash', 'sh'=>'bash', 'bash'=>'bash');
+                    $srclang=$converttogeshicode[$reg[1]]?$converttogeshicode[$reg[1]]:$reg[1];
+                    //print "ee".$srclang;
+                }
+            }
+            if ($srclang=='php') $srclang='php-brief';
+            //if ($srclang=='perl') $srclang='';              // Perl seems to be bugged
 
             if (! empty($srclang))
             {
@@ -337,13 +357,14 @@ else {
                 // Translate with Geshi
                 include_once('inc/geshi/geshi.php');
 
-                $res='';
-                $out=file_get_contents($original_file_osencoded);
-                if ($srclang=='php') $srclang='php-brief';
+                $out=file_get_contents($original_file_osencoded,false,null,0,$maxsize);
+
                 $geshi = new GeSHi($out, $srclang);
-                $geshi->enable_strict_mode(false);
+                $geshi->enable_strict_mode(true);
+                $res='';
                 $res=$geshi->parse_code();
 
+                //print "zzzzzzzz";
                 print $res;
             }
             else
@@ -354,7 +375,6 @@ else {
                 print "<br>\n";
                 print '<hr>';
 
-                $maxsize=4096;
                 $maxlines=25;
                 $i=0;$more=0;
                 $handle = @fopen($original_file_osencoded, "r");

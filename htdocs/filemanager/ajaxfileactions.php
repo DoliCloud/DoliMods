@@ -24,7 +24,7 @@
 /**
  *	\file       htdocs/filemanager/ajaxeditcontent.php
  *  \brief      Service to return a HTML view of a file
- *  \version    $Id: ajaxfileactions.php,v 1.4 2010/11/06 23:18:31 eldy Exp $
+ *  \version    $Id: ajaxfileactions.php,v 1.5 2010/11/07 00:54:49 eldy Exp $
  *  \remarks    Call of this service is made with URL:
  *              ajaxpreview.php?action=preview&modulepart=repfichierconcerne&file=pathrelatifdufichier
  */
@@ -39,6 +39,8 @@ function llxHeader() { }
 
 if (file_exists("../main.inc.php")) require("../main.inc.php");	// Load $user and permissions
 else require("../../../dolibarr/htdocs/main.inc.php");    // Load $user and permissions
+if (file_exists("./class/filemanagerroots.class.php")) require_once("./class/filemanagerroots.class.php");
+else if (file_exists(DOL_DOCUMENT_ROOT."/filemanager/class/filemanagerroots.class.php")) require_once(DOL_DOCUMENT_ROOT."/filemanager/class/filemanagerroots.class.php");
 require_once(DOL_DOCUMENT_ROOT.'/lib/files.lib.php');
 require_once(DOL_DOCUMENT_ROOT.'/lib/doleditor.class.php');
 
@@ -63,10 +65,22 @@ $attachment = true;
 
 // Suppression de la chaine de caractere ../ dans $original_file
 $original_file = str_replace("../","/", $original_file);
+$original_file_osencoded=dol_osencode($original_file);  // New file name encoded in OS encoding charset
 
 // find the subdirectory name as the reference
 $refname=basename(dirname($original_file)."/");
 
+// Define root to scan
+$filemanagerroots=new FilemanagerRoots($db);
+
+if (! empty($rootpath) && is_numeric($rootpath))
+{
+    $result=$filemanagerroots->fetch($rootpath);
+    //var_dump($filemanagerroots);
+    $rootpath=$filemanagerroots->rootpath;
+}
+
+// Security checks
 $accessallowed=0;
 $sqlprotectagainstexternals='';
 if ($modulepart)

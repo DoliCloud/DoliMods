@@ -23,3 +23,4 @@ NewDir=Nouveau répertoire
 NewFile=Nouveau fichier
 AddRootPath=Ajouter des répertoires racines pour le gestionnaire de fichier
 UseColorSyntaxing=Activer la coloration syntaxique sur les fichiers textes (requiert plus de mémoire. A désactiver en cas de page blanche sur la visualisation du contenu d'un fichier).
+ColoringDisabled=Coloration syntaxique non active
