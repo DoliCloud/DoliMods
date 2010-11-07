@@ -20,7 +20,7 @@
  *   	\file       htdocs/filemanager/index.php
  *		\ingroup    filemanager
  *		\brief      This is home page of filemanager module
- *		\version    $Id: index.php,v 1.22 2010/11/06 23:18:31 eldy Exp $
+ *		\version    $Id: index.php,v 1.23 2010/11/07 13:04:22 eldy Exp $
  */
 
 if (! defined('REQUIRE_JQUERY_LAYOUT'))  define('REQUIRE_JQUERY_LAYOUT','1');
@@ -35,9 +35,6 @@ if (! defined('REQUIRE_JQUERY_LAYOUT'))  define('REQUIRE_JQUERY_LAYOUT','1');
 //if (! defined('NOREQUIREHTML'))  define('NOREQUIREHTML','1');	// If we don't need to load the html.form.class.php
 //if (! defined('NOREQUIREAJAX'))  define('NOREQUIREAJAX','1');
 //if (! defined("NOLOGIN"))        define("NOLOGIN",'1');		// If this page is public (can be called outside logged session)
-if (! defined("DISABLE_PROTOTYPE"))      define("DISABLE_PROTOTYPE",'1');		// If this page is public (can be called outside logged session)
-if (! defined("DISABLE_SCRIPTACULOUS"))  define("DISABLE_SCRIPTACULOUS",'1');		// If this page is public (can be called outside logged session)
-if (! defined("DISABLE_PWC"))            define("DISABLE_PWC",'1');		// If this page is public (can be called outside logged session)
 
 
 require_once("../filemanager/pre.inc.php");
