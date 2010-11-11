@@ -3,7 +3,8 @@
 include("./pre.inc.php");
 require ("funcsv2.php");
 
-$tracker_url = $website_url . substr($_SERVER['REQUEST_URI'], 0, -15) . "announce.php";
+$urlwithouturlroot=preg_replace('/'.preg_quote(DOL_URL_ROOT,'/').'$/i','',$dolibarr_main_url_root);
+$tracker_url = $urlwithouturlroot.DOL_URL_ROOT.'/bittorrent/announce.php';
 
 
 /*
@@ -49,5 +50,5 @@ if (file_exists("install.php"))
 	echo errorMessage() . "Your install.php file has NOT been deleted.  This is a security risk, please delete it immediately.</p>\n";
 }
 
-llxFooter('$Date: 2009/07/22 23:39:17 $ - $Revision: 1.6 $');
+llxFooter('$Date: 2010/11/11 11:41:48 $ - $Revision: 1.7 $');
 ?>
