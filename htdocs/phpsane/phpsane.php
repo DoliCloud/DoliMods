@@ -34,99 +34,113 @@ $form=new Form($db);
 $formfile=new FormFile($db);
 
 
-echo "<FORM name=\"menueForm\" action=\"phpsane.php\" method=\"GET\">\n";
+print  "<FORM name=\"menueForm\" action=\"phpsane.php\" method=\"GET\">\n";
 
-echo "<input type=hidden name=\"first\" value=\"$first\">\n";
-echo "<input type=hidden name=\"lang_id\" value=\"$lang_id\">\n";
-echo "<input type=hidden name=\"sid\" value=\"$sid\">\n";
-echo "<input type=hidden name=\"preview_images\" value=\"$preview_images\">\n";
-echo "<input type=hidden name=\"preview_width\" value=\"$PREVIEW_WIDTH_MM\">\n";
-echo "<input type=hidden name=\"preview_height\" value=\"$PREVIEW_HEIGHT_MM\">\n";
-echo "<input type=hidden name=\"preview_scale\" value=\"$facktor\">\n";
+print  "<input type=hidden name=\"first\" value=\"$first\">\n";
+print  "<input type=hidden name=\"lang_id\" value=\"$lang_id\">\n";
+print  "<input type=hidden name=\"sid\" value=\"$sid\">\n";
+print  "<input type=hidden name=\"preview_images\" value=\"$preview_images\">\n";
+print  "<input type=hidden name=\"preview_width\" value=\"$PREVIEW_WIDTH_MM\">\n";
+print  "<input type=hidden name=\"preview_height\" value=\"$PREVIEW_HEIGHT_MM\">\n";
+print  "<input type=hidden name=\"preview_scale\" value=\"$facktor\">\n";
 
 // test
 if ($do_test_mode)
 {
-    echo "<table class=\"page_body\">\n";
-    echo "<tr>\n";
-    echo "<td align=\"center\">\n";
-    echo "Debug <INPUT type=\"text\" name=\"debug\" value=\"\" size=\"64\">\n";
-    echo "</td>\n";
-    echo "</tr>\n";
-    echo "</table>\n";
+    print  "<table class=\"page_body\">\n";
+    print  "<tr>\n";
+    print  "<td align=\"center\">\n";
+    print  "Debug <INPUT type=\"text\" name=\"debug\" value=\"\" size=\"64\">\n";
+    print  "</td>\n";
+    print  "</tr>\n";
+    print  "</table>\n";
 }
 
 
-echo "<table class=\"page_body\">\n";
-echo "<tr>\n";
-
-// control panel area
-
-echo '<td valign="top">'."\n";
-
-if (strlen($scanner) > 2)
+if (! strlen($scanner) > 2)
 {
+    print  "<table cellspacing=\"0\" border=\"0\" cellpadding=\"0\" align=\"left\">\n";
+    print  "<tr>\n";
+    print  "<td class=\"achtung\" align=\"center\" valign=\"middle\">".$lang[$lang_id][33]."<br><br></td>\n";
+    print  "</tr>\n";
+    print  "<tr>\n";
+    print  "<td align=\"center\" valign=\"middle\"><INPUT type=\"submit\" name=\"action\" value=\"".$lang[$lang_id][34]."\"></td>\n";
+    print  "</tr>\n";
+    print  "</table>\n";
+}
+else
+{
+    print  "<table class=\"page_body\">\n";
+    print  "<tr>\n";
+    print  '<td valign="top">'."\n";
     include("menu.php");
+    print  "</td>\n";
+
+    // Preview
+    print  "<td class=\"photo\">\n";
+    if (basename($preview_images) != 'scan.jpg')
+    {
+        print  "<IMG src=\"".DOL_URL_ROOT.'/viewimage.php?file='.basename($preview_images).'&modulepart=phpsane_user_temp'."\" width=\"$PREVIEW_WIDTH_PX\" height=\"$PREVIEW_HEIGHT_PX\" name=\"Preview\"><br>\n";
+    }
+    else
+    {
+        print  "<IMG src=\"".DOL_URL_ROOT.'/phpsane/images/scan.jpg'."\" width=\"$PREVIEW_WIDTH_PX\" height=\"$PREVIEW_HEIGHT_PX\" name=\"Preview\"><br>\n";
+    }
+    print  "</td>\n";
+
+    print  "</tr>\n";
+    print  "</table>\n";
 }
-else
+
+print  "</FORM>\n";
+
+
+print  '<br>';
+print  '<hr>';
+
+if ($cmd_device)
 {
-    echo "<table cellspacing=\"0\" border=\"0\" cellpadding=\"0\" align=\"left\">\n";
-    echo "<tr>\n";
-    echo "<td class=\"achtung\" align=\"center\" valign=\"middle\">".$lang[$lang_id][33]."<br><br></td>\n";
-    echo "</tr>\n";
-    echo "<tr>\n";
-    echo "<td align=\"center\" valign=\"middle\"><INPUT type=\"submit\" name=\"action\" value=\"".$lang[$lang_id][34]."\"></td>\n";
-    echo "</tr>\n";
-    echo "</table>\n";
+
+    print  "# $cmd_device\n";
+
+    print  '<hr>';
 }
-
-echo "</td>\n";
-
-// Preview
-
-echo "<td class=\"photo\">\n";
-if (basename($preview_images) != 'scan.jpg')
-{
-    echo "<IMG src=\"".DOL_URL_ROOT.'/viewimage.php?file='.basename($preview_images).'&modulepart=phpsane_user_temp'."\" width=\"$PREVIEW_WIDTH_PX\" height=\"$PREVIEW_HEIGHT_PX\" name=\"Preview\"><br>\n";
-}
-else
-{
-    echo "<IMG src=\"".DOL_URL_ROOT.'/phpsane/images/scan.jpg'."\" width=\"$PREVIEW_WIDTH_PX\" height=\"$PREVIEW_HEIGHT_PX\" name=\"Preview\"><br>\n";
-}
-echo "</td>\n";
-
-echo "</tr>\n";
-echo "</table>\n";
-
-echo "</FORM>\n";
-
-
-echo '<br>';
-
-print '<hr>';
-
-echo "<table class=\"border\" width=\"100%\">\n";
-echo "<tr>\n";
-echo "<td>\n";
-echo "# $cmd_device\n";
-echo "</td>\n";
-echo "</tr>\n";
-echo "</table>\n";
-
-echo '<hr>';
-
 
 // Add list of scan files
-$nbrows=$formfile->show_documents('phpsane_user_temp','',$conf->phpsane->dir_temp.'/'.$user->id,$_SERVER["PHP_SELF"],0,1);
+$nbrows=$formfile->show_documents('phpsane_user_temp','',$conf->phpsane->dir_temp.'/'.$user->id,$_SERVER["PHP_SELF"],0,1,'',0,1,0,0,1,'',$langs->trans("Files"));
 
 
 
-// inline javascript functions, after form areas
-echo "<script language=\"JavaScript\" type=\"text/javascript\">\n";
-echo "<!--\n";
-include("javascript/js_fns.js");
-echo "//-->\n";
-echo "</script>\n";
+// Inline javascript functions, after form areas
+print  "<script language=\"JavaScript\" type=\"text/javascript\">\n";
+print  "<!--\n";
+print '
+function setPageSize(form)
+{
+  var page_size = form.pagesize[form.pagesize.selectedIndex].value.split(",");
+  var page_x = parseInt(page_size[0]);
+  var page_y = parseInt(page_size[1]);
+
+  if ((page_x > 0) && (page_y > 0))
+  {
+    setGeometry(0, 0, page_x, page_y);
+  }
+
+  //document.menueForm.debug.value = form.pagesize[form.pagesize.selectedIndex].value;
+
+  return(true);
+}
+
+function setGeometry(l, t, x, y)
+{
+  document.menueForm.geometry_l.value = l;
+  document.menueForm.geometry_t.value = t;
+  document.menueForm.geometry_x.value = x;
+  document.menueForm.geometry_y.value = y;
+}
+';
+print  "//-->\n";
+print  "</script>\n";
 
 
 

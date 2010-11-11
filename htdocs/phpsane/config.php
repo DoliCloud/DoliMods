@@ -38,14 +38,12 @@ $SAVE_PLACE=$conf->phpsane->dir_temp;
 //exit;
 
 
-// set your scanner maxiumum page size, and a low dpi for previews
-
+// Set default value of paramters
 $PREVIEW_WIDTH_MM   = 216;
 $PREVIEW_HEIGHT_MM  = 297;
 $PREVIEW_DPI        = 100;
 
 // set the preview image on-screen size
-
 $PREVIEW_WIDTH_PX   = $PREVIEW_WIDTH_MM;
 $PREVIEW_HEIGHT_PX  = $PREVIEW_HEIGHT_MM;
 
@@ -90,26 +88,24 @@ if (`ls $OCR`) $do_ocr = 1;
 // first visit and clean/clear options
 
 $first=1;
-$clear=0; // jdw: does not do anything ?
 $clean=0;
 
 if (isset($_GET['first'])) $first=$_GET['first'];
-if ($first) { $clean=1; $clear=1; }
+if ($first) $clean=1;
 $first=0;
 
 if(isset($_GET['lang_id'])) { $lang_id=$_GET['lang_id']; }
 
 $action="";
 if(isset($_GET['action'])) { $action=$_GET['action']; }
-if((ereg_replace("&#228;", "9", $lang[$lang_id][28])) == (ereg_replace("\xE4", "9", $action))) { $clean=1; $clear=1; }
-if((ereg_replace("&#252;", "9", $lang[$lang_id][25])) == (ereg_replace("\xFC", "9", $action))) $clear=1;
+if((ereg_replace("&#228;", "9", $lang[$lang_id][28])) == (ereg_replace("\xE4", "9", $action))) $clean=1;
 
 
 // default options
 
 $sid=time();
 
-$preview_images="./bilder/scan.jpg";
+$preview_images="scan.jpg";
 
 $geometry_l=0;
 $geometry_t=0;
@@ -127,39 +123,41 @@ $brightness="0";
 $usr_opt="";
 
 
-// user options
-
-if (!$clean)
+// Set user options
+if (! $clean)
 {
-  if (isset($_GET['sid'])) $sid=$_GET['sid'];
+  if (GETPOST('sid')) $sid=GETPOST('sid');
 
-  if (isset($_GET['preview_images'])) $preview_images=$_GET['preview_images'];
+  if (GETPOST('preview_images')) $preview_images=GETPOST('preview_images');
 
-  if (isset($_GET['geometry_l'])) $geometry_l=$_GET['geometry_l'];
-  if (isset($_GET['geometry_t'])) $geometry_t=$_GET['geometry_t'];
-  if (isset($_GET['geometry_x'])) $geometry_x=$_GET['geometry_x'];
-  if (isset($_GET['geometry_y'])) $geometry_y=$_GET['geometry_y'];
+  if (GETPOST('geometry_l')) $geometry_l=GETPOST('geometry_l');
+  if (GETPOST('geometry_t')) $geometry_t=GETPOST('geometry_t');
+  if (GETPOST('geometry_x')) $geometry_x=GETPOST('geometry_x');
+  if (GETPOST('geometry_y')) $geometry_y=GETPOST('geometry_y');
 
-  if (isset($_GET['format'])) $format=$_GET['format'];
-  if (isset($_GET['mode'])) $mode=$_GET['mode'];
-  if (isset($_GET['resolution'])) $resolution=$_GET['resolution'];
+  if (GETPOST('format')) $format=GETPOST('format');
+  if (GETPOST('mode')) $mode=GETPOST('mode');
+  if (GETPOST('resolution')) $resolution=GETPOST('resolution');
 
-  if (isset($_GET['negative'])) $negative="yes";
-  if (isset($_GET['quality_cal'])) $quality_cal="yes";
-  if (isset($_GET['brightness'])) $brightness=$_GET['brightness'];
+  if (GETPOST('negative')) $negative="yes";
+  if (GETPOST('quality_cal')) $quality_cal="yes";
+  if (GETPOST('brightness')) $brightness=GETPOST('brightness');
 
-  if (isset($_GET['usr_opt'])) $usr_opt=$_GET['usr_opt'];
+  if (GETPOST('usr_opt')) $usr_opt=GETPOST('usr_opt');
 }
 
-//if (isset($_GET['scanner'])) $scanner=$_GET['scanner'];
-//if (isset($_GET['scan_name'])) $scan_name=$_GET['scan_name'];
-//if($_GET['depth']) $depth=$_GET['depth']; else $depth="8";   // wers braucht
+if (empty($geometry_x)) $geometry_x=$PREVIEW_WIDTH_MM;
+if (empty($geometry_y)) $geometry_y=$PREVIEW_HEIGHT_MM;
 
 
-// verify usr_opt - keep only valid chars, otherwise replace with an 'X'
+
+//if (GETPOST('scanner'])) $scanner=$_GET['scanner'];
+//if (GETPOST('scan_name'])) $scan_name=$_GET['scan_name'];
+
+
+// Check usr_opt - keep only valid chars, otherwise replace with an 'X'
 
 $my_usr_opt = '';
-
 for ($i = 0; $i < strlen($usr_opt); $i++)
 {
   if (preg_match('([0-9]|[a-z]|[A-Z]|[\ \%\+\-_=])', $usr_opt[$i]))
@@ -175,40 +173,95 @@ for ($i = 0; $i < strlen($usr_opt); $i++)
 $usr_opt = $my_usr_opt;
 
 
+// Define output file name
 $TMP_PREFIX=$SAVE_PLACE.'/'.$user->id.'/';
 $file_base=$TMP_PREFIX.$sid;
-
-
 
 // scale factor to map preview image -> scanner co-ords
 $facktor = round($PREVIEW_WIDTH_MM / $PREVIEW_WIDTH_PX, 4);
 
-// scanner device detect
 
+
+// reset scanner informations
+if (GETPOST('actionclean'))
+{
+    unset($_SESSION['scannerlist']);
+    //var_dump($_SESSION);
+    foreach($_SESSION as $key => $val)
+    {
+        if (preg_match('/^resolution_/',$key))
+        {
+            //print 'eeee'.$key;
+            unset($_SESSION['resolution_'.$key]);
+        }
+    }
+    //dol_delete_file($file_save);
+}
+
+// Scanner device detection
 if ($do_test_mode)
 {
-  $sane_scanner="device `umax:/dev/sg0' is a UMAX     Astra 1220S      flatbed scanner";
+    $sane_scanner="device `umax:/dev/sg0' is a UMAX     Astra 1220S      flatbed scanner";
 }
 else
 {
-  $cmd=$SCANIMAGE." --list-devices | grep device";
-  $sane_scanner = `$cmd`;
-  unset($cmd);
+    // Retrieve list of possible resolutions into $list
+    if (empty($_SESSION['scannerlist']))
+    {
+        $out=array();
+        $command=$SCANIMAGE.' --list-devices | grep device';    // Return lines: device `umax:/dev/sg0' is a UMAX     Astra 1220S      flatbed scanner
+        //print "eeee".$command;
+        dol_syslog("Detect list of scanner devices with command ".$command);
+        $sane_scanner = exec($command,$out);
+        //print $sane_scanner;
+        $start=strpos($sane_scanner,"`")+1;
+        $laenge=strpos($sane_scanner,"'")-$start;
+        $scanner = "\"".substr($sane_scanner,$start,$laenge)."\"";
+        unset($start);
+        unset($laenge);
+        if ($sane_scanner) $_SESSION['scannerlist']=$sane_scanner;
+    }
+    else
+    {
+        $sane_scanner=$_SESSION['scannerlist'];
+        dol_syslog("List of scanner already stored in cache with value ".$sane_scanner);
+    }
 }
-
+// Define scanner and scan_name from sane_scanner
 $start=strpos($sane_scanner,"`")+1;
 $laenge=strpos($sane_scanner,"'")-$start;
 $scanner = "\"".substr($sane_scanner,$start,$laenge)."\"";
 unset($start);
 unset($laenge);
-
 $start=strpos($sane_scanner,"is a")+4;   // mit anderren scannern testen?
 $laenge=strpos($sane_scanner,"scanner")-$start;
 $scan_name = substr($sane_scanner,$start,$laenge);
 unset($start);
 unset($laenge);
+//print "xx".$sane_scanner."rr".$scanner."yy".$scan_name;exit;
 
-// ----
+// Retrieve list of possible resolutions into $list
+if (empty($_SESSION['resolution_'.$scanner]))
+{
+    $out=array();
+    $command=$SCANIMAGE.' --help | grep -m 1 resolution';
+    //print "eeee".$command;
+    dol_syslog("Detect resolution of scanner with command ".$command);
+    $res_list = exec($command,$out);
+    //$res_list=`$command`;
+    $start=strpos($res_list,"n")+2;
+    $length = strpos($res_list,"dpi") -$start;
+    $list = "".substr($res_list,$start,$length)."";
+    unset($start);
+    unset($length);
+    if ($list) $_SESSION['resolution_'.$scanner]=$list;
+}
+else
+{
+    $list=$_SESSION['resolution_'.$scanner];
+    dol_syslog("Resolution of scanner already stored in cache with value ".$list);
+}
+
 
 $scan_ausgabe=$scan_name."&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Device = ".$scanner;
 
