@@ -126,7 +126,7 @@ if ($error_input == 0)
     // preview
     if ($action == $lang[$lang_id][24])
     {
-        $preview_images = $TMP_PRAEFIX."preview_".$sid.".jpg";
+        $preview_images = $TMP_PREFIX."preview_".$sid.".jpg";
         $cmd_device = $SCANIMAGE." -d ".$scanner." --resolution ".$PREVIEW_DPI."dpi -l 0mm -t 0mm -x ".$PREVIEW_WIDTH_MM."mm -y ".$PREVIEW_HEIGHT_MM."mm".$cmd_mode.$cmd_negative.$cmd_quality_cal.$cmd_brightness.$cmd_usr_opt." | ".$PNMTOJPEG." --quality=50 > \"".$preview_images."\"";
     }
 
@@ -169,25 +169,17 @@ if ($cmd_device !== '')
     dol_syslog("Launch sane commande: ".$cmd_device);
     //print "eee";exit;
 
-    $scan_yes=`$cmd_device`;
+    $out=array();
+//    $scan_yes=exec($cmd_device,$out);
 }
 else
 {
     $cmd_device = $lang[$lang_id][39];
 }
 
-if ($file_save !== '')
-{
-    echo "<script language=\"JavaScript\" type=\"text/javascript\">\n";
-    echo "window.open(\"./save.php?file_save=".$file_save."&file_save_image=".$file_save_image."&lang_id=".$lang_id."\",\"_blank\", \"width=400,height=500,left=320,top=200,scrollbars=yes,location=no,status=no,menubar=no\");\n";
-    echo "</script>\n";
-}
-
 if ($clean == 1)
-{   // DOL_CHANGE LDR
-
-//$cleaner_yes=`$cleaner`;
-dol_delete_file($file_save);
+{
+    dol_delete_file($file_save);
 }
 
 ?>

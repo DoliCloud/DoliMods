@@ -44,22 +44,17 @@ $PREVIEW_WIDTH_MM   = 216;
 $PREVIEW_HEIGHT_MM  = 297;
 $PREVIEW_DPI        = 100;
 
-
 // set the preview image on-screen size
 
-$PREVIEW_WIDTH_PX   = $PREVIEW_WIDTH_MM * 2;
-$PREVIEW_HEIGHT_PX  = $PREVIEW_HEIGHT_MM * 2;
-$PREVIEW_BORDER_PX  = 4;
+$PREVIEW_WIDTH_PX   = $PREVIEW_WIDTH_MM;
+$PREVIEW_HEIGHT_PX  = $PREVIEW_HEIGHT_MM;
 
 
 // set the list of page sizes to select from
-
-$PAGE_SIZE_LIST = array();
-
 // ref: page sizes in mm (http://en.wikipedia.org/wiki/Paper_size)
-
 // NB. only pages within your scanner size will be included
 
+$PAGE_SIZE_LIST = array();
 add_page_size('A0', 841, 1189);
 add_page_size('A1', 594, 841);
 add_page_size('A2', 420, 594);
@@ -180,23 +175,13 @@ for ($i = 0; $i < strlen($usr_opt); $i++)
 $usr_opt = $my_usr_opt;
 
 
-// INTERNAL CONFIG -----------------------------------------------------
+$TMP_PREFIX=$SAVE_PLACE.'/'.$user->id.'/';
+$file_base=$TMP_PREFIX.$sid;
 
-// file names setup
-
-// DOL_CHANGE LDR
-//$TMP_PRAEFIX=$SAVE_PLACE."tmp/";   //  kein slach als abschluss und muss schreibrechte haben
-$TMP_PRAEFIX=$SAVE_PLACE.'/'.$user->id.'/';
-
-$file_base=$TMP_PRAEFIX.$sid;
-
-$cleaner="rm -f ".$TMP_PRAEFIX."*";
 
 
 // scale factor to map preview image -> scanner co-ords
-
 $facktor = round($PREVIEW_WIDTH_MM / $PREVIEW_WIDTH_PX, 4);
-
 
 // scanner device detect
 
