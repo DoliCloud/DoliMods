@@ -26,13 +26,13 @@
  *      \file       htdocs/includes/modules/modVoyage.class.php
  *      \ingroup    voyage
  *      \brief      Description and activation file for module Voyage
- *		\version	$Id: modVoyage.class.php,v 1.5 2010/11/13 18:30:20 eldy Exp $
+ *		\version	$Id: modVoyage.class.php,v 1.6 2010/11/13 21:29:14 eldy Exp $
  */
 include_once(DOL_DOCUMENT_ROOT ."/includes/modules/DolibarrModules.class.php");
 
 
 /**     \class      modVoyage
- *      \brief      Description and activation class for module PHPSane
+ *      \brief      Description and activation class for module Voyage
  */
 class modVoyage extends DolibarrModules
 {
@@ -73,7 +73,7 @@ class modVoyage extends DolibarrModules
 		$this->dirs = array();
 		$r=0;
 
-		// Relative path to module style sheet if exists. Example: '/phpsane/mycss.css'.
+		// Relative path to module style sheet if exists. Example: '/voyage/mycss.css'.
 		$this->style_sheet = '';
 
 		// Config pages. Put here list of php page names stored in admmin directory used to setup module.
@@ -145,8 +145,8 @@ class modVoyage extends DolibarrModules
 									'url'=>'/voyage/index.php',
 									'langs'=>'',	// Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 									'position'=>100,
-									'enabled'=>'1',			// Define condition to show or hide menu entry. Use '$conf->phpsane->enabled' if entry must be visible if module is enabled.
-									'perms'=>'1',			// Use 'perms'=>'$user->rights->phpsane->level1->level2' if you want your menu with a permission rules
+									'enabled'=>'1',			// Define condition to show or hide menu entry. Use '$conf->voyage->enabled' if entry must be visible if module is enabled.
+									'perms'=>'1',			// Use 'perms'=>'$user->rights->voyage->level1->level2' if you want your menu with a permission rules
 									'target'=>'',
 									'user'=>2);				// 0=Menu for internal users, 1=external users, 2=both
 		$r++;
@@ -154,13 +154,13 @@ class modVoyage extends DolibarrModules
 		// Example to declare a Left Menu entry:
 		// $this->menu[$r]=array(	'fk_menu'=>'r=0',		// Use r=value where r is index key used for the parent menu entry (higher parent must be a top menu entry)
 		//							'type'=>'left',			// This is a Left menu entry
-		//							'titre'=>'PHPSane left menu 1',
-		//							'mainmenu'=>'phpsane',
-		//							'url'=>'/phpsane/pagelevel1.php',
+		//							'titre'=>'Voyage left menu 1',
+		//							'mainmenu'=>'voyage',
+		//							'url'=>'/voyage/pagelevel1.php',
 		//							'langs'=>'mylangfile',	// Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 		//							'position'=>100,
-		//							'enabled'=>'1',			// Define condition to show or hide menu entry. Use '$conf->phpsane->enabled' if entry must be visible if module is enabled.
-		//							'perms'=>'1',			// Use 'perms'=>'$user->rights->phpsane->level1->level2' if you want your menu with a permission rules
+		//							'enabled'=>'1',			// Define condition to show or hide menu entry. Use '$conf->voyage->enabled' if entry must be visible if module is enabled.
+		//							'perms'=>'1',			// Use 'perms'=>'$user->rights->voyage->level1->level2' if you want your menu with a permission rules
 		//							'target'=>'',
 		//							'user'=>2);				// 0=Menu for internal users, 1=external users, 2=both
 		// $r++;
@@ -168,13 +168,13 @@ class modVoyage extends DolibarrModules
 		// Example to declare another Left Menu entry:
 		// $this->menu[$r]=array(	'fk_menu'=>'r=1',		// Use r=value where r is index key used for the parent menu entry (higher parent must be a top menu entry)
 		//							'type'=>'left',			// This is a Left menu entry
-		//							'titre'=>'PHPSane left menu 2',
-		//							'mainmenu'=>'phpsane',
-		//							'url'=>'/phpsane/pagelevel2.php',
+		//							'titre'=>'Voyage left menu 2',
+		//							'mainmenu'=>'voyage',
+		//							'url'=>'/voyage/pagelevel2.php',
 		//							'langs'=>'mylangfile',	// Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 		//							'position'=>100,
-		//							'enabled'=>'1',			// Define condition to show or hide menu entry. Use '$conf->phpsane->enabled' if entry must be visible if module is enabled.
-		//							'perms'=>'1',			// Use 'perms'=>'$user->rights->phpsane->level1->level2' if you want your menu with a permission rules
+		//							'enabled'=>'1',			// Define condition to show or hide menu entry. Use '$conf->voyage->enabled' if entry must be visible if module is enabled.
+		//							'perms'=>'1',			// Use 'perms'=>'$user->rights->voyage->level1->level2' if you want your menu with a permission rules
 		//							'target'=>'',
 		//							'user'=>2);				// 0=Menu for internal users, 1=external users, 2=both
 		// $r++;
@@ -229,7 +229,7 @@ class modVoyage extends DolibarrModules
 	/**
 	 *		\brief		Create tables, keys and data required by module
 	 * 					Files llx_table1.sql, llx_table1.key.sql llx_data.sql with create table, create keys
-	 * 					and create data commands must be stored in directory /phpsane/sql/
+	 * 					and create data commands must be stored in directory /voyage/sql/
 	 *					This function is called by this->init.
 	 * 		\return		int		<=0 if KO, >0 if OK
 	 */
