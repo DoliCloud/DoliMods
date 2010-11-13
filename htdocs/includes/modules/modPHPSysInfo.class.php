@@ -17,7 +17,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-/**     \defgroup   phpsane     Module PHPSysInfo
+/**     \defgroup   phpsysinfo     Module PHPSysInfo
  *      \brief      Example of a module descriptor.
  *					Such a file must be copied into htdocs/includes/module directory.
  */
@@ -26,7 +26,7 @@
  *      \file       htdocs/includes/modules/modPHPSysInfo.class.php
  *      \ingroup    PHPSysInfo
  *      \brief      Description and activation file for module PHPSysInfo
- *		\version	$Id: modPHPSysInfo.class.php,v 1.4 2010/07/19 20:57:39 eldy Exp $
+ *		\version	$Id: modPHPSysInfo.class.php,v 1.5 2010/11/13 18:30:20 eldy Exp $
  */
 include_once(DOL_DOCUMENT_ROOT ."/includes/modules/DolibarrModules.class.php");
 

@@ -17,16 +17,16 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-/**     \defgroup   phpsane     Module PHPSane
+/**     \defgroup   voyage     Module Voyage
  *      \brief      Example of a module descriptor.
  *					Such a file must be copied into htdocs/includes/module directory.
  */
 
 /**
- *      \file       htdocs/includes/modules/modPHPSane.class.php
- *      \ingroup    phpsane
- *      \brief      Description and activation file for module PHPSane
- *		\version	$Id: modVoyage.class.php,v 1.4 2010/06/02 19:56:00 eldy Exp $
+ *      \file       htdocs/includes/modules/modVoyage.class.php
+ *      \ingroup    voyage
+ *      \brief      Description and activation file for module Voyage
+ *		\version	$Id: modVoyage.class.php,v 1.5 2010/11/13 18:30:20 eldy Exp $
  */
 include_once(DOL_DOCUMENT_ROOT ."/includes/modules/DolibarrModules.class.php");
 
@@ -69,7 +69,7 @@ class modVoyage extends DolibarrModules
 		$this->picto='generic';
 
 		// Data directories to create when module is enabled.
-		// Example: this->dirs = array("/phpsane/temp");
+		// Example: this->dirs = array("/voyage/temp");
 		$this->dirs = array();
 		$r=0;
 
