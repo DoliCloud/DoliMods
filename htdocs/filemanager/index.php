@@ -20,7 +20,7 @@
  *   	\file       htdocs/filemanager/index.php
  *		\ingroup    filemanager
  *		\brief      This is home page of filemanager module
- *		\version    $Id: index.php,v 1.23 2010/11/07 13:04:22 eldy Exp $
+ *		\version    $Id: index.php,v 1.24 2010/11/13 00:57:10 eldy Exp $
  */
 
 if (! defined('REQUIRE_JQUERY_LAYOUT'))  define('REQUIRE_JQUERY_LAYOUT','1');
@@ -77,13 +77,18 @@ if (GETPOST('action')=='deletefile')
         $filetodelete=GETPOST('file');
         if (! dol_is_file($filetodelete))
         {
+            $langs->load("errors");
             $mesg='<div class="error">'.$langs->trans("ErrorFileNotFound",$filtetodelete).'</div>';
         }
         else
         {
             $result=dol_delete_file($filetodelete);
             if ($result) $mesg='<div class="ok">'.$langs->trans("FileWasRemoved",$filetodelete).'</div>';
-            else $mesg='<div class="error">'.$langs->trans("ErrorFailedToDeleteFile",$filetodelete).'</div>';
+            else
+            {
+                $langs->load("errors");
+                $mesg='<div class="error">'.$langs->trans("ErrorFailToDeleteFile",$filetodelete).'</div>';
+            }
         }
     }
 }
@@ -99,13 +104,18 @@ if (GETPOST('action')=='deletedir')
         $dirtodelete=GETPOST('dir');
         if (! dol_is_dir($dirtodelete))
         {
+            $langs->load("errors");
             $mesg='<div class="error">'.$langs->trans("ErrorDirNotFound",$dirtodelete).'</div>';
         }
         else
         {
             $result=dol_delete_dir($dirtodelete);
             if ($result) $mesg='<div class="ok">'.$langs->trans("DirWasRemoved",$dirtodelete).'</div>';
-            else $mesg='<div class="error">'.$langs->trans("ErrorFailedToDeleteDir",$dirtodelete).'</div>';
+            else
+            {
+                $langs->load("errors");
+                $mesg='<div class="error">'.$langs->trans("ErrorFailToDeleteDir",$dirtodelete).'</div>';
+            }
         }
     }
 }
