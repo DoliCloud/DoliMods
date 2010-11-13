@@ -18,11 +18,6 @@ if (! empty($conf->global->PHPSANE_OCR))       $SCANIMAGE=$conf->global->PHPSANE
 
 // user config
 // ===========
-
-// default language
-// 0 = german
-// 1 = english
-
 $lang_id=1;
 
 
@@ -39,7 +34,7 @@ $SAVE_PLACE=$conf->phpsane->dir_temp;
 
 
 // Set default value of paramters
-$PREVIEW_WIDTH_MM   = 216;
+$PREVIEW_WIDTH_MM   = 210;
 $PREVIEW_HEIGHT_MM  = 297;
 $PREVIEW_DPI        = 100;
 
@@ -85,17 +80,6 @@ if (`ls $OCR`) $do_ocr = 1;
 
 // END CONFIG ----------------------------------------------------------
 
-// first visit and clean/clear options
-
-$first=1;
-$clean=0;
-
-if (isset($_GET['first'])) $first=$_GET['first'];
-if ($first) $clean=1;
-$first=0;
-
-if(isset($_GET['lang_id'])) { $lang_id=$_GET['lang_id']; }
-
 $action="";
 if(isset($_GET['action'])) { $action=$_GET['action']; }
 if((ereg_replace("&#228;", "9", $lang[$lang_id][28])) == (ereg_replace("\xE4", "9", $action))) $clean=1;
@@ -112,6 +96,7 @@ $geometry_t=0;
 $geometry_x=0;
 $geometry_y=0;
 
+// By default
 $format="jpg";
 $mode="Color";
 $resolution=100;
@@ -124,31 +109,27 @@ $usr_opt="";
 
 
 // Set user options
-if (! $clean)
-{
-  if (GETPOST('sid')) $sid=GETPOST('sid');
+if (GETPOST('sid')) $sid=GETPOST('sid');
 
-  if (GETPOST('preview_images')) $preview_images=GETPOST('preview_images');
+if (GETPOST('preview_images')) $preview_images=GETPOST('preview_images');
 
-  if (GETPOST('geometry_l')) $geometry_l=GETPOST('geometry_l');
-  if (GETPOST('geometry_t')) $geometry_t=GETPOST('geometry_t');
-  if (GETPOST('geometry_x')) $geometry_x=GETPOST('geometry_x');
-  if (GETPOST('geometry_y')) $geometry_y=GETPOST('geometry_y');
+if (GETPOST('geometry_l')) $geometry_l=GETPOST('geometry_l');
+if (GETPOST('geometry_t')) $geometry_t=GETPOST('geometry_t');
+if (GETPOST('geometry_x')) $geometry_x=GETPOST('geometry_x');
+if (GETPOST('geometry_y')) $geometry_y=GETPOST('geometry_y');
 
-  if (GETPOST('format')) $format=GETPOST('format');
-  if (GETPOST('mode')) $mode=GETPOST('mode');
-  if (GETPOST('resolution')) $resolution=GETPOST('resolution');
+if (GETPOST('format')) $format=GETPOST('format');
+if (GETPOST('mode')) $mode=GETPOST('mode');
+if (GETPOST('resolution')) $resolution=GETPOST('resolution');
 
-  if (GETPOST('negative')) $negative="yes";
-  if (GETPOST('quality_cal')) $quality_cal="yes";
-  if (GETPOST('brightness')) $brightness=GETPOST('brightness');
+if (GETPOST('negative')) $negative="yes";
+if (GETPOST('quality_cal')) $quality_cal="yes";
+if (GETPOST('brightness')) $brightness=GETPOST('brightness');
 
-  if (GETPOST('usr_opt')) $usr_opt=GETPOST('usr_opt');
-}
+if (GETPOST('usr_opt')) $usr_opt=GETPOST('usr_opt');
 
 if (empty($geometry_x)) $geometry_x=$PREVIEW_WIDTH_MM;
 if (empty($geometry_y)) $geometry_y=$PREVIEW_HEIGHT_MM;
-
 
 
 //if (GETPOST('scanner'])) $scanner=$_GET['scanner'];

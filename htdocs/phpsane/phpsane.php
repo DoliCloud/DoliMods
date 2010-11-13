@@ -15,7 +15,6 @@ if (! $res && file_exists("../../../../../dolibarr/htdocs/main.inc.php")) $res=@
 include(DOL_DOCUMENT_ROOT."/core/class/html.formfile.class.php");
 
 include("functions.php");
-include("language.php");
 include("config.php");
 include("scan.php");
 
