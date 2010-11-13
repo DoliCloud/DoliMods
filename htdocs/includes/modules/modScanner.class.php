@@ -17,30 +17,30 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-/**     \defgroup   phpsane     Module PHPSane
+/**     \defgroup   scanner     Module Scanner
  *      \brief      Example of a module descriptor.
  *					Such a file must be copied into htdocs/includes/module directory.
  */
 
 /**
- *      \file       htdocs/includes/modules/modPHPSane.class.php
- *      \ingroup    phpsane
- *      \brief      Description and activation file for module PHPSane
- *		\version	$Id: modPHPSane.class.php,v 1.8 2010/11/06 16:29:29 eldy Exp $
+ *      \file       htdocs/includes/modules/modScanner.class.php
+ *      \ingroup    scanner
+ *      \brief      Description and activation file for module Scanner
+ *		\version	$Id: modScanner.class.php,v 1.1 2010/11/13 18:46:33 eldy Exp $
  */
 include_once(DOL_DOCUMENT_ROOT ."/includes/modules/DolibarrModules.class.php");
 
 
-/**     \class      modPHPSane
- *      \brief      Description and activation class for module PHPSane
+/**     \class      modScanner
+ *      \brief      Description and activation class for module Scanner
  */
-class modPHPSane extends DolibarrModules
+class modScanner extends DolibarrModules
 {
 	/**
 	 *   \brief      Constructor. Define names, constants, directories, boxes, permissions
 	 *   \param      DB      Database handler
 	 */
-	function modPHPSane($DB)
+	function modScanner($DB)
 	{
 		$this->db = $DB;
 
@@ -48,7 +48,7 @@ class modPHPSane extends DolibarrModules
 		// Use here a free id (See in Home -> System information -> Dolibarr for list of used modules id).
 		$this->numero = 13000;
 		// Key text used to identify module (for permissions, menus, etc...)
-		$this->rights_class = 'phpsane';
+		$this->rights_class = 'scanner';
 
 		// Family can be 'crm','financial','hr','projects','products','ecm','technic','other'
 		// It is used to group modules in module setup page
@@ -56,9 +56,9 @@ class modPHPSane extends DolibarrModules
 		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'numero' of module)
 		$this->name = preg_replace('/^mod/i','',get_class($this));
 		// Module description, used if translation string 'ModuleXXXDesc' not found (where XXX is value of numeric property 'numero' of module)
-		$this->description = "Description of module PHPSane";
+		$this->description = "Add menu entry to pilot a scanner plugged to a Dolibarr server (Linux server only)";
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
-		$this->version = 'development';
+		$this->version = '1.0';
 		// Key used in llx_const table to save module status enabled/disabled (where MYMODULE is value of property name of module in uppercase)
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
 		// Where to store the module in setup page (0=common,1=interface,2=others,3=very specific)
@@ -66,25 +66,25 @@ class modPHPSane extends DolibarrModules
 		// Name of image file used for this module.
 		// If file is in theme/yourtheme/img directory under name object_pictovalue.png, use this->picto='pictovalue'
 		// If file is in module/images directory, use this->picto=DOL_URL_ROOT.'/module/images/file.png'
-		$this->picto='generic';
+		$this->picto=DOL_URL_ROOT.'/scanner/img/scanner.png';
 
 		// Data directories to create when module is enabled.
 		// Example: this->dirs = array("/phpsane/temp");
-		$this->dirs = array("/phpsane/temp");
+		$this->dirs = array("/scanner/temp");
 		$r=0;
 
-		// Relative path to module style sheet if exists. Example: '/phpsane/mycss.css'.
+		// Relative path to module style sheet if exists. Example: '/scanner/mycss.css'.
 		$this->style_sheet = '';
 
 		// Config pages. Put here list of php page names stored in admmin directory used to setup module.
-		$this->config_page_url = array("phpsanesetuppage.php@phpsane");
+		$this->config_page_url = array("scannersetuppage.php@scanner");
 
 		// Dependencies
 		$this->depends = array();		// List of modules id that must be enabled if this module is enabled
 		$this->requiredby = array();	// List of modules id to disable if this one is disabled
 		$this->phpmin = array(4,3);					// Minimum version of PHP required by module
-		$this->need_dolibarr_version = array(3,0);	// Minimum version of Dolibarr required by module
-		$this->langfiles = array("phpsane@phpsane");
+		$this->need_dolibarr_version = array(3,0,-2);	// Minimum version of Dolibarr required by module
+		$this->langfiles = array("scanner@scanner");
 
 		// Constants
 		$this->const = array();			// List of particular constants to add when module is enabled
@@ -92,7 +92,7 @@ class modPHPSane extends DolibarrModules
 		//                            1=>array('MODULE_MY_NEW_CONST2','chaine','myvalue','This is another constant to add',0) );
 
 		// Array to add new pages in new tabs
-		//$this->tabs = array('entity:Title:@phpsane:/phpsane/mynewtab.php?id=__ID__');
+		//$this->tabs = array('entity:Title:@scanner:/scanner/mynewtab.php?id=__ID__');
 		// where entity can be
 		// 'thirdparty'       to add a tab in third party view
 		// 'intervention'     to add a tab in intervention view
@@ -139,14 +139,14 @@ class modPHPSane extends DolibarrModules
 		// Example to declare the Top Menu entry:
 		$this->menu[$r]=array(	'fk_menu'=>0,			// Put 0 if this is a top menu
 									'type'=>'top',			// This is a Top menu entry
-									'titre'=>'PHPSane',
-									'mainmenu'=>'phpsane',
+									'titre'=>'Scanner',
+									'mainmenu'=>'scanner',
 									'leftmenu'=>'1',		// Use 1 if you also want to add left menu entries using this descriptor. Use 0 if left menu entries are defined in a file pre.inc.php (old school).
-									'url'=>'/phpsane/phpsane.php',
-									'langs'=>'phpsane',	// Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
+									'url'=>'/scanner/scanner.php',
+									'langs'=>'scanner',	// Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 									'position'=>100,
-									'enabled'=>'1',			// Define condition to show or hide menu entry. Use '$conf->phpsane->enabled' if entry must be visible if module is enabled.
-									'perms'=>'1',			// Use 'perms'=>'$user->rights->phpsane->level1->level2' if you want your menu with a permission rules
+									'enabled'=>'1',			// Define condition to show or hide menu entry. Use '$conf->scanner->enabled' if entry must be visible if module is enabled.
+									'perms'=>'1',			// Use 'perms'=>'$user->rights->scanner->level1->level2' if you want your menu with a permission rules
 									'target'=>'',
 									'user'=>2);				// 0=Menu for internal users, 1=external users, 2=both
 		$r++;
@@ -154,13 +154,13 @@ class modPHPSane extends DolibarrModules
 		// Example to declare a Left Menu entry:
 		// $this->menu[$r]=array(	'fk_menu'=>'r=0',		// Use r=value where r is index key used for the parent menu entry (higher parent must be a top menu entry)
 		//							'type'=>'left',			// This is a Left menu entry
-		//							'titre'=>'PHPSane left menu 1',
-		//							'mainmenu'=>'phpsane',
-		//							'url'=>'/phpsane/pagelevel1.php',
+		//							'titre'=>'Scanner left menu 1',
+		//							'mainmenu'=>'scanner',
+		//							'url'=>'/scanner/pagelevel1.php',
 		//							'langs'=>'mylangfile',	// Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 		//							'position'=>100,
-		//							'enabled'=>'1',			// Define condition to show or hide menu entry. Use '$conf->phpsane->enabled' if entry must be visible if module is enabled.
-		//							'perms'=>'1',			// Use 'perms'=>'$user->rights->phpsane->level1->level2' if you want your menu with a permission rules
+		//							'enabled'=>'1',			// Define condition to show or hide menu entry. Use '$conf->scanner->enabled' if entry must be visible if module is enabled.
+		//							'perms'=>'1',			// Use 'perms'=>'$user->rights->scanner->level1->level2' if you want your menu with a permission rules
 		//							'target'=>'',
 		//							'user'=>2);				// 0=Menu for internal users, 1=external users, 2=both
 		// $r++;
@@ -168,13 +168,13 @@ class modPHPSane extends DolibarrModules
 		// Example to declare another Left Menu entry:
 		// $this->menu[$r]=array(	'fk_menu'=>'r=1',		// Use r=value where r is index key used for the parent menu entry (higher parent must be a top menu entry)
 		//							'type'=>'left',			// This is a Left menu entry
-		//							'titre'=>'PHPSane left menu 2',
-		//							'mainmenu'=>'phpsane',
-		//							'url'=>'/phpsane/pagelevel2.php',
+		//							'titre'=>'Scanner left menu 2',
+		//							'mainmenu'=>'scanner',
+		//							'url'=>'/scanner/pagelevel2.php',
 		//							'langs'=>'mylangfile',	// Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 		//							'position'=>100,
-		//							'enabled'=>'1',			// Define condition to show or hide menu entry. Use '$conf->phpsane->enabled' if entry must be visible if module is enabled.
-		//							'perms'=>'1',			// Use 'perms'=>'$user->rights->phpsane->level1->level2' if you want your menu with a permission rules
+		//							'enabled'=>'1',			// Define condition to show or hide menu entry. Use '$conf->scanner->enabled' if entry must be visible if module is enabled.
+		//							'perms'=>'1',			// Use 'perms'=>'$user->rights->scanner->level1->level2' if you want your menu with a permission rules
 		//							'target'=>'',
 		//							'user'=>2);				// 0=Menu for internal users, 1=external users, 2=both
 		// $r++;
@@ -229,13 +229,13 @@ class modPHPSane extends DolibarrModules
 	/**
 	 *		\brief		Create tables, keys and data required by module
 	 * 					Files llx_table1.sql, llx_table1.key.sql llx_data.sql with create table, create keys
-	 * 					and create data commands must be stored in directory /phpsane/sql/
+	 * 					and create data commands must be stored in directory /scanner/sql/
 	 *					This function is called by this->init.
 	 * 		\return		int		<=0 if KO, >0 if OK
 	 */
 	function load_tables()
 	{
-		return $this->_load_tables('/phpsane/sql/');
+		return $this->_load_tables('/scanner/sql/');
 	}
 }
 

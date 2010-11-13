@@ -1,0 +1,8 @@
+# Dolibarr language file - en_EN - scanner
+CHARSET= UTF-8
+ScannerSetup=Scanner module setup
+ScannerDesc=Define here full path of command line tools on Dolibarr server
+PHPSANE_SCANIMAGE=Commande Scan (scanimage)
+PHPSANE_PNMTOJPEG=Outil PNM vers JPG tool (pnmtojpeg)
+PHPSANE_PNMTOTIFF=Outil PNM vers TIF (pnmtotiff)
+PHPSANE_OCR=Outil OCR (gocr)
