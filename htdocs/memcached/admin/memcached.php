@@ -19,7 +19,7 @@
 /**
  *     \file       htdocs/memcached/admin/memcached.php
  *     \brief      Page administration de memcached
- *     \version    $Id: memcached.php,v 1.13 2010/11/13 19:54:07 eldy Exp $
+ *     \version    $Id: memcached.php,v 1.14 2010/11/13 20:27:26 eldy Exp $
  */
 
 $res=@include_once("../main.inc.php");
@@ -114,16 +114,18 @@ print '<input type="hidden" name="action" value="set">';
 print '<table class="noborder" width="100%">';
 print '<tr class="liste_titre">';
 print '<td>'.$langs->trans("Parameter").'</td><td>'.$langs->trans("Value").'</td>';
-print '<td align="right"><input type="submit" class="button" value="'.$langs->trans("Modify").'">';
-print '</td>';
+print '<td>'.$langs->trans("Examples").'</td>';
+print '<td align="right"><input type="submit" class="button" value="'.$langs->trans("Modify").'"></td>';
 print "</tr>\n";
 
 $var=!$var;
 print '<tr '.$bc[$var].'><td>'.$langs->trans("Server").':'.$langs->trans("Port").'</td>';
-print '<td colspan="2">';
+print '<td>';
 print '<input size="40" type="text" name="MEMCACHED_SERVER" value="'.$conf->global->MEMCACHED_SERVER.'">';
-print ' ('.$langs->trans("Example").': localhost:11211)';
-print '</td></tr>';
+print '</td>';
+print '<td>127.0.0.1:11211<br>localhost:11211</td>';
+print '<td>&nbsp;</td>';
+print '</tr>';
 
 print '</table>';
 
@@ -141,9 +143,13 @@ if (! $error)
 	if (! empty($conf->global->MEMCACHED_SERVER))
 	{
     	$tmparray=explode(':',$conf->global->MEMCACHED_SERVER);
+        $server=$tmparray[0];
+        $port=$tmparray[1]?$tmparray[1]:11211;
 
-    	$result=$m->addServer($tmparray[0], $tmparray[1]?$tmparray[1]:11211);
+    	dol_syslog("Try to connect to server ".$server." port ".$port." with class ".get_class($m));
+    	$result=$m->addServer($server, $port);
     	//$m->setOption(Memcached::OPT_COMPRESSION, false);
+        //print "xxx".$result;
 
     	// This action must be set here and not in actions to be sure all lang files are already loaded
     	if ($_GET["action"] == 'clear')
@@ -215,5 +221,5 @@ if (! $error)
 
 }
 
-llxfooter('$Date: 2010/11/13 19:54:07 $ - $Revision: 1.13 $');
+llxfooter('$Date: 2010/11/13 20:27:26 $ - $Revision: 1.14 $');
 ?>
