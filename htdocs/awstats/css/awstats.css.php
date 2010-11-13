@@ -3,7 +3,7 @@
  *
  * Licensed under the GNU GPL v3 or higher (See file gpl-3.0.html)
  *
- * $Id: awstats.css.php,v 1.4 2010/11/13 19:51:48 eldy Exp $
+ * $Id: awstats.css.php,v 1.5 2010/11/13 20:48:37 eldy Exp $
  */
 
 //if (! defined('NOREQUIREUSER')) define('NOREQUIREUSER','1');  // Not disabled cause need to load personalized language
@@ -43,13 +43,6 @@ $fontlist='arial,tahoma,verdana,helvetica';
 //$fontlist='Verdana,Helvetica,Arial,sans-serif';
 
 ?>
-
-
-/* For themes that use menu images */
-div.mainmenu.awstats {
-    background-image: url(<?php echo DOL_URL_ROOT.'/theme/awstats/images/awstats.png' ?>);
-}
-
 
 
 h1 { font-size: 16pt; color: black; }
