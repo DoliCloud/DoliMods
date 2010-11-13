@@ -19,7 +19,7 @@
 /**
  *     \file       htdocs/memcached/admin/memcached.php
  *     \brief      Page administration de memcached
- *     \version    $Id: memcached.php,v 1.12 2010/06/07 18:07:36 eldy Exp $
+ *     \version    $Id: memcached.php,v 1.13 2010/11/13 19:54:07 eldy Exp $
  */
 
 $res=@include_once("../main.inc.php");
@@ -41,6 +41,7 @@ $langs->load("errors");
 $langs->load("install");
 $langs->load("memcached@memcached");
 
+//exit;
 
 /*
  * Actions
@@ -137,28 +138,32 @@ if (! $error)
 	elseif (class_exists("Memcache")) $m=new Memcache();
 	else dol_print_error('','Should not happen');
 
-	$tmparray=explode(':',$conf->global->MEMCACHED_SERVER);
-	$result=$m->addServer($tmparray[0], $tmparray[1]?$tmparray[1]:11211);
-	//$m->setOption(Memcached::OPT_COMPRESSION, false);
-
-	// This action must be set here and not in actions to be sure all lang files are already loaded
-	if ($_GET["action"] == 'clear')
+	if (! empty($conf->global->MEMCACHED_SERVER))
 	{
-		$error=0;
-		if (! $error)
-		{
-			$m->flush();
+    	$tmparray=explode(':',$conf->global->MEMCACHED_SERVER);
 
-			$mesg='<div class="ok">'.$langs->trans("Flushed").'</div>';
-		}
+    	$result=$m->addServer($tmparray[0], $tmparray[1]?$tmparray[1]:11211);
+    	//$m->setOption(Memcached::OPT_COMPRESSION, false);
+
+    	// This action must be set here and not in actions to be sure all lang files are already loaded
+    	if ($_GET["action"] == 'clear')
+    	{
+    		$error=0;
+    		if (! $error)
+    		{
+    			$m->flush();
+
+    			$mesg='<div class="ok">'.$langs->trans("Flushed").'</div>';
+    		}
+    	}
+
+    	if ($mesg) print '<br>'.$mesg;
+
+
+    	// Read cache
+    	$arraycache=$m->getStats();
+    	//var_dump($arraycache);
 	}
-
-	if ($mesg) print '<br>'.$mesg;
-
-
-	// Read cache
-	$arraycache=$m->getStats();
-	//var_dump($arraycache);
 
 	// Action
 	print '<div class="tabsAction">';
@@ -210,5 +215,5 @@ if (! $error)
 
 }
 
-llxfooter('$Date: 2010/06/07 18:07:36 $ - $Revision: 1.12 $');
+llxfooter('$Date: 2010/11/13 19:54:07 $ - $Revision: 1.13 $');
 ?>
