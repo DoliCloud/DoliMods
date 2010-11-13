@@ -21,7 +21,7 @@
 /**
  *		\file       htdocs/theme/bluelagoon/style.css.php
  *		\brief      Fichier de style CSS du theme Blue lagoon
- *		\version    $Id: style.css.php,v 1.1 2010/06/27 20:57:47 eldy Exp $
+ *		\version    $Id: style.css.php,v 1.2 2010/11/13 19:51:15 eldy Exp $
  */
 
 //if (! defined('NOREQUIREUSER')) define('NOREQUIREUSER','1');	// Not disabled cause need to load personalized language
@@ -49,8 +49,8 @@ else header('Cache-Control: no-cache');
 
 if (! empty($_GET["lang"])) $langs->setDefaultLang($_GET["lang"]);	// If language was forced on URL by the main.inc.php
 $langs->load("main",0,1);
-$right=($langs->direction=='rtl'?'left':'right');
-$left=($langs->direction=='rtl'?'right':'left');
+$right=($langs->trans("DIRECTION")=='rtl'?'left':'right');
+$left=($langs->trans("DIRECTION")=='rtl'?'right':'left');
 ?>
 
 
