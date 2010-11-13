@@ -28,7 +28,7 @@
  *      \file       htdocs/includes/modules/modSubmitEveryWhere.class.php
  *      \ingroup    submiteverywhere
  *      \brief      Description and activation file for module SubmitEveryWhere
- *		\version	$Id: modSubmitEveryWhere.class.php,v 1.1 2010/07/28 22:06:29 eldy Exp $
+ *		\version	$Id: modSubmitEveryWhere.class.php,v 1.2 2010/11/13 19:54:50 eldy Exp $
  */
 include_once(DOL_DOCUMENT_ROOT ."/includes/modules/DolibarrModules.class.php");
 
@@ -208,13 +208,14 @@ class modSubmitEveryWhere extends DolibarrModules
 	 *		\brief      Function called when module is enabled.
 	 *					The init function add constants, boxes, permissions and menus (defined in constructor) into Dolibarr database.
 	 *					It also creates data directories.
-	 *      \return     int             1 if OK, 0 if KO
+	 *      \return     int             1 if OK, <= 0 if KO
 	 */
 	function init()
 	{
 		$sql = array();
 
 		$result=$this->load_tables();
+        if ($result <= 0) return $result;
 
 		return $this->_init($sql);
 	}
