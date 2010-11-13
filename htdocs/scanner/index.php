@@ -20,7 +20,7 @@
 /**
  *  \file           htdocs/scanner/index.php
  *  \brief          Main page of scanner module
- *  \version        $Id: index.php,v 1.1 2010/11/13 18:46:18 eldy Exp $
+ *  \version        $Id: index.php,v 1.2 2010/11/13 21:47:30 eldy Exp $
  */
 
 if (! defined('NOCSRFCHECK')) define('NOCSRFCHECK',1);
@@ -180,7 +180,7 @@ if ($error_input == 0)
 if ($cmd_device !== '')
 {
     // DOL_CHANGE LDR
-    dol_mkdir($conf->phpsane->dir_temp.'/'.$user->id);
+    dol_mkdir($conf->scanner->dir_temp.'/'.$user->id);
     dol_syslog("Launch sane commande: ".$cmd_device);
     //print "eee";exit;
 
@@ -202,16 +202,15 @@ else
 // scanimage -h
 
 $help_url="EN:Module_PHPSane_En|FR:Module_PHPSane|ES:M&oacute;dulo_PHPSane";
-llxHeader('','PHPSane',$help_url);
+llxHeader('','Scanner',$help_url);
 
 $form=new Form($db);
 $formfile=new FormFile($db);
 
 
-print  "<FORM name=\"menueForm\" action=\"phpsane.php\" method=\"GET\">\n";
+print  "<FORM name=\"menueForm\" action=\"".$_SERVER["PHP_SELF"]."\" method=\"GET\">\n";
 
 print  "<input type=hidden name=\"first\" value=\"$first\">\n";
-print  "<input type=hidden name=\"lang_id\" value=\"$lang_id\">\n";
 print  "<input type=hidden name=\"sid\" value=\"$sid\">\n";
 print  "<input type=hidden name=\"preview_images\" value=\"$preview_images\">\n";
 print  "<input type=hidden name=\"preview_width\" value=\"$PREVIEW_WIDTH_MM\">\n";
@@ -380,11 +379,11 @@ else
     print  "<td class=\"photo\">\n";
     if (basename($preview_images) != 'scan.jpg')
     {
-        print  "<IMG src=\"".DOL_URL_ROOT.'/viewimage.php?file='.basename($preview_images).'&modulepart=phpsane_user_temp'."\" width=\"$PREVIEW_WIDTH_PX\" height=\"$PREVIEW_HEIGHT_PX\" name=\"Preview\"><br>\n";
+        print  "<IMG src=\"".DOL_URL_ROOT.'/viewimage.php?file='.basename($preview_images).'&modulepart=scanner_user_temp'."\" width=\"$PREVIEW_WIDTH_PX\" height=\"$PREVIEW_HEIGHT_PX\" name=\"Preview\"><br>\n";
     }
     else
     {
-        print  "<IMG src=\"".DOL_URL_ROOT.'/phpsane/images/scan.jpg'."\" width=\"$PREVIEW_WIDTH_PX\" height=\"$PREVIEW_HEIGHT_PX\" name=\"Preview\"><br>\n";
+        print  "<IMG src=\"".DOL_URL_ROOT.'/scanner/images/scan.jpg'."\" width=\"$PREVIEW_WIDTH_PX\" height=\"$PREVIEW_HEIGHT_PX\" name=\"Preview\"><br>\n";
     }
     print  "</td>\n";
 
@@ -407,7 +406,7 @@ if ($cmd_device)
 }
 
 // Add list of scan files
-$nbrows=$formfile->show_documents('phpsane_user_temp','',$conf->phpsane->dir_temp.'/'.$user->id,$_SERVER["PHP_SELF"],0,1,'',0,1,0,0,1,'',$langs->trans("Files"));
+$nbrows=$formfile->show_documents('scanner_user_temp','',$conf->scanner->dir_temp.'/'.$user->id,$_SERVER["PHP_SELF"],0,1,'',0,1,0,0,1,'',$langs->trans("Files"));
 
 
 

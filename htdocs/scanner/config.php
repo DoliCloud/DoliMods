@@ -20,17 +20,9 @@ if (! empty($conf->global->PHPSANE_OCR))       $SCANIMAGE=$conf->global->PHPSANE
 // ===========
 $lang_id=1;
 
-
-// where to save all working files (scans...)
-
-//$SAVE_PLACE="/srv/www/htdocs/web/phpSANE/";
 $SAVE_PLACE="./";
-
-
-// DOL_CHANGE LDR
-$SAVE_PLACE=$conf->phpsane->dir_temp;
+$SAVE_PLACE=$conf->scanner->dir_temp;
 //print "x".$SAVE_PLACE;
-//exit;
 
 
 // Set default value of paramters

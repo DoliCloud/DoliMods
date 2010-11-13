@@ -1,6 +1,6 @@
 <?php
 /* Copyright (C) 2003      Rodolphe Quiedeville <rodolphe@quiedeville.org>
- * Copyright (C) 2004-2009 Laurent Destailleur  <eldy@users.sourceforge.net>
+ * Copyright (C) 2004-2010 Laurent Destailleur  <eldy@users.sourceforge.net>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,7 +26,7 @@
  *      \file       htdocs/includes/modules/modScanner.class.php
  *      \ingroup    scanner
  *      \brief      Description and activation file for module Scanner
- *		\version	$Id: modScanner.class.php,v 1.2 2010/11/13 20:43:09 eldy Exp $
+ *		\version	$Id: modScanner.class.php,v 1.3 2010/11/13 21:47:30 eldy Exp $
  */
 include_once(DOL_DOCUMENT_ROOT ."/includes/modules/DolibarrModules.class.php");
 
@@ -69,7 +69,7 @@ class modScanner extends DolibarrModules
 		$this->picto=DOL_URL_ROOT.'/scanner/img/object_scanner.png';
 
 		// Data directories to create when module is enabled.
-		// Example: this->dirs = array("/phpsane/temp");
+		// Example: this->dirs = array("/scanner/temp");
 		$this->dirs = array("/scanner/temp");
 		$r=0;
 
@@ -142,7 +142,7 @@ class modScanner extends DolibarrModules
 									'titre'=>'Scanner',
 									'mainmenu'=>'scanner',
 									'leftmenu'=>'1',		// Use 1 if you also want to add left menu entries using this descriptor. Use 0 if left menu entries are defined in a file pre.inc.php (old school).
-									'url'=>'/scanner/scanner.php',
+									'url'=>'/scanner/index.php',
 									'langs'=>'scanner',	// Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 									'position'=>100,
 									'enabled'=>'1',			// Define condition to show or hide menu entry. Use '$conf->scanner->enabled' if entry must be visible if module is enabled.

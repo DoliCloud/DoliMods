@@ -17,10 +17,10 @@
  */
 
 /**
- *	    \file       htdocs/phpsane/admin/phpsaneadminsetuppage.php
- *      \ingroup    phpsane
- *      \brief      Page de configuration du module PHPSane
- *		\version    $Id: scannersetuppage.php,v 1.1 2010/11/13 18:46:17 eldy Exp $
+ *	    \file       htdocs/scanner/admin/scanneradminsetuppage.php
+ *      \ingroup    scanner
+ *      \brief      Page de configuration du module Scanner
+ *		\version    $Id: scannersetuppage.php,v 1.2 2010/11/13 21:47:29 eldy Exp $
  */
 
 define('NOCSRFCHECK',1);
@@ -161,5 +161,5 @@ print "<br>";
 
 $db->close();
 
-llxFooter('$Date: 2010/11/13 18:46:17 $ - $Revision: 1.1 $');
+llxFooter('$Date: 2010/11/13 21:47:29 $ - $Revision: 1.2 $');
 ?>
