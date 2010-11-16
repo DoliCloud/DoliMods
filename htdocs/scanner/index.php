@@ -20,7 +20,7 @@
 /**
  *  \file           htdocs/scanner/index.php
  *  \brief          Main page of scanner module
- *  \version        $Id: index.php,v 1.2 2010/11/13 21:47:30 eldy Exp $
+ *  \version        $Id: index.php,v 1.3 2010/11/16 12:24:42 eldy Exp $
  */
 
 if (! defined('NOCSRFCHECK')) define('NOCSRFCHECK',1);
@@ -220,7 +220,7 @@ print  "<input type=hidden name=\"preview_scale\" value=\"$facktor\">\n";
 // test
 if ($do_test_mode)
 {
-    print  "<table class=\"page_body\">\n";
+    print  "<table class=\"nobordernopadding\">\n";
     print  "<tr>\n";
     print  "<td align=\"center\">\n";
     print  "Debug <INPUT type=\"text\" name=\"debug\" value=\"\" size=\"64\">\n";
@@ -243,7 +243,7 @@ if (! strlen($scanner) > 2)
 }
 else
 {
-    print  "<table class=\"page_body\">\n";
+    print  "<table class=\"nobordernopadding\">\n";
     print  "<tr>\n";
     print  '<td valign="top">'."\n";
 
@@ -253,8 +253,8 @@ else
 
     // Scanner device
 
-    print "<tr>\n";
-    print "<th colspan=\"2\">".$langs->trans("Scanner")."</th>\n";
+    print "<tr class=\"liste_titre\">\n";
+    print "<td colspan=\"2\">".$langs->trans("Scanner")."</td>\n";
     print "</tr>\n";
 
     //print $scan_ausgabe;exit;
@@ -265,8 +265,8 @@ else
 
     // Scan area
 
-    print "<tr>\n";
-    print "<th colspan=\"2\">".$langs->trans("ScanArea")."</th>\n";
+    print "<tr class=\"liste_titre\">\n";
+    print "<td colspan=\"2\">".$langs->trans("ScanArea")."</td>\n";
     print "</tr>\n";
 
     print "<tr>\n";
@@ -297,8 +297,8 @@ else
     print "</td>\n";
     print "</tr>\n";
 
-    print "<tr>\n";
-    print "<th colspan=\"2\">".$langs->trans("Options")."</th>\n";
+    print "<tr class=\"liste_titre\">\n";
+    print "<td colspan=\"2\">".$langs->trans("Options")."</td>\n";
     print "</tr>\n";
 
     print "<tr>\n";
