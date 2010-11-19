@@ -95,7 +95,6 @@ ul.filedirelem li {
     width: 160px;
     height: 120px;
     text-align: center;
-    text-valign: middle;
     display: block;
     float: <?php print $left; ?>;
     border: solid 1px #DDDDDD;
