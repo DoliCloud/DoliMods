@@ -6,17 +6,19 @@
  *    	\file       htdocs/nltechno/statsemailings.php
  *		\ingroup    nltechno
  *		\brief      Page des stats
- *		\version    $Id: statsemailings.php,v 1.20 2010/08/18 11:29:25 eldy Exp $
+ *		\version    $Id: statsemailings.php,v 1.21 2010/11/26 20:59:42 eldy Exp $
  *		\author		Laurent Destailleur
  */
 
-include("../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/core/dolgraph.class.php");
-require_once DOL_DOCUMENT_ROOT.'/comm/mailing/class/mailing.class.php';
+
+include_once('./pre.inc.php');
 
 // Load config
 $CALLFORCONFIG=1;
 include_once('index.php');
+
+require_once(DOL_DOCUMENT_ROOT."/core/dolgraph.class.php");
+require_once DOL_DOCUMENT_ROOT.'/comm/mailing/class/mailing.class.php';
 
 
 // Load traductions files

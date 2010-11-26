@@ -6,16 +6,18 @@
  *   	\file       htdocs/nltechno/statsannonces.php
  *		\ingroup    nltechno
  *		\brief      Page des stats annonces
- *		\version    $Id: statsannonces.php,v 1.10 2010/08/18 11:36:11 eldy Exp $
+ *		\version    $Id: statsannonces.php,v 1.11 2010/11/26 20:59:42 eldy Exp $
  *		\author		Laurent Destailleur
  */
 
-include("../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/core/dolgraph.class.php");
+
+include_once('./pre.inc.php');
 
 // Load config
 $CALLFORCONFIG=1;
 include_once('index.php');
+
+require_once(DOL_DOCUMENT_ROOT."/core/dolgraph.class.php");
 
 
 // Load traductions files
