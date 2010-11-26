@@ -6,7 +6,7 @@
  *   	\file       htdocs/nltechno/statsannonces.php
  *		\ingroup    nltechno
  *		\brief      Page des stats annonces
- *		\version    $Id: statsannonces.php,v 1.11 2010/11/26 20:59:42 eldy Exp $
+ *		\version    $Id: statsannonces.php,v 1.12 2010/11/26 21:25:55 eldy Exp $
  *		\author		Laurent Destailleur
  */
 
@@ -167,7 +167,7 @@ if (1 == 1)
 		}
 
 		// Show graph
-		$url=DOL_URL_ROOT.'/viewimage.php?modulepart=nltechno&file='.urlencode($relativepath);
+		$url=DOL_URL_ROOT.'/viewimage.php?modulepart=nltechno&perm=emailings&subperm=voir&file='.urlencode($relativepath);
 		print '<center>';
 		print '<img src="'.$url.'" alt="'.$relativepath.'">';
 		print '</center>';
