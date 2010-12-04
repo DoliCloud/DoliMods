@@ -1,0 +1,25 @@
+# Dolibarr language file - fr_FR - ovhsms
+CHARSET=UTF-8
+
+OvhSmsSetup=Configuration module OvhSms
+OvhSmsRecap=Récapitulatif compte principal
+OvhSmsNick=Nick Handle du compte principal
+OvhSmsPass=Mot de passe
+OvhSmsLabelAccount=Compte SMS à utiliser
+OvhSmsLoginSuccessFull=Connexion ok!
+OvhSmsNotConfigured=Module non configuré
+NbSmsLeft=Nombre SMS restant
+OvhSmsSoapUrl=URL du service SOAP OVH
+OvhSmsSend=Envoyer un SMS
+OvhSmsAccountInfos=Informations sur le compte SMS
+OvhSmsDestinataire=Destinataire
+OvhSmsLabelTexteMessage=Texte du message 
+tabOvhSms=sms
+OvhSmsInfoNumero= (format international ex : +33899701761)
+OvhSmsInfoCharMax=160 caracatères max
+OvhSmsStatutSent=Message reçu
+OvhSmsStatutSubmitted=Soumis
+OvhSmsStatutWaiting=En Attente
+OvhSmsStatutFailed=En Attente
+OvhSmsBackToAdmin=Retour à l'admin du module
+OvhSmsHistory=Historique des %s derniers envois
