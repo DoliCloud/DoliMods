@@ -39,7 +39,7 @@ class modOvh extends DolibarrModules
 	 *   \brief      Constructor. Define names, constants, directories, boxes, permissions
 	 *   \param      DB      Database handler
 	 */
-	function modOvhSms($DB)
+	function modOvh($DB)
 	{
 		$this->db = $DB;
 
@@ -62,8 +62,8 @@ class modOvh extends DolibarrModules
 		$this->special = 1;
 		// Name of image file used for this module.
 		// If file is in theme/yourtheme/img directory under name object_pictovalue.png, use this->picto='pictovalue'
-		// If file is in module/images directory, use this->picto=DOL_URL_ROOT.'/module/images/file.png'
-		$this->picto = DOL_URL_ROOT.'/ovh/images/ovhsms_picto.png';
+		// If file is in module/img directory under name object_pictovalue.png, use this->picto='pictovalue@module'
+		$this->picto = 'ovh@ovh';
 
 		// Data directories to create when module is enabled.
 		// Example: this->dirs = array("/mymodule/temp");
