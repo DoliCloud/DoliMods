@@ -22,18 +22,23 @@
  *		\ingroup    ovhsms
  *		\brief
  */
-require("./pre.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/ovh/class/ovhsms.class.php");
-require_once(DOL_DOCUMENT_ROOT."/contact.class.php");
+$res=0;
+if (! $res && file_exists("../main.inc.php")) $res=@include("../main.inc.php");
+if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.php");
+if (! $res && file_exists("../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../dolibarr/htdocs/main.inc.php");		// Used on dev env only
+if (! $res && file_exists("../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../dolibarr/htdocs/main.inc.php");	// Used on dev env only
+if (! $res) die("Include of main fails");
 require_once(DOL_DOCUMENT_ROOT."/lib/company.lib.php");
-require_once(DOL_DOCUMENT_ROOT."/societe.class.php");
+require_once(DOL_DOCUMENT_ROOT."/societe/class/societe.class.php");
+require_once(DOL_DOCUMENT_ROOT."/contact/class/contact.class.php");
+dol_include_once("/ovh/class/ovhsms.class.php");
 
 // Load traductions files requiredby by page
 $langs->load("companies");
 $langs->load("ovh");
 
 // Get parameters
-$socid = isset($_REQUEST["id"])?$_REQUEST["id"]:'';
+$socid = GETPOST("socid");
 
 // Protection if external user
 if ($user->societe_id > 0)
@@ -76,18 +81,12 @@ if ($_REQUEST["action"] == 'smsenvoi' && $user->rights->ovhsms->envoyer)
 
 
 /***************************************************
-* PAGE
-*
-* Put here all code to build page
+* View
 ****************************************************/
 
-llxHeader('OvhSms','','');
+llxHeader('','Ovh','');
 
 $form=new Form($db);
-
-
-
-
 
 
 if ($socid)
