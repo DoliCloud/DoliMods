@@ -1,0 +1,162 @@
+<?php
+/* Copyright (C) 2008 Laurent Destailleur  <eldy@users.sourceforge.net>
+ */
+
+/**
+ *	    \file       htdocs/admin/google.php
+ *      \ingroup    google
+ *      \brief      Setup page for google module
+ *		\version    $Id: google2.php,v 1.1 2010/12/20 12:26:18 eldy Exp $
+ */
+
+define('NOCSRFCHECK',1);
+
+$res=@include("../../main.inc.php");
+if (! $res) include("../../../../dolibarr/htdocs/main.inc.php");	// Used on dev env only
+
+require_once(DOL_DOCUMENT_ROOT."/lib/admin.lib.php");
+require_once(DOL_DOCUMENT_ROOT.'/core/class/html.formadmin.class.php');
+require_once(DOL_DOCUMENT_ROOT.'/core/class/html.formother.class.php');
+
+$res=@include_once("../google.lib.php");
+if (! $res) include_once(DOL_DOCUMENT_ROOT."/google/google.lib.php");
+
+if (!$user->admin)
+    accessforbidden();
+
+$langs->load("google@google");
+$langs->load("admin");
+$langs->load("other");
+
+$def = array();
+$actiontest=$_POST["test"];
+$actionsave=$_POST["save"];
+
+if (empty($conf->global->GOOGLE_AGENDA_NB)) $conf->global->GOOGLE_AGENDA_NB=5;
+$MAXAGENDA=empty($conf->global->GOOGLE_AGENDA_NB)?5:$conf->global->GOOGLE_AGENDA_NB;
+
+// List of Google colors (A lot of colors are ignored by Google)
+$colorlist=array('29527A','5229A3','A32929','7A367A','B1365F','0D7813');
+
+
+/*
+ * Actions
+ */
+if ($actionsave)
+{
+    $db->begin();
+
+	$res=dolibarr_set_const($db,'MAIN_GOOGLE_AD_CLIENT',trim($_POST["MAIN_GOOGLE_AD_CLIENT"]),'chaine',0);
+	$res=dolibarr_set_const($db,'MAIN_GOOGLE_AD_SLOT',trim($_POST["MAIN_GOOGLE_AD_SLOT"]),'chaine',0);
+	$res=dolibarr_set_const($db,'MAIN_GOOGLE_AD_WIDTH',trim($_POST["MAIN_GOOGLE_AD_WIDTH"]),'chaine',0);
+	$res=dolibarr_set_const($db,'MAIN_GOOGLE_AD_HEIGHT',trim($_POST["MAIN_GOOGLE_AD_HEIGHT"]),'chaine',0);
+	
+    if (! $error)
+    {
+        $db->commit();
+        $mesg = "<font class=\"ok\">".$langs->trans("SetupSaved")."</font>";
+    }
+    else
+    {
+        $db->rollback();
+        $mesg = "<font class=\"error\">".$langs->trans("Error")."</font>";
+    }
+}
+
+
+
+
+/*
+ * View
+ */
+
+
+$form=new Form($db);
+$formadmin=new FormAdmin($db);
+$formother=new FormOther($db);
+
+$help_url='EN:Module_Google_EN|FR:Module_Google|ES:Modulo_Google';
+llxHeader('',$langs->trans("GoogleSetup"),$help_url);
+
+$linkback='<a href="'.DOL_URL_ROOT.'/admin/modules.php">'.$langs->trans("BackToModuleList").'</a>';
+print_fiche_titre($langs->trans("GoogleSetup"),$linkback,'setup');
+print '<br>';
+
+
+$head=googleadmin_prepare_head();
+
+dol_fiche_head($head, 'adsense', $langs->trans("GoogleTools"));
+
+print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
+
+print $langs->trans("GoogleAddPubOnLogonPage").'<br>';
+print '<br>';
+
+
+$var=false;
+print "<table class=\"noborder\" width=\"100%\">";
+
+print "<tr class=\"liste_titre\">";
+print '<td width="140">'.$langs->trans("Parameter")."</td>";
+print "<td>".$langs->trans("Value")."</td>";
+print "<td>".$langs->trans("Example")."</td>";
+print "</tr>";
+// Client id
+print "<tr ".$bc[$var].">";
+print "<td>".$langs->trans("MAIN_GOOGLE_AD_CLIENT")."</td>";
+print "<td>";
+print '<input class="flat" type="text" size="20" name="MAIN_GOOGLE_AD_CLIENT" value="'.$conf->global->MAIN_GOOGLE_AD_CLIENT.'">';
+print "</td>";
+print '<td>pub-5101270331300242</td>';
+print "</tr>";
+// Slot id
+$var=!$var;
+print "<tr ".$bc[$var].">";
+print "<td>".$langs->trans("MAIN_GOOGLE_AD_SLOT")."</td>";
+print "<td>";
+print '<input class="flat" type="text" size="20" name="MAIN_GOOGLE_AD_SLOT" value="'.$conf->global->MAIN_GOOGLE_AD_SLOT.'">';
+print "</td>";
+print '<td>3206231573</td>';
+print "</tr>";
+// Slot id
+$var=!$var;
+print "<tr ".$bc[$var].">";
+print "<td>".$langs->trans("MAIN_GOOGLE_AD_WIDTH")."</td>";
+print "<td>";
+print '<input class="flat" type="text" size="20" name="MAIN_GOOGLE_AD_WIDTH" value="'.$conf->global->MAIN_GOOGLE_AD_WIDTH.'">';
+print "</td>";
+print '<td>728</td>';
+print "</tr>";
+// Slot id
+$var=!$var;
+print "<tr ".$bc[$var].">";
+print "<td>".$langs->trans("MAIN_GOOGLE_AD_HEIGHT")."</td>";
+print "<td>";
+print '<input class="flat" type="text" size="20" name="MAIN_GOOGLE_AD_HEIGHT" value="'.$conf->global->MAIN_GOOGLE_AD_HEIGHT.'">';
+print "</td>";
+print '<td>90</td>';
+print "</tr>";
+
+print "</table>";
+print "<br>";
+
+
+
+print '<center>';
+//print "<input type=\"submit\" name=\"test\" class=\"button\" value=\"".$langs->trans("TestConnection")."\">";
+//print "&nbsp; &nbsp;";
+print "<input type=\"submit\" name=\"save\" class=\"button\" value=\"".$langs->trans("Save")."\">";
+print "</center>";
+
+print "</form>\n";
+
+print '</div>';
+
+
+if ($mesg) print "<br>$mesg<br>";
+print "<br>";
+
+$db->close();
+
+llxFooter('$Date: 2010/12/20 12:26:18 $ - $Revision: 1.1 $');
+?>

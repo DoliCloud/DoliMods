@@ -7,5 +7,6 @@ GoogleIDAgenda=ID Agenda
 GoogleNbOfAgenda=Number of agendas
 GoogleTools=Google tools
 GoogleEnableThisTool=Enable this tools
+GoogleAddPubOnLogonPage=Add AdSense information to add you own advert on logon page (otherwise keep empty)
 Module11000Name=Google
 Module11000Desc=Module to integrate Google tools with Dolibarr
