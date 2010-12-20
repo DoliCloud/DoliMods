@@ -74,7 +74,6 @@ if (`ls $OCR`) $do_ocr = 1;
 
 $action="";
 if(isset($_GET['action'])) { $action=$_GET['action']; }
-if((ereg_replace("&#228;", "9", $lang[$lang_id][28])) == (ereg_replace("\xE4", "9", $action))) $clean=1;
 
 
 // default options
