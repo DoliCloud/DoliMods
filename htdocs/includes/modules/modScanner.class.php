@@ -26,7 +26,7 @@
  *      \file       htdocs/includes/modules/modScanner.class.php
  *      \ingroup    scanner
  *      \brief      Description and activation file for module Scanner
- *		\version	$Id: modScanner.class.php,v 1.3 2010/11/13 21:47:30 eldy Exp $
+ *		\version	$Id: modScanner.class.php,v 1.4 2010/12/20 12:26:18 eldy Exp $
  */
 include_once(DOL_DOCUMENT_ROOT ."/includes/modules/DolibarrModules.class.php");
 
@@ -65,8 +65,8 @@ class modScanner extends DolibarrModules
 		$this->special = 1;
 		// Name of image file used for this module.
 		// If file is in theme/yourtheme/img directory under name object_pictovalue.png, use this->picto='pictovalue'
-		// If file is in module/images directory, use this->picto=DOL_URL_ROOT.'/module/images/file.png'
-		$this->picto=DOL_URL_ROOT.'/scanner/img/object_scanner.png';
+		// If file is in module/img directory under name object_pictovalue.png, use this->picto='pictovalue@module'
+		$this->picto='scanner@scanner';
 
 		// Data directories to create when module is enabled.
 		// Example: this->dirs = array("/scanner/temp");

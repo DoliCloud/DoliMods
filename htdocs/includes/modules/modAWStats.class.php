@@ -12,7 +12,7 @@
  *      \file       htdocs/includes/modules/modAWStats.class.php
  *      \ingroup    awstats
  *      \brief      Description and activation file for module AWStats
- *		\version	$Id: modAWStats.class.php,v 1.19 2010/08/26 01:33:45 eldy Exp $
+ *		\version	$Id: modAWStats.class.php,v 1.20 2010/12/20 12:26:18 eldy Exp $
  */
 include_once(DOL_DOCUMENT_ROOT ."/includes/modules/DolibarrModules.class.php");
 
@@ -45,15 +45,15 @@ class modAWStats extends DolibarrModules
 		// Module description used if translation string 'ModuleXXXDesc' not found (XXX is value MyModule)
 		$this->description = "Module to integrate AWStats statistics reports into Dolibarr";
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
-		$this->version = '2.9';
+		$this->version = '3.0';
 		// Key used in llx_const table to save module status enabled/disabled (where MYMODULE is value of property name of module in uppercase)
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
 		// Where to store the module in setup page (0=common,1=interface,2=others,3=very specific)
 		$this->special = 1;
 		// Name of image file used for this module.
 		// If file is in theme/yourtheme/img directory under name object_pictovalue.png, use this->picto='pictovalue'
-		// If file is in module/images directory, use this->picto=DOL_URL_ROOT.'/module/images/file.png'
-		$this->picto=DOL_URL_ROOT.'/awstats/images/object_awstats.png';
+		// If file is in module/img directory under name object_pictovalue.png, use this->picto='pictovalue@module'
+		$this->picto='awstats@awstats';
 
 		// Data directories to create when module is enabled
 		$this->dirs = array();

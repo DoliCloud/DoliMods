@@ -12,7 +12,7 @@
  *      \file       htdocs/includes/modules/modGoogle.class.php
  *      \ingroup    google
  *      \brief      Description and activation file for module Google
- *		\version	$Id: modGoogle.class.php,v 1.12 2010/05/26 13:06:08 eldy Exp $
+ *		\version	$Id: modGoogle.class.php,v 1.13 2010/12/20 12:26:18 eldy Exp $
  */
 include_once(DOL_DOCUMENT_ROOT ."/includes/modules/DolibarrModules.class.php");
 
@@ -44,15 +44,15 @@ class modGoogle extends DolibarrModules
 		// Module description used if translation string 'ModuleXXXDesc' not found (XXX is value MyModule)
 		$this->description = "Module to integrate Google tools in dolibarr";
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
-		$this->version = '2.9';
+		$this->version = '3.0';
 		// Key used in llx_const table to save module status enabled/disabled (where MYMODULE is value of property name of module in uppercase)
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
 		// Where to store the module in setup page (0=common,1=interface,2=others,3=very specific)
 		$this->special = 1;
 		// Name of image file used for this module.
 		// If file is in theme/yourtheme/img directory under name object_pictovalue.png, use this->picto='pictovalue'
-		// If file is in module/images directory, use this->picto=DOL_URL_ROOT.'/module/images/file.png'
-		$this->picto=DOL_URL_ROOT.'/google/images/google.png';
+		// If file is in module/img directory under name object_pictovalue.png, use this->picto='pictovalue@module'
+		$this->picto='google@google';
 
 		// Data directories to create when module is enabled
 		$this->dirs = array();

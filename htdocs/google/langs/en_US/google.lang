@@ -1,4 +1,5 @@
 # Dolibarr language file - en_US - google
+CHARSET=UTF-8
 GoogleSetup=Google tools integration setup
 GoogleSetupHelp=ID Agenda can be found on Google parameter page for the agenda. It's an id that looks like an email.
 GoogleAgendaNb=Agenda nb %s

@@ -1,7 +1,7 @@
 # Dolibarr language file - fr_FR - google
 CHARSET=UTF-8
 GoogleSetup=Configuration du module Google
-GoogleSetupHelp=L'ID Agenda est propre à chaque agenda et est visible dans la page de param�trage Google de l'agenda. Il s'agit d'un identifiant qui ressemble � un email.
+GoogleSetupHelp=L'ID Agenda est propre à chaque agenda et est visible dans la page de paramétrage Google de l'agenda. Il s'agit d'un identifiant qui ressemble à un email.
 GoogleAgendaNb=Agenda no %s
 GoogleIDAgenda=ID Agenda
 GoogleNbOfAgenda=Nombre d'agendas
