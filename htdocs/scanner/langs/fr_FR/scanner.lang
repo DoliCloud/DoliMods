@@ -2,7 +2,7 @@
 CHARSET= UTF-8
 ScannerSetup=Configuration du module Scanner
 ScannerDesc=Indiquer ici le chemin complet vers les utilitaires de gestion de scanner du serveur Dolibarr.
-PHPSANE_SCANIMAGE=Scan command (scanimage)
-PHPSANE_PNMTOJPEG=PNM to JPG tool (pnmtojpeg)
-PHPSANE_PNMTOTIFF=PNM to TIF tool (pnmtotiff)
-PHPSANE_OCR=OCR tool (gocr)
+PHPSANE_SCANIMAGE=Commande Scan (scanimage)
+PHPSANE_PNMTOJPEG=Outil PNM vers JPG (pnmtojpeg)
+PHPSANE_PNMTOTIFF=Outil PNM vers TIF (pnmtotiff)
+PHPSANE_OCR=Outil OCR (gocr)
