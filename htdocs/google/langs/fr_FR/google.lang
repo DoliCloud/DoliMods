@@ -1,10 +1,11 @@
 # Dolibarr language file - fr_FR - google
-GoogleSetup=Outils de configuration pour intégrer un agenda Google
-GoogleSetupHelp=L'ID Agenda est propre à chaque agenda et est visible dans la page de paramétrage Google de l'agenda. Il s'agit d'un identifiant qui ressemble à un email.
+CHARSET=UTF-8
+GoogleSetup=Configuration du module Google
+GoogleSetupHelp=L'ID Agenda est propre Ã  chaque agenda et est visible dans la page de paramï¿½trage Google de l'agenda. Il s'agit d'un identifiant qui ressemble ï¿½ un email.
 GoogleAgendaNb=Agenda no %s
 GoogleIDAgenda=ID Agenda
 GoogleNbOfAgenda=Nombre d'agendas
 GoogleTools=Outils Google
 GoogleEnableThisTool=Activer cet outils
 Module11000Name=Google
-Module11000Desc=Module pour intégrer les outils Google dans Dolibarr
+Module11000Desc=Module pour intÃ©grer les outils Google dans Dolibarr
