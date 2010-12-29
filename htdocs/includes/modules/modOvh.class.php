@@ -81,7 +81,7 @@ class modOvh extends DolibarrModules
 		$this->requiredby = array();	// List of modules id to disable if this one is disabled
 		$this->phpmin = array(4,3);					// Minimum version of PHP required by module
 		$this->need_dolibarr_version = array(2,7);	// Minimum version of Dolibarr required by module
-		$this->langfiles = array("ovh");
+		$this->langfiles = array("ovh@ovh");
 
 		// Constants
 		$this->const = array();			// List of particular constants to add when module is enabled
