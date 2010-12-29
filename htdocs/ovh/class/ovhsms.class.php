@@ -220,17 +220,15 @@ function show_sms_contacts($conf,$langs,$db,$objsoc)
 			print '<td id="contact_tel">';
 			print dol_print_phone($obj->phone,$obj->pays_code,$obj->rowid,$objsoc->id,'AC_TEL');
 			print '</td>';
+
 			print '<td id="contact_mobile">';
 			print dol_print_phone($obj->phone_mobile,$obj->pays_code,$obj->rowid,$objsoc->id,'AC_MOBILE');
 			print '</td>';
-
 
 			print '<td align="center">';
 			print '<a href="'.DOL_URL_ROOT.'/contact/fiche.php?action=edit&amp;id='.$obj->rowid.'">';
 			print img_edit();
 			print '</a></td>';
-
-
 
 			print "</tr>\n";
 			$i++;
@@ -239,7 +237,7 @@ function show_sms_contacts($conf,$langs,$db,$objsoc)
 	else
 	{
 		print "<tr ".$bc[$var].">";
-		print '<td>'.$langs->trans("NoContactsYetDefined").'</td>';
+		print '<td colspan="4">'.$langs->trans("NoContactDefined").'</td>';
 		print "</tr>\n";
 	}
 	print "</table>\n";

@@ -1,7 +1,7 @@
 # Dolibarr language file - fr_FR - ovh
 CHARSET=UTF-8
 
-OvhSmsSetup=Configuration module OvhSms
+OvhSmsSetup=Configuration module Ovh
 OvhSmsRecap=Récapitulatif compte principal
 OvhSmsNick=Nick Handle du compte principal
 OvhSmsPass=Mot de passe
@@ -20,6 +20,6 @@ OvhSmsInfoCharMax=160 caracatères max
 OvhSmsStatutSent=Message reçu
 OvhSmsStatutSubmitted=Soumis
 OvhSmsStatutWaiting=En Attente
-OvhSmsStatutFailed=En Attente
+OvhSmsStatutFailed=Echec
 OvhSmsBackToAdmin=Retour à l'admin du module
 OvhSmsHistory=Historique des %s derniers envois

@@ -35,10 +35,10 @@ dol_include_once("/ovh/class/ovhsms.class.php");
 
 // Load traductions files requiredby by page
 $langs->load("companies");
-$langs->load("ovh");
+$langs->load("ovh@ovh");
 
 // Get parameters
-$socid = GETPOST("socid");
+$socid = GETPOST("id");
 
 // Protection if external user
 if ($user->societe_id > 0)
@@ -49,40 +49,34 @@ if ($user->societe_id > 0)
 
 
 /*******************************************************************
-* ACTIONS
-*
-********************************************************************/
+ * ACTIONS
+ ********************************************************************/
 
-
-
-
-
-
-	/* Envoi d'un SMS */
+/* Envoi d'un SMS */
 if ($_REQUEST["action"] == 'smsenvoi' && $user->rights->ovhsms->envoyer)
 {
 
-   $sms = new OvhSms($db);
-   $sms->expe = $_POST['expe'];
-   $sms->dest = $_POST['dest'];
-   $sms->message = $_POST['message'];
-   $sms->deferred = $_POST['deferred'];
-   $resultsend = $sms->SmsSend();
-   if ($resultsend > 0)
-   {
+	$sms = new OvhSms($db);
+	$sms->expe = $_POST['expe'];
+	$sms->dest = $_POST['dest'];
+	$sms->message = $_POST['message'];
+	$sms->deferred = $_POST['deferred'];
+	$resultsend = $sms->SmsSend();
+	if ($resultsend > 0)
+	{
 
-      $mesg = '<p class="ok">Message correctement envoyé à '.$sms->dest.' sous la référence '.$resultsend.'</p>';
-   }
+		$mesg = '<p class="ok">Message correctement envoyé à '.$sms->dest.' sous la référence '.$resultsend.'</p>';
+	}
 
-  else $mesg = '<p class="error">'.$sms->error.'</p>';
+	else $mesg = '<p class="error">'.$sms->error.'</p>';
 }
 
 
 
 
 /***************************************************
-* View
-****************************************************/
+ * View
+ ****************************************************/
 
 llxHeader('','Ovh','');
 
@@ -92,36 +86,36 @@ $form=new Form($db);
 if ($socid)
 {
 
-   $sms = new OvhSms($db);
-   /*
-   * Creation de l'objet client/fournisseur correspondant au socid
-   */
+	$sms = new OvhSms($db);
+	/*
+	 * Creation de l'objet client/fournisseur correspondant au socid
+	 */
 
-   $soc = new Societe($db);
-   $result = $soc->fetch($socid);
-
-
-
-   /*
-   * Affichage onglets
-   */
-   $head = societe_prepare_head($soc);
-   dol_fiche_head($head, 'SMS', $langs->trans("ThirdParty"),0,'company');
+	$soc = new Societe($db);
+	$result = $soc->fetch($socid);
 
 
-   if ($mesg) print $mesg."<br>";
+
+	/*
+	 * Affichage onglets
+	 */
+	$head = societe_prepare_head($soc);
+	dol_fiche_head($head, 'tabSMS', $langs->trans("ThirdParty"),0,'company');
 
 
-   	print '<table width="100%" class="notopnoleftnoright">';
+	if ($mesg) print $mesg."<br>";
+
+
+	print '<table width="100%" class="notopnoleftnoright">';
 	print '<tr><td valign="top" class="notopnoleft">';
 
 
 
 	// Liste des expéditeurs autorisés
-   $resultsender = $sms->SmsSenderList($account);
+	$resultsender = $sms->SmsSenderList($account);
 
 	print_titre($langs->trans("OvhSmsSend"));
-print '
+	print '
 <script language="javascript">
 function limitChars(textarea, limit, infodiv)
 {
@@ -143,26 +137,26 @@ function limitChars(textarea, limit, infodiv)
 }
 </script>';
 
-   print '<form method="post" action="">';
-   print '<input type="hidden" name="action" value="smsenvoi">';
-   print '<table  class="border" width="100%">';
-   print '<tr>
+	print '<form method="post" action="">';
+	print '<input type="hidden" name="action" value="smsenvoi">';
+	print '<table  class="border" width="100%">';
+	print '<tr>
    <td>Expediteur</td>
    <td><select name="expe" id="valid" size="1">';
 
-   $i=0;
-   while($resultsender[$i]){
-      print '<option value="'.$resultsender[$i]->number.'">'.$resultsender[$i]->number.'</option>';
-      $i++;
-   }
-   print '</select></td>
+	$i=0;
+	while($resultsender[$i]){
+		print '<option value="'.$resultsender[$i]->number.'">'.$resultsender[$i]->number.'</option>';
+		$i++;
+	}
+	print '</select></td>
 	  ';
 
 
 
 	print ' ';
 
-   print '</tr>
+	print '</tr>
    <tr>
 	   <td>'.$langs->trans("OvhSmsDestinataire").'</td>
 	   <td><input type="text" name="dest" size="15" value="+"><br />'.$langs->trans("OvhSmsInfoNumero").'</td>
@@ -196,7 +190,7 @@ function limitChars(textarea, limit, infodiv)
    </table>
 
 
-   <br /><input type="submit" name="Submit" value="Envoyer le SMS" class="input"><br />
+   <br /><input type="submit" name="Submit" value="'.dol_escape_htmltag($langs->trans("OvhSmsSend")).'" class="button"><br />
    </form>
    ';
 
@@ -212,12 +206,12 @@ function limitChars(textarea, limit, infodiv)
 
 
 
- 	 $sms->show_sms_contacts($conf,$langs,$db,$soc);
+	$sms->show_sms_contacts($conf,$langs,$db,$soc);
 
 
 
-   print '</div>';
-   print "</td></tr>";
+	print '</div>';
+	print "</td></tr>";
 	print "</table></div>\n";
 
 
