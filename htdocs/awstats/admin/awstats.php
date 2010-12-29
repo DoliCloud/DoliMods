@@ -20,7 +20,7 @@
  *	    \file       htdocs/admin/awstats.php
  *      \ingroup    awstats
  *      \brief      Page de configuration du module AWStats
- *		\version    $Id: awstats.php,v 1.4 2010/11/06 15:00:30 eldy Exp $
+ *		\version    $Id: awstats.php,v 1.5 2010/12/29 10:28:19 eldy Exp $
  */
 
 define('NOCSRFCHECK',1);
@@ -31,6 +31,7 @@ if (! $res) include("../../../../dolibarr/htdocs/main.inc.php");	// Used on dev 
 require_once(DOL_DOCUMENT_ROOT."/lib/admin.lib.php");
 require_once(DOL_DOCUMENT_ROOT.'/core/class/html.formadmin.class.php');
 
+//dol_include_once("/awstats/awstats.lib.php");	// We still use old writing to be compatible with old version
 $res=@include_once("../awstats.lib.php");
 if (! $res) include_once(DOL_DOCUMENT_ROOT."/awstats/awstats.lib.php");
 
@@ -156,5 +157,5 @@ print "<br>";
 
 $db->close();
 
-llxFooter('$Date: 2010/11/06 15:00:30 $ - $Revision: 1.4 $');
+llxFooter('$Date: 2010/12/29 10:28:19 $ - $Revision: 1.5 $');
 ?>
