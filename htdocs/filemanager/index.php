@@ -20,7 +20,7 @@
  *   	\file       htdocs/filemanager/index.php
  *		\ingroup    filemanager
  *		\brief      This is home page of filemanager module
- *		\version    $Id: index.php,v 1.24 2010/11/13 00:57:10 eldy Exp $
+ *		\version    $Id: index.php,v 1.25 2011/01/05 18:12:40 eldy Exp $
  */
 
 if (! defined('REQUIRE_JQUERY_LAYOUT'))  define('REQUIRE_JQUERY_LAYOUT','1');
@@ -128,6 +128,7 @@ if (GETPOST('action')=='deletedir')
 *
 * Put here all code to build page
 ****************************************************/
+$maxheightwin=(isset($_SESSION["dol_screenheight"]) && $_SESSION["dol_screenheight"] > 500)?($_SESSION["dol_screenheight"]-166):660;
 
 $morejs=array(
 "/filemanager/inc/jqueryFileTree/jqueryFileTree.js",
@@ -142,7 +143,7 @@ html, body {
 	}
 	#containerlayout {
 		background:	#999;
-		height:		660px;
+		height:		".$maxheightwin."px;
 		margin:		0 auto;
 		width:		100%;
 		min-width:	700px;
