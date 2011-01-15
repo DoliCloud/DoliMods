@@ -6,7 +6,7 @@
  *	    \file       htdocs/admin/google.php
  *      \ingroup    google
  *      \brief      Setup page for google module
- *		\version    $Id: google.php,v 1.3 2010/06/18 22:26:16 eldy Exp $
+ *		\version    $Id: google.php,v 1.4 2011/01/15 01:54:55 eldy Exp $
  */
 
 define('NOCSRFCHECK',1);
@@ -124,12 +124,12 @@ $var=false;
 print "<table class=\"noborder\" width=\"100%\">";
 
 print "<tr class=\"liste_titre\">";
-print '<td width="140">'.$langs->trans("Parameter")."</td>";
+print '<td width="180">'.$langs->trans("Parameter")."</td>";
 print "<td>".$langs->trans("Value")."</td>";
 print "</tr>";
 // Timezone
 print "<tr ".$bc[$var].">";
-print "<td>".$langs->trans("TimeZone")."</td>";
+print "<td>".$langs->trans("ClientTZ")."</td>";
 print "<td>";
 print $formadmin->select_timezone($conf->global->GOOGLE_AGENDA_TIMEZONE,'google_agenda_timezone');
 print "</td>";
@@ -163,7 +163,7 @@ while ($i <= $MAXAGENDA)
 	$key=$i;
 	$var=!$var;
 	print "<tr ".$bc[$var].">";
-	print '<td width="140" nowrap="nowrap">'.$langs->trans("GoogleAgendaNb",$key)."</td>";
+	print '<td width="180" nowrap="nowrap">'.$langs->trans("GoogleAgendaNb",$key)."</td>";
 	$name='GOOGLE_AGENDA_NAME'.$key;
 	$src='GOOGLE_AGENDA_SRC'.$key;
 	$color='GOOGLE_AGENDA_COLOR'.$key;
@@ -204,5 +204,5 @@ print info_admin($message);
 
 $db->close();
 
-llxFooter('$Date: 2010/06/18 22:26:16 $ - $Revision: 1.3 $');
+llxFooter('$Date: 2011/01/15 01:54:55 $ - $Revision: 1.4 $');
 ?>
