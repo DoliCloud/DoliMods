@@ -20,7 +20,7 @@
 /**
  *  \file           htdocs/scanner/index.php
  *  \brief          Main page of scanner module
- *  \version        $Id: index.php,v 1.7 2011/01/16 14:38:46 eldy Exp $
+ *  \version        $Id: index.php,v 1.8 2011/01/16 16:56:12 eldy Exp $
  */
 
 if (! defined('NOCSRFCHECK')) define('NOCSRFCHECK',1);
@@ -32,9 +32,9 @@ if (! $res && file_exists("../../../dolibarr/htdocs/main.inc.php")) $res=@includ
 if (! $res && file_exists("../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
 if (! $res && file_exists("../../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
 if (! $res) die("Include of main fails");
-include(DOL_DOCUMENT_ROOT."/core/class/html.formfile.class.php");
-dol_include_once("/scanner/functions.php");
-dol_include_once("/scanner/config.php");
+include_once(DOL_DOCUMENT_ROOT."/core/class/html.formfile.class.php");
+include_once("./functions.php");
+include_once("./config.php");        // We can't use dol_include once for this because it set global variables used into this page, so we use relateive path
 
 $langs->load("other");
 $langs->load("scanner@scanner");
@@ -184,7 +184,6 @@ if ($error_input == 0)
 
 if ($cmd_device !== '')
 {
-    // DOL_CHANGE LDR
     dol_mkdir($conf->scanner->dir_temp.'/'.$user->id);
     dol_syslog("Launch sane commande: ".$cmd_device);
     //print "eee";exit;

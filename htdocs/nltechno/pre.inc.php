@@ -6,7 +6,7 @@
  *		\file 		htdocs/nltechno/pre.inc.php
  *		\ingroup    nltechno
  *		\brief      File to manage left menu for NLTechno module
- *		\version    $Id: pre.inc.php,v 1.5 2011/01/16 14:38:46 eldy Exp $
+ *		\version    $Id: pre.inc.php,v 1.6 2011/01/16 17:00:20 eldy Exp $
  */
 
 define('NOCSRFCHECK',1);
@@ -30,8 +30,6 @@ function llxHeader($head = "", $title="", $help_url='')
 	top_menu($head, $title);
 
 	$menu = new Menu();
-
-	$menu->add("/nltechno/index.php?mainmenu=nltechno&idmenu=".$_SESSION["idmenu"], $langs->trans("Admin NLTechno"));
 
 	left_menu($menu->liste, $help_url);
 }

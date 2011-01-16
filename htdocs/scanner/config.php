@@ -191,6 +191,7 @@ else
         $scanner = "\"".substr($sane_scanner,$start,$laenge)."\"";
         unset($start);
         unset($laenge);
+        dol_syslog("Found ".$sane_scanner);
         if ($sane_scanner) $_SESSION['scannerlist']=$sane_scanner;
     }
     else
