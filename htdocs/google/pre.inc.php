@@ -8,13 +8,17 @@
  *		\file 		htdocs/google/pre.inc.php
  *		\ingroup    google
  *		\brief      File to manage left menu for google module
- *		\version    $Id: pre.inc.php,v 1.7 2010/07/27 22:41:24 eldy Exp $
+ *		\version    $Id: pre.inc.php,v 1.8 2011/01/16 13:14:38 eldy Exp $
  */
 
 define('NOCSRFCHECK',1);
 
-$res=@include("../main.inc.php");
-if (! $res) @include("../../../dolibarr/htdocs/main.inc.php");	// Used on dev env only
+$res=0;
+if (! $res && file_exists("../main.inc.php")) $res=@include("../main.inc.php");
+if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.php");
+if (! $res && file_exists("../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../dolibarr/htdocs/main.inc.php");     // Used on dev env only
+if (! $res && file_exists("../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
+if (! $res && file_exists("../../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
 
 $user->getrights('google');
 

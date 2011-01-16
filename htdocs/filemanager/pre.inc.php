@@ -23,11 +23,15 @@
 		\file   	htdocs/filemanager/pre.inc.php
 		\ingroup    compta
 		\brief  	Fichier gestionnaire du menu filemanager
-		\version	$Id: pre.inc.php,v 1.3 2010/11/05 20:14:05 eldy Exp $
+		\version	$Id: pre.inc.php,v 1.4 2011/01/16 13:14:38 eldy Exp $
 */
 
-$res=@include("../main.inc.php");
-if (! $res) @include("../../../dolibarr/htdocs/main.inc.php");  // Used on dev env only
+$res=0;
+if (! $res && file_exists("../main.inc.php")) $res=@include("../main.inc.php");
+if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.php");
+if (! $res && file_exists("../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../dolibarr/htdocs/main.inc.php");     // Used on dev env only
+if (! $res && file_exists("../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
+if (! $res && file_exists("../../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
 
 
 /**
@@ -69,7 +73,7 @@ function llxHeader($head = '', $title='', $help_url='', $target='', $disablejs=0
 		while ($i < $numr)
 		{
 			$objp = $db->fetch_object($resql);
-			$menu->add($_SERVER["PHP_SELF"].'?leftmenu=filemanager&id='.$objp->rowid,$objp->rootlabel,0,1);
+			$menu->add('/filemanager/index.php?leftmenu=filemanager&id='.$objp->rowid,$objp->rootlabel,0,1);
 /*
 			$menu->add_submenu(DOL_URL_ROOT."/compta/bank/annuel.php?account=".$objp->rowid ,$langs->trans("IOMonthlyReporting"));
 			$menu->add_submenu(DOL_URL_ROOT."/compta/bank/graph.php?account=".$objp->rowid ,$langs->trans("Graph"));
