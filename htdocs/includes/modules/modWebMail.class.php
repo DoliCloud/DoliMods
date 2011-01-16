@@ -12,7 +12,7 @@
  *      \file       htdocs/includes/modules/modWebMail.class.php
  *      \ingroup    webmail
  *      \brief      Description and activation file for module WebMail
- *		\version	$Id: modWebMail.class.php,v 1.5 2010/12/15 17:38:31 eldy Exp $
+ *		\version	$Id: modWebMail.class.php,v 1.6 2011/01/16 14:38:46 eldy Exp $
  */
 include_once(DOL_DOCUMENT_ROOT ."/includes/modules/DolibarrModules.class.php");
 
@@ -52,7 +52,6 @@ class modWebMail extends DolibarrModules
 		$this->special = 0;
 		// Name of image file used for this module.
 		// If file is in theme/yourtheme/img directory under name object_pictovalue.png, use this->picto='pictovalue'
-		// If file is in module/images directory, use this->picto=DOL_URL_ROOT.'/module/images/file.png'
 		$this->picto='email';
 
 		// Data directories to create when module is enabled

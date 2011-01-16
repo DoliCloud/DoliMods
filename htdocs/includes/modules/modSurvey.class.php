@@ -12,7 +12,7 @@
  *      \file       htdocs/includes/modules/modSurvey.class.php
  *      \ingroup    survey
  *      \brief      Description and activation file for module Survey
- * 		\version	$Id: modSurvey.class.php,v 1.4 2010/06/02 19:56:00 eldy Exp $
+ * 		\version	$Id: modSurvey.class.php,v 1.5 2011/01/16 14:38:46 eldy Exp $
  */
 include_once(DOL_DOCUMENT_ROOT ."/includes/modules/DolibarrModules.class.php");
 
@@ -52,7 +52,6 @@ class modSurvey extends DolibarrModules
 		$this->special = 1;
 		// Name of image file used for this module.
 		// If file is in theme/yourtheme/img directory under name object_pictovalue.png, use this->picto='pictovalue'
-		// If file is in module/images directory, use this->picto=DOL_URL_ROOT.'/module/images/file.png'
 		$this->picto='generic';
 
 		// Data directories to create when module is enabled

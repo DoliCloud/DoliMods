@@ -20,7 +20,7 @@
 /**
  *  \file           htdocs/scanner/index.php
  *  \brief          Main page of scanner module
- *  \version        $Id: index.php,v 1.6 2011/01/16 14:26:45 eldy Exp $
+ *  \version        $Id: index.php,v 1.7 2011/01/16 14:38:46 eldy Exp $
  */
 
 if (! defined('NOCSRFCHECK')) define('NOCSRFCHECK',1);
@@ -388,7 +388,7 @@ else
     }
     else
     {
-        print  "<IMG src=\"".DOL_URL_ROOT.'/scanner/images/scan.jpg'."\" width=\"$PREVIEW_WIDTH_PX\" height=\"$PREVIEW_HEIGHT_PX\" name=\"Preview\"><br>\n";
+        print  "<IMG src=\"".dol_builpath('/scanner/images/scan.jpg',1)."\" width=\"$PREVIEW_WIDTH_PX\" height=\"$PREVIEW_HEIGHT_PX\" name=\"Preview\"><br>\n";
     }
     print  "</td>\n";
 

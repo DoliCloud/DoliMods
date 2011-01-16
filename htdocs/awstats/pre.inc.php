@@ -8,7 +8,7 @@
  *		\file 		htdocs/awstats/pre.inc.php
  *		\ingroup    awstats
  *		\brief      File to manage left menu for awstats module
- *		\version    $Id: pre.inc.php,v 1.9 2011/01/16 13:30:09 eldy Exp $
+ *		\version    $Id: pre.inc.php,v 1.10 2011/01/16 14:38:46 eldy Exp $
  */
 
 if (! defined('NOCSRFCHECK')) define('NOCSRFCHECK',1);
@@ -34,7 +34,7 @@ function llxHeader($head = "", $title="", $help_url='')
 
 	$menu = new Menu();
 
-	$menu->add(DOL_URL_ROOT."/awstats/index.php?mainmenu=awstats&idmenu=".$_SESSION["idmenu"], $langs->trans("AWStats"));
+	$menu->add("/awstats/index.php?mainmenu=awstats&idmenu=".$_SESSION["idmenu"], $langs->trans("AWStats"));
 
 	left_menu($menu->liste, $help_url);
 }

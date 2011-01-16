@@ -21,7 +21,7 @@
  *		\file 		htdocs/postnuke/pre.inc.php
  *		\ingroup    postnuke
  *		\brief      File to manage left menu for postnuke module
- *		\version    $Id: pre.inc.php,v 1.3 2011/01/16 13:30:08 eldy Exp $
+ *		\version    $Id: pre.inc.php,v 1.4 2011/01/16 14:38:46 eldy Exp $
  */
 
 define('NOCSRFCHECK',1);
@@ -47,17 +47,17 @@ function llxHeader($head = "", $title="", $help_url = "")
 
 	$menu = new Menu();
 
-	$menu->add(DOL_URL_ROOT."/boutique/livre/", $langs->trans("Livres"));
+	$menu->add("/boutique/livre/", $langs->trans("Livres"));
 
-	$menu->add(DOL_URL_ROOT."/boutique/auteur/", $langs->trans("Auteurs"));
+	$menu->add("/boutique/auteur/", $langs->trans("Auteurs"));
 
-	$menu->add(DOL_URL_ROOT."/boutique/editeur/", $langs->trans("Editeurs"));
+	$menu->add("/boutique/editeur/", $langs->trans("Editeurs"));
 
-	$menu->add(DOL_URL_ROOT."/product/categorie/", $langs->trans("Categories"));
+	$menu->add("/product/categorie/", $langs->trans("Categories"));
 
-	$menu->add(DOL_URL_ROOT."/product/promotion/", $langs->trans("Promotions"));
+	$menu->add("/product/promotion/", $langs->trans("Promotions"));
 
-	$menu->add(DOL_URL_ROOT."/postnuke/index.php", $langs->trans("Editorial"));
+	$menu->add("/postnuke/index.php", $langs->trans("Editorial"));
 
 	left_menu($menu->liste);
 }

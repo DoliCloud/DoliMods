@@ -24,7 +24,7 @@
 /**
  *	\file       htdocs/filemanager/ajaxshowpreview.php
  *  \brief      Service to return a HTML preview of a file
- *  \version    $Id: ajaxshowpreview.php,v 1.14 2011/01/16 14:26:43 eldy Exp $
+ *  \version    $Id: ajaxshowpreview.php,v 1.15 2011/01/16 14:38:45 eldy Exp $
  *  \remarks    Call of this service is made with URL:
  * 				ajaxpreview.php?action=preview&modulepart=repfichierconcerne&file=pathrelatifdufichier
  */
@@ -417,7 +417,7 @@ else {
 
         print '<center><img';
         if (! empty($sizearray['width']) && $sizearray['width'] > 500) print ' width="500"';
-        print ' src="'.DOL_URL_ROOT.'/filemanager/viewimage.php?modulepart=filemanager&file='.urlencode($original_file).'"></center>';
+        print ' src="'.dol_buildpath('/filemanager/viewimage.php',1).'?modulepart=filemanager&file='.urlencode($original_file).'"></center>';
     }
     else
     {

@@ -15,7 +15,7 @@
 /**
  *	\file       htdocs/awstats/index.php
  *	\brief      Page accueil module AWStats
- *	\version    $Id: index.php,v 1.18 2010/12/29 10:28:19 eldy Exp $
+ *	\version    $Id: index.php,v 1.19 2011/01/16 14:38:46 eldy Exp $
  */
 
 include("./pre.inc.php");
@@ -337,17 +337,6 @@ else
 
 			ksort($ddata);
 
-			//$output_table .= '<table><tr><td>'.$langs->trans("Config").':<br>';
-			//$output_table .= $key;
-			//$output_table .= '</td><td>';
-			//$output_table .= ' &nbsp; <a href="'.$AWSTATS_CGI_PATH.'config='.$key.'" target="_blank">';
-			//$output_table .= '<img src="'.DOL_URL_ROOT.'/awstats/images/awstats_screen.png">';
-			//$output_table .= '</a>';
-			//$output_table .= '</td><td>';
-			//$output_table .= ' &nbsp; <a href="'.DOL_URL_ROOT.'/awstats/jawstats/index.php?config='.$key.'">';
-			//$output_table .= '<img src="'.DOL_URL_ROOT.'/awstats/images/awstats_screen.png">';
-			//$output_table .= '</a>';
-			//$output_table .= '</td></tr></table><br>';
 			$output_table .= '<table width="'.$table_width.'" cellspacing="0" cellpadding="1" align="'.$table_align.'">
 <tr>
 <td>';
@@ -361,13 +350,12 @@ else
 <td width="80" class="bandwidth-bold">Bandwidth</td>
 <td width="'.$maxwidth.'" align="center">';
 			$output_table .= '<a href="'.$AWSTATS_CGI_PATH.($key?'config='.$key:'').'" alt="AWStats" title="AWStats" target="_blank">';
-			$output_table .= '<img src="'.DOL_URL_ROOT.'/awstats/images/awstats_screen.png" border="0">';
-			//$output_table .= img_picto($langs->trans("ShowStats"),DOL_URL_ROOT.'/awstats/images/menu2.png','',1).'</a>';
+			$output_table .= '<img src="'.dol_buildpath('/awstats/images/awstats_screen.png',1).'" border="0">';
 			if ($key)
 			{
 				$output_table .= ' &nbsp; ';
-				$output_table .= '<a href="'.DOL_URL_ROOT.'/awstats/jawstats/index.php'.($key?'?config='.$key:'').'" alt="JAWStats" title="JAWStats" >';
-				$output_table .= '<img src="'.DOL_URL_ROOT.'/awstats/images/jawstats_screen.png" border="0">';
+				$output_table .= '<a href="'.dol_buildpath('/awstats/jawstats/index.php',1).($key?'?config='.$key:'').'" alt="JAWStats" title="JAWStats" >';
+				$output_table .= '<img src="'.dol_buildpath('/awstats/images/jawstats_screen.png',1).'" border="0">';
 				$output_table .= '</a>';
 			}
 			$output_table .= '</td>';
@@ -413,11 +401,11 @@ else
 					$width['traffic']=$maxwidth*$domaininfo[$key][$key2][$key3]['traffic']/$max['traffic'];
 
 					$output_table .= '<table class="nobordernopadding">';
-					$output_table .= '<tr class="nobordernopadding" height="2"><td class="nobordernopadding" align="left"><img src="'.DOL_URL_ROOT.'/awstats/images/hu.png" height="3" width="'.ceil($width['visitors']).'"></td></tr>';
-					$output_table .= '<tr class="nobordernopadding" height="2"><td class="nobordernopadding" align="left"><img src="'.DOL_URL_ROOT.'/awstats/images/hv.png" height="3" width="'.ceil($width['visits']).'"></td></tr>';
-					$output_table .= '<tr class="nobordernopadding" height="2"><td class="nobordernopadding" align="left"><img src="'.DOL_URL_ROOT.'/awstats/images/hp.png" height="3" width="'.ceil($width['pages']).'"></td></tr>';
-					$output_table .= '<tr class="nobordernopadding" height="2"><td class="nobordernopadding" align="left"><img src="'.DOL_URL_ROOT.'/awstats/images/hh.png" height="3" width="'.ceil($width['hits']).'"></td></tr>';
-					$output_table .= '<tr class="nobordernopadding" height="2"><td class="nobordernopadding" align="left"><img src="'.DOL_URL_ROOT.'/awstats/images/hk.png" height="3" width="'.ceil($width['traffic']).'"></td></tr>';
+					$output_table .= '<tr class="nobordernopadding" height="2"><td class="nobordernopadding" align="left"><img src="'.dol_buildpath('/awstats/images/hu.png',1).'" height="3" width="'.ceil($width['visitors']).'"></td></tr>';
+					$output_table .= '<tr class="nobordernopadding" height="2"><td class="nobordernopadding" align="left"><img src="'.dol_buildpath('/awstats/images/hv.png',1).'" height="3" width="'.ceil($width['visits']).'"></td></tr>';
+					$output_table .= '<tr class="nobordernopadding" height="2"><td class="nobordernopadding" align="left"><img src="'.dol_buildpath('/awstats/images/hp.png',1).'" height="3" width="'.ceil($width['pages']).'"></td></tr>';
+					$output_table .= '<tr class="nobordernopadding" height="2"><td class="nobordernopadding" align="left"><img src="'.dol_buildpath('/awstats/images/hh.png',1).'" height="3" width="'.ceil($width['hits']).'"></td></tr>';
+					$output_table .= '<tr class="nobordernopadding" height="2"><td class="nobordernopadding" align="left"><img src="'.dol_buildpath('/awstats/images/hk.png',1).'" height="3" width="'.ceil($width['traffic']).'"></td></tr>';
 					$output_table .= '</table>';
 
 					$output_table .= '</td>	</tr>';
@@ -553,7 +541,7 @@ $etime = gettime();
 # Format HTML
 $html =	'';
 
-print_fiche_titre(' &nbsp; '.$langs->trans("AWStatsSummary"),'',DOL_URL_ROOT.'/awstats/images/awstats.png',1);
+print_fiche_titre(' &nbsp; '.$langs->trans("AWStatsSummary"),'',dol_buildpath('/awstats/images/awstats.png',1),1);
 
 print '<form action="'.$_SERVER["PHP_SELF"].'" method="POST">';
 print '<table class="border" width="100%"><tr><td>'.$langs->trans("Year").':</td><td>';
@@ -577,5 +565,5 @@ if ($system_stats_top == true) {
 #	Output to the screen
 echo $statistics;
 
-llxFooter('$Date: 2010/12/29 10:28:19 $ - $Revision: 1.18 $');
+llxFooter('$Date: 2011/01/16 14:38:46 $ - $Revision: 1.19 $');
 ?>
