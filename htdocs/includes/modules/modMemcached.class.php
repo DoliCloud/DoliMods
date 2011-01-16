@@ -1,5 +1,5 @@
 <?php
-/* Copyright (C) 2010 Laurent Destailleur  <eldy@users.sourceforge.net>
+/* Copyright (C) 2010-2011 Laurent Destailleur  <eldy@users.sourceforge.net>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,7 +18,7 @@
 
 /**     \defgroup   memcached		Module Memcached
  *      \brief      Module for memcached server
- *		\version	$Id: modMemcached.class.php,v 1.6 2010/06/02 19:56:00 eldy Exp $
+ *		\version	$Id: modMemcached.class.php,v 1.7 2011/01/16 13:30:09 eldy Exp $
  */
 
 /**
@@ -56,7 +56,7 @@ class modMemcached extends DolibarrModules
 		// Module description used if translation string 'ModuleXXXDesc' not found (XXX is id value)
 		$this->description = "Use a memcached server to increase Dolibarr speed (need PHP functions Memcached or Memcache)";
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
-		$this->version = '2.9';
+		$this->version = '3.0';
 		// Key used in llx_const table to save module status enabled/disabled (XXX is id value)
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
 		// Where to store the module in setup page (0=common,1=interface,2=others,3=very specific)
@@ -67,15 +67,15 @@ class modMemcached extends DolibarrModules
 		// Data directories to create when module is enabled
 		$this->dirs = array();
 
-		// Langs file within the module
-		$this->langfiles = array("memcached@memcached");
-
 		// Config pages. Put here list of php page names stored in admin directory used to setup module
 		$this->config_page_url = array('memcached.php@memcached');
 
 		// Dependencies
 		$this->depends = array();		// List of modules id that must be enabled if this module is enabled
 		$this->requiredby = array();	// List of modules id to disable if this one is disabled
+        $this->phpmin = array(4,3);                 // Minimum version of PHP required by module
+        $this->need_dolibarr_version = array(3,0);  // Minimum version of Dolibarr required by module
+        $this->langfiles = array("memcached@memcached");
 
 		// Constants
 		$this->const = array();			// List of parameters

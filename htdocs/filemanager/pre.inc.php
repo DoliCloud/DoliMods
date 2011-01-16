@@ -23,7 +23,7 @@
 		\file   	htdocs/filemanager/pre.inc.php
 		\ingroup    compta
 		\brief  	Fichier gestionnaire du menu filemanager
-		\version	$Id: pre.inc.php,v 1.4 2011/01/16 13:14:38 eldy Exp $
+		\version	$Id: pre.inc.php,v 1.5 2011/01/16 13:30:08 eldy Exp $
 */
 
 $res=0;
@@ -32,6 +32,7 @@ if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.p
 if (! $res && file_exists("../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../dolibarr/htdocs/main.inc.php");     // Used on dev env only
 if (! $res && file_exists("../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
 if (! $res && file_exists("../../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
+if (! $res) die("Include of main fails");
 
 
 /**

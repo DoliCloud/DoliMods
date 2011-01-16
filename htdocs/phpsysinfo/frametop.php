@@ -21,15 +21,18 @@
  *		\file 		htdocs/externalsite/frametop.php
  *      \ingroup    externalsite
  *		\brief      Top frame to show external web application
- *		\version    $Id: frametop.php,v 1.1 2010/07/19 18:45:45 eldy Exp $
+ *		\version    $Id: frametop.php,v 1.2 2011/01/16 13:30:08 eldy Exp $
  */
 
-$res=@include("../main.inc.php");
-if (! $res) $res=@include("../../main.inc.php");	// If pre.inc.php is called by jawstats
-if (! $res) $res=@include("../../../dolibarr/htdocs/main.inc.php");		// Used on dev env only
-if (! $res) $res=@include("../../../../dolibarr/htdocs/main.inc.php");	// Used on dev env only
+$res=0;
+if (! $res && file_exists("../main.inc.php")) $res=@include("../main.inc.php");
+if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.php");
+if (! $res && file_exists("../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../dolibarr/htdocs/main.inc.php");     // Used on dev env only
+if (! $res && file_exists("../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
+if (! $res && file_exists("../../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
+if (! $res) die("Include of main fails");
 
-$langs->load("@phpsysinfo");
+$langs->load("phpsysinfo@phpsysinfo");
 
 top_htmlhead("","");
 top_menu("","","_top");

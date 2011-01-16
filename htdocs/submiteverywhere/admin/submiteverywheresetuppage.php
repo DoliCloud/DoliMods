@@ -24,13 +24,16 @@
  *      \file       htdocs/newssubmitter/admin/newssubmittersetuppage.php
  *      \ingroup    newssubmitter
  *      \brief      Page to setup module NewsSubmitter
- *      \version    $Id: submiteverywheresetuppage.php,v 1.2 2010/09/14 20:42:43 eldy Exp $
+ *      \version    $Id: submiteverywheresetuppage.php,v 1.3 2011/01/16 13:30:09 eldy Exp $
  */
 
-$res=false;
-if (file_exists("../../main.inc.php") && ! $res) $res=@include("../../main.inc.php");
-if (file_exists("../../../../dolibarr/htdocs/main.inc.php") && ! $res) $res=@include("../../../../dolibarr/htdocs/main.inc.php");
-
+$res=0;
+if (! $res && file_exists("../main.inc.php")) $res=@include("../main.inc.php");
+if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.php");
+if (! $res && file_exists("../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../dolibarr/htdocs/main.inc.php");     // Used on dev env only
+if (! $res && file_exists("../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
+if (! $res && file_exists("../../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
+if (! $res) die("Include of main fails");
 require_once(DOL_DOCUMENT_ROOT."/lib/admin.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/class/html.formadmin.class.php");
 
@@ -311,5 +314,5 @@ print '</table>'."\n";
 
 $db->close();
 
-llxFooter('$Date: 2010/09/14 20:42:43 $ - $Revision: 1.2 $');
+llxFooter('$Date: 2011/01/16 13:30:09 $ - $Revision: 1.3 $');
 ?>

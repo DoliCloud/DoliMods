@@ -15,20 +15,23 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *
- * $Id: index.php,v 1.1 2010/07/19 18:45:45 eldy Exp $
+ * $Id: index.php,v 1.2 2011/01/16 13:30:08 eldy Exp $
  */
 
 /**	    \file       htdocs/phpsysinfo/frames.php
         \ingroup    phpsysinfo
 		\brief      Page that build two frames: One for menu, the other for the target page to show
 		\author	    Laurent Destailleur
-		\version    $Revision: 1.1 $
+		\version    $Revision: 1.2 $
 */
 
-$res=@include("../main.inc.php");
-if (! $res) $res=@include("../../main.inc.php");	// If pre.inc.php is called by jawstats
-if (! $res) $res=@include("../../../dolibarr/htdocs/main.inc.php");		// Used on dev env only
-if (! $res) $res=@include("../../../../dolibarr/htdocs/main.inc.php");	// Used on dev env only
+$res=0;
+if (! $res && file_exists("../main.inc.php")) $res=@include("../main.inc.php");
+if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.php");
+if (! $res && file_exists("../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../dolibarr/htdocs/main.inc.php");     // Used on dev env only
+if (! $res && file_exists("../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
+if (! $res && file_exists("../../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
+if (! $res) die("Include of main fails");
 
 $langs->load("phpsysinfo@phpsysinfo");
 

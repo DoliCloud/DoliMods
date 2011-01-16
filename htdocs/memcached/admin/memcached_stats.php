@@ -18,15 +18,16 @@
   +----------------------------------------------------------------------+
 */
 
-$VERSION='$Id: memcached_stats.php,v 1.2 2010/06/07 18:07:36 eldy Exp $';
+$VERSION='$Id: memcached_stats.php,v 1.3 2011/01/16 13:30:09 eldy Exp $';
 
-
-$res=@include_once("../main.inc.php");
-if (! $res) $res=@include_once("../../main.inc.php");	// If pre.inc.php is called by jawstats
-if (! $res) $res=@include_once("../../../dolibarr/htdocs/main.inc.php");		// Used on dev env only
-if (! $res) $res=@include_once("../../../../dolibarr/htdocs/main.inc.php");	// Used on dev env only
-$res=@include_once(DOL_DOCUMENT_ROOT."/lib/memcached.lib.php");
-if (! $res) @include_once("./memcached.lib.php");
+$res=0;
+if (! $res && file_exists("../main.inc.php")) $res=@include("../main.inc.php");
+if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.php");
+if (! $res && file_exists("../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../dolibarr/htdocs/main.inc.php");     // Used on dev env only
+if (! $res && file_exists("../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
+if (! $res && file_exists("../../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
+if (! $res) die("Include of main fails");
+$res=dol_include_once("/memcached/lib/memcached.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/lib/admin.lib.php");
 
 // Security check

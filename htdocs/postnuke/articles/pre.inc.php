@@ -21,15 +21,18 @@
  *		\file 		htdocs/postnuke/pre.inc.php
  *		\ingroup    postnuke
  *		\brief      File to manage left menu for postnuke module
- *		\version    $Id: pre.inc.php,v 1.2 2009/07/15 13:55:20 eldy Exp $
+ *		\version    $Id: pre.inc.php,v 1.3 2011/01/16 13:30:08 eldy Exp $
  */
 
 define('NOCSRFCHECK',1);
 
-$res=@include("../main.inc.php");
-if (! $res) $res=@include("../../main.inc.php");	// If pre.inc.php is called by jawstats
-if (! $res) $res=@include("../../../dolibarr/htdocs/main.inc.php");		// Used on dev env only
-if (! $res) $res=@include("../../../../dolibarr/htdocs/main.inc.php");	// Used on dev env only
+$res=0;
+if (! $res && file_exists("../main.inc.php")) $res=@include("../main.inc.php");
+if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.php");
+if (! $res && file_exists("../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../dolibarr/htdocs/main.inc.php");     // Used on dev env only
+if (! $res && file_exists("../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
+if (! $res && file_exists("../../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
+if (! $res) die("Include of main fails");
 
 
 function llxHeader($head = "", $title="", $help_url = "")

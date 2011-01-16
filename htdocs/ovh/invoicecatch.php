@@ -1,11 +1,12 @@
 <?php
 
-$version='$Revision: 1.1 $';
-$path=dirname(__FILE__);
-//eregi_replace($script_file,'',$_SERVER["PHP_SELF"]);
-$url_pdf="https://www.ovh.com/cgi-bin/order/facture.pdf";
-$id_ovh=5;
-require_once($path."../../../htdocs/master.inc.php");
+$res=0;
+if (! $res && file_exists("../main.inc.php")) $res=@include("../main.inc.php");
+if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.php");
+if (! $res && file_exists("../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../dolibarr/htdocs/main.inc.php");     // Used on dev env only
+if (! $res && file_exists("../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
+if (! $res && file_exists("../../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
+if (! $res) die("Include of main fails");
 require_once(DOL_DOCUMENT_ROOT."/user.class.php");
 require_once(DOL_DOCUMENT_ROOT.'/fourn/facture/paiementfourn.class.php');
 require_once(DOL_DOCUMENT_ROOT.'/fourn/fournisseur.facture.class.php');
@@ -13,6 +14,13 @@ require_once(DOL_DOCUMENT_ROOT.'/lib/fourn.lib.php');
 require_once(DOL_DOCUMENT_ROOT.'/product.class.php');
 require_once(DOL_DOCUMENT_ROOT."/lib/files.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/html.formfile.class.php");
+
+
+$version='$Revision: 1.2 $';
+$path=dirname(__FILE__);
+//eregi_replace($script_file,'',$_SERVER["PHP_SELF"]);
+$url_pdf="https://www.ovh.com/cgi-bin/order/facture.pdf";
+$id_ovh=5;
 
         $fuser = new User($db);
         $fuser->fetch('sync');
