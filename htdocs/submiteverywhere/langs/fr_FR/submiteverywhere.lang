@@ -1,6 +1,7 @@
 # Dolibarr language file - fr_FR - submiteverywhere
 CHARSET=UTF-8
 SubmitEveryWhereSetup=Configuration du module "Submit EveryWhere"
+DescSubmitEveryWhere=Ce module permet d'envoyer des textes d'informations courts vers differents media et de suivre le résultat de la soumission. Il est conçu pour faire de la promotion d'information à travers le monde ou internet.
 TargetName=Nom de la cible
 TargetType=Type/API cible
 TargetLang=Langue de la cible

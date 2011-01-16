@@ -24,7 +24,7 @@
  *      \file       htdocs/submiteverywhere/admin/submiteverywheresetuppage.php
  *      \ingroup    submiteverywhere
  *      \brief      Page to setup module SubmitEverywhere
- *      \version    $Id: submiteverywheresetuppage.php,v 1.4 2011/01/16 15:41:27 eldy Exp $
+ *      \version    $Id: submiteverywheresetuppage.php,v 1.5 2011/01/16 15:52:46 eldy Exp $
  */
 
 $res=0;
@@ -53,20 +53,38 @@ $error=0;
 
 if ($_POST["action"] == 'add' || $_POST["modify"])
 {
-    $sql = "INSERT INTO ".MAIN_DB_PREFIX."submitew_targets (label,targetcode,langcode)";
-	$sql.= " VALUES ('".$db->escape(GETPOST('label'))."','".$db->escape(GETPOST('type'))."', '".$db->escape(GETPOST('lang_id'))."')";
-    $resql=$db->query($sql);
-	if ($resql)
+    if (! GETPOST('label'))
     {
-        $_POST['label']='';
-        $_POST['type']='';
+        $error++;
+        $mesg='<div class="error">'.$langs->trans("ErrorFieldRequired",$langs->transnoentitiesnoconv("Label")).'</div>';
     }
-    else
+    if (! GETPOST('type'))
     {
-        if ($db->lasterrno == 'DB_ERROR_RECORD_ALREADY_EXISTS') $mesg='<div class="error">'.$langs->trans("ErrorDuplicateRecord").'</div>';
-        else  {
-        	dol_print_error($db);
-            $error++;
+        $error++;
+        $mesg='<div class="error">'.$langs->trans("ErrorFieldRequired",$langs->transnoentitiesnoconv("Type")).'</div>';
+    }
+
+    if (! $error)
+    {
+        $sql = "INSERT INTO ".MAIN_DB_PREFIX."submitew_targets (label,targetcode,langcode)";
+    	$sql.= " VALUES ('".$db->escape(GETPOST('label'))."','".$db->escape(GETPOST('type'))."', '".$db->escape(GETPOST('lang_id'))."')";
+        $resql=$db->query($sql);
+    	if ($resql)
+        {
+            $_POST['label']='';
+            $_POST['type']='';
+        }
+        else
+        {
+            if ($db->lasterrno == 'DB_ERROR_RECORD_ALREADY_EXISTS')
+            {
+                $langs->load("errors");
+                $mesg='<div class="error">'.$langs->trans("ErrorRefAlreadyExists").'</div>';
+            }
+            else  {
+            	dol_print_error($db);
+                $error++;
+            }
         }
     }
 }
@@ -99,6 +117,8 @@ $linkback='<a href="'.DOL_URL_ROOT.'/admin/modules.php">'.$langs->trans("BackToM
 print_fiche_titre($langs->trans("SubmitEveryWhereSetup"), $linkback, 'setup');
 print '<br>';
 
+print $langs->trans("DescSubmitEveryWhere").'<br><br>'."\n";
+
 // Form to add entry
 print '<form name="externalrssconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
 print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
@@ -112,11 +132,11 @@ print '</tr>';
 
 print '<tr class="liste_titre">';
 // Label
-print '<td>';
+print '<td width="200">';
 print '<input type="text" name="label" value="'.($_POST["label"]?$_POST["label"]:'').'">';
 print '</td>';
 // Type
-print '<td align="left">';
+print '<td width="200" align="left">';
 print '<select class="flat" name="type">';
 print '<option value="">&nbsp;</option>';
 print '<option value="dig">'.$langs->trans("Dig").'</option>';
@@ -168,8 +188,8 @@ if ($resql)
 	$i=0;
 
     print '<tr class="liste_titre">';
-    print '<td>'.$langs->trans("Label").'</td>';
-    print '<td align="left">'.$langs->trans("TargetType").'</td>';
+    print '<td width="200">'.$langs->trans("Label").'</td>';
+    print '<td width="200" align="left">'.$langs->trans("TargetType").'</td>';
     print '<td align="left">'.$langs->trans("TargetLang").'</td>';
     print '<td align="left">'.$langs->trans("Parameters").'</td>';
     print '<td align="left" width="16px">&nbsp;</td>';
@@ -210,5 +230,5 @@ print '</table>'."\n";
 
 $db->close();
 
-llxFooter('$Date: 2011/01/16 15:41:27 $ - $Revision: 1.4 $');
+llxFooter('$Date: 2011/01/16 15:52:46 $ - $Revision: 1.5 $');
 ?>

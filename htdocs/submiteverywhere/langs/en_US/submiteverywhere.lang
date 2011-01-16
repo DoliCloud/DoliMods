@@ -1,6 +1,7 @@
 # Dolibarr language file - en_US - submiteverywhere
 CHARSET=UTF-8
 SubmitEveryWhereSetup=Submit EveryWhere module setup
+DescSubmitEveryWhere=This module allows you to send short information message onto different information channels and follow result of submission. It was designed to promote news all around the internet or the world.
 TargetName=Target label
 TargetType=Target type/api
 TargetLang=Target language
