@@ -6,20 +6,22 @@
  *	    \file       htdocs/admin/google.php
  *      \ingroup    google
  *      \brief      Setup page for google module
- *		\version    $Id: google2.php,v 1.1 2010/12/20 12:26:18 eldy Exp $
+ *		\version    $Id: google2.php,v 1.2 2011/01/16 14:26:45 eldy Exp $
  */
 
 define('NOCSRFCHECK',1);
 
-$res=@include("../../main.inc.php");
-if (! $res) include("../../../../dolibarr/htdocs/main.inc.php");	// Used on dev env only
-
+$res=0;
+if (! $res && file_exists("../main.inc.php")) $res=@include("../main.inc.php");
+if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.php");
+if (! $res && file_exists("../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../dolibarr/htdocs/main.inc.php");     // Used on dev env only
+if (! $res && file_exists("../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
+if (! $res && file_exists("../../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
+if (! $res) die("Include of main fails");
 require_once(DOL_DOCUMENT_ROOT."/lib/admin.lib.php");
 require_once(DOL_DOCUMENT_ROOT.'/core/class/html.formadmin.class.php');
 require_once(DOL_DOCUMENT_ROOT.'/core/class/html.formother.class.php');
-
-$res=@include_once("../google.lib.php");
-if (! $res) include_once(DOL_DOCUMENT_ROOT."/google/google.lib.php");
+dol_include_once("/google/google.lib.php");
 
 if (!$user->admin)
     accessforbidden();
@@ -50,7 +52,7 @@ if ($actionsave)
 	$res=dolibarr_set_const($db,'MAIN_GOOGLE_AD_SLOT',trim($_POST["MAIN_GOOGLE_AD_SLOT"]),'chaine',0);
 	$res=dolibarr_set_const($db,'MAIN_GOOGLE_AD_WIDTH',trim($_POST["MAIN_GOOGLE_AD_WIDTH"]),'chaine',0);
 	$res=dolibarr_set_const($db,'MAIN_GOOGLE_AD_HEIGHT',trim($_POST["MAIN_GOOGLE_AD_HEIGHT"]),'chaine',0);
-	
+
     if (! $error)
     {
         $db->commit();
@@ -158,5 +160,5 @@ print "<br>";
 
 $db->close();
 
-llxFooter('$Date: 2010/12/20 12:26:18 $ - $Revision: 1.1 $');
+llxFooter('$Date: 2011/01/16 14:26:45 $ - $Revision: 1.2 $');
 ?>

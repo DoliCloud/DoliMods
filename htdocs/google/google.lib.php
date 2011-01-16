@@ -20,14 +20,14 @@
 /**
  *	\file			htdocs/lib/google.lib.php
  *  \brief			Library of admin functions for google module
- *  \version		$Id: google.lib.php,v 1.3 2010/12/20 12:26:18 eldy Exp $
+ *  \version		$Id: google.lib.php,v 1.4 2011/01/16 14:26:45 eldy Exp $
  */
 
 
 /**
  *  \brief      	Define head array for tabs of google tools setup pages
  *  \return			Array of head
- *  \version    	$Id: google.lib.php,v 1.3 2010/12/20 12:26:18 eldy Exp $
+ *  \version    	$Id: google.lib.php,v 1.4 2011/01/16 14:26:45 eldy Exp $
  */
 function googleadmin_prepare_head()
 {
@@ -44,22 +44,7 @@ function googleadmin_prepare_head()
 	$head[$h][1] = $langs->trans("Adsense");
 	$head[$h][2] = 'adsense';
 	$h++;
-	
-/*	$head[$h][0] = DOL_URL_ROOT."/admin/security.php";
-	$head[$h][1] = $langs->trans("Passwords");
-	$head[$h][2] = 'passwords';
-	$h++;
 
-	$head[$h][0] = DOL_URL_ROOT."/admin/security_other.php";
-	$head[$h][1] = $langs->trans("Miscellanous");
-	$head[$h][2] = 'misc';
-	$h++;
-
-	$head[$h][0] = DOL_URL_ROOT."/admin/events.php";
-	$head[$h][1] = $langs->trans("Audit");
-	$head[$h][2] = 'audit';
-	$h++;
-*/
 	return $head;
 }
 

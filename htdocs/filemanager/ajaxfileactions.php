@@ -24,7 +24,7 @@
 /**
  *	\file       htdocs/filemanager/ajaxeditcontent.php
  *  \brief      Service to return a HTML view of a file
- *  \version    $Id: ajaxfileactions.php,v 1.5 2010/11/07 00:54:49 eldy Exp $
+ *  \version    $Id: ajaxfileactions.php,v 1.6 2011/01/16 14:26:43 eldy Exp $
  *  \remarks    Call of this service is made with URL:
  *              ajaxpreview.php?action=preview&modulepart=repfichierconcerne&file=pathrelatifdufichier
  */
@@ -37,12 +37,16 @@ if (! defined('NOREQUIREAJAX')) define('NOREQUIREAJAX','1');
 // C'est un wrapper, donc header vierge
 function llxHeader() { }
 
-if (file_exists("../main.inc.php")) require("../main.inc.php");	// Load $user and permissions
-else require("../../../dolibarr/htdocs/main.inc.php");    // Load $user and permissions
-if (file_exists("./class/filemanagerroots.class.php")) require_once("./class/filemanagerroots.class.php");
-else if (file_exists(DOL_DOCUMENT_ROOT."/filemanager/class/filemanagerroots.class.php")) require_once(DOL_DOCUMENT_ROOT."/filemanager/class/filemanagerroots.class.php");
-require_once(DOL_DOCUMENT_ROOT.'/lib/files.lib.php');
-require_once(DOL_DOCUMENT_ROOT.'/lib/doleditor.class.php');
+$res=0;
+if (! $res && file_exists("../main.inc.php")) $res=@include("../main.inc.php");
+if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.php");
+if (! $res && file_exists("../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../dolibarr/htdocs/main.inc.php");     // Used on dev env only
+if (! $res && file_exists("../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
+if (! $res && file_exists("../../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
+if (! $res) die("Include of main fails");
+dol_include_once("/filemanager/class/filemanagerroots.class.php");
+include_once(DOL_DOCUMENT_ROOT.'/lib/files.lib.php');
+include_once(DOL_DOCUMENT_ROOT.'/lib/doleditor.class.php');
 
 
 // Do not use urldecode here ($_GET and $_REQUEST are already decoded by PHP).

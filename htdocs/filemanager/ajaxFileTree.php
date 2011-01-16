@@ -20,7 +20,7 @@
  *      \file       htdocs/filemanager/ajaxFileTree.php
  *      \ingroup    filemanager
  *      \brief      This script returns content of a directory for filetree
- *      \version    $Id: ajaxFileTree.php,v 1.5 2010/11/07 00:54:49 eldy Exp $
+ *      \version    $Id: ajaxFileTree.php,v 1.6 2011/01/16 14:26:43 eldy Exp $
  */
 
 
@@ -36,11 +36,15 @@ if (! defined('NOREQUIREAJAX')) define('NOREQUIREAJAX','1');
 // C'est un wrapper, donc header vierge
 function llxHeader() { }
 
-if (file_exists("../main.inc.php")) require("../main.inc.php"); // Load $user and permissions
-else require("../../../dolibarr/htdocs/main.inc.php");    // Load $user and permissions
-if (file_exists("./class/filemanagerroots.class.php")) require_once("./class/filemanagerroots.class.php");
-else if (file_exists(DOL_DOCUMENT_ROOT."/filemanager/class/filemanagerroots.class.php")) require_once(DOL_DOCUMENT_ROOT."/filemanager/class/filemanagerroots.class.php");
-require_once(DOL_DOCUMENT_ROOT.'/lib/files.lib.php');
+$res=0;
+if (! $res && file_exists("../main.inc.php")) $res=@include("../main.inc.php");
+if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.php");
+if (! $res && file_exists("../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../dolibarr/htdocs/main.inc.php");     // Used on dev env only
+if (! $res && file_exists("../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
+if (! $res && file_exists("../../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
+if (! $res) die("Include of main fails");
+dol_include_once("/filemanager/class/filemanagerroots.class.php");
+include_once(DOL_DOCUMENT_ROOT.'/lib/files.lib.php');
 
 // Do not use urldecode here ($_GET and $_REQUEST are already decoded by PHP).
 $selecteddir = urldecode(GETPOST('dir'));
@@ -81,16 +85,18 @@ if( file_exists($selecteddir) )
     		// All dirs
     		foreach( $files as $file ) {
     			if( file_exists($selecteddir . $file) && $file != '.' && $file != '..' && is_dir($selecteddir . $file) ) {
-    				print "<li class=\"directory collapsed\"><a class=\"fmdirlia\" href=\"#\" rel=\"" . htmlentities($selecteddir . $file) . "/\"";
+    				print "<li class=\"directory collapsed\"><a class=\"fmdirlia\" href=\"#\" rel=\"" . htmlentities($selecteddir . $file . '/') . "\"";
     				print " onClick=\"loadandshowpreview('".dol_escape_js($selecteddir . $file)."')\"";
-    				print ">" . htmlentities($file) . "</a></li>";
+    				print ">" . htmlentities($file) . "</a></li>"."\n";
     			}
     		}
     		// All files
     		foreach( $files as $file ) {
     			if( file_exists($selecteddir . $file) && $file != '.' && $file != '..' && !is_dir($selecteddir . $file) ) {
     				$ext = preg_replace('/^.*\./', '', $file);
-    				print "<li class=\"file ext_".$ext."\"><a class=\"fmfilelia\" href=\"#\" rel=\"" . htmlentities($selecteddir . $file) . "\">" . htmlentities($file) . "</a></li>";
+    				print "<li class=\"file ext_".$ext."\">";
+    				print "<a class=\"fmfilelia\" href=\"#\" rel=\"" . htmlentities($selecteddir . $file) . "\">" . htmlentities($file) . "</a>";
+    				print "</li>"."\n";
     			}
     		}
     		echo "</ul>";

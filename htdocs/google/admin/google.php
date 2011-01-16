@@ -6,20 +6,22 @@
  *	    \file       htdocs/admin/google.php
  *      \ingroup    google
  *      \brief      Setup page for google module
- *		\version    $Id: google.php,v 1.4 2011/01/15 01:54:55 eldy Exp $
+ *		\version    $Id: google.php,v 1.5 2011/01/16 14:26:45 eldy Exp $
  */
 
 define('NOCSRFCHECK',1);
 
-$res=@include("../../main.inc.php");
-if (! $res) include("../../../../dolibarr/htdocs/main.inc.php");	// Used on dev env only
-
+$res=0;
+if (! $res && file_exists("../main.inc.php")) $res=@include("../main.inc.php");
+if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.php");
+if (! $res && file_exists("../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../dolibarr/htdocs/main.inc.php");     // Used on dev env only
+if (! $res && file_exists("../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
+if (! $res && file_exists("../../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
+if (! $res) die("Include of main fails");
 require_once(DOL_DOCUMENT_ROOT."/lib/admin.lib.php");
 require_once(DOL_DOCUMENT_ROOT.'/core/class/html.formadmin.class.php');
 require_once(DOL_DOCUMENT_ROOT.'/core/class/html.formother.class.php');
-
-$res=@include_once("../google.lib.php");
-if (! $res) include_once(DOL_DOCUMENT_ROOT."/google/google.lib.php");
+dol_include_once("/google/google.lib.php");
 
 if (!$user->admin)
     accessforbidden();
@@ -204,5 +206,5 @@ print info_admin($message);
 
 $db->close();
 
-llxFooter('$Date: 2011/01/15 01:54:55 $ - $Revision: 1.4 $');
+llxFooter('$Date: 2011/01/16 14:26:45 $ - $Revision: 1.5 $');
 ?>

@@ -20,19 +20,20 @@
  *	    \file       htdocs/scanner/admin/scanneradminsetuppage.php
  *      \ingroup    scanner
  *      \brief      Page de configuration du module Scanner
- *		\version    $Id: scannersetuppage.php,v 1.2 2010/11/13 21:47:29 eldy Exp $
+ *		\version    $Id: scannersetuppage.php,v 1.3 2011/01/16 14:26:45 eldy Exp $
  */
 
 define('NOCSRFCHECK',1);
 
-$res=@include("../../main.inc.php");
-if (! $res) include("../../../../dolibarr/htdocs/main.inc.php");	// Used on dev env only
-
+$res=0;
+if (! $res && file_exists("../main.inc.php")) $res=@include("../main.inc.php");
+if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.php");
+if (! $res && file_exists("../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../dolibarr/htdocs/main.inc.php");     // Used on dev env only
+if (! $res && file_exists("../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
+if (! $res && file_exists("../../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
+if (! $res) die("Include of main fails");
 require_once(DOL_DOCUMENT_ROOT."/lib/admin.lib.php");
 require_once(DOL_DOCUMENT_ROOT.'/core/class/html.formadmin.class.php');
-
-#$res=@include_once("../awstats.lib.php");
-#if (! $res) include_once(DOL_DOCUMENT_ROOT."/awstats/awstats.lib.php");
 
 
 if (!$user->admin)
@@ -161,5 +162,5 @@ print "<br>";
 
 $db->close();
 
-llxFooter('$Date: 2010/11/13 21:47:29 $ - $Revision: 1.2 $');
+llxFooter('$Date: 2011/01/16 14:26:45 $ - $Revision: 1.3 $');
 ?>

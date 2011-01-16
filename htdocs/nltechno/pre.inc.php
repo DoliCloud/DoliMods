@@ -1,14 +1,12 @@
 <?php
-/* Copyright (C) 2008 Laurent Destailleur  <eldy@users.sourceforge.net>
- *
- * Licensed under the GNU GPL v3 or higher (See file gpl-3.0.html)
+/* Copyright (C) 2008-2009 Laurent Destailleur  <eldy@users.sourceforge.net>
  */
 
 /**
- *		\file 		htdocs/google/pre.inc.php
- *		\ingroup    google
- *		\brief      File to manage left menu for google module
- *		\version    $Id: pre.inc.php,v 1.9 2011/01/16 14:26:45 eldy Exp $
+ *		\file 		htdocs/nltechno/pre.inc.php
+ *		\ingroup    nltechno
+ *		\brief      File to manage left menu for NLTechno module
+ *		\version    $Id: pre.inc.php,v 1.4 2011/01/16 14:26:45 eldy Exp $
  */
 
 define('NOCSRFCHECK',1);
@@ -21,14 +19,9 @@ if (! $res && file_exists("../../../../dolibarr/htdocs/main.inc.php")) $res=@inc
 if (! $res && file_exists("../../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
 if (! $res) die("Include of main fails");
 
+$user->getrights('nltechno');
 
-/**
- * Enter description here...
- *
- * @param   $head
- * @param   $title
- * @param   $help_url
- */
+
 function llxHeader($head = "", $title="", $help_url='')
 {
 	global $conf,$langs;
@@ -38,10 +31,10 @@ function llxHeader($head = "", $title="", $help_url='')
 
 	$menu = new Menu();
 
-	$menu->add("/google/index.php?mainmenu=google&idmenu=".$_SESSION["idmenu"], $langs->trans("Agendas"));
+	$menu->add("/nltechno/index.php?mainmenu=nltechno&idmenu=".$_SESSION["idmenu"], $langs->trans("Admin NLTechno"));
 
-	$MAXAGENDA=empty($conf->global->GOOGLE_AGENDA_NB)?5:$conf->global->GOOGLE_AGENDA_NB;
-	$i=1;
+/*	$MAXAGENDA=5;
+    $i=1;
 	while ($i <= $MAXAGENDA)
 	{
 		$paramkey='GOOGLE_AGENDA_NAME'.$i;
@@ -56,34 +49,28 @@ function llxHeader($head = "", $title="", $help_url='')
 			}
 			else $addcolor=true;
 
-			$link=dol_buildpath("/google/index.php",1)."?mainmenu=google&idmenu=".$_SESSION["idmenu"]."&nocal=".$i;
+			$link=DOL_URL_ROOT."/google/index.php?mainmenu=google&idmenu=".$_SESSION["idmenu"]."&nocal=".$i;
 
 			$text='';
-			$text.='<table class="nobordernopadding">';
-
-			$text.='<tr valign="middle" class="nobordernopadding">';
-
-			// Color of agenda
-			$text.='<td style="padding-left: 4px; padding-right: 4px" nowrap="nowrap">';
+			$text.='<table class="nobordernopadding"><tr valign="middle" class="nobordernopadding"><td style="padding-left: 4px; padding-right: 4px" nowrap="nowrap">';
 			$box ='<!-- Box color '.$selected.' -->';
 			$box.='<table style="border-collapse: collapse; margin:0px; padding: 0px; border: 1px solid #888888;';
-			if ($addcolor) $box.=' background: #'.(preg_replace('/#/','',$conf->global->$paramcolor)).';';
+			if ($addcolor) $box.=' background: #'.$conf->global->$paramcolor.';';
 			$box.='" width="12" height="10">';
-			$box.='<tr class="nocellnopadd"><td></td></tr>';	// To show box
+			$box.='<tr class="nocellnopadd"><td></td></tr>';
 			$box.='</table>';
 			$text.=$box;
-			$text.='</td>';
 
-			// Name of agenda
-			$text.='<td>';
+			$text.='</td><td>';
 			$text.='<a class="vsmenu" href="'.$link.'">'.$conf->global->$paramkey.'</a>';
 			$text.='</td></tr>';
 			$text.='</table>';
 
-			$menu->add_submenu('', $text);
+			$menu->add_submenu($link, $text);
 		}
 		$i++;
 	}
+*/
 
 	left_menu($menu->liste, $help_url);
 }

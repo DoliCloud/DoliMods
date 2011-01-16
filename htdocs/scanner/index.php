@@ -20,7 +20,7 @@
 /**
  *  \file           htdocs/scanner/index.php
  *  \brief          Main page of scanner module
- *  \version        $Id: index.php,v 1.5 2011/01/16 13:30:09 eldy Exp $
+ *  \version        $Id: index.php,v 1.6 2011/01/16 14:26:45 eldy Exp $
  */
 
 if (! defined('NOCSRFCHECK')) define('NOCSRFCHECK',1);
@@ -33,8 +33,8 @@ if (! $res && file_exists("../../../../dolibarr/htdocs/main.inc.php")) $res=@inc
 if (! $res && file_exists("../../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
 if (! $res) die("Include of main fails");
 include(DOL_DOCUMENT_ROOT."/core/class/html.formfile.class.php");
-include("functions.php");
-include("config.php");
+dol_include_once("/scanner/functions.php");
+dol_include_once("/scanner/config.php");
 
 $langs->load("other");
 $langs->load("scanner@scanner");

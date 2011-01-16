@@ -20,7 +20,7 @@
  *   	\file       htdocs/filemanager/index.php
  *		\ingroup    filemanager
  *		\brief      This is home page of filemanager module
- *		\version    $Id: index.php,v 1.25 2011/01/05 18:12:40 eldy Exp $
+ *		\version    $Id: index.php,v 1.26 2011/01/16 14:26:43 eldy Exp $
  */
 
 if (! defined('REQUIRE_JQUERY_LAYOUT'))  define('REQUIRE_JQUERY_LAYOUT','1');
@@ -38,9 +38,8 @@ if (! defined('REQUIRE_JQUERY_LAYOUT'))  define('REQUIRE_JQUERY_LAYOUT','1');
 
 
 require_once("../filemanager/pre.inc.php");
-if (file_exists("./class/filemanagerroots.class.php")) require_once("./class/filemanagerroots.class.php");
-else if (file_exists(DOL_DOCUMENT_ROOT."/filemanager/class/filemanagerroots.class.php")) require_once(DOL_DOCUMENT_ROOT."/filemanager/class/filemanagerroots.class.php");
-require_once(DOL_DOCUMENT_ROOT."/lib/files.lib.php");
+dol_include_once("/filemanager/class/filemanagerroots.class.php");
+include_once(DOL_DOCUMENT_ROOT."/lib/files.lib.php");
 
 // Load traductions files requiredby by page
 $langs->load("companies");
@@ -351,7 +350,7 @@ if ($filemanagerroots->rootpath)
             {
                 // TODO Save content
                 //alert(content);
-                url='<?php echo DOL_URL_ROOT ?>/filemanager/ajaxfileactions.php?action=save&rootpath=<?php echo $filemanagerroots->id ?>&modulepart=filemanager&type=auto&file='+urlencode(filename);
+                url='<?php echo dol_buildpath('/filemanager/ajaxfileactions.php',1); ?>?action=save&rootpath=<?php echo $filemanagerroots->id ?>&modulepart=filemanager&type=auto&file='+urlencode(filename);
                 // jQuery.post("test.php", $("#testform").serialize());
                 jQuery.post(url, { action: 'save', str: content, sizeofcontent: content.length });
             }
@@ -371,7 +370,7 @@ if ($filemanagerroots->rootpath)
 
             if (filename != '')
             {
-        		url='<?php echo DOL_URL_ROOT ?>/filemanager/ajaxfileactions.php?action=edit&rootpath=<?php echo $filemanagerroots->id ?>&modulepart=filemanager&type=auto&file='+urlencode(filename);
+        		url='<?php  echo dol_buildpath('/filemanager/ajaxfileactions.php',1);  ?>?action=edit&rootpath=<?php echo $filemanagerroots->id ?>&modulepart=filemanager&type=auto&file='+urlencode(filename);
         		jQuery.get(url, function(data) {
                     //alert('Load of url '+url+' was performed : '+data);
           			jQuery('#fileview').append(data);
@@ -390,7 +389,7 @@ if ($filemanagerroots->rootpath)
         //alert('filename='+filename);
         jQuery('#fileview').empty();
 
-        url='<?php echo DOL_URL_ROOT ?>/filemanager/ajaxshowpreview.php?action=preview&rootpath=<?php echo $filemanagerroots->id ?>&modulepart=filemanager&type=auto&file='+urlencode(filedirname);
+        url='<?php echo dol_buildpath('/filemanager/ajaxshowpreview.php',1); ?>?action=preview&rootpath=<?php echo $filemanagerroots->id ?>&modulepart=filemanager&type=auto&file='+urlencode(filedirname);
         jQuery.get(url, function(data) {
             //alert('Load of url '+url+' was performed : '+data);
             pos=data.indexOf("TYPE=directory",0);
@@ -431,6 +430,7 @@ if ($filemanagerroots->rootpath)
                     	   loadandshowpreview(file);
                		 });
         <?php } ?>
+
         <?php if (! $filemanagerroots->rootpath) { ?>
         jQuery("#anewdir").removeAttr('href').animate({ opacity: 0.2 }, "fast");
         <?php } else { ?>
@@ -484,12 +484,12 @@ print '</div>'."\n";
 <?php
 // Toolbar
 print '<div class="toolbarbutton">';
-print '<a href="#" id="anewdir" disabled="disabled" class="fmbuttondir" title="'.dol_escape_htmltag($langs->trans("NewDir")).'"><img border="0" width="32" height="32" src="'.DOL_URL_ROOT.'/filemanager/images/folder-new.png"></a>'."\n";
-print '<a href="#" id="adeletedir" class="fmbuttondir" title="'.dol_escape_htmltag($langs->trans("DeleteDir")).'"><img border="0" width="32" height="32" src="'.DOL_URL_ROOT.'/filemanager/images/folder-delete.png"></a>'."\n";
-print '<a href="#" id="anewfile" class="fmbuttondir" title="'.dol_escape_htmltag($langs->trans("NewFile")).'"><img border="0" width="32" height="32" src="'.DOL_URL_ROOT.'/filemanager/images/document-new.png"></a>'."\n";
-print '<a href="#" id="asavefile" class="fmbuttonsave" title="'.dol_escape_htmltag($langs->trans("SaveFile")).'"><img border="0" width="32" height="32" src="'.DOL_URL_ROOT.'/filemanager/images/media-floppy.png"></a>'."\n";
-print '<a href="#" id="aloadandeditcontent" class="fmbuttonfile" title="'.dol_escape_htmltag($langs->trans("Edit")).'"><img border="0" width="32" height="32" src="'.DOL_URL_ROOT.'/filemanager/images/edit-copy.png"></a>'."\n";
-print '<a href="#" id="adeletefile" class="fmbuttonfile" title="'.dol_escape_htmltag($langs->trans("DeleteFile")).'"><img border="0" width="32" height="32" src="'.DOL_URL_ROOT.'/filemanager/images/document-delete.png"></a>'."\n";
+print '<a href="#" id="anewdir" disabled="disabled" class="fmbuttondir" title="'.dol_escape_htmltag($langs->trans("NewDir")).'"><img border="0" width="32" height="32" src="'.dol_buildpath('/filemanager/images/folder-new.png',1).'"></a>'."\n";
+print '<a href="#" id="adeletedir" class="fmbuttondir" title="'.dol_escape_htmltag($langs->trans("DeleteDir")).'"><img border="0" width="32" height="32" src="'.dol_buildpath('/filemanager/images/folder-delete.png',1).'"></a>'."\n";
+print '<a href="#" id="anewfile" class="fmbuttondir" title="'.dol_escape_htmltag($langs->trans("NewFile")).'"><img border="0" width="32" height="32" src="'.dol_buildpath('/filemanager/images/document-new.png',1).'"></a>'."\n";
+print '<a href="#" id="asavefile" class="fmbuttonsave" title="'.dol_escape_htmltag($langs->trans("SaveFile")).'"><img border="0" width="32" height="32" src="'.dol_buildpath('/filemanager/images/media-floppy.png',1).'"></a>'."\n";
+print '<a href="#" id="aloadandeditcontent" class="fmbuttonfile" title="'.dol_escape_htmltag($langs->trans("Edit")).'"><img border="0" width="32" height="32" src="'.dol_buildpath('/filemanager/images/edit-copy.png',1).'"></a>'."\n";
+print '<a href="#" id="adeletefile" class="fmbuttonfile" title="'.dol_escape_htmltag($langs->trans("DeleteFile")).'"><img border="0" width="32" height="32" src="'.dol_buildpath('/filemanager/images/document-delete.png',1).'"></a>'."\n";
 print '</div>';
 ?>
     </div>

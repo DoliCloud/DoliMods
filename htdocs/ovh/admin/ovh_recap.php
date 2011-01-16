@@ -21,18 +21,22 @@
  *   	\file       admin/ovhsms_setup.php
  *		\ingroup    ovhsms
  *		\brief      Configuration du module ovhsms
- *		\version    $Id: ovh_recap.php,v 1.1 2010/12/04 01:32:57 eldy Exp $
+ *		\version    $Id: ovh_recap.php,v 1.2 2011/01/16 14:26:45 eldy Exp $
  *		\author		Put author name here
  *		\remarks	Put here some comments
  */
 
 define('NOCSRFCHECK',1);
 
-$res=@include("../../main.inc.php");
-if (! $res) include("../../../../dolibarr/htdocs/main.inc.php");    // Used on dev env only
-
-require_once(DOL_DOCUMENT_ROOT."/lib/admin.lib.php");
-require_once(DOL_DOCUMENT_ROOT."/ovh/class/ovhsms.class.php");
+$res=0;
+if (! $res && file_exists("../main.inc.php")) $res=@include("../main.inc.php");
+if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.php");
+if (! $res && file_exists("../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../dolibarr/htdocs/main.inc.php");     // Used on dev env only
+if (! $res && file_exists("../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
+if (! $res && file_exists("../../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
+if (! $res) die("Include of main fails");
+include_once(DOL_DOCUMENT_ROOT."/lib/admin.lib.php");
+dol_include_once("/ovh/class/ovhsms.class.php");
 
 // Load traductions files requiredby by page
 $langs->load("companies");
@@ -169,5 +173,5 @@ if($sms > 0) {
 
 // End of page
 $db->close();
-llxFooter('$Date: 2010/12/04 01:32:57 $ - $Revision: 1.1 $');
+llxFooter('$Date: 2011/01/16 14:26:45 $ - $Revision: 1.2 $');
 ?>

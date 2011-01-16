@@ -20,14 +20,18 @@
  *	\file       htdocs/filemanage/admin/filemanager.php
  *	\ingroup    filemanager
  *	\brief      Setup page for filemanager module
- *	\version    $Id: filemanager.php,v 1.4 2010/09/04 15:49:00 eldy Exp $
+ *	\version    $Id: filemanager.php,v 1.5 2011/01/16 14:26:45 eldy Exp $
  */
 
-if (file_exists("../../../../dolibarr/htdocs/main.inc.php")) require("../../../../dolibarr/htdocs/main.inc.php");
-else require("../../main.inc.php");
+$res=0;
+if (! $res && file_exists("../main.inc.php")) $res=@include("../main.inc.php");
+if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.php");
+if (! $res && file_exists("../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../dolibarr/htdocs/main.inc.php");     // Used on dev env only
+if (! $res && file_exists("../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
+if (! $res && file_exists("../../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
+if (! $res) die("Include of main fails");
+dol_include_once("/filemanager/class/filemanagerroots.class.php");
 require_once(DOL_DOCUMENT_ROOT."/lib/admin.lib.php");
-if (file_exists("../class/filemanagerroots.class.php")) require_once("../class/filemanagerroots.class.php");
-else require_once(DOL_DOCUMENT_ROOT."/filemanager/class/filemanagerroots.class.php");
 
 // Security check
 if (!$user->admin)
@@ -228,5 +232,5 @@ print '<br>';
 print info_admin($langs->trans("NoteOnFileManagerPathLocation")).'<br>';
 
 
-llxFooter('$Date: 2010/09/04 15:49:00 $ - $Revision: 1.4 $');
+llxFooter('$Date: 2011/01/16 14:26:45 $ - $Revision: 1.5 $');
 ?>

@@ -23,7 +23,7 @@
  *		\file       htdocs/viewimage.php
  *		\brief      Wrapper permettant l'affichage de fichiers images Dolibarr
  *      \remarks    L'appel est viewimage.php?file=pathrelatifdufichier&modulepart=repfichierconcerne
- *		\version    $Id: viewimage.php,v 1.2 2010/11/07 00:54:49 eldy Exp $
+ *		\version    $Id: viewimage.php,v 1.3 2011/01/16 14:26:43 eldy Exp $
  */
 
 // Do not use urldecode here ($_GET and $_REQUEST are already decoded by PHP).
@@ -47,11 +47,15 @@ if (($modulepart == 'companylogo') && ! defined("NOLOGIN")) define("NOLOGIN",'1'
 // C'est un wrapper, donc header vierge
 function llxHeader() { }
 
-if (file_exists("../main.inc.php")) require("../main.inc.php"); // Load $user and permissions
-else require("../../../dolibarr/htdocs/main.inc.php");    // Load $user and permissions
-if (file_exists("./class/filemanagerroots.class.php")) require_once("./class/filemanagerroots.class.php");
-else if (file_exists(DOL_DOCUMENT_ROOT."/filemanager/class/filemanagerroots.class.php")) require_once(DOL_DOCUMENT_ROOT."/filemanager/class/filemanagerroots.class.php");
-require_once(DOL_DOCUMENT_ROOT.'/lib/files.lib.php');
+$res=0;
+if (! $res && file_exists("../main.inc.php")) $res=@include("../main.inc.php");
+if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.php");
+if (! $res && file_exists("../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../dolibarr/htdocs/main.inc.php");     // Used on dev env only
+if (! $res && file_exists("../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
+if (! $res && file_exists("../../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
+if (! $res) die("Include of main fails");
+dol_include_once("/filemanager/class/filemanagerroots.class.php");
+include_once(DOL_DOCUMENT_ROOT.'/lib/files.lib.php');
 
 // Define mime type
 $type = 'application/octet-stream';
