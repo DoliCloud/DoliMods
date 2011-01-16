@@ -2,5 +2,5 @@
 CHARSET=UTF-8
 SubmitEveryWhereSetup=Submit EveryWhere module setup
 TargetName=Target label
-TargetType=Target type
+TargetType=Target type/api
 TargetLang=Target language

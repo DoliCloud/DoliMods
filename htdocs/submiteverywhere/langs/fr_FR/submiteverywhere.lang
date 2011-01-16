@@ -2,5 +2,5 @@
 CHARSET=UTF-8
 SubmitEveryWhereSetup=Configuration du module "Submit EveryWhere"
 TargetName=Nom de la cible
-TargetType=Type of target
+TargetType=Type/API cible
 TargetLang=Langue de la cible

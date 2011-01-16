@@ -1,5 +1,5 @@
--- ===================================================================
--- Copyright (C) 2010 Laurent Destailleur <eldy@users.sourceforge.net>
+-- ============================================================================
+-- Copyright (C) 2011 Laurent Destailleur  <eldy@users.sourceforge.net>
 --
 -- This program is free software; you can redistribute it and/or modify
 -- it under the terms of the GNU General Public License as published by
@@ -15,19 +15,8 @@
 -- along with this program; if not, write to the Free Software
 -- Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 --
--- $Id: llx_submiteverywhere_targets.sql,v 1.2 2010/11/13 19:50:56 eldy Exp $
--- ===================================================================
+-- $Id: llx_submitew_targets.key.sql,v 1.1 2011/01/16 15:41:25 eldy Exp $
+-- ============================================================================
 
 
-CREATE TABLE llx_submiteverywhere_targets 
-(
-rowid integer AUTO_INCREMENT PRIMARY KEY,
-label varchar(64) NOT NULL, 
-targetcode varchar(16) NOT NULL,
-langcode varchar(5) default 'en_US', 
-url varchar(250) NOT NULL default '', 
-login varchar(128), 
-pass varchar(128), 
-comment varchar(250), 
-position INTEGER default 0
-) ENGINE = innodb;
+ALTER TABLE llx_submitew_targets ADD UNIQUE INDEX uk_submitewtargets (label, langcode);

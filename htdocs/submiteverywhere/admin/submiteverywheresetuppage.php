@@ -21,10 +21,10 @@
  */
 
 /**
- *      \file       htdocs/newssubmitter/admin/newssubmittersetuppage.php
- *      \ingroup    newssubmitter
- *      \brief      Page to setup module NewsSubmitter
- *      \version    $Id: submiteverywheresetuppage.php,v 1.3 2011/01/16 13:30:09 eldy Exp $
+ *      \file       htdocs/submiteverywhere/admin/submiteverywheresetuppage.php
+ *      \ingroup    submiteverywhere
+ *      \brief      Page to setup module SubmitEverywhere
+ *      \version    $Id: submiteverywheresetuppage.php,v 1.4 2011/01/16 15:41:27 eldy Exp $
  */
 
 $res=0;
@@ -43,7 +43,8 @@ $langs->load("submiteverywhere@submiteverywhere");
 
 if (!$user->admin) accessforbidden();
 
-
+$mesg='';
+$error=0;
 
 
 /*
@@ -52,124 +53,37 @@ if (!$user->admin) accessforbidden();
 
 if ($_POST["action"] == 'add' || $_POST["modify"])
 {
-    $external_rss_urlrss = "external_rss_urlrss_" . $_POST["norss"];
-
-    if(isset($_POST[$external_rss_urlrss]))
+    $sql = "INSERT INTO ".MAIN_DB_PREFIX."submitew_targets (label,targetcode,langcode)";
+	$sql.= " VALUES ('".$db->escape(GETPOST('label'))."','".$db->escape(GETPOST('type'))."', '".$db->escape(GETPOST('lang_id'))."')";
+    $resql=$db->query($sql);
+	if ($resql)
     {
-        $boxlabel='(ExternalRSSInformations)';
-        $external_rss_title = "external_rss_title_" . $_POST["norss"];
-        //$external_rss_url = "external_rss_url_" . $_POST["norss"];
-
-        $db->begin();
-
-		if ($_POST["modify"])
-		{
-			// Supprime boite box_external_rss de definition des boites
-/*	        $sql = "UPDATE ".MAIN_DB_PREFIX."boxes_def";
-			$sql.= " SET name = '".$boxlabel."'";
-	        $sql.= " WHERE file ='box_external_rss.php' AND note like '".$_POST["norss"]." %'";
-
-			$resql=$db->query($sql);
-			if (! $resql)
-	        {
-				dol_print_error($db,"sql=$sql");
-				exit;
-	        }
-*/
-		}
-		else
-		{
-			// Ajoute boite box_external_rss dans definition des boites
-	        $sql = "INSERT INTO ".MAIN_DB_PREFIX."boxes_def (file, note)";
-			$sql.= " VALUES ('box_external_rss.php','".addslashes($_POST["norss"].' ('.$_POST[$external_rss_title]).")')";
-	        if (! $db->query($sql))
-	        {
-	        	dol_print_error($db);
-	            $err++;
-	        }
-		}
-
-		$result1=dolibarr_set_const($db, "EXTERNAL_RSS_TITLE_" . $_POST["norss"],$_POST[$external_rss_title],'chaine',0,'',$conf->entity);
-		if ($result1) $result2=dolibarr_set_const($db, "EXTERNAL_RSS_URLRSS_" . $_POST["norss"],$_POST[$external_rss_urlrss],'chaine',0,'',$conf->entity);
-
-        if ($result1 && $result2)
-        {
-            $db->commit();
-	  		//$mesg='<div class="ok">'.$langs->trans("Success").'</div>';
-            header("Location: ".$_SERVER["PHP_SELF"]);
-            exit;
-        }
-        else
-        {
-            $db->rollback();
-            dol_print_error($db);
+        $_POST['label']='';
+        $_POST['type']='';
+    }
+    else
+    {
+        if ($db->lasterrno == 'DB_ERROR_RECORD_ALREADY_EXISTS') $mesg='<div class="error">'.$langs->trans("ErrorDuplicateRecord").'</div>';
+        else  {
+        	dol_print_error($db);
+            $error++;
         }
     }
 }
 
-if ($_POST["delete"])
+if (GETPOST("action")=='delete')
 {
-    if(isset($_POST["norss"]))
-    {
-        $db->begin();
-
-		// Supprime boite box_external_rss de definition des boites
-        $sql = "SELECT rowid FROM ".MAIN_DB_PREFIX."boxes_def";
-        $sql.= " WHERE file ='box_external_rss.php' AND note like '".$_POST["norss"]." %'";
-
-		$resql=$db->query($sql);
-		if ($resql)
-        {
-			$num = $db->num_rows($resql);
-			$i=0;
-			while ($i < $num)
-			{
-				$obj=$db->fetch_object($resql);
-
-		        $sql = "DELETE FROM ".MAIN_DB_PREFIX."boxes";
-		        $sql.= " WHERE box_id = ".$obj->rowid;
-				$resql=$db->query($sql);
-
-		        $sql = "DELETE FROM ".MAIN_DB_PREFIX."boxes_def";
-		        $sql.= " WHERE rowid = ".$obj->rowid;
-				$resql=$db->query($sql);
-
-				if (! $resql)
-				{
-					$db->rollback();
-					dol_print_error($db,"sql=$sql");
-					exit;
-				}
-
-				$i++;
-			}
-
-			$db->commit();
-		}
-		else
-		{
-			$db->rollback();
-			dol_print_error($db,"sql=$sql");
-			exit;
-        }
-
-
-		$result1=dolibarr_del_const($db,"EXTERNAL_RSS_TITLE_" . $_POST["norss"],$conf->entity);
-		if ($result1) $result2=dolibarr_del_const($db,"EXTERNAL_RSS_URLRSS_" . $_POST["norss"],$conf->entity);
-
-        if ($result1 && $result2)
-        {
-            $db->commit();
-	  		//$mesg='<div class="ok">'.$langs->trans("Success").'</div>';
-            header("Location: external_rss.php");
-            exit;
-        }
-        else
-        {
-            $db->rollback();
-            dol_print_error($db);
-        }
-    }
+    $sql = "DELETE FROM ".MAIN_DB_PREFIX."submitew_targets";
+    $sql.= " WHERE rowid = ".GETPOST('id','int',1);
+	$resql=$db->query($sql);
+	if ($resql)
+	{
+	}
+	else
+	{
+	    dol_print_error($db);
+	    $error++;
+	}
 }
 
 
@@ -220,7 +134,7 @@ print '</td>';
 
 print '</tr>';
 
-print '<tr><td colspan="3" align="center">';
+print '<tr><td colspan="3" align="center"><br>';
 print '<input type="submit" class="button" value="'.$langs->trans("Add").'">';
 print '<input type="hidden" name="action" value="add">';
 print '</td>';
@@ -233,16 +147,17 @@ print '</form>';
 print '<br>';
 
 
+if ($mesg) print $mesg.'<br>';
 
 
 
 
-
+print_fiche_titre($langs->trans("Targets"),'','');
 
 print '<table class="nobordernopadding" width="100%">';
 
 $sql ="SELECT rowid, label, targetcode, langcode, url, login, pass, comment, position";
-$sql.=" FROM ".MAIN_DB_PREFIX."submiteverywhere_targets";
+$sql.=" FROM ".MAIN_DB_PREFIX."submitew_targets";
 $sql.=" ORDER BY label";
 
 dol_syslog("Get list of targets sql=".$sql,LOG_DEBUG);
@@ -252,6 +167,14 @@ if ($resql)
 	$num =$db->num_rows($resql);
 	$i=0;
 
+    print '<tr class="liste_titre">';
+    print '<td>'.$langs->trans("Label").'</td>';
+    print '<td align="left">'.$langs->trans("TargetType").'</td>';
+    print '<td align="left">'.$langs->trans("TargetLang").'</td>';
+    print '<td align="left">'.$langs->trans("Parameters").'</td>';
+    print '<td align="left" width="16px">&nbsp;</td>';
+    print '</tr>';
+
 	while ($i < $num)
 	{
 		$obj = $db->fetch_object($resql);
@@ -259,45 +182,18 @@ if ($resql)
 		print "<form name=\"externalrssconfig\" action=\"".$_SERVER["PHP_SELF"]."\" method=\"post\">";
 		print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
 
-		print "<tr class=\"liste_titre\">";
-		print "<td colspan=\"2\">".$langs->trans("RSS")." ".($i+1)."</td>";
-		print "</tr>";
-
 		$var=!$var;
 		print "<tr ".$bc[$var].">";
-		print "<td width=\"100\">".$langs->trans("Title")."</td>";
-		print "<td><input type=\"text\" class=\"flat\" name=\"external_rss_title_" . $idrss . "\" value=\"" . @constant("EXTERNAL_RSS_TITLE_" . $idrss) . "\" size=\"64\"></td>";
-		print "</tr>";
+        print '<td>'.$obj->label.'</td>';
+        print '<td>'.$obj->targetcode.'</td>';
+        print '<td>'.$obj->langcode.'</td>';
+        print '<td>';
+        // TODO Add edit parameter area according to type
 
-		$var=!$var;
-		print "<tr ".$bc[$var].">";
-		print "<td>".$langs->trans("URL")."</td>";
-		print "<td><input type=\"text\" class=\"flat\" name=\"external_rss_urlrss_" . $idrss . "\" value=\"" . @constant("EXTERNAL_RSS_URLRSS_" . $idrss) . "\" size=\"64\"></td>";
-		print "</tr>";
 
-		$var=!$var;
-		print "<tr ".$bc[$var].">";
-		print "<td>".$langs->trans("Status")."</td>";
-		print "<td>";
-	    if (! $rss->ERROR)
-	    {
-			print '<font class="ok">'.$langs->trans("Online").'</div>';
-		}
-		else
-		{
-			print '<font class="error">'.$langs->trans("Offline").'</div>';
-		}
-		print "</td>";
-		print "</tr>";
-
-		print "<tr>";
-		print "<td colspan=\"2\" align=\"center\">";
-		print "<input type=\"submit\" class=\"button\" name=\"modify\" value=\"".$langs->trans("Modify")."\">";
-		print " &nbsp; ";
-		print "<input type=\"submit\" class=\"button\" name=\"delete\" value=\"".$langs->trans("Delete")."\">";
-		print "<input type=\"hidden\" name=\"norss\"  value=\"".$idrss."\">";
-		print "</td>";
-		print "</tr>";
+        print '</td>';
+        print '<td><a href="'.$_SERVER["PHP_SELF"].'?action=delete&id='.$obj->rowid.'">'.img_picto($langs->trans("Delete"),'delete').'</a>';
+        print "</tr>";
 
 		print "</form>";
 
@@ -314,5 +210,5 @@ print '</table>'."\n";
 
 $db->close();
 
-llxFooter('$Date: 2011/01/16 13:30:09 $ - $Revision: 1.3 $');
+llxFooter('$Date: 2011/01/16 15:41:27 $ - $Revision: 1.4 $');
 ?>
