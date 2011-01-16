@@ -6,3 +6,5 @@ PHPSANE_SCANIMAGE=Commande Scan (scanimage)
 PHPSANE_PNMTOJPEG=Outil PNM vers JPG (pnmtojpeg)
 PHPSANE_PNMTOTIFF=Outil PNM vers TIF (pnmtotiff)
 PHPSANE_OCR=Outil OCR (gocr)
+ScanArea=Zone à scanner
+ResolutionDPI=Résolution DPI
