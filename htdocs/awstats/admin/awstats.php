@@ -20,20 +20,21 @@
  *	    \file       htdocs/admin/awstats.php
  *      \ingroup    awstats
  *      \brief      Page de configuration du module AWStats
- *		\version    $Id: awstats.php,v 1.5 2010/12/29 10:28:19 eldy Exp $
+ *		\version    $Id: awstats.php,v 1.6 2011/01/16 14:55:40 eldy Exp $
  */
 
 define('NOCSRFCHECK',1);
 
-$res=@include("../../main.inc.php");
-if (! $res) include("../../../../dolibarr/htdocs/main.inc.php");	// Used on dev env only
-
+$res=0;
+if (! $res && file_exists("../main.inc.php")) $res=@include("../main.inc.php");
+if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.php");
+if (! $res && file_exists("../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../dolibarr/htdocs/main.inc.php");     // Used on dev env only
+if (! $res && file_exists("../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
+if (! $res && file_exists("../../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
+if (! $res) die("Include of main fails");
 require_once(DOL_DOCUMENT_ROOT."/lib/admin.lib.php");
 require_once(DOL_DOCUMENT_ROOT.'/core/class/html.formadmin.class.php');
-
-//dol_include_once("/awstats/awstats.lib.php");	// We still use old writing to be compatible with old version
-$res=@include_once("../awstats.lib.php");
-if (! $res) include_once(DOL_DOCUMENT_ROOT."/awstats/awstats.lib.php");
+dol_include_once("/awstats/awstats.lib.php");	// We still use old writing to be compatible with old version
 
 
 if (!$user->admin)
@@ -157,5 +158,5 @@ print "<br>";
 
 $db->close();
 
-llxFooter('$Date: 2010/12/29 10:28:19 $ - $Revision: 1.5 $');
+llxFooter('$Date: 2011/01/16 14:55:40 $ - $Revision: 1.6 $');
 ?>
