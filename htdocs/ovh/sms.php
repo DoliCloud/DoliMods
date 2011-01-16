@@ -54,7 +54,7 @@ if ($user->societe_id > 0)
  ********************************************************************/
 
 /* Envoi d'un SMS */
-if ($_REQUEST["action"] == 'smsenvoi' && $user->rights->ovhsms->envoyer)
+if (GETPOST("action") == 'smsenvoi' && $user->rights->ovhsms->envoyer)
 {
 
 	$sms = new OvhSms($db);
@@ -86,15 +86,20 @@ $form=new Form($db);
 
 if ($socid)
 {
+    if (empty($conf->global->OVHSMS_SOAPURL))
+    {
+        $langs->load("errors");
+        $mesg='<div class="error">'.$langs->trans("ErrorModuleSetupNotComplete").'</div>';
+    }
 
 	$sms = new OvhSms($db);
+
 	/*
 	 * Creation de l'objet client/fournisseur correspondant au socid
 	 */
 
 	$soc = new Societe($db);
 	$result = $soc->fetch($socid);
-
 
 
 	/*
