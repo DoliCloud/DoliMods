@@ -6,7 +6,7 @@
  *	    \file       htdocs/admin/google.php
  *      \ingroup    google
  *      \brief      Setup page for google module
- *		\version    $Id: google2.php,v 1.2 2011/01/16 14:26:45 eldy Exp $
+ *		\version    $Id: google2.php,v 1.3 2011/01/19 22:57:13 eldy Exp $
  */
 
 define('NOCSRFCHECK',1);
@@ -21,7 +21,7 @@ if (! $res) die("Include of main fails");
 require_once(DOL_DOCUMENT_ROOT."/lib/admin.lib.php");
 require_once(DOL_DOCUMENT_ROOT.'/core/class/html.formadmin.class.php');
 require_once(DOL_DOCUMENT_ROOT.'/core/class/html.formother.class.php');
-dol_include_once("/google/google.lib.php");
+dol_include_once("/google/lib/google.lib.php");
 
 if (!$user->admin)
     accessforbidden();
@@ -160,5 +160,5 @@ print "<br>";
 
 $db->close();
 
-llxFooter('$Date: 2011/01/16 14:26:45 $ - $Revision: 1.2 $');
+llxFooter('$Date: 2011/01/19 22:57:13 $ - $Revision: 1.3 $');
 ?>

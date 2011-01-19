@@ -20,14 +20,14 @@
 /**
  *	\file			htdocs/lib/google.lib.php
  *  \brief			Library of admin functions for google module
- *  \version		$Id: google.lib.php,v 1.4 2011/01/16 14:26:45 eldy Exp $
+ *  \version		$Id: google.lib.php,v 1.1 2011/01/19 22:57:13 eldy Exp $
  */
 
 
 /**
  *  \brief      	Define head array for tabs of google tools setup pages
  *  \return			Array of head
- *  \version    	$Id: google.lib.php,v 1.4 2011/01/16 14:26:45 eldy Exp $
+ *  \version    	$Id: google.lib.php,v 1.1 2011/01/19 22:57:13 eldy Exp $
  */
 function googleadmin_prepare_head()
 {
