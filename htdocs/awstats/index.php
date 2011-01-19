@@ -15,11 +15,11 @@
 /**
  *	\file       htdocs/awstats/index.php
  *	\brief      Page accueil module AWStats
- *	\version    $Id: index.php,v 1.19 2011/01/16 14:38:46 eldy Exp $
+ *	\version    $Id: index.php,v 1.20 2011/01/19 22:51:02 eldy Exp $
  */
 
 include("./pre.inc.php");
-include_once("./awstats.lib.php");
+include_once("./lib/awstats.lib.php");
 include_once(DOL_DOCUMENT_ROOT."/core/class/html.formfile.class.php");
 
 $langs->load("awstats");
@@ -565,5 +565,5 @@ if ($system_stats_top == true) {
 #	Output to the screen
 echo $statistics;
 
-llxFooter('$Date: 2011/01/16 14:38:46 $ - $Revision: 1.19 $');
+llxFooter('$Date: 2011/01/19 22:51:02 $ - $Revision: 1.20 $');
 ?>

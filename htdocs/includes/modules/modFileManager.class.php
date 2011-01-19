@@ -19,7 +19,7 @@
 /**
  *		\defgroup   FileManager     Module FileManager
  *      \brief      Module to get a file browser and manager into Dolibarr
- *		\brief		$Id: modFileManager.class.php,v 1.8 2010/11/05 20:14:06 eldy Exp $
+ *		\brief		$Id: modFileManager.class.php,v 1.9 2011/01/19 22:49:20 eldy Exp $
  */
 
 /**
@@ -53,7 +53,7 @@ class modFileManager extends DolibarrModules
 		// Key used in llx_const table to save module status enabled/disabled (where MYMODULE is value of property name of module in uppercase)
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
 		$this->special = 0;
-		$this->picto='dir';
+		$this->picto='filemanager@filemanager';
 
 		// Data directories to create when module is enabled
 		$this->dirs = array("/filemanager/temp");
