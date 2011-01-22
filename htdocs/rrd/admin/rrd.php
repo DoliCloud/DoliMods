@@ -19,8 +19,8 @@
 /**
  *	    \file       htdocs/admin/rrd.php
  *      \ingroup    rrd
- *      \brief      Page de configuration du module Rrd
- *		\version    $Id: rrd.php,v 1.1 2011/01/22 11:30:16 eldy Exp $
+ *      \brief      Page to setup module Rrd
+ *		\version    $Id: rrd.php,v 1.2 2011/01/22 15:15:48 eldy Exp $
  */
 
 define('NOCSRFCHECK',1);
@@ -49,65 +49,99 @@ $def = array();
 $action=GETPOST("action");
 $actionsave=GETPOST("save");
 
+$fname = $conf->rrd->dir_temp."/test/test.rrd";
+
+
+/*
+ * Actions
+ */
+
 // Save parameters
 if ($actionsave)
 {
-    $error=0;
-    $i=0;
+	$error=0;
+	$i=0;
 
-    $db->begin();
+	$db->begin();
 
-    /*    if (! preg_match('|[\\\/]$|',$_POST["RRD_COMMANDLINE_TOOL"]))
-     {
-    	$mesg="<div class=\"error\">".$langs->trans("ErrorRrdDataDirMustEndWithASlash")."</div>";
-    	$error++;
-    	}
-    	*/
-    if (! $error)
-    {
-        if ($i >= 0) $i+=dolibarr_set_const($db,'RRD_COMMANDLINE_TOOL',trim($_POST["RRD_COMMANDLINE_TOOL"]),'chaine',0);
+	/*    if (! preg_match('|[\\\/]$|',$_POST["RRD_COMMANDLINE_TOOL"]))
+	 {
+	 $mesg="<div class=\"error\">".$langs->trans("ErrorRrdDataDirMustEndWithASlash")."</div>";
+	 $error++;
+	 }
+	 */
+	if (! $error)
+	{
+		if ($i >= 0) $i+=dolibarr_set_const($db,'RRD_COMMANDLINE_TOOL',trim($_POST["RRD_COMMANDLINE_TOOL"]),'chaine',0);
 
-        if ($i >= 1)
-        {
-            $db->commit();
-            $mesg = "<div class=\"ok\">".$langs->trans("SetupSaved")."</div>";
-        }
-        else
-        {
-            $db->rollback();
-            $mesg=$db->lasterror();
-            //header("Location: ".$_SERVER["PHP_SELF"]);
-            //exit;
-        }
-    }
+		if ($i >= 1)
+		{
+			$db->commit();
+			$mesg = "<div class=\"ok\">".$langs->trans("SetupSaved")."</div>";
+		}
+		else
+		{
+			$db->rollback();
+			$mesg=$db->lasterror();
+			//header("Location: ".$_SERVER["PHP_SELF"]);
+			//exit;
+		}
+	}
 }
 
 if ($action == 'create')
 {
-    $fname = $conf->rrd->dir_temp."/net.rrd";
+	create_exdir($conf->rrd->dir_temp.'/test');
 
-    $opts = array( "–step", "300", "–start", 0,
-           "DS:input:COUNTER:600:U:U",
-           "DS:output:COUNTER:600:U:U",
-           "RRA:AVERAGE:0.5:1:600",
-           "RRA:AVERAGE:0.5:6:700",
-           "RRA:AVERAGE:0.5:24:775",
-           "RRA:AVERAGE:0.5:288:797",
-           "RRA:MAX:0.5:1:600",
-           "RRA:MAX:0.5:6:700",
-           "RRA:MAX:0.5:24:775",
-           "RRA:MAX:0.5:288:797"
+	$opts = array( "--step", "10", "--start", "0",
+           "DS:ds1:GAUGE:20:0:100",
+           "DS:ds2:GAUGE:20:0:100",
+           "RRA:AVERAGE:0.5:1:360",
+           "RRA:AVERAGE:0.5:6:1440",
+           "RRA:AVERAGE:0.5:360:168",
+           "RRA:AVERAGE:0.5:360:744",
+           "RRA:MAX:0.5:1:360",
+           "RRA:MAX:0.5:6:1440",
+           "RRA:MAX:0.5:360:168",
+           "RRA:MAX:0.5:360:744"
            );
 
            $ret = rrd_create($fname, $opts, count($opts));
 
-           if( $ret == 0 )
+           if( $ret > 0)
            {
-               $err = rrd_error();
-               echo "Create error: $err\n";
+           	$mesg='<div class="ok">'.$langs->trans("File ".$fname.' created').'</div>';
+           }
+           else
+           {
+           	$err = rrd_error($fname);
+           	$mesg="Create error: $err\n";
            }
 }
 
+if ($action == 'update')
+{
+	$val1=rand(1,100);
+	$val2=25;
+	$ret = rrd_update($fname, "N:$val1:$val2");
+
+	if( $ret > 0)
+	{
+		$mesg='<div class="ok">'.$langs->trans("File ".$fname.' updated').'</div>';
+	}
+	else
+	{
+		$err = rrd_error($fname);
+		$mesg="Update error: $err\n";
+	}
+}
+
+if ($action == 'graph')
+{
+
+
+
+}
 
 
 
@@ -157,20 +191,21 @@ clearstatcache();
 if ($mesg) print "<br>$mesg<br>";
 print "<br>";
 
-if (function_exists('rrd_create'))
-{
-    // Buttons
-    print '<div class="tabsAction">';
-    print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?action=create">'.$langs->trans("CreateATestGraph").'</a>';
-    print '</div>';
-}
-else
-{
-    print $langs->trans("RrdFunctionsNotEnabledOnYourPHP");
-}
+print '<hr>';
+
+print $langs->trans("ManualTestDesc").'<br><br>';
+
+// Buttons
+//print '<div class="tabsAction">';
+print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?action=create">'.$langs->trans("CreateATestGraph").'</a>';
+
+print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?action=update">'.$langs->trans("AddValueToTestGraph").'</a>';
+
+print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?action=graph">'.$langs->trans("BuildTestGraph").'</a>';
+//print '</div>';
 
 
 $db->close();
 
-llxFooter('$Date: 2011/01/22 11:30:16 $ - $Revision: 1.1 $');
+llxFooter('$Date: 2011/01/22 15:15:48 $ - $Revision: 1.2 $');
 ?>
