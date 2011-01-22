@@ -111,7 +111,7 @@ class modOvh extends DolibarrModules
 		$r=0;
 
 
-		$this->rights[$r][0] = 20001;
+		$this->rights[$r][0] = 103001;
 		$this->rights[$r][1] = 'Envoyer un sms';
 		$this->rights[$r][3] = 0;
 		$this->rights[$r][4] = 'send';
