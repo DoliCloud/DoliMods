@@ -18,7 +18,7 @@
 
 /**     \defgroup   memcached		Module Memcached
  *      \brief      Module for memcached server
- *		\version	$Id: modMemcached.class.php,v 1.7 2011/01/16 13:30:09 eldy Exp $
+ *		\version	$Id: modMemcached.class.php,v 1.8 2011/01/22 10:18:00 eldy Exp $
  */
 
 /**
@@ -74,7 +74,7 @@ class modMemcached extends DolibarrModules
 		$this->depends = array();		// List of modules id that must be enabled if this module is enabled
 		$this->requiredby = array();	// List of modules id to disable if this one is disabled
         $this->phpmin = array(4,3);                 // Minimum version of PHP required by module
-        $this->need_dolibarr_version = array(3,0);  // Minimum version of Dolibarr required by module
+        $this->need_dolibarr_version = array(3,0,-2);  // Minimum version of Dolibarr required by module
         $this->langfiles = array("memcached@memcached");
 
 		// Constants

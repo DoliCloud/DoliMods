@@ -19,7 +19,7 @@
 /**
  *		\defgroup   FileManager     Module FileManager
  *      \brief      Module to get a file browser and manager into Dolibarr
- *		\brief		$Id: modFileManager.class.php,v 1.9 2011/01/19 22:49:20 eldy Exp $
+ *		\brief		$Id: modFileManager.class.php,v 1.10 2011/01/22 10:18:00 eldy Exp $
  */
 
 /**
@@ -43,7 +43,7 @@ class modFileManager extends DolibarrModules
 	function modFileManager($DB)
 	{
 		$this->db = $DB;
-		$this->numero = 10600;
+		$this->numero = 101200;
 
 		$this->family = "ecm";
 		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'numero' of module)
@@ -99,7 +99,7 @@ class modFileManager extends DolibarrModules
 		// $this->rights[$r][5]     Niveau 2 pour nommer permission dans code
 		// $r++;
 
-		$this->rights[$r][0] = 10601;
+		$this->rights[$r][0] = 101201;
 		$this->rights[$r][1] = 'Read/Browse directories and files from the file manager';
 		$this->rights[$r][2] = 'r';
 		$this->rights[$r][3] = 1;
@@ -107,7 +107,7 @@ class modFileManager extends DolibarrModules
 		$this->rights[$r][5] = '';
 		$r++;
 
-        $this->rights[$r][0] = 10602;
+        $this->rights[$r][0] = 101202;
         $this->rights[$r][1] = 'Delete directories or files from the file manager';
         $this->rights[$r][2] = 'w';
         $this->rights[$r][3] = 0;

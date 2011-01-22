@@ -26,7 +26,7 @@
  *      \file       htdocs/includes/modules/modVoyage.class.php
  *      \ingroup    voyage
  *      \brief      Description and activation file for module Voyage
- *		\version	$Id: modVoyage.class.php,v 1.7 2011/01/16 14:38:46 eldy Exp $
+ *		\version	$Id: modVoyage.class.php,v 1.8 2011/01/22 10:18:00 eldy Exp $
  */
 include_once(DOL_DOCUMENT_ROOT ."/includes/modules/DolibarrModules.class.php");
 
@@ -46,7 +46,7 @@ class modVoyage extends DolibarrModules
 
 		// Id for module (must be unique).
 		// Use here a free id (See in Home -> System information -> Dolibarr for list of used modules id).
-		$this->numero = 13000;
+		$this->numero = 100600;
 		// Key text used to identify module (for permissions, menus, etc...)
 		$this->rights_class = 'voyage';
 
@@ -82,7 +82,7 @@ class modVoyage extends DolibarrModules
 		$this->depends = array();		// List of modules id that must be enabled if this module is enabled
 		$this->requiredby = array();	// List of modules id to disable if this one is disabled
 		$this->phpmin = array(4,3);					// Minimum version of PHP required by module
-		$this->need_dolibarr_version = array(2,6);	// Minimum version of Dolibarr required by module
+		$this->need_dolibarr_version = array(3,0,-2);	// Minimum version of Dolibarr required by module
 		$this->langfiles = array();
 
 		// Constants

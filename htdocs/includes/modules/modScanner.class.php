@@ -26,7 +26,7 @@
  *      \file       htdocs/includes/modules/modScanner.class.php
  *      \ingroup    scanner
  *      \brief      Description and activation file for module Scanner
- *		\version	$Id: modScanner.class.php,v 1.4 2010/12/20 12:26:18 eldy Exp $
+ *		\version	$Id: modScanner.class.php,v 1.5 2011/01/22 10:18:00 eldy Exp $
  */
 include_once(DOL_DOCUMENT_ROOT ."/includes/modules/DolibarrModules.class.php");
 
@@ -46,7 +46,7 @@ class modScanner extends DolibarrModules
 
 		// Id for module (must be unique).
 		// Use here a free id (See in Home -> System information -> Dolibarr for list of used modules id).
-		$this->numero = 13000;
+		$this->numero = 101300;
 		// Key text used to identify module (for permissions, menus, etc...)
 		$this->rights_class = 'scanner';
 

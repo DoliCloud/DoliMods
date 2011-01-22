@@ -25,7 +25,7 @@
  *	\file       htdocs/includes/modules/modPostnuke.class.php
  *	\ingroup    postnuke
  *	\brief      Fichier de description et activation du module Postnuke
- *	\version	$Id: modPostnuke.class.php,v 1.2 2010/01/17 18:43:49 eldy Exp $
+ *	\version	$Id: modPostnuke.class.php,v 1.3 2011/01/22 10:18:00 eldy Exp $
  */
 include_once(DOL_DOCUMENT_ROOT ."/includes/modules/DolibarrModules.class.php");
 
@@ -44,7 +44,7 @@ class modPostnuke extends DolibarrModules
 	function modPostnuke($DB)
 	{
 		$this->db = $DB ;
-		$this->numero = 210;
+		$this->numero = 100700;
 
 		$this->family = "technic";
 		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'numero' of module)

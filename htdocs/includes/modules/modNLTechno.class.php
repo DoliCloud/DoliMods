@@ -12,7 +12,7 @@
  *      \file       htdocs/includes/modules/modNLTechno.class.php
  *      \ingroup    nltechno
  *      \brief      Description and activation file for module NLTechno
- *		\version	$Id: modNLTechno.class.php,v 1.14 2010/08/31 22:40:00 eldy Exp $
+ *		\version	$Id: modNLTechno.class.php,v 1.15 2011/01/22 10:18:00 eldy Exp $
  */
 include_once(DOL_DOCUMENT_ROOT ."/includes/modules/DolibarrModules.class.php");
 
@@ -88,21 +88,21 @@ class modNLTechno extends DolibarrModules
 
 		// Add here list of permission defined by an id, a label, a boolean and two constant strings.
 		// Example:
-		$this->rights[$r][0] = 11001; 				// Permission id (must not be already used)
+		$this->rights[$r][0] = 100001; 				// Permission id (must not be already used)
 		$this->rights[$r][1] = 'Voir page liens';	// Permission label
 		$this->rights[$r][2] = 'r'; 					// Permission by default for new user (0/1)
 		$this->rights[$r][3] = 0; 					// Permission by default for new user (0/1)
 		$this->rights[$r][4] = 'liens';				// In php code, permission will be checked by test if ($user->rights->permkey->level1->level2)
 		$this->rights[$r][5] = 'voir';				// In php code, permission will be checked by test if ($user->rights->permkey->level1->level2)
 		$r++;
-		$this->rights[$r][0] = 11002; 				// Permission id (must not be already used)
+		$this->rights[$r][0] = 100002; 				// Permission id (must not be already used)
 		$this->rights[$r][1] = 'Voir page annonces';	// Permission label
 		$this->rights[$r][2] = 'r'; 					// Permission by default for new user (0/1)
 		$this->rights[$r][3] = 0; 					// Permission by default for new user (0/1)
 		$this->rights[$r][4] = 'annonces';				// In php code, permission will be checked by test if ($user->rights->permkey->level1->level2)
 		$this->rights[$r][5] = 'voir';				// In php code, permission will be checked by test if ($user->rights->permkey->level1->level2)
 		$r++;
-		$this->rights[$r][0] = 11003; 				// Permission id (must not be already used)
+		$this->rights[$r][0] = 100003; 				// Permission id (must not be already used)
 		$this->rights[$r][1] = 'Voir page emailings';	// Permission label
 		$this->rights[$r][2] = 'r'; 					// Permission by default for new user (0/1)
 		$this->rights[$r][3] = 0; 					// Permission by default for new user (0/1)

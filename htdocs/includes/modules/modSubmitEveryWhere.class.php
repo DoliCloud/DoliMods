@@ -28,7 +28,7 @@
  *      \file       htdocs/includes/modules/modSubmitEveryWhere.class.php
  *      \ingroup    submiteverywhere
  *      \brief      Description and activation file for module SubmitEveryWhere
- *		\version	$Id: modSubmitEveryWhere.class.php,v 1.2 2010/11/13 19:54:50 eldy Exp $
+ *		\version	$Id: modSubmitEveryWhere.class.php,v 1.3 2011/01/22 10:18:00 eldy Exp $
  */
 include_once(DOL_DOCUMENT_ROOT ."/includes/modules/DolibarrModules.class.php");
 
@@ -89,7 +89,7 @@ class modSubmitEveryWhere extends DolibarrModules
 		$this->depends = array();		// List of modules id that must be enabled if this module is enabled
 		$this->requiredby = array();	// List of modules id to disable if this one is disabled
 		$this->phpmin = array(4,3);					// Minimum version of PHP required by module
-		$this->need_dolibarr_version = array(2,9,-1);	// Minimum version of Dolibarr required by module
+		$this->need_dolibarr_version = array(3,0,-2);	// Minimum version of Dolibarr required by module
 		$this->langfiles = array("submiteverywhere@submiteverywhere");
 
 		// Constants
