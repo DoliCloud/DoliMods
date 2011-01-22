@@ -18,13 +18,13 @@
  */
 
 /**
- *  \file       htdocs/rrd/lib/rrd.lib.php
- *  \brief      Ensemble de fonctions de base pour le module rrd
- *  \ingroup    rrd
- *  \version    $Id: rrd.lib.php,v 1.1 2011/01/22 15:15:48 eldy Exp $
+ *  \file       htdocs/monitoring/lib/monitoring.lib.php
+ *  \brief      Ensemble de fonctions de base pour le module Monitoring
+ *  \ingroup    monitoring
+ *  \version    $Id: monitoring.lib.php,v 1.1 2011/01/22 19:56:13 eldy Exp $
  */
 
-$linktohelp='EN:Module_Rrd_En|FR:Module_Rrd|ES:Modulo_Rrd';
+$linktohelp='EN:Module_Monitoring_En|FR:Module_Monitoring|ES:Modulo_Monitoring';
 
 if (! function_exists('rrd_create'))
 {
@@ -42,7 +42,7 @@ if (! function_exists('rrd_create'))
 		$outputfile=$fname.'.out';
 		
 		// Parameteres execution
-		$command=$conf->global->RRD_COMMANDLINE_TOOL;
+		$command=$conf->global->MONITORING_COMMANDLINE_TOOL;
 		if (preg_match("/\s/",$command)) $command=escapeshellarg($command);	// Use quotes on command
 	
 		//$param=escapeshellarg($dolibarr_main_db_name)." -h ".escapeshellarg($dolibarr_main_db_host)." -u ".escapeshellarg($dolibarr_main_db_user)." -p".escapeshellarg($dolibarr_main_db_pass);
@@ -98,14 +98,14 @@ if (! function_exists('rrd_create'))
 		$outputfile=$fname.'.out';
 		
 		// Parameteres execution
-		$command=$conf->global->RRD_COMMANDLINE_TOOL;
+		$command=$conf->global->MONITORING_COMMANDLINE_TOOL;
 		if (preg_match("/\s/",$command)) $command=escapeshellarg($command);	// Use quotes on command
 	
 		//$param=escapeshellarg($dolibarr_main_db_name)." -h ".escapeshellarg($dolibarr_main_db_host)." -u ".escapeshellarg($dolibarr_main_db_user)." -p".escapeshellarg($dolibarr_main_db_pass);
 		$param=' update '.$fname.' '.$val;
 	
 		$fullcommandclear=$command." ".$param." 2>&1";
-		//print $fullcommandclear;
+		print $fullcommandclear;
 
 		$handle = fopen($outputfile, 'w');
 		if ($handle)
@@ -137,9 +137,71 @@ if (! function_exists('rrd_create'))
 	}
 	
 	
+	/**
+	 * Create a RRD file
+	 * @param 		$fname
+	 * @param 		$opts
+	 * @param 		$nbopts
+	 * @return		int		0 if KO, array if OK
+	 */
+	function rrd_graph ($fileimage, $opts, $nbopts)
+	{
+		global $conf;
+
+		$outputfile=$fileimage.'.out';
+		
+		// Parametres execution
+		$command=$conf->global->MONITORING_COMMANDLINE_TOOL;
+		if (preg_match("/\s/",$command)) $command=escapeshellarg($command);	// Use quotes on command
+	
+		//$param=escapeshellarg($dolibarr_main_db_name)." -h ".escapeshellarg($dolibarr_main_db_host)." -u ".escapeshellarg($dolibarr_main_db_user)." -p".escapeshellarg($dolibarr_main_db_pass);
+		$param=' graph '.$fileimage.' ';
+		foreach ($opts as $val)
+		{
+			$param.=$val.' ';
+		}
+	
+		$fullcommandclear=$command." ".$param." 2>&1";
+		print $fullcommandclear;
+
+		$handle = fopen($outputfile, 'w');
+		if ($handle)
+		{
+			dol_syslog("Run command ".$fullcommandclear);
+			$handlein = popen($fullcommandclear, 'r');
+			while (!feof($handlein))
+			{
+				$read = fgets($handlein);
+				fwrite($handle,$read);
+			}
+			pclose($handlein);
+	
+			fclose($handle);
+	
+			if (! empty($conf->global->MAIN_UMASK))
+			{
+				@chmod($outputfile, octdec($conf->global->MAIN_UMASK));
+				@chmod($fileimage, octdec($conf->global->MAIN_UMASK));
+			}
+			return array();
+		}
+		else
+		{
+			$langs->load("errors");
+			dol_syslog("Failed to open file ".$outputfile,LOG_ERR);
+			$errormsg=$langs->trans("ErrorFailedToWriteInDir");
+			return 0;
+		}
+	}
+	
+	
+	/**
+	 * Show output content
+	 * @param unknown_type $fname
+	 */
 	function rrd_error($fname)
 	{
-		print "dd".$fname;
+		//print "dd".$fname;
 		return file_get_contents($fname.'.out');
 	}
 }

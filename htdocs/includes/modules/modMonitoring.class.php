@@ -1,5 +1,5 @@
 <?php
-/* Copyright (C) 2003      Rodolphe Quiedeville <rodolphe@quiedeville.org>
+/* Copyright (C) 2003 Rodolphe Quiedeville <rodolphe@quiedeville.org>
  * Copyright (C) 2011 Laurent Destailleur  <eldy@users.sourceforge.net>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -17,35 +17,35 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-/**     \defgroup   rrd     Module Rrd
- *      \brief      Can use Rrdtool features
+/**     \defgroup   monitoring     Module Monitoring
+ *      \brief      Can use Monitoring features
  */
 
 /**
- *      \file       htdocs/includes/modules/modRrd.class.php
- *      \ingroup    rrd
- *      \brief      Description and activation file for module Rrd
+ *      \file       htdocs/includes/modules/modMonitoring.class.php
+ *      \ingroup    monitoring
+ *      \brief      Description and activation file for module Monitoring
  */
 include_once(DOL_DOCUMENT_ROOT ."/includes/modules/DolibarrModules.class.php");
 
 
-/**     \class      modRrd
- *      \brief      Description and activation class for module Rrd
+/**     \class      modMonitoring
+ *      \brief      Description and activation class for module Monitoring
  */
-class modRrd extends DolibarrModules
+class modMonitoring extends DolibarrModules
 {
 	/**
 	 *   \brief      Constructor. Define names, constants, directories, boxes, permissions
 	 *   \param      DB      Database handler
 	 */
-	function modRrd($DB)
+	function modMonitoring($DB)
 	{
 		$this->db = $DB;
 
 		// Id for module (must be unique).
 		$this->numero = 103100;
 		// Key text used to identify module (for permissions, menus, etc...)
-		$this->rights_class = 'rrd';
+		$this->rights_class = 'monitoring';
 
 		// It is used to group modules in module setup page
 		$this->family = "technic";
@@ -66,21 +66,21 @@ class modRrd extends DolibarrModules
 
 		// Data directories to create when module is enabled.
 		// Example: this->dirs = array("/mymodule/temp");
-		$this->dirs = array('/rrd/temp');
+		$this->dirs = array('/monitoring/temp');
 		$r=0;
 
 		// Relative path to module style sheet if exists. Example: '/mymodule/mycss.css'.
 		$this->style_sheet = '';
 
 		// Config pages. Put here list of php page names stored in admmin directory used to setup module.
-		$this->config_page_url = array("rrd.php@rrd");
+		$this->config_page_url = array("monitoring.php@monitoring");
 
 		// Dependencies
 		$this->depends = array();		// List of modules id that must be enabled if this module is enabled
 		$this->requiredby = array();	// List of modules id to disable if this one is disabled
 		$this->phpmin = array(4,3);					// Minimum version of PHP required by module
 		$this->need_dolibarr_version = array(3,0,-2);	// Minimum version of Dolibarr required by module
-		$this->langfiles = array("rrd@rrd");
+		$this->langfiles = array("monitoring@monitoring");
 
 		// Constants
 		$this->const = array();			// List of particular constants to add when module is enabled
@@ -110,12 +110,11 @@ class modRrd extends DolibarrModules
 		$r=0;
 
 
-		/*$this->rights[$r][0] = 103101;
-		$this->rights[$r][1] = 'xxx';
+		$this->rights[$r][0] = 103101;
+		$this->rights[$r][1] = 'Read monitoring';
 		$this->rights[$r][3] = 0;
-		$this->rights[$r][4] = 'send';
+		$this->rights[$r][4] = 'read';
 		$r++;
-        */
 
 		// Main menu entries
 		$this->menus = array();			// List of menus to add
