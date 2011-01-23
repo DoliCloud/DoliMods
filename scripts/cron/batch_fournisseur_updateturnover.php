@@ -1,4 +1,4 @@
-<?PHP
+<?php
 /* Copyright (C) 2006      Rodolphe Quiedeville <rodolphe@quiedeville.org>
  * Copyright (C) 2007-2009 Laurent Destailleur  <eldy@users.sourceforge.net>
  *
@@ -22,18 +22,23 @@
  *	\ingroup    	fournisseur
  *	\brief      	Update table Calcul le CA genere par chaque fournisseur et met a jour les tables fournisseur_ca et produit_ca
  *	\deprecated		Ce script et ces tables ne sont pas utilisees car graph generes dynamiquement maintenant.
- *	\version		$Id: batch_fournisseur_updateturnover.php,v 1.2 2010/08/18 11:29:14 eldy Exp $
+ *	\version		$Id: batch_fournisseur_updateturnover.php,v 1.3 2011/01/23 01:05:41 eldy Exp $
  */
 
-// Test si mode CLI
 $sapi_type = php_sapi_name();
-$script_file=__FILE__;
-if (preg_match('/([^\\\/]+)$/',$script_file,$reg)) $script_file=$reg[1];
+$script_file = basename(__FILE__);
+$path=dirname(__FILE__).'/';
 
+// Test if batch mode
 if (substr($sapi_type, 0, 3) == 'cgi') {
-	echo "Erreur: Vous utilisez l'interpreteur PHP pour le mode CGI. Pour executer $script_file en ligne de commande, vous devez utiliser l'interpreteur PHP pour le mode CLI.\n";
-	exit;
+    echo "Error: You are using PHP for CGI. To execute ".$script_file." from command line, you must use PHP for CLI mode.\n";
+    exit;
 }
+
+// Global variables
+$version='$Revision: 1.3 $';
+$error=0;
+
 
 /*
  if (! isset($argv[1]) || ! $argv[1]) {
@@ -43,7 +48,7 @@ if (substr($sapi_type, 0, 3) == 'cgi') {
  */
 
 // Recupere env dolibarr
-$version='$Revision: 1.2 $';
+$version='$Revision: 1.3 $';
 $path=preg_replace('/'.$script_file.'/','',$_SERVER["PHP_SELF"]);
 
 require_once($path."../../htdocs/master.inc.php");

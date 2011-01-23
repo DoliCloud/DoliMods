@@ -21,7 +21,7 @@
  *  \file       htdocs/monitoring/lib/monitoring.lib.php
  *  \brief      Ensemble de fonctions de base pour le module Monitoring
  *  \ingroup    monitoring
- *  \version    $Id: monitoring.lib.php,v 1.1 2011/01/22 19:56:13 eldy Exp $
+ *  \version    $Id: monitoring.lib.php,v 1.2 2011/01/23 01:05:56 eldy Exp $
  */
 
 $linktohelp='EN:Module_Monitoring_En|FR:Module_Monitoring|ES:Modulo_Monitoring';
@@ -161,8 +161,9 @@ if (! function_exists('rrd_create'))
 			$param.=$val.' ';
 		}
 	
+		//var_dump($opts);
 		$fullcommandclear=$command." ".$param." 2>&1";
-		print $fullcommandclear;
+		//print $fullcommandclear;
 
 		$handle = fopen($outputfile, 'w');
 		if ($handle)

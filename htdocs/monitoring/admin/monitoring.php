@@ -20,7 +20,7 @@
  *	    \file       htdocs/admin/monitoring.php
  *      \ingroup    monitoring
  *      \brief      Page to setup module Monitoring
- *		\version    $Id: monitoring.php,v 1.1 2011/01/22 19:56:13 eldy Exp $
+ *		\version    $Id: monitoring.php,v 1.2 2011/01/23 01:05:57 eldy Exp $
  */
 
 define('NOCSRFCHECK',1);
@@ -97,40 +97,48 @@ if ($actionsave)
 
 if ($action == 'create')
 {
+	$error=0;
 	create_exdir($conf->monitoring->dir_temp.'/test');
 
-	$opts = array( "--step", "10", "--start", "0",
-           "DS:ds1:GAUGE:20:0:100",
-           "DS:ds2:GAUGE:20:0:100",
-           "RRA:AVERAGE:0.5:1:360",
-//           "RRA:AVERAGE:0.5:6:1440",
-//           "RRA:AVERAGE:0.5:360:168",
-//           "RRA:AVERAGE:0.5:360:744",
-           "RRA:MAX:0.5:1:360",
-//           "RRA:MAX:0.5:6:1440",
-//           "RRA:MAX:0.5:360:168",
-//           "RRA:MAX:0.5:360:744",
-//           "RRA:MIN:0.5:1:360",
-//           "RRA:MIN:0.5:6:1440",
-//           "RRA:MIN:0.5:360:168",
-//           "RRA:MIN:0.5:360:744"
-           );
+	$step=5;
+	$opts = array( "--step", $step,
+           "DS:ds1:GAUGE:".($step*2).":0:100",
+           "DS:ds2:GAUGE:".($step*2).":0:100",
+           "RRA:AVERAGE:0.5:1:".(3600/$step),
+	           "RRA:AVERAGE:0.5:".(60/$step).":1440",
+	           "RRA:AVERAGE:0.5:".(3600/$step).":168",
+	           "RRA:AVERAGE:0.5:".(3600/$step).":744",
+	           "RRA:AVERAGE:0.5:".(86400/$step).":365",
+           	   "RRA:MAX:0.5:1:".(3600/$step),
+	           "RRA:MAX:0.5:".(60/$step).":1440",
+	           "RRA:MAX:0.5:".(3600/$step).":168",
+	           "RRA:MAX:0.5:".(3600/$step).":744",
+	           "RRA:MAX:0.5:".(86400/$step).":365",
+	           "RRA:MIN:0.5:1:".(3600/$step),
+	           "RRA:MIN:0.5:".(60/$step).":1440",
+	           "RRA:MIN:0.5:".(3600/$step).":168",
+	           "RRA:MIN:0.5:".(3600/$step).":744",
+	           "RRA:MIN:0.5:".(86400/$step).":365",
+	           	);
 
-           $ret = rrd_create($fname, $opts, count($opts));
-
-           if( $ret > 0)
-           {
-	           $mesg='<div class="ok">'.$langs->trans("File ".$fname.' created').'</div>';
-           }
-           else
-           {
-    	       $err = rrd_error($fname);
-        	   $mesg="Create error: $err\n";
-           }
+	$ret = rrd_create($fname, $opts, count($opts));
+	$resout=file_get_contents($fname.'.out');
+	if (strlen($resout) < 10)
+	{
+		$mesg='<div class="ok">'.$langs->trans("File ".$fname.' created').'</div>';
+		$action='graph';	// To rebuild graph
+	}
+	else
+	{
+		$error++;
+		$err = rrd_error($fname);
+		$mesg="Create error: $err\n";
+	}
 }
 
 if ($action == 'update')
 {
+	$error=0;
 	$val1=rand(0,100);
 	$val2=25;
 	$ret = rrd_update($fname, "N:$val1:$val2");
@@ -141,6 +149,7 @@ if ($action == 'update')
 	}
 	else
 	{
+		$error++;
 		$err = rrd_error($fname);
 		$mesg="Update error: $err\n";
 	}
@@ -149,9 +158,9 @@ if ($action == 'update')
 if ($action == 'graph')
 {
 	$error=0;
-	$meg='';
-	
-	$opts = array('--step','10',
+	$mesg='';
+
+	$opts = array(
 			'--start','-1h',
 			"--vertical-label=%",
            "DEF:ds1=".$fname.":ds1:AVERAGE",
@@ -159,30 +168,30 @@ if ($action == 'graph')
 			"LINE1:ds1#0000FF:Graph1",
 			"LINE1:ds2#00FF00:Graph2",
  			"CDEF:cdef1=ds1,1,*",
-                 "CDEF:cdef2=ds2,1,*",
-	"COMMENT:x",
-	"GPRINT:cdef1:AVERAGE:Avgval1_%6.2lf",
-    "COMMENT:x ",
-	"GPRINT:cdef1:MAX:Maxval1_%6.2lf",
-	
-	"COMMENT:x",
-	"GPRINT:cdef2:AVERAGE:Avgval2_%6.2lf",
-    "COMMENT:x ",
-	"GPRINT:cdef2:MAX:Maxval2_%6.2lf",
-	
-				);
+           "CDEF:cdef2=ds2,1,*",
+	       'COMMENT:\\\n ',
+	"GPRINT:cdef1:MIN:Minval1%6.2lf ",
+	"GPRINT:cdef1:AVERAGE:Avgval1%6.2lf ",
+		"GPRINT:cdef1:MAX:Maxval1%6.2lf ",
+		'COMMENT:\\\n ',
+		"GPRINT:cdef2:MIN:Minval2%6.2lf ",
+	"GPRINT:cdef2:AVERAGE:Avgval2%6.2lf ",
+		"GPRINT:cdef2:MAX:Maxval2%6.2lf ",
+	       'COMMENT:\\\n ',
+		);
 	$ret = rrd_graph($conf->monitoring->dir_temp.'/'.$fileimage[0], $opts, count($opts));
-	if (is_array($ret))
+	$resout=file_get_contents($conf->monitoring->dir_temp.'/'.$fileimage[0].'.out');
+	if (strlen($resout) < 10)
 	{
 		$mesg.='<div class="ok">'.$langs->trans("File ".$fileimage[0].' created').'</div>';
 	}
 	else
 	{
 		$error++;
-		$err = rrd_error($fileimage[0]);
+		$err = rrd_error($conf->monitoring->dir_temp.'/'.$fileimage[0]);
 		$mesg.="Graph error: $err\n";
 	}
-
+/*
 	$opts = array(
 			'--start','-1d',
            "DEF:ds1=".$fname.":ds1:AVERAGE",
@@ -190,76 +199,81 @@ if ($action == 'graph')
 			"LINE1:ds1#0000FF:Graph1",
 			"LINE1:ds2#00FF00:Graph2"
 			);
-	$ret = rrd_graph($conf->monitoring->dir_temp.'/'.$fileimage[1], $opts, count($opts));
-	if (is_array($ret))
-	{
-		$mesg.='<div class="ok">'.$langs->trans("File ".$fileimage[1].' created').'</div>';
-	}
-	else
-	{
-		$error++;
-		$err = rrd_error($fileimage[1]);
-		$mesg.="Graph error: $err\n";
-	}
-	
-	$opts = array(
+			$ret = rrd_graph($conf->monitoring->dir_temp.'/'.$fileimage[1], $opts, count($opts));
+			$resout=file_get_contents($conf->monitoring->dir_temp.'/'.$fileimage[1].'.out');
+			if (strlen($resout) < 10)
+			{
+				$mesg.='<div class="ok">'.$langs->trans("File ".$fileimage[1].' created').'</div>';
+			}
+			else
+			{
+				$error++;
+				$err = rrd_error($conf->monitoring->dir_temp.'/'.$fileimage[1]);
+				$mesg.="Graph error: $err\n";
+			}
+
+			$opts = array(
 			'--start','-1w',
            "DEF:ds1=".$fname.":ds1:AVERAGE",
            "DEF:ds2=".$fname.":ds2:AVERAGE",
 			"LINE1:ds1#0000FF:Graph1",
 			"LINE1:ds2#00FF00:Graph2"
 			);
-	$ret = rrd_graph($conf->monitoring->dir_temp.'/'.$fileimage[2], $opts, count($opts));
-	if (is_array($ret))
-	{
-		$mesg.='<div class="ok">'.$langs->trans("File ".$fileimage[2].' created').'</div>';
-	}
-	else
-	{
-		$error++;
-		$err = rrd_error($fileimage[2]);
-		$mesg.="Graph error: $err\n";
-	}
+			$ret = rrd_graph($conf->monitoring->dir_temp.'/'.$fileimage[2], $opts, count($opts));
+			$resout=file_get_contents($conf->monitoring->dir_temp.'/'.$fileimage[2].'.out');
+			if (strlen($resout) < 10)
+			{
+				$mesg.='<div class="ok">'.$langs->trans("File ".$fileimage[2].' created').'</div>';
+			}
+			else
+			{
+				$error++;
+				$err = rrd_error($conf->monitoring->dir_temp.'/'.$fileimage[2]);
+				$mesg.="Graph error: $err\n";
+			}
 
-	$opts = array(
+			$opts = array(
 			'--start','-1m',
            "DEF:ds1=".$fname.":ds1:AVERAGE",
            "DEF:ds2=".$fname.":ds2:AVERAGE",
 			"LINE1:ds1#0000FF:Graph1",
 			"LINE1:ds2#00FF00:Graph2"
 			);
-	$ret = rrd_graph($conf->monitoring->dir_temp.'/'.$fileimage[3], $opts, count($opts));
-	if (is_array($ret))
-	{
-		$mesg.='<div class="ok">'.$langs->trans("File ".$fileimage[3].' created').'</div>';
-	}
-	else
-	{
-		$error++;
-		$err = rrd_error($fileimage[3]);
-		$mesg.="Graph error: $err\n";
-	}
+			$ret = rrd_graph($conf->monitoring->dir_temp.'/'.$fileimage[3], $opts, count($opts));
+			$resout=file_get_contents($conf->monitoring->dir_temp.'/'.$fileimage[3].'.out');
+			if (strlen($resout) < 10)
+			{
+				$mesg.='<div class="ok">'.$langs->trans("File ".$fileimage[3].' created').'</div>';
+			}
+			else
+			{
+				$error++;
+				$err = rrd_error($conf->monitoring->dir_temp.'/'.$fileimage[3]);
+				$mesg.="Graph error: $err\n";
+			}
 
-	$opts = array(
+			$opts = array(
 			'--start','-1y',
            "DEF:ds1=".$fname.":ds1:AVERAGE",
            "DEF:ds2=".$fname.":ds2:AVERAGE",
 			"LINE1:ds1#0000FF:Graph1",
 			"LINE1:ds2#00FF00:Graph2"
 			);
-	$ret = rrd_graph($conf->monitoring->dir_temp.'/'.$fileimage[4], $opts, count($opts));
-	if (is_array($ret))
-	{
-		$mesg.='<div class="ok">'.$langs->trans("File ".$fileimage[4].' created').'</div>';
-	}
-	else
-	{
-		$error++;
-		$err = rrd_error($fileimage[4]);
-		$mesg.="Graph error: $err\n";
-	}
+			$ret = rrd_graph($conf->monitoring->dir_temp.'/'.$fileimage[4], $opts, count($opts));
+			$resout=file_get_contents($conf->monitoring->dir_temp.'/'.$fileimage[4].'.out');
+			if (strlen($resout) < 10)
+			{
+				$mesg.='<div class="ok">'.$langs->trans("File ".$fileimage[4].' created').'</div>';
+			}
+			else
+			{
+				$error++;
+				$err = rrd_error($conf->monitoring->dir_temp.'/'.$fileimage[4]);
+				$mesg.="Graph error: $err\n";
+			}
+*/
 	
-	if (! $error) $mesg='';
+			if (! $error) $mesg='';
 }
 
 
@@ -317,15 +331,15 @@ print $langs->trans("ManualTestDesc").'<br><br>';
 //print '<div class="tabsAction">';
 if ($conf->global->MONITORING_COMMANDLINE_TOOL)
 {
-print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?action=create">'.$langs->trans("CreateATestGraph").'</a>';
-print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?action=update">'.$langs->trans("AddValueToTestGraph").'</a>';
-print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?action=graph">'.$langs->trans("BuildTestGraph").'</a>';
+	print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?action=create">'.$langs->trans("CreateATestGraph").'</a>';
+	print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?action=update">'.$langs->trans("AddValueToTestGraph").'</a>';
+	print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?action=graph">'.$langs->trans("BuildTestGraph").'</a>';
 }
 else
 {
-print '<a class="butActionRefused" href="#">'.$langs->trans("CreateATestGraph").'</a>';
-print '<a class="butActionRefused" href="#">'.$langs->trans("AddValueToTestGraph").'</a>';
-print '<a class="butActionRefused" href="#">'.$langs->trans("BuildTestGraph").'</a>';
+	print '<a class="butActionRefused" href="#">'.$langs->trans("CreateATestGraph").'</a>';
+	print '<a class="butActionRefused" href="#">'.$langs->trans("AddValueToTestGraph").'</a>';
+	print '<a class="butActionRefused" href="#">'.$langs->trans("BuildTestGraph").'</a>';
 }
 //print '</div>';
 
@@ -335,21 +349,21 @@ print $langs->trans("LastHour").'<br>';
 if (dol_is_file($conf->monitoring->dir_temp."/".$fileimage[0]))
 print '<img src="'.DOL_URL_ROOT.'/viewimage.php?modulepart=monitoring_temp&file='.$fileimage[0].'">';
 /*	print '<br>';
-	print $langs->trans("LastDay").'<br>';
-	print '<img src="'.DOL_URL_ROOT.'/viewimage.php?modulepart=monitoring_temp&file='.$fileimage[1].'">';
-	print '<br>';
-	print $langs->trans("LastWeek").'<br>';
-	print '<img src="'.DOL_URL_ROOT.'/viewimage.php?modulepart=monitoring_temp&file='.$fileimage[2].'">';
-	print '<br>';
-	print $langs->trans("LastMonth").'<br>';
-	print '<img src="'.DOL_URL_ROOT.'/viewimage.php?modulepart=monitoring_temp&file='.$fileimage[3].'">';
-	print '<br>';
-	print $langs->trans("LastYear").'<br>';
-	print '<img src="'.DOL_URL_ROOT.'/viewimage.php?modulepart=monitoring_temp&file='.$fileimage[4].'">';
-*/
+ print $langs->trans("LastDay").'<br>';
+ print '<img src="'.DOL_URL_ROOT.'/viewimage.php?modulepart=monitoring_temp&file='.$fileimage[1].'">';
+ print '<br>';
+ print $langs->trans("LastWeek").'<br>';
+ print '<img src="'.DOL_URL_ROOT.'/viewimage.php?modulepart=monitoring_temp&file='.$fileimage[2].'">';
+ print '<br>';
+ print $langs->trans("LastMonth").'<br>';
+ print '<img src="'.DOL_URL_ROOT.'/viewimage.php?modulepart=monitoring_temp&file='.$fileimage[3].'">';
+ print '<br>';
+ print $langs->trans("LastYear").'<br>';
+ print '<img src="'.DOL_URL_ROOT.'/viewimage.php?modulepart=monitoring_temp&file='.$fileimage[4].'">';
+ */
 
 
 $db->close();
 
-llxFooter('$Date: 2011/01/22 19:56:13 $ - $Revision: 1.1 $');
+llxFooter('$Date: 2011/01/23 01:05:57 $ - $Revision: 1.2 $');
 ?>

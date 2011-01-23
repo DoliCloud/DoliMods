@@ -1,6 +1,5 @@
-<?PHP
-/* Copyright (C) 2006      Rodolphe Quiedeville <rodolphe@quiedeville.org>
- * Copyright (C) 2007-2009 Laurent Destailleur  <eldy@users.sourceforge.net>
+<?php
+/* Copyright (C) 2007-2009 Laurent Destailleur  <eldy@users.sourceforge.net>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,26 +17,26 @@
  */
 
 /**
- \file       	scripts/cron/fournisseur-graph.php
- \ingroup    	fournisseur
- \brief      	Script de generation graph ca fournisseur depuis tables fournisseur_ca
- \deprecated	Ces graph ne sont pas utilises car sont generes dynamiquement maintenant.
- \version		$Id: batch_fournisseur_buildgraph.php,v 1.2 2010/08/18 11:29:13 eldy Exp $
+ *	\file       	scripts/cron/batch_fournisseur_buildgraph.php
+ *	\ingroup    	fournisseur
+ *	\brief      	Script de generation graph ca fournisseur depuis tables fournisseur_ca
+ *	\deprecated	Ces graph ne sont pas utilises car sont generes dynamiquement maintenant.
+ *	\version		$Id: batch_fournisseur_buildgraph.php,v 1.3 2011/01/23 01:05:41 eldy Exp $
  */
 
-// Test si mode CLI
 $sapi_type = php_sapi_name();
-$script_file=__FILE__;
-if (preg_match('/([^\\\/]+)$/',$script_file,$reg)) $script_file=$reg[1];
+$script_file = basename(__FILE__);
+$path=dirname(__FILE__).'/';
 
+// Test if batch mode
 if (substr($sapi_type, 0, 3) == 'cgi') {
-	echo "Erreur: Vous utilisez l'interpreteur PHP pour le mode CGI. Pour executer $script_file en ligne de commande, vous devez utiliser l'interpreteur PHP pour le mode CLI.\n";
-	exit;
+    echo "Error: You are using PHP for CGI. To execute ".$script_file." from command line, you must use PHP for CLI mode.\n";
+    exit;
 }
 
-// Recupere env dolibarr
-$version='$Revision: 1.2 $';
-$path=preg_replace('/'.$script_file.'/','',$_SERVER["PHP_SELF"]);
+// Global variables
+$version='$Revision: 1.3 $';
+$error=0;
 
 require_once($path."../../htdocs/master.inc.php");
 require_once(DOL_DOCUMENT_ROOT."/core/dolgraph.class.php");
