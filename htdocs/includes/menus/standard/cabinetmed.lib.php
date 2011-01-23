@@ -21,7 +21,7 @@
 /**
  *  \file		htdocs/includes/menus/standard/cabinetmed.lib.php
  *  \brief		Library for file cabinetmed menus
- *  \version	$Id: cabinetmed.lib.php,v 1.2 2011/01/23 16:41:12 eldy Exp $
+ *  \version	$Id: cabinetmed.lib.php,v 1.3 2011/01/23 22:47:54 eldy Exp $
  */
 
 
@@ -92,7 +92,7 @@ function print_cabinetmed_menu($db,$atarget,$type_user)
 			print '<div class="'.$id.' '.$idsel.'"><span class="'.$id.' tmenuimage" id="mainmenuspan_'.$idsel.'"></span></div>';
 			print '</a>';
 			print '<a '.$classname.' id="mainmenua_'.$idsel.'" href="'.DOL_URL_ROOT.'/societe/index.php?mainmenu=companies&amp;leftmenu="'.($atarget?" target=$atarget":"").'>';
-			print_text_menu_entry($langs->trans("Patients"));
+			print_text_menu_entry($langs->trans("PatientsAndCorrespondants"));
 			print '</a>';
 			print_end_menu_entry();
 		}
