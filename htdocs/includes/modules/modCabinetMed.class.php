@@ -26,7 +26,7 @@
  *      \file       htdocs/includes/modules/modCabinetMed.class.php
  *      \ingroup    cabinetmed
  *      \brief      Description and activation file for module CabinetMed
- *      \version    $Id: modCabinetMed.class.php,v 1.1 2011/01/23 15:09:59 eldy Exp $
+ *      \version    $Id: modCabinetMed.class.php,v 1.2 2011/01/23 16:41:12 eldy Exp $
  */
 include_once(DOL_DOCUMENT_ROOT ."/includes/modules/DolibarrModules.class.php");
 
@@ -58,7 +58,7 @@ class modCabinetMed extends DolibarrModules
         // Module description, used if translation string 'ModuleXXXDesc' not found (where XXX is value of numeric property 'numero' of module)
         $this->description = "Module CabinetMed";
         // Possible values for version are: 'development', 'experimental', 'dolibarr' or version
-        $this->version = 'development';
+        $this->version = 'experimental';
         // Key used in llx_const table to save module status enabled/disabled (where MYMODULE is value of property name of module in uppercase)
         $this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
         // Where to store the module in setup page (0=common,1=interface,2=others,3=very specific)

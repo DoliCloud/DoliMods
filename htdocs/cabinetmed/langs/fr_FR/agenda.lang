@@ -1,0 +1,55 @@
+# Dolibarr language file - fr_FR - agenda
+CHARSET=UTF-8
+Actions=Actions
+ActionsArea=Espace actions (événements et tâches)
+Agenda=Agenda
+Agendas=Agendas
+Calendar=Calendrier
+Calendars=Calendriers
+AffectedTo=Affecté à
+DoneBy=Réalisé par
+Events=Evénements
+ListOfActions=Liste des événements
+EventOnFullDay=Evénement sur la journée
+Location=Lieu
+SearchAnAction=Rechercher une action/tâche
+MenuToDoActions=Les actions incomplètes
+MenuDoneActions=Les actions terminées
+MenuToDoMyActions=Mes actions incomplètes
+MenuDoneMyActions=Mes actions terminées
+ListOfEvents=Liste des événements Dolibarr
+ActionsAskedBy=Actions enregistrées par
+ActionsToDoBy=Actions affectées à
+ActionsDoneBy=Actions réalisées par
+AllMyActions=Toutes mes actions
+AllActions=Toutes les actions
+ViewList=Voir liste
+ViewCal=Voir calendrier
+ViewWithPredefinedFilters=Vues avec filtres prédéfinis
+AutoActions=Alimentation automatique de l'agenda
+AgendaAutoActionDesc=Définissez dans cet onglet les événements pour lesquels dolibarr créera automatiquement une action dans l'agenda. Si aucune case n'est cochée (par défaut), seules les actions manuelles seront incluses dans l'agenda.
+AgendaSetupOtherDesc=Cette page permet de configurer les autres paramètres du module agenda.
+ActionsEvents=Evénements pour lesquels Dolibarr doit créer une action dans l'agenda en automatique.
+PropalValidatedInDolibarr=Proposition %s validée
+InvoiceValidatedInDolibarr=Facture %s validée
+OrderValidatedInDolibarr=Commande %s validée
+InterventionValidatedInDolibarr=Intervention %s validée
+ProposalSentByEMail=Proposition commerciale %s envoyée par EMail
+OrderSentByEMail=Commande client %s envoyée par EMail
+InvoiceSentByEMail=Facture client %s envoyée par EMail
+SupplierOrderSentByEMail=Commande fournisseur %s envoyée par EMail
+SupplierInvoiceSentByEMail=Facture fournisseur %s envoyée par EMail
+NewCompanyToDolibarr=Tiers créé
+DateActionPlannedStart=Date début réalisation prévue
+DateActionPlannedEnd=Date fin réalisation prévue
+DateActionDoneStart=Date début réalisation réelle
+DateActionDoneEnd=Date fin réalisation réelle
+DateActionStart=Date début
+DateActionEnd=Date fin
+AgendaUrlOptions1=Vous pouvez aussi ajouter les paramètres suivants pour filtrer les réponses:
+AgendaUrlOptions2=<b>login=%s</b> pour limiter l'export aux actions créées, affectées ou réalisées par l'utilisateur <b>%s</b>.
+AgendaUrlOptions3=<b>logina=%s</b> pour limiter l'export aux actions créées par l'utilisateur <b>%s</b>.
+AgendaUrlOptions4=<b>logint=%s</b> pour limiter l'export aux actions affectées à l'utilisateur <b>%s</b>.
+AgendaUrlOptions5=<b>logind=%s</b> pour limiter l'export aux actions réalisées par l'utilisateur <b>%s</b>.
+AgendaShowBirthdayEvents=Afficher anniversaires contacts
+AgendaHideBirthdayEvents=Cacher anniversaires contacts

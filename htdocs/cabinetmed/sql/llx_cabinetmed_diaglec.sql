@@ -15,16 +15,11 @@
 -- along with this program; if not, write to the Free Software
 -- Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 --
--- $Id: llx_xxx.sql,v 1.1 2011/01/23 15:10:00 eldy Exp $
+-- $Id: llx_cabinetmed_diaglec.sql,v 1.1 2011/01/23 16:41:12 eldy Exp $
 -- ===========================================================================
 
-CREATE TABLE llx_surveys_answers (
+CREATE TABLE llx_cabinetmed_motifcons (
   rowid             integer AUTO_INCREMENT PRIMARY KEY,
-  fk_question       integer NOT NULL,
-  ip_adresse        varchar(15) NOT NULL default '',
-  datec             date NOT NULL,
-  rep1              decimal(6,0) default NULL,
-  rep2              decimal(6,0) default NULL,
-  rep3              decimal(6,0) default NULL,
-  rep4              decimal(6,0) default NULL
-)type=innodb;
+  code              varchar(8) NOT NULL,
+  label             varchar(64) NOT NULL,
+) ENGINE=innodb;

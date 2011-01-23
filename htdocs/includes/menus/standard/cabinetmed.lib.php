@@ -21,7 +21,7 @@
 /**
  *  \file		htdocs/includes/menus/standard/cabinetmed.lib.php
  *  \brief		Library for file cabinetmed menus
- *  \version	$Id: cabinetmed.lib.php,v 1.1 2011/01/23 15:09:59 eldy Exp $
+ *  \version	$Id: cabinetmed.lib.php,v 1.2 2011/01/23 16:41:12 eldy Exp $
  */
 
 
@@ -66,11 +66,12 @@ function print_cabinetmed_menu($db,$atarget,$type_user)
 	print_end_menu_entry();
 
 
-	// Third parties
+	// Patient
 	if ($conf->societe->enabled || $conf->fournisseur->enabled)
 	{
 		$langs->load("companies");
 		$langs->load("suppliers");
+        $langs->load("cabinetmed@cabinetmed");
 
 		$classname="";
 		if ($_SESSION["mainmenu"] && $_SESSION["mainmenu"] == "companies")
@@ -155,52 +156,12 @@ function print_cabinetmed_menu($db,$atarget,$type_user)
 		}
 	}
 
-	// Commercial
-	if ($conf->societe->enabled)
-	{
-		$langs->load("commercial");
-
-		$classname="";
-		if ($_SESSION["mainmenu"] && $_SESSION["mainmenu"] == "commercial")
-		{
-			$classname='class="tmenusel"'; $_SESSION['idmenu']='';
-		}
-		else
-		{
-			$classname = 'class="tmenu"';
-		}
-
-		$idsel='commercial';
-		if($user->rights->societe->lire || $user->rights->societe->contact->lire)
-		{
-			print_start_menu_entry($idsel);
-			print '<a class="tmenuimage" href="'.DOL_URL_ROOT.'/comm/index.php?mainmenu=commercial&amp;leftmenu="'.($atarget?" target=$atarget":"").'>';
-			print '<div class="'.$id.' '.$idsel.'"><span class="'.$id.' tmenuimage" id="'.$id.'"></span></div>';
-			print '</a>';
-			print '<a '.$classname.' id="mainmenua_'.$idsel.'" href="'.DOL_URL_ROOT.'/comm/index.php?mainmenu=commercial&amp;leftmenu="'.($atarget?" target=$atarget":"").'>';
-			print_text_menu_entry($langs->trans("Commercial"));
-			print '</a>';
-			print_end_menu_entry();
-		}
-		else if (empty($conf->global->MAIN_MENU_HIDE_UNAUTHORIZED))
-		{
-			if (! $type_user)
-			{
-				print_start_menu_entry($idsel);
-				print '<div class="'.$id.' '.$idsel.'"><span class="'.$id.'" id="mainmenuspan_'.$idsel.'"></span></div>';
-				print '<a class="tmenudisabled" id="mainmenua_'.$idsel.'" href="#">';
-				print print_text_menu_entry($langs->trans("Commercial"));
-				print '</a>';
-				print_end_menu_entry();
-			}
-		}
-	}
-
 	// Financial
 	if ($conf->compta->enabled || $conf->accounting->enabled
 	|| $conf->facture->enabled || $conf->deplacement->enabled)
 	{
 		$langs->load("compta");
+        $langs->load("cabinetmed@cabinetmed");
 
 		$classname="";
 		if ($_SESSION["mainmenu"] && $_SESSION["mainmenu"] == "accountancy")
@@ -221,7 +182,7 @@ function print_cabinetmed_menu($db,$atarget,$type_user)
 			print '<div class="'.$id.' '.$idsel.'"><span class="'.$id.' tmenuimage" id="mainmenuspan_'.$idsel.'"></span></div>';
 			print '</a>';
 			print '<a '.$classname.' id="mainmenua_'.$idsel.'" href="'.DOL_URL_ROOT.'/compta/index.php?mainmenu=accountancy&amp;leftmenu="'.($atarget?" target=$atarget":"").'>';
-			print_text_menu_entry($langs->trans("MenuFinancial"));
+			print_text_menu_entry($langs->trans("MenuConsultation"));
 			print '</a>';
 			print_end_menu_entry();
 		}
@@ -232,7 +193,7 @@ function print_cabinetmed_menu($db,$atarget,$type_user)
 				print_start_menu_entry($idsel);
 				print '<div class="'.$id.' '.$idsel.'"><span class="'.$id.'" id="mainmenuspan_'.$idsel.'"></span></div>';
 				print '<a class="tmenudisabled" id="mainmenua_'.$idsel.'" href="#">';
-				print_text_menu_entry($langs->trans("MenuFinancial"));
+				print_text_menu_entry($langs->trans("MenuConsultation"));
 				print '</a>';
 				print_end_menu_entry();
 			}
@@ -615,9 +576,10 @@ function print_left_cabinetmed_menu($db,$menu_array_before,$menu_array_after)
             {
                 $langs->load("admin");
                 $langs->load("help");
+                $langs->load("cabinetmed@cabinetmed");
 
                 $newmenu->add("/admin/index.php?leftmenu=setup", $langs->trans("Setup"));
-                if ($leftmenu=="setup") $newmenu->add("/admin/company.php", $langs->trans("MenuCompanySetup"),1);
+                if ($leftmenu=="setup") $newmenu->add("/admin/company.php", $langs->trans("MenuCabinet"),1);
                 if ($leftmenu=="setup") $newmenu->add("/admin/modules.php", $langs->trans("Modules"),1);
                 if ($leftmenu=="setup") $newmenu->add("/admin/menus.php", $langs->trans("Menus"),1);
                 if ($leftmenu=="setup") $newmenu->add("/admin/ihm.php", $langs->trans("GUISetup"),1);
@@ -664,7 +626,7 @@ function print_left_cabinetmed_menu($db,$menu_array_before,$menu_array_after)
 
 
         /*
-         * Menu TIERS
+         * Menu Patients
          */
         if ($mainmenu == 'companies')
         {
@@ -672,63 +634,26 @@ function print_left_cabinetmed_menu($db,$menu_array_before,$menu_array_after)
             if ($conf->societe->enabled)
             {
                 $langs->load("companies");
-                $newmenu->add("/societe/societe.php", $langs->trans("ThirdParty"), 0, $user->rights->societe->lire);
+                $langs->load("cabinetmed@cabinetmed");
+                $newmenu->add("/societe/societe.php", $langs->trans("Patients"), 0, $user->rights->societe->lire);
 
                 if ($user->rights->societe->creer)
                 {
-                    $newmenu->add("/societe/soc.php?action=create", $langs->trans("MenuNewThirdParty"),1);
-                    if (! $conf->use_javascript_ajax) $newmenu->add("/societe/soc.php?action=create&amp;private=1",$langs->trans("MenuNewPrivateIndividual"),1);
-                }
-
-                if(is_dir("societe/groupe"))
-                {
-                    $newmenu->add("/societe/groupe/index.php", $langs->trans("MenuSocGroup"),1);
+                    $newmenu->add("/societe/soc.php?action=create&amp;private=1",$langs->trans("MenuNewPatient"),1);
                 }
             }
 
-            // Prospects
+            // Patients
             if ($conf->societe->enabled)
             {
                 $langs->load("commercial");
-                $newmenu->add("/comm/prospect/prospects.php?leftmenu=prospects", $langs->trans("ListProspectsShort"), 1, $user->rights->societe->lire);
-
-                $newmenu->add("/societe/soc.php?leftmenu=prospects&amp;action=create&amp;type=p", $langs->trans("MenuNewProspect"), 2, $user->rights->societe->creer);
-                //$newmenu->add("/contact/index.php?leftmenu=customers&amp;type=p", $langs->trans("Contacts"), 2, $user->rights->societe->contact->lire);
+                $newmenu->add("/comm/clients.php?leftmenu=customers", $langs->trans("ListPatient"), 1, $user->rights->societe->lire);
             }
 
-            // Clients
-            if ($conf->societe->enabled)
-            {
-                $langs->load("commercial");
-                $newmenu->add("/comm/clients.php?leftmenu=customers", $langs->trans("ListCustomersShort"), 1, $user->rights->societe->lire);
-
-                $newmenu->add("/societe/soc.php?leftmenu=customers&amp;action=create&amp;type=c", $langs->trans("MenuNewCustomer"), 2, $user->rights->societe->creer);
-                //$newmenu->add("/contact/index.php?leftmenu=customers&amp;type=c", $langs->trans("Contacts"), 2, $user->rights->societe->contact->lire);
-            }
-
-            // Fournisseurs
-            if ($conf->societe->enabled && $conf->fournisseur->enabled)
-            {
-                $langs->load("suppliers");
-                $newmenu->add("/fourn/liste.php?leftmenu=suppliers", $langs->trans("ListSuppliersShort"), 1, $user->rights->societe->lire && $user->rights->fournisseur->lire);
-
-                if ($user->societe_id == 0)
-                {
-                    $newmenu->add("/societe/soc.php?leftmenu=suppliers&amp;action=create&amp;type=f",$langs->trans("MenuNewSupplier"), 2, $user->rights->societe->creer && $user->rights->fournisseur->lire);
-                }
-                //$newmenu->add("/fourn/liste.php?leftmenu=suppliers", $langs->trans("List"), 2, $user->rights->societe->lire && $user->rights->fournisseur->lire);
-                //$newmenu->add("/contact/index.php?leftmenu=suppliers&amp;type=f",$langs->trans("Contacts"), 2, $user->rights->societe->lire && $user->rights->fournisseur->lire && $user->rights->societe->contact->lire);
-            }
-
-            // Contacts
-            $newmenu->add("/contact/index.php?leftmenu=contacts", $langs->trans("ContactsAddresses"), 0, $user->rights->societe->contact->lire);
-            $newmenu->add("/contact/fiche.php?leftmenu=contacts&amp;action=create", $langs->trans("NewContact"), 1, $user->rights->societe->contact->creer);
-            $newmenu->add("/contact/index.php?leftmenu=contacts", $langs->trans("List"), 1, $user->rights->societe->contact->lire);
-            $newmenu->add("/contact/index.php?leftmenu=contacts&type=p", $langs->trans("Prospects"), 2, $user->rights->societe->contact->lire);
-            $newmenu->add("/contact/index.php?leftmenu=contacts&type=c", $langs->trans("Customers"), 2, $user->rights->societe->contact->lire);
-            if ($conf->fournisseur->enabled) $newmenu->add("/contact/index.php?leftmenu=contacts&type=f", $langs->trans("Suppliers"), 2, $user->rights->societe->contact->lire);
-            $newmenu->add("/contact/index.php?leftmenu=contacts&type=o", $langs->trans("Others"), 2, $user->rights->societe->contact->lire);
-            //$newmenu->add("/contact/index.php?userid=$user->id", $langs->trans("MyContacts"), 1, $user->rights->societe->contact->lire);
+            // Correspondants
+            $newmenu->add("/contact/index.php?leftmenu=contacts", $langs->trans("Correspondants"), 0, $user->rights->societe->contact->lire);
+            $newmenu->add("/contact/fiche.php?leftmenu=contacts&amp;action=create&type=o", $langs->trans("NewContact"), 1, $user->rights->societe->contact->creer);
+            $newmenu->add("/contact/index.php?leftmenu=contacts&type=o", $langs->trans("List"), 1, $user->rights->societe->contact->lire);
 
             // Categories
             if ($conf->categorie->enabled)
@@ -870,24 +795,24 @@ function print_left_cabinetmed_menu($db,$menu_array_before,$menu_array_after)
 
 
         /*
-         * Menu COMPTA-FINANCIAL
+         * Menu Consultations (Factures)
          */
         if ($mainmenu == 'accountancy')
         {
             $langs->load("companies");
+            $langs->load("cabinetmed@cabinetmed");
 
             // Customers invoices
             if ($conf->facture->enabled)
             {
                 $langs->load("bills");
-                $newmenu->add("/compta/facture.php?leftmenu=customers_bills",$langs->trans("BillsCustomers"),0,$user->rights->facture->lire);
+                $newmenu->add("/cabinetmed/xxx.php?leftmenu=customers_bills",$langs->trans("Consultations"),0,$user->rights->facture->lire);
                 if ($user->societe_id == 0)
                 {
-                    $newmenu->add("/compta/clients.php?action=facturer&amp;leftmenu=customers_bills",$langs->trans("NewBill"),1,$user->rights->facture->creer);
+                    $newmenu->add("/cabinetmed/xxx.php?action=create&amp;leftmenu=customers_bills",$langs->trans("NewConsultation"),1,$user->rights->facture->creer);
                 }
-                $newmenu->add("/compta/facture/fiche-rec.php?leftmenu=customers_bills",$langs->trans("Repeatables"),1,$user->rights->facture->lire);
 
-                $newmenu->add("/compta/facture/impayees.php?leftmenu=customers_bills",$langs->trans("Unpaid"),1,$user->rights->facture->lire);
+                //$newmenu->add("/compta/facture/impayees.php?leftmenu=customers_bills",$langs->trans("Unpaid"),1,$user->rights->facture->lire);
 
                 $newmenu->add("/compta/paiement/liste.php?leftmenu=customers_bills_payments",$langs->trans("Payments"),1,$user->rights->facture->lire);
 
@@ -897,7 +822,7 @@ function print_left_cabinetmed_menu($db,$menu_array_before,$menu_array_after)
                 }
                 $newmenu->add("/compta/paiement/rapport.php?leftmenu=customers_bills_payments",$langs->trans("Reportings"),2,$user->rights->facture->lire);
 
-                $newmenu->add("/compta/facture/stats/index.php?leftmenu=customers_bills", $langs->trans("Statistics"),1,$user->rights->facture->lire);
+                //$newmenu->add("/compta/facture/stats/index.php?leftmenu=customers_bills", $langs->trans("Statistics"),1,$user->rights->facture->lire);
             }
 
             // Suppliers
