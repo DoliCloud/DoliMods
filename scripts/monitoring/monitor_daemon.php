@@ -1,4 +1,3 @@
-#/usr/bin/php
 <?php
 /* Copyright (C) 2006      Rodolphe Quiedeville <rodolphe@quiedeville.org>
  * Copyright (C) 2007-2009 Laurent Destailleur  <eldy@users.sourceforge.net>
@@ -22,7 +21,7 @@
  *	\file       	scripts/monitor/monitor_daemon.php
  *	\ingroup    	monitor
  *	\brief      	Script to execute monitor daemon
- *	\version		$Id: monitor_daemon.php,v 1.1 2011/01/23 01:05:41 eldy Exp $
+ *	\version		$Id: monitor_daemon.php,v 1.2 2011/01/23 12:50:06 eldy Exp $
  */
 
 $sapi_type = php_sapi_name();
@@ -36,21 +35,23 @@ if (substr($sapi_type, 0, 3) == 'cgi') {
 }
 
 // Global variables
-$version='$Revision: 1.1 $';
+$version='$Revision: 1.2 $';
 $error=0;
-
 // Include Dolibarr environment
 $res=0;
 if (! $res && file_exists($path."../../htdocs/master.inc.php")) $res=@include($path."../../htdocs/master.inc.php");
 if (! $res && file_exists("../master.inc.php")) $res=@include("../master.inc.php");
 if (! $res && file_exists("../../master.inc.php")) $res=@include("../../master.inc.php");
+if (! $res && file_exists($path."../../../dolibarr/htdocs/master.inc.php")) $res=@include($path."../../../dolibarr/htdocs/master.inc.php");
 if (! $res && file_exists("../../../dolibarr/htdocs/master.inc.php")) $res=@include("../../../dolibarr/htdocs/master.inc.php");     // Used on dev env only
 if (! $res && file_exists("../../../../dolibarr/htdocs/master.inc.php")) $res=@include("../../../../dolibarr/htdocs/master.inc.php");   // Used on dev env only
 if (! $res && file_exists("../../../../../dolibarr/htdocs/master.inc.php")) $res=@include("../../../../../dolibarr/htdocs/master.inc.php");   // Used on dev env only
 if (! $res) die("Include of master fails");
 // After this $db, $mysoc, $langs and $conf->entity are defined. Opened handler to database will be closed at end of file.
 
+
 // -------------------- START OF YOUR CODE HERE --------------------
+include_once(DOL_DOCUMENT_ROOT."/lib/files.lib.php");
 dol_include_once("/monitoring/lib/monitoring.lib.php");
 
 //$langs->setDefaultLang('en_US'); 	// To change default language of $langs
@@ -74,7 +75,6 @@ print '--- start'."\n";
 //print 'Argument 2='.$argv[2]."\n";
 
 $verbose = 0;
-
 for ($i = 1 ; $i < sizeof($argv) ; $i++)
 {
 	if ($argv[$i] == "-v")
@@ -101,11 +101,15 @@ if ($result < 0)
 
 // Define url to scan
 $listofurls=array(
-0=>array('code'=>'test1','url'=>'http://localhost','keytovalidate'=>'rr'),
+0=>array('code'=>'test1','url'=>'http://localhost','keytovalidate'=>'It works!','max'=>100),
+1=>array('code'=>'test2','url'=>'http://localhost/xxx','keytovalidate'=>'It works!','max'=>100),
 );
 
+$nbok=0;
+$nbko=0;
+$frequency=5;	// seconds
+$maxloop=0;
 
-$frequency=5;
 // Create rrd if not exists
 foreach($listofurls as $object)
 {
@@ -114,72 +118,126 @@ foreach($listofurls as $object)
 	$error=0;
 	create_exdir($conf->monitoring->dir_output.'/'.$object['code']);
 
-	$step=$frequency;
-	$opts = array( "--step", $step,
-           "DS:ds1:GAUGE:".($step*2).":0:100",
-           "DS:ds2:GAUGE:".($step*2).":0:100",
-           "RRA:AVERAGE:0.5:1:".(3600/$step),
-           "RRA:AVERAGE:0.5:".(60/$step).":1440",
-           "RRA:AVERAGE:0.5:".(3600/$step).":168",
-           "RRA:AVERAGE:0.5:".(3600/$step).":744",
-           "RRA:AVERAGE:0.5:".(86400/$step).":365",
-           "RRA:MAX:0.5:1:".(3600/$step),
-           "RRA:MAX:0.5:".(60/$step).":1440",
-           "RRA:MAX:0.5:".(3600/$step).":168",
-           "RRA:MAX:0.5:".(3600/$step).":744",
-           "RRA:MAX:0.5:".(86400/$step).":365",
-           "RRA:MIN:0.5:1:".(3600/$step),
-           "RRA:MIN:0.5:".(60/$step).":1440",
-           "RRA:MIN:0.5:".(3600/$step).":168",
-           "RRA:MIN:0.5:".(3600/$step).":744",
-           "RRA:MIN:0.5:".(86400/$step).":365",
-	);
-
-	$ret = rrd_create($fname, $opts, count($opts));
-	$resout=file_get_contents($fname.'.out');
-	if (strlen($resout) < 10)
+	if (! dol_is_file($conf->monitoring->dir_output.'/'.$object['code'].'/monitoring.rrd'))
 	{
-		$mesg='<div class="ok">'.$langs->trans("File ".$fname.' created').'</div>';
-	}
-	else
-	{
-		$error++;
-		$err = rrd_error($fname);
-		$mesg="Create error: $err\n";
-	}
-}
-
-if (! $error)
-{
-	foreach($listofurls as $object)
-	{
-		$ch = curl_init();
-		curl_setopt($ch, CURLOPT_URL,$object['url']);
-		//curl_setopt($ch, CURLOPT_URL,"http://www.j1b.org/");
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
-		curl_setopt($ch, CURLOPT_FAILONERROR, 1);
-		@curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 0);
-		curl_setopt($ch, CURLOPT_TIMEOUT, 5);
-		//curl_setopt($ch, CURLOPT_POST, 0);
-		//curl_setopt($ch, CURLOPT_POSTFIELDS, "a=3&b=5");
-		//--- Start buffering
-		//ob_start();
-		$result=curl_exec ($ch);
-		dol_syslog($result);
-		//--- End buffering and clean output
-		//ob_end_clean();
-		if (curl_error($ch) > 0)
+		$step=$frequency;
+		$opts = array( "--step", $step,
+	           "DS:ds1:GAUGE:".($step*2).":0:100",
+	           "DS:ds2:GAUGE:".($step*2).":0:100",
+	           "RRA:AVERAGE:0.5:1:".(3600/$step),
+	           "RRA:AVERAGE:0.5:".(60/$step).":1440",
+	           "RRA:AVERAGE:0.5:".(3600/$step).":168",
+	           "RRA:AVERAGE:0.5:".(3600/$step).":744",
+	           "RRA:AVERAGE:0.5:".(86400/$step).":365",
+	           "RRA:MAX:0.5:1:".(3600/$step),
+	           "RRA:MAX:0.5:".(60/$step).":1440",
+	           "RRA:MAX:0.5:".(3600/$step).":168",
+	           "RRA:MAX:0.5:".(3600/$step).":744",
+	           "RRA:MAX:0.5:".(86400/$step).":365",
+	           "RRA:MIN:0.5:1:".(3600/$step),
+	           "RRA:MIN:0.5:".(60/$step).":1440",
+	           "RRA:MIN:0.5:".(3600/$step).":168",
+	           "RRA:MIN:0.5:".(3600/$step).":744",
+	           "RRA:MIN:0.5:".(86400/$step).":365",
+		);
+	
+		$ret = rrd_create($fname, $opts, count($opts));
+		$resout=file_get_contents($fname.'.out');
+		if (strlen($resout) < 10)
 		{
-			// error
-			return 0;
+			$mesg='<div class="ok">'.$langs->trans("File ".$fname.' created').'</div>';
 		}
-		curl_close ($ch);
+		else
+		{
+			$error++;
+			$err = rrd_error($fname);
+			$mesg="Create error: $err\n";
+		}
 	}
 }
 
 if (! $error)
 {
-	print '--- end ok'."\n";
+	while(! $error && (empty($maxloop) || $nbloop < $maxloop))
+	{
+		$nbloop++;
+		
+		foreach($listofurls as $object)
+		{
+			$fname = $conf->monitoring->dir_output.'/'.$object['code'].'/monitoring.rrd';
+			
+			$ch = curl_init();
+			curl_setopt($ch, CURLOPT_URL,$object['url']);
+			//curl_setopt($ch, CURLOPT_URL,"http://www.j1b.org/");
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
+			curl_setopt($ch, CURLOPT_FAILONERROR, 1);
+			@curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 0);
+			curl_setopt($ch, CURLOPT_TIMEOUT, $frequency);
+			//curl_setopt($ch, CURLOPT_POST, 0);
+			//curl_setopt($ch, CURLOPT_POSTFIELDS, "a=3&b=5");
+			//--- Start buffering
+			//ob_start();
+			list($usec, $sec) = explode(" ", microtime());
+			$micro_start_time=((float)$usec + (float)$sec);
+			$result=curl_exec($ch);
+			list($usec, $sec) = explode(" ", microtime());
+			$micro_end_time=((float)$usec + (float)$sec);
+			dol_syslog($result);
+			//--- End buffering and clean output
+			//ob_end_clean();
+			
+			$value1='U';
+			$value2='U';
+			if (curl_error($ch) > 0)	// Test with no response
+			{
+				$value1='U';
+				$value2='U';
+				$nbko++;
+			}
+			else
+			{
+				//var_dump($result);
+				if (preg_match('/'.preg_quote($object['keytovalidate']).'/',$result))
+				{	// Test ok
+					$value1orig=($micro_end_time-$micro_start_time);
+					$value1=round($value1orig*1000);
+					$value2='U';
+					$nbok++;
+				}
+				else
+				{	// Test ko
+					$value1='U';
+					$value2=round($object['max']);
+					$nbko++;
+				}
+			}
+			
+			curl_close ($ch);
+			
+			print 'Loop '.$nbloop.': '.$object['code'].' '.$micro_start_time.' '.$value1orig.'->'.$value1.':'.$value2."\n";
+			$stringupdate='N:'.$value1.':'.$value2;
+			$ret = rrd_update($fname, $stringupdate);
+		
+			if( $ret > 0)
+			{
+				$mesg='<div class="ok">'.$langs->trans("File ".$fname.' completed with random values '.$val1.' for graph 1 and '.$val2.' for graph 2').'</div>';
+			}
+			else
+			{
+				$error++;
+				$err = rrd_error($fname);
+				$mesg="Update error: $err\n";
+			}
+		}
+		
+		// Add delay
+		sleep($frequency);
+	}
+}
+
+if (! $error)
+{
+	print '--- end ok:'.$nbok.' ko:'.$nbko."\n";
 }
 else
 {
