@@ -26,7 +26,7 @@
  *      \file       htdocs/includes/modules/modCabinetMed.class.php
  *      \ingroup    cabinetmed
  *      \brief      Description and activation file for module CabinetMed
- *      \version    $Id: modCabinetMed.class.php,v 1.2 2011/01/23 16:41:12 eldy Exp $
+ *      \version    $Id: modCabinetMed.class.php,v 1.3 2011/01/23 21:26:28 eldy Exp $
  */
 include_once(DOL_DOCUMENT_ROOT ."/includes/modules/DolibarrModules.class.php");
 
@@ -42,6 +42,8 @@ class modCabinetMed extends DolibarrModules
      */
     function modCabinetMed($DB)
     {
+        global $langs,$conf;
+
         $this->db = $DB;
 
         // Id for module (must be unique).
@@ -91,7 +93,8 @@ class modCabinetMed extends DolibarrModules
         //                            1=>array('MODULE_MY_NEW_CONST2','chaine','myvalue','This is another constant to add',0) );
 
         // Array to add new pages in new tabs
-        $this->tabs = array();
+        $this->tabs = array('thirdparty:Antécédents:@cabinetmed:/cabinetmed/antecedant.php?id=__ID__',
+        'thirdparty:Traitements et allergies:@cabinetmed:/cabinetmed/traitetallergies.php?id=__ID__');
         // where entity can be
         // 'thirdparty'       to add a tab in third party view
         // 'intervention'     to add a tab in intervention view
@@ -103,6 +106,19 @@ class modCabinetMed extends DolibarrModules
         // 'propal'           to add a tab in propal view
         // 'member'           to add a tab in fundation member view
 
+        // Dictionnaries
+        $this->dictionnaries=array(
+            'langs'=>'cabinetmed@cabinetmed',
+            'tabname'=>array(MAIN_DB_PREFIX."cabinetmed_diaglec",MAIN_DB_PREFIX."cabinetmed_examenprescrit",MAIN_DB_PREFIX."cabinetmed_motifcons"),
+            'tablib'=>array("MotifConsultation","DiagnostiqueLesionnel","ExamenPrescrit"),
+            'tabsql'=>array('SELECT f.rowid as rowid, f.code, f.label, f.active FROM '.MAIN_DB_PREFIX.'cabinetmed_diaglec as f','SELECT f.rowid as rowid, f.code, f.label, f.active FROM '.MAIN_DB_PREFIX.'cabinetmed_examenprescrit as f','SELECT f.rowid as rowid, f.code, f.label, f.active FROM '.MAIN_DB_PREFIX.'cabinetmed_motifcons as f'),
+            'tabsqlsort'=>array("label ASC","label ASC","label ASC"),
+            'tabfield'=>array("code,label","code,label","code,label"),
+            'tabfieldvalue'=>array("code,label","code,label","code,label"),
+            'tabfieldinsert'=>array("code,label","code,label","code,label"),
+            'tabrowid'=>array("rowid","rowid","rowid"),
+            'tabcond'=>array($conf->cabinetmed->enabled,$conf->cabinetmed->enabled,$conf->cabinetmed->enabled)
+        );
 
         // Boxes
         $this->boxes = array();         // List of boxes
