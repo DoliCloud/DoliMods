@@ -1,0 +1,16 @@
+# Dolibarr language file - en_EN - awstats
+CHARSET= UTF-8
+RrdSetup=Monitoring module setup
+RrdSetupNotComplete=Monitoring module setup is not complete
+RRD_COMMANDLINE_TOOL=Path to the rrdtool programm
+Module103100Name=Monitoring
+Module103100Desc=Module to add monitoring of external systems features
+ManualTestDesc=You can find here button actions to test all cycle for create and update a rrd database file and show rrd graphicss
+CreateATestGraph=Create/Reset the RRD test Graph
+AddValueToTestGraph=Add value to RRD test Graph
+BuildTestGraph=Refresh RRD test Graph
+LastHour=Last hour
+LastDay=Last day
+LastWeek=Last week
+LastMonth=Last month
+LastYear=Last year
