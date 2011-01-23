@@ -20,7 +20,7 @@
 /**
  *  \file           htdocs/scanner/index.php
  *  \brief          Main page of scanner module
- *  \version        $Id: index.php,v 1.8 2011/01/16 16:56:12 eldy Exp $
+ *  \version        $Id: index.php,v 1.9 2011/01/23 16:23:38 eldy Exp $
  */
 
 if (! defined('NOCSRFCHECK')) define('NOCSRFCHECK',1);
@@ -33,6 +33,7 @@ if (! $res && file_exists("../../../../dolibarr/htdocs/main.inc.php")) $res=@inc
 if (! $res && file_exists("../../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
 if (! $res) die("Include of main fails");
 include_once(DOL_DOCUMENT_ROOT."/core/class/html.formfile.class.php");
+include_once(DOL_DOCUMENT_ROOT."/lib/files.lib.php");
 include_once("./functions.php");
 include_once("./config.php");        // We can't use dol_include once for this because it set global variables used into this page, so we use relateive path
 
@@ -387,7 +388,7 @@ else
     }
     else
     {
-        print  "<IMG src=\"".dol_builpath('/scanner/images/scan.jpg',1)."\" width=\"$PREVIEW_WIDTH_PX\" height=\"$PREVIEW_HEIGHT_PX\" name=\"Preview\"><br>\n";
+        print  "<IMG src=\"".dol_buildpath('/scanner/images/scan.jpg',1)."\" width=\"$PREVIEW_WIDTH_PX\" height=\"$PREVIEW_HEIGHT_PX\" name=\"Preview\"><br>\n";
     }
     print  "</td>\n";
 
