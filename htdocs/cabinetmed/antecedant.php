@@ -23,7 +23,7 @@
  *   \file       htdocs/cabinetmed/antecedant.php
  *   \brief      Tab for antecedants
  *   \ingroup    societe
- *   \version    $Id: antecedant.php,v 1.2 2011/01/24 22:46:56 eldy Exp $
+ *   \version    $Id: antecedant.php,v 1.3 2011/01/24 23:38:20 eldy Exp $
  */
 
 $res=0;
@@ -81,7 +81,7 @@ if ($socid > 0)
 
 	$head = societe_prepare_head($societe);
 
-	dol_fiche_head($head, 'tabAntecedents', $langs->trans("ThirdParty"),0,'company');
+	dol_fiche_head($head, 'tabantecedents', $langs->trans("ThirdParty"),0,'company');
 
 
 	print "<form method=\"post\" action=\"".$_SERVER["PHP_SELF"]."\">";
@@ -240,5 +240,5 @@ if ($_GET["action"] == '')
 
 $db->close();
 
-llxFooter('$Date: 2011/01/24 22:46:56 $ - $Revision: 1.2 $');
+llxFooter('$Date: 2011/01/24 23:38:20 $ - $Revision: 1.3 $');
 ?>
