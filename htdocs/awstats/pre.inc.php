@@ -8,12 +8,11 @@
  *		\file 		htdocs/awstats/pre.inc.php
  *		\ingroup    awstats
  *		\brief      File to manage left menu for awstats module
- *		\version    $Id: pre.inc.php,v 1.10 2011/01/16 14:38:46 eldy Exp $
+ *		\version    $Id: pre.inc.php,v 1.11 2011/01/24 22:12:17 eldy Exp $
  */
 
 if (! defined('NOCSRFCHECK')) define('NOCSRFCHECK',1);
 
-$res=0;
 $res=0;
 if (! $res && file_exists("../main.inc.php")) $res=@include("../main.inc.php");
 if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.php");
