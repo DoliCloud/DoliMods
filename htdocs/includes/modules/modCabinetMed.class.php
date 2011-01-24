@@ -26,7 +26,7 @@
  *      \file       htdocs/includes/modules/modCabinetMed.class.php
  *      \ingroup    cabinetmed
  *      \brief      Description and activation file for module CabinetMed
- *      \version    $Id: modCabinetMed.class.php,v 1.6 2011/01/24 22:46:56 eldy Exp $
+ *      \version    $Id: modCabinetMed.class.php,v 1.7 2011/01/24 23:36:36 eldy Exp $
  */
 include_once(DOL_DOCUMENT_ROOT ."/includes/modules/DolibarrModules.class.php");
 
@@ -93,8 +93,9 @@ class modCabinetMed extends DolibarrModules
         //                            1=>array('MODULE_MY_NEW_CONST2','chaine','myvalue','This is another constant to add',0) );
 
         // Array to add new pages in new tabs
-        $this->tabs = array('thirdparty:Antecedents:@cabinetmed:/cabinetmed/antecedant.php?socid=__ID__',
-        'thirdparty:TraitEtAllergies:@cabinetmed:/cabinetmed/traitetallergies.php?socid=__ID__');
+        $this->tabs = array('thirdparty:+tabantecedents:Antecedents:@cabinetmed:/cabinetmed/antecedant.php?socid=__ID__',
+                            'thirdparty:+tabtraitetallergies:TraitEtAllergies:@cabinetmed:/cabinetmed/traitetallergies.php?socid=__ID__',
+                            'thirdparty:-customer');
         // where entity can be
         // 'thirdparty'       to add a tab in third party view
         // 'intervention'     to add a tab in intervention view
