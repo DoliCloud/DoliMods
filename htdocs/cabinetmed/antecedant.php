@@ -23,7 +23,7 @@
  *   \file       htdocs/cabinetmed/antecedant.php
  *   \brief      Tab for antecedants
  *   \ingroup    societe
- *   \version    $Id: antecedant.php,v 1.1 2011/01/24 22:12:17 eldy Exp $
+ *   \version    $Id: antecedant.php,v 1.2 2011/01/24 22:46:56 eldy Exp $
  */
 
 $res=0;
@@ -59,6 +59,7 @@ if ($_POST["action"] == 'add')
   $socid = $_GET["socid"];
 }
 
+
 /*
  *	View
  */
@@ -67,7 +68,6 @@ $form = new Form($db);
 
 llxHeader();
 
-print 'xxxxxxxxxxxxxxxxxx'.$socid;
 
 if ($socid > 0)
 {
@@ -81,15 +81,15 @@ if ($socid > 0)
 
 	$head = societe_prepare_head($societe);
 
-	dol_fiche_head($head, 'note', $langs->trans("ThirdParty"),0,'company');
+	dol_fiche_head($head, 'tabAntecedents', $langs->trans("ThirdParty"),0,'company');
 
 
-	print "<form method=\"post\" action=\"".DOL_URL_ROOT."/societe/socnote.php\">";
+	print "<form method=\"post\" action=\"".$_SERVER["PHP_SELF"]."\">";
 	print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
 
 	print '<table class="border" width="100%">';
 
-	print '<tr><td width="20%">'.$langs->trans('Name').'</td>';
+	print '<tr><td width="25%">'.$langs->trans('Name').'</td>';
 	print '<td colspan="3">';
 	print $form->showrefnav($societe,'socid','',($user->societe_id?0:1),'rowid','nom');
 	print '</td></tr>';
@@ -115,6 +115,8 @@ if ($socid > 0)
     }
 
 
+    $height=180;
+
     print '<tr><td valign="top">'.$langs->trans("AntecedentsMed").'</td>';
     print '<td valign="top">';
     if ($action == 'edit' && $user->rights->societe->creer)
@@ -124,12 +126,12 @@ if ($socid > 0)
 
         // Editeur wysiwyg
         require_once(DOL_DOCUMENT_ROOT."/lib/doleditor.class.php");
-        $doleditor=new DolEditor('note_antemed',$societe->note,280,'dolibarr_notes','In',true,false,$conf->fckeditor->enabled && $conf->global->FCKEDITOR_ENABLE_SOCIETE,10,70);
+        $doleditor=new DolEditor('note_antemed',$societe->note_antemed,$height,'dolibarr_notes','In',true,false,$conf->fckeditor->enabled && $conf->global->FCKEDITOR_ENABLE_SOCIETE,10,70);
         $doleditor->Create();
     }
     else
     {
-        print nl2br($societe->note);
+        print nl2br($societe->note_antemed);
     }
     print "</td></tr>";
 
@@ -142,12 +144,12 @@ if ($socid > 0)
 
         // Editeur wysiwyg
         require_once(DOL_DOCUMENT_ROOT."/lib/doleditor.class.php");
-        $doleditor=new DolEditor('note_antechirgen',$societe->note,280,'dolibarr_notes','In',true,false,$conf->fckeditor->enabled && $conf->global->FCKEDITOR_ENABLE_SOCIETE,10,70);
+        $doleditor=new DolEditor('note_antechirgen',$societe->note_antechirgen,$height,'dolibarr_notes','In',true,false,$conf->fckeditor->enabled && $conf->global->FCKEDITOR_ENABLE_SOCIETE,10,70);
         $doleditor->Create();
     }
     else
     {
-        print nl2br($societe->note);
+        print nl2br($societe->note_antechirgen);
     }
     print "</td></tr>";
 
@@ -160,12 +162,12 @@ if ($socid > 0)
 
         // Editeur wysiwyg
         require_once(DOL_DOCUMENT_ROOT."/lib/doleditor.class.php");
-        $doleditor=new DolEditor('note_antechirortho',$societe->note,280,'dolibarr_notes','In',true,false,$conf->fckeditor->enabled && $conf->global->FCKEDITOR_ENABLE_SOCIETE,10,70);
+        $doleditor=new DolEditor('note_antechirortho',$societe->note_antechirortho,$height,'dolibarr_notes','In',true,false,$conf->fckeditor->enabled && $conf->global->FCKEDITOR_ENABLE_SOCIETE,10,70);
         $doleditor->Create();
     }
     else
     {
-        print nl2br($societe->note);
+        print nl2br($societe->note_antechirortho);
     }
     print "</td></tr>";
 
@@ -178,12 +180,12 @@ if ($socid > 0)
 
         // Editeur wysiwyg
         require_once(DOL_DOCUMENT_ROOT."/lib/doleditor.class.php");
-        $doleditor=new DolEditor('note_anterhum',$societe->note,280,'dolibarr_notes','In',true,false,$conf->fckeditor->enabled && $conf->global->FCKEDITOR_ENABLE_SOCIETE,10,70);
+        $doleditor=new DolEditor('note_anterhum',$societe->note_anterhum,$height,'dolibarr_notes','In',true,false,$conf->fckeditor->enabled && $conf->global->FCKEDITOR_ENABLE_SOCIETE,10,70);
         $doleditor->Create();
     }
     else
     {
-        print nl2br($societe->note);
+        print nl2br($societe->note_anterhum);
     }
     print "</td></tr>";
 
@@ -196,12 +198,12 @@ if ($socid > 0)
 
         // Editeur wysiwyg
         require_once(DOL_DOCUMENT_ROOT."/lib/doleditor.class.php");
-        $doleditor=new DolEditor('note_other',$societe->note,280,'dolibarr_notes','In',true,false,$conf->fckeditor->enabled && $conf->global->FCKEDITOR_ENABLE_SOCIETE,10,70);
+        $doleditor=new DolEditor('note_other',$societe->note_other,$height,'dolibarr_notes','In',true,false,$conf->fckeditor->enabled && $conf->global->FCKEDITOR_ENABLE_SOCIETE,10,70);
         $doleditor->Create();
     }
     else
     {
-        print nl2br($societe->note);
+        print nl2br($societe->note_other);
     }
     print "</td></tr>";
 
@@ -238,5 +240,5 @@ if ($_GET["action"] == '')
 
 $db->close();
 
-llxFooter('$Date: 2011/01/24 22:12:17 $ - $Revision: 1.1 $');
+llxFooter('$Date: 2011/01/24 22:46:56 $ - $Revision: 1.2 $');
 ?>

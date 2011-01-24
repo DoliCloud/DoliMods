@@ -23,7 +23,7 @@
  *   \file       htdocs/cabinetmed/traitetallergies.php
  *   \brief      Tab for trait et allergies
  *   \ingroup    societe
- *   \version    $Id: traitetallergies.php,v 1.1 2011/01/24 22:12:17 eldy Exp $
+ *   \version    $Id: traitetallergies.php,v 1.2 2011/01/24 22:46:56 eldy Exp $
  */
 
 $res=0;
@@ -80,15 +80,15 @@ if ($socid > 0)
 
 	$head = societe_prepare_head($societe);
 
-	dol_fiche_head($head, 'note', $langs->trans("ThirdParty"),0,'company');
+	dol_fiche_head($head, 'tabTraitEtAllergies', $langs->trans("ThirdParty"),0,'company');
 
 
-	print "<form method=\"post\" action=\"".DOL_URL_ROOT."/societe/socnote.php\">";
+	print "<form method=\"post\" action=\"".$_SERVER["PHP_SELF"]."\">";
 	print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
 
 	print '<table class="border" width="100%">';
 
-	print '<tr><td width="20%">'.$langs->trans('Name').'</td>';
+	print '<tr><td width="25%">'.$langs->trans('Name').'</td>';
 	print '<td colspan="3">';
 	print $form->showrefnav($societe,'socid','',($user->societe_id?0:1),'rowid','nom');
 	print '</td></tr>';
@@ -162,5 +162,5 @@ if ($_GET["action"] == '')
 
 $db->close();
 
-llxFooter('$Date: 2011/01/24 22:12:17 $ - $Revision: 1.1 $');
+llxFooter('$Date: 2011/01/24 22:46:56 $ - $Revision: 1.2 $');
 ?>
