@@ -19,7 +19,7 @@
 /**
  *		\file       htdocs/theme/phones/smartphone/theme/default/default.css.php
  *		\brief      Fichier de style CSS du theme Smartphone default
- *		\version    $Id: default.css.php,v 1.1 2011/01/24 21:18:46 eldy Exp $
+ *		\version    $Id: default.css.php,v 1.2 2011/01/25 01:31:07 eldy Exp $
  */
 
 if (! defined('NOTOKENRENEWAL')) define('NOTOKENRENEWAL','1'); // Disables token renewal
@@ -29,6 +29,8 @@ if (! defined('NOREQUIREAJAX'))  define('NOREQUIREAJAX','1');
 if (! defined('NOREQUIRESOC'))   define('NOREQUIRESOC','1');
 //if (! defined('NOREQUIRETRAN'))  define('NOREQUIRETRAN','1'); // We need to use translation files to know direction
 if (! defined('NOREQUIREDB'))    define('NOREQUIREDB','1');
+
+session_cache_limiter( FALSE );
 
 require_once("../../../../../master.inc.php");
 

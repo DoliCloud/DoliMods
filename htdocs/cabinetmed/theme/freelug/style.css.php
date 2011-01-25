@@ -20,7 +20,7 @@
 /**
  *		\file       htdocs/theme/freelug/style.css.php
  *		\brief      Fichier de style CSS du theme Freelug
- *		\version    $Id: style.css.php,v 1.1 2011/01/24 21:18:46 eldy Exp $
+ *		\version    $Id: style.css.php,v 1.2 2011/01/25 01:31:07 eldy Exp $
  */
 
 //if (! defined('NOREQUIREUSER')) define('NOREQUIREUSER','1');	// Not disabled cause need to load personalized language
@@ -34,6 +34,7 @@ if (! defined('NOREQUIREMENU'))   define('NOREQUIREMENU',1);
 if (! defined('NOREQUIREHTML'))   define('NOREQUIREHTML',1);
 if (! defined('NOREQUIREAJAX'))   define('NOREQUIREAJAX','1');
 
+session_cache_limiter( FALSE );
 
 require_once("../../main.inc.php");
 require_once(DOL_DOCUMENT_ROOT."/lib/functions.lib.php");
