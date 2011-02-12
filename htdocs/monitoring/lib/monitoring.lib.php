@@ -21,7 +21,7 @@
  *  \file       htdocs/monitoring/lib/monitoring.lib.php
  *  \brief      Ensemble de fonctions de base pour le module Monitoring
  *  \ingroup    monitoring
- *  \version    $Id: monitoring.lib.php,v 1.3 2011/01/23 12:50:02 eldy Exp $
+ *  \version    $Id: monitoring.lib.php,v 1.4 2011/02/12 18:36:57 eldy Exp $
  */
 
 $linktohelp='EN:Module_Monitoring_En|FR:Module_Monitoring|ES:Modulo_Monitoring';
@@ -40,18 +40,18 @@ if (! function_exists('rrd_create'))
 		global $conf;
 
 		$outputfile=$fname.'.out';
-		
+
 		// Parameteres execution
 		$command=$conf->global->MONITORING_COMMANDLINE_TOOL;
 		if (preg_match("/\s/",$command)) $command=escapeshellarg($command);	// Use quotes on command
-	
+
 		//$param=escapeshellarg($dolibarr_main_db_name)." -h ".escapeshellarg($dolibarr_main_db_host)." -u ".escapeshellarg($dolibarr_main_db_user)." -p".escapeshellarg($dolibarr_main_db_pass);
-		$param=' create '.$fname.' ';
+		$param=' create "'.$fname.'" ';
 		foreach ($opts as $val)
 		{
 			$param.=$val.' ';
 		}
-	
+
 		$fullcommandclear=$command." ".$param." 2>&1";
 		//print $fullcommandclear;
 
@@ -66,9 +66,9 @@ if (! function_exists('rrd_create'))
 				fwrite($handle,$read);
 			}
 			pclose($handlein);
-	
+
 			fclose($handle);
-	
+
 			if (! empty($conf->global->MAIN_UMASK))
 			{
 				@chmod($outputfile, octdec($conf->global->MAIN_UMASK));
@@ -96,14 +96,14 @@ if (! function_exists('rrd_create'))
 		global $conf;
 
 		$outputfile=$fname.'.out';
-		
+
 		// Parameteres execution
 		$command=$conf->global->MONITORING_COMMANDLINE_TOOL;
 		if (preg_match("/\s/",$command)) $command=escapeshellarg($command);	// Use quotes on command
-	
+
 		//$param=escapeshellarg($dolibarr_main_db_name)." -h ".escapeshellarg($dolibarr_main_db_host)." -u ".escapeshellarg($dolibarr_main_db_user)." -p".escapeshellarg($dolibarr_main_db_pass);
-		$param=' update '.$fname.' '.$val;
-	
+		$param=' update "'.$fname.'" '.$val;
+
 		$fullcommandclear=$command." ".$param." 2>&1";
 		//print $fullcommandclear;
 
@@ -118,9 +118,9 @@ if (! function_exists('rrd_create'))
 				fwrite($handle,$read);
 			}
 			pclose($handlein);
-	
+
 			fclose($handle);
-	
+
 			if (! empty($conf->global->MAIN_UMASK))
 			{
 				@chmod($outputfile, octdec($conf->global->MAIN_UMASK));
@@ -135,8 +135,8 @@ if (! function_exists('rrd_create'))
 			return 0;
 		}
 	}
-	
-	
+
+
 	/**
 	 * Create a RRD file
 	 * @param 		$fname
@@ -149,18 +149,18 @@ if (! function_exists('rrd_create'))
 		global $conf;
 
 		$outputfile=$fileimage.'.out';
-		
+
 		// Parametres execution
 		$command=$conf->global->MONITORING_COMMANDLINE_TOOL;
 		if (preg_match("/\s/",$command)) $command=escapeshellarg($command);	// Use quotes on command
-	
+
 		//$param=escapeshellarg($dolibarr_main_db_name)." -h ".escapeshellarg($dolibarr_main_db_host)." -u ".escapeshellarg($dolibarr_main_db_user)." -p".escapeshellarg($dolibarr_main_db_pass);
-		$param=' graph '.$fileimage.' ';
+		$param=' graph "'.$fileimage.'" ';
 		foreach ($opts as $val)
 		{
 			$param.=$val.' ';
 		}
-	
+
 		//var_dump($opts);
 		$fullcommandclear=$command." ".$param." 2>&1";
 		//print $fullcommandclear;
@@ -176,9 +176,9 @@ if (! function_exists('rrd_create'))
 				fwrite($handle,$read);
 			}
 			pclose($handlein);
-	
+
 			fclose($handle);
-	
+
 			if (! empty($conf->global->MAIN_UMASK))
 			{
 				@chmod($outputfile, octdec($conf->global->MAIN_UMASK));
@@ -194,8 +194,8 @@ if (! function_exists('rrd_create'))
 			return 0;
 		}
 	}
-	
-	
+
+
 	/**
 	 * Show output content
 	 * @param unknown_type $fname

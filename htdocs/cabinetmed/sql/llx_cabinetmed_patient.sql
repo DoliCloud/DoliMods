@@ -15,12 +15,18 @@
 -- along with this program; if not, write to the Free Software
 -- Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 --
--- $Id: llx_cabinetmed_motifcons.sql,v 1.4 2011/02/12 18:36:57 eldy Exp $
+-- $Id: llx_cabinetmed_patient.sql,v 1.1 2011/02/12 18:36:57 eldy Exp $
 -- ===========================================================================
 
-CREATE TABLE llx_cabinetmed_motifcons (
-  rowid             integer AUTO_INCREMENT PRIMARY KEY,
-  code              varchar(8) NOT NULL,
-  label             varchar(64) NOT NULL,
-  active            tinyint DEFAULT 1  NOT NULL
+CREATE TABLE llx_cabinetmed_patient (
+  rowid              integer AUTO_INCREMENT PRIMARY KEY,
+  note_antemed       text,
+  note_antechirgen   text,
+  note_antechirortho text,
+  note_anterhum      text,
+  note_other         text,
+  note_traitclass    text,
+  note_traitallergie text,
+  note_traitintol    text,
+  note_traitspec     text
 ) ENGINE=innodb;

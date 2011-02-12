@@ -20,10 +20,10 @@
  */
 
 /**
- *   \file       htdocs/cabinetmed/traitetallergies.php
- *   \brief      Tab for trait et allergies
+ *   \file       htdocs/cabinetmed/antecedant.php
+ *   \brief      Tab for antecedants
  *   \ingroup    societe
- *   \version    $Id: traitetallergies.php,v 1.3 2011/01/24 23:38:20 eldy Exp $
+ *   \version    $Id: traitetallergies.php,v 1.4 2011/02/12 18:36:57 eldy Exp $
  */
 
 $res=0;
@@ -36,12 +36,14 @@ if (! $res) die("Include of main fails");
 include_once(DOL_DOCUMENT_ROOT."/lib/company.lib.php");
 include_once("./class/patient.class.php");
 
-$action = isset($_GET["action"])?$_GET["action"]:$_POST["action"];
-
 $langs->load("companies");
+$langs->load("cabinetmed@cabinetmed");
+
+$action = GETPOST('action');
+if (empty($action)) $action='edit';
 
 // Security check
-$socid = isset($_GET["socid"])?$_GET["socid"]:$_POST["socid"];
+$socid = GETPOST('socid');
 if ($user->societe_id) $socid=$user->societe_id;
 $result = restrictedArea($user, 'societe', $socid);
 
@@ -50,13 +52,25 @@ $result = restrictedArea($user, 'societe', $socid);
  * Actions
  */
 
-if ($_POST["action"] == 'add')
+if ($action == 'addupdate')
 {
-  $sql = "UPDATE ".MAIN_DB_PREFIX."societe SET note='".addslashes($_POST["note"])."' WHERE rowid=".$_POST["socid"];
-  $result = $db->query($sql);
+    $sql = "INSERT INTO ".MAIN_DB_PREFIX."cabinetmed_patient(rowid, note_traitclass, note_traitallergie, note_traitintol, note_traitspec)";
+    $sql.= " VALUES('".$_POST["socid"]."','".addslashes($_POST["note_traitclass"])."','".addslashes($_POST["note_traitallergie"])."','".addslashes($_POST["note_traitintol"])."',";
+    $sql.= " '".addslashes($_POST["note_traitspec"])."')";
+    $result = $db->query($sql);
+    //if (! $result) dol_print_error($db);
 
-  $_GET["socid"]=$_POST["socid"];   // Pour retour sur fiche
-  $socid = $_GET["socid"];
+    $sql = "UPDATE ".MAIN_DB_PREFIX."cabinetmed_patient SET";
+    $sql.= " note_traitclass='".addslashes($_POST["note_traitclass"])."',";
+    $sql.= " note_traitallergie='".addslashes($_POST["note_traitallergie"])."',";
+    $sql.= " note_traitintol='".addslashes($_POST["note_traitintol"])."',";
+    $sql.= " note_traitspec='".addslashes($_POST["note_traitspec"])."'";
+    $sql.= " WHERE rowid=".$_POST["socid"];
+    $result = $db->query($sql);
+    if (! $result) dol_print_error($db);
+    else $mesg=$langs->trans("RecordModifiedSuccessfully");
+
+    $action='edit';
 }
 
 
@@ -68,32 +82,36 @@ $form = new Form($db);
 
 llxHeader();
 
+
 if ($socid > 0)
 {
-    $societe = new Societe($db, $socid);
-    $societe->fetch($socid);
+    $societe = new Patient($db);
+    $res=$societe->fetch($socid);
 
-	/*
-	 * Affichage onglets
-	 */
+    print $societe->error;
+    $societe->id=$socid;
+
+    /*
+     * Affichage onglets
+     */
     if ($conf->notification->enabled) $langs->load("mails");
 
-	$head = societe_prepare_head($societe);
+    $head = societe_prepare_head($societe);
 
-	dol_fiche_head($head, 'tabtraitetallergies', $langs->trans("ThirdParty"),0,'company');
+    dol_fiche_head($head, 'tabtraitetallergies', $langs->trans("ThirdParty"),0,'company');
 
 
-	print "<form method=\"post\" action=\"".$_SERVER["PHP_SELF"]."\">";
-	print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
+    print "<form method=\"post\" action=\"".$_SERVER["PHP_SELF"]."\">";
+    print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
+    print '<input type="hidden" name="socid" value="'.$societe->id.'">';
+    print '<input type="hidden" name="action" value="addupdate">';
 
-	print '<table class="border" width="100%">';
+    print '<table class="border" width="100%">';
 
-	print '<tr><td width="25%">'.$langs->trans('Name').'</td>';
-	print '<td colspan="3">';
-	print $form->showrefnav($societe,'socid','',($user->societe_id?0:1),'rowid','nom');
-	print '</td></tr>';
-
-    print '<tr><td>'.$langs->trans('Prefix').'</td><td colspan="3">'.$societe->prefix_comm.'</td></tr>';
+    print '<tr><td width="25%">'.$langs->trans('Name').'</td>';
+    print '<td colspan="3">';
+    print $form->showrefnav($societe,'socid','',($user->societe_id?0:1),'rowid','nom');
+    print '</td></tr>';
 
     if ($societe->client)
     {
@@ -104,7 +122,7 @@ if ($socid > 0)
         print '</td></tr>';
     }
 
-    if ($societe->fournisseur)
+    if ($conf->fournisseur->enabled && $societe->fournisseur)
     {
         print '<tr><td>';
         print $langs->trans('SupplierCode').'</td><td colspan="3">';
@@ -113,32 +131,89 @@ if ($socid > 0)
         print '</td></tr>';
     }
 
-	print '<tr><td valign="top">'.$langs->trans("Note").'</td>';
-	print '<td valign="top">';
-	if ($action == 'edit' && $user->rights->societe->creer)
-	{
-		print "<input type=\"hidden\" name=\"action\" value=\"add\">";
-		print "<input type=\"hidden\" name=\"socid\" value=\"".$societe->id."\">";
 
-	    // Editeur wysiwyg
-		require_once(DOL_DOCUMENT_ROOT."/lib/doleditor.class.php");
-		$doleditor=new DolEditor('note',$societe->note,280,'dolibarr_notes','In',true,false,$conf->fckeditor->enabled && $conf->global->FCKEDITOR_ENABLE_SOCIETE,10,70);
-		$doleditor->Create();
-	}
-	else
-	{
-		print nl2br($societe->note);
-	}
-	print "</td></tr>";
+    $conf->fckeditor->enabled=false;
+    $height=140;
 
-	if ($action == 'edit')
-	{
-		print '<tr><td colspan="2" align="center"><input type="submit" class="button" value="'.$langs->trans("Save").'"></td></tr>';
-	}
+    print '<tr height="80"><td valign="top">'.$langs->trans("Classes").'</td>';
+    print '<td valign="top">';
+    if ($action == 'edit' && $user->rights->societe->creer)
+    {
+        print "<input type=\"hidden\" name=\"socid\" value=\"".$societe->id."\">";
 
-	print "</table>";
+        // Editeur wysiwyg
+        require_once(DOL_DOCUMENT_ROOT."/lib/doleditor.class.php");
+        $doleditor=new DolEditor('note_traitclass',$societe->note_traitclass,0,$height,'dolibarr_notes','In',false,false,$conf->fckeditor->enabled && $conf->global->FCKEDITOR_ENABLE_SOCIETE,6,70);
+        $doleditor->Create();
+    }
+    else
+    {
+        print nl2br($societe->note_traitclass);
+    }
+    print "</td></tr>";
 
-	print '</form>';
+    print '<tr height="80"><td valign="top">'.$langs->trans("Allergies").'</td>';
+    print '<td valign="top">';
+    if ($action == 'edit' && $user->rights->societe->creer)
+    {
+        print "<input type=\"hidden\" name=\"socid\" value=\"".$societe->id."\">";
+
+        // Editeur wysiwyg
+        require_once(DOL_DOCUMENT_ROOT."/lib/doleditor.class.php");
+        $doleditor=new DolEditor('note_traitallergie',$societe->note_traitallergie,0,$height,'dolibarr_notes','In',false,false,$conf->fckeditor->enabled && $conf->global->FCKEDITOR_ENABLE_SOCIETE,6,70);
+        $doleditor->Create();
+    }
+    else
+    {
+        print nl2br($societe->note_traitallergie);
+    }
+    print "</td></tr>";
+
+    print '<tr height="80"><td valign="top">'.$langs->trans("Intolerances").'</td>';
+    print '<td valign="top">';
+    if ($action == 'edit' && $user->rights->societe->creer)
+    {
+        print "<input type=\"hidden\" name=\"socid\" value=\"".$societe->id."\">";
+
+        // Editeur wysiwyg
+        require_once(DOL_DOCUMENT_ROOT."/lib/doleditor.class.php");
+        $doleditor=new DolEditor('note_traitintol',$societe->note_traitintol,0,$height,'dolibarr_notes','In',false,false,$conf->fckeditor->enabled && $conf->global->FCKEDITOR_ENABLE_SOCIETE,6,70);
+        $doleditor->Create();
+    }
+    else
+    {
+        print nl2br($societe->note_traitintol);
+    }
+    print "</td></tr>";
+
+    print '<tr height="80"><td valign="top">'.$langs->trans("SpecPharma").'</td>';
+    print '<td valign="top">';
+    if ($action == 'edit' && $user->rights->societe->creer)
+    {
+        print "<input type=\"hidden\" name=\"socid\" value=\"".$societe->id."\">";
+
+        // Editeur wysiwyg
+        require_once(DOL_DOCUMENT_ROOT."/lib/doleditor.class.php");
+        $doleditor=new DolEditor('note_traitspec',$societe->note_traitspec,0,$height,'dolibarr_notes','In',false,false,$conf->fckeditor->enabled && $conf->global->FCKEDITOR_ENABLE_SOCIETE,6,70);
+        $doleditor->Create();
+    }
+    else
+    {
+        print nl2br($societe->note_traitspec);
+    }
+    print "</td></tr>";
+
+
+
+
+    if ($action == 'edit')
+    {
+        print '<tr><td colspan="2" align="center"><input type="submit" class="button" value="'.$langs->trans("Save").'"></td></tr>';
+    }
+
+    print "</table>";
+
+    print '</form>';
 }
 
 print '</div>';
@@ -147,7 +222,7 @@ print '</div>';
 /*
  * Boutons actions
  */
-if ($_GET["action"] == '')
+if ($action == '')
 {
     print '<div class="tabsAction">';
 
@@ -160,7 +235,9 @@ if ($_GET["action"] == '')
 }
 
 
+if ($mesg) dol_htmloutput_mesg($mesg);
+
 $db->close();
 
-llxFooter('$Date: 2011/01/24 23:38:20 $ - $Revision: 1.3 $');
+llxFooter('$Date: 2011/02/12 18:36:57 $ - $Revision: 1.4 $');
 ?>

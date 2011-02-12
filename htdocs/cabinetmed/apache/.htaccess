@@ -1,0 +1,4 @@
+
+RewriteEngine on
+RewriteRule ^/comm/fiche.php$  /societe/soc.php  [L]
+

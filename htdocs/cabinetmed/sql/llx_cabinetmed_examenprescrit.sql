@@ -15,10 +15,10 @@
 -- along with this program; if not, write to the Free Software
 -- Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 --
--- $Id: llx_cabinetmed_examenprescrit.sql,v 1.3 2011/01/23 21:26:28 eldy Exp $
+-- $Id: llx_cabinetmed_examenprescrit.sql,v 1.4 2011/02/12 18:36:57 eldy Exp $
 -- ===========================================================================
 
-CREATE TABLE llx_cabinetmed_motifcons (
+CREATE TABLE llx_cabinetmed_examenprescrit (
   rowid             integer AUTO_INCREMENT PRIMARY KEY,
   code              varchar(8) NOT NULL,
   label             varchar(64) NOT NULL,

@@ -1,6 +1,6 @@
 <?php
 /* Copyright (C) 2003      Rodolphe Quiedeville <rodolphe@quiedeville.org>
- * Copyright (C) 2004-2009 Laurent Destailleur  <eldy@users.sourceforge.net>
+ * Copyright (C) 2004-2011 Laurent Destailleur  <eldy@users.sourceforge.net>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,7 +26,7 @@
  *      \file       htdocs/includes/modules/modCabinetMed.class.php
  *      \ingroup    cabinetmed
  *      \brief      Description and activation file for module CabinetMed
- *      \version    $Id: modCabinetMed.class.php,v 1.7 2011/01/24 23:36:36 eldy Exp $
+ *      \version    $Id: modCabinetMed.class.php,v 1.8 2011/02/12 18:36:57 eldy Exp $
  */
 include_once(DOL_DOCUMENT_ROOT ."/includes/modules/DolibarrModules.class.php");
 
@@ -75,7 +75,7 @@ class modCabinetMed extends DolibarrModules
         $r=0;
 
         // Relative path to module style sheet if exists. Example: '/cabinetmed/mycss.css'.
-        $this->style_sheet = '';
+        $this->style_sheet = '/cabinetmed/css/styles.css';
 
         // Config pages. Put here list of php page names stored in admmin directory used to setup module.
         $this->config_page_url = array();
@@ -85,16 +85,26 @@ class modCabinetMed extends DolibarrModules
         $this->requiredby = array();    // List of modules id to disable if this one is disabled
         $this->phpmin = array(4,3);                 // Minimum version of PHP required by module
         $this->need_dolibarr_version = array(3,0,-2);   // Minimum version of Dolibarr required by module
-        $this->langfiles = array();
+        $this->langfiles = array('cabinetmed@cabinetmed');
 
         // Constants
-        $this->const = array();         // List of particular constants to add when module is enabled
-        //Example: $this->const=array(0=>array('MODULE_MY_NEW_CONST1','chaine','myvalue','This is a constant to add',0),
-        //                            1=>array('MODULE_MY_NEW_CONST2','chaine','myvalue','This is another constant to add',0) );
+        $this->const = array(0=>array('SOCIETE_DISABLE_PROSPECTS','chaine','1','Disable all prospects features',1,'current',1),
+                             1=>array('MAIN_DISABLEPROFIDRULES','chaine','1','Disable all prospects features',1,'current',1),
+                             2=>array('MAIN_FORCELANGDIR','chaine','/cabinetmed','Language files are searched into this dir first',1,'current',1),
+//                             3=>array('MAIN_FORCETHEMEDIR','chaine','/cabinetmed','Skins files are searched into this dir first',1,'current',1),
+//                             4=>array('MAIN_DIRECTEDITMODE','chaine','1','Notes are in edit mode directly',1,'current',1),
+                             5=>array('MAIN_DISABLEVATCHECK','chaine','1','Disable link to VAT check',1,'current',1),
+                             6=>array('MAIN_DISABLEDRAFTSTATUS','chaine','1','Disable link to VAT check',1,'current',1),
+                             7=>array('SOCIETE_DISABLE_CONTACTS','chaine','1','Disable contacts features',1,'current',1)
+                             );
+        //Example: $this->const=array(0=>array('MODULE_MY_NEW_CONST1','chaine','myvalue','This is a constant to add',1),
+        //                            1=>array('MODULE_MY_NEW_CONST2','chaine','myvalue','This is another constant to add',1) );
 
         // Array to add new pages in new tabs
         $this->tabs = array('thirdparty:+tabantecedents:Antecedents:@cabinetmed:/cabinetmed/antecedant.php?socid=__ID__',
                             'thirdparty:+tabtraitetallergies:TraitEtAllergies:@cabinetmed:/cabinetmed/traitetallergies.php?socid=__ID__',
+                            'thirdparty:+tabconsultations:Consultations:@cabinetmed:/cabinetmed/consultations.php?socid=__ID__',
+                            'thirdparty:+tabcontacts:Correspondants:@cabinetmed:/cabinetmed/contact.php?socid=__ID__',
                             'thirdparty:-customer');
         // where entity can be
         // 'thirdparty'       to add a tab in third party view
@@ -111,7 +121,7 @@ class modCabinetMed extends DolibarrModules
         $this->dictionnaries=array(
             'langs'=>'cabinetmed@cabinetmed',
             'tabname'=>array(MAIN_DB_PREFIX."cabinetmed_diaglec",MAIN_DB_PREFIX."cabinetmed_examenprescrit",MAIN_DB_PREFIX."cabinetmed_motifcons"),
-            'tablib'=>array("MotifConsultation","DiagnostiqueLesionnel","ExamenPrescrit"),
+            'tablib'=>array("DiagnostiqueLesionnel","ExamenPrescrit","MotifConsultation"),
             'tabsql'=>array('SELECT f.rowid as rowid, f.code, f.label, f.active FROM '.MAIN_DB_PREFIX.'cabinetmed_diaglec as f','SELECT f.rowid as rowid, f.code, f.label, f.active FROM '.MAIN_DB_PREFIX.'cabinetmed_examenprescrit as f','SELECT f.rowid as rowid, f.code, f.label, f.active FROM '.MAIN_DB_PREFIX.'cabinetmed_motifcons as f'),
             'tabsqlsort'=>array("label ASC","label ASC","label ASC"),
             'tabfield'=>array("code,label","code,label","code,label"),
@@ -197,7 +207,77 @@ class modCabinetMed extends DolibarrModules
 
 
         // Exports
-        $r=1;
+        $r=0;
+
+        // Export list of patient and attributes
+        $r++;
+        $this->export_code[$r]=$this->rights_class.'_'.$r;
+        $this->export_label[$r]='ExportDataset_patient_1';
+        $this->export_icon[$r]='company';
+        $this->export_permission[$r]=array(array("societe","export"));
+        $this->export_fields_array[$r]=array('s.rowid'=>"Id",'s.nom'=>"Name",'s.datec'=>"DateCreation",'s.tms'=>"DateLastModification",'s.code_client'=>"CustomerCode",'s.address'=>"Address",'s.cp'=>"Zip",'s.ville'=>"Town",'d.nom'=>'State','p.libelle'=>"Country",'p.code'=>"CountryCode",'s.tel'=>"Phone",'s.fax'=>"Mobile",'s.url'=>"Url",'s.email'=>"Email",'s.siret'=>"Taille",'s.siren'=>"Poids",'s.ape'=>"Date de naissance",'s.idprof4'=>"Profession",'s.tva_intra'=>"INSEE",'s.capital'=>"Tarif de base consultation",'s.note'=>"Note",'t.libelle'=>"ThirdPartyType",'ce.code'=>"Regime","cfj.libelle"=>"JuridicalStatus",
+        'pa.note_antemed'=>'AntecedentsMed',
+        'pa.note_antechirgen'=>'AntecedentsChirGene',
+        'pa.note_antechirortho'=>'AntecedentsChirOrtho',
+        'pa.note_anterhum'=>'AntecedentsRhumato',
+        'pa.note_other'=>'Other',
+        'pa.note_traitclass'=>'Classes',
+        'pa.note_traitallergie'=>'Allergies',
+        'pa.note_traitintol'=>'Intolerances',
+        'pa.note_traitspec'=>'SpecPharma',
+        'co.rowid'=>'IdConsult',
+        'co.datecons'=>'DateConsultation',
+        'co.typepriseencharge'=>'TypePriseEnCharge',
+        'co.motifconsprinc'=>'MotifPrincipal',
+        'co.motifconssec'=>'MotifSecondaires',
+        'co.diaglesprinc'=>'DiagLesPrincipal',
+        'co.diaglessec'=>'DiagLesSecondaires',
+        'co.examenclinique'=>'ExamensCliniques',
+        'co.examenprescrit'=>'ExamensPrescrits',
+        'co.traitementprescrit'=>'TraitementsPrescrits',
+        'co.comment'=>'Comment',
+        'co.typevisit'=>'TypeVisite',
+        'co.infiltration'=>'Infiltration',
+        'co.codageccam'=>'CCAM',
+        'co.montant_cheque'=>'MontantCheque',
+        'co.montant_espece'=>'MontantEspece',
+        'co.montant_carte'=>'MontantCarte',
+        'co.montant_tiers'=>'MontantTiers',
+        'co.banque'=>'Banque'
+        );
+        $this->export_entities_array[$r]=array(
+        'co.rowid'=>'generic:Consultation',
+        'co.datecons'=>'generic:Consultation',
+        'co.typepriseencharge'=>'generic:Consultation',
+        'co.motifconsprinc'=>'generic:Consultation',
+        'co.motifconssec'=>'generic:Consultation',
+        'co.diaglesprinc'=>'generic:Consultation',
+        'co.diaglessec'=>'generic:Consultation',
+        'co.examenclinique'=>'generic:Consultation',
+        'co.examenprescrit'=>'generic:Consultation',
+        'co.traitementprescrit'=>'generic:Consultation',
+        'co.comment'=>'generic:Consultation',
+        'co.typevisit'=>'generic:Consultation',
+        'co.infiltration'=>'generic:Consultation',
+        'co.codageccam'=>'generic:Consultation',
+        'co.montant_cheque'=>'generic:Consultation',
+        'co.montant_espece'=>'generic:Consultation',
+        'co.montant_carte'=>'generic:Consultation',
+        'co.montant_tiers'=>'generic:Consultation',
+        'co.banque'=>'generic:Consultation'
+        );   // We define here only fields that use another picto
+
+        $this->export_sql_start[$r]='SELECT DISTINCT ';
+        $this->export_sql_end[$r]  =' FROM '.MAIN_DB_PREFIX.'societe as s';
+        $this->export_sql_end[$r] .=' LEFT JOIN '.MAIN_DB_PREFIX.'cabinetmed_patient as pa ON s.rowid = pa.rowid';
+        $this->export_sql_end[$r] .=' LEFT JOIN '.MAIN_DB_PREFIX.'cabinetmed_cons as co ON s.rowid = co.fk_soc';
+        $this->export_sql_end[$r] .=' LEFT JOIN '.MAIN_DB_PREFIX.'c_typent as t ON s.fk_typent = t.id';
+        $this->export_sql_end[$r] .=' LEFT JOIN '.MAIN_DB_PREFIX.'c_pays as p ON s.fk_pays = p.rowid';
+        $this->export_sql_end[$r] .=' LEFT JOIN '.MAIN_DB_PREFIX.'c_effectif as ce ON s.fk_effectif = ce.id';
+        $this->export_sql_end[$r] .=' LEFT JOIN '.MAIN_DB_PREFIX.'c_forme_juridique as cfj ON s.fk_forme_juridique = cfj.code';
+        $this->export_sql_end[$r] .=' LEFT JOIN '.MAIN_DB_PREFIX.'c_departements as d ON s.fk_departement = d.rowid';
+        $this->export_sql_end[$r] .=' WHERE s.entity = '.$conf->entity;
+
 
         // Example:
         // $this->export_code[$r]=$this->rights_class.'_'.$r;
@@ -205,7 +285,6 @@ class modCabinetMed extends DolibarrModules
         // $this->export_permission[$r]=array(array("facture","facture","export"));
         // $this->export_fields_array[$r]=array('s.rowid'=>"IdCompany",'s.nom'=>'CompanyName','s.address'=>'Address','s.cp'=>'Zip','s.ville'=>'Town','s.fk_pays'=>'Country','s.tel'=>'Phone','s.siren'=>'ProfId1','s.siret'=>'ProfId2','s.ape'=>'ProfId3','s.idprof4'=>'ProfId4','s.code_compta'=>'CustomerAccountancyCode','s.code_compta_fournisseur'=>'SupplierAccountancyCode','f.rowid'=>"InvoiceId",'f.facnumber'=>"InvoiceRef",'f.datec'=>"InvoiceDateCreation",'f.datef'=>"DateInvoice",'f.total'=>"TotalHT",'f.total_ttc'=>"TotalTTC",'f.tva'=>"TotalVAT",'f.paye'=>"InvoicePaid",'f.fk_statut'=>'InvoiceStatus','f.note'=>"InvoiceNote",'fd.rowid'=>'LineId','fd.description'=>"LineDescription",'fd.price'=>"LineUnitPrice",'fd.tva_taux'=>"LineVATRate",'fd.qty'=>"LineQty",'fd.total_ht'=>"LineTotalHT",'fd.total_tva'=>"LineTotalTVA",'fd.total_ttc'=>"LineTotalTTC",'fd.date_start'=>"DateStart",'fd.date_end'=>"DateEnd",'fd.fk_product'=>'ProductId','p.ref'=>'ProductRef');
         // $this->export_entities_array[$r]=array('s.rowid'=>"company",'s.nom'=>'company','s.address'=>'company','s.cp'=>'company','s.ville'=>'company','s.fk_pays'=>'company','s.tel'=>'company','s.siren'=>'company','s.siret'=>'company','s.ape'=>'company','s.idprof4'=>'company','s.code_compta'=>'company','s.code_compta_fournisseur'=>'company','f.rowid'=>"invoice",'f.facnumber'=>"invoice",'f.datec'=>"invoice",'f.datef'=>"invoice",'f.total'=>"invoice",'f.total_ttc'=>"invoice",'f.tva'=>"invoice",'f.paye'=>"invoice",'f.fk_statut'=>'invoice','f.note'=>"invoice",'fd.rowid'=>'invoice_line','fd.description'=>"invoice_line",'fd.price'=>"invoice_line",'fd.total_ht'=>"invoice_line",'fd.total_tva'=>"invoice_line",'fd.total_ttc'=>"invoice_line",'fd.tva_taux'=>"invoice_line",'fd.qty'=>"invoice_line",'fd.date_start'=>"invoice_line",'fd.date_end'=>"invoice_line",'fd.fk_product'=>'product','p.ref'=>'product');
-        // $this->export_alias_array[$r]=array('s.rowid'=>"socid",'s.nom'=>'soc_name','s.address'=>'soc_adres','s.cp'=>'soc_zip','s.ville'=>'soc_ville','s.fk_pays'=>'soc_pays','s.tel'=>'soc_tel','s.siren'=>'soc_siren','s.siret'=>'soc_siret','s.ape'=>'soc_ape','s.idprof4'=>'soc_idprof4','s.code_compta'=>'soc_customer_accountancy','s.code_compta_fournisseur'=>'soc_supplier_accountancy','f.rowid'=>"invoiceid",'f.facnumber'=>"ref",'f.datec'=>"datecreation",'f.datef'=>"dateinvoice",'f.total'=>"totalht",'f.total_ttc'=>"totalttc",'f.tva'=>"totalvat",'f.paye'=>"paid",'f.fk_statut'=>'status','f.note'=>"note",'fd.rowid'=>'lineid','fd.description'=>"linedescription",'fd.price'=>"lineprice",'fd.total_ht'=>"linetotalht",'fd.total_tva'=>"linetotaltva",'fd.total_ttc'=>"linetotalttc",'fd.tva_taux'=>"linevatrate",'fd.qty'=>"lineqty",'fd.date_start'=>"linedatestart",'fd.date_end'=>"linedateend",'fd.fk_product'=>'productid','p.ref'=>'productref');
         // $this->export_sql_start[$r]='SELECT DISTINCT ';
         // $this->export_sql_end[$r]  =' FROM ('.MAIN_DB_PREFIX.'facture as f, '.MAIN_DB_PREFIX.'facturedet as fd, '.MAIN_DB_PREFIX.'societe as s)';
         // $this->export_sql_end[$r] .=' LEFT JOIN '.MAIN_DB_PREFIX.'product as p on (fd.fk_product = p.rowid)';

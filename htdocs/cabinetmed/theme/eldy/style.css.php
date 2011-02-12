@@ -21,7 +21,7 @@
 /**
  *		\file       htdocs/theme/eldy/style.css.php
  *		\brief      Fichier de style CSS du theme Eldy
- *		\version    $Id: style.css.php,v 1.2 2011/01/25 01:31:07 eldy Exp $
+ *		\version    $Id: style.css.php,v 1.3 2011/02/12 18:36:57 eldy Exp $
  */
 
 //if (! defined('NOREQUIREUSER')) define('NOREQUIREUSER','1');	// Not disabled cause need to load personalized language
@@ -101,6 +101,9 @@ input.flat {
     padding: 0px 0px 0px 0px;
     margin: 0px 0px 0px 0px;
 }
+input:disabled {
+background:#ddd;
+}
 textarea  {
 	font-size: <?php print $fontsize ?>px;
 	font-family: <?php print $fontlist ?>;
@@ -116,6 +119,9 @@ textarea.flat {
     border: 1px solid #ACBCBB;
     padding: 0px 0px 0px 0px;
     margin: 0px 0px 0px 0px;
+}
+textarea:disabled {
+background:#ddd;
 }
 select.flat {
 	background: #FDFDFD;
@@ -465,10 +471,9 @@ div.login_block table {
 }
 
 div.login {
-	display: inline;
 	white-space:nowrap;
-	padding: 0px 5px;
-	margin: 0px 0px 1px 0px;
+	padding: <?php echo ($conf->browser->phone?'0':'8')?>px 0px 0px 0px;
+    margin: 0px 0px 0px 8px;
 	font-weight: bold;
 }
 div.login a {
@@ -1825,8 +1830,18 @@ A.none, A.none:active, A.none:visited, A.none:hover {
     line-height:1.5;
     zoom:1;
     font-weight: normal;
-    font-family:Verdana,Arial,sans-serif;
+    font-family:<?php echo $fontlist; ?>;
     font-size:1em;
 }
-
-
+.ui-widget {
+    font-family:<?php echo $fontlist; ?>;
+    font-size:<?php echo $fontsize; ?>px;
+}
+.ui-button { margin-left: -1px; }
+.ui-button-icon-only .ui-button-text { height: 8px; }
+.ui-button-icon-only .ui-button-text, .ui-button-icons-only .ui-button-text { padding: 2px 0px 6px 0px; }
+.ui-button-text
+{
+    line-height: 1em !important;
+}
+.ui-autocomplete-input { margin: 0; padding: 1px; }

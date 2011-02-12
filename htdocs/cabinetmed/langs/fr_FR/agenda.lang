@@ -1,6 +1,6 @@
 # Dolibarr language file - fr_FR - agenda
 CHARSET=UTF-8
-Actions=Actions
+Actions=Evénements
 ActionsArea=Espace actions (événements et tâches)
 Agenda=Agenda
 Agendas=Agendas
@@ -12,19 +12,21 @@ Events=Evénements
 ListOfActions=Liste des événements
 EventOnFullDay=Evénement sur la journée
 Location=Lieu
-SearchAnAction=Rechercher une action/tâche
-MenuToDoActions=Les actions incomplètes
-MenuDoneActions=Les actions terminées
-MenuToDoMyActions=Mes actions incomplètes
-MenuDoneMyActions=Mes actions terminées
+SearchAnAction=Rechercher un événement/tâche
+MenuToDoActions=Les événem. incomplets
+MenuDoneActions=Les événem. terminés
+MenuToDoMyActions=Mes événem. incomplets
+MenuDoneMyActions=Mes événem. terminés
 ListOfEvents=Liste des événements Dolibarr
-ActionsAskedBy=Actions enregistrées par
-ActionsToDoBy=Actions affectées à
-ActionsDoneBy=Actions réalisées par
-AllMyActions=Toutes mes actions
-AllActions=Toutes les actions
-ViewList=Voir liste
-ViewCal=Voir calendrier
+ActionsAskedBy=Evénements enregistrés par
+ActionsToDoBy=Evénements affectés à
+ActionsDoneBy=Evénements réalisés par
+AllMyActions=Tous mes événements
+AllActions=Tous les événements
+ViewList=Vue liste
+ViewCal=Vue mois
+ViewDay=Vue jour
+ViewWeek=Vue semaine
 ViewWithPredefinedFilters=Vues avec filtres prédéfinis
 AutoActions=Alimentation automatique de l'agenda
 AgendaAutoActionDesc=Définissez dans cet onglet les événements pour lesquels dolibarr créera automatiquement une action dans l'agenda. Si aucune case n'est cochée (par défaut), seules les actions manuelles seront incluses dans l'agenda.
@@ -51,5 +53,5 @@ AgendaUrlOptions2=<b>login=%s</b> pour limiter l'export aux actions créées, af
 AgendaUrlOptions3=<b>logina=%s</b> pour limiter l'export aux actions créées par l'utilisateur <b>%s</b>.
 AgendaUrlOptions4=<b>logint=%s</b> pour limiter l'export aux actions affectées à l'utilisateur <b>%s</b>.
 AgendaUrlOptions5=<b>logind=%s</b> pour limiter l'export aux actions réalisées par l'utilisateur <b>%s</b>.
-AgendaShowBirthdayEvents=Afficher anniversaires contacts
-AgendaHideBirthdayEvents=Cacher anniversaires contacts
+AgendaShowBirthdayEvents=Afficher anniversaires correspondants
+AgendaHideBirthdayEvents=Cacher anniversaires correspondants

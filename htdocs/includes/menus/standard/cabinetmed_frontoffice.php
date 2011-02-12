@@ -20,7 +20,7 @@
 /**
  *	\file       htdocs/includes/menus/standard/cabinetmed_frontoffice.php
  *	\brief      Gestionnaire nomme cabinetmed du menu du haut
- *	\version    $Id: cabinetmed_frontoffice.php,v 1.1 2011/01/23 15:09:59 eldy Exp $
+ *	\version    $Id: cabinetmed_frontoffice.php,v 1.2 2011/02/12 18:36:57 eldy Exp $
  *
  *	\remarks    La construction d'un gestionnaire pour le menu du haut est simple:
  *	\remarks    Toutes les entrees de menu a faire apparaitre dans la barre du haut
@@ -57,7 +57,7 @@ class MenuTop {
 	{
 		dol_include_once('/includes/menus/standard/cabinetmed.lib.php');
 
-		print_cabinet_med($this->db,$this->atarget,$this->hideifnotallowed);
+		print_cabinetmed_menu($this->db,$this->atarget,$this->hideifnotallowed);
 	}
 
 }

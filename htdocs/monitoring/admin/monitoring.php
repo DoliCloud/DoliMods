@@ -20,7 +20,7 @@
  *	    \file       htdocs/monitoring/admin/monitoring.php
  *      \ingroup    monitoring
  *      \brief      Page to setup module Monitoring
- *		\version    $Id: monitoring.php,v 1.3 2011/01/23 12:50:06 eldy Exp $
+ *		\version    $Id: monitoring.php,v 1.4 2011/02/12 18:36:57 eldy Exp $
  */
 
 define('NOCSRFCHECK',1);
@@ -163,8 +163,8 @@ if ($action == 'graph')
 	$opts = array(
 			'--start','-1h',
 			"--vertical-label=%",
-           "DEF:ds1=".$fname.":ds1:AVERAGE",
-           "DEF:ds2=".$fname.":ds2:AVERAGE",
+           "DEF:ds1=\"".$fname."\":ds1:AVERAGE",
+           "DEF:ds2=\"".$fname."\":ds2:AVERAGE",
 			"LINE1:ds1#0000FF:Graph1",
 			"LINE1:ds2#00FF00:Graph2",
  			"CDEF:cdef1=ds1,1,*",
@@ -272,7 +272,7 @@ if ($action == 'graph')
 				$mesg.="Graph error: $err\n";
 			}
 */
-	
+
 			if (! $error) $mesg='';
 }
 
@@ -365,5 +365,5 @@ print '<img src="'.DOL_URL_ROOT.'/viewimage.php?modulepart=monitoring_temp&file=
 
 $db->close();
 
-llxFooter('$Date: 2011/01/23 12:50:06 $ - $Revision: 1.3 $');
+llxFooter('$Date: 2011/02/12 18:36:57 $ - $Revision: 1.4 $');
 ?>

@@ -27,7 +27,7 @@
  *	\file       htdocs/societe/class/societe.class.php
  *	\ingroup    societe
  *	\brief      File for third party class
- *	\version    $Id: patient.class.php,v 1.1 2011/01/24 22:12:17 eldy Exp $
+ *	\version    $Id: patient.class.php,v 1.2 2011/02/12 18:36:57 eldy Exp $
  */
 require_once(DOL_DOCUMENT_ROOT."/core/class/commonobject.class.php");
 
@@ -574,7 +574,10 @@ class Patient extends CommonObject
         $sql .= ', d.code_departement as departement_code, d.nom as departement';
         $sql .= ', st.libelle as stcomm';
         $sql .= ', te.code as typent_code';
+        $sql .= ', sa.note_antemed, sa.note_antechirgen, sa.note_antechirortho, sa.note_anterhum, sa.note_other';
+        $sql .= ', sa.note_traitclass, sa.note_traitallergie, sa.note_traitintol, sa.note_traitspec';
         $sql .= ' FROM '.MAIN_DB_PREFIX.'societe as s';
+        $sql .= ' LEFT JOIN '.MAIN_DB_PREFIX.'cabinetmed_patient as sa ON sa.rowid = s.rowid';
         $sql .= ' LEFT JOIN '.MAIN_DB_PREFIX.'c_effectif as e ON s.fk_effectif = e.id';
         $sql .= ' LEFT JOIN '.MAIN_DB_PREFIX.'c_pays as p ON s.fk_pays = p.rowid';
         $sql .= ' LEFT JOIN '.MAIN_DB_PREFIX.'c_stcomm as st ON s.fk_stcomm = st.id';
@@ -588,15 +591,16 @@ class Patient extends CommonObject
         if ($idprof2) $sql .= " WHERE s.siret = '".$this->db->escape($siret)."' AND s.entity = ".$conf->entity;
         if ($idprof3) $sql .= " WHERE s.ape = '".$this->db->escape($ape)."' AND s.entity = ".$conf->entity;
         if ($idprof4) $sql .= " WHERE s.idprof4 = '".$this->db->escape($idprof4)."' AND s.entity = ".$conf->entity;
+        //print $sql;
 
         $resql=$this->db->query($sql);
-        dol_syslog("Societe::fetch ".$sql);
+        dol_syslog("Patient::fetch ".$sql);
         if ($resql)
         {
             $num=$this->db->num_rows($resql);
             if ($num > 1)
             {
-                $this->error='Societe::Fetch several records found for ref='.$ref;
+                $this->error='Patient::Fetch several records found for ref='.$ref;
                 dol_syslog($this->error, LOG_ERR);
                 $result = -1;
             }
@@ -702,20 +706,29 @@ class Patient extends CommonObject
 
                 $this->import_key = $obj->import_key;
 
+                $this->note_antemed = $obj->note_antemed;
+                $this->note_antechirgen = $obj->note_antechirgen;
+                $this->note_antechirortho = $obj->note_antechirortho;
+                $this->note_anterhum = $obj->note_anterhum;
+                $this->note_other = $obj-> note_other;
+
+                $this->note_traitclass = $obj->note_traitclass;
+                $this->note_traitallergie = $obj->note_traitallergie;
+                $this->note_traitintol = $obj->note_traitintol;
+                $this->note_traitspec = $obj->note_traitspec;
+
                 $result = 1;
             }
             else
             {
-                $this->error='Societe::Fetch no third party found for id='.$rowid;
-                dol_syslog($this->error, LOG_ERR);
-                $result = -2;
+                $result = 0;
             }
 
             $this->db->free($resql);
         }
         else
         {
-            dol_syslog('Erreur Societe::Fetch '.$this->db->error(), LOG_ERR);
+            dol_syslog('Erreur Patient::Fetch '.$this->db->error(), LOG_ERR);
             $this->error=$this->db->error();
             $result = -3;
         }

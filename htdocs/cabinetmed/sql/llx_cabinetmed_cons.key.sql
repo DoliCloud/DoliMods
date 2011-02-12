@@ -1,5 +1,5 @@
--- ============================================================================
--- Copyright (C) 2011 Laurent Destailleur  <eldy@users.sourceforge.net>
+-- ===================================================================
+-- Copyright (C) 2005 Laurent Destailleur  <eldy@users.sourceforge.net>
 --
 -- This program is free software; you can redistribute it and/or modify
 -- it under the terms of the GNU General Public License as published by
@@ -15,12 +15,12 @@
 -- along with this program; if not, write to the Free Software
 -- Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 --
--- $Id: llx_cabinetmed_motifcons.sql,v 1.4 2011/02/12 18:36:57 eldy Exp $
--- ===========================================================================
+-- $Id: llx_cabinetmed_cons.key.sql,v 1.1 2011/02/12 18:36:57 eldy Exp $
+-- ===================================================================
 
-CREATE TABLE llx_cabinetmed_motifcons (
-  rowid             integer AUTO_INCREMENT PRIMARY KEY,
-  code              varchar(8) NOT NULL,
-  label             varchar(64) NOT NULL,
-  active            tinyint DEFAULT 1  NOT NULL
-) ENGINE=innodb;
+
+-- Supprimme orhpelins pour permettre montee de la cle
+-- V4 DELETE llx_facturedet FROM llx_facturedet LEFT JOIN llx_facture ON llx_facturedet.fk_facture = llx_facture.rowid WHERE llx_facture.rowid IS NULL;
+
+ALTER TABLE llx_cabinetmed_cons ADD INDEX idx_cabinetmed_cons_fk_soc (fk_soc);
+ALTER TABLE llx_cabinetmed_cons ADD CONSTRAINT fk_cabinetmed_cons_fk_soc FOREIGN KEY (fk_soc) REFERENCES llx_societe (rowid);

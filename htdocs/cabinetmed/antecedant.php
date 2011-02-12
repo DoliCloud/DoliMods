@@ -23,7 +23,7 @@
  *   \file       htdocs/cabinetmed/antecedant.php
  *   \brief      Tab for antecedants
  *   \ingroup    societe
- *   \version    $Id: antecedant.php,v 1.3 2011/01/24 23:38:20 eldy Exp $
+ *   \version    $Id: antecedant.php,v 1.4 2011/02/12 18:36:57 eldy Exp $
  */
 
 $res=0;
@@ -36,12 +36,14 @@ if (! $res) die("Include of main fails");
 include_once(DOL_DOCUMENT_ROOT."/lib/company.lib.php");
 include_once("./class/patient.class.php");
 
-$action = isset($_GET["action"])?$_GET["action"]:$_POST["action"];
-
 $langs->load("companies");
+$langs->load("cabinetmed@cabinetmed");
+
+$action = GETPOST('action');
+if (empty($action)) $action='edit';
 
 // Security check
-$socid = isset($_GET["socid"])?$_GET["socid"]:$_POST["socid"];
+$socid = GETPOST('socid');
 if ($user->societe_id) $socid=$user->societe_id;
 $result = restrictedArea($user, 'societe', $socid);
 
@@ -49,14 +51,26 @@ $result = restrictedArea($user, 'societe', $socid);
 /*
  * Actions
  */
-
-if ($_POST["action"] == 'add')
+if ($action == 'addupdate')
 {
-  $sql = "UPDATE ".MAIN_DB_PREFIX."societe SET note='".addslashes($_POST["note"])."' WHERE rowid=".$_POST["socid"];
-  $result = $db->query($sql);
+    $sql = "INSERT INTO ".MAIN_DB_PREFIX."cabinetmed_patient(rowid, note_antemed, note_antechirgen, note_antechirortho, note_anterhum, note_other)";
+    $sql.= " VALUES('".$_POST["socid"]."','".addslashes($_POST["note_antemed"])."','".addslashes($_POST["note_antechirgen"])."',";
+    $sql.= " '".addslashes($_POST["note_antechirortho"])."','".addslashes($_POST["note_anterhum"])."','".addslashes($_POST["note_other"])."')";
+    $result = $db->query($sql);
+    //if (! $result) dol_print_error($db);
 
-  $_GET["socid"]=$_POST["socid"];   // Pour retour sur fiche
-  $socid = $_GET["socid"];
+    $sql = "UPDATE ".MAIN_DB_PREFIX."cabinetmed_patient SET";
+    $sql.= " note_antemed='".addslashes($_POST["note_antemed"])."',";
+    $sql.= " note_antechirgen='".addslashes($_POST["note_antechirgen"])."',";
+    $sql.= " note_antechirortho='".addslashes($_POST["note_antechirortho"])."',";
+    $sql.= " note_anterhum='".addslashes($_POST["note_anterhum"])."',";
+    $sql.= " note_other='".addslashes($_POST["note_other"])."'";
+    $sql.= " WHERE rowid=".$_POST["socid"];
+    $result = $db->query($sql);
+    if (! $result) dol_print_error($db);
+    else $mesg=$langs->trans("RecordModifiedSuccessfully");
+
+    $action='edit';
 }
 
 
@@ -72,29 +86,34 @@ llxHeader();
 if ($socid > 0)
 {
     $societe = new Patient($db);
-    $societe->fetch($socid);
+    $res=$societe->fetch($socid);
+    if ($res < 0)
+    {
+        dol_print_error($db,$societe->error);
+    }
+    $societe->id=$socid;
 
-	/*
-	 * Affichage onglets
-	 */
+    /*
+     * Affichage onglets
+     */
     if ($conf->notification->enabled) $langs->load("mails");
 
-	$head = societe_prepare_head($societe);
+    $head = societe_prepare_head($societe);
 
-	dol_fiche_head($head, 'tabantecedents', $langs->trans("ThirdParty"),0,'company');
+    dol_fiche_head($head, 'tabantecedents', $langs->trans("ThirdParty"),0,'company');
 
 
-	print "<form method=\"post\" action=\"".$_SERVER["PHP_SELF"]."\">";
-	print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
+    print "<form method=\"post\" action=\"".$_SERVER["PHP_SELF"]."\">";
+    print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
+    print '<input type="hidden" name="socid" value="'.$societe->id.'">';
+    print '<input type="hidden" name="action" value="addupdate">';
 
-	print '<table class="border" width="100%">';
+    print '<table class="border" width="100%">';
 
-	print '<tr><td width="25%">'.$langs->trans('Name').'</td>';
-	print '<td colspan="3">';
-	print $form->showrefnav($societe,'socid','',($user->societe_id?0:1),'rowid','nom');
-	print '</td></tr>';
-
-    print '<tr><td>'.$langs->trans('Prefix').'</td><td colspan="3">'.$societe->prefix_comm.'</td></tr>';
+    print '<tr><td width="25%">'.$langs->trans('Name').'</td>';
+    print '<td colspan="3">';
+    print $form->showrefnav($societe,'socid','',($user->societe_id?0:1),'rowid','nom');
+    print '</td></tr>';
 
     if ($societe->client)
     {
@@ -105,7 +124,7 @@ if ($socid > 0)
         print '</td></tr>';
     }
 
-    if ($societe->fournisseur)
+    if ($conf->fournisseur->enabled && $societe->fournisseur)
     {
         print '<tr><td>';
         print $langs->trans('SupplierCode').'</td><td colspan="3">';
@@ -115,18 +134,18 @@ if ($socid > 0)
     }
 
 
-    $height=180;
+    $conf->fckeditor->enabled=false;
+    $height=120;
 
-    print '<tr><td valign="top">'.$langs->trans("AntecedentsMed").'</td>';
+    print '<tr height="80"><td valign="top">'.$langs->trans("AntecedentsMed").'</td>';
     print '<td valign="top">';
     if ($action == 'edit' && $user->rights->societe->creer)
     {
-        print "<input type=\"hidden\" name=\"action\" value=\"add\">";
         print "<input type=\"hidden\" name=\"socid\" value=\"".$societe->id."\">";
 
         // Editeur wysiwyg
         require_once(DOL_DOCUMENT_ROOT."/lib/doleditor.class.php");
-        $doleditor=new DolEditor('note_antemed',$societe->note_antemed,$height,'dolibarr_notes','In',true,false,$conf->fckeditor->enabled && $conf->global->FCKEDITOR_ENABLE_SOCIETE,10,70);
+        $doleditor=new DolEditor('note_antemed',$societe->note_antemed,0,$height,'dolibarr_notes','In',false,false,$conf->fckeditor->enabled && $conf->global->FCKEDITOR_ENABLE_SOCIETE,6,70);
         $doleditor->Create();
     }
     else
@@ -135,16 +154,15 @@ if ($socid > 0)
     }
     print "</td></tr>";
 
-    print '<tr><td valign="top">'.$langs->trans("AntecedentsChirGene").'</td>';
+    print '<tr height="80"><td valign="top">'.$langs->trans("AntecedentsChirGene").'</td>';
     print '<td valign="top">';
     if ($action == 'edit' && $user->rights->societe->creer)
     {
-        print "<input type=\"hidden\" name=\"action\" value=\"add\">";
         print "<input type=\"hidden\" name=\"socid\" value=\"".$societe->id."\">";
 
         // Editeur wysiwyg
         require_once(DOL_DOCUMENT_ROOT."/lib/doleditor.class.php");
-        $doleditor=new DolEditor('note_antechirgen',$societe->note_antechirgen,$height,'dolibarr_notes','In',true,false,$conf->fckeditor->enabled && $conf->global->FCKEDITOR_ENABLE_SOCIETE,10,70);
+        $doleditor=new DolEditor('note_antechirgen',$societe->note_antechirgen,0,$height,'dolibarr_notes','In',false,false,$conf->fckeditor->enabled && $conf->global->FCKEDITOR_ENABLE_SOCIETE,6,70);
         $doleditor->Create();
     }
     else
@@ -153,16 +171,15 @@ if ($socid > 0)
     }
     print "</td></tr>";
 
-    print '<tr><td valign="top">'.$langs->trans("AntecedentsChirOrtho").'</td>';
+    print '<tr height="80"><td valign="top">'.$langs->trans("AntecedentsChirOrtho").'</td>';
     print '<td valign="top">';
     if ($action == 'edit' && $user->rights->societe->creer)
     {
-        print "<input type=\"hidden\" name=\"action\" value=\"add\">";
         print "<input type=\"hidden\" name=\"socid\" value=\"".$societe->id."\">";
 
         // Editeur wysiwyg
         require_once(DOL_DOCUMENT_ROOT."/lib/doleditor.class.php");
-        $doleditor=new DolEditor('note_antechirortho',$societe->note_antechirortho,$height,'dolibarr_notes','In',true,false,$conf->fckeditor->enabled && $conf->global->FCKEDITOR_ENABLE_SOCIETE,10,70);
+        $doleditor=new DolEditor('note_antechirortho',$societe->note_antechirortho,0,$height,'dolibarr_notes','In',false,false,$conf->fckeditor->enabled && $conf->global->FCKEDITOR_ENABLE_SOCIETE,6,70);
         $doleditor->Create();
     }
     else
@@ -171,16 +188,15 @@ if ($socid > 0)
     }
     print "</td></tr>";
 
-    print '<tr><td valign="top">'.$langs->trans("AntecedentsRhumato").'</td>';
+    print '<tr height="80"><td valign="top">'.$langs->trans("AntecedentsRhumato").'</td>';
     print '<td valign="top">';
     if ($action == 'edit' && $user->rights->societe->creer)
     {
-        print "<input type=\"hidden\" name=\"action\" value=\"add\">";
         print "<input type=\"hidden\" name=\"socid\" value=\"".$societe->id."\">";
 
         // Editeur wysiwyg
         require_once(DOL_DOCUMENT_ROOT."/lib/doleditor.class.php");
-        $doleditor=new DolEditor('note_anterhum',$societe->note_anterhum,$height,'dolibarr_notes','In',true,false,$conf->fckeditor->enabled && $conf->global->FCKEDITOR_ENABLE_SOCIETE,10,70);
+        $doleditor=new DolEditor('note_anterhum',$societe->note_anterhum,0,$height,'dolibarr_notes','In',false,false,$conf->fckeditor->enabled && $conf->global->FCKEDITOR_ENABLE_SOCIETE,6,70);
         $doleditor->Create();
     }
     else
@@ -189,16 +205,15 @@ if ($socid > 0)
     }
     print "</td></tr>";
 
-    print '<tr><td valign="top">'.$langs->trans("Other").'</td>';
+    print '<tr height="80"><td valign="top">'.$langs->trans("Other").'</td>';
     print '<td valign="top">';
     if ($action == 'edit' && $user->rights->societe->creer)
     {
-        print "<input type=\"hidden\" name=\"action\" value=\"add\">";
         print "<input type=\"hidden\" name=\"socid\" value=\"".$societe->id."\">";
 
         // Editeur wysiwyg
         require_once(DOL_DOCUMENT_ROOT."/lib/doleditor.class.php");
-        $doleditor=new DolEditor('note_other',$societe->note_other,$height,'dolibarr_notes','In',true,false,$conf->fckeditor->enabled && $conf->global->FCKEDITOR_ENABLE_SOCIETE,10,70);
+        $doleditor=new DolEditor('note_other',$societe->note_other,0,$height,'dolibarr_notes','In',false,false,$conf->fckeditor->enabled && $conf->global->FCKEDITOR_ENABLE_SOCIETE,6,70);
         $doleditor->Create();
     }
     else
@@ -210,13 +225,13 @@ if ($socid > 0)
 
 
     if ($action == 'edit')
-	{
-		print '<tr><td colspan="2" align="center"><input type="submit" class="button" value="'.$langs->trans("Save").'"></td></tr>';
-	}
+    {
+        print '<tr><td colspan="2" align="center"><input type="submit" class="button" value="'.$langs->trans("Save").'"></td></tr>';
+    }
 
-	print "</table>";
+    print "</table>";
 
-	print '</form>';
+    print '</form>';
 }
 
 print '</div>';
@@ -225,7 +240,7 @@ print '</div>';
 /*
  * Boutons actions
  */
-if ($_GET["action"] == '')
+if ($action == '')
 {
     print '<div class="tabsAction">';
 
@@ -238,7 +253,9 @@ if ($_GET["action"] == '')
 }
 
 
+if ($mesg) dol_htmloutput_mesg($mesg);
+
 $db->close();
 
-llxFooter('$Date: 2011/01/24 23:38:20 $ - $Revision: 1.3 $');
+llxFooter('$Date: 2011/02/12 18:36:57 $ - $Revision: 1.4 $');
 ?>

@@ -53,7 +53,7 @@ class modOvh extends DolibarrModules
 		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'numero' of module)
 		$this->name = preg_replace('/^mod/i','',get_class($this));
 		// Module description, used if translation string 'ModuleXXXDesc' not found (where XXX is value of numeric property 'numero' of module)
-		$this->description = "Une interface et des fonctions pour utiliser un forfait SMS souscrit chez l'hébergeur Ovh";
+		$this->description = "Ajout de fonctionnalités utilisant les interfaces d'OVH (Envoi de SMS par abonnement API OVH, Click2Dial, Lecture factures)";
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
 		$this->version = '1.0';
 		// Key used in llx_const table to save module status enabled/disabled (where MYMODULE is value of property name of module in uppercase)

@@ -15,12 +15,29 @@
 -- along with this program; if not, write to the Free Software
 -- Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 --
--- $Id: llx_cabinetmed_motifcons.sql,v 1.4 2011/02/12 18:36:57 eldy Exp $
+-- $Id: llx_cabinetmed_cons.sql,v 1.1 2011/02/12 18:36:57 eldy Exp $
 -- ===========================================================================
 
-CREATE TABLE llx_cabinetmed_motifcons (
-  rowid             integer AUTO_INCREMENT PRIMARY KEY,
-  code              varchar(8) NOT NULL,
-  label             varchar(64) NOT NULL,
-  active            tinyint DEFAULT 1  NOT NULL
+-- DROP TABLE llx_cabinetmed_cons
+CREATE TABLE llx_cabinetmed_cons (
+  rowid              integer AUTO_INCREMENT PRIMARY KEY,
+  fk_soc             integer,
+  datecons           date NOT NULL,
+  typepriseencharge  varchar(8),
+  motifconsprinc     varchar(64),
+  diaglesprinc       varchar(64),
+  motifconssec       text,
+  diaglessec         text,
+  examenclinique     text,
+  examenprescrit     text,
+  traitementprescrit text,
+  comment            text,
+  typevisit          varchar(8) NOT NULL,
+  infiltration       varchar(256),
+  codageccam         varchar(16),
+  montant_cheque     double(24,8),
+  montant_espece     double(24,8),
+  montant_carte      double(24,8),
+  montant_tiers      double(24,8),
+  banque             varchar(128)   
 ) ENGINE=innodb;

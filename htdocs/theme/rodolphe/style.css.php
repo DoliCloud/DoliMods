@@ -21,7 +21,7 @@
 /**
  *		\file       htdocs/theme/rodolphe/style.css.php
  *		\brief      Fichier de style CSS du theme Rodolphe
- *		\version    $Id: style.css.php,v 1.2 2010/11/13 19:51:15 eldy Exp $
+ *		\version    $Id: style.css.php,v 1.3 2011/02/12 18:36:58 eldy Exp $
  */
 
 //if (! defined('NOREQUIREUSER')) define('NOREQUIREUSER','1');	// Not disabled cause need to load personalized language
@@ -35,6 +35,7 @@ if (! defined('NOREQUIREMENU'))   define('NOREQUIREMENU',1);
 if (! defined('NOREQUIREHTML'))   define('NOREQUIREHTML',1);
 if (! defined('NOREQUIREAJAX'))   define('NOREQUIREAJAX','1');
 
+session_cache_limiter( FALSE );
 
 require_once("../../master.inc.php");
 require_once(DOL_DOCUMENT_ROOT."/lib/functions.lib.php");
