@@ -23,7 +23,7 @@
  *   \file       htdocs/cabinetmed/consultations.php
  *   \brief      Tab for consultations
  *   \ingroup    cabinetmed
- *   \version    $Id: consultations.php,v 1.1 2011/02/12 18:36:57 eldy Exp $
+ *   \version    $Id: consultations.php,v 1.2 2011/02/12 21:57:56 eldy Exp $
  */
 
 $res=0;
@@ -555,7 +555,7 @@ if ($socid > 0)
         if ($conf->banque->enabled)
         {
             print ' &nbsp; '.$langs->trans("A encaiser sur").' ';
-            $form->select_comptes('','bankchequeto',0,"proprio LIKE '%".$user->nom."%' AND courant = 1",0,($consult->montant_cheque?'':' disabled="disabled"'));
+            $form->select_comptes('','bankchequeto',0,"(proprio LIKE '%".$user->nom."%' OR label LIKE '%".$user->nom."%') AND courant = 1",0,($consult->montant_cheque?'':' disabled="disabled"'));
         }
         print ' &nbsp; '.$langs->trans("ChequeBank").' ';
         print '<input type="text" class="flat" name="banque" id="banque" value="'.$consult->banque.'" size="18"'.($consult->montant_cheque?'':' disabled="disabled"').'>';
@@ -570,7 +570,7 @@ if ($socid > 0)
         if ($conf->banque->enabled)
         {
             print ' &nbsp; '.$langs->trans("A encaiser sur").' ';
-            $form->select_comptes('','bankespeceto',0,"proprio LIKE '%".$user->nom."%' AND courant = 2",0,($consult->montant_espece?'':' disabled="disabled"'));
+            $form->select_comptes('','bankespeceto',0,"(proprio LIKE '%".$user->nom."%' OR label LIKE '%".$user->nom."%') AND courant = 2",0,($consult->montant_espece?'':' disabled="disabled"'));
         }
         print '</td></tr><tr><td>';
         print $langs->trans("Carte").'</td><td>';
@@ -578,7 +578,7 @@ if ($socid > 0)
         if ($conf->banque->enabled)
         {
             print ' &nbsp; '.$langs->trans("A encaiser sur").' ';
-            $form->select_comptes('','bankcarteto',0,"proprio LIKE '%".$user->nom."%' AND courant = 1",0,($consult->montant_carte?'':' disabled="disabled"'));
+            $form->select_comptes('','bankcarteto',0,"(proprio LIKE '%".$user->nom."%' OR label LIKE '%".$user->nom."%') AND courant = 1",0,($consult->montant_carte?'':' disabled="disabled"'));
         }
         print '</td></tr><tr><td>';
         print $langs->trans("Tiers").'</td><td>';
@@ -853,5 +853,5 @@ function listexamenprescrit($nboflines,$newwidth=0)
 
 $db->close();
 
-llxFooter('$Date: 2011/02/12 18:36:57 $ - $Revision: 1.1 $');
+llxFooter('$Date: 2011/02/12 21:57:56 $ - $Revision: 1.2 $');
 ?>
