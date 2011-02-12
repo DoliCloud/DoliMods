@@ -3,10 +3,9 @@
 
 
 -- Sexe into type
-insert into llx_c_typent (id,code,libelle,active) values (100,'TE_OTHER', 'Indéterminé',      1);
 insert into llx_c_typent (id,code,libelle,active) values (101,'TE_HOMME', 'Homme',            1);
 insert into llx_c_typent (id,code,libelle,active) values (102,'TE_FEMME', 'Femme',            1);
-update llx_c_typent set active=0 where id < 100;
+update llx_c_typent set active=0 where id > 0 and id < 100;
 
 
 -- Secteur d'activité dans Forme juridiques
