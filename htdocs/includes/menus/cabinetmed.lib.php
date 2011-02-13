@@ -21,7 +21,7 @@
 /**
  *  \file		htdocs/includes/menus/standard/cabinetmed.lib.php
  *  \brief		Library for file cabinetmed menus
- *  \version	$Id: cabinetmed.lib.php,v 1.1 2011/02/13 15:49:43 eldy Exp $
+ *  \version	$Id: cabinetmed.lib.php,v 1.2 2011/02/13 16:02:56 eldy Exp $
  */
 
 
@@ -157,6 +157,7 @@ function print_cabinetmed_menu($db,$atarget,$type_user)
 	}
 
 	// Financial
+	/*
 	if ($conf->compta->enabled || $conf->accounting->enabled
 	|| $conf->facture->enabled || $conf->deplacement->enabled)
 	{
@@ -199,6 +200,7 @@ function print_cabinetmed_menu($db,$atarget,$type_user)
 			}
 		}
 	}
+    */
 
     // Bank
     if ($conf->banque->enabled || $conf->prelevement->enabled)
