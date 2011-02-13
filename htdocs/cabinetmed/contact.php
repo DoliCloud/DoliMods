@@ -1,6 +1,6 @@
 <?php
 /* Copyright (C) 2005      Patrick Rouillon     <patrick@rouillon.net>
- * Copyright (C) 2005-2009 Laurent Destailleur  <eldy@users.sourceforge.net>
+ * Copyright (C) 2005-2011 Laurent Destailleur  <eldy@users.sourceforge.net>
  * Copyright (C) 2005-2009 Regis Houssin        <regis@dolibarr.fr>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -19,11 +19,11 @@
  */
 
 /**
-        \file       htdocs/cabinetmed/contact.php
-        \ingroup    commande
-        \brief      Onglet de gestion des contacts de commande
-        \version    $Id: contact.php,v 1.1 2011/02/12 18:36:57 eldy Exp $
-*/
+ *       \file       htdocs/cabinetmed/contact.php
+ *       \ingroup    cabinetmed
+ *       \brief      Tab for links between doctors and patient
+ *       \version    $Id: contact.php,v 1.2 2011/02/13 11:58:13 eldy Exp $
+ */
 
 $res=0;
 if (! $res && file_exists("../main.inc.php")) $res=@include("../main.inc.php");
@@ -50,7 +50,7 @@ $result = restrictedArea($user, 'societe', $socid);
 
 
 /*
- * Ajout d'un nouveau contact
+ * Add new contact
  */
 
 if ($_POST["action"] == 'addcontact' && $user->rights->commande->creer)
@@ -404,5 +404,5 @@ if ($id > 0 || ! empty($ref))
 
 $db->close();
 
-llxFooter('$Date: 2011/02/12 18:36:57 $');
+llxFooter('$Date: 2011/02/13 11:58:13 $');
 ?>
