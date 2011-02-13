@@ -21,7 +21,7 @@
 /**
  *  \file		htdocs/includes/menus/standard/cabinetmed.lib.php
  *  \brief		Library for file cabinetmed menus
- *  \version	$Id: cabinetmed.lib.php,v 1.4 2011/02/12 18:36:57 eldy Exp $
+ *  \version	$Id: cabinetmed.lib.php,v 1.1 2011/02/13 15:49:43 eldy Exp $
  */
 
 

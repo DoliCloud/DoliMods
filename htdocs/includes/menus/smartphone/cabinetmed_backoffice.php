@@ -20,7 +20,7 @@
 /**
  *		\file       htdocs/includes/menus/standard/cabinetmed_backoffice.php
  *		\brief      Gestionnaire nomme cabinetmed du menu du haut
- *		\version    $Id: cabinetmed_backoffice.php,v 1.2 2011/02/13 15:49:43 eldy Exp $
+ *		\version    $Id: cabinetmed_backoffice.php,v 1.1 2011/02/13 15:49:43 eldy Exp $
  *
  *		\remarks    La construction d'un gestionnaire pour le menu du haut est simple:
  *		\remarks    Toutes les entrees de menu a faire apparaitre dans la barre du haut
