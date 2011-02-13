@@ -18,12 +18,10 @@
  */
 
 /**
- *   	\file       admin/ovhsms_setup.php
- *		\ingroup    ovhsms
- *		\brief      Configuration du module ovhsms
- *		\version    $Id: ovh_setup.php,v 1.3 2011/01/16 14:26:45 eldy Exp $
- *		\author		Put author name here
- *		\remarks	Put here some comments
+ *   	\file       admin/ovh_setup.php
+ *		\ingroup    ovh
+ *		\brief      Configuration du module ovh
+ *		\version    $Id: ovh_setup.php,v 1.4 2011/02/13 11:51:19 eldy Exp $
  */
 
 define('NOCSRFCHECK',1);
@@ -121,7 +119,7 @@ print "</tr>\n";
 
 
 $var=!$var;
-print '<tr '.$bc[$var].'><td class="fieldrequired">';
+print '<tr '.$bc[$var].'><td width="200px" class="fieldrequired">';
 print $langs->trans("OvhSmsNick").'</td><td>';
 print '<input size="64" type="text" name="OVHSMS_NICK" value="'.$conf->global->OVHSMS_NICK.'">';
 print '<br>'.$langs->trans("Example").': AA123-OVH';
@@ -160,40 +158,48 @@ else
 {
 	$soap = new soapclient($WS_DOL_URL);
 
-	//login
-	$session = $soap->login($conf->global->OVHSMS_NICK, $conf->global->OVHSMS_PASS, "fr", false);
-	print $langs->trans("OvhSmsLoginSuccessFull");
+	try {
+		//login
+		$session = $soap->login($conf->global->OVHSMS_NICK, $conf->global->OVHSMS_PASS, "fr", false);
+		print '<div class="ok">'.$langs->trans("OvhSmsLoginSuccessFull").'</div><br>';
 
-	print '<br /><a class="action" href="ovhsms_recap.php">Liste des comptes sur le NICK HANDLE</a>';
-
-	// Formulaire d'ajout de compte SMS qui sera valable pour tout Dolibarr
-	print '<form method="post" action="'.$_SERVER["PHP_SELF"].'">';
-	print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
-	print '<input type="hidden" name="action" value="setvalue_account">';
-
-	$var=true;
-
-	print '<table class="nobordernopadding" width="100%">';
-	print '<tr class="liste_titre">';
-	print '<td>'.$langs->trans("Parameter").'</td>';
-	print '<td>'.$langs->trans("Value").'</td>';
-	print "</tr>\n";
-
-
-	$var=!$var;
-	print '<tr '.$bc[$var].'><td>';
-	print $langs->trans("OvhSmsLabelAccount").'</td><td>';
-	print '<input size="64" type="text" name="OVHSMS_ACCOUNT" value="'.$conf->global->OVHSMS_ACCOUNT.'">';
-	print '<br>'.$langs->trans("Example").': sms-aa123-1';
-	print '</td></tr>';
-
-	print '<tr><td colspan="2" align="center"><input type="submit" class="button" value="'.$langs->trans("Modify").'"></td></tr>';
-	print '</table></form>';
-
-
-	//logout
-	$soap->logout($session);
-	//  echo "logout successfull\n";
+	
+		// Formulaire d'ajout de compte SMS qui sera valable pour tout Dolibarr
+		print '<form method="post" action="'.$_SERVER["PHP_SELF"].'">';
+		print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
+		print '<input type="hidden" name="action" value="setvalue_account">';
+	
+		$var=true;
+	
+		print '<table class="nobordernopadding" width="100%">';
+		print '<tr class="liste_titre">';
+		print '<td width="200px">'.$langs->trans("Parameter").'</td>';
+		print '<td>'.$langs->trans("Value").'</td>';
+		print '<td>&nbsp;</td>';
+		print "</tr>\n";
+	
+	
+		$var=!$var;
+		print '<tr '.$bc[$var].'><td class="fieldrequired">';
+		print $langs->trans("OvhSmsLabelAccount").'</td><td>';
+		print '<input size="64" type="text" name="OVHSMS_ACCOUNT" value="'.$conf->global->OVHSMS_ACCOUNT.'">';
+		print '<br>'.$langs->trans("Example").': sms-aa123-1';
+		print '<td>'.'<a class="action" href="ovh_smsrecap.php">'.$langs->trans("ListOfSmsAccountsForNH").'</a>';
+		
+		print '</td></tr>';
+	
+		print '<tr><td colspan="3" align="center"><input type="submit" class="button" value="'.$langs->trans("Modify").'"></td></tr>';
+		print '</table></form>';
+	
+	
+		//logout
+		$soap->logout($session);
+		//  echo "logout successfull\n";
+	}
+	catch(Exception $e)
+	{
+		print 'Error '.$e->getMessage().'<br>';
+	}
 }
 
 

@@ -18,8 +18,8 @@
  */
 
 /**
- *   	\file       ovhsms/sms.php
- *		\ingroup    ovhsms
+ *   	\file       ovh/sms.php
+ *		\ingroup    ovh
  *		\brief
  */
 $res=0;

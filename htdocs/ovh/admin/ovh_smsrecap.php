@@ -18,10 +18,10 @@
  */
 
 /**
- *   	\file       admin/ovhsms_setup.php
+ *   	\file       ovh/admin/ovhsms_recap.php
  *		\ingroup    ovhsms
  *		\brief      Configuration du module ovhsms
- *		\version    $Id: ovh_recap.php,v 1.2 2011/01/16 14:26:45 eldy Exp $
+ *		\version    $Id: ovh_smsrecap.php,v 1.1 2011/02/13 11:51:19 eldy Exp $
  *		\author		Put author name here
  *		\remarks	Put here some comments
  */
@@ -40,7 +40,7 @@ dol_include_once("/ovh/class/ovhsms.class.php");
 
 // Load traductions files requiredby by page
 $langs->load("companies");
-$langs->load("ovh");
+$langs->load("ovh@ovh");
 
 if (!$user->admin)
 	accessforbidden();
@@ -57,9 +57,9 @@ $account = isset($_GET["account"])?$_GET["account"]:'';
 ****************************************************/
 
 
-llxHeader($langs->trans('OvhSmsRecap'),'','');
+llxHeader('',$langs->trans('OvhSmsRecap'),'','');
 
-$linkback='<a href="'.DOL_URL_ROOT.'/admin/ovhsms_setup.php">'.$langs->trans("OvhSmsBackToAdmin").'</a>';
+$linkback='<a href="'.dol_buildpath('/ovh/admin/ovh_setup.php',1).'">'.$langs->trans("OvhSmsBackToAdmin").'</a>';
 print_fiche_titre($langs->trans("OvhSmsRecap"),$linkback,'setup');
 
 
@@ -173,5 +173,5 @@ if($sms > 0) {
 
 // End of page
 $db->close();
-llxFooter('$Date: 2011/01/16 14:26:45 $ - $Revision: 1.2 $');
+llxFooter('$Date: 2011/02/13 11:51:19 $ - $Revision: 1.1 $');
 ?>
