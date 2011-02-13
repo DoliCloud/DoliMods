@@ -26,7 +26,7 @@
  *      \file       htdocs/includes/modules/modCabinetMed.class.php
  *      \ingroup    cabinetmed
  *      \brief      Description and activation file for module CabinetMed
- *      \version    $Id: modCabinetMed.class.php,v 1.10 2011/02/13 22:47:03 eldy Exp $
+ *      \version    $Id: modCabinetMed.class.php,v 1.11 2011/02/13 22:48:30 eldy Exp $
  */
 include_once(DOL_DOCUMENT_ROOT ."/includes/modules/DolibarrModules.class.php");
 
@@ -85,7 +85,7 @@ class modCabinetMed extends DolibarrModules
         $this->requiredby = array();    // List of modules id to disable if this one is disabled
         $this->phpmin = array(4,3);                 // Minimum version of PHP required by module
         $this->need_dolibarr_version = array(3,0,-2);   // Minimum version of Dolibarr required by module
-        $this->langfiles = array('cabinetmed@cabinetmed','company');
+        $this->langfiles = array('cabinetmed@cabinetmed','companies');
 
         // Constants
         $this->const = array(0=>array('SOCIETE_DISABLE_PROSPECTS','chaine','1','Disable all prospects features',1,'current',1),
