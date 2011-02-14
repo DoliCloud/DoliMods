@@ -21,7 +21,7 @@
 /**
  *  \file		htdocs/includes/menus/standard/cabinetmed.lib.php
  *  \brief		Library for file cabinetmed menus
- *  \version	$Id: cabinetmed.lib.php,v 1.3 2011/02/14 17:32:43 eldy Exp $
+ *  \version	$Id: cabinetmed.lib.php,v 1.4 2011/02/14 18:07:55 eldy Exp $
  */
 
 
@@ -286,7 +286,7 @@ function print_cabinetmed_menu($db,$atarget,$type_user)
 	}
 
 	// Tools
-	if ($conf->mailing->enabled || $conf->export->enabled || $conf->import->enabled || $conf->global->MAIN_MODULE_DOMAIN)
+	if ($conf->mailing->enabled || $conf->export->enabled || $conf->import->enabled)
 	{
 		$langs->load("other");
 
@@ -304,10 +304,10 @@ function print_cabinetmed_menu($db,$atarget,$type_user)
 		if ($user->rights->mailing->lire || $user->rights->bookmark->lire || $user->rights->export->lire || $user->rights->import->run)
 		{
 			print_start_menu_entry($idsel);
-			print '<a class="tmenuimage" href="'.DOL_URL_ROOT.'/index.php?mainmenu=tools&amp;leftmenu="'.($atarget?" target=$atarget":"").'>';
+			print '<a class="tmenuimage" href="'.DOL_URL_ROOT.'/core/tools.php?mainmenu=tools&amp;leftmenu="'.($atarget?" target=$atarget":"").'>';
 			print '<div class="'.$id.' '.$idsel.'"><span class="'.$id.' tmenuimage" id="mainmenuspan_'.$idsel.'"></span></div>';
 			print '</a>';
-			print '<a '.$classname.' id="mainmenua_'.$idsel.'" href="'.DOL_URL_ROOT.'/index.php?mainmenu=tools&amp;leftmenu="'.($atarget?" target=$atarget":"").'>';
+			print '<a '.$classname.' id="mainmenua_'.$idsel.'" href="'.DOL_URL_ROOT.'/core/tools.php?mainmenu=tools&amp;leftmenu="'.($atarget?" target=$atarget":"").'>';
 			print_text_menu_entry($langs->trans("Tools"));
 			print '</a>';
 			print_end_menu_entry();
