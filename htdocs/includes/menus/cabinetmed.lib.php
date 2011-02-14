@@ -21,7 +21,7 @@
 /**
  *  \file		htdocs/includes/menus/standard/cabinetmed.lib.php
  *  \brief		Library for file cabinetmed menus
- *  \version	$Id: cabinetmed.lib.php,v 1.2 2011/02/13 16:02:56 eldy Exp $
+ *  \version	$Id: cabinetmed.lib.php,v 1.3 2011/02/14 17:32:43 eldy Exp $
  */
 
 
@@ -637,11 +637,11 @@ function print_left_cabinetmed_menu($db,$menu_array_before,$menu_array_after)
             {
                 $langs->load("companies");
                 $langs->load("cabinetmed@cabinetmed");
-                $newmenu->add("/societe/societe.php", $langs->trans("Patients"), 0, $user->rights->societe->lire);
+                $newmenu->add("/comm/clients.php?leftmenu=customers", $langs->trans("Patients"), 0, $user->rights->societe->lire);
 
                 if ($user->rights->societe->creer)
                 {
-                    $newmenu->add("/societe/soc.php?action=create",$langs->trans("MenuNewPatient"),1);
+                    $newmenu->add("/societe/soc.php?action=create&leftmenu=customers",$langs->trans("MenuNewPatient"),1);
                 }
             }
 
@@ -654,8 +654,8 @@ function print_left_cabinetmed_menu($db,$menu_array_before,$menu_array_after)
 
             // Correspondants
             $newmenu->add("/contact/index.php?leftmenu=contacts", $langs->trans("Correspondants"), 0, $user->rights->societe->contact->lire);
-            $newmenu->add("/contact/fiche.php?leftmenu=contacts&amp;action=create&type=o", $langs->trans("NewContact"), 1, $user->rights->societe->contact->creer);
-            $newmenu->add("/contact/index.php?leftmenu=contacts&type=o", $langs->trans("List"), 1, $user->rights->societe->contact->lire);
+            $newmenu->add("/contact/fiche.php?leftmenu=contacts&amp;action=create", $langs->trans("NewContact"), 1, $user->rights->societe->contact->creer);
+            $newmenu->add("/contact/index.php?leftmenu=contacts", $langs->trans("List"), 1, $user->rights->societe->contact->lire);
 
             // Categories
             if ($conf->categorie->enabled)

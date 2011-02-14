@@ -27,7 +27,7 @@
  *	\file       htdocs/societe/class/societe.class.php
  *	\ingroup    societe
  *	\brief      File for third party class
- *	\version    $Id: patient.class.php,v 1.2 2011/02/12 18:36:57 eldy Exp $
+ *	\version    $Id: patient.class.php,v 1.3 2011/02/14 17:32:43 eldy Exp $
  */
 require_once(DOL_DOCUMENT_ROOT."/core/class/commonobject.class.php");
 
@@ -2112,55 +2112,6 @@ class Patient extends CommonObject
         }
     }
 
-    /**
-     *  Retourne le formulaire de saisie d'un identifiant professionnel (siren, siret, etc...)
-     *  @param      idprof          1,2,3,4 (Exemple: 1=siren,2=siret,3=naf,4=rcs/rm)
-     *  @param      htmlname        Nom de la zone input
-     * 	@param		preselected		Default value to show
-     * 	TODO not in business class
-     */
-    function show_input_id_prof($idprof,$htmlname,$preselected)
-    {
-        print $this->get_input_id_prof($idprof, $htmlname, $preselected);
-    }
-
-    /**
-     *  Retourne le formulaire de saisie d'un identifiant professionnel (siren, siret, etc...)
-     *  @param      idprof          1,2,3,4 (Exemple: 1=siren,2=siret,3=naf,4=rcs/rm)
-     *  @param      htmlname        Nom de la zone input
-     * 	@param		preselected		Default value to show
-     * 	TODO not in business class
-     */
-    function get_input_id_prof($idprof,$htmlname,$preselected)
-    {
-        global $langs;
-
-        $formlength=24;
-        if ($this->pays_code == 'FR')
-        {
-            if ($idprof==1) $formlength=9;
-            if ($idprof==2) $formlength=14;
-            if ($idprof==3) $formlength=5;		// 4 chiffres et 1 lettre depuis janvier
-            if ($idprof==4) $formlength=32;		// No maximum as we need to include a town name in this id
-        }
-        if ($this->pays_code == 'ES')
-        {
-            if ($idprof==1) $formlength=9;  //CIF/NIF/NIE 9 digits
-            if ($idprof==2) $formlength=12; //NASS 12 digits without /
-            if ($idprof==3) $formlength=5;  //CNAE 5 digits
-            if ($idprof==4) $formlength=32; //depend of college
-        }
-
-        $selected=$preselected;
-        if (! $selected && $idprof==1) $selected=$this->siren;
-        if (! $selected && $idprof==2) $selected=$this->siret;
-        if (! $selected && $idprof==3) $selected=$this->ape;
-        if (! $selected && $idprof==4) $selected=$this->idprof4;
-
-        $out = '<input type="text" name="'.$htmlname.'" size="'.($formlength+1).'" maxlength="'.$formlength.'" value="'.$selected.'">';
-
-        return $out;
-    }
 
     /**
      *      Cree en base un tiers depuis l'objet adherent
