@@ -26,7 +26,7 @@
  *      \file       htdocs/includes/modules/modCabinetMed.class.php
  *      \ingroup    cabinetmed
  *      \brief      Description and activation file for module CabinetMed
- *      \version    $Id: modCabinetMed.class.php,v 1.12 2011/02/14 16:54:18 eldy Exp $
+ *      \version    $Id: modCabinetMed.class.php,v 1.13 2011/02/14 17:45:36 eldy Exp $
  */
 include_once(DOL_DOCUMENT_ROOT ."/includes/modules/DolibarrModules.class.php");
 
@@ -91,12 +91,12 @@ class modCabinetMed extends DolibarrModules
         $this->const = array(0=>array('SOCIETE_DISABLE_PROSPECTS','chaine','1','Disable all prospects features',1,'current',1),
                              1=>array('SOCIETE_DISABLE_CONTACTS','chaine','1','Disable contacts features',1,'current',1),
                              2=>array('SOCIETE_DISABLE_CUSTOMERS','chaine','1','Disable all customers features',1,'current',1),
-                             3=>array('MAIN_DISABLEPROFIDRULES','chaine','1','Disable all prospects features',1,'current',1),
+                             3=>array('MAIN_DISABLEPROFIDRULES','chaine','1','Disable info/check links near professional id fields',1,'current',1),
                              4=>array('MAIN_FORCELANGDIR','chaine','/cabinetmed','Language files are searched into this dir first',1,'current',1),
 //                             4=>array('MAIN_FORCETHEMEDIR','chaine','/cabinetmed','Skins files are searched into this dir first',1,'current',1),
 //                             4=>array('MAIN_DIRECTEDITMODE','chaine','1','Notes are in edit mode directly',1,'current',1),
                              5=>array('MAIN_DISABLEVATCHECK','chaine','1','Disable link to VAT check',1,'current',1),
-                             6=>array('MAIN_DISABLEDRAFTSTATUS','chaine','1','Disable link to VAT check',1,'current',1),
+                             6=>array('MAIN_DISABLEDRAFTSTATUS','chaine','1','Disable draft status',1,'current',1),
                              7=>array('MAIN_MENU_STANDARD_FORCED','chaine','cabinetmed_backoffice.php','Force menu handler to this value',1,'current',1),
                              8=>array('MAIN_MENUFRONT_STANDARD_FORCED','chaine','cabinetmed_frontoffice.php','Force menu handler to this value',1,'current',1),
                              9=>array('MAIN_MENU_SMARTPHONE_FORCED','chaine','cabinetmed_backoffice.php','Force menu handler to this value',1,'current',1),
