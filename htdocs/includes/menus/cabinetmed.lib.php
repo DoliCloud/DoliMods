@@ -21,7 +21,7 @@
 /**
  *  \file		htdocs/includes/menus/standard/cabinetmed.lib.php
  *  \brief		Library for file cabinetmed menus
- *  \version	$Id: cabinetmed.lib.php,v 1.4 2011/02/14 18:07:55 eldy Exp $
+ *  \version	$Id: cabinetmed.lib.php,v 1.5 2011/02/16 22:45:46 eldy Exp $
  */
 
 
@@ -399,7 +399,7 @@ function print_cabinetmed_menu($db,$atarget,$type_user)
 
 	$menuArbo = new Menubase($db,'cabinetmed','top');
 
-	$tabMenu = $menuArbo->menuTopCharger($type_user,$_SESSION['mainmenu'],'cabinetmed');
+	$tabMenu = $menuArbo->menuTopCharger($_SESSION['mainmenu'],'',$type_user,'cabinetmed');
 
 	for($i=0; $i<count($tabMenu); $i++)
 	{
