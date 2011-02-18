@@ -19,9 +19,9 @@
  */
 
 /**
- *  \file		htdocs/includes/menus/standard/cabinetmed.lib.php
+ *  \file		htdocs/includes/menus/cabinetmed.lib.php
  *  \brief		Library for file cabinetmed menus
- *  \version	$Id: cabinetmed.lib.php,v 1.5 2011/02/16 22:45:46 eldy Exp $
+ *  \version	$Id: cabinetmed.lib.php,v 1.6 2011/02/18 12:16:10 eldy Exp $
  */
 
 
@@ -399,44 +399,44 @@ function print_cabinetmed_menu($db,$atarget,$type_user)
 
 	$menuArbo = new Menubase($db,'cabinetmed','top');
 
-	$tabMenu = $menuArbo->menuTopCharger($_SESSION['mainmenu'],'',$type_user,'cabinetmed');
+	$newTabMenu = $menuArbo->menuTopCharger($_SESSION['mainmenu'],'',$type_user,'cabinetmed');
 
-	for($i=0; $i<count($tabMenu); $i++)
+	for($i=0; $i<count($newTabMenu); $i++)
 	{
-		if ($tabMenu[$i]['enabled'] == true)
+		if ($newTabMenu[$i]['enabled'] == true)
 		{
-			//var_dump($tabMenu[$i]);
+			//var_dump($newTabMenu[$i]);
 
-			$idsel=(empty($tabMenu[$i]['mainmenu'])?'none':$tabMenu[$i]['mainmenu']);
-			if ($tabMenu[$i]['right'] == true)	// Is allowed
+			$idsel=(empty($newTabMenu[$i]['mainmenu'])?'none':$newTabMenu[$i]['mainmenu']);
+			if ($newTabMenu[$i]['right'] == true)	// Is allowed
 			{
-				if (preg_match("/^(http:\/\/|https:\/\/)/i",$tabMenu[$i]['url']))
+				if (preg_match("/^(http:\/\/|https:\/\/)/i",$newTabMenu[$i]['url']))
 				{
-					$url = $tabMenu[$i]['url'];
+					$url = $newTabMenu[$i]['url'];
 				}
 				else
 				{
-					$url=dol_buildpath($tabMenu[$i]['url'],1);
+					$url=dol_buildpath($newTabMenu[$i]['url'],1);
 					if (! preg_match('/\?/',$url)) $url.='?';
 					else $url.='&';
 					if (! preg_match('/mainmenu/i',$url) || ! preg_match('/leftmenu/i',$url))
 					{
-						$url.='mainmenu='.$tabMenu[$i]['mainmenu'].'&leftmenu=&';
+						$url.='mainmenu='.$newTabMenu[$i]['mainmenu'].'&leftmenu=&';
 					}
-					$url.="idmenu=".$tabMenu[$i]['rowid'];
+					$url.="idmenu=".$newTabMenu[$i]['rowid'];
 				}
 
 				// Define the class (top menu selected or not)
-				if (! empty($_SESSION['idmenu']) && $tabMenu[$i]['rowid'] == $_SESSION['idmenu']) $classname='class="tmenusel"';
-				else if (! empty($_SESSION['mainmenu']) && $tabMenu[$i]['mainmenu'] == $_SESSION['mainmenu']) $classname='class="tmenusel"';
+				if (! empty($_SESSION['idmenu']) && $newTabMenu[$i]['rowid'] == $_SESSION['idmenu']) $classname='class="tmenusel"';
+				else if (! empty($_SESSION['mainmenu']) && $newTabMenu[$i]['mainmenu'] == $_SESSION['mainmenu']) $classname='class="tmenusel"';
 				else $classname='class="tmenu"';
 
 				print_start_menu_entry($idsel);
-				print '<a class="tmenuimage" href="'.$url.'"'.($tabMenu[$i]['atarget']?" target='".$tabMenu[$i]['atarget']."'":($atarget?" target=$atarget":"")).'>';
+				print '<a class="tmenuimage" href="'.$url.'"'.($newTabMenu[$i]['atarget']?" target='".$newTabMenu[$i]['atarget']."'":($atarget?" target=$atarget":"")).'>';
 				print '<div class="'.$id.' '.$idsel.'"><span class="'.$id.' tmenuimage" id="mainmenuspan_'.$idsel.'"></span></div>';
 				print '</a>';
-				print '<a '.$classname.' id="mainmenua_'.$idsel.'" href="'.$url.'"'.($tabMenu[$i]['atarget']?" target='".$tabMenu[$i]['atarget']."'":($atarget?" target=$atarget":"")).'>';
-				print_text_menu_entry($tabMenu[$i]['titre']);
+				print '<a '.$classname.' id="mainmenua_'.$idsel.'" href="'.$url.'"'.($newTabMenu[$i]['atarget']?" target='".$newTabMenu[$i]['atarget']."'":($atarget?" target=$atarget":"")).'>';
+				print_text_menu_entry($newTabMenu[$i]['titre']);
 				print '</a>';
 				print_end_menu_entry();
 			}
@@ -447,7 +447,7 @@ function print_cabinetmed_menu($db,$atarget,$type_user)
 					print_start_menu_entry($idsel);
 					print '<div class="'.$id.' '.$idsel.'"><span class="'.$id.' tmenuimage" id="mainmenuspan_'.$idsel.'"></span></div>';
 					print '<a class="tmenudisabled" id="mainmenua_'.$idsel.'" href="#">';
-					print_text_menu_entry($tabMenu[$i]['titre']);
+					print_text_menu_entry($newTabMenu[$i]['titre']);
 					print '</a>';
 					print_end_menu_entry();
 				}
