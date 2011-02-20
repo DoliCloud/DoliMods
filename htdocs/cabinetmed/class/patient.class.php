@@ -27,7 +27,7 @@
  *	\file       htdocs/societe/class/societe.class.php
  *	\ingroup    societe
  *	\brief      File for third party class
- *	\version    $Id: patient.class.php,v 1.3 2011/02/14 17:32:43 eldy Exp $
+ *	\version    $Id: patient.class.php,v 1.4 2011/02/20 10:55:43 eldy Exp $
  */
 require_once(DOL_DOCUMENT_ROOT."/core/class/commonobject.class.php");
 
@@ -98,9 +98,6 @@ class Patient extends CommonObject
     var $remise_percent;
     var $mode_reglement_id;
     var $cond_reglement_id;
-    var $remise_client;  // TODO obsolete
-    var $mode_reglement; // TODO obsolete
-    var $cond_reglement; // TODO obsolete
 
     var $client;					// 0=no customer, 1=customer, 2=prospect
     var $prospect;					// 0=no prospect, 1=prospect
@@ -768,15 +765,15 @@ class Patient extends CommonObject
             $this->socid		= $obj->fk_soc;
             $this->name			= $obj->name;
             $this->address		= $obj->address;
-            $this->cp			= $obj->cp;			// TODO deprecated
+            $this->cp			= $obj->cp;
             $this->zip			= $obj->cp;
-            $this->ville		= $obj->ville;		// TODO deprecated
+            $this->ville		= $obj->ville;
             $this->town			= $obj->ville;
             $this->pays_id		= $obj->fk_pays;
             $this->pays_code	= $obj->fk_pays?$obj->pays_code:'';
-            $this->pays			= $obj->fk_pays?($langs->trans('Country'.$obj->pays_code)!='Country'.$obj->pays_code?$langs->trans('Country'.$obj->pays_code):$obj->pays):''; // TODO deprecated
+            $this->pays			= $obj->fk_pays?($langs->trans('Country'.$obj->pays_code)!='Country'.$obj->pays_code?$langs->trans('Country'.$obj->pays_code):$obj->pays):'';
             $this->country		= $obj->fk_pays?($langs->trans('Country'.$obj->pays_code)!='Country'.$obj->pays_code?$langs->trans('Country'.$obj->pays_code):$obj->pays):'';
-            $this->tel			= $obj->tel;		// TODO deprecated
+            $this->tel			= $obj->tel;
             $this->phone		= $obj->tel;
             $this->fax			= $obj->fax;
             $this->note			= $obj->note;
@@ -1775,103 +1772,6 @@ class Patient extends CommonObject
     {
         $ok=1;
 
-        // Verifie SIREN si pays FR
-        if ($idprof == 1 && $soc->pays_code == 'FR')
-        {
-            $chaine=trim($this->siren);
-            $chaine=preg_replace('/(\s)/','',$chaine);
-
-            if (dol_strlen($chaine) != 9) return -1;
-
-            $sum = 0;
-
-            for ($i = 0 ; $i < 10 ; $i = $i+2)
-            {
-                $sum = $sum + substr($this->siren, (8 - $i), 1);
-            }
-
-            for ($i = 1 ; $i < 9 ; $i = $i+2)
-            {
-                $ps = 2 * substr($this->siren, (8 - $i), 1);
-
-                if ($ps > 9)
-                {
-                    $ps = substr($ps, 0,1) + substr($ps, 1 ,1);
-                }
-                $sum = $sum + $ps;
-            }
-
-            if (substr($sum, -1) != 0) return -1;
-        }
-
-        // Verifie SIRET si pays FR
-        if ($idprof == 2 && $soc->pays_code == 'FR')
-        {
-            $chaine=trim($this->siret);
-            $chaine=preg_replace('/(\s)/','',$chaine);
-
-            if (dol_strlen($chaine) != 14) return -1;
-        }
-
-        //Verify CIF/NIF/NIE if pays ES
-        //Returns: 1 if NIF ok, 2 if CIF ok, 3 if NIE ok, -1 if NIF bad, -2 if CIF bad, -3 if NIE bad, 0 if unexpected bad
-        if ($idprof == 1 && $soc->pays_code == 'ES')
-        {
-            $string=trim($this->siren);
-            $string=preg_replace('/(\s)/','',$string);
-            $string = strtoupper($string);
-
-            for ($i = 0; $i < 9; $i ++)
-                $num[$i] = substr($string, $i, 1);
-
-            //Check format
-            if (!preg_match('/((^[A-Z]{1}[0-9]{7}[A-Z0-9]{1}$|^[T]{1}[A-Z0-9]{8}$)|^[0-9]{8}[A-Z]{1}$)/', $string))
-                return 0;
-
-            //Check NIF
-            if (preg_match('/(^[0-9]{8}[A-Z]{1}$)/', $string))
-                if ($num[8] == substr('TRWAGMYFPDXBNJZSQVHLCKE', substr($string, 0, 8) % 23, 1))
-                    return 1;
-                else
-                    return -1;
-
-            //algorithm checking type code CIF
-            $sum = $num[2] + $num[4] + $num[6];
-            for ($i = 1; $i < 8; $i += 2)
-                $sum += substr((2 * $num[$i]),0,1) + substr((2 * $num[$i]),1,1);
-            $n = 10 - substr($sum, strlen($sum) - 1, 1);
-
-            //Chek special NIF
-            if (preg_match('/^[KLM]{1}/', $string))
-                if ($num[8] == chr(64 + $n) || $num[8] == substr('TRWAGMYFPDXBNJZSQVHLCKE', substr($string, 1, 8) % 23, 1))
-                    return 1;
-                else
-                    return -1;
-
-            //Check CIF
-            if (preg_match('/^[ABCDEFGHJNPQRSUVW]{1}/', $string))
-                if ($num[8] == chr(64 + $n) || $num[8] == substr($n, strlen($n) - 1, 1))
-                    return 2;
-                else
-                    return -2;
-
-            //Check NIE T
-            if (preg_match('/^[T]{1}/', $string))
-                if ($num[8] == preg_match('/^[T]{1}[A-Z0-9]{8}$/', $string))
-                    return 3;
-                else
-                    return -3;
-
-            //Check NIE XYZ
-            if (preg_match('/^[XYZ]{1}/', $string))
-                if ($num[8] == substr('TRWAGMYFPDXBNJZSQVHLCKE', substr(str_replace(array('X','Y','Z'), array('0','1','2'), $string), 0, 8) % 23, 1))
-                    return 3;
-                else
-                    return -3;
-
-            //Can not be verified
-            return -4;
-        }
 
         return $ok;
     }
@@ -1887,12 +1787,6 @@ class Patient extends CommonObject
     {
         global $langs;
 
-        $url='';
-        if ($idprof == 1 && $soc->pays_code == 'FR') $url='http://www.societe.com/cgi-bin/recherche?rncs='.$soc->siren;
-        if ($idprof == 1 && $soc->pays_code == 'GB') $url='http://www.companieshouse.gov.uk/WebCHeck/findinfolink/';
-        if ($idprof == 1 && $soc->pays_code == 'ES') $url='http://www.e-informa.es/servlet/app/portal/ENTP/screen/SProducto/prod/ETIQUETA_EMPRESA/nif/'.$soc->siren;
-
-        if ($url) return '<a target="_blank" href="'.$url.'">['.$langs->trans("Check").']</a>';
         return '';
     }
 
