@@ -1,0 +1,11 @@
+#Sun Feb 20 11:31:49 CET 2011
+DELEGATES_PREFERENCE=delegateValidatorList
+USER_BUILD_PREFERENCE=enabledBuildValidatorListorg.eclipse.wst.wsi.ui.internal.WSIMessageValidator;
+USER_MANUAL_PREFERENCE=enabledManualValidatorListorg.eclipse.wst.wsi.ui.internal.WSIMessageValidator;
+USER_PREFERENCE=overrideGlobalPreferencestruedisableAllValidationfalseversion1.2.104.v200911120201
+eclipse.preferences.version=1
+override=true
+suspend=false
+vals/org.eclipse.php.core.org.eclipse.php.core.PHPTaskValidator/groups=0107include01111contentType130org.eclipse.php.core.phpsourceT0107exclude0104file128htdocs/filemanager/inc/geshiF02
+vals/org.eclipse.wst.html.ui.HTMLValidator/groups=0107include06111contentType136org.eclipse.wst.html.core.htmlsourceT07fileext04htmlF07fileext05xhtmlF07fileext03htmF07fileext04htplF07fileext03wmlF0107exclude0104file132htdocs/webmail/inc/roundcubemailF02
+vf.version=3
