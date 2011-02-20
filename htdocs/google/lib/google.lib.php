@@ -1,5 +1,5 @@
 <?php
-/* Copyright (C) 2010 Laurent Destailleur  <eldy@users.sourceforge.net>
+/* Copyright (C) 2010-2011 Laurent Destailleur  <eldy@users.sourceforge.net>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,14 +20,14 @@
 /**
  *	\file			htdocs/lib/google.lib.php
  *  \brief			Library of admin functions for google module
- *  \version		$Id: google.lib.php,v 1.1 2011/01/19 22:57:13 eldy Exp $
+ *  \version		$Id: google.lib.php,v 1.2 2011/02/20 16:50:07 eldy Exp $
  */
 
 
 /**
  *  \brief      	Define head array for tabs of google tools setup pages
  *  \return			Array of head
- *  \version    	$Id: google.lib.php,v 1.1 2011/01/19 22:57:13 eldy Exp $
+ *  \version    	$Id: google.lib.php,v 1.2 2011/02/20 16:50:07 eldy Exp $
  */
 function googleadmin_prepare_head()
 {
@@ -40,12 +40,24 @@ function googleadmin_prepare_head()
 	$head[$h][2] = 'agenda';
 	$h++;
 
-	$head[$h][0] = dol_buildpath("/google/admin/google2.php",1);
+	$head[$h][0] = dol_buildpath("/google/admin/google_ad.php",1);
 	$head[$h][1] = $langs->trans("Adsense");
 	$head[$h][2] = 'adsense';
 	$h++;
 
-	return $head;
+
+	include_once(DOL_DOCUMENT_ROOT.'/lib/functions2.lib.php');
+	$dolibarrversionarray=preg_split('/[\.-]/',version_dolibarr());
+    $dolibarrversionok=array(3,1,-2);
+	if (versioncompare($dolibarrversionarray,$dolibarrversionok) >= 0)
+	{
+        $head[$h][0] = dol_buildpath("/google/admin/google_an.php",1);
+        $head[$h][1] = $langs->trans("Analitycs");
+        $head[$h][2] = 'analytics';
+        $h++;
+	}
+
+    return $head;
 }
 
 ?>

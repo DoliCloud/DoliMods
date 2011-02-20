@@ -3,10 +3,10 @@
  */
 
 /**
- *	    \file       htdocs/admin/google.php
+ *	    \file       htdocs/admin/google_ad.php
  *      \ingroup    google
  *      \brief      Setup page for google module
- *		\version    $Id: google2.php,v 1.3 2011/01/19 22:57:13 eldy Exp $
+ *		\version    $Id: google_ad.php,v 1.1 2011/02/20 16:50:05 eldy Exp $
  */
 
 define('NOCSRFCHECK',1);
@@ -34,11 +34,6 @@ $def = array();
 $actiontest=$_POST["test"];
 $actionsave=$_POST["save"];
 
-if (empty($conf->global->GOOGLE_AGENDA_NB)) $conf->global->GOOGLE_AGENDA_NB=5;
-$MAXAGENDA=empty($conf->global->GOOGLE_AGENDA_NB)?5:$conf->global->GOOGLE_AGENDA_NB;
-
-// List of Google colors (A lot of colors are ignored by Google)
-$colorlist=array('29527A','5229A3','A32929','7A367A','B1365F','0D7813');
 
 
 /*
@@ -160,5 +155,5 @@ print "<br>";
 
 $db->close();
 
-llxFooter('$Date: 2011/01/19 22:57:13 $ - $Revision: 1.3 $');
+llxFooter('$Date: 2011/02/20 16:50:05 $ - $Revision: 1.1 $');
 ?>
