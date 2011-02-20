@@ -20,7 +20,7 @@
  *	    \file       htdocs/scanner/admin/scanneradminsetuppage.php
  *      \ingroup    scanner
  *      \brief      Page de configuration du module Scanner
- *		\version    $Id: scannersetuppage.php,v 1.3 2011/01/16 14:26:45 eldy Exp $
+ *		\version    $Id: scannersetuppage.php,v 1.4 2011/02/20 11:14:18 eldy Exp $
  */
 
 define('NOCSRFCHECK',1);
@@ -34,6 +34,7 @@ if (! $res && file_exists("../../../../../dolibarr/htdocs/main.inc.php")) $res=@
 if (! $res) die("Include of main fails");
 require_once(DOL_DOCUMENT_ROOT."/lib/admin.lib.php");
 require_once(DOL_DOCUMENT_ROOT.'/core/class/html.formadmin.class.php');
+require_once(DOL_DOCUMENT_ROOT."/lib/functions2.lib.php");
 
 
 if (!$user->admin)
@@ -99,8 +100,11 @@ print_fiche_titre($langs->trans("ScannerSetup"),$linkback,'setup');
 print $langs->trans("ScannerDesc").'<br>';
 print '<br>';
 
-// TODO Check OS
-
+$os=PHP_OS;
+if (! preg_match('/linux/i',$os))
+{
+	print '<div class="warning">Sorry this module can works only on Linux or linux like OS (need command line "scanner" tools).</div><br>';
+}
 
 print '<form name="phpsaneform" action="'.$_SERVER["PHP_SELF"].'" method="post">';
 print "<table class=\"noborder\" width=\"100%\" summary=\"parameters\">";
@@ -149,7 +153,9 @@ print "</table>";
 print "<br>";
 
 print '<br><center>';
-print "<input type=\"submit\" name=\"save\" class=\"button\" value=\"".$langs->trans("Save")."\">";
+print "<input type=\"submit\"";
+if (! preg_match('/linux/i',$os)) print ' disabled="disabled"';
+print " name=\"save\" class=\"button\" value=\"".$langs->trans("Save")."\">";
 print "</center>";
 
 print "</form>\n";
@@ -162,5 +168,5 @@ print "<br>";
 
 $db->close();
 
-llxFooter('$Date: 2011/01/16 14:26:45 $ - $Revision: 1.3 $');
+llxFooter('$Date: 2011/02/20 11:14:18 $ - $Revision: 1.4 $');
 ?>
