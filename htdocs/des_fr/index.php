@@ -92,7 +92,7 @@ foreach($t as $tx)
 
 llxHeader();
 
-// Et la boucle principale qui g�n�re la table de visu et un fichier xml
+// Et la boucle principale qui genere la table de visu et un fichier xml
 // par mois :
 
 $des ='<table  class="notopnoleftnoright" width="50%">  ';
