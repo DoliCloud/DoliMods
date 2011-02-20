@@ -27,7 +27,7 @@
  *	\file       htdocs/societe/class/societe.class.php
  *	\ingroup    societe
  *	\brief      File for third party class
- *	\version    $Id: patient.class.php,v 1.4 2011/02/20 10:55:43 eldy Exp $
+ *	\version    $Id: patient.class.php,v 1.5 2011/02/20 11:07:50 eldy Exp $
  */
 require_once(DOL_DOCUMENT_ROOT."/core/class/commonobject.class.php");
 
@@ -736,59 +736,6 @@ class Patient extends CommonObject
         return $result;
     }
 
-    /**
-     * Lit une adresse
-     * TODO: utiliser la classe address
-     */
-    function fetch_address($id)
-    {
-        global $conf,$langs;
-
-        $sql = "SELECT l.rowid, l.label, l.fk_soc, l.name, l.address, l.cp";
-        $sql .= ", l.tms as dm, l.datec as dc";
-        $sql .= ", l.ville, l.fk_pays, l.note, l.tel, l.fax";
-        $sql .= ", p.libelle as pays, p.code as pays_code";
-        $sql .= " FROM ".MAIN_DB_PREFIX."societe_address as l";
-        $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."c_pays as p ON l.fk_pays = p.rowid";
-        $sql .= " WHERE l.rowid = ".$id;
-
-        $result = $this->db->query($sql) ;
-
-        if ( $result )
-        {
-            $obj = $this->db->fetch_object($result);
-
-            $this->id			= $obj->rowid;
-            $this->datec		= $this->db->jdate($obj->dc);
-            $this->datem		= $this->db->jdate($obj->dm);
-            $this->label		= $obj->label;
-            $this->socid		= $obj->fk_soc;
-            $this->name			= $obj->name;
-            $this->address		= $obj->address;
-            $this->cp			= $obj->cp;
-            $this->zip			= $obj->cp;
-            $this->ville		= $obj->ville;
-            $this->town			= $obj->ville;
-            $this->pays_id		= $obj->fk_pays;
-            $this->pays_code	= $obj->fk_pays?$obj->pays_code:'';
-            $this->pays			= $obj->fk_pays?($langs->trans('Country'.$obj->pays_code)!='Country'.$obj->pays_code?$langs->trans('Country'.$obj->pays_code):$obj->pays):'';
-            $this->country		= $obj->fk_pays?($langs->trans('Country'.$obj->pays_code)!='Country'.$obj->pays_code?$langs->trans('Country'.$obj->pays_code):$obj->pays):'';
-            $this->tel			= $obj->tel;
-            $this->phone		= $obj->tel;
-            $this->fax			= $obj->fax;
-            $this->note			= $obj->note;
-
-
-            $this->db->free($result);
-
-            return 1;
-        }
-        else
-        {
-            $this->error=$this->db->error();
-            return -1;
-        }
-    }
 
     /**
      *    Delete a third party from database and all its dependencies (contacts, rib...)
