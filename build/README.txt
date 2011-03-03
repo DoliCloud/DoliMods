@@ -1,16 +1,17 @@
 
 List of modules to build for Dolitore:
 --------------------------------------
-Module				Price
+Module				Statut		Price		Remarque
 
-awstats
-bittorrent
-google				9
-memcached			5
-numberwords
-phpsysinfo
-pibarcode
-scanner
-thomsonphonebook
+awstats				OK			5
+bittorrent			OK
+google				OK			9
+memcached			OK			5
+numberwords			OK
+ovh					A finir		5			Ajouter onglet par fonction (sms, click2dial, ...)
+phpsysinfo			OK
+pibarcode			OK
+scanner				OK
+thomsonphonebook	OK
 theme_bluelagoon
 theme_rodolphe
