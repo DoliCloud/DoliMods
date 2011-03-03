@@ -13,5 +13,5 @@ phpsysinfo			OK
 pibarcode			OK
 scanner				OK
 thomsonphonebook	OK
-theme_bluelagoon
-theme_rodolphe
+theme_bluelagoon	OK
+theme_rodolphe		OK
