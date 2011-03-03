@@ -17,9 +17,9 @@
  */
 
 /**
- *	\file       htdocs/ovh/wrappersip.php
+ *	\file       htdocs/ovh/wrapper.php
  *  \brief      File that is entry point to call an OVH SIP server
- *  \version    $Id: wrapper.php,v 1.1 2011/02/13 11:51:20 eldy Exp $
+ *  \version    $Id: wrapper.php,v 1.2 2011/03/03 09:12:04 eldy Exp $
  *	\remarks	To be used, you must have an OVH account
  */
 
