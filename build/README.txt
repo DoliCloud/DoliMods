@@ -7,9 +7,9 @@ awstats
 bittorrent
 google				9
 memcached			5
-numberingpack
 numberwords
 phpsysinfo
+pibarcode
 scanner
 thomsonphonebook
 theme_bluelagoon
