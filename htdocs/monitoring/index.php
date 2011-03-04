@@ -20,7 +20,7 @@
  *	    \file       htdocs/monitoring/index.php
  *      \ingroup    monitoring
  *      \brief      Page to setup module Monitoring
- *		\version    $Id: index.php,v 1.2 2011/03/04 22:54:21 eldy Exp $
+ *		\version    $Id: index.php,v 1.3 2011/03/04 22:59:15 eldy Exp $
  */
 
 define('NOCSRFCHECK',1);
@@ -331,10 +331,9 @@ if ($action == 'graph')
  * View
  */
 
-llxHeader('','RRd',$linktohelp);
+llxHeader('','Monitoring',$linktohelp);
 
-$linkback='<a href="'.DOL_URL_ROOT.'/admin/modules.php">'.$langs->trans("BackToModuleList").'</a>';
-print_fiche_titre($langs->trans("RrdSetup"),$linkback,'setup');
+print_fiche_titre($langs->trans("Reports"));
 print '<br>';
 
 if ($mesg) print "<br>$mesg<br>";
@@ -376,5 +375,5 @@ else
 
 $db->close();
 
-llxFooter('$Date: 2011/03/04 22:54:21 $ - $Revision: 1.2 $');
+llxFooter('$Date: 2011/03/04 22:59:15 $ - $Revision: 1.3 $');
 ?>

@@ -19,3 +19,4 @@ ProbeSetup=Probes setup
 ListOfProbes=List of probes
 AddProbe=Add new probe
 CheckKey=String to test
+Reports=Reports

@@ -17,5 +17,6 @@ LastMonth=Dernier mois
 LastYear=Dernière année
 ProbeSetup=Configuration des sondes
 ListOfProbes=Liste des sondes
-AddProbe=Ajouter nouvele sonde
+AddProbe=Ajouter nouvelle sonde
 CheckKey=Chaine à tester
+Reports=Rapports

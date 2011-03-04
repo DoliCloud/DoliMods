@@ -192,7 +192,8 @@ class modMonitoring extends DolibarrModules
 	{
 		$sql = array();
 
-		//$result=$this->load_tables();
+        $result=$this->load_tables();
+        if ($result <= 0) return $result;
 
 		return $this->_init($sql);
 	}
@@ -220,7 +221,7 @@ class modMonitoring extends DolibarrModules
 	 */
 	function load_tables()
 	{
-		return $this->_load_tables('/rrd/sql/');
+		return $this->_load_tables('/monitoring/sql/');
 	}
 
 }
