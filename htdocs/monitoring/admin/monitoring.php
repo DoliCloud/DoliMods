@@ -20,7 +20,7 @@
  *	    \file       htdocs/monitoring/admin/monitoring.php
  *      \ingroup    monitoring
  *      \brief      Page to setup module Monitoring
- *		\version    $Id: monitoring.php,v 1.5 2011/03/04 19:21:47 eldy Exp $
+ *		\version    $Id: monitoring.php,v 1.6 2011/03/04 20:03:28 eldy Exp $
  */
 
 define('NOCSRFCHECK',1);
@@ -303,7 +303,8 @@ $var=!$var;
 print "<tr ".$bc[$var].">";
 print "<td>".$langs->trans("MONITORING_COMMANDLINE_TOOL")."</td>";
 print "<td><input type=\"text\" class=\"flat\" name=\"MONITORING_COMMANDLINE_TOOL\" value=\"". ($_POST["MONITORING_COMMANDLINE_TOOL"]?$_POST["MONITORING_COMMANDLINE_TOOL"]:$conf->global->MONITORING_COMMANDLINE_TOOL) . "\" size=\"50\"></td>";
-print "<td>/usr/bin/rrdtool";
+print '<td>/usr/bin/rrdtool<br>
+c:\Program Files\rrdtool\rrdtool.exe';
 print "</td>";
 print "</tr>";
 
@@ -367,5 +368,5 @@ if (dol_is_file($conf->monitoring->dir_temp."/".$fileimage[0]))
 
 $db->close();
 
-llxFooter('$Date: 2011/03/04 19:21:47 $ - $Revision: 1.5 $');
+llxFooter('$Date: 2011/03/04 20:03:28 $ - $Revision: 1.6 $');
 ?>
