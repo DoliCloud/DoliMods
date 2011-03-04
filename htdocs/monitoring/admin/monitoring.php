@@ -20,7 +20,7 @@
  *	    \file       htdocs/monitoring/admin/monitoring.php
  *      \ingroup    monitoring
  *      \brief      Page to setup module Monitoring
- *		\version    $Id: monitoring.php,v 1.4 2011/02/12 18:36:57 eldy Exp $
+ *		\version    $Id: monitoring.php,v 1.5 2011/03/04 19:21:47 eldy Exp $
  */
 
 define('NOCSRFCHECK',1);
@@ -345,9 +345,11 @@ else
 
 
 print '<br><br>';
-print $langs->trans("LastHour").'<br>';
 if (dol_is_file($conf->monitoring->dir_temp."/".$fileimage[0]))
-print '<img src="'.DOL_URL_ROOT.'/viewimage.php?modulepart=monitoring_temp&file='.$fileimage[0].'">';
+{
+    print $langs->trans("LastHour").'<br>';
+    print '<img src="'.DOL_URL_ROOT.'/viewimage.php?modulepart=monitoring_temp&file='.$fileimage[0].'">';
+}
 /*	print '<br>';
  print $langs->trans("LastDay").'<br>';
  print '<img src="'.DOL_URL_ROOT.'/viewimage.php?modulepart=monitoring_temp&file='.$fileimage[1].'">';
@@ -365,5 +367,5 @@ print '<img src="'.DOL_URL_ROOT.'/viewimage.php?modulepart=monitoring_temp&file=
 
 $db->close();
 
-llxFooter('$Date: 2011/02/12 18:36:57 $ - $Revision: 1.4 $');
+llxFooter('$Date: 2011/03/04 19:21:47 $ - $Revision: 1.5 $');
 ?>
