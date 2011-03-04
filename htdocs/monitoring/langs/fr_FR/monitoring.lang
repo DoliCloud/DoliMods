@@ -16,3 +16,6 @@ LastWeek=Dernière semaine
 LastMonth=Dernier mois
 LastYear=Dernière année
 ProbeSetup=Configuration des sondes
+ListOfProbes=Liste des sondes
+AddProbe=Ajouter nouvele sonde
+CheckKey=Chaine à tester

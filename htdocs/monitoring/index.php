@@ -20,7 +20,7 @@
  *	    \file       htdocs/monitoring/index.php
  *      \ingroup    monitoring
  *      \brief      Page to setup module Monitoring
- *		\version    $Id: index.php,v 1.1 2011/01/23 12:50:05 eldy Exp $
+ *		\version    $Id: index.php,v 1.2 2011/03/04 22:54:21 eldy Exp $
  */
 
 define('NOCSRFCHECK',1);
@@ -38,7 +38,7 @@ require_once(DOL_DOCUMENT_ROOT.'/core/class/html.formadmin.class.php');
 dol_include_once("/monitoring/lib/monitoring.lib.php");	// We still use old writing to be compatible with old version
 
 
-if (!$user->admin)
+if (!$user->rights->monitoring->read)
 accessforbidden();
 
 
@@ -353,7 +353,7 @@ else
 	{
 		print '<a class="butActionRefused" href="#">'.$langs->trans("BuildGraph").'</a>';
 	}
-	
+
 	print '<br><br>';
 	print $conf->monitoring->dir_output."/".$fileimage[0].'<br>';
 	print $langs->trans("LastHour").'<br>';
@@ -376,5 +376,5 @@ else
 
 $db->close();
 
-llxFooter('$Date: 2011/01/23 12:50:05 $ - $Revision: 1.1 $');
+llxFooter('$Date: 2011/03/04 22:54:21 $ - $Revision: 1.2 $');
 ?>

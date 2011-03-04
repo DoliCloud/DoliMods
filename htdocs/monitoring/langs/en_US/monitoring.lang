@@ -16,3 +16,6 @@ LastWeek=Last week
 LastMonth=Last month
 LastYear=Last year
 ProbeSetup=Probes setup
+ListOfProbes=List of probes
+AddProbe=Add new probe
+CheckKey=String to test
