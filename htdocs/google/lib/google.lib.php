@@ -18,16 +18,16 @@
  */
 
 /**
- *	\file			htdocs/lib/google.lib.php
+ *	\file			htdocs/google/lib/google.lib.php
  *  \brief			Library of admin functions for google module
- *  \version		$Id: google.lib.php,v 1.2 2011/02/20 16:50:07 eldy Exp $
+ *  \version		$Id: google.lib.php,v 1.3 2011/03/05 17:36:22 eldy Exp $
  */
 
 
 /**
  *  \brief      	Define head array for tabs of google tools setup pages
  *  \return			Array of head
- *  \version    	$Id: google.lib.php,v 1.2 2011/02/20 16:50:07 eldy Exp $
+ *  \version    	$Id: google.lib.php,v 1.3 2011/03/05 17:36:22 eldy Exp $
  */
 function googleadmin_prepare_head()
 {

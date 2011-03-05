@@ -1,12 +1,12 @@
 <?php
-/* Copyright (C) 2008 Laurent Destailleur  <eldy@users.sourceforge.net>
+/* Copyright (C) 2008-2011 Laurent Destailleur  <eldy@users.sourceforge.net>
  */
 
 /**
- *	    \file       htdocs/admin/google.php
+ *	    \file       htdocs/google/admin/google.php
  *      \ingroup    google
  *      \brief      Setup page for google module
- *		\version    $Id: google.php,v 1.6 2011/01/19 22:57:13 eldy Exp $
+ *		\version    $Id: google.php,v 1.7 2011/03/05 17:36:22 eldy Exp $
  */
 
 define('NOCSRFCHECK',1);
@@ -192,7 +192,7 @@ print "</center>";
 
 print "</form>\n";
 
-print '</div>';
+dol_fiche_end();
 
 
 if ($mesg) print "<br>$mesg<br>";
@@ -206,5 +206,5 @@ print info_admin($message);
 
 $db->close();
 
-llxFooter('$Date: 2011/01/19 22:57:13 $ - $Revision: 1.6 $');
+llxFooter('$Date: 2011/03/05 17:36:22 $ - $Revision: 1.7 $');
 ?>

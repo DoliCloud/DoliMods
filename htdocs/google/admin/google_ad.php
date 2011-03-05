@@ -1,12 +1,12 @@
 <?php
-/* Copyright (C) 2008 Laurent Destailleur  <eldy@users.sourceforge.net>
+/* Copyright (C) 2008-2011 Laurent Destailleur  <eldy@users.sourceforge.net>
  */
 
 /**
- *	    \file       htdocs/admin/google_ad.php
+ *	    \file       htdocs/google/admin/google_ad.php
  *      \ingroup    google
  *      \brief      Setup page for google module
- *		\version    $Id: google_ad.php,v 1.1 2011/02/20 16:50:05 eldy Exp $
+ *		\version    $Id: google_ad.php,v 1.2 2011/03/05 17:36:21 eldy Exp $
  */
 
 define('NOCSRFCHECK',1);
@@ -147,7 +147,7 @@ print "</center>";
 
 print "</form>\n";
 
-print '</div>';
+dol_fiche_end();
 
 
 if ($mesg) print "<br>$mesg<br>";
@@ -155,5 +155,5 @@ print "<br>";
 
 $db->close();
 
-llxFooter('$Date: 2011/02/20 16:50:05 $ - $Revision: 1.1 $');
+llxFooter('$Date: 2011/03/05 17:36:21 $ - $Revision: 1.2 $');
 ?>
