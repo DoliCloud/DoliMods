@@ -19,7 +19,7 @@
 /**
  *	\file       htdocs/ovh/wrapper.php
  *  \brief      File that is entry point to call an OVH SIP server
- *  \version    $Id: wrapper.php,v 1.2 2011/03/03 09:12:04 eldy Exp $
+ *  \version    $Id: wrapper.php,v 1.3 2011/03/05 17:35:16 eldy Exp $
  *	\remarks	To be used, you must have an OVH account
  */
 
@@ -70,8 +70,12 @@ $password = $_GET['password'];
 $caller = $_GET['caller'];
 $called = $_GET['called'];
 
-# Adresse IP du serveur OVH
-$wsdlovh = 'https://www.ovh.com/soapi/soapi-re-1.14.wsdl';
+if (empty($conf->global->OVHSMS_SOAPURL))
+{
+    $langs->load("errors");
+    $mesg='<div class="error">'.$langs->trans("ErrorModuleSetupNotComplete").'</div>';
+}
+else $wsdlovh = $conf->global->OVHSMS_SOAPURL;
 
 #Delai d'attente avant de raccrocher
 $strWaitTime = "30";
@@ -98,10 +102,10 @@ if (! empty($number))
 
 	try {
 		$soap = new SoapClient($wsdlovh);
-	 
+
 		//telephonyClick2CallDo
 	 	$soap->telephonyClick2CallDo($login, $password, $caller, $number, $caller);
-	
+
 		$txt="Call OVH SIP dialer for caller: ".$caller.", called: ".$called." clicktodiallogin: ".$login;
 		dol_syslog($txt);
 		print '<body onload="javascript:history.go(-1);">'."\n";
@@ -113,7 +117,7 @@ if (! empty($number))
 		sleep(2) ;
 	    print '</body>'."\n";
 	}
-	catch(SoapFault $fault) 
+	catch(SoapFault $fault)
 	{
 	 	echo $fault;
 	}

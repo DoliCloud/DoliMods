@@ -18,10 +18,10 @@
  */
 
 /**
- *   	\file       htdocs/ovh/admin/ovh_setup.php
+ *   	\file       htdocs/ovh/admin/ovh_click2dial.php
  *		\ingroup    ovh
  *		\brief      Configuration du module ovh
- *		\version    $Id: ovh_setup.php,v 1.5 2011/03/05 17:35:16 eldy Exp $
+ *		\version    $Id: ovh_click2dial.php,v 1.1 2011/03/05 17:35:16 eldy Exp $
  */
 
 define('NOCSRFCHECK',1);
@@ -60,38 +60,37 @@ if ($user->societe_id > 0)
 
 if ($_POST["action"] == 'setvalue' && $user->admin)
 {
-	//$result=dolibarr_set_const($db, "PAYBOX_IBS_DEVISE",$_POST["PAYBOX_IBS_DEVISE"],'chaine',0,'',$conf->entity);
-	$result=dolibarr_set_const($db, "OVHSMS_NICK",$_POST["OVHSMS_NICK"],'chaine',0,'',$conf->entity);
-	$result=dolibarr_set_const($db, "OVHSMS_PASS",$_POST["OVHSMS_PASS"],'chaine',0,'',$conf->entity);
-	$result=dolibarr_set_const($db, "OVHSMS_SOAPURL",$_POST["OVHSMS_SOAPURL"],'chaine',0,'',$conf->entity);
+    //$result=dolibarr_set_const($db, "PAYBOX_IBS_DEVISE",$_POST["PAYBOX_IBS_DEVISE"],'chaine',0,'',$conf->entity);
+    $result=dolibarr_set_const($db, "OVHSMS_NICK",$_POST["OVHSMS_NICK"],'chaine',0,'',$conf->entity);
+    $result=dolibarr_set_const($db, "OVHSMS_PASS",$_POST["OVHSMS_PASS"],'chaine',0,'',$conf->entity);
+    $result=dolibarr_set_const($db, "OVHSMS_SOAPURL",$_POST["OVHSMS_SOAPURL"],'chaine',0,'',$conf->entity);
 
 
-	if ($result >= 0)
-	{
-		$mesg='<div class="ok">'.$langs->trans("SetupSaved").'</div>';
-	}
-	else
-	{
-		dol_print_error($db);
-	}
+    if ($result >= 0)
+    {
+        $mesg='<div class="ok">'.$langs->trans("SetupSaved").'</div>';
+    }
+    else
+    {
+        dol_print_error($db);
+    }
 }
 
 
 
 if ($_POST["action"] == 'setvalue_account' && $user->admin)
 {
-	$result=dolibarr_set_const($db, "OVHSMS_ACCOUNT",$_POST["OVHSMS_ACCOUNT"],'chaine',0,'',$conf->entity);
+    $result=dolibarr_set_const($db, "OVHSMS_ACCOUNT",$_POST["OVHSMS_ACCOUNT"],'chaine',0,'',$conf->entity);
 
-	if ($result >= 0)
-	{
-		$mesg='<div class="ok">'.$langs->trans("SetupSaved").'</div>';
-	}
-	else
-	{
-		dol_print_error($db);
-	}
+    if ($result >= 0)
+    {
+        $mesg='<div class="ok">'.$langs->trans("SetupSaved").'</div>';
+    }
+    else
+    {
+        dol_print_error($db);
+    }
 }
-
 
 
 
@@ -108,7 +107,7 @@ print_fiche_titre($langs->trans("OvhSmsSetup"),$linkback,'setup');
 
 $head=ovhadmin_prepare_head();
 
-dol_fiche_head($head, 'sms', $langs->trans("Ovh"));
+dol_fiche_head($head, 'click2dial', $langs->trans("Ovh"));
 
 
 print '<form method="post" action="'.$_SERVER["PHP_SELF"].'">';
@@ -150,13 +149,11 @@ print '</table></form>';
 
 dol_fiche_end();
 
-
 if ($mesg)
 {
     dol_htmloutput_mesg($mesg);
     print '<br>';
 }
-
 
 
 // Connect area
@@ -168,21 +165,21 @@ dol_syslog("Create nusoap_client for URL=".$WS_DOL_URL, LOG_DEBUG);
 
 if (empty($conf->global->OVHSMS_NICK) || empty($WS_DOL_URL))
 {
-	echo '<br>'.'<div class="warning">'.$langs->trans("OvhSmsNotConfigured").'</div>';
+    echo '<br>'.'<div class="warning">'.$langs->trans("OvhSmsNotConfigured").'</div>';
 }
 else
 {
 
     print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?action=test">'.$langs->trans("TestLoginToAPI").'</a><br><br>';
 
-	if (GETPOST('action') == 'test')
-	{
+    if (GETPOST('action') == 'test')
+    {
         $soap = new soapclient($WS_DOL_URL);
 
-	    try {
-    		//login
-    		$session = $soap->login($conf->global->OVHSMS_NICK, $conf->global->OVHSMS_PASS, "fr", false);
-    		print '<div class="ok">'.$langs->trans("OvhSmsLoginSuccessFull").'</div><br>';
+        try {
+            //login
+            $session = $soap->login($conf->global->OVHSMS_NICK, $conf->global->OVHSMS_PASS, "fr", false);
+            print '<div class="ok">'.$langs->trans("OvhSmsLoginSuccessFull").'</div><br>';
 
             //logout
             $soap->logout($session);
@@ -193,42 +190,21 @@ else
         {
             print 'Error '.$e->getMessage().'<br>';
         }
-	}
+    }
 
-	print '<br>';
+    print '<br>';
 }
 
 
-if (! empty($conf->global->OVHSMS_NICK) && ! empty($WS_DOL_URL))
-{
-	// Formulaire d'ajout de compte SMS qui sera valable pour tout Dolibarr
-	print '<form method="post" action="'.$_SERVER["PHP_SELF"].'">';
-	print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
-	print '<input type="hidden" name="action" value="setvalue_account">';
-
-	$var=true;
-
-	print '<table class="nobordernopadding" width="100%">';
-	print '<tr class="liste_titre">';
-	print '<td width="200px">'.$langs->trans("Parameter").'</td>';
-	print '<td>'.$langs->trans("Value").'</td>';
-	print '<td>&nbsp;</td>';
-	print "</tr>\n";
 
 
-	$var=!$var;
-	print '<tr '.$bc[$var].'><td class="fieldrequired">';
-	print $langs->trans("OvhSmsLabelAccount").'</td><td>';
-	print '<input size="64" type="text" name="OVHSMS_ACCOUNT" value="'.$conf->global->OVHSMS_ACCOUNT.'">';
-	print '<br>'.$langs->trans("Example").': sms-aa123-1';
-	print '<td>'.'<a class="action" href="ovh_smsrecap.php">'.$langs->trans("ListOfSmsAccountsForNH").'</a>';
-
-	print '</td></tr>';
-
-	print '<tr><td colspan="3" align="center"><input type="submit" class="button" value="'.$langs->trans("Modify").'"></td></tr>';
-	print '</table></form>';
-}
-
+// Show message
+$message='';
+$url='<a href="'.dol_buildpath('/ovh/wrapper.php?login=__LOGIN__&password=__PASS__&caller=__PHONEFROM__&called=__PHONETO__',2).'" target="_blank">'.dol_buildpath('/ovh/wrapper.php?login=__LOGIN__&password=__PASS__&caller=__PHONEFROM__&called=__PHONETO__',2).'</a>';
+$message.=img_picto('','object_globe.png').' '.$langs->trans("ClickToDialLink",'OVH',$url);
+$message.='<br>';
+$message.='<br>';
+print $message;
 
 // End of page
 $db->close();

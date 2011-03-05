@@ -23,3 +23,5 @@ OvhSmsStatutWaiting=Waiting
 OvhSmsStatutFailed=Failed
 OvhSmsBackToAdmin=Back to module admin
 OvhSmsHistory=Log of last %s sendings
+ListOfSmsAccountsForNH=List of SMS accounts for this Nick Handle
+ClickToDialLink=This is linkk to copy-paste into ClickToDial module setup to use the %s Click2Dial:<br>%s
