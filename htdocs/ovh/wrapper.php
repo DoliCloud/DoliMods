@@ -19,7 +19,7 @@
 /**
  *	\file       htdocs/ovh/wrapper.php
  *  \brief      File that is entry point to call an OVH SIP server
- *  \version    $Id: wrapper.php,v 1.3 2011/03/05 17:35:16 eldy Exp $
+ *  \version    $Id: wrapper.php,v 1.4 2011/03/05 18:38:55 eldy Exp $
  *	\remarks	To be used, you must have an OVH account
  */
 
@@ -66,7 +66,9 @@ if (! $conf->clicktodial->enabled)
 
 
 $login = $_GET['login'];
+//$login=$conf->global->OVHSMS_NICK;
 $password = $_GET['password'];
+//$password=$conf->global->OVHSMS_PASS;
 $caller = $_GET['caller'];
 $called = $_GET['called'];
 
