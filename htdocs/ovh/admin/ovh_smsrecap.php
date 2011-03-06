@@ -21,7 +21,7 @@
  *   	\file       ovh/admin/ovhsms_recap.php
  *		\ingroup    ovhsms
  *		\brief      Configuration du module ovhsms
- *		\version    $Id: ovh_smsrecap.php,v 1.1 2011/02/13 11:51:19 eldy Exp $
+ *		\version    $Id: ovh_smsrecap.php,v 1.2 2011/03/06 19:42:59 eldy Exp $
  *		\author		Put author name here
  *		\remarks	Put here some comments
  */
@@ -79,16 +79,19 @@ if($sms > 0) {
 
       print '<table class="nobordernopadding" width="100%">';
       print '<tr class="liste_titre"><td>'.$langs->trans("Account").'</td>';
-      print '<td>'.$langs->trans("NbSmsLeft").'</td>';
+      print '<td align="right">'.$langs->trans("NbSmsLeft").'</td>';
       print "</tr>\n";
 
       foreach ($telephonySmsAccountList as $accountlisted) {
          $var=!$var;
          print '<tr '.$bc[$var].'>';
-         print '<td><a href="ovhsms_recap.php?account='.$accountlisted.'">';
+         print '<td>';
          print $accountlisted;
-         print '</a></td>';
-         print '<td>'.$sms->CreditLeft($accountlisted).'</td>';
+         print '</td>';
+         print '<td align="right">';
+         $sms->account=$accountlisted;
+         print $sms->CreditLeft();
+         print '</td>';
          print '</tr>';
       }
       print '</table>';
@@ -173,5 +176,5 @@ if($sms > 0) {
 
 // End of page
 $db->close();
-llxFooter('$Date: 2011/02/13 11:51:19 $ - $Revision: 1.1 $');
+llxFooter('$Date: 2011/03/06 19:42:59 $ - $Revision: 1.2 $');
 ?>

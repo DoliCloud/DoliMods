@@ -20,8 +20,8 @@
 /**
  *   	\file       htdocs/ovh/admin/ovh_setup.php
  *		\ingroup    ovh
- *		\brief      Configuration du module ovh
- *		\version    $Id: ovh_setup.php,v 1.5 2011/03/05 17:35:16 eldy Exp $
+ *		\brief      Setup of module OVH
+ *		\version    $Id: ovh_setup.php,v 1.6 2011/03/06 19:42:59 eldy Exp $
  */
 
 define('NOCSRFCHECK',1);
@@ -46,11 +46,12 @@ if (!$user->admin)
 accessforbidden();
 // Get parameters
 
+$action=GETPOST('action');
 
 // Protection if external user
 if ($user->societe_id > 0)
 {
-	//accessforbidden();
+    //accessforbidden();
 }
 
 
@@ -58,38 +59,38 @@ if ($user->societe_id > 0)
  * Actions
  */
 
-if ($_POST["action"] == 'setvalue' && $user->admin)
+if ($action == 'setvalue' && $user->admin)
 {
-	//$result=dolibarr_set_const($db, "PAYBOX_IBS_DEVISE",$_POST["PAYBOX_IBS_DEVISE"],'chaine',0,'',$conf->entity);
-	$result=dolibarr_set_const($db, "OVHSMS_NICK",$_POST["OVHSMS_NICK"],'chaine',0,'',$conf->entity);
-	$result=dolibarr_set_const($db, "OVHSMS_PASS",$_POST["OVHSMS_PASS"],'chaine',0,'',$conf->entity);
-	$result=dolibarr_set_const($db, "OVHSMS_SOAPURL",$_POST["OVHSMS_SOAPURL"],'chaine',0,'',$conf->entity);
+    //$result=dolibarr_set_const($db, "PAYBOX_IBS_DEVISE",$_POST["PAYBOX_IBS_DEVISE"],'chaine',0,'',$conf->entity);
+    $result=dolibarr_set_const($db, "OVHSMS_NICK",$_POST["OVHSMS_NICK"],'chaine',0,'',$conf->entity);
+    $result=dolibarr_set_const($db, "OVHSMS_PASS",$_POST["OVHSMS_PASS"],'chaine',0,'',$conf->entity);
+    $result=dolibarr_set_const($db, "OVHSMS_SOAPURL",$_POST["OVHSMS_SOAPURL"],'chaine',0,'',$conf->entity);
 
 
-	if ($result >= 0)
-	{
-		$mesg='<div class="ok">'.$langs->trans("SetupSaved").'</div>';
-	}
-	else
-	{
-		dol_print_error($db);
-	}
+    if ($result >= 0)
+    {
+        $mesg='<div class="ok">'.$langs->trans("SetupSaved").'</div>';
+    }
+    else
+    {
+        dol_print_error($db);
+    }
 }
 
 
 
-if ($_POST["action"] == 'setvalue_account' && $user->admin)
+if ($action == 'setvalue_account' && $user->admin)
 {
-	$result=dolibarr_set_const($db, "OVHSMS_ACCOUNT",$_POST["OVHSMS_ACCOUNT"],'chaine',0,'',$conf->entity);
+    $result=dolibarr_set_const($db, "OVHSMS_ACCOUNT",$_POST["OVHSMS_ACCOUNT"],'chaine',0,'',$conf->entity);
 
-	if ($result >= 0)
-	{
-		$mesg='<div class="ok">'.$langs->trans("SetupSaved").'</div>';
-	}
-	else
-	{
-		dol_print_error($db);
-	}
+    if ($result >= 0)
+    {
+        $mesg='<div class="ok">'.$langs->trans("SetupSaved").'</div>';
+    }
+    else
+    {
+        dol_print_error($db);
+    }
 }
 
 
@@ -168,21 +169,21 @@ dol_syslog("Create nusoap_client for URL=".$WS_DOL_URL, LOG_DEBUG);
 
 if (empty($conf->global->OVHSMS_NICK) || empty($WS_DOL_URL))
 {
-	echo '<br>'.'<div class="warning">'.$langs->trans("OvhSmsNotConfigured").'</div>';
+    echo '<br>'.'<div class="warning">'.$langs->trans("OvhSmsNotConfigured").'</div>';
 }
 else
 {
 
     print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?action=test">'.$langs->trans("TestLoginToAPI").'</a><br><br>';
 
-	if (GETPOST('action') == 'test')
-	{
+    if ($action == 'test')
+    {
         $soap = new soapclient($WS_DOL_URL);
 
-	    try {
-    		//login
-    		$session = $soap->login($conf->global->OVHSMS_NICK, $conf->global->OVHSMS_PASS, "fr", false);
-    		print '<div class="ok">'.$langs->trans("OvhSmsLoginSuccessFull").'</div><br>';
+        try {
+            //login
+            $session = $soap->login($conf->global->OVHSMS_NICK, $conf->global->OVHSMS_PASS, "fr", false);
+            print '<div class="ok">'.$langs->trans("OvhSmsLoginSuccessFull").'</div><br>';
 
             //logout
             $soap->logout($session);
@@ -193,41 +194,83 @@ else
         {
             print 'Error '.$e->getMessage().'<br>';
         }
-	}
+    }
 
-	print '<br>';
+    print '<br>';
 }
 
 
 if (! empty($conf->global->OVHSMS_NICK) && ! empty($WS_DOL_URL))
 {
-	// Formulaire d'ajout de compte SMS qui sera valable pour tout Dolibarr
-	print '<form method="post" action="'.$_SERVER["PHP_SELF"].'">';
-	print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
-	print '<input type="hidden" name="action" value="setvalue_account">';
+    // Formulaire d'ajout de compte SMS qui sera valable pour tout Dolibarr
+    print '<form method="post" action="'.$_SERVER["PHP_SELF"].'">';
+    print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
+    print '<input type="hidden" name="action" value="setvalue_account">';
 
-	$var=true;
+    $var=true;
 
-	print '<table class="nobordernopadding" width="100%">';
-	print '<tr class="liste_titre">';
-	print '<td width="200px">'.$langs->trans("Parameter").'</td>';
-	print '<td>'.$langs->trans("Value").'</td>';
-	print '<td>&nbsp;</td>';
-	print "</tr>\n";
+    print '<table class="nobordernopadding" width="100%">';
+    print '<tr class="liste_titre">';
+    print '<td width="200px">'.$langs->trans("Parameter").'</td>';
+    print '<td>'.$langs->trans("Value").'</td>';
+    print '<td>&nbsp;</td>';
+    print "</tr>\n";
 
 
-	$var=!$var;
-	print '<tr '.$bc[$var].'><td class="fieldrequired">';
-	print $langs->trans("OvhSmsLabelAccount").'</td><td>';
-	print '<input size="64" type="text" name="OVHSMS_ACCOUNT" value="'.$conf->global->OVHSMS_ACCOUNT.'">';
-	print '<br>'.$langs->trans("Example").': sms-aa123-1';
-	print '<td>'.'<a class="action" href="ovh_smsrecap.php">'.$langs->trans("ListOfSmsAccountsForNH").'</a>';
+    $var=!$var;
+    print '<tr '.$bc[$var].'><td class="fieldrequired">';
+    print $langs->trans("OvhSmsLabelAccount").'</td><td>';
+    print '<input size="64" type="text" name="OVHSMS_ACCOUNT" value="'.$conf->global->OVHSMS_ACCOUNT.'">';
+    print '<br>'.$langs->trans("Example").': sms-aa123-1';
+    print '<td>'.'<a href="ovh_smsrecap.php" target="_blank">'.$langs->trans("ListOfSmsAccountsForNH").'</a>';
 
-	print '</td></tr>';
+    print '</td></tr>';
 
-	print '<tr><td colspan="3" align="center"><input type="submit" class="button" value="'.$langs->trans("Modify").'"></td></tr>';
-	print '</table></form>';
+    print '<tr><td colspan="3" align="center"><input type="submit" class="button" value="'.$langs->trans("Modify").'"></td></tr>';
+    print '</table></form>';
+
+    /*if ($action != 'testsms')
+    {
+        if (! empty($conf->global->OVHSMS_ACCOUNT))
+        {
+            print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?action=testsms">'.$langs->trans("TestSendSMS").'</a>';
+        }
+        else
+        {
+            print '<a class="butActionRefused" href="#">'.$langs->trans("TestSendSMS").'</a>';
+        }
+    }
+    print '<br><br>';*/
 }
+
+/*
+if ($action=='testsms')
+{
+    // Cree l'objet formulaire mail
+    include_once(DOL_DOCUMENT_ROOT.'/core/class/html.formsms.class.php');
+    $formsms = new FormSms($db);
+    $formsms->fromtype = 'user';
+    $formsms->fromid   = $user->id;
+    $formsms->fromname = $user->getFullName($langs);
+    $formsms->fromsms = $user->user_mobile;
+    $formsms->withfrom=1;
+    $formsms->withfromreadonly=0;
+    $formsms->withto=empty($_POST["sendto"])?1:$_POST["sendto"];
+    $formsms->withbody=1;
+    $formsms->withcancel=1;
+    // Tableau des substitutions
+    $formsms->substit['__FACREF__']=$object->ref;
+    // Tableau des parametres complementaires du post
+    $formsms->param['action']=$action;
+    $formsms->param['models']=$modelmail;
+    $formsms->param['facid']=$object->id;
+    $formsms->param['returnurl']=$_SERVER["PHP_SELF"].'?id='.$object->id;
+
+    $formsms->show_form();
+
+    print '<br>';
+}
+*/
 
 
 // End of page
