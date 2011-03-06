@@ -30,6 +30,7 @@ if (! $res && file_exists("../../../../../dolibarr/htdocs/main.inc.php")) $res=@
 if (! $res) die("Include of main fails");
 require_once(DOL_DOCUMENT_ROOT."/lib/member.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/adherents/class/adherent.class.php");
+require_once(DOL_DOCUMENT_ROOT."/adherents/class/adherent_type.class.php");
 require_once(DOL_DOCUMENT_ROOT."/contact/class/contact.class.php");
 dol_include_once("/ovh/class/ovhsms.class.php");
 
@@ -56,7 +57,6 @@ if ($user->societe_id > 0)
 /* Envoi d'un SMS */
 if (GETPOST("action") == 'smsenvoi' && $user->rights->ovhsms->envoyer)
 {
-
 	$sms = new OvhSms($db);
 	$sms->expe = $_POST['expe'];
 	$sms->dest = $_POST['dest'];
@@ -101,6 +101,9 @@ if ($id)
 	$member = new Adherent($db);
 	$result = $member->fetch($id);
 
+    $membert = new AdherentType($db);
+    $res=$membert->fetch($member->typeid);
+    if ($res < 0) dol_print_error($db);
 
 	/*
 	 * Affichage onglets
@@ -111,6 +114,48 @@ if ($id)
 
 	if ($mesg) print $mesg."<br>";
 
+    print '<table class="border" width="100%">';
+
+    // Ref
+    print '<tr><td width="20%">'.$langs->trans("Ref").'</td>';
+    print '<td class="valeur" colspan="2">';
+    print $form->showrefnav($member,'id');
+    print '</td></tr>';
+
+    // Login
+    if (empty($conf->global->ADHERENT_LOGIN_NOT_REQUIRED))
+    {
+        print '<tr><td>'.$langs->trans("Login").' / '.$langs->trans("Id").'</td><td class="valeur" colspan="2">'.$member->login.'&nbsp;</td>';
+        print '</tr>';
+    }
+
+    // Morphy
+    print '<tr><td>'.$langs->trans("Nature").'</td><td class="valeur" >'.$member->getmorphylib().'</td>';
+    /*print '<td rowspan="'.$rowspan.'" align="center" valign="middle" width="25%">';
+    print $form->showphoto('memberphoto',$member);
+    print '</td>';*/
+    print '</tr>';
+
+    // Type
+    print '<tr><td>'.$langs->trans("Type").'</td><td class="valeur">'.$membert->getNomUrl(1)."</td></tr>\n";
+
+    // Company
+    print '<tr><td>'.$langs->trans("Company").'</td><td class="valeur">'.$member->societe.'</td></tr>';
+
+    // Civility
+    print '<tr><td>'.$langs->trans("UserTitle").'</td><td class="valeur">'.$member->getCivilityLabel().'&nbsp;</td>';
+    print '</tr>';
+
+    // Name
+    print '<tr><td>'.$langs->trans("Lastname").'</td><td class="valeur">'.$member->nom.'&nbsp;</td>';
+    print '</tr>';
+
+    // Firstname
+    print '<tr><td>'.$langs->trans("Firstname").'</td><td class="valeur">'.$member->prenom.'&nbsp;</td></tr>';
+
+    print '</table>';
+
+    print '<br>';
 
     // Cree l'objet formulaire mail
     include_once(DOL_DOCUMENT_ROOT.'/core/class/html.formsms.class.php');
