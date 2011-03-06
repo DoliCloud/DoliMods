@@ -37,10 +37,12 @@ dol_include_once("/ovh/class/ovhsms.class.php");
 // Load traductions files requiredby by page
 $langs->load("companies");
 $langs->load("members");
+$langs->load("sms");
 $langs->load("ovh@ovh");
 
 // Get parameters
 $id = GETPOST("id");
+$action = GETPOST('action');
 
 // Protection if external user
 if ($user->societe_id > 0)
@@ -102,13 +104,13 @@ if ($action == 'send' && ! $_POST['cancel'])
         $smsfile = new CSMSFile($sendto, $smsfrom, $body, $deliveryreceipt, $deferred, $priority, $class);  // This define OvhSms->login, pass, session and account
         $result=$smsfile->sendfile(); // This send SMS
 
-        if ($result)
+        if ($result > 0)
         {
             $mesg='<div class="ok">'.$langs->trans("SmsSuccessfulySent",$smsfrom,$sendto).'</div>';
         }
         else
         {
-            $mesg='<div class="error">'.$langs->trans("ResultKo").'<br>'.$smsfile->error.' '.$result.'</div>';
+            $mesg='<div class="error">'.$langs->trans("ResultKo").'<br>'.$smsfile->error.'</div>';
         }
 
         $action='';
@@ -200,7 +202,7 @@ if ($id)
 
     print '<br>';
 
-    print_titre($langs->trans("Sms"));
+    print_fiche_titre($langs->trans("Sms"));
 
     // Cree l'objet formulaire mail
     include_once(DOL_DOCUMENT_ROOT.'/core/class/html.formsms.class.php');
@@ -211,15 +213,15 @@ if ($id)
     $formsms->fromsms = $user->user_mobile;
     $formsms->withfrom=(empty($_POST['fromsms'])?1:$_POST['fromsms']);
     $formsms->withfromreadonly=0;
-    $formsms->withto=(empty($_POST["sendto"])?1:$_POST["sendto"]);
+    $formsms->withto=(empty($_POST["sendto"])?($member->phone_mobile?$member->phone_mobile:1):$_POST["sendto"]);
     $formsms->withbody=1;
     $formsms->withcancel=0;
     // Tableau des substitutions
-    $formsms->substit['__FACREF__']=$object->ref;
+    $formsms->substit['__MEMBERREF__']=$member->ref;
     // Tableau des parametres complementaires du post
-    $formsms->param['action']=$action;
-    $formsms->param['models']=$modelmail;
-    $formsms->param['facid']=$object->id;
+    $formsms->param['action']='send';
+    $formsms->param['models']='';
+    $formsms->param['id']=$member->id;
     $formsms->param['returnurl']=$_SERVER["PHP_SELF"].'?id='.$member->id;
 
     $formsms->show_form('20%');

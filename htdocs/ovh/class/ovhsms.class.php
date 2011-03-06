@@ -117,7 +117,6 @@ class OvhSms  extends CommonObject
             dol_syslog(get_class($this)."::SmsSend ".$errmsg, LOG_ERR);
 
             $this->error.=($this->error?', '.$errmsg:$errmsg);
-            return -1;
         }
         return -1;
     }

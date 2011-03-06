@@ -36,10 +36,12 @@ dol_include_once("/ovh/class/ovhsms.class.php");
 
 // Load traductions files requiredby by page
 $langs->load("companies");
+$langs->load("sms");
 $langs->load("ovh@ovh");
 
 // Get parameters
 $socid = GETPOST("socid")?GETPOST("socid"):GETPOST("id");
+$action = GETPOST('action');
 
 // Protection if external user
 if ($user->societe_id > 0)
@@ -62,6 +64,7 @@ if ($action == 'send' && ! $_POST['cancel'])
     if (! empty($_POST["fromsms"])) $smsfrom=GETPOST("fromsms");
     if (empty($smsfrom)) $smsfrom=GETPOST("fromname");
     $sendto     = GETPOST("sendto");
+    $receiver   = GETPOST('receiver');
     $body       = GETPOST('message');
     $deliveryreceipt= GETPOST("deliveryreceipt");
     $deferred   = GETPOST('deferred');
@@ -85,7 +88,7 @@ if ($action == 'send' && ! $_POST['cancel'])
         $action='test';
         $error++;
     }
-    if (empty($sendto) || ! str_replace('+','',$sendto))
+    if ((empty($sendto) || ! str_replace('+','',$sendto)) && (empty($receiver)))
     {
         $mesg='<div class="error">'.$langs->trans("ErrorFieldRequired",$langs->transnoentities("SmsTo")).'</div>';
         $action='test';
@@ -98,16 +101,22 @@ if ($action == 'send' && ! $_POST['cancel'])
 
         require_once(DOL_DOCUMENT_ROOT."/lib/CSMSFile.class.php");
 
+        if ((empty($sendto) || ! str_replace('+','',$sendto)) && ! empty($receiver))
+        {
+            $company_static=new Societe($db);
+            $sendto=$company_static->contact_get_property($receiver,'mobile');
+        }
+
         $smsfile = new CSMSFile($sendto, $smsfrom, $body, $deliveryreceipt, $deferred, $priority, $class);  // This define OvhSms->login, pass, session and account
         $result=$smsfile->sendfile(); // This send SMS
 
-        if ($result)
+        if ($result > 0)
         {
             $mesg='<div class="ok">'.$langs->trans("SmsSuccessfulySent",$smsfrom,$sendto).'</div>';
         }
         else
         {
-            $mesg='<div class="error">'.$langs->trans("ResultKo").'<br>'.$smsfile->error.' '.$result.'</div>';
+            $mesg='<div class="error">'.$langs->trans("ResultKo").'<br>'.$smsfile->error.'</div>';
         }
 
         $action='';
@@ -185,7 +194,7 @@ if ($socid)
 
     print '</table><br>';
 
-    print_titre($langs->trans("Sms"));
+    print_fiche_titre($langs->trans("Sms"));
 
     // Cree l'objet formulaire mail
     include_once(DOL_DOCUMENT_ROOT.'/core/class/html.formsms.class.php');
@@ -201,11 +210,11 @@ if ($socid)
     $formsms->withbody=1;
     $formsms->withcancel=0;
     // Tableau des substitutions
-    $formsms->substit['__FACREF__']=$object->ref;
+    $formsms->substit['__THIRDPARTYREF__']=$soc->ref;
     // Tableau des parametres complementaires du post
-    $formsms->param['action']=$action;
-    $formsms->param['models']=$modelmail;
-    $formsms->param['facid']=$object->id;
+    $formsms->param['action']='send';
+    $formsms->param['models']='';
+    $formsms->param['id']=$soc->id;
     $formsms->param['returnurl']=$_SERVER["PHP_SELF"].'?id='.$soc->id;
 
     $formsms->show_form('20%');
