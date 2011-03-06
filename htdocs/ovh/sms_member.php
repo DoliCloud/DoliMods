@@ -55,21 +55,64 @@ if ($user->societe_id > 0)
  ********************************************************************/
 
 /* Envoi d'un SMS */
-if (GETPOST("action") == 'smsenvoi' && $user->rights->ovhsms->envoyer)
+if ($action == 'send' && ! $_POST['cancel'])
 {
-	$sms = new OvhSms($db);
-	$sms->expe = $_POST['expe'];
-	$sms->dest = $_POST['dest'];
-	$sms->message = $_POST['message'];
-	$sms->deferred = $_POST['deferred'];
-	$resultsend = $sms->SmsSend();
-	if ($resultsend > 0)
-	{
+    $error=0;
 
-		$mesg = '<p class="ok">Message correctement envoyé à '.$sms->dest.' sous la référence '.$resultsend.'</p>';
-	}
+    $smsfrom='';
+    if (! empty($_POST["fromsms"])) $smsfrom=GETPOST("fromsms");
+    if (empty($smsfrom)) $smsfrom=GETPOST("fromname");
+    $sendto     = GETPOST("sendto");
+    $body       = GETPOST('message');
+    $deliveryreceipt= GETPOST("deliveryreceipt");
+    $deferred   = GETPOST('deferred');
+    $priority   = GETPOST('priority');
+    $class      = GETPOST('class');
+    $errors_to  = GETPOST("errorstosms");
 
-	else $mesg = '<p class="error">'.$sms->error.'</p>';
+    // Create form object
+    include_once(DOL_DOCUMENT_ROOT.'/core/class/html.formsms.class.php');
+    $formsms = new FormSms($db);
+
+    if (empty($body))
+    {
+        $mesg='<div class="error">'.$langs->trans("ErrorFieldRequired",$langs->transnoentities("Message")).'</div>';
+        $action='test';
+        $error++;
+    }
+    if (empty($smsfrom) || ! str_replace('+','',$smsfrom))
+    {
+        $mesg='<div class="error">'.$langs->trans("ErrorFieldRequired",$langs->transnoentities("SmsFrom")).'</div>';
+        $action='test';
+        $error++;
+    }
+    if (empty($sendto) || ! str_replace('+','',$sendto))
+    {
+        $mesg='<div class="error">'.$langs->trans("ErrorFieldRequired",$langs->transnoentities("SmsTo")).'</div>';
+        $action='test';
+        $error++;
+    }
+    if (! $error)
+    {
+        // Make substitutions into message
+        $body=make_substitutions($body,$substitutionarrayfortest,$langs);
+
+        require_once(DOL_DOCUMENT_ROOT."/lib/CSMSFile.class.php");
+
+        $smsfile = new CSMSFile($sendto, $smsfrom, $body, $deliveryreceipt, $deferred, $priority, $class);  // This define OvhSms->login, pass, session and account
+        $result=$smsfile->sendfile(); // This send SMS
+
+        if ($result)
+        {
+            $mesg='<div class="ok">'.$langs->trans("SmsSuccessfulySent",$smsfrom,$sendto).'</div>';
+        }
+        else
+        {
+            $mesg='<div class="error">'.$langs->trans("ResultKo").'<br>'.$smsfile->error.' '.$result.'</div>';
+        }
+
+        $action='';
+    }
 }
 
 
@@ -157,6 +200,8 @@ if ($id)
 
     print '<br>';
 
+    print_titre($langs->trans("Sms"));
+
     // Cree l'objet formulaire mail
     include_once(DOL_DOCUMENT_ROOT.'/core/class/html.formsms.class.php');
     $formsms = new FormSms($db);
@@ -164,9 +209,9 @@ if ($id)
     $formsms->fromid   = $user->id;
     $formsms->fromname = $user->getFullName($langs);
     $formsms->fromsms = $user->user_mobile;
-    $formsms->withfrom=1;
+    $formsms->withfrom=(empty($_POST['fromsms'])?1:$_POST['fromsms']);
     $formsms->withfromreadonly=0;
-    $formsms->withto=empty($_POST["sendto"])?1:$_POST["sendto"];
+    $formsms->withto=(empty($_POST["sendto"])?1:$_POST["sendto"]);
     $formsms->withbody=1;
     $formsms->withcancel=0;
     // Tableau des substitutions
@@ -175,9 +220,9 @@ if ($id)
     $formsms->param['action']=$action;
     $formsms->param['models']=$modelmail;
     $formsms->param['facid']=$object->id;
-    $formsms->param['returnurl']=$_SERVER["PHP_SELF"].'?id='.$object->id;
+    $formsms->param['returnurl']=$_SERVER["PHP_SELF"].'?id='.$member->id;
 
-    $formsms->show_form();
+    $formsms->show_form('20%');
 
 
 	dol_fiche_end();
