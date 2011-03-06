@@ -39,7 +39,7 @@ $langs->load("companies");
 $langs->load("ovh@ovh");
 
 // Get parameters
-$socid = GETPOST("id");
+$socid = GETPOST("socid")?GETPOST("socid"):GETPOST("id");
 
 // Protection if external user
 if ($user->societe_id > 0)
@@ -111,127 +111,65 @@ if ($socid)
 
 	if ($mesg) print $mesg."<br>";
 
+    print '<table class="border" width="100%">';
 
-	print '<table width="100%" class="notopnoleftnoright">';
-	print '<tr><td valign="top" class="notopnoleft">';
+    print '<tr><td width="20%">'.$langs->trans('Name').'</td>';
+    print '<td colspan="3">';
+    print $form->showrefnav($soc,'socid','',($user->societe_id?0:1),'rowid','nom');
+    print '</td></tr>';
+
+    if (! empty($conf->global->SOCIETE_USEPREFIX))  // Old not used prefix field
+    {
+        print '<tr><td>'.$langs->trans('Prefix').'</td><td colspan="3">'.$soc->prefix_comm.'</td></tr>';
+    }
+
+    if ($soc->client)
+    {
+        print '<tr><td>';
+        print $langs->trans('CustomerCode').'</td><td colspan="3">';
+        print $soc->code_client;
+        if ($soc->check_codeclient() <> 0) print ' <font class="error">('.$langs->trans("WrongCustomerCode").')</font>';
+        print '</td></tr>';
+    }
+
+    if ($soc->fournisseur)
+    {
+        print '<tr><td>';
+        print $langs->trans('SupplierCode').'</td><td colspan="3">';
+        print $soc->code_fournisseur;
+        if ($soc->check_codefournisseur() <> 0) print ' <font class="error">('.$langs->trans("WrongSupplierCode").')</font>';
+        print '</td></tr>';
+    }
+
+    print '</table><br>';
 
 
+    // Cree l'objet formulaire mail
+    include_once(DOL_DOCUMENT_ROOT.'/core/class/html.formsms.class.php');
+    $formsms = new FormSms($db);
+    $formsms->fromtype = 'user';
+    $formsms->fromid   = $user->id;
+    $formsms->fromname = $user->getFullName($langs);
+    $formsms->fromsms = $user->user_mobile;
+    $formsms->withfrom=1;
+    $formsms->withtosocid=$socid;
+    $formsms->withfromreadonly=0;
+    $formsms->withto=empty($_POST["sendto"])?1:$_POST["sendto"];
+    $formsms->withbody=1;
+    $formsms->withcancel=0;
+    // Tableau des substitutions
+    $formsms->substit['__FACREF__']=$object->ref;
+    // Tableau des parametres complementaires du post
+    $formsms->param['action']=$action;
+    $formsms->param['models']=$modelmail;
+    $formsms->param['facid']=$object->id;
+    $formsms->param['returnurl']=$_SERVER["PHP_SELF"].'?id='.$object->id;
 
-	// Liste des expéditeurs autorisés
-	$resultsender = $sms->SmsSenderList($account);
+    $formsms->show_form();
 
-	print_titre($langs->trans("OvhSmsSend"));
-	print '
-<script language="javascript">
-function limitChars(textarea, limit, infodiv)
-{
-	var text = textarea.value;
-	var textlength = text.length;
-	var info = document.getElementById(infodiv);
 
-	if(textlength > limit)
-	{
-		info.innerHTML = \'Le texte doit faire \'+limit+\' caractères maximum  !\';
-		textarea.value = text.substr(0,limit);
-		return false;
-	}
-	else
-	{
-		info.innerHTML = \' \'+ (limit - textlength) +\' caractères restants.\';
-		return true;
-	}
+    dol_fiche_end();
 }
-</script>';
-
-	print '<form method="post" action="">';
-	print '<input type="hidden" name="action" value="smsenvoi">';
-	print '<table  class="border" width="100%">';
-	print '<tr>
-   <td>Expediteur</td>
-   <td><select name="expe" id="valid" size="1">';
-
-	$i=0;
-	while($resultsender[$i]){
-		print '<option value="'.$resultsender[$i]->number.'">'.$resultsender[$i]->number.'</option>';
-		$i++;
-	}
-	print '</select></td>
-	  ';
-
-
-
-	print ' ';
-
-	print '</tr>
-   <tr>
-	   <td>'.$langs->trans("OvhSmsDestinataire").'</td>
-	   <td><input type="text" name="dest" size="15" value="+"><br />'.$langs->trans("OvhSmsInfoNumero").'</td>
-   </tr>
-   <tr>
-	   <td>'.$langs->trans("OvhSmsLabelTexteMessage").'</td>
-	   <td><textarea  cols="30" name="message" id="message" rows="4" onkeyup="limitChars(this, 160, \'charlimitinfo\')"> </textarea>
-	   <div id="charlimitinfo" style="  color:#aa3333; font-size:12px; font-family:vardana" >'.$langs->trans("OvhSmsInfoCharMax").'</div></td>
-   </tr>
-
-   <tr>
-   	<td>Envoi differe :</td>
-   	<td> <input name="deferred" id="deferred" size="4" value="0"> (Délai avant envoi en Minutes.)</td></tr>
-
-      <tr><td>Type SMS : </td><td>
-   <select name="class" id="valid" size="1">
-   <option value="0">Flash</option>
-   <option value="1" selected="selected">Standard</option>
-   <option value="2">SIM</option>
-   <option value="3">ToolKit</option>
-   </select></td></tr>
-
-   <tr><td>Priorite :</td><td>
-   <select name="class" id="valid" size="1">
-   <option value="0">0</option>
-   <option value="1">1</option>
-   <option value="2">2</option>
-   <option value="3" selected="selected">3</option>
-   </select></td></tr>
-
-   </table>
-
-
-   <br /><input type="submit" name="Submit" value="'.dol_escape_htmltag($langs->trans("OvhSmsSend")).'" class="button"><br />
-   </form>
-   ';
-
-
-
-
-
-
-	print "</td>\n";
-
-
-	print '<td valign="top" width="50%" class="notopnoleftnoright">';
-
-
-
-	$sms->show_sms_contacts($conf,$langs,$db,$soc);
-
-
-
-	print '</div>';
-	print "</td></tr>";
-	print "</table></div>\n";
-
-
-
-
-}
-
-
-
-
-// }
-
-
-
 
 
 // End of page
