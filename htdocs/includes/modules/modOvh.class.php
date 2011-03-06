@@ -89,7 +89,7 @@ class modOvh extends DolibarrModules
 		//                            1=>array('MYMODULE_MYNEWCONST2','chaine','myvalue','This is another constant to add',0) );
 
 		// Array to add new pages in new tabs
-		$this->tabs = array('thirdparty:SMS:@ovh:/ovh/sms.php?id=__ID__',
+		$this->tabs = array('thirdparty:SMS:@ovh:/ovh/sms_thirdparty.php?id=__ID__',
 		                    'member:SMS:@ovh:/ovh/sms_member.php?id=__ID__');
 
 
