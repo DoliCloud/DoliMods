@@ -1,5 +1,5 @@
 <?php
-/* Copyright (C) 2008-2009 Laurent Destailleur  <eldy@users.sourceforge.net>
+/* Copyright (C) 2008-2011 Laurent Destailleur  <eldy@users.sourceforge.net>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,7 +20,7 @@
  *	    \file       htdocs/monitoring/index.php
  *      \ingroup    monitoring
  *      \brief      Page to setup module Monitoring
- *		\version    $Id: index.php,v 1.3 2011/03/04 22:59:15 eldy Exp $
+ *		\version    $Id: index.php,v 1.4 2011/03/07 22:50:36 eldy Exp $
  */
 
 define('NOCSRFCHECK',1);
@@ -161,168 +161,175 @@ if ($action == 'graph')
 	$error=0;
 	$mesg='';
 
+	$newfname=preg_replace('/^[a-z]:/i','',$fname);	// Removed C:, D: for windows path to avoid error in def string
+
+	// Hour graph
 	$opts = array(
 			'--start','-1h',
 			"--vertical-label=ms",
-           "DEF:ds1=".$fname.":ds1:AVERAGE",
-           "DEF:ds2=".$fname.":ds2:AVERAGE",
-			"LINE1:ds1#0000FF:Graph1",
-			"LINE1:ds2#FF0000:Errors",
- 			"CDEF:cdef1=ds1,1,*",
+           "DEF:ds1=".$newfname.":ds1:AVERAGE",
+           "DEF:ds2=".$newfname.":ds2:AVERAGE",
+		   "LINE1:ds1#0000FF:Graph1",
+		   "LINE1:ds2#FF0000:Errors",
+ 		   "CDEF:cdef1=ds1,1,*",
            "CDEF:cdef2=ds2,1,*",
 	       'COMMENT:\\\n ',
-	"GPRINT:cdef1:MIN:Minval1%8.2lf ",
-	"GPRINT:cdef1:AVERAGE:Avgval1%8.2lf ",
-		"GPRINT:cdef1:MAX:Maxval1%8.2lf ",
-		'COMMENT:\\\n ',
-		"GPRINT:cdef2:MIN:Minval2%8.2lf ",
-	"GPRINT:cdef2:AVERAGE:Avgval2%8.2lf ",
-		"GPRINT:cdef2:MAX:Maxval2%8.2lf ",
+	       "GPRINT:cdef1:MIN:Minval1%8.2lf ",
+	       "GPRINT:cdef1:AVERAGE:Avgval1%8.2lf ",
+		   "GPRINT:cdef1:MAX:Maxval1%8.2lf ",
+		   'COMMENT:\\\n ',
+		   "GPRINT:cdef2:MIN:Minval2%8.2lf ",
+	       "GPRINT:cdef2:AVERAGE:Avgval2%8.2lf ",
+		   "GPRINT:cdef2:MAX:Maxval2%8.2lf ",
 	       'COMMENT:\\\n '
-	);
-	$ret = rrd_graph($conf->monitoring->dir_output.'/'.$fileimage[0], $opts, count($opts));
-	$resout=file_get_contents($conf->monitoring->dir_output.'/'.$fileimage[0].'.out');
-	if (strlen($resout) < 10)
-	{
-		$mesg.='<div class="ok">'.$langs->trans("File ".$fileimage[0].' created').'</div>';
-	}
-	else
-	{
-		$error++;
-		$err = rrd_error($conf->monitoring->dir_output.'/'.$fileimage[0]);
-		$mesg.="Graph error: $err\n";
-	}
+	       );
+	       $ret = rrd_graph($conf->monitoring->dir_output.'/'.$fileimage[0], $opts, count($opts));
+	       $resout=file_get_contents($conf->monitoring->dir_output.'/'.$fileimage[0].'.out');
+	       if (strlen($resout) < 10)
+	       {
+	       	$mesg.='<div class="ok">'.$langs->trans("File ".$fileimage[0].' created').'</div>';
+	       }
+	       else
+	       {
+	       	$error++;
+	       	$err = rrd_error($conf->monitoring->dir_output.'/'.$fileimage[0]);
+	       	$mesg.="Graph error: $err\n";
+	       }
 
-	$opts = array(
+	       // Day graph
+	       $opts = array(
 			'--start','-1d',
 			"--vertical-label=ms",
-           "DEF:ds1=".$fname.":ds1:AVERAGE",
-           "DEF:ds2=".$fname.":ds2:AVERAGE",
-			"LINE1:ds1#0000FF:Graph1",
-			"LINE1:ds2#FF0000:Errors",
- 			"CDEF:cdef1=ds1,1,*",
+           "DEF:ds1=".$newfname.":ds1:AVERAGE",
+           "DEF:ds2=".$newfname.":ds2:AVERAGE",
+		   "LINE1:ds1#0000FF:Graph1",
+		   "LINE1:ds2#FF0000:Errors",
+ 		   "CDEF:cdef1=ds1,1,*",
            "CDEF:cdef2=ds2,1,*",
 	       'COMMENT:\\\n ',
-	"GPRINT:cdef1:MIN:Minval1%8.2lf ",
-	"GPRINT:cdef1:AVERAGE:Avgval1%8.2lf ",
-		"GPRINT:cdef1:MAX:Maxval1%8.2lf ",
-		'COMMENT:\\\n ',
-		"GPRINT:cdef2:MIN:Minval2%8.2lf ",
-	"GPRINT:cdef2:AVERAGE:Avgval2%8.2lf ",
-		"GPRINT:cdef2:MAX:Maxval2%8.2lf ",
+	       "GPRINT:cdef1:MIN:Minval1%8.2lf ",
+	       "GPRINT:cdef1:AVERAGE:Avgval1%8.2lf ",
+		   "GPRINT:cdef1:MAX:Maxval1%8.2lf ",
+		   'COMMENT:\\\n ',
+		   "GPRINT:cdef2:MIN:Minval2%8.2lf ",
+	       "GPRINT:cdef2:AVERAGE:Avgval2%8.2lf ",
+		   "GPRINT:cdef2:MAX:Maxval2%8.2lf ",
 	       'COMMENT:\\\n '
-			);
-			$ret = rrd_graph($conf->monitoring->dir_output.'/'.$fileimage[1], $opts, count($opts));
-			$resout=file_get_contents($conf->monitoring->dir_output.'/'.$fileimage[1].'.out');
-			if (strlen($resout) < 10)
-			{
-				$mesg.='<div class="ok">'.$langs->trans("File ".$fileimage[1].' created').'</div>';
-			}
-			else
-			{
-				$error++;
-				$err = rrd_error($conf->monitoring->dir_output.'/'.$fileimage[1]);
-				$mesg.="Graph error: $err\n";
-			}
+	       );
+	       $ret = rrd_graph($conf->monitoring->dir_output.'/'.$fileimage[1], $opts, count($opts));
+	       $resout=file_get_contents($conf->monitoring->dir_output.'/'.$fileimage[1].'.out');
+	       if (strlen($resout) < 10)
+	       {
+	       	$mesg.='<div class="ok">'.$langs->trans("File ".$fileimage[1].' created').'</div>';
+	       }
+	       else
+	       {
+	       	$error++;
+	       	$err = rrd_error($conf->monitoring->dir_output.'/'.$fileimage[1]);
+	       	$mesg.="Graph error: $err\n";
+	       }
 
-			$opts = array(
+	       // Week graph
+	       $opts = array(
 			'--start','-1w',
 			"--vertical-label=ms",
-           "DEF:ds1=".$fname.":ds1:AVERAGE",
-           "DEF:ds2=".$fname.":ds2:AVERAGE",
-			"LINE1:ds1#0000FF:Graph1",
-			"LINE1:ds2#FF0000:Errors",
- 			"CDEF:cdef1=ds1,1,*",
+           "DEF:ds1=".$newfname.":ds1:AVERAGE",
+           "DEF:ds2=".$newfname.":ds2:AVERAGE",
+		   "LINE1:ds1#0000FF:Graph1",
+		   "LINE1:ds2#FF0000:Errors",
+ 		   "CDEF:cdef1=ds1,1,*",
            "CDEF:cdef2=ds2,1,*",
 	       'COMMENT:\\\n ',
-	"GPRINT:cdef1:MIN:Minval1%8.2lf ",
-	"GPRINT:cdef1:AVERAGE:Avgval1%8.2lf ",
-		"GPRINT:cdef1:MAX:Maxval1%8.2lf ",
-		'COMMENT:\\\n ',
-		"GPRINT:cdef2:MIN:Minval2%8.2lf ",
-	"GPRINT:cdef2:AVERAGE:Avgval2%8.2lf ",
-		"GPRINT:cdef2:MAX:Maxval2%8.2lf ",
+	       "GPRINT:cdef1:MIN:Minval1%8.2lf ",
+	       "GPRINT:cdef1:AVERAGE:Avgval1%8.2lf ",
+		   "GPRINT:cdef1:MAX:Maxval1%8.2lf ",
+		   'COMMENT:\\\n ',
+		   "GPRINT:cdef2:MIN:Minval2%8.2lf ",
+           "GPRINT:cdef2:AVERAGE:Avgval2%8.2lf ",
+		   "GPRINT:cdef2:MAX:Maxval2%8.2lf ",
 	       'COMMENT:\\\n '
-	       		);
-			$ret = rrd_graph($conf->monitoring->dir_output.'/'.$fileimage[2], $opts, count($opts));
-			$resout=file_get_contents($conf->monitoring->dir_output.'/'.$fileimage[2].'.out');
-			if (strlen($resout) < 10)
-			{
-				$mesg.='<div class="ok">'.$langs->trans("File ".$fileimage[2].' created').'</div>';
-			}
-			else
-			{
-				$error++;
-				$err = rrd_error($conf->monitoring->dir_output.'/'.$fileimage[2]);
-				$mesg.="Graph error: $err\n";
-			}
+	       );
+	       $ret = rrd_graph($conf->monitoring->dir_output.'/'.$fileimage[2], $opts, count($opts));
+	       $resout=file_get_contents($conf->monitoring->dir_output.'/'.$fileimage[2].'.out');
+	       if (strlen($resout) < 10)
+	       {
+	       	$mesg.='<div class="ok">'.$langs->trans("File ".$fileimage[2].' created').'</div>';
+	       }
+	       else
+	       {
+	       	$error++;
+	       	$err = rrd_error($conf->monitoring->dir_output.'/'.$fileimage[2]);
+	       	$mesg.="Graph error: $err\n";
+	       }
 
-			$opts = array(
+	       // Month graph
+	       $opts = array(
 			'--start','-1m',
 			"--vertical-label=ms",
-           "DEF:ds1=".$fname.":ds1:AVERAGE",
-           "DEF:ds2=".$fname.":ds2:AVERAGE",
-			"LINE1:ds1#0000FF:Graph1",
-			"LINE1:ds2#FF0000:Errors",
- 			"CDEF:cdef1=ds1,1,*",
+           "DEF:ds1=".$newfname.":ds1:AVERAGE",
+           "DEF:ds2=".$newfname.":ds2:AVERAGE",
+ 		   "LINE1:ds1#0000FF:Graph1",
+		   "LINE1:ds2#FF0000:Errors",
+ 		   "CDEF:cdef1=ds1,1,*",
            "CDEF:cdef2=ds2,1,*",
 	       'COMMENT:\\\n ',
-	"GPRINT:cdef1:MIN:Minval1%8.2lf ",
-	"GPRINT:cdef1:AVERAGE:Avgval1%8.2lf ",
-		"GPRINT:cdef1:MAX:Maxval1%8.2lf ",
-		'COMMENT:\\\n ',
-		"GPRINT:cdef2:MIN:Minval2%8.2lf ",
-	"GPRINT:cdef2:AVERAGE:Avgval2%8.2lf ",
-		"GPRINT:cdef2:MAX:Maxval2%8.2lf ",
+	       "GPRINT:cdef1:MIN:Minval1%8.2lf ",
+	       "GPRINT:cdef1:AVERAGE:Avgval1%8.2lf ",
+		   "GPRINT:cdef1:MAX:Maxval1%8.2lf ",
+		   'COMMENT:\\\n ',
+		   "GPRINT:cdef2:MIN:Minval2%8.2lf ",
+	       "GPRINT:cdef2:AVERAGE:Avgval2%8.2lf ",
+		   "GPRINT:cdef2:MAX:Maxval2%8.2lf ",
 	       'COMMENT:\\\n '
-	       			);
-			$ret = rrd_graph($conf->monitoring->dir_output.'/'.$fileimage[3], $opts, count($opts));
-			$resout=file_get_contents($conf->monitoring->dir_output.'/'.$fileimage[3].'.out');
-			if (strlen($resout) < 10)
-			{
-				$mesg.='<div class="ok">'.$langs->trans("File ".$fileimage[3].' created').'</div>';
-			}
-			else
-			{
-				$error++;
-				$err = rrd_error($conf->monitoring->dir_output.'/'.$fileimage[3]);
-				$mesg.="Graph error: $err\n";
-			}
+	       );
+	       $ret = rrd_graph($conf->monitoring->dir_output.'/'.$fileimage[3], $opts, count($opts));
+	       $resout=file_get_contents($conf->monitoring->dir_output.'/'.$fileimage[3].'.out');
+	       if (strlen($resout) < 10)
+	       {
+	       	$mesg.='<div class="ok">'.$langs->trans("File ".$fileimage[3].' created').'</div>';
+	       }
+	       else
+	       {
+	       	$error++;
+	       	$err = rrd_error($conf->monitoring->dir_output.'/'.$fileimage[3]);
+	       	$mesg.="Graph error: $err\n";
+	       }
 
-			$opts = array(
+	       // Year graph
+	       $opts = array(
 			'--start','-1y',
 			"--vertical-label=ms",
-           "DEF:ds1=".$fname.":ds1:AVERAGE",
-           "DEF:ds2=".$fname.":ds2:AVERAGE",
-			"LINE1:ds1#0000FF:Graph1",
-			"LINE1:ds2#FF0000:Errors",
- 			"CDEF:cdef1=ds1,1,*",
+           "DEF:ds1=".$newfname.":ds1:AVERAGE",
+           "DEF:ds2=".$newfname.":ds2:AVERAGE",
+		   "LINE1:ds1#0000FF:Graph1",
+		   "LINE1:ds2#FF0000:Errors",
+ 		   "CDEF:cdef1=ds1,1,*",
            "CDEF:cdef2=ds2,1,*",
 	       'COMMENT:\\\n ',
-	"GPRINT:cdef1:MIN:Minval1%8.2lf ",
-	"GPRINT:cdef1:AVERAGE:Avgval1%8.2lf ",
-		"GPRINT:cdef1:MAX:Maxval1%8.2lf ",
-		'COMMENT:\\\n ',
-		"GPRINT:cdef2:MIN:Minval2%8.2lf ",
-	"GPRINT:cdef2:AVERAGE:Avgval2%8.2lf ",
-		"GPRINT:cdef2:MAX:Maxval2%8.2lf ",
+	       "GPRINT:cdef1:MIN:Minval1%8.2lf ",
+	       "GPRINT:cdef1:AVERAGE:Avgval1%8.2lf ",
+		   "GPRINT:cdef1:MAX:Maxval1%8.2lf ",
+		   'COMMENT:\\\n ',
+		   "GPRINT:cdef2:MIN:Minval2%8.2lf ",
+	       "GPRINT:cdef2:AVERAGE:Avgval2%8.2lf ",
+		   "GPRINT:cdef2:MAX:Maxval2%8.2lf ",
 	       'COMMENT:\\\n '
-			);
-			$ret = rrd_graph($conf->monitoring->dir_output.'/'.$fileimage[4], $opts, count($opts));
-			$resout=file_get_contents($conf->monitoring->dir_output.'/'.$fileimage[4].'.out');
-			if (strlen($resout) < 10)
-			{
-				$mesg.='<div class="ok">'.$langs->trans("File ".$fileimage[4].' created').'</div>';
-			}
-			else
-			{
-				$error++;
-				$err = rrd_error($conf->monitoring->dir_output.'/'.$fileimage[4]);
-				$mesg.="Graph error: $err\n";
-			}
+	       );
+	       $ret = rrd_graph($conf->monitoring->dir_output.'/'.$fileimage[4], $opts, count($opts));
+	       $resout=file_get_contents($conf->monitoring->dir_output.'/'.$fileimage[4].'.out');
+	       if (strlen($resout) < 10)
+	       {
+	       	$mesg.='<div class="ok">'.$langs->trans("File ".$fileimage[4].' created').'</div>';
+	       }
+	       else
+	       {
+	       	$error++;
+	       	$err = rrd_error($conf->monitoring->dir_output.'/'.$fileimage[4]);
+	       	$mesg.="Graph error: $err\n";
+	       }
 
 
-			if (! $error) $mesg='';
+	       if (! $error) $mesg='';
 }
 
 
@@ -375,5 +382,5 @@ else
 
 $db->close();
 
-llxFooter('$Date: 2011/03/04 22:59:15 $ - $Revision: 1.3 $');
+llxFooter('$Date: 2011/03/07 22:50:36 $ - $Revision: 1.4 $');
 ?>
