@@ -21,7 +21,7 @@
  *	\file       	scripts/monitor/monitor_daemon.php
  *	\ingroup    	monitor
  *	\brief      	Script to execute monitor daemon
- *	\version		$Id: monitor_daemon.php,v 1.2 2011/01/23 12:50:06 eldy Exp $
+ *	\version		$Id: monitor_daemon.php,v 1.3 2011/03/08 23:52:33 eldy Exp $
  */
 
 $sapi_type = php_sapi_name();
@@ -35,7 +35,7 @@ if (substr($sapi_type, 0, 3) == 'cgi') {
 }
 
 // Global variables
-$version='$Revision: 1.2 $';
+$version='$Revision: 1.3 $';
 $error=0;
 // Include Dolibarr environment
 $res=0;
@@ -53,6 +53,7 @@ if (! $res) die("Include of master fails");
 // -------------------- START OF YOUR CODE HERE --------------------
 include_once(DOL_DOCUMENT_ROOT."/lib/files.lib.php");
 dol_include_once("/monitoring/lib/monitoring.lib.php");
+dol_include_once("/monitoring/class/monitoring_probes.class.php");
 
 //$langs->setDefaultLang('en_US'); 	// To change default language of $langs
 $langs->load("main");				// To load language file for default language
@@ -100,10 +101,35 @@ if ($result < 0)
 }
 
 // Define url to scan
-$listofurls=array(
-0=>array('code'=>'test1','url'=>'http://localhost','keytovalidate'=>'It works!','max'=>100),
-1=>array('code'=>'test2','url'=>'http://localhost/xxx','keytovalidate'=>'It works!','max'=>100),
-);
+$listofurls=array();
+
+$sql ="SELECT rowid, title, url, checkkey, frequency, status";
+$sql.=" FROM ".MAIN_DB_PREFIX."monitoring_probes";
+$sql.=" WHERE status = 1";
+$sql.=" ORDER BY rowid";
+dol_syslog("probes sql=".$sql,LOG_DEBUG);
+$resql=$db->query($sql);
+if ($resql)
+{
+    $num =$db->num_rows($resql);
+    $i=0;
+
+    while ($i < $num)
+    {
+        $obj = $db->fetch_object($resql);
+
+        $listofurls[$i]=array('code'=>$obj->rowid, 'title'=>$obj->title, 'url'=>$obj->url,
+            'checkkey'=>$obj->checkkey, 'frequency'=>$obj->frequency, 'max'=>100);
+
+        $i++;
+    }
+}
+
+if (! sizeof($listofurls))
+{
+    print 'No enabled probe found. Please define at least one probe before running probe process.'."\n";
+    exit;
+}
 
 $nbok=0;
 $nbko=0;
@@ -140,7 +166,7 @@ foreach($listofurls as $object)
 	           "RRA:MIN:0.5:".(3600/$step).":744",
 	           "RRA:MIN:0.5:".(86400/$step).":365",
 		);
-	
+
 		$ret = rrd_create($fname, $opts, count($opts));
 		$resout=file_get_contents($fname.'.out');
 		if (strlen($resout) < 10)
@@ -161,11 +187,11 @@ if (! $error)
 	while(! $error && (empty($maxloop) || $nbloop < $maxloop))
 	{
 		$nbloop++;
-		
+
 		foreach($listofurls as $object)
 		{
 			$fname = $conf->monitoring->dir_output.'/'.$object['code'].'/monitoring.rrd';
-			
+
 			$ch = curl_init();
 			curl_setopt($ch, CURLOPT_URL,$object['url']);
 			//curl_setopt($ch, CURLOPT_URL,"http://www.j1b.org/");
@@ -185,7 +211,7 @@ if (! $error)
 			dol_syslog($result);
 			//--- End buffering and clean output
 			//ob_end_clean();
-			
+
 			$value1='U';
 			$value2='U';
 			if (curl_error($ch) > 0)	// Test with no response
@@ -197,7 +223,7 @@ if (! $error)
 			else
 			{
 				//var_dump($result);
-				if (preg_match('/'.preg_quote($object['keytovalidate']).'/',$result))
+				if (preg_match('/'.preg_quote($object['checkkey']).'/',$result))
 				{	// Test ok
 					$value1orig=($micro_end_time-$micro_start_time);
 					$value1=round($value1orig*1000);
@@ -211,13 +237,13 @@ if (! $error)
 					$nbko++;
 				}
 			}
-			
+
 			curl_close ($ch);
-			
+
 			print 'Loop '.$nbloop.': '.$object['code'].' '.$micro_start_time.' '.$value1orig.'->'.$value1.':'.$value2."\n";
 			$stringupdate='N:'.$value1.':'.$value2;
 			$ret = rrd_update($fname, $stringupdate);
-		
+
 			if( $ret > 0)
 			{
 				$mesg='<div class="ok">'.$langs->trans("File ".$fname.' completed with random values '.$val1.' for graph 1 and '.$val2.' for graph 2').'</div>';
@@ -229,7 +255,7 @@ if (! $error)
 				$mesg="Update error: $err\n";
 			}
 		}
-		
+
 		// Add delay
 		sleep($frequency);
 	}

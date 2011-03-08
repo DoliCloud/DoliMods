@@ -21,7 +21,7 @@
  *  \file       htdocs/monitoring/lib/monitoring.lib.php
  *  \brief      Ensemble de fonctions de base pour le module Monitoring
  *  \ingroup    monitoring
- *  \version    $Id: monitoring.lib.php,v 1.4 2011/02/12 18:36:57 eldy Exp $
+ *  \version    $Id: monitoring.lib.php,v 1.5 2011/03/08 23:52:18 eldy Exp $
  */
 
 $linktohelp='EN:Module_Monitoring_En|FR:Module_Monitoring|ES:Modulo_Monitoring';
@@ -146,7 +146,7 @@ if (! function_exists('rrd_create'))
 	 */
 	function rrd_graph ($fileimage, $opts, $nbopts)
 	{
-		global $conf;
+		global $conf, $langs;
 
 		$outputfile=$fileimage.'.out';
 

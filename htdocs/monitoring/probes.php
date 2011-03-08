@@ -1,7 +1,7 @@
 <?php
 /* Copyright (C) 2003      Eric Seigne          <erics@rycks.com>
  * Copyright (C) 2003,2005 Rodolphe Quiedeville <rodolphe@quiedeville.org>
- * Copyright (C) 2004-2008 Laurent Destailleur  <eldy@users.sourceforge.net>
+ * Copyright (C) 2004-2011 Laurent Destailleur  <eldy@users.sourceforge.net>
  * Copyright (C) 2004      Sebastien Di Cintio  <sdicintio@ressource-toi.org>
  * Copyright (C) 2004      Benoit Mortier       <benoit.mortier@opensides.be>
  * Copyright (C) 2005-2011 Regis Houssin        <regis@dolibarr.fr>
@@ -25,7 +25,7 @@
  *      \file       htdocs/monitoring/probes.php
  *      \ingroup    monitoring
  *      \brief      Page to add probes
- *      \version    $Id: probes.php,v 1.1 2011/03/04 22:54:21 eldy Exp $
+ *      \version    $Id: probes.php,v 1.2 2011/03/08 23:52:19 eldy Exp $
  */
 
 $res=0;
@@ -39,20 +39,46 @@ require_once(DOL_DOCUMENT_ROOT."/lib/admin.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/lib/files.lib.php");
 require_once(DOL_DOCUMENT_ROOT.'/core/class/html.formadmin.class.php');
 dol_include_once("/monitoring/lib/monitoring.lib.php"); // We still use old writing to be compatible with old version
+dol_include_once("/monitoring/class/monitoring_probes.class.php"); // We still use old writing to be compatible with old version
 
 $langs->load("admin");
+$langs->load("monitoring@monitoring");
 
 if (!$user->rights->monitoring->read)
 accessforbidden();
 
 $def = array();
+$action=GETPOST('action');
+$id=GETPOST('id');
 
 
 /*
  * Actions
  */
+if ($action == 'confirm_deleteprobe' && ! $_POST['cancel'])
+{
+    $probe=new Monitoring_probes($db);
+    $result=$probe->fetch($id);
 
-if ($_POST["action"] == 'add' || $_POST["modify"])
+    $db->begin();
+
+    $result=$probe->delete();
+
+    if ($result > 0)
+    {
+        $db->commit();
+        //$mesg='<div class="ok">'.$langs->trans("Success").'</div>';
+        header("Location: ".$_SERVER["PHP_SELF"]);
+        exit;
+    }
+    else
+    {
+        $db->rollback();
+        dol_print_error($db);
+    }
+}
+
+if ($action == 'add' || $_POST["modify"])
 {
 	// Add entry
     $sql = "INSERT INTO ".MAIN_DB_PREFIX."monitoring_probes (title, url, checkkey, frequency, status)";
@@ -74,42 +100,25 @@ if ($_POST["action"] == 'add' || $_POST["modify"])
     }
 }
 
-if ($_POST["delete"])
-{
-    $db->begin();
-
-    $sql = "DELETE FROM ".MAIN_DB_PREFIX."monitoring_probes";
-    $sql.= ' WHERE rowid = '.GETPOST('rowid','int');
-
-	$resql=$db->query($sql);
-    if ($resql)
-    {
-        $db->commit();
-  		//$mesg='<div class="ok">'.$langs->trans("Success").'</div>';
-        header("Location: ".$_SERVER["PHP_SELF"]);
-        exit;
-    }
-    else
-    {
-        $db->rollback();
-        dol_print_error($db);
-    }
-}
 
 
 /*
  * View
  */
 
+$html=new Form($db);
+
 llxHeader();
 
-$linkback='<a href="'.DOL_URL_ROOT.'/admin/modules.php">'.$langs->trans("BackToModuleList").'</a>';
+$linkback='';
+//$linkback='<a href="'.DOL_URL_ROOT.'/admin/modules.php">'.$langs->trans("BackToModuleList").'</a>';
 print_fiche_titre($langs->trans("ProbeSetup"), $linkback, 'setup');
 print '<br>';
 
 // Formulaire ajout
 
 print_titre($langs->trans("AddProbe"));
+
 
 print '<form name="addnewprobe" action="'.$_SERVER["PHP_SELF"].'" method="post">';
 print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
@@ -157,14 +166,25 @@ print '<br>';
 
 print_titre($langs->trans("ListOfProbes"));
 
+// Confirmation de la suppression d'une ligne produit
+if ($action == 'ask_deleteline')
+{
+    $ret=$html->form_confirm($_SERVER["PHP_SELF"].'?id='.$_GET["id"], $langs->trans('DeleteProbe'), $langs->trans('ConfirmDeleteProbe'), 'confirm_deleteprobe', '', 'no', 1);
+    if ($ret == 'html') print '<br>';
+}
+
+
 print '<table class="nobordernopadding" width="100%">';
 
 print '<tr class="liste_titre">';
+print "<td>".$langs->trans("Id")."</td>";
 print "<td>".$langs->trans("Title")."</td>";
 print "<td>".$langs->trans("URL")."</td>";
 print "<td>".$langs->trans("CheckKey")."</td>";
 print "<td>".$langs->trans("Frequency")."</td>";
-print '<td width="80px" align="center">'.$langs->trans("Status")."</td>";
+print '<td align="center">'.$langs->trans("Active")."</td>";
+print '<td align="center">'.$langs->trans("Reports")."</td>";
+print '<td width="80px">&nbsp;</td>';
 print '</tr>';
 
 
@@ -187,11 +207,17 @@ if ($resql)
 
         $var=!$var;
 		print "<tr ".$bc[$var].">";
-        print "<td>".$obj->title."</td>";
+        print "<td>".$obj->rowid."</td>";
+		print "<td>".$obj->title."</td>";
         print "<td>".$obj->url."</td>";
         print "<td>".$obj->checkkey."</td>";
         print "<td>".$obj->frequency."</td>";
-        print '<td align="center">'.$obj->status."</td>";
+        print '<td align="center">'.yn($obj->status)."</td>";
+        print '<td align="center"><a href="index.php?id='.$obj->rowid.'">'.$langs->trans("Reports")."</a></td>";
+        print '<td align="center"><a href="'.$_SERVER["PHP_SELF"].'?id='.$obj->rowid.'&amp;action=ask_deleteline">';
+        print img_delete();
+        print '</a>';
+        print '</td>';
         print "</tr>";
 
 		print "</form>";
@@ -209,5 +235,5 @@ print '</table>'."\n";
 
 $db->close();
 
-llxFooter('$Date: 2011/03/04 22:54:21 $ - $Revision: 1.1 $');
+llxFooter('$Date: 2011/03/08 23:52:19 $ - $Revision: 1.2 $');
 ?>

@@ -20,7 +20,7 @@
  *	    \file       htdocs/monitoring/index.php
  *      \ingroup    monitoring
  *      \brief      Page to setup module Monitoring
- *		\version    $Id: index.php,v 1.4 2011/03/07 22:50:36 eldy Exp $
+ *		\version    $Id: index.php,v 1.5 2011/03/08 23:52:19 eldy Exp $
  */
 
 define('NOCSRFCHECK',1);
@@ -35,7 +35,8 @@ if (! $res) die("Include of main fails");
 require_once(DOL_DOCUMENT_ROOT."/lib/admin.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/lib/files.lib.php");
 require_once(DOL_DOCUMENT_ROOT.'/core/class/html.formadmin.class.php');
-dol_include_once("/monitoring/lib/monitoring.lib.php");	// We still use old writing to be compatible with old version
+dol_include_once("/monitoring/lib/monitoring.lib.php"); // We still use old writing to be compatible with old version
+dol_include_once("/monitoring/class/monitoring_probes.class.php"); // We still use old writing to be compatible with old version
 
 
 if (!$user->rights->monitoring->read)
@@ -49,14 +50,14 @@ $langs->load("other");
 $def = array();
 $action=GETPOST("action");
 $actionsave=GETPOST("save");
-$code=GETPOST('code');
+$id=GETPOST('id');
 
-$fname = $conf->monitoring->dir_output."/".$code."/monitoring.rrd";
-$fileimage[0]=$code.'/monitoring-1h.png';
-$fileimage[1]=$code.'/monitoring-1d.png';
-$fileimage[2]=$code.'/monitoring-1w.png';
-$fileimage[3]=$code.'/monitoring-1m.png';
-$fileimage[4]=$code.'/monitoring-1y.png';
+$fname = $conf->monitoring->dir_output."/".$id."/monitoring.rrd";
+$fileimage[0]=$id.'/monitoring-1h.png';
+$fileimage[1]=$id.'/monitoring-1d.png';
+$fileimage[2]=$id.'/monitoring-1w.png';
+$fileimage[3]=$id.'/monitoring-1m.png';
+$fileimage[4]=$id.'/monitoring-1y.png';
 
 
 /*
@@ -99,7 +100,7 @@ if ($actionsave)
 if ($action == 'create')
 {
 	$error=0;
-	create_exdir($conf->monitoring->dir_output.'/'.$code);
+	create_exdir($conf->monitoring->dir_output.'/'.$id);
 
 	$step=5;
 	$opts = array( "--step", $step,
@@ -167,8 +168,8 @@ if ($action == 'graph')
 	$opts = array(
 			'--start','-1h',
 			"--vertical-label=ms",
-           "DEF:ds1=".$newfname.":ds1:AVERAGE",
-           "DEF:ds2=".$newfname.":ds2:AVERAGE",
+           "DEF:ds1=\"".$newfname."\":ds1:AVERAGE",
+           "DEF:ds2=\"".$newfname."\":ds2:AVERAGE",
 		   "LINE1:ds1#0000FF:Graph1",
 		   "LINE1:ds2#FF0000:Errors",
  		   "CDEF:cdef1=ds1,1,*",
@@ -200,8 +201,8 @@ if ($action == 'graph')
 	       $opts = array(
 			'--start','-1d',
 			"--vertical-label=ms",
-           "DEF:ds1=".$newfname.":ds1:AVERAGE",
-           "DEF:ds2=".$newfname.":ds2:AVERAGE",
+           "DEF:ds1=\"".$newfname."\":ds1:AVERAGE",
+           "DEF:ds2=\"".$newfname."\":ds2:AVERAGE",
 		   "LINE1:ds1#0000FF:Graph1",
 		   "LINE1:ds2#FF0000:Errors",
  		   "CDEF:cdef1=ds1,1,*",
@@ -233,8 +234,8 @@ if ($action == 'graph')
 	       $opts = array(
 			'--start','-1w',
 			"--vertical-label=ms",
-           "DEF:ds1=".$newfname.":ds1:AVERAGE",
-           "DEF:ds2=".$newfname.":ds2:AVERAGE",
+           "DEF:ds1=\"".$newfname."\":ds1:AVERAGE",
+           "DEF:ds2=\"".$newfname."\":ds2:AVERAGE",
 		   "LINE1:ds1#0000FF:Graph1",
 		   "LINE1:ds2#FF0000:Errors",
  		   "CDEF:cdef1=ds1,1,*",
@@ -266,8 +267,8 @@ if ($action == 'graph')
 	       $opts = array(
 			'--start','-1m',
 			"--vertical-label=ms",
-           "DEF:ds1=".$newfname.":ds1:AVERAGE",
-           "DEF:ds2=".$newfname.":ds2:AVERAGE",
+           "DEF:ds1=\"".$newfname."\":ds1:AVERAGE",
+           "DEF:ds2=\"".$newfname."\":ds2:AVERAGE",
  		   "LINE1:ds1#0000FF:Graph1",
 		   "LINE1:ds2#FF0000:Errors",
  		   "CDEF:cdef1=ds1,1,*",
@@ -299,8 +300,8 @@ if ($action == 'graph')
 	       $opts = array(
 			'--start','-1y',
 			"--vertical-label=ms",
-           "DEF:ds1=".$newfname.":ds1:AVERAGE",
-           "DEF:ds2=".$newfname.":ds2:AVERAGE",
+           "DEF:ds1=\"".$newfname."\":ds1:AVERAGE",
+           "DEF:ds2=\"".$newfname."\":ds2:AVERAGE",
 		   "LINE1:ds1#0000FF:Graph1",
 		   "LINE1:ds2#FF0000:Errors",
  		   "CDEF:cdef1=ds1,1,*",
@@ -345,42 +346,66 @@ print '<br>';
 
 if ($mesg) print "<br>$mesg<br>";
 
-if (empty($code))
+if (empty($id))
 {
-	print $langs->trans("ErrorFieldRequired",'code');
+	print $langs->trans("ErrorFieldRequired",'id');
 }
 else
 {
+    $probe=new Monitoring_probes($db);
+    $result=$probe->fetch($id);
+
+    //print $langs->trans("ReportForProbeX");
+    print $langs->trans("Id").': '.$probe->id.'<br>'."\n";
+    print $langs->trans("Title").': '.$probe->title.'<br>'."\n";
+    print $langs->trans("Url").': <a href="'.$probe->url.'">'.$probe->url.'</a><br>'."\n";
+    print $langs->trans("CheckKey").': '.$probe->checkkey.'<br>'."\n";
+    print $langs->trans("Frequency").': '.$probe->frequency.'<br>'."\n";
+    print $langs->trans("Status").': '.$probe->status.'<br>'."\n";
+    print $langs->trans("RrdFile").': '.$conf->monitoring->dir_output."/".$id.'/monitoring.rrd<br>'."\n";
+    print '<br>';
+    print '<hr>';
+
 	if ($conf->global->MONITORING_COMMANDLINE_TOOL)
 	{
-		print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?action=graph&code='.GETPOST('code').'">'.$langs->trans("BuildGraph").'</a>';
+		print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?action=graph&id='.$probe->id.'">'.$langs->trans("Refresh").'</a>';
 	}
 	else
 	{
-		print '<a class="butActionRefused" href="#">'.$langs->trans("BuildGraph").'</a>';
+		print '<a class="butActionRefused" href="#">'.$langs->trans("Refresh").'</a>';
 	}
 
 	print '<br><br>';
-	print $conf->monitoring->dir_output."/".$fileimage[0].'<br>';
+
+	print '<div class="float">';
 	print $langs->trans("LastHour").'<br>';
-	if (dol_is_file($conf->monitoring->dir_output."/".$fileimage[0]))
-	print '<img src="'.DOL_URL_ROOT.'/viewimage.php?modulepart=monitoring&file='.$fileimage[0].'">';
-	print '<br>';
-	print $langs->trans("LastDay").'<br>';
-	print '<img src="'.DOL_URL_ROOT.'/viewimage.php?modulepart=monitoring&file='.$fileimage[1].'">';
-	print '<br>';
+	if (dol_is_file($conf->monitoring->dir_output."/".$fileimage[0])) print '<img src="'.DOL_URL_ROOT.'/viewimage.php?modulepart=monitoring&file='.$fileimage[0].'">';
+    else print 'PngFileNotAvailable<br>';
+    print '</div>'."\n";
+    print '<div class="float">';
+    print $langs->trans("LastDay").'<br>';
+	if (dol_is_file($conf->monitoring->dir_output."/".$fileimage[1])) print '<img src="'.DOL_URL_ROOT.'/viewimage.php?modulepart=monitoring&file='.$fileimage[1].'">';
+    else print 'PngFileNotAvailable<br>';
+    print '</div>'."\n";
+    print '<div class="float">';
 	print $langs->trans("LastWeek").'<br>';
-	print '<img src="'.DOL_URL_ROOT.'/viewimage.php?modulepart=monitoring&file='.$fileimage[2].'">';
-	print '<br>';
+	if (dol_is_file($conf->monitoring->dir_output."/".$fileimage[2])) print '<img src="'.DOL_URL_ROOT.'/viewimage.php?modulepart=monitoring&file='.$fileimage[2].'">';
+    else print 'PngFileNotAvailable<br>';
+    print '</div>'."\n";
+    print '<div class="float">';
 	print $langs->trans("LastMonth").'<br>';
-	print '<img src="'.DOL_URL_ROOT.'/viewimage.php?modulepart=monitoring&file='.$fileimage[3].'">';
-	print '<br>';
+	if (dol_is_file($conf->monitoring->dir_output."/".$fileimage[3])) print '<img src="'.DOL_URL_ROOT.'/viewimage.php?modulepart=monitoring&file='.$fileimage[3].'">';
+    else print 'PngFileNotAvailable<br>';
+    print '</div>'."\n";
+    print '<div class="float">';
 	print $langs->trans("LastYear").'<br>';
-	print '<img src="'.DOL_URL_ROOT.'/viewimage.php?modulepart=monitoring&file='.$fileimage[4].'">';
+	if (dol_is_file($conf->monitoring->dir_output."/".$fileimage[4])) print '<img src="'.DOL_URL_ROOT.'/viewimage.php?modulepart=monitoring&file='.$fileimage[4].'">';
+    else print 'PngFileNotAvailable<br>';
+    print '</div>'."\n";
 }
 
 
 $db->close();
 
-llxFooter('$Date: 2011/03/07 22:50:36 $ - $Revision: 1.4 $');
+llxFooter('$Date: 2011/03/08 23:52:19 $ - $Revision: 1.5 $');
 ?>
