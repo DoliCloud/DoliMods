@@ -21,7 +21,7 @@
  *	\file       	scripts/monitor/monitor_daemon.php
  *	\ingroup    	monitor
  *	\brief      	Script to execute monitor daemon
- *	\version		$Id: monitor_daemon.php,v 1.4 2011/03/09 00:06:15 eldy Exp $
+ *	\version		$Id: monitor_daemon.php,v 1.5 2011/03/09 18:31:13 eldy Exp $
  */
 
 $sapi_type = php_sapi_name();
@@ -35,7 +35,7 @@ if (substr($sapi_type, 0, 3) == 'cgi') {
 }
 
 // Global variables
-$version='$Revision: 1.4 $';
+$version='$Revision: 1.5 $';
 $error=0;
 // Include Dolibarr environment
 $res=0;
@@ -202,16 +202,25 @@ if (! $error)
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
 			curl_setopt($ch, CURLOPT_FAILONERROR, 1);
 			@curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 0);
-			curl_setopt($ch, CURLOPT_TIMEOUT, $frequency);
+			curl_setopt($ch, CURLOPT_TIMEOUT, round($frequency/2));
 			//curl_setopt($ch, CURLOPT_POST, 0);
 			//curl_setopt($ch, CURLOPT_POSTFIELDS, "a=3&b=5");
 			//--- Start buffering
 			//ob_start();
 			list($usec, $sec) = explode(" ", microtime());
 			$micro_start_time=((float)$usec + (float)$sec);
-			$result=curl_exec($ch);
+			$result = curl_exec($ch);
+
 			list($usec, $sec) = explode(" ", microtime());
 			$micro_end_time=((float)$usec + (float)$sec);
+
+            $delay=($micro_end_time-$micro_start_time);
+
+			if (! $result)
+            {
+                print 'Error for id='.$object['code'].': '.curl_error($ch)."\n";
+            }
+
 			dol_syslog($result);
 			//--- End buffering and clean output
 			//ob_end_clean();
@@ -229,8 +238,7 @@ if (! $error)
 				//var_dump($result);
 				if (preg_match('/'.preg_quote($object['checkkey']).'/',$result))
 				{	// Test ok
-					$value1orig=($micro_end_time-$micro_start_time);
-					$value1=round($value1orig*1000);
+					$value1=round($delay*1000);
 					$value2='U';
 					$nbok++;
 				}
@@ -244,7 +252,7 @@ if (! $error)
 
 			curl_close ($ch);
 
-			print 'Loop '.$nbloop.': '.$object['code'].' '.$micro_start_time.' '.$value1orig.'->'.$value1.':'.$value2."\n";
+			print 'Loop '.$nbloop.': id='.$object['code'].' '.$micro_start_time.'-'.$micro_end_time.'='.$delay.' -> '.$value1.':'.$value2."\n";
 			$stringupdate='N:'.$value1.':'.$value2;
 			$ret = rrd_update($fname, $stringupdate);
 

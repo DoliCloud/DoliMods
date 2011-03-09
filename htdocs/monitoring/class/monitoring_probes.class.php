@@ -21,13 +21,13 @@
  *      \file       dev/skeletons/monitoring_probes.class.php
  *      \ingroup    mymodule othermodule1 othermodule2
  *      \brief      This file is an example for a CRUD class file (Create/Read/Update/Delete)
- *		\version    $Id: monitoring_probes.class.php,v 1.3 2011/03/09 00:15:10 eldy Exp $
+ *		\version    $Id: monitoring_probes.class.php,v 1.4 2011/03/09 18:33:02 eldy Exp $
  *		\author		Put author name here
  *		\remarks	Initialy built by build_class_from_table on 2011-03-08 23:24
  */
 
 // Put here all includes required by your class file
-//require_once(DOL_DOCUMENT_ROOT."/core/class/commonobject.class.php");
+require_once(DOL_DOCUMENT_ROOT."/core/class/commonobject.class.php");
 //require_once(DOL_DOCUMENT_ROOT."/societe/class/societe.class.php");
 //require_once(DOL_DOCUMENT_ROOT."/product/class/product.class.php");
 
@@ -37,13 +37,13 @@
  *      \brief      Put here description of your class
  *		\remarks	Initialy built by build_class_from_table on 2011-03-08 23:24
  */
-class Monitoring_probes // extends CommonObject
+class Monitoring_probes extends CommonObject
 {
 	var $db;							//!< To store db handler
 	var $error;							//!< To return error code (or message)
 	var $errors=array();				//!< To return several error codes (or messages)
-	//var $element='monitoring_probes';			//!< Id that identify managed objects
-	//var $table_element='monitoring_probes';	//!< Name of table without prefix where object is stored
+	var $element='monitoring_probes';		//!< Id that identify managed objects
+	var $table_element='monitoring_probes';	//!< Name of table without prefix where object is stored
 
     var $id;
 
@@ -184,17 +184,14 @@ class Monitoring_probes // extends CommonObject
                 $obj = $this->db->fetch_object($resql);
 
                 $this->id    = $obj->rowid;
-
+                $this->ref   = $obj->rowid;
 				$this->title = $obj->title;
 				$this->url = $obj->url;
 				$this->checkkey = $obj->checkkey;
 				$this->frequency = $obj->frequency;
 				$this->status = $obj->status;
-
-
             }
             $this->db->free($resql);
-
             return 1;
         }
         else

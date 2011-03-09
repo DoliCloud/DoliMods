@@ -21,10 +21,33 @@
  *  \file       htdocs/monitoring/lib/monitoring.lib.php
  *  \brief      Ensemble de fonctions de base pour le module Monitoring
  *  \ingroup    monitoring
- *  \version    $Id: monitoring.lib.php,v 1.5 2011/03/08 23:52:18 eldy Exp $
+ *  \version    $Id: monitoring.lib.php,v 1.6 2011/03/09 18:33:02 eldy Exp $
  */
 
 $linktohelp='EN:Module_Monitoring_En|FR:Module_Monitoring|ES:Modulo_Monitoring';
+
+
+
+/**
+ *
+ */
+function monitoring_prepare_head($object)
+{
+    global $langs, $conf;
+    $h = 0;
+    $head = array();
+
+    $head[$h][0] = dol_buildpath('/monitoring/index.php',1).'?id='.$object->id;
+    $head[$h][1] = $langs->trans('Probe');
+    $head[$h][2] = 'probe';
+    $h++;
+
+    return $head;
+}
+
+
+
+
 
 if (! function_exists('rrd_create'))
 {

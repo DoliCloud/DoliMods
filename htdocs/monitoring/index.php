@@ -20,7 +20,7 @@
  *	    \file       htdocs/monitoring/index.php
  *      \ingroup    monitoring
  *      \brief      Page to setup module Monitoring
- *		\version    $Id: index.php,v 1.5 2011/03/08 23:52:19 eldy Exp $
+ *		\version    $Id: index.php,v 1.6 2011/03/09 18:33:02 eldy Exp $
  */
 
 define('NOCSRFCHECK',1);
@@ -64,53 +64,26 @@ $fileimage[4]=$id.'/monitoring-1y.png';
  * Actions
  */
 
-// Save parameters
-if ($actionsave)
-{
-	$error=0;
-	$i=0;
-
-	$db->begin();
-
-	/*    if (! preg_match('|[\\\/]$|',$_POST["RRD_COMMANDLINE_TOOL"]))
-	 {
-	 $mesg="<div class=\"error\">".$langs->trans("ErrorRrdDataDirMustEndWithASlash")."</div>";
-	 $error++;
-	 }
-	 */
-	if (! $error)
-	{
-		if ($i >= 0) $i+=dolibarr_set_const($db,'MONITORING_COMMANDLINE_TOOL',trim($_POST["MONITORING_COMMANDLINE_TOOL"]),'chaine',0);
-
-		if ($i >= 1)
-		{
-			$db->commit();
-			$mesg = "<div class=\"ok\">".$langs->trans("SetupSaved")."</div>";
-		}
-		else
-		{
-			$db->rollback();
-			$mesg=$db->lasterror();
-			//header("Location: ".$_SERVER["PHP_SELF"]);
-			//exit;
-		}
-	}
-}
-
 if ($action == 'create')
 {
-	$error=0;
+    $probe=new Monitoring_probes($db);
+    $result=$probe->fetch($id);
+
+    $result=dol_delete_file($fname);
+    //print 'xx'.$result;
+
+    $error=0;
 	create_exdir($conf->monitoring->dir_output.'/'.$id);
 
-	$step=5;
+	$step=$probe->frequency;
 	$opts = array( "--step", $step,
            "DS:ds1:GAUGE:".($step*2).":0:100",
            "DS:ds2:GAUGE:".($step*2).":0:100",
-           "RRA:AVERAGE:0.5:1:".(3600/$step),
-	           "RRA:AVERAGE:0.5:".(60/$step).":1440",
-	           "RRA:AVERAGE:0.5:".(3600/$step).":168",
-	           "RRA:AVERAGE:0.5:".(3600/$step).":744",
-	           "RRA:AVERAGE:0.5:".(86400/$step).":365",
+           "RRA:AVERAGE:0.5:1:".(3600/$step),              // hour      RRA:AVERAGE:0.5:nb of point to make on point:total nb of point on graph
+	           "RRA:AVERAGE:0.5:".(60/$step).":1440",      // day
+	           "RRA:AVERAGE:0.5:".(3600/$step).":168",     // week
+	           "RRA:AVERAGE:0.5:".(3600/$step).":744",     // month
+	           "RRA:AVERAGE:0.5:".(86400/$step).":365",    // year
            	   "RRA:MAX:0.5:1:".(3600/$step),
 	           "RRA:MAX:0.5:".(60/$step).":1440",
 	           "RRA:MAX:0.5:".(3600/$step).":168",
@@ -138,28 +111,12 @@ if ($action == 'create')
 	}
 }
 
-if ($action == 'update')
-{
-	$error=0;
-	$val1=rand(0,100);
-	$val2=25;
-	$ret = rrd_update($fname, "N:$val1:$val2");
-
-	if( $ret > 0)
-	{
-		$mesg='<div class="ok">'.$langs->trans("File ".$fname.' completed with random values '.$val1.' for graph 1 and '.$val2.' for graph 2').'</div>';
-	}
-	else
-	{
-		$error++;
-		$err = rrd_error($fname);
-		$mesg="Update error: $err\n";
-	}
-}
-
 if ($action == 'graph')
 {
-	$error=0;
+    $probe=new Monitoring_probes($db);
+    $result=$probe->fetch($id);
+
+    $error=0;
 	$mesg='';
 
 	$newfname=preg_replace('/^[a-z]:/i','',$fname);	// Removed C:, D: for windows path to avoid error in def string
@@ -339,43 +296,60 @@ if ($action == 'graph')
  * View
  */
 
+$html=new Form($db);
+
 llxHeader('','Monitoring',$linktohelp);
 
-print_fiche_titre($langs->trans("Reports"));
-print '<br>';
-
-if ($mesg) print "<br>$mesg<br>";
 
 if (empty($id))
 {
-	print $langs->trans("ErrorFieldRequired",'id');
+    print_fiche_titre($langs->trans("Reports"));
+
+    print $langs->trans("ErrorFieldRequired",'id');
 }
 else
 {
     $probe=new Monitoring_probes($db);
     $result=$probe->fetch($id);
 
-    //print $langs->trans("ReportForProbeX");
-    print $langs->trans("Id").': '.$probe->id.'<br>'."\n";
-    print $langs->trans("Title").': '.$probe->title.'<br>'."\n";
-    print $langs->trans("Url").': <a href="'.$probe->url.'">'.$probe->url.'</a><br>'."\n";
-    print $langs->trans("CheckKey").': '.$probe->checkkey.'<br>'."\n";
-    print $langs->trans("Frequency").': '.$probe->frequency.'<br>'."\n";
-    print $langs->trans("Status").': '.$probe->status.'<br>'."\n";
-    print $langs->trans("RrdFile").': '.$conf->monitoring->dir_output."/".$id.'/monitoring.rrd<br>'."\n";
-    print '<br>';
-    print '<hr>';
+    $head = monitoring_prepare_head($probe);
 
+    dol_fiche_head($head, 'probe', $langs->trans('Probe'), 0, 'technic');
+
+    if ($mesg) print "<br>".$mesg."<br>";
+
+    print '<table class="border" width="100%">';
+    //print $langs->trans("ReportForProbeX");
+    print '<tr><td width="20%">'.$langs->trans("Id").'</td><td>';
+    print $html->showrefnav($probe,'id','',1,'rowid','id','');
+    print '</td></tr>'."\n";
+    print '<tr><td>'.$langs->trans("Title").'</td><td>'.$probe->title.'</td></tr>'."\n";
+    print '<tr><td>'.$langs->trans("Url").'</td><td><a href="'.$probe->url.'">'.$probe->url.'</a></td></tr>'."\n";
+    print '<tr><td>'.$langs->trans("CheckKey").'</td><td>'.$probe->checkkey.'</td></tr>'."\n";
+    print '<tr><td>'.$langs->trans("Frequency").'</td><td>'.$probe->frequency.'</td></tr>'."\n";
+    print '<tr><td>'.$langs->trans("Status").'</td><td>'.$probe->status.'</td></tr>'."\n";
+    print '<tr><td>'.$langs->trans("RrdFile").'</td><td>'.$conf->monitoring->dir_output."/".$id.'/monitoring.rrd</td></tr>'."\n";
+    print '</table>';
+
+    dol_fiche_end();
+
+    $butt='';
 	if ($conf->global->MONITORING_COMMANDLINE_TOOL)
 	{
-		print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?action=graph&id='.$probe->id.'">'.$langs->trans("Refresh").'</a>';
+        $butt.='<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?action=graph&id='.$probe->id.'">'.$langs->trans("Refresh").'</a>';
+
+        $butt.='<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?action=create&id='.$probe->id.'">'.$langs->trans("Reset").'</a>';
 	}
 	else
 	{
-		print '<a class="butActionRefused" href="#">'.$langs->trans("Refresh").'</a>';
+        $butt.='<a class="butActionRefused" href="#">'.$langs->trans("Refresh").'</a>';
+
+        $butt.='<a class="butActionRefused" href="#">'.$langs->trans("Reset").'</a>';
 	}
 
-	print '<br><br>';
+    print '<br>';
+	print_fiche_titre($langs->trans("Reports"),$butt,'').'<br>';
+    print '<hr>';
 
 	print '<div class="float">';
 	print $langs->trans("LastHour").'<br>';
@@ -407,5 +381,5 @@ else
 
 $db->close();
 
-llxFooter('$Date: 2011/03/08 23:52:19 $ - $Revision: 1.5 $');
+llxFooter('$Date: 2011/03/09 18:33:02 $ - $Revision: 1.6 $');
 ?>

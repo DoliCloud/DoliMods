@@ -1,5 +1,5 @@
 <?php
-/* Copyright (C) 2008-2009 Laurent Destailleur  <eldy@users.sourceforge.net>
+/* Copyright (C) 2008-2011 Laurent Destailleur  <eldy@users.sourceforge.net>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,7 +20,7 @@
  *	    \file       htdocs/monitoring/admin/monitoring.php
  *      \ingroup    monitoring
  *      \brief      Page to setup module Monitoring
- *		\version    $Id: monitoring.php,v 1.7 2011/03/07 22:50:39 eldy Exp $
+ *		\version    $Id: monitoring.php,v 1.8 2011/03/09 18:33:02 eldy Exp $
  */
 
 define('NOCSRFCHECK',1);
@@ -161,7 +161,7 @@ if ($action == 'graph')
 	$mesg='';
 
 	$newfname=preg_replace('/^[a-z]:/i','',$fname);	// Removed C:, D: for windows path to avoid error in def string
-	
+
 	$opts = array(
 			'--start','-1h',
 			"--vertical-label=%",
@@ -172,13 +172,13 @@ if ($action == 'graph')
  			"CDEF:cdef1=ds1,1,*",
            "CDEF:cdef2=ds2,1,*",
 	       'COMMENT:\\\n ',
-	"GPRINT:cdef1:MIN:Minval1%6.2lf ",
-	"GPRINT:cdef1:AVERAGE:Avgval1%6.2lf ",
-		"GPRINT:cdef1:MAX:Maxval1%6.2lf ",
-		'COMMENT:\\\n ',
-		"GPRINT:cdef2:MIN:Minval2%6.2lf ",
-	"GPRINT:cdef2:AVERAGE:Avgval2%6.2lf ",
-		"GPRINT:cdef2:MAX:Maxval2%6.2lf ",
+	       "GPRINT:cdef1:MIN:Minval1%6.2lf ",
+	       "GPRINT:cdef1:AVERAGE:Avgval1%6.2lf ",
+	       "GPRINT:cdef1:MAX:Maxval1%6.2lf ",
+	       'COMMENT:\\\n ',
+	       "GPRINT:cdef2:MIN:Minval2%6.2lf ",
+	       "GPRINT:cdef2:AVERAGE:Avgval2%6.2lf ",
+	       "GPRINT:cdef2:MAX:Maxval2%6.2lf ",
 	       'COMMENT:\\\n ',
 		);
 	$ret = rrd_graph($conf->monitoring->dir_temp.'/'.$fileimage[0], $opts, count($opts));
@@ -289,5 +289,5 @@ if (dol_is_file($conf->monitoring->dir_temp."/".$fileimage[0]))
 
 $db->close();
 
-llxFooter('$Date: 2011/03/07 22:50:39 $ - $Revision: 1.7 $');
+llxFooter('$Date: 2011/03/09 18:33:02 $ - $Revision: 1.8 $');
 ?>
