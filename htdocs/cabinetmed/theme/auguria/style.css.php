@@ -21,7 +21,7 @@
 /**
  *		\file       htdocs/theme/auguria/style.css.php
  *		\brief      Fichier de style CSS du theme auguria
- *		\version    $Id: style.css.php,v 1.3 2011/02/12 18:36:58 eldy Exp $
+ *		\version    $Id: style.css.php,v 1.4 2011/03/09 17:05:19 eldy Exp $
  */
 
 //if (! defined('NOREQUIREUSER')) define('NOREQUIREUSER','1');	// Not disabled cause need to load personalized language
@@ -362,7 +362,7 @@ foreach($mainmenuusedarray as $key => $val)
 	font-size: 10px;	/* To reduce to have more entries */
 	font-family:Tahoma,sans-serif;
 	text-transform:uppercase;
-	background: url(<?php echo DOL_URL_ROOT.'/theme/auguria' ?>/img/menus/topmenu_bg.gif) repeat-x bottom left;
+	background: url(<?php echo DOL_URL_ROOT.'/theme/auguria' ?>/img/menus/topmenu_bg.png) repeat-x bottom left;
 }
 
 .tmenu ul{
@@ -417,7 +417,7 @@ foreach($mainmenuusedarray as $key => $val)
 	display:block;
 	padding:4px 8px 0 0;
 	width:auto;
-	background: url(<?php echo DOL_URL_ROOT.'/theme/auguria' ?>/img/menus/topmenu_right.gif) no-repeat top right;
+	background: url(<?php echo DOL_URL_ROOT.'/theme/auguria' ?>/img/menus/topmenu_right.png) no-repeat top right;
 	height:33px;
 }
 
