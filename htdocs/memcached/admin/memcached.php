@@ -19,7 +19,7 @@
 /**
  *     \file       htdocs/memcached/admin/memcached.php
  *     \brief      Page administration de memcached
- *     \version    $Id: memcached.php,v 1.15 2011/01/16 13:30:09 eldy Exp $
+ *     \version    $Id: memcached.php,v 1.16 2011/03/09 11:51:49 eldy Exp $
  */
 
 $res=0;
@@ -43,17 +43,27 @@ $langs->load("errors");
 $langs->load("install");
 $langs->load("memcached@memcached");
 
+$action=GETPOST('action');
+
 //exit;
 
 /*
  * Actions
  */
-if ($_POST["action"] == 'set')
+
+if ($action == 'set')
 {
 	$error=0;
+
+	if (! preg_match('/:/',GETPOST("MEMCACHED_SERVER")))
+	{
+        $mesg='<div class="error">'.$langs->trans("ErrorBadParameters").'</div>';
+        $error++;
+	}
+
 	if (! $error)
 	{
-		dolibarr_set_const($db,"MEMCACHED_SERVER",$_POST["MEMCACHED_SERVER"],'chaine',0,'',$conf->entity);
+		dolibarr_set_const($db,"MEMCACHED_SERVER",GETPOST("MEMCACHED_SERVER"),'chaine',0,'',$conf->entity);
 	}
 }
 
@@ -223,5 +233,5 @@ if (! $error)
 
 }
 
-llxfooter('$Date: 2011/01/16 13:30:09 $ - $Revision: 1.15 $');
+llxfooter('$Date: 2011/03/09 11:51:49 $ - $Revision: 1.16 $');
 ?>
