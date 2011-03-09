@@ -25,7 +25,7 @@
  *      \file       htdocs/monitoring/probes.php
  *      \ingroup    monitoring
  *      \brief      Page to add probes
- *      \version    $Id: probes.php,v 1.3 2011/03/09 00:06:27 eldy Exp $
+ *      \version    $Id: probes.php,v 1.4 2011/03/09 18:41:24 eldy Exp $
  */
 
 $res=0;
@@ -81,9 +81,9 @@ if ($action == 'confirm_deleteprobe' && ! $_POST['cancel'])
 if ($action == 'add' || $_POST["modify"])
 {
 	// Add entry
-    $sql = "INSERT INTO ".MAIN_DB_PREFIX."monitoring_probes (title, url, checkkey, frequency, status)";
+    $sql = "INSERT INTO ".MAIN_DB_PREFIX."monitoring_probes (title, url, checkkey, maxvalue, frequency, status)";
 	$sql.= ' VALUES ("'.$db->escape($_POST['probe_title']).'", "'.$db->escape($_POST["probe_url"]).'",';
-	$sql.= ' "'.$db->escape($_POST["probe_checkkey"]).'", "'.$db->escape($_POST["probe_frequency"]).'", 1)';
+	$sql.= ' "'.$db->escape($_POST["probe_checkkey"]).'", "'.$db->escape($_POST["probe_maxvalue"]).'", "'.$db->escape($_POST["probe_frequency"]).'", 1)';
     $resql=$db->query($sql);
 
     if ($resql)
@@ -148,6 +148,12 @@ print '<td>Welcome</td>';
 print '</tr>';
 
 print '<tr class="pair">';
+print '<td>'.$langs->trans("MaxValue").'</td>';
+print '<td><input type="text" name="probe_maxvalue" value="" size="2"></td>';
+print '<td>200</td>';
+print '</tr>';
+
+print '<tr class="impair">';
 print '<td>'.$langs->trans("Frequency").'</td>';
 print '<td><input type="text" name="probe_frequency" value="" size="2"> '.$langs->trans("seconds").'</td>';
 print '<td>5</td>';
@@ -181,6 +187,7 @@ print "<td>".$langs->trans("Id")."</td>";
 print "<td>".$langs->trans("Title")."</td>";
 print "<td>".$langs->trans("URL")."</td>";
 print "<td>".$langs->trans("CheckKey")."</td>";
+print "<td>".$langs->trans("MaxValue")."</td>";
 print "<td>".$langs->trans("Frequency")."</td>";
 print '<td align="center">'.$langs->trans("Active")."</td>";
 print '<td align="center">'.$langs->trans("Reports")."</td>";
@@ -188,7 +195,8 @@ print '<td width="80px">&nbsp;</td>';
 print '</tr>';
 
 
-$sql ="SELECT rowid, title, url, checkkey, frequency, status FROM ".MAIN_DB_PREFIX."monitoring_probes";
+$sql ="SELECT rowid, title, url, checkkey, maxvalue, frequency, status";
+$sql.=" FROM ".MAIN_DB_PREFIX."monitoring_probes";
 $sql.=" ORDER BY rowid";
 
 dol_syslog("probes sql=".$sql,LOG_DEBUG);
@@ -211,6 +219,7 @@ if ($resql)
 		print "<td>".$obj->title."</td>";
         print "<td>".$obj->url."</td>";
         print "<td>".$obj->checkkey."</td>";
+        print "<td>".$obj->maxvalue."</td>";
         print "<td>".$obj->frequency."</td>";
         print '<td align="center">'.yn($obj->active)."</td>";
         print '<td align="center"><a href="index.php?id='.$obj->rowid.'">'.$langs->trans("Reports")."</a></td>";
@@ -235,5 +244,5 @@ print '</table>'."\n";
 
 $db->close();
 
-llxFooter('$Date: 2011/03/09 00:06:27 $ - $Revision: 1.3 $');
+llxFooter('$Date: 2011/03/09 18:41:24 $ - $Revision: 1.4 $');
 ?>
