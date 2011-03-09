@@ -21,7 +21,7 @@
  *      \file       dev/skeletons/monitoring_probes.class.php
  *      \ingroup    mymodule othermodule1 othermodule2
  *      \brief      This file is an example for a CRUD class file (Create/Read/Update/Delete)
- *		\version    $Id: monitoring_probes.class.php,v 1.2 2011/03/09 00:06:27 eldy Exp $
+ *		\version    $Id: monitoring_probes.class.php,v 1.3 2011/03/09 00:15:10 eldy Exp $
  *		\author		Put author name here
  *		\remarks	Initialy built by build_class_from_table on 2011-03-08 23:24
  */
@@ -233,8 +233,13 @@ class Monitoring_probes // extends CommonObject
 
         // Update request
         $sql = "UPDATE ".MAIN_DB_PREFIX."monitoring_probes SET";
-        $sql.= " field1=".(isset($this->field1)?"'".$this->db->escape($this->field1)."'":"null").",";
-        $sql.= " field2=".(isset($this->field2)?"'".$this->db->escape($this->field2)."'":"null")."";
+        $sql.= " title=".(isset($this->title)?"'".$this->db->escape($this->title)."'":"null").",";
+        $sql.= " url=".(isset($this->url)?"'".$this->db->escape($this->url)."'":"null").",";
+        $sql.= " checkkey=".(isset($this->checkkey)?"'".$this->db->escape($this->checkkey)."'":"null").",";
+        $sql.= " frequency=".(isset($this->frequency)?$this->frequency:"null").",";
+        $sql.= " active=".(isset($this->active)?$this->active:"null").",";
+        $sql.= " status=".(isset($this->status)?$this->status:"null").",";
+        $sql.= " lastreset=".(isset($this->lastreset)?$this->lastreset:"null")."";
         $sql.= " WHERE rowid=".$this->id;
 
 		$this->db->begin();
