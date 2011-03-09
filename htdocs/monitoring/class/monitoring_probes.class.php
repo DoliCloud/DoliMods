@@ -21,7 +21,7 @@
  *      \file       dev/skeletons/monitoring_probes.class.php
  *      \ingroup    mymodule othermodule1 othermodule2
  *      \brief      This file is an example for a CRUD class file (Create/Read/Update/Delete)
- *		\version    $Id: monitoring_probes.class.php,v 1.4 2011/03/09 18:33:02 eldy Exp $
+ *		\version    $Id: monitoring_probes.class.php,v 1.5 2011/03/09 18:41:24 eldy Exp $
  *		\author		Put author name here
  *		\remarks	Initialy built by build_class_from_table on 2011-03-08 23:24
  */
@@ -168,6 +168,7 @@ class Monitoring_probes extends CommonObject
 		$sql.= " t.title,";
 		$sql.= " t.url,";
 		$sql.= " t.checkkey,";
+		$sql.= " t.maxvalue,";
 		$sql.= " t.frequency,";
         $sql.= " t.active,";
 		$sql.= " t.status,";
@@ -188,6 +189,7 @@ class Monitoring_probes extends CommonObject
 				$this->title = $obj->title;
 				$this->url = $obj->url;
 				$this->checkkey = $obj->checkkey;
+                $this->maxvalue = $obj->maxvalue;
 				$this->frequency = $obj->frequency;
 				$this->status = $obj->status;
             }

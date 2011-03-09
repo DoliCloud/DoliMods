@@ -20,7 +20,7 @@
  *	    \file       htdocs/monitoring/index.php
  *      \ingroup    monitoring
  *      \brief      Page to setup module Monitoring
- *		\version    $Id: index.php,v 1.6 2011/03/09 18:33:02 eldy Exp $
+ *		\version    $Id: index.php,v 1.7 2011/03/09 18:45:43 eldy Exp $
  */
 
 define('NOCSRFCHECK',1);
@@ -336,15 +336,15 @@ else
     $butt='';
 	if ($conf->global->MONITORING_COMMANDLINE_TOOL)
 	{
-        $butt.='<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?action=graph&id='.$probe->id.'">'.$langs->trans("Refresh").'</a>';
+        $butt.='<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?action=graph&id='.$probe->id.'">'.$langs->trans("BuildTestGraph").'</a>';
 
-        $butt.='<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?action=create&id='.$probe->id.'">'.$langs->trans("Reset").'</a>';
+        $butt.='<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?action=create&id='.$probe->id.'">'.$langs->trans("CreateATestGraph").'</a>';
 	}
 	else
 	{
-        $butt.='<a class="butActionRefused" href="#">'.$langs->trans("Refresh").'</a>';
+        $butt.='<a class="butActionRefused" href="#">'.$langs->trans("BuildTestGraph").'</a>';
 
-        $butt.='<a class="butActionRefused" href="#">'.$langs->trans("Reset").'</a>';
+        $butt.='<a class="butActionRefused" href="#">'.$langs->trans("CreateATestGraph").'</a>';
 	}
 
     print '<br>';
@@ -381,5 +381,5 @@ else
 
 $db->close();
 
-llxFooter('$Date: 2011/03/09 18:33:02 $ - $Revision: 1.6 $');
+llxFooter('$Date: 2011/03/09 18:45:43 $ - $Revision: 1.7 $');
 ?>

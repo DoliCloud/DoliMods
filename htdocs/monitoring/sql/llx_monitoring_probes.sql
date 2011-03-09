@@ -15,7 +15,7 @@
 -- along with this program; if not, write to the Free Software
 -- Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 --
--- $Id: llx_monitoring_probes.sql,v 1.2 2011/03/09 00:06:26 eldy Exp $
+-- $Id: llx_monitoring_probes.sql,v 1.3 2011/03/09 18:41:24 eldy Exp $
 -- ===================================================================
 
 
@@ -25,6 +25,7 @@ CREATE TABLE llx_monitoring_probes
 	title varchar(64) NOT NULL, 
 	url varchar(250) NOT NULL,
     checkkey varchar(250),	
+    maxvalue integer,  
 	frequency integer default 60, 
 	active integer default 1,
 	status integer default 1,

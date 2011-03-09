@@ -25,7 +25,7 @@
  *      \file       htdocs/monitoring/probes.php
  *      \ingroup    monitoring
  *      \brief      Page to add probes
- *      \version    $Id: probes.php,v 1.4 2011/03/09 18:41:24 eldy Exp $
+ *      \version    $Id: probes.php,v 1.5 2011/03/09 18:45:43 eldy Exp $
  */
 
 $res=0;
@@ -205,6 +205,7 @@ if ($resql)
 {
 	$num =$db->num_rows($resql);
 	$i=0;
+	$var=true;
 
 	while ($i < $num)
 	{
@@ -244,5 +245,5 @@ print '</table>'."\n";
 
 $db->close();
 
-llxFooter('$Date: 2011/03/09 18:41:24 $ - $Revision: 1.4 $');
+llxFooter('$Date: 2011/03/09 18:45:43 $ - $Revision: 1.5 $');
 ?>
