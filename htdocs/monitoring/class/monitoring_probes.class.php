@@ -21,7 +21,7 @@
  *      \file       dev/skeletons/monitoring_probes.class.php
  *      \ingroup    mymodule othermodule1 othermodule2
  *      \brief      This file is an example for a CRUD class file (Create/Read/Update/Delete)
- *		\version    $Id: monitoring_probes.class.php,v 1.1 2011/03/08 23:52:19 eldy Exp $
+ *		\version    $Id: monitoring_probes.class.php,v 1.2 2011/03/09 00:06:27 eldy Exp $
  *		\author		Put author name here
  *		\remarks	Initialy built by build_class_from_table on 2011-03-08 23:24
  */
@@ -51,8 +51,9 @@ class Monitoring_probes // extends CommonObject
 	var $url;
 	var $checkkey;
 	var $frequency;
+    var $active;
 	var $status;
-
+    var $lastreset;
 
 
 
@@ -93,20 +94,19 @@ class Monitoring_probes // extends CommonObject
 
         // Insert request
 		$sql = "INSERT INTO ".MAIN_DB_PREFIX."monitoring_probes(";
-
 		$sql.= "title,";
 		$sql.= "url,";
 		$sql.= "checkkey,";
 		$sql.= "frequency,";
+        $sql.= "active,";
 		$sql.= "status";
-
-
         $sql.= ") VALUES (";
 
 		$sql.= " ".(! isset($this->title)?'NULL':"'".$this->db->escape($this->title)."'").",";
 		$sql.= " ".(! isset($this->url)?'NULL':"'".$this->db->escape($this->url)."'").",";
 		$sql.= " ".(! isset($this->checkkey)?'NULL':"'".$this->db->escape($this->checkkey)."'").",";
 		$sql.= " ".(! isset($this->frequency)?'NULL':"'".$this->frequency."'").",";
+        $sql.= " ".(! isset($this->active)?'NULL':"'".$this->active."'")."";
 		$sql.= " ".(! isset($this->status)?'NULL':"'".$this->status."'")."";
 
 
@@ -165,14 +165,13 @@ class Monitoring_probes // extends CommonObject
     	global $langs;
         $sql = "SELECT";
 		$sql.= " t.rowid,";
-
 		$sql.= " t.title,";
 		$sql.= " t.url,";
 		$sql.= " t.checkkey,";
 		$sql.= " t.frequency,";
-		$sql.= " t.status";
-
-
+        $sql.= " t.active,";
+		$sql.= " t.status,";
+        $sql.= " t.lastreset";
         $sql.= " FROM ".MAIN_DB_PREFIX."monitoring_probes as t";
         $sql.= " WHERE t.rowid = ".$id;
 
@@ -224,6 +223,7 @@ class Monitoring_probes // extends CommonObject
 		if (isset($this->url)) $this->url=trim($this->url);
 		if (isset($this->checkkey)) $this->checkkey=trim($this->checkkey);
 		if (isset($this->frequency)) $this->frequency=trim($this->frequency);
+        if (isset($this->active)) $this->active=trim($this->active);
 		if (isset($this->status)) $this->status=trim($this->status);
 
 
@@ -352,7 +352,7 @@ class Monitoring_probes // extends CommonObject
 		// Load source object
 		$object->fetch($fromid);
 		$object->id=0;
-		$object->statut=0;
+		$object->status=0;
 
 		// Clear fields
 		// ...
@@ -396,13 +396,13 @@ class Monitoring_probes // extends CommonObject
 	{
 		$this->id=0;
 
-		$this->title='';
-		$this->url='';
+		$this->title='My probe';
+		$this->url='http://mywebsite.com';
 		$this->checkkey='';
-		$this->frequency='';
-		$this->status='';
-
-
+		$this->frequency='5';
+        $this->active='1';
+        $this->status='1';
+	    $this->lastreset=dol_now()-3600;
 	}
 
 }

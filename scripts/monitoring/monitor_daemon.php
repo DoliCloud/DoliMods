@@ -21,7 +21,7 @@
  *	\file       	scripts/monitor/monitor_daemon.php
  *	\ingroup    	monitor
  *	\brief      	Script to execute monitor daemon
- *	\version		$Id: monitor_daemon.php,v 1.3 2011/03/08 23:52:33 eldy Exp $
+ *	\version		$Id: monitor_daemon.php,v 1.4 2011/03/09 00:06:15 eldy Exp $
  */
 
 $sapi_type = php_sapi_name();
@@ -35,7 +35,7 @@ if (substr($sapi_type, 0, 3) == 'cgi') {
 }
 
 // Global variables
-$version='$Revision: 1.3 $';
+$version='$Revision: 1.4 $';
 $error=0;
 // Include Dolibarr environment
 $res=0;
@@ -105,7 +105,7 @@ $listofurls=array();
 
 $sql ="SELECT rowid, title, url, checkkey, frequency, status";
 $sql.=" FROM ".MAIN_DB_PREFIX."monitoring_probes";
-$sql.=" WHERE status = 1";
+$sql.=" WHERE active = 1";
 $sql.=" ORDER BY rowid";
 dol_syslog("probes sql=".$sql,LOG_DEBUG);
 $resql=$db->query($sql);
@@ -123,6 +123,10 @@ if ($resql)
 
         $i++;
     }
+}
+else
+{
+    dol_print_error($db);
 }
 
 if (! sizeof($listofurls))

@@ -25,7 +25,7 @@
  *      \file       htdocs/monitoring/probes.php
  *      \ingroup    monitoring
  *      \brief      Page to add probes
- *      \version    $Id: probes.php,v 1.2 2011/03/08 23:52:19 eldy Exp $
+ *      \version    $Id: probes.php,v 1.3 2011/03/09 00:06:27 eldy Exp $
  */
 
 $res=0;
@@ -212,7 +212,7 @@ if ($resql)
         print "<td>".$obj->url."</td>";
         print "<td>".$obj->checkkey."</td>";
         print "<td>".$obj->frequency."</td>";
-        print '<td align="center">'.yn($obj->status)."</td>";
+        print '<td align="center">'.yn($obj->active)."</td>";
         print '<td align="center"><a href="index.php?id='.$obj->rowid.'">'.$langs->trans("Reports")."</a></td>";
         print '<td align="center"><a href="'.$_SERVER["PHP_SELF"].'?id='.$obj->rowid.'&amp;action=ask_deleteline">';
         print img_delete();
@@ -235,5 +235,5 @@ print '</table>'."\n";
 
 $db->close();
 
-llxFooter('$Date: 2011/03/08 23:52:19 $ - $Revision: 1.2 $');
+llxFooter('$Date: 2011/03/09 00:06:27 $ - $Revision: 1.3 $');
 ?>

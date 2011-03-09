@@ -15,7 +15,7 @@
 -- along with this program; if not, write to the Free Software
 -- Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 --
--- $Id: llx_monitoring_probes.sql,v 1.1 2011/03/04 22:54:21 eldy Exp $
+-- $Id: llx_monitoring_probes.sql,v 1.2 2011/03/09 00:06:26 eldy Exp $
 -- ===================================================================
 
 
@@ -26,5 +26,7 @@ CREATE TABLE llx_monitoring_probes
 	url varchar(250) NOT NULL,
     checkkey varchar(250),	
 	frequency integer default 60, 
-	status integer default 1
+	active integer default 1,
+	status integer default 1,
+	lastreset time
 ) ENGINE = innodb;
