@@ -20,7 +20,7 @@
  *	    \file       htdocs/monitoring/index.php
  *      \ingroup    monitoring
  *      \brief      Page to setup module Monitoring
- *		\version    $Id: index.php,v 1.7 2011/03/09 18:45:43 eldy Exp $
+ *		\version    $Id: index.php,v 1.8 2011/03/09 18:53:56 eldy Exp $
  */
 
 define('NOCSRFCHECK',1);
@@ -77,8 +77,8 @@ if ($action == 'create')
 
 	$step=$probe->frequency;
 	$opts = array( "--step", $step,
-           "DS:ds1:GAUGE:".($step*2).":0:100",
-           "DS:ds2:GAUGE:".($step*2).":0:100",
+           "DS:ds1:GAUGE:".($step*2).":0:".$probe->maxvalue,
+           "DS:ds2:GAUGE:".($step*2).":0:".$probe->maxvalue,
            "RRA:AVERAGE:0.5:1:".(3600/$step),              // hour      RRA:AVERAGE:0.5:nb of point to make on point:total nb of point on graph
 	           "RRA:AVERAGE:0.5:".(60/$step).":1440",      // day
 	           "RRA:AVERAGE:0.5:".(3600/$step).":168",     // week
@@ -326,6 +326,7 @@ else
     print '<tr><td>'.$langs->trans("Title").'</td><td>'.$probe->title.'</td></tr>'."\n";
     print '<tr><td>'.$langs->trans("Url").'</td><td><a href="'.$probe->url.'">'.$probe->url.'</a></td></tr>'."\n";
     print '<tr><td>'.$langs->trans("CheckKey").'</td><td>'.$probe->checkkey.'</td></tr>'."\n";
+    print '<tr><td>'.$langs->trans("MaxValue").'</td><td>'.$probe->maxvalue.'</td></tr>'."\n";
     print '<tr><td>'.$langs->trans("Frequency").'</td><td>'.$probe->frequency.'</td></tr>'."\n";
     print '<tr><td>'.$langs->trans("Status").'</td><td>'.$probe->status.'</td></tr>'."\n";
     print '<tr><td>'.$langs->trans("RrdFile").'</td><td>'.$conf->monitoring->dir_output."/".$id.'/monitoring.rrd</td></tr>'."\n";
@@ -381,5 +382,5 @@ else
 
 $db->close();
 
-llxFooter('$Date: 2011/03/09 18:45:43 $ - $Revision: 1.7 $');
+llxFooter('$Date: 2011/03/09 18:53:56 $ - $Revision: 1.8 $');
 ?>

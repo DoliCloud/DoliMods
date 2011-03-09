@@ -25,7 +25,7 @@
  *      \file       htdocs/monitoring/probes.php
  *      \ingroup    monitoring
  *      \brief      Page to add probes
- *      \version    $Id: probes.php,v 1.5 2011/03/09 18:45:43 eldy Exp $
+ *      \version    $Id: probes.php,v 1.6 2011/03/09 18:53:56 eldy Exp $
  */
 
 $res=0;
@@ -150,7 +150,7 @@ print '</tr>';
 print '<tr class="pair">';
 print '<td>'.$langs->trans("MaxValue").'</td>';
 print '<td><input type="text" name="probe_maxvalue" value="" size="2"></td>';
-print '<td>200</td>';
+print '<td>1000</td>';
 print '</tr>';
 
 print '<tr class="impair">';
@@ -245,5 +245,5 @@ print '</table>'."\n";
 
 $db->close();
 
-llxFooter('$Date: 2011/03/09 18:45:43 $ - $Revision: 1.5 $');
+llxFooter('$Date: 2011/03/09 18:53:56 $ - $Revision: 1.6 $');
 ?>
