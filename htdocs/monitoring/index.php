@@ -20,7 +20,7 @@
  *	    \file       htdocs/monitoring/index.php
  *      \ingroup    monitoring
  *      \brief      Page to setup module Monitoring
- *		\version    $Id: index.php,v 1.8 2011/03/09 18:53:56 eldy Exp $
+ *		\version    $Id: index.php,v 1.9 2011/03/13 20:02:16 eldy Exp $
  */
 
 define('NOCSRFCHECK',1);
@@ -122,7 +122,9 @@ if ($action == 'graph')
 	$newfname=preg_replace('/^[a-z]:/i','',$fname);	// Removed C:, D: for windows path to avoid error in def string
 
 	// Hour graph
-	$opts = array(
+    if (empty($conf->global->MONITORING_DISABLE_HOUR_VIEW))
+    {
+    	$opts = array(
 			'--start','-1h',
 			"--vertical-label=ms",
            "DEF:ds1=\"".$newfname."\":ds1:AVERAGE",
@@ -153,9 +155,11 @@ if ($action == 'graph')
 	       	$err = rrd_error($conf->monitoring->dir_output.'/'.$fileimage[0]);
 	       	$mesg.="Graph error: $err\n";
 	       }
-
-	       // Day graph
-	       $opts = array(
+    }
+    if (empty($conf->global->MONITORING_DISABLE_DAY_VIEW))
+    {
+        // Day graph
+	    $opts = array(
 			'--start','-1d',
 			"--vertical-label=ms",
            "DEF:ds1=\"".$newfname."\":ds1:AVERAGE",
@@ -186,9 +190,11 @@ if ($action == 'graph')
 	       	$err = rrd_error($conf->monitoring->dir_output.'/'.$fileimage[1]);
 	       	$mesg.="Graph error: $err\n";
 	       }
-
-	       // Week graph
-	       $opts = array(
+    }
+    if (empty($conf->global->MONITORING_DISABLE_WEEK_VIEW))
+    {
+        // Week graph
+	    $opts = array(
 			'--start','-1w',
 			"--vertical-label=ms",
            "DEF:ds1=\"".$newfname."\":ds1:AVERAGE",
@@ -219,9 +225,11 @@ if ($action == 'graph')
 	       	$err = rrd_error($conf->monitoring->dir_output.'/'.$fileimage[2]);
 	       	$mesg.="Graph error: $err\n";
 	       }
-
-	       // Month graph
-	       $opts = array(
+    }
+    if (empty($conf->global->MONITORING_DISABLE_MONTH_VIEW))
+    {
+        // Month graph
+	    $opts = array(
 			'--start','-1m',
 			"--vertical-label=ms",
            "DEF:ds1=\"".$newfname."\":ds1:AVERAGE",
@@ -252,7 +260,9 @@ if ($action == 'graph')
 	       	$err = rrd_error($conf->monitoring->dir_output.'/'.$fileimage[3]);
 	       	$mesg.="Graph error: $err\n";
 	       }
-
+    }
+    if (empty($conf->global->MONITORING_DISABLE_YEAR_VIEW))
+    {
 	       // Year graph
 	       $opts = array(
 			'--start','-1y',
@@ -285,9 +295,9 @@ if ($action == 'graph')
 	       	$err = rrd_error($conf->monitoring->dir_output.'/'.$fileimage[4]);
 	       	$mesg.="Graph error: $err\n";
 	       }
+    }
 
-
-	       if (! $error) $mesg='';
+	if (! $error) $mesg='';
 }
 
 
@@ -297,6 +307,8 @@ if ($action == 'graph')
  */
 
 $html=new Form($db);
+$probestatic=new Monitoring_probes($db);
+
 
 llxHeader('','Monitoring',$linktohelp);
 
@@ -305,7 +317,96 @@ if (empty($id))
 {
     print_fiche_titre($langs->trans("Reports"));
 
-    print $langs->trans("ErrorFieldRequired",'id');
+    // Confirmation de la suppression d'une ligne produit
+    if ($action == 'swapstatus')
+    {
+        $ret=$html->form_confirm($_SERVER["PHP_SELF"].'?id='.$_GET["id"], $langs->trans('SwapStatus'), $langs->trans('ConfirmSwapStatus'), 'confirm_swapstatus', '', 'yes', 1);
+        if ($ret == 'html') print '<br>';
+    }
+
+    print '<br>';
+
+    print '<table class="nobordernopadding" width="100%">';
+
+    print '<tr class="liste_titre">';
+    print "<td>".$langs->trans("Id")."</td>";
+    print "<td>".$langs->trans("Title")."</td>";
+    print "<td>".$langs->trans("URL")."</td>";
+    print "<td>".$langs->trans("CheckKey")."</td>";
+    print "<td>".$langs->trans("MaxValue")."</td>";
+    print "<td>".$langs->trans("Frequency")."</td>";
+    print '<td align="center">'.$langs->trans("Active")."</td>";
+    print '<td align="center">'.$langs->trans("Status")."</td>";
+    print '<td align="center">'.$langs->trans("Reports")."</td>";
+    //print '<td width="80px">&nbsp;</td>';
+    print '</tr>';
+
+
+    $sql ="SELECT rowid, title, url, checkkey, maxvalue, frequency, status, active";
+    $sql.=" FROM ".MAIN_DB_PREFIX."monitoring_probes";
+    $sql.=" ORDER BY rowid";
+
+    dol_syslog("probes sql=".$sql,LOG_DEBUG);
+    $resql=$db->query($sql);
+    if ($resql)
+    {
+        $num =$db->num_rows($resql);
+        $i=0;
+        $var=true;
+
+        while ($i < $num)
+        {
+            $obj = $db->fetch_object($resql);
+
+            print "<form name=\"externalrssconfig\" action=\"".$_SERVER["PHP_SELF"]."\" method=\"post\">";
+            print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
+
+            $var=!$var;
+            print "<tr ".$bc[$var].">";
+            print "<td>".$obj->rowid."</td>";
+            print "<td>".$obj->title."</td>";
+            print "<td>".$obj->url."</td>";
+            print "<td>".$obj->checkkey."</td>";
+            print "<td>".$obj->maxvalue."</td>";
+            print "<td>".$obj->frequency."</td>";
+            print '<td align="center">'.yn($obj->active).'</td>';
+            print '<td align="center">';
+            if ($obj->active)
+            {
+                $probestatic->id=$obj->rowid;
+                $probestatic->status=$obj->status;
+                print $probestatic->getLibStatut(3);
+            }
+            print "</td>";
+            print '<td align="center">';
+            if ($obj->active)
+            {
+                print '<a href="index.php?id='.$obj->rowid.'">'.$langs->trans("Reports").'</a>';
+            }
+            print '</td>';
+            /*print '<td align="right">';
+            print '<a href="'.$_SERVER["PHP_SELF"].'?id='.$obj->rowid.'&amp;action=edit">';
+            print img_edit();
+            print '</a>';
+            print '&nbsp;';
+            print '<a href="'.$_SERVER["PHP_SELF"].'?id='.$obj->rowid.'&amp;action=ask_deleteline">';
+            print img_delete();
+            print '</a>';
+            print '</td>';*/
+            print "</tr>";
+
+            print "</form>";
+
+            $i++;
+        }
+    }
+    else
+    {
+        dol_print_error($db);
+    }
+
+    print '</table>'."\n";
+
 }
 else
 {
@@ -328,7 +429,10 @@ else
     print '<tr><td>'.$langs->trans("CheckKey").'</td><td>'.$probe->checkkey.'</td></tr>'."\n";
     print '<tr><td>'.$langs->trans("MaxValue").'</td><td>'.$probe->maxvalue.'</td></tr>'."\n";
     print '<tr><td>'.$langs->trans("Frequency").'</td><td>'.$probe->frequency.'</td></tr>'."\n";
-    print '<tr><td>'.$langs->trans("Status").'</td><td>'.$probe->status.'</td></tr>'."\n";
+    print '<tr><td>'.$langs->trans("Active").'</td><td>'.yn($probe->active).'</td></tr>'."\n";
+    print '<tr><td>'.$langs->trans("Status").'</td><td>';
+    if ($probe->active) { print $probe->getLibStatut(4); }
+    print '</td></tr>'."\n";
     print '<tr><td>'.$langs->trans("RrdFile").'</td><td>'.$conf->monitoring->dir_output."/".$id.'/monitoring.rrd</td></tr>'."\n";
     print '</table>';
 
@@ -352,35 +456,50 @@ else
 	print_fiche_titre($langs->trans("Reports"),$butt,'').'<br>';
     print '<hr>';
 
-	print '<div class="float">';
-	print $langs->trans("LastHour").'<br>';
-	if (dol_is_file($conf->monitoring->dir_output."/".$fileimage[0])) print '<img src="'.DOL_URL_ROOT.'/viewimage.php?modulepart=monitoring&file='.$fileimage[0].'">';
-    else print 'PngFileNotAvailable<br>';
-    print '</div>'."\n";
-    print '<div class="float">';
-    print $langs->trans("LastDay").'<br>';
-	if (dol_is_file($conf->monitoring->dir_output."/".$fileimage[1])) print '<img src="'.DOL_URL_ROOT.'/viewimage.php?modulepart=monitoring&file='.$fileimage[1].'">';
-    else print 'PngFileNotAvailable<br>';
-    print '</div>'."\n";
-    print '<div class="float">';
-	print $langs->trans("LastWeek").'<br>';
-	if (dol_is_file($conf->monitoring->dir_output."/".$fileimage[2])) print '<img src="'.DOL_URL_ROOT.'/viewimage.php?modulepart=monitoring&file='.$fileimage[2].'">';
-    else print 'PngFileNotAvailable<br>';
-    print '</div>'."\n";
-    print '<div class="float">';
-	print $langs->trans("LastMonth").'<br>';
-	if (dol_is_file($conf->monitoring->dir_output."/".$fileimage[3])) print '<img src="'.DOL_URL_ROOT.'/viewimage.php?modulepart=monitoring&file='.$fileimage[3].'">';
-    else print 'PngFileNotAvailable<br>';
-    print '</div>'."\n";
-    print '<div class="float">';
-	print $langs->trans("LastYear").'<br>';
-	if (dol_is_file($conf->monitoring->dir_output."/".$fileimage[4])) print '<img src="'.DOL_URL_ROOT.'/viewimage.php?modulepart=monitoring&file='.$fileimage[4].'">';
-    else print 'PngFileNotAvailable<br>';
-    print '</div>'."\n";
+    if (empty($conf->global->MONITORING_DISABLE_HOUR_VIEW))
+    {
+       	print '<div class="float">';
+    	print $langs->trans("LastHour").'<br>';
+	   if (dol_is_file($conf->monitoring->dir_output."/".$fileimage[0])) print '<img src="'.DOL_URL_ROOT.'/viewimage.php?modulepart=monitoring&file='.$fileimage[0].'">';
+        else print 'PngFileNotAvailable<br>';
+        print '</div>'."\n";
+    }
+    if (empty($conf->global->MONITORING_DISABLE_DAY_VIEW))
+    {
+        print '<div class="float">';
+        print $langs->trans("LastDay").'<br>';
+    	if (dol_is_file($conf->monitoring->dir_output."/".$fileimage[1])) print '<img src="'.DOL_URL_ROOT.'/viewimage.php?modulepart=monitoring&file='.$fileimage[1].'">';
+        else print 'PngFileNotAvailable<br>';
+        print '</div>'."\n";
+    }
+    if (empty($conf->global->MONITORING_DISABLE_WEEK_VIEW))
+    {
+        print '<div class="float">';
+    	print $langs->trans("LastWeek").'<br>';
+    	if (dol_is_file($conf->monitoring->dir_output."/".$fileimage[2])) print '<img src="'.DOL_URL_ROOT.'/viewimage.php?modulepart=monitoring&file='.$fileimage[2].'">';
+        else print 'PngFileNotAvailable<br>';
+        print '</div>'."\n";
+    }
+    if (empty($conf->global->MONITORING_DISABLE_MONTH_VIEW))
+    {
+        print '<div class="float">';
+    	print $langs->trans("LastMonth").'<br>';
+    	if (dol_is_file($conf->monitoring->dir_output."/".$fileimage[3])) print '<img src="'.DOL_URL_ROOT.'/viewimage.php?modulepart=monitoring&file='.$fileimage[3].'">';
+        else print 'PngFileNotAvailable<br>';
+        print '</div>'."\n";
+    }
+    if (empty($conf->global->MONITORING_DISABLE_YEAR_VIEW))
+    {
+        print '<div class="float">';
+    	print $langs->trans("LastYear").'<br>';
+    	if (dol_is_file($conf->monitoring->dir_output."/".$fileimage[4])) print '<img src="'.DOL_URL_ROOT.'/viewimage.php?modulepart=monitoring&file='.$fileimage[4].'">';
+        else print 'PngFileNotAvailable<br>';
+        print '</div>'."\n";
+    }
 }
 
 
 $db->close();
 
-llxFooter('$Date: 2011/03/09 18:53:56 $ - $Revision: 1.8 $');
+llxFooter('$Date: 2011/03/13 20:02:16 $ - $Revision: 1.9 $');
 ?>

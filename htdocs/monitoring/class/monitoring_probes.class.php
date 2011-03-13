@@ -21,7 +21,7 @@
  *      \file       dev/skeletons/monitoring_probes.class.php
  *      \ingroup    mymodule othermodule1 othermodule2
  *      \brief      This file is an example for a CRUD class file (Create/Read/Update/Delete)
- *		\version    $Id: monitoring_probes.class.php,v 1.5 2011/03/09 18:41:24 eldy Exp $
+ *		\version    $Id: monitoring_probes.class.php,v 1.6 2011/03/13 20:02:16 eldy Exp $
  *		\author		Put author name here
  *		\remarks	Initialy built by build_class_from_table on 2011-03-08 23:24
  */
@@ -50,6 +50,7 @@ class Monitoring_probes extends CommonObject
 	var $title;
 	var $url;
 	var $checkkey;
+	var $maxvalue;
 	var $frequency;
     var $active;
 	var $status;
@@ -191,7 +192,9 @@ class Monitoring_probes extends CommonObject
 				$this->checkkey = $obj->checkkey;
                 $this->maxvalue = $obj->maxvalue;
 				$this->frequency = $obj->frequency;
-				$this->status = $obj->status;
+				$this->active = $obj->active;
+                $this->status = $obj->status;
+                $this->lastreset = $obj->lastreset;
             }
             $this->db->free($resql);
             return 1;
@@ -392,9 +395,63 @@ class Monitoring_probes extends CommonObject
 	}
 
 
+    /**
+     *  Return label of object status
+     *  @param      mode            0=long label, 1=short label, 2=Picto + short label, 3=Picto, 4=Picto + long label, 5=short label + picto
+     *  @return     string          Label
+     */
+    function getLibStatut($mode=0)
+    {
+        return $this->LibStatut($this->status,$mode);
+    }
+
+    /**
+     *      \brief      Renvoi le libelle d'un statut donne
+     *      \param      statut          Id statut
+     *      \param      mode            0=libelle long, 1=libelle court, 2=Picto + Libelle court, 3=Picto, 4=Picto + Libelle long, 5=Libelle court + Picto
+     *      \return     string          Libelle du statut
+     */
+    function LibStatut($status,$mode=0)
+    {
+        global $langs;
+        $langs->load('bills');
+
+        //print "$paye,$status,$mode,$alreadypaid,$type";
+        if ($mode == 0)
+        {
+           if ($status == 0) return $langs->trans('Error');
+           if ($status == 1) return $langs->trans('Success');
+        }
+        if ($mode == 1)
+        {
+           if ($status == 0) return $langs->trans('Error');
+           if ($status == 1) return $langs->trans('Success');
+        }
+        if ($mode == 2)
+        {
+           if ($status == 0) return img_picto($langs->trans('Error'),'statut0').' '.$langs->trans('Error');
+           if ($status == 1) return img_picto($langs->trans('Success'),'statut4').' '.$langs->trans('Success');
+        }
+        if ($mode == 3)
+        {
+           if ($status == 0) return img_picto($langs->trans('Error'),'statut0');
+           if ($status == 1) return img_picto($langs->trans('Success'),'statut4');
+        }
+        if ($mode == 4)
+        {
+           if ($status == 0) return img_picto($langs->trans('Error'),'statut0').' '.$langs->trans('Error');
+           if ($status == 1) return img_picto($langs->trans('Success'),'statut4').' '.$langs->trans('Success');
+        }
+        if ($mode == 5)
+        {
+           if ($status == 0) return $langs->trans('Error').' '.img_picto($langs->trans('Error'),'statut0');
+           if ($status == 1) return $langs->trans('Success').' '.img_picto($langs->trans('Success'),'statut4');
+        }
+    }
+
 	/**
-	 *		\brief		Initialise object with example values
-	 *		\remarks	id must be 0 if object instance is a specimen.
+	 *		Initialise object with example values
+	 *		id must be 0 if object instance is a specimen.
 	 */
 	function initAsSpecimen()
 	{

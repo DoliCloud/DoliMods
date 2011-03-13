@@ -25,7 +25,7 @@
  *      \file       htdocs/monitoring/probes.php
  *      \ingroup    monitoring
  *      \brief      Page to add probes
- *      \version    $Id: probes.php,v 1.6 2011/03/09 18:53:56 eldy Exp $
+ *      \version    $Id: probes.php,v 1.7 2011/03/13 20:02:16 eldy Exp $
  */
 
 $res=0;
@@ -78,7 +78,36 @@ if ($action == 'confirm_deleteprobe' && ! $_POST['cancel'])
     }
 }
 
-if ($action == 'add' || $_POST["modify"])
+if ($action == 'modify' && ! GETPOST('cancel'))
+{
+    $probe=new Monitoring_probes($db);
+    $result=$probe->fetch($id);
+
+    $probe->title=GETPOST('probe_title');
+    $probe->url=GETPOST('probe_url');
+    $probe->checkkey=GETPOST('probe_checkkey');
+    $probe->maxvalue=GETPOST('probe_maxvalue');
+    $probe->frequency=GETPOST('probe_frequency');
+
+    $db->begin();
+
+    $result=$probe->update();
+
+    if ($result > 0)
+    {
+        $db->commit();
+        //$mesg='<div class="ok">'.$langs->trans("Success").'</div>';
+        header("Location: ".$_SERVER["PHP_SELF"].'?id='.$id);
+        exit;
+    }
+    else
+    {
+        $db->rollback();
+        dol_print_error($db);
+    }
+}
+
+if ($action == 'add')
 {
 	// Add entry
     $sql = "INSERT INTO ".MAIN_DB_PREFIX."monitoring_probes (title, url, checkkey, maxvalue, frequency, status)";
@@ -115,135 +144,207 @@ $linkback='';
 print_fiche_titre($langs->trans("ProbeSetup"), $linkback, 'setup');
 print '<br>';
 
-// Formulaire ajout
-
-print_titre($langs->trans("AddProbe"));
-
-
-print '<form name="addnewprobe" action="'.$_SERVER["PHP_SELF"].'" method="post">';
-print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
-
-print '<table class="nobordernopadding" width="100%">';
-
-print '<tr class="liste_titre">';
-print '<td colspan="2">'.$langs->trans("Parameters").'</td>';
-print '<td>'.$langs->trans("Example").'</td>';
-print '</tr>';
-print '<tr class="impair">';
-print '<td width="100">'.$langs->trans("Title").'</td>';
-print '<td><input type="text" name="probe_title" value="" size="64"></td>';
-print '<td>My web site</td>';
-print '</tr>';
-
-print '<tr class="pair">';
-print '<td>'.$langs->trans("URL").'</td>';
-print '<td><input type="text" name="probe_url" value="" size="64"></td>';
-print '<td>http://mywebsite.com/mylogonpage.php</td>';
-print '</tr>';
-
-print '<tr class="impair">';
-print '<td>'.$langs->trans("CheckKey").'</td>';
-print '<td><input type="text" name="probe_checkkey" value="" size="64"></td>';
-print '<td>Welcome</td>';
-print '</tr>';
-
-print '<tr class="pair">';
-print '<td>'.$langs->trans("MaxValue").'</td>';
-print '<td><input type="text" name="probe_maxvalue" value="" size="2"></td>';
-print '<td>1000</td>';
-print '</tr>';
-
-print '<tr class="impair">';
-print '<td>'.$langs->trans("Frequency").'</td>';
-print '<td><input type="text" name="probe_frequency" value="" size="2"> '.$langs->trans("seconds").'</td>';
-print '<td>5</td>';
-print '</tr>';
-
-print '<tr><td colspan="3" align="center">';
-print '<input type="submit" class="button" value="'.$langs->trans("Add").'">';
-print '<input type="hidden" name="action" value="add">';
-print '</td></tr>';
-
-print '</table>';
-print '</form>';
-
-print '<br>';
-
-
-print_titre($langs->trans("ListOfProbes"));
-
-// Confirmation de la suppression d'une ligne produit
-if ($action == 'ask_deleteline')
+if ($action != 'edit')
 {
-    $ret=$html->form_confirm($_SERVER["PHP_SELF"].'?id='.$_GET["id"], $langs->trans('DeleteProbe'), $langs->trans('ConfirmDeleteProbe'), 'confirm_deleteprobe', '', 'no', 1);
-    if ($ret == 'html') print '<br>';
-}
+
+    // Formulaire ajout
+    print_titre($langs->trans("AddProbe"));
 
 
-print '<table class="nobordernopadding" width="100%">';
+    print '<form name="addnewprobe" action="'.$_SERVER["PHP_SELF"].'" method="post">';
+    print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
 
-print '<tr class="liste_titre">';
-print "<td>".$langs->trans("Id")."</td>";
-print "<td>".$langs->trans("Title")."</td>";
-print "<td>".$langs->trans("URL")."</td>";
-print "<td>".$langs->trans("CheckKey")."</td>";
-print "<td>".$langs->trans("MaxValue")."</td>";
-print "<td>".$langs->trans("Frequency")."</td>";
-print '<td align="center">'.$langs->trans("Active")."</td>";
-print '<td align="center">'.$langs->trans("Reports")."</td>";
-print '<td width="80px">&nbsp;</td>';
-print '</tr>';
+    print '<table class="nobordernopadding" width="100%">';
+
+    print '<tr class="liste_titre">';
+    print '<td colspan="2">'.$langs->trans("Parameters").'</td>';
+    print '<td>'.$langs->trans("Example").'</td>';
+    print '</tr>';
+    print '<tr class="impair">';
+    print '<td width="100">'.$langs->trans("Title").'</td>';
+    print '<td><input type="text" name="probe_title" value="" size="64"></td>';
+    print '<td>My web site</td>';
+    print '</tr>';
+
+    print '<tr class="pair">';
+    print '<td>'.$langs->trans("URL").'</td>';
+    print '<td><input type="text" name="probe_url" value="" size="64"></td>';
+    print '<td>http://mywebsite.com/mylogonpage.php</td>';
+    print '</tr>';
+
+    print '<tr class="impair">';
+    print '<td>'.$langs->trans("CheckKey").'</td>';
+    print '<td><input type="text" name="probe_checkkey" value="" size="64"></td>';
+    print '<td>Welcome</td>';
+    print '</tr>';
+
+    print '<tr class="pair">';
+    print '<td>'.$langs->trans("MaxValue").'</td>';
+    print '<td><input type="text" name="probe_maxvalue" value="" size="2"></td>';
+    print '<td>1000</td>';
+    print '</tr>';
+
+    print '<tr class="impair">';
+    print '<td>'.$langs->trans("Frequency").'</td>';
+    print '<td><input type="text" name="probe_frequency" value="" size="2"> '.$langs->trans("seconds").'</td>';
+    print '<td>5</td>';
+    print '</tr>';
+
+    print '<tr><td colspan="3" align="center">';
+    print '<input type="submit" class="button" value="'.$langs->trans("Add").'">';
+    print '<input type="hidden" name="action" value="add">';
+    print '</td></tr>';
+
+    print '</table>';
+    print '</form>';
+
+    print '<br>';
 
 
-$sql ="SELECT rowid, title, url, checkkey, maxvalue, frequency, status";
-$sql.=" FROM ".MAIN_DB_PREFIX."monitoring_probes";
-$sql.=" ORDER BY rowid";
+    print_titre($langs->trans("ListOfProbes"));
 
-dol_syslog("probes sql=".$sql,LOG_DEBUG);
-$resql=$db->query($sql);
-if ($resql)
-{
-	$num =$db->num_rows($resql);
-	$i=0;
-	$var=true;
+    // Confirmation de la suppression d'une ligne produit
+    if ($action == 'ask_deleteline')
+    {
+        $ret=$html->form_confirm($_SERVER["PHP_SELF"].'?id='.$_GET["id"], $langs->trans('DeleteProbe'), $langs->trans('ConfirmDeleteProbe'), 'confirm_deleteprobe', '', 'no', 1);
+        if ($ret == 'html') print '<br>';
+    }
 
-	while ($i < $num)
-	{
-		$obj = $db->fetch_object($resql);
 
-		print "<form name=\"externalrssconfig\" action=\"".$_SERVER["PHP_SELF"]."\" method=\"post\">";
-		print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
+    print '<table class="nobordernopadding" width="100%">';
 
-        $var=!$var;
-		print "<tr ".$bc[$var].">";
-        print "<td>".$obj->rowid."</td>";
-		print "<td>".$obj->title."</td>";
-        print "<td>".$obj->url."</td>";
-        print "<td>".$obj->checkkey."</td>";
-        print "<td>".$obj->maxvalue."</td>";
-        print "<td>".$obj->frequency."</td>";
-        print '<td align="center">'.yn($obj->active)."</td>";
-        print '<td align="center"><a href="index.php?id='.$obj->rowid.'">'.$langs->trans("Reports")."</a></td>";
-        print '<td align="center"><a href="'.$_SERVER["PHP_SELF"].'?id='.$obj->rowid.'&amp;action=ask_deleteline">';
-        print img_delete();
-        print '</a>';
-        print '</td>';
-        print "</tr>";
+    print '<tr class="liste_titre">';
+    print "<td>".$langs->trans("Id")."</td>";
+    print "<td>".$langs->trans("Title")."</td>";
+    print "<td>".$langs->trans("URL")."</td>";
+    print "<td>".$langs->trans("CheckKey")."</td>";
+    print "<td>".$langs->trans("MaxValue")."</td>";
+    print "<td>".$langs->trans("Frequency")."</td>";
+    print '<td align="center">'.$langs->trans("Active")."</td>";
+    //print '<td align="center">'.$langs->trans("Reports")."</td>";
+    print '<td width="80px">&nbsp;</td>';
+    print '</tr>';
 
-		print "</form>";
 
-		$i++;
-	}
+    $sql ="SELECT rowid, title, url, checkkey, maxvalue, frequency, status, active";
+    $sql.=" FROM ".MAIN_DB_PREFIX."monitoring_probes";
+    $sql.=" ORDER BY rowid";
+
+    dol_syslog("probes sql=".$sql,LOG_DEBUG);
+    $resql=$db->query($sql);
+    if ($resql)
+    {
+    	$num =$db->num_rows($resql);
+    	$i=0;
+    	$var=true;
+
+    	while ($i < $num)
+    	{
+    		$obj = $db->fetch_object($resql);
+
+    		print "<form name=\"externalrssconfig\" action=\"".$_SERVER["PHP_SELF"]."\" method=\"post\">";
+    		print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
+
+            $var=!$var;
+    		print "<tr ".$bc[$var].">";
+            print "<td>".$obj->rowid."</td>";
+    		print "<td>".$obj->title."</td>";
+            print "<td>".$obj->url."</td>";
+            print "<td>".$obj->checkkey."</td>";
+            print "<td>".$obj->maxvalue."</td>";
+            print "<td>".$obj->frequency."</td>";
+            print '<td align="center">'.yn($obj->active)."</td>";
+            /*print '<td align="center">';
+            if ($obj->active)
+            {
+                print '<a href="index.php?id='.$obj->rowid.'">'.$langs->trans("Reports").'</a>';
+            }
+            print '</td>';*/
+            print '<td align="right">';
+            print '<a href="'.$_SERVER["PHP_SELF"].'?id='.$obj->rowid.'&amp;action=edit">';
+            print img_edit();
+            print '</a>';
+            print '&nbsp;';
+            print '<a href="'.$_SERVER["PHP_SELF"].'?id='.$obj->rowid.'&amp;action=ask_deleteline">';
+            print img_delete();
+            print '</a>';
+            print '</td>';
+            print "</tr>";
+
+    		print "</form>";
+
+    		$i++;
+    	}
+    }
+    else
+    {
+    	dol_print_error($db);
+    }
+
+    print '</table>'."\n";
 }
 else
 {
-	dol_print_error($db);
-}
+    $probe=new Monitoring_probes($db);
+    $result=$probe->fetch($id);
 
-print '</table>'."\n";
+    print_titre($langs->trans("EditProbe"));
+
+
+    print '<form name="editprobe" action="'.$_SERVER["PHP_SELF"].'" method="post">';
+    print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
+    print '<input type="hidden" name="id" value="'.$id.'">';
+
+    print '<table class="nobordernopadding" width="100%">';
+
+    print '<tr class="liste_titre">';
+    print '<td colspan="2">'.$langs->trans("Parameters").'</td>';
+    print '<td>'.$langs->trans("Example").'</td>';
+    print '</tr>';
+    print '<tr class="impair">';
+    print '<td width="100">'.$langs->trans("Title").'</td>';
+    print '<td><input type="text" name="probe_title" value="'.($_POST['probe_title']?$_POST['probe_title']:$probe->title).'" size="64"></td>';
+    print '<td>My web site</td>';
+    print '</tr>';
+
+    print '<tr class="pair">';
+    print '<td>'.$langs->trans("URL").'</td>';
+    print '<td><input type="text" name="probe_url" value="'.($_POST['probe_url']?$_POST['probe_url']:$probe->url).'" size="64"></td>';
+    print '<td>http://mywebsite.com/mylogonpage.php</td>';
+    print '</tr>';
+
+    print '<tr class="impair">';
+    print '<td>'.$langs->trans("CheckKey").'</td>';
+    print '<td><input type="text" name="probe_checkkey" value="'.($_POST['probe_checkkey']?$_POST['probe_checkkey']:$probe->checkkey).'" size="64"></td>';
+    print '<td>Welcome</td>';
+    print '</tr>';
+
+    print '<tr class="pair">';
+    print '<td>'.$langs->trans("MaxValue").'</td>';
+    print '<td><input type="text" name="probe_maxvalue" value="'.($_POST['probe_maxvalue']?$_POST['probe_maxvalue']:$probe->maxvalue).'" size="2"></td>';
+    print '<td>1000</td>';
+    print '</tr>';
+
+    print '<tr class="impair">';
+    print '<td>'.$langs->trans("Frequency").'</td>';
+    print '<td><input type="text" name="probe_frequency" value="'.($_POST['probe_frequency']?$_POST['probe_frequency']:$probe->frequency).'" size="2"> '.$langs->trans("seconds").'</td>';
+    print '<td>5</td>';
+    print '</tr>';
+
+    print '<tr><td colspan="3" align="center">';
+    print '<input type="submit" class="button" name="save" value="'.$langs->trans("Save").'">';
+    print ' &nbsp; &nbsp; ';
+    print '<input type="submit" class="button" name="cancel" value="'.$langs->trans("Cancel").'">';
+    print '<input type="hidden" name="action" value="modify">';
+    print '</td></tr>';
+
+    print '</table>';
+    print '</form>';
+
+}
 
 
 $db->close();
 
-llxFooter('$Date: 2011/03/09 18:53:56 $ - $Revision: 1.6 $');
+llxFooter('$Date: 2011/03/13 20:02:16 $ - $Revision: 1.7 $');
 ?>
