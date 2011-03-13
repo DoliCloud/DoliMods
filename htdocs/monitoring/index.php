@@ -20,7 +20,7 @@
  *	    \file       htdocs/monitoring/index.php
  *      \ingroup    monitoring
  *      \brief      Page to setup module Monitoring
- *		\version    $Id: index.php,v 1.9 2011/03/13 20:02:16 eldy Exp $
+ *		\version    $Id: index.php,v 1.10 2011/03/13 22:41:47 eldy Exp $
  */
 
 define('NOCSRFCHECK',1);
@@ -379,10 +379,7 @@ if (empty($id))
             }
             print "</td>";
             print '<td align="center">';
-            if ($obj->active)
-            {
-                print '<a href="index.php?id='.$obj->rowid.'">'.$langs->trans("Reports").'</a>';
-            }
+            print '<a href="index.php?id='.$obj->rowid.'">'.$langs->trans("Reports").'</a>';
             print '</td>';
             /*print '<td align="right">';
             print '<a href="'.$_SERVER["PHP_SELF"].'?id='.$obj->rowid.'&amp;action=edit">';
@@ -501,5 +498,5 @@ else
 
 $db->close();
 
-llxFooter('$Date: 2011/03/13 20:02:16 $ - $Revision: 1.9 $');
+llxFooter('$Date: 2011/03/13 22:41:47 $ - $Revision: 1.10 $');
 ?>
