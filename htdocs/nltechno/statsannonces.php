@@ -6,7 +6,7 @@
  *   	\file       htdocs/nltechno/statsannonces.php
  *		\ingroup    nltechno
  *		\brief      Page des stats annonces
- *		\version    $Id: statsannonces.php,v 1.14 2011/03/14 22:20:29 eldy Exp $
+ *		\version    $Id: statsannonces.php,v 1.15 2011/03/14 22:31:11 eldy Exp $
  *		\author		Laurent Destailleur
  */
 
@@ -15,7 +15,7 @@ include_once('./pre.inc.php');
 
 // Load config
 $CALLFORCONFIG=1;
-dol_include_once('/nltechno/index.php');
+include_once('index.php');
 require_once(DOL_DOCUMENT_ROOT."/core/class/dolgraph.class.php");
 
 
@@ -108,17 +108,17 @@ if (1 == 1)
 						$val1=$obj->VALUE_STATS;
 					}
 
-					$day=dolibarr_print_date($db->jdate($obj->DATE_START),'%d');
-					if ($day == '15') $labelx=dolibarr_print_date($db->jdate($obj->DATE_START),'%b');
+					$day=dolibarr_print_date($dbann->jdate($obj->DATE_STATS),'%d');
+					if ($day == '15') $labelx=dolibarr_print_date($dbann->jdate($obj->DATE_STATS),'%b');
 					else $labelx='';
 
-					if ($db->jdate($obj->DATE_START) != $oldday && $oldday)
+					if ($dbann->jdate($obj->DATE_STATS) != $oldday && $oldday)
 					{
 						$graph_data[$i]=array($labelx,$val1);
 						$i++;
 					}
 
-					$oldday=$db->jdate($obj->DATE_START);
+					$oldday=$dbann->jdate($obj->DATE_STATS);
 
 					$lastval[5]=$lastval[4];
 					$lastval[4]=$lastval[3];
@@ -161,7 +161,7 @@ if (1 == 1)
 			}
 			else
 			{
-				dolibarr_print_error($db,'Error for calculating graph on key='.$key.' - '.$product->error);
+				dolibarr_print_error($dbann,'Error for calculating graph on key='.$key.' - '.$product->error);
 			}
 		}
 
