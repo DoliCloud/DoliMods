@@ -6,7 +6,7 @@
  *   	\file       htdocs/nltechno/statsannonces.php
  *		\ingroup    nltechno
  *		\brief      Page des stats annonces
- *		\version    $Id: statsannonces.php,v 1.13 2011/01/16 14:55:40 eldy Exp $
+ *		\version    $Id: statsannonces.php,v 1.14 2011/03/14 22:20:29 eldy Exp $
  *		\author		Laurent Destailleur
  */
 
@@ -112,13 +112,13 @@ if (1 == 1)
 					if ($day == '15') $labelx=dolibarr_print_date($db->jdate($obj->DATE_START),'%b');
 					else $labelx='';
 
-					if ($obj->d != $oldday && $oldday)
+					if ($db->jdate($obj->DATE_START) != $oldday && $oldday)
 					{
 						$graph_data[$i]=array($labelx,$val1);
 						$i++;
 					}
 
-					$oldday=$obj->d;
+					$oldday=$db->jdate($obj->DATE_START);
 
 					$lastval[5]=$lastval[4];
 					$lastval[4]=$lastval[3];
