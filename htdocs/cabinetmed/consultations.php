@@ -23,7 +23,7 @@
  *   \file       htdocs/cabinetmed/consultations.php
  *   \brief      Tab for consultations
  *   \ingroup    cabinetmed
- *   \version    $Id: consultations.php,v 1.2 2011/02/12 21:57:56 eldy Exp $
+ *   \version    $Id: consultations.php,v 1.3 2011/03/16 21:58:04 eldy Exp $
  */
 
 $res=0;
@@ -161,14 +161,60 @@ if ($action == 'add' || $action == 'update')
                 $societe->fetch($consult->fk_soc);
 
                 $bankaccount=new Account($db);
-                $result=$bankaccount->fetch($_POST["selectbankchequeto"]);
-                $lineid=$bankaccount->addline(dol_now(), 'CHQ', 'Réglement patient', $consult->montant_cheque, $consult->num_cheque, '', $user, $societe->nom, $consult->banque);
-                $result=$bankaccount->add_url_line($lineid,$consult->id,dol_buildpath('/cabinetmed/consultations.php',1).'?action=edit&socid='.$consult->fk_soc.'&id=','Consultation','consultation');
-                $result=$bankaccount->add_url_line($lineid,$consult->fk_soc,'',$societe->nom,'company');
+                $result=$bankaccount->fetch($_POST["bankchequeto"]);
+                $lineid=$bankaccount->addline(dol_now(), 'CHQ', $langs->trans("CustomerInvoicePayment"), $consult->montant_cheque, $consult->num_cheque, '', $user, $societe->nom, $consult->banque);
+                $result1=$bankaccount->add_url_line($lineid,$consult->id,dol_buildpath('/cabinetmed/consultations.php',1).'?action=edit&socid='.$consult->fk_soc.'&id=','Consultation','consultation');
+                $result2=$bankaccount->add_url_line($lineid,$consult->fk_soc,'',$societe->nom,'company');
+                if ($lineid <= 0 || $result1 <= 0 || $result2 <= 0)
+                {
+                    $error++;
+                }
             }
             if ($action == 'update')
             {
                 $result=$consult->update($user);
+
+                // Search if there is a bank line
+                $bid=0;
+                $sql.= "SELECT b.rowid FROM ".MAIN_DB_PREFIX."bank_url as bu, ".MAIN_DB_PREFIX."bank as b";
+                $sql.= " WHERE bu.url_id = ".$consult->id." AND type = 'consultation'";
+                $sql.= " AND bu.fk_bank = b.rowid";
+                dol_syslog($sql);
+                $resql=$db->query($sql);
+                if ($resql)
+                {
+                    $obj=$db->fetch_object($resql);
+                    if ($obj)
+                    {
+                        $bid=$obj->rowid;
+                    }
+                }
+                else
+                {
+                    $error++;
+                    $consult->error=$db->lasterror();
+                }
+
+                if (! $error)
+                {
+                    // If bid
+                    if ($bid)
+                    {
+                        $bankaccountline=new AccountLine($db);
+                        $result=$bankaccountline->fetch($bid);
+                        $bankaccountline->delete($user);
+                    }
+
+                    $bankaccount=new Account($db);
+                    $result=$bankaccount->fetch($_POST["bankchequeto"]);
+                    $lineid=$bankaccount->addline(dol_now(), 'CHQ', $langs->trans("CustomerInvoicePayment"), $consult->montant_cheque, $consult->num_cheque, '', $user, $societe->nom, $consult->banque);
+                    $result1=$bankaccount->add_url_line($lineid,$consult->id,dol_buildpath('/cabinetmed/consultations.php',1).'?action=edit&socid='.$consult->fk_soc.'&id=','Consultation','consultation');
+                    $result2=$bankaccount->add_url_line($lineid,$consult->fk_soc,'',$societe->nom,'company');
+                    if ($lineid <= 0 || $result1 <= 0 || $result2 <= 0)
+                    {
+                        $error++;
+                    }
+                }
             }
         }
 
@@ -853,5 +899,5 @@ function listexamenprescrit($nboflines,$newwidth=0)
 
 $db->close();
 
-llxFooter('$Date: 2011/02/12 21:57:56 $ - $Revision: 1.2 $');
+llxFooter('$Date: 2011/03/16 21:58:04 $ - $Revision: 1.3 $');
 ?>
