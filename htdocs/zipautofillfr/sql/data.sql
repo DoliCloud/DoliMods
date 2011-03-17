@@ -1,4 +1,6 @@
---
+-- Data file with zip codes and town
+
+-- France
 INSERT INTO llx_c_ziptown (zip, town, fk_departement, fk_pays) VALUES
 ('64460', 'AAST', 64, 1),
 ('55130', 'ABAINVILLE', 55, 1),
@@ -42659,7 +42661,10 @@ INSERT INTO llx_c_ziptown (zip, town, fk_departement, fk_pays) VALUES
 ('62370', 'ZUTKERQUE', 62, 1),
 ('67330', 'ZUTZENDORF', 67, 1),
 ('59123', 'ZUYDCOOTE', 59, 1),
-('59670', 'ZUYTPEENE', 59, 1),
+('59670', 'ZUYTPEENE', 59, 1);
+
+-- Belgium
+INSERT INTO llx_c_ziptown (zip, town, fk_departement, fk_pays) VALUES
 ('1000', 'Brussel', NULL, 2),
 ('1000', 'Bruxelles', NULL, 2),
 ('1005', 'Ass. R?un. Com. Communau. Commune', NULL, 2),
