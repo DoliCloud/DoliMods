@@ -22,7 +22,7 @@
  *       \file       htdocs/cabinetmed/contact.php
  *       \ingroup    cabinetmed
  *       \brief      Tab for links between doctors and patient
- *       \version    $Id: contact.php,v 1.3 2011/02/13 12:16:30 eldy Exp $
+ *       \version    $Id: contact.php,v 1.4 2011/03/20 15:43:05 eldy Exp $
  */
 
 $res=0;
@@ -60,12 +60,12 @@ if ($_POST["action"] == 'addcontact' && $user->rights->societe->creer)
 		$result = 0;
 		$societe = new Societe($db);
 		$result = $societe->fetch($socid);
-	
+
 	    if ($result > 0 && $socid > 0)
 	    {
 	  		$result = $societe->add_contact($_POST["contactid"], $_POST["type"], $_POST["source"]);
 	    }
-	
+
 		if ($result >= 0)
 		{
 			Header("Location: contact.php?socid=".$societe->id);
@@ -291,16 +291,17 @@ if ($id > 0 || ! empty($ref))
 		print img_object('','contact').' '.$langs->trans("ThirdPartyContacts");
 		print '</td>';
 		*/
-		
+
 		print '<td colspan="1">';
 		// $contactAlreadySelected = $commande->getListContactId('external');	// On ne doit pas desactiver un contact deja selectionner car on doit pouvoir le seclectionner une deuxieme fois pour un autre type
 		$nbofcontacts=$html->select_contacts(0, '', 'contactid', 1);
 		if ($nbofcontacts == 0) print $langs->trans("NoContactDefined");
+        print ' <a href="'.DOL_URL_ROOT.'/contact/fiche.php?leftmenu=contacts&action=create&backtopage='.urlencode($_SERVER["PHP_SELF"]).'?socid='.$socid.'">'.$langs->trans("Add").'</a>';
 		print '</td>';
 		print '<td>';
 		$formcompany->selectTypeContact($societe, '', 'type','external','libelle',1);
 		print '</td>';
-		print '<td align="right" colspan="3" ><input type="submit" class="button" value="'.$langs->trans("Add").'"';
+		print '<td align="right" colspan="3" ><input type="submit" class="button" value="'.$langs->trans("AddLink").'"';
 		if (! $nbofcontacts) print ' disabled="true"';
 		print '></td>';
 		print '</tr>';
@@ -340,7 +341,7 @@ if ($id > 0 || ! empty($ref))
 			if ($tab[$i]['source']=='external') print $langs->trans("ThirdPartyContact");
 			print '</td>';
 			*/
-			
+
 			// Societe
 			/*print '<td align="left">';
 			if ($tab[$i]['socid'] > 0)
@@ -358,7 +359,7 @@ if ($id > 0 || ! empty($ref))
 			}
 			print '</td>';
 			*/
-			
+
 			// Contact
 			print '<td>';
             if ($tab[$i]['source']=='internal')
@@ -409,5 +410,5 @@ if ($id > 0 || ! empty($ref))
 
 $db->close();
 
-llxFooter('$Date: 2011/02/13 12:16:30 $');
+llxFooter('$Date: 2011/03/20 15:43:05 $');
 ?>
