@@ -72,11 +72,14 @@ SentTo=Envoyés à <b>%s</b>
 
 # Libelle des modules de liste de destinataires mailing
 MailingModuleDescContactCompanies=Contacts des patients
-MailingModuleDescDolibarrUsers=Utilisateurs de Dolibarr avec e-mail
-MailingModuleDescFundationMembers=Adhérents avec e-mail
+MailingModuleDescDolibarrUsers=Utilisateurs de Dolibarr
+MailingModuleDescFundationMembers=Adhérents
 MailingModuleDescEmailsFromFile=EMails issus d'un fichier texte (email;nom;prenom;autre)
-MailingModuleDescContactsCategories=Patient avec e-mail (par catégorie)
+MailingModuleDescContactsCategories=Patients (par catégorie)
 MailingModuleDescDolibarrContractsLinesExpired=Patient avec lignes de contrats de services expirées
+MailingModuleDescContactsByCompanyCategory=Contacts de tiers (par catégorie de tiers)
+MailingModuleDescMembersCategories=Adhérents (par catégorie)
+MailingModuleDescContactsByFunction=Correspondants de patients (par spécialité)
 
 LineInFile=Ligne %s du fichier
 RecipientSelectionModules=Modules de sélection des destinataires
