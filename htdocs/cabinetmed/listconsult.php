@@ -22,7 +22,7 @@
  *	\file       htdocs/cabinetmed/listconsult.php
  *	\ingroup    cabinetmed
  *	\brief      List of consultation
- *	\version    $Id: listconsult.php,v 1.1 2011/03/26 14:26:38 eldy Exp $
+ *	\version    $Id: listconsult.php,v 1.2 2011/03/26 14:37:28 eldy Exp $
  */
 
 
@@ -150,6 +150,8 @@ if ($result)
 
 	$i = 0;
 
+	print '<div class="error">PAGE EN DEVELOPPEMENT ...</div><br>';
+	
 	print '<form method="get" action="'.$_SERVER["PHP_SELF"].'">'."\n";
 	print '<table class="liste" width="100%">'."\n";
 
@@ -236,5 +238,5 @@ else
 
 $db->close();
 
-llxFooter('$Date: 2011/03/26 14:26:38 $ - $Revision: 1.1 $');
+llxFooter('$Date: 2011/03/26 14:37:28 $ - $Revision: 1.2 $');
 ?>
