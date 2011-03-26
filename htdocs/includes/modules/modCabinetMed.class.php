@@ -26,7 +26,7 @@
  *      \file       htdocs/includes/modules/modCabinetMed.class.php
  *      \ingroup    cabinetmed
  *      \brief      Description and activation file for module CabinetMed
- *      \version    $Id: modCabinetMed.class.php,v 1.16 2011/03/26 12:54:59 eldy Exp $
+ *      \version    $Id: modCabinetMed.class.php,v 1.17 2011/03/26 13:02:08 eldy Exp $
  */
 include_once(DOL_DOCUMENT_ROOT ."/includes/modules/DolibarrModules.class.php");
 
@@ -98,7 +98,7 @@ class modCabinetMed extends DolibarrModules
 //                             4=>array('MAIN_DIRECTEDITMODE','chaine','1','Notes are in edit mode directly',1,'current',1),
                              7=>array('MAIN_DISABLEVATCHECK','chaine','1','Disable link to VAT check',1,'current',1),
                              8=>array('MAIN_DISABLEDRAFTSTATUS','chaine','1','Disable draft status',1,'current',1),
-                             9>array('MAIN_MENU_STANDARD_FORCED','chaine','cabinetmed_backoffice.php','Force menu handler to this value',1,'current',1),
+                             9=>array('MAIN_MENU_STANDARD_FORCED','chaine','cabinetmed_backoffice.php','Force menu handler to this value',1,'current',1),
                             10=>array('MAIN_MENUFRONT_STANDARD_FORCED','chaine','cabinetmed_frontoffice.php','Force menu handler to this value',1,'current',1),
                             11=>array('MAIN_MENU_SMARTPHONE_FORCED','chaine','cabinetmed_backoffice.php','Force menu handler to this value',1,'current',1),
                             12=>array('MAIN_MENUFRONT_SMARTPHONE_FORCED','chaine','cabinetmed_frontoffice.php','Force menu handler to this value',1,'current',1),
