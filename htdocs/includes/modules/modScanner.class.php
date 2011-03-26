@@ -26,7 +26,7 @@
  *      \file       htdocs/includes/modules/modScanner.class.php
  *      \ingroup    scanner
  *      \brief      Description and activation file for module Scanner
- *		\version	$Id: modScanner.class.php,v 1.6 2011/02/12 18:36:57 eldy Exp $
+ *		\version	$Id: modScanner.class.php,v 1.7 2011/03/26 14:08:43 eldy Exp $
  */
 include_once(DOL_DOCUMENT_ROOT ."/includes/modules/DolibarrModules.class.php");
 
@@ -143,7 +143,7 @@ class modScanner extends DolibarrModules
 									'mainmenu'=>'scanner',
 									'leftmenu'=>'1',		// Use 1 if you also want to add left menu entries using this descriptor. Use 0 if left menu entries are defined in a file pre.inc.php (old school).
 									'url'=>'/scanner/index.php',
-									'langs'=>'scanner',	// Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
+									'langs'=>'scanner@scanner',	// Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 									'position'=>100,
 									'enabled'=>'1',			// Define condition to show or hide menu entry. Use '$conf->scanner->enabled' if entry must be visible if module is enabled.
 									'perms'=>'1',			// Use 'perms'=>'$user->rights->scanner->level1->level2' if you want your menu with a permission rules
