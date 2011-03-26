@@ -22,7 +22,7 @@
  *	\file       htdocs/cabinetmed/listconsult.php
  *	\ingroup    cabinetmed
  *	\brief      List of consultation
- *	\version    $Id: listconsult.php,v 1.2 2011/03/26 14:37:28 eldy Exp $
+ *	\version    $Id: listconsult.php,v 1.3 2011/03/26 18:28:35 eldy Exp $
  */
 
 
@@ -52,8 +52,8 @@ if ($page == -1) { $page = 0 ; }
 $offset = $conf->liste_limit * $page;
 $pageprev = $page - 1;
 $pagenext = $page + 1;
-if (! $sortorder) $sortorder="ASC";
-if (! $sortfield) $sortfield="s.nom";
+if (! $sortorder) $sortorder="DESC";
+if (! $sortfield) $sortfield="c.datecons";
 
 $search_nom=isset($_GET["search_nom"])?$_GET["search_nom"]:$_POST["search_nom"];
 $search_ville=isset($_GET["search_ville"])?$_GET["search_ville"]:$_POST["search_ville"];
@@ -88,18 +88,19 @@ if (GETPOST("button_removefilter_x"))
 }
 
 $sql = "SELECT s.rowid, s.nom as name, s.client, s.ville, st.libelle as stcomm, s.prefix_comm, s.code_client,";
-$sql.= " s.datec, s.datea, s.canvas";
+$sql.= " s.datec, s.datea, s.canvas,";
+$sql.= " c.datecons, c.typepriseencharge, c.typevisit, c.motifconsprinc, c.examenprescrit, c.traitementprescrit";
 // We'll need these fields in order to filter by sale (including the case where the user can only see his prospects)
 if ($search_sale) $sql .= ", sc.fk_soc, sc.fk_user";
 // We'll need these fields in order to filter by categ
 if ($search_categ) $sql .= ", cs.fk_categorie, cs.fk_societe";
-$sql.= " FROM ".MAIN_DB_PREFIX."societe as s,";
+$sql.= " FROM ".MAIN_DB_PREFIX."societe as s, ".MAIN_DB_PREFIX."cabinetmed_cons as c,";
 $sql.= " ".MAIN_DB_PREFIX."c_stcomm as st";
 // We'll need this table joined to the select in order to filter by sale
 if ($search_sale || !$user->rights->societe->client->voir) $sql.= ", ".MAIN_DB_PREFIX."societe_commerciaux as sc";
 // We'll need this table joined to the select in order to filter by categ
 if ($search_categ) $sql.= ", ".MAIN_DB_PREFIX."categorie_societe as cs";
-$sql.= " WHERE s.fk_stcomm = st.id";
+$sql.= " WHERE s.fk_stcomm = st.id AND c.fk_soc = s.rowid";
 $sql.= " AND s.client IN (1, 3)";
 $sql.= " AND s.entity = ".$conf->entity;
 if (!$user->rights->societe->client->voir && ! $socid) $sql.= " AND s.rowid = sc.fk_soc AND sc.fk_user = " .$user->id;
@@ -150,8 +151,8 @@ if ($result)
 
 	$i = 0;
 
-	print '<div class="error">PAGE EN DEVELOPPEMENT ...</div><br>';
-	
+	//print '<div class="error">PAGE EN DEVELOPPEMENT ...</div><br>';
+
 	print '<form method="get" action="'.$_SERVER["PHP_SELF"].'">'."\n";
 	print '<table class="liste" width="100%">'."\n";
 
@@ -181,15 +182,17 @@ if ($result)
 	print_liste_field_titre($langs->trans("Company"),$_SERVER["PHP_SELF"],"s.nom","",$param,"",$sortfield,$sortorder);
 	print_liste_field_titre($langs->trans("CustomerCode"),$_SERVER["PHP_SELF"],"s.code_client","",$param,"",$sortfield,$sortorder);
 	print_liste_field_titre($langs->trans("DateConsultation"),$_SERVER["PHP_SELF"],"c.datecons","",$param,'align="center"',$sortfield,$sortorder);
-	print_liste_field_titre($langs->trans("MotifPrincipal"),$_SERVER["PHP_SELF"],"c.motifconsprin","",$param,'',$sortfield,$sortorder);
-	print_liste_field_titre($langs->trans("xxx"),$_SERVER["PHP_SELF"],"","",$param,'align="right"',$sortfield,$sortorder);
+    print_liste_field_titre($langs->trans('Prise en charge'),$_SERVER['PHP_SELF'],'c.typepriseencharge','',$param,'',$sortfield,$sortorder);
+    print_liste_field_titre($langs->trans("MotifPrincipal"),$_SERVER["PHP_SELF"],"c.motifconsprinc","",$param,'',$sortfield,$sortorder);
+	print_liste_field_titre($langs->trans('ConsultActe'),$_SERVER['PHP_SELF'],'c.typevisit','',$param,'',$sortfield,$sortorder);
+	print_liste_field_titre($langs->trans("Prescriptions"),$_SERVER["PHP_SELF"],"","",$param,'align="right"',$sortfield,$sortorder);
 	print "</tr>\n";
 
 	print '<tr class="liste_titre">';
 	print '<td class="liste_titre">';
-	print '<input type="text" class="flat" name="search_nom" value="'.$search_nom.'">';
+	print '<input type="text" class="flat" size="8" name="search_nom" value="'.$search_nom.'">';
 	print '</td><td class="liste_titre">';
-	print '<input type="text" class="flat" name="search_code" value="'.$search_code.'" size="10">';
+	print '<input type="text" class="flat" size="8" name="search_code" value="'.$search_code.'" size="10">';
 	print '</td>';
 	print '<td class="liste_titre">';
 	print '&nbsp;';
@@ -197,7 +200,13 @@ if ($result)
 	print '<td class="liste_titre">';
 	print '&nbsp;';
 	print '</td>';
-	print '<td class="liste_titre" align="right"><input class="liste_titre" type="image" src="'.DOL_URL_ROOT.'/theme/'.$conf->theme.'/img/search.png" value="'.dol_escape_htmltag($langs->trans("Search")).'" title="'.dol_escape_htmltag($langs->trans("Search")).'">';
+    print '<td class="liste_titre">';
+    print '&nbsp;';
+    print '</td>';
+    print '<td class="liste_titre">';
+    print '&nbsp;';
+    print '</td>';
+    print '<td class="liste_titre" align="right"><input class="liste_titre" type="image" src="'.DOL_URL_ROOT.'/theme/'.$conf->theme.'/img/search.png" value="'.dol_escape_htmltag($langs->trans("Search")).'" title="'.dol_escape_htmltag($langs->trans("Search")).'">';
     print '&nbsp; ';
     print '<input type="image" class="liste_titre" name="button_removefilter" src="'.DOL_URL_ROOT.'/theme/'.$conf->theme.'/img/searchclear.png" value="'.dol_escape_htmltag($langs->trans("RemoveFilter")).'" title="'.dol_escape_htmltag($langs->trans("RemoveFilter")).'">';
     print '</td>';
@@ -220,9 +229,19 @@ if ($result)
         print $thirdpartystatic->getNomUrl(1);
 		print '</td>';
 		print '<td>'.$obj->code_client.'</td>';
-		print '<td>'.dol_print_date($obj->datecons,'dayhour').'</td>';
-		print '<td>'.$obj->motifconsprinc.'</td>';
-		print '<td align="right">xxx</td>';
+		print '<td align="center">'.dol_print_date($obj->datecons,'dayhour').'</td>';
+        print '<td>';
+        print $obj->typepriseencharge;
+        print '</td>';
+        print '<td>'.$obj->motifconsprinc.'</td>';
+        print '<td>';
+        print $obj->typevisit;
+        print '</td>';
+        print '<td>';
+        $val=dol_trunc($obj->examenprescrit,20);
+        if ($val) $val.='<br>';
+        $val=dol_trunc($obj->traitementprescrit,20);
+        print '</td>';
 		print "</tr>\n";
 		$i++;
 	}
@@ -238,5 +257,5 @@ else
 
 $db->close();
 
-llxFooter('$Date: 2011/03/26 14:37:28 $ - $Revision: 1.2 $');
+llxFooter('$Date: 2011/03/26 18:28:35 $ - $Revision: 1.3 $');
 ?>

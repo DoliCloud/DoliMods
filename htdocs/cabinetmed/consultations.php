@@ -23,7 +23,7 @@
  *   \file       htdocs/cabinetmed/consultations.php
  *   \brief      Tab for consultations
  *   \ingroup    cabinetmed
- *   \version    $Id: consultations.php,v 1.4 2011/03/16 22:49:52 eldy Exp $
+ *   \version    $Id: consultations.php,v 1.5 2011/03/26 18:28:35 eldy Exp $
  */
 
 $res=0;
@@ -788,12 +788,12 @@ if ($action == '')
             print $obj->typepriseencharge;
             print '</td><td>';
             print dol_trunc($obj->motifconsprinc,32);
-            print '</td><td>';
+            print '</td>';
+            print '<td>';
             //print dol_print_date($obj->diaglesprinc,'day');
             //print '</td><td>';
             print $obj->typevisit;
             print '</td>';
-
             if (price2num($obj->montant_cheque) > 0)
             {
                 print '<td>';
@@ -940,5 +940,5 @@ function listexamenprescrit($nboflines,$newwidth=0)
 
 $db->close();
 
-llxFooter('$Date: 2011/03/16 22:49:52 $ - $Revision: 1.4 $');
+llxFooter('$Date: 2011/03/26 18:28:35 $ - $Revision: 1.5 $');
 ?>
