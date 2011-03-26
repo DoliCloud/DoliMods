@@ -53,3 +53,5 @@ MotifSecondaires=Motifs secondaires
 DiagLesPrincipal=Diagnostique lesionnel principal
 DiagLesSecondaires=Diagnostiques lesionnels secondaires
 IdConsult=Numéro consultation
+ListConsult=Liste consultations
+ListOfConsultations=Liste des consultations
