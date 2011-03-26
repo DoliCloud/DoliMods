@@ -6,7 +6,7 @@
  *	    \file       htdocs/google/admin/google_an.php
  *      \ingroup    google
  *      \brief      Setup page for google module
- *		\version    $Id: google_an.php,v 1.2 2011/03/05 17:36:22 eldy Exp $
+ *		\version    $Id: google_an.php,v 1.3 2011/03/26 14:32:29 eldy Exp $
  */
 
 define('NOCSRFCHECK',1);
@@ -83,7 +83,7 @@ dol_fiche_head($head, 'analytics', $langs->trans("GoogleTools"));
 
 print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
 
-print $langs->trans("GoogleAddPubOnLogonPage").'<br>';
+print $langs->trans("GoogleAddAnalyticsOnLogonPage").'<br>';
 print '<br>';
 
 
@@ -125,5 +125,5 @@ print "<br>";
 
 $db->close();
 
-llxFooter('$Date: 2011/03/05 17:36:22 $ - $Revision: 1.2 $');
+llxFooter('$Date: 2011/03/26 14:32:29 $ - $Revision: 1.3 $');
 ?>
