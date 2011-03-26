@@ -21,7 +21,7 @@
 /**
  *  \file		htdocs/includes/menus/cabinetmed.lib.php
  *  \brief		Library for file cabinetmed menus
- *  \version	$Id: cabinetmed.lib.php,v 1.6 2011/02/18 12:16:10 eldy Exp $
+ *  \version	$Id: cabinetmed.lib.php,v 1.7 2011/03/26 12:55:00 eldy Exp $
  */
 
 
@@ -92,7 +92,7 @@ function print_cabinetmed_menu($db,$atarget,$type_user)
 			print '<div class="'.$id.' '.$idsel.'"><span class="'.$id.' tmenuimage" id="mainmenuspan_'.$idsel.'"></span></div>';
 			print '</a>';
 			print '<a '.$classname.' id="mainmenua_'.$idsel.'" href="'.DOL_URL_ROOT.'/societe/index.php?mainmenu=companies&amp;leftmenu="'.($atarget?" target=$atarget":"").'>';
-			print_text_menu_entry($langs->trans("PatientsAndCorrespondants"));
+			print_text_menu_entry($langs->trans("Patients"));
 			print '</a>';
 			print_end_menu_entry();
 		}
@@ -110,7 +110,50 @@ function print_cabinetmed_menu($db,$atarget,$type_user)
 		}
 	}
 
+	// Correspondant
+	if ($conf->societe->enabled || $conf->fournisseur->enabled)
+	{
+		$langs->load("companies");
+		$langs->load("suppliers");
+        $langs->load("cabinetmed@cabinetmed");
 
+		$classname="";
+		if ($_SESSION["mainmenu"] && $_SESSION["mainmenu"] == "contacts")
+		{
+			$classname='class="tmenusel"'; $_SESSION['idmenu']='';
+		}
+		else
+		{
+			$classname = 'class="tmenu"';
+		}
+
+		$idsel='contacts';
+		if (($conf->societe->enabled && $user->rights->societe->lire)
+		|| ($conf->fournisseur->enabled && $user->rights->fournisseur->lire))
+		{
+			print_start_menu_entry($idsel);
+			print '<a class="tmenuimage" href="'.DOL_URL_ROOT.'/contact/index.php?mainmenu=contacts&amp;leftmenu="'.($atarget?" target=$atarget":"").'>';
+			print '<div class="'.$id.' '.$idsel.'"><span class="'.$id.' tmenuimage" id="mainmenuspan_'.$idsel.'"></span></div>';
+			print '</a>';
+			print '<a '.$classname.' id="mainmenua_'.$idsel.'" href="'.DOL_URL_ROOT.'/contact/index.php?mainmenu=contacts&amp;leftmenu="'.($atarget?" target=$atarget":"").'>';
+			print_text_menu_entry($langs->trans("Correspondants"));
+			print '</a>';
+			print_end_menu_entry();
+		}
+		else if (empty($conf->global->MAIN_MENU_HIDE_UNAUTHORIZED))
+		{
+			if (! $type_user)
+			{
+				print_start_menu_entry($idsel);
+				print '<div class="'.$id.' '.$idsel.'"><span class="'.$id.'" id="mainmenuspan_'.$idsel.'"></span></div>';
+				print '<a class="tmenudisabled" id="mainmenua_'.$idsel.'" href="#">';
+				print_text_menu_entry($langs->trans("Correspondants"));
+				print '</a>';
+				print_end_menu_entry();
+			}
+		}
+	}
+	
 	// Products-Services
 	if ($conf->product->enabled || $conf->service->enabled)
 	{
@@ -652,11 +695,6 @@ function print_left_cabinetmed_menu($db,$menu_array_before,$menu_array_after)
                 $newmenu->add("/comm/clients.php?leftmenu=customers", $langs->trans("ListPatient"), 1, $user->rights->societe->lire);
             }
 
-            // Correspondants
-            $newmenu->add("/contact/index.php?leftmenu=contacts", $langs->trans("Correspondants"), 0, $user->rights->societe->contact->lire);
-            $newmenu->add("/contact/fiche.php?leftmenu=contacts&amp;action=create", $langs->trans("NewContact"), 1, $user->rights->societe->contact->creer);
-            $newmenu->add("/contact/index.php?leftmenu=contacts", $langs->trans("List"), 1, $user->rights->societe->contact->lire);
-
             // Categories
             if ($conf->categorie->enabled)
             {
@@ -681,6 +719,17 @@ function print_left_cabinetmed_menu($db,$menu_array_before,$menu_array_after)
 
         }
 
+        /*
+         * Menu Correspondants
+         */
+        if ($mainmenu == 'contacts')
+        {
+            // Correspondants
+            $newmenu->add("/contact/index.php?leftmenu=contacts", $langs->trans("Correspondants"), 0, $user->rights->societe->contact->lire);
+            $newmenu->add("/contact/fiche.php?leftmenu=contacts&amp;action=create", $langs->trans("NewContact"), 1, $user->rights->societe->contact->creer);
+            $newmenu->add("/contact/index.php?leftmenu=contacts", $langs->trans("List"), 1, $user->rights->societe->contact->lire);
+        }
+        
         /*
          * Menu COMMERCIAL
          */

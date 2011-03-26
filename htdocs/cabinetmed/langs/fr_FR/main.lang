@@ -314,6 +314,7 @@ ActionsDoneShort=Effectuées
 ActionRunningNotStarted=Non commencé
 ActionRunningShort=En cours
 ActionDoneShort=Terminé
+ActionNotApplicable=Non applicable
 CompanyFoundation=Société ou institution
 ContactsForCompany=Correspondants/adresses de ce patient
 ActionsOnCompany=Evénements vis à vis de ce patient
