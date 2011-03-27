@@ -24,7 +24,7 @@
 /**
  *      \defgroup   numberwords     Module numberwords
  *      \brief      Module to add function to convert amount in number to strings
- *		\brief		$Id: modNumberWords.class.php,v 1.1 2011/03/03 08:46:13 eldy Exp $
+ *		\brief		$Id: modNumberWords.class.php,v 1.2 2011/03/27 16:51:32 eldy Exp $
  */
 
 /**
@@ -63,7 +63,7 @@ class modNumberWords extends DolibarrModules
 		// Module description, used if translation string 'ModuleXXXDesc' not found (where XXX is value of numeric property 'numero' of module)
 		$this->description = "Add capabilities to convert amounts and numbers into value in full text (only few languages supported)";
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
-		$this->version = '1.0';
+		$this->version = '3.0';
 		// Key used in llx_const table to save module status enabled/disabled (where MYMODULE is value of property name of module in uppercase)
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
 		// Where to store the module in setup page (0=common,1=interface,2=others,3=very specific)
