@@ -574,6 +574,7 @@ Prefix=Préfixe
 Before=Avant
 After=Après
 IPAddress=Adresse IP
+IM=Messagerie instantannée
 # Week day
 Day1=Lundi
 Day2=Mardi
