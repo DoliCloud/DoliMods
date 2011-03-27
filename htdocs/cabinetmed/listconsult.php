@@ -22,7 +22,7 @@
  *	\file       htdocs/cabinetmed/listconsult.php
  *	\ingroup    cabinetmed
  *	\brief      List of consultation
- *	\version    $Id: listconsult.php,v 1.3 2011/03/26 18:28:35 eldy Exp $
+ *	\version    $Id: listconsult.php,v 1.4 2011/03/27 11:55:43 eldy Exp $
  */
 
 
@@ -89,7 +89,7 @@ if (GETPOST("button_removefilter_x"))
 
 $sql = "SELECT s.rowid, s.nom as name, s.client, s.ville, st.libelle as stcomm, s.prefix_comm, s.code_client,";
 $sql.= " s.datec, s.datea, s.canvas,";
-$sql.= " c.datecons, c.typepriseencharge, c.typevisit, c.motifconsprinc, c.examenprescrit, c.traitementprescrit";
+$sql.= " c.datecons, c.typepriseencharge, c.typevisit, c.motifconsprinc, c.diaglesprinc, c.examenprescrit, c.traitementprescrit";
 // We'll need these fields in order to filter by sale (including the case where the user can only see his prospects)
 if ($search_sale) $sql .= ", sc.fk_soc, sc.fk_user";
 // We'll need these fields in order to filter by categ
@@ -184,8 +184,8 @@ if ($result)
 	print_liste_field_titre($langs->trans("DateConsultation"),$_SERVER["PHP_SELF"],"c.datecons","",$param,'align="center"',$sortfield,$sortorder);
     print_liste_field_titre($langs->trans('Prise en charge'),$_SERVER['PHP_SELF'],'c.typepriseencharge','',$param,'',$sortfield,$sortorder);
     print_liste_field_titre($langs->trans("MotifPrincipal"),$_SERVER["PHP_SELF"],"c.motifconsprinc","",$param,'',$sortfield,$sortorder);
-	print_liste_field_titre($langs->trans('ConsultActe'),$_SERVER['PHP_SELF'],'c.typevisit','',$param,'',$sortfield,$sortorder);
-	print_liste_field_titre($langs->trans("Prescriptions"),$_SERVER["PHP_SELF"],"","",$param,'align="right"',$sortfield,$sortorder);
+	print_liste_field_titre($langs->trans("DiagLesPrincipal"),$_SERVER["PHP_SELF"],"","",$param,'',$sortfield,$sortorder);
+    print_liste_field_titre($langs->trans('ConsultActe'),$_SERVER['PHP_SELF'],'c.typevisit','',$param,'align="right"',$sortfield,$sortorder);
 	print "</tr>\n";
 
 	print '<tr class="liste_titre">';
@@ -235,14 +235,15 @@ if ($result)
         print '</td>';
         print '<td>'.$obj->motifconsprinc.'</td>';
         print '<td>';
+        print dol_trunc($obj->diaglesprinc,20);
+        /*$val=dol_trunc($obj->examenprescrit,20);
+        if ($val) $val.='<br>';
+        $val=dol_trunc($obj->traitementprescrit,20);*/
+        print '</td>';
+        print '<td align="right">';
         print $obj->typevisit;
         print '</td>';
-        print '<td>';
-        $val=dol_trunc($obj->examenprescrit,20);
-        if ($val) $val.='<br>';
-        $val=dol_trunc($obj->traitementprescrit,20);
-        print '</td>';
-		print "</tr>\n";
+        print "</tr>\n";
 		$i++;
 	}
 	//print_barre_liste($langs->trans("ListOfCustomers"), $page, $_SERVER["PHP_SELF"],'',$sortfield,$sortorder,'',$num);
@@ -257,5 +258,5 @@ else
 
 $db->close();
 
-llxFooter('$Date: 2011/03/26 18:28:35 $ - $Revision: 1.3 $');
+llxFooter('$Date: 2011/03/27 11:55:43 $ - $Revision: 1.4 $');
 ?>
