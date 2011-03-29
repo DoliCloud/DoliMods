@@ -21,7 +21,7 @@
  *	\ingroup    	fournisseur
  *	\brief      	Script de generation graph ca fournisseur depuis tables fournisseur_ca
  *	\deprecated	Ces graph ne sont pas utilises car sont generes dynamiquement maintenant.
- *	\version		$Id: batch_fournisseur_buildgraph.php,v 1.3 2011/01/23 01:05:41 eldy Exp $
+ *	\version		$Id: batch_fournisseur_buildgraph.php,v 1.4 2011/03/29 23:17:21 eldy Exp $
  */
 
 $sapi_type = php_sapi_name();
@@ -35,10 +35,19 @@ if (substr($sapi_type, 0, 3) == 'cgi') {
 }
 
 // Global variables
-$version='$Revision: 1.3 $';
+$version='$Revision: 1.4 $';
 $error=0;
-
-require_once($path."../../htdocs/master.inc.php");
+// Include Dolibarr environment
+$res=0;
+if (! $res && file_exists($path."../../htdocs/master.inc.php")) $res=@include($path."../../htdocs/master.inc.php");
+if (! $res && file_exists("../master.inc.php")) $res=@include("../master.inc.php");
+if (! $res && file_exists("../../master.inc.php")) $res=@include("../../master.inc.php");
+if (! $res && file_exists("../../../master.inc.php")) $res=@include("../../../master.inc.php");
+if (! $res && file_exists($path."../../../dolibarr/htdocs/master.inc.php")) $res=@include($path."../../../dolibarr/htdocs/master.inc.php");
+if (! $res && file_exists("../../../dolibarr/htdocs/master.inc.php")) $res=@include("../../../dolibarr/htdocs/master.inc.php");     // Used on dev env only
+if (! $res && file_exists("../../../../dolibarr/htdocs/master.inc.php")) $res=@include("../../../../dolibarr/htdocs/master.inc.php");   // Used on dev env only
+if (! $res && file_exists("../../../../../dolibarr/htdocs/master.inc.php")) $res=@include("../../../../../dolibarr/htdocs/master.inc.php");   // Used on dev env only
+if (! $res) die("Include of master fails");
 require_once(DOL_DOCUMENT_ROOT."/core/dolgraph.class.php");
 require_once(DOL_DOCUMENT_ROOT."/cron/functions_cron.lib.php");
 

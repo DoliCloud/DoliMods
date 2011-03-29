@@ -1,11 +1,26 @@
 <?php
+$sapi_type = php_sapi_name();
+$script_file = basename(__FILE__);
+$path=dirname(__FILE__).'/';
 
-$version='$Revision: 1.1 $';
-$path=dirname(__FILE__);
+// Test if batch mode
+if (substr($sapi_type, 0, 3) == 'cgi') {
+	echo "Error: You are using PHP for CGI. To execute ".$script_file." from command line, you must use PHP for CLI mode.\n";
+	exit;
+}
+
+// Global variables
+$version='$Revision: 1.2 $';
+$error=0;
 //eregi_replace($script_file,'',$_SERVER["PHP_SELF"]);
 $url_pdf="https://www.ovh.com/cgi-bin/order/facture.pdf";
 $id_ovh=5;
-require_once($path."../../../htdocs/master.inc.php");
+// Include Dolibarr environment
+$res=0;
+if (! $res && file_exists($path."../../htdocs/master.inc.php")) $res=@include($path."../../htdocs/master.inc.php");
+if (! $res && file_exists("../master.inc.php")) $res=@include("../master.inc.php");
+if (! $res && file_exists("../../master.inc.php")) $res=@include("../../master.inc.php");
+if (! $res && file_exists("../../../master.inc.php")) $res=@include("../../../master.inc.php");
 require_once(DOL_DOCUMENT_ROOT."/user.class.php");
 require_once(DOL_DOCUMENT_ROOT.'/fourn/facture/paiementfourn.class.php');
 require_once(DOL_DOCUMENT_ROOT.'/fourn/fournisseur.facture.class.php');

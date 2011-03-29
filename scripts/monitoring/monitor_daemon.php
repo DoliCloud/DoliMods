@@ -21,7 +21,7 @@
  *	\file       	scripts/monitor/monitor_daemon.php
  *	\ingroup    	monitor
  *	\brief      	Script to execute monitor daemon
- *	\version		$Id: monitor_daemon.php,v 1.5 2011/03/09 18:31:13 eldy Exp $
+ *	\version		$Id: monitor_daemon.php,v 1.6 2011/03/29 23:17:22 eldy Exp $
  */
 
 $sapi_type = php_sapi_name();
@@ -35,13 +35,14 @@ if (substr($sapi_type, 0, 3) == 'cgi') {
 }
 
 // Global variables
-$version='$Revision: 1.5 $';
+$version='$Revision: 1.6 $';
 $error=0;
 // Include Dolibarr environment
 $res=0;
 if (! $res && file_exists($path."../../htdocs/master.inc.php")) $res=@include($path."../../htdocs/master.inc.php");
 if (! $res && file_exists("../master.inc.php")) $res=@include("../master.inc.php");
 if (! $res && file_exists("../../master.inc.php")) $res=@include("../../master.inc.php");
+if (! $res && file_exists("../../../master.inc.php")) $res=@include("../../../master.inc.php");
 if (! $res && file_exists($path."../../../dolibarr/htdocs/master.inc.php")) $res=@include($path."../../../dolibarr/htdocs/master.inc.php");
 if (! $res && file_exists("../../../dolibarr/htdocs/master.inc.php")) $res=@include("../../../dolibarr/htdocs/master.inc.php");     // Used on dev env only
 if (! $res && file_exists("../../../../dolibarr/htdocs/master.inc.php")) $res=@include("../../../../dolibarr/htdocs/master.inc.php");   // Used on dev env only

@@ -6,7 +6,7 @@
  *	    \file       htdocs/google/admin/google_ad.php
  *      \ingroup    google
  *      \brief      Setup page for google module
- *		\version    $Id: google_ad.php,v 1.2 2011/03/05 17:36:21 eldy Exp $
+ *		\version    $Id: google_ad.php,v 1.3 2011/03/29 23:17:21 eldy Exp $
  */
 
 define('NOCSRFCHECK',1);
@@ -14,6 +14,7 @@ define('NOCSRFCHECK',1);
 $res=0;
 if (! $res && file_exists("../main.inc.php")) $res=@include("../main.inc.php");
 if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.php");
+if (! $res && file_exists("../../../main.inc.php")) $res=@include("../../../main.inc.php");
 if (! $res && file_exists("../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../dolibarr/htdocs/main.inc.php");     // Used on dev env only
 if (! $res && file_exists("../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
 if (! $res && file_exists("../../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
@@ -155,5 +156,5 @@ print "<br>";
 
 $db->close();
 
-llxFooter('$Date: 2011/03/05 17:36:21 $ - $Revision: 1.2 $');
+llxFooter('$Date: 2011/03/29 23:17:21 $ - $Revision: 1.3 $');
 ?>

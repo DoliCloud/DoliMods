@@ -20,7 +20,7 @@
  *	    \file       htdocs/cabinetmed/admin/admin.php
  *      \ingroup    cabinetmed
  *      \brief      Page to setup module Cabinetmed
- *		\version    $Id: admin.php,v 1.1 2011/01/23 15:10:00 eldy Exp $
+ *		\version    $Id: admin.php,v 1.2 2011/03/29 23:17:21 eldy Exp $
  */
 
 define('NOCSRFCHECK',1);
@@ -28,6 +28,7 @@ define('NOCSRFCHECK',1);
 $res=0;
 if (! $res && file_exists("../main.inc.php")) $res=@include("../main.inc.php");
 if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.php");
+if (! $res && file_exists("../../../main.inc.php")) $res=@include("../../../main.inc.php");
 if (! $res && file_exists("../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../dolibarr/htdocs/main.inc.php");     // Used on dev env only
 if (! $res && file_exists("../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
 if (! $res && file_exists("../../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
@@ -365,5 +366,5 @@ print '<img src="'.DOL_URL_ROOT.'/viewimage.php?modulepart=monitoring_temp&file=
 
 $db->close();
 
-llxFooter('$Date: 2011/01/23 15:10:00 $ - $Revision: 1.1 $');
+llxFooter('$Date: 2011/03/29 23:17:21 $ - $Revision: 1.2 $');
 ?>

@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *
- * $Id: import-product.php,v 1.2 2010/04/28 07:39:01 eldy Exp $
+ * $Id: import-product.php,v 1.3 2011/03/29 23:17:22 eldy Exp $
  * $Source: /cvsroot/dolibarr/dolibarrmod/scripts/product/import-product.php,v $
  *
  *
@@ -29,7 +29,26 @@
  * wget "http://materiel.net/partenaire/search.php3?format=xml&nobanner=1"
  */
 
-require("../../htdocs/master.inc.php");
+$sapi_type = php_sapi_name();
+$script_file = basename(__FILE__);
+$path=dirname(__FILE__).'/';
+
+// Test if batch mode
+if (substr($sapi_type, 0, 3) == 'cgi') {
+	echo "Error: You are using PHP for CGI. To execute ".$script_file." from command line, you must use PHP for CLI mode.\n";
+	exit;
+}
+
+// Global variables
+$version='$Revision: 1.3 $';
+$error=0;
+
+// Include Dolibarr environment
+$res=0;
+if (! $res && file_exists($path."../../htdocs/master.inc.php")) $res=@include($path."../../htdocs/master.inc.php");
+if (! $res && file_exists("../master.inc.php")) $res=@include("../master.inc.php");
+if (! $res && file_exists("../../master.inc.php")) $res=@include("../../master.inc.php");
+if (! $res && file_exists("../../../master.inc.php")) $res=@include("../../../master.inc.php");
 require_once(DOL_DOCUMENT_ROOT ."/product.class.php");
 
 /*

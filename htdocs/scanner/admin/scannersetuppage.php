@@ -20,7 +20,7 @@
  *	    \file       htdocs/scanner/admin/scanneradminsetuppage.php
  *      \ingroup    scanner
  *      \brief      Page de configuration du module Scanner
- *		\version    $Id: scannersetuppage.php,v 1.4 2011/02/20 11:14:18 eldy Exp $
+ *		\version    $Id: scannersetuppage.php,v 1.5 2011/03/29 23:17:21 eldy Exp $
  */
 
 define('NOCSRFCHECK',1);
@@ -28,6 +28,7 @@ define('NOCSRFCHECK',1);
 $res=0;
 if (! $res && file_exists("../main.inc.php")) $res=@include("../main.inc.php");
 if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.php");
+if (! $res && file_exists("../../../main.inc.php")) $res=@include("../../../main.inc.php");
 if (! $res && file_exists("../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../dolibarr/htdocs/main.inc.php");     // Used on dev env only
 if (! $res && file_exists("../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
 if (! $res && file_exists("../../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
@@ -168,5 +169,5 @@ print "<br>";
 
 $db->close();
 
-llxFooter('$Date: 2011/02/20 11:14:18 $ - $Revision: 1.4 $');
+llxFooter('$Date: 2011/03/29 23:17:21 $ - $Revision: 1.5 $');
 ?>

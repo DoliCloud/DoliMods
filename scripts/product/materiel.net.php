@@ -16,30 +16,46 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *
- * $Id: materiel.net.php,v 1.1 2009/08/22 03:42:30 eldy Exp $
+ * $Id: materiel.net.php,v 1.2 2011/03/29 23:17:22 eldy Exp $
  * $Source: /cvsroot/dolibarr/dolibarrmod/scripts/product/materiel.net.php,v $
  *
  * 
- * Mets à jour les prix fournisseurs des produits a partir d'un fichier XML
+ * Mets a jour les prix fournisseurs des produits a partir d'un fichier XML
  *
  *
  * Pour recupere les infos de materiel.net
  *
  * wget "http://materiel.net/partenaire/search.php3?format=xml&nobanner=1"
  */
-// Editer les 3 valeurs suivantes en conformité avec votre installation
+// Editer les 3 valeurs suivantes en conformite avec votre installation
 $userid = 1;
 $idfourn = 10;
 $file = "/tmp/materiel.full.xml";
-// Supprimez le die() une fois le script configuré :-)
+// Supprimez le die() une fois le script configurï¿½ :-)
 die ("!\n!\n! Configurez le script avant de le lancer\n!\n!\n");
 
-/*
- *
- *
- */
-require("../../htdocs/master.inc.php");
+$sapi_type = php_sapi_name();
+$script_file = basename(__FILE__);
+$path=dirname(__FILE__).'/';
+
+// Test if batch mode
+if (substr($sapi_type, 0, 3) == 'cgi') {
+	echo "Error: You are using PHP for CGI. To execute ".$script_file." from command line, you must use PHP for CLI mode.\n";
+	exit;
+}
+
+// Global variables
+$version='$Revision: 1.2 $';
+$error=0;
+
+// Include Dolibarr environment
+$res=0;
+if (! $res && file_exists($path."../../htdocs/master.inc.php")) $res=@include($path."../../htdocs/master.inc.php");
+if (! $res && file_exists("../master.inc.php")) $res=@include("../master.inc.php");
+if (! $res && file_exists("../../master.inc.php")) $res=@include("../../master.inc.php");
+if (! $res && file_exists("../../../master.inc.php")) $res=@include("../../../master.inc.php");
 require_once(DOL_DOCUMENT_ROOT ."/product.class.php");
+
 
 $user = new User($db);
 $user->id = $userid;
@@ -50,7 +66,7 @@ $items = array();
 $current = '';
 
 /*
- * Parse le fichier XML et l'insère dans un tableau
+ * Parse le fichier XML et l'insï¿½re dans un tableau
  *
  */
 $xml_parser = xml_parser_create();
@@ -67,14 +83,14 @@ while ($data = fread($fp, 4096) )
 {
   if (!xml_parse($xml_parser, $data, feof($fp))) 
     {
-      die(sprintf("erreur XML : %s à la ligne %d",
+      die(sprintf("erreur XML : %s ï¿½ la ligne %d",
 		  xml_error_string(xml_get_error_code($xml_parser)),
 		  xml_get_current_line_number($xml_parser)));
     }
 }
 xml_parser_free($xml_parser);
 /*
- * Traite les données du tableau
+ * Traite les donnï¿½es du tableau
  *
  */
 if (sizeof($items) > 0)

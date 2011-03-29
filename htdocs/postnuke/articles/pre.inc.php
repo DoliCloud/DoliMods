@@ -21,7 +21,7 @@
  *		\file 		htdocs/postnuke/pre.inc.php
  *		\ingroup    postnuke
  *		\brief      File to manage left menu for postnuke module
- *		\version    $Id: pre.inc.php,v 1.4 2011/01/16 14:38:46 eldy Exp $
+ *		\version    $Id: pre.inc.php,v 1.5 2011/03/29 23:17:21 eldy Exp $
  */
 
 define('NOCSRFCHECK',1);
@@ -29,6 +29,7 @@ define('NOCSRFCHECK',1);
 $res=0;
 if (! $res && file_exists("../main.inc.php")) $res=@include("../main.inc.php");
 if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.php");
+if (! $res && file_exists("../../../main.inc.php")) $res=@include("../../../main.inc.php");
 if (! $res && file_exists("../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../dolibarr/htdocs/main.inc.php");     // Used on dev env only
 if (! $res && file_exists("../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
 if (! $res && file_exists("../../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only

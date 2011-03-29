@@ -6,7 +6,7 @@
  *		\file 		htdocs/nltechno/pre.inc.php
  *		\ingroup    nltechno
  *		\brief      File to manage left menu for NLTechno module
- *		\version    $Id: pre.inc.php,v 1.6 2011/01/16 17:00:20 eldy Exp $
+ *		\version    $Id: pre.inc.php,v 1.7 2011/03/29 23:17:22 eldy Exp $
  */
 
 define('NOCSRFCHECK',1);
@@ -14,6 +14,7 @@ define('NOCSRFCHECK',1);
 $res=0;
 if (! $res && file_exists("../main.inc.php")) $res=@include("../main.inc.php");
 if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.php");
+if (! $res && file_exists("../../../main.inc.php")) $res=@include("../../../main.inc.php");
 if (! $res && file_exists("../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../dolibarr/htdocs/main.inc.php");     // Used on dev env only
 if (! $res && file_exists("../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
 if (! $res && file_exists("../../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only

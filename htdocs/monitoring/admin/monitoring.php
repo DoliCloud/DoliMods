@@ -20,7 +20,7 @@
  *	    \file       htdocs/monitoring/admin/monitoring.php
  *      \ingroup    monitoring
  *      \brief      Page to setup module Monitoring
- *		\version    $Id: monitoring.php,v 1.8 2011/03/09 18:33:02 eldy Exp $
+ *		\version    $Id: monitoring.php,v 1.9 2011/03/29 23:17:22 eldy Exp $
  */
 
 define('NOCSRFCHECK',1);
@@ -28,6 +28,7 @@ define('NOCSRFCHECK',1);
 $res=0;
 if (! $res && file_exists("../main.inc.php")) $res=@include("../main.inc.php");
 if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.php");
+if (! $res && file_exists("../../../main.inc.php")) $res=@include("../../../main.inc.php");
 if (! $res && file_exists("../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../dolibarr/htdocs/main.inc.php");     // Used on dev env only
 if (! $res && file_exists("../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
 if (! $res && file_exists("../../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
@@ -289,5 +290,5 @@ if (dol_is_file($conf->monitoring->dir_temp."/".$fileimage[0]))
 
 $db->close();
 
-llxFooter('$Date: 2011/03/09 18:33:02 $ - $Revision: 1.8 $');
+llxFooter('$Date: 2011/03/29 23:17:22 $ - $Revision: 1.9 $');
 ?>

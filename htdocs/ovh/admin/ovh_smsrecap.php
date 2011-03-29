@@ -21,7 +21,7 @@
  *   	\file       ovh/admin/ovhsms_recap.php
  *		\ingroup    ovhsms
  *		\brief      Configuration du module ovhsms
- *		\version    $Id: ovh_smsrecap.php,v 1.2 2011/03/06 19:42:59 eldy Exp $
+ *		\version    $Id: ovh_smsrecap.php,v 1.3 2011/03/29 23:17:21 eldy Exp $
  *		\author		Put author name here
  *		\remarks	Put here some comments
  */
@@ -31,6 +31,7 @@ define('NOCSRFCHECK',1);
 $res=0;
 if (! $res && file_exists("../main.inc.php")) $res=@include("../main.inc.php");
 if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.php");
+if (! $res && file_exists("../../../main.inc.php")) $res=@include("../../../main.inc.php");
 if (! $res && file_exists("../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../dolibarr/htdocs/main.inc.php");     // Used on dev env only
 if (! $res && file_exists("../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
 if (! $res && file_exists("../../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
@@ -176,5 +177,5 @@ if($sms > 0) {
 
 // End of page
 $db->close();
-llxFooter('$Date: 2011/03/06 19:42:59 $ - $Revision: 1.2 $');
+llxFooter('$Date: 2011/03/29 23:17:21 $ - $Revision: 1.3 $');
 ?>

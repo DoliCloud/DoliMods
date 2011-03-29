@@ -20,7 +20,7 @@
  *	    \file       htdocs/admin/awstats.php
  *      \ingroup    awstats
  *      \brief      Page de configuration du module AWStats
- *		\version    $Id: awstats.php,v 1.7 2011/01/19 22:51:02 eldy Exp $
+ *		\version    $Id: awstats.php,v 1.8 2011/03/29 23:17:22 eldy Exp $
  */
 
 define('NOCSRFCHECK',1);
@@ -28,6 +28,7 @@ define('NOCSRFCHECK',1);
 $res=0;
 if (! $res && file_exists("../main.inc.php")) $res=@include("../main.inc.php");
 if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.php");
+if (! $res && file_exists("../../../main.inc.php")) $res=@include("../../../main.inc.php");
 if (! $res && file_exists("../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../dolibarr/htdocs/main.inc.php");     // Used on dev env only
 if (! $res && file_exists("../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
 if (! $res && file_exists("../../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
@@ -158,5 +159,5 @@ print "<br>";
 
 $db->close();
 
-llxFooter('$Date: 2011/01/19 22:51:02 $ - $Revision: 1.7 $');
+llxFooter('$Date: 2011/03/29 23:17:22 $ - $Revision: 1.8 $');
 ?>

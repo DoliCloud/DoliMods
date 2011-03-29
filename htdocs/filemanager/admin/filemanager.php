@@ -20,12 +20,13 @@
  *	\file       htdocs/filemanage/admin/filemanager.php
  *	\ingroup    filemanager
  *	\brief      Setup page for filemanager module
- *	\version    $Id: filemanager.php,v 1.5 2011/01/16 14:26:45 eldy Exp $
+ *	\version    $Id: filemanager.php,v 1.6 2011/03/29 23:17:21 eldy Exp $
  */
 
 $res=0;
 if (! $res && file_exists("../main.inc.php")) $res=@include("../main.inc.php");
 if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.php");
+if (! $res && file_exists("../../../main.inc.php")) $res=@include("../../../main.inc.php");
 if (! $res && file_exists("../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../dolibarr/htdocs/main.inc.php");     // Used on dev env only
 if (! $res && file_exists("../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
 if (! $res && file_exists("../../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
@@ -232,5 +233,5 @@ print '<br>';
 print info_admin($langs->trans("NoteOnFileManagerPathLocation")).'<br>';
 
 
-llxFooter('$Date: 2011/01/16 14:26:45 $ - $Revision: 1.5 $');
+llxFooter('$Date: 2011/03/29 23:17:21 $ - $Revision: 1.6 $');
 ?>
