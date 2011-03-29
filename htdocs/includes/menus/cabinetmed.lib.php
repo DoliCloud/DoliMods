@@ -21,7 +21,7 @@
 /**
  *  \file		htdocs/includes/menus/cabinetmed.lib.php
  *  \brief		Library for file cabinetmed menus
- *  \version	$Id: cabinetmed.lib.php,v 1.10 2011/03/26 14:26:38 eldy Exp $
+ *  \version	$Id: cabinetmed.lib.php,v 1.11 2011/03/29 10:03:43 eldy Exp $
  */
 
 
@@ -153,7 +153,7 @@ function print_cabinetmed_menu($db,$atarget,$type_user)
 			}
 		}
 	}
-	
+
 	// Products-Services
 	if ($conf->product->enabled || $conf->service->enabled)
 	{
@@ -730,7 +730,7 @@ function print_left_cabinetmed_menu($db,$menu_array_before,$menu_array_after)
             $newmenu->add("/contact/fiche.php?leftmenu=contacts&amp;action=create", $langs->trans("NewContact"), 1, $user->rights->societe->contact->creer);
             $newmenu->add("/contact/index.php?leftmenu=contacts", $langs->trans("List"), 1, $user->rights->societe->contact->lire);
         }
-        
+
         /*
          * Menu COMMERCIAL
          */
@@ -1269,6 +1269,7 @@ function print_left_cabinetmed_menu($db,$menu_array_before,$menu_array_after)
                 $newmenu->add("/adherents/liste.php?leftmenu=members&amp;statut=1&amp;filter=uptodate",$langs->trans("MenuMembersUpToDate"),2,$user->rights->adherent->lire);
                 $newmenu->add("/adherents/liste.php?leftmenu=members&amp;statut=1&amp;filter=outofdate",$langs->trans("MenuMembersNotUpToDate"),2,$user->rights->adherent->lire);
                 $newmenu->add("/adherents/liste.php?leftmenu=members&amp;statut=0",$langs->trans("MenuMembersResiliated"),2,$user->rights->adherent->lire);
+                $newmenu->add("/adherents/stats/index.php?leftmenu=members",$langs->trans("MenuMembersStats"),1,$user->rights->adherent->lire);
 
                 $newmenu->add("/adherents/index.php?leftmenu=members&amp;mainmenu=members",$langs->trans("Subscriptions"),0,$user->rights->adherent->cotisation->lire);
                 $newmenu->add("/adherents/liste.php?leftmenu=members&amp;statut=-1,1&amp;mainmenu=members",$langs->trans("NewSubscription"),1,$user->rights->adherent->cotisation->creer);
