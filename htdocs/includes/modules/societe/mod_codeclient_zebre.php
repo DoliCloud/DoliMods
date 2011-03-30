@@ -22,7 +22,7 @@
  *       \file       htdocs/includes/modules/societe/mod_codeclient_zebre.class.php
  *       \ingroup    societe
  *       \brief      Fichier de la classe des gestion zebre des codes clients
- *       \version    $Id: mod_codeclient_zebre.php,v 1.3 2010/08/09 22:51:56 eldy Exp $
+ *       \version    $Id: mod_codeclient_zebre.php,v 1.4 2011/03/30 09:58:10 eldy Exp $
  */
 
 require_once(DOL_DOCUMENT_ROOT."/includes/modules/societe/modules_societe.class.php");
@@ -48,7 +48,7 @@ class mod_codeclient_zebre extends ModeleThirdPartyCode
 	function mod_codeclient_zebre()
 	{
 		$this->nom = "Zebre";
-		$this->version = '$Revision: 1.3 $';
+		$this->version = '$Revision: 1.4 $';
 		$this->code_modifiable = 0;				// Can be changed if valid
 		$this->code_modifiable_invalide = 1;	// Can be changed if not valid
 		$this->code_modifiable_null = 1;		// Can be changed if not defined
@@ -229,7 +229,7 @@ class mod_codeclient_zebre extends ModeleThirdPartyCode
 	function is_alpha($str)
 	{
 		$ok = 0;
-		// Je n'ai pas trouv� de fonction pour tester une chaine alpha sans les caract�re accentu�s
+		// Je n'ai pas trouve de fonction pour tester une chaine alpha sans les caract�re accentu�s
 		// dommage
 		$alpha = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
