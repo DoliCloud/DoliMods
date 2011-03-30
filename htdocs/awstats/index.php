@@ -15,7 +15,7 @@
 /**
  *	\file       htdocs/awstats/index.php
  *	\brief      Page accueil module AWStats
- *	\version    $Id: index.php,v 1.20 2011/01/19 22:51:02 eldy Exp $
+ *	\version    $Id: index.php,v 1.21 2011/03/30 19:04:50 eldy Exp $
  */
 
 include("./pre.inc.php");
@@ -245,7 +245,7 @@ if(!$dir) {
 <body>
 <h1>Error</h1><br>
 Failed to open directory defined in AWStats config page (AWSTATS_DATA_DIR = '.$history_dir.')<br>
-Check your AWStats seyup and open_basedir PHP setup.
+Check your AWStats setup and open_basedir PHP setup.
 </body>
 </html>';
 	exit;
@@ -565,5 +565,5 @@ if ($system_stats_top == true) {
 #	Output to the screen
 echo $statistics;
 
-llxFooter('$Date: 2011/01/19 22:51:02 $ - $Revision: 1.20 $');
+llxFooter('$Date: 2011/03/30 19:04:50 $ - $Revision: 1.21 $');
 ?>
