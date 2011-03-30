@@ -21,14 +21,17 @@
  *	\file			htdocs/lib/functionsnumberswords.lib.php
  *	\brief			A set of functions for Dolibarr
  *					This file contains functions for plugin numberwords.
- *	\version		$Id: functions_numberwords.lib.php,v 1.1 2011/03/03 08:46:13 eldy Exp $
+ *	\version		$Id: functions_numberwords.lib.php,v 1.2 2011/03/30 08:58:03 eldy Exp $
  */
 
 
 /**
- * 		\brief		Function called to complete substitution array
- * 					functions xxx_completesubstitutionarray are called by make_substitutions()
- * 		\return		The entry parameter $substitutionarray is modified
+ * 		Function called to complete substitution array
+ * 		functions xxx_completesubstitutionarray are called by make_substitutions()
+ *		@param		substitutionarray	Array with substitution key=>val
+ *		@param		langs				Output langs
+ *		@param		object				Object to use to get values
+ * 		@return		None. The entry parameter $substitutionarray is modified
  */
 function numberwords_completesubstitutionarray(&$substitutionarray,$langs,$object)
 {
@@ -37,9 +40,9 @@ function numberwords_completesubstitutionarray(&$substitutionarray,$langs,$objec
 	{
 		$numbertext=$langs->getLabelFromNumber($object->total_ttc,1);
 		$substitutionarray['__TOTAL_TTC_WORDS__']=$numbertext;
-		$numbertext=$langs->getLabelFromNumber($object->total_ht);
+		$numbertext=$langs->getLabelFromNumber($object->total_ht,1);
 		$substitutionarray['__TOTAL_HT_WORDS__']=$numbertext;
-		$numbertext=$langs->getLabelFromNumber($object->total_vat,1);
+		$numbertext=$langs->getLabelFromNumber(($object->total_vat?$object->total_vat:$object->total_tva),1);
 		$substitutionarray['__TOTAL_VAT_WORDS__']=$numbertext;
 		$numbertext=$langs->getLabelFromNumber($object->number,0);
 		$substitutionarray['__NUMBER_WORDS__']=$numbertext;
