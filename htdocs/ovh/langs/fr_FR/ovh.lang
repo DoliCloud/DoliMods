@@ -24,3 +24,4 @@ OvhSmsHistory=Historique des %s derniers envois
 ListOfSmsAccountsForNH=Liste des comptes SMS pour ce Nick Handle
 ClickToDialLink=Voici le lien URL à copier-coller dans la configuration du module ClickToDial pour utiliser le ClickToDial %s:<br>%s
 TestSendSMS=Tester envoi SMS
+TestLoginToApi=Tester connexion aux API
