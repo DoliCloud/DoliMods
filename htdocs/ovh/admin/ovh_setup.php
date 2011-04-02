@@ -21,7 +21,7 @@
  *   	\file       htdocs/ovh/admin/ovh_setup.php
  *		\ingroup    ovh
  *		\brief      Setup of module OVH
- *		\version    $Id: ovh_setup.php,v 1.8 2011/04/02 23:36:43 eldy Exp $
+ *		\version    $Id: ovh_setup.php,v 1.9 2011/04/02 23:54:27 eldy Exp $
  */
 
 define('NOCSRFCHECK',1);
@@ -206,6 +206,7 @@ else
         }
         ini_set('default_socket_timeout', $response_timeout);
 
+        print 'URL: '.$WS_DOL_URL.'<br>';
         print $langs->trans("ConnectionTimeout").': '.$timeout.'<br>';
         print $langs->trans("ResponseTimeout").': '.$response_timeout.'<br>';
 
@@ -223,6 +224,7 @@ else
         catch(Exception $e)
         {
             print 'Error '.$e->getMessage().'<br>';
+            print 'If this is an error to connect to OVH host, check your firewall does not block port required to reach OVH manager (for example port 1664).';
         }
     }
 
