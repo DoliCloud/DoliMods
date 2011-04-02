@@ -69,7 +69,13 @@ class OvhSms  extends CommonObject
 
         if ($conf->global->OVHSMS_SOAPURL)
         {
-            $this->soap = new SoapClient($conf->global->OVHSMS_SOAPURL);
+            $proxyhost=($conf->global->MAIN_USE_PROXY?$conf->global->MAIN_PROXY_HOST:false);
+            $proxyport=($conf->global->MAIN_USE_PROXY?$conf->global->MAIN_PROXY_PORT:false);
+            $proxyuser=($conf->global->MAIN_USE_PROXY?$conf->global->MAIN_PROXY_USER:false);
+            $proxypass=($conf->global->MAIN_USE_PROXY?$conf->global->MAIN_PROXY_PASS:false);
+            $timeout=(empty($conf->global->MAIN_USE_CONNECT_TIMEOUT)?10:$conf->global->MAIN_USE_CONNECT_TIMEOUT);               // Connection timeout
+            $response_timeout=(empty($conf->global->MAIN_USE_RESPONSE_TIMEOUT)?30:$conf->global->MAIN_USE_RESPONSE_TIMEOUT);    // Response timeout
+            $this->soap = new SoapClient($conf->global->OVHSMS_SOAPURL,false,$proxyhost,$proxyport,$proxyuser,$proxypass,$timeout,$response_timeout);
             // https://www.ovh.com/soapi/soapi-re-1.8.wsdl
             try {
 
