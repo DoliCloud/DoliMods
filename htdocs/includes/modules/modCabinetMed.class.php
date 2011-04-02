@@ -26,7 +26,7 @@
  *      \file       htdocs/includes/modules/modCabinetMed.class.php
  *      \ingroup    cabinetmed
  *      \brief      Description and activation file for module CabinetMed
- *      \version    $Id: modCabinetMed.class.php,v 1.18 2011/03/26 13:51:15 eldy Exp $
+ *      \version    $Id: modCabinetMed.class.php,v 1.19 2011/04/02 11:23:05 eldy Exp $
  */
 include_once(DOL_DOCUMENT_ROOT ."/includes/modules/DolibarrModules.class.php");
 
@@ -84,7 +84,7 @@ class modCabinetMed extends DolibarrModules
         $this->depends = array();       // List of modules id that must be enabled if this module is enabled
         $this->requiredby = array();    // List of modules id to disable if this one is disabled
         $this->phpmin = array(4,3);                 // Minimum version of PHP required by module
-        $this->need_dolibarr_version = array(3,1,-2);   // Minimum version of Dolibarr required by module
+        $this->need_dolibarr_version = array(3,1,-3);   // Minimum version of Dolibarr required by module
         $this->langfiles = array('cabinetmed@cabinetmed','companies');
 
         // Constants
@@ -110,9 +110,11 @@ class modCabinetMed extends DolibarrModules
 
         // Array to add new pages in new tabs
         $this->tabs = array('thirdparty:+tabcontacts:Correspondants:@cabinetmed:/cabinetmed/contact.php?socid=__ID__',
-                            'thirdparty:+tabantecedents:Antecedents:@cabinetmed:/cabinetmed/antecedant.php?socid=__ID__',
+                            'thirdparty:+tabantecedents:AntecedentsShort:@cabinetmed:/cabinetmed/antecedant.php?socid=__ID__',
                             'thirdparty:+tabtraitetallergies:TraitEtAllergies:@cabinetmed:/cabinetmed/traitetallergies.php?socid=__ID__',
-                            'thirdparty:+tabconsultations:Consultations:@cabinetmed:/cabinetmed/consultations.php?socid=__ID__',
+                            'thirdparty:+tabconsultations:ConsultationsShort:@cabinetmed:/cabinetmed/consultations.php?socid=__ID__',
+                            'thirdparty:+tabexambio:ResultExamBio:@cabinetmed:/cabinetmed/exambio.php?socid=__ID__',
+                            'thirdparty:+tabexamautre:ResultExamAutre:@cabinetmed:/cabinetmed/examautre.php?socid=__ID__',
                             'thirdparty:-customer');
         // where entity can be
         // 'thirdparty'       to add a tab in third party view
@@ -128,15 +130,29 @@ class modCabinetMed extends DolibarrModules
         // Dictionnaries
         $this->dictionnaries=array(
             'langs'=>'cabinetmed@cabinetmed',
-            'tabname'=>array(MAIN_DB_PREFIX."cabinetmed_diaglec",MAIN_DB_PREFIX."cabinetmed_examenprescrit",MAIN_DB_PREFIX."cabinetmed_motifcons"),
-            'tablib'=>array("DiagnostiqueLesionnel","ExamenPrescrit","MotifConsultation"),
-            'tabsql'=>array('SELECT f.rowid as rowid, f.code, f.label, f.active FROM '.MAIN_DB_PREFIX.'cabinetmed_diaglec as f','SELECT f.rowid as rowid, f.code, f.label, f.active FROM '.MAIN_DB_PREFIX.'cabinetmed_examenprescrit as f','SELECT f.rowid as rowid, f.code, f.label, f.active FROM '.MAIN_DB_PREFIX.'cabinetmed_motifcons as f'),
-            'tabsqlsort'=>array("label ASC","label ASC","label ASC"),
-            'tabfield'=>array("code,label","code,label","code,label"),
-            'tabfieldvalue'=>array("code,label","code,label","code,label"),
-            'tabfieldinsert'=>array("code,label","code,label","code,label"),
-            'tabrowid'=>array("rowid","rowid","rowid"),
-            'tabcond'=>array($conf->cabinetmed->enabled,$conf->cabinetmed->enabled,$conf->cabinetmed->enabled)
+            'tabname'=>array(MAIN_DB_PREFIX."cabinetmed_motifcons",
+                             MAIN_DB_PREFIX."cabinetmed_diaglec",
+                             MAIN_DB_PREFIX."cabinetmed_examenprescrit",
+                             MAIN_DB_PREFIX."cabinetmed_c_examconclusion"
+                             //,MAIN_DB_PREFIX."cabinetmed_c_examnature"
+                             ),
+            'tablib'=>array("MotifConsultation",
+                            "DiagnostiqueLesionnel",
+                            "Examens",
+                            "ExamenConclusion"
+                             //,"ResultatExamBio","ResultatExamAutre"
+                             ),
+            'tabsql'=>array('SELECT f.rowid as rowid, f.code, f.label, f.active FROM '.MAIN_DB_PREFIX.'cabinetmed_motifcons as f',
+                            'SELECT f.rowid as rowid, f.code, f.label, f.active FROM '.MAIN_DB_PREFIX.'cabinetmed_diaglec as f',
+                            'SELECT f.rowid as rowid, f.code, f.label, f.biorad as type, f.active FROM '.MAIN_DB_PREFIX.'cabinetmed_examenprescrit as f',
+                            'SELECT f.rowid as rowid, f.code, f.label, f.active FROM '.MAIN_DB_PREFIX.'cabinetmed_c_examconclusion as f'
+                             ),
+            'tabsqlsort'=>array("label ASC", "label ASC","biorad ASC, label ASC","label ASC"),
+            'tabfield'=>array("code,label","code,label","code,label,type","code,label"), // Nom des champs en resultat de select pour affichage du dictionnaire
+            'tabfieldvalue'=>array("code,label","code,label","code,label,biorad","code,label"),  // Nom des champs d'edition pour modification d'un enregistrement
+            'tabfieldinsert'=>array("code,label","code,label","code,label,biorad","code,label"),
+            'tabrowid'=>array("rowid","rowid","rowid","rowid"),
+            'tabcond'=>array($conf->cabinetmed->enabled,$conf->cabinetmed->enabled,$conf->cabinetmed->enabled,$conf->cabinetmed->enabled)
         );
 
         // Boxes

@@ -1,4 +1,4 @@
-# Dolibarr language file - en_EN - awstats
+# Dolibarr language file - fr_FR - cabinetmed
 CHARSET= UTF-8
 RrdSetup=Monitoring module setup
 RrdSetupNotComplete=Monitoring module setup is not complete
@@ -22,13 +22,14 @@ NewConsultation=Nouvelle consultation
 MotifConsultation=Motifs de consultation
 DiagnostiqueLesionnel=Diagnostiques lesionnels
 ExamenPrescrit=Examens prescrits
+Examens=Examens
 PatientsAndCorrespondants=Patients/Corres.
 AntecedentsMed=Antécédents médicaux
 AntecedentsChirGene=Antécédents chirurgicaux génériques
 AntecedentsChirOrtho=Antécédents chirurgicaux orthopédiques
 AntecedentsRhumato=Antécédents rhumatologiques
 Antecedents=Antécédents
-TraitEtAllergies=Traitement et allergies
+TraitEtAllergies=Trait. & allergies
 SpecPharma=Spécialites pharmaceutiques
 NewConsult=Créer consultation
 ListeDesConsultations=Liste des consultations
@@ -55,4 +56,10 @@ DiagLesSecondaires=Diagnostiques lesionnels secondaires
 IdConsult=Numéro consultation
 ListConsult=Liste consultations
 ListOfConsultations=Liste des consultations
+ExamenConclusion=Conclusions d'examens
 Prescriptions=Prescriptions
+ResultExamBio=Exam. Bio
+ResultExamAutre=Exam. Autre
+Correspondants=Correspondants
+AntecedentsShort=ATCD
+ConsultationsShort=Consult.

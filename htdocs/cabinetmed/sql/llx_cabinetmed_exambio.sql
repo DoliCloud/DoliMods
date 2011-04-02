@@ -15,13 +15,28 @@
 -- along with this program; if not, write to the Free Software
 -- Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 --
--- $Id: llx_cabinetmed_examenprescrit.sql,v 1.5 2011/04/02 11:24:27 eldy Exp $
+-- $Id: llx_cabinetmed_exambio.sql,v 1.1 2011/04/02 11:24:27 eldy Exp $
 -- ===========================================================================
 
-CREATE TABLE llx_cabinetmed_examenprescrit (
-  rowid             integer AUTO_INCREMENT PRIMARY KEY,
-  code              varchar(8) NOT NULL,
-  label             varchar(64) NOT NULL,
-  biorad            varchar(8) NOT NULL,
-  active            tinyint DEFAULT 1  NOT NULL
+-- DROP TABLE llx_cabinetmed_exambio
+CREATE TABLE llx_cabinetmed_exambio (
+  rowid              integer AUTO_INCREMENT PRIMARY KEY,
+  fk_soc             integer,
+  dateexam           date NOT NULL,
+  resultat           text,
+  conclusion         text,
+  comment            text,
+  suivipr_ad         integer,
+  suivipr_ag         integer,
+  suivipr_vs         integer,
+  suivipr_eva        integer,
+  suivipr_err        integer,
+  --suivipr_das        double(24,8),
+  suivisa_fat        integer,
+  suivisa_dax        integer,
+  suivisa_dpe        integer,
+  suivisa_dpa        integer,
+  suivisa_rno        integer,
+  suivisa_dma        integer,
+  suivisa_basdai     integer
 ) ENGINE=innodb;

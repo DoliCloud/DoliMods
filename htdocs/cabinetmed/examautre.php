@@ -1,5 +1,8 @@
 <?php
-/* Copyright (C) 2004-2011      Laurent Destailleur  <eldy@users.sourceforge.net>
+/* Copyright (C) 2001-2003,2005 Rodolphe Quiedeville <rodolphe@quiedeville.org>
+ * Copyright (C) 2004-2010      Laurent Destailleur  <eldy@users.sourceforge.net>
+ * Copyright (C) 2005-2006      Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2010           Juanjo Menent        <jmenent@2byte.es>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,7 +23,7 @@
  *   \file       htdocs/cabinetmed/consultations.php
  *   \brief      Tab for consultations
  *   \ingroup    cabinetmed
- *   \version    $Id: consultations.php,v 1.6 2011/04/02 11:24:27 eldy Exp $
+ *   \version    $Id: examautre.php,v 1.1 2011/04/02 11:24:27 eldy Exp $
  */
 
 $res=0;
@@ -453,22 +456,23 @@ if ($socid > 0)
                 }
             });
         });
-        </script>
+        </script>';
 
-
-        <style>
+        print '
+            <style>
             .ui-autocomplete-input { width: '.$width.'px; }
-        </style>
+            </style>
+            ';
 
-
-        <script>
+        print '
+            <script>
             jQuery(function() {
                 jQuery( "#listmotifcons" ).combobox();
                 jQuery( "#listdiagles" ).combobox();
                 jQuery( "#listexamenprescrit" ).combobox();
             });
-        </script>
-        ';
+            </script>
+                ';
 
         //print_fiche_titre($langs->trans("NewConsult"),'','');
 
@@ -905,22 +909,15 @@ function listdiagles($nboflines,$newwidth=0)
     print '</select>'."\n";
 }
 
-/**
- *  Show combo box with all exams
- *  @param          nboflines       Max nb of lines
- *  @param          newwidth        Force width
- *  @param          type            To filter on a type
- *  @param          showtype        Show type
- */
-function listexamenprescrit($nboflines,$newwidth=0,$type='',$showtype=0)
+function listexamenprescrit($nboflines,$newwidth=0)
 {
     global $db,$width;
 
     if (empty($newwidth)) $newwidth=$width;
 
-    print '<select class="flat" id="listexamenprescrit" name="examenprescrit" '.($newwidth?'style="width: '.$newwidth.'px"':'').' size="'.$nboflines.'"'.($nboflines > 1?' multiple':'').'>';
+    print '<select class="flat" id="listexamenprescrit" name="examenprescrit" style="width: '.$newwidth.'px" size="'.$nboflines.'"'.($nboflines > 1?' multiple':'').'>';
     print '<option value="0"></option>';
-    $sql = 'SELECT s.rowid, s.code, s.label, s.biorad as type';
+    $sql = 'SELECT s.rowid, s.code, s.label';
     $sql.= ' FROM '.MAIN_DB_PREFIX.'cabinetmed_examenprescrit as s';
     $sql.= ' ORDER BY label';
     $resql=$db->query($sql);
@@ -933,7 +930,7 @@ function listexamenprescrit($nboflines,$newwidth=0,$type='',$showtype=0)
         while ($i < $num)
         {
             $obj=$db->fetch_object($resql);
-            print '<option value="'.$obj->code.'">'.$obj->label.($showtype?' ('.strtolower($obj->type).')':'').'</option>';
+            print '<option value="'.$obj->code.'">'.$obj->label.'</option>';
             $i++;
         }
     }
@@ -943,5 +940,5 @@ function listexamenprescrit($nboflines,$newwidth=0,$type='',$showtype=0)
 
 $db->close();
 
-llxFooter('$Date: 2011/04/02 11:24:27 $ - $Revision: 1.6 $');
+llxFooter('$Date: 2011/04/02 11:24:27 $ - $Revision: 1.1 $');
 ?>

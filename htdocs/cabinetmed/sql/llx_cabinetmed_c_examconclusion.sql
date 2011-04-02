@@ -15,13 +15,12 @@
 -- along with this program; if not, write to the Free Software
 -- Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 --
--- $Id: llx_cabinetmed_examenprescrit.sql,v 1.5 2011/04/02 11:24:27 eldy Exp $
+-- $Id: llx_cabinetmed_c_examconclusion.sql,v 1.1 2011/04/02 11:24:27 eldy Exp $
 -- ===========================================================================
 
-CREATE TABLE llx_cabinetmed_examenprescrit (
+CREATE TABLE llx_cabinetmed_c_examconclusion (
   rowid             integer AUTO_INCREMENT PRIMARY KEY,
   code              varchar(8) NOT NULL,
   label             varchar(64) NOT NULL,
-  biorad            varchar(8) NOT NULL,
   active            tinyint DEFAULT 1  NOT NULL
 ) ENGINE=innodb;
