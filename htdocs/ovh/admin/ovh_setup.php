@@ -21,7 +21,7 @@
  *   	\file       htdocs/ovh/admin/ovh_setup.php
  *		\ingroup    ovh
  *		\brief      Setup of module OVH
- *		\version    $Id: ovh_setup.php,v 1.7 2011/03/29 23:17:21 eldy Exp $
+ *		\version    $Id: ovh_setup.php,v 1.8 2011/04/02 23:36:43 eldy Exp $
  */
 
 define('NOCSRFCHECK',1);
@@ -117,6 +117,11 @@ print '<form method="post" action="'.$_SERVER["PHP_SELF"].'">';
 print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
 print '<input type="hidden" name="action" value="setvalue">';
 
+if (!extension_loaded('soap'))
+{
+    print '<div class="error">'.$langs->trans("PHPExtensionSoapRequired").'</div>';
+}
+
 $var=true;
 
 print '<table class="nobordernopadding" width="100%">';
@@ -165,8 +170,7 @@ if ($mesg)
 require_once(NUSOAP_PATH.'/nusoap.php');     // Include SOAP
 
 $WS_DOL_URL = $conf->global->OVHSMS_SOAPURL;
-
-dol_syslog("Create nusoap_client for URL=".$WS_DOL_URL, LOG_DEBUG);
+dol_syslog("Will use URL=".$WS_DOL_URL, LOG_DEBUG);
 
 if (empty($conf->global->OVHSMS_NICK) || empty($WS_DOL_URL))
 {
@@ -179,8 +183,33 @@ else
 
     if ($action == 'test')
     {
-        $soap = new soapclient($WS_DOL_URL);
+        $proxyuse=($conf->global->MAIN_USE_PROXY?true:false);
+        $proxyhost=($conf->global->MAIN_USE_PROXY?$conf->global->MAIN_PROXY_HOST:false);
+        $proxyport=($conf->global->MAIN_USE_PROXY?$conf->global->MAIN_PROXY_PORT:false);
+        $proxyuser=($conf->global->MAIN_USE_PROXY?$conf->global->MAIN_PROXY_USER:false);
+        $proxypass=($conf->global->MAIN_USE_PROXY?$conf->global->MAIN_PROXY_PASS:false);
+        $timeout=(empty($conf->global->MAIN_USE_CONNECT_TIMEOUT)?10:$conf->global->MAIN_USE_CONNECT_TIMEOUT);               // Connection timeout
+        $response_timeout=(empty($conf->global->MAIN_USE_RESPONSE_TIMEOUT)?30:$conf->global->MAIN_USE_RESPONSE_TIMEOUT);    // Response timeout
+        //print extension_loaded('soap');
+        if ($proxyuse)
+        {
+            $params=array('connection_timeout'=>$timeout,
+                          'proxy_host'     => $proxyhost,
+                          'proxy_port'     => $proxyport,
+                          'proxy_login'    => $proxyuser,
+                          'proxy_password' => $proxypass);
+            print $langs->trans("TryToUseProxy").': '.$proxyhost.':'.$proxyport.($proxyuser?(' - '.$proxyuser.':'.$proxypass):'').'<br>';
+        }
+        else
+        {
+            $params=array('connection_timeout'=>$timeout);
+        }
+        ini_set('default_socket_timeout', $response_timeout);
 
+        print $langs->trans("ConnectionTimeout").': '.$timeout.'<br>';
+        print $langs->trans("ResponseTimeout").': '.$response_timeout.'<br>';
+
+        $soap = new SoapClient($WS_DOL_URL,$params);
         try {
             //login
             $session = $soap->login($conf->global->OVHSMS_NICK, $conf->global->OVHSMS_PASS, "fr", false);
