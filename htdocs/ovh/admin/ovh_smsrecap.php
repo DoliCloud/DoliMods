@@ -21,7 +21,7 @@
  *   	\file       ovh/admin/ovhsms_recap.php
  *		\ingroup    ovhsms
  *		\brief      Configuration du module ovhsms
- *		\version    $Id: ovh_smsrecap.php,v 1.3 2011/03/29 23:17:21 eldy Exp $
+ *		\version    $Id: ovh_smsrecap.php,v 1.4 2011/04/02 19:23:47 eldy Exp $
  *		\author		Put author name here
  *		\remarks	Put here some comments
  */
@@ -44,7 +44,7 @@ $langs->load("companies");
 $langs->load("ovh@ovh");
 
 if (!$user->admin)
-	accessforbidden();
+accessforbidden();
 
 // Get parameters
 $account = isset($_GET["account"])?$_GET["account"]:'';
@@ -52,10 +52,10 @@ $account = isset($_GET["account"])?$_GET["account"]:'';
 
 
 /***************************************************
-* PAGE
-*
-* Put here all code to build page
-****************************************************/
+ * PAGE
+ *
+ * Put here all code to build page
+ ****************************************************/
 
 
 llxHeader('',$langs->trans('OvhSmsRecap'),'','');
@@ -75,100 +75,102 @@ require_once(NUSOAP_PATH.'/nusoap.php');     // Include SOAP
 $sms = new OvhSms($db);
 if($sms > 0) {
 
-      //telephonySmsAccountList
-      $telephonySmsAccountList = $sms->getSmsListAccount($sms->session);
+    //telephonySmsAccountList
+    $telephonySmsAccountList = $sms->getSmsListAccount($sms->session);
 
-      print '<table class="nobordernopadding" width="100%">';
-      print '<tr class="liste_titre"><td>'.$langs->trans("Account").'</td>';
-      print '<td align="right">'.$langs->trans("NbSmsLeft").'</td>';
-      print "</tr>\n";
+    print '<table class="nobordernopadding" width="100%">';
+    print '<tr class="liste_titre"><td>'.$langs->trans("Account").'</td>';
+    print '<td align="right">'.$langs->trans("NbSmsLeft").'</td>';
+    print "</tr>\n";
 
-      foreach ($telephonySmsAccountList as $accountlisted) {
-         $var=!$var;
-         print '<tr '.$bc[$var].'>';
-         print '<td>';
-         print $accountlisted;
-         print '</td>';
-         print '<td align="right">';
-         $sms->account=$accountlisted;
-         print $sms->CreditLeft();
-         print '</td>';
-         print '</tr>';
-      }
-      print '</table>';
-
-
-
-      if(!empty($account)) {
-
-		  $nbenvoi = '29';
-		  $nbenvoi2 = $nbenvoi+1;
-		  //telephonySmsHistory
-		  echo '<h2>'.$langs->trans('OvhSmsHistory',$nbenvoi2).'</h2>';
-
-		  $resulthistory = $sms->SmsHistory($account);
-		  rsort($resulthistory);
-		  //print_r($resulthistory); // your code here ...
-
-		  print '<table class="nopadding">';
-		  print '<tr >';
-		  //echo '<td>ID</td>';
-		  echo '<th class="liste_titre" width="10%">Date</th>';
-		  echo '<th class="liste_titre">Expediteur</th>';
-		  echo '<th class="liste_titre">Destinataire</th>';
-		  echo '<th class="liste_titre">Texte</th>';
-		  echo '<th class="liste_titre">Status</th>';
-		  //echo '<td>Message</td>';
-		  //echo '<td>Etat</td>';
-		  echo '</tr>';
+    foreach ($telephonySmsAccountList as $accountlisted) {
+        $var=!$var;
+        print '<tr '.$bc[$var].'>';
+        print '<td>';
+        print $accountlisted;
+        print '</td>';
+        print '<td align="right">';
+        $sms->account=$accountlisted;
+        print $sms->CreditLeft();
+        print '</td>';
+        print '</tr>';
+    }
+    print '</table>';
 
 
-		  $i=0;
-		  while($resulthistory[$i]){
-		  $var=!$var;
-		  print '<tr '.$bc[$var].'>';
 
-		     //echo '<td>'.$resulthistory[$i]->smsId.'</td>';
-		     //date
-		     $date = $resulthistory[$i]->date;
-		     $an = substr($date,0,4);
-		     $mois = substr($date,4,2);
-		     $jour = substr($date,6,2);
-		     $heure = substr($date,8,2);
-		     $min = substr($date,10,2);
-		     $sec = substr($date,12,2);
+    if(!empty($account)) {
 
-		     if (!empty($jour))
-		     {echo '<td>'.$jour.'/'.$mois.'/'.$an.' '.$heure.':'.$min.':'.$sec.'</td>';}
-		     else
-		     {echo '<td>NC</td>';}
-		     echo '<td>'.$resulthistory[$i]->numberFrom.'</td>';
-		     echo '<td>'.$resulthistory[$i]->numberTo.'</td>';
-		     echo '<td>'.$resulthistory[$i]->text.'</td>';
-		     echo '<td>';
-		      if ($resulthistory[$i]->status == "sent") { echo $langs->trans("OvhSmsStatutSent");}
+        $nbenvoi = '29';
+        $nbenvoi2 = $nbenvoi+1;
+        //telephonySmsHistory
+        echo '<h2>'.$langs->trans('OvhSmsHistory',$nbenvoi2).'</h2>';
+
+        $resulthistory = $sms->SmsHistory($account);
+        rsort($resulthistory);
+        //print_r($resulthistory); // your code here ...
+
+        print '<table class="nopadding">';
+        print '<tr >';
+        //echo '<td>ID</td>';
+        echo '<th class="liste_titre" width="10%">'.$langs->trans("Date").'</th>';
+        echo '<th class="liste_titre">'.$langs->trans("Sender").'</th>';
+        echo '<th class="liste_titre">'.$langs->trans("Recipient").'</th>';
+        echo '<th class="liste_titre">'.$langs->trans("Text").'</th>';
+        echo '<th class="liste_titre">'.$langs->trans("Status").'</th>';
+        //echo '<td>Message</td>';
+        //echo '<td>Etat</td>';
+        echo '</tr>';
+
+
+        $i=0;
+        while($resulthistory[$i]){
+            $var=!$var;
+            print '<tr '.$bc[$var].'>';
+
+            //echo '<td>'.$resulthistory[$i]->smsId.'</td>';
+            //date
+            $date = $resulthistory[$i]->date;
+            $an = substr($date,0,4);
+            $mois = substr($date,4,2);
+            $jour = substr($date,6,2);
+            $heure = substr($date,8,2);
+            $min = substr($date,10,2);
+            $sec = substr($date,12,2);
+
+            if (!empty($jour))
+            {
+                echo '<td>'.$date.'</td>';
+            }
+            else
+            {
+                echo '<td>NC</td>';
+            }
+            echo '<td>'.$resulthistory[$i]->numberFrom.'</td>';
+            echo '<td>'.$resulthistory[$i]->numberTo.'</td>';
+            echo '<td>'.$resulthistory[$i]->text.'</td>';
+            echo '<td>';
+            if ($resulthistory[$i]->status == "sent") { echo $langs->trans("OvhSmsStatutSent");}
             if ($resulthistory[$i]->status == "submitted") { echo $langs->trans('OvhSmsStatutSubmitted');}
             if ($resulthistory[$i]->status == "waiting") { echo $langs->trans('OvhSmsStatutWaiting');}
             if ($resulthistory[$i]->status == "delivery failed") { echo $langs->trans('OvhSmsStatutFailed');}
 
-		     if ($resulthistory[$i]->status <> "sent" AND $resulthistory[$i]->status <> "submitted" AND $resulthistory[$i]->status <> "waiting" AND $resulthistory[$i]->status <> "delivery failed") {echo $resulthistory[$i]->status;}
+            if ($resulthistory[$i]->status <> "sent" AND $resulthistory[$i]->status <> "submitted" AND $resulthistory[$i]->status <> "waiting" AND $resulthistory[$i]->status <> "delivery failed") {echo $resulthistory[$i]->status;}
 
-		     echo '</td>';
-		     echo '</tr>';
+            echo '</td>';
+            echo '</tr>';
 
-		     if ($i==$nbenvoi) {break;}
-		     $i++;
-		  }
-		  print '</table>';
-
-
-      //logout
-      $sms->logout();
-      }
-
-  }
+            if ($i==$nbenvoi) {break;}
+            $i++;
+        }
+        print '</table>';
 
 
+        //logout
+        $sms->logout();
+    }
+
+}
 
 
 
@@ -177,5 +179,5 @@ if($sms > 0) {
 
 // End of page
 $db->close();
-llxFooter('$Date: 2011/03/29 23:17:21 $ - $Revision: 1.3 $');
+llxFooter('$Date: 2011/04/02 19:23:47 $ - $Revision: 1.4 $');
 ?>
