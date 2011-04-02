@@ -20,7 +20,7 @@
  *   \file       htdocs/cabinetmed/consultations.php
  *   \brief      Tab for consultations
  *   \ingroup    cabinetmed
- *   \version    $Id: consultations.php,v 1.6 2011/04/02 11:24:27 eldy Exp $
+ *   \version    $Id: consultations.php,v 1.7 2011/04/02 11:40:20 eldy Exp $
  */
 
 $res=0;
@@ -717,7 +717,7 @@ if ($action == '')
 
 if ($action == '')
 {
-    print_fiche_titre($langs->trans("ListeDesConsultations"));
+    print_fiche_titre($langs->trans("ListOfConsultations"));
 
     $param='&socid='.$socid;
 
@@ -943,5 +943,5 @@ function listexamenprescrit($nboflines,$newwidth=0,$type='',$showtype=0)
 
 $db->close();
 
-llxFooter('$Date: 2011/04/02 11:24:27 $ - $Revision: 1.6 $');
+llxFooter('$Date: 2011/04/02 11:40:20 $ - $Revision: 1.7 $');
 ?>

@@ -23,7 +23,7 @@
  *   \file       htdocs/cabinetmed/consultations.php
  *   \brief      Tab for consultations
  *   \ingroup    cabinetmed
- *   \version    $Id: exambio.php,v 1.1 2011/04/02 11:24:27 eldy Exp $
+ *   \version    $Id: exambio.php,v 1.2 2011/04/02 11:40:20 eldy Exp $
  */
 
 $res=0;
@@ -307,7 +307,7 @@ if ($socid > 0)
     if ($conf->notification->enabled) $langs->load("mails");
 
 	$head = societe_prepare_head($societe);
-	dol_fiche_head($head, 'tabconsultations', $langs->trans("ThirdParty"),0,'company');
+	dol_fiche_head($head, 'tabexambio', $langs->trans("ThirdParty"),0,'company');
 
 	print "<form method=\"post\" action=\"".$_SERVER["PHP_SELF"]."\">";
 	print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
@@ -712,7 +712,7 @@ if ($action == '')
 
     if ($user->rights->societe->creer)
     {
-        print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?socid='.$societe->id.'&amp;action=create">'.$langs->trans("NewConsult").'</a>';
+        print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?socid='.$societe->id.'&amp;action=create">'.$langs->trans("NewExamBio").'</a>';
     }
 
     print '</div>';
@@ -721,7 +721,7 @@ if ($action == '')
 
 if ($action == '')
 {
-    print_fiche_titre($langs->trans("ListeDesConsultations"));
+    print_fiche_titre($langs->trans("ListOfExamBio"));
 
     $param='&socid='.$socid;
 
@@ -940,5 +940,5 @@ function listexamenprescrit($nboflines,$newwidth=0)
 
 $db->close();
 
-llxFooter('$Date: 2011/04/02 11:24:27 $ - $Revision: 1.1 $');
+llxFooter('$Date: 2011/04/02 11:40:20 $ - $Revision: 1.2 $');
 ?>
