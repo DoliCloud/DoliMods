@@ -65,7 +65,7 @@ class OvhSms  extends CommonObject
         $this->priority = '3';
         $this->deferred = '60';
         // Set the WebService URL
-        dol_syslog(get_class($this)."::OvhSms URL=".$conf->global->OVHSMS_SOAPURL);
+        dol_syslog("Create nusoap_client for URL=".$conf->global->OVHSMS_SOAPURL);
 
         if ($conf->global->OVHSMS_SOAPURL)
         {
@@ -107,7 +107,7 @@ class OvhSms  extends CommonObject
                 return 1;
 
             } catch(SoapFault $fault) {
-                dol_syslog(get_class($this).'::SoapFault: '.$fault);
+                dol_syslog("Error nusoap_client for URL=".$conf->global->OVHSMS_SOAPURL. ' : '.$fault);
 
                 return 0;
             }
