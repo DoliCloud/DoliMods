@@ -20,7 +20,7 @@
  *   \file       htdocs/cabinetmed/consultations.php
  *   \brief      Tab for consultations
  *   \ingroup    cabinetmed
- *   \version    $Id: consultations.php,v 1.7 2011/04/02 11:40:20 eldy Exp $
+ *   \version    $Id: consultations.php,v 1.8 2011/04/03 21:06:03 eldy Exp $
  */
 
 $res=0;
@@ -777,7 +777,7 @@ if ($action == '')
 
             $var=!$var;
             print '<tr '.$bc[$var].'><td>';
-            print sprintf("%08d",$obj->rowid);
+            print '<a href="'.$_SERVER["PHP_SELF"].'?socid='.$obj->fk_soc.'&id='.$obj->rowid.'&action=edit">'.sprintf("%08d",$obj->rowid).'</a>';
             print '</td><td>';
             print dol_print_date($db->jdate($obj->datecons),'day');
             print '</td><td>';
@@ -835,7 +835,12 @@ if ($action == '')
             }
             print '<td align="right">';
             print '<a href="'.$_SERVER["PHP_SELF"].'?socid='.$obj->fk_soc.'&id='.$obj->rowid.'&action=edit">'.img_edit().'</a>';
-            print '</td>';
+/*            if ($user->rights->societe->supprimer)
+            {
+                print ' &nbsp; ';
+                print '<a href="'.$_SERVER["PHP_SELF"].'?socid='.$obj->fk_soc.'&id='.$obj->rowid.'&action=delete">'.img_delete().'</a>';
+            }
+*/            print '</td>';
             print '</tr>';
             $i++;
         }
@@ -943,5 +948,5 @@ function listexamenprescrit($nboflines,$newwidth=0,$type='',$showtype=0)
 
 $db->close();
 
-llxFooter('$Date: 2011/04/02 11:40:20 $ - $Revision: 1.7 $');
+llxFooter('$Date: 2011/04/03 21:06:03 $ - $Revision: 1.8 $');
 ?>
