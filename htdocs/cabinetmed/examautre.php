@@ -23,7 +23,7 @@
  *   \file       htdocs/cabinetmed/examautre.php
  *   \brief      Tab for consultations
  *   \ingroup    cabinetmed
- *   \version    $Id: examautre.php,v 1.3 2011/04/03 20:12:30 eldy Exp $
+ *   \version    $Id: examautre.php,v 1.4 2011/04/03 21:18:08 eldy Exp $
  */
 
 $res=0;
@@ -762,7 +762,7 @@ if ($action == '')
 
             $var=!$var;
             print '<tr '.$bc[$var].'><td>';
-            print sprintf("%08d",$obj->rowid);
+            print '<a href="'.$_SERVER["PHP_SELF"].'?socid='.$obj->fk_soc.'&id='.$obj->rowid.'&action=edit">'.sprintf("%08d",$obj->rowid).'</a>';
             print '</td><td>';
             print dol_print_date($db->jdate($obj->dateexam),'day');
             print '</td><td>';
@@ -873,5 +873,5 @@ function listexamenprescrit($nboflines,$newwidth=0)
 
 $db->close();
 
-llxFooter('$Date: 2011/04/03 20:12:30 $ - $Revision: 1.3 $');
+llxFooter('$Date: 2011/04/03 21:18:08 $ - $Revision: 1.4 $');
 ?>
