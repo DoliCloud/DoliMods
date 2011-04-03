@@ -21,7 +21,7 @@
  *   	\file       htdocs/ovh/admin/ovh_setup.php
  *		\ingroup    ovh
  *		\brief      Setup of module OVH
- *		\version    $Id: ovh_setup.php,v 1.9 2011/04/02 23:54:27 eldy Exp $
+ *		\version    $Id: ovh_setup.php,v 1.10 2011/04/03 00:16:31 eldy Exp $
  */
 
 define('NOCSRFCHECK',1);
@@ -223,8 +223,10 @@ else
         }
         catch(Exception $e)
         {
+            print '<div class="error">';
             print 'Error '.$e->getMessage().'<br>';
-            print 'If this is an error to connect to OVH host, check your firewall does not block port required to reach OVH manager (for example port 1664).';
+            print 'If this is an error to connect to OVH host, check your firewall does not block port required to reach OVH manager (for example port 1664).<br>';
+            print '</div>';
         }
     }
 
