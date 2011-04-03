@@ -65,31 +65,13 @@ class OvhSms  extends CommonObject
         $this->priority = '3';
         $this->deferred = '60';
         // Set the WebService URL
-        dol_syslog("Create nusoap_client for URL=".$conf->global->OVHSMS_SOAPURL);
+        dol_syslog(get_class($this)."::OvhSms URL=".$conf->global->OVHSMS_SOAPURL);
 
         if ($conf->global->OVHSMS_SOAPURL)
         {
-            $proxyuse=($conf->global->MAIN_USE_PROXY?true:false);
-            $proxyhost=($conf->global->MAIN_USE_PROXY?$conf->global->MAIN_PROXY_HOST:false);
-            $proxyport=($conf->global->MAIN_USE_PROXY?$conf->global->MAIN_PROXY_PORT:false);
-            $proxyuser=($conf->global->MAIN_USE_PROXY?$conf->global->MAIN_PROXY_USER:false);
-            $proxypass=($conf->global->MAIN_USE_PROXY?$conf->global->MAIN_PROXY_PASS:false);
-            $timeout=(empty($conf->global->MAIN_USE_CONNECT_TIMEOUT)?10:$conf->global->MAIN_USE_CONNECT_TIMEOUT);               // Connection timeout
-            $response_timeout=(empty($conf->global->MAIN_USE_RESPONSE_TIMEOUT)?30:$conf->global->MAIN_USE_RESPONSE_TIMEOUT);    // Response timeout
-            //print extension_loaded('soap');
-            if ($proxyuse)
-            {
-                $params=array('connection_timeout'=>$timeout,
-                              'proxy_host'     => $proxyhost,
-                              'proxy_port'     => $proxyport,
-                              'proxy_login'    => $proxyuser,
-                              'proxy_password' => $proxypass);
-            }
-            else
-            {
-                $params=array('connection_timeout'=>$timeout);
-            }
-            ini_set('default_socket_timeout', $response_timeout);
+            require_once(DOL_DOCUMENT_ROOT.'/lib/functions2.lib.php');
+            $params=getSoapParams();
+            ini_set('default_socket_timeout', $params['response_timeout']);
             $this->soap = new SoapClient($conf->global->OVHSMS_SOAPURL,$params);
             // https://www.ovh.com/soapi/soapi-re-1.8.wsdl
             try {
@@ -107,7 +89,7 @@ class OvhSms  extends CommonObject
                 return 1;
 
             } catch(SoapFault $fault) {
-                dol_syslog("Error nusoap_client for URL=".$conf->global->OVHSMS_SOAPURL. ' : '.$fault);
+                dol_syslog(get_class($this).'::SoapFault: '.$fault);
 
                 return 0;
             }

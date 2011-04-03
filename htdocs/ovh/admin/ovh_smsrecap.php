@@ -21,7 +21,7 @@
  *   	\file       ovh/admin/ovhsms_recap.php
  *		\ingroup    ovhsms
  *		\brief      Configuration du module ovhsms
- *		\version    $Id: ovh_smsrecap.php,v 1.4 2011/04/02 19:23:47 eldy Exp $
+ *		\version    $Id: ovh_smsrecap.php,v 1.5 2011/04/03 18:11:56 eldy Exp $
  *		\author		Put author name here
  *		\remarks	Put here some comments
  */
@@ -67,7 +67,7 @@ print_fiche_titre($langs->trans("OvhSmsRecap"),$linkback,'setup');
 $var=true;
 
 
-require_once(NUSOAP_PATH.'/nusoap.php');     // Include SOAP
+require_once(DOL_DOCUMENT_ROOT."/includes/nusoap/lib/nusoap.php");     // Include SOAP
 
 
 
@@ -179,5 +179,5 @@ if($sms > 0) {
 
 // End of page
 $db->close();
-llxFooter('$Date: 2011/04/02 19:23:47 $ - $Revision: 1.4 $');
+llxFooter('$Date: 2011/04/03 18:11:56 $ - $Revision: 1.5 $');
 ?>

@@ -21,7 +21,7 @@
  *   	\file       htdocs/ovh/admin/ovh_setup.php
  *		\ingroup    ovh
  *		\brief      Setup of module OVH
- *		\version    $Id: ovh_setup.php,v 1.10 2011/04/03 00:16:31 eldy Exp $
+ *		\version    $Id: ovh_setup.php,v 1.11 2011/04/03 18:11:56 eldy Exp $
  */
 
 define('NOCSRFCHECK',1);
@@ -183,32 +183,14 @@ else
 
     if ($action == 'test')
     {
-        $proxyuse=($conf->global->MAIN_USE_PROXY?true:false);
-        $proxyhost=($conf->global->MAIN_USE_PROXY?$conf->global->MAIN_PROXY_HOST:false);
-        $proxyport=($conf->global->MAIN_USE_PROXY?$conf->global->MAIN_PROXY_PORT:false);
-        $proxyuser=($conf->global->MAIN_USE_PROXY?$conf->global->MAIN_PROXY_USER:false);
-        $proxypass=($conf->global->MAIN_USE_PROXY?$conf->global->MAIN_PROXY_PASS:false);
-        $timeout=(empty($conf->global->MAIN_USE_CONNECT_TIMEOUT)?10:$conf->global->MAIN_USE_CONNECT_TIMEOUT);               // Connection timeout
-        $response_timeout=(empty($conf->global->MAIN_USE_RESPONSE_TIMEOUT)?30:$conf->global->MAIN_USE_RESPONSE_TIMEOUT);    // Response timeout
-        //print extension_loaded('soap');
-        if ($proxyuse)
-        {
-            $params=array('connection_timeout'=>$timeout,
-                          'proxy_host'     => $proxyhost,
-                          'proxy_port'     => $proxyport,
-                          'proxy_login'    => $proxyuser,
-                          'proxy_password' => $proxypass);
-            print $langs->trans("TryToUseProxy").': '.$proxyhost.':'.$proxyport.($proxyuser?(' - '.$proxyuser.':'.$proxypass):'').'<br>';
-        }
-        else
-        {
-            $params=array('connection_timeout'=>$timeout);
-        }
-        ini_set('default_socket_timeout', $response_timeout);
+        require_once(DOL_DOCUMENT_ROOT.'/lib/functions2.lib.php');
+        $params=getSoapParams();
+        ini_set('default_socket_timeout', $params['response_timeout']);
 
+        if ($params['proxy_use']) print $langs->trans("TryToUseProxy").': '.$params['proxy_host'].':'.$params['proxy_port'].($params['proxy_login']?(' - '.$params['proxy_login'].':'.$params['proxy_password']):'').'<br>';
         print 'URL: '.$WS_DOL_URL.'<br>';
-        print $langs->trans("ConnectionTimeout").': '.$timeout.'<br>';
-        print $langs->trans("ResponseTimeout").': '.$response_timeout.'<br>';
+        print $langs->trans("ConnectionTimeout").': '.$params['connection_timeout'].'<br>';
+        print $langs->trans("ResponseTimeout").': '.$params['response_timeout'].'<br>';
 
         $soap = new SoapClient($WS_DOL_URL,$params);
         try {
