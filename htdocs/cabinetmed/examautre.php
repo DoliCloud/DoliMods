@@ -20,10 +20,10 @@
  */
 
 /**
- *   \file       htdocs/cabinetmed/consultations.php
+ *   \file       htdocs/cabinetmed/examautre.php
  *   \brief      Tab for consultations
  *   \ingroup    cabinetmed
- *   \version    $Id: examautre.php,v 1.2 2011/04/02 11:40:20 eldy Exp $
+ *   \version    $Id: examautre.php,v 1.3 2011/04/03 20:12:30 eldy Exp $
  */
 
 $res=0;
@@ -60,7 +60,7 @@ if ($page == -1) { $page = 0; }
 $offset = $conf->liste_limit * $page;
 $pageprev = $page - 1;
 $pagenext = $page + 1;
-if (! $sortfield) $sortfield='t.datecons';
+if (! $sortfield) $sortfield='t.dateexam';
 if (! $sortorder) $sortorder='DESC';
 $limit = $conf->liste_limit;
 
@@ -729,13 +729,9 @@ if ($action == '')
     print '<table class="noborder" width="100%">';
     print '<tr class="liste_titre">';
     print_liste_field_titre($langs->trans('Num'),$_SERVER['PHP_SELF'],'t.rowid','',$param,'',$sortfield,$sortorder);
-    print_liste_field_titre($langs->trans('Date'),$_SERVER['PHP_SELF'],'t.datecons','',$param,'',$sortfield,$sortorder);
-    print_liste_field_titre($langs->trans('Prise en charge'),$_SERVER['PHP_SELF'],'t.typepriseencharge','',$param,'',$sortfield,$sortorder);
-    print_liste_field_titre($langs->trans('MotifPrincipal'),$_SERVER['PHP_SELF'],'t.motifconsprinc','',$param,'',$sortfield,$sortorder);
-    print_liste_field_titre($langs->trans('ConsultActe'),$_SERVER['PHP_SELF'],'t.typevisit','',$param,'',$sortfield,$sortorder);
-    print_liste_field_titre($langs->trans('MontantPaiement'),$_SERVER['PHP_SELF'],'','',$param,'',$sortfield,$sortorder);
-    print_liste_field_titre($langs->trans('TypePaiement'),$_SERVER['PHP_SELF'],'','',$param,'',$sortfield,$sortorder);
-    if ($conf->banque->enabled) print_liste_field_titre($langs->trans('Bank'),$_SERVER['PHP_SELF'],'','',$param,'',$sortfield,$sortorder);
+    print_liste_field_titre($langs->trans('Date'),$_SERVER['PHP_SELF'],'t.dateexam','',$param,'',$sortfield,$sortorder);
+    print_liste_field_titre($langs->trans('Examen'),$_SERVER['PHP_SELF'],'t.examprinc','',$param,'',$sortfield,$sortorder);
+    print_liste_field_titre($langs->trans('Conclusion'),$_SERVER['PHP_SELF'],'t.examsec','',$param,'',$sortfield,$sortorder);
     print '<td>&nbsp;</td>';
     print '</tr>';
 
@@ -744,28 +740,13 @@ if ($action == '')
     $sql = "SELECT";
     $sql.= " t.rowid,";
     $sql.= " t.fk_soc,";
-    $sql.= " t.datecons,";
-    $sql.= " t.typepriseencharge,";
-    $sql.= " t.motifconsprinc,";
-    $sql.= " t.diaglesprinc,";
-    $sql.= " t.motifconssec,";
-    $sql.= " t.diaglessec,";
-    $sql.= " t.examenclinique,";
-    $sql.= " t.examenprescrit,";
-    $sql.= " t.traitementprescrit,";
-    $sql.= " t.comment,";
-    $sql.= " t.typevisit,";
-    $sql.= " t.infiltration,";
-    $sql.= " t.codageccam,";
-    $sql.= " t.montant_cheque,";
-    $sql.= " t.montant_espece,";
-    $sql.= " t.montant_carte,";
-    $sql.= " t.montant_tiers,";
-    $sql.= " t.banque,";
-    $sql.= " bu.fk_bank, b.fk_account";
-    $sql.= " FROM ".MAIN_DB_PREFIX."cabinetmed_cons as t";
-    $sql.= " LEFT JOIN ".MAIN_DB_PREFIX."bank_url as bu on bu.url_id = t.rowid AND type = 'consultation'";
-    $sql.= " LEFT JOIN ".MAIN_DB_PREFIX."bank as b on bu.fk_bank = b.rowid";
+    $sql.= " t.dateexam,";
+    $sql.= " t.examprinc,";
+    $sql.= " t.examsec,";
+    $sql.= " t.concprinc,";
+    $sql.= " t.concsec,";
+    $sql.= " t.tms";
+    $sql.= " FROM ".MAIN_DB_PREFIX."cabinetmed_examaut as t";
     $sql.= " WHERE t.fk_soc = ".$socid;
     $sql.= " ORDER BY ".$sortfield." ".$sortorder.", t.rowid DESC";
 
@@ -783,60 +764,12 @@ if ($action == '')
             print '<tr '.$bc[$var].'><td>';
             print sprintf("%08d",$obj->rowid);
             print '</td><td>';
-            print dol_print_date($db->jdate($obj->datecons),'day');
+            print dol_print_date($db->jdate($obj->dateexam),'day');
             print '</td><td>';
-            print $obj->typepriseencharge;
+            print $obj->examprinc;
             print '</td><td>';
-            print dol_trunc($obj->motifconsprinc,32);
+            print $obj->concprinc;
             print '</td>';
-            print '<td>';
-            //print dol_print_date($obj->diaglesprinc,'day');
-            //print '</td><td>';
-            print $obj->typevisit;
-            print '</td>';
-            if (price2num($obj->montant_cheque) > 0)
-            {
-                print '<td>';
-                print price($obj->montant_cheque);
-                print '</td><td>';
-                print 'Cheque';
-                print '</td>';
-            }
-            if (price2num($obj->montant_carte) > 0)
-            {
-                print '<td>';
-                print price($obj->montant_carte);
-                print '</td><td>';
-                print 'Carte';
-                print '</td>';
-            }
-            if (price2num($obj->montant_espece) > 0)
-            {
-                print '<td>';
-                print price($obj->montant_espece);
-                print '</td><td>';
-                print 'Espece';
-                print '</td>';
-            }
-            if (price2num($obj->montant_tiers) > 0)
-            {
-                print '<td>';
-                print price($obj->montant_tiers);
-                print '</td><td>';
-                print 'Tiers';
-                print '</td>';
-            }
-            if ($conf->banque->enabled)
-            {
-                print '<td>';
-                if ($obj->fk_account)
-                {
-                    $bank=new Account($db);
-                    $bank->fetch($obj->fk_account);
-                    print $bank->getNomUrl(1,'transactions');
-                }
-                print '</td>';
-            }
             print '<td align="right">';
             print '<a href="'.$_SERVER["PHP_SELF"].'?socid='.$obj->fk_soc.'&id='.$obj->rowid.'&action=edit">'.img_edit().'</a>';
             print '</td>';
@@ -940,5 +873,5 @@ function listexamenprescrit($nboflines,$newwidth=0)
 
 $db->close();
 
-llxFooter('$Date: 2011/04/02 11:40:20 $ - $Revision: 1.2 $');
+llxFooter('$Date: 2011/04/03 20:12:30 $ - $Revision: 1.3 $');
 ?>

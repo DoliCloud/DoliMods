@@ -15,7 +15,7 @@
 -- along with this program; if not, write to the Free Software
 -- Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 --
--- $Id: llx_cabinetmed_examaut.sql,v 1.1 2011/04/02 11:24:27 eldy Exp $
+-- $Id: llx_cabinetmed_examaut.sql,v 1.2 2011/04/03 20:12:33 eldy Exp $
 -- ===========================================================================
 
 -- DROP TABLE llx_cabinetmed_examaut
@@ -23,8 +23,9 @@ CREATE TABLE llx_cabinetmed_examaut (
   rowid              integer AUTO_INCREMENT PRIMARY KEY,
   fk_soc             integer,
   dateexam           date NOT NULL,
-  motifconsprinc     varchar(64),
-  diaglesprinc       varchar(64),
-  motifconssec       text,
-  diaglessec         text,
+  examprinc          varchar(64),
+  examsec            text,
+  concprinc          varchar(64),
+  concsec            text,
+  tms                timestamp                    -- date creation/modification
 ) ENGINE=innodb;

@@ -20,10 +20,10 @@
  */
 
 /**
- *   \file       htdocs/cabinetmed/consultations.php
+ *   \file       htdocs/cabinetmed/exambio.php
  *   \brief      Tab for consultations
  *   \ingroup    cabinetmed
- *   \version    $Id: exambio.php,v 1.2 2011/04/02 11:40:20 eldy Exp $
+ *   \version    $Id: exambio.php,v 1.3 2011/04/03 20:12:30 eldy Exp $
  */
 
 $res=0;
@@ -940,5 +940,5 @@ function listexamenprescrit($nboflines,$newwidth=0)
 
 $db->close();
 
-llxFooter('$Date: 2011/04/02 11:40:20 $ - $Revision: 1.2 $');
+llxFooter('$Date: 2011/04/03 20:12:30 $ - $Revision: 1.3 $');
 ?>

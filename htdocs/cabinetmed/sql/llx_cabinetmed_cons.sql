@@ -15,7 +15,7 @@
 -- along with this program; if not, write to the Free Software
 -- Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 --
--- $Id: llx_cabinetmed_cons.sql,v 1.1 2011/02/12 18:36:57 eldy Exp $
+-- $Id: llx_cabinetmed_cons.sql,v 1.2 2011/04/03 20:12:33 eldy Exp $
 -- ===========================================================================
 
 -- DROP TABLE llx_cabinetmed_cons
@@ -39,5 +39,6 @@ CREATE TABLE llx_cabinetmed_cons (
   montant_espece     double(24,8),
   montant_carte      double(24,8),
   montant_tiers      double(24,8),
-  banque             varchar(128)   
+  banque             varchar(128),
+  tms                timestamp                    -- date creation/modification
 ) ENGINE=innodb;

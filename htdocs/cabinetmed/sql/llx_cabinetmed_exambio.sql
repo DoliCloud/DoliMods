@@ -15,7 +15,7 @@
 -- along with this program; if not, write to the Free Software
 -- Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 --
--- $Id: llx_cabinetmed_exambio.sql,v 1.1 2011/04/02 11:24:27 eldy Exp $
+-- $Id: llx_cabinetmed_exambio.sql,v 1.2 2011/04/03 20:12:33 eldy Exp $
 -- ===========================================================================
 
 -- DROP TABLE llx_cabinetmed_exambio
@@ -38,5 +38,6 @@ CREATE TABLE llx_cabinetmed_exambio (
   suivisa_dpa        integer,
   suivisa_rno        integer,
   suivisa_dma        integer,
-  suivisa_basdai     integer
+  suivisa_basdai     integer,
+  tms                timestamp                    -- date creation/modification
 ) ENGINE=innodb;
