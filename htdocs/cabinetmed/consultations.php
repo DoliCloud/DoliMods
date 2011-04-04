@@ -20,7 +20,7 @@
  *   \file       htdocs/cabinetmed/consultations.php
  *   \brief      Tab for consultations
  *   \ingroup    cabinetmed
- *   \version    $Id: consultations.php,v 1.8 2011/04/03 21:06:03 eldy Exp $
+ *   \version    $Id: consultations.php,v 1.9 2011/04/04 22:13:59 eldy Exp $
  */
 
 $res=0;
@@ -593,7 +593,7 @@ if ($socid > 0)
         print '</td></tr>';
         print '<tr><td valign="top">';
         print '</td><td>';
-        print '<textarea name="examenprescrit" id="examenprescrit" cols="40">';
+        print '<textarea name="examenprescrit" id="examenprescrit" cols="40" rows="'.ROWS_4.'">';
         print $consult->examenprescrit;
         print '</textarea>';
         print '</td>';
@@ -727,7 +727,7 @@ if ($action == '')
     print_liste_field_titre($langs->trans('Num'),$_SERVER['PHP_SELF'],'t.rowid','',$param,'',$sortfield,$sortorder);
     print_liste_field_titre($langs->trans('Date'),$_SERVER['PHP_SELF'],'t.datecons','',$param,'',$sortfield,$sortorder);
     print_liste_field_titre($langs->trans('Prise en charge'),$_SERVER['PHP_SELF'],'t.typepriseencharge','',$param,'',$sortfield,$sortorder);
-    print_liste_field_titre($langs->trans('MotifPrincipal'),$_SERVER['PHP_SELF'],'t.motifconsprinc','',$param,'',$sortfield,$sortorder);
+    print_liste_field_titre($langs->trans('DiagLesPrincipal'),$_SERVER['PHP_SELF'],'t.diaglesprinc','',$param,'',$sortfield,$sortorder);
     print_liste_field_titre($langs->trans('ConsultActe'),$_SERVER['PHP_SELF'],'t.typevisit','',$param,'',$sortfield,$sortorder);
     print_liste_field_titre($langs->trans('MontantPaiement'),$_SERVER['PHP_SELF'],'','',$param,'',$sortfield,$sortorder);
     print_liste_field_titre($langs->trans('TypePaiement'),$_SERVER['PHP_SELF'],'','',$param,'',$sortfield,$sortorder);
@@ -783,7 +783,7 @@ if ($action == '')
             print '</td><td>';
             print $obj->typepriseencharge;
             print '</td><td>';
-            print dol_trunc($obj->motifconsprinc,32);
+            print dol_trunc($obj->diaglesprinc,32);
             print '</td>';
             print '<td>';
             //print dol_print_date($obj->diaglesprinc,'day');
@@ -948,5 +948,5 @@ function listexamenprescrit($nboflines,$newwidth=0,$type='',$showtype=0)
 
 $db->close();
 
-llxFooter('$Date: 2011/04/03 21:06:03 $ - $Revision: 1.8 $');
+llxFooter('$Date: 2011/04/04 22:13:59 $ - $Revision: 1.9 $');
 ?>

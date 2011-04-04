@@ -21,7 +21,7 @@
 /**
  *		\file       htdocs/theme/eldy/style.css.php
  *		\brief      Fichier de style CSS du theme Eldy
- *		\version    $Id: style.css.php,v 1.6 2011/03/29 23:17:21 eldy Exp $
+ *		\version    $Id: style.css.php,v 1.7 2011/04/04 22:13:59 eldy Exp $
  */
 
 //if (! defined('NOREQUIREUSER')) define('NOREQUIREUSER','1');	// Not disabled cause need to load personalized language
@@ -1276,6 +1276,7 @@ div.error {
   margin: 0.5em 0em 0.5em 0em;
   border: 1px solid #8C9CAB;
   -moz-border-radius:6px;
+  background: #efefa4;
 }
 
 /* Info admin */
