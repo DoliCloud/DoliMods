@@ -23,7 +23,7 @@
  *   \file       htdocs/cabinetmed/exambio.php
  *   \brief      Tab for consultations
  *   \ingroup    cabinetmed
- *   \version    $Id: exambio.php,v 1.4 2011/04/03 21:18:08 eldy Exp $
+ *   \version    $Id: exambio.php,v 1.5 2011/04/04 22:39:42 eldy Exp $
  */
 
 $res=0;
@@ -728,7 +728,7 @@ if ($action == '')
     print "\n";
     print '<table class="noborder" width="100%">';
     print '<tr class="liste_titre">';
-    print_liste_field_titre($langs->trans('Num'),$_SERVER['PHP_SELF'],'t.rowid','',$param,'',$sortfield,$sortorder);
+    //print_liste_field_titre($langs->trans('Num'),$_SERVER['PHP_SELF'],'t.rowid','',$param,'',$sortfield,$sortorder);
     print_liste_field_titre($langs->trans('Date'),$_SERVER['PHP_SELF'],'t.dateexam','',$param,'',$sortfield,$sortorder);
     print '<td>&nbsp;</td>';
     print '</tr>';
@@ -755,11 +755,16 @@ if ($action == '')
             $obj = $db->fetch_object($resql);
 
             $var=!$var;
-            print '<tr '.$bc[$var].'><td>';
-            print '<a href="'.$_SERVER["PHP_SELF"].'?socid='.$obj->fk_soc.'&id='.$obj->rowid.'&action=edit">'.sprintf("%08d",$obj->rowid).'</a>';
-            print '</td><td>';
-            print dol_print_date($db->jdate($obj->datecons),'day');
-            print '</td><td>';
+            print '<tr '.$bc[$var].'>';
+            //print '<td>';
+            //print '<a href="'.$_SERVER["PHP_SELF"].'?socid='.$obj->fk_soc.'&id='.$obj->rowid.'&action=edit">'.sprintf("%08d",$obj->rowid).'</a>';
+            //print '</td>';
+            print '<td>';
+            print '<a href="'.$_SERVER["PHP_SELF"].'?socid='.$obj->fk_soc.'&id='.$obj->rowid.'&action=edit">';
+            print dol_print_date($db->jdate($obj->dateexambio),'day');
+            print '</a>';
+            print '</td>';
+            /*print '<td>';
             print $obj->typepriseencharge;
             print '</td><td>';
             print dol_trunc($obj->motifconsprinc,32);
@@ -812,6 +817,7 @@ if ($action == '')
                 }
                 print '</td>';
             }
+            */
             print '<td align="right">';
             print '<a href="'.$_SERVER["PHP_SELF"].'?socid='.$obj->fk_soc.'&id='.$obj->rowid.'&action=edit">'.img_edit().'</a>';
             print '</td>';
@@ -915,5 +921,5 @@ function listexamenprescrit($nboflines,$newwidth=0)
 
 $db->close();
 
-llxFooter('$Date: 2011/04/03 21:18:08 $ - $Revision: 1.4 $');
+llxFooter('$Date: 2011/04/04 22:39:42 $ - $Revision: 1.5 $');
 ?>

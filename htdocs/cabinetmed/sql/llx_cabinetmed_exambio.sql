@@ -15,7 +15,7 @@
 -- along with this program; if not, write to the Free Software
 -- Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 --
--- $Id: llx_cabinetmed_exambio.sql,v 1.2 2011/04/03 20:12:33 eldy Exp $
+-- $Id: llx_cabinetmed_exambio.sql,v 1.3 2011/04/04 22:36:01 eldy Exp $
 -- ===========================================================================
 
 -- DROP TABLE llx_cabinetmed_exambio
@@ -31,7 +31,6 @@ CREATE TABLE llx_cabinetmed_exambio (
   suivipr_vs         integer,
   suivipr_eva        integer,
   suivipr_err        integer,
-  --suivipr_das        double(24,8),
   suivisa_fat        integer,
   suivisa_dax        integer,
   suivisa_dpe        integer,
@@ -39,5 +38,5 @@ CREATE TABLE llx_cabinetmed_exambio (
   suivisa_rno        integer,
   suivisa_dma        integer,
   suivisa_basdai     integer,
-  tms                timestamp                    -- date creation/modification
+  tms                timestamp
 ) ENGINE=innodb;

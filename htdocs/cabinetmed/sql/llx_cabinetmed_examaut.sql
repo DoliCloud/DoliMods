@@ -15,7 +15,7 @@
 -- along with this program; if not, write to the Free Software
 -- Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 --
--- $Id: llx_cabinetmed_examaut.sql,v 1.2 2011/04/03 20:12:33 eldy Exp $
+-- $Id: llx_cabinetmed_examaut.sql,v 1.3 2011/04/04 22:36:01 eldy Exp $
 -- ===========================================================================
 
 -- DROP TABLE llx_cabinetmed_examaut
@@ -27,5 +27,5 @@ CREATE TABLE llx_cabinetmed_examaut (
   examsec            text,
   concprinc          varchar(64),
   concsec            text,
-  tms                timestamp                    -- date creation/modification
+  tms                timestamp
 ) ENGINE=innodb;
