@@ -72,9 +72,9 @@ class OvhSms  extends CommonObject
             require_once(DOL_DOCUMENT_ROOT.'/lib/functions2.lib.php');
             $params=getSoapParams();
             ini_set('default_socket_timeout', $params['response_timeout']);
-            $this->soap = new SoapClient($conf->global->OVHSMS_SOAPURL,$params);
-            // https://www.ovh.com/soapi/soapi-re-1.8.wsdl
             try {
+                $this->soap = new SoapClient($conf->global->OVHSMS_SOAPURL,$params);
+                // https://www.ovh.com/soapi/soapi-re-1.8.wsdl
 
                 $this->login = $nic;
                 $this->password = $passe;
@@ -88,9 +88,19 @@ class OvhSms  extends CommonObject
 
                 return 1;
 
-            } catch(SoapFault $fault) {
-                dol_syslog(get_class($this).'::SoapFault: '.$fault);
-
+            } catch(SoapFault $se) {
+                dol_syslog(get_class($this).'::SoapFault: '.$e);
+                //var_dump('eeeeeeee');exit;
+                return 0;
+            }
+            catch (Exception $ex) {
+                dol_syslog(get_class($this).'::SoapFault: '.$ex);
+                //var_dump('eeeeeeee');exit;
+                return 0;
+            }
+            catch (Error $e) {
+                dol_syslog(get_class($this).'::SoapFault: '.$e);
+                //var_dump('eeeeeeee');exit;
                 return 0;
             }
             return 1;
