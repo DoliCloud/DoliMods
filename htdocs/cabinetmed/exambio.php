@@ -1,6 +1,6 @@
 <?php
 /* Copyright (C) 2001-2003,2005 Rodolphe Quiedeville <rodolphe@quiedeville.org>
- * Copyright (C) 2004-2010      Laurent Destailleur  <eldy@users.sourceforge.net>
+ * Copyright (C) 2004-2011      Laurent Destailleur  <eldy@users.sourceforge.net>
  * Copyright (C) 2005-2006      Regis Houssin        <regis@dolibarr.fr>
  * Copyright (C) 2010           Juanjo Menent        <jmenent@2byte.es>
  *
@@ -23,7 +23,7 @@
  *   \file       htdocs/cabinetmed/exambio.php
  *   \brief      Tab for consultations
  *   \ingroup    cabinetmed
- *   \version    $Id: exambio.php,v 1.5 2011/04/04 22:39:42 eldy Exp $
+ *   \version    $Id: exambio.php,v 1.6 2011/04/06 19:36:30 eldy Exp $
  */
 
 $res=0;
@@ -35,6 +35,7 @@ if (! $res && file_exists("../../../../../dolibarr/htdocs/main.inc.php")) $res=@
 if (! $res) die("Include of main fails");
 include_once(DOL_DOCUMENT_ROOT."/lib/company.lib.php");
 include_once(DOL_DOCUMENT_ROOT."/compta/bank/class/account.class.php");
+include_once("./lib/cabinetmed.lib.php");
 include_once("./class/patient.class.php");
 include_once("./class/cabinetmedcons.class.php");
 
@@ -352,50 +353,6 @@ if ($socid > 0)
 
         print '<script type="text/javascript">
         jQuery(function() {
-            jQuery("#cs").click(function () {
-                jQuery("#infiltration").attr(\'disabled\', \'disabled\');
-                jQuery("#codageccam").attr(\'disabled\', \'disabled\');
-            });
-            jQuery("#c2").click(function () {
-                jQuery("#infiltration").attr(\'disabled\', \'disabled\');
-                jQuery("#codageccam").attr(\'disabled\', \'disabled\');
-            });
-            jQuery("#ccam").click(function () {
-                jQuery("#infiltration").removeAttr(\'disabled\');
-                jQuery("#codageccam").removeAttr(\'disabled\');
-            });
-            jQuery("#montant_cheque").keyup(function () {
-                if (jQuery("#montant_cheque").val() != "")
-                {
-                    jQuery("#banque").removeAttr(\'disabled\');
-                    jQuery("#selectbankchequeto").removeAttr(\'disabled\');
-                    jQuery("#num_cheque").removeAttr(\'disabled\');
-                }
-                else {
-                    jQuery("#banque").attr(\'disabled\', \'disabled\');
-                    jQuery("#selectbankchequeto").attr(\'disabled\', \'disabled\');
-                    jQuery("#num_cheque").attr(\'disabled\', \'disabled\');
-                }
-            });
-            jQuery("#montant_espece").keyup(function () {
-                if (jQuery("#montant_espece").val() != "")
-                {
-                    jQuery("#selectbankespeceto").removeAttr(\'disabled\');
-                }
-                else {
-                    jQuery("#selectbankespeceto").attr(\'disabled\', \'disabled\');
-                }
-            });
-            jQuery("#montant_carte").keyup(function () {
-                if (jQuery("#montant_carte").val() != "")
-                {
-                    jQuery("#selectbankcarteto").removeAttr(\'disabled\');
-                }
-                else {
-                    jQuery("#selectbankcarteto").attr(\'disabled\', \'disabled\');
-                }
-            });
-
             jQuery("#addmotifprinc").click(function () {
                 /*alert(jQuery("#listmotifcons option:selected" ).val());
                 alert(jQuery("#listmotifcons option:selected" ).text());*/
@@ -495,15 +452,6 @@ if ($socid > 0)
         print $langs->trans("Date").': ';
         $form->select_date($datecons,'cons');
         print '</td><td>';
-        print '<input type="radio" name="typepriseencharge" value="ALD"'.($consult->typepriseencharge=='ALD'?' checked="checked"':'').'> ALD';
-        print ' &nbsp; ';
-        print '<input type="radio" name="typepriseencharge" value="INV"'.($consult->typepriseencharge=='INV'?' checked="checked"':'').'> INV';
-        print ' &nbsp; ';
-        print '<input type="radio" name="typepriseencharge" value="AT"'.($consult->typepriseencharge=='AT'?' checked="checked"':'').'> AT';
-        print ' &nbsp; ';
-        print '<input type="radio" name="typepriseencharge" value="CMU"'.($consult->typepriseencharge=='CMU'?' checked="checked"':'').'> CMU';
-        print ' &nbsp; ';
-        print '<input type="radio" name="typepriseencharge" value="AME"'.($consult->typepriseencharge=='AME'?' checked="checked"':'').'> AME';
         print '</td></tr>';
 
         print '</table>';
@@ -522,14 +470,14 @@ if ($socid > 0)
         print '<table class="notopnoleftnoright" width="100%">';
 
         print '<tr><td valign="top" width="160">';
-        print $langs->trans("MotifConsultation").':';
+        print $langs->trans("ExamPrescrit").':';
         print '</td><td>';
         //print '<input type="text" size="3" class="flat" name="searchmotifcons" value="'.GETPOST("searchmotifcons").'" id="searchmotifcons">';
-        listmotifcons(1,400);
+        listexamenprescrit(1,$width,'BIO');
         /*print ' '.img_picto('Ajouter motif principal','edit_add_p.png@cabinetmed');
         print ' '.img_picto('Ajouter motif secondaire','edit_add_s.png@cabinetmed');*/
-        print ' <input type="button" class="button" id="addmotifprinc" name="addmotifprinc" value="+P">';
-        print ' <input type="button" class="button" id="addmotifsec" name="addmotifsec" value="+S">';
+        print ' <input type="button" class="button" id="addexamprinc" name="addexamprinc" value="+P">';
+        print ' <input type="button" class="button" id="addexamsec" name="addexamsec" value="+S">';
         print '</td></tr>';
         print '<tr><td>Principal:';
         print '</td><td>';
@@ -546,16 +494,16 @@ if ($socid > 0)
         print '<tr><td><br></td></tr>';
 
         print '<tr><td valign="top" width="160">';
-        print $langs->trans("DiagnostiqueLesionnel").':';
+        print $langs->trans("ExamenResultat").':';
         print '</td><td>';
         //print '<input type="text" size="3" class="flat" name="searchdiagles" value="'.GETPOST("searchdiagles").'" id="searchdiagles">';
-        listdiagles(1,$width);
-        print ' <input type="button" class="button" id="adddiaglesprinc" name="adddiaglesprinc" value="+P">';
-        print ' <input type="button" class="button" id="adddiaglessec" name="adddiaglessec" value="+S">';
+        listexamconclusion(1,$width);
+        print ' <input type="button" class="button" id="addexamconcprinc" name="addexamconcprinc" value="+P">';
+        print ' <input type="button" class="button" id="addexamconcsec" name="addexamconcsec" value="+S">';
         print '</td></tr>';
         print '<tr><td>Principal:';
         print '</td><td>';
-        print '<input type="text" size="32" class="flat" name="diaglesprinc" value="'.$consult->diaglesprinc.'" id="diaglesprinc"><br>';
+        print '<input type="text" size="32" class="flat" name="examconcprinc" value="'.$consult->examconcprinc.'" id="examconcprinc"><br>';
         print '</td></tr>';
         print '<tr><td valign="top">Secondaires:';
         print '</td><td>';
@@ -569,62 +517,7 @@ if ($socid > 0)
 
         print '</td><td valign="top">';
 
-        print ''.$langs->trans("ExamensCliniques").'<br>';
-        print '<textarea name="examenclinique" id="examenclinique" class="flat" cols="50" rows="6">'.$consult->examenclinique.'</textarea>';
 
-        print '</td></tr>';
-
-        print '</table>';
-        //print '</fieldset>';
-
-
-        // Prescriptions
-        //print '<fieldset id="fieldsetprescription">';
-        //print '<legend>'.$langs->trans("Prescription").'</legend>'."\n";
-        print '<hr style="height:1px; color: #dddddd;">';
-
-        print '<table class="notopnoleftnoright" width="100%">';
-        print '<tr><td width="60%" valign="top">';
-
-        print '<table class="notopnoleftnoright" width="100%">';
-
-        print '<tr><td valign="top" width="160">';
-        print $langs->trans("ExamensPrescrits").':';
-        print '</td><td>';
-        //print '<input type="text" size="3" class="flat" name="searchexamenprescrit" value="'.GETPOST("searchexamenprescrit").'" id="searchexamenprescrit">';
-        listexamenprescrit(1,$width);
-        print ' <input type="button" class="button" id="addexamenprescrit" name="addexamenprescrit" value="+">';
-        print '</td></tr>';
-        print '<tr><td valign="top">';
-        print '</td><td>';
-        print '<textarea name="examenprescrit" id="examenprescrit" cols="40">';
-        print $consult->examenprescrit;
-        print '</textarea>';
-        print '</td>';
-        print '</tr>';
-
-        print '<tr><td valign="top"><br>'.$langs->trans("Commentaires");
-        print '</td><td><br>';
-        print '<textarea name="comment" id="comment" class="flat" cols="40" rows="'.($nboflines-1).'">'.$consult->comment.'</textarea>';
-        print '</td></tr>';
-
-        print '</table>';
-
-        print '</td><td valign="top">';
-
-        print $langs->trans("TraitementsPrescrits").'<br>';
-        print '<textarea name="traitementprescrit" class="flat" cols="50" rows="'.($nboflines-1).'">'.$consult->traitementprescrit.'</textarea>';
-
-        print '<br><br><b>'.$langs->trans("TypeVisite").'</b> &nbsp; &nbsp; &nbsp; ';
-        print '<input type="radio" class="flat" name="typevisit" value="CS" id="cs"'.($consult->typevisit=='CS'?' checked="true"':'').'> CS';
-        print ' &nbsp; &nbsp; ';
-        print '<input type="radio" class="flat" name="typevisit" value="C2" id="c2"'.($consult->typevisit=='C2'?' checked="true"':'').'> C2';
-        print ' &nbsp; &nbsp; ';
-        print '<input type="radio" class="flat" name="typevisit" value="CCAM" id="ccam"'.($consult->typevisit=='CCAM'?' checked="true"':'').'> CCAM';
-        print '<br><br>'.$langs->trans("Infiltrations").' ';
-        print '<input type="text" class="flat" name="infiltration" id="infiltration" value="'.$consult->infiltration.'" size="30"'.($consult->infiltration?'':' disabled="disabled"').'>';
-        print '<br>'.$langs->trans("Codage CCAM").' ';
-        print '<input type="text" class="flat" name="codageccam" id="codageccam" value="'.$consult->codageccam.'" size="30"'.($consult->codageccam?'':' disabled="disabled"').'>';
         print '</td></tr>';
 
         print '</table>';
@@ -633,43 +526,14 @@ if ($socid > 0)
         print '<br>';
 
         print '<fieldset id="fieldsetanalyse">';
-        print '<legend>'.$langs->trans("Paiement").'</legend>'."\n";
+        print '<legend>'.$langs->trans("xxx").'</legend>'."\n";
 
         print '<table class="notopnoleftnoright" width="100%">';
         print '<tr><td width="160">';
-        print ''.$langs->trans("Cheque").'</td><td>';
         print '<input type="text" class="flat" name="montant_cheque" id="montant_cheque" value="'.($consult->montant_cheque!=''?price($consult->montant_cheque):'').'" size="5">';
-        if ($conf->banque->enabled)
-        {
-            print ' &nbsp; '.$langs->trans("A encaiser sur").' ';
-            $form->select_comptes('','bankchequeto',0,"(proprio LIKE '%".$user->nom."%' OR label LIKE '%".$user->nom."%') AND courant = 1",0,($consult->montant_cheque?'':' disabled="disabled"'));
-        }
-        print ' &nbsp; '.$langs->trans("ChequeBank").' ';
         print '<input type="text" class="flat" name="banque" id="banque" value="'.$consult->banque.'" size="18"'.($consult->montant_cheque?'':' disabled="disabled"').'>';
-        if ($conf->banque->enabled)
-        {
-            print ' &nbsp; '.$langs->trans("ChequeOrTransferNumber").' ';
-            print '<input type="text" class="flat" name="num_cheque" id="num_cheque" value="'.$consult->num_cheque.'" size="6"'.($consult->montant_cheque?'':' disabled="disabled"').'>';
-        }
-        print '</td></tr><tr><td>';
-        print $langs->trans("Espece").'</td><td>';
         print '<input type="text" class="flat" name="montant_espece" id="montant_espece" value="'.($consult->montant_espece!=''?price($consult->montant_espece):'').'" size="5">';
-        if ($conf->banque->enabled)
-        {
-            print ' &nbsp; '.$langs->trans("A encaiser sur").' ';
-            $form->select_comptes('','bankespeceto',0,"(proprio LIKE '%".$user->nom."%' OR label LIKE '%".$user->nom."%') AND courant = 2",0,($consult->montant_espece?'':' disabled="disabled"'));
-        }
-        print '</td></tr><tr><td>';
-        print $langs->trans("Carte").'</td><td>';
         print '<input type="text" class="flat" name="montant_carte" id="montant_carte" value="'.($consult->montant_carte!=''?price($consult->montant_carte):'').'" size="5">';
-        if ($conf->banque->enabled)
-        {
-            print ' &nbsp; '.$langs->trans("A encaiser sur").' ';
-            $form->select_comptes('','bankcarteto',0,"(proprio LIKE '%".$user->nom."%' OR label LIKE '%".$user->nom."%') AND courant = 1",0,($consult->montant_carte?'':' disabled="disabled"'));
-        }
-        print '</td></tr><tr><td>';
-        print $langs->trans("Tiers").'</td><td>';
-        print '<input type="text" class="flat" name="montant_tiers" id="montant_tiers" value="'.($consult->montant_tiers!=''?price($consult->montant_tiers):'').'" size="5">';
         print '</td><td>';
 
 
@@ -832,94 +696,7 @@ if ($action == '')
 }
 
 
-
-
-function listmotifcons($nboflines,$newwidth=0)
-{
-    global $db,$width;
-
-    if (empty($newwidth)) $newwidth=$width;
-
-    print '<select class="flat" id="listmotifcons" name="motifcons" style="width: '.$newwidth.'px" size="'.$nboflines.'"'.($nboflines > 1?' multiple':'').'>';
-    print '<option value="0"></option>';
-    $sql = 'SELECT s.rowid, s.code, s.label';
-    $sql.= ' FROM '.MAIN_DB_PREFIX.'cabinetmed_motifcons as s';
-    $sql.= ' ORDER BY label';
-    $resql=$db->query($sql);
-    dol_syslog("consutlations sql=".$sql);
-    if ($resql)
-    {
-        $num=$db->num_rows($resql);
-        $i=0;
-
-        while ($i < $num)
-        {
-            $obj=$db->fetch_object($resql);
-            print '<option value="'.$obj->code.'">'.$obj->label.'</option>';
-            $i++;
-        }
-    }
-    print '</select>'."\n";
-}
-
-function listdiagles($nboflines,$newwidth=0)
-{
-    global $db,$width;
-
-    if (empty($newwidth)) $newwidth=$width;
-
-    print '<select class="flat" id="listdiagles" name="diagles" style="width: '.$newwidth.'px" size="'.$nboflines.'"'.($nboflines > 1?' multiple':'').'>';
-    print '<option value="0"></option>';
-    $sql = 'SELECT s.rowid, s.code, s.label';
-    $sql.= ' FROM '.MAIN_DB_PREFIX.'cabinetmed_diaglec as s';
-    $sql.= ' ORDER BY label';
-    $resql=$db->query($sql);
-    dol_syslog("consutlations sql=".$sql);
-    if ($resql)
-    {
-        $num=$db->num_rows($resql);
-        $i=0;
-
-        while ($i < $num)
-        {
-            $obj=$db->fetch_object($resql);
-            print '<option value="'.$obj->code.'">'.$obj->label.'</option>';
-            $i++;
-        }
-    }
-    print '</select>'."\n";
-}
-
-function listexamenprescrit($nboflines,$newwidth=0)
-{
-    global $db,$width;
-
-    if (empty($newwidth)) $newwidth=$width;
-
-    print '<select class="flat" id="listexamenprescrit" name="examenprescrit" style="width: '.$newwidth.'px" size="'.$nboflines.'"'.($nboflines > 1?' multiple':'').'>';
-    print '<option value="0"></option>';
-    $sql = 'SELECT s.rowid, s.code, s.label';
-    $sql.= ' FROM '.MAIN_DB_PREFIX.'cabinetmed_examenprescrit as s';
-    $sql.= ' ORDER BY label';
-    $resql=$db->query($sql);
-    dol_syslog("consutlations sql=".$sql);
-    if ($resql)
-    {
-        $num=$db->num_rows($resql);
-        $i=0;
-
-        while ($i < $num)
-        {
-            $obj=$db->fetch_object($resql);
-            print '<option value="'.$obj->code.'">'.$obj->label.'</option>';
-            $i++;
-        }
-    }
-    print '</select>'."\n";
-}
-
-
 $db->close();
 
-llxFooter('$Date: 2011/04/04 22:39:42 $ - $Revision: 1.5 $');
+llxFooter('$Date: 2011/04/06 19:36:30 $ - $Revision: 1.6 $');
 ?>

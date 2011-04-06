@@ -20,7 +20,7 @@
  *   \file       htdocs/cabinetmed/consultations.php
  *   \brief      Tab for consultations
  *   \ingroup    cabinetmed
- *   \version    $Id: consultations.php,v 1.9 2011/04/04 22:13:59 eldy Exp $
+ *   \version    $Id: consultations.php,v 1.10 2011/04/06 19:36:30 eldy Exp $
  */
 
 $res=0;
@@ -32,6 +32,7 @@ if (! $res && file_exists("../../../../../dolibarr/htdocs/main.inc.php")) $res=@
 if (! $res) die("Include of main fails");
 include_once(DOL_DOCUMENT_ROOT."/lib/company.lib.php");
 include_once(DOL_DOCUMENT_ROOT."/compta/bank/class/account.class.php");
+include_once("./lib/cabinetmed.lib.php");
 include_once("./class/patient.class.php");
 include_once("./class/cabinetmedcons.class.php");
 
@@ -466,7 +467,8 @@ if ($socid > 0)
                 jQuery( "#listmotifcons" ).combobox();
                 jQuery( "#listdiagles" ).combobox();
                 jQuery( "#listexamenprescrit" ).combobox();
-            });
+                jQuery( "#banque" ).combobox();
+        });
         </script>
         ';
 
@@ -641,7 +643,8 @@ if ($socid > 0)
             $form->select_comptes('','bankchequeto',0,"(proprio LIKE '%".$user->nom."%' OR label LIKE '%".$user->nom."%') AND courant = 1",0,($consult->montant_cheque?'':' disabled="disabled"'));
         }
         print ' &nbsp; '.$langs->trans("ChequeBank").' ';
-        print '<input type="text" class="flat" name="banque" id="banque" value="'.$consult->banque.'" size="18"'.($consult->montant_cheque?'':' disabled="disabled"').'>';
+        //print '<input type="text" class="flat" name="banque" id="banque" value="'.$consult->banque.'" size="18"'.($consult->montant_cheque?'':' disabled="disabled"').'>';
+        listebanques(1);
         if ($conf->banque->enabled)
         {
             print ' &nbsp; '.$langs->trans("ChequeOrTransferNumber").' ';
@@ -852,101 +855,7 @@ if ($action == '')
 }
 
 
-
-
-function listmotifcons($nboflines,$newwidth=0)
-{
-    global $db,$width;
-
-    if (empty($newwidth)) $newwidth=$width;
-
-    print '<select class="flat" id="listmotifcons" name="motifcons" style="width: '.$newwidth.'px" size="'.$nboflines.'"'.($nboflines > 1?' multiple':'').'>';
-    print '<option value="0"></option>';
-    $sql = 'SELECT s.rowid, s.code, s.label';
-    $sql.= ' FROM '.MAIN_DB_PREFIX.'cabinetmed_motifcons as s';
-    $sql.= ' ORDER BY label';
-    $resql=$db->query($sql);
-    dol_syslog("consutlations sql=".$sql);
-    if ($resql)
-    {
-        $num=$db->num_rows($resql);
-        $i=0;
-
-        while ($i < $num)
-        {
-            $obj=$db->fetch_object($resql);
-            print '<option value="'.$obj->code.'">'.$obj->label.'</option>';
-            $i++;
-        }
-    }
-    print '</select>'."\n";
-}
-
-function listdiagles($nboflines,$newwidth=0)
-{
-    global $db,$width;
-
-    if (empty($newwidth)) $newwidth=$width;
-
-    print '<select class="flat" id="listdiagles" name="diagles" style="width: '.$newwidth.'px" size="'.$nboflines.'"'.($nboflines > 1?' multiple':'').'>';
-    print '<option value="0"></option>';
-    $sql = 'SELECT s.rowid, s.code, s.label';
-    $sql.= ' FROM '.MAIN_DB_PREFIX.'cabinetmed_diaglec as s';
-    $sql.= ' ORDER BY label';
-    $resql=$db->query($sql);
-    dol_syslog("consutlations sql=".$sql);
-    if ($resql)
-    {
-        $num=$db->num_rows($resql);
-        $i=0;
-
-        while ($i < $num)
-        {
-            $obj=$db->fetch_object($resql);
-            print '<option value="'.$obj->code.'">'.$obj->label.'</option>';
-            $i++;
-        }
-    }
-    print '</select>'."\n";
-}
-
-/**
- *  Show combo box with all exams
- *  @param          nboflines       Max nb of lines
- *  @param          newwidth        Force width
- *  @param          type            To filter on a type
- *  @param          showtype        Show type
- */
-function listexamenprescrit($nboflines,$newwidth=0,$type='',$showtype=0)
-{
-    global $db,$width;
-
-    if (empty($newwidth)) $newwidth=$width;
-
-    print '<select class="flat" id="listexamenprescrit" name="examenprescrit" '.($newwidth?'style="width: '.$newwidth.'px"':'').' size="'.$nboflines.'"'.($nboflines > 1?' multiple':'').'>';
-    print '<option value="0"></option>';
-    $sql = 'SELECT s.rowid, s.code, s.label, s.biorad as type';
-    $sql.= ' FROM '.MAIN_DB_PREFIX.'cabinetmed_examenprescrit as s';
-    $sql.= ' ORDER BY label';
-    $resql=$db->query($sql);
-    dol_syslog("consutlations sql=".$sql);
-    if ($resql)
-    {
-        $num=$db->num_rows($resql);
-        $i=0;
-
-        while ($i < $num)
-        {
-            $obj=$db->fetch_object($resql);
-            print '<option value="'.$obj->code.'">'.$obj->label.($showtype?' ('.strtolower($obj->type).')':'').'</option>';
-            $i++;
-        }
-    }
-    print '</select>'."\n";
-}
-
-
 $db->close();
 
-llxFooter('$Date: 2011/04/04 22:13:59 $ - $Revision: 1.9 $');
+llxFooter('$Date: 2011/04/06 19:36:30 $ - $Revision: 1.10 $');
 ?>

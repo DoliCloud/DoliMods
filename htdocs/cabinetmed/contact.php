@@ -22,7 +22,7 @@
  *       \file       htdocs/cabinetmed/contact.php
  *       \ingroup    cabinetmed
  *       \brief      Tab for links between doctors and patient
- *       \version    $Id: contact.php,v 1.5 2011/03/26 13:31:03 eldy Exp $
+ *       \version    $Id: contact.php,v 1.6 2011/04/06 19:36:30 eldy Exp $
  */
 
 $res=0;
@@ -184,10 +184,19 @@ if ($id > 0 || ! empty($ref))
 	$head = societe_prepare_head($societe);
     dol_fiche_head($head, 'tabcontacts', $langs->trans("ThirdParty"),0,'company');
 
+    $width=300;
     print '
-                <script>
+            <style>
+            .ui-autocomplete-input { width: '.$width.'px; }
+            </style>
+            ';
+    print '
+            <script>
             jQuery(function() {
-                jQuery( "#contactid" ).combobox();
+                /*jQuery("#.dolibarrcombobox").click(function () {
+                    alert(\'ee\');
+                });*/
+                jQuery("#contactid").combobox();
             });
             </script>
     ';
@@ -410,5 +419,5 @@ if ($id > 0 || ! empty($ref))
 
 $db->close();
 
-llxFooter('$Date: 2011/03/26 13:31:03 $');
+llxFooter('$Date: 2011/04/06 19:36:30 $');
 ?>

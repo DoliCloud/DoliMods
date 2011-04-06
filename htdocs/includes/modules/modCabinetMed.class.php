@@ -26,7 +26,7 @@
  *      \file       htdocs/includes/modules/modCabinetMed.class.php
  *      \ingroup    cabinetmed
  *      \brief      Description and activation file for module CabinetMed
- *      \version    $Id: modCabinetMed.class.php,v 1.19 2011/04/02 11:23:05 eldy Exp $
+ *      \version    $Id: modCabinetMed.class.php,v 1.20 2011/04/06 19:36:41 eldy Exp $
  */
 include_once(DOL_DOCUMENT_ROOT ."/includes/modules/DolibarrModules.class.php");
 
@@ -133,26 +133,28 @@ class modCabinetMed extends DolibarrModules
             'tabname'=>array(MAIN_DB_PREFIX."cabinetmed_motifcons",
                              MAIN_DB_PREFIX."cabinetmed_diaglec",
                              MAIN_DB_PREFIX."cabinetmed_examenprescrit",
-                             MAIN_DB_PREFIX."cabinetmed_c_examconclusion"
-                             //,MAIN_DB_PREFIX."cabinetmed_c_examnature"
+                             MAIN_DB_PREFIX."cabinetmed_c_examconclusion",
+                             MAIN_DB_PREFIX."cabinetmed_c_banques"
                              ),
             'tablib'=>array("MotifConsultation",
                             "DiagnostiqueLesionnel",
                             "Examens",
-                            "ExamenConclusion"
+                            "ExamenConclusion",
+                            "BankNameList"
                              //,"ResultatExamBio","ResultatExamAutre"
                              ),
             'tabsql'=>array('SELECT f.rowid as rowid, f.code, f.label, f.active FROM '.MAIN_DB_PREFIX.'cabinetmed_motifcons as f',
                             'SELECT f.rowid as rowid, f.code, f.label, f.active FROM '.MAIN_DB_PREFIX.'cabinetmed_diaglec as f',
                             'SELECT f.rowid as rowid, f.code, f.label, f.biorad as type, f.active FROM '.MAIN_DB_PREFIX.'cabinetmed_examenprescrit as f',
-                            'SELECT f.rowid as rowid, f.code, f.label, f.active FROM '.MAIN_DB_PREFIX.'cabinetmed_c_examconclusion as f'
-                             ),
-            'tabsqlsort'=>array("label ASC", "label ASC","biorad ASC, label ASC","label ASC"),
-            'tabfield'=>array("code,label","code,label","code,label,type","code,label"), // Nom des champs en resultat de select pour affichage du dictionnaire
-            'tabfieldvalue'=>array("code,label","code,label","code,label,biorad","code,label"),  // Nom des champs d'edition pour modification d'un enregistrement
-            'tabfieldinsert'=>array("code,label","code,label","code,label,biorad","code,label"),
-            'tabrowid'=>array("rowid","rowid","rowid","rowid"),
-            'tabcond'=>array($conf->cabinetmed->enabled,$conf->cabinetmed->enabled,$conf->cabinetmed->enabled,$conf->cabinetmed->enabled)
+                            'SELECT f.rowid as rowid, f.code, f.label, f.active FROM '.MAIN_DB_PREFIX.'cabinetmed_c_examconclusion as f',
+                            'SELECT f.rowid as rowid, f.code, f.label, f.active FROM '.MAIN_DB_PREFIX.'cabinetmed_c_banques as f'
+                            ),
+            'tabsqlsort'=>array("label ASC", "label ASC","biorad ASC, label ASC","label ASC","label ASC"),
+            'tabfield'=>array("code,label","code,label","code,label,type","code,label","code,label"), // Nom des champs en resultat de select pour affichage du dictionnaire
+            'tabfieldvalue'=>array("code,label","code,label","code,label,biorad","code,label","code,label"),  // Nom des champs d'edition pour modification d'un enregistrement
+            'tabfieldinsert'=>array("code,label","code,label","code,label,biorad","code,label","code,label"),
+            'tabrowid'=>array("rowid","rowid","rowid","rowid","rowid"),
+            'tabcond'=>array($conf->cabinetmed->enabled,$conf->cabinetmed->enabled,$conf->cabinetmed->enabled,$conf->cabinetmed->enabled,$conf->cabinetmed->enabled)
         );
 
         // Boxes
