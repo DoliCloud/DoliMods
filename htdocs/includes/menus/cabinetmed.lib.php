@@ -21,7 +21,7 @@
 /**
  *  \file		htdocs/includes/menus/cabinetmed.lib.php
  *  \brief		Library for file cabinetmed menus
- *  \version	$Id: cabinetmed.lib.php,v 1.11 2011/03/29 10:03:43 eldy Exp $
+ *  \version	$Id: cabinetmed.lib.php,v 1.12 2011/04/06 11:12:33 eldy Exp $
  */
 
 
@@ -1307,16 +1307,16 @@ function print_left_cabinetmed_menu($db,$menu_array_before,$menu_array_after)
         require_once(DOL_DOCUMENT_ROOT."/core/class/menubase.class.php");
 
         $menuArbo = new Menubase($db,'cabinetmed','left');
-        $overwritemenufor = $menuArbo->listeMainmenu();
+        //$overwritemenufor = $menuArbo->listeMainmenu();
         // Add other mainmenu to the list of menu to overwrite pre.inc.php
-        $overwritemenumore=array('home','companies','members','products','suppliers','commercial','accountancy','agenda','project','tools','ecm');
-        $overwritemenufor=array_merge($overwritemenumore, $overwritemenufor);
+        //$overwritemenumore=array('home','companies','members','products','suppliers','commercial','accountancy','agenda','project','tools','ecm');
+        //$overwritemenufor=array_merge($overwritemenumore, $overwritemenufor);
         $newmenu = $menuArbo->menuLeftCharger($newmenu,$mainmenu,$leftmenu,($user->societe_id?1:0),'cabinetmed');
 
         /*
          * Menu AUTRES (Pour les menus du haut qui ne serait pas geres)
          */
-        if ($mainmenu && ! in_array($mainmenu,$overwritemenufor)) { $mainmenu=""; }
+        //if ($mainmenu && ! in_array($mainmenu,$overwritemenufor)) { $mainmenu=""; }
 
     }
 

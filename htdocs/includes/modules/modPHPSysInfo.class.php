@@ -26,7 +26,7 @@
  *      \file       htdocs/includes/modules/modPHPSysInfo.class.php
  *      \ingroup    PHPSysInfo
  *      \brief      Description and activation file for module PHPSysInfo
- *		\version	$Id: modPHPSysInfo.class.php,v 1.8 2011/03/27 16:51:32 eldy Exp $
+ *		\version	$Id: modPHPSysInfo.class.php,v 1.9 2011/04/06 11:12:18 eldy Exp $
  */
 include_once(DOL_DOCUMENT_ROOT ."/includes/modules/DolibarrModules.class.php");
 
@@ -151,17 +151,17 @@ class modPHPSysInfo extends DolibarrModules
 		$r++;
 
 		// Example to declare a Left Menu entry:
-		// $this->menu[$r]=array(	'fk_menu'=>'r=0',		// Use r=value where r is index key used for the parent menu entry (higher parent must be a top menu entry)
-		//							'type'=>'left',			// This is a Left menu entry
-		//							'titre'=>'PHPSysInfo left menu 1',
-		//							'mainmenu'=>'PHPSysInfo',
-		//							'url'=>'/PHPSysInfo/pagelevel1.php',
-		//							'langs'=>'mylangfile',	// Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
-		//							'position'=>100,
-		//							'enabled'=>'1',			// Define condition to show or hide menu entry. Use '$conf->PHPSysInfo->enabled' if entry must be visible if module is enabled.
-		//							'perms'=>'1',			// Use 'perms'=>'$user->rights->PHPSysInfo->level1->level2' if you want your menu with a permission rules
-		//							'target'=>'',
-		//							'user'=>2);				// 0=Menu for internal users, 1=external users, 2=both
+		$this->menu[$r]=array(	'fk_menu'=>'mainmenu=home,leftmenu=setup',		// Use r=value where r is index key used for the parent menu entry (higher parent must be a top menu entry)
+									'type'=>'left',			// This is a Left menu entry
+									'titre'=>'PHPSysInfo left menu 1',
+									'mainmenu'=>'phpsysinfo',
+									'url'=>'/PHPSysInfo/pagelevel1.php',
+									'langs'=>'PHPSysInfo',	// Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
+									'position'=>100,
+									'enabled'=>'1',			// Define condition to show or hide menu entry. Use '$conf->PHPSysInfo->enabled' if entry must be visible if module is enabled.
+									'perms'=>'1',			// Use 'perms'=>'$user->rights->PHPSysInfo->level1->level2' if you want your menu with a permission rules
+									'target'=>'',
+									'user'=>2);				// 0=Menu for internal users, 1=external users, 2=both
 		// $r++;
 		//
 		// Example to declare another Left Menu entry:
