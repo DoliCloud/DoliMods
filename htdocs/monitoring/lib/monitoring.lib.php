@@ -1,5 +1,5 @@
 <?php
-/* Copyright (C) 2009 Laurent Destailleur  <eldy@users.sourceforge.net>
+/* Copyright (C) 2011 Laurent Destailleur  <eldy@users.sourceforge.net>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,7 +21,7 @@
  *  \file       htdocs/monitoring/lib/monitoring.lib.php
  *  \brief      Ensemble de fonctions de base pour le module Monitoring
  *  \ingroup    monitoring
- *  \version    $Id: monitoring.lib.php,v 1.7 2011/03/13 20:02:13 eldy Exp $
+ *  \version    $Id: monitoring.lib.php,v 1.8 2011/04/07 20:41:44 eldy Exp $
  */
 
 $linktohelp='EN:Module_Monitoring_En|FR:Module_Monitoring|ES:Modulo_Monitoring';
@@ -45,6 +45,45 @@ function monitoring_prepare_head($object)
     return $head;
 }
 
+/**
+ *  Return list of url to scan
+ */
+function getListOfUrls($active=1)
+{
+    global $db;
+
+    $listofurls=array();
+
+    $sql ="SELECT rowid, title, url, useproxy, checkkey, frequency, maxvalue, active, status, lastreset";
+    $sql.=" FROM ".MAIN_DB_PREFIX."monitoring_probes";
+    $sql.=" WHERE active = ".$active;
+    $sql.=" ORDER BY rowid";
+    dol_syslog("probes sql=".$sql,LOG_DEBUG);
+    $resql=$db->query($sql);
+    if ($resql)
+    {
+        $num =$db->num_rows($resql);
+        $i=0;
+
+        while ($i < $num)
+        {
+            $obj = $db->fetch_object($resql);
+
+            $listofurls[$i]=array('code'=>$obj->rowid, 'title'=>$obj->title, 'url'=>$obj->url, 'useproxy'=>$obj->useproxy,
+                'checkkey'=>$obj->checkkey, 'frequency'=>$obj->frequency, 'active'=>$obj->active, 'max'=>$obj->maxvalue,
+                'lastreset'=>$db->jdate($obj->lastreset)
+                );
+
+            $i++;
+        }
+    }
+    else
+    {
+        dol_print_error($db);
+    }
+
+    return $listofurls;
+}
 
 
 
@@ -188,6 +227,7 @@ if (! function_exists('rrd_create'))
 		$fullcommandclear=$command." ".$param." 2>&1";
 		//print $fullcommandclear;
 
+		//print $outputfile;
 		$handle = fopen($outputfile, 'w');
 		if ($handle)
 		{

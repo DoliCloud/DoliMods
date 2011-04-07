@@ -1,6 +1,5 @@
 <?php
-/* Copyright (C) 2006      Rodolphe Quiedeville <rodolphe@quiedeville.org>
- * Copyright (C) 2007-2009 Laurent Destailleur  <eldy@users.sourceforge.net>
+/* Copyright (C) 2011 Laurent Destailleur  <eldy@users.sourceforge.net>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,10 +17,10 @@
  */
 
 /**
- *	\file       	scripts/monitor/monitor_daemon.php
+ *	\file       	scripts/monitoring/monitor_daemon.php
  *	\ingroup    	monitor
  *	\brief      	Script to execute monitor daemon
- *	\version		$Id: monitor_daemon.php,v 1.6 2011/03/29 23:17:22 eldy Exp $
+ *	\version		$Id: monitor_daemon.php,v 1.7 2011/04/07 20:41:47 eldy Exp $
  */
 
 $sapi_type = php_sapi_name();
@@ -35,7 +34,7 @@ if (substr($sapi_type, 0, 3) == 'cgi') {
 }
 
 // Global variables
-$version='$Revision: 1.6 $';
+$version='$Revision: 1.7 $';
 $error=0;
 // Include Dolibarr environment
 $res=0;
@@ -102,39 +101,13 @@ if ($result < 0)
 }
 
 // Define url to scan
-$listofurls=array();
-
-$sql ="SELECT rowid, title, url, checkkey, frequency, status";
-$sql.=" FROM ".MAIN_DB_PREFIX."monitoring_probes";
-$sql.=" WHERE active = 1";
-$sql.=" ORDER BY rowid";
-dol_syslog("probes sql=".$sql,LOG_DEBUG);
-$resql=$db->query($sql);
-if ($resql)
-{
-    $num =$db->num_rows($resql);
-    $i=0;
-
-    while ($i < $num)
-    {
-        $obj = $db->fetch_object($resql);
-
-        $listofurls[$i]=array('code'=>$obj->rowid, 'title'=>$obj->title, 'url'=>$obj->url,
-            'checkkey'=>$obj->checkkey, 'frequency'=>$obj->frequency, 'max'=>100);
-
-        $i++;
-    }
-}
-else
-{
-    dol_print_error($db);
-}
-
+$listofurls=getListOfUrls(1);
 if (! sizeof($listofurls))
 {
     print 'No enabled probe found. Please define at least one probe before running probe process.'."\n";
     exit;
 }
+
 
 $nbok=0;
 $nbko=0;
@@ -189,9 +162,12 @@ foreach($listofurls as $object)
 
 if (! $error)
 {
-	while(! $error && (empty($maxloop) || $nbloop < $maxloop))
+	while(! $error && (empty($maxloop) || ($nbloop < $maxloop)))
 	{
 		$nbloop++;
+
+		// Reload sometimes list of urls
+		//$listofurls=getListOfUrls(1);
 
 		foreach($listofurls as $object)
 		{

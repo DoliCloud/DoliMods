@@ -21,7 +21,7 @@
  *      \file       dev/skeletons/monitoring_probes.class.php
  *      \ingroup    mymodule othermodule1 othermodule2
  *      \brief      This file is an example for a CRUD class file (Create/Read/Update/Delete)
- *		\version    $Id: monitoring_probes.class.php,v 1.6 2011/03/13 20:02:16 eldy Exp $
+ *		\version    $Id: monitoring_probes.class.php,v 1.7 2011/04/07 20:41:47 eldy Exp $
  *		\author		Put author name here
  *		\remarks	Initialy built by build_class_from_table on 2011-03-08 23:24
  */
@@ -48,7 +48,9 @@ class Monitoring_probes extends CommonObject
     var $id;
 
 	var $title;
+    var $groupname;
 	var $url;
+    var $useproxy;
 	var $checkkey;
 	var $maxvalue;
 	var $frequency;
@@ -81,22 +83,24 @@ class Monitoring_probes extends CommonObject
 		$error=0;
 
 		// Clean parameters
-
 		if (isset($this->title)) $this->title=trim($this->title);
+        if (isset($this->groupname)) $this->groupname=trim($this->groupname);
 		if (isset($this->url)) $this->url=trim($this->url);
+        if (isset($this->useproxy)) $this->useproxy=trim($this->useproxy);
 		if (isset($this->checkkey)) $this->checkkey=trim($this->checkkey);
 		if (isset($this->frequency)) $this->frequency=trim($this->frequency);
 		if (isset($this->status)) $this->status=trim($this->status);
 
-
-
 		// Check parameters
-		// Put here code to add control on parameters values
+        if (empty($this->title)) { $this->error='ErrorFieldRequired'; return -1; }
+		if (empty($this->url))   { $this->error='ErrorFieldRequired'; return -1; }
 
         // Insert request
 		$sql = "INSERT INTO ".MAIN_DB_PREFIX."monitoring_probes(";
 		$sql.= "title,";
+        $sql.= "groupname,";
 		$sql.= "url,";
+        $sql.= "useproxy,";
 		$sql.= "checkkey,";
 		$sql.= "frequency,";
         $sql.= "active,";
@@ -104,10 +108,12 @@ class Monitoring_probes extends CommonObject
         $sql.= ") VALUES (";
 
 		$sql.= " ".(! isset($this->title)?'NULL':"'".$this->db->escape($this->title)."'").",";
+        $sql.= " ".(! isset($this->groupname)?'NULL':"'".$this->db->escape($this->groupname)."'").",";
 		$sql.= " ".(! isset($this->url)?'NULL':"'".$this->db->escape($this->url)."'").",";
+        $sql.= " ".(! isset($this->useproxy)?'NULL':"'".$this->db->escape($this->useproxy)."'").",";
 		$sql.= " ".(! isset($this->checkkey)?'NULL':"'".$this->db->escape($this->checkkey)."'").",";
 		$sql.= " ".(! isset($this->frequency)?'NULL':"'".$this->frequency."'").",";
-        $sql.= " ".(! isset($this->active)?'NULL':"'".$this->active."'")."";
+        $sql.= " ".(! isset($this->active)?'NULL':"'".$this->active."'").",";
 		$sql.= " ".(! isset($this->status)?'NULL':"'".$this->status."'")."";
 
 
@@ -167,7 +173,9 @@ class Monitoring_probes extends CommonObject
         $sql = "SELECT";
 		$sql.= " t.rowid,";
 		$sql.= " t.title,";
+        $sql.= " t.groupname,";
 		$sql.= " t.url,";
+        $sql.= " t.useproxy,";
 		$sql.= " t.checkkey,";
 		$sql.= " t.maxvalue,";
 		$sql.= " t.frequency,";
@@ -188,12 +196,14 @@ class Monitoring_probes extends CommonObject
                 $this->id    = $obj->rowid;
                 $this->ref   = $obj->rowid;
 				$this->title = $obj->title;
-				$this->url = $obj->url;
-				$this->checkkey = $obj->checkkey;
-                $this->maxvalue = $obj->maxvalue;
+                $this->groupname = $obj->groupname;
+				$this->url   = $obj->url;
+                $this->useproxy  = $obj->useproxy;
+				$this->checkkey  = $obj->checkkey;
+                $this->maxvalue  = $obj->maxvalue;
 				$this->frequency = $obj->frequency;
-				$this->active = $obj->active;
-                $this->status = $obj->status;
+				$this->active    = $obj->active;
+                $this->status    = $obj->status;
                 $this->lastreset = $obj->lastreset;
             }
             $this->db->free($resql);
@@ -220,24 +230,28 @@ class Monitoring_probes extends CommonObject
 		$error=0;
 
 		// Clean parameters
-
 		if (isset($this->title)) $this->title=trim($this->title);
+        if (isset($this->groupname)) $this->groupname=trim($this->groupname);
 		if (isset($this->url)) $this->url=trim($this->url);
+        if (isset($this->useproxy)) $this->useproxy=trim($this->useproxy);
 		if (isset($this->checkkey)) $this->checkkey=trim($this->checkkey);
 		if (isset($this->frequency)) $this->frequency=trim($this->frequency);
-        if (isset($this->active)) $this->active=trim($this->active);
+        if (isset($this->maxvalue)) $this->maxvalue=trim($this->maxvalue);
+		if (isset($this->active)) $this->active=trim($this->active);
 		if (isset($this->status)) $this->status=trim($this->status);
 
-
-
 		// Check parameters
-		// Put here code to add control on parameters values
+        if (empty($this->title)) { $this->error=$langs->trans('ErrorFieldRequired',$langs->transnoentitiesnoconv('Title')); return -1; }
+        if (empty($this->url))   { $this->error=$langs->trans('ErrorFieldRequired',$langs->transnoentitiesnoconv('Url')); return -1; }
 
         // Update request
         $sql = "UPDATE ".MAIN_DB_PREFIX."monitoring_probes SET";
         $sql.= " title=".(isset($this->title)?"'".$this->db->escape($this->title)."'":"null").",";
+        $sql.= " groupname=".(isset($this->groupname)?"'".$this->db->escape($this->groupname)."'":"null").",";
         $sql.= " url=".(isset($this->url)?"'".$this->db->escape($this->url)."'":"null").",";
+        $sql.= " useproxy=".(isset($this->useproxy)?"'".$this->db->escape($this->useproxy)."'":"0").",";
         $sql.= " checkkey=".(isset($this->checkkey)?"'".$this->db->escape($this->checkkey)."'":"null").",";
+        $sql.= " maxvalue=".(isset($this->maxvalue)?"'".$this->db->escape($this->maxvalue)."'":"null").",";
         $sql.= " frequency=".(isset($this->frequency)?$this->frequency:"null").",";
         $sql.= " active=".(isset($this->active)?$this->active:"null").",";
         $sql.= " status=".(isset($this->status)?$this->status:"null").",";
@@ -402,16 +416,17 @@ class Monitoring_probes extends CommonObject
      */
     function getLibStatut($mode=0)
     {
-        return $this->LibStatut($this->status,$mode);
+        return $this->LibStatut($this->status,$mode,$this->active);
     }
 
     /**
      *      \brief      Renvoi le libelle d'un statut donne
      *      \param      statut          Id statut
      *      \param      mode            0=libelle long, 1=libelle court, 2=Picto + Libelle court, 3=Picto, 4=Picto + Libelle long, 5=Libelle court + Picto
+     *      \param      active          Active or not
      *      \return     string          Libelle du statut
      */
-    function LibStatut($status,$mode=0)
+    function LibStatut($status,$mode=0,$active=1)
     {
         global $langs;
         $langs->load('bills');
@@ -419,32 +434,38 @@ class Monitoring_probes extends CommonObject
         //print "$paye,$status,$mode,$alreadypaid,$type";
         if ($mode == 0)
         {
-           if ($status == 0) return $langs->trans('Error');
+           if ($status == 0) return $langs->trans('Unknown');
+           if ($status == -1) return $langs->trans('Error');
            if ($status == 1) return $langs->trans('Success');
         }
         if ($mode == 1)
         {
-           if ($status == 0) return $langs->trans('Error');
+           if ($status == 0) return $langs->trans('Unknown');
+           if ($status == -1) return $langs->trans('Error');
            if ($status == 1) return $langs->trans('Success');
         }
         if ($mode == 2)
         {
-           if ($status == 0) return img_picto($langs->trans('Error'),'statut0').' '.$langs->trans('Error');
+           if ($status == 0) return img_picto($langs->trans('Unknown'),'statut0').' '.$langs->trans('Unknown');
+           if ($status == -1) return img_picto($langs->trans('Error'),'statut8').' '.$langs->trans('Error');
            if ($status == 1) return img_picto($langs->trans('Success'),'statut4').' '.$langs->trans('Success');
         }
         if ($mode == 3)
         {
-           if ($status == 0) return img_picto($langs->trans('Error'),'statut0');
+           if ($status == 0) return img_picto($langs->trans('Unknown'),'statut0');
+           if ($status == -1) return img_picto($langs->trans('Error'),'statut8');
            if ($status == 1) return img_picto($langs->trans('Success'),'statut4');
         }
         if ($mode == 4)
         {
-           if ($status == 0) return img_picto($langs->trans('Error'),'statut0').' '.$langs->trans('Error');
+           if ($status == 0) return img_picto($langs->trans('Unknown'),'statut0').' '.$langs->trans('Unknown');
+           if ($status == -1) return img_picto($langs->trans('Error'),'statut8').' '.$langs->trans('Error');
            if ($status == 1) return img_picto($langs->trans('Success'),'statut4').' '.$langs->trans('Success');
         }
         if ($mode == 5)
         {
-           if ($status == 0) return $langs->trans('Error').' '.img_picto($langs->trans('Error'),'statut0');
+           if ($status == 0) return $langs->trans('Unknown').' '.img_picto($langs->trans('Unknown'),'statut0');
+           if ($status == -1) return $langs->trans('Error').' '.img_picto($langs->trans('Error'),'statut8');
            if ($status == 1) return $langs->trans('Success').' '.img_picto($langs->trans('Success'),'statut4');
         }
     }
@@ -458,7 +479,9 @@ class Monitoring_probes extends CommonObject
 		$this->id=0;
 
 		$this->title='My probe';
+		$this->title='My group';
 		$this->url='http://mywebsite.com';
+        $this->useproxy=0;
 		$this->checkkey='';
 		$this->frequency='5';
         $this->active='1';

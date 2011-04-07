@@ -20,7 +20,7 @@
  *	    \file       htdocs/monitoring/index.php
  *      \ingroup    monitoring
  *      \brief      Page to setup module Monitoring
- *		\version    $Id: index.php,v 1.10 2011/03/13 22:41:47 eldy Exp $
+ *		\version    $Id: index.php,v 1.11 2011/04/07 20:41:47 eldy Exp $
  */
 
 define('NOCSRFCHECK',1);
@@ -115,6 +115,9 @@ if ($action == 'graph')
 {
     $probe=new Monitoring_probes($db);
     $result=$probe->fetch($id);
+
+    //print dirname($conf->monitoring->dir_output.'/'.$fileimage[0]);
+    create_exdir(dirname($conf->monitoring->dir_output.'/'.$fileimage[0]));
 
     $error=0;
 	$mesg='';
@@ -332,17 +335,18 @@ if (empty($id))
     print "<td>".$langs->trans("Id")."</td>";
     print "<td>".$langs->trans("Title")."</td>";
     print "<td>".$langs->trans("URL")."</td>";
+    print "<td>".$langs->trans("Proxy")."</td>";
     print "<td>".$langs->trans("CheckKey")."</td>";
     print "<td>".$langs->trans("MaxValue")."</td>";
     print "<td>".$langs->trans("Frequency")."</td>";
     print '<td align="center">'.$langs->trans("Active")."</td>";
-    print '<td align="center">'.$langs->trans("Status")."</td>";
+    print '<td align="center">'.$langs->trans("LastStatus")."</td>";
     print '<td align="center">'.$langs->trans("Reports")."</td>";
     //print '<td width="80px">&nbsp;</td>';
     print '</tr>';
 
 
-    $sql ="SELECT rowid, title, url, checkkey, maxvalue, frequency, status, active";
+    $sql ="SELECT rowid, title, url, useproxy, checkkey, maxvalue, frequency, status, active";
     $sql.=" FROM ".MAIN_DB_PREFIX."monitoring_probes";
     $sql.=" ORDER BY rowid";
 
@@ -366,17 +370,16 @@ if (empty($id))
             print "<td>".$obj->rowid."</td>";
             print "<td>".$obj->title."</td>";
             print "<td>".$obj->url."</td>";
+            print "<td>".yn($obj->useproxy)."</td>";
             print "<td>".$obj->checkkey."</td>";
             print "<td>".$obj->maxvalue."</td>";
             print "<td>".$obj->frequency."</td>";
             print '<td align="center">'.yn($obj->active).'</td>';
             print '<td align="center">';
-            if ($obj->active)
-            {
-                $probestatic->id=$obj->rowid;
-                $probestatic->status=$obj->status;
-                print $probestatic->getLibStatut(3);
-            }
+            $probestatic->id=$obj->rowid;
+            $probestatic->status=$obj->status;
+            $probestatic->active=$obj->active;
+            print $probestatic->getLibStatut(3);
             print "</td>";
             print '<td align="center">';
             print '<a href="index.php?id='.$obj->rowid.'">'.$langs->trans("Reports").'</a>';
@@ -427,8 +430,8 @@ else
     print '<tr><td>'.$langs->trans("MaxValue").'</td><td>'.$probe->maxvalue.'</td></tr>'."\n";
     print '<tr><td>'.$langs->trans("Frequency").'</td><td>'.$probe->frequency.'</td></tr>'."\n";
     print '<tr><td>'.$langs->trans("Active").'</td><td>'.yn($probe->active).'</td></tr>'."\n";
-    print '<tr><td>'.$langs->trans("Status").'</td><td>';
-    if ($probe->active) { print $probe->getLibStatut(4); }
+    print '<tr><td>'.$langs->trans("LastStatus").'</td><td>';
+    print $probe->getLibStatut(4);
     print '</td></tr>'."\n";
     print '<tr><td>'.$langs->trans("RrdFile").'</td><td>'.$conf->monitoring->dir_output."/".$id.'/monitoring.rrd</td></tr>'."\n";
     print '</table>';
@@ -438,15 +441,15 @@ else
     $butt='';
 	if ($conf->global->MONITORING_COMMANDLINE_TOOL)
 	{
-        $butt.='<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?action=graph&id='.$probe->id.'">'.$langs->trans("BuildTestGraph").'</a>';
-
         $butt.='<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?action=create&id='.$probe->id.'">'.$langs->trans("CreateATestGraph").'</a>';
+
+        $butt.='<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?action=graph&id='.$probe->id.'">'.$langs->trans("BuildTestGraph").'</a>';
 	}
 	else
 	{
-        $butt.='<a class="butActionRefused" href="#">'.$langs->trans("BuildTestGraph").'</a>';
-
         $butt.='<a class="butActionRefused" href="#">'.$langs->trans("CreateATestGraph").'</a>';
+
+        $butt.='<a class="butActionRefused" href="#">'.$langs->trans("BuildTestGraph").'</a>';
 	}
 
     print '<br>';
@@ -495,8 +498,9 @@ else
     }
 }
 
+print '<br>';
 
 $db->close();
 
-llxFooter('$Date: 2011/03/13 22:41:47 $ - $Revision: 1.10 $');
+llxFooter('$Date: 2011/04/07 20:41:47 $ - $Revision: 1.11 $');
 ?>

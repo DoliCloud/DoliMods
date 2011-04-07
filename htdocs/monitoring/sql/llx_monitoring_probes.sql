@@ -1,5 +1,5 @@
 -- ===================================================================
--- Copyright (C) 2010 Laurent Destailleur <eldy@users.sourceforge.net>
+-- Copyright (C) 2010-2011 Laurent Destailleur <eldy@users.sourceforge.net>
 --
 -- This program is free software; you can redistribute it and/or modify
 -- it under the terms of the GNU General Public License as published by
@@ -15,7 +15,7 @@
 -- along with this program; if not, write to the Free Software
 -- Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 --
--- $Id: llx_monitoring_probes.sql,v 1.3 2011/03/09 18:41:24 eldy Exp $
+-- $Id: llx_monitoring_probes.sql,v 1.4 2011/04/07 20:41:47 eldy Exp $
 -- ===================================================================
 
 
@@ -23,11 +23,13 @@ CREATE TABLE llx_monitoring_probes
 (
 	rowid integer AUTO_INCREMENT PRIMARY KEY,
 	title varchar(64) NOT NULL, 
+    groupname varchar(64) NULL, 
 	url varchar(250) NOT NULL,
+    useproxy integer default 0,
     checkkey varchar(250),	
     maxvalue integer,  
 	frequency integer default 60, 
 	active integer default 1,
-	status integer default 1,
+	status integer default 0,
 	lastreset time
 ) ENGINE = innodb;
