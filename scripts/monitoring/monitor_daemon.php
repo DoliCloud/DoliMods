@@ -20,7 +20,7 @@
  *	\file       	scripts/monitoring/monitor_daemon.php
  *	\ingroup    	monitor
  *	\brief      	Script to execute monitor daemon
- *	\version		$Id: monitor_daemon.php,v 1.7 2011/04/07 20:41:47 eldy Exp $
+ *	\version		$Id: monitor_daemon.php,v 1.8 2011/04/07 21:31:24 eldy Exp $
  */
 
 $sapi_type = php_sapi_name();
@@ -34,7 +34,7 @@ if (substr($sapi_type, 0, 3) == 'cgi') {
 }
 
 // Global variables
-$version='$Revision: 1.7 $';
+$version='$Revision: 1.8 $';
 $error=0;
 // Include Dolibarr environment
 $res=0;
@@ -175,11 +175,21 @@ if (! $error)
 
 			$ch = curl_init();
 			curl_setopt($ch, CURLOPT_URL,$object['url']);
-			//curl_setopt($ch, CURLOPT_URL,"http://www.j1b.org/");
+
+			//turning off the server and peer verification(TrustManager Concept).
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
+
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
 			curl_setopt($ch, CURLOPT_FAILONERROR, 1);
-			@curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 0);
+			curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 0);
+
 			curl_setopt($ch, CURLOPT_TIMEOUT, round($frequency/2));
+            if ($object['useproxy'])
+            {
+                curl_setopt ($ch, CURLOPT_PROXY, $conf->global->MAIN_PROXY_HOST. ":" . $conf->global->MAIN_PROXY_PORT);
+                if (! empty($conf->global->MAIN_PROXY_USER)) curl_setopt ($ch, CURLOPT_PROXYUSERPWD, $conf->global->MAIN_PROXY_USER. ":" . $conf->global->MAIN_PROXY_PASS);
+            }
 			//curl_setopt($ch, CURLOPT_POST, 0);
 			//curl_setopt($ch, CURLOPT_POSTFIELDS, "a=3&b=5");
 			//--- Start buffering
