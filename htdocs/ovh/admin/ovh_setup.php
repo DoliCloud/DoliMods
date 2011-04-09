@@ -21,7 +21,7 @@
  *   	\file       htdocs/ovh/admin/ovh_setup.php
  *		\ingroup    ovh
  *		\brief      Setup of module OVH
- *		\version    $Id: ovh_setup.php,v 1.11 2011/04/03 18:11:56 eldy Exp $
+ *		\version    $Id: ovh_setup.php,v 1.12 2011/04/09 19:07:22 eldy Exp $
  */
 
 define('NOCSRFCHECK',1);
@@ -54,6 +54,13 @@ if ($user->societe_id > 0)
 {
     //accessforbidden();
 }
+
+$substitutionarrayfortest=array(
+'__ID__' => 'TESTIdRecord',
+'__LASTNAME__' => 'TESTLastname',
+'__FIRSTNAME__' => 'TESTFirstname'
+);
+
 
 
 /*
@@ -91,6 +98,69 @@ if ($action == 'setvalue_account' && $user->admin)
     else
     {
         dol_print_error($db);
+    }
+}
+
+/* Envoi d'un SMS */
+if ($action == 'send' && ! $_POST['cancel'])
+{
+    $error=0;
+
+    $smsfrom='';
+    if (! empty($_POST["fromsms"])) $smsfrom=GETPOST("fromsms");
+    if (empty($smsfrom)) $smsfrom=GETPOST("fromname");
+    $sendto     = GETPOST("sendto");
+    $body       = GETPOST('message');
+    $deliveryreceipt= GETPOST("deliveryreceipt");
+    $deferred   = GETPOST('deferred');
+    $priority   = GETPOST('priority');
+    $class      = GETPOST('class');
+    $errors_to  = GETPOST("errorstosms");
+
+    // Create form object
+    include_once(DOL_DOCUMENT_ROOT.'/core/class/html.formsms.class.php');
+    $formsms = new FormSms($db);
+
+    if (empty($body))
+    {
+        $mesg='<div class="error">'.$langs->trans("ErrorFieldRequired",$langs->transnoentities("Message")).'</div>';
+        $action='test';
+        $error++;
+    }
+    if (empty($smsfrom) || ! str_replace('+','',$smsfrom))
+    {
+        $mesg='<div class="error">'.$langs->trans("ErrorFieldRequired",$langs->transnoentities("SmsFrom")).'</div>';
+        $action='test';
+        $error++;
+    }
+    if (empty($sendto) || ! str_replace('+','',$sendto))
+    {
+        $mesg='<div class="error">'.$langs->trans("ErrorFieldRequired",$langs->transnoentities("SmsTo")).'</div>';
+        $action='test';
+        $error++;
+    }
+    if (! $error)
+    {
+        // Make substitutions into message
+        $substitutionarrayfortest['__PHONEFROM__']=$smsfrom;
+        $substitutionarrayfortest['__PHONETO__']=$sendto;
+        $body=make_substitutions($body,$substitutionarrayfortest,$langs);
+
+        require_once(DOL_DOCUMENT_ROOT."/lib/CSMSFile.class.php");
+
+        $smsfile = new CSMSFile($sendto, $smsfrom, $body, $deliveryreceipt, $deferred, $priority, $class);  // This define OvhSms->login, pass, session and account
+        $result=$smsfile->sendfile(); // This send SMS
+
+        if ($result > 0)
+        {
+            $mesg='<div class="ok">'.$langs->trans("SmsSuccessfulySent",$smsfrom,$sendto).'</div>';
+        }
+        else
+        {
+            $mesg='<div class="error">'.$langs->trans("ResultKo").'<br>'.$smsfile->error.'</div>';
+        }
+
+        $action='';
     }
 }
 
@@ -245,18 +315,50 @@ if (! empty($conf->global->OVHSMS_NICK) && ! empty($WS_DOL_URL))
     print '<tr><td colspan="3" align="center"><input type="submit" class="button" value="'.$langs->trans("Modify").'"></td></tr>';
     print '</table></form>';
 
-    /*if ($action != 'testsms')
+
+    if ($action != 'testsms')
     {
         if (! empty($conf->global->OVHSMS_ACCOUNT))
         {
-            print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?action=testsms">'.$langs->trans("TestSendSMS").'</a>';
+            print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?action=testsms">'.$langs->trans("DoTestSend").'</a>';
         }
         else
         {
-            print '<a class="butActionRefused" href="#">'.$langs->trans("TestSendSMS").'</a>';
+            print '<a class="butActionRefused" href="#">'.$langs->trans("DoTestSend").'</a>';
         }
     }
-    print '<br><br>';*/
+    else
+    {
+        print '<br>';
+
+        print_fiche_titre($langs->trans("Sms"));
+
+        // Cree l'objet formulaire mail
+        include_once(DOL_DOCUMENT_ROOT.'/core/class/html.formsms.class.php');
+        $formsms = new FormSms($db);
+        $formsms->fromtype = 'user';
+        $formsms->fromid   = $user->id;
+        $formsms->fromname = $user->getFullName($langs);
+        $formsms->fromsms = $user->user_mobile;
+        $formsms->withfrom=(empty($_POST['fromsms'])?1:$_POST['fromsms']);
+        $formsms->withfromreadonly=0;
+        $formsms->withto=(empty($_POST["sendto"])?($user->user_mobile?$user->user_mobile:1):$_POST["sendto"]);
+        $formsms->withbody=$langs->trans("SmsTestMessage");
+        $formsms->withcancel=0;
+        // Tableau des substitutions
+        $formsms->substit=$substitutionarrayfortest;
+        // Tableau des parametres complementaires du post
+        $formsms->param['action']='send';
+        $formsms->param['models']='body';
+        $formsms->param['id']=0;
+        $formsms->param['returnurl']=$_SERVER["PHP_SELF"];
+
+        $formsms->show_form();
+
+        print '<br>';
+    }
+
+    print '<br><br>';
 }
 
 /*
