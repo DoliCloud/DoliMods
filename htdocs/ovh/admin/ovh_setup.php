@@ -21,7 +21,7 @@
  *   	\file       htdocs/ovh/admin/ovh_setup.php
  *		\ingroup    ovh
  *		\brief      Setup of module OVH
- *		\version    $Id: ovh_setup.php,v 1.12 2011/04/09 19:07:22 eldy Exp $
+ *		\version    $Id: ovh_setup.php,v 1.13 2011/04/09 19:08:41 eldy Exp $
  */
 
 define('NOCSRFCHECK',1);
@@ -42,6 +42,7 @@ dol_include_once("/ovh/lib/ovh.lib.php");
 $langs->load("admin");
 $langs->load("companies");
 $langs->load("ovh@ovh");
+$langs->load("sms");
 
 if (!$user->admin)
 accessforbidden();

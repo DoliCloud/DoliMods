@@ -21,7 +21,7 @@
  *   	\file       ovh/admin/ovhsms_recap.php
  *		\ingroup    ovhsms
  *		\brief      Configuration du module ovhsms
- *		\version    $Id: ovh_smsrecap.php,v 1.5 2011/04/03 18:11:56 eldy Exp $
+ *		\version    $Id: ovh_smsrecap.php,v 1.6 2011/04/09 19:08:41 eldy Exp $
  *		\author		Put author name here
  *		\remarks	Put here some comments
  */
@@ -42,6 +42,7 @@ dol_include_once("/ovh/class/ovhsms.class.php");
 // Load traductions files requiredby by page
 $langs->load("companies");
 $langs->load("ovh@ovh");
+$langs->load("sms");
 
 if (!$user->admin)
 accessforbidden();
@@ -179,5 +180,5 @@ if($sms > 0) {
 
 // End of page
 $db->close();
-llxFooter('$Date: 2011/04/03 18:11:56 $ - $Revision: 1.5 $');
+llxFooter('$Date: 2011/04/09 19:08:41 $ - $Revision: 1.6 $');
 ?>
