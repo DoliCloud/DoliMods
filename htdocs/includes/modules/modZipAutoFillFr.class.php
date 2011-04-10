@@ -1,6 +1,6 @@
 <?php
 /* Copyright (C) 2005      Rodolphe Quiedeville <rodolphe@quiedeville.org>
- * Copyright (C) 2010 Laurent Destailleur  <eldy@users.sourceforge.net>
+ * Copyright (C) 2010-2011 Laurent Destailleur  <eldy@users.sourceforge.net>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,7 +20,7 @@
 /**
  *	\defgroup   zipautofill     Module ZiopAutoFill
  * 	\brief      Module to add zip codes
- *	\version	$Id: modZipAutoFillFr.class.php,v 1.2 2011/03/03 09:05:12 eldy Exp $
+ *	\version	$Id: modZipAutoFillFr.class.php,v 1.3 2011/04/10 21:53:32 eldy Exp $
  */
 
 /**
@@ -47,7 +47,7 @@ class modZipAutoFillFr extends DolibarrModules
 	function modZipAutoFillFr($DB)
 	{
         global $langs,$conf;
-		
+
         $this->db = $DB ;
 		$this->numero = 12200;
 
@@ -73,7 +73,9 @@ class modZipAutoFillFr extends DolibarrModules
 		$this->config_page_url = array();
 
 		// Constantes
-		$this->const = array();
+		$this->const = array(0=>array('MAIN_USE_ZIPTOWN_DICTIONNARY','chaine','1','Constant to enable usage of zip-town table',0));
+        //Example: $this->const=array(0=>array('MYMODULE_MYNEWCONST1','chaine','myvalue','This is a constant to add',0),
+        //                            1=>array('MYMODULE_MYNEWCONST2','chaine','myvalue','This is another constant to add',0) );
 
         // Dictionnaries
         $this->dictionnaries=array(
@@ -88,7 +90,7 @@ class modZipAutoFillFr extends DolibarrModules
             'tabrowid'=>array(),
             'tabcond'=>array($conf->zipautofillfr->enabled)
         );
-		
+
         // Boxes
 		$this->boxes = array();
 
