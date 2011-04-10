@@ -20,7 +20,7 @@
  *   \file       htdocs/cabinetmed/consultations.php
  *   \brief      Tab for consultations
  *   \ingroup    cabinetmed
- *   \version    $Id: consultations.php,v 1.10 2011/04/06 19:36:30 eldy Exp $
+ *   \version    $Id: consultations.php,v 1.11 2011/04/10 21:01:05 eldy Exp $
  */
 
 $res=0;
@@ -459,6 +459,7 @@ if ($socid > 0)
 
         <style>
             .ui-autocomplete-input { width: '.$width.'px; }
+            #paymentsbox .ui-autocomplete-input { width: 140px !important; }
         </style>
 
 
@@ -633,23 +634,36 @@ if ($socid > 0)
         print '<fieldset id="fieldsetanalyse">';
         print '<legend>'.$langs->trans("Paiement").'</legend>'."\n";
 
-        print '<table class="notopnoleftnoright" width="100%">';
+        print '<table class="notopnoleftnoright" id="paymentsbox" width="100%">';
         print '<tr><td width="160">';
         print ''.$langs->trans("Cheque").'</td><td>';
+
+        //print '<table class="nobordernopadding"><tr><td>';
+
         print '<input type="text" class="flat" name="montant_cheque" id="montant_cheque" value="'.($consult->montant_cheque!=''?price($consult->montant_cheque):'').'" size="5">';
         if ($conf->banque->enabled)
         {
             print ' &nbsp; '.$langs->trans("A encaiser sur").' ';
             $form->select_comptes('','bankchequeto',0,"(proprio LIKE '%".$user->nom."%' OR label LIKE '%".$user->nom."%') AND courant = 1",0,($consult->montant_cheque?'':' disabled="disabled"'));
         }
-        print ' &nbsp; '.$langs->trans("ChequeBank").' ';
+
+        //print '</td><td>';
+
+        print ' &nbsp; ';
+        print $langs->trans("ChequeBank").' ';
         //print '<input type="text" class="flat" name="banque" id="banque" value="'.$consult->banque.'" size="18"'.($consult->montant_cheque?'':' disabled="disabled"').'>';
         listebanques(1);
+
+        //print '</td></tr><tr><td></td><td>';
+
         if ($conf->banque->enabled)
         {
             print ' &nbsp; '.$langs->trans("ChequeOrTransferNumber").' ';
             print '<input type="text" class="flat" name="num_cheque" id="num_cheque" value="'.$consult->num_cheque.'" size="6"'.($consult->montant_cheque?'':' disabled="disabled"').'>';
         }
+
+        //print '</td></tr></table>';
+
         print '</td></tr><tr><td>';
         print $langs->trans("Espece").'</td><td>';
         print '<input type="text" class="flat" name="montant_espece" id="montant_espece" value="'.($consult->montant_espece!=''?price($consult->montant_espece):'').'" size="5">';
@@ -857,5 +871,5 @@ if ($action == '')
 
 $db->close();
 
-llxFooter('$Date: 2011/04/06 19:36:30 $ - $Revision: 1.10 $');
+llxFooter('$Date: 2011/04/10 21:01:05 $ - $Revision: 1.11 $');
 ?>
