@@ -11,9 +11,9 @@ $OCR        = "/usr/bin/gocr";        //  Parametern
 
 // DOL_CHANGE LDR
 if (! empty($conf->global->PHPSANE_SCANIMAGE)) $SCANIMAGE=$conf->global->PHPSANE_SCANIMAGE;
-if (! empty($conf->global->PHPSANE_PNMTOJPEG)) $SCANIMAGE=$conf->global->PHPSANE_PNMTOJPEG;
-if (! empty($conf->global->PHPSANE_PNMTOTIFF)) $SCANIMAGE=$conf->global->PHPSANE_PNMTOTIFF;
-if (! empty($conf->global->PHPSANE_OCR))       $SCANIMAGE=$conf->global->PHPSANE_OCR;
+if (! empty($conf->global->PHPSANE_PNMTOJPEG)) $PNMTOJPEG=$conf->global->PHPSANE_PNMTOJPEG;
+if (! empty($conf->global->PHPSANE_PNMTOTIFF)) $PNMTOTIFF=$conf->global->PHPSANE_PNMTOTIFF;
+if (! empty($conf->global->PHPSANE_OCR))       $OCR=$conf->global->PHPSANE_OCR;
 
 
 // user config
