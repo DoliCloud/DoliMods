@@ -21,7 +21,7 @@
  *      \file       dev/skeletons/monitoring_probes.class.php
  *      \ingroup    mymodule othermodule1 othermodule2
  *      \brief      This file is an example for a CRUD class file (Create/Read/Update/Delete)
- *		\version    $Id: monitoring_probes.class.php,v 1.8 2011/04/13 16:30:48 eldy Exp $
+ *		\version    $Id: monitoring_probes.class.php,v 1.9 2011/04/13 17:07:41 eldy Exp $
  *		\author		Put author name here
  *		\remarks	Initialy built by build_class_from_table on 2011-03-08 23:24
  */
@@ -82,6 +82,8 @@ class Monitoring_probes extends CommonObject
     	global $conf, $langs;
 		$error=0;
 
+		$now=dol_now();
+
 		// Clean parameters
 		if (isset($this->title)) $this->title=trim($this->title);
         if (isset($this->groupname)) $this->groupname=trim($this->groupname);
@@ -104,7 +106,8 @@ class Monitoring_probes extends CommonObject
 		$sql.= "checkkey,";
 		$sql.= "frequency,";
         $sql.= "active,";
-		$sql.= "status";
+		$sql.= "status,";
+		$sql.= "lastreset";
         $sql.= ") VALUES (";
 
 		$sql.= " ".(! isset($this->title)?'NULL':"'".$this->db->escape($this->title)."'").",";
@@ -114,8 +117,8 @@ class Monitoring_probes extends CommonObject
 		$sql.= " ".(! isset($this->checkkey)?'NULL':"'".$this->db->escape($this->checkkey)."'").",";
 		$sql.= " ".(! isset($this->frequency)?'NULL':"'".$this->frequency."'").",";
         $sql.= " ".(! isset($this->active)?'NULL':"'".$this->active."'").",";
-		$sql.= " ".(! isset($this->status)?'NULL':"'".$this->status."'")."";
-
+		$sql.= " ".(! isset($this->status)?'NULL':"'".$this->status."'").",";
+        $sql.= " '".$this->db->idate($now)."'";
 
 		$sql.= ")";
 
@@ -260,7 +263,7 @@ class Monitoring_probes extends CommonObject
         $sql.= " frequency=".(isset($this->frequency)?$this->frequency:"null").",";
         $sql.= " active=".(isset($this->active)?$this->active:"null").",";
         $sql.= " status=".(isset($this->status)?$this->status:"null").",";
-        $sql.= " lastreset=".(isset($this->lastreset)?$this->lastreset:"null")."";
+        $sql.= " lastreset=".($this->lastreset?"'".$this->db->idate($this->lastreset)."'":"null");
         $sql.= " WHERE rowid=".$this->id;
 
 		$this->db->begin();

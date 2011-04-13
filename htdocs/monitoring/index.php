@@ -20,7 +20,7 @@
  *	    \file       htdocs/monitoring/index.php
  *      \ingroup    monitoring
  *      \brief      Page to setup module Monitoring
- *		\version    $Id: index.php,v 1.12 2011/04/13 16:30:48 eldy Exp $
+ *		\version    $Id: index.php,v 1.13 2011/04/13 17:07:40 eldy Exp $
  */
 
 define('NOCSRFCHECK',1);
@@ -309,7 +309,7 @@ if ($action == 'reinit' && $id > 0)
     $probe->fetch($id);
 
     $now=dol_now();
-    $result=$probe->updateStatus(0,$new,'');
+    $result=$probe->updateStatus(0,$now,'');
 }
 
 
@@ -406,18 +406,17 @@ if (empty($id))
             print $probestatic->getLibStatut(3);
             print "</td>";
             print '<td align="center">';
-            if ($obj->status == 0) print $langs->trans('ProbeNeverLaunched');
-            else print dol_print_date($obj->lastreset);
+            print dol_print_date($obj->lastreset,'%Y-%m-%d %H:%M:%S');
             print "</td>";
             // First error date
             print '<td align="center">';
             if ($obj->status == 0) print $langs->trans('ProbeNeverLaunched');
-            else print dol_print_date($obj->oldestfirsterrordate,'dayhour');
+            else print dol_print_date($obj->oldesterrordate,'%Y-%m-%d %H:%M:%S');
             print "</td>";
             // First error text
             print "<td>";
             if ($obj->status == 0) print $langs->trans('ProbeNeverLaunched');
-            else print $obj->oldestfirsterrortext;
+            else print $html->textwithhelp(dol_trunc($obj->oldesterrortext,20),$obj->oldesterrortext,1);
             print "</td>";
             // Graphics
             print '<td align="center">';
@@ -476,9 +475,10 @@ else
     print '<tr><td width="20%">'.$langs->trans("LastStatus").'</td><td>';
     print $probe->getLibStatut(4);
     print '</td></tr>'."\n";
-    print '<tr><td>'.$langs->trans("StatusSince").'</td><td>';
-    if ($probe->status == 0) print $langs->trans('ProbeNeverLaunchedLong');
-    else print dol_print_date($probe->lastreset,'%Y-%m-%d %H:%M:%S');
+    // Status since
+    print '<tr><td>'.$langs->trans("StatusSince").'</td>';
+    print '<td>';
+    print dol_print_date($probe->lastreset,'%Y-%m-%d %H:%M:%S');
     print '</td></tr>'."\n";
     print '<tr><td>'.$langs->trans("FirstErrorDate").'</td><td>';
     if ($probe->status == 0) print $langs->trans('ProbeNeverLaunchedLong');
@@ -551,5 +551,5 @@ print '<br>';
 
 $db->close();
 
-llxFooter('$Date: 2011/04/13 16:30:48 $ - $Revision: 1.12 $');
+llxFooter('$Date: 2011/04/13 17:07:40 $ - $Revision: 1.13 $');
 ?>

@@ -21,7 +21,7 @@
  *	\file       	scripts/monitoring/monitor_daemon.php
  *	\ingroup    	monitor
  *	\brief      	Script to execute monitor daemon
- *	\version		$Id: monitor_daemon.php,v 1.9 2011/04/13 16:30:48 eldy Exp $
+ *	\version		$Id: monitor_daemon.php,v 1.10 2011/04/13 17:07:41 eldy Exp $
  */
 
 $sapi_type = php_sapi_name();
@@ -35,7 +35,7 @@ if (substr($sapi_type, 0, 3) == 'cgi') {
 }
 
 // Global variables
-$version='$Revision: 1.9 $';
+$version='$Revision: 1.10 $';
 $error=0;
 // Include Dolibarr environment
 $res=0;
@@ -178,77 +178,116 @@ if (! $error)
 		{
 			$fname = $conf->monitoring->dir_output.'/'.$object['code'].'/monitoring.rrd';
 
-			$ch = curl_init();
-			curl_setopt($ch, CURLOPT_URL,$object['url']);
+            $value1='U';
+            $value2='U';
+            $errortext='';
+            $done=0;
 
-			//turning off the server and peer verification(TrustManager Concept).
-            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
-            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
+            // Each managed protocol must define $end_time, $delay, $value1, $value2 and increase $nbok or $nbko
 
-			curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
-			curl_setopt($ch, CURLOPT_FAILONERROR, 1);
-			curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 0);
-
-			curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
-            if ($object['useproxy'])
-            {
-                curl_setopt ($ch, CURLOPT_PROXY, $conf->global->MAIN_PROXY_HOST. ":" . $conf->global->MAIN_PROXY_PORT);
-                if (! empty($conf->global->MAIN_PROXY_USER)) curl_setopt ($ch, CURLOPT_PROXYUSERPWD, $conf->global->MAIN_PROXY_USER. ":" . $conf->global->MAIN_PROXY_PASS);
-            }
-			//curl_setopt($ch, CURLOPT_POST, 0);
-			//curl_setopt($ch, CURLOPT_POSTFIELDS, "a=3&b=5");
-			//--- Start buffering
-			//ob_start();
-			list($usec, $sec) = explode(" ", microtime());
-			$micro_start_time=((float)$usec + (float)$sec);
-			$result = curl_exec($ch);
-
-			list($usec, $sec) = explode(" ", microtime());
-			$micro_end_time=((float)$usec + (float)$sec);
-            $end_time=((float)$sec);
-
-            $delay=($micro_end_time-$micro_start_time);
-
-			if (! $result)
-            {
-                print dol_print_date($end_time,'dayhourlog').' Error for id='.$object['code'].': '.curl_error($ch)."\n";
-            }
-
-			//dol_syslog($result);
-			//--- End buffering and clean output
-			//ob_end_clean();
-
-			$value1='U';
-			$value2='U';
-			if (curl_error($ch))	// Test with no response
+			// Protocol HTTP or HTTPS
+			if (preg_match('/^http/i',$object['url']))
 			{
-				$value1='U';
-				$value2=round($object['max']);
-				$nbko++;
-				$errortext='Failed to get response. Curl return: '.curl_error($ch);
-			}
-			else
-			{
-				//var_dump($result);
-				if (preg_match('/'.preg_quote($object['checkkey']).'/',$result))
-				{	// Test ok
-					$value1=round($delay*1000);
-					$value2='U';
-					$nbok++;
-					$errortext='';
-				}
-				else
-				{	// Test ko
-					$value1='U';
-					$value2=round($object['max']);
-					$nbko++;
-					$errortext='Failed to find string "'.$object['checkkey'].'" into reponse string.\nResponse string is '.$result;
-				}
+    			$ch = curl_init();
+    			curl_setopt($ch, CURLOPT_URL,$object['url']);
+
+    			//turning off the server and peer verification(TrustManager Concept).
+                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+                curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
+
+    			curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
+    			curl_setopt($ch, CURLOPT_FAILONERROR, 1);
+    			curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 0);
+
+    			curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
+                if ($object['useproxy'])
+                {
+                    curl_setopt ($ch, CURLOPT_PROXY, $conf->global->MAIN_PROXY_HOST. ":" . $conf->global->MAIN_PROXY_PORT);
+                    if (! empty($conf->global->MAIN_PROXY_USER)) curl_setopt ($ch, CURLOPT_PROXYUSERPWD, $conf->global->MAIN_PROXY_USER. ":" . $conf->global->MAIN_PROXY_PASS);
+                }
+    			//curl_setopt($ch, CURLOPT_POST, 0);
+    			//curl_setopt($ch, CURLOPT_POSTFIELDS, "a=3&b=5");
+    			//--- Start buffering
+    			//ob_start();
+    			list($usec, $sec) = explode(" ", microtime());
+    			$micro_start_time=((float)$usec + (float)$sec);
+    			$result = curl_exec($ch);
+
+    			list($usec, $sec) = explode(" ", microtime());
+    			$micro_end_time=((float)$usec + (float)$sec);
+                $end_time=((float)$sec);
+
+                $delay=($micro_end_time-$micro_start_time);
+
+    			if (! $result)
+                {
+                    print dol_print_date($end_time,'dayhourlog').' Error for id='.$object['code'].': '.curl_error($ch)."\n";
+                }
+
+    			//dol_syslog($result);
+    			//--- End buffering and clean output
+    			//ob_end_clean();
+
+    			if (curl_error($ch))	// Test with no response
+    			{
+    				$value1='U';
+    				$value2=round($object['max']);
+    				$nbko++;
+    				$errortext='Failed to get response. Curl return: '.curl_error($ch);
+    			}
+    			else
+    			{
+    				//var_dump($result);
+    				if (preg_match('/'.preg_quote($object['checkkey']).'/',$result))
+    				{	// Test ok
+    					$value1=round($delay*1000);
+    					$value2='U';
+    					$nbok++;
+    					$errortext='';
+    				}
+    				else
+    				{	// Test ko
+    					$value1='U';
+    					$value2=round($object['max']);
+    					$nbko++;
+    					$errortext='Failed to find string "'.$object['checkkey'].'" into reponse string.\nResponse string is '.$result;
+    				}
+    			}
+
+    			curl_close ($ch);
+
+    			$done=1;
 			}
 
-			curl_close ($ch);
+            // Protocol TCPIP
+            if (preg_match('/^tcp/i',$object['url']))
+            {
+                list($usec, $sec) = explode(" ", microtime());
+                $micro_start_time=((float)$usec + (float)$sec);
 
-            $newstatus=($nbko?-1:1);
+                //$result = curl_exec($ch);
+
+                list($usec, $sec) = explode(" ", microtime());
+                $micro_end_time=((float)$usec + (float)$sec);
+                $end_time=((float)$sec);
+
+                $delay=($micro_end_time-$micro_start_time);
+
+
+                $done=1;
+            }
+
+            // If no protocol found
+            if (! $done)
+            {
+                $value1='U';
+                $value2=round($object['max']);
+                $nbko++;
+                $errortext='Url of probe has a not supported protocol';
+            }
+
+            // Manage result
+            $newstatus=(empty($errortext)?1:-1);
 
 			// Update RRD file
 			$ret = rrd_update($fname, $stringupdate);
@@ -265,7 +304,7 @@ if (! $error)
 				$errortext='Failed to update RRD file.\nRRD functions returns: '.$err;
 			}
 
-            print dol_print_date($end_time,'dayhourlog').' Loop '.$nbloop.': id='.$object['code'].' '.$micro_start_time.'-'.$micro_end_time.'='.$delay.' -> '.($nbko?'KO':'OK').' -> '.$value1.':'.$value2."\n";
+            print dol_print_date($end_time,'dayhourlog').' Loop '.$nbloop.': id='.$object['code'].' '.$micro_start_time.'-'.$micro_end_time.'='.$delay.' -> '.($newstatus==1?'OK':'KO').' -> '.$value1.':'.$value2."\n";
             $stringupdate='N:'.$value1.':'.$value2;
 
             // Update database if status has changed
@@ -288,7 +327,6 @@ if (! $error)
                     print dol_print_date($end_time,'dayhourlog').' Error to update database: '.$probestatic->error."\n";
                 }
             }
-
 		}
 
 		// Add delay
