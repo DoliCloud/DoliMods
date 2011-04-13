@@ -21,7 +21,7 @@
  *  \file       htdocs/monitoring/lib/monitoring.lib.php
  *  \brief      Ensemble de fonctions de base pour le module Monitoring
  *  \ingroup    monitoring
- *  \version    $Id: monitoring.lib.php,v 1.9 2011/04/13 16:30:43 eldy Exp $
+ *  \version    $Id: monitoring.lib.php,v 1.10 2011/04/13 21:18:58 eldy Exp $
  */
 
 $linktohelp='EN:Module_Monitoring_En|FR:Module_Monitoring|ES:Modulo_Monitoring';
@@ -55,7 +55,7 @@ function getListOfProbes($active=1)
 
     $listofurls=array();
 
-    $sql ="SELECT rowid, groupname, title, url, useproxy, checkkey, frequency, maxvalue, active, status, lastreset,";
+    $sql ="SELECT rowid, groupname, title, url, useproxy, checkkey, frequency, maxval, active, status, lastreset,";
     $sql.=" oldesterrordate, oldesterrortext";
     $sql.=" FROM ".MAIN_DB_PREFIX."monitoring_probes";
     $sql.=" WHERE active = ".$active;
@@ -72,7 +72,7 @@ function getListOfProbes($active=1)
             $obj = $db->fetch_object($resql);
 
             $listofurls[$i]=array('code'=>$obj->rowid, 'groupname'=>$obj->groupname, 'title'=>$obj->title, 'url'=>$obj->url, 'useproxy'=>$obj->useproxy,
-                'checkkey'=>$obj->checkkey, 'frequency'=>$obj->frequency, 'active'=>$obj->active, 'status'=>$obj->status, 'max'=>$obj->maxvalue,
+                'checkkey'=>$obj->checkkey, 'frequency'=>$obj->frequency, 'active'=>$obj->active, 'status'=>$obj->status, 'max'=>$obj->maxval,
                 'lastreset'=>$db->jdate($obj->lastreset),
                 'oldesterrordate'=>$db->jdate($obj->oldesterrordate),
                 'oldesterrortext'=>$obj->oldesterrortext

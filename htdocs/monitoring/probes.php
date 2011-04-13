@@ -25,7 +25,7 @@
  *      \file       htdocs/monitoring/probes.php
  *      \ingroup    monitoring
  *      \brief      Page to add probes
- *      \version    $Id: probes.php,v 1.10 2011/04/13 17:55:45 eldy Exp $
+ *      \version    $Id: probes.php,v 1.11 2011/04/13 21:18:58 eldy Exp $
  */
 
 $res=0;
@@ -118,8 +118,8 @@ if ($action == 'add' && ! GETPOST('cancel'))
     $probe->url=GETPOST('probe_url');
     $probe->useproxy=GETPOST('probe_useproxy');
     $probe->checkkey=GETPOST('probe_checkkey');
-    $probe->maxvalue=GETPOST('probe_maxvalue');
-    $probe->frequency=GETPOST('probe_frequency');
+    $probe->maxvalue=GETPOST('probe_maxvalue')>0?GETPOST('probe_maxvalue'):1000;
+    $probe->frequency=GETPOST('probe_frequency')>0?GETPOST('probe_frequency'):10;
     $probe->useproxy=GETPOST('probe_useproxy');
     $probe->active=GETPOST('probe_active');
 
@@ -178,14 +178,14 @@ if ($action != 'edit')
 
     $var=!$var;
     print '<tr '.$bc[$var].'>';
-    print '<td width="200">'.$langs->trans("Title").'</td>';
+    print '<td width="200" class="fieldrequired">'.$langs->trans("Title").'</td>';
     print '<td><input type="text" name="probe_title" value="" size="64"></td>';
     print '<td>My web site</td>';
     print '</tr>';
 
     $var=!$var;
     print '<tr '.$bc[$var].'>';
-    print '<td>'.$langs->trans("URL").'</td>';
+    print '<td class="fieldrequired">'.$langs->trans("URL").'</td>';
     print '<td><input type="text" name="probe_url" value="" size="64"></td>';
     print '<td>http://mywebsite.com/mylogonpage.php<br>';
     print 'tcp://localhost:81<br>';
@@ -212,16 +212,16 @@ if ($action != 'edit')
 
     $var=!$var;
     print '<tr '.$bc[$var].'>';
-    print '<td>'.$langs->trans("MaxValue").'</td>';
+    print '<td class="fieldrequired">'.$langs->trans("MaxValue").'</td>';
     print '<td><input type="text" name="probe_maxvalue" value="" size="2"></td>';
     print '<td>1000</td>';
     print '</tr>';
 
     $var=!$var;
     print '<tr '.$bc[$var].'>';
-    print '<td>'.$langs->trans("Frequency").'</td>';
+    print '<td class="fieldrequired">'.$langs->trans("Frequency").'</td>';
     print '<td><input type="text" name="probe_frequency" value="" size="2"> '.$langs->trans("seconds").'</td>';
-    print '<td>5</td>';
+    print '<td>10</td>';
     print '</tr>';
 
     $var=!$var;
@@ -277,7 +277,7 @@ if ($action != 'edit')
     print '</tr>';
 
 
-    $sql ="SELECT rowid, title, url, useproxy, checkkey, maxvalue, frequency, status, active";
+    $sql ="SELECT rowid, title, url, useproxy, checkkey, maxval, frequency, status, active";
     $sql.=" FROM ".MAIN_DB_PREFIX."monitoring_probes";
     $sql.=" ORDER BY rowid";
 
@@ -303,7 +303,7 @@ if ($action != 'edit')
             print "<td>".$obj->url."</td>";
             print "<td>".yn($obj->useproxy)."</td>";
             print "<td>".$obj->checkkey."</td>";
-            print "<td>".$obj->maxvalue."</td>";
+            print "<td>".$obj->maxval."</td>";
             print "<td>".$obj->frequency."</td>";
             print '<td align="center">'.yn($obj->active)."</td>";
             /*print '<td align="center">';
@@ -359,14 +359,14 @@ else
 
     $var=!$var;
     print '<tr '.$bc[$var].'>';
-    print '<td width="200">'.$langs->trans("Title").'</td>';
+    print '<td width="200" class="fieldrequired">'.$langs->trans("Title").'</td>';
     print '<td><input type="text" name="probe_title" value="'.($_POST['probe_title']?$_POST['probe_title']:$probe->title).'" size="64"></td>';
     print '<td>My web site</td>';
     print '</tr>';
 
     $var=!$var;
     print '<tr '.$bc[$var].'>';
-    print '<td>'.$langs->trans("URL").'</td>';
+    print '<td class="fieldrequired">'.$langs->trans("URL").'</td>';
     print '<td><input type="text" name="probe_url" value="'.($_POST['probe_url']?$_POST['probe_url']:$probe->url).'" size="64"></td>';
     print '<td>http://mywebsite.com/mylogonpage.php</td>';
     print '</tr>';
@@ -391,16 +391,16 @@ else
 
     $var=!$var;
     print '<tr '.$bc[$var].'>';
-    print '<td>'.$langs->trans("MaxValue").'</td>';
+    print '<td class="fieldrequired">'.$langs->trans("MaxValue").'</td>';
     print '<td><input type="text" name="probe_maxvalue" value="'.($_POST['probe_maxvalue']?$_POST['probe_maxvalue']:$probe->maxvalue).'" size="2"></td>';
     print '<td>1000</td>';
     print '</tr>';
 
     $var=!$var;
     print '<tr '.$bc[$var].'>';
-    print '<td>'.$langs->trans("Frequency").'</td>';
+    print '<td class="fieldrequired">'.$langs->trans("Frequency").'</td>';
     print '<td><input type="text" name="probe_frequency" value="'.($_POST['probe_frequency']?$_POST['probe_frequency']:$probe->frequency).'" size="2"> '.$langs->trans("seconds").'</td>';
-    print '<td>5</td>';
+    print '<td>10</td>';
     print '</tr>';
 
     $var=!$var;
@@ -430,5 +430,5 @@ else
 
 $db->close();
 
-llxFooter('$Date: 2011/04/13 17:55:45 $ - $Revision: 1.10 $');
+llxFooter('$Date: 2011/04/13 21:18:58 $ - $Revision: 1.11 $');
 ?>

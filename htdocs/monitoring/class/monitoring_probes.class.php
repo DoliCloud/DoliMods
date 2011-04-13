@@ -21,7 +21,7 @@
  *      \file       dev/skeletons/monitoring_probes.class.php
  *      \ingroup    mymodule othermodule1 othermodule2
  *      \brief      This file is an example for a CRUD class file (Create/Read/Update/Delete)
- *		\version    $Id: monitoring_probes.class.php,v 1.9 2011/04/13 17:07:41 eldy Exp $
+ *		\version    $Id: monitoring_probes.class.php,v 1.10 2011/04/13 21:18:58 eldy Exp $
  *		\author		Put author name here
  *		\remarks	Initialy built by build_class_from_table on 2011-03-08 23:24
  */
@@ -104,6 +104,7 @@ class Monitoring_probes extends CommonObject
 		$sql.= "url,";
         $sql.= "useproxy,";
 		$sql.= "checkkey,";
+		$sql.= "maxval,";
 		$sql.= "frequency,";
         $sql.= "active,";
 		$sql.= "status,";
@@ -115,6 +116,7 @@ class Monitoring_probes extends CommonObject
 		$sql.= " ".(! isset($this->url)?'NULL':"'".$this->db->escape($this->url)."'").",";
         $sql.= " ".(! isset($this->useproxy)?'NULL':"'".$this->db->escape($this->useproxy)."'").",";
 		$sql.= " ".(! isset($this->checkkey)?'NULL':"'".$this->db->escape($this->checkkey)."'").",";
+		$sql.= " ".(! isset($this->maxvalue)?'NULL':"'".$this->db->escape($this->maxvalue)."'").",";
 		$sql.= " ".(! isset($this->frequency)?'NULL':"'".$this->frequency."'").",";
         $sql.= " ".(! isset($this->active)?'NULL':"'".$this->active."'").",";
 		$sql.= " ".(! isset($this->status)?'NULL':"'".$this->status."'").",";
@@ -180,7 +182,7 @@ class Monitoring_probes extends CommonObject
 		$sql.= " t.url,";
         $sql.= " t.useproxy,";
 		$sql.= " t.checkkey,";
-		$sql.= " t.maxvalue,";
+		$sql.= " t.maxval,";
 		$sql.= " t.frequency,";
         $sql.= " t.active,";
 		$sql.= " t.status,";
@@ -205,7 +207,7 @@ class Monitoring_probes extends CommonObject
 				$this->url   = $obj->url;
                 $this->useproxy  = $obj->useproxy;
 				$this->checkkey  = $obj->checkkey;
-                $this->maxvalue  = $obj->maxvalue;
+                $this->maxvalue  = $obj->maxval;
 				$this->frequency = $obj->frequency;
 				$this->active    = $obj->active;
                 $this->status    = $obj->status;
@@ -259,7 +261,7 @@ class Monitoring_probes extends CommonObject
         $sql.= " url=".(isset($this->url)?"'".$this->db->escape($this->url)."'":"null").",";
         $sql.= " useproxy=".(isset($this->useproxy)?"'".$this->db->escape($this->useproxy)."'":"0").",";
         $sql.= " checkkey=".(isset($this->checkkey)?"'".$this->db->escape($this->checkkey)."'":"null").",";
-        $sql.= " maxvalue=".(isset($this->maxvalue)?"'".$this->db->escape($this->maxvalue)."'":"null").",";
+        $sql.= " maxval=".(isset($this->maxvalue)?"'".$this->db->escape($this->maxvalue)."'":"null").",";
         $sql.= " frequency=".(isset($this->frequency)?$this->frequency:"null").",";
         $sql.= " active=".(isset($this->active)?$this->active:"null").",";
         $sql.= " status=".(isset($this->status)?$this->status:"null").",";

@@ -20,7 +20,7 @@
  *	    \file       htdocs/monitoring/index.php
  *      \ingroup    monitoring
  *      \brief      Page to setup module Monitoring
- *		\version    $Id: index.php,v 1.14 2011/04/13 18:17:31 eldy Exp $
+ *		\version    $Id: index.php,v 1.15 2011/04/13 21:18:58 eldy Exp $
  */
 
 define('NOCSRFCHECK',1);
@@ -342,7 +342,7 @@ if (empty($id))
 
     print '<br>';
 
-    $sql ="SELECT rowid, title, url, useproxy, checkkey, maxvalue, frequency, status, active, lastreset, oldesterrortext, oldesterrordate";
+    $sql ="SELECT rowid, title, url, useproxy, checkkey, maxval, frequency, status, active, lastreset, oldesterrortext, oldesterrordate";
     $sql.=" FROM ".MAIN_DB_PREFIX."monitoring_probes";
     $sql.=" ORDER BY rowid";
 
@@ -396,7 +396,7 @@ if (empty($id))
             print "<td>".$obj->url."</td>";
             print "<td>".yn($obj->useproxy)."</td>";
             //print "<td>".$obj->checkkey."</td>";
-            print "<td>".$obj->maxvalue."</td>";
+            print "<td>".$obj->maxval."</td>";
             print "<td>".$obj->frequency."</td>";
             print '<td align="center">'.yn($obj->active).'</td>';
             print '<td align="center">';
@@ -553,5 +553,5 @@ print '<br>';
 
 $db->close();
 
-llxFooter('$Date: 2011/04/13 18:17:31 $ - $Revision: 1.14 $');
+llxFooter('$Date: 2011/04/13 21:18:58 $ - $Revision: 1.15 $');
 ?>
