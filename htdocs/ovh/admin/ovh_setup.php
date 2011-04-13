@@ -21,7 +21,7 @@
  *   	\file       htdocs/ovh/admin/ovh_setup.php
  *		\ingroup    ovh
  *		\brief      Setup of module OVH
- *		\version    $Id: ovh_setup.php,v 1.14 2011/04/13 18:17:10 eldy Exp $
+ *		\version    $Id: ovh_setup.php,v 1.15 2011/04/13 18:31:46 eldy Exp $
  */
 
 define('NOCSRFCHECK',1);
@@ -275,9 +275,13 @@ else
 
         $soap = new SoapClient($WS_DOL_URL,$params);
         try {
+            $language="en";
+            $multisession=false;
+
             //login
-            $session = $soap->login($conf->global->OVHSMS_NICK, $conf->global->OVHSMS_PASS, "fr", false);
-            print '<div class="ok">'.$langs->trans("OvhSmsLoginSuccessFull").'</div><br>';
+            $session = $soap->login($conf->global->OVHSMS_NICK, $conf->global->OVHSMS_PASS, $language, $multisession);
+            if ($session) print '<div class="ok">'.$langs->trans("OvhSmsLoginSuccessFull").'</div><br>';
+            else print '<div class="error">Error login did not return a session id</div><br>';
 
             //logout
             $soap->logout($session);
