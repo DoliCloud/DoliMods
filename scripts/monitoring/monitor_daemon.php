@@ -21,7 +21,7 @@
  *	\file       	scripts/monitoring/monitor_daemon.php
  *	\ingroup    	monitor
  *	\brief      	Script to execute monitor daemon
- *	\version		$Id: monitor_daemon.php,v 1.11 2011/04/13 17:51:45 eldy Exp $
+ *	\version		$Id: monitor_daemon.php,v 1.12 2011/04/13 18:44:21 eldy Exp $
  */
 
 $sapi_type = php_sapi_name();
@@ -35,7 +35,7 @@ if (substr($sapi_type, 0, 3) == 'cgi') {
 }
 
 // Global variables
-$version='$Revision: 1.11 $';
+$version='$Revision: 1.12 $';
 $error=0;
 // Include Dolibarr environment
 $res=0;
@@ -74,7 +74,6 @@ function traitementErreur($code, $message, $fichier, $ligne, $contexte)
         throw new Exception($message, $code);
     }
 }
-
 set_error_handler('traitementErreur');
 
 
