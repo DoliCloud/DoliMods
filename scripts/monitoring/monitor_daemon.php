@@ -21,7 +21,7 @@
  *	\file       	scripts/monitoring/monitor_daemon.php
  *	\ingroup    	monitor
  *	\brief      	Script to execute monitor daemon
- *	\version		$Id: monitor_daemon.php,v 1.10 2011/04/13 17:07:41 eldy Exp $
+ *	\version		$Id: monitor_daemon.php,v 1.11 2011/04/13 17:51:45 eldy Exp $
  */
 
 $sapi_type = php_sapi_name();
@@ -35,7 +35,7 @@ if (substr($sapi_type, 0, 3) == 'cgi') {
 }
 
 // Global variables
-$version='$Revision: 1.10 $';
+$version='$Revision: 1.11 $';
 $error=0;
 // Include Dolibarr environment
 $res=0;
@@ -65,6 +65,19 @@ $langs->load("monitoring");				// To load language file for default language
 $result=$user->fetch('','admin');	// Load user for login 'admin'. Comment line to run as anonymous user.
 if (! $result > 0) { dol_print_error('',$user->error); exit; }
 $user->getrights();
+
+
+// Activate error interceptions
+function traitementErreur($code, $message, $fichier, $ligne, $contexte)
+{
+    if (error_reporting() & $code) {
+        throw new Exception($message, $code);
+    }
+}
+
+set_error_handler('traitementErreur');
+
+
 
 
 print "***** ".$script_file." (".$version.") *****\n";
@@ -231,7 +244,7 @@ if (! $error)
     			if (curl_error($ch))	// Test with no response
     			{
     				$value1='U';
-    				$value2=round($object['max']);
+    				$value2=max(round($object['max']),1);
     				$nbko++;
     				$errortext='Failed to get response. Curl return: '.curl_error($ch);
     			}
@@ -240,7 +253,7 @@ if (! $error)
     				//var_dump($result);
     				if (preg_match('/'.preg_quote($object['checkkey']).'/',$result))
     				{	// Test ok
-    					$value1=round($delay*1000);
+    					$value1=max(round($delay*1000),1);
     					$value2='U';
     					$nbok++;
     					$errortext='';
@@ -248,7 +261,7 @@ if (! $error)
     				else
     				{	// Test ko
     					$value1='U';
-    					$value2=round($object['max']);
+    					$value2=max(round($object['max']),1);
     					$nbko++;
     					$errortext='Failed to find string "'.$object['checkkey'].'" into reponse string.\nResponse string is '.$result;
     				}
@@ -262,10 +275,51 @@ if (! $error)
             // Protocol TCPIP
             if (preg_match('/^tcp/i',$object['url']))
             {
+                $resultat=0;
+
                 list($usec, $sec) = explode(" ", microtime());
                 $micro_start_time=((float)$usec + (float)$sec);
 
-                //$result = curl_exec($ch);
+                $socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
+                if ($socket)
+                {
+                    $tmparray=explode(':',$object['url']);
+                    $adresse=preg_replace('/\//','',$tmparray[1]);
+                    $service_port=$tmparray[2];
+                    //print 'adress='.$adresse.' port='.$service_port."\n";
+                    try
+                    {
+                        $resultat = socket_connect($socket, $adresse, $service_port);
+                    }
+                    catch(Exception $e)
+                    {
+                        $errortext.='Failed to connect to address='.$adresse.' port='.$service_port.', reason is: '.$e->getMessage()."\n";
+                    }
+                    if ($resultat < 0)
+                    {
+                        $errortext='Failed to connect using socket. Reason is: '.socket_strerror ($resultat);
+                    }
+                    /*
+                    $envoi = "HEAD / HTTP/1.0\r\n\r\n";
+                    $envoi .= "Host: www.siteduzero.com\r\n";
+                    $envoi .= "Connection: Close\r\n\r\n";
+                    $reception = '';
+
+                    echo "Envoi de la requête HTTP HEAD...";
+                    socket_write($socket, $envoi, strlen($envoi));
+                    echo "OK.<br />";
+
+                    echo "Lire la réponse : <br /><br />";
+                    while ($reception = socket_read($socket, 2048))
+                       echo $reception;
+                    */
+
+                    socket_close($socket);
+                }
+                else
+                {
+                    $errortext='Failed to create locally a socket. Reason is: '.socket_strerror ($socket);
+                }
 
                 list($usec, $sec) = explode(" ", microtime());
                 $micro_end_time=((float)$usec + (float)$sec);
@@ -273,6 +327,20 @@ if (! $error)
 
                 $delay=($micro_end_time-$micro_start_time);
 
+                if ($errortext)
+                {
+                    $value1='U';
+                    $value2=max(round($object['max']),1);
+                    $nbok++;
+                    print dol_print_date($end_time,'dayhourlog').' '.$errortext;
+                }
+                else
+                {
+                    $value1=max(round($delay*1000),1);
+                    $value2='U';
+                    $nbok++;
+                    $errortext='';
+                }
 
                 $done=1;
             }

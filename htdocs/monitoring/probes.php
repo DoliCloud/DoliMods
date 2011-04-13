@@ -25,7 +25,7 @@
  *      \file       htdocs/monitoring/probes.php
  *      \ingroup    monitoring
  *      \brief      Page to add probes
- *      \version    $Id: probes.php,v 1.9 2011/04/13 16:30:48 eldy Exp $
+ *      \version    $Id: probes.php,v 1.10 2011/04/13 17:55:45 eldy Exp $
  */
 
 $res=0;
@@ -187,7 +187,9 @@ if ($action != 'edit')
     print '<tr '.$bc[$var].'>';
     print '<td>'.$langs->trans("URL").'</td>';
     print '<td><input type="text" name="probe_url" value="" size="64"></td>';
-    print '<td>http://mywebsite.com/mylogonpage.php</td>';
+    print '<td>http://mywebsite.com/mylogonpage.php<br>';
+    print 'tcp://localhost:81<br>';
+    print '</td>';
     print '</tr>';
 
     $var=!$var;
@@ -428,5 +430,5 @@ else
 
 $db->close();
 
-llxFooter('$Date: 2011/04/13 16:30:48 $ - $Revision: 1.9 $');
+llxFooter('$Date: 2011/04/13 17:55:45 $ - $Revision: 1.10 $');
 ?>
