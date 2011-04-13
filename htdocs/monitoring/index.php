@@ -20,7 +20,7 @@
  *	    \file       htdocs/monitoring/index.php
  *      \ingroup    monitoring
  *      \brief      Page to setup module Monitoring
- *		\version    $Id: index.php,v 1.13 2011/04/13 17:07:40 eldy Exp $
+ *		\version    $Id: index.php,v 1.14 2011/04/13 18:17:31 eldy Exp $
  */
 
 define('NOCSRFCHECK',1);
@@ -330,7 +330,7 @@ if (empty($id))
     print_fiche_titre($langs->trans("Reports"));
 
     // Run probes
-    print_titre($langs->trans("RunProbe"));
+    //print_titre($langs->trans("RunProbe"));
     print $langs->trans("RunProbeDesc").'<br><br>';
 
     // Confirmation de la suppression d'une ligne produit
@@ -410,13 +410,15 @@ if (empty($id))
             print "</td>";
             // First error date
             print '<td align="center">';
-            if ($obj->status == 0) print $langs->trans('ProbeNeverLaunched');
-            else print dol_print_date($obj->oldesterrordate,'%Y-%m-%d %H:%M:%S');
+            //if ($obj->status == 0) print $langs->trans('ProbeNeverLaunched');
+            //else
+            if ($obj->status != 0) print dol_print_date($obj->oldesterrordate,'%Y-%m-%d %H:%M:%S');
             print "</td>";
             // First error text
             print "<td>";
-            if ($obj->status == 0) print $langs->trans('ProbeNeverLaunched');
-            else print $html->textwithhelp(dol_trunc($obj->oldesterrortext,20),$obj->oldesterrortext,1);
+            //if ($obj->status == 0) print $langs->trans('ProbeNeverLaunched');
+            //else
+            if ($obj->status != 0) print $html->textwithhelp(dol_trunc($obj->oldesterrortext,20),$obj->oldesterrortext,1);
             print "</td>";
             // Graphics
             print '<td align="center">';
@@ -551,5 +553,5 @@ print '<br>';
 
 $db->close();
 
-llxFooter('$Date: 2011/04/13 17:07:40 $ - $Revision: 1.13 $');
+llxFooter('$Date: 2011/04/13 18:17:31 $ - $Revision: 1.14 $');
 ?>
