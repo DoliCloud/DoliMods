@@ -20,7 +20,7 @@
  *   \file       htdocs/cabinetmed/consultations.php
  *   \brief      Tab for consultations
  *   \ingroup    cabinetmed
- *   \version    $Id: consultations.php,v 1.12 2011/04/13 12:50:37 eldy Exp $
+ *   \version    $Id: consultations.php,v 1.13 2011/04/13 18:59:51 eldy Exp $
  */
 
 $res=0;
@@ -370,15 +370,12 @@ if ($socid > 0)
         print '<script type="text/javascript">
         jQuery(function() {
             jQuery("#cs").click(function () {
-                jQuery("#infiltration").attr(\'disabled\', \'disabled\');
                 jQuery("#codageccam").attr(\'disabled\', \'disabled\');
             });
             jQuery("#c2").click(function () {
-                jQuery("#infiltration").attr(\'disabled\', \'disabled\');
                 jQuery("#codageccam").attr(\'disabled\', \'disabled\');
             });
             jQuery("#ccam").click(function () {
-                jQuery("#infiltration").removeAttr(\'disabled\');
                 jQuery("#codageccam").removeAttr(\'disabled\');
             });
             jQuery("#montant_cheque").keyup(function () {
@@ -631,7 +628,9 @@ if ($socid > 0)
         print '</td><td valign="top">';
 
         print $langs->trans("TraitementsPrescrits").'<br>';
-        print '<textarea name="traitementprescrit" class="flat" cols="50" rows="'.($nboflines-1).'">'.$consult->traitementprescrit.'</textarea>';
+        print '<textarea name="traitementprescrit" class="flat" cols="50" rows="'.($nboflines-1).'">'.$consult->traitementprescrit.'</textarea><br>';
+        print $langs->trans("Infiltrations").' ';
+        print '<input type="text" class="flat" name="infiltration" id="infiltration" value="'.$consult->infiltration.'" size="30">';
 
         print '<br><br><b>'.$langs->trans("TypeVisite").'</b> &nbsp; &nbsp; &nbsp; ';
         print '<input type="radio" class="flat" name="typevisit" value="CS" id="cs"'.($consult->typevisit=='CS'?' checked="true"':'').'> CS';
@@ -639,8 +638,7 @@ if ($socid > 0)
         print '<input type="radio" class="flat" name="typevisit" value="C2" id="c2"'.($consult->typevisit=='C2'?' checked="true"':'').'> C2';
         print ' &nbsp; &nbsp; ';
         print '<input type="radio" class="flat" name="typevisit" value="CCAM" id="ccam"'.($consult->typevisit=='CCAM'?' checked="true"':'').'> CCAM';
-        print '<br><br>'.$langs->trans("Infiltrations").' ';
-        print '<input type="text" class="flat" name="infiltration" id="infiltration" value="'.$consult->infiltration.'" size="30"'.($consult->infiltration?'':' disabled="disabled"').'>';
+        print '<br>';
         print '<br>'.$langs->trans("Codage CCAM").' ';
         print '<input type="text" class="flat" name="codageccam" id="codageccam" value="'.$consult->codageccam.'" size="30"'.($consult->codageccam?'':' disabled="disabled"').'>';
         print '</td></tr>';
@@ -899,5 +897,5 @@ if ($action == '' || $action == 'delete')
 
 $db->close();
 
-llxFooter('$Date: 2011/04/13 12:50:37 $ - $Revision: 1.12 $');
+llxFooter('$Date: 2011/04/13 18:59:51 $ - $Revision: 1.13 $');
 ?>
