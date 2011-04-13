@@ -20,7 +20,7 @@
  *      \file       cabinetmed/class/cabinetmedcons.class.php
  *      \ingroup    cabinetmed
  *      \brief      This file is an example for a CRUD class file (Create/Read/Update/Delete)
- *		\version    $Id: cabinetmedcons.class.php,v 1.1 2011/02/12 18:36:57 eldy Exp $
+ *		\version    $Id: cabinetmedcons.class.php,v 1.2 2011/04/13 12:50:37 eldy Exp $
  *		\remarks	Initialy built by build_class_from_table on 2011-02-02 22:30
  */
 
@@ -64,7 +64,7 @@ class CabinetmedCons extends CommonObject
 	var $montant_carte;
 	var $montant_tiers;
 	var $banque;
-
+    var $num_cheque;
 
 
 
@@ -209,16 +209,15 @@ class CabinetmedCons extends CommonObject
 
 
     /**
-     *    \brief      Load object in memory from database
-     *    \param      id          id object
-     *    \return     int         <0 if KO, >0 if OK
+     *    Load object in memory from database
+     *    @param      id          id object
+     *    @return     int         <0 if KO, >0 if OK
      */
     function fetch($id)
     {
     	global $langs;
         $sql = "SELECT";
 		$sql.= " t.rowid,";
-
 		$sql.= " t.fk_soc,";
 		$sql.= " t.datecons,";
 		$sql.= " t.typepriseencharge,";
@@ -237,10 +236,11 @@ class CabinetmedCons extends CommonObject
 		$sql.= " t.montant_espece,";
 		$sql.= " t.montant_carte,";
 		$sql.= " t.montant_tiers,";
-		$sql.= " t.banque";
-
-
+		$sql.= " t.banque,";
+        $sql.= " b.num_chq";
         $sql.= " FROM ".MAIN_DB_PREFIX."cabinetmed_cons as t";
+        $sql.= " LEFT JOIN ".MAIN_DB_PREFIX."bank_url as bu ON bu.url_id = t.rowid AND bu.type='consultation'";
+        $sql.= " LEFT JOIN ".MAIN_DB_PREFIX."bank as b ON b.rowid = bu.fk_bank";
         $sql.= " WHERE t.rowid = ".$id;
 
     	dol_syslog(get_class($this)."::fetch sql=".$sql, LOG_DEBUG);
@@ -271,9 +271,8 @@ class CabinetmedCons extends CommonObject
 				$this->montant_espece = $obj->montant_espece;
 				$this->montant_carte = $obj->montant_carte;
 				$this->montant_tiers = $obj->montant_tiers;
-				$this->banque = $obj->banque;
-
-
+                $this->banque = $obj->banque;
+                $this->num_cheque = $obj->num_chq;
             }
             $this->db->free($resql);
 
@@ -393,10 +392,10 @@ class CabinetmedCons extends CommonObject
 
 
  	/**
-	 *   \brief      Delete object in database
-     *	\param      user        	User that delete
-     *   \param      notrigger	    0=launch triggers after, 1=disable triggers
-	 *	\return		int				<0 if KO, >0 if OK
+	 *   Delete object in database
+     *	 @param      user        	User that delete
+     *   @param      notrigger	    0=launch triggers after, 1=disable triggers
+	 *	 @return	 int			<0 if KO, >0 if OK
 	 */
 	function delete($user, $notrigger=0)
 	{

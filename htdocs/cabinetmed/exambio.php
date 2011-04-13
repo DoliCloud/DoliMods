@@ -23,7 +23,7 @@
  *   \file       htdocs/cabinetmed/exambio.php
  *   \brief      Tab for consultations
  *   \ingroup    cabinetmed
- *   \version    $Id: exambio.php,v 1.6 2011/04/06 19:36:30 eldy Exp $
+ *   \version    $Id: exambio.php,v 1.7 2011/04/13 12:50:37 eldy Exp $
  */
 
 $res=0;
@@ -38,6 +38,7 @@ include_once(DOL_DOCUMENT_ROOT."/compta/bank/class/account.class.php");
 include_once("./lib/cabinetmed.lib.php");
 include_once("./class/patient.class.php");
 include_once("./class/cabinetmedcons.class.php");
+include_once("./class/cabinetmedexambio.class.php");
 
 $action = GETPOST("action");
 $id=GETPOST("id");  // Id consultation
@@ -65,61 +66,72 @@ if (! $sortfield) $sortfield='t.dateexam';
 if (! $sortorder) $sortorder='DESC';
 $limit = $conf->liste_limit;
 
-$consult = new CabinetmedCons($db);
+$exambio = new CabinetmedExamBio($db);
 
 
 /*
  * Actions
  */
 
+// Delete exam
+if (GETPOST("action") == 'confirm_delete' && GETPOST("confirm") == 'yes' && $user->rights->societe->supprimer)
+{
+    $examother->fetch($id);
+    $result = $examother->delete($user);
+    if ($result >= 0)
+    {
+        Header("Location: ".$_SERVER["PHP_SELF"].'?socid='.$socid);
+        exit;
+    }
+    else
+    {
+        $langs->load("errors");
+        $mesg=$langs->trans($examother->error);
+        $action='';
+    }
+}
+
+// Add exam
 if ($action == 'add' || $action == 'update')
 {
     if (! GETPOST('cancel'))
     {
         $error=0;
 
-        $datecons=dol_mktime(0,0,0,$_POST["consmonth"],$_POST["consday"],$_POST["consyear"]);
+        $dateexam=dol_mktime(0,0,0,$_POST["exammonth"],$_POST["examday"],$_POST["examyear"]);
 
         if ($action == 'update')
         {
-            $result=$consult->fetch($id);
+            $result=$exambio->fetch($id);
             if ($result <= 0)
             {
-                dol_print_error($db,$consult);
+                dol_print_error($db,$exambio);
                 exit;
             }
         }
 
-        $consult->fk_soc=$_POST["socid"];
-        $consult->datecons=$datecons;
-        unset($consult->montant_carte);
-        unset($consult->montant_cheque);
-        unset($consult->montant_tiers);
-        unset($consult->montant_espece);
-        if (GETPOST("montant_cheque") != '') $consult->montant_cheque=price2num($_POST["montant_cheque"]);
-        if (GETPOST("montant_espece") != '') $consult->montant_espece=price2num($_POST["montant_espece"]);
-        if (GETPOST("montant_carte") != '')  $consult->montant_carte=price2num($_POST["montant_carte"]);
-        if (GETPOST("montant_tiers") != '')  $consult->montant_tiers=price2num($_POST["montant_tiers"]);
-        $consult->banque=trim($_POST["banque"]);
-        $consult->num_cheque=trim($_POST["num_cheque"]);
-        $consult->typepriseencharge=$_POST["typepriseencharge"];
-        $consult->motifconsprinc=$_POST["motifconsprinc"];
-        $consult->diaglesprinc=$_POST["diaglesprinc"];
-        $consult->motifconssec=$_POST["motifconssec"];
-        $consult->diaglessec=$_POST["diaglessec"];
-        $consult->examenclinique=trim($_POST["examenclinique"]);
-        $consult->examenprescrit=trim($_POST["examenprescrit"]);
-        $consult->traitementprescrit=trim($_POST["traitementprescrit"]);
-        $consult->comment=trim($_POST["comment"]);
-        $consult->typevisit=$_POST["typevisit"];
-        $consult->infiltration=trim($_POST["infiltration"]);
-        $consult->codageccam=trim($_POST["ccam"]);
+        $exambio->fk_soc=$_POST["socid"];
+        $exambio->dateexam=$dateexam;
+        $exambio->banque=trim($_POST["banque"]);
+        $exambio->num_cheque=trim($_POST["num_cheque"]);
+        $exambio->typepriseencharge=$_POST["typepriseencharge"];
+        $exambio->motifconsprinc=$_POST["motifconsprinc"];
+        $exambio->diaglesprinc=$_POST["diaglesprinc"];
+        $exambio->motifconssec=$_POST["motifconssec"];
+        $exambio->diaglessec=$_POST["diaglessec"];
+        $exambio->examenclinique=trim($_POST["examenclinique"]);
+        $exambio->examenprescrit=trim($_POST["examenprescrit"]);
+        $exambio->traitementprescrit=trim($_POST["traitementprescrit"]);
+        $exambio->comment=trim($_POST["comment"]);
+        $exambio->typevisit=$_POST["typevisit"];
+        $exambio->infiltration=trim($_POST["infiltration"]);
+        $exambio->codageccam=trim($_POST["ccam"]);
 
         $nbnotempty=0;
-        if (! empty($consult->montant_cheque)) $nbnotempty++;
-        if (! empty($consult->montant_espece)) $nbnotempty++;
-        if (! empty($consult->montant_carte))  $nbnotempty++;
-        if (! empty($consult->montant_tiers))  $nbnotempty++;
+        if (! empty($exambio->montant_cheque)) $nbnotempty++;
+        if (! empty($exambio->montant_espece)) $nbnotempty++;
+        if (! empty($exambio->montant_carte))  $nbnotempty++;
+        if (! empty($exambio->montant_tiers))  $nbnotempty++;
         if ($nbnotempty==0)
         {
             $error++;
@@ -130,22 +142,22 @@ if ($action == 'add' || $action == 'update')
             $error++;
             $mesgarray[]=$langs->trans("Un seul champ montant possible à la fois");
         }
-        if ($consult->montant_cheque && empty($consult->banque))
+        if ($exambio->montant_cheque && empty($exambio->banque))
         {
             $error++;
             $mesgarray[]=$langs->trans("ErrorFieldRequired",$langs->transnoentities("ChequeBank"));
         }
-        if (empty($consult->typevisit))
+        if (empty($exambio->typevisit))
         {
             $error++;
             $mesgarray[]=$langs->trans("ErrorFieldRequired",$langs->transnoentities("TypeVisite"));
         }
-        if (empty($datecons))
+        if (empty($dateexam))
         {
             $error++;
             $mesgarray[]=$langs->trans("ErrorFieldRequired",$langs->transnoentities("Date"));
         }
-        if (empty($consult->motifconsprinc))
+        if (empty($exambio->motifconsprinc))
         {
             $error++;
             $mesgarray[]=$langs->trans("ErrorFieldRequired",$langs->transnoentities("MotifConsultation"));
@@ -158,10 +170,10 @@ if ($action == 'add' || $action == 'update')
             if ($action == 'add')
             {
                 $amount='';
-                if (! empty($_POST["montant_cheque"])) $amount=$consult->montant_cheque;
-                if (! empty($_POST["montant_carte"])) $amount=$consult->montant_carte;
-                if (! empty($_POST["montant_espece"])) $amount=$consult->montant_espece;
-                if (! empty($_POST["montant_tiers"])) $amount=$consult->montant_tiers;
+                if (! empty($_POST["montant_cheque"])) $amount=$exambio->montant_cheque;
+                if (! empty($_POST["montant_carte"])) $amount=$exambio->montant_carte;
+                if (! empty($_POST["montant_espece"])) $amount=$exambio->montant_espece;
+                if (! empty($_POST["montant_tiers"])) $amount=$exambio->montant_tiers;
                 $banque='';
                 if (! empty($_POST["bankchequeto"])) $banque=$_POST["bankchequeto"];
                 if (! empty($_POST["bankcarteto"])) $banque=$_POST["bankcarteto"];
@@ -173,23 +185,23 @@ if ($action == 'add' || $action == 'update')
                 if (! empty($_POST["montant_espece"])) $type='LIQ';
                 if (! empty($_POST["montant_tiers"])) $type='VIR';
 
-                $result=$consult->create($user);
+                $result=$exambio->create($user);
 
                 $societe = new Societe($db);
-                $societe->fetch($consult->fk_soc);
+                $societe->fetch($exambio->fk_soc);
 
                 $bankaccount=new Account($db);
                 $result=$bankaccount->fetch($banque);
-                $lineid=$bankaccount->addline(dol_now(), $type, $langs->trans("CustomerInvoicePayment"), $amount, $consult->num_cheque, '', $user, $societe->nom, $consult->banque);
+                $lineid=$bankaccount->addline(dol_now(), $type, $langs->trans("CustomerInvoicePayment"), $amount, $exambio->num_cheque, '', $user, $societe->nom, $exambio->banque);
                 if ($lineid <= 0)
                 {
                     $error++;
-                    $consult->error=$bankaccount->error;
+                    $exambio->error=$bankaccount->error;
                 }
                 if (! $error)
                 {
-                    $result1=$bankaccount->add_url_line($lineid,$consult->id,dol_buildpath('/cabinetmed/consultations.php',1).'?action=edit&socid='.$consult->fk_soc.'&id=','Consultation','consultation');
-                    $result2=$bankaccount->add_url_line($lineid,$consult->fk_soc,'',$societe->nom,'company');
+                    $result1=$bankaccount->add_url_line($lineid,$exambio->id,dol_buildpath('/cabinetmed/consultations.php',1).'?action=edit&socid='.$exambio->fk_soc.'&id=','Consultation','consultation');
+                    $result2=$bankaccount->add_url_line($lineid,$exambio->fk_soc,'',$societe->nom,'company');
                     if ($result1 <= 0 || $result2 <= 0)
                     {
                         $error++;
@@ -198,12 +210,12 @@ if ($action == 'add' || $action == 'update')
             }
             if ($action == 'update')
             {
-                $result=$consult->update($user);
+                $result=$exambio->update($user);
 
                 // Search if there is a bank line
                 $bid=0;
                 $sql.= "SELECT b.rowid FROM ".MAIN_DB_PREFIX."bank_url as bu, ".MAIN_DB_PREFIX."bank as b";
-                $sql.= " WHERE bu.url_id = ".$consult->id." AND type = 'consultation'";
+                $sql.= " WHERE bu.url_id = ".$exambio->id." AND type = 'consultation'";
                 $sql.= " AND bu.fk_bank = b.rowid";
                 dol_syslog($sql);
                 $resql=$db->query($sql);
@@ -218,7 +230,7 @@ if ($action == 'add' || $action == 'update')
                 else
                 {
                     $error++;
-                    $consult->error=$db->lasterror();
+                    $exambio->error=$db->lasterror();
                 }
 
                 if (! $error)
@@ -232,10 +244,10 @@ if ($action == 'add' || $action == 'update')
                     }
 
                     $amount='';
-                    if (! empty($_POST["montant_cheque"])) $amount=$consult->montant_cheque;
-                    if (! empty($_POST["montant_carte"])) $amount=$consult->montant_carte;
-                    if (! empty($_POST["montant_espece"])) $amount=$consult->montant_espece;
-                    if (! empty($_POST["montant_tiers"])) $amount=$consult->montant_tiers;
+                    if (! empty($_POST["montant_cheque"])) $amount=$exambio->montant_cheque;
+                    if (! empty($_POST["montant_carte"])) $amount=$exambio->montant_carte;
+                    if (! empty($_POST["montant_espece"])) $amount=$exambio->montant_espece;
+                    if (! empty($_POST["montant_tiers"])) $amount=$exambio->montant_tiers;
                     $banque='';
                     if (! empty($_POST["bankchequeto"])) $banque=$_POST["bankchequeto"];
                     if (! empty($_POST["bankcarteto"])) $banque=$_POST["bankcarteto"];
@@ -249,9 +261,9 @@ if ($action == 'add' || $action == 'update')
 
                     $bankaccount=new Account($db);
                     $result=$bankaccount->fetch($banque);
-                    $lineid=$bankaccount->addline(dol_now(), $type, $langs->trans("CustomerInvoicePayment"), $amount, $consult->num_cheque, '', $user, $societe->nom, $consult->banque);
-                    $result1=$bankaccount->add_url_line($lineid,$consult->id,dol_buildpath('/cabinetmed/consultations.php',1).'?action=edit&socid='.$consult->fk_soc.'&id=','Consultation','consultation');
-                    $result2=$bankaccount->add_url_line($lineid,$consult->fk_soc,'',$societe->nom,'company');
+                    $lineid=$bankaccount->addline(dol_now(), $type, $langs->trans("CustomerInvoicePayment"), $amount, $exambio->num_cheque, '', $user, $societe->nom, $exambio->banque);
+                    $result1=$bankaccount->add_url_line($lineid,$exambio->id,dol_buildpath('/cabinetmed/consultations.php',1).'?action=edit&socid='.$exambio->fk_soc.'&id=','Consultation','consultation');
+                    $result2=$bankaccount->add_url_line($lineid,$exambio->fk_soc,'',$societe->nom,'company');
                     if ($lineid <= 0 || $result1 <= 0 || $result2 <= 0)
                     {
                         $error++;
@@ -263,13 +275,13 @@ if ($action == 'add' || $action == 'update')
         if (! $error)
         {
             $db->commit();
-            header("Location: ".$_SERVER["PHP_SELF"].'?socid='.$consult->fk_soc);
+            header("Location: ".$_SERVER["PHP_SELF"].'?socid='.$exambio->fk_soc);
             exit(0);
         }
         else
         {
             $db->rollback();
-            $mesgarray[]=$consult->error;
+            $mesgarray[]=$exambio->error;
             if ($action == 'add')    $action='create';
             if ($action == 'update') $action='edit';
         }
@@ -296,10 +308,10 @@ if ($socid > 0)
     $societe = new Societe($db);
     $societe->fetch($socid);
 
-    if ($id && ! $consult->id)
+    if ($id && ! $exambio->id)
     {
-        $result=$consult->fetch($id);
-        if ($result < 0) dol_print_error($db,$consult->error);
+        $result=$exambio->fetch($id);
+        if ($result < 0) dol_print_error($db,$exambio->error);
     }
 
 	/*
@@ -346,10 +358,11 @@ if ($socid > 0)
     // Form to create
     if ($action == 'create' || $action == 'edit')
     {
+        dol_fiche_end();
+        dol_fiche_head();
+
         $x=1;
         $nboflines=4;
-
-        print '<br>';
 
         print '<script type="text/javascript">
         jQuery(function() {
@@ -402,16 +415,6 @@ if ($socid > 0)
                     jQuery("#listmotifcons").get(0).selectedIndex = 0;
                 }
             });
-            jQuery("#addexamenprescrit").click(function () {
-                var t=jQuery("#listexamenprescrit").children( ":selected" ).text();
-                if (t != "")
-                {
-                    jQuery("#examenprescrit").append(t+"\n");
-                    jQuery(".ui-autocomplete-input").val("");
-                    jQuery(".ui-autocomplete-input").text("");
-                    jQuery("#listexamenprescrit").get(0).selectedIndex = 0;
-                }
-            });
         });
         </script>';
 
@@ -424,9 +427,6 @@ if ($socid > 0)
         print '
             <script>
             jQuery(function() {
-                jQuery( "#listmotifcons" ).combobox();
-                jQuery( "#listdiagles" ).combobox();
-                jQuery( "#listexamenprescrit" ).combobox();
             });
             </script>
                 ';
@@ -447,10 +447,10 @@ if ($socid > 0)
         print '<tr><td width="60%">';
         if ($action=='edit' || $action=='update')
         {
-            print $langs->trans("ConsultationNumero").': '.sprintf("%08d",$consult->id).'<br><br>';
+            print $langs->trans("ConsultationNumero").': '.sprintf("%08d",$exambio->id).'<br><br>';
         }
         print $langs->trans("Date").': ';
-        $form->select_date($datecons,'cons');
+        $form->select_date($dateexam,'exam');
         print '</td><td>';
         print '</td></tr>';
 
@@ -481,12 +481,12 @@ if ($socid > 0)
         print '</td></tr>';
         print '<tr><td>Principal:';
         print '</td><td>';
-        print '<input type="text" size="32" class="flat" name="motifconsprinc" value="'.$consult->motifconsprinc.'" id="motifconsprinc"><br>';
+        print '<input type="text" size="32" class="flat" name="motifconsprinc" value="'.$exambio->motifconsprinc.'" id="motifconsprinc"><br>';
         print '</td></tr>';
         print '<tr><td valign="top">Secondaires:';
         print '</td><td>';
         print '<textarea name="motifconssec" id="motifconssec" cols="40">';
-        print $consult->motifconssec;
+        print $exambio->motifconssec;
         print '</textarea>';
         print '</td>';
         print '</tr>';
@@ -503,12 +503,12 @@ if ($socid > 0)
         print '</td></tr>';
         print '<tr><td>Principal:';
         print '</td><td>';
-        print '<input type="text" size="32" class="flat" name="examconcprinc" value="'.$consult->examconcprinc.'" id="examconcprinc"><br>';
+        print '<input type="text" size="32" class="flat" name="examconcprinc" value="'.$exambio->examconcprinc.'" id="examconcprinc"><br>';
         print '</td></tr>';
         print '<tr><td valign="top">Secondaires:';
         print '</td><td>';
         print '<textarea name="diaglessec" id="diaglessec" cols="40">';
-        print $consult->diaglessec;
+        print $exambio->diaglessec;
         print '</textarea>';
         print '</td>';
         print '</tr>';
@@ -530,10 +530,10 @@ if ($socid > 0)
 
         print '<table class="notopnoleftnoright" width="100%">';
         print '<tr><td width="160">';
-        print '<input type="text" class="flat" name="montant_cheque" id="montant_cheque" value="'.($consult->montant_cheque!=''?price($consult->montant_cheque):'').'" size="5">';
-        print '<input type="text" class="flat" name="banque" id="banque" value="'.$consult->banque.'" size="18"'.($consult->montant_cheque?'':' disabled="disabled"').'>';
-        print '<input type="text" class="flat" name="montant_espece" id="montant_espece" value="'.($consult->montant_espece!=''?price($consult->montant_espece):'').'" size="5">';
-        print '<input type="text" class="flat" name="montant_carte" id="montant_carte" value="'.($consult->montant_carte!=''?price($consult->montant_carte):'').'" size="5">';
+        print '<input type="text" class="flat" name="montant_cheque" id="montant_cheque" value="'.($exambio->montant_cheque!=''?price($exambio->montant_cheque):'').'" size="5">';
+        print '<input type="text" class="flat" name="banque" id="banque" value="'.$exambio->banque.'" size="18"'.($exambio->montant_cheque?'':' disabled="disabled"').'>';
+        print '<input type="text" class="flat" name="montant_espece" id="montant_espece" value="'.($exambio->montant_espece!=''?price($exambio->montant_espece):'').'" size="5">';
+        print '<input type="text" class="flat" name="montant_carte" id="montant_carte" value="'.($exambio->montant_carte!=''?price($exambio->montant_carte):'').'" size="5">';
         print '</td><td>';
 
 
@@ -570,7 +570,7 @@ if ($socid > 0)
 /*
  * Boutons actions
  */
-if ($action == '')
+if ($action == '' || $action == 'delete')
 {
     print '<div class="tabsAction">';
 
@@ -583,8 +583,17 @@ if ($action == '')
 }
 
 
-if ($action == '')
+if ($action == '' || $action == 'delete')
 {
+    // Confirm delete exam
+    if (GETPOST("action") == 'delete')
+    {
+        $html = new Form($db);
+        $ret=$html->form_confirm($_SERVER["PHP_SELF"]."?socid=".$socid.'&id='.GETPOST('id'),$langs->trans("DeleteAnExam"),$langs->trans("ConfirmDeleteExam"),"confirm_delete",'',0,1);
+        if ($ret == 'html') print '<br>';
+    }
+
+
     print_fiche_titre($langs->trans("ListOfExamBio"));
 
     $param='&socid='.$socid;
@@ -684,6 +693,11 @@ if ($action == '')
             */
             print '<td align="right">';
             print '<a href="'.$_SERVER["PHP_SELF"].'?socid='.$obj->fk_soc.'&id='.$obj->rowid.'&action=edit">'.img_edit().'</a>';
+            if ($user->rights->societe->supprimer)
+            {
+                print ' &nbsp; ';
+                print '<a href="'.$_SERVER["PHP_SELF"].'?socid='.$obj->fk_soc.'&id='.$obj->rowid.'&action=delete">'.img_delete().'</a>';
+            }
             print '</td>';
             print '</tr>';
             $i++;
@@ -698,5 +712,5 @@ if ($action == '')
 
 $db->close();
 
-llxFooter('$Date: 2011/04/06 19:36:30 $ - $Revision: 1.6 $');
+llxFooter('$Date: 2011/04/13 12:50:37 $ - $Revision: 1.7 $');
 ?>

@@ -20,7 +20,7 @@
  *   \file       htdocs/cabinetmed/consultations.php
  *   \brief      Tab for consultations
  *   \ingroup    cabinetmed
- *   \version    $Id: consultations.php,v 1.11 2011/04/10 21:01:05 eldy Exp $
+ *   \version    $Id: consultations.php,v 1.12 2011/04/13 12:50:37 eldy Exp $
  */
 
 $res=0;
@@ -69,6 +69,25 @@ $consult = new CabinetmedCons($db);
  * Actions
  */
 
+// Delete consultation
+if (GETPOST("action") == 'confirm_delete' && GETPOST("confirm") == 'yes' && $user->rights->societe->supprimer)
+{
+    $consult->fetch($id);
+    $result = $consult->delete($user);
+    if ($result >= 0)
+    {
+        Header("Location: ".$_SERVER["PHP_SELF"].'?socid='.$socid);
+        exit;
+    }
+    else
+    {
+        $langs->load("errors");
+        $mesg=$langs->trans($consult->error);
+        $action='';
+    }
+}
+
+// Add consultation
 if ($action == 'add' || $action == 'update')
 {
     if (! GETPOST('cancel'))
@@ -339,14 +358,14 @@ if ($socid > 0)
 
 	print '</form>';
 
-
     // Form to create
     if ($action == 'create' || $action == 'edit')
     {
+        dol_fiche_end();
+        dol_fiche_head();
+
         $x=1;
         $nboflines=4;
-
-        print '<br>';
 
         print '<script type="text/javascript">
         jQuery(function() {
@@ -591,7 +610,7 @@ if ($socid > 0)
         print $langs->trans("ExamensPrescrits").':';
         print '</td><td>';
         //print '<input type="text" size="3" class="flat" name="searchexamenprescrit" value="'.GETPOST("searchexamenprescrit").'" id="searchexamenprescrit">';
-        listexamenprescrit(1,$width);
+        listexamen(1,$width,'',0,'examenprescrit');
         print ' <input type="button" class="button" id="addexamenprescrit" name="addexamenprescrit" value="+">';
         print '</td></tr>';
         print '<tr><td valign="top">';
@@ -651,8 +670,9 @@ if ($socid > 0)
 
         print ' &nbsp; ';
         print $langs->trans("ChequeBank").' ';
+        var_dump();
         //print '<input type="text" class="flat" name="banque" id="banque" value="'.$consult->banque.'" size="18"'.($consult->montant_cheque?'':' disabled="disabled"').'>';
-        listebanques(1);
+        listebanques(1,0,$consult->banque);
 
         //print '</td></tr><tr><td></td><td>';
 
@@ -711,7 +731,6 @@ if ($socid > 0)
         print '</form>';
     }
 
-
 	dol_fiche_end();
 }
 
@@ -719,7 +738,7 @@ if ($socid > 0)
 /*
  * Boutons actions
  */
-if ($action == '')
+if ($action == '' || $action == 'delete')
 {
     print '<div class="tabsAction">';
 
@@ -732,8 +751,17 @@ if ($action == '')
 }
 
 
-if ($action == '')
+if ($action == '' || $action == 'delete')
 {
+    // Confirm delete consultation
+    if (GETPOST("action") == 'delete')
+    {
+        $html = new Form($db);
+        $ret=$html->form_confirm($_SERVER["PHP_SELF"]."?socid=".$socid.'&id='.GETPOST('id'),$langs->trans("DeleteAConsultation"),$langs->trans("ConfirmDeleteConsultation"),"confirm_delete",'',0,1);
+        if ($ret == 'html') print '<br>';
+    }
+
+
     print_fiche_titre($langs->trans("ListOfConsultations"));
 
     $param='&socid='.$socid;
@@ -852,12 +880,12 @@ if ($action == '')
             }
             print '<td align="right">';
             print '<a href="'.$_SERVER["PHP_SELF"].'?socid='.$obj->fk_soc.'&id='.$obj->rowid.'&action=edit">'.img_edit().'</a>';
-/*            if ($user->rights->societe->supprimer)
+            if ($user->rights->societe->supprimer)
             {
                 print ' &nbsp; ';
                 print '<a href="'.$_SERVER["PHP_SELF"].'?socid='.$obj->fk_soc.'&id='.$obj->rowid.'&action=delete">'.img_delete().'</a>';
             }
-*/            print '</td>';
+            print '</td>';
             print '</tr>';
             $i++;
         }
@@ -871,5 +899,5 @@ if ($action == '')
 
 $db->close();
 
-llxFooter('$Date: 2011/04/10 21:01:05 $ - $Revision: 1.11 $');
+llxFooter('$Date: 2011/04/13 12:50:37 $ - $Revision: 1.12 $');
 ?>

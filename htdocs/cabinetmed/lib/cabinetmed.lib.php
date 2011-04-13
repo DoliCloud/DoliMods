@@ -79,14 +79,15 @@ function listdiagles($nboflines,$newwidth=0)
  *  @param          newwidth        Force width
  *  @param          type            To filter on a type
  *  @param          showtype        Show type
+ *  @param          htmlname        Name of html select area
  */
-function listexamenprescrit($nboflines,$newwidth=0,$type='',$showtype=0)
+function listexamen($nboflines,$newwidth=0,$type='',$showtype=0,$htmlname='examen')
 {
     global $db,$width;
 
     if (empty($newwidth)) $newwidth=$width;
 
-    print '<select class="flat" id="listexamenprescrit" name="examenprescrit" '.($newwidth?'style="width: '.$newwidth.'px"':'').' size="'.$nboflines.'"'.($nboflines > 1?' multiple':'').'>';
+    print '<select class="flat" id="list'.$htmlname.'" name="list'.$htmlname.'" '.($newwidth?'style="width: '.$newwidth.'px"':'').' size="'.$nboflines.'"'.($nboflines > 1?' multiple':'').'>';
     print '<option value="0"></option>';
     $sql = 'SELECT s.rowid, s.code, s.label, s.biorad as type';
     $sql.= ' FROM '.MAIN_DB_PREFIX.'cabinetmed_examenprescrit as s';
@@ -109,7 +110,42 @@ function listexamenprescrit($nboflines,$newwidth=0,$type='',$showtype=0)
     print '</select>'."\n";
 }
 
-function listebanques($nboflines,$newwidth=0)
+
+/**
+ *  Show combo box with all exam conclusions
+ *  @param          nboflines       Max nb of lines
+ *  @param          newwidth        Force width
+ *  @param          htmlname        Name of html select area
+ */
+function listexamconclusion($nboflines,$newwidth=0,$htmlname='examconc')
+{
+    global $db,$width;
+
+    if (empty($newwidth)) $newwidth=$width;
+
+    print '<select class="flat" id="list'.$htmlname.'" name="list'.$htmlname.'" style="width: '.$newwidth.'px" size="'.$nboflines.'"'.($nboflines > 1?' multiple':'').'>';
+    print '<option value="0"></option>';
+    $sql = 'SELECT s.rowid, s.code, s.label';
+    $sql.= ' FROM '.MAIN_DB_PREFIX.'cabinetmed_c_examconclusion as s';
+    $sql.= ' ORDER BY label';
+    $resql=$db->query($sql);
+    dol_syslog("consutlations sql=".$sql);
+    if ($resql)
+    {
+        $num=$db->num_rows($resql);
+        $i=0;
+
+        while ($i < $num)
+        {
+            $obj=$db->fetch_object($resql);
+            print '<option value="'.$obj->code.'">'.$obj->label.'</option>';
+            $i++;
+        }
+    }
+    print '</select>'."\n";
+}
+
+function listebanques($nboflines,$newwidth=0,$defaultvalue='')
 {
     global $db,$width;
 
@@ -130,36 +166,9 @@ function listebanques($nboflines,$newwidth=0)
         while ($i < $num)
         {
             $obj=$db->fetch_object($resql);
-            print '<option value="'.dol_escape_htmltag($obj->label).'">'.dol_escape_htmltag($obj->label).'</option>';
-            $i++;
-        }
-    }
-    print '</select>'."\n";
-}
-
-
-function listexamconclusion($nboflines,$newwidth=0)
-{
-    global $db,$width;
-
-    if (empty($newwidth)) $newwidth=$width;
-
-    print '<select class="flat" id="listexamconc" name="examconc" style="width: '.$newwidth.'px" size="'.$nboflines.'"'.($nboflines > 1?' multiple':'').'>';
-    print '<option value="0"></option>';
-    $sql = 'SELECT s.rowid, s.code, s.label';
-    $sql.= ' FROM '.MAIN_DB_PREFIX.'cabinetmed_c_examconclusion as s';
-    $sql.= ' ORDER BY label';
-    $resql=$db->query($sql);
-    dol_syslog("consutlations sql=".$sql);
-    if ($resql)
-    {
-        $num=$db->num_rows($resql);
-        $i=0;
-
-        while ($i < $num)
-        {
-            $obj=$db->fetch_object($resql);
-            print '<option value="'.$obj->code.'">'.$obj->label.'</option>';
+            print '<option value="'.dol_escape_htmltag($obj->label).'"';
+            if ($defaultvalue == $obj->label) print ' selected="selected"';
+            print '>'.dol_escape_htmltag($obj->label).'</option>';
             $i++;
         }
     }
