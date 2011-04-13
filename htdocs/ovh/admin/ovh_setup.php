@@ -1,6 +1,6 @@
 <?php
-/* Copyright (C) 2007 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2010 Jean-François FERRY  <jfefe@aternatik.fr>
+/* Copyright (C) 2007-2011 Laurent Destailleur  <eldy@users.sourceforge.net>
+ * Copyright (C) 2010      Jean-François FERRY  <jfefe@aternatik.fr>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,7 +21,7 @@
  *   	\file       htdocs/ovh/admin/ovh_setup.php
  *		\ingroup    ovh
  *		\brief      Setup of module OVH
- *		\version    $Id: ovh_setup.php,v 1.13 2011/04/09 19:08:41 eldy Exp $
+ *		\version    $Id: ovh_setup.php,v 1.14 2011/04/13 18:17:10 eldy Exp $
  */
 
 define('NOCSRFCHECK',1);
@@ -61,6 +61,16 @@ $substitutionarrayfortest=array(
 '__LASTNAME__' => 'TESTLastname',
 '__FIRSTNAME__' => 'TESTFirstname'
 );
+
+
+// Activate error interceptions
+function traitementErreur($code, $message, $fichier, $ligne, $contexte)
+{
+    if (error_reporting() & $code) {
+        throw new Exception($message, $code);
+    }
+}
+set_error_handler('traitementErreur');
 
 
 
@@ -125,19 +135,19 @@ if ($action == 'send' && ! $_POST['cancel'])
     if (empty($body))
     {
         $mesg='<div class="error">'.$langs->trans("ErrorFieldRequired",$langs->transnoentities("Message")).'</div>';
-        $action='test';
+        $action='testsms';
         $error++;
     }
     if (empty($smsfrom) || ! str_replace('+','',$smsfrom))
     {
         $mesg='<div class="error">'.$langs->trans("ErrorFieldRequired",$langs->transnoentities("SmsFrom")).'</div>';
-        $action='test';
+        $action='testsms';
         $error++;
     }
     if (empty($sendto) || ! str_replace('+','',$sendto))
     {
         $mesg='<div class="error">'.$langs->trans("ErrorFieldRequired",$langs->transnoentities("SmsTo")).'</div>';
-        $action='test';
+        $action='testsms';
         $error++;
     }
     if (! $error)
@@ -345,7 +355,7 @@ if (! empty($conf->global->OVHSMS_NICK) && ! empty($WS_DOL_URL))
         $formsms->withfromreadonly=0;
         $formsms->withto=(empty($_POST["sendto"])?($user->user_mobile?$user->user_mobile:1):$_POST["sendto"]);
         $formsms->withbody=$langs->trans("SmsTestMessage");
-        $formsms->withcancel=0;
+        $formsms->withcancel=1;
         // Tableau des substitutions
         $formsms->substit=$substitutionarrayfortest;
         // Tableau des parametres complementaires du post
