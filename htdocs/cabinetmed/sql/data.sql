@@ -116,8 +116,6 @@ INSERT INTO llx_cabinetmed_diaglec (rowid,code,label,active) VALUES (41,'OMARTHE
 -- llx_cabinetmed_examenprescrit
 INSERT INTO llx_cabinetmed_examenprescrit (rowid,code,label,biorad,active) VALUES (1,'AUTRE','Autre','AUTRE',1);
 INSERT INTO llx_cabinetmed_examenprescrit (rowid,code,label,biorad,active) VALUES (2,'IRMLOMB','IRM lombaire','RADIO',1);
-INSERT INTO llx_cabinetmed_examenprescrit (rowid,code,label,biorad,active) VALUES (3,'RADBASS','Radiographie bassin','RADIO',1);
-INSERT INTO llx_cabinetmed_examenprescrit (rowid,code,label,biorad,active) VALUES (4,'RADRACH','Radiographie rachis','RADIO',1);
 INSERT INTO llx_cabinetmed_examenprescrit (rowid,code,label,biorad,active) VALUES (5,'TDMLOMB','TDM lombaires','RADIO',1);
 INSERT INTO llx_cabinetmed_examenprescrit (rowid,code,label,biorad,active) VALUES (6,'RX BRL','Radios Bassin-Rachis Lombaire','RADIO',1);
 INSERT INTO llx_cabinetmed_examenprescrit (rowid,code,label,biorad,active) VALUES (7,'RX RL','Radios Rachis Lombaire','RADIO',1);
