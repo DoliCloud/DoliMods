@@ -25,7 +25,7 @@
  *      \file       htdocs/monitoring/probes.php
  *      \ingroup    monitoring
  *      \brief      Page to add probes
- *      \version    $Id: probes.php,v 1.8 2011/04/07 20:41:47 eldy Exp $
+ *      \version    $Id: probes.php,v 1.9 2011/04/13 16:30:48 eldy Exp $
  */
 
 $res=0;
@@ -164,10 +164,6 @@ if ($action != 'edit')
     $var=false;
 
     // Formulaire ajout
-    print_titre($langs->trans("RunProbe"));
-    print $langs->trans("RunProbeDesc").'<br><br>';
-
-    // Formulaire ajout
     print_titre($langs->trans("AddProbe"));
 
     print '<form name="addnewprobe" action="'.$_SERVER["PHP_SELF"].'" method="post">';
@@ -228,7 +224,7 @@ if ($action != 'edit')
 
     $var=!$var;
     print '<tr '.$bc[$var].'>';
-    print '<td>'.$langs->trans("Active").'</td>';
+    print '<td>'.$langs->trans("Activable").'</td>';
     print '<td>';
     print $html->selectyesno('probe_active',isset($_POST['probe_active'])?$_POST['probe_active']:0,1);
     print '</td>';
@@ -273,7 +269,7 @@ if ($action != 'edit')
     print "<td>".$langs->trans("CheckKey")."</td>";
     print "<td>".$langs->trans("MaxValue")."</td>";
     print "<td>".$langs->trans("Frequency")."</td>";
-    print '<td align="center">'.$langs->trans("Active")."</td>";
+    print '<td align="center">'.$langs->trans("Activable")."</td>";
     //print '<td align="center">'.$langs->trans("Reports")."</td>";
     print '<td width="80px">&nbsp;</td>';
     print '</tr>';
@@ -407,7 +403,7 @@ else
 
     $var=!$var;
     print '<tr '.$bc[$var].'>';
-    print '<td>'.$langs->trans("Active").'</td>';
+    print '<td>'.$langs->trans("Activable").'</td>';
     print '<td>';
     print $html->selectyesno('probe_active',isset($_POST['probe_active'])?$_POST['probe_active']:$probe->active,1);
     print '</td>';
@@ -432,5 +428,5 @@ else
 
 $db->close();
 
-llxFooter('$Date: 2011/04/07 20:41:47 $ - $Revision: 1.8 $');
+llxFooter('$Date: 2011/04/13 16:30:48 $ - $Revision: 1.9 $');
 ?>

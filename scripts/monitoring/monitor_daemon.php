@@ -1,3 +1,4 @@
+#!/usr/bin/php
 <?php
 /* Copyright (C) 2011 Laurent Destailleur  <eldy@users.sourceforge.net>
  *
@@ -20,7 +21,7 @@
  *	\file       	scripts/monitoring/monitor_daemon.php
  *	\ingroup    	monitor
  *	\brief      	Script to execute monitor daemon
- *	\version		$Id: monitor_daemon.php,v 1.8 2011/04/07 21:31:24 eldy Exp $
+ *	\version		$Id: monitor_daemon.php,v 1.9 2011/04/13 16:30:48 eldy Exp $
  */
 
 $sapi_type = php_sapi_name();
@@ -34,7 +35,7 @@ if (substr($sapi_type, 0, 3) == 'cgi') {
 }
 
 // Global variables
-$version='$Revision: 1.8 $';
+$version='$Revision: 1.9 $';
 $error=0;
 // Include Dolibarr environment
 $res=0;
@@ -101,7 +102,7 @@ if ($result < 0)
 }
 
 // Define url to scan
-$listofurls=getListOfUrls(1);
+$listofurls=getListOfProbes(1);
 if (! sizeof($listofurls))
 {
     print 'No enabled probe found. Please define at least one probe before running probe process.'."\n";
@@ -113,6 +114,10 @@ $nbok=0;
 $nbko=0;
 $frequency=5;	// seconds
 $maxloop=0;
+$timeout=10;    // seconds
+
+$probestatic=new Monitoring_probes($db);
+
 
 // Create rrd if not exists
 foreach($listofurls as $object)
@@ -169,7 +174,7 @@ if (! $error)
 		// Reload sometimes list of urls
 		//$listofurls=getListOfUrls(1);
 
-		foreach($listofurls as $object)
+		foreach($listofurls as $key => $object)
 		{
 			$fname = $conf->monitoring->dir_output.'/'.$object['code'].'/monitoring.rrd';
 
@@ -184,7 +189,7 @@ if (! $error)
 			curl_setopt($ch, CURLOPT_FAILONERROR, 1);
 			curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 0);
 
-			curl_setopt($ch, CURLOPT_TIMEOUT, round($frequency/2));
+			curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
             if ($object['useproxy'])
             {
                 curl_setopt ($ch, CURLOPT_PROXY, $conf->global->MAIN_PROXY_HOST. ":" . $conf->global->MAIN_PROXY_PORT);
@@ -200,25 +205,27 @@ if (! $error)
 
 			list($usec, $sec) = explode(" ", microtime());
 			$micro_end_time=((float)$usec + (float)$sec);
+            $end_time=((float)$sec);
 
             $delay=($micro_end_time-$micro_start_time);
 
 			if (! $result)
             {
-                print 'Error for id='.$object['code'].': '.curl_error($ch)."\n";
+                print dol_print_date($end_time,'dayhourlog').' Error for id='.$object['code'].': '.curl_error($ch)."\n";
             }
 
-			dol_syslog($result);
+			//dol_syslog($result);
 			//--- End buffering and clean output
 			//ob_end_clean();
 
 			$value1='U';
 			$value2='U';
-			if (curl_error($ch) > 0)	// Test with no response
+			if (curl_error($ch))	// Test with no response
 			{
 				$value1='U';
-				$value2='U';
+				$value2=round($object['max']);
 				$nbko++;
+				$errortext='Failed to get response. Curl return: '.curl_error($ch);
 			}
 			else
 			{
@@ -228,31 +235,60 @@ if (! $error)
 					$value1=round($delay*1000);
 					$value2='U';
 					$nbok++;
+					$errortext='';
 				}
 				else
 				{	// Test ko
 					$value1='U';
 					$value2=round($object['max']);
 					$nbko++;
+					$errortext='Failed to find string "'.$object['checkkey'].'" into reponse string.\nResponse string is '.$result;
 				}
 			}
 
 			curl_close ($ch);
 
-			print 'Loop '.$nbloop.': id='.$object['code'].' '.$micro_start_time.'-'.$micro_end_time.'='.$delay.' -> '.$value1.':'.$value2."\n";
-			$stringupdate='N:'.$value1.':'.$value2;
-			$ret = rrd_update($fname, $stringupdate);
+            $newstatus=($nbko?-1:1);
 
+			// Update RRD file
+			$ret = rrd_update($fname, $stringupdate);
 			if( $ret > 0)
 			{
 				$mesg='<div class="ok">'.$langs->trans("File ".$fname.' completed with random values '.$val1.' for graph 1 and '.$val2.' for graph 2').'</div>';
 			}
 			else
 			{
+			    $nbko++;
 				$error++;
 				$err = rrd_error($fname);
-				$mesg="Update error: $err\n";
+				$mesg="Update error: ".$err;
+				$errortext='Failed to update RRD file.\nRRD functions returns: '.$err;
 			}
+
+            print dol_print_date($end_time,'dayhourlog').' Loop '.$nbloop.': id='.$object['code'].' '.$micro_start_time.'-'.$micro_end_time.'='.$delay.' -> '.($nbko?'KO':'OK').' -> '.$value1.':'.$value2."\n";
+            $stringupdate='N:'.$value1.':'.$value2;
+
+            // Update database if status has changed
+            if ($object['status'] != $newstatus)
+            {
+                print dol_print_date($end_time,'dayhourlog').' Status change for probe '.$object['code'].' old='.$object['status'].' new='.$newstatus."\n";
+                if (! $newstatus == -1 || ! empty($object['oldesterrortext'])) $errortext='';
+                if ($errortext) print dol_print_date($end_time,'dayhourlog').' We also set a new error text'."\n";
+
+                $probestatic->id=$object['code'];
+                $result=$probestatic->updateStatus($newstatus,$end_time,$errortext);
+                if ($result > 0)
+                {
+                    $listofurls[$key]['status']=$newstatus;
+                    $listofurls[$key]['lastreset']=$end_time;
+                    if ($errortext) $listofurls[$key]['oldesterrortext']=$errortext;
+                }
+                else
+                {
+                    print dol_print_date($end_time,'dayhourlog').' Error to update database: '.$probestatic->error."\n";
+                }
+            }
+
 		}
 
 		// Add delay

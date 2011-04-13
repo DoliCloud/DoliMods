@@ -20,7 +20,7 @@
  *	    \file       htdocs/monitoring/index.php
  *      \ingroup    monitoring
  *      \brief      Page to setup module Monitoring
- *		\version    $Id: index.php,v 1.11 2011/04/07 20:41:47 eldy Exp $
+ *		\version    $Id: index.php,v 1.12 2011/04/13 16:30:48 eldy Exp $
  */
 
 define('NOCSRFCHECK',1);
@@ -303,6 +303,15 @@ if ($action == 'graph')
 	if (! $error) $mesg='';
 }
 
+if ($action == 'reinit' && $id > 0)
+{
+    $probe=new Monitoring_probes($db);
+    $probe->fetch($id);
+
+    $now=dol_now();
+    $result=$probe->updateStatus(0,$new,'');
+}
+
 
 
 /**
@@ -320,6 +329,10 @@ if (empty($id))
 {
     print_fiche_titre($langs->trans("Reports"));
 
+    // Run probes
+    print_titre($langs->trans("RunProbe"));
+    print $langs->trans("RunProbeDesc").'<br><br>';
+
     // Confirmation de la suppression d'une ligne produit
     if ($action == 'swapstatus')
     {
@@ -329,24 +342,7 @@ if (empty($id))
 
     print '<br>';
 
-    print '<table class="nobordernopadding" width="100%">';
-
-    print '<tr class="liste_titre">';
-    print "<td>".$langs->trans("Id")."</td>";
-    print "<td>".$langs->trans("Title")."</td>";
-    print "<td>".$langs->trans("URL")."</td>";
-    print "<td>".$langs->trans("Proxy")."</td>";
-    print "<td>".$langs->trans("CheckKey")."</td>";
-    print "<td>".$langs->trans("MaxValue")."</td>";
-    print "<td>".$langs->trans("Frequency")."</td>";
-    print '<td align="center">'.$langs->trans("Active")."</td>";
-    print '<td align="center">'.$langs->trans("LastStatus")."</td>";
-    print '<td align="center">'.$langs->trans("Reports")."</td>";
-    //print '<td width="80px">&nbsp;</td>';
-    print '</tr>';
-
-
-    $sql ="SELECT rowid, title, url, useproxy, checkkey, maxvalue, frequency, status, active";
+    $sql ="SELECT rowid, title, url, useproxy, checkkey, maxvalue, frequency, status, active, lastreset, oldesterrortext, oldesterrordate";
     $sql.=" FROM ".MAIN_DB_PREFIX."monitoring_probes";
     $sql.=" ORDER BY rowid";
 
@@ -355,12 +351,40 @@ if (empty($id))
     if ($resql)
     {
         $num =$db->num_rows($resql);
-        $i=0;
+        $i=0; $group='none';
         $var=true;
 
         while ($i < $num)
         {
             $obj = $db->fetch_object($resql);
+
+            if ($i==0 || ($obj->groupname != $group))
+            {
+                if ($obj->groupname != $group)  // Break on group
+                {
+                    if ($i > 0) print '</table>';
+                    $group = $obj->groupname;
+                    print $langs->trans("ProbeGroup").': '.($group?$group:$langs->trans("Default"));
+                    print '<table class="nobordernopadding" width="100%">';
+                }
+
+                print '<tr class="liste_titre">';
+                print "<td>".$langs->trans("Id")."</td>";
+                print "<td>".$langs->trans("Title")."</td>";
+                print "<td>".$langs->trans("URL")."</td>";
+                print "<td>".$langs->trans("Proxy")."</td>";
+                //print "<td>".$langs->trans("CheckKey")."</td>";
+                print "<td>".$langs->trans("MaxValue")."</td>";
+                print "<td>".$langs->trans("Frequency")."</td>";
+                print '<td align="center">'.$langs->trans("Activable")."</td>";
+                print '<td align="center">'.$langs->trans("LastStatus")."</td>";
+                print '<td align="center">'.$langs->trans("StatusSince")."</td>";
+                print '<td align="center">'.$langs->trans("FirstErrorDate")."</td>";
+                print '<td>'.$langs->trans("FirstErrorText")."</td>";
+                print '<td align="center">'.$langs->trans("Graphics")."</td>";
+                //print '<td width="80px">&nbsp;</td>';
+                print '</tr>';
+            }
 
             print "<form name=\"externalrssconfig\" action=\"".$_SERVER["PHP_SELF"]."\" method=\"post\">";
             print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
@@ -371,7 +395,7 @@ if (empty($id))
             print "<td>".$obj->title."</td>";
             print "<td>".$obj->url."</td>";
             print "<td>".yn($obj->useproxy)."</td>";
-            print "<td>".$obj->checkkey."</td>";
+            //print "<td>".$obj->checkkey."</td>";
             print "<td>".$obj->maxvalue."</td>";
             print "<td>".$obj->frequency."</td>";
             print '<td align="center">'.yn($obj->active).'</td>';
@@ -382,7 +406,22 @@ if (empty($id))
             print $probestatic->getLibStatut(3);
             print "</td>";
             print '<td align="center">';
-            print '<a href="index.php?id='.$obj->rowid.'">'.$langs->trans("Reports").'</a>';
+            if ($obj->status == 0) print $langs->trans('ProbeNeverLaunched');
+            else print dol_print_date($obj->lastreset);
+            print "</td>";
+            // First error date
+            print '<td align="center">';
+            if ($obj->status == 0) print $langs->trans('ProbeNeverLaunched');
+            else print dol_print_date($obj->oldestfirsterrordate,'dayhour');
+            print "</td>";
+            // First error text
+            print "<td>";
+            if ($obj->status == 0) print $langs->trans('ProbeNeverLaunched');
+            else print $obj->oldestfirsterrortext;
+            print "</td>";
+            // Graphics
+            print '<td align="center">';
+            print '<a href="index.php?id='.$obj->rowid.'">'.$langs->trans("Show").'</a>';
             print '</td>';
             /*print '<td align="right">';
             print '<a href="'.$_SERVER["PHP_SELF"].'?id='.$obj->rowid.'&amp;action=edit">';
@@ -429,28 +468,38 @@ else
     print '<tr><td>'.$langs->trans("CheckKey").'</td><td>'.$probe->checkkey.'</td></tr>'."\n";
     print '<tr><td>'.$langs->trans("MaxValue").'</td><td>'.$probe->maxvalue.'</td></tr>'."\n";
     print '<tr><td>'.$langs->trans("Frequency").'</td><td>'.$probe->frequency.'</td></tr>'."\n";
-    print '<tr><td>'.$langs->trans("Active").'</td><td>'.yn($probe->active).'</td></tr>'."\n";
-    print '<tr><td>'.$langs->trans("LastStatus").'</td><td>';
+    print '<tr><td>'.$langs->trans("Activable").'</td><td>'.yn($probe->active).'</td></tr>'."\n";
+    print '<tr><td>'.$langs->trans("RrdFile").'</td><td>'.$conf->monitoring->dir_output."/".$id.'/monitoring.rrd</td></tr>'."\n";
+    print '</table><br>';
+
+    print '<table class="border" width="100%">';
+    print '<tr><td width="20%">'.$langs->trans("LastStatus").'</td><td>';
     print $probe->getLibStatut(4);
     print '</td></tr>'."\n";
-    print '<tr><td>'.$langs->trans("RrdFile").'</td><td>'.$conf->monitoring->dir_output."/".$id.'/monitoring.rrd</td></tr>'."\n";
+    print '<tr><td>'.$langs->trans("StatusSince").'</td><td>';
+    if ($probe->status == 0) print $langs->trans('ProbeNeverLaunchedLong');
+    else print dol_print_date($probe->lastreset,'%Y-%m-%d %H:%M:%S');
+    print '</td></tr>'."\n";
+    print '<tr><td>'.$langs->trans("FirstErrorDate").'</td><td>';
+    if ($probe->status == 0) print $langs->trans('ProbeNeverLaunchedLong');
+    else print dol_print_date($probe->oldesterrordate,'%Y-%m-%d %H:%M:%S');
+    print '</td></tr>'."\n";
+    print '<tr><td>'.$langs->trans("FirstErrorText").'</td><td>';
+    if ($probe->status == 0) print $langs->trans('ProbeNeverLaunchedLong');
+    else print $probe->oldesterrortext;
+    print '</td></tr>'."\n";
     print '</table>';
 
     dol_fiche_end();
 
     $butt='';
-	if ($conf->global->MONITORING_COMMANDLINE_TOOL)
-	{
-        $butt.='<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?action=create&id='.$probe->id.'">'.$langs->trans("CreateATestGraph").'</a>';
+	if ($conf->global->MONITORING_COMMANDLINE_TOOL) $butt.='<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?action=graph&id='.$probe->id.'">'.$langs->trans("BuildTestGraph").'</a>';
+    else $butt.='<a class="butActionRefused" href="#">'.$langs->trans("BuildTestGraph").'</a>';
 
-        $butt.='<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?action=graph&id='.$probe->id.'">'.$langs->trans("BuildTestGraph").'</a>';
-	}
-	else
-	{
-        $butt.='<a class="butActionRefused" href="#">'.$langs->trans("CreateATestGraph").'</a>';
+    $butt.='<a class="butActionDelete" href="'.$_SERVER["PHP_SELF"].'?action=reinit&id='.$probe->id.'">'.$langs->trans("ReinitStatus").'</a>';
 
-        $butt.='<a class="butActionRefused" href="#">'.$langs->trans("BuildTestGraph").'</a>';
-	}
+    if ($conf->global->MONITORING_COMMANDLINE_TOOL) $butt.='<a class="butActionDelete" href="'.$_SERVER["PHP_SELF"].'?action=create&id='.$probe->id.'">'.$langs->trans("CreateATestGraph").'</a>';
+	else $butt.='<a class="butActionRefused" href="#">'.$langs->trans("CreateATestGraph").'</a>';
 
     print '<br>';
 	print_fiche_titre($langs->trans("Reports"),$butt,'').'<br>';
@@ -502,5 +551,5 @@ print '<br>';
 
 $db->close();
 
-llxFooter('$Date: 2011/04/07 20:41:47 $ - $Revision: 1.11 $');
+llxFooter('$Date: 2011/04/13 16:30:48 $ - $Revision: 1.12 $');
 ?>

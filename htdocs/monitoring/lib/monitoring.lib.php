@@ -21,7 +21,7 @@
  *  \file       htdocs/monitoring/lib/monitoring.lib.php
  *  \brief      Ensemble de fonctions de base pour le module Monitoring
  *  \ingroup    monitoring
- *  \version    $Id: monitoring.lib.php,v 1.8 2011/04/07 20:41:44 eldy Exp $
+ *  \version    $Id: monitoring.lib.php,v 1.9 2011/04/13 16:30:43 eldy Exp $
  */
 
 $linktohelp='EN:Module_Monitoring_En|FR:Module_Monitoring|ES:Modulo_Monitoring';
@@ -46,15 +46,17 @@ function monitoring_prepare_head($object)
 }
 
 /**
- *  Return list of url to scan
+ *  Return list of probes to scan
+ *  @param      active      1 To get only activable probes
  */
-function getListOfUrls($active=1)
+function getListOfProbes($active=1)
 {
     global $db;
 
     $listofurls=array();
 
-    $sql ="SELECT rowid, title, url, useproxy, checkkey, frequency, maxvalue, active, status, lastreset";
+    $sql ="SELECT rowid, groupname, title, url, useproxy, checkkey, frequency, maxvalue, active, status, lastreset,";
+    $sql.=" oldesterrordate, oldesterrortext";
     $sql.=" FROM ".MAIN_DB_PREFIX."monitoring_probes";
     $sql.=" WHERE active = ".$active;
     $sql.=" ORDER BY rowid";
@@ -69,9 +71,11 @@ function getListOfUrls($active=1)
         {
             $obj = $db->fetch_object($resql);
 
-            $listofurls[$i]=array('code'=>$obj->rowid, 'title'=>$obj->title, 'url'=>$obj->url, 'useproxy'=>$obj->useproxy,
-                'checkkey'=>$obj->checkkey, 'frequency'=>$obj->frequency, 'active'=>$obj->active, 'max'=>$obj->maxvalue,
-                'lastreset'=>$db->jdate($obj->lastreset)
+            $listofurls[$i]=array('code'=>$obj->rowid, 'groupname'=>$obj->groupname, 'title'=>$obj->title, 'url'=>$obj->url, 'useproxy'=>$obj->useproxy,
+                'checkkey'=>$obj->checkkey, 'frequency'=>$obj->frequency, 'active'=>$obj->active, 'status'=>$obj->status, 'max'=>$obj->maxvalue,
+                'lastreset'=>$db->jdate($obj->lastreset),
+                'oldesterrordate'=>$db->jdate($obj->oldesterrordate),
+                'oldesterrortext'=>$obj->oldesterrortext
                 );
 
             $i++;

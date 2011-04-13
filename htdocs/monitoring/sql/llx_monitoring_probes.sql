@@ -15,7 +15,7 @@
 -- along with this program; if not, write to the Free Software
 -- Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 --
--- $Id: llx_monitoring_probes.sql,v 1.4 2011/04/07 20:41:47 eldy Exp $
+-- $Id: llx_monitoring_probes.sql,v 1.5 2011/04/13 16:30:48 eldy Exp $
 -- ===================================================================
 
 
@@ -31,5 +31,12 @@ CREATE TABLE llx_monitoring_probes
 	frequency integer default 60, 
 	active integer default 1,
 	status integer default 0,
-	lastreset time
+	lastreset datetime,
+	oldesterrortext text,
+	oldesterrordate datetime,
+	useproxy integer default 0,
+	groupname varchar(64)
 ) ENGINE = innodb;
+
+-- lastreset = last date of status change
+-- 

@@ -21,7 +21,7 @@
  *      \file       dev/skeletons/monitoring_probes.class.php
  *      \ingroup    mymodule othermodule1 othermodule2
  *      \brief      This file is an example for a CRUD class file (Create/Read/Update/Delete)
- *		\version    $Id: monitoring_probes.class.php,v 1.7 2011/04/07 20:41:47 eldy Exp $
+ *		\version    $Id: monitoring_probes.class.php,v 1.8 2011/04/13 16:30:48 eldy Exp $
  *		\author		Put author name here
  *		\remarks	Initialy built by build_class_from_table on 2011-03-08 23:24
  */
@@ -181,7 +181,9 @@ class Monitoring_probes extends CommonObject
 		$sql.= " t.frequency,";
         $sql.= " t.active,";
 		$sql.= " t.status,";
-        $sql.= " t.lastreset";
+        $sql.= " t.lastreset,";
+        $sql.= " t.oldesterrortext,";
+        $sql.= " t.oldesterrordate";
         $sql.= " FROM ".MAIN_DB_PREFIX."monitoring_probes as t";
         $sql.= " WHERE t.rowid = ".$id;
 
@@ -204,9 +206,12 @@ class Monitoring_probes extends CommonObject
 				$this->frequency = $obj->frequency;
 				$this->active    = $obj->active;
                 $this->status    = $obj->status;
-                $this->lastreset = $obj->lastreset;
+                $this->lastreset = $this->db->jdate($obj->lastreset);
+                $this->oldesterrortext = $obj->oldesterrortext;
+                $this->oldesterrordate = $this->db->jdate($obj->oldesterrordate);
             }
             $this->db->free($resql);
+
             return 1;
         }
         else
@@ -353,6 +358,77 @@ class Monitoring_probes extends CommonObject
 		}
 	}
 
+
+    /**
+     *      Update database when a status has changed
+     *      @param      newstatus       New status to use. If 0, we also set value and date of first error to null.
+     *      @param      end_time        Date of detection
+     *      @param      errortext       To change also value and date of first error
+     *      @return     int             <0 if KO, >0 if OK
+     */
+    function updateStatus($newstatus,$end_time,$errortext)
+    {
+        global $conf, $langs;
+        $error=0;
+
+        // Clean parameters
+        if (isset($newstatus)) $newstatus=trim($newstatus);
+
+        // Update request
+        $sql = "UPDATE ".MAIN_DB_PREFIX."monitoring_probes SET";
+        $sql.= " status=".$newstatus.",";
+        $sql.= " lastreset='".$this->db->idate($end_time)."'";
+        if ($newstatus==0)
+        {
+            $sql.= ", oldesterrortext=null,";
+            $sql.= " oldesterrordate=null";
+        }
+        else if ($errortext)
+        {
+            $sql.= ", oldesterrortext='".$this->db->escape($errortext)."',";
+            $sql.= " oldesterrordate='".$this->db->idate($end_time)."'";
+        }
+        $sql.= " WHERE rowid=".$this->id;
+
+        $this->db->begin();
+
+        dol_syslog(get_class($this)."::update sql=".$sql, LOG_DEBUG);
+        $resql = $this->db->query($sql);
+        if (! $resql) { $error++; $this->errors[]="Error ".$this->db->lasterror(); }
+
+        if (! $error)
+        {
+            if (! $notrigger)
+            {
+                // Uncomment this and change MYOBJECT to your own tag if you
+                // want this action call a trigger.
+
+                //// Call triggers
+                //include_once(DOL_DOCUMENT_ROOT . "/core/class/interfaces.class.php");
+                //$interface=new Interfaces($this->db);
+                //$result=$interface->run_triggers('MYOBJECT_MODIFY',$this,$user,$langs,$conf);
+                //if ($result < 0) { $error++; $this->errors=$interface->errors; }
+                //// End call triggers
+            }
+        }
+
+        // Commit or rollback
+        if ($error)
+        {
+            foreach($this->errors as $errmsg)
+            {
+                dol_syslog(get_class($this)."::update ".$errmsg, LOG_ERR);
+                $this->error.=($this->error?', '.$errmsg:$errmsg);
+            }
+            $this->db->rollback();
+            return -1*$error;
+        }
+        else
+        {
+            $this->db->commit();
+            return 1;
+        }
+    }
 
 
 	/**
