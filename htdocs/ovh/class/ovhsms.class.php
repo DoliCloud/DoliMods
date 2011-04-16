@@ -72,24 +72,30 @@ class OvhSms  extends CommonObject
             require_once(DOL_DOCUMENT_ROOT.'/lib/functions2.lib.php');
             $params=getSoapParams();
             ini_set('default_socket_timeout', $params['response_timeout']);
+
+            //if ($params['proxy_use']) print $langs->trans("TryToUseProxy").': '.$params['proxy_host'].':'.$params['proxy_port'].($params['proxy_login']?(' - '.$params['proxy_login'].':'.$params['proxy_password']):'').'<br>';
+            //print 'URL: '.$WS_DOL_URL.'<br>';
+            //print $langs->trans("ConnectionTimeout").': '.$params['connection_timeout'].'<br>';
+            //print $langs->trans("ResponseTimeout").': '.$params['response_timeout'].'<br>';
+
             try {
                 $this->soap = new SoapClient($conf->global->OVHSMS_SOAPURL,$params);
                 // https://www.ovh.com/soapi/soapi-re-1.8.wsdl
 
-                $this->login = $nic;
-                $this->password = $passe;
-
-                $language = null;
+                $language = "en";
                 $multisession = false;
 
                 $this->session = $this->soap->login($conf->global->OVHSMS_NICK, $conf->global->OVHSMS_PASS,$language,$multisession);
+                //if ($this->session) print '<div class="ok">'.$langs->trans("OvhSmsLoginSuccessFull").'</div><br>';
+                //else print '<div class="error">Error login did not return a session id</div><br>';
+
                 // On mémorise le compe sms associé
                 $this->account = $conf->global->OVHSMS_ACCOUNT;
 
                 return 1;
 
             } catch(SoapFault $se) {
-                dol_syslog(get_class($this).'::SoapFault: '.$e);
+                dol_syslog(get_class($this).'::SoapFault: '.$se);
                 //var_dump('eeeeeeee');exit;
                 return 0;
             }
@@ -108,7 +114,11 @@ class OvhSms  extends CommonObject
         else return 0;
     }
 
-    function logout() {
+    /**
+     * Logout
+     */
+    function logout()
+    {
         $this->soap->logout($this->session);
         return 1;
     }
