@@ -26,7 +26,7 @@
  *      \file       htdocs/includes/modules/modCabinetMed.class.php
  *      \ingroup    cabinetmed
  *      \brief      Description and activation file for module CabinetMed
- *      \version    $Id: modCabinetMed.class.php,v 1.22 2011/04/17 11:04:00 eldy Exp $
+ *      \version    $Id: modCabinetMed.class.php,v 1.23 2011/04/17 11:53:45 eldy Exp $
  */
 include_once(DOL_DOCUMENT_ROOT ."/includes/modules/DolibarrModules.class.php");
 
@@ -258,6 +258,7 @@ class modCabinetMed extends DolibarrModules
         'co.motifconssec'=>'MotifSecondaires',
         'co.diaglesprinc'=>'DiagLesPrincipal',
         'co.diaglessec'=>'DiagLesSecondaires',
+        'co.hdm'=>'HistoireDeLaMaladie',
         'co.examenclinique'=>'ExamensCliniques',
         'co.examenprescrit'=>'ExamensPrescrits',
         'co.traitementprescrit'=>'TraitementsPrescrits',
@@ -279,6 +280,7 @@ class modCabinetMed extends DolibarrModules
         'co.motifconssec'=>'generic:Consultation',
         'co.diaglesprinc'=>'generic:Consultation',
         'co.diaglessec'=>'generic:Consultation',
+        'co.hdm'=>'generic:Consultation',
         'co.examenclinique'=>'generic:Consultation',
         'co.examenprescrit'=>'generic:Consultation',
         'co.traitementprescrit'=>'generic:Consultation',
