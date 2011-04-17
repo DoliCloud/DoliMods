@@ -23,7 +23,7 @@
  *   \file       htdocs/cabinetmed/exambio.php
  *   \brief      Tab for consultations
  *   \ingroup    cabinetmed
- *   \version    $Id: examautre.php,v 1.8 2011/04/17 11:31:11 eldy Exp $
+ *   \version    $Id: examautre.php,v 1.9 2011/04/17 19:16:56 eldy Exp $
  */
 
 $res=0;
@@ -351,7 +351,7 @@ if ($socid > 0)
         print $langs->trans("ExamenPrescrit").':';
         print '</td><td>';
         //print '<input type="text" size="3" class="flat" name="searchmotifcons" value="'.GETPOST("searchmotifcons").'" id="searchmotifcons">';
-        listexamen(1,$width,'BIO',0,'exam');
+        listexamen(1,$width,"RADIO','AUTRE",0,'exam');
         /*print ' '.img_picto('Ajouter motif principal','edit_add_p.png@cabinetmed');
         print ' '.img_picto('Ajouter motif secondaire','edit_add_s.png@cabinetmed');*/
         print ' <input type="button" class="button" id="addexamprinc" name="addexamprinc" value="+P">';
@@ -529,5 +529,5 @@ if ($action == '' || $action == 'delete')
 
 $db->close();
 
-llxFooter('$Date: 2011/04/17 11:31:11 $ - $Revision: 1.8 $');
+llxFooter('$Date: 2011/04/17 19:16:56 $ - $Revision: 1.9 $');
 ?>

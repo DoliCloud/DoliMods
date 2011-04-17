@@ -91,7 +91,7 @@ function listexamen($nboflines,$newwidth=0,$type='',$showtype=0,$htmlname='exame
     print '<option value="0"></option>';
     $sql = 'SELECT s.rowid, s.code, s.label, s.biorad as type';
     $sql.= ' FROM '.MAIN_DB_PREFIX.'cabinetmed_examenprescrit as s';
-    if ($type) $sql.=" WHERE s.biorad = '".$type."'";
+    if ($type) $sql.=" WHERE s.biorad in ('".$type."')";
     $sql.= ' ORDER BY label';
     $resql=$db->query($sql);
     dol_syslog("consutlations sql=".$sql);

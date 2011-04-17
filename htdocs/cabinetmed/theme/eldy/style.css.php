@@ -21,7 +21,7 @@
 /**
  *		\file       htdocs/theme/eldy/style.css.php
  *		\brief      Fichier de style CSS du theme Eldy
- *		\version    $Id: style.css.php,v 1.7 2011/04/04 22:13:59 eldy Exp $
+ *		\version    $Id: style.css.php,v 1.8 2011/04/17 19:16:40 eldy Exp $
  */
 
 //if (! defined('NOREQUIREUSER')) define('NOREQUIREUSER','1');	// Not disabled cause need to load personalized language
@@ -68,7 +68,7 @@ $fontsizesmaller=empty($conf->browser->phone)?'11':'11';
 $fontlist='arial,tahoma,verdana,helvetica';
 //$fontlist='Verdana,Helvetica,Arial,sans-serif';
 
-$liste_titre_png=dol_buildpath('/cabinetmed/theme/eldy/img/liste_titre.png',1);
+$liste_titre_png=dol_buildpath('/cabinetmed/theme/eldy/img/liste_titre2.png',1);
 ?>
 
 /* ============================================================================== */
@@ -169,7 +169,10 @@ form {
     padding: 0em 0em 0em 0em;
     margin: 0em 0em 0em 0em;
 }
-
+div.float
+{
+    float:<?php print $left; ?>;
+}
 
 /* For dragging lines */
 
@@ -197,8 +200,8 @@ td.vmenu {
 }
 
 div.fiche {
-	margin-<?php print $left; ?>: 4px;
-	margin-<?php print $right; ?>: 4px;
+	margin-<?php print $left; ?>: 6px;
+	margin-<?php print $right; ?>: 5px;
 }
 
 /* ============================================================================== */
@@ -419,7 +422,7 @@ foreach($conf->modules as $key => $val)
 $mainmenuusedarray=array_unique(explode(',',$mainmenuused));
 
 $generic=1;
-$divalreadydefined=array('home','companies','products','commercial','accountancy','project','tools','members','shop','agenda','ecm','cashdesk','webcal','google');
+$divalreadydefined=array('home','companies','products','commercial','accountancy','project','tools','members','shop','agenda','ecm','cashdesk');
 foreach($mainmenuusedarray as $key => $val)
 {
 	if (empty($val) || in_array($val,$divalreadydefined)) continue;
@@ -539,7 +542,7 @@ div.blockvmenupair, div.blockvmenuimpair
     padding-top: 3px;
     padding-bottom: 3px;
     margin: 1px 0px 0px 0px;
-	background: #A3BCC6;
+	background: #FFFFFF;
     background-image: url(<?php echo dol_buildpath('/cabinetmed/theme/eldy/img/tmenu.jpg',1) ?>);
     background-position:top;
     background-repeat:repeat-x;
@@ -838,10 +841,9 @@ div.tabsAction {
 
 
 a.tabTitle {
-    background: #436976;
+    background: #657090;
     color: white;
 	font-family: <?php print $fontlist ?>;
-    font-weight: normal;
     padding: 0px 6px;
     margin: 0px 6px;
     text-decoration: none;
@@ -853,7 +855,7 @@ a.tabTitle {
 
 a.tab:link {
     background: #dee7ec;
-    color: #436976;
+    color: #434956;
 	font-family: <?php print $fontlist ?>;
     padding: 0px 6px;
     margin: 0em 0.2em;
@@ -868,7 +870,7 @@ a.tab:link {
 }
 a.tab:visited {
     background: #dee7ec;
-    color: #436976;
+    color: #434956;
 	font-family: <?php print $fontlist ?>;
     padding: 0px 6px;
     margin: 0em 0.2em;
@@ -885,7 +887,7 @@ a.tab#active {
     background: white;
     border-bottom: #dee7ec 1px solid;
 	font-family: <?php print $fontlist ?>;
-    color: #436976;
+    color: #434956;
     padding: 0px 6px;
     margin: 0em 0.2em;
     text-decoration: none;
@@ -899,7 +901,7 @@ a.tab#active {
 }
 a.tab:hover {
     background: white;
-    color: #436976;
+    color: #434956;
 	font-family: <?php print $fontlist ?>;
     padding: 0px 6px;
     margin: 0em 0.2em;
@@ -913,7 +915,7 @@ a.tab:hover {
 }
 
 a.tabimage {
-    color: #436976;
+    color: #434956;
 	font-family: <?php print $fontlist ?>;
     text-decoration: none;
     white-space: nowrap;
@@ -925,7 +927,7 @@ td.tab {
 
 span.tabspan {
     background: #dee7ec;
-    color: #436976;
+    color: #434956;
 	font-family: <?php print $fontlist ?>;
     padding: 0px 6px;
     margin: 0em 0.2em;
@@ -950,7 +952,7 @@ a.butAction:link, a.butAction:visited, a.butAction:hover, a.butAction:active, a.
 	font-weight: bold;
 	background: white;
 	border: 1px solid #8CACBB;
-	color: #436976;
+	color: #434956;
 	padding: 0em 0.7em;
 	margin: 0em 0.5em;
 	text-decoration: none;
@@ -1858,3 +1860,14 @@ A.none, A.none:active, A.none:visited, A.none:hover {
     line-height: 1em !important;
 }
 .ui-autocomplete-input { margin: 0; padding: 1px; }
+
+
+
+/* ============================================================================== */
+/*  CKEditor                                                                      */
+/* ============================================================================== */
+
+.cke_editor table, .cke_editor tr, .cke_editor td
+{
+    border: 0px solid #FF0000 !important;
+}
