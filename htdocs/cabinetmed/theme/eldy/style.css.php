@@ -21,7 +21,7 @@
 /**
  *		\file       htdocs/theme/eldy/style.css.php
  *		\brief      Fichier de style CSS du theme Eldy
- *		\version    $Id: style.css.php,v 1.8 2011/04/17 19:16:40 eldy Exp $
+ *		\version    $Id: style.css.php,v 1.9 2011/04/17 21:16:05 eldy Exp $
  */
 
 //if (! defined('NOREQUIREUSER')) define('NOREQUIREUSER','1');	// Not disabled cause need to load personalized language
@@ -1218,7 +1218,7 @@ padding-bottom: 4px;
 
 tr.box_titre {
 background: #7699A9;
-background-image: url(<?php echo dol_buildpath('/cabinetmed/theme/eldy/img/liste_titre.png',1) ?>);
+background-image: url(<?php echo dol_buildpath('/cabinetmed/theme/eldy/img/liste_titre2.png',1) ?>);
 background-repeat: repeat-x;
 color: #334444;
 font-family: <?php print $fontlist ?>, sans-serif;
