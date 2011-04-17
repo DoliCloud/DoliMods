@@ -23,7 +23,7 @@
  *   \file       htdocs/cabinetmed/exambio.php
  *   \brief      Tab for consultations
  *   \ingroup    cabinetmed
- *   \version    $Id: examautre.php,v 1.6 2011/04/13 12:50:37 eldy Exp $
+ *   \version    $Id: examautre.php,v 1.7 2011/04/17 11:05:41 eldy Exp $
  */
 
 $res=0;
@@ -356,6 +356,7 @@ if ($socid > 0)
         print ' '.img_picto('Ajouter motif secondaire','edit_add_s.png@cabinetmed');*/
         print ' <input type="button" class="button" id="addexamprinc" name="addexamprinc" value="+P">';
         print ' <input type="button" class="button" id="addexamsec" name="addexamsec" value="+S">';
+        if ($user->admin) print ' '.info_admin($langs->trans("YouCanChangeValuesForThisListFromDictionnarySetup"),1);
         print '</td></tr>';
         print '<tr><td>Principal:';
         print '</td><td>';
@@ -378,6 +379,7 @@ if ($socid > 0)
         listexamconclusion(1,$width,'examconc');
         print ' <input type="button" class="button" id="addexamconcprinc" name="addexamconcprinc" value="+P">';
         print ' <input type="button" class="button" id="addexamconcsec" name="addexamconcsec" value="+S">';
+        if ($user->admin) print ' '.info_admin($langs->trans("YouCanChangeValuesForThisListFromDictionnarySetup"),1);
         print '</td></tr>';
         print '<tr><td>Principal:';
         print '</td><td>';
@@ -527,5 +529,5 @@ if ($action == '' || $action == 'delete')
 
 $db->close();
 
-llxFooter('$Date: 2011/04/13 12:50:37 $ - $Revision: 1.6 $');
+llxFooter('$Date: 2011/04/17 11:05:41 $ - $Revision: 1.7 $');
 ?>

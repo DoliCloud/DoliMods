@@ -20,7 +20,7 @@
  *   \file       htdocs/cabinetmed/consultations.php
  *   \brief      Tab for consultations
  *   \ingroup    cabinetmed
- *   \version    $Id: consultations.php,v 1.13 2011/04/13 18:59:51 eldy Exp $
+ *   \version    $Id: consultations.php,v 1.14 2011/04/17 11:04:01 eldy Exp $
  */
 
 $res=0;
@@ -123,6 +123,7 @@ if ($action == 'add' || $action == 'update')
         $consult->diaglesprinc=$_POST["diaglesprinc"];
         $consult->motifconssec=$_POST["motifconssec"];
         $consult->diaglessec=$_POST["diaglessec"];
+        $consult->hdm=trim($_POST["hdm"]);
         $consult->examenclinique=trim($_POST["examenclinique"]);
         $consult->examenprescrit=trim($_POST["examenprescrit"]);
         $consult->traitementprescrit=trim($_POST["traitementprescrit"]);
@@ -166,6 +167,11 @@ if ($action == 'add' || $action == 'update')
             $error++;
             $mesgarray[]=$langs->trans("ErrorFieldRequired",$langs->transnoentities("MotifConsultation"));
         }
+        if (empty($consult->diaglesprinc))
+        {
+            $error++;
+            $mesgarray[]=$langs->trans("ErrorFieldRequired",$langs->transnoentities("DiagnostiqueLesionnel"));
+        }
 
         $db->begin();
 
@@ -194,21 +200,24 @@ if ($action == 'add' || $action == 'update')
                 $societe = new Societe($db);
                 $societe->fetch($consult->fk_soc);
 
-                $bankaccount=new Account($db);
-                $result=$bankaccount->fetch($banque);
-                $lineid=$bankaccount->addline(dol_now(), $type, $langs->trans("CustomerInvoicePayment"), $amount, $consult->num_cheque, '', $user, $societe->nom, $consult->banque);
-                if ($lineid <= 0)
+                if ($conf->banque->enabled)
                 {
-                    $error++;
-                    $consult->error=$bankaccount->error;
-                }
-                if (! $error)
-                {
-                    $result1=$bankaccount->add_url_line($lineid,$consult->id,dol_buildpath('/cabinetmed/consultations.php',1).'?action=edit&socid='.$consult->fk_soc.'&id=','Consultation','consultation');
-                    $result2=$bankaccount->add_url_line($lineid,$consult->fk_soc,'',$societe->nom,'company');
-                    if ($result1 <= 0 || $result2 <= 0)
+                    $bankaccount=new Account($db);
+                    $result=$bankaccount->fetch($banque);
+                    $lineid=$bankaccount->addline(dol_now(), $type, $langs->trans("CustomerInvoicePayment"), $amount, $consult->num_cheque, '', $user, $societe->nom, $consult->banque);
+                    if ($lineid <= 0)
                     {
                         $error++;
+                        $consult->error=$bankaccount->error;
+                    }
+                    if (! $error)
+                    {
+                        $result1=$bankaccount->add_url_line($lineid,$consult->id,dol_buildpath('/cabinetmed/consultations.php',1).'?action=edit&socid='.$consult->fk_soc.'&id=','Consultation','consultation');
+                        $result2=$bankaccount->add_url_line($lineid,$consult->fk_soc,'',$societe->nom,'company');
+                        if ($result1 <= 0 || $result2 <= 0)
+                        {
+                            $error++;
+                        }
                     }
                 }
             }
@@ -263,14 +272,17 @@ if ($action == 'add' || $action == 'update')
                     if (! empty($_POST["montant_espece"])) $type='LIQ';
                     if (! empty($_POST["montant_tiers"])) $type='VIR';
 
-                    $bankaccount=new Account($db);
-                    $result=$bankaccount->fetch($banque);
-                    $lineid=$bankaccount->addline(dol_now(), $type, $langs->trans("CustomerInvoicePayment"), $amount, $consult->num_cheque, '', $user, $societe->nom, $consult->banque);
-                    $result1=$bankaccount->add_url_line($lineid,$consult->id,dol_buildpath('/cabinetmed/consultations.php',1).'?action=edit&socid='.$consult->fk_soc.'&id=','Consultation','consultation');
-                    $result2=$bankaccount->add_url_line($lineid,$consult->fk_soc,'',$societe->nom,'company');
-                    if ($lineid <= 0 || $result1 <= 0 || $result2 <= 0)
+                    if ($conf->banque->enabled)
                     {
-                        $error++;
+                        $bankaccount=new Account($db);
+                        $result=$bankaccount->fetch($banque);
+                        $lineid=$bankaccount->addline(dol_now(), $type, $langs->trans("CustomerInvoicePayment"), $amount, $consult->num_cheque, '', $user, $societe->nom, $consult->banque);
+                        $result1=$bankaccount->add_url_line($lineid,$consult->id,dol_buildpath('/cabinetmed/consultations.php',1).'?action=edit&socid='.$consult->fk_soc.'&id=','Consultation','consultation');
+                        $result2=$bankaccount->add_url_line($lineid,$consult->fk_soc,'',$societe->nom,'company');
+                        if ($lineid <= 0 || $result1 <= 0 || $result2 <= 0)
+                        {
+                            $error++;
+                        }
                     }
                 }
             }
@@ -545,8 +557,9 @@ if ($socid > 0)
         print ' '.img_picto('Ajouter motif secondaire','edit_add_s.png@cabinetmed');*/
         print ' <input type="button" class="button" id="addmotifprinc" name="addmotifprinc" value="+P">';
         print ' <input type="button" class="button" id="addmotifsec" name="addmotifsec" value="+S">';
+        if ($user->admin) print ' '.info_admin($langs->trans("YouCanChangeValuesForThisListFromDictionnarySetup"),1);
         print '</td></tr>';
-        print '<tr><td>Principal:';
+        print '<tr><td><b>Principal:</b>';
         print '</td><td>';
         print '<input type="text" size="32" class="flat" name="motifconsprinc" value="'.$consult->motifconsprinc.'" id="motifconsprinc"><br>';
         print '</td></tr>';
@@ -567,8 +580,9 @@ if ($socid > 0)
         listdiagles(1,$width);
         print ' <input type="button" class="button" id="adddiaglesprinc" name="adddiaglesprinc" value="+P">';
         print ' <input type="button" class="button" id="adddiaglessec" name="adddiaglessec" value="+S">';
+        if ($user->admin) print ' '.info_admin($langs->trans("YouCanChangeValuesForThisListFromDictionnarySetup"),1);
         print '</td></tr>';
-        print '<tr><td>Principal:';
+        print '<tr><td><b>Principal:</b>';
         print '</td><td>';
         print '<input type="text" size="32" class="flat" name="diaglesprinc" value="'.$consult->diaglesprinc.'" id="diaglesprinc"><br>';
         print '</td></tr>';
@@ -584,8 +598,13 @@ if ($socid > 0)
 
         print '</td><td valign="top">';
 
+        print ''.$langs->trans("HistoireDeLaMaladie").'<br>';
+        print '<textarea name="hdm" id="hdm" class="flat" cols="50" rows="'._ROWS_5.'">'.$consult->hdm.'</textarea>';
+
+        print '<br>';
+
         print ''.$langs->trans("ExamensCliniques").'<br>';
-        print '<textarea name="examenclinique" id="examenclinique" class="flat" cols="50" rows="6">'.$consult->examenclinique.'</textarea>';
+        print '<textarea name="examenclinique" id="examenclinique" class="flat" cols="50" rows="'._ROWS_6.'">'.$consult->examenclinique.'</textarea>';
 
         print '</td></tr>';
 
@@ -609,6 +628,7 @@ if ($socid > 0)
         //print '<input type="text" size="3" class="flat" name="searchexamenprescrit" value="'.GETPOST("searchexamenprescrit").'" id="searchexamenprescrit">';
         listexamen(1,$width,'',0,'examenprescrit');
         print ' <input type="button" class="button" id="addexamenprescrit" name="addexamenprescrit" value="+">';
+        if ($user->admin) print ' '.info_admin($langs->trans("YouCanChangeValuesForThisListFromDictionnarySetup"),1);
         print '</td></tr>';
         print '<tr><td valign="top">';
         print '</td><td>';
@@ -629,7 +649,7 @@ if ($socid > 0)
 
         print $langs->trans("TraitementsPrescrits").'<br>';
         print '<textarea name="traitementprescrit" class="flat" cols="50" rows="'.($nboflines-1).'">'.$consult->traitementprescrit.'</textarea><br>';
-        print $langs->trans("Infiltrations").' ';
+        print $langs->trans("Infiltrations").'<br>';
         print '<input type="text" class="flat" name="infiltration" id="infiltration" value="'.$consult->infiltration.'" size="30">';
 
         print '<br><br><b>'.$langs->trans("TypeVisite").'</b> &nbsp; &nbsp; &nbsp; ';
@@ -671,6 +691,7 @@ if ($socid > 0)
         var_dump();
         //print '<input type="text" class="flat" name="banque" id="banque" value="'.$consult->banque.'" size="18"'.($consult->montant_cheque?'':' disabled="disabled"').'>';
         listebanques(1,0,$consult->banque);
+        if ($user->admin) print info_admin($langs->trans("YouCanChangeValuesForThisListFromDictionnarySetup"),1);
 
         //print '</td></tr><tr><td></td><td>';
 
@@ -789,6 +810,7 @@ if ($action == '' || $action == 'delete')
     $sql.= " t.diaglesprinc,";
     $sql.= " t.motifconssec,";
     $sql.= " t.diaglessec,";
+    $sql.= " t.hdm,";
     $sql.= " t.examenclinique,";
     $sql.= " t.examenprescrit,";
     $sql.= " t.traitementprescrit,";
@@ -897,5 +919,5 @@ if ($action == '' || $action == 'delete')
 
 $db->close();
 
-llxFooter('$Date: 2011/04/13 18:59:51 $ - $Revision: 1.13 $');
+llxFooter('$Date: 2011/04/17 11:04:01 $ - $Revision: 1.14 $');
 ?>

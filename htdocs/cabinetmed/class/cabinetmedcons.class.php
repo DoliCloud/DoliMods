@@ -20,7 +20,7 @@
  *      \file       cabinetmed/class/cabinetmedcons.class.php
  *      \ingroup    cabinetmed
  *      \brief      This file is an example for a CRUD class file (Create/Read/Update/Delete)
- *		\version    $Id: cabinetmedcons.class.php,v 1.2 2011/04/13 12:50:37 eldy Exp $
+ *		\version    $Id: cabinetmedcons.class.php,v 1.3 2011/04/17 11:04:01 eldy Exp $
  *		\remarks	Initialy built by build_class_from_table on 2011-02-02 22:30
  */
 
@@ -225,7 +225,8 @@ class CabinetmedCons extends CommonObject
 		$sql.= " t.diaglesprinc,";
         $sql.= " t.motifconssec,";
         $sql.= " t.diaglessec,";
-		$sql.= " t.examenclinique,";
+        $sql.= " t.hdm,";
+        $sql.= " t.examenclinique,";
 		$sql.= " t.examenprescrit,";
         $sql.= " t.traitementprescrit,";
 		$sql.= " t.comment,";
@@ -260,7 +261,8 @@ class CabinetmedCons extends CommonObject
 				$this->diaglesprinc = $obj->diaglesprinc;
                 $this->motifconssec = $obj->motifconssec;
                 $this->diaglessec = $obj->diaglessec;
-				$this->examenclinique = $obj->examenclinique;
+                $this->hdm = $obj->hdm;
+                $this->examenclinique = $obj->examenclinique;
 				$this->examenprescrit = $obj->examenprescrit;
                 $this->traitementprescrit = $obj->traitementprescrit;
 				$this->comment = $obj->comment;
@@ -288,10 +290,10 @@ class CabinetmedCons extends CommonObject
 
 
     /**
-     *      \brief      Update database
-     *      \param      user        	User that modify
-     *      \param      notrigger	    0=launch triggers after, 1=disable triggers
-     *      \return     int         	<0 if KO, >0 if OK
+     *      Update database
+     *      @param      user        	User that modify
+     *      @param      notrigger	    0=launch triggers after, 1=disable triggers
+     *      @return     int         	<0 if KO, >0 if OK
      */
     function update($user=0, $notrigger=0)
     {
@@ -306,6 +308,7 @@ class CabinetmedCons extends CommonObject
         if (isset($this->diaglesprinc)) $this->diaglec=trim($this->diaglesprins);
 		if (isset($this->motifconssec)) $this->motifconssec=trim($this->motifconssec);
 		if (isset($this->diaglessec)) $this->diaglessec=trim($this->diaglessec);
+        if (isset($this->hdm)) $this->hdm=trim($this->hdm);
 		if (isset($this->examenclinique)) $this->examenclinique=trim($this->examenclinique);
 		if (isset($this->examenprescrit)) $this->examenprescrit=trim($this->examenprescrit);
         if (isset($this->traitementprescrit)) $this->traitementprescrit=trim($this->traitementprescrit);
@@ -318,7 +321,6 @@ class CabinetmedCons extends CommonObject
 		if (isset($this->montant_carte)) $this->montant_carte=trim($this->montant_carte);
 		if (isset($this->montant_tiers)) $this->montant_tiers=trim($this->montant_tiers);
 		if (isset($this->banque)) $this->banque=trim($this->banque);
-
 
 
 		// Check parameters
@@ -334,7 +336,8 @@ class CabinetmedCons extends CommonObject
 		$sql.= " diaglesprinc=".(isset($this->diaglesprinc)?"'".addslashes($this->diaglesprinc)."'":"null").",";
         $sql.= " motifconssec=".(isset($this->motifconssec)?"'".addslashes($this->motifconssec)."'":"null").",";
         $sql.= " diaglessec=".(isset($this->diaglessec)?"'".addslashes($this->diaglessec)."'":"null").",";
-		$sql.= " examenclinique=".(isset($this->examenclinique)?"'".addslashes($this->examenclinique)."'":"null").",";
+        $sql.= " hdm=".(isset($this->hdm)?"'".addslashes($this->hdm)."'":"null").",";
+        $sql.= " examenclinique=".(isset($this->examenclinique)?"'".addslashes($this->examenclinique)."'":"null").",";
 		$sql.= " examenprescrit=".(isset($this->examenprescrit)?"'".addslashes($this->examenprescrit)."'":"null").",";
         $sql.= " traitementprescrit=".(isset($this->traitementprescrit)?"'".addslashes($this->traitementprescrit)."'":"null").",";
 		$sql.= " comment=".(isset($this->comment)?"'".addslashes($this->comment)."'":"null").",";
