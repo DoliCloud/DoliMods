@@ -20,7 +20,7 @@
  *   \file       htdocs/cabinetmed/consultations.php
  *   \brief      Tab for consultations
  *   \ingroup    cabinetmed
- *   \version    $Id: consultations.php,v 1.14 2011/04/17 11:04:01 eldy Exp $
+ *   \version    $Id: consultations.php,v 1.15 2011/04/17 11:31:11 eldy Exp $
  */
 
 $res=0;
@@ -565,7 +565,7 @@ if ($socid > 0)
         print '</td></tr>';
         print '<tr><td valign="top">Secondaires:';
         print '</td><td>';
-        print '<textarea name="motifconssec" id="motifconssec" cols="40">';
+        print '<textarea name="motifconssec" id="motifconssec" cols="40" rows="'.ROWS_3.'">';
         print $consult->motifconssec;
         print '</textarea>';
         print '</td>';
@@ -588,7 +588,7 @@ if ($socid > 0)
         print '</td></tr>';
         print '<tr><td valign="top">Secondaires:';
         print '</td><td>';
-        print '<textarea name="diaglessec" id="diaglessec" cols="40">';
+        print '<textarea name="diaglessec" id="diaglessec" cols="40" rows="'.ROWS_3.'">';
         print $consult->diaglessec;
         print '</textarea>';
         print '</td>';
@@ -599,12 +599,12 @@ if ($socid > 0)
         print '</td><td valign="top">';
 
         print ''.$langs->trans("HistoireDeLaMaladie").'<br>';
-        print '<textarea name="hdm" id="hdm" class="flat" cols="50" rows="'._ROWS_5.'">'.$consult->hdm.'</textarea>';
+        print '<textarea name="hdm" id="hdm" class="flat" cols="50" rows="'.ROWS_5.'">'.$consult->hdm.'</textarea>';
 
         print '<br>';
 
         print ''.$langs->trans("ExamensCliniques").'<br>';
-        print '<textarea name="examenclinique" id="examenclinique" class="flat" cols="50" rows="'._ROWS_6.'">'.$consult->examenclinique.'</textarea>';
+        print '<textarea name="examenclinique" id="examenclinique" class="flat" cols="50" rows="'.ROWS_6.'">'.$consult->examenclinique.'</textarea>';
 
         print '</td></tr>';
 
@@ -919,5 +919,5 @@ if ($action == '' || $action == 'delete')
 
 $db->close();
 
-llxFooter('$Date: 2011/04/17 11:04:01 $ - $Revision: 1.14 $');
+llxFooter('$Date: 2011/04/17 11:31:11 $ - $Revision: 1.15 $');
 ?>

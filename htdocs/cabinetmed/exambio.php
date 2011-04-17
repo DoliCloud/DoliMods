@@ -23,7 +23,7 @@
  *   \file       htdocs/cabinetmed/exambio.php
  *   \brief      Tab for consultations
  *   \ingroup    cabinetmed
- *   \version    $Id: exambio.php,v 1.7 2011/04/13 12:50:37 eldy Exp $
+ *   \version    $Id: exambio.php,v 1.8 2011/04/17 11:31:11 eldy Exp $
  */
 
 $res=0;
@@ -441,7 +441,7 @@ if ($socid > 0)
         print '<input type="hidden" name="id" value="'.$id.'">';
 
         print '<fieldset id="fieldsetanalyse">';
-        print '<legend>'.$langs->trans("InfoGenerales").'</legend>'."\n";
+        print '<legend>'.$langs->trans("Examen").'</legend>'."\n";
 
         print '<table class="notopnoleftnoright" width="100%">';
         print '<tr><td width="60%">';
@@ -712,5 +712,5 @@ if ($action == '' || $action == 'delete')
 
 $db->close();
 
-llxFooter('$Date: 2011/04/13 12:50:37 $ - $Revision: 1.7 $');
+llxFooter('$Date: 2011/04/17 11:31:11 $ - $Revision: 1.8 $');
 ?>

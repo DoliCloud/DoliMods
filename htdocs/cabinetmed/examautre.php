@@ -23,7 +23,7 @@
  *   \file       htdocs/cabinetmed/exambio.php
  *   \brief      Tab for consultations
  *   \ingroup    cabinetmed
- *   \version    $Id: examautre.php,v 1.7 2011/04/17 11:05:41 eldy Exp $
+ *   \version    $Id: examautre.php,v 1.8 2011/04/17 11:31:11 eldy Exp $
  */
 
 $res=0;
@@ -177,7 +177,7 @@ if ($action == 'add' || $action == 'update')
  */
 
 $form = new Form($db);
-$width="242";
+$width="328";
 
 llxHeader();
 
@@ -319,7 +319,7 @@ if ($socid > 0)
         print '<input type="hidden" name="id" value="'.$id.'">';
 
         print '<fieldset id="fieldsetanalyse">';
-        print '<legend>'.$langs->trans("InfoGenerales").'</legend>'."\n";
+        print '<legend>'.$langs->trans("Examen").'</legend>'."\n";
 
         print '<table class="notopnoleftnoright" width="100%">';
         print '<tr><td width="60%">';
@@ -360,11 +360,11 @@ if ($socid > 0)
         print '</td></tr>';
         print '<tr><td>Principal:';
         print '</td><td>';
-        print '<input type="text" size="32" class="flat" name="examprinc" value="'.$examother->examprinc.'" id="examprinc"><br>';
+        print '<input type="text" size="48" class="flat" name="examprinc" value="'.$examother->examprinc.'" id="examprinc"><br>';
         print '</td></tr>';
         print '<tr><td valign="top">Secondaires:';
         print '</td><td>';
-        print '<textarea name="examsec" id="examsec" cols="40">';
+        print '<textarea name="examsec" id="examsec" cols="46" rows="'._ROWS_5.'">';
         print $examother->examsec;
         print '</textarea>';
         print '</td>';
@@ -383,11 +383,11 @@ if ($socid > 0)
         print '</td></tr>';
         print '<tr><td>Principal:';
         print '</td><td>';
-        print '<input type="text" size="32" class="flat" name="examconcprinc" value="'.$examother->concprinc.'" id="examconcprinc"><br>';
+        print '<input type="text" size="48" class="flat" name="examconcprinc" value="'.$examother->concprinc.'" id="examconcprinc"><br>';
         print '</td></tr>';
         print '<tr><td valign="top">Secondaires:';
         print '</td><td>';
-        print '<textarea name="examconcsec" id="examconcsec" cols="40">';
+        print '<textarea name="examconcsec" id="examconcsec" cols="46" rows="'._ROWS_5.'">';
         print $examother->concsec;
         print '</textarea>';
         print '</td>';
@@ -529,5 +529,5 @@ if ($action == '' || $action == 'delete')
 
 $db->close();
 
-llxFooter('$Date: 2011/04/17 11:05:41 $ - $Revision: 1.7 $');
+llxFooter('$Date: 2011/04/17 11:31:11 $ - $Revision: 1.8 $');
 ?>
