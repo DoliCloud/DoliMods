@@ -21,7 +21,7 @@
  *	\file       	scripts/monitoring/monitor_daemon.php
  *	\ingroup    	monitor
  *	\brief      	Script to execute monitor daemon
- *	\version		$Id: monitor_daemon.php,v 1.13 2011/04/20 20:58:22 eldy Exp $
+ *	\version		$Id: monitor_daemon.php,v 1.14 2011/04/20 21:02:29 eldy Exp $
  */
 
 $sapi_type = php_sapi_name();
@@ -35,7 +35,7 @@ if (substr($sapi_type, 0, 3) == 'cgi') {
 }
 
 // Global variables
-$version='$Revision: 1.13 $';
+$version='$Revision: 1.14 $';
 $error=0;
 // Include Dolibarr environment
 $res=0;
@@ -76,12 +76,18 @@ function traitementErreur($code, $message, $fichier, $ligne, $contexte)
 }
 set_error_handler('traitementErreur');
 
+$nbok=0;
+$nbko=0;
+$frequency=5;   // seconds
+$maxloops=0;
+$timeout=10;    // seconds
+
 
 
 
 print "***** ".$script_file." (".$version.") *****\n";
 if (! isset($argv[1])) {	// Check parameters
-	print "Usage: ".$script_file." start\n";
+	print "Usage: ".$script_file." start [-maxloops=x]\n";
 	exit;
 }
 
@@ -107,6 +113,10 @@ for ($i = 1 ; $i < sizeof($argv) ; $i++)
 	{
 		$verbose = 3;
 	}
+    if (preg_match('/-maxloops=(\d+)/i',$argv[$i],$reg))
+    {
+        $maxloops=$reg[1];
+    }
 }
 
 $dir = $conf->monitor->dir_output;
@@ -125,12 +135,6 @@ if (! sizeof($listofurls))
     exit;
 }
 
-
-$nbok=0;
-$nbko=0;
-$frequency=5;	// seconds
-$maxloop=3;
-$timeout=10;    // seconds
 
 
 
@@ -195,7 +199,7 @@ if (! $error)
         {
              // @child: Include() misbehaving code here
              print "FORK: Child probe id ".$object['code']." preparing to nuke...\n";
-             $resarray=process_probe_x($object,$maxloop); //generate_fatal_error(); // Undefined function
+             $resarray=process_probe_x($object,$maxloops); //generate_fatal_error(); // Undefined function
              $nbok+=$resarray['nbok'];
              $nbko+=$resarray['nbko'];
              break;
@@ -251,7 +255,7 @@ exit(0);
 /**
  *
  */
-function process_probe_x($object,$maxloop=0)
+function process_probe_x($object,$maxloops=0)
 {
     global $conf, $langs, $db;
 
@@ -260,7 +264,7 @@ function process_probe_x($object,$maxloop=0)
 
     $probestatic=new Monitoring_probes($db);
 
-    while(! $error && (empty($maxloop) || ($nbloop < $maxloop)))
+    while(! $error && (empty($maxloops) || ($nbloop < $maxloops)))
     {
         $nbloop++;
 
