@@ -21,7 +21,7 @@
  *	\file       	scripts/monitoring/monitor_daemon.php
  *	\ingroup    	monitor
  *	\brief      	Script to execute monitor daemon
- *	\version		$Id: monitor_daemon.php,v 1.12 2011/04/13 18:44:21 eldy Exp $
+ *	\version		$Id: monitor_daemon.php,v 1.13 2011/04/20 20:58:22 eldy Exp $
  */
 
 $sapi_type = php_sapi_name();
@@ -35,7 +35,7 @@ if (substr($sapi_type, 0, 3) == 'cgi') {
 }
 
 // Global variables
-$version='$Revision: 1.12 $';
+$version='$Revision: 1.13 $';
 $error=0;
 // Include Dolibarr environment
 $res=0;
@@ -84,6 +84,10 @@ if (! isset($argv[1])) {	// Check parameters
 	print "Usage: ".$script_file." start\n";
 	exit;
 }
+
+if (! function_exists('pcntl_fork')) die('PCNTL functions not available on this PHP installation');
+
+
 print '--- start'."\n";
 //print 'Argument 1='.$argv[1]."\n";
 //print 'Argument 2='.$argv[2]."\n";
@@ -125,10 +129,9 @@ if (! sizeof($listofurls))
 $nbok=0;
 $nbko=0;
 $frequency=5;	// seconds
-$maxloop=0;
+$maxloop=3;
 $timeout=10;    // seconds
 
-$probestatic=new Monitoring_probes($db);
 
 
 // Create rrd if not exists
@@ -177,237 +180,301 @@ foreach($listofurls as $object)
 	}
 }
 
+
+$pid=0;
+
 if (! $error)
 {
-	while(! $error && (empty($maxloop) || ($nbloop < $maxloop)))
+	// Reload sometimes list of urls
+	//$listofurls=getListOfUrls(1);
+    $pid_arr = array();
+	foreach($listofurls as $key => $object)
 	{
-		$nbloop++;
-
-		// Reload sometimes list of urls
-		//$listofurls=getListOfUrls(1);
-
-		foreach($listofurls as $key => $object)
+		$pid = pcntl_fork();
+        if ($pid == 0)
+        {
+             // @child: Include() misbehaving code here
+             print "FORK: Child probe id ".$object['code']." preparing to nuke...\n";
+             $resarray=process_probe_x($object,$maxloop); //generate_fatal_error(); // Undefined function
+             $nbok+=$resarray['nbok'];
+             $nbko+=$resarray['nbko'];
+             break;
+        }
+		if ($pid == -1)
 		{
-			$fname = $conf->monitoring->dir_output.'/'.$object['code'].'/monitoring.rrd';
+             // @fail
+             die('Fork failed for process '.$key);
+             continue;
+		}
+		if ($pid > 0)
+		{
+             // @parent
+             print "FORK: Parent, letting the child with pid ".$pid." run amok...\n";
+             $pid_arr[$key] = $pid;
+             continue;
+        }
+	}
+}
 
-            $value1='U';
-            $value2='U';
-            $errortext='';
-            $done=0;
+if ($pid != 0)
+{
+    usleep(1000);
 
-            // Each managed protocol must define $end_time, $delay, $value1, $value2 and increase $nbok or $nbko
+    print 'Parent process has launched '.sizeof($pid_arr)." processes. Waiting the end...\n";
 
-			// Protocol HTTP or HTTPS
-			if (preg_match('/^http/i',$object['url']))
-			{
-    			$ch = curl_init();
-    			curl_setopt($ch, CURLOPT_URL,$object['url']);
-
-    			//turning off the server and peer verification(TrustManager Concept).
-                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
-                curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
-
-    			curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
-    			curl_setopt($ch, CURLOPT_FAILONERROR, 1);
-    			curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 0);
-
-    			curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
-                if ($object['useproxy'])
-                {
-                    curl_setopt ($ch, CURLOPT_PROXY, $conf->global->MAIN_PROXY_HOST. ":" . $conf->global->MAIN_PROXY_PORT);
-                    if (! empty($conf->global->MAIN_PROXY_USER)) curl_setopt ($ch, CURLOPT_PROXYUSERPWD, $conf->global->MAIN_PROXY_USER. ":" . $conf->global->MAIN_PROXY_PASS);
-                }
-    			//curl_setopt($ch, CURLOPT_POST, 0);
-    			//curl_setopt($ch, CURLOPT_POSTFIELDS, "a=3&b=5");
-    			//--- Start buffering
-    			//ob_start();
-    			list($usec, $sec) = explode(" ", microtime());
-    			$micro_start_time=((float)$usec + (float)$sec);
-    			$result = curl_exec($ch);
-
-    			list($usec, $sec) = explode(" ", microtime());
-    			$micro_end_time=((float)$usec + (float)$sec);
-                $end_time=((float)$sec);
-
-                $delay=($micro_end_time-$micro_start_time);
-
-    			if (! $result)
-                {
-                    print dol_print_date($end_time,'dayhourlog').' Error for id='.$object['code'].': '.curl_error($ch)."\n";
-                }
-
-    			//dol_syslog($result);
-    			//--- End buffering and clean output
-    			//ob_end_clean();
-
-    			if (curl_error($ch))	// Test with no response
-    			{
-    				$value1='U';
-    				$value2=max(round($object['max']),1);
-    				$nbko++;
-    				$errortext='Failed to get response. Curl return: '.curl_error($ch);
-    			}
-    			else
-    			{
-    				//var_dump($result);
-    				if (preg_match('/'.preg_quote($object['checkkey']).'/',$result))
-    				{	// Test ok
-    					$value1=max(round($delay*1000),1);
-    					$value2='U';
-    					$nbok++;
-    					$errortext='';
-    				}
-    				else
-    				{	// Test ko
-    					$value1='U';
-    					$value2=max(round($object['max']),1);
-    					$nbko++;
-    					$errortext='Failed to find string "'.$object['checkkey'].'" into reponse string.\nResponse string is '.$result;
-    				}
-    			}
-
-    			curl_close ($ch);
-
-    			$done=1;
-			}
-
-            // Protocol TCPIP
-            if (preg_match('/^tcp/i',$object['url']))
+    // Loop until end of all processes (array is empty for childs end)
+    while(count($pid_arr) > 0)
+    {
+            $myId = pcntl_waitpid(-1, $status, WNOHANG);
+            foreach($pid_arr as $key => $pid)
             {
-                $resultat=0;
+                    if($myId == $pid) unset($pid_arr[$key]);
+            }
+            usleep(100);
+    }
 
-                list($usec, $sec) = explode(" ", microtime());
-                $micro_start_time=((float)$usec + (float)$sec);
+    if (! $error)
+    {
+    	//print "--- end ok:".$nbok.' ko:'.$nbko."\n";
+    	print "--- end\n";
+    }
+    else
+    {
+    	print '--- end error code='.$error."\n";
+    }
+}
 
-                $socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
-                if ($socket)
-                {
-                    $tmparray=explode(':',$object['url']);
-                    $adresse=preg_replace('/\//','',$tmparray[1]);
-                    $service_port=$tmparray[2];
-                    //print 'adress='.$adresse.' port='.$service_port."\n";
-                    try
-                    {
-                        $resultat = socket_connect($socket, $adresse, $service_port);
-                    }
-                    catch(Exception $e)
-                    {
-                        $errortext.='Failed to connect to address='.$adresse.' port='.$service_port.', reason is: '.$e->getMessage()."\n";
-                    }
-                    if ($resultat < 0)
-                    {
-                        $errortext='Failed to connect using socket. Reason is: '.socket_strerror ($resultat);
-                    }
-                    /*
-                    $envoi = "HEAD / HTTP/1.0\r\n\r\n";
-                    $envoi .= "Host: www.siteduzero.com\r\n";
-                    $envoi .= "Connection: Close\r\n\r\n";
-                    $reception = '';
+exit(0);
 
-                    echo "Envoi de la requête HTTP HEAD...";
-                    socket_write($socket, $envoi, strlen($envoi));
-                    echo "OK.<br />";
 
-                    echo "Lire la réponse : <br /><br />";
-                    while ($reception = socket_read($socket, 2048))
-                       echo $reception;
-                    */
 
-                    socket_close($socket);
-                }
-                else
-                {
-                    $errortext='Failed to create locally a socket. Reason is: '.socket_strerror ($socket);
-                }
+/**
+ *
+ */
+function process_probe_x($object,$maxloop=0)
+{
+    global $conf, $langs, $db;
 
-                list($usec, $sec) = explode(" ", microtime());
-                $micro_end_time=((float)$usec + (float)$sec);
-                $end_time=((float)$sec);
+    $nbok=$nbko=0;
+    $nbloop=0;
 
-                $delay=($micro_end_time-$micro_start_time);
+    $probestatic=new Monitoring_probes($db);
 
-                if ($errortext)
-                {
-                    $value1='U';
-                    $value2=max(round($object['max']),1);
-                    $nbok++;
-                    print dol_print_date($end_time,'dayhourlog').' '.$errortext;
-                }
-                else
-                {
+    while(! $error && (empty($maxloop) || ($nbloop < $maxloop)))
+    {
+        $nbloop++;
+
+        $fname = $conf->monitoring->dir_output.'/'.$object['code'].'/monitoring.rrd';
+
+        $value1='U';
+        $value2='U';
+        $errortext='';
+        $done=0;
+
+        // Each managed protocol must define $end_time, $delay, $value1, $value2 and increase $nbok or $nbko
+
+        // Protocol HTTP or HTTPS
+        if (preg_match('/^http/i',$object['url']))
+        {
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL,$object['url']);
+
+            //turning off the server and peer verification(TrustManager Concept).
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
+
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
+            curl_setopt($ch, CURLOPT_FAILONERROR, 1);
+            curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 0);
+
+            curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
+            if ($object['useproxy'])
+            {
+                curl_setopt ($ch, CURLOPT_PROXY, $conf->global->MAIN_PROXY_HOST. ":" . $conf->global->MAIN_PROXY_PORT);
+                if (! empty($conf->global->MAIN_PROXY_USER)) curl_setopt ($ch, CURLOPT_PROXYUSERPWD, $conf->global->MAIN_PROXY_USER. ":" . $conf->global->MAIN_PROXY_PASS);
+            }
+            //curl_setopt($ch, CURLOPT_POST, 0);
+            //curl_setopt($ch, CURLOPT_POSTFIELDS, "a=3&b=5");
+            //--- Start buffering
+            //ob_start();
+            list($usec, $sec) = explode(" ", microtime());
+            $micro_start_time=((float)$usec + (float)$sec);
+            $result = curl_exec($ch);
+
+            list($usec, $sec) = explode(" ", microtime());
+            $micro_end_time=((float)$usec + (float)$sec);
+            $end_time=((float)$sec);
+
+            $delay=($micro_end_time-$micro_start_time);
+
+            if (! $result)
+            {
+                print dol_print_date($end_time,'dayhourlog').' Error for id='.$object['code'].': '.curl_error($ch)."\n";
+            }
+
+            //dol_syslog($result);
+            //--- End buffering and clean output
+            //ob_end_clean();
+
+            if (curl_error($ch))    // Test with no response
+            {
+                $value1='U';
+                $value2=max(round($object['max']),1);
+                $nbko++;
+                $errortext='Failed to get response. Curl return: '.curl_error($ch);
+            }
+            else
+            {
+                //var_dump($result);
+                if (preg_match('/'.preg_quote($object['checkkey']).'/',$result))
+                {   // Test ok
                     $value1=max(round($delay*1000),1);
                     $value2='U';
                     $nbok++;
                     $errortext='';
                 }
-
-                $done=1;
+                else
+                {   // Test ko
+                    $value1='U';
+                    $value2=max(round($object['max']),1);
+                    $nbko++;
+                    $errortext='Failed to find string "'.$object['checkkey'].'" into reponse string.\nResponse string is '.$result;
+                }
             }
 
-            // If no protocol found
-            if (! $done)
+            curl_close ($ch);
+
+            $done=1;
+        }
+
+        // Protocol TCPIP
+        if (preg_match('/^tcp/i',$object['url']))
+        {
+            $resultat=0;
+
+            list($usec, $sec) = explode(" ", microtime());
+            $micro_start_time=((float)$usec + (float)$sec);
+
+            $socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
+            if ($socket)
+            {
+                $tmparray=explode(':',$object['url']);
+                $adresse=preg_replace('/\//','',$tmparray[1]);
+                $service_port=$tmparray[2];
+                //print 'adress='.$adresse.' port='.$service_port."\n";
+                try
+                {
+                    $resultat = socket_connect($socket, $adresse, $service_port);
+                }
+                catch(Exception $e)
+                {
+                    $errortext.='Failed to connect to address='.$adresse.' port='.$service_port.', reason is: '.$e->getMessage()."\n";
+                }
+                if ($resultat < 0)
+                {
+                    $errortext='Failed to connect using socket. Reason is: '.socket_strerror ($resultat);
+                }
+                /*
+                $envoi = "HEAD / HTTP/1.0\r\n\r\n";
+                $envoi .= "Host: www.siteduzero.com\r\n";
+                $envoi .= "Connection: Close\r\n\r\n";
+                $reception = '';
+
+                echo "Envoi de la requête HTTP HEAD...";
+                socket_write($socket, $envoi, strlen($envoi));
+                echo "OK.<br />";
+
+                echo "Lire la réponse : <br /><br />";
+                while ($reception = socket_read($socket, 2048))
+                   echo $reception;
+                */
+
+                socket_close($socket);
+            }
+            else
+            {
+                $errortext='Failed to create locally a socket. Reason is: '.socket_strerror ($socket);
+            }
+
+            list($usec, $sec) = explode(" ", microtime());
+            $micro_end_time=((float)$usec + (float)$sec);
+            $end_time=((float)$sec);
+
+            $delay=($micro_end_time-$micro_start_time);
+
+            if ($errortext)
             {
                 $value1='U';
-                $value2=round($object['max']);
-                $nbko++;
-                $errortext='Url of probe has a not supported protocol';
+                $value2=max(round($object['max']),1);
+                $nbok++;
+                print dol_print_date($end_time,'dayhourlog').' '.$errortext;
             }
-
-            // Manage result
-            $newstatus=(empty($errortext)?1:-1);
-
-			// Update RRD file
-			$ret = rrd_update($fname, $stringupdate);
-			if( $ret > 0)
-			{
-				$mesg='<div class="ok">'.$langs->trans("File ".$fname.' completed with random values '.$val1.' for graph 1 and '.$val2.' for graph 2').'</div>';
-			}
-			else
-			{
-			    $nbko++;
-				$error++;
-				$err = rrd_error($fname);
-				$mesg="Update error: ".$err;
-				$errortext='Failed to update RRD file.\nRRD functions returns: '.$err;
-			}
-
-            print dol_print_date($end_time,'dayhourlog').' Loop '.$nbloop.': id='.$object['code'].' '.$micro_start_time.'-'.$micro_end_time.'='.$delay.' -> '.($newstatus==1?'OK':'KO').' -> '.$value1.':'.$value2."\n";
-            $stringupdate='N:'.$value1.':'.$value2;
-
-            // Update database if status has changed
-            if ($object['status'] != $newstatus)
+            else
             {
-                print dol_print_date($end_time,'dayhourlog').' Status change for probe '.$object['code'].' old='.$object['status'].' new='.$newstatus."\n";
-                if (! $newstatus == -1 || ! empty($object['oldesterrortext'])) $errortext='';
-                if ($errortext) print dol_print_date($end_time,'dayhourlog').' We also set a new error text'."\n";
-
-                $probestatic->id=$object['code'];
-                $result=$probestatic->updateStatus($newstatus,$end_time,$errortext);
-                if ($result > 0)
-                {
-                    $listofurls[$key]['status']=$newstatus;
-                    $listofurls[$key]['lastreset']=$end_time;
-                    if ($errortext) $listofurls[$key]['oldesterrortext']=$errortext;
-                }
-                else
-                {
-                    print dol_print_date($end_time,'dayhourlog').' Error to update database: '.$probestatic->error."\n";
-                }
+                $value1=max(round($delay*1000),1);
+                $value2='U';
+                $nbok++;
+                $errortext='';
             }
-		}
 
-		// Add delay
-		sleep($frequency);
-	}
+            $done=1;
+        }
+
+        // If no protocol found
+        if (! $done)
+        {
+            $value1='U';
+            $value2=round($object['max']);
+            $nbko++;
+            $errortext='Url of probe has a not supported protocol';
+        }
+
+        // Manage result
+        $newstatus=(empty($errortext)?1:-1);
+
+        // Update RRD file
+        $ret = rrd_update($fname, $stringupdate);
+        if( $ret > 0)
+        {
+            $mesg='<div class="ok">'.$langs->trans("File ".$fname.' completed with random values '.$val1.' for graph 1 and '.$val2.' for graph 2').'</div>';
+        }
+        else
+        {
+            $nbko++;
+            $error++;
+            $err = rrd_error($fname);
+            $mesg="Update error: ".$err;
+            $errortext='Failed to update RRD file.\nRRD functions returns: '.$err;
+        }
+
+        print dol_print_date($end_time,'dayhourlog').' Probe id='.$object['code'].' loop='.$nbloop.': '.$micro_start_time.'-'.$micro_end_time.'='.$delay.' -> '.($newstatus==1?'OK':'KO').' -> '.$value1.':'.$value2." - wait ".$object['frequency']."\n";
+        $stringupdate='N:'.$value1.':'.$value2;
+
+        // Update database if status has changed
+        if ($object['status'] != $newstatus)
+        {
+            print dol_print_date($end_time,'dayhourlog').' Status change for probe '.$object['code'].' old='.$object['status'].' new='.$newstatus."\n";
+            if (! $newstatus == -1 || ! empty($object['oldesterrortext'])) $errortext='';
+            if ($errortext) print dol_print_date($end_time,'dayhourlog').' We also set a new error text'."\n";
+
+            $probestatic->id=$object['code'];
+            $result=$probestatic->updateStatus($newstatus,$end_time,$errortext);
+            if ($result > 0)
+            {
+                $object['status']=$newstatus;
+                $object['lastreset']=$end_time;
+                if ($errortext) $object['oldesterrortext']=$errortext;
+            }
+            else
+            {
+                print dol_print_date($end_time,'dayhourlog').' Error to update database: '.$probestatic->error."\n";
+            }
+        }
+
+        // Add delay
+        sleep($object['frequency']);
+    }
+
+    return array('nbok'=>$nbok,'nbko'=>$nbko);
 }
 
-if (! $error)
-{
-	print '--- end ok:'.$nbok.' ko:'.$nbko."\n";
-}
-else
-{
-	print '--- end error code='.$error."\n";
-}
-
-?>
