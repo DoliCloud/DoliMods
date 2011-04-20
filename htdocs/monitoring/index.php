@@ -20,7 +20,7 @@
  *	    \file       htdocs/monitoring/index.php
  *      \ingroup    monitoring
  *      \brief      Page to setup module Monitoring
- *		\version    $Id: index.php,v 1.15 2011/04/13 21:18:58 eldy Exp $
+ *		\version    $Id: index.php,v 1.16 2011/04/20 21:19:14 eldy Exp $
  */
 
 define('NOCSRFCHECK',1);
@@ -393,7 +393,7 @@ if (empty($id))
             print "<tr ".$bc[$var].">";
             print "<td>".$obj->rowid."</td>";
             print "<td>".$obj->title."</td>";
-            print "<td>".$obj->url."</td>";
+            print '<td><a href="'.$obj->url.'" target="_blank">'.dol_trunc($obj->url,32,'middle')."</a></td>";
             print "<td>".yn($obj->useproxy)."</td>";
             //print "<td>".$obj->checkkey."</td>";
             print "<td>".$obj->maxval."</td>";
@@ -553,5 +553,5 @@ print '<br>';
 
 $db->close();
 
-llxFooter('$Date: 2011/04/13 21:18:58 $ - $Revision: 1.15 $');
+llxFooter('$Date: 2011/04/20 21:19:14 $ - $Revision: 1.16 $');
 ?>
