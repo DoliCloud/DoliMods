@@ -25,7 +25,7 @@
  *      \file       htdocs/monitoring/probes.php
  *      \ingroup    monitoring
  *      \brief      Page to add probes
- *      \version    $Id: probes.php,v 1.12 2011/04/20 21:19:14 eldy Exp $
+ *      \version    $Id: probes.php,v 1.13 2011/04/20 21:44:07 eldy Exp $
  */
 
 $res=0;
@@ -300,7 +300,7 @@ if ($action != 'edit')
     		print "<tr ".$bc[$var].">";
             print "<td>".$obj->rowid."</td>";
     		print "<td>".$obj->title."</td>";
-            print '<td><a href="'.$obj->url.'" target="_blank">'.dol_trunc($obj->url,24,'middle')."</a></td>";
+            print '<td><a href="'.$obj->url.'" target="_blank">'.dol_trunc($obj->url,32,'middle')."</a></td>";
             print "<td>".yn($obj->useproxy)."</td>";
             print "<td>".$obj->checkkey."</td>";
             print "<td>".$obj->maxval."</td>";
@@ -430,5 +430,5 @@ else
 
 $db->close();
 
-llxFooter('$Date: 2011/04/20 21:19:14 $ - $Revision: 1.12 $');
+llxFooter('$Date: 2011/04/20 21:44:07 $ - $Revision: 1.13 $');
 ?>

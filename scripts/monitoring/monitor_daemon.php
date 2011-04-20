@@ -21,8 +21,19 @@
  *	\file       	scripts/monitoring/monitor_daemon.php
  *	\ingroup    	monitor
  *	\brief      	Script to execute monitor daemon
- *	\version		$Id: monitor_daemon.php,v 1.14 2011/04/20 21:02:29 eldy Exp $
+ *	\version		$Id: monitor_daemon.php,v 1.15 2011/04/20 21:42:53 eldy Exp $
  */
+
+if (! defined('NOREQUIREUSER'))  define('NOREQUIREUSER','1');
+//if (! defined('NOREQUIREDB'))    define('NOREQUIREDB','1');
+if (! defined('NOREQUIRESOC'))   define('NOREQUIRESOC','1');
+if (! defined('NOREQUIRETRAN'))  define('NOREQUIRETRAN','1');
+if (! defined('NOCSRFCHECK'))    define('NOCSRFCHECK','1');
+if (! defined('NOTOKENRENEWAL')) define('NOTOKENRENEWAL','1');
+if (! defined('NOREQUIREMENU'))  define('NOREQUIREMENU','1'); // If there is no menu to show
+if (! defined('NOREQUIREHTML'))  define('NOREQUIREHTML','1'); // If we don't need to load the html.form.class.php
+if (! defined('NOREQUIREAJAX'))  define('NOREQUIREAJAX','1');
+if (! defined("NOLOGIN"))        define("NOLOGIN",'1');       // If this page is public (can be called outside logged session)
 
 $sapi_type = php_sapi_name();
 $script_file = basename(__FILE__);
@@ -35,7 +46,7 @@ if (substr($sapi_type, 0, 3) == 'cgi') {
 }
 
 // Global variables
-$version='$Revision: 1.14 $';
+$version='$Revision: 1.15 $';
 $error=0;
 // Include Dolibarr environment
 $res=0;
@@ -57,15 +68,16 @@ dol_include_once("/monitoring/lib/monitoring.lib.php");
 dol_include_once("/monitoring/class/monitoring_probes.class.php");
 
 //$langs->setDefaultLang('en_US'); 	// To change default language of $langs
-$langs->load("main");				// To load language file for default language
-$langs->load("monitoring");				// To load language file for default language
+//$langs->load("main");				// To load language file for default language
+//$langs->load("monitoring");				// To load language file for default language
 @set_time_limit(0);					// No timeout for this script
 
 // Load user and its permissions
+/*
 $result=$user->fetch('','admin');	// Load user for login 'admin'. Comment line to run as anonymous user.
 if (! $result > 0) { dol_print_error('',$user->error); exit; }
 $user->getrights();
-
+*/
 
 // Activate error interceptions
 function traitementErreur($code, $message, $fichier, $ligne, $contexte)
@@ -80,7 +92,6 @@ $nbok=0;
 $nbko=0;
 $frequency=5;   // seconds
 $maxloops=0;
-$timeout=10;    // seconds
 
 
 
@@ -148,7 +159,7 @@ foreach($listofurls as $object)
 
 	if (! dol_is_file($conf->monitoring->dir_output.'/'.$object['code'].'/monitoring.rrd'))
 	{
-		$step=$frequency;
+		$step=$object['frequency'];
 		$opts = array( "--step", $step,
 	           "DS:ds1:GAUGE:".($step*2).":0:100",
 	           "DS:ds2:GAUGE:".($step*2).":0:100",
@@ -173,7 +184,7 @@ foreach($listofurls as $object)
 		$resout=file_get_contents($fname.'.out');
 		if (strlen($resout) < 10)
 		{
-			$mesg='<div class="ok">'.$langs->trans("File ".$fname.' created').'</div>';
+			$mesg='<div class="ok">File '.$fname.' created.</div>';
 		}
 		else
 		{
@@ -257,18 +268,45 @@ exit(0);
  */
 function process_probe_x($object,$maxloops=0)
 {
-    global $conf, $langs, $db;
+    global $conf, $db;
 
     $nbok=$nbko=0;
     $nbloop=0;
+    $timeout=10;    // TODO Manage this
 
-    $probestatic=new Monitoring_probes($db);
+    $fname = $conf->monitoring->dir_output.'/'.$object['code'].'/monitoring.rrd';
 
+    // Init objects
+    if (preg_match('/^http/i',$object['url']))
+    {
+        $ch = curl_init();
+        //turning off the server and peer verification(TrustManager Concept).
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
+
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
+        curl_setopt($ch, CURLOPT_FAILONERROR, 1);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 0);
+        curl_setopt($ch, CURLOPT_FRESH_CONNECT, 0);
+
+        curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
+        if ($object['useproxy'])
+        {
+            curl_setopt ($ch, CURLOPT_PROXY, $conf->global->MAIN_PROXY_HOST. ":" . $conf->global->MAIN_PROXY_PORT);
+            if (! empty($conf->global->MAIN_PROXY_USER)) curl_setopt ($ch, CURLOPT_PROXYUSERPWD, $conf->global->MAIN_PROXY_USER. ":" . $conf->global->MAIN_PROXY_PASS);
+        }
+        //curl_setopt($ch, CURLOPT_POST, 0);
+        //curl_setopt($ch, CURLOPT_POSTFIELDS, "a=3&b=5");
+    }
+    if (preg_match('/^tcp/i',$object['url']))
+    {
+        $socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
+    }
+
+    // Loops
     while(! $error && (empty($maxloops) || ($nbloop < $maxloops)))
     {
         $nbloop++;
-
-        $fname = $conf->monitoring->dir_output.'/'.$object['code'].'/monitoring.rrd';
 
         $value1='U';
         $value2='U';
@@ -280,26 +318,8 @@ function process_probe_x($object,$maxloops=0)
         // Protocol HTTP or HTTPS
         if (preg_match('/^http/i',$object['url']))
         {
-            $ch = curl_init();
             curl_setopt($ch, CURLOPT_URL,$object['url']);
 
-            //turning off the server and peer verification(TrustManager Concept).
-            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
-            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
-
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
-            curl_setopt($ch, CURLOPT_FAILONERROR, 1);
-            curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 0);
-
-            curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
-            if ($object['useproxy'])
-            {
-                curl_setopt ($ch, CURLOPT_PROXY, $conf->global->MAIN_PROXY_HOST. ":" . $conf->global->MAIN_PROXY_PORT);
-                if (! empty($conf->global->MAIN_PROXY_USER)) curl_setopt ($ch, CURLOPT_PROXYUSERPWD, $conf->global->MAIN_PROXY_USER. ":" . $conf->global->MAIN_PROXY_PASS);
-            }
-            //curl_setopt($ch, CURLOPT_POST, 0);
-            //curl_setopt($ch, CURLOPT_POSTFIELDS, "a=3&b=5");
-            //--- Start buffering
             //ob_start();
             list($usec, $sec) = explode(" ", microtime());
             $micro_start_time=((float)$usec + (float)$sec);
@@ -315,10 +335,6 @@ function process_probe_x($object,$maxloops=0)
             {
                 print dol_print_date($end_time,'dayhourlog').' Error for id='.$object['code'].': '.curl_error($ch)."\n";
             }
-
-            //dol_syslog($result);
-            //--- End buffering and clean output
-            //ob_end_clean();
 
             if (curl_error($ch))    // Test with no response
             {
@@ -346,7 +362,7 @@ function process_probe_x($object,$maxloops=0)
                 }
             }
 
-            curl_close ($ch);
+            //curl_close ($ch); unset($ch);
 
             $done=1;
         }
@@ -359,7 +375,6 @@ function process_probe_x($object,$maxloops=0)
             list($usec, $sec) = explode(" ", microtime());
             $micro_start_time=((float)$usec + (float)$sec);
 
-            $socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
             if ($socket)
             {
                 $tmparray=explode(':',$object['url']);
@@ -393,7 +408,7 @@ function process_probe_x($object,$maxloops=0)
                    echo $reception;
                 */
 
-                socket_close($socket);
+                //socket_close($socket); unset($socket);
             }
             else
             {
@@ -438,11 +453,7 @@ function process_probe_x($object,$maxloops=0)
 
         // Update RRD file
         $ret = rrd_update($fname, $stringupdate);
-        if( $ret > 0)
-        {
-            $mesg='<div class="ok">'.$langs->trans("File ".$fname.' completed with random values '.$val1.' for graph 1 and '.$val2.' for graph 2').'</div>';
-        }
-        else
+        if ($ret <= 0)
         {
             $nbko++;
             $error++;
@@ -461,6 +472,7 @@ function process_probe_x($object,$maxloops=0)
             if (! $newstatus == -1 || ! empty($object['oldesterrortext'])) $errortext='';
             if ($errortext) print dol_print_date($end_time,'dayhourlog').' We also set a new error text'."\n";
 
+            $probestatic=new Monitoring_probes($db);
             $probestatic->id=$object['code'];
             $result=$probestatic->updateStatus($newstatus,$end_time,$errortext);
             if ($result > 0)
@@ -473,6 +485,7 @@ function process_probe_x($object,$maxloops=0)
             {
                 print dol_print_date($end_time,'dayhourlog').' Error to update database: '.$probestatic->error."\n";
             }
+            unset($probestatic);
         }
 
         // Add delay
