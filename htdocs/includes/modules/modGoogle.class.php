@@ -1,5 +1,5 @@
 <?php
-/* Copyright (C) 2008 Laurent Destailleur  <eldy@users.sourceforge.net>
+/* Copyright (C) 2008-2011 Laurent Destailleur  <eldy@users.sourceforge.net>
  *
  * Licensed under the GNU GPL v3 or higher (See file gpl-3.0.html)
  */
@@ -12,7 +12,7 @@
  *      \file       htdocs/includes/modules/modGoogle.class.php
  *      \ingroup    google
  *      \brief      Description and activation file for module Google
- *		\version	$Id: modGoogle.class.php,v 1.14 2011/03/05 17:37:53 eldy Exp $
+ *		\version	$Id: modGoogle.class.php,v 1.15 2011/04/21 19:05:21 eldy Exp $
  */
 include_once(DOL_DOCUMENT_ROOT ."/includes/modules/DolibarrModules.class.php");
 
@@ -44,7 +44,7 @@ class modGoogle extends DolibarrModules
 		// Module description used if translation string 'ModuleXXXDesc' not found (XXX is value MyModule)
 		$this->description = "Module to integrate Google tools in dolibarr";
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
-		$this->version = '3.0';
+		$this->version = '3.1';
 		// Key used in llx_const table to save module status enabled/disabled (where MYMODULE is value of property name of module in uppercase)
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
 		// Where to store the module in setup page (0=common,1=interface,2=others,3=very specific)
@@ -72,7 +72,10 @@ class modGoogle extends DolibarrModules
 		// Constants
 		$this->const = array();			// List of parameters
 
-		// Boxes
+        // Tabs
+		$this->tabs = array('thirdparty:+gmaps:GMaps:@google:$conf->google->enabled&&$conf->global->GOOGLE_ENABLE_GMAPS:/google/gmaps.php?id=__ID__');
+
+        // Boxes
 		$this->boxes = array();			// List of boxes
 		$r=0;
 
