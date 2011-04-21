@@ -1,23 +1,32 @@
 <?php
-/* Copyright (C) 2011 Jonathan
+/* Copyright (C) 2011 Original author unknown
  * Copyright (C) 2011 Laurent Destailleur  <eldy@users.sourceforge.net>
  *
  * Licensed under the GNU GPL v3 or higher (See file gpl-3.0.html)
  */
 
 /**
- *       \file       htdocs/google/gmaps.php
- *       \ingroup    google
- *       \brief      Main google area page
- *       \version    $Id: gmaps.php,v 1.2 2011/04/21 19:09:50 eldy Exp $
- *       \author     Laurent Destailleur
- */
+        \file       htdocs/google/gmaps.php
+        \ingroup    google
+        \brief      Main google area page
+        \version    $Id: gmaps.php,v 1.1 2011/04/21 19:05:24 eldy Exp $
+        \author     Laurent Destailleur
+*/
 
 include("./pre.inc.php");
+
+define('DEBUG_MOD', false);
+//Si on est en debug, on affiche toutes les erreurs
+if(DEBUG_MOD){
+  error_reporting(E_ALL);
+  ini_set('display_errors', '1');
+}
+
+//inclusions
 require_once(DOL_DOCUMENT_ROOT."/lib/company.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/contact/class/contact.class.php");
 
-// Load third party
+//Le tiers concerné
 $socid = $_GET['id'];
 $objsoc = new Societe($db);
 $objsoc->id = $socid;
@@ -25,11 +34,7 @@ $objsoc->fetch($socid);
 
 $adresse = $objsoc->address . " " . $objsoc->adresse . " " . $objsoc->cp . " " . $objsoc->ville;
 
-
-/*
- * View
- */
-
+//On fabrique le container Dolibarr
 llxheader();
 
 $content = "Default content";
@@ -92,5 +97,6 @@ dol_fiche_head($head, 'gmaps', $langs->trans("ThirdParty"),0,'company');
 <div id="map" style="width: 100%; height: 500px;" ></div>
 
 <?php
+//On clôt le container Dolibarr
 llxfooter();
 ?>
