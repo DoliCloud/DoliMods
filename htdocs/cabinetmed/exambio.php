@@ -23,7 +23,7 @@
  *   \file       htdocs/cabinetmed/exambio.php
  *   \brief      Tab for consultations
  *   \ingroup    cabinetmed
- *   \version    $Id: exambio.php,v 1.8 2011/04/17 11:31:11 eldy Exp $
+ *   \version    $Id: exambio.php,v 1.9 2011/04/21 22:16:21 eldy Exp $
  */
 
 $res=0;
@@ -441,14 +441,15 @@ if ($socid > 0)
         print '<input type="hidden" name="id" value="'.$id.'">';
 
         print '<fieldset id="fieldsetanalyse">';
-        print '<legend>'.$langs->trans("Examen").'</legend>'."\n";
+        print '<legend>'.$langs->trans("Examen");
+        if ($action=='edit' || $action=='update')
+        {
+            print ' - '.$langs->trans("ExamBioNumero").': '.sprintf("%08d",$exambio->id).'<br><br>';
+        }
+        print '</legend>'."\n";
 
         print '<table class="notopnoleftnoright" width="100%">';
         print '<tr><td width="60%">';
-        if ($action=='edit' || $action=='update')
-        {
-            print $langs->trans("ConsultationNumero").': '.sprintf("%08d",$exambio->id).'<br><br>';
-        }
         print $langs->trans("Date").': ';
         $form->select_date($dateexam,'exam');
         print '</td><td>';
@@ -468,78 +469,37 @@ if ($socid > 0)
         print '<tr><td width="60%">';
 
         print '<table class="notopnoleftnoright" width="100%">';
-
         print '<tr><td valign="top" width="160">';
-        print $langs->trans("ExamPrescrit").':';
-        print '</td><td>';
-        //print '<input type="text" size="3" class="flat" name="searchmotifcons" value="'.GETPOST("searchmotifcons").'" id="searchmotifcons">';
-        listexamenprescrit(1,$width,'BIO');
-        /*print ' '.img_picto('Ajouter motif principal','edit_add_p.png@cabinetmed');
-        print ' '.img_picto('Ajouter motif secondaire','edit_add_s.png@cabinetmed');*/
-        print ' <input type="button" class="button" id="addexamprinc" name="addexamprinc" value="+P">';
-        print ' <input type="button" class="button" id="addexamsec" name="addexamsec" value="+S">';
-        print '</td></tr>';
-        print '<tr><td>Principal:';
-        print '</td><td>';
-        print '<input type="text" size="32" class="flat" name="motifconsprinc" value="'.$exambio->motifconsprinc.'" id="motifconsprinc"><br>';
-        print '</td></tr>';
-        print '<tr><td valign="top">Secondaires:';
-        print '</td><td>';
-        print '<textarea name="motifconssec" id="motifconssec" cols="40">';
-        print $exambio->motifconssec;
+        print $langs->trans("Result").':<br>';
+        print '<textarea name="result" id="result" cols="60" rows="'.ROWS_9.'">';
+        print $exambio->result;
         print '</textarea>';
         print '</td>';
         print '</tr>';
-
-        print '<tr><td><br></td></tr>';
-
-        print '<tr><td valign="top" width="160">';
-        print $langs->trans("ExamenResultat").':';
-        print '</td><td>';
-        //print '<input type="text" size="3" class="flat" name="searchdiagles" value="'.GETPOST("searchdiagles").'" id="searchdiagles">';
-        listexamconclusion(1,$width);
-        print ' <input type="button" class="button" id="addexamconcprinc" name="addexamconcprinc" value="+P">';
-        print ' <input type="button" class="button" id="addexamconcsec" name="addexamconcsec" value="+S">';
-        print '</td></tr>';
-        print '<tr><td>Principal:';
-        print '</td><td>';
-        print '<input type="text" size="32" class="flat" name="examconcprinc" value="'.$exambio->examconcprinc.'" id="examconcprinc"><br>';
-        print '</td></tr>';
-        print '<tr><td valign="top">Secondaires:';
-        print '</td><td>';
-        print '<textarea name="diaglessec" id="diaglessec" cols="40">';
-        print $exambio->diaglessec;
-        print '</textarea>';
-        print '</td>';
-        print '</tr>';
-
         print '</table>';
 
         print '</td><td valign="top">';
 
-
-        print '</td></tr>';
-
-        print '</table>';
-        print '</fieldset>';
+        print $langs->trans("Conclusion").':<br>';
+        print '<textarea name="conclusion" id="conclusion" cols="60" rows="'.ROWS_4.'">';
+        print $exambio->conclusion;
+        print '</textarea>';
 
         print '<br>';
 
-        print '<fieldset id="fieldsetanalyse">';
-        print '<legend>'.$langs->trans("xxx").'</legend>'."\n";
-
-        print '<table class="notopnoleftnoright" width="100%">';
-        print '<tr><td width="160">';
-        print '<input type="text" class="flat" name="montant_cheque" id="montant_cheque" value="'.($exambio->montant_cheque!=''?price($exambio->montant_cheque):'').'" size="5">';
-        print '<input type="text" class="flat" name="banque" id="banque" value="'.$exambio->banque.'" size="18"'.($exambio->montant_cheque?'':' disabled="disabled"').'>';
-        print '<input type="text" class="flat" name="montant_espece" id="montant_espece" value="'.($exambio->montant_espece!=''?price($exambio->montant_espece):'').'" size="5">';
-        print '<input type="text" class="flat" name="montant_carte" id="montant_carte" value="'.($exambio->montant_carte!=''?price($exambio->montant_carte):'').'" size="5">';
-        print '</td><td>';
-
+        print $langs->trans("Comment").':<br>';
+        print '<textarea name="comment" id="comment" cols="60" rows="'.ROWS_4.'">';
+        print $exambio->comment;
+        print '</textarea>';
 
         print '</td></tr>';
 
         print '</table>';
+
+        print '<hr style="height:1px; color: #dddddd;">';
+
+        print 'eeeee';
+
         print '</fieldset>';
 
         print '<br>';
@@ -712,5 +672,5 @@ if ($action == '' || $action == 'delete')
 
 $db->close();
 
-llxFooter('$Date: 2011/04/17 11:31:11 $ - $Revision: 1.8 $');
+llxFooter('$Date: 2011/04/21 22:16:21 $ - $Revision: 1.9 $');
 ?>

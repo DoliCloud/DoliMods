@@ -23,7 +23,7 @@
  *   \file       htdocs/cabinetmed/exambio.php
  *   \brief      Tab for consultations
  *   \ingroup    cabinetmed
- *   \version    $Id: examautre.php,v 1.9 2011/04/17 19:16:56 eldy Exp $
+ *   \version    $Id: examautre.php,v 1.10 2011/04/21 22:16:21 eldy Exp $
  */
 
 $res=0;
@@ -319,14 +319,15 @@ if ($socid > 0)
         print '<input type="hidden" name="id" value="'.$id.'">';
 
         print '<fieldset id="fieldsetanalyse">';
-        print '<legend>'.$langs->trans("Examen").'</legend>'."\n";
+        print '<legend>'.$langs->trans("Examen");
+        if ($action=='edit' || $action=='update')
+        {
+            print ' - '.$langs->trans("ExamOtherNumero").': '.sprintf("%08d",$examother->id).'<br><br>';
+        }
+        print '</legend>'."\n";
 
         print '<table class="notopnoleftnoright" width="100%">';
         print '<tr><td width="60%">';
-        if ($action=='edit' || $action=='update')
-        {
-            print $langs->trans("ExamOtherNumero").': '.sprintf("%08d",$examother->id).'<br><br>';
-        }
         print $langs->trans("Date").': ';
         $form->select_date($dateexam,'exam');
         print '</td><td>';
@@ -529,5 +530,5 @@ if ($action == '' || $action == 'delete')
 
 $db->close();
 
-llxFooter('$Date: 2011/04/17 19:16:56 $ - $Revision: 1.9 $');
+llxFooter('$Date: 2011/04/21 22:16:21 $ - $Revision: 1.10 $');
 ?>
