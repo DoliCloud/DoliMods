@@ -20,7 +20,7 @@
  *   \file       htdocs/cabinetmed/consultations.php
  *   \brief      Tab for consultations
  *   \ingroup    cabinetmed
- *   \version    $Id: consultations.php,v 1.15 2011/04/17 11:31:11 eldy Exp $
+ *   \version    $Id: consultations.php,v 1.16 2011/04/21 21:41:57 eldy Exp $
  */
 
 $res=0;
@@ -511,17 +511,19 @@ if ($socid > 0)
         print '<input type="hidden" name="id" value="'.$id.'">';
 
         print '<fieldset id="fieldsetanalyse">';
-        print '<legend>'.$langs->trans("InfoGenerales").'</legend>'."\n";
+        print '<legend>'.$langs->trans("InfoGenerales");
+        if ($action=='edit' || $action=='update')
+        {
+            print ' - '.$langs->trans("ConsultationNumero").': '.sprintf("%08d",$consult->id);
+        }
+        print '</legend>'."\n";
 
         print '<table class="notopnoleftnoright" width="100%">';
         print '<tr><td width="60%">';
-        if ($action=='edit' || $action=='update')
-        {
-            print $langs->trans("ConsultationNumero").': '.sprintf("%08d",$consult->id).'<br><br>';
-        }
         print $langs->trans("Date").': ';
         $form->select_date($datecons,'cons');
         print '</td><td>';
+        print 'Prise en charge: &nbsp;';
         print '<input type="radio" name="typepriseencharge" value="ALD"'.($consult->typepriseencharge=='ALD'?' checked="checked"':'').'> ALD';
         print ' &nbsp; ';
         print '<input type="radio" name="typepriseencharge" value="INV"'.($consult->typepriseencharge=='INV'?' checked="checked"':'').'> INV';
@@ -547,7 +549,6 @@ if ($socid > 0)
         print '<tr><td width="60%">';
 
         print '<table class="notopnoleftnoright" width="100%">';
-
         print '<tr><td valign="top" width="160">';
         print $langs->trans("MotifConsultation").':';
         print '</td><td>';
@@ -570,9 +571,18 @@ if ($socid > 0)
         print '</textarea>';
         print '</td>';
         print '</tr>';
+        print '</table>';
 
-        print '<tr><td><br></td></tr>';
+        print '</td><td>';
 
+        print ''.$langs->trans("HistoireDeLaMaladie").'<br>';
+        print '<textarea name="hdm" id="hdm" class="flat" cols="50" rows="'.ROWS_5.'">'.$consult->hdm.'</textarea>';
+
+        //print '</td><td valign="top">';
+        print '</td></tr><tr><td>';
+
+        print '<table class="notopnoleftnoright" width="100%">';
+        //print '<tr><td><br></td></tr>';
         print '<tr><td valign="top" width="160">';
         print $langs->trans("DiagnostiqueLesionnel").':';
         print '</td><td>';
@@ -593,15 +603,9 @@ if ($socid > 0)
         print '</textarea>';
         print '</td>';
         print '</tr>';
-
         print '</table>';
 
-        print '</td><td valign="top">';
-
-        print ''.$langs->trans("HistoireDeLaMaladie").'<br>';
-        print '<textarea name="hdm" id="hdm" class="flat" cols="50" rows="'.ROWS_5.'">'.$consult->hdm.'</textarea>';
-
-        print '<br>';
+        print '</td><td>';
 
         print ''.$langs->trans("ExamensCliniques").'<br>';
         print '<textarea name="examenclinique" id="examenclinique" class="flat" cols="50" rows="'.ROWS_6.'">'.$consult->examenclinique.'</textarea>';
@@ -659,7 +663,7 @@ if ($socid > 0)
         print ' &nbsp; &nbsp; ';
         print '<input type="radio" class="flat" name="typevisit" value="CCAM" id="ccam"'.($consult->typevisit=='CCAM'?' checked="true"':'').'> CCAM';
         print '<br>';
-        print '<br>'.$langs->trans("Codage CCAM").' ';
+        print '<br>'.$langs->trans("Codage CCAM").' &nbsp; ';
         print '<input type="text" class="flat" name="codageccam" id="codageccam" value="'.$consult->codageccam.'" size="30"'.($consult->codageccam?'':' disabled="disabled"').'>';
         print '</td></tr>';
 
@@ -919,5 +923,5 @@ if ($action == '' || $action == 'delete')
 
 $db->close();
 
-llxFooter('$Date: 2011/04/17 11:31:11 $ - $Revision: 1.15 $');
+llxFooter('$Date: 2011/04/21 21:41:57 $ - $Revision: 1.16 $');
 ?>

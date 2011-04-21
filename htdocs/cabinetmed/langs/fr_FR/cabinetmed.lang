@@ -1,8 +1,5 @@
 # Dolibarr language file - fr_FR - cabinetmed
 CHARSET= UTF-8
-RrdSetup=Monitoring module setup
-RrdSetupNotComplete=Monitoring module setup is not complete
-RRD_COMMANDLINE_TOOL=Path to the rrdtool programm
 Module100700Name=Cabinet médical
 Module100700Desc=Module pour gérer un cabinet médical libéral
 ManualTestDesc=You can find here button actions to test all cycle for create and update a rrd database file and show rrd graphicss
@@ -14,6 +11,7 @@ LastDay=Last day
 LastWeek=Last week
 LastMonth=Last month
 LastYear=Last year
+LastConsult=Dernière consultation
 MenuCabinet=Informations cabinet
 MenuNewPatient=Nouveau patient
 ListPatient=Liste patients

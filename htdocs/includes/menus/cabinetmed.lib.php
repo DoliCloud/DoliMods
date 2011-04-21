@@ -21,7 +21,7 @@
 /**
  *  \file		htdocs/includes/menus/cabinetmed.lib.php
  *  \brief		Library for file cabinetmed menus
- *  \version	$Id: cabinetmed.lib.php,v 1.15 2011/04/13 14:21:02 eldy Exp $
+ *  \version	$Id: cabinetmed.lib.php,v 1.16 2011/04/21 21:42:01 eldy Exp $
  */
 
 
@@ -697,7 +697,7 @@ function print_left_cabinetmed_menu($db,$menu_array_before,$menu_array_after)
             if ($conf->societe->enabled)
             {
                 $langs->load("commercial");
-                $newmenu->add("/comm/clients.php?leftmenu=customers&search_sale=".$user->id, $langs->trans("ListPatient"), 1, $user->rights->societe->lire);
+                $newmenu->add("/cabinetmed/patients.php?leftmenu=customers&search_sale=".$user->id, $langs->trans("ListPatient"), 1, $user->rights->societe->lire);
                 $newmenu->add("/cabinetmed/listconsult.php?leftmenu=customers&search_sale=".$user->id, $langs->trans("ListConsult"), 1, $user->rights->societe->lire);
             }
 
