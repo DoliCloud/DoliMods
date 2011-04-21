@@ -22,7 +22,7 @@
  *	\file       htdocs/cabinetmed/patients.php
  *	\ingroup    commercial, societe
  *	\brief      List of customers
- *	\version    $Id: patients.php,v 1.1 2011/04/21 21:41:57 eldy Exp $
+ *	\version    $Id: patients.php,v 1.2 2011/04/21 21:56:02 eldy Exp $
  */
 
 $res=0;
@@ -88,7 +88,7 @@ if (GETPOST("button_removefilter_x"))
 
 $sql = "SELECT s.rowid, s.nom as name, s.client, s.ville, st.libelle as stcomm, s.prefix_comm, s.code_client,";
 $sql.= " s.datec, s.datea, s.canvas";
-$sql.= ", s.idprof4, MAX(c.datecons) as lastcons";
+$sql.= ", s.idprof4, MAX(c.datecons) as lastcons, COUNT(c.rowid) as nb";
 // We'll need these fields in order to filter by sale (including the case where the user can only see his prospects)
 if ($search_sale) $sql .= ", sc.fk_soc, sc.fk_user";
 // We'll need these fields in order to filter by categ
@@ -182,6 +182,7 @@ if ($result)
     print_liste_field_titre($langs->trans("CustomerCode"),$_SERVER["PHP_SELF"],"s.code_client","",$param,"",$sortfield,$sortorder);
 	print_liste_field_titre($langs->trans("Town"),$_SERVER["PHP_SELF"],"s.ville","",$param,"",$sortfield,$sortorder);
     print_liste_field_titre($langs->trans("Profession"),$_SERVER["PHP_SELF"],"s.idprof4","",$param,"",$sortfield,$sortorder);
+    print_liste_field_titre($langs->trans("NbConsult"),$_SERVER["PHP_SELF"],"nb","",$param,'align="right"',$sortfield,$sortorder);
     print_liste_field_titre($langs->trans("LastConsult"),$_SERVER["PHP_SELF"],"lastcons","",$param,'align="center"',$sortfield,$sortorder);
     print_liste_field_titre($langs->trans("DateCreation"),$_SERVER["PHP_SELF"],"datec","",$param,'align="right"',$sortfield,$sortorder);
 	print "</tr>\n";
@@ -196,6 +197,9 @@ if ($result)
 	print '<td class="liste_titre">';
 	print '<input type="text" class="flat" name="search_ville" value="'.$search_ville.'" size="10">';
 	print '</td>';
+    print '<td class="liste_titre">';
+    print '&nbsp;';
+    print '</td>';
     print '<td class="liste_titre">';
     print '&nbsp;';
     print '</td>';
@@ -227,6 +231,7 @@ if ($result)
         print '<td>'.$obj->code_client.'</td>';
 		print '<td>'.$obj->ville.'</td>';
         print '<td>'.$obj->idprof4.'</td>';
+        print '<td align="right">'.$obj->nb.'</td>';
         print '<td align="center">';
         print dol_print_date($db->jdate($obj->lastcons),'day');
         print '</td>';
@@ -246,5 +251,5 @@ else
 
 $db->close();
 
-llxFooter('$Date: 2011/04/21 21:41:57 $ - $Revision: 1.1 $');
+llxFooter('$Date: 2011/04/21 21:56:02 $ - $Revision: 1.2 $');
 ?>

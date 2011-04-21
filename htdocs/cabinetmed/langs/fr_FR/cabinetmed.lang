@@ -12,6 +12,7 @@ LastWeek=Last week
 LastMonth=Last month
 LastYear=Last year
 LastConsult=Dernière consultation
+NbConsult=Nb consult.
 MenuCabinet=Informations cabinet
 MenuNewPatient=Nouveau patient
 ListPatient=Liste patients
