@@ -22,7 +22,7 @@
  *	\file       htdocs/cabinetmed/listconsult.php
  *	\ingroup    cabinetmed
  *	\brief      List of consultation
- *	\version    $Id: listconsult.php,v 1.4 2011/03/27 11:55:43 eldy Exp $
+ *	\version    $Id: listconsult.php,v 1.5 2011/04/21 22:30:15 eldy Exp $
  */
 
 
@@ -220,7 +220,7 @@ if ($result)
 
 		$var=!$var;
 
-		print "<tr $bc[$var]>";
+		print "<tr ".$bc[$var].">";
 		print '<td>';
 		$thirdpartystatic->id=$obj->rowid;
         $thirdpartystatic->name=$obj->name;
@@ -258,5 +258,5 @@ else
 
 $db->close();
 
-llxFooter('$Date: 2011/03/27 11:55:43 $ - $Revision: 1.4 $');
+llxFooter('$Date: 2011/04/21 22:30:15 $ - $Revision: 1.5 $');
 ?>

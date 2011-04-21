@@ -22,7 +22,7 @@
  *       \file       htdocs/cabinetmed/contact.php
  *       \ingroup    cabinetmed
  *       \brief      Tab for links between doctors and patient
- *       \version    $Id: contact.php,v 1.6 2011/04/06 19:36:30 eldy Exp $
+ *       \version    $Id: contact.php,v 1.7 2011/04/21 22:30:15 eldy Exp $
  */
 
 $res=0;
@@ -206,7 +206,7 @@ if ($id > 0 || ! empty($ref))
 
     print '<table class="border" width="100%">';
 
-    print '<tr><td width="25%">'.$langs->trans('Name').'</td>';
+    print '<tr><td width="25%">'.$langs->trans('ThirdPartyName').'</td>';
     print '<td colspan="3">';
     print $form->showrefnav($societe,'socid','',($user->societe_id?0:1),'rowid','nom');
     print '</td></tr>';
@@ -419,5 +419,5 @@ if ($id > 0 || ! empty($ref))
 
 $db->close();
 
-llxFooter('$Date: 2011/04/06 19:36:30 $');
+llxFooter('$Date: 2011/04/21 22:30:15 $');
 ?>

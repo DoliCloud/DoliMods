@@ -23,7 +23,7 @@
  *   \file       htdocs/cabinetmed/antecedant.php
  *   \brief      Tab for antecedants
  *   \ingroup    societe
- *   \version    $Id: antecedant.php,v 1.4 2011/02/12 18:36:57 eldy Exp $
+ *   \version    $Id: antecedant.php,v 1.5 2011/04/21 22:30:15 eldy Exp $
  */
 
 $res=0;
@@ -110,7 +110,7 @@ if ($socid > 0)
 
     print '<table class="border" width="100%">';
 
-    print '<tr><td width="25%">'.$langs->trans('Name').'</td>';
+    print '<tr><td width="25%">'.$langs->trans('ThirdPartyName').'</td>';
     print '<td colspan="3">';
     print $form->showrefnav($societe,'socid','',($user->societe_id?0:1),'rowid','nom');
     print '</td></tr>';
@@ -257,5 +257,5 @@ if ($mesg) dol_htmloutput_mesg($mesg);
 
 $db->close();
 
-llxFooter('$Date: 2011/02/12 18:36:57 $ - $Revision: 1.4 $');
+llxFooter('$Date: 2011/04/21 22:30:15 $ - $Revision: 1.5 $');
 ?>

@@ -20,7 +20,7 @@
  *   \file       htdocs/cabinetmed/consultations.php
  *   \brief      Tab for consultations
  *   \ingroup    cabinetmed
- *   \version    $Id: consultations.php,v 1.16 2011/04/21 21:41:57 eldy Exp $
+ *   \version    $Id: consultations.php,v 1.17 2011/04/21 22:30:15 eldy Exp $
  */
 
 $res=0;
@@ -343,7 +343,7 @@ if ($socid > 0)
 
 	print '<table class="border" width="100%">';
 
-	print '<tr><td width="25%">'.$langs->trans('Name').'</td>';
+	print '<tr><td width="25%">'.$langs->trans('ThirdPartyName').'</td>';
 	print '<td colspan="3">';
 	print $form->showrefnav($societe,'socid','',($user->societe_id?0:1),'rowid','nom');
 	print '</td></tr>';
@@ -923,5 +923,5 @@ if ($action == '' || $action == 'delete')
 
 $db->close();
 
-llxFooter('$Date: 2011/04/21 21:41:57 $ - $Revision: 1.16 $');
+llxFooter('$Date: 2011/04/21 22:30:15 $ - $Revision: 1.17 $');
 ?>
