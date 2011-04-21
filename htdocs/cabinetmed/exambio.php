@@ -23,7 +23,7 @@
  *   \file       htdocs/cabinetmed/exambio.php
  *   \brief      Tab for consultations
  *   \ingroup    cabinetmed
- *   \version    $Id: exambio.php,v 1.10 2011/04/21 22:30:15 eldy Exp $
+ *   \version    $Id: exambio.php,v 1.11 2011/04/21 22:34:55 eldy Exp $
  */
 
 $res=0;
@@ -444,7 +444,7 @@ if ($socid > 0)
         print '<legend>'.$langs->trans("Examen");
         if ($action=='edit' || $action=='update')
         {
-            print ' - '.$langs->trans("ExamBioNumero").': '.sprintf("%08d",$exambio->id).'<br><br>';
+            print ' - '.$langs->trans("Numero").': '.sprintf("%08d",$exambio->id);
         }
         print '</legend>'."\n";
 
@@ -672,5 +672,5 @@ if ($action == '' || $action == 'delete')
 
 $db->close();
 
-llxFooter('$Date: 2011/04/21 22:30:15 $ - $Revision: 1.10 $');
+llxFooter('$Date: 2011/04/21 22:34:55 $ - $Revision: 1.11 $');
 ?>
