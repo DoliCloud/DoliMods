@@ -49,6 +49,15 @@ if ($user->societe_id > 0)
 	accessforbidden();
 }
 
+// Activate error interceptions
+function traitementErreur($code, $message, $fichier, $ligne, $contexte)
+{
+    if (error_reporting() & $code) {
+        throw new Exception($message, $code);
+    }
+}
+set_error_handler('traitementErreur');
+
 
 
 /*******************************************************************
