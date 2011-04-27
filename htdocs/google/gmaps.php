@@ -1,48 +1,89 @@
 <?php
-/* Copyright (C) 2011 Original author unknown
+/* Copyright (C) 2011 Jonathan
  * Copyright (C) 2011 Laurent Destailleur  <eldy@users.sourceforge.net>
  *
  * Licensed under the GNU GPL v3 or higher (See file gpl-3.0.html)
  */
 
 /**
-        \file       htdocs/google/gmaps.php
-        \ingroup    google
-        \brief      Main google area page
-        \version    $Id: gmaps.php,v 1.1 2011/04/21 19:05:24 eldy Exp $
-        \author     Laurent Destailleur
-*/
+ *       \file       htdocs/google/gmaps.php
+ *       \ingroup    google
+ *       \brief      Main google area page
+ *       \version    $Id: gmaps.php,v 1.3 2011/04/27 18:13:11 eldy Exp $
+ *       \author     Laurent Destailleur
+ */
 
 include("./pre.inc.php");
-
-define('DEBUG_MOD', false);
-//Si on est en debug, on affiche toutes les erreurs
-if(DEBUG_MOD){
-  error_reporting(E_ALL);
-  ini_set('display_errors', '1');
-}
-
-//inclusions
 require_once(DOL_DOCUMENT_ROOT."/lib/company.lib.php");
+require_once(DOL_DOCUMENT_ROOT."/lib/contact.lib.php");
+require_once(DOL_DOCUMENT_ROOT."/lib/member.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/contact/class/contact.class.php");
 
-//Le tiers concerné
-$socid = $_GET['id'];
-$objsoc = new Societe($db);
-$objsoc->id = $socid;
-$objsoc->fetch($socid);
+$mode=GETPOST('mode');
+$adresse='';
+	
+// Load third party
+if (empty($mode) || $mode=='thirdparty')
+{
+	include_once(DOL_DOCUMENT_ROOT.'/societe/class/societe.class.php');
+	$id = GETPOST('id');
+	$obj = new Societe($db);
+	$obj->id = $id;
+	$obj->fetch($id);
+	$adresse = $obj->address . " " . $obj->cp . " " . $obj->ville;
+}
+if ($mode=='contact')
+{
+	include_once(DOL_DOCUMENT_ROOT.'/contact/class/contact.class.php');
+	$id = GETPOST('id');
+	$obj = new Contact($db);
+	$obj->id = $id;
+	$obj->fetch($id);
+	$adresse = $obj->address . " " . $obj->cp . " " . $obj->ville;
+}
+if ($mode=='member')
+{
+	include_once(DOL_DOCUMENT_ROOT.'/adherents/class/adherent.class.php');
+	$id = GETPOST('id');
+	$obj = new Adherent($db);
+	$obj->id = $id;
+	$obj->fetch($id);
+	$adresse = $obj->address . " " . $obj->cp . " " . $obj->ville;
+}
 
-$adresse = $objsoc->address . " " . $objsoc->adresse . " " . $objsoc->cp . " " . $objsoc->ville;
 
-//On fabrique le container Dolibarr
+/*
+ * View
+ */
+
 llxheader();
 
 $content = "Default content";
 $act = "";
 
 //On fabrique les onglets
-$head = societe_prepare_head($objsoc);
-dol_fiche_head($head, 'gmaps', $langs->trans("ThirdParty"),0,'company');
+$head=array();
+$title='';
+$picto='';
+if (empty($mode) || $mode=='thirdparty')
+{
+	$head = societe_prepare_head($obj);
+	$title=$langs->trans("ThirdParty");
+	$picto='company';
+}
+if ($mode=='contact')
+{
+	$head = contact_prepare_head($obj);
+	$title=$langs->trans("Contact");
+	$picto='contact';
+}
+if ($mode=='member')
+{
+	$head = member_prepare_head($obj);
+	$title=$langs->trans("Member");
+	$picto='user';
+}
+dol_fiche_head($head, 'gmaps', $title, 0, $picto);
 //dol_fiche_head( $head, 8, "Tiers",0,'thirdparty' );
 //On affiche le contenu
 ?>
@@ -75,7 +116,7 @@ dol_fiche_head($head, 'gmaps', $langs->trans("ThirdParty"),0,'company');
         });
 
 
-		var infowindow = new google.maps.InfoWindow({content: '<?php echo addslashes($objsoc->nom); ?><br /><?php echo addslashes($objsoc->adresse) . "<br />" . addslashes($objsoc->cp) . " " . addslashes($objsoc->ville); ?>'});
+		var infowindow = new google.maps.InfoWindow({content: '<?php echo addslashes($obj->nom); ?><br /><?php echo addslashes($obj->adresse) . "<br />" . addslashes($obj->cp) . " " . addslashes($obj->ville); ?>'});
 
 			google.maps.event.addListener(marker, 'click', function() {
 				infowindow.open(map,marker);
@@ -97,6 +138,5 @@ dol_fiche_head($head, 'gmaps', $langs->trans("ThirdParty"),0,'company');
 <div id="map" style="width: 100%; height: 500px;" ></div>
 
 <?php
-//On clôt le container Dolibarr
 llxfooter();
 ?>

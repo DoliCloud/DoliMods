@@ -6,7 +6,7 @@
  *	    \file       htdocs/google/admin/google_gmaps.php
  *      \ingroup    google
  *      \brief      Setup page for google module
- *		\version    $Id: google_gmaps.php,v 1.1 2011/04/21 19:05:24 eldy Exp $
+ *		\version    $Id: google_gmaps.php,v 1.2 2011/04/27 18:13:14 eldy Exp $
  */
 
 define('NOCSRFCHECK',1);
@@ -44,9 +44,12 @@ if ($actionsave)
 {
     $db->begin();
 
-	$res=dolibarr_set_const($db,'GOOGLE_ENABLE_GMAPS'.$i,trim($_POST["GOOGLE_ENABLE_GMAPS".$i]),'chaine',0);
-
-    if ($res > 0)
+	$res=0;
+    $res+=dolibarr_set_const($db,'GOOGLE_ENABLE_GMAPS'.$i,trim($_POST["GOOGLE_ENABLE_GMAPS".$i]),'chaine',0);
+	$res+=dolibarr_set_const($db,'GOOGLE_ENABLE_GMAPS_CONTACTS'.$i,trim($_POST["GOOGLE_ENABLE_GMAPS_CONTACTS".$i]),'chaine',0);
+	$res+=dolibarr_set_const($db,'GOOGLE_ENABLE_GMAPS_MEMBERS'.$i,trim($_POST["GOOGLE_ENABLE_GMAPS_MEMBERS".$i]),'chaine',0);
+	
+    if ($res == 3)
     {
         $db->commit();
         $mesg = "<font class=\"ok\">".$langs->trans("SetupSaved")."</font>";
@@ -85,7 +88,26 @@ dol_fiche_head($head, 'gmaps', $langs->trans("GoogleTools"));
 
 print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
 
-print $langs->trans("GoogleEnableThisTool").' '.$form->selectyesno("GOOGLE_ENABLE_GMAPS",isset($_POST["GOOGLE_ENABLE_GMAPS"])?$_POST["GOOGLE_ENABLE_GMAPS"]:$conf->global->GOOGLE_ENABLE_GMAPS,1).'<br><br>';
+print $langs->trans("GoogleEnableThisToolThirdParties").': ';
+if ($conf->societe->enabled) 
+{
+	print $form->selectyesno("GOOGLE_ENABLE_GMAPS",isset($_POST["GOOGLE_ENABLE_GMAPS"])?$_POST["GOOGLE_ENABLE_GMAPS"]:$conf->global->GOOGLE_ENABLE_GMAPS,1).'<br>';
+}
+else print $langs->trans("ModuleMustBeEnabledFirst",$langs->transnoentitiesnoconv("Module1Name"));
+
+print $langs->trans("GoogleEnableThisToolContacts").': ';
+if ($conf->societe->enabled) 
+{
+	print $form->selectyesno("GOOGLE_ENABLE_GMAPS_CONTACTS",isset($_POST["GOOGLE_ENABLE_GMAPS_CONTACTS"])?$_POST["GOOGLE_ENABLE_GMAPS_CONTACTS"]:$conf->global->GOOGLE_ENABLE_GMAPS_CONTACTS,1).'<br>';
+}
+else print $langs->trans("ModuleMustBeEnabledFirst",$langs->transnoentitiesnoconv("Module1Name"));
+
+print $langs->trans("GoogleEnableThisToolMembers").': ';
+if ($conf->adherent->enabled) 
+{
+	print $form->selectyesno("GOOGLE_ENABLE_GMAPS_MEMBERS",isset($_POST["GOOGLE_ENABLE_GMAPS_MEMBERS"])?$_POST["GOOGLE_ENABLE_GMAPS_MEMBERS"]:$conf->global->GOOGLE_ENABLE_GMAPS_MEMBERS,1).'<br>';
+}
+else print $langs->trans("ModuleMustBeEnabledFirst",$langs->transnoentitiesnoconv("Module310Name"));
 
 /*
 $var=false;
@@ -150,7 +172,7 @@ print '</table>';
 print '<br>';
 */
 
-
+print '<br>';
 print '<center>';
 //print "<input type=\"submit\" name=\"test\" class=\"button\" value=\"".$langs->trans("TestConnection")."\">";
 //print "&nbsp; &nbsp;";
@@ -173,5 +195,5 @@ $message='';
 
 $db->close();
 
-llxFooter('$Date: 2011/04/21 19:05:24 $ - $Revision: 1.1 $');
+llxFooter('$Date: 2011/04/27 18:13:14 $ - $Revision: 1.2 $');
 ?>
