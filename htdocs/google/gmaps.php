@@ -9,7 +9,7 @@
  *       \file       htdocs/google/gmaps.php
  *       \ingroup    google
  *       \brief      Main google area page
- *       \version    $Id: gmaps.php,v 1.4 2011/04/30 01:48:05 eldy Exp $
+ *       \version    $Id: gmaps.php,v 1.5 2011/04/30 01:59:28 eldy Exp $
  *       \author     Laurent Destailleur
  */
 
@@ -30,7 +30,7 @@ if (empty($mode) || $mode=='thirdparty')
 	$obj = new Societe($db);
 	$obj->id = $id;
 	$obj->fetch($id);
-	$adresse = trim($obj->address . " " . $obj->cp . " " . $obj->ville . " " .$obj->pays);
+	$adresse = $obj->getFullAddress(1,', ');
 }
 if ($mode=='contact')
 {
@@ -39,7 +39,7 @@ if ($mode=='contact')
 	$obj = new Contact($db);
 	$obj->id = $id;
 	$obj->fetch($id);
-	$adresse = trim($obj->address . " " . $obj->cp . " " . $obj->ville . " " .$obj->pays);
+	$adresse = trim($obj->address . ", " . $obj->cp . " " . $obj->ville . " " .$obj->pays);
 }
 if ($mode=='member')
 {
@@ -48,7 +48,7 @@ if ($mode=='member')
 	$obj = new Adherent($db);
 	$obj->id = $id;
 	$obj->fetch($id);
-	$adresse = trim($obj->address . " " . $obj->cp . " " . $obj->ville . " " .$obj->pays);
+	$adresse = trim($obj->address . ", " . $obj->cp . " " . $obj->ville . " " .$obj->pays);
 }
 
 
