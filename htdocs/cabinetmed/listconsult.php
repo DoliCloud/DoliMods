@@ -22,7 +22,7 @@
  *	\file       htdocs/cabinetmed/listconsult.php
  *	\ingroup    cabinetmed
  *	\brief      List of consultation
- *	\version    $Id: listconsult.php,v 1.5 2011/04/21 22:30:15 eldy Exp $
+ *	\version    $Id: listconsult.php,v 1.6 2011/04/30 01:22:02 eldy Exp $
  */
 
 
@@ -229,7 +229,7 @@ if ($result)
         print $thirdpartystatic->getNomUrl(1);
 		print '</td>';
 		print '<td>'.$obj->code_client.'</td>';
-		print '<td align="center">'.dol_print_date($obj->datecons,'dayhour').'</td>';
+		print '<td align="center">'.dol_print_date($obj->datecons,'day').'</td>';
         print '<td>';
         print $obj->typepriseencharge;
         print '</td>';
@@ -258,5 +258,5 @@ else
 
 $db->close();
 
-llxFooter('$Date: 2011/04/21 22:30:15 $ - $Revision: 1.5 $');
+llxFooter('$Date: 2011/04/30 01:22:02 $ - $Revision: 1.6 $');
 ?>
