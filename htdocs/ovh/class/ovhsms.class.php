@@ -78,6 +78,9 @@ class OvhSms  extends CommonObject
             //print $langs->trans("ConnectionTimeout").': '.$params['connection_timeout'].'<br>';
             //print $langs->trans("ResponseTimeout").': '.$params['response_timeout'].'<br>';
 
+    		$err=error_reporting();
+    		error_reporting(E_ALL);     // Enable all errors
+            
             try {
                 $this->soap = new SoapClient($conf->global->OVHSMS_SOAPURL,$params);
                 // https://www.ovh.com/soapi/soapi-re-1.8.wsdl
@@ -94,7 +97,8 @@ class OvhSms  extends CommonObject
 
                 return 1;
 
-            } catch(SoapFault $se) {
+            } 
+            catch(SoapFault $se) {
                 dol_syslog(get_class($this).'::SoapFault: '.$se);
                 //var_dump('eeeeeeee');exit;
                 return 0;
@@ -105,10 +109,12 @@ class OvhSms  extends CommonObject
                 return 0;
             }
             catch (Error $e) {
-                dol_syslog(get_class($this).'::SoapFault: '.$e);
+            	dol_syslog(get_class($this).'::SoapFault: '.$e);
                 //var_dump('eeeeeeee');exit;
                 return 0;
             }
+            error_reporting($err);     // Restore default errors
+            
             return 1;
         }
         else return 0;

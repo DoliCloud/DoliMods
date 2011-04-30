@@ -1,5 +1,5 @@
 # Dolibarr language file - fr_FR - cabinetmed
-CHARSET= UTF-8
+CHARSET=UTF-8
 Module100700Name=Cabinet médical
 Module100700Desc=Module pour gérer un cabinet médical libéral
 ManualTestDesc=You can find here button actions to test all cycle for create and update a rrd database file and show rrd graphicss
@@ -75,3 +75,4 @@ ConfirmDeleteExam=Etes-vous sur de vouloir supprimer l'examen <b>%s</b> ?
 ExamOtherNumero=Numéro examen Radio ou autre
 ExamOtherNumero=Numéro examen Bio
 HistoireDeLaMaladie=Histoire de la maladie
+WarningExitPageWithoutSaving=En quittant la page, vous perdrez toutes les données qui y ont été saisie.

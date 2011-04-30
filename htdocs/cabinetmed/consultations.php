@@ -20,7 +20,7 @@
  *   \file       htdocs/cabinetmed/consultations.php
  *   \brief      Tab for consultations
  *   \ingroup    cabinetmed
- *   \version    $Id: consultations.php,v 1.17 2011/04/21 22:30:15 eldy Exp $
+ *   \version    $Id: consultations.php,v 1.18 2011/04/30 01:03:48 eldy Exp $
  */
 
 $res=0;
@@ -380,8 +380,13 @@ if ($socid > 0)
         $nboflines=4;
 
         print '<script type="text/javascript">
+        var changed=false;
         jQuery(function() {
-            jQuery("#cs").click(function () {
+            jQuery(".flat").change(function () {
+ 				/*alert(\'ee\');*/
+ 				changed=true;
+    		});
+ 			jQuery("#cs").click(function () {
                 jQuery("#codageccam").attr(\'disabled\', \'disabled\');
             });
             jQuery("#c2").click(function () {
@@ -432,7 +437,8 @@ if ($socid > 0)
                     jQuery(".ui-autocomplete-input").val("");
                     jQuery(".ui-autocomplete-input").text("");
                     jQuery("#listmotifcons").get(0).selectedIndex = 0;
-                }
+ 					changed=true;
+    		}
             });
             jQuery("#addmotifsec").click(function () {
                 var t=jQuery("#listmotifcons").children( ":selected" ).text();
@@ -448,7 +454,8 @@ if ($socid > 0)
                         jQuery(".ui-autocomplete-input").val("");
                         jQuery(".ui-autocomplete-input").text("");
                         jQuery("#listmotifcons").get(0).selectedIndex = 0;
-                    }
+ 						changed=true;
+    				}
                 }
             });
             jQuery("#adddiaglesprinc").click(function () {
@@ -459,7 +466,8 @@ if ($socid > 0)
                     jQuery(".ui-autocomplete-input").val("");
                     jQuery(".ui-autocomplete-input").text("");
                     jQuery("#listdiagles").get(0).selectedIndex = 0;
-                }
+ 					changed=true;
+    			}
             });
             jQuery("#adddiaglessec").click(function () {
                 var t=jQuery("#listdiagles").children( ":selected" ).text();
@@ -469,7 +477,8 @@ if ($socid > 0)
                     jQuery(".ui-autocomplete-input").val("");
                     jQuery(".ui-autocomplete-input").text("");
                     jQuery("#listmotifcons").get(0).selectedIndex = 0;
-                }
+ 					changed=true;
+    			}
             });
             jQuery("#addexamenprescrit").click(function () {
                 var t=jQuery("#listexamenprescrit").children( ":selected" ).text();
@@ -479,8 +488,13 @@ if ($socid > 0)
                     jQuery(".ui-autocomplete-input").val("");
                     jQuery(".ui-autocomplete-input").text("");
                     jQuery("#listexamenprescrit").get(0).selectedIndex = 0;
-                }
+ 					changed=true;
+    			}
             });
+            jQuery(window).bind(\'beforeunload\', function(){ 
+				/* alert(changed); */
+            	if (changed) return \''.dol_escape_js($langs->transnoentitiesnoconv("WarningExitPageWithoutSaving")).'\';
+			});
         });
         </script>
 
@@ -524,15 +538,15 @@ if ($socid > 0)
         $form->select_date($datecons,'cons');
         print '</td><td>';
         print 'Prise en charge: &nbsp;';
-        print '<input type="radio" name="typepriseencharge" value="ALD"'.($consult->typepriseencharge=='ALD'?' checked="checked"':'').'> ALD';
+        print '<input type="radio" class="flat" name="typepriseencharge" value="ALD"'.($consult->typepriseencharge=='ALD'?' checked="checked"':'').'> ALD';
         print ' &nbsp; ';
-        print '<input type="radio" name="typepriseencharge" value="INV"'.($consult->typepriseencharge=='INV'?' checked="checked"':'').'> INV';
+        print '<input type="radio" class="flat" name="typepriseencharge" value="INV"'.($consult->typepriseencharge=='INV'?' checked="checked"':'').'> INV';
         print ' &nbsp; ';
-        print '<input type="radio" name="typepriseencharge" value="AT"'.($consult->typepriseencharge=='AT'?' checked="checked"':'').'> AT';
+        print '<input type="radio" class="flat" name="typepriseencharge" value="AT"'.($consult->typepriseencharge=='AT'?' checked="checked"':'').'> AT';
         print ' &nbsp; ';
-        print '<input type="radio" name="typepriseencharge" value="CMU"'.($consult->typepriseencharge=='CMU'?' checked="checked"':'').'> CMU';
+        print '<input type="radio" class="flat" name="typepriseencharge" value="CMU"'.($consult->typepriseencharge=='CMU'?' checked="checked"':'').'> CMU';
         print ' &nbsp; ';
-        print '<input type="radio" name="typepriseencharge" value="AME"'.($consult->typepriseencharge=='AME'?' checked="checked"':'').'> AME';
+        print '<input type="radio" class="flat" name="typepriseencharge" value="AME"'.($consult->typepriseencharge=='AME'?' checked="checked"':'').'> AME';
         print '</td></tr>';
 
         print '</table>';
@@ -692,7 +706,7 @@ if ($socid > 0)
 
         print ' &nbsp; ';
         print $langs->trans("ChequeBank").' ';
-        var_dump();
+        //var_dump();
         //print '<input type="text" class="flat" name="banque" id="banque" value="'.$consult->banque.'" size="18"'.($consult->montant_cheque?'':' disabled="disabled"').'>';
         listebanques(1,0,$consult->banque);
         if ($user->admin) print info_admin($langs->trans("YouCanChangeValuesForThisListFromDictionnarySetup"),1);
@@ -923,5 +937,5 @@ if ($action == '' || $action == 'delete')
 
 $db->close();
 
-llxFooter('$Date: 2011/04/21 22:30:15 $ - $Revision: 1.17 $');
+llxFooter('$Date: 2011/04/30 01:03:48 $ - $Revision: 1.18 $');
 ?>
