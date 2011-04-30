@@ -6,7 +6,7 @@
  *	    \file       htdocs/google/admin/google_gmaps.php
  *      \ingroup    google
  *      \brief      Setup page for google module
- *		\version    $Id: google_gmaps.php,v 1.2 2011/04/27 18:13:14 eldy Exp $
+ *		\version    $Id: google_gmaps.php,v 1.3 2011/04/30 01:48:05 eldy Exp $
  */
 
 define('NOCSRFCHECK',1);
@@ -45,11 +45,12 @@ if ($actionsave)
     $db->begin();
 
 	$res=0;
-    $res+=dolibarr_set_const($db,'GOOGLE_ENABLE_GMAPS'.$i,trim($_POST["GOOGLE_ENABLE_GMAPS".$i]),'chaine',0);
-	$res+=dolibarr_set_const($db,'GOOGLE_ENABLE_GMAPS_CONTACTS'.$i,trim($_POST["GOOGLE_ENABLE_GMAPS_CONTACTS".$i]),'chaine',0);
-	$res+=dolibarr_set_const($db,'GOOGLE_ENABLE_GMAPS_MEMBERS'.$i,trim($_POST["GOOGLE_ENABLE_GMAPS_MEMBERS".$i]),'chaine',0);
+    $res+=dolibarr_set_const($db,'GOOGLE_ENABLE_GMAPS',trim($_POST["GOOGLE_ENABLE_GMAPS"]),'chaine',0);
+	$res+=dolibarr_set_const($db,'GOOGLE_ENABLE_GMAPS_CONTACTS',trim($_POST["GOOGLE_ENABLE_GMAPS_CONTACTS"]),'chaine',0);
+	$res+=dolibarr_set_const($db,'GOOGLE_ENABLE_GMAPS_MEMBERS',trim($_POST["GOOGLE_ENABLE_GMAPS_MEMBERS"]),'chaine',0);
+	$res+=dolibarr_set_const($db,'GOOGLE_GMAPS_ZOOM_LEVEL',trim($_POST["GOOGLE_GMAPS_ZOOM_LEVEL"]),'chaine',0);
 	
-    if ($res == 3)
+    if ($res == 4)
     {
         $db->commit();
         $mesg = "<font class=\"ok\">".$langs->trans("SetupSaved")."</font>";
@@ -95,6 +96,7 @@ if ($conf->societe->enabled)
 }
 else print $langs->trans("ModuleMustBeEnabledFirst",$langs->transnoentitiesnoconv("Module1Name"));
 
+print '<br>';
 print $langs->trans("GoogleEnableThisToolContacts").': ';
 if ($conf->societe->enabled) 
 {
@@ -102,12 +104,17 @@ if ($conf->societe->enabled)
 }
 else print $langs->trans("ModuleMustBeEnabledFirst",$langs->transnoentitiesnoconv("Module1Name"));
 
+print '<br>';
 print $langs->trans("GoogleEnableThisToolMembers").': ';
 if ($conf->adherent->enabled) 
 {
 	print $form->selectyesno("GOOGLE_ENABLE_GMAPS_MEMBERS",isset($_POST["GOOGLE_ENABLE_GMAPS_MEMBERS"])?$_POST["GOOGLE_ENABLE_GMAPS_MEMBERS"]:$conf->global->GOOGLE_ENABLE_GMAPS_MEMBERS,1).'<br>';
 }
 else print $langs->trans("ModuleMustBeEnabledFirst",$langs->transnoentitiesnoconv("Module310Name"));
+
+print '<br>';
+print $langs->trans("GoogleZoomLevel").': ';
+print '<input class="flat" name="GOOGLE_GMAPS_ZOOM_LEVEL" id="GOOGLE_GMAPS_ZOOM_LEVEL" value="'.$_POST["GOOGLE_GMAPS_ZOOM_LEVEL"].'" size="2">';
 
 /*
 $var=false;
@@ -195,5 +202,5 @@ $message='';
 
 $db->close();
 
-llxFooter('$Date: 2011/04/27 18:13:14 $ - $Revision: 1.2 $');
+llxFooter('$Date: 2011/04/30 01:48:05 $ - $Revision: 1.3 $');
 ?>

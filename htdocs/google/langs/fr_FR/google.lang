@@ -12,5 +12,7 @@ GoogleEnableThisToolContacts=Activer cet outils sur les Contacts
 GoogleEnableThisToolMembers=Activer cet outils sur les Adhérents
 GoogleAddPubOnLogonPage=Renseigner les informations AdSense pour ajouter une publicité Google sur la page de logon (sinon laisser vide)
 GoogleAddAnalyticsOnLogonPage=Renseigner l'id de suivi Analytics pour ajouter la balise Google Analytics sur la page de logon (sinon laisser vide)
+GoogleZoomLevel=Niveau de zoom par défaut (1 à 10)
+GoogleAddressNotDefined=L'adresse n'est pas ou pas complètement renseignée pour être géolocalisée
 Module11000Name=Google
 Module11000Desc=Module pour intégrer les outils Google dans Dolibarr

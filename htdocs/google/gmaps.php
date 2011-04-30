@@ -9,7 +9,7 @@
  *       \file       htdocs/google/gmaps.php
  *       \ingroup    google
  *       \brief      Main google area page
- *       \version    $Id: gmaps.php,v 1.3 2011/04/27 18:13:11 eldy Exp $
+ *       \version    $Id: gmaps.php,v 1.4 2011/04/30 01:48:05 eldy Exp $
  *       \author     Laurent Destailleur
  */
 
@@ -30,7 +30,7 @@ if (empty($mode) || $mode=='thirdparty')
 	$obj = new Societe($db);
 	$obj->id = $id;
 	$obj->fetch($id);
-	$adresse = $obj->address . " " . $obj->cp . " " . $obj->ville;
+	$adresse = trim($obj->address . " " . $obj->cp . " " . $obj->ville . " " .$obj->pays);
 }
 if ($mode=='contact')
 {
@@ -39,7 +39,7 @@ if ($mode=='contact')
 	$obj = new Contact($db);
 	$obj->id = $id;
 	$obj->fetch($id);
-	$adresse = $obj->address . " " . $obj->cp . " " . $obj->ville;
+	$adresse = trim($obj->address . " " . $obj->cp . " " . $obj->ville . " " .$obj->pays);
 }
 if ($mode=='member')
 {
@@ -48,7 +48,7 @@ if ($mode=='member')
 	$obj = new Adherent($db);
 	$obj->id = $id;
 	$obj->fetch($id);
-	$adresse = $obj->address . " " . $obj->cp . " " . $obj->ville;
+	$adresse = trim($obj->address . " " . $obj->cp . " " . $obj->ville . " " .$obj->pays);
 }
 
 
@@ -86,6 +86,9 @@ if ($mode=='member')
 dol_fiche_head($head, 'gmaps', $title, 0, $picto);
 //dol_fiche_head( $head, 8, "Tiers",0,'thirdparty' );
 //On affiche le contenu
+
+if ($adresse && $adresse != $obj->pays)
+{
 ?>
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
 
@@ -97,7 +100,7 @@ dol_fiche_head($head, 'gmaps', $title, 0, $picto);
 
     var latlng = new google.maps.LatLng(-34.397, 150.644);
     var myOptions = {
-      zoom: 8,
+      zoom: <?php echo ($conf->global->GOOGLE_GMAPS_ZOOM_LEVEL >= 1 && $conf->global->GOOGLE_GMAPS_ZOOM_LEVEL <= 10)?$conf->global->GOOGLE_GMAPS_ZOOM_LEVEL:8; ?>,
       center: latlng,
       mapTypeId: google.maps.MapTypeId.ROADMAP
     }
@@ -138,5 +141,13 @@ dol_fiche_head($head, 'gmaps', $title, 0, $picto);
 <div id="map" style="width: 100%; height: 500px;" ></div>
 
 <?php
+}
+else
+{
+	print $langs->trans("GoogleAddressNotDefined");	
+}
+
+dol_fiche_end();
+
 llxfooter();
 ?>
