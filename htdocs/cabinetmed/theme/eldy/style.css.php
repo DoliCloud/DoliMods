@@ -19,9 +19,9 @@
  */
 
 /**
- *		\file       htdocs/theme/eldy/style.css.php
+ *		\file       htdocs/cabinetmed/theme/eldy/style.css.php
  *		\brief      Fichier de style CSS du theme Eldy
- *		\version    $Id: style.css.php,v 1.9 2011/04/17 21:16:05 eldy Exp $
+ *		\version    $Id: style.css.php,v 1.10 2011/05/01 17:00:28 eldy Exp $
  */
 
 //if (! defined('NOREQUIREUSER')) define('NOREQUIREUSER','1');	// Not disabled cause need to load personalized language
@@ -844,6 +844,7 @@ a.tabTitle {
     background: #657090;
     color: white;
 	font-family: <?php print $fontlist ?>;
+    font-weight: normal;
     padding: 0px 6px;
     margin: 0px 6px;
     text-decoration: none;

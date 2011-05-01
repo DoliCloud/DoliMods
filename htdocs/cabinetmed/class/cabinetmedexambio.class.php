@@ -21,7 +21,7 @@
  *      \file       cabinetmed/class/cabinetmedexambio.class.php
  *      \ingroup    cabinetmed
  *      \brief      This file is an example for a CRUD class file (Create/Read/Update/Delete)
- *		\version    $Id: cabinetmedexambio.class.php,v 1.1 2011/04/13 12:50:37 eldy Exp $
+ *		\version    $Id: cabinetmedexambio.class.php,v 1.2 2011/05/01 16:55:52 eldy Exp $
  *		\author		Put author name here
  *		\remarks	Initialy built by build_class_from_table on 2011-04-13 13:44
  */
@@ -102,13 +102,14 @@ class CabinetmedExamBio // extends CommonObject
 		if (isset($this->suivipr_vs)) $this->suivipr_vs=trim($this->suivipr_vs);
 		if (isset($this->suivipr_eva)) $this->suivipr_eva=trim($this->suivipr_eva);
 		if (isset($this->suivipr_err)) $this->suivipr_err=trim($this->suivipr_err);
-		if (isset($this->suivisa_fat)) $this->suivisa_fat=trim($this->suivisa_fat);
+        //if (isset($this->suivipr_das28)) $this->suivipr_err=trim($this->suivipr_das28);
+        if (isset($this->suivisa_fat)) $this->suivisa_fat=trim($this->suivisa_fat);
 		if (isset($this->suivisa_dax)) $this->suivisa_dax=trim($this->suivisa_dax);
 		if (isset($this->suivisa_dpe)) $this->suivisa_dpe=trim($this->suivisa_dpe);
 		if (isset($this->suivisa_dpa)) $this->suivisa_dpa=trim($this->suivisa_dpa);
 		if (isset($this->suivisa_rno)) $this->suivisa_rno=trim($this->suivisa_rno);
 		if (isset($this->suivisa_dma)) $this->suivisa_dma=trim($this->suivisa_dma);
-		if (isset($this->suivisa_basdai)) $this->suivisa_basdai=trim($this->suivisa_basdai);
+		//if (isset($this->suivisa_basdai)) $this->suivisa_basdai=trim($this->suivisa_basdai);
 
 
 
@@ -117,7 +118,6 @@ class CabinetmedExamBio // extends CommonObject
 
         // Insert request
 		$sql = "INSERT INTO ".MAIN_DB_PREFIX."cabinetmed_exambio(";
-
 		$sql.= "fk_soc,";
 		$sql.= "dateexam,";
 		$sql.= "resultat,";
@@ -128,36 +128,33 @@ class CabinetmedExamBio // extends CommonObject
 		$sql.= "suivipr_vs,";
 		$sql.= "suivipr_eva,";
 		$sql.= "suivipr_err,";
-		$sql.= "suivisa_fat,";
+        //$sql.= "suivipr_das28,";
+        $sql.= "suivisa_fat,";
 		$sql.= "suivisa_dax,";
 		$sql.= "suivisa_dpe,";
 		$sql.= "suivisa_dpa,";
 		$sql.= "suivisa_rno,";
-		$sql.= "suivisa_dma,";
-		$sql.= "suivisa_basdai,";
-
-
+		$sql.= "suivisa_dma";
+		//$sql.= "suivisa_basdai";
         $sql.= ") VALUES (";
-
 		$sql.= " ".(! isset($this->fk_soc)?'NULL':"'".$this->fk_soc."'").",";
 		$sql.= " ".(! isset($this->dateexam) || dol_strlen($this->dateexam)==0?'NULL':$this->db->idate($this->dateexam)).",";
 		$sql.= " ".(! isset($this->resultat)?'NULL':"'".$this->db->escape($this->resultat)."'").",";
 		$sql.= " ".(! isset($this->conclusion)?'NULL':"'".$this->db->escape($this->conclusion)."'").",";
 		$sql.= " ".(! isset($this->comment)?'NULL':"'".$this->db->escape($this->comment)."'").",";
-		$sql.= " ".(! isset($this->suivipr_ad)?'NULL':"'".$this->suivipr_ad."'").",";
-		$sql.= " ".(! isset($this->suivipr_ag)?'NULL':"'".$this->suivipr_ag."'").",";
-		$sql.= " ".(! isset($this->suivipr_vs)?'NULL':"'".$this->suivipr_vs."'").",";
-		$sql.= " ".(! isset($this->suivipr_eva)?'NULL':"'".$this->suivipr_eva."'").",";
-		$sql.= " ".(! isset($this->suivipr_err)?'NULL':"'".$this->suivipr_err."'").",";
-		$sql.= " ".(! isset($this->suivisa_fat)?'NULL':"'".$this->suivisa_fat."'").",";
-		$sql.= " ".(! isset($this->suivisa_dax)?'NULL':"'".$this->suivisa_dax."'").",";
-		$sql.= " ".(! isset($this->suivisa_dpe)?'NULL':"'".$this->suivisa_dpe."'").",";
-		$sql.= " ".(! isset($this->suivisa_dpa)?'NULL':"'".$this->suivisa_dpa."'").",";
-		$sql.= " ".(! isset($this->suivisa_rno)?'NULL':"'".$this->suivisa_rno."'").",";
-		$sql.= " ".(! isset($this->suivisa_dma)?'NULL':"'".$this->suivisa_dma."'").",";
-		$sql.= " ".(! isset($this->suivisa_basdai)?'NULL':"'".$this->suivisa_basdai."'").",";
-
-
+		$sql.= " ".(! isset($this->suivipr_ad) || $this->suivipr_ad==''?'NULL':"'".$this->suivipr_ad."'").",";
+		$sql.= " ".(! isset($this->suivipr_ag) || $this->suivipr_ag==''?'NULL':"'".$this->suivipr_ag."'").",";
+		$sql.= " ".(! isset($this->suivipr_vs) || $this->suivipr_vs==''?'NULL':"'".$this->suivipr_vs."'").",";
+		$sql.= " ".(! isset($this->suivipr_eva) || $this->suivipr_eva==''?'NULL':"'".$this->suivipr_eva."'").",";
+        $sql.= " ".(! isset($this->suivipr_err) || $this->suivipr_err==''?'NULL':"'".$this->suivipr_err."'").",";
+		//$sql.= " ".(! isset($this->suivipr_das28)?'NULL':"'".$this->suivipr_das28."'").",";
+        $sql.= " ".(! isset($this->suivisa_fat) || $this->suivisa_fat==''?'NULL':"'".$this->suivisa_fat."'").",";
+		$sql.= " ".(! isset($this->suivisa_dax) || $this->suivisa_dax==''?'NULL':"'".$this->suivisa_dax."'").",";
+		$sql.= " ".(! isset($this->suivisa_dpe) || $this->suivisa_dpe==''?'NULL':"'".$this->suivisa_dpe."'").",";
+		$sql.= " ".(! isset($this->suivisa_dpa) || $this->suivisa_dpa==''?'NULL':"'".$this->suivisa_dpa."'").",";
+		$sql.= " ".(! isset($this->suivisa_rno) || $this->suivisa_rno==''?'NULL':"'".$this->suivisa_rno."'").",";
+		$sql.= " ".(! isset($this->suivisa_dma) || $this->suivisa_dma==''?'NULL':"'".$this->suivisa_dma."'")."";
+		//$sql.= " ".(! isset($this->suivisa_basdai)?'NULL':"'".$this->suivisa_basdai."'");
 		$sql.= ")";
 
 		$this->db->begin();
@@ -312,33 +309,30 @@ class CabinetmedExamBio // extends CommonObject
 		if (isset($this->suivisa_basdai)) $this->suivisa_basdai=trim($this->suivisa_basdai);
 
 
-
 		// Check parameters
 		// Put here code to add control on parameters values
 
         // Update request
         $sql = "UPDATE ".MAIN_DB_PREFIX."cabinetmed_exambio SET";
-
 		$sql.= " fk_soc=".(isset($this->fk_soc)?$this->fk_soc:"null").",";
 		$sql.= " dateexam=".(dol_strlen($this->dateexam)!=0 ? "'".$this->db->idate($this->dateexam)."'" : 'null').",";
 		$sql.= " resultat=".(isset($this->resultat)?"'".$this->db->escape($this->resultat)."'":"null").",";
 		$sql.= " conclusion=".(isset($this->conclusion)?"'".$this->db->escape($this->conclusion)."'":"null").",";
 		$sql.= " comment=".(isset($this->comment)?"'".$this->db->escape($this->comment)."'":"null").",";
-		$sql.= " suivipr_ad=".(isset($this->suivipr_ad)?$this->suivipr_ad:"null").",";
-		$sql.= " suivipr_ag=".(isset($this->suivipr_ag)?$this->suivipr_ag:"null").",";
-		$sql.= " suivipr_vs=".(isset($this->suivipr_vs)?$this->suivipr_vs:"null").",";
-		$sql.= " suivipr_eva=".(isset($this->suivipr_eva)?$this->suivipr_eva:"null").",";
-		$sql.= " suivipr_err=".(isset($this->suivipr_err)?$this->suivipr_err:"null").",";
-		$sql.= " suivisa_fat=".(isset($this->suivisa_fat)?$this->suivisa_fat:"null").",";
-		$sql.= " suivisa_dax=".(isset($this->suivisa_dax)?$this->suivisa_dax:"null").",";
-		$sql.= " suivisa_dpe=".(isset($this->suivisa_dpe)?$this->suivisa_dpe:"null").",";
-		$sql.= " suivisa_dpa=".(isset($this->suivisa_dpa)?$this->suivisa_dpa:"null").",";
-		$sql.= " suivisa_rno=".(isset($this->suivisa_rno)?$this->suivisa_rno:"null").",";
-		$sql.= " suivisa_dma=".(isset($this->suivisa_dma)?$this->suivisa_dma:"null").",";
-		$sql.= " suivisa_basdai=".(isset($this->suivisa_basdai)?$this->suivisa_basdai:"null").",";
+		$sql.= " suivipr_ad=".(isset($this->suivipr_ad) && $this->suivipr_ad!=''?$this->suivipr_ad:"null").",";
+		$sql.= " suivipr_ag=".(isset($this->suivipr_ag) && $this->suivipr_ag!=''?$this->suivipr_ag:"null").",";
+		$sql.= " suivipr_vs=".(isset($this->suivipr_vs) && $this->suivipr_vs!=''?$this->suivipr_vs:"null").",";
+		$sql.= " suivipr_eva=".(isset($this->suivipr_eva) && $this->suivipr_eva!=''?$this->suivipr_eva:"null").",";
+		$sql.= " suivipr_err=".(isset($this->suivipr_err) && $this->suivipr_err!=''?$this->suivipr_err:"null").",";
+        //$sql.= " suivipr_das28=".(isset($this->suivipr_das28) && $this->suivipr_das28!=''?$this->suivipr_das28:"null").",";
+        $sql.= " suivisa_fat=".(isset($this->suivisa_fat) && $this->suivisa_fat!=''?$this->suivisa_fat:"null").",";
+		$sql.= " suivisa_dax=".(isset($this->suivisa_dax) && $this->suivisa_dax!=''?$this->suivisa_dax:"null").",";
+		$sql.= " suivisa_dpe=".(isset($this->suivisa_dpe) && $this->suivisa_dpe!=''?$this->suivisa_dpe:"null").",";
+		$sql.= " suivisa_dpa=".(isset($this->suivisa_dpa) && $this->suivisa_dpa!=''?$this->suivisa_dpa:"null").",";
+		$sql.= " suivisa_rno=".(isset($this->suivisa_rno) && $this->suivisa_rno!=''?$this->suivisa_rno:"null").",";
+		$sql.= " suivisa_dma=".(isset($this->suivisa_dma) && $this->suivisa_dma!=''?$this->suivisa_dma:"null").",";
+		//$sql.= " suivisa_basdai=".(isset($this->suivisa_basdai)?$this->suivisa_basdai:"null").",";
 		$sql.= " tms=".(dol_strlen($this->tms)!=0 ? "'".$this->db->idate($this->tms)."'" : 'null')."";
-
-
         $sql.= " WHERE rowid=".$this->id;
 
 		$this->db->begin();
