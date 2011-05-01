@@ -1,5 +1,5 @@
 <?php
-/* Copyright (C) 2007 Laurent Destailleur  <eldy@users.sourceforge.net>
+/* Copyright (C) 2011 Laurent Destailleur  <eldy@users.sourceforge.net>
  * Copyright (C) 2010 Jean-Francois FERRY  <jfefe@aternatik.fr>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -18,7 +18,7 @@
  */
 
 /**
- *   	\file       ovh/sms.php
+ *   	\file       htdocs/ovh/sms_thirdparty.php
  *		\ingroup    ovh
  *		\brief
  */
@@ -50,6 +50,7 @@ if ($user->societe_id > 0)
 }
 
 // Activate error interceptions
+/*
 function traitementErreur($code, $message, $fichier, $ligne, $contexte)
 {
     if (error_reporting() & $code) {
@@ -57,7 +58,7 @@ function traitementErreur($code, $message, $fichier, $ligne, $contexte)
     }
 }
 set_error_handler('traitementErreur');
-
+*/
 
 
 /*******************************************************************

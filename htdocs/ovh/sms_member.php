@@ -51,6 +51,7 @@ if ($user->societe_id > 0)
 }
 
 // Activate error interceptions
+/*
 function traitementErreur($code, $message, $fichier, $ligne, $contexte)
 {
     if (error_reporting() & $code) {
@@ -58,7 +59,7 @@ function traitementErreur($code, $message, $fichier, $ligne, $contexte)
     }
 }
 set_error_handler('traitementErreur');
-
+*/
 
 
 /*******************************************************************
