@@ -23,7 +23,7 @@
  *   \file       htdocs/cabinetmed/examautre.php
  *   \brief      Tab for examens other
  *   \ingroup    cabinetmed
- *   \version    $Id: examautre.php,v 1.15 2011/05/01 19:01:32 eldy Exp $
+ *   \version    $Id: examautre.php,v 1.16 2011/05/01 23:58:17 eldy Exp $
  */
 
 $res=0;
@@ -276,7 +276,9 @@ if ($socid > 0)
                     }
                     else
                     {
-                        jQuery("#examsec").append(t+"\n");
+                        var box = jQuery("#examsec");
+                        u=box.val() + (box.val() != \'\' ? "\n" : \'\') + t;
+                        box.val(u); box.html(u);
                         jQuery(".ui-autocomplete-input").val("");
                         jQuery(".ui-autocomplete-input").text("");
                         jQuery("#listexam").get(0).selectedIndex = 0;
@@ -297,7 +299,9 @@ if ($socid > 0)
                 var t=jQuery("#listexamconc").children( ":selected" ).text();
                 if (t != "")
                 {
-                    jQuery("#examconcsec").append(t+"\n");
+                    var box = jQuery("#examconcsec");
+                    u=box.val() + (box.val() != \'\' ? "\n" : \'\') + t;
+                    box.val(u); box.html(u);
                     jQuery(".ui-autocomplete-input").val("");
                     jQuery(".ui-autocomplete-input").text("");
                     jQuery("#listexamconc").get(0).selectedIndex = 0;
@@ -377,7 +381,7 @@ if ($socid > 0)
         print '</td></tr>';
         print '<tr><td valign="top">Secondaires:';
         print '</td><td>';
-        print '<textarea class="flat" name="examsec" id="examsec" cols="46" rows="'._ROWS_5.'">';
+        print '<textarea class="flat" name="examsec" id="examsec" cols="46" rows="'.ROWS_5.'">';
         print $examother->examsec;
         print '</textarea>';
         print '</td>';
@@ -400,7 +404,7 @@ if ($socid > 0)
         print '</td></tr>';
         print '<tr><td valign="top">Secondaires:';
         print '</td><td>';
-        print '<textarea class="flat" name="examconcsec" id="examconcsec" cols="46" rows="'._ROWS_5.'">';
+        print '<textarea class="flat" name="examconcsec" id="examconcsec" cols="46" rows="'.ROWS_5.'">';
         print $examother->concsec;
         print '</textarea>';
         print '</td>';
@@ -542,5 +546,5 @@ if ($action == '' || $action == 'delete')
 
 $db->close();
 
-llxFooter('$Date: 2011/05/01 19:01:32 $ - $Revision: 1.15 $');
+llxFooter('$Date: 2011/05/01 23:58:17 $ - $Revision: 1.16 $');
 ?>

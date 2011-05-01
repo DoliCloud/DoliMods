@@ -20,7 +20,7 @@
  *   \file       htdocs/cabinetmed/consultations.php
  *   \brief      Tab for consultations
  *   \ingroup    cabinetmed
- *   \version    $Id: consultations.php,v 1.22 2011/05/01 19:01:32 eldy Exp $
+ *   \version    $Id: consultations.php,v 1.23 2011/05/01 23:58:17 eldy Exp $
  */
 
 $res=0;
@@ -463,7 +463,9 @@ if ($socid > 0)
                     }
                     else
                     {
-                        jQuery("#motifconssec").append(t+"\n");
+                        var box = jQuery("#motifconssec");
+                        u=box.val() + (box.val() != \'\' ? "\n" : \'\') + t;
+                        box.val(u); box.html(u);
                         jQuery(".ui-autocomplete-input").val("");
                         jQuery(".ui-autocomplete-input").text("");
                         jQuery("#listmotifcons").get(0).selectedIndex = 0;
@@ -486,7 +488,9 @@ if ($socid > 0)
                 var t=jQuery("#listdiagles").children( ":selected" ).text();
                 if (t != "")
                 {
-                    jQuery("#diaglessec").append(t+"\n");
+                    var box = jQuery("#diaglessec");
+                    u=box.val() + (box.val() != \'\' ? "\n" : \'\') + t;
+                    box.val(u); box.html(u);
                     jQuery(".ui-autocomplete-input").val("");
                     jQuery(".ui-autocomplete-input").text("");
                     jQuery("#listmotifcons").get(0).selectedIndex = 0;
@@ -497,7 +501,9 @@ if ($socid > 0)
                 var t=jQuery("#listexamenprescrit").children( ":selected" ).text();
                 if (t != "")
                 {
-                    jQuery("#examenprescrit").append(t+"\n");
+                    var box = jQuery("#examenprescrit");
+                    u=box.val() + (box.val() != \'\' ? "\n" : \'\') + t;
+                    box.val(u); box.html(u);
                     jQuery(".ui-autocomplete-input").val("");
                     jQuery(".ui-autocomplete-input").text("");
                     jQuery("#listexamenprescrit").get(0).selectedIndex = 0;
@@ -947,5 +953,5 @@ if ($action == '' || $action == 'delete')
 
 $db->close();
 
-llxFooter('$Date: 2011/05/01 19:01:32 $ - $Revision: 1.22 $');
+llxFooter('$Date: 2011/05/01 23:58:17 $ - $Revision: 1.23 $');
 ?>
