@@ -12,7 +12,7 @@
  *      \file       htdocs/includes/modules/modGoogle.class.php
  *      \ingroup    google
  *      \brief      Description and activation file for module Google
- *		\version	$Id: modGoogle.class.php,v 1.16 2011/04/27 18:13:37 eldy Exp $
+ *		\version	$Id: modGoogle.class.php,v 1.17 2011/05/01 16:55:27 eldy Exp $
  */
 include_once(DOL_DOCUMENT_ROOT ."/includes/modules/DolibarrModules.class.php");
 
@@ -75,7 +75,7 @@ class modGoogle extends DolibarrModules
         // Tabs
 		$this->tabs = array('thirdparty:+gmaps:GMaps:@google:$conf->google->enabled&&$conf->global->GOOGLE_ENABLE_GMAPS:/google/gmaps.php?mode=thirdparty&id=__ID__',
 							'contact:+gmaps:GMaps:@google:$conf->google->enabled&&$conf->global->GOOGLE_ENABLE_GMAPS_CONTACTS:/google/gmaps.php?mode=contact&id=__ID__',
-							'member:+gmaps:GMaps:@google:$conf->google->enabled&&$conf->global->GOOGLE_ENABLE_GMAPS_CONTACTS:/google/gmaps.php?mode=member&id=__ID__',
+							'member:+gmaps:GMaps:@google:$conf->google->enabled&&$conf->global->GOOGLE_ENABLE_GMAPS_MEMBERS:/google/gmaps.php?mode=member&id=__ID__',
 						);
 
         // Boxes
