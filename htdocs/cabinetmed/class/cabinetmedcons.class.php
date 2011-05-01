@@ -20,7 +20,7 @@
  *      \file       cabinetmed/class/cabinetmedcons.class.php
  *      \ingroup    cabinetmed
  *      \brief      This file is an example for a CRUD class file (Create/Read/Update/Delete)
- *		\version    $Id: cabinetmedcons.class.php,v 1.5 2011/05/01 14:02:23 eldy Exp $
+ *		\version    $Id: cabinetmedcons.class.php,v 1.6 2011/05/01 18:52:56 eldy Exp $
  *		\remarks	Initialy built by build_class_from_table on 2011-02-02 22:30
  */
 
@@ -570,5 +570,31 @@ class CabinetmedCons extends CommonObject
 
 	}
 
+
+    /**
+     *      Return a link on thirdparty (with picto)
+     *      @param      withpicto       Inclut le picto dans le lien (0=No picto, 1=Inclut le picto dans le lien, 2=Picto seul)
+     *      @param      more            Add more param on url
+     *      @return     string          String with URL
+     */
+    function getNomUrl($withpicto=0,$more='')
+    {
+        global $conf,$langs;
+
+        $result='';
+        $lien=$lienfin='';
+
+        $lien = '<a href="'.dol_buildpath('/cabinetmed/consultations.php',1).'?socid='.$this->fk_soc.'&amp;id='.$this->id.'&amp;action=edit';
+        if ($more) $lien.=$more;
+        // Add type of canvas
+        $lien.=(!empty($this->canvas)?'&amp;canvas='.$this->canvas:'').'">';
+        $lienfin='</a>';
+
+        if ($withpicto) $result.=($lien.img_object($langs->trans("ShowConsult").': '.sprintf('%08d',$this->id),'generic').$lienfin);
+        if ($withpicto && $withpicto != 2) $result.=' ';
+        $result.=$lien.sprintf('%08d',$this->id).$lienfin;
+
+        return $result;
+    }
 }
 ?>

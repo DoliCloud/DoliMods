@@ -22,7 +22,7 @@
  *	\file       htdocs/cabinetmed/listconsult.php
  *	\ingroup    cabinetmed
  *	\brief      List of consultation
- *	\version    $Id: listconsult.php,v 1.6 2011/04/30 01:22:02 eldy Exp $
+ *	\version    $Id: listconsult.php,v 1.7 2011/05/01 18:52:55 eldy Exp $
  */
 
 
@@ -34,6 +34,7 @@ if (! $res && file_exists("../../../../dolibarr/htdocs/main.inc.php")) $res=@inc
 if (! $res && file_exists("../../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
 if (! $res) die("Include of main fails");
 require_once(DOL_DOCUMENT_ROOT."/core/class/html.formother.class.php");
+include_once("./class/cabinetmedcons.class.php");
 
 $langs->load("companies");
 $langs->load("customers");
@@ -70,6 +71,8 @@ $search_categ = GETPOST("search_categ");
 
 $htmlother=new FormOther($db);
 $thirdpartystatic=new Societe($db);
+$consultstatic = new CabinetmedCons($db);
+
 
 llxHeader();
 
@@ -89,7 +92,7 @@ if (GETPOST("button_removefilter_x"))
 
 $sql = "SELECT s.rowid, s.nom as name, s.client, s.ville, st.libelle as stcomm, s.prefix_comm, s.code_client,";
 $sql.= " s.datec, s.datea, s.canvas,";
-$sql.= " c.datecons, c.typepriseencharge, c.typevisit, c.motifconsprinc, c.diaglesprinc, c.examenprescrit, c.traitementprescrit";
+$sql.= " c.rowid as cid, c.datecons, c.typepriseencharge, c.typevisit, c.motifconsprinc, c.diaglesprinc, c.examenprescrit, c.traitementprescrit";
 // We'll need these fields in order to filter by sale (including the case where the user can only see his prospects)
 if ($search_sale) $sql .= ", sc.fk_soc, sc.fk_user";
 // We'll need these fields in order to filter by categ
@@ -181,7 +184,8 @@ if ($result)
 	print '<tr class="liste_titre">';
 	print_liste_field_titre($langs->trans("Company"),$_SERVER["PHP_SELF"],"s.nom","",$param,"",$sortfield,$sortorder);
 	print_liste_field_titre($langs->trans("CustomerCode"),$_SERVER["PHP_SELF"],"s.code_client","",$param,"",$sortfield,$sortorder);
-	print_liste_field_titre($langs->trans("DateConsultation"),$_SERVER["PHP_SELF"],"c.datecons","",$param,'align="center"',$sortfield,$sortorder);
+    print_liste_field_titre($langs->trans("IdConsultShort"),$_SERVER["PHP_SELF"],"c.rowid","",$param,"",$sortfield,$sortorder);
+	print_liste_field_titre($langs->trans("DateConsultationShort"),$_SERVER["PHP_SELF"],"c.datecons","",$param,'align="center"',$sortfield,$sortorder);
     print_liste_field_titre($langs->trans('Prise en charge'),$_SERVER['PHP_SELF'],'c.typepriseencharge','',$param,'',$sortfield,$sortorder);
     print_liste_field_titre($langs->trans("MotifPrincipal"),$_SERVER["PHP_SELF"],"c.motifconsprinc","",$param,'',$sortfield,$sortorder);
 	print_liste_field_titre($langs->trans("DiagLesPrincipal"),$_SERVER["PHP_SELF"],"","",$param,'',$sortfield,$sortorder);
@@ -192,7 +196,7 @@ if ($result)
 	print '<td class="liste_titre">';
 	print '<input type="text" class="flat" size="8" name="search_nom" value="'.$search_nom.'">';
 	print '</td><td class="liste_titre">';
-	print '<input type="text" class="flat" size="8" name="search_code" value="'.$search_code.'" size="10">';
+	print '<input type="text" class="flat" size="8" name="search_code" value="'.$search_code.'">';
 	print '</td>';
 	print '<td class="liste_titre">';
 	print '&nbsp;';
@@ -201,6 +205,9 @@ if ($result)
 	print '&nbsp;';
 	print '</td>';
     print '<td class="liste_titre">';
+    print '&nbsp;';
+    print '</td>';
+	print '<td class="liste_titre">';
     print '&nbsp;';
     print '</td>';
     print '<td class="liste_titre">';
@@ -229,6 +236,11 @@ if ($result)
         print $thirdpartystatic->getNomUrl(1);
 		print '</td>';
 		print '<td>'.$obj->code_client.'</td>';
+        print '<td>';
+        $consultstatic->id=$obj->cid;
+        $consultstatic->fk_soc=$obj->rowid;
+        print $consultstatic->getNomUrl(1,'&amp;backtourl='.urlencode($_SERVER["PHP_SELF"]));
+        print '</td>';
 		print '<td align="center">'.dol_print_date($obj->datecons,'day').'</td>';
         print '<td>';
         print $obj->typepriseencharge;
@@ -258,5 +270,5 @@ else
 
 $db->close();
 
-llxFooter('$Date: 2011/04/30 01:22:02 $ - $Revision: 1.6 $');
+llxFooter('$Date: 2011/05/01 18:52:55 $ - $Revision: 1.7 $');
 ?>

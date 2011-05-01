@@ -22,7 +22,7 @@
  *	\file       htdocs/cabinetmed/patients.php
  *	\ingroup    commercial, societe
  *	\brief      List of customers
- *	\version    $Id: patients.php,v 1.2 2011/04/21 21:56:02 eldy Exp $
+ *	\version    $Id: patients.php,v 1.3 2011/05/01 18:52:55 eldy Exp $
  */
 
 $res=0;
@@ -183,19 +183,19 @@ if ($result)
 	print_liste_field_titre($langs->trans("Town"),$_SERVER["PHP_SELF"],"s.ville","",$param,"",$sortfield,$sortorder);
     print_liste_field_titre($langs->trans("Profession"),$_SERVER["PHP_SELF"],"s.idprof4","",$param,"",$sortfield,$sortorder);
     print_liste_field_titre($langs->trans("NbConsult"),$_SERVER["PHP_SELF"],"nb","",$param,'align="right"',$sortfield,$sortorder);
-    print_liste_field_titre($langs->trans("LastConsult"),$_SERVER["PHP_SELF"],"lastcons","",$param,'align="center"',$sortfield,$sortorder);
+    print_liste_field_titre($langs->trans("LastConsultShort"),$_SERVER["PHP_SELF"],"lastcons","",$param,'align="center"',$sortfield,$sortorder);
     print_liste_field_titre($langs->trans("DateCreation"),$_SERVER["PHP_SELF"],"datec","",$param,'align="right"',$sortfield,$sortorder);
 	print "</tr>\n";
 
 	print '<tr class="liste_titre">';
 	print '<td class="liste_titre">';
-	print '<input type="text" class="flat" name="search_nom" value="'.$search_nom.'">';
+	print '<input type="text" class="flat" size="8" name="search_nom" value="'.$search_nom.'">';
 	print '</td>';
     print '<td class="liste_titre">';
-    print '<input type="text" class="flat" name="search_code" value="'.$search_code.'" size="10">';
+    print '<input type="text" class="flat" size="8" name="search_code" value="'.$search_code.'">';
     print '</td>';
 	print '<td class="liste_titre">';
-	print '<input type="text" class="flat" name="search_ville" value="'.$search_ville.'" size="10">';
+	print '<input type="text" class="flat" size="8" name="search_ville" value="'.$search_ville.'">';
 	print '</td>';
     print '<td class="liste_titre">';
     print '&nbsp;';
@@ -251,5 +251,5 @@ else
 
 $db->close();
 
-llxFooter('$Date: 2011/04/21 21:56:02 $ - $Revision: 1.2 $');
+llxFooter('$Date: 2011/05/01 18:52:55 $ - $Revision: 1.3 $');
 ?>

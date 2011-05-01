@@ -20,7 +20,7 @@
  *   \file       htdocs/cabinetmed/consultations.php
  *   \brief      Tab for consultations
  *   \ingroup    cabinetmed
- *   \version    $Id: consultations.php,v 1.20 2011/05/01 16:45:00 eldy Exp $
+ *   \version    $Id: consultations.php,v 1.21 2011/05/01 18:52:55 eldy Exp $
  */
 
 $res=0;
@@ -76,7 +76,7 @@ if (GETPOST("action") == 'confirm_delete' && GETPOST("confirm") == 'yes' && $use
     $result = $consult->delete($user);
     if ($result >= 0)
     {
-        Header("Location: ".$_SERVER["PHP_SELF"].'?socid='.$socid);
+        header("Location: ".$_SERVER["PHP_SELF"].'?socid='.$socid);
         exit;
     }
     else
@@ -306,6 +306,11 @@ if ($action == 'add' || $action == 'update')
     }
     else
     {
+        if (GETPOST("backtourl"))
+        {
+            header("Location: ".GETPOST("backtourl"));
+            exit(0);
+        }
         $action='';
     }
 }
@@ -527,6 +532,7 @@ if ($socid > 0)
         if ($action=='edit')   print '<input type="hidden" name="action" value="update">';
         print '<input type="hidden" name="socid" value="'.$socid.'">';
         print '<input type="hidden" name="id" value="'.$id.'">';
+        print '<input type="hidden" name="backtourl" value="'.GETPOST('backtourl').'">';
 
         print '<fieldset id="fieldsetanalyse">';
         print '<legend>'.$langs->trans("InfoGenerales");
@@ -941,5 +947,5 @@ if ($action == '' || $action == 'delete')
 
 $db->close();
 
-llxFooter('$Date: 2011/05/01 16:45:00 $ - $Revision: 1.20 $');
+llxFooter('$Date: 2011/05/01 18:52:55 $ - $Revision: 1.21 $');
 ?>
