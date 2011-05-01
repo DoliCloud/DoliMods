@@ -20,7 +20,7 @@
  *      \file       cabinetmed/class/cabinetmedcons.class.php
  *      \ingroup    cabinetmed
  *      \brief      This file is an example for a CRUD class file (Create/Read/Update/Delete)
- *		\version    $Id: cabinetmedcons.class.php,v 1.4 2011/05/01 10:52:46 eldy Exp $
+ *		\version    $Id: cabinetmedcons.class.php,v 1.5 2011/05/01 14:02:23 eldy Exp $
  *		\remarks	Initialy built by build_class_from_table on 2011-02-02 22:30
  */
 
@@ -98,6 +98,7 @@ class CabinetmedCons extends CommonObject
 		if (isset($this->diaglesprinc)) $this->diagles=trim($this->diaglesprinc);
 		if (isset($this->motifconssec)) $this->motifconssec=trim($this->motifconssec);
 		if (isset($this->diaglessec)) $this->diaglessec=trim($this->diaglessec);
+        if (isset($this->hdm)) $this->hdm=trim($this->hdm);
 		if (isset($this->examenclinique)) $this->examenclinique=trim($this->examenclinique);
 		if (isset($this->examenprescrit)) $this->examenprescrit=trim($this->examenprescrit);
 		if (isset($this->traitementprescrit)) $this->traitementprescrit=trim($this->traitementprescrit);
@@ -126,6 +127,7 @@ class CabinetmedCons extends CommonObject
 		$sql.= "diaglesprinc,";
 		$sql.= "motifconssec,";
 		$sql.= "diaglessec,";
+		$sql.= "hdm,";
 		$sql.= "examenclinique,";
 		$sql.= "examenprescrit,";
 		$sql.= "traitementprescrit,";
@@ -149,7 +151,8 @@ class CabinetmedCons extends CommonObject
 		$sql.= " ".(! isset($this->diaglesprinc)?'NULL':"'".addslashes($this->diaglesprinc)."'").",";
 		$sql.= " ".(! isset($this->motifconssec)?'NULL':"'".addslashes($this->motifconssec)."'").",";
 		$sql.= " ".(! isset($this->diaglessec)?'NULL':"'".addslashes($this->diaglessec)."'").",";
-		$sql.= " ".(! isset($this->examenclinique)?'NULL':"'".addslashes($this->examenclinique)."'").",";
+		$sql.= " ".(! isset($this->hdm)?'NULL':"'".addslashes($this->hdm)."'").",";
+        $sql.= " ".(! isset($this->examenclinique)?'NULL':"'".addslashes($this->examenclinique)."'").",";
 		$sql.= " ".(! isset($this->examenprescrit)?'NULL':"'".addslashes($this->examenprescrit)."'").",";
 		$sql.= " ".(! isset($this->traitementprescrit)?'NULL':"'".addslashes($this->traitementprescrit)."'").",";
 		$sql.= " ".(! isset($this->comment)?'NULL':"'".addslashes($this->comment)."'").",";
