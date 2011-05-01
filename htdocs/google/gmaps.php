@@ -9,7 +9,7 @@
  *       \file       htdocs/google/gmaps.php
  *       \ingroup    google
  *       \brief      Main google area page
- *       \version    $Id: gmaps.php,v 1.8 2011/05/01 19:24:27 eldy Exp $
+ *       \version    $Id: gmaps.php,v 1.9 2011/05/01 19:31:24 eldy Exp $
  *       \author     Laurent Destailleur
  */
 
@@ -109,7 +109,7 @@ if ($adresse && $adresse != $obj->pays)
 	}
 
   function codeAddress() {
-    var address = "<?php print dol_escape_js($adresse); ?>";
+    var address = '<?php print dol_escape_js(dol_string_nospecial($adresse,' ',array("\n","\r"))); ?>';
     geocoder.geocode( { 'address': address}, function(results, status) {
       if (status == google.maps.GeocoderStatus.OK) {
         map.setCenter(results[0].geometry.location);
