@@ -9,7 +9,7 @@
  *       \file       htdocs/google/gmaps.php
  *       \ingroup    google
  *       \brief      Main google area page
- *       \version    $Id: gmaps.php,v 1.6 2011/05/01 10:52:46 eldy Exp $
+ *       \version    $Id: gmaps.php,v 1.7 2011/05/01 19:23:18 eldy Exp $
  *       \author     Laurent Destailleur
  */
 
@@ -21,7 +21,7 @@ require_once(DOL_DOCUMENT_ROOT."/contact/class/contact.class.php");
 
 $mode=GETPOST('mode');
 $adresse='';
-	
+
 // Load third party
 if (empty($mode) || $mode=='thirdparty')
 {
@@ -109,7 +109,7 @@ if ($adresse && $adresse != $obj->pays)
 	}
 
   function codeAddress() {
-    var address = "<?php print($adresse); ?>";
+    var address = "<?php dol_escape_js($adresse); ?>";
     geocoder.geocode( { 'address': address}, function(results, status) {
       if (status == google.maps.GeocoderStatus.OK) {
         map.setCenter(results[0].geometry.location);
@@ -144,7 +144,7 @@ if ($adresse && $adresse != $obj->pays)
 }
 else
 {
-	print $langs->trans("GoogleAddressNotDefined");	
+	print $langs->trans("GoogleAddressNotDefined");
 }
 
 dol_fiche_end();
