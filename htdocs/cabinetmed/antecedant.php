@@ -23,7 +23,7 @@
  *   \file       htdocs/cabinetmed/antecedant.php
  *   \brief      Tab for antecedants
  *   \ingroup    societe
- *   \version    $Id: antecedant.php,v 1.5 2011/04/21 22:30:15 eldy Exp $
+ *   \version    $Id: antecedant.php,v 1.6 2011/05/01 19:01:32 eldy Exp $
  */
 
 $res=0;
@@ -80,7 +80,7 @@ if ($action == 'addupdate')
 
 $form = new Form($db);
 
-llxHeader();
+llxHeader('',$langs->trans("ATCD"));
 
 
 if ($socid > 0)
@@ -257,5 +257,5 @@ if ($mesg) dol_htmloutput_mesg($mesg);
 
 $db->close();
 
-llxFooter('$Date: 2011/04/21 22:30:15 $ - $Revision: 1.5 $');
+llxFooter('$Date: 2011/05/01 19:01:32 $ - $Revision: 1.6 $');
 ?>

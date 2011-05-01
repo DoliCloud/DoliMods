@@ -20,7 +20,7 @@
  *   \file       htdocs/cabinetmed/consultations.php
  *   \brief      Tab for consultations
  *   \ingroup    cabinetmed
- *   \version    $Id: consultations.php,v 1.21 2011/05/01 18:52:55 eldy Exp $
+ *   \version    $Id: consultations.php,v 1.22 2011/05/01 19:01:32 eldy Exp $
  */
 
 $res=0;
@@ -324,7 +324,7 @@ if ($action == 'add' || $action == 'update')
 $form = new Form($db);
 $width="242";
 
-llxHeader();
+llxHeader('',$langs->trans("Consultation"));
 
 if ($socid > 0)
 {
@@ -947,5 +947,5 @@ if ($action == '' || $action == 'delete')
 
 $db->close();
 
-llxFooter('$Date: 2011/05/01 18:52:55 $ - $Revision: 1.21 $');
+llxFooter('$Date: 2011/05/01 19:01:32 $ - $Revision: 1.22 $');
 ?>

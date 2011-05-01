@@ -23,7 +23,7 @@
  *   \file       htdocs/cabinetmed/exambio.php
  *   \brief      Tab for examens bio
  *   \ingroup    cabinetmed
- *   \version    $Id: exambio.php,v 1.13 2011/05/01 16:45:00 eldy Exp $
+ *   \version    $Id: exambio.php,v 1.14 2011/05/01 19:01:32 eldy Exp $
  */
 
 $res=0;
@@ -183,7 +183,7 @@ if ($action == 'add' || $action == 'update')
 $form = new Form($db);
 $width="242";
 
-llxHeader();
+llxHeader('',$langs->trans("ResultExamBio"));
 
 if ($socid > 0)
 {
@@ -610,5 +610,5 @@ if ($action == '' || $action == 'delete')
 
 $db->close();
 
-llxFooter('$Date: 2011/05/01 16:45:00 $ - $Revision: 1.13 $');
+llxFooter('$Date: 2011/05/01 19:01:32 $ - $Revision: 1.14 $');
 ?>

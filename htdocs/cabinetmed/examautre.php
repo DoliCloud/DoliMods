@@ -23,7 +23,7 @@
  *   \file       htdocs/cabinetmed/examautre.php
  *   \brief      Tab for examens other
  *   \ingroup    cabinetmed
- *   \version    $Id: examautre.php,v 1.14 2011/05/01 16:45:00 eldy Exp $
+ *   \version    $Id: examautre.php,v 1.15 2011/05/01 19:01:32 eldy Exp $
  */
 
 $res=0;
@@ -180,7 +180,7 @@ if ($action == 'add' || $action == 'update')
 $form = new Form($db);
 $width="328";
 
-llxHeader();
+llxHeader('',$langs->trans("ResultExamAutre"));
 
 if ($socid > 0)
 {
@@ -542,5 +542,5 @@ if ($action == '' || $action == 'delete')
 
 $db->close();
 
-llxFooter('$Date: 2011/05/01 16:45:00 $ - $Revision: 1.14 $');
+llxFooter('$Date: 2011/05/01 19:01:32 $ - $Revision: 1.15 $');
 ?>
