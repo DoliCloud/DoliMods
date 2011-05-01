@@ -23,7 +23,7 @@
  *   \file       htdocs/cabinetmed/examautre.php
  *   \brief      Tab for examens other
  *   \ingroup    cabinetmed
- *   \version    $Id: examautre.php,v 1.13 2011/05/01 10:52:46 eldy Exp $
+ *   \version    $Id: examautre.php,v 1.14 2011/05/01 16:45:00 eldy Exp $
  */
 
 $res=0;
@@ -146,6 +146,7 @@ if ($action == 'add' || $action == 'update')
             }
             if ($result < 0)
             {
+                $mesgarray[]=$examother->error;
                 $error++;
             }
         }
@@ -245,7 +246,7 @@ if ($socid > 0)
         print '<script type="text/javascript">
         var changed=false;
         jQuery(function() {
-            jQuery(window).bind(\'beforeunload\', function(){ 
+            jQuery(window).bind(\'beforeunload\', function(){
 				/* alert(changed); */
             	if (changed) return \''.dol_escape_js($langs->transnoentitiesnoconv("WarningExitPageWithoutSaving")).'\';
 			});
@@ -338,9 +339,9 @@ if ($socid > 0)
         print '</legend>'."\n";
 
         print '<table class="notopnoleftnoright" width="100%">';
-        print '<tr><td width="60%">';
+        print '<tr><td width="60%" class="fieldrequired">';
         print $langs->trans("Date").': ';
-        $form->select_date($dateexam,'exam');
+        $form->select_date($examother->dateexam,'exam');
         print '</td><td>';
         print '</td></tr>';
 
@@ -541,5 +542,5 @@ if ($action == '' || $action == 'delete')
 
 $db->close();
 
-llxFooter('$Date: 2011/05/01 10:52:46 $ - $Revision: 1.13 $');
+llxFooter('$Date: 2011/05/01 16:45:00 $ - $Revision: 1.14 $');
 ?>
