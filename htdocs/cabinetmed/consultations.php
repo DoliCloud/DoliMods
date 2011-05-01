@@ -20,7 +20,7 @@
  *   \file       htdocs/cabinetmed/consultations.php
  *   \brief      Tab for consultations
  *   \ingroup    cabinetmed
- *   \version    $Id: consultations.php,v 1.18 2011/04/30 01:03:48 eldy Exp $
+ *   \version    $Id: consultations.php,v 1.19 2011/05/01 10:52:46 eldy Exp $
  */
 
 $res=0;
@@ -200,10 +200,11 @@ if ($action == 'add' || $action == 'update')
                 $societe = new Societe($db);
                 $societe->fetch($consult->fk_soc);
 
-                if ($conf->banque->enabled)
+                if ($conf->banque->enabled && $banque)
                 {
                     $bankaccount=new Account($db);
                     $result=$bankaccount->fetch($banque);
+                    if ($result < 0) dol_print_error($db,$bankaccount->error);
                     $lineid=$bankaccount->addline(dol_now(), $type, $langs->trans("CustomerInvoicePayment"), $amount, $consult->num_cheque, '', $user, $societe->nom, $consult->banque);
                     if ($lineid <= 0)
                     {
@@ -272,10 +273,11 @@ if ($action == 'add' || $action == 'update')
                     if (! empty($_POST["montant_espece"])) $type='LIQ';
                     if (! empty($_POST["montant_tiers"])) $type='VIR';
 
-                    if ($conf->banque->enabled)
+                    if ($conf->banque->enabled && $banque)
                     {
                         $bankaccount=new Account($db);
                         $result=$bankaccount->fetch($banque);
+                    	if ($result < 0) dol_print_error($db,$bankaccount->error);
                         $lineid=$bankaccount->addline(dol_now(), $type, $langs->trans("CustomerInvoicePayment"), $amount, $consult->num_cheque, '', $user, $societe->nom, $consult->banque);
                         $result1=$bankaccount->add_url_line($lineid,$consult->id,dol_buildpath('/cabinetmed/consultations.php',1).'?action=edit&socid='.$consult->fk_soc.'&id=','Consultation','consultation');
                         $result2=$bankaccount->add_url_line($lineid,$consult->fk_soc,'',$societe->nom,'company');
@@ -382,11 +384,17 @@ if ($socid > 0)
         print '<script type="text/javascript">
         var changed=false;
         jQuery(function() {
-            jQuery(".flat").change(function () {
- 				/*alert(\'ee\');*/
+            jQuery(window).bind(\'beforeunload\', function(){ 
+				/* alert(changed); */
+            	if (changed) return \''.dol_escape_js($langs->transnoentitiesnoconv("WarningExitPageWithoutSaving")).'\';
+			});
+        	jQuery(".flat").change(function () {
  				changed=true;
     		});
- 			jQuery("#cs").click(function () {
+            jQuery(".ignorechange").click(function () {
+ 				changed=false;
+    		});
+    		jQuery("#cs").click(function () {
                 jQuery("#codageccam").attr(\'disabled\', \'disabled\');
             });
             jQuery("#c2").click(function () {
@@ -491,10 +499,6 @@ if ($socid > 0)
  					changed=true;
     			}
             });
-            jQuery(window).bind(\'beforeunload\', function(){ 
-				/* alert(changed); */
-            	if (changed) return \''.dol_escape_js($langs->transnoentitiesnoconv("WarningExitPageWithoutSaving")).'\';
-			});
         });
         </script>
 
@@ -580,7 +584,7 @@ if ($socid > 0)
         print '</td></tr>';
         print '<tr><td valign="top">Secondaires:';
         print '</td><td>';
-        print '<textarea name="motifconssec" id="motifconssec" cols="40" rows="'.ROWS_3.'">';
+        print '<textarea class="flat" name="motifconssec" id="motifconssec" cols="40" rows="'.ROWS_3.'">';
         print $consult->motifconssec;
         print '</textarea>';
         print '</td>';
@@ -612,7 +616,7 @@ if ($socid > 0)
         print '</td></tr>';
         print '<tr><td valign="top">Secondaires:';
         print '</td><td>';
-        print '<textarea name="diaglessec" id="diaglessec" cols="40" rows="'.ROWS_3.'">';
+        print '<textarea class="flat" name="diaglessec" id="diaglessec" cols="40" rows="'.ROWS_3.'">';
         print $consult->diaglessec;
         print '</textarea>';
         print '</td>';
@@ -650,7 +654,7 @@ if ($socid > 0)
         print '</td></tr>';
         print '<tr><td valign="top">';
         print '</td><td>';
-        print '<textarea name="examenprescrit" id="examenprescrit" cols="40" rows="'.ROWS_4.'">';
+        print '<textarea class="flat" name="examenprescrit" id="examenprescrit" cols="40" rows="'.ROWS_4.'">';
         print $consult->examenprescrit;
         print '</textarea>';
         print '</td>';
@@ -756,14 +760,14 @@ if ($socid > 0)
         print '<center>';
         if ($action == 'edit')
         {
-            print '<input type="submit" class="button" name="update" value="'.$langs->trans("Save").'">';
+            print '<input type="submit" class="button ignorechange" id="updatebutton" name="update" value="'.$langs->trans("Save").'">';
         }
         if ($action == 'create')
         {
-            print '<input type="submit" class="button" name="add" value="'.$langs->trans("Add").'">';
+            print '<input type="submit" class="button ignorechange" id="addbutton" name="add" value="'.$langs->trans("Add").'">';
         }
         print ' &nbsp; &nbsp; ';
-        print '<input type="submit" class="button" name="cancel" value="'.$langs->trans("Cancel").'">';
+        print '<input type="submit" class="button ignorechange" id="cancelbutton" name="cancel" value="'.$langs->trans("Cancel").'">';
         print '</center>';
         print '</form>';
     }
@@ -937,5 +941,5 @@ if ($action == '' || $action == 'delete')
 
 $db->close();
 
-llxFooter('$Date: 2011/04/30 01:03:48 $ - $Revision: 1.18 $');
+llxFooter('$Date: 2011/05/01 10:52:46 $ - $Revision: 1.19 $');
 ?>

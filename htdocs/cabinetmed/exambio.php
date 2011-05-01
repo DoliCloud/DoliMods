@@ -21,9 +21,9 @@
 
 /**
  *   \file       htdocs/cabinetmed/exambio.php
- *   \brief      Tab for consultations
+ *   \brief      Tab for examens bio
  *   \ingroup    cabinetmed
- *   \version    $Id: exambio.php,v 1.11 2011/04/21 22:34:55 eldy Exp $
+ *   \version    $Id: exambio.php,v 1.12 2011/05/01 10:52:46 eldy Exp $
  */
 
 $res=0;
@@ -365,8 +365,19 @@ if ($socid > 0)
         $nboflines=4;
 
         print '<script type="text/javascript">
+        var changed=false;
         jQuery(function() {
-            jQuery("#addmotifprinc").click(function () {
+            jQuery(window).bind(\'beforeunload\', function(){ 
+				/* alert(changed); */
+            	if (changed) return \''.dol_escape_js($langs->transnoentitiesnoconv("WarningExitPageWithoutSaving")).'\';
+			});
+            jQuery(".flat").change(function () {
+ 				changed=true;
+    		});
+            jQuery(".ignorechange").click(function () {
+ 				changed=false;
+    		});
+        	jQuery("#addmotifprinc").click(function () {
                 /*alert(jQuery("#listmotifcons option:selected" ).val());
                 alert(jQuery("#listmotifcons option:selected" ).text());*/
                 var t=jQuery("#listmotifcons").children( ":selected" ).text();
@@ -471,7 +482,7 @@ if ($socid > 0)
         print '<table class="notopnoleftnoright" width="100%">';
         print '<tr><td valign="top" width="160">';
         print $langs->trans("Result").':<br>';
-        print '<textarea name="result" id="result" cols="60" rows="'.ROWS_9.'">';
+        print '<textarea class="flat" name="result" id="result" cols="60" rows="'.ROWS_9.'">';
         print $exambio->result;
         print '</textarea>';
         print '</td>';
@@ -481,14 +492,14 @@ if ($socid > 0)
         print '</td><td valign="top">';
 
         print $langs->trans("Conclusion").':<br>';
-        print '<textarea name="conclusion" id="conclusion" cols="60" rows="'.ROWS_4.'">';
+        print '<textarea class="flat" name="conclusion" id="conclusion" cols="60" rows="'.ROWS_4.'">';
         print $exambio->conclusion;
         print '</textarea>';
 
         print '<br>';
 
         print $langs->trans("Comment").':<br>';
-        print '<textarea name="comment" id="comment" cols="60" rows="'.ROWS_4.'">';
+        print '<textarea class="flat" name="comment" id="comment" cols="60" rows="'.ROWS_4.'">';
         print $exambio->comment;
         print '</textarea>';
 
@@ -510,14 +521,14 @@ if ($socid > 0)
         print '<center>';
         if ($action == 'edit')
         {
-            print '<input type="submit" class="button" name="update" value="'.$langs->trans("Save").'">';
+            print '<input type="submit" class="button ignorechange" name="update" value="'.$langs->trans("Save").'">';
         }
         if ($action == 'create')
         {
-            print '<input type="submit" class="button" name="add" value="'.$langs->trans("Add").'">';
+            print '<input type="submit" class="button ignorechange" name="add" value="'.$langs->trans("Add").'">';
         }
         print ' &nbsp; &nbsp; ';
-        print '<input type="submit" class="button" name="cancel" value="'.$langs->trans("Cancel").'">';
+        print '<input type="submit" class="button ignorechange" name="cancel" value="'.$langs->trans("Cancel").'">';
         print '</center>';
         print '</form>';
     }
@@ -672,5 +683,5 @@ if ($action == '' || $action == 'delete')
 
 $db->close();
 
-llxFooter('$Date: 2011/04/21 22:34:55 $ - $Revision: 1.11 $');
+llxFooter('$Date: 2011/05/01 10:52:46 $ - $Revision: 1.12 $');
 ?>

@@ -26,7 +26,7 @@
  *      \file       htdocs/includes/modules/modCabinetMed.class.php
  *      \ingroup    cabinetmed
  *      \brief      Description and activation file for module CabinetMed
- *      \version    $Id: modCabinetMed.class.php,v 1.23 2011/04/17 11:53:45 eldy Exp $
+ *      \version    $Id: modCabinetMed.class.php,v 1.24 2011/05/01 10:52:43 eldy Exp $
  */
 include_once(DOL_DOCUMENT_ROOT ."/includes/modules/DolibarrModules.class.php");
 
@@ -88,6 +88,8 @@ class modCabinetMed extends DolibarrModules
         $this->langfiles = array('cabinetmed@cabinetmed','companies');
 
         // Constants
+        // Example: $this->const=array(0=>array('MODULE_MY_NEW_CONST1','chaine','myvalue','This is a constant to add',1),
+        //                             1=>array('MODULE_MY_NEW_CONST2','chaine','myvalue','This is another constant to add',1) );
         $this->const = array(0=>array('SOCIETE_DISABLE_PROSPECTS','chaine','1','Disable all prospects features',1,'current',1),
                              1=>array('SOCIETE_DISABLE_CONTACTS','chaine','1','Disable contacts features',1,'current',1),
                              2=>array('SOCIETE_DISABLE_CUSTOMERS','chaine','1','Disable all customers features',1,'current',1),
@@ -104,9 +106,8 @@ class modCabinetMed extends DolibarrModules
                             12=>array('MAIN_MENUFRONT_STANDARD_FORCED','chaine','cabinetmed_frontoffice.php','Force menu handler to this value',1,'current',1),
                             13=>array('MAIN_MENU_SMARTPHONE_FORCED','chaine','cabinetmed_backoffice.php','Force menu handler to this value',1,'current',1),
                             14=>array('MAIN_MENUFRONT_SMARTPHONE_FORCED','chaine','cabinetmed_frontoffice.php','Force menu handler to this value',1,'current',1),
+                            15=>array('MAIN_USE_JQUERY_JNOTIFY','chaine','1','Use jnotify boxes for error messages',1,'current'),
                             );
-        //Example: $this->const=array(0=>array('MODULE_MY_NEW_CONST1','chaine','myvalue','This is a constant to add',1),
-        //                            1=>array('MODULE_MY_NEW_CONST2','chaine','myvalue','This is another constant to add',1) );
 
         // Array to add new pages in new tabs
         $this->tabs = array('thirdparty:+tabcontacts:Correspondants:@cabinetmed:/cabinetmed/contact.php?socid=__ID__',

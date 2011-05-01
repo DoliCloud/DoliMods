@@ -20,10 +20,10 @@
  */
 
 /**
- *   \file       htdocs/cabinetmed/exambio.php
- *   \brief      Tab for consultations
+ *   \file       htdocs/cabinetmed/examautre.php
+ *   \brief      Tab for examens other
  *   \ingroup    cabinetmed
- *   \version    $Id: examautre.php,v 1.12 2011/04/21 22:34:55 eldy Exp $
+ *   \version    $Id: examautre.php,v 1.13 2011/05/01 10:52:46 eldy Exp $
  */
 
 $res=0;
@@ -119,12 +119,12 @@ if ($action == 'add' || $action == 'update')
         if (empty($examother->examprinc))
         {
             $error++;
-            $mesgarray[]=$langs->trans("ErrorFieldRequired",$langs->transnoentities("ExamenPrinc"));
+            $mesgarray[]=$langs->trans("ErrorFieldRequired",$langs->transnoentities("ExamenPrescrit"));
         }
         if (empty($examother->concprinc))
         {
             $error++;
-            $mesgarray[]=$langs->trans("ErrorFieldRequired",$langs->transnoentities("ExamenConcPrinc"));
+            $mesgarray[]=$langs->trans("ErrorFieldRequired",$langs->transnoentities("ExamenResultat"));
         }
         if (empty($dateexam))
         {
@@ -243,8 +243,19 @@ if ($socid > 0)
         $nboflines=4;
 
         print '<script type="text/javascript">
+        var changed=false;
         jQuery(function() {
-            jQuery("#addexamprinc").click(function () {
+            jQuery(window).bind(\'beforeunload\', function(){ 
+				/* alert(changed); */
+            	if (changed) return \''.dol_escape_js($langs->transnoentitiesnoconv("WarningExitPageWithoutSaving")).'\';
+			});
+            jQuery(".flat").change(function () {
+ 				changed=true;
+    		});
+            jQuery(".ignorechange").click(function () {
+ 				changed=false;
+    		});
+    		jQuery("#addexamprinc").click(function () {
                 var t=jQuery("#listexam").children( ":selected" ).text();
                 if (t != "")
                 {
@@ -365,7 +376,7 @@ if ($socid > 0)
         print '</td></tr>';
         print '<tr><td valign="top">Secondaires:';
         print '</td><td>';
-        print '<textarea name="examsec" id="examsec" cols="46" rows="'._ROWS_5.'">';
+        print '<textarea class="flat" name="examsec" id="examsec" cols="46" rows="'._ROWS_5.'">';
         print $examother->examsec;
         print '</textarea>';
         print '</td>';
@@ -388,7 +399,7 @@ if ($socid > 0)
         print '</td></tr>';
         print '<tr><td valign="top">Secondaires:';
         print '</td><td>';
-        print '<textarea name="examconcsec" id="examconcsec" cols="46" rows="'._ROWS_5.'">';
+        print '<textarea class="flat" name="examconcsec" id="examconcsec" cols="46" rows="'._ROWS_5.'">';
         print $examother->concsec;
         print '</textarea>';
         print '</td>';
@@ -412,14 +423,14 @@ if ($socid > 0)
         print '<center>';
         if ($action == 'edit')
         {
-            print '<input type="submit" class="button" name="update" value="'.$langs->trans("Save").'">';
+            print '<input type="submit" class="button ignorechange" name="update" value="'.$langs->trans("Save").'">';
         }
         if ($action == 'create')
         {
-            print '<input type="submit" class="button" name="add" value="'.$langs->trans("Add").'">';
+            print '<input type="submit" class="button ignorechange" name="add" value="'.$langs->trans("Add").'">';
         }
         print ' &nbsp; &nbsp; ';
-        print '<input type="submit" class="button" name="cancel" value="'.$langs->trans("Cancel").'">';
+        print '<input type="submit" class="button ignorechange" name="cancel" value="'.$langs->trans("Cancel").'">';
         print '</center>';
         print '</form>';
     }
@@ -530,5 +541,5 @@ if ($action == '' || $action == 'delete')
 
 $db->close();
 
-llxFooter('$Date: 2011/04/21 22:34:55 $ - $Revision: 1.12 $');
+llxFooter('$Date: 2011/05/01 10:52:46 $ - $Revision: 1.13 $');
 ?>

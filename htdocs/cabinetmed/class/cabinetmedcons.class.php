@@ -20,7 +20,7 @@
  *      \file       cabinetmed/class/cabinetmedcons.class.php
  *      \ingroup    cabinetmed
  *      \brief      This file is an example for a CRUD class file (Create/Read/Update/Delete)
- *		\version    $Id: cabinetmedcons.class.php,v 1.3 2011/04/17 11:04:01 eldy Exp $
+ *		\version    $Id: cabinetmedcons.class.php,v 1.4 2011/05/01 10:52:46 eldy Exp $
  *		\remarks	Initialy built by build_class_from_table on 2011-02-02 22:30
  */
 
@@ -43,18 +43,18 @@ class CabinetmedCons extends CommonObject
 	//var $element='cabinetmed_cons';			//!< Id that identify managed objects
 	//var $table_element='cabinetmed_cons';	//!< Name of table without prefix where object is stored
 
-    var $id;
+	var $id;
 
 	var $fk_soc;
 	var $datecons='';
 	var $typepriseencharge;
-    var $motifconsprinc;
-    var $diaglecprinc;
+	var $motifconsprinc;
+	var $diaglecprinc;
 	var $motifconssec;
 	var $diaglecsec;
 	var $examenclinique;
 	var $examenprescrit;
-    var $traitementprescrit;
+	var $traitementprescrit;
 	var $comment;
 	var $typevisit='CS';
 	var $infiltration;
@@ -64,30 +64,30 @@ class CabinetmedCons extends CommonObject
 	var $montant_carte;
 	var $montant_tiers;
 	var $banque;
-    var $num_cheque;
+	var $num_cheque;
 
 
 
-    /**
-     *      \brief      Constructor
-     *      \param      DB      Database handler
-     */
-    function CabinetmedCons($DB)
-    {
-        $this->db = $DB;
-        return 1;
-    }
+	/**
+	 *      \brief      Constructor
+	 *      \param      DB      Database handler
+	 */
+	function CabinetmedCons($DB)
+	{
+		$this->db = $DB;
+		return 1;
+	}
 
 
-    /**
-     *      \brief      Create in database
-     *      \param      user        	User that create
-     *      \param      notrigger	    0=launch triggers after, 1=disable triggers
-     *      \return     int         	<0 if KO, Id of created object if OK
-     */
-    function create($user, $notrigger=0)
-    {
-    	global $conf, $langs;
+	/**
+	 *      \brief      Create in database
+	 *      \param      user        	User that create
+	 *      \param      notrigger	    0=launch triggers after, 1=disable triggers
+	 *      \return     int         	<0 if KO, Id of created object if OK
+	 */
+	function create($user, $notrigger=0)
+	{
+		global $conf, $langs;
 		$error=0;
 
 		// Clean parameters
@@ -96,11 +96,11 @@ class CabinetmedCons extends CommonObject
 		if (isset($this->typepriseencharge)) $this->typepriseencharge=trim($this->typepriseencharge);
 		if (isset($this->motifconsprinc)) $this->motifconsprinc=trim($this->motifconsprinc);
 		if (isset($this->diaglesprinc)) $this->diagles=trim($this->diaglesprinc);
-        if (isset($this->motifconssec)) $this->motifconssec=trim($this->motifconssec);
-        if (isset($this->diaglessec)) $this->diaglessec=trim($this->diaglessec);
+		if (isset($this->motifconssec)) $this->motifconssec=trim($this->motifconssec);
+		if (isset($this->diaglessec)) $this->diaglessec=trim($this->diaglessec);
 		if (isset($this->examenclinique)) $this->examenclinique=trim($this->examenclinique);
 		if (isset($this->examenprescrit)) $this->examenprescrit=trim($this->examenprescrit);
-        if (isset($this->traitementprescrit)) $this->traitementprescrit=trim($this->traitementprescrit);
+		if (isset($this->traitementprescrit)) $this->traitementprescrit=trim($this->traitementprescrit);
 		if (isset($this->comment)) $this->comment=trim($this->comment);
 		if (isset($this->typevisit)) $this->typevisit=trim($this->typevisit);
 		if (isset($this->infiltration)) $this->infiltration=trim($this->infiltration);
@@ -116,7 +116,7 @@ class CabinetmedCons extends CommonObject
 		// Check parameters
 		// Put here code to add control on parameters values
 
-        // Insert request
+		// Insert request
 		$sql = "INSERT INTO ".MAIN_DB_PREFIX."cabinetmed_cons(";
 
 		$sql.= "fk_soc,";
@@ -124,11 +124,11 @@ class CabinetmedCons extends CommonObject
 		$sql.= "typepriseencharge,";
 		$sql.= "motifconsprinc,";
 		$sql.= "diaglesprinc,";
-        $sql.= "motifconssec,";
-        $sql.= "diaglessec,";
+		$sql.= "motifconssec,";
+		$sql.= "diaglessec,";
 		$sql.= "examenclinique,";
 		$sql.= "examenprescrit,";
-        $sql.= "traitementprescrit,";
+		$sql.= "traitementprescrit,";
 		$sql.= "comment,";
 		$sql.= "typevisit,";
 		$sql.= "infiltration,";
@@ -140,18 +140,18 @@ class CabinetmedCons extends CommonObject
 		$sql.= "banque";
 
 
-        $sql.= ") VALUES (";
+		$sql.= ") VALUES (";
 
 		$sql.= " ".(! isset($this->fk_soc)?'NULL':"'".$this->fk_soc."'").",";
 		$sql.= " ".(! isset($this->datecons) || dol_strlen($this->datecons)==0?'NULL':$this->db->idate($this->datecons)).",";
 		$sql.= " ".(! isset($this->typepriseencharge)?'NULL':"'".addslashes($this->typepriseencharge)."'").",";
 		$sql.= " ".(! isset($this->motifconsprinc)?'NULL':"'".addslashes($this->motifconsprinc)."'").",";
 		$sql.= " ".(! isset($this->diaglesprinc)?'NULL':"'".addslashes($this->diaglesprinc)."'").",";
-        $sql.= " ".(! isset($this->motifconssec)?'NULL':"'".addslashes($this->motifconssec)."'").",";
-        $sql.= " ".(! isset($this->diaglessec)?'NULL':"'".addslashes($this->diaglessec)."'").",";
+		$sql.= " ".(! isset($this->motifconssec)?'NULL':"'".addslashes($this->motifconssec)."'").",";
+		$sql.= " ".(! isset($this->diaglessec)?'NULL':"'".addslashes($this->diaglessec)."'").",";
 		$sql.= " ".(! isset($this->examenclinique)?'NULL':"'".addslashes($this->examenclinique)."'").",";
 		$sql.= " ".(! isset($this->examenprescrit)?'NULL':"'".addslashes($this->examenprescrit)."'").",";
-        $sql.= " ".(! isset($this->traitementprescrit)?'NULL':"'".addslashes($this->traitementprescrit)."'").",";
+		$sql.= " ".(! isset($this->traitementprescrit)?'NULL':"'".addslashes($this->traitementprescrit)."'").",";
 		$sql.= " ".(! isset($this->comment)?'NULL':"'".addslashes($this->comment)."'").",";
 		$sql.= " ".(! isset($this->typevisit)?'NULL':"'".addslashes($this->typevisit)."'").",";
 		$sql.= " ".(! isset($this->infiltration)?'NULL':"'".addslashes($this->infiltration)."'").",";
@@ -167,35 +167,35 @@ class CabinetmedCons extends CommonObject
 
 		$this->db->begin();
 
-	   	dol_syslog(get_class($this)."::create sql=".$sql, LOG_DEBUG);
-        $resql=$this->db->query($sql);
-    	if (! $resql) { $error++; $this->errors[]="Error ".$this->db->lasterror(); }
+		dol_syslog(get_class($this)."::create sql=".$sql, LOG_DEBUG);
+		$resql=$this->db->query($sql);
+		if (! $resql) { $error++; $this->errors[]="Error ".$this->db->lasterror(); }
 
 		if (! $error)
-        {
-            $this->id = $this->db->last_insert_id(MAIN_DB_PREFIX."cabinetmed_cons");
+		{
+			$this->id = $this->db->last_insert_id(MAIN_DB_PREFIX."cabinetmed_cons");
 
 			if (! $notrigger)
 			{
-	            // Uncomment this and change MYOBJECT to your own tag if you
-	            // want this action call a trigger.
+				// Uncomment this and change MYOBJECT to your own tag if you
+				// want this action call a trigger.
 
-	            //// Call triggers
-	            //include_once(DOL_DOCUMENT_ROOT . "/core/class/interfaces.class.php");
-	            //$interface=new Interfaces($this->db);
-	            //$result=$interface->run_triggers('MYOBJECT_CREATE',$this,$user,$langs,$conf);
-	            //if ($result < 0) { $error++; $this->errors=$interface->errors; }
-	            //// End call triggers
+				//// Call triggers
+				//include_once(DOL_DOCUMENT_ROOT . "/core/class/interfaces.class.php");
+				//$interface=new Interfaces($this->db);
+				//$result=$interface->run_triggers('MYOBJECT_CREATE',$this,$user,$langs,$conf);
+				//if ($result < 0) { $error++; $this->errors=$interface->errors; }
+				//// End call triggers
 			}
-        }
+		}
 
-        // Commit or rollback
-        if ($error)
+		// Commit or rollback
+		if ($error)
 		{
 			foreach($this->errors as $errmsg)
 			{
-	            dol_syslog(get_class($this)."::create ".$errmsg, LOG_ERR);
-	            $this->error.=($this->error?', '.$errmsg:$errmsg);
+				dol_syslog(get_class($this)."::create ".$errmsg, LOG_ERR);
+				$this->error.=($this->error?', '.$errmsg:$errmsg);
 			}
 			$this->db->rollback();
 			return -1*$error;
@@ -203,32 +203,32 @@ class CabinetmedCons extends CommonObject
 		else
 		{
 			$this->db->commit();
-            return $this->id;
+			return $this->id;
 		}
-    }
+	}
 
 
-    /**
-     *    Load object in memory from database
-     *    @param      id          id object
-     *    @return     int         <0 if KO, >0 if OK
-     */
-    function fetch($id)
-    {
-    	global $langs;
-        $sql = "SELECT";
+	/**
+	 *    Load object in memory from database
+	 *    @param      id          id object
+	 *    @return     int         <0 if KO, >0 if OK
+	 */
+	function fetch($id)
+	{
+		global $langs;
+		$sql = "SELECT";
 		$sql.= " t.rowid,";
 		$sql.= " t.fk_soc,";
 		$sql.= " t.datecons,";
 		$sql.= " t.typepriseencharge,";
 		$sql.= " t.motifconsprinc,";
 		$sql.= " t.diaglesprinc,";
-        $sql.= " t.motifconssec,";
-        $sql.= " t.diaglessec,";
-        $sql.= " t.hdm,";
-        $sql.= " t.examenclinique,";
+		$sql.= " t.motifconssec,";
+		$sql.= " t.diaglessec,";
+		$sql.= " t.hdm,";
+		$sql.= " t.examenclinique,";
 		$sql.= " t.examenprescrit,";
-        $sql.= " t.traitementprescrit,";
+		$sql.= " t.traitementprescrit,";
 		$sql.= " t.comment,";
 		$sql.= " t.typevisit,";
 		$sql.= " t.infiltration,";
@@ -238,33 +238,33 @@ class CabinetmedCons extends CommonObject
 		$sql.= " t.montant_carte,";
 		$sql.= " t.montant_tiers,";
 		$sql.= " t.banque,";
-        $sql.= " b.num_chq";
-        $sql.= " FROM ".MAIN_DB_PREFIX."cabinetmed_cons as t";
-        $sql.= " LEFT JOIN ".MAIN_DB_PREFIX."bank_url as bu ON bu.url_id = t.rowid AND bu.type='consultation'";
-        $sql.= " LEFT JOIN ".MAIN_DB_PREFIX."bank as b ON b.rowid = bu.fk_bank";
-        $sql.= " WHERE t.rowid = ".$id;
+		$sql.= " b.num_chq";
+		$sql.= " FROM ".MAIN_DB_PREFIX."cabinetmed_cons as t";
+		$sql.= " LEFT JOIN ".MAIN_DB_PREFIX."bank_url as bu ON bu.url_id = t.rowid AND bu.type='consultation'";
+		$sql.= " LEFT JOIN ".MAIN_DB_PREFIX."bank as b ON b.rowid = bu.fk_bank";
+		$sql.= " WHERE t.rowid = ".$id;
 
-    	dol_syslog(get_class($this)."::fetch sql=".$sql, LOG_DEBUG);
-        $resql=$this->db->query($sql);
-        if ($resql)
-        {
-            if ($this->db->num_rows($resql))
-            {
-                $obj = $this->db->fetch_object($resql);
+		dol_syslog(get_class($this)."::fetch sql=".$sql, LOG_DEBUG);
+		$resql=$this->db->query($sql);
+		if ($resql)
+		{
+			if ($this->db->num_rows($resql))
+			{
+				$obj = $this->db->fetch_object($resql);
 
-                $this->id    = $obj->rowid;
+				$this->id    = $obj->rowid;
 
 				$this->fk_soc = $obj->fk_soc;
 				$this->datecons = $this->db->jdate($obj->datecons);
 				$this->typepriseencharge = $obj->typepriseencharge;
 				$this->motifconsprinc = $obj->motifconsprinc;
 				$this->diaglesprinc = $obj->diaglesprinc;
-                $this->motifconssec = $obj->motifconssec;
-                $this->diaglessec = $obj->diaglessec;
-                $this->hdm = $obj->hdm;
-                $this->examenclinique = $obj->examenclinique;
+				$this->motifconssec = $obj->motifconssec;
+				$this->diaglessec = $obj->diaglessec;
+				$this->hdm = $obj->hdm;
+				$this->examenclinique = $obj->examenclinique;
 				$this->examenprescrit = $obj->examenprescrit;
-                $this->traitementprescrit = $obj->traitementprescrit;
+				$this->traitementprescrit = $obj->traitementprescrit;
 				$this->comment = $obj->comment;
 				$this->typevisit = $obj->typevisit;
 				$this->infiltration = $obj->infiltration;
@@ -273,45 +273,45 @@ class CabinetmedCons extends CommonObject
 				$this->montant_espece = $obj->montant_espece;
 				$this->montant_carte = $obj->montant_carte;
 				$this->montant_tiers = $obj->montant_tiers;
-                $this->banque = $obj->banque;
-                $this->num_cheque = $obj->num_chq;
-            }
-            $this->db->free($resql);
+				$this->banque = $obj->banque;
+				$this->num_cheque = $obj->num_chq;
+			}
+			$this->db->free($resql);
 
-            return 1;
-        }
-        else
-        {
-      	    $this->error="Error ".$this->db->lasterror();
-            dol_syslog(get_class($this)."::fetch ".$this->error, LOG_ERR);
-            return -1;
-        }
-    }
+			return 1;
+		}
+		else
+		{
+			$this->error="Error ".$this->db->lasterror();
+			dol_syslog(get_class($this)."::fetch ".$this->error, LOG_ERR);
+			return -1;
+		}
+	}
 
 
-    /**
-     *      Update database
-     *      @param      user        	User that modify
-     *      @param      notrigger	    0=launch triggers after, 1=disable triggers
-     *      @return     int         	<0 if KO, >0 if OK
-     */
-    function update($user=0, $notrigger=0)
-    {
-    	global $conf, $langs;
+	/**
+	 *      Update database
+	 *      @param      user        	User that modify
+	 *      @param      notrigger	    0=launch triggers after, 1=disable triggers
+	 *      @return     int         	<0 if KO, >0 if OK
+	 */
+	function update($user=0, $notrigger=0)
+	{
+		global $conf, $langs;
 		$error=0;
 
 		// Clean parameters
 
 		if (isset($this->fk_soc)) $this->fk_soc=trim($this->fk_soc);
 		if (isset($this->typepriseencharge)) $this->typepriseencharge=trim($this->typepriseencharge);
-        if (isset($this->motifconsprinc)) $this->motifcons=trim($this->motifconsprinc);
-        if (isset($this->diaglesprinc)) $this->diaglec=trim($this->diaglesprins);
+		if (isset($this->motifconsprinc)) $this->motifcons=trim($this->motifconsprinc);
+		if (isset($this->diaglesprinc)) $this->diaglec=trim($this->diaglesprins);
 		if (isset($this->motifconssec)) $this->motifconssec=trim($this->motifconssec);
 		if (isset($this->diaglessec)) $this->diaglessec=trim($this->diaglessec);
-        if (isset($this->hdm)) $this->hdm=trim($this->hdm);
+		if (isset($this->hdm)) $this->hdm=trim($this->hdm);
 		if (isset($this->examenclinique)) $this->examenclinique=trim($this->examenclinique);
 		if (isset($this->examenprescrit)) $this->examenprescrit=trim($this->examenprescrit);
-        if (isset($this->traitementprescrit)) $this->traitementprescrit=trim($this->traitementprescrit);
+		if (isset($this->traitementprescrit)) $this->traitementprescrit=trim($this->traitementprescrit);
 		if (isset($this->comment)) $this->comment=trim($this->comment);
 		if (isset($this->typevisit)) $this->typevisit=trim($this->typevisit);
 		if (isset($this->infiltration)) $this->infiltration=trim($this->infiltration);
@@ -326,20 +326,20 @@ class CabinetmedCons extends CommonObject
 		// Check parameters
 		// Put here code to add control on parameters values
 
-        // Update request
-        $sql = "UPDATE ".MAIN_DB_PREFIX."cabinetmed_cons SET";
+		// Update request
+		$sql = "UPDATE ".MAIN_DB_PREFIX."cabinetmed_cons SET";
 
 		$sql.= " fk_soc=".(isset($this->fk_soc)?$this->fk_soc:"null").",";
 		$sql.= " datecons=".(dol_strlen($this->datecons)!=0 ? "'".$this->db->idate($this->datecons)."'" : 'null').",";
 		$sql.= " typepriseencharge=".(isset($this->typepriseencharge)?"'".addslashes($this->typepriseencharge)."'":"null").",";
 		$sql.= " motifconsprinc=".(isset($this->motifconsprinc)?"'".addslashes($this->motifconsprinc)."'":"null").",";
 		$sql.= " diaglesprinc=".(isset($this->diaglesprinc)?"'".addslashes($this->diaglesprinc)."'":"null").",";
-        $sql.= " motifconssec=".(isset($this->motifconssec)?"'".addslashes($this->motifconssec)."'":"null").",";
-        $sql.= " diaglessec=".(isset($this->diaglessec)?"'".addslashes($this->diaglessec)."'":"null").",";
-        $sql.= " hdm=".(isset($this->hdm)?"'".addslashes($this->hdm)."'":"null").",";
-        $sql.= " examenclinique=".(isset($this->examenclinique)?"'".addslashes($this->examenclinique)."'":"null").",";
+		$sql.= " motifconssec=".(isset($this->motifconssec)?"'".addslashes($this->motifconssec)."'":"null").",";
+		$sql.= " diaglessec=".(isset($this->diaglessec)?"'".addslashes($this->diaglessec)."'":"null").",";
+		$sql.= " hdm=".(isset($this->hdm)?"'".addslashes($this->hdm)."'":"null").",";
+		$sql.= " examenclinique=".(isset($this->examenclinique)?"'".addslashes($this->examenclinique)."'":"null").",";
 		$sql.= " examenprescrit=".(isset($this->examenprescrit)?"'".addslashes($this->examenprescrit)."'":"null").",";
-        $sql.= " traitementprescrit=".(isset($this->traitementprescrit)?"'".addslashes($this->traitementprescrit)."'":"null").",";
+		$sql.= " traitementprescrit=".(isset($this->traitementprescrit)?"'".addslashes($this->traitementprescrit)."'":"null").",";
 		$sql.= " comment=".(isset($this->comment)?"'".addslashes($this->comment)."'":"null").",";
 		$sql.= " typevisit=".(isset($this->typevisit)?"'".addslashes($this->typevisit)."'":"null").",";
 		$sql.= " infiltration=".(isset($this->infiltration)?"'".addslashes($this->infiltration)."'":"null").",";
@@ -351,37 +351,37 @@ class CabinetmedCons extends CommonObject
 		$sql.= " banque=".(isset($this->banque)?"'".addslashes($this->banque)."'":"null")."";
 
 
-        $sql.= " WHERE rowid=".$this->id;
+		$sql.= " WHERE rowid=".$this->id;
 
 		$this->db->begin();
 
 		dol_syslog(get_class($this)."::update sql=".$sql, LOG_DEBUG);
-        $resql = $this->db->query($sql);
-    	if (! $resql) { $error++; $this->errors[]="Error ".$this->db->lasterror(); }
+		$resql = $this->db->query($sql);
+		if (! $resql) { $error++; $this->errors[]="Error ".$this->db->lasterror(); }
 
 		if (! $error)
 		{
 			if (! $notrigger)
 			{
-	            // Uncomment this and change MYOBJECT to your own tag if you
-	            // want this action call a trigger.
+				// Uncomment this and change MYOBJECT to your own tag if you
+				// want this action call a trigger.
 
-	            //// Call triggers
-	            //include_once(DOL_DOCUMENT_ROOT . "/core/class/interfaces.class.php");
-	            //$interface=new Interfaces($this->db);
-	            //$result=$interface->run_triggers('MYOBJECT_MODIFY',$this,$user,$langs,$conf);
-	            //if ($result < 0) { $error++; $this->errors=$interface->errors; }
-	            //// End call triggers
-	    	}
+				//// Call triggers
+				//include_once(DOL_DOCUMENT_ROOT . "/core/class/interfaces.class.php");
+				//$interface=new Interfaces($this->db);
+				//$result=$interface->run_triggers('MYOBJECT_MODIFY',$this,$user,$langs,$conf);
+				//if ($result < 0) { $error++; $this->errors=$interface->errors; }
+				//// End call triggers
+			}
 		}
 
-        // Commit or rollback
+		// Commit or rollback
 		if ($error)
 		{
 			foreach($this->errors as $errmsg)
 			{
-	            dol_syslog(get_class($this)."::update ".$errmsg, LOG_ERR);
-	            $this->error.=($this->error?', '.$errmsg:$errmsg);
+				dol_syslog(get_class($this)."::update ".$errmsg, LOG_ERR);
+				$this->error.=($this->error?', '.$errmsg:$errmsg);
 			}
 			$this->db->rollback();
 			return -1*$error;
@@ -391,13 +391,13 @@ class CabinetmedCons extends CommonObject
 			$this->db->commit();
 			return 1;
 		}
-    }
+	}
 
 
- 	/**
+	/**
 	 *   Delete object in database
-     *	 @param      user        	User that delete
-     *   @param      notrigger	    0=launch triggers after, 1=disable triggers
+	 *	 @param      user        	User that delete
+	 *   @param      notrigger	    0=launch triggers after, 1=disable triggers
 	 *	 @return	 int			<0 if KO, >0 if OK
 	 */
 	function delete($user, $notrigger=0)
@@ -405,38 +405,70 @@ class CabinetmedCons extends CommonObject
 		global $conf, $langs;
 		$error=0;
 
+		$this->db->begin();
+
+		// Search if there is a bank line
+		$bid=0;
+		$sql.= "SELECT b.rowid FROM ".MAIN_DB_PREFIX."bank_url as bu, ".MAIN_DB_PREFIX."bank as b";
+		$sql.= " WHERE bu.url_id = ".$this->id." AND type = 'consultation'";
+		$sql.= " AND bu.fk_bank = b.rowid";
+		dol_syslog($sql);
+		$resql=$this->db->query($sql);
+		if ($resql)
+		{
+			$obj=$this->db->fetch_object($resql);
+			if ($obj)
+			{
+				$bid=$obj->rowid;
+			}
+		}
+		else
+		{
+			$error++;
+			$consult->error=$this->db->lasterror();
+		}
+
+		if (! $error)
+		{
+			// If bid
+			if ($bid)
+			{
+				$bankaccountline=new AccountLine($this->db);
+				$result=$bankaccountline->fetch($bid);
+				$bankaccountline->delete($user);
+			}
+		}
+
 		$sql = "DELETE FROM ".MAIN_DB_PREFIX."cabinetmed_cons";
 		$sql.= " WHERE rowid=".$this->id;
 
-		$this->db->begin();
-
 		dol_syslog(get_class($this)."::delete sql=".$sql);
 		$resql = $this->db->query($sql);
-    	if (! $resql) { $error++; $this->errors[]="Error ".$this->db->lasterror(); }
+		if (! $resql) { $error++; $this->errors[]="Error ".$this->db->lasterror(); }
 
 		if (! $error)
 		{
 			if (! $notrigger)
 			{
 				// Uncomment this and change MYOBJECT to your own tag if you
-		        // want this action call a trigger.
+				// want this action call a trigger.
 
-		        //// Call triggers
-		        //include_once(DOL_DOCUMENT_ROOT . "/core/class/interfaces.class.php");
-		        //$interface=new Interfaces($this->db);
-		        //$result=$interface->run_triggers('MYOBJECT_DELETE',$this,$user,$langs,$conf);
-		        //if ($result < 0) { $error++; $this->errors=$interface->errors; }
-		        //// End call triggers
+				//// Call triggers
+				//include_once(DOL_DOCUMENT_ROOT . "/core/class/interfaces.class.php");
+				//$interface=new Interfaces($this->db);
+				//$result=$interface->run_triggers('MYOBJECT_DELETE',$this,$user,$langs,$conf);
+				//if ($result < 0) { $error++; $this->errors=$interface->errors; }
+				//// End call triggers
 			}
 		}
 
-        // Commit or rollback
+		// Commit or rollback
 		if ($error)
 		{
 			foreach($this->errors as $errmsg)
 			{
-	            dol_syslog(get_class($this)."::delete ".$errmsg, LOG_ERR);
-	            $this->error.=($this->error?', '.$errmsg:$errmsg);
+				dol_syslog(get_class($this)."::delete ".$errmsg, LOG_ERR);
+				$this->error.=($this->error?', '.$errmsg:$errmsg);
 			}
 			$this->db->rollback();
 			return -1*$error;
@@ -515,13 +547,13 @@ class CabinetmedCons extends CommonObject
 		$this->fk_soc='1';
 		$this->datecons=time();
 		$this->typepriseencharge='CMU';
-        $this->motifconsprinc='AAAPRINC';
-        $this->diaglesprinc='AAAPRINC';
+		$this->motifconsprinc='AAAPRINC';
+		$this->diaglesprinc='AAAPRINC';
 		$this->motifconssec='AAASEC';
 		$this->diaglessec='AAASEC';
 		$this->examenclinique='Examen clinique';
 		$this->examenprescrit='Examen prescrit';
-        $this->traitementprescrit='Traitement prescrit';
+		$this->traitementprescrit='Traitement prescrit';
 		$this->comment='Commentaire';
 		$this->typevisit='CCAM';
 		$this->infiltration='Genou';
