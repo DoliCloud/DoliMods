@@ -9,7 +9,7 @@
  *       \file       htdocs/google/gmaps.php
  *       \ingroup    google
  *       \brief      Main google area page
- *       \version    $Id: gmaps.php,v 1.9 2011/05/01 19:31:24 eldy Exp $
+ *       \version    $Id: gmaps.php,v 1.10 2011/05/01 19:34:54 eldy Exp $
  *       \author     Laurent Destailleur
  */
 
@@ -119,7 +119,7 @@ if ($adresse && $adresse != $obj->pays)
         });
 
 
-		var infowindow = new google.maps.InfoWindow({content: '<?php echo addslashes($obj->nom); ?><br /><?php echo addslashes($obj->adresse) . "<br />" . addslashes($obj->cp) . " " . addslashes($obj->ville); ?>'});
+		var infowindow = new google.maps.InfoWindow({content: '<?php echo dol_escape_js($obj->nom); ?><br /><?php echo dol_escape_js(dol_string_nospecial($obj->getFullAddress(1,', '),' ',array("\n","\r"))); ?>'});
 
 			google.maps.event.addListener(marker, 'click', function() {
 				infowindow.open(map,marker);
