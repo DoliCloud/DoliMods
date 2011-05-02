@@ -20,7 +20,7 @@
  *   \file       htdocs/cabinetmed/consultations.php
  *   \brief      Tab for consultations
  *   \ingroup    cabinetmed
- *   \version    $Id: consultations.php,v 1.23 2011/05/01 23:58:17 eldy Exp $
+ *   \version    $Id: consultations.php,v 1.24 2011/05/02 19:41:32 eldy Exp $
  */
 
 $res=0;
@@ -130,7 +130,7 @@ if ($action == 'add' || $action == 'update')
         $consult->comment=trim($_POST["comment"]);
         $consult->typevisit=$_POST["typevisit"];
         $consult->infiltration=trim($_POST["infiltration"]);
-        $consult->codageccam=trim($_POST["ccam"]);
+        $consult->codageccam=trim($_POST["codageccam"]);
 
         $nbnotempty=0;
         if (! empty($consult->montant_cheque)) $nbnotempty++;
@@ -953,5 +953,5 @@ if ($action == '' || $action == 'delete')
 
 $db->close();
 
-llxFooter('$Date: 2011/05/01 23:58:17 $ - $Revision: 1.23 $');
+llxFooter('$Date: 2011/05/02 19:41:32 $ - $Revision: 1.24 $');
 ?>
