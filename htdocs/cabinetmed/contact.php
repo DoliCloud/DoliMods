@@ -22,7 +22,7 @@
  *       \file       htdocs/cabinetmed/contact.php
  *       \ingroup    cabinetmed
  *       \brief      Tab for links between doctors and patient
- *       \version    $Id: contact.php,v 1.7 2011/04/21 22:30:15 eldy Exp $
+ *       \version    $Id: contact.php,v 1.8 2011/05/02 19:21:13 eldy Exp $
  */
 
 $res=0;
@@ -309,6 +309,7 @@ if ($id > 0 || ! empty($ref))
 		print '</td>';
 		print '<td>';
 		$formcompany->selectTypeContact($societe, '', 'type','external','libelle',1);
+        //if ($user->admin) print info_admin($langs->trans("YouCanChangeValuesForThisListFromDictionnarySetup"),1);
 		print '</td>';
 		print '<td align="center" colspan="3" ><input type="submit" class="button" value="'.$langs->trans("AddLink").'"';
 		if (! $nbofcontacts) print ' disabled="true"';
@@ -419,5 +420,5 @@ if ($id > 0 || ! empty($ref))
 
 $db->close();
 
-llxFooter('$Date: 2011/04/21 22:30:15 $');
+llxFooter('$Date: 2011/05/02 19:21:13 $');
 ?>

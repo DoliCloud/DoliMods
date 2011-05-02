@@ -162,14 +162,19 @@ INSERT INTO llx_cabinetmed_c_examconclusion (rowid,code,label,active) VALUES (1,
 
 -- Add type pour lien societe
 delete from llx_c_type_contact where rowid >= 200;
-INSERT INTO llx_c_type_contact (rowid,element,source,code,libelle,active) VALUES (200,'societe','external','GENERALREF','Généraliste (référent)',1);
+INSERT INTO llx_c_type_contact (rowid,element,source,code,libelle,active) VALUES (200,'societe','external','GENERALREF', 'Généraliste (référent)',1);
 INSERT INTO llx_c_type_contact (rowid,element,source,code,libelle,active) VALUES (201,'societe','external','GENERALISTE','Généraliste',1);
 INSERT INTO llx_c_type_contact (rowid,element,source,code,libelle,active) VALUES (210,'societe','external','SPECCHIROR', 'Chirurgien ortho',1);
+INSERT INTO llx_c_type_contact (rowid,element,source,code,libelle,active) VALUES (211,'societe','external','SPECCHIROT', 'Chirurgien autre',1);
 INSERT INTO llx_c_type_contact (rowid,element,source,code,libelle,active) VALUES (220,'societe','external','SPECDERMA',  'Dermatologue',1);
+INSERT INTO llx_c_type_contact (rowid,element,source,code,libelle,active) VALUES (225,'societe','external','SPECENDOC',  'Endocrinologue',1);
 INSERT INTO llx_c_type_contact (rowid,element,source,code,libelle,active) VALUES (230,'societe','external','SPECGYNECO', 'Gynécologue',1);
 INSERT INTO llx_c_type_contact (rowid,element,source,code,libelle,active) VALUES (240,'societe','external','SPECGASTRO', 'Gastroantérologue',1);
+INSERT INTO llx_c_type_contact (rowid,element,source,code,libelle,active) VALUES (245,'societe','external','SPECINTERNE','Interniste',1);
 INSERT INTO llx_c_type_contact (rowid,element,source,code,libelle,active) VALUES (250,'societe','external','SPECCARDIO', 'Cardiologue',1);
 INSERT INTO llx_c_type_contact (rowid,element,source,code,libelle,active) VALUES (260,'societe','external','SPECNEPHRO', 'Néphrologue',1);
+INSERT INTO llx_c_type_contact (rowid,element,source,code,libelle,active) VALUES (263,'societe','external','SPECPNEUMO', 'Pneumologue',1);
+INSERT INTO llx_c_type_contact (rowid,element,source,code,libelle,active) VALUES (265,'societe','external','SPECNEURO',  'Neurologue',1);
 INSERT INTO llx_c_type_contact (rowid,element,source,code,libelle,active) VALUES (270,'societe','external','SPECRHUMATO','Rhumatologue',1);
 INSERT INTO llx_c_type_contact (rowid,element,source,code,libelle,active) VALUES (280,'societe','external','KINE',       'Kinésithérapeute',1);
 
