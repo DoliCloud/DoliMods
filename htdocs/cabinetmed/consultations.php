@@ -20,7 +20,7 @@
  *   \file       htdocs/cabinetmed/consultations.php
  *   \brief      Tab for consultations
  *   \ingroup    cabinetmed
- *   \version    $Id: consultations.php,v 1.26 2011/05/02 22:22:50 eldy Exp $
+ *   \version    $Id: consultations.php,v 1.27 2011/05/02 22:28:06 eldy Exp $
  */
 
 $res=0;
@@ -107,9 +107,12 @@ if ($action == 'add' || $action == 'update')
                 exit;
             }
         }
+        else
+        {
+            $consult->datecons=$datecons;
+            $consult->fk_soc=$_POST["socid"];
+        }
 
-        $consult->fk_soc=$_POST["socid"];
-        $consult->datecons=$datecons;
         unset($consult->montant_carte);
         unset($consult->montant_cheque);
         unset($consult->montant_tiers);
@@ -961,5 +964,5 @@ if ($action == '' || $action == 'delete')
 
 $db->close();
 
-llxFooter('$Date: 2011/05/02 22:22:50 $ - $Revision: 1.26 $');
+llxFooter('$Date: 2011/05/02 22:28:06 $ - $Revision: 1.27 $');
 ?>
