@@ -23,7 +23,7 @@
  *   \file       htdocs/cabinetmed/antecedant.php
  *   \brief      Tab for antecedants
  *   \ingroup    societe
- *   \version    $Id: traitetallergies.php,v 1.6 2011/05/01 19:01:32 eldy Exp $
+ *   \version    $Id: traitetallergies.php,v 1.7 2011/05/02 00:07:09 eldy Exp $
  */
 
 $res=0;
@@ -100,6 +100,22 @@ if ($socid > 0)
 
     dol_fiche_head($head, 'tabtraitetallergies', $langs->trans("ThirdParty"),0,'company');
 
+
+    print '<script type="text/javascript">
+    var changed=false;
+    jQuery(function() {
+        jQuery(window).bind(\'beforeunload\', function(){
+            /* alert(changed); */
+            if (changed) return \''.dol_escape_js($langs->transnoentitiesnoconv("WarningExitPageWithoutSaving")).'\';
+        });
+        jQuery(".flat").change(function () {
+            changed=true;
+        });
+        jQuery(".ignorechange").click(function () {
+            changed=false;
+        });
+     });
+    </script>';
 
     print "<form method=\"post\" action=\"".$_SERVER["PHP_SELF"]."\">";
     print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
@@ -208,7 +224,7 @@ if ($socid > 0)
 
     if ($action == 'edit')
     {
-        print '<tr><td colspan="2" align="center"><input type="submit" class="button" value="'.$langs->trans("Save").'"></td></tr>';
+        print '<tr><td colspan="2" align="center"><input type="submit" class="button ignorechange" value="'.$langs->trans("Save").'"></td></tr>';
     }
 
     print "</table>";
@@ -239,5 +255,5 @@ if ($mesg) dol_htmloutput_mesg($mesg);
 
 $db->close();
 
-llxFooter('$Date: 2011/05/01 19:01:32 $ - $Revision: 1.6 $');
+llxFooter('$Date: 2011/05/02 00:07:09 $ - $Revision: 1.7 $');
 ?>
