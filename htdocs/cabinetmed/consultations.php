@@ -20,7 +20,7 @@
  *   \file       htdocs/cabinetmed/consultations.php
  *   \brief      Tab for consultations
  *   \ingroup    cabinetmed
- *   \version    $Id: consultations.php,v 1.25 2011/05/02 21:50:01 eldy Exp $
+ *   \version    $Id: consultations.php,v 1.26 2011/05/02 22:22:50 eldy Exp $
  */
 
 $res=0;
@@ -286,7 +286,7 @@ if ($action == 'add' || $action == 'update')
                         $bankaccount=new Account($db);
                         $result=$bankaccount->fetch($banque);
                     	if ($result < 0) dol_print_error($db,$bankaccount->error);
-                        $lineid=$bankaccount->addline($now, $type, $langs->trans("CustomerInvoicePayment"), $amount, $consult->num_cheque, '', $user, $societe->nom, $consult->banque);
+                        $lineid=$bankaccount->addline($consult->datecons, $type, $langs->trans("CustomerInvoicePayment"), $amount, $consult->num_cheque, '', $user, $societe->nom, $consult->banque);
                         $result1=$bankaccount->add_url_line($lineid,$consult->id,dol_buildpath('/cabinetmed/consultations.php',1).'?action=edit&socid='.$consult->fk_soc.'&id=','Consultation','consultation');
                         $result2=$bankaccount->add_url_line($lineid,$consult->fk_soc,'',$societe->nom,'company');
                         if ($lineid <= 0 || $result1 <= 0 || $result2 <= 0)
@@ -961,5 +961,5 @@ if ($action == '' || $action == 'delete')
 
 $db->close();
 
-llxFooter('$Date: 2011/05/02 21:50:01 $ - $Revision: 1.25 $');
+llxFooter('$Date: 2011/05/02 22:22:50 $ - $Revision: 1.26 $');
 ?>
