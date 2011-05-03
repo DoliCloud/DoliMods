@@ -20,7 +20,7 @@
  *   \file       htdocs/cabinetmed/consultations.php
  *   \brief      Tab for consultations
  *   \ingroup    cabinetmed
- *   \version    $Id: consultations.php,v 1.27 2011/05/02 22:28:06 eldy Exp $
+ *   \version    $Id: consultations.php,v 1.28 2011/05/03 09:33:06 eldy Exp $
  */
 
 $res=0;
@@ -229,40 +229,19 @@ if ($action == 'add' || $action == 'update')
             }
             if ($action == 'update')
             {
-                $result=$consult->update($user);
-
                 $societe = new Societe($db);
-                $societe->fetch($consult->fk_soc);
+                $result=$societe->fetch($consult->fk_soc);
 
-                // Search if there is a bank line
-                $bid=0;
-                $sql.= "SELECT b.rowid, b.rappro FROM ".MAIN_DB_PREFIX."bank_url as bu, ".MAIN_DB_PREFIX."bank as b";
-                $sql.= " WHERE bu.url_id = ".$consult->id." AND type = 'consultation'";
-                $sql.= " AND bu.fk_bank = b.rowid";
-                dol_syslog($sql);
-                $resql=$db->query($sql);
-                if ($resql)
-                {
-                    $obj=$db->fetch_object($resql);
-                    if ($obj)
-                    {
-                        $bid=$obj->rowid;
-                        $rappro=$obj->rappro;
-                    }
-                }
-                else
-                {
-                    $error++;
-                    $consult->error=$db->lasterror();
-                }
+                $result=$consult->fetch_bankid();
 
-                if (! $error)
+                $result=$consult->update($user);
+                if ($result > 0)
                 {
                     // If bid
-                    if ($bid && ! $rappro)
+                    if ($consult->bank_id && ! $consult->rappro)
                     {
                         $bankaccountline=new AccountLine($db);
-                        $result=$bankaccountline->fetch($bid);
+                        $result=$bankaccountline->fetch($consult->bank_id);
                         $bank_chq=$bankaccountline->bank_chq;
                         $fk_bordereau=$bankaccountline->fk_bordereau;
                         $bankaccountline->delete($user);
@@ -297,6 +276,10 @@ if ($action == 'add' || $action == 'update')
                             $error++;
                         }
                     }
+                }
+                else
+                {
+                    $error++;
                 }
             }
         }
@@ -345,6 +328,9 @@ if ($socid > 0)
     if ($id && ! $consult->id)
     {
         $result=$consult->fetch($id);
+        if ($result < 0) dol_print_error($db,$consult->error);
+
+        $result=$consult->fetch_bankid();
         if ($result < 0) dol_print_error($db,$consult->error);
     }
 
@@ -716,6 +702,26 @@ if ($socid > 0)
         print '<fieldset id="fieldsetanalyse">';
         print '<legend>'.$langs->trans("Paiement").'</legend>'."\n";
 
+        $defaultbankaccountchq=0;
+        $defaultbankaccountliq=0;
+        $sql="SELECT rowid, label, bank, courant";
+        $sql.= " FROM ".MAIN_DB_PREFIX."bank_account";
+        $sql.= " WHERE clos = '0'";
+        $sql.= " AND entity = ".$conf->entity;
+        $sql.= " AND (proprio LIKE '%".$user->nom."%' OR label LIKE '%".$user->nom."%')";
+        $sql.= " ORDER BY label";
+        $resql=$db->query($sql);
+        if ($resql)
+        {
+            $obj=$db->fetch_object($resql);
+            if ($obj)
+            {
+                if ($obj->courant == 1) $defaultbankaccountchq=$obj->rowid;
+                if ($obj->courant == 2) $defaultbankaccountliq=$obj->rowid;
+            }
+        }
+        //print $consult->bank_id.'c'.$consult->bank_account_id.'c'.$defaultbankaccountchq.'c'.$defaultbankaccountliq;
+
         print '<table class="notopnoleftnoright" id="paymentsbox" width="100%">';
         print '<tr><td width="160">';
         print ''.$langs->trans("Cheque").'</td><td>';
@@ -726,7 +732,7 @@ if ($socid > 0)
         if ($conf->banque->enabled)
         {
             print ' &nbsp; '.$langs->trans("A encaiser sur").' ';
-            $form->select_comptes('','bankchequeto',0,"(proprio LIKE '%".$user->nom."%' OR label LIKE '%".$user->nom."%') AND courant = 1",0,($consult->montant_cheque?'':' disabled="disabled"'));
+            $form->select_comptes(($consult->bank_account_id?$consult->bank_account_id:$defaultbankaccountchq),'bankchequeto',0,'courant = 1',0,($consult->montant_cheque?'':' disabled="disabled"'));
         }
 
         //print '</td><td>';
@@ -754,7 +760,7 @@ if ($socid > 0)
         if ($conf->banque->enabled)
         {
             print ' &nbsp; '.$langs->trans("A encaiser sur").' ';
-            $form->select_comptes('','bankespeceto',0,"(proprio LIKE '%".$user->nom."%' OR label LIKE '%".$user->nom."%') AND courant = 2",0,($consult->montant_espece?'':' disabled="disabled"'));
+            $form->select_comptes(($consult->bank_account_id?$consult->bank_account_id:$defaultbankaccountliq),'bankespeceto',0,'courant = 2',0,($consult->montant_espece?'':' disabled="disabled"'));
         }
         print '</td></tr><tr><td>';
         print $langs->trans("Carte").'</td><td>';
@@ -762,7 +768,7 @@ if ($socid > 0)
         if ($conf->banque->enabled)
         {
             print ' &nbsp; '.$langs->trans("A encaiser sur").' ';
-            $form->select_comptes('','bankcarteto',0,"(proprio LIKE '%".$user->nom."%' OR label LIKE '%".$user->nom."%') AND courant = 1",0,($consult->montant_carte?'':' disabled="disabled"'));
+            $form->select_comptes(($consult->bank_account_id?$consult->bank_account_id:$defaultbankaccountchq),'bankcarteto',0,'courant = 1',0,($consult->montant_carte?'':' disabled="disabled"'));
         }
         print '</td></tr><tr><td>';
         print $langs->trans("Tiers").'</td><td>';
@@ -964,5 +970,5 @@ if ($action == '' || $action == 'delete')
 
 $db->close();
 
-llxFooter('$Date: 2011/05/02 22:28:06 $ - $Revision: 1.27 $');
+llxFooter('$Date: 2011/05/03 09:33:06 $ - $Revision: 1.28 $');
 ?>

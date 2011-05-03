@@ -20,7 +20,7 @@
  *      \file       cabinetmed/class/cabinetmedcons.class.php
  *      \ingroup    cabinetmed
  *      \brief      This file is an example for a CRUD class file (Create/Read/Update/Delete)
- *		\version    $Id: cabinetmedcons.class.php,v 1.6 2011/05/01 18:52:56 eldy Exp $
+ *		\version    $Id: cabinetmedcons.class.php,v 1.7 2011/05/03 09:33:06 eldy Exp $
  *		\remarks	Initialy built by build_class_from_table on 2011-02-02 22:30
  */
 
@@ -66,7 +66,9 @@ class CabinetmedCons extends CommonObject
 	var $banque;
 	var $num_cheque;
 
-
+    var $bank_id;               // Id of bank transaction line
+    var $rappro;                // Is transaction line conciliated ?
+    var $bank_account_id;       // Id of bank account
 
 	/**
 	 *      \brief      Constructor
@@ -290,6 +292,38 @@ class CabinetmedCons extends CommonObject
 			return -1;
 		}
 	}
+
+    /**
+     *    Load bank id if exists for consult
+     *    @return     int         <0 if KO, >0 if OK
+     */
+    function fetch_bankid()
+    {
+        // Search if there is a bank line
+        $bid=0;
+        $sql.= "SELECT b.rowid, b.rappro, fk_account FROM ".MAIN_DB_PREFIX."bank_url as bu, ".MAIN_DB_PREFIX."bank as b";
+        $sql.= " WHERE bu.url_id = ".$this->id." AND type = 'consultation'";
+        $sql.= " AND bu.fk_bank = b.rowid";
+        dol_syslog(get_class($this)."::fetch_bankid sql=".$sql, LOG_DEBUG);
+        $resql=$this->db->query($sql);
+        if ($resql)
+        {
+            $obj=$this->db->fetch_object($resql);
+            if ($obj)
+            {
+                $this->bank_id=$obj->rowid;
+                $this->rappro=$obj->rappro;
+                $this->bank_account_id=$obj->fk_account;
+            }
+            return 1;
+        }
+        else
+        {
+            $error++;
+            $this->error=$this->db->lasterror();
+            return -1;
+        }
+    }
 
 
 	/**

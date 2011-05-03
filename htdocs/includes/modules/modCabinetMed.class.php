@@ -26,7 +26,7 @@
  *      \file       htdocs/includes/modules/modCabinetMed.class.php
  *      \ingroup    cabinetmed
  *      \brief      Description and activation file for module CabinetMed
- *      \version    $Id: modCabinetMed.class.php,v 1.24 2011/05/01 10:52:43 eldy Exp $
+ *      \version    $Id: modCabinetMed.class.php,v 1.25 2011/05/03 09:33:00 eldy Exp $
  */
 include_once(DOL_DOCUMENT_ROOT ."/includes/modules/DolibarrModules.class.php");
 
@@ -107,6 +107,7 @@ class modCabinetMed extends DolibarrModules
                             13=>array('MAIN_MENU_SMARTPHONE_FORCED','chaine','cabinetmed_backoffice.php','Force menu handler to this value',1,'current',1),
                             14=>array('MAIN_MENUFRONT_SMARTPHONE_FORCED','chaine','cabinetmed_frontoffice.php','Force menu handler to this value',1,'current',1),
                             15=>array('MAIN_USE_JQUERY_JNOTIFY','chaine','1','Use jnotify boxes for error messages',1,'current'),
+                            16=>array('MAIN_SUPPORT_CONTACT_TYPE_FOR_THIRDPARTIES','chaine','1','Can add third party type of contact',1,'current',1)
                             );
 
         // Array to add new pages in new tabs
