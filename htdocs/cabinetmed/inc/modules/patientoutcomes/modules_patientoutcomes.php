@@ -25,7 +25,7 @@
  *	\ingroup    facture
  *	\brief      Fichier contenant la classe mere de generation des factures en PDF
  * 				et la classe mere de numerotation des factures
- *	\version    $Id: modules_patientoutcomes.php,v 1.1 2011/05/04 21:46:43 eldy Exp $
+ *	\version    $Id: modules_patientoutcomes.php,v 1.2 2011/05/04 22:23:08 eldy Exp $
  */
 
 require_once(DOL_DOCUMENT_ROOT.'/lib/pdf.lib.php');
@@ -74,7 +74,7 @@ class ModelePDFPatientOutcomes extends CommonDocGenerator
  *  @param      hideref         Hide ref
  *	@return  	int        		<0 if KO, >0 if OK
  */
-function patientoutcomes_pdf_create($db, $object, $message, $modele, $outputlangs, $hidedetails=0, $hidedesc=0, $hideref=0)
+function patientoutcomes_doc_create($db, $object, $message, $modele, $outputlangs, $hidedetails=0, $hidedesc=0, $hideref=0)
 {
 	global $conf,$langs;
 	$langs->load("bills");

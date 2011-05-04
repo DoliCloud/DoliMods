@@ -20,7 +20,7 @@
  *   \file       htdocs/cabinetmed/consultations.php
  *   \brief      Tab for consultations
  *   \ingroup    cabinetmed
- *   \version    $Id: consultations.php,v 1.28 2011/05/03 09:33:06 eldy Exp $
+ *   \version    $Id: consultations.php,v 1.29 2011/05/04 22:23:08 eldy Exp $
  */
 
 $res=0;
@@ -965,10 +965,14 @@ if ($action == '' || $action == 'delete')
     {
         dol_print_error($db);
     }
+    print '</table>';
 }
+
+
+
 
 
 $db->close();
 
-llxFooter('$Date: 2011/05/03 09:33:06 $ - $Revision: 1.28 $');
+llxFooter('$Date: 2011/05/04 22:23:08 $ - $Revision: 1.29 $');
 ?>
