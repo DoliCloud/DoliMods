@@ -304,6 +304,9 @@ ListCustomersShort=Liste patients
 ThirdPartiesArea=Espace Patients
 LastModifiedThirdParties=Les %s derniers patients modifiés
 UniqueThirdParties=Total de patients uniques
+InActivity=Suivi
+ActivityCeased=Suivi terminé
+ActivityStateFilter=Statut d'activité
 
 # Monkey
 MonkeyNumRefModelDesc=Renvoie le numéro sous la forme %syymm-nnnn pour les codes patient et %syymm-nnnn pour les codes fournisseurs où yy est l'année, mm le mois et nnnn un compteur séquentiel sans rupture et sans remise à 0.
