@@ -9,7 +9,7 @@
  *       \file       htdocs/google/gmaps.php
  *       \ingroup    google
  *       \brief      Main google area page
- *       \version    $Id: gmaps.php,v 1.10 2011/05/01 19:34:54 eldy Exp $
+ *       \version    $Id: gmaps.php,v 1.11 2011/05/10 20:57:37 eldy Exp $
  *       \author     Laurent Destailleur
  */
 
@@ -96,9 +96,9 @@ if ($adresse && $adresse != $obj->pays)
   var geocoder;
   var map;
   var marker;
-  function initialize() {
 
-    var latlng = new google.maps.LatLng(-34.397, 150.644);
+  function initialize() {
+    var latlng = new google.maps.LatLng(0, 0);
     var myOptions = {
       zoom: <?php echo ($conf->global->GOOGLE_GMAPS_ZOOM_LEVEL >= 1 && $conf->global->GOOGLE_GMAPS_ZOOM_LEVEL <= 10)?$conf->global->GOOGLE_GMAPS_ZOOM_LEVEL:8; ?>,
       center: latlng,
@@ -127,7 +127,8 @@ if ($adresse && $adresse != $obj->pays)
 
 
       } else {
-        alert("Geocode was not successful for the following reason: " + status);
+          if (status == google.maps.GeocoderStatus.ZERO_RESULTS) alert('<?php echo dol_escape_js($langs->transnoentitiesnoconv("GoogleMapsAddressNotFound")); ?>');
+          else alert('Error '+status);
       }
     });
   }
