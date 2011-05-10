@@ -19,14 +19,14 @@
 /**
  *	\file       htdocs/ovh/wrapper.php
  *  \brief      File that is entry point to call an OVH SIP server
- *  \version    $Id: wrapper.php,v 1.4 2011/03/05 18:38:55 eldy Exp $
+ *  \version    $Id: wrapper.php,v 1.5 2011/05/10 20:38:07 eldy Exp $
  *	\remarks	To be used, you must have an OVH account
  */
 
 //if (! defined('NOREQUIREUSER')) define('NOREQUIREUSER','1');
 //if (! defined('NOREQUIREDB'))   define('NOREQUIREDB','1');
 if (! defined('NOREQUIRESOC'))    define('NOREQUIRESOC','1');
-if (! defined('NOREQUIRETRAN'))   define('NOREQUIRETRAN','1');
+//if (! defined('NOREQUIRETRAN'))   define('NOREQUIRETRAN','1');
 if (! defined('NOCSRFCHECK'))     define('NOCSRFCHECK','1');
 if (! defined('NOTOKENRENEWAL'))  define('NOTOKENRENEWAL','1');
 if (! defined('NOREQUIREMENU'))   define('NOREQUIREMENU','1');
@@ -35,13 +35,13 @@ if (! defined('NOREQUIREAJAX'))   define('NOREQUIREAJAX','1');
 
 // C'est un wrapper, donc header vierge
 function llxHeader() {
-	print '<html>'."\n";
-	print '<head>'."\n";
-	print '<title>OVH redirection from Dolibarr...</title>'."\n";
-	print '</head>'."\n";
+    print '<html>'."\n";
+    print '<head>'."\n";
+    print '<title>OVH redirection from Dolibarr...</title>'."\n";
+    print '</head>'."\n";
 }
 function llxFooter() {
-	print "\n".'</html>'."\n";
+    print "\n".'</html>'."\n";
 }
 
 
@@ -65,12 +65,12 @@ if (! $conf->clicktodial->enabled)
 
 
 
-$login = $_GET['login'];
+$login = GETPOST('login');
+$password = GETPOST('password');
 //$login=$conf->global->OVHSMS_NICK;
-$password = $_GET['password'];
 //$password=$conf->global->OVHSMS_PASS;
-$caller = $_GET['caller'];
-$called = $_GET['called'];
+$caller = str_replace(' ','',GETPOST('caller'));
+$called = str_replace(' ','',GETPOST('called'));
 
 if (empty($conf->global->OVHSMS_SOAPURL))
 {
@@ -93,37 +93,64 @@ $strMaxRetry = "2";
 
 llxHeader();
 
+if (empty($login))
+{
+    print '<div class="error">'.$langs->trans("ErrorClickToDialForUserNotDefined").'</div>';
+    llxFooter();
+    exit;
+}
+
 $number=strtolower($called) ;
 $pos=strpos ($number,"local");
+
+//print "$login, $password, $caller, $number, $caller";
 if (! empty($number))
 {
-	if ($pos===false) :
-	$errno=0 ;
-	$errstr=0 ;
-	$strCallerId = "Dolibarr <".strtolower($caller).">" ;
+    if ($pos===false) :
+    $errno=0 ;
+    $errstr=0 ;
+    $strCallerId = "Dolibarr <".strtolower($caller).">" ;
 
-	try {
-		$soap = new SoapClient($wsdlovh);
+    try {
+        $soap = new SoapClient($wsdlovh);
 
-		//telephonyClick2CallDo
-	 	$soap->telephonyClick2CallDo($login, $password, $caller, $number, $caller);
+        $soap->telephonyClick2CallDo($login, $password, $caller, $number, $caller);
 
-		$txt="Call OVH SIP dialer for caller: ".$caller.", called: ".$called." clicktodiallogin: ".$login;
-		dol_syslog($txt);
-		print '<body onload="javascript:history.go(-1);">'."\n";
-		print '<!-- '.$txt.' -->';
-		fputs($oSocket, "Username: $login\r\n" ) ;
-		fputs($oSocket, "Secret: $password\r\n\r\n" ) ;
-		fputs($oSocket, "Caller: $caller\r\n" ) ;
-		fputs($oSocket, "Called: ".$number."\r\n" ) ;
-		sleep(2) ;
-	    print '</body>'."\n";
-	}
-	catch(SoapFault $fault)
-	{
-	 	echo $fault;
-	}
-	endif;
+        $txt="Call OVH SIP dialer for caller: ".$caller.", called: ".$called." clicktodiallogin: ".$login;
+        dol_syslog($txt);
+        print '<body onload="javascript:history.go(-1);">'."\n";
+        print '<!-- '.$txt.' -->';
+        fputs($oSocket, "Username: $login\r\n" ) ;
+        fputs($oSocket, "Secret: $password\r\n\r\n" ) ;
+        fputs($oSocket, "Caller: $caller\r\n" ) ;
+        fputs($oSocket, "Called: ".$number."\r\n" ) ;
+        sleep(2) ;
+        print '</body>'."\n";
+    }
+    catch(SoapFault $fault)
+    {
+        /*print 'faultcode='.$fault->faultcode."\n";
+        print 'faultstring='.$fault->faultstring."\n";
+        print 'faultname='.$fault->faultname."\n";
+        print 'headerfault='.$fault->headerfault."\n";*/
+        if ($fault->faultcode == 'soap:503')
+        {
+            dol_syslog("SIPDeviceWasCalledButWasNotHungUp");
+            print $langs->trans("SIPDeviceWasCalledButWasNotHungUp");
+        }
+        elseif ($fault->faultcode == 'soap:500')
+        {
+            dol_syslog("SIPDeviceWasCalledButNoResponseOrDeclined");
+            print $langs->trans("SIPDeviceWasCalledButNoResponseOrDeclined");
+        }
+        else
+        {
+            dol_syslog("Unknown detail: ".$fault);
+            echo 'Unknown detail:'."\n";
+            echo $fault;
+        }
+    }
+    endif;
 }
 else {
     print 'Bad parameters in URL. Must be '.$_SERVER['PHP_SELF'].'?caller=99999&called=99999&login=xxxxx&password=xxxxx';
