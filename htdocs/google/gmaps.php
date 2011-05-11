@@ -9,7 +9,7 @@
  *       \file       htdocs/google/gmaps.php
  *       \ingroup    google
  *       \brief      Main google area page
- *       \version    $Id: gmaps.php,v 1.11 2011/05/10 20:57:37 eldy Exp $
+ *       \version    $Id: gmaps.php,v 1.12 2011/05/11 23:54:58 eldy Exp $
  *       \author     Laurent Destailleur
  */
 
@@ -97,12 +97,13 @@ if ($adresse && $adresse != $obj->pays)
   var map;
   var marker;
 
+  // GMaps v3 API
   function initialize() {
     var latlng = new google.maps.LatLng(0, 0);
     var myOptions = {
       zoom: <?php echo ($conf->global->GOOGLE_GMAPS_ZOOM_LEVEL >= 1 && $conf->global->GOOGLE_GMAPS_ZOOM_LEVEL <= 10)?$conf->global->GOOGLE_GMAPS_ZOOM_LEVEL:8; ?>,
       center: latlng,
-      mapTypeId: google.maps.MapTypeId.ROADMAP
+      mapTypeId: google.maps.MapTypeId.ROADMAP  // ROADMAP, SATELLITE, HYBRID, TERRAIN
     }
     map = new google.maps.Map(document.getElementById("map"), myOptions);
 	geocoder = new google.maps.Geocoder();
