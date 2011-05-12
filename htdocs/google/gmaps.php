@@ -9,18 +9,28 @@
  *       \file       htdocs/google/gmaps.php
  *       \ingroup    google
  *       \brief      Main google area page
- *       \version    $Id: gmaps.php,v 1.12 2011/05/11 23:54:58 eldy Exp $
+ *       \version    $Id: gmaps.php,v 1.13 2011/05/12 19:00:05 eldy Exp $
  *       \author     Laurent Destailleur
  */
 
-include("./pre.inc.php");
+$res=0;
+if (! $res && file_exists("../main.inc.php")) $res=@include("../main.inc.php");
+if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.php");
+if (! $res && file_exists("../../../main.inc.php")) $res=@include("../../../main.inc.php");
+if (! $res && file_exists("../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../dolibarr/htdocs/main.inc.php");     // Used on dev env only
+if (! $res && file_exists("../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
+if (! $res && file_exists("../../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
+if (! $res) die("Include of main fails");
 require_once(DOL_DOCUMENT_ROOT."/lib/company.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/lib/contact.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/lib/member.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/contact/class/contact.class.php");
 
+// url is:  gmaps.php?mode=thirdparty|contact|member&id=id
+
+
 $mode=GETPOST('mode');
-$adresse='';
+$address='';
 
 // Load third party
 if (empty($mode) || $mode=='thirdparty')
@@ -30,7 +40,7 @@ if (empty($mode) || $mode=='thirdparty')
 	$obj = new Societe($db);
 	$obj->id = $id;
 	$obj->fetch($id);
-	$adresse = $obj->getFullAddress(1,', ');
+	$address = $obj->getFullAddress(1,', ');
 }
 if ($mode=='contact')
 {
@@ -39,7 +49,7 @@ if ($mode=='contact')
 	$obj = new Contact($db);
 	$obj->id = $id;
 	$obj->fetch($id);
-	$adresse = $obj->getFullAddress(1,', ');
+	$address = $obj->getFullAddress(1,', ');
 }
 if ($mode=='member')
 {
@@ -48,7 +58,7 @@ if ($mode=='member')
 	$obj = new Adherent($db);
 	$obj->id = $id;
 	$obj->fetch($id);
-	$adresse = $obj->getFullAddress(1,', ');
+	$address = $obj->getFullAddress(1,', ');
 }
 
 
@@ -74,7 +84,7 @@ if (empty($mode) || $mode=='thirdparty')
 if ($mode=='contact')
 {
 	$head = contact_prepare_head($obj);
-	$title=$langs->trans("Contact");
+	$title=$langs->trans("ContactsAddresses");
 	$picto='contact';
 }
 if ($mode=='member')
@@ -83,11 +93,13 @@ if ($mode=='member')
 	$title=$langs->trans("Member");
 	$picto='user';
 }
+
 dol_fiche_head($head, 'gmaps', $title, 0, $picto);
-//dol_fiche_head( $head, 8, "Tiers",0,'thirdparty' );
+
+
 //On affiche le contenu
 
-if ($adresse && $adresse != $obj->pays)
+if ($address && $address != $obj->pays)
 {
 ?>
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
@@ -110,7 +122,7 @@ if ($adresse && $adresse != $obj->pays)
 	}
 
   function codeAddress() {
-    var address = '<?php print dol_escape_js(dol_string_nospecial($adresse,' ',array("\n","\r"))); ?>';
+    var address = '<?php print dol_escape_js(dol_string_nospecial($address,' ',array("\n","\r"))); ?>';
     geocoder.geocode( { 'address': address}, function(results, status) {
       if (status == google.maps.GeocoderStatus.OK) {
         map.setCenter(results[0].geometry.location);
