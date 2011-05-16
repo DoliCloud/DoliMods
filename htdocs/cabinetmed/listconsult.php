@@ -22,7 +22,7 @@
  *	\file       htdocs/cabinetmed/listconsult.php
  *	\ingroup    cabinetmed
  *	\brief      List of consultation
- *	\version    $Id: listconsult.php,v 1.7 2011/05/01 18:52:55 eldy Exp $
+ *	\version    $Id: listconsult.php,v 1.8 2011/05/16 17:28:56 eldy Exp $
  */
 
 
@@ -54,7 +54,7 @@ $offset = $conf->liste_limit * $page;
 $pageprev = $page - 1;
 $pagenext = $page + 1;
 if (! $sortorder) $sortorder="DESC";
-if (! $sortfield) $sortfield="c.datecons";
+if (! $sortfield) $sortfield="c.datecons,c.rowid";
 
 $search_nom=isset($_GET["search_nom"])?$_GET["search_nom"]:$_POST["search_nom"];
 $search_ville=isset($_GET["search_ville"])?$_GET["search_ville"]:$_POST["search_ville"];
@@ -185,7 +185,7 @@ if ($result)
 	print_liste_field_titre($langs->trans("Company"),$_SERVER["PHP_SELF"],"s.nom","",$param,"",$sortfield,$sortorder);
 	print_liste_field_titre($langs->trans("CustomerCode"),$_SERVER["PHP_SELF"],"s.code_client","",$param,"",$sortfield,$sortorder);
     print_liste_field_titre($langs->trans("IdConsultShort"),$_SERVER["PHP_SELF"],"c.rowid","",$param,"",$sortfield,$sortorder);
-	print_liste_field_titre($langs->trans("DateConsultationShort"),$_SERVER["PHP_SELF"],"c.datecons","",$param,'align="center"',$sortfield,$sortorder);
+	print_liste_field_titre($langs->trans("DateConsultationShort"),$_SERVER["PHP_SELF"],"c.datecons,c.rowid","",$param,'align="center"',$sortfield,$sortorder);
     print_liste_field_titre($langs->trans('Prise en charge'),$_SERVER['PHP_SELF'],'c.typepriseencharge','',$param,'',$sortfield,$sortorder);
     print_liste_field_titre($langs->trans("MotifPrincipal"),$_SERVER["PHP_SELF"],"c.motifconsprinc","",$param,'',$sortfield,$sortorder);
 	print_liste_field_titre($langs->trans("DiagLesPrincipal"),$_SERVER["PHP_SELF"],"","",$param,'',$sortfield,$sortorder);
@@ -270,5 +270,5 @@ else
 
 $db->close();
 
-llxFooter('$Date: 2011/05/01 18:52:55 $ - $Revision: 1.7 $');
+llxFooter('$Date: 2011/05/16 17:28:56 $ - $Revision: 1.8 $');
 ?>
