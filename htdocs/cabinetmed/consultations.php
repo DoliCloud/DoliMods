@@ -20,7 +20,7 @@
  *   \file       htdocs/cabinetmed/consultations.php
  *   \brief      Tab for consultations
  *   \ingroup    cabinetmed
- *   \version    $Id: consultations.php,v 1.29 2011/05/04 22:23:08 eldy Exp $
+ *   \version    $Id: consultations.php,v 1.30 2011/05/16 17:53:34 eldy Exp $
  */
 
 $res=0;
@@ -710,14 +710,21 @@ if ($socid > 0)
         $sql.= " AND entity = ".$conf->entity;
         $sql.= " AND (proprio LIKE '%".$user->nom."%' OR label LIKE '%".$user->nom."%')";
         $sql.= " ORDER BY label";
+        //print $sql;
         $resql=$db->query($sql);
         if ($resql)
         {
-            $obj=$db->fetch_object($resql);
-            if ($obj)
+            $num=$db->num_rows($resql);
+            $i=0;
+            while($i < $num)
             {
-                if ($obj->courant == 1) $defaultbankaccountchq=$obj->rowid;
-                if ($obj->courant == 2) $defaultbankaccountliq=$obj->rowid;
+                $obj=$db->fetch_object($resql);
+                if ($obj)
+                {
+                    if ($obj->courant == 1) $defaultbankaccountchq=$obj->rowid;
+                    if ($obj->courant == 2) $defaultbankaccountliq=$obj->rowid;
+                }
+                $i++;
             }
         }
         //print $consult->bank_id.'c'.$consult->bank_account_id.'c'.$defaultbankaccountchq.'c'.$defaultbankaccountliq;
@@ -974,5 +981,5 @@ if ($action == '' || $action == 'delete')
 
 $db->close();
 
-llxFooter('$Date: 2011/05/04 22:23:08 $ - $Revision: 1.29 $');
+llxFooter('$Date: 2011/05/16 17:53:34 $ - $Revision: 1.30 $');
 ?>
