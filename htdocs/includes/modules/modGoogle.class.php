@@ -12,7 +12,7 @@
  *      \file       htdocs/includes/modules/modGoogle.class.php
  *      \ingroup    google
  *      \brief      Description and activation file for module Google
- *		\version	$Id: modGoogle.class.php,v 1.18 2011/05/12 19:00:01 eldy Exp $
+ *		\version	$Id: modGoogle.class.php,v 1.19 2011/05/16 17:25:53 eldy Exp $
  */
 include_once(DOL_DOCUMENT_ROOT ."/includes/modules/DolibarrModules.class.php");
 
@@ -78,6 +78,7 @@ class modGoogle extends DolibarrModules
 							'contact:+gmaps:GMaps:@google:$conf->google->enabled&&$conf->global->GOOGLE_ENABLE_GMAPS_CONTACTS:/google/gmaps.php?mode=contact&id=__ID__',
 							'member:+gmaps:GMaps:@google:$conf->google->enabled&&$conf->global->GOOGLE_ENABLE_GMAPS_MEMBERS:/google/gmaps.php?mode=member&id=__ID__',
 						);*/
+        $this->tabs = array('agenda:+gcal:MenuAgendaGoogle:@google:$conf->google->enabled && $conf->global->GOOGLE_ENABLE_AGENDA:/google/index.php');
 
         // Boxes
 		$this->boxes = array();			// List of boxes
@@ -122,7 +123,7 @@ class modGoogle extends DolibarrModules
 		//							'target'=>'',
 		//							'user'=>2);				// 0=Menu for internal users, 1=external users, 2=both
 		// $r++;
-		$this->menu[$r]=array(	'fk_menu'=>0,
+		/*$this->menu[$r]=array(	'fk_menu'=>0,
 								'type'=>'top',
 								'titre'=>'MenuAgendaGoogle',
 								'mainmenu'=>'google',
@@ -134,6 +135,7 @@ class modGoogle extends DolibarrModules
 								'perms'=>'',
 								'target'=>'',
 								'user'=>0);
+		*/
 		$r++;
 	}
 

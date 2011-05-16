@@ -5,14 +5,23 @@
  */
 
 /**
-    	\file       htdocs/google/index.php
-		\ingroup    google
-		\brief      Main google area page
-		\version    $Id: index.php,v 1.5 2010/06/18 22:26:07 eldy Exp $
-		\author		Laurent Destailleur
-*/
+ *    	\file       htdocs/google/index.php
+ *		\ingroup    google
+ *		\brief      Main google area page
+ *		\version    $Id: index.php,v 1.6 2011/05/16 17:25:56 eldy Exp $
+ *		\author		Laurent Destailleur
+ */
 
 include("./pre.inc.php");
+/*$res=0;
+if (! $res && file_exists("../main.inc.php")) $res=@include("../main.inc.php");
+if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.php");
+if (! $res && file_exists("../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../dolibarr/htdocs/main.inc.php");     // Used on dev env only
+if (! $res && file_exists("../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
+if (! $res && file_exists("../../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
+if (! $res) die("Include of main fails");
+*/
+require_once(DOL_DOCUMENT_ROOT."/lib/agenda.lib.php");
 
 // Load traductions files
 $langs->load("google");
@@ -71,6 +80,92 @@ if ($_REQUEST["action"] == 'add')
 llxHeader('','Google',"EN:Module_GoogleEn|FR:Module_Google|ES:Modulo_Google");
 
 $form=new Form($db);
+
+
+
+$head = calendars_prepare_head('');
+
+dol_fiche_head($head, 'gcal', $langs->trans('Events'), 0, 'action');
+
+$finaltext='';
+
+$MAXAGENDA=empty($conf->global->GOOGLE_AGENDA_NB)?5:$conf->global->GOOGLE_AGENDA_NB;
+$i=1;$found=0;
+while ($i <= $MAXAGENDA)
+{
+    $paramkey='GOOGLE_AGENDA_NAME'.$i;
+    $paramcolor='GOOGLE_AGENDA_COLOR'.$i;
+    //print $paramkey;
+    if (! empty($conf->global->$paramkey))
+    {
+        $found++;
+        $addcolor=false;
+        if (isset($_GET["nocal"]))
+        {
+            if ($_GET["nocal"] == $i) $addcolor=true;
+        }
+        else $addcolor=true;
+
+        $link=dol_buildpath("/google/index.php",1)."?mainmenu=agenda&idmenu=".$_SESSION["idmenu"]."&nocal=".$i;
+
+        $text='';
+        $text.='<table class="nobordernopadding">';
+        $text.='<tr valign="middle" class="nobordernopadding">';
+
+        // Color of agenda
+        $text.='<td style="padding-left: 4px; padding-right: 4px" nowrap="nowrap">';
+        $box ='<!-- Box color '.$selected.' -->';
+        $box.='<table style="border-collapse: collapse; margin:0px; padding: 0px; border: 1px solid #888888;';
+        if ($addcolor) $box.=' background: #'.(preg_replace('/#/','',$conf->global->$paramcolor)).';';
+        $box.='" width="12" height="10">';
+        $box.='<tr class="nocellnopadd"><td></td></tr>';    // To show box
+        $box.='</table>';
+        $text.=$box;
+        $text.='</td>';
+
+        // Name of agenda
+        $text.='<td>';
+        $text.='<a class="vsmenu" href="'.$link.'">'.$conf->global->$paramkey.'</a>';
+        $text.='</td></tr>';
+
+        $text.='</table>';
+
+        $finaltext.=$text;
+    }
+    $i++;
+}
+if ($found > 1)
+{
+    $link=dol_buildpath("/google/index.php",1)."?mainmenu=agenda&idmenu=".$_SESSION["idmenu"];
+
+    $text='';
+    $text.='<table class="nobordernopadding">';
+    $text.='<tr valign="middle" class="nobordernopadding">';
+
+    // Color of agenda
+    $text.='<td style="padding-left: 4px; padding-right: 4px" nowrap="nowrap">';
+    $box ='<!-- Box color '.$selected.' -->';
+    $box.='<table style="border-collapse: collapse; margin:0px; padding: 0px; border: 1px solid #888888;';
+    if ($addcolor) $box.=' background: #'.(preg_replace('/#/','','#FFFFFF')).';';
+    $box.='" width="12" height="10">';
+    $box.='<tr class="nocellnopadd"><td></td></tr>';    // To show box
+    $box.='</table>';
+    $text.=$box;
+    $text.='</td>';
+
+    // Name of agenda
+    $text.='<td>';
+    $text.='<a class="vsmenu" href="'.$link.'"><strong>'.$langs->trans("All").'</strong></a>';
+    $text.='</td></tr>';
+
+    $text.='</table>';
+
+    $finaltext=$text.$finaltext;
+}
+
+print $finaltext;
+
+dol_fiche_end();
 
 
 // Define parameters
@@ -138,5 +233,5 @@ print $frame;
 // End of page
 $db->close();
 
-llxFooter('$Date: 2010/06/18 22:26:07 $ - $Revision: 1.5 $');
+llxFooter('$Date: 2011/05/16 17:25:56 $ - $Revision: 1.6 $');
 ?>

@@ -8,7 +8,7 @@
  *		\file 		htdocs/google/pre.inc.php
  *		\ingroup    google
  *		\brief      File to manage left menu for google module
- *		\version    $Id: pre.inc.php,v 1.10 2011/04/22 16:01:58 hregis Exp $
+ *		\version    $Id: pre.inc.php,v 1.11 2011/05/16 17:25:56 eldy Exp $
  */
 
 define('NOCSRFCHECK',1);
@@ -29,6 +29,7 @@ if (! $res) die("Include of main fails");
  * @param   $title
  * @param   $help_url
  */
+/*
 function llxHeader($head = "", $title="", $help_url='')
 {
 	global $conf,$langs;
@@ -37,11 +38,11 @@ function llxHeader($head = "", $title="", $help_url='')
 	top_menu($head, $title);
 
 	$menu = new Menu();
-	
+
 	if ($conf->global->GOOGLE_ENABLE_AGENDA)
 	{
 		$menu->add("/google/index.php?mainmenu=google&idmenu=".$_SESSION["idmenu"], $langs->trans("Agendas"));
-	
+
 		$MAXAGENDA=empty($conf->global->GOOGLE_AGENDA_NB)?5:$conf->global->GOOGLE_AGENDA_NB;
 		$i=1;
 		while ($i <= $MAXAGENDA)
@@ -57,14 +58,14 @@ function llxHeader($head = "", $title="", $help_url='')
 					if ($_GET["nocal"] == $i) $addcolor=true;
 				}
 				else $addcolor=true;
-	
+
 				$link=dol_buildpath("/google/index.php",1)."?mainmenu=google&idmenu=".$_SESSION["idmenu"]."&nocal=".$i;
-	
+
 				$text='';
 				$text.='<table class="nobordernopadding">';
-	
+
 				$text.='<tr valign="middle" class="nobordernopadding">';
-	
+
 				// Color of agenda
 				$text.='<td style="padding-left: 4px; padding-right: 4px" nowrap="nowrap">';
 				$box ='<!-- Box color '.$selected.' -->';
@@ -75,13 +76,13 @@ function llxHeader($head = "", $title="", $help_url='')
 				$box.='</table>';
 				$text.=$box;
 				$text.='</td>';
-	
+
 				// Name of agenda
 				$text.='<td>';
 				$text.='<a class="vsmenu" href="'.$link.'">'.$conf->global->$paramkey.'</a>';
 				$text.='</td></tr>';
 				$text.='</table>';
-	
+
 				$menu->add_submenu('', $text);
 			}
 			$i++;
@@ -90,4 +91,5 @@ function llxHeader($head = "", $title="", $help_url='')
 
 	left_menu($menu->liste, $help_url);
 }
+*/
 ?>
