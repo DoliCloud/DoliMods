@@ -21,7 +21,7 @@
 /**
  *		\file       htdocs/cabinetmed/theme/auguria/style.css.php
  *		\brief      Fichier de style CSS du theme auguria
- *		\version    $Id: style.css.php,v 1.7 2011/05/01 17:54:02 eldy Exp $
+ *		\version    $Id: style.css.php,v 1.8 2011/05/17 10:28:14 eldy Exp $
  */
 
 //if (! defined('NOREQUIREUSER')) define('NOREQUIREUSER','1');	// Not disabled cause need to load personalized language
@@ -908,7 +908,7 @@ span.tabspan {
 
 /* Nouvelle syntaxe a utiliser */
 
-a.butAction:link, a.butAction:visited, a.butAction:hover, a.butAction:active, a.butActionDelete, a.butActionDelete:link, a.butActionDelete:visited, a.butActionDelete:hover, a.butActionDelete:active {
+.butAction:link, .butAction:visited, .butAction:hover, .butAction:active, .butActionDelete, .butActionDelete:link, .butActionDelete:visited, .butActionDelete:hover, .butActionDelete:active {
 	font-family: <?php print $fontlist ?>;
 	font-weight: bold;
 	background: white;
@@ -920,19 +920,19 @@ a.butAction:link, a.butAction:visited, a.butAction:hover, a.butAction:active, a.
 	white-space: nowrap;
 }
 
-a.butAction:hover   {
+.butAction:hover   {
 	background: #dee7ec;
 }
 
-a.butActionDelete    {
+.butActionDelete    {
 	border: 1px solid red;
 }
 
-a.butActionDelete:link, a.butActionDelete:visited, a.butActionDelete:hover, a.butActionDelete:active {
+.butActionDelete:link, a.butActionDelete:visited, a.butActionDelete:hover, a.butActionDelete:active {
 	border: 1px solid #997777;
 }
 
-a.butActionDelete:hover {
+.butActionDelete:hover {
 	background: #FFe7ec;
 }
 
@@ -947,6 +947,10 @@ a.butActionDelete:hover {
 	text-decoration: none !important;
 	white-space: nowrap !important;
 	cursor: not-allowed;
+}
+
+span.butAction, span.butActionDelete {
+    cursor: pointer;
 }
 
 

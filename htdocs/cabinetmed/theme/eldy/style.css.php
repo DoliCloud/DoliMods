@@ -21,7 +21,7 @@
 /**
  *		\file       htdocs/cabinetmed/theme/eldy/style.css.php
  *		\brief      Fichier de style CSS du theme Eldy
- *		\version    $Id: style.css.php,v 1.10 2011/05/01 17:00:28 eldy Exp $
+ *		\version    $Id: style.css.php,v 1.11 2011/05/17 10:28:14 eldy Exp $
  */
 
 //if (! defined('NOREQUIREUSER')) define('NOREQUIREUSER','1');	// Not disabled cause need to load personalized language
@@ -57,8 +57,8 @@ else header('Cache-Control: no-cache');
 // On the fly GZIP compression for all pages (if browser support it). Must set the bit 3 of constant to 1.
 if (isset($conf->global->MAIN_OPTIMIZE_SPEED) && ($conf->global->MAIN_OPTIMIZE_SPEED & 0x04)) { ob_start("ob_gzhandler"); }
 
-if (! empty($_GET["lang"])) $langs->setDefaultLang($_GET["lang"]);	// If language was forced on URL
-if (! empty($_GET["theme"])) $conf->theme=$_GET["theme"];  // If theme was forced on URL
+if (GETPOST('lang')) $langs->setDefaultLang(GETPOST('lang'));	// If language was forced on URL
+if (GETPOST('theme')) $conf->theme=GETPOST('theme');  // If theme was forced on URL
 $langs->load("main",0,1);
 $right=($langs->trans("DIRECTION")=='rtl'?'left':'right');
 $left=($langs->trans("DIRECTION")=='rtl'?'right':'left');
@@ -173,6 +173,11 @@ div.float
 {
     float:<?php print $left; ?>;
 }
+
+/* For hide object and add pointer cursor */
+
+.hideobject { display: none; }
+.linkobject { cursor: pointer; }
 
 /* For dragging lines */
 
@@ -948,7 +953,7 @@ span.tabspan {
 
 /* Nouvelle syntaxe a utiliser */
 
-a.butAction:link, a.butAction:visited, a.butAction:hover, a.butAction:active, a.butActionDelete, a.butActionDelete:link, a.butActionDelete:visited, a.butActionDelete:hover, a.butActionDelete:active {
+.butAction:link, .butAction:visited, .butAction:hover, .butAction:active, .butActionDelete, .butActionDelete:link, .butActionDelete:visited, .butActionDelete:hover, .butActionDelete:active {
 	font-family: <?php print $fontlist ?>;
 	font-weight: bold;
 	background: white;
@@ -960,19 +965,19 @@ a.butAction:link, a.butAction:visited, a.butAction:hover, a.butAction:active, a.
 	white-space: nowrap;
 }
 
-a.butAction:hover   {
+.butAction:hover   {
 	background: #dee7ec;
 }
 
-a.butActionDelete    {
+.butActionDelete    {
 	border: 1px solid red;
 }
 
-a.butActionDelete:link, a.butActionDelete:visited, a.butActionDelete:hover, a.butActionDelete:active {
+.butActionDelete:link, a.butActionDelete:visited, a.butActionDelete:hover, a.butActionDelete:active {
 	border: 1px solid #997777;
 }
 
-a.butActionDelete:hover {
+.butActionDelete:hover {
 	background: #FFe7ec;
 }
 
@@ -987,6 +992,10 @@ a.butActionDelete:hover {
 	text-decoration: none !important;
 	white-space: nowrap !important;
 	cursor: not-allowed;
+}
+
+span.butAction, span.butActionDelete {
+	cursor: pointer;
 }
 
 
