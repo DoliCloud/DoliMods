@@ -8,7 +8,7 @@
  *    	\file       htdocs/google/index.php
  *		\ingroup    google
  *		\brief      Main google area page
- *		\version    $Id: index.php,v 1.6 2011/05/16 17:25:56 eldy Exp $
+ *		\version    $Id: index.php,v 1.7 2011/05/17 10:17:05 eldy Exp $
  *		\author		Laurent Destailleur
  */
 
@@ -85,7 +85,7 @@ $form=new Form($db);
 
 $head = calendars_prepare_head('');
 
-dol_fiche_head($head, 'gcal', $langs->trans('Events'), 0, 'action');
+dol_fiche_head($head, 'gcal', $langs->trans('Events'), 0, 'calendar');
 
 $finaltext='';
 
@@ -233,5 +233,5 @@ print $frame;
 // End of page
 $db->close();
 
-llxFooter('$Date: 2011/05/16 17:25:56 $ - $Revision: 1.6 $');
+llxFooter('$Date: 2011/05/17 10:17:05 $ - $Revision: 1.7 $');
 ?>
