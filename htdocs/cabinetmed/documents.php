@@ -20,7 +20,7 @@
  *   \file       htdocs/cabinetmed/documents.php
  *   \brief      Tab for courriers
  *   \ingroup    cabinetmed
- *   \version    $Id: documents.php,v 1.1 2011/05/04 22:23:08 eldy Exp $
+ *   \version    $Id: documents.php,v 1.2 2011/05/18 22:39:37 eldy Exp $
  */
 
 $res=0;
@@ -203,7 +203,7 @@ if ($socid > 0)
 
     $var=true;
 
-    $somethingshown=$formfile->show_documents('patientoutcomes',$soc->id,$filedir,$urlsource,$genallowed,$delallowed,'',0,0,0,28,0,'',0,'',$soc->default_lang);
+    $somethingshown=$formfile->show_documents('cabinetmed',$soc->id,$filedir,$urlsource,$genallowed,$delallowed,'',0,0,0,28,0,'',0,'',$soc->default_lang);
 
     print '</td>';
     print '<td>';
@@ -218,5 +218,5 @@ if ($socid > 0)
 
 $db->close();
 
-llxFooter('$Date: 2011/05/04 22:23:08 $ - $Revision: 1.1 $');
+llxFooter('$Date: 2011/05/18 22:39:37 $ - $Revision: 1.2 $');
 ?>

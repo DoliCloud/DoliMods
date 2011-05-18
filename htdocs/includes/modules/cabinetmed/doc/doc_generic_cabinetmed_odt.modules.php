@@ -22,7 +22,7 @@
  *	\ingroup    societe
  *	\brief      File of class to build ODT documents for third parties
  *	\author	    Laurent Destailleur
- *	\version    $Id: doc_generic_patientoutcomes_odt.modules.php,v 1.1 2011/05/04 21:46:43 eldy Exp $
+ *	\version    $Id: doc_generic_cabinetmed_odt.modules.php,v 1.1 2011/05/18 22:39:37 eldy Exp $
  */
 
 require_once(DOL_DOCUMENT_ROOT."/includes/modules/facture/modules_facture.php");

@@ -21,11 +21,10 @@
  */
 
 /**
- *	\file       htdocs/includes/modules/facture/modules_facture.php
+ *	\file       htdocs/cabinetmed/inc/modules/cabinetmed/modules_cabinetmed.php
  *	\ingroup    facture
- *	\brief      Fichier contenant la classe mere de generation des factures en PDF
- * 				et la classe mere de numerotation des factures
- *	\version    $Id: modules_patientoutcomes.php,v 1.2 2011/05/04 22:23:08 eldy Exp $
+ *	\brief      Fichier contenant la classe mere de generation des PDF cabinetmed
+ *	\version    $Id: modules_cabinetmed.php,v 1.1 2011/05/18 22:39:37 eldy Exp $
  */
 
 require_once(DOL_DOCUMENT_ROOT.'/lib/pdf.lib.php');
@@ -36,10 +35,10 @@ require_once(DOL_DOCUMENT_ROOT."/core/class/commondocgenerator.class.php");
 
 
 /**
- *	\class      ModelePDFPatientOutcomes
+ *	\class      ModeleCabinetmed
  *	\brief      Classe mere des modeles de consultations
  */
-class ModelePDFPatientOutcomes extends CommonDocGenerator
+class ModeleCabinetmed extends CommonDocGenerator
 {
 	var $error='';
 
@@ -51,7 +50,7 @@ class ModelePDFPatientOutcomes extends CommonDocGenerator
 	{
 		global $conf;
 
-		$type='patientoutcomes';
+		$type='cabinetmed';
 		$liste=array();
 
 		include_once(DOL_DOCUMENT_ROOT.'/lib/functions2.lib.php');
@@ -74,7 +73,7 @@ class ModelePDFPatientOutcomes extends CommonDocGenerator
  *  @param      hideref         Hide ref
  *	@return  	int        		<0 if KO, >0 if OK
  */
-function patientoutcomes_doc_create($db, $object, $message, $modele, $outputlangs, $hidedetails=0, $hidedesc=0, $hideref=0)
+function cabinetmed_doc_create($db, $object, $message, $modele, $outputlangs, $hidedetails=0, $hidedesc=0, $hideref=0)
 {
 	global $conf,$langs;
 	$langs->load("bills");
@@ -85,7 +84,7 @@ function patientoutcomes_doc_create($db, $object, $message, $modele, $outputlang
     @set_time_limit(120);
     error_reporting($err);
 
-	$dir = "/includes/modules/patientoutcomes/";
+	$dir = "/includes/modules/cabinetmed/";
     $srctemplatepath='';
 
 	// Positionne modele sur le nom du modele a utiliser
@@ -147,7 +146,7 @@ function patientoutcomes_doc_create($db, $object, $message, $modele, $outputlang
 		else
 		{
 			$outputlangs->charset_output=$sav_charset_output;
-			dol_print_error($db,"patientoutcomes_pdf_create Error: ".$obj->error);
+			dol_print_error($db,"cabinetmed_doc_create Error: ".$obj->error);
 			return -1;
 		}
 
