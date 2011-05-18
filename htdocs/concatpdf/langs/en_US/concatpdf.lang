@@ -1,0 +1,4 @@
+# Dolibarr language file - fr_FR - concatpdf 
+CHARSET= UTF-8
+ConcatPdfSetup=ConcatPDF module setup
+ConcatPDfTakeFileFrom=ConcatPDF module will suggest to concat, to generated PDF invoices, all files found into directory <b>%s</b>
