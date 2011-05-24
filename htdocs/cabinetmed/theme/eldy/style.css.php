@@ -21,7 +21,7 @@
 /**
  *		\file       htdocs/cabinetmed/theme/eldy/style.css.php
  *		\brief      Fichier de style CSS du theme Eldy
- *		\version    $Id: style.css.php,v 1.12 2011/05/24 20:14:40 eldy Exp $
+ *		\version    $Id: style.css.php,v 1.13 2011/05/24 20:17:39 eldy Exp $
  */
 
 //if (! defined('NOREQUIREUSER')) define('NOREQUIREUSER','1');	// Not disabled cause need to load personalized language
@@ -969,7 +969,7 @@ span.tabspan {
 	background: #dee7ec;
 }
 
-.butActionDelete, .butActionDelete:link, a.butActionDelete:visited, a.butActionDelete:hover, a.butActionDelete:active {
+.butActionDelete, .butActionDelete:link, .butActionDelete:visited, .butActionDelete:hover, .butActionDelete:active {
 	border: 1px solid #997777;
 }
 

@@ -21,7 +21,7 @@
 /**
  *		\file       htdocs/cabinetmed/theme/auguria/style.css.php
  *		\brief      Fichier de style CSS du theme auguria
- *		\version    $Id: style.css.php,v 1.8 2011/05/17 10:28:14 eldy Exp $
+ *		\version    $Id: style.css.php,v 1.9 2011/05/24 20:17:39 eldy Exp $
  */
 
 //if (! defined('NOREQUIREUSER')) define('NOREQUIREUSER','1');	// Not disabled cause need to load personalized language
@@ -924,16 +924,12 @@ span.tabspan {
 	background: #dee7ec;
 }
 
-.butActionDelete    {
-	border: 1px solid red;
-}
-
-.butActionDelete:link, a.butActionDelete:visited, a.butActionDelete:hover, a.butActionDelete:active {
-	border: 1px solid #997777;
+.butActionDelete, .butActionDelete:link, .butActionDelete:visited, .butActionDelete:hover, .butActionDelete:active {
+    border: 1px solid #997777;
 }
 
 .butActionDelete:hover {
-	background: #FFe7ec;
+    background: #FFe7ec;
 }
 
 .butActionRefused {
