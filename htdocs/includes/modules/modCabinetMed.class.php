@@ -26,7 +26,7 @@
  *      \file       htdocs/includes/modules/modCabinetMed.class.php
  *      \ingroup    cabinetmed
  *      \brief      Description and activation file for module CabinetMed
- *      \version    $Id: modCabinetMed.class.php,v 1.28 2011/05/21 14:42:08 eldy Exp $
+ *      \version    $Id: modCabinetMed.class.php,v 1.29 2011/05/24 20:30:53 eldy Exp $
  */
 include_once(DOL_DOCUMENT_ROOT ."/includes/modules/DolibarrModules.class.php");
 
@@ -92,7 +92,7 @@ class modCabinetMed extends DolibarrModules
         //                             1=>array('MODULE_MY_NEW_CONST2','chaine','myvalue','This is another constant to add',1) );
         $this->const = array(0=>array('SOCIETE_DISABLE_PROSPECTS','chaine','1','Disable all prospects features',1,'current',1),
                              1=>array('SOCIETE_DISABLE_CONTACTS','chaine','1','Disable contacts features',1,'current',1),
-                             2=>array('SOCIETE_DISABLE_CUSTOMERS','chaine','1','Disable all customers features',1,'current',1),
+                             /*2=>array('SOCIETE_DISABLE_CUSTOMERS','chaine','1','Disable all customers features',1,'current',1),*/
                              3=>array('SOCIETE_DISABLE_STATE','chaine','1','Disable state features',1,'current',1),
                              4=>array('SOCIETE_DISABLE_BANKACCOUNT','chaine','1','Disable bank account information on third parties',1,'current',1),
                              5=>array('SOCIETE_DISABLE_PARENTCOMPANY','chaine','1','Disable parent company features',1,'current',1),
