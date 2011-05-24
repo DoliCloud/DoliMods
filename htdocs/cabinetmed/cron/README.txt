@@ -8,6 +8,7 @@
 
 # This is a command to synchronize to another directory
 rsync -a --delete --stats /Applications/MAMP/dolibarr* /Volumes/SCM34_OSX/Backups_Dolimed >/Applications/MAMP/dolibarr_logs/backup_dolimed.log 2>&1
+# rsync -a --stats rhumato@apollon1.nltechno.com:/home/rhumato/wwwroot/dolibarr/* /Applications/MAMP/dolibarr 
 
 # Put this into your cron
 # 0 22 * * *  Applications/MAMP/backup.sh
