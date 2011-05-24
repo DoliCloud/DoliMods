@@ -24,7 +24,7 @@
 /**
  *      \defgroup   numberwords     Module numberwords
  *      \brief      Module to add function to convert amount in number to strings
- *		\brief		$Id: modNumberWords.class.php,v 1.2 2011/03/27 16:51:32 eldy Exp $
+ *		\brief		$Id: modNumberWords.class.php,v 1.3 2011/05/24 08:29:12 eldy Exp $
  */
 
 /**
@@ -51,7 +51,7 @@ class modNumberWords extends DolibarrModules
 
 		// Id for module (must be unique).
 		// Use here a free id (See in Home -> System information -> Dolibarr for list of used modules id).
-		$this->numero = 50200;
+		$this->numero = 100200;
 		// Key text used to identify module (for permissions, menus, etc...)
 		$this->rights_class = 'numberwords';
 
