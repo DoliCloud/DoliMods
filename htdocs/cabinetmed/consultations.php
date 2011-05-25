@@ -20,7 +20,7 @@
  *   \file       htdocs/cabinetmed/consultations.php
  *   \brief      Tab for consultations
  *   \ingroup    cabinetmed
- *   \version    $Id: consultations.php,v 1.30 2011/05/16 17:53:34 eldy Exp $
+ *   \version    $Id: consultations.php,v 1.31 2011/05/25 12:53:11 eldy Exp $
  */
 
 $res=0;
@@ -669,7 +669,7 @@ if ($socid > 0)
         print '</td>';
         print '</tr>';
 
-        print '<tr><td valign="top"><br>'.$langs->trans("Commentaires");
+        print '<tr><td valign="top"><br>'.$langs->trans("Commentaires").':';
         print '</td><td><br>';
         print '<textarea name="comment" id="comment" class="flat" cols="40" rows="'.($nboflines-1).'">'.$consult->comment.'</textarea>';
         print '</td></tr>';
@@ -683,14 +683,14 @@ if ($socid > 0)
         print $langs->trans("Infiltrations").'<br>';
         print '<input type="text" class="flat" name="infiltration" id="infiltration" value="'.$consult->infiltration.'" size="30">';
 
-        print '<br><br><b>'.$langs->trans("TypeVisite").'</b> &nbsp; &nbsp; &nbsp; ';
+        print '<br><br><b>'.$langs->trans("TypeVisite").'</b>: &nbsp; &nbsp; &nbsp; ';
         print '<input type="radio" class="flat" name="typevisit" value="CS" id="cs"'.($consult->typevisit=='CS'?' checked="true"':'').'> CS';
         print ' &nbsp; &nbsp; ';
         print '<input type="radio" class="flat" name="typevisit" value="C2" id="c2"'.($consult->typevisit=='C2'?' checked="true"':'').'> C2';
         print ' &nbsp; &nbsp; ';
         print '<input type="radio" class="flat" name="typevisit" value="CCAM" id="ccam"'.($consult->typevisit=='CCAM'?' checked="true"':'').'> CCAM';
         print '<br>';
-        print '<br>'.$langs->trans("Codage CCAM").' &nbsp; ';
+        print '<br>'.$langs->trans("Codage CCAM").': &nbsp; ';
         print '<input type="text" class="flat" name="codageccam" id="codageccam" value="'.$consult->codageccam.'" size="30"'.($consult->codageccam?'':' disabled="disabled"').'>';
         print '</td></tr>';
 
@@ -981,5 +981,5 @@ if ($action == '' || $action == 'delete')
 
 $db->close();
 
-llxFooter('$Date: 2011/05/16 17:53:34 $ - $Revision: 1.30 $');
+llxFooter('$Date: 2011/05/25 12:53:11 $ - $Revision: 1.31 $');
 ?>
