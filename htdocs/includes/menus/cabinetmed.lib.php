@@ -21,7 +21,7 @@
 /**
  *  \file		htdocs/includes/menus/cabinetmed.lib.php
  *  \brief		Library for file cabinetmed menus
- *  \version	$Id: cabinetmed.lib.php,v 1.17 2011/05/25 15:20:01 eldy Exp $
+ *  \version	$Id: cabinetmed.lib.php,v 1.18 2011/05/25 23:19:25 eldy Exp $
  */
 
 
@@ -593,7 +593,7 @@ function print_left_cabinetmed_menu($db,$menu_array_before,$menu_array_after)
         $mysoc->logo_mini=$conf->global->MAIN_INFO_SOCIETE_LOGO_MINI;
         if (! empty($mysoc->logo_mini) && is_readable($conf->mycompany->dir_output.'/logos/thumbs/'.$mysoc->logo_mini))
         {
-            $urllogo=DOL_URL_ROOT.'/viewimage.php?modulepart=companylogo&amp;file='.urlencode('thumbs/'.$mysoc->logo_mini);
+            $urllogo=DOL_URL_ROOT.'/viewimage.php?cache=1&amp;modulepart=companylogo&amp;file='.urlencode('thumbs/'.$mysoc->logo_mini);
             print "\n".'<!-- Show logo on menu -->'."\n";
             print '<div class="blockvmenuimpair">'."\n";
             print '<div class="menu_titre" id="menu_titre_logo"></div>';
