@@ -15,13 +15,14 @@
 -- along with this program; if not, write to the Free Software
 -- Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 --
--- $Id: llx_cabinetmed_cons.sql,v 1.3 2011/04/17 11:04:01 eldy Exp $
+-- $Id: llx_cabinetmed_cons.sql,v 1.4 2011/05/25 15:19:51 eldy Exp $
 -- ===========================================================================
 
 -- DROP TABLE llx_cabinetmed_cons
 CREATE TABLE llx_cabinetmed_cons (
   rowid              integer AUTO_INCREMENT PRIMARY KEY,
   fk_soc             integer,
+  fk_user            integer,
   datecons           date NOT NULL,
   typepriseencharge  varchar(8),
   motifconsprinc     varchar(64),

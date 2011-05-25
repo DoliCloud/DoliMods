@@ -1,6 +1,6 @@
 <?php
-/* Copyright (C) 2010 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2010 Regis Houssin        <regis@dolibarr.fr>
+/* Copyright (C) 2010-2011 Laurent Destailleur  <eldy@users.sourceforge.net>
+ * Copyright (C) 2010      Regis Houssin        <regis@dolibarr.fr>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,7 +21,7 @@
 /**
  *  \file		htdocs/includes/menus/cabinetmed.lib.php
  *  \brief		Library for file cabinetmed menus
- *  \version	$Id: cabinetmed.lib.php,v 1.16 2011/04/21 21:42:01 eldy Exp $
+ *  \version	$Id: cabinetmed.lib.php,v 1.17 2011/05/25 15:20:01 eldy Exp $
  */
 
 
@@ -200,7 +200,6 @@ function print_cabinetmed_menu($db,$atarget,$type_user)
 	}
 
 	// Financial
-	/*
 	if ($conf->compta->enabled || $conf->accounting->enabled
 	|| $conf->facture->enabled || $conf->deplacement->enabled)
 	{
@@ -222,11 +221,11 @@ function print_cabinetmed_menu($db,$atarget,$type_user)
 		|| $user->rights->facture->lire || $user->rights->banque->lire)
 		{
 			print_start_menu_entry($idsel);
-			print '<a class="tmenuimage" href="'.DOL_URL_ROOT.'/compta/index.php?mainmenu=accountancy&amp;leftmenu="'.($atarget?" target=$atarget":"").'>';
+			print '<a class="tmenuimage" href="'.dol_buildpath('/cabinetmed/compta.php?mainmenu=accountancy&amp;leftmenu=&search_sale='.$user->id,1).'"'.($atarget?" target=$atarget":"").'>';
 			print '<div class="'.$id.' '.$idsel.'"><span class="'.$id.' tmenuimage" id="mainmenuspan_'.$idsel.'"></span></div>';
 			print '</a>';
-			print '<a '.$classname.' id="mainmenua_'.$idsel.'" href="'.DOL_URL_ROOT.'/compta/index.php?mainmenu=accountancy&amp;leftmenu="'.($atarget?" target=$atarget":"").'>';
-			print_text_menu_entry($langs->trans("MenuConsultation"));
+			print '<a '.$classname.' id="mainmenua_'.$idsel.'" href="'.dol_buildpath('/cabinetmed/compta.php?mainmenu=accountancy&amp;leftmenu=&search_sale='.$user->id,1).'"'.($atarget?" target=$atarget":"").'>';
+			print_text_menu_entry($langs->trans("Accountancy"));
 			print '</a>';
 			print_end_menu_entry();
 		}
@@ -237,13 +236,12 @@ function print_cabinetmed_menu($db,$atarget,$type_user)
 				print_start_menu_entry($idsel);
 				print '<div class="'.$id.' '.$idsel.'"><span class="'.$id.'" id="mainmenuspan_'.$idsel.'"></span></div>';
 				print '<a class="tmenudisabled" id="mainmenua_'.$idsel.'" href="#">';
-				print_text_menu_entry($langs->trans("MenuConsultation"));
+				print_text_menu_entry($langs->trans("Accountancy"));
 				print '</a>';
 				print_end_menu_entry();
 			}
 		}
 	}
-    */
 
     // Bank
     if ($conf->banque->enabled || $conf->prelevement->enabled)
@@ -852,15 +850,17 @@ function print_left_cabinetmed_menu($db,$menu_array_before,$menu_array_after)
 
 
         /*
-         * Menu Consultations (Factures)
+         * Menu Compta
          */
         if ($mainmenu == 'accountancy')
         {
             $langs->load("companies");
             $langs->load("cabinetmed@cabinetmed");
 
+            //$newmenu->add("/cabinetmed/reports.php?leftmenu=customers&search_sale=".$user->id, $langs->trans("ListConsult"), 0, $user->rights->societe->lire);
+
             // Customers invoices
-            if ($conf->facture->enabled)
+            /*if ($conf->facture->enabled)
             {
                 $langs->load("bills");
                 $newmenu->add("/cabinetmed/xxx.php?leftmenu=customers_bills",$langs->trans("Consultations"),0,$user->rights->facture->lire);
@@ -965,38 +965,44 @@ function print_left_cabinetmed_menu($db,$menu_array_before,$menu_array_after)
             {
 
             }
+            */
 
             // Rapports
-            if ($conf->compta->enabled || $conf->accounting->enabled)
+            if ($conf->compta->enabled || $conf->accounting->enabled || $conf->cabinetmed->enabled)
             {
                 $langs->load("compta");
 
-                // Bilan, resultats
-                $newmenu->add("/compta/resultat/index.php?leftmenu=ca&amp;mainmenu=accountancy",$langs->trans("Reportings"),0,$user->rights->compta->resultat->lire||$user->rights->accounting->comptarapport->lire);
+                $newmenu->add("/cabinetmed/compta.php?leftmenu=customers&search_sale=".$user->id, $langs->trans("Reportings"), 0, $user->rights->societe->lire);
 
-                if ($leftmenu=="ca") $newmenu->add("/compta/resultat/index.php?leftmenu=ca",$langs->trans("ReportInOut"),1,$user->rights->compta->resultat->lire||$user->rights->accounting->comptarapport->lire);
-                if ($leftmenu=="ca") $newmenu->add("/compta/resultat/clientfourn.php?leftmenu=ca",$langs->trans("ByCompanies"),2,$user->rights->compta->resultat->lire||$user->rights->accounting->comptarapport->lire);
-                /* On verra ca avec module compabilite expert
-                 if ($leftmenu=="ca") $newmenu->add("/compta/resultat/compteres.php?leftmenu=ca","Compte de resultat",2,$user->rights->compta->resultat->lire);
-                 if ($leftmenu=="ca") $newmenu->add("/compta/resultat/bilan.php?leftmenu=ca","Bilan",2,$user->rights->compta->resultat->lire);
-                 */
-                if ($leftmenu=="ca") $newmenu->add("/compta/stats/index.php?leftmenu=ca",$langs->trans("ReportTurnover"),1,$user->rights->compta->resultat->lire||$user->rights->accounting->comptarapport->lire);
+                if ($conf->compta->enabled || $conf->accounting->enabled)
+                {
+                    // Bilan, resultats
+                    $newmenu->add("/compta/resultat/index.php?leftmenu=ca&amp;mainmenu=accountancy",$langs->trans("Reportings"),0,$user->rights->compta->resultat->lire||$user->rights->accounting->comptarapport->lire);
 
-                /*
-                 if ($leftmenu=="ca") $newmenu->add("/compta/stats/cumul.php?leftmenu=ca","Cumule",2,$user->rights->compta->resultat->lire);
-                 if ($conf->propal->enabled) {
-                 if ($leftmenu=="ca") $newmenu->add("/compta/stats/prev.php?leftmenu=ca","Previsionnel",2,$user->rights->compta->resultat->lire);
-                 if ($leftmenu=="ca") $newmenu->add("/compta/stats/comp.php?leftmenu=ca","Transforme",2,$user->rights->compta->resultat->lire);
-                 }
-                 */
-                if ($leftmenu=="ca") $newmenu->add("/compta/stats/casoc.php?leftmenu=ca",$langs->trans("ByCompanies"),2,$user->rights->compta->resultat->lire||$user->rights->accounting->comptarapport->lire);
-                if ($leftmenu=="ca") $newmenu->add("/compta/stats/cabyuser.php?leftmenu=ca",$langs->trans("ByUsers"),2,$user->rights->compta->resultat->lire||$user->rights->accounting->comptarapport->lire);
+                    if ($leftmenu=="ca") $newmenu->add("/compta/resultat/index.php?leftmenu=ca",$langs->trans("ReportInOut"),1,$user->rights->compta->resultat->lire||$user->rights->accounting->comptarapport->lire);
+                    if ($leftmenu=="ca") $newmenu->add("/compta/resultat/clientfourn.php?leftmenu=ca",$langs->trans("ByCompanies"),2,$user->rights->compta->resultat->lire||$user->rights->accounting->comptarapport->lire);
+                    /* On verra ca avec module compabilite expert
+                     if ($leftmenu=="ca") $newmenu->add("/compta/resultat/compteres.php?leftmenu=ca","Compte de resultat",2,$user->rights->compta->resultat->lire);
+                     if ($leftmenu=="ca") $newmenu->add("/compta/resultat/bilan.php?leftmenu=ca","Bilan",2,$user->rights->compta->resultat->lire);
+                     */
+                    if ($leftmenu=="ca") $newmenu->add("/compta/stats/index.php?leftmenu=ca",$langs->trans("ReportTurnover"),1,$user->rights->compta->resultat->lire||$user->rights->accounting->comptarapport->lire);
 
-                // Journaux
- 				//if ($leftmenu=="ca") $newmenu->add("/compta/journaux/index.php?leftmenu=ca",$langs->trans("Journaux"),1,$user->rights->compta->resultat->lire||$user->rights->accounting->comptarapport->lire);
-                //journaux
-                if ($leftmenu=="ca") $newmenu->add("/compta/journal/sellsjournal.php?leftmenu=ca",$langs->trans("SellsJournal"),1,$user->rights->compta->resultat->lire||$user->rights->accounting->comptarapport->lire);
-                if ($leftmenu=="ca") $newmenu->add("/compta/journal/purchasesjournal.php?leftmenu=ca",$langs->trans("PurchasesJournal"),1,$user->rights->compta->resultat->lire||$user->rights->accounting->comptarapport->lire);
+                    /*
+                     if ($leftmenu=="ca") $newmenu->add("/compta/stats/cumul.php?leftmenu=ca","Cumule",2,$user->rights->compta->resultat->lire);
+                     if ($conf->propal->enabled) {
+                     if ($leftmenu=="ca") $newmenu->add("/compta/stats/prev.php?leftmenu=ca","Previsionnel",2,$user->rights->compta->resultat->lire);
+                     if ($leftmenu=="ca") $newmenu->add("/compta/stats/comp.php?leftmenu=ca","Transforme",2,$user->rights->compta->resultat->lire);
+                     }
+                     */
+                    if ($leftmenu=="ca") $newmenu->add("/compta/stats/casoc.php?leftmenu=ca",$langs->trans("ByCompanies"),2,$user->rights->compta->resultat->lire||$user->rights->accounting->comptarapport->lire);
+                    if ($leftmenu=="ca") $newmenu->add("/compta/stats/cabyuser.php?leftmenu=ca",$langs->trans("ByUsers"),2,$user->rights->compta->resultat->lire||$user->rights->accounting->comptarapport->lire);
+
+                    // Journaux
+     				//if ($leftmenu=="ca") $newmenu->add("/compta/journaux/index.php?leftmenu=ca",$langs->trans("Journaux"),1,$user->rights->compta->resultat->lire||$user->rights->accounting->comptarapport->lire);
+                    //journaux
+                    if ($leftmenu=="ca") $newmenu->add("/compta/journal/sellsjournal.php?leftmenu=ca",$langs->trans("SellsJournal"),1,$user->rights->compta->resultat->lire||$user->rights->accounting->comptarapport->lire);
+                    if ($leftmenu=="ca") $newmenu->add("/compta/journal/purchasesjournal.php?leftmenu=ca",$langs->trans("PurchasesJournal"),1,$user->rights->compta->resultat->lire||$user->rights->accounting->comptarapport->lire);
+                }
             }
         }
 

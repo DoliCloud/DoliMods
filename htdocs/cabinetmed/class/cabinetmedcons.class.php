@@ -17,10 +17,10 @@
  */
 
 /**
- *      \file       cabinetmed/class/cabinetmedcons.class.php
+ *      \file       htdocs/cabinetmed/class/cabinetmedcons.class.php
  *      \ingroup    cabinetmed
  *      \brief      This file is an example for a CRUD class file (Create/Read/Update/Delete)
- *		\version    $Id: cabinetmedcons.class.php,v 1.7 2011/05/03 09:33:06 eldy Exp $
+ *		\version    $Id: cabinetmedcons.class.php,v 1.8 2011/05/25 15:19:51 eldy Exp $
  *		\remarks	Initialy built by build_class_from_table on 2011-02-02 22:30
  */
 
@@ -82,10 +82,10 @@ class CabinetmedCons extends CommonObject
 
 
 	/**
-	 *      \brief      Create in database
-	 *      \param      user        	User that create
-	 *      \param      notrigger	    0=launch triggers after, 1=disable triggers
-	 *      \return     int         	<0 if KO, Id of created object if OK
+	 *      Create object into database
+	 *      @param      user        	User that create
+	 *      @param      notrigger	    0=launch triggers after, 1=disable triggers
+	 *      @return     int         	<0 if KO, Id of created object if OK
 	 */
 	function create($user, $notrigger=0)
 	{
@@ -123,6 +123,7 @@ class CabinetmedCons extends CommonObject
 		$sql = "INSERT INTO ".MAIN_DB_PREFIX."cabinetmed_cons(";
 
 		$sql.= "fk_soc,";
+        $sql.= "fk_user_creation,";
 		$sql.= "datecons,";
 		$sql.= "typepriseencharge,";
 		$sql.= "motifconsprinc,";
@@ -142,11 +143,9 @@ class CabinetmedCons extends CommonObject
 		$sql.= "montant_carte,";
 		$sql.= "montant_tiers,";
 		$sql.= "banque";
-
-
 		$sql.= ") VALUES (";
-
 		$sql.= " ".(! isset($this->fk_soc)?'NULL':"'".$this->fk_soc."'").",";
+        $sql.= " ".$user->id.",";
 		$sql.= " ".(! isset($this->datecons) || dol_strlen($this->datecons)==0?'NULL':$this->db->idate($this->datecons)).",";
 		$sql.= " ".(! isset($this->typepriseencharge)?'NULL':"'".addslashes($this->typepriseencharge)."'").",";
 		$sql.= " ".(! isset($this->motifconsprinc)?'NULL':"'".addslashes($this->motifconsprinc)."'").",";

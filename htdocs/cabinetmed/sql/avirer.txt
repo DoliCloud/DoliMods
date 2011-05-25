@@ -1,0 +1,6 @@
+
+alter table llx_cabinetmed_cons add column   fk_user_creation            integer after fk_soc;
+
+update llx_cabinetmed_cons as c set fk_user_creation = (select fk_user from llx_societe_commerciaux as s where s.fk_soc = c.fk_soc)
+where fk_user_creation = 0;
+

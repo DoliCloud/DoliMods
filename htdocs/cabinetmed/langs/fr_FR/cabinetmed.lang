@@ -79,3 +79,6 @@ SuiviPR=Suivi PR
 SuiviSA=Suivi SA
 NotCalculable=Non calculable
 OnlyOneFieldIsPossible=Un seul champ montant possible à la fois
+CabinetMedAnnualSummaryInputOutput=Revenus annuels des consultations
+CabinetMedRulesResultInOut=Ce rapport se base sur le montant des consultations à la date de la consultation
+PaymentTypeThirdParty=Tiers 
