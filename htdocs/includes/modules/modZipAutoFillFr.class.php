@@ -20,7 +20,7 @@
 /**
  *	\defgroup   zipautofill     Module ZiopAutoFill
  * 	\brief      Module to add zip codes
- *	\version	$Id: modZipAutoFillFr.class.php,v 1.3 2011/04/10 21:53:32 eldy Exp $
+ *	\version	$Id: modZipAutoFillFr.class.php,v 1.4 2011/05/27 08:42:43 eldy Exp $
  */
 
 /**
@@ -54,7 +54,7 @@ class modZipAutoFillFr extends DolibarrModules
 		$this->family = "other";
 		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'numero' of module)
 		$this->name = preg_replace('/^mod/i','',get_class($this));
-		$this->description = "Add zip codes and towns into database (France)";
+		$this->description = "Add zip codes and towns into database (France and Belgium)";
 
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
 		$this->version = 'dolibarr';

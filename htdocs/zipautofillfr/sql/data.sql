@@ -1,7 +1,7 @@
 -- Data file with zip codes and town
 
 -- France
-INSERT INTO llx_c_ziptown (zip, town, fk_departement, fk_pays) VALUES
+INSERT INTO llx_c_ziptown (zip, town, fk_county, fk_pays) VALUES
 ('64460', 'AAST', 64, 1),
 ('55130', 'ABAINVILLE', 55, 1),
 ('59265', 'ABANCOURT', 59, 1),
@@ -1687,7 +1687,7 @@ INSERT INTO llx_c_ziptown (zip, town, fk_departement, fk_pays) VALUES
 ('13930', 'AUREILLE', 13, 1),
 ('84390', 'AUREL', 84, 1),
 ('26340', 'AUREL', 26, 1);
-INSERT INTO llx_c_ziptown (zip, town, fk_departement, fk_pays) VALUES
+INSERT INTO llx_c_ziptown (zip, town, fk_county, fk_pays) VALUES
 ('12130', 'AURELLE VERLAC', 12, 1),
 ('32400', 'AURENSAN', 32, 1),
 ('65390', 'AURENSAN', 65, 1),
@@ -3325,7 +3325,7 @@ INSERT INTO llx_c_ziptown (zip, town, fk_departement, fk_pays) VALUES
 ('68210', 'BERNWILLER', 68, 1),
 ('80200', 'BERNY EN SANTERRE', 80, 1),
 ('02290', 'BERNY RIVIERE', 2, 1);
-INSERT INTO llx_c_ziptown (zip, town, fk_departement, fk_pays) VALUES
+INSERT INTO llx_c_ziptown (zip, town, fk_county, fk_pays) VALUES
 ('28270', 'BEROU LA MULOTIERE', 28, 1),
 ('32480', 'BERRAC', 32, 1),
 ('13130', 'BERRE L ETANG', 13, 1),
@@ -4963,7 +4963,7 @@ INSERT INTO llx_c_ziptown (zip, town, fk_departement, fk_pays) VALUES
 ('80300', 'BRESLE', 80, 1),
 ('60510', 'BRESLES', 60, 1),
 ('03210', 'BRESNAY', 3, 1);
-INSERT INTO llx_c_ziptown (zip, town, fk_departement, fk_pays) VALUES
+INSERT INTO llx_c_ziptown (zip, town, fk_county, fk_pays) VALUES
 ('61190', 'BRESOLETTES', 61, 1),
 ('71460', 'BRESSE SUR GROSNE', 71, 1),
 ('21560', 'BRESSEY SUR TILLE', 21, 1),
@@ -6609,7 +6609,7 @@ INSERT INTO llx_c_ziptown (zip, town, fk_departement, fk_pays) VALUES
 ('77171', 'CHALAUTRE LA GRANDE', 77, 1),
 ('77160', 'CHALAUTRE LA PETITE', 77, 1),
 ('77520', 'CHALAUTRE LA REPOSTE', 77, 1);
-INSERT INTO llx_c_ziptown (zip, town, fk_departement, fk_pays) VALUES
+INSERT INTO llx_c_ziptown (zip, town, fk_county, fk_pays) VALUES
 ('58140', 'CHALAUX', 58, 1),
 ('01480', 'CHALEINS', 1, 1),
 ('24800', 'CHALEIX', 24, 1),
@@ -8199,7 +8199,7 @@ INSERT INTO llx_c_ziptown (zip, town, fk_departement, fk_pays) VALUES
 ('88120', 'CLEURIE', 88, 1),
 ('76450', 'CLEUVILLE', 76, 1),
 ('76640', 'CLEVILLE', 76, 1);
-INSERT INTO llx_c_ziptown (zip, town, fk_departement, fk_pays) VALUES
+INSERT INTO fk_county (zip, town, fk_departement, fk_pays) VALUES
 ('14370', 'CLEVILLE', 14, 1),
 ('28300', 'CLEVILLIERS', 28, 1),
 ('33540', 'CLEYRAC', 33, 1),
@@ -9835,7 +9835,7 @@ INSERT INTO llx_c_ziptown (zip, town, fk_departement, fk_pays) VALUES
 ('19300', 'DARNETS', 19, 1),
 ('88260', 'DARNEY', 88, 1),
 ('88170', 'DARNEY AUX CHENES', 88, 1);
-INSERT INTO llx_c_ziptown (zip, town, fk_departement, fk_pays) VALUES
+INSERT INTO llx_c_ziptown (zip, town, fk_county, fk_pays) VALUES
 ('88390', 'DARNIEULLES', 88, 1),
 ('21121', 'DAROIS', 21, 1),
 ('77140', 'DARVAULT', 77, 1),
@@ -11520,7 +11520,7 @@ INSERT INTO llx_c_ziptown (zip, town, fk_departement, fk_pays) VALUES
 ('02320', 'FAUCOUCOURT', 2, 1),
 ('82500', 'FAUDOAS', 82, 1),
 ('34600', 'FAUGERES', 34, 1);
-INSERT INTO llx_c_ziptown (zip, town, fk_departement, fk_pays) VALUES
+INSERT INTO llx_c_ziptown (zip, town, fk_county, fk_pays) VALUES
 ('07230', 'FAUGERES', 7, 1),
 ('14100', 'FAUGUERNON', 14, 1),
 ('47400', 'FAUGUEROLLES', 47, 1),
@@ -13151,7 +13151,7 @@ INSERT INTO llx_c_ziptown (zip, town, fk_departement, fk_pays) VALUES
 ('89160', 'GIGNY', 89, 1),
 ('51290', 'GIGNY BUSSY', 51, 1),
 ('71240', 'GIGNY SUR SAONE', 71, 1);
-INSERT INTO llx_c_ziptown (zip, town, fk_departement, fk_pays) VALUES
+INSERT INTO llx_c_ziptown (zip, town, fk_county, fk_pays) VALUES
 ('84190', 'GIGONDAS', 84, 1),
 ('04250', 'GIGORS', 4, 1),
 ('26400', 'GIGORS ET LOZERON', 26, 1),
@@ -14804,7 +14804,7 @@ INSERT INTO llx_c_ziptown (zip, town, fk_departement, fk_pays) VALUES
 ('64130', 'IDAUX MENDY', 64, 1),
 ('32300', 'IDRAC RESPAILLES', 32, 1),
 ('64320', 'IDRON-OUSSE-SENDETS', 64, 1);
-INSERT INTO llx_c_ziptown (zip, town, fk_departement, fk_pays) VALUES
+INSERT INTO llx_c_ziptown (zip, town, fk_county, fk_pays) VALUES
 ('18170', 'IDS ST ROCH', 18, 1),
 ('35750', 'IFFENDIC', 35, 1),
 ('14123', 'IFS', 14, 1),
@@ -16347,7 +16347,7 @@ INSERT INTO llx_c_ziptown (zip, town, fk_departement, fk_pays) VALUES
 ('22980', 'LA LANDEC', 22, 1),
 ('70270', 'LA LANTERNE LES ARMONTS', 70, 1),
 ('39250', 'LA LATETTE', 39, 1);
-INSERT INTO llx_c_ziptown (zip, town, fk_departement, fk_pays) VALUES
+INSERT INTO llx_c_ziptown (zip, town, fk_county, fk_pays) VALUES
 ('26740', 'LA LAUPIE', 26, 1),
 ('01120', 'LA LECHERE', 1, 1),
 ('73260', 'LA LECHERE', 73, 1),
@@ -17928,7 +17928,7 @@ INSERT INTO llx_c_ziptown (zip, town, fk_departement, fk_pays) VALUES
 ('68650', 'LE BONHOMME', 68, 1),
 ('06450', 'LE BOREON', 6, 1),
 ('31340', 'LE BORN', 31, 1);
-INSERT INTO llx_c_ziptown (zip, town, fk_departement, fk_pays) VALUES
+INSERT INTO llx_c_ziptown (zip, town, fk_county, fk_pays) VALUES
 ('48000', 'LE BORN', 48, 1),
 ('34700', 'LE BOSC', 34, 1),
 ('09000', 'LE BOSC', 9, 1),
@@ -19496,7 +19496,7 @@ INSERT INTO llx_c_ziptown (zip, town, fk_departement, fk_pays) VALUES
 ('68480', 'LEVONCOURT', 68, 1),
 ('36110', 'LEVROUX', 36, 1),
 ('59287', 'LEWARDE', 59, 1);
-INSERT INTO llx_c_ziptown (zip, town, fk_departement, fk_pays) VALUES
+INSERT INTO llx_c_ziptown (zip, town, fk_county, fk_pays) VALUES
 ('54720', 'LEXY', 54, 1),
 ('57810', 'LEY', 57, 1),
 ('09300', 'LEYCHERT', 9, 1),
@@ -21157,7 +21157,7 @@ INSERT INTO llx_c_ziptown (zip, town, fk_departement, fk_pays) VALUES
 ('21200', 'MARIGNY LES REULLEE', 21, 1),
 ('45760', 'MARIGNY LES USAGES', 45, 1),
 ('37120', 'MARIGNY MARMANDE', 37, 1);
-INSERT INTO llx_c_ziptown (zip, town, fk_departement, fk_pays) VALUES
+INSERT INTO llx_c_ziptown (zip, town, fk_county, fk_pays) VALUES
 ('74150', 'MARIGNY ST MARCEL', 74, 1),
 ('58800', 'MARIGNY SUR YONNE', 58, 1),
 ('16110', 'MARILLAC LE FRANC', 16, 1),
@@ -22794,7 +22794,7 @@ INSERT INTO llx_c_ziptown (zip, town, fk_departement, fk_pays) VALUES
 ('45200', 'MONTARGIS', 45, 1),
 ('77250', 'MONTARLOT', 77, 1),
 ('70600', 'MONTARLOT LES CHAMPLITT', 70, 1);
-INSERT INTO llx_c_ziptown (zip, town, fk_departement, fk_pays) VALUES
+INSERT INTO llx_c_ziptown (zip, town, fk_county, fk_pays) VALUES
 ('70190', 'MONTARLOT LES RIOZ', 70, 1),
 ('34570', 'MONTARNAUD', 34, 1),
 ('58250', 'MONTARON', 58, 1),
@@ -24399,7 +24399,7 @@ INSERT INTO llx_c_ziptown (zip, town, fk_departement, fk_pays) VALUES
 ('88130', 'MARAINVILLE SUR MADON', 88, 1),
 ('54300', 'MARAINVILLER', 54, 1),
 ('27680', 'MARAIS VERNIER', 27, 1);
-INSERT INTO llx_c_ziptown (zip, town, fk_departement, fk_pays) VALUES
+INSERT INTO llx_c_ziptown (zip, town, fk_county, fk_pays) VALUES
 ('32190', 'MARAMBAT', 32, 1),
 ('21270', 'MARANDEUIL', 21, 1),
 ('57159', 'MARANGE SILVANGE', 57, 1),
@@ -26039,7 +26039,7 @@ INSERT INTO llx_c_ziptown (zip, town, fk_departement, fk_pays) VALUES
 ('55220', 'MONDRECOURT', 55, 1),
 ('02500', 'MONDREPUIS', 2, 1),
 ('78980', 'MONDREVILLE', 78, 1);
-INSERT INTO llx_c_ziptown (zip, town, fk_departement, fk_pays) VALUES
+INSERT INTO llx_c_ziptown (zip, town, fk_county, fk_pays) VALUES
 ('77570', 'MONDREVILLE', 77, 1),
 ('64360', 'MONEIN', 64, 1),
 ('31370', 'MONES', 31, 1),
@@ -27642,7 +27642,7 @@ INSERT INTO llx_c_ziptown (zip, town, fk_departement, fk_pays) VALUES
 ('36220', 'NEONS SUR CREUSE', 36, 1),
 ('83136', 'NEOULES', 83, 1),
 ('23200', 'NEOUX', 23, 1);
-INSERT INTO llx_c_ziptown (zip, town, fk_departement, fk_pays) VALUES
+INSERT INTO llx_c_ziptown (zip, town, fk_county, fk_pays) VALUES
 ('55700', 'NEPVANT', 55, 1),
 ('47600', 'NERAC', 47, 1),
 ('40250', 'NERBIS', 40, 1),
@@ -29278,7 +29278,7 @@ INSERT INTO llx_c_ziptown (zip, town, fk_departement, fk_pays) VALUES
 ('32700', 'PERGAIN TAILLAC', 32, 1),
 ('20167', 'PERI', 20, 1),
 ('50190', 'PERIERS', 50, 1);
-INSERT INTO llx_c_ziptown (zip, town, fk_departement, fk_pays) VALUES
+INSERT INTO llx_c_ziptown (zip, town, fk_county, fk_pays) VALUES
 ('14160', 'PERIERS EN AUGE', 14, 1),
 ('14112', 'PERIERS SUR LE DAN', 14, 1),
 ('17800', 'PERIGNAC', 17, 1),
@@ -30918,7 +30918,7 @@ INSERT INTO llx_c_ziptown (zip, town, fk_departement, fk_pays) VALUES
 ('62860', 'QUEANT', 62, 1),
 ('86150', 'QUEAUX', 86, 1),
 ('35190', 'QUEBRIAC', 35, 1);
-INSERT INTO llx_c_ziptown (zip, town, fk_departement, fk_pays) VALUES
+INSERT INTO llx_c_ziptown (zip, town, fk_county, fk_pays) VALUES
 ('35290', 'QUEDILLAC', 35, 1),
 ('73720', 'QUEIGE', 73, 1),
 ('53360', 'QUELAINES ST GAULT', 53, 1),
@@ -32582,7 +32582,7 @@ INSERT INTO llx_c_ziptown (zip, town, fk_departement, fk_pays) VALUES
 ('16300', 'SALLES DE BARBEZIEUX', 16, 1),
 ('24170', 'SALLES DE BELVES', 24, 1),
 ('16700', 'SALLES DE VILLEFAGNAN', 16, 1);
-INSERT INTO llx_c_ziptown (zip, town, fk_departement, fk_pays) VALUES
+INSERT INTO llx_c_ziptown (zip, town, fk_county, fk_pays) VALUES
 ('31110', 'SALLES ET PRATVIEL', 31, 1),
 ('12330', 'SALLES LA SOURCE', 12, 1),
 ('16190', 'SALLES LAVALETTE', 16, 1),
@@ -34223,7 +34223,7 @@ INSERT INTO llx_c_ziptown (zip, town, fk_departement, fk_pays) VALUES
 ('24200', 'ST ANDRE D ALLAS', 24, 1),
 ('42370', 'ST ANDRE D APCHON', 42, 1),
 ('05200', 'ST ANDRE D EMBRUN', 5, 1);
-INSERT INTO llx_c_ziptown (zip, town, fk_departement, fk_pays) VALUES
+INSERT INTO llx_c_ziptown (zip, town, fk_county, fk_pays) VALUES
 ('14130', 'ST ANDRE D HEBERTOT', 14, 1),
 ('01290', 'ST ANDRE D HUIRIAT', 1, 1),
 ('30330', 'ST ANDRE D OLERARGUES', 30, 1),
@@ -35614,7 +35614,7 @@ INSERT INTO llx_c_ziptown (zip, town, fk_departement, fk_pays) VALUES
 ('22480', 'ST GILLES PLIGEAUX', 22, 1),
 ('22530', 'ST GILLES VIEUX MARCHE', 22, 1),
 ('07580', 'ST GINEYS EN COIRON', 7, 1);
-INSERT INTO llx_c_ziptown (zip, town, fk_departement, fk_pays) VALUES
+INSERT INTO llx_c_ziptown (zip, town, fk_county, fk_pays) VALUES
 ('74500', 'ST GINGOLPH', 74, 1),
 ('73410', 'ST GIROD', 73, 1),
 ('40560', 'ST GIRONS', 40, 1),
@@ -36986,7 +36986,7 @@ INSERT INTO llx_c_ziptown (zip, town, fk_departement, fk_pays) VALUES
 ('33190', 'ST MICHEL DE LAPUJADE', 33, 1),
 ('14140', 'ST MICHEL DE LIVET', 14, 1),
 ('66130', 'ST MICHEL DE LLOTES', 66, 1);
-INSERT INTO llx_c_ziptown (zip, town, fk_departement, fk_pays) VALUES
+INSERT INTO llx_c_ziptown (zip, town, fk_county, fk_pays) VALUES
 ('73140', 'ST MICHEL DE MAURIENNE', 73, 1),
 ('24230', 'ST MICHEL DE MONTAIGNE', 24, 1),
 ('50670', 'ST MICHEL DE MONTJOIE', 50, 1),
@@ -38393,7 +38393,7 @@ INSERT INTO llx_c_ziptown (zip, town, fk_departement, fk_pays) VALUES
 ('88700', 'STE HELENE', 88, 1),
 ('56700', 'STE HELENE', 56, 1),
 ('71390', 'STE HELENE', 71, 1);
-INSERT INTO llx_c_ziptown (zip, town, fk_departement, fk_pays) VALUES
+INSERT INTO llx_c_ziptown (zip, town, fk_county, fk_pays) VALUES
 ('76400', 'STE HELENE BONDEVILLE', 76, 1),
 ('73800', 'STE HELENE DU LAC', 73, 1),
 ('73460', 'STE HELENE SUR ISERE', 73, 1),
@@ -40063,7 +40063,7 @@ INSERT INTO llx_c_ziptown (zip, town, fk_departement, fk_pays) VALUES
 ('26150', 'VACHERES EN QUINT', 26, 1),
 ('74360', 'VACHERESSE', 74, 1),
 ('28210', 'VACHERESSES LES BASSES', 28, 1);
-INSERT INTO llx_c_ziptown (zip, town, fk_departement, fk_pays) VALUES
+INSERT INTO llx_c_ziptown (zip, town, fk_county, fk_pays) VALUES
 ('14210', 'VACOGNES-NEUILLY', 14, 1),
 ('55190', 'VACON', 55, 1),
 ('80370', 'VACQUERIE', 80, 1),
@@ -41653,7 +41653,7 @@ INSERT INTO llx_c_ziptown (zip, town, fk_departement, fk_pays) VALUES
 ('47300', 'VILLENEUVE SUR LOT', 47, 1),
 ('60410', 'VILLENEUVE SUR VERBERIE', 60, 1),
 ('81130', 'VILLENEUVE SUR VERE', 81, 1);
-INSERT INTO llx_c_ziptown (zip, town, fk_departement, fk_pays) VALUES
+INSERT INTO llx_c_ziptown (zip, town, fk_county, fk_pays) VALUES
 ('21610', 'VILLENEUVE SUR VINGEANNE', 21, 1),
 ('89500', 'VILLENEUVE SUR YONNE', 89, 1),
 ('31270', 'VILLENEUVE TOLOSANE', 31, 1),
@@ -42664,23 +42664,23 @@ INSERT INTO llx_c_ziptown (zip, town, fk_departement, fk_pays) VALUES
 ('59670', 'ZUYTPEENE', 59, 1);
 
 -- Belgium
-INSERT INTO llx_c_ziptown (zip, town, fk_departement, fk_pays) VALUES
+INSERT INTO llx_c_ziptown (zip, town, fk_county, fk_pays) VALUES
 ('1000', 'Brussel', NULL, 2),
 ('1000', 'Bruxelles', NULL, 2),
-('1005', 'Ass. R?un. Com. Communau. Commune', NULL, 2),
+('1005', 'Ass. Reun. Com. Communau. Commune', NULL, 2),
 ('1005', 'Brusselse Hoofdstedelijke Raad', NULL, 2),
 ('1005', 'Conseil Region Bruxelles-Capitale', NULL, 2),
 ('1005', 'Ver.Verg.Gemeensch.Gemeensch.Comm.', NULL, 2),
 ('1006', 'Raad Vlaamse Gemeenschapscommissie', NULL, 2),
-('1007', 'Ass. Commiss. Communau. franÃ§aise', NULL, 2),
-('1008', 'Chambre des Repr?sentants', NULL, 2),
+('1007', 'Ass. Commiss. Communau. française', NULL, 2),
+('1008', 'Chambre des Représentants', NULL, 2),
 ('1008', 'Kamer van Volksvertegenwoordigers', NULL, 2),
 ('1009', 'Belgische Senaat', NULL, 2),
 ('1009', 'Senat de Belgique', NULL, 2),
-('1010', 'CitÃ© Administrative de l Etat', NULL, 2),
+('1010', 'Cité Administrative de l Etat', NULL, 2),
 ('1010', 'Rijksadministratief Centrum', NULL, 2),
 ('1011', 'Vlaamse Raad - Vlaams Parlement', NULL, 2),
-('1012', 'Parlement de la CommunautÃ© franÃ§aise', NULL, 2),
+('1012', 'Parlement de la Communauté française', NULL, 2),
 ('1020', 'Brussel (Laken)', NULL, 2),
 ('1020', 'Bruxelles (Laeken)', NULL, 2),
 ('1020', 'Laeken (Bruxelles)', NULL, 2),
@@ -43238,7 +43238,7 @@ INSERT INTO llx_c_ziptown (zip, town, fk_departement, fk_pays) VALUES
 ('3300', 'Hakendover', NULL, 2),
 ('3300', 'Kumtich', NULL, 2),
 ('3300', 'Oorbeek', NULL, 2);
-INSERT INTO llx_c_ziptown (zip, town, fk_departement, fk_pays) VALUES
+INSERT INTO llx_c_ziptown (zip, town, fk_county, fk_pays) VALUES
 ('3300', 'Oplinter', NULL, 2),
 ('3300', 'Sint-Margriete-Houtem (Tienen)', NULL, 2),
 ('3300', 'Tienen', NULL, 2),
@@ -44884,7 +44884,7 @@ INSERT INTO llx_c_ziptown (zip, town, fk_departement, fk_pays) VALUES
 ('7743', 'Obigies', NULL, 2),
 ('7750', 'Amougies', NULL, 2),
 ('7750', 'Anseroeul', NULL, 2);
-INSERT INTO llx_c_ziptown (zip, town, fk_departement, fk_pays) VALUES
+INSERT INTO llx_c_ziptown (zip, town, fk_county, fk_pays) VALUES
 ('7750', 'Mont-de-l Enclus', NULL, 2),
 ('7750', 'Orroir', NULL, 2),
 ('7750', 'Russeignies', NULL, 2),
