@@ -21,7 +21,7 @@
 /**
  *		\file       htdocs/cabinetmed/theme/eldy/style.css.php
  *		\brief      Fichier de style CSS du theme Eldy
- *		\version    $Id: style.css.php,v 1.13 2011/05/24 20:17:39 eldy Exp $
+ *		\version    $Id: style.css.php,v 1.14 2011/05/28 16:28:37 eldy Exp $
  */
 
 //if (! defined('NOREQUIREUSER')) define('NOREQUIREUSER','1');	// Not disabled cause need to load personalized language
@@ -1877,3 +1877,4 @@ A.none, A.none:active, A.none:visited, A.none:hover {
 {
     border: 0px solid #FF0000 !important;
 }
+span.cke_skin_kama { padding: 0 ! important; }
