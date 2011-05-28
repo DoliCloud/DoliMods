@@ -1,6 +1,6 @@
 <?php
 /* Copyright (C) 2001-2003,2005 Rodolphe Quiedeville <rodolphe@quiedeville.org>
- * Copyright (C) 2004-2010      Laurent Destailleur  <eldy@users.sourceforge.net>
+ * Copyright (C) 2004-2011      Laurent Destailleur  <eldy@users.sourceforge.net>
  * Copyright (C) 2005-2006      Regis Houssin        <regis@dolibarr.fr>
  * Copyright (C) 2010           Juanjo Menent        <jmenent@2byte.es>
  *
@@ -20,10 +20,10 @@
  */
 
 /**
- *   \file       htdocs/cabinetmed/antecedant.php
+ *   \file       htdocs/cabinetmed/traitetallergies.php
  *   \brief      Tab for antecedants
  *   \ingroup    societe
- *   \version    $Id: traitetallergies.php,v 1.7 2011/05/02 00:07:09 eldy Exp $
+ *   \version    $Id: traitetallergies.php,v 1.8 2011/05/28 15:06:04 eldy Exp $
  */
 
 $res=0;
@@ -151,57 +151,8 @@ if ($socid > 0)
     $conf->fckeditor->enabled=false;
     $height=140;
 
-    print '<tr height="80"><td valign="top">'.$langs->trans("Classes").'</td>';
-    print '<td valign="top">';
-    if ($action == 'edit' && $user->rights->societe->creer)
-    {
-        print "<input type=\"hidden\" name=\"socid\" value=\"".$societe->id."\">";
 
-        // Editeur wysiwyg
-        require_once(DOL_DOCUMENT_ROOT."/lib/doleditor.class.php");
-        $doleditor=new DolEditor('note_traitclass',$societe->note_traitclass,0,$height,'dolibarr_notes','In',false,false,$conf->fckeditor->enabled && $conf->global->FCKEDITOR_ENABLE_SOCIETE,6,70);
-        $doleditor->Create();
-    }
-    else
-    {
-        print nl2br($societe->note_traitclass);
-    }
-    print "</td></tr>";
-
-    print '<tr height="80"><td valign="top">'.$langs->trans("Allergies").'</td>';
-    print '<td valign="top">';
-    if ($action == 'edit' && $user->rights->societe->creer)
-    {
-        print "<input type=\"hidden\" name=\"socid\" value=\"".$societe->id."\">";
-
-        // Editeur wysiwyg
-        require_once(DOL_DOCUMENT_ROOT."/lib/doleditor.class.php");
-        $doleditor=new DolEditor('note_traitallergie',$societe->note_traitallergie,0,$height,'dolibarr_notes','In',false,false,$conf->fckeditor->enabled && $conf->global->FCKEDITOR_ENABLE_SOCIETE,6,70);
-        $doleditor->Create();
-    }
-    else
-    {
-        print nl2br($societe->note_traitallergie);
-    }
-    print "</td></tr>";
-
-    print '<tr height="80"><td valign="top">'.$langs->trans("Intolerances").'</td>';
-    print '<td valign="top">';
-    if ($action == 'edit' && $user->rights->societe->creer)
-    {
-        print "<input type=\"hidden\" name=\"socid\" value=\"".$societe->id."\">";
-
-        // Editeur wysiwyg
-        require_once(DOL_DOCUMENT_ROOT."/lib/doleditor.class.php");
-        $doleditor=new DolEditor('note_traitintol',$societe->note_traitintol,0,$height,'dolibarr_notes','In',false,false,$conf->fckeditor->enabled && $conf->global->FCKEDITOR_ENABLE_SOCIETE,6,70);
-        $doleditor->Create();
-    }
-    else
-    {
-        print nl2br($societe->note_traitintol);
-    }
-    print "</td></tr>";
-
+    // Spec
     print '<tr height="80"><td valign="top">'.$langs->trans("SpecPharma").'</td>';
     print '<td valign="top">';
     if ($action == 'edit' && $user->rights->societe->creer)
@@ -219,6 +170,45 @@ if ($socid > 0)
     }
     print "</td></tr>";
 
+
+    // Classes
+    /*
+    print '<tr height="80"><td valign="top">'.$langs->trans("Classes").'</td>';
+    print '<td valign="top">';
+    if ($action == 'edit' && $user->rights->societe->creer)
+    {
+        print "<input type=\"hidden\" name=\"socid\" value=\"".$societe->id."\">";
+
+        // Editeur wysiwyg
+        require_once(DOL_DOCUMENT_ROOT."/lib/doleditor.class.php");
+        $doleditor=new DolEditor('note_traitclass',$societe->note_traitclass,0,$height,'dolibarr_notes','In',false,false,$conf->fckeditor->enabled && $conf->global->FCKEDITOR_ENABLE_SOCIETE,6,70);
+        $doleditor->Create();
+    }
+    else
+    {
+        print nl2br($societe->note_traitclass);
+    }
+    print "</td></tr>";
+    */
+
+
+    // Intolerances
+    print '<tr height="80"><td valign="top">'.$langs->trans("Intolerances").'</td>';
+    print '<td valign="top">';
+    if ($action == 'edit' && $user->rights->societe->creer)
+    {
+        print "<input type=\"hidden\" name=\"socid\" value=\"".$societe->id."\">";
+
+        // Editeur wysiwyg
+        require_once(DOL_DOCUMENT_ROOT."/lib/doleditor.class.php");
+        $doleditor=new DolEditor('note_traitintol',$societe->note_traitintol,0,$height,'dolibarr_notes','In',false,false,$conf->fckeditor->enabled && $conf->global->FCKEDITOR_ENABLE_SOCIETE,6,70);
+        $doleditor->Create();
+    }
+    else
+    {
+        print nl2br($societe->note_traitintol);
+    }
+    print "</td></tr>";
 
 
 
@@ -255,5 +245,5 @@ if ($mesg) dol_htmloutput_mesg($mesg);
 
 $db->close();
 
-llxFooter('$Date: 2011/05/02 00:07:09 $ - $Revision: 1.7 $');
+llxFooter('$Date: 2011/05/28 15:06:04 $ - $Revision: 1.8 $');
 ?>

@@ -26,7 +26,7 @@
  *      \file       htdocs/includes/modules/modCabinetMed.class.php
  *      \ingroup    cabinetmed
  *      \brief      Description and activation file for module CabinetMed
- *      \version    $Id: modCabinetMed.class.php,v 1.30 2011/05/24 20:54:18 eldy Exp $
+ *      \version    $Id: modCabinetMed.class.php,v 1.31 2011/05/28 15:05:58 eldy Exp $
  */
 include_once(DOL_DOCUMENT_ROOT ."/includes/modules/DolibarrModules.class.php");
 
@@ -118,7 +118,7 @@ class modCabinetMed extends DolibarrModules
                             'thirdparty:+tabconsultations:ConsultationsShort:@cabinetmed:/cabinetmed/consultations.php?socid=__ID__',
                             'thirdparty:+tabexambio:ResultExamBio:@cabinetmed:/cabinetmed/exambio.php?socid=__ID__',
                             'thirdparty:+tabexamautre:ResultExamAutre:@cabinetmed:/cabinetmed/examautre.php?socid=__ID__',
-                            'thirdparty:+tabdocument:Courrier:@cabinetmed:/cabinetmed/documents.php?socid=__ID__',
+                            'thirdparty:+tabdocument:Courriers:@cabinetmed:/cabinetmed/documents.php?socid=__ID__',
                             'thirdparty:-customer');
         // where entity can be
         // 'thirdparty'       to add a tab in third party view
@@ -251,7 +251,7 @@ class modCabinetMed extends DolibarrModules
         'pa.note_antechirortho'=>'AntecedentsChirOrtho',
         'pa.note_anterhum'=>'AntecedentsRhumato',
         'pa.note_other'=>'Other',
-        'pa.note_traitclass'=>'Classes',
+//        'pa.note_traitclass'=>'Classes',
         'pa.note_traitallergie'=>'Allergies',
         'pa.note_traitintol'=>'Intolerances',
         'pa.note_traitspec'=>'SpecPharma',

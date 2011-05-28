@@ -1,6 +1,6 @@
 <?php
 /* Copyright (C) 2001-2003,2005 Rodolphe Quiedeville <rodolphe@quiedeville.org>
- * Copyright (C) 2004-2010      Laurent Destailleur  <eldy@users.sourceforge.net>
+ * Copyright (C) 2004-2011      Laurent Destailleur  <eldy@users.sourceforge.net>
  * Copyright (C) 2005-2006      Regis Houssin        <regis@dolibarr.fr>
  * Copyright (C) 2010           Juanjo Menent        <jmenent@2byte.es>
  *
@@ -23,7 +23,7 @@
  *   \file       htdocs/cabinetmed/antecedant.php
  *   \brief      Tab for antecedants
  *   \ingroup    societe
- *   \version    $Id: antecedant.php,v 1.7 2011/05/02 00:07:09 eldy Exp $
+ *   \version    $Id: antecedant.php,v 1.8 2011/05/28 15:06:04 eldy Exp $
  */
 
 $res=0;
@@ -53,9 +53,9 @@ $result = restrictedArea($user, 'societe', $socid);
  */
 if ($action == 'addupdate')
 {
-    $sql = "INSERT INTO ".MAIN_DB_PREFIX."cabinetmed_patient(rowid, note_antemed, note_antechirgen, note_antechirortho, note_anterhum, note_other)";
+    $sql = "INSERT INTO ".MAIN_DB_PREFIX."cabinetmed_patient(rowid, note_antemed, note_antechirgen, note_antechirortho, note_anterhum, note_other, note_traitallergie)";
     $sql.= " VALUES('".$_POST["socid"]."','".addslashes($_POST["note_antemed"])."','".addslashes($_POST["note_antechirgen"])."',";
-    $sql.= " '".addslashes($_POST["note_antechirortho"])."','".addslashes($_POST["note_anterhum"])."','".addslashes($_POST["note_other"])."')";
+    $sql.= " '".addslashes($_POST["note_antechirortho"])."','".addslashes($_POST["note_anterhum"])."','".addslashes($_POST["note_other"])."','".addslashes($_POST["note_traitallergie"])."')";
     $result = $db->query($sql);
     //if (! $result) dol_print_error($db);
 
@@ -64,7 +64,8 @@ if ($action == 'addupdate')
     $sql.= " note_antechirgen='".addslashes($_POST["note_antechirgen"])."',";
     $sql.= " note_antechirortho='".addslashes($_POST["note_antechirortho"])."',";
     $sql.= " note_anterhum='".addslashes($_POST["note_anterhum"])."',";
-    $sql.= " note_other='".addslashes($_POST["note_other"])."'";
+    $sql.= " note_other='".addslashes($_POST["note_other"])."',";
+    $sql.= " note_traitallergie='".addslashes($_POST["note_traitallergie"])."'";
     $sql.= " WHERE rowid=".$_POST["socid"];
     $result = $db->query($sql);
     if (! $result) dol_print_error($db);
@@ -221,6 +222,7 @@ if ($socid > 0)
     }
     print "</td></tr>";
 
+    /*
     print '<tr height="80"><td valign="top">'.$langs->trans("Other").'</td>';
     print '<td valign="top">';
     if ($action == 'edit' && $user->rights->societe->creer)
@@ -235,6 +237,25 @@ if ($socid > 0)
     else
     {
         print nl2br($societe->note_other);
+    }
+    print "</td></tr>";
+    */
+
+
+    print '<tr height="80"><td valign="top">'.$langs->trans("Allergies").'</td>';
+    print '<td valign="top">';
+    if ($action == 'edit' && $user->rights->societe->creer)
+    {
+        print "<input type=\"hidden\" name=\"socid\" value=\"".$societe->id."\">";
+
+        // Editeur wysiwyg
+        require_once(DOL_DOCUMENT_ROOT."/lib/doleditor.class.php");
+        $doleditor=new DolEditor('note_traitallergie',$societe->note_traitallergie,0,$height,'dolibarr_notes','In',false,false,$conf->fckeditor->enabled && $conf->global->FCKEDITOR_ENABLE_SOCIETE,6,70);
+        $doleditor->Create();
+    }
+    else
+    {
+        print nl2br($societe->note_traitallergie);
     }
     print "</td></tr>";
 
@@ -273,5 +294,5 @@ if ($mesg) dol_htmloutput_mesg($mesg);
 
 $db->close();
 
-llxFooter('$Date: 2011/05/02 00:07:09 $ - $Revision: 1.7 $');
+llxFooter('$Date: 2011/05/28 15:06:04 $ - $Revision: 1.8 $');
 ?>
