@@ -20,7 +20,7 @@
  *   \file       htdocs/cabinetmed/consultations.php
  *   \brief      Tab for consultations
  *   \ingroup    cabinetmed
- *   \version    $Id: consultations.php,v 1.32 2011/05/28 15:06:04 eldy Exp $
+ *   \version    $Id: consultations.php,v 1.33 2011/05/28 15:58:46 eldy Exp $
  */
 
 $res=0;
@@ -461,8 +461,8 @@ if ($socid > 0)
                 if (t != "")
                 {
                     jQuery("#motifconsprinc").val(t);
-                    jQuery(".ui-autocomplete-input").val("");
-                    jQuery(".ui-autocomplete-input").text("");
+                    jQuery("#addmotifbox .ui-autocomplete-input").val("");
+                    jQuery("#addmotifbox .ui-autocomplete-input").text("");
                     jQuery("#listmotifcons").get(0).selectedIndex = 0;
  					changed=true;
     		}
@@ -480,8 +480,8 @@ if ($socid > 0)
                         var box = jQuery("#motifconssec");
                         u=box.val() + (box.val() != \'\' ? "\n" : \'\') + t;
                         box.val(u); box.html(u);
-                        jQuery(".ui-autocomplete-input").val("");
-                        jQuery(".ui-autocomplete-input").text("");
+                        jQuery("#addmotifbox .ui-autocomplete-input").val("");
+                        jQuery("#addmotifbox .ui-autocomplete-input").text("");
                         jQuery("#listmotifcons").get(0).selectedIndex = 0;
  						changed=true;
     				}
@@ -492,8 +492,8 @@ if ($socid > 0)
                 if (t != "")
                 {
                     jQuery("#diaglesprinc").val(t);
-                    jQuery(".ui-autocomplete-input").val("");
-                    jQuery(".ui-autocomplete-input").text("");
+                    jQuery("#adddiagbox .ui-autocomplete-input").val("");
+                    jQuery("#adddiagbox .ui-autocomplete-input").text("");
                     jQuery("#listdiagles").get(0).selectedIndex = 0;
  					changed=true;
     			}
@@ -505,8 +505,8 @@ if ($socid > 0)
                     var box = jQuery("#diaglessec");
                     u=box.val() + (box.val() != \'\' ? "\n" : \'\') + t;
                     box.val(u); box.html(u);
-                    jQuery(".ui-autocomplete-input").val("");
-                    jQuery(".ui-autocomplete-input").text("");
+                    jQuery("#adddiagbox .ui-autocomplete-input").val("");
+                    jQuery("#adddiagbox .ui-autocomplete-input").text("");
                     jQuery("#listmotifcons").get(0).selectedIndex = 0;
  					changed=true;
     			}
@@ -518,8 +518,8 @@ if ($socid > 0)
                     var box = jQuery("#examenprescrit");
                     u=box.val() + (box.val() != \'\' ? "\n" : \'\') + t;
                     box.val(u); box.html(u);
-                    jQuery(".ui-autocomplete-input").val("");
-                    jQuery(".ui-autocomplete-input").text("");
+                    jQuery("#addexambox .ui-autocomplete-input").val("");
+                    jQuery("#addexambox .ui-autocomplete-input").text("");
                     jQuery("#listexamenprescrit").get(0).selectedIndex = 0;
  					changed=true;
     			}
@@ -529,7 +529,9 @@ if ($socid > 0)
 
 
         <style>
-            .ui-autocomplete-input { width: '.$width.'px; }
+            #addmotifbox .ui-autocomplete-input { width: '.$width.'px; }
+            #adddiagbox .ui-autocomplete-input { width: '.$width.'px; }
+            #addexambox .ui-autocomplete-input { width: '.$width.'px; }
             #paymentsbox .ui-autocomplete-input { width: 140px !important; }
         </style>
 
@@ -539,7 +541,20 @@ if ($socid > 0)
                 jQuery( "#listmotifcons" ).combobox();
                 jQuery( "#listdiagles" ).combobox();
                 jQuery( "#listexamenprescrit" ).combobox();
-                jQuery( "#banque" ).combobox();
+                jQuery( "#banque" ).combobox({
+                    /* comboboxContainerClass: "comboboxContainer",
+                    comboboxValueContainerClass: "comboboxValueContainer",
+                    comboboxValueContentClass: "comboboxValueContent",
+                    comboboxDropDownClass: "comboboxDropDownContainer",
+                    comboboxDropDownButtonClass: "comboboxDropDownButton",
+                    comboboxDropDownItemClass: "comboboxItem",
+                    comboboxDropDownItemHoverClass: "comboboxItemHover",
+                    comboboxDropDownGroupItemHeaderClass: "comboboxGroupItemHeader",
+                    comboboxDropDownGroupItemContainerClass: "comboboxGroupItemContainer",
+                    animationType: "slide",
+                    width: "500px" */
+                });
+
         });
         </script>
         ';
@@ -592,7 +607,7 @@ if ($socid > 0)
         print '<table class="notopnoleftnoright" width="100%">';
         print '<tr><td width="60%">';
 
-        print '<table class="notopnoleftnoright" width="100%">';
+        print '<table class="notopnoleftnoright" id="addmotifbox" width="100%">';
         print '<tr><td valign="top" width="160">';
         print $langs->trans("MotifConsultation").':';
         print '</td><td>';
@@ -625,7 +640,7 @@ if ($socid > 0)
         //print '</td><td valign="top">';
         print '</td></tr><tr><td>';
 
-        print '<table class="notopnoleftnoright" width="100%">';
+        print '<table class="notopnoleftnoright" id="adddiagbox" width="100%">';
         //print '<tr><td><br></td></tr>';
         print '<tr><td valign="top" width="160">';
         print $langs->trans("DiagnostiqueLesionnel").':';
@@ -668,7 +683,7 @@ if ($socid > 0)
         print '<table class="notopnoleftnoright" width="100%">';
         print '<tr><td width="60%" valign="top">';
 
-        print '<table class="notopnoleftnoright" width="100%">';
+        print '<table class="notopnoleftnoright" id="addexambox" width="100%">';
 
         print '<tr><td valign="top" width="160">';
         print $langs->trans("ExamensPrescrits").':';
@@ -696,11 +711,12 @@ if ($socid > 0)
         print '</td><td valign="top">';
 
         print $langs->trans("TraitementsPrescrits").'<br>';
-        print '<textarea name="traitementprescrit" class="flat" cols="50" rows="'.($nboflines-1).'">'.$consult->traitementprescrit.'</textarea><br>';
+        print '<textarea name="traitementprescrit" class="flat" cols="50" rows="'.($nboflines+1).'">'.$consult->traitementprescrit.'</textarea><br>';
         print $langs->trans("Infiltrations").'<br>';
-        print '<input type="text" class="flat" name="infiltration" id="infiltration" value="'.$consult->infiltration.'" size="30">';
+        print '<textarea name="infiltration" id="infiltration" class="flat" cols="50" rows="'.ROWS_2.'">'.$consult->infiltration.'</textarea><br>';
+        //print '<input type="text" class="flat" name="infiltration" id="infiltration" value="'.$consult->infiltration.'" size="50">';
 
-        print '<br><br><b>'.$langs->trans("TypeVisite").'</b>: &nbsp; &nbsp; &nbsp; ';
+        print '<br><b>'.$langs->trans("TypeVisite").'</b>: &nbsp; &nbsp; &nbsp; ';
         print '<input type="radio" class="flat" name="typevisit" value="CS" id="cs"'.($consult->typevisit=='CS'?' checked="true"':'').'> CS';
         print ' &nbsp; &nbsp; ';
         print '<input type="radio" class="flat" name="typevisit" value="C2" id="c2"'.($consult->typevisit=='C2'?' checked="true"':'').'> C2';
@@ -998,5 +1014,5 @@ if ($action == '' || $action == 'delete')
 
 $db->close();
 
-llxFooter('$Date: 2011/05/28 15:06:04 $ - $Revision: 1.32 $');
+llxFooter('$Date: 2011/05/28 15:58:46 $ - $Revision: 1.33 $');
 ?>
