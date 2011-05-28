@@ -21,7 +21,7 @@
 /**
  *		\file       htdocs/cabinetmed/theme/auguria/style.css.php
  *		\brief      Fichier de style CSS du theme auguria
- *		\version    $Id: style.css.php,v 1.9 2011/05/24 20:17:39 eldy Exp $
+ *		\version    $Id: style.css.php,v 1.10 2011/05/28 17:29:26 eldy Exp $
  */
 
 //if (! defined('NOREQUIREUSER')) define('NOREQUIREUSER','1');	// Not disabled cause need to load personalized language
@@ -1804,3 +1804,15 @@ A.none, A.none:active, A.none:visited, A.none:hover {
     line-height: 1em !important;
 }
 .ui-autocomplete-input { margin: 0; padding: 1px; }
+
+
+/* ============================================================================== */
+/*  CKEditor                                                                      */
+/* ============================================================================== */
+
+.cke_editor table, .cke_editor tr, .cke_editor td
+{
+    border: 0px solid #FF0000 !important;
+}
+span.cke_skin_kama { padding: 0 ! important; }
+
