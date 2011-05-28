@@ -23,7 +23,7 @@
  *   \file       htdocs/cabinetmed/traitetallergies.php
  *   \brief      Tab for antecedants
  *   \ingroup    societe
- *   \version    $Id: traitetallergies.php,v 1.8 2011/05/28 15:06:04 eldy Exp $
+ *   \version    $Id: traitetallergies.php,v 1.9 2011/05/28 17:31:29 eldy Exp $
  */
 
 $res=0;
@@ -161,7 +161,7 @@ if ($socid > 0)
 
         // Editeur wysiwyg
         require_once(DOL_DOCUMENT_ROOT."/lib/doleditor.class.php");
-        $doleditor=new DolEditor('note_traitspec',$societe->note_traitspec,0,$height,'dolibarr_notes','In',false,false,$conf->fckeditor->enabled && $conf->global->FCKEDITOR_ENABLE_SOCIETE,6,70);
+        $doleditor=new DolEditor('note_traitspec',$societe->note_traitspec,0,$height,'dolibarr_notes','In',false,false,$conf->fckeditor->enabled && $conf->global->FCKEDITOR_ENABLE_SOCIETE,8,70);
         $doleditor->Create();
     }
     else
@@ -201,7 +201,7 @@ if ($socid > 0)
 
         // Editeur wysiwyg
         require_once(DOL_DOCUMENT_ROOT."/lib/doleditor.class.php");
-        $doleditor=new DolEditor('note_traitintol',$societe->note_traitintol,0,$height,'dolibarr_notes','In',false,false,$conf->fckeditor->enabled && $conf->global->FCKEDITOR_ENABLE_SOCIETE,6,70);
+        $doleditor=new DolEditor('note_traitintol',$societe->note_traitintol,0,$height,'dolibarr_notes','In',false,false,$conf->fckeditor->enabled && $conf->global->FCKEDITOR_ENABLE_SOCIETE,8,70);
         $doleditor->Create();
     }
     else
@@ -245,5 +245,5 @@ if ($mesg) dol_htmloutput_mesg($mesg);
 
 $db->close();
 
-llxFooter('$Date: 2011/05/28 15:06:04 $ - $Revision: 1.8 $');
+llxFooter('$Date: 2011/05/28 17:31:29 $ - $Revision: 1.9 $');
 ?>
