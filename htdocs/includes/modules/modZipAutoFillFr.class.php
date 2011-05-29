@@ -20,7 +20,7 @@
 /**
  *	\defgroup   zipautofill     Module ZiopAutoFill
  * 	\brief      Module to add zip codes
- *	\version	$Id: modZipAutoFillFr.class.php,v 1.4 2011/05/27 08:42:43 eldy Exp $
+ *	\version	$Id: modZipAutoFillFr.class.php,v 1.5 2011/05/29 11:45:10 eldy Exp $
  */
 
 /**
@@ -82,11 +82,11 @@ class modZipAutoFillFr extends DolibarrModules
             'langs'=>'',
             'tabname'=>array(MAIN_DB_PREFIX."c_ziptown"),
             'tablib'=>array("Zip and town"),
-            'tabsql'=>array('SELECT f.rowid, f.code, f.zip, f.town FROM '.MAIN_DB_PREFIX.'c_ziptown as f'),
+            'tabsql'=>array('SELECT f.rowid, f.zip, f.town, f.fk_pays, p.code as pays_code, p.libelle as pays, f.active FROM '.MAIN_DB_PREFIX.'c_ziptown as f, '.MAIN_DB_PREFIX.'c_pays as p WHERE f.fk_pays=p.rowid'),
             'tabsqlsort'=>array("zip ASC, town ASC"),
-            'tabfield'=>array("code,zip,town"),
-            'tabfieldvalue'=>array("code,zip,town"),
-            'tabfieldinsert'=>array("code,zip,town"),
+            'tabfield'=>array("zip,town"),
+            'tabfieldvalue'=>array("zip,town"),
+            'tabfieldinsert'=>array("zip,town"),
             'tabrowid'=>array(),
             'tabcond'=>array($conf->zipautofillfr->enabled)
         );
