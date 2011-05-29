@@ -20,7 +20,7 @@
 /**
  *	\defgroup   zipautofill     Module ZiopAutoFill
  * 	\brief      Module to add zip codes
- *	\version	$Id: modZipAutoFillFr.class.php,v 1.5 2011/05/29 11:45:10 eldy Exp $
+ *	\version	$Id: modZipAutoFillFr.class.php,v 1.6 2011/05/29 12:25:35 eldy Exp $
  */
 
 /**
@@ -72,10 +72,12 @@ class modZipAutoFillFr extends DolibarrModules
 		// Config pages
 		$this->config_page_url = array();
 
-		// Constantes
-		$this->const = array(0=>array('MAIN_USE_ZIPTOWN_DICTIONNARY','chaine','1','Constant to enable usage of zip-town table',0));
-        //Example: $this->const=array(0=>array('MYMODULE_MYNEWCONST1','chaine','myvalue','This is a constant to add',0),
-        //                            1=>array('MYMODULE_MYNEWCONST2','chaine','myvalue','This is another constant to add',0) );
+        // Constants
+        // List of particular constants to add when module is enabled (key, 'chaine', value, desc, visible, 'current' or 'allentities', deleteonunactive)
+        // Example: $this->const=array(0=>array('MYMODULE_MYNEWCONST1','chaine','myvalue','This is a constant to add',1),
+        //                             1=>array('MYMODULE_MYNEWCONST2','chaine','myvalue','This is another constant to add',0) );
+        //                             2=>array('MAIN_MODULE_MYMODULE_NEEDSMARTY','chaine',1,'Constant to say module need smarty',1)
+		$this->const = array(0=>array('MAIN_USE_ZIPTOWN_DICTIONNARY','chaine','1','Constant to enable usage of zip-town table',0,'current',1));
 
         // Dictionnaries
         $this->dictionnaries=array(
