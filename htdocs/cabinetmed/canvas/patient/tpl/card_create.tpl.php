@@ -15,7 +15,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *
- * $Id: card_create.tpl.php,v 1.1 2011/05/29 14:53:10 eldy Exp $
+ * $Id: card_create.tpl.php,v 1.2 2011/05/29 17:36:59 eldy Exp $
  */
 
 global $db,$conf,$mysoc,$langs,$user;
@@ -161,7 +161,7 @@ dol_htmloutput_errors($soc->error,$soc->errors);
 
         // Country
         print '<tr><td width="25%">'.$langs->trans('Country').'</td><td colspan="3">';
-        $form->select_pays($GLOBALS['mysoc']->pays_id,'pays_id');
+        $form->select_pays($soc->pays_id,'pays_id');
         if ($user->admin) print info_admin($langs->trans("YouCanChangeValuesForThisListFromDictionnarySetup"),1);
         print '</td></tr>';
 ?>
@@ -183,19 +183,19 @@ dol_htmloutput_errors($soc->error,$soc->errors);
         // IdProf1 (SIREN for France)
         $idprof=$langs->transcountry('ProfId1',$soc->pays_code);
             print '<td>'.$idprof.'</td><td>';
-            print $formcompany->get_input_id_prof(1,'idprof1',$soc->siren,$soc->pays_code);
+            print '<input type="text" name="idprof1" size="6" maxlength="6" value="'.$soc->siren.'">';
             print '</td>';
         // IdProf2 (SIRET for France)
         $idprof=$langs->transcountry('ProfId2',$soc->pays_code);
             print '<td>'.$idprof.'</td><td>';
-            print $formcompany->get_input_id_prof(2,'idprof2',$soc->siret,$soc->pays_code);
+            print '<input type="text" name="idprof2" size="6" maxlength="6" value="'.$soc->siret.'">';
             print '</td>';
         print '</tr>';
         print '<tr>';
         // IdProf3 (APE for France)
         $idprof=$langs->transcountry('ProfId3',$soc->pays_code);
             print '<td>'.$idprof.'</td><td colspan="3">';
-            print $formcompany->get_input_id_prof(3,'idprof3',$soc->ape,$soc->pays_code);
+            print '<input type="text" name="idprof3" size="18" maxlength="32" value="'.$soc->ape.'">';
             print '</td>';
         print '</tr>';
 
@@ -216,14 +216,14 @@ dol_htmloutput_errors($soc->error,$soc->errors);
         print '</tr>';
 
         // Type
-        print '<tr><td>'.$langs->trans("ThirdPartyType").'</td><td>'."\n";
+        print '<tr><td>'.$langs->trans("ThirdPartyType").'</td><td colspan="3">'."\n";
         print $form->selectarray("typent_id",$formcompany->typent_array(0), $soc->typent_id);
         if ($user->admin) print info_admin($langs->trans("YouCanChangeValuesForThisListFromDictionnarySetup"),1);
         print '</td>';
-        print '<td>'.$langs->trans("Staff").'</td><td>';
+        /*print '<td>'.$langs->trans("Staff").'</td><td>';
         print $form->selectarray("effectif_id",$formcompany->effectif_array(0), $soc->effectif_id);
         if ($user->admin) print info_admin($langs->trans("YouCanChangeValuesForThisListFromDictionnarySetup"),1);
-        print '</td></tr>';
+        print '</td></tr>';*/
 
         if ($conf->global->MAIN_MULTILANGS)
         {
