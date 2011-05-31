@@ -20,7 +20,7 @@
  *   \file       htdocs/cabinetmed/consultations.php
  *   \brief      Tab for consultations
  *   \ingroup    cabinetmed
- *   \version    $Id: consultations.php,v 1.33 2011/05/28 15:58:46 eldy Exp $
+ *   \version    $Id: consultations.php,v 1.34 2011/05/31 16:45:21 simnandez Exp $
  */
 
 $res=0;
@@ -582,7 +582,7 @@ if ($socid > 0)
         print $langs->trans("Date").': ';
         $form->select_date($consult->datecons,'cons');
         print '</td><td>';
-        print 'Prise en charge: &nbsp;';
+        print $langs->trans("Priseencharge").': &nbsp;';
         print '<input type="radio" class="flat" name="typepriseencharge" value="ALD"'.($consult->typepriseencharge=='ALD'?' checked="checked"':'').'> ALD';
         print ' &nbsp; ';
         print '<input type="radio" class="flat" name="typepriseencharge" value="INV"'.($consult->typepriseencharge=='INV'?' checked="checked"':'').'> INV';
@@ -623,7 +623,7 @@ if ($socid > 0)
         print '</td><td>';
         print '<input type="text" size="32" class="flat" name="motifconsprinc" value="'.$consult->motifconsprinc.'" id="motifconsprinc"><br>';
         print '</td></tr>';
-        print '<tr><td valign="top">Secondaires:';
+        print '<tr><td valign="top">'.$langs->trans("Secondaires").':';
         print '</td><td>';
         print '<textarea class="flat" name="motifconssec" id="motifconssec" cols="40" rows="'.ROWS_3.'">';
         print $consult->motifconssec;
@@ -655,7 +655,7 @@ if ($socid > 0)
         print '</td><td>';
         print '<input type="text" size="32" class="flat" name="diaglesprinc" value="'.$consult->diaglesprinc.'" id="diaglesprinc"><br>';
         print '</td></tr>';
-        print '<tr><td valign="top">Secondaires:';
+        print '<tr><td valign="top">'.$langs->trans("Secondaires").':';
         print '</td><td>';
         print '<textarea class="flat" name="diaglessec" id="diaglessec" cols="40" rows="'.ROWS_3.'">';
         print $consult->diaglessec;
@@ -723,7 +723,7 @@ if ($socid > 0)
         print ' &nbsp; &nbsp; ';
         print '<input type="radio" class="flat" name="typevisit" value="CCAM" id="ccam"'.($consult->typevisit=='CCAM'?' checked="true"':'').'> CCAM';
         print '<br>';
-        print '<br>'.$langs->trans("Codage CCAM").': &nbsp; ';
+        print '<br>'.$langs->trans("CodageCCAM").': &nbsp; ';
         print '<input type="text" class="flat" name="codageccam" id="codageccam" value="'.$consult->codageccam.'" size="30"'.($consult->codageccam?'':' disabled="disabled"').'>';
         print '</td></tr>';
 
@@ -764,14 +764,14 @@ if ($socid > 0)
 
         print '<table class="notopnoleftnoright" id="paymentsbox" width="100%">';
         print '<tr><td width="160">';
-        print ''.$langs->trans("Cheque").'</td><td>';
+        print ''.$langs->trans("PaymentTypeCheque").'</td><td>';
 
         //print '<table class="nobordernopadding"><tr><td>';
 
         print '<input type="text" class="flat" name="montant_cheque" id="montant_cheque" value="'.($consult->montant_cheque!=''?price($consult->montant_cheque):'').'" size="5">';
         if ($conf->banque->enabled)
         {
-            print ' &nbsp; '.$langs->trans("A encaiser sur").' ';
+            print ' &nbsp; '.$langs->trans("RecBank").' ';
             $form->select_comptes(($consult->bank_account_id?$consult->bank_account_id:$defaultbankaccountchq),'bankchequeto',0,'courant = 1',0,($consult->montant_cheque?'':' disabled="disabled"'));
         }
 
@@ -795,23 +795,23 @@ if ($socid > 0)
         //print '</td></tr></table>';
 
         print '</td></tr><tr><td>';
-        print $langs->trans("Espece").'</td><td>';
+        print $langs->trans("PaymentTypeEspece").'</td><td>';
         print '<input type="text" class="flat" name="montant_espece" id="montant_espece" value="'.($consult->montant_espece!=''?price($consult->montant_espece):'').'" size="5">';
         if ($conf->banque->enabled)
         {
-            print ' &nbsp; '.$langs->trans("A encaiser sur").' ';
+            print ' &nbsp; '.$langs->trans("RecBank").' ';
             $form->select_comptes(($consult->bank_account_id?$consult->bank_account_id:$defaultbankaccountliq),'bankespeceto',0,'courant = 2',0,($consult->montant_espece?'':' disabled="disabled"'));
         }
         print '</td></tr><tr><td>';
-        print $langs->trans("Carte").'</td><td>';
+        print $langs->trans("PaymentTypeCarte").'</td><td>';
         print '<input type="text" class="flat" name="montant_carte" id="montant_carte" value="'.($consult->montant_carte!=''?price($consult->montant_carte):'').'" size="5">';
         if ($conf->banque->enabled)
         {
-            print ' &nbsp; '.$langs->trans("A encaiser sur").' ';
+            print ' &nbsp; '.$langs->trans("RecBank").' ';
             $form->select_comptes(($consult->bank_account_id?$consult->bank_account_id:$defaultbankaccountchq),'bankcarteto',0,'courant = 1',0,($consult->montant_carte?'':' disabled="disabled"'));
         }
         print '</td></tr><tr><td>';
-        print $langs->trans("Tiers").'</td><td>';
+        print $langs->trans("PaymentTypeThirdParty").'</td><td>';
         print '<input type="text" class="flat" name="montant_tiers" id="montant_tiers" value="'.($consult->montant_tiers!=''?price($consult->montant_tiers):'').'" size="5">';
         print '</td><td>';
 
@@ -881,7 +881,7 @@ if ($action == '' || $action == 'delete')
     print '<tr class="liste_titre">';
     print_liste_field_titre($langs->trans('Num'),$_SERVER['PHP_SELF'],'t.rowid','',$param,'',$sortfield,$sortorder);
     print_liste_field_titre($langs->trans('Date'),$_SERVER['PHP_SELF'],'t.datecons','',$param,'',$sortfield,$sortorder);
-    print_liste_field_titre($langs->trans('Prise en charge'),$_SERVER['PHP_SELF'],'t.typepriseencharge','',$param,'',$sortfield,$sortorder);
+    print_liste_field_titre($langs->trans('Priseencharge'),$_SERVER['PHP_SELF'],'t.typepriseencharge','',$param,'',$sortfield,$sortorder);
     print_liste_field_titre($langs->trans('DiagLesPrincipal'),$_SERVER['PHP_SELF'],'t.diaglesprinc','',$param,'',$sortfield,$sortorder);
     print_liste_field_titre($langs->trans('ConsultActe'),$_SERVER['PHP_SELF'],'t.typevisit','',$param,'',$sortfield,$sortorder);
     print_liste_field_titre($langs->trans('MontantPaiement'),$_SERVER['PHP_SELF'],'','',$param,'',$sortfield,$sortorder);
@@ -1014,5 +1014,5 @@ if ($action == '' || $action == 'delete')
 
 $db->close();
 
-llxFooter('$Date: 2011/05/28 15:58:46 $ - $Revision: 1.33 $');
+llxFooter('$Date: 2011/05/31 16:45:21 $ - $Revision: 1.34 $');
 ?>
