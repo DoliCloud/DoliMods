@@ -1,5 +1,6 @@
 <?php
-/* Copyright (C) 2010-2011 Regis Houssin <regis@dolibarr.fr>
+/* Copyright (C) 2010-2011 Regis Houssin       <regis@dolibarr.fr>
+ * Copyright (C) 2011      Laurent Destailleur <eldy@users.sourceforge.net>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,317 +16,370 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *
- * $Id: card_view.tpl.php,v 1.1 2011/05/29 18:43:22 eldy Exp $
+ * $Id: card_view.tpl.php,v 1.2 2011/05/31 22:40:39 eldy Exp $
  */
+
+$soc=$GLOBALS['objcanvas']->control->object;
 
 global $db,$conf,$mysoc,$langs,$user;
 
 require_once(DOL_DOCUMENT_ROOT ."/core/class/html.formcompany.class.php");
-require_once(DOL_DOCUMENT_ROOT ."/core/class/html.formadmin.class.php");
+require_once(DOL_DOCUMENT_ROOT ."/core/class/html.formfile.class.php");
 
 $form=new Form($GLOBALS['db']);
 $formcompany=new FormCompany($GLOBALS['db']);
 $formadmin=new FormAdmin($GLOBALS['db']);
+$formfile=new FormFile($GLOBALS['db']);
+?>
 
-$soc=$GLOBALS['soc'];
-$id=GETPOST('socid');
+<!-- BEGIN PHP TEMPLATE CARD_VIEW.TPL.PHP PATIENT -->
+
+<?php
+
+$head = societe_prepare_head($soc);
+
+dol_fiche_head($head, 'card', $langs->trans("ThirdParty"),0,'company');
+
+$html = new Form($db);
+
+
+// Confirm delete third party
+if ($action == 'delete' || $conf->use_javascript_ajax)
+{
+    $html = new Form($db);
+    $ret=$html->form_confirm($_SERVER["PHP_SELF"]."?socid=".$soc->id,$langs->trans("DeleteACompany"),$langs->trans("ConfirmDeleteCompany"),"confirm_delete",'',0,"action-delete");
+    if ($ret == 'html') print '<br>';
+}
+
+dol_htmloutput_errors($error,$errors);
+
+print '<table class="border" width="100%">';
+
+// Name
+print '<tr><td width="20%">'.$langs->trans('ThirdPartyName').'</td>';
+print '<td colspan="3">';
+print $form->showrefnav($soc,'socid','',($user->societe_id?0:1),'rowid','nom');
+print '</td></tr>';
+
+if (! empty($conf->global->SOCIETE_USEPREFIX))  // Old not used prefix field
+{
+    print '<tr><td>'.$langs->trans('Prefix').'</td><td colspan="3">'.$soc->prefix_comm.'</td></tr>';
+}
+
+if ($soc->client)
+{
+    print '<tr><td>';
+    print $langs->trans('CustomerCode').'</td><td colspan="3">';
+    print $soc->code_client;
+    if ($soc->check_codeclient() <> 0) print ' <font class="error">('.$langs->trans("WrongCustomerCode").')</font>';
+    print '</td></tr>';
+}
+
+if ($conf->fournisseur->enabled && $soc->fournisseur)
+{
+    print '<tr><td>';
+    print $langs->trans('SupplierCode').'</td><td colspan="3">';
+    print $soc->code_fournisseur;
+    if ($soc->check_codefournisseur() <> 0) print ' <font class="error">('.$langs->trans("WrongSupplierCode").')</font>';
+    print '</td></tr>';
+}
+
+// Barcode
+if ($conf->global->MAIN_MODULE_BARCODE)
+{
+    print '<tr><td>'.$langs->trans('Gencod').'</td><td colspan="3">'.$soc->gencod.'</td></tr>';
+}
+
+// Address
+print "<tr><td valign=\"top\">".$langs->trans('Address')."</td><td colspan=\"3\">";
+dol_print_address($soc->address,'gmap','thirdparty',$soc->id);
+print "</td></tr>";
+
+print '<tr><td width="25%">'.$langs->trans('Zip').'</td><td width="25%">'.$soc->cp."</td>";
+print '<td width="25%">'.$langs->trans('Town').'</td><td width="25%">'.$soc->ville."</td></tr>";
+
+// Country
+print '<tr><td>'.$langs->trans("Country").'</td><td colspan="3" nowrap="nowrap">';
+$img=picto_from_langcode($soc->pays_code);
+if ($soc->isInEEC()) print $form->textwithpicto(($img?$img.' ':'').$soc->pays,$langs->trans("CountryIsInEEC"),1,0);
+else print ($img?$img.' ':'').$soc->pays;
+print '</td></tr>';
+
+// State
+if (empty($conf->global->SOCIETE_DISABLE_STATE)) print '<tr><td>'.$langs->trans('State').'</td><td colspan="3">'.$soc->departement.'</td>';
+
+print '<tr><td>'.$langs->trans('PhonePerso').'</td><td>'.dol_print_phone($soc->tel,$soc->pays_code,0,$soc->id,'AC_TEL').'</td>';
+print '<td>'.$langs->trans('PhoneMobile').'</td><td>'.dol_print_phone($soc->fax,$soc->pays_code,0,$soc->id,'AC_FAX').'</td></tr>';
+
+// EMail
+print '<tr><td>'.$langs->trans('EMail').'</td><td colspan="3">';
+print dol_print_email($soc->email,0,$soc->id,'AC_EMAIL');
+print '</td>';
+
+// ProfId1 (SIREN for France)
+$profid=$langs->transcountry('ProfId1',$soc->pays_code);
+print '<tr><td>'.$profid.'</td><td>';
+print $soc->siren;
+if ($soc->siren)
+{
+    if ($soc->id_prof_check(1,$soc) > 0) print ' &nbsp; '.$soc->id_prof_url(1,$soc);
+    else print ' <font class="error">('.$langs->trans("ErrorWrongValue").')</font>';
+}
+print '</td>';
+// ProfId2 (SIRET for France)
+$profid=$langs->transcountry('ProfId2',$soc->pays_code);
+print '<td>'.$profid.'</td><td>';
+print $soc->siret;
+if ($soc->siret)
+{
+    if ($soc->id_prof_check(2,$soc) > 0) print ' &nbsp; '.$soc->id_prof_url(2,$soc);
+    else print ' <font class="error">('.$langs->trans("ErrorWrongValue").')</font>';
+}
+print '</td></tr>';
+
+// ProfId3 (APE for France)
+$profid=$langs->transcountry('ProfId3',$soc->pays_code);
+print '<tr><td>'.$profid.'</td><td colspan="3">';
+print $soc->ape;
+if ($soc->ape)
+{
+    if ($soc->id_prof_check(3,$soc) > 0) print ' &nbsp; '.$soc->id_prof_url(3,$soc);
+    else print ' <font class="error">('.$langs->trans("ErrorWrongValue").')</font>';
+}
+print '</td>';
+print '</tr>';
+
+$html = new Form($db);
+print '<tr>';
+print '<td nowrap="nowrap">'.$langs->trans('VATIntra').'</td><td colspan="3">';
+if ($soc->tva_intra)
+{
+    $s='';
+    $s.=$soc->tva_intra;
+    $s.='<input type="hidden" name="tva_intra" size="12" maxlength="20" value="'.$soc->tva_intra.'">';
+
+    if (empty($conf->global->MAIN_DISABLEVATCHECK))
+    {
+        $s.=' &nbsp; ';
+
+        if ($conf->use_javascript_ajax)
+        {
+            print "\n";
+            print '<script language="JavaScript" type="text/javascript">';
+            print "function CheckVAT(a) {\n";
+            print "newpopup('".DOL_URL_ROOT."/societe/checkvat/checkVatPopup.php?vatNumber='+a,'".dol_escape_js($langs->trans("VATIntraCheckableOnEUSite"))."',500,285);\n";
+            print "}\n";
+            print '</script>';
+            print "\n";
+            $s.='<a href="#" onclick="javascript: CheckVAT(document.formsoc.tva_intra.value);">'.$langs->trans("VATIntraCheck").'</a>';
+            $s = $form->textwithpicto($s,$langs->trans("VATIntraCheckDesc",$langs->trans("VATIntraCheck")),1);
+        }
+        else
+        {
+            $s.='<a href="'.$langs->transcountry("VATIntraCheckURL",$soc->id_pays).'" target="_blank">'.img_picto($langs->trans("VATIntraCheckableOnEUSite"),'help').'</a>';
+        }
+    }
+    print $s;
+}
+else
+{
+    print '&nbsp;';
+}
+print '</td>';
+
+print '</tr>';
+
+// Legal
+print '<tr><td>'.$langs->trans('JuridicalStatus').'</td><td>'.$soc->forme_juridique.'</td>';
+// ProfId4 (NU for France)
+$profid=$langs->transcountry('ProfId4',$soc->pays_code);
+print '<td>'.$profid.'</td><td>';
+print $soc->idprof4;
+if ($soc->idprof4)
+{
+    if ($soc->id_prof_check(4,$soc) > 0) print ' &nbsp; '.$soc->id_prof_url(4,$soc);
+    else print ' <font class="error">('.$langs->trans("ErrorWrongValue").')</font>';
+}
+print '</td></tr>';
+print '</tr>';
+
+// Type + Staff
+$arr = $formcompany->typent_array(1);
+$soc->typent= $arr[$soc->typent_code];
+print '<tr><td>'.$langs->trans("ThirdPartyType").'</td><td colspan="3">'.$soc->typent.'</td>';
+//print '<td>'.$langs->trans("Staff").'</td><td>'.$soc->effectif.'</td>';
+print '</tr>';
+
+// Default language
+if ($conf->global->MAIN_MULTILANGS)
+{
+    require_once(DOL_DOCUMENT_ROOT."/lib/functions2.lib.php");
+    print '<tr><td>'.$langs->trans("DefaultLang").'</td><td colspan="3">';
+    //$s=picto_from_langcode($soc->default_lang);
+    //print ($s?$s.' ':'');
+    $langs->load("languages");
+    $labellang = ($soc->default_lang?$langs->trans('Language_'.$soc->default_lang):'');
+    print $labellang;
+    print '</td></tr>';
+}
+
+// Ban
+if (empty($conf->global->SOCIETE_DISABLE_BANKACCOUNT))
+{
+    print '<tr><td>';
+    print '<table width="100%" class="nobordernopadding"><tr><td>';
+    print $langs->trans('RIB');
+    print '<td><td align="right">';
+    if ($user->rights->societe->creer)
+    print '<a href="'.DOL_URL_ROOT.'/societe/rib.php?socid='.$soc->id.'">'.img_edit().'</a>';
+    else
+    print '&nbsp;';
+    print '</td></tr></table>';
+    print '</td>';
+    print '<td colspan="3">';
+    print $soc->display_rib();
+    print '</td></tr>';
+}
+
+// Parent company
+if (empty($conf->global->SOCIETE_DISABLE_PARENTCOMPANY))
+{
+    print '<tr><td>';
+    print '<table width="100%" class="nobordernopadding"><tr><td>';
+    print $langs->trans('ParentCompany');
+    print '<td><td align="right">';
+    if ($user->rights->societe->creer)
+    print '<a href="'.DOL_URL_ROOT.'/societe/lien.php?socid='.$soc->id.'">'.img_edit() .'</a>';
+    else
+    print '&nbsp;';
+    print '</td></tr></table>';
+    print '</td>';
+    print '<td colspan="3">';
+    if ($soc->parent)
+    {
+        $socm = new Societe($db);
+        $socm->fetch($soc->parent);
+        print $socm->getNomUrl(1).' '.($socm->code_client?"(".$socm->code_client.")":"");
+        print $socm->ville?' - '.$socm->ville:'';
+    }
+    else {
+        print $langs->trans("NoParentCompany");
+    }
+    print '</td></tr>';
+}
+
+// Commercial
+print '<tr><td>';
+print '<table width="100%" class="nobordernopadding"><tr><td>';
+print $langs->trans('SalesRepresentatives');
+print '<td><td align="right">';
+if ($user->rights->societe->creer)
+print '<a href="'.DOL_URL_ROOT.'/societe/commerciaux.php?socid='.$soc->id.'">'.img_edit().'</a>';
+else
+print '&nbsp;';
+print '</td></tr></table>';
+print '</td>';
+print '<td colspan="3">';
+
+$listsalesrepresentatives=$soc->getSalesRepresentatives($user);
+$nbofsalesrepresentative=sizeof($listsalesrepresentatives);
+if ($nbofsalesrepresentative > 3)   // We print only number
+{
+    print '<a href="'.DOL_URL_ROOT.'/societe/commerciaux.php?socid='.$soc->id.'">';
+    print $nbofsalesrepresentative;
+    print '</a>';
+}
+else if ($nbofsalesrepresentative > 0)
+{
+    $userstatic=new User($db);
+    $i=0;
+    foreach($listsalesrepresentatives as $val)
+    {
+        $userstatic->id=$val['id'];
+        $userstatic->nom=$val['name'];
+        $userstatic->prenom=$val['firstname'];
+        print $userstatic->getNomUrl(1);
+        $i++;
+        if ($i < $nbofsalesrepresentative) print ', ';
+    }
+}
+else print $langs->trans("NoSalesRepresentativeAffected");
+print '</td></tr>';
+
+print '</table>';
+
+dol_fiche_end();
+
 
 /*
- * Company Fact creation mode
+ *  Actions
  */
-//if ($_GET["type"]=='cp') { $soc->client=3; }
-if (GETPOST("type")!='f') $soc->client=3;
-if (GETPOST("type")=='c')  { $soc->client=1; }
-if (GETPOST("type")=='p')  { $soc->client=2; }
-if ($conf->fournisseur->enabled && (GETPOST("type")=='f' || GETPOST("type")==''))  { $soc->fournisseur=1; }
+print '<div class="tabsAction">'."\n";
 
-$soc->nom=$_POST["nom"];
-$soc->prenom=$_POST["prenom"];
-$soc->particulier=0;
-$soc->prefix_comm=$_POST["prefix_comm"];
-$soc->client=$_POST["client"]?$_POST["client"]:$soc->client;
-$soc->code_client=$_POST["code_client"];
-$soc->fournisseur=$_POST["fournisseur"]?$_POST["fournisseur"]:$soc->fournisseur;
-$soc->code_fournisseur=$_POST["code_fournisseur"];
-$soc->adresse=$_POST["adresse"]; // TODO obsolete
-$soc->address=$_POST["adresse"];
-$soc->cp=$_POST["zipcode"];
-$soc->ville=$_POST["town"];
-$soc->departement_id=$_POST["departement_id"];
-$soc->tel=$_POST["tel"];
-$soc->fax=$_POST["fax"];
-$soc->email=$_POST["email"];
-$soc->url=$_POST["url"];
-$soc->capital=$_POST["capital"];
-$soc->gencod=$_POST["gencod"];
-$soc->siren=$_POST["idprof1"];
-$soc->siret=$_POST["idprof2"];
-$soc->ape=$_POST["idprof3"];
-$soc->idprof4=$_POST["idprof4"];
-$soc->typent_id=$_POST["typent_id"];
-$soc->effectif_id=$_POST["effectif_id"];
-
-$soc->tva_assuj = $_POST["assujtva_value"];
-$soc->status= $_POST["status"];
-
-//Local Taxes
-$soc->localtax1_assuj       = $_POST["localtax1assuj_value"];
-$soc->localtax2_assuj       = $_POST["localtax2assuj_value"];
-
-$soc->tva_intra=$_POST["tva_intra"];
-
-$soc->commercial_id=$_POST["commercial_id"];
-$soc->default_lang=$_POST["default_lang"];
-
-// We set pays_id, pays_code and label for the selected country
-$soc->pays_id=$_POST["pays_id"]?$_POST["pays_id"]:$mysoc->pays_id;
-if ($soc->pays_id)
+if ($user->rights->societe->creer)
 {
-    $sql = "SELECT code, libelle";
-    $sql.= " FROM ".MAIN_DB_PREFIX."c_pays";
-    $sql.= " WHERE rowid = ".$soc->pays_id;
-    $resql=$db->query($sql);
-    if ($resql)
+    print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?socid='.$soc->id.'&amp;action=edit">'.$langs->trans("Modify").'</a>'."\n";
+}
+
+if ($user->rights->societe->contact->creer)
+{
+    print '<a class="butAction" href="'.DOL_URL_ROOT.'/contact/fiche.php?socid='.$soc->id.'&amp;action=create">'.$langs->trans("AddContact").'</a>'."\n";
+}
+
+if ($conf->projet->enabled && $user->rights->projet->creer)
+{
+    print '<a class="butAction" href="'.DOL_URL_ROOT.'/projet/fiche.php?socid='.$soc->id.'&action=create">'.$langs->trans("AddProject").'</a>'."\n";
+}
+
+if ($user->rights->societe->supprimer)
+{
+    if ($conf->use_javascript_ajax)
     {
-        $obj = $db->fetch_object($resql);
+        print '<span id="action-delete" class="butActionDelete">'.$langs->trans('Delete').'</span>'."\n";
     }
     else
     {
-        dol_print_error($db);
+        print '<a class="butActionDelete" href="'.$_SERVER["PHP_SELF"].'?socid='.$soc->id.'&amp;action=delete">'.$langs->trans('Delete').'</a>'."\n";
     }
-    $soc->pays_code=$obj->code;
-    $soc->pays=$obj->libelle;
 }
-$soc->forme_juridique_code=$_POST['forme_juridique_code'];
 
-?>
+print '</div>'."\n";
+print '<br>';
 
-<!-- BEGIN PHP TEMPLATE -->
-<?php
-dol_htmloutput_errors($soc->error,$soc->errors);
-?>
+print '<table width="100%"><tr><td valign="top" width="50%">';
+print '<a name="builddoc"></a>'; // ancre
 
-<table class="border" width="100%">
+/*
+ * Documents generes
+ */
+$filedir=$conf->societe->dir_output.'/'.$soc->id;
+$urlsource=$_SERVER["PHP_SELF"]."?socid=".$soc->id;
+$genallowed=$user->rights->societe->creer;
+$delallowed=$user->rights->societe->supprimer;
 
-<tr>
-	<td width="20%"><?php echo $langs->trans('Name'); ?></td>
-	<td colspan="3"><?php echo $this->control->tpl['showrefnav']; ?></td>
-</tr>
+$var=true;
 
-<?php if (! empty($conf->global->SOCIETE_USEPREFIX)) { ?>
-<tr>
-	<td><?php echo $langs->trans('Prefix'); ?></td>
-	<td colspan="3"><?php echo $this->control->tpl['prefix_comm']; ?></td>
-</tr>
-<?php } ?>
+$somethingshown=$formfile->show_documents('company',$soc->id,$filedir,$urlsource,$genallowed,$delallowed,'',0,0,0,28,0,'',0,'',$soc->default_lang);
 
-<?php if ($this->control->tpl['client']) { ?>
-<tr>
-	<td><?php echo $langs->trans('CustomerCode'); ?></td>
-	<td colspan="3"><?php echo $this->control->tpl['code_client']; ?>
-	<?php if ($this->control->tpl['checkcustomercode'] <> 0) { ?>
-	<font class="error">(<?php echo $langs->trans("WrongCustomerCode"); ?>)</font>
-	<?php } ?>
-	</td>
-</tr>
-<?php } ?>
+print '</td>';
+print '<td>';
+print '</td>';
+print '</tr>';
+print '</table>';
 
-<?php if ($this->control->tpl['fournisseur']) { ?>
-<tr>
-	<td><?php echo $langs->trans('SupplierCode'); ?></td>
-	<td colspan="3"><?php echo $this->control->tpl['code_fournisseur']; ?>
-	<?php if ($this->control->tpl['checksuppliercode'] <> 0) { ?>
-	<font class="error">(<?php echo $langs->trans("WrongSupplierCode"); ?>)</font>
-	<?php } ?>
-	</td>
-</tr>
-<?php } ?>
+print '<br>';
 
-<?php if ($conf->global->MAIN_MODULE_BARCODE) { ?>
-<tr>
-	<td><?php echo $langs->trans('Gencod'); ?></td>
-	<td colspan="3"><?php echo $this->control->tpl['gencod']; ?></td>
-</tr>
-<?php } ?>
+// Subsidiaries list
+$result=show_subsidiaries($conf,$langs,$db,$soc);
 
-<tr>
-	<td valign="top"><?php echo $langs->trans('Address'); ?></td>
-	<td colspan="3"><?php echo $this->control->tpl['address']; ?></td>
-</tr>
-
-<tr>
-	<td width="25%"><?php echo $langs->trans('Zip'); ?></td>
-	<td width="25%"><?php echo $this->control->tpl['zip']; ?></td>
-	<td width="25%"><?php echo $langs->trans('Town'); ?></td>
-	<td width="25%"><?php echo $this->control->tpl['town']; ?></td>
-</tr>
-
-<tr>
-	<td><?php echo $langs->trans("Country"); ?></td>
-	<td colspan="3" nowrap="nowrap"><?php echo $this->control->tpl['country']; ?></td>
-</tr>
-
-<tr>
-	<td><?php echo $langs->trans('State'); ?></td>
-	<td colspan="3"><?php echo $this->control->tpl['departement']; ?></td>
-</tr>
-
-<tr>
-	<td><?php echo $langs->trans('Phone'); ?></td>
-	<td><?php echo $this->control->tpl['phone']; ?></td>
-	<td><?php echo $langs->trans('Fax'); ?></td>
-	<td><?php echo $this->control->tpl['fax']; ?></td>
-</tr>
-
-<tr>
-	<td><?php echo $langs->trans('EMail'); ?></td>
-	<td><?php echo $this->control->tpl['email'];; ?></td>
-	<td><?php echo $langs->trans('Web'); ?></td>
-	<td><?php echo $this->control->tpl['url']; ?></td>
-</tr>
-
-<?php
-for ($i=1; $i<=4; $i++) {
-	if ($this->control->tpl['langprofid'.$i]!='-')	{
-		if ($i==1 || $i==3) echo '<tr>';
-		echo '<td>'.$this->control->tpl['langprofid'.$i].'</td>';
-		echo '<td>'.$this->control->tpl['profid'.$i];
-		if ($this->control->tpl['profid'.$i]) {
-			if ($this->control->tpl['checkprofid'.$i] > 0) echo ' &nbsp; '.$this->control->tpl['urlprofid'.$i];
-			else echo ' <font class="error">('.$langs->trans("ErrorWrongValue").')</font>';
-		}
-		echo '</td>';
-		if ($i==2 || $i==4) echo '</tr>';
-	} else {
-		if ($i==1 || $i==3) echo '<tr>';
-		echo '<td>&nbsp;</td>';
-		echo '<td>&nbsp;</td>';
-		if ($i==2 || $i==4) echo '</tr>';
-	}
+// Contacts list
+if (empty($conf->global->SOCIETE_DISABLE_CONTACTS))
+{
+  $result=show_contacts($conf,$langs,$db,$soc);
 }
+
+// Projects list
+$result=show_projects($conf,$langs,$db,$soc);
 ?>
-
-<tr>
-	<td><?php echo $langs->trans('VATIsUsed'); ?></td>
-	<td><?php echo $this->control->tpl['tva_assuj']; ?></td>
-	<td nowrap="nowrap"><?php echo $langs->trans('VATIntra'); ?></td>
-	<td><?php echo $this->control->tpl['tva_intra']; ?></td>
-</tr>
-
-<?php if(!empty($this->control->tpl['localtax'])) echo $this->control->tpl['localtax']; ?>
-
-<tr>
-	<td><?php echo $langs->trans('Capital'); ?></td>
-	<td colspan="3">
-	<?php
-	if ($this->control->tpl['capital']) echo $this->control->tpl['capital'].' '.$langs->trans("Currency".$conf->monnaie);
-	else echo '&nbsp;';
-	?>
-	</td>
-</tr>
-
-<tr>
-	<td><?php echo $langs->trans('JuridicalStatus'); ?></td>
-	<td colspan="3"><?php echo $this->control->tpl['forme_juridique']; ?></td>
-</tr>
-
-<tr>
-	<td><?php echo $langs->trans("ThirdPartyType"); ?></td>
-	<td><?php echo $this->control->tpl['typent']; ?></td>
-	<td><?php echo $langs->trans("Staff"); ?></td>
-	<td><?php echo $this->control->tpl['effectif']; ?></td>
-</tr>
-
-<?php if ($conf->global->MAIN_MULTILANGS) { ?>
-<tr>
-	<td><?php echo $langs->trans("DefaultLang"); ?></td>
-	<td colspan="3"><?php echo $this->control->tpl['default_lang']; ?></td>
-</tr>
-<?php } ?>
-
-<tr>
-	<td>
-	<table width="100%" class="nobordernopadding">
-		<tr>
-			<td><?php echo $langs->trans('RIB'); ?></td>
-			<td align="right">
-			<?php if ($user->rights->societe->creer) { ?>
-			<a href="<?php echo DOL_URL_ROOT.'/societe/rib.php?socid='.$this->control->tpl['id']; ?>"><?php echo $this->control->tpl['image_edit']; ?></a>
-			<?php } else { ?>
-			&nbsp;
-			<?php } ?>
-			</td>
-		</tr>
-	</table>
-	</td>
-	<td colspan="3"><?php echo $this->control->tpl['display_rib']; ?></td>
-</tr>
-
-<tr>
-	<td>
-	<table width="100%" class="nobordernopadding">
-		<tr>
-			<td><?php echo $langs->trans('ParentCompany'); ?></td>
-			<td align="right">
-			<?php if ($user->rights->societe->creer) { ?>
-			<a href="<?php echo DOL_URL_ROOT.'/societe/lien.php?socid='.$this->control->tpl['id']; ?>"><?php echo $this->control->tpl['image_edit']; ?></a>
-			<?php } else { ?>
-			&nbsp;
-			<?php } ?>
-			</td>
-		</tr>
-	</table>
-	</td>
-	<td colspan="3"><?php echo $this->control->tpl['parent_company']; ?></td>
-</tr>
-
-<tr>
-	<td>
-	<table width="100%" class="nobordernopadding">
-		<tr>
-			<td><?php echo $langs->trans('SalesRepresentatives'); ?></td>
-			<td align="right">
-			<?php if ($user->rights->societe->creer) { ?>
-			<a href="<?php echo DOL_URL_ROOT.'/societe/commerciaux.php?socid='.$this->control->tpl['id']; ?>"><?php echo $this->control->tpl['image_edit']; ?></a>
-			<?php } else { ?>
-			&nbsp;
-			<?php } ?>
-			</td>
-		</tr>
-	</table>
-	</td>
-	<td colspan="3"><?php echo $this->control->tpl['sales_representatives'];	?></td>
-</tr>
-
-<?php if ($conf->adherent->enabled) { ?>
-<tr>
-	<td width="25%" valign="top"><?php echo $langs->trans("LinkedToDolibarrMember"); ?></td>
-	<td colspan="3"><?php echo $this->control->tpl['linked_member']; ?></td>
-</tr>
-<?php } ?>
-
-</table>
-
-</div>
-
-<div class="tabsAction">
-<?php if ($user->rights->societe->creer) { ?>
-<a class="butAction" href="<?php echo $_SERVER["PHP_SELF"].'?socid='.$this->control->tpl['id'].'&amp;action=edit&amp;canvas='.$canvas; ?>"><?php echo $langs->trans("Modify"); ?></a>
-<?php } ?>
-
-<?php if ($user->rights->societe->contact->creer) { ?>
-<a class="butAction" href="<?php echo DOL_URL_ROOT.'/contact/fiche.php?socid='.$this->control->tpl['id'].'&amp;action=create&amp;canvas=default'; ?>"><?php echo $langs->trans("AddContact"); ?></a>
-<?php } ?>
-
-<?php if ($user->rights->societe->supprimer) { ?>
-	<?php if ($conf->use_javascript_ajax) { ?>
-		<span id="action-delete" class="butActionDelete"><?php echo $langs->trans('Delete'); ?></span>
-	<?php }	else { ?>
-		<a class="butActionDelete" href="<?php echo $_SERVER["PHP_SELF"].'?socid='.$this->control->tpl['id'].'&amp;action=delete&amp;canvas='.$canvas; ?>"><?php echo $langs->trans('Delete'); ?></a>
-	<?php } ?>
-<?php } ?>
-</div>
-
-<br>
 
 <!-- END PHP TEMPLATE -->

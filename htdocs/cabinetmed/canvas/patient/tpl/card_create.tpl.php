@@ -15,7 +15,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *
- * $Id: card_create.tpl.php,v 1.2 2011/05/29 17:36:59 eldy Exp $
+ * $Id: card_create.tpl.php,v 1.3 2011/05/31 22:40:39 eldy Exp $
  */
 
 global $db,$conf,$mysoc,$langs,$user;
@@ -129,7 +129,7 @@ dol_htmloutput_errors($soc->error,$soc->errors);
 <table class="border" width="100%">
 
 <tr>
-	<td><span class="fieldrequired"><?php echo $langs->trans('Name'); ?></span></td>
+	<td><span class="fieldrequired"><?php echo $langs->trans('ThirdPartyName'); ?></span></td>
 	<td><input type="text" size="30" maxlength="60" name="nom" value="<?php echo $soc->nom; ?>"></td>
     <td width="25%"><?php echo $langs->trans('CustomerCode'); ?></td>
     <td width="25%">
