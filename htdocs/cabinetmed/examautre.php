@@ -23,7 +23,7 @@
  *   \file       htdocs/cabinetmed/examautre.php
  *   \brief      Tab for examens other
  *   \ingroup    cabinetmed
- *   \version    $Id: examautre.php,v 1.16 2011/05/01 23:58:17 eldy Exp $
+ *   \version    $Id: examautre.php,v 1.17 2011/06/01 16:37:59 simnandez Exp $
  */
 
 $res=0;
@@ -379,7 +379,7 @@ if ($socid > 0)
         print '</td><td>';
         print '<input type="text" size="48" class="flat" name="examprinc" value="'.$examother->examprinc.'" id="examprinc"><br>';
         print '</td></tr>';
-        print '<tr><td valign="top">Secondaires:';
+        print '<tr><td valign="top">'.$langs->trans("Secondaires").':';
         print '</td><td>';
         print '<textarea class="flat" name="examsec" id="examsec" cols="46" rows="'.ROWS_5.'">';
         print $examother->examsec;
@@ -402,7 +402,7 @@ if ($socid > 0)
         print '</td><td>';
         print '<input type="text" size="48" class="flat" name="examconcprinc" value="'.$examother->concprinc.'" id="examconcprinc"><br>';
         print '</td></tr>';
-        print '<tr><td valign="top">Secondaires:';
+        print '<tr><td valign="top">'.$langs->trans("Secondaires").':';
         print '</td><td>';
         print '<textarea class="flat" name="examconcsec" id="examconcsec" cols="46" rows="'.ROWS_5.'">';
         print $examother->concsec;
@@ -546,5 +546,5 @@ if ($action == '' || $action == 'delete')
 
 $db->close();
 
-llxFooter('$Date: 2011/05/01 23:58:17 $ - $Revision: 1.16 $');
+llxFooter('$Date: 2011/06/01 16:37:59 $ - $Revision: 1.17 $');
 ?>

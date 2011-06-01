@@ -23,7 +23,7 @@
  *   \file       htdocs/cabinetmed/exambio.php
  *   \brief      Tab for examens bio
  *   \ingroup    cabinetmed
- *   \version    $Id: exambio.php,v 1.14 2011/05/01 19:01:32 eldy Exp $
+ *   \version    $Id: exambio.php,v 1.15 2011/06/01 16:37:59 simnandez Exp $
  */
 
 $res=0;
@@ -456,13 +456,13 @@ if ($socid > 0)
         print '<fieldset id="suivipr">';
         print '<legend>'.$langs->trans("SuiviPR").'</legend>';
         print '<table>';
-        print '<tr><td width="90px">AD:</td><td><input class="flat suivipr" type="text" size="2" id="suivipr_ad" name="suivipr_ad" value="'.$exambio->suivipr_ad.'"></td></tr>';
-        print '<tr><td>AG:</td><td><input class="flat suivipr" type="text" size="2" id="suivipr_ag" name="suivipr_ag" value="'.$exambio->suivipr_ag.'"></td></tr>';
-        print '<tr><td>EVA:</td><td><input class="flat suivipr" type="text" size="2" id="suivipr_eva" name="suivipr_eva" value="'.$exambio->suivipr_eva.'"></td></tr>';
-        print '<tr><td>VS:</td><td><input class="flat suivipr" type="text" size="2" id="suivipr_vs" name="suivipr_vs" value="'.$exambio->suivipr_vs.'"></td></tr>';
-        print '<tr><td><b><font color="#884466">DAS 28:</font></b></td><td><div id="suivipr_das28"></div></td></tr>';
+        print '<tr><td width="90px">'.$langs->trans("AD").':</td><td><input class="flat suivipr" type="text" size="2" id="suivipr_ad" name="suivipr_ad" value="'.$exambio->suivipr_ad.'"></td></tr>';
+        print '<tr><td>'.$langs->trans("AG").':</td><td><input class="flat suivipr" type="text" size="2" id="suivipr_ag" name="suivipr_ag" value="'.$exambio->suivipr_ag.'"></td></tr>';
+        print '<tr><td>'.$langs->trans("EVA").':</td><td><input class="flat suivipr" type="text" size="2" id="suivipr_eva" name="suivipr_eva" value="'.$exambio->suivipr_eva.'"></td></tr>';
+        print '<tr><td>'.$langs->trans("VS").':</td><td><input class="flat suivipr" type="text" size="2" id="suivipr_vs" name="suivipr_vs" value="'.$exambio->suivipr_vs.'"></td></tr>';
+        print '<tr><td><b><font color="#884466">'.$langs->trans("DAS28").':</font></b></td><td><div id="suivipr_das28"></div></td></tr>';
         print '<tr><td>&nbsp;</td><td>&nbsp;</td></tr>';
-        print '<tr><td>ER RX:</td><td><input type="text" size="2" id="suivipr_err" name="suivipr_err" value="'.$exambio->suivipr_err.'"></td></tr>';
+        print '<tr><td>'.$langs->trans("ERRX").':</td><td><input type="text" size="2" id="suivipr_err" name="suivipr_err" value="'.$exambio->suivipr_err.'"></td></tr>';
         print '</table>';
         print '</fieldset>';
 
@@ -472,14 +472,14 @@ if ($socid > 0)
         print '<legend>'.$langs->trans("SuiviSA").'</legend>';
         print '<table>';
         // 4 items de 0 à 10 -> Somme A
-        print '<tr><td width="140px">EVA Fatigue:</td><td><input class="flat suivisa" type="text" size="2" id="suivisa_fat" name="suivisa_fat" value="'.$exambio->suivisa_fat.'"> / 10</td></tr>';
-        print '<tr><td>EVA Douleur Axiale:</td><td><input class="flat suivisa" type="text" size="2" id="suivisa_dax" name="suivisa_dax" value="'.$exambio->suivisa_dax.'"> / 10</td></tr>';
-        print '<tr><td>EVA Douleur Périph.:</td><td><input class="flat suivisa" type="text" size="2" id="suivisa_dpe" name="suivisa_dpe" value="'.$exambio->suivisa_dpe.'"> / 10</td></tr>';
-        print '<tr><td>EVA Douleur Palp.:</td><td><input class="flat suivisa" type="text" size="2" id="suivisa_dpa" name="suivisa_dpa" value="'.$exambio->suivisa_dpa.'"> / 10</td></tr>';
+        print '<tr><td width="140px">'.$langs->trans("EVAFatigue").':</td><td><input class="flat suivisa" type="text" size="2" id="suivisa_fat" name="suivisa_fat" value="'.$exambio->suivisa_fat.'"> / 10</td></tr>';
+        print '<tr><td>'.$langs->trans("EVADouleurAxiale").':</td><td><input class="flat suivisa" type="text" size="2" id="suivisa_dax" name="suivisa_dax" value="'.$exambio->suivisa_dax.'"> / 10</td></tr>';
+        print '<tr><td>'.$langs->trans("EVADouleurPeriph").':</td><td><input class="flat suivisa" type="text" size="2" id="suivisa_dpe" name="suivisa_dpe" value="'.$exambio->suivisa_dpe.'"> / 10</td></tr>';
+        print '<tr><td>'.$langs->trans("EVADouleurPalp").':</td><td><input class="flat suivisa" type="text" size="2" id="suivisa_dpa" name="suivisa_dpa" value="'.$exambio->suivisa_dpa.'"> / 10</td></tr>';
         // 2 items de 0 à 10 -> moyenne B
-        print '<tr><td>EVA Raideur. Mat.:</td><td><input class="flat suivisa" type="text" size="2" id="suivisa_rno" name="suivisa_rno" value="'.$exambio->suivisa_rno.'"> / 10</td></tr>';
-        print '<tr><td>EVA Dérr. Mat.:</td><td><input class="flat suivisa" type="text" size="2" id="suivisa_dma" name="suivisa_dma" value="'.$exambio->suivisa_dma.'"> / 10</td></tr>';
-        print '<tr><td><b><font color="#884466">BASDAI:</font><b></td><td><div id="suivisa_basdai"></div></td></tr>';
+        print '<tr><td>'.$langs->trans("EVARaideurMat").':</td><td><input class="flat suivisa" type="text" size="2" id="suivisa_rno" name="suivisa_rno" value="'.$exambio->suivisa_rno.'"> / 10</td></tr>';
+        print '<tr><td>'.$langs->trans("EVADerrMat").':</td><td><input class="flat suivisa" type="text" size="2" id="suivisa_dma" name="suivisa_dma" value="'.$exambio->suivisa_dma.'"> / 10</td></tr>';
+        print '<tr><td><b><font color="#884466">'.$langs->trans("BASDAI").':</font><b></td><td><div id="suivisa_basdai"></div></td></tr>';
         //print '<tr><td>&nbsp;</td><td>&nbsp;</td></tr>';
         print '</table>';
         print '</fieldset>';
@@ -610,5 +610,5 @@ if ($action == '' || $action == 'delete')
 
 $db->close();
 
-llxFooter('$Date: 2011/05/01 19:01:32 $ - $Revision: 1.14 $');
+llxFooter('$Date: 2011/06/01 16:37:59 $ - $Revision: 1.15 $');
 ?>
