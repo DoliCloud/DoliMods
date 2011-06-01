@@ -1,6 +1,6 @@
 <?php
 /* Copyright (C) 2004-2007 Rodolphe Quiedeville <rodolphe@quiedeville.org>
- * Copyright (C) 2004-2010 Laurent Destailleur  <eldy@users.sourceforge.net>
+ * Copyright (C) 2004-2011 Laurent Destailleur  <eldy@users.sourceforge.net>
  * Copyright (C) 2005      Simon Tosser         <simon@kornog-computing.com>
  * Copyright (C) 2005-2009 Regis Houssin        <regis@dolibarr.fr>
  * Copyright (C) 2010	   Pierre Morin         <pierre.morin@auguria.net>
@@ -24,7 +24,7 @@
 /**
  *	\file       htdocs/filemanager/ajaxeditcontent.php
  *  \brief      Service to return a HTML view of a file
- *  \version    $Id: ajaxfileactions.php,v 1.6 2011/01/16 14:26:43 eldy Exp $
+ *  \version    $Id: ajaxfileactions.php,v 1.7 2011/06/01 13:58:31 eldy Exp $
  *  \remarks    Call of this service is made with URL:
  *              ajaxpreview.php?action=preview&modulepart=repfichierconcerne&file=pathrelatifdufichier
  */
@@ -50,7 +50,7 @@ include_once(DOL_DOCUMENT_ROOT.'/lib/doleditor.class.php');
 
 
 // Do not use urldecode here ($_GET and $_REQUEST are already decoded by PHP).
-$action = isset($_GET["action"])?$_GET["action"]:'';
+$action = GETPOST("action");
 $original_file = isset($_GET["file"])?$_GET["file"]:'';
 $modulepart = isset($_GET["modulepart"])?$_GET["modulepart"]:'';
 $urlsource = isset($_GET["urlsource"])?$_GET["urlsource"]:'';
@@ -96,6 +96,7 @@ if ($modulepart)
 	{
 		$dirnameslash=str_replace(array("\\","/"),"/",dirname($original_file));
         $rootpathslash=str_replace(array("\\","/"),"/",$rootpath);
+        //print 'dirnameslash='.$dirnameslash.' rootpathslash='.$rootpathslash;
         if (preg_match('/^'.preg_quote($rootpathslash,'/').'/',$dirnameslash))
         {
             $accessallowed=1;
@@ -157,6 +158,94 @@ if (! $user->rights->filemanager->read)
  * Action
  */
 
+
+if ($action == 'newdir')   // Create a dir
+{
+    clearstatcache();
+
+    $original_dir=dirname($original_file);
+    $newdir=$original_dir.'/new_dir';
+
+    //print 'original_dir='.$orignal_dir.' newdir='.$newdir;
+    dol_syslog(__FILE__." newdir ".$newdir." ", LOG_DEBUG);
+
+    // This test should be useless. We keep it to find bug more easily
+    $original_newdir_osencoded=dol_osencode($newdir);     // New file name encoded in OS encoding charset
+    $original_dir_osencoded=dol_osencode($original_dir);  // New file name encoded in OS encoding charset
+    if (! is_dir($original_dir_osencoded))
+    {
+        dol_print_error(0,$langs->trans("ErrorDirDoesNotExists",$originale_dir));
+        exit;
+    }
+
+    if (is_dir($original_newdir_osencoded))
+    {
+        $langs->load("errors");
+        print '<div class="error">'.$langs->trans("ErrorDirAlreadyExists",$newdir).'</div>';
+        return -2;
+    }
+
+    $result=dol_mkdir($original_newdir_osencoded);
+    if ($result <= 0)
+    {
+        $langs->load("errors");
+        dol_syslog("Failed to write into file ".$newdir);
+        print '<div class="error">'.$langs->trans("ErrorFailToCreateDir",$newdir).'</div>';
+        return -1;
+    }
+    else
+    {
+        dol_syslog("Created dir ".$newdir);
+        print '<div class="ok">'.$langs->trans("Success").'</div>';
+        return 1;
+    }
+}
+
+
+if ($action == 'newfile')   // Create a file
+{
+    clearstatcache();
+
+    $original_dir=dirname($original_file);
+    $newfile=$original_dir.'/new_file.txt';
+
+    //print 'original_dir='.$orignal_dir.' newfile='.$newfile;
+    dol_syslog(__FILE__." newfile ".$newfile." ", LOG_DEBUG);
+
+    // This test should be useless. We keep it to find bug more easily
+    $original_newfile_osencoded=dol_osencode($newfile);     // New file name encoded in OS encoding charset
+    $original_dir_osencoded=dol_osencode($original_dir);  // New file name encoded in OS encoding charset
+    if (! is_dir($original_dir_osencoded))
+    {
+        dol_print_error(0,$langs->trans("ErrorDirDoesNotExists",$originale_dir));
+        exit;
+    }
+
+    if (file_exists($original_newfile_osencoded))
+    {
+        $langs->load("errors");
+        print '<div class="error">'.$langs->trans("ErrorFileAlreadyExists",$newfile).'</div>';
+        return -2;
+    }
+
+    $f=fopen($original_newfile_osencoded, 'w');    // 'w'
+    if (fwrite($f, $content) === FALSE)
+    {
+        $langs->load("errors");
+        fclose($f);
+        dol_syslog("Failed to write into file ".$newfile);
+        print '<div class="error">'.$langs->trans("ErrorFailToCreateFile",$newfile).'</div>';
+        return -1;
+    }
+    else
+    {
+        fclose($f);
+        dol_syslog("Saved file ".$newfile);
+        print '<div class="ok">'.$langs->trans("Success").'</div>';
+        return 1;
+    }
+}
+
 if ($action == 'save')   // Remove a file
 {
     clearstatcache();
@@ -171,30 +260,44 @@ if ($action == 'save')   // Remove a file
         exit;
     }
 
-    $content=GETPOST('str');
+    $content=GETPOST('str',2);
     $sizeofcontent=GETPOST('sizeofcontent');
 
-    if (sizeof($content) != $sizeofcontent)
+    if (strlen($content) != $sizeofcontent)
     {
-        dol_syslog("Size of content for new file differs of size expected. May be a limit in POST/GET request. We ignore save to keep file integrity.", LOG_ERR);
+        dol_syslog("Size of content (".strlen($content).") for new file differs of size expected (".$sizeofcontent."). May be a limit in POST/GET request. We ignore save to keep file integrity.", LOG_ERR);
+        print 'KO';
+        return -2;
     }
     else
     {
-        $f=fopen($original_file_osencoded, 'r');    // 'w'
+        $f=fopen($original_file_osencoded, 'w');    // 'w'
         if ($f)
         {
-            fwrite($f,$content);
-            fclose($f);
-
-            dol_syslog("Saved file ".$original_file);
+            dol_syslog("original_file_osencoded=".$original_file_osencoded." content=".$content);
+            if (fwrite($f, $content) === FALSE)
+            {
+                $langs->load("errors");
+                fclose($f);
+                dol_syslog("Failed to write into file ".$original_file);
+                print '<div class="error">'.$langs->trans("ErrorFailToCreateFile").'</div>';
+                return -3;
+            }
+            else
+            {
+                fclose($f);
+                dol_syslog("Saved file ".$original_file);
+                print '<div class="ok">'.$langs->trans("Success").'</div>';
+                return 1;
+            }
         }
         else
         {
             dol_syslog("Failed to open file ".$original_file, LOG_ERR);
+            print 'KO';
+            return -1;
         }
     }
-
-    return;
 }
 
 
@@ -245,7 +348,8 @@ if ($action == 'edit')   // Return file content
         $content = fread($handle, $maxsize);
         fclose($handle);
 
-        $doleditor=new DolEditor('fmeditor',$content,700,'Basic','In',true,true,false,36,120);
+        $okforextandededitor=false;
+        $doleditor=new DolEditor('fmeditor',$content,640,0,'dolibarr_notes','In',true,true,$okforextandededitor,36,100);
         $doleditor->Create();
 
         //print $content;

@@ -24,5 +24,7 @@ NewFile=New file
 AddRootPath=Add root directories for filemanager
 UseColorSyntaxing=Enable color syntaxing on view file content feature (need more memory. Disable this if you experience blank page when viewing content of a text file)
 ColoringDisabled=Syntax coloring not enabled
+ServerMustHavePermission=Permissions on filesystem for that must be granted to web server (%s/%s).
+#####
 Module10600Name=File manager
 Module10600Desc=A file manager to scan and view contents of disks of your Dolibarr server.

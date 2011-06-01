@@ -20,7 +20,7 @@
  *   	\file       htdocs/filemanager/index.php
  *		\ingroup    filemanager
  *		\brief      This is home page of filemanager module
- *		\version    $Id: index.php,v 1.26 2011/01/16 14:26:43 eldy Exp $
+ *		\version    $Id: index.php,v 1.27 2011/06/01 13:58:31 eldy Exp $
  */
 
 if (! defined('REQUIRE_JQUERY_LAYOUT'))  define('REQUIRE_JQUERY_LAYOUT','1');
@@ -35,7 +35,6 @@ if (! defined('REQUIRE_JQUERY_LAYOUT'))  define('REQUIRE_JQUERY_LAYOUT','1');
 //if (! defined('NOREQUIREHTML'))  define('NOREQUIREHTML','1');	// If we don't need to load the html.form.class.php
 //if (! defined('NOREQUIREAJAX'))  define('NOREQUIREAJAX','1');
 //if (! defined("NOLOGIN"))        define("NOLOGIN",'1');		// If this page is public (can be called outside logged session)
-
 
 require_once("../filemanager/pre.inc.php");
 dol_include_once("/filemanager/class/filemanagerroots.class.php");
@@ -230,7 +229,7 @@ else
 print "<br>\n";
 
 
-if ($mesg) print '<div id="mesg">'.$mesg.'<br></div>';
+print '<div id="mesg">'.$mesg.'</div>';
 
 
 // Javascript part
@@ -241,15 +240,38 @@ if ($mesg) print '<div id="mesg">'.$mesg.'<br></div>';
 if ($filemanagerroots->rootpath)
 {
 ?>
-    var filediractive='';
+    var filediractive='<?php echo $filemanagerroots->rootpath; ?>';
     var filetypeactive='';
 
-    function newdir(dirname)
+    function newdir()
     {
+        dirname=filediractive;
+        //alert(content);
+        url='<?php echo dol_buildpath('/filemanager/ajaxfileactions.php',1); ?>?action=newdir&rootpath=<?php echo $filemanagerroots->id ?>&modulepart=filemanager&type=auto&file='+urlencode(dirname+'/newdir');
+        // jQuery.post("test.php", $("#testform").serialize());
+        jQuery.post(url,
+            function(data) {
+            jQuery('#mesg').show();
+            jQuery('#mesg').replaceWith('<div id="mesg">'+data+'</div>');
+            }
+        );
     }
 
-    function newfile(filename)
+    function newfile()
     {
+        //if (filetypeactive == 'directory')
+        //{
+            dirname=filediractive;
+            //alert(content);
+            url='<?php echo dol_buildpath('/filemanager/ajaxfileactions.php',1); ?>?action=newfile&rootpath=<?php echo $filemanagerroots->id ?>&modulepart=filemanager&type=auto&file='+urlencode(dirname+'/newfile.txt');
+            // jQuery.post("test.php", $("#testform").serialize());
+            jQuery.post(url,
+                function(data) {
+                jQuery('#mesg').show();
+                jQuery('#mesg').replaceWith('<div id="mesg">'+data+'</div>');
+                }
+            );
+        //}
     }
 
     function deletedir()
@@ -264,6 +286,7 @@ if ($filemanagerroots->rootpath)
             jQuery("#dialog-confirm").attr("title", \''.dol_escape_js($langs->trans("DeleteDir")).'\');
             jQuery("#dialog-confirm").empty();
             jQuery("#dialog-confirm").append(\''.img_help('','').' '.dol_escape_js($langs->trans("DeleteDirName")).' <b>\'+dirname+\'</b>\');
+            jQuery("#dialog-confirm").append(\'<br>'.dol_escape_js($langs->trans("ServerMustHavePermission",dol_getwebuser('user'),dol_getwebuser('group'))).'\');
             jQuery("#dialog-confirm").dialog({
                 autoOpen: true,
                 resizable: false,
@@ -308,6 +331,7 @@ if ($filemanagerroots->rootpath)
                 jQuery("#dialog-confirm").attr("title", \''.dol_escape_js($langs->trans("DeleteFile")).'\');
 	            jQuery("#dialog-confirm").empty();
 	            jQuery("#dialog-confirm").append(\''.img_help('','').' '.dol_escape_js($langs->trans("DeleteFileName")).' <b>\'+filename+\'</b>\');
+	            jQuery("#dialog-confirm").append(\'<br>'.dol_escape_js($langs->trans("ServerMustHavePermission",dol_getwebuser('user'),dol_getwebuser('group'))).'\');
 	            jQuery("#dialog-confirm").dialog({
 	                autoOpen: true,
 	                resizable: false,
@@ -352,7 +376,12 @@ if ($filemanagerroots->rootpath)
                 //alert(content);
                 url='<?php echo dol_buildpath('/filemanager/ajaxfileactions.php',1); ?>?action=save&rootpath=<?php echo $filemanagerroots->id ?>&modulepart=filemanager&type=auto&file='+urlencode(filename);
                 // jQuery.post("test.php", $("#testform").serialize());
-                jQuery.post(url, { action: 'save', str: content, sizeofcontent: content.length });
+                jQuery.post(url, { action: 'save', str: content, sizeofcontent: content.length },
+                	function(data) {
+                    jQuery('#mesg').show();
+                    jQuery('#mesg').replaceWith('<div id="mesg">'+data+'</div>');
+                	}
+            	);
             }
         }
     }
@@ -372,7 +401,7 @@ if ($filemanagerroots->rootpath)
             {
         		url='<?php  echo dol_buildpath('/filemanager/ajaxfileactions.php',1);  ?>?action=edit&rootpath=<?php echo $filemanagerroots->id ?>&modulepart=filemanager&type=auto&file='+urlencode(filename);
         		jQuery.get(url, function(data) {
-                    //alert('Load of url '+url+' was performed : '+data);
+                    // alert('Load of url '+url+' was performed : '+data);
           			jQuery('#fileview').append(data);
         		});
             }
@@ -426,7 +455,7 @@ if ($filemanagerroots->rootpath)
                        folderEvent: 'click',
                        multiFolder: false  },
                      function(file) {
-                    	   jQuery("#mesg").remove();
+                    	   jQuery("#mesg").hide();
                     	   loadandshowpreview(file);
                		 });
         <?php } ?>
@@ -437,6 +466,7 @@ if ($filemanagerroots->rootpath)
         jQuery("#anewdir").attr('href','#').animate({ opacity: 1 }, "fast");
         <?php } ?>
         jQuery("#anewdir").click(function() {
+            newdir();
         });
         jQuery("#adeletedir").removeAttr('href').animate({ opacity: 0.2 }, "fast");
         jQuery("#adeletedir").click(function() {

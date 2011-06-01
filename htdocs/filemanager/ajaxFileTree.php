@@ -20,7 +20,7 @@
  *      \file       htdocs/filemanager/ajaxFileTree.php
  *      \ingroup    filemanager
  *      \brief      This script returns content of a directory for filetree
- *      \version    $Id: ajaxFileTree.php,v 1.6 2011/01/16 14:26:43 eldy Exp $
+ *      \version    $Id: ajaxFileTree.php,v 1.7 2011/06/01 13:58:31 eldy Exp $
  */
 
 
@@ -85,9 +85,9 @@ if( file_exists($selecteddir) )
     		// All dirs
     		foreach( $files as $file ) {
     			if( file_exists($selecteddir . $file) && $file != '.' && $file != '..' && is_dir($selecteddir . $file) ) {
-    				print "<li class=\"directory collapsed\"><a class=\"fmdirlia\" href=\"#\" rel=\"" . htmlentities($selecteddir . $file . '/') . "\"";
+    				print "<li class=\"directory collapsed\"><a class=\"fmdirlia\" href=\"#\" rel=\"" . dol_escape_htmltag($selecteddir . $file . '/') . "\"";
     				print " onClick=\"loadandshowpreview('".dol_escape_js($selecteddir . $file)."')\"";
-    				print ">" . htmlentities($file) . "</a></li>"."\n";
+    				print ">" . dol_escape_htmltag($file) . "</a></li>"."\n";
     			}
     		}
     		// All files
@@ -95,7 +95,7 @@ if( file_exists($selecteddir) )
     			if( file_exists($selecteddir . $file) && $file != '.' && $file != '..' && !is_dir($selecteddir . $file) ) {
     				$ext = preg_replace('/^.*\./', '', $file);
     				print "<li class=\"file ext_".$ext."\">";
-    				print "<a class=\"fmfilelia\" href=\"#\" rel=\"" . htmlentities($selecteddir . $file) . "\">" . htmlentities($file) . "</a>";
+    				print "<a class=\"fmfilelia\" href=\"#\" rel=\"" . dol_escape_htmltag($selecteddir . $file) . "\">" . dol_escape_htmltag($file) . "</a>";
     				print "</li>"."\n";
     			}
     		}
