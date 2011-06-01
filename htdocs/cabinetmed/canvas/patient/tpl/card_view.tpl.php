@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *
- * $Id: card_view.tpl.php,v 1.2 2011/05/31 22:40:39 eldy Exp $
+ * $Id: card_view.tpl.php,v 1.3 2011/06/01 16:32:15 eldy Exp $
  */
 
 $soc=$GLOBALS['objcanvas']->control->object;
@@ -72,15 +72,6 @@ if ($soc->client)
     print $langs->trans('CustomerCode').'</td><td colspan="3">';
     print $soc->code_client;
     if ($soc->check_codeclient() <> 0) print ' <font class="error">('.$langs->trans("WrongCustomerCode").')</font>';
-    print '</td></tr>';
-}
-
-if ($conf->fournisseur->enabled && $soc->fournisseur)
-{
-    print '<tr><td>';
-    print $langs->trans('SupplierCode').'</td><td colspan="3">';
-    print $soc->code_fournisseur;
-    if ($soc->check_codefournisseur() <> 0) print ' <font class="error">('.$langs->trans("WrongSupplierCode").')</font>';
     print '</td></tr>';
 }
 
@@ -147,46 +138,6 @@ if ($soc->ape)
     else print ' <font class="error">('.$langs->trans("ErrorWrongValue").')</font>';
 }
 print '</td>';
-print '</tr>';
-
-$html = new Form($db);
-print '<tr>';
-print '<td nowrap="nowrap">'.$langs->trans('VATIntra').'</td><td colspan="3">';
-if ($soc->tva_intra)
-{
-    $s='';
-    $s.=$soc->tva_intra;
-    $s.='<input type="hidden" name="tva_intra" size="12" maxlength="20" value="'.$soc->tva_intra.'">';
-
-    if (empty($conf->global->MAIN_DISABLEVATCHECK))
-    {
-        $s.=' &nbsp; ';
-
-        if ($conf->use_javascript_ajax)
-        {
-            print "\n";
-            print '<script language="JavaScript" type="text/javascript">';
-            print "function CheckVAT(a) {\n";
-            print "newpopup('".DOL_URL_ROOT."/societe/checkvat/checkVatPopup.php?vatNumber='+a,'".dol_escape_js($langs->trans("VATIntraCheckableOnEUSite"))."',500,285);\n";
-            print "}\n";
-            print '</script>';
-            print "\n";
-            $s.='<a href="#" onclick="javascript: CheckVAT(document.formsoc.tva_intra.value);">'.$langs->trans("VATIntraCheck").'</a>';
-            $s = $form->textwithpicto($s,$langs->trans("VATIntraCheckDesc",$langs->trans("VATIntraCheck")),1);
-        }
-        else
-        {
-            $s.='<a href="'.$langs->transcountry("VATIntraCheckURL",$soc->id_pays).'" target="_blank">'.img_picto($langs->trans("VATIntraCheckableOnEUSite"),'help').'</a>';
-        }
-    }
-    print $s;
-}
-else
-{
-    print '&nbsp;';
-}
-print '</td>';
-
 print '</tr>';
 
 // Legal
@@ -267,6 +218,46 @@ if (empty($conf->global->SOCIETE_DISABLE_PARENTCOMPANY))
     }
     print '</td></tr>';
 }
+
+// Num secu
+$html = new Form($db);
+print '<tr>';
+print '<td nowrap="nowrap">'.$langs->trans('VATIntra').'</td><td colspan="3">';
+if ($soc->tva_intra)
+{
+    $s='';
+    $s.=$soc->tva_intra;
+    $s.='<input type="hidden" name="tva_intra" size="12" maxlength="20" value="'.$soc->tva_intra.'">';
+
+    if (empty($conf->global->MAIN_DISABLEVATCHECK))
+    {
+        $s.=' &nbsp; ';
+
+        if ($conf->use_javascript_ajax)
+        {
+            print "\n";
+            print '<script language="JavaScript" type="text/javascript">';
+            print "function CheckVAT(a) {\n";
+            print "newpopup('".DOL_URL_ROOT."/societe/checkvat/checkVatPopup.php?vatNumber='+a,'".dol_escape_js($langs->trans("VATIntraCheckableOnEUSite"))."',500,285);\n";
+            print "}\n";
+            print '</script>';
+            print "\n";
+            $s.='<a href="#" onclick="javascript: CheckVAT(document.formsoc.tva_intra.value);">'.$langs->trans("VATIntraCheck").'</a>';
+            $s = $form->textwithpicto($s,$langs->trans("VATIntraCheckDesc",$langs->trans("VATIntraCheck")),1);
+        }
+        else
+        {
+            $s.='<a href="'.$langs->transcountry("VATIntraCheckURL",$soc->id_pays).'" target="_blank">'.img_picto($langs->trans("VATIntraCheckableOnEUSite"),'help').'</a>';
+        }
+    }
+    print $s;
+}
+else
+{
+    print '&nbsp;';
+}
+print '</td>';
+print '</tr>';
 
 // Commercial
 print '<tr><td>';

@@ -15,7 +15,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *
- * $Id: card_create.tpl.php,v 1.3 2011/05/31 22:40:39 eldy Exp $
+ * $Id: card_create.tpl.php,v 1.4 2011/06/01 16:32:15 eldy Exp $
  */
 
 global $db,$conf,$mysoc,$langs,$user;
@@ -39,14 +39,7 @@ $formadmin=new FormAdmin($GLOBALS['db']);
 $soc=$GLOBALS['soc'];
 
 
-/*
- * Company Fact creation mode
- */
-//if ($_GET["type"]=='cp') { $soc->client=3; }
-if (GETPOST("type")!='f') $soc->client=3;
-if (GETPOST("type")=='c')  { $soc->client=1; }
-if (GETPOST("type")=='p')  { $soc->client=2; }
-if ($conf->fournisseur->enabled && (GETPOST("type")=='f' || GETPOST("type")==''))  { $soc->fournisseur=1; }
+$soc->client=1;
 
 $soc->nom=$_POST["nom"];
 $soc->prenom=$_POST["prenom"];
@@ -113,7 +106,7 @@ $soc->forme_juridique_code=$_POST['forme_juridique_code'];
 <?php
 print_fiche_titre($langs->trans("NewCompany"));
 
-dol_htmloutput_errors($soc->error,$soc->errors);
+dol_htmloutput_errors($GOBALS['error'],$GLOBALS['errors']);
 ?>
 
 <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="POST" name="formsoc">
@@ -130,7 +123,7 @@ dol_htmloutput_errors($soc->error,$soc->errors);
 
 <tr>
 	<td><span class="fieldrequired"><?php echo $langs->trans('ThirdPartyName'); ?></span></td>
-	<td><input type="text" size="30" maxlength="60" name="nom" value="<?php echo $soc->nom; ?>"></td>
+	<td><input type="text" size="40" maxlength="60" name="nom" value="<?php echo $soc->nom; ?>"></td>
     <td width="25%"><?php echo $langs->trans('CustomerCode'); ?></td>
     <td width="25%">
 <?php
@@ -182,22 +175,28 @@ dol_htmloutput_errors($soc->error,$soc->errors);
         print '<tr>';
         // IdProf1 (SIREN for France)
         $idprof=$langs->transcountry('ProfId1',$soc->pays_code);
-            print '<td>'.$idprof.'</td><td>';
-            print '<input type="text" name="idprof1" size="6" maxlength="6" value="'.$soc->siren.'">';
-            print '</td>';
+        print '<td>'.$idprof.'</td><td>';
+        print '<input type="text" name="idprof1" size="6" maxlength="6" value="'.$soc->siren.'">';
+        print '</td>';
         // IdProf2 (SIRET for France)
         $idprof=$langs->transcountry('ProfId2',$soc->pays_code);
-            print '<td>'.$idprof.'</td><td>';
-            print '<input type="text" name="idprof2" size="6" maxlength="6" value="'.$soc->siret.'">';
-            print '</td>';
+        print '<td>'.$idprof.'</td><td>';
+        print '<input type="text" name="idprof2" size="6" maxlength="6" value="'.$soc->siret.'">';
+        print '</td>';
         print '</tr>';
         print '<tr>';
         // IdProf3 (APE for France)
         $idprof=$langs->transcountry('ProfId3',$soc->pays_code);
-            print '<td>'.$idprof.'</td><td colspan="3">';
-            print '<input type="text" name="idprof3" size="18" maxlength="32" value="'.$soc->ape.'">';
-            print '</td>';
+        print '<td>'.$idprof.'</td><td colspan="3">';
+        print '<input type="text" name="idprof3" size="18" maxlength="32" value="'.$soc->ape.'">';
+        print '</td>';
         print '</tr>';
+
+        // Sexe
+        print '<tr><td>'.$langs->trans("ThirdPartyType").'</td><td colspan="3">'."\n";
+        print $form->selectarray("typent_id",$formcompany->typent_array(0), $soc->typent_id);
+        if ($user->admin) print info_admin($langs->trans("YouCanChangeValuesForThisListFromDictionnarySetup"),1);
+        print '</td></tr>';
 
         // Legal Form
         print '<tr><td>'.$langs->trans('JuridicalStatus').'</td>';
@@ -215,15 +214,11 @@ dol_htmloutput_errors($soc->error,$soc->errors);
         print '<td><input type="text" name="idprof4" size="32" value="'.$soc->idprof4.'"></td>';
         print '</tr>';
 
-        // Type
-        print '<tr><td>'.$langs->trans("ThirdPartyType").'</td><td colspan="3">'."\n";
-        print $form->selectarray("typent_id",$formcompany->typent_array(0), $soc->typent_id);
-        if ($user->admin) print info_admin($langs->trans("YouCanChangeValuesForThisListFromDictionnarySetup"),1);
-        print '</td>';
-        /*print '<td>'.$langs->trans("Staff").'</td><td>';
-        print $form->selectarray("effectif_id",$formcompany->effectif_array(0), $soc->effectif_id);
-        if ($user->admin) print info_admin($langs->trans("YouCanChangeValuesForThisListFromDictionnarySetup"),1);
-        print '</td></tr>';*/
+        print '<tr>';
+        print '<td nowrap="nowrap">'.$langs->trans('VATIntra').'</td>';
+        print '<td nowrap="nowrap" colspan="3">';
+        print '<input type="text" class="flat" name="tva_intra" size="12" maxlength="20" value="'.$soc->tva_intra.'">';
+        print '</td></tr>';
 
         if ($conf->global->MAIN_MULTILANGS)
         {
@@ -232,17 +227,7 @@ dol_htmloutput_errors($soc->error,$soc->errors);
             print '</td>';
             print '</tr>';
         }
-?>
-<tr>
-	<td nowrap="nowrap"><?php echo $langs->trans('VATIntra'); ?></td>
-	<td nowrap="nowrap" colspan="3">
-    <input type="text" class="flat" name="tva_intra" size="12" maxlength="20" value="<?php echo $soc->tva_intra ?>">
-	</td>
-</tr>
 
-<?php if(!empty($this->control->tpl['localtax'])) echo $this->control->tpl['localtax']; ?>
-
-<?php
         if ($user->rights->societe->client->voir)
         {
             // Assign a Name
