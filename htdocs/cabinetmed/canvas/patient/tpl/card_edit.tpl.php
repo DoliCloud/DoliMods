@@ -15,7 +15,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *
- * $Id: card_edit.tpl.php,v 1.1 2011/06/01 16:32:15 eldy Exp $
+ * $Id: card_edit.tpl.php,v 1.2 2011/06/07 21:30:55 eldy Exp $
  */
 
 $soc=$GLOBALS['objcanvas']->control->object;
@@ -124,6 +124,9 @@ print '<form action="'.$_SERVER["PHP_SELF"].'?socid='.$soc->id.'" method="post" 
 print '<input type="hidden" name="action" value="update">';
 print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
 print '<input type="hidden" name="socid" value="'.$soc->id.'">';
+print '<input type="hidden" name="private" value="0">';
+print '<input type="hidden" name="status" value="'.$soc->status.'">';
+print '<input type="hidden" name="client" value="'.$soc->client.'">';
 if ($modCodeClient->code_auto || $modCodeFournisseur->code_auto) print '<input type="hidden" name="code_auto" value="1">';
 
 print '<table class="border" width="100%">';

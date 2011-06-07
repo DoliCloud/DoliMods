@@ -21,7 +21,7 @@
 /**
  *  \file		htdocs/includes/menus/cabinetmed.lib.php
  *  \brief		Library for file cabinetmed menus
- *  \version	$Id: cabinetmed.lib.php,v 1.18 2011/05/25 23:19:25 eldy Exp $
+ *  \version	$Id: cabinetmed.lib.php,v 1.19 2011/06/07 21:31:08 eldy Exp $
  */
 
 
@@ -543,7 +543,6 @@ function print_end_menu_array()
 
 /**
  * Core function to output left menu cabinetmed
- *
  * @param      db                  Database handler
  * @param      menu_array_before   Table of menu entries to show before entries of menu handler
  * @param      menu_array_after    Table of menu entries to show after entries of menu handler
@@ -687,7 +686,7 @@ function print_left_cabinetmed_menu($db,$menu_array_before,$menu_array_after)
 
                 if ($user->rights->societe->creer)
                 {
-                    $newmenu->add("/societe/soc.php?action=create&leftmenu=customers",$langs->trans("MenuNewPatient"),1);
+                    $newmenu->add("/societe/soc.php?action=create&leftmenu=customers&canvas=patient@cabinetmed",$langs->trans("MenuNewPatient"),1);
                 }
             }
 
