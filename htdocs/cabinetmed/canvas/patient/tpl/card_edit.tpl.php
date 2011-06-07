@@ -15,7 +15,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *
- * $Id: card_edit.tpl.php,v 1.2 2011/06/07 21:30:55 eldy Exp $
+ * $Id: card_edit.tpl.php,v 1.3 2011/06/07 22:04:37 eldy Exp $
  */
 
 $soc=$GLOBALS['objcanvas']->control->object;
@@ -223,13 +223,13 @@ print '</tr>';
 
 // Sexe
 print '<tr><td>'.$langs->trans("ThirdPartyType").'</td><td colspan="3">';
-print $form->selectarray("typent_id",$formcompany->typent_array(0), $soc->typent_id);
+print $form->selectarray("typent_id",$formcompany->typent_array(0, "AND code in ('TE_UNKNOWN', 'TE_HOMME', 'TE_FEMME')"), $soc->typent_id);
 if ($user->admin) print info_admin($langs->trans("YouCanChangeValuesForThisListFromDictionnarySetup"),1);
 print '</td>';
 print '</tr>';
 
 print '<tr><td>'.$langs->trans('JuridicalStatus').'</td><td>';
-$formcompany->select_forme_juridique($soc->forme_juridique_code,$soc->pays_code);
+$formcompany->select_forme_juridique($soc->forme_juridique_code, $soc->pays_code, "AND f.code > '100000'");
 print '</td>';
 // IdProf4 (NU for France)
 $idprof=$langs->transcountry('ProfId4',$soc->pays_code);

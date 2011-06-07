@@ -15,7 +15,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *
- * $Id: card_create.tpl.php,v 1.4 2011/06/01 16:32:15 eldy Exp $
+ * $Id: card_create.tpl.php,v 1.5 2011/06/07 22:04:37 eldy Exp $
  */
 
 global $db,$conf,$mysoc,$langs,$user;
@@ -194,7 +194,7 @@ dol_htmloutput_errors($GOBALS['error'],$GLOBALS['errors']);
 
         // Sexe
         print '<tr><td>'.$langs->trans("ThirdPartyType").'</td><td colspan="3">'."\n";
-        print $form->selectarray("typent_id",$formcompany->typent_array(0), $soc->typent_id);
+        print $form->selectarray("typent_id",$formcompany->typent_array(0, "AND code in ('TE_UNKNOWN', 'TE_HOMME', 'TE_FEMME')"), $soc->typent_id);
         if ($user->admin) print info_admin($langs->trans("YouCanChangeValuesForThisListFromDictionnarySetup"),1);
         print '</td></tr>';
 
@@ -203,7 +203,7 @@ dol_htmloutput_errors($GOBALS['error'],$GLOBALS['errors']);
         print '<td>';
         if ($GLOBALS['mysoc']->pays_id)
         {
-            $formcompany->select_forme_juridique($soc->forme_juridique_code,$GLOBALS['mysoc']->pays_code);
+            $formcompany->select_forme_juridique($soc->forme_juridique_code, $GLOBALS['mysoc']->pays_code, "AND f.code > '100000'");
         }
         else
         {
