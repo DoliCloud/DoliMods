@@ -26,7 +26,7 @@
  *      \file       htdocs/includes/modules/modCabinetMed.class.php
  *      \ingroup    cabinetmed
  *      \brief      Description and activation file for module CabinetMed
- *      \version    $Id: modCabinetMed.class.php,v 1.31 2011/05/28 15:05:58 eldy Exp $
+ *      \version    $Id: modCabinetMed.class.php,v 1.33 2011/06/08 15:03:42 eldy Exp $
  */
 include_once(DOL_DOCUMENT_ROOT ."/includes/modules/DolibarrModules.class.php");
 
@@ -108,7 +108,8 @@ class modCabinetMed extends DolibarrModules
                             14=>array('MAIN_MENU_SMARTPHONE_FORCED','chaine','cabinetmed_backoffice.php','Force menu handler to this value',1,'current',1),
                             15=>array('MAIN_MENUFRONT_SMARTPHONE_FORCED','chaine','cabinetmed_frontoffice.php','Force menu handler to this value',1,'current',1),
                             16=>array('MAIN_SUPPORT_CONTACT_TYPE_FOR_THIRDPARTIES','chaine','1','Can add third party type of contact',1,'current',1),
-                            17=>array('MAIN_APPLICATION_TITLE','chaine','DoliMed','Change software title',1,'current',1)
+                            17=>array('MAIN_APPLICATION_TITLE','chaine','DoliMed','Change software title',1,'current',1),
+                            //18=>array('MAIN_MODULE_CABINETMED_HOOKS','chaine','objectcard','Activate hooks for cabinetmed',1,'current',1)
                             );
 
         // Array to add new pages in new tabs
@@ -119,6 +120,7 @@ class modCabinetMed extends DolibarrModules
                             'thirdparty:+tabexambio:ResultExamBio:@cabinetmed:/cabinetmed/exambio.php?socid=__ID__',
                             'thirdparty:+tabexamautre:ResultExamAutre:@cabinetmed:/cabinetmed/examautre.php?socid=__ID__',
                             'thirdparty:+tabdocument:Courriers:@cabinetmed:/cabinetmed/documents.php?socid=__ID__',
+                            'thirdparty:-notify',
                             'thirdparty:-customer');
         // where entity can be
         // 'thirdparty'       to add a tab in third party view
