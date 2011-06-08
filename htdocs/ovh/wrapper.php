@@ -19,7 +19,7 @@
 /**
  *	\file       htdocs/ovh/wrapper.php
  *  \brief      File that is entry point to call an OVH SIP server
- *  \version    $Id: wrapper.php,v 1.5 2011/05/10 20:38:07 eldy Exp $
+ *  \version    $Id: wrapper.php,v 1.6 2011/06/08 23:21:02 eldy Exp $
  *	\remarks	To be used, you must have an OVH account
  */
 
@@ -101,7 +101,7 @@ if (empty($login))
 }
 
 $number=strtolower($called) ;
-$pos=strpos ($number,"local");
+$pos=strpos($number,"local");
 
 //print "$login, $password, $caller, $number, $caller";
 if (! empty($number))

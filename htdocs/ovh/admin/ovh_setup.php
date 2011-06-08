@@ -21,7 +21,7 @@
  *   	\file       htdocs/ovh/admin/ovh_setup.php
  *		\ingroup    ovh
  *		\brief      Setup of module OVH
- *		\version    $Id: ovh_setup.php,v 1.16 2011/06/08 22:08:42 eldy Exp $
+ *		\version    $Id: ovh_setup.php,v 1.17 2011/06/08 23:19:03 eldy Exp $
  */
 
 define('NOCSRFCHECK',1);
@@ -64,13 +64,16 @@ $substitutionarrayfortest=array(
 
 
 // Activate error interceptions
-function traitementErreur($code, $message, $fichier, $ligne, $contexte)
+if (! empty($conf->global->MAIN_ENABLE_EXCEPTION))
 {
-    if (error_reporting() & $code) {
-        throw new Exception($message, $code);
+    function traitementErreur($code, $message, $fichier, $ligne, $contexte)
+    {
+        if (error_reporting() & $code) {
+            throw new Exception($message, $code);
+        }
     }
+    set_error_handler('traitementErreur');
 }
-set_error_handler('traitementErreur');
 
 
 
@@ -242,7 +245,8 @@ dol_fiche_end();
 
 if ($mesg)
 {
-    dol_htmloutput_mesg($mesg);
+    if (preg_match('/class="error"/',$mesg)) dol_htmloutput_errors($mesg);
+    else dol_htmloutput_mesg($mesg);
     print '<br>';
 }
 

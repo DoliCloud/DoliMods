@@ -142,6 +142,8 @@ if ($action == 'send' && ! $_POST['cancel'])
  * View
  ****************************************************/
 
+$error=0;
+
 llxHeader('','Ovh','');
 
 $form=new Form($db);
@@ -151,6 +153,13 @@ if ($socid)
 {
     if (empty($conf->global->OVHSMS_SOAPURL))
     {
+        $error++;
+        $langs->load("errors");
+        $mesg='<div class="error">'.$langs->trans("ErrorModuleSetupNotComplete").'</div>';
+    }
+    if (empty($conf->global->OVHSMS_ACCOUNT))
+    {
+        $error++;
         $langs->load("errors");
         $mesg='<div class="error">'.$langs->trans("ErrorModuleSetupNotComplete").'</div>';
     }

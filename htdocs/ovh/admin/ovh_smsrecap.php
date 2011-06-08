@@ -21,7 +21,7 @@
  *   	\file       ovh/admin/ovhsms_recap.php
  *		\ingroup    ovhsms
  *		\brief      Configuration du module ovhsms
- *		\version    $Id: ovh_smsrecap.php,v 1.6 2011/04/09 19:08:41 eldy Exp $
+ *		\version    $Id: ovh_smsrecap.php,v 1.7 2011/06/08 23:19:03 eldy Exp $
  *		\author		Put author name here
  *		\remarks	Put here some comments
  */
@@ -74,8 +74,8 @@ require_once(DOL_DOCUMENT_ROOT."/includes/nusoap/lib/nusoap.php");     // Includ
 
 
 $sms = new OvhSms($db);
-if($sms > 0) {
-
+if (! empty($sms))  // Do not use here sms > 0 as a constructor return an object
+{
     //telephonySmsAccountList
     $telephonySmsAccountList = $sms->getSmsListAccount($sms->session);
 
@@ -180,5 +180,5 @@ if($sms > 0) {
 
 // End of page
 $db->close();
-llxFooter('$Date: 2011/04/09 19:08:41 $ - $Revision: 1.6 $');
+llxFooter('$Date: 2011/06/08 23:19:03 $ - $Revision: 1.7 $');
 ?>

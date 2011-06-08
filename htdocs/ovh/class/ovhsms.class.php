@@ -67,7 +67,7 @@ class OvhSms  extends CommonObject
         // Set the WebService URL
         dol_syslog(get_class($this)."::OvhSms URL=".$conf->global->OVHSMS_SOAPURL);
 
-        if ($conf->global->OVHSMS_SOAPURL)
+        if (! empty($conf->global->OVHSMS_SOAPURL))
         {
             require_once(DOL_DOCUMENT_ROOT.'/lib/functions2.lib.php');
             $params=getSoapParams();
@@ -80,7 +80,7 @@ class OvhSms  extends CommonObject
 
     		$err=error_reporting();
     		error_reporting(E_ALL);     // Enable all errors
-            
+
             try {
                 $this->soap = new SoapClient($conf->global->OVHSMS_SOAPURL,$params);
                 // https://www.ovh.com/soapi/soapi-re-1.8.wsdl
@@ -93,11 +93,11 @@ class OvhSms  extends CommonObject
                 //else print '<div class="error">Error login did not return a session id</div><br>';
 
                 // On mémorise le compe sms associé
-                $this->account = $conf->global->OVHSMS_ACCOUNT;
+                $this->account = empty($conf->global->OVHSMS_ACCOUNT)?'ErrorNotDefined':$conf->global->OVHSMS_ACCOUNT;
 
                 return 1;
 
-            } 
+            }
             catch(SoapFault $se) {
                 dol_syslog(get_class($this).'::SoapFault: '.$se);
                 //var_dump('eeeeeeee');exit;
@@ -114,7 +114,7 @@ class OvhSms  extends CommonObject
                 return 0;
             }
             error_reporting($err);     // Restore default errors
-            
+
             return 1;
         }
         else return 0;
