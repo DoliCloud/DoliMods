@@ -20,7 +20,7 @@
  *   	\file       htdocs/filemanager/index.php
  *		\ingroup    filemanager
  *		\brief      This is home page of filemanager module
- *		\version    $Id: index.php,v 1.27 2011/06/01 13:58:31 eldy Exp $
+ *		\version    $Id: index.php,v 1.28 2011/06/08 15:28:35 eldy Exp $
  */
 
 if (! defined('REQUIRE_JQUERY_LAYOUT'))  define('REQUIRE_JQUERY_LAYOUT','1');
@@ -419,6 +419,7 @@ if ($filemanagerroots->rootpath)
         jQuery('#fileview').empty();
 
         url='<?php echo dol_buildpath('/filemanager/ajaxshowpreview.php',1); ?>?action=preview&rootpath=<?php echo $filemanagerroots->id ?>&modulepart=filemanager&type=auto&file='+urlencode(filedirname);
+
         jQuery.get(url, function(data) {
             //alert('Load of url '+url+' was performed : '+data);
             pos=data.indexOf("TYPE=directory",0);
