@@ -43,6 +43,7 @@ $langs->load("ovh@ovh");
 // Get parameters
 $id = GETPOST("id");
 $action = GETPOST('action');
+$mesg='';
 
 // Protection if external user
 if ($user->societe_id > 0)
@@ -50,16 +51,6 @@ if ($user->societe_id > 0)
 	accessforbidden();
 }
 
-// Activate error interceptions
-/*
-function traitementErreur($code, $message, $fichier, $ligne, $contexte)
-{
-    if (error_reporting() & $code) {
-        throw new Exception($message, $code);
-    }
-}
-set_error_handler('traitementErreur');
-*/
 
 
 /*******************************************************************
@@ -168,8 +159,15 @@ if ($id)
 	$head = member_prepare_head($member);
 	dol_fiche_head($head, 'tabSMS', $langs->trans("Member"),0,'company');
 
-
-	if ($mesg) print $mesg."<br>";
+    if ($mesg)
+    {
+        if (preg_match('/class="error"/',$mesg)) dol_htmloutput_errors($mesg);
+        else
+        {
+            dol_htmloutput_mesg($mesg,'','ok',1);
+            print '<br>';
+        }
+    }
 
     print '<table class="border" width="100%">';
 
@@ -245,5 +243,6 @@ if ($id)
 
 // End of page
 $db->close();
+
 llxFooter('');
 ?>
