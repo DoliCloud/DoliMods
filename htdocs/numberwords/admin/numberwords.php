@@ -22,7 +22,7 @@
  *	\file       htdocs/admin/numberwords.php
  *	\ingroup    numberwords
  *	\brief      Setup page for numberwords module
- *	\version    $Id: numberwords.php,v 1.2 2011/03/29 23:17:22 eldy Exp $
+ *	\version    $Id: numberwords.php,v 1.3 2011/06/08 22:08:45 eldy Exp $
  */
 
 
@@ -46,6 +46,7 @@ $langs->load("other");
 $newvaltest='';
 $outputlangs=new Translate('',$conf);
 $outputlangs->setDefaultLang($langs->defaultlang);
+
 
 
 /*
@@ -111,7 +112,9 @@ if ($_POST["action"] == 'test' && trim($_POST["value"]) != '')
 		$object->number=price2num($_POST["value"]);
 		$source='__NUMBER_WORDS__';
 	}
-	$newvaltest=make_substitutions($source,array(),$outputlangs,$object);
+	$substitutionarray=array();
+    complete_substitutions_array($substitutionarray, $outputlangs, $object);
+	$newvaltest=make_substitutions($source,$substitutionarray);
 }
 
 
@@ -121,6 +124,11 @@ if ($_POST["action"] == 'test' && trim($_POST["value"]) != '')
  */
 
 llxHeader();
+
+$object->number='989';
+$object->total_ttc='989.99';
+$substitutionarray=array();
+complete_substitutions_array($substitutionarray, $outputlangs, $object);
 
 $html=new Form($db);
 $htmlother=new FormAdmin($db);
@@ -148,22 +156,18 @@ $var=true;
 
 $var=!$var;
 print '<tr '.$bc[$var].'><td width="140">'.$langs->trans("Number").'</td>';
-$val='989';
-print '<td>'.$val.'</td>';
+print '<td>'.$object->number.'</td>';
 print '<td>'.$outputlangs->defaultlang.'</td>';
 print '<td>&nbsp;</td>';
-$object->number=$val;
-$newval=make_substitutions('__NUMBER_WORDS__',array(),$outputlangs,$object);
+$newval=make_substitutions('__NUMBER_WORDS__',$substitutionarray);
 print '<td>'.$newval.'</td></tr>';
 
 $var=!$var;
 print '<tr '.$bc[$var].'><td width="140">'.$langs->trans("Amount").'</td>';
-$val='989.99';
-print '<td>'.$val.'</td>';
+print '<td>'.$object->total_ttc.'</td>';
 print '<td>'.$outputlangs->defaultlang.'</td>';
 print '<td>&nbsp;</td>';
-$object->total_ttc=$val;
-$newval=make_substitutions('__TOTAL_TTC_WORDS__',array(),$outputlangs,$object);
+$newval=make_substitutions('__TOTAL_TTC_WORDS__',$substitutionarray);
 print '<td>'.$newval.'</td></tr>';
 
 $var=!$var;
@@ -186,5 +190,5 @@ print '</table>';
 
 print "</form>\n";
 
-llxFooter('$Date: 2011/03/29 23:17:22 $ - $Revision: 1.2 $');
+llxFooter('$Date: 2011/06/08 22:08:45 $ - $Revision: 1.3 $');
 ?>

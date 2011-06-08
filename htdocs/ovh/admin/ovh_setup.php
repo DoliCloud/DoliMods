@@ -21,7 +21,7 @@
  *   	\file       htdocs/ovh/admin/ovh_setup.php
  *		\ingroup    ovh
  *		\brief      Setup of module OVH
- *		\version    $Id: ovh_setup.php,v 1.15 2011/04/13 18:31:46 eldy Exp $
+ *		\version    $Id: ovh_setup.php,v 1.16 2011/06/08 22:08:42 eldy Exp $
  */
 
 define('NOCSRFCHECK',1);
@@ -155,7 +155,8 @@ if ($action == 'send' && ! $_POST['cancel'])
         // Make substitutions into message
         $substitutionarrayfortest['__PHONEFROM__']=$smsfrom;
         $substitutionarrayfortest['__PHONETO__']=$sendto;
-        $body=make_substitutions($body,$substitutionarrayfortest,$langs);
+        complete_substitutions_array($substitutionarrayfortest,$langs);
+        $body=make_substitutions($body,$substitutionarrayfortest);
 
         require_once(DOL_DOCUMENT_ROOT."/lib/CSMSFile.class.php");
 
