@@ -18,10 +18,10 @@
  */
 
 /**
- *	\file			htdocs/lib/functionsnumberswords.lib.php
+ *	\file			htdocs/includes/modules/substitutions/functions_numberwords.lib.php
  *	\brief			A set of functions for Dolibarr
  *					This file contains functions for plugin numberwords.
- *	\version		$Id: functions_numberwords.lib.php,v 1.2 2011/03/30 08:58:03 eldy Exp $
+ *	\version		$Id: functions_numberwords.lib.php,v 1.3 2011/06/08 18:43:42 eldy Exp $
  */
 
 
