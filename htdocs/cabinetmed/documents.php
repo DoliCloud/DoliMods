@@ -20,7 +20,7 @@
  *   \file       htdocs/cabinetmed/documents.php
  *   \brief      Tab for courriers
  *   \ingroup    cabinetmed
- *   \version    $Id: documents.php,v 1.2 2011/05/18 22:39:37 eldy Exp $
+ *   \version    $Id: documents.php,v 1.3 2011/06/08 16:42:54 eldy Exp $
  */
 
 $res=0;
@@ -63,9 +63,17 @@ if (! $sortfield) $sortfield='t.datecons';
 if (! $sortorder) $sortorder='DESC';
 $limit = $conf->liste_limit;
 
+$now=dol_now();
+
 $consult = new CabinetmedCons($db);
 
-$now=dol_now();
+// Instantiate hooks of thirdparty module
+/*if (is_array($conf->hooks_modules) && !empty($conf->hooks_modules))
+{
+    // If module has hook for hook 'objectcard', then this add on object, the property ->hooks['objectcard'][module_number]
+    // with value that is instance of an action class.
+    $consult->callHooks('objectcard');
+}*/
 
 
 /*
@@ -184,26 +192,25 @@ if ($socid > 0)
 
 
 	dol_fiche_end();
-}
 
 
-
-if ($socid > 0)
-{
-    print '<table width="100%"><tr><td valign="top" width="50%">';
+	print '<table width="100%"><tr><td valign="top" width="100%">';
     print '<a name="builddoc"></a>'; // ancre
 
     /*
      * Documents generes
      */
-    $filedir=$conf->societe->dir_output.'/'.$soc->id;
-    $urlsource=$_SERVER["PHP_SELF"]."?socid=".$soc->id;
+    $filedir=$conf->cabinetmed->dir_output.'/'.$societe->id;
+    $urlsource=$_SERVER["PHP_SELF"]."?socid=".$societe->id;
     $genallowed=$user->rights->societe->creer;
     $delallowed=$user->rights->societe->supprimer;
 
     $var=true;
 
-    $somethingshown=$formfile->show_documents('cabinetmed',$soc->id,$filedir,$urlsource,$genallowed,$delallowed,'',0,0,0,28,0,'',0,'',$soc->default_lang);
+    $instance=new CabinetmedCons($db);
+    $instance->fk_soc=$societe->id;
+    $hooks=array('objectcard'=>$instance);
+    $somethingshown=$formfile->show_documents('cabinetmed',$soc->id,$filedir,$urlsource,$genallowed,$delallowed,'',0,0,0,28,0,'',0,'',$soc->default_lang,$hooks);
 
     print '</td>';
     print '<td>';
@@ -218,5 +225,5 @@ if ($socid > 0)
 
 $db->close();
 
-llxFooter('$Date: 2011/05/18 22:39:37 $ - $Revision: 1.2 $');
+llxFooter('$Date: 2011/06/08 16:42:54 $ - $Revision: 1.3 $');
 ?>

@@ -23,7 +23,7 @@
  *   \file       htdocs/cabinetmed/examautre.php
  *   \brief      Tab for examens other
  *   \ingroup    cabinetmed
- *   \version    $Id: examautre.php,v 1.17 2011/06/01 16:37:59 simnandez Exp $
+ *   \version    $Id: examautre.php,v 1.18 2011/06/08 16:42:54 eldy Exp $
  */
 
 $res=0;
@@ -375,7 +375,7 @@ if ($socid > 0)
         print ' <input type="button" class="button" id="addexamsec" name="addexamsec" value="+S">';
         if ($user->admin) print ' '.info_admin($langs->trans("YouCanChangeValuesForThisListFromDictionnarySetup"),1);
         print '</td></tr>';
-        print '<tr><td>Principal:';
+        print '<tr><td class="fieldrequired">'.$langs->trans("Principal").':';
         print '</td><td>';
         print '<input type="text" size="48" class="flat" name="examprinc" value="'.$examother->examprinc.'" id="examprinc"><br>';
         print '</td></tr>';
@@ -398,7 +398,7 @@ if ($socid > 0)
         print ' <input type="button" class="button" id="addexamconcsec" name="addexamconcsec" value="+S">';
         if ($user->admin) print ' '.info_admin($langs->trans("YouCanChangeValuesForThisListFromDictionnarySetup"),1);
         print '</td></tr>';
-        print '<tr><td>Principal:';
+        print '<tr><td class="fieldrequired">'.$langs->trans("Principal").':';
         print '</td><td>';
         print '<input type="text" size="48" class="flat" name="examconcprinc" value="'.$examother->concprinc.'" id="examconcprinc"><br>';
         print '</td></tr>';
@@ -546,5 +546,5 @@ if ($action == '' || $action == 'delete')
 
 $db->close();
 
-llxFooter('$Date: 2011/06/01 16:37:59 $ - $Revision: 1.17 $');
+llxFooter('$Date: 2011/06/08 16:42:54 $ - $Revision: 1.18 $');
 ?>

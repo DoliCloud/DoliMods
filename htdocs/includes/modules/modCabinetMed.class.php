@@ -26,7 +26,7 @@
  *      \file       htdocs/includes/modules/modCabinetMed.class.php
  *      \ingroup    cabinetmed
  *      \brief      Description and activation file for module CabinetMed
- *      \version    $Id: modCabinetMed.class.php,v 1.32 2011/06/08 15:03:23 eldy Exp $
+ *      \version    $Id: modCabinetMed.class.php,v 1.34 2011/06/08 16:42:54 eldy Exp $
  */
 include_once(DOL_DOCUMENT_ROOT ."/includes/modules/DolibarrModules.class.php");
 
@@ -78,6 +78,7 @@ class modCabinetMed extends DolibarrModules
         $this->style_sheet = '/cabinetmed/css/styles.css';
 
         // Config pages. Put here list of php page names stored in admmin directory used to setup module.
+        //$this->config_page_url = array('admin.php@cabinetmed');
         $this->config_page_url = array();
 
         // Dependencies
@@ -109,6 +110,7 @@ class modCabinetMed extends DolibarrModules
                             15=>array('MAIN_MENUFRONT_SMARTPHONE_FORCED','chaine','cabinetmed_frontoffice.php','Force menu handler to this value',1,'current',1),
                             16=>array('MAIN_SUPPORT_CONTACT_TYPE_FOR_THIRDPARTIES','chaine','1','Can add third party type of contact',1,'current',1),
                             17=>array('MAIN_APPLICATION_TITLE','chaine','DoliMed','Change software title',1,'current',1),
+                            //18=>array('CABINETMED_ADDON_PDF_ODT_PATH','chaine','DOL_DATA_ROOT/doctemplates/patientoutcomes','Directory to store odt templates for note/document generation',1,'current',1),
                             //18=>array('MAIN_MODULE_CABINETMED_HOOKS','chaine','objectcard','Activate hooks for cabinetmed',1,'current',1)
                             );
 
@@ -120,7 +122,8 @@ class modCabinetMed extends DolibarrModules
                             'thirdparty:+tabexambio:ResultExamBio:@cabinetmed:/cabinetmed/exambio.php?socid=__ID__',
                             'thirdparty:+tabexamautre:ResultExamAutre:@cabinetmed:/cabinetmed/examautre.php?socid=__ID__',
                             'thirdparty:+tabdocument:Courriers:@cabinetmed:/cabinetmed/documents.php?socid=__ID__',
-                            'thirdparty:-notify', 'thirdparty:-customer');
+                            'thirdparty:-notify',
+                            'thirdparty:-customer');
         // where entity can be
         // 'thirdparty'       to add a tab in third party view
         // 'intervention'     to add a tab in intervention view
@@ -331,13 +334,21 @@ class modCabinetMed extends DolibarrModules
      *                  It also creates data directories.
      *      \return     int             1 if OK, 0 if KO
      */
-    function init()
+    function init($options='')
     {
         $sql = array();
 
         $result=$this->load_tables();
 
-        return $this->_init($sql);
+        require_once(DOL_DOCUMENT_ROOT.'/lib/files.lib.php');
+        $dirodt=DOL_DATA_ROOT.'/doctemplates/thirdparties';
+        create_exdir($dirodt);
+        $goodpath=dol_buildpath('/cabinetmed/install/doctemplates/thirdparties/template_courrier_consult.odt');
+        dol_copy($goodpath,$dirodt.'/template_courrier_consult.odt',0,0);
+
+        $sql = array();
+
+        return $this->_init($sql,$options);
     }
 
     /**
@@ -346,11 +357,11 @@ class modCabinetMed extends DolibarrModules
      *                  Data directories are not deleted.
      *      \return     int             1 if OK, 0 if KO
      */
-    function remove()
+    function remove($options='')
     {
         $sql = array();
 
-        return $this->_remove($sql);
+        return $this->_remove($sql,$options);
     }
 
 
