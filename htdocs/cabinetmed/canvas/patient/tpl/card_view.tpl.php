@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *
- * $Id: card_view.tpl.php,v 1.4 2011/06/07 22:04:37 eldy Exp $
+ * $Id: card_view.tpl.php,v 1.5 2011/06/08 18:07:29 eldy Exp $
  */
 
 $soc=$GLOBALS['objcanvas']->control->object;
@@ -332,12 +332,10 @@ if ($user->rights->societe->supprimer)
 print '</div>'."\n";
 print '<br>';
 
+/*
 print '<table width="100%"><tr><td valign="top" width="50%">';
 print '<a name="builddoc"></a>'; // ancre
 
-/*
- * Documents generes
- */
 $filedir=$conf->societe->dir_output.'/'.$soc->id;
 $urlsource=$_SERVER["PHP_SELF"]."?socid=".$soc->id;
 $genallowed=$user->rights->societe->creer;
@@ -354,6 +352,7 @@ print '</tr>';
 print '</table>';
 
 print '<br>';
+*/
 
 // Subsidiaries list
 $result=show_subsidiaries($conf,$langs,$db,$soc);

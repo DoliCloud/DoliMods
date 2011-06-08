@@ -20,7 +20,7 @@
  *   \file       htdocs/cabinetmed/documents.php
  *   \brief      Tab for courriers
  *   \ingroup    cabinetmed
- *   \version    $Id: documents.php,v 1.3 2011/06/08 16:42:54 eldy Exp $
+ *   \version    $Id: documents.php,v 1.4 2011/06/08 18:07:30 eldy Exp $
  */
 
 $res=0;
@@ -31,6 +31,8 @@ if (! $res && file_exists("../../../../dolibarr/htdocs/main.inc.php")) $res=@inc
 if (! $res && file_exists("../../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
 if (! $res) die("Include of main fails");
 include_once(DOL_DOCUMENT_ROOT."/lib/company.lib.php");
+require_once(DOL_DOCUMENT_ROOT."/lib/files.lib.php");
+require_once(DOL_DOCUMENT_ROOT."/lib/images.lib.php");
 include_once(DOL_DOCUMENT_ROOT."/compta/bank/class/account.class.php");
 require_once(DOL_DOCUMENT_ROOT."/core/class/html.formfile.class.php");
 include_once("./lib/cabinetmed.lib.php");
@@ -67,6 +69,8 @@ $now=dol_now();
 
 $consult = new CabinetmedCons($db);
 
+$upload_dir = $conf->societe->dir_output . "/" . $socid ;
+
 // Instantiate hooks of thirdparty module
 /*if (is_array($conf->hooks_modules) && !empty($conf->hooks_modules))
 {
@@ -79,6 +83,49 @@ $consult = new CabinetmedCons($db);
 /*
  * Actions
  */
+
+
+// Envoie fichier
+if ( $_POST["sendit"] && ! empty($conf->global->MAIN_UPLOAD_DOC))
+{
+    require_once(DOL_DOCUMENT_ROOT."/lib/files.lib.php");
+
+    if (create_exdir($upload_dir) >= 0)
+    {
+        $resupload=dol_move_uploaded_file($_FILES['userfile']['tmp_name'], $upload_dir . "/" . $_FILES['userfile']['name'],0,0,$_FILES['userfile']['error']);
+        if (is_numeric($resupload) && $resupload > 0)
+        {
+            if (image_format_supported($upload_dir . "/" . $_FILES['userfile']['name']) == 1)
+            {
+                // Create small thumbs for company (Ratio is near 16/9)
+                // Used on logon for example
+                $imgThumbSmall = vignette($upload_dir . "/" . $_FILES['userfile']['name'], $maxwidthsmall, $maxheightsmall, '_small', $quality, "thumbs");
+
+                // Create mini thumbs for company (Ratio is near 16/9)
+                // Used on menu or for setup page for example
+                $imgThumbMini = vignette($upload_dir . "/" . $_FILES['userfile']['name'], $maxwidthmini, $maxheightmini, '_mini', $quality, "thumbs");
+            }
+            $mesg = '<div class="ok">'.$langs->trans("FileTransferComplete").'</div>';
+        }
+        else
+        {
+            $langs->load("errors");
+            if (is_numeric($resupload) && $resupload < 0)   // Unknown error
+            {
+                $mesg = '<div class="error">'.$langs->trans("ErrorFileNotUploaded").'</div>';
+            }
+            else if (preg_match('/ErrorFileIsInfectedWithAVirus/',$resupload))  // Files infected by a virus
+            {
+                $mesg = '<div class="error">'.$langs->trans("ErrorFileIsInfectedWithAVirus").'</div>';
+            }
+            else    // Known error
+            {
+                $mesg = '<div class="error">'.$langs->trans($resupload).'</div>';
+            }
+        }
+    }
+}
+
 
 /*
  * Generate document
@@ -110,7 +157,7 @@ if (GETPOST('action') == 'builddoc')  // En get ou en post
             $outputlangs = new Translate("",$conf);
             $outputlangs->setDefaultLang($newlang);
         }
-        $result=patientoutcomes_doc_create($db, $soc->id, '', $_REQUEST['model'], $outputlangs);
+        $result=thirdparty_doc_create($db, $soc->id, '', $_REQUEST['model'], $outputlangs);
         if ($result <= 0)
         {
             dol_print_error($db,$result);
@@ -134,7 +181,7 @@ $form = new Form($db);
 $formfile = new FormFile($db);
 $width="242";
 
-llxHeader('',$langs->trans("Consultation"));
+llxHeader('',$langs->trans("Courriers"));
 
 if ($socid > 0)
 {
@@ -157,6 +204,15 @@ if ($socid > 0)
 
 	$head = societe_prepare_head($societe);
 	dol_fiche_head($head, 'tabdocument', $langs->trans("ThirdParty"),0,'company');
+
+
+    // Construit liste des fichiers
+    $filearray=dol_dir_list($upload_dir,"files",0,'','\.meta$',$sortfield,(strtolower($sortorder)=='desc'?SORT_ASC:SORT_DESC),1);
+    $totalsize=0;
+    foreach($filearray as $key => $file)
+    {
+        $totalsize+=$file['size'];
+    }
 
 	print "<form method=\"post\" action=\"".$_SERVER["PHP_SELF"]."\">";
 	print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
@@ -186,12 +242,25 @@ if ($socid > 0)
         print '</td></tr>';
     }
 
-	print "</table>";
+    // Nbre fichiers
+    print '<tr><td>'.$langs->trans("NbOfAttachedFiles").'</td><td colspan="3">'.sizeof($filearray).'</td></tr>';
+
+    //Total taille
+    print '<tr><td>'.$langs->trans("TotalSizeOfAttachedFiles").'</td><td colspan="3">'.$totalsize.' '.$langs->trans("bytes").'</td></tr>';
+
+    print "</table>";
 
 	print '</form>';
 
 
 	dol_fiche_end();
+
+
+
+    // Affiche formulaire upload
+    $formfile=new FormFile($db);
+    $formfile->form_attach_new_file($_SERVER["PHP_SELF"].'?socid='.$socid,'',0,0,$user->rights->societe->creer);
+
 
 
 	print '<table width="100%"><tr><td valign="top" width="100%">';
@@ -200,7 +269,7 @@ if ($socid > 0)
     /*
      * Documents generes
      */
-    $filedir=$conf->cabinetmed->dir_output.'/'.$societe->id;
+    $filedir=$conf->societe->dir_output.'/'.$societe->id;
     $urlsource=$_SERVER["PHP_SELF"]."?socid=".$societe->id;
     $genallowed=$user->rights->societe->creer;
     $delallowed=$user->rights->societe->supprimer;
@@ -210,7 +279,7 @@ if ($socid > 0)
     $instance=new CabinetmedCons($db);
     $instance->fk_soc=$societe->id;
     $hooks=array('objectcard'=>$instance);
-    $somethingshown=$formfile->show_documents('cabinetmed',$soc->id,$filedir,$urlsource,$genallowed,$delallowed,'',0,0,0,28,0,'',0,'',$soc->default_lang,$hooks);
+    $somethingshown=$formfile->show_documents('company',$societe->id,$filedir,$urlsource,$genallowed,$delallowed,'',0,0,0,64,0,'',0,'',$societe->default_lang,$hooks);
 
     print '</td>';
     print '<td>';
@@ -225,5 +294,5 @@ if ($socid > 0)
 
 $db->close();
 
-llxFooter('$Date: 2011/06/08 16:42:54 $ - $Revision: 1.3 $');
+llxFooter('$Date: 2011/06/08 18:07:30 $ - $Revision: 1.4 $');
 ?>

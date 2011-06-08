@@ -20,7 +20,7 @@
  *      \file       htdocs/cabinetmed/class/cabinetmedcons.class.php
  *      \ingroup    cabinetmed
  *      \brief      This file is an example for a CRUD class file (Create/Read/Update/Delete)
- *		\version    $Id: cabinetmedcons.class.php,v 1.9 2011/06/08 16:42:54 eldy Exp $
+ *		\version    $Id: cabinetmedcons.class.php,v 1.10 2011/06/08 18:07:30 eldy Exp $
  *		\remarks	Initialy built by build_class_from_table on 2011-02-02 22:30
  */
 
@@ -640,7 +640,7 @@ class CabinetmedCons extends CommonObject
         $htmlform=new Form($this->db);
 
         print '<tr>';
-        print '<td>';
+        print '<td align="left" colspan="4">';
         $lastid=0;
         print $langs->trans("Consultation").': ';
         $array_consult=array();
@@ -661,8 +661,9 @@ class CabinetmedCons extends CommonObject
         }
         else dol_print_error($this->db);
         print $htmlform->select_array('idconsult',$array_consult,$lastid,1);
-        print '</td>';
-        print '<td>';
+        //print '</td>';
+        //print '<td align="center">';
+        print ' &nbsp; &nbsp; &nbsp; ';
         print $langs->trans("ResultExamBio").': ';
         $array_consult=array();
         $sql='SELECT rowid, dateexam as date FROM '.MAIN_DB_PREFIX.'cabinetmed_exambio where fk_soc='.$this->fk_soc;
@@ -681,8 +682,9 @@ class CabinetmedCons extends CommonObject
         }
         else dol_print_error($this->db);
         print $htmlform->select_array('idbio',$array_consult,'',1);
-        print '</td>';
-        print '<td>';
+        //print '</td>';
+        //print '<td align="center">';
+        print ' &nbsp; &nbsp; &nbsp; ';
         print $langs->trans("ResultExamAutre").': ';
         $array_consult=array();
         $sql='SELECT rowid, dateexam as date FROM '.MAIN_DB_PREFIX.'cabinetmed_examaut where fk_soc='.$this->fk_soc;

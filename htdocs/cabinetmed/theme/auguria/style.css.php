@@ -21,7 +21,7 @@
 /**
  *		\file       htdocs/cabinetmed/theme/auguria/style.css.php
  *		\brief      Fichier de style CSS du theme auguria
- *		\version    $Id: style.css.php,v 1.10 2011/05/28 17:29:26 eldy Exp $
+ *		\version    $Id: style.css.php,v 1.11 2011/06/08 18:07:30 eldy Exp $
  */
 
 //if (! defined('NOREQUIREUSER')) define('NOREQUIREUSER','1');	// Not disabled cause need to load personalized language
@@ -1815,4 +1815,13 @@ A.none, A.none:active, A.none:visited, A.none:hover {
     border: 0px solid #FF0000 !important;
 }
 span.cke_skin_kama { padding: 0 ! important; }
+
+
+
+
+/* Specific to cabinet module */
+td.formdoc
+{
+    text-align: left !important;
+}
 

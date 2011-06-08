@@ -26,7 +26,7 @@
  *      \file       htdocs/includes/modules/modCabinetMed.class.php
  *      \ingroup    cabinetmed
  *      \brief      Description and activation file for module CabinetMed
- *      \version    $Id: modCabinetMed.class.php,v 1.34 2011/06/08 16:42:54 eldy Exp $
+ *      \version    $Id: modCabinetMed.class.php,v 1.35 2011/06/08 18:07:47 eldy Exp $
  */
 include_once(DOL_DOCUMENT_ROOT ."/includes/modules/DolibarrModules.class.php");
 
@@ -122,8 +122,9 @@ class modCabinetMed extends DolibarrModules
                             'thirdparty:+tabexambio:ResultExamBio:@cabinetmed:/cabinetmed/exambio.php?socid=__ID__',
                             'thirdparty:+tabexamautre:ResultExamAutre:@cabinetmed:/cabinetmed/examautre.php?socid=__ID__',
                             'thirdparty:+tabdocument:Courriers:@cabinetmed:/cabinetmed/documents.php?socid=__ID__',
-                            'thirdparty:-notify',
-                            'thirdparty:-customer');
+                            'thirdparty:-customer',
+                            'thirdparty:-document',
+                            'thirdparty:-notify');
         // where entity can be
         // 'thirdparty'       to add a tab in third party view
         // 'intervention'     to add a tab in intervention view
