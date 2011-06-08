@@ -21,7 +21,7 @@
  *	\file			htdocs/includes/modules/substitutions/functions_numberwords.lib.php
  *	\brief			A set of functions for Dolibarr
  *					This file contains functions for plugin numberwords.
- *	\version		$Id: functions_numberwords.lib.php,v 1.3 2011/06/08 18:43:42 eldy Exp $
+ *	\version		$Id: functions_numberwords.lib.php,v 1.4 2011/06/08 20:47:38 eldy Exp $
  */
 
 
@@ -50,11 +50,11 @@ function numberwords_completesubstitutionarray(&$substitutionarray,$langs,$objec
 }
 
 /**
- *      \brief      Return full text translated to language label for a key. Store key-label in a cache.
- *		\param		langs		Language for output
- * 		\param		number		Number to encode in full text
- * 		\param		isamount	1=It's an amount, 0=it's just a number
- *      \return     string		Label translated in UTF8 (but without entities)
+ *      Return full text translated to language label for a key. Store key-label in a cache.
+ *		@param		langs		Language for output
+ * 		@param		number		Number to encode in full text
+ * 		@param		isamount	1=It's an amount, 0=it's just a number
+ *      @return     string		Label translated in UTF8 (but without entities)
  * 								10 if setDefaultLang was en_US => ten
  * 								123 if setDefaultLang was fr_FR => cent vingt trois
  */
