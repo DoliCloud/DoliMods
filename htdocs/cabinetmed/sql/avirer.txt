@@ -7,4 +7,7 @@ where fk_user_creation = 0;
 alter table llx_cabinetmed_exambio modify suivisa_basdai     double;
 alter table llx_cabinetmed_exambio add column suivisa_das28   double after suivipr_eva;
 
+alter table llx_cabinetmed_exambio add column fk_user after fk_soc;
+alter table llx_cabinetmed_examaut add column fk_user after fk_soc;
+
 update llx_societe set canvas='patient@cabinetmed';

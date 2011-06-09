@@ -15,13 +15,14 @@
 -- along with this program; if not, write to the Free Software
 -- Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 --
--- $Id: llx_cabinetmed_examaut.sql,v 1.3 2011/04/04 22:36:01 eldy Exp $
+-- $Id: llx_cabinetmed_examaut.sql,v 1.4 2011/06/09 07:11:28 eldy Exp $
 -- ===========================================================================
 
 -- DROP TABLE llx_cabinetmed_examaut
 CREATE TABLE llx_cabinetmed_examaut (
   rowid              integer AUTO_INCREMENT PRIMARY KEY,
   fk_soc             integer,
+  fk_user            integer,
   dateexam           date NOT NULL,
   examprinc          varchar(64),
   examsec            text,

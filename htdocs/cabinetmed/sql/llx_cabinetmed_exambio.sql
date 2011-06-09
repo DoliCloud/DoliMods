@@ -15,13 +15,14 @@
 -- along with this program; if not, write to the Free Software
 -- Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 --
--- $Id: llx_cabinetmed_exambio.sql,v 1.4 2011/06/08 15:02:43 eldy Exp $
+-- $Id: llx_cabinetmed_exambio.sql,v 1.5 2011/06/09 07:11:28 eldy Exp $
 -- ===========================================================================
 
 -- DROP TABLE llx_cabinetmed_exambio
 CREATE TABLE llx_cabinetmed_exambio (
   rowid              integer AUTO_INCREMENT PRIMARY KEY,
   fk_soc             integer,
+  fk_user            integer,
   dateexam           date NOT NULL,
   resultat           text,
   conclusion         text,
