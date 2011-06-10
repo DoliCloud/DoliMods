@@ -6,7 +6,7 @@
  *	    \file       htdocs/google/admin/google.php
  *      \ingroup    google
  *      \brief      Setup page for google module
- *		\version    $Id: google.php,v 1.8 2011/03/29 23:17:21 eldy Exp $
+ *		\version    $Id: google.php,v 1.9 2011/06/10 20:31:37 eldy Exp $
  */
 
 define('NOCSRFCHECK',1);
@@ -20,6 +20,7 @@ if (! $res && file_exists("../../../../dolibarr/htdocs/main.inc.php")) $res=@inc
 if (! $res && file_exists("../../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
 if (! $res) die("Include of main fails");
 require_once(DOL_DOCUMENT_ROOT."/lib/admin.lib.php");
+require_once(DOL_DOCUMENT_ROOT."/lib/date.lib.php");
 require_once(DOL_DOCUMENT_ROOT.'/core/class/html.formadmin.class.php');
 require_once(DOL_DOCUMENT_ROOT.'/core/class/html.formother.class.php');
 dol_include_once("/google/lib/google.lib.php");
@@ -134,7 +135,9 @@ print "</tr>";
 print "<tr ".$bc[$var].">";
 print "<td>".$langs->trans("ClientTZ")."</td>";
 print "<td>";
-print $formadmin->select_timezone($conf->global->GOOGLE_AGENDA_TIMEZONE,'google_agenda_timezone');
+$tzarray=get_tz_array();
+$selectedtz=(isset($conf->global->GOOGLE_AGENDA_TIMEZONE)?$conf->global->GOOGLE_AGENDA_TIMEZONE:$tzarray[$_SESSION['dol_tz']]);
+print $formadmin->select_timezone($selectedtz,'google_agenda_timezone');
 print "</td>";
 print "</tr>";
 // Nb of agenda
@@ -207,5 +210,5 @@ print info_admin($message);
 
 $db->close();
 
-llxFooter('$Date: 2011/03/29 23:17:21 $ - $Revision: 1.8 $');
+llxFooter('$Date: 2011/06/10 20:31:37 $ - $Revision: 1.9 $');
 ?>
