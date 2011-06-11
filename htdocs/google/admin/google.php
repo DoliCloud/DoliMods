@@ -6,7 +6,7 @@
  *	    \file       htdocs/google/admin/google.php
  *      \ingroup    google
  *      \brief      Setup page for google module
- *		\version    $Id: google.php,v 1.9 2011/06/10 20:31:37 eldy Exp $
+ *		\version    $Id: google.php,v 1.10 2011/06/11 00:27:20 eldy Exp $
  */
 
 define('NOCSRFCHECK',1);
@@ -40,7 +40,9 @@ if (empty($conf->global->GOOGLE_AGENDA_NB)) $conf->global->GOOGLE_AGENDA_NB=5;
 $MAXAGENDA=empty($conf->global->GOOGLE_AGENDA_NB)?5:$conf->global->GOOGLE_AGENDA_NB;
 
 // List of Google colors (A lot of colors are ignored by Google)
-$colorlist=array('29527A','5229A3','A32929','7A367A','B1365F','0D7813');
+$colorlist=array('7A367A','B1365F','5229A3','7A367A','29527A','2952A3','1B887A','28754E','0D7813','528800','88880E','AB8B00',
+                 'BE6D00','865A5A','705770','4E5D6C','5A6986','6E6E41','8D6F47','691426','5C1158','125A12','875509','754916',
+                 '5B123B','42104A','113F47','333333','711616','FFFFFF');
 
 
 /*
@@ -107,7 +109,11 @@ $formadmin=new FormAdmin($db);
 $formother=new FormOther($db);
 
 $help_url='EN:Module_Google_EN|FR:Module_Google|ES:Modulo_Google';
-llxHeader('',$langs->trans("GoogleSetup"),$help_url);
+//$arrayofjs=array('/includes/jquery/plugins/colorpicker/jquery.colorpicker.js');
+//$arrayofcss=array('/includes/jquery/plugins/colorpicker/jquery.colorpicker.css');
+$arrayofjs=array();
+$arrayofcss=array();
+llxHeader('',$langs->trans("GoogleSetup"),$help_url,'',0,0,$arrayofjs,$arrayofcss);
 
 $linkback='<a href="'.DOL_URL_ROOT.'/admin/modules.php">'.$langs->trans("BackToModuleList").'</a>';
 print_fiche_titre($langs->trans("GoogleSetup"),$linkback,'setup');
@@ -175,7 +181,7 @@ while ($i <= $MAXAGENDA)
 	$color='GOOGLE_AGENDA_COLOR'.$key;
 	print "<td><input type=\"text\" class=\"flat\" name=\"google_agenda_name".$key."\" value=\"". $conf->global->$name . "\" size=\"28\"></td>";
 	print "<td><input type=\"text\" class=\"flat\" name=\"google_agenda_src".$key."\" value=\"". $conf->global->$src . "\" size=\"60\"></td>";
-	print '<td nowrap="nowrap">';
+	print '<td nowrap="nowrap" align="center">';
 	// Possible colors are limited by Google
 	//print $formadmin->select_colors($conf->global->$color, "google_agenda_color".$key, $colorlist);
 	print $formother->select_color($conf->global->$color, "google_agenda_color".$key, 'googleconfig', 1, $colorlist);
@@ -199,8 +205,8 @@ print "</form>\n";
 dol_fiche_end();
 
 
-if ($mesg) print "<br>$mesg<br>";
-print "<br>";
+dol_htmloutput_mesg($mesg);
+
 
 // Show message
 $message='';
@@ -210,5 +216,5 @@ print info_admin($message);
 
 $db->close();
 
-llxFooter('$Date: 2011/06/10 20:31:37 $ - $Revision: 1.9 $');
+llxFooter('$Date: 2011/06/11 00:27:20 $ - $Revision: 1.10 $');
 ?>

@@ -1,5 +1,5 @@
 <?php
-/* Copyright (C) 2008 Laurent Destailleur  <eldy@users.sourceforge.net>
+/* Copyright (C) 2008-2011 Laurent Destailleur  <eldy@users.sourceforge.net>
  *
  * Licensed under the GNU GPL v3 or higher (See file gpl-3.0.html)
  */
@@ -8,7 +8,7 @@
  *    	\file       htdocs/google/index.php
  *		\ingroup    google
  *		\brief      Main google area page
- *		\version    $Id: index.php,v 1.7 2011/05/17 10:17:05 eldy Exp $
+ *		\version    $Id: index.php,v 1.8 2011/06/11 00:27:25 eldy Exp $
  *		\author		Laurent Destailleur
  */
 
@@ -24,7 +24,7 @@ if (! $res) die("Include of main fails");
 require_once(DOL_DOCUMENT_ROOT."/lib/agenda.lib.php");
 
 // Load traductions files
-$langs->load("google");
+$langs->load("google@google");
 $langs->load("companies");
 $langs->load("other");
 
@@ -89,16 +89,31 @@ dol_fiche_head($head, 'gcal', $langs->trans('Events'), 0, 'calendar');
 
 $finaltext='';
 
+$found=0;
 $MAXAGENDA=empty($conf->global->GOOGLE_AGENDA_NB)?5:$conf->global->GOOGLE_AGENDA_NB;
-$i=1;$found=0;
+
+$i=1;
 while ($i <= $MAXAGENDA)
 {
-    $paramkey='GOOGLE_AGENDA_NAME'.$i;
+    $paramname='GOOGLE_AGENDA_NAME'.$i;
     $paramcolor='GOOGLE_AGENDA_COLOR'.$i;
-    //print $paramkey;
-    if (! empty($conf->global->$paramkey))
+    //print $paramname;
+    if (! empty($conf->global->$paramname))
     {
         $found++;
+    }
+    $i++;
+}
+
+$i=1;
+if ($found > 0)
+{
+    while ($i <= $MAXAGENDA)
+    {
+        $paramname='GOOGLE_AGENDA_NAME'.$i;
+        $paramsrc='GOOGLE_AGENDA_SRC'.$i;
+        $paramcolor='GOOGLE_AGENDA_COLOR'.$i;
+
         $addcolor=false;
         if (isset($_GET["nocal"]))
         {
@@ -106,33 +121,41 @@ while ($i <= $MAXAGENDA)
         }
         else $addcolor=true;
 
-        $link=dol_buildpath("/google/index.php",1)."?mainmenu=agenda&idmenu=".$_SESSION["idmenu"]."&nocal=".$i;
-
         $text='';
-        $text.='<table class="nobordernopadding">';
-        $text.='<tr valign="middle" class="nobordernopadding">';
+        if (! empty($conf->global->$paramname))
+        {
+            $link=dol_buildpath("/google/index.php",1)."?mainmenu=agenda&idmenu=".$_SESSION["idmenu"]."&nocal=".$i;
 
-        // Color of agenda
-        $text.='<td style="padding-left: 4px; padding-right: 4px" nowrap="nowrap">';
-        $box ='<!-- Box color '.$selected.' -->';
-        $box.='<table style="border-collapse: collapse; margin:0px; padding: 0px; border: 1px solid #888888;';
-        if ($addcolor) $box.=' background: #'.(preg_replace('/#/','',$conf->global->$paramcolor)).';';
-        $box.='" width="12" height="10">';
-        $box.='<tr class="nocellnopadd"><td></td></tr>';    // To show box
-        $box.='</table>';
-        $text.=$box;
-        $text.='</td>';
+            $text='';
+            $text.='<table class="nobordernopadding">';
+            $text.='<tr valign="middle" class="nobordernopadding">';
 
-        // Name of agenda
-        $text.='<td>';
-        $text.='<a class="vsmenu" href="'.$link.'">'.$conf->global->$paramkey.'</a>';
-        $text.='</td></tr>';
+            // Color of agenda
+            if ($found > 1)
+            {
+                $text.='<td style="padding-left: 4px; padding-right: 4px" nowrap="nowrap">';
+                $box ='<!-- Box color '.$selected.' -->';
+                $box.='<table style="border-collapse: collapse; margin:0px; padding: 0px; border: 1px solid #888888;';
+                if ($addcolor) $box.=' background: #'.(preg_replace('/#/','',$conf->global->$paramcolor)).';';
+                $box.='" width="12" height="10">';
+                $box.='<tr class="nocellnopadd"><td></td></tr>';    // To show box
+                $box.='</table>';
+                $text.=$box;
+                $text.='</td>';
+            }
 
-        $text.='</table>';
+            // Name of agenda
+            $text.='<td>';
+            if ($found == 1) $text.=$langs->trans("Name").': '.$conf->global->$paramname.' ('.$langs->trans("GoogleIDAgenda").': '.$conf->global->$paramsrc.')';
+            else $text.='<a class="vsmenu" href="'.$link.'">'.$conf->global->$paramname.'</a> ('.$conf->global->$paramsrc.')';
+            $text.='</td></tr>';
+
+            $text.='</table>';
+        }
 
         $finaltext.=$text;
+        $i++;
     }
-    $i++;
 }
 if ($found > 1)
 {
@@ -223,7 +246,7 @@ if ($conf->global->MAIN_START_WEEK == 1)
 
 $frame.='&amp;ctz='.urlencode($conf->global->GOOGLE_AGENDA_TIMEZONE);
 $frame.='" style=" border-width:0 " ';
-$frame.='width="800" ';
+$frame.='width="100%" ';
 $frame.='height="600" ';
 $frame.='frameborder="0" scrolling="no">';
 $frame.='</iframe>';
@@ -233,5 +256,5 @@ print $frame;
 // End of page
 $db->close();
 
-llxFooter('$Date: 2011/05/17 10:17:05 $ - $Revision: 1.7 $');
+llxFooter('$Date: 2011/06/11 00:27:25 $ - $Revision: 1.8 $');
 ?>

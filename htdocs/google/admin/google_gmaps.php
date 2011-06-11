@@ -6,7 +6,7 @@
  *	    \file       htdocs/google/admin/google_gmaps.php
  *      \ingroup    google
  *      \brief      Setup page for google module
- *		\version    $Id: google_gmaps.php,v 1.5 2011/06/10 20:31:37 eldy Exp $
+ *		\version    $Id: google_gmaps.php,v 1.6 2011/06/11 00:27:20 eldy Exp $
  */
 
 define('NOCSRFCHECK',1);
@@ -117,70 +117,6 @@ print '<br>';
 print $langs->trans("GoogleZoomLevel").': ';
 print '<input class="flat" name="GOOGLE_GMAPS_ZOOM_LEVEL" id="GOOGLE_GMAPS_ZOOM_LEVEL" value="'.(isset($_POST["GOOGLE_GMAPS_ZOOM_LEVEL"])?$_POST["GOOGLE_GMAPS_ZOOM_LEVEL"]:$conf->global->GOOGLE_GMAPS_ZOOM_LEVEL).'" size="2">';
 
-/*
-$var=false;
-print "<table class=\"noborder\" width=\"100%\">";
-
-print "<tr class=\"liste_titre\">";
-print '<td width="180">'.$langs->trans("Parameter")."</td>";
-print "<td>".$langs->trans("Value")."</td>";
-print "</tr>";
-// Timezone
-print "<tr ".$bc[$var].">";
-print "<td>".$langs->trans("ClientTZ")."</td>";
-print "<td>";
-$tzarray=get_tz_array();
-$selectedtz=(isset($conf->global->GOOGLE_AGENDA_TIMEZONE)?$conf->global->GOOGLE_AGENDA_TIMEZONE:$tzarray[$_SESSION['dol_tz']]);
-print $formadmin->select_timezone($selectedtz,'google_agenda_timezone');
-print "</td>";
-print "</tr>";
-// Nb of agenda
-$var=!$var;
-print "<tr ".$bc[$var].">";
-print "<td>".$langs->trans("GoogleNbOfAgenda")."</td>";
-print "<td>";
-print '<input class="flat" type="text" size="2" name="GOOGLE_AGENDA_NB" value="'.$conf->global->GOOGLE_AGENDA_NB.'">';
-print "</td>";
-print "</tr>";
-
-print "</table>";
-print "<br>";
-
-
-print "<table class=\"noborder\" width=\"100%\">";
-
-print "<tr class=\"liste_titre\">";
-print "<td>".$langs->trans("Parameter")."</td>";
-print "<td>".$langs->trans("Name")."</td>";
-print "<td>".$langs->trans("GoogleIDAgenda")." (".$langs->trans("Example").': assodolibarr@gmail.com)</td>';
-print "<td>".$langs->trans("Color")."</td>";
-print "</tr>";
-
-$i=1;
-$var=true;
-while ($i <= $MAXAGENDA)
-{
-	$key=$i;
-	$var=!$var;
-	print "<tr ".$bc[$var].">";
-	print '<td width="180" nowrap="nowrap">'.$langs->trans("GoogleAgendaNb",$key)."</td>";
-	$name='GOOGLE_AGENDA_NAME'.$key;
-	$src='GOOGLE_AGENDA_SRC'.$key;
-	$color='GOOGLE_AGENDA_COLOR'.$key;
-	print "<td><input type=\"text\" class=\"flat\" name=\"google_agenda_name".$key."\" value=\"". $conf->global->$name . "\" size=\"28\"></td>";
-	print "<td><input type=\"text\" class=\"flat\" name=\"google_agenda_src".$key."\" value=\"". $conf->global->$src . "\" size=\"60\"></td>";
-	print '<td nowrap="nowrap">';
-	// Possible colors are limited by Google
-	//print $formadmin->select_colors($conf->global->$color, "google_agenda_color".$key, $colorlist);
-	print $formother->select_color($conf->global->$color, "google_agenda_color".$key, 'googleconfig', 1, $colorlist);
-	print '</td>';
-	print "</tr>";
-	$i++;
-}
-
-print '</table>';
-print '<br>';
-*/
 
 print '<br>';
 print '<center>';
@@ -193,9 +129,7 @@ print "</form>\n";
 
 dol_fiche_end();
 
-
-if ($mesg) print "<br>$mesg<br>";
-print "<br>";
+dol_htmloutput_mesg($mesg);
 
 // Show message
 $message='';
@@ -205,5 +139,5 @@ $message='';
 
 $db->close();
 
-llxFooter('$Date: 2011/06/10 20:31:37 $ - $Revision: 1.5 $');
+llxFooter('$Date: 2011/06/11 00:27:20 $ - $Revision: 1.6 $');
 ?>
