@@ -26,7 +26,7 @@
  *      \file       htdocs/includes/modules/modCabinetMed.class.php
  *      \ingroup    cabinetmed
  *      \brief      Description and activation file for module CabinetMed
- *      \version    $Id: modCabinetMed.class.php,v 1.35 2011/06/08 18:07:47 eldy Exp $
+ *      \version    $Id: modCabinetMed.class.php,v 1.36 2011/06/12 01:32:21 eldy Exp $
  */
 include_once(DOL_DOCUMENT_ROOT ."/includes/modules/DolibarrModules.class.php");
 
@@ -137,6 +137,7 @@ class modCabinetMed extends DolibarrModules
         // 'member'           to add a tab in fundation member view
 
         // Dictionnaries
+        if (! isset($conf->cabinetmed->enabled)) $conf->cabinetmed->enabled=0;
         $this->dictionnaries=array(
             'langs'=>'cabinetmed@cabinetmed',
             'tabname'=>array(MAIN_DB_PREFIX."cabinetmed_motifcons",
