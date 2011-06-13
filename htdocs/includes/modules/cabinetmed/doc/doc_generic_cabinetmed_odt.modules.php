@@ -1,5 +1,5 @@
 <?php
-/* Copyright (C) 2010 Laurent Destailleur <ely@users.sourceforge.net>
+/* Copyright (C) 2010-2011 Laurent Destailleur <ely@users.sourceforge.net>
 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@
  *	\ingroup    societe
  *	\brief      File of class to build ODT documents for third parties
  *	\author	    Laurent Destailleur
- *	\version    $Id: doc_generic_cabinetmed_odt.modules.php,v 1.1 2011/05/18 22:39:37 eldy Exp $
+ *	\version    $Id: doc_generic_cabinetmed_odt.modules.php,v 1.2 2011/06/13 15:35:23 eldy Exp $
  */
 
 require_once(DOL_DOCUMENT_ROOT."/includes/modules/facture/modules_facture.php");
@@ -32,11 +32,15 @@ require_once(DOL_DOCUMENT_ROOT."/lib/functions2.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/lib/files.lib.php");
 
 
+
+!!!! NOT USED
+
+
 /**
- *	\class      doc_generic_invoice_odt
+ *	\class      doc_generic_cabinetmed_odt
  *	\brief      Class to build documents using ODF templates generator
  */
-class doc_generic_patientoutcomes_odt extends ModelePDFPatientOutcomes
+class doc_generic_cabinetmed_odt extends ModelePDFPatientOutcomes
 {
 	var $emetteur;	// Objet societe qui emet
 
@@ -47,7 +51,7 @@ class doc_generic_patientoutcomes_odt extends ModelePDFPatientOutcomes
 	 *		\brief  Constructor
 	 *		\param	db		Database handler
 	 */
-	function doc_generic_patientoutcomes_odt($db)
+	function doc_generic_cabinetmed_odt($db)
 	{
 		global $conf,$langs,$mysoc;
 

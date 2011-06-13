@@ -22,7 +22,7 @@
  *  \file       htdocs/cabinetmed/reports.php
  *  \ingroup    cabinetmed
  *  \brief      List of consultation
- *  \version    $Id: reports.php,v 1.1 2011/05/25 15:19:48 eldy Exp $
+ *  \version    $Id: reports.php,v 1.2 2011/06/13 15:35:48 eldy Exp $
  */
 
 
@@ -239,7 +239,7 @@ if ($result)
         print '<td>';
         $consultstatic->id=$obj->cid;
         $consultstatic->fk_soc=$obj->rowid;
-        print $consultstatic->getNomUrl(1,'&amp;backtourl='.urlencode($_SERVER["PHP_SELF"]));
+        print $consultstatic->getNomUrl(1,'&amp;backtopage='.urlencode($_SERVER["PHP_SELF"]));
         print '</td>';
         print '<td align="center">'.dol_print_date($obj->datecons,'day').'</td>';
         print '<td>';
@@ -270,5 +270,5 @@ else
 
 $db->close();
 
-llxFooter('$Date: 2011/05/25 15:19:48 $ - $Revision: 1.1 $');
+llxFooter('$Date: 2011/06/13 15:35:48 $ - $Revision: 1.2 $');
 ?>
