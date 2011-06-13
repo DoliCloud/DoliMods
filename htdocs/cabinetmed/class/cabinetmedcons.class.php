@@ -20,7 +20,7 @@
  *      \file       htdocs/cabinetmed/class/cabinetmedcons.class.php
  *      \ingroup    cabinetmed
  *      \brief      This file is an example for a CRUD class file (Create/Read/Update/Delete)
- *		\version    $Id: cabinetmedcons.class.php,v 1.13 2011/06/13 17:35:07 eldy Exp $
+ *		\version    $Id: cabinetmedcons.class.php,v 1.14 2011/06/13 19:30:29 eldy Exp $
  *		\remarks	Initialy built by build_class_from_table on 2011-02-02 22:30
  */
 
@@ -40,8 +40,8 @@ class CabinetmedCons extends CommonObject
 	var $db;							//!< To store db handler
 	var $error;							//!< To return error code (or message)
 	var $errors=array();				//!< To return several error codes (or messages)
-	//var $element='cabinetmed_cons';			//!< Id that identify managed objects
-	//var $table_element='cabinetmed_cons';	//!< Name of table without prefix where object is stored
+	var $element='cabinetmed_cons';			//!< Id that identify managed objects
+	var $table_element='cabinetmed_cons';	//!< Name of table without prefix where object is stored
 
 	var $id;
 
