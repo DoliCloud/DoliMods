@@ -26,7 +26,7 @@
  *      \file       htdocs/includes/modules/modCabinetMed.class.php
  *      \ingroup    cabinetmed
  *      \brief      Description and activation file for module CabinetMed
- *      \version    $Id: modCabinetMed.class.php,v 1.37 2011/06/13 15:35:23 eldy Exp $
+ *      \version    $Id: modCabinetMed.class.php,v 1.38 2011/06/13 18:18:07 eldy Exp $
  */
 include_once(DOL_DOCUMENT_ROOT ."/includes/modules/DolibarrModules.class.php");
 
@@ -111,6 +111,7 @@ class modCabinetMed extends DolibarrModules
                             16=>array('MAIN_MENUFRONT_SMARTPHONE_FORCED','chaine','cabinetmed_frontoffice.php','Force menu handler to this value',1,'current',1),
                             17=>array('MAIN_SUPPORT_CONTACT_TYPE_FOR_THIRDPARTIES','chaine','1','Can add third party type of contact',1,'current',1),
                             18=>array('MAIN_APPLICATION_TITLE','chaine','DoliMed','Change software title',1,'current',1),
+                            19=>array('CABINETMED_RHEUMATOLOGY_ON','chaine','1','Enable features for rheumatology',1)
                             //18=>array('MAIN_MODULE_CABINETMED_HOOKS','chaine','objectcard','Activate hooks for cabinetmed',1,'current',1)
                             );
 

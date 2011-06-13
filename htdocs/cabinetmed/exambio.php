@@ -23,7 +23,7 @@
  *   \file       htdocs/cabinetmed/exambio.php
  *   \brief      Tab for examens bio
  *   \ingroup    cabinetmed
- *   \version    $Id: exambio.php,v 1.15 2011/06/01 16:37:59 simnandez Exp $
+ *   \version    $Id: exambio.php,v 1.16 2011/06/13 18:18:07 eldy Exp $
  */
 
 $res=0;
@@ -120,14 +120,14 @@ if ($action == 'add' || $action == 'update')
         $exambio->suivipr_vs=trim($_POST["suivipr_vs"]);
         $exambio->suivipr_eva=trim($_POST["suivipr_eva"]);
         $exambio->suivipr_err=trim($_POST["suivipr_err"]);
-        //$exambio->suivipr_das28=trim($_POST["suivipr_das28"]);
+        $exambio->suivipr_das28=trim($_POST["suivipr_das28"]);
         $exambio->suivisa_fat=trim($_POST["suivisa_fat"]);
         $exambio->suivisa_dax=trim($_POST["suivisa_dax"]);
         $exambio->suivisa_dpe=trim($_POST["suivisa_dpe"]);
         $exambio->suivisa_dpa=trim($_POST["suivisa_dpa"]);
         $exambio->suivisa_rno=trim($_POST["suivisa_rno"]);
         $exambio->suivisa_dma=trim($_POST["suivisa_dma"]);
-        //$exambio->suivisa_basdai=trim($_POST["suivisa_basdai"]);
+        $exambio->suivisa_basdai=trim($_POST["suivisa_basdai"]);
 
         if (empty($dateexam))
         {
@@ -326,8 +326,16 @@ if ($socid > 0)
                     /* alert(t); */
                     t=Math.round(t*100)/100;
                 }
-                if (t >= 0) jQuery("#suivipr_das28").html(\'<b>\'+t+\'</b>\');
-                else jQuery("#suivipr_das28").html(\''.dol_escape_js($langs->trans("NotCalculable")).'\');
+                if (t >= 0)
+                {
+                    jQuery("#suivipr_das28_view").html(\'<b>\'+t+\'</b>\');
+                    jQuery("#suivipr_das28").val(t);
+                }
+                else
+                {
+                    jQuery("#suivipr_das28_view").html(\''.dol_escape_js($langs->trans("NotCalculable")).'\');
+                    jQuery("#suivipr_das28").val(\'\');
+                }
             }
             init_das();
             jQuery(".suivipr").keyup(function () {
@@ -357,8 +365,16 @@ if ($socid > 0)
                 }
 
                 /* jQuery("#suivisa_basdai").val(); */
-                if (u >= 0) jQuery("#suivisa_basdai").html(\'<b>\'+u+\'</b> / 10\');
-                else jQuery("#suivisa_basdai").html(\''.dol_escape_js($langs->trans("NotCalculable")).'\');
+                if (u >= 0)
+                {
+                    jQuery("#suivisa_basdai_view").html(\'<b>\'+u+\'</b> / 10\');
+                    jQuery("#suivisa_basdai").val(u);
+                }
+                else
+                {
+                    jQuery("#suivisa_basdai_view").html(\''.dol_escape_js($langs->trans("NotCalculable")).'\');
+                    jQuery("#suivisa_basdai").val(\'\');
+                }
             }
             init_basdai();
             jQuery(".suivisa").keyup(function () {
@@ -456,11 +472,14 @@ if ($socid > 0)
         print '<fieldset id="suivipr">';
         print '<legend>'.$langs->trans("SuiviPR").'</legend>';
         print '<table>';
-        print '<tr><td width="90px">'.$langs->trans("AD").':</td><td><input class="flat suivipr" type="text" size="2" id="suivipr_ad" name="suivipr_ad" value="'.$exambio->suivipr_ad.'"></td></tr>';
-        print '<tr><td>'.$langs->trans("AG").':</td><td><input class="flat suivipr" type="text" size="2" id="suivipr_ag" name="suivipr_ag" value="'.$exambio->suivipr_ag.'"></td></tr>';
-        print '<tr><td>'.$langs->trans("EVA").':</td><td><input class="flat suivipr" type="text" size="2" id="suivipr_eva" name="suivipr_eva" value="'.$exambio->suivipr_eva.'"></td></tr>';
-        print '<tr><td>'.$langs->trans("VS").':</td><td><input class="flat suivipr" type="text" size="2" id="suivipr_vs" name="suivipr_vs" value="'.$exambio->suivipr_vs.'"></td></tr>';
-        print '<tr><td><b><font color="#884466">'.$langs->trans("DAS28").':</font></b></td><td><div id="suivipr_das28"></div></td></tr>';
+        print '<tr><td width="90px">'.$langs->trans("AD").':</td><td><input autocomplete="off" class="flat suivipr" type="text" size="2" id="suivipr_ad" name="suivipr_ad" value="'.$exambio->suivipr_ad.'"></td></tr>';
+        print '<tr><td>'.$langs->trans("AG").':</td><td><input autocomplete="off" class="flat suivipr" type="text" size="2" id="suivipr_ag" name="suivipr_ag" value="'.$exambio->suivipr_ag.'"></td></tr>';
+        print '<tr><td>'.$langs->trans("EVA").':</td><td><input autocomplete="off" class="flat suivipr" type="text" size="2" id="suivipr_eva" name="suivipr_eva" value="'.$exambio->suivipr_eva.'"></td></tr>';
+        print '<tr><td>'.$langs->trans("VS").':</td><td><input autocomplete="off" class="flat suivipr" type="text" size="2" id="suivipr_vs" name="suivipr_vs" value="'.$exambio->suivipr_vs.'"></td></tr>';
+        print '<tr><td><b><font color="#884466">'.$langs->trans("DAS28").':</font></b></td><td>';
+        print '<div id="suivipr_das28_view"></div>';
+        print '<input type="hidden" id="suivipr_das28" name="suivipr_das28">';
+        print '</td></tr>';
         print '<tr><td>&nbsp;</td><td>&nbsp;</td></tr>';
         print '<tr><td>'.$langs->trans("ERRX").':</td><td><input type="text" size="2" id="suivipr_err" name="suivipr_err" value="'.$exambio->suivipr_err.'"></td></tr>';
         print '</table>';
@@ -472,14 +491,17 @@ if ($socid > 0)
         print '<legend>'.$langs->trans("SuiviSA").'</legend>';
         print '<table>';
         // 4 items de 0 à 10 -> Somme A
-        print '<tr><td width="140px">'.$langs->trans("EVAFatigue").':</td><td><input class="flat suivisa" type="text" size="2" id="suivisa_fat" name="suivisa_fat" value="'.$exambio->suivisa_fat.'"> / 10</td></tr>';
-        print '<tr><td>'.$langs->trans("EVADouleurAxiale").':</td><td><input class="flat suivisa" type="text" size="2" id="suivisa_dax" name="suivisa_dax" value="'.$exambio->suivisa_dax.'"> / 10</td></tr>';
-        print '<tr><td>'.$langs->trans("EVADouleurPeriph").':</td><td><input class="flat suivisa" type="text" size="2" id="suivisa_dpe" name="suivisa_dpe" value="'.$exambio->suivisa_dpe.'"> / 10</td></tr>';
-        print '<tr><td>'.$langs->trans("EVADouleurPalp").':</td><td><input class="flat suivisa" type="text" size="2" id="suivisa_dpa" name="suivisa_dpa" value="'.$exambio->suivisa_dpa.'"> / 10</td></tr>';
+        print '<tr><td width="140px">'.$langs->trans("EVAFatigue").':</td><td><input autocomplete="off" class="flat suivisa" type="text" size="2" id="suivisa_fat" name="suivisa_fat" value="'.$exambio->suivisa_fat.'"> / 10</td></tr>';
+        print '<tr><td>'.$langs->trans("EVADouleurAxiale").':</td><td><input autocomplete="off" class="flat suivisa" type="text" size="2" id="suivisa_dax" name="suivisa_dax" value="'.$exambio->suivisa_dax.'"> / 10</td></tr>';
+        print '<tr><td>'.$langs->trans("EVADouleurPeriph").':</td><td><input autocomplete="off" class="flat suivisa" type="text" size="2" id="suivisa_dpe" name="suivisa_dpe" value="'.$exambio->suivisa_dpe.'"> / 10</td></tr>';
+        print '<tr><td>'.$langs->trans("EVADouleurPalp").':</td><td><input autocomplete="off" class="flat suivisa" type="text" size="2" id="suivisa_dpa" name="suivisa_dpa" value="'.$exambio->suivisa_dpa.'"> / 10</td></tr>';
         // 2 items de 0 à 10 -> moyenne B
-        print '<tr><td>'.$langs->trans("EVARaideurMat").':</td><td><input class="flat suivisa" type="text" size="2" id="suivisa_rno" name="suivisa_rno" value="'.$exambio->suivisa_rno.'"> / 10</td></tr>';
-        print '<tr><td>'.$langs->trans("EVADerrMat").':</td><td><input class="flat suivisa" type="text" size="2" id="suivisa_dma" name="suivisa_dma" value="'.$exambio->suivisa_dma.'"> / 10</td></tr>';
-        print '<tr><td><b><font color="#884466">'.$langs->trans("BASDAI").':</font><b></td><td><div id="suivisa_basdai"></div></td></tr>';
+        print '<tr><td>'.$langs->trans("EVARaideurMat").':</td><td><input autocomplete="off" class="flat suivisa" type="text" size="2" id="suivisa_rno" name="suivisa_rno" value="'.$exambio->suivisa_rno.'"> / 10</td></tr>';
+        print '<tr><td>'.$langs->trans("EVADerrMat").':</td><td><input autocomplete="off" class="flat suivisa" type="text" size="2" id="suivisa_dma" name="suivisa_dma" value="'.$exambio->suivisa_dma.'"> / 10</td></tr>';
+        print '<tr><td><b><font color="#884466">'.$langs->trans("BASDAI").':</font><b></td><td>';
+        print '<div id="suivisa_basdai_view"></div>';
+        print '<input type="hidden" id="suivisa_basdai" name="suivisa_basdai">';
+        print '</td></tr>';
         //print '<tr><td>&nbsp;</td><td>&nbsp;</td></tr>';
         print '</table>';
         print '</fieldset>';
@@ -549,6 +571,11 @@ if ($action == '' || $action == 'delete')
     //print_liste_field_titre($langs->trans('Num'),$_SERVER['PHP_SELF'],'t.rowid','',$param,'',$sortfield,$sortorder);
     print_liste_field_titre($langs->trans('Date'),$_SERVER['PHP_SELF'],'t.dateexam','',$param,'',$sortfield,$sortorder);
     print '<td>'.$langs->trans("Result").'</td>';
+    if (! empty($conf->global->CABINETMED_RHEUMATOLOGY_ON))
+    {
+        print '<td>'.$langs->trans("Das28").'</td>';
+        print '<td>'.$langs->trans("Basdai").'</td>';
+    }
     print '<td>&nbsp;</td>';
     print '</tr>';
 
@@ -561,7 +588,9 @@ if ($action == '' || $action == 'delete')
     $sql.= " t.resultat,";
     $sql.= " t.conclusion,";
     $sql.= " t.comment,";
-    $sql.= " t.tms";
+    $sql.= " t.tms,";
+    $sql.= " t.suivipr_das28,";
+    $sql.= " t.suivisa_basdai";
     $sql.= " FROM ".MAIN_DB_PREFIX."cabinetmed_exambio as t";
     $sql.= " WHERE t.fk_soc = ".$socid;
     $sql.= " ORDER BY ".$sortfield." ".$sortorder.", t.rowid DESC";
@@ -589,6 +618,15 @@ if ($action == '' || $action == 'delete')
             print '<td>';
             print dol_trunc($obj->resultat,40);
             print '</td>';
+            if (! empty($conf->global->CABINETMED_RHEUMATOLOGY_ON))
+            {
+                print '<td>';
+                print $obj->suivipr_das28;
+                print '</td>';
+                print '<td>';
+                print $obj->suivisa_basdai;
+                print '</td>';
+            }
             print '<td align="right">';
             print '<a href="'.$_SERVER["PHP_SELF"].'?socid='.$obj->fk_soc.'&id='.$obj->rowid.'&action=edit">'.img_edit().'</a>';
             if ($user->rights->societe->supprimer)
@@ -610,5 +648,5 @@ if ($action == '' || $action == 'delete')
 
 $db->close();
 
-llxFooter('$Date: 2011/06/01 16:37:59 $ - $Revision: 1.15 $');
+llxFooter('$Date: 2011/06/13 18:18:07 $ - $Revision: 1.16 $');
 ?>

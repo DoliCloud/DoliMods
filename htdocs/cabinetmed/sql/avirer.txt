@@ -11,3 +11,5 @@ alter table llx_cabinetmed_exambio add column fk_user after fk_soc;
 alter table llx_cabinetmed_examaut add column fk_user after fk_soc;
 
 update llx_societe set canvas='patient@cabinetmed';
+
+alter table llx_cabinetmed_exambio add column suivipr_das28      double;

@@ -15,7 +15,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *
- * $Id: card_create.tpl.php,v 1.5 2011/06/07 22:04:37 eldy Exp $
+ * $Id: card_create.tpl.php,v 1.6 2011/06/13 18:18:07 eldy Exp $
  */
 
 global $db,$conf,$mysoc,$langs,$user;
@@ -217,7 +217,7 @@ dol_htmloutput_errors($GOBALS['error'],$GLOBALS['errors']);
         print '<tr>';
         print '<td nowrap="nowrap">'.$langs->trans('VATIntra').'</td>';
         print '<td nowrap="nowrap" colspan="3">';
-        print '<input type="text" class="flat" name="tva_intra" size="12" maxlength="20" value="'.$soc->tva_intra.'">';
+        print '<input type="text" class="flat" name="tva_intra" size="16" maxlength="32" value="'.$soc->tva_intra.'">';
         print '</td></tr>';
 
         if ($conf->global->MAIN_MULTILANGS)

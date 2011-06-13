@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *
- * $Id: card_view.tpl.php,v 1.5 2011/06/08 18:07:29 eldy Exp $
+ * $Id: card_view.tpl.php,v 1.6 2011/06/13 18:18:07 eldy Exp $
  */
 
 $soc=$GLOBALS['objcanvas']->control->object;
@@ -310,11 +310,6 @@ print '<div class="tabsAction">'."\n";
 if ($user->rights->societe->creer)
 {
     print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?socid='.$soc->id.'&amp;action=edit">'.$langs->trans("Modify").'</a>'."\n";
-}
-
-if ($conf->projet->enabled && $user->rights->projet->creer)
-{
-    print '<a class="butAction" href="'.DOL_URL_ROOT.'/projet/fiche.php?socid='.$soc->id.'&action=create">'.$langs->trans("AddProject").'</a>'."\n";
 }
 
 if ($user->rights->societe->supprimer)
