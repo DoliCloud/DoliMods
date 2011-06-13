@@ -1,5 +1,5 @@
 <?php
-/* Copyright (C) 2009 Laurent Destailleur         <eldy@users.sourceforge.net>
+/* Copyright (C) 2011 Laurent Destailleur         <eldy@users.sourceforge.net>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,7 +21,7 @@
  *	\file			htdocs/includes/modules/substitutions/functions_cabinetmed.lib.php
  *	\brief			A set of functions for Dolibarr
  *					This file contains functions for plugin cabinetmed.
- *	\version		$Id: functions_cabinetmed.lib.php,v 1.2 2011/06/08 21:13:49 eldy Exp $
+ *	\version		$Id: functions_cabinetmed.lib.php,v 1.3 2011/06/13 17:07:38 eldy Exp $
  */
 
 
@@ -35,14 +35,59 @@
  */
 function cabinetmed_completesubstitutionarray(&$substitutionarray,$langs,$object)
 {
-	global $conf;
+	global $conf,$db;
 	if (is_object($object))
 	{
-	    $substitutionarray['aaa']='bbb';
-        $substitutionarray['diagnostic_principal']=$object->cons_princ;
-        $substitutionarray['examother_conclusion']=$object->cons_princ;
-        $substitutionarray['exambio_conclusion']=$object->cons_princ;
-        $substitutionarray['treatment']=$object->cons_princ;
+        dol_include_once('/cabinetmed/class/cabinetmedcons.class.php');
+        dol_include_once('/cabinetmed/class/cabinetmedexambio.class.php');
+        dol_include_once('/cabinetmed/class/cabinetmedexamother.class.php');
+
+        $isbio=0;
+        $isother=0;
+
+        $outcome=new CabinetmedCons($db);
+	    $result1=$outcome->fetch(GETPOST('idconsult'));
+
+	    if (GETPOST('idbio') > 0)
+	    {
+	        $exambio=new CabinetmedExamBio($db);
+            $result2=$exambio->fetch(GETPOST('idbio'));
+            $isbio=1;
+	    }
+
+        if (GETPOST('idradio') > 0)
+        {
+	        $examother=new CabinetmedExamOther($db);
+            $result3=$examother->fetch(GETPOST('idradio'));
+            $isother=1;
+        }
+
+        if ($isother || $isbio) $substitutionarray['examshows']='Les bilans suivants mettent en évidence,';
+        else $substitutionarray['examshows']='';
+
+        if ($isother)
+        {
+            $substitutionarray['examother_title']='Bilan imagerie:';
+            $substitutionarray['examother_conclusion']=$examother->concprinc;
+        }
+        else
+        {
+            $substitutionarray['examother_title']='';
+            $substitutionarray['examother_conclusion']='';
+        }
+        if ($isbio)
+        {
+            $substitutionarray['exambio_title']='Bilan Biologique:';
+            $substitutionarray['exambio_conclusion']=$exambio->conclusion;
+        }
+        else
+        {
+            $substitutionarray['exambio_title']='';
+            $substitutionarray['exambio_conclusion']='';
+        }
+
+        $substitutionarray['outcome_diagnostic']=$outcome->diaglesprinc;
+        $substitutionarray['outcome_treatment']=$outcome->traitementprescrit;
 	}
 }
 

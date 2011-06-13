@@ -20,7 +20,7 @@
  *      \file       htdocs/cabinetmed/class/cabinetmedcons.class.php
  *      \ingroup    cabinetmed
  *      \brief      This file is an example for a CRUD class file (Create/Read/Update/Delete)
- *		\version    $Id: cabinetmedcons.class.php,v 1.11 2011/06/13 15:35:23 eldy Exp $
+ *		\version    $Id: cabinetmedcons.class.php,v 1.12 2011/06/13 17:07:38 eldy Exp $
  *		\remarks	Initialy built by build_class_from_table on 2011-02-02 22:30
  */
 
@@ -49,9 +49,9 @@ class CabinetmedCons extends CommonObject
 	var $datecons='';
 	var $typepriseencharge;
 	var $motifconsprinc;
-	var $diaglecprinc;
+	var $diaglesprinc;
 	var $motifconssec;
-	var $diaglecsec;
+	var $diaglessec;
 	var $examenclinique;
 	var $examenprescrit;
 	var $traitementprescrit;
@@ -340,8 +340,8 @@ class CabinetmedCons extends CommonObject
 
 		if (isset($this->fk_soc)) $this->fk_soc=trim($this->fk_soc);
 		if (isset($this->typepriseencharge)) $this->typepriseencharge=trim($this->typepriseencharge);
-		if (isset($this->motifconsprinc)) $this->motifcons=trim($this->motifconsprinc);
-		if (isset($this->diaglesprinc)) $this->diaglec=trim($this->diaglesprins);
+		if (isset($this->motifconsprinc)) $this->motifconsprinc=trim($this->motifconsprinc);
+		if (isset($this->diaglesprinc)) $this->diaglesprinc=trim($this->diaglesprins);
 		if (isset($this->motifconssec)) $this->motifconssec=trim($this->motifconssec);
 		if (isset($this->diaglessec)) $this->diaglessec=trim($this->diaglessec);
 		if (isset($this->hdm)) $this->hdm=trim($this->hdm);
@@ -641,11 +641,11 @@ class CabinetmedCons extends CommonObject
 
         print '<tr>';
         print '<td align="left" colspan="4">';
-        $lastid=0;
+        $firstid=0;
         print $langs->trans("Consultation").': ';
         $array_consult=array();
         $sql='SELECT rowid, datecons as date FROM '.MAIN_DB_PREFIX.'cabinetmed_cons where fk_soc='.$this->fk_soc;
-        $sql.=' ORDER BY datecons DESC';
+        $sql.=' ORDER BY datecons DESC, rowid DESC';
         $resql=$this->db->query($sql);
         if ($resql)
         {
@@ -654,20 +654,22 @@ class CabinetmedCons extends CommonObject
             while($i < $num)
             {
                 $obj=$this->db->fetch_object($resql);
-                $array_consult[$obj->rowid]=dol_print_date($this->db->jdate($obj->date),'day');
-                $lastid=$obj->rowid;
+                $array_consult[$obj->rowid]=sprintf("%08d",$obj->rowid).' - '.dol_print_date($this->db->jdate($obj->date),'day');
+                if (empty($firstid)) $firstid=$obj->rowid;
                 $i++;
             }
         }
         else dol_print_error($this->db);
-        print $htmlform->select_array('idconsult',$array_consult,$lastid,1);
+        print $htmlform->select_array('idconsult',$array_consult,$firstid,1);
         //print '</td>';
         //print '<td align="center">';
+
         print ' &nbsp; &nbsp; &nbsp; ';
+
         print $langs->trans("ResultExamBio").': ';
         $array_consult=array();
         $sql='SELECT rowid, dateexam as date FROM '.MAIN_DB_PREFIX.'cabinetmed_exambio where fk_soc='.$this->fk_soc;
-        $sql.=' ORDER BY dateexam DESC';
+        $sql.=' ORDER BY dateexam DESC, rowid DESC';
         $resql=$this->db->query($sql);
         if ($resql)
         {
@@ -684,11 +686,13 @@ class CabinetmedCons extends CommonObject
         print $htmlform->select_array('idbio',$array_consult,GETPOST('idbio')?GETPOST('idbio'):'',1);
         //print '</td>';
         //print '<td align="center">';
+
         print ' &nbsp; &nbsp; &nbsp; ';
+
         print $langs->trans("ResultExamAutre").': ';
         $array_consult=array();
         $sql='SELECT rowid, dateexam as date FROM '.MAIN_DB_PREFIX.'cabinetmed_examaut where fk_soc='.$this->fk_soc;
-        $sql.=' ORDER BY dateexam DESC';
+        $sql.=' ORDER BY dateexam DESC, rowid DESC';
         $resql=$this->db->query($sql);
         if ($resql)
         {
