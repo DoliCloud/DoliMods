@@ -20,7 +20,7 @@
  *      \file       htdocs/cabinetmed/class/cabinetmedcons.class.php
  *      \ingroup    cabinetmed
  *      \brief      This file is an example for a CRUD class file (Create/Read/Update/Delete)
- *		\version    $Id: cabinetmedcons.class.php,v 1.12 2011/06/13 17:07:38 eldy Exp $
+ *		\version    $Id: cabinetmedcons.class.php,v 1.13 2011/06/13 17:35:07 eldy Exp $
  *		\remarks	Initialy built by build_class_from_table on 2011-02-02 22:30
  */
 
@@ -640,7 +640,7 @@ class CabinetmedCons extends CommonObject
         $htmlform=new Form($this->db);
 
         print '<tr>';
-        print '<td align="left" colspan="4">';
+        print '<td align="left" colspan="4" valign="top">';
         $firstid=0;
         print $langs->trans("Consultation").': ';
         $array_consult=array();
@@ -709,6 +709,12 @@ class CabinetmedCons extends CommonObject
         print $htmlform->select_array('idradio',$array_consult,GETPOST('idradio')?GETPOST('idradio'):'',1);
         print '</td>';
         print '</tr>';
+
+        print '<tr><td colspan="4" valign="top">';
+        print $langs->trans("Comment").': ';
+        //print '<textarea name="outcome_comment" cols="90" rows="'.ROWS_2.'">'.(GETPOST('outcome_comment')?GETPOST('outcome_comment'):'').'</textarea>';
+        print '<input type="text" name="outcome_comment" size="90" value="'.(GETPOST('outcome_comment')?GETPOST('outcome_comment'):'').'">';
+        print '</td></tr>';
     }
 
 }

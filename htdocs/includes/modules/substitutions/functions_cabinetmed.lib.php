@@ -21,7 +21,7 @@
  *	\file			htdocs/includes/modules/substitutions/functions_cabinetmed.lib.php
  *	\brief			A set of functions for Dolibarr
  *					This file contains functions for plugin cabinetmed.
- *	\version		$Id: functions_cabinetmed.lib.php,v 1.3 2011/06/13 17:07:38 eldy Exp $
+ *	\version		$Id: functions_cabinetmed.lib.php,v 1.4 2011/06/13 17:34:58 eldy Exp $
  */
 
 
@@ -86,6 +86,7 @@ function cabinetmed_completesubstitutionarray(&$substitutionarray,$langs,$object
             $substitutionarray['exambio_conclusion']='';
         }
 
+        $substitutionarray['outcome_comment']=GETPOST('outcome_comment');
         $substitutionarray['outcome_diagnostic']=$outcome->diaglesprinc;
         $substitutionarray['outcome_treatment']=$outcome->traitementprescrit;
 	}

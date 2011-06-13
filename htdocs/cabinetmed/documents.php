@@ -20,7 +20,7 @@
  *   \file       htdocs/cabinetmed/documents.php
  *   \brief      Tab for courriers
  *   \ingroup    cabinetmed
- *   \version    $Id: documents.php,v 1.5 2011/06/13 15:35:48 eldy Exp $
+ *   \version    $Id: documents.php,v 1.6 2011/06/13 17:34:49 eldy Exp $
  */
 
 $res=0;
@@ -52,7 +52,8 @@ $socid = GETPOST("socid");
 if ($user->societe_id) $socid=$user->societe_id;
 $result = restrictedArea($user, 'societe', $socid);
 
-$mesgarray=array();
+$error=0;
+$errors=array();
 
 $sortfield = GETPOST("sortfield",'alpha');
 $sortorder = GETPOST("sortorder",'alpha');
@@ -112,15 +113,15 @@ if ( $_POST["sendit"] && ! empty($conf->global->MAIN_UPLOAD_DOC))
             $langs->load("errors");
             if (is_numeric($resupload) && $resupload < 0)   // Unknown error
             {
-                $mesg = '<div class="error">'.$langs->trans("ErrorFileNotUploaded").'</div>';
+                $errors[] = '<div class="error">'.$langs->trans("ErrorFileNotUploaded").'</div>';
             }
             else if (preg_match('/ErrorFileIsInfectedWithAVirus/',$resupload))  // Files infected by a virus
             {
-                $mesg = '<div class="error">'.$langs->trans("ErrorFileIsInfectedWithAVirus").'</div>';
+                $errors[] = '<div class="error">'.$langs->trans("ErrorFileIsInfectedWithAVirus").'</div>';
             }
             else    // Known error
             {
-                $mesg = '<div class="error">'.$langs->trans($resupload).'</div>';
+                $errors[] = '<div class="error">'.$langs->trans($resupload).'</div>';
             }
         }
     }
@@ -134,7 +135,7 @@ if (GETPOST('action') == 'builddoc')  // En get ou en post
 {
     if (is_numeric(GETPOST('model')))
     {
-        $mesg=$langs->trans("ErrorFieldRequired",$langs->transnoentities("Model"));
+        $errors[]=$langs->trans("ErrorFieldRequired",$langs->transnoentities("Model"));
     }
     else
     {
@@ -254,7 +255,8 @@ if ($socid > 0)
 
 	dol_fiche_end();
 
-    dol_htmloutput_errors($mesg);
+    if ($mesg) dol_htmloutput_mesg($mesg);
+	else dol_htmloutput_errors($error,$errors);
 
     // Affiche formulaire upload
     $formfile=new FormFile($db);
@@ -293,5 +295,5 @@ if ($socid > 0)
 
 $db->close();
 
-llxFooter('$Date: 2011/06/13 15:35:48 $ - $Revision: 1.5 $');
+llxFooter('$Date: 2011/06/13 17:34:49 $ - $Revision: 1.6 $');
 ?>
