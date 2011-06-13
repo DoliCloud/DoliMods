@@ -20,7 +20,7 @@
  *   \file       htdocs/cabinetmed/consultations.php
  *   \brief      Tab for consultations
  *   \ingroup    cabinetmed
- *   \version    $Id: consultations.php,v 1.34 2011/05/31 16:45:21 simnandez Exp $
+ *   \version    $Id: consultations.php,v 1.35 2011/06/13 15:17:12 eldy Exp $
  */
 
 $res=0;
@@ -317,9 +317,9 @@ if ($action == 'add' || $action == 'update')
     }
     else
     {
-        if (GETPOST("backtourl"))
+        if (GETPOST("backtopage"))
         {
-            header("Location: ".GETPOST("backtourl"));
+            header("Location: ".GETPOST("backtopage"));
             exit(0);
         }
         $action='';
@@ -1014,5 +1014,5 @@ if ($action == '' || $action == 'delete')
 
 $db->close();
 
-llxFooter('$Date: 2011/05/31 16:45:21 $ - $Revision: 1.34 $');
+llxFooter('$Date: 2011/06/13 15:17:12 $ - $Revision: 1.35 $');
 ?>
