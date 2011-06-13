@@ -22,7 +22,7 @@
  *	\file       htdocs/cabinetmed/listconsult.php
  *	\ingroup    cabinetmed
  *	\brief      List of consultation
- *	\version    $Id: listconsult.php,v 1.9 2011/06/13 15:35:48 eldy Exp $
+ *	\version    $Id: listconsult.php,v 1.10 2011/06/13 22:24:23 eldy Exp $
  */
 
 
@@ -45,6 +45,8 @@ $langs->load("commercial");
 $socid = GETPOST("socid");
 if ($user->societe_id) $socid=$user->societe_id;
 $result = restrictedArea($user,'societe',$socid,'');
+
+if (!$user->rights->cabinetmed->read) accessforbidden();
 
 $sortfield = isset($_GET["sortfield"])?$_GET["sortfield"]:$_POST["sortfield"];
 $sortorder = isset($_GET["sortorder"])?$_GET["sortorder"]:$_POST["sortorder"];
@@ -182,9 +184,9 @@ if ($result)
 	}
 
 	print '<tr class="liste_titre">';
+    print_liste_field_titre($langs->trans("IdConsultShort"),$_SERVER["PHP_SELF"],"c.rowid","",$param,"",$sortfield,$sortorder);
 	print_liste_field_titre($langs->trans("Company"),$_SERVER["PHP_SELF"],"s.nom","",$param,"",$sortfield,$sortorder);
 	print_liste_field_titre($langs->trans("CustomerCode"),$_SERVER["PHP_SELF"],"s.code_client","",$param,"",$sortfield,$sortorder);
-    print_liste_field_titre($langs->trans("IdConsultShort"),$_SERVER["PHP_SELF"],"c.rowid","",$param,"",$sortfield,$sortorder);
 	print_liste_field_titre($langs->trans("DateConsultationShort"),$_SERVER["PHP_SELF"],"c.datecons,c.rowid","",$param,'align="center"',$sortfield,$sortorder);
     print_liste_field_titre($langs->trans('Prise en charge'),$_SERVER['PHP_SELF'],'c.typepriseencharge','',$param,'',$sortfield,$sortorder);
     print_liste_field_titre($langs->trans("MotifPrincipal"),$_SERVER["PHP_SELF"],"c.motifconsprinc","",$param,'',$sortfield,$sortorder);
@@ -193,13 +195,13 @@ if ($result)
 	print "</tr>\n";
 
 	print '<tr class="liste_titre">';
+    print '<td class="liste_titre">';
+    print '&nbsp;';
+    print '</td>';
 	print '<td class="liste_titre">';
 	print '<input type="text" class="flat" size="8" name="search_nom" value="'.$search_nom.'">';
 	print '</td><td class="liste_titre">';
 	print '<input type="text" class="flat" size="8" name="search_code" value="'.$search_code.'">';
-	print '</td>';
-	print '<td class="liste_titre">';
-	print '&nbsp;';
 	print '</td>';
 	print '<td class="liste_titre">';
 	print '&nbsp;';
@@ -228,6 +230,11 @@ if ($result)
 		$var=!$var;
 
 		print "<tr ".$bc[$var].">";
+        print '<td>';
+        $consultstatic->id=$obj->cid;
+        $consultstatic->fk_soc=$obj->rowid;
+        print $consultstatic->getNomUrl(1,'&amp;backtopage='.urlencode($_SERVER["PHP_SELF"]));
+        print '</td>';
 		print '<td>';
 		$thirdpartystatic->id=$obj->rowid;
         $thirdpartystatic->name=$obj->name;
@@ -236,11 +243,6 @@ if ($result)
         print $thirdpartystatic->getNomUrl(1);
 		print '</td>';
 		print '<td>'.$obj->code_client.'</td>';
-        print '<td>';
-        $consultstatic->id=$obj->cid;
-        $consultstatic->fk_soc=$obj->rowid;
-        print $consultstatic->getNomUrl(1,'&amp;backtopage='.urlencode($_SERVER["PHP_SELF"]));
-        print '</td>';
 		print '<td align="center">'.dol_print_date($obj->datecons,'day').'</td>';
         print '<td>';
         print $obj->typepriseencharge;
@@ -270,5 +272,5 @@ else
 
 $db->close();
 
-llxFooter('$Date: 2011/06/13 15:35:48 $ - $Revision: 1.9 $');
+llxFooter('$Date: 2011/06/13 22:24:23 $ - $Revision: 1.10 $');
 ?>

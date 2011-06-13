@@ -23,7 +23,7 @@
  *   \file       htdocs/cabinetmed/antecedant.php
  *   \brief      Tab for antecedants
  *   \ingroup    societe
- *   \version    $Id: antecedant.php,v 1.8 2011/05/28 15:06:04 eldy Exp $
+ *   \version    $Id: antecedant.php,v 1.9 2011/06/13 22:24:23 eldy Exp $
  */
 
 $res=0;
@@ -46,6 +46,8 @@ if (empty($action)) $action='edit';
 $socid = GETPOST('socid');
 if ($user->societe_id) $socid=$user->societe_id;
 $result = restrictedArea($user, 'societe', $socid);
+
+if (!$user->rights->cabinetmed->read) accessforbidden();
 
 
 /*
@@ -294,5 +296,5 @@ if ($mesg) dol_htmloutput_mesg($mesg);
 
 $db->close();
 
-llxFooter('$Date: 2011/05/28 15:06:04 $ - $Revision: 1.8 $');
+llxFooter('$Date: 2011/06/13 22:24:23 $ - $Revision: 1.9 $');
 ?>

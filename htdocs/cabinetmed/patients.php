@@ -22,7 +22,7 @@
  *	\file       htdocs/cabinetmed/patients.php
  *	\ingroup    commercial, societe
  *	\brief      List of customers
- *	\version    $Id: patients.php,v 1.3 2011/05/01 18:52:55 eldy Exp $
+ *	\version    $Id: patients.php,v 1.4 2011/06/13 22:24:23 eldy Exp $
  */
 
 $res=0;
@@ -43,6 +43,7 @@ $langs->load("commercial");
 $socid = GETPOST("socid");
 if ($user->societe_id) $socid=$user->societe_id;
 $result = restrictedArea($user,'societe',$socid,'');
+
 
 $sortfield = isset($_GET["sortfield"])?$_GET["sortfield"]:$_POST["sortfield"];
 $sortorder = isset($_GET["sortorder"])?$_GET["sortorder"]:$_POST["sortorder"];
@@ -251,5 +252,5 @@ else
 
 $db->close();
 
-llxFooter('$Date: 2011/05/01 18:52:55 $ - $Revision: 1.3 $');
+llxFooter('$Date: 2011/06/13 22:24:23 $ - $Revision: 1.4 $');
 ?>

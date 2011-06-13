@@ -21,7 +21,7 @@
  *  \file       htdocs/cabinetmed/stats/index.php
  *  \ingroup    facture
  *  \brief      Page des stats factures
- *  \version    $Id: index.php,v 1.1 2011/06/13 19:30:29 eldy Exp $
+ *  \version    $Id: index.php,v 1.2 2011/06/13 22:24:23 eldy Exp $
  */
 
 
@@ -141,7 +141,7 @@ if (! $mesg)
 	$px->SetHorizTickIncrement(1);
 	$px->SetPrecisionY(0);
 	$px->mode='depth';
-	$px->SetTitle($langs->trans("AmountByMonthHT"));
+	$px->SetTitle($langs->trans("AmountByMonth"));
 
 	$px->draw($filenameamount);
 }
@@ -194,7 +194,11 @@ foreach ($data as $val)
 		print '</tr>';
 	}
 	print '<tr height="24">';
-	print '<td align="center"><a href="month.php?year='.$year.'&amp;mode='.$mode.'">'.$year.'</a></td>';
+	print '<td align="center">';
+	//print '<a href="month.php?year='.$year.'&amp;mode='.$mode.'">';
+	print $year;
+	//print '</a>';
+	print '</td>';
 	print '<td align="right">'.$val['nb'].'</td>';
 	print '<td align="right">'.price(price2num($val['total'],'MT'),1).'</td>';
 	print '<td align="right">'.price(price2num($val['avg'],'MT'),1).'</td>';
@@ -222,5 +226,5 @@ print '</td></tr></table>';
 
 print '</td></tr></table>';
 
-llxFooter('$Date: 2011/06/13 19:30:29 $ - $Revision: 1.1 $');
+llxFooter('$Date: 2011/06/13 22:24:23 $ - $Revision: 1.2 $');
 ?>

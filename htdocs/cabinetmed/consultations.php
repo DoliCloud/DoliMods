@@ -20,7 +20,7 @@
  *   \file       htdocs/cabinetmed/consultations.php
  *   \brief      Tab for consultations
  *   \ingroup    cabinetmed
- *   \version    $Id: consultations.php,v 1.35 2011/06/13 15:17:12 eldy Exp $
+ *   \version    $Id: consultations.php,v 1.36 2011/06/13 22:24:23 eldy Exp $
  */
 
 $res=0;
@@ -48,6 +48,8 @@ $langs->load("cabinetmed@cabinetmed");
 $socid = GETPOST("socid");
 if ($user->societe_id) $socid=$user->societe_id;
 $result = restrictedArea($user, 'societe', $socid);
+
+if (!$user->rights->cabinetmed->read) accessforbidden();
 
 $mesgarray=array();
 
@@ -1014,5 +1016,5 @@ if ($action == '' || $action == 'delete')
 
 $db->close();
 
-llxFooter('$Date: 2011/06/13 15:17:12 $ - $Revision: 1.35 $');
+llxFooter('$Date: 2011/06/13 22:24:23 $ - $Revision: 1.36 $');
 ?>

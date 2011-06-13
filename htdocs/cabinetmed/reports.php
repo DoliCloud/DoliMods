@@ -22,7 +22,7 @@
  *  \file       htdocs/cabinetmed/reports.php
  *  \ingroup    cabinetmed
  *  \brief      List of consultation
- *  \version    $Id: reports.php,v 1.2 2011/06/13 15:35:48 eldy Exp $
+ *  \version    $Id: reports.php,v 1.3 2011/06/13 22:24:23 eldy Exp $
  */
 
 
@@ -45,6 +45,8 @@ $langs->load("commercial");
 $socid = GETPOST("socid");
 if ($user->societe_id) $socid=$user->societe_id;
 $result = restrictedArea($user,'societe',$socid,'');
+
+if (!$user->rights->cabinetmed->read) accessforbidden();
 
 $sortfield = isset($_GET["sortfield"])?$_GET["sortfield"]:$_POST["sortfield"];
 $sortorder = isset($_GET["sortorder"])?$_GET["sortorder"]:$_POST["sortorder"];
@@ -270,5 +272,5 @@ else
 
 $db->close();
 
-llxFooter('$Date: 2011/06/13 15:35:48 $ - $Revision: 1.2 $');
+llxFooter('$Date: 2011/06/13 22:24:23 $ - $Revision: 1.3 $');
 ?>

@@ -20,7 +20,7 @@
  *   \file       htdocs/cabinetmed/documents.php
  *   \brief      Tab for courriers
  *   \ingroup    cabinetmed
- *   \version    $Id: documents.php,v 1.6 2011/06/13 17:34:49 eldy Exp $
+ *   \version    $Id: documents.php,v 1.7 2011/06/13 22:24:23 eldy Exp $
  */
 
 $res=0;
@@ -51,6 +51,8 @@ $langs->load("cabinetmed@cabinetmed");
 $socid = GETPOST("socid");
 if ($user->societe_id) $socid=$user->societe_id;
 $result = restrictedArea($user, 'societe', $socid);
+
+if (!$user->rights->cabinetmed->read) accessforbidden();
 
 $error=0;
 $errors=array();
@@ -295,5 +297,5 @@ if ($socid > 0)
 
 $db->close();
 
-llxFooter('$Date: 2011/06/13 17:34:49 $ - $Revision: 1.6 $');
+llxFooter('$Date: 2011/06/13 22:24:23 $ - $Revision: 1.7 $');
 ?>

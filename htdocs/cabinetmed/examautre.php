@@ -23,7 +23,7 @@
  *   \file       htdocs/cabinetmed/examautre.php
  *   \brief      Tab for examens other
  *   \ingroup    cabinetmed
- *   \version    $Id: examautre.php,v 1.18 2011/06/08 16:42:54 eldy Exp $
+ *   \version    $Id: examautre.php,v 1.19 2011/06/13 22:24:23 eldy Exp $
  */
 
 $res=0;
@@ -52,6 +52,8 @@ $langs->load("cabinetmed@cabinetmed");
 $socid = GETPOST("socid");
 if ($user->societe_id) $socid=$user->societe_id;
 $result = restrictedArea($user, 'societe', $socid);
+
+if (!$user->rights->cabinetmed->read) accessforbidden();
 
 $mesgarray=array();
 
@@ -546,5 +548,5 @@ if ($action == '' || $action == 'delete')
 
 $db->close();
 
-llxFooter('$Date: 2011/06/08 16:42:54 $ - $Revision: 1.18 $');
+llxFooter('$Date: 2011/06/13 22:24:23 $ - $Revision: 1.19 $');
 ?>

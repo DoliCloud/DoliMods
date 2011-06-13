@@ -21,7 +21,7 @@
 /**
  *       \file        htdocs/compta/resultat/index.php
  *       \brief       Page reporting resultat
- *       \version     $Id: compta.php,v 1.2 2011/05/28 13:35:41 eldy Exp $
+ *       \version     $Id: compta.php,v 1.3 2011/06/13 22:24:23 eldy Exp $
  */
 
 
@@ -48,16 +48,20 @@ else {
 	$year_end=$year_start + ($nbofyear-1);
 }
 
+// Define modecompta ('CREANCES-DETTES' or 'RECETTES-DEPENSES')
+$modecompta = $conf->compta->mode;
+if ($_GET["modecompta"]) $modecompta=$_GET["modecompta"];
+$search_sale=GETPOST('search_sale');
+
+
 // Security check
 $socid = isset($_REQUEST["socid"])?$_REQUEST["socid"]:'';
 if ($user->societe_id > 0) $socid = $user->societe_id;
 //if (!$user->rights->cabinetmed->lire)
 //accessforbidden();
 
-// Define modecompta ('CREANCES-DETTES' or 'RECETTES-DEPENSES')
-$modecompta = $conf->compta->mode;
-if ($_GET["modecompta"]) $modecompta=$_GET["modecompta"];
-$search_sale=GETPOST('search_sale');
+if (!$user->rights->cabinetmed->read) accessforbidden();
+
 
 
 /*
@@ -343,6 +347,6 @@ print "</table>";
 
 $db->close();
 
-llxFooter('$Date: 2011/05/28 13:35:41 $ - $Revision: 1.2 $');
+llxFooter('$Date: 2011/06/13 22:24:23 $ - $Revision: 1.3 $');
 
 ?>

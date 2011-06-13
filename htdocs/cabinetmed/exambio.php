@@ -23,7 +23,7 @@
  *   \file       htdocs/cabinetmed/exambio.php
  *   \brief      Tab for examens bio
  *   \ingroup    cabinetmed
- *   \version    $Id: exambio.php,v 1.16 2011/06/13 18:18:07 eldy Exp $
+ *   \version    $Id: exambio.php,v 1.17 2011/06/13 22:24:23 eldy Exp $
  */
 
 $res=0;
@@ -52,6 +52,8 @@ $langs->load("cabinetmed@cabinetmed");
 $socid = GETPOST("socid");
 if ($user->societe_id) $socid=$user->societe_id;
 $result = restrictedArea($user, 'societe', $socid);
+
+if (!$user->rights->cabinetmed->read) accessforbidden();
 
 $mesgarray=array();
 
@@ -648,5 +650,5 @@ if ($action == '' || $action == 'delete')
 
 $db->close();
 
-llxFooter('$Date: 2011/06/13 18:18:07 $ - $Revision: 1.16 $');
+llxFooter('$Date: 2011/06/13 22:24:23 $ - $Revision: 1.17 $');
 ?>

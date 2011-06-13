@@ -26,7 +26,7 @@
  *      \file       htdocs/includes/modules/modCabinetMed.class.php
  *      \ingroup    cabinetmed
  *      \brief      Description and activation file for module CabinetMed
- *      \version    $Id: modCabinetMed.class.php,v 1.38 2011/06/13 18:18:07 eldy Exp $
+ *      \version    $Id: modCabinetMed.class.php,v 1.39 2011/06/13 22:24:23 eldy Exp $
  */
 include_once(DOL_DOCUMENT_ROOT ."/includes/modules/DolibarrModules.class.php");
 
@@ -186,13 +186,19 @@ class modCabinetMed extends DolibarrModules
 
         // Add here list of permission defined by an id, a label, a boolean and two constant strings.
         // Example:
-        // $this->rights[$r][0] = 2000;                 // Permission id (must not be already used)
-        // $this->rights[$r][1] = 'Permision label';    // Permission label
-        // $this->rights[$r][3] = 1;                    // Permission by default for new user (0/1)
-        // $this->rights[$r][4] = 'level1';             // In php code, permission will be checked by test if ($user->rights->permkey->level1->level2)
-        // $this->rights[$r][5] = 'level2';             // In php code, permission will be checked by test if ($user->rights->permkey->level1->level2)
-        // $r++;
+        $this->rights[$r][0] = 100700;               // Permission id (must not be already used)
+        $this->rights[$r][1] = 'Read patient outcomes';      // Permission label
+        $this->rights[$r][3] = 0;                    // Permission by default for new user (0/1)
+        $this->rights[$r][4] = 'read';               // In php code, permission will be checked by test if ($user->rights->permkey->level1->level2)
+        $this->rights[$r][5] = '';                   // In php code, permission will be checked by test if ($user->rights->permkey->level1->level2)
+        $r++;
 
+        $this->rights[$r][0] = 100701;               // Permission id (must not be already used)
+        $this->rights[$r][1] = 'Create/Modify patient outcomes';      // Permission label
+        $this->rights[$r][3] = 0;                    // Permission by default for new user (0/1)
+        $this->rights[$r][4] = 'write';              // In php code, permission will be checked by test if ($user->rights->permkey->level1->level2)
+        $this->rights[$r][5] = '';                   // In php code, permission will be checked by test if ($user->rights->permkey->level1->level2)
+        $r++;
 
         // Main menu entries
         $this->menus = array();         // List of menus to add

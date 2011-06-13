@@ -23,7 +23,7 @@
  *   \file       htdocs/cabinetmed/traitetallergies.php
  *   \brief      Tab for antecedants
  *   \ingroup    societe
- *   \version    $Id: traitetallergies.php,v 1.9 2011/05/28 17:31:29 eldy Exp $
+ *   \version    $Id: traitetallergies.php,v 1.10 2011/06/13 22:24:23 eldy Exp $
  */
 
 $res=0;
@@ -46,6 +46,8 @@ if (empty($action)) $action='edit';
 $socid = GETPOST('socid');
 if ($user->societe_id) $socid=$user->societe_id;
 $result = restrictedArea($user, 'societe', $socid);
+
+if (!$user->rights->cabinetmed->read) accessforbidden();
 
 
 /*
@@ -245,5 +247,5 @@ if ($mesg) dol_htmloutput_mesg($mesg);
 
 $db->close();
 
-llxFooter('$Date: 2011/05/28 17:31:29 $ - $Revision: 1.9 $');
+llxFooter('$Date: 2011/06/13 22:24:23 $ - $Revision: 1.10 $');
 ?>
