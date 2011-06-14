@@ -1,6 +1,6 @@
 <?php
 /* Copyright (C) 2003-2006 Rodolphe Quiedeville <rodolphe@quiedeville.org>
- * Copyright (c) 2004-2010 Laurent Destailleur  <eldy@users.sourceforge.net>
+ * Copyright (c) 2004-2011 Laurent Destailleur  <eldy@users.sourceforge.net>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,8 +20,8 @@
 /**
  *  \file       htdocs/cabinetmed/stats/index.php
  *  \ingroup    facture
- *  \brief      Page des stats factures
- *  \version    $Id: index.php,v 1.2 2011/06/13 22:24:23 eldy Exp $
+ *  \brief      Page of patient outcomes statistics
+ *  \version    $Id: index.php,v 1.3 2011/06/14 23:39:01 eldy Exp $
  */
 
 
@@ -155,11 +155,12 @@ print '<td align="center" valign="top">';
 print '<form name="stats" method="POST" action="'.$_SERVER["PHP_SELF"].'">';
 print '<table class="border" width="100%">';
 print '<tr><td class="liste_titre" colspan="2">'.$langs->trans("Filter").'</td></tr>';
-print '<tr><td>'.$langs->trans("ThirdParty").'</td><td>';
+/*print '<tr><td>'.$langs->trans("ThirdParty").'</td><td>';
 if ($mode == 'customer') $filter='s.client in (1,2,3)';
 if ($mode == 'supplier') $filter='s.fournisseur = 1';
 print $form->select_company($socid,'socid',$filter,1);
 print '</td></tr>';
+*/
 print '<tr><td>'.$langs->trans("User").'</td><td>';
 print $form->select_users($userid,'userid',1);
 print '</td></tr>';
@@ -226,5 +227,5 @@ print '</td></tr></table>';
 
 print '</td></tr></table>';
 
-llxFooter('$Date: 2011/06/13 22:24:23 $ - $Revision: 1.2 $');
+llxFooter('$Date: 2011/06/14 23:39:01 $ - $Revision: 1.3 $');
 ?>
