@@ -20,7 +20,7 @@
  *      \file       htdocs/cabinetmed/class/cabinetmedcons.class.php
  *      \ingroup    cabinetmed
  *      \brief      This file is an example for a CRUD class file (Create/Read/Update/Delete)
- *		\version    $Id: cabinetmedcons.class.php,v 1.14 2011/06/13 19:30:29 eldy Exp $
+ *		\version    $Id: cabinetmedcons.class.php,v 1.15 2011/06/14 23:14:43 eldy Exp $
  *		\remarks	Initialy built by build_class_from_table on 2011-02-02 22:30
  */
 
@@ -341,7 +341,7 @@ class CabinetmedCons extends CommonObject
 		if (isset($this->fk_soc)) $this->fk_soc=trim($this->fk_soc);
 		if (isset($this->typepriseencharge)) $this->typepriseencharge=trim($this->typepriseencharge);
 		if (isset($this->motifconsprinc)) $this->motifconsprinc=trim($this->motifconsprinc);
-		if (isset($this->diaglesprinc)) $this->diaglesprinc=trim($this->diaglesprins);
+		if (isset($this->diaglesprinc)) $this->diaglesprinc=trim($this->diaglesprinc);
 		if (isset($this->motifconssec)) $this->motifconssec=trim($this->motifconssec);
 		if (isset($this->diaglessec)) $this->diaglessec=trim($this->diaglessec);
 		if (isset($this->hdm)) $this->hdm=trim($this->hdm);

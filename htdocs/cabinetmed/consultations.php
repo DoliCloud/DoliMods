@@ -20,7 +20,7 @@
  *   \file       htdocs/cabinetmed/consultations.php
  *   \brief      Tab for consultations
  *   \ingroup    cabinetmed
- *   \version    $Id: consultations.php,v 1.36 2011/06/13 22:24:23 eldy Exp $
+ *   \version    $Id: consultations.php,v 1.37 2011/06/14 23:14:43 eldy Exp $
  */
 
 $res=0;
@@ -138,8 +138,8 @@ if ($action == 'add' || $action == 'update')
         if (
         price2num($consult->montant_carte,'MT') != price2num($_POST["montant_carte"],'MT') ||
         price2num($consult->montant_cheque,'MT') != price2num($_POST["montant_cheque"],'MT') ||
-        price2num($consult->montant_tiers,'MT') != price2num($_POST["montant_tiers"],'MT') ||
         price2num($consult->montant_espece,'MT') != price2num($_POST["montant_espece"],'MT') ||
+        price2num($consult->montant_tiers,'MT') != price2num($_POST["montant_tiers"],'MT') ||
         $consult->banque != trim($_POST["banque"]) ||
         $consult->num_cheque != trim($_POST["num_cheque"]) ||
         $consult->bank_account_id != $banque
@@ -151,12 +151,13 @@ if ($action == 'add' || $action == 'update')
 
         unset($consult->montant_carte);
         unset($consult->montant_cheque);
-        unset($consult->montant_tiers);
         unset($consult->montant_espece);
+        unset($consult->montant_tiers);
         if (GETPOST("montant_cheque") != '') $consult->montant_cheque=price2num($_POST["montant_cheque"]);
         if (GETPOST("montant_espece") != '') $consult->montant_espece=price2num($_POST["montant_espece"]);
         if (GETPOST("montant_carte") != '')  $consult->montant_carte=price2num($_POST["montant_carte"]);
         if (GETPOST("montant_tiers") != '')  $consult->montant_tiers=price2num($_POST["montant_tiers"]);
+
         $consult->banque=trim($_POST["banque"]);
         $consult->num_cheque=trim($_POST["num_cheque"]);
         $consult->typepriseencharge=$_POST["typepriseencharge"];
@@ -173,12 +174,20 @@ if ($action == 'add' || $action == 'update')
         $consult->infiltration=trim($_POST["infiltration"]);
         $consult->codageccam=trim($_POST["codageccam"]);
 
+        //print "X".$_POST["montant_cheque"].'-'.$_POST["montant_espece"].'-'.$_POST["montant_carte"].'-'.$_POST["montant_tiers"]."Z";
         $nbnotempty=0;
-        if (! empty($consult->montant_cheque)) $nbnotempty++;
-        if (! empty($consult->montant_espece)) $nbnotempty++;
-        if (! empty($consult->montant_carte))  $nbnotempty++;
-        if (! empty($consult->montant_tiers))  $nbnotempty++;
+        if (trim($_POST["montant_cheque"])!='') $nbnotempty++;
+        if (trim($_POST["montant_espece"])!='') $nbnotempty++;
+        if (trim($_POST["montant_carte"])!='')  $nbnotempty++;
+        if (trim($_POST["montant_tiers"])!='')  $nbnotempty++;
         if ($nbnotempty==0)
+        {
+            $error++;
+            $mesgarray[]=$langs->trans("ErrorFieldRequired",$langs->transnoentities("Amount"));
+        }
+        if ((trim($_POST["montant_cheque"])!='' && price2num($_POST["montant_cheque"]) == 0)
+        || (trim($_POST["montant_espece"])!='' && price2num($_POST["montant_espece"]) == 0)
+        || (trim($_POST["montant_carte"])!='' && price2num($_POST["montant_carte"]) == 0))
         {
             $error++;
             $mesgarray[]=$langs->trans("ErrorFieldRequired",$langs->transnoentities("Amount"));
@@ -188,7 +197,7 @@ if ($action == 'add' || $action == 'update')
             $error++;
             $mesgarray[]=$langs->trans("OnlyOneFieldIsPossible");
         }
-        if ($consult->montant_cheque && empty($consult->banque))
+        if (trim($_POST["montant_cheque"])!='' && empty($consult->banque))
         {
             $error++;
             $mesgarray[]=$langs->trans("ErrorFieldRequired",$langs->transnoentities("ChequeBank"));
@@ -953,31 +962,31 @@ if ($action == '' || $action == 'delete')
                 print '<td>';
                 print price($obj->montant_cheque);
                 print '</td><td>';
-                print 'Cheque';
+                print $langs->trans("Cheque");
                 print '</td>';
             }
-            if (price2num($obj->montant_carte) > 0)
+            else if (price2num($obj->montant_carte) > 0)
             {
                 print '<td>';
                 print price($obj->montant_carte);
                 print '</td><td>';
-                print 'Carte';
+                print $langs->trans("CreditCard");
                 print '</td>';
             }
-            if (price2num($obj->montant_espece) > 0)
+            else if (price2num($obj->montant_espece) > 0)
             {
                 print '<td>';
                 print price($obj->montant_espece);
                 print '</td><td>';
-                print 'Espece';
+                print $langs->trans("Cash");
                 print '</td>';
             }
-            if (price2num($obj->montant_tiers) > 0)
+            else
             {
                 print '<td>';
                 print price($obj->montant_tiers);
                 print '</td><td>';
-                print 'Tiers';
+                print $langs->trans("Thirdparty");
                 print '</td>';
             }
             if ($conf->banque->enabled)
@@ -1016,5 +1025,5 @@ if ($action == '' || $action == 'delete')
 
 $db->close();
 
-llxFooter('$Date: 2011/06/13 22:24:23 $ - $Revision: 1.36 $');
+llxFooter('$Date: 2011/06/14 23:14:43 $ - $Revision: 1.37 $');
 ?>
