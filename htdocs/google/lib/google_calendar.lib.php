@@ -17,10 +17,13 @@
  * or see http://www.gnu.org/
  */
 
+$path = dol_buildpath('/google/inc/zendgdata');
+set_include_path(get_include_path() . PATH_SEPARATOR . $path);
+
 /**
  * @see Zend_Loader
  */
-require_once('../inc/zendgdata/Zend/Loader.php');
+require_once('Zend/Loader.php');
 
 /**
  * @see Zend_Gdata
@@ -249,15 +252,17 @@ function outputCalendarList($client)
  * @param  Zend_Http_Client $client The authenticated client object
  * @return void
  */
-function outputCalendar($client)
+function outputCalendar($client, $user='default', $visibility='private', $projection='full')
 {
 	$gdataCal = new Zend_Gdata_Calendar($client);
 	$query = $gdataCal->newEventQuery();
-	$query->setUser('default');
-	$query->setVisibility('private');
-	$query->setProjection('full');
+	
+	$query->setUser($user);
+	$query->setVisibility($visibility);
+	$query->setProjection($projection);
 	$query->setOrderby('starttime');
-	$query->setFutureevents(true);
+	//$query->setFutureevents(true);
+	
 	$eventFeed = $gdataCal->getCalendarEventFeed($query);
 	// option 2
 	// $eventFeed = $gdataCal->getCalendarEventFeed($query->getQueryUrl());
