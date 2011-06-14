@@ -20,7 +20,7 @@
  *   \file       htdocs/cabinetmed/consultations.php
  *   \brief      Tab for consultations
  *   \ingroup    cabinetmed
- *   \version    $Id: consultations.php,v 1.37 2011/06/14 23:14:43 eldy Exp $
+ *   \version    $Id: consultations.php,v 1.38 2011/06/14 23:21:11 eldy Exp $
  */
 
 $res=0;
@@ -986,7 +986,7 @@ if ($action == '' || $action == 'delete')
                 print '<td>';
                 print price($obj->montant_tiers);
                 print '</td><td>';
-                print $langs->trans("Thirdparty");
+                print $langs->trans("PaymentTypeThirdParty");
                 print '</td>';
             }
             if ($conf->banque->enabled)
@@ -1025,5 +1025,5 @@ if ($action == '' || $action == 'delete')
 
 $db->close();
 
-llxFooter('$Date: 2011/06/14 23:14:43 $ - $Revision: 1.37 $');
+llxFooter('$Date: 2011/06/14 23:21:11 $ - $Revision: 1.38 $');
 ?>
