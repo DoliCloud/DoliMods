@@ -21,7 +21,7 @@
 /**
  *       \file        htdocs/compta/resultat/index.php
  *       \brief       Page reporting resultat
- *       \version     $Id: compta.php,v 1.3 2011/06/13 22:24:23 eldy Exp $
+ *       \version     $Id: compta.php,v 1.4 2011/06/15 00:38:18 eldy Exp $
  */
 
 
@@ -96,13 +96,13 @@ report_header($nom,$nomlink,$period,$periodlink,$description,$builddate,$exportl
 $subtotal_ht = 0;
 $subtotal_ttc = 0;
 $encaiss_chq = $encaiss_esp = $encaiss_tie = $encaiss_car = array();
-$sql  = "SELECT f.rowid, f.datecons, f.fk_user_creation, f.montant_cheque, f.montant_espece, f.montant_tiers, f.montant_carte";
+$sql  = "SELECT f.datecons, f.fk_user_creation, SUM(f.montant_cheque) as montant_cheque, SUM(f.montant_espece) as montant_espece, SUM(f.montant_tiers) as montant_tiers, SUM(f.montant_carte) as montant_carte";
 $sql.= " FROM ".MAIN_DB_PREFIX."cabinetmed_cons as f";
 $sql.= " WHERE 1 = 1";
 if ($search_sale) $sql.= " AND f.fk_user_creation = ".$search_sale;
 if ($socid) $sql.= " AND f.fk_soc = $socid";
-$sql.= " GROUP BY f.datecons";
-$sql.= " ORDER BY f.datecons, f.rowid";
+$sql.= " GROUP BY f.datecons, f.fk_user_creation";
+$sql.= " ORDER BY f.datecons";
 //print $sql;
 
 //print $sql;
@@ -168,7 +168,7 @@ print '<tr class="liste_titre"><td rowspan="2">'.$langs->trans("Month").'</td>';
 
 for ($annee = $year_start ; $annee <= $year_end ; $annee++)
 {
-	print '<td align="center" colspan="5">'.$annee.'</td>';
+	print '<td align="center" colspan="6">'.$annee.'</td>';
 }
 print '</tr>';
 print '<tr class="liste_titre">';
@@ -179,7 +179,8 @@ for ($annee = $year_start ; $annee <= $year_end ; $annee++)
     print '<td align="right">'.$langs->trans("PaymentTypeShortCB").'</td>';
 	print '<td align="right">'.$langs->trans("PaymentTypeShortLIQ").'</td>';
     print '<td align="right">'.$langs->trans("PaymentTypeThirdParty").'</td>';
-    print '<td class="liste_total" align="right">'.$langs->trans("Total").'</td>';
+    print '<td class="liste_total" align="right"><strong>'.$langs->trans("Total").'</strong></td>';
+    print '<td width="6px"></td>';
 }
 print '</tr>';
 
@@ -249,12 +250,13 @@ for ($mois = 1+$nb_mois_decalage ; $mois <= 12+$nb_mois_decalage ; $mois++)
             $totentrees_tie[$annee]+=$encaiss_tie[$case];
         }
         print "</td>";
-        print '<td align="right" class="liste_total">';
+        print '<td align="right" class="liste_total"><strong>';
         //print '<a href="clientfourn.php?year='.$annee_decalage.'&month='.$mois_modulo.'">';
         print price($encaiss_chq[$case]+$encaiss_esp[$case]+$encaiss_car[$case]+$encaiss_tie[$case]);
         //print '</a>';
         $totentrees[$annee]+=$encaiss_tie[$case];
-        print "</td>";
+        print "</strong></td>";
+        print '<td style="border-right: 1px solid #BBBBBB;"></td>';
 	}
 
 	print '</tr>';
@@ -314,17 +316,18 @@ for ($mois = 1+$nb_mois_decalage ; $mois <= 12+$nb_mois_decalage ; $mois++)
                 //$totentrees_tie[$annee]+=$encaiss_tie[$case];
             }
             print "</td>";
-            print '<td align="right" class="liste_total">';
+            print '<td align="right" class="liste_total"><strong>';
             //print '<a href="clientfourn.php?year='.$annee_decalage.'&month='.$mois_modulo.'">';
             print price($encaiss_chq[$case2]+$encaiss_esp[$case2]+$encaiss_car[$case2]+$encaiss_tie[$case2]);
             //print '</a>';
             //$totentrees[$annee]+=$encaiss_tie[$case2];
-            print "</td>";
+            print "</strong></td>";
+            print '<td style="border-right: 1px solid #BBBBBB;"></td>';
         }
         print '</tr>';
 	}
 
-	print '<tr class="liste_titre" style="height: 4px !important;"><td colspan="16"></td></tr>';
+	print '<tr class="liste_titre" style="height: 4px !important;"><td colspan="19"></td></tr>';
 }
 
 // Total
@@ -339,7 +342,8 @@ for ($annee = $year_start ; $annee <= $year_end ; $annee++)
     print '<td class="liste_total" align="right">'.(isset($totentrees_car[$annee])?price($totentrees_car[$annee]):'&nbsp;').'</td>';
 	print '<td class="liste_total" align="right">'.(isset($totentrees_esp[$annee])?price($totentrees_esp[$annee]):'&nbsp;').'</td>';
     print '<td class="liste_total" align="right">'.(isset($totentrees_tie[$annee])?price($totentrees_tie[$annee]):'&nbsp;').'</td>';
-    print '<td class="liste_total" align="right">'.price($totentrees_chq[$annee]+$totentrees_esp[$annee]+$totentrees_car[$annee]+$totentrees_tie[$annee]).'</td>';
+    print '<td class="liste_total" align="right"><strong>'.price($totentrees_chq[$annee]+$totentrees_esp[$annee]+$totentrees_car[$annee]+$totentrees_tie[$annee]).'</strong></td>';
+    print '<td style="border-right: 1px solid #BBBBBB;"></td>';
 }
 print "</tr>\n";
 
@@ -347,6 +351,6 @@ print "</table>";
 
 $db->close();
 
-llxFooter('$Date: 2011/06/13 22:24:23 $ - $Revision: 1.3 $');
+llxFooter('$Date: 2011/06/15 00:38:18 $ - $Revision: 1.4 $');
 
 ?>
