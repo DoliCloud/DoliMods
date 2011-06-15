@@ -21,7 +21,7 @@
  *      \file       cabinetmed/class/cabinetmedexambio.class.php
  *      \ingroup    cabinetmed
  *      \brief      This file is an example for a CRUD class file (Create/Read/Update/Delete)
- *		\version    $Id: cabinetmedexambio.class.php,v 1.3 2011/06/13 18:18:08 eldy Exp $
+ *		\version    $Id: cabinetmedexambio.class.php,v 1.4 2011/06/15 08:04:17 eldy Exp $
  *		\author		Put author name here
  *		\remarks	Initialy built by build_class_from_table on 2011-04-13 13:44
  */
@@ -134,7 +134,7 @@ class CabinetmedExamBio // extends CommonObject
 		$sql.= "suivisa_dpe,";
 		$sql.= "suivisa_dpa,";
 		$sql.= "suivisa_rno,";
-		$sql.= "suivisa_dma";
+		$sql.= "suivisa_dma,";
 		$sql.= "suivisa_basdai";
         $sql.= ") VALUES (";
 		$sql.= " ".(! isset($this->fk_soc)?'NULL':"'".$this->fk_soc."'").",";
@@ -324,7 +324,7 @@ class CabinetmedExamBio // extends CommonObject
 		$sql.= " suivipr_ag=".(isset($this->suivipr_ag) && $this->suivipr_ag!=''?$this->suivipr_ag:"null").",";
 		$sql.= " suivipr_vs=".(isset($this->suivipr_vs) && $this->suivipr_vs!=''?$this->suivipr_vs:"null").",";
 		$sql.= " suivipr_eva=".(isset($this->suivipr_eva) && $this->suivipr_eva!=''?$this->suivipr_eva:"null").",";
-        $sql.= " suivipr_das28=".(isset($this->suivipr_das28) && $this->suivipr_das28!=''?$this->suivipr_das28:"null").",";
+        $sql.= " suivipr_das28=".(!empty($this->suivipr_das28) && $this->suivipr_das28!=''?$this->suivipr_das28:"null").",";
 		$sql.= " suivipr_err=".(isset($this->suivipr_err) && $this->suivipr_err!=''?$this->suivipr_err:"null").",";
         $sql.= " suivisa_fat=".(isset($this->suivisa_fat) && $this->suivisa_fat!=''?$this->suivisa_fat:"null").",";
 		$sql.= " suivisa_dax=".(isset($this->suivisa_dax) && $this->suivisa_dax!=''?$this->suivisa_dax:"null").",";
@@ -332,7 +332,7 @@ class CabinetmedExamBio // extends CommonObject
 		$sql.= " suivisa_dpa=".(isset($this->suivisa_dpa) && $this->suivisa_dpa!=''?$this->suivisa_dpa:"null").",";
 		$sql.= " suivisa_rno=".(isset($this->suivisa_rno) && $this->suivisa_rno!=''?$this->suivisa_rno:"null").",";
 		$sql.= " suivisa_dma=".(isset($this->suivisa_dma) && $this->suivisa_dma!=''?$this->suivisa_dma:"null").",";
-		$sql.= " suivisa_basdai=".(isset($this->suivisa_basdai)?$this->suivisa_basdai:"null").",";
+		$sql.= " suivisa_basdai=".(!empty($this->suivisa_basdai)?$this->suivisa_basdai:"null").",";
 		$sql.= " tms=".(dol_strlen($this->tms)!=0 ? "'".$this->db->idate($this->tms)."'" : 'null')."";
         $sql.= " WHERE rowid=".$this->id;
 
