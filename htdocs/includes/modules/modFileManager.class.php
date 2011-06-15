@@ -1,5 +1,5 @@
 <?php
-/* Copyright (C) 2010 Laurent Destailleur  <eldy@users.sourceforge.net>
+/* Copyright (C) 2011 Laurent Destailleur  <eldy@users.sourceforge.net>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@
 /**
  *		\defgroup   FileManager     Module FileManager
  *      \brief      Module to get a file browser and manager into Dolibarr
- *		\brief		$Id: modFileManager.class.php,v 1.10 2011/01/22 10:18:00 eldy Exp $
+ *		\brief		$Id: modFileManager.class.php,v 1.11 2011/06/15 11:35:08 eldy Exp $
  */
 
 /**
@@ -108,10 +108,10 @@ class modFileManager extends DolibarrModules
 		$r++;
 
         $this->rights[$r][0] = 101202;
-        $this->rights[$r][1] = 'Delete directories or files from the file manager';
+        $this->rights[$r][1] = 'Can manage directories or files (upload/edit/delete) from the file manager';
         $this->rights[$r][2] = 'w';
         $this->rights[$r][3] = 0;
-        $this->rights[$r][4] = 'delete';
+        $this->rights[$r][4] = 'create';
         $this->rights[$r][5] = '';
         $r++;
 

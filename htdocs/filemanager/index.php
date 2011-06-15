@@ -20,7 +20,7 @@
  *   	\file       htdocs/filemanager/index.php
  *		\ingroup    filemanager
  *		\brief      This is home page of filemanager module
- *		\version    $Id: index.php,v 1.29 2011/06/15 10:37:13 eldy Exp $
+ *		\version    $Id: index.php,v 1.30 2011/06/15 11:35:03 eldy Exp $
  */
 
 if (! defined('REQUIRE_JQUERY_LAYOUT'))  define('REQUIRE_JQUERY_LAYOUT','1');
@@ -46,9 +46,9 @@ $langs->load("ecm");
 $langs->load("other");
 
 // Get parameters
-$myparam = isset($_GET["myparam"])?$_GET["myparam"]:'';
-$openeddir = GETPOST('openeddir');
-$id=$_GET["id"];
+$myparam=GETPOST("myparam");
+$openeddir=GETPOST('openeddir');
+$id=GETPOST("id");
 
 // Check permissions
 if (! $user->rights->filemanager->read)
@@ -66,7 +66,7 @@ if (! $user->rights->filemanager->read)
 
 if (GETPOST('action')=='deletefile')
 {
-    if (empty($user->rights->filemanager->delete))
+    if (empty($user->rights->filemanager->create))
     {
         $mesg='<div class="error">'.$langs->trans("NotEnoughPermissions").'</div>';
     }
@@ -93,7 +93,7 @@ if (GETPOST('action')=='deletefile')
 
 if (GETPOST('action')=='deletedir')
 {
-    if (empty($user->rights->filemanager->delete))
+    if (empty($user->rights->filemanager->create))
     {
         $mesg='<div class="error">'.$langs->trans("NotEnoughPermissions").'</div>';
     }
@@ -466,33 +466,40 @@ if ($filemanagerroots->rootpath)
         <?php } else { ?>
         jQuery("#anewdir").attr('href','#').animate({ opacity: 1 }, "fast");
         <?php } ?>
-        jQuery("#anewdir").click(function() {
-            newdir();
-        });
-        jQuery("#adeletedir").removeAttr('href').animate({ opacity: 0.2 }, "fast");
-        jQuery("#adeletedir").click(function() {
-            deletedir();
-        });
         <?php if (! $filemanagerroots->rootpath) { ?>
         jQuery("#anewfile").removeAttr('href').animate({ opacity: 0.2 }, "fast");
         <?php } else { ?>
         jQuery("#anewfile").attr('href','#').animate({ opacity: 1 }, "fast");
         <?php } ?>
+        jQuery("#adeletedir").removeAttr('href').animate({ opacity: 0.2 }, "fast");
+        jQuery("#asavefile").removeAttr('href').animate({ opacity: 0.2 }, "fast");
+        jQuery("#aloadandeditcontent").removeAttr('href').animate({ opacity: 0.2 }, "fast");
+        jQuery("#adeletefile").removeAttr('href').animate({ opacity: 0.2 }, "fast");
+        <?php
+        if ($user->rights->filemanager->create)
+        {
+        ?>
+        jQuery("#anewdir").click(function() {
+            newdir();
+        });
+        jQuery("#adeletedir").click(function() {
+            deletedir();
+        });
         jQuery("#anewfile").click(function() {
             newfile();
         });
-        jQuery("#asavefile").removeAttr('href').animate({ opacity: 0.2 }, "fast");
         jQuery("#asavefile").click(function() {
             savefile();
         });
-        jQuery("#aloadandeditcontent").removeAttr('href').animate({ opacity: 0.2 }, "fast");
         jQuery("#aloadandeditcontent").click(function() {
         	loadandeditcontent();
         });
-        jQuery("#adeletefile").removeAttr('href').animate({ opacity: 0.2 }, "fast");
         jQuery("#adeletefile").click(function() {
         	deletefile();
         });
+        <?php
+        }
+        ?>
     });
 
 

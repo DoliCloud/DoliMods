@@ -24,7 +24,7 @@
 /**
  *	\file       htdocs/filemanager/ajaxshowpreview.php
  *  \brief      Service to return a HTML preview of a file
- *  \version    $Id: ajaxshowpreview.php,v 1.15 2011/01/16 14:38:45 eldy Exp $
+ *  \version    $Id: ajaxshowpreview.php,v 1.16 2011/06/15 11:35:03 eldy Exp $
  *  \remarks    Call of this service is made with URL:
  * 				ajaxpreview.php?action=preview&modulepart=repfichierconcerne&file=pathrelatifdufichier
  */
@@ -48,11 +48,12 @@ dol_include_once("/filemanager/class/filemanagerroots.class.php");
 include_once(DOL_DOCUMENT_ROOT.'/lib/files.lib.php');
 
 // Do not use urldecode here ($_GET and $_REQUEST are already decoded by PHP).
-$action = isset($_GET["action"])?$_GET["action"]:'';
-$original_file = isset($_GET["file"])?$_GET["file"]:'';
-$modulepart = isset($_GET["modulepart"])?$_GET["modulepart"]:'';
-$urlsource = isset($_GET["urlsource"])?$_GET["urlsource"]:'';
-$rootpath = isset($_GET["rootpath"])?$_GET["rootpath"]:'';
+$id=GETPOST('id')?GETPOST('id'):(is_numeric(GETPOST('rootpath'))?GETPOST('rootpath'):'');
+$action=GETPOST("action");
+$original_file=GETPOST("file");
+$modulepart=GETPOST("modulepart");
+$urlsource=GETPOST("urlsource");
+$rootpath=GETPOST("rootpath");
 
 $langs->load("filemanager@filemanager");
 
@@ -221,7 +222,7 @@ print '<hr>';
 if ($type == 'directory')
 {
     print '<table class="nobordernopadding">';
-    print '<tr><td>'.$langs->trans("Directory").':</td><td> <b><span class="fmvalue">'.$original_file.'</span></b></td></tr>';
+    print '<tr><td>'.$langs->trans("Directory").':</td><td>&nbsp; <b><span class="fmvalue">'.$original_file.'</span></b></td></tr>';
 
     //print $langs->trans("FullPath").': '.$original_file_osencoded.'<br>';
     //print $langs->trans("Mime-type").': '.$type.'<br>';
@@ -231,8 +232,8 @@ if ($type == 'directory')
     //print $langs->trans("Owner").": ".$info['udi']."<br>\n";
     //print $langs->trans("Group").": ".$info['gdi']."<br>\n";
     //print $langs->trans("Size").": ".dol_print_size($info['size'])."<br>\n";
-    print '<tr><td>'.$langs->trans("DateLastAccess").':</td><td> <span class="fmvalue">'.dol_print_date($info['atime'],'%Y-%m-%d %H:%M:%S')."</span></td></tr>\n";
-    print '<tr><td>'.$langs->trans("DateLastChange").':</td><td> <span class="fmvalue">'.dol_print_date($info['mtime'],'%Y-%m-%d %H:%M:%S')."</span></td></tr>\n";
+    print '<tr><td>'.$langs->trans("DateLastAccess").':</td><td>&nbsp; <span class="fmvalue">'.dol_print_date($info['atime'],'%Y-%m-%d %H:%M:%S')."</span></td></tr>\n";
+    print '<tr><td>'.$langs->trans("DateLastChange").':</td><td>&nbsp; <span class="fmvalue">'.dol_print_date($info['mtime'],'%Y-%m-%d %H:%M:%S')."</span></td></tr>\n";
     //print $langs->trans("Ctime").": ".$info['ctime']."<br>\n";
     print '</table>'."\n";
 
@@ -259,25 +260,27 @@ if ($type == 'directory')
     print '</ul></div>'."\n";
 }
 else {
-    print '<table class="nobordernopadding">';
-    print '<tr><td>'.$langs->trans("File").':</td><td> <b><span class="fmvalue">'.$original_file.'</span></b></td></tr>';
-    print '<tr><td>'.$langs->trans("Mime-type").':</td><td> <span class="fmvalue">'.$type.'</span></td></tr>';
+    print '<table class="nobordernopadding" width="100%">';
+    print '<tr><td>'.$langs->trans("File").':</td><td>&nbsp; <b><span class="fmvalue">'.$original_file.'</span></b></td></tr>';
+    print '<tr><td>'.$langs->trans("Mime-type").':</td><td>&nbsp; <span class="fmvalue">'.$type.'</span></td>';
+    print '<td align="right"><a href="'.dol_buildpath('/filemanager/document.php',1).'?modulepart=filemanager&id='.$id.'&rootpath='.$rootpath.'&file='.urlencode($original_file).'">'.$langs->trans("Download").'</a></td>';
+    print '</tr>';
 
     $info=stat($original_file_osencoded);
     //print '<br>'."\n";
     //print $langs->trans("Owner").": ".$info['udi']."<br>\n";
     //print $langs->trans("Group").": ".$info['gdi']."<br>\n";
-    print '<tr><td>'.$langs->trans("Size").':</td><td> <span class="fmvalue">'.dol_print_size($info['size'])."</span></td></tr>\n";
-    print '<tr><td>'.$langs->trans("DateLastAccess").':</td><td> <span class="fmvalue">'.dol_print_date($info['atime'],'%Y-%m-%d %H:%M:%S')."</span></td></tr>\n";
-    print '<tr><td>'.$langs->trans("DateLastChange").':</td><td> <span class="fmvalue">'.dol_print_date($info['mtime'],'%Y-%m-%d %H:%M:%S')."</span></td></tr>\n";
+    print '<tr><td>'.$langs->trans("Size").':</td><td>&nbsp; <span class="fmvalue">'.dol_print_size($info['size'])."</span></td></tr>\n";
+    print '<tr><td>'.$langs->trans("DateLastAccess").':</td><td>&nbsp; <span class="fmvalue">'.dol_print_date($info['atime'],'%Y-%m-%d %H:%M:%S')."</span></td></tr>\n";
+    print '<tr><td>'.$langs->trans("DateLastChange").':</td><td>&nbsp; <span class="fmvalue">'.dol_print_date($info['mtime'],'%Y-%m-%d %H:%M:%S')."</span></td></tr>\n";
     //print $langs->trans("Ctime").": ".$info['ctime']."<br>\n";
     $sizearray=array();
     if (preg_match('/image/i',$type))
     {
         require_once(DOL_DOCUMENT_ROOT.'/lib/images.lib.php');
         $sizearray=dol_getImageSize($original_file_osencoded);
-        print '<tr><td>'.$langs->trans("Width").':</td><td> <span class="fmvalue">'.$sizearray['width'].'px</span></td></tr>';
-        print '<tr><td>'.$langs->trans("Height").':</td><td> <span class="fmvalue">'.$sizearray['height'].'px</span></td></tr>';
+        print '<tr><td>'.$langs->trans("Width").':</td><td>&nbsp; <span class="fmvalue">'.$sizearray['width'].'px</span></td></tr>';
+        print '<tr><td>'.$langs->trans("Height").':</td><td>&nbsp; <span class="fmvalue">'.$sizearray['height'].'px</span></td></tr>';
     }
     print '</table>'."\n";
 

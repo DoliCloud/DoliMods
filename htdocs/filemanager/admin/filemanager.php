@@ -1,5 +1,5 @@
 <?php
-/* Copyright (C) 2010 Laurent Destailleur  <eldy@users.sourceforge.net>
+/* Copyright (C) 2010-2011 Laurent Destailleur  <eldy@users.sourceforge.net>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,7 +20,7 @@
  *	\file       htdocs/filemanage/admin/filemanager.php
  *	\ingroup    filemanager
  *	\brief      Setup page for filemanager module
- *	\version    $Id: filemanager.php,v 1.6 2011/03/29 23:17:21 eldy Exp $
+ *	\version    $Id: filemanager.php,v 1.7 2011/06/15 11:35:08 eldy Exp $
  */
 
 $res=0;
@@ -166,17 +166,17 @@ print '<input type="hidden" name="action" value="set">';
 
 print '<table class="noborder" width="100%">';
 print '<tr class="liste_titre">';
-print '<td>'.$langs->trans("Add").'</td><td>'.$langs->trans("Value").'</td>';
+print '<td width="40%">'.$langs->trans("Add").'</td><td>'.$langs->trans("Value").'</td>';
 print '<td>'.$langs->trans("Example").'</td>';
 print "</tr>\n";
 
 $var=!$var;
-print '<tr '.$bc[$var].'><td width="50%">'.$langs->trans("LabelForRootFileManager").'</td>';
+print '<tr '.$bc[$var].'><td>'.$langs->trans("LabelForRootFileManager").'</td>';
 print '<td>';
 print '<input size="12" type="text" name="FILEMANAGER_ROOT_LABEL" value="'.$_POST["FILEMANAGER_ROOT_LABEL"].'">';
 print '</td><td>MyRoot</td></tr>';
 $var=!$var;
-print '<tr '.$bc[$var].'><td width="50%">'.$langs->trans("PathForRootFileManager").'</td>';
+print '<tr '.$bc[$var].'><td>'.$langs->trans("PathForRootFileManager").'</td>';
 print '<td>';
 print '<input size="50" type="text" name="FILEMANAGER_ROOT_PATH" value="'.$_POST["FILEMANAGER_ROOT_PATH"].'">';
 print '</td><td>/home/mydir, c:/</td></tr>';
@@ -196,7 +196,7 @@ print_titre($langs->trans("ListForRootPath"));
 
 print '<table class="noborder" width="100%">';
 print '<tr class="liste_titre">';
-print '<td>'.$langs->trans("LabelForRootFileManager").'</td><td>'.$langs->trans("PathForRootFileManager").'</td>';
+print '<td width="40%">'.$langs->trans("LabelForRootFileManager").'</td><td>'.$langs->trans("PathForRootFileManager").'</td>';
 print '<td align="right">&nbsp;</td>';
 print "</tr>\n";
 
@@ -233,5 +233,5 @@ print '<br>';
 print info_admin($langs->trans("NoteOnFileManagerPathLocation")).'<br>';
 
 
-llxFooter('$Date: 2011/03/29 23:17:21 $ - $Revision: 1.6 $');
+llxFooter('$Date: 2011/06/15 11:35:08 $ - $Revision: 1.7 $');
 ?>

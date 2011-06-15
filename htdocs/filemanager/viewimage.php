@@ -23,7 +23,7 @@
  *		\file       htdocs/viewimage.php
  *		\brief      Wrapper permettant l'affichage de fichiers images Dolibarr
  *      \remarks    L'appel est viewimage.php?file=pathrelatifdufichier&modulepart=repfichierconcerne
- *		\version    $Id: viewimage.php,v 1.3 2011/01/16 14:26:43 eldy Exp $
+ *		\version    $Id: viewimage.php,v 1.4 2011/06/15 11:35:03 eldy Exp $
  */
 
 // Do not use urldecode here ($_GET and $_REQUEST are already decoded by PHP).
@@ -57,6 +57,23 @@ if (! $res) die("Include of main fails");
 dol_include_once("/filemanager/class/filemanagerroots.class.php");
 include_once(DOL_DOCUMENT_ROOT.'/lib/files.lib.php');
 
+
+// Security check
+if (empty($modulepart)) accessforbidden('Bad value for parameter modulepart');
+
+
+/*
+ * Actions
+ */
+
+// None
+
+
+
+/*
+ * View
+ */
+
 // Define mime type
 $type = 'application/octet-stream';
 if (! empty($_GET["type"])) $type=$_GET["type"];
@@ -76,6 +93,7 @@ if (! empty($rootpath) && is_numeric($rootpath))
 }
 
 // Security checks
+if (empty($modulepart)) accessforbidden('Bad value for parameter modulepart');
 $accessallowed=0;
 $sqlprotectagainstexternals='';
 if ($modulepart)
