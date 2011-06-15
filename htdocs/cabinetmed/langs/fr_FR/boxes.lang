@@ -43,6 +43,7 @@ BoxTitleSalesTurnover=Le chiffre d'affaire réalisé
 BoxTitleTotalUnpaidCustomerBills=Impayés patients
 BoxTitleTotalUnpaidSuppliersBills=Impayés fournisseurs
 BoxTitleLastModifiedContacts=Les %s derniers correspondants modifiés 
+BoxTitleLastModifiedMembers=Les %s derniers adhérents modifiés 
 BoxMyLastBookmarks=Mes %s derniers marque-pages
 FailedToRefreshDataInfoNotUpToDate=Échec du rafraichissement du flux RSS. Date du dernier rafraichissement: %s
 LastRefreshDate=Date dernier rafraichissement
