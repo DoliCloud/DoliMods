@@ -21,7 +21,7 @@
  *      \file       cabinetmed/class/cabinetmedexambio.class.php
  *      \ingroup    cabinetmed
  *      \brief      This file is an example for a CRUD class file (Create/Read/Update/Delete)
- *		\version    $Id: cabinetmedexambio.class.php,v 1.4 2011/06/15 08:04:17 eldy Exp $
+ *		\version    $Id: cabinetmedexambio.class.php,v 1.5 2011/06/15 08:11:03 eldy Exp $
  *		\author		Put author name here
  *		\remarks	Initialy built by build_class_from_table on 2011-04-13 13:44
  */
@@ -146,7 +146,7 @@ class CabinetmedExamBio // extends CommonObject
 		$sql.= " ".(! isset($this->suivipr_ag) || $this->suivipr_ag==''?'NULL':"'".$this->suivipr_ag."'").",";
 		$sql.= " ".(! isset($this->suivipr_vs) || $this->suivipr_vs==''?'NULL':"'".$this->suivipr_vs."'").",";
 		$sql.= " ".(! isset($this->suivipr_eva) || $this->suivipr_eva==''?'NULL':"'".$this->suivipr_eva."'").",";
-        $sql.= " ".(! isset($this->suivipr_das28)?'NULL':"'".$this->suivipr_das28."'").",";
+        $sql.= " ".(! empty($this->suivipr_das28)?'NULL':"'".$this->suivipr_das28."'").",";
 		$sql.= " ".(! isset($this->suivipr_err) || $this->suivipr_err==''?'NULL':"'".$this->suivipr_err."'").",";
         $sql.= " ".(! isset($this->suivisa_fat) || $this->suivisa_fat==''?'NULL':"'".$this->suivisa_fat."'").",";
 		$sql.= " ".(! isset($this->suivisa_dax) || $this->suivisa_dax==''?'NULL':"'".$this->suivisa_dax."'").",";
@@ -154,7 +154,7 @@ class CabinetmedExamBio // extends CommonObject
 		$sql.= " ".(! isset($this->suivisa_dpa) || $this->suivisa_dpa==''?'NULL':"'".$this->suivisa_dpa."'").",";
 		$sql.= " ".(! isset($this->suivisa_rno) || $this->suivisa_rno==''?'NULL':"'".$this->suivisa_rno."'").",";
 		$sql.= " ".(! isset($this->suivisa_dma) || $this->suivisa_dma==''?'NULL':"'".$this->suivisa_dma."'").",";
-		$sql.= " ".(! isset($this->suivisa_basdai)?'NULL':"'".$this->suivisa_basdai."'");
+		$sql.= " ".(! empty($this->suivisa_basdai)?'NULL':"'".$this->suivisa_basdai."'");
 		$sql.= ")";
 
 		$this->db->begin();
