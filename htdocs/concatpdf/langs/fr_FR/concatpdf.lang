@@ -1,4 +1,5 @@
 # Dolibarr language file - fr_FR - concatpdf 
 CHARSET= UTF-8
 ConcatPdfSetup=Configuration du module concatPDF
-ConcatPDfTakeFileFrom=Le module ConcatPDF proposera de concatenner, aux factures PDF générées, tout fichier trouvé dans le répertoire <b>%s</b>
+ConcatPDfTakeFileFrom=Le module ConcatPDF permet de concatenner, aux factures PDF générées, tout fichier trouvé dans le répertoire:<br><b>%s</b>
+ConcatPDfPutFileManually=Les fichiers PDF peuvent y être placé manuellement avec votre gestionnaire de fichiers.

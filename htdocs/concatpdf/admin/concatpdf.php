@@ -20,7 +20,7 @@
  *	    \file       htdocs/concatpdf/admin/concatpdf.php
  *      \ingroup    cabinetmed
  *      \brief      Page to setup module ConcatPdf
- *		\version    $Id: concatpdf.php,v 1.1 2011/05/18 15:51:47 eldy Exp $
+ *		\version    $Id: concatpdf.php,v 1.2 2011/06/15 17:30:32 eldy Exp $
  */
 
 define('NOCSRFCHECK',1);
@@ -134,9 +134,11 @@ clearstatcache();
 
 
 print $langs->trans("ConcatPDfTakeFileFrom",$conf->concatpdf->dir_output.'/invoices');
+print '<br><br>';
 
+print $langs->trans("ConcatPDfPutFileManually");
 
 $db->close();
 
-llxFooter('$Date: 2011/05/18 15:51:47 $ - $Revision: 1.1 $');
+llxFooter('$Date: 2011/06/15 17:30:32 $ - $Revision: 1.2 $');
 ?>
