@@ -20,7 +20,7 @@
  *   	\file       htdocs/filemanager/index.php
  *		\ingroup    filemanager
  *		\brief      This is home page of filemanager module
- *		\version    $Id: index.php,v 1.28 2011/06/08 15:28:35 eldy Exp $
+ *		\version    $Id: index.php,v 1.29 2011/06/15 10:37:13 eldy Exp $
  */
 
 if (! defined('REQUIRE_JQUERY_LAYOUT'))  define('REQUIRE_JQUERY_LAYOUT','1');
@@ -80,7 +80,7 @@ if (GETPOST('action')=='deletefile')
         }
         else
         {
-            $result=dol_delete_file($filetodelete);
+            $result=dol_delete_file($filetodelete,0,1);
             if ($result) $mesg='<div class="ok">'.$langs->trans("FileWasRemoved",$filetodelete).'</div>';
             else
             {
@@ -107,7 +107,7 @@ if (GETPOST('action')=='deletedir')
         }
         else
         {
-            $result=dol_delete_dir($dirtodelete);
+            $result=dol_delete_dir($dirtodelete,1);
             if ($result) $mesg='<div class="ok">'.$langs->trans("DirWasRemoved",$dirtodelete).'</div>';
             else
             {
