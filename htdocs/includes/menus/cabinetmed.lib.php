@@ -21,7 +21,7 @@
 /**
  *  \file		htdocs/includes/menus/cabinetmed.lib.php
  *  \brief		Library for file cabinetmed menus
- *  \version	$Id: cabinetmed.lib.php,v 1.20 2011/06/13 19:30:29 eldy Exp $
+ *  \version	$Id: cabinetmed.lib.php,v 1.21 2011/06/15 00:16:38 eldy Exp $
  */
 
 
@@ -201,7 +201,7 @@ function print_cabinetmed_menu($db,$atarget,$type_user)
 
 	// Financial
 	if ($conf->compta->enabled || $conf->accounting->enabled
-	|| $conf->facture->enabled || $conf->deplacement->enabled)
+	|| $conf->facture->enabled || $conf->deplacement->enabled || $conf->cabinetmed->enabled)
 	{
 		$langs->load("compta");
         $langs->load("cabinetmed@cabinetmed");
@@ -218,7 +218,7 @@ function print_cabinetmed_menu($db,$atarget,$type_user)
 
 		$idsel='accountancy';
 		if ($user->rights->compta->resultat->lire || $user->rights->accounting->plancompte->lire
-		|| $user->rights->facture->lire || $user->rights->banque->lire)
+		|| $user->rights->facture->lire || $user->rights->banque->lire || $conf->cabinetmed->enabled)
 		{
 			print_start_menu_entry($idsel);
 			print '<a class="tmenuimage" href="'.dol_buildpath('/cabinetmed/compta.php?mainmenu=accountancy&amp;leftmenu=&search_sale='.$user->id,1).'"'.($atarget?" target=$atarget":"").'>';
