@@ -21,7 +21,7 @@
 /**
  *       \file        htdocs/compta/resultat/index.php
  *       \brief       Page reporting resultat
- *       \version     $Id: compta.php,v 1.5 2011/06/15 00:45:19 eldy Exp $
+ *       \version     $Id: compta.php,v 1.6 2011/06/15 00:48:02 eldy Exp $
  */
 
 
@@ -272,7 +272,9 @@ for ($mois = 1+$nb_mois_decalage ; $mois <= 12+$nb_mois_decalage ; $mois++)
 	{
         $var2=!$var2;
         print '<tr class="starthidden month_'.$mois_modulo.($var2?' pair':' impair').'">';
-        print "<td> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ".dol_print_date(dol_mktime(12,0,0,$mois_modulo,$day,$annee),"day")."</td>";
+        print "<td> &nbsp; &nbsp; &nbsp; &nbsp; ".dol_print_date(dol_mktime(12,0,0,$mois_modulo,$day,$annee),"%d");
+        //print ' '.dol_print_date(dol_mktime(12,0,0,$mois_modulo,$day,$annee),"%m");
+        print "</td>";
 
 	    for ($annee2 = $year_start ; $annee2 <= $year_end ; $annee2++)
         {
@@ -351,6 +353,6 @@ print "</table>";
 
 $db->close();
 
-llxFooter('$Date: 2011/06/15 00:45:19 $ - $Revision: 1.5 $');
+llxFooter('$Date: 2011/06/15 00:48:02 $ - $Revision: 1.6 $');
 
 ?>
