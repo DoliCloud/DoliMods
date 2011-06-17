@@ -161,7 +161,7 @@ if ($id)
 
     if ($mesg)
     {
-        if (preg_match('/class="error"/',$mesg)) dol_htmloutput_errors($mesg);
+        if (preg_match('/class="error"/',$mesg)) dol_htmloutput_mesg($mesg,'','error');
         else
         {
             dol_htmloutput_mesg($mesg,'','ok',1);

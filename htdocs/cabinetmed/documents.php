@@ -20,7 +20,7 @@
  *   \file       htdocs/cabinetmed/documents.php
  *   \brief      Tab for courriers
  *   \ingroup    cabinetmed
- *   \version    $Id: documents.php,v 1.7 2011/06/13 22:24:23 eldy Exp $
+ *   \version    $Id: documents.php,v 1.8 2011/06/17 22:25:02 eldy Exp $
  */
 
 $res=0;
@@ -257,8 +257,8 @@ if ($socid > 0)
 
 	dol_fiche_end();
 
-    if ($mesg) dol_htmloutput_mesg($mesg);
-	else dol_htmloutput_errors($error,$errors);
+    if ($mesg) dol_htmloutput_mesg($mesg,'','ok');
+	else dol_htmloutput_mesg($error,$errors,'error');
 
     // Affiche formulaire upload
     $formfile=new FormFile($db);
@@ -297,5 +297,5 @@ if ($socid > 0)
 
 $db->close();
 
-llxFooter('$Date: 2011/06/13 22:24:23 $ - $Revision: 1.7 $');
+llxFooter('$Date: 2011/06/17 22:25:02 $ - $Revision: 1.8 $');
 ?>

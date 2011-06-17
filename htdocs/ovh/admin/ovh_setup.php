@@ -21,7 +21,7 @@
  *   	\file       htdocs/ovh/admin/ovh_setup.php
  *		\ingroup    ovh
  *		\brief      Setup of module OVH
- *		\version    $Id: ovh_setup.php,v 1.18 2011/06/08 23:37:26 eldy Exp $
+ *		\version    $Id: ovh_setup.php,v 1.19 2011/06/17 22:25:08 eldy Exp $
  */
 
 define('NOCSRFCHECK',1);
@@ -245,7 +245,7 @@ dol_fiche_end();
 
 if ($mesg)
 {
-    if (preg_match('/class="error"/',$mesg)) dol_htmloutput_errors($mesg);
+    if (preg_match('/class="error"/',$mesg)) dol_htmloutput_mesg($mesg,'','error');
     else
     {
         dol_htmloutput_mesg($mesg,'','ok',1);

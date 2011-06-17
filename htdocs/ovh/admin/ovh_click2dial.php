@@ -21,7 +21,7 @@
  *   	\file       htdocs/ovh/admin/ovh_click2dial.php
  *		\ingroup    ovh
  *		\brief      Configuration du module ovh
- *		\version    $Id: ovh_click2dial.php,v 1.2 2011/03/29 23:17:21 eldy Exp $
+ *		\version    $Id: ovh_click2dial.php,v 1.3 2011/06/17 22:25:08 eldy Exp $
  */
 
 define('NOCSRFCHECK',1);
@@ -150,10 +150,15 @@ print '</table></form>';
 
 dol_fiche_end();
 
+
 if ($mesg)
 {
-    dol_htmloutput_mesg($mesg);
-    print '<br>';
+    if (preg_match('/class="error"/',$mesg)) dol_htmloutput_mesg($mesg,'','error');
+    else
+    {
+        dol_htmloutput_mesg($mesg,'','ok',1);
+        print '<br>';
+    }
 }
 
 
