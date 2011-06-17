@@ -10,7 +10,7 @@
 ; only the root user with no password, stop server and catch
 ; files user.MY* to put them in the Dolibarr build/exe/doliwamp/mysql directory.
 ;
-; Version: $Id: dolimed.iss,v 1.2 2011/06/11 23:23:37 eldy Exp $
+; Version: $Id: dolimed.iss,v 1.3 2011/06/17 21:27:57 eldy Exp $
 ;----------------------------------------------------------------------------------------
 
 
@@ -35,7 +35,7 @@ AppComments=DoliMed includes Dolibarr, Apache, PHP and Mysql softwares, and medi
 AppCopyright=Copyright (C) 2008-2011 Laurent Destailleur, NLTechno
 DefaultDirName=c:\dolimed
 DefaultGroupName=DoliMed
-LicenseFile=COPYING
+;LicenseFile=COPYING
 ;Compression=none
 Compression=lzma
 SolidCompression=yes
