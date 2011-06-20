@@ -1,7 +1,5 @@
 <?php
-/* Copyright (C) 2003      Rodolphe Quiedeville <rodolphe@quiedeville.org>
- * Copyright (C) 2004-2010 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2005-2010 Regis Houssin        <regis@dolibarr.fr>
+/* Copyright (C) 2011 Laurent Destailleur  <eldy@users.sourceforge.net>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,15 +18,14 @@
 
 /**
  * 		\defgroup   SubmitEveryWhere     Module SubmitEveryWhere
- *      \brief      Example of a module descriptor.
- *					Such a file must be copied into htdocs/includes/module directory.
+ *      \brief      Descriptor of module SubmitEveryWhere.
  */
 
 /**
  *      \file       htdocs/includes/modules/modSubmitEveryWhere.class.php
  *      \ingroup    submiteverywhere
  *      \brief      Description and activation file for module SubmitEveryWhere
- *		\version	$Id: modSubmitEveryWhere.class.php,v 1.6 2011/04/17 10:19:42 eldy Exp $
+ *		\version	$Id: modSubmitEveryWhere.class.php,v 1.7 2011/06/20 22:08:31 eldy Exp $
  */
 include_once(DOL_DOCUMENT_ROOT ."/includes/modules/DolibarrModules.class.php");
 
@@ -130,13 +127,19 @@ class modSubmitEveryWhere extends DolibarrModules
 
 		// Add here list of permission defined by an id, a label, a boolean and two constant strings.
 		// Example:
-		// $this->rights[$r][0] = 2000; 				// Permission id (must not be already used)
-		// $this->rights[$r][1] = 'Permision label';	// Permission label
-		// $this->rights[$r][3] = 1; 					// Permission by default for new user (0/1)
-		// $this->rights[$r][4] = 'level1';				// In php code, permission will be checked by test if ($user->rights->permkey->level1->level2)
-		// $this->rights[$r][5] = 'level2';				// In php code, permission will be checked by test if ($user->rights->permkey->level1->level2)
-		// $r++;
+		$this->rights[$r][0] = 102000; 				// Permission id (must not be already used)
+		$this->rights[$r][1] = 'Read submited news';	// Permission label
+		$this->rights[$r][3] = 1; 					// Permission by default for new user (0/1)
+		$this->rights[$r][4] = 'read';				// In php code, permission will be checked by test if ($user->rights->permkey->level1->level2)
+		//$this->rights[$r][5] = 'level2';				// In php code, permission will be checked by test if ($user->rights->permkey->level1->level2)
+		$r++;
 
+        $this->rights[$r][0] = 102001;              // Permission id (must not be already used)
+        $this->rights[$r][1] = 'Create/Edit/Submit news';    // Permission label
+        $this->rights[$r][3] = 0;                   // Permission by default for new user (0/1)
+        $this->rights[$r][4] = 'create';              // In php code, permission will be checked by test if ($user->rights->permkey->level1->level2)
+        //$this->rights[$r][5] = 'level2';              // In php code, permission will be checked by test if ($user->rights->permkey->level1->level2)
+        $r++;
 
 		// Main menu entries
 		$this->menus = array();			// List of menus to add

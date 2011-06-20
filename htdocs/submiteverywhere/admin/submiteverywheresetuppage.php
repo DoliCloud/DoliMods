@@ -24,7 +24,7 @@
  *      \file       htdocs/submiteverywhere/admin/submiteverywheresetuppage.php
  *      \ingroup    submiteverywhere
  *      \brief      Page to setup module SubmitEverywhere
- *      \version    $Id: submiteverywheresetuppage.php,v 1.7 2011/06/20 19:34:16 eldy Exp $
+ *      \version    $Id: submiteverywheresetuppage.php,v 1.8 2011/06/20 22:08:23 eldy Exp $
  */
 
 $res=0;
@@ -49,12 +49,12 @@ $mesg='';
 $error=0;
 
 $listoftargets=array(
-'dig'=>array('label'=>$langs->trans("Dig"),'titlelength'=>10,'descshortlength'=>256,'desclonglength'=>2000),
-'email'=>array('label'=>$langs->trans("Email"),'titlelength'=>10,'descshortlength'=>256,'desclonglength'=>0),
-'facebook'=>array('label'=>$langs->trans("Facebook"),'titlelength'=>10,'descshortlength'=>256,'desclonglength'=>2000),
-'linkedin'=>array('label'=>$langs->trans("LinkedIn"),'titlelength'=>10,'descshortlength'=>256,'desclonglength'=>2000),
-'twitter'=>array('label'=>$langs->trans("Twitter"),'titlelength'=>10,'descshortlength'=>256,'desclonglength'=>2000),
-'web'=>array('label'=>$langs->trans("GenericWebSite"),'titlelength'=>10,'descshortlength'=>256,'desclonglength'=>2000),
+'dig'=>array('label'=>$langs->trans("Dig"),'titlelength'=>32,'descshortlength'=>256,'desclonglength'=>2000),
+'email'=>array('label'=>$langs->trans("Email"),'titlelength'=>0,'descshortlength'=>-1,'desclonglength'=>0),
+'facebook'=>array('label'=>$langs->trans("Facebook"),'titlelength'=>32,'descshortlength'=>256,'desclonglength'=>2000),
+'linkedin'=>array('label'=>$langs->trans("LinkedIn"),'titlelength'=>32,'descshortlength'=>256,'desclonglength'=>2000),
+'twitter'=>array('label'=>$langs->trans("Twitter"),'titlelength'=>-1,'descshortlength'=>140,'desclonglength'=>-1),
+'web'=>array('label'=>$langs->trans("GenericWebSite"),'titlelength'=>32,'descshortlength'=>256,'desclonglength'=>2000),
 //'sms'=>array('label'=>$langs->trans("Email"),'titlelength'=>10,'descshortlength'=>140,'desclonglength'=>-1),
 );
 
@@ -76,7 +76,7 @@ if ($_POST["action"] == 'add' || $_POST["modify"])
         $error++;
         $errors[]=$langs->trans("ErrorFieldRequired",$langs->transnoentitiesnoconv("Type"));
     }
-    if (GETPOST('titlelength') == '')
+    /*if (GETPOST('titlelength') == '')
     {
         $error++;
         $errors[]=$langs->trans("ErrorFieldRequired",$langs->transnoentitiesnoconv("TitleLength"));
@@ -90,13 +90,15 @@ if ($_POST["action"] == 'add' || $_POST["modify"])
     {
         $error++;
         $errors[]=$langs->trans("ErrorFieldRequired",$langs->transnoentitiesnoconv("DescLongLength"));
-    }
+    }*/
 
     if (! $error)
     {
         $sql = "INSERT INTO ".MAIN_DB_PREFIX."submitew_targets (label,targetcode,langcode,titlelength,descshortlength,desclonglength)";
     	$sql.= " VALUES ('".$db->escape(GETPOST('label'))."', '".$db->escape(GETPOST('type'))."', '".$db->escape(GETPOST('lang_id'))."',";
-    	$sql.= " '".$db->escape(GETPOST('titlelength'))."', '".$db->escape(GETPOST('descshortlength'))."', '".$db->escape(GETPOST('desclonglength'))."'";
+    	$sql.= " '".(GETPOST('titlelength')!=''?GETPOST('titlelength'):-1)."',";
+    	$sql.= " '".(GETPOST('descshortlength')!=''?GETPOST('descshortlength'):-1)."',";
+    	$sql.= " '".(GETPOST('desclonglength')!=''?GETPOST('desclonglength'):-1)."'";
     	$sql.= ")";
         $resql=$db->query($sql);
     	if ($resql)
@@ -158,17 +160,20 @@ print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
 
 print '<table class="nobordernopadding" width="100%">';
 print '<tr class="liste_titre">';
-print '<td>'.$langs->trans("TargetType").'</td>';
+print '<td width="200">'.$langs->trans("Label").'</td>';
+print '<td width="160">'.$langs->trans("TargetType").'</td>';
 print '<td>'.$langs->trans("TargetLang").'</td>';
-print '<td>'.$langs->trans("Label").'</td>';
-print '<td>'.$langs->trans("TitleLength").'</td>';
-print '<td>'.$langs->trans("DescShortLength").'</td>';
-print '<td>'.$langs->trans("DescLongLength").'</td>';
+print '<td colspan="3">'.$langs->trans("Parameters").'</td>';
 print '</tr>';
 
-print '<tr class="liste_titre">';
+$var=false;
+print '<tr '.$bc[$var].'>';
+// Label
+print '<td>';
+print '<input type="text" name="label" value="'.($_POST["label"]?$_POST["label"]:'').'">';
+print '</td>';
 // Type
-print '<td width="200" align="left">';
+print '<td align="left">';
 print '<select class="flat" name="type" id="type">'."\n";
 print '<option value="">&nbsp;</option>'."\n";
 foreach($listoftargets as $key => $val)
@@ -181,14 +186,17 @@ print '</td>';
 print '<td align="left">';
 print $htmladmin->select_language($langs->defaultlang);
 print '</td>';
-// Label
-print '<td width="200">';
-print '<input type="text" name="label" value="'.($_POST["label"]?$_POST["label"]:'').'">';
-print '</td>';
 // Title
-print '<td><input type="text" name="titlelength" id="titlelength" value="" size="4" disabled="disabled"></td>';
-print '<td><input type="text" name="descshortlength" id="descshortlength" value="" size="4" disabled="disabled"></td>';
-print '<td><input type="text" name="desclonglength" id="desclonglength" value="" size="4" disabled="disabled"></td>';
+print '<td>';
+print $langs->trans("TitleLength").': <input type="text" name="titlelength" id="titlelength" value="" size="4" disabled="disabled">';
+print ' &nbsp; ';
+print $langs->trans("DescShortLength").': <input type="text" name="descshortlength" id="descshortlength" value="" size="4" disabled="disabled">';
+print ' &nbsp; ';
+print $langs->trans("DescLongLength").': <input type="text" name="desclonglength" id="desclonglength" value="" size="4" disabled="disabled">';
+print '<br>';
+print $langs->trans("Login").': <input type="text" name="login" value="'.$obj->login.'" size="8" disabled="disabled"> &nbsp; ';
+print $langs->trans("Password").': <input type="password" name="pass" value="'.$obj->pass.'" size="8" disabled="disabled">';
+print '</td>';
 print '</tr>';
 
 print '<tr><td colspan="6" align="center"><br>';
@@ -209,15 +217,21 @@ print '<script type="text/javascript">
 jQuery(document).ready(function(){
     jQuery("#type").change(function(){
         if (jQuery("#type").val()==\'\') {
-            jQuery("#titlelength").attr("disabled","disabled"); jQuery("#descshortlength").attr("disabled","disabled"); jQuery("#desclonglength").attr("disabled","disabled");
+            jQuery("#titlelength").attr("disabled","disabled");
+            jQuery("#descshortlength").attr("disabled","disabled");
+            jQuery("#desclonglength").attr("disabled","disabled");
             jQuery("#titlelength").val(\'\'); jQuery("#descshortlength").val(\'\'); jQuery("#desclonglength").val(\'\');
         };
     ';
 foreach($listoftargets as $key => $val)
 {
     print 'if (jQuery("#type").val()==\''.$key.'\') {
-        jQuery("#titlelength").removeAttr("disabled"); jQuery("#descshortlength").removeAttr("disabled"); jQuery("#desclonglength").removeAttr("disabled");
-        jQuery("#titlelength").val('.$val['titlelength'].'); jQuery("#descshortlength").val('.$val['descshortlength'].'); jQuery("#desclonglength").val('.$val['desclonglength'].');
+        if ('.$val['titlelength'].' > -1)     { jQuery("#titlelength").removeAttr("disabled"); jQuery("#titlelength").val('.$val['titlelength'].'); }
+        else { jQuery("#titlelength").attr("disabled","disabled"); jQuery("#titlelength").val(\''.$langs->trans("NA").'\'); }
+        if ('.$val['descshortlength'].' > -1) { jQuery("#descshortlength").removeAttr("disabled"); jQuery("#descshortlength").val('.$val['descshortlength'].'); }
+        else { jQuery("#descshortlength").attr("disabled","disabled"); jQuery("#descshortlength").val(\''.$langs->trans("NA").'\'); }
+        if ('.$val['desclonglength'].' > -1)  { jQuery("#desclonglength").removeAttr("disabled"); jQuery("#desclonglength").val('.$val['desclonglength'].'); }
+        else { jQuery("#desclonglength").attr("disabled","disabled"); jQuery("#desclonglength").val(\''.$langs->trans("NA").'\'); }
     } '."\n";
 }
 print '
@@ -247,13 +261,10 @@ if ($resql)
 	$i=0;
 
     print '<tr class="liste_titre">';
-    print '<td width="200">'.$langs->trans("TargetType").'</td>';
-    print '<td>'.$langs->trans("TargetLang").'</td>';
     print '<td width="200">'.$langs->trans("Label").'</td>';
-    print '<td>'.$langs->trans("Length").'</td>';
-    print '<td>'.$langs->trans("Login").'</td>';
-    print '<td>'.$langs->trans("Password").'</td>';
-    print '<td width="16px">&nbsp;</td>';
+    print '<td width="160">'.$langs->trans("TargetType").'</td>';
+    print '<td>'.$langs->trans("TargetLang").'</td>';
+    print '<td colspan="2">'.$langs->trans("Parameters").'</td>';
     print '</tr>';
 
 	while ($i < $num)
@@ -266,7 +277,8 @@ if ($resql)
 
 		$var=!$var;
 		print "<tr ".$bc[$var].">";
-        print '<td>';
+        print '<td><input type="text" name="label'.$i.'" value="'.$obj->label.'"></td>';
+		print '<td>';
         $s=picto_from_targetcode($obj->targetcode);
         print $s;
         print '</td>';
@@ -274,10 +286,16 @@ if ($resql)
         $s=picto_from_langcode($obj->langcode);
         print $s;
         print '</td>';
-		print '<td><input type="text" name="label'.$i.'" value="'.$obj->label.'"></td>';
-        print '<td>'.$obj->titlelength.'/'.$obj->descshortlength.'/'.$obj->desclonglength.'</td>';
-        print '<td><input type="text" name="login'.$i.'" value="'.$obj->login.'" size="8"></td>';
-        print '<td><input type="password" name="pass'.$i.'" value="'.$obj->pass.'" size="8"></td>';
+        print '<td>';
+        print $langs->trans("TitleLength").': <input type="text" name="titlelength" id="titlelength'.$i.'" value="'.($obj->titlelength>=0?$obj->titlelength:'NA').'" size="4" disabled="disabled">';
+        print ' &nbsp; ';
+        print $langs->trans("DescShortLength").': <input type="text" name="descshortlength" id="descshortlength'.$i.'" value="'.($obj->descshortlength>=0?$obj->descshortlength:'NA').'" size="4" disabled="disabled">';
+        print ' &nbsp; ';
+        print $langs->trans("DescLongLength").': <input type="text" name="desclonglength" id="desclonglength'.$i.'" value="'.($obj->desclonglength>=0?$obj->desclonglength:'NA').'" size="4" disabled="disabled">';
+        print '<br>';
+        print $langs->trans("Login").': <input type="text" name="login'.$i.'" value="'.$obj->login.'" size="8"> &nbsp; ';
+        print $langs->trans("Password").': <input type="password" name="pass'.$i.'" value="'.$obj->pass.'" size="8">';
+        print '</td>';
         print '<td nowrap="nowrap">';
         print '<input type="submit" name="submit" value="'.$langs->trans("Save").'" class="button"> &nbsp; ';
         print '<a href="'.$_SERVER["PHP_SELF"].'?action=delete&id='.$obj->rowid.'">'.img_picto($langs->trans("Delete"),'delete').'</a>';
@@ -298,5 +316,5 @@ print '</table>'."\n";
 
 $db->close();
 
-llxFooter('$Date: 2011/06/20 19:34:16 $ - $Revision: 1.7 $');
+llxFooter('$Date: 2011/06/20 22:08:23 $ - $Revision: 1.8 $');
 ?>
