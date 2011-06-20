@@ -15,7 +15,7 @@
 -- along with this program; if not, write to the Free Software
 -- Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 --
--- $Id: llx_submitew_targets.sql,v 1.1 2011/01/16 15:41:25 eldy Exp $
+-- $Id: llx_submitew_targets.sql,v 1.2 2011/06/20 19:34:16 eldy Exp $
 -- ===================================================================
 
 
@@ -29,5 +29,8 @@ CREATE TABLE llx_submitew_targets
 	login varchar(128), 
 	pass varchar(128), 
 	comment varchar(250), 
-	position INTEGER default 0
+	position INTEGER default 0,
+	titlelength integer default 32,
+    descshortlength integer default 256,
+    desclonglength integer default 2000,
 ) ENGINE = innodb;

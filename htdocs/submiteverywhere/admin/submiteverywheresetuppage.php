@@ -24,7 +24,7 @@
  *      \file       htdocs/submiteverywhere/admin/submiteverywheresetuppage.php
  *      \ingroup    submiteverywhere
  *      \brief      Page to setup module SubmitEverywhere
- *      \version    $Id: submiteverywheresetuppage.php,v 1.6 2011/03/29 23:17:21 eldy Exp $
+ *      \version    $Id: submiteverywheresetuppage.php,v 1.7 2011/06/20 19:34:16 eldy Exp $
  */
 
 $res=0;
@@ -37,6 +37,7 @@ if (! $res && file_exists("../../../../../dolibarr/htdocs/main.inc.php")) $res=@
 if (! $res) die("Include of main fails");
 require_once(DOL_DOCUMENT_ROOT."/lib/admin.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/class/html.formadmin.class.php");
+dol_include_once("/submiteverywhere/lib/submiteverywhere.lib.php");
 
 
 $langs->load("admin");
@@ -47,6 +48,17 @@ if (!$user->admin) accessforbidden();
 $mesg='';
 $error=0;
 
+$listoftargets=array(
+'dig'=>array('label'=>$langs->trans("Dig"),'titlelength'=>10,'descshortlength'=>256,'desclonglength'=>2000),
+'email'=>array('label'=>$langs->trans("Email"),'titlelength'=>10,'descshortlength'=>256,'desclonglength'=>0),
+'facebook'=>array('label'=>$langs->trans("Facebook"),'titlelength'=>10,'descshortlength'=>256,'desclonglength'=>2000),
+'linkedin'=>array('label'=>$langs->trans("LinkedIn"),'titlelength'=>10,'descshortlength'=>256,'desclonglength'=>2000),
+'twitter'=>array('label'=>$langs->trans("Twitter"),'titlelength'=>10,'descshortlength'=>256,'desclonglength'=>2000),
+'web'=>array('label'=>$langs->trans("GenericWebSite"),'titlelength'=>10,'descshortlength'=>256,'desclonglength'=>2000),
+//'sms'=>array('label'=>$langs->trans("Email"),'titlelength'=>10,'descshortlength'=>140,'desclonglength'=>-1),
+);
+
+
 
 /*
  * Action
@@ -54,21 +66,38 @@ $error=0;
 
 if ($_POST["action"] == 'add' || $_POST["modify"])
 {
-    if (! GETPOST('label'))
+    if (GETPOST('label') == '')
     {
         $error++;
-        $mesg='<div class="error">'.$langs->trans("ErrorFieldRequired",$langs->transnoentitiesnoconv("Label")).'</div>';
+        $errors[]=$langs->trans("ErrorFieldRequired",$langs->transnoentitiesnoconv("Label"));
     }
-    if (! GETPOST('type'))
+    if (GETPOST('type') == '')
     {
         $error++;
-        $mesg='<div class="error">'.$langs->trans("ErrorFieldRequired",$langs->transnoentitiesnoconv("Type")).'</div>';
+        $errors[]=$langs->trans("ErrorFieldRequired",$langs->transnoentitiesnoconv("Type"));
+    }
+    if (GETPOST('titlelength') == '')
+    {
+        $error++;
+        $errors[]=$langs->trans("ErrorFieldRequired",$langs->transnoentitiesnoconv("TitleLength"));
+    }
+    if (GETPOST('descshortlength') == '')
+    {
+        $error++;
+        $errors[]=$langs->trans("ErrorFieldRequired",$langs->transnoentitiesnoconv("DescShortLength"));
+    }
+    if (GETPOST('desclonglength') == '')
+    {
+        $error++;
+        $errors[]=$langs->trans("ErrorFieldRequired",$langs->transnoentitiesnoconv("DescLongLength"));
     }
 
     if (! $error)
     {
-        $sql = "INSERT INTO ".MAIN_DB_PREFIX."submitew_targets (label,targetcode,langcode)";
-    	$sql.= " VALUES ('".$db->escape(GETPOST('label'))."','".$db->escape(GETPOST('type'))."', '".$db->escape(GETPOST('lang_id'))."')";
+        $sql = "INSERT INTO ".MAIN_DB_PREFIX."submitew_targets (label,targetcode,langcode,titlelength,descshortlength,desclonglength)";
+    	$sql.= " VALUES ('".$db->escape(GETPOST('label'))."', '".$db->escape(GETPOST('type'))."', '".$db->escape(GETPOST('lang_id'))."',";
+    	$sql.= " '".$db->escape(GETPOST('titlelength'))."', '".$db->escape(GETPOST('descshortlength'))."', '".$db->escape(GETPOST('desclonglength'))."'";
+    	$sql.= ")";
         $resql=$db->query($sql);
     	if ($resql)
         {
@@ -80,7 +109,7 @@ if ($_POST["action"] == 'add' || $_POST["modify"])
             if ($db->lasterrno == 'DB_ERROR_RECORD_ALREADY_EXISTS')
             {
                 $langs->load("errors");
-                $mesg='<div class="error">'.$langs->trans("ErrorRefAlreadyExists").'</div>';
+                $errors[]=$langs->trans("ErrorRefAlreadyExists");
             }
             else  {
             	dol_print_error($db);
@@ -120,42 +149,49 @@ print '<br>';
 
 print $langs->trans("DescSubmitEveryWhere").'<br><br>'."\n";
 
+
+print_fiche_titre($langs->trans("AddTarget"),'','');
+
 // Form to add entry
 print '<form name="externalrssconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
 print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
 
 print '<table class="nobordernopadding" width="100%">';
 print '<tr class="liste_titre">';
+print '<td>'.$langs->trans("TargetType").'</td>';
+print '<td>'.$langs->trans("TargetLang").'</td>';
 print '<td>'.$langs->trans("Label").'</td>';
-print '<td align="left">'.$langs->trans("TargetType").'</td>';
-print '<td align="left">'.$langs->trans("TargetLang").'</td>';
+print '<td>'.$langs->trans("TitleLength").'</td>';
+print '<td>'.$langs->trans("DescShortLength").'</td>';
+print '<td>'.$langs->trans("DescLongLength").'</td>';
 print '</tr>';
 
 print '<tr class="liste_titre">';
-// Label
-print '<td width="200">';
-print '<input type="text" name="label" value="'.($_POST["label"]?$_POST["label"]:'').'">';
-print '</td>';
 // Type
 print '<td width="200" align="left">';
-print '<select class="flat" name="type">';
-print '<option value="">&nbsp;</option>';
-print '<option value="dig">'.$langs->trans("Dig").'</option>';
-print '<option value="email">'.$langs->trans("Email").'</option>';
-print '<option value="facebook">'.$langs->trans("Facebook").'</option>';
-print '<option value="linkedin">'.$langs->trans("LinkedIn").'</option>';
-print '<option value="twitter">'.$langs->trans("Twitter").'</option>';
-print '<option value="web">'.$langs->trans("GenericWebSite").'</option>';
+print '<select class="flat" name="type" id="type">'."\n";
+print '<option value="">&nbsp;</option>'."\n";
+foreach($listoftargets as $key => $val)
+{
+    print '<option value="'.$key.'">'.$val['label'].'</option>'."\n";
+}
 print '</select>';
 print '</td>';
 // Language
 print '<td align="left">';
 print $htmladmin->select_language($langs->defaultlang);
 print '</td>';
-
+// Label
+print '<td width="200">';
+print '<input type="text" name="label" value="'.($_POST["label"]?$_POST["label"]:'').'">';
+print '</td>';
+// Title
+print '<td><input type="text" name="titlelength" id="titlelength" value="" size="4" disabled="disabled"></td>';
+print '<td><input type="text" name="descshortlength" id="descshortlength" value="" size="4" disabled="disabled"></td>';
+print '<td><input type="text" name="desclonglength" id="desclonglength" value="" size="4" disabled="disabled"></td>';
 print '</tr>';
 
-print '<tr><td colspan="3" align="center"><br>';
+print '<tr><td colspan="6" align="center"><br>';
 print '<input type="submit" class="button" value="'.$langs->trans("Add").'">';
 print '<input type="hidden" name="action" value="add">';
 print '</td>';
@@ -168,16 +204,38 @@ print '</form>';
 print '<br>';
 
 
-if ($mesg) print $mesg.'<br>';
+// Jquery interactions
+print '<script type="text/javascript">
+jQuery(document).ready(function(){
+    jQuery("#type").change(function(){
+        if (jQuery("#type").val()==\'\') {
+            jQuery("#titlelength").attr("disabled","disabled"); jQuery("#descshortlength").attr("disabled","disabled"); jQuery("#desclonglength").attr("disabled","disabled");
+            jQuery("#titlelength").val(\'\'); jQuery("#descshortlength").val(\'\'); jQuery("#desclonglength").val(\'\');
+        };
+    ';
+foreach($listoftargets as $key => $val)
+{
+    print 'if (jQuery("#type").val()==\''.$key.'\') {
+        jQuery("#titlelength").removeAttr("disabled"); jQuery("#descshortlength").removeAttr("disabled"); jQuery("#desclonglength").removeAttr("disabled");
+        jQuery("#titlelength").val('.$val['titlelength'].'); jQuery("#descshortlength").val('.$val['descshortlength'].'); jQuery("#desclonglength").val('.$val['desclonglength'].');
+    } '."\n";
+}
+print '
+    });
+});
+</script>
+';
+
+
+dol_htmloutput_mesg('',$errors,'error');
 
 
 
-
-print_fiche_titre($langs->trans("Targets"),'','');
+print_fiche_titre($langs->trans("ListOfAvailableTargets"),'','');
 
 print '<table class="nobordernopadding" width="100%">';
 
-$sql ="SELECT rowid, label, targetcode, langcode, url, login, pass, comment, position";
+$sql ="SELECT rowid, label, targetcode, langcode, url, login, pass, comment, position, titlelength, descshortlength, desclonglength";
 $sql.=" FROM ".MAIN_DB_PREFIX."submitew_targets";
 $sql.=" ORDER BY label";
 
@@ -189,31 +247,40 @@ if ($resql)
 	$i=0;
 
     print '<tr class="liste_titre">';
+    print '<td width="200">'.$langs->trans("TargetType").'</td>';
+    print '<td>'.$langs->trans("TargetLang").'</td>';
     print '<td width="200">'.$langs->trans("Label").'</td>';
-    print '<td width="200" align="left">'.$langs->trans("TargetType").'</td>';
-    print '<td align="left">'.$langs->trans("TargetLang").'</td>';
-    print '<td align="left">'.$langs->trans("Parameters").'</td>';
-    print '<td align="left" width="16px">&nbsp;</td>';
+    print '<td>'.$langs->trans("Length").'</td>';
+    print '<td>'.$langs->trans("Login").'</td>';
+    print '<td>'.$langs->trans("Password").'</td>';
+    print '<td width="16px">&nbsp;</td>';
     print '</tr>';
 
 	while ($i < $num)
 	{
 		$obj = $db->fetch_object($resql);
 
-		print "<form name=\"externalrssconfig\" action=\"".$_SERVER["PHP_SELF"]."\" method=\"post\">";
+		print "<form name=\"updatetarget".$i."\" action=\"".$_SERVER["PHP_SELF"]."\" method=\"post\">";
 		print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
+        print '<input type="hidden" name="rowid" value="'.$obj->rowid.'">';
 
 		$var=!$var;
 		print "<tr ".$bc[$var].">";
-        print '<td>'.$obj->label.'</td>';
-        print '<td>'.$obj->targetcode.'</td>';
-        print '<td>'.$obj->langcode.'</td>';
         print '<td>';
-        // TODO Add edit parameter area according to type
-
-
+        $s=picto_from_targetcode($obj->targetcode);
+        print $s;
         print '</td>';
-        print '<td><a href="'.$_SERVER["PHP_SELF"].'?action=delete&id='.$obj->rowid.'">'.img_picto($langs->trans("Delete"),'delete').'</a>';
+        print '<td>';
+        $s=picto_from_langcode($obj->langcode);
+        print $s;
+        print '</td>';
+		print '<td><input type="text" name="label'.$i.'" value="'.$obj->label.'"></td>';
+        print '<td>'.$obj->titlelength.'/'.$obj->descshortlength.'/'.$obj->desclonglength.'</td>';
+        print '<td><input type="text" name="login'.$i.'" value="'.$obj->login.'" size="8"></td>';
+        print '<td><input type="password" name="pass'.$i.'" value="'.$obj->pass.'" size="8"></td>';
+        print '<td nowrap="nowrap">';
+        print '<input type="submit" name="submit" value="'.$langs->trans("Save").'" class="button"> &nbsp; ';
+        print '<a href="'.$_SERVER["PHP_SELF"].'?action=delete&id='.$obj->rowid.'">'.img_picto($langs->trans("Delete"),'delete').'</a>';
         print "</tr>";
 
 		print "</form>";
@@ -231,5 +298,5 @@ print '</table>'."\n";
 
 $db->close();
 
-llxFooter('$Date: 2011/03/29 23:17:21 $ - $Revision: 1.6 $');
+llxFooter('$Date: 2011/06/20 19:34:16 $ - $Revision: 1.7 $');
 ?>
