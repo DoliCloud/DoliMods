@@ -24,7 +24,7 @@
  *      \file       htdocs/submiteverywhere/admin/submiteverywheresetuppage.php
  *      \ingroup    submiteverywhere
  *      \brief      Page to setup module SubmitEverywhere
- *      \version    $Id: submiteverywheresetuppage.php,v 1.8 2011/06/20 22:08:23 eldy Exp $
+ *      \version    $Id: submiteverywheresetuppage.php,v 1.9 2011/06/21 14:02:28 eldy Exp $
  */
 
 $res=0;
@@ -188,14 +188,14 @@ print $htmladmin->select_language($langs->defaultlang);
 print '</td>';
 // Title
 print '<td>';
-print $langs->trans("TitleLength").': <input type="text" name="titlelength" id="titlelength" value="" size="4" disabled="disabled">';
+print $langs->trans("TitleLength").': <input type="text" autocomplete="off" name="titlelength" id="titlelength" value="" size="4" disabled="disabled">';
 print ' &nbsp; ';
-print $langs->trans("DescShortLength").': <input type="text" name="descshortlength" id="descshortlength" value="" size="4" disabled="disabled">';
+print $langs->trans("DescShortLength").': <input type="text" autocomplete="off" name="descshortlength" id="descshortlength" value="" size="4" disabled="disabled">';
 print ' &nbsp; ';
-print $langs->trans("DescLongLength").': <input type="text" name="desclonglength" id="desclonglength" value="" size="4" disabled="disabled">';
+print $langs->trans("DescLongLength").': <input type="text" autocomplete="off" name="desclonglength" id="desclonglength" value="" size="4" disabled="disabled">';
 print '<br>';
-print $langs->trans("Login").': <input type="text" name="login" value="'.$obj->login.'" size="8" disabled="disabled"> &nbsp; ';
-print $langs->trans("Password").': <input type="password" name="pass" value="'.$obj->pass.'" size="8" disabled="disabled">';
+print $langs->trans("Login").': <input type="text" autocomplete="off" name="login" value="'.$obj->login.'" size="8" disabled="disabled"> &nbsp; ';
+print $langs->trans("Password").': <input type="password" autocomplete="off" name="pass" value="'.$obj->pass.'" size="8" disabled="disabled">';
 print '</td>';
 print '</tr>';
 
@@ -287,14 +287,14 @@ if ($resql)
         print $s;
         print '</td>';
         print '<td>';
-        print $langs->trans("TitleLength").': <input type="text" name="titlelength" id="titlelength'.$i.'" value="'.($obj->titlelength>=0?$obj->titlelength:'NA').'" size="4" disabled="disabled">';
+        print $langs->trans("TitleLength").': <input type="text" autocomplete="off" name="titlelength" id="titlelength'.$i.'" value="'.($obj->titlelength>=0?$obj->titlelength:'NA').'" size="4" disabled="disabled">';
         print ' &nbsp; ';
-        print $langs->trans("DescShortLength").': <input type="text" name="descshortlength" id="descshortlength'.$i.'" value="'.($obj->descshortlength>=0?$obj->descshortlength:'NA').'" size="4" disabled="disabled">';
+        print $langs->trans("DescShortLength").': <input type="text" autocomplete="off" name="descshortlength" id="descshortlength'.$i.'" value="'.($obj->descshortlength>=0?$obj->descshortlength:'NA').'" size="4" disabled="disabled">';
         print ' &nbsp; ';
-        print $langs->trans("DescLongLength").': <input type="text" name="desclonglength" id="desclonglength'.$i.'" value="'.($obj->desclonglength>=0?$obj->desclonglength:'NA').'" size="4" disabled="disabled">';
+        print $langs->trans("DescLongLength").': <input type="text" autocomplete="off" autocomplete="off" name="desclonglength" id="desclonglength'.$i.'" value="'.($obj->desclonglength>=0?$obj->desclonglength:'NA').'" size="4" disabled="disabled">';
         print '<br>';
-        print $langs->trans("Login").': <input type="text" name="login'.$i.'" value="'.$obj->login.'" size="8"> &nbsp; ';
-        print $langs->trans("Password").': <input type="password" name="pass'.$i.'" value="'.$obj->pass.'" size="8">';
+        print $langs->trans("Login").': <input type="text" autocomplete="off" name="login'.$i.'" value="'.$obj->login.'" size="8"> &nbsp; ';
+        print $langs->trans("Password").': <input type="password" autocomplete="off" name="pass'.$i.'" value="'.$obj->pass.'" size="8">';
         print '</td>';
         print '<td nowrap="nowrap">';
         print '<input type="submit" name="submit" value="'.$langs->trans("Save").'" class="button"> &nbsp; ';
@@ -316,5 +316,5 @@ print '</table>'."\n";
 
 $db->close();
 
-llxFooter('$Date: 2011/06/20 22:08:23 $ - $Revision: 1.8 $');
+llxFooter('$Date: 2011/06/21 14:02:28 $ - $Revision: 1.9 $');
 ?>
