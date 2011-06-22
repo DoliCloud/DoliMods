@@ -213,7 +213,7 @@ if ($socid)
 
     print '</table><br>';
 
-    print_fiche_titre($langs->trans("Sms"));
+    print_fiche_titre($langs->trans("Sms"),'','phone.png@ovh');
 
     // Cree l'objet formulaire mail
     include_once(DOL_DOCUMENT_ROOT.'/core/class/html.formsms.class.php');
