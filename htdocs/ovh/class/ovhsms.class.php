@@ -99,17 +99,20 @@ class OvhSms  extends CommonObject
 
             }
             catch(SoapFault $se) {
+                error_reporting($err);     // Restore default errors
                 dol_syslog(get_class($this).'::SoapFault: '.$se);
                 //var_dump('eeeeeeee');exit;
                 return 0;
             }
             catch (Exception $ex) {
+                error_reporting($err);     // Restore default errors
                 dol_syslog(get_class($this).'::SoapFault: '.$ex);
                 //var_dump('eeeeeeee');exit;
                 return 0;
             }
             catch (Error $e) {
-            	dol_syslog(get_class($this).'::SoapFault: '.$e);
+                error_reporting($err);     // Restore default errors
+                dol_syslog(get_class($this).'::SoapFault: '.$e);
                 //var_dump('eeeeeeee');exit;
                 return 0;
             }
