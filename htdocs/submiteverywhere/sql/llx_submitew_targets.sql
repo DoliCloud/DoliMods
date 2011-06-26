@@ -15,7 +15,7 @@
 -- along with this program; if not, write to the Free Software
 -- Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 --
--- $Id: llx_submitew_targets.sql,v 1.3 2011/06/20 22:08:19 eldy Exp $
+-- $Id: llx_submitew_targets.sql,v 1.4 2011/06/26 00:41:10 eldy Exp $
 -- ===================================================================
 
 
@@ -25,7 +25,7 @@ CREATE TABLE llx_submitew_targets
 	label varchar(64) NOT NULL, 
 	targetcode varchar(16) NOT NULL,
 	langcode varchar(5) default 'en_US', 
-	url varchar(250) NOT NULL default '', 
+	url varchar(250), 
 	login varchar(128), 
 	pass varchar(128), 
 	comment varchar(250), 

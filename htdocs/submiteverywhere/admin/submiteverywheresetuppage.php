@@ -1,7 +1,7 @@
 <?php
 /* Copyright (C) 2003      Eric Seigne          <erics@rycks.com>
  * Copyright (C) 2003,2005 Rodolphe Quiedeville <rodolphe@quiedeville.org>
- * Copyright (C) 2004-2008 Laurent Destailleur  <eldy@users.sourceforge.net>
+ * Copyright (C) 2004-2011 Laurent Destailleur  <eldy@users.sourceforge.net>
  * Copyright (C) 2004      Sebastien Di Cintio  <sdicintio@ressource-toi.org>
  * Copyright (C) 2004      Benoit Mortier       <benoit.mortier@opensides.be>
  *
@@ -24,7 +24,7 @@
  *      \file       htdocs/submiteverywhere/admin/submiteverywheresetuppage.php
  *      \ingroup    submiteverywhere
  *      \brief      Page to setup module SubmitEverywhere
- *      \version    $Id: submiteverywheresetuppage.php,v 1.9 2011/06/21 14:02:28 eldy Exp $
+ *      \version    $Id: submiteverywheresetuppage.php,v 1.10 2011/06/26 00:41:18 eldy Exp $
  */
 
 $res=0;
@@ -54,9 +54,24 @@ $listoftargets=array(
 'facebook'=>array('label'=>$langs->trans("Facebook"),'titlelength'=>32,'descshortlength'=>256,'desclonglength'=>2000),
 'linkedin'=>array('label'=>$langs->trans("LinkedIn"),'titlelength'=>32,'descshortlength'=>256,'desclonglength'=>2000),
 'twitter'=>array('label'=>$langs->trans("Twitter"),'titlelength'=>-1,'descshortlength'=>140,'desclonglength'=>-1),
-'web'=>array('label'=>$langs->trans("GenericWebSite"),'titlelength'=>32,'descshortlength'=>256,'desclonglength'=>2000),
+'web'=>array('label'=>$langs->trans("GenericWebSite"),'titlelength'=>32,'descshortlength'=>256,'desclonglength'=>2000,'url'=>'http://'),
 //'sms'=>array('label'=>$langs->trans("Email"),'titlelength'=>10,'descshortlength'=>140,'desclonglength'=>-1),
 );
+
+$action=GETPOST('action');
+$id=GETPOST('id','int');
+
+$sortfield = GETPOST("sortfield",'alpha');
+$sortorder = GETPOST("sortorder",'alpha');
+$page = GETPOST("page",'int');
+if ($page == -1) { $page = 0; }
+$offset = $conf->liste_limit * $page;
+$pageprev = $page - 1;
+$pagenext = $page + 1;
+if (! $sortfield) $sortfield="label";
+if (! $sortorder) $sortorder="ASC";
+
+$limit = $conf->liste_limit;
 
 
 
@@ -64,14 +79,16 @@ $listoftargets=array(
  * Action
  */
 
-if ($_POST["action"] == 'add' || $_POST["modify"])
+if (($action == 'add' || $action == 'update') && ! GETPOST("cancel"))
 {
-    if (GETPOST('label') == '')
+    if ($action == 'add') $id='';
+
+    if (! GETPOST('label'.$id))
     {
         $error++;
         $errors[]=$langs->trans("ErrorFieldRequired",$langs->transnoentitiesnoconv("Label"));
     }
-    if (GETPOST('type') == '')
+    if (! GETPOST('type'.$id))
     {
         $error++;
         $errors[]=$langs->trans("ErrorFieldRequired",$langs->transnoentitiesnoconv("Type"));
@@ -94,37 +111,84 @@ if ($_POST["action"] == 'add' || $_POST["modify"])
 
     if (! $error)
     {
-        $sql = "INSERT INTO ".MAIN_DB_PREFIX."submitew_targets (label,targetcode,langcode,titlelength,descshortlength,desclonglength)";
-    	$sql.= " VALUES ('".$db->escape(GETPOST('label'))."', '".$db->escape(GETPOST('type'))."', '".$db->escape(GETPOST('lang_id'))."',";
-    	$sql.= " '".(GETPOST('titlelength')!=''?GETPOST('titlelength'):-1)."',";
-    	$sql.= " '".(GETPOST('descshortlength')!=''?GETPOST('descshortlength'):-1)."',";
-    	$sql.= " '".(GETPOST('desclonglength')!=''?GETPOST('desclonglength'):-1)."'";
-    	$sql.= ")";
-        $resql=$db->query($sql);
-    	if ($resql)
+        if ($action == 'add')
         {
-            $_POST['label']='';
-            $_POST['type']='';
-        }
-        else
-        {
-            if ($db->lasterrno == 'DB_ERROR_RECORD_ALREADY_EXISTS')
+            $sql = "INSERT INTO ".MAIN_DB_PREFIX."submitew_targets (label,targetcode,langcode,titlelength,descshortlength,desclonglength,login,pass,url)";
+        	$sql.= " VALUES ('".$db->escape(GETPOST('label'.$id))."', '".$db->escape(GETPOST('type'.$id))."', '".$db->escape(GETPOST('langcode'.$id))."',";
+        	$sql.= " '".(GETPOST('titlelength'.$id)!=''?GETPOST('titlelength'.$id):-1)."',";
+        	$sql.= " '".(GETPOST('descshortlength'.$id)!=''?GETPOST('descshortlength'.$id):-1)."',";
+        	$sql.= " '".(GETPOST('desclonglength'.$id)!=''?GETPOST('desclonglength'.$id):-1)."',";
+            $sql.= " ".(GETPOST('login'.$id)!=''?GETPOST('login'.$id):"null").",";
+            $sql.= " ".(GETPOST('pass'.$id)!=''?GETPOST('pass'.$id):"null").",";
+            $sql.= " ".(GETPOST('url'.$id)!=''?GETPOST('url'.$id):"null");
+            $sql.= ")";
+            $resql=$db->query($sql);
+        	if ($resql)
             {
-                $langs->load("errors");
-                $errors[]=$langs->trans("ErrorRefAlreadyExists");
+                $_POST['label']='';
+                $_POST['type']='';
+                $_POST['type']='';
+                $_POST['login']='';
+                $_POST['pass']='';
+                $_POST['url']='';
             }
-            else  {
-            	dol_print_error($db);
-                $error++;
+            else
+            {
+                if ($db->lasterrno == 'DB_ERROR_RECORD_ALREADY_EXISTS')
+                {
+                    $langs->load("errors");
+                    $errors[]=$langs->trans("ErrorRefAlreadyExists");
+                }
+                else  {
+                	dol_print_error($db);
+                    $error++;
+                }
+            }
+        }
+        if ($action == 'update')
+        {
+            $sql = "UPDATE ".MAIN_DB_PREFIX."submitew_targets ";
+            $sql.= " SET label='".$db->escape(GETPOST('label'.$id))."',";
+            $sql.= " targetcode = '".$db->escape(GETPOST('type'.$id))."',";
+            $sql.= " langcode = '".$db->escape(GETPOST('langcode'.$id))."',";
+            $sql.= " titlelength = '".(GETPOST('titlelength'.$id)!=''?GETPOST('titlelength'.$id):-1)."',";
+            $sql.= " descshortlength = '".(GETPOST('descshortlength'.$id)!=''?GETPOST('descshortlength'.$id):-1)."',";
+            $sql.= " desclonglength = '".(GETPOST('desclonglength'.$id)!=''?GETPOST('desclonglength'.$id):-1)."',";
+            $sql.= " login = ".(GETPOST('login'.$id)!=''?"'".GETPOST('login'.$id)."'":"null").",";
+            $sql.= " pass = ".(GETPOST('pass'.$id)!=''?"'".GETPOST('pass'.$id)."'":"null").",";
+            $sql.= " url = ".(GETPOST('url'.$id)!=''?"'".GETPOST('url'.$id)."'":"null");
+            $sql.= " WHERE rowid = ".$id;
+            $resql=$db->query($sql);
+
+            if ($resql)
+            {
+                $_POST['label']='';
+                $_POST['type']='';
+                $_POST['type']='';
+                $_POST['login']='';
+                $_POST['pass']='';
+                $_POST['url']='';
+            }
+            else
+            {
+                if ($db->lasterrno == 'DB_ERROR_RECORD_ALREADY_EXISTS')
+                {
+                    $langs->load("errors");
+                    $errors[]=$langs->trans("ErrorRefAlreadyExists");
+                }
+                else  {
+                    dol_print_error($db);
+                    $error++;
+                }
             }
         }
     }
 }
 
-if (GETPOST("action")=='delete')
+if ($action == 'delete')
 {
     $sql = "DELETE FROM ".MAIN_DB_PREFIX."submitew_targets";
-    $sql.= " WHERE rowid = ".GETPOST('id','int',1);
+    $sql.= " WHERE rowid = ".$id;
 	$resql=$db->query($sql);
 	if ($resql)
 	{
@@ -160,9 +224,9 @@ print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
 
 print '<table class="nobordernopadding" width="100%">';
 print '<tr class="liste_titre">';
-print '<td width="200">'.$langs->trans("Label").'</td>';
+print '<td width="180">'.$langs->trans("Label").'</td>';
 print '<td width="160">'.$langs->trans("TargetType").'</td>';
-print '<td>'.$langs->trans("TargetLang").'</td>';
+print '<td align="center">'.$langs->trans("Language").'</td>';
 print '<td colspan="3">'.$langs->trans("Parameters").'</td>';
 print '</tr>';
 
@@ -170,7 +234,7 @@ $var=false;
 print '<tr '.$bc[$var].'>';
 // Label
 print '<td>';
-print '<input type="text" name="label" value="'.($_POST["label"]?$_POST["label"]:'').'">';
+print '<input type="text" name="label" value="'.($_POST["label"]?$_POST["label"]:'').'" size="12">';
 print '</td>';
 // Type
 print '<td align="left">';
@@ -183,8 +247,8 @@ foreach($listoftargets as $key => $val)
 print '</select>';
 print '</td>';
 // Language
-print '<td align="left">';
-print $htmladmin->select_language($langs->defaultlang);
+print '<td align="center">';
+print $htmladmin->select_language($langs->defaultlang,'langcode');
 print '</td>';
 // Title
 print '<td>';
@@ -212,7 +276,7 @@ print '</form>';
 print '<br>';
 
 
-// Jquery interactions
+// Jquery interactions on add form
 print '<script type="text/javascript">
 jQuery(document).ready(function(){
     jQuery("#type").change(function(){
@@ -251,19 +315,20 @@ print '<table class="nobordernopadding" width="100%">';
 
 $sql ="SELECT rowid, label, targetcode, langcode, url, login, pass, comment, position, titlelength, descshortlength, desclonglength";
 $sql.=" FROM ".MAIN_DB_PREFIX."submitew_targets";
-$sql.=" ORDER BY label";
+$sql.=$db->order($sortfield,$sortorder);
 
 dol_syslog("Get list of targets sql=".$sql,LOG_DEBUG);
 $resql=$db->query($sql);
 if ($resql)
 {
+    $param='';
 	$num =$db->num_rows($resql);
 	$i=0;
 
     print '<tr class="liste_titre">';
-    print '<td width="200">'.$langs->trans("Label").'</td>';
-    print '<td width="160">'.$langs->trans("TargetType").'</td>';
-    print '<td>'.$langs->trans("TargetLang").'</td>';
+    print_liste_field_titre($langs->trans("Label"), $_SERVER["PHP_SELF"], "label",$param,'','width="180"',$sortfield,$sortorder);
+    print_liste_field_titre($langs->trans("TargetType"), $_SERVER["PHP_SELF"], "targetcode",$param,'','width="160"',$sortfield,$sortorder);
+    print_liste_field_titre($langs->trans("Language"), $_SERVER["PHP_SELF"], "langcode", $param,'','align="center"',$sortfield,$sortorder);
     print '<td colspan="2">'.$langs->trans("Parameters").'</td>';
     print '</tr>';
 
@@ -271,37 +336,104 @@ if ($resql)
 	{
 		$obj = $db->fetch_object($resql);
 
-		print "<form name=\"updatetarget".$i."\" action=\"".$_SERVER["PHP_SELF"]."\" method=\"post\">";
-		print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
-        print '<input type="hidden" name="rowid" value="'.$obj->rowid.'">';
+        if ($action == 'edit' && $id == $obj->rowid)
+        {
+    		print "<form name=\"updatetarget".$i."\" action=\"".$_SERVER["PHP_SELF"]."\" method=\"post\">";
+    		print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
+            print '<input type="hidden" name="id" value="'.$obj->rowid.'">';
+            print '<input type="hidden" name="sortfield" value="'.$sortfield.'">';
+            print '<input type="hidden" name="sortorder" value="'.$sortorder.'">';
+            print '<input type="hidden" name="action" value="update">';
+        }
 
-		$var=!$var;
+        $var=!$var;
 		print "<tr ".$bc[$var].">";
-        print '<td><input type="text" name="label'.$i.'" value="'.$obj->label.'"></td>';
+        print '<td>';
+        if ($action == 'edit' && $id == $obj->rowid)
+        {
+            print '<input type="text" name="label'.$obj->rowid.'" value="'.$obj->label.'" size="12">';
+        }
+        else
+        {
+            print $obj->label;
+        }
+        print '</td>';
 		print '<td>';
         $s=picto_from_targetcode($obj->targetcode);
         print $s;
+        if ($action == 'edit' && $id == $obj->rowid)
+        {
+            print '<input type="hidden" name="type'.$obj->rowid.'" value="'.$obj->targetcode.'">';
+        }
+        print '</td>';
+        print '<td align="center">';
+        if ($action == 'edit' && $id == $obj->rowid)
+        {
+            print $htmladmin->select_language($obj->langcode,'langcode'.$obj->rowid);
+        }
+        else
+        {
+            $s=picto_from_langcode($obj->langcode);
+            print $s;
+        }
         print '</td>';
         print '<td>';
-        $s=picto_from_langcode($obj->langcode);
-        print $s;
+        if ($action == 'edit' && $id == $obj->rowid)
+        {
+            print $langs->trans("TitleLength").': <input type="text" autocomplete="off" name="titlelength" id="titlelength'.$obj->rowid.'" value="'.($obj->titlelength>=0?$obj->titlelength:'NA').'" size="4">';
+            print ' - ';
+            print $langs->trans("DescShortLength").': <input type="text" autocomplete="off" name="descshortlength" id="descshortlength'.$obj->rowid.'" value="'.($obj->descshortlength>=0?$obj->descshortlength:'NA').'" size="4">';
+            print ' - ';
+            print $langs->trans("DescLongLength").': <input type="text" autocomplete="off" autocomplete="off" name="desclonglength" id="desclonglength'.$obj->rowid.'" value="'.($obj->desclonglength>=0?$obj->desclonglength:'NA').'" size="4">';
+            if (in_array($obj->targetcode,array('web','dig','facebook','linkedin','twitter')))
+            {
+                print '<br>';
+                print $langs->trans("Login").': <input type="text" autocomplete="off" name="login'.$obj->rowid.'" value="'.$obj->login.'" size="8"> - ';
+                print $langs->trans("Password").': <input type="password" autocomplete="off" name="pass'.$obj->rowid.'" value="'.$obj->pass.'" size="8">';
+            }
+            if (in_array($obj->targetcode,array('web')))
+            {
+                print '<br>';
+                print $langs->trans("Url").': <input type="text" autocomplete="off" name="url'.$obj->rowid.'" value="'.$obj->url.'" size="48">';
+            }
+        }
+        else
+        {
+            print $langs->trans("TitleLength").': '.($obj->titlelength>=0?$obj->titlelength:'NA');
+            print ' - ';
+            print $langs->trans("DescShortLength").': '.($obj->descshortlength>=0?$obj->descshortlength:'NA');
+            print ' - ';
+            print $langs->trans("DescLongLength").': '.($obj->desclonglength>=0?$obj->desclonglength:'NA');
+            if (in_array($obj->targetcode,array('web','dig','facebook','linkedin','twitter')))
+            {
+                print '<br>';
+                print $langs->trans("Login").': '.$obj->login.' - ';
+                print $langs->trans("Password").': '.$obj->pass.'';
+            }
+            if (in_array($obj->targetcode,array('web')))
+            {
+                print '<br>';
+                print $langs->trans("Url").': '.dol_print_url($obj->url);
+            }
+        }
         print '</td>';
-        print '<td>';
-        print $langs->trans("TitleLength").': <input type="text" autocomplete="off" name="titlelength" id="titlelength'.$i.'" value="'.($obj->titlelength>=0?$obj->titlelength:'NA').'" size="4" disabled="disabled">';
-        print ' &nbsp; ';
-        print $langs->trans("DescShortLength").': <input type="text" autocomplete="off" name="descshortlength" id="descshortlength'.$i.'" value="'.($obj->descshortlength>=0?$obj->descshortlength:'NA').'" size="4" disabled="disabled">';
-        print ' &nbsp; ';
-        print $langs->trans("DescLongLength").': <input type="text" autocomplete="off" autocomplete="off" name="desclonglength" id="desclonglength'.$i.'" value="'.($obj->desclonglength>=0?$obj->desclonglength:'NA').'" size="4" disabled="disabled">';
-        print '<br>';
-        print $langs->trans("Login").': <input type="text" autocomplete="off" name="login'.$i.'" value="'.$obj->login.'" size="8"> &nbsp; ';
-        print $langs->trans("Password").': <input type="password" autocomplete="off" name="pass'.$i.'" value="'.$obj->pass.'" size="8">';
-        print '</td>';
-        print '<td nowrap="nowrap">';
-        print '<input type="submit" name="submit" value="'.$langs->trans("Save").'" class="button"> &nbsp; ';
-        print '<a href="'.$_SERVER["PHP_SELF"].'?action=delete&id='.$obj->rowid.'">'.img_picto($langs->trans("Delete"),'delete').'</a>';
+        print '<td nowrap="nowrap" align="right">';
+        if ($action == 'edit' && $id == $obj->rowid)
+        {
+            print '<input type="submit" name="submit" value="'.$langs->trans("Save").'" class="button"><br>';
+            print '<input type="submit" name="cancel" value="'.$langs->trans("Cancel").'" class="button">';
+        }
+        else
+        {
+            print '<a href="'.$_SERVER["PHP_SELF"].'?action=edit&id='.$obj->rowid.'&amp;sortfield='.$sortfield.'&amp;sortorder='.$sortorder.'">'.img_picto($langs->trans("Edit"),'edit').'</a> &nbsp; ';
+            print '<a href="'.$_SERVER["PHP_SELF"].'?action=delete&id='.$obj->rowid.'&amp;sortfield='.$sortfield.'&amp;sortorder='.$sortorder.'">'.img_picto($langs->trans("Delete"),'delete').'</a>';
+        }
         print "</tr>";
 
-		print "</form>";
+        if ($action == 'edit' && $id == $obj->rowid)
+        {
+            print "</form>";
+        }
 
 		$i++;
 	}
@@ -316,5 +448,5 @@ print '</table>'."\n";
 
 $db->close();
 
-llxFooter('$Date: 2011/06/21 14:02:28 $ - $Revision: 1.9 $');
+llxFooter('$Date: 2011/06/26 00:41:18 $ - $Revision: 1.10 $');
 ?>
