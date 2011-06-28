@@ -26,7 +26,7 @@
  *      \file       htdocs/includes/modules/modCabinetMed.class.php
  *      \ingroup    cabinetmed
  *      \brief      Description and activation file for module CabinetMed
- *      \version    $Id: modCabinetMed.class.php,v 1.39 2011/06/13 22:24:23 eldy Exp $
+ *      \version    $Id: modCabinetMed.class.php,v 1.40 2011/06/28 20:26:44 eldy Exp $
  */
 include_once(DOL_DOCUMENT_ROOT ."/includes/modules/DolibarrModules.class.php");
 
@@ -345,8 +345,6 @@ class modCabinetMed extends DolibarrModules
      */
     function init($options='')
     {
-        $sql = array();
-
         $result=$this->load_tables();
 
         require_once(DOL_DOCUMENT_ROOT.'/lib/files.lib.php');
@@ -355,31 +353,48 @@ class modCabinetMed extends DolibarrModules
         $goodpath=dol_buildpath('/cabinetmed/install/doctemplates/thirdparties/template_courrier_consult.odt');
         dol_copy($goodpath,$dirodt.'/template_courrier_consult.odt',0,0);
 
-        $sql = array();
+        $sql = array(
+        "UPDATE llx_c_typent          set active=1 where module = 'cabinetmed'",
+        "UPDATE llx_c_forme_juridique set active=1 where module = 'cabinetmed'",
+        "UPDATE llx_c_type_contact    set active=1 where module = 'cabinetmed'",
+        "UPDATE llx_c_typent          set active=0 where module != 'cabinetmed'",
+        "UPDATE llx_c_forme_juridique set active=0 where module != 'cabinetmed'",
+        "UPDATE llx_c_type_contact    set active=0 where element='societe' and source='external' and module != 'cabinetmed'"
+        );
 
         return $this->_init($sql,$options);
     }
 
     /**
-     *      \brief      Function called when module is disabled.
-     *                  Remove from database constants, boxes and permissions from Dolibarr database.
-     *                  Data directories are not deleted.
-     *      \return     int             1 if OK, 0 if KO
+     *      Function called when module is disabled.
+     *      Remove from database constants, boxes and permissions from Dolibarr database.
+     *      Data directories are not deleted.
+     *      @return     int             1 if OK, 0 if KO
      */
     function remove($options='')
     {
-        $sql = array();
+        $sql = array(
+        //"DELETE FROM llx_c_typent          where module = 'cabinetmed'",
+        //"DELETE FROM llx_c_forme_juridique where module = 'cabinetmed'",
+        //"DELETE FROM llx_c_type_contact    where module = 'cabinetmed'",
+        "UPDATE llx_c_typent          set active=0 where module = 'cabinetmed'",
+        "UPDATE llx_c_forme_juridique set active=0 where module = 'cabinetmed'",
+        "UPDATE llx_c_type_contact    set active=0 where module = 'cabinetmed'",
+        "UPDATE llx_c_typent          set active=1 where module != 'cabinetmed'",
+        "UPDATE llx_c_forme_juridique set active=1 where module != 'cabinetmed'",
+        "UPDATE llx_c_type_contact    set active=1 where element='societe' and source='external' and module != 'cabinetmed'"
+        );
 
         return $this->_remove($sql,$options);
     }
 
 
     /**
-     *      \brief      Create tables, keys and data required by module
-     *                  Files llx_table1.sql, llx_table1.key.sql llx_data.sql with create table, create keys
-     *                  and create data commands must be stored in directory /voyage/sql/
-     *                  This function is called by this->init.
-     *      \return     int     <=0 if KO, >0 if OK
+     *     Create tables, keys and data required by module
+     *     Files llx_table1.sql, llx_table1.key.sql llx_data.sql with create table, create keys
+     *     and create data commands must be stored in directory /voyage/sql/
+     *     This function is called by this->init.
+     *     @return     int     <=0 if KO, >0 if OK
      */
     function load_tables()
     {

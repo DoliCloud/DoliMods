@@ -3,7 +3,7 @@
 
 
 -- Type de tiers -> Sexe
---update llx_c_typent set module = 'cabinetmed' where rowid > 100;
+--update llx_c_typent set module = 'cabinetmed' where id > 100;
 insert into llx_c_typent (id,code,libelle,active,module) values (101,'TE_HOMME', 'Homme',            1,'cabinetmed');
 insert into llx_c_typent (id,code,libelle,active,module) values (102,'TE_FEMME', 'Femme',            1,'cabinetmed');
 update llx_c_typent set active=0 where module != 'cabinetmed';
@@ -19,13 +19,6 @@ insert into llx_c_forme_juridique (rowid,code,fk_pays,libelle,active,module) val
 insert into llx_c_forme_juridique (rowid,code,fk_pays,libelle,active,module) values (100006, 100006, 1,'Profession libérale', 1,'cabinetmed');
 insert into llx_c_forme_juridique (rowid,code,fk_pays,libelle,active,module) values (100007, 100007, 1,'Informaticien',       1,'cabinetmed');
 update llx_c_forme_juridique set active=0 where module != 'cabinetmed';
-
--- Effectifs -> Regime
---delete from llx_c_typent where rowid > 100; update llx_c_effectif set active=1;
---insert into llx_c_effectif (id,code,libelle,active,module) values (100, 'EFTS',     'TS',   1,'cabinetmed');
---insert into llx_c_effectif (id,code,libelle,active,module) values (101, 'EFTNS',    'TNS',  1,'cabinetmed');
---insert into llx_c_effectif (id,code,libelle,active,module) values (102, 'EFCMU',    'CMU',  1,'cabinetmed');
---update llx_c_effectif set active=0 where module != 'cabinetmed';
 
 
 -- llx_cabinetmed_motifcons
@@ -164,6 +157,7 @@ INSERT INTO llx_cabinetmed_c_examconclusion (rowid,code,label,active) VALUES (1,
 
 
 -- Add type pour lien societe-contact
+--update llx_c_type_contact set module = 'cabinetmed' where rowid >= 200;
 INSERT INTO llx_c_type_contact (rowid,element,source,code,libelle,active,module) VALUES (200,'societe','external','GENERALREF', 'Généraliste (référent)',1,'cabinetmed');
 INSERT INTO llx_c_type_contact (rowid,element,source,code,libelle,active,module) VALUES (201,'societe','external','GENERALISTE','Généraliste',1,'cabinetmed');
 INSERT INTO llx_c_type_contact (rowid,element,source,code,libelle,active,module) VALUES (210,'societe','external','SPECCHIROR', 'Chirurgien ortho',1,'cabinetmed');
@@ -179,7 +173,7 @@ INSERT INTO llx_c_type_contact (rowid,element,source,code,libelle,active,module)
 INSERT INTO llx_c_type_contact (rowid,element,source,code,libelle,active,module) VALUES (265,'societe','external','SPECNEURO',  'Neurologue',1,'cabinetmed');
 INSERT INTO llx_c_type_contact (rowid,element,source,code,libelle,active,module) VALUES (270,'societe','external','SPECRHUMATO','Rhumatologue',1,'cabinetmed');
 INSERT INTO llx_c_type_contact (rowid,element,source,code,libelle,active,module) VALUES (280,'societe','external','KINE',       'Kinésithérapeute',1,'cabinetmed');
-update llx_c_effectif set active=0 where element='societe' and source='external' and module != 'cabinetmed';
+update llx_c_type_contact set active=0 where element='societe' and source='external' and module != 'cabinetmed';
 
 
 
