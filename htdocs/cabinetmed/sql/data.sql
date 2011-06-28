@@ -2,79 +2,82 @@
 --INSERT INTO llx_const (name, value, type, note, visible, entity) VALUES ('MYMODULE_IT_WORKS','1','chaine','A constant vor my module',1,'__ENTITY__');
 
 
--- Sexe into type
-insert into llx_c_typent (id,code,libelle,active) values (101,'TE_HOMME', 'Homme',            1);
-insert into llx_c_typent (id,code,libelle,active) values (102,'TE_FEMME', 'Femme',            1);
-update llx_c_typent set active=0 where id > 0 and id < 100;
+-- Type de tiers -> Sexe
+--update llx_c_typent set module = 'cabinetmed' where rowid > 100;
+insert into llx_c_typent (id,code,libelle,active,module) values (101,'TE_HOMME', 'Homme',            1,'cabinetmed');
+insert into llx_c_typent (id,code,libelle,active,module) values (102,'TE_FEMME', 'Femme',            1,'cabinetmed');
+update llx_c_typent set active=0 where module != 'cabinetmed';
 
 
--- Secteur d'activité dans Forme juridiques
-insert into llx_c_forme_juridique (rowid,code,fk_pays,libelle,active) values (100001, 100001, 1,'Etudiant',  1);
-insert into llx_c_forme_juridique (rowid,code,fk_pays,libelle,active) values (100002, 100002, 1,'Retraité',     1);
-insert into llx_c_forme_juridique (rowid,code,fk_pays,libelle,active) values (100003, 100003, 1,'Artisan',  1);
-insert into llx_c_forme_juridique (rowid,code,fk_pays,libelle,active) values (100004, 100004, 1,'Femme de ménage',  1);
-insert into llx_c_forme_juridique (rowid,code,fk_pays,libelle,active) values (100005, 100005, 1,'Professeur',  1);
-insert into llx_c_forme_juridique (rowid,code,fk_pays,libelle,active) values (100006, 100006, 1,'Profession libérale',  1);
-insert into llx_c_forme_juridique (rowid,code,fk_pays,libelle,active) values (100007, 100007, 1,'Informaticien',  1);
-update llx_c_forme_juridique set active=0 where rowid < 100000;
+-- Formes juridiques -> Secteur d'activité
+--update llx_c_forme_juridique set module = 'cabinetmed' where rowid > 100000;
+insert into llx_c_forme_juridique (rowid,code,fk_pays,libelle,active,module) values (100001, 100001, 1,'Etudiant',            1,'cabinetmed');
+insert into llx_c_forme_juridique (rowid,code,fk_pays,libelle,active,module) values (100002, 100002, 1,'Retraité',            1,'cabinetmed');
+insert into llx_c_forme_juridique (rowid,code,fk_pays,libelle,active,module) values (100003, 100003, 1,'Artisan',             1,'cabinetmed');
+insert into llx_c_forme_juridique (rowid,code,fk_pays,libelle,active,module) values (100004, 100004, 1,'Femme de ménage',     1,'cabinetmed');
+insert into llx_c_forme_juridique (rowid,code,fk_pays,libelle,active,module) values (100005, 100005, 1,'Professeur',          1,'cabinetmed');
+insert into llx_c_forme_juridique (rowid,code,fk_pays,libelle,active,module) values (100006, 100006, 1,'Profession libérale', 1,'cabinetmed');
+insert into llx_c_forme_juridique (rowid,code,fk_pays,libelle,active,module) values (100007, 100007, 1,'Informaticien',       1,'cabinetmed');
+update llx_c_forme_juridique set active=0 where module != 'cabinetmed';
 
-
-insert into llx_c_effectif (id,code,libelle) values (100, 'EFTS',     'TS');
-insert into llx_c_effectif (id,code,libelle) values (101, 'EFTNS',    'TNS');
-insert into llx_c_effectif (id,code,libelle) values (102, 'EFCMU',    'CMU');
-update llx_c_effectif set active=0 where id < 100 and id != 0;
+-- Effectifs -> Regime
+--delete from llx_c_typent where rowid > 100; update llx_c_effectif set active=1;
+--insert into llx_c_effectif (id,code,libelle,active,module) values (100, 'EFTS',     'TS',   1,'cabinetmed');
+--insert into llx_c_effectif (id,code,libelle,active,module) values (101, 'EFTNS',    'TNS',  1,'cabinetmed');
+--insert into llx_c_effectif (id,code,libelle,active,module) values (102, 'EFCMU',    'CMU',  1,'cabinetmed');
+--update llx_c_effectif set active=0 where module != 'cabinetmed';
 
 
 -- llx_cabinetmed_motifcons
-INSERT INTO llx_cabinetmed_motifcons (rowid,code,label,active) VALUES (5,'AUTRE','Autre',1);
-INSERT INTO llx_cabinetmed_motifcons (rowid,code,label,active) VALUES (6,'DORS','Dorsalgie',1);
-INSERT INTO llx_cabinetmed_motifcons (rowid,code,label,active) VALUES (7,'DOLMSD','Douleur Membre supérieur Droit',1);
-INSERT INTO llx_cabinetmed_motifcons (rowid,code,label,active) VALUES (8,'DOLMSG','Douleur Membre supérieur Gauche',1);
-INSERT INTO llx_cabinetmed_motifcons (rowid,code,label,active) VALUES (9,'DOLMID','Douleur Membre inférieur Droit',1);
-INSERT INTO llx_cabinetmed_motifcons (rowid,code,label,active) VALUES (10,'DOLMIG','Douleur Membre inférieur Gauche',1);
-INSERT INTO llx_cabinetmed_motifcons (rowid,code,label,active) VALUES (11,'PARESM','Paresthésie des mains',1);
-INSERT INTO llx_cabinetmed_motifcons (rowid,code,label,active) VALUES (12,'DOLEPG','Douleur épaule gauche',1);
-INSERT INTO llx_cabinetmed_motifcons (rowid,code,label,active) VALUES (13,'DOLEPD','Douleur épaule droite',1);
-INSERT INTO llx_cabinetmed_motifcons (rowid,code,label,active) VALUES (14,'GONAD','Gonaglie droite',1);
-INSERT INTO llx_cabinetmed_motifcons (rowid,code,label,active) VALUES (15,'GONAG','Gonalgie gauche',1);
-INSERT INTO llx_cabinetmed_motifcons (rowid,code,label,active) VALUES (16,'DOLPD','Douleur Pied Droit',1);
-INSERT INTO llx_cabinetmed_motifcons (rowid,code,label,active) VALUES (17,'DOUL MIN','Douleur Membre Inférieur',1);
-INSERT INTO llx_cabinetmed_motifcons (rowid,code,label,active) VALUES (18,'POLYAR','Polyarthralgie',1);
-INSERT INTO llx_cabinetmed_motifcons (rowid,code,label,active) VALUES (19,'SUIVIPR','Suivi PR',1);
-INSERT INTO llx_cabinetmed_motifcons (rowid,code,label,active) VALUES (20,'SUIVISPA','Suivi SPA',1);
-INSERT INTO llx_cabinetmed_motifcons (rowid,code,label,active) VALUES (21,'SUIVIRIC','Suivi RI',1);
-INSERT INTO llx_cabinetmed_motifcons (rowid,code,label,active) VALUES (22,'SUIVIPPR','Suivi PPR',1);
-INSERT INTO llx_cabinetmed_motifcons (rowid,code,label,active) VALUES (23,'DOLINGD','Douleur inguinale Droit',1);
-INSERT INTO llx_cabinetmed_motifcons (rowid,code,label,active) VALUES (24,'DOLINGG','Douleur inguinale Gauche',1);
-INSERT INTO llx_cabinetmed_motifcons (rowid,code,label,active) VALUES (25,'DOLCOUDD','Douleur coude Droit',1);
-INSERT INTO llx_cabinetmed_motifcons (rowid,code,label,active) VALUES (26,'DOLCOUDG','Douleur coude Gauche',1);
-INSERT INTO llx_cabinetmed_motifcons (rowid,code,label,active) VALUES (27,'TALAL','Talalgie',1);
-INSERT INTO llx_cabinetmed_motifcons (rowid,code,label,active) VALUES (28,'DOLTENDC','Douleur tandous Calcanien',1);
-INSERT INTO llx_cabinetmed_motifcons (rowid,code,label,active) VALUES (29,'DEROB','Dérobement Membres Inférieurs',1);
-INSERT INTO llx_cabinetmed_motifcons (rowid,code,label,active) VALUES (30,'LOMB MEC','Lombalgies Mécaniques',1);
-INSERT INTO llx_cabinetmed_motifcons (rowid,code,label,active) VALUES (31,'LOMB INF','Lombalgies Inflammatoires',1);
-INSERT INTO llx_cabinetmed_motifcons (rowid,code,label,active) VALUES (32,'DORS MEC','Dorsalgies Mécaniques',1);
-INSERT INTO llx_cabinetmed_motifcons (rowid,code,label,active) VALUES (33,'DORS INF','Dorsalgies Inflammatoires',1);
-INSERT INTO llx_cabinetmed_motifcons (rowid,code,label,active) VALUES (34,'CERV MEC','Cervicalgies Mécaniques',1);
-INSERT INTO llx_cabinetmed_motifcons (rowid,code,label,active) VALUES (35,'SCIAT','LomboSciatique ',1);
-INSERT INTO llx_cabinetmed_motifcons (rowid,code,label,active) VALUES (36,'CRUR','LomboCruralgie',1);
-INSERT INTO llx_cabinetmed_motifcons (rowid,code,label,active) VALUES (37,'DOUL SUP','Douleur Membre Supérieur',1);
-INSERT INTO llx_cabinetmed_motifcons (rowid,code,label,active) VALUES (38,'INGUINAL','Inguinalgie',1);
-INSERT INTO llx_cabinetmed_motifcons (rowid,code,label,active) VALUES (39,'CERV INF','Cervicalgies Inflammatoires',1);
-INSERT INTO llx_cabinetmed_motifcons (rowid,code,label,active) VALUES (40,'DOUL EP','Douleur Epaule',1);
-INSERT INTO llx_cabinetmed_motifcons (rowid,code,label,active) VALUES (41,'DOUL POI','Douleur Poignet',1);
-INSERT INTO llx_cabinetmed_motifcons (rowid,code,label,active) VALUES (42,'DOUL GEN','Douleur Genou',1);
-INSERT INTO llx_cabinetmed_motifcons (rowid,code,label,active) VALUES (43,'DOUL COU','Douleur Coude',1);
-INSERT INTO llx_cabinetmed_motifcons (rowid,code,label,active) VALUES (44,'DOUL HAN','Douleur Hanche',1);
-INSERT INTO llx_cabinetmed_motifcons (rowid,code,label,active) VALUES (45,'PAR MBRS','Paresthésies Membres Inférieurs',1);
-INSERT INTO llx_cabinetmed_motifcons (rowid,code,label,active) VALUES (46,'PAR MBRI','Paresthésies Membres Supérieurs',1);
-INSERT INTO llx_cabinetmed_motifcons (rowid,code,label,active) VALUES (47,'TR RACHI','Traumatisme Rachis',1);
-INSERT INTO llx_cabinetmed_motifcons (rowid,code,label,active) VALUES (48,'TR MBRS','Traumatisme Membres Supérieurs',1);
-INSERT INTO llx_cabinetmed_motifcons (rowid,code,label,active) VALUES (49,'TR MBRI','Traumatisme Membres Inférieurs',1);
-INSERT INTO llx_cabinetmed_motifcons (rowid,code,label,active) VALUES (50,'FAT MBRI','Fatiguabilité Membres Inférieurs',1);
-INSERT INTO llx_cabinetmed_motifcons (rowid,code,label,active) VALUES (51,'DOUL CHE','Douleur Cheville',1);
-INSERT INTO llx_cabinetmed_motifcons (rowid,code,label,active) VALUES (52,'DOUL PD','Douleur Pied',1);
-INSERT INTO llx_cabinetmed_motifcons (rowid,code,label,active) VALUES (53,'DOUL MA','Douleur Main',1);
+INSERT INTO llx_cabinetmed_motifcons (rowid,code,label,active,module) VALUES (5,'AUTRE','Autre',1);
+INSERT INTO llx_cabinetmed_motifcons (rowid,code,label,active,module) VALUES (6,'DORS','Dorsalgie',1);
+INSERT INTO llx_cabinetmed_motifcons (rowid,code,label,active,module) VALUES (7,'DOLMSD','Douleur Membre supérieur Droit',1);
+INSERT INTO llx_cabinetmed_motifcons (rowid,code,label,active,module) VALUES (8,'DOLMSG','Douleur Membre supérieur Gauche',1);
+INSERT INTO llx_cabinetmed_motifcons (rowid,code,label,active,module) VALUES (9,'DOLMID','Douleur Membre inférieur Droit',1);
+INSERT INTO llx_cabinetmed_motifcons (rowid,code,label,active,module) VALUES (10,'DOLMIG','Douleur Membre inférieur Gauche',1);
+INSERT INTO llx_cabinetmed_motifcons (rowid,code,label,active,module) VALUES (11,'PARESM','Paresthésie des mains',1);
+INSERT INTO llx_cabinetmed_motifcons (rowid,code,label,active,module) VALUES (12,'DOLEPG','Douleur épaule gauche',1);
+INSERT INTO llx_cabinetmed_motifcons (rowid,code,label,active,module) VALUES (13,'DOLEPD','Douleur épaule droite',1);
+INSERT INTO llx_cabinetmed_motifcons (rowid,code,label,active,module) VALUES (14,'GONAD','Gonaglie droite',1);
+INSERT INTO llx_cabinetmed_motifcons (rowid,code,label,active,module) VALUES (15,'GONAG','Gonalgie gauche',1);
+INSERT INTO llx_cabinetmed_motifcons (rowid,code,label,active,module) VALUES (16,'DOLPD','Douleur Pied Droit',1);
+INSERT INTO llx_cabinetmed_motifcons (rowid,code,label,active,module) VALUES (17,'DOUL MIN','Douleur Membre Inférieur',1);
+INSERT INTO llx_cabinetmed_motifcons (rowid,code,label,active,module) VALUES (18,'POLYAR','Polyarthralgie',1);
+INSERT INTO llx_cabinetmed_motifcons (rowid,code,label,active,module) VALUES (19,'SUIVIPR','Suivi PR',1);
+INSERT INTO llx_cabinetmed_motifcons (rowid,code,label,active,module) VALUES (20,'SUIVISPA','Suivi SPA',1);
+INSERT INTO llx_cabinetmed_motifcons (rowid,code,label,active,module) VALUES (21,'SUIVIRIC','Suivi RI',1);
+INSERT INTO llx_cabinetmed_motifcons (rowid,code,label,active,module) VALUES (22,'SUIVIPPR','Suivi PPR',1);
+INSERT INTO llx_cabinetmed_motifcons (rowid,code,label,active,module) VALUES (23,'DOLINGD','Douleur inguinale Droit',1);
+INSERT INTO llx_cabinetmed_motifcons (rowid,code,label,active,module) VALUES (24,'DOLINGG','Douleur inguinale Gauche',1);
+INSERT INTO llx_cabinetmed_motifcons (rowid,code,label,active,module) VALUES (25,'DOLCOUDD','Douleur coude Droit',1);
+INSERT INTO llx_cabinetmed_motifcons (rowid,code,label,active,module) VALUES (26,'DOLCOUDG','Douleur coude Gauche',1);
+INSERT INTO llx_cabinetmed_motifcons (rowid,code,label,active,module) VALUES (27,'TALAL','Talalgie',1);
+INSERT INTO llx_cabinetmed_motifcons (rowid,code,label,active,module) VALUES (28,'DOLTENDC','Douleur tandous Calcanien',1);
+INSERT INTO llx_cabinetmed_motifcons (rowid,code,label,active,module) VALUES (29,'DEROB','Dérobement Membres Inférieurs',1);
+INSERT INTO llx_cabinetmed_motifcons (rowid,code,label,active,module) VALUES (30,'LOMB MEC','Lombalgies Mécaniques',1);
+INSERT INTO llx_cabinetmed_motifcons (rowid,code,label,active,module) VALUES (31,'LOMB INF','Lombalgies Inflammatoires',1);
+INSERT INTO llx_cabinetmed_motifcons (rowid,code,label,active,module) VALUES (32,'DORS MEC','Dorsalgies Mécaniques',1);
+INSERT INTO llx_cabinetmed_motifcons (rowid,code,label,active,module) VALUES (33,'DORS INF','Dorsalgies Inflammatoires',1);
+INSERT INTO llx_cabinetmed_motifcons (rowid,code,label,active,module) VALUES (34,'CERV MEC','Cervicalgies Mécaniques',1);
+INSERT INTO llx_cabinetmed_motifcons (rowid,code,label,active,module) VALUES (35,'SCIAT','LomboSciatique ',1);
+INSERT INTO llx_cabinetmed_motifcons (rowid,code,label,active,module) VALUES (36,'CRUR','LomboCruralgie',1);
+INSERT INTO llx_cabinetmed_motifcons (rowid,code,label,active,module) VALUES (37,'DOUL SUP','Douleur Membre Supérieur',1);
+INSERT INTO llx_cabinetmed_motifcons (rowid,code,label,active,module) VALUES (38,'INGUINAL','Inguinalgie',1);
+INSERT INTO llx_cabinetmed_motifcons (rowid,code,label,active,module) VALUES (39,'CERV INF','Cervicalgies Inflammatoires',1);
+INSERT INTO llx_cabinetmed_motifcons (rowid,code,label,active,module) VALUES (40,'DOUL EP','Douleur Epaule',1);
+INSERT INTO llx_cabinetmed_motifcons (rowid,code,label,active,module) VALUES (41,'DOUL POI','Douleur Poignet',1);
+INSERT INTO llx_cabinetmed_motifcons (rowid,code,label,active,module) VALUES (42,'DOUL GEN','Douleur Genou',1);
+INSERT INTO llx_cabinetmed_motifcons (rowid,code,label,active,module) VALUES (43,'DOUL COU','Douleur Coude',1);
+INSERT INTO llx_cabinetmed_motifcons (rowid,code,label,active,module) VALUES (44,'DOUL HAN','Douleur Hanche',1);
+INSERT INTO llx_cabinetmed_motifcons (rowid,code,label,active,module) VALUES (45,'PAR MBRS','Paresthésies Membres Inférieurs',1);
+INSERT INTO llx_cabinetmed_motifcons (rowid,code,label,active,module) VALUES (46,'PAR MBRI','Paresthésies Membres Supérieurs',1);
+INSERT INTO llx_cabinetmed_motifcons (rowid,code,label,active,module) VALUES (47,'TR RACHI','Traumatisme Rachis',1);
+INSERT INTO llx_cabinetmed_motifcons (rowid,code,label,active,module) VALUES (48,'TR MBRS','Traumatisme Membres Supérieurs',1);
+INSERT INTO llx_cabinetmed_motifcons (rowid,code,label,active,module) VALUES (49,'TR MBRI','Traumatisme Membres Inférieurs',1);
+INSERT INTO llx_cabinetmed_motifcons (rowid,code,label,active,module) VALUES (50,'FAT MBRI','Fatiguabilité Membres Inférieurs',1);
+INSERT INTO llx_cabinetmed_motifcons (rowid,code,label,active,module) VALUES (51,'DOUL CHE','Douleur Cheville',1);
+INSERT INTO llx_cabinetmed_motifcons (rowid,code,label,active,module) VALUES (52,'DOUL PD','Douleur Pied',1);
+INSERT INTO llx_cabinetmed_motifcons (rowid,code,label,active,module) VALUES (53,'DOUL MA','Douleur Main',1);
 
 
 -- llx_cabinetmed_diaglec
@@ -160,23 +163,23 @@ INSERT INTO llx_cabinetmed_examenprescrit (rowid,code,label,biorad,active) VALUE
 INSERT INTO llx_cabinetmed_c_examconclusion (rowid,code,label,active) VALUES (1,'AUTRE','Autre',1);
 
 
--- Add type pour lien societe
-delete from llx_c_type_contact where rowid >= 200;
-INSERT INTO llx_c_type_contact (rowid,element,source,code,libelle,active) VALUES (200,'societe','external','GENERALREF', 'Généraliste (référent)',1);
-INSERT INTO llx_c_type_contact (rowid,element,source,code,libelle,active) VALUES (201,'societe','external','GENERALISTE','Généraliste',1);
-INSERT INTO llx_c_type_contact (rowid,element,source,code,libelle,active) VALUES (210,'societe','external','SPECCHIROR', 'Chirurgien ortho',1);
-INSERT INTO llx_c_type_contact (rowid,element,source,code,libelle,active) VALUES (211,'societe','external','SPECCHIROT', 'Chirurgien autre',1);
-INSERT INTO llx_c_type_contact (rowid,element,source,code,libelle,active) VALUES (220,'societe','external','SPECDERMA',  'Dermatologue',1);
-INSERT INTO llx_c_type_contact (rowid,element,source,code,libelle,active) VALUES (225,'societe','external','SPECENDOC',  'Endocrinologue',1);
-INSERT INTO llx_c_type_contact (rowid,element,source,code,libelle,active) VALUES (230,'societe','external','SPECGYNECO', 'Gynécologue',1);
-INSERT INTO llx_c_type_contact (rowid,element,source,code,libelle,active) VALUES (240,'societe','external','SPECGASTRO', 'Gastroantérologue',1);
-INSERT INTO llx_c_type_contact (rowid,element,source,code,libelle,active) VALUES (245,'societe','external','SPECINTERNE','Interniste',1);
-INSERT INTO llx_c_type_contact (rowid,element,source,code,libelle,active) VALUES (250,'societe','external','SPECCARDIO', 'Cardiologue',1);
-INSERT INTO llx_c_type_contact (rowid,element,source,code,libelle,active) VALUES (260,'societe','external','SPECNEPHRO', 'Néphrologue',1);
-INSERT INTO llx_c_type_contact (rowid,element,source,code,libelle,active) VALUES (263,'societe','external','SPECPNEUMO', 'Pneumologue',1);
-INSERT INTO llx_c_type_contact (rowid,element,source,code,libelle,active) VALUES (265,'societe','external','SPECNEURO',  'Neurologue',1);
-INSERT INTO llx_c_type_contact (rowid,element,source,code,libelle,active) VALUES (270,'societe','external','SPECRHUMATO','Rhumatologue',1);
-INSERT INTO llx_c_type_contact (rowid,element,source,code,libelle,active) VALUES (280,'societe','external','KINE',       'Kinésithérapeute',1);
+-- Add type pour lien societe-contact
+INSERT INTO llx_c_type_contact (rowid,element,source,code,libelle,active,module) VALUES (200,'societe','external','GENERALREF', 'Généraliste (référent)',1,'cabinetmed');
+INSERT INTO llx_c_type_contact (rowid,element,source,code,libelle,active,module) VALUES (201,'societe','external','GENERALISTE','Généraliste',1,'cabinetmed');
+INSERT INTO llx_c_type_contact (rowid,element,source,code,libelle,active,module) VALUES (210,'societe','external','SPECCHIROR', 'Chirurgien ortho',1,'cabinetmed');
+INSERT INTO llx_c_type_contact (rowid,element,source,code,libelle,active,module) VALUES (211,'societe','external','SPECCHIROT', 'Chirurgien autre',1,'cabinetmed');
+INSERT INTO llx_c_type_contact (rowid,element,source,code,libelle,active,module) VALUES (220,'societe','external','SPECDERMA',  'Dermatologue',1,'cabinetmed');
+INSERT INTO llx_c_type_contact (rowid,element,source,code,libelle,active,module) VALUES (225,'societe','external','SPECENDOC',  'Endocrinologue',1,'cabinetmed');
+INSERT INTO llx_c_type_contact (rowid,element,source,code,libelle,active,module) VALUES (230,'societe','external','SPECGYNECO', 'Gynécologue',1,'cabinetmed');
+INSERT INTO llx_c_type_contact (rowid,element,source,code,libelle,active,module) VALUES (240,'societe','external','SPECGASTRO', 'Gastroantérologue',1,'cabinetmed');
+INSERT INTO llx_c_type_contact (rowid,element,source,code,libelle,active,module) VALUES (245,'societe','external','SPECINTERNE','Interniste',1,'cabinetmed');
+INSERT INTO llx_c_type_contact (rowid,element,source,code,libelle,active,module) VALUES (250,'societe','external','SPECCARDIO', 'Cardiologue',1,'cabinetmed');
+INSERT INTO llx_c_type_contact (rowid,element,source,code,libelle,active,module) VALUES (260,'societe','external','SPECNEPHRO', 'Néphrologue',1,'cabinetmed');
+INSERT INTO llx_c_type_contact (rowid,element,source,code,libelle,active,module) VALUES (263,'societe','external','SPECPNEUMO', 'Pneumologue',1,'cabinetmed');
+INSERT INTO llx_c_type_contact (rowid,element,source,code,libelle,active,module) VALUES (265,'societe','external','SPECNEURO',  'Neurologue',1,'cabinetmed');
+INSERT INTO llx_c_type_contact (rowid,element,source,code,libelle,active,module) VALUES (270,'societe','external','SPECRHUMATO','Rhumatologue',1,'cabinetmed');
+INSERT INTO llx_c_type_contact (rowid,element,source,code,libelle,active,module) VALUES (280,'societe','external','KINE',       'Kinésithérapeute',1,'cabinetmed');
+update llx_c_effectif set active=0 where element='societe' and source='external' and module != 'cabinetmed';
 
 
 
