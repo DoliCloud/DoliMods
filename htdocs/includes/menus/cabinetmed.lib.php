@@ -21,7 +21,7 @@
 /**
  *  \file		htdocs/includes/menus/cabinetmed.lib.php
  *  \brief		Library for file cabinetmed menus
- *  \version	$Id: cabinetmed.lib.php,v 1.21 2011/06/15 00:16:38 eldy Exp $
+ *  \version	$Id: cabinetmed.lib.php,v 1.22 2011/06/29 22:41:54 eldy Exp $
  */
 
 
@@ -466,6 +466,7 @@ function print_cabinetmed_menu($db,$atarget,$type_user)
 					}
 					$url.="idmenu=".$newTabMenu[$i]['rowid'];
 				}
+                $url=preg_replace('/__LOGIN__/',$user->login,$url);
 
 				// Define the class (top menu selected or not)
 				if (! empty($_SESSION['idmenu']) && $newTabMenu[$i]['rowid'] == $_SESSION['idmenu']) $classname='class="tmenusel"';
