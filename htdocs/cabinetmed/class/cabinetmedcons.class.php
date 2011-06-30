@@ -20,7 +20,7 @@
  *      \file       htdocs/cabinetmed/class/cabinetmedcons.class.php
  *      \ingroup    cabinetmed
  *      \brief      This file is an example for a CRUD class file (Create/Read/Update/Delete)
- *		\version    $Id: cabinetmedcons.class.php,v 1.15 2011/06/14 23:14:43 eldy Exp $
+ *		\version    $Id: cabinetmedcons.class.php,v 1.16 2011/06/30 22:58:42 eldy Exp $
  *		\remarks	Initialy built by build_class_from_table on 2011-02-02 22:30
  */
 
@@ -639,10 +639,11 @@ class CabinetmedCons extends CommonObject
 
         $htmlform=new Form($this->db);
 
-        print '<tr>';
-        print '<td align="left" colspan="4" valign="top">';
+        $out='';
+        $out.='<tr>';
+        $out.='<td align="left" colspan="4" valign="top">';
         $firstid=0;
-        print $langs->trans("Consultation").': ';
+        $out.=$langs->trans("Consultation").': ';
         $array_consult=array();
         $sql='SELECT rowid, datecons as date FROM '.MAIN_DB_PREFIX.'cabinetmed_cons where fk_soc='.$this->fk_soc;
         $sql.=' ORDER BY datecons DESC, rowid DESC';
@@ -660,13 +661,13 @@ class CabinetmedCons extends CommonObject
             }
         }
         else dol_print_error($this->db);
-        print $htmlform->select_array('idconsult',$array_consult,$firstid,1);
+        $out.=$htmlform->selectarray('idconsult',$array_consult,$firstid,1);
         //print '</td>';
         //print '<td align="center">';
 
-        print ' &nbsp; &nbsp; &nbsp; ';
+        $out.=' &nbsp; &nbsp; &nbsp; ';
 
-        print $langs->trans("ResultExamBio").': ';
+        $out.=$langs->trans("ResultExamBio").': ';
         $array_consult=array();
         $sql='SELECT rowid, dateexam as date FROM '.MAIN_DB_PREFIX.'cabinetmed_exambio where fk_soc='.$this->fk_soc;
         $sql.=' ORDER BY dateexam DESC, rowid DESC';
@@ -683,13 +684,13 @@ class CabinetmedCons extends CommonObject
             }
         }
         else dol_print_error($this->db);
-        print $htmlform->select_array('idbio',$array_consult,GETPOST('idbio')?GETPOST('idbio'):'',1);
-        //print '</td>';
-        //print '<td align="center">';
+        $out.=$htmlform->selectarray('idbio',$array_consult,GETPOST('idbio')?GETPOST('idbio'):'',1);
+        //$out.= '</td>';
+        //$out.= '<td align="center">';
 
-        print ' &nbsp; &nbsp; &nbsp; ';
+        $out.=' &nbsp; &nbsp; &nbsp; ';
 
-        print $langs->trans("ResultExamAutre").': ';
+        $out.=$langs->trans("ResultExamAutre").': ';
         $array_consult=array();
         $sql='SELECT rowid, dateexam as date FROM '.MAIN_DB_PREFIX.'cabinetmed_examaut where fk_soc='.$this->fk_soc;
         $sql.=' ORDER BY dateexam DESC, rowid DESC';
@@ -706,15 +707,17 @@ class CabinetmedCons extends CommonObject
             }
         }
         else dol_print_error($this->db);
-        print $htmlform->select_array('idradio',$array_consult,GETPOST('idradio')?GETPOST('idradio'):'',1);
-        print '</td>';
-        print '</tr>';
+        $out.=$htmlform->selectarray('idradio',$array_consult,GETPOST('idradio')?GETPOST('idradio'):'',1);
+        $out.='</td>';
+        $out.='</tr>';
 
-        print '<tr><td colspan="4" valign="top">';
-        print $langs->trans("Comment").': ';
-        //print '<textarea name="outcome_comment" cols="90" rows="'.ROWS_2.'">'.(GETPOST('outcome_comment')?GETPOST('outcome_comment'):'').'</textarea>';
-        print '<input type="text" name="outcome_comment" size="90" value="'.(GETPOST('outcome_comment')?GETPOST('outcome_comment'):'').'">';
-        print '</td></tr>';
+        $out.='<tr><td colspan="4" valign="top">';
+        $out.=$langs->trans("Comment").': ';
+        //$out.= '<textarea name="outcome_comment" cols="90" rows="'.ROWS_2.'">'.(GETPOST('outcome_comment')?GETPOST('outcome_comment'):'').'</textarea>';
+        $out.='<input type="text" name="outcome_comment" size="90" value="'.(GETPOST('outcome_comment')?GETPOST('outcome_comment'):'').'">';
+        $out.='</td></tr>';
+
+        return $out;
     }
 
 }

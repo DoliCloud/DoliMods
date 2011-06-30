@@ -20,7 +20,7 @@
  *   \file       htdocs/cabinetmed/documents.php
  *   \brief      Tab for courriers
  *   \ingroup    cabinetmed
- *   \version    $Id: documents.php,v 1.8 2011/06/17 22:25:02 eldy Exp $
+ *   \version    $Id: documents.php,v 1.9 2011/06/30 22:59:00 eldy Exp $
  */
 
 $res=0;
@@ -281,7 +281,7 @@ if ($socid > 0)
 
     $instance=new CabinetmedCons($db);
     $instance->fk_soc=$societe->id;
-    $hooks=array('objectcard'=>$instance);
+    $hooks=array(0=>array('modules'=>array($instance)));
     $somethingshown=$formfile->show_documents('company',$societe->id,$filedir,$urlsource,$genallowed,$delallowed,'',0,0,0,64,0,'',0,'',$societe->default_lang,$hooks);
 
     print '</td>';
@@ -297,5 +297,5 @@ if ($socid > 0)
 
 $db->close();
 
-llxFooter('$Date: 2011/06/17 22:25:02 $ - $Revision: 1.8 $');
+llxFooter('$Date: 2011/06/30 22:59:00 $ - $Revision: 1.9 $');
 ?>
