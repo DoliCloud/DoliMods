@@ -21,7 +21,7 @@
 /**
  *		\file       htdocs/cabinetmed/theme/eldy/style.css.php
  *		\brief      Fichier de style CSS du theme Eldy
- *		\version    $Id: style.css.php,v 1.15 2011/06/08 18:07:30 eldy Exp $
+ *		\version    $Id: style.css.php,v 1.16 2011/07/01 23:10:09 eldy Exp $
  */
 
 //if (! defined('NOREQUIREUSER')) define('NOREQUIREUSER','1');	// Not disabled cause need to load personalized language
@@ -953,7 +953,7 @@ span.tabspan {
 
 /* Nouvelle syntaxe a utiliser */
 
-.butAction:link, .butAction:visited, .butAction:hover, .butAction:active, .butActionDelete, .butActionDelete:link, .butActionDelete:visited, .butActionDelete:hover, .butActionDelete:active {
+.butAction, .butAction:link, .butAction:visited, .butAction:hover, .butAction:active, .butActionDelete, .butActionDelete:link, .butActionDelete:visited, .butActionDelete:hover, .butActionDelete:active {
 	font-family: <?php print $fontlist ?>;
 	font-weight: bold;
 	background: white;
@@ -1261,6 +1261,8 @@ font-family: <?php print $fontlist ?>;
 .warning { color: #887711; }
 .error   { color: #550000; font-weight: bold; }
 
+td.highlights { background: #f9c5c6; }
+
 td.warning {	/* Utilise par Smarty */
   background: #FF99A9;
 }
@@ -1393,6 +1395,20 @@ opacity: 1;
 /* ============================================================================== */
 /* Calendar                                                                       */
 /* ============================================================================== */
+
+.ui-datepicker-title {
+    margin: 0 !important;
+    line-height: 28px;
+    z-index: 3000;
+}
+.ui-datepicker-month {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+.ui-datepicker-header {
+    height: 28px !important;
+}
+
 .bodyline {
 	-moz-border-radius:8px;
 	border: 1px #E4ECEC outset;
@@ -1878,7 +1894,7 @@ A.none, A.none:active, A.none:visited, A.none:hover {
     border: 0px solid #FF0000 !important;
 }
 span.cke_skin_kama { padding: 0 ! important; }
-
+.cke_wrapper { padding: 4px !important; }
 
 
 
