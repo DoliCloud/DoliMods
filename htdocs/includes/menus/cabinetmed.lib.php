@@ -21,7 +21,7 @@
 /**
  *  \file		htdocs/includes/menus/cabinetmed.lib.php
  *  \brief		Library for file cabinetmed menus
- *  \version	$Id: cabinetmed.lib.php,v 1.22 2011/06/29 22:41:54 eldy Exp $
+ *  \version	$Id: cabinetmed.lib.php,v 1.23 2011/07/02 16:48:47 eldy Exp $
  */
 
 
@@ -199,7 +199,54 @@ function print_cabinetmed_menu($db,$atarget,$type_user)
 		}
 	}
 
-	// Financial
+    // Commercial
+    $menuqualified=0;
+    if (! empty($conf->propal->enabled)) $menuqualified++;
+    if (! empty($conf->commande->enabled)) $menuqualified++;
+    if (! empty($conf->fournisseur->enabled)) $menuqualified++;
+    if (! empty($conf->contrat->enabled)) $menuqualified++;
+    if (! empty($conf->ficheinter->enabled)) $menuqualified++;
+    if ($menuqualified)
+    {
+        $langs->load("commercial");
+
+        $classname="";
+        if ($_SESSION["mainmenu"] && $_SESSION["mainmenu"] == "commercial")
+        {
+            $classname='class="tmenusel"'; $_SESSION['idmenu']='';
+        }
+        else
+        {
+            $classname = 'class="tmenu"';
+        }
+
+        $idsel='commercial';
+        if($user->rights->societe->lire || $user->rights->societe->contact->lire)
+        {
+            print_start_menu_entry($idsel);
+            print '<a class="tmenuimage" href="'.DOL_URL_ROOT.'/comm/index.php?mainmenu=commercial&amp;leftmenu="'.($atarget?' target="'.$atarget.'"':'').'>';
+            print '<div class="'.$id.' '.$idsel.'"><span class="'.$id.' tmenuimage" id="'.$id.'"></span></div>';
+            print '</a>';
+            print '<a '.$classname.' id="mainmenua_'.$idsel.'" href="'.DOL_URL_ROOT.'/comm/index.php?mainmenu=commercial&amp;leftmenu="'.($atarget?' target="'.$atarget.'"':'').'>';
+            print_text_menu_entry($langs->trans("Commercial"));
+            print '</a>';
+            print_end_menu_entry();
+        }
+        else if (empty($conf->global->MAIN_MENU_HIDE_UNAUTHORIZED))
+        {
+            if (! $type_user)
+            {
+                print_start_menu_entry($idsel);
+                print '<div class="'.$id.' '.$idsel.'"><span class="'.$id.'" id="mainmenuspan_'.$idsel.'"></span></div>';
+                print '<a class="tmenudisabled" id="mainmenua_'.$idsel.'" href="#">';
+                print print_text_menu_entry($langs->trans("Commercial"));
+                print '</a>';
+                print_end_menu_entry();
+            }
+        }
+    }
+
+    // Financial
 	if ($conf->compta->enabled || $conf->accounting->enabled
 	|| $conf->facture->enabled || $conf->deplacement->enabled || $conf->cabinetmed->enabled)
 	{

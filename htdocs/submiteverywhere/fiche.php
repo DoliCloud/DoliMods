@@ -21,7 +21,7 @@
  *       \file       htdocs/comm/mailing/fiche.php
  *       \ingroup    mailing
  *       \brief      Fiche mailing, onglet general
- *       \version    $Id: fiche.php,v 1.1 2011/06/20 22:08:22 eldy Exp $
+ *       \version    $Id: fiche.php,v 1.2 2011/07/02 16:48:43 eldy Exp $
  */
 
 $res=0;
@@ -358,7 +358,7 @@ if ($_POST["action"] == 'send' && empty($_POST["cancel"]))
 		$result=$mailfile->sendfile();
 		if ($result)
 		{
-			$message='<div class="ok">'.$langs->trans("MailSuccessfulySent",$mil->email_from,$mil->sendto).'</div>';
+			$message='<div class="ok">'.$langs->trans("MailSuccessfulySent",$mailfile->getValidAddress($mil->email_from,2),$mailfile->getValidAddress($mil->sendto,2)).'</div>';
 		}
 		else
 		{
@@ -1080,5 +1080,5 @@ else
 
 $db->close();
 
-llxFooter('$Date: 2011/06/20 22:08:22 $ - $Revision: 1.1 $');
+llxFooter('$Date: 2011/07/02 16:48:43 $ - $Revision: 1.2 $');
 ?>
