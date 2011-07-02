@@ -27,7 +27,7 @@
  *	\file       htdocs/cabinetmed/class/actions_cabinetmed.class.php
  *	\ingroup    societe
  *	\brief      File for third party class
- *	\version    $Id: actions_cabinetmed.class.php,v 1.1 2011/07/01 23:09:20 eldy Exp $
+ *	\version    $Id: actions_cabinetmed.class.php,v 1.2 2011/07/02 15:01:00 eldy Exp $
  */
 require_once(DOL_DOCUMENT_ROOT."/core/class/commonobject.class.php");
 
@@ -48,31 +48,74 @@ class ActionsCabinetmed
      */
     function ActionsCabinetmed($DB)
     {
-        global $conf;
-
         $this->db = $DB;
-
-        return 1;
     }
 
 
     /**
      *    Execute action
-     *    @param        Object
+     *    @param        Object      Deprecated. This field is nto used
      *    @param        action      'add', 'update', 'view'
+     *    @param        id          Id of object (in output if create, in input if update of view)
      *    @return       int         <0 if KO,
      *                              =0 if OK but we want to process standard actions too,
-     *                              >0 if OK and we want to replace standard actions
+     *                              >0 if OK and we want to replace standard actions.
      */
-    function doActions($object,$action)
+    function doActions(&$object,&$action,&$id)
     {
         global $langs,$conf;
 
-        /*print 'action='.$action;
-        var_dump($object);
-        exit;*/
+        $ret=0;
 
-        return 0;
+        // Hook called when asking to add a new record
+        if ($action == 'add')
+        {
+            $nametocheck=$_POST['nom'];
+            //$confirmduplicate=$_POST['confirmduplicate'];
+
+            $sql = 'SELECT s.rowid, s.nom, s.entity FROM '.MAIN_DB_PREFIX.'societe as s';
+            $sql.= ' WHERE s.entity = '.$conf->entity;
+            $sql.= " AND s.nom = '".$this->db->escape($nametocheck)."'";
+            $resql=$this->db->query($sql);
+            if ($resql)
+            {
+                $obj=$this->db->fetch_object($resql);
+                if ($obj)
+                {
+                    //if (empty($confirmduplicate) || $nametocheck != $_POST['confirmduplicate'])
+                    if (empty($confirmduplicate))
+                    {
+                        // If already exists, we want to block creation
+                        //$_POST['confirmduplicate']=$nametocheck;
+                        $this->errors[]=$langs->trans("ErrorCompanyNameAlreadyExists",$nametocheck);
+                        $ret=-1;
+                    }
+                }
+                else
+                {
+                    // Create object, set $id to its id and return 1
+                    // or
+                    // Do something else and return 0 to use standard code to create;
+                    // or
+                    // Do nothing
+                }
+            }
+            else dol_print_error($this->db);
+        }
+
+        // Hook called when asking to update a record
+        if ($action == 'update')
+        {
+
+        }
+
+        // Hook called when asking to view a record
+        if ($action == 'view')
+        {
+
+        }
+
+        return $ret;
     }
 
 }

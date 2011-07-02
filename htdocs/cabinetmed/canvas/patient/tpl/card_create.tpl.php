@@ -15,7 +15,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *
- * $Id: card_create.tpl.php,v 1.6 2011/06/13 18:18:07 eldy Exp $
+ * $Id: card_create.tpl.php,v 1.7 2011/07/02 15:01:01 eldy Exp $
  */
 
 global $db,$conf,$mysoc,$langs,$user;
@@ -36,7 +36,7 @@ $form=new Form($GLOBALS['db']);
 $formcompany=new FormCompany($GLOBALS['db']);
 $formadmin=new FormAdmin($GLOBALS['db']);
 
-$soc=$GLOBALS['soc'];
+$soc=$GLOBALS['object'];
 
 
 $soc->client=1;
@@ -210,7 +210,7 @@ dol_htmloutput_errors($GOBALS['error'],$GLOBALS['errors']);
             print $GLOBALS['countrynotdefined'];
         }
         print '</td>';
-        print '<td>'.$langs->trans('ProfId4'.$GLOBALS['mysoc']->pays_code).'</td>';
+        print '<td>'.$langs->transcountry('ProfId4',$soc->pays_code).'</td>';
         print '<td><input type="text" name="idprof4" size="32" value="'.$soc->idprof4.'"></td>';
         print '</tr>';
 
