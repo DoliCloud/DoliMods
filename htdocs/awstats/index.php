@@ -1,5 +1,5 @@
 <?php
-/* Copyright (C) 2008-2009 Laurent Destailleur  <eldy@users.sourceforge.net>
+/* Copyright (C) 2008-2011 Laurent Destailleur  <eldy@users.sourceforge.net>
  *
  * Licensed under the GNU GPL v3 or higher (See file gpl-3.0.html)
  *
@@ -14,8 +14,8 @@
 
 /**
  *	\file       htdocs/awstats/index.php
- *	\brief      Page accueil module AWStats
- *	\version    $Id: index.php,v 1.21 2011/03/30 19:04:50 eldy Exp $
+ *	\brief      Home page of AWStats module
+ *	\version    $Id: index.php,v 1.22 2011/07/03 13:49:19 eldy Exp $
  */
 
 include("./pre.inc.php");
@@ -343,11 +343,11 @@ else
 			//$output_table .= '&nbsp;';
 			$output_table .= '<b>'.(empty($key)?'No name':$key).'</b> ';
 			$output_table .= '</td>
-<td width="80" class="visitors-bold" nowrap="nowrap">Visitors</td>
-<td width="80" class="visits-bold">Visits</td>
-<td width="80" class="pages-bold">Pages</td>
-<td width="80" class="hits-bold">Hits</td>
-<td width="80" class="bandwidth-bold">Bandwidth</td>
+<td width="80" class="visitors-bold" nowrap="nowrap" style="text-align: right">'.$langs->trans("Visitors").'</td>
+<td width="80" class="visits-bold" style="text-align: right">'.$langs->trans("Visits").'</td>
+<td width="80" class="pages-bold" style="text-align: right">'.$langs->trans("Pages").'</td>
+<td width="80" class="hits-bold" style="text-align: right">'.$langs->trans("Hits").'</td>
+<td width="80" class="bandwidth-bold" style="text-align: right">'.$langs->trans("Bandwidth").'</td>
 <td width="'.$maxwidth.'" align="center">';
 			$output_table .= '<a href="'.$AWSTATS_CGI_PATH.($key?'config='.$key:'').'" alt="AWStats" title="AWStats" target="_blank">';
 			$output_table .= '<img src="'.dol_buildpath('/awstats/images/awstats_screen.png',1).'" border="0">';
@@ -387,11 +387,11 @@ else
 
 					$output_table .= '  <tr class="'.$bgc.'">
 <td class="domain">'.$key3.' '.$key2.'</td>
-<td class="visitors">'.format($domaininfo[$key][$key2][$key3]['visitors']).'</td>
-<td class="visits">'.format($domaininfo[$key][$key2][$key3]['visits']).'</td>
-<td class="pages">'.format($domaininfo[$key][$key2][$key3]['pages']).'</td>
-<td class="hits">'.format($domaininfo[$key][$key2][$key3]['hits']).'</td>
-<td class="bandwidth">'.$traffic.'</td>
+<td class="visitors" style="text-align: right">'.format($domaininfo[$key][$key2][$key3]['visitors']).'</td>
+<td class="visits" style="text-align: right">'.format($domaininfo[$key][$key2][$key3]['visits']).'</td>
+<td class="pages" style="text-align: right">'.format($domaininfo[$key][$key2][$key3]['pages']).'</td>
+<td class="hits" style="text-align: right">'.format($domaininfo[$key][$key2][$key3]['hits']).'</td>
+<td class="bandwidth" style="text-align: right">'.$traffic.'</td>
 <td>';
 
 					$width['visitors']=$maxwidth*$domaininfo[$key][$key2][$key3]['visitors']/$max['visitors'];
@@ -565,5 +565,5 @@ if ($system_stats_top == true) {
 #	Output to the screen
 echo $statistics;
 
-llxFooter('$Date: 2011/03/30 19:04:50 $ - $Revision: 1.21 $');
+llxFooter('$Date: 2011/07/03 13:49:19 $ - $Revision: 1.22 $');
 ?>
