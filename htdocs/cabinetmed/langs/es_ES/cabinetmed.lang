@@ -109,3 +109,5 @@ EVA=EVA
 VS=VS
 DAS28=DAS 28
 ERRX=ER RX
+Permission100700=Leer las consultas y exámenes
+Permission100701=Crear y modificar las consultas y exámenes
