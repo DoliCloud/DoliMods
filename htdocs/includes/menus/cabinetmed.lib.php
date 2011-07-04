@@ -21,7 +21,7 @@
 /**
  *  \file		htdocs/includes/menus/cabinetmed.lib.php
  *  \brief		Library for file cabinetmed menus
- *  \version	$Id: cabinetmed.lib.php,v 1.23 2011/07/02 16:48:47 eldy Exp $
+ *  \version	$Id: cabinetmed.lib.php,v 1.24 2011/07/04 11:33:16 eldy Exp $
  */
 
 
@@ -1070,13 +1070,13 @@ function print_left_cabinetmed_menu($db,$menu_array_before,$menu_array_after)
                 $langs->load("banks");
                 $newmenu->add("/compta/bank/index.php?leftmenu=bank&amp;mainmenu=bank",$langs->trans("MenuBankCash"),0,$user->rights->banque->lire);
 
-                $newmenu->add_submenu("/compta/bank/fiche.php?action=create",$langs->trans("MenuNewFinancialAccount"),1,$user->rights->banque->configurer);
-                $newmenu->add_submenu("/compta/bank/categ.php",$langs->trans("Rubriques"),1,$user->rights->banque->configurer);
+                $newmenu->add("/compta/bank/fiche.php?action=create",$langs->trans("MenuNewFinancialAccount"),1,$user->rights->banque->configurer);
+                $newmenu->add("/compta/bank/categ.php",$langs->trans("Rubriques"),1,$user->rights->banque->configurer);
 
-                $newmenu->add_submenu("/compta/bank/search.php",$langs->trans("ListTransactions"),1,$user->rights->banque->lire);
-                $newmenu->add_submenu("/compta/bank/budget.php",$langs->trans("ListTransactionsByCategory"),1,$user->rights->banque->lire);
+                $newmenu->add("/compta/bank/search.php",$langs->trans("ListTransactions"),1,$user->rights->banque->lire);
+                $newmenu->add("/compta/bank/budget.php",$langs->trans("ListTransactionsByCategory"),1,$user->rights->banque->lire);
 
-                $newmenu->add_submenu("/compta/bank/virement.php",$langs->trans("BankTransfers"),1,$user->rights->banque->transfer);
+                $newmenu->add("/compta/bank/virement.php",$langs->trans("BankTransfers"),1,$user->rights->banque->transfer);
             }
 
             // Prelevements

@@ -23,7 +23,7 @@
 		\file   	htdocs/filemanager/pre.inc.php
 		\ingroup    compta
 		\brief  	Fichier gestionnaire du menu filemanager
-		\version	$Id: pre.inc.php,v 1.6 2011/01/16 14:38:45 eldy Exp $
+		\version	$Id: pre.inc.php,v 1.7 2011/07/04 11:33:10 eldy Exp $
 */
 
 $res=0;
@@ -69,7 +69,7 @@ function llxHeader($head = '', $title='', $help_url='', $target='', $disablejs=0
 		$numr = $db->num_rows($resql);
 		$i = 0;
 
-		if ($numr == 0)	$menu->add_submenu('#','NoModuleSetup',1,0);
+		if ($numr == 0)	$menu->add('#','NoModuleSetup',1,0);
 
 		while ($i < $numr)
 		{

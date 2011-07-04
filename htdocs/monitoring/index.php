@@ -20,7 +20,7 @@
  *	    \file       htdocs/monitoring/index.php
  *      \ingroup    monitoring
  *      \brief      Page to setup module Monitoring
- *		\version    $Id: index.php,v 1.16 2011/04/20 21:19:14 eldy Exp $
+ *		\version    $Id: index.php,v 1.17 2011/07/04 11:33:16 eldy Exp $
  */
 
 define('NOCSRFCHECK',1);
@@ -418,7 +418,7 @@ if (empty($id))
             print "<td>";
             //if ($obj->status == 0) print $langs->trans('ProbeNeverLaunched');
             //else
-            if ($obj->status != 0) print $html->textwithhelp(dol_trunc($obj->oldesterrortext,20),$obj->oldesterrortext,1);
+            if ($obj->status != 0) print $html->textwithtooltip(dol_trunc($obj->oldesterrortext,20),$obj->oldesterrortext,1);
             print "</td>";
             // Graphics
             print '<td align="center">';
@@ -553,5 +553,5 @@ print '<br>';
 
 $db->close();
 
-llxFooter('$Date: 2011/04/20 21:19:14 $ - $Revision: 1.16 $');
+llxFooter('$Date: 2011/07/04 11:33:16 $ - $Revision: 1.17 $');
 ?>

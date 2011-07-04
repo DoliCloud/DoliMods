@@ -25,7 +25,7 @@
  *      \file       htdocs/monitoring/probes.php
  *      \ingroup    monitoring
  *      \brief      Page to add probes
- *      \version    $Id: probes.php,v 1.13 2011/04/20 21:44:07 eldy Exp $
+ *      \version    $Id: probes.php,v 1.14 2011/07/04 11:33:16 eldy Exp $
  */
 
 $res=0;
@@ -199,7 +199,7 @@ if ($action != 'edit')
     print $html->selectyesno('probe_useproxy',isset($_POST['probe_useproxy'])?$_POST['probe_useproxy']:0,1);
     print '</td>';
     print '<td>'.
-    $html->textwithhelp(img_help(),$langs->trans("SetToYesToUseGlobalProxySetup"));
+    $html->textwithtooltip(img_help(),$langs->trans("SetToYesToUseGlobalProxySetup"));
     print '</td>';
     print '</tr>';
 
@@ -378,7 +378,7 @@ else
     print $html->selectyesno('probe_useproxy',isset($_POST['probe_useproxy'])?$_POST['probe_useproxy']:$probe->useproxy,1);
     print '</td>';
     print '<td>'.
-    $html->textwithhelp(img_help(),$langs->trans("SetToYesToUseGlobalProxySetup"));
+    $html->textwithtooltip(img_help(),$langs->trans("SetToYesToUseGlobalProxySetup"));
     print '</td>';
     print '</tr>';
 
@@ -430,5 +430,5 @@ else
 
 $db->close();
 
-llxFooter('$Date: 2011/04/20 21:44:07 $ - $Revision: 1.13 $');
+llxFooter('$Date: 2011/07/04 11:33:16 $ - $Revision: 1.14 $');
 ?>
