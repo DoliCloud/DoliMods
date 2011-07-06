@@ -22,7 +22,7 @@
  *	\file       htdocs/cabinetmed/class/html.formfilecabinetmed.class.php
  *  \ingroup    core
  *	\brief      File of class to offer components to list and upload files
- *	\version	$Id: html.formfilecabinetmed.class.php,v 1.1 2011/07/06 18:23:18 eldy Exp $
+ *	\version	$Id: html.formfilecabinetmed.class.php,v 1.2 2011/07/06 22:41:13 eldy Exp $
  */
 
 
@@ -78,9 +78,10 @@ class FormFileCabinetmed
         $url=$_SERVER["PHP_SELF"];
         print '<table width="100%" class="nobordernopadding">';
         print '<tr class="liste_titre">';
+        print_liste_field_titre($langs->trans("Date"),$_SERVER["PHP_SELF"],"date","",$param,'align="left"',$sortfield,$sortorder);
         print_liste_field_titre($langs->trans("Documents2"),$_SERVER["PHP_SELF"],"name","",$param,'align="left"',$sortfield,$sortorder);
         print_liste_field_titre($langs->trans("Size"),$_SERVER["PHP_SELF"],"size","",$param,'align="right"',$sortfield,$sortorder);
-        print_liste_field_titre($langs->trans("Date"),$_SERVER["PHP_SELF"],"date","",$param,'align="center"',$sortfield,$sortorder);
+        print_liste_field_titre('','','');
         if (empty($useinecm)) print_liste_field_titre('',$_SERVER["PHP_SELF"],"","",$param,'align="center"');
         print_liste_field_titre('','','');
         print '</tr>';
@@ -102,6 +103,7 @@ class FormFileCabinetmed
 
                 $var=!$var;
                 print '<tr '.$bc[$var].'>';
+                print '<td align="left">'.dol_print_date($file['date'],"dayhour").'</td>';
                 print '<td>';
                 //print "XX".$file['name']; //$file['name'] must be utf8
                 print '<a href="'.DOL_URL_ROOT.'/document.php?modulepart='.$modulepart;
@@ -112,7 +114,6 @@ class FormFileCabinetmed
                 print '</a>';
                 print "</td>\n";
                 print '<td align="right">'.dol_print_size($file['size'],1,1).'</td>';
-                print '<td align="center">'.dol_print_date($file['date'],"dayhour").'</td>';
                 // Preview
                 if (empty($useinecm))
                 {
@@ -123,9 +124,14 @@ class FormFileCabinetmed
                     else print '&nbsp;';
                     print '</td>';
                 }
+                // Send by email
+                print '<td align="right">';
+                print '<a href="'.$_SERVER["PHP_SELF"].'?action=presend&mode=init&socid='.$object->id.'">';
+                print img_object($langs->trans("SendOutcomeByEmail"),'email');
+                print '</a>';
+                print '</td>';
                 // Delete or view link
                 print '<td align="right">';
-                if (! empty($useinecm)) print '<a href="'.DOL_URL_ROOT.'/ecm/docfile.php?section='.$_REQUEST["section"].'&urlfile='.urlencode($file['name']).'">'.img_view().'</a> &nbsp; ';
                 if ($permtodelete) print '<a href="'.$url.'?socid='.$object->id.'&section='.$_REQUEST["section"].'&action=delete&urlfile='.urlencode($file['name']).'">'.img_delete().'</a>';
                 else print '&nbsp;';
                 print "</td>";
@@ -142,8 +148,6 @@ class FormFileCabinetmed
         print "</table>";
         // Fin de zone
     }
-
-
 }
 
 ?>

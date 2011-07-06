@@ -117,3 +117,5 @@ ExamsShow=Les examens complémentaires mettent en évidence
 BilanImage=Bilan imagerie
 BilanBio=Bilan biologique
 TreatmentSugested=Traitement prescrit
+SendOutcomeByEmail=Envoyer document par Email
+SendOutcome=Courrier consultation %s

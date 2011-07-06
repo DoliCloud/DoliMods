@@ -20,7 +20,7 @@
  *   \file       htdocs/cabinetmed/documents.php
  *   \brief      Tab for courriers
  *   \ingroup    cabinetmed
- *   \version    $Id: documents.php,v 1.11 2011/07/06 21:36:52 eldy Exp $
+ *   \version    $Id: documents.php,v 1.12 2011/07/06 22:41:14 eldy Exp $
  */
 
 $res=0;
@@ -80,11 +80,11 @@ $upload_dir = $conf->societe->dir_output . "/" . $socid ;
 
 // Instantiate hooks of thirdparty module
 /*if (is_array($conf->hooks_modules) && !empty($conf->hooks_modules))
-{
-    // If module has hook for hook 'objectcard', then this add on object, the property ->hooks['objectcard'][module_number]
-    // with value that is instance of an action class.
-    $consult->callHooks('objectcard');
-}*/
+ {
+ // If module has hook for hook 'objectcard', then this add on object, the property ->hooks['objectcard'][module_number]
+ // with value that is instance of an action class.
+ $consult->callHooks('objectcard');
+ }*/
 
 
 /*
@@ -213,13 +213,13 @@ if ($socid > 0)
         if ($result < 0) dol_print_error($db,$consult->error);
     }
 
-	/*
-	 * Affichage onglets
-	 */
+    /*
+     * Affichage onglets
+     */
     if ($conf->notification->enabled) $langs->load("mails");
 
-	$head = societe_prepare_head($object);
-	dol_fiche_head($head, 'tabdocument', $langs->trans("ThirdParty"),0,'company');
+    $head = societe_prepare_head($object);
+    dol_fiche_head($head, 'tabdocument', $langs->trans("ThirdParty"),0,'company');
 
 
     // Construit liste des fichiers
@@ -230,15 +230,15 @@ if ($socid > 0)
         $totalsize+=$file['size'];
     }
 
-	print "<form method=\"post\" action=\"".$_SERVER["PHP_SELF"]."\">";
-	print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
+    print "<form method=\"post\" action=\"".$_SERVER["PHP_SELF"]."\">";
+    print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
 
-	print '<table class="border" width="100%">';
+    print '<table class="border" width="100%">';
 
-	print '<tr><td width="25%">'.$langs->trans('ThirdPartyName').'</td>';
-	print '<td colspan="3">';
-	print $form->showrefnav($object,'socid','',($user->societe_id?0:1),'rowid','nom');
-	print '</td></tr>';
+    print '<tr><td width="25%">'.$langs->trans('ThirdPartyName').'</td>';
+    print '<td colspan="3">';
+    print $form->showrefnav($object,'socid','',($user->societe_id?0:1),'rowid','nom');
+    print '</td></tr>';
 
     if ($object->client)
     {
@@ -266,12 +266,12 @@ if ($socid > 0)
 
     print "</table>";
 
-	print '</form>';
+    print '</form>';
 
-	dol_fiche_end();
+    dol_fiche_end();
 
     if ($mesg) dol_htmloutput_mesg($mesg);
-	else dol_htmloutput_mesg($error,$errors,'error');
+    else dol_htmloutput_mesg($error,$errors,'error');
 
     if ($action == 'delete')
     {
@@ -282,10 +282,11 @@ if ($socid > 0)
 
     // Affiche formulaire upload
     $formfile=new FormFile($db);
-    $formfile->form_attach_new_file($_SERVER["PHP_SELF"].'?socid='.$socid,'',0,0,$user->rights->societe->creer);
+    $title=img_file_new().' '.$langs->trans("AttachANewFile");
+    $formfile->form_attach_new_file($_SERVER["PHP_SELF"].'?socid='.$socid,$title,0,0,$user->rights->societe->creer);
 
 
-	print '<table width="100%"><tr><td valign="top" width="100%">';
+    print '<table width="100%"><tr><td valign="top" width="100%">';
     print '<a name="builddoc"></a>'; // ancre
 
     /*
@@ -301,12 +302,12 @@ if ($socid > 0)
     $instance=new CabinetmedCons($db);
     $instance->fk_soc=$object->id;
     $hooks=array(0=>array('modules'=>array($instance)));
-    $title=$langs->trans("GenerateADocument");
+    $title=img_file_new().' '.$langs->trans("GenerateADocument");
     //$somethingshown=$formfile->show_documents('company',$object->id,$filedir,$urlsource,$genallowed,$delallowed,'',0,0,0,64,0,'',$title,'',$object->default_lang,$hooks);
     $somethingshown=$formfile->show_documents('company','','',$urlsource,$genallowed,$delallowed,'',0,0,0,64,0,'',$title,'',$object->default_lang,$hooks);
 
     // List of document
-    print '<br>';
+    print '<br><br>';
     $param='&socid='.$object->id;
 
     $formfilecabinetmed=new FormFileCabinetmed($db);
@@ -320,11 +321,64 @@ if ($socid > 0)
     print '</table>';
 
     print '<br>';
+
+
+    /*
+     * Action presend
+     */
+    if ($action == 'presend')
+    {
+        $ref = dol_sanitizeFileName($object->ref);
+        $path='';
+        $file=GETPOST('file');
+
+        print '<br>';
+        print_titre($langs->trans('SendOutcomeByEmail'));
+
+        // Create form object
+        include_once(DOL_DOCUMENT_ROOT.'/core/class/html.formmail.class.php');
+        $formmail = new FormMail($db);
+        $formmail->fromtype = 'user';
+        $formmail->fromid   = $user->id;
+        $formmail->fromname = $user->getFullName($langs);
+        $formmail->frommail = $user->email;
+        $formmail->withfrom=1;
+        $formmail->withto=array('test'=>'test <test@test.com>','test2'=>'test2 <test2@test.com>');  // TODO Search contacts linked
+        $formmail->withtosocid=0;
+        $formmail->withtocc=0;
+        $formmail->withtoccsocid=0;
+        $formmail->withtoccc=$conf->global->MAIN_EMAIL_USECCC;
+        $formmail->withtocccsocid=0;
+        $formmail->withtopic=$langs->trans('SendOutcome',$object->nom);
+        $formmail->withfile=2;
+        $formmail->withbody=1;
+        $formmail->withdeliveryreceipt=0;
+        $formmail->withcancel=1;
+
+        // Tableau des substitutions
+        $formmail->substit['__NAME__']=$object->getFullAddress();
+        // Tableau des parametres complementaires
+        $formmail->param['action']='send';
+        $formmail->param['models']='outcome_send';
+        $formmail->param['socid']=$object->id;
+        $formmail->param['returnurl']=$_SERVER["PHP_SELF"].'?socid='.$object->id;
+
+        // Init list of files
+        if (GETPOST("mode")=='init')
+        {
+            $formmail->clear_attached_files();
+            $formmail->add_attached_files($path,$file,dol_mimetype($file));
+        }
+
+        $formmail->show_form();
+
+        print '<br>';
+    }
 }
 
 
 
 $db->close();
 
-llxFooter('$Date: 2011/07/06 21:36:52 $ - $Revision: 1.11 $');
+llxFooter('$Date: 2011/07/06 22:41:14 $ - $Revision: 1.12 $');
 ?>
