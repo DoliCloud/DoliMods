@@ -20,10 +20,10 @@
  */
 
 /**
- *		\file       htdocs/viewimage.php
- *		\brief      Wrapper permettant l'affichage de fichiers images Dolibarr
+ *		\file       htdocs/filemanager/viewimage.php
+ *		\brief      Wrapper permettant l'affichage de fichiers du filemanager
  *      \remarks    L'appel est viewimage.php?file=pathrelatifdufichier&modulepart=repfichierconcerne
- *		\version    $Id: viewimage.php,v 1.4 2011/06/15 11:35:03 eldy Exp $
+ *		\version    $Id: viewimage.php,v 1.5 2011/07/06 16:57:36 eldy Exp $
  */
 
 // Do not use urldecode here ($_GET and $_REQUEST are already decoded by PHP).
@@ -73,6 +73,19 @@ if (empty($modulepart)) accessforbidden('Bad value for parameter modulepart');
 /*
  * View
  */
+
+if (GETPOST("cache"))
+{
+    // Important: Following code is to avoid page request by browser and PHP CPU at
+    // each Dolibarr page access.
+    if (empty($dolibarr_nocache))
+    {
+        header('Cache-Control: max-age=3600, public, must-revalidate');
+        header('Pragma: cache');       // This is to avoid having Pragma: no-cache
+    }
+    else header('Cache-Control: no-cache');
+    //print $dolibarr_nocache; exit;
+}
 
 // Define mime type
 $type = 'application/octet-stream';
@@ -174,11 +187,13 @@ if (! dol_is_file($original_file_osencoded))
 if ($type)
 {
     //print "eeee".$type;exit;
+    header('Content-Disposition: inline; filename="'.basename($original_file).'"');
     header('Content-type: '.$type);
 }
 else
 {
-	header('Content-type: image/png');
+    header('Content-Disposition: inline; filename="'.basename($original_file).'"');
+    header('Content-type: image/png');
 }
 
 $result=readfile($original_file_osencoded);

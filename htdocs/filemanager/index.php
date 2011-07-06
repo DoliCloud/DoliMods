@@ -20,7 +20,7 @@
  *   	\file       htdocs/filemanager/index.php
  *		\ingroup    filemanager
  *		\brief      This is home page of filemanager module
- *		\version    $Id: index.php,v 1.30 2011/06/15 11:35:03 eldy Exp $
+ *		\version    $Id: index.php,v 1.31 2011/07/06 16:57:36 eldy Exp $
  */
 
 if (! defined('REQUIRE_JQUERY_LAYOUT'))  define('REQUIRE_JQUERY_LAYOUT','1');
@@ -132,13 +132,6 @@ $morejs=array(
 "/filemanager/inc/jqueryFileTree/jqueryFileTree.js",
 );
 $morehead="<style type=\"text/css\">
-html, body {
-		width:		100%;
-		height:		100%;
-		padding:	0;
-		margin:		0;
-		overflow:	auto; /* when page gets too small */
-	}
 	#containerlayout {
 		background:	#999;
 		height:		".$maxheightwin."px;
@@ -146,9 +139,6 @@ html, body {
 		width:		100%;
 		min-width:	700px;
 		_width:		700px; /* min-width for IE6 */
-	}
-	.pane {
-		display:	none; /* will appear when layout inits */
 	}
 </style>
 <SCRIPT type=\"text/javascript\">
@@ -518,7 +508,7 @@ print '</div>'."\n";
 
 
 <div id="containerlayout"> <!-- begin div id="containerlayout" -->
-    <div id="ecm-layout-north" class="pane toolbar">
+    <div id="ecm-layout-north" class="hidden toolbar">
 <?php
 // Toolbar
 print '<div class="toolbarbutton">';
@@ -532,7 +522,7 @@ print '</div>';
 ?>
     </div>
 
-	<div id="ecm-layout-west" class="pane">
+	<div id="ecm-layout-west" class="hidden">
 <?php
 
 // Show filemanager tree
@@ -542,7 +532,7 @@ print '</div>';
 ?>
 	</div>
 
-	<div id="ecm-layout-center" class="pane">
+	<div id="ecm-layout-center" class="hidden">
 <?php
 print '<div id="fileview" class="fileview">';
 
@@ -551,10 +541,6 @@ if ($filemanagerroots->id) print $langs->trans("SelectAFile");
 print '</div>';
 ?>
 	</div>
-
-<!--	<div id="ecm-layout-east" class="pane"></div> -->
-
-<!--	<div id="ecm-layout-south" class="pane"></div> -->
 
 </div>
 

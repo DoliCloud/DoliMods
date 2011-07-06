@@ -24,7 +24,7 @@
 /**
  *	\file       htdocs/filemanager/ajaxshowpreview.php
  *  \brief      Service to return a HTML preview of a file
- *  \version    $Id: ajaxshowpreview.php,v 1.16 2011/06/15 11:35:03 eldy Exp $
+ *  \version    $Id: ajaxshowpreview.php,v 1.17 2011/07/06 16:57:36 eldy Exp $
  *  \remarks    Call of this service is made with URL:
  * 				ajaxpreview.php?action=preview&modulepart=repfichierconcerne&file=pathrelatifdufichier
  */
@@ -193,7 +193,7 @@ else
 {
     // Define mime type
     $type = 'application/octet-stream';
-    if (! empty($_GET["type"]) && $_GET["type"] != 'auto') $type=$_GET["type"];
+    if (GETPOST("type") != 'auto') $type=$_GET["type"];
     else $type=dol_mimetype($original_file,'text/plain');
     //print 'X'.$type.'-'.$original_file;exit;
 }
@@ -288,7 +288,8 @@ else {
     flush();    // This send all data to browser. Browser however may wait to have message complete or aborted before showing it.
 
 
-    // File
+    // Preview
+    $preview=0;
     if (preg_match('/text/i',$type))
     {
         $minmem=64;        // Minimum of memory required to use Geshi (color syntax on text files)
@@ -410,8 +411,10 @@ else {
                 }
             }
         }
+        $preview=1;
     }
-    else if (preg_match('/image/i',$type))
+    // Preview if image
+    if (preg_match('/image/i',$type))
     {
         print '<br><br>';
         print '<b>'.$langs->trans("Preview")."</b><br>\n";
@@ -421,8 +424,42 @@ else {
         print '<center><img';
         if (! empty($sizearray['width']) && $sizearray['width'] > 500) print ' width="500"';
         print ' src="'.dol_buildpath('/filemanager/viewimage.php',1).'?modulepart=filemanager&file='.urlencode($original_file).'"></center>';
+        $preview=1;
     }
-    else
+    // Preview if video
+    if (preg_match('/video/i',$type))
+    {
+        $typecodec='';
+        if (preg_match('/ogg/i',$type))     $typecodec=' type=\'video/ogg; codecs="theora, vorbis"\'';  // This works with HTML5 video
+        //if (preg_match('/msvideo/i',$type)) $typecodec=' type=\'video/x-msvideo;\'';   // AVI
+        //if (preg_match('/webm/i',$type))    $typecodec=' type=\'video/webm; codecs="vp8, vorbis"\'';
+        //if (preg_match('/mp4/i',$type))     $typecodec=' type=\'video/mp4; codecs="avc1.42E01E, mp4a.40.2"\'';
+
+        if ($typecodec)
+        {
+            print '<br><br>';
+            print '<b>'.$langs->trans("Preview")."</b><br>\n";
+            print '<hr><br>';
+
+            print '<center>';
+            print '<video id="movie" style="border: 1px solid #BBB;" width="320" height="240"';
+            print ' preload';
+            //print ' preload="none"';
+            print ' controls';
+            print '>';
+            print '<source src="'.dol_buildpath('/filemanager/viewimage.php',1).'?modulepart=filemanager&file='.urlencode($original_file).'&type='.urlencode($type).'"';
+            print $typecodec;
+            print ' />';
+            print '</video>';
+            print '</center>';
+            /*<video width="320" height="240"';
+            print ' src="'.dol_buildpath('/filemanager/viewimage.php',1).'?modulepart=filemanager&file='.urlencode($original_file).'"';
+            print '></center>';*/
+            $preview=1;
+        }
+    }
+    // No preview
+    if (empty($preview))
     {
         print '<br><br>';
         print '<b>'.$langs->trans("Preview")."</b><br>\n";
