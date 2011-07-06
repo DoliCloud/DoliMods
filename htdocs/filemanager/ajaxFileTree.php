@@ -20,7 +20,7 @@
  *      \file       htdocs/filemanager/ajaxFileTree.php
  *      \ingroup    filemanager
  *      \brief      This script returns content of a directory for filetree
- *      \version    $Id: ajaxFileTree.php,v 1.7 2011/06/01 13:58:31 eldy Exp $
+ *      \version    $Id: ajaxFileTree.php,v 1.8 2011/07/06 17:03:41 eldy Exp $
  */
 
 
@@ -75,7 +75,7 @@ if (! $user->rights->filemanager->read)
 
 if( file_exists($selecteddir) )
 {
-	$files = scandir($selecteddir);
+	$files = @scandir($selecteddir);
     if ($files)
     {
     	natcasesort($files);
@@ -102,6 +102,7 @@ if( file_exists($selecteddir) )
     		echo "</ul>";
     	}
     }
+    else print "PermissionDenied";
 }
 
 // This ajax service is called only when a directory $selecteddir is opened but not closed.
