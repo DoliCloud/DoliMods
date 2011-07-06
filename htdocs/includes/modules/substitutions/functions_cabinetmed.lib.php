@@ -21,7 +21,7 @@
  *	\file			htdocs/includes/modules/substitutions/functions_cabinetmed.lib.php
  *	\brief			A set of functions for Dolibarr
  *					This file contains functions for plugin cabinetmed.
- *	\version		$Id: functions_cabinetmed.lib.php,v 1.4 2011/06/13 17:34:58 eldy Exp $
+ *	\version		$Id: functions_cabinetmed.lib.php,v 1.5 2011/07/06 21:36:48 eldy Exp $
  */
 
 
@@ -62,22 +62,27 @@ function cabinetmed_completesubstitutionarray(&$substitutionarray,$langs,$object
             $isother=1;
         }
 
-        if ($isother || $isbio) $substitutionarray['examshows']='Les bilans suivants mettent en évidence,';
+        if ($isother || $isbio) $substitutionarray['examshows']=$langs->transnoentitiesnoconv("ExamsShow");
         else $substitutionarray['examshows']='';
 
         if ($isother)
         {
-            $substitutionarray['examother_title']='Bilan imagerie:';
+            $substitutionarray['examother_title']=$langs->transnoentitiesnoconv("BilanImage").':';
+            $substitutionarray['examother_principal_and_conclusion']=$examother->examprinc.' : '.$examother->concprinc;
+            $substitutionarray['examother_principal']=$examother->examprinc;
             $substitutionarray['examother_conclusion']=$examother->concprinc;
         }
         else
         {
             $substitutionarray['examother_title']='';
+            $substitutionarray['examother_principal_and_conclusion']='';
+            $substitutionarray['examother_principal']='';
             $substitutionarray['examother_conclusion']='';
         }
         if ($isbio)
         {
-            $substitutionarray['exambio_title']='Bilan Biologique:';
+            if (! empty($exambio->conclusion)) $substitutionarray['exambio_title']=$langs->transnoentitiesnoconv("BilanBio").':';
+            else $substitutionarray['exambio_title']='';
             $substitutionarray['exambio_conclusion']=$exambio->conclusion;
         }
         else
@@ -87,8 +92,18 @@ function cabinetmed_completesubstitutionarray(&$substitutionarray,$langs,$object
         }
 
         $substitutionarray['outcome_comment']=GETPOST('outcome_comment');
+        $substitutionarray['outcome_reason']=$outcome->motifconsprinc;
         $substitutionarray['outcome_diagnostic']=$outcome->diaglesprinc;
-        $substitutionarray['outcome_treatment']=$outcome->traitementprescrit;
+        if (! empty($outcome->traitementprescrit))
+        {
+            $substitutionarray['treatment_title']=$langs->transnoentitiesnoconv("TreatmentSugested");
+            $substitutionarray['outcome_treatment']=$outcome->traitementprescrit;
+        }
+        else
+        {
+            $substitutionarray['treatment_title']='';
+            $substitutionarray['outcome_treatment']='';
+        }
 	}
 }
 

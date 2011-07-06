@@ -1,12 +1,5 @@
 <?php
-/* Copyright (C) 2002-2006 Rodolphe Quiedeville <rodolphe@quiedeville.org>
- * Copyright (C) 2004-2010 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2004      Eric Seigne          <eric.seigne@ryxeo.com>
- * Copyright (C) 2003      Brian Fraval         <brian@fraval.org>
- * Copyright (C) 2006      Andre Cianfarani     <acianfa@free.fr>
- * Copyright (C) 2005-2009 Regis Houssin        <regis@dolibarr.fr>
- * Copyright (C) 2008      Patrick Raguin       <patrick.raguin@auguria.net>
- * Copyright (C) 2010      Juanjo Menent        <jmenent@2byte.es>
+/* Copyright (C) 2011 Laurent Destailleur  <eldy@users.sourceforge.net>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,8 +19,8 @@
 /**
  *	\file       htdocs/cabinetmed/class/actions_cabinetmed.class.php
  *	\ingroup    societe
- *	\brief      File for third party class
- *	\version    $Id: actions_cabinetmed.class.php,v 1.2 2011/07/02 15:01:00 eldy Exp $
+ *	\brief      File to control actions
+ *	\version    $Id: actions_cabinetmed.class.php,v 1.3 2011/07/06 21:36:51 eldy Exp $
  */
 require_once(DOL_DOCUMENT_ROOT."/core/class/commonobject.class.php");
 
@@ -70,12 +63,17 @@ class ActionsCabinetmed
         // Hook called when asking to add a new record
         if ($action == 'add')
         {
-            $nametocheck=$_POST['nom'];
+            $nametocheck=GETPOST('nom');
+            $ape=GETPOST('idprof3');
             //$confirmduplicate=$_POST['confirmduplicate'];
 
-            $sql = 'SELECT s.rowid, s.nom, s.entity FROM '.MAIN_DB_PREFIX.'societe as s';
+            $sql = 'SELECT s.rowid, s.nom, s.entity, s.ape FROM '.MAIN_DB_PREFIX.'societe as s';
             $sql.= ' WHERE s.entity = '.$conf->entity;
-            $sql.= " AND s.nom = '".$this->db->escape($nametocheck)."'";
+            $sql.= " AND s.nom = '".trim($this->db->escape($nametocheck))."'";
+            if (! empty($ape))
+            {
+                $sql.= " AND (s.ape IS NULL OR s.ape = '' OR s.ape = '".trim($this->db->escape($ape))."')";
+            }
             $resql=$this->db->query($sql);
             if ($resql)
             {

@@ -20,7 +20,7 @@
  *   \file       htdocs/cabinetmed/documents.php
  *   \brief      Tab for courriers
  *   \ingroup    cabinetmed
- *   \version    $Id: documents.php,v 1.10 2011/07/06 18:22:28 eldy Exp $
+ *   \version    $Id: documents.php,v 1.11 2011/07/06 21:36:52 eldy Exp $
  */
 
 $res=0;
@@ -67,7 +67,7 @@ if ($page == -1) { $page = 0; }
 $offset = $conf->liste_limit * $page;
 $pageprev = $page - 1;
 $pagenext = $page + 1;
-if (! $sortfield) $sortfield='t.datecons';
+if (! $sortfield) $sortfield='date';
 if (! $sortorder) $sortorder='DESC';
 $limit = $conf->liste_limit;
 
@@ -223,7 +223,7 @@ if ($socid > 0)
 
 
     // Construit liste des fichiers
-    $filearray=dol_dir_list($upload_dir,"files",0,'','\.meta$',$sortfield,(strtolower($sortorder)=='desc'?SORT_ASC:SORT_DESC),1);
+    $filearray=dol_dir_list($upload_dir,"files",0,'','\.meta$',$sortfield,(strtolower($sortorder)=='desc'?SORT_DESC:SORT_ASC),1);
     $totalsize=0;
     foreach($filearray as $key => $file)
     {
@@ -326,5 +326,5 @@ if ($socid > 0)
 
 $db->close();
 
-llxFooter('$Date: 2011/07/06 18:22:28 $ - $Revision: 1.10 $');
+llxFooter('$Date: 2011/07/06 21:36:52 $ - $Revision: 1.11 $');
 ?>
