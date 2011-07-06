@@ -112,3 +112,4 @@ DAS28=DAS 28
 ERRX=ER RX
 Permission100700=Lire les consultations et examens
 Permission100701=Créer et modifier les consultations et examens
+GenerateADocument=Générer un document

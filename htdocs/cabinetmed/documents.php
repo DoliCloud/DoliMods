@@ -20,7 +20,7 @@
  *   \file       htdocs/cabinetmed/documents.php
  *   \brief      Tab for courriers
  *   \ingroup    cabinetmed
- *   \version    $Id: documents.php,v 1.9 2011/06/30 22:59:00 eldy Exp $
+ *   \version    $Id: documents.php,v 1.10 2011/07/06 18:22:28 eldy Exp $
  */
 
 $res=0;
@@ -38,13 +38,16 @@ require_once(DOL_DOCUMENT_ROOT."/core/class/html.formfile.class.php");
 include_once("./lib/cabinetmed.lib.php");
 include_once("./class/patient.class.php");
 include_once("./class/cabinetmedcons.class.php");
+include_once("./class/html.formfilecabinetmed.class.php");
 
-$action = GETPOST("action");
+$action=GETPOST("action");
 $id=GETPOST("id");  // Id consultation
+$confirm=GETPOST('confirm');
 
 $langs->load("companies");
 $langs->load("bills");
 $langs->load("banks");
+$langs->load("other");
 $langs->load("cabinetmed@cabinetmed");
 
 // Security check
@@ -70,6 +73,7 @@ $limit = $conf->liste_limit;
 
 $now=dol_now();
 
+$object = new Societe($db);
 $consult = new CabinetmedCons($db);
 
 $upload_dir = $conf->societe->dir_output . "/" . $socid ;
@@ -87,8 +91,7 @@ $upload_dir = $conf->societe->dir_output . "/" . $socid ;
  * Actions
  */
 
-
-// Envoie fichier
+// Post file
 if ( $_POST["sendit"] && ! empty($conf->global->MAIN_UPLOAD_DOC))
 {
     require_once(DOL_DOCUMENT_ROOT."/lib/files.lib.php");
@@ -129,11 +132,22 @@ if ( $_POST["sendit"] && ! empty($conf->global->MAIN_UPLOAD_DOC))
     }
 }
 
+// Delete file
+if ($action == 'confirm_deletefile' && $confirm == 'yes')
+{
+    if ($object->fetch($socid))
+    {
+        $file = $upload_dir . "/" . $_GET['urlfile'];   // Do not use urldecode here ($_GET and $_REQUEST are already decoded by PHP).
+        dol_delete_file($file);
+        $mesg = '<div class="ok">'.$langs->trans("FileWasRemoved").'</div>';
+    }
+}
+
 
 /*
  * Generate document
  */
-if (GETPOST('action') == 'builddoc')  // En get ou en post
+if ($action == 'builddoc')  // En get ou en post
 {
     if (is_numeric(GETPOST('model')))
     {
@@ -148,7 +162,7 @@ if (GETPOST('action') == 'builddoc')  // En get ou en post
         $soc->fetch_thirdparty();
 
         $consult = new CabinetmedCons($db);
-        $soc->fetch($id);
+        $consult->fetch($id);
 
         // Define output language
         $outputlangs = $langs;
@@ -188,8 +202,7 @@ llxHeader('',$langs->trans("Courriers"));
 
 if ($socid > 0)
 {
-    $societe = new Societe($db);
-    $societe->fetch($socid);
+    $object->fetch($socid);
 
     if ($id && ! $consult->id)
     {
@@ -205,7 +218,7 @@ if ($socid > 0)
 	 */
     if ($conf->notification->enabled) $langs->load("mails");
 
-	$head = societe_prepare_head($societe);
+	$head = societe_prepare_head($object);
 	dol_fiche_head($head, 'tabdocument', $langs->trans("ThirdParty"),0,'company');
 
 
@@ -224,24 +237,24 @@ if ($socid > 0)
 
 	print '<tr><td width="25%">'.$langs->trans('ThirdPartyName').'</td>';
 	print '<td colspan="3">';
-	print $form->showrefnav($societe,'socid','',($user->societe_id?0:1),'rowid','nom');
+	print $form->showrefnav($object,'socid','',($user->societe_id?0:1),'rowid','nom');
 	print '</td></tr>';
 
-    if ($societe->client)
+    if ($object->client)
     {
         print '<tr><td>';
         print $langs->trans('CustomerCode').'</td><td colspan="3">';
-        print $societe->code_client;
-        if ($societe->check_codeclient() <> 0) print ' <font class="error">('.$langs->trans("WrongCustomerCode").')</font>';
+        print $object->code_client;
+        if ($object->check_codeclient() <> 0) print ' <font class="error">('.$langs->trans("WrongCustomerCode").')</font>';
         print '</td></tr>';
     }
 
-    if ($societe->fournisseur)
+    if ($object->fournisseur)
     {
         print '<tr><td>';
         print $langs->trans('SupplierCode').'</td><td colspan="3">';
-        print $societe->code_fournisseur;
-        if ($societe->check_codefournisseur() <> 0) print ' <font class="error">('.$langs->trans("WrongSupplierCode").')</font>';
+        print $object->code_fournisseur;
+        if ($object->check_codefournisseur() <> 0) print ' <font class="error">('.$langs->trans("WrongSupplierCode").')</font>';
         print '</td></tr>';
     }
 
@@ -257,13 +270,19 @@ if ($socid > 0)
 
 	dol_fiche_end();
 
-    if ($mesg) dol_htmloutput_mesg($mesg,'','ok');
+    if ($mesg) dol_htmloutput_mesg($mesg);
 	else dol_htmloutput_mesg($error,$errors,'error');
+
+    if ($action == 'delete')
+    {
+        $ret=$form->form_confirm($_SERVER["PHP_SELF"].'?socid='.$socid.'&urlfile='.urldecode($_GET["urlfile"]), $langs->trans('DeleteFile'), $langs->trans('ConfirmDeleteFile'), 'confirm_deletefile', '', 0, 1);
+        if ($ret == 'html') print '<br>';
+    }
+
 
     // Affiche formulaire upload
     $formfile=new FormFile($db);
     $formfile->form_attach_new_file($_SERVER["PHP_SELF"].'?socid='.$socid,'',0,0,$user->rights->societe->creer);
-
 
 
 	print '<table width="100%"><tr><td valign="top" width="100%">';
@@ -272,17 +291,27 @@ if ($socid > 0)
     /*
      * Documents generes
      */
-    $filedir=$conf->societe->dir_output.'/'.$societe->id;
-    $urlsource=$_SERVER["PHP_SELF"]."?socid=".$societe->id;
+    $filedir=$conf->societe->dir_output.'/'.$object->id;
+    $urlsource=$_SERVER["PHP_SELF"]."?socid=".$object->id;
     $genallowed=$user->rights->societe->creer;
     $delallowed=$user->rights->societe->supprimer;
 
     $var=true;
 
     $instance=new CabinetmedCons($db);
-    $instance->fk_soc=$societe->id;
+    $instance->fk_soc=$object->id;
     $hooks=array(0=>array('modules'=>array($instance)));
-    $somethingshown=$formfile->show_documents('company',$societe->id,$filedir,$urlsource,$genallowed,$delallowed,'',0,0,0,64,0,'',0,'',$societe->default_lang,$hooks);
+    $title=$langs->trans("GenerateADocument");
+    //$somethingshown=$formfile->show_documents('company',$object->id,$filedir,$urlsource,$genallowed,$delallowed,'',0,0,0,64,0,'',$title,'',$object->default_lang,$hooks);
+    $somethingshown=$formfile->show_documents('company','','',$urlsource,$genallowed,$delallowed,'',0,0,0,64,0,'',$title,'',$object->default_lang,$hooks);
+
+    // List of document
+    print '<br>';
+    $param='&socid='.$object->id;
+
+    $formfilecabinetmed=new FormFileCabinetmed($db);
+    $formfilecabinetmed->list_of_documents($filearray,$object,'societe',$param);
+
 
     print '</td>';
     print '<td>';
@@ -297,5 +326,5 @@ if ($socid > 0)
 
 $db->close();
 
-llxFooter('$Date: 2011/06/30 22:59:00 $ - $Revision: 1.9 $');
+llxFooter('$Date: 2011/07/06 18:22:28 $ - $Revision: 1.10 $');
 ?>
