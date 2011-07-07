@@ -20,7 +20,7 @@
  *   \file       htdocs/cabinetmed/documents.php
  *   \brief      Tab for courriers
  *   \ingroup    cabinetmed
- *   \version    $Id: documents.php,v 1.12 2011/07/06 22:41:14 eldy Exp $
+ *   \version    $Id: documents.php,v 1.13 2011/07/07 21:48:19 eldy Exp $
  */
 
 $res=0;
@@ -188,6 +188,166 @@ if ($action == 'builddoc')  // En get ou en post
     }
 }
 
+/*
+ * Send mail
+ */
+if ($_POST['action'] == 'send' && ! $_POST['addfile'] && ! $_POST['removedfile'] && ! $_POST['cancel'])
+{
+    $error=0;
+
+    if (! GETPOST('subject'))
+    {
+        $langs->load("other");
+        $mesg='<div class="error">'.$langs->trans('ErrorFieldRequired',$langs->transnoentitiesnoconv("Subject")).'</div>';
+        dol_syslog('Impossible de lire les donnees de la facture. Le fichier propal n\'a peut-etre pas ete genere.');
+    }
+
+    $langs->load('mails');
+
+    $result=$object->fetch($_POST["socid"]);
+
+    if ($result > 0)
+    {
+        $objectref = dol_sanitizeFileName($object->ref);
+        //$file = $conf->propale->dir_output . '/' . $objectref . '/' . $objectref . '.pdf';
+
+        if (is_readable($file))
+        {
+            if ($_POST['sendto'])
+            {
+                // Le destinataire a ete fourni via le champ libre
+                $sendto = $_POST['sendto'];
+                $sendtoid = 0;
+            }
+            elseif ($_POST['receiver'] != '-1')
+            {
+                // Recipient was provided from combo list
+                if ($_POST['receiver'] == 'thirdparty') // Id of third party
+                {
+                    $sendto = $object->email;
+                    $sendtoid = 0;
+                }
+                else    // Id du contact
+                {
+                    $sendto = $object->contact_get_property($_POST['receiver'],'email');
+                    $sendtoid = $_POST['receiver'];
+                }
+            }
+
+            if (dol_strlen($sendto))
+            {
+                $langs->load("commercial");
+
+                $from = $_POST['fromname'] . ' <' . $_POST['frommail'] .'>';
+                $replyto = $_POST['replytoname']. ' <' . $_POST['replytomail'].'>';
+                $message = $_POST['message'];
+                $sendtocc = $_POST['sendtocc'];
+                $deliveryreceipt = $_POST['deliveryreceipt'];
+
+                if ($_POST['action'] == 'send')
+                {
+                    $subject = GETPOST('subject');
+                    $actiontypecode='AC_CABINETMED';
+                    $actionmsg = $langs->transnoentities('MailSentBy').' '.$from.' '.$langs->transnoentities('To').' '.$sendto.".\n";
+                    if ($message)
+                    {
+                        $actionmsg.=$langs->transnoentities('MailTopic').": ".$subject."\n";
+                        $actionmsg.=$langs->transnoentities('TextUsedInTheMessageBody').":\n";
+                        $actionmsg.=$message;
+                    }
+                    $actionmsg2=$langs->transnoentities('Action'.$actiontypecode);
+                }
+
+                // Create form object
+                include_once(DOL_DOCUMENT_ROOT.'/core/class/html.formmail.class.php');
+                $formmail = new FormMail($db);
+
+                $attachedfiles=$formmail->get_attached_files();
+                $filepath = $attachedfiles['paths'];
+                $filename = $attachedfiles['names'];
+                $mimetype = $attachedfiles['mimes'];
+
+                // Envoi de la propal
+                require_once(DOL_DOCUMENT_ROOT.'/lib/CMailFile.class.php');
+                $mailfile = new CMailFile($subject,$sendto,$from,$message,$filepath,$mimetype,$filename,$sendtocc,'',$deliveryreceipt);
+                if ($mailfile->error)
+                {
+                    $mesg='<div class="error">'.$mailfile->error.'</div>';
+                }
+                else
+                {
+                    $result=$mailfile->sendfile();
+                    if ($result)
+                    {
+                        $mesg=$langs->trans('MailSuccessfulySent',$mailfile->getValidAddress($from,2),$mailfile->getValidAddress($sendto,2));   // Must not contain "
+
+                        $error=0;
+
+                        // Initialisation donnees
+                        $object->sendtoid       = $sendtoid;
+                        $object->actiontypecode = $actiontypecode;
+                        $object->actionmsg      = $actionmsg;
+                        $object->actionmsg2     = $actionmsg2;
+                        $object->fk_element     = $object->id;
+                        $object->elementtype    = $object->element;
+
+                        // Appel des triggers
+                        include_once(DOL_DOCUMENT_ROOT . "/core/class/interfaces.class.php");
+                        $interface=new Interfaces($db);
+                        $result=$interface->run_triggers('CABINETMED_SENTBYMAIL',$object,$user,$langs,$conf);
+                        if ($result < 0) { $error++; $this->errors=$interface->errors; }
+                        // Fin appel triggers
+
+                        if ($error)
+                        {
+                            dol_print_error($db);
+                        }
+                        else
+                        {
+                            // Redirect here
+                            // This avoid sending mail twice if going out and then back to page
+                            Header('Location: '.$_SERVER["PHP_SELF"].'?id='.$object->id.'&mesg='.urlencode($mesg));
+                            exit;
+                        }
+                    }
+                    else
+                    {
+                        $langs->load("other");
+                        $mesg='<div class="error">';
+                        if ($mailfile->error)
+                        {
+                            $mesg.=$langs->trans('ErrorFailedToSendMail',$from,$sendto);
+                            $mesg.='<br>'.$mailfile->error;
+                        }
+                        else
+                        {
+                            $mesg.='No mail sent. Feature is disabled by option MAIN_DISABLE_ALL_MAILS';
+                        }
+                        $mesg.='</div>';
+                    }
+                }
+            }
+            else
+            {
+                $langs->load("other");
+                $mesg='<div class="error">'.$langs->trans('ErrorMailRecipientIsEmpty').' !</div>';
+                dol_syslog('Recipient email is empty');
+            }
+        }
+        else
+        {
+            $langs->load("other");
+            $mesg='<div class="error">'.$langs->trans('ErrorCantReadFile',$file).'</div>';
+            dol_syslog('Failed to read file: '.$file);
+        }
+    }
+    else
+    {
+        $langs->load("other");
+        $mesg='<div class="error">'.$langs->trans('ErrorFailedToReadEntity',$langs->transnoentitiesnoconv("Proposal")).'</div>';
+        dol_syslog('Impossible de lire les donnees de la facture. Le fichier propal n\'a peut-etre pas ete genere.');
+    }
+}
 
 
 /*
@@ -380,5 +540,5 @@ if ($socid > 0)
 
 $db->close();
 
-llxFooter('$Date: 2011/07/06 22:41:14 $ - $Revision: 1.12 $');
+llxFooter('$Date: 2011/07/07 21:48:19 $ - $Revision: 1.13 $');
 ?>

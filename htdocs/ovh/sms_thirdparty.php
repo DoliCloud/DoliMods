@@ -104,7 +104,7 @@ if ($action == 'send' && ! $_POST['cancel'])
 
         require_once(DOL_DOCUMENT_ROOT."/lib/CSMSFile.class.php");
 
-        if ((empty($sendto) || ! str_replace('+','',$sendto)) && ! empty($receiver))
+        if ((empty($sendto) || ! str_replace('+','',$sendto)) && ! empty($receiver) && $receiver != '-1')
         {
             $company_static=new Societe($db);
             $sendto=$company_static->contact_get_property($receiver,'mobile');
