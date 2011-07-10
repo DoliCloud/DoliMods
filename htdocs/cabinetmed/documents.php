@@ -20,7 +20,7 @@
  *   \file       htdocs/cabinetmed/documents.php
  *   \brief      Tab for courriers
  *   \ingroup    cabinetmed
- *   \version    $Id: documents.php,v 1.13 2011/07/07 21:48:19 eldy Exp $
+ *   \version    $Id: documents.php,v 1.14 2011/07/10 20:03:21 eldy Exp $
  */
 
 $res=0;
@@ -30,10 +30,11 @@ if (! $res && file_exists("../../../dolibarr/htdocs/main.inc.php")) $res=@includ
 if (! $res && file_exists("../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
 if (! $res && file_exists("../../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
 if (! $res) die("Include of main fails");
-include_once(DOL_DOCUMENT_ROOT."/lib/company.lib.php");
+require_once(DOL_DOCUMENT_ROOT."/lib/company.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/lib/files.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/lib/images.lib.php");
-include_once(DOL_DOCUMENT_ROOT."/compta/bank/class/account.class.php");
+require_once(DOL_DOCUMENT_ROOT."/contact/class/contact.class.php");
+require_once(DOL_DOCUMENT_ROOT."/compta/bank/class/account.class.php");
 require_once(DOL_DOCUMENT_ROOT."/core/class/html.formfile.class.php");
 include_once("./lib/cabinetmed.lib.php");
 include_once("./class/patient.class.php");
@@ -186,6 +187,40 @@ if ($action == 'builddoc')  // En get ou en post
             exit;
         }
     }
+}
+
+/*
+ * Add file in email form
+ */
+if ($_POST['addfile'])
+{
+    require_once(DOL_DOCUMENT_ROOT."/lib/files.lib.php");
+
+    // Set tmp user directory TODO Use a dedicated directory for temp mails files
+    $vardir=$conf->user->dir_output."/".$user->id;
+    $upload_dir_tmp = $vardir.'/temp';
+
+    $mesg=dol_add_file_process($upload_dir_tmp,0,0);
+
+    $action='presend';
+    $_POST["action"]='presend';
+}
+
+/*
+ * Remove file in email form
+ */
+if (! empty($_POST['removedfile']))
+{
+    require_once(DOL_DOCUMENT_ROOT."/lib/files.lib.php");
+
+    // Set tmp user directory
+    $vardir=$conf->user->dir_output."/".$user->id;
+    $upload_dir_tmp = $vardir.'/temp';
+
+    $mesg=dol_remove_file_process($_POST['removedfile'],0);
+
+    $action='presend';
+    $_POST["action"]='presend';
 }
 
 /*
@@ -356,6 +391,8 @@ if ($_POST['action'] == 'send' && ! $_POST['addfile'] && ! $_POST['removedfile']
 
 $form = new Form($db);
 $formfile = new FormFile($db);
+$contactstatic = new Contact($db);
+
 $width="242";
 
 llxHeader('',$langs->trans("Courriers"));
@@ -488,9 +525,32 @@ if ($socid > 0)
      */
     if ($action == 'presend')
     {
-        $ref = dol_sanitizeFileName($object->ref);
-        $path='';
-        $file=GETPOST('file');
+        $filename=basename(GETPOST('urlfile'));
+        $fullpathfile=$upload_dir . '/' . GETPOST('urlfile');
+
+        $withtolist=array();
+
+        // List of contacts
+        foreach(array('external') as $source)
+        {
+            $tab = $object->liste_contact(-1,$source);
+            $num=sizeof($tab);
+
+            $i = 0;
+            while ($i < $num)
+            {
+                $contactstatic->id=$tab[$i]['id'];
+                $contactstatic->civility=$tab[$i]['civility'];
+                $contactstatic->name=$tab[$i]['lastname'];
+                $contactstatic->firstname=$tab[$i]['firstname'];
+                $name=$contactstatic->getFullName($langs,1);
+                $email=$tab[$i]['email'];
+                $withtolist[$email]=$name.' <'.$email.'>'.($tab[$i]['code']?' - '.$tab[$i]['code']:'');
+                //print 'xx'.$withtolist[$email];
+                $i++;
+            }
+
+        }
 
         print '<br>';
         print_titre($langs->trans('SendOutcomeByEmail'));
@@ -503,7 +563,8 @@ if ($socid > 0)
         $formmail->fromname = $user->getFullName($langs);
         $formmail->frommail = $user->email;
         $formmail->withfrom=1;
-        $formmail->withto=array('test'=>'test <test@test.com>','test2'=>'test2 <test2@test.com>');  // TODO Search contacts linked
+
+        $formmail->withto=$withtolist;
         $formmail->withtosocid=0;
         $formmail->withtocc=0;
         $formmail->withtoccsocid=0;
@@ -527,7 +588,7 @@ if ($socid > 0)
         if (GETPOST("mode")=='init')
         {
             $formmail->clear_attached_files();
-            $formmail->add_attached_files($path,$file,dol_mimetype($file));
+            $formmail->add_attached_files($fullpathfile,$filename,dol_mimetype($filename));
         }
 
         $formmail->show_form();
@@ -540,5 +601,5 @@ if ($socid > 0)
 
 $db->close();
 
-llxFooter('$Date: 2011/07/07 21:48:19 $ - $Revision: 1.13 $');
+llxFooter('$Date: 2011/07/10 20:03:21 $ - $Revision: 1.14 $');
 ?>

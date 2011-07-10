@@ -22,7 +22,7 @@
  *	\file       htdocs/cabinetmed/class/html.formfilecabinetmed.class.php
  *  \ingroup    core
  *	\brief      File of class to offer components to list and upload files
- *	\version	$Id: html.formfilecabinetmed.class.php,v 1.2 2011/07/06 22:41:13 eldy Exp $
+ *	\version	$Id: html.formfilecabinetmed.class.php,v 1.3 2011/07/10 20:03:17 eldy Exp $
  */
 
 
@@ -126,7 +126,7 @@ class FormFileCabinetmed
                 }
                 // Send by email
                 print '<td align="right">';
-                print '<a href="'.$_SERVER["PHP_SELF"].'?action=presend&mode=init&socid='.$object->id.'">';
+                print '<a href="'.$_SERVER["PHP_SELF"].'?action=presend&mode=init&socid='.$object->id.'&urlfile='.urlencode($file['name']).'">';
                 print img_object($langs->trans("SendOutcomeByEmail"),'email');
                 print '</a>';
                 print '</td>';

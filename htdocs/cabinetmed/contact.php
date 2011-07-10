@@ -22,7 +22,7 @@
  *       \file       htdocs/cabinetmed/contact.php
  *       \ingroup    cabinetmed
  *       \brief      Tab for links between doctors and patient
- *       \version    $Id: contact.php,v 1.8 2011/05/02 19:21:13 eldy Exp $
+ *       \version    $Id: contact.php,v 1.9 2011/07/10 20:03:21 eldy Exp $
  */
 
 $res=0;
@@ -375,14 +375,14 @@ if ($id > 0 || ! empty($ref))
             if ($tab[$i]['source']=='internal')
             {
                 $userstatic->id=$tab[$i]['id'];
-                $userstatic->nom=$tab[$i]['nom'];
+                $userstatic->nom=$tab[$i]['lastname'];
                 $userstatic->prenom=$tab[$i]['firstname'];
                 print $userstatic->getNomUrl(1);
             }
             if ($tab[$i]['source']=='external')
             {
                 $contactstatic->id=$tab[$i]['id'];
-                $contactstatic->name=$tab[$i]['nom'];
+                $contactstatic->name=$tab[$i]['lastname'];
                 $contactstatic->firstname=$tab[$i]['firstname'];
                 print $contactstatic->getNomUrl(1);
             }
@@ -420,5 +420,5 @@ if ($id > 0 || ! empty($ref))
 
 $db->close();
 
-llxFooter('$Date: 2011/05/02 19:21:13 $');
+llxFooter('$Date: 2011/07/10 20:03:21 $');
 ?>
