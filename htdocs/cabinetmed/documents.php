@@ -20,7 +20,7 @@
  *   \file       htdocs/cabinetmed/documents.php
  *   \brief      Tab for courriers
  *   \ingroup    cabinetmed
- *   \version    $Id: documents.php,v 1.14 2011/07/10 20:03:21 eldy Exp $
+ *   \version    $Id: documents.php,v 1.15 2011/07/10 22:46:17 eldy Exp $
  */
 
 $res=0;
@@ -44,6 +44,7 @@ include_once("./class/html.formfilecabinetmed.class.php");
 $action=GETPOST("action");
 $id=GETPOST("id");  // Id consultation
 $confirm=GETPOST('confirm');
+$mesg=GETPOST('mesg');
 
 $langs->load("companies");
 $langs->load("bills");
@@ -234,7 +235,6 @@ if ($_POST['action'] == 'send' && ! $_POST['addfile'] && ! $_POST['removedfile']
     {
         $langs->load("other");
         $mesg='<div class="error">'.$langs->trans('ErrorFieldRequired',$langs->transnoentitiesnoconv("Subject")).'</div>';
-        dol_syslog('Impossible de lire les donnees de la facture. Le fichier propal n\'a peut-etre pas ete genere.');
     }
 
     $langs->load('mails');
@@ -246,8 +246,8 @@ if ($_POST['action'] == 'send' && ! $_POST['addfile'] && ! $_POST['removedfile']
         $objectref = dol_sanitizeFileName($object->ref);
         //$file = $conf->propale->dir_output . '/' . $objectref . '/' . $objectref . '.pdf';
 
-        if (is_readable($file))
-        {
+        //if (is_readable($file))
+        //{
             if ($_POST['sendto'])
             {
                 // Le destinataire a ete fourni via le champ libre
@@ -341,7 +341,7 @@ if ($_POST['action'] == 'send' && ! $_POST['addfile'] && ! $_POST['removedfile']
                         {
                             // Redirect here
                             // This avoid sending mail twice if going out and then back to page
-                            Header('Location: '.$_SERVER["PHP_SELF"].'?id='.$object->id.'&mesg='.urlencode($mesg));
+                            Header('Location: '.$_SERVER["PHP_SELF"].'?socid='.$object->id.'&mesg='.urlencode($mesg));
                             exit;
                         }
                     }
@@ -364,17 +364,18 @@ if ($_POST['action'] == 'send' && ! $_POST['addfile'] && ! $_POST['removedfile']
             }
             else
             {
+                $action='presend';
                 $langs->load("other");
                 $mesg='<div class="error">'.$langs->trans('ErrorMailRecipientIsEmpty').' !</div>';
                 dol_syslog('Recipient email is empty');
             }
-        }
-        else
-        {
-            $langs->load("other");
-            $mesg='<div class="error">'.$langs->trans('ErrorCantReadFile',$file).'</div>';
-            dol_syslog('Failed to read file: '.$file);
-        }
+        //}
+        //else
+        //{
+        //    $langs->load("other");
+        //    $mesg='<div class="error">'.$langs->trans('ErrorCantReadFile',$file).'</div>';
+        //    dol_syslog('Failed to read file: '.$file);
+        //}
     }
     else
     {
@@ -545,7 +546,7 @@ if ($socid > 0)
                 $contactstatic->firstname=$tab[$i]['firstname'];
                 $name=$contactstatic->getFullName($langs,1);
                 $email=$tab[$i]['email'];
-                $withtolist[$email]=$name.' <'.$email.'>'.($tab[$i]['code']?' - '.$tab[$i]['code']:'');
+                $withtolist[$contactstatic->id]=$name.' <'.$email.'>'.($tab[$i]['code']?' - '.$tab[$i]['code']:'');
                 //print 'xx'.$withtolist[$email];
                 $i++;
             }
@@ -601,5 +602,5 @@ if ($socid > 0)
 
 $db->close();
 
-llxFooter('$Date: 2011/07/10 20:03:21 $ - $Revision: 1.14 $');
+llxFooter('$Date: 2011/07/10 22:46:17 $ - $Revision: 1.15 $');
 ?>

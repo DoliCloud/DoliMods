@@ -22,7 +22,7 @@
  *	\file       htdocs/cabinetmed/class/html.formfilecabinetmed.class.php
  *  \ingroup    core
  *	\brief      File of class to offer components to list and upload files
- *	\version	$Id: html.formfilecabinetmed.class.php,v 1.3 2011/07/10 20:03:17 eldy Exp $
+ *	\version	$Id: html.formfilecabinetmed.class.php,v 1.4 2011/07/10 22:46:17 eldy Exp $
  */
 
 
@@ -76,7 +76,7 @@ class FormFileCabinetmed
         if (empty($useinecm)) print_titre($langs->trans("AttachedFiles"));
         //else { $bc[true]=''; $bc[false]=''; };
         $url=$_SERVER["PHP_SELF"];
-        print '<table width="100%" class="nobordernopadding">';
+        print '<table width="100%" class="noborder">';
         print '<tr class="liste_titre">';
         print_liste_field_titre($langs->trans("Date"),$_SERVER["PHP_SELF"],"date","",$param,'align="left"',$sortfield,$sortorder);
         print_liste_field_titre($langs->trans("Documents2"),$_SERVER["PHP_SELF"],"name","",$param,'align="left"',$sortfield,$sortorder);

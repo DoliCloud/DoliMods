@@ -20,7 +20,7 @@
  *      \file       htdocs/cabinetmed/class/cabinetmedcons.class.php
  *      \ingroup    cabinetmed
  *      \brief      This file is an example for a CRUD class file (Create/Read/Update/Delete)
- *		\version    $Id: cabinetmedcons.class.php,v 1.16 2011/06/30 22:58:42 eldy Exp $
+ *		\version    $Id: cabinetmedcons.class.php,v 1.17 2011/07/10 22:46:17 eldy Exp $
  *		\remarks	Initialy built by build_class_from_table on 2011-02-02 22:30
  */
 
@@ -642,8 +642,21 @@ class CabinetmedCons extends CommonObject
         $out='';
         $out.='<tr>';
         $out.='<td align="left" colspan="4" valign="top">';
+
+        // Add javascript to disable/enabled button
+        $out.="\n".'<script type="text/javascript" language="javascript">';
+        $out.='jQuery(document).ready(function () {';
+        $out.='    function initbutton(param) {';
+        $out.='        if (param >= 0) { jQuery("#builddoc_generatebutton").removeAttr(\'disabled\'); }';
+        $out.='        else { jQuery("#builddoc_generatebutton").attr(\'disabled\',true); }';
+        $out.='    }';
+        $out.='    initbutton(jQuery("#idconsult").val()); ';
+        $out.='    jQuery("#idconsult").change(function() { initbutton(jQuery(this).val()); });';
+        $out.='});';
+        $out.='</script>'."\n";
+
         $firstid=0;
-        $out.=$langs->trans("Consultation").': ';
+        $out.='<font class="fieldrequired">'.$langs->trans("Consultation").':</font> ';
         $array_consult=array();
         $sql='SELECT rowid, datecons as date FROM '.MAIN_DB_PREFIX.'cabinetmed_cons where fk_soc='.$this->fk_soc;
         $sql.=' ORDER BY datecons DESC, rowid DESC';
