@@ -10,16 +10,16 @@
 ; only the root user with no password, stop server and catch
 ; files user.MY* to put them in the Dolibarr build/exe/doliwamp/mysql directory.
 ;
-; Version: $Id: dolimed.iss,v 1.4 2011/07/13 21:13:21 eldy Exp $
+; Version: $Id: dolimed.iss,v 1.5 2011/07/13 21:47:26 eldy Exp $
 ;----------------------------------------------------------------------------------------
 
 
 [Setup]
 ; ----- Change this -----
 AppName=DoliMed
-; DoliWamp-x.x.x or DoliWamp-x.x.x-dev or DoliWamp-x.x.x-beta
+; DoliMed-x.x.x or DoliMed-x.x.x-dev or DoliMed-x.x.x-beta
 AppVerName=DoliMed-3.1.0-beta
-; DoliWamp-x.x x or DoliWamp-x.x.x-dev or DoliWamp-x.x.x-beta
+; DoliMed-x.x x or DoliMed-x.x.x-dev or DoliMed-x.x.x-beta
 OutputBaseFilename=DoliMed-3.1.0-beta
 ; Define full path from wich all relative path are defined
 ; You must modify this to put here your dolibarr root directory
@@ -41,7 +41,7 @@ Compression=lzma
 SolidCompression=yes
 WizardImageFile=build\exe\doliwamp\doliwamp.bmp
 WizardSmallImageFile=build\exe\doliwamp\doliwampsmall.bmp
-SetupIconFile=doc\images\dolibarr.ico
+SetupIconFile=C:\Mes Developpements\dolibarrmodsf\doc\images\dolibarr.ico
 PrivilegesRequired=admin
 DisableProgramGroupPage=yes
 ChangesEnvironment=no
