@@ -20,7 +20,7 @@
  *   \file       htdocs/cabinetmed/documents.php
  *   \brief      Tab for courriers
  *   \ingroup    cabinetmed
- *   \version    $Id: documents.php,v 1.16 2011/07/13 16:20:35 eldy Exp $
+ *   \version    $Id: documents.php,v 1.17 2011/07/13 18:03:05 eldy Exp $
  */
 
 $res=0;
@@ -240,7 +240,6 @@ if ($_POST['action'] == 'send' && ! $_POST['addfile'] && ! $_POST['removedfile']
     $langs->load('mails');
 
     $result=$object->fetch($_POST["socid"]);
-
     if ($result > 0)
     {
         $objectref = dol_sanitizeFileName($object->ref);
@@ -279,20 +278,6 @@ if ($_POST['action'] == 'send' && ! $_POST['addfile'] && ! $_POST['removedfile']
                 $sendtocc = $_POST['sendtocc'];
                 $deliveryreceipt = $_POST['deliveryreceipt'];
 
-                if ($_POST['action'] == 'send')
-                {
-                    $subject = GETPOST('subject');
-                    $actiontypecode='AC_CABINETMED';
-                    $actionmsg = $langs->transnoentities('MailSentBy').' '.$from.' '.$langs->transnoentities('To').' '.$sendto.".\n";
-                    if ($message)
-                    {
-                        $actionmsg.=$langs->transnoentities('MailTopic').": ".$subject."\n";
-                        $actionmsg.=$langs->transnoentities('TextUsedInTheMessageBody').":\n";
-                        $actionmsg.=$message;
-                    }
-                    $actionmsg2=$langs->transnoentities('Action'.$actiontypecode);
-                }
-
                 // Create form object
                 include_once(DOL_DOCUMENT_ROOT.'/core/class/html.formmail.class.php');
                 $formmail = new FormMail($db);
@@ -301,6 +286,20 @@ if ($_POST['action'] == 'send' && ! $_POST['addfile'] && ! $_POST['removedfile']
                 $filepath = $attachedfiles['paths'];
                 $filename = $attachedfiles['names'];
                 $mimetype = $attachedfiles['mimes'];
+
+                if ($_POST['action'] == 'send')
+                {
+                    $subject = GETPOST('subject');
+                    $actiontypecode='AC_CABMED';
+                    $actionmsg = $langs->transnoentities('MailSentBy').' '.$from.' '.$langs->transnoentities('To').' '.$sendto.".\n";
+                    if ($message)
+                    {
+                        $actionmsg.=$langs->transnoentities('MailTopic').": ".$subject."\n";
+                        $actionmsg.=$langs->transnoentities('TextUsedInTheMessageBody').":\n";
+                        $actionmsg.=$message;
+                    }
+                    $actionmsg2=$langs->transnoentities('Action'.$actiontypecode,join(',',$attachedfiles['names']));
+                }
 
                 // Envoi de la propal
                 require_once(DOL_DOCUMENT_ROOT.'/lib/CMailFile.class.php');
@@ -320,11 +319,10 @@ if ($_POST['action'] == 'send' && ! $_POST['addfile'] && ! $_POST['removedfile']
 
                         // Initialisation donnees
                         $object->sendtoid       = $sendtoid;
+                        $object->socid          = $object->id;
                         $object->actiontypecode = $actiontypecode;
                         $object->actionmsg      = $actionmsg;
                         $object->actionmsg2     = $actionmsg2;
-                        $object->fk_element     = $object->id;
-                        $object->elementtype    = $object->element;
 
                         // Appel des triggers
                         include_once(DOL_DOCUMENT_ROOT . "/core/class/interfaces.class.php");
@@ -531,6 +529,8 @@ if ($socid > 0)
 
         $withtolist=array();
 
+        $lesTypes = $object->liste_type_contact('external', 'libelle', 1);
+
         // List of contacts
         foreach(array('external') as $source)
         {
@@ -546,7 +546,7 @@ if ($socid > 0)
                 $contactstatic->firstname=$tab[$i]['firstname'];
                 $name=$contactstatic->getFullName($langs,1);
                 $email=$tab[$i]['email'];
-                $withtolist[$contactstatic->id]=$name.' <'.$email.'>'.($tab[$i]['code']?' - '.$tab[$i]['code']:'');
+                $withtolist[$contactstatic->id]=$name.' <'.$email.'>'.($tab[$i]['code']?' - '.(empty($lesTypes[$tab[$i]['code']])?'':$lesTypes[$tab[$i]['code']]):'');
                 //print 'xx'.$withtolist[$email];
                 $i++;
             }
@@ -573,7 +573,7 @@ if ($socid > 0)
         $formmail->withtocccsocid=0;
         $formmail->withtopic=$langs->trans('SendOutcome',$object->nom);
         $formmail->withfile=2;
-        $formmail->withbody=1;
+        $formmail->withbody=$langs->trans("ThisIsADocumentForYou");
         $formmail->withdeliveryreceipt=0;
         $formmail->withcancel=1;
 
@@ -602,5 +602,5 @@ if ($socid > 0)
 
 $db->close();
 
-llxFooter('$Date: 2011/07/13 16:20:35 $ - $Revision: 1.16 $');
+llxFooter('$Date: 2011/07/13 18:03:05 $ - $Revision: 1.17 $');
 ?>

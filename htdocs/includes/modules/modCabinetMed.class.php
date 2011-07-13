@@ -26,7 +26,7 @@
  *      \file       htdocs/includes/modules/modCabinetMed.class.php
  *      \ingroup    cabinetmed
  *      \brief      Description and activation file for module CabinetMed
- *      \version    $Id: modCabinetMed.class.php,v 1.41 2011/07/01 23:10:09 eldy Exp $
+ *      \version    $Id: modCabinetMed.class.php,v 1.42 2011/07/13 18:03:05 eldy Exp $
  */
 include_once(DOL_DOCUMENT_ROOT ."/includes/modules/DolibarrModules.class.php");
 
@@ -78,8 +78,7 @@ class modCabinetMed extends DolibarrModules
         $this->style_sheet = '/cabinetmed/css/styles.css';
 
         // Config pages. Put here list of php page names stored in admmin directory used to setup module.
-        //$this->config_page_url = array('admin.php@cabinetmed');
-        $this->config_page_url = array();
+        $this->config_page_url = array('admin.php@cabinetmed');
 
         // Dependencies
         $this->depends = array('modSociete');       // List of modules id that must be enabled if this module is enabled
@@ -112,7 +111,8 @@ class modCabinetMed extends DolibarrModules
                             17=>array('MAIN_SUPPORT_CONTACT_TYPE_FOR_THIRDPARTIES','chaine','1','Can add third party type of contact',1,'current',1),
                             18=>array('MAIN_APPLICATION_TITLE','chaine','DoliMed','Change software title',1,'current',1),
                             19=>array('CABINETMED_RHEUMATOLOGY_ON','chaine','1','Enable features for rheumatology',1),
-                            20=>array('MAIN_MODULE_CABINETMED_HOOKS','chaine','thirdpartycard:contactcard','Add hooks',1,'current',1)
+                            20=>array('MAIN_MODULE_CABINETMED_HOOKS','chaine','thirdpartycard:contactcard','Add hooks',1,'current',1),
+                            21=>array('MAIN_MODULE_CABINETMED_TRIGGERS','chaine','1','Add cabinetmedtriggers',1,'current',1)
                             );
 
         // Array to add new pages in new tabs
