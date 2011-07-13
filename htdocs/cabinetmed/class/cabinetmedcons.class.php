@@ -20,7 +20,7 @@
  *      \file       htdocs/cabinetmed/class/cabinetmedcons.class.php
  *      \ingroup    cabinetmed
  *      \brief      This file is an example for a CRUD class file (Create/Read/Update/Delete)
- *		\version    $Id: cabinetmedcons.class.php,v 1.17 2011/07/10 22:46:17 eldy Exp $
+ *		\version    $Id: cabinetmedcons.class.php,v 1.18 2011/07/13 18:29:35 eldy Exp $
  *		\remarks	Initialy built by build_class_from_table on 2011-02-02 22:30
  */
 
@@ -184,12 +184,12 @@ class CabinetmedCons extends CommonObject
 				// Uncomment this and change MYOBJECT to your own tag if you
 				// want this action call a trigger.
 
-				//// Call triggers
-				//include_once(DOL_DOCUMENT_ROOT . "/core/class/interfaces.class.php");
-				//$interface=new Interfaces($this->db);
-				//$result=$interface->run_triggers('MYOBJECT_CREATE',$this,$user,$langs,$conf);
-				//if ($result < 0) { $error++; $this->errors=$interface->errors; }
-				//// End call triggers
+				// Call triggers
+				include_once(DOL_DOCUMENT_ROOT . "/core/class/interfaces.class.php");
+				$interface=new Interfaces($this->db);
+				$result=$interface->run_triggers('CABINETMED_OUTCOME_CREATE',$this,$user,$langs,$conf);
+				if ($result < 0) { $error++; $this->errors=$interface->errors; }
+				// End call triggers
 			}
 		}
 

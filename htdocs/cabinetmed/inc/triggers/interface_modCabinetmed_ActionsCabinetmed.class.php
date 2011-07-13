@@ -22,7 +22,7 @@
  *	\file       htdocs/cabinetmed/includes/triggers/interface_modCabinetmed_ActionsCabinetmed.class.php
  *  \ingroup    cabinetmed
  *  \brief      Trigger file for cabinetmed module
- *	\version	$Id: interface_modCabinetmed_ActionsCabinetmed.class.php,v 1.1 2011/07/13 18:03:05 eldy Exp $
+ *	\version	$Id: interface_modCabinetmed_ActionsCabinetmed.class.php,v 1.2 2011/07/13 18:29:35 eldy Exp $
  */
 
 
@@ -110,16 +110,41 @@ class InterfaceActionsCabinetmed
      */
     function run_trigger($action,$object,$user,$langs,$conf)
     {
-        if (empty($conf->agenda->enabled)) return 0;     // Module not active, we do nothing
-
 		$ok=0;
 
 		// Actions
+        if ($action == 'CABINETMED_OUTCOME_CREATE')
+        {
+            // object is consultation.class.php
+            if (empty($conf->agenda->enabled)) return 0;     // Module not active, we do nothing
+
+            dol_syslog("Trigger '".$this->name."' for action '$action' launched by ".__FILE__.". id=".$object->id);
+            $langs->load("agenda");
+            $langs->load("cabinetmed@cabinetmed");
+
+            $thirdparty=new Societe($this->db);
+            $thirdparty->fetch($object->fk_soc);
+
+            $object->actiontypecode='AC_OTH';
+            if (empty($object->actionmsg2)) $object->actionmsg2=$langs->transnoentities("NewOutcomeToDolibarr",$object->id,$thirdparty->name);
+            $object->actionmsg=$langs->transnoentities("NewOutcomeToDolibarr",$object->nom);
+            if ($object->prefix) $object->actionmsg.=" (".$object->prefix.")";
+            //$this->desc.="\n".$langs->transnoentities("Customer").': '.yn($object->client);
+            //$this->desc.="\n".$langs->transnoentities("Supplier").': '.yn($object->fournisseur);
+            $object->actionmsg.="\n".$langs->transnoentities("Author").': '.$user->login;
+
+            $object->sendtoid=0;
+            $object->socid=$object->fk_soc;
+            $ok=1;
+        }
         if ($action == 'CABINETMED_SENTBYMAIL')
         {
+            // object is societe.class.php
+            if (empty($conf->agenda->enabled)) return 0;     // Module not active, we do nothing
+
             dol_syslog("Trigger '".$this->name."' for action '$action' launched by ".__FILE__.". id=".$object->id);
-            $langs->load("propal");
             $langs->load("agenda");
+            $langs->load("cabinetmed@cabinetmed");
 
             $object->actiontypecode='AC_CABMED';
             if (empty($object->actionmsg2)) $object->actionmsg2=$langs->transnoentities("DocumentSentByEMail",$object->ref);
@@ -129,8 +154,7 @@ class InterfaceActionsCabinetmed
                 $object->actionmsg.="\n".$langs->transnoentities("Author").': '.$user->login;
             }
 
-            // Parameters $object->sendtoid defined by caller
-            //$object->sendtoid=0;
+            // Parameters $object->sendtoid and $object->socid defined by caller
             $ok=1;
 		}
 

@@ -183,7 +183,7 @@ ErrorWebcalLoginNotDefined=Le login Webcalendar associé à votre login Dolibarr
 ErrorPhenixLoginNotDefined=Le login Phenix associé à votre login Dolibarr <b>%s</b> n'est pas défini.
 ##### Calendar common #####
 AddCalendarEntry=Ajouter entrée dans le calendrier %s
-NewCompanyToDolibarr=Patient %s ajoutée
+NewCompanyToDolibarr=Patient %s ajouté
 ContractValidatedInDolibarr=Contrat %s validé
 ContractCanceledInDolibarr=Contrat %s annulé
 ContractClosedInDolibarr=Contrat %s fermé

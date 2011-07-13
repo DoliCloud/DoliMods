@@ -123,3 +123,4 @@ CabinetMedSetup=Configuration du module Cabinet médical
 EnableSpecificFeaturesToRheumatology=Activer les fonctions propres à la spécialité Rhumatologie (Calcul BASDAI et DAS28)
 ThisIsADocumentForYou=Veuillez trouver, en pièce jointe, un ou plusieurs courriers/documents concernant un de vos patients suite à une consultation
 ActionAC_CABMED=Envoi document %s par Email
+NewOutcomeToDolibarr=Consultation %s saisie (%s)
