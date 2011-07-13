@@ -23,7 +23,7 @@
  *   \file       htdocs/cabinetmed/exambio.php
  *   \brief      Tab for examens bio
  *   \ingroup    cabinetmed
- *   \version    $Id: exambio.php,v 1.17 2011/06/13 22:24:23 eldy Exp $
+ *   \version    $Id: exambio.php,v 1.18 2011/07/13 15:57:20 eldy Exp $
  */
 
 $res=0;
@@ -469,49 +469,52 @@ if ($socid > 0)
         print '<br>';
         //print '<hr style="height:1px; color: #dddddd;">';
 
-        print '<table width="100%"><tr><td width="50%" valign="top">';
+        if (! empty($conf->global->CABINETMED_RHEUMATOLOGY_ON))
+        {
+            print '<table width="100%">';
+            print '<tr><td width="50%" valign="top">';
 
-        print '<fieldset id="suivipr">';
-        print '<legend>'.$langs->trans("SuiviPR").'</legend>';
-        print '<table>';
-        print '<tr><td width="90px">'.$langs->trans("AD").':</td><td><input autocomplete="off" class="flat suivipr" type="text" size="2" id="suivipr_ad" name="suivipr_ad" value="'.$exambio->suivipr_ad.'"></td></tr>';
-        print '<tr><td>'.$langs->trans("AG").':</td><td><input autocomplete="off" class="flat suivipr" type="text" size="2" id="suivipr_ag" name="suivipr_ag" value="'.$exambio->suivipr_ag.'"></td></tr>';
-        print '<tr><td>'.$langs->trans("EVA").':</td><td><input autocomplete="off" class="flat suivipr" type="text" size="2" id="suivipr_eva" name="suivipr_eva" value="'.$exambio->suivipr_eva.'"></td></tr>';
-        print '<tr><td>'.$langs->trans("VS").':</td><td><input autocomplete="off" class="flat suivipr" type="text" size="2" id="suivipr_vs" name="suivipr_vs" value="'.$exambio->suivipr_vs.'"></td></tr>';
-        print '<tr><td><b><font color="#884466">'.$langs->trans("DAS28").':</font></b></td><td>';
-        print '<div id="suivipr_das28_view"></div>';
-        print '<input type="hidden" id="suivipr_das28" name="suivipr_das28">';
-        print '</td></tr>';
-        print '<tr><td>&nbsp;</td><td>&nbsp;</td></tr>';
-        print '<tr><td>'.$langs->trans("ERRX").':</td><td><input type="text" size="2" id="suivipr_err" name="suivipr_err" value="'.$exambio->suivipr_err.'"></td></tr>';
-        print '</table>';
-        print '</fieldset>';
+            print '<fieldset id="suivipr">';
+            print '<legend>'.$langs->trans("SuiviPR").'</legend>';
+            print '<table>';
+            print '<tr><td width="90px">'.$langs->trans("AD").':</td><td><input autocomplete="off" class="flat suivipr" type="text" size="2" id="suivipr_ad" name="suivipr_ad" value="'.$exambio->suivipr_ad.'"></td></tr>';
+            print '<tr><td>'.$langs->trans("AG").':</td><td><input autocomplete="off" class="flat suivipr" type="text" size="2" id="suivipr_ag" name="suivipr_ag" value="'.$exambio->suivipr_ag.'"></td></tr>';
+            print '<tr><td>'.$langs->trans("EVA").':</td><td><input autocomplete="off" class="flat suivipr" type="text" size="2" id="suivipr_eva" name="suivipr_eva" value="'.$exambio->suivipr_eva.'"></td></tr>';
+            print '<tr><td>'.$langs->trans("VS").':</td><td><input autocomplete="off" class="flat suivipr" type="text" size="2" id="suivipr_vs" name="suivipr_vs" value="'.$exambio->suivipr_vs.'"></td></tr>';
+            print '<tr><td><b><font color="#884466">'.$langs->trans("DAS28").':</font></b></td><td>';
+            print '<div id="suivipr_das28_view"></div>';
+            print '<input type="hidden" id="suivipr_das28" name="suivipr_das28">';
+            print '</td></tr>';
+            print '<tr><td>&nbsp;</td><td>&nbsp;</td></tr>';
+            print '<tr><td>'.$langs->trans("ERRX").':</td><td><input type="text" size="2" id="suivipr_err" name="suivipr_err" value="'.$exambio->suivipr_err.'"></td></tr>';
+            print '</table>';
+            print '</fieldset>';
 
-        print '</td><td width="50%" valign="top">';
+            print '</td><td width="50%" valign="top">';
 
-        print '<fieldset id="suivisa">';
-        print '<legend>'.$langs->trans("SuiviSA").'</legend>';
-        print '<table>';
-        // 4 items de 0 à 10 -> Somme A
-        print '<tr><td width="140px">'.$langs->trans("EVAFatigue").':</td><td><input autocomplete="off" class="flat suivisa" type="text" size="2" id="suivisa_fat" name="suivisa_fat" value="'.$exambio->suivisa_fat.'"> / 10</td></tr>';
-        print '<tr><td>'.$langs->trans("EVADouleurAxiale").':</td><td><input autocomplete="off" class="flat suivisa" type="text" size="2" id="suivisa_dax" name="suivisa_dax" value="'.$exambio->suivisa_dax.'"> / 10</td></tr>';
-        print '<tr><td>'.$langs->trans("EVADouleurPeriph").':</td><td><input autocomplete="off" class="flat suivisa" type="text" size="2" id="suivisa_dpe" name="suivisa_dpe" value="'.$exambio->suivisa_dpe.'"> / 10</td></tr>';
-        print '<tr><td>'.$langs->trans("EVADouleurPalp").':</td><td><input autocomplete="off" class="flat suivisa" type="text" size="2" id="suivisa_dpa" name="suivisa_dpa" value="'.$exambio->suivisa_dpa.'"> / 10</td></tr>';
-        // 2 items de 0 à 10 -> moyenne B
-        print '<tr><td>'.$langs->trans("EVARaideurMat").':</td><td><input autocomplete="off" class="flat suivisa" type="text" size="2" id="suivisa_rno" name="suivisa_rno" value="'.$exambio->suivisa_rno.'"> / 10</td></tr>';
-        print '<tr><td>'.$langs->trans("EVADerrMat").':</td><td><input autocomplete="off" class="flat suivisa" type="text" size="2" id="suivisa_dma" name="suivisa_dma" value="'.$exambio->suivisa_dma.'"> / 10</td></tr>';
-        print '<tr><td><b><font color="#884466">'.$langs->trans("BASDAI").':</font><b></td><td>';
-        print '<div id="suivisa_basdai_view"></div>';
-        print '<input type="hidden" id="suivisa_basdai" name="suivisa_basdai">';
-        print '</td></tr>';
-        //print '<tr><td>&nbsp;</td><td>&nbsp;</td></tr>';
-        print '</table>';
-        print '</fieldset>';
-        // (A1+A2+A3+A4+(B1+B2/2))/5 -> C sur 10
+            print '<fieldset id="suivisa">';
+            print '<legend>'.$langs->trans("SuiviSA").'</legend>';
+            print '<table>';
+            // 4 items de 0 à 10 -> Somme A
+            print '<tr><td width="140px">'.$langs->trans("EVAFatigue").':</td><td><input autocomplete="off" class="flat suivisa" type="text" size="2" id="suivisa_fat" name="suivisa_fat" value="'.$exambio->suivisa_fat.'"> / 10</td></tr>';
+            print '<tr><td>'.$langs->trans("EVADouleurAxiale").':</td><td><input autocomplete="off" class="flat suivisa" type="text" size="2" id="suivisa_dax" name="suivisa_dax" value="'.$exambio->suivisa_dax.'"> / 10</td></tr>';
+            print '<tr><td>'.$langs->trans("EVADouleurPeriph").':</td><td><input autocomplete="off" class="flat suivisa" type="text" size="2" id="suivisa_dpe" name="suivisa_dpe" value="'.$exambio->suivisa_dpe.'"> / 10</td></tr>';
+            print '<tr><td>'.$langs->trans("EVADouleurPalp").':</td><td><input autocomplete="off" class="flat suivisa" type="text" size="2" id="suivisa_dpa" name="suivisa_dpa" value="'.$exambio->suivisa_dpa.'"> / 10</td></tr>';
+            // 2 items de 0 à 10 -> moyenne B
+            print '<tr><td>'.$langs->trans("EVARaideurMat").':</td><td><input autocomplete="off" class="flat suivisa" type="text" size="2" id="suivisa_rno" name="suivisa_rno" value="'.$exambio->suivisa_rno.'"> / 10</td></tr>';
+            print '<tr><td>'.$langs->trans("EVADerrMat").':</td><td><input autocomplete="off" class="flat suivisa" type="text" size="2" id="suivisa_dma" name="suivisa_dma" value="'.$exambio->suivisa_dma.'"> / 10</td></tr>';
+            print '<tr><td><b><font color="#884466">'.$langs->trans("BASDAI").':</font><b></td><td>';
+            print '<div id="suivisa_basdai_view"></div>';
+            print '<input type="hidden" id="suivisa_basdai" name="suivisa_basdai">';
+            print '</td></tr>';
+            //print '<tr><td>&nbsp;</td><td>&nbsp;</td></tr>';
+            print '</table>';
+            print '</fieldset>';
+            // (A1+A2+A3+A4+(B1+B2/2))/5 -> C sur 10
 
-        print '</td></tr></table>';
-
-        print '<br>';
+            print '</td></tr></table>';
+            print '<br>';
+        }
 
         dol_htmloutput_errors($mesg,$mesgarray);
 
@@ -650,5 +653,5 @@ if ($action == '' || $action == 'delete')
 
 $db->close();
 
-llxFooter('$Date: 2011/06/13 22:24:23 $ - $Revision: 1.17 $');
+llxFooter('$Date: 2011/07/13 15:57:20 $ - $Revision: 1.18 $');
 ?>
