@@ -20,7 +20,7 @@
  *   \file       htdocs/cabinetmed/documents.php
  *   \brief      Tab for courriers
  *   \ingroup    cabinetmed
- *   \version    $Id: documents.php,v 1.15 2011/07/10 22:46:17 eldy Exp $
+ *   \version    $Id: documents.php,v 1.16 2011/07/13 16:20:35 eldy Exp $
  */
 
 $res=0;
@@ -460,7 +460,7 @@ if ($socid > 0)
     print '<tr><td>'.$langs->trans("NbOfAttachedFiles").'</td><td colspan="3">'.sizeof($filearray).'</td></tr>';
 
     //Total taille
-    print '<tr><td>'.$langs->trans("TotalSizeOfAttachedFiles").'</td><td colspan="3">'.$totalsize.' '.$langs->trans("bytes").'</td></tr>';
+    print '<tr><td>'.$langs->trans("TotalSizeOfAttachedFiles").'</td><td colspan="3">'.$totalsize.' '.$langs->trans("Bytes").'</td></tr>';
 
     print "</table>";
 
@@ -602,5 +602,5 @@ if ($socid > 0)
 
 $db->close();
 
-llxFooter('$Date: 2011/07/10 22:46:17 $ - $Revision: 1.15 $');
+llxFooter('$Date: 2011/07/13 16:20:35 $ - $Revision: 1.16 $');
 ?>

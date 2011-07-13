@@ -119,3 +119,5 @@ BilanBio=Bilan biologique
 TreatmentSugested=Traitement prescrit
 SendOutcomeByEmail=Envoyer document par Email
 SendOutcome=Courrier consultation %s
+CabinetMedSetup=Configuration du module Cabinet médical
+EnableSpecificFeaturesToRheumatology=Activer les fonctions propres à la spécialité Rhumatologie (Calcul BASDAI et DAS28)
