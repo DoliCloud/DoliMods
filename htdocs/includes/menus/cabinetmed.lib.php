@@ -21,7 +21,7 @@
 /**
  *  \file		htdocs/includes/menus/cabinetmed.lib.php
  *  \brief		Library for file cabinetmed menus
- *  \version	$Id: cabinetmed.lib.php,v 1.24 2011/07/04 11:33:16 eldy Exp $
+ *  \version	$Id: cabinetmed.lib.php,v 1.25 2011/07/17 21:24:56 eldy Exp $
  */
 
 
@@ -67,7 +67,7 @@ function print_cabinetmed_menu($db,$atarget,$type_user)
 
 
 	// Patient
-	if ($conf->societe->enabled || $conf->fournisseur->enabled)
+	if ($conf->societe->enabled)
 	{
 		$langs->load("companies");
 		$langs->load("suppliers");
@@ -84,8 +84,7 @@ function print_cabinetmed_menu($db,$atarget,$type_user)
 		}
 
 		$idsel='companies';
-		if (($conf->societe->enabled && $user->rights->societe->lire)
-		|| ($conf->fournisseur->enabled && $user->rights->fournisseur->lire))
+		if ($conf->societe->enabled && $user->rights->societe->lire)
 		{
 			print_start_menu_entry($idsel);
 			print '<a class="tmenuimage" href="'.DOL_URL_ROOT.'/societe/index.php?mainmenu=companies&amp;leftmenu="'.($atarget?" target=$atarget":"").'>';
@@ -111,7 +110,7 @@ function print_cabinetmed_menu($db,$atarget,$type_user)
 	}
 
 	// Correspondant
-	if ($conf->societe->enabled || $conf->fournisseur->enabled)
+	if ($conf->societe->enabled)
 	{
 		$langs->load("companies");
 		$langs->load("suppliers");
@@ -128,8 +127,7 @@ function print_cabinetmed_menu($db,$atarget,$type_user)
 		}
 
 		$idsel='contacts';
-		if (($conf->societe->enabled && $user->rights->societe->lire)
-		|| ($conf->fournisseur->enabled && $user->rights->fournisseur->lire))
+		if ($conf->societe->enabled && $user->rights->societe->lire)
 		{
 			print_start_menu_entry($idsel);
 			print '<a class="tmenuimage" href="'.DOL_URL_ROOT.'/contact/index.php?mainmenu=contacts&amp;leftmenu="'.($atarget?" target=$atarget":"").'>';
