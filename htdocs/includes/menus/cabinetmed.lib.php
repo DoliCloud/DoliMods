@@ -21,7 +21,7 @@
 /**
  *  \file		htdocs/includes/menus/cabinetmed.lib.php
  *  \brief		Library for file cabinetmed menus
- *  \version	$Id: cabinetmed.lib.php,v 1.25 2011/07/17 21:24:56 eldy Exp $
+ *  \version	$Id: cabinetmed.lib.php,v 1.26 2011/07/18 00:57:51 eldy Exp $
  */
 
 
@@ -101,7 +101,7 @@ function print_cabinetmed_menu($db,$atarget,$type_user)
 			{
 				print_start_menu_entry($idsel);
 				print '<div class="'.$id.' '.$idsel.'"><span class="'.$id.'" id="mainmenuspan_'.$idsel.'"></span></div>';
-				print '<a class="tmenudisabled" id="mainmenua_'.$idsel.'" href="#">';
+				print '<a class="tmenudisabled" id="mainmenua_'.$idsel.'" href="#" title="'.dol_escape_htmltag($langs->trans("NotAllowed")).'">';
 				print_text_menu_entry($langs->trans("Patients"));
 				print '</a>';
 				print_end_menu_entry();
@@ -144,7 +144,7 @@ function print_cabinetmed_menu($db,$atarget,$type_user)
 			{
 				print_start_menu_entry($idsel);
 				print '<div class="'.$id.' '.$idsel.'"><span class="'.$id.'" id="mainmenuspan_'.$idsel.'"></span></div>';
-				print '<a class="tmenudisabled" id="mainmenua_'.$idsel.'" href="#">';
+				print '<a class="tmenudisabled" id="mainmenua_'.$idsel.'" href="#" title="'.dol_escape_htmltag($langs->trans("NotAllowed")).'">';
 				print_text_menu_entry($langs->trans("Correspondants"));
 				print '</a>';
 				print_end_menu_entry();
@@ -189,7 +189,7 @@ function print_cabinetmed_menu($db,$atarget,$type_user)
 			{
 				print_start_menu_entry($idsel);
 				print '<div class="'.$id.' '.$idsel.'"><span class="'.$id.'" id="mainmenuspan_'.$idsel.'"></span></div>';
-				print '<a class="tmenudisabled" id="mainmenua_'.$idsel.'" href="#">';
+				print '<a class="tmenudisabled" id="mainmenua_'.$idsel.'" href="#" title="'.dol_escape_htmltag($langs->trans("NotAllowed")).'">';
 				print_text_menu_entry($chaine);
 				print '</a>';
 				print_end_menu_entry();
@@ -236,7 +236,7 @@ function print_cabinetmed_menu($db,$atarget,$type_user)
             {
                 print_start_menu_entry($idsel);
                 print '<div class="'.$id.' '.$idsel.'"><span class="'.$id.'" id="mainmenuspan_'.$idsel.'"></span></div>';
-                print '<a class="tmenudisabled" id="mainmenua_'.$idsel.'" href="#">';
+                print '<a class="tmenudisabled" id="mainmenua_'.$idsel.'" href="#" title="'.dol_escape_htmltag($langs->trans("NotAllowed")).'">';
                 print print_text_menu_entry($langs->trans("Commercial"));
                 print '</a>';
                 print_end_menu_entry();
@@ -280,7 +280,7 @@ function print_cabinetmed_menu($db,$atarget,$type_user)
 			{
 				print_start_menu_entry($idsel);
 				print '<div class="'.$id.' '.$idsel.'"><span class="'.$id.'" id="mainmenuspan_'.$idsel.'"></span></div>';
-				print '<a class="tmenudisabled" id="mainmenua_'.$idsel.'" href="#">';
+				print '<a class="tmenudisabled" id="mainmenua_'.$idsel.'" href="#" title="'.dol_escape_htmltag($langs->trans("NotAllowed")).'">';
 				print_text_menu_entry($langs->trans("Accountancy"));
 				print '</a>';
 				print_end_menu_entry();
@@ -322,7 +322,7 @@ function print_cabinetmed_menu($db,$atarget,$type_user)
             {
                 print_start_menu_entry($idsel);
                 print '<div class="'.$id.' '.$idsel.'"><span class="'.$id.'" id="mainmenuspan_'.$idsel.'"></span></div>';
-                print '<a class="tmenudisabled" id="mainmenua_'.$idsel.'" href="#">';
+                print '<a class="tmenudisabled" id="mainmenua_'.$idsel.'" href="#" title="'.dol_escape_htmltag($langs->trans("NotAllowed")).'">';
                 print_text_menu_entry($langs->trans("MenuBankCash"));
                 print '</a>';
                 print_end_menu_entry();
@@ -363,7 +363,7 @@ function print_cabinetmed_menu($db,$atarget,$type_user)
 			{
 				print_start_menu_entry($idsel);
 				print '<div class="'.$id.' '.$idsel.'"><span class="'.$id.'" id="mainmenuspan_'.$idsel.'"></span></div>';
-				print '<a class="tmenudisabled" id="mainmenua_'.$idsel.'" href="#">';
+				print '<a class="tmenudisabled" id="mainmenua_'.$idsel.'" href="#" title="'.dol_escape_htmltag($langs->trans("NotAllowed")).'">';
 				print_text_menu_entry($langs->trans("Projects"));
 				print '</a>';
 				print_end_menu_entry();
@@ -404,7 +404,7 @@ function print_cabinetmed_menu($db,$atarget,$type_user)
 			{
 				print_start_menu_entry($idsel);
 				print '<div class="'.$id.' '.$idsel.'"><span class="'.$id.'" id="mainmenuspan_'.$idsel.'"></span></div>';
-				print '<a class="tmenudisabled"  id="mainmenua_'.$idsel.'" href="#">';
+				print '<a class="tmenudisabled"  id="mainmenua_'.$idsel.'" href="#" title="'.dol_escape_htmltag($langs->trans("NotAllowed")).'">';
 				print_text_menu_entry($langs->trans("Tools"));
 				print '</a>';
 				print_end_menu_entry();
@@ -471,7 +471,7 @@ function print_cabinetmed_menu($db,$atarget,$type_user)
 			{
 				print_start_menu_entry($idsel);
 				print '<div class="'.$id.' '.$idsel.'"><span class="'.$id.'" id="mainmenuspan_'.$idsel.'"></span></div>';
-				print '<a class="tmenudisabled" id="mainmenua_'.$idsel.'" href="#">';
+				print '<a class="tmenudisabled" id="mainmenua_'.$idsel.'" href="#" title="'.dol_escape_htmltag($langs->trans("NotAllowed")).'">';
 				print_text_menu_entry($langs->trans("MenuMembers"));
 				print '</a>';
 				print_end_menu_entry();
@@ -533,7 +533,7 @@ function print_cabinetmed_menu($db,$atarget,$type_user)
 				{
 					print_start_menu_entry($idsel);
 					print '<div class="'.$id.' '.$idsel.'"><span class="'.$id.' tmenuimage" id="mainmenuspan_'.$idsel.'"></span></div>';
-					print '<a class="tmenudisabled" id="mainmenua_'.$idsel.'" href="#">';
+					print '<a class="tmenudisabled" id="mainmenua_'.$idsel.'" href="#" title="'.dol_escape_htmltag($langs->trans("NotAllowed")).'">';
 					print_text_menu_entry($newTabMenu[$i]['titre']);
 					print '</a>';
 					print_end_menu_entry();
