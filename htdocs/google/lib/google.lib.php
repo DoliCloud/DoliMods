@@ -20,14 +20,14 @@
 /**
  *	\file			htdocs/google/lib/google.lib.php
  *  \brief			Library of admin functions for google module
- *  \version		$Id: google.lib.php,v 1.4 2011/04/21 19:05:24 eldy Exp $
+ *  \version		$Id: google.lib.php,v 1.5 2011/07/18 21:46:59 eldy Exp $
  */
 
 
 /**
  *  \brief      	Define head array for tabs of google tools setup pages
  *  \return			Array of head
- *  \version    	$Id: google.lib.php,v 1.4 2011/04/21 19:05:24 eldy Exp $
+ *  \version    	$Id: google.lib.php,v 1.5 2011/07/18 21:46:59 eldy Exp $
  */
 function googleadmin_prepare_head()
 {
@@ -36,11 +36,16 @@ function googleadmin_prepare_head()
 	$head = array();
 
 	$head[$h][0] = dol_buildpath("/google/admin/google.php",1);
-	$head[$h][1] = $langs->trans("Agenda");
+	$head[$h][1] = $langs->trans("AgendaView");
 	$head[$h][2] = 'agenda';
 	$h++;
 
-    $head[$h][0] = dol_buildpath("/google/admin/google_gmaps.php",1);
+    $head[$h][0] = dol_buildpath("/google/admin/google_calsync.php",1);
+    $head[$h][1] = $langs->trans("AgendaSync");
+    $head[$h][2] = 'agendasync';
+    $h++;
+
+	$head[$h][0] = dol_buildpath("/google/admin/google_gmaps.php",1);
     $head[$h][1] = $langs->trans("GMaps");
     $head[$h][2] = 'gmaps';
     $h++;

@@ -5,8 +5,8 @@
 /**
  *	    \file       htdocs/google/admin/google_gmaps.php
  *      \ingroup    google
- *      \brief      Setup page for google module
- *		\version    $Id: google_gmaps.php,v 1.6 2011/06/11 00:27:20 eldy Exp $
+ *      \brief      Setup page for google module (GMaps)
+ *		\version    $Id: google_gmaps.php,v 1.7 2011/07/18 21:46:59 eldy Exp $
  */
 
 define('NOCSRFCHECK',1);
@@ -41,6 +41,7 @@ $actionsave=$_POST["save"];
 /*
  * Actions
  */
+
 if ($actionsave)
 {
     $db->begin();
@@ -70,7 +71,6 @@ if ($actionsave)
  * View
  */
 
-
 $form=new Form($db);
 $formadmin=new FormAdmin($db);
 $formother=new FormOther($db);
@@ -97,7 +97,7 @@ if ($conf->societe->enabled)
 }
 else print $langs->trans("ModuleMustBeEnabledFirst",$langs->transnoentitiesnoconv("Module1Name"));
 
-print '<br>';
+//print '<br>';
 print $langs->trans("GoogleEnableThisToolContacts").': ';
 if ($conf->societe->enabled)
 {
@@ -105,7 +105,7 @@ if ($conf->societe->enabled)
 }
 else print $langs->trans("ModuleMustBeEnabledFirst",$langs->transnoentitiesnoconv("Module1Name"));
 
-print '<br>';
+//print '<br>';
 print $langs->trans("GoogleEnableThisToolMembers").': ';
 if ($conf->adherent->enabled)
 {
@@ -113,7 +113,7 @@ if ($conf->adherent->enabled)
 }
 else print $langs->trans("ModuleMustBeEnabledFirst",$langs->transnoentitiesnoconv("Module310Name"));
 
-print '<br>';
+//print '<br>';
 print $langs->trans("GoogleZoomLevel").': ';
 print '<input class="flat" name="GOOGLE_GMAPS_ZOOM_LEVEL" id="GOOGLE_GMAPS_ZOOM_LEVEL" value="'.(isset($_POST["GOOGLE_GMAPS_ZOOM_LEVEL"])?$_POST["GOOGLE_GMAPS_ZOOM_LEVEL"]:$conf->global->GOOGLE_GMAPS_ZOOM_LEVEL).'" size="2">';
 
@@ -139,5 +139,5 @@ $message='';
 
 $db->close();
 
-llxFooter('$Date: 2011/06/11 00:27:20 $ - $Revision: 1.6 $');
+llxFooter('$Date: 2011/07/18 21:46:59 $ - $Revision: 1.7 $');
 ?>

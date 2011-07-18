@@ -5,8 +5,8 @@
 /**
  *	    \file       htdocs/google/admin/google_an.php
  *      \ingroup    google
- *      \brief      Setup page for google module
- *		\version    $Id: google_an.php,v 1.4 2011/03/29 23:17:21 eldy Exp $
+ *      \brief      Setup page for google module (Analytics)
+ *		\version    $Id: google_an.php,v 1.5 2011/07/18 21:46:59 eldy Exp $
  */
 
 define('NOCSRFCHECK',1);
@@ -126,5 +126,5 @@ print "<br>";
 
 $db->close();
 
-llxFooter('$Date: 2011/03/29 23:17:21 $ - $Revision: 1.4 $');
+llxFooter('$Date: 2011/07/18 21:46:59 $ - $Revision: 1.5 $');
 ?>

@@ -20,7 +20,7 @@
  *      \file       /google/inc/triggers/interface_modGoogle_GoogleCalendarSynchro.class.php
  *      \ingroup    google
  *      \brief      Fichier de gestion des triggers google calendar
- *      \version	$Id: interface_modGoogle_GoogleCalendarSynchro.class.php,v 1.1 2011/07/18 09:00:30 hregis Exp $
+ *      \version	$Id: interface_modGoogle_GoogleCalendarSynchro.class.php,v 1.2 2011/07/18 21:46:59 eldy Exp $
  */
 
 dol_include_once('/google/lib/google_calendar.lib.php');
@@ -105,16 +105,23 @@ class InterfaceGoogleCalendarSynchro
         // Les donnees de l'action sont stockees dans $object
 
         if (! $conf->google->enabled) return 0;	// Module non actif
-        //if (! $object->use_googlecal) return 0;	// Option syncro webcal non active
+        if (empty($conf->global->GOOGLE_DUPLICATE_INTO_GCAL)) return 0;
 
         // Actions
         if ($action == 'ACTION_CREATE')
         {
             dol_syslog("Trigger '".$this->name."' for action '$action' launched by ".__FILE__.". id=".$object->id);
+
+            if (empty($conf->global->GOOGLE_LOGIN) || empty($conf->global->GOOGLE_PASSWORD))
+            {
+                dol_syslog("Setup to duplicate events into a Google calendar is on but setup (login/password) is not complete", LOG_WARNING);
+                return 0;
+            }
+
             $langs->load("other");
-            
+
             //var_dump($object); exit;
-            
+
 			$title			= $object->label;
             $desc			= dol_string_nohtmltag($object->note);
             $where			= $object->location;
@@ -122,14 +129,13 @@ class InterfaceGoogleCalendarSynchro
             $startTime		= dol_print_date($object->datep,'%H:%M');
             $endDate		= dol_print_date($object->datef,'%Y-%m-%d');
             $endTime		= dol_print_date($object->datef,'%H:%M');
-            
-            // For test only
-	        $user = 'xxxxx@gmail.com';
-	        $pwd = 'xxxxx';
-	            
+
+	        $user = $conf->global->GOOGLE_LOGIN;
+	        $pwd = $conf->global->GOOGLE_PASSWORD;
+
 	        $client = getClientLoginHttpClient($user, $pwd);
 	        //var_dump($client); exit;
-	            
+
 	        $ret = createEvent($client, $title, $desc, $where, $startDate, $startTime, $endDate, $endTime);
 	        //var_dump($ret); exit;
 

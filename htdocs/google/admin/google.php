@@ -5,8 +5,8 @@
 /**
  *	    \file       htdocs/google/admin/google.php
  *      \ingroup    google
- *      \brief      Setup page for google module
- *		\version    $Id: google.php,v 1.10 2011/06/11 00:27:20 eldy Exp $
+ *      \brief      Setup page for google module (Calendar)
+ *		\version    $Id: google.php,v 1.11 2011/07/18 21:46:59 eldy Exp $
  */
 
 define('NOCSRFCHECK',1);
@@ -162,7 +162,7 @@ print "<br>";
 print "<table class=\"noborder\" width=\"100%\">";
 
 print "<tr class=\"liste_titre\">";
-print "<td>".$langs->trans("Parameter")."</td>";
+print "<td>".$langs->trans("GoogleAgendaToShow")."</td>";
 print "<td>".$langs->trans("Name")."</td>";
 print "<td>".$langs->trans("GoogleIDAgenda")." (".$langs->trans("Example").': assodolibarr@gmail.com)</td>';
 print "<td>".$langs->trans("Color")."</td>";
@@ -216,5 +216,5 @@ print info_admin($message);
 
 $db->close();
 
-llxFooter('$Date: 2011/06/11 00:27:20 $ - $Revision: 1.10 $');
+llxFooter('$Date: 2011/07/18 21:46:59 $ - $Revision: 1.11 $');
 ?>

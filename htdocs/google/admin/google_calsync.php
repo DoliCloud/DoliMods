@@ -3,10 +3,10 @@
  */
 
 /**
- *	    \file       htdocs/google/admin/google_ad.php
+ *	    \file       htdocs/google/admin/google.php
  *      \ingroup    google
- *      \brief      Setup page for google module (AdSense)
- *		\version    $Id: google_ad.php,v 1.4 2011/07/18 21:46:59 eldy Exp $
+ *      \brief      Setup page for google module (Calendar)
+ *		\version    $Id: google_calsync.php,v 1.1 2011/07/18 21:46:59 eldy Exp $
  */
 
 define('NOCSRFCHECK',1);
@@ -20,6 +20,7 @@ if (! $res && file_exists("../../../../dolibarr/htdocs/main.inc.php")) $res=@inc
 if (! $res && file_exists("../../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
 if (! $res) die("Include of main fails");
 require_once(DOL_DOCUMENT_ROOT."/lib/admin.lib.php");
+require_once(DOL_DOCUMENT_ROOT."/lib/date.lib.php");
 require_once(DOL_DOCUMENT_ROOT.'/core/class/html.formadmin.class.php');
 require_once(DOL_DOCUMENT_ROOT.'/core/class/html.formother.class.php');
 dol_include_once("/google/lib/google.lib.php");
@@ -35,6 +36,13 @@ $def = array();
 $actiontest=$_POST["test"];
 $actionsave=$_POST["save"];
 
+if (empty($conf->global->GOOGLE_AGENDA_NB)) $conf->global->GOOGLE_AGENDA_NB=5;
+$MAXAGENDA=empty($conf->global->GOOGLE_AGENDA_NB)?5:$conf->global->GOOGLE_AGENDA_NB;
+
+// List of Google colors (A lot of colors are ignored by Google)
+$colorlist=array('7A367A','B1365F','5229A3','7A367A','29527A','2952A3','1B887A','28754E','0D7813','528800','88880E','AB8B00',
+                 'BE6D00','865A5A','705770','4E5D6C','5A6986','6E6E41','8D6F47','691426','5C1158','125A12','875509','754916',
+                 '5B123B','42104A','113F47','333333','711616','FFFFFF');
 
 
 /*
@@ -44,10 +52,13 @@ if ($actionsave)
 {
     $db->begin();
 
-	$res=dolibarr_set_const($db,'MAIN_GOOGLE_AD_CLIENT',trim($_POST["MAIN_GOOGLE_AD_CLIENT"]),'chaine',0);
-	$res=dolibarr_set_const($db,'MAIN_GOOGLE_AD_SLOT',trim($_POST["MAIN_GOOGLE_AD_SLOT"]),'chaine',0);
-	$res=dolibarr_set_const($db,'MAIN_GOOGLE_AD_WIDTH',trim($_POST["MAIN_GOOGLE_AD_WIDTH"]),'chaine',0);
-	$res=dolibarr_set_const($db,'MAIN_GOOGLE_AD_HEIGHT',trim($_POST["MAIN_GOOGLE_AD_HEIGHT"]),'chaine',0);
+	//print 'color='.$color;
+	$res=dolibarr_set_const($db,'GOOGLE_DUPLICATE_INTO_GCAL'.$i,trim($_POST["GOOGLE_DUPLICATE_INTO_GCAL"]),'chaine',0);
+	if (! $res > 0) $error++;
+	$res=dolibarr_set_const($db,'GOOGLE_LOGIN',trim($_POST["GOOGLE_LOGIN"]),'chaine',0);
+	if (! $res > 0) $error++;
+	$res=dolibarr_set_const($db,'GOOGLE_PASSWORD',trim($_POST["GOOGLE_PASSWORD"]),'chaine',0);
+	if (! $res > 0) $error++;
 
     if (! $error)
     {
@@ -74,7 +85,11 @@ $formadmin=new FormAdmin($db);
 $formother=new FormOther($db);
 
 $help_url='EN:Module_Google_EN|FR:Module_Google|ES:Modulo_Google';
-llxHeader('',$langs->trans("GoogleSetup"),$help_url);
+//$arrayofjs=array('/includes/jquery/plugins/colorpicker/jquery.colorpicker.js');
+//$arrayofcss=array('/includes/jquery/plugins/colorpicker/jquery.colorpicker.css');
+$arrayofjs=array();
+$arrayofcss=array();
+llxHeader('',$langs->trans("GoogleSetup"),$help_url,'',0,0,$arrayofjs,$arrayofcss);
 
 $linkback='<a href="'.DOL_URL_ROOT.'/admin/modules.php">'.$langs->trans("BackToModuleList").'</a>';
 print_fiche_titre($langs->trans("GoogleSetup"),$linkback,'setup');
@@ -83,61 +98,39 @@ print '<br>';
 
 $head=googleadmin_prepare_head();
 
-dol_fiche_head($head, 'adsense', $langs->trans("GoogleTools"));
+dol_fiche_head($head, 'agendasync', $langs->trans("GoogleTools"));
+
 
 print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
 
-print $langs->trans("GoogleAddPubOnLogonPage").'<br>';
-print '<br>';
+print $langs->trans("GoogleEnableSyncToCalendar").' '.$form->selectyesno("GOOGLE_DUPLICATE_INTO_GCAL",isset($_POST["GOOGLE_DUPLICATE_INTO_GCAL"])?$_POST["GOOGLE_DUPLICATE_INTO_GCAL"]:$conf->global->GOOGLE_DUPLICATE_INTO_GCAL,1).'<br><br>';
 
 
 $var=false;
 print "<table class=\"noborder\" width=\"100%\">";
 
 print "<tr class=\"liste_titre\">";
-print '<td width="140">'.$langs->trans("Parameter")."</td>";
+print '<td width="180">'.$langs->trans("Parameter")."</td>";
 print "<td>".$langs->trans("Value")."</td>";
-print "<td>".$langs->trans("Example")."</td>";
 print "</tr>";
-// Client id
+// Timezone
 print "<tr ".$bc[$var].">";
-print "<td>".$langs->trans("MAIN_GOOGLE_AD_CLIENT")."</td>";
+print "<td>".$langs->trans("GOOGLE_LOGIN")."</td>";
 print "<td>";
-print '<input class="flat" type="text" size="20" name="MAIN_GOOGLE_AD_CLIENT" value="'.$conf->global->MAIN_GOOGLE_AD_CLIENT.'">';
+print '<input class="flat" type="text" size="10" name="GOOGLE_LOGIN" value="'.$conf->global->GOOGLE_LOGIN.'">';
 print "</td>";
-print '<td>pub-5101270331300242</td>';
 print "</tr>";
-// Slot id
+// Nb of agenda
 $var=!$var;
 print "<tr ".$bc[$var].">";
-print "<td>".$langs->trans("MAIN_GOOGLE_AD_SLOT")."</td>";
+print "<td>".$langs->trans("GOOGLE_PASSWORD")."</td>";
 print "<td>";
-print '<input class="flat" type="text" size="20" name="MAIN_GOOGLE_AD_SLOT" value="'.$conf->global->MAIN_GOOGLE_AD_SLOT.'">';
+print '<input class="flat" type="text" size="10" name="GOOGLE_PASSWORD" value="'.$conf->global->GOOGLE_PASSWORD.'">';
 print "</td>";
-print '<td>3206231573</td>';
-print "</tr>";
-// Slot id
-$var=!$var;
-print "<tr ".$bc[$var].">";
-print "<td>".$langs->trans("MAIN_GOOGLE_AD_WIDTH")."</td>";
-print "<td>";
-print '<input class="flat" type="text" size="20" name="MAIN_GOOGLE_AD_WIDTH" value="'.$conf->global->MAIN_GOOGLE_AD_WIDTH.'">';
-print "</td>";
-print '<td>728</td>';
-print "</tr>";
-// Slot id
-$var=!$var;
-print "<tr ".$bc[$var].">";
-print "<td>".$langs->trans("MAIN_GOOGLE_AD_HEIGHT")."</td>";
-print "<td>";
-print '<input class="flat" type="text" size="20" name="MAIN_GOOGLE_AD_HEIGHT" value="'.$conf->global->MAIN_GOOGLE_AD_HEIGHT.'">';
-print "</td>";
-print '<td>90</td>';
 print "</tr>";
 
 print "</table>";
 print "<br>";
-
 
 
 print '<center>';
@@ -151,10 +144,10 @@ print "</form>\n";
 dol_fiche_end();
 
 
-if ($mesg) print "<br>$mesg<br>";
-print "<br>";
+dol_htmloutput_mesg($mesg);
+
 
 $db->close();
 
-llxFooter('$Date: 2011/07/18 21:46:59 $ - $Revision: 1.4 $');
+llxFooter('$Date: 2011/07/18 21:46:59 $ - $Revision: 1.1 $');
 ?>
