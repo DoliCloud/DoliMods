@@ -12,7 +12,7 @@
  *      \file       htdocs/includes/modules/modGoogle.class.php
  *      \ingroup    google
  *      \brief      Description and activation file for module Google
- *		\version	$Id: modGoogle.class.php,v 1.19 2011/05/16 17:25:53 eldy Exp $
+ *		\version	$Id: modGoogle.class.php,v 1.20 2011/07/18 09:00:30 hregis Exp $
  */
 include_once(DOL_DOCUMENT_ROOT ."/includes/modules/DolibarrModules.class.php");
 
@@ -53,6 +53,9 @@ class modGoogle extends DolibarrModules
 		// If file is in theme/yourtheme/img directory under name object_pictovalue.png, use this->picto='pictovalue'
 		// If file is in module/img directory under name object_pictovalue.png, use this->picto='pictovalue@module'
 		$this->picto='google@google';
+		
+		// Defined if the directory /mymodule/inc/triggers/ contains triggers or not
+		$this->triggers = 1;
 
 		// Data directories to create when module is enabled
 		$this->dirs = array();

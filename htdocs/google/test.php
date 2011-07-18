@@ -20,7 +20,7 @@
  *  \file       /google/test.php
  *  \ingroup    google
  *  \brief      Page to google api
- *  \version    $Id: test.php,v 1.2 2011/06/14 16:35:41 hregis Exp $
+ *  \version    $Id: test.php,v 1.3 2011/07/18 09:00:30 hregis Exp $
  */
 
 $res=@include("../../main.inc.php");								// For "custom" directory
@@ -31,10 +31,10 @@ require_once('./lib/google_calendar.lib.php');
 
 llxheader();
 
-$user = 'xxxxxx@gmail.com';
+$user = 'xxxxx@gmail.com';
 $pwd = 'xxxxx';
 
-$client = getClientLoginHttpClient($user, $pwd);
+//$client = getClientLoginHttpClient($user, $pwd);
 
 //outputCalendarList($client);
 
@@ -47,10 +47,17 @@ $endDate = '2011-06-16';
 $endTime = '11:00';
 $tzOffset = '+01';
 
-$ret = createEvent($client, $title, $desc, $where, $startDate, $startTime, $endDate, $endTime);
+print dol_print_date('1310990400','%Y-%m-%d').'<br>';
+print dol_print_date('1310990400','%H:%M').'<br>';
+
+print dol_print_date('1310994000','%Y-%m-%d').'<br>';
+print dol_print_date('1310994000','%H:%M');
+
+
+//$ret = createEvent($client, $title, $desc, $where, $startDate, $startTime, $endDate, $endTime);
 echo $ret;
 
-outputCalendar($client);
+//outputCalendar($client);
 
 
 llxfooter();
