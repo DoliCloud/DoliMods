@@ -22,7 +22,7 @@
  *	\file       htdocs/cabinetmed/includes/triggers/interface_modCabinetmed_ActionsCabinetmed.class.php
  *  \ingroup    cabinetmed
  *  \brief      Trigger file for cabinetmed module
- *	\version	$Id: interface_modCabinetmed_ActionsCabinetmed.class.php,v 1.2 2011/07/13 18:29:35 eldy Exp $
+ *	\version	$Id: interface_modCabinetmed_ActionsCabinetmed.class.php,v 1.3 2011/07/18 01:06:31 eldy Exp $
  */
 
 
@@ -52,6 +52,7 @@ class InterfaceActionsCabinetmed
         $this->family = "cabinetmed";
         $this->description = "Triggers of this module add actions in cabinetmed according to setup made in cabinetmed setup.";
         $this->version = 'dolibarr';                        // 'experimental' or 'dolibarr' or version
+        $this->picto = 'user';
     }
 
     /**
