@@ -20,7 +20,7 @@
  *      \file       htdocs/cabinetmed/class/cabinetmedcons.class.php
  *      \ingroup    cabinetmed
  *      \brief      This file is an example for a CRUD class file (Create/Read/Update/Delete)
- *		\version    $Id: cabinetmedcons.class.php,v 1.18 2011/07/13 18:29:35 eldy Exp $
+ *		\version    $Id: cabinetmedcons.class.php,v 1.19 2011/07/19 16:25:35 simnandez Exp $
  *		\remarks	Initialy built by build_class_from_table on 2011-02-02 22:30
  */
 
@@ -123,7 +123,7 @@ class CabinetmedCons extends CommonObject
 		$sql = "INSERT INTO ".MAIN_DB_PREFIX."cabinetmed_cons(";
 
 		$sql.= "fk_soc,";
-        $sql.= "fk_user_creation,";
+        $sql.= "fk_user,";
 		$sql.= "datecons,";
 		$sql.= "typepriseencharge,";
 		$sql.= "motifconsprinc,";
