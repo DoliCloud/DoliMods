@@ -24,7 +24,7 @@
  *      \file       htdocs/submiteverywhere/admin/submiteverywheresetuppage.php
  *      \ingroup    submiteverywhere
  *      \brief      Page to setup module SubmitEverywhere
- *      \version    $Id: submiteverywheresetuppage.php,v 1.10 2011/06/26 00:41:18 eldy Exp $
+ *      \version    $Id: submiteverywheresetuppage.php,v 1.11 2011/08/01 22:52:37 eldy Exp $
  */
 
 $res=0;
@@ -49,12 +49,12 @@ $mesg='';
 $error=0;
 
 $listoftargets=array(
-'dig'=>array('label'=>$langs->trans("Dig"),'titlelength'=>32,'descshortlength'=>256,'desclonglength'=>2000),
-'email'=>array('label'=>$langs->trans("Email"),'titlelength'=>0,'descshortlength'=>-1,'desclonglength'=>0),
-'facebook'=>array('label'=>$langs->trans("Facebook"),'titlelength'=>32,'descshortlength'=>256,'desclonglength'=>2000),
-'linkedin'=>array('label'=>$langs->trans("LinkedIn"),'titlelength'=>32,'descshortlength'=>256,'desclonglength'=>2000),
-'twitter'=>array('label'=>$langs->trans("Twitter"),'titlelength'=>-1,'descshortlength'=>140,'desclonglength'=>-1),
-'web'=>array('label'=>$langs->trans("GenericWebSite"),'titlelength'=>32,'descshortlength'=>256,'desclonglength'=>2000,'url'=>'http://'),
+'dig'=>array('label'=>$langs->trans("Dig"),'loginedit'=>1,'passedit'=>1,'titlelength'=>32,'descshortlength'=>256,'desclonglength'=>2000,'url'=>'http://www.dig.com','urledit'=>0),
+'facebook'=>array('label'=>$langs->trans("Facebook"),'loginedit'=>1,'passedit'=>1,'titlelength'=>32,'descshortlength'=>256,'desclonglength'=>2000,'url'=>'http://www.facebook.com','urledit'=>0),
+'linkedin'=>array('label'=>$langs->trans("LinkedIn"),'loginedit'=>1,'passedit'=>1,'titlelength'=>32,'descshortlength'=>256,'desclonglength'=>2000,'url'=>'http://linkedin.com','urledit'=>0),
+'twitter'=>array('label'=>$langs->trans("Twitter"),'loginedit'=>1,'passedit'=>1,'titlelength'=>-1,'descshortlength'=>140,'desclonglength'=>-1,'url'=>'http://twitter.com','urledit'=>0),
+'email'=>array('label'=>$langs->trans("Email"),'loginedit'=>0,'passedit'=>0,'titlelength'=>0,'descshortlength'=>-1,'desclonglength'=>0,'url'=>'','urledit'=>1),
+'web'=>array('label'=>$langs->trans("GenericWebSite"),'loginedit'=>1,'passedit'=>1,'titlelength'=>32,'descshortlength'=>256,'desclonglength'=>2000,'url'=>'http://','urledit'=>1),
 //'sms'=>array('label'=>$langs->trans("Email"),'titlelength'=>10,'descshortlength'=>140,'desclonglength'=>-1),
 );
 
@@ -113,21 +113,30 @@ if (($action == 'add' || $action == 'update') && ! GETPOST("cancel"))
     {
         if ($action == 'add')
         {
+            $url=GETPOST('url'.$id);
+            $type=GETPOST('type'.$id);
+            foreach($listoftargets as $key => $val)
+            {
+                //print $key."-".$type."-".$val['url'];
+                if ($key == $type) { $url=$val['url']; break; }
+                //print $url;
+            }
+
             $sql = "INSERT INTO ".MAIN_DB_PREFIX."submitew_targets (label,targetcode,langcode,titlelength,descshortlength,desclonglength,login,pass,url)";
         	$sql.= " VALUES ('".$db->escape(GETPOST('label'.$id))."', '".$db->escape(GETPOST('type'.$id))."', '".$db->escape(GETPOST('langcode'.$id))."',";
         	$sql.= " '".(GETPOST('titlelength'.$id)!=''?GETPOST('titlelength'.$id):-1)."',";
         	$sql.= " '".(GETPOST('descshortlength'.$id)!=''?GETPOST('descshortlength'.$id):-1)."',";
         	$sql.= " '".(GETPOST('desclonglength'.$id)!=''?GETPOST('desclonglength'.$id):-1)."',";
-            $sql.= " ".(GETPOST('login'.$id)!=''?GETPOST('login'.$id):"null").",";
-            $sql.= " ".(GETPOST('pass'.$id)!=''?GETPOST('pass'.$id):"null").",";
-            $sql.= " ".(GETPOST('url'.$id)!=''?GETPOST('url'.$id):"null");
+            $sql.= " ".(GETPOST('login'.$id)!=''?"'".$db->escape(GETPOST('login'.$id))."'":"null").",";
+            $sql.= " ".(GETPOST('pass'.$id)!=''?"'".$db->escape(GETPOST('pass'.$id))."'":"null").",";
+            $sql.= " ".($url!=''?"'".$db->escape($url)."'":"null");
             $sql.= ")";
             $resql=$db->query($sql);
         	if ($resql)
             {
+                //$_POST['type']='';
                 $_POST['label']='';
-                $_POST['type']='';
-                $_POST['type']='';
+                //$_POST['langcode']='';
                 $_POST['login']='';
                 $_POST['pass']='';
                 $_POST['url']='';
@@ -154,17 +163,17 @@ if (($action == 'add' || $action == 'update') && ! GETPOST("cancel"))
             $sql.= " titlelength = '".(GETPOST('titlelength'.$id)!=''?GETPOST('titlelength'.$id):-1)."',";
             $sql.= " descshortlength = '".(GETPOST('descshortlength'.$id)!=''?GETPOST('descshortlength'.$id):-1)."',";
             $sql.= " desclonglength = '".(GETPOST('desclonglength'.$id)!=''?GETPOST('desclonglength'.$id):-1)."',";
-            $sql.= " login = ".(GETPOST('login'.$id)!=''?"'".GETPOST('login'.$id)."'":"null").",";
-            $sql.= " pass = ".(GETPOST('pass'.$id)!=''?"'".GETPOST('pass'.$id)."'":"null").",";
-            $sql.= " url = ".(GETPOST('url'.$id)!=''?"'".GETPOST('url'.$id)."'":"null");
+            $sql.= " login = ".(GETPOST('login'.$id)!=''?"'".$db->escape(GETPOST('login'.$id))."'":"null").",";
+            $sql.= " pass = ".(GETPOST('pass'.$id)!=''?"'".$db->escape(GETPOST('pass'.$id))."'":"null").",";
+            $sql.= " url = ".(GETPOST('url'.$id)!=''?"'".$db->escape(GETPOST('url'.$id))."'":"null");
             $sql.= " WHERE rowid = ".$id;
             $resql=$db->query($sql);
 
             if ($resql)
             {
+                //$_POST['type']='';
                 $_POST['label']='';
-                $_POST['type']='';
-                $_POST['type']='';
+                //$_POST['langcode']='';
                 $_POST['login']='';
                 $_POST['pass']='';
                 $_POST['url']='';
@@ -224,20 +233,24 @@ print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
 
 print '<table class="nobordernopadding" width="100%">';
 print '<tr class="liste_titre">';
-print '<td width="180">'.$langs->trans("Label").'</td>';
-print '<td width="160">'.$langs->trans("TargetType").'</td>';
-print '<td align="center">'.$langs->trans("Language").'</td>';
-print '<td colspan="3">'.$langs->trans("Parameters").'</td>';
+print '<td>'.$langs->trans("Parameters").'</td>';
+//print '<td width="160">'.$langs->trans("TargetType").'</td>';
+//print '<td align="center">'.$langs->trans("Language").'</td>';
+print '<td colspan="3">&nbsp;</td>';
 print '</tr>';
 
 $var=false;
 print '<tr '.$bc[$var].'>';
 // Label
 print '<td>';
-print '<input type="text" name="label" value="'.($_POST["label"]?$_POST["label"]:'').'" size="12">';
+print $langs->trans("TargetType").':<br>';
+print $langs->trans("Label").':<br>';
+print $langs->trans("Language").':<br>';
 print '</td>';
-// Type
 print '<td align="left">';
+//print '</td>';
+// Type
+//print '<td align="left">';
 print '<select class="flat" name="type" id="type">'."\n";
 print '<option value="">&nbsp;</option>'."\n";
 foreach($listoftargets as $key => $val)
@@ -245,9 +258,12 @@ foreach($listoftargets as $key => $val)
     print '<option value="'.$key.'">'.$val['label'].'</option>'."\n";
 }
 print '</select>';
-print '</td>';
+//print '</td>';
 // Language
-print '<td align="center">';
+//print '<td align="center">';
+print '<br>';
+print '<input type="text" name="label" value="'.($_POST["label"]?$_POST["label"]:'').'" size="24">';
+print '<br>';
 print $htmladmin->select_language($langs->defaultlang,'langcode');
 print '</td>';
 // Title
@@ -258,8 +274,10 @@ print $langs->trans("DescShortLength").': <input type="text" autocomplete="off" 
 print ' &nbsp; ';
 print $langs->trans("DescLongLength").': <input type="text" autocomplete="off" name="desclonglength" id="desclonglength" value="" size="4" disabled="disabled">';
 print '<br>';
-print $langs->trans("Login").': <input type="text" autocomplete="off" name="login" value="'.$obj->login.'" size="8" disabled="disabled"> &nbsp; ';
-print $langs->trans("Password").': <input type="password" autocomplete="off" name="pass" value="'.$obj->pass.'" size="8" disabled="disabled">';
+print $langs->trans("Login").': <input type="text" autocomplete="off" name="login" id="login" value="'.$obj->login.'" size="8" disabled="disabled"> &nbsp; ';
+print $langs->trans("Password").': <input type="password" autocomplete="off" name="pass" id="pass" value="'.$obj->pass.'" size="8" disabled="disabled">';
+print '<br>';
+print $langs->trans("UrlOrEMail").': <input type="url" autocomplete="off" name="url" id="url" value="'.$obj->url.'" size="48" disabled="disabled">';
 print '</td>';
 print '</tr>';
 
@@ -284,6 +302,7 @@ jQuery(document).ready(function(){
             jQuery("#titlelength").attr("disabled","disabled");
             jQuery("#descshortlength").attr("disabled","disabled");
             jQuery("#desclonglength").attr("disabled","disabled");
+            jQuery("#url").attr("disabled","disabled");
             jQuery("#titlelength").val(\'\'); jQuery("#descshortlength").val(\'\'); jQuery("#desclonglength").val(\'\');
         };
     ';
@@ -296,7 +315,13 @@ foreach($listoftargets as $key => $val)
         else { jQuery("#descshortlength").attr("disabled","disabled"); jQuery("#descshortlength").val(\''.$langs->trans("NA").'\'); }
         if ('.$val['desclonglength'].' > -1)  { jQuery("#desclonglength").removeAttr("disabled"); jQuery("#desclonglength").val('.$val['desclonglength'].'); }
         else { jQuery("#desclonglength").attr("disabled","disabled"); jQuery("#desclonglength").val(\''.$langs->trans("NA").'\'); }
-    } '."\n";
+        if ('.$val['urledit'].' > 0) { jQuery("#url").removeAttr("disabled"); jQuery("#url").val(\''.dol_escape_js($val['url']).'\'); }
+        else {  jQuery("#url").attr("disabled","disabled"); jQuery("#url").val(\''.dol_escape_js($val['url']).'\'); }
+        if ('.$val['loginedit'].' > 0) { jQuery("#login").removeAttr("disabled"); jQuery("#login").val(\''.dol_escape_js($val['login']).'\'); }
+        else {  jQuery("#login").attr("disabled","disabled"); jQuery("#login").val(\''.dol_escape_js($val['login']).'\'); }
+        if ('.$val['passedit'].' > 0) { jQuery("#pass").removeAttr("disabled"); jQuery("#pass").val(\''.dol_escape_js($val['pass']).'\'); }
+        else {  jQuery("#pass").attr("disabled","disabled"); jQuery("#pass").val(\''.dol_escape_js($val['pass']).'\'); }
+	} '."\n";
 }
 print '
     });
@@ -391,10 +416,15 @@ if ($resql)
                 print $langs->trans("Login").': <input type="text" autocomplete="off" name="login'.$obj->rowid.'" value="'.$obj->login.'" size="8"> - ';
                 print $langs->trans("Password").': <input type="password" autocomplete="off" name="pass'.$obj->rowid.'" value="'.$obj->pass.'" size="8">';
             }
-            if (in_array($obj->targetcode,array('web')))
+            if ($listoftargets[$obj->targetcode]['urledit'])
             {
                 print '<br>';
-                print $langs->trans("Url").': <input type="text" autocomplete="off" name="url'.$obj->rowid.'" value="'.$obj->url.'" size="48">';
+                print $langs->trans("UrlOrEMail").': <input type="text" autocomplete="off" name="url'.$obj->rowid.'" value="'.$obj->url.'" size="48">';
+            }
+            else
+            {
+                print '<br>';
+                print $langs->trans("UrlOrEMail").': <input type="text" autocomplete="off" disabled="disabled" name="url'.$obj->rowid.'" value="'.$obj->url.'" size="48">';
             }
         }
         else
@@ -410,10 +440,11 @@ if ($resql)
                 print $langs->trans("Login").': '.$obj->login.' - ';
                 print $langs->trans("Password").': '.$obj->pass.'';
             }
-            if (in_array($obj->targetcode,array('web')))
+            //if (in_array($obj->targetcode,array('web')))
+            if ($obj->url)
             {
                 print '<br>';
-                print $langs->trans("Url").': '.dol_print_url($obj->url);
+                print $langs->trans("UrlOrEMail").': '.dol_print_url($obj->url);
             }
         }
         print '</td>';
@@ -448,5 +479,5 @@ print '</table>'."\n";
 
 $db->close();
 
-llxFooter('$Date: 2011/06/26 00:41:18 $ - $Revision: 1.10 $');
+llxFooter('$Date: 2011/08/01 22:52:37 $ - $Revision: 1.11 $');
 ?>

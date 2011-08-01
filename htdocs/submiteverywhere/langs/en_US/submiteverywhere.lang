@@ -11,3 +11,4 @@ DescLongLength=Long description
 GenericWebSite=Generic web site
 ListOfAvailableTargets=List of available submissions targets
 AddTarget=Add a target for news submissions
+UrlOrEMail=Url or email to submit to
