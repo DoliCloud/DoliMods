@@ -24,7 +24,7 @@
 /**
  *	\file       htdocs/filemanager/ajaxshowpreview.php
  *  \brief      Service to return a HTML preview of a file
- *  \version    $Id: ajaxshowpreview.php,v 1.17 2011/07/06 16:57:36 eldy Exp $
+ *  \version    $Id: ajaxshowpreview.php,v 1.18 2011/08/01 19:28:46 eldy Exp $
  *  \remarks    Call of this service is made with URL:
  * 				ajaxpreview.php?action=preview&modulepart=repfichierconcerne&file=pathrelatifdufichier
  */
@@ -363,7 +363,7 @@ else {
                 print '<hr>';
 
                 // Translate with Geshi
-                include_once('inc/geshi/geshi.php');
+                include_once('includes/geshi/geshi.php');
 
                 $out=file_get_contents($original_file_osencoded,false,null,0,$maxsize);
 

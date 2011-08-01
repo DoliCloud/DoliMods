@@ -17,7 +17,7 @@
  * or see http://www.gnu.org/
  */
 
-$path = dol_buildpath('/google/inc/zendgdata');
+$path = dol_buildpath('/google/includes/zendgdata');
 set_include_path(get_include_path() . PATH_SEPARATOR . $path);
 
 /**
@@ -74,20 +74,20 @@ $_authSubKeyFilePassphrase = null;
 function getCurrentUrl()
 {
 	global $_SERVER;
-	
+
 	/**
 	 * Filter php_self to avoid a security vulnerability.
 	 */
 	$php_request_uri = htmlentities(substr($_SERVER['REQUEST_URI'], 0, strcspn($_SERVER['REQUEST_URI'], "\n\r")), ENT_QUOTES);
-	
+
 	if (isset($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) == 'on') {
 		$protocol = 'https://';
 	} else {
 		$protocol = 'http://';
 	}
-	
+
 	$host = $_SERVER['HTTP_HOST'];
-	
+
 	if ($_SERVER['SERVER_PORT'] != '' &&
 	(($protocol == 'http://' && $_SERVER['SERVER_PORT'] != '80') ||
 	($protocol == 'https://' && $_SERVER['SERVER_PORT'] != '443'))) {
@@ -95,7 +95,7 @@ function getCurrentUrl()
 	} else {
 		$port = '';
 	}
-	
+
 	return $protocol . $host . $port . $php_request_uri;
 }
 
@@ -150,7 +150,7 @@ function requestUserLogin($linkText)
 function getAuthSubHttpClient()
 {
 	global $_SESSION, $_GET, $_authSubKeyFile, $_authSubKeyFilePassphrase;
-	
+
 	$client = new Zend_Gdata_HttpClient();
 	if ($_authSubKeyFile != null) {
 		// set the AuthSub key
@@ -173,7 +173,7 @@ function getAuthSubHttpClient()
 function processPageLoad()
 {
 	global $_SESSION, $_GET;
-	
+
 	if (!isset($_SESSION['sessionToken']) && !isset($_GET['token'])) {
 		requestUserLogin('Please login to your Google Account.');
 	} else {
@@ -193,7 +193,7 @@ function processPageLoad()
 function getClientLoginHttpClient($user, $pass)
 {
 	$service = Zend_Gdata_Calendar::AUTH_SERVICE_NAME;
-	
+
 	$client = Zend_Gdata_ClientLogin::getHttpClient($user, $pass, $service);
 	return $client;
 }
@@ -256,13 +256,13 @@ function outputCalendar($client, $user='default', $visibility='private', $projec
 {
 	$gdataCal = new Zend_Gdata_Calendar($client);
 	$query = $gdataCal->newEventQuery();
-	
+
 	$query->setUser($user);
 	$query->setVisibility($visibility);
 	$query->setProjection($projection);
 	$query->setOrderby('starttime');
 	//$query->setFutureevents(true);
-	
+
 	$eventFeed = $gdataCal->getCalendarEventFeed($query);
 	// option 2
 	// $eventFeed = $gdataCal->getCalendarEventFeed($query->getQueryUrl());
@@ -373,15 +373,15 @@ function createEvent ($client, $title, $desc, $where, $startDate, $startTime, $e
 	$newEntry = $gc->newEventEntry();
 	$newEntry->title = $gc->newTitle(trim($title));
 	$newEntry->where  = array($gc->newWhere($where));
-	
+
 	$newEntry->content = $gc->newContent($desc);
 	$newEntry->content->type = 'text';
-	
+
 	$when = $gc->newWhen();
 	$when->startTime = "{$startDate}T{$startTime}:00.000{$tzOffset}:00";
 	$when->endTime = "{$endDate}T{$endTime}:00.000{$tzOffset}:00";
 	$newEntry->when = array($when);
-	
+
 	$createdEntry = $gc->insertEvent($newEntry);
 	return $createdEntry->id->text;
 }
@@ -400,7 +400,7 @@ function createQuickAddEvent ($client, $quickAddText)
 	$event = $gdataCal->newEventEntry();
 	$event->content = $gdataCal->newContent($quickAddText);
 	$event->quickAdd = $gdataCal->newQuickAdd(true);
-	
+
 	$newEvent = $gdataCal->insertEvent($event);
 	return $newEvent->id->text;
 }
@@ -426,26 +426,26 @@ function createWebContentEvent ($client, $title, $startDate, $endDate, $icon, $u
 	$gc = new Zend_Gdata_Calendar($client);
 	$newEntry = $gc->newEventEntry();
 	$newEntry->title = $gc->newTitle(trim($title));
-	
+
 	$when = $gc->newWhen();
 	$when->startTime = $startDate;
 	$when->endTime = $endDate;
 	$newEntry->when = array($when);
-	
+
 	$wc = $gc->newWebContent();
 	$wc->url = $url;
 	$wc->height = $height;
 	$wc->width = $width;
-	
+
 	$wcLink = $gc->newLink();
 	$wcLink->rel = "http://schemas.google.com/gCal/2005/webContent";
 	$wcLink->title = $title;
 	$wcLink->type = $type;
 	$wcLink->href = $icon;
-	
+
 	$wcLink->webContent = $wc;
 	$newEntry->link = array($wcLink);
-	
+
 	$createdEntry = $gc->insertEvent($newEntry);
 	return $createdEntry->id->text;
 }
@@ -465,12 +465,12 @@ function createRecurringEvent ($client, $title, $desc, $where, $recurData = null
 {
 	$gc = new Zend_Gdata_Calendar($client);
 	$newEntry = $gc->newEventEntry();
-	
+
 	$newEntry->title			= $gc->newTitle(trim($title));
 	$newEntry->where			= array($gc->newWhere($where));
 	$newEntry->content			= $gc->newContent($desc);
 	$newEntry->content->type	= 'text';
-	
+
 	/**
 	 * Due to the length of this recurrence syntax, we did not specify
 	 * it as a default parameter value directly
@@ -502,7 +502,7 @@ function getEvent($client, $eventId)
 	$query->setVisibility('private');
 	$query->setProjection('full');
 	$query->setEvent($eventId);
-	
+
 	try {
 		$eventEntry = $gdataCal->getCalendarEventEntry($query);
 		return $eventEntry;

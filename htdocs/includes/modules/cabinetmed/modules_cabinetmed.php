@@ -21,10 +21,10 @@
  */
 
 /**
- *	\file       htdocs/cabinetmed/inc/modules/cabinetmed/modules_cabinetmed.php
+ *	\file       htdocs/cabinetmed/includes/modules/cabinetmed/modules_cabinetmed.php
  *	\ingroup    facture
  *	\brief      Fichier contenant la classe mere de generation des PDF cabinetmed
- *	\version    $Id: modules_cabinetmed.php,v 1.1 2011/05/18 22:39:37 eldy Exp $
+ *	\version    $Id: modules_cabinetmed.php,v 1.2 2011/08/01 19:29:00 eldy Exp $
  */
 
 require_once(DOL_DOCUMENT_ROOT.'/lib/pdf.lib.php');
