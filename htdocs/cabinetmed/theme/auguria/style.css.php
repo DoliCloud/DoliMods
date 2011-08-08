@@ -14,14 +14,13 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
 /**
  *		\file       htdocs/cabinetmed/theme/auguria/style.css.php
  *		\brief      Fichier de style CSS du theme auguria
- *		\version    $Id: style.css.php,v 1.11 2011/06/08 18:07:30 eldy Exp $
+ *		\version    $Id: style.css.php,v 1.12 2011/08/08 23:12:19 eldy Exp $
  */
 
 //if (! defined('NOREQUIREUSER')) define('NOREQUIREUSER','1');	// Not disabled cause need to load personalized language
@@ -56,8 +55,8 @@ else header('Cache-Control: no-cache');
 // On the fly GZIP compression for all pages (if browser support it). Must set the bit 3 of constant to 1.
 if (isset($conf->global->MAIN_OPTIMIZE_SPEED) && ($conf->global->MAIN_OPTIMIZE_SPEED & 0x04)) { ob_start("ob_gzhandler"); }
 
-if (! empty($_GET["lang"])) $langs->setDefaultLang($_GET["lang"]);  // If language was forced on URL
-if (! empty($_GET["theme"])) $conf->theme=$_GET["theme"];  // If theme was forced on URL
+if (GETPOST('lang')) $langs->setDefaultLang(GETPOST('lang'));  // If language was forced on URL
+if (GETPOST('theme')) $conf->theme=GETPOST('theme');  // If theme was forced on URL
 $langs->load("main",0,1);
 $right=($langs->trans("DIRECTION")=='rtl'?'left':'right');
 $left=($langs->trans("DIRECTION")=='rtl'?'right':'left');
@@ -89,6 +88,11 @@ body {
 
 a:link, a:visited, a:hover, a:active { font-family: <?php print $fontlist ?>; font-weight: bold; color: #000000; text-decoration: none; }
 
+/*
+input:focus, textarea:focus, button:focus, select:focus {
+    box-shadow: 0 0 4px #8091BF;
+}
+*/
 input {
     font-size: <?php print $fontsize ?>px;
     font-family: <?php print $fontlist ?>;
@@ -167,6 +171,15 @@ form {
     padding: 0em 0em 0em 0em;
     margin: 0em 0em 0em 0em;
 }
+div.float
+{
+    float:<?php print $left; ?>;
+}
+
+/* For hide object and add pointer cursor */
+
+.hideobject { display: none; }
+.linkobject { cursor: pointer; }
 
 /* For dragging lines */
 
@@ -193,8 +206,8 @@ td.vmenu {
 }
 
 div.fiche {
-	margin-<?php print $left; ?>: 4px;
-	margin-<?php print $right; ?>: 4px;
+	margin-<?php print $left; ?>: 10px;
+	margin-<?php print $right; ?>: 6px;
 }
 
 /* ============================================================================== */
@@ -215,7 +228,7 @@ else
 ?>
 
 div.tmenu {
-<?php if (! empty($_GET["optioncss"]) && $_GET["optioncss"] == 'print') {  ?>
+<?php if (GETPOST("optioncss") == 'print') {  ?>
 	display:none;
 <?php } else { ?>
     position: relative;
@@ -435,8 +448,8 @@ img.login, img.printer, img.entity {
 /* Menu gauche                                                                    */
 /* ============================================================================== */
 
-<?php if ((! empty($_GET["optioncss"]) && $_GET["optioncss"] == 'print')
-|| (! empty($conf->browser->phone) && class_exists('Smartphone') && empty($conf->global->MAIN_SEARCHFORM_WITH_SMARTHPONE) && empty($conf->global->BOOKMARKS_SHOW_WITH_SMARTHPONE))) { ?>
+<?php if ((GETPOST("optioncss") == 'print')
+|| (! empty($conf->browser->phone) && empty($conf->global->MAIN_SEARCHFORM_WITH_SMARTHPONE) && empty($conf->global->BOOKMARKS_SHOW_WITH_SMARTHPONE))) { ?>
 .vmenu {
 	display: none;
 }
@@ -620,6 +633,7 @@ td.photo {
 .toolbar {
     background-image: url(<?php echo dol_buildpath('/cabinetmed/theme/'.$conf->theme.'/img/tmenu2.jpg',1) ?>) !important;
     background-repeat: repeat-x !important;
+    border: 1px solid #BBB !important;
 }
 
 .toolbarbutton {
@@ -636,12 +650,10 @@ td.photo {
 /* Panes for ECM or Filemanager                                                   */
 /* ============================================================================== */
 
-/*
 #containerlayout .layout-with-no-border {
     border: 0 !important;
     border-width: 0 !important;
 }
-*/
 
 #containerlayout .layout-padding {
     padding: 2px !important;
@@ -954,6 +966,9 @@ span.butAction, span.butActionDelete {
 /* Tables                                                                         */
 /* ============================================================================== */
 
+#undertopmenu {
+    margin-top: 4px;
+}
 /*
 #undertopmenu {
 background-image: url("<?php echo dol_buildpath('/cabinetmed/theme/auguria/img/gradient.gif',1) ?>");
@@ -973,7 +988,7 @@ border-collapse: collapse;
 border: 0px;
 padding-top: 0px;
 padding-<?php print $left; ?>: 0px;
-padding-<?php print $right; ?>: 4px;
+padding-<?php print $right; ?>: 10px;
 padding-bottom: 4px;
 margin: 0px 0px;
 }
@@ -1028,6 +1043,10 @@ margin-left: 1px;
 margin-right: 1px;
 margin-bottom: 2px;
 margin-top: 0px;
+
+-moz-box-shadow: 2px 4px 2px #CCC;
+-webkit-box-shadow: 2px 4px 2px #CCC;
+box-shadow: 2px 4px 2px #CCC;
 }
 
 table.noborder tr {
@@ -1066,6 +1085,10 @@ width: 100%;
 border-collapse: collapse;
 border-top-color: #FEFEFE;
 
+border-left-width: 1px;
+border-left-color: #BBBBBB;
+border-left-style: solid;
+
 border-right-width: 1px;
 border-right-color: #BBBBBB;
 border-right-style: solid;
@@ -1076,6 +1099,10 @@ border-bottom-style: solid;
 
 margin-bottom: 2px;
 margin-top: 0px;
+
+-moz-box-shadow: 2px 4px 2px #CCC;
+-webkit-box-shadow: 2px 4px 2px #CCC;
+box-shadow: 2px 4px 2px #CCC;
 }
 table.liste td {
 padding-right: 2px;
@@ -1173,6 +1200,12 @@ border: 0px;
  *  Boxes
  */
 
+.boxtable {
+-moz-box-shadow: 2px 4px 2px #CCC;
+-webkit-box-shadow: 2px 4px 2px #CCC;
+box-shadow: 2px 4px 2px #CCC;
+}
+
 .box {
 padding-right: 0px;
 padding-left: 0px;
@@ -1220,9 +1253,7 @@ font-family: <?php print $fontlist ?>;
 .warning { color: #887711; }
 .error   { color: #550000; font-weight: bold; }
 
-td.warning {	/* Utilise par Smarty */
-  background: #FF99A9;
-}
+td.highlights { background: #f9c5c6; }
 
 div.ok {
   color: #114466;
@@ -1250,9 +1281,9 @@ div.info {
   color: #707070;
   padding: 0.2em 0.2em 0.2em 0.2em;
   margin: 0.5em 0em 0.5em 0em;
-  border: 1px solid #c0c0d0;
+  border: 1px solid #DFDFA0;
   -moz-border-radius:6px;
-  background: #efefd4;
+  background: #EFEFD4;
 }
 
 
@@ -1352,11 +1383,25 @@ opacity: 1;
 /* ============================================================================== */
 /* Calendar                                                                       */
 /* ============================================================================== */
+
+.ui-datepicker-title {
+    margin: 0 !important;
+    line-height: 28px;
+}
+.ui-datepicker-month {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+.ui-datepicker-header {
+    height: 28px !important;
+}
+
 .bodyline {
 	-moz-border-radius:8px;
 	border: 1px #E4ECEC outset;
 	padding: 0px;
 	margin-bottom: 5px;
+	z-index: 3000;
 }
 table.dp {
     width: 180px;
@@ -1818,10 +1863,72 @@ span.cke_skin_kama { padding: 0 ! important; }
 
 
 
+/* ============================================================================== */
+/*  File upload                                                                   */
+/* ============================================================================== */
 
-/* Specific to cabinet module */
-td.formdoc
-{
-    text-align: left !important;
+.template-upload {
+    height: 72px !important;
 }
 
+/* ============================================================================== */
+/*  Test using div instead of tables                                              */
+/* ============================================================================== */
+
+div.tablelines {
+	display: table;
+	/* Joindre les bords des cellules */
+	border-collapse: collapse;
+	/* Forcer le tableau à prendre la largeur écran */
+	width: 100%;
+}
+div.thead {
+	height: 24px;
+	background: #7699A9;
+	background-image: url(<?php echo DOL_URL_ROOT.'/theme/auguria/img/menus/trtitle.png' ?>);
+	background-repeat: repeat-x;
+	color: #FFFFFF;
+	font-family: <?php print $fontlist ?>;
+	/* border-bottom: 1px solid #FDFFFF; */
+	white-space: nowrap;
+	display: table-row-group;
+}
+div.tfoot {
+	display: table-row-group;
+}
+div.tbody {
+	display: table-row-group;
+}
+div.tr {
+	display: table-row;
+}
+div.td {
+	display: table-cell;
+	text-align: right;
+	padding: 5px;
+	width: 10%;
+}
+div.td.firstcol {
+	text-align: left;
+	width: 65%;
+}
+div.td.endcol {
+	width: 5px;
+}
+div.end {
+	width: auto;
+}
+
+div.dragClass {
+    color: #002255;
+}
+div.showDragHandle {
+	cursor: move;
+}
+div.tdlineupdown {
+	background-image: url(<?php echo DOL_URL_ROOT.'/theme/'.$conf->theme.'/img/grip.png' ?>);
+    background-repeat: no-repeat;
+    background-position: center center;
+    cursor: move;
+	white-space: nowrap;
+}
