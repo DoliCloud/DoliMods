@@ -1,8 +1,8 @@
 
-alter table llx_cabinetmed_cons add column   fk_user_creation            integer after fk_soc;
+alter table llx_cabinetmed_cons add column   fk_user            integer after fk_soc;
 
-update llx_cabinetmed_cons as c set fk_user_creation = (select fk_user from llx_societe_commerciaux as s where s.fk_soc = c.fk_soc)
-where fk_user_creation = 0;
+update llx_cabinetmed_cons as c set fk_user = (select fk_user from llx_societe_commerciaux as s where s.fk_soc = c.fk_soc)
+where fk_user = 0;
 
 alter table llx_cabinetmed_exambio modify suivisa_basdai     double;
 alter table llx_cabinetmed_exambio add column suivisa_das28   double after suivipr_eva;

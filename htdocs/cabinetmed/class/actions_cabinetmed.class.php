@@ -20,7 +20,7 @@
  *	\file       htdocs/cabinetmed/class/actions_cabinetmed.class.php
  *	\ingroup    societe
  *	\brief      File to control actions
- *	\version    $Id: actions_cabinetmed.class.php,v 1.3 2011/07/06 21:36:51 eldy Exp $
+ *	\version    $Id: actions_cabinetmed.class.php,v 1.4 2011/08/10 22:46:00 eldy Exp $
  */
 require_once(DOL_DOCUMENT_ROOT."/core/class/commonobject.class.php");
 
@@ -116,6 +116,109 @@ class ActionsCabinetmed
         return $ret;
     }
 
+
+    /**
+     * Complete doc forms
+     */
+    function formBuilddocOptions($parameters)
+    {
+        global $langs, $user, $conf;
+
+        $htmlform=new Form($this->db);
+
+        $out='';
+        $out.='<tr>';
+        $out.='<td align="left" colspan="4" valign="top">';
+
+        // Add javascript to disable/enabled button
+        $out.="\n".'<script type="text/javascript" language="javascript">';
+        $out.='jQuery(document).ready(function () {';
+        $out.='    function initbutton(param) {';
+        $out.='        if (param >= 0) { jQuery("#builddoc_generatebutton").removeAttr(\'disabled\'); }';
+        $out.='        else { jQuery("#builddoc_generatebutton").attr(\'disabled\',true); }';
+        $out.='    }';
+        $out.='    initbutton(jQuery("#idconsult").val()); ';
+        $out.='    jQuery("#idconsult").change(function() { initbutton(jQuery(this).val()); });';
+        $out.='});';
+        $out.='</script>'."\n";
+
+        $firstid=0;
+        $out.='<font class="fieldrequired">'.$langs->trans("Consultation").':</font> ';
+        $array_consult=array();
+        $sql='SELECT rowid, datecons as date FROM '.MAIN_DB_PREFIX.'cabinetmed_cons where fk_soc='.$parameters['socid'];
+        $sql.=' ORDER BY datecons DESC, rowid DESC';
+        $resql=$this->db->query($sql);
+        if ($resql)
+        {
+            $num=$this->db->num_rows($resql);
+            $i=0;
+            while($i < $num)
+            {
+                $obj=$this->db->fetch_object($resql);
+                $array_consult[$obj->rowid]=sprintf("%08d",$obj->rowid).' - '.dol_print_date($this->db->jdate($obj->date),'day');
+                if (empty($firstid)) $firstid=$obj->rowid;
+                $i++;
+            }
+        }
+        else dol_print_error($this->db);
+        $out.=$htmlform->selectarray('idconsult',$array_consult,$firstid,1);
+        //print '</td>';
+        //print '<td align="center">';
+
+        $out.=' &nbsp; &nbsp; &nbsp; ';
+
+        $out.=$langs->trans("ResultExamBio").': ';
+        $array_consult=array();
+        $sql='SELECT rowid, dateexam as date FROM '.MAIN_DB_PREFIX.'cabinetmed_exambio where fk_soc='.$parameters['socid'];
+        $sql.=' ORDER BY dateexam DESC, rowid DESC';
+        $resql=$this->db->query($sql);
+        if ($resql)
+        {
+            $num=$this->db->num_rows($resql);
+            $i=0;
+            while($i < $num)
+            {
+                $obj=$this->db->fetch_object($resql);
+                $array_consult[$obj->rowid]=dol_print_date($this->db->jdate($obj->date),'day');
+                $i++;
+            }
+        }
+        else dol_print_error($this->db);
+        $out.=$htmlform->selectarray('idbio',$array_consult,GETPOST('idbio')?GETPOST('idbio'):'',1);
+        //$out.= '</td>';
+        //$out.= '<td align="center">';
+
+        $out.=' &nbsp; &nbsp; &nbsp; ';
+
+        $out.=$langs->trans("ResultExamAutre").': ';
+        $array_consult=array();
+        $sql='SELECT rowid, dateexam as date FROM '.MAIN_DB_PREFIX.'cabinetmed_examaut where fk_soc='.$parameters['socid'];
+        $sql.=' ORDER BY dateexam DESC, rowid DESC';
+        $resql=$this->db->query($sql);
+        if ($resql)
+        {
+            $num=$this->db->num_rows($resql);
+            $i=0;
+            while($i < $num)
+            {
+                $obj=$this->db->fetch_object($resql);
+                $array_consult[$obj->rowid]=dol_print_date($this->db->jdate($obj->date),'day');
+                $i++;
+            }
+        }
+        else dol_print_error($this->db);
+        $out.=$htmlform->selectarray('idradio',$array_consult,GETPOST('idradio')?GETPOST('idradio'):'',1);
+        $out.='</td>';
+        $out.='</tr>';
+
+        $out.='<tr><td colspan="4" valign="top">';
+        $out.=$langs->trans("Comment").': ';
+        //$out.= '<textarea name="outcome_comment" cols="90" rows="'.ROWS_2.'">'.(GETPOST('outcome_comment')?GETPOST('outcome_comment'):'').'</textarea>';
+        $out.='<input type="text" name="outcome_comment" size="90" value="'.(GETPOST('outcome_comment')?GETPOST('outcome_comment'):'').'">';
+        $out.='</td></tr>';
+
+        return $out;
+    }
 }
 
 ?>

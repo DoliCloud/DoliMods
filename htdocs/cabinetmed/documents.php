@@ -20,7 +20,7 @@
  *   \file       htdocs/cabinetmed/documents.php
  *   \brief      Tab for courriers
  *   \ingroup    cabinetmed
- *   \version    $Id: documents.php,v 1.17 2011/07/13 18:03:05 eldy Exp $
+ *   \version    $Id: documents.php,v 1.18 2011/08/10 22:46:19 eldy Exp $
  */
 
 $res=0;
@@ -80,13 +80,6 @@ $consult = new CabinetmedCons($db);
 
 $upload_dir = $conf->societe->dir_output . "/" . $socid ;
 
-// Instantiate hooks of thirdparty module
-/*if (is_array($conf->hooks_modules) && !empty($conf->hooks_modules))
- {
- // If module has hook for hook 'objectcard', then this add on object, the property ->hooks['objectcard'][module_number]
- // with value that is instance of an action class.
- $consult->callHooks('objectcard');
- }*/
 
 
 /*
@@ -495,12 +488,19 @@ if ($socid > 0)
 
     $var=true;
 
+    // Initialize technical object to manage hooks of thirdparties. Note that conf->hooks_modules contains array array
+    include_once(DOL_DOCUMENT_ROOT.'/core/class/hookmanager.class.php');
+    $hookmanager=new HookManager($db);
+    // TODO: Remove callHooks and add page into executeHooks
+    $conf->hooks_modules['cabinetmed']=array('xxx');
+    $hookmanager->callHooks(array('xxx'));
+
     $instance=new CabinetmedCons($db);
     $instance->fk_soc=$object->id;
-    $hooks=array(0=>array('modules'=>array($instance)));
+    //$hooks=array(0=>array('modules'=>array($instance)));
     $title=img_file_new().' '.$langs->trans("GenerateADocument");
-    //$somethingshown=$formfile->show_documents('company',$object->id,$filedir,$urlsource,$genallowed,$delallowed,'',0,0,0,64,0,'',$title,'',$object->default_lang,$hooks);
-    $somethingshown=$formfile->show_documents('company','','',$urlsource,$genallowed,$delallowed,'',0,0,0,64,0,'',$title,'',$object->default_lang,$hooks);
+    //$somethingshown=$formfile->show_documents('company',$object->id,$filedir,$urlsource,$genallowed,$delallowed,'',0,0,0,64,0,'',$title,'',$object->default_lang,$hookmanager);
+    print $formfile->showdocuments('company','','',$urlsource,$genallowed,$delallowed,'',0,0,0,64,0,'',$title,'',$object->default_lang,$hookmanager);
 
     // List of document
     print '<br><br>';
@@ -602,5 +602,5 @@ if ($socid > 0)
 
 $db->close();
 
-llxFooter('$Date: 2011/07/13 18:03:05 $ - $Revision: 1.17 $');
+llxFooter('$Date: 2011/08/10 22:46:19 $ - $Revision: 1.18 $');
 ?>
