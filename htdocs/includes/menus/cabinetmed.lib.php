@@ -13,15 +13,14 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
  * or see http://www.gnu.org/
  */
 
 /**
  *  \file		htdocs/includes/menus/cabinetmed.lib.php
  *  \brief		Library for file cabinetmed menus
- *  \version	$Id: cabinetmed.lib.php,v 1.26 2011/07/18 00:57:51 eldy Exp $
+ *  \version	$Id: cabinetmed.lib.php,v 1.27 2011/08/10 20:27:39 eldy Exp $
  */
 
 
@@ -60,7 +59,7 @@ function print_cabinetmed_menu($db,$atarget,$type_user)
 	print '<a class="tmenuimage" href="'.DOL_URL_ROOT.'/index.php?mainmenu=home&amp;leftmenu="'.($atarget?" target=$atarget":"").'>';
 	print '<div class="'.$id.' '.$idsel.'"><span class="'.$id.' tmenuimage" id="mainmenuspan_'.$idsel.'"></span></div>';
 	print '</a>';
-	print '<a '.$classname.' id="mainmenua_'.$idsel.'" href="'.DOL_URL_ROOT.'/index.php?mainmenu=home&amp;leftmenu="'.($atarget?" target=$atarget":"").'>';
+	print '<a '.$classname.' id="mainmenua_'.$idsel.'" href="'.DOL_URL_ROOT.'/index.php?mainmenu=home&amp;leftmenu="'.($atarget?' target="'.$atarget.'"':'').'>';
 	print_text_menu_entry($langs->trans("Home"));
 	print '</a>';
 	print_end_menu_entry();
@@ -87,10 +86,10 @@ function print_cabinetmed_menu($db,$atarget,$type_user)
 		if ($conf->societe->enabled && $user->rights->societe->lire)
 		{
 			print_start_menu_entry($idsel);
-			print '<a class="tmenuimage" href="'.DOL_URL_ROOT.'/societe/index.php?mainmenu=companies&amp;leftmenu="'.($atarget?" target=$atarget":"").'>';
+			print '<a class="tmenuimage" href="'.DOL_URL_ROOT.'/societe/index.php?mainmenu=companies&amp;leftmenu="'.($atarget?' target="'.$atarget.'"':'').'>';
 			print '<div class="'.$id.' '.$idsel.'"><span class="'.$id.' tmenuimage" id="mainmenuspan_'.$idsel.'"></span></div>';
 			print '</a>';
-			print '<a '.$classname.' id="mainmenua_'.$idsel.'" href="'.DOL_URL_ROOT.'/societe/index.php?mainmenu=companies&amp;leftmenu="'.($atarget?" target=$atarget":"").'>';
+			print '<a '.$classname.' id="mainmenua_'.$idsel.'" href="'.DOL_URL_ROOT.'/societe/index.php?mainmenu=companies&amp;leftmenu="'.($atarget?' target="'.$atarget.'"':'').'>';
 			print_text_menu_entry($langs->trans("Patients"));
 			print '</a>';
 			print_end_menu_entry();
@@ -175,10 +174,10 @@ function print_cabinetmed_menu($db,$atarget,$type_user)
 		if ($user->rights->produit->lire || $user->rights->service->lire)
 		{
 			print_start_menu_entry($idsel);
-			print '<a class="tmenuimage" href="'.DOL_URL_ROOT.'/product/index.php?mainmenu=products&amp;leftmenu="'.($atarget?" target=$atarget":"").'>';
+			print '<a class="tmenuimage" href="'.DOL_URL_ROOT.'/product/index.php?mainmenu=products&amp;leftmenu="'.($atarget?' target="'.$atarget.'"':'').'>';
 			print '<div class="'.$id.' '.$idsel.'"><span class="'.$id.' tmenuimage"  id="mainmenuspan_'.$idsel.'"></span></div>';
 			print '</a>';
-			print '<a '.$classname.' id="mainmenua_'.$idsel.'" href="'.DOL_URL_ROOT.'/product/index.php?mainmenu=products&amp;leftmenu="'.($atarget?" target=$atarget":"").'>';
+			print '<a '.$classname.' id="mainmenua_'.$idsel.'" href="'.DOL_URL_ROOT.'/product/index.php?mainmenu=products&amp;leftmenu="'.($atarget?' target="'.$atarget.'"':'').'>';
 			print_text_menu_entry($chaine);
 			print '</a>';
 			print_end_menu_entry();
@@ -245,8 +244,8 @@ function print_cabinetmed_menu($db,$atarget,$type_user)
     }
 
     // Financial
-	if ($conf->compta->enabled || $conf->accounting->enabled
-	|| $conf->facture->enabled || $conf->deplacement->enabled || $conf->cabinetmed->enabled)
+	if ($conf->comptabilite->enabled || $conf->accounting->enabled
+	|| $conf->facture->enabled || $conf->deplacement->enabled || $conf->don->enabled || $conf->tax->enabled)
 	{
 		$langs->load("compta");
         $langs->load("cabinetmed@cabinetmed");
@@ -263,14 +262,14 @@ function print_cabinetmed_menu($db,$atarget,$type_user)
 
 		$idsel='accountancy';
 		if ($user->rights->compta->resultat->lire || $user->rights->accounting->plancompte->lire
-		|| $user->rights->facture->lire || $user->rights->banque->lire || $conf->cabinetmed->enabled)
+		|| $user->rights->facture->lire || $user->rights->deplacement->lire || $user->rights->don->lire || $user->rights->tax->charges->lire)
 		{
 			print_start_menu_entry($idsel);
 			print '<a class="tmenuimage" href="'.dol_buildpath('/cabinetmed/compta.php?mainmenu=accountancy&amp;leftmenu=&search_sale='.$user->id,1).'"'.($atarget?" target=$atarget":"").'>';
 			print '<div class="'.$id.' '.$idsel.'"><span class="'.$id.' tmenuimage" id="mainmenuspan_'.$idsel.'"></span></div>';
 			print '</a>';
 			print '<a '.$classname.' id="mainmenua_'.$idsel.'" href="'.dol_buildpath('/cabinetmed/compta.php?mainmenu=accountancy&amp;leftmenu=&search_sale='.$user->id,1).'"'.($atarget?" target=$atarget":"").'>';
-			print_text_menu_entry($langs->trans("Accountancy"));
+			print_text_menu_entry($langs->trans("MenuFinancial"));
 			print '</a>';
 			print_end_menu_entry();
 		}
@@ -281,7 +280,7 @@ function print_cabinetmed_menu($db,$atarget,$type_user)
 				print_start_menu_entry($idsel);
 				print '<div class="'.$id.' '.$idsel.'"><span class="'.$id.'" id="mainmenuspan_'.$idsel.'"></span></div>';
 				print '<a class="tmenudisabled" id="mainmenua_'.$idsel.'" href="#" title="'.dol_escape_htmltag($langs->trans("NotAllowed")).'">';
-				print_text_menu_entry($langs->trans("Accountancy"));
+				print_text_menu_entry($langs->trans("MenuFinancial"));
 				print '</a>';
 				print_end_menu_entry();
 			}
@@ -308,10 +307,10 @@ function print_cabinetmed_menu($db,$atarget,$type_user)
         if ($user->rights->banque->lire)
         {
             print_start_menu_entry($idsel);
-            print '<a class="tmenuimage" href="'.DOL_URL_ROOT.'/compta/bank/index.php?mainmenu=bank&amp;leftmenu="'.($atarget?" target=$atarget":"").'>';
+            print '<a class="tmenuimage" href="'.DOL_URL_ROOT.'/compta/bank/index.php?mainmenu=bank&amp;leftmenu="'.($atarget?' target="'.$atarget.'"':'').'>';
             print '<div class="'.$id.' '.$idsel.'"><span class="'.$id.' tmenuimage" id="mainmenuspan_'.$idsel.'"></span></div>';
             print '</a>';
-            print '<a '.$classname.' id="mainmenua_'.$idsel.'" href="'.DOL_URL_ROOT.'/compta/bank/index.php?mainmenu=bank&amp;leftmenu="'.($atarget?" target=$atarget":"").'>';
+            print '<a '.$classname.' id="mainmenua_'.$idsel.'" href="'.DOL_URL_ROOT.'/compta/bank/index.php?mainmenu=bank&amp;leftmenu="'.($atarget?' target="'.$atarget.'"':'').'>';
             print_text_menu_entry($langs->trans("MenuBankCash"));
             print '</a>';
             print_end_menu_entry();
@@ -349,10 +348,10 @@ function print_cabinetmed_menu($db,$atarget,$type_user)
 		if ($user->rights->projet->lire)
 		{
 			print_start_menu_entry($idsel);
-			print '<a class="tmenuimage" href="'.DOL_URL_ROOT.'/projet/index.php?mainmenu=project&amp;leftmenu="'.($atarget?" target=$atarget":"").'>';
+			print '<a class="tmenuimage" href="'.DOL_URL_ROOT.'/projet/index.php?mainmenu=project&amp;leftmenu="'.($atarget?' target="'.$atarget.'"':'').'>';
 			print '<div class="'.$id.' '.$idsel.'"><span class="'.$id.' tmenuimage" id="mainmenuspan_'.$idsel.'"></span></div>';
 			print '</a>';
-			print '<a '.$classname.' id="mainmenua_'.$idsel.'" href="'.DOL_URL_ROOT.'/projet/index.php?mainmenu=project&amp;leftmenu="'.($atarget?" target=$atarget":"").'>';
+			print '<a '.$classname.' id="mainmenua_'.$idsel.'" href="'.DOL_URL_ROOT.'/projet/index.php?mainmenu=project&amp;leftmenu="'.($atarget?' target="'.$atarget.'"':'').'>';
 			print_text_menu_entry($langs->trans("Projects"));
 			print '</a>';
 			print_end_menu_entry();
@@ -387,13 +386,13 @@ function print_cabinetmed_menu($db,$atarget,$type_user)
 		}
 
 		$idsel='tools';
-		if ($user->rights->mailing->lire || $user->rights->bookmark->lire || $user->rights->export->lire || $user->rights->import->run)
+		if ($user->rights->mailing->lire || $user->rights->export->lire || $user->rights->import->run)
 		{
 			print_start_menu_entry($idsel);
-			print '<a class="tmenuimage" href="'.DOL_URL_ROOT.'/core/tools.php?mainmenu=tools&amp;leftmenu="'.($atarget?" target=$atarget":"").'>';
+			print '<a class="tmenuimage" href="'.DOL_URL_ROOT.'/core/tools.php?mainmenu=tools&amp;leftmenu="'.($atarget?' target="'.$atarget.'"':'').'>';
 			print '<div class="'.$id.' '.$idsel.'"><span class="'.$id.' tmenuimage" id="mainmenuspan_'.$idsel.'"></span></div>';
 			print '</a>';
-			print '<a '.$classname.' id="mainmenua_'.$idsel.'" href="'.DOL_URL_ROOT.'/core/tools.php?mainmenu=tools&amp;leftmenu="'.($atarget?" target=$atarget":"").'>';
+			print '<a '.$classname.' id="mainmenua_'.$idsel.'" href="'.DOL_URL_ROOT.'/core/tools.php?mainmenu=tools&amp;leftmenu="'.($atarget?' target="'.$atarget.'"':'').'>';
 			print_text_menu_entry($langs->trans("Tools"));
 			print '</a>';
 			print_end_menu_entry();
@@ -429,10 +428,10 @@ function print_cabinetmed_menu($db,$atarget,$type_user)
 
 		$idsel='shop';
 		print_start_menu_entry($idsel);
-		print '<a class="tmenuimage" href="'.DOL_URL_ROOT.'/boutique/index.php?mainmenu=shop&amp;leftmenu="'.($atarget?" target=$atarget":"").'>';
+		print '<a class="tmenuimage" href="'.DOL_URL_ROOT.'/boutique/index.php?mainmenu=shop&amp;leftmenu="'.($atarget?' target="'.$atarget.'"':'').'>';
 		print '<div class="'.$id.' '.$idsel.'"><span class="'.$id.' tmenuimage" id="mainmenuspan_'.$idsel.'"></span></div>';
 		print '</a>';
-		print '<a '.$classname.' id="mainmenua_'.$idsel.'" href="'.DOL_URL_ROOT.'/boutique/index.php?mainmenu=shop&amp;leftmenu="'.($atarget?" target=$atarget":"").'>';
+		print '<a '.$classname.' id="mainmenua_'.$idsel.'" href="'.DOL_URL_ROOT.'/boutique/index.php?mainmenu=shop&amp;leftmenu="'.($atarget?' target="'.$atarget.'"':'').'>';
 		print_text_menu_entry($langs->trans("OSCommerce"));
 		print '</a>';
 		print_end_menu_entry();
@@ -457,10 +456,10 @@ function print_cabinetmed_menu($db,$atarget,$type_user)
 		if ($user->rights->adherent->lire)
 		{
 			print_start_menu_entry($idsel);
-			print '<a class="tmenuimage" href="'.DOL_URL_ROOT.'/adherents/index.php?mainmenu=members&amp;leftmenu="'.($atarget?" target=$atarget":"").'>';
+			print '<a class="tmenuimage" href="'.DOL_URL_ROOT.'/adherents/index.php?mainmenu=members&amp;leftmenu="'.($atarget?' target="'.$atarget.'"':'').'>';
 			print '<div class="'.$id.' '.$idsel.'"><span class="'.$id.' tmenuimage" id="mainmenuspan_'.$idsel.'"></span></div>';
 			print '</a>';
-			print '<a '.$classname.'  id="mainmenua_'.$idsel.'" href="'.DOL_URL_ROOT.'/adherents/index.php?mainmenu=members&amp;leftmenu="'.($atarget?" target=$atarget":"").'>';
+			print '<a '.$classname.'  id="mainmenua_'.$idsel.'" href="'.DOL_URL_ROOT.'/adherents/index.php?mainmenu=members&amp;leftmenu="'.($atarget?' target="'.$atarget.'"':'').'>';
 			print_text_menu_entry($langs->trans("MenuMembers"));
 			print '</a>';
 			print_end_menu_entry();
@@ -503,13 +502,13 @@ function print_cabinetmed_menu($db,$atarget,$type_user)
 				else
 				{
 					$url=dol_buildpath($newTabMenu[$i]['url'],1);
-					if (! preg_match('/\?/',$url)) $url.='?';
-					else $url.='&';
 					if (! preg_match('/mainmenu/i',$url) || ! preg_match('/leftmenu/i',$url))
 					{
-						$url.='mainmenu='.$newTabMenu[$i]['mainmenu'].'&leftmenu=&';
+                        if (! preg_match('/\?/',$url)) $url.='?';
+                        else $url.='&';
+					    $url.='mainmenu='.$newTabMenu[$i]['mainmenu'].'&leftmenu=';
 					}
-					$url.="idmenu=".$newTabMenu[$i]['rowid'];
+					//$url.="idmenu=".$newTabMenu[$i]['rowid'];
 				}
                 $url=preg_replace('/__LOGIN__/',$user->login,$url);
 
@@ -519,10 +518,10 @@ function print_cabinetmed_menu($db,$atarget,$type_user)
 				else $classname='class="tmenu"';
 
 				print_start_menu_entry($idsel);
-				print '<a class="tmenuimage" href="'.$url.'"'.($newTabMenu[$i]['atarget']?" target='".$newTabMenu[$i]['atarget']."'":($atarget?" target=$atarget":"")).'>';
+				print '<a class="tmenuimage" href="'.$url.'"'.($newTabMenu[$i]['atarget']?" target='".$newTabMenu[$i]['atarget']."'":($atarget?' target="'.$atarget.'"':'')).'>';
 				print '<div class="'.$id.' '.$idsel.'"><span class="'.$id.' tmenuimage" id="mainmenuspan_'.$idsel.'"></span></div>';
 				print '</a>';
-				print '<a '.$classname.' id="mainmenua_'.$idsel.'" href="'.$url.'"'.($newTabMenu[$i]['atarget']?" target='".$newTabMenu[$i]['atarget']."'":($atarget?" target=$atarget":"")).'>';
+				print '<a '.$classname.' id="mainmenua_'.$idsel.'" href="'.$url.'"'.($newTabMenu[$i]['atarget']?" target='".$newTabMenu[$i]['atarget']."'":($atarget?' target="'.$atarget.'"':'')).'>';
 				print_text_menu_entry($newTabMenu[$i]['titre']);
 				print '</a>';
 				print_end_menu_entry();
@@ -682,6 +681,7 @@ function print_left_cabinetmed_menu($db,$menu_array_before,$menu_array_after)
                 if ($leftmenu=="setup") $newmenu->add("/admin/proxy.php", $langs->trans("Security"),1);
                 if ($leftmenu=="setup") $newmenu->add("/admin/limits.php", $langs->trans("MenuLimits"),1);
                 if ($leftmenu=="setup") $newmenu->add("/admin/mails.php", $langs->trans("Emails"),1);
+                if ($leftmenu=="setup") $newmenu->add("/admin/sms.php", $langs->trans("Sms"),1);
                 if ($leftmenu=="setup") $newmenu->add("/admin/dict.php", $langs->trans("DictionnarySetup"),1);
                 if ($leftmenu=="setup") $newmenu->add("/admin/const.php", $langs->trans("OtherSetup"),1);
 
@@ -733,6 +733,11 @@ function print_left_cabinetmed_menu($db,$menu_array_before,$menu_array_after)
                 if ($user->rights->societe->creer)
                 {
                     $newmenu->add("/societe/soc.php?action=create&leftmenu=customers&canvas=patient@cabinetmed",$langs->trans("MenuNewPatient"),1);
+                }
+
+                if(is_dir("societe/groupe"))
+                {
+                    $newmenu->add("/societe/groupe/index.php", $langs->trans("MenuSocGroup"),1);
                 }
             }
 
@@ -787,60 +792,20 @@ function print_left_cabinetmed_menu($db,$menu_array_before,$menu_array_after)
         {
             $langs->load("companies");
 
-            // Prospects
-            $newmenu->add("/comm/prospect/index.php?leftmenu=prospects", $langs->trans("Prospects"), 0, $user->rights->societe->lire);
-
-            $newmenu->add("/societe/soc.php?leftmenu=prospects&amp;action=create&amp;type=p", $langs->trans("MenuNewProspect"), 1, $user->rights->societe->creer);
-            $newmenu->add("/comm/prospect/prospects.php?leftmenu=prospects", $langs->trans("List"), 1, $user->rights->societe->contact->lire);
-
-            if ($leftmenu=="prospects") $newmenu->add("/comm/prospect/prospects.php?sortfield=s.datec&amp;sortorder=desc&amp;begin=&amp;stcomm=-1", $langs->trans("LastProspectDoNotContact"), 2, $user->rights->societe->lire);
-            if ($leftmenu=="prospects") $newmenu->add("/comm/prospect/prospects.php?sortfield=s.datec&amp;sortorder=desc&amp;begin=&amp;stcomm=0", $langs->trans("LastProspectNeverContacted"), 2, $user->rights->societe->lire);
-            if ($leftmenu=="prospects") $newmenu->add("/comm/prospect/prospects.php?sortfield=s.datec&amp;sortorder=desc&amp;begin=&amp;stcomm=1", $langs->trans("LastProspectToContact"), 2, $user->rights->societe->lire);
-            if ($leftmenu=="prospects") $newmenu->add("/comm/prospect/prospects.php?sortfield=s.datec&amp;sortorder=desc&amp;begin=&amp;stcomm=2", $langs->trans("LastProspectContactInProcess"), 2, $user->rights->societe->lire);
-            if ($leftmenu=="prospects") $newmenu->add("/comm/prospect/prospects.php?sortfield=s.datec&amp;sortorder=desc&amp;begin=&amp;stcomm=3", $langs->trans("LastProspectContactDone"), 2, $user->rights->societe->lire);
-
-            $newmenu->add("/contact/index.php?leftmenu=prospects&amp;type=p", $langs->trans("Contacts"), 1, $user->rights->societe->contact->lire);
-
-            // Customers
-            $newmenu->add("/comm/index.php?leftmenu=customers", $langs->trans("Customers"), 0, $user->rights->societe->lire);
-
-            $newmenu->add("/societe/soc.php?leftmenu=customers&amp;action=create&amp;type=c", $langs->trans("MenuNewCustomer"), 1, $user->rights->societe->creer);
-            $newmenu->add("/comm/clients.php?leftmenu=customers", $langs->trans("List"), 1, $user->rights->societe->lire);
-            $newmenu->add("/contact/index.php?leftmenu=customers&amp;type=c", $langs->trans("Contacts"), 1, $user->rights->societe->contact->lire);
-
-            // Suppliers
-            if ($conf->fournisseur->enabled)
-            {
-                $newmenu->add("/fourn/index.php?leftmenu=suppliers", $langs->trans("Suppliers"), 0, $user->rights->societe->lire);
-
-                $newmenu->add("/societe/soc.php?leftmenu=suppliers&amp;action=create&amp;type=f", $langs->trans("MenuNewSupplier"), 1, $user->rights->societe->creer);
-                $newmenu->add("/fourn/liste.php?leftmenu=customers", $langs->trans("List"), 1, $user->rights->societe->lire);
-                $newmenu->add("/contact/index.php?leftmenu=suppliers&amp;type=f", $langs->trans("Contacts"), 1, $user->rights->societe->contact->lire);
-            }
-
-            // Contacts
-            $newmenu->add("/contact/index.php?leftmenu=contacts", $langs->trans("Contacts"), 0, $user->rights->societe->contact->lire);
-            $newmenu->add("/contact/fiche.php?leftmenu=contacts&amp;action=create", $langs->trans("NewContact"), 1, $user->rights->societe->contact->creer);
-            $newmenu->add("/contact/index.php?leftmenu=contacts", $langs->trans("List"), 1, $user->rights->societe->contact->lire);
-            $newmenu->add("/contact/index.php?leftmenu=contacts&type=p", $langs->trans("Prospects"), 2, $user->rights->societe->contact->lire);
-            $newmenu->add("/contact/index.php?leftmenu=contacts&type=c", $langs->trans("Customers"), 2, $user->rights->societe->contact->lire);
-            $newmenu->add("/contact/index.php?leftmenu=contacts&type=f", $langs->trans("Suppliers"), 2, $user->rights->societe->contact->lire);
-            $newmenu->add("/contact/index.php?leftmenu=contacts&type=o", $langs->trans("Others"), 2, $user->rights->societe->contact->lire);
-
             // Propal
             if (! empty($conf->propal->enabled))
             {
                 $langs->load("propal");
-                $newmenu->add("/comm/propal.php?leftmenu=propals", $langs->trans("Prop"), 0 ,$user->rights->propale->lire);
-                if ($leftmenu=="propals") $newmenu->add("/societe/societe.php?leftmenu=propals", $langs->trans("NewPropal"), 1, $user->rights->propale->creer);
-                if ($leftmenu=="propals") $newmenu->add("/comm/propal.php?leftmenu=propals", $langs->trans("List"), 1, $user->rights->propale->lire);
+                $newmenu->add("/comm/propal/index.php?leftmenu=propals", $langs->trans("Prop"), 0 ,$user->rights->propale->lire);
+                $newmenu->add("/societe/societe.php?leftmenu=propals", $langs->trans("NewPropal"), 1, $user->rights->propale->creer);
+                $newmenu->add("/comm/propal.php?leftmenu=propals", $langs->trans("List"), 1, $user->rights->propale->lire);
                 if ($leftmenu=="propals") $newmenu->add("/comm/propal.php?leftmenu=propals&viewstatut=0", $langs->trans("PropalsDraft"), 2, $user->rights->propale->lire);
                 if ($leftmenu=="propals") $newmenu->add("/comm/propal.php?leftmenu=propals&viewstatut=1", $langs->trans("PropalsOpened"), 2, $user->rights->propale->lire);
                 if ($leftmenu=="propals") $newmenu->add("/comm/propal.php?leftmenu=propals&viewstatut=2", $langs->trans("PropalStatusSigned"), 2, $user->rights->propale->lire);
                 if ($leftmenu=="propals") $newmenu->add("/comm/propal.php?leftmenu=propals&viewstatut=3", $langs->trans("PropalStatusNotSigned"), 2, $user->rights->propale->lire);
                 if ($leftmenu=="propals") $newmenu->add("/comm/propal.php?leftmenu=propals&viewstatut=4", $langs->trans("PropalStatusBilled"), 2, $user->rights->propale->lire);
                 //if ($leftmenu=="propals") $newmenu->add("/comm/propal.php?leftmenu=propals&viewstatut=2,3,4", $langs->trans("PropalStatusClosedShort"), 2, $user->rights->propale->lire);
-                if ($leftmenu=="propals") $newmenu->add("/comm/propal/stats/index.php?leftmenu=propals", $langs->trans("Statistics"), 1, $user->rights->propale->lire);
+                $newmenu->add("/comm/propal/stats/index.php?leftmenu=propals", $langs->trans("Statistics"), 1, $user->rights->propale->lire);
             }
 
             // Customers orders
@@ -848,15 +813,15 @@ function print_left_cabinetmed_menu($db,$menu_array_before,$menu_array_after)
             {
                 $langs->load("orders");
                 $newmenu->add("/commande/index.php?leftmenu=orders", $langs->trans("CustomersOrders"), 0 ,$user->rights->commande->lire);
-                if ($leftmenu=="orders") $newmenu->add("/societe/societe.php?leftmenu=orders", $langs->trans("NewOrder"), 1, $user->rights->commande->creer);
-                if ($leftmenu=="orders") $newmenu->add("/commande/liste.php?leftmenu=orders", $langs->trans("List"), 1, $user->rights->commande->lire);
+                $newmenu->add("/societe/societe.php?leftmenu=orders", $langs->trans("NewOrder"), 1, $user->rights->commande->creer);
+                $newmenu->add("/commande/liste.php?leftmenu=orders", $langs->trans("List"), 1, $user->rights->commande->lire);
                 if ($leftmenu=="orders") $newmenu->add("/commande/liste.php?leftmenu=orders&viewstatut=0", $langs->trans("StatusOrderDraftShort"), 2, $user->rights->commande->lire);
                 if ($leftmenu=="orders") $newmenu->add("/commande/liste.php?leftmenu=orders&viewstatut=1", $langs->trans("StatusOrderValidated"), 2, $user->rights->commande->lire);
                 if ($leftmenu=="orders") $newmenu->add("/commande/liste.php?leftmenu=orders&viewstatut=2", $langs->trans("StatusOrderOnProcessShort"), 2, $user->rights->commande->lire);
                 if ($leftmenu=="orders") $newmenu->add("/commande/liste.php?leftmenu=orders&viewstatut=3", $langs->trans("StatusOrderToBill"), 2, $user->rights->commande->lire);
                 if ($leftmenu=="orders") $newmenu->add("/commande/liste.php?leftmenu=orders&viewstatut=4", $langs->trans("StatusOrderProcessed"), 2, $user->rights->commande->lire);
                 if ($leftmenu=="orders") $newmenu->add("/commande/liste.php?leftmenu=orders&viewstatut=-1", $langs->trans("StatusOrderCanceledShort"), 2, $user->rights->commande->lire);
-                if ($leftmenu=="orders") $newmenu->add("/commande/stats/index.php?leftmenu=orders", $langs->trans("Statistics"), 1 ,$user->rights->commande->lire);
+                $newmenu->add("/commande/stats/index.php?leftmenu=orders", $langs->trans("Statistics"), 1 ,$user->rights->commande->lire);
             }
 
             // Suppliers orders
@@ -864,9 +829,9 @@ function print_left_cabinetmed_menu($db,$menu_array_before,$menu_array_after)
             {
                 $langs->load("orders");
                 $newmenu->add("/fourn/commande/index.php?leftmenu=orders_suppliers",$langs->trans("SuppliersOrders"), 0, $user->rights->fournisseur->commande->lire);
-                if ($leftmenu=="orders_suppliers") $newmenu->add("/societe/societe.php?leftmenu=orders_suppliers", $langs->trans("NewOrder"), 1, $user->rights->fournisseur->commande->creer);
-                if ($leftmenu=="orders_suppliers") $newmenu->add("/fourn/commande/liste.php?leftmenu=orders_suppliers", $langs->trans("List"), 1, $user->rights->fournisseur->commande->lire);
-                if ($leftmenu=="orders_suppliers") $newmenu->add("/commande/stats/index.php?leftmenu=orders_suppliers&amp;mode=supplier", $langs->trans("Statistics"), 1 ,$user->rights->fournisseur->commande->lire);
+                $newmenu->add("/societe/societe.php?leftmenu=orders_suppliers", $langs->trans("NewOrder"), 1, $user->rights->fournisseur->commande->creer);
+                $newmenu->add("/fourn/commande/liste.php?leftmenu=orders_suppliers", $langs->trans("List"), 1, $user->rights->fournisseur->commande->lire);
+                $newmenu->add("/commande/stats/index.php?leftmenu=orders_suppliers&amp;mode=supplier", $langs->trans("Statistics"), 1 ,$user->rights->fournisseur->commande->lire);
             }
 
             // Contrat
@@ -874,9 +839,9 @@ function print_left_cabinetmed_menu($db,$menu_array_before,$menu_array_after)
             {
                 $langs->load("contracts");
                 $newmenu->add("/contrat/index.php?leftmenu=contracts", $langs->trans("Contracts"), 0 ,$user->rights->contrat->lire);
-                if ($leftmenu=="contracts") $newmenu->add("/societe/societe.php?leftmenu=contracts", $langs->trans("NewContract"), 1, $user->rights->contrat->creer);
-                if ($leftmenu=="contracts") $newmenu->add("/contrat/liste.php?leftmenu=contracts", $langs->trans("List"), 1 ,$user->rights->contrat->lire);
-                if ($leftmenu=="contracts") $newmenu->add("/contrat/services.php?leftmenu=contracts", $langs->trans("MenuServices"), 1 ,$user->rights->contrat->lire);
+                $newmenu->add("/societe/societe.php?leftmenu=contracts", $langs->trans("NewContract"), 1, $user->rights->contrat->creer);
+                $newmenu->add("/contrat/liste.php?leftmenu=contracts", $langs->trans("List"), 1 ,$user->rights->contrat->lire);
+                $newmenu->add("/contrat/services.php?leftmenu=contracts", $langs->trans("MenuServices"), 1 ,$user->rights->contrat->lire);
                 if ($leftmenu=="contracts") $newmenu->add("/contrat/services.php?leftmenu=contracts&amp;mode=0", $langs->trans("MenuInactiveServices"), 2 ,$user->rights->contrat->lire);
                 if ($leftmenu=="contracts") $newmenu->add("/contrat/services.php?leftmenu=contracts&amp;mode=4", $langs->trans("MenuRunningServices"), 2 ,$user->rights->contrat->lire);
                 if ($leftmenu=="contracts") $newmenu->add("/contrat/services.php?leftmenu=contracts&amp;mode=4&amp;filter=expired", $langs->trans("MenuExpiredServices"), 2 ,$user->rights->contrat->lire);
@@ -888,8 +853,8 @@ function print_left_cabinetmed_menu($db,$menu_array_before,$menu_array_after)
             {
                 $langs->load("interventions");
                 $newmenu->add("/fichinter/index.php?leftmenu=ficheinter", $langs->trans("Interventions"), 0, $user->rights->ficheinter->lire);
-                if ($leftmenu=="ficheinter") $newmenu->add("/fichinter/fiche.php?action=create&leftmenu=ficheinter", $langs->trans("NewIntervention"), 1, $user->rights->ficheinter->creer);
-                if ($leftmenu=="ficheinter") $newmenu->add("/fichinter/index.php?leftmenu=ficheinter", $langs->trans("List"), 1 ,$user->rights->ficheinter->lire);
+                $newmenu->add("/fichinter/fiche.php?action=create&leftmenu=ficheinter", $langs->trans("NewIntervention"), 1, $user->rights->ficheinter->creer);
+                $newmenu->add("/fichinter/index.php?leftmenu=ficheinter", $langs->trans("List"), 1 ,$user->rights->ficheinter->lire);
             }
 
         }
@@ -902,8 +867,6 @@ function print_left_cabinetmed_menu($db,$menu_array_before,$menu_array_after)
         {
             $langs->load("companies");
             $langs->load("cabinetmed@cabinetmed");
-
-            //$newmenu->add("/cabinetmed/reports.php?leftmenu=customers&search_sale=".$user->id, $langs->trans("ListConsult"), 0, $user->rights->societe->lire);
 
             // Customers invoices
             /*if ($conf->facture->enabled)
@@ -964,7 +927,7 @@ function print_left_cabinetmed_menu($db,$menu_array_before,$menu_array_after)
                 if ($leftmenu=="donations") $newmenu->add("/compta/dons/stats.php",$langs->trans("Statistics"), 1, $user->rights->don->lire);
             }
 
-            // Deplacements
+            // Trips and expenses
             if ($conf->deplacement->enabled)
             {
                 $langs->load("trips");
@@ -993,7 +956,7 @@ function print_left_cabinetmed_menu($db,$menu_array_before,$menu_array_after)
             }
 
             // Compta simple
-            if ($conf->compta->enabled && $conf->global->FACTURE_VENTILATION)
+            if ($conf->comptabilite->enabled && $conf->global->FACTURE_VENTILATION)
             {
                 $newmenu->add("/compta/ventilation/index.php?leftmenu=ventil",$langs->trans("Dispatch"),0,$user->rights->compta->ventilation->lire);
                 if ($leftmenu=="ventil") $newmenu->add("/compta/ventilation/liste.php",$langs->trans("ToDispatch"),1,$user->rights->compta->ventilation->lire);
@@ -1014,7 +977,7 @@ function print_left_cabinetmed_menu($db,$menu_array_before,$menu_array_after)
             */
 
             // Rapports
-            if ($conf->compta->enabled || $conf->accounting->enabled || $conf->cabinetmed->enabled)
+            if ($conf->comptabilite->enabled || $conf->accounting->enabled || $conf->cabinetmed->enabled)
             {
                 $langs->load("compta");
 
@@ -1065,7 +1028,6 @@ function print_left_cabinetmed_menu($db,$menu_array_before,$menu_array_after)
             // Bank-Caisse
             if ($conf->banque->enabled)
             {
-                $langs->load("banks");
                 $newmenu->add("/compta/bank/index.php?leftmenu=bank&amp;mainmenu=bank",$langs->trans("MenuBankCash"),0,$user->rights->banque->lire);
 
                 $newmenu->add("/compta/bank/fiche.php?action=create",$langs->trans("MenuNewFinancialAccount"),1,$user->rights->banque->configurer);
@@ -1082,11 +1044,9 @@ function print_left_cabinetmed_menu($db,$menu_array_before,$menu_array_after)
             {
                 $newmenu->add("/compta/prelevement/index.php?leftmenu=withdraw&amp;mainmenu=bank",$langs->trans("StandingOrders"),0,$user->rights->prelevement->bons->lire);
 
-                if ($leftmenu=="withdraw") $newmenu->add("/compta/prelevement/create.php?mainmenu=bank",$langs->trans("NewStandingOrder"),1,$user->rights->prelevement->bons->creer);
+                //if ($leftmenu=="withdraw") $newmenu->add("/compta/prelevement/demandes.php?status=0&amp;mainmenu=bank",$langs->trans("StandingOrderToProcess"),1,$user->rights->prelevement->bons->lire);
 
-                //if ($leftmenu=="withdraw") $newmenu->add("/compta/prelevement/demandes.php",$langs->trans("StandingOrder"),1,$user->rights->prelevement->bons->lire);
-                if ($leftmenu=="withdraw") $newmenu->add("/compta/prelevement/demandes.php?status=0&amp;mainmenu=bank",$langs->trans("StandingOrderToProcess"),1,$user->rights->prelevement->bons->lire);
-                //if ($leftmenu=="withdraw") $newmenu->add("/compta/prelevement/demandes.php?status=1",$langs->trans("StandingOrderProcessed"),2,$user->rights->prelevement->bons->lire);
+                if ($leftmenu=="withdraw") $newmenu->add("/compta/prelevement/create.php?mainmenu=bank",$langs->trans("NewStandingOrder"),1,$user->rights->prelevement->bons->creer);
 
                 if ($leftmenu=="withdraw") $newmenu->add("/compta/prelevement/bons.php?mainmenu=bank",$langs->trans("WithdrawalsReceipts"),1,$user->rights->prelevement->bons->lire);
                 if ($leftmenu=="withdraw") $newmenu->add("/compta/prelevement/liste.php?mainmenu=bank",$langs->trans("WithdrawalsLines"),1,$user->rights->prelevement->bons->lire);
@@ -1107,7 +1067,7 @@ function print_left_cabinetmed_menu($db,$menu_array_before,$menu_array_after)
        }
 
         /*
-         * Menu PRODUITS-SERVICES
+         * Menu PRODUCTS-SERVICES
          */
         if ($mainmenu == 'products')
         {
@@ -1122,7 +1082,7 @@ function print_left_cabinetmed_menu($db,$menu_array_before,$menu_array_after)
                 }
                 if ($conf->propal->enabled)
                 {
-                    $newmenu->add("/product/popuprop.php?leftmenu=stats&amp;type=0", $langs->trans("Popularity"), 1, $user->rights->produit->lire && $user->rights->propale->lire);
+                    $newmenu->add("/product/popuprop.php?leftmenu=stats&amp;type=0", $langs->trans("Statistics"), 1, $user->rights->produit->lire && $user->rights->propale->lire);
                 }
                 if ($conf->stock->enabled)
                 {
@@ -1141,7 +1101,7 @@ function print_left_cabinetmed_menu($db,$menu_array_before,$menu_array_after)
                 $newmenu->add("/product/liste.php?leftmenu=service&amp;type=1", $langs->trans("List"), 1, $user->rights->service->lire);
                 if ($conf->propal->enabled)
                 {
-                    $newmenu->add("/product/popuprop.php?leftmenu=stats&amp;type=1", $langs->trans("Popularity"), 1, $user->rights->service->lire && $user->rights->propale->lire);
+                    $newmenu->add("/product/popuprop.php?leftmenu=stats&amp;type=1", $langs->trans("Statistics"), 1, $user->rights->service->lire && $user->rights->propale->lire);
                 }
             }
 
@@ -1181,7 +1141,7 @@ function print_left_cabinetmed_menu($db,$menu_array_before,$menu_array_after)
 
 
         /*
-         * Menu FOURNISSEURS
+         * Menu SUPPLIERS
          */
         if ($mainmenu == 'suppliers')
         {
@@ -1270,7 +1230,7 @@ function print_left_cabinetmed_menu($db,$menu_array_before,$menu_array_after)
 
 
         /*
-         * Menu OUTILS
+         * Menu TOOLS
          */
         if ($mainmenu == 'tools')
         {
@@ -1349,13 +1309,10 @@ function print_left_cabinetmed_menu($db,$menu_array_before,$menu_array_after)
                 if ($leftmenu=="export") $newmenu->add("/adherents/htpasswd.php?leftmenu=export",$langs->trans("Filehtpasswd"),1,$user->rights->adherent->export);
                 if ($leftmenu=="export") $newmenu->add("/adherents/cartes/carte.php?leftmenu=export",$langs->trans("MembersCards"),1,$user->rights->adherent->export);
 
-                $newmenu->add("/adherents/public.php?leftmenu=member_public",$langs->trans("MemberPublicLinks"));
-
-                $newmenu->add("/adherents/index.php?leftmenu=setup&amp;mainmenu=members",$langs->trans("Setup"),0,$user->rights->adherent->configurer);
-                $newmenu->add("/adherents/type.php?leftmenu=setup&amp;",$langs->trans("MembersTypes"),1,$user->rights->adherent->configurer);
-                $newmenu->add("/adherents/options.php?leftmenu=setup&amp;",$langs->trans("MembersAttributes"),1,$user->rights->adherent->configurer);
-
-
+                // Type
+                $newmenu->add("/adherents/type.php?leftmenu=setup&amp;mainmenu=members",$langs->trans("MembersTypes"),0,$user->rights->adherent->configurer);
+                $newmenu->add("/adherents/type.php?leftmenu=setup&amp;mainmenu=members&amp;action=create",$langs->trans("New"),1,$user->rights->adherent->configurer);
+                $newmenu->add("/adherents/type.php?leftmenu=setup&amp;mainmenu=members",$langs->trans("List"),1,$user->rights->adherent->configurer);
             }
 
         }
@@ -1368,15 +1325,13 @@ function print_left_cabinetmed_menu($db,$menu_array_before,$menu_array_after)
     }
 
 
-    /**
-     *  Si on est sur un cas gere de surcharge du menu, on ecrase celui par defaut
-     */
     //var_dump($menu_array_before);exit;
     //var_dump($menu_array_after);exit;
     $menu_array=$newmenu->liste;
     if (is_array($menu_array_before)) $menu_array=array_merge($menu_array_before, $menu_array);
     if (is_array($menu_array_after))  $menu_array=array_merge($menu_array, $menu_array_after);
-
+    //var_dump($menu_array);exit;
+    
     // Show menu
     $alt=0;
     if (is_array($menu_array))
