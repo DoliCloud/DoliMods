@@ -20,7 +20,7 @@
 /**
  *		\file       htdocs/cabinetmed/theme/eldy/style.css.php
  *		\brief      Fichier de style CSS du theme Eldy
- *		\version    $Id: style.css.php,v 1.19 2011/08/15 18:54:03 eldy Exp $
+ *		\version    $Id: style.css.php,v 1.20 2011/08/15 20:50:34 eldy Exp $
  */
 
 //if (! defined('NOREQUIREUSER')) define('NOREQUIREUSER','1');	// Not disabled cause need to load personalized language
@@ -566,7 +566,7 @@ td.vmenu {
     padding-top: 1px;
     width: 168px;
 }
-	
+
 <?php if (GETPOST("optioncss") == 'print') { ?>
 .vmenu {
     display: none;
@@ -2034,4 +2034,22 @@ a.cke_dialog_ui_button
 
 .template-upload {
     height: 72px !important;
+}
+
+
+
+#builddoc_form .formdoc, #builddoc_form .formdocbutton{
+    color: #234046;
+    padding-top: 3px;
+    padding-left: 3px;
+    padding-right: 3px;
+    padding-bottom: 3px;
+    margin: 0px 0px 14px 0px;
+    -moz-border-radius:6px;
+    -webkit-border-radius: 6px;
+	border-radius: 6px;
+    border-right: 0 !important;
+    border-left: 0 !important;
+    background: #dee7ec url(<?php echo dol_buildpath($path.'/theme/eldy/img/tab_background.png',1) ?>) repeat-x;
+    text-align: left;
 }

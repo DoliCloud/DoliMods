@@ -20,7 +20,7 @@
  *	\file       htdocs/cabinetmed/class/actions_cabinetmed.class.php
  *	\ingroup    societe
  *	\brief      File to control actions
- *	\version    $Id: actions_cabinetmed.class.php,v 1.4 2011/08/10 22:46:00 eldy Exp $
+ *	\version    $Id: actions_cabinetmed.class.php,v 1.5 2011/08/15 20:50:34 eldy Exp $
  */
 require_once(DOL_DOCUMENT_ROOT."/core/class/commonobject.class.php");
 
@@ -128,7 +128,7 @@ class ActionsCabinetmed
 
         $out='';
         $out.='<tr>';
-        $out.='<td align="left" colspan="4" valign="top">';
+        $out.='<td align="left" colspan="4" valign="top" class="formdoc">';
 
         // Add javascript to disable/enabled button
         $out.="\n".'<script type="text/javascript" language="javascript">';
@@ -211,7 +211,7 @@ class ActionsCabinetmed
         $out.='</td>';
         $out.='</tr>';
 
-        $out.='<tr><td colspan="4" valign="top">';
+        $out.='<tr><td colspan="4" valign="top" class="formdoc">';
         $out.=$langs->trans("Comment").': ';
         //$out.= '<textarea name="outcome_comment" cols="90" rows="'.ROWS_2.'">'.(GETPOST('outcome_comment')?GETPOST('outcome_comment'):'').'</textarea>';
         $out.='<input type="text" name="outcome_comment" size="90" value="'.(GETPOST('outcome_comment')?GETPOST('outcome_comment'):'').'">';
