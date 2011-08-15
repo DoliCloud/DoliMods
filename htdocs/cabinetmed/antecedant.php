@@ -23,7 +23,7 @@
  *   \file       htdocs/cabinetmed/antecedant.php
  *   \brief      Tab for antecedants
  *   \ingroup    societe
- *   \version    $Id: antecedant.php,v 1.10 2011/06/17 22:25:02 eldy Exp $
+ *   \version    $Id: antecedant.php,v 1.11 2011/08/15 18:53:54 eldy Exp $
  */
 
 $res=0;
@@ -261,14 +261,13 @@ if ($socid > 0)
     }
     print "</td></tr>";
 
+    print "</table>";
 
 
     if ($action == 'edit')
     {
-        print '<tr><td colspan="2" align="center"><input type="submit" class="button ignorechange" value="'.$langs->trans("Save").'"></td></tr>';
+        print '<center><br><input type="submit" class="button ignorechange" value="'.$langs->trans("Save").'"></center>';
     }
-
-    print "</table>";
 
     print '</form>';
 }
@@ -297,5 +296,5 @@ dol_htmloutput_mesg($mesg);
 
 $db->close();
 
-llxFooter('$Date: 2011/06/17 22:25:02 $ - $Revision: 1.10 $');
+llxFooter('$Date: 2011/08/15 18:53:54 $ - $Revision: 1.11 $');
 ?>

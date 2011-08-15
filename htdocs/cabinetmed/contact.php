@@ -22,7 +22,7 @@
  *       \file       htdocs/cabinetmed/contact.php
  *       \ingroup    cabinetmed
  *       \brief      Tab for links between doctors and patient
- *       \version    $Id: contact.php,v 1.9 2011/07/10 20:03:21 eldy Exp $
+ *       \version    $Id: contact.php,v 1.10 2011/08/15 18:53:54 eldy Exp $
  */
 
 $res=0;
@@ -85,51 +85,16 @@ if ($_POST["action"] == 'addcontact' && $user->rights->societe->creer)
 		}
 	}
 }
-// modification d'un contact. On enregistre le type
-if ($_POST["action"] == 'updateligne' && $user->rights->commande->creer)
-{
-	$societe = new Societe($db);
-	if ($societe->fetch($socid))
-	{
-		$contact = $societe->detail_contact($_POST["elrowid"]);
-		$type = $_POST["type"];
-		$statut = $contact->statut;
-
-		$result = $societe->update_contact($_POST["elrowid"], $statut, $type);
-		if ($result >= 0)
-		{
-			$db->commit();
-		} else
-		{
-			dol_print_error($db, "result=$result");
-			$db->rollback();
-		}
-	} else
-	{
-		dol_print_error($db);
-	}
-}
 
 // bascule du statut d'un contact
-if ($_GET["action"] == 'swapstatut' && $user->rights->societe->creer)
+if ($_GET["action"] == 'swapstatut' && $user->rights->facture->creer)
 {
-	$societe = new Societe($db);
-	if ($societe->fetch($socid))
+	$object = new Societe($db);
+	if ($object->fetch(GETPOST("facid")))
 	{
-		$contact = $societe->detail_contact($_GET["ligne"]);
-		$id_type_contact = $contact->fk_c_type_contact;
-		$statut = ($contact->statut == 4) ? 5 : 4;
-
-		$result = $societe->update_contact($_GET["ligne"], $statut, $id_type_contact);
-		if ($result >= 0)
-		{
-			$db->commit();
-		} else
-		{
-			dol_print_error($db, "result=$result");
-			$db->rollback();
-		}
-	} else
+	    $result=$object->swapContactStatus(GETPOST('ligne'));
+	}
+	else
 	{
 		dol_print_error($db);
 	}
@@ -420,5 +385,5 @@ if ($id > 0 || ! empty($ref))
 
 $db->close();
 
-llxFooter('$Date: 2011/07/10 20:03:21 $');
+llxFooter('$Date: 2011/08/15 18:53:54 $');
 ?>

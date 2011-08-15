@@ -1,8 +1,5 @@
 <?php
-/* Copyright (C) 2001-2003,2005 Rodolphe Quiedeville <rodolphe@quiedeville.org>
- * Copyright (C) 2004-2011      Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2005-2006      Regis Houssin        <regis@dolibarr.fr>
- * Copyright (C) 2010           Juanjo Menent        <jmenent@2byte.es>
+/* Copyright (C) 2004-2011      Laurent Destailleur  <eldy@users.sourceforge.net>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,7 +20,7 @@
  *   \file       htdocs/cabinetmed/examautre.php
  *   \brief      Tab for examens other
  *   \ingroup    cabinetmed
- *   \version    $Id: examautre.php,v 1.19 2011/06/13 22:24:23 eldy Exp $
+ *   \version    $Id: examautre.php,v 1.20 2011/08/15 18:53:54 eldy Exp $
  */
 
 $res=0;
@@ -368,7 +365,7 @@ if ($socid > 0)
 
         print '<tr><td valign="top" width="160">';
         print $langs->trans("ExamenPrescrit").':';
-        print '</td><td>';
+        print '</td><td nowrap="nowrap">';
         //print '<input type="text" size="3" class="flat" name="searchmotifcons" value="'.GETPOST("searchmotifcons").'" id="searchmotifcons">';
         listexamen(1,$width,"RADIO','AUTRE",0,'exam');
         /*print ' '.img_picto('Ajouter motif principal','edit_add_p.png@cabinetmed');
@@ -393,7 +390,7 @@ if ($socid > 0)
 
         print '<tr><td valign="top" width="160">';
         print $langs->trans("ExamenResultat").':';
-        print '</td><td>';
+        print '</td><td nowrap="nowrap">';
         //print '<input type="text" size="3" class="flat" name="searchdiagles" value="'.GETPOST("searchdiagles").'" id="searchdiagles">';
         listexamconclusion(1,$width,'examconc');
         print ' <input type="button" class="button" id="addexamconcprinc" name="addexamconcprinc" value="+P">';
@@ -548,5 +545,5 @@ if ($action == '' || $action == 'delete')
 
 $db->close();
 
-llxFooter('$Date: 2011/06/13 22:24:23 $ - $Revision: 1.19 $');
+llxFooter('$Date: 2011/08/15 18:53:54 $ - $Revision: 1.20 $');
 ?>

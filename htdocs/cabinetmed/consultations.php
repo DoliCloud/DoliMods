@@ -20,7 +20,7 @@
  *   \file       htdocs/cabinetmed/consultations.php
  *   \brief      Tab for consultations
  *   \ingroup    cabinetmed
- *   \version    $Id: consultations.php,v 1.38 2011/06/14 23:21:11 eldy Exp $
+ *   \version    $Id: consultations.php,v 1.39 2011/08/15 18:53:54 eldy Exp $
  */
 
 $res=0;
@@ -242,27 +242,36 @@ if ($action == 'add' || $action == 'update')
             {
                 $result=$consult->create($user);
 
-                $societe = new Societe($db);
-                $societe->fetch($consult->fk_soc);
-
-                if ($conf->banque->enabled && $banque)
+                if ($result < 0)
                 {
-                    $bankaccount=new Account($db);
-                    $result=$bankaccount->fetch($banque);
-                    if ($result < 0) dol_print_error($db,$bankaccount->error);
-                    $lineid=$bankaccount->addline(dol_now(), $type, $langs->trans("CustomerInvoicePayment"), $amount, $consult->num_cheque, '', $user, $societe->nom, $consult->banque);
-                    if ($lineid <= 0)
+                    $mesg=$consult->error;
+                    $error++;
+                }
+
+                if (! $error)
+                {
+                    $societe = new Societe($db);
+                    $societe->fetch($consult->fk_soc);
+
+                    if ($conf->banque->enabled && $banque)
                     {
-                        $error++;
-                        $consult->error=$bankaccount->error;
-                    }
-                    if (! $error)
-                    {
-                        $result1=$bankaccount->add_url_line($lineid,$consult->id,dol_buildpath('/cabinetmed/consultations.php',1).'?action=edit&socid='.$consult->fk_soc.'&id=','Consultation','consultation');
-                        $result2=$bankaccount->add_url_line($lineid,$consult->fk_soc,'',$societe->nom,'company');
-                        if ($result1 <= 0 || $result2 <= 0)
+                        $bankaccount=new Account($db);
+                        $result=$bankaccount->fetch($banque);
+                        if ($result < 0) dol_print_error($db,$bankaccount->error);
+                        $lineid=$bankaccount->addline(dol_now(), $type, $langs->trans("CustomerInvoicePayment"), $amount, $consult->num_cheque, '', $user, $societe->nom, $consult->banque);
+                        if ($lineid <= 0)
                         {
                             $error++;
+                            $consult->error=$bankaccount->error;
+                        }
+                        if (! $error)
+                        {
+                            $result1=$bankaccount->add_url_line($lineid,$consult->id,dol_buildpath('/cabinetmed/consultations.php',1).'?action=edit&socid='.$consult->fk_soc.'&id=','Consultation','consultation');
+                            $result2=$bankaccount->add_url_line($lineid,$consult->fk_soc,'',$societe->nom,'company');
+                            if ($result1 <= 0 || $result2 <= 0)
+                            {
+                                $error++;
+                            }
                         }
                     }
                 }
@@ -1025,5 +1034,5 @@ if ($action == '' || $action == 'delete')
 
 $db->close();
 
-llxFooter('$Date: 2011/06/14 23:21:11 $ - $Revision: 1.38 $');
+llxFooter('$Date: 2011/08/15 18:53:54 $ - $Revision: 1.39 $');
 ?>
