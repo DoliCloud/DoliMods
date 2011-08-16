@@ -22,7 +22,7 @@
  *	\ingroup    	fournisseur
  *	\brief      	Update table Calcul le CA genere par chaque fournisseur et met a jour les tables fournisseur_ca et produit_ca
  *	\deprecated		Ce script et ces tables ne sont pas utilisees car graph generes dynamiquement maintenant.
- *	\version		$Id: batch_fournisseur_updateturnover.php,v 1.4 2011/03/29 23:17:21 eldy Exp $
+ *	\version		$Id: batch_fournisseur_updateturnover.php,v 1.5 2011/08/16 11:03:06 eldy Exp $
  */
 
 $sapi_type = php_sapi_name();
@@ -36,10 +36,11 @@ if (substr($sapi_type, 0, 3) == 'cgi') {
 }
 
 // Global variables
-$version='$Revision: 1.4 $';
+$version='$Revision: 1.5 $';
 $error=0;
 // Include Dolibarr environment
 $res=0;
+if (! $res && file_exists($path."../../master.inc.php")) $res=@include($path."../../master.inc.php");
 if (! $res && file_exists($path."../../htdocs/master.inc.php")) $res=@include($path."../../htdocs/master.inc.php");
 if (! $res && file_exists("../master.inc.php")) $res=@include("../master.inc.php");
 if (! $res && file_exists("../../master.inc.php")) $res=@include("../../master.inc.php");

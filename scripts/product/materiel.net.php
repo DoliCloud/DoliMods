@@ -16,10 +16,10 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *
- * $Id: materiel.net.php,v 1.2 2011/03/29 23:17:22 eldy Exp $
+ * $Id: materiel.net.php,v 1.3 2011/08/16 11:03:06 eldy Exp $
  * $Source: /cvsroot/dolibarr/dolibarrmod/scripts/product/materiel.net.php,v $
  *
- * 
+ *
  * Mets a jour les prix fournisseurs des produits a partir d'un fichier XML
  *
  *
@@ -45,11 +45,12 @@ if (substr($sapi_type, 0, 3) == 'cgi') {
 }
 
 // Global variables
-$version='$Revision: 1.2 $';
+$version='$Revision: 1.3 $';
 $error=0;
 
 // Include Dolibarr environment
 $res=0;
+if (! $res && file_exists($path."../../master.inc.php")) $res=@include($path."../../master.inc.php");
 if (! $res && file_exists($path."../../htdocs/master.inc.php")) $res=@include($path."../../htdocs/master.inc.php");
 if (! $res && file_exists("../master.inc.php")) $res=@include("../master.inc.php");
 if (! $res && file_exists("../../master.inc.php")) $res=@include("../../master.inc.php");
@@ -74,14 +75,14 @@ $xml_parser = xml_parser_create();
 xml_set_element_handler($xml_parser, "debutElement", "finElement");
 xml_set_character_data_handler($xml_parser,"charData");
 
-if (!($fp = fopen($file, "r"))) 
+if (!($fp = fopen($file, "r")))
 {
   die("Impossible d'ouvrir le fichier XML");
 }
 
-while ($data = fread($fp, 4096) ) 
+while ($data = fread($fp, 4096) )
 {
-  if (!xml_parse($xml_parser, $data, feof($fp))) 
+  if (!xml_parse($xml_parser, $data, feof($fp)))
     {
       die(sprintf("erreur XML : %s � la ligne %d",
 		  xml_error_string(xml_get_error_code($xml_parser)),
@@ -136,7 +137,7 @@ function debutElement($parser, $name, $attrs)
   elseif ($name == 'NAME')
     {
       $current = "name";
-    }  
+    }
   elseif ($name == 'CODE')
     {
       $current = "code";

@@ -21,7 +21,7 @@
  *	\file       	scripts/monitoring/monitor_daemon.php
  *	\ingroup    	monitor
  *	\brief      	Script to execute monitor daemon
- *	\version		$Id: monitor_daemon.php,v 1.15 2011/04/20 21:42:53 eldy Exp $
+ *	\version		$Id: monitor_daemon.php,v 1.16 2011/08/16 11:03:06 eldy Exp $
  */
 
 if (! defined('NOREQUIREUSER'))  define('NOREQUIREUSER','1');
@@ -46,10 +46,11 @@ if (substr($sapi_type, 0, 3) == 'cgi') {
 }
 
 // Global variables
-$version='$Revision: 1.15 $';
+$version='$Revision: 1.16 $';
 $error=0;
 // Include Dolibarr environment
 $res=0;
+if (! $res && file_exists($path."../../master.inc.php")) $res=@include($path."../../master.inc.php");
 if (! $res && file_exists($path."../../htdocs/master.inc.php")) $res=@include($path."../../htdocs/master.inc.php");
 if (! $res && file_exists("../master.inc.php")) $res=@include("../master.inc.php");
 if (! $res && file_exists("../../master.inc.php")) $res=@include("../../master.inc.php");
@@ -130,7 +131,7 @@ for ($i = 1 ; $i < sizeof($argv) ; $i++)
     }
 }
 
-$dir = $conf->monitor->dir_output;
+$dir = $conf->monitoring->dir_output;
 $result=create_exdir($dir);
 if ($result < 0)
 {
@@ -147,6 +148,7 @@ if (! sizeof($listofurls))
 }
 
 
+print 'Data will be saved into: '.$conf->monitoring->dir_output."\n";
 
 
 // Create rrd if not exists

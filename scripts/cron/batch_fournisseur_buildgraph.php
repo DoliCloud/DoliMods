@@ -21,7 +21,7 @@
  *	\ingroup    	fournisseur
  *	\brief      	Script de generation graph ca fournisseur depuis tables fournisseur_ca
  *	\deprecated	Ces graph ne sont pas utilises car sont generes dynamiquement maintenant.
- *	\version		$Id: batch_fournisseur_buildgraph.php,v 1.4 2011/03/29 23:17:21 eldy Exp $
+ *	\version		$Id: batch_fournisseur_buildgraph.php,v 1.5 2011/08/16 11:03:06 eldy Exp $
  */
 
 $sapi_type = php_sapi_name();
@@ -35,10 +35,11 @@ if (substr($sapi_type, 0, 3) == 'cgi') {
 }
 
 // Global variables
-$version='$Revision: 1.4 $';
+$version='$Revision: 1.5 $';
 $error=0;
 // Include Dolibarr environment
 $res=0;
+if (! $res && file_exists($path."../../master.inc.php")) $res=@include($path."../../master.inc.php");
 if (! $res && file_exists($path."../../htdocs/master.inc.php")) $res=@include($path."../../htdocs/master.inc.php");
 if (! $res && file_exists("../master.inc.php")) $res=@include("../master.inc.php");
 if (! $res && file_exists("../../master.inc.php")) $res=@include("../../master.inc.php");

@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *
- * $Id: import-product.php,v 1.3 2011/03/29 23:17:22 eldy Exp $
+ * $Id: import-product.php,v 1.4 2011/08/16 11:03:06 eldy Exp $
  * $Source: /cvsroot/dolibarr/dolibarrmod/scripts/product/import-product.php,v $
  *
  *
@@ -40,11 +40,12 @@ if (substr($sapi_type, 0, 3) == 'cgi') {
 }
 
 // Global variables
-$version='$Revision: 1.3 $';
+$version='$Revision: 1.4 $';
 $error=0;
 
 // Include Dolibarr environment
 $res=0;
+if (! $res && file_exists($path."../../master.inc.php")) $res=@include($path."../../master.inc.php");
 if (! $res && file_exists($path."../../htdocs/master.inc.php")) $res=@include($path."../../htdocs/master.inc.php");
 if (! $res && file_exists("../master.inc.php")) $res=@include("../master.inc.php");
 if (! $res && file_exists("../../master.inc.php")) $res=@include("../../master.inc.php");

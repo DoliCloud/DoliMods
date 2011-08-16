@@ -10,13 +10,14 @@ if (substr($sapi_type, 0, 3) == 'cgi') {
 }
 
 // Global variables
-$version='$Revision: 1.2 $';
+$version='$Revision: 1.3 $';
 $error=0;
 //eregi_replace($script_file,'',$_SERVER["PHP_SELF"]);
 $url_pdf="https://www.ovh.com/cgi-bin/order/facture.pdf";
 $id_ovh=5;
 // Include Dolibarr environment
 $res=0;
+if (! $res && file_exists($path."../../master.inc.php")) $res=@include($path."../../master.inc.php");
 if (! $res && file_exists($path."../../htdocs/master.inc.php")) $res=@include($path."../../htdocs/master.inc.php");
 if (! $res && file_exists("../master.inc.php")) $res=@include("../master.inc.php");
 if (! $res && file_exists("../../master.inc.php")) $res=@include("../../master.inc.php");
