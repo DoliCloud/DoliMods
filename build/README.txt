@@ -4,14 +4,23 @@ List of modules to build for Dolitore:
 Module				Statut		Price		Remarque
 
 awstats				OK			5
-bittorrent			OK
+bittorrent			OK			Free
+filemanager			OK			9
 google				OK			9
-memcached			OK			5
-numberwords			OK
-ovh					A finir		5			Ajouter onglet par fonction (sms, click2dial, ...)
-phpsysinfo			OK
-pibarcode			OK
-scanner				OK
-thomsonphonebook	OK
-theme_bluelagoon	OK
-theme_rodolphe		OK
+memcached			OK			19
+numberwords			OK			Free
+ovh					OK			5
+phpsysinfo			OK			Free
+pibarcode			OK			Free
+scanner				OK			Free
+thomsonphonebook	OK			Free
+theme_bluelagoon	OK			Free
+zipautofillfr		OK			19			France and belgium
+
+cabinetmed          A finir
+concatpdf           A finir		9
+webmail				A finir
+
+des_fr				KO
+
+numberingpack		KO
