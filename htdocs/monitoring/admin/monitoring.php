@@ -12,15 +12,14 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
 /**
  *	    \file       htdocs/monitoring/admin/monitoring.php
  *      \ingroup    monitoring
  *      \brief      Page to setup module Monitoring
- *		\version    $Id: monitoring.php,v 1.9 2011/03/29 23:17:22 eldy Exp $
+ *		\version    $Id: monitoring.php,v 1.10 2011/08/16 10:34:10 eldy Exp $
  */
 
 define('NOCSRFCHECK',1);
@@ -240,11 +239,9 @@ print "</form>\n";
 
 print '<br>';
 
-
 clearstatcache();
 
-if ($mesg) print "<br>$mesg";
-print "<br>";
+dol_htmloutput_mesg($mesg);
 
 print '<hr>';
 
@@ -290,5 +287,5 @@ if (dol_is_file($conf->monitoring->dir_temp."/".$fileimage[0]))
 
 $db->close();
 
-llxFooter('$Date: 2011/03/29 23:17:22 $ - $Revision: 1.9 $');
+llxFooter('$Date: 2011/08/16 10:34:10 $ - $Revision: 1.10 $');
 ?>
