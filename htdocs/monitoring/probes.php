@@ -17,15 +17,14 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
 /**
  *      \file       htdocs/monitoring/probes.php
  *      \ingroup    monitoring
  *      \brief      Page to add probes
- *      \version    $Id: probes.php,v 1.14 2011/07/04 11:33:16 eldy Exp $
+ *      \version    $Id: probes.php,v 1.15 2011/08/16 10:38:58 eldy Exp $
  */
 
 $res=0;
@@ -198,8 +197,8 @@ if ($action != 'edit')
     print '<td>';
     print $html->selectyesno('probe_useproxy',isset($_POST['probe_useproxy'])?$_POST['probe_useproxy']:0,1);
     print '</td>';
-    print '<td>'.
-    $html->textwithtooltip(img_help(),$langs->trans("SetToYesToUseGlobalProxySetup"));
+    print '<td>';
+    print $html->textwithpicto('',$langs->trans("SetToYesToUseGlobalProxySetup"));
     print '</td>';
     print '</tr>';
 
@@ -430,5 +429,5 @@ else
 
 $db->close();
 
-llxFooter('$Date: 2011/07/04 11:33:16 $ - $Revision: 1.14 $');
+llxFooter('$Date: 2011/08/16 10:38:58 $ - $Revision: 1.15 $');
 ?>
