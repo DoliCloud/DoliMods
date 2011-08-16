@@ -20,7 +20,7 @@
  *	    \file       htdocs/admin/awstats.php
  *      \ingroup    awstats
  *      \brief      Page de configuration du module AWStats
- *		\version    $Id: awstats.php,v 1.8 2011/03/29 23:17:22 eldy Exp $
+ *		\version    $Id: awstats.php,v 1.9 2011/08/16 09:23:10 eldy Exp $
  */
 
 define('NOCSRFCHECK',1);
@@ -154,10 +154,9 @@ print "</form>\n";
 
 clearstatcache();
 
-if ($mesg) print "<br>$mesg<br>";
-print "<br>";
+dol_htmloutput_mesg($mesg);
 
 $db->close();
 
-llxFooter('$Date: 2011/03/29 23:17:22 $ - $Revision: 1.8 $');
+llxFooter('$Date: 2011/08/16 09:23:10 $ - $Revision: 1.9 $');
 ?>
