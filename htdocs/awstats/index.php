@@ -15,7 +15,7 @@
 /**
  *	\file       htdocs/awstats/index.php
  *	\brief      Home page of AWStats module
- *	\version    $Id: index.php,v 1.22 2011/07/03 13:49:19 eldy Exp $
+ *	\version    $Id: index.php,v 1.23 2011/08/16 09:28:25 eldy Exp $
  */
 
 include("./pre.inc.php");
@@ -80,7 +80,7 @@ if($gzip_compression == true && function_exists("gzopen")) {
 }
 
 # Record Starting Time
-$stime = gettime();
+$stime = dol_now();
 
 # Build Domain List from Query (if enabled)
 if($accept_query == true && strlen($_GET['domains']) > 0) {
@@ -245,7 +245,7 @@ if(!$dir) {
 <body>
 <h1>Error</h1><br>
 Failed to open directory defined in AWStats config page (AWSTATS_DATA_DIR = '.$history_dir.')<br>
-Check your AWStats setup and open_basedir PHP setup.
+Check your <a href="'.dol_buildpath('/awstats/admin/awstats.php',1).'">AWStats setup</a> and open_basedir PHP setup.
 </body>
 </html>';
 	exit;
@@ -536,7 +536,7 @@ else
 
 
 # Record Completion Time
-$etime = gettime();
+$etime = dol_now();
 
 # Format HTML
 $html =	'';
@@ -565,5 +565,5 @@ if ($system_stats_top == true) {
 #	Output to the screen
 echo $statistics;
 
-llxFooter('$Date: 2011/07/03 13:49:19 $ - $Revision: 1.22 $');
+llxFooter('$Date: 2011/08/16 09:28:25 $ - $Revision: 1.23 $');
 ?>
