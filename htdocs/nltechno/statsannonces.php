@@ -6,7 +6,7 @@
  *   	\file       htdocs/nltechno/statsannonces.php
  *		\ingroup    nltechno
  *		\brief      Page des stats annonces
- *		\version    $Id: statsannonces.php,v 1.15 2011/03/14 22:31:11 eldy Exp $
+ *		\version    $Id: statsannonces.php,v 1.16 2011/08/17 16:42:36 eldy Exp $
  *		\author		Laurent Destailleur
  */
 
@@ -92,7 +92,7 @@ if (1 == 1)
 		$sql.= " WHERE KEY_STATS in ('".$categ."')";
 		$sql.= " AND DATE_STATS >= '".$datestart."'";
 		$sql.= " ORDER BY DATE_STATS, KEY_STATS";
-		dolibarr_syslog("statsannonces.php sql=".$sql, LOG_DEBUG);
+		dol_syslog("sql=".$sql, LOG_DEBUG);
 		$result = $dbann->query($sql);
 		if ($result)
 		{
@@ -192,7 +192,7 @@ if (1 == 1)
 	$sql.= " FROM T_ANNONCES as a";
 	$sql.= " WHERE a.VALID_ANNONCE in ('1','2','3')";
 	$sql.= " ORDER BY PRIX_ANNONCE";
-	dolibarr_syslog("statsannonces.php sql=".$sql, LOG_DEBUG);
+	dol_syslog("sql=".$sql, LOG_DEBUG);
 	$result = $dbann->query($sql);
 	//print $sql;
 	if ($result)
@@ -210,7 +210,7 @@ if (1 == 1)
 	$sql.= " GROUP BY ID_CATEG, ID_TYPE, ID_MODE, PRIX_ANNONCE, ID_ORIGINE";
 	$sql.= " HAVING nb > 0";
 	$sql.= " ORDER BY ID_CATEG, ID_TYPE, ID_MODE, PRIX_ANNONCE, ID_ORIGINE";
-	dolibarr_syslog("statsannonces.php sql=".$sql, LOG_DEBUG);
+	dol_syslog("sql=".$sql, LOG_DEBUG);
 	$result = $dbann->query($sql);
 	//print $sql;
 	if ($result)

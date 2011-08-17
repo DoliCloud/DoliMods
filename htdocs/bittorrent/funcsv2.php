@@ -128,7 +128,7 @@ function verifyTorrent($hash)
 	global $prefix;
 
 	$query = "SELECT COUNT(*) FROM ".$prefix."summary where info_hash=\"$hash\"";
-	dolibarr_syslog("funcsv2::verifyTorrent sql=".$query);
+	dol_syslog("funcsv2::verifyTorrent sql=".$query);
 
 	$results = mysql_query($query);
 
@@ -136,12 +136,12 @@ function verifyTorrent($hash)
 
 	if ($res == 1)
 	{
-		dolibarr_syslog("funcsv3::verifyTorrent OK", LOG_DEBUG);
+		dol_syslog("funcsv3::verifyTorrent OK", LOG_DEBUG);
 		return true;
 	}
 	else
 	{
-		dolibarr_syslog("funcsv3::verifyTorrent KO res=".$res, LOG_DEBUG);
+		dol_syslog("funcsv3::verifyTorrent KO res=".$res, LOG_DEBUG);
 		return false;
 	}
 }

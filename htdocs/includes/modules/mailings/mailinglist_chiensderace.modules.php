@@ -65,7 +65,7 @@ class mailing_mailinglist_chiensderace extends MailingTargets
 			$num = $this->db->num_rows($result);
 			$i = 0;
 
-			dolibarr_syslog("mailinglist_chiensderace.modules.php: mailing $num cibles trouvées");
+			dol_syslog("mailinglist_chiensderace.modules.php: mailing $num cibles trouvees");
 
 			$old = '';
 			while ($i < $num)
@@ -87,7 +87,7 @@ class mailing_mailinglist_chiensderace extends MailingTargets
 		}
 		else
 		{
-			dolibarr_syslog($this->db->error());
+			dol_syslog($this->db->error());
 			$this->error=$this->db->error();
 			return -1;
 		}
@@ -107,7 +107,7 @@ class mailing_mailinglist_chiensderace extends MailingTargets
 			$num = $this->db->num_rows($result);
 			$i = 0;
 
-			dolibarr_syslog("mailinglist_chiensderace.modules.php: mailing $num cibles trouvées");
+			dol_syslog("mailinglist_chiensderace.modules.php: mailing $num cibles trouvees");
 
 			$old = '';
 			while ($i < $num)
@@ -129,7 +129,7 @@ class mailing_mailinglist_chiensderace extends MailingTargets
 		}
 		else
 		{
-			dolibarr_syslog($this->db->error());
+			dol_syslog($this->db->error());
 			$this->error=$this->db->error();
 			return -1;
 		}

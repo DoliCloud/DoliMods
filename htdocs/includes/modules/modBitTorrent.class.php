@@ -26,7 +26,7 @@
  *      \file       htdocs/includes/modules/modBitTorrent.class.php
  *      \ingroup    mymodule
  *      \brief      Description and activation file for module MyModule
- *		\version	$Id: modBitTorrent.class.php,v 1.10 2011/03/27 16:51:32 eldy Exp $
+ *		\version	$Id: modBitTorrent.class.php,v 1.11 2011/08/17 16:43:26 eldy Exp $
  */
 include_once(DOL_DOCUMENT_ROOT ."/includes/modules/DolibarrModules.class.php");
 
@@ -65,7 +65,7 @@ class modBitTorrent extends DolibarrModules
 		$this->special = 1;
 		// Name of png file (without png) used for this module.
 		// Png file must be in theme/yourtheme/img directory under name object_pictovalue.png.
-		$this->picto='globe';
+		$this->picto='bittorrent@bittorrent';
 
 		// Data directories to create when module is enabled.
 		$this->dirs = array("/bittorrent/torrents","/bittorrent/rss","/bittorrent/files");

@@ -9,7 +9,7 @@ if (! $res) @include("../../../dolibarr/htdocs/master.inc.php");	// Used on dev 
 header("Content-Type: text/plain");
 
 
-dolibarr_syslog("Seed.php called");
+dol_syslog("Seed.php called");
 
 //error_log("One");
 if (!isset($_GET["info_hash"]) || !isset($_GET["piece"]))
@@ -90,7 +90,7 @@ if ($result)
 	$row = mysql_fetch_assoc($result);
 	if ($row["seeds"] > 5) //if there are seeds available, don't use HTTP seeding
 	{
-		dolibarr_syslog("Seed.php There is more than 5 seeds availables. Don't use HTTP");
+		dol_syslog("Seed.php There is more than 5 seeds availables. Don't use HTTP");
 		reject();
 	}
 }
@@ -132,7 +132,7 @@ $xmitbytes = 0;
 
 while ($row = mysql_fetch_assoc($result))
 {
-	dolibarr_syslog("Seed.php Loop on each seed");
+	dol_syslog("Seed.php Loop on each seed");
 
 	if (!($piece >= $row["startpiece"] && $piece <= $row["endpiece"]))
 		continue;

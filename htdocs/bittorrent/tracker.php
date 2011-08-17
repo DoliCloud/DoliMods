@@ -109,7 +109,7 @@ if (!isset($_GET["info_hash"]) || !isset($_GET["peer_id"]))
 // Many thanks to KktoMx for figuring out this head-ache causer,
 // and to bideomex for showing me how to do it PROPERLY... :)
 
-dolibarr_syslog("Tracker.php info_hash=".$_GET["info_hash"]." length info_hash=".strlen($_GET["info_hash"]));
+dol_syslog("Tracker.php info_hash=".$_GET["info_hash"]." length info_hash=".strlen($_GET["info_hash"]));
 
 if (get_magic_quotes_gpc())
 {
@@ -153,7 +153,7 @@ if (isset($_GET["trackerid"]))
 if (!is_numeric($port) || !is_numeric($downloaded) || !is_numeric($uploaded) || !is_numeric($left))
 	showError("Invalid numerical field(s) from client");
 
-dolibarr_syslog("Tracker.php trackerid=".$GLOBALS["trackerid"]." event=".$event." port=".$port." ip=".$ip." download=".$downloaded." uploaded=".$uploaded." left=".$left." info_hash=".$info_hash, LOG_DEBUG);
+dol_syslog("Tracker.php trackerid=".$GLOBALS["trackerid"]." event=".$event." port=".$port." ip=".$ip." download=".$downloaded." uploaded=".$uploaded." left=".$left." info_hash=".$info_hash, LOG_DEBUG);
 
 
 
@@ -165,7 +165,7 @@ function start($info_hash, $ip, $port, $peer_id, $left)
 {
 	global $prefix;
 
-	dolibarr_syslog("Tracker.php::start info_hash=".$info_hash." ip=".$ip." port=".$port." peer_id=".$peer_id." left=".$left);
+	dol_syslog("Tracker.php::start info_hash=".$info_hash." ip=".$ip." port=".$port." peer_id=".$peer_id." left=".$left);
 
 	if (isset($_SERVER["HTTP_X_FORWARDED_FOR"]))
 	{

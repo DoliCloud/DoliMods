@@ -72,7 +72,7 @@ class mailing_mailinglist_chiensderace_forum extends MailingTargets
 			$i = 0;
 			$j = 0;
 
-			dolibarr_syslog("mailinglist_chiensderace_forum.modules.php: mailing $num cibles trouvées");
+			dol_syslog("mailinglist_chiensderace_forum.modules.php: mailing $num cibles trouvees");
 
 			$old = '';
 			while ($i < $num)
@@ -94,7 +94,7 @@ class mailing_mailinglist_chiensderace_forum extends MailingTargets
 		}
 		else
 		{
-			dolibarr_syslog($this->db->error());
+			dol_syslog($this->db->error());
 			$this->error=$this->db->error();
 			return -1;
 		}

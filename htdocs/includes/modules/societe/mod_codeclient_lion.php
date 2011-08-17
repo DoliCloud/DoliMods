@@ -22,7 +22,7 @@
  *       \file       htdocs/includes/modules/societe/mod_codeclient_lion.class.php
  *       \ingroup    societe
  *       \brief      Fichier de la classe des gestion lion des codes clients
- *       \version    $Id: mod_codeclient_lion.php,v 1.4 2010/08/18 11:29:35 eldy Exp $
+ *       \version    $Id: mod_codeclient_lion.php,v 1.5 2011/08/17 16:46:32 eldy Exp $
  */
 
 require_once(DOL_DOCUMENT_ROOT."/includes/modules/societe/modules_societe.class.php");
@@ -48,7 +48,7 @@ class mod_codeclient_lion extends ModeleThirdPartyCode
 	function mod_codeclient_lion()
 	{
 		$this->nom = "Lion";
-		$this->version = '$Revision: 1.4 $';
+		$this->version = '$Revision: 1.5 $';
 		$this->code_modifiable = 0;
 		$this->code_modifiable_invalide = 1;
 		$this->code_modifiable_null = 1;
@@ -152,7 +152,7 @@ class mod_codeclient_lion extends ModeleThirdPartyCode
                 }
             }
         }
-        dolibarr_syslog("mod_codeclient_lion::verif result=".$result);
+        dol_syslog("mod_codeclient_lion::verif result=".$result);
         return $result;
     }
 

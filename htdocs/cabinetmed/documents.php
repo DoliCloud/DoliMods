@@ -20,7 +20,7 @@
  *   \file       htdocs/cabinetmed/documents.php
  *   \brief      Tab for courriers
  *   \ingroup    cabinetmed
- *   \version    $Id: documents.php,v 1.18 2011/08/10 22:46:19 eldy Exp $
+ *   \version    $Id: documents.php,v 1.19 2011/08/17 16:42:20 eldy Exp $
  */
 
 $res=0;
@@ -471,7 +471,7 @@ if ($socid > 0)
 
     // Affiche formulaire upload
     $formfile=new FormFile($db);
-    $title=img_file_new().' '.$langs->trans("AttachANewFile");
+    $title=img_picto('','filenew').' '.$langs->trans("AttachANewFile");
     $formfile->form_attach_new_file($_SERVER["PHP_SELF"].'?socid='.$socid,$title,0,0,$user->rights->societe->creer);
 
 
@@ -498,7 +498,7 @@ if ($socid > 0)
     $instance=new CabinetmedCons($db);
     $instance->fk_soc=$object->id;
     //$hooks=array(0=>array('modules'=>array($instance)));
-    $title=img_file_new().' '.$langs->trans("GenerateADocument");
+    $title=img_picto('','filenew').' '.$langs->trans("GenerateADocument");
     //$somethingshown=$formfile->show_documents('company',$object->id,$filedir,$urlsource,$genallowed,$delallowed,'',0,0,0,64,0,'',$title,'',$object->default_lang,$hookmanager);
     print $formfile->showdocuments('company','','',$urlsource,$genallowed,$delallowed,'',0,0,0,64,0,'',$title,'',$object->default_lang,$hookmanager);
 
@@ -602,5 +602,5 @@ if ($socid > 0)
 
 $db->close();
 
-llxFooter('$Date: 2011/08/10 22:46:19 $ - $Revision: 1.18 $');
+llxFooter('$Date: 2011/08/17 16:42:20 $ - $Revision: 1.19 $');
 ?>
