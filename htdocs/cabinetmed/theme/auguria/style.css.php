@@ -18,9 +18,9 @@
  */
 
 /**
- *		\file       htdocs/cabinetmed/theme/auguria/style.css.php
- *		\brief      Fichier de style CSS du theme auguria
- *		\version    $Id: style.css.php,v 1.12 2011/08/08 23:12:19 eldy Exp $
+ *		\file       htdocs/theme/auguria/style.css.php
+ *		\brief      File for CSS style sheet Auguria
+ *		\version    $Id: style.css.php,v 1.13 2011/08/17 14:28:57 eldy Exp $
  */
 
 //if (! defined('NOREQUIREUSER')) define('NOREQUIREUSER','1');	// Not disabled cause need to load personalized language
@@ -43,6 +43,7 @@ if (! $res && file_exists("../../../../main.inc.php")) $res=@include("../../../.
 if (! $res && file_exists("../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../dolibarr/htdocs/main.inc.php");     // Used on dev env only
 if (! $res && file_exists("../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
 if (! $res && file_exists("../../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
+if (! $res) die("Include of main fails");
 require_once(DOL_DOCUMENT_ROOT."/lib/functions.lib.php");
 
 // Define css type
@@ -63,10 +64,15 @@ $left=($langs->trans("DIRECTION")=='rtl'?'right':'left');
 $fontsize=empty($conf->browser->phone)?'12':'12';
 $fontsizesmaller=empty($conf->browser->phone)?'11':'11';
 
-$fontlist='arial,tahoma,verdana,helvetica';
-//$fontlist='Verdana,Helvetica,Arial,sans-serif';
+$path='/cabinetmed';    // This value may be used in future for external module to overwrite theme
 
-$liste_titre_png=dol_buildpath('/cabinetmed/theme/auguria/img/menus/trtitle.png',1);
+// Define image path files
+$fontlist='arial,tahoma,verdana,helvetica';    //$fontlist='Verdana,Helvetica,Arial,sans-serif';
+//'/theme/auguria/img/menus/trtitle.png';
+$img_liste_titre=dol_buildpath($path.'/theme/auguria/img/menus/trtitle.png',1);
+$img_head=dol_buildpath($path.'/theme/auguria/img/headbg2.jpg',1);
+$img_button=dol_buildpath($path.'/theme/auguria/img/button_bg.png',1);
+
 ?>
 
 /* ============================================================================== */
@@ -74,8 +80,11 @@ $liste_titre_png=dol_buildpath('/cabinetmed/theme/auguria/img/menus/trtitle.png'
 /* ============================================================================== */
 
 body {
-	background: #ffffff url(<?php echo dol_buildpath('/cabinetmed/theme/auguria/img/headbg2.jpg',1) ?>) 0 0 no-repeat;
-/*	background-color: #FFFFFF; */
+<?php if (GETPOST("optioncss") == 'print') {  ?>
+	background-color: #FFFFFF;
+<?php } else { ?>
+	background: #ffffff url(<?php echo $img_head; ?>) 0 0 no-repeat;
+<?php } ?>
 	color: #101010;
 	font-size: <?php print $fontsize ?>px;
     font-family: <?php print $fontlist ?>;
@@ -88,17 +97,16 @@ body {
 
 a:link, a:visited, a:hover, a:active { font-family: <?php print $fontlist ?>; font-weight: bold; color: #000000; text-decoration: none; }
 
-/*
 input:focus, textarea:focus, button:focus, select:focus {
     box-shadow: 0 0 4px #8091BF;
 }
-*/
+
 input {
     font-size: <?php print $fontsize ?>px;
     font-family: <?php print $fontlist ?>;
     background: #FDFDFD;
     border: 1px solid #ACBCBB;
-    padding: 0px 0px 0px 0px;
+    padding: 1px 1px 1px 1px;
     margin: 0px 0px 0px 0px;
 }
 input.flat {
@@ -106,7 +114,7 @@ input.flat {
 	font-family: <?php print $fontlist ?>;
     background: #FDFDFD;
     border: 1px solid #ACBCBB;
-    padding: 0px 0px 0px 0px;
+    padding: 1px 1px 1px 1px;
     margin: 0px 0px 0px 0px;
 }
 input:disabled {
@@ -117,7 +125,7 @@ textarea  {
 	font-family: <?php print $fontlist ?>;
     background: #FDFDFD;
     border: 1px solid #ACBCBB;
-    padding: 0px 0px 0px 0px;
+    padding: 1px 1px 1px 1px;
     margin: 0px 0px 0px 0px;
 }
 textarea.flat {
@@ -125,7 +133,7 @@ textarea.flat {
 	font-family: <?php print $fontlist ?>;
     background: #FDFDFD;
     border: 1px solid #ACBCBB;
-    padding: 0px 0px 0px 0px;
+    padding: 1px 1px 1px 1px;
     margin: 0px 0px 0px 0px;
 }
 textarea:disabled {
@@ -137,14 +145,14 @@ select.flat {
 	font-family: <?php print $fontlist ?>;
 	font-weight: normal;
     border: 1px solid #ACBCBB;
-    padding: 0px 0px 0px 0px;
+    padding: 1px 1px 1px 1px;
     margin: 0px 0px 0px 0px;
 }
 .button {
     font-family: <?php print $fontlist ?>;
 	border: 1px solid #ACBCBB;
 /*    border: 0px; */
-	background-image: url(<?php echo dol_buildpath('/cabinetmed/theme/auguria/img/button_bg.png',1) ?>);
+	background-image: url(<?php echo $img_button ?>);
 	background-position: bottom;
     padding: 0px 2px 0px 2px;
     margin: 0px 0px 0px 0px;
@@ -154,7 +162,7 @@ select.flat {
 	color: #222244;
     border: 1px solid #ACBCBB;
 /*    border: 0px; */
-	background-image: url(<?php echo dol_buildpath('/cabinetmed/theme/auguria/img/button_bg.png',1) ?>);
+	background-image: url(<?php echo $img_button ?>);
 	background-position: bottom;
     padding: 0px 2px 0px 2px;
     margin: 0px 0px 0px 0px;
@@ -162,7 +170,7 @@ select.flat {
 .buttonajax {
     font-family: <?php print $fontlist ?>;
 	border: 0px;
-	background-image: url(<?php echo dol_buildpath('/cabinetmed/theme/auguria/img/button_bg.png',1) ?>);
+	background-image: url(<?php echo $img_button ?>);
 	background-position: bottom;
     padding: 0px 0px 0px 0px;
     margin: 0px 0px 0px 0px;
@@ -176,12 +184,19 @@ div.float
     float:<?php print $left; ?>;
 }
 
-/* For hide object and add pointer cursor */
+/* ============================================================================== */
+/* Styles to hide objects                                                         */
+/* ============================================================================== */
 
 .hideobject { display: none; }
+<?php if (! empty($conf->browser->phone)) { ?>
+.hideonsmartphone { display: none; }
+<?php } ?>
 .linkobject { cursor: pointer; }
 
-/* For dragging lines */
+/* ============================================================================== */
+/* Styles for dragging lines                                                      */
+/* ============================================================================== */
 
 .dragClass {
     color: #002255;
@@ -198,17 +213,35 @@ td.showDragHandle {
 /* Styles de positionnement des zones                                             */
 /* ============================================================================== */
 
-td.vmenu {
-    margin-<?php print $right; ?>: 2px;
-    padding: 0px;
-    padding-bottom: 0px;
-    width: 164px;
+div.fiche {
+	margin-<?php print $left; ?>: <?php print empty($conf->browser->phone)?'10':'2'; ?>px;
+	margin-<?php print $right; ?>: <?php print empty($conf->browser->phone)?'8':''; ?>px;
 }
 
-div.fiche {
-	margin-<?php print $left; ?>: 10px;
-	margin-<?php print $right; ?>: 6px;
+div.fichecenter {
+	width: 100%;
+	clear: both;	/* This is to have div fichecenter that are true rectangles */
 }
+div.fichethirdleft {
+	<?php if (empty($conf->browser->phone)) { print "float: ".$left.";\n"; } ?>
+	<?php if (empty($conf->browser->phone)) { print "width: 35%;\n"; } ?>
+}
+div.fichetwothirdright {
+	<?php if (empty($conf->browser->phone)) { print "float: ".$left.";\n"; } ?>
+	<?php if (empty($conf->browser->phone)) { print "width: 65%;\n"; } ?>
+}
+div.fichehalfleft {
+	<?php if (empty($conf->browser->phone)) { print "float: ".$left.";\n"; } ?>
+	<?php if (empty($conf->browser->phone)) { print "width: 50%;\n"; } ?>
+}
+div.fichehalfright {
+	<?php if (empty($conf->browser->phone)) { print "float: ".$left.";\n"; } ?>
+	<?php if (empty($conf->browser->phone)) { print "width: 50%;\n"; } ?>
+}
+div.ficheaddleft {
+	<?php if (empty($conf->browser->phone)) { print "padding-left: 8px;\n"; } ?>
+}
+
 
 /* ============================================================================== */
 /* Menu top et 1ere ligne tableau                                                 */
@@ -243,7 +276,7 @@ div.tmenu {
     font-weight: normal;
     height: <?php print $heightmenu; ?>px;
     background: #7FAEC6;
-    background-image: url(<?php echo dol_buildpath('/cabinetmed/theme/auguria/img/menus/table_bg.gif',1) ?>);
+    background-image: url(<?php echo dol_buildpath($path.'/theme/auguria/img/menus/table_bg.gif',1); ?>);
 /*    background-position: center bottom; */
     color: #000000;
     text-decoration: none;
@@ -265,6 +298,56 @@ div.mainmenu {
 
 <?php if (empty($conf->browser->phone)) { ?>
 
+/*
+div.mainmenu.home{
+	background-image: url(<?php echo dol_buildpath($path.'/theme/auguria/img/menus/home.png',1); ?>);
+}
+
+div.mainmenu.companies {
+	background-image: url(<?php echo dol_buildpath($path.'/theme/auguria/img/menus/company.png',1); ?>);
+}
+
+div.mainmenu.products {
+	background-image: url(<?php echo dol_buildpath($path.'/theme/auguria/img/menus/products.png',1); ?>);
+	margin-left: 10px;
+}
+
+div.mainmenu.commercial {
+	background-image: url(<?php echo dol_buildpath($path.'/theme/auguria/img/menus/commercial.png',1); ?>);
+}
+
+div.mainmenu.accountancy {
+	background-image: url(<?php echo dol_buildpath($path.'/theme/auguria/img/menus/money.png',1); ?>);
+}
+
+div.mainmenu.project {
+	background-image: url(<?php echo dol_buildpath($path.'/theme/auguria/img/menus/project.png',1); ?>);
+}
+
+div.mainmenu.tools {
+	background-image: url(<?php echo dol_buildpath($path.'/theme/auguria/img/menus/tools.png',1); ?>);
+}
+
+div.mainmenu.members {
+	background-image: url(<?php echo dol_buildpath($path.'/theme/auguria/img/menus/members.png',1); ?>);
+}
+
+div.mainmenu.shop {
+	background-image: url(<?php echo dol_buildpath($path.'/theme/auguria/img/menus/shop.png',1); ?>);
+}
+
+div.mainmenu.agenda {
+	background-image: url(<?php echo dol_buildpath($path.'/theme/auguria/img/menus/agenda.png',1); ?>);
+}
+
+div.mainmenu.ecm {
+	background-image: url(<?php echo dol_buildpath($path.'/theme/auguria/img/menus/ecm.png',1); ?>);
+}
+
+div.mainmenu.cashdesk {
+	background-image: url(<?php echo dol_buildpath($path.'/theme/auguria/img/menus/pointofsale.png',1); ?>);
+}
+*/
 <?php
 // Add here more div for other menu entries. moduletomainmenu=array('module name'=>'name of class for div')
 
@@ -298,7 +381,7 @@ foreach($mainmenuusedarray as $key => $val)
 	{
 		if (file_exists($dirroot."/".$val."/img/".$val.".png"))
 		{
-			$url=dol_buildpath('/cabinetmed/'.$val.'/img/'.$val.'.png',1);
+			$url=dol_buildpath($path.'/'.$val.'/img/'.$val.'.png',1);
 			$found=1;
 			break;
 		}
@@ -306,7 +389,7 @@ foreach($mainmenuusedarray as $key => $val)
 	// Img file not found
 	if (! $found && $generic <= 4)
 	{
-		$url=dol_buildpath('/cabinetmed/theme/auguria/img/menus/generic'.$generic.'.png',1);
+		$url=dol_buildpath($path.'/theme/auguria/img/menus/generic'.$generic.".png",1);
 		$found=1;
 		$generic++;
 	}
@@ -326,13 +409,12 @@ foreach($mainmenuusedarray as $key => $val)
 }	// End test if not phone
 ?>
 
-
 .tmenu{
 	position:relative;
 	font-size: 10px;	/* To reduce to have more entries */
 	font-family:Tahoma,sans-serif;
 	text-transform:uppercase;
-	background: url(<?php echo dol_buildpath('/cabinetmed/theme/auguria/img/menus/topmenu_bg.png',1) ?>) repeat-x bottom left;
+	background: url(<?php echo dol_buildpath($path.'/theme/auguria/img/menus/topmenu_bg.png',1) ?>) repeat-x bottom left;
 }
 
 .tmenu ul{
@@ -368,7 +450,7 @@ foreach($mainmenuusedarray as $key => $val)
 
 .tmenu ul li a:hover{
 	color:#fff;
-	background:transparent url(<?php echo dol_buildpath('/cabinetmed/theme/auguria/img/menus/topmenu_bg_over.gif',1) ?>) repeat-x bottom left;
+	background:transparent url(<?php echo dol_buildpath($path.'/theme/auguria/img/menus/topmenu_bg_over.gif',1); ?>) repeat-x bottom left;
 }
 
 .tmenu ul li a:hover span{
@@ -379,7 +461,7 @@ foreach($mainmenuusedarray as $key => $val)
 
 .tmenu ul li a.tmenusel{
 	color:#fff;
-	background: url(<?php echo dol_buildpath('/cabinetmed/theme/auguria/img/menus/topmenu_left.gif',1) ?>) no-repeat top left;
+	background: url(<?php echo dol_buildpath($path.'/theme/auguria/img/menus/topmenu_left.gif',1); ?>) no-repeat top left;
 	line-height:305%;
 }
 
@@ -387,7 +469,7 @@ foreach($mainmenuusedarray as $key => $val)
 	display:block;
 	padding:4px 8px 0 0;
 	width:auto;
-	background: url(<?php echo dol_buildpath('/cabinetmed/theme/auguria/img/menus/topmenu_right.png',1) ?>) no-repeat top right;
+	background: url(<?php echo dol_buildpath($path.'/theme/auguria/img/menus/topmenu_right.png',1); ?>) no-repeat top right;
 	height:33px;
 }
 
@@ -423,7 +505,7 @@ div.login_block table {
 
 div.login {
 	white-space:nowrap;
-	padding: 8px 0px 0px 0px;
+    padding: <?php echo ($conf->browser->phone?'0':'8')?>px 0px 0px 0px;
 	margin: 0px 0px 0px 8px;
 	font-weight: bold;
 }
@@ -436,7 +518,7 @@ div.login a:hover {
 }
 
 img.login, img.printer, img.entity {
-	padding: 8px 0px 0px 0px;
+	padding: <?php echo ($conf->browser->phone?'0':'8')?>px 0px 0px 0px;
 	margin: 0px 0px 0px 8px;
 	text-decoration: none;
 	color: white;
@@ -448,8 +530,14 @@ img.login, img.printer, img.entity {
 /* Menu gauche                                                                    */
 /* ============================================================================== */
 
-<?php if ((GETPOST("optioncss") == 'print')
-|| (! empty($conf->browser->phone) && empty($conf->global->MAIN_SEARCHFORM_WITH_SMARTHPONE) && empty($conf->global->BOOKMARKS_SHOW_WITH_SMARTHPONE))) { ?>
+td.vmenu {
+    margin-<?php print $right; ?>: 2px;
+    padding: 0px;
+    padding-bottom: 0px;
+    width: 164px;
+}
+
+<?php if (GETPOST("optioncss") == 'print') { ?>
 .vmenu {
 	display: none;
 }
@@ -498,7 +586,7 @@ div.blockvmenuimpair form a.vmenu, div.blockvmenupair form a.vmenu
 
 div.menu_titre
 {
-	background: url(<?php echo dol_buildpath('/cabinetmed/theme/auguria/img/bg-titre-rubrique.png',1) ?>);
+	background: url(<?php echo dol_buildpath($path.'/theme/auguria/img/bg-titre-rubrique.png',1); ?>);
 	padding: 0px;
 	padding-top:5px;
 	padding-left:0px;
@@ -558,7 +646,8 @@ div.blockvmenuhelp
 }
 
 div.menu_contenu {
-	background: url(<?php echo dol_buildpath('/cabinetmed/theme/auguria/img/bg-rubrique.png',1) ?>);
+	background: url(<?php echo dol_buildpath($path.'/theme/auguria/img/bg-rubrique.png',1); ?>);
+	padding: 8px 0px 0px 0px;
 	margin: 0px;
 	padding: 1px;
 
@@ -570,7 +659,7 @@ div.menu_contenu {
 }
 
 div.menu_end {
-	background: url(<?php echo dol_buildpath('/cabinetmed/theme/auguria/img/bg-bas-rubrique.png',1) ?>);
+	background: url(<?php echo dol_buildpath($path.'/theme/auguria/img/bg-bas-rubrique.png',1); ?>);
 /*	border-top: 1px solid #436981; */
 	margin: 0px;
 	padding: 0px;
@@ -610,10 +699,6 @@ td.photo {
  *  PANES and CONTENT-DIVs
  */
 
-#mainContent {
-	background: #ffffff url(<?php echo dol_buildpath('/cabinetmed/theme/auguria/img/headbg2.jpg',1) ?>) 0 0 no-repeat;
-}
-
 #mainContent, #leftContent .ui-layout-pane {
     padding:    0px;
     overflow:	auto;
@@ -631,7 +716,7 @@ td.photo {
 /* ============================================================================== */
 
 .toolbar {
-    background-image: url(<?php echo dol_buildpath('/cabinetmed/theme/'.$conf->theme.'/img/tmenu2.jpg',1) ?>) !important;
+    background-image: url(<?php echo dol_buildpath($path.'/theme/'.$conf->theme.'/img/tmenu2.jpg',1); ?>) !important;
     background-repeat: repeat-x !important;
     border: 1px solid #BBB !important;
 }
@@ -682,88 +767,132 @@ td.photo {
  *  RESIZER-BARS
  */
 .ui-layout-resizer  { /* all 'resizer-bars' */
-    background:     #EEE;
-    border:         1px solid #BBB;
-    border-width:   0;
+	width: 8px !important;
+}
+.ui-layout-resizer-hover    {   /* affects both open and closed states */
+}
+/* NOTE: It looks best when 'hover' and 'dragging' are set to the same color,
+    otherwise color shifts while dragging when bar can't keep up with mouse */
+/*.ui-layout-resizer-open-hover ,*/ /* hover-color to 'resize' */
+.ui-layout-resizer-dragging {   /* resizer beging 'dragging' */
+    background: #DDD;
+    width: 8px;
+}
+.ui-layout-resizer-dragging {   /* CLONED resizer being dragged */
+    border-left:  1px solid #BBB;
+    border-right: 1px solid #BBB;
+}
+/* NOTE: Add a 'dragging-limit' color to provide visual feedback when resizer hits min/max size limits */
+.ui-layout-resizer-dragging-limit { /* CLONED resizer at min or max size-limit */
+    background: #E1A4A4; /* red */
+}
+.ui-layout-resizer-closed:hover {
+    background-color: #EEDDDD;
+}
+.ui-layout-resizer-sliding {    /* resizer when pane is 'slid open' */
+    opacity: .10; /* show only a slight shadow */
+    filter:  alpha(opacity=10);
     }
-    .ui-layout-resizer-drag {       /* REAL resizer while resize in progress */
+    .ui-layout-resizer-sliding-hover {  /* sliding resizer - hover */
+        opacity: 1.00; /* on-hover, show the resizer-bar normally */
+        filter:  alpha(opacity=100);
     }
-    .ui-layout-resizer-hover    {   /* affects both open and closed states */
-    }
-    /* NOTE: It looks best when 'hover' and 'dragging' are set to the same color,
-        otherwise color shifts while dragging when bar can't keep up with mouse */
-    /* .ui-layout-resizer-open-hover , */ /* hover-color to 'resize' */
-    .ui-layout-resizer-dragging {   /* resizer beging 'dragging' */
-        background: #AAA;
-    }
-    .ui-layout-resizer-dragging {   /* CLONED resizer being dragged */
-        border-left:  1px solid #BBB;
-        border-right: 1px solid #BBB;
-    }
-    /* NOTE: Add a 'dragging-limit' color to provide visual feedback when resizer hits min/max size limits */
-    .ui-layout-resizer-dragging-limit { /* CLONED resizer at min or max size-limit */
-        background: #E1A4A4; /* red */
-    }
-
-    .ui-layout-resizer-closed-hover { /* hover-color to 'slide open' */
-        background: #EBD5AA;
-    }
-    .ui-layout-resizer-sliding {    /* resizer when pane is 'slid open' */
-        opacity: .10; /* show only a slight shadow */
-        filter:  alpha(opacity=10);
-        }
-        .ui-layout-resizer-sliding-hover {  /* sliding resizer - hover */
-            opacity: 1.00; /* on-hover, show the resizer-bar normally */
-            filter:  alpha(opacity=100);
-        }
-        /* sliding resizer - add 'outside-border' to resizer on-hover
-         * this sample illustrates how to target specific panes and states */
-        .ui-layout-resizer-north-sliding-hover  { border-bottom-width:  1px; }
-        .ui-layout-resizer-south-sliding-hover  { border-top-width:     1px; }
-        .ui-layout-resizer-west-sliding-hover   { border-right-width:   1px; }
-        .ui-layout-resizer-east-sliding-hover   { border-left-width:    1px; }
+/* sliding resizer - add 'outside-border' to resizer on-hover
+ * this sample illustrates how to target specific panes and states */
+.ui-layout-resizer-north-sliding-hover  { border-bottom-width:  1px; }
+.ui-layout-resizer-south-sliding-hover  { border-top-width:     1px; }
+.ui-layout-resizer-west-sliding-hover   { border-right-width:   1px; }
+.ui-layout-resizer-east-sliding-hover   { border-left-width:    1px; }
 
 /*
  *  TOGGLER-BUTTONS
  */
 .ui-layout-toggler {
-    border: 1px solid #BBB; /* match pane-border */
-    background-color: #BBB;
+    border-top: 1px solid #AAA; /* match pane-border */
+    border-right: 1px solid #AAA; /* match pane-border */
+    border-bottom: 1px solid #AAA; /* match pane-border */
+    background-color: #DDD;
+    top: 5px !important;
     }
-    .ui-layout-resizer-hover .ui-layout-toggler {
-        opacity: .60;
-        filter:  alpha(opacity=60);
+.ui-layout-toggler-open {
+	height: 48px !important;
+	width: 5px !important;
+    -moz-border-radius:0px 10px 10px 0px;
+	-webkit-border-radius:0px 10px 10px 0px;
+	border-radius:0px 10px 10px 0px;
+}
+.ui-layout-toggler-closed {
+	height: 48px !important;
+	width: 5px !important;
+    -moz-border-radius:0px 10px 10px 0px;
+	-webkit-border-radius:0px 10px 10px 0px;
+	border-radius:0px 10px 10px 0px;
+}
+.ui-layout-toggler .content {	/* style the text we put INSIDE the togglers */
+    color:          #666;
+    font-size:      12px;
+    font-weight:    bold;
+    width:          100%;
+    padding-bottom: 0.35ex; /* to 'vertically center' text inside text-span */
+}
+
+/* hide the toggler-button when the pane is 'slid open' */
+.ui-layout-resizer-sliding  ui-layout-toggler {
+    display: none;
+}
+
+.ui-layout-north {
+	height: <?php print (empty($conf->browser->phone)?'42':'42'); ?>px !important;
+}
+
+/* ECM */
+
+#containerlayout .ecm-layout-pane { /* all 'panes' */
+    background: #FFF;
+    border:     1px solid #BBB;
+    /* DO NOT add scrolling (or padding) to 'panes' that have a content-div,
+       otherwise you may get double-scrollbars - on the pane AND on the content-div
+    */
+    padding:    0px;
+    overflow:   auto;
+}
+/* (scrolling) content-div inside pane allows for fixed header(s) and/or footer(s) */
+#containerlayout .ecm-layout-content {
+	padding:    10px;
+	position:   relative; /* contain floated or positioned elements */
+	overflow:   auto; /* add scrolling to content-div */
+}
+
+.ecm-layout-toggler {
+    background-color: #DDD;
     }
-    .ui-layout-resizer-hover .ui-layout-toggler-hover { /* need specificity */
-        background-color: #FC6;
-        opacity: 1.00;
-        filter:  alpha(opacity=100);
-    }
-    .ui-layout-toggler-north ,
-    .ui-layout-toggler-south {
-        border-width: 0 1px; /* left/right borders */
-    }
-    .ui-layout-toggler-west ,
-    .ui-layout-toggler-east {
-        border-width: 1px 0; /* top/bottom borders */
-    }
-    /* hide the toggler-button when the pane is 'slid open' */
-    .ui-layout-resizer-sliding  ui-layout-toggler {
-        display: none;
-    }
-    /*
-     *  style the text we put INSIDE the togglers
-     */
-    .ui-layout-toggler .content {
-        color:          #666;
-        font-size:      12px;
-        font-weight:    bold;
-        width:          100%;
-        padding-bottom: 0.35ex; /* to 'vertically center' text inside text-span */
+.ecm-layout-toggler-open {
+	height: 48px !important;
+	width: 6px !important;
+}
+.ecm-layout-toggler-closed {
+	height: 48px !important;
+	width: 6px !important;
+}
+.ecm-layout-toggler .content {	/* style the text we put INSIDE the togglers */
+    color:          #666;
+    font-size:      12px;
+    font-weight:    bold;
+    width:          100%;
+    padding-bottom: 0.35ex; /* to 'vertically center' text inside text-span */
+}
+#ecm-layout-west-resizer {
+	width: 6px !important;
+}
+
+.ecm-layout-resizer  { /* all 'resizer-bars' */
+    background:     #EEE;
+    border:         1px solid #BBB;
+    border-width:   0;
     }
 
 .ecm-in-layout-center {
-    border-left: 0px !important;
+    border-left: 1px !important;
     border-right: 0px !important;
     border-top: 0px !important;
 }
@@ -774,6 +903,7 @@ td.photo {
     border-bottom: 0px !important;
     padding: 4px 0 4px 4px !important;
 }
+
 
 
 /* ============================================================================== */
@@ -802,7 +932,7 @@ div.tabBar {
     border-bottom: 1px solid #555555;
     border-left: 1px solid #D0D0D0;
     border-top: 1px solid #D8D8D8;
-    background: #dee7ec url(<?php echo dol_buildpath('/cabinetmed/theme/auguria/img/tab_background.png',1) ?>) repeat-x;
+    background: #dee7ec url(<?php echo dol_buildpath($path.'/theme/auguria/img/tab_background.png',1) ?>) repeat-x;
 }
 
 div.tabsAction {
@@ -918,9 +1048,7 @@ span.tabspan {
 /* Boutons actions                                                                */
 /* ============================================================================== */
 
-/* Nouvelle syntaxe a utiliser */
-
-.butAction:link, .butAction:visited, .butAction:hover, .butAction:active, .butActionDelete, .butActionDelete:link, .butActionDelete:visited, .butActionDelete:hover, .butActionDelete:active {
+.butAction, .butAction:link, .butAction:visited, .butAction:hover, .butAction:active, .butActionDelete, .butActionDelete:link, .butActionDelete:visited, .butActionDelete:hover, .butActionDelete:active {
 	font-family: <?php print $fontlist ?>;
 	font-weight: bold;
 	background: white;
@@ -958,9 +1086,8 @@ span.tabspan {
 }
 
 span.butAction, span.butActionDelete {
-    cursor: pointer;
+	cursor: pointer;
 }
-
 
 /* ============================================================================== */
 /* Tables                                                                         */
@@ -971,7 +1098,7 @@ span.butAction, span.butActionDelete {
 }
 /*
 #undertopmenu {
-background-image: url("<?php echo dol_buildpath('/cabinetmed/theme/auguria/img/gradient.gif',1) ?>");
+background-image: url("<?php echo dol_buildpath($path.'/theme/auguria/img/gradient.gif',1); ?>");
 background-repeat: repeat-x;
 }
 */
@@ -1062,7 +1189,7 @@ border-left-style: solid;
 }
 
 table.noborder td {
-padding: 1px 2px 0px 1px;			/* t r b l */
+padding: 1px 2px 2px 1px;			/* t r b l */
 }
 
 table.nobordernopadding {
@@ -1111,7 +1238,7 @@ padding-right: 2px;
 tr.liste_titre {
 height: 24px;
 background: #7699A9;
-background-image: url(<?php echo $liste_titre_png ?>);
+background-image: url(<?php echo $img_liste_titre ?>);
 background-repeat: repeat-x;
 color: #FFFFFF;
 font-family: <?php print $fontlist ?>;
@@ -1120,7 +1247,7 @@ white-space: nowrap;
 }
 td.liste_titre {
 background: #7699A9;
-background-image: url(<?php echo $liste_titre_png ?>);
+background-image: url(<?php echo $img_liste_titre ?>);
 background-repeat: repeat-x;
 color: #FFFFFF;
 font-family: <?php print $fontlist ?>;
@@ -1131,7 +1258,7 @@ white-space: nowrap;
 td.liste_titre_sel
 {
 background: #7699A9;
-background-image: url(<?php echo $liste_titre_png ?>);
+background-image: url(<?php echo $img_liste_titre ?>);
 background-repeat: repeat-x;
 color: #FFFFFF;
 font-family: <?php print $fontlist ?>;
@@ -1149,7 +1276,6 @@ border: 0px;
 tr.liste_total td {
 border-top: 1px solid #DDDDDD;
 background: #F0F0F0;
-/* background-image: url(<?php echo dol_buildpath('/cabinetmed/theme/login_background.png',1) ?>); */
 background-repeat: repeat-x;
 color: #332266;
 font-weight: normal;
@@ -1215,7 +1341,7 @@ padding-bottom: 4px;
 tr.box_titre {
 height: 24px;
 background: #7699A9;
-background-image: url(<?php echo $liste_titre_png ?>);
+background-image: url(<?php echo $img_liste_titre; ?>);
 background-repeat: repeat-x;
 color: #FFFFFF;
 font-family: <?php print $fontlist ?>, sans-serif;
@@ -1308,10 +1434,6 @@ a.impayee:hover { font-weight: bold; color: #550000; }
  */
 
 .fieldrequired { font-weight: bold; color: #000055; }
-
-#pictotitle {
-	<?php print !empty($conf->browser->phone)?'display: none;':''; ?>
-}
 
 .photo {
 border: 0px;
@@ -1547,7 +1669,7 @@ table.cal_event td { border: 0px; padding-<?php print $left; ?>: 0px; padding-<?
 /* ============================================================================== */
 
 .ui-widget { font-family: Verdana,Arial,sans-serif; font-size: 0.9em; }
-.ui-autocomplete-loading { background: white url(<?php echo DOL_URL_ROOT.'/theme/eldy/img/working.gif' ?>) right center no-repeat; }
+.ui-autocomplete-loading { background: white url(<?php echo dol_buildpath($path.'/theme/eldy/img/working.gif',1) ?>) right center no-repeat; }
 
 
 /* ============================================================================== */
@@ -1569,7 +1691,7 @@ form.inplaceeditor-form input[type="submit"] { /* The submit button */
   font-size: 100%;
   font-weight:normal;
 	border: 0px;
-	background-image : url(<?php echo dol_buildpath('/cabinetmed/theme/auguria/img/button_bg.png',1) ?>);
+	background-image : url(<?php echo dol_buildpath($path.'/theme/auguria/img/button_bg.png',1) ?>);
 	background-position : bottom;
 	cursor:pointer;
 }
@@ -1579,7 +1701,7 @@ form.inplaceeditor-form a { /* The cancel link */
   font-size: 11px;
 	font-weight:normal;
 	border: 0px;
-	background-image : url(<?php echo dol_buildpath('/cabinetmed/theme/auguria/img/button_bg.png',1) ?>);
+	background-image : url(<?php echo dol_buildpath($path.'/theme/auguria/img/button_bg.png',1); ?>);
 	background-position : bottom;
 	cursor:pointer;
 }
@@ -1590,7 +1712,7 @@ form.inplaceeditor-form a { /* The cancel link */
 /* Admin Menu                                                                     */
 /* ============================================================================== */
 
-/* CSS a  appliquer a  l'arbre hierarchique */
+/* CSS for treeview */
 
 /* Lien plier /deplier tout */
 .arbre-switch {
@@ -1608,16 +1730,16 @@ ul.arbre strong {
     font-weight: normal;
     padding: 0 0 0 20px;
     margin: 0 0 0 -7px;
-    background-image: url(<?php echo dol_buildpath('/cabinetmed/theme/common/treemenu/branch.gif',1) ?>);
+    background-image: url(<?php echo dol_buildpath($path.'/theme/common/treemenu/branch.gif',1); ?>);
     background-repeat: no-repeat;
     background-position: 1px 50%;
 }
 ul.arbre strong.arbre-plier {
-    background-image: url(<?php echo dol_buildpath('/cabinetmed/theme/common/treemenu/plus.gif',1) ?>);
+    background-image: url(<?php echo dol_buildpath($path.'/theme/common/treemenu/plus.gif',1); ?>);
     cursor: pointer;
 }
 ul.arbre strong.arbre-deplier {
-    background-image: url(<?php echo dol_buildpath('/cabinetmed/theme/common/treemenu/minus.gif',1) ?>);
+    background-image: url(<?php echo dol_buildpath($path.'/theme/common/treemenu/minus.gif',1); ?>);
     cursor: pointer;
 }
 ul.arbre ul {
@@ -1745,6 +1867,8 @@ div.menuFleche
 }
 
 
+
+
 /* ============================================================================== */
 /*  CSS for color picker                                                          */
 /* ============================================================================== */
@@ -1860,7 +1984,25 @@ A.none, A.none:active, A.none:visited, A.none:hover {
     border: 0px solid #FF0000 !important;
 }
 span.cke_skin_kama { padding: 0 ! important; }
-
+a.cke_dialog_ui_button
+{
+    font-family: <?php print $fontlist ?> !important;
+	background-image: url(<?php echo $img_button ?>) !important;
+	background-position: bottom !important;
+    border: 1px solid #ACBCBB !important;
+	padding: 0.1em 0.7em !important;
+	margin: 0em 0.5em !important;
+    -moz-border-radius:0px 5px 0px 5px !important;
+	-webkit-border-radius:0px 5px 0px 5px !important;
+	border-radius:0px 5px 0px 5px !important;
+    -moz-box-shadow: 4px 4px 4px #CCC !important;
+    -webkit-box-shadow: 4px 4px 4px #CCC !important;
+    box-shadow: 4px 4px 4px #CCC !important;
+}
+.cke_dialog_ui_hbox_last
+{
+	vertical-align: bottom ! important;
+}
 
 
 /* ============================================================================== */
@@ -1870,6 +2012,7 @@ span.cke_skin_kama { padding: 0 ! important; }
 .template-upload {
     height: 72px !important;
 }
+
 
 /* ============================================================================== */
 /*  Test using div instead of tables                                              */
@@ -1885,7 +2028,7 @@ div.tablelines {
 div.thead {
 	height: 24px;
 	background: #7699A9;
-	background-image: url(<?php echo DOL_URL_ROOT.'/theme/auguria/img/menus/trtitle.png' ?>);
+	background-image: url(<?php echo dol_buildpath($path.'/theme/auguria/img/menus/trtitle.png',1); ?>);
 	background-repeat: repeat-x;
 	color: #FFFFFF;
 	font-family: <?php print $fontlist ?>;
@@ -1926,9 +2069,13 @@ div.showDragHandle {
 	cursor: move;
 }
 div.tdlineupdown {
-	background-image: url(<?php echo DOL_URL_ROOT.'/theme/'.$conf->theme.'/img/grip.png' ?>);
+	background-image: url(<?php echo dol_buildpath($path.'/theme/'.$conf->theme.'/img/grip.png',1); ?>);
     background-repeat: no-repeat;
     background-position: center center;
     cursor: move;
 	white-space: nowrap;
 }
+
+<?php
+if (is_object($db)) $db->close();
+?>

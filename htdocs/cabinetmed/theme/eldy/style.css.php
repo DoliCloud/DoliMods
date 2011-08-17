@@ -20,7 +20,7 @@
 /**
  *		\file       htdocs/cabinetmed/theme/eldy/style.css.php
  *		\brief      Fichier de style CSS du theme Eldy
- *		\version    $Id: style.css.php,v 1.20 2011/08/15 20:50:34 eldy Exp $
+ *		\version    $Id: style.css.php,v 1.21 2011/08/17 14:29:06 eldy Exp $
  */
 
 //if (! defined('NOREQUIREUSER')) define('NOREQUIREUSER','1');	// Not disabled cause need to load personalized language
@@ -223,7 +223,7 @@ td.showDragHandle {
 
 div.fiche {
 	margin-<?php print $left; ?>: <?php print empty($conf->browser->phone)?'10':'2'; ?>px;
-	margin-<?php print $right; ?>: <?php print empty($conf->browser->phone)?'6':''; ?>px;
+	margin-<?php print $right; ?>: <?php print empty($conf->browser->phone)?'8':''; ?>px;
 }
 
 div.fichecenter {
@@ -247,7 +247,7 @@ div.fichehalfright {
 	<?php if (empty($conf->browser->phone)) { print "width: 50%;\n"; } ?>
 }
 div.ficheaddleft {
-	<?php if (empty($conf->browser->phone)) { print "padding-left: 6px;\n"; } ?>
+	<?php if (empty($conf->browser->phone)) { print "padding-left: 8px;\n"; } ?>
 }
 
 
@@ -481,7 +481,7 @@ foreach($mainmenuusedarray as $key => $val)
 	{
 		if (file_exists($dirroot."/".$val."/img/".$val.".png"))
 		{
-			$url=dol_buildpath('/'.$val.'/img/'.$val.'.png',1);
+			$url=dol_buildpath($path.'/'.$val.'/img/'.$val.'.png',1);
 			$found=1;
 			break;
 		}
@@ -489,7 +489,7 @@ foreach($mainmenuusedarray as $key => $val)
 	// Img file not found
 	if (! $found && $generic <= 4)
 	{
-		$url=dol_buildpath($path."/theme/eldy/img/menus/generic".$generic.".png",1);
+		$url=dol_buildpath($path.'/theme/eldy/img/menus/generic'.$generic.".png",1);
 		$found=1;
 		$generic++;
 	}
@@ -2053,3 +2053,7 @@ a.cke_dialog_ui_button
     background: #dee7ec url(<?php echo dol_buildpath($path.'/theme/eldy/img/tab_background.png',1) ?>) repeat-x;
     text-align: left;
 }
+
+<?php
+if (is_object($db)) $db->close();
+?>
