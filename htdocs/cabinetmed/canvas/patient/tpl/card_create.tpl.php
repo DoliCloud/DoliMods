@@ -15,7 +15,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *
- * $Id: card_create.tpl.php,v 1.7 2011/07/02 15:01:01 eldy Exp $
+ * $Id: card_create.tpl.php,v 1.8 2011/08/18 22:54:50 eldy Exp $
  */
 
 global $db,$conf,$mysoc,$langs,$user;
@@ -53,7 +53,7 @@ $soc->adresse=$_POST["adresse"]; // TODO obsolete
 $soc->address=$_POST["adresse"];
 $soc->cp=$_POST["zipcode"];
 $soc->ville=$_POST["town"];
-$soc->departement_id=$_POST["departement_id"];
+$soc->state_id=$_POST["departement_id"];
 $soc->tel=$_POST["tel"];
 $soc->fax=$_POST["fax"];
 $soc->email=$_POST["email"];

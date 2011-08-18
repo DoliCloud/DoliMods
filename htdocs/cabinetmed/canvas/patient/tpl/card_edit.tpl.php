@@ -15,7 +15,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *
- * $Id: card_edit.tpl.php,v 1.3 2011/06/07 22:04:37 eldy Exp $
+ * $Id: card_edit.tpl.php,v 1.4 2011/08/18 22:54:50 eldy Exp $
  */
 
 $soc=$GLOBALS['objcanvas']->control->object;
@@ -63,7 +63,7 @@ if ($_POST["nom"])
     $soc->address=$_POST["adresse"];
     $soc->cp=$_POST["zipcode"];
     $soc->ville=$_POST["town"];
-    $soc->departement_id=$_POST["departement_id"];
+    $soc->state_id=$_POST["departement_id"];
     $soc->tel=$_POST["tel"];
     $soc->fax=$_POST["fax"];
     $soc->email=$_POST["email"];
@@ -189,7 +189,7 @@ print '</td></tr>';
 if (empty($conf->global->SOCIETE_DISABLE_STATE))
 {
     print '<tr><td>'.$langs->trans('State').'</td><td colspan="3">';
-    $formcompany->select_departement($soc->departement_id,$soc->pays_code);
+    $formcompany->select_departement($soc->state_id,$soc->pays_code);
     print '</td></tr>';
 }
 

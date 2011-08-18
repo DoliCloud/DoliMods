@@ -27,7 +27,7 @@
  *	\file       htdocs/societe/class/societe.class.php
  *	\ingroup    societe
  *	\brief      File for third party class
- *	\version    $Id: patient.class.php,v 1.5 2011/02/20 11:07:50 eldy Exp $
+ *	\version    $Id: patient.class.php,v 1.6 2011/08/18 22:54:49 eldy Exp $
  */
 require_once(DOL_DOCUMENT_ROOT."/core/class/commonobject.class.php");
 
@@ -362,13 +362,17 @@ class Patient extends CommonObject
 
         // Clean parameters
         $this->id=$id;
-        $this->nom=trim($this->nom);
+        $this->nom=trim($this->nom);     // TODO obsolete
+        $this->name=trim($this->name);
         $this->adresse=trim($this->adresse); // TODO obsolete
         $this->address=trim($this->address);
-        $this->cp=trim($this->cp);
-        $this->ville=trim($this->ville);
-        $this->departement_id=trim($this->departement_id);
-        $this->pays_id=trim($this->pays_id);
+        $this->cp=trim($this->cp);     // TODO obsolete
+        $this->zip=trim($this->zip);
+        $this->ville=trim($this->ville);     // TODO obsolete
+        $this->town=trim($this->ville);
+        $this->pays_id=trim($this->pays_id); // TODO obsolete
+        $this->country_id=trim($this->pays_id);
+        $this->state_id=trim($this->state_id);
         $this->tel=trim($this->tel);
         $this->fax=trim($this->fax);
         $this->tel = preg_replace("/\s/","",$this->tel);
@@ -430,7 +434,7 @@ class Patient extends CommonObject
             $sql.= ",cp = ".($this->cp?"'".$this->cp."'":"null");
             $sql.= ",ville = ".($this->ville?"'".addslashes($this->ville)."'":"null");
 
-            $sql .= ",fk_departement = '" . ($this->departement_id?$this->departement_id:'0') ."'";
+            $sql .= ",fk_departement = '" . ($this->state_id?$this->state_id:'0') ."'";
             $sql .= ",fk_pays = '" . ($this->pays_id?$this->pays_id:'0') ."'";
 
             $sql .= ",tel = ".($this->tel?"'".addslashes($this->tel)."'":"null");
@@ -629,9 +633,7 @@ class Patient extends CommonObject
                 $this->country_code = $obj->fk_pays?$obj->pays_code:'';
                 $this->pays 		= $obj->fk_pays?($langs->trans('Country'.$obj->pays_code)!='Country'.$obj->pays_code?$langs->trans('Country'.$obj->pays_code):$obj->pays):''; // TODO obsolete
                 $this->country 		= $obj->fk_pays?($langs->trans('Country'.$obj->pays_code)!='Country'.$obj->pays_code?$langs->trans('Country'.$obj->pays_code):$obj->pays):'';
-
-                $this->departement_id = $obj->fk_departement;
-                $this->departement	= $obj->fk_departement?$obj->departement:'';
+                $this->state_id     = $obj->fk_departement?$obj->departement:'';
 
                 $transcode=$langs->trans('StatusProspect'.$obj->fk_stcomm);
                 $libelle=($transcode!='StatusProspect'.$obj->fk_stcomm?$transcode:$obj->stcomm);
