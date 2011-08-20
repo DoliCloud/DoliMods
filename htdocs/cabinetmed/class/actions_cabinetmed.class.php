@@ -20,7 +20,7 @@
  *	\file       htdocs/cabinetmed/class/actions_cabinetmed.class.php
  *	\ingroup    societe
  *	\brief      File to control actions
- *	\version    $Id: actions_cabinetmed.class.php,v 1.5 2011/08/15 20:50:34 eldy Exp $
+ *	\version    $Id: actions_cabinetmed.class.php,v 1.6 2011/08/20 16:59:06 eldy Exp $
  */
 require_once(DOL_DOCUMENT_ROOT."/core/class/commonobject.class.php");
 
@@ -37,6 +37,7 @@ class ActionsCabinetmed
 
     /**
      *    Constructor for class
+     *
      *    @param  DB     handler acces base de donnees
      */
     function ActionsCabinetmed($DB)
@@ -47,58 +48,75 @@ class ActionsCabinetmed
 
     /**
      *    Execute action
-     *    @param        Object      Deprecated. This field is nto used
+     *
+     *    @param		parameters	Array of parameters
+     *    @param        object      Deprecated. This field is nto used
      *    @param        action      'add', 'update', 'view'
-     *    @param        id          Id of object (in output if create, in input if update of view)
      *    @return       int         <0 if KO,
      *                              =0 if OK but we want to process standard actions too,
      *                              >0 if OK and we want to replace standard actions.
      */
-    function doActions(&$object,&$action,&$id)
+    function doActions($parameters,&$object,&$action)
     {
         global $langs,$conf;
 
         $ret=0;
+        dol_syslog(get_class($this).'::executeHooks action='.$action);
 
         // Hook called when asking to add a new record
         if ($action == 'add')
         {
             $nametocheck=GETPOST('nom');
-            $ape=GETPOST('idprof3');
+            $date=GETPOST('idprof3');
             //$confirmduplicate=$_POST['confirmduplicate'];
 
-            $sql = 'SELECT s.rowid, s.nom, s.entity, s.ape FROM '.MAIN_DB_PREFIX.'societe as s';
-            $sql.= ' WHERE s.entity = '.$conf->entity;
-            $sql.= " AND s.nom = '".trim($this->db->escape($nametocheck))."'";
-            if (! empty($ape))
+            // Check on date
+            $birthdatearray=strptime($date,$conf->format_date_short);
+            $birthdate=dol_mktime(0,0,0,$birthdatearray['tm_mon']+1,($birthdatearray['tm_mday']),($birthdatearray['tm_year']+1900),true);
+            if (GETPOST('idprof3') && empty($birthdate))
             {
-                $sql.= " AND (s.ape IS NULL OR s.ape = '' OR s.ape = '".trim($this->db->escape($ape))."')";
+                $langs->load("errors");
+                $this->errors[]=$langs->trans("ErrorBadDateFormat",$date);
+                $ret=-1;
             }
-            $resql=$this->db->query($sql);
-            if ($resql)
+
+            // Check duplicate
+            if (! $ret)
             {
-                $obj=$this->db->fetch_object($resql);
-                if ($obj)
+                $sql = 'SELECT s.rowid, s.nom, s.entity, s.ape FROM '.MAIN_DB_PREFIX.'societe as s';
+                $sql.= ' WHERE s.entity = '.$conf->entity;
+                $sql.= " AND s.nom = '".trim($this->db->escape($nametocheck))."'";
+                if (! empty($date))
                 {
-                    //if (empty($confirmduplicate) || $nametocheck != $_POST['confirmduplicate'])
-                    if (empty($confirmduplicate))
+                    $sql.= " AND (s.ape IS NULL OR s.ape = '' OR s.ape = '".trim($this->db->escape($date))."')";
+                }
+                $resql=$this->db->query($sql);
+                if ($resql)
+                {
+                    $obj=$this->db->fetch_object($resql);
+                    if ($obj)
                     {
-                        // If already exists, we want to block creation
-                        //$_POST['confirmduplicate']=$nametocheck;
-                        $this->errors[]=$langs->trans("ErrorCompanyNameAlreadyExists",$nametocheck);
-                        $ret=-1;
+                        //if (empty($confirmduplicate) || $nametocheck != $_POST['confirmduplicate'])
+                        if (empty($confirmduplicate))
+                        {
+                            // If already exists, we want to block creation
+                            //$_POST['confirmduplicate']=$nametocheck;
+                            $langs->load("errors");
+                            $this->errors[]=$langs->trans("ErrorCompanyNameAlreadyExists",$nametocheck);
+                            $ret=-1;
+                        }
+                    }
+                    else
+                    {
+                        // Create object, set $id to its id and return 1
+                        // or
+                        // Do something else and return 0 to use standard code to create;
+                        // or
+                        // Do nothing
                     }
                 }
-                else
-                {
-                    // Create object, set $id to its id and return 1
-                    // or
-                    // Do something else and return 0 to use standard code to create;
-                    // or
-                    // Do nothing
-                }
+                else dol_print_error($this->db);
             }
-            else dol_print_error($this->db);
         }
 
         // Hook called when asking to update a record

@@ -81,3 +81,4 @@ ErrorBadMask=Error en la màscara
 ErrorBadMaskFailedToLocatePosOfSequence=Error, sense número de seqüència en la màscara
 ErrorBadMaskBadRazMonth=Error, valor de tornada a 0 incorrecte
 ErrorSelectAtLeastOne=Error. Seleccioneu com a mínim una entrada.
+ErrorFailedToSendPassword=Error en l'enviament de la contrasenya
