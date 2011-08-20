@@ -1,0 +1,40 @@
+# Dolibarr language file - en_US - admin
+CHARSET=UTF-8
+UseSearchToSelectCompany= Use a field with autcompletion to select a patient (instead of a combo list).
+ActivityStateToSelectCompany= Add a filtering option to hide/show patients that are or not followed
+ViewFullDateActions= View full date of actions into patient card
+DaylingSavingTime=Dayling time (user)
+CurrentHour= PHP Hour (server)
+CompanyTZ= Time Zone
+CompanyHour= Hour
+ModuleFamilyCrm= Contact management
+GenericMaskCodes2= <b>{cccc}</b> le code patient sur n lettres<br><b>{cccc000}</b> le code client sur n lettres est suivi d'un compteur propre au client sans offset, complété par des zéros pour en avoir autant que dans le masque, et remis à zéro en même temps que le compteur global.<br><b>{tttt}</b> Le code type entreprise sur n caractères (voir dictionnaires-types de patient).<br>
+
+# Modules= undefined
+Module1Name= Patient
+Module1Desc= Manage patients and contacts
+Permission121= Consult patient
+Permission122= Create/modify patient (+consultations and exams)
+Permission125= Delete patients (+consultations and exams)
+Permission126= Export patients
+Permission262= Extend access to all patients (Not only those linked to user). 
+Permission281= Consult all contacts
+Permission282= Create/modify contacts
+Permission283= Delete contacts
+Permission286= Export contacts
+DictionnaryCompanyType= Sex of patient
+DictionnaryCompanyJuridicalType= Activity type
+DictionnaryTypeContact= Types of contacts
+MotifConsultation=Reason of consultation
+DiagnostiqueLesionnel=Lesion diagnostic
+Examens=Exams
+ExamenConclusion=Exam Conclusion
+BankNameList=List of banks
+SetupDescription3=Data of menu <b>Setup -> Information</b> are required to work.
+
+CompanySetup= Setup of Patient module
+CompanyCodeChecker= Model to generate and check patient code
+CashDeskThirdPartyForSell= Generic patient for sells
+CashDeskBankAccountForSell= Bank account to use for cash
+CashDeskBankAccountForCheque= Compte à utiliser pour l'encaissement en cheque
+CashDeskBankAccountForCB= Bank account to use for credit card
