@@ -22,7 +22,7 @@
  *	\file       htdocs/cabinetmed/patients.php
  *	\ingroup    commercial, societe
  *	\brief      List of customers
- *	\version    $Id: patients.php,v 1.4 2011/06/13 22:24:23 eldy Exp $
+ *	\version    $Id: patients.php,v 1.6 2011/08/20 18:12:48 eldy Exp $
  */
 
 $res=0;
@@ -33,6 +33,7 @@ if (! $res && file_exists("../../../../dolibarr/htdocs/main.inc.php")) $res=@inc
 if (! $res && file_exists("../../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
 if (! $res) die("Include of main fails");
 require_once(DOL_DOCUMENT_ROOT."/core/class/html.formother.class.php");
+require_once("./lib/cabinetmed.lib.php");
 
 $langs->load("companies");
 $langs->load("customers");
@@ -55,13 +56,15 @@ $pagenext = $page + 1;
 if (! $sortorder) $sortorder="ASC";
 if (! $sortfield) $sortfield="s.nom";
 
-$search_nom=isset($_GET["search_nom"])?$_GET["search_nom"]:$_POST["search_nom"];
-$search_ville=isset($_GET["search_ville"])?$_GET["search_ville"]:$_POST["search_ville"];
-$search_code=isset($_GET["search_code"])?$_GET["search_code"]:$_POST["search_code"];
+$search_nom=GETPOST("search_nom");
+$search_ville=GETPOST("search_ville");
+$search_code=GETPOST("search_code");
 
 // Load sale and categ filters
 $search_sale = GETPOST("search_sale");
 $search_categ = GETPOST("search_categ");
+
+$search_diagles=GETPOST("search_diagles");
 
 
 /*
@@ -104,6 +107,11 @@ $sql.= ") LEFT JOIN ".MAIN_DB_PREFIX."cabinetmed_cons as c ON c.fk_soc = s.rowid
 $sql.= " WHERE s.fk_stcomm = st.id";
 $sql.= " AND s.client IN (1, 3)";
 $sql.= " AND s.entity = ".$conf->entity;
+if ($search_diagles)
+{
+    $label= dol_getIdFromCode($db,$search_diagles,'cabinetmed_diaglec','code','label');
+    $sql.= " AND c.diaglesprinc LIKE '%".$db->escape($label)."%'";
+}
 if (!$user->rights->societe->client->voir && ! $socid) $sql.= " AND s.rowid = sc.fk_soc AND sc.fk_user = " .$user->id;
 if ($socid) $sql.= " AND s.rowid = ".$socid;
 if ($search_sale) $sql.= " AND s.rowid = sc.fk_soc";		// Join for the needed table to filter by sale
@@ -146,8 +154,9 @@ if ($result)
 	$num = $db->num_rows($result);
 
 	$param = "&amp;search_nom=".$search_nom."&amp;search_code=".$search_code."&amp;search_ville=".$search_ville;
- 	if ($search_categ != '') $param.='&amp;search_categ='.$search_categ;
- 	if ($search_sale != '')	$param.='&amp;search_sale='.$search_sale;
+ 	if ($search_categ != '')   $param.='&amp;search_categ='.$search_categ;
+ 	if ($search_sale != '')	   $param.='&amp;search_sale='.$search_sale;
+    if ($search_diagles != '') $param.='&amp;search_diagles='.$search_diagles;
 
 	print_barre_liste($langs->trans("ListOfCustomers"), $page, $_SERVER["PHP_SELF"],$param,$sortfield,$sortorder,'',$num,$nbtotalofrecords);
 
@@ -169,7 +178,12 @@ if ($result)
  	{
 	 	$moreforfilter.=$langs->trans('SalesRepresentatives'). ': ';
 		$moreforfilter.=$htmlother->select_salesrepresentatives($search_sale,'search_sale',$user);
+	 	$moreforfilter.=' &nbsp; &nbsp; &nbsp; ';
  	}
+ 	// To add filter on
+    $width="200";
+ 	$moreforfilter.=$langs->trans('DiagnostiqueLesionnel'). ': ';
+	$moreforfilter.=listdiagles(1,$width,'search_diagles',$search_diagles);
  	if ($moreforfilter)
 	{
 		print '<tr class="liste_titre">';
@@ -252,5 +266,5 @@ else
 
 $db->close();
 
-llxFooter('$Date: 2011/06/13 22:24:23 $ - $Revision: 1.4 $');
+llxFooter('$Date: 2011/08/20 18:12:48 $ - $Revision: 1.6 $');
 ?>

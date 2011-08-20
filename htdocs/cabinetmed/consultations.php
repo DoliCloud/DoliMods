@@ -20,7 +20,7 @@
  *   \file       htdocs/cabinetmed/consultations.php
  *   \brief      Tab for consultations
  *   \ingroup    cabinetmed
- *   \version    $Id: consultations.php,v 1.39 2011/08/15 18:53:54 eldy Exp $
+ *   \version    $Id: consultations.php,v 1.40 2011/08/20 18:10:38 eldy Exp $
  */
 
 $res=0;
@@ -666,7 +666,7 @@ if ($socid > 0)
         print $langs->trans("DiagnostiqueLesionnel").':';
         print '</td><td>';
         //print '<input type="text" size="3" class="flat" name="searchdiagles" value="'.GETPOST("searchdiagles").'" id="searchdiagles">';
-        listdiagles(1,$width);
+        print listdiagles(1,$width);
         print ' <input type="button" class="button" id="adddiaglesprinc" name="adddiaglesprinc" value="+P">';
         print ' <input type="button" class="button" id="adddiaglessec" name="adddiaglessec" value="+S">';
         if ($user->admin) print ' '.info_admin($langs->trans("YouCanChangeValuesForThisListFromDictionnarySetup"),1);
@@ -1034,5 +1034,5 @@ if ($action == '' || $action == 'delete')
 
 $db->close();
 
-llxFooter('$Date: 2011/08/15 18:53:54 $ - $Revision: 1.39 $');
+llxFooter('$Date: 2011/08/20 18:10:38 $ - $Revision: 1.40 $');
 ?>
