@@ -15,7 +15,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *
- * $Id: card_edit.tpl.php,v 1.4 2011/08/18 22:54:50 eldy Exp $
+ * $Id: card_edit.tpl.php,v 1.5 2011/08/20 14:33:23 eldy Exp $
  */
 
 $soc=$GLOBALS['objcanvas']->control->object;
@@ -217,7 +217,7 @@ print '<tr>';
 // IdProf3 (APE for France)
 $idprof=$langs->transcountry('ProfId3',$soc->pays_code);
 print '<td>'.$idprof.'</td><td colspan="3">';
-print '<input type="text" name="idprof3" size="18" maxlength="32" value="'.$soc->ape.'">';
+print '<input type="text" name="idprof3" size="18" maxlength="32" value="'.$soc->ape.'"> ('.$conf->format_date_short_java.')';
 print '</td>';
 print '</tr>';
 

@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *
- * $Id: card_view.tpl.php,v 1.6 2011/06/13 18:18:07 eldy Exp $
+ * $Id: card_view.tpl.php,v 1.7 2011/08/20 14:33:23 eldy Exp $
  */
 
 $soc=$GLOBALS['objcanvas']->control->object;
@@ -37,6 +37,7 @@ $formfile=new FormFile($GLOBALS['db']);
 <?php
 
 $head = societe_prepare_head($soc);
+$now=dol_now();
 
 dol_fiche_head($head, 'card', $langs->trans("ThirdParty"),0,'company');
 
@@ -134,8 +135,16 @@ print '<tr><td>'.$profid.'</td><td colspan="3">';
 print $soc->ape;
 if ($soc->ape)
 {
-    if ($soc->id_prof_check(3,$soc) > 0) print ' &nbsp; '.$soc->id_prof_url(3,$soc);
-    else print ' <font class="error">('.$langs->trans("ErrorWrongValue").')</font>';
+    print ' &nbsp; ';
+    $birthdatearray=strptime($soc->ape,$conf->format_date_short);
+    $birthdate=dol_mktime(0,0,0,$birthdatearray['tm_mon']+1,($birthdatearray['tm_mday']),($birthdatearray['tm_year']+1900),true);
+    //var_dump($birthdatearray);
+    //print ($now-$birthdate).' - '.ConvertSecondToTime($now-$birthdate,'year').'<br>';
+    $ageyear=ConvertSecondToTime($now-$birthdate,'year')-1970;
+    $agemonth=ConvertSecondToTime($now-$birthdate,'month')-1;
+    if ($ageyear >= 2) print '('.$ageyear.' '.$langs->trans("DurationYears").')';
+    else if ($agemonth >= 2) print '('.$agemonth.' '.$langs->trans("DurationMonths").')';
+    else print '('.$agemonth.' '.$langs->trans("DurationMonth").')';
 }
 print '</td>';
 print '</tr>';
@@ -220,7 +229,6 @@ if (empty($conf->global->SOCIETE_DISABLE_PARENTCOMPANY))
 }
 
 // Num secu
-$html = new Form($db);
 print '<tr>';
 print '<td nowrap="nowrap">'.$langs->trans('VATIntra').'</td><td colspan="3">';
 if ($soc->tva_intra)

@@ -15,7 +15,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *
- * $Id: card_create.tpl.php,v 1.8 2011/08/18 22:54:50 eldy Exp $
+ * $Id: card_create.tpl.php,v 1.9 2011/08/20 14:33:23 eldy Exp $
  */
 
 global $db,$conf,$mysoc,$langs,$user;
@@ -185,10 +185,14 @@ dol_htmloutput_errors($GOBALS['error'],$GLOBALS['errors']);
         print '</td>';
         print '</tr>';
         print '<tr>';
+
         // IdProf3 (APE for France)
         $idprof=$langs->transcountry('ProfId3',$soc->pays_code);
         print '<td>'.$idprof.'</td><td colspan="3">';
-        print '<input type="text" name="idprof3" size="18" maxlength="32" value="'.$soc->ape.'">';
+
+        print '<input type="text" name="idprof3" size="18" maxlength="32" value="'.$soc->ape.'"> ('.$conf->format_date_short_java.')';
+        //$conf->global->MAIN_POPUP_CALENDAR='none';
+        //print $form->select_date(-1,'birthdate');
         print '</td>';
         print '</tr>';
 
@@ -238,12 +242,13 @@ dol_htmloutput_errors($GOBALS['error'],$GLOBALS['errors']);
             print '</td></tr>';
         }
 ?>
-
-<tr>
-	<td colspan="4" align="center"><input type="submit" class="button" value="<?php echo $langs->trans('AddThirdParty'); ?>"></td>
-</tr>
-
 </table>
+<br>
+
+<center>
+	<input type="submit" class="button" value="<?php echo $langs->trans('AddThirdParty'); ?>">
+</center>
+
 </form>
 
 <!-- END PHP TEMPLATE -->
