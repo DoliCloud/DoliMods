@@ -8,6 +8,7 @@ CompanyIsInSuppliersCategories=Ce patient est dans les catégories fournisseurs 
 CustomersCategoryShort=Catégorie patients
 CustomersCategoriesShort=Catégories patients
 CustomersProspectsCategoriesShort=Catégories patients
+ThisCategoryHasNoCustomer=Cette catégorie n'a aucun patient
 AssignedToCustomer=Attribuer à un patient
 AssignedToTheCustomer=Attribué au patient
 CatCusList=Liste des catégories patients
