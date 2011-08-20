@@ -22,7 +22,7 @@
  *	\file       htdocs/cabinetmed/patients.php
  *	\ingroup    commercial, societe
  *	\brief      List of customers
- *	\version    $Id: patients.php,v 1.6 2011/08/20 18:12:48 eldy Exp $
+ *	\version    $Id: patients.php,v 1.5 2011/08/20 18:10:38 eldy Exp $
  */
 
 $res=0;
@@ -154,9 +154,8 @@ if ($result)
 	$num = $db->num_rows($result);
 
 	$param = "&amp;search_nom=".$search_nom."&amp;search_code=".$search_code."&amp;search_ville=".$search_ville;
- 	if ($search_categ != '')   $param.='&amp;search_categ='.$search_categ;
- 	if ($search_sale != '')	   $param.='&amp;search_sale='.$search_sale;
-    if ($search_diagles != '') $param.='&amp;search_diagles='.$search_diagles;
+ 	if ($search_categ != '') $param.='&amp;search_categ='.$search_categ;
+ 	if ($search_sale != '')	$param.='&amp;search_sale='.$search_sale;
 
 	print_barre_liste($langs->trans("ListOfCustomers"), $page, $_SERVER["PHP_SELF"],$param,$sortfield,$sortorder,'',$num,$nbtotalofrecords);
 
@@ -266,5 +265,5 @@ else
 
 $db->close();
 
-llxFooter('$Date: 2011/08/20 18:12:48 $ - $Revision: 1.6 $');
+llxFooter('$Date: 2011/08/20 18:10:38 $ - $Revision: 1.5 $');
 ?>
