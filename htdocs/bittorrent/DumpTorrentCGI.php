@@ -23,11 +23,11 @@ OR
 <br><br>
 Torrent URL: <input type=text name="url" size="50"><br><br>
 Output type: <select name="output">
-<option value="-1">Auto-detect
-<option value="0">Classic (raw)
-<option value="1">.torrent file
-<option value="2">/scrape
-<option value="3">/announce
+<option value="-1">Auto-detect</option>
+<option value="0">Classic (raw)</option>
+<option value="1">.torrent file</option>
+<option value="2">/scrape</option>
+<option value="3">/announce</option>
 </select><br><br>
 <input type="submit" value="Decode" class="button">
 </form>
@@ -36,6 +36,6 @@ Output type: <select name="output">
 <a href="admin.php"><img src="images/admin.png" border="0" class="icon" alt="Admin Page" title="Admin Page" /></a><a href="admin.php">Return to Admin Page</a>
 
 <?php
-llxFooter('$Date: 2009/03/03 19:39:21 $ - $Revision: 1.4 $');
+llxFooter('$Date: 2011/08/21 18:17:45 $ - $Revision: 1.5 $');
 ?>
 
