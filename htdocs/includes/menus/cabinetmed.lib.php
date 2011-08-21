@@ -20,7 +20,7 @@
 /**
  *  \file		htdocs/includes/menus/cabinetmed.lib.php
  *  \brief		Library for file cabinetmed menus
- *  \version	$Id: cabinetmed.lib.php,v 1.28 2011/08/21 11:00:23 eldy Exp $
+ *  \version	$Id: cabinetmed.lib.php,v 1.29 2011/08/21 13:02:47 eldy Exp $
  */
 
 
@@ -852,9 +852,9 @@ function print_left_cabinetmed_menu($db,$menu_array_before,$menu_array_after)
             if (! empty($conf->ficheinter->enabled))
             {
                 $langs->load("interventions");
-                $newmenu->add("/fichinter/index.php?leftmenu=ficheinter", $langs->trans("Interventions"), 0, $user->rights->ficheinter->lire);
+                $newmenu->add("/fichinter/list.php?leftmenu=ficheinter", $langs->trans("Interventions"), 0, $user->rights->ficheinter->lire);
                 $newmenu->add("/fichinter/fiche.php?action=create&leftmenu=ficheinter", $langs->trans("NewIntervention"), 1, $user->rights->ficheinter->creer);
-                $newmenu->add("/fichinter/index.php?leftmenu=ficheinter", $langs->trans("List"), 1 ,$user->rights->ficheinter->lire);
+                $newmenu->add("/fichinter/list.php?leftmenu=ficheinter", $langs->trans("List"), 1 ,$user->rights->ficheinter->lire);
             }
 
         }
