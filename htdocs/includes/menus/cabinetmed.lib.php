@@ -20,7 +20,7 @@
 /**
  *  \file		htdocs/includes/menus/cabinetmed.lib.php
  *  \brief		Library for file cabinetmed menus
- *  \version	$Id: cabinetmed.lib.php,v 1.29 2011/08/21 13:02:47 eldy Exp $
+ *  \version	$Id: cabinetmed.lib.php,v 1.30 2011/08/21 13:19:18 eldy Exp $
  */
 
 
@@ -129,10 +129,10 @@ function print_cabinetmed_menu($db,$atarget,$type_user)
 		if ($conf->societe->enabled && $user->rights->societe->lire)
 		{
 			print_start_menu_entry($idsel);
-			print '<a class="tmenuimage" href="'.DOL_URL_ROOT.'/contact/index.php?mainmenu=contacts&amp;leftmenu="'.($atarget?" target=$atarget":"").'>';
+			print '<a class="tmenuimage" href="'.DOL_URL_ROOT.'/contact/list.php?mainmenu=contacts&amp;leftmenu="'.($atarget?" target=$atarget":"").'>';
 			print '<div class="'.$id.' '.$idsel.'"><span class="'.$id.' tmenuimage" id="mainmenuspan_'.$idsel.'"></span></div>';
 			print '</a>';
-			print '<a '.$classname.' id="mainmenua_'.$idsel.'" href="'.DOL_URL_ROOT.'/contact/index.php?mainmenu=contacts&amp;leftmenu="'.($atarget?" target=$atarget":"").'>';
+			print '<a '.$classname.' id="mainmenua_'.$idsel.'" href="'.DOL_URL_ROOT.'/contact/list.php?mainmenu=contacts&amp;leftmenu="'.($atarget?" target=$atarget":"").'>';
 			print_text_menu_entry($langs->trans("Correspondants"));
 			print '</a>';
 			print_end_menu_entry();
@@ -780,9 +780,9 @@ function print_left_cabinetmed_menu($db,$menu_array_before,$menu_array_after)
         if ($mainmenu == 'contacts')
         {
             // Correspondants
-            $newmenu->add("/contact/index.php?leftmenu=contacts", $langs->trans("Correspondants"), 0, $user->rights->societe->contact->lire);
+            $newmenu->add("/contact/list.php?leftmenu=contacts", $langs->trans("Correspondants"), 0, $user->rights->societe->contact->lire);
             $newmenu->add("/contact/fiche.php?leftmenu=contacts&amp;action=create", $langs->trans("NewContact"), 1, $user->rights->societe->contact->creer);
-            $newmenu->add("/contact/index.php?leftmenu=contacts", $langs->trans("List"), 1, $user->rights->societe->contact->lire);
+            $newmenu->add("/contact/list.php?leftmenu=contacts", $langs->trans("List"), 1, $user->rights->societe->contact->lire);
         }
 
         /*
@@ -1158,7 +1158,7 @@ function print_left_cabinetmed_menu($db,$menu_array_before,$menu_array_after)
                     $newmenu->add("/societe/soc.php?leftmenu=suppliers&amp;action=create&amp;type=f",$langs->trans("NewSupplier"), 1, $user->rights->societe->creer && $user->rights->fournisseur->lire);
                 }
                 $newmenu->add("/fourn/liste.php",$langs->trans("List"), 1, $user->rights->societe->lire && $user->rights->fournisseur->lire);
-                $newmenu->add("/contact/index.php?leftmenu=suppliers&amp;type=f",$langs->trans("Contacts"), 1, $user->rights->societe->contact->lire && $user->rights->fournisseur->lire);
+                $newmenu->add("/contact/list.php?leftmenu=suppliers&amp;type=f",$langs->trans("Contacts"), 1, $user->rights->societe->contact->lire && $user->rights->fournisseur->lire);
                 $newmenu->add("/fourn/stats.php",$langs->trans("Statistics"), 1, $user->rights->societe->lire && $user->rights->fournisseur->lire);
             }
 
