@@ -20,7 +20,7 @@
 /**
  *  \file		htdocs/includes/menus/cabinetmed.lib.php
  *  \brief		Library for file cabinetmed menus
- *  \version	$Id: cabinetmed.lib.php,v 1.27 2011/08/10 20:27:39 eldy Exp $
+ *  \version	$Id: cabinetmed.lib.php,v 1.28 2011/08/21 11:00:23 eldy Exp $
  */
 
 
@@ -1133,6 +1133,7 @@ function print_left_cabinetmed_menu($db,$menu_array_before,$menu_array_after)
             {
                 $langs->load("sendings");
                 $newmenu->add("/expedition/index.php?leftmenu=sendings", $langs->trans("Shipments"), 0, $user->rights->expedition->lire);
+                if ($leftmenu=="sendings") $newmenu->add("/expedition/fiche.php?action=create2&leftmenu=sendings", $langs->trans("NewSending"), 1 ,$user->rights->expedition->creer);
                 if ($leftmenu=="sendings") $newmenu->add("/expedition/liste.php?leftmenu=sendings", $langs->trans("List"), 1 ,$user->rights->expedition->lire);
                 if ($leftmenu=="sendings") $newmenu->add("/expedition/stats/index.php?leftmenu=sendings", $langs->trans("Statistics"), 1 ,$user->rights->expedition->lire);
             }
@@ -1331,7 +1332,7 @@ function print_left_cabinetmed_menu($db,$menu_array_before,$menu_array_after)
     if (is_array($menu_array_before)) $menu_array=array_merge($menu_array_before, $menu_array);
     if (is_array($menu_array_after))  $menu_array=array_merge($menu_array, $menu_array_after);
     //var_dump($menu_array);exit;
-    
+
     // Show menu
     $alt=0;
     if (is_array($menu_array))
