@@ -27,7 +27,7 @@
  *	\file       htdocs/societe/class/societe.class.php
  *	\ingroup    societe
  *	\brief      File for third party class
- *	\version    $Id: patient.class.php,v 1.6 2011/08/18 22:54:49 eldy Exp $
+ *	\version    $Id: patient.class.php,v 1.7 2011/08/23 22:49:46 eldy Exp $
  */
 require_once(DOL_DOCUMENT_ROOT."/core/class/commonobject.class.php");
 
@@ -131,18 +131,18 @@ class Patient extends CommonObject
     var $logo_small;
     var $logo_mini;
 
+
     /**
      *    Constructor for class
+     *
      *    @param  DB     handler acces base de donnees
-     *    @param  id     id societe (0 par defaut)
      */
-    function Societe($DB, $id=0)
+    function Patient($DB)
     {
         global $conf;
 
         $this->db = $DB;
 
-        $this->id = $id;
         $this->client = 0;
         $this->prospect = 0;
         $this->fournisseur = 0;
