@@ -23,7 +23,7 @@
  *   \file       htdocs/cabinetmed/traitetallergies.php
  *   \brief      Tab for antecedants
  *   \ingroup    societe
- *   \version    $Id: traitetallergies.php,v 1.12 2011/08/15 18:53:54 eldy Exp $
+ *   \version    $Id: traitetallergies.php,v 1.13 2011/08/23 23:00:43 eldy Exp $
  */
 
 $res=0;
@@ -89,8 +89,10 @@ if ($socid > 0)
 {
     $societe = new Patient($db);
     $res=$societe->fetch($socid);
-
-    print $societe->error;
+    if ($res < 0)
+    {
+        dol_print_error($db,$societe->error);
+    }
     $societe->id=$socid;
 
     /*
@@ -246,5 +248,5 @@ dol_htmloutput_mesg($mesg);
 
 $db->close();
 
-llxFooter('$Date: 2011/08/15 18:53:54 $ - $Revision: 1.12 $');
+llxFooter('$Date: 2011/08/23 23:00:43 $ - $Revision: 1.13 $');
 ?>
