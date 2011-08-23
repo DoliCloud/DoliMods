@@ -26,7 +26,7 @@
  *      \file       htdocs/includes/modules/modCabinetMed.class.php
  *      \ingroup    cabinetmed
  *      \brief      Description and activation file for module CabinetMed
- *      \version    $Id: modCabinetMed.class.php,v 1.44 2011/08/17 16:43:13 eldy Exp $
+ *      \version    $Id: modCabinetMed.class.php,v 1.45 2011/08/23 22:26:17 eldy Exp $
  */
 include_once(DOL_DOCUMENT_ROOT ."/includes/modules/DolibarrModules.class.php");
 
@@ -67,7 +67,7 @@ class modCabinetMed extends DolibarrModules
         $this->special = 3;
         // Name of image file used for this module.
         // If file is in theme/yourtheme/img directory under name object_pictovalue.png, use this->picto='pictovalue'
-        $this->picto='tseto.gif@cabinetmed';
+        $this->picto='tseto.png@cabinetmed';
 
         // Data directories to create when module is enabled.
         // Example: this->dirs = array("/cabinetmed/temp");
