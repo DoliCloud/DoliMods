@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *
- * $Id: card_view.tpl.php,v 1.8 2011/08/24 00:09:02 eldy Exp $
+ * $Id: card_view.tpl.php,v 1.9 2011/08/24 18:04:55 eldy Exp $
  */
 
 $soc=$GLOBALS['objcanvas']->control->object;
@@ -99,7 +99,7 @@ else print ($img?$img.' ':'').$soc->pays;
 print '</td></tr>';
 
 // State
-if (empty($conf->global->SOCIETE_DISABLE_STATE)) print '<tr><td>'.$langs->trans('State').'</td><td colspan="3">'.$soc->departement.'</td>';
+if (empty($conf->global->SOCIETE_DISABLE_STATE)) print '<tr><td>'.$langs->trans('State').'</td><td colspan="3">'.$soc->state.'</td>';
 
 print '<tr><td>'.$langs->trans('PhonePerso').'</td><td>'.dol_print_phone($soc->tel,$soc->pays_code,0,$soc->id,'AC_TEL').'</td>';
 print '<td>'.$langs->trans('PhoneMobile').'</td><td>'.dol_print_phone($soc->fax,$soc->pays_code,0,$soc->id,'AC_FAX').'</td></tr>';
