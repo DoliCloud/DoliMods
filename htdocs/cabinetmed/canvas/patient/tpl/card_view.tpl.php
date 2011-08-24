@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *
- * $Id: card_view.tpl.php,v 1.7 2011/08/20 14:33:23 eldy Exp $
+ * $Id: card_view.tpl.php,v 1.8 2011/08/24 00:09:02 eldy Exp $
  */
 
 $soc=$GLOBALS['objcanvas']->control->object;
@@ -25,6 +25,7 @@ global $db,$conf,$mysoc,$langs,$user;
 
 require_once(DOL_DOCUMENT_ROOT ."/core/class/html.formcompany.class.php");
 require_once(DOL_DOCUMENT_ROOT ."/core/class/html.formfile.class.php");
+require_once(DOL_DOCUMENT_ROOT ."/lib/date.lib.php");
 
 $form=new Form($GLOBALS['db']);
 $formcompany=new FormCompany($GLOBALS['db']);
