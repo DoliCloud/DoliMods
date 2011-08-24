@@ -22,7 +22,7 @@
  *       \file       htdocs/cabinetmed/contact.php
  *       \ingroup    cabinetmed
  *       \brief      Tab for links between doctors and patient
- *       \version    $Id: contact.php,v 1.10 2011/08/15 18:53:54 eldy Exp $
+ *       \version    $Id: contact.php,v 1.11 2011/08/24 00:20:33 eldy Exp $
  */
 
 $res=0;
@@ -87,7 +87,7 @@ if ($_POST["action"] == 'addcontact' && $user->rights->societe->creer)
 }
 
 // bascule du statut d'un contact
-if ($_GET["action"] == 'swapstatut' && $user->rights->facture->creer)
+if ($_GET["action"] == 'swapstatut' && $user->rights->societe->creer)
 {
 	$object = new Societe($db);
 	if ($object->fetch(GETPOST("facid")))
@@ -385,5 +385,5 @@ if ($id > 0 || ! empty($ref))
 
 $db->close();
 
-llxFooter('$Date: 2011/08/15 18:53:54 $');
+llxFooter('$Date: 2011/08/24 00:20:33 $');
 ?>

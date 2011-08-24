@@ -23,7 +23,7 @@
  *   \file       htdocs/cabinetmed/traitetallergies.php
  *   \brief      Tab for antecedants
  *   \ingroup    societe
- *   \version    $Id: traitetallergies.php,v 1.13 2011/08/23 23:00:43 eldy Exp $
+ *   \version    $Id: traitetallergies.php,v 1.14 2011/08/24 00:17:29 eldy Exp $
  */
 
 $res=0;
@@ -63,8 +63,8 @@ if ($action == 'addupdate')
     //if (! $result) dol_print_error($db);
 
     $sql = "UPDATE ".MAIN_DB_PREFIX."cabinetmed_patient SET";
-    $sql.= " note_traitclass='".addslashes($_POST["note_traitclass"])."',";
-    $sql.= " note_traitallergie='".addslashes($_POST["note_traitallergie"])."',";
+    //$sql.= " note_traitclass='".addslashes($_POST["note_traitclass"])."',";
+    //$sql.= " note_traitallergie='".addslashes($_POST["note_traitallergie"])."',";
     $sql.= " note_traitintol='".addslashes($_POST["note_traitintol"])."',";
     $sql.= " note_traitspec='".addslashes($_POST["note_traitspec"])."'";
     $sql.= " WHERE rowid=".$_POST["socid"];
@@ -248,5 +248,5 @@ dol_htmloutput_mesg($mesg);
 
 $db->close();
 
-llxFooter('$Date: 2011/08/23 23:00:43 $ - $Revision: 1.13 $');
+llxFooter('$Date: 2011/08/24 00:17:29 $ - $Revision: 1.14 $');
 ?>

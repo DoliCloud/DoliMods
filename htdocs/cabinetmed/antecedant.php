@@ -23,7 +23,7 @@
  *   \file       htdocs/cabinetmed/antecedant.php
  *   \brief      Tab for antecedants
  *   \ingroup    societe
- *   \version    $Id: antecedant.php,v 1.11 2011/08/15 18:53:54 eldy Exp $
+ *   \version    $Id: antecedant.php,v 1.12 2011/08/24 00:17:29 eldy Exp $
  */
 
 $res=0;
@@ -66,7 +66,7 @@ if ($action == 'addupdate')
     $sql.= " note_antechirgen='".addslashes($_POST["note_antechirgen"])."',";
     $sql.= " note_antechirortho='".addslashes($_POST["note_antechirortho"])."',";
     $sql.= " note_anterhum='".addslashes($_POST["note_anterhum"])."',";
-    $sql.= " note_other='".addslashes($_POST["note_other"])."',";
+    //$sql.= " note_other='".addslashes($_POST["note_other"])."',";
     $sql.= " note_traitallergie='".addslashes($_POST["note_traitallergie"])."'";
     $sql.= " WHERE rowid=".$_POST["socid"];
     $result = $db->query($sql);
@@ -296,5 +296,5 @@ dol_htmloutput_mesg($mesg);
 
 $db->close();
 
-llxFooter('$Date: 2011/08/15 18:53:54 $ - $Revision: 1.11 $');
+llxFooter('$Date: 2011/08/24 00:17:29 $ - $Revision: 1.12 $');
 ?>
