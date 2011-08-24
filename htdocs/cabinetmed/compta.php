@@ -21,7 +21,7 @@
 /**
  *       \file        htdocs/compta/resultat/index.php
  *       \brief       Page reporting resultat
- *       \version     $Id: compta.php,v 1.6 2011/06/15 00:48:02 eldy Exp $
+ *       \version     $Id: compta.php,v 1.7 2011/08/24 00:03:03 eldy Exp $
  */
 
 
@@ -96,12 +96,12 @@ report_header($nom,$nomlink,$period,$periodlink,$description,$builddate,$exportl
 $subtotal_ht = 0;
 $subtotal_ttc = 0;
 $encaiss_chq = $encaiss_esp = $encaiss_tie = $encaiss_car = array();
-$sql  = "SELECT f.datecons, f.fk_user_creation, SUM(f.montant_cheque) as montant_cheque, SUM(f.montant_espece) as montant_espece, SUM(f.montant_tiers) as montant_tiers, SUM(f.montant_carte) as montant_carte";
+$sql  = "SELECT f.datecons, f.fk_user, SUM(f.montant_cheque) as montant_cheque, SUM(f.montant_espece) as montant_espece, SUM(f.montant_tiers) as montant_tiers, SUM(f.montant_carte) as montant_carte";
 $sql.= " FROM ".MAIN_DB_PREFIX."cabinetmed_cons as f";
 $sql.= " WHERE 1 = 1";
-if ($search_sale) $sql.= " AND f.fk_user_creation = ".$search_sale;
+if ($search_sale) $sql.= " AND f.fk_user = ".$search_sale;
 if ($socid) $sql.= " AND f.fk_soc = $socid";
-$sql.= " GROUP BY f.datecons, f.fk_user_creation";
+$sql.= " GROUP BY f.datecons, f.fk_user";
 $sql.= " ORDER BY f.datecons";
 //print $sql;
 
@@ -353,6 +353,6 @@ print "</table>";
 
 $db->close();
 
-llxFooter('$Date: 2011/06/15 00:48:02 $ - $Revision: 1.6 $');
+llxFooter('$Date: 2011/08/24 00:03:03 $ - $Revision: 1.7 $');
 
 ?>

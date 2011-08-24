@@ -22,7 +22,7 @@
  *       \file       htdocs/compta/facture/class/facturestats.class.php
  *       \ingroup    factures
  *       \brief      Fichier de la classe de gestion des stats des factures
- *       \version    $Id: cabinetmedstats.class.php,v 1.2 2011/06/13 22:24:19 eldy Exp $
+ *       \version    $Id: cabinetmedstats.class.php,v 1.3 2011/08/24 00:02:58 eldy Exp $
  */
 include_once DOL_DOCUMENT_ROOT . "/core/class/stats.class.php";
 include_once DOL_DOCUMENT_ROOT . "/compta/facture/class/facture.class.php";
@@ -72,7 +72,7 @@ class CabinetMedStats extends Stats
 		{
 			$this->where.=" AND fk_soc = ".$this->socid;
 		}
-        if ($this->userid > 0) $this->where.=' AND fk_user_creation = '.$this->userid;
+        if ($this->userid > 0) $this->where.=' AND fk_user = '.$this->userid;
 	}
 
 
