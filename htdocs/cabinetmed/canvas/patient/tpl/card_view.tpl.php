@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *
- * $Id: card_view.tpl.php,v 1.9 2011/08/24 18:04:55 eldy Exp $
+ * $Id: card_view.tpl.php,v 1.10 2011/08/28 12:56:33 eldy Exp $
  */
 
 $soc=$GLOBALS['objcanvas']->control->object;
@@ -42,18 +42,17 @@ $now=dol_now();
 
 dol_fiche_head($head, 'card', $langs->trans("ThirdParty"),0,'company');
 
-$html = new Form($db);
+dol_htmloutput_errors($error,$errors);
 
 
 // Confirm delete third party
 if ($action == 'delete' || $conf->use_javascript_ajax)
 {
-    $html = new Form($db);
-    $ret=$html->form_confirm($_SERVER["PHP_SELF"]."?socid=".$soc->id,$langs->trans("DeleteACompany"),$langs->trans("ConfirmDeleteCompany"),"confirm_delete",'',0,"action-delete");
+    $ret=$form->form_confirm($_SERVER["PHP_SELF"]."?socid=".$soc->id,$langs->trans("DeleteACompany"),$langs->trans("ConfirmDeleteCompany"),"confirm_delete",'',0,"action-delete");
     if ($ret == 'html') print '<br>';
 }
 
-dol_htmloutput_errors($error,$errors);
+dol_htmloutput_errors($GLOBALS['error'],$GLOBALS['errors']);
 
 print '<table class="border" width="100%">';
 
