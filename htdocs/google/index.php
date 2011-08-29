@@ -8,7 +8,7 @@
  *    	\file       htdocs/google/index.php
  *		\ingroup    google
  *		\brief      Main google area page
- *		\version    $Id: index.php,v 1.8 2011/06/11 00:27:25 eldy Exp $
+ *		\version    $Id: index.php,v 1.9 2011/08/29 07:45:09 eldy Exp $
  *		\author		Laurent Destailleur
  */
 
@@ -51,21 +51,7 @@ $MAXAGENDA=empty($conf->global->GOOGLE_AGENDA_NB)?5:$conf->global->GOOGLE_AGENDA
 * Put here all code to do according to value of "action" parameter
 ********************************************************************/
 
-if ($_REQUEST["action"] == 'add')
-{
-	$myobject=new Skeleton_class($db);
-	$myobject->prop1=$_POST["field1"];
-	$myobject->prop2=$_POST["field2"];
-	$result=$myobject->create($user);
-	if ($result > 0)
-	{
-		// Creation OK
-	}
-	{
-		// Creation KO
-		$mesg=$myobject->error;
-	}
-}
+// None
 
 
 
@@ -256,5 +242,5 @@ print $frame;
 // End of page
 $db->close();
 
-llxFooter('$Date: 2011/06/11 00:27:25 $ - $Revision: 1.8 $');
+llxFooter('$Date: 2011/08/29 07:45:09 $ - $Revision: 1.9 $');
 ?>
