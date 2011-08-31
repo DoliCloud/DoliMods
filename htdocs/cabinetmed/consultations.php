@@ -20,7 +20,7 @@
  *   \file       htdocs/cabinetmed/consultations.php
  *   \brief      Tab for consultations
  *   \ingroup    cabinetmed
- *   \version    $Id: consultations.php,v 1.40 2011/08/20 18:10:38 eldy Exp $
+ *   \version    $Id: consultations.php,v 1.41 2011/08/31 14:56:07 eldy Exp $
  */
 
 $res=0;
@@ -737,11 +737,11 @@ if ($socid > 0)
         //print '<input type="text" class="flat" name="infiltration" id="infiltration" value="'.$consult->infiltration.'" size="50">';
 
         print '<br><b>'.$langs->trans("TypeVisite").'</b>: &nbsp; &nbsp; &nbsp; ';
-        print '<input type="radio" class="flat" name="typevisit" value="CS" id="cs"'.($consult->typevisit=='CS'?' checked="true"':'').'> CS';
+        print '<input type="radio" class="flat" name="typevisit" value="CS" id="cs"'.($consult->typevisit=='CS'?' checked="checked"':'').'> CS';
         print ' &nbsp; &nbsp; ';
-        print '<input type="radio" class="flat" name="typevisit" value="C2" id="c2"'.($consult->typevisit=='C2'?' checked="true"':'').'> C2';
+        print '<input type="radio" class="flat" name="typevisit" value="C2" id="c2"'.($consult->typevisit=='C2'?' checked="checked"':'').'> C2';
         print ' &nbsp; &nbsp; ';
-        print '<input type="radio" class="flat" name="typevisit" value="CCAM" id="ccam"'.($consult->typevisit=='CCAM'?' checked="true"':'').'> CCAM';
+        print '<input type="radio" class="flat" name="typevisit" value="CCAM" id="ccam"'.($consult->typevisit=='CCAM'?' checked="checked"':'').'> CCAM';
         print '<br>';
         print '<br>'.$langs->trans("CodageCCAM").': &nbsp; ';
         print '<input type="text" class="flat" name="codageccam" id="codageccam" value="'.$consult->codageccam.'" size="30"'.($consult->codageccam?'':' disabled="disabled"').'>';
@@ -1034,5 +1034,5 @@ if ($action == '' || $action == 'delete')
 
 $db->close();
 
-llxFooter('$Date: 2011/08/20 18:10:38 $ - $Revision: 1.40 $');
+llxFooter('$Date: 2011/08/31 14:56:07 $ - $Revision: 1.41 $');
 ?>
