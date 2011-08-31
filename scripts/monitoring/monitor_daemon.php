@@ -21,7 +21,7 @@
  *	\file       	scripts/monitoring/monitor_daemon.php
  *	\ingroup    	monitor
  *	\brief      	Script to execute monitor daemon
- *	\version		$Id: monitor_daemon.php,v 1.16 2011/08/16 11:03:06 eldy Exp $
+ *	\version		$Id: monitor_daemon.php,v 1.17 2011/08/31 15:41:35 eldy Exp $
  */
 
 if (! defined('NOREQUIREUSER'))  define('NOREQUIREUSER','1');
@@ -46,7 +46,7 @@ if (substr($sapi_type, 0, 3) == 'cgi') {
 }
 
 // Global variables
-$version='$Revision: 1.16 $';
+$version='$Revision: 1.17 $';
 $error=0;
 // Include Dolibarr environment
 $res=0;
@@ -403,9 +403,9 @@ function process_probe_x($object,$maxloops=0)
 
                 echo "Envoi de la requête HTTP HEAD...";
                 socket_write($socket, $envoi, strlen($envoi));
-                echo "OK.<br />";
+                echo "OK.<br>";
 
-                echo "Lire la réponse : <br /><br />";
+                echo "Lire la réponse : <br><br>";
                 while ($reception = socket_read($socket, 2048))
                    echo $reception;
                 */
