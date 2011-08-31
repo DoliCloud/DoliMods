@@ -526,7 +526,7 @@ function updateEvent ($client, $eventId, $newTitle)
 {
 	$gdataCal = new Zend_Gdata_Calendar($client);
 	if ($eventOld = getEvent($client, $eventId)) {
-		echo "Old title: " . $eventOld->title->text . "<br />\n";
+		echo "Old title: " . $eventOld->title->text . "<br>\n";
 		$eventOld->title = $gdataCal->newTitle($newTitle);
 		try {
 			$eventOld->save();
@@ -535,7 +535,7 @@ function updateEvent ($client, $eventId, $newTitle)
 			return null;
 		}
 		$eventNew = getEvent($client, $eventId);
-		echo "New title: " . $eventNew->title->text . "<br />\n";
+		echo "New title: " . $eventNew->title->text . "<br>\n";
 		return $eventNew;
 	} else {
 		return null;

@@ -16,7 +16,7 @@ require_once(DOL_DOCUMENT_ROOT."/lib/files.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/html.formfile.class.php");
 
 
-$version='$Revision: 1.2 $';
+$version='$Revision: 1.3 $';
 $path=dirname(__FILE__);
 //eregi_replace($script_file,'',$_SERVER["PHP_SELF"]);
 $url_pdf="https://www.ovh.com/cgi-bin/order/facture.pdf";
@@ -72,7 +72,7 @@ $r->billingCountry); //on recupere les details
         {
         foreach($r->info->details as $d)
         {
-            $label='<strong>ref :'.$d->service.'</strong><br />'.$d->description.'<br
+            $label='<strong>ref :'.$d->service.'</strong><br>'.$d->description.'<br
 > >';
             if($d->start)
                 $label.='<i>du '.date('d/m/Y',strtotime($d->start));

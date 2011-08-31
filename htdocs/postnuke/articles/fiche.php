@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *
- * $Id: fiche.php,v 1.1 2009/06/15 17:19:52 eldy Exp $
+ * $Id: fiche.php,v 1.2 2011/08/31 15:40:14 eldy Exp $
  * $Source: /cvsroot/dolibarr/dolibarrmod/htdocs/postnuke/articles/fiche.php,v $
  *
  */
@@ -56,9 +56,9 @@ if ($id)
     {
       $result = $article->fetch($id, 0);
     }
-  
+
   if ( $result )
-    { 
+    {
       $htmls = new Form($db);
 
 
@@ -66,27 +66,27 @@ if ($id)
       if ($action == 'edit')
 	{
 	  print_titre ("Edition de la fiche article");
-	  
+
 	  print "<form action=\"$fiche.php?id=$id\" method=\"post\">\n";
 	  print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
 	  print "<input type=\"hidden\" name=\"action\" value=\"update\">";
-	  
+
 	  print '<table border="1" width="100%" cellspacing="0" cellpadding="4">';
 	  print "<tr><td>Titre</td><td>$article->titre</td></tr>\n";
 	  print "<tr>";
 	  print '<td valign="top">'.$langs->trans("Description").'</td>';
-	  
+
 	  print '<td valign="top" width="80%"><textarea name="body" rows="14" cols="60">';
-	  print str_replace("<br />","",$article->body);
+	  print str_replace("<br>","",$article->body);
 	  print "</textarea></td></tr>";
-	  
+
 	  print '<tr><td align="center" colspan="2"><input type="submit" value="'.$langs->trans("Save").'">&nbsp;<input type="submit" value="'.$langs->trans("Cancel").'" name="cancel"></td></tr>';
 	  print "</form>";
-	  
+
 
 	  print '</table><hr>';
-	      
-	    }    
+
+	    }
 
 	  /*
 	   * Affichage
@@ -94,18 +94,18 @@ if ($id)
       print_fiche_titre('Fiche Article : '.$article->titre);
 
 	  print '<table class="border" width="100%">';
-	  
+
 	  print "<tr><td>Titre</td><td>$article->titre</td></tr>\n";
 	  print "<tr><td>Titre</td><td>$article->body</td></tr>\n";
 
-	  
+
 	  print "</table>";
 	}
       else
 	{
 	  print "Fetch failed";
 	}
-    
+
 
     }
   else
@@ -115,9 +115,9 @@ if ($id)
 
 
 /* ************************************************************************** */
-/*                                                                            */ 
-/* Barre d'action                                                             */ 
-/*                                                                            */ 
+/*                                                                            */
+/* Barre d'action                                                             */
+/*                                                                            */
 /* ************************************************************************** */
 
 print '<div class="tabsAction">';
@@ -129,5 +129,5 @@ print '</div>';
 
 $db->close();
 
-llxFooter("<em>Derni&egrave;re modification $Date: 2009/06/15 17:19:52 $ r&eacute;vision $Revision: 1.1 $</em>");
+llxFooter("<em>Derni&egrave;re modification $Date: 2011/08/31 15:40:14 $ r&eacute;vision $Revision: 1.2 $</em>");
 ?>
