@@ -27,7 +27,7 @@
  *	\file       htdocs/societe/class/societe.class.php
  *	\ingroup    societe
  *	\brief      File for third party class
- *	\version    $Id: patient.class.php,v 1.7 2011/08/23 22:49:46 eldy Exp $
+ *	\version    $Id: patient.class.php,v 1.8 2011/09/02 23:18:19 eldy Exp $
  */
 require_once(DOL_DOCUMENT_ROOT."/core/class/commonobject.class.php");
 
@@ -1324,7 +1324,7 @@ class Patient extends CommonObject
         if ($this->email)
         {
             // TODO: Tester si email non deja present dans tableau contact
-            $contact_email[-1]=$langs->trans("ThirdParty").': '.dol_trunc($this->nom,16)." &lt;".$this->email."&gt;";
+            $contact_email['thirdparty']=$langs->trans("ThirdParty").': '.dol_trunc($this->nom,16)." &lt;".$this->email."&gt;";
         }
         return $contact_email;
     }
