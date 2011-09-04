@@ -20,7 +20,7 @@
  *	\file       htdocs/cabinetmed/class/actions_cabinetmed.class.php
  *	\ingroup    societe
  *	\brief      File to control actions
- *	\version    $Id: actions_cabinetmed.class.php,v 1.6 2011/08/20 16:59:06 eldy Exp $
+ *	\version    $Id: actions_cabinetmed.class.php,v 1.7 2011/09/04 12:43:40 eldy Exp $
  */
 require_once(DOL_DOCUMENT_ROOT."/core/class/commonobject.class.php");
 
@@ -122,7 +122,19 @@ class ActionsCabinetmed
         // Hook called when asking to update a record
         if ($action == 'update')
         {
+            $nametocheck=GETPOST('nom');
+            $date=GETPOST('idprof3');
+            //$confirmduplicate=$_POST['confirmduplicate'];
 
+            // Check on date
+            $birthdatearray=strptime($date,$conf->format_date_short);
+            $birthdate=dol_mktime(0,0,0,$birthdatearray['tm_mon']+1,($birthdatearray['tm_mday']),($birthdatearray['tm_year']+1900),true);
+            if (GETPOST('idprof3') && empty($birthdate))
+            {
+                $langs->load("errors");
+                $this->errors[]=$langs->trans("ErrorBadDateFormat",$date);
+                $ret=-1;
+            }
         }
 
         // Hook called when asking to view a record
