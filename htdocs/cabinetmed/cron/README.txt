@@ -9,9 +9,11 @@
 # This is a command to synchronize to another directory
 rsync -a --delete --stats /Applications/MAMP/dolibarr* /Volumes/SCM34_OSX/Backups_Dolimed >/Applications/MAMP/dolibarr_logs/backup_dolimed.log 2>&1
 
-# This is command to synchronize with other servers
+# This is example of command to synchronize with other servers
 # rsync -a --stats --exclude conf.php --exclude htdocs/index.html rhumato@apollon1.nltechno.com:/home/rhumato/wwwroot/dolibarr/* /Applications/MAMP/dolibarr 
 # rsync -a --stats /Applications/MAMP/dolibarr rhumato@apollon1.nltechno.com:/home/rhumato/backup_scm
+# rsync -a --stats /Applications/MAMP/dolibarrmodsf rhumato@apollon1.nltechno.com:/home/rhumato/backup_scm
+# rsync -a --stats /Applications/MAMP/dolibarr_documents rhumato@apollon1.nltechno.com:/home/rhumato/backup_scm
 
 # Put this into your cron
 # 0 22 * * *  Applications/MAMP/backup.sh
