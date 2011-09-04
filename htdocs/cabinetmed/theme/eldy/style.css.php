@@ -19,8 +19,8 @@
 
 /**
  *		\file       htdocs/cabinetmed/theme/eldy/style.css.php
- *		\brief      Fichier de style CSS du theme Eldy
- *		\version    $Id: style.css.php,v 1.21 2011/08/17 14:29:06 eldy Exp $
+ *		\brief      File for CSS style sheet Eldy
+ *		\version    $Id: style.css.php,v 1.22 2011/09/04 18:06:30 eldy Exp $
  */
 
 //if (! defined('NOREQUIREUSER')) define('NOREQUIREUSER','1');	// Not disabled cause need to load personalized language
@@ -61,8 +61,8 @@ if (GETPOST('theme')) $conf->theme=GETPOST('theme');  // If theme was forced on 
 $langs->load("main",0,1);
 $right=($langs->trans("DIRECTION")=='rtl'?'left':'right');
 $left=($langs->trans("DIRECTION")=='rtl'?'right':'left');
-$fontsize=empty($conf->browser->phone)?'12':'12';
-$fontsizesmaller=empty($conf->browser->phone)?'11':'11';
+$fontsize=empty($conf->browser->phone)?'12':'14';
+$fontsizesmaller=empty($conf->browser->phone)?'11':'14';
 
 $path='/cabinetmed';
 
@@ -222,8 +222,8 @@ td.showDragHandle {
 /* ============================================================================== */
 
 div.fiche {
-	margin-<?php print $left; ?>: <?php print empty($conf->browser->phone)?'10':'2'; ?>px;
-	margin-<?php print $right; ?>: <?php print empty($conf->browser->phone)?'8':''; ?>px;
+	margin-<?php print $left; ?>: <?php print (empty($conf->browser->phone) || empty($conf->global->MAIN_SMARTPHONE_OPTIM))?'10':'24'; ?>px;
+	margin-<?php print $right; ?>: <?php print empty($conf->browser->phone)?'8':'6'; ?>px;
 }
 
 div.fichecenter {
@@ -233,10 +233,12 @@ div.fichecenter {
 div.fichethirdleft {
 	<?php if (empty($conf->browser->phone)) { print "float: ".$left.";\n"; } ?>
 	<?php if (empty($conf->browser->phone)) { print "width: 35%;\n"; } ?>
+	<?php if (! empty($conf->browser->phone)) { print "padding-bottom: 6px;\n"; } ?>
 }
 div.fichetwothirdright {
 	<?php if (empty($conf->browser->phone)) { print "float: ".$left.";\n"; } ?>
 	<?php if (empty($conf->browser->phone)) { print "width: 65%;\n"; } ?>
+	<?php if (! empty($conf->browser->phone)) { print "padding-bottom: 6px\n"; } ?>
 }
 div.fichehalfleft {
 	<?php if (empty($conf->browser->phone)) { print "float: ".$left.";\n"; } ?>
@@ -247,7 +249,7 @@ div.fichehalfright {
 	<?php if (empty($conf->browser->phone)) { print "width: 50%;\n"; } ?>
 }
 div.ficheaddleft {
-	<?php if (empty($conf->browser->phone)) { print "padding-left: 8px;\n"; } ?>
+	<?php if (empty($conf->browser->phone))   { print "padding-left: 10px;\n"; } ?>
 }
 
 
@@ -710,7 +712,7 @@ td.photo {
 /* ============================================================================== */
 
 .toolbar {
-    background-image: url(<?php echo dol_buildpath($path.'/theme/'.$conf->theme.'/img/tmenu2.png',1) ?>) !important;
+    background-image: url(<?php echo dol_buildpath($path.'/theme/'.$conf->theme.'/img/tmenu2.jpg',1) ?>) !important;
     background-repeat: repeat-x !important;
     border: 1px solid #BBB !important;
 }
@@ -761,7 +763,7 @@ td.photo {
  *  RESIZER-BARS
  */
 .ui-layout-resizer  { /* all 'resizer-bars' */
-	width: 8px !important;
+	width: <?php echo (empty($conf->browser->phone)?'8':'24'); ?>px !important;
 }
 .ui-layout-resizer-hover    {   /* affects both open and closed states */
 }
@@ -770,7 +772,7 @@ td.photo {
 /*.ui-layout-resizer-open-hover ,*/ /* hover-color to 'resize' */
 .ui-layout-resizer-dragging {   /* resizer beging 'dragging' */
     background: #DDD;
-    width: 8px;
+    width: <?php echo (empty($conf->browser->phone)?'8':'24'); ?>px;
 }
 .ui-layout-resizer-dragging {   /* CLONED resizer being dragged */
     border-left:  1px solid #BBB;
@@ -779,6 +781,9 @@ td.photo {
 /* NOTE: Add a 'dragging-limit' color to provide visual feedback when resizer hits min/max size limits */
 .ui-layout-resizer-dragging-limit { /* CLONED resizer at min or max size-limit */
     background: #E1A4A4; /* red */
+}
+.ui-layout-resizer-closed {
+    background-color: #DDDDDD;
 }
 .ui-layout-resizer-closed:hover {
     background-color: #EEDDDD;
@@ -791,33 +796,38 @@ td.photo {
         opacity: 1.00; /* on-hover, show the resizer-bar normally */
         filter:  alpha(opacity=100);
     }
-/* sliding resizer - add 'outside-border' to resizer on-hover
- * this sample illustrates how to target specific panes and states */
-.ui-layout-resizer-north-sliding-hover  { border-bottom-width:  1px; }
+/* sliding resizer - add 'outside-border' to resizer on-hover */
+/* this sample illustrates how to target specific panes and states */
+/*.ui-layout-resizer-north-sliding-hover  { border-bottom-width:  1px; }
 .ui-layout-resizer-south-sliding-hover  { border-top-width:     1px; }
 .ui-layout-resizer-west-sliding-hover   { border-right-width:   1px; }
 .ui-layout-resizer-east-sliding-hover   { border-left-width:    1px; }
+*/
 
 /*
  *  TOGGLER-BUTTONS
  */
 .ui-layout-toggler {
+    <?php if (empty($conf->browser->phone)) { ?>
     border-top: 1px solid #AAA; /* match pane-border */
     border-right: 1px solid #AAA; /* match pane-border */
     border-bottom: 1px solid #AAA; /* match pane-border */
     background-color: #DDD;
     top: 5px !important;
-    }
+	<?php } else { ?>
+	diplay: none;
+	<?php } ?>
+}
 .ui-layout-toggler-open {
-	height: 48px !important;
-	width: 5px !important;
+	height: 54px !important;
+	width: <?php echo (empty($conf->browser->phone)?'7':'22'); ?>px !important;
     -moz-border-radius:0px 10px 10px 0px;
 	-webkit-border-radius:0px 10px 10px 0px;
 	border-radius:0px 10px 10px 0px;
 }
 .ui-layout-toggler-closed {
-	height: 48px !important;
-	width: 5px !important;
+	height: <?php echo (empty($conf->browser->phone)?'54':'2'); ?>px !important;
+	width: <?php echo (empty($conf->browser->phone)?'7':'22'); ?>px !important;
     -moz-border-radius:0px 10px 10px 0px;
 	-webkit-border-radius:0px 10px 10px 0px;
 	border-radius:0px 10px 10px 0px;
@@ -1176,6 +1186,10 @@ border-bottom-color: #BBBBBB;
 border-bottom-style: solid;
 
 margin: 0px 0px 2px 0px;
+
+-moz-box-shadow: 4px 4px 4px #CCC;
+-webkit-box-shadow: 4px 4px 4px #CCC;
+box-shadow: 4px 4px 4px #CCC;
 }
 
 table.noborder tr {
@@ -1225,12 +1239,17 @@ border-bottom-style: solid;
 
 margin-bottom: 2px;
 margin-top: 0px;
+
+    -moz-box-shadow: 4px 4px 4px #CCC;
+    -webkit-box-shadow: 4px 4px 4px #CCC;
+    box-shadow: 4px 4px 4px #CCC;
 }
 table.liste td {
 padding-right: 2px;
 }
 
-tr.liste_titre {
+tr.liste_titre
+{
 height: 20px !important;
 background: #7699A9;
 background-image: url(<?php echo $img_liste_titre ?>);
@@ -1240,7 +1259,8 @@ font-family: <?php print $fontlist ?>;
 border-bottom: 1px solid #FDFFFF;
 white-space: nowrap;
 }
-td.liste_titre {
+th.liste_titre, td.liste_titre 
+{
 background: #7699A9;
 background-image: url(<?php echo $img_liste_titre ?>);
 background-repeat: repeat-x;
@@ -1249,8 +1269,9 @@ font-family: <?php print $fontlist ?>;
 font-weight: normal;
 border-bottom: 1px solid #FDFFFF;
 white-space: nowrap;
+    text-align: <?php echo $left; ?>;
 }
-td.liste_titre_sel
+th.liste_titre_sel, td.liste_titre_sel
 {
 background: #7699A9;
 background-image: url(<?php echo $img_liste_titre ?>);
@@ -1260,6 +1281,7 @@ font-family: <?php print $fontlist ?>;
 font-weight: normal;
 border-bottom: 1px solid #FDFFFF;
 white-space: nowrap;
+    text-align: <?php echo $left; ?>;
 }
 input.liste_titre {
 background: #7699A9;
@@ -1277,18 +1299,6 @@ font-weight: normal;
 white-space: nowrap;
 }
 
-th {
-/* background: #7699A9; */
-background: #91ABB3;
-color: #334444;
-font-family: <?php print $fontlist ?>;
-font-weight: bold;
-border-left: 1px solid #FFFFFF;
-border-right: 1px solid #FFFFFF;
-border-top: 1px solid #FFFFFF;
-border-bottom: 1px solid #FFFFFF;
-white-space: nowrap;
-}
 
 .impair {
 /* background: #d0d4d7; */
@@ -1520,6 +1530,11 @@ border-radius: 6px;
 }
 .ui-datepicker-header {
     height: 28px !important;
+}
+
+.ui-datepicker-trigger {
+	vertical-align: middle;
+	cursor: pointer;
 }
 
 .bodyline {
@@ -2026,6 +2041,10 @@ a.cke_dialog_ui_button
     -webkit-box-shadow: 4px 4px 4px #CCC !important;
     box-shadow: 4px 4px 4px #CCC !important;
 }
+.cke_dialog_ui_hbox_last
+{
+	vertical-align: bottom ! important;
+}
 
 
 /* ============================================================================== */
@@ -2034,24 +2053,6 @@ a.cke_dialog_ui_button
 
 .template-upload {
     height: 72px !important;
-}
-
-
-
-#builddoc_form .formdoc, #builddoc_form .formdocbutton{
-    color: #234046;
-    padding-top: 3px;
-    padding-left: 3px;
-    padding-right: 3px;
-    padding-bottom: 3px;
-    margin: 0px 0px 14px 0px;
-    -moz-border-radius:6px;
-    -webkit-border-radius: 6px;
-	border-radius: 6px;
-    border-right: 0 !important;
-    border-left: 0 !important;
-    background: #dee7ec url(<?php echo dol_buildpath($path.'/theme/eldy/img/tab_background.png',1) ?>) repeat-x;
-    text-align: left;
 }
 
 <?php

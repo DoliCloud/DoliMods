@@ -20,7 +20,7 @@
 /**
  *		\file       htdocs/theme/auguria/style.css.php
  *		\brief      File for CSS style sheet Auguria
- *		\version    $Id: style.css.php,v 1.13 2011/08/17 14:28:57 eldy Exp $
+ *		\version    $Id: style.css.php,v 1.14 2011/09/04 18:06:21 eldy Exp $
  */
 
 //if (! defined('NOREQUIREUSER')) define('NOREQUIREUSER','1');	// Not disabled cause need to load personalized language
@@ -239,7 +239,7 @@ div.fichehalfright {
 	<?php if (empty($conf->browser->phone)) { print "width: 50%;\n"; } ?>
 }
 div.ficheaddleft {
-	<?php if (empty($conf->browser->phone)) { print "padding-left: 8px;\n"; } ?>
+	<?php if (empty($conf->browser->phone)) { print "padding-left: 10px;\n"; } ?>
 }
 
 
@@ -1171,9 +1171,9 @@ margin-right: 1px;
 margin-bottom: 2px;
 margin-top: 0px;
 
--moz-box-shadow: 2px 4px 2px #CCC;
--webkit-box-shadow: 2px 4px 2px #CCC;
-box-shadow: 2px 4px 2px #CCC;
+-moz-box-shadow: 4px 4px 4px #CCC;
+-webkit-box-shadow: 4px 4px 4px #CCC;
+box-shadow: 4px 4px 4px #CCC;
 }
 
 table.noborder tr {
@@ -1227,15 +1227,16 @@ border-bottom-style: solid;
 margin-bottom: 2px;
 margin-top: 0px;
 
--moz-box-shadow: 2px 4px 2px #CCC;
--webkit-box-shadow: 2px 4px 2px #CCC;
-box-shadow: 2px 4px 2px #CCC;
+    -moz-box-shadow: 4px 4px 4px #CCC;
+    -webkit-box-shadow: 4px 4px 4px #CCC;
+    box-shadow: 4px 4px 4px #CCC;
 }
 table.liste td {
 padding-right: 2px;
 }
 
-tr.liste_titre {
+tr.liste_titre
+{
 height: 24px;
 background: #7699A9;
 background-image: url(<?php echo $img_liste_titre ?>);
@@ -1245,7 +1246,8 @@ font-family: <?php print $fontlist ?>;
 /* border-bottom: 1px solid #FDFFFF; */
 white-space: nowrap;
 }
-td.liste_titre {
+th.liste_titre, td.liste_titre
+{
 background: #7699A9;
 background-image: url(<?php echo $img_liste_titre ?>);
 background-repeat: repeat-x;
@@ -1254,8 +1256,9 @@ font-family: <?php print $fontlist ?>;
 font-weight: normal;
 /* border-bottom: 1px solid #FDFFFF; */
 white-space: nowrap;
+    text-align: <?php echo $left; ?>;
 }
-td.liste_titre_sel
+th.liste_titre_sel, td.liste_titre_sel
 {
 background: #7699A9;
 background-image: url(<?php echo $img_liste_titre ?>);
@@ -1266,6 +1269,7 @@ font-weight: normal;
 /* text-decoration: underline; */
 /* border-bottom: 1px solid #FDFFFF; */
 white-space: nowrap;
+    text-align: <?php echo $left; ?>;
 }
 input.liste_titre {
 background: transparent;
@@ -1279,19 +1283,6 @@ background: #F0F0F0;
 background-repeat: repeat-x;
 color: #332266;
 font-weight: normal;
-white-space: nowrap;
-}
-
-th {
-/* background: #7699A9; */
-background: #91ABB3;
-color: #334444;
-font-family: <?php print $fontlist ?>;
-font-weight: bold;
-border-left: 1px solid #FFFFFF;
-border-right: 1px solid #FFFFFF;
-border-top: 1px solid #FFFFFF;
-border-bottom: 1px solid #FFFFFF;
 white-space: nowrap;
 }
 
@@ -1327,9 +1318,9 @@ border: 0px;
  */
 
 .boxtable {
--moz-box-shadow: 2px 4px 2px #CCC;
--webkit-box-shadow: 2px 4px 2px #CCC;
-box-shadow: 2px 4px 2px #CCC;
+-moz-box-shadow: 4px 4px 4px #CCC;
+-webkit-box-shadow: 4px 4px 4px #CCC;
+box-shadow: 4px 4px 4px #CCC;
 }
 
 .box {
