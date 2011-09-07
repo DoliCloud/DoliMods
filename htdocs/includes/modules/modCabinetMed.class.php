@@ -26,7 +26,7 @@
  *      \file       htdocs/includes/modules/modCabinetMed.class.php
  *      \ingroup    cabinetmed
  *      \brief      Description and activation file for module CabinetMed
- *      \version    $Id: modCabinetMed.class.php,v 1.45 2011/08/23 22:26:17 eldy Exp $
+ *      \version    $Id: modCabinetMed.class.php,v 1.46 2011/09/07 16:26:49 eldy Exp $
  */
 include_once(DOL_DOCUMENT_ROOT ."/includes/modules/DolibarrModules.class.php");
 
@@ -84,7 +84,7 @@ class modCabinetMed extends DolibarrModules
         $this->depends = array('modSociete');       // List of modules id that must be enabled if this module is enabled
         $this->requiredby = array();    // List of modules id to disable if this one is disabled
         $this->phpmin = array(4,3);                 // Minimum version of PHP required by module
-        $this->need_dolibarr_version = array(3,1,-3);   // Minimum version of Dolibarr required by module
+        $this->need_dolibarr_version = array(3,2,-3);   // Minimum version of Dolibarr required by module
         $this->langfiles = array('cabinetmed@cabinetmed','companies');
 
         // Constants
