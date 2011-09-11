@@ -21,7 +21,7 @@
  *      \file       dev/skeletons/monitoring_probes.class.php
  *      \ingroup    mymodule othermodule1 othermodule2
  *      \brief      This file is an example for a CRUD class file (Create/Read/Update/Delete)
- *		\version    $Id: monitoring_probes.class.php,v 1.10 2011/04/13 21:18:58 eldy Exp $
+ *		\version    $Id: monitoring_probes.class.php,v 1.11 2011/09/11 18:41:56 eldy Exp $
  *		\author		Put author name here
  *		\remarks	Initialy built by build_class_from_table on 2011-03-08 23:24
  */
@@ -61,8 +61,9 @@ class Monitoring_probes extends CommonObject
 
 
     /**
-     *      \brief      Constructor
-     *      \param      DB      Database handler
+	 *	Constructor
+	 *
+	 *  @param		DoliDB		$DB      Database handler
      */
     function Monitoring_probes($DB)
     {

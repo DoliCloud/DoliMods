@@ -20,7 +20,7 @@
  *      \file       htdocs/cabinetmed/class/cabinetmedcons.class.php
  *      \ingroup    cabinetmed
  *      \brief      This file is an example for a CRUD class file (Create/Read/Update/Delete)
- *		\version    $Id: cabinetmedcons.class.php,v 1.20 2011/08/10 22:46:00 eldy Exp $
+ *		\version    $Id: cabinetmedcons.class.php,v 1.21 2011/09/11 18:41:48 eldy Exp $
  *		\remarks	Initialy built by build_class_from_table on 2011-02-02 22:30
  */
 
@@ -71,8 +71,9 @@ class CabinetmedCons extends CommonObject
     var $bank_account_id;       // Id of bank account
 
 	/**
-	 *      \brief      Constructor
-	 *      \param      DB      Database handler
+	 *	Constructor
+	 *
+	 *  @param		DoliDB		$DB      Database handler
 	 */
 	function CabinetmedCons($DB)
 	{

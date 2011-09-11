@@ -8,8 +8,9 @@ class ActionsCardPatient extends CommonObject
     var $errors=array();                //!< To return several error codes (or messages)
 
     /**
-     *      \brief      Constructor
-     *      \param      DB      Database handler
+	 *	Constructor
+	 *
+	 *  @param		DoliDB		$DB      Database handler
      */
     function ActionsCardPatient($DB,$targetmodule,$canvas,$card)
     {
@@ -19,14 +20,5 @@ class ActionsCardPatient extends CommonObject
 
         return 1;
     }
-
-
-
-    function xdoActions()
-    {
-
-
-    }
-
 
 }

@@ -27,7 +27,7 @@
  *	\file       htdocs/societe/class/societe.class.php
  *	\ingroup    societe
  *	\brief      File for third party class
- *	\version    $Id: patient.class.php,v 1.8 2011/09/02 23:18:19 eldy Exp $
+ *	\version    $Id: patient.class.php,v 1.9 2011/09/11 18:41:48 eldy Exp $
  */
 require_once(DOL_DOCUMENT_ROOT."/core/class/commonobject.class.php");
 
@@ -133,9 +133,9 @@ class Patient extends CommonObject
 
 
     /**
-     *    Constructor for class
-     *
-     *    @param  DB     handler acces base de donnees
+	 *	Constructor
+	 *
+	 *  @param		DoliDB		$DB      Database handler
      */
     function Patient($DB)
     {

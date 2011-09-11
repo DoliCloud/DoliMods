@@ -21,7 +21,7 @@
  *      \file       dev/skeletons/filemanager_roots.class.php
  *      \ingroup    mymodule othermodule1 othermodule2
  *      \brief      This file is an example for a CRUD class file (Create/Read/Update/Delete)
- *		\version    $Id: filemanagerroots.class.php,v 1.1 2010/08/18 22:10:40 eldy Exp $
+ *		\version    $Id: filemanagerroots.class.php,v 1.2 2011/09/11 18:41:56 eldy Exp $
  *		\author		Put author name here
  *		\remarks	Initialy built by build_class_from_table on 2010-08-17 13:30
  */
@@ -44,9 +44,9 @@ class FilemanagerRoots // extends CommonObject
 	var $errors=array();				//!< To return several error codes (or messages)
 	//var $element='filemanager_roots';			//!< Id that identify managed objects
 	//var $table_element='filemanager_roots';	//!< Name of table without prefix where object is stored
-    
+
     var $id;
-    
+
 	var $datec='';
 	var $rootlabel;
 	var $rootpath;
@@ -54,20 +54,21 @@ class FilemanagerRoots // extends CommonObject
 	var $position;
 	var $entity;
 
-    
 
-	
+
+
     /**
-     *      \brief      Constructor
-     *      \param      DB      Database handler
+	 *	Constructor
+	 *
+	 *  @param		DoliDB		$DB      Database handler
      */
-    function FilemanagerRoots($DB) 
+    function FilemanagerRoots($DB)
     {
         $this->db = $DB;
         return 1;
     }
 
-	
+
     /**
      *      \brief      Create in database
      *      \param      user        	User that create
@@ -78,23 +79,23 @@ class FilemanagerRoots // extends CommonObject
     {
     	global $conf, $langs;
 		$error=0;
-    	
+
 		// Clean parameters
-        
+
 		if (isset($this->rootlabel)) $this->rootlabel=trim($this->rootlabel);
 		if (isset($this->rootpath)) $this->rootpath=trim($this->rootpath);
 		if (isset($this->note)) $this->note=trim($this->note);
 		if (isset($this->position)) $this->position=trim($this->position);
 		if (isset($this->entity)) $this->entity=trim($this->entity);
 
-        
+
 
 		// Check parameters
 		// Put here code to add control on parameters values
-		
+
         // Insert request
 		$sql = "INSERT INTO ".MAIN_DB_PREFIX."filemanager_roots(";
-		
+
 		$sql.= "datec,";
 		$sql.= "rootlabel,";
 		$sql.= "rootpath,";
@@ -102,9 +103,9 @@ class FilemanagerRoots // extends CommonObject
 		$sql.= "position,";
 		$sql.= "entity";
 
-		
+
         $sql.= ") VALUES (";
-        
+
 		$sql.= " ".(! isset($this->datec) || strlen($this->datec)==0?'NULL':$this->db->idate($this->datec)).",";
 		$sql.= " ".(! isset($this->rootlabel)?'NULL':"'".addslashes($this->rootlabel)."'").",";
 		$sql.= " ".(! isset($this->rootpath)?'NULL':"'".addslashes($this->rootpath)."'").",";
@@ -112,24 +113,24 @@ class FilemanagerRoots // extends CommonObject
 		$sql.= " ".(! isset($this->position)?'NULL':"'".$this->position."'").",";
 		$sql.= " ".(! isset($conf->entity)?'NULL':"'".$conf->entity."'")."";
 
-        
+
 		$sql.= ")";
 
 		$this->db->begin();
-		
+
 	   	dol_syslog(get_class($this)."::create sql=".$sql, LOG_DEBUG);
         $resql=$this->db->query($sql);
     	if (! $resql) { $error++; $this->errors[]="Error ".$this->db->lasterror(); }
-        
+
 		if (! $error)
         {
             $this->id = $this->db->last_insert_id(MAIN_DB_PREFIX."filemanager_roots");
-    
+
 			if (! $notrigger)
 			{
 	            // Uncomment this and change MYOBJECT to your own tag if you
 	            // want this action call a trigger.
-	            
+
 	            //// Call triggers
 	            //include_once(DOL_DOCUMENT_ROOT . "/core/class/interfaces.class.php");
 	            //$interface=new Interfaces($this->db);
@@ -146,7 +147,7 @@ class FilemanagerRoots // extends CommonObject
 			{
 	            dol_syslog(get_class($this)."::create ".$errmsg, LOG_ERR);
 	            $this->error.=($this->error?', '.$errmsg:$errmsg);
-			}	
+			}
 			$this->db->rollback();
 			return -1*$error;
 		}
@@ -157,7 +158,7 @@ class FilemanagerRoots // extends CommonObject
 		}
     }
 
-    
+
     /**
      *    \brief      Load object in memory from database
      *    \param      id          id object
@@ -168,7 +169,7 @@ class FilemanagerRoots // extends CommonObject
     	global $langs;
         $sql = "SELECT";
 		$sql.= " t.rowid,";
-		
+
 		$sql.= " t.datec,";
 		$sql.= " t.rootlabel,";
 		$sql.= " t.rootpath,";
@@ -176,10 +177,10 @@ class FilemanagerRoots // extends CommonObject
 		$sql.= " t.position,";
 		$sql.= " t.entity";
 
-		
+
         $sql.= " FROM ".MAIN_DB_PREFIX."filemanager_roots as t";
         $sql.= " WHERE t.rowid = ".$id;
-    
+
     	dol_syslog(get_class($this)."::fetch sql=".$sql, LOG_DEBUG);
         $resql=$this->db->query($sql);
         if ($resql)
@@ -187,9 +188,9 @@ class FilemanagerRoots // extends CommonObject
             if ($this->db->num_rows($resql))
             {
                 $obj = $this->db->fetch_object($resql);
-    
+
                 $this->id    = $obj->rowid;
-                
+
 				$this->datec = $this->db->jdate($obj->datec);
 				$this->rootlabel = $obj->rootlabel;
 				$this->rootpath = $obj->rootpath;
@@ -197,10 +198,10 @@ class FilemanagerRoots // extends CommonObject
 				$this->position = $obj->position;
 				$this->entity = $obj->entity;
 
-                
+
             }
             $this->db->free($resql);
-            
+
             return 1;
         }
         else
@@ -210,7 +211,7 @@ class FilemanagerRoots // extends CommonObject
             return -1;
         }
     }
-    
+
 
     /**
      *      \brief      Update database
@@ -222,23 +223,23 @@ class FilemanagerRoots // extends CommonObject
     {
     	global $conf, $langs;
 		$error=0;
-    	
+
 		// Clean parameters
-        
+
 		if (isset($this->rootlabel)) $this->rootlabel=trim($this->rootlabel);
 		if (isset($this->rootpath)) $this->rootpath=trim($this->rootpath);
 		if (isset($this->note)) $this->note=trim($this->note);
 		if (isset($this->position)) $this->position=trim($this->position);
 		if (isset($this->entity)) $this->entity=trim($this->entity);
 
-        
+
 
 		// Check parameters
 		// Put here code to add control on parameters values
 
         // Update request
         $sql = "UPDATE ".MAIN_DB_PREFIX."filemanager_roots SET";
-        
+
 		$sql.= " datec=".(strlen($this->datec)!=0 ? "'".$this->db->idate($this->datec)."'" : 'null').",";
 		$sql.= " rootlabel=".(isset($this->rootlabel)?"'".addslashes($this->rootlabel)."'":"null").",";
 		$sql.= " rootpath=".(isset($this->rootpath)?"'".addslashes($this->rootpath)."'":"null").",";
@@ -246,22 +247,22 @@ class FilemanagerRoots // extends CommonObject
 		$sql.= " position=".(isset($this->position)?$this->position:"null").",";
 		$sql.= " entity=".(isset($this->entity)?$this->entity:"null")."";
 
-        
+
         $sql.= " WHERE rowid=".$this->id;
 
 		$this->db->begin();
-        
+
 		dol_syslog(get_class($this)."::update sql=".$sql, LOG_DEBUG);
         $resql = $this->db->query($sql);
     	if (! $resql) { $error++; $this->errors[]="Error ".$this->db->lasterror(); }
-        
+
 		if (! $error)
 		{
 			if (! $notrigger)
 			{
 	            // Uncomment this and change MYOBJECT to your own tag if you
 	            // want this action call a trigger.
-				
+
 	            //// Call triggers
 	            //include_once(DOL_DOCUMENT_ROOT . "/core/class/interfaces.class.php");
 	            //$interface=new Interfaces($this->db);
@@ -270,7 +271,7 @@ class FilemanagerRoots // extends CommonObject
 	            //// End call triggers
 	    	}
 		}
-		
+
         // Commit or rollback
 		if ($error)
 		{
@@ -278,7 +279,7 @@ class FilemanagerRoots // extends CommonObject
 			{
 	            dol_syslog(get_class($this)."::update ".$errmsg, LOG_ERR);
 	            $this->error.=($this->error?', '.$errmsg:$errmsg);
-			}	
+			}
 			$this->db->rollback();
 			return -1*$error;
 		}
@@ -286,10 +287,10 @@ class FilemanagerRoots // extends CommonObject
 		{
 			$this->db->commit();
 			return 1;
-		}		
+		}
     }
-  
-  
+
+
  	/**
 	 *   \brief      Delete object in database
      *	\param      user        	User that delete
@@ -300,32 +301,32 @@ class FilemanagerRoots // extends CommonObject
 	{
 		global $conf, $langs;
 		$error=0;
-		
+
 		$sql = "DELETE FROM ".MAIN_DB_PREFIX."filemanager_roots";
 		$sql.= " WHERE rowid=".$this->id;
-	
+
 		$this->db->begin();
-		
+
 		dol_syslog(get_class($this)."::delete sql=".$sql);
 		$resql = $this->db->query($sql);
     	if (! $resql) { $error++; $this->errors[]="Error ".$this->db->lasterror(); }
-		
+
 		if (! $error)
 		{
 			if (! $notrigger)
 			{
 				// Uncomment this and change MYOBJECT to your own tag if you
 		        // want this action call a trigger.
-				
+
 		        //// Call triggers
 		        //include_once(DOL_DOCUMENT_ROOT . "/core/class/interfaces.class.php");
 		        //$interface=new Interfaces($this->db);
 		        //$result=$interface->run_triggers('MYOBJECT_DELETE',$this,$user,$langs,$conf);
 		        //if ($result < 0) { $error++; $this->errors=$interface->errors; }
 		        //// End call triggers
-			}	
+			}
 		}
-		
+
         // Commit or rollback
 		if ($error)
 		{
@@ -333,7 +334,7 @@ class FilemanagerRoots // extends CommonObject
 			{
 	            dol_syslog(get_class($this)."::delete ".$errmsg, LOG_ERR);
 	            $this->error.=($this->error?', '.$errmsg:$errmsg);
-			}	
+			}
 			$this->db->rollback();
 			return -1*$error;
 		}
@@ -345,7 +346,7 @@ class FilemanagerRoots // extends CommonObject
 	}
 
 
-	
+
 	/**
 	 *		\brief      Load an object from its id and create a new one in database
 	 *		\param      fromid     		Id of object to clone
@@ -354,9 +355,9 @@ class FilemanagerRoots // extends CommonObject
 	function createFromClone($fromid)
 	{
 		global $user,$langs;
-		
+
 		$error=0;
-		
+
 		$object=new Filemanager_roots($this->db);
 
 		$this->db->begin();
@@ -368,24 +369,24 @@ class FilemanagerRoots // extends CommonObject
 
 		// Clear fields
 		// ...
-				
+
 		// Create clone
 		$result=$object->create($user);
 
 		// Other options
-		if ($result < 0) 
+		if ($result < 0)
 		{
 			$this->error=$object->error;
 			$error++;
 		}
-		
+
 		if (! $error)
 		{
-			
-			
-			
+
+
+
 		}
-		
+
 		// End
 		if (! $error)
 		{
@@ -399,7 +400,7 @@ class FilemanagerRoots // extends CommonObject
 		}
 	}
 
-	
+
 	/**
 	 *		\brief		Initialise object with example values
 	 *		\remarks	id must be 0 if object instance is a specimen.
@@ -407,7 +408,7 @@ class FilemanagerRoots // extends CommonObject
 	function initAsSpecimen()
 	{
 		$this->id=0;
-		
+
 		$this->datec='';
 		$this->rootlabel='';
 		$this->rootpath='';
@@ -415,7 +416,7 @@ class FilemanagerRoots // extends CommonObject
 		$this->position='';
 		$this->entity='';
 
-		
+
 	}
 
 }

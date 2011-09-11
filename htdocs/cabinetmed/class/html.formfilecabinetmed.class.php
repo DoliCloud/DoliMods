@@ -22,7 +22,7 @@
  *	\file       htdocs/cabinetmed/class/html.formfilecabinetmed.class.php
  *  \ingroup    core
  *	\brief      File of class to offer components to list and upload files
- *	\version	$Id: html.formfilecabinetmed.class.php,v 1.4 2011/07/10 22:46:17 eldy Exp $
+ *	\version	$Id: html.formfilecabinetmed.class.php,v 1.5 2011/09/11 18:41:48 eldy Exp $
  */
 
 
@@ -39,8 +39,9 @@ class FormFileCabinetmed
 
 
 	/**
-	 *		Constructor
-	 *		@param     DB      handler d'acces base de donnee
+	 *	Constructor
+	 *
+	 *  @param		DoliDB		$DB      Database handler
 	 */
 	function FormFileCabinetmed($DB)
 	{

@@ -20,7 +20,7 @@
  *	\file       htdocs/cabinetmed/class/actions_cabinetmed.class.php
  *	\ingroup    societe
  *	\brief      File to control actions
- *	\version    $Id: actions_cabinetmed.class.php,v 1.7 2011/09/04 12:43:40 eldy Exp $
+ *	\version    $Id: actions_cabinetmed.class.php,v 1.8 2011/09/11 18:41:48 eldy Exp $
  */
 require_once(DOL_DOCUMENT_ROOT."/core/class/commonobject.class.php");
 
@@ -36,9 +36,9 @@ class ActionsCabinetmed
     var $errors=array();
 
     /**
-     *    Constructor for class
-     *
-     *    @param  DB     handler acces base de donnees
+	 *	Constructor
+	 *
+	 *  @param		DoliDB		$DB      Database handler
      */
     function ActionsCabinetmed($DB)
     {

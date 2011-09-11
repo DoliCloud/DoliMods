@@ -51,8 +51,9 @@ class OvhSms  extends CommonObject
 
 
     /**
-     *      Constructor
-     *      @param      DB      Database handler
+	 *	Constructor
+	 *
+	 *  @param		DoliDB		$DB      Database handler
      */
     function OvhSms($DB)
     {
