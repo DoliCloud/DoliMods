@@ -1,0 +1,7 @@
+# Dolibarr language file - en_US - mails
+CHARSET=UTF-8
+MailingModuleDescContactCompanies=Contacts of patients
+MailingModuleDescContactsCategories=Patients (by category)
+MailingModuleDescDolibarrContractsLinesExpired=Patient with expired service lines
+MailingModuleDescContactsByCompanyCategory=Contacts of patients (by patient category)
+MailingModuleDescContactsByFunction=Contacts of patients (by specialist)
