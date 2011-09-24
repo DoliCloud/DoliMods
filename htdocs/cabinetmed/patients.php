@@ -154,8 +154,9 @@ if ($result)
 	$num = $db->num_rows($result);
 
 	$param = "&amp;search_nom=".$search_nom."&amp;search_code=".$search_code."&amp;search_ville=".$search_ville;
- 	if ($search_categ != '') $param.='&amp;search_categ='.$search_categ;
- 	if ($search_sale != '')	$param.='&amp;search_sale='.$search_sale;
+ 	if ($search_categ != '')   $param.='&amp;search_categ='.$search_categ;
+ 	if ($search_sale != '')	   $param.='&amp;search_sale='.$search_sale;
+    if ($search_diagles != '') $param.='&amp;search_diagles='.$search_diagles;
 
 	print_barre_liste($langs->trans("ListOfCustomers"), $page, $_SERVER["PHP_SELF"],$param,$sortfield,$sortorder,'',$num,$nbtotalofrecords);
 
