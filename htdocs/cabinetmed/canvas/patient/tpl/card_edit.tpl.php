@@ -18,7 +18,7 @@
  * $Id: card_edit.tpl.php,v 1.5 2011/08/20 14:33:23 eldy Exp $
  */
 
-$soc=$GLOBALS['objcanvas']->control->object;
+$soc=$GLOBALS['object'];
 
 global $db,$conf,$mysoc,$langs,$user;
 
