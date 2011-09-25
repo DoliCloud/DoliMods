@@ -1258,6 +1258,7 @@ color: #334444;
 font-family: <?php print $fontlist ?>;
 border-bottom: 1px solid #FDFFFF;
 white-space: nowrap;
+text-align: <?php echo $left; ?>;
 }
 th.liste_titre, td.liste_titre 
 {
@@ -1269,7 +1270,6 @@ font-family: <?php print $fontlist ?>;
 font-weight: normal;
 border-bottom: 1px solid #FDFFFF;
 white-space: nowrap;
-    text-align: <?php echo $left; ?>;
 }
 th.liste_titre_sel, td.liste_titre_sel
 {
@@ -1281,7 +1281,6 @@ font-family: <?php print $fontlist ?>;
 font-weight: normal;
 border-bottom: 1px solid #FDFFFF;
 white-space: nowrap;
-    text-align: <?php echo $left; ?>;
 }
 input.liste_titre {
 background: #7699A9;
@@ -1302,7 +1301,7 @@ white-space: nowrap;
 
 .impair {
 /* background: #d0d4d7; */
-background: #eaeaea;
+background: #f6f6f6;
 font-family: <?php print $fontlist ?>;
 border: 0px;
 margin-bottom: 1px;
