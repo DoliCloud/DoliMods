@@ -229,3 +229,7 @@ UL.jqueryFileTree A:hover {
 .fmvalue {
     color: #001166;
 }
+
+<?
+$db->close();
+?>

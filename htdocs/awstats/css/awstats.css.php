@@ -227,3 +227,7 @@ table.tablesorter .noborder { border: 0; }
 .tagcloud { margin-bottom: 20px; text-align: center; }
 .tagcloud span { color: #333; padding: 0 16px; white-space: nowrap; }
 
+
+<?
+$db->close();
+?>
