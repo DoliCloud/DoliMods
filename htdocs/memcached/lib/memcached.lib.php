@@ -1,6 +1,6 @@
 <?php
 /* Copyright (C) 2008-2009 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2005-2009 Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2005-2011 Regis Houssin        <regis@dolibarr.fr>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,13 +21,12 @@
 /**
  *	\file			htdocs/lib/admin.lib.php
  *  \brief			Library of admin functions
- *  \version		$Id: memcached.lib.php,v 1.1 2011/01/16 13:30:09 eldy Exp $
  */
 
 /**
- *  \brief      	Define head array for tabs of security setup pages
- *  \return			Array of head
- *  \version    	$Id: memcached.lib.php,v 1.1 2011/01/16 13:30:09 eldy Exp $
+ *	Define head array for tabs of security setup pages
+ *
+ *	@return			Array of head
  */
 function memcached_prepare_head()
 {

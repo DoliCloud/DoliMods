@@ -16,31 +16,30 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-/**     \defgroup   memcached		Module Memcached
- *      \brief      Module for memcached server
- *		\version	$Id: modMemcached.class.php,v 1.8 2011/01/22 10:18:00 eldy Exp $
- */
-
 /**
- *       \file       htdocs/includes/modules/modMemcached.class.php
- *       \ingroup    ftp
- *       \brief      Description and activation file for module Memcached
+ * 	\defgroup   memcached		Module Memcached
+ * 	\brief      Module for memcached server
+ * 	\file       /memcached/includes/modules/modMemcached.class.php
+ * 	\ingroup    ftp
+ * 	\brief      Description and activation file for module Memcached
  */
 
 include_once(DOL_DOCUMENT_ROOT ."/includes/modules/DolibarrModules.class.php");
 
 
-/**     \class      modMemcached
- *      \brief      Description and activation class for module Memcached
+/**
+ * 	\class      modMemcached
+ * 	\brief      Description and activation class for module Memcached
  */
 class modMemcached extends DolibarrModules
 {
 
    /**
-    *   \brief      Constructor. Define names, constants, directories, boxes, permissions
-    *   \param      DB      Database handler
+    *	Constructor.
+    *
+    *	@param	DoliDB	$DB		Database handler
     */
-	function modMemcached($DB)
+	function __construct($DB)
 	{
 		$this->db = $DB;
 
@@ -119,9 +118,11 @@ class modMemcached extends DolibarrModules
 	}
 
 	/**
-     *		\brief      Function called when module is enabled.
-     *					The init function add previous constants, boxes and permissions into Dolibarr database.
-     *					It also creates data directories.
+     *	Function called when module is enabled.
+     *	The init function add previous constants, boxes and permissions into Dolibarr database.
+     *	It also creates data directories.
+     *
+     *	@return	void
      */
 	function init()
   	{
@@ -131,9 +132,11 @@ class modMemcached extends DolibarrModules
   	}
 
 	/**
-	 *		\brief		Function called when module is disabled.
- 	 *              	Remove from database constants, boxes and permissions from Dolibarr database.
- 	 *					Data directories are not deleted.
+	 *	Function called when module is disabled.
+	 *	Remove from database constants, boxes and permissions from Dolibarr database.
+	 *	Data directories are not deleted.
+	 *
+	 *	@return	void
  	 */
 	function remove()
 	{
