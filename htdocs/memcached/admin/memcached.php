@@ -19,7 +19,6 @@
 /**
  *     \file       htdocs/memcached/admin/memcached.php
  *     \brief      Page administration de memcached
- *     \version    $Id: memcached.php,v 1.17 2011/03/29 23:17:21 eldy Exp $
  */
 
 $res=0;
@@ -234,5 +233,5 @@ if (! $error)
 
 }
 
-llxfooter('$Date: 2011/03/29 23:17:21 $ - $Revision: 1.17 $');
+llxfooter();
 ?>

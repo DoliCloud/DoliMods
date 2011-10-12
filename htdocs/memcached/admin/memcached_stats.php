@@ -18,7 +18,7 @@
   +----------------------------------------------------------------------+
 */
 
-$VERSION='$Id: memcached_stats.php,v 1.4 2011/03/29 23:17:21 eldy Exp $';
+$VERSION='';
 
 $res=0;
 if (! $res && file_exists("../main.inc.php")) $res=@include("../main.inc.php");
