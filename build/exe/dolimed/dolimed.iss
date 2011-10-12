@@ -18,12 +18,12 @@
 ; ----- Change this -----
 AppName=DoliMed
 ; DoliMed-x.x.x or DoliMed-x.x.x-dev or DoliMed-x.x.x-beta
-AppVerName=DoliMed-3.1.0-beta
+AppVerName=DoliMed-3.2.0-beta
 ; DoliMed-x.x x or DoliMed-x.x.x-dev or DoliMed-x.x.x-beta
-OutputBaseFilename=DoliMed-3.1.0-beta
+OutputBaseFilename=DoliMed-3.2.0-beta
 ; Define full path from wich all relative path are defined
 ; You must modify this to put here your dolibarr root directory
-SourceDir=C:\Mes Developpements\dolibarr
+SourceDir=C:\Documents and Settings\ldestail\git\dolibarr\
 ; ----- End of change
 ;OutputManifestFile=build\dolimedbuild.log
 AppId=dolimed
@@ -40,7 +40,7 @@ DefaultGroupName=DoliMed
 Compression=lzma
 SolidCompression=yes
 WizardImageFile=C:\Documents and Settings\ldestail\git\nltechno\doc\images\dolimed.ico
-WizardSmallImageFile=build\exe\dolimed\dolimedsmall.bmp
+WizardSmallImageFile=C:\Documents and Settings\ldestail\git\nltechno\build\exe\dolimed\dolimedsmall.bmp
 SetupIconFile=C:\Documents and Settings\ldestail\git\nltechno\doc\images\dolimed.ico
 PrivilegesRequired=admin
 DisableProgramGroupPage=yes
@@ -56,21 +56,21 @@ LanguageDetectionMethod=uilanguage
 ;SignedUninstaller=yes
 
 [Languages]
-Name: "en"; MessagesFile: "compiler:Default.isl,C:\Documents and Settings\ldestail\git\dolibarr\build\exe\dolimed\Languages\MyEnglish.isl"
-Name: "br"; MessagesFile: "compiler:Languages\Portuguese.isl,C:\Documents and Settings\ldestail\git\dolibarr\build\exe\dolimed\Languages\MyBrazilianPortuguese.isl"
-Name: "ca"; MessagesFile: "compiler:Languages\Catalan.isl,C:\Documents and Settings\ldestail\git\dolibarr\build\exe\dolimed\Languages\MyCatalan.isl"
-Name: "da"; MessagesFile: "compiler:Languages\Danish.isl,C:\Documents and Settings\ldestail\git\dolibarr\build\exe\dolimed\Languages\MyDanish.isl"
-Name: "es"; MessagesFile: "compiler:Languages\Spanish.isl,C:\Documents and Settings\ldestail\git\dolibarr\build\exe\dolimed\Languages\MySpanish.isl"
-Name: "nl"; MessagesFile: "compiler:Languages\Dutch.isl,C:\Documents and Settings\ldestail\git\dolibarr\build\exe\dolimed\Languages\MyDutch.isl"
-Name: "fi"; MessagesFile: "compiler:Languages\Finnish.isl,C:\Documents and Settings\ldestail\git\dolibarr\build\exe\dolimed\Languages\MyFinnish.isl"
-Name: "fr"; MessagesFile: "compiler:Languages\French.isl,C:\Documents and Settings\ldestail\git\dolibarr\build\exe\dolimed\Languages\MyFrench.isl"
-Name: "ge"; MessagesFile: "compiler:Languages\German.isl,C:\Documents and Settings\ldestail\git\dolibarr\build\exe\dolimed\Languages\MyGerman.isl"
-Name: "it"; MessagesFile: "compiler:Languages\Italian.isl,C:\Documents and Settings\ldestail\git\dolibarr\build\exe\dolimed\Languages\MyItalian.isl"
-Name: "nb"; MessagesFile: "compiler:Languages\Norwegian.isl,C:\Documents and Settings\ldestail\git\dolibarr\build\exe\dolimed\Languages\MyNorwegian.isl"
-Name: "po"; MessagesFile: "compiler:Languages\Polish.isl,C:\Documents and Settings\ldestail\git\dolibarr\build\exe\dolimed\Languages\MyPolish.isl"
-Name: "pt"; MessagesFile: "compiler:Languages\Portuguese.isl,C:\Documents and Settings\ldestail\git\dolibarr\build\exe\dolimed\Languages\MyPortuguese.isl"
-Name: "ru"; MessagesFile: "compiler:Languages\Russian.isl,C:\Documents and Settings\ldestail\git\dolibarr\build\exe\dolimed\Languages\MyRussian.isl"
-Name: "sv"; MessagesFile: "compiler:Languages\Slovenian.isl,C:\Documents and Settings\ldestail\git\dolibarr\build\exe\dolimed\Languages\MySlovenian.isl"
+Name: "en"; MessagesFile: "compiler:Default.isl,C:\Documents and Settings\ldestail\git\nltechno\build\exe\dolimed\Languages\MyEnglish.isl"
+Name: "br"; MessagesFile: "compiler:Languages\Portuguese.isl,C:\Documents and Settings\ldestail\git\nltechno\build\exe\dolimed\Languages\MyBrazilianPortuguese.isl"
+Name: "ca"; MessagesFile: "compiler:Languages\Catalan.isl,C:\Documents and Settings\ldestail\git\nltechno\build\exe\dolimed\Languages\MyCatalan.isl"
+Name: "da"; MessagesFile: "compiler:Languages\Danish.isl,C:\Documents and Settings\ldestail\git\nltechno\build\exe\dolimed\Languages\MyDanish.isl"
+Name: "es"; MessagesFile: "compiler:Languages\Spanish.isl,C:\Documents and Settings\ldestail\git\nltechno\build\exe\dolimed\Languages\MySpanish.isl"
+Name: "nl"; MessagesFile: "compiler:Languages\Dutch.isl,C:\Documents and Settings\ldestail\git\nltechno\build\exe\dolimed\Languages\MyDutch.isl"
+Name: "fi"; MessagesFile: "compiler:Languages\Finnish.isl,C:\Documents and Settings\ldestail\git\nltechno\build\exe\dolimed\Languages\MyFinnish.isl"
+Name: "fr"; MessagesFile: "compiler:Languages\French.isl,C:\Documents and Settings\ldestail\git\nltechno\build\exe\dolimed\Languages\MyFrench.isl"
+Name: "ge"; MessagesFile: "compiler:Languages\German.isl,C:\Documents and Settings\ldestail\git\nltechno\build\exe\dolimed\Languages\MyGerman.isl"
+Name: "it"; MessagesFile: "compiler:Languages\Italian.isl,C:\Documents and Settings\ldestail\git\nltechno\build\exe\dolimed\Languages\MyItalian.isl"
+Name: "nb"; MessagesFile: "compiler:Languages\Norwegian.isl,C:\Documents and Settings\ldestail\git\nltechno\build\exe\dolimed\Languages\MyNorwegian.isl"
+Name: "po"; MessagesFile: "compiler:Languages\Polish.isl,C:\Documents and Settings\ldestail\git\nltechno\build\exe\dolimed\Languages\MyPolish.isl"
+Name: "pt"; MessagesFile: "compiler:Languages\Portuguese.isl,C:\Documents and Settings\ldestail\git\nltechno\build\exe\dolimed\Languages\MyPortuguese.isl"
+Name: "ru"; MessagesFile: "compiler:Languages\Russian.isl,C:\Documents and Settings\ldestail\git\nltechno\build\exe\dolimed\Languages\MyRussian.isl"
+Name: "sv"; MessagesFile: "compiler:Languages\Slovenian.isl,C:\Documents and Settings\ldestail\git\nltechno\build\exe\dolimed\Languages\MySlovenian.isl"
 
 [Tasks]
 ;Name: "autostart"; Description: "Automatically launch DoliMed server on startup. If you check this option, Services will be installed as automatic. Otherwise, services will be installed as manual and will start and stop with the service manager."; GroupDescription: "Auto Start:" ;Flags: unchecked;
@@ -85,14 +85,14 @@ Name: "{app}\bin\apache\apache2.2.6\logs"
 
 [Files]
 ; Stop/start
-Source: "C:\Documents and Settings\ldestail\git\dolibarr\build\exe\dolimed\stopdoliwamp.bat"; DestDir: "{app}\"; Flags: ignoreversion; AfterInstall: close()
-Source: "C:\Documents and Settings\ldestail\git\dolibarr\build\exe\dolimed\startdoliwamp.bat"; DestDir: "{app}\"; Flags: ignoreversion;
+Source: "C:\Documents and Settings\ldestail\git\nltechno\build\exe\dolimed\stopdoliwamp.bat"; DestDir: "{app}\"; Flags: ignoreversion; AfterInstall: close()
+Source: "C:\Documents and Settings\ldestail\git\nltechno\build\exe\dolimed\startdoliwamp.bat"; DestDir: "{app}\"; Flags: ignoreversion;
 Source: "build\exe\doliwamp\removefiles.bat"; DestDir: "{app}\"; Flags: ignoreversion;
 Source: "build\exe\doliwamp\rundoliwamp.bat.install"; DestDir: "{app}\"; Flags: ignoreversion;
 Source: "build\exe\doliwamp\rundolihelp.bat.install"; DestDir: "{app}\"; Flags: ignoreversion;
 Source: "build\exe\doliwamp\rundoliadmin.bat.install"; DestDir: "{app}\"; Flags: ignoreversion;
-Source: "C:\Documents and Settings\ldestail\git\dolibarr\build\exe\dolimed\install_services.bat.install"; DestDir: "{app}\"; Flags: ignoreversion;
-Source: "C:\Documents and Settings\ldestail\git\dolibarr\build\exe\dolimed\uninstall_services.bat.install"; DestDir: "{app}\"; Flags: ignoreversion;
+Source: "C:\Documents and Settings\ldestail\git\nltechno\build\exe\dolimed\install_services.bat.install"; DestDir: "{app}\"; Flags: ignoreversion;
+Source: "C:\Documents and Settings\ldestail\git\nltechno\build\exe\dolimed\uninstall_services.bat.install"; DestDir: "{app}\"; Flags: ignoreversion;
 Source: "build\exe\doliwamp\mysqlinitpassword.bat.install"; DestDir: "{app}\"; Flags: ignoreversion;
 Source: "build\exe\doliwamp\mysqltestinstall.bat.install"; DestDir: "{app}\"; Flags: ignoreversion;
 Source: "build\exe\doliwamp\startdoliwamp_manual_donotuse.bat.install"; DestDir: "{app}\"; Flags: ignoreversion;
@@ -113,8 +113,8 @@ Source: "dev\*.*"; DestDir: "{app}\www\dolibarr\dev"; Flags: ignoreversion recur
 Source: "doc\*.*"; DestDir: "{app}\www\dolibarr\doc"; Flags: ignoreversion recursesubdirs; Excludes: ".cvsignore,.project,CVS\*,Thumbs.db,wiki\*,plaquette\*,dev\*,images\dolibarr_screenshot2.png,images\dolibarr_screenshot3.png,images\dolibarr_screenshot4.png,images\dolibarr_screenshot5.png,images\dolibarr_screenshot6.png,images\dolibarr_screenshot7.png,images\dolibarr_screenshot8.png,images\dolibarr_screenshot9.png,images\dolibarr_screenshot10.png,images\dolibarr_screenshot11.png,images\dolibarr_screenshot12.png"
 Source: "scripts\*.*"; DestDir: "{app}\www\dolibarr\scripts"; Flags: ignoreversion recursesubdirs; Excludes: ".cvsignore,.project,CVS\*,Thumbs.db,product\materiel.net.php,product\import-product.php"
 Source: "*.*"; DestDir: "{app}\www\dolibarr"; Flags: ignoreversion; Excludes: ".cvsignore,.project,CVS\*,Thumbs.db,default.properties,install.lock"
-Source: "C:\Documents and Settings\ldestail\git\dolibarr\htdocs\cabinetmed\*.*"; DestDir: "{app}\www\dolibarr\htdocs\cabinetmed"; Flags: ignoreversion recursesubdirs; Excludes: ".cvsignore,.project,CVS\*,Thumbs.db,custom\*,custom2\*,telephonie\*,*\conf.php,*\conf.php.mysql,*\conf.php.old,*\conf.php.postgres,*\install.forced.php,*\modBookmark4u.class.php,*\modDocument.class.php,*\modDroitPret.class.php,*\modEditeur.class.php,*\modPostnuke.class.php,*\modTelephonie.class.php,*\interface_modEditeur_Editeur.class.php*,*\bureau2crea,*\rodolphe"
-Source: "C:\Documents and Settings\ldestail\git\dolibarr\htdocs\includes\modules\modCabinetMed.class.php"; DestDir: "{app}\www\dolibarr\htdocs\includes\modules"; Flags: ignoreversion; Excludes: ".cvsignore,.project,CVS\*,Thumbs.db,custom\*,custom2\*,telephonie\*,*\conf.php,*\conf.php.mysql,*\conf.php.old,*\conf.php.postgres,*\install.forced.php,*\modBookmark4u.class.php,*\modDocument.class.php,*\modDroitPret.class.php,*\modEditeur.class.php,*\modPostnuke.class.php,*\modTelephonie.class.php,*\interface_modEditeur_Editeur.class.php*,*\bureau2crea,*\rodolphe"
+Source: "C:\Documents and Settings\ldestail\git\nltechno\htdocs\cabinetmed\*.*"; DestDir: "{app}\www\dolibarr\htdocs\cabinetmed"; Flags: ignoreversion recursesubdirs; Excludes: ".cvsignore,.project,CVS\*,Thumbs.db,custom\*,custom2\*,telephonie\*,*\conf.php,*\conf.php.mysql,*\conf.php.old,*\conf.php.postgres,*\install.forced.php,*\modBookmark4u.class.php,*\modDocument.class.php,*\modDroitPret.class.php,*\modEditeur.class.php,*\modPostnuke.class.php,*\modTelephonie.class.php,*\interface_modEditeur_Editeur.class.php*,*\bureau2crea,*\rodolphe"
+Source: "C:\Documents and Settings\ldestail\git\nltechno\htdocs\includes\modules\modCabinetMed.class.php"; DestDir: "{app}\www\dolibarr\htdocs\includes\modules"; Flags: ignoreversion; Excludes: ".cvsignore,.project,CVS\*,Thumbs.db,custom\*,custom2\*,telephonie\*,*\conf.php,*\conf.php.mysql,*\conf.php.old,*\conf.php.postgres,*\install.forced.php,*\modBookmark4u.class.php,*\modDocument.class.php,*\modDroitPret.class.php,*\modEditeur.class.php,*\modPostnuke.class.php,*\modTelephonie.class.php,*\interface_modEditeur_Editeur.class.php*,*\bureau2crea,*\rodolphe"
 ; Config files
 Source: "build\exe\doliwamp\phpmyadmin.conf.install"; DestDir: "{app}\alias"; Flags: ignoreversion;
 Source: "build\exe\doliwamp\dolibarr.conf.install"; DestDir: "{app}\alias"; Flags: ignoreversion;
@@ -123,7 +123,7 @@ Source: "build\exe\doliwamp\httpd.conf.install"; DestDir: "{app}\bin\apache\apac
 Source: "build\exe\doliwamp\my.ini.install"; DestDir: "{app}\bin\mysql\mysql5.0.45"; Flags: ignoreversion;
 Source: "build\exe\doliwamp\php.ini.install"; DestDir: "{app}\bin\php\php5.2.5"; Flags: ignoreversion;
 Source: "build\exe\doliwamp\index.php.install"; DestDir: "{app}\www"; Flags: ignoreversion;
-Source: "C:\Documents and Settings\ldestail\git\dolibarr\build\exe\dolimed\install.forced.php.install"; DestDir: "{app}\www\dolibarr\htdocs\install"; Flags: ignoreversion;
+Source: "C:\Documents and Settings\ldestail\git\nltechno\build\exe\dolimed\install.forced.php.install"; DestDir: "{app}\www\dolibarr\htdocs\install"; Flags: ignoreversion;
 Source: "build\exe\doliwamp\openssl.conf"; DestDir: "{app}"; Flags: ignoreversion;
 Source: "build\exe\doliwamp\ca_demo_dolibarr.crt"; DestDir: "{app}"; Flags: ignoreversion;
 Source: "build\exe\doliwamp\ca_demo_dolibarr.key"; DestDir: "{app}"; Flags: ignoreversion;
