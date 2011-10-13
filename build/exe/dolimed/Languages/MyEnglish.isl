@@ -30,15 +30,15 @@ FailedToDeleteLock=Failed to delete the file %1/www/dolibarr/install.lock. You c
 
 PortAlreadyInUse=Port %1 seems to be already in use. You should cancel to go back and choose another value for %2 port. Cancel choice and choose another value ?
 
-FirefoxDetected=Firefox has been detected on your computer. Would you like to use it as the default browser for Dolibarr ?
+FirefoxDetected=Firefox has been detected on your computer. Would you like to use it as the default browser for DoliMed ?
 ChooseDefaultBrowser=Please choose your default browser. If you are not sure, just click Open :
 
-LaunchNow=Launch Dolibarr now
+LaunchNow=Launch DoliMed now
 
-ProgramHasBeenRemoved=Dolibarr program files have been removed. However, all your data files are still in directory %1. You must remove this directory manually for a complete uninstall.
+ProgramHasBeenRemoved=DoliMed program files have been removed. However, all your data files are still in directory %1. You must remove this directory manually for a complete uninstall.
 
-DoliWampWillStartApacheMysql=DoliMed installer will now start or restart Apache and Mysql, this may last from several seconds to one minute after this confirmation. Start to install or upgrade the web and database server required by Dolibarr ?
+DoliWampWillStartApacheMysql=DoliMed installer will now start or restart Apache and Mysql, this may last from several seconds to one minute after this confirmation. Start to install or upgrade the web and database server required by DoliMed ?
 
-OldVersionFoundAndMoveInNew=An old database version has been found and moved to be used by new Dolibarr version
-OldVersionFoundButFailedToMoveInNew=An old database version has been found but could not be moved to be used with new Dolibarr version
+OldVersionFoundAndMoveInNew=An old database version has been found and moved to be used by new DoliMed version
+OldVersionFoundButFailedToMoveInNew=An old database version has been found but could not be moved to be used with new DoliMed version
 

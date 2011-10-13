@@ -11,7 +11,7 @@ LaunchProgram=Exécuter %1
 AssocFileExtension=&Associer %1 avec l'extension de fichier %2
 AssocingFileExtension=Associe %1 avec l'extension de fichier %2...
 
-YouWillInstallDoliWamp=Vous allez installer ou mettre à jour DoliMed (Apache+Mysql+PHP+Dolibarr+Module cabinetmed) sur votre ordinateur.
+YouWillInstallDoliWamp=Vous allez installer ou mettre à jour DoliMed (Apache+Mysql+PHP+DoliMed+Module cabinetmed) sur votre ordinateur.
 ThisAssistantInstallOrUpgrade=Cet assistant installe ou met à jour Dolibarr ERP-CRM et tous ses composants prérequis (Apache, Mysql, PHP et le module Dolibarr cabinetmed) optimisés pour une utilisation de Dolibarr afin de gérer un cabinet médical.
 IfYouHaveTechnicalKnowledge=Si vous avez des compétences techniques et envisagez de partager votre Apache, Mysql et PHP avec d'autres applications que Dolibarr, vous ne devriez pas utiliser cet assistant mais faire plutôt une installation manuelle de Dolibarr sur un socle Apache, Mysql et PHP existant.
 ButIfYouLook=Mais si vous recherchez une installation clé en main automatisée, vous êtes sur la bonne voie...
@@ -31,15 +31,15 @@ FailedToDeleteLock=Echec de la suppression du fichier %1/www/dolibarr/install.lo
 
 PortAlreadyInUse=Le port %1 semble déjà utilisé. Il est recommandé d'annuler pour revenir en arrière et spécifier une autre valeur pour le port %2. Annuler le choix et choisir une autre valeur ?
 
-FirefoxDetected=Firefox a été détecté sur votre ordinateur. Voulez-vous en faire votre navigateur par défaut pour Dolibarr ?
+FirefoxDetected=Firefox a été détecté sur votre ordinateur. Voulez-vous en faire votre navigateur par défaut pour DoliMed ?
 ChooseDefaultBrowser=Merci de choisir votre navigateur par défaut. Si vous n'êtes pas sûr, cliquez simplement sur Ouvrir :
 
-LaunchNow=Lancer Dolibarr maintenant
+LaunchNow=Lancer DoliMed maintenant
 
-ProgramHasBeenRemoved=Les fichiers du programme Dolibarr ont été supprimés. Toutefois, tous vos fichiers de données sont toujours dans le répertoire %1. Vous devez supprimer ce répertoire manuellement pour avoir une désinstallation complète.
+ProgramHasBeenRemoved=Les fichiers du programme DoliMed ont été supprimés. Toutefois, tous vos fichiers de données sont toujours dans le répertoire %1. Vous devez supprimer ce répertoire manuellement pour avoir une désinstallation complète.
 
-DoliWampWillStartApacheMysql=L'installeur DoliMed va maintenant démarrer ou redémarrer Apache et Mysql, ceci peut durer de quelques secondes à une minute après cette confirmation. Démarrer l'installation ou mise à jour du serveur web et base de données requis par Dolibarr ?
+DoliWampWillStartApacheMysql=L'installeur DoliMed va maintenant démarrer ou redémarrer Apache et Mysql, ceci peut durer de quelques secondes à une minute après cette confirmation. Démarrer l'installation ou mise à jour du serveur web et base de données requis par DoliMed ?
 
-OldVersionFoundAndMoveInNew=Une ancienne version de base a été trouvée et déplacée pour fonctionner avec la nouvelle version de Dolibarr.
-OldVersionFoundButFailedToMoveInNew=Une ancienne version de base a été trouvée mais ne peut être déplacée pour être utilisée avec la nouvelle version de Dolibarr.
+OldVersionFoundAndMoveInNew=Une ancienne version de base a été trouvée et déplacée pour fonctionner avec la nouvelle version de DoliMed.
+OldVersionFoundButFailedToMoveInNew=Une ancienne version de base a été trouvée mais ne peut être déplacée pour être utilisée avec la nouvelle version de DoliMed.
 
