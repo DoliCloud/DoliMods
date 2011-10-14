@@ -491,7 +491,6 @@ if ($socid > 0)
     // Initialize technical object to manage hooks of thirdparties. Note that conf->hooks_modules contains array array
     include_once(DOL_DOCUMENT_ROOT.'/core/class/hookmanager.class.php');
     $hookmanager=new HookManager($db);
-    // TODO: Remove callHooks and add page into executeHooks
     $conf->hooks_modules['cabinetmed']=array('xxx');
     $hookmanager->callHooks(array('xxx'));
 
