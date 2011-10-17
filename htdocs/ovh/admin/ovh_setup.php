@@ -243,15 +243,7 @@ print '</table></form>';
 dol_fiche_end();
 
 
-if ($mesg)
-{
-    if (preg_match('/class="error"/',$mesg)) dol_htmloutput_mesg($mesg,'','error');
-    else
-    {
-        dol_htmloutput_mesg($mesg,'','ok',1);
-        print '<br>';
-    }
-}
+dol_htmloutput_mesg($mesg);
 
 
 
