@@ -1,21 +1,21 @@
 <?php
 /* Copyright (C) 2007-2011 Laurent Destailleur <eldy@users.sourceforge.net>
  * Copyright (C) 2010      Jean-François FERRY <jfefe@aternatik.fr>
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
- */
+*
+* This program is free software; you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation; either version 2 of the License, or
+* (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with this program; if not, write to the Free Software
+* Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+*/
 
 /**
  *      \file       ovh/class/ovhsms.class.php
@@ -49,9 +49,9 @@ class OvhSms  extends CommonObject
 
 
     /**
-	 *	Constructor
-	 *
-	 *  @param		DoliDB		$DB      Database handler
+     *	Constructor
+     *
+     *  @param		DoliDB		$DB      Database handler
      */
     function OvhSms($DB)
     {
@@ -59,10 +59,10 @@ class OvhSms  extends CommonObject
         $this->db = $DB;
 
         // Réglages par défaut
-        $this->validity = '10';
-        $this->class = '2';
-        $this->priority = '3';
-        $this->deferred = '60';
+        $this->validity = 24*60;  // 24 hours. the maximum time -in minute(s)- before the message is dropped, defaut is 48 hours
+        $this->class = '2';       // the sms class: flash(0),phone display(1),SIM(2),toolkit(3)
+        $this->deferred = '60';   // the time -in minute(s)- to wait before sending the message, default is 0
+        $this->priority = '3';    // the priority of the message (0 to 3), default is 3
         // Set the WebService URL
         dol_syslog(get_class($this)."::OvhSms URL=".$conf->global->OVHSMS_SOAPURL);
 
@@ -77,12 +77,12 @@ class OvhSms  extends CommonObject
             //print $langs->trans("ConnectionTimeout").': '.$params['connection_timeout'].'<br>';
             //print $langs->trans("ResponseTimeout").': '.$params['response_timeout'].'<br>';
 
-    		$err=error_reporting();
-    		error_reporting(E_ALL);     // Enable all errors
+            $err=error_reporting();
+            error_reporting(E_ALL);     // Enable all errors
 
             try {
                 $this->soap = new SoapClient($conf->global->OVHSMS_SOAPURL,$params);
-                // https://www.ovh.com/soapi/soapi-re-1.8.wsdl
+                // https://www.ovh.com/soapi/soapi-re-1.26.wsdl
 
                 $language = "en";
                 $multisession = false;
@@ -90,6 +90,8 @@ class OvhSms  extends CommonObject
                 $this->session = $this->soap->login($conf->global->OVHSMS_NICK, $conf->global->OVHSMS_PASS,$language,$multisession);
                 //if ($this->session) print '<div class="ok">'.$langs->trans("OvhSmsLoginSuccessFull").'</div><br>';
                 //else print '<div class="error">Error login did not return a session id</div><br>';
+                if (method_exists($this->soap,'__getLastRequest'))  dol_syslog(get_class($this).'::OvhSms REQUEST: ' . $this->soap->__getLastRequest());
+                if (method_exists($this->soap,'__getLastResponse')) dol_syslog(get_class($this).'::OvhSms RESPONSE: ' . $this->soap->__getLastResponse());
 
                 // On mémorise le compe sms associé
                 $this->account = empty($conf->global->OVHSMS_ACCOUNT)?'ErrorNotDefined':$conf->global->OVHSMS_ACCOUNT;
@@ -99,19 +101,19 @@ class OvhSms  extends CommonObject
             }
             catch(SoapFault $se) {
                 error_reporting($err);     // Restore default errors
-                dol_syslog(get_class($this).'::SoapFault: '.$se);
+                dol_syslog(get_class($this).'::SoapFault: '.$se, LOG_ERR);
                 //var_dump('eeeeeeee');exit;
                 return 0;
             }
             catch (Exception $ex) {
                 error_reporting($err);     // Restore default errors
-                dol_syslog(get_class($this).'::SoapFault: '.$ex);
+                dol_syslog(get_class($this).'::SoapFault: '.$ex, LOG_ERR);
                 //var_dump('eeeeeeee');exit;
                 return 0;
             }
             catch (Error $e) {
                 error_reporting($err);     // Restore default errors
-                dol_syslog(get_class($this).'::SoapFault: '.$e);
+                dol_syslog(get_class($this).'::SoapFault: '.$e, LOG_ERR);
                 //var_dump('eeeeeeee');exit;
                 return 0;
             }
@@ -144,7 +146,11 @@ class OvhSms  extends CommonObject
         //telephonySmsSend
         try
         {
-            $resultsend = $this->soap->telephonySmsSend($this->session, $this->account, $this->expe, $this->dest, $this->message, $this->validity, $this->class, $this->deferred, $this->priority);
+            // print "$this->session, $this->account, $this->expe, $this->dest, $this->message, $this->validity, $this->class, $this->deferred, $this->priority";
+            $resultsend = $this->soap->telephonySmsSend($this->session, $this->account, $this->expe, $this->dest, $this->message, $this->validity, $this->class, $this->deferred, $this->priority, 1, 'Dolibarr SMS');
+            if (method_exists($this->soap,'__getLastRequest'))  dol_syslog(get_class($this).'::OvhSms REQUEST: ' . $this->soap->__getLastRequest());
+            if (method_exists($this->soap,'__getLastResponse')) dol_syslog(get_class($this).'::OvhSms RESPONSE: ' . $this->soap->__getLastResponse());
+
             return $resultsend;
         }
         catch(SoapFault $fault)

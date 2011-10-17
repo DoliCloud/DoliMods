@@ -234,7 +234,7 @@ $var=!$var;
 print '<tr '.$bc[$var].'><td class="fieldrequired">';
 print $langs->trans("OvhSmsSoapUrl").'</td><td>';
 print '<input size="64" type="text" name="OVHSMS_SOAPURL" value="'.$conf->global->OVHSMS_SOAPURL.'">';
-print '<br>'.$langs->trans("Example").': https://www.ovh.com/soapi/soapi-re-1.8.wsdl';
+print '<br>'.$langs->trans("Example").': https://www.ovh.com/soapi/soapi-re-1.26.wsdl';
 print '</td></tr>';
 
 print '<tr><td colspan="2" align="center"><input type="submit" class="button" value="'.$langs->trans("Modify").'"></td></tr>';

@@ -44,11 +44,10 @@ $langs->load("companies");
 $langs->load("ovh@ovh");
 $langs->load("sms");
 
-if (!$user->admin)
-accessforbidden();
+if (!$user->admin) accessforbidden();
 
 // Get parameters
-$account = isset($_GET["account"])?$_GET["account"]:'';
+$account = GETPOST("account");
 
 
 
@@ -81,16 +80,30 @@ if (! empty($sms))  // Do not use here sms > 0 as a constructor return an object
 
     print '<table class="nobordernopadding" width="100%">';
     print '<tr class="liste_titre"><td>'.$langs->trans("Account").'</td>';
+    print '<td>'.$langs->trans("SendersAllowed").'</td>';
     print '<td align="right">'.$langs->trans("NbSmsLeft").'</td>';
     print "</tr>\n";
 
-    foreach ($telephonySmsAccountList as $accountlisted) {
+    foreach ($telephonySmsAccountList as $accountlisted)
+    {
         $var=!$var;
         print '<tr '.$bc[$var].'>';
         print '<td>';
-        print $accountlisted;
+        print '<a href="'.$_SERVER["PHP_SELF"].'?account='.$accountlisted.'">'.$accountlisted.'</a>';
+        print '</td>';
+        print '<td>';
+        $sms->account=$accountlisted;
+        $result=$sms->SmsSenderList($account);
+        $i=0;
+        foreach($result as $val)
+        {
+            print ($val->status=='enable'?'':'<strike>').$val->number.(empty($val->description)?'':' ('.$val->description.')').($val->status=='enable'?'':'</strike>');
+            $i++;
+            if ($i < count($result)) print ', ';
+        }
         print '</td>';
         print '<td align="right">';
+        // Ask credit left for account
         $sms->account=$accountlisted;
         print $sms->CreditLeft();
         print '</td>';
@@ -100,12 +113,14 @@ if (! empty($sms))  // Do not use here sms > 0 as a constructor return an object
 
 
 
-    if(!empty($account)) {
-
+    if (!empty($account))
+    {
         $nbenvoi = '29';
         $nbenvoi2 = $nbenvoi+1;
+
         //telephonySmsHistory
-        echo '<h2>'.$langs->trans('OvhSmsHistory',$nbenvoi2).'</h2>';
+        print '<br>';
+        print_fiche_titre($langs->trans('OvhSmsHistory').' ('.$account.')','','');
 
         $resulthistory = $sms->SmsHistory($account);
         rsort($resulthistory);
@@ -125,7 +140,8 @@ if (! empty($sms))  // Do not use here sms > 0 as a constructor return an object
 
 
         $i=0;
-        while($resulthistory[$i]){
+        while (isset($resulthistory[$i]))
+        {
             $var=!$var;
             print '<tr '.$bc[$var].'>';
 
