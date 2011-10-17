@@ -176,12 +176,12 @@ class OvhSms  extends CommonObject
         return $this->soap->telephonySmsCreditLeft($this->session, $this->account);
     }
 
-    function SmsHistory($account)
+    function SmsHistory()
     {
         return $this->soap->telephonySmsHistory($this->session, $this->account, "");
     }
 
-    function SmsSenderList($account)
+    function SmsSenderList()
     {
         try {
             $telephonySmsSenderList = $this->soap->telephonySmsSenderList($this->session, $this->account);
