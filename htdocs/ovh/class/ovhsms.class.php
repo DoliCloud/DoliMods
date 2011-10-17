@@ -147,7 +147,7 @@ class OvhSms  extends CommonObject
         try
         {
             // print "$this->session, $this->account, $this->expe, $this->dest, $this->message, $this->validity, $this->class, $this->deferred, $this->priority";
-            $resultsend = $this->soap->telephonySmsSend($this->session, $this->account, $this->expe, $this->dest, $this->message, $this->validity, $this->class, $this->deferred, $this->priority, 1, 'Dolibarr SMS');
+            $resultsend = $this->soap->telephonySmsSend($this->session, $this->account, $this->expe, $this->dest, $this->message, $this->validity, $this->class, $this->deferred, $this->priority, 2, 'Dolibarr');
             if (method_exists($this->soap,'__getLastRequest'))  dol_syslog(get_class($this).'::OvhSms REQUEST: ' . $this->soap->__getLastRequest());
             if (method_exists($this->soap,'__getLastResponse')) dol_syslog(get_class($this).'::OvhSms RESPONSE: ' . $this->soap->__getLastResponse());
 
