@@ -23,8 +23,6 @@
  *      \brief      This file allow to send sms with an OVH account
  *		\author		Jean-François FERRY
  */
-
-
 require_once(NUSOAP_PATH.'/nusoap.php');
 
 /**
@@ -126,6 +124,8 @@ class OvhSms  extends CommonObject
 
     /**
      * Logout
+     *
+     * @return	void
      */
     function logout()
     {
@@ -134,10 +134,13 @@ class OvhSms  extends CommonObject
     }
 
 
-    /*
-     * Envoi d'un sms
+    /**
+     * Send SMS
+     *
+     * @return	void
      */
-    function SmsSend() {
+    function SmsSend()
+    {
         //telephonySmsSend
         try
         {
@@ -154,8 +157,13 @@ class OvhSms  extends CommonObject
         return -1;
     }
 
-
-    function printListAccount() {
+    /**
+     * Show HTML select box to select account
+     *
+     * @return	void
+     */
+    function printListAccount()
+    {
         $resultaccount = $this->getSmsListAccount();
         print '<select name="ovh_account" id="ovh_account">';
         foreach ($resultaccount as $accountlisted) {
@@ -164,23 +172,42 @@ class OvhSms  extends CommonObject
         print '</select>';
     }
 
-
+    /**
+     * Return list of SMSAccounts
+     *
+     * @return	array
+     */
     function getSmsListAccount()
     {
         //telephonySmsAccountList
         return $this->soap->telephonySmsAccountList($this->session);
     }
 
+    /**
+     * Return Credit
+     *
+     * @return	array
+     */
     function CreditLeft()
     {
         return $this->soap->telephonySmsCreditLeft($this->session, $this->account);
     }
 
+    /**
+     * Return History
+     *
+     * @return	array
+     */
     function SmsHistory()
     {
         return $this->soap->telephonySmsHistory($this->session, $this->account, "");
     }
 
+    /**
+     * Return list of possible SMS senders
+     *
+     * @return int	<0 if KO, >0 if OK
+     */
     function SmsSenderList()
     {
         try {
