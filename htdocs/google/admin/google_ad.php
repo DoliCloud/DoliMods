@@ -150,11 +150,9 @@ print "</form>\n";
 
 dol_fiche_end();
 
+dol_htmloutput_mesg($mesg);
 
-if ($mesg) print "<br>$mesg<br>";
-print "<br>";
+llxFooter();
 
 $db->close();
-
-llxFooter('$Date: 2011/07/18 21:46:59 $ - $Revision: 1.4 $');
 ?>

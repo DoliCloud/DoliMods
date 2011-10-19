@@ -129,6 +129,8 @@ class InterfaceGoogleCalendarSynchro
             $startTime		= dol_print_date($object->datep,'%H:%M');
             $endDate		= dol_print_date($object->datef,'%Y-%m-%d');
             $endTime		= dol_print_date($object->datef,'%H:%M');
+            if (empty($endDate)) $endDate=$startDate;
+            if (empty($endTime)) $endTime=$startTime;
 
 	        $user = $conf->global->GOOGLE_LOGIN;
 	        $pwd = $conf->global->GOOGLE_PASSWORD;

@@ -24,8 +24,7 @@ require_once(DOL_DOCUMENT_ROOT.'/core/class/html.formadmin.class.php');
 require_once(DOL_DOCUMENT_ROOT.'/core/class/html.formother.class.php');
 dol_include_once("/google/lib/google.lib.php");
 
-if (!$user->admin)
-    accessforbidden();
+if (!$user->admin) accessforbidden();
 
 $langs->load("google@google");
 $langs->load("admin");
@@ -120,11 +119,9 @@ print "</form>\n";
 
 dol_fiche_end();
 
-
-if ($mesg) print "<br>$mesg<br>";
-print "<br>";
-
-$db->close();
+dol_htmloutput_mesg($mesg);
 
 llxFooter('$Date: 2011/07/18 21:46:59 $ - $Revision: 1.5 $');
+
+$db->close();
 ?>

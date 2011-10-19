@@ -25,8 +25,7 @@ require_once(DOL_DOCUMENT_ROOT.'/core/class/html.formadmin.class.php');
 require_once(DOL_DOCUMENT_ROOT.'/core/class/html.formother.class.php');
 dol_include_once("/google/lib/google.lib.php");
 
-if (!$user->admin)
-    accessforbidden();
+if (!$user->admin) accessforbidden();
 
 $langs->load("google@google");
 $langs->load("admin");
@@ -214,7 +213,7 @@ $urlgooglehelp='<a href="http://www.google.com/calendar/embed/EmbedHelper_en.htm
 $message.=$langs->trans("GoogleSetupHelp",$urlgooglehelp);
 print info_admin($message);
 
-$db->close();
+llxFooter();
 
-llxFooter('$Date: 2011/07/18 21:46:59 $ - $Revision: 1.11 $');
+$db->close();
 ?>
