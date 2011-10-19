@@ -36,12 +36,11 @@ if (! $res) die("Include of main fails");
 require_once(DOL_DOCUMENT_ROOT."/lib/admin.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/lib/files.lib.php");
 require_once(DOL_DOCUMENT_ROOT.'/core/class/html.formadmin.class.php');
+require_once(DOL_DOCUMENT_ROOT.'/core/class/html.formfile.class.php');
 dol_include_once("/monitoring/lib/monitoring.lib.php");	// We still use old writing to be compatible with old version
 
 
-if (!$user->admin)
-accessforbidden();
-
+if (!$user->admin) accessforbidden();
 
 $langs->load("admin");
 $langs->load("other");
@@ -50,6 +49,8 @@ $langs->load("concatpdf@concatpdf");
 $def = array();
 $action=GETPOST("action");
 $actionsave=GETPOST("save");
+
+$outputdir=$conf->concatpdf->dir_output.'/invoices';
 
 
 /*
@@ -63,6 +64,8 @@ $actionsave=GETPOST("save");
  * View
  */
 
+$formfile=new FormFile($db);
+
 llxHeader('','ConcatPdf',$linktohelp);
 
 $linkback='<a href="'.DOL_URL_ROOT.'/admin/modules.php">'.$langs->trans("BackToModuleList").'</a>';
@@ -71,12 +74,17 @@ print '<br>';
 
 clearstatcache();
 
-print $langs->trans("ConcatPDfTakeFileFrom",$conf->concatpdf->dir_output.'/invoices');
+print $langs->trans("ConcatPDfTakeFileFrom",$outputdir);
 print '<br><br>';
 
 print $langs->trans("ConcatPDfPutFileManually");
+print '<br><br>';
+
+
+$listoffiles=dol_dir_list($outputdir,'files');
+print $formfile->showdocuments('concatpdf','',$outputdir,$_SERVER["PHP_SELF"],0,0,'',0,0,0,0,0,'',$langs->trans("Files"));
+
+llxFooter();
 
 $db->close();
-
-llxFooter('$Date: 2011/08/10 10:21:23 $ - $Revision: 1.3 $');
 ?>
