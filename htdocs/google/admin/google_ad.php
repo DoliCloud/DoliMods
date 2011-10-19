@@ -105,7 +105,7 @@ print "<td>".$langs->trans("MAIN_GOOGLE_AD_CLIENT")."</td>";
 print "<td>";
 print '<input class="flat" type="text" size="20" name="MAIN_GOOGLE_AD_CLIENT" value="'.$conf->global->MAIN_GOOGLE_AD_CLIENT.'">';
 print "</td>";
-print '<td>pub-5101270331300242</td>';
+print '<td>ca-pub-1071905880519467</td>';
 print "</tr>";
 // Slot id
 $var=!$var;
@@ -114,7 +114,7 @@ print "<td>".$langs->trans("MAIN_GOOGLE_AD_SLOT")."</td>";
 print "<td>";
 print '<input class="flat" type="text" size="20" name="MAIN_GOOGLE_AD_SLOT" value="'.$conf->global->MAIN_GOOGLE_AD_SLOT.'">';
 print "</td>";
-print '<td>3206231573</td>';
+print '<td>1421205532</td>';
 print "</tr>";
 // Slot id
 $var=!$var;
@@ -123,7 +123,7 @@ print "<td>".$langs->trans("MAIN_GOOGLE_AD_WIDTH")."</td>";
 print "<td>";
 print '<input class="flat" type="text" size="20" name="MAIN_GOOGLE_AD_WIDTH" value="'.$conf->global->MAIN_GOOGLE_AD_WIDTH.'">';
 print "</td>";
-print '<td>728</td>';
+print '<td>468</td>';
 print "</tr>";
 // Slot id
 $var=!$var;
@@ -132,7 +132,7 @@ print "<td>".$langs->trans("MAIN_GOOGLE_AD_HEIGHT")."</td>";
 print "<td>";
 print '<input class="flat" type="text" size="20" name="MAIN_GOOGLE_AD_HEIGHT" value="'.$conf->global->MAIN_GOOGLE_AD_HEIGHT.'">';
 print "</td>";
-print '<td>90</td>';
+print '<td>60</td>';
 print "</tr>";
 
 print "</table>";
