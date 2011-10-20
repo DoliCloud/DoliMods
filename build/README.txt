@@ -15,7 +15,7 @@ phpsysinfo			OK			Free
 pibarcode			OK			Free
 scanner				OK			Free
 thomsonphonebook	OK			Free
-zipautofillfr		OK			19			France and belgium
+zipautofillfr		OK			15			France and belgium
 
 cabinetmed          A finir
 concatpdf           A finir		9
