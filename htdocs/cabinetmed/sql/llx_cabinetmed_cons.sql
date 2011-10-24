@@ -22,7 +22,6 @@
 CREATE TABLE llx_cabinetmed_cons (
   rowid              integer AUTO_INCREMENT PRIMARY KEY,
   fk_soc             integer,
-  fk_user            integer,
   datecons           date NOT NULL,
   typepriseencharge  varchar(8),
   motifconsprinc     varchar(64),
@@ -42,5 +41,8 @@ CREATE TABLE llx_cabinetmed_cons (
   montant_carte      double(24,8),
   montant_tiers      double(24,8),
   banque             varchar(128),
-  tms                timestamp
+  date_c             datetime NOT NULL,
+  tms                timestamp,
+  fk_user            integer,
+  fk_user_m          integer
 ) ENGINE=innodb;

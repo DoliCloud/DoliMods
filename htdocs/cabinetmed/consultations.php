@@ -227,7 +227,7 @@ if ($action == 'add' || $action == 'update')
                         if ($conf->banque->enabled && isset($banque[$key]))
                         {
                             $bankaccount=new Account($db);
-                            $result=$bankaccount->fetch($banque);
+                            $result=$bankaccount->fetch($banque[$key]);
                             if ($result < 0) dol_print_error($db,$bankaccount->error);
                             if ($key == 'CHQ') $lineid=$bankaccount->addline(dol_now(), $key, $langs->trans("CustomerInvoicePayment"), $amount[$key], $consult->num_cheque, '', $user, $societe->nom, $consult->banque);
                             else $lineid=$bankaccount->addline(dol_now(), $key, $langs->trans("CustomerInvoicePayment"), $amount[$key], '', '', $user, $societe->nom, '');
