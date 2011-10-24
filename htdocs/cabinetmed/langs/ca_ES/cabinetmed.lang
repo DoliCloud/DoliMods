@@ -123,3 +123,4 @@ EnableSpecificFeaturesToRheumatology=Activar les funcions pròpies a l'especiali
 ThisIsADocumentForYou=Us adjuntem una o més cartes/documents relatius a un dels seus pacients en relació a una consulta
 ActionAC_CABMED=Enviament document %s per e-mail
 NewOutcomeToDolibarr=Entrada consulta %s (%s)
+ZeroHereIfNoPayment=O posar zero aquí per consultes gratuïtes
