@@ -295,25 +295,33 @@ class CabinetmedCons extends CommonObject
 
     /**
      *    Load bank id if exists for consult
+     *
      *    @return     int         <0 if KO, >0 if OK
      */
     function fetch_bankid()
     {
-        // Search if there is a bank line
+        // Search if there is some bank lines
         $bid=0;
-        $sql.= "SELECT b.rowid, b.rappro, fk_account FROM ".MAIN_DB_PREFIX."bank_url as bu, ".MAIN_DB_PREFIX."bank as b";
-        $sql.= " WHERE bu.url_id = ".$this->id." AND type = 'consultation'";
+        $sql.= "SELECT b.rowid, b.rappro, b.fk_account, b.fk_type, b.num_chq FROM ".MAIN_DB_PREFIX."bank_url as bu, ".MAIN_DB_PREFIX."bank as b";
+        $sql.= " WHERE bu.url_id = ".$this->id." AND bu.type = 'consultation'";
         $sql.= " AND bu.fk_bank = b.rowid";
         dol_syslog(get_class($this)."::fetch_bankid sql=".$sql, LOG_DEBUG);
         $resql=$this->db->query($sql);
         if ($resql)
         {
-            $obj=$this->db->fetch_object($resql);
-            if ($obj)
+            $num=$this->db->num_rows($resql);
+            $i=0;
+            while ($i < $num)
             {
-                $this->bank_id=$obj->rowid;
-                $this->rappro=$obj->rappro;
-                $this->bank_account_id=$obj->fk_account;
+                $obj=$this->db->fetch_object($resql);
+                if ($obj)
+                {
+                    $this->bank[$obj->fk_type]['bank_id']=$obj->rowid;
+                    $this->bank[$obj->fk_type]['rappro']=$obj->rappro;
+                    $this->bank[$obj->fk_type]['account_id']=$obj->fk_account;
+                    if ($obj->fk_type == 'CHQ') $this->num_cheque=$obj->num_chq;
+                }
+                $i++;
             }
             return 1;
         }

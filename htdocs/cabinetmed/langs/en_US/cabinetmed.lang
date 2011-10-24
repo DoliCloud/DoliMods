@@ -124,3 +124,4 @@ EnableSpecificFeaturesToRheumatology=Activate features related to Rheumatology (
 ThisIsADocumentForYou=You will find, attached into this email, one or several documents about one of your patient I wrote after a consultation
 ActionAC_CABMED=Send document %s by Email
 NewOutcomeToDolibarr=Consultation %s recorder (%s)
+ZeroHereIfNoPayment=Or put zero here for free consultation

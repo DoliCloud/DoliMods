@@ -110,6 +110,8 @@ if ($action == 'add' || $action == 'update')
             }
 
             $result=$consult->fetch_bankid();
+
+            $oldconsult=dol_clone($consult);
         }
         else
         {
@@ -117,37 +119,16 @@ if ($action == 'add' || $action == 'update')
             $consult->fk_soc=$_POST["socid"];
         }
 
-        $amount='';
-        if (! empty($_POST["montant_cheque"])) $amount=price2num($_POST["montant_cheque"]);
-        if (! empty($_POST["montant_carte"])) $amount=price2num($_POST["montant_carte"]);
-        if (! empty($_POST["montant_espece"])) $amount=price2num($_POST["montant_espece"]);
-        if (! empty($_POST["montant_tiers"])) $amount=price2num($_POST["montant_tiers"]);
-        $banque='';
-        if (! empty($_POST["bankchequeto"])) $banque=$_POST["bankchequeto"];
-        if (! empty($_POST["bankcarteto"])) $banque=$_POST["bankcarteto"];
-        if (! empty($_POST["bankespeceto"])) $banque=$_POST["bankespeceto"];
-        if (! empty($_POST["banktiersto"])) $banque=$_POST["banktiersto"];  // Should be always empty
-        $type='';
-        if (! empty($_POST["montant_cheque"])) $type='CHQ';
-        if (! empty($_POST["montant_carte"])) $type='CB';
-        if (! empty($_POST["montant_espece"])) $type='LIQ';
-        if (! empty($_POST["montant_tiers"])) $type='VIR';
-
-        // Define if we change some payment information
-        $bankmodified=0;
-        if (
-        price2num($consult->montant_carte,'MT') != price2num($_POST["montant_carte"],'MT') ||
-        price2num($consult->montant_cheque,'MT') != price2num($_POST["montant_cheque"],'MT') ||
-        price2num($consult->montant_espece,'MT') != price2num($_POST["montant_espece"],'MT') ||
-        price2num($consult->montant_tiers,'MT') != price2num($_POST["montant_tiers"],'MT') ||
-        $consult->banque != trim($_POST["banque"]) ||
-        $consult->num_cheque != trim($_POST["num_cheque"]) ||
-        $consult->bank_account_id != $banque
-        )
-        {
-            $bankmodified=1;
-        }
-        //print 'xx'.$bankmodified.'yy'.$consult->bank_account_id.'rr'.$banque;
+        $amount=array();
+        if (! empty($_POST["montant_cheque"])) $amount['CHQ']=price2num($_POST["montant_cheque"]);
+        if (! empty($_POST["montant_carte"]))  $amount['CB']=price2num($_POST["montant_carte"]);
+        if (! empty($_POST["montant_espece"])) $amount['LIQ']=price2num($_POST["montant_espece"]);
+        if (! empty($_POST["montant_tiers"]))  $amount['VIR']=price2num($_POST["montant_tiers"]);
+        $banque=array();
+        if (! empty($_POST["bankchequeto"]))   $banque['CHQ']=$_POST["bankchequeto"];
+        if (! empty($_POST["bankcarteto"]))    $banque['CB']=$_POST["bankcarteto"];
+        if (! empty($_POST["bankespeceto"]))   $banque['LIQ']=$_POST["bankespeceto"];
+        if (! empty($_POST["banktiersto"]))    $banque['VIR']=$_POST["banktiersto"];  // Should be always empty
 
         unset($consult->montant_carte);
         unset($consult->montant_cheque);
@@ -192,12 +173,12 @@ if ($action == 'add' || $action == 'update')
             $error++;
             $mesgarray[]=$langs->trans("ErrorFieldRequired",$langs->transnoentities("Amount"));
         }
-        if ($nbnotempty > 1)
+        /*if ($nbnotempty > 1)
         {
             $error++;
             $mesgarray[]=$langs->trans("OnlyOneFieldIsPossible");
-        }
-        if (trim($_POST["montant_cheque"])!='' && empty($consult->banque))
+        }*/
+        if (trim($_POST["montant_cheque"])!='' && ! trim($_POST["banque"]))
         {
             $error++;
             $mesgarray[]=$langs->trans("ErrorFieldRequired",$langs->transnoentities("ChequeBank"));
@@ -223,17 +204,6 @@ if ($action == 'add' || $action == 'update')
             $mesgarray[]=$langs->trans("ErrorFieldRequired",$langs->transnoentities("DiagnostiqueLesionnel"));
         }
 
-        if ($conf->banque->enabled && $banque && $bankmodified)
-        {
-            // TODO Check if cheque is already into a receipt
-            if ($type == 'CHQ' && 1 == 1)
-            {
-
-            }
-            // TODO Check if bank record is already conciliated
-
-        }
-
         $db->begin();
 
         if (! $error)
@@ -241,7 +211,6 @@ if ($action == 'add' || $action == 'update')
             if ($action == 'add')
             {
                 $result=$consult->create($user);
-
                 if ($result < 0)
                 {
                     $mesg=$consult->error;
@@ -253,24 +222,28 @@ if ($action == 'add' || $action == 'update')
                     $societe = new Societe($db);
                     $societe->fetch($consult->fk_soc);
 
-                    if ($conf->banque->enabled && $banque)
+                    foreach(array('CHQ','CB','LIQ','VIR') as $key)
                     {
-                        $bankaccount=new Account($db);
-                        $result=$bankaccount->fetch($banque);
-                        if ($result < 0) dol_print_error($db,$bankaccount->error);
-                        $lineid=$bankaccount->addline(dol_now(), $type, $langs->trans("CustomerInvoicePayment"), $amount, $consult->num_cheque, '', $user, $societe->nom, $consult->banque);
-                        if ($lineid <= 0)
+                        if ($conf->banque->enabled && isset($banque[$key]))
                         {
-                            $error++;
-                            $consult->error=$bankaccount->error;
-                        }
-                        if (! $error)
-                        {
-                            $result1=$bankaccount->add_url_line($lineid,$consult->id,dol_buildpath('/cabinetmed/consultations.php',1).'?action=edit&socid='.$consult->fk_soc.'&id=','Consultation','consultation');
-                            $result2=$bankaccount->add_url_line($lineid,$consult->fk_soc,'',$societe->nom,'company');
-                            if ($result1 <= 0 || $result2 <= 0)
+                            $bankaccount=new Account($db);
+                            $result=$bankaccount->fetch($banque);
+                            if ($result < 0) dol_print_error($db,$bankaccount->error);
+                            if ($key == 'CHQ') $lineid=$bankaccount->addline(dol_now(), $key, $langs->trans("CustomerInvoicePayment"), $amount[$key], $consult->num_cheque, '', $user, $societe->nom, $consult->banque);
+                            else $lineid=$bankaccount->addline(dol_now(), $key, $langs->trans("CustomerInvoicePayment"), $amount[$key], '', '', $user, $societe->nom, '');
+                            if ($lineid <= 0)
                             {
                                 $error++;
+                                $consult->error=$bankaccount->error;
+                            }
+                            if (! $error)
+                            {
+                                $result1=$bankaccount->add_url_line($lineid,$consult->id,dol_buildpath('/cabinetmed/consultations.php',1).'?action=edit&socid='.$consult->fk_soc.'&id=','Consultation','consultation');
+                                $result2=$bankaccount->add_url_line($lineid,$consult->fk_soc,'',$societe->nom,'company');
+                                if ($result1 <= 0 || $result2 <= 0)
+                                {
+                                    $error++;
+                                }
                             }
                         }
                     }
@@ -282,34 +255,72 @@ if ($action == 'add' || $action == 'update')
                 $result=$societe->fetch($consult->fk_soc);
 
                 $result=$consult->update($user);
-                if ($result > 0)
+                if ($result < 0)
                 {
-                    //print 'xx'.$bankmodified;exit;
+                    $mesg=$consult->error;
+                    $error++;
+                }
 
-                    // If we change bank informations
-                    if ($bankmodified)
+                if (! $error)
+                {
+                    foreach(array('CHQ','CB','LIQ','THIRD') as $key)
                     {
-                        // If consult has a bank id, we remove it
-                        if ($consult->bank_id && ! $consult->rappro)
+                        $bankmodified=0;
+
+                        if ($key == 'CHQ' &&
+                        (price2num($oldconsult->montant_cheque,'MT') != price2num($_POST["montant_cheque"],'MT') ||
+                        $oldconsult->banque != trim($_POST["banque"]) ||
+                        $oldconsult->num_cheque != trim($_POST["num_cheque"]) ||
+                        $oldconsult->bank['CHQ']['account_id'] != $_POST["bankchequeto"])) $bankmodified=1;
+                        if ($key == 'CB' &&
+                        (price2num($oldconsult->montant_carte,'MT') != price2num($_POST["montant_carte"],'MT') ||
+                        $oldconsult->bank['CB']['account_id'] != $_POST["bankcarteto"])) $bankmodified=1;
+                        if ($key == 'LIQ' &&
+                        (price2num($oldconsult->montant_espece,'MT') != price2num($_POST["montant_espece"],'MT') ||
+                        $oldconsult->bank['LIQ']['account_id'] != $_POST["bankespeceto"])) $bankmodified=1;
+                        if ($key == 'VIR' &&
+                        (price2num($oldconsult->montant_tiers,'MT') != price2num($_POST["montant_tiers"],'MT'))) $bankmodified=1;
+
+                        if ($conf->banque->enabled && $bankmodified)
                         {
-                            $bankaccountline=new AccountLine($db);
-                            $result=$bankaccountline->fetch($consult->bank_id);
-                            $bank_chq=$bankaccountline->bank_chq;
-                            $fk_bordereau=$bankaccountline->fk_bordereau;
-                            $bankaccountline->delete($user);
+                            // TODO Check if cheque is already into a receipt
+                            if ($key == 'CHQ' && 1 == 1)
+                            {
+
+                            }
+                            // TODO Check if bank record is already conciliated
+
                         }
 
-                        if ($conf->banque->enabled && $banque)
+                        //print 'xx '.$key.' => '.$bankmodified;exit;
+                        //if ($key == 'CB') { var_dump($oldconsult->bank);exit; }
+
+                        // If we changed bank informations for this key
+                        if ($bankmodified)
                         {
-                            $bankaccount=new Account($db);
-                            $result=$bankaccount->fetch($banque);
-                        	if ($result < 0) dol_print_error($db,$bankaccount->error);
-                            $lineid=$bankaccount->addline($consult->datecons, $type, $langs->trans("CustomerInvoicePayment"), $amount, $consult->num_cheque, '', $user, $societe->nom, $consult->banque);
-                            $result1=$bankaccount->add_url_line($lineid,$consult->id,dol_buildpath('/cabinetmed/consultations.php',1).'?action=edit&socid='.$consult->fk_soc.'&id=','Consultation','consultation');
-                            $result2=$bankaccount->add_url_line($lineid,$consult->fk_soc,'',$societe->nom,'company');
-                            if ($lineid <= 0 || $result1 <= 0 || $result2 <= 0)
+                            // If consult has a bank id for this key, we remove it
+                            if ($consult->bank[$key]['bank_id'] && ! $consult->bank[$key]['rappro'])
                             {
-                                $error++;
+                                $bankaccountline=new AccountLine($db);
+                                $result=$bankaccountline->fetch($consult->bank[$key]['bank_id']);
+                                $bank_chq=$bankaccountline->bank_chq;
+                                $fk_bordereau=$bankaccountline->fk_bordereau;
+                                $bankaccountline->delete($user);
+                            }
+
+                            if ($conf->banque->enabled && $banque[$key])
+                            {
+                                $bankaccount=new Account($db);
+                                $result=$bankaccount->fetch($banque[$key]);
+                            	if ($result < 0) dol_print_error($db,$bankaccount->error);
+                                if ($key == 'CHQ') $lineid=$bankaccount->addline($consult->datecons, $key, $langs->trans("CustomerInvoicePayment"), $amount[$key], $consult->num_cheque, '', $user, $societe->nom, $consult->banque);
+                                else $lineid=$bankaccount->addline($consult->datecons, $key, $langs->trans("CustomerInvoicePayment"), $amount[$key], '', '', $user, $societe->nom, '');
+                                $result1=$bankaccount->add_url_line($lineid,$consult->id,dol_buildpath('/cabinetmed/consultations.php',1).'?action=edit&socid='.$consult->fk_soc.'&id=','Consultation','consultation');
+                                $result2=$bankaccount->add_url_line($lineid,$consult->fk_soc,'',$societe->nom,'company');
+                                if ($lineid <= 0 || $result1 <= 0 || $result2 <= 0)
+                                {
+                                    $error++;
+                                }
                             }
                         }
                     }
@@ -833,9 +844,8 @@ if ($socid > 0)
         print '</td></tr><tr><td>';
         print $langs->trans("PaymentTypeThirdParty").'</td><td>';
         print '<input type="text" class="flat" name="montant_tiers" id="montant_tiers" value="'.($consult->montant_tiers!=''?price($consult->montant_tiers):'').'" size="5">';
+        print ' &nbsp; ('.$langs->trans("ZeroHereIfNoPayment").')';
         print '</td><td>';
-
-
         print '</td></tr>';
 
         print '</table>';
@@ -906,7 +916,7 @@ if ($action == '' || $action == 'delete')
     print_liste_field_titre($langs->trans('ConsultActe'),$_SERVER['PHP_SELF'],'t.typevisit','',$param,'',$sortfield,$sortorder);
     print_liste_field_titre($langs->trans('MontantPaiement'),$_SERVER['PHP_SELF'],'','',$param,'',$sortfield,$sortorder);
     print_liste_field_titre($langs->trans('TypePaiement'),$_SERVER['PHP_SELF'],'','',$param,'',$sortfield,$sortorder);
-    if ($conf->banque->enabled) print_liste_field_titre($langs->trans('Bank'),$_SERVER['PHP_SELF'],'','',$param,'',$sortfield,$sortorder);
+    //if ($conf->banque->enabled) print_liste_field_titre($langs->trans('Bank'),$_SERVER['PHP_SELF'],'','',$param,'',$sortfield,$sortorder);
     print '<td>&nbsp;</td>';
     print '</tr>';
 
@@ -933,11 +943,11 @@ if ($action == '' || $action == 'delete')
     $sql.= " t.montant_espece,";
     $sql.= " t.montant_carte,";
     $sql.= " t.montant_tiers,";
-    $sql.= " t.banque,";
-    $sql.= " bu.fk_bank, b.fk_account";
+    $sql.= " t.banque";
+//    $sql.= " bu.fk_bank, b.fk_account, b.fk_type";
     $sql.= " FROM ".MAIN_DB_PREFIX."cabinetmed_cons as t";
-    $sql.= " LEFT JOIN ".MAIN_DB_PREFIX."bank_url as bu on bu.url_id = t.rowid AND type = 'consultation'";
-    $sql.= " LEFT JOIN ".MAIN_DB_PREFIX."bank as b on bu.fk_bank = b.rowid";
+//    $sql.= " LEFT JOIN ".MAIN_DB_PREFIX."bank_url as bu on bu.url_id = t.rowid AND type = 'consultation'";
+//    $sql.= " LEFT JOIN ".MAIN_DB_PREFIX."bank as b on bu.fk_bank = b.rowid";
     $sql.= " WHERE t.fk_soc = ".$socid;
     $sql.= " ORDER BY ".$sortfield." ".$sortorder.", t.rowid DESC";
 
@@ -966,39 +976,53 @@ if ($action == '' || $action == 'delete')
             //print '</td><td>';
             print $obj->typevisit;
             print '</td>';
-            if (price2num($obj->montant_cheque) > 0)
-            {
-                print '<td>';
+            print '<td>';
+            $foundamount=0;
+            if (price2num($obj->montant_cheque) > 0) {
+                if ($foundamount) print '+';
                 print price($obj->montant_cheque);
-                print '</td><td>';
-                print $langs->trans("Cheque");
-                print '</td>';
+                $foundamount++;
             }
-            else if (price2num($obj->montant_carte) > 0)
-            {
-                print '<td>';
-                print price($obj->montant_carte);
-                print '</td><td>';
-                print $langs->trans("CreditCard");
-                print '</td>';
-            }
-            else if (price2num($obj->montant_espece) > 0)
-            {
-                print '<td>';
+            if (price2num($obj->montant_espece) > 0)  {
+                if ($foundamount) print '+';
                 print price($obj->montant_espece);
-                print '</td><td>';
-                print $langs->trans("Cash");
-                print '</td>';
+                $foundamount++;
             }
-            else
-            {
-                print '<td>';
+            if (price2num($obj->montant_carte) > 0)  {
+                if ($foundamount) print '+';
+                print price($obj->montant_carte);
+                $foundamount++;
+            }
+            if (price2num($obj->montant_tiers) > 0)  {
+                if ($foundamount) print '+';
                 print price($obj->montant_tiers);
-                print '</td><td>';
-                print $langs->trans("PaymentTypeThirdParty");
-                print '</td>';
+                $foundamount++;
             }
-            if ($conf->banque->enabled)
+            print '</td><td>';
+            $foundamount=0;
+            if (price2num($obj->montant_cheque) > 0) {
+                if ($foundamount) print '+';
+                print $langs->trans("Cheque");
+                $foundamount++;
+            }
+            if (price2num($obj->montant_espece) > 0)  {
+                if ($foundamount) print '+';
+                print $langs->trans("Cash");
+                $foundamount++;
+            }
+            if (price2num($obj->montant_carte) > 0)  {
+                if ($foundamount) print '+';
+                print $langs->trans("CreditCard");
+                $foundamount++;
+            }
+            if (price2num($obj->montant_tiers) > 0)  {
+                if ($foundamount) print '+';
+                print $langs->trans("PaymentTypeThirdParty");
+                $foundamount++;
+            }
+            print '</td>';
+
+/*            if ($conf->banque->enabled)
             {
                 print '<td>';
                 if ($obj->fk_account)
@@ -1009,6 +1033,7 @@ if ($action == '' || $action == 'delete')
                 }
                 print '</td>';
             }
+*/
             print '<td align="right">';
             print '<a href="'.$_SERVER["PHP_SELF"].'?socid='.$obj->fk_soc.'&id='.$obj->rowid.'&action=edit">'.img_edit().'</a>';
             if ($user->rights->societe->supprimer)
