@@ -25,7 +25,7 @@ global $db,$conf,$mysoc,$langs,$user;
 
 require_once(DOL_DOCUMENT_ROOT ."/core/class/html.formcompany.class.php");
 require_once(DOL_DOCUMENT_ROOT ."/core/class/html.formfile.class.php");
-require_once(DOL_DOCUMENT_ROOT ."/lib/date.lib.php");
+require_once(DOL_DOCUMENT_ROOT ."/core/lib/date.lib.php");
 
 $form=new Form($GLOBALS['db']);
 $formcompany=new FormCompany($GLOBALS['db']);
@@ -173,7 +173,7 @@ print '</tr>';
 // Default language
 if ($conf->global->MAIN_MULTILANGS)
 {
-    require_once(DOL_DOCUMENT_ROOT."/lib/functions2.lib.php");
+    require_once(DOL_DOCUMENT_ROOT."/core/lib/functions2.lib.php");
     print '<tr><td>'.$langs->trans("DefaultLang").'</td><td colspan="3">';
     //$s=picto_from_langcode($soc->default_lang);
     //print ($s?$s.' ':'');

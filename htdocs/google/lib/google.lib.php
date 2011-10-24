@@ -55,7 +55,7 @@ function googleadmin_prepare_head()
 	$head[$h][2] = 'adsense';
 	$h++;
 
-	include_once(DOL_DOCUMENT_ROOT.'/lib/functions2.lib.php');
+	include_once(DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php');
 	$dolibarrversionarray=preg_split('/[\.-]/',version_dolibarr());
     $dolibarrversionok=array(3,1,-2);
 	if (versioncompare($dolibarrversionarray,$dolibarrversionok) >= 0)

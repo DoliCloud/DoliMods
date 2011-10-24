@@ -34,7 +34,7 @@ if (! $res && file_exists("../../../dolibarr/htdocs/main.inc.php")) $res=@includ
 if (! $res && file_exists("../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
 if (! $res && file_exists("../../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
 if (! $res) die("Include of main fails");
-include_once(DOL_DOCUMENT_ROOT."/lib/admin.lib.php");
+include_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
 dol_include_once("/ovh/class/ovhsms.class.php");
 dol_include_once("/ovh/lib/ovh.lib.php");
 

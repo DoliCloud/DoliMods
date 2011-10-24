@@ -33,7 +33,7 @@ if (! $res && file_exists("../../../dolibarr/htdocs/main.inc.php")) $res=@includ
 if (! $res && file_exists("../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
 if (! $res && file_exists("../../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
 if (! $res) die("Include of main fails");
-include_once(DOL_DOCUMENT_ROOT."/lib/company.lib.php");
+include_once(DOL_DOCUMENT_ROOT."/core/lib/company.lib.php");
 include_once("./class/patient.class.php");
 
 $langs->load("companies");
@@ -163,7 +163,7 @@ if ($socid > 0)
         print "<input type=\"hidden\" name=\"socid\" value=\"".$societe->id."\">";
 
         // Editeur wysiwyg
-        require_once(DOL_DOCUMENT_ROOT."/lib/doleditor.class.php");
+        require_once(DOL_DOCUMENT_ROOT."/core/class/doleditor.class.php");
         $doleditor=new DolEditor('note_antemed',$societe->note_antemed,0,$height,'dolibarr_notes','In',false,false,$conf->fckeditor->enabled && $conf->global->FCKEDITOR_ENABLE_SOCIETE,6,70);
         $doleditor->Create();
     }
@@ -180,7 +180,7 @@ if ($socid > 0)
         print "<input type=\"hidden\" name=\"socid\" value=\"".$societe->id."\">";
 
         // Editeur wysiwyg
-        require_once(DOL_DOCUMENT_ROOT."/lib/doleditor.class.php");
+        require_once(DOL_DOCUMENT_ROOT."/core/class/doleditor.class.php");
         $doleditor=new DolEditor('note_antechirgen',$societe->note_antechirgen,0,$height,'dolibarr_notes','In',false,false,$conf->fckeditor->enabled && $conf->global->FCKEDITOR_ENABLE_SOCIETE,6,70);
         $doleditor->Create();
     }
@@ -197,7 +197,7 @@ if ($socid > 0)
         print "<input type=\"hidden\" name=\"socid\" value=\"".$societe->id."\">";
 
         // Editeur wysiwyg
-        require_once(DOL_DOCUMENT_ROOT."/lib/doleditor.class.php");
+        require_once(DOL_DOCUMENT_ROOT."/core/class/doleditor.class.php");
         $doleditor=new DolEditor('note_antechirortho',$societe->note_antechirortho,0,$height,'dolibarr_notes','In',false,false,$conf->fckeditor->enabled && $conf->global->FCKEDITOR_ENABLE_SOCIETE,6,70);
         $doleditor->Create();
     }
@@ -214,7 +214,7 @@ if ($socid > 0)
         print "<input type=\"hidden\" name=\"socid\" value=\"".$societe->id."\">";
 
         // Editeur wysiwyg
-        require_once(DOL_DOCUMENT_ROOT."/lib/doleditor.class.php");
+        require_once(DOL_DOCUMENT_ROOT."/core/class/doleditor.class.php");
         $doleditor=new DolEditor('note_anterhum',$societe->note_anterhum,0,$height,'dolibarr_notes','In',false,false,$conf->fckeditor->enabled && $conf->global->FCKEDITOR_ENABLE_SOCIETE,6,70);
         $doleditor->Create();
     }
@@ -232,7 +232,7 @@ if ($socid > 0)
         print "<input type=\"hidden\" name=\"socid\" value=\"".$societe->id."\">";
 
         // Editeur wysiwyg
-        require_once(DOL_DOCUMENT_ROOT."/lib/doleditor.class.php");
+        require_once(DOL_DOCUMENT_ROOT."/core/class/doleditor.class.php");
         $doleditor=new DolEditor('note_other',$societe->note_other,0,$height,'dolibarr_notes','In',false,false,$conf->fckeditor->enabled && $conf->global->FCKEDITOR_ENABLE_SOCIETE,6,70);
         $doleditor->Create();
     }
@@ -251,7 +251,7 @@ if ($socid > 0)
         print "<input type=\"hidden\" name=\"socid\" value=\"".$societe->id."\">";
 
         // Editeur wysiwyg
-        require_once(DOL_DOCUMENT_ROOT."/lib/doleditor.class.php");
+        require_once(DOL_DOCUMENT_ROOT."/core/class/doleditor.class.php");
         $doleditor=new DolEditor('note_traitallergie',$societe->note_traitallergie,0,$height,'dolibarr_notes','In',false,false,$conf->fckeditor->enabled && $conf->global->FCKEDITOR_ENABLE_SOCIETE,6,70);
         $doleditor->Create();
     }

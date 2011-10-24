@@ -89,7 +89,7 @@ class FormFileCabinetmed
 
         $nboffiles=sizeof($filearray);
 
-        if ($nboffiles > 0) include_once(DOL_DOCUMENT_ROOT.'/lib/images.lib.php');
+        if ($nboffiles > 0) include_once(DOL_DOCUMENT_ROOT.'/core/lib/images.lib.php');
 
         $var=true;
         foreach($filearray as $key => $file)      // filearray must be only files here

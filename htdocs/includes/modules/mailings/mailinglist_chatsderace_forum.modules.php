@@ -8,7 +8,7 @@
  * Code that need to be changed in this file are marked by "CHANGE THIS" tag.
  */
 
-include_once DOL_DOCUMENT_ROOT.'/includes/modules/mailings/modules_mailings.php';
+include_once DOL_DOCUMENT_ROOT.'/core/modules/mailings/modules_mailings.php';
 
 
 // CHANGE THIS: Class name must be called mailing_xxx with xxx=name of your selector

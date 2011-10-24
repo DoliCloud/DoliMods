@@ -29,7 +29,7 @@ if (! $res && file_exists("../../../dolibarr/htdocs/main.inc.php")) $res=@includ
 if (! $res && file_exists("../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
 if (! $res && file_exists("../../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
 if (! $res) die("Include of main fails");
-require_once(DOL_DOCUMENT_ROOT."/lib/company.lib.php");
+require_once(DOL_DOCUMENT_ROOT."/core/lib/company.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/societe/class/societe.class.php");
 require_once(DOL_DOCUMENT_ROOT."/contact/class/contact.class.php");
 dol_include_once("/ovh/class/ovhsms.class.php");
@@ -102,7 +102,7 @@ if ($action == 'send' && ! $_POST['cancel'])
         complete_substitutions_array($substitutionarrayfortest,$langs);
         $body=make_substitutions($body,$substitutionarrayfortest);
 
-        require_once(DOL_DOCUMENT_ROOT."/lib/CSMSFile.class.php");
+        require_once(DOL_DOCUMENT_ROOT."/core/class/CSMSFile.class.php");
 
         if ((empty($sendto) || ! str_replace('+','',$sendto)) && ! empty($receiver) && $receiver != '-1')
         {

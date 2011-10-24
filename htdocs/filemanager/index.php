@@ -38,7 +38,7 @@ if (! defined('REQUIRE_JQUERY_LAYOUT'))  define('REQUIRE_JQUERY_LAYOUT','1');
 
 require_once("../filemanager/pre.inc.php");
 dol_include_once("/filemanager/class/filemanagerroots.class.php");
-include_once(DOL_DOCUMENT_ROOT."/lib/files.lib.php");
+include_once(DOL_DOCUMENT_ROOT."/core/lib/files.lib.php");
 
 // Load traductions files requiredby by page
 $langs->load("companies");

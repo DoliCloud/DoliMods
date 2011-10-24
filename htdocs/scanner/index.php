@@ -33,7 +33,7 @@ if (! $res && file_exists("../../../../dolibarr/htdocs/main.inc.php")) $res=@inc
 if (! $res && file_exists("../../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
 if (! $res) die("Include of main fails");
 include_once(DOL_DOCUMENT_ROOT."/core/class/html.formfile.class.php");
-include_once(DOL_DOCUMENT_ROOT."/lib/files.lib.php");
+include_once(DOL_DOCUMENT_ROOT."/core/lib/files.lib.php");
 include_once("./functions.php");
 include_once("./config.php");        // We can't use dol_include once for this because it set global variables used into this page, so we use relateive path
 

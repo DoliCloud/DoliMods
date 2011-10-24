@@ -25,7 +25,7 @@
  *		\version    $Id: pibarcode.modules.php,v 1.9 2011/03/03 09:01:05 eldy Exp $
  */
 
-require_once(DOL_DOCUMENT_ROOT ."/includes/modules/barcode/modules_barcode.php");
+require_once(DOL_DOCUMENT_ROOT ."/core/modules/barcode/modules_barcode.php");
 
 
 /**	    \class      modPibarcode

@@ -33,7 +33,7 @@ if (! $res && file_exists("../../../dolibarr/htdocs/main.inc.php")) $res=@includ
 if (! $res && file_exists("../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
 if (! $res && file_exists("../../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
 if (! $res) die("Include of main fails");
-include_once(DOL_DOCUMENT_ROOT."/lib/company.lib.php");
+include_once(DOL_DOCUMENT_ROOT."/core/lib/company.lib.php");
 include_once("./class/patient.class.php");
 
 $langs->load("companies");
@@ -164,7 +164,7 @@ if ($socid > 0)
         print "<input type=\"hidden\" name=\"socid\" value=\"".$societe->id."\">";
 
         // Editeur wysiwyg
-        require_once(DOL_DOCUMENT_ROOT."/lib/doleditor.class.php");
+        require_once(DOL_DOCUMENT_ROOT."/core/class/doleditor.class.php");
         $doleditor=new DolEditor('note_traitspec',$societe->note_traitspec,0,$height,'dolibarr_notes','In',false,false,$conf->fckeditor->enabled && $conf->global->FCKEDITOR_ENABLE_SOCIETE,8,70);
         $doleditor->Create();
     }
@@ -184,7 +184,7 @@ if ($socid > 0)
         print "<input type=\"hidden\" name=\"socid\" value=\"".$societe->id."\">";
 
         // Editeur wysiwyg
-        require_once(DOL_DOCUMENT_ROOT."/lib/doleditor.class.php");
+        require_once(DOL_DOCUMENT_ROOT."/core/class/doleditor.class.php");
         $doleditor=new DolEditor('note_traitclass',$societe->note_traitclass,0,$height,'dolibarr_notes','In',false,false,$conf->fckeditor->enabled && $conf->global->FCKEDITOR_ENABLE_SOCIETE,6,70);
         $doleditor->Create();
     }
@@ -204,7 +204,7 @@ if ($socid > 0)
         print "<input type=\"hidden\" name=\"socid\" value=\"".$societe->id."\">";
 
         // Editeur wysiwyg
-        require_once(DOL_DOCUMENT_ROOT."/lib/doleditor.class.php");
+        require_once(DOL_DOCUMENT_ROOT."/core/class/doleditor.class.php");
         $doleditor=new DolEditor('note_traitintol',$societe->note_traitintol,0,$height,'dolibarr_notes','In',false,false,$conf->fckeditor->enabled && $conf->global->FCKEDITOR_ENABLE_SOCIETE,8,70);
         $doleditor->Create();
     }

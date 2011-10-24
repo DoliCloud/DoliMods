@@ -52,7 +52,7 @@ if (! $res && file_exists("../../../../dolibarr/htdocs/main.inc.php")) $res=@inc
 if (! $res && file_exists("../../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
 if (! $res) die("Include of main fails");
 dol_include_once("/filemanager/class/filemanagerroots.class.php");
-include_once(DOL_DOCUMENT_ROOT.'/lib/files.lib.php');
+include_once(DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php');
 
 $encoding = '';
 $action = GETPOST("action");

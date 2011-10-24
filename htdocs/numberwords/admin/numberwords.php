@@ -19,7 +19,7 @@
  */
 
 /**
- *	\file       htdocs/admin/numberwords.php
+ *	\file       htdocs/numberwords/admin/numberwords.php
  *	\ingroup    numberwords
  *	\brief      Setup page for numberwords module
  *	\version    $Id: numberwords.php,v 1.3 2011/06/08 22:08:45 eldy Exp $
@@ -34,11 +34,10 @@ if (! $res && file_exists("../../../dolibarr/htdocs/main.inc.php")) $res=@includ
 if (! $res && file_exists("../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
 if (! $res && file_exists("../../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
 if (! $res) die("Include of main fails");
-require_once(DOL_DOCUMENT_ROOT."/lib/admin.lib.php");
+require_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/class/html.formadmin.class.php");
 
-if (!$user->admin)
-accessforbidden();
+if (!$user->admin) accessforbidden();
 
 $langs->load("admin");
 $langs->load("other");

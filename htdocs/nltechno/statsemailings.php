@@ -37,8 +37,8 @@ if (! $user->rights->nltechno->emailings->voir)
 	exit;
 }
 
-$dirmod=DOL_DOCUMENT_ROOT."/includes/modules/mailings";
-if (defined('DOL_DOCUMENT_ROOT_BIS')) $dirmod2=DOL_DOCUMENT_ROOT_BIS."/includes/modules/mailings";
+$dirmod=DOL_DOCUMENT_ROOT."/core/modules/mailings";
+if (defined('DOL_DOCUMENT_ROOT_BIS')) $dirmod2=DOL_DOCUMENT_ROOT_BIS."/core/modules/mailings";
 
 $mesg = '';
 

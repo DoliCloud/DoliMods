@@ -36,7 +36,7 @@ if (! $res && file_exists("../../../dolibarr/htdocs/main.inc.php")) $res=@includ
 if (! $res && file_exists("../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
 if (! $res && file_exists("../../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
 if (! $res) die("Include of main fails");
-include_once(DOL_DOCUMENT_ROOT."/lib/admin.lib.php");
+include_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
 dol_include_once("/ovh/class/ovhsms.class.php");
 
 // Load traductions files requiredby by page
@@ -67,7 +67,7 @@ print_fiche_titre($langs->trans("OvhSmsRecap"),$linkback,'setup');
 $var=true;
 
 
-require_once(DOL_DOCUMENT_ROOT."/includes/nusoap/lib/nusoap.php");     // Include SOAP
+require_once(DOL_DOCUMENT_ROOT."/core/nusoap/lib/nusoap.php");     // Include SOAP
 
 
 

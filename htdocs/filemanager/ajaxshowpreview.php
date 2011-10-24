@@ -45,7 +45,7 @@ if (! $res && file_exists("../../../../dolibarr/htdocs/main.inc.php")) $res=@inc
 if (! $res && file_exists("../../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
 if (! $res) die("Include of main fails");
 dol_include_once("/filemanager/class/filemanagerroots.class.php");
-include_once(DOL_DOCUMENT_ROOT.'/lib/files.lib.php');
+include_once(DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php');
 
 // Do not use urldecode here ($_GET and $_REQUEST are already decoded by PHP).
 $id=GETPOST('id')?GETPOST('id'):(is_numeric(GETPOST('rootpath'))?GETPOST('rootpath'):'');
@@ -277,7 +277,7 @@ else {
     $sizearray=array();
     if (preg_match('/image/i',$type))
     {
-        require_once(DOL_DOCUMENT_ROOT.'/lib/images.lib.php');
+        require_once(DOL_DOCUMENT_ROOT.'/core/lib/images.lib.php');
         $sizearray=dol_getImageSize($original_file_osencoded);
         print '<tr><td>'.$langs->trans("Width").':</td><td>&nbsp; <span class="fmvalue">'.$sizearray['width'].'px</span></td></tr>';
         print '<tr><td>'.$langs->trans("Height").':</td><td>&nbsp; <span class="fmvalue">'.$sizearray['height'].'px</span></td></tr>';

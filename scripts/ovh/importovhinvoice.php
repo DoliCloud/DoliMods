@@ -27,8 +27,8 @@ require_once(DOL_DOCUMENT_ROOT."/user/class/user.class.php");
 require_once(DOL_DOCUMENT_ROOT.'/fourn/class/paiementfourn.class.php');
 require_once(DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.facture.class.php');
 require_once(DOL_DOCUMENT_ROOT.'/product/class/product.class.php');
-require_once(DOL_DOCUMENT_ROOT.'/lib/fourn.lib.php');
-require_once(DOL_DOCUMENT_ROOT."/lib/files.lib.php");
+require_once(DOL_DOCUMENT_ROOT.'/core/lib/fourn.lib.php');
+require_once(DOL_DOCUMENT_ROOT."/core/lib/files.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/class/html.formfile.class.php");
 
 $langs->load("bills");
@@ -74,7 +74,7 @@ if ($result <= 0)
 }
 
 try {
-    require_once(DOL_DOCUMENT_ROOT.'/lib/functions2.lib.php');
+    require_once(DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php');
     $params=getSoapParams();
     ini_set('default_socket_timeout', $params['response_timeout']);
 

@@ -38,7 +38,7 @@ if (substr($module, 0, 15) == 'mod_codeclient_' && substr($module, -3) == 'php')
 {
     $module = substr($module, 0, dol_strlen($module)-4);
 }
-require_once(DOL_DOCUMENT_ROOT ."/includes/modules/societe/".$module.".php");
+require_once(DOL_DOCUMENT_ROOT ."/core/modules/societe/".$module.".php");
 $modCodeClient = new $module;
 // We verified if the tag prefix is used
 if ($modCodeClient->code_auto)

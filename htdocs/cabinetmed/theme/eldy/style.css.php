@@ -44,7 +44,6 @@ if (! $res && file_exists("../../../dolibarr/htdocs/main.inc.php")) $res=@includ
 if (! $res && file_exists("../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
 if (! $res && file_exists("../../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
 if (! $res) die("Include of main fails");
-require_once(DOL_DOCUMENT_ROOT."/lib/functions.lib.php");
 
 // Define css type
 header('Content-type: text/css');
@@ -1260,7 +1259,7 @@ border-bottom: 1px solid #FDFFFF;
 white-space: nowrap;
 text-align: <?php echo $left; ?>;
 }
-th.liste_titre, td.liste_titre 
+th.liste_titre, td.liste_titre
 {
 background: #7699A9;
 background-image: url(<?php echo $img_liste_titre ?>);

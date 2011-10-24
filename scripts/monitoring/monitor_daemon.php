@@ -64,7 +64,7 @@ if (! $res) die("Include of master fails");
 
 
 // -------------------- START OF YOUR CODE HERE --------------------
-include_once(DOL_DOCUMENT_ROOT."/lib/files.lib.php");
+include_once(DOL_DOCUMENT_ROOT."/core/lib/files.lib.php");
 dol_include_once("/monitoring/lib/monitoring.lib.php");
 dol_include_once("/monitoring/class/monitoring_probes.class.php");
 

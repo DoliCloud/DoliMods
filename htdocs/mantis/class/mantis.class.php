@@ -31,17 +31,17 @@
  */
 
 class Mantis {
-    
+
     var $localdb;
 
     var $date;
     var $duree = 0;     // Secondes
     var $texte;
     var $desc;
-    
+
     var $error;
 
-  
+
     /**
     		\brief      Constructeur de la classe d'interface a mantisendar
     */
@@ -60,9 +60,9 @@ class Mantis {
         $mantisname=preg_replace('/__dolibarr_main_db_name__/i',$dolibarr_main_db_name,$conf->mantis->db->name);
 
         // On initie la connexion a la base mantisendar
-        require_once (DOL_DOCUMENT_ROOT ."/lib/databases/".$mantistype.".lib.php");
+        require_once (DOL_DOCUMENT_ROOT ."/core/db/".$mantistype.".class.php");
         $this->localdb = new DoliDb($mantistype,$mantishost,$mantisuser,$mantispass,$mantisname,$mantisport);
     }
- 
+
 }
 ?>

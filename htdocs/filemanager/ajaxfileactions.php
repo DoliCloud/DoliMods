@@ -45,8 +45,8 @@ if (! $res && file_exists("../../../../dolibarr/htdocs/main.inc.php")) $res=@inc
 if (! $res && file_exists("../../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
 if (! $res) die("Include of main fails");
 dol_include_once("/filemanager/class/filemanagerroots.class.php");
-include_once(DOL_DOCUMENT_ROOT.'/lib/files.lib.php');
-include_once(DOL_DOCUMENT_ROOT.'/lib/doleditor.class.php');
+include_once(DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php');
+include_once(DOL_DOCUMENT_ROOT.'/core/class/doleditor.class.php');
 
 
 // Do not use urldecode here ($_GET and $_REQUEST are already decoded by PHP).

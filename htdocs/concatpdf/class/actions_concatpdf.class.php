@@ -68,7 +68,7 @@ class ActionsCabinetmed
 
         // Add external file
         //$pdfConcat = new concat_pdf();
-        //$pdfConcat->setFiles(array($file, DOL_DOCUMENT_ROOT."/includes/modules/propale/morefile.pdf"));
+        //$pdfConcat->setFiles(array($file, "morefile.pdf"));
         //$pdfConcat->concat();
         //$pdf->AliasNbPages();
         //$pdfConcat->Output($file,'F');

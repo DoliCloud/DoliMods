@@ -29,7 +29,7 @@ if (substr($module, 0, 15) == 'mod_codeclient_' && substr($module, -3) == 'php')
 }
 require_once(DOL_DOCUMENT_ROOT ."/core/class/html.formcompany.class.php");
 require_once(DOL_DOCUMENT_ROOT ."/core/class/html.formadmin.class.php");
-require_once(DOL_DOCUMENT_ROOT ."/includes/modules/societe/".$module.".php");
+require_once(DOL_DOCUMENT_ROOT ."/core/modules/societe/".$module.".php");
 $modCodeClient = new $module;
 
 $form=new Form($GLOBALS['db']);

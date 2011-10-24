@@ -33,7 +33,7 @@ if (! $res && file_exists("../../../dolibarr/htdocs/main.inc.php")) $res=@includ
 if (! $res && file_exists("../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
 if (! $res && file_exists("../../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
 if (! $res) die("Include of main fails");
-include_once(DOL_DOCUMENT_ROOT."/lib/company.lib.php");
+include_once(DOL_DOCUMENT_ROOT."/core/lib/company.lib.php");
 include_once(DOL_DOCUMENT_ROOT."/compta/bank/class/account.class.php");
 include_once("./lib/cabinetmed.lib.php");
 include_once("./class/patient.class.php");
