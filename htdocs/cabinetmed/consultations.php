@@ -613,16 +613,19 @@ if ($socid > 0)
         print $langs->trans("Date").': ';
         $form->select_date($consult->datecons,'cons');
         print '</td><td>';
-        print $langs->trans("Priseencharge").': &nbsp;';
-        print '<input type="radio" class="flat" name="typepriseencharge" value="ALD"'.($consult->typepriseencharge=='ALD'?' checked="checked"':'').'> ALD';
-        print ' &nbsp; ';
-        print '<input type="radio" class="flat" name="typepriseencharge" value="INV"'.($consult->typepriseencharge=='INV'?' checked="checked"':'').'> INV';
-        print ' &nbsp; ';
-        print '<input type="radio" class="flat" name="typepriseencharge" value="AT"'.($consult->typepriseencharge=='AT'?' checked="checked"':'').'> AT';
-        print ' &nbsp; ';
-        print '<input type="radio" class="flat" name="typepriseencharge" value="CMU"'.($consult->typepriseencharge=='CMU'?' checked="checked"':'').'> CMU';
-        print ' &nbsp; ';
-        print '<input type="radio" class="flat" name="typepriseencharge" value="AME"'.($consult->typepriseencharge=='AME'?' checked="checked"':'').'> AME';
+        if (! empty($conf->global->CABINETMED_FRENCH_PRISEENCHARGE))
+        {
+            print $langs->trans("Priseencharge").': &nbsp;';
+            print '<input type="radio" class="flat" name="typepriseencharge" value="ALD"'.($consult->typepriseencharge=='ALD'?' checked="checked"':'').'> ALD';
+            print ' &nbsp; ';
+            print '<input type="radio" class="flat" name="typepriseencharge" value="INV"'.($consult->typepriseencharge=='INV'?' checked="checked"':'').'> INV';
+            print ' &nbsp; ';
+            print '<input type="radio" class="flat" name="typepriseencharge" value="AT"'.($consult->typepriseencharge=='AT'?' checked="checked"':'').'> AT';
+            print ' &nbsp; ';
+            print '<input type="radio" class="flat" name="typepriseencharge" value="CMU"'.($consult->typepriseencharge=='CMU'?' checked="checked"':'').'> CMU';
+            print ' &nbsp; ';
+            print '<input type="radio" class="flat" name="typepriseencharge" value="AME"'.($consult->typepriseencharge=='AME'?' checked="checked"':'').'> AME';
+        }
         print '</td></tr>';
 
         print '</table>';
@@ -650,11 +653,11 @@ if ($socid > 0)
         print ' <input type="button" class="button" id="addmotifsec" name="addmotifsec" value="+S">';
         if ($user->admin) print ' '.info_admin($langs->trans("YouCanChangeValuesForThisListFromDictionnarySetup"),1);
         print '</td></tr>';
-        print '<tr><td><b>Principal:</b>';
+        print '<tr><td class="fieldrequired">'.$langs->trans("Primary").':';
         print '</td><td>';
         print '<input type="text" size="32" class="flat" name="motifconsprinc" value="'.$consult->motifconsprinc.'" id="motifconsprinc"><br>';
         print '</td></tr>';
-        print '<tr><td valign="top">'.$langs->trans("Secondaires").':';
+        print '<tr><td valign="top">'.$langs->trans("Secondaries").':';
         print '</td><td>';
         print '<textarea class="flat" name="motifconssec" id="motifconssec" cols="40" rows="'.ROWS_3.'">';
         print $consult->motifconssec;
@@ -682,11 +685,11 @@ if ($socid > 0)
         print ' <input type="button" class="button" id="adddiaglessec" name="adddiaglessec" value="+S">';
         if ($user->admin) print ' '.info_admin($langs->trans("YouCanChangeValuesForThisListFromDictionnarySetup"),1);
         print '</td></tr>';
-        print '<tr><td><b>Principal:</b>';
+        print '<tr><td class="fieldrequired">'.$langs->trans("Primary").':';
         print '</td><td>';
         print '<input type="text" size="32" class="flat" name="diaglesprinc" value="'.$consult->diaglesprinc.'" id="diaglesprinc"><br>';
         print '</td></tr>';
-        print '<tr><td valign="top">'.$langs->trans("Secondaires").':';
+        print '<tr><td valign="top">'.$langs->trans("Secondaries").':';
         print '</td><td>';
         print '<textarea class="flat" name="diaglessec" id="diaglessec" cols="40" rows="'.ROWS_3.'">';
         print $consult->diaglessec;
@@ -748,11 +751,11 @@ if ($socid > 0)
         //print '<input type="text" class="flat" name="infiltration" id="infiltration" value="'.$consult->infiltration.'" size="50">';
 
         print '<br><b>'.$langs->trans("TypeVisite").'</b>: &nbsp; &nbsp; &nbsp; ';
-        print '<input type="radio" class="flat" name="typevisit" value="CS" id="cs"'.($consult->typevisit=='CS'?' checked="checked"':'').'> CS';
+        print '<input type="radio" class="flat" name="typevisit" value="CS" id="cs"'.($consult->typevisit=='CS'?' checked="checked"':'').'> '.$langs->trans("CS");
         print ' &nbsp; &nbsp; ';
-        print '<input type="radio" class="flat" name="typevisit" value="C2" id="c2"'.($consult->typevisit=='C2'?' checked="checked"':'').'> C2';
+        print '<input type="radio" class="flat" name="typevisit" value="CS2" id="c2"'.($consult->typevisit=='C2'?' checked="checked"':'').'> '.$langs->trans("CS2");
         print ' &nbsp; &nbsp; ';
-        print '<input type="radio" class="flat" name="typevisit" value="CCAM" id="ccam"'.($consult->typevisit=='CCAM'?' checked="checked"':'').'> CCAM';
+        print '<input type="radio" class="flat" name="typevisit" value="CCAM" id="ccam"'.($consult->typevisit=='CCAM'?' checked="checked"':'').'> '.$langs->trans("CCAM");
         print '<br>';
         print '<br>'.$langs->trans("CodageCCAM").': &nbsp; ';
         print '<input type="text" class="flat" name="codageccam" id="codageccam" value="'.$consult->codageccam.'" size="30"'.($consult->codageccam?'':' disabled="disabled"').'>';
@@ -791,7 +794,6 @@ if ($socid > 0)
                 $i++;
             }
         }
-        //print $consult->bank_id.'c'.$consult->bank_account_id.'c'.$defaultbankaccountchq.'c'.$defaultbankaccountliq;
 
         print '<table class="notopnoleftnoright" id="paymentsbox" width="100%">';
         print '<tr><td width="160">';
@@ -803,7 +805,7 @@ if ($socid > 0)
         if ($conf->banque->enabled)
         {
             print ' &nbsp; '.$langs->trans("RecBank").' ';
-            $form->select_comptes(($consult->bank_account_id?$consult->bank_account_id:$defaultbankaccountchq),'bankchequeto',0,'courant = 1',0,($consult->montant_cheque?'':' disabled="disabled"'));
+            $form->select_comptes(($consult->bank['CHQ']['account_id']?$consult->bank['CHQ']['account_id']:$defaultbankaccountchq),'bankchequeto',0,'courant = 1',0,($consult->montant_cheque?'':' disabled="disabled"'));
         }
 
         //print '</td><td>';
@@ -831,7 +833,7 @@ if ($socid > 0)
         if ($conf->banque->enabled)
         {
             print ' &nbsp; '.$langs->trans("RecBank").' ';
-            $form->select_comptes(($consult->bank_account_id?$consult->bank_account_id:$defaultbankaccountliq),'bankespeceto',0,'courant = 2',0,($consult->montant_espece?'':' disabled="disabled"'));
+            $form->select_comptes(($consult->bank['LIQ']['account_id']?$consult->bank['LIQ']['account_id']:$defaultbankaccountliq),'bankespeceto',0,'courant = 2',0,($consult->montant_espece?'':' disabled="disabled"'));
         }
         print '</td></tr><tr><td>';
         print $langs->trans("PaymentTypeCarte").'</td><td>';
@@ -839,7 +841,7 @@ if ($socid > 0)
         if ($conf->banque->enabled)
         {
             print ' &nbsp; '.$langs->trans("RecBank").' ';
-            $form->select_comptes(($consult->bank_account_id?$consult->bank_account_id:$defaultbankaccountchq),'bankcarteto',0,'courant = 1',0,($consult->montant_carte?'':' disabled="disabled"'));
+            $form->select_comptes(($consult->bank['CB']['account_id']?$consult->bank['CB']['account_id']:$defaultbankaccountchq),'bankcarteto',0,'courant = 1',0,($consult->montant_carte?'':' disabled="disabled"'));
         }
         print '</td></tr><tr><td>';
         print $langs->trans("PaymentTypeThirdParty").'</td><td>';
@@ -911,7 +913,10 @@ if ($action == '' || $action == 'delete')
     print '<tr class="liste_titre">';
     print_liste_field_titre($langs->trans('Num'),$_SERVER['PHP_SELF'],'t.rowid','',$param,'',$sortfield,$sortorder);
     print_liste_field_titre($langs->trans('Date'),$_SERVER['PHP_SELF'],'t.datecons','',$param,'',$sortfield,$sortorder);
-    print_liste_field_titre($langs->trans('Priseencharge'),$_SERVER['PHP_SELF'],'t.typepriseencharge','',$param,'',$sortfield,$sortorder);
+    if (! empty($conf->global->CABINETMED_FRENCH_PRISEENCHARGE))
+    {
+        print_liste_field_titre($langs->trans('Priseencharge'),$_SERVER['PHP_SELF'],'t.typepriseencharge','',$param,'',$sortfield,$sortorder);
+    }
     print_liste_field_titre($langs->trans('DiagLesPrincipal'),$_SERVER['PHP_SELF'],'t.diaglesprinc','',$param,'',$sortfield,$sortorder);
     print_liste_field_titre($langs->trans('ConsultActe'),$_SERVER['PHP_SELF'],'t.typevisit','',$param,'',$sortfield,$sortorder);
     print_liste_field_titre($langs->trans('MontantPaiement'),$_SERVER['PHP_SELF'],'','',$param,'',$sortfield,$sortorder);
@@ -961,20 +966,28 @@ if ($action == '' || $action == 'delete')
         {
             $obj = $db->fetch_object($resql);
 
+            $consult->id=$obj->rowid;
+            $consult->fetch_bankid();
+
             $var=!$var;
             print '<tr '.$bc[$var].'><td>';
             print '<a href="'.$_SERVER["PHP_SELF"].'?socid='.$obj->fk_soc.'&id='.$obj->rowid.'&action=edit">'.sprintf("%08d",$obj->rowid).'</a>';
             print '</td><td>';
             print dol_print_date($db->jdate($obj->datecons),'day');
-            print '</td><td>';
-            print $obj->typepriseencharge;
-            print '</td><td>';
+            print '</td>';
+            if (! empty($conf->global->CABINETMED_FRENCH_PRISEENCHARGE))
+            {
+                print '<td>';
+                print $obj->typepriseencharge;
+                print '</td>';
+            }
+            print '<td>';
             print dol_trunc($obj->diaglesprinc,32);
             print '</td>';
             print '<td>';
             //print dol_print_date($obj->diaglesprinc,'day');
             //print '</td><td>';
-            print $obj->typevisit;
+            print $langs->trans($obj->typevisit);
             print '</td>';
             print '<td>';
             $foundamount=0;
@@ -998,42 +1011,56 @@ if ($action == '' || $action == 'delete')
                 print price($obj->montant_tiers);
                 $foundamount++;
             }
-            print '</td><td>';
+            print '</td>';
+
+            print '<td>';
             $foundamount=0;
             if (price2num($obj->montant_cheque) > 0) {
-                if ($foundamount) print '+';
+                if ($foundamount) print ' + ';
                 print $langs->trans("Cheque");
+                if ($conf->banque->enabled && $consult->bank['CHQ']['account_id'])
+                {
+                    $bank=new Account($db);
+                    $bank->fetch($consult->bank['CHQ']['account_id']);
+                    print '&nbsp;('.$bank->getNomUrl(0,'transactions').')';
+                }
                 $foundamount++;
             }
             if (price2num($obj->montant_espece) > 0)  {
-                if ($foundamount) print '+';
+                if ($foundamount) print ' + ';
                 print $langs->trans("Cash");
+                if ($conf->banque->enabled && $consult->bank['LIQ']['account_id'])
+                {
+                    $bank=new Account($db);
+                    $bank->fetch($consult->bank['LIQ']['account_id']);
+                    print '&nbsp;('.$bank->getNomUrl(0,'transactions').')';
+                }
                 $foundamount++;
             }
             if (price2num($obj->montant_carte) > 0)  {
-                if ($foundamount) print '+';
+                if ($foundamount) print ' + ';
                 print $langs->trans("CreditCard");
+                if ($conf->banque->enabled && $consult->bank['CB']['account_id'])
+                {
+                    $bank=new Account($db);
+                    $bank->fetch($consult->bank['CB']['account_id']);
+                    print '&nbsp;('.$bank->getNomUrl(0,'transactions').')';
+                }
                 $foundamount++;
             }
             if (price2num($obj->montant_tiers) > 0)  {
-                if ($foundamount) print '+';
+                if ($foundamount) print ' + ';
                 print $langs->trans("PaymentTypeThirdParty");
+                if ($conf->banque->enabled && $consult->bank['OTH']['account_id'])
+                {
+                    $bank=new Account($db);
+                    $bank->fetch($consult->bank['OTH']['account_id']);
+                    print '&nbsp;('.$bank->getNomUrl(0,'transactions').')';
+                }
                 $foundamount++;
             }
             print '</td>';
 
-/*            if ($conf->banque->enabled)
-            {
-                print '<td>';
-                if ($obj->fk_account)
-                {
-                    $bank=new Account($db);
-                    $bank->fetch($obj->fk_account);
-                    print $bank->getNomUrl(1,'transactions');
-                }
-                print '</td>';
-            }
-*/
             print '<td align="right">';
             print '<a href="'.$_SERVER["PHP_SELF"].'?socid='.$obj->fk_soc.'&id='.$obj->rowid.'&action=edit">'.img_edit().'</a>';
             if ($user->rights->societe->supprimer)

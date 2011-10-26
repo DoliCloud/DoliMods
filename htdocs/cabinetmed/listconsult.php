@@ -48,9 +48,9 @@ $result = restrictedArea($user,'societe',$socid,'');
 
 if (!$user->rights->cabinetmed->read) accessforbidden();
 
-$sortfield = isset($_GET["sortfield"])?$_GET["sortfield"]:$_POST["sortfield"];
-$sortorder = isset($_GET["sortorder"])?$_GET["sortorder"]:$_POST["sortorder"];
-$page=isset($_GET["page"])?$_GET["page"]:$_POST["page"];
+$sortfield = GETPOST("sortfield");
+$sortorder = GETPOST("sortorder");
+$page=GETPOST("page");
 if ($page == -1) { $page = 0 ; }
 $offset = $conf->liste_limit * $page;
 $pageprev = $page - 1;
@@ -58,9 +58,10 @@ $pagenext = $page + 1;
 if (! $sortorder) $sortorder="DESC";
 if (! $sortfield) $sortfield="c.datecons,c.rowid";
 
-$search_nom=isset($_GET["search_nom"])?$_GET["search_nom"]:$_POST["search_nom"];
-$search_ville=isset($_GET["search_ville"])?$_GET["search_ville"]:$_POST["search_ville"];
-$search_code=isset($_GET["search_code"])?$_GET["search_code"]:$_POST["search_code"];
+$search_nom=GETPOST("search_nom");
+$search_ville=GETPOST("search_ville");
+$search_code=GETPOST("search_code");
+$search_ref=GETPOST("search_ref");
 
 // Load sale and categ filters
 $search_sale = GETPOST("search_sale");
@@ -110,7 +111,8 @@ $sql.= " AND s.client IN (1, 3)";
 $sql.= " AND s.entity = ".$conf->entity;
 if (!$user->rights->societe->client->voir && ! $socid) $sql.= " AND s.rowid = sc.fk_soc AND sc.fk_user = " .$user->id;
 if ($socid) $sql.= " AND s.rowid = ".$socid;
-if ($search_sale) $sql.= " AND s.rowid = sc.fk_soc";		// Join for the needed table to filter by sale
+if ($search_ref)   $sql.= " AND c.rowid = ".$db->escape($search_ref);
+if ($search_sale)  $sql.= " AND s.rowid = sc.fk_soc";		// Join for the needed table to filter by sale
 if ($search_categ) $sql.= " AND s.rowid = cs.fk_societe";	// Join for the needed table to filter by categ
 if ($search_nom)   $sql.= " AND s.nom like '%".$db->escape(strtolower($search_nom))."%'";
 if ($search_ville) $sql.= " AND s.ville like '%".$db->escape(strtolower($search_ville))."%'";
@@ -188,7 +190,10 @@ if ($result)
 	print_liste_field_titre($langs->trans("Company"),$_SERVER["PHP_SELF"],"s.nom","",$param,"",$sortfield,$sortorder);
 	print_liste_field_titre($langs->trans("CustomerCode"),$_SERVER["PHP_SELF"],"s.code_client","",$param,"",$sortfield,$sortorder);
 	print_liste_field_titre($langs->trans("DateConsultationShort"),$_SERVER["PHP_SELF"],"c.datecons,c.rowid","",$param,'align="center"',$sortfield,$sortorder);
-    print_liste_field_titre($langs->trans('Prise en charge'),$_SERVER['PHP_SELF'],'c.typepriseencharge','',$param,'',$sortfield,$sortorder);
+    if (! empty($conf->global->CABINETMED_FRENCH_PRISEENCHARGE))
+    {
+	    print_liste_field_titre($langs->trans('Prise en charge'),$_SERVER['PHP_SELF'],'c.typepriseencharge','',$param,'',$sortfield,$sortorder);
+    }
     print_liste_field_titre($langs->trans("MotifPrincipal"),$_SERVER["PHP_SELF"],"c.motifconsprinc","",$param,'',$sortfield,$sortorder);
 	print_liste_field_titre($langs->trans("DiagLesPrincipal"),$_SERVER["PHP_SELF"],"","",$param,'',$sortfield,$sortorder);
     print_liste_field_titre($langs->trans('ConsultActe'),$_SERVER['PHP_SELF'],'c.typevisit','',$param,'align="right"',$sortfield,$sortorder);
@@ -196,7 +201,7 @@ if ($result)
 
 	print '<tr class="liste_titre">';
     print '<td class="liste_titre">';
-    print '&nbsp;';
+	print '<input type="text" class="flat" size="6" name="search_ref" value="'.$search_ref.'">';
     print '</td>';
 	print '<td class="liste_titre">';
 	print '<input type="text" class="flat" size="8" name="search_nom" value="'.$search_nom.'">';
@@ -209,9 +214,12 @@ if ($result)
     print '<td class="liste_titre">';
     print '&nbsp;';
     print '</td>';
-	print '<td class="liste_titre">';
-    print '&nbsp;';
-    print '</td>';
+    if (! empty($conf->global->CABINETMED_FRENCH_PRISEENCHARGE))
+    {
+    	print '<td class="liste_titre">';
+        print '&nbsp;';
+        print '</td>';
+    }
     print '<td class="liste_titre">';
     print '&nbsp;';
     print '</td>';
@@ -244,9 +252,12 @@ if ($result)
 		print '</td>';
 		print '<td>'.$obj->code_client.'</td>';
 		print '<td align="center">'.dol_print_date($obj->datecons,'day').'</td>';
-        print '<td>';
-        print $obj->typepriseencharge;
-        print '</td>';
+        if (! empty($conf->global->CABINETMED_FRENCH_PRISEENCHARGE))
+        {
+    		print '<td>';
+            print $obj->typepriseencharge;
+            print '</td>';
+        }
         print '<td>'.$obj->motifconsprinc.'</td>';
         print '<td>';
         print dol_trunc($obj->diaglesprinc,20);
@@ -255,7 +266,7 @@ if ($result)
         $val=dol_trunc($obj->traitementprescrit,20);*/
         print '</td>';
         print '<td align="right">';
-        print $obj->typevisit;
+        print $langs->trans($obj->typevisit);
         print '</td>';
         print "</tr>\n";
 		$i++;

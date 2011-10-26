@@ -66,9 +66,8 @@ class CabinetmedCons extends CommonObject
 	var $banque;
 	var $num_cheque;
 
-    var $bank_id;               // Id of bank transaction line
-    var $rappro;                // Is transaction line conciliated ?
-    var $bank_account_id;       // Id of bank account
+	var $bank;
+
 
 	/**
 	 *	Constructor
@@ -84,17 +83,19 @@ class CabinetmedCons extends CommonObject
 
 	/**
 	 *      Create object into database
-	 *      @param      user        	User that create
-	 *      @param      notrigger	    0=launch triggers after, 1=disable triggers
-	 *      @return     int         	<0 if KO, Id of created object if OK
+	 *
+	 *      @param	User	$user        	User that create
+	 *      @param 	int		$notrigger	    0=launch triggers after, 1=disable triggers
+	 *      @return int         			<0 if KO, Id of created object if OK
 	 */
 	function create($user, $notrigger=0)
 	{
 		global $conf, $langs;
 		$error=0;
 
-		// Clean parameters
+		$now=dol_now();
 
+		// Clean parameters
 		if (isset($this->fk_soc)) $this->fk_soc=trim($this->fk_soc);
 		if (isset($this->typepriseencharge)) $this->typepriseencharge=trim($this->typepriseencharge);
 		if (isset($this->motifconsprinc)) $this->motifconsprinc=trim($this->motifconsprinc);
@@ -116,16 +117,15 @@ class CabinetmedCons extends CommonObject
 		if (isset($this->banque)) $this->banque=trim($this->banque);
 
 
-
 		// Check parameters
 		// Put here code to add control on parameters values
 
 		// Insert request
 		$sql = "INSERT INTO ".MAIN_DB_PREFIX."cabinetmed_cons(";
-
 		$sql.= "fk_soc,";
         $sql.= "fk_user,";
 		$sql.= "datecons,";
+		$sql.= "date_c,";
 		$sql.= "typepriseencharge,";
 		$sql.= "motifconsprinc,";
 		$sql.= "diaglesprinc,";
@@ -147,7 +147,8 @@ class CabinetmedCons extends CommonObject
 		$sql.= ") VALUES (";
 		$sql.= " ".(! isset($this->fk_soc)?'NULL':"'".$this->fk_soc."'").",";
         $sql.= " ".$user->id.",";
-		$sql.= " ".(! isset($this->datecons) || dol_strlen($this->datecons)==0?'NULL':$this->db->idate($this->datecons)).",";
+		$sql.= " ".(! isset($this->datecons) || dol_strlen($this->datecons)==0?'NULL':"'".$this->db->idate($this->datecons))."',";
+		$sql.= " '".$this->db->idate($now)."',";
 		$sql.= " ".(! isset($this->typepriseencharge)?'NULL':"'".addslashes($this->typepriseencharge)."'").",";
 		$sql.= " ".(! isset($this->motifconsprinc)?'NULL':"'".addslashes($this->motifconsprinc)."'").",";
 		$sql.= " ".(! isset($this->diaglesprinc)?'NULL':"'".addslashes($this->diaglesprinc)."'").",";
@@ -166,8 +167,6 @@ class CabinetmedCons extends CommonObject
 		$sql.= " ".(! isset($this->montant_carte)?'NULL':"'".$this->montant_carte."'").",";
 		$sql.= " ".(! isset($this->montant_tiers)?'NULL':"'".$this->montant_tiers."'").",";
 		$sql.= " ".(! isset($this->banque)?'NULL':"'".addslashes($this->banque)."'")."";
-
-
 		$sql.= ")";
 
 		$this->db->begin();
@@ -215,12 +214,14 @@ class CabinetmedCons extends CommonObject
 
 	/**
 	 *    Load object in memory from database
-	 *    @param      id          id object
-	 *    @return     int         <0 if KO, >0 if OK
+	 *
+	 *    @param	int		$id         Id object
+	 *    @return   int 				<0 if KO, >0 if OK
 	 */
 	function fetch($id)
 	{
 		global $langs;
+
 		$sql = "SELECT";
 		$sql.= " t.rowid,";
 		$sql.= " t.fk_soc,";
@@ -294,12 +295,14 @@ class CabinetmedCons extends CommonObject
 	}
 
     /**
-     *    Load bank id if exists for consult
+     *    Load bank informations of payments if exists for consult
      *
      *    @return     int         <0 if KO, >0 if OK
      */
     function fetch_bankid()
     {
+        $this->bank=array();
+
         // Search if there is some bank lines
         $bid=0;
         $sql.= "SELECT b.rowid, b.rappro, b.fk_account, b.fk_type, b.num_chq FROM ".MAIN_DB_PREFIX."bank_url as bu, ".MAIN_DB_PREFIX."bank as b";
@@ -373,7 +376,6 @@ class CabinetmedCons extends CommonObject
 
 		// Update request
 		$sql = "UPDATE ".MAIN_DB_PREFIX."cabinetmed_cons SET";
-
 		$sql.= " fk_soc=".(isset($this->fk_soc)?$this->fk_soc:"null").",";
 		$sql.= " datecons=".(dol_strlen($this->datecons)!=0 ? "'".$this->db->idate($this->datecons)."'" : 'null').",";
 		$sql.= " typepriseencharge=".(isset($this->typepriseencharge)?"'".addslashes($this->typepriseencharge)."'":"null").",";
