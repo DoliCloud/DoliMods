@@ -144,7 +144,10 @@ $morehead="<style type=\"text/css\">
 <SCRIPT type=\"text/javascript\">
 	jQuery(document).ready(function () {
 		jQuery('#containerlayout').layout({
-                name: \"ecmlayout\"
+            name: \"ecmlayout\"
+        ,   paneClass:    \"ecm-layout-pane\"
+        ,   resizerClass: \"ecm-layout-resizer\"
+        ,   togglerClass: \"ecm-layout-toggler\"
 		,   center__paneSelector:   \"#ecm-layout-center\"
         ,   north__paneSelector:    \"#ecm-layout-north\"
         ,   west__paneSelector:     \"#ecm-layout-west\"
