@@ -29,15 +29,17 @@ require_once(DOL_DOCUMENT_ROOT ."/core/modules/barcode/modules_barcode.php");
 
 
 /**	    \class      modPibarcode
-		\brief      Classe du modele de generation code barre pibarcode
-*/
+ *		\brief      Classe du modele de generation code barre pibarcode
+ */
 class modPibarcode extends ModeleBarCode
 {
 	var $version='dolibarr';		// 'development', 'experimental', 'dolibarr'
 	var $error='';
 
-    /**     \brief      Renvoi la description du modele de numerotation
-     *      \return     string      Texte descripif
+    /**
+     *	Renvoi la description du modele de numerotation
+     *
+     *  @return     string      Texte descripif
      */
     function info()
     {
@@ -46,8 +48,10 @@ class modPibarcode extends ModeleBarCode
     	return 'Pi-barcode';
     }
 
-    /**     \brief      Test if module can be activated
-     *      \return     boolean     false if ko, true if ok
+    /**
+     * Test if module can be activated
+     *
+     * @return     boolean     false if ko, true if ok
      */
     function canBeActivated()
     {
@@ -57,8 +61,10 @@ class modPibarcode extends ModeleBarCode
     }
 
 	/**
-	 *	\brief		Return true if encoding is supported
-	 *	\return		int		>0 if supported, 0 if not
+	 * Return true if encoding is supported
+	 *
+	 * @param	string	$encoding	Encoding module
+	 * @return	int					>0 if supported, 0 if not
 	 */
     function encodingIsSupported($encoding)
 	{
@@ -72,10 +78,12 @@ class modPibarcode extends ModeleBarCode
 	}
 
     /**
-	 *		\brief      Return an image file on the fly (no need to write on disk)
-	 *		\param   	$code			Value to encode
-	 *		\param   	$encoding		Mode of encoding
-	 *		\param   	$readable		Code can be read
+	 *	Return an image file on the fly (no need to write on disk)
+	 *
+	 *	@param   	$code			Value to encode
+	 *	@param   	$encoding		Mode of encoding
+	 *	@param   	$readable		Code can be read
+	 *	@return		int				<0 if KO, >0 if OK
      */
     function buildBarCode($code,$encoding,$readable='Y')
     {
@@ -116,10 +124,12 @@ class modPibarcode extends ModeleBarCode
     }
 
 	/**
-     *		\brief      Save an image file on disk (with no output)
-	 *		\param   	$code			Value to encode
-	 *		\param   	$encoding		Mode of encoding
-	 *		\param   	$readable		Code can be read
+     *	Save an image file on disk (with no output)
+     *
+	 *	@param   	$code			Value to encode
+	 *	@param   	$encoding		Mode of encoding
+	 *	@param   	$readable		Code can be read
+	 *	@return		int				<0 if KO, >0 if OK
      */
     function writeBarCode($code,$encoding,$readable='Y')
     {
