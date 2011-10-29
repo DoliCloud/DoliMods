@@ -40,16 +40,18 @@ require_once(DOL_DOCUMENT_ROOT."/core/lib/date.lib.php");
 $year_start=isset($_GET["year_start"])?$_GET["year_start"]:$_POST["year_start"];
 $year_current = strftime("%Y",time());
 $nbofyear=3;
-if (! $year_start) {
+if (! $year_start)
+{
 	$year_start = $year_current - ($nbofyear-1);
 	$year_end = $year_current;
 }
-else {
+else
+{
 	$year_end=$year_start + ($nbofyear-1);
 }
 
 // Define modecompta ('CREANCES-DETTES' or 'RECETTES-DEPENSES')
-$modecompta = $conf->compta->mode;
+$modecompta = $conf->global->COMPTA_MODE;
 if ($_GET["modecompta"]) $modecompta=$_GET["modecompta"];
 $search_sale=GETPOST('search_sale');
 
