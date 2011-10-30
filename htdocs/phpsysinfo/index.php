@@ -14,16 +14,14 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
- *
- * $Id: index.php,v 1.3 2011/08/01 19:28:45 eldy Exp $
  */
 
 /**	    \file       htdocs/phpsysinfo/frames.php
-        \ingroup    phpsysinfo
-		\brief      Page that build two frames: One for menu, the other for the target page to show
-		\author	    Laurent Destailleur
-		\version    $Revision: 1.3 $
-*/
+ *      \ingroup    phpsysinfo
+ *		\brief      Page that build two frames: One for menu, the other for the target page to show
+ *		\author	    Laurent Destailleur
+ *		\version    $Revision: 1.3 $
+ */
 
 $res=0;
 if (! $res && file_exists("../main.inc.php")) $res=@include("../main.inc.php");
@@ -69,5 +67,5 @@ print "
 </html>
 ";
 
-
+if (is_object($db)) $db->close();
 ?>
