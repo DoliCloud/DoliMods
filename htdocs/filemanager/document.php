@@ -254,4 +254,5 @@ else						// Open and return file
 	readfile($original_file_osencoded);
 }
 
+if (is_object($db)) $db->close();
 ?>

@@ -367,4 +367,5 @@ if ($action == 'edit')   // Return file content
 
 }
 
+if (is_object($db)) $db->close();
 ?>
