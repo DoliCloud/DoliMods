@@ -77,16 +77,28 @@ if ($action == 'testcreate')
     include_once(DOL_DOCUMENT_ROOT.'/comm/action/class/actioncomm.class.php');
 
     $object=new ActionComm($db);
-    $object->initAsSpecimen();
+    $result=$object->initAsSpecimen();
 
     $result=$object->add($user);
+
+    $object->label='New label';
+    $object->location='New location';
+    $object->note='New note';
+    $object->datep+=3600;
+    $object->datef+=3600;
+
+    $result=$object->update($user);
+
+    $result=$object->delete();
+
     if ($result > 0)
     {
-        $mesg=$langs->trans("RecordSaved");
+        $mesg=$langs->trans("TestSuccessfull");
     }
     else
     {
-        $mesg='<div class="error">'.$object->error.'</div>';
+        $error='<div class="error">'.$object->error.'</div>';
+        $errors=$object->errors;
     }
 }
 
@@ -162,9 +174,10 @@ dol_fiche_end();
 
 
 dol_htmloutput_mesg($mesg);
+dol_htmloutput_errors($error,$errors);
 
 
-$db->close();
+llxFooter();
 
-llxFooter('$Date: 2011/07/18 21:46:59 $ - $Revision: 1.1 $');
+if (is_object($db)) $db->close();
 ?>

@@ -358,38 +358,37 @@ function outputCalendarByFullTextQuery($client, $fullTextQuery)
  *
  * @param  Zend_Http_Client $client    The authenticated client object
  * @param  string           $title     The event title
- * @param  string           $desc      The detailed description of the event
- * @param  string           $where
- * @param  string           $startDate The start date of the event in YYYY-MM-DD format
- * @param  string           $startTime The start time of the event in HH:MM 24hr format
- * @param  string           $endDate   The end date of the event in YYYY-MM-DD format
- * @param  string           $endTime   The end time of the event in HH:MM 24hr format
- * @param  string           $tzOffset  The offset from GMT/UTC in [+-]DD format (eg -08)
+ * @param  string			$object	   Source object into Dolibarr
  * @return string The ID URL for the event.
  */
-function createEvent($client, $title, $desc, $where, $startDate, $startTime, $endDate, $endTime, $tzOffset, $dol_id=0)
+function createEvent($client, $object)
 {
     // More examples on http://code.google.com/intl/fr/apis/calendar/data/1.0/developers_guide_php.html
 
 	$gc = new Zend_Gdata_Calendar($client);
 
 	$newEntry = $gc->newEventEntry();
-	$newEntry->title = $gc->newTitle(trim($title));
-	$newEntry->where  = array($gc->newWhere($where));
+	$newEntry->title = $gc->newTitle(trim($object->label));
+	$newEntry->where  = array($gc->newWhere($object->location));
 
-	$newEntry->content = $gc->newContent($desc);
+	$newEntry->content = $gc->newContent(dol_string_nohtmltag($object->note));
 	$newEntry->content->type = 'text';
 
 	$when = $gc->newWhen();
-	$when->startTime = "{$startDate}T{$startTime}:00.000{$tzOffset}:00";
-	$when->endTime = "{$endDate}T{$endTime}:00.000{$tzOffset}:00";
+	$when->startTime = dol_print_date($object->datep,"dayhourrfc",'gmt');
+	$when->endTime = dol_print_date(empty($object->datef)?$object->datep:$object->datef,"dayhourrfc",'gmt');
 	$newEntry->when = array($when);
 
+	dol_syslog("startTime=".$when->startTime." endTime=".$when->endTime);
+	// Add Dolibarr action id into Google event properties
 	$createdEntry = $gc->insertEvent($newEntry);
+	$gid=basename($createdEntry->getId());
+    //print $gid." $object->id";
+    //$event = getEvent($client, $gid);
+    //var_dump($event->title->text);
+    if ($gid && $object->id) addExtendedProperty($client,$gid,'dol_id',$object->id);
 
-	//if ($dol_id) addExtendedProperty($client,$createdEntry->id,'dol_id',$dol_id);
-
-	return $createdEntry->id;
+	return $createdEntry->getId();    // Return full URL with id
 }
 
 /**
@@ -528,21 +527,33 @@ function getEvent($client, $eventId)
  * @param  string           $newTitle The new title to set on this event
  * @return Zend_Gdata_Calendar_EventEntry|null The updated entry
  */
-function updateEvent ($client, $eventId, $newTitle)
+function updateEvent($client, $eventId, $object)
 {
 	$gdataCal = new Zend_Gdata_Calendar($client);
-	if ($eventOld = getEvent($client, $eventId)) {
-		echo "Old title: " . $eventOld->title->text . "<br>\n";
-		$eventOld->title = $gdataCal->newTitle($newTitle);
-		try {
+	if ($eventOld = getEvent($client, $eventId))
+	{
+	    //echo "Old title: " . $eventOld->title->text . " -> ".$object->label."<br>\n";
+	    $eventOld->title = $gdataCal->newTitle($object->label);
+	    $eventOld->where = array($gdataCal->newWhere($object->location));
+
+	    $eventOld->content = $gdataCal->newContent(dol_string_nohtmltag($object->note));
+	    $eventOld->content->type = 'text';
+
+	    $when = $gdataCal->newWhen();
+	    $when->startTime = dol_print_date($object->datep,"dayhourrfc",'gmt');
+	    $when->endTime = dol_print_date(empty($object->datef)?$object->datep:$object->datef,"dayhourrfc",'gmt');
+	    $eventOld->when = array($when);
+
+	    dol_syslog("startTime=".$when->startTime." endTime=".$when->endTime);
+	    try {
 			$eventOld->save();
 		} catch (Zend_Gdata_App_Exception $e) {
 			var_dump($e);
 			return null;
 		}
-		$eventNew = getEvent($client, $eventId);
-		echo "New title: " . $eventNew->title->text . "<br>\n";
-		return $eventNew;
+		//$eventNew = getEvent($client, $eventId);
+		//echo "New title: " . $eventNew->title->text . "<br>\n";
+		return $eventOld;
 	} else {
 		return null;
 	}
@@ -614,7 +625,8 @@ function setReminder($client, $eventId, $minutes=15)
  */
 function deleteEventById ($client, $eventId)
 {
-	$event = getEvent($client, $eventId);
+	dol_syslog("deleteEventById ".$eventId);
+    $event = getEvent($client, $eventId);
 	$event->delete();
 }
 
