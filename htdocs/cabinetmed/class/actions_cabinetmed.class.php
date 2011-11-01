@@ -149,6 +149,9 @@ class ActionsCabinetmed
 
     /**
      * Complete doc forms
+     *
+     * @param	array	$parameters		Array of parameters
+     * @return	string					HTML content to add by hook
      */
     function formBuilddocOptions($parameters)
     {
