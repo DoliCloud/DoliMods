@@ -17,7 +17,7 @@
  */
 
 /**
- *      \file       /google/inclucdes/triggers/interface_modGoogle_GoogleCalendarSynchro.class.php
+ *      \file       /google/core/triggers/interface_modGoogle_GoogleCalendarSynchro.class.php
  *      \ingroup    google
  *      \brief      File to manage triggers for Google calendar sync
  *      \version	$Id: interface_modGoogle_GoogleCalendarSynchro.class.php,v 1.1 2011/08/01 19:28:55 eldy Exp $
@@ -31,7 +31,6 @@ dol_include_once('/google/lib/google_calendar.lib.php');
  *     \class      InterfaceGoogleCalendarSynchro
  *     \brief      Classe des fonctions triggers des actions google calendar
  */
-
 class InterfaceGoogleCalendarSynchro
 {
     var $db;
@@ -44,11 +43,12 @@ class InterfaceGoogleCalendarSynchro
 
     /**
      *   Constructor.
-     *   @param      DB      Database handler
+     *
+     *   @param		DoliDB		$db      Database handler
      */
-    function InterfaceGoogleCalendarSynchro($DB)
+    function InterfaceGoogleCalendarSynchro($db)
     {
-        $this->db = $DB ;
+        $this->db = $db;
 
         $this->name = preg_replace('/^Interface/i','',get_class($this));
         $this->family = "google";
@@ -59,6 +59,7 @@ class InterfaceGoogleCalendarSynchro
 
     /**
      *   Renvoi nom du lot de triggers
+     *
      *   @return     string      Nom du lot de triggers
      */
     function getName()
@@ -68,6 +69,7 @@ class InterfaceGoogleCalendarSynchro
 
     /**
      *   Renvoi descriptif du lot de triggers
+     *
      *   @return     string      Descriptif du lot de triggers
      */
     function getDesc()
@@ -77,6 +79,7 @@ class InterfaceGoogleCalendarSynchro
 
     /**
      *   Renvoi version du lot de triggers
+     *
      *   @return     string      Version du lot de triggers
      */
     function getVersion()
@@ -116,7 +119,7 @@ class InterfaceGoogleCalendarSynchro
 
             if (empty($conf->global->GOOGLE_LOGIN) || empty($conf->global->GOOGLE_PASSWORD))
             {
-                dol_syslog("Setup to duplicate events into a Google calendar is on but setup (login/password) is not complete", LOG_WARNING);
+                dol_syslog("Setup to synchronize events into a Google calendar is on but setup (login/password) is not complete", LOG_WARNING);
                 return 0;
             }
 
@@ -124,26 +127,81 @@ class InterfaceGoogleCalendarSynchro
 
             //var_dump($object); exit;
 
-			$title			= $object->label;
-            $desc			= dol_string_nohtmltag($object->note);
-            $where			= $object->location;
-            $startDate		= dol_print_date($object->datep,'%Y-%m-%d');
-            $startTime		= dol_print_date($object->datep,'%H:%M');
-            $endDate		= dol_print_date($object->datef,'%Y-%m-%d');
-            $endTime		= dol_print_date($object->datef,'%H:%M');
-            if (empty($endDate)) $endDate=$startDate;
-            if (empty($endTime)) $endTime=$startTime;
-
 	        $user = $conf->global->GOOGLE_LOGIN;
 	        $pwd = $conf->global->GOOGLE_PASSWORD;
 
 	        $client = getClientLoginHttpClient($user, $pwd);
 	        //var_dump($client); exit;
 
-	        $ret = createEvent($client, $title, $desc, $where, $startDate, $startTime, $endDate, $endTime, getCurrentTimeZone(), $object->id);
+	        $ret = createEvent($client, $object);
 	        //var_dump($ret); exit;
 
 	        $object->update_ref_ext($ret);    // This is to store ref_ext to allow updates
+
+	        return 1;
+        }
+
+        if ($action == 'ACTION_MODIFY')
+        {
+            dol_syslog("Trigger '".$this->name."' for action '$action' launched by ".__FILE__.". id=".$object->id);
+
+            $gid=basename($object->ref_ext);
+            if ($gid && preg_match('/google/i',$object->ref_ext))    // This record is linked with Google Calendar
+            {
+                if (empty($conf->global->GOOGLE_LOGIN) || empty($conf->global->GOOGLE_PASSWORD))
+                {
+                    dol_syslog("Setup to synchronize events into a Google calendar is on but setup (login/password) is not complete", LOG_WARNING);
+                    return 0;
+                }
+
+                $langs->load("other");
+
+                $user = $conf->global->GOOGLE_LOGIN;
+                $pwd = $conf->global->GOOGLE_PASSWORD;
+
+                $client = getClientLoginHttpClient($user, $pwd);
+                //var_dump($client); exit;
+
+                $ret = updateEvent($client, $gid, $object);
+                //var_dump($ret); exit;
+
+                if ($ret < 0)     // Fails to update, we try to create
+                {
+        	        $ret = createEvent($client, $object);
+        	        //var_dump($ret); exit;
+
+        	        $object->update_ref_ext($ret);    // This is to store ref_ext to allow updates
+                }
+                return 1;
+            }
+        }
+
+        if ($action == 'ACTION_DELETE')
+        {
+            dol_syslog("Trigger '".$this->name."' for action '$action' launched by ".__FILE__.". id=".$object->id);
+
+            $gid=basename($object->ref_ext);
+            if ($gid && preg_match('/google/i',$object->ref_ext))    // This record is linked with Google Calendar
+            {
+                if (empty($conf->global->GOOGLE_LOGIN) || empty($conf->global->GOOGLE_PASSWORD))
+                {
+                    dol_syslog("Setup to synchronize events into a Google calendar is on but setup (login/password) is not complete", LOG_WARNING);
+                    return 0;
+                }
+
+                $langs->load("other");
+
+                $user = $conf->global->GOOGLE_LOGIN;
+                $pwd = $conf->global->GOOGLE_PASSWORD;
+
+                $client = getClientLoginHttpClient($user, $pwd);
+                //var_dump($client); exit;
+
+                $ret = deleteEventById($client, $gid);
+                //var_dump($ret); exit;
+
+                return 1;
+            }
         }
 
 		return 0;
