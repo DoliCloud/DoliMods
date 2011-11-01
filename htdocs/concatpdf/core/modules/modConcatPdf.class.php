@@ -80,8 +80,7 @@ class modConcatPdf extends DolibarrModules
         // Constants
         // Example: $this->const=array(0=>array('MODULE_MY_NEW_CONST1','chaine','myvalue','This is a constant to add',1),
         //                             1=>array('MODULE_MY_NEW_CONST2','chaine','myvalue','This is another constant to add',1) );
-        $this->const = array();
-        //$this->const = array(0=>array('CONCATPDF_INVOICE_DIR','chaine','','Directory where to store pdf to concat',1,'current',1));
+        $this->const = array(0=>array('MAIN_MODULE_CONCATPDF_HOOKS','chaine','invoicecard:pdfgeneration','This module add hooks on invoicecard context page',1,'current',1));
 
 		// Boxes
 		$this->boxes = array();			// List of boxes

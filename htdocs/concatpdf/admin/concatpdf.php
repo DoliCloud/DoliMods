@@ -53,6 +53,7 @@ $actionsave=GETPOST("save");
 $outputdir=$conf->concatpdf->dir_output.'/invoices';
 
 
+
 /*
  * Actions
  */
@@ -82,9 +83,15 @@ print '<br><br>';
 
 
 $listoffiles=dol_dir_list($outputdir,'files');
-print $formfile->showdocuments('concatpdf','',$outputdir,$_SERVER["PHP_SELF"],0,0,'',0,0,0,0,0,'',$langs->trans("Files"));
+if (count($listoffiles)) print $formfile->showdocuments('concatpdf','invoices',$outputdir,$_SERVER["PHP_SELF"],0,$user->admin,'',0,0,0,0,0,'',$langs->trans("PathDirectory").' '.$outputdir);
+else
+{
+    print '<div class="titre">'.$langs->trans("PathDirectory").' '.$outputdir.'</div><br>';
+    print $langs->trans("NoPDFFileFound");
+}
+
 
 llxFooter();
 
-$db->close();
+if (is_object($db)) $db->close();
 ?>
