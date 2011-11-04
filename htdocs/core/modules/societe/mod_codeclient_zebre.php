@@ -19,13 +19,13 @@
  */
 
 /**
- *       \file       htdocs/includes/modules/societe/mod_codeclient_zebre.class.php
+ *       \file       htdocs/core/modules/societe/mod_codeclient_zebre.class.php
  *       \ingroup    societe
  *       \brief      Fichier de la classe des gestion zebre des codes clients
  *       \version    $Id: mod_codeclient_zebre.php,v 1.5 2011/08/17 16:46:32 eldy Exp $
  */
 
-require_once(DOL_DOCUMENT_ROOT."/includes/modules/societe/modules_societe.class.php");
+require_once(DOL_DOCUMENT_ROOT."/core/modules/societe/modules_societe.class.php");
 
 
 /**
