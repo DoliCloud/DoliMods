@@ -32,8 +32,7 @@ $langs->load("admin");
 $langs->load("other");
 
 $def = array();
-$actiontest=$_POST["test"];
-$actionsave=$_POST["save"];
+$action=GETPOST("action");
 
 if (empty($conf->global->GOOGLE_AGENDA_NB)) $conf->global->GOOGLE_AGENDA_NB=5;
 $MAXAGENDA=empty($conf->global->GOOGLE_AGENDA_NB)?5:$conf->global->GOOGLE_AGENDA_NB;
@@ -47,7 +46,7 @@ $colorlist=array('7A367A','B1365F','5229A3','7A367A','29527A','2952A3','1B887A',
 /*
  * Actions
  */
-if ($actionsave)
+if ($action == 'save')
 {
     $db->begin();
 
@@ -97,7 +96,6 @@ if ($actionsave)
 
 
 
-
 /*
  * View
  */
@@ -125,6 +123,7 @@ dol_fiche_head($head, 'agenda', $langs->trans("GoogleTools"));
 
 
 print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
+print '<input type="hidden" name="action" value="save">';
 
 print $langs->trans("GoogleEnableThisTool").' '.$form->selectyesno("GOOGLE_ENABLE_AGENDA",isset($_POST["GOOGLE_ENABLE_AGENDA"])?$_POST["GOOGLE_ENABLE_AGENDA"]:$conf->global->GOOGLE_ENABLE_AGENDA,1).'<br><br>';
 
@@ -163,7 +162,10 @@ print "<table class=\"noborder\" width=\"100%\">";
 print "<tr class=\"liste_titre\">";
 print "<td>".$langs->trans("GoogleAgendaToShow")."</td>";
 print "<td>".$langs->trans("Name")."</td>";
-print "<td>".$langs->trans("GoogleIDAgenda")." (".$langs->trans("Example").': assodolibarr@gmail.com)</td>';
+print "<td>";
+$text=$langs->trans("GoogleIDAgenda")." (".$langs->trans("Example").': assodolibarr@gmail.com)';
+print $form->textwithpicto($text, $langs->trans("GoogleSetupHelp"));
+print "</td>";
 print "<td>".$langs->trans("Color")."</td>";
 print "</tr>";
 
@@ -208,10 +210,11 @@ dol_htmloutput_mesg($mesg);
 
 
 // Show message
-$message='';
+/*$message='';
 $urlgooglehelp='<a href="http://www.google.com/calendar/embed/EmbedHelper_en.html" target="_blank">http://www.google.com/calendar/embed/EmbedHelper_en.html</a>';
 $message.=$langs->trans("GoogleSetupHelp",$urlgooglehelp);
 print info_admin($message);
+*/
 
 llxFooter();
 

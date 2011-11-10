@@ -367,9 +367,12 @@ function outputCalendarByFullTextQuery($client, $fullTextQuery)
  * @param  string           $tzOffset  The offset from GMT/UTC in [+-]DD format (eg -08)
  * @return string The ID URL for the event.
  */
-function createEvent ($client, $title, $desc, $where, $startDate, $startTime, $endDate, $endTime, $tzOffset = '+01')
+function createEvent($client, $title, $desc, $where, $startDate, $startTime, $endDate, $endTime, $tzOffset, $dol_id=0)
 {
+    // More examples on http://code.google.com/intl/fr/apis/calendar/data/1.0/developers_guide_php.html
+
 	$gc = new Zend_Gdata_Calendar($client);
+
 	$newEntry = $gc->newEventEntry();
 	$newEntry->title = $gc->newTitle(trim($title));
 	$newEntry->where  = array($gc->newWhere($where));
@@ -383,7 +386,10 @@ function createEvent ($client, $title, $desc, $where, $startDate, $startTime, $e
 	$newEntry->when = array($when);
 
 	$createdEntry = $gc->insertEvent($newEntry);
-	return $createdEntry->id->text;
+
+	//if ($dol_id) addExtendedProperty($client,$createdEntry->id,'dol_id',$dol_id);
+
+	return $createdEntry->id;
 }
 
 /**

@@ -19,10 +19,11 @@
 /**
  *      \file       /google/inclucdes/triggers/interface_modGoogle_GoogleCalendarSynchro.class.php
  *      \ingroup    google
- *      \brief      Fichier de gestion des triggers google calendar
+ *      \brief      File to manage triggers for Google calendar sync
  *      \version	$Id: interface_modGoogle_GoogleCalendarSynchro.class.php,v 1.1 2011/08/01 19:28:55 eldy Exp $
  */
 
+include_once(DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php');
 dol_include_once('/google/lib/google_calendar.lib.php');
 
 
@@ -92,12 +93,13 @@ class InterfaceGoogleCalendarSynchro
     /**
      *      Fonction appelee lors du declenchement d'un evenement Dolibarr.
      *      D'autres fonctions run_trigger peuvent etre presentes dans includes/triggers
-     *      @param      action      Code de l'evenement
-     *      @param      object      Objet concerne
-     *      @param      user        Objet user
-     *      @param      lang        Objet lang
-     *      @param      conf        Objet conf
-     *      @return     int         <0 si ko, 0 si aucune action faite, >0 si ok
+     *
+     *      @param	string		$action     Code of event
+     *      @param 	Action		$object     Objet concerne
+     *      @param  User		$user       Objet user
+     *      @param  Translate	$lang       Objet lang
+     *      @param  Conf		$conf       Objet conf
+     *      @return int         			<0 if KO, 0 if nothing is done, >0 if OK
      */
     function run_trigger($action,$object,$user,$langs,$conf)
     {
@@ -138,9 +140,10 @@ class InterfaceGoogleCalendarSynchro
 	        $client = getClientLoginHttpClient($user, $pwd);
 	        //var_dump($client); exit;
 
-	        $ret = createEvent($client, $title, $desc, $where, $startDate, $startTime, $endDate, $endTime);
+	        $ret = createEvent($client, $title, $desc, $where, $startDate, $startTime, $endDate, $endTime, getCurrentTimeZone(), $object->id);
 	        //var_dump($ret); exit;
 
+	        $object->update_ref_ext($ret);    // This is to store ref_ext to allow updates
         }
 
 		return 0;
