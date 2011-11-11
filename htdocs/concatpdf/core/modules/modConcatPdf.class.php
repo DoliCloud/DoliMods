@@ -56,7 +56,7 @@ class modConcatPdf extends DolibarrModules
 		// Module description used if translation string 'ModuleXXXDesc' not found (XXX is id value)
 		$this->description = "Concat pdfs found into a directory to generated pdf files";
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
-		$this->version = '3.1';
+		$this->version = '3.2';
 		// Key used in llx_const table to save module status enabled/disabled (XXX is id value)
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
 		// Where to store the module in setup page (0=common,1=interface,2=others,3=very specific)
@@ -74,14 +74,13 @@ class modConcatPdf extends DolibarrModules
 		$this->depends = array();		// List of modules id that must be enabled if this module is enabled
 		$this->requiredby = array();	// List of modules id to disable if this one is disabled
         $this->phpmin = array(4,3);                 // Minimum version of PHP required by module
-        $this->need_dolibarr_version = array(3,1,-3);  // Minimum version of Dolibarr required by module
+        $this->need_dolibarr_version = array(3,2,-3);  // Minimum version of Dolibarr required by module
         $this->langfiles = array("concatpdf@concatpdf");
 
         // Constants
         // Example: $this->const=array(0=>array('MODULE_MY_NEW_CONST1','chaine','myvalue','This is a constant to add',1),
         //                             1=>array('MODULE_MY_NEW_CONST2','chaine','myvalue','This is another constant to add',1) );
-        $this->const = array();
-        //$this->const = array(0=>array('CONCATPDF_INVOICE_DIR','chaine','','Directory where to store pdf to concat',1,'current',1));
+        $this->const = array(0=>array('MAIN_MODULE_CONCATPDF_HOOKS','chaine','invoicecard:pdfgeneration','This module add hooks on invoicecard context page',1,'current',1));
 
 		// Boxes
 		$this->boxes = array();			// List of boxes

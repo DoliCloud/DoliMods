@@ -53,6 +53,8 @@ if ($_POST["nom"])
 
     $soc->nom=$_POST["nom"];
     $soc->prenom=$_POST["prenom"];
+    $soc->lastname=$_POST["nom"];
+    $soc->firstname=$_POST["prenom"];
     $soc->particulier=0;
     $soc->prefix_comm=$_POST["prefix_comm"];
     $soc->client=$_POST["client"]?$_POST["client"]:$soc->client;

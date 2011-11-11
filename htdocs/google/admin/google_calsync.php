@@ -24,17 +24,16 @@ require_once(DOL_DOCUMENT_ROOT."/core/lib/date.lib.php");
 require_once(DOL_DOCUMENT_ROOT.'/core/class/html.formadmin.class.php');
 require_once(DOL_DOCUMENT_ROOT.'/core/class/html.formother.class.php');
 dol_include_once("/google/lib/google.lib.php");
+dol_include_once('/google/lib/google_calendar.lib.php');
 
-if (!$user->admin)
-    accessforbidden();
+if (!$user->admin) accessforbidden();
 
 $langs->load("google@google");
 $langs->load("admin");
 $langs->load("other");
 
 $def = array();
-$actiontest=$_POST["test"];
-$actionsave=$_POST["save"];
+$action=GETPOST("action");
 
 if (empty($conf->global->GOOGLE_AGENDA_NB)) $conf->global->GOOGLE_AGENDA_NB=5;
 $MAXAGENDA=empty($conf->global->GOOGLE_AGENDA_NB)?5:$conf->global->GOOGLE_AGENDA_NB;
@@ -47,18 +46,18 @@ $colorlist=array('7A367A','B1365F','5229A3','7A367A','29527A','2952A3','1B887A',
 
 /*
  * Actions
- */
-if ($actionsave)
+*/
+if ($action == 'save')
 {
     $db->begin();
 
-	//print 'color='.$color;
-	$res=dolibarr_set_const($db,'GOOGLE_DUPLICATE_INTO_GCAL'.$i,trim($_POST["GOOGLE_DUPLICATE_INTO_GCAL"]),'chaine',0);
-	if (! $res > 0) $error++;
-	$res=dolibarr_set_const($db,'GOOGLE_LOGIN',trim($_POST["GOOGLE_LOGIN"]),'chaine',0);
-	if (! $res > 0) $error++;
-	$res=dolibarr_set_const($db,'GOOGLE_PASSWORD',trim($_POST["GOOGLE_PASSWORD"]),'chaine',0);
-	if (! $res > 0) $error++;
+    //print 'color='.$color;
+    $res=dolibarr_set_const($db,'GOOGLE_DUPLICATE_INTO_GCAL'.$i,trim($_POST["GOOGLE_DUPLICATE_INTO_GCAL"]),'chaine',0);
+    if (! $res > 0) $error++;
+    $res=dolibarr_set_const($db,'GOOGLE_LOGIN',trim($_POST["GOOGLE_LOGIN"]),'chaine',0);
+    if (! $res > 0) $error++;
+    $res=dolibarr_set_const($db,'GOOGLE_PASSWORD',trim($_POST["GOOGLE_PASSWORD"]),'chaine',0);
+    if (! $res > 0) $error++;
 
     if (! $error)
     {
@@ -72,7 +71,36 @@ if ($actionsave)
     }
 }
 
+// This is a hidden action to allow to test creation of event once synchro with Calendar has been enabled.
+if ($action == 'testcreate')
+{
+    include_once(DOL_DOCUMENT_ROOT.'/comm/action/class/actioncomm.class.php');
 
+    $object=new ActionComm($db);
+    $result=$object->initAsSpecimen();
+
+    $result=$object->add($user);
+
+    $object->label='New label';
+    $object->location='New location';
+    $object->note='New note';
+    $object->datep+=3600;
+    $object->datef+=3600;
+
+    $result=$object->update($user);
+
+    $result=$object->delete();
+
+    if ($result > 0)
+    {
+        $mesg=$langs->trans("TestSuccessfull");
+    }
+    else
+    {
+        $error='<div class="error">'.$object->error.'</div>';
+        $errors=$object->errors;
+    }
+}
 
 
 /*
@@ -102,6 +130,7 @@ dol_fiche_head($head, 'agendasync', $langs->trans("GoogleTools"));
 
 
 print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
+print '<input type="hidden" name="action" value="save">';
 
 print $langs->trans("GoogleEnableSyncToCalendar").' '.$form->selectyesno("GOOGLE_DUPLICATE_INTO_GCAL",isset($_POST["GOOGLE_DUPLICATE_INTO_GCAL"])?$_POST["GOOGLE_DUPLICATE_INTO_GCAL"]:$conf->global->GOOGLE_DUPLICATE_INTO_GCAL,1).'<br><br>';
 
@@ -145,9 +174,10 @@ dol_fiche_end();
 
 
 dol_htmloutput_mesg($mesg);
+dol_htmloutput_errors($error,$errors);
 
 
-$db->close();
+llxFooter();
 
-llxFooter('$Date: 2011/07/18 21:46:59 $ - $Revision: 1.1 $');
+if (is_object($db)) $db->close();
 ?>

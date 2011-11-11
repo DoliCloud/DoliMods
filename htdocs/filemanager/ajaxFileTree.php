@@ -110,4 +110,5 @@ if( file_exists($selecteddir) )
 //print "loadandshowpreview('".dol_escape_js($selecteddir)."');";
 //print '</script>';
 
+if (is_object($db)) $db->close();
 ?>

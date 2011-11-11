@@ -37,14 +37,15 @@ include_once(DOL_DOCUMENT_ROOT ."/core/modules/DolibarrModules.class.php");
 class modCabinetMed extends DolibarrModules
 {
     /**
-     *   \brief      Constructor. Define names, constants, directories, boxes, permissions
-     *   \param      DB      Database handler
+     *  Constructor. Define names, constants, directories, boxes, permissions
+     *
+     *  @param	DoliDB	$db		Database handler
      */
-    function modCabinetMed($DB)
+    function modCabinetMed($db)
     {
         global $langs,$conf;
 
-        $this->db = $DB;
+        $this->db = $db;
 
         // Id for module (must be unique).
         // Use here a free id (See in Home -> System information -> Dolibarr for list of used modules id).
@@ -341,10 +342,12 @@ class modCabinetMed extends DolibarrModules
     }
 
     /**
-     *      \brief      Function called when module is enabled.
-     *                  The init function add constants, boxes, permissions and menus (defined in constructor) into Dolibarr database.
-     *                  It also creates data directories.
-     *      \return     int             1 if OK, 0 if KO
+     *  Function called when module is enabled.
+     *  The init function add constants, boxes, permissions and menus (defined in constructor) into Dolibarr database.
+     *  It also creates data directories.
+     *
+     *  @param      string	$options	Options when disabling module ('', 'noboxes')
+     *  @return     int             	1 if OK, 0 if KO
      */
     function init($options='')
     {
@@ -360,19 +363,21 @@ class modCabinetMed extends DolibarrModules
         "UPDATE llx_c_typent          set active=1 where module = 'cabinetmed'",
         "UPDATE llx_c_forme_juridique set active=1 where module = 'cabinetmed'",
         "UPDATE llx_c_type_contact    set active=1 where module = 'cabinetmed'",
-        "UPDATE llx_c_typent          set active=0 where module != 'cabinetmed'",
-        "UPDATE llx_c_forme_juridique set active=0 where module != 'cabinetmed'",
-        "UPDATE llx_c_type_contact    set active=0 where element='societe' and source='external' and module != 'cabinetmed'"
+        "UPDATE llx_c_typent          set active=0 where module != 'cabinetmed' OR module IS NULL",
+        "UPDATE llx_c_forme_juridique set active=0 where module != 'cabinetmed' OR module IS NULL",
+        "UPDATE llx_c_type_contact    set active=0 where element='societe' and source='external' and (module != 'cabinetmed' OR module IS NULL)"
         );
 
         return $this->_init($sql,$options);
     }
 
     /**
-     *      Function called when module is disabled.
-     *      Remove from database constants, boxes and permissions from Dolibarr database.
-     *      Data directories are not deleted.
-     *      @return     int             1 if OK, 0 if KO
+     *  Function called when module is disabled.
+     *  Remove from database constants, boxes and permissions from Dolibarr database.
+     *  Data directories are not deleted.
+     *
+     *  @param      string	$options	Options when disabling module ('', 'noboxes')
+     *  @return     int             	1 if OK, 0 if KO
      */
     function remove($options='')
     {
@@ -383,9 +388,9 @@ class modCabinetMed extends DolibarrModules
         "UPDATE llx_c_typent          set active=0 where module = 'cabinetmed'",
         "UPDATE llx_c_forme_juridique set active=0 where module = 'cabinetmed'",
         "UPDATE llx_c_type_contact    set active=0 where module = 'cabinetmed'",
-        "UPDATE llx_c_typent          set active=1 where module != 'cabinetmed'",
-        "UPDATE llx_c_forme_juridique set active=1 where module != 'cabinetmed'",
-        "UPDATE llx_c_type_contact    set active=1 where element='societe' and source='external' and module != 'cabinetmed'"
+        "UPDATE llx_c_typent          set active=1 where module != 'cabinetmed' OR module IS NULL",
+        "UPDATE llx_c_forme_juridique set active=1 where module != 'cabinetmed' OR module IS NULL",
+        "UPDATE llx_c_type_contact    set active=1 where element='societe' and source='external' and (module != 'cabinetmed' OR module IS NULL)"
         );
 
         return $this->_remove($sql,$options);
@@ -397,6 +402,7 @@ class modCabinetMed extends DolibarrModules
      *     Files llx_table1.sql, llx_table1.key.sql llx_data.sql with create table, create keys
      *     and create data commands must be stored in directory /voyage/sql/
      *     This function is called by this->init.
+     *
      *     @return     int     <=0 if KO, >0 if OK
      */
     function load_tables()

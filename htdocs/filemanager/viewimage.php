@@ -198,4 +198,5 @@ else
 
 $result=readfile($original_file_osencoded);
 
+if (is_object($db)) $db->close();
 ?>
