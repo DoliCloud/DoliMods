@@ -4,10 +4,10 @@ CHARSET= UTF-8
 CPTitreMenu=Congés
 MenuReportMonth=Etat mensuel
 MenuAddCP=Nouvelle demande
-NotActiveModCP=Vous devez activer le module Congés Payés pour afficher cette page.
-NotConfigModCP=Vous devez configurer le module Congés Payés pour afficher cette page. Pour effectuer cette opération, <a href="../admin/congespayes.php" style="font-weight: normal; color: red; text-decoration: underline;">cliquer ici</a>.
-NoCPforUser=Vous n'avez pas encore de demande de congés payés.
-AddCP=Créer demande de congés payés
+NotActiveModCP=Vous devez activer le module Congés pour afficher cette page.
+NotConfigModCP=Vous devez configurer le module Congés pour afficher cette page. Pour effectuer cette opération, <a href="../admin/congespayes.php" style="font-weight: normal; color: red; text-decoration: underline;">cliquer ici</a>.
+NoCPforUser=Vous n'avez pas encore de demande de congés.
+AddCP=Créer demande de congés
 CPErrorSQL=Une erreur SQL est survenue :
 Employe=Employé
 DateDebCP=Date Début
