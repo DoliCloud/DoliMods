@@ -94,32 +94,32 @@ function numberwords_getLabelFromNumber($langs,$number,$isamount=0)
 	}
 
 	// Define label on currency and cent in the property of object handle
-	$handle->labelcurrency=$conf->monnaie;	// By default (EUR, USD)
+	$handle->labelcurrency=$conf->currency;	// By default (EUR, USD)
 	$handle->labelcents='cent';				// By default
 
 	// Overwrite label of currency to ours
-	$labelcurrencysing=$langs->transnoentitiesnoconv("CurrencySing".$conf->monnaie);
-	//print "CurrencySing".$conf->monnaie."=>".$labelcurrencysing;
-	if ($labelcurrencysing && $labelcurrencysing != -1 && $labelcurrencysing!='CurrencySing'.$conf->monnaie) $handle->labelcurrency=$labelcurrencysing;
+	$labelcurrencysing=$langs->transnoentitiesnoconv("CurrencySing".$conf->currency);
+	//print "CurrencySing".$conf->currency."=>".$labelcurrencysing;
+	if ($labelcurrencysing && $labelcurrencysing != -1 && $labelcurrencysing!='CurrencySing'.$conf->currency) $handle->labelcurrency=$labelcurrencysing;
 	else
 	{
-		$labelcurrency=$langs->transnoentitiesnoconv("Currency".$conf->monnaie);
-		if ($labelcurrency && $labelcurrency !='Currency'.$conf->monnaie) $handle->labelcurrency=$labelcurrency;
+		$labelcurrency=$langs->transnoentitiesnoconv("Currency".$conf->currency);
+		if ($labelcurrency && $labelcurrency !='Currency'.$conf->currency) $handle->labelcurrency=$labelcurrency;
 	}
 	// Overwrite label of cent to ours
-	$labelcurrencycentsing=$langs->transnoentitiesnoconv("CurrencyCentSing".$conf->monnaie);
-	if ($labelcurrencycentsing && $labelcurrencycentsing != -1 &&$labelcurrencycentsing!='CurrencyCentSing'.$conf->monnaie) $handle->labelcents=$labelcurrencycentsing;
+	$labelcurrencycentsing=$langs->transnoentitiesnoconv("CurrencyCentSing".$conf->currency);
+	if ($labelcurrencycentsing && $labelcurrencycentsing != -1 &&$labelcurrencycentsing!='CurrencyCentSing'.$conf->currency) $handle->labelcents=$labelcurrencycentsing;
 	else
 	{
-		$labelcurrencycent=$langs->transnoentitiesnoconv("CurrencyCent".$conf->monnaie);
-		if ($labelcurrencycent && $labelcurrencycent !='CurrencyCent'.$conf->monnaie) $handle->labelcents=$labelcurrencycent;
+		$labelcurrencycent=$langs->transnoentitiesnoconv("CurrencyCent".$conf->currency);
+		if ($labelcurrencycent && $labelcurrencycent !='CurrencyCent'.$conf->currency) $handle->labelcents=$labelcurrencycent;
 	}
 
 	// Call method of object handle to make convertion
 	if ($isamount)
 	{
-		//print "currency: ".$conf->monnaie;
-		$numberwords=$handle->toCurrency($number, $outlang, $conf->monnaie);
+		//print "currency: ".$conf->currency;
+		$numberwords=$handle->toCurrency($number, $outlang, $conf->currency);
 	}
 	else
 	{
