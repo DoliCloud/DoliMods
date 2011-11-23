@@ -889,42 +889,9 @@ class Patient extends CommonObject
 
 
     /**
-     *    \brief     Retournes les factures impayees de la societe
-     *    \return    array   tableau des id de factures impayees
+     *  Attribut le prefix de la societe en base
      *
-     */
-    function factures_impayes()
-    {
-        $facimp = array();
-        /*
-         * Lignes
-         */
-        $sql = "SELECT f.rowid";
-        $sql .= " FROM ".MAIN_DB_PREFIX."facture as f WHERE f.fk_soc = '".$this->id . "'";
-        $sql .= " AND f.fk_statut = '1' AND f.paye = '0'";
-
-        $resql=$this->db->query($sql);
-        if ($resql)
-        {
-            $num = $this->db->num_rows($resql);
-            $i = 0;
-
-            while ($i < $num)
-            {
-                $objp = $this->db->fetch_object($resql);
-                $array_push($facimp, $objp->rowid);
-                $i++;
-                print $i;
-            }
-
-            $this->db->free();
-        }
-        return $facimp;
-    }
-
-    /**
-     *    \brief      Attribut le prefix de la societe en base
-     *
+     *	@return	void
      */
     function attribute_prefix()
     {
