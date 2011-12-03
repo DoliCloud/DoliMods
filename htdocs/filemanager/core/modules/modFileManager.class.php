@@ -37,12 +37,13 @@ class modFileManager extends DolibarrModules
 {
 
 	/**
-	 *   \brief      Constructeur. Definit les noms, constantes et boites
-	 *   \param      DB      handler d'acces base
+	 *   Constructor. Define names, constants, directories, boxes, permissions
+	 *
+	 *   @param		DoliDB		$db		Database handler
 	 */
-	function modFileManager($DB)
+	function modFileManager($db)
 	{
-		$this->db = $DB;
+		$this->db = $db;
 		$this->numero = 101200;
 
 		$this->family = "ecm";

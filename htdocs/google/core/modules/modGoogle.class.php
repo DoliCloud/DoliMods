@@ -24,11 +24,12 @@ class modGoogle extends DolibarrModules
 {
 	/**
 	 *   Constructor. Define names, constants, directories, boxes, permissions
-	 *   @param      DB      Database handler
+	 *
+	 *   @param		DoliDB		$db		Database handler
 	 */
-	function modGoogle($DB)
+	function modGoogle($db)
 	{
-		$this->db = $DB;
+		$this->db = $db;
 
 		// Id for module (must be unique).
 		// Use here a free id (See in Home -> System information -> Dolibarr for list of used module id).

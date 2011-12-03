@@ -34,14 +34,14 @@ include_once(DOL_DOCUMENT_ROOT ."/core/modules/DolibarrModules.class.php");
 class modMemcached extends DolibarrModules
 {
 
-   /**
-    *	Constructor.
-    *
-    *	@param	DoliDB	$DB		Database handler
-    */
-	function __construct($DB)
+    /**
+	 *   Constructor. Define names, constants, directories, boxes, permissions
+	 *
+	 *   @param		DoliDB		$db		Database handler
+     */
+	function __construct($db)
 	{
-		$this->db = $DB;
+		$this->db = $db;
 
 		// Id for module (must be unique).
 		// Use here a free id.
