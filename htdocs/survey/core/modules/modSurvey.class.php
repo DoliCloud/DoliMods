@@ -24,12 +24,13 @@ class modSurvey extends DolibarrModules
 {
 
     /**
-    *   \brief      Constructor. Define names, constants, directories, boxes, permissions
-    *   \param      DB      Database handler
-    */
-	function modSurvey($DB)
+	 *   Constructor. Define names, constants, directories, boxes, permissions
+	 *
+	 *   @param		DoliDB		$db		Database handler
+     */
+	function modSurvey($db)
 	{
-		$this->db = $DB;
+		$this->db = $db;
 
 		// Id for module (must be unique).
 		// Use here a free id (See in Home -> System information -> Dolibarr for list of used module id).

@@ -47,7 +47,9 @@ function monitoring_prepare_head($object)
 
 /**
  *  Return list of probes to scan
- *  @param      active      1 To get only activable probes
+ *
+ *  @param  int		$active     1 To get only activable probes
+ *  @return	array				List of probes
  */
 function getListOfProbes($active=1)
 {
@@ -60,6 +62,7 @@ function getListOfProbes($active=1)
     $sql.=" FROM ".MAIN_DB_PREFIX."monitoring_probes";
     $sql.=" WHERE active = ".$active;
     $sql.=" ORDER BY rowid";
+
     dol_syslog("probes sql=".$sql,LOG_DEBUG);
     $resql=$db->query($sql);
     if ($resql)
@@ -153,6 +156,7 @@ if (! function_exists('rrd_create'))
 
 	/**
 	 * Update a RRD file
+	 *
 	 * @param 		$fname
 	 * @param 		$val
 	 * @return		int		0 if KO, >0 if OK
@@ -205,6 +209,7 @@ if (! function_exists('rrd_create'))
 
 	/**
 	 * Create a RRD file
+     *
 	 * @param 		$fname
 	 * @param 		$opts
 	 * @param 		$nbopts
@@ -265,6 +270,7 @@ if (! function_exists('rrd_create'))
 
 	/**
 	 * Show output content
+     *
 	 * @param unknown_type $fname
 	 */
 	function rrd_error($fname)

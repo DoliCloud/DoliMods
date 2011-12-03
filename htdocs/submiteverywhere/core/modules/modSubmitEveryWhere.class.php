@@ -37,12 +37,13 @@ include_once(DOL_DOCUMENT_ROOT ."/core/modules/DolibarrModules.class.php");
 class modSubmitEveryWhere extends DolibarrModules
 {
 	/**
-	 *   \brief      Constructor. Define names, constants, directories, boxes, permissions
-	 *   \param      DB      Database handler
+	 *   Constructor. Define names, constants, directories, boxes, permissions
+	 *
+	 *   @param		DoliDB		$db		Database handler
 	 */
-	function modSubmitEveryWhere($DB)
+	function modSubmitEveryWhere($db)
 	{
-		$this->db = $DB;
+		$this->db = $db;
 
 		// Id for module (must be unique).
 		// Use here a free id (See in Home -> System information -> Dolibarr for list of used modules id).

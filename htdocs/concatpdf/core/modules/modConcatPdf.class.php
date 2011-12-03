@@ -36,13 +36,14 @@ include_once(DOL_DOCUMENT_ROOT ."/core/modules/DolibarrModules.class.php");
 class modConcatPdf extends DolibarrModules
 {
 
-   /**
-    *   \brief      Constructor. Define names, constants, directories, boxes, permissions
-    *   \param      DB      Database handler
-    */
-	function modConcatPdf($DB)
+    /**
+	 *   Constructor. Define names, constants, directories, boxes, permissions
+	 *
+	 *   @param		DoliDB		$db		Database handler
+     */
+	function modConcatPdf($db)
 	{
-		$this->db = $DB;
+		$this->db = $db;
 
 		// Id for module (must be unique).
 		// Use here a free id.

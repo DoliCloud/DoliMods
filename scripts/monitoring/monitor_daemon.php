@@ -111,7 +111,7 @@ print '--- start'."\n";
 //print 'Argument 2='.$argv[2]."\n";
 
 $verbose = 0;
-for ($i = 1 ; $i < sizeof($argv) ; $i++)
+for ($i = 1 ; $i < count($argv) ; $i++)
 {
 	if ($argv[$i] == "-v")
 	{
@@ -141,12 +141,11 @@ if ($result < 0)
 
 // Define url to scan
 $listofurls=getListOfProbes(1);
-if (! sizeof($listofurls))
+if (! count($listofurls))
 {
     print 'No enabled probe found. Please define at least one probe before running probe process.'."\n";
     exit;
 }
-
 
 print 'Data will be saved into: '.$conf->monitoring->dir_output."\n";
 
@@ -202,7 +201,7 @@ $pid=0;
 
 if (! $error)
 {
-	// Reload sometimes list of urls
+    // Reload sometimes list of urls
 	//$listofurls=getListOfUrls(1);
     $pid_arr = array();
 	foreach($listofurls as $key => $object)
@@ -231,6 +230,7 @@ if (! $error)
              continue;
         }
 	}
+
 }
 
 if ($pid != 0)
@@ -240,7 +240,7 @@ if ($pid != 0)
     print 'Parent process has launched '.sizeof($pid_arr)." processes. Waiting the end...\n";
 
     // Loop until end of all processes (array is empty for childs end)
-    while(count($pid_arr) > 0)
+    while (count($pid_arr) > 0)
     {
             $myId = pcntl_waitpid(-1, $status, WNOHANG);
             foreach($pid_arr as $key => $pid)
@@ -249,6 +249,7 @@ if ($pid != 0)
             }
             usleep(100);
     }
+
 
     if (! $error)
     {

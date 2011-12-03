@@ -41,14 +41,15 @@ class modZipAutoFillFr extends DolibarrModules
 {
 
 	/**
-	 *   \brief      Constructeur. Definit les noms, constantes et boites
-	 *   \param      DB      handler d'acces base
+	 *   Constructor. Define names, constants, directories, boxes, permissions
+	 *
+	 *   @param		DoliDB		$db		Database handler
 	 */
-	function modZipAutoFillFr($DB)
+	function modZipAutoFillFr($db)
 	{
         global $langs,$conf;
 
-        $this->db = $DB ;
+        $this->db = $db;
 		$this->numero = 12200;
 
 		$this->family = "other";

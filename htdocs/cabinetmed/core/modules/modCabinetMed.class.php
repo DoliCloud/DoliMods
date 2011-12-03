@@ -39,7 +39,7 @@ class modCabinetMed extends DolibarrModules
     /**
      *  Constructor. Define names, constants, directories, boxes, permissions
      *
-     *  @param	DoliDB	$db		Database handler
+     *  @param		DoliDB		$db		Database handler
      */
     function modCabinetMed($db)
     {
