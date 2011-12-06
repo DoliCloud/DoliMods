@@ -321,7 +321,7 @@ if ($_POST['action'] == 'send' && ! $_POST['addfile'] && ! $_POST['removedfile']
                         include_once(DOL_DOCUMENT_ROOT . "/core/class/interfaces.class.php");
                         $interface=new Interfaces($db);
                         $result=$interface->run_triggers('CABINETMED_SENTBYMAIL',$object,$user,$langs,$conf);
-                        if ($result < 0) { $error++; $this->errors=$interface->errors; }
+                        if ($result < 0) { $error++; }
                         // Fin appel triggers
 
                         if ($error)
