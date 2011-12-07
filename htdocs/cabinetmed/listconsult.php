@@ -120,7 +120,7 @@ if ($search_code)  $sql.= " AND s.code_client like '%".$db->escape(strtolower($s
 // Insert sale filter
 if ($search_sale)
 {
-	$sql .= " AND sc.fk_user = ".$search_sale;
+	$sql .= " AND c.fk_user = ".$search_sale;
 }
 // Insert categ filter
 if ($search_categ)
@@ -174,7 +174,7 @@ if ($result)
  	// If the user can view prospects other than his'
  	if ($user->rights->societe->client->voir || $socid)
  	{
-	 	$moreforfilter.=$langs->trans('SalesRepresentatives'). ': ';
+	 	$moreforfilter.=$langs->trans('By'). ': ';
 		$moreforfilter.=$htmlother->select_salesrepresentatives($search_sale,'search_sale',$user);
  	}
  	if ($moreforfilter)

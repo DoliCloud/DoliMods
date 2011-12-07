@@ -732,17 +732,17 @@ else
 
 			// Description
 			print '<tr><td>'.$html->editfieldkey("MailTitle",'desc',$mil->titre,'id',$mil->id,$user->rights->mailing->creer).'</td><td colspan="3">';
-			print $html->editfieldval("MailTitle",'desc',$mil->titre,'id',$mil->id,$user->rights->mailing->creer);
+			print $html->editfieldval("MailTitle",'desc',$mil->titre,$mil,$user->rights->mailing->creer);
 			print '</td></tr>';
 
 			// From
 			print '<tr><td>'.$html->editfieldkey("MailFrom",'from',$mil->email_from,'id',$mil->id,$user->rights->mailing->creer && $mil->statut < 3,'email').'</td><td colspan="3">';
-			print $html->editfieldval("MailFrom",'from',$mil->email_from,'id',$mil->id,$user->rights->mailing->creer && $mil->statut < 3,'email');
+			print $html->editfieldval("MailFrom",'from',$mil->email_from,$mil,$user->rights->mailing->creer && $mil->statut < 3,'email');
 			print '</td></tr>';
 
 			// Errors to
 			print '<tr><td>'.$html->editfieldkey("MailErrorsTo",'errorsto',$mil->email_errorsto,'id',$mil->id,$user->rights->mailing->creer && $mil->statut < 3,'email').'</td><td colspan="3">';
-			print $html->editfieldval("MailErrorsTo",'errorsto',$mil->email_errorsto,'id',$mil->id,$user->rights->mailing->creer && $mil->statut < 3,'email');
+			print $html->editfieldval("MailErrorsTo",'errorsto',$mil->email_errorsto,$mil,$user->rights->mailing->creer && $mil->statut < 3,'email');
 			print '</td></tr>';
 
 			// Status
