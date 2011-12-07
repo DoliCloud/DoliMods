@@ -71,7 +71,7 @@ if ($_POST["nom"])
     $soc->email=$_POST["email"];
     $soc->url=$_POST["url"];
     $soc->capital=$_POST["capital"];
-    $soc->gencod=$_POST["gencod"];
+    $soc->barcode=$_POST["barcode"];
     $soc->siren=$_POST["idprof1"];
     $soc->siret=$_POST["idprof2"];
     $soc->ape=$_POST["idprof3"];
@@ -165,7 +165,7 @@ print '</td></tr>';
 // Barcode
 if ($conf->global->MAIN_MODULE_BARCODE)
 {
-    print '<tr><td valign="top">'.$langs->trans('Gencod').'</td><td colspan="3"><input type="text" name="gencod" value="'.$soc->gencod.'">';
+    print '<tr><td valign="top">'.$langs->trans('Gencod').'</td><td colspan="3"><input type="text" name="barcode" value="'.$soc->barcode.'">';
     print '</td></tr>';
 }
 
