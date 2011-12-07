@@ -382,9 +382,7 @@ class modCabinetMed extends DolibarrModules
     function remove($options='')
     {
         $sql = array(
-        //"DELETE FROM llx_c_typent          where module = 'cabinetmed'",
-        //"DELETE FROM llx_c_forme_juridique where module = 'cabinetmed'",
-        //"DELETE FROM llx_c_type_contact    where module = 'cabinetmed'",
+        "UPDATE llx_c_actioncomm      set active=0 where module = 'cabinetmed'",
         "UPDATE llx_c_typent          set active=0 where module = 'cabinetmed'",
         "UPDATE llx_c_forme_juridique set active=0 where module = 'cabinetmed'",
         "UPDATE llx_c_type_contact    set active=0 where module = 'cabinetmed'",
