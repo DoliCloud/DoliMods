@@ -1,6 +1,8 @@
 
 --INSERT INTO llx_const (name, value, type, note, visible, entity) VALUES ('MYMODULE_IT_WORKS','1','chaine','A constant vor my module',1,'__ENTITY__');
 
+-- New action type
+insert into llx_c_actioncomm (id, code, type, libelle, module, position) values (100700, 'AC_CABMED', 'module', 'Send document by email', 'cabinetmed', 100);
 
 -- Type de tiers -> Sexe
 --update llx_c_typent set module = 'cabinetmed' where id > 100;

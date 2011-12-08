@@ -68,7 +68,7 @@ class Patient extends CommonObject
     var $fax;
     var $email;
     var $url;
-    var $gencod;
+    var $barcode;
 
     // 4 identifiants professionnels (leur utilisation depend du pays)
     var $siren;		// IdProf1 - Deprecated
@@ -400,8 +400,8 @@ class Patient extends CommonObject
         $this->effectif_id=trim($this->effectif_id);
         $this->forme_juridique_code=trim($this->forme_juridique_code);
 
-        //Gencod
-        $this->gencod=trim($this->gencod);
+        //barcode
+        $this->barcode=trim($this->barcode);
 
         // For automatic creation
         if ($this->code_client == -1) $this->get_codeclient($this->prefix_comm,0);
@@ -466,7 +466,7 @@ class Patient extends CommonObject
 
             $sql .= ",client = " . ($this->client?$this->client:0);
             $sql .= ",fournisseur = " . ($this->fournisseur?$this->fournisseur:0);
-            $sql .= ",gencod = ".($this->gencod?"'".$this->gencod."'":"null");
+            $sql .= ",barcode = ".($this->barcode?"'".$this->barcode."'":"null");
             $sql .= ",default_lang = ".($this->default_lang?"'".$this->default_lang."'":"null");
 
 
@@ -565,7 +565,7 @@ class Patient extends CommonObject
         $sql .= ', s.fk_typent as typent_id';
         $sql .= ', s.fk_effectif as effectif_id';
         $sql .= ', s.fk_forme_juridique as forme_juridique_code';
-        $sql .= ', s.code_client, s.code_fournisseur, s.code_compta, s.code_compta_fournisseur, s.parent, s.gencod';
+        $sql .= ', s.code_client, s.code_fournisseur, s.code_compta, s.code_compta_fournisseur, s.parent, s.barcode';
         $sql .= ', s.fk_departement, s.fk_pays, s.fk_stcomm, s.remise_client, s.mode_reglement, s.cond_reglement, s.tva_assuj';
         $sql .= ', s.localtax1_assuj, s.localtax2_assuj, s.fk_prospectlevel, s.default_lang';
         $sql .= ', s.import_key';
@@ -664,7 +664,7 @@ class Patient extends CommonObject
                 $this->code_compta = $obj->code_compta;
                 $this->code_compta_fournisseur = $obj->code_compta_fournisseur;
 
-                $this->gencod = $obj->gencod;
+                $this->barcode = $obj->barcode;
 
                 $this->tva_assuj      = $obj->tva_assuj;
                 $this->tva_intra      = $obj->tva_intra;
