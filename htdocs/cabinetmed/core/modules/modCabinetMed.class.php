@@ -274,6 +274,7 @@ class modCabinetMed extends DolibarrModules
         'pa.note_traitspec'=>'SpecPharma',
         'co.rowid'=>'IdConsult',
         'co.datecons'=>'DateConsultation',
+        'co.fk_user'=>'Author',
         'co.typepriseencharge'=>'TypePriseEnCharge',
         'co.motifconsprinc'=>'MotifPrincipal',
         'co.motifconssec'=>'MotifSecondaires',
@@ -296,6 +297,7 @@ class modCabinetMed extends DolibarrModules
         $this->export_entities_array[$r]=array(
         'co.rowid'=>'generic:Consultation',
         'co.datecons'=>'generic:Consultation',
+        'co.fk_user'=>'generic:Consultation',
         'co.typepriseencharge'=>'generic:Consultation',
         'co.motifconsprinc'=>'generic:Consultation',
         'co.motifconssec'=>'generic:Consultation',
