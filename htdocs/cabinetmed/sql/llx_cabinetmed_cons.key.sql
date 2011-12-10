@@ -20,7 +20,6 @@
 
 
 -- Supprimme orhpelins pour permettre montee de la cle
--- V4 DELETE llx_facturedet FROM llx_facturedet LEFT JOIN llx_facture ON llx_facturedet.fk_facture = llx_facture.rowid WHERE llx_facture.rowid IS NULL;
 
 ALTER TABLE llx_cabinetmed_cons ADD INDEX idx_cabinetmed_cons_fk_soc(fk_soc);
 ALTER TABLE llx_cabinetmed_cons ADD CONSTRAINT fk_cabinetmed_cons_fk_soc FOREIGN KEY (fk_soc) REFERENCES llx_societe(rowid);
