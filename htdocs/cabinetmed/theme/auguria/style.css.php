@@ -20,7 +20,6 @@
 /**
  *		\file       htdocs/theme/auguria/style.css.php
  *		\brief      File for CSS style sheet Auguria
- *		\version    $Id: style.css.php,v 1.14 2011/09/04 18:06:21 eldy Exp $
  */
 
 //if (! defined('NOREQUIREUSER')) define('NOREQUIREUSER','1');	// Not disabled cause need to load personalized language
@@ -100,7 +99,7 @@ input:focus, textarea:focus, button:focus, select:focus {
     box-shadow: 0 0 4px #8091BF;
 }
 
-input {
+input, input.flat, textarea, textarea.flat, form.flat select, select.flat {
     font-size: <?php print $fontsize ?>px;
     font-family: <?php print $fontlist ?>;
     background: #FDFDFD;
@@ -108,44 +107,14 @@ input {
     padding: 1px 1px 1px 1px;
     margin: 0px 0px 0px 0px;
 }
-input.flat {
-	font-size: <?php print $fontsize ?>px;
-	font-family: <?php print $fontlist ?>;
-    background: #FDFDFD;
-    border: 1px solid #ACBCBB;
-    padding: 1px 1px 1px 1px;
-    margin: 0px 0px 0px 0px;
+select.flat, form.flat select {
+	font-weight: normal;
 }
 input:disabled {
 background:#ddd;
 }
-textarea  {
-	font-size: <?php print $fontsize ?>px;
-	font-family: <?php print $fontlist ?>;
-    background: #FDFDFD;
-    border: 1px solid #ACBCBB;
-    padding: 1px 1px 1px 1px;
-    margin: 0px 0px 0px 0px;
-}
-textarea.flat {
-	font-size: <?php print $fontsize ?>px;
-	font-family: <?php print $fontlist ?>;
-    background: #FDFDFD;
-    border: 1px solid #ACBCBB;
-    padding: 1px 1px 1px 1px;
-    margin: 0px 0px 0px 0px;
-}
 textarea:disabled {
-background:#ddd;
-}
-select.flat {
-	background: #FDFDFD;
-    font-size: <?php print $fontsize ?>px;
-	font-family: <?php print $fontlist ?>;
-	font-weight: normal;
-    border: 1px solid #ACBCBB;
-    padding: 1px 1px 1px 1px;
-    margin: 0px 0px 0px 0px;
+	background:#ddd;
 }
 .button {
     font-family: <?php print $fontlist ?>;
@@ -417,16 +386,15 @@ foreach($mainmenuusedarray as $key => $val)
 }
 
 .tmenu ul{
-	margin:0 60px 0 0;	/* t r b l */
+	margin:0 10px 0 0;	/* t r b l */
 	padding:0;
 	list-style-type:none;
 	width:auto;	/* Having 100% instead of auto works on IE but IE fails to down main content, so we forget IE and use best value for Firefox */
-	float:left;
 }
 
 .tmenu ul li{
 	display:block;
-	float:left;
+	float: <?php print $left; ?>;
 	margin:0 1px;
 	padding-left: 0px;
 	padding-right: 0px;
@@ -434,7 +402,7 @@ foreach($mainmenuusedarray as $key => $val)
 
 .tmenu ul li a{
 	display:block;
-	float:left;
+	float: <?php print $left; ?>;
 	color:#EAF3F8;
 	text-decoration:none;
 	padding:0 0 0 8px;
@@ -444,7 +412,7 @@ foreach($mainmenuusedarray as $key => $val)
 .tmenu ul li a span{
 	padding:12px 8px 0 0;
 	height:21px;
-	float:left;
+	float: <?php print $left; ?>;
 }
 
 .tmenu ul li a:hover{
@@ -487,6 +455,12 @@ foreach($mainmenuusedarray as $key => $val)
 
 
 /* Login */
+
+table.login {
+    -moz-box-shadow: 4px 4px 4px #CCC;
+    -webkit-box-shadow: 4px 4px 4px #CCC;
+    box-shadow: 4px 4px 4px #CCC;
+}
 
 div.login_block {
 	position: absolute;
@@ -863,11 +837,17 @@ td.photo {
 }
 
 .ecm-layout-toggler {
-    background-color: #DDD;
+    border-top: 1px solid #AAA; /* match pane-border */
+    border-right: 1px solid #AAA; /* match pane-border */
+    border-bottom: 1px solid #AAA; /* match pane-border */
+    background-color: #CCC;
     }
 .ecm-layout-toggler-open {
 	height: 48px !important;
 	width: 6px !important;
+    -moz-border-radius:0px 10px 10px 0px;
+	-webkit-border-radius:0px 10px 10px 0px;
+	border-radius:0px 10px 10px 0px;
 }
 .ecm-layout-toggler-closed {
 	height: 48px !important;
@@ -1102,7 +1082,14 @@ background-repeat: repeat-x;
 }
 */
 
-
+.paddingrightonly {
+	border-collapse: collapse;
+	border: 0px;
+	margin-left: 0px;
+	spacing-left: 0px;
+	padding-left: 0px;
+	padding-right: 4px;
+}
 .nocellnopadd {
 list-style-type:none;
 margin: 0px;
@@ -1255,7 +1242,6 @@ font-family: <?php print $fontlist ?>;
 font-weight: normal;
 /* border-bottom: 1px solid #FDFFFF; */
 white-space: nowrap;
-    text-align: <?php echo $left; ?>;
 }
 th.liste_titre_sel, td.liste_titre_sel
 {
@@ -1268,7 +1254,6 @@ font-weight: normal;
 /* text-decoration: underline; */
 /* border-bottom: 1px solid #FDFFFF; */
 white-space: nowrap;
-    text-align: <?php echo $left; ?>;
 }
 input.liste_titre {
 background: transparent;
@@ -1496,16 +1481,9 @@ opacity: 1;
 /* Calendar                                                                       */
 /* ============================================================================== */
 
-.ui-datepicker-title {
-    margin: 0 !important;
-    line-height: 28px;
-}
-.ui-datepicker-month {
-    margin: 0 !important;
-    padding: 0 !important;
-}
-.ui-datepicker-header {
-    height: 28px !important;
+.ui-datepicker-trigger {
+	vertical-align: middle;
+	cursor: pointer;
 }
 
 .bodyline {
@@ -1522,6 +1500,9 @@ table.dp {
     border-<?php print $left; ?>: solid 2px #DDDDDD;
     border-<?php print $right; ?>: solid 1px #222222;
     border-bottom: solid 1px #222222;
+    padding: 0px;
+	border-spacing: 0px;
+	border-collapse: collapse;     
 }
 .dp td, .tpHour td, .tpMinute td{padding:2px; font-size:10px;}
 /* Barre titre */
@@ -1659,41 +1640,30 @@ table.cal_event td { border: 0px; padding-<?php print $left; ?>: 0px; padding-<?
 /* ============================================================================== */
 
 .ui-widget { font-family: Verdana,Arial,sans-serif; font-size: 0.9em; }
-.ui-autocomplete-loading { background: white url(<?php echo dol_buildpath($path.'/theme/eldy/img/working.gif',1) ?>) right center no-repeat; }
+.ui-autocomplete-loading { background: white url(<?php echo dol_buildpath($path.'/theme/auguria/img/working.gif',1) ?>) right center no-repeat; }
 
 
 /* ============================================================================== */
-/*  Ajax - In place editor                                                        */
+/*  jQuery - jeditable                                                            */
 /* ============================================================================== */
 
-form.inplaceeditor-form { /* The form */
+.editkey_textarea, .editkey_ckeditor, .editkey_text, .editkey_numeric, .editkey_select {
+	background: url(<?php echo dol_buildpath($path.'/theme/auguria/img/edit.png',1) ?>) right top no-repeat;
+	cursor: pointer;
 }
 
-form.inplaceeditor-form input[type="text"] { /* Input box */
+.editkey_datepicker {
+	background: url(<?php echo dol_buildpath($path.'/theme/auguria/img/calendar.png',1) ?>) right center no-repeat;
+	cursor: pointer;
 }
 
-form.inplaceeditor-form textarea { /* Textarea, if multiple columns */
-background: #FAF8E8;
-color: black;
+.editval_textarea:hover, .editval_ckeditor:hover, .editval_text:hover, .editval_numeric:hover, .editval_select:hover, .editval_datepicker:hover {
+	background: white;
+	cursor: pointer;
 }
 
-form.inplaceeditor-form input[type="submit"] { /* The submit button */
-  font-size: 100%;
-  font-weight:normal;
-	border: 0px;
-	background-image : url(<?php echo dol_buildpath($path.'/theme/auguria/img/button_bg.png',1) ?>);
-	background-position : bottom;
-	cursor:pointer;
-}
-
-form.inplaceeditor-form a { /* The cancel link */
-  margin-left: 5px;
-  font-size: 11px;
-	font-weight:normal;
-	border: 0px;
-	background-image : url(<?php echo dol_buildpath($path.'/theme/auguria/img/button_bg.png',1); ?>);
-	background-position : bottom;
-	cursor:pointer;
+.editval_hover {
+	background: white;
 }
 
 

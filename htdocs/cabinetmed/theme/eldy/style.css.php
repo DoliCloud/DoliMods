@@ -2,6 +2,7 @@
 /* Copyright (C) 2004-2011 Laurent Destailleur  <eldy@users.sourceforge.net>
  * Copyright (C)      2006 Rodolphe Quiedeville <rodolphe@quiedeville.org>
  * Copyright (C) 2007-2011 Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C)	  2011 Philippe Grand       <philippe.grand@atoo-net.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,7 +21,6 @@
 /**
  *		\file       htdocs/cabinetmed/theme/eldy/style.css.php
  *		\brief      File for CSS style sheet Eldy
- *		\version    $Id: style.css.php,v 1.22 2011/09/04 18:06:30 eldy Exp $
  */
 
 //if (! defined('NOREQUIREUSER')) define('NOREQUIREUSER','1');	// Not disabled cause need to load personalized language
@@ -97,52 +97,22 @@ a:link, a:visited, a:hover, a:active { font-family: <?php print $fontlist ?>; fo
 input:focus, textarea:focus, button:focus, select:focus {
     box-shadow: 0 0 4px #8091BF;
 }
-input {
+input, input.flat, textarea, textarea.flat, form.flat select, select.flat {
     font-size: <?php print $fontsize ?>px;
-    font-family: <?php print $fontlist ?>;
-    background: #FDFDFD;
+	font-family: <?php print $fontlist ?>;
+	background: #FDFDFD;
     border: 1px solid #ACBCBB;
     padding: 1px 1px 1px 1px;
     margin: 0px 0px 0px 0px;
 }
-input.flat {
-	font-size: <?php print $fontsize ?>px;
-	font-family: <?php print $fontlist ?>;
-    background: #FDFDFD;
-    border: 1px solid #ACBCBB;
-    padding: 1px 1px 1px 1px;
-    margin: 0px 0px 0px 0px;
+select.flat, form.flat select {
+	font-weight: normal;
 }
 input:disabled {
 background:#ddd;
 }
-textarea  {
-	font-size: <?php print $fontsize ?>px;
-	font-family: <?php print $fontlist ?>;
-    background: #FDFDFD;
-    border: 1px solid #ACBCBB;
-    padding: 1px 1px 1px 1px;
-    margin: 0px 0px 0px 0px;
-}
-textarea.flat {
-	font-size: <?php print $fontsize ?>px;
-	font-family: <?php print $fontlist ?>;
-    background: #FDFDFD;
-    border: 1px solid #ACBCBB;
-    padding: 1px 1px 1px 1px;
-    margin: 0px 0px 0px 0px;
-}
 textarea:disabled {
-background:#ddd;
-}
-select.flat {
-	background: #FDFDFD;
-    font-size: <?php print $fontsize ?>px;
-	font-family: <?php print $fontlist ?>;
-	font-weight: normal;
-    border: 1px solid #ACBCBB;
-    padding: 1px 1px 1px 1px;
-    margin: 0px 0px 0px 0px;
+	background:#ddd;
 }
 .button {
     font-family: <?php print $fontlist ?>;
@@ -168,6 +138,9 @@ select.flat {
 .button:hover   {
 	background: #dee7ec;
 }
+.button:disabled {
+	background: #ddd;
+}
 .buttonajax {
     font-family: <?php print $fontlist ?>;
 	border: 0px;
@@ -189,6 +162,14 @@ form {
 div.float
 {
     float:<?php print $left; ?>;
+}
+th .button {
+    -moz-box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+	-moz-border-radius:0px !important;
+	-webkit-border-radius:0px !important;
+	border-radius:0px !important;	
 }
 
 /* ============================================================================== */
@@ -386,6 +367,28 @@ div.mainmenu.home{
 	background-image: url(<?php echo dol_buildpath($path.'/theme/eldy/img/menus/home.png',1) ?>);
 }
 
+div.mainmenu.accountancy {
+	background-image: url(<?php echo dol_buildpath($path.'/theme/eldy/img/menus/money.png',1) ?>);
+}
+
+div.mainmenu.agenda {
+	background-image: url(<?php echo dol_buildpath($path.'/theme/eldy/img/menus/agenda.png',1) ?>);
+}
+
+div.mainmenu.bank {
+    background-image: url(<?php echo dol_buildpath($path.'/theme/eldy/img/menus/bank.png',1) ?>);
+}
+
+div.mainmenu.bookmark {
+}
+
+div.mainmenu.cashdesk {
+	background-image: url(<?php echo dol_buildpath($path.'/theme/eldy/img/menus/pointofsale.png',1) ?>);
+}
+
+div.mainmenu.click2dial {
+}
+
 div.mainmenu.companies {
 	background-image: url(<?php echo dol_buildpath($path.'/theme/eldy/img/menus/members.png',1) ?>);
 }
@@ -394,21 +397,38 @@ div.mainmenu.contacts {
 	background-image: url(<?php echo dol_buildpath($path.'/theme/eldy/img/menus/stethoscope.png',1) ?>);
 }
 
-div.mainmenu.products {
-	background-image: url(<?php echo dol_buildpath($path.'/theme/eldy/img/menus/products.png',1) ?>);
-	margin-left: 10px;
-}
-
 div.mainmenu.commercial {
 	background-image: url(<?php echo dol_buildpath($path.'/theme/eldy/img/menus/commercial.png',1) ?>);
 }
 
-div.mainmenu.accountancy {
-	background-image: url(<?php echo dol_buildpath($path.'/theme/eldy/img/menus/money.png',1) ?>);
+div.mainmenu.ecm {
+	background-image: url(<?php echo dol_buildpath($path.'/theme/eldy/img/menus/ecm.png',1) ?>);
 }
 
-div.mainmenu.bank {
-    background-image: url(<?php echo dol_buildpath($path.'/theme/eldy/img/menus/bank.png',1) ?>);
+div.mainmenu.externalsite {
+	background-image: url(<?php echo dol_buildpath($path.'/theme/eldy/img/menus/externalsite.png',1) ?>);
+}
+
+div.mainmenu.ftp {
+    background-image: url(<?php echo dol_buildpath($path.'/theme/eldy/img/menus/tools.png',1) ?>);
+}
+
+div.mainmenu.gravatar {
+}
+
+div.mainmenu.geopipmaxmind {
+}
+
+div.mainmenu.members {
+	background-image: url(<?php echo dol_buildpath($path.'/theme/eldy/img/menus/members.png',1) ?>);
+}
+
+div.mainmenu.paypal {
+}
+
+div.mainmenu.products {
+	background-image: url(<?php echo dol_buildpath($path.'/theme/eldy/img/menus/products.png',1) ?>);
+	margin-left: 10px;
 }
 
 div.mainmenu.project {
@@ -419,32 +439,11 @@ div.mainmenu.tools {
 	background-image: url(<?php echo dol_buildpath($path.'/theme/eldy/img/menus/tools.png',1) ?>);
 }
 
-div.mainmenu.ftp {
-    background-image: url(<?php echo dol_buildpath($path.'/theme/eldy/img/menus/tools.png',1) ?>);
-}
-
-div.mainmenu.members {
-	background-image: url(<?php echo dol_buildpath($path.'/theme/eldy/img/menus/members.png',1) ?>);
-}
-
 div.mainmenu.shop {
 	background-image: url(<?php echo dol_buildpath($path.'/theme/eldy/img/menus/shop.png',1) ?>);
 }
 
-div.mainmenu.agenda {
-	background-image: url(<?php echo dol_buildpath($path.'/theme/eldy/img/menus/agenda.png',1) ?>);
-}
-
-div.mainmenu.ecm {
-	background-image: url(<?php echo dol_buildpath($path.'/theme/eldy/img/menus/ecm.png',1) ?>);
-}
-
-div.mainmenu.cashdesk {
-	background-image: url(<?php echo dol_buildpath($path.'/theme/eldy/img/menus/pointofsale.png',1) ?>);
-}
-
-div.mainmenu.webcal {
-	background-image: url(<?php echo dol_buildpath($path.'/theme/eldy/img/menus/agenda.png',1) ?>);
+div.mainmenu.webservices {
 }
 
 div.mainmenu.google {
@@ -470,7 +469,7 @@ foreach($conf->modules as $key => $val)
 $mainmenuusedarray=array_unique(explode(',',$mainmenuused));
 
 $generic=1;
-$divalreadydefined=array('home','companies','products','commercial','accountancy','project','tools','members','shop','agenda','ecm','cashdesk');
+$divalreadydefined=array('home','companies','products','commercial','accountancy','project','tools','members','shop','agenda','bookmark','cashdesk','geoipmaxmind','gravatar','clicktodial','paypal','webservices');
 foreach($mainmenuusedarray as $key => $val)
 {
 	if (empty($val) || in_array($val,$divalreadydefined)) continue;
@@ -518,6 +517,12 @@ foreach($mainmenuusedarray as $key => $val)
 
 
 /* Login */
+
+table.login {
+    -moz-box-shadow: 4px 4px 4px #CCC;
+    -webkit-box-shadow: 4px 4px 4px #CCC;
+    box-shadow: 4px 4px 4px #CCC;
+}
 
 div.login_block {
 	position: absolute;
@@ -867,11 +872,17 @@ td.photo {
 }
 
 .ecm-layout-toggler {
-    background-color: #DDD;
+    border-top: 1px solid #AAA; /* match pane-border */
+    border-right: 1px solid #AAA; /* match pane-border */
+    border-bottom: 1px solid #AAA; /* match pane-border */
+    background-color: #CCC;
     }
 .ecm-layout-toggler-open {
 	height: 48px !important;
 	width: 6px !important;
+    -moz-border-radius:0px 10px 10px 0px;
+	-webkit-border-radius:0px 10px 10px 0px;
+	border-radius:0px 10px 10px 0px;
 }
 .ecm-layout-toggler-closed {
 	height: 48px !important;
@@ -889,10 +900,13 @@ td.photo {
 }
 
 .ecm-layout-resizer  { /* all 'resizer-bars' */
-    background:     #EEE;
+    background:     #EEEEEE;
     border:         1px solid #BBB;
     border-width:   0;
     }
+.ecm-layout-resizer-closed {
+    background-color: #EEEEEE;
+}
 
 .ecm-in-layout-center {
     border-left: 1px !important;
@@ -952,9 +966,6 @@ a.tabTitle {
     margin: 0px 6px;
     text-decoration: none;
     white-space: nowrap;
-    border-<?php print $right; ?>: 1px solid #555555;
-    border-<?php print $left; ?>: 1px solid #D8D8D8;
-    border-top: 1px solid #D8D8D8;
 }
 
 a.tab:link {
@@ -1119,7 +1130,14 @@ background-repeat: repeat-x;
 }
 */
 
-
+.paddingrightonly {
+	border-collapse: collapse;
+	border: 0px;
+	margin-left: 0px;
+	spacing-left: 0px;
+	padding-left: 0px;
+	padding-right: 4px;
+}
 .nocellnopadd {
 list-style-type:none;
 margin: 0px;
@@ -1169,8 +1187,8 @@ border-left: 1px solid #000000;
 table.noborder {
 width: 100%;
 
-border-collapse: collapse;
-border-top-color: #FEFEFE;
+border-collapse: separate !important;
+border-spacing: 0px;
 
 border-right-width: 1px;
 border-right-color: #BBBBBB;
@@ -1185,10 +1203,16 @@ border-bottom-color: #BBBBBB;
 border-bottom-style: solid;
 
 margin: 0px 0px 2px 0px;
+/*padding: 1px 2px 1px 2px;*/
 
 -moz-box-shadow: 4px 4px 4px #CCC;
 -webkit-box-shadow: 4px 4px 4px #CCC;
 box-shadow: 4px 4px 4px #CCC;
+
+-moz-border-radius: 0.2em;
+-webkit-border-radius: 0.2em;
+border-radius: 0.2em;
+
 }
 
 table.noborder tr {
@@ -1204,20 +1228,20 @@ border-left-style: solid;
 height: 18px;
 }
 
-table.noborder td {
-padding: 1px 2px 1px 1px;			/* t r b l */
+table.noborder th, table.noborder td {
+padding: 1px 2px 1px 3px;			/* t r b l */
 }
 
 table.nobordernopadding {
-border-collapse: collapse;
+border-collapse: collapse !important;
 border: 0px;
 }
 table.nobordernopadding tr {
-border: 0px;
+border: 0px !important;
 padding: 0px 0px;
 }
 table.nobordernopadding td {
-border: 0px;
+border: 0px !important;
 padding: 0px 0px;
 }
 
@@ -1247,60 +1271,59 @@ table.liste td {
 padding-right: 2px;
 }
 
-tr.liste_titre
+tr.liste_titre, tr.liste_titre_sel
 {
-height: 20px !important;
-background: #7699A9;
-background-image: url(<?php echo $img_liste_titre ?>);
-background-repeat: repeat-x;
-color: #334444;
-font-family: <?php print $fontlist ?>;
-border-bottom: 1px solid #FDFFFF;
-white-space: nowrap;
-text-align: <?php echo $left; ?>;
+    height: 20px !important;
+    background-repeat: repeat-x;
+	background: -moz-radial-gradient(circle, #e4e6e6, #f0f0f0);
+	background: -webkit-radial-gradient(circle, #e4e6e6, #f0f0f0);
+    background-image: url(<?php echo $img_liste_titre ?>) !important;
+    color: #234046;
+    font-family: <?php print $fontlist ?>;
+    font-weight: normal;
+    border-bottom: 1px solid #FDFFFF;
+    white-space: nowrap;
+    text-align: <?php echo $left; ?>;
 }
-th.liste_titre, td.liste_titre
+tr.liste_titre th, th.liste_titre, tr.liste_titre td, td.liste_titre
 {
-background: #7699A9;
-background-image: url(<?php echo $img_liste_titre ?>);
-background-repeat: repeat-x;
-color: #334444;
-font-family: <?php print $fontlist ?>;
-font-weight: normal;
-border-bottom: 1px solid #FDFFFF;
-white-space: nowrap;
+	/*border-top: 1px solid #DDDDDD;*/
+    font-family: <?php print $fontlist ?>;
+    font-weight: normal;
+    border-bottom: 1px solid #FDFFFF;
+    white-space: nowrap;
 }
-th.liste_titre_sel, td.liste_titre_sel
+tr.liste_titre_sel th, th.liste_titre_sel, tr.liste_titre_sel td, td.liste_titre_sel
 {
-background: #7699A9;
-background-image: url(<?php echo $img_liste_titre ?>);
-background-repeat: repeat-x;
-color: #F5FFFF;
-font-family: <?php print $fontlist ?>;
-font-weight: normal;
-border-bottom: 1px solid #FDFFFF;
-white-space: nowrap;
+    color: #FFFFFF !important;
+    font-family: <?php print $fontlist ?>;
+    font-weight: normal;
+    border-bottom: 1px solid #FDFFFF;
+    white-space: nowrap;
 }
 input.liste_titre {
-background: #7699A9;
-background-image: url(<?php echo $img_liste_titre ?>);
-background-repeat: repeat-x;
-border: 0px;
+    /*background: #7699A9;*/
+    /*background-image: url(<?php echo $img_liste_titre ?>);*/
+    /*background-repeat: repeat-x;*/
+    background: transparent;
+    border: 0px;
 }
 
+tr.liste_total {
+	background: #F0F0F0;
+}
 tr.liste_total td {
-border-top: 1px solid #DDDDDD;
-background: #F0F0F0;
-background-repeat: repeat-x;
-color: #332266;
-font-weight: normal;
-white-space: nowrap;
+    border-top: 1px solid #DDDDDD;
+    color: #332266;
+    font-weight: normal;
+    white-space: nowrap;
 }
 
 
 .impair {
 /* background: #d0d4d7; */
 background: #f6f6f6;
+background: -moz-linear-gradient(top, #f2f2f2, #f8f8f8);
 font-family: <?php print $fontlist ?>;
 border: 0px;
 margin-bottom: 1px;
@@ -1315,6 +1338,7 @@ border: 0px;
 .pair	{
 /* background: #e6ebed; */
 background: #ffffff;
+background: -moz-linear-gradient(top, #ffffff, #ffffff);
 font-family: <?php print $fontlist ?>;
 border: 0px;
 margin-bottom: 1px;
@@ -1358,13 +1382,15 @@ white-space: nowrap;
 
 tr.box_impair {
 /* background: #e6ebed; */
-background: #eaeaea;
+background: #f6f6f6;
+background: -moz-linear-gradient(top, #f2f2f2, #f8f8f8);
 font-family: <?php print $fontlist ?>;
 }
 
 tr.box_pair {
 /* background: #d0d4d7; */
-background: #f4f4f4;
+background: #ffffff;
+background: -moz-linear-gradient(top, #ffffff, #ffffff);
 font-family: <?php print $fontlist ?>;
 }
 
@@ -1412,14 +1438,14 @@ div.error {
 
 /* Info admin */
 div.info {
-  color: #A0A050;
+  color: #807050;
   padding: 0.2em 0.2em 0.2em 0.2em;
   margin: 0.5em 0em 0.5em 0em;
   border: 1px solid #DFDFA0;
   -moz-border-radius:6px;
   -webkit-border-radius: 6px;
   border-radius:6px;
-  background: #EFEFD4;
+  background: #EFEFDA;
 }
 
 
@@ -1517,19 +1543,6 @@ border-radius: 6px;
 /* Calendar                                                                       */
 /* ============================================================================== */
 
-.ui-datepicker-title {
-    margin: 0 !important;
-    line-height: 28px;
-    z-index: 3000;
-}
-.ui-datepicker-month {
-    margin: 0 !important;
-    padding: 0 !important;
-}
-.ui-datepicker-header {
-    height: 28px !important;
-}
-
 .ui-datepicker-trigger {
 	vertical-align: middle;
 	cursor: pointer;
@@ -1550,6 +1563,9 @@ table.dp {
     border-<?php print $left; ?>: solid 2px #DDDDDD;
     border-<?php print $right; ?>: solid 1px #222222;
     border-bottom: solid 1px #222222;
+    padding: 0px;
+	border-spacing: 0px;
+	border-collapse: collapse;     
 }
 .dp td, .tpHour td, .tpMinute td{padding:2px; font-size:10px;}
 /* Barre titre */
@@ -1566,7 +1582,6 @@ table.dp {
 	background-color:#617389;
 	color:#FFFFFF;
 	font-weight:bold;
-	border: 1px outset black;
 	cursor:pointer;
 }
 .dpButtons:Active,.tpButtons:Active{border: 1px outset black;}
@@ -1711,38 +1726,28 @@ table.cal_event td { border: 0px; padding-<?php print $left; ?>: 0px; padding-<?
 	       cursor:pointer;
 	     }
 
+
 /* ============================================================================== */
-/*  Ajax - In place editor                                                        */
+/*  jQuery - jeditable                                                            */
 /* ============================================================================== */
 
-form.inplaceeditor-form { /* The form */
+.editkey_textarea, .editkey_ckeditor, .editkey_text, .editkey_numeric, .editkey_select {
+	background: url(<?php echo dol_buildpath($path.'/theme/eldy/img/edit.png',1) ?>) right top no-repeat;
+	cursor: pointer;
 }
 
-form.inplaceeditor-form input[type="text"] { /* Input box */
+.editkey_datepicker {
+	background: url(<?php echo dol_buildpath($path.'/theme/eldy/img/calendar.png',1) ?>) right center no-repeat;
+	cursor: pointer;
 }
 
-form.inplaceeditor-form textarea { /* Textarea, if multiple columns */
-background: #FAF8E8;
-color: black;
+.editval_textarea:hover, .editval_ckeditor:hover, .editval_text:hover, .editval_numeric:hover, .editval_select:hover, .editval_datepicker:hover {
+	background: white;
+	cursor: pointer;
 }
 
-form.inplaceeditor-form input[type="submit"] { /* The submit button */
-  font-size: 100%;
-  font-weight:normal;
-	border: 0px;
-	background-image : url(<?php echo $img_button ?>);
-	background-position : bottom;
-	cursor:pointer;
-}
-
-form.inplaceeditor-form a { /* The cancel link */
-  margin-left: 5px;
-  font-size: 11px;
-	font-weight:normal;
-	border: 0px;
-	background-image : url(<?php echo $img_button ?>);
-	background-position : bottom;
-	cursor:pointer;
+.editval_hover {
+	background: white;
 }
 
 
