@@ -129,3 +129,4 @@ ThisIsADocumentForYou=Veuillez trouver, en pièce jointe, un ou plusieurs courri
 ActionAC_CABMED=Envoi document %s par Email
 NewOutcomeToDolibarr=Consultation %s saisie (%s)
 ZeroHereIfNoPayment=Ou mettre zéro ici pour des actes gratuits
+ConsultsByTownDesc=Cet écran vous présente une vue statistique du nombre de consultation par ville d'origine des patients.

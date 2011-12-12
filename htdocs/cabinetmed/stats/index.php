@@ -33,6 +33,7 @@ if (! $res && file_exists("../../../../dolibarr/htdocs/main.inc.php")) $res=@inc
 if (! $res && file_exists("../../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
 if (! $res) die("Include of main fails");
 require_once(DOL_DOCUMENT_ROOT."/core/class/dolgraph.class.php");
+dol_include_once("/cabinetmed/lib/cabinetmed.lib.php");
 dol_include_once("/cabinetmed/class/cabinetmedcons.class.php");
 dol_include_once("/cabinetmed/class/cabinetmedstats.class.php");
 
@@ -54,8 +55,7 @@ $endyear=$year;
 
 $mode=GETPOST("mode")?GETPOST("mode"):'customer';
 
-if (empty($conf->cabinetmed->enabled))
-accessforbidden();
+if (empty($conf->cabinetmed->enabled)) accessforbidden();
 
 
 /*
@@ -148,6 +148,11 @@ if (! $mesg)
 
 
 
+$head = patient_stats_prepare_head(null);
+
+dol_fiche_head($head, 'statsconsultations', $langs->trans("Consultations"), 0, 'generic');
+
+
 print '<table class="notopnoleftnopadd" width="100%"><tr>';
 print '<td align="center" valign="top">';
 
@@ -210,8 +215,6 @@ foreach ($data as $val)
 print '</table>';
 
 
-$db->close();
-
 print '</td>';
 print '<td align="center" valign="top">';
 
@@ -227,5 +230,10 @@ print '</td></tr></table>';
 
 print '</td></tr></table>';
 
-llxFooter('$Date: 2011/06/14 23:39:01 $ - $Revision: 1.3 $');
+dol_fiche_end();
+
+
+llxFooter('');
+
+$db->close();
 ?>
