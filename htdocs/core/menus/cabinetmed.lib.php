@@ -1,21 +1,21 @@
 <?php
 /* Copyright (C) 2010-2011 Laurent Destailleur  <eldy@users.sourceforge.net>
  * Copyright (C) 2010      Regis Houssin        <regis@dolibarr.fr>
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- * or see http://www.gnu.org/
- */
+*
+* This program is free software; you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation; either version 2 of the License, or
+* (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with this program. If not, see <http://www.gnu.org/licenses/>.
+* or see http://www.gnu.org/
+*/
 
 /**
  *  \file		htdocs/core/menus/cabinetmed.lib.php
@@ -33,168 +33,174 @@
  */
 function print_cabinetmed_menu($db,$atarget,$type_user)
 {
-	global $user,$conf,$langs,$dolibarr_main_db_name;
+    global $user,$conf,$langs,$dolibarr_main_db_name;
 
-	// On sauve en session le menu principal choisi
-	if (isset($_GET["mainmenu"])) $_SESSION["mainmenu"]=$_GET["mainmenu"];
-	if (isset($_GET["idmenu"]))   $_SESSION["idmenu"]=$_GET["idmenu"];
-	$_SESSION["leftmenuopened"]="";
+    // On sauve en session le menu principal choisi
+    if (isset($_GET["mainmenu"])) $_SESSION["mainmenu"]=$_GET["mainmenu"];
+    if (isset($_GET["idmenu"]))   $_SESSION["idmenu"]=$_GET["idmenu"];
+    $_SESSION["leftmenuopened"]="";
 
-	$id='mainmenu';
+    $id='mainmenu';
 
-	print_start_menu_array();
+    print_start_menu_array();
 
-	// Home
-	$classname="";
-	if ($_SESSION["mainmenu"] && $_SESSION["mainmenu"] == "home")
-	{
-		$classname='class="tmenusel"'; $_SESSION['idmenu']='';
-	}
-	else
-	{
-		$classname = 'class="tmenu"';
-	}
-	$idsel='home';
-	print_start_menu_entry($idsel);
-	print '<a class="tmenuimage" href="'.DOL_URL_ROOT.'/index.php?mainmenu=home&amp;leftmenu="'.($atarget?" target=$atarget":"").'>';
-	print '<div class="'.$id.' '.$idsel.'"><span class="'.$id.' tmenuimage" id="mainmenuspan_'.$idsel.'"></span></div>';
-	print '</a>';
-	print '<a '.$classname.' id="mainmenua_'.$idsel.'" href="'.DOL_URL_ROOT.'/index.php?mainmenu=home&amp;leftmenu="'.($atarget?' target="'.$atarget.'"':'').'>';
-	print_text_menu_entry($langs->trans("Home"));
-	print '</a>';
-	print_end_menu_entry();
+    // Home
+    $classname="";
+    if ($_SESSION["mainmenu"] && $_SESSION["mainmenu"] == "home")
+    {
+        $classname='class="tmenusel"'; $_SESSION['idmenu']='';
+    }
+    else
+    {
+        $classname = 'class="tmenu"';
+    }
+    $idsel='home';
+    print_start_menu_entry($idsel);
+    print '<a class="tmenuimage" href="'.DOL_URL_ROOT.'/index.php?mainmenu=home&amp;leftmenu="'.($atarget?" target=$atarget":"").'>';
+    print '<div class="'.$id.' '.$idsel.'"><span class="'.$id.' tmenuimage" id="mainmenuspan_'.$idsel.'"></span></div>';
+    print '</a>';
+    print '<a '.$classname.' id="mainmenua_'.$idsel.'" href="'.DOL_URL_ROOT.'/index.php?mainmenu=home&amp;leftmenu="'.($atarget?' target="'.$atarget.'"':'').'>';
+    print_text_menu_entry($langs->trans("Home"));
+    print '</a>';
+    print_end_menu_entry();
 
 
-	// Patient
-	if ($conf->societe->enabled)
-	{
-		$langs->load("companies");
-		$langs->load("suppliers");
+    // Patient
+    if ($conf->societe->enabled)
+    {
+        $langs->load("companies");
+        $langs->load("suppliers");
         $langs->load("cabinetmed@cabinetmed");
 
-		$classname="";
-		if ($_SESSION["mainmenu"] && $_SESSION["mainmenu"] == "companies")
-		{
-			$classname='class="tmenusel"'; $_SESSION['idmenu']='';
-		}
-		else
-		{
-			$classname = 'class="tmenu"';
-		}
+        $classname="";
+        if ($_SESSION["mainmenu"] && $_SESSION["mainmenu"] == "companies")
+        {
+            $classname='class="tmenusel"'; $_SESSION['idmenu']='';
+        }
+        else
+        {
+            $classname = 'class="tmenu"';
+        }
 
-		$idsel='companies';
-		if ($conf->societe->enabled && $user->rights->societe->lire)
-		{
-			print_start_menu_entry($idsel);
-			print '<a class="tmenuimage" href="'.DOL_URL_ROOT.'/societe/index.php?mainmenu=companies&amp;leftmenu="'.($atarget?' target="'.$atarget.'"':'').'>';
-			print '<div class="'.$id.' '.$idsel.'"><span class="'.$id.' tmenuimage" id="mainmenuspan_'.$idsel.'"></span></div>';
-			print '</a>';
-			print '<a '.$classname.' id="mainmenua_'.$idsel.'" href="'.DOL_URL_ROOT.'/societe/index.php?mainmenu=companies&amp;leftmenu="'.($atarget?' target="'.$atarget.'"':'').'>';
-			print_text_menu_entry($langs->trans("Patients"));
-			print '</a>';
-			print_end_menu_entry();
-		}
-		else if (empty($conf->global->MAIN_MENU_HIDE_UNAUTHORIZED))
-		{
-			if (! $type_user)
-			{
-				print_start_menu_entry($idsel);
-				print '<div class="'.$id.' '.$idsel.'"><span class="'.$id.'" id="mainmenuspan_'.$idsel.'"></span></div>';
-				print '<a class="tmenudisabled" id="mainmenua_'.$idsel.'" href="#" title="'.dol_escape_htmltag($langs->trans("NotAllowed")).'">';
-				print_text_menu_entry($langs->trans("Patients"));
-				print '</a>';
-				print_end_menu_entry();
-			}
-		}
-	}
+        $idsel='companies';
+        if ($conf->societe->enabled && $user->rights->societe->lire)
+        {
+            print_start_menu_entry($idsel);
+            print '<a class="tmenuimage" href="'.DOL_URL_ROOT.'/societe/index.php?mainmenu=companies&amp;leftmenu="'.($atarget?' target="'.$atarget.'"':'').'>';
+            print '<div class="'.$id.' '.$idsel.'"><span class="'.$id.' tmenuimage" id="mainmenuspan_'.$idsel.'"></span></div>';
+            print '</a>';
+            print '<a '.$classname.' id="mainmenua_'.$idsel.'" href="'.DOL_URL_ROOT.'/societe/index.php?mainmenu=companies&amp;leftmenu="'.($atarget?' target="'.$atarget.'"':'').'>';
+            print_text_menu_entry($langs->trans("Patients"));
+            print '</a>';
+            print_end_menu_entry();
+        }
+        else if (empty($conf->global->MAIN_MENU_HIDE_UNAUTHORIZED))
+        {
+            if (! $type_user)
+            {
+                print_start_menu_entry($idsel);
+                print '<div class="'.$id.' '.$idsel.'"><span class="'.$id.'" id="mainmenuspan_'.$idsel.'"></span></div>';
+                print '<a class="tmenudisabled" id="mainmenua_'.$idsel.'" href="#" title="'.dol_escape_htmltag($langs->trans("NotAllowed")).'">';
+                print_text_menu_entry($langs->trans("Patients"));
+                print '</a>';
+                print_end_menu_entry();
+            }
+        }
+    }
 
-	// Correspondant
-	if ($conf->societe->enabled)
-	{
-		$langs->load("companies");
-		$langs->load("suppliers");
+    // Correspondant
+    if ($conf->societe->enabled)
+    {
+        $langs->load("companies");
+        $langs->load("suppliers");
         $langs->load("cabinetmed@cabinetmed");
 
-		$classname="";
-		if ($_SESSION["mainmenu"] && $_SESSION["mainmenu"] == "contacts")
-		{
-			$classname='class="tmenusel"'; $_SESSION['idmenu']='';
-		}
-		else
-		{
-			$classname = 'class="tmenu"';
-		}
+        $classname="";
+        if ($_SESSION["mainmenu"] && $_SESSION["mainmenu"] == "contacts")
+        {
+            $classname='class="tmenusel"'; $_SESSION['idmenu']='';
+        }
+        else
+        {
+            $classname = 'class="tmenu"';
+        }
 
-		$idsel='contacts';
-		if ($conf->societe->enabled && $user->rights->societe->lire)
-		{
-			print_start_menu_entry($idsel);
-			print '<a class="tmenuimage" href="'.DOL_URL_ROOT.'/contact/list.php?mainmenu=contacts&amp;leftmenu="'.($atarget?" target=$atarget":"").'>';
-			print '<div class="'.$id.' '.$idsel.'"><span class="'.$id.' tmenuimage" id="mainmenuspan_'.$idsel.'"></span></div>';
-			print '</a>';
-			print '<a '.$classname.' id="mainmenua_'.$idsel.'" href="'.DOL_URL_ROOT.'/contact/list.php?mainmenu=contacts&amp;leftmenu="'.($atarget?" target=$atarget":"").'>';
-			print_text_menu_entry($langs->trans("Correspondants"));
-			print '</a>';
-			print_end_menu_entry();
-		}
-		else if (empty($conf->global->MAIN_MENU_HIDE_UNAUTHORIZED))
-		{
-			if (! $type_user)
-			{
-				print_start_menu_entry($idsel);
-				print '<div class="'.$id.' '.$idsel.'"><span class="'.$id.'" id="mainmenuspan_'.$idsel.'"></span></div>';
-				print '<a class="tmenudisabled" id="mainmenua_'.$idsel.'" href="#" title="'.dol_escape_htmltag($langs->trans("NotAllowed")).'">';
-				print_text_menu_entry($langs->trans("Correspondants"));
-				print '</a>';
-				print_end_menu_entry();
-			}
-		}
-	}
+        $idsel='contacts';
+        if ($conf->societe->enabled && $user->rights->societe->lire)
+        {
+            print_start_menu_entry($idsel);
+            print '<a class="tmenuimage" href="'.DOL_URL_ROOT.'/contact/list.php?mainmenu=contacts&amp;leftmenu="'.($atarget?" target=$atarget":"").'>';
+            print '<div class="'.$id.' '.$idsel.'"><span class="'.$id.' tmenuimage" id="mainmenuspan_'.$idsel.'"></span></div>';
+            print '</a>';
+            print '<a '.$classname.' id="mainmenua_'.$idsel.'" href="'.DOL_URL_ROOT.'/contact/list.php?mainmenu=contacts&amp;leftmenu="'.($atarget?" target=$atarget":"").'>';
+            print_text_menu_entry($langs->trans("Correspondants"));
+            print '</a>';
+            print_end_menu_entry();
+        }
+        else if (empty($conf->global->MAIN_MENU_HIDE_UNAUTHORIZED))
+        {
+            if (! $type_user)
+            {
+                print_start_menu_entry($idsel);
+                print '<div class="'.$id.' '.$idsel.'"><span class="'.$id.'" id="mainmenuspan_'.$idsel.'"></span></div>';
+                print '<a class="tmenudisabled" id="mainmenua_'.$idsel.'" href="#" title="'.dol_escape_htmltag($langs->trans("NotAllowed")).'">';
+                print_text_menu_entry($langs->trans("Correspondants"));
+                print '</a>';
+                print_end_menu_entry();
+            }
+        }
+    }
 
-	// Products-Services
-	if ($conf->product->enabled || $conf->service->enabled)
-	{
-		$langs->load("products");
+    // Products-Services
+    if ($conf->product->enabled || $conf->service->enabled)
+    {
+        $langs->load("products");
 
-		$classname="";
-		if ($_SESSION["mainmenu"] && $_SESSION["mainmenu"] == "products")
-		{
-			$classname='class="tmenusel"'; $_SESSION['idmenu']='';
-		}
-		else
-		{
-			$classname = 'class="tmenu"';
-		}
-		$chaine="";
-		if ($conf->product->enabled) { $chaine.=$langs->trans("Products"); }
-		if ($conf->product->enabled && $conf->service->enabled) { $chaine.="/"; }
-		if ($conf->service->enabled) { $chaine.=$langs->trans("Services"); }
+        $classname="";
+        if ($_SESSION["mainmenu"] && $_SESSION["mainmenu"] == "products")
+        {
+            $classname='class="tmenusel"'; $_SESSION['idmenu']='';
+        }
+        else
+        {
+            $classname = 'class="tmenu"';
+        }
+        $chaine="";
+        if ($conf->product->enabled) {
+            $chaine.=$langs->trans("Products");
+        }
+        if ($conf->product->enabled && $conf->service->enabled) {
+            $chaine.="/";
+        }
+        if ($conf->service->enabled) {
+            $chaine.=$langs->trans("Services");
+        }
 
-		$idsel='products';
-		if ($user->rights->produit->lire || $user->rights->service->lire)
-		{
-			print_start_menu_entry($idsel);
-			print '<a class="tmenuimage" href="'.DOL_URL_ROOT.'/product/index.php?mainmenu=products&amp;leftmenu="'.($atarget?' target="'.$atarget.'"':'').'>';
-			print '<div class="'.$id.' '.$idsel.'"><span class="'.$id.' tmenuimage"  id="mainmenuspan_'.$idsel.'"></span></div>';
-			print '</a>';
-			print '<a '.$classname.' id="mainmenua_'.$idsel.'" href="'.DOL_URL_ROOT.'/product/index.php?mainmenu=products&amp;leftmenu="'.($atarget?' target="'.$atarget.'"':'').'>';
-			print_text_menu_entry($chaine);
-			print '</a>';
-			print_end_menu_entry();
-		}
-		else if (empty($conf->global->MAIN_MENU_HIDE_UNAUTHORIZED))
-		{
-			if (! $type_user)
-			{
-				print_start_menu_entry($idsel);
-				print '<div class="'.$id.' '.$idsel.'"><span class="'.$id.'" id="mainmenuspan_'.$idsel.'"></span></div>';
-				print '<a class="tmenudisabled" id="mainmenua_'.$idsel.'" href="#" title="'.dol_escape_htmltag($langs->trans("NotAllowed")).'">';
-				print_text_menu_entry($chaine);
-				print '</a>';
-				print_end_menu_entry();
-			}
-		}
-	}
+        $idsel='products';
+        if ($user->rights->produit->lire || $user->rights->service->lire)
+        {
+            print_start_menu_entry($idsel);
+            print '<a class="tmenuimage" href="'.DOL_URL_ROOT.'/product/index.php?mainmenu=products&amp;leftmenu="'.($atarget?' target="'.$atarget.'"':'').'>';
+            print '<div class="'.$id.' '.$idsel.'"><span class="'.$id.' tmenuimage"  id="mainmenuspan_'.$idsel.'"></span></div>';
+            print '</a>';
+            print '<a '.$classname.' id="mainmenua_'.$idsel.'" href="'.DOL_URL_ROOT.'/product/index.php?mainmenu=products&amp;leftmenu="'.($atarget?' target="'.$atarget.'"':'').'>';
+            print_text_menu_entry($chaine);
+            print '</a>';
+            print_end_menu_entry();
+        }
+        else if (empty($conf->global->MAIN_MENU_HIDE_UNAUTHORIZED))
+        {
+            if (! $type_user)
+            {
+                print_start_menu_entry($idsel);
+                print '<div class="'.$id.' '.$idsel.'"><span class="'.$id.'" id="mainmenuspan_'.$idsel.'"></span></div>';
+                print '<a class="tmenudisabled" id="mainmenua_'.$idsel.'" href="#" title="'.dol_escape_htmltag($langs->trans("NotAllowed")).'">';
+                print_text_menu_entry($chaine);
+                print '</a>';
+                print_end_menu_entry();
+            }
+        }
+    }
 
     // Commercial
     $menuqualified=0;
@@ -244,48 +250,89 @@ function print_cabinetmed_menu($db,$atarget,$type_user)
     }
 
     // Financial
-	if ($conf->comptabilite->enabled || $conf->accounting->enabled
-	|| $conf->facture->enabled || $conf->deplacement->enabled || $conf->don->enabled || $conf->tax->enabled)
-	{
-		$langs->load("compta");
+    if ($conf->comptabilite->enabled || $conf->accounting->enabled
+    || $conf->facture->enabled || $conf->deplacement->enabled || $conf->don->enabled || $conf->tax->enabled)
+    {
+        $langs->load("compta");
+
+        $classname="";
+        if ($_SESSION["mainmenu"] && $_SESSION["mainmenu"] == "accountancy")
+        {
+            $classname='class="tmenusel"'; $_SESSION['idmenu']='';
+        }
+        else
+        {
+            $classname = 'class="tmenu"';
+        }
+
+        $idsel='accountancy';
+        if ($user->rights->compta->resultat->lire || $user->rights->accounting->plancompte->lire
+        || $user->rights->facture->lire || $user->rights->deplacement->lire || $user->rights->don->lire || $user->rights->tax->charges->lire)
+        {
+            print_start_menu_entry($idsel);
+            print '<a class="tmenuimage" href="'.DOL_URL_ROOT.'/compta/index.php?mainmenu=accountancy&amp;leftmenu="'.($atarget?' target="'.$atarget.'"':'').'>';
+            print '<div class="'.$id.' '.$idsel.'"><span class="'.$id.' tmenuimage" id="mainmenuspan_'.$idsel.'"></span></div>';
+            print '</a>';
+            print '<a '.$classname.' id="mainmenua_'.$idsel.'" href="'.DOL_URL_ROOT.'/compta/index.php?mainmenu=accountancy&amp;leftmenu="'.($atarget?' target="'.$atarget.'"':'').'>';
+            print_text_menu_entry($langs->trans("MenuFinancial"));
+            print '</a>';
+            print_end_menu_entry();
+        }
+        else if (empty($conf->global->MAIN_MENU_HIDE_UNAUTHORIZED))
+        {
+            if (! $type_user)
+            {
+                print_start_menu_entry($idsel);
+                print '<div class="'.$id.' '.$idsel.'"><span class="'.$id.'" id="mainmenuspan_'.$idsel.'"></span></div>';
+                print '<a class="tmenudisabled" id="mainmenua_'.$idsel.'" href="#" title="'.dol_escape_htmltag($langs->trans("NotAllowed")).'">';
+                print_text_menu_entry($langs->trans("MenuFinancial"));
+                print '</a>';
+                print_end_menu_entry();
+            }
+        }
+    }
+
+    // Financial (specific to cabinetmed)
+    if ($conf->cabinetmed->enabled)
+    {
+        $langs->load("compta");
         $langs->load("cabinetmed@cabinetmed");
 
-		$classname="";
-		if ($_SESSION["mainmenu"] && $_SESSION["mainmenu"] == "accountancy")
-		{
-			$classname='class="tmenusel"'; $_SESSION['idmenu']='';
-		}
-		else
-		{
-			$classname = 'class="tmenu"';
-		}
+        $classname="";
+        if ($_SESSION["mainmenu"] && $_SESSION["mainmenu"] == "accountancy2")
+        {
+            $classname='class="tmenusel"'; $_SESSION['idmenu']='';
+        }
+        else
+        {
+            $classname = 'class="tmenu"';
+        }
 
-		$idsel='accountancy';
-		if ($user->rights->compta->resultat->lire || $user->rights->accounting->plancompte->lire
-		|| $user->rights->facture->lire || $user->rights->deplacement->lire || $user->rights->don->lire || $user->rights->tax->charges->lire)
-		{
-			print_start_menu_entry($idsel);
-			print '<a class="tmenuimage" href="'.dol_buildpath('/cabinetmed/compta.php?mainmenu=accountancy&amp;leftmenu=&search_sale='.$user->id,1).'"'.($atarget?" target=$atarget":"").'>';
-			print '<div class="'.$id.' '.$idsel.'"><span class="'.$id.' tmenuimage" id="mainmenuspan_'.$idsel.'"></span></div>';
-			print '</a>';
-			print '<a '.$classname.' id="mainmenua_'.$idsel.'" href="'.dol_buildpath('/cabinetmed/compta.php?mainmenu=accountancy&amp;leftmenu=&search_sale='.$user->id,1).'"'.($atarget?" target=$atarget":"").'>';
-			print_text_menu_entry($langs->trans("MenuFinancial"));
-			print '</a>';
-			print_end_menu_entry();
-		}
-		else if (empty($conf->global->MAIN_MENU_HIDE_UNAUTHORIZED))
-		{
-			if (! $type_user)
-			{
-				print_start_menu_entry($idsel);
-				print '<div class="'.$id.' '.$idsel.'"><span class="'.$id.'" id="mainmenuspan_'.$idsel.'"></span></div>';
-				print '<a class="tmenudisabled" id="mainmenua_'.$idsel.'" href="#" title="'.dol_escape_htmltag($langs->trans("NotAllowed")).'">';
-				print_text_menu_entry($langs->trans("MenuFinancial"));
-				print '</a>';
-				print_end_menu_entry();
-			}
-		}
-	}
+        $idsel='accountancy';
+        if ($user->rights->cabinetmed->read)
+        {
+            print_start_menu_entry($idsel);
+            print '<a class="tmenuimage" href="'.dol_buildpath('/cabinetmed/compta.php?mainmenu=accountancy2&amp;leftmenu=&search_sale='.$user->id,1).'"'.($atarget?" target=$atarget":"").'>';
+            print '<div class="'.$id.' '.$idsel.'"><span class="'.$id.' tmenuimage" id="mainmenuspan_'.$idsel.'"></span></div>';
+            print '</a>';
+            print '<a '.$classname.' id="mainmenua_'.$idsel.'" href="'.dol_buildpath('/cabinetmed/compta.php?mainmenu=accountancy2&amp;leftmenu=&search_sale='.$user->id,1).'"'.($atarget?" target=$atarget":"").'>';
+            print_text_menu_entry($langs->trans("MenuFinancial"));
+            print '</a>';
+            print_end_menu_entry();
+        }
+        else if (empty($conf->global->MAIN_MENU_HIDE_UNAUTHORIZED))
+        {
+            if (! $type_user)
+            {
+                print_start_menu_entry($idsel);
+                print '<div class="'.$id.' '.$idsel.'"><span class="'.$id.'" id="mainmenuspan_'.$idsel.'"></span></div>';
+                print '<a class="tmenudisabled" id="mainmenua_'.$idsel.'" href="#" title="'.dol_escape_htmltag($langs->trans("NotAllowed")).'">';
+                print_text_menu_entry($langs->trans("MenuFinancial"));
+                print '</a>';
+                print_end_menu_entry();
+            }
+        }
+    }
 
     // Bank
     if ($conf->banque->enabled || $conf->prelevement->enabled)
@@ -329,259 +376,259 @@ function print_cabinetmed_menu($db,$atarget,$type_user)
         }
     }
 
-	// Projects
-	if ($conf->projet->enabled)
-	{
-		$langs->load("projects");
+    // Projects
+    if ($conf->projet->enabled)
+    {
+        $langs->load("projects");
 
-		$classname="";
-		if ($_SESSION["mainmenu"] && $_SESSION["mainmenu"] == "project")
-		{
-			$classname='class="tmenusel"'; $_SESSION['idmenu']='';
-		}
-		else
-		{
-			$classname = 'class="tmenu"';
-		}
+        $classname="";
+        if ($_SESSION["mainmenu"] && $_SESSION["mainmenu"] == "project")
+        {
+            $classname='class="tmenusel"'; $_SESSION['idmenu']='';
+        }
+        else
+        {
+            $classname = 'class="tmenu"';
+        }
 
-		$idsel='project';
-		if ($user->rights->projet->lire)
-		{
-			print_start_menu_entry($idsel);
-			print '<a class="tmenuimage" href="'.DOL_URL_ROOT.'/projet/index.php?mainmenu=project&amp;leftmenu="'.($atarget?' target="'.$atarget.'"':'').'>';
-			print '<div class="'.$id.' '.$idsel.'"><span class="'.$id.' tmenuimage" id="mainmenuspan_'.$idsel.'"></span></div>';
-			print '</a>';
-			print '<a '.$classname.' id="mainmenua_'.$idsel.'" href="'.DOL_URL_ROOT.'/projet/index.php?mainmenu=project&amp;leftmenu="'.($atarget?' target="'.$atarget.'"':'').'>';
-			print_text_menu_entry($langs->trans("Projects"));
-			print '</a>';
-			print_end_menu_entry();
-		}
-		else if (empty($conf->global->MAIN_MENU_HIDE_UNAUTHORIZED))
-		{
-			if (! $type_user)
-			{
-				print_start_menu_entry($idsel);
-				print '<div class="'.$id.' '.$idsel.'"><span class="'.$id.'" id="mainmenuspan_'.$idsel.'"></span></div>';
-				print '<a class="tmenudisabled" id="mainmenua_'.$idsel.'" href="#" title="'.dol_escape_htmltag($langs->trans("NotAllowed")).'">';
-				print_text_menu_entry($langs->trans("Projects"));
-				print '</a>';
-				print_end_menu_entry();
-			}
-		}
-	}
+        $idsel='project';
+        if ($user->rights->projet->lire)
+        {
+            print_start_menu_entry($idsel);
+            print '<a class="tmenuimage" href="'.DOL_URL_ROOT.'/projet/index.php?mainmenu=project&amp;leftmenu="'.($atarget?' target="'.$atarget.'"':'').'>';
+            print '<div class="'.$id.' '.$idsel.'"><span class="'.$id.' tmenuimage" id="mainmenuspan_'.$idsel.'"></span></div>';
+            print '</a>';
+            print '<a '.$classname.' id="mainmenua_'.$idsel.'" href="'.DOL_URL_ROOT.'/projet/index.php?mainmenu=project&amp;leftmenu="'.($atarget?' target="'.$atarget.'"':'').'>';
+            print_text_menu_entry($langs->trans("Projects"));
+            print '</a>';
+            print_end_menu_entry();
+        }
+        else if (empty($conf->global->MAIN_MENU_HIDE_UNAUTHORIZED))
+        {
+            if (! $type_user)
+            {
+                print_start_menu_entry($idsel);
+                print '<div class="'.$id.' '.$idsel.'"><span class="'.$id.'" id="mainmenuspan_'.$idsel.'"></span></div>';
+                print '<a class="tmenudisabled" id="mainmenua_'.$idsel.'" href="#" title="'.dol_escape_htmltag($langs->trans("NotAllowed")).'">';
+                print_text_menu_entry($langs->trans("Projects"));
+                print '</a>';
+                print_end_menu_entry();
+            }
+        }
+    }
 
-	// Tools
-	if ($conf->mailing->enabled || $conf->export->enabled || $conf->import->enabled)
-	{
-		$langs->load("other");
+    // Tools
+    if ($conf->mailing->enabled || $conf->export->enabled || $conf->import->enabled)
+    {
+        $langs->load("other");
 
-		$classname="";
-		if ($_SESSION["mainmenu"] && $_SESSION["mainmenu"] == "tools")
-		{
-			$classname='class="tmenusel"'; $_SESSION['idmenu']='';
-		}
-		else
-		{
-			$classname = 'class="tmenu"';
-		}
+        $classname="";
+        if ($_SESSION["mainmenu"] && $_SESSION["mainmenu"] == "tools")
+        {
+            $classname='class="tmenusel"'; $_SESSION['idmenu']='';
+        }
+        else
+        {
+            $classname = 'class="tmenu"';
+        }
 
-		$idsel='tools';
-		if ($user->rights->mailing->lire || $user->rights->export->lire || $user->rights->import->run)
-		{
-			print_start_menu_entry($idsel);
-			print '<a class="tmenuimage" href="'.DOL_URL_ROOT.'/core/tools.php?mainmenu=tools&amp;leftmenu="'.($atarget?' target="'.$atarget.'"':'').'>';
-			print '<div class="'.$id.' '.$idsel.'"><span class="'.$id.' tmenuimage" id="mainmenuspan_'.$idsel.'"></span></div>';
-			print '</a>';
-			print '<a '.$classname.' id="mainmenua_'.$idsel.'" href="'.DOL_URL_ROOT.'/core/tools.php?mainmenu=tools&amp;leftmenu="'.($atarget?' target="'.$atarget.'"':'').'>';
-			print_text_menu_entry($langs->trans("Tools"));
-			print '</a>';
-			print_end_menu_entry();
-		}
-		else if (empty($conf->global->MAIN_MENU_HIDE_UNAUTHORIZED))
-		{
-			if (! $type_user)
-			{
-				print_start_menu_entry($idsel);
-				print '<div class="'.$id.' '.$idsel.'"><span class="'.$id.'" id="mainmenuspan_'.$idsel.'"></span></div>';
-				print '<a class="tmenudisabled"  id="mainmenua_'.$idsel.'" href="#" title="'.dol_escape_htmltag($langs->trans("NotAllowed")).'">';
-				print_text_menu_entry($langs->trans("Tools"));
-				print '</a>';
-				print_end_menu_entry();
-			}
-		}
-	}
+        $idsel='tools';
+        if ($user->rights->mailing->lire || $user->rights->export->lire || $user->rights->import->run)
+        {
+            print_start_menu_entry($idsel);
+            print '<a class="tmenuimage" href="'.DOL_URL_ROOT.'/core/tools.php?mainmenu=tools&amp;leftmenu="'.($atarget?' target="'.$atarget.'"':'').'>';
+            print '<div class="'.$id.' '.$idsel.'"><span class="'.$id.' tmenuimage" id="mainmenuspan_'.$idsel.'"></span></div>';
+            print '</a>';
+            print '<a '.$classname.' id="mainmenua_'.$idsel.'" href="'.DOL_URL_ROOT.'/core/tools.php?mainmenu=tools&amp;leftmenu="'.($atarget?' target="'.$atarget.'"':'').'>';
+            print_text_menu_entry($langs->trans("Tools"));
+            print '</a>';
+            print_end_menu_entry();
+        }
+        else if (empty($conf->global->MAIN_MENU_HIDE_UNAUTHORIZED))
+        {
+            if (! $type_user)
+            {
+                print_start_menu_entry($idsel);
+                print '<div class="'.$id.' '.$idsel.'"><span class="'.$id.'" id="mainmenuspan_'.$idsel.'"></span></div>';
+                print '<a class="tmenudisabled"  id="mainmenua_'.$idsel.'" href="#" title="'.dol_escape_htmltag($langs->trans("NotAllowed")).'">';
+                print_text_menu_entry($langs->trans("Tools"));
+                print '</a>';
+                print_end_menu_entry();
+            }
+        }
+    }
 
-	// OSCommerce 1
-	if (! empty($conf->boutique->enabled))
-	{
-		$langs->load("shop");
+    // OSCommerce 1
+    if (! empty($conf->boutique->enabled))
+    {
+        $langs->load("shop");
 
-		$classname="";
-		if ($_SESSION["mainmenu"] && $_SESSION["mainmenu"] == "shop")
-		{
-			$classname='class="tmenusel"'; $_SESSION['idmenu']='';
-		}
-		else
-		{
-			$classname = 'class="tmenu"';
-		}
+        $classname="";
+        if ($_SESSION["mainmenu"] && $_SESSION["mainmenu"] == "shop")
+        {
+            $classname='class="tmenusel"'; $_SESSION['idmenu']='';
+        }
+        else
+        {
+            $classname = 'class="tmenu"';
+        }
 
-		$idsel='shop';
-		print_start_menu_entry($idsel);
-		print '<a class="tmenuimage" href="'.DOL_URL_ROOT.'/boutique/index.php?mainmenu=shop&amp;leftmenu="'.($atarget?' target="'.$atarget.'"':'').'>';
-		print '<div class="'.$id.' '.$idsel.'"><span class="'.$id.' tmenuimage" id="mainmenuspan_'.$idsel.'"></span></div>';
-		print '</a>';
-		print '<a '.$classname.' id="mainmenua_'.$idsel.'" href="'.DOL_URL_ROOT.'/boutique/index.php?mainmenu=shop&amp;leftmenu="'.($atarget?' target="'.$atarget.'"':'').'>';
-		print_text_menu_entry($langs->trans("OSCommerce"));
-		print '</a>';
-		print_end_menu_entry();
-	}
+        $idsel='shop';
+        print_start_menu_entry($idsel);
+        print '<a class="tmenuimage" href="'.DOL_URL_ROOT.'/boutique/index.php?mainmenu=shop&amp;leftmenu="'.($atarget?' target="'.$atarget.'"':'').'>';
+        print '<div class="'.$id.' '.$idsel.'"><span class="'.$id.' tmenuimage" id="mainmenuspan_'.$idsel.'"></span></div>';
+        print '</a>';
+        print '<a '.$classname.' id="mainmenua_'.$idsel.'" href="'.DOL_URL_ROOT.'/boutique/index.php?mainmenu=shop&amp;leftmenu="'.($atarget?' target="'.$atarget.'"':'').'>';
+        print_text_menu_entry($langs->trans("OSCommerce"));
+        print '</a>';
+        print_end_menu_entry();
+    }
 
-	// Members
-	if ($conf->adherent->enabled)
-	{
-		// $langs->load("members"); Added in main file
+    // Members
+    if ($conf->adherent->enabled)
+    {
+        // $langs->load("members"); Added in main file
 
-		$classname="";
-		if ($_SESSION["mainmenu"] && $_SESSION["mainmenu"] == "members")
-		{
-			$classname='class="tmenusel"'; $_SESSION['idmenu']='';
-		}
-		else
-		{
-			$classname = 'class="tmenu"';
-		}
+        $classname="";
+        if ($_SESSION["mainmenu"] && $_SESSION["mainmenu"] == "members")
+        {
+            $classname='class="tmenusel"'; $_SESSION['idmenu']='';
+        }
+        else
+        {
+            $classname = 'class="tmenu"';
+        }
 
-		$idsel='members';
-		if ($user->rights->adherent->lire)
-		{
-			print_start_menu_entry($idsel);
-			print '<a class="tmenuimage" href="'.DOL_URL_ROOT.'/adherents/index.php?mainmenu=members&amp;leftmenu="'.($atarget?' target="'.$atarget.'"':'').'>';
-			print '<div class="'.$id.' '.$idsel.'"><span class="'.$id.' tmenuimage" id="mainmenuspan_'.$idsel.'"></span></div>';
-			print '</a>';
-			print '<a '.$classname.'  id="mainmenua_'.$idsel.'" href="'.DOL_URL_ROOT.'/adherents/index.php?mainmenu=members&amp;leftmenu="'.($atarget?' target="'.$atarget.'"':'').'>';
-			print_text_menu_entry($langs->trans("MenuMembers"));
-			print '</a>';
-			print_end_menu_entry();
-		}
-		else if (empty($conf->global->MAIN_MENU_HIDE_UNAUTHORIZED))
-		{
-			if (! $type_user)
-			{
-				print_start_menu_entry($idsel);
-				print '<div class="'.$id.' '.$idsel.'"><span class="'.$id.'" id="mainmenuspan_'.$idsel.'"></span></div>';
-				print '<a class="tmenudisabled" id="mainmenua_'.$idsel.'" href="#" title="'.dol_escape_htmltag($langs->trans("NotAllowed")).'">';
-				print_text_menu_entry($langs->trans("MenuMembers"));
-				print '</a>';
-				print_end_menu_entry();
-			}
-		}
-	}
+        $idsel='members';
+        if ($user->rights->adherent->lire)
+        {
+            print_start_menu_entry($idsel);
+            print '<a class="tmenuimage" href="'.DOL_URL_ROOT.'/adherents/index.php?mainmenu=members&amp;leftmenu="'.($atarget?' target="'.$atarget.'"':'').'>';
+            print '<div class="'.$id.' '.$idsel.'"><span class="'.$id.' tmenuimage" id="mainmenuspan_'.$idsel.'"></span></div>';
+            print '</a>';
+            print '<a '.$classname.'  id="mainmenua_'.$idsel.'" href="'.DOL_URL_ROOT.'/adherents/index.php?mainmenu=members&amp;leftmenu="'.($atarget?' target="'.$atarget.'"':'').'>';
+            print_text_menu_entry($langs->trans("MenuMembers"));
+            print '</a>';
+            print_end_menu_entry();
+        }
+        else if (empty($conf->global->MAIN_MENU_HIDE_UNAUTHORIZED))
+        {
+            if (! $type_user)
+            {
+                print_start_menu_entry($idsel);
+                print '<div class="'.$id.' '.$idsel.'"><span class="'.$id.'" id="mainmenuspan_'.$idsel.'"></span></div>';
+                print '<a class="tmenudisabled" id="mainmenua_'.$idsel.'" href="#" title="'.dol_escape_htmltag($langs->trans("NotAllowed")).'">';
+                print_text_menu_entry($langs->trans("MenuMembers"));
+                print '</a>';
+                print_end_menu_entry();
+            }
+        }
+    }
 
 
-	// Show personalized menus
-	require_once(DOL_DOCUMENT_ROOT."/core/class/menubase.class.php");
+    // Show personalized menus
+    require_once(DOL_DOCUMENT_ROOT."/core/class/menubase.class.php");
 
     $tabMenu=array();
-	$menuArbo = new Menubase($db,'cabinetmed','top');
-	$newTabMenu = $menuArbo->menuTopCharger($_SESSION['mainmenu'],'',$type_user,'cabinetmed',$tabMenu);
+    $menuArbo = new Menubase($db,'cabinetmed','top');
+    $newTabMenu = $menuArbo->menuTopCharger($_SESSION['mainmenu'],'',$type_user,'cabinetmed',$tabMenu);
 
-	for($i=0; $i<count($newTabMenu); $i++)
-	{
-		if ($newTabMenu[$i]['enabled'] == true)
-		{
-			//var_dump($newTabMenu[$i]);
+    for($i=0; $i<count($newTabMenu); $i++)
+    {
+        if ($newTabMenu[$i]['enabled'] == true)
+        {
+            //var_dump($newTabMenu[$i]);
 
-			$idsel=(empty($newTabMenu[$i]['mainmenu'])?'none':$newTabMenu[$i]['mainmenu']);
-			if ($newTabMenu[$i]['right'] == true)	// Is allowed
-			{
-				if (preg_match("/^(http:\/\/|https:\/\/)/i",$newTabMenu[$i]['url']))
-				{
-					$url = $newTabMenu[$i]['url'];
-				}
-				else
-				{
-					$url=dol_buildpath($newTabMenu[$i]['url'],1);
-					if (! preg_match('/mainmenu/i',$url) || ! preg_match('/leftmenu/i',$url))
-					{
+            $idsel=(empty($newTabMenu[$i]['mainmenu'])?'none':$newTabMenu[$i]['mainmenu']);
+            if ($newTabMenu[$i]['right'] == true)	// Is allowed
+            {
+                if (preg_match("/^(http:\/\/|https:\/\/)/i",$newTabMenu[$i]['url']))
+                {
+                    $url = $newTabMenu[$i]['url'];
+                }
+                else
+                {
+                    $url=dol_buildpath($newTabMenu[$i]['url'],1);
+                    if (! preg_match('/mainmenu/i',$url) || ! preg_match('/leftmenu/i',$url))
+                    {
                         if (! preg_match('/\?/',$url)) $url.='?';
                         else $url.='&';
-					    $url.='mainmenu='.$newTabMenu[$i]['mainmenu'].'&leftmenu=';
-					}
-					//$url.="idmenu=".$newTabMenu[$i]['rowid'];
-				}
+                        $url.='mainmenu='.$newTabMenu[$i]['mainmenu'].'&leftmenu=';
+                    }
+                    //$url.="idmenu=".$newTabMenu[$i]['rowid'];
+                }
                 $url=preg_replace('/__LOGIN__/',$user->login,$url);
 
-				// Define the class (top menu selected or not)
-				if (! empty($_SESSION['idmenu']) && $newTabMenu[$i]['rowid'] == $_SESSION['idmenu']) $classname='class="tmenusel"';
-				else if (! empty($_SESSION['mainmenu']) && $newTabMenu[$i]['mainmenu'] == $_SESSION['mainmenu']) $classname='class="tmenusel"';
-				else $classname='class="tmenu"';
+                // Define the class (top menu selected or not)
+                if (! empty($_SESSION['idmenu']) && $newTabMenu[$i]['rowid'] == $_SESSION['idmenu']) $classname='class="tmenusel"';
+                else if (! empty($_SESSION['mainmenu']) && $newTabMenu[$i]['mainmenu'] == $_SESSION['mainmenu']) $classname='class="tmenusel"';
+                else $classname='class="tmenu"';
 
-				print_start_menu_entry($idsel);
-				print '<a class="tmenuimage" href="'.$url.'"'.($newTabMenu[$i]['atarget']?" target='".$newTabMenu[$i]['atarget']."'":($atarget?' target="'.$atarget.'"':'')).'>';
-				print '<div class="'.$id.' '.$idsel.'"><span class="'.$id.' tmenuimage" id="mainmenuspan_'.$idsel.'"></span></div>';
-				print '</a>';
-				print '<a '.$classname.' id="mainmenua_'.$idsel.'" href="'.$url.'"'.($newTabMenu[$i]['atarget']?" target='".$newTabMenu[$i]['atarget']."'":($atarget?' target="'.$atarget.'"':'')).'>';
-				print_text_menu_entry($newTabMenu[$i]['titre']);
-				print '</a>';
-				print_end_menu_entry();
-			}
-			else if (empty($conf->global->MAIN_MENU_HIDE_UNAUTHORIZED))
-			{
-				if (! $type_user)
-				{
-					print_start_menu_entry($idsel);
-					print '<div class="'.$id.' '.$idsel.'"><span class="'.$id.' tmenuimage" id="mainmenuspan_'.$idsel.'"></span></div>';
-					print '<a class="tmenudisabled" id="mainmenua_'.$idsel.'" href="#" title="'.dol_escape_htmltag($langs->trans("NotAllowed")).'">';
-					print_text_menu_entry($newTabMenu[$i]['titre']);
-					print '</a>';
-					print_end_menu_entry();
-				}
-			}
-		}
-	}
+                print_start_menu_entry($idsel);
+                print '<a class="tmenuimage" href="'.$url.'"'.($newTabMenu[$i]['atarget']?" target='".$newTabMenu[$i]['atarget']."'":($atarget?' target="'.$atarget.'"':'')).'>';
+                print '<div class="'.$id.' '.$idsel.'"><span class="'.$id.' tmenuimage" id="mainmenuspan_'.$idsel.'"></span></div>';
+                print '</a>';
+                print '<a '.$classname.' id="mainmenua_'.$idsel.'" href="'.$url.'"'.($newTabMenu[$i]['atarget']?" target='".$newTabMenu[$i]['atarget']."'":($atarget?' target="'.$atarget.'"':'')).'>';
+                print_text_menu_entry($newTabMenu[$i]['titre']);
+                print '</a>';
+                print_end_menu_entry();
+            }
+            else if (empty($conf->global->MAIN_MENU_HIDE_UNAUTHORIZED))
+            {
+                if (! $type_user)
+                {
+                    print_start_menu_entry($idsel);
+                    print '<div class="'.$id.' '.$idsel.'"><span class="'.$id.' tmenuimage" id="mainmenuspan_'.$idsel.'"></span></div>';
+                    print '<a class="tmenudisabled" id="mainmenua_'.$idsel.'" href="#" title="'.dol_escape_htmltag($langs->trans("NotAllowed")).'">';
+                    print_text_menu_entry($newTabMenu[$i]['titre']);
+                    print '</a>';
+                    print_end_menu_entry();
+                }
+            }
+        }
+    }
 
-	print_end_menu_array();
+    print_end_menu_array();
 }
 
 
 
 function print_start_menu_array()
 {
-	global $conf;
-	if (preg_match('/bluelagoon|eldy|freelug|rodolphe|yellow|dev/',$conf->css)) print '<table class="tmenu" summary="topmenu"><tr class="tmenu">';
-	else print '<ul class="tmenu">';
+    global $conf;
+    if (preg_match('/bluelagoon|eldy|freelug|rodolphe|yellow|dev/',$conf->css)) print '<table class="tmenu" summary="topmenu"><tr class="tmenu">';
+    else print '<ul class="tmenu">';
 }
 
 function print_start_menu_entry($idsel)
 {
-	global $conf;
-	if (preg_match('/bluelagoon|eldy|freelug|rodolphe|yellow|dev/',$conf->css)) print '<td class="tmenu" id="mainmenutd_'.$idsel.'">';
-	else print '<li class="tmenu" id="mainmenutd_'.$idsel.'">';
+    global $conf;
+    if (preg_match('/bluelagoon|eldy|freelug|rodolphe|yellow|dev/',$conf->css)) print '<td class="tmenu" id="mainmenutd_'.$idsel.'">';
+    else print '<li class="tmenu" id="mainmenutd_'.$idsel.'">';
 }
 
 function print_text_menu_entry($text)
 {
-	global $conf;
-	print '<span class="mainmenuaspan">';
-	print $text;
-	print '</span>';
+    global $conf;
+    print '<span class="mainmenuaspan">';
+    print $text;
+    print '</span>';
 }
 
 function print_end_menu_entry()
 {
-	global $conf;
-	if (preg_match('/bluelagoon|eldy|freelug|rodolphe|yellow|dev/',$conf->css)) print '</td>';
-	else print '</li>';
-	print "\n";
+    global $conf;
+    if (preg_match('/bluelagoon|eldy|freelug|rodolphe|yellow|dev/',$conf->css)) print '</td>';
+    else print '</li>';
+    print "\n";
 }
 
 function print_end_menu_array()
 {
-	global $conf;
-	if (preg_match('/bluelagoon|eldy|freelug|rodolphe|yellow|dev/',$conf->css)) print '</tr></table>';
-	else print '</ul>';
-	print "\n";
+    global $conf;
+    if (preg_match('/bluelagoon|eldy|freelug|rodolphe|yellow|dev/',$conf->css)) print '</tr></table>';
+    else print '</ul>';
+    print "\n";
 }
 
 
@@ -659,7 +706,7 @@ function print_left_cabinetmed_menu($db,$menu_array_before,$menu_array_after)
 
         /*
          * Menu HOME
-         */
+        */
         if ($mainmenu == 'home')
         {
             $langs->load("users");
@@ -721,7 +768,7 @@ function print_left_cabinetmed_menu($db,$menu_array_before,$menu_array_after)
 
         /*
          * Menu Patients
-         */
+        */
         if ($mainmenu == 'companies')
         {
             // Societes
@@ -777,7 +824,7 @@ function print_left_cabinetmed_menu($db,$menu_array_before,$menu_array_after)
 
         /*
          * Menu Correspondants
-         */
+        */
         if ($mainmenu == 'contacts')
         {
             // Correspondants
@@ -788,7 +835,7 @@ function print_left_cabinetmed_menu($db,$menu_array_before,$menu_array_after)
 
         /*
          * Menu COMMERCIAL
-         */
+        */
         if ($mainmenu == 'commercial')
         {
             $langs->load("companies");
@@ -861,25 +908,26 @@ function print_left_cabinetmed_menu($db,$menu_array_before,$menu_array_after)
         }
 
 
+
         /*
-         * Menu Compta
-         */
+         * Menu COMPTA-FINANCIAL
+        */
         if ($mainmenu == 'accountancy')
         {
             $langs->load("companies");
-            $langs->load("cabinetmed@cabinetmed");
 
             // Customers invoices
-            /*if ($conf->facture->enabled)
+            if ($conf->facture->enabled)
             {
                 $langs->load("bills");
-                $newmenu->add("/cabinetmed/xxx.php?leftmenu=customers_bills",$langs->trans("Consultations"),0,$user->rights->facture->lire);
+                $newmenu->add("/compta/facture.php?leftmenu=customers_bills",$langs->trans("BillsCustomers"),0,$user->rights->facture->lire);
                 if ($user->societe_id == 0)
                 {
-                    $newmenu->add("/cabinetmed/xxx.php?action=create&amp;leftmenu=customers_bills",$langs->trans("NewConsultation"),1,$user->rights->facture->creer);
+                    $newmenu->add("/compta/clients.php?action=facturer&amp;leftmenu=customers_bills",$langs->trans("NewBill"),1,$user->rights->facture->creer);
                 }
+                $newmenu->add("/compta/facture/fiche-rec.php?leftmenu=customers_bills",$langs->trans("Repeatables"),1,$user->rights->facture->lire);
 
-                //$newmenu->add("/compta/facture/impayees.php?leftmenu=customers_bills",$langs->trans("Unpaid"),1,$user->rights->facture->lire);
+                $newmenu->add("/compta/facture/impayees.php?leftmenu=customers_bills",$langs->trans("Unpaid"),1,$user->rights->facture->lire);
 
                 $newmenu->add("/compta/paiement/liste.php?leftmenu=customers_bills_payments",$langs->trans("Payments"),1,$user->rights->facture->lire);
 
@@ -889,7 +937,7 @@ function print_left_cabinetmed_menu($db,$menu_array_before,$menu_array_after)
                 }
                 $newmenu->add("/compta/paiement/rapport.php?leftmenu=customers_bills_payments",$langs->trans("Reportings"),2,$user->rights->facture->lire);
 
-                //$newmenu->add("/compta/facture/stats/index.php?leftmenu=customers_bills", $langs->trans("Statistics"),1,$user->rights->facture->lire);
+                $newmenu->add("/compta/facture/stats/index.php?leftmenu=customers_bills", $langs->trans("Statistics"),1,$user->rights->facture->lire);
             }
 
             // Suppliers
@@ -914,8 +962,8 @@ function print_left_cabinetmed_menu($db,$menu_array_before,$menu_array_after)
             if ($conf->commande->enabled)
             {
                 $langs->load("orders");
-                if ($conf->facture->enabled) $newmenu->add("/compta/commande/liste.php?leftmenu=orders&amp;status=3&amp;afacturer=1", $langs->trans("MenuOrdersToBill"), 0, $user->rights->commande->lire);
-                //                  if ($leftmenu=="orders") $newmenu->add("/commande/", $langs->trans("StatusOrderToBill"), 1 ,$user->rights->commande->lire);
+                if ($conf->facture->enabled) $newmenu->add("/commande/liste.php?leftmenu=orders&amp;viewstatut=3", $langs->trans("MenuOrdersToBill"), 0, $user->rights->commande->lire);
+                //                  if ($leftmenu=="orders") $newmenu->add("/commande/", $langs->trans("StatusOrderToBill"), 1, $user->rights->commande->lire);
             }
 
             // Donations
@@ -925,7 +973,7 @@ function print_left_cabinetmed_menu($db,$menu_array_before,$menu_array_after)
                 $newmenu->add("/compta/dons/index.php?leftmenu=donations&amp;mainmenu=accountancy",$langs->trans("Donations"), 0, $user->rights->don->lire);
                 if ($leftmenu=="donations") $newmenu->add("/compta/dons/fiche.php?action=create",$langs->trans("NewDonation"), 1, $user->rights->don->creer);
                 if ($leftmenu=="donations") $newmenu->add("/compta/dons/liste.php",$langs->trans("List"), 1, $user->rights->don->lire);
-                if ($leftmenu=="donations") $newmenu->add("/compta/dons/stats.php",$langs->trans("Statistics"), 1, $user->rights->don->lire);
+                //if ($leftmenu=="donations") $newmenu->add("/compta/dons/stats.php",$langs->trans("Statistics"), 1, $user->rights->don->lire);
             }
 
             // Trips and expenses
@@ -934,7 +982,7 @@ function print_left_cabinetmed_menu($db,$menu_array_before,$menu_array_after)
                 $langs->load("trips");
                 $newmenu->add("/compta/deplacement/index.php?leftmenu=tripsandexpenses&amp;mainmenu=accountancy", $langs->trans("TripsAndExpenses"), 0, $user->rights->deplacement->lire);
                 if ($leftmenu=="tripsandexpenses") $newmenu->add("/compta/deplacement/fiche.php?action=create&amp;leftmenu=tripsandexpenses&amp;mainmenu=accountancy", $langs->trans("New"), 1, $user->rights->deplacement->creer);
-                if ($leftmenu=="tripsandexpenses") $newmenu->add("/compta/deplacement/index.php?leftmenu=tripsandexpenses&amp;mainmenu=accountancy", $langs->trans("List"), 1, $user->rights->deplacement->lire);
+                if ($leftmenu=="tripsandexpenses") $newmenu->add("/compta/deplacement/list.php?leftmenu=tripsandexpenses&amp;mainmenu=accountancy", $langs->trans("List"), 1, $user->rights->deplacement->lire);
                 if ($leftmenu=="tripsandexpenses") $newmenu->add("/compta/deplacement/stats/index.php?leftmenu=tripsandexpenses&amp;mainmenu=accountancy", $langs->trans("Statistics"), 1, $user->rights->deplacement->lire);
             }
 
@@ -946,14 +994,27 @@ function print_left_cabinetmed_menu($db,$menu_array_before,$menu_array_after)
                 if (preg_match('/^tax/i',$leftmenu)) $newmenu->add("/compta/sociales/charges.php?leftmenu=tax_social&action=create",$langs->trans("MenuNewSocialContribution"), 2, $user->rights->tax->charges->creer);
                 if (preg_match('/^tax/i',$leftmenu)) $newmenu->add("/compta/charges/index.php?leftmenu=tax_social&amp;mainmenu=accountancy&amp;mode=sconly",$langs->trans("Payments"), 2, $user->rights->tax->charges->lire);
                 // VAT
-                if ($conf->compta->tva)
+                if (empty($conf->global->TAX_DISABLE_VAT_MENUS))
                 {
                     if (preg_match('/^tax/i',$leftmenu)) $newmenu->add("/compta/tva/index.php?leftmenu=tax_vat&amp;mainmenu=accountancy",$langs->trans("VAT"),1,$user->rights->tax->charges->lire);
                     if (preg_match('/^tax/i',$leftmenu)) $newmenu->add("/compta/tva/fiche.php?leftmenu=tax_vat&action=create",$langs->trans("NewPayment"),2,$user->rights->tax->charges->creer);
                     if (preg_match('/^tax/i',$leftmenu)) $newmenu->add("/compta/tva/reglement.php?leftmenu=tax_vat",$langs->trans("Payments"),2,$user->rights->tax->charges->lire);
                     if (preg_match('/^tax/i',$leftmenu)) $newmenu->add("/compta/tva/clients.php?leftmenu=tax_vat", $langs->trans("ReportByCustomers"), 2, $user->rights->tax->charges->lire);
                     if (preg_match('/^tax/i',$leftmenu)) $newmenu->add("/compta/tva/quadri_detail.php?leftmenu=tax_vat", $langs->trans("ReportByQuarter"), 2, $user->rights->tax->charges->lire);
+                    global $mysoc;
+
+                    //Local Taxes
+                    if($mysoc->pays_code=='ES' && $mysoc->localtax2_assuj=="1")
+                    {
+                        if (preg_match('/^tax/i',$leftmenu)) $newmenu->add("/compta/localtax/index.php?leftmenu=tax_vat&amp;mainmenu=accountancy",$langs->transcountry("LT2",$mysoc->pays_code),1,$user->rights->tax->charges->lire);
+                        if (preg_match('/^tax/i',$leftmenu)) $newmenu->add("/compta/localtax/fiche.php?leftmenu=tax_vat&action=create",$langs->trans("NewPayment"),2,$user->rights->tax->charges->creer);
+                        if (preg_match('/^tax/i',$leftmenu)) $newmenu->add("/compta/localtax/reglement.php?leftmenu=tax_vat",$langs->trans("Payments"),2,$user->rights->tax->charges->lire);
+                        if (preg_match('/^tax/i',$leftmenu)) $newmenu->add("/compta/localtax/clients.php?leftmenu=tax_vat", $langs->trans("ReportByCustomers"), 2, $user->rights->tax->charges->lire);
+                        //if (preg_match('/^tax/i',$leftmenu)) $newmenu->add("/compta/localtax/quadri_detail.php?leftmenu=tax_vat", $langs->trans("ReportByQuarter"), 2, $user->rights->tax->charges->lire);
+                    }
+
                 }
+
             }
 
             // Compta simple
@@ -975,43 +1036,58 @@ function print_left_cabinetmed_menu($db,$menu_array_before,$menu_array_after)
             {
 
             }
-            */
 
             // Rapports
-            if ($conf->comptabilite->enabled || $conf->accounting->enabled || $conf->cabinetmed->enabled)
+            if ($conf->comptabilite->enabled || $conf->accounting->enabled)
             {
                 $langs->load("compta");
 
-                $newmenu->add("/cabinetmed/compta.php?leftmenu=customers&search_sale=".$user->id, $langs->trans("Reportings"), 0, $user->rights->societe->lire);
+                // Bilan, resultats
+                $newmenu->add("/compta/resultat/index.php?leftmenu=ca&amp;mainmenu=accountancy",$langs->trans("Reportings"),0,$user->rights->compta->resultat->lire||$user->rights->accounting->comptarapport->lire);
 
-                if ($conf->compta->enabled || $conf->accounting->enabled)
+                if ($leftmenu=="ca") $newmenu->add("/compta/resultat/index.php?leftmenu=ca",$langs->trans("ReportInOut"),1,$user->rights->compta->resultat->lire||$user->rights->accounting->comptarapport->lire);
+                if ($leftmenu=="ca") $newmenu->add("/compta/resultat/clientfourn.php?leftmenu=ca",$langs->trans("ByCompanies"),2,$user->rights->compta->resultat->lire||$user->rights->accounting->comptarapport->lire);
+                /* On verra ca avec module compabilite expert
+                 if ($leftmenu=="ca") $newmenu->add("/compta/resultat/compteres.php?leftmenu=ca","Compte de resultat",2,$user->rights->compta->resultat->lire);
+                if ($leftmenu=="ca") $newmenu->add("/compta/resultat/bilan.php?leftmenu=ca","Bilan",2,$user->rights->compta->resultat->lire);
+                */
+                if ($leftmenu=="ca") $newmenu->add("/compta/stats/index.php?leftmenu=ca",$langs->trans("ReportTurnover"),1,$user->rights->compta->resultat->lire||$user->rights->accounting->comptarapport->lire);
+
+                /*
+                 if ($leftmenu=="ca") $newmenu->add("/compta/stats/cumul.php?leftmenu=ca","Cumule",2,$user->rights->compta->resultat->lire);
+                if ($conf->propal->enabled) {
+                if ($leftmenu=="ca") $newmenu->add("/compta/stats/prev.php?leftmenu=ca","Previsionnel",2,$user->rights->compta->resultat->lire);
+                if ($leftmenu=="ca") $newmenu->add("/compta/stats/comp.php?leftmenu=ca","Transforme",2,$user->rights->compta->resultat->lire);
+                }
+                */
+                if ($leftmenu=="ca") $newmenu->add("/compta/stats/casoc.php?leftmenu=ca",$langs->trans("ByCompanies"),2,$user->rights->compta->resultat->lire||$user->rights->accounting->comptarapport->lire);
+                if ($leftmenu=="ca") $newmenu->add("/compta/stats/cabyuser.php?leftmenu=ca",$langs->trans("ByUsers"),2,$user->rights->compta->resultat->lire||$user->rights->accounting->comptarapport->lire);
+
+                // Journaux
+                //if ($leftmenu=="ca") $newmenu->add("/compta/journaux/index.php?leftmenu=ca",$langs->trans("Journaux"),1,$user->rights->compta->resultat->lire||$user->rights->accounting->comptarapport->lire);
+                //journaux
+                if ($leftmenu=="ca") $newmenu->add("/compta/journal/sellsjournal.php?leftmenu=ca",$langs->trans("SellsJournal"),1,$user->rights->compta->resultat->lire||$user->rights->accounting->comptarapport->lire);
+                if ($leftmenu=="ca") $newmenu->add("/compta/journal/purchasesjournal.php?leftmenu=ca",$langs->trans("PurchasesJournal"),1,$user->rights->compta->resultat->lire||$user->rights->accounting->comptarapport->lire);
+            }
+        }
+
+        /*
+         * Menu Compta (specific to cabinetmed)
+        */
+        if ($mainmenu == 'accountancy2')
+        {
+            $langs->load("companies");
+            $langs->load("cabinetmed@cabinetmed");
+
+            // Rapports
+            if ($conf->cabinetmed->enabled)
+            {
+                $langs->load("compta");
+
+                if ($conf->cabinetmed->enabled)
                 {
                     // Bilan, resultats
-                    $newmenu->add("/compta/resultat/index.php?leftmenu=ca&amp;mainmenu=accountancy",$langs->trans("Reportings"),0,$user->rights->compta->resultat->lire||$user->rights->accounting->comptarapport->lire);
-
-                    if ($leftmenu=="ca") $newmenu->add("/compta/resultat/index.php?leftmenu=ca",$langs->trans("ReportInOut"),1,$user->rights->compta->resultat->lire||$user->rights->accounting->comptarapport->lire);
-                    if ($leftmenu=="ca") $newmenu->add("/compta/resultat/clientfourn.php?leftmenu=ca",$langs->trans("ByCompanies"),2,$user->rights->compta->resultat->lire||$user->rights->accounting->comptarapport->lire);
-                    /* On verra ca avec module compabilite expert
-                     if ($leftmenu=="ca") $newmenu->add("/compta/resultat/compteres.php?leftmenu=ca","Compte de resultat",2,$user->rights->compta->resultat->lire);
-                     if ($leftmenu=="ca") $newmenu->add("/compta/resultat/bilan.php?leftmenu=ca","Bilan",2,$user->rights->compta->resultat->lire);
-                     */
-                    if ($leftmenu=="ca") $newmenu->add("/compta/stats/index.php?leftmenu=ca",$langs->trans("ReportTurnover"),1,$user->rights->compta->resultat->lire||$user->rights->accounting->comptarapport->lire);
-
-                    /*
-                     if ($leftmenu=="ca") $newmenu->add("/compta/stats/cumul.php?leftmenu=ca","Cumule",2,$user->rights->compta->resultat->lire);
-                     if ($conf->propal->enabled) {
-                     if ($leftmenu=="ca") $newmenu->add("/compta/stats/prev.php?leftmenu=ca","Previsionnel",2,$user->rights->compta->resultat->lire);
-                     if ($leftmenu=="ca") $newmenu->add("/compta/stats/comp.php?leftmenu=ca","Transforme",2,$user->rights->compta->resultat->lire);
-                     }
-                     */
-                    if ($leftmenu=="ca") $newmenu->add("/compta/stats/casoc.php?leftmenu=ca",$langs->trans("ByCompanies"),2,$user->rights->compta->resultat->lire||$user->rights->accounting->comptarapport->lire);
-                    if ($leftmenu=="ca") $newmenu->add("/compta/stats/cabyuser.php?leftmenu=ca",$langs->trans("ByUsers"),2,$user->rights->compta->resultat->lire||$user->rights->accounting->comptarapport->lire);
-
-                    // Journaux
-     				//if ($leftmenu=="ca") $newmenu->add("/compta/journaux/index.php?leftmenu=ca",$langs->trans("Journaux"),1,$user->rights->compta->resultat->lire||$user->rights->accounting->comptarapport->lire);
-                    //journaux
-                    if ($leftmenu=="ca") $newmenu->add("/compta/journal/sellsjournal.php?leftmenu=ca",$langs->trans("SellsJournal"),1,$user->rights->compta->resultat->lire||$user->rights->accounting->comptarapport->lire);
-                    if ($leftmenu=="ca") $newmenu->add("/compta/journal/purchasesjournal.php?leftmenu=ca",$langs->trans("PurchasesJournal"),1,$user->rights->compta->resultat->lire||$user->rights->accounting->comptarapport->lire);
+                    $newmenu->add('/cabinetmed/compta.php?mainmenu=accountancy2&amp;leftmenu=&search_sale='.$user->id,$langs->trans("Reportings"),0,$user->rights->cabinetmed->read);
                 }
             }
         }
@@ -1019,7 +1095,7 @@ function print_left_cabinetmed_menu($db,$menu_array_before,$menu_array_after)
 
         /*
          * Menu BANK
-         */
+        */
         if ($mainmenu == 'bank')
         {
             $langs->load("withdrawals");
@@ -1065,11 +1141,11 @@ function print_left_cabinetmed_menu($db,$menu_array_before,$menu_array_after)
                 $newmenu->add("/compta/paiement/cheque/liste.php?leftmenu=checks&amp;mainmenu=bank",$langs->trans("List"),1,$user->rights->banque->cheque);
             }
 
-       }
+        }
 
         /*
          * Menu PRODUCTS-SERVICES
-         */
+        */
         if ($mainmenu == 'products')
         {
             // Products
@@ -1144,7 +1220,7 @@ function print_left_cabinetmed_menu($db,$menu_array_before,$menu_array_after)
 
         /*
          * Menu SUPPLIERS
-         */
+        */
         if ($mainmenu == 'suppliers')
         {
             $langs->load("suppliers");
@@ -1199,7 +1275,7 @@ function print_left_cabinetmed_menu($db,$menu_array_before,$menu_array_after)
 
         /*
          * Menu PROJECTS
-         */
+        */
         if ($mainmenu == 'project')
         {
             if ($conf->projet->enabled)
@@ -1233,7 +1309,7 @@ function print_left_cabinetmed_menu($db,$menu_array_before,$menu_array_after)
 
         /*
          * Menu TOOLS
-         */
+        */
         if ($mainmenu == 'tools')
         {
 
@@ -1272,7 +1348,7 @@ function print_left_cabinetmed_menu($db,$menu_array_before,$menu_array_after)
 
         /*
          * Menu MEMBERS
-         */
+        */
         if ($mainmenu == 'members')
         {
             if ($conf->adherent->enabled)
@@ -1386,7 +1462,7 @@ function print_left_cabinetmed_menu($db,$menu_array_before,$menu_array_after)
             {
                 if ($menu_array[$i]['enabled'])
                 {
-                	print '<div class="menu_contenu">'.$tabstring;
+                    print '<div class="menu_contenu">'.$tabstring;
                     if ($menu_array[$i]['url']) print '<a class="vsmenu" href="'.$url.'"'.($menu_array[$i]['target']?' target="'.$menu_array[$i]['target'].'"':'').'>';
                     print $menu_array[$i]['titre'];
                     if ($menu_array[$i]['url']) print '</a>';
@@ -1396,7 +1472,7 @@ function print_left_cabinetmed_menu($db,$menu_array_before,$menu_array_after)
                 }
                 else if (empty($conf->global->MAIN_MENU_HIDE_UNAUTHORIZED))
                 {
-                	print '<div class="menu_contenu">'.$tabstring.'<font class="vsmenudisabled">'.$menu_array[$i]['titre'].'</font><br></div>'."\n";
+                    print '<div class="menu_contenu">'.$tabstring.'<font class="vsmenudisabled">'.$menu_array[$i]['titre'].'</font><br></div>'."\n";
                 }
             }
 
