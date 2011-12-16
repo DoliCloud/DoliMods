@@ -49,10 +49,11 @@ $mesg='';
 $error=0;
 
 $listoftargets=array(
-'dig'=>array('label'=>$langs->trans("Dig"),'loginedit'=>1,'passedit'=>1,'titlelength'=>32,'descshortlength'=>256,'desclonglength'=>2000,'url'=>'http://www.dig.com','urledit'=>0),
+'digg'=>array('label'=>$langs->trans("Digg"),'loginedit'=>1,'passedit'=>1,'titlelength'=>32,'descshortlength'=>256,'desclonglength'=>2000,'url'=>'http://www.digg.com','urledit'=>0),
 'facebook'=>array('label'=>$langs->trans("Facebook"),'loginedit'=>1,'passedit'=>1,'titlelength'=>32,'descshortlength'=>256,'desclonglength'=>2000,'url'=>'http://www.facebook.com','urledit'=>0),
 'linkedin'=>array('label'=>$langs->trans("LinkedIn"),'loginedit'=>1,'passedit'=>1,'titlelength'=>32,'descshortlength'=>256,'desclonglength'=>2000,'url'=>'http://linkedin.com','urledit'=>0),
 'twitter'=>array('label'=>$langs->trans("Twitter"),'loginedit'=>1,'passedit'=>1,'titlelength'=>-1,'descshortlength'=>140,'desclonglength'=>-1,'url'=>'http://twitter.com','urledit'=>0),
+'googleplus'=>array('label'=>$langs->trans("GooglePlus"),'loginedit'=>1,'passedit'=>1,'titlelength'=>32,'descshortlength'=>256,'desclonglength'=>2000,'url'=>'http://plus.google.com','urledit'=>0),
 'email'=>array('label'=>$langs->trans("Email"),'loginedit'=>0,'passedit'=>0,'titlelength'=>0,'descshortlength'=>-1,'desclonglength'=>0,'url'=>'','urledit'=>1),
 'web'=>array('label'=>$langs->trans("GenericWebSite"),'loginedit'=>1,'passedit'=>1,'titlelength'=>32,'descshortlength'=>256,'desclonglength'=>2000,'url'=>'http://','urledit'=>1),
 //'sms'=>array('label'=>$langs->trans("Email"),'titlelength'=>10,'descshortlength'=>140,'desclonglength'=>-1),
@@ -383,14 +384,18 @@ if ($resql)
             print $obj->label;
         }
         print '</td>';
+
+        // Picto of target
 		print '<td>';
         $s=picto_from_targetcode($obj->targetcode);
-        print $s;
+        print $s.' '.$obj->targetcode;
         if ($action == 'edit' && $id == $obj->rowid)
         {
             print '<input type="hidden" name="type'.$obj->rowid.'" value="'.$obj->targetcode.'">';
         }
         print '</td>';
+
+        // Edit
         print '<td align="center">';
         if ($action == 'edit' && $id == $obj->rowid)
         {
@@ -402,6 +407,8 @@ if ($resql)
             print $s;
         }
         print '</td>';
+
+        // Params
         print '<td>';
         if ($action == 'edit' && $id == $obj->rowid)
         {

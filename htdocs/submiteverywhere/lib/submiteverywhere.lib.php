@@ -25,16 +25,17 @@
 
 /**
  * 	Return img flag of a target type
- * 	@param		targetcode  Type of targe ('email', 'twitter', 'facebook', 'dig', ...)
- * 	@return		string		HTML img string with flag.
+ *
+ * 	@param	string		$targetcode  Type of targe ('email', 'twitter', 'facebook', 'dig', ...)
+ * 	@return	string		HTML img string with flag.
  */
 function picto_from_targetcode($targetcode)
 {
     $ret='';
     if (! empty($targetcode))
     {
-        if ($targetcode == 'email') $ret.=img_picto($targetcode,DOL_URL_ROOT.'/theme/common/flags/'.strtolower($tmpcode).'.png','',1);
-        else $ret.=img_picto($targetcode,'generic');
+        if (in_array($targetcode,array('email','digg','facebook','googleplus','linkedin','twitter','viadeo','web'))) $ret.=img_picto($targetcode,strtolower($targetcode).'@submiteverywhere');
+        else $ret.=img_picto($targetcode,'object_generic');
     }
     return $ret;
 }

@@ -39,30 +39,29 @@ require_once(DOL_DOCUMENT_ROOT."/core/lib/functions2.lib.php");
 $langs->load("commercial");
 $langs->load("orders");
 
-if (! $user->rights->mailing->lire || $user->societe_id > 0)
-  accessforbidden();
+if (! $user->rights->mailing->lire || $user->societe_id > 0) accessforbidden();
 
 
 /*
  *	View
  */
 
-$help_url='EN:Module_EMailing|FR:Module_Mailing|ES:M&oacute;dulo_Mailing';
+$help_url='EN:Module_SubmitEveryWhere|FR:Module_SubmitEveryWhere_Fr|ES:M&oacute;dulo_SubmitEveryWhere';
 llxHeader('','EMailing',$help_url);
 
-print_fiche_titre($langs->trans("MailingArea"));
+print_fiche_titre($langs->trans("SubmitEveryWhereArea"));
 
 print '<table class="notopnoleftnoright" width="100%">';
 
 print '<tr><td valign="top" width="30%" class="notopnoleft">';
 
 
-// Recherche emails
+// Search message
 $var=false;
-print '<form method="post" action="'.DOL_URL_ROOT.'/comm/mailing/liste.php">';
+print '<form method="post" action="'.dol_buildpath('/submiteverywhere/index.php').'">';
 print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
 print '<table class="noborder" width="100%">';
-print '<tr class="liste_titre"><td colspan="3">'.$langs->trans("SearchAMailing").'</td></tr>';
+print '<tr class="liste_titre"><td colspan="3">'.$langs->trans("SearchAMessage").'</td></tr>';
 print '<tr '.$bc[$var].'><td nowrap>';
 print $langs->trans("Ref").':</td><td><input type="text" class="flat" name="sref" size="18"></td>';
 print '<td rowspan="2"><input type="submit" value="'.$langs->trans("Search").'" class="button"></td></tr>';
@@ -72,92 +71,22 @@ print $langs->trans("Other").':</td><td><input type="text" class="flat" name="sa
 print "</table></form><br>\n";
 
 
-// Affiche stats de tous les modules de destinataires mailings
+// Show statistics for submits
+/*
 print '<table class="noborder" width="100%">';
 print '<tr class="liste_titre"><td colspan="3">'.$langs->trans("TargetsStatistics").'</td></tr>';
 
-$dir=DOL_DOCUMENT_ROOT."/core/modules/mailings";
-$handle=opendir($dir);
-
-$var=True;
-if (is_resource($handle))
-{
-    while (($file = readdir($handle))!==false)
-    {
-        if (substr($file, 0, 1) <> '.' && substr($file, 0, 3) <> 'CVS')
-        {
-            if (preg_match("/(.*)\.(.*)\.(.*)/i",$file,$reg))
-            {
-                $modulename=$reg[1];
-       			if ($modulename == 'example') continue;
-
-                // Chargement de la classe
-                $file = $dir."/".$modulename.".modules.php";
-                $classname = "mailing_".$modulename;
-                require_once($file);
-                $mailmodule = new $classname($db);
-
-                $qualified=1;
-                foreach ($mailmodule->require_module as $key)
-                {
-                    if (! $conf->$key->enabled || (! $user->admin && $mailmodule->require_admin))
-                    {
-                        $qualified=0;
-                        //print "Les pr�requis d'activation du module mailing ne sont pas respect�s. Il ne sera pas actif";
-                        break;
-                    }
-                }
-
-                // Si le module mailing est qualifi�
-                if ($qualified)
-                {
-                    $var = !$var;
-
-                    foreach ($mailmodule->getSqlArrayForStats() as $sql)
-                    {
-                        print '<tr '.$bc[$var].'>';
-
-                        $result=$db->query($sql);
-                        if ($result)
-                        {
-                          $num = $db->num_rows($result);
-
-                          $i = 0;
-
-                          while ($i < $num )
-                            {
-                              $obj = $db->fetch_object($result);
-                              print '<td>'.img_object('',$mailmodule->picto).' '.$obj->label.'</td><td align="right">'.$obj->nb.'<td>';
-                              $i++;
-                            }
-
-                          $db->free($result);
-                        }
-                        else
-                        {
-                          dol_print_error($db);
-                        }
-                        print '</tr>';
-                    }
-                }
-            }
-        }
-    }
-    closedir($handle);
-}
-
-
 print "</table><br>";
+*/
 
 print '</td><td valign="top" width="70%" class="notopnoleftnoright">';
 
-
 /*
- * List of last emailings
+ * List of last submit
  */
 $limit=10;
 $sql  = "SELECT m.rowid, m.titre, m.nbemail, m.statut, m.date_creat";
-$sql.= " FROM ".MAIN_DB_PREFIX."mailing as m";
+$sql.= " FROM ".MAIN_DB_PREFIX."submitew_message as m";
 $sql.= " ORDER BY m.date_creat DESC";
 $sql.= " LIMIT ".$limit;
 $result=$db->query($sql);
@@ -165,10 +94,10 @@ if ($result)
 {
   print '<table class="noborder" width="100%">';
   print '<tr class="liste_titre">';
-  print '<td colspan="2">'.$langs->trans("LastMailings",$limit).'</td>';
+  print '<td colspan="2">'.$langs->trans("LastSubmits",$limit).'</td>';
   print '<td align="center">'.$langs->trans("DateCreation").'</td>';
-  print '<td align="center">'.$langs->trans("NbOfEMails").'</td>';
-  print '<td align="right"><a href="'.DOL_URL_ROOT.'/comm/mailing/liste.php">'.$langs->trans("AllEMailings").'</a></td></tr>';
+  print '<td align="center">'.$langs->trans("NbOfTargets").'</td>';
+  print '<td align="right"><a href="'.dol_buildpath('/submiteverywhere/list.php').'">'.$langs->trans("Status").'</a></td></tr>';
 
   $num = $db->num_rows($result);
   if ($num > 0)
