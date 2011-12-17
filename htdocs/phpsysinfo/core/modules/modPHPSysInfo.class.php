@@ -13,8 +13,8 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * or see http://www.gnu.org/
  */
 
 /**     \defgroup   phpsysinfo     Module PHPSysInfo
@@ -142,10 +142,10 @@ class modPHPSysInfo extends DolibarrModules
 									'titre'=>'PHPSysInfo',
 									'mainmenu'=>'phpsysinfo',
 									'url'=>'/phpsysinfo/index.php',
-									'langs'=>'PHPSysInfo',	// Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
+									'langs'=>'',	// Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 									'position'=>100,
-									'enabled'=>'1',			// Define condition to show or hide menu entry. Use '$conf->PHPSysInfo->enabled' if entry must be visible if module is enabled.
-									'perms'=>'1',			// Use 'perms'=>'$user->rights->PHPSysInfo->level1->level2' if you want your menu with a permission rules
+									'enabled'=>'1',			// Define condition to show or hide menu entry. Use '$conf->phpsysinfo->enabled' if entry must be visible if module is enabled.
+									'perms'=>'1',			// Use 'perms'=>'$user->rights->phpsysinfo->level1->level2' if you want your menu with a permission rules
 									'target'=>'',
 									'user'=>2);				// 0=Menu for internal users, 1=external users, 2=both
 		$r++;
@@ -153,13 +153,13 @@ class modPHPSysInfo extends DolibarrModules
 		// Example to declare a Left Menu entry:
 		$this->menu[$r]=array(	'fk_menu'=>'mainmenu=home,leftmenu=setup',		// Use r=value where r is index key used for the parent menu entry (higher parent must be a top menu entry)
 									'type'=>'left',			// This is a Left menu entry
-									'titre'=>'PHPSysInfo left menu 1',
+									'titre'=>'PHPSysInfo',
 									'mainmenu'=>'phpsysinfo',
-									'url'=>'/PHPSysInfo/pagelevel1.php',
-									'langs'=>'PHPSysInfo',	// Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
+									'url'=>'/phpsysinfo/index.php',
+									'langs'=>'',	// Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 									'position'=>100,
-									'enabled'=>'1',			// Define condition to show or hide menu entry. Use '$conf->PHPSysInfo->enabled' if entry must be visible if module is enabled.
-									'perms'=>'1',			// Use 'perms'=>'$user->rights->PHPSysInfo->level1->level2' if you want your menu with a permission rules
+									'enabled'=>'1',			// Define condition to show or hide menu entry. Use '$conf->phpsysinfo->enabled' if entry must be visible if module is enabled.
+									'perms'=>'1',			// Use 'perms'=>'$user->rights->phpsysinfo->level1->level2' if you want your menu with a permission rules
 									'target'=>'',
 									'user'=>2);				// 0=Menu for internal users, 1=external users, 2=both
 		// $r++;
