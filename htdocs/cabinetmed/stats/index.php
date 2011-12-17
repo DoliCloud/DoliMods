@@ -86,30 +86,30 @@ $data = $stats->getNbByMonthWithPrevYear($endyear,$startyear);
 $filenamenb = $dir."/outcomesnbinyear-".$year.".png";
 $fileurlnb = DOL_URL_ROOT.'/viewimage.php?modulepart=cabinetmed_temp&amp;file=outcomesnbinyear-'.$year.'.png';
 
-$px = new DolGraph();
-$mesg = $px->isGraphKo();
+$px1 = new DolGraph();
+$mesg = $px1->isGraphKo();
 if (! $mesg)
 {
-	$px->SetData($data);
-	$px->SetPrecisionY(0);
+	$px1->SetData($data);
+	$px1->SetPrecisionY(0);
 	$i=$startyear;
 	while ($i <= $endyear)
 	{
 		$legend[]=$i;
 		$i++;
 	}
-	$px->SetLegend($legend);
-	$px->SetMaxValue($px->GetCeilMaxValue());
-	$px->SetWidth($WIDTH);
-	$px->SetHeight($HEIGHT);
-	$px->SetYLabel($langs->trans("Number"));
-	$px->SetShading(3);
-	$px->SetHorizTickIncrement(1);
-	$px->SetPrecisionY(0);
-	$px->mode='depth';
-	$px->SetTitle($langs->trans("NumberByMonth"));
+	$px1->SetLegend($legend);
+	$px1->SetMaxValue($px1->GetCeilMaxValue());
+	$px1->SetWidth($WIDTH);
+	$px1->SetHeight($HEIGHT);
+	$px1->SetYLabel($langs->trans("Number"));
+	$px1->SetShading(3);
+	$px1->SetHorizTickIncrement(1);
+	$px1->SetPrecisionY(0);
+	$px1->mode='depth';
+	$px1->SetTitle($langs->trans("NumberByMonth"));
 
-	$px->draw($filenamenb);
+	$px1->draw($filenamenb,$fileurlnb);
 }
 
 // Build graphic amount of object
@@ -120,30 +120,30 @@ $data = $stats->getAmountByMonthWithPrevYear($endyear,$startyear);
 $filenameamount = $dir."/outcomesamountinyear-".$year.".png";
 $fileurlamount = DOL_URL_ROOT.'/viewimage.php?modulepart=cabinetmed_temp&amp;file=outcomesamountinyear-'.$year.'.png';
 
-$px = new DolGraph();
-$mesg = $px->isGraphKo();
+$px2 = new DolGraph();
+$mesg = $px2->isGraphKo();
 if (! $mesg)
 {
-	$px->SetData($data);
+	$px2->SetData($data);
 	$i=$startyear;
 	while ($i <= $endyear)
 	{
 		$legend[]=$i;
 		$i++;
 	}
-	$px->SetLegend($legend);
-	$px->SetMaxValue($px->GetCeilMaxValue());
-	$px->SetMinValue(min(0,$px->GetFloorMinValue()));
-	$px->SetWidth($WIDTH);
-	$px->SetHeight($HEIGHT);
-	$px->SetYLabel($langs->trans("Amount"));
-	$px->SetShading(3);
-	$px->SetHorizTickIncrement(1);
-	$px->SetPrecisionY(0);
-	$px->mode='depth';
-	$px->SetTitle($langs->trans("AmountByMonth"));
+	$px2->SetLegend($legend);
+	$px2->SetMaxValue($px2->GetCeilMaxValue());
+	$px2->SetMinValue(min(0,$px2->GetFloorMinValue()));
+	$px2->SetWidth($WIDTH);
+	$px2->SetHeight($HEIGHT);
+	$px2->SetYLabel($langs->trans("Amount"));
+	$px2->SetShading(3);
+	$px2->SetHorizTickIncrement(1);
+	$px2->SetPrecisionY(0);
+	$px2->mode='depth';
+	$px2->SetTitle($langs->trans("AmountByMonth"));
 
-	$px->draw($filenameamount);
+	$px2->draw($filenameamount,$fileurlamount);
 }
 
 
@@ -222,9 +222,9 @@ print '<td align="center" valign="top">';
 print '<table class="border" width="100%"><tr valign="top"><td align="center">';
 if ($mesg) { print $mesg; }
 else {
-	print '<img src="'.$fileurlnb.'" title="'.$langs->trans("Number").'" alt="'.$langs->trans("Number").'">';
+	print $px1->show();
 	print "<br>\n";
-	print '<img src="'.$fileurlamount.'" title="'.$langs->trans("Amount").'" alt="'.$langs->trans("Amount").'">';
+	print $px2->show();
 }
 print '</td></tr></table>';
 
