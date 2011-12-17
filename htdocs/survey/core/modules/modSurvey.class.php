@@ -108,7 +108,6 @@ class modSurvey extends DolibarrModules
 								'type'=>'top',
 								'titre'=>'MenuSurvey',
 								'mainmenu'=>'survey',
-								'leftmenu'=>'0',	// Use 1 if you also want to add left menu entries using this descriptor. Use 0 if left menu entries are defined in a file pre.inc.php (old school).
 								'url'=>'/survey/index.php',
 								'langs'=>'survey',
 								'position'=>200,

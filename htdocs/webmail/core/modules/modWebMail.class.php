@@ -108,7 +108,6 @@ class modWebMail extends DolibarrModules
 								'type'=>'top',
 								'titre'=>'MenuWebMail',
 								'mainmenu'=>'webmail',
-								'leftmenu'=>'0',	// Use 1 if you also want to add left menu entries using this descriptor. Use 0 if left menu entries are defined in a file pre.inc.php (old school).
 								'url'=>'/webmail/index.php',
 								'langs'=>'webmail',
 								'position'=>200,
@@ -123,7 +122,6 @@ class modWebMail extends DolibarrModules
 		 'type'=>'left',
 		 'titre'=>'MenuLeftWebMail',
 		 'mainmenu'=>'webmail',
-		 'leftmenu'=>'1',	// Use 1 if you also want to add left menu entries using this descriptor. Use 0 if left menu entries are defined in a file pre.inc.php (old school).
 		 'url'=>'/webmail/xxx.php',
 		 'langs'=>'webmail',
 		 'position'=>200,

@@ -92,7 +92,6 @@ class modMantis extends DolibarrModules
 		                      'type'=>'top',
 		                      'titre'=>'BugTracker',
 		                      'mainmenu'=>'mantis',
-		                      'leftmenu'=>'1',
 		                      'url'=>'/mantis/mantis.php',
 		                      'langs'=>'other',
 		                      'position'=>100,

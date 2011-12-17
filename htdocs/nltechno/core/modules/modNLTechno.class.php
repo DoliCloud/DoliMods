@@ -119,7 +119,6 @@ class modNLTechno extends DolibarrModules
 								'type'=>'top',
 								'titre'=>'Admin NLTechno',
 								'mainmenu'=>'nltechno',
-								'leftmenu'=>'0',	// To say to not overwrite menu in pre.inc.php by dynamic database menu
 								'url'=>'/nltechno/index.php',
 								'langs'=>'',
 								'position'=>200,

@@ -109,7 +109,6 @@ class modAWStats extends DolibarrModules
 								'type'=>'top',
 								'titre'=>'MenuAWStats',
 								'mainmenu'=>'awstats',
-								'leftmenu'=>'0',	// Use 1 if you also want to add left menu entries using this descriptor. Use 0 if left menu entries are defined in a file pre.inc.php (old school).
 								'url'=>'/awstats/index.php',
 								'langs'=>'awstats',
 								'position'=>200,
@@ -124,7 +123,6 @@ class modAWStats extends DolibarrModules
 		 'type'=>'left',
 		 'titre'=>'MenuLeftAWStats',
 		 'mainmenu'=>'awstats',
-		 'leftmenu'=>'1',	// Use 1 if you also want to add left menu entries using this descriptor. Use 0 if left menu entries are defined in a file pre.inc.php (old school).
 		 'url'=>'/awstats/xxx.php',
 		 'langs'=>'awstats',
 		 'position'=>200,

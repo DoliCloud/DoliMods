@@ -118,7 +118,6 @@ class modGoogle extends DolibarrModules
 		//							'type'=>'top',			// This is a Top menu entry
 		//							'titre'=>'MyModule top menu',
 		//							'mainmenu'=>'mymodule',
-		//							'leftmenu'=>'1',		// Use 1 if you also want to add left menu entries using this descriptor. Use 0 if left menu entries are defined in a file pre.inc.php (old school).
 		//							'url'=>'/mymodule/pagetop.php',
 		//							'langs'=>'mylangfile',	// Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 		//							'position'=>100,
@@ -131,7 +130,6 @@ class modGoogle extends DolibarrModules
 								'type'=>'top',
 								'titre'=>'MenuAgendaGoogle',
 								'mainmenu'=>'google',
-								'leftmenu'=>'0',	// To say to not overwrite menu in pre.inc.php by dynamic database menu
 								'url'=>'/google/index.php',
 								'langs'=>'google',
 								'position'=>100,

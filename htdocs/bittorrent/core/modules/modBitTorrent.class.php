@@ -128,7 +128,6 @@ class modBitTorrent extends DolibarrModules
 									'type'=>'top',			// This is a Top menu entry
 									'titre'=>'BitTorrent',
 									'mainmenu'=>'bittorrent',
-									'leftmenu'=>'1',		// Use 1 if you also want to add left menu entries using this descriptor. Use 0 if left menu entries are defined in a file pre.inc.php (old school).
 									'url'=>'/bittorrent/admin.php',
 									'langs'=>'bittorrent',	// Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 									'position'=>100,

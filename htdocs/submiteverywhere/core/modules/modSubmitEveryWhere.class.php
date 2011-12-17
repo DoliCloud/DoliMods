@@ -151,7 +151,6 @@ class modSubmitEveryWhere extends DolibarrModules
 									'type'=>'top',			// This is a Top menu entry
 									'titre'=>'Submit Everywhere',
 									'mainmenu'=>'submiteverywhere',
-									'leftmenu'=>'1',		// Use 1 if you also want to add left menu entries using this descriptor.
 									'url'=>'/submiteverywhere/index.php',
 									'langs'=>'submiteverywhere@submiteverywhere',	// Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 									'position'=>100,
