@@ -1,6 +1,6 @@
 <?php
 /* Copyright (C) 2003      Rodolphe Quiedeville <rodolphe@quiedeville.org>
- * Copyright (C) 2004-2010 Laurent Destailleur  <eldy@users.sourceforge.net>
+ * Copyright (C) 2004-2011 Laurent Destailleur  <eldy@users.sourceforge.net>
  * Copyright (C) 2005-2009 Regis Houssin        <regis@dolibarr.fr>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -352,8 +352,10 @@ print "</tr>\n";
 
 print "</table>";
 
-
-print '<br><a href="'.dol_buildpath('/cabinetmed/export.php',1).($search_sale?'?search_sale='.$search_sale:'').'">'.$langs->trans("ExportDetailsIntoFile").'</a>';
+if ($search_sale > 0)
+{
+    print '<br><a href="'.dol_buildpath('/cabinetmed/export.php',1).($search_sale?'?search_sale='.$search_sale:'').'">'.$langs->trans("ExportDetailsIntoFile").'</a>';
+}
 
 llxFooter();
 
