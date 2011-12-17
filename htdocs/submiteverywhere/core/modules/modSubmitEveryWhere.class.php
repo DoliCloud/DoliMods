@@ -178,7 +178,7 @@ class modSubmitEveryWhere extends DolibarrModules
 									'type'=>'left',			// This is a Left menu entry
 									'titre'=>'NewMessage',
 									'mainmenu'=>'submiteverywhere',
-									'url'=>'/submiteverywhere/card.php',
+									'url'=>'/submiteverywhere/card.php?action=create',
 									'langs'=>'submiteverywhere@submiteverywhere',	// Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 									'position'=>100,
 									'enabled'=>'1',			// Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.

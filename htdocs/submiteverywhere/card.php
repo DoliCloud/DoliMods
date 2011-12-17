@@ -18,9 +18,9 @@
  */
 
 /**
- *       \file       htdocs/comm/mailing/fiche.php
- *       \ingroup    mailing
- *       \brief      Fiche mailing, onglet general
+ *       \file       htdocs/submoteverywhere/card.php
+ *       \ingroup    submitew
+ *       \brief      Fiche message
  *       \version    $Id: fiche.php,v 1.2 2011/07/02 16:48:43 eldy Exp $
  */
 
@@ -32,17 +32,20 @@ if (! $res && file_exists("../../../dolibarr/htdocs/main.inc.php")) $res=@includ
 if (! $res && file_exists("../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
 if (! $res && file_exists("../../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
 if (! $res) die("Include of main fails");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/emailing.lib.php");
 require_once(DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php');
-require_once(DOL_DOCUMENT_ROOT."/core/class/CMailFile.class.php");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/functions2.lib.php");
-require_once(DOL_DOCUMENT_ROOT."/comm/mailing/class/mailing.class.php");
 require_once(DOL_DOCUMENT_ROOT."/core/class/html.formother.class.php");
+require_once(DOL_DOCUMENT_ROOT."/core/class/html.formadmin.class.php");
+dol_include_once("/submiteverywhere/core/lib/submiteverywhere.lib.php");
+dol_include_once("/submiteverywhere/class/SubmitewMessage.class.php");
+
+$id=GETPOST('id');
+$action=GETPOST('action');
 
 $langs->load("mails");
+$langs->load("submiteverywhere@submiteverywhere");
 
-if (! $user->rights->mailing->lire || $user->societe_id > 0)
-accessforbidden();
+//if (! $user->rights->mailing->lire || $user->societe_id > 0) accessforbidden();
 
 $message = '';
 
@@ -72,7 +75,7 @@ $substitutionarrayfortest=array(
 
 
 // Action clone object
-if ($_POST["action"] == 'confirm_clone' && $_POST['confirm'] == 'yes')
+if ($action == 'confirm_clone' && $_POST['confirm'] == 'yes')
 {
 	if (empty($_REQUEST["clone_content"]) && empty($_REQUEST["clone_receivers"]))
 	{
@@ -90,225 +93,206 @@ if ($_POST["action"] == 'confirm_clone' && $_POST['confirm'] == 'yes')
 		else
 		{
 			$mesg=$object->error;
-			$_GET['action']='';
-			$_GET['id']=$_REQUEST['id'];
+			$action='';
 		}
 	}
 }
 
 // Action send emailing for everybody
-if ($_REQUEST["action"] == 'sendallconfirmed' && $_REQUEST['confirm'] == 'yes')
+if ($action == 'sendallconfirmed' && $_REQUEST['confirm'] == 'yes')
 {
-	if (empty($conf->global->MAILING_LIMIT_SENDBYWEB))
+	$mil=new SubmitewMessage($db);
+	$result=$mil->fetch($id);
+
+	$upload_dir = $conf->submiteverywhere->dir_output . "/" . get_exdir($mil->id,2,0,1);
+
+	if ($mil->statut == 0)
 	{
-		// Pour des raisons de securite, on ne permet pas cette fonction via l'IHM,
-		// on affiche donc juste un message
-		$message='<div class="warning">'.$langs->trans("MailingNeedCommand").'</div>';
-		$message.='<br><textarea cols="70" rows="'.ROWS_2.'" wrap="soft">php ./scripts/emailings/mailing-send.php '.$_GET["id"].'</textarea>';
-		$message.='<br><br><div class="warning">'.$langs->trans("MailingNeedCommand2").'</div>';
-		$_GET["action"]='';
+		dol_print_error('','ErrorMessageIsNotValidated');
+		exit;
 	}
-	else if ($conf->global->MAILING_LIMIT_SENDBYWEB < 0)
+
+	$id       = $mil->id;
+	$subject  = $mil->sujet;
+	$message  = $mil->body;
+	$from     = $mil->email_from;
+	$replyto  = $mil->email_replyto;
+	$errorsto = $mil->email_errorsto;
+	// Le message est-il en html
+	$msgishtml=-1;	// Unknown by default
+	if (preg_match('/[\s\t]*<html>/i',$message)) $msgishtml=1;
+
+	// Warning, we must not use begin-commit transaction here
+	// because we want to save update for each mail sent.
+
+	$nbok=0; $nbko=0;
+
+	// On choisit les cibles non deja envoyes pour ce message (statut=0)
+	// ou envoyes en erreur (statut=-1)
+	$sql = "SELECT mc.rowid, mc.label, mc.targetcode, mc.langcode, mc.source_url, mc.login, mc.pass, mc.comment, mc.position, mc.titlelength, mc.descshortlength, mc.desclonglength";
+	$sql .= " FROM ".MAIN_DB_PREFIX."submitew_targets as mc";
+	$sql .= " WHERE mc.statut < 1 AND mc.fk_mailing = ".$id;
+
+	dol_syslog("fiche.php: select targets sql=".$sql, LOG_DEBUG);
+	$resql=$db->query($sql);
+	if ($resql)
 	{
-		$message='<div class="warning">'.$langs->trans("NotEnoughPermissions").'</div>';
-		$_GET["action"]='';
-	}
-	else
-	{
-		$mil=new Mailing($db);
-		$result=$mil->fetch($_REQUEST['id']);
+		$num = $db->num_rows($resql);	// nb of possible recipients
 
-		$upload_dir = $conf->mailing->dir_output . "/" . get_exdir($mil->id,2,0,1);
-
-		if ($mil->statut == 0)
+		if ($num)
 		{
-			dol_print_error('','ErrorMailIsNotValidated');
-			exit;
-		}
+			dol_syslog("comm/mailing/fiche.php: nb of targets = ".$num, LOG_DEBUG);
 
-		$id       = $mil->id;
-		$subject  = $mil->sujet;
-		$message  = $mil->body;
-		$from     = $mil->email_from;
-		$replyto  = $mil->email_replyto;
-		$errorsto = $mil->email_errorsto;
-		// Le message est-il en html
-		$msgishtml=-1;	// Unknown by default
-		if (preg_match('/[\s\t]*<html>/i',$message)) $msgishtml=1;
-
-		// Warning, we must not use begin-commit transaction here
-		// because we want to save update for each mail sent.
-
-		$nbok=0; $nbko=0;
-
-		// On choisit les mails non deja envoyes pour ce mailing (statut=0)
-		// ou envoyes en erreur (statut=-1)
-		$sql = "SELECT mc.rowid, mc.nom, mc.prenom, mc.email, mc.other, mc.source_url, mc.source_id, mc.source_type";
-		$sql .= " FROM ".MAIN_DB_PREFIX."mailing_cibles as mc";
-		$sql .= " WHERE mc.statut < 1 AND mc.fk_mailing = ".$id;
-
-		dol_syslog("fiche.php: select targets sql=".$sql, LOG_DEBUG);
-		$resql=$db->query($sql);
-		if ($resql)
-		{
-			$num = $db->num_rows($resql);	// nb of possible recipients
-
-			if ($num)
-			{
-				dol_syslog("comm/mailing/fiche.php: nb of targets = ".$num, LOG_DEBUG);
-
-				// Positionne date debut envoi
-				$sql="UPDATE ".MAIN_DB_PREFIX."mailing SET date_envoi=".$db->idate(gmmktime())." WHERE rowid=".$id;
-				$resql2=$db->query($sql);
-				if (! $resql2)
-				{
-					dol_print_error($db);
-				}
-
-				// Boucle sur chaque adresse et envoie le mail
-				$i = 0;
-
-				while ($i < $num && $i < $conf->global->MAILING_LIMIT_SENDBYWEB)
-				{
-
-					$res=1;
-
-					$obj = $db->fetch_object($resql);
-
-					// sendto en RFC2822
-					$sendto = str_replace(',',' ',$obj->prenom." ".$obj->nom)." <".$obj->email.">";
-
-					// Make substitutions on topic and body. From (AA=YY;BB=CC;...) we keep YY, CC, ...
-					$other=explode(';',$obj->other);
-					$tmpfield=explode('=',$other[0],2); $other1=(isset($tmpfield[1])?$tmpfield[1]:$tmpfield[0]);
-                    $tmpfield=explode('=',$other[1],2); $other2=(isset($tmpfield[1])?$tmpfield[1]:$tmpfield[0]);
-                    $tmpfield=explode('=',$other[2],2); $other3=(isset($tmpfield[1])?$tmpfield[1]:$tmpfield[0]);
-                    $tmpfield=explode('=',$other[3],2); $other4=(isset($tmpfield[1])?$tmpfield[1]:$tmpfield[0]);
-                    $tmpfield=explode('=',$other[4],2); $other5=(isset($tmpfield[1])?$tmpfield[1]:$tmpfield[0]);
-					$substitutionarray=array(
-						'__ID__' => $obj->source_id,
-						'__EMAIL__' => $obj->email,
-						'__LASTNAME__' => $obj->nom,
-						'__FIRSTNAME__' => $obj->prenom,
-						'__OTHER1__' => $other1,
-						'__OTHER2__' => $other2,
-						'__OTHER3__' => $other3,
-						'__OTHER4__' => $other4,
-						'__OTHER5__' => $other5
-					);
-
-					$substitutionisok=true;
-                    complete_substitutions_array($substitutionarray, $langs);
-					$newsubject=make_substitutions($subject,$substitutionarray);
-					$newmessage=make_substitutions($message,$substitutionarray);
-
-					$arr_file = array();
-					$arr_mime = array();
-					$arr_name = array();
-					$arr_css  = array();
-
-					$listofpaths=dol_dir_list($upload_dir,'all',0,'','','name',SORT_ASC,0);
-					if (sizeof($listofpaths))
-					{
-						foreach($listofpaths as $key => $val)
-						{
-							$arr_file[]=$listofpaths[$key]['fullname'];
-							$arr_mime[]=dol_mimetype($listofpaths[$key]['name']);
-							$arr_name[]=$listofpaths[$key]['name'];
-						}
-					}
-
-					// Fabrication du mail
-					$mail = new CMailFile($newsubject, $sendto, $from, $newmessage,
-											$arr_file, $arr_mime, $arr_name,
-		            						'', '', 0, $msgishtml, $errorsto, $arr_css);
-
-					if ($mail->error)
-					{
-						$res=0;
-					}
-					if (! $substitutionisok)
-					{
-						$mail->error='Some substitution failed';
-						$res=0;
-					}
-
-					// Send mail
-					if ($res)
-					{
-						$res=$mail->sendfile();
-					}
-
-					if ($res)
-					{
-						// Mail successful
-						$nbok++;
-
-						dol_syslog("comm/mailing/fiche.php: ok for #".$i.($mail->error?' - '.$mail->error:''), LOG_DEBUG);
-
-						$sql="UPDATE ".MAIN_DB_PREFIX."mailing_cibles";
-						$sql.=" SET statut=1, date_envoi=".$db->idate(gmmktime())." WHERE rowid=".$obj->rowid;
-						$resql2=$db->query($sql);
-						if (! $resql2)
-						{
-							dol_print_error($db);
-						}
-					}
-					else
-					{
-						// Mail failed
-						$nbko++;
-
-						dol_syslog("comm/mailing/fiche.php: error for #".$i.($mail->error?' - '.$mail->error:''), LOG_WARNING);
-
-						$sql="UPDATE ".MAIN_DB_PREFIX."mailing_cibles";
-						$sql.=" SET statut=-1, date_envoi=".$db->idate(gmmktime())." WHERE rowid=".$obj->rowid;
-						$resql2=$db->query($sql);
-						if (! $resql2)
-						{
-							dol_print_error($db);
-						}
-					}
-
-					$i++;
-				}
-			}
-
-			// Loop finished, set global statut of mail
-			if ($nbko > 0)
-			{
-				$statut=2;	// Status 'sent partially' (because at least one error)
-			}
-			else
-			{
-				if ($nbok >= $num) $statut=3;	// Send to everybody
-				else $statut=2;	// Status 'sent partially' (because not send to everybody)
-			}
-
-			$sql="UPDATE ".MAIN_DB_PREFIX."mailing SET statut=".$statut." WHERE rowid=".$id;
-			dol_syslog("comm/mailing/fiche.php: update global status sql=".$sql, LOG_DEBUG);
+			// Positionne date debut envoi
+			$sql="UPDATE ".MAIN_DB_PREFIX."mailing SET date_envoi=".$db->idate(gmmktime())." WHERE rowid=".$id;
 			$resql2=$db->query($sql);
 			if (! $resql2)
 			{
 				dol_print_error($db);
 			}
+
+			// Boucle sur chaque adresse et envoie le mail
+			$i = 0;
+
+			while ($i < $num && $i < $conf->global->MAILING_LIMIT_SENDBYWEB)
+			{
+
+				$res=1;
+
+				$obj = $db->fetch_object($resql);
+
+				// sendto en RFC2822
+				$sendto = str_replace(',',' ',$obj->prenom." ".$obj->nom)." <".$obj->email.">";
+
+				// Make substitutions on topic and body. From (AA=YY;BB=CC;...) we keep YY, CC, ...
+				$other=explode(';',$obj->other);
+				$tmpfield=explode('=',$other[0],2); $other1=(isset($tmpfield[1])?$tmpfield[1]:$tmpfield[0]);
+                $tmpfield=explode('=',$other[1],2); $other2=(isset($tmpfield[1])?$tmpfield[1]:$tmpfield[0]);
+                $tmpfield=explode('=',$other[2],2); $other3=(isset($tmpfield[1])?$tmpfield[1]:$tmpfield[0]);
+                $tmpfield=explode('=',$other[3],2); $other4=(isset($tmpfield[1])?$tmpfield[1]:$tmpfield[0]);
+                $tmpfield=explode('=',$other[4],2); $other5=(isset($tmpfield[1])?$tmpfield[1]:$tmpfield[0]);
+				$substitutionarray=array(
+					'__ID__' => $obj->source_id,
+					'__EMAIL__' => $obj->email,
+					'__LASTNAME__' => $obj->nom,
+					'__FIRSTNAME__' => $obj->prenom,
+					'__OTHER1__' => $other1,
+					'__OTHER2__' => $other2,
+					'__OTHER3__' => $other3,
+					'__OTHER4__' => $other4,
+					'__OTHER5__' => $other5
+				);
+
+				$substitutionisok=true;
+                complete_substitutions_array($substitutionarray, $langs);
+				$newsubject=make_substitutions($subject,$substitutionarray);
+				$newmessage=make_substitutions($message,$substitutionarray);
+
+				$arr_file = array();
+				$arr_mime = array();
+				$arr_name = array();
+				$arr_css  = array();
+
+				$listofpaths=dol_dir_list($upload_dir,'all',0,'','','name',SORT_ASC,0);
+				if (sizeof($listofpaths))
+				{
+					foreach($listofpaths as $key => $val)
+					{
+						$arr_file[]=$listofpaths[$key]['fullname'];
+						$arr_mime[]=dol_mimetype($listofpaths[$key]['name']);
+						$arr_name[]=$listofpaths[$key]['name'];
+					}
+				}
+
+				// Fabrication du mail
+				$mail = new CMailFile($newsubject, $sendto, $from, $newmessage,
+										$arr_file, $arr_mime, $arr_name,
+	            						'', '', 0, $msgishtml, $errorsto, $arr_css);
+
+				if ($mail->error)
+				{
+					$res=0;
+				}
+				if (! $substitutionisok)
+				{
+					$mail->error='Some substitution failed';
+					$res=0;
+				}
+
+				// Send mail
+				if ($res)
+				{
+					$res=$mail->sendfile();
+				}
+
+				if ($res)
+				{
+					// Mail successful
+					$nbok++;
+
+					dol_syslog("comm/mailing/fiche.php: ok for #".$i.($mail->error?' - '.$mail->error:''), LOG_DEBUG);
+
+					$sql="UPDATE ".MAIN_DB_PREFIX."mailing_cibles";
+					$sql.=" SET statut=1, date_envoi=".$db->idate(gmmktime())." WHERE rowid=".$obj->rowid;
+					$resql2=$db->query($sql);
+					if (! $resql2)
+					{
+						dol_print_error($db);
+					}
+				}
+				else
+				{
+					// Mail failed
+					$nbko++;
+
+					dol_syslog("comm/mailing/fiche.php: error for #".$i.($mail->error?' - '.$mail->error:''), LOG_WARNING);
+
+					$sql="UPDATE ".MAIN_DB_PREFIX."mailing_cibles";
+					$sql.=" SET statut=-1, date_envoi=".$db->idate(gmmktime())." WHERE rowid=".$obj->rowid;
+					$resql2=$db->query($sql);
+					if (! $resql2)
+					{
+						dol_print_error($db);
+					}
+				}
+
+				$i++;
+			}
+		}
+
+		// Loop finished, set global statut of mail
+		if ($nbko > 0)
+		{
+			$statut=2;	// Status 'sent partially' (because at least one error)
 		}
 		else
 		{
-			dol_syslog($db->error());
+			if ($nbok >= $num) $statut=3;	// Send to everybody
+			else $statut=2;	// Status 'sent partially' (because not send to everybody)
+		}
+
+		$sql="UPDATE ".MAIN_DB_PREFIX."mailing SET statut=".$statut." WHERE rowid=".$id;
+		dol_syslog("comm/mailing/fiche.php: update global status sql=".$sql, LOG_DEBUG);
+		$resql2=$db->query($sql);
+		if (! $resql2)
+		{
 			dol_print_error($db);
 		}
-		$message='';
-		$_GET["action"] = '';
-
 	}
+	else
+	{
+		dol_syslog($db->error());
+		dol_print_error($db);
+	}
+	$message='';
+	$action = '';
 }
 
 // Action send test emailing
-if ($_POST["action"] == 'send' && empty($_POST["cancel"]))
+if ($action == 'send' && empty($_POST["cancel"]))
 {
-	$mil = new Mailing($db);
-	$result=$mil->fetch($_POST["mailid"]);
+	$mil = new SubmitewMessage($db);
+	$result=$mil->fetch($id);
 
 	$error=0;
 
@@ -365,17 +349,17 @@ if ($_POST["action"] == 'send' && empty($_POST["cancel"]))
 			$message='<div class="error">'.$langs->trans("ResultKo").'<br>'.$mailfile->error.' '.$result.'</div>';
 		}
 
-		$_GET["action"]='';
-		$_GET["id"]=$mil->id;
+		$action='';
+		$id=$mil->id;
 	}
 }
 
 // Action add emailing
-if ($_POST["action"] == 'add')
+if ($action == 'add')
 {
 	$message='';
 
-	$mil = new Mailing($db);
+	$mil = new SubmitewMessage($db);
 
 	$mil->email_from     = trim($_POST["from"]);
 	$mil->email_replyto  = trim($_POST["replyto"]);
@@ -401,24 +385,24 @@ if ($_POST["action"] == 'add')
 	}
 
 	$message='<div class="error">'.$message.'</div>';
-	$_GET["action"]="create";
+	$action="create";
 }
 
 // Action update description of emailing
-if ($_REQUEST["action"] == 'setdesc' || $_REQUEST["action"] == 'setfrom' || $_REQUEST["action"] == 'setreplyto' || $_REQUEST["action"] == 'seterrorsto')
+if ($action == 'setdesc' || $action == 'setfrom' || $action == 'setreplyto' || $action == 'seterrorsto')
 {
-	$mil = new Mailing($db);
-	$mil->fetch($_POST["id"]);
+	$mil = new SubmitewMessage($db);
+	$mil->fetch($id);
 
 	$upload_dir = $conf->mailing->dir_output . "/" . get_exdir($mil->id,2,0,1);
 
-	if ($_REQUEST["action"] == 'setdesc')     $mil->titre          = trim($_REQUEST["desc"]);
-	if ($_REQUEST["action"] == 'setfrom')     $mil->email_from     = trim($_REQUEST["from"]);
-	if ($_REQUEST["action"] == 'setreplyto')  $mil->email_replyto  = trim($_REQUEST["replyto"]);
-	if ($_REQUEST["action"] == 'seterrorsto') $mil->email_errorsto = trim($_REQUEST["errorsto"]);
+	if ($action == 'setdesc')     $mil->titre          = trim($_REQUEST["desc"]);
+	if ($action == 'setfrom')     $mil->email_from     = trim($_REQUEST["from"]);
+	if ($action == 'setreplyto')  $mil->email_replyto  = trim($_REQUEST["replyto"]);
+	if ($action == 'seterrorsto') $mil->email_errorsto = trim($_REQUEST["errorsto"]);
 
-	if ($_REQUEST["action"] == 'setdesc' && empty($mil->titre))      $message.=($message?'<br>':'').$langs->trans("ErrorFieldRequired",$langs->transnoentities("MailTitle"));
-	if ($_REQUEST["action"] == 'setfrom' && empty($mil->email_from)) $message.=($message?'<br>':'').$langs->trans("ErrorFieldRequired",$langs->transnoentities("MailFrom"));
+	if ($action == 'setdesc' && empty($mil->titre))      $message.=($message?'<br>':'').$langs->trans("ErrorFieldRequired",$langs->transnoentities("MailTitle"));
+	if ($action == 'setfrom' && empty($mil->email_from)) $message.=($message?'<br>':'').$langs->trans("ErrorFieldRequired",$langs->transnoentities("MailFrom"));
 
 	if (! $message)
 	{
@@ -431,15 +415,14 @@ if ($_REQUEST["action"] == 'setdesc' || $_REQUEST["action"] == 'setfrom' || $_RE
 	}
 
 	$message='<div class="error">'.$message.'</div>';
-	$_GET["action"]="";
-	$_GET["id"]=$_REQUEST["id"];
+	$action="";
 }
 
 // Action update emailing
 if (! empty($_POST["removedfileid"]))
 {
-	$mil = new Mailing($db);
-	$mil->fetch($_POST["id"]);
+	$mil = new SubmitewMessage($db);
+	$mil->fetch($id);
 
 	$upload_dir = $conf->mailing->dir_output . "/" . get_exdir($mil->id,2,0,1);
 
@@ -452,17 +435,16 @@ if (! empty($_POST["removedfileid"]))
 		$result=dol_delete_file($listofpaths[$filenb]['fullname'],1);
 	}
 
-	$_GET["action"]="edit";
-	$_GET["id"]=$_POST["id"];
+	$action="edit";
 }
 
 // Action update emailing
-if ($_POST["action"] == 'update' && empty($_POST["removedfile"]) && empty($_POST["cancel"]))
+if ($action == 'update' && empty($_POST["removedfile"]) && empty($_POST["cancel"]))
 {
 	require_once(DOL_DOCUMENT_ROOT."/core/lib/files.lib.php");
 
-	$mil = new Mailing($db);
-	$mil->fetch($_POST["id"]);
+	$mil = new SubmitewMessage($db);
+	$mil->fetch($id);
 
 	$isupload=0;
 
@@ -496,25 +478,23 @@ if ($_POST["action"] == 'update' && empty($_POST["removedfile"]) && empty($_POST
 		}
 
 		$message='<div class="error">'.$message.'</div>';
-		$_GET["action"]="edit";
-		$_GET["id"]=$_POST["id"];
+		$action="edit";
 	}
 	else
 	{
-		$_GET["action"]="edit";
-		$_GET["id"]=$_POST["id"];
+		$action="edit";
 	}
 }
 
 // Action confirmation validation
-if ($_REQUEST["action"] == 'confirm_valid')
+if ($action == 'confirm_valid')
 {
 
 	if ($_REQUEST["confirm"] == 'yes')
 	{
-		$mil = new Mailing($db);
+		$mil = new SubmitewMessage($db);
 
-		if ($mil->fetch($_REQUEST["id"]) >= 0)
+		if ($mil->fetch($id) >= 0)
 		{
 			$mil->valid($user);
 
@@ -534,13 +514,13 @@ if ($_REQUEST["action"] == 'confirm_valid')
 }
 
 // Resend
-if ($_REQUEST["action"] == 'confirm_reset')
+if ($action == 'confirm_reset')
 {
 	if ($_REQUEST["confirm"] == 'yes')
 	{
-		$mil = new Mailing($db);
+		$mil = new SubmitewMessage($db);
 
-		if ($mil->fetch($_REQUEST["id"]) >= 0)
+		if ($mil->fetch($id) >= 0)
 		{
 			$db->begin();
 
@@ -575,12 +555,12 @@ if ($_REQUEST["action"] == 'confirm_reset')
 }
 
 // Action confirmation suppression
-if ($_REQUEST["action"] == 'confirm_delete')
+if ($action == 'confirm_delete')
 {
 	if ($_REQUEST["confirm"] == 'yes')
 	{
-		$mil = new Mailing($db);
-		$mil->id = $_REQUEST["id"];
+		$mil = new SubmitewMessage($db);
+		$mil->fetch($id);
 
 		if ($mil->delete($mil->id))
 		{
@@ -593,7 +573,6 @@ if ($_REQUEST["action"] == 'confirm_delete')
 if (! empty($_POST["cancel"]))
 {
 	$action = '';
-	$_GET["id"] = isset($_POST["mailid"])?$_POST["mailid"]:$_POST["id"];
 }
 
 
@@ -602,59 +581,78 @@ if (! empty($_POST["cancel"]))
  * View
  */
 
-$help_url='EN:Module_EMailing|FR:Module_Mailing|ES:M&oacute;dulo_Mailing';
-llxHeader('',$langs->trans("Mailing"),$help_url);
+$help_url='EN:Module_SubmitEveryWhere|FR:Module_SubmitEveryWhere_Fr|ES:M&oacute;dulo_SubmitEveryWhere';
+llxHeader('','SubmitEveryWhere',$help_url);
 
 $html = new Form($db);
 $htmlother = new FormOther($db);
-$mil = new Mailing($db);
+$formadmin = new FormAdmin($db);
+$mil = new SubmitewMessage($db);
 
 
-if ($_GET["action"] == 'create')
+if ($action == 'create')
 {
 	// EMailing in creation mode
 	print '<form name="new_mailing" action="fiche.php" method="post">'."\n";
 	print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
 	print '<input type="hidden" name="action" value="add">';
 
-	print_fiche_titre($langs->trans("NewMailing"));
+	print_fiche_titre($langs->trans("NewMessage"));
 
 	dol_htmloutput_mesg($message);
 
 	print '<table class="border" width="100%">';
-	print '<tr><td width="25%" class="fieldrequired">'.$langs->trans("MailTitle").'</td><td><input class="flat" name="titre" size="40" value="'.$_POST['titre'].'"></td></tr>';
-	print '<tr><td width="25%" class="fieldrequired">'.$langs->trans("MailFrom").'</td><td><input class="flat" name="from" size="40" value="'.$conf->global->MAILING_EMAIL_FROM.'"></td></tr>';
-	print '<tr><td width="25%">'.$langs->trans("MailErrorsTo").'</td><td><input class="flat" name="errorsto" size="40" value="'.$conf->global->MAILING_EMAIL_ERRORSTO.'"></td></tr>';
+	print '<tr><td width="25%" class="fieldrequired">'.$langs->trans("Label").'</td><td><input class="flat" name="label" size="40" value="'.$_POST['label'].'"></td></tr>';
 	print '</table>';
 	print '</br><br>';
 
 	print '<table class="border" width="100%">';
-	print '<tr><td width="25%" class="fieldrequired">'.$langs->trans("MailTopic").'</td><td><input class="flat" name="sujet" size="60" value="'.$_POST['sujet'].'"></td></tr>';
-	print '<tr><td width="25%">'.$langs->trans("BackgroundColorByDefault").'</td><td colspan="3">';
-	$htmlother->select_color($_POST['bgcolor'],'bgcolor','new_mailing',0);
+
+	print '<tr><td width="25%" class="fieldrequired">'.$langs->trans("Title").'</td><td><input class="flat" name="sujet" size="60" value="'.$_POST['title'].'"></td></tr>';
+
+	print '<tr><td width="25%" class="fieldrequired">'.$langs->trans("Language").'</td><td>';
+	print $formadmin->select_language($_POST['lang_id'],'lang_id',0,0,1);
 	print '</td></tr>';
-	print '<tr><td width="25%" class="fieldrequired" valign="top">'.$langs->trans("MailMessage").'<br>';
-	print '<br><i>'.$langs->trans("CommonSubstitutions").':<br>';
+
+	print '<tr><td width="25%" class="fieldrequired" valign="top">'.$langs->trans("ShortContent").'<br>';
+	/*print '<br><i>'.$langs->trans("CommonSubstitutions").':<br>';
 	foreach($substitutionarray as $key => $val)
 	{
 		print $key.' = '.$langs->trans($val).'<br>';
 	}
-	print '</i></td>';
+	print '</i>';*/
+	print '</td>';
 	print '<td>';
 	// Editeur wysiwyg
 	require_once(DOL_DOCUMENT_ROOT."/core/class/doleditor.class.php");
-	$doleditor=new DolEditor('body',$_POST['body'],'',320,'dolibarr_mailings','',true,true,$conf->fckeditor->enabled && $conf->global->FCKEDITOR_ENABLE_MAILING,20,70);
+	$doleditor=new DolEditor('shortdesc',$_POST['shortdesc'],'',180,'dolibarr_mailings','',true,true,0 && $conf->fckeditor->enabled,5,120);
 	$doleditor->Create();
 	print '</td></tr>';
+
+	print '<tr><td width="25%" class="fieldrequired" valign="top">'.$langs->trans("LongContent").'<br>';
+	/*print '<br><i>'.$langs->trans("CommonSubstitutions").':<br>';
+	foreach($substitutionarray as $key => $val)
+	{
+		print $key.' = '.$langs->trans($val).'<br>';
+	}
+	print '</i>';*/
+	print '</td>';
+	print '<td>';
+	// Editeur wysiwyg
+	require_once(DOL_DOCUMENT_ROOT."/core/class/doleditor.class.php");
+	$doleditor=new DolEditor('longdesc',$_POST['longdesc'],'',260,'dolibarr_mailings','',true,true,0 && $conf->fckeditor->enabled,20,120);
+	$doleditor->Create();
+	print '</td></tr>';
+
 	print '</table>';
 
-	print '<br><center><input type="submit" class="button" value="'.$langs->trans("CreateMailing").'"></center>';
+	print '<br><center><input type="submit" class="button" value="'.$langs->trans("CreateMessage").'"></center>';
 
 	print '</form>';
 }
 else
 {
-	if ($mil->fetch($_GET["id"]) >= 0)
+	if ($mil->fetch($id) >= 0)
 	{
 		$upload_dir = $conf->mailing->dir_output . "/" . get_exdir($mil->id,2,0,1);
 
@@ -1078,7 +1076,7 @@ else
 
 }
 
-$db->close();
+llxFooter();
 
-llxFooter('$Date: 2011/07/02 16:48:43 $ - $Revision: 1.2 $');
+$db->close();
 ?>

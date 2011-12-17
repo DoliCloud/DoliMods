@@ -17,3 +17,7 @@ SearchAMessage=Rechercher un message
 LastSubmits=Derniers envois
 NbOfTargets=Nb de cibles
 NewMessage=Nouveau message
+ShortContent=Contenu court
+LongContent=Contenu long
+CreateMessage=Créer message
+ListOfMessage=Liste des messages

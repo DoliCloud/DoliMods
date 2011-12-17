@@ -36,10 +36,12 @@ if (! $res) die("Include of main fails");
 require_once(DOL_DOCUMENT_ROOT ."/comm/mailing/class/mailing.class.php");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/functions2.lib.php");
 
+$langs->load("mails");
 $langs->load("commercial");
 $langs->load("orders");
+$langs->load("submiteverywhere@submiteverywhere");
 
-if (! $user->rights->mailing->lire || $user->societe_id > 0) accessforbidden();
+//if (! $user->rights->mailing->lire || $user->societe_id > 0) accessforbidden();
 
 
 /*
@@ -47,7 +49,7 @@ if (! $user->rights->mailing->lire || $user->societe_id > 0) accessforbidden();
  */
 
 $help_url='EN:Module_SubmitEveryWhere|FR:Module_SubmitEveryWhere_Fr|ES:M&oacute;dulo_SubmitEveryWhere';
-llxHeader('','EMailing',$help_url);
+llxHeader('','SubmitEveryWhere',$help_url);
 
 print_fiche_titre($langs->trans("SubmitEveryWhereArea"));
 
@@ -58,7 +60,7 @@ print '<tr><td valign="top" width="30%" class="notopnoleft">';
 
 // Search message
 $var=false;
-print '<form method="post" action="'.dol_buildpath('/submiteverywhere/index.php').'">';
+print '<form method="post" action="'.dol_buildpath('/submiteverywhere/index.php',1).'">';
 print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
 print '<table class="noborder" width="100%">';
 print '<tr class="liste_titre"><td colspan="3">'.$langs->trans("SearchAMessage").'</td></tr>';
@@ -97,7 +99,7 @@ if ($result)
   print '<td colspan="2">'.$langs->trans("LastSubmits",$limit).'</td>';
   print '<td align="center">'.$langs->trans("DateCreation").'</td>';
   print '<td align="center">'.$langs->trans("NbOfTargets").'</td>';
-  print '<td align="right"><a href="'.dol_buildpath('/submiteverywhere/list.php').'">'.$langs->trans("Status").'</a></td></tr>';
+  print '<td align="right"><a href="'.dol_buildpath('/submiteverywhere/list.php',1).'">'.$langs->trans("Status").'</a></td></tr>';
 
   $num = $db->num_rows($result);
   if ($num > 0)
@@ -139,19 +141,7 @@ else
 print '</td></tr>';
 print '</table>';
 
+llxFooter();
+
 $db->close();
-
-
-if ($langs->file_exists("html/spam.html",0)) {
-    print "<br><br><br><br>".$langs->trans("Note")."<br>";
-    print '<div style="padding: 4px; background: #FAFAFA; border: 1px solid #BBBBBB;" >';
-    dol_print_file($langs,"html/spam.html",0);
-    print '</div>';
-
-    print '<br>';
- }
-
-
-llxFooter('$Date: 2011/06/20 22:08:22 $ - $Revision: 1.1 $');
-
 ?>

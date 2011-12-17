@@ -35,8 +35,9 @@ if (! $res) die("Include of main fails");
 require_once(DOL_DOCUMENT_ROOT."/comm/mailing/class/mailing.class.php");
 
 $langs->load("mails");
+$langs->load("submiteverywhere@submiteverywhere");
 
-if (!$user->rights->mailing->lire) accessforbidden();
+//if (!$user->rights->mailing->lire) accessforbidden();
 
 // Securite acces client
 if ($user->societe_id > 0)
@@ -66,7 +67,8 @@ $filteremail=$_REQUEST["filteremail"]?$_REQUEST["filteremail"]:'';
  * View
  */
 
-llxHeader('',$langs->trans("Mailing"),'EN:Module_EMailing|FR:Module_Mailing|ES:M&oacute;dulo_Mailing');
+$help_url='EN:Module_SubmitEveryWhere|FR:Module_SubmitEveryWhere_Fr|ES:M&oacute;dulo_SubmitEveryWhere';
+llxHeader('','SubmitEveryWhere',$help_url);
 
 $html = new Form($db);
 
@@ -104,9 +106,9 @@ if ($result)
 {
 	$num = $db->num_rows($result);
 
-	$title=$langs->trans("ListOfEMailings");
+	$title=$langs->trans("ListOfMessage");
 	if ($filteremail) $title.=' ('.$langs->trans("SentTo",$filteremail).')';
-	print_barre_liste($title, $page, "liste.php","",$sortfield,$sortorder,"",$num);
+	print_barre_liste($title, $page, $_SERVER["PHP_SELF"],"",$sortfield,$sortorder,"",$num);
 
 	$i = 0;
 
@@ -115,16 +117,16 @@ if ($result)
 
 	print '<table class="liste">';
 	print '<tr class="liste_titre">';
-	print_liste_field_titre($langs->trans("Ref"),"liste.php","m.rowid",$param,"","",$sortfield,$sortorder);
-	print_liste_field_titre($langs->trans("Title"),"liste.php","m.titre",$param,"","",$sortfield,$sortorder);
-	print_liste_field_titre($langs->trans("DateCreation"),"liste.php","m.date_creat",$param,"",'align="center"',$sortfield,$sortorder);
-	if (! $filteremail) print_liste_field_titre($langs->trans("NbOfEMails"),"liste.php","m.nbemail",$param,"",'align="center"',$sortfield,$sortorder);
-	if (! $filteremail) print_liste_field_titre($langs->trans("DateLastSend"),"liste.php","m.date_envoi",$param,"",'align="center"',$sortfield,$sortorder);
-	else print_liste_field_titre($langs->trans("DateSending"),"liste.php","mc.date_envoi",$param,"",'align="center"',$sortfield,$sortorder);
-	print_liste_field_titre($langs->trans("Status"),"liste.php",($filteremail?"mc.statut":"m.statut"),$param,"",'align="right"',$sortfield,$sortorder);
+	print_liste_field_titre($langs->trans("Ref"),$_SERVER["PHP_SELF"],"m.rowid",$param,"","",$sortfield,$sortorder);
+	print_liste_field_titre($langs->trans("Title"),$_SERVER["PHP_SELF"],"m.titre",$param,"","",$sortfield,$sortorder);
+	print_liste_field_titre($langs->trans("DateCreation"),$_SERVER["PHP_SELF"],"m.date_creat",$param,"",'align="center"',$sortfield,$sortorder);
+	if (! $filteremail) print_liste_field_titre($langs->trans("NbOfTargets"),$_SERVER["PHP_SELF"],"m.nbemail",$param,"",'align="center"',$sortfield,$sortorder);
+	if (! $filteremail) print_liste_field_titre($langs->trans("DateLastSend"),$_SERVER["PHP_SELF"],"m.date_envoi",$param,"",'align="center"',$sortfield,$sortorder);
+	else print_liste_field_titre($langs->trans("DateSending"),$_SERVER["PHP_SELF"],"mc.date_envoi",$param,"",'align="center"',$sortfield,$sortorder);
+	print_liste_field_titre($langs->trans("Status"),$_SERVER["PHP_SELF"],($filteremail?"mc.statut":"m.statut"),$param,"",'align="right"',$sortfield,$sortorder);
 	print "</tr>\n";
 
-	print '<form method="get" action="'.$_SERVER["PHP_SELF"].'">';
+	print '<form method="GET" action="'.$_SERVER["PHP_SELF"].'">';
 	print '<tr class="liste_titre">';
 	print '<td class="liste_titre">';
 	print '<input type="text" class="flat" name="sref" value="'.$sref.'" size="6">';
