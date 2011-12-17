@@ -19,7 +19,7 @@
  */
 
 /**
- *       \file        htdocs/compta/resultat/index.php
+ *       \file        htdocs/cabinetmed/compta.php
  *       \brief       Page reporting resultat
  *       \version     $Id: compta.php,v 1.7 2011/08/24 00:03:03 eldy Exp $
  */
@@ -37,7 +37,7 @@ require_once(DOL_DOCUMENT_ROOT."/core/lib/report.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/date.lib.php");
 
 
-$year_start=isset($_GET["year_start"])?$_GET["year_start"]:$_POST["year_start"];
+$year_start=GETPOST("year_start");
 $year_current = strftime("%Y",time());
 $nbofyear=3;
 if (! $year_start)
@@ -51,8 +51,7 @@ else
 }
 
 // Define modecompta ('CREANCES-DETTES' or 'RECETTES-DEPENSES')
-$modecompta = $conf->global->COMPTA_MODE;
-if ($_GET["modecompta"]) $modecompta=$_GET["modecompta"];
+$modecompta=GETPOST("modecompta")?GETPOST("modecompta"):$conf->global->COMPTA_MODE;
 $search_sale=GETPOST('search_sale');
 
 
@@ -93,7 +92,7 @@ report_header($nom,$nomlink,$period,$periodlink,$description,$builddate,$exportl
 
 
 /*
- * Factures clients
+ * Sums
  */
 $subtotal_ht = 0;
 $subtotal_ttc = 0;
@@ -102,7 +101,7 @@ $sql  = "SELECT f.datecons, f.fk_user, SUM(f.montant_cheque) as montant_cheque, 
 $sql.= " FROM ".MAIN_DB_PREFIX."cabinetmed_cons as f";
 $sql.= " WHERE 1 = 1";
 if ($search_sale) $sql.= " AND f.fk_user = ".$search_sale;
-if ($socid) $sql.= " AND f.fk_soc = $socid";
+if ($socid) $sql.= " AND f.fk_soc = ".$socid;
 $sql.= " GROUP BY f.datecons, f.fk_user";
 $sql.= " ORDER BY f.datecons";
 //print $sql;
@@ -353,8 +352,10 @@ print "</tr>\n";
 
 print "</table>";
 
+
+print '<br><a href="'.dol_buildpath('/cabinetmed/export.php',1).($search_sale?'?search_sale='.$search_sale:'').'">'.$langs->trans("ExportDetailsIntoFile").'</a>';
+
+llxFooter();
+
 $db->close();
-
-llxFooter('$Date: 2011/08/24 00:03:03 $ - $Revision: 1.7 $');
-
 ?>

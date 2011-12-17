@@ -129,3 +129,4 @@ ThisIsADocumentForYou=You will find, attached into this email, one or several do
 ActionAC_CABMED=Send document %s by Email
 NewOutcomeToDolibarr=Consultation %s recorder (%s)
 ZeroHereIfNoPayment=Or put zero here for free consultation
+ExportDetailsIntoFile=Export into an XLSX file (including details of patient for each day)
