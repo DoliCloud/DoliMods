@@ -92,8 +92,27 @@ class modOvh extends DolibarrModules
 		//                            1=>array('MYMODULE_MYNEWCONST2','chaine','myvalue','This is another constant to add',0) );
 
 		// Array to add new pages in new tabs
-		$this->tabs = array('thirdparty:SMS:@ovh:/ovh/sms_thirdparty.php?id=__ID__',
-		                    'member:SMS:@ovh:/ovh/sms_member.php?id=__ID__');
+		// Example: $this->tabs = array('objecttype:+tabname1:Title1:langfile@mymodule:$user->rights->mymodule->read:/mymodule/mynewtab1.php?id=__ID__',  // To add a new tab identified by code tabname1
+        //                              'objecttype:+tabname2:Title2:langfile@mymodule:$user->rights->othermodule->read:/mymodule/mynewtab2.php?id=__ID__',  // To add another new tab identified by code tabname2
+        //                              'objecttype:-tabname');                                                     // To remove an existing tab identified by code tabname
+		// where objecttype can be
+		// 'thirdparty'       to add a tab in third party view
+		// 'intervention'     to add a tab in intervention view
+		// 'order_supplier'   to add a tab in supplier order view
+		// 'invoice_supplier' to add a tab in supplier invoice view
+		// 'invoice'          to add a tab in customer invoice view
+		// 'order'            to add a tab in customer order view
+		// 'product'          to add a tab in product view
+		// 'stock'            to add a tab in stock view
+		// 'propal'           to add a tab in propal view
+		// 'member'           to add a tab in fundation member view
+		// 'contract'         to add a tab in contract view
+		// 'user'             to add a tab in user view
+		// 'group'            to add a tab in group view
+		// 'contact'          to add a tab in contact view
+		// 'categories_x'	  to add a tab in category view (replace 'x' by type of category (0=product, 1=supplier, 2=customer, 3=member)
+		$this->tabs = array('thirdparty:+sms:SMS:ovh@ovh:$user->rights->ovh->send:/ovh/sms_thirdparty.php?id=__ID__',
+		                    'member:+sms:SMS:ovh@ovh:$user->rights->ovh->send:/ovh/sms_member.php?id=__ID__');
 
 
 
