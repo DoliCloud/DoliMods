@@ -217,7 +217,8 @@ try {
                 print "Try to get OVH document\n";
                 if ($facfou->fk_statut == 0)
                 {
-                    $upload_dir = $conf->fournisseur->facture->dir_output.'/'.get_exdir($facfou->id,2).$facfou->id;
+                    $ref=dol_sanitizeFileName($facfou->ref);
+                    $upload_dir = $conf->fournisseur->facture->dir_output.'/'.get_exdir($facfou->id,2).$ref;
 
                     if (! is_dir($upload_dir)) create_exdir($upload_dir);
 
