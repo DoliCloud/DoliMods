@@ -59,9 +59,8 @@ class Patient extends CommonObject
     var $departement_code;
     var $departement;
 
-    var $pays_id;
-    var $pays_code;
-    var $pays;	// TODO obsolete
+    var $country_id;
+    var $country_code;
     var $country;
 
     var $tel;
@@ -367,7 +366,7 @@ class Patient extends CommonObject
         $this->ville=trim($this->ville);     // TODO obsolete
         $this->town=trim($this->ville);
         $this->pays_id=trim($this->pays_id); // TODO obsolete
-        $this->country_id=trim($this->pays_id);
+        $this->country_id=trim($this->country_id);
         $this->state_id=trim($this->state_id);
         $this->tel=trim($this->tel);
         $this->fax=trim($this->fax);
@@ -431,7 +430,7 @@ class Patient extends CommonObject
             $sql.= ",ville = ".($this->ville?"'".addslashes($this->ville)."'":"null");
 
             $sql .= ",fk_departement = '" . ($this->state_id?$this->state_id:'0') ."'";
-            $sql .= ",fk_pays = '" . ($this->pays_id?$this->pays_id:'0') ."'";
+            $sql .= ",fk_pays = '" . ($this->country_id?$this->country_id:'0') ."'";
 
             $sql .= ",tel = ".($this->tel?"'".addslashes($this->tel)."'":"null");
             $sql .= ",fax = ".($this->fax?"'".addslashes($this->fax)."'":"null");
@@ -1938,8 +1937,8 @@ class Patient extends CommonObject
         $this->address=$member->adresse;
         $this->cp=$member->cp;
         $this->ville=$member->ville;
-        $this->pays_code=$member->pays_code;
-        $this->pays_id=$member->pays_id;
+        $this->country_code=$member->country_code;
+        $this->country_id=$member->country_id;
         $this->tel=$member->phone;				// Prof phone
 
         $this->db->begin();
@@ -1995,8 +1994,8 @@ class Patient extends CommonObject
         $this->specimen=1;
         $this->cp='99999';
         $this->ville='MyTown';
-        $this->pays_id=1;
-        $this->pays_code='FR';
+        $this->country_id=1;
+        $this->country_code='FR';
 
         $this->code_client='CC-'.dol_print_date($now,'dayhourlog');
         $this->code_fournisseur='SC-'.dol_print_date($now,'dayhourlog');

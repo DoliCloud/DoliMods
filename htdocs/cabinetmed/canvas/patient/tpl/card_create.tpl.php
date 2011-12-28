@@ -79,13 +79,13 @@ $soc->tva_intra=$_POST["tva_intra"];
 $soc->commercial_id=$_POST["commercial_id"];
 $soc->default_lang=$_POST["default_lang"];
 
-// We set pays_id, pays_code and label for the selected country
-$soc->pays_id=$_POST["pays_id"]?$_POST["pays_id"]:$mysoc->pays_id;
-if ($soc->pays_id)
+// We set country_id, country_code and label for the selected country
+$soc->country_id=$_POST["country_id"]?$_POST["country_id"]:$mysoc->country_id;
+if ($soc->country_id)
 {
     $sql = "SELECT code, libelle";
     $sql.= " FROM ".MAIN_DB_PREFIX."c_pays";
-    $sql.= " WHERE rowid = ".$soc->pays_id;
+    $sql.= " WHERE rowid = ".$soc->country_id;
     $resql=$db->query($sql);
     if ($resql)
     {
@@ -97,6 +97,8 @@ if ($soc->pays_id)
     }
     $soc->pays_code=$obj->code;
     $soc->pays=$obj->libelle;
+    $soc->country_code=$obj->code;
+    $soc->country=$obj->libelle;
 }
 $soc->forme_juridique_code=$_POST['forme_juridique_code'];
 
@@ -147,14 +149,14 @@ dol_htmloutput_errors($GOBALS['error'],$GLOBALS['errors']);
 <?php
         // Zip / Town
         print '<tr><td>'.$langs->trans('Zip').'</td><td>';
-        print $formcompany->select_ziptown($soc->cp,'zipcode',array('town','selectpays_id','departement_id'),6);
+        print $formcompany->select_ziptown($soc->cp,'zipcode',array('town','selectcountry_id','departement_id'),6);
         print '</td><td>'.$langs->trans('Town').'</td><td>';
-        print $formcompany->select_ziptown($soc->ville,'town',array('zipcode','selectpays_id','departement_id'));
+        print $formcompany->select_ziptown($soc->ville,'town',array('zipcode','selectcountry_id','departement_id'));
         print '</td></tr>';
 
         // Country
         print '<tr><td width="25%">'.$langs->trans('Country').'</td><td colspan="3">';
-        $form->select_pays($soc->pays_id,'pays_id');
+        print $form->select_country($soc->country_id,'country_id');
         if ($user->admin) print info_admin($langs->trans("YouCanChangeValuesForThisListFromDictionnarySetup"),1);
         print '</td></tr>';
 ?>
@@ -174,12 +176,12 @@ dol_htmloutput_errors($GOBALS['error'],$GLOBALS['errors']);
 <?php
         print '<tr>';
         // IdProf1 (SIREN for France)
-        $idprof=$langs->transcountry('ProfId1',$soc->pays_code);
+        $idprof=$langs->transcountry('ProfId1',$soc->country_code);
         print '<td>'.$idprof.'</td><td>';
         print '<input type="text" name="idprof1" size="6" maxlength="6" value="'.$soc->idprof1.'">';
         print '</td>';
         // IdProf2 (SIRET for France)
-        $idprof=$langs->transcountry('ProfId2',$soc->pays_code);
+        $idprof=$langs->transcountry('ProfId2',$soc->country_code);
         print '<td>'.$idprof.'</td><td>';
         print '<input type="text" name="idprof2" size="6" maxlength="6" value="'.$soc->idprof2.'">';
         print '</td>';
@@ -187,7 +189,7 @@ dol_htmloutput_errors($GOBALS['error'],$GLOBALS['errors']);
         print '<tr>';
 
         // IdProf3 (APE for France)
-        $idprof=$langs->transcountry('ProfId3',$soc->pays_code);
+        $idprof=$langs->transcountry('ProfId3',$soc->country_code);
         print '<td>'.$idprof.'</td><td colspan="3">';
 
         print '<input type="text" name="idprof3" size="18" maxlength="32" value="'.$soc->idprof3.'"> ('.$conf->format_date_short_java.')';
@@ -205,16 +207,16 @@ dol_htmloutput_errors($GOBALS['error'],$GLOBALS['errors']);
         // Legal Form
         print '<tr><td>'.$langs->trans('JuridicalStatus').'</td>';
         print '<td>';
-        if ($GLOBALS['mysoc']->pays_id)
+        if ($GLOBALS['mysoc']->country_id)
         {
-            $formcompany->select_forme_juridique($soc->forme_juridique_code, $GLOBALS['mysoc']->pays_code, "AND f.code > '100000'");
+            $formcompany->select_forme_juridique($soc->forme_juridique_code, $GLOBALS['mysoc']->country_code, "AND f.code > '100000'");
         }
         else
         {
             print $GLOBALS['countrynotdefined'];
         }
         print '</td>';
-        print '<td>'.$langs->transcountry('ProfId4',$soc->pays_code).'</td>';
+        print '<td>'.$langs->transcountry('ProfId4',$soc->country_code).'</td>';
         print '<td><input type="text" name="idprof4" size="32" value="'.$soc->idprof4.'"></td>';
         print '</tr>';
 
