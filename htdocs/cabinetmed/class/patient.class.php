@@ -103,8 +103,6 @@ class Patient extends CommonObject
     var $prospect;					// 0=no prospect, 1=prospect
     var $fournisseur;				// =0no supplier, 1=supplier
 
-    var $prefixCustomerIsRequired;
-    var $prefixSupplierIsRequired;
     var $code_client;
     var $code_fournisseur;
     var $code_compta;
@@ -149,8 +147,6 @@ class Patient extends CommonObject
         $this->typent_id  = 0;
         $this->effectif_id  = 0;
         $this->forme_juridique_code  = 0;
-        $this->prefixCustomerIsRequired = 0;
-        $this->prefixSupplierIsRequired = 0;
         $this->tva_assuj = 1;
 
         return 1;
@@ -1469,7 +1465,6 @@ class Patient extends CommonObject
             $mod = new $var;
 
             $this->code_fournisseur = $mod->getNextValue($objsoc,$type);
-            $this->prefixSupplierIsRequired = $mod->prefixIsRequired;
 
             dol_syslog("Societe::get_codefournisseur code_fournisseur=".$this->code_fournisseur." module=".$var);
         }
