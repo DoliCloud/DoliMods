@@ -76,9 +76,8 @@ if ($contenttype)       header('Content-Type: '.$contenttype.($outputencoding?';
 if ($attachment) 		header('Content-Disposition: attachment; filename="'.$shortfilename.'"');
 
 
-/*
- * Sums
- */
+// Get records
+
 $subtotal_ht = 0;
 $subtotal_ttc = 0;
 $encaiss_chq = $encaiss_esp = $encaiss_tie = $encaiss_car = array();
@@ -89,7 +88,6 @@ $sql.= " FROM ".MAIN_DB_PREFIX."cabinetmed_cons as f, ".MAIN_DB_PREFIX."societe 
 $sql.= " WHERE f.fk_soc = s.rowid";
 if ($search_sale) $sql.= " AND f.fk_user = ".$search_sale;
 if ($socid) $sql.= " AND f.fk_soc = ".$socid;
-$sql.= " GROUP BY f.datecons, f.fk_user";
 $sql.= " ORDER BY f.datecons, f.rowid";
 //print $sql;
 
@@ -104,21 +102,23 @@ if ($result)
 	{
 		$row = $db->fetch_object($result);
         $rowid=$row->cid;
-		$d=dol_print_date($db->jdate($row->datecons),'%Y-%m-%d');
-		$dm=dol_print_date($db->jdate($row->datecons),'%Y-%m');
-        $consult[$rowid] = array('date'=>$db->jdate($row->datecons), 'name'=>$row->name, 'fk_user'=>$row->fk_user, 'type'=>$row->typevisit, 'codageccam'=>$row->codageccam);
+		$ymd=dol_print_date($db->jdate($row->datecons),'%Y-%m-%d');
+		$ym=dol_print_date($db->jdate($row->datecons),'%Y-%m');
+		$y=dol_print_date($db->jdate($row->datecons),'%Y');
+		$m=dol_print_date($db->jdate($row->datecons),'%m');
+        $consult[$rowid] = array('date'=>$db->jdate($row->datecons), 'ymd'=>$ymd, 'ym'=>$ym, 'y'=>$y, 'm'=>$m, 'name'=>$row->name, 'fk_user'=>$row->fk_user, 'type'=>$row->typevisit, 'codageccam'=>$row->codageccam);
         $encaiss_chq[$rowid] += $row->montant_cheque;
 		$encaiss_esp[$rowid] += $row->montant_espece;
         $encaiss_tie[$rowid] += $row->montant_tiers;
         $encaiss_car[$rowid] += $row->montant_carte;
-		$encaiss_chq[$dm] += $row->montant_cheque;
-        $encaiss_esp[$dm] += $row->montant_espece;
-        $encaiss_tie[$dm] += $row->montant_tiers;
-        $encaiss_car[$dm] += $row->montant_carte;
-        $encaiss_chq[$d] += $row->montant_cheque;
-        $encaiss_esp[$d] += $row->montant_espece;
-        $encaiss_tie[$d] += $row->montant_tiers;
-        $encaiss_car[$d] += $row->montant_carte;
+		$encaiss_chq[$ym] += $row->montant_cheque;
+        $encaiss_esp[$ym] += $row->montant_espece;
+        $encaiss_tie[$ym] += $row->montant_tiers;
+        $encaiss_car[$ym] += $row->montant_carte;
+        $encaiss_chq[$ymd] += $row->montant_cheque;
+        $encaiss_esp[$ymd] += $row->montant_espece;
+        $encaiss_tie[$ymd] += $row->montant_tiers;
+        $encaiss_car[$ymd] += $row->montant_carte;
         $i++;
 	}
 	$db->free($result);
@@ -129,9 +129,7 @@ else {
 
 
 
-/*
- * Build file
- */
+// Build file
 
 $model='excel2007';
 
@@ -158,7 +156,7 @@ $array_selected['montant_cheque']=1;
 $array_selected['montant_carte']=1;
 $array_selected['montant_espece']=1;
 $array_selected['montant_tiers']=1;
-$array_export_fields = array('cid'=>'ID', 'name'=>'Name', 'date'=>'Date', 'type'=>'Type', 'codageccam'=>'CCAM', 'montant_cheque'=>'Cheque', 'montant_carte'=>'CreditCard', 'montant_espece'=>'Cash', 'montant_tiers'=>'Other');
+$array_export_fields = array('cid'=>'ID', 'name'=>'Name', 'date'=>'Date', 'type'=>'CS', 'codageccam'=>'CCAM', 'montant_cheque'=>'Cheque', 'montant_carte'=>'CreditCard', 'montant_espece'=>'Cash', 'montant_tiers'=>'Other');
 $objexport->array_export_fields[0]=$array_export_fields;
 $objexport->array_export_alias[0]=$array_alias;
 
@@ -168,23 +166,21 @@ $result=$objmodel->open_file($outputfile, $outputlangs);
 // Genere en-tete
 $objmodel->write_header($outputlangs);
 
-// Genere ligne de titre
-$objmodel->write_title($array_export_fields,$array_selected,$outputlangs);
-
-$objmodel->workbook->getActiveSheet()->getColumnDimension('A')->setWidth(12);
-$objmodel->workbook->getActiveSheet()->getColumnDimension('B')->setWidth(6);
-$objmodel->workbook->getActiveSheet()->getColumnDimension('C')->setWidth(32);
-$objmodel->workbook->getActiveSheet()->getColumnDimension('J')->setWidth(12);
+$objmodel->workbook->disconnectWorksheets();
 
 // Write records
+$activesheet=0;
 $olddate=0;
+$oldym=0;
 $nbact=0;
 $nbccam=0;
-$i=1;
+$i=0;
 foreach($consult as $rowid => $val)
 {
     $objp=(object) array();
-    if ($i > 1 && ($olddate != $consult[$rowid]['date']))    // Break on day
+
+    // Break on day, show total for day
+    if ($i > 0 && ($olddate != $consult[$rowid]['date']))
     {
         $objp->date=$langs->trans("Total");
         $objp->type=$nbact;
@@ -207,7 +203,7 @@ foreach($consult as $rowid => $val)
                      'startcolor' => array('rgb' => 'CCCCCC'),
                      'endcolor'   => array('argb' => 'FFFFFFFF')
             ));
-        //$objmodel->workbook->getActiveSheet()->getStyle($i+1)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        //$objmodel->workbook->getActiveSheet()->getStyle()->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
         $objmodel->workbook->getActiveSheet()->getStyle('J'.($i+1))->getFont()->getColor()->applyFromArray( array('rgb' => '303070') );
         $objmodel->workbook->getActiveSheet()->SetCellValueByColumnAndRow(9, $i+1, $encaiss_chq[$d]+$encaiss_esp[$d]+$encaiss_tie[$d]+$encaiss_car[$d]);
         $objmodel->write_record($array_selected,$objp,$outputlangs);
@@ -219,10 +215,66 @@ foreach($consult as $rowid => $val)
         $objp=(object) array();
         $objmodel->write_record(array(),$objp,$outputlangs);
         $i++;
+        $objmodel->write_record(array(),$objp,$outputlangs);
+        $i++;
 
         $olddate=$consult[$rowid]['date'];
         $nbact=0;
         $nbccam=0;
+    }
+
+    // Break on new month
+    if ($oldym != $consult[$rowid]['ym'])
+    {
+        // Add new sheet
+        $objWorksheet = $objmodel->workbook->createSheet();
+        $objWorksheet->setTitle($langs->transnoentitiesnoconv("Month".sprintf("%02d",$consult[$rowid]['m'])).' '.$consult[$rowid]['y']);
+        $objmodel->workbook->setActiveSheetIndex($activesheet);
+        $activesheet++;
+        $objmodel->workbook->getActiveSheet()->getSheetView()->setZoomScale(90);
+        $objmodel->workbook->getActiveSheet()->getColumnDimension('A')->setWidth(12);
+        $objmodel->workbook->getActiveSheet()->getColumnDimension('B')->setWidth(6);
+        $objmodel->workbook->getActiveSheet()->getColumnDimension('C')->setWidth(32);
+        $objmodel->workbook->getActiveSheet()->getColumnDimension('J')->setWidth(12);
+        // Print definition
+        $objmodel->workbook->getActiveSheet()->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_PORTRAIT);
+        $objmodel->workbook->getActiveSheet()->getPageSetup()->setFitToWidth(1);
+        $objmodel->workbook->getActiveSheet()->getPageSetup()->setFitToHeight(0);
+
+        $objmodel->row=0;
+
+        $oldym=$consult[$rowid]['ym'];
+        $i=0;
+    }
+
+    // Add title line
+    if ($nbact == 0 && $nbccam == 0)
+    {
+        $objp->date=$langs->trans("Date");
+        $objp->cid=$langs->trans("Id");
+        $objp->name=$langs->trans("Name");
+        $objp->fk_user=$langs->trans("Author");
+        $objp->type=$langs->trans("Type");
+        $objp->codageccam=$langs->trans("CCAM");
+        $objp->montant_cheque=$langs->trans("Cheque");
+        $objp->montant_espece=$langs->trans("Cash");
+        $objp->montant_tiers =$langs->trans("Other");
+        $objp->montant_carte =$langs->trans("CreditCard");
+        $objmodel->workbook->getActiveSheet()->getStyle('A'.($i+1).':I'.($i+1))->getFont()->getColor()->applyFromArray( array('rgb' => '303040') );
+        $objmodel->workbook->getActiveSheet()->getStyle('A'.($i+1).':I'.($i+1))->getBorders()->applyFromArray(array(
+                 'allborders' => array(
+                     'style' => PHPExcel_Style_Border::BORDER_DASHDOT,
+                     'color' => array('rgb' => '808080')
+             )));
+        $objmodel->workbook->getActiveSheet()->getStyle('A'.($i+1).':I'.($i+1))->getFont()->setBold(true);
+        $objmodel->workbook->getActiveSheet()->getStyle('A'.($i+1).':I'.($i+1))->getFill()->applyFromArray(array(
+                             'type'       => PHPExcel_Style_Fill::FILL_GRADIENT_LINEAR,
+                             'rotation'   => 0,
+                             'startcolor' => array('rgb' => 'EEEEEE'),
+                             'endcolor'   => array('argb' => 'FFFFFFFF')
+        ));
+        $objmodel->write_record($array_selected,$objp,$outputlangs);
+        $i++;
     }
 
     $objp->date=dol_print_date($consult[$rowid]['date'],'day');
@@ -258,7 +310,9 @@ foreach($consult as $rowid => $val)
 }
 
 $objp=(object) array();
-if ($i != 0)    // Break on day
+
+// Break on day, show total for day
+if ($i != 0)
 {
     $objp->date=$langs->trans("Total");
     $objp->type=$nbact;
@@ -287,6 +341,8 @@ if ($i != 0)    // Break on day
         $objmodel->write_record($array_selected,$objp,$outputlangs);
 }
 
+$objmodel->workbook->setActiveSheetIndex(0);
+//$objmodel->workbook->getActiveSheet()->setSheetState(PHPExcel_Worksheet::SHEETSTATE_VERYHIDDEN);
 
 // Genere en-tete
 $objmodel->write_footer($outputlangs);

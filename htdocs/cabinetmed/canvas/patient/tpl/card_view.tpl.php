@@ -109,8 +109,8 @@ print '</td>';
 // ProfId1 (SIREN for France)
 $profid=$langs->transcountry('ProfId1',$soc->pays_code);
 print '<tr><td>'.$profid.'</td><td>';
-print $soc->siren;
-if ($soc->siren)
+print $soc->idprof1;
+if ($soc->idprof1)
 {
     if ($soc->id_prof_check(1,$soc) > 0) print ' &nbsp; '.$soc->id_prof_url(1,$soc);
     else print ' <font class="error">('.$langs->trans("ErrorWrongValue").')</font>';
@@ -119,8 +119,8 @@ print '</td>';
 // ProfId2 (SIRET for France)
 $profid=$langs->transcountry('ProfId2',$soc->pays_code);
 print '<td>'.$profid.'</td><td>';
-print $soc->siret;
-if ($soc->siret)
+print $soc->idprof2;
+if ($soc->idprof2)
 {
     if ($soc->id_prof_check(2,$soc) > 0) print ' &nbsp; '.$soc->id_prof_url(2,$soc);
     else print ' <font class="error">('.$langs->trans("ErrorWrongValue").')</font>';
@@ -130,11 +130,11 @@ print '</td></tr>';
 // ProfId3 (APE for France)
 $profid=$langs->transcountry('ProfId3',$soc->pays_code);
 print '<tr><td>'.$profid.'</td><td colspan="3">';
-print $soc->ape;
-if ($soc->ape)
+print $soc->idprof3;
+if ($soc->idprof3)
 {
     print ' &nbsp; ';
-    $birthdatearray=strptime($soc->ape,$conf->format_date_short);
+    $birthdatearray=strptime($soc->idprof3,$conf->format_date_short);
     $birthdate=dol_mktime(0,0,0,$birthdatearray['tm_mon']+1,($birthdatearray['tm_mday']),($birthdatearray['tm_year']+1900),true);
     //var_dump($birthdatearray);
     //print ($now-$birthdate).' - '.ConvertSecondToTime($now-$birthdate,'year').'<br>';

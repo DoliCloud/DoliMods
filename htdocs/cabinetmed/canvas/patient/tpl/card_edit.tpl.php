@@ -70,9 +70,9 @@ if ($_POST["nom"])
     $soc->url=$_POST["url"];
     $soc->capital=$_POST["capital"];
     $soc->barcode=$_POST["barcode"];
-    $soc->siren=$_POST["idprof1"];
-    $soc->siret=$_POST["idprof2"];
-    $soc->ape=$_POST["idprof3"];
+    $soc->idprof1=$_POST["idprof1"];
+    $soc->idprof2=$_POST["idprof2"];
+    $soc->idprof3=$_POST["idprof3"];
     $soc->idprof4=$_POST["idprof4"];
     $soc->typent_id=$_POST["typent_id"];
     $soc->effectif_id=$_POST["effectif_id"];
@@ -205,19 +205,19 @@ print '<tr>';
 // IdProf1 (SIREN for France)
 $idprof=$langs->transcountry('ProfId1',$soc->pays_code);
 print '<td>'.$idprof.'</td><td>';
-print '<input type="text" name="idprof1" size="6" maxlength="6" value="'.$soc->siren.'">';
+print '<input type="text" name="idprof1" size="6" maxlength="6" value="'.$soc->idprof1.'">';
 print '</td>';
 // IdProf2 (SIRET for France)
 $idprof=$langs->transcountry('ProfId2',$soc->pays_code);
 print '<td>'.$idprof.'</td><td>';
-print '<input type="text" name="idprof2" size="6" maxlength="6" value="'.$soc->siret.'">';
+print '<input type="text" name="idprof2" size="6" maxlength="6" value="'.$soc->idprof2.'">';
 print '</td>';
 print '</tr>';
 print '<tr>';
 // IdProf3 (APE for France)
 $idprof=$langs->transcountry('ProfId3',$soc->pays_code);
 print '<td>'.$idprof.'</td><td colspan="3">';
-print '<input type="text" name="idprof3" size="18" maxlength="32" value="'.$soc->ape.'"> ('.$conf->format_date_short_java.')';
+print '<input type="text" name="idprof3" size="18" maxlength="32" value="'.$soc->idprof3.'"> ('.$conf->format_date_short_java.')';
 print '</td>';
 print '</tr>';
 

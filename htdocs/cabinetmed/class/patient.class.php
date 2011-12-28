@@ -381,9 +381,9 @@ class Patient extends CommonObject
         $this->fax = preg_replace("/\./","",$this->fax);
         $this->email=trim($this->email);
         $this->url=$this->url?clean_url($this->url,0):'';
-        $this->siren=trim($this->siren);
-        $this->siret=trim($this->siret);
-        $this->ape=trim($this->ape);
+        $this->idprof1=trim($this->idprof1);
+        $this->idprof2=trim($this->idprof2);
+        $this->idprof3=trim($this->idprof3);
         $this->idprof4=trim($this->idprof4);
         $this->prefix_comm=trim($this->prefix_comm);
 
@@ -442,9 +442,9 @@ class Patient extends CommonObject
             $sql .= ",email = ".($this->email?"'".addslashes($this->email)."'":"null");
             $sql .= ",url = ".($this->url?"'".addslashes($this->url)."'":"null");
 
-            $sql .= ",siren   = '". addslashes($this->siren)   ."'";
-            $sql .= ",siret   = '". addslashes($this->siret)   ."'";
-            $sql .= ",ape     = '". addslashes($this->ape)     ."'";
+            $sql .= ",siren   = '". addslashes($this->idprof1) ."'";
+            $sql .= ",siret   = '". addslashes($this->idprof2) ."'";
+            $sql .= ",ape     = '". addslashes($this->idprof3) ."'";
             $sql .= ",idprof4 = '". addslashes($this->idprof4) ."'";
 
             $sql .= ",tva_assuj = ".($this->tva_assuj!=''?"'".$this->tva_assuj."'":"null");
@@ -648,12 +648,9 @@ class Patient extends CommonObject
 
                 $this->parent    = $obj->parent;
 
-                $this->siren		= $obj->siren; // TODO obsolete
-                $this->idprof1		= $obj->siren;
-                $this->siret		= $obj->siret; // TODO obsolete
-                $this->idprof2		= $obj->siret;
-                $this->ape			= $obj->ape; // TODO obsolete
-                $this->idprof3		= $obj->ape;
+                $this->idprof1		= $obj->idprof1;
+                $this->idprof2		= $obj->idprof2;
+                $this->idprof3		= $obj->idprof3;
                 $this->idprof4		= $obj->idprof4;
 
                 $this->capital   = $obj->capital;
@@ -2008,8 +2005,6 @@ class Patient extends CommonObject
 
         $this->code_client='CC-'.dol_print_date($now,'dayhourlog');
         $this->code_fournisseur='SC-'.dol_print_date($now,'dayhourlog');
-        $this->siren='123456789';
-        $this->siret='ABCDE';
         $this->capital=10000;
         $this->client=1;
         $this->prospect=1;
@@ -2018,6 +2013,11 @@ class Patient extends CommonObject
         $this->tva_intra='EU1234567';
         $this->note_public='This is a comment (public)';
         $this->note='This is a comment (private)';
+
+        $this->idprof1='idprof1';
+        $this->idprof2='idprof2';
+        $this->idprof3='idprof3';
+        $this->idprof4='idprof4';
     }
 
 }
