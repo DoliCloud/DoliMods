@@ -169,7 +169,7 @@ th .button {
     box-shadow: none !important;
 	-moz-border-radius:0px !important;
 	-webkit-border-radius:0px !important;
-	border-radius:0px !important;	
+	border-radius:0px !important;
 }
 
 /* ============================================================================== */
@@ -1543,6 +1543,8 @@ border-radius: 6px;
 /* Calendar                                                                       */
 /* ============================================================================== */
 
+img.datecallink { padding-left: 2px !important; padding-right: 2px !important; }
+
 .ui-datepicker-trigger {
 	vertical-align: middle;
 	cursor: pointer;
@@ -1565,7 +1567,7 @@ table.dp {
     border-bottom: solid 1px #222222;
     padding: 0px;
 	border-spacing: 0px;
-	border-collapse: collapse;     
+	border-collapse: collapse;
 }
 .dp td, .tpHour td, .tpMinute td{padding:2px; font-size:10px;}
 /* Barre titre */
@@ -1618,6 +1620,7 @@ color:#0B63A2;
 vertical-align:middle;
 cursor: pointer;
 }
+
 
 
 /* ============================================================================== */
