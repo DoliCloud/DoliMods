@@ -753,7 +753,7 @@ if ($socid > 0)
         print '<br><b>'.$langs->trans("TypeVisite").'</b>: &nbsp; &nbsp; &nbsp; ';
         print '<input type="radio" class="flat" name="typevisit" value="CS" id="cs"'.($consult->typevisit=='CS'?' checked="checked"':'').'> '.$langs->trans("CS");
         print ' &nbsp; &nbsp; ';
-        print '<input type="radio" class="flat" name="typevisit" value="CS2" id="c2"'.($consult->typevisit=='C2'?' checked="checked"':'').'> '.$langs->trans("CS2");
+        print '<input type="radio" class="flat" name="typevisit" value="CS2" id="c2"'.($consult->typevisit=='CS2'?' checked="checked"':'').'> '.$langs->trans("CS2");
         print ' &nbsp; &nbsp; ';
         print '<input type="radio" class="flat" name="typevisit" value="CCAM" id="ccam"'.($consult->typevisit=='CCAM'?' checked="checked"':'').'> '.$langs->trans("CCAM");
         print '<br>';
@@ -1081,10 +1081,7 @@ if ($action == '' || $action == 'delete')
 }
 
 
-
-
+llxFooter();
 
 $db->close();
-
-llxFooter('$Date: 2011/08/31 14:56:07 $ - $Revision: 1.41 $');
 ?>

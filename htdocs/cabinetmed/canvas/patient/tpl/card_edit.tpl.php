@@ -22,6 +22,7 @@ global $db,$conf,$mysoc,$langs,$user;
 
 require_once(DOL_DOCUMENT_ROOT ."/core/class/html.formcompany.class.php");
 require_once(DOL_DOCUMENT_ROOT ."/core/class/html.formfile.class.php");
+require_once(DOL_DOCUMENT_ROOT ."/core/lib/company.lib.php");
 
 $form=new Form($GLOBALS['db']);
 $formcompany=new FormCompany($GLOBALS['db']);
@@ -63,6 +64,8 @@ if ($_POST["nom"])
     $soc->address=$_POST["adresse"];
     $soc->cp=$_POST["zipcode"];
     $soc->ville=$_POST["town"];
+    $soc->zip=$_POST["zipcode"];
+    $soc->town=$_POST["town"];
     $soc->state_id=$_POST["departement_id"];
     $soc->tel=$_POST["tel"];
     $soc->fax=$_POST["fax"];
@@ -93,22 +96,11 @@ if ($_POST["nom"])
     $soc->country_id=$_POST["country_id"]?$_POST["country_id"]:$mysoc->country_id;
     if ($soc->country_id)
     {
-        $sql = "SELECT code, libelle";
-        $sql.= " FROM ".MAIN_DB_PREFIX."c_pays";
-        $sql.= " WHERE rowid = ".$soc->country_id;
-        $resql=$db->query($sql);
-        if ($resql)
-        {
-            $obj = $db->fetch_object($resql);
-        }
-        else
-        {
-            dol_print_error($db);
-        }
-        $soc->pays_code=$obj->code;
-        $soc->pays=$obj->libelle;
-        $soc->country_code=$obj->code;
-        $soc->country=$obj->libelle;
+        $tmparray=getCountry($soc->country_id,'all');
+        $soc->pays_code   =$tmparray['code'];
+        $soc->pays        =$tmparray['label'];
+        $soc->country_code=$tmparray['code'];
+        $soc->country     =$tmparray['label'];
     }
     $soc->forme_juridique_code=$_POST['forme_juridique_code'];
 }
