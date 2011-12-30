@@ -60,7 +60,7 @@ class ActionsConcatPdf
         $htmlform=new Form($this->db);
 
         $out='';
-        $out.='<tr>';
+        $out.='<tr class="liste_titre">';
         $out.='<td align="left" colspan="4" valign="top" class="formdoc">';
         $out.=$langs->trans("ConcatFile").' ';
         $filescgv=glob($conf->concatpdf->dir_output."/invoices/*.pdf");
