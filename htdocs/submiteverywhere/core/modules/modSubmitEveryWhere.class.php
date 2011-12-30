@@ -199,20 +199,19 @@ class modSubmitEveryWhere extends DolibarrModules
 									'user'=>0);				// 0=Menu for internal users, 1=external users, 2=both
 		$r++;
 
-		// Example to declare another Left Menu entry:
-		// $this->menu[$r]=array(	'fk_menu'=>'r=1',		// Use r=value where r is index key used for the parent menu entry (higher parent must be a top menu entry)
-		//							'type'=>'left',			// This is a Left menu entry
-		//							'titre'=>'NewsSubmitter left menu 2',
-		//							'mainmenu'=>'NewsSubmitter',
-		//							'url'=>'/NewsSubmitter/pagelevel2.php',
-		//							'langs'=>'mylangfile',	// Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
-		//							'position'=>100,
-		//							'enabled'=>'1',			// Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
-		//							'perms'=>'1',			// Use 'perms'=>'$user->rights->NewsSubmitter->level1->level2' if you want your menu with a permission rules
-		//							'target'=>'',
-		//							'user'=>2);				// 0=Menu for internal users, 1=external users, 2=both
-		// $r++;
-
+		/*$this->menu[$r]=array(	'fk_menu'=>'fk_mainmenu=tools,fk_leftmenu=',		// Use r=value where r is index key used for the parent menu entry (higher parent must be a top menu entry)
+									'type'=>'left',			// This is a Left menu entry
+									'titre'=>'Submit Everywhere home',
+									'mainmenu'=>'submiteverywhere',
+									'url'=>'/submiteverywhere/index.php',
+									'langs'=>'submiteverywhere@submiteverywhere',	// Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
+									'position'=>100,
+									'enabled'=>'1',			// Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
+									'perms'=>'1',			// Use 'perms'=>'$user->rights->NewsSubmitter->level1->level2' if you want your menu with a permission rules
+									'target'=>'',
+									'user'=>0);				// 0=Menu for internal users, 1=external users, 2=both
+		$r++;
+		*/
 
 		// Exports
 		$r=1;
