@@ -1,6 +1,5 @@
 # Dolibarr language file - fr_FR - ovh
 CHARSET=UTF-8
-
 OvhSmsSetup=Configuration module Ovh
 OvhSmsRecap=Récapitulatif compte principal
 OvhSmsNick=Nick Handle du compte principal
