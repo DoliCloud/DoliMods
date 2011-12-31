@@ -77,7 +77,7 @@ $htmlother=new FormOther($db);
 // Affiche en-tete du rapport
 $nom=$langs->trans("CabinetMedAnnualSummaryInputOutput");
 //$nom.='<br>('.$langs->trans("SeeReportInDueDebtMode",'<a href="'.$_SERVER["PHP_SELF"].'?year_start='.$year_start.'&modecompta=CREANCES-DETTES">','</a>').')';
-$period="$year_start - $year_end";
+$period=$year_start." - ".$year_end;
 if ($user->rights->societe->client->voir || $socid)
 {
     $period.='<br>';
@@ -87,6 +87,7 @@ if ($user->rights->societe->client->voir || $socid)
 $periodlink=($year_start?"<a href='".$_SERVER["PHP_SELF"]."?year_start=".($year_start-1)."&search_sale=".$search_sale."'>".img_previous()."</a> <a href='".$_SERVER["PHP_SELF"]."?year_start=".($year_start+1)."&search_sale=".$search_sale."'>".img_next()."</a>":"");
 $description=$langs->trans("CabinetMedRulesResultInOut");
 $builddate=time();
+$exportlink='';
 
 report_header($nom,$nomlink,$period,$periodlink,$description,$builddate,$exportlink);
 

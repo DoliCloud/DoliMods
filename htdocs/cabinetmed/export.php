@@ -72,10 +72,6 @@ if (!$user->rights->cabinetmed->read) accessforbidden();
  * View
  */
 
-if ($contenttype)       header('Content-Type: '.$contenttype.($outputencoding?'; charset='.$outputencoding:''));
-if ($attachment) 		header('Content-Disposition: attachment; filename="'.$shortfilename.'"');
-
-
 // Get records
 
 $subtotal_ht = 0;
@@ -192,7 +188,7 @@ foreach($consult as $rowid => $val)
 
         $objmodel->workbook->getActiveSheet()->getStyle('A'.($i+1).':J'.($i+1))->getBorders()->applyFromArray(array(
                  'allborders' => array(
-                     'style' => PHPExcel_Style_Border::BORDER_DASHDOT,
+                     'style' => PHPExcel_Style_Border::BORDER_THIN,
                      'color' => array('rgb' => '808080')
              )));
         $objmodel->workbook->getActiveSheet()->getStyle('A'.($i+1).':J'.($i+1))->getFont()->setBold(true);
@@ -263,7 +259,7 @@ foreach($consult as $rowid => $val)
         $objmodel->workbook->getActiveSheet()->getStyle('A'.($i+1).':I'.($i+1))->getFont()->getColor()->applyFromArray( array('rgb' => '303040') );
         $objmodel->workbook->getActiveSheet()->getStyle('A'.($i+1).':I'.($i+1))->getBorders()->applyFromArray(array(
                  'allborders' => array(
-                     'style' => PHPExcel_Style_Border::BORDER_DASHDOT,
+                     'style' => PHPExcel_Style_Border::BORDER_THIN,
                      'color' => array('rgb' => '808080')
              )));
         $objmodel->workbook->getActiveSheet()->getStyle('A'.($i+1).':I'.($i+1))->getFont()->setBold(true);
@@ -295,7 +291,7 @@ foreach($consult as $rowid => $val)
     $objmodel->workbook->getActiveSheet()->getStyle('A'.($i+1).':I'.($i+1))->getBorders()->applyFromArray(
          array(
              'allborders' => array(
-                 'style' => PHPExcel_Style_Border::BORDER_DASHDOT,
+                 'style' => PHPExcel_Style_Border::BORDER_THIN,
                  'color' => array(
                      'rgb' => '808080'
                  )
@@ -324,7 +320,7 @@ if ($i != 0)
 
         $objmodel->workbook->getActiveSheet()->getStyle('A'.($i+1).':J'.($i+1))->getBorders()->applyFromArray(array(
                  'allborders' => array(
-                     'style' => PHPExcel_Style_Border::BORDER_DASHDOT,
+                     'style' => PHPExcel_Style_Border::BORDER_THIN,
                      'color' => array('rgb' => '808080')
              )));
         $objmodel->workbook->getActiveSheet()->getStyle('A'.($i+1).':J'.($i+1))->getFont()->setBold(true);
@@ -341,7 +337,7 @@ if ($i != 0)
         $objmodel->write_record($array_selected,$objp,$outputlangs);
 }
 
-$objmodel->workbook->setActiveSheetIndex(0);
+//$objmodel->workbook->setActiveSheetIndex(0);
 //$objmodel->workbook->getActiveSheet()->setSheetState(PHPExcel_Worksheet::SHEETSTATE_VERYHIDDEN);
 
 // Genere en-tete
@@ -355,17 +351,21 @@ $db->close();
 
 
 // Output file
-$contentype=dol_mimetype($outputfile);
+$outputencoding='';
+$contenttype=dol_mimetype($outputfile);
 $attachment=1;
 
+header('Content-Description: File Transfer');
 if ($contenttype)       header('Content-Type: '.$contenttype.($outputencoding?'; charset='.$outputencoding:''));
 if ($attachment) 		header('Content-Disposition: attachment; filename="'.$filename.'"');
-
+header('Content-Length: ' . dol_filesize($outputfile));
 // Ajout directives pour resoudre bug IE
-//header('Cache-Control: Public, must-revalidate');
-//header('Pragma: public');
+header('Cache-Control: Public, must-revalidate');
+header('Pragma: public');
 
-// Clean parameters
+ob_clean();
+flush();
+
 $result=readfile($outputfile);
 if (! $result) print 'File '.$outputfile.' was empty.';
 
