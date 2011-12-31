@@ -82,8 +82,8 @@ class modPHPSysInfo extends DolibarrModules
 		// Dependencies
 		$this->depends = array();		// List of modules id that must be enabled if this module is enabled
 		$this->requiredby = array();	// List of modules id to disable if this one is disabled
-		$this->phpmin = array(5,2);					// Minimum version of PHP required by module
-		$this->need_dolibarr_version = array(2,9,-1);	// Minimum version of Dolibarr required by module
+		$this->phpmin = array(5,2);					    // Minimum version of PHP required by module
+		$this->need_dolibarr_version = array(3,2,-3);	// Minimum version of Dolibarr required by module
 		$this->langfiles = array("phpsysinfo@phpsysinfo");
 
 		// Constants
@@ -140,7 +140,7 @@ class modPHPSysInfo extends DolibarrModules
 		$this->menu[$r]=array(	'fk_menu'=>0,			// Put 0 if this is a top menu
 									'type'=>'top',			// This is a Top menu entry
 									'titre'=>'PHPSysInfo',
-									'mainmenu'=>'phpsysinfo',
+									'mainmenu'=>'phpsysinfo',    // Required if type='top'
 									'url'=>'/phpsysinfo/index.php',
 									'langs'=>'',	// Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 									'position'=>100,
@@ -151,18 +151,30 @@ class modPHPSysInfo extends DolibarrModules
 		$r++;
 
 		// Example to declare a Left Menu entry:
-		$this->menu[$r]=array(	'fk_menu'=>'mainmenu=home,leftmenu=setup',		// Use r=value where r is index key used for the parent menu entry (higher parent must be a top menu entry)
+		/*
+		$this->menu[$r]=array(	'fk_menu'=>'fk_mainmenu=home,fk_leftmenu=system',		// Use r=value where r is index key used for the parent menu entry (higher parent must be a top menu entry)
 									'type'=>'left',			// This is a Left menu entry
-									'titre'=>'PHPSysInfo',
-									'mainmenu'=>'phpsysinfo',
+									'titre'=>'PHPSysInfo2',
 									'url'=>'/phpsysinfo/index.php',
 									'langs'=>'',	// Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
-									'position'=>100,
+									'position'=>101,
 									'enabled'=>'1',			// Define condition to show or hide menu entry. Use '$conf->phpsysinfo->enabled' if entry must be visible if module is enabled.
 									'perms'=>'1',			// Use 'perms'=>'$user->rights->phpsysinfo->level1->level2' if you want your menu with a permission rules
 									'target'=>'',
 									'user'=>2);				// 0=Menu for internal users, 1=external users, 2=both
-		// $r++;
+        $r++;
+		$this->menu[$r]=array(	'fk_menu'=>'fk_mainmenu=home',		// Use r=value where r is index key used for the parent menu entry (higher parent must be a top menu entry)
+									'type'=>'left',			// This is a Left menu entry
+									'titre'=>'PHPSysInfo3',
+									'url'=>'/phpsysinfo/index.php',
+									'langs'=>'',	// Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
+									'position'=>102,
+									'enabled'=>'1',			// Define condition to show or hide menu entry. Use '$conf->phpsysinfo->enabled' if entry must be visible if module is enabled.
+									'perms'=>'1',			// Use 'perms'=>'$user->rights->phpsysinfo->level1->level2' if you want your menu with a permission rules
+									'target'=>'',
+									'user'=>2);				// 0=Menu for internal users, 1=external users, 2=both
+		$r++;
+		*/
 		//
 		// Example to declare another Left Menu entry:
 		// $this->menu[$r]=array(	'fk_menu'=>'r=1',		// Use r=value where r is index key used for the parent menu entry (higher parent must be a top menu entry)
@@ -196,10 +208,11 @@ class modPHPSysInfo extends DolibarrModules
 	}
 
 	/**
-	 *		\brief      Function called when module is enabled.
-	 *					The init function add constants, boxes, permissions and menus (defined in constructor) into Dolibarr database.
-	 *					It also creates data directories.
-	 *      \return     int             1 if OK, 0 if KO
+	 *	Function called when module is enabled.
+	 *	The init function add constants, boxes, permissions and menus (defined in constructor) into Dolibarr database.
+	 *	It also creates data directories.
+	 *
+	 *  @return     int             1 if OK, 0 if KO
 	 */
 	function init()
 	{
@@ -211,10 +224,11 @@ class modPHPSysInfo extends DolibarrModules
 	}
 
 	/**
-	 *		\brief		Function called when module is disabled.
-	 *              	Remove from database constants, boxes and permissions from Dolibarr database.
-	 *					Data directories are not deleted.
-	 *      \return     int             1 if OK, 0 if KO
+	 *	Function called when module is disabled.
+	 *  Remove from database constants, boxes and permissions from Dolibarr database.
+	 *	Data directories are not deleted.
+	 *
+	 *  @return     int             1 if OK, 0 if KO
 	 */
 	function remove()
 	{
@@ -225,11 +239,12 @@ class modPHPSysInfo extends DolibarrModules
 
 
 	/**
-	 *		\brief		Create tables, keys and data required by module
-	 * 					Files llx_table1.sql, llx_table1.key.sql llx_data.sql with create table, create keys
-	 * 					and create data commands must be stored in directory /PHPSysInfo/sql/
-	 *					This function is called by this->init.
-	 * 		\return		int		<=0 if KO, >0 if OK
+	 *	Create tables, keys and data required by module
+	 * 	Files llx_table1.sql, llx_table1.key.sql llx_data.sql with create table, create keys
+	 * 	and create data commands must be stored in directory /PHPSysInfo/sql/
+	 *	This function is called by this->init.
+	 *
+	 * 	@return		int				<=0 if KO, >0 if OK
 	 */
 	function load_tables()
 	{

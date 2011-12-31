@@ -387,7 +387,7 @@ else
     }
     else
     {
-        print  "<IMG src=\"".dol_buildpath('/scanner/images/scan.jpg',1)."\" width=\"$PREVIEW_WIDTH_PX\" height=\"$PREVIEW_HEIGHT_PX\" name=\"Preview\"><br>\n";
+        print  "<IMG src=\"".dol_buildpath('/scanner/img/scan.jpg',1)."\" width=\"$PREVIEW_WIDTH_PX\" height=\"$PREVIEW_HEIGHT_PX\" name=\"Preview\"><br>\n";
     }
     print  "</td>\n";
 
