@@ -247,9 +247,9 @@ dol_htmloutput_errors($GOBALS['error'],$GLOBALS['errors']);
 </table>
 <br>
 
-<center>
+<div align="center">
 	<input type="submit" class="button" value="<?php echo $langs->trans('AddThirdParty'); ?>">
-</center>
+</div>
 
 </form>
 
