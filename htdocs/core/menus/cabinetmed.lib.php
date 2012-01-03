@@ -531,7 +531,7 @@ function print_cabinetmed_menu($db,$atarget,$type_user)
 
     $tabMenu=array();
     $menuArbo = new Menubase($db,'cabinetmed','top');
-    $newTabMenu = $menuArbo->menuTopCharger($_SESSION['mainmenu'],'',$type_user,'cabinetmed',$tabMenu);
+    $newTabMenu = $menuArbo->menuTopCharger('','',$type_user,'cabinetmed',$tabMenu);
 
     for($i=0; $i<count($newTabMenu); $i++)
     {
