@@ -149,7 +149,7 @@ $form=new Form($db);
 if ($msg) print $msg.'<br>';
 
 
-$dbann=new DoliDb('mysqli', $dbhostchien, $dbuserchien, $dbpasswordchien, $dbdatabasechien);
+$dbann=getDoliDBInstance('mysqli', $dbhostchien, $dbuserchien, $dbpasswordchien, $dbdatabasechien, 3306);
 if (! $dbann->connected)
 {
 	dolibarr_print_error($dbann,"Can not connect to server ".$dbhostchien." with user ".$dbuserchien);

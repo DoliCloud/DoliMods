@@ -46,7 +46,7 @@ llxHeader();
 
 $form=new Form($db);
 
-$dbann=new DoliDb('mysqli', $dbhostann, $dbuserann, $dbpasswordann, $dbdatabaseann);
+$dbann=getDoliDBInstance('mysqli', $dbhostann, $dbuserann, $dbpasswordann, $dbdatabaseann, 3306);
 if (! $dbann->connected)
 {
 	dolibarr_print_error($dbann,"Can not connect to server ".$dbhostann." with user ".$dbuserann);
