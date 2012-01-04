@@ -56,7 +56,7 @@ $search_sale=GETPOST('search_sale');
 
 
 // Security check
-$socid = isset($_REQUEST["socid"])?$_REQUEST["socid"]:'';
+$socid = GETPOST("socid");
 if ($user->societe_id > 0) $socid = $user->societe_id;
 //if (!$user->rights->cabinetmed->lire)
 //accessforbidden();
@@ -355,7 +355,12 @@ print "</table>";
 
 if ($search_sale > 0)
 {
-    print '<br><a href="'.dol_buildpath('/cabinetmed/export.php',1).($search_sale?'?search_sale='.$search_sale:'').'">'.$langs->trans("ExportDetailsIntoFile").'</a>';
+    print '<br><form action="'.dol_buildpath('/cabinetmed/export.php',1).'" method="POST">';
+    print $langs->trans("ExportDetailsIntoFile").'<br>';
+    print '<input type="hidden" name="search_sale" value="'.$search_sale.'">';
+    print $langs->trans("Year").': <input type="text" name="year" value="'.(GETPOST('year')?GETPOST('year'):dol_print_date(dol_now(),'%Y')).'" size="6"> ';
+    print '<input type="submit" class="button" name="submit" value="'.($langs->trans("Export")).'">';
+    print '</form>';
 }
 
 llxFooter();

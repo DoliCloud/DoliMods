@@ -1,6 +1,6 @@
 <?php
 /* Copyright (C) 2003      Rodolphe Quiedeville <rodolphe@quiedeville.org>
- * Copyright (C) 2004-2011 Laurent Destailleur  <eldy@users.sourceforge.net>
+ * Copyright (C) 2004-2012 Laurent Destailleur  <eldy@users.sourceforge.net>
  * Copyright (C) 2005-2009 Regis Houssin        <regis@dolibarr.fr>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -39,24 +39,8 @@ require_once(DOL_DOCUMENT_ROOT."/core/lib/files.lib.php");
 
 $langs->load("bills");
 
-$year_start=GETPOST("year_start");
-$year_current = strftime("%Y",time());
-$nbofyear=3;
-if (! $year_start)
-{
-	$year_start = $year_current - ($nbofyear-1);
-	$year_end = $year_current;
-}
-else
-{
-	$year_end=$year_start + ($nbofyear-1);
-}
-
-// Define modecompta ('CREANCES-DETTES' or 'RECETTES-DEPENSES')
-$modecompta = $conf->global->COMPTA_MODE;
-if ($_GET["modecompta"]) $modecompta=$_GET["modecompta"];
+$year=GETPOST("year");
 $search_sale=GETPOST('search_sale');
-
 
 // Security check
 $socid =GETPOST("socid");
@@ -83,9 +67,10 @@ $sql.= " s.nom as name";
 $sql.= " FROM ".MAIN_DB_PREFIX."cabinetmed_cons as f, ".MAIN_DB_PREFIX."societe as s";
 $sql.= " WHERE f.fk_soc = s.rowid";
 if ($search_sale) $sql.= " AND f.fk_user = ".$search_sale;
-if ($socid) $sql.= " AND f.fk_soc = ".$socid;
+if ($socid)       $sql.= " AND f.fk_soc = ".$socid;
+if ($year)        $sql.= " AND f.datecons BETWEEN '".$db->idate(dol_get_first_day($year,1))."' AND '".$db->idate(dol_get_last_day($year,12))."'";
 $sql.= " ORDER BY f.datecons, f.rowid";
-//print $sql;
+//print $sql;exit;
 
 //print $sql;
 dol_syslog("get consultations sql=".$sql);
@@ -121,6 +106,7 @@ if ($result)
 }
 else {
 	dol_print_error($db);
+	exit;
 }
 
 
@@ -137,7 +123,7 @@ require_once($dir.$file);
 $objmodel = new $classname($db);
 
 $dirname=$conf->cabinetmed->dir_temp;
-$filename='export_'.$user->id.'.xlsx';
+$filename='export_'.dol_sanitizeFileName($user->lastname).($year?'_'.$year:'').'.xlsx';
 $outputfile=$dirname."/".$filename;
 dol_mkdir($dirname);
 $outputlangs=dol_clone($langs);
