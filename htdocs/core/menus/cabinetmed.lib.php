@@ -540,7 +540,7 @@ function print_cabinetmed_menu($db,$atarget,$type_user)
             //var_dump($newTabMenu[$i]);
 
             $idsel=(empty($newTabMenu[$i]['mainmenu'])?'none':$newTabMenu[$i]['mainmenu']);
-            if ($newTabMenu[$i]['right'] == true)	// Is allowed
+            if ($newTabMenu[$i]['perms'] == true)	// Is allowed
             {
                 if (preg_match("/^(http:\/\/|https:\/\/)/i",$newTabMenu[$i]['url']))
                 {
