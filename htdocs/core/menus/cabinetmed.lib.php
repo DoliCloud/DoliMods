@@ -565,10 +565,10 @@ function print_cabinetmed_menu($db,$atarget,$type_user)
                 else $classname='class="tmenu"';
 
                 print_start_menu_entry($idsel);
-                print '<a class="tmenuimage" href="'.$url.'"'.($newTabMenu[$i]['atarget']?" target='".$newTabMenu[$i]['atarget']."'":($atarget?' target="'.$atarget.'"':'')).'>';
+                print '<a class="tmenuimage" href="'.$url.'"'.($newTabMenu[$i]['target']?" target='".$newTabMenu[$i]['target']."'":($atarget?' target="'.$atarget.'"':'')).'>';
                 print '<div class="'.$id.' '.$idsel.'"><span class="'.$id.' tmenuimage" id="mainmenuspan_'.$idsel.'"></span></div>';
                 print '</a>';
-                print '<a '.$classname.' id="mainmenua_'.$idsel.'" href="'.$url.'"'.($newTabMenu[$i]['atarget']?" target='".$newTabMenu[$i]['atarget']."'":($atarget?' target="'.$atarget.'"':'')).'>';
+                print '<a '.$classname.' id="mainmenua_'.$idsel.'" href="'.$url.'"'.($newTabMenu[$i]['target']?" target='".$newTabMenu[$i]['target']."'":($atarget?' target="'.$atarget.'"':'')).'>';
                 print_text_menu_entry($newTabMenu[$i]['titre']);
                 print '</a>';
                 print_end_menu_entry();
