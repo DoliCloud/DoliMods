@@ -139,7 +139,7 @@ if (1 == 1)
 		$mesg = $px->isGraphKo();
 		if (! $mesg)
 		{
-			$px->SetType('lines');
+			$px->SetType(array('lines'));
 			$px->SetLegend(array("Nb annonces ".$categ));
 			$px->SetLegendWidthMin(180);
 			$px->SetWidth($WIDTH);
