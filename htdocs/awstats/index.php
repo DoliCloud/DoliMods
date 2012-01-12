@@ -22,7 +22,7 @@ include("./pre.inc.php");
 include_once("./lib/awstats.lib.php");
 include_once(DOL_DOCUMENT_ROOT."/core/class/html.formfile.class.php");
 
-$langs->load("awstats");
+$langs->load("awstats@awstats");
 $langs->load("others");
 
 //$conf->global->BETTERAWSTATS_AWSTATS_LIB='e:/Mes Developpements/awstats/wwwroot/cgi-bin/lib';
