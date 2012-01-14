@@ -166,14 +166,14 @@ if ($conf->use_javascript_ajax)
 
 
 print '<table class="noborder" width="100%">';
-print '<tr class="liste_titre"><td rowspan="2">'.$langs->trans("Month").'</td>';
+print '<tr class="liste_titre"><td>&nbsp;</td>';
 
 for ($annee = $year_start ; $annee <= $year_end ; $annee++)
 {
 	print '<td align="center" colspan="6">'.$annee.'</td>';
 }
 print '</tr>';
-print '<tr class="liste_titre">';
+print '<tr class="liste_titre"><td>'.$langs->trans("Month").'</td>';
 for ($annee = $year_start ; $annee <= $year_end ; $annee++)
 {
 //	print '<td align="right">'.$langs->trans("Outcome").'</td>';
