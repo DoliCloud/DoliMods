@@ -21,10 +21,9 @@
  */
 
 /**
- *      \file       htdocs/admin/facture.php
- *      \ingroup    facture
- *      \brief      Page to setup invoice module
- *      \version    $Id: admin.php,v 1.4 2011/07/13 16:20:35 eldy Exp $
+ *      \file       htdocs/admin/admin.php
+ *      \ingroup    cabinetmed
+ *      \brief      Page to setup module cabinetmed
  */
 
 $res=0;
