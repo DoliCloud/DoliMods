@@ -20,7 +20,6 @@
  *	    \file       htdocs/concatpdf/admin/concatpdf.php
  *      \ingroup    concatpdf
  *      \brief      Page to setup module ConcatPdf
- *		\version    $Id: concatpdf.php,v 1.3 2011/08/10 10:21:23 eldy Exp $
  */
 
 define('NOCSRFCHECK',1);
@@ -37,7 +36,6 @@ require_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/files.lib.php");
 require_once(DOL_DOCUMENT_ROOT.'/core/class/html.formadmin.class.php');
 require_once(DOL_DOCUMENT_ROOT.'/core/class/html.formfile.class.php');
-dol_include_once("/monitoring/lib/monitoring.lib.php");	// We still use old writing to be compatible with old version
 
 
 if (!$user->admin) accessforbidden();
