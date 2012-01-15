@@ -119,13 +119,13 @@ class modCabinetMed extends DolibarrModules
                             );
 
         // Array to add new pages in new tabs
-        $this->tabs = array('thirdparty:+tabcontacts:Correspondants:@cabinetmed:/cabinetmed/contact.php?socid=__ID__',
-                            'thirdparty:+tabantecedents:AntecedentsShort:@cabinetmed:/cabinetmed/antecedant.php?socid=__ID__',
-                            'thirdparty:+tabtraitetallergies:TraitEtAllergies:@cabinetmed:/cabinetmed/traitetallergies.php?socid=__ID__',
-                            'thirdparty:+tabconsultations:ConsultationsShort:@cabinetmed:/cabinetmed/consultations.php?socid=__ID__',
-                            'thirdparty:+tabexambio:ResultExamBio:@cabinetmed:/cabinetmed/exambio.php?socid=__ID__',
-                            'thirdparty:+tabexamautre:ResultExamAutre:@cabinetmed:/cabinetmed/examautre.php?socid=__ID__',
-                            'thirdparty:+tabdocument:Courriers:@cabinetmed:/cabinetmed/documents.php?socid=__ID__',
+        $this->tabs = array('thirdparty:+tabcontacts:Correspondants:cabinetmed@cabinetmed:/cabinetmed/contact.php?socid=__ID__',
+                            'thirdparty:+tabantecedents:AntecedentsShort:cabinetmed@cabinetmed:/cabinetmed/antecedant.php?socid=__ID__',
+                            'thirdparty:+tabtraitetallergies:TraitEtAllergies:cabinetmed@cabinetmed:/cabinetmed/traitetallergies.php?socid=__ID__',
+                            'thirdparty:+tabconsultations:ConsultationsShort:cabinetmed@cabinetmed:/cabinetmed/consultations.php?socid=__ID__',
+                            'thirdparty:+tabexambio:ResultExamBio:cabinetmed@cabinetmed:/cabinetmed/exambio.php?socid=__ID__',
+                            'thirdparty:+tabexamautre:ResultExamAutre:cabinetmed@cabinetmed:/cabinetmed/examautre.php?socid=__ID__',
+                            'thirdparty:+tabdocument:Courriers:cabinetmed@cabinetmed:/cabinetmed/documents.php?socid=__ID__',
                             'thirdparty:-customer',
                             'thirdparty:-document',
                             'thirdparty:-notify');
