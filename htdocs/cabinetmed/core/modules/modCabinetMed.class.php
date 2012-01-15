@@ -18,8 +18,7 @@
  */
 
 /**     \defgroup   cabinetmed     Module CabinetMed
- *      \brief      Example of a module descriptor.
- *                  Such a file must be copied into htdocs/includes/module directory.
+ *      \brief      Module to manage a medical center
  */
 
 /**
@@ -131,15 +130,21 @@ class modCabinetMed extends DolibarrModules
                             'thirdparty:-document',
                             'thirdparty:-notify');
         // where entity can be
-        // 'thirdparty'       to add a tab in third party view
-        // 'intervention'     to add a tab in intervention view
-        // 'supplier_order'   to add a tab in supplier order view
-        // 'supplier_invoice' to add a tab in supplier invoice view
-        // 'invoice'          to add a tab in customer invoice view
-        // 'order'            to add a tab in customer order view
-        // 'product'          to add a tab in product view
-        // 'propal'           to add a tab in propal view
-        // 'member'           to add a tab in fundation member view
+		// 'thirdparty'       to add a tab in third party view
+		// 'intervention'     to add a tab in intervention view
+		// 'order_supplier'   to add a tab in supplier order view
+		// 'invoice_supplier' to add a tab in supplier invoice view
+		// 'invoice'          to add a tab in customer invoice view
+		// 'order'            to add a tab in customer order view
+		// 'product'          to add a tab in product view
+		// 'stock'            to add a tab in stock view
+		// 'propal'           to add a tab in propal view
+		// 'member'           to add a tab in fundation member view
+		// 'contract'         to add a tab in contract view
+		// 'user'             to add a tab in user view
+		// 'group'            to add a tab in group view
+		// 'contact'          to add a tab in contact view
+		// 'categories_x'	  to add a tab in category view (replace 'x' by type of category (0=product, 1=supplier, 2=customer, 3=member)
 
         // Dictionnaries
         if (! isset($conf->cabinetmed->enabled)) $conf->cabinetmed->enabled=0;
