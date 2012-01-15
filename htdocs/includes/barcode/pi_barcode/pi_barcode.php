@@ -1,6 +1,6 @@
 <?php
 
-// ******************************************************* ©2008 Pitoo.com *****
+// *******************************************************  2008 Pitoo.com *****
 // *****                   CODES A BARRES - Php script                     *****
 // *****************************************************************************
 // *****              (c) 2002 - pitoo.com - mail@pitoo.com                *****
@@ -9,12 +9,12 @@
 // ***** Ce script est "FREEWARE",  il  peut  etre  librement copie et reutilise
 // ***** dans vos propres pages et applications.  Il peut egalement etre modifie
 // ***** ou ameliore.
-// ***** CEPENDANT :  par  respect  pour l'auteur,  avant d'utiliser,  recopier, 
+// ***** CEPENDANT :  par  respect  pour l'auteur,  avant d'utiliser,  recopier,
 // ***** modifier ce code vous vous engagez a :
 // ***** - conserver intact l'entete de ce fichier ( les commentaires comportant
 // *****   Le nom du script,  le copyright le nom de l'auteur et son e-mail,  ce
 // *****   texte et l'historique des mises a jour ).
-// ***** - conserver intact la  mention  'pitoo.com'  imprimee aleatoirement sur 
+// ***** - conserver intact la  mention  'pitoo.com'  imprimee aleatoirement sur
 // *****   l'image du code genere dans environ 2% des cas.
 // ***** - envoyer un  e-mail  a l'auteur  mail(a)pitoo.com  lui indiquant votre
 // *****   intention d'utiliser le resultat de son travail.
@@ -36,11 +36,11 @@ $last_version = "V2.9" ;
 // ***** V2.6  - 10/07/2008 - pitoo.com
 // *****       - Petites corrections de bugs d'affichage et de positionnement
 // ***** V2.5  - 08/07/2008 - pitoo.com
-// *****       - Réécriture/Encapsulation de toutes les fonctions dans la Classe
-// *****       - Ajout d'une fonction permettant d'utiliser le script pour 
+// *****       - Reecriture/Encapsulation de toutes les fonctions dans la Classe
+// *****       - Ajout d'une fonction permettant d'utiliser le script pour
 // *****         enregistrer l'image sur le disque au lieu de l'afficher
-// *****       - Ajout de la possibilité de colorer le code
-// *****       - Ajout de la posibilité de générer deux formats PNG ou GIF
+// *****       - Ajout de la possibilite de colorer le code
+// *****       - Ajout de la posibilite de generer deux formats PNG ou GIF
 // *****       - correction d'un bug dans le checksum (10='-') du C11
 // *****	   - corrections majeures de structures de code
 // ***** V2.05 - 13/06/2006 - pitoo.com
@@ -55,8 +55,8 @@ $last_version = "V2.9" ;
 // ***** V2.01 - 18/12/2003 - pitoo.com
 // *****       - Correction de bug pour checksum C128 = 100 / 101 / 102
 // ***** V2.00 - 19/06/2003 - pitoo.com
-// *****       - Réécriture de toutes les fonctions pour génération directe de
-// *****         l'image du code barre en PNG plutôt que d'utiliser une 
+// *****       - Reecriture de toutes les fonctions pour generation directe de
+// *****         l'image du code barre en PNG plutot que d'utiliser une
 // *****         multitude de petits fichiers GIFs
 // ***** V1.32 - 21/12/2002 - pitoo.com
 // *****       - Ecriture du code 39
@@ -76,41 +76,41 @@ $last_version = "V2.9" ;
 // *****************************************************************************
 // *****                        CLASSE pi_barcode                          *****
 // *****************************************************************************
-// ***** pi_barcode()               : Constructeur et ré-initialisation
-// ***** 
+// ***** pi_barcode()               : Constructeur et re-initialisation
+// *****
 // *****************************************************************************
-// ***** Méthodes Publiques :
+// ***** Methodes Publiques :
 // *****************************************************************************
 // ***** setSize($h, $w=0, $cz=0)   : Hauteur mini=15px
 // *****                            : Largeur
 // *****                            : Zones Calmes mini=10px
 // ***** setText($text='AUTO')      : Texte sous les barres (ou AUTO ou '')
-// ***** hideCodeType()             : Désactive l'impression du Type de code
+// ***** hideCodeType()             : Desactive l'impression du Type de code
 // ***** setColors($fg, $bg=0)      : Couleur des Barres et du Fond
-// ***** 
-// ***** setCode($code)*            : Enregistre le code a générer
+// *****
+// ***** setCode($code)*            : Enregistre le code a generer
 // ***** setType($type)*            : EAN, UPC, C39...
-// ***** 
-// ***** utiliser l'une ou l'autre de ces deux méthodes :
-// ***** showBarcodeImage()**       : Envoie l'image PNG du code à l'affichage
-// ***** writeBarcodeFile($file)**  : crée un fichier image du Code à Barres
-// ***** 
+// *****
+// ***** utiliser l'une ou l'autre de ces deux methodes :
+// ***** showBarcodeImage()**       : Envoie l'image PNG du code e l'affichage
+// ***** writeBarcodeFile($file)**  : cree un fichier image du Code e Barres
+// *****
 // ***** * = appel requis
 // ***** ** = appel requis pour l'un ou l'autre ou les 2
-// ***** 
+// *****
 // *****************************************************************************
-// ***** Méthodes Privées :
+// ***** Methodes Privees :
 // *****************************************************************************
-// ***** checkCode()                : Vérifie le CODE et positionne FULLCODE
+// ***** checkCode()                : Verifie le CODE et positionne FULLCODE
 // ***** encode()                   : Converti FULLCODE en barres
-// ***** 
+// *****
 if ( !class_exists( "pi_barcode" ) ) {
 	class pi_barcode
 	{
 		/**
-		* ***** Définition des variables *****
+		* ***** Definition des variables *****
 		*/
-		
+
 		var $CODE;
 		var $FULLCODE;
 		var $TYPE;
@@ -125,9 +125,9 @@ if ( !class_exists( "pi_barcode" ) ) {
 		var $FILETYPE;
 		var $ENCODED;
 		var $IH = NULL;
-		
+
 		/**
-		* Définition des symbologies
+		* Definition des symbologies
 		*/
 		var $C128 = array(
 					0 => "11011001100",     1 => "11001101100",     2 => "11001100110",
@@ -166,12 +166,12 @@ if ( !class_exists( "pi_barcode" ) ) {
 					99  => "10111011110",    // 99 et 'c' sont identiques ne nous sert que pour le checksum
 					100 => "10111101110",    // 100 et 'b' sont identiques ne nous sert que pour le checksum
 					101 => "11101011110",    // 101 et 'a' sont identiques ne nous sert que pour le checksum
-					102 => "11110101110",    // 102 correspond à FNC1 ne nous sert que pour le checksum
+					102 => "11110101110",    // 102 correspond e FNC1 ne nous sert que pour le checksum
 					'c' => "10111011110",   'b' => "10111101110",   'a' => "11101011110",
 					'A' => "11010000100",   'B' => "11010010000",   'C' => "11010011100",
 					'S' => "1100011101011"
 				);
-		
+
 		var $C25 =  array(
 					0 => "11331",           1 => "31113",
 					2 => "13113",           3 => "33111",
@@ -179,9 +179,9 @@ if ( !class_exists( "pi_barcode" ) ) {
 					6 => "13311",           7 => "11133",
 					8 => "31131",           9 => "13131",
 					'D' => "111011101",       'F' => "111010111", // Code 2 parmi 5
-					'd' => "1010",          'f' => "11101"   // Code 2/5 entrelacé
+					'd' => "1010",          'f' => "11101"   // Code 2/5 entrelace
 				);
-					 
+
 		var $C39 =  array(
 					'0' => "101001101101",  '1' => "110100101011",  '2' => "101100101011",
 					'3' => "110110010101",  '4' => "101001101011",  '5' => "110100110101",
@@ -199,7 +199,7 @@ if ( !class_exists( "pi_barcode" ) ) {
 					'$' => "100100100101",  '/' => "100100101001",  '+' => "100101001001",
 					'%' => "101001001001",  '*' => "100101101101"
 				);
-					 
+
 		var $codabar = array(
 					'0' => "101010011",     '1' => "101011001",     '2' => "101001011",
 					'3' => "110010101",     '4' => "101101001",     '5' => "110101001",
@@ -209,50 +209,50 @@ if ( !class_exists( "pi_barcode" ) ) {
 					'+' => "1011011011",    'A' => "1011001001",    'B' => "1010010011",
 					'C' => "1001001011",    'D' => "1010011001"
 				);
-				
+
 		var $MSI = array(
-					0 => "100100100100", 
-					1 => "100100100110", 
-					2 => "100100110100", 
-					3 => "100100110110", 
-					4 => "100110100100", 
-					5 => "100110100110", 
-					6 => "100110110100", 
-					7 => "100110110110", 
-					8 => "110100100100", 
-					9 => "110100100110", 
-					'D' => "110", 
+					0 => "100100100100",
+					1 => "100100100110",
+					2 => "100100110100",
+					3 => "100100110110",
+					4 => "100110100100",
+					5 => "100110100110",
+					6 => "100110110100",
+					7 => "100110110110",
+					8 => "110100100100",
+					9 => "110100100110",
+					'D' => "110",
 					'F' => "1001"
 				);
-					 
+
 		var $C11 = array(
-					'0' => "101011", 
-					'1' => "1101011", 
-					'2' => "1001011", 
-					'3' => "1100101", 
-					'4' => "1011011", 
-					'5' => "1101101", 
-					'6' => "1001101", 
-					'7' => "1010011", 
-					'8' => "1101001", 
-					'9' => "110101", 
-					'-' => "101101", 
-					'S' => "1011001" 
+					'0' => "101011",
+					'1' => "1101011",
+					'2' => "1001011",
+					'3' => "1100101",
+					'4' => "1011011",
+					'5' => "1101101",
+					'6' => "1001101",
+					'7' => "1010011",
+					'8' => "1101001",
+					'9' => "110101",
+					'-' => "101101",
+					'S' => "1011001"
 				);
-	
+
 		var $postnet = array(
-					'0' => "11000", 
-					'1' => "00011", 
-					'2' => "00101", 
-					'3' => "00110", 
-					'4' => "01001", 
-					'5' => "01010", 
-					'6' => "01100", 
-					'7' => "10001", 
-					'8' => "10010", 
+					'0' => "11000",
+					'1' => "00011",
+					'2' => "00101",
+					'3' => "00110",
+					'4' => "01001",
+					'5' => "01010",
+					'6' => "01100",
+					'7' => "10001",
+					'8' => "10010",
 					'9' => "10100"
 				);
-	
+
 		var $kix = array(       //0=haut, 1=bas, 2=milieu, 3=toute la hauteur
 					'0' => '2233',          '1' => '2103',          '2' => '2130',
 					'3' => '1203',          '4' => '1230',          '5' => '1100',
@@ -267,7 +267,7 @@ if ( !class_exists( "pi_barcode" ) ) {
 					'U' => '0011',          'V' => '0321',          'W' => '0312',
 					'X' => '3021',          'Y' => '3021',          'Z' => '3322'
 				);
-	
+
 		var $CMC7 = array(
 					0 => "0,3-0,22|2,1-2,24|4,0-4,8|4,18-4,25|8,0-8,8|8,18-8,25|12,0-12,8|12,18-12,25|14,1-14,24|16,3-16,22",
 					1 => "0,5-0,12|0,17-0,25|4,3-4,10|4,17-4,25|6,2-6,9|6,17-6,25|8,1-8,25|10,0-10,25|14,14-14,25|16,14-16,25",
@@ -285,7 +285,7 @@ if ( !class_exists( "pi_barcode" ) ) {
 					'D' => "0,10-0,24|2,10-2,24|6,10-6,24|8,10-8,24|10,4-10,24|12,4-12,24|16,4-16,24",
 					'E' => "0,7-0,12|0,16-0,25|2,5-2,23|4,3-4,21|6,1-6,19|8,0-8,18|12,3-12,21|16,7-16,12|16,16-16,25",
 				);
-				
+
 		var $EANbars = array('A' => array(
 					0 => "0001101",         1 => "0011001",
 					2 => "0010011",         3 => "0111101",
@@ -308,7 +308,7 @@ if ( !class_exists( "pi_barcode" ) ) {
 					8 => "1001000",         9 => "1110100"
 					)
 				);
-		
+
 		var $EANparity = array(
 					0 => array('A','A','A','A','A','A'),
 					1 => array('A','A','B','A','B','B'),
@@ -321,9 +321,9 @@ if ( !class_exists( "pi_barcode" ) ) {
 					8 => array('A','B','A','B','B','A'),
 					9 => array('A','B','B','A','B','A')
 				);
-		
+
 		/**
-		* Constructeur // est appelé automatiquement à l'instanciation de l'objet
+		* Constructeur // est appele automatiquement e l'instanciation de l'objet
 		*/
 		function pi_barcode()
 		{
@@ -343,7 +343,7 @@ if ( !class_exists( "pi_barcode" ) ) {
 			if ($this->IH) imagedestroy($this->IH);
 			$this->IH = NULL;
 		}
-		
+
 		/**
 		* Set Barcode Type
 		*/
@@ -397,17 +397,17 @@ if ( !class_exists( "pi_barcode" ) ) {
 			$ft = strtoupper($ft);
 			$this->FILETYPE = ($ft == 'GIF' ? 'GIF' : ($ft == 'JPG' ? 'JPG' : 'PNG'));
 		}
-		
+
 		/**
-		* Vérification du Code
-		* 
-		* calcul ou vérification du Checksum
+		* Verification du Code
+		*
+		* calcul ou verification du Checksum
 		*/
 		function checkCode()
 		{
 			switch( $this->TYPE ) {
 				case "C128C" :
-				
+
 					if (preg_match("/^[0-9]{2,48}$/", $this->CODE))
 					{
 						$tmp = strlen($this->CODE);
@@ -420,9 +420,9 @@ if ( !class_exists( "pi_barcode" ) ) {
 					  $this->FULLCODE = "CODE 128C REQUIRES DIGITS ONLY";
 					  break;
 					}
-					
+
 				case "C128" :
-					
+
 					$carok = true;
 					$long = strlen( $this->CODE );
 					$i = 0;
@@ -438,63 +438,63 @@ if ( !class_exists( "pi_barcode" ) ) {
 					  $this->TYPE = "ERR";
 					  $this->FULLCODE = "UNAUTHORIZED CHARS IN 128 CODE";
 					}
-				
+
 				  break;
 				case "UPC" :
-				
+
 					$this->CODE = '0'.$this->CODE;
 					$this->TYPE = 'EAN';
-					
+
 				case "EAN" :
-				
+
 					$long = strlen( $this->CODE ) ;
 					$factor = 3;
 					$checksum = 0;
-					
+
 					if (preg_match("/^[0-9]{8}$/", $this->CODE) OR preg_match("/^[0-9]{13}$/", $this->CODE))
 					{
-				   
+
 						for ($index = ($long - 1); $index > 0; $index--)
 						{
 							$checksum += intval($this->CODE{$index-1}) * $factor ;
 							$factor = 4 - $factor ;
 						}
 						$cc = ( (1000 - $checksum) % 10 ) ;
-				
+
 						if ( substr( $this->CODE, -1, 1) != $cc )
 						{
 							$this->TYPE = "ERR";
 							$this->FULLCODE = "CHECKSUM ERROR IN EAN/UPC CODE";
 						}
 						else $this->FULLCODE = $this->CODE;
-				   
+
 					}
 					elseif (preg_match("/^[0-9]{7}$/", $this->CODE) OR preg_match("/^[0-9]{12}$/", $this->CODE))
 					{
-				   
+
 						for ($index = $long; $index > 0; $index--) {
 							$checksum += intval($this->CODE{$index-1}) * $factor ;
 							$factor = 4 - $factor ;
 						}
 						$cc = ( ( 1000 - $checksum ) % 10 ) ;
-				
+
 						$this->FULLCODE = $this->CODE.$cc ;
-				   
+
 					}
 					else
 					{
 					  $this->TYPE = "ERR";
 					  $this->FULLCODE = "THIS CODE IS NOT EAN/UPC TYPE";
 					}
-				
+
 				  break;
 				case "C25I" :
-				
+
 					$long = strlen($this->CODE);
 					if(($long%2)==0) $this->CODE = '0'.$this->CODE;
-			
+
 				case "C25" :
-				
+
 					if (preg_match("/^[0-9]{1,48}$/", $this->CODE))
 					{
 						$checksum = 0;
@@ -513,10 +513,10 @@ if ( !class_exists( "pi_barcode" ) ) {
 					  $this->TYPE = "ERR";
 					  $this->FULLCODE = "CODE C25 REQUIRES DIGITS ONLY";
 					}
-					
+
 				  break;
 				case "C39" :
-					
+
 					if (preg_match("/^[0-9A-Z\-\.\$\/+% ]{1,48}$/i", $this->CODE))
 					{
 					  $this->FULLCODE = '*'.$this->CODE.'*';
@@ -526,20 +526,20 @@ if ( !class_exists( "pi_barcode" ) ) {
 					  $this->TYPE = "ERR";
 					  $this->FULLCODE = "UNAUTHORIZED CHARS IN CODE 39";
 					}
-					
+
 				  break;
 				case "CODABAR" :
-				
+
 					if (!preg_match("/^(A|B|C|D)[0-9\-\$:\/\.\+]{1,48}(A|B|C|D)$/i", $this->CODE))
 					{
 					  $this->TYPE = "ERR";
 					  $this->FULLCODE = "CODABAR START/STOP : ABCD";
 					}
 					else $this->FULLCODE = $this->CODE;
-					
+
 				  break;
 				case "MSI" :
-				
+
 					if (preg_match("/^[0-9]{1,48}$/", $this->CODE))
 					{
 						$checksum = 0;
@@ -548,7 +548,7 @@ if ( !class_exists( "pi_barcode" ) ) {
 						for ($i = 0; $i < $tmp; $i++) {
 							$checksum += intval($this->CODE{$i}) * $factor;
 							$factor++;
-							if ($factor > 10) $factor = 1; 
+							if ($factor > 10) $factor = 1;
 						}
 						$checksum = (1000 - $checksum) % 10;
 						$this->FULLCODE = $this->CODE.$checksum;
@@ -558,10 +558,10 @@ if ( !class_exists( "pi_barcode" ) ) {
 					  $this->TYPE = "ERR";
 					  $this->FULLCODE = "CODE MSI REQUIRES DIGITS ONLY";
 					}
-					
+
 				  break;
 				case "C11" :
-				
+
 					if (preg_match("/^[0-9\-]{1,48}$/", $this->CODE))
 					{
 						$checksum = 0;
@@ -572,7 +572,7 @@ if ( !class_exists( "pi_barcode" ) ) {
 							if ($tmp == "-") $tmp = 10;
 							else $tmp = intval($tmp);
 							$checksum += ($tmp * $factor);
-							$factor++; 
+							$factor++;
 							if ($factor > 10) $factor=1;
 						}
 						$checksum = $checksum % 11;
@@ -584,10 +584,10 @@ if ( !class_exists( "pi_barcode" ) ) {
 					  $this->TYPE = "ERR";
 					  $this->FULLCODE = "UNAUTHORIZED CHARS IN CODE 11";
 					}
-					
+
 				  break;
 				case "POSTNET" :
-				
+
 					if (preg_match("/^[0-9]{5}$/", $this->CODE) OR preg_match("/^[0-9]{9}$/", $this->CODE) OR preg_match("/^[0-9]{11}$/", $this->CODE))
 					{
 						$checksum = 0;
@@ -604,10 +604,10 @@ if ( !class_exists( "pi_barcode" ) ) {
 					  $this->TYPE = "ERR";
 					  $this->FULLCODE = "POSTNET MUST BE 5/9/11 DIGITS";
 					}
-					
+
 				  break;
 				case "KIX" :
-				
+
 					if (preg_match("/^[A-Z0-9]{1,50}$/", $this->CODE))
 					{
 /* ***** LE CODE KIX n'a pas de checksum (correction V2.02)
@@ -627,64 +627,64 @@ if ( !class_exists( "pi_barcode" ) ) {
 					  $this->TYPE = "ERR";
 					  $this->FULLCODE = "UNAUTHORIZED CHARS IN KIX CODE";
 					}
-					
+
 				  break;
 				case "CMC7" :
-				
+
 					if(!preg_match("/^[0-9A-E]{1,48}$/", $this->CODE)) {
 					  $this->TYPE = "ERR";
 					  $this->FULLCODE = "CMC7 MUST BE NUMERIC or ABCDE";
 					}
 					else $this->FULLCODE = $this->CODE;
-					
+
 				  break;
 				default :
-				
+
 					$this->TYPE = "ERR";
 					$this->FULLCODE = "UNKWOWN BARCODE TYPE";
-					
+
 				  break;
 			}
 		}
-		
+
 		/**
 		* Encodage
-		* 
+		*
 		* Encode des symboles (a-Z, 0-9, ...) vers des barres
 		*/
 		function encode()
 		{
 			settype($this->FULLCODE, 'string');
 			$lencode = strlen($this->FULLCODE);
-			
+
 			$encodedString = '';
-			
+
 			// Copie de la chaine dans un tableau
 			$a_tmp = array();
 			for($i = 0; $i < $lencode ; $i++) $a_tmp[$i] = $this->FULLCODE{$i};
-	
+
 			switch( $this->TYPE ) {
-			
+
 				case "EAN" :
 				case "UPC" :
 					if ($lencode == 8)
 					{
-						$encodedString = '101'; //Premier séparateur (101)
+						$encodedString = '101'; //Premier separateur (101)
 						for ($i = 0; $i < 4; $i++) $encodedString .= $this->EANbars['A'][$a_tmp[$i]]; //Codage partie gauche (tous de classe A)
-						$encodedString .= '01010'; //Séparateur central (01010) //Codage partie droite (tous de classe C)
+						$encodedString .= '01010'; //Separateur central (01010) //Codage partie droite (tous de classe C)
 						for ($i = 4; $i < 8; $i++) $encodedString .= $this->EANbars['C'][$a_tmp[$i]];
-						$encodedString .= '101'; //Dernier séparateur (101)
+						$encodedString .= '101'; //Dernier separateur (101)
 					}
 					else
 					{
-						$parity = $this->EANparity[$a_tmp[0]]; //On récupère la classe de codage de la partie qauche
-						$encodedString = '101'; //Premier séparateur (101)
+						$parity = $this->EANparity[$a_tmp[0]]; //On recupere la classe de codage de la partie qauche
+						$encodedString = '101'; //Premier separateur (101)
 						for ($i = 1; $i < 7; $i++) $encodedString .= $this->EANbars[$parity[$i-1]][$a_tmp[$i]]; //Codage partie gauche
-						$encodedString .= '01010'; //Séparateur central (01010) //Codage partie droite (tous de classe C)
+						$encodedString .= '01010'; //Separateur central (01010) //Codage partie droite (tous de classe C)
 						for ($i = 7; $i < 13; $i++) $encodedString .= $this->EANbars['C'][$a_tmp[$i]];
-						$encodedString .= '101'; //Dernier séparateur (101)
+						$encodedString .= '101'; //Dernier separateur (101)
 					}
-		
+
 				  break;
 				case "C128C" :
 					$encodedString = $this->C128['C']; //Start
@@ -771,7 +771,7 @@ if ( !class_exists( "pi_barcode" ) ) {
 					$encodedString = '1'; //Start
 					for ($i = 0; $i < $lencode; $i++) $encodedString .= $this->postnet[$a_tmp[$i]];
 					$encodedString .= '1'; //Stop
-					
+
 					$this->CODEWIDTH = ( strlen($encodedString) * 4 ) - 4;
 					if( $this->HR != '' ) $this->HEIGHT = 32;
 					else $this->HEIGHT = 22;
@@ -780,60 +780,60 @@ if ( !class_exists( "pi_barcode" ) ) {
 //	                $encodedString = "31"; //Start
 					for ($i = 0; $i < $lencode; $i++) $encodedString .= $this->kix[$a_tmp[$i]];
 //	                $encodedString .= "32"; //Stop
-					
+
 					$this->CODEWIDTH = ( strlen($encodedString) * 4 ) - 4;
 					if( $this->HR != '' ) $this->HEIGHT = 32;
 					else $this->HEIGHT = 22;
 				  break;
 				case "CMC7" :
 					$encodedString = $this->FULLCODE;
-									
+
 					$this->CODEWIDTH = ( $lencode * 24 ) - 8;
 					$this->HEIGHT = 35;
 				  break;
 				case "ERR" :
 					$encodedString = '';
-									
+
 					$this->CODEWIDTH = (imagefontwidth(2) * $lencode);
 					$this->HEIGHT = max( $this->HEIGHT, 36 );
 				  break;
-				  
+
 			}
-	
+
 			$nb_elem = strlen($encodedString);
 			$this->CODEWIDTH = max( $this->CODEWIDTH, $nb_elem );
 			$this->WIDTH = max( $this->WIDTH, $this->CODEWIDTH + ($this->CALMZONE*2) );
 			$this->ENCODED = $encodedString;
-		
-		
+
+
 			/**
-			* Création de l'image du code
+			* Creation de l'image du code
 			*/
-			
+
 			//Initialisation de l'image
 			$txtPosX = $posX = intval(($this->WIDTH - $this->CODEWIDTH)/2); // position X
 			$posY = 0; // position Y
 			$intL = 1; // largeur de la barre
-			
+
 			// detruire eventuellement l'image existante
 			if ($this->IH) imagedestroy($this->IH);
-			
+
 			$this->IH = imagecreate($this->WIDTH, $this->HEIGHT);
-			
+
 			// colors
             $color[0] = ImageColorAllocate($this->IH, 0xFF & ($this->BACKGROUND >> 0x10), 0xFF & ($this->BACKGROUND >> 0x8), 0xFF & $this->BACKGROUND);
             $color[1] = ImageColorAllocate($this->IH, 0xFF & ($this->FOREGROUND >> 0x10), 0xFF & ($this->FOREGROUND >> 0x8), 0xFF & $this->FOREGROUND);
 			$color[2] = ImageColorAllocate($this->IH, 160,160,160); // greyed
-			
+
 			imagefilledrectangle($this->IH, 0, 0, $this->WIDTH, $this->HEIGHT, $color[0]);
-			
-			
+
+
 			// Gravure du code
 			for ($i = 0; $i < $nb_elem; $i++)
 			{
-			
+
 				// Hauteur des barres dans l'image
-				$intH = $this->HEIGHT; 
+				$intH = $this->HEIGHT;
 				if( $this->HR != '' )
 				{
 					switch ($this->TYPE)
@@ -846,7 +846,7 @@ if ( !class_exists( "pi_barcode" ) ) {
 						if($i>0 AND $i<($nb_elem-1)) $intH-=11;
 					}
 				}
-				
+
 				// Gravure des barres
 				$fill_color = $this->ENCODED{$i};
 				switch ($this->TYPE)
@@ -866,7 +866,7 @@ if ( !class_exists( "pi_barcode" ) ) {
 				  case "CMC7" :
 					$tmp = $this->CMC7[$fill_color];
 					$coord = explode( "|", $tmp );
-					
+
 					for ($j = 0; $j < sizeof($coord); $j++)
 					{
 						$pts = explode( "-", $coord[$j] );
@@ -876,7 +876,7 @@ if ( !class_exists( "pi_barcode" ) ) {
 						$fin = explode( ",", $pts[1] );
 						$X2 = $fin[0] + $posX ;
 						$Y2 = $fin[1] + 5 ;
-						
+
 						imagefilledrectangle($this->IH, $X1, $Y1, $X2, $Y2, $color[1]);
 					}
 					$intL = 24 ;
@@ -884,69 +884,69 @@ if ( !class_exists( "pi_barcode" ) ) {
 				  default :
 					if($fill_color == "1") imagefilledrectangle($this->IH, $posX, $posY, $posX, ($posY+$intH), $color[1]);
 				}
-				
+
 				//Deplacement du pointeur
 				$posX += $intL;
 			}
-			
+
 			// Ajout du texte
 			$ifw = imagefontwidth(3);
 			$ifh = imagefontheight(3) - 1;
-			
+
 			$text = ($this->HR == 'AUTO' ? $this->CODE : $this->HR);
-			
+
 			switch ($this->TYPE)
 			{
 			  case "ERR" :
 				$ifw = imagefontwidth(3);
-				imagestring($this->IH, 3, floor( (($this->WIDTH)-($ifw * 7)) / 2 ), 1, "ERROR :", $color[1]); 
-				imagestring($this->IH, 2, 10, 13, $this->FULLCODE, $color[1]); 
+				imagestring($this->IH, 3, floor( (($this->WIDTH)-($ifw * 7)) / 2 ), 1, "ERROR :", $color[1]);
+				imagestring($this->IH, 2, 10, 13, $this->FULLCODE, $color[1]);
 				$ifw = imagefontwidth(1);
-				imagestring($this->IH, 1, ($this->WIDTH)-($ifw * 9)-2, $this->HEIGHT - $ifh, "Pitoo.com", $color[2]); 
+				imagestring($this->IH, 1, ($this->WIDTH)-($ifw * 9)-2, $this->HEIGHT - $ifh, "Pitoo.com", $color[2]);
 			  break;
 			  case "EAN" :
-					if ($text != '') if((strlen($this->FULLCODE) > 10) && ($this->FULLCODE{0} > 0)) imagestring($this->IH, 3, $txtPosX-7, $this->HEIGHT - $ifh, substr($this->FULLCODE,-13,1), $color[1]); 
+					if ($text != '') if((strlen($this->FULLCODE) > 10) && ($this->FULLCODE{0} > 0)) imagestring($this->IH, 3, $txtPosX-7, $this->HEIGHT - $ifh, substr($this->FULLCODE,-13,1), $color[1]);
 			  case "UPC" :
-				if ($text != '') 
+				if ($text != '')
 				{
 					if(strlen($this->FULLCODE) > 10) {
-						imagestring($this->IH, 3, $txtPosX+4, $this->HEIGHT - $ifh, substr($this->FULLCODE,1,6), $color[1]); 
-						imagestring($this->IH, 3, $txtPosX+50, $this->HEIGHT - $ifh, substr($this->FULLCODE,7,6), $color[1]); 
+						imagestring($this->IH, 3, $txtPosX+4, $this->HEIGHT - $ifh, substr($this->FULLCODE,1,6), $color[1]);
+						imagestring($this->IH, 3, $txtPosX+50, $this->HEIGHT - $ifh, substr($this->FULLCODE,7,6), $color[1]);
 					} else {
-						imagestring($this->IH, 3, $txtPosX+4, $this->HEIGHT - $ifh, substr($this->FULLCODE,0,4), $color[1]); 
-						imagestring($this->IH, 3, $txtPosX+36, $this->HEIGHT - $ifh, substr($this->FULLCODE,4,4), $color[1]); 
+						imagestring($this->IH, 3, $txtPosX+4, $this->HEIGHT - $ifh, substr($this->FULLCODE,0,4), $color[1]);
+						imagestring($this->IH, 3, $txtPosX+36, $this->HEIGHT - $ifh, substr($this->FULLCODE,4,4), $color[1]);
 					}
 				}
 			  break;
 			  case "CMC7" :
 			  break;
 			  default :
-				if ($text != '') imagestring($this->IH, 3, intval((($this->WIDTH)-($ifw * strlen($text)))/2)+1, $this->HEIGHT - $ifh, $this->CODE, $color[1]); 
+				if ($text != '') imagestring($this->IH, 3, intval((($this->WIDTH)-($ifw * strlen($text)))/2)+1, $this->HEIGHT - $ifh, $this->CODE, $color[1]);
 			}
-			
+
 			// de temps a autres, ajouter pitoo.com *** Merci de ne pas supprimer cette fonction ***
 			$ifw = imagefontwidth(1) * 9;
 			if ((rand(0,50)<1) AND ($this->HEIGHT >= $ifw)) imagestringup($this->IH, 1, $nb_elem + 12, $this->HEIGHT - 2, "Pitoo.com", $color[2]);
-			
-			// impression du type de code (si demandé)
+
+			// impression du type de code (si demande)
 			if ($this->SHOWTYPE == 'Y')
 			{
 				if (($this->TYPE == "EAN") AND (strlen($this->FULLCODE) > 10) AND ($this->FULLCODE{0} > 0) AND ($text != ''))
 				{
-					imagestringup($this->IH, 1, 0, $this->HEIGHT - 12, $this->TYPE, $color[2]); 
+					imagestringup($this->IH, 1, 0, $this->HEIGHT - 12, $this->TYPE, $color[2]);
 				}
 				elseif ($this->TYPE == "POSTNET")
 				{
-					imagestringup($this->IH, 1, 0, $this->HEIGHT - 2, "POST", $color[2]); 
+					imagestringup($this->IH, 1, 0, $this->HEIGHT - 2, "POST", $color[2]);
 				}
 				elseif ($this->TYPE != "ERR")
 				{
-					imagestringup($this->IH, 1, 0, $this->HEIGHT - 2, $this->TYPE, $color[2]); 
+					imagestringup($this->IH, 1, 0, $this->HEIGHT - 2, $this->TYPE, $color[2]);
 				}
 			}
 		}
-			
-		
+
+
 		/**
 		* Show Image
 		*/
@@ -955,23 +955,23 @@ if ( !class_exists( "pi_barcode" ) ) {
 			$this->checkCode();
 			$this->encode();
 
-			if ($this->FILETYPE == 'GIF') 
+			if ($this->FILETYPE == 'GIF')
 			{
 				Header( "Content-type: image/gif");
-				imagegif($this->IH); 
+				imagegif($this->IH);
 			}
-			elseif ($this->FILETYPE == 'JPG') 
+			elseif ($this->FILETYPE == 'JPG')
 			{
 				Header( "Content-type: image/jpeg");
-				imagejpeg($this->IH); 
+				imagejpeg($this->IH);
 			}
 			else
 			{
 				Header( "Content-type: image/png");
-				imagepng($this->IH); 
+				imagepng($this->IH);
 			}
 		}
-		
+
 		/**
 		* Save Image
 		*/
@@ -984,42 +984,42 @@ if ( !class_exists( "pi_barcode" ) ) {
 			elseif ($this->FILETYPE == 'JPG') imagejpeg($this->IH, $file);
 			else                              imagepng($this->IH, $file);
 		}
-				
+
 	}
 	//Fin de la classe
 }
 
 
 /**
-* Compatibilité avec les versions precedentes
-* 
-* si appel direct de la bibliothèque, générer l'image a la volée
+* Compatibilite avec les versions precedentes
+*
+* si appel direct de la bibliotheque, generer l'image a la volee
 */
 if (strpos($_SERVER['REQUEST_URI'], 'pi_barcode.php'))
 {
 	extract($_GET);
-	
-	// ***** Création de l'objet
+
+	// ***** Creation de l'objet
 	$objCode = new pi_barcode() ;
-	
+
 	$type = strtoupper($type);
-	
+
 	// ***** Hauteur / Largeur
 	if( isset($height) || isset($width) ) $objCode->setSize($height, $width);
-	
+
 	// ***** Autres arguments
 	if( $readable == 'N' ) $objCode->setText('');
 	if( $showtype == 'N' ) $objCode->hideCodeType();
-	
-	if( $color ) 
+
+	if( $color )
 	{
 		if( $bgcolor )     $objCode->setColors($color, $bgcolor);
 		else                       $objCode->setColors($color);
 	}
-			
-	
+
+
 	$objCode -> setType($type) ;
 	$objCode -> setCode($code) ;
-	
+
 	$objCode -> showBarcodeImage() ;
 }
