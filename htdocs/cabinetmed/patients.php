@@ -91,8 +91,8 @@ if (GETPOST("button_removefilter_x"))
 }
 
 $sql = "SELECT s.rowid, s.nom as name, s.client, s.ville, st.libelle as stcomm, s.prefix_comm, s.code_client,";
-$sql.= " s.datec, s.datea, s.canvas";
-$sql.= ", s.idprof4, MAX(c.datecons) as lastcons, COUNT(c.rowid) as nb";
+$sql.= " s.datec, s.datea, s.canvas,";
+$sql.= " s.idprof4, MAX(c.datecons) as lastcons, COUNT(c.rowid) as nb";
 // We'll need these fields in order to filter by sale (including the case where the user can only see his prospects)
 if ($search_sale) $sql .= ", sc.fk_soc, sc.fk_user";
 // We'll need these fields in order to filter by categ
@@ -136,6 +136,8 @@ if ($socname)
 	$sortorder = "ASC";
 }
 $sql.= " GROUP BY s.rowid, s.nom, s.client, s.ville, st.libelle, s.prefix_comm, s.code_client, s.datec, s.datea, s.canvas, s.idprof4";
+if ($search_sale) $sql .= ", sc.fk_soc, sc.fk_user";
+if ($search_categ) $sql .= ", cs.fk_categorie, cs.fk_societe";
 
 // Count total nb of records
 $nbtotalofrecords = 0;
