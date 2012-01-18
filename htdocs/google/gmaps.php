@@ -26,6 +26,8 @@ require_once(DOL_DOCUMENT_ROOT."/core/lib/contact.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/member.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/contact/class/contact.class.php");
 
+$langs->load("google@google");
+
 // url is:  gmaps.php?mode=thirdparty|contact|member&id=id
 
 
@@ -37,28 +39,28 @@ if (empty($mode) || $mode=='thirdparty')
 {
 	include_once(DOL_DOCUMENT_ROOT.'/societe/class/societe.class.php');
 	$id = GETPOST('id');
-	$obj = new Societe($db);
-	$obj->id = $id;
-	$obj->fetch($id);
-	$address = $obj->getFullAddress(1,', ');
+	$object = new Societe($db);
+	$object->id = $id;
+	$object->fetch($id);
+	$address = $object->getFullAddress(1,', ');
 }
 if ($mode=='contact')
 {
 	include_once(DOL_DOCUMENT_ROOT.'/contact/class/contact.class.php');
 	$id = GETPOST('id');
-	$obj = new Contact($db);
-	$obj->id = $id;
-	$obj->fetch($id);
-	$address = $obj->getFullAddress(1,', ');
+	$object = new Contact($db);
+	$object->id = $id;
+	$object->fetch($id);
+	$address = $object->getFullAddress(1,', ');
 }
 if ($mode=='member')
 {
 	include_once(DOL_DOCUMENT_ROOT.'/adherents/class/adherent.class.php');
 	$id = GETPOST('id');
-	$obj = new Adherent($db);
-	$obj->id = $id;
-	$obj->fetch($id);
-	$address = $obj->getFullAddress(1,', ');
+	$object = new Adherent($db);
+	$object->id = $id;
+	$object->fetch($id);
+	$address = $object->getFullAddress(1,', ');
 }
 
 
@@ -67,6 +69,8 @@ if ($mode=='member')
  */
 
 llxheader();
+
+$form=new Form($db);
 
 $content = "Default content";
 $act = "";
@@ -77,19 +81,19 @@ $title='';
 $picto='';
 if (empty($mode) || $mode=='thirdparty')
 {
-	$head = societe_prepare_head($obj);
+	$head = societe_prepare_head($object);
 	$title=$langs->trans("ThirdParty");
 	$picto='company';
 }
 if ($mode=='contact')
 {
-	$head = contact_prepare_head($obj);
+	$head = contact_prepare_head($object);
 	$title=$langs->trans("ContactsAddresses");
 	$picto='contact';
 }
 if ($mode=='member')
 {
-	$head = member_prepare_head($obj);
+	$head = member_prepare_head($object);
 	$title=$langs->trans("Member");
 	$picto='user';
 }
@@ -97,9 +101,51 @@ if ($mode=='member')
 dol_fiche_head($head, 'gmaps', $title, 0, $picto);
 
 
-//On affiche le contenu
+print '<table class="border" width="100%">';
 
-if ($address && $address != $obj->pays)
+// Name
+print '<tr><td width="20%">'.$langs->trans('ThirdPartyName').'</td>';
+print '<td colspan="3">';
+print $form->showrefnav($object,'id','',($user->societe_id?0:1),'rowid','nom','','&mode='.$mode);
+print '</td>';
+print '</tr>';
+
+
+// Status
+print '<tr><td>'.$langs->trans("Status").'</td>';
+print '<td colspan="'.(2+(($showlogo || $showbarcode)?0:1)).'">';
+print $object->getLibStatut(2);
+print '</td>';
+print $htmllogobar; $htmllogobar='';
+print '</tr>';
+
+// Address
+print "<tr><td valign=\"top\">".$langs->trans('Address').'</td><td colspan="'.(2+(($showlogo || $showbarcode)?0:1)).'">';
+dol_print_address($object->address,'gmap','thirdparty',$object->id);
+print "</td></tr>";
+
+// Zip / Town
+print '<tr><td width="25%">'.$langs->trans('Zip').' / '.$langs->trans("Town").'</td><td colspan="'.(2+(($showlogo || $showbarcode)?0:1)).'">';
+print $object->zip.($object->zip && $object->town?" / ":"").$object->town;
+print "</td>";
+print '</tr>';
+
+// Country
+print '<tr><td>'.$langs->trans("Country").'</td><td colspan="'.(2+(($showlogo || $showbarcode)?0:1)).'" nowrap="nowrap">';
+$img=picto_from_langcode($object->country_code);
+if ($object->isInEEC()) print $form->textwithpicto(($img?$img.' ':'').$object->country,$langs->trans("CountryIsInEEC"),1,0);
+else print ($img?$img.' ':'').$object->country;
+print '</td></tr>';
+
+// State
+if (empty($conf->global->SOCIETE_DISABLE_STATE)) print '<tr><td>'.$langs->trans('State').'</td><td colspan="'.(2+(($showlogo || $showbarcode)?0:1)).'">'.$object->state.'</td>';
+
+print '</table>';
+
+
+// Show maps
+
+if ($address && $address != $object->country)
 {
 ?>
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
@@ -132,7 +178,7 @@ if ($address && $address != $obj->pays)
         });
 
 
-		var infowindow = new google.maps.InfoWindow({content: '<?php echo dol_escape_js($obj->nom); ?><br /><?php echo dol_escape_js(dol_string_nospecial($obj->getFullAddress(1,', '),' ',array("\n","\r"))); ?>'});
+		var infowindow = new google.maps.InfoWindow({content: '<?php echo dol_escape_js($object->name); ?><br /><?php echo dol_escape_js(dol_string_nospecial($object->getFullAddress(1,', '),' ',array("\n","\r"))); ?>'});
 
 			google.maps.event.addListener(marker, 'click', function() {
 				infowindow.open(map,marker);
@@ -158,10 +204,12 @@ if ($address && $address != $obj->pays)
 }
 else
 {
-	print $langs->trans("GoogleAddressNotDefined");
+	print '<br>'.$langs->trans("GoogleAddressNotDefined").'<br>';
 }
 
 dol_fiche_end();
 
 llxfooter();
+
+$db->close();
 ?>
