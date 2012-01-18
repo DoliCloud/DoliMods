@@ -107,6 +107,7 @@ ContactNotLinkedToCompany=Contact not linked to a patient
 ExportDataset_company_1=Patients and attributes
 ExportDataset_company_2=Contacts and attributes
 ImportDataset_company_1=Patients and attributes
+ImportDataset_company_2=Contacts and attributes
 AllocateCommercial=Followed by
 SelectCompany=Select a patient
 YouMustCreateContactFirst=You must create emails contacts on patient to define emails notifications.
