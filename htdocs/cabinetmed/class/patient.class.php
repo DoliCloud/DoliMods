@@ -56,7 +56,7 @@ class Patient extends CommonObject
     var $ville;
 
     var $departement_id;
-    var $departement_code;
+    var $state_code;
     var $departement;
 
     var $country_id;
@@ -567,7 +567,7 @@ class Patient extends CommonObject
         $sql .= ', fj.libelle as forme_juridique';
         $sql .= ', e.libelle as effectif';
         $sql .= ', p.code as pays_code, p.libelle as pays';
-        $sql .= ', d.code_departement as departement_code, d.nom as departement';
+        $sql .= ', d.code_departement as state_code, d.nom as state';
         $sql .= ', st.libelle as stcomm';
         $sql .= ', te.code as typent_code';
         $sql .= ', sa.note_antemed, sa.note_antechirgen, sa.note_antechirortho, sa.note_anterhum, sa.note_other';
@@ -628,7 +628,10 @@ class Patient extends CommonObject
                 $this->country_code = $obj->fk_pays?$obj->pays_code:'';
                 $this->pays 		= $obj->fk_pays?($langs->trans('Country'.$obj->pays_code)!='Country'.$obj->pays_code?$langs->trans('Country'.$obj->pays_code):$obj->pays):''; // TODO obsolete
                 $this->country 		= $obj->fk_pays?($langs->trans('Country'.$obj->pays_code)!='Country'.$obj->pays_code?$langs->trans('Country'.$obj->pays_code):$obj->pays):'';
-                $this->state_id     = $obj->fk_departement?$obj->departement:'';
+
+                $this->state_id     = $obj->fk_departement;
+                $this->state_code   = $obj->fk_departement?$obj->state_code:'';
+                $this->state        = $obj->fk_departement?$obj->state:'';
 
                 $transcode=$langs->trans('StatusProspect'.$obj->fk_stcomm);
                 $libelle=($transcode!='StatusProspect'.$obj->fk_stcomm?$transcode:$obj->stcomm);
