@@ -121,11 +121,13 @@ if ($found > 0)
             {
                 $text.='<td style="padding-left: 4px; padding-right: 4px" nowrap="nowrap">';
                 $box ='<!-- Box color '.$selected.' -->';
-                $box.='<table style="border-collapse: collapse; margin:0px; padding: 0px; border: 1px solid #888888;';
+                $box.='<a class="legendagenda" href="'.$link.'">';
+                $box.='<table style="margin:0px; padding: 0px; border: 1px solid #888888;';
                 if ($addcolor) $box.=' background: #'.(preg_replace('/#/','',$conf->global->$paramcolor)).';';
                 $box.='" width="12" height="10">';
                 $box.='<tr class="nocellnopadd"><td></td></tr>';    // To show box
                 $box.='</table>';
+                $box.='</a>';
                 $text.=$box;
                 $text.='</td>';
             }
@@ -149,16 +151,18 @@ if ($found > 1)
 
     $text='';
     $text.='<table class="nobordernopadding">';
-    $text.='<tr valign="middle" class="nobordernopadding">';
+    $text.='<tr valign="middle" class="nobordernopadding" style="height: 14px">';
 
     // Color of agenda
-    $text.='<td style="padding-left: 4px; padding-right: 4px" nowrap="nowrap">';
+    $text.='<td style="padding-left: 4px; padding-right: 4px;" nowrap="nowrap">';
     $box ='<!-- Box color '.$selected.' -->';
-    $box.='<table style="border-collapse: collapse; margin:0px; padding: 0px; border: 1px solid #888888;';
+    $box.='<a class="legendagenda" href="'.$link.'">';
+    $box.='<table style="margin:0px; padding: 0px; border: 1px solid #888888;';
     if ($addcolor) $box.=' background: #'.(preg_replace('/#/','','#FFFFFF')).';';
     $box.='" width="12" height="10">';
     $box.='<tr class="nocellnopadd"><td></td></tr>';    // To show box
     $box.='</table>';
+    $box.='</a>';
     $text.=$box;
     $text.='</td>';
 
