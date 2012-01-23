@@ -17,11 +17,15 @@ scanner				OK			Free
 thomsonphonebook	OK			Free
 zipautofillfr		OK			15			France and belgium
 
-cabinetmed          A finir
-concatpdf           A finir		9
-webmail				A finir
+skincoloreditor		A livrer	5
+concatpdf           A livrer	19
+
+webmail				A finir		20
 theme_pack			A finir		Free
 
-des_fr				KO
+leave				A livrer	?
 
+cabinetmed          Site à créer	
+
+des_fr				KO
 numberingpack		KO
