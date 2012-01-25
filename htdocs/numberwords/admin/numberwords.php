@@ -41,6 +41,7 @@ if (!$user->admin) accessforbidden();
 
 $langs->load("admin");
 $langs->load("other");
+$langs->load("numberwords@numberwords");
 
 $newvaltest='';
 $outputlangs=new Translate('',$conf);

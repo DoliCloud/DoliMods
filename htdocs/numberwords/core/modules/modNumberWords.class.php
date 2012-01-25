@@ -1,35 +1,17 @@
 <?php
-/* Copyright (C) 2003,2005 Rodolphe Quiedeville <rodolphe@quiedeville.org>
- * Copyright (C) 2003      Jean-Louis Bergamo   <jlb@j1b.org>
- * Copyright (C) 2004-2010 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2004      Sebastien Di Cintio  <sdicintio@ressource-toi.org>
- * Copyright (C) 2004      Benoit Mortier       <benoit.mortier@opensides.be>
- * Copyright (C) 2009      Regis Houssin        <regis@dolibarr.fr>
+/* Copyright (C) 2008 Laurent Destailleur  <eldy@users.sourceforge.net>
  *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- * or see http://www.gnu.org/
+ * Licensed under the GNU GPL v3 or higher (See file gpl-3.0.html)
  */
 
 /**
  *      \defgroup   numberwords     Module numberwords
  *      \brief      Module to add function to convert amount in number to strings
- *		\brief		$Id: modNumberWords.class.php,v 1.3 2011/05/24 08:29:12 eldy Exp $
  */
 
 /**
  *       \file       htdocs/numberworkds/core/modules/modNumberWords.class.php
- *       \ingroup    agenda
+ *       \ingroup    numberwords
  *       \brief      Fichier de description et activation du module agenda
  */
 include_once(DOL_DOCUMENT_ROOT ."/core/modules/DolibarrModules.class.php");
@@ -42,12 +24,13 @@ class modNumberWords extends DolibarrModules
 {
 
 	/**
-	 *   \brief      Constructeur. Definit les noms, constantes et boites
-	 *   \param      DB      handler d'acces base
+	 *   Constructor. Define names, constants, directories, boxes, permissions
+	 *
+	 *   @param		DoliDB		$db		Database handler
 	 */
-	function modNumberWords($DB)
+	function modNumberWords($db)
 	{
-		$this->db = $DB;
+		$this->db = $db;
 
 		// Id for module (must be unique).
 		// Use here a free id (See in Home -> System information -> Dolibarr for list of used modules id).
@@ -88,8 +71,8 @@ class modNumberWords extends DolibarrModules
 		$this->depends = array();		// List of modules id that must be enabled if this module is enabled
 		$this->requiredby = array();	// List of modules id to disable if this one is disabled
 		$this->phpmin = array(4,3);					// Minimum version of PHP required by module
-		$this->need_dolibarr_version = array(3,0,-1);	// Minimum version of Dolibarr required by module
-		$this->langfiles = array();
+		$this->need_dolibarr_version = array(3,2,-3);	// Minimum version of Dolibarr required by module
+		$this->langfiles = array('numberwords@numberwords');
 
 		// Constants
 		$this->const = array();			// List of particular constants to add when module is enabled

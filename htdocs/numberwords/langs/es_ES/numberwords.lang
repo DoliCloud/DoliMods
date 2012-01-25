@@ -1,0 +1,4 @@
+# Dolibarr language file - en_US - numberwords
+CHARSET=UTF-8
+NumberWordsSetup=Configuración del módulo NumberWords
+DescNumberWords=Este módulo le ofrece convertir números o importes en cualquier cadena. También realiza la sustitución de las variables genéricas __TOTAL_TTC_WORDS__, __TOTAL_HT_WORDS__ o __TOTAL_VAT_WORDS__ por el valor de importes totales, base o del IVA, en cadena dentro del texto al que hacen referencia (texto libre de facturas, ...)
