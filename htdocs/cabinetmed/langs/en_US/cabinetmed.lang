@@ -130,3 +130,4 @@ ActionAC_CABMED=Send document %s by Email
 NewOutcomeToDolibarr=Consultation %s recorder (%s)
 ZeroHereIfNoPayment=Or put zero here for free consultation
 ExportDetailsIntoFile=Export into an XLSX file (including details of patient for each day)
+DemoCabinetMed=Management of a medical center
