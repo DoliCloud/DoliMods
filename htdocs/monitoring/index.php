@@ -1,5 +1,5 @@
 <?php
-/* Copyright (C) 2008-2011 Laurent Destailleur  <eldy@users.sourceforge.net>
+/* Copyright (C) 2008-2012 Laurent Destailleur  <eldy@users.sourceforge.net>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -12,15 +12,13 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
 /**
  *	    \file       htdocs/monitoring/index.php
  *      \ingroup    monitoring
  *      \brief      Page to setup module Monitoring
- *		\version    $Id: index.php,v 1.17 2011/07/04 11:33:16 eldy Exp $
  */
 
 define('NOCSRFCHECK',1);
@@ -132,18 +130,18 @@ if ($action == 'graph')
 			"--vertical-label=ms",
            "DEF:ds1=\"".$newfname."\":ds1:AVERAGE",
            "DEF:ds2=\"".$newfname."\":ds2:AVERAGE",
-		   "LINE1:ds1#0000FF:Graph1",
+		   "LINE1:ds1#0000FF:Graph",
 		   "LINE1:ds2#FF0000:Errors",
  		   "CDEF:cdef1=ds1,1,*",
            "CDEF:cdef2=ds2,1,*",
 	       'COMMENT:\\\n ',
-	       "GPRINT:cdef1:MIN:Minval1%8.2lf ",
-	       "GPRINT:cdef1:AVERAGE:Avgval1%8.2lf ",
-		   "GPRINT:cdef1:MAX:Maxval1%8.2lf ",
+	       "GPRINT:cdef1:MIN:Minval_graph%8.2lf ",
+	       "GPRINT:cdef1:AVERAGE:Avgval_graph%8.2lf ",
+		   "GPRINT:cdef1:MAX:Maxval_graph%8.2lf ",
 		   'COMMENT:\\\n ',
-		   "GPRINT:cdef2:MIN:Minval2%8.2lf ",
-	       "GPRINT:cdef2:AVERAGE:Avgval2%8.2lf ",
-		   "GPRINT:cdef2:MAX:Maxval2%8.2lf ",
+		   "GPRINT:cdef2:MIN:Minval_error%8.2lf ",
+	       "GPRINT:cdef2:AVERAGE:Avgval_error%8.2lf ",
+		   "GPRINT:cdef2:MAX:Maxval_error%8.2lf ",
 	       'COMMENT:\\\n '
 	       );
 	       $ret = rrd_graph($conf->monitoring->dir_output.'/'.$fileimage[0], $opts, count($opts));
@@ -167,18 +165,18 @@ if ($action == 'graph')
 			"--vertical-label=ms",
            "DEF:ds1=\"".$newfname."\":ds1:AVERAGE",
            "DEF:ds2=\"".$newfname."\":ds2:AVERAGE",
-		   "LINE1:ds1#0000FF:Graph1",
+		   "LINE1:ds1#0000FF:Graph",
 		   "LINE1:ds2#FF0000:Errors",
  		   "CDEF:cdef1=ds1,1,*",
            "CDEF:cdef2=ds2,1,*",
 	       'COMMENT:\\\n ',
-	       "GPRINT:cdef1:MIN:Minval1%8.2lf ",
-	       "GPRINT:cdef1:AVERAGE:Avgval1%8.2lf ",
-		   "GPRINT:cdef1:MAX:Maxval1%8.2lf ",
+	       "GPRINT:cdef1:MIN:Minval_graph%8.2lf ",
+	       "GPRINT:cdef1:AVERAGE:Avgval_graph%8.2lf ",
+		   "GPRINT:cdef1:MAX:Maxval_graph%8.2lf ",
 		   'COMMENT:\\\n ',
-		   "GPRINT:cdef2:MIN:Minval2%8.2lf ",
-	       "GPRINT:cdef2:AVERAGE:Avgval2%8.2lf ",
-		   "GPRINT:cdef2:MAX:Maxval2%8.2lf ",
+		   "GPRINT:cdef2:MIN:Minval_error%8.2lf ",
+	       "GPRINT:cdef2:AVERAGE:Avgval_error%8.2lf ",
+		   "GPRINT:cdef2:MAX:Maxval_error%8.2lf ",
 	       'COMMENT:\\\n '
 	       );
 	       $ret = rrd_graph($conf->monitoring->dir_output.'/'.$fileimage[1], $opts, count($opts));
@@ -202,18 +200,18 @@ if ($action == 'graph')
 			"--vertical-label=ms",
            "DEF:ds1=\"".$newfname."\":ds1:AVERAGE",
            "DEF:ds2=\"".$newfname."\":ds2:AVERAGE",
-		   "LINE1:ds1#0000FF:Graph1",
+		   "LINE1:ds1#0000FF:Graph",
 		   "LINE1:ds2#FF0000:Errors",
  		   "CDEF:cdef1=ds1,1,*",
            "CDEF:cdef2=ds2,1,*",
 	       'COMMENT:\\\n ',
-	       "GPRINT:cdef1:MIN:Minval1%8.2lf ",
-	       "GPRINT:cdef1:AVERAGE:Avgval1%8.2lf ",
-		   "GPRINT:cdef1:MAX:Maxval1%8.2lf ",
+	       "GPRINT:cdef1:MIN:Minval_graph%8.2lf ",
+	       "GPRINT:cdef1:AVERAGE:Avgval_graph%8.2lf ",
+		   "GPRINT:cdef1:MAX:Maxval_graph%8.2lf ",
 		   'COMMENT:\\\n ',
-		   "GPRINT:cdef2:MIN:Minval2%8.2lf ",
-           "GPRINT:cdef2:AVERAGE:Avgval2%8.2lf ",
-		   "GPRINT:cdef2:MAX:Maxval2%8.2lf ",
+		   "GPRINT:cdef2:MIN:Minval_error%8.2lf ",
+           "GPRINT:cdef2:AVERAGE:Avgval_error%8.2lf ",
+		   "GPRINT:cdef2:MAX:Maxval_error%8.2lf ",
 	       'COMMENT:\\\n '
 	       );
 	       $ret = rrd_graph($conf->monitoring->dir_output.'/'.$fileimage[2], $opts, count($opts));
@@ -237,18 +235,18 @@ if ($action == 'graph')
 			"--vertical-label=ms",
            "DEF:ds1=\"".$newfname."\":ds1:AVERAGE",
            "DEF:ds2=\"".$newfname."\":ds2:AVERAGE",
- 		   "LINE1:ds1#0000FF:Graph1",
+ 		   "LINE1:ds1#0000FF:Graph",
 		   "LINE1:ds2#FF0000:Errors",
  		   "CDEF:cdef1=ds1,1,*",
            "CDEF:cdef2=ds2,1,*",
 	       'COMMENT:\\\n ',
-	       "GPRINT:cdef1:MIN:Minval1%8.2lf ",
-	       "GPRINT:cdef1:AVERAGE:Avgval1%8.2lf ",
-		   "GPRINT:cdef1:MAX:Maxval1%8.2lf ",
+	       "GPRINT:cdef1:MIN:Minval_graph%8.2lf ",
+	       "GPRINT:cdef1:AVERAGE:Avgval_graph%8.2lf ",
+		   "GPRINT:cdef1:MAX:Maxval_graph%8.2lf ",
 		   'COMMENT:\\\n ',
-		   "GPRINT:cdef2:MIN:Minval2%8.2lf ",
-	       "GPRINT:cdef2:AVERAGE:Avgval2%8.2lf ",
-		   "GPRINT:cdef2:MAX:Maxval2%8.2lf ",
+		   "GPRINT:cdef2:MIN:Minval_error%8.2lf ",
+	       "GPRINT:cdef2:AVERAGE:Avgval_error%8.2lf ",
+		   "GPRINT:cdef2:MAX:Maxval_error%8.2lf ",
 	       'COMMENT:\\\n '
 	       );
 	       $ret = rrd_graph($conf->monitoring->dir_output.'/'.$fileimage[3], $opts, count($opts));
@@ -272,18 +270,18 @@ if ($action == 'graph')
 			"--vertical-label=ms",
            "DEF:ds1=\"".$newfname."\":ds1:AVERAGE",
            "DEF:ds2=\"".$newfname."\":ds2:AVERAGE",
-		   "LINE1:ds1#0000FF:Graph1",
+		   "LINE1:ds1#0000FF:Graph",
 		   "LINE1:ds2#FF0000:Errors",
  		   "CDEF:cdef1=ds1,1,*",
            "CDEF:cdef2=ds2,1,*",
 	       'COMMENT:\\\n ',
-	       "GPRINT:cdef1:MIN:Minval1%8.2lf ",
-	       "GPRINT:cdef1:AVERAGE:Avgval1%8.2lf ",
-		   "GPRINT:cdef1:MAX:Maxval1%8.2lf ",
+	       "GPRINT:cdef1:MIN:Minval_graph%8.2lf ",
+	       "GPRINT:cdef1:AVERAGE:Avgval_graph%8.2lf ",
+		   "GPRINT:cdef1:MAX:Maxval_graph%8.2lf ",
 		   'COMMENT:\\\n ',
-		   "GPRINT:cdef2:MIN:Minval2%8.2lf ",
-	       "GPRINT:cdef2:AVERAGE:Avgval2%8.2lf ",
-		   "GPRINT:cdef2:MAX:Maxval2%8.2lf ",
+		   "GPRINT:cdef2:MIN:Minval_error%8.2lf ",
+	       "GPRINT:cdef2:AVERAGE:Avgval_error%8.2lf ",
+		   "GPRINT:cdef2:MAX:Maxval_error%8.2lf ",
 	       'COMMENT:\\\n '
 	       );
 	       $ret = rrd_graph($conf->monitoring->dir_output.'/'.$fileimage[4], $opts, count($opts));
@@ -310,6 +308,8 @@ if ($action == 'reinit' && $id > 0)
 
     $now=dol_now();
     $result=$probe->updateStatus(0,$now,'');
+
+    $mesg='<div class="warning">'.$langs->trans("YouMustRestartProbeDaemon").'</div>';
 }
 
 
@@ -318,7 +318,7 @@ if ($action == 'reinit' && $id > 0)
  * View
  */
 
-$html=new Form($db);
+$form=new Form($db);
 $probestatic=new Monitoring_probes($db);
 
 
@@ -336,7 +336,7 @@ if (empty($id))
     // Confirmation de la suppression d'une ligne produit
     if ($action == 'swapstatus')
     {
-        $ret=$html->form_confirm($_SERVER["PHP_SELF"].'?id='.$_GET["id"], $langs->trans('SwapStatus'), $langs->trans('ConfirmSwapStatus'), 'confirm_swapstatus', '', 'yes', 1);
+        $ret=$form->form_confirm($_SERVER["PHP_SELF"].'?id='.$_GET["id"], $langs->trans('SwapStatus'), $langs->trans('ConfirmSwapStatus'), 'confirm_swapstatus', '', 'yes', 1);
         if ($ret == 'html') print '<br>';
     }
 
@@ -418,11 +418,11 @@ if (empty($id))
             print "<td>";
             //if ($obj->status == 0) print $langs->trans('ProbeNeverLaunched');
             //else
-            if ($obj->status != 0) print $html->textwithtooltip(dol_trunc($obj->oldesterrortext,20),$obj->oldesterrortext,1);
+            if ($obj->status != 0) print $form->textwithtooltip(dol_trunc($obj->oldesterrortext,20),$obj->oldesterrortext,1);
             print "</td>";
             // Graphics
             print '<td align="center">';
-            print '<a href="index.php?id='.$obj->rowid.'">'.$langs->trans("Show").'</a>';
+            print '<a href="index.php?id='.$obj->rowid.'">'.img_picto($langs->trans("Show"),'graph@monitoring','height="24"').'</a>';
             print '</td>';
             /*print '<td align="right">';
             print '<a href="'.$_SERVER["PHP_SELF"].'?id='.$obj->rowid.'&amp;action=edit">';
@@ -457,12 +457,12 @@ else
 
     dol_fiche_head($head, 'probe', $langs->trans('Probe'), 0, 'technic');
 
-    if ($mesg) print "<br>".$mesg."<br>";
+    dol_htmloutput_mesg($mesg);
 
     print '<table class="border" width="100%">';
     //print $langs->trans("ReportForProbeX");
     print '<tr><td width="20%">'.$langs->trans("Id").'</td><td>';
-    print $html->showrefnav($probe,'id','',1,'rowid','id','');
+    print $form->showrefnav($probe,'id','',1,'rowid','id','');
     print '</td></tr>'."\n";
     print '<tr><td>'.$langs->trans("Title").'</td><td>'.$probe->title.'</td></tr>'."\n";
     print '<tr><td>'.$langs->trans("Url").'</td><td><a href="'.$probe->url.'">'.$probe->url.'</a></td></tr>'."\n";
@@ -483,75 +483,88 @@ else
     print dol_print_date($probe->lastreset,'%Y-%m-%d %H:%M:%S');
     print '</td></tr>'."\n";
     print '<tr><td>'.$langs->trans("FirstErrorDate").'</td><td>';
-    if ($probe->status == 0) print $langs->trans('ProbeNeverLaunchedLong');
+    if ($probe->status == 0) print $form->textwithpicto($langs->trans('ProbeNeverLaunchedLong'),$langs->trans("YouMustRestartProbeDaemon").':<br>'.$langs->trans("RunProbeDesc"));
     else print dol_print_date($probe->oldesterrordate,'%Y-%m-%d %H:%M:%S');
     print '</td></tr>'."\n";
     print '<tr><td>'.$langs->trans("FirstErrorText").'</td><td>';
-    if ($probe->status == 0) print $langs->trans('ProbeNeverLaunchedLong');
+    if ($probe->status == 0) print $form->textwithpicto($langs->trans('ProbeNeverLaunchedLong'),$langs->trans("YouMustRestartProbeDaemon").':<br>'.$langs->trans("RunProbeDesc"));
     else print $probe->oldesterrortext;
+
     print '</td></tr>'."\n";
     print '</table>';
 
     dol_fiche_end();
 
     $butt='';
-	if ($conf->global->MONITORING_COMMANDLINE_TOOL) $butt.='<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?action=graph&id='.$probe->id.'">'.$langs->trans("BuildTestGraph").'</a>';
-    else $butt.='<a class="butActionRefused" href="#">'.$langs->trans("BuildTestGraph").'</a>';
+	if ($conf->global->MONITORING_COMMANDLINE_TOOL) $butt.='<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?action=graph&id='.$probe->id.'">'.$langs->trans("BuildGraph").'</a>';
+    else $butt.='<a class="butActionRefused" href="#">'.$langs->trans("BuildGraph").'</a>';
 
     $butt.='<a class="butActionDelete" href="'.$_SERVER["PHP_SELF"].'?action=reinit&id='.$probe->id.'">'.$langs->trans("ReinitStatus").'</a>';
 
-    if ($conf->global->MONITORING_COMMANDLINE_TOOL) $butt.='<a class="butActionDelete" href="'.$_SERVER["PHP_SELF"].'?action=create&id='.$probe->id.'">'.$langs->trans("CreateATestGraph").'</a>';
-	else $butt.='<a class="butActionRefused" href="#">'.$langs->trans("CreateATestGraph").'</a>';
+    if ($conf->global->MONITORING_COMMANDLINE_TOOL) $butt.='<a class="butActionDelete" href="'.$_SERVER["PHP_SELF"].'?action=create&id='.$probe->id.'">'.$langs->trans("CreateAGraph").'</a>';
+	else $butt.='<a class="butActionRefused" href="#">'.$langs->trans("CreateAGraph").'</a>';
+
+	print '<div class="tabsAction">';
+	print $butt;
+	print '</div>';
+
 
     print '<br>';
-	print_fiche_titre($langs->trans("Reports"),$butt,'').'<br>';
+	print_fiche_titre($langs->trans("Reports"),'','').'<br>';
     print '<hr>';
 
-    if (empty($conf->global->MONITORING_DISABLE_HOUR_VIEW))
+    if (empty($conf->global->MONITORING_DISABLE_HOUR_VIEW) && ! dol_is_file($conf->monitoring->dir_output."/".$fileimage[0]))
     {
-       	print '<div class="float">';
-    	print $langs->trans("LastHour").'<br>';
-	   if (dol_is_file($conf->monitoring->dir_output."/".$fileimage[0])) print '<img src="'.DOL_URL_ROOT.'/viewimage.php?modulepart=monitoring&file='.$fileimage[0].'">';
-        else print 'PngFileNotAvailable<br>';
-        print '</div>'."\n";
+        print $langs->trans("GraphicsNotGeneratedYet");
     }
-    if (empty($conf->global->MONITORING_DISABLE_DAY_VIEW))
+    else
     {
-        print '<div class="float">';
-        print $langs->trans("LastDay").'<br>';
-    	if (dol_is_file($conf->monitoring->dir_output."/".$fileimage[1])) print '<img src="'.DOL_URL_ROOT.'/viewimage.php?modulepart=monitoring&file='.$fileimage[1].'">';
-        else print 'PngFileNotAvailable<br>';
-        print '</div>'."\n";
-    }
-    if (empty($conf->global->MONITORING_DISABLE_WEEK_VIEW))
-    {
-        print '<div class="float">';
-    	print $langs->trans("LastWeek").'<br>';
-    	if (dol_is_file($conf->monitoring->dir_output."/".$fileimage[2])) print '<img src="'.DOL_URL_ROOT.'/viewimage.php?modulepart=monitoring&file='.$fileimage[2].'">';
-        else print 'PngFileNotAvailable<br>';
-        print '</div>'."\n";
-    }
-    if (empty($conf->global->MONITORING_DISABLE_MONTH_VIEW))
-    {
-        print '<div class="float">';
-    	print $langs->trans("LastMonth").'<br>';
-    	if (dol_is_file($conf->monitoring->dir_output."/".$fileimage[3])) print '<img src="'.DOL_URL_ROOT.'/viewimage.php?modulepart=monitoring&file='.$fileimage[3].'">';
-        else print 'PngFileNotAvailable<br>';
-        print '</div>'."\n";
-    }
-    if (empty($conf->global->MONITORING_DISABLE_YEAR_VIEW))
-    {
-        print '<div class="float">';
-    	print $langs->trans("LastYear").'<br>';
-    	if (dol_is_file($conf->monitoring->dir_output."/".$fileimage[4])) print '<img src="'.DOL_URL_ROOT.'/viewimage.php?modulepart=monitoring&file='.$fileimage[4].'">';
-        else print 'PngFileNotAvailable<br>';
-        print '</div>'."\n";
+        if (empty($conf->global->MONITORING_DISABLE_HOUR_VIEW))
+        {
+           	print '<div class="float">';
+        	print $langs->trans("LastHour").'<br>';
+    	    if (dol_is_file($conf->monitoring->dir_output."/".$fileimage[0])) print '<img src="'.DOL_URL_ROOT.'/viewimage.php?modulepart=monitoring&file='.$fileimage[0].'">';
+            else print 'PngFileNotAvailable<br>';
+            print '</div>'."\n";
+        }
+        if (empty($conf->global->MONITORING_DISABLE_DAY_VIEW))
+        {
+            print '<div class="float">';
+            print $langs->trans("LastDay").'<br>';
+        	if (dol_is_file($conf->monitoring->dir_output."/".$fileimage[1])) print '<img src="'.DOL_URL_ROOT.'/viewimage.php?modulepart=monitoring&file='.$fileimage[1].'">';
+            else print 'PngFileNotAvailable<br>';
+            print '</div>'."\n";
+        }
+        if (empty($conf->global->MONITORING_DISABLE_WEEK_VIEW))
+        {
+            print '<div class="float">';
+        	print $langs->trans("LastWeek").'<br>';
+        	if (dol_is_file($conf->monitoring->dir_output."/".$fileimage[2])) print '<img src="'.DOL_URL_ROOT.'/viewimage.php?modulepart=monitoring&file='.$fileimage[2].'">';
+            else print 'PngFileNotAvailable<br>';
+            print '</div>'."\n";
+        }
+        if (empty($conf->global->MONITORING_DISABLE_MONTH_VIEW))
+        {
+            print '<div class="float">';
+        	print $langs->trans("LastMonth").'<br>';
+        	if (dol_is_file($conf->monitoring->dir_output."/".$fileimage[3])) print '<img src="'.DOL_URL_ROOT.'/viewimage.php?modulepart=monitoring&file='.$fileimage[3].'">';
+            else print 'PngFileNotAvailable<br>';
+            print '</div>'."\n";
+        }
+        if (empty($conf->global->MONITORING_DISABLE_YEAR_VIEW))
+        {
+            print '<div class="float">';
+        	print $langs->trans("LastYear").'<br>';
+        	if (dol_is_file($conf->monitoring->dir_output."/".$fileimage[4])) print '<img src="'.DOL_URL_ROOT.'/viewimage.php?modulepart=monitoring&file='.$fileimage[4].'">';
+            else print 'PngFileNotAvailable<br>';
+            print '</div>'."\n";
+        }
     }
 }
 
 print '<br>';
 
-$db->close();
+llxFooter();
 
-llxFooter('$Date: 2011/07/04 11:33:16 $ - $Revision: 1.17 $');
+$db->close();
 ?>

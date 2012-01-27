@@ -8,7 +8,6 @@ bittorrent			OK			Free
 filemanager			OK			5
 google				OK			15
 memcached			OK			19
-monitoring			OK			Free		TODO: If file rrd does not exists; suggest button create instead of refresh, and disable others.
 numberwords			OK			Free
 ovh-sms				OK			9
 phpsysinfo			OK			Free
@@ -17,6 +16,7 @@ scanner				OK			Free
 thomsonphonebook	OK			Free
 zipautofillfr		OK			15			France and belgium
 
+monitoring			A livrer	Free
 skincoloreditor		A livrer	5
 concatpdf           A livrer	19
 

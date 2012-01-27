@@ -252,8 +252,16 @@ print $langs->trans("ManualTestDesc").'<br><br>';
 if ($conf->global->MONITORING_COMMANDLINE_TOOL)
 {
 	print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?action=create">'.$langs->trans("CreateATestGraph").'</a>';
-	print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?action=update">'.$langs->trans("AddValueToTestGraph").'</a>';
-	print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?action=graph">'.$langs->trans("BuildTestGraph").'</a>';
+	if (dol_is_file($fname))
+	{
+    	print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?action=update">'.$langs->trans("AddValueToTestGraph").'</a>';
+    	print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?action=graph">'.$langs->trans("BuildTestGraph").'</a>';
+	}
+	else
+	{
+	    print '<a class="butActionRefused" href="#">'.$langs->trans("AddValueToTestGraph").'</a>';
+	    print '<a class="butActionRefused" href="#">'.$langs->trans("BuildTestGraph").'</a>';
+	}
 }
 else
 {
