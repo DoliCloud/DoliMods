@@ -293,8 +293,8 @@ else if ($nbofsalesrepresentative > 0)
     foreach($listsalesrepresentatives as $val)
     {
         $userstatic->id=$val['id'];
-        $userstatic->nom=$val['name'];
-        $userstatic->prenom=$val['firstname'];
+        $userstatic->lastname=$val['name'];
+        $userstatic->firstname=$val['firstname'];
         print $userstatic->getNomUrl(1);
         $i++;
         if ($i < $nbofsalesrepresentative) print ', ';
