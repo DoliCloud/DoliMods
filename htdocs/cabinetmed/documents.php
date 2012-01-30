@@ -144,7 +144,11 @@ if ($action == 'confirm_deletefile' && $confirm == 'yes')
  */
 if ($action == 'builddoc')  // En get ou en post
 {
-    if (is_numeric(GETPOST('model')))
+    if (! GETPOST('model'))
+    {
+        $errors[]=$langs->trans("WarningNoDocumentModelActivated");
+    }
+    else if (is_numeric(GETPOST('model')))
     {
         $errors[]=$langs->trans("ErrorFieldRequired",$langs->transnoentities("Model"));
     }

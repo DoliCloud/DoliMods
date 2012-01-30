@@ -159,21 +159,32 @@ class ActionsCabinetmed
 
         $htmlform=new Form($this->db);
 
+        include_once(DOL_DOCUMENT_ROOT.'/core/modules/societe/modules_societe.class.php');
+        $modellist=ModeleThirdPartyDoc::liste_modeles($this->db);
+
         $out='';
         $out.='<tr>';
         $out.='<td align="left" colspan="4" valign="top" class="formdoc">';
 
         // Add javascript to disable/enabled button
-        $out.="\n".'<script type="text/javascript" language="javascript">';
-        $out.='jQuery(document).ready(function () {';
-        $out.='    function initbutton(param) {';
-        $out.='        if (param >= 0) { jQuery("#builddoc_generatebutton").removeAttr(\'disabled\'); }';
-        $out.='        else { jQuery("#builddoc_generatebutton").attr(\'disabled\',true); }';
-        $out.='    }';
-        $out.='    initbutton(jQuery("#idconsult").val()); ';
-        $out.='    jQuery("#idconsult").change(function() { initbutton(jQuery(this).val()); });';
-        $out.='});';
-        $out.='</script>'."\n";
+        if (is_array($modellist) && count($modellist) > 0)
+        {
+            $out.="\n".'<script type="text/javascript" language="javascript">';
+            $out.='jQuery(document).ready(function () {';
+            $out.='    function initbutton(param) {';
+            $out.='        if (param >= 0) { jQuery("#builddoc_generatebutton").removeAttr(\'disabled\'); }';
+            $out.='        else { jQuery("#builddoc_generatebutton").attr(\'disabled\',true); }';
+            $out.='    }';
+            $out.='    initbutton(jQuery("#idconsult").val()); ';
+            $out.='    jQuery("#idconsult").change(function() { initbutton(jQuery(this).val()); });';
+            $out.='});';
+            $out.='</script>'."\n";
+        }
+        else
+        {
+            $langs->load("errors");
+            $out.=' &nbsp; '.img_warning($langs->transnoentitiesnoconv("ErrorModuleSetupNotComplete")).' &nbsp; ';
+        }
 
         $firstid=0;
         $out.='<font class="fieldrequired">'.$langs->trans("Consultation").':</font> ';
@@ -241,6 +252,13 @@ class ActionsCabinetmed
         }
         else dol_print_error($this->db);
         $out.=$htmlform->selectarray('idradio',$array_consult,GETPOST('idradio')?GETPOST('idradio'):'',1);
+
+        if (! is_array($modellist) || count($modellist) == 0)
+        {
+            $langs->load("errors");
+            $out.=' &nbsp; '.img_warning($langs->transnoentitiesnoconv("ErrorModuleSetupNotComplete")).' &nbsp; ';
+        }
+
         $out.='</td>';
         $out.='</tr>';
 
