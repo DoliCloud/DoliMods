@@ -1,6 +1,6 @@
 <?php
 /* Copyright (C) 2002-2006 Rodolphe Quiedeville <rodolphe@quiedeville.org>
- * Copyright (C) 2004-2010 Laurent Destailleur  <eldy@users.sourceforge.net>
+ * Copyright (C) 2004-2012 Laurent Destailleur  <eldy@users.sourceforge.net>
  * Copyright (C) 2004      Eric Seigne          <eric.seigne@ryxeo.com>
  * Copyright (C) 2003      Brian Fraval         <brian@fraval.org>
  * Copyright (C) 2006      Andre Cianfarani     <acianfa@free.fr>
@@ -24,19 +24,18 @@
  */
 
 /**
- *	\file       htdocs/societe/class/societe.class.php
- *	\ingroup    societe
- *	\brief      File for third party class
- *	\version    $Id: patient.class.php,v 1.9 2011/09/11 18:41:48 eldy Exp $
+ *	\file       htdocs/cabinetmed/class/patient.class.php
+ *	\ingroup    cabinetmed
+ *	\brief      File for patient class
  */
-require_once(DOL_DOCUMENT_ROOT."/core/class/commonobject.class.php");
+require_once(DOL_DOCUMENT_ROOT."/societe/class/societe.class.php");
 
 
 /**
  *	\class 		Patient
  *	\brief 		Class to manage third parties objects (customers, suppliers, prospects...)
  */
-class Patient extends CommonObject
+class Patient extends Societe
 {
     var $db;
     var $error;
@@ -51,9 +50,11 @@ class Patient extends CommonObject
     var $prenom;
     var $particulier;
     var $address;
-    var $adresse; // TODO obsolete
-    var $cp;
-    var $ville;
+    var $zip;
+    var $town;
+    var $adresse; // deprecated
+    var $cp;      // deprecated
+    var $ville;   // deprecated
 
     var $departement_id;
     var $state_code;
@@ -162,9 +163,9 @@ class Patient extends CommonObject
         global $langs,$conf;
 
         // Clean parameters
-        $this->nom=trim($this->nom);
+        $this->name=trim($this->name);
 
-        dol_syslog("Societe::create ".$this->nom);
+        dol_syslog("Societe::create ".$this->name);
 
         // Check parameters
         if (! empty($conf->global->SOCIETE_MAIL_REQUIRED) && ! isValidEMail($this->email))
@@ -190,7 +191,7 @@ class Patient extends CommonObject
         if ($result >= 0)
         {
             $sql = "INSERT INTO ".MAIN_DB_PREFIX."societe (nom, entity, datec, datea, fk_user_creat, canvas)";
-            $sql.= " VALUES ('".$this->db->escape($this->nom)."', ".$conf->entity.", '".$this->db->idate($now)."', '".$this->db->idate($now)."'";
+            $sql.= " VALUES ('".$this->db->escape($this->name)."', ".$conf->entity.", '".$this->db->idate($now)."', '".$this->db->idate($now)."'";
             $sql.= ", ".($user->id > 0 ? "'".$user->id."'":"null");
             $sql.= ", ".($this->canvas ? "'".$this->canvas."'":"null");
             $sql.= ")";
@@ -244,7 +245,7 @@ class Patient extends CommonObject
                 if ($this->db->errno() == 'DB_ERROR_RECORD_ALREADY_EXISTS')
                 {
 
-                    $this->error=$langs->trans("ErrorCompanyNameAlreadyExists",$this->nom);
+                    $this->error=$langs->trans("ErrorCompanyNameAlreadyExists",$this->name);
                 }
                 else
                 {
@@ -273,9 +274,9 @@ class Patient extends CommonObject
         $this->errors=array();
 
         $result = 0;
-        $this->nom=trim($this->nom);
+        $this->name=trim($this->name);
 
-        if (! $this->nom)
+        if (! $this->name)
         {
             $this->errors[] = 'ErrorBadThirdPartyName';
             $result = -2;
@@ -357,15 +358,15 @@ class Patient extends CommonObject
 
         // Clean parameters
         $this->id=$id;
-        $this->nom=trim($this->nom);     // TODO obsolete
-        $this->name=trim($this->name);
-        $this->adresse=trim($this->adresse); // TODO obsolete
+        $this->nom=trim($this->nom);         // deprecated
+        $this->name=trim($this->name?$this->name:$this->nom);
+        $this->adresse=trim($this->adresse); // deprecated
         $this->address=trim($this->address);
-        $this->cp=trim($this->cp);     // TODO obsolete
+        $this->cp=trim($this->cp);           // deprecated
         $this->zip=trim($this->zip);
-        $this->ville=trim($this->ville);     // TODO obsolete
+        $this->ville=trim($this->ville);     // deprecated
         $this->town=trim($this->ville);
-        $this->pays_id=trim($this->pays_id); // TODO obsolete
+        $this->pays_id=trim($this->pays_id); // deprecated
         $this->country_id=trim($this->country_id);
         $this->state_id=trim($this->state_id);
         $this->tel=trim($this->tel);
@@ -422,7 +423,7 @@ class Patient extends CommonObject
             dol_syslog("Societe::Update verify ok");
 
             $sql = "UPDATE ".MAIN_DB_PREFIX."societe";
-            $sql.= " SET nom = '" . addslashes($this->nom) ."'"; // Champ obligatoire
+            $sql.= " SET nom = '" . addslashes($this->name) ."'"; // Champ obligatoire
             $sql.= ",datea = '".$this->db->idate(mktime())."'";
             $sql.= ",address = '" . addslashes($this->address) ."'";
 
@@ -551,7 +552,7 @@ class Patient extends CommonObject
 
         if (empty($rowid) && empty($ref) && empty($ref_ext)) return -1;
 
-        $sql = 'SELECT s.rowid, s.nom, s.entity, s.ref_ext, s.address, s.datec as dc, s.prefix_comm';
+        $sql = 'SELECT s.rowid, s.nom as name, s.entity, s.ref_ext, s.address, s.datec as dc, s.prefix_comm';
         $sql .= ', s.price_level';
         $sql .= ', s.tms as date_update';
         $sql .= ', s.tel, s.fax, s.email, s.url, s.cp as zip, s.ville as town, s.note, s.client, s.fournisseur';
@@ -608,8 +609,8 @@ class Patient extends CommonObject
                 $this->entity       = $obj->entity;
 
                 $this->ref          = $obj->rowid;
-                $this->nom 			= $obj->nom; // TODO obsolete
-                $this->name 		= $obj->nom;
+                $this->nom 			= $obj->name; // deprecated
+                $this->name 		= $obj->name;
                 $this->ref_ext      = $obj->ref_ext;
 
                 $this->datec = $this->db->jdate($obj->datec);
@@ -892,14 +893,14 @@ class Patient extends CommonObject
     {
         global $conf;
 
-        $sql = "SELECT nom FROM ".MAIN_DB_PREFIX."societe WHERE rowid = '".$this->id."'";
+        $sql = "SELECT nom as name FROM ".MAIN_DB_PREFIX."societe WHERE rowid = '".$this->id."'";
         $resql=$this->db->query( $sql);
         if ($resql)
         {
             if ($this->db->num_rows($resql))
             {
                 $obj=$this->db->fetch_object($resql);
-                $nom = preg_replace("/[[:punct:]]/","",$obj->nom);
+                $nom = preg_replace("/[[:punct:]]/","",$obj->name);
                 $this->db->free();
 
                 $prefix = $this->genprefix($nom,4);
@@ -1216,52 +1217,6 @@ class Patient extends CommonObject
 
 
     /**
-     *    	\brief      Renvoie nom clicable (avec eventuellement le picto)
-     *		\param		withpicto		Inclut le picto dans le lien (0=No picto, 1=Inclut le picto dans le lien, 2=Picto seul)
-     *		\param		option			Sur quoi pointe le lien ('', 'customer', 'supplier', 'compta')
-     *		\param		maxlen			Longueur max libelle
-     *		\return		string			Chaine avec URL
-     */
-    function getNomUrl($withpicto=0,$option='customer',$maxlen=0)
-    {
-        global $langs;
-
-        $result='';
-        $lien=$lienfin='';
-
-        if ($option == 'customer' || $option == 'compta')
-        {
-            if ($this->client == 1)
-            {
-                $lien = '<a href="'.DOL_URL_ROOT.'/comm/fiche.php?socid='.$this->id;
-            }
-            elseif($this->client == 2)
-            {
-                $lien = '<a href="'.DOL_URL_ROOT.'/comm/prospect/fiche.php?socid='.$this->id;
-            }
-        }
-        if ($option == 'supplier')
-        {
-            $lien = '<a href="'.DOL_URL_ROOT.'/fourn/fiche.php?socid='.$this->id;
-        }
-        if (empty($lien))
-        {
-            $lien = '<a href="'.DOL_URL_ROOT.'/societe/soc.php?socid='.$this->id;
-        }
-
-        // Add type of canvas
-        $lien.=(!empty($this->canvas)?'&amp;canvas='.$this->canvas:'').'">';
-        $lienfin='</a>';
-
-        if ($withpicto) $result.=($lien.img_object($langs->trans("ShowCompany").': '.$this->nom,'company').$lienfin);
-        if ($withpicto && $withpicto != 2) $result.=' ';
-        $result.=$lien.($maxlen?dol_trunc($this->nom,$maxlen):$this->nom).$lienfin;
-
-        return $result;
-    }
-
-
-    /**
      * 	\brief		Return full address of a third party (TODO in format of its country)
      *	\return		string		Full address string
      */
@@ -1275,8 +1230,9 @@ class Patient extends CommonObject
 
 
     /**
-     *    \brief      Renvoie la liste des contacts emails existant pour la societe
-     *    \return     array       tableau des contacts emails
+     *    Renvoie la liste des contacts emails existant pour la societe
+     *
+     *    @return     array       tableau des contacts emails
      */
     function thirdparty_and_contact_email_array()
     {
@@ -1286,14 +1242,15 @@ class Patient extends CommonObject
         if ($this->email)
         {
             // TODO: Tester si email non deja present dans tableau contact
-            $contact_email['thirdparty']=$langs->trans("ThirdParty").': '.dol_trunc($this->nom,16)." &lt;".$this->email."&gt;";
+            $contact_email['thirdparty']=$langs->trans("ThirdParty").': '.dol_trunc($this->name,16)." &lt;".$this->email."&gt;";
         }
         return $contact_email;
     }
 
     /**
-     *    \brief      Renvoie la liste des contacts emails existant pour la societe
-     *    \return     array       tableau des contacts emails
+     *    Renvoie la liste des contacts emails existant pour la societe
+     *
+     *    @return     array       tableau des contacts emails
      */
     function contact_email_array()
     {
@@ -1743,7 +1700,7 @@ class Patient extends CommonObject
      */
     function info($id)
     {
-        $sql = "SELECT s.rowid, s.nom, s.datec, s.datea,";
+        $sql = "SELECT s.rowid, s.nom as name, s.datec, s.datea,";
         $sql.= " fk_user_creat, fk_user_modif";
         $sql.= " FROM ".MAIN_DB_PREFIX."societe as s";
         $sql.= " WHERE s.rowid = ".$id;
@@ -1768,7 +1725,7 @@ class Patient extends CommonObject
                     $muser->fetch($obj->fk_user_modif);
                     $this->user_modification = $muser;
                 }
-                $this->ref			     = $obj->nom;
+                $this->ref			     = $obj->name;
                 $this->date_creation     = $this->db->jdate($obj->datec);
                 $this->date_modification = $this->db->jdate($obj->datea);
             }
@@ -1918,70 +1875,6 @@ class Patient extends CommonObject
 
 
     /**
-     *      Cree en base un tiers depuis l'objet adherent
-     *      @param      member		Objet adherent source
-     * 		@param		socname		Name of third to force
-     *      @return     int			Si erreur <0, si ok renvoie id compte cree
-     */
-    function create_from_member($member,$socname='')
-    {
-        global $conf,$user,$langs;
-
-        $name = !empty($socname)?$socname:$member->societe;
-        if (empty($name)) $name=trim($member->nom.' '.$member->prenom);
-
-        // Positionne parametres
-        $this->email = $member->email;
-        $this->nom = $name;
-        $this->client = 1;						// A member is a customer by default
-        $this->code_client = -1;
-        $this->code_fournisseur = -1;
-        $this->adresse=$member->adresse; // TODO obsolete
-        $this->address=$member->adresse;
-        $this->cp=$member->cp;
-        $this->ville=$member->ville;
-        $this->country_code=$member->country_code;
-        $this->country_id=$member->country_id;
-        $this->tel=$member->phone;				// Prof phone
-
-        $this->db->begin();
-
-        // Cree et positionne $this->id
-        $result=$this->create($user);
-        if ($result >= 0)
-        {
-            $sql = "UPDATE ".MAIN_DB_PREFIX."adherent";
-            $sql.= " SET fk_soc=".$this->id;
-            $sql.= " WHERE rowid=".$member->id;
-
-            dol_syslog("Societe::create_from_member sql=".$sql, LOG_DEBUG);
-            $resql=$this->db->query($sql);
-            if ($resql)
-            {
-                $this->db->commit();
-                return $this->id;
-            }
-            else
-            {
-                $this->error=$this->db->error();
-                dol_syslog("Societe::create_from_member - 1 - ".$this->error, LOG_ERR);
-
-                $this->db->rollback();
-                return -1;
-            }
-        }
-        else
-        {
-            // $this->error deja positionne
-            dol_syslog("Societe::create_from_member - 2 - ".$this->error, LOG_ERR);
-
-            $this->db->rollback();
-            return $result;
-        }
-    }
-
-
-    /**
      *      Initialise an example of company with random values
      *      Used to build previews or test instances
      */
@@ -1993,10 +1886,10 @@ class Patient extends CommonObject
 
         // Initialize parameters
         $this->id=0;
-        $this->nom = 'THIRDPARTY SPECIMEN '.dol_print_date($now,'dayhourlog');
+        $this->name = 'THIRDPARTY SPECIMEN '.dol_print_date($now,'dayhourlog');
         $this->specimen=1;
-        $this->cp='99999';
-        $this->ville='MyTown';
+        $this->zip='99999';
+        $this->town='MyTown';
         $this->country_id=1;
         $this->country_code='FR';
 

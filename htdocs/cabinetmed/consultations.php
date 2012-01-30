@@ -229,8 +229,8 @@ if ($action == 'add' || $action == 'update')
                             $bankaccount=new Account($db);
                             $result=$bankaccount->fetch($banque[$key]);
                             if ($result < 0) dol_print_error($db,$bankaccount->error);
-                            if ($key == 'CHQ') $lineid=$bankaccount->addline(dol_now(), $key, $langs->trans("CustomerInvoicePayment"), $amount[$key], $consult->num_cheque, '', $user, $societe->nom, $consult->banque);
-                            else $lineid=$bankaccount->addline(dol_now(), $key, $langs->trans("CustomerInvoicePayment"), $amount[$key], '', '', $user, $societe->nom, '');
+                            if ($key == 'CHQ') $lineid=$bankaccount->addline(dol_now(), $key, $langs->trans("CustomerInvoicePayment"), $amount[$key], $consult->num_cheque, '', $user, $societe->name, $consult->banque);
+                            else $lineid=$bankaccount->addline(dol_now(), $key, $langs->trans("CustomerInvoicePayment"), $amount[$key], '', '', $user, $societe->name, '');
                             if ($lineid <= 0)
                             {
                                 $error++;
@@ -239,7 +239,7 @@ if ($action == 'add' || $action == 'update')
                             if (! $error)
                             {
                                 $result1=$bankaccount->add_url_line($lineid,$consult->id,dol_buildpath('/cabinetmed/consultations.php',1).'?action=edit&socid='.$consult->fk_soc.'&id=','Consultation','consultation');
-                                $result2=$bankaccount->add_url_line($lineid,$consult->fk_soc,'',$societe->nom,'company');
+                                $result2=$bankaccount->add_url_line($lineid,$consult->fk_soc,'',$societe->name,'company');
                                 if ($result1 <= 0 || $result2 <= 0)
                                 {
                                     $error++;
@@ -313,10 +313,10 @@ if ($action == 'add' || $action == 'update')
                                 $bankaccount=new Account($db);
                                 $result=$bankaccount->fetch($banque[$key]);
                             	if ($result < 0) dol_print_error($db,$bankaccount->error);
-                                if ($key == 'CHQ') $lineid=$bankaccount->addline($consult->datecons, $key, $langs->trans("CustomerInvoicePayment"), $amount[$key], $consult->num_cheque, '', $user, $societe->nom, $consult->banque);
-                                else $lineid=$bankaccount->addline($consult->datecons, $key, $langs->trans("CustomerInvoicePayment"), $amount[$key], '', '', $user, $societe->nom, '');
+                                if ($key == 'CHQ') $lineid=$bankaccount->addline($consult->datecons, $key, $langs->trans("CustomerInvoicePayment"), $amount[$key], $consult->num_cheque, '', $user, $societe->name, $consult->banque);
+                                else $lineid=$bankaccount->addline($consult->datecons, $key, $langs->trans("CustomerInvoicePayment"), $amount[$key], '', '', $user, $societe->name, '');
                                 $result1=$bankaccount->add_url_line($lineid,$consult->id,dol_buildpath('/cabinetmed/consultations.php',1).'?action=edit&socid='.$consult->fk_soc.'&id=','Consultation','consultation');
-                                $result2=$bankaccount->add_url_line($lineid,$consult->fk_soc,'',$societe->nom,'company');
+                                $result2=$bankaccount->add_url_line($lineid,$consult->fk_soc,'',$societe->name,'company');
                                 if ($lineid <= 0 || $result1 <= 0 || $result2 <= 0)
                                 {
                                     $error++;
@@ -775,7 +775,7 @@ if ($socid > 0)
         $sql.= " FROM ".MAIN_DB_PREFIX."bank_account";
         $sql.= " WHERE clos = '0'";
         $sql.= " AND entity = ".$conf->entity;
-        $sql.= " AND (proprio LIKE '%".$user->nom."%' OR label LIKE '%".$user->nom."%')";
+        $sql.= " AND (proprio LIKE '%".$user->lastname."%' OR label LIKE '%".$user->lastname."%')";
         $sql.= " ORDER BY label";
         //print $sql;
         $resql=$db->query($sql);

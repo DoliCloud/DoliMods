@@ -201,11 +201,11 @@ if ($id)
     print '</tr>';
 
     // Name
-    print '<tr><td>'.$langs->trans("Lastname").'</td><td class="valeur">'.$member->nom.'&nbsp;</td>';
+    print '<tr><td>'.$langs->trans("Lastname").'</td><td class="valeur">'.$member->lastname.'&nbsp;</td>';
     print '</tr>';
 
     // Firstname
-    print '<tr><td>'.$langs->trans("Firstname").'</td><td class="valeur">'.$member->prenom.'&nbsp;</td></tr>';
+    print '<tr><td>'.$langs->trans("Firstname").'</td><td class="valeur">'.$member->firstname.'&nbsp;</td></tr>';
 
     print '</table>';
 

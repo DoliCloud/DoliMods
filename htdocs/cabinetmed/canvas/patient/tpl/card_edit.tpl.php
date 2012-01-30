@@ -50,8 +50,8 @@ if ($_POST["nom"])
 {
     $soc->client=1;
 
-    $soc->nom=$_POST["nom"];
-    $soc->prenom=$_POST["prenom"];
+    $soc->nom=$_POST["nom"];           // deprecated
+    $soc->prenom=$_POST["prenom"];     // deprecated
     $soc->lastname=$_POST["nom"];
     $soc->firstname=$_POST["prenom"];
     $soc->particulier=0;

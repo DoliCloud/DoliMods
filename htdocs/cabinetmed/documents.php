@@ -575,7 +575,7 @@ if ($socid > 0)
         $formmail->withtoccsocid=0;
         $formmail->withtoccc=$conf->global->MAIN_EMAIL_USECCC;
         $formmail->withtocccsocid=0;
-        $formmail->withtopic=$langs->trans('SendOutcome',$object->nom);
+        $formmail->withtopic=$langs->trans('SendOutcome',$object->name);
         $formmail->withfile=2;
         $formmail->withbody=$langs->trans("ThisIsADocumentForYou");
         $formmail->withdeliveryreceipt=0;

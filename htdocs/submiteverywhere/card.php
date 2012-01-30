@@ -161,9 +161,6 @@ if ($action == 'sendallconfirmed' && $_REQUEST['confirm'] == 'yes')
 
 				$obj = $db->fetch_object($resql);
 
-				// sendto en RFC2822
-				$sendto = str_replace(',',' ',$obj->prenom." ".$obj->nom)." <".$obj->email.">";
-
 				// Make substitutions on topic and body. From (AA=YY;BB=CC;...) we keep YY, CC, ...
 				$other=explode(';',$obj->other);
 				$tmpfield=explode('=',$other[0],2); $other1=(isset($tmpfield[1])?$tmpfield[1]:$tmpfield[0]);
@@ -174,8 +171,6 @@ if ($action == 'sendallconfirmed' && $_REQUEST['confirm'] == 'yes')
 				$substitutionarray=array(
 					'__ID__' => $obj->source_id,
 					'__EMAIL__' => $obj->email,
-					'__LASTNAME__' => $obj->nom,
-					'__FIRSTNAME__' => $obj->prenom,
 					'__OTHER1__' => $other1,
 					'__OTHER2__' => $other2,
 					'__OTHER3__' => $other3,
@@ -204,10 +199,12 @@ if ($action == 'sendallconfirmed' && $_REQUEST['confirm'] == 'yes')
 					}
 				}
 
+				// TODO
+
 				// Fabrication du mail
-				$mail = new CMailFile($newsubject, $sendto, $from, $newmessage,
-										$arr_file, $arr_mime, $arr_name,
-	            						'', '', 0, $msgishtml, $errorsto, $arr_css);
+				//$mail = new CMailFile($newsubject, $sendto, $from, $newmessage,
+				//						$arr_file, $arr_mime, $arr_name,
+	            //						'', '', 0, $msgishtml, $errorsto, $arr_css);
 
 				if ($mail->error)
 				{
