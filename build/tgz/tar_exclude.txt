@@ -29,15 +29,6 @@ htdocs/includes/treemenu/docs
 htdocs/includes/treemenu/images
 htdocs/includes/treemenu/imagesAlt
 htdocs/includes/treemenu/imagesAlt2
-htdocs/includes/modules/modBookmark4u.class.php
-htdocs/includes/modules/modDocument.class.php
-htdocs/includes/modules/modDroitPret.class.php
-htdocs/includes/modules/modEditeur.class.php
-htdocs/includes/modules/modPostnuke.class.php
-htdocs/includes/modules/modTelephonie.class.php
-htdocs/includes/triggers/interface_user.class.php
-htdocs/includes/triggers/interface_contractfrombill.class.php-NORUN
-htdocs/includes/triggers/interface_modEditeur_Editeur.class.php-NORUN
 htdocs/lolix
 htdocs/oscommerce_ws/ws_client_demo
 htdocs/postnuke

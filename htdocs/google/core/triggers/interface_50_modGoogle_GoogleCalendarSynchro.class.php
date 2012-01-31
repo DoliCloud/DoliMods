@@ -17,10 +17,9 @@
  */
 
 /**
- *      \file       /google/core/triggers/interface_modGoogle_GoogleCalendarSynchro.class.php
+ *      \file       /google/core/triggers/interface_50_modGoogle_GoogleCalendarSynchro.class.php
  *      \ingroup    google
  *      \brief      File to manage triggers for Google calendar sync
- *      \version	$Id: interface_modGoogle_GoogleCalendarSynchro.class.php,v 1.1 2011/08/01 19:28:55 eldy Exp $
  */
 
 include_once(DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php');

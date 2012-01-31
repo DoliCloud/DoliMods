@@ -1,5 +1,5 @@
 <?php
-/* Copyright (C) 2005-2011 Laurent Destailleur  <eldy@users.sourceforge.net>
+/* Copyright (C) 2005-2012 Laurent Destailleur  <eldy@users.sourceforge.net>
  * Copyright (C) 2009-2011 Regis Houssin        <regis@dolibarr.fr>
  * Copyright (C) 2011	   Juanjo Menent        <jmenent@2byte.es>
  *
@@ -19,10 +19,9 @@
  */
 
 /**
- *	\file       htdocs/cabinetmed/core/triggers/interface_modCabinetmed_ActionsCabinetmed.class.php
+ *	\file       htdocs/cabinetmed/core/triggers/interface_50_modCabinetmed_ActionsCabinetmed.class.php
  *  \ingroup    cabinetmed
  *  \brief      Trigger file for cabinetmed module
- *	\version	$Id: interface_modCabinetmed_ActionsCabinetmed.class.php,v 1.1 2011/08/01 19:28:50 eldy Exp $
  */
 
 
@@ -204,10 +203,10 @@ class InterfaceActionsCabinetmed
 			}
 			else
 			{
-                $error ="Failed to insert : ".$actioncomm->error." ";
+                $error ="Failed to insert : ".$actioncomm->error;
                 $this->error=$error;
 
-                dol_syslog("interface_modAgenda_ActionsAuto.class.php: ".$this->error, LOG_ERR);
+                dol_syslog(get_class($this).": ".$this->error, LOG_ERR);
                 return -1;
 			}
 		}
