@@ -1,4 +1,4 @@
-# Dolibarr language file - ca_ES - cabinetmed
+# Dolibarr language file - ca_ES - cabinetmed 
 CHARSET=UTF-8
 Module100700Name=Consulta médica
 Module100700Desc=Módulo para gestionar una consulta médica
@@ -53,6 +53,7 @@ MontantEspece=Import en efectiu
 MontantCheque=Import xec
 MontantCarte=Import carta
 MontantTiers=Import tercer
+Primary=Principal
 MotifPrincipal=Motiu principal
 MotifSecondaires=Motius secundaris
 DiagLesPrincipal=Diagnòstic malaltia principal
@@ -88,7 +89,7 @@ PaymentTypeThirdParty=Tercers
 PaymentTypeEspece=Efectiu
 PaymentTypeCarte=Pagaré
 PaymentTypeCheque=Xec
-Secondaires=Secundaris
+Secondaries=Secundaris
 Commentaires=Comentaris
 RecBank=A registrar a
 Paiement=Pagament
@@ -96,6 +97,9 @@ Infiltrations=Infiltracions
 Priseencharge=Atenció
 Courriers=Documents
 CodageCCAM=Codificació CCAM
+CS=Consulta estàndard
+CS2=Consulta especial
+CCAM=Acte
 EVAFatigue=EVA Fatiga
 EVADouleurAxiale=EVA Dolor Axial
 EVADouleurPeriph=EVA Dolor Perif.
