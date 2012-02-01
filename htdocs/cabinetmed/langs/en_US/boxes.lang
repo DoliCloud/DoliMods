@@ -1,0 +1,15 @@
+# Dolibarr language file - fr_FR - boxes
+CHARSET=UTF-8
+BoxLastCustomers=Last modified patients
+BoxLastContacts=Lasts contacts
+BoxTotalUnpaidCustomerBills=Total of not payed outcomes
+BoxTitleNbOfCustomers=Number of patient
+BoxTitleLastCustomers=Last %s recorded patiens
+BoxTitleLastModifiedCustomers=Last %s modified patients
+BoxTitleLastCustomersOrProspects=Last %s modified patients
+BoxTitleTotalUnpaidCustomerBills=Unpayed outcomes
+BoxTitleLastModifiedContacts=Last %s modified contacts 
+NoRecordedCustomers=No patient recorded
+NoRecordedContacts=No contact recorded
+NoRecordedInvoices=No outcome recorded
+NoUnpaidCustomerBills=No unpayed outcome
