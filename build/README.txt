@@ -6,7 +6,7 @@ Module				Statut		Price		Remarque
 awstats				OK			5
 bittorrent			OK			Free
 filemanager			OK			5
-google				OK			15
+google				OK			15 a passer a 20 euros
 memcached			OK			19
 numberwords			OK			Free
 ovh-sms				OK			9
