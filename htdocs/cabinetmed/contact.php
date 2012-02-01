@@ -1,6 +1,6 @@
 <?php
 /* Copyright (C) 2005      Patrick Rouillon     <patrick@rouillon.net>
- * Copyright (C) 2005-2011 Laurent Destailleur  <eldy@users.sourceforge.net>
+ * Copyright (C) 2005-2012 Laurent Destailleur  <eldy@users.sourceforge.net>
  * Copyright (C) 2005-2009 Regis Houssin        <regis@dolibarr.fr>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -22,7 +22,6 @@
  *       \file       htdocs/cabinetmed/contact.php
  *       \ingroup    cabinetmed
  *       \brief      Tab for links between doctors and patient
- *       \version    $Id: contact.php,v 1.12 2011/08/31 15:20:27 eldy Exp $
  */
 
 $res=0;
@@ -220,51 +219,15 @@ if ($id > 0 || ! empty($ref))
 
 		$var = true;
 
-        /*
-		print '<form action="contact.php?socid='.$id.'" method="post">';
-		print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
-		print '<input type="hidden" name="action" value="addcontact">';
-		print '<input type="hidden" name="source" value="internal">';
-		print '<input type="hidden" name="socid" value="'.$id.'">';
-
-		// Ligne ajout pour contact interne
-		print "<tr $bc[$var]>";
-
-		print '<td nowrap="nowrap">';
-		print img_object('','user').' '.$langs->trans("Users");
-		print '</td>';
-
-		print '<td colspan="1">';
-		print $conf->global->MAIN_INFO_SOCIETE_NOM;
-		print '</td>';
-
-		print '<td colspan="1">';
-		//$userAlreadySelected = $commande->getListContactId('internal');	// On ne doit pas desactiver un contact deja selectionner car on doit pouvoir le seclectionner une deuxieme fois pour un autre type
-		$html->select_users($user->id,'contactid',0,$userAlreadySelected);
-		print '</td>';
-		print '<td>';
-		$formcompany->selectTypeContact($commande, '', 'type','internal');
-		print '</td>';
-		print '<td align="right" colspan="3" ><input type="submit" class="button" value="'.$langs->trans("Add").'"></td>';
-		print '</tr>';
-
-		print '</form>';
-        */
-
 		print '<form action="contact.php?socid='.$socid.'" method="post">';
 		print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
 		print '<input type="hidden" name="action" value="addcontact">';
 		print '<input type="hidden" name="source" value="external">';
 		print '<input type="hidden" name="socid" value="'.$socid.'">';
 
-		// Ligne ajout pour contact externe
+		// Line to add contacts
 		$var=!$var;
 		print "<tr $bc[$var]>";
-
-		/*print '<td nowrap="nowrap">';
-		print img_object('','contact').' '.$langs->trans("ThirdPartyContacts");
-		print '</td>';
-		*/
 
 		print '<td colspan="1">';
 		// $contactAlreadySelected = $commande->getListContactId('external');	// On ne doit pas desactiver un contact deja selectionner car on doit pouvoir le seclectionner une deuxieme fois pour un autre type

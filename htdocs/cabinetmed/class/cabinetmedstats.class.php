@@ -29,9 +29,9 @@ include_once DOL_DOCUMENT_ROOT . "/compta/facture/class/facture.class.php";
 include_once DOL_DOCUMENT_ROOT . "/fourn/class/fournisseur.facture.class.php";
 include_once DOL_DOCUMENT_ROOT . "/core/lib/date.lib.php";
 
+
 /**
- *       \class      FactureStats
- *       \brief      Classe permettant la gestion des stats des factures
+ *	Classe permettant la gestion des stats des consultations
  */
 class CabinetMedStats extends Stats
 {
@@ -49,17 +49,17 @@ class CabinetMedStats extends Stats
 	/**
 	 * Constructor
 	 *
-	 * @param 	$DB		   Database handler
-	 * @param 	$socid	   Id third party
-	 * @param 	$mode	   Option
-     * @param   $userid    Id user for filter
-	 * @return CabinetMedStats
+	 * @param	DoliDB	 	$db		   Database handler
+	 * @param 	int			$socid	   Id third party
+	 * @param 	int			$mode	   Option
+     * @param   int			$userid    Id user for filter
+	 * @return 	CabinetMedStats
 	 */
-	function CabinetMedStats($DB, $socid=0, $mode, $userid=0)
+	function CabinetMedStats($db, $socid=0, $mode, $userid=0)
 	{
 		global $conf;
 
-		$this->db = $DB;
+		$this->db = $db;
         $this->socid = $socid;
         $this->userid = $userid;
 
@@ -77,7 +77,8 @@ class CabinetMedStats extends Stats
 
 
 	/**
-	 * 	Renvoie le nombre de facture par annee
+	 * 	Renvoie le nombre de consult par annee
+	 *
 	 *	@return		array	Array of values
 	 */
 	function getNbByYear()
@@ -93,7 +94,8 @@ class CabinetMedStats extends Stats
 
 
 	/**
-	 * 	Renvoie le nombre de facture par mois pour une annee donnee
+	 * 	Renvoie le nombre de consult par mois pour une annee donnee
+	 *
 	 *	@param	year	Year to scan
 	 *	@return	array	Array of values
 	 */
@@ -113,7 +115,8 @@ class CabinetMedStats extends Stats
 
 
 	/**
-	 * 	Renvoie le montant de facture par mois pour une annee donnee
+	 * 	Renvoie le montant de consult par mois pour une annee donnee
+	 *
 	 *	@param	year	Year to scan
 	 *	@return	array	Array of values
 	 */
@@ -137,9 +140,10 @@ class CabinetMedStats extends Stats
 	}
 
 	/**
-	 *	\brief	Return average amount
-	 *	\param	year	Year to scan
-	 *	\return	array	Array of values
+	 *	Return average amount
+	 *
+	 *	@param	year	Year to scan
+	 *	@return	array	Array of values
 	 */
 	function getAverageByMonth($year)
 	{
@@ -159,8 +163,9 @@ class CabinetMedStats extends Stats
 	}
 
 	/**
-	 *	\brief	Return nb, total and average
-	 *	\return	array	Array of values
+	 *	Return nb, total and average
+	 *
+	 *	@return	array	Array of values
 	 */
 	function getAllByYear()
 	{

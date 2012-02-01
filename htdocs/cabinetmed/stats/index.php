@@ -19,9 +19,8 @@
 
 /**
  *  \file       htdocs/cabinetmed/stats/index.php
- *  \ingroup    facture
+ *  \ingroup    cabinetmed
  *  \brief      Page of patient outcomes statistics
- *  \version    $Id: index.php,v 1.3 2011/06/14 23:39:01 eldy Exp $
  */
 
 
