@@ -1,7 +1,7 @@
 # Dolibarr language file - en_US - skincoloreditor 
 CHARSET= UTF-8
 SkinColorEditorSetup=Skin color editor module setup
-SkinColorEditorDesc=This module allows you to change colors of the skin Eldy with colors of your choice. Colors can be set globally here. To change colors for a particular users only, use the tab "Color editor" on the user card.
+SkinColorEditorDesc=This module allows you to change colors of the skin Eldy with colors of your choice. Colors can be set globally here. To change colors for a particular user only, use the tab "Color editor" on the user card.
 SkinColorEditorDescUser=This tab allows you to change colors of the skin Eldy with colors of your choice. Colors can be modified for current user on this tab. To change globaly (all users at once), go into module setup page with an admin user.
 WarningSkinMustBeEldy=Warning, change of colors works only with skin Eldy. You are using currently the skin %s.
 SkinColorEditorFastEditor=Editeur rapide

@@ -1,5 +1,5 @@
 <?php
-/* Copyright (C) 2004-2011 Laurent Destailleur  <eldy@users.sourceforge.net>
+/* Copyright (C) 2004-2012 Laurent Destailleur  <eldy@users.sourceforge.net>
  * Copyright (C)      2006 Rodolphe Quiedeville <rodolphe@quiedeville.org>
  * Copyright (C) 2007-2011 Regis Houssin        <regis@dolibarr.fr>
  * Copyright (C)	  2011 Philippe Grand       <philippe.grand@atoo-net.com>
@@ -44,6 +44,9 @@ if (! $res && file_exists("../../../dolibarr/htdocs/main.inc.php")) $res=@includ
 if (! $res && file_exists("../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
 if (! $res && file_exists("../../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
 if (! $res) die("Include of main fails");
+
+// Load user to have $user->conf loaded (not done into main because of NOLOGIN constant defined)
+if (empty($user->id) && ! empty($_SESSION['dol_login'])) $user->fetch('',$_SESSION['dol_login']);
 
 // Define css type
 header('Content-type: text/css');
@@ -100,6 +103,7 @@ $colorbacklineimpair2=(250+round($isred/3)).','.(250+round($isgreen/3)).','.(250
 $colorbacklinepair1='255,255,255';    // line pair
 $colorbacklinepair2='255,255,255';    // line pair
 $colorbackbody='#ffffff url('.$img_head.') 0 0 no-repeat;';
+$colortext='40,40,40';
 
 // Eldy colors
 if (empty($conf->global->THEME_ELDY_ENABLE_PERSONALIZED))
@@ -137,6 +141,13 @@ $colorbacklinepair1  =empty($user->conf->THEME_ELDY_ENABLE_PERSONALIZED)?(empty(
 $colorbacklinepair2  =empty($user->conf->THEME_ELDY_ENABLE_PERSONALIZED)?(empty($conf->global->THEME_ELDY_LINEPAIR2)    ?$colorbacklinepair2:$conf->global->THEME_ELDY_LINEPAIR2)    :(empty($user->conf->THEME_ELDY_LINEPAIR2)?$colorbacklinepair2:$user->conf->THEME_ELDY_LINEPAIR2);
 $colorbackbody       =empty($user->conf->THEME_ELDY_ENABLE_PERSONALIZED)?(empty($conf->global->THEME_ELDY_BACKBODY)      ?$colorbackbody:$conf->global->THEME_ELDY_BACKBODY)          :(empty($user->conf->THEME_ELDY_BACKBODY)?$colorbackbody:$user->conf->THEME_ELDY_BACKBODY);
 $colortext           =empty($user->conf->THEME_ELDY_ENABLE_PERSONALIZED)?(empty($conf->global->THEME_ELDY_TEXT)         ?$colortext:$conf->global->THEME_ELDY_TEXT)                  :(empty($user->conf->THEME_ELDY_TEXT)?$colortext:$user->conf->THEME_ELDY_TEXT);
+
+// Set text color to black or white
+$tmppart=explode(',',$colorback1);
+$tmpval=$tmppart[1]+$tmppart[2]+$tmppart[3];
+//print $tmpval;
+if ($tmpval < 340) $colortextmain='FFFFFF';
+else $colortextmain='101010';
 
 print '/*'."\n";
 print 'colred='.$colred.' colgreen='.$colgreen.' colblue='.$colblue."\n";
@@ -380,27 +391,28 @@ a.tmenudisabled:link, a.tmenudisabled:visited, a.tmenudisabled:hover, a.tmenudis
 
 a.tmenu:link, a.tmenu:visited, a.tmenu:hover, a.tmenu:active {
     font-weight: normal;
-	color: #234046;
 	padding: 0px 5px 0px 5px;
 	margin: 0px 1px 2px 1px;
 	white-space: nowrap;
-	text-shadow: 1px 2px 3px #AFAFAF;
+	text-shadow: 1px 2px 4px #BFBFBF;
+}
+a.tmenu:link, a.tmenu:visited {
+	color: #<?php echo $colortextmain; ?>;
 }
 a.tmenu:hover, a.tmenu:active {
+	color: #233030;
 	margin: 0px 0px 0px 0px;
 	border-<?php print $right; ?>: 1px solid #555555;
 	border-<?php print $left; ?>: 1px solid #D8D8D8;
 	border-top: 1px solid #D8D8D8;
 	border-bottom: 2px solid #F4F4F4;
-}
-a.tmenu:hover, a.tmenu:active {
 	background: #F4F4F4;
-	text-shadow: 1px 2px 3px #AFAFAF;
+	text-shadow: 1px 2px 4px #BFBFBF;
 }
 
 a.tmenusel:link, a.tmenusel:visited, a.tmenusel:hover, a.tmenusel:active {
 	font-weight: normal;
-	color: #234046;
+	color: #233030;
 	padding: 0px 5px 0px 5px;
 	margin: 0px 0px 0px 0px;
 	background: #F4F4F4;
@@ -409,7 +421,7 @@ a.tmenusel:link, a.tmenusel:visited, a.tmenusel:hover, a.tmenusel:active {
 	border-<?php print $left; ?>: 1px solid #D8D8D8;
 	border-bottom: 2px solid #F4F4F4;
 	white-space: nowrap;
-	text-shadow: 1px 2px 3px #AFAFAF;
+	text-shadow: 1px 2px 4px #BFBFBF;
 }
 
 
@@ -629,7 +641,7 @@ div.login {
 	font-weight: bold;
 }
 div.login a {
-	color: #234046;
+	color: #233030;
 }
 div.login a:hover {
 	color: black;
@@ -666,9 +678,11 @@ td.vmenu {
 
 a.vmenu:link, a.vmenu:visited, a.vmenu:hover, a.vmenu:active { font-size:<?php print $fontsize ?>px; font-family: <?php print $fontlist ?>; text-align: <?php print $left; ?>; font-weight: bold; }
 font.vmenudisabled  { font-size:<?php print $fontsize ?>px; font-family: <?php print $fontlist ?>; text-align: <?php print $left; ?>; font-weight: bold; color: #93a5aa; }
+a.vmenu:link, a.vmenu:visited { color: #<?php echo $colortextmain; ?>; }
 
 a.vsmenu:link, a.vsmenu:visited, a.vsmenu:hover, a.vsmenu:active { font-size:<?php print ($fontsize-1) ?>px; font-family: <?php print $fontlist ?>; text-align: <?php print $left; ?>; font-weight: normal; color: #202020; margin: 1px 1px 1px 6px; }
 font.vsmenudisabled { font-size:<?php print ($fontsize-1) ?>px; font-family: <?php print $fontlist ?>; text-align: <?php print $left; ?>; font-weight: normal; color: #93a5aa; margin: 1px 1px 1px 6px; }
+a.vsmenu:link, a.vsmenu:visited { color: #<?php echo $colortextmain; ?>; }
 
 a.help:link, a.help:visited, a.help:hover, a.help:active { font-size:<?php print $fontsizesmaller ?>px; font-family: <?php print $fontlist ?>; text-align: <?php print $left; ?>; font-weight: normal; color: #666666; }
 
@@ -1057,7 +1071,7 @@ div.tabs {
 }
 
 div.tabBar {
-    color: #234046;
+    color: #<?php echo $colortextmain; ?>;
     padding-top: 9px;
     padding-left: 8px;
     padding-right: 8px;
@@ -1104,7 +1118,6 @@ a.tabTitle {
 
 a.tab:link {
     background: #dee7ec;
-    color: #434956;
 	font-family: <?php print $fontlist ?>;
     padding: 0px 6px;
     margin: 0em 0.2em;
@@ -1128,7 +1141,6 @@ background-image: -ms-linear-gradient(bottom, rgb(<?php echo $colorbacktab1; ?>)
 }
 a.tab:visited {
     background: #dee7ec;
-    color: #434956;
 	font-family: <?php print $fontlist ?>;
     padding: 0px 6px;
     margin: 0em 0.2em;
@@ -1153,7 +1165,6 @@ background-image: -ms-linear-gradient(bottom, rgb(<?php echo $colorbacktab1; ?>)
 a.tab#active {
     background: white;
 	font-family: <?php print $fontlist ?>;
-    color: #434956;
     padding: 0px 6px;
     margin: 0em 0.2em;
     text-decoration: none;
@@ -1178,7 +1189,6 @@ background-image: -ms-linear-gradient(bottom, rgb(<?php echo $colorbacktab1; ?>)
 }
 a.tab:hover {
     background: white;
-    color: #434956;
 	font-family: <?php print $fontlist ?>;
     padding: 0px 6px;
     margin: 0em 0.2em;
@@ -1197,6 +1207,11 @@ background-image: -o-linear-gradient(bottom, rgb(<?php echo $colorbacktab1; ?>) 
 background-image: -moz-linear-gradient(bottom, rgb(<?php echo $colorbacktab1; ?>) 35%, rgb(<?php echo $colorbacktab2; ?>) 100%);
 background-image: -webkit-linear-gradient(bottom, rgb(<?php echo $colorbacktab1; ?>) 35%, rgb(<?php echo $colorbacktab2; ?>) 100%);
 background-image: -ms-linear-gradient(bottom, rgb(<?php echo $colorbacktab1; ?>) 35%, rgb(<?php echo $colorbacktab2; ?>) 100%);
+}
+
+a.tab:link, a.tab:visited, a.tab#active, a.tab:hover
+{
+    color: #<?php echo $colortextmain; ?>;
 }
 
 a.tabimage {
@@ -1453,7 +1468,7 @@ background-image: -moz-linear-gradient(bottom, rgb(<?php echo $colorbacktitle1; 
 background-image: -webkit-linear-gradient(bottom, rgb(<?php echo $colorbacktitle1; ?>) 15%, rgb(<?php echo $colorbacktitle2; ?>) 100%);
 background-image: -ms-linear-gradient(bottom, rgb(<?php echo $colorbacktitle1; ?>) 15%, rgb(<?php echo $colorbacktitle2; ?>) 100%);
 
-    color: #234046;
+    color: #<?php echo $colortextmain; ?>;
     font-family: <?php print $fontlist ?>;
     font-weight: normal;
     border-bottom: 1px solid #FDFFFF;
@@ -1509,6 +1524,7 @@ background: -ms-linear-gradient(bottom, rgb(<?php echo $colorbacklineimpair1; ?>
 font-family: <?php print $fontlist ?>;
 border: 0px;
 margin-bottom: 1px;
+color: #202020;
 }
 /*
 .impair:hover {
@@ -1531,6 +1547,7 @@ background: -ms-linear-gradient(bottom, rgb(<?php echo $colorbacklinepair1; ?>) 
 font-family: <?php print $fontlist ?>;
 border: 0px;
 margin-bottom: 1px;
+color: #202020;
 }
 /*
 .pair:hover {
@@ -1569,7 +1586,7 @@ background-image: -webkit-linear-gradient(bottom, rgb(<?php echo $colorbacktitle
 background-image: -ms-linear-gradient(bottom, rgb(<?php echo $colorbacktitle1; ?>) 15%, rgb(<?php echo $colorbacktitle2; ?>) 100%);
 
 background-repeat: repeat-x;
-color: #334444;
+color: #<?php echo $colortextmain; ?>;
 font-family: <?php print $fontlist ?>, sans-serif;
 font-weight: normal;
 border-bottom: 1px solid #FDFFFF;
@@ -1692,7 +1709,7 @@ div.titre {
 	font-weight: bold;
 	color: rgb(<?php print $colortext; ?>);
 	text-decoration: none;
-	text-shadow: 1px 2px 3px #AFAFAF;
+	text-shadow: 2px 2px 4px #BFBFBF;
 }
 
 
