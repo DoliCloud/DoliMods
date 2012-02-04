@@ -32,6 +32,7 @@ if (! $res && file_exists("../../../../dolibarr/htdocs/main.inc.php")) $res=@inc
 if (! $res && file_exists("../../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
 if (! $res) die("Include of main fails");
 require_once(DOL_DOCUMENT_ROOT."/core/class/dolgraph.class.php");
+require_once(DOL_DOCUMENT_ROOT."/contact/class/contact.class.php");
 dol_include_once("/cabinetmed/lib/cabinetmed.lib.php");
 dol_include_once("/cabinetmed/class/cabinetmedcons.class.php");
 dol_include_once("/cabinetmed/class/cabinetmedstats.class.php");
@@ -54,6 +55,19 @@ $endyear=$year;
 
 $mode=GETPOST("mode")?GETPOST("mode"):'customer';
 
+$sortfield = GETPOST("sortfield",'alpha');
+$sortorder = GETPOST("sortorder",'alpha');
+$page = GETPOST("page",'int');
+if ($page == -1) {
+    $page = 0;
+}
+$offset = $conf->liste_limit * $page;
+$pageprev = $page - 1;
+$pagenext = $page + 1;
+if (! $sortfield) $sortfield='nb';
+if (! $sortorder) $sortorder='DESC';
+$limit = $conf->liste_limit;
+
 if (empty($conf->cabinetmed->enabled)) accessforbidden();
 
 
@@ -74,6 +88,8 @@ print_fiche_titre($title, $mesg);
 
 create_exdir($dir);
 
+
+/*
 $stats = new CabinetMedStats($db, $socid, $mode, ($userid>0?$userid:0));
 
 
@@ -145,90 +161,92 @@ if (! $mesg)
 	$px2->draw($filenameamount,$fileurlamount);
 }
 
+*/
 
+$head = contact_patient_stats_prepare_head(null);
 
-$head = patient_stats_prepare_head(null);
-
-dol_fiche_head($head, 'statsconsultations', $langs->trans("Consultations"), 0, 'generic');
-
+dol_fiche_head($head, 'statscontacts', $langs->trans("Contacts"), 0, 'contact');
 
 print '<table class="notopnoleftnopadd" width="100%"><tr>';
-print '<td align="center" valign="top">';
+print '<td valign="top">';
 
-// Show filter box
-print '<form name="stats" method="POST" action="'.$_SERVER["PHP_SELF"].'">';
-print '<table class="border" width="100%">';
-print '<tr><td class="liste_titre" colspan="2">'.$langs->trans("Filter").'</td></tr>';
-/*print '<tr><td>'.$langs->trans("ThirdParty").'</td><td>';
-if ($mode == 'customer') $filter='s.client in (1,2,3)';
-if ($mode == 'supplier') $filter='s.fournisseur = 1';
-print $form->select_company($socid,'socid',$filter,1);
-print '</td></tr>';
-*/
-print '<tr><td>'.$langs->trans("User").'</td><td>';
-print $form->select_users($userid,'userid',1);
-print '</td></tr>';
-print '<tr><td align="center" colspan="2"><input type="submit" name="submit" class="button" value="'.$langs->trans("Refresh").'"></td></tr>';
-print '</table>';
-print '</form>';
+print $langs->trans("PatientsPerContacts").'<br>';
 
-print '<br><br>';
+print '<br>';
 
-// Show array
-$data = $stats->getAllByYear();
+$param='&userid='.$user->id;
 
-print '<table class="border" width="100%">';
-print '<tr height="24">';
-print '<td align="center">'.$langs->trans("Year").'</td>';
-print '<td align="center">'.$langs->trans("Number").'</td>';
-print '<td align="center">'.$langs->trans("AmountTotal").'</td>';
-print '<td align="center">'.$langs->trans("AmountAverage").'</td>';
+print '<table class="noborder" width="100%">';
+print '<tr class="liste_titre">';
+print_liste_field_titre($langs->trans('Contact'),$_SERVER['PHP_SELF'],'c.name','',$param,'',$sortfield,$sortorder);
+print_liste_field_titre($langs->trans('NumberOfPatient'),$_SERVER['PHP_SELF'],'nb','',$param,'align="right"',$sortfield,$sortorder);
+print_liste_field_titre($langs->trans('AverageOld'),$_SERVER['PHP_SELF'],'averageold','',$param,'align="right"',$sortfield,$sortorder);
 print '</tr>';
 
-$oldyear=0;
-foreach ($data as $val)
+
+$sql = "SELECT";
+$sql.= " COUNT(s.rowid) as nb,";
+$sql.= " AVG(DATEDIFF(NOW(), STR_TO_DATE(s.ape, '%d/%m/%Y'))) as averageold,";
+$sql.= " c.rowid,";
+$sql.= " c.name as lastname,";
+$sql.= " c.firstname as firstname";
+$sql.= " FROM (".MAIN_DB_PREFIX."societe as s,";
+$sql.= " ".MAIN_DB_PREFIX."element_contact as ec,";
+$sql.= " ".MAIN_DB_PREFIX."c_type_contact as tc,";
+$sql.= " ".MAIN_DB_PREFIX."socpeople as c)";
+$sql.= " WHERE ec.fk_socpeople = c.rowid";
+$sql.= " AND ec.element_id = s.rowid";
+$sql.= " AND ec.fk_c_type_contact = tc.rowid";
+$sql.= " AND tc.element = 'societe'";
+$sql.= " GROUP BY c.rowid, c.name, c.firstname";
+$sql.= " ORDER BY ".$sortfield." ".$sortorder.", s.rowid DESC";
+
+//print $sql;
+$resql=$db->query($sql);
+if ($resql)
 {
-	$year = $val['year'];
-	while ($year && $oldyear > $year+1)
-	{	// If we have empty year
-		$oldyear--;
-		print '<tr height="24">';
-		print '<td align="center"><a href="month.php?year='.$oldyear.'&amp;mode='.$mode.'">'.$oldyear.'</a></td>';
-		print '<td align="right">0</td>';
-		print '<td align="right">0</td>';
-		print '<td align="right">0</td>';
-		print '</tr>';
-	}
-	print '<tr height="24">';
-	print '<td align="center">';
-	//print '<a href="month.php?year='.$year.'&amp;mode='.$mode.'">';
-	print $year;
-	//print '</a>';
-	print '</td>';
-	print '<td align="right">'.$val['nb'].'</td>';
-	print '<td align="right">'.price(price2num($val['total'],'MT'),1).'</td>';
-	print '<td align="right">'.price(price2num($val['avg'],'MT'),1).'</td>';
-	print '</tr>';
-	$oldyear=$year;
+    $num=$db->num_rows($resql);
+
+    $contactstatic=new Contact($db);
+
+    $i=0; $var=false;
+    while ($i < $num)
+    {
+        $obj=$db->fetch_object($resql);
+
+        if ($obj)
+        {
+            $contactstatic->id=$obj->rowid;
+            $contactstatic->lastname=$obj->lastname;
+            $contactstatic->firstname=$obj->firstname;
+
+            $var=!$var;
+            print '<tr '.$bc[$var].'>';
+        	print '<td>'.$contactstatic->getNomUrl(1).'</td>';
+        	print '<td align="right">'.round($obj->nb).'</td>';
+        	print '<td align="right">';
+        	$ageyear=ConvertSecondToTime($obj->averageold*24*3600,'year')-1970;
+        	$agemonth=ConvertSecondToTime($obj->averageold*24*3600,'month')-1;
+        	if ($ageyear >= 2) print $ageyear.' '.$langs->trans("DurationYears");
+        	else if ($agemonth >= 2) print $agemonth.' '.$langs->trans("DurationMonths");
+        	else print $agemonth.' '.$langs->trans("DurationMonth");
+        	print '</td>';
+        	print '</tr>';
+        }
+
+    	$i++;
+    }
+}
+else
+{
+    dol_print_error($db);
 }
 
 print '</table>';
 
 
 print '</td>';
-print '<td align="center" valign="top">';
-
-// Show graphs
-print '<table class="border" width="100%"><tr valign="top"><td align="center">';
-if ($mesg) { print $mesg; }
-else {
-	print $px1->show();
-	print "<br>\n";
-	print $px2->show();
-}
-print '</td></tr></table>';
-
-print '</td></tr></table>';
+print '</tr></table>';
 
 dol_fiche_end();
 

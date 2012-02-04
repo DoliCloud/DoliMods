@@ -27,9 +27,10 @@
 /**
  * Core function to output top menu cabinetmed
  *
- * @param $db
- * @param $atarget
- * @param $type_user     0=Internal,1=External,2=All
+ * @param 	DoliDB		$db				Database handler
+ * @param 	string		$atarget		Target
+ * @param 	int			$type_user     	0=Internal,1=External,2=All
+ * @return	void
  */
 function print_cabinetmed_menu($db,$atarget,$type_user)
 {
@@ -831,6 +832,7 @@ function print_left_cabinetmed_menu($db,$menu_array_before,$menu_array_after)
             $newmenu->add("/contact/list.php?leftmenu=contacts", $langs->trans("Correspondants"), 0, $user->rights->societe->contact->lire);
             $newmenu->add("/contact/fiche.php?leftmenu=contacts&amp;action=create", $langs->trans("NewContact"), 1, $user->rights->societe->contact->creer);
             $newmenu->add("/contact/list.php?leftmenu=contacts", $langs->trans("List"), 1, $user->rights->societe->contact->lire);
+            $newmenu->add("/cabinetmed/stats/index_contacts.php?leftmenu=customers&userid=".$user->id, $langs->trans("Statistics"), 1, $user->rights->societe->lire);
         }
 
         /*

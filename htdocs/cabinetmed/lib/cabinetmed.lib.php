@@ -239,4 +239,39 @@ function patient_stats_prepare_head($object)
     return $head;
 }
 
+
+/**
+*  Return array head with list of tabs to view object stats informations
+*
+*  @param	Object	$object         Contact or null
+*  @return	array           		head
+*/
+function contact_patient_stats_prepare_head($object)
+{
+    global $langs, $conf, $user;
+
+    $h = 0;
+    $head = array();
+
+    $head[$h][0] = dol_buildpath('/cabinetmed/stats/index_contacts.php?userid='.$user->id,1);
+    $head[$h][1] = $langs->trans("Patients");
+    $head[$h][2] = 'statscontacts';
+    $h++;
+
+    /*
+    $head[$h][0] = dol_buildpath('/cabinetmed/stats/geo.php?mode=cabinetmedbytown',1);
+    $head[$h][1] = $langs->trans('Town');
+    $head[$h][2] = 'statstown';
+    $h++;
+	*/
+
+    // Show more tabs from modules
+    // Entries must be declared in modules descriptor with line
+    // $this->tabs = array('entity:+tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to add new tab
+    // $this->tabs = array('entity:-tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to remove a tab
+    complete_head_from_modules($conf,$langs,$object,$head,$h,'cabinetmed_stats_contacts');
+
+    return $head;
+}
+
 ?>

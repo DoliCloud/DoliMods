@@ -134,3 +134,6 @@ ExportDetailsIntoFile=Exporter dans un fichier XSLX (incluant le détail des pat
 DemoCabinetMed=Gestion d'un cabinet médical
 PatientsOfContact=Patients
 ListOfPatients=Liste des patients
+NumberOfPatient=Nombre de patients
+AverageOld=Age moyen
+PatientsPerContacts=Cette page présente des statistiques sur les patients par correspondants
