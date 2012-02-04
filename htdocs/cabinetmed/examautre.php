@@ -20,7 +20,6 @@
  *   \file       htdocs/cabinetmed/examautre.php
  *   \brief      Tab for examens other
  *   \ingroup    cabinetmed
- *   \version    $Id: examautre.php,v 1.20 2011/08/15 18:53:54 eldy Exp $
  */
 
 $res=0;

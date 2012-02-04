@@ -20,7 +20,6 @@
  *   \file       htdocs/cabinetmed/documents.php
  *   \brief      Tab for courriers
  *   \ingroup    cabinetmed
- *   \version    $Id: documents.php,v 1.19 2011/08/17 16:42:20 eldy Exp $
  */
 
 $res=0;

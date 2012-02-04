@@ -20,7 +20,6 @@
  *   \file       htdocs/cabinetmed/consultations.php
  *   \brief      Tab for consultations
  *   \ingroup    cabinetmed
- *   \version    $Id: consultations.php,v 1.41 2011/08/31 14:56:07 eldy Exp $
  */
 
 $res=0;

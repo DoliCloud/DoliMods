@@ -23,7 +23,6 @@
  *   \file       htdocs/cabinetmed/antecedant.php
  *   \brief      Tab for antecedants
  *   \ingroup    societe
- *   \version    $Id: antecedant.php,v 1.12 2011/08/24 00:17:29 eldy Exp $
  */
 
 $res=0;

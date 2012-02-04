@@ -21,7 +21,6 @@
 /**
  *       \file        htdocs/cabinetmed/export.php
  *       \brief       Page reporting resultat
- *       \version     $Id: compta.php,v 1.7 2011/08/24 00:03:03 eldy Exp $
  */
 
 

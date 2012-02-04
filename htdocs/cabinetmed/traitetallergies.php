@@ -23,7 +23,6 @@
  *   \file       htdocs/cabinetmed/traitetallergies.php
  *   \brief      Tab for antecedants
  *   \ingroup    societe
- *   \version    $Id: traitetallergies.php,v 1.14 2011/08/24 00:17:29 eldy Exp $
  */
 
 $res=0;

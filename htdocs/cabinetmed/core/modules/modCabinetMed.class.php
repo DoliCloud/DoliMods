@@ -128,7 +128,9 @@ class modCabinetMed extends DolibarrModules
                             'thirdparty:+tabdocument:Courriers:cabinetmed@cabinetmed:/cabinetmed/documents.php?socid=__ID__',
                             'thirdparty:-customer',
                             'thirdparty:-document',
-                            'thirdparty:-notify');
+                            'thirdparty:-notify',
+        					'contact:+tabpatient:Patients:cabinetmed@cabinetmed:/cabinetmed/patients_of_contact.php?id=__ID__'
+                            );
         // where entity can be
 		// 'thirdparty'       to add a tab in third party view
 		// 'intervention'     to add a tab in intervention view

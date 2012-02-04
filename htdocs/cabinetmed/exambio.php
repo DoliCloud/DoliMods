@@ -23,7 +23,6 @@
  *   \file       htdocs/cabinetmed/exambio.php
  *   \brief      Tab for examens bio
  *   \ingroup    cabinetmed
- *   \version    $Id: exambio.php,v 1.18 2011/07/13 15:57:20 eldy Exp $
  */
 
 $res=0;

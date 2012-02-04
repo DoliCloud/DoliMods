@@ -22,7 +22,6 @@
  *  \file       htdocs/cabinetmed/reports.php
  *  \ingroup    cabinetmed
  *  \brief      List of consultation
- *  \version    $Id: reports.php,v 1.3 2011/06/13 22:24:23 eldy Exp $
  */
 
 
