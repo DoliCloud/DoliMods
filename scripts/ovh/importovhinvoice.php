@@ -1,5 +1,5 @@
 <?php
-/* Copyright (C) 2007-2011 Laurent Destailleur  <eldy@users.sourceforge.net>
+/* Copyright (C) 2007-2012 Laurent Destailleur  <eldy@users.sourceforge.net>
  * Copyright (C) 2010      Jean-Francois FERRY  <jfefe@aternatik.fr>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -20,8 +20,7 @@
 /**
  *   \file       scripts/ovh/importovhinvoice.php
  *	 \ingroup    ovh
- *	 \brief
- *   \version    $Id: sms.php,v 1.8 2009/03/09 11:28:12 eldy Exp $
+ *	 \brief		 Script to import OVH invoices
  */
 $sapi_type = php_sapi_name();
 $script_file = basename(__FILE__);
