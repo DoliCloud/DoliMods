@@ -364,8 +364,15 @@ class modCabinetMed extends DolibarrModules
         require_once(DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php');
         $dirodt=DOL_DATA_ROOT.'/doctemplates/thirdparties';
         create_exdir($dirodt);
-        $goodpath=dol_buildpath('/cabinetmed/install/doctemplates/thirdparties/template_courrier_consult.odt');
-        dol_copy($goodpath,$dirodt.'/template_courrier_consult.odt',0,0);
+        $src=dol_buildpath('/cabinetmed/install/doctemplates/thirdparties/template_courrier_consult.odt');
+        $dest=$dirodt.'/template_courrier_consult.odt';
+   		$result=dol_copy($src,$dest,0,0);
+		if ($result < 0)
+		{
+		    $langs->load("errors");
+		    $this->error=$langs->trans('ErrorFailToCopyFile',$src,$dest);
+		    return 0;
+		}
 
         $sql = array(
         "UPDATE llx_c_typent          set active=1 where module = 'cabinetmed'",
