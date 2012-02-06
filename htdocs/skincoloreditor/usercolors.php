@@ -98,6 +98,7 @@ if ($action == 'set')
 if ($action == 'setcolor')
 {
     $tab['THEME_ELDY_RGB']=GETPOST('THEME_ELDY_RGB');
+    $tab['THEME_ELDY_FONT_SIZE1']=GETPOST('THEME_ELDY_FONT_SIZE1');
 	$res = dol_set_user_param($db, $conf, $fuser, $tab);
 
 	if (! $res > 0) $error++;
@@ -146,10 +147,11 @@ print '<tr><td width="25%" valign="top">'.$langs->trans("FirstName").'</td>';
 print '<td colspan="2">'.$fuser->firstname.'</td>';
 print "</tr>\n";
 
-print '</table><br>';
+print '</table>';
+
+dol_fiche_end();
 
 print '<br>';
-
 
 print $langs->trans("SkinColorEditorDescUser").'<br>';
 print '<br>';
@@ -180,6 +182,7 @@ dol_htmloutput_mesg($mesg);
 
 if (! empty($fuser->conf->THEME_ELDY_ENABLE_PERSONALIZED))
 {
+    dol_fiche_head();
 
     print '<form name="formcolor" method="POST" action="'.$_SERVER["PHP_SELF"].'">';
     print '<input type="hidden" name="action" value="setcolor">';
@@ -188,14 +191,16 @@ if (! empty($fuser->conf->THEME_ELDY_ENABLE_PERSONALIZED))
     $defcolor=$conf->global->THEME_ELDY_RGB;
     if (isset($fuser->conf->THEME_ELDY_RGB)) $defcolor=$fuser->conf->THEME_ELDY_RGB;
 
-    print $formother->select_color($defcolor,'THEME_ELDY_RGB','formcolor',1);
+    print $formother->select_color($defcolor,'THEME_ELDY_RGB','formcolor',1).'<br><br>';
+
+    print $langs->trans("FontSize").': <input type="text" class="flat" name="THEME_ELDY_FONT_SIZE1" size="4" value="'.$fuser->conf->THEME_ELDY_FONT_SIZE1.'"><br>';
 
     print '<br>';
     print '<div align="center"><input type="submit" class="button" name="save" value="'.$langs->trans("Save").'"></div>';
     print '</form>';
-}
 
-dol_fiche_end();
+    dol_fiche_end();
+}
 
 
 llxFooter();

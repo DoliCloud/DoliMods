@@ -1,15 +1,16 @@
 # Dolibarr language file - en_US - skincoloreditor 
 CHARSET= UTF-8
-SkinColorEditorSetup=Skin color editor module setup
+SkinColorEditorSetup=Skin editor module setup
 SkinColorEditorDesc=This module allows you to change colors of the skin Eldy with colors of your choice. Colors can be set globally here. To change colors for a particular user only, use the tab "Color editor" on the user card.
 SkinColorEditorDescUser=This tab allows you to change colors of the skin Eldy with colors of your choice. Colors can be modified for current user on this tab. To change globaly (all users at once), go into module setup page with an admin user.
 WarningSkinMustBeEldy=Warning, change of colors works only with skin Eldy. You are using currently the skin %s.
 SkinColorEditorFastEditor=Editeur rapide
 SkinColorEditorAdvancedEditor=Editeur avancé
-Module100800Name= Skin Color Editor
-Module100800Desc= Allows to edit and personalise colors of skin Eldy
+Module100800Name= Skin Editor
+Module100800Desc= Allows to edit and personalise colors and font of skin Eldy
 SelectMainColor=Select main color
-ActivateColorPersonalizing=Activate possibility to personalize colors (globaly)
-ActivateColorPersonalizingUser=Activate possibility to personalize colors (for this user)
-ColorEditor=Color editor
-YourUseHasPersonalized=Current user has personalized its colors from its personal card (Tab <a href="%s">"Color editor"</a>). Tis personalisation will be used in priority so global setup will works only for users whose setup was not edited for themself.
+ActivateColorPersonalizing=Activate possibility to personalize colors and font (globaly)
+ActivateColorPersonalizingUser=Activate possibility to personalize colors and font (for this user)
+ColorEditor=Skin editor
+YourUseHasPersonalized=Current user has personalized its colors from its personal card (Tab <a href="%s">"%s"</a>). Tis personalisation will be used in priority so global setup will works only for users whose setup was not edited for themself.
+FontSize=Font size

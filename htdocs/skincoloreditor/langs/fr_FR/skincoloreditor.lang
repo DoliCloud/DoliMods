@@ -1,15 +1,16 @@
 # Dolibarr language file - fr_FR - skincoloreditor 
 CHARSET= UTF-8
-SkinColorEditorSetup=Configuration du module Skin color editor
+SkinColorEditorSetup=Configuration du module Skin editor
 SkinColorEditorDesc=Ce module permet de modifier les couleurs du thème Eldy avec celles de votre choix. Les couleurs peuvent etre modifiées globallement pour tous sur cette page. Pour une modification pour chaque utilisateur, aller sur l'ongler "Editeur de couleur" sur la fiche de l'utilisateur concerné.
 SkinColorEditorDescUser=Cet onglet permet de modifier les couleurs du thème Eldy avec celles de votre choix. Les couleurs peuvent etre modifiées pour l'utilisateur sur cet onglet. Pour une modification globale, aller sur la page de configuration du module avec un utilisateur admin.
 WarningSkinMustBeEldy=Attention, la modification des couleurs n'est effective qu'avec le thème Eldy. Vous utilisez actuellement le thème %s. 
 SkinColorEditorFastEditor=Quick editor
 SkinColorEditorAdvancedEditor=Advanced editor
-Module100800Name= Skin Color Editor
-Module100800Desc= Permet l'édition et la personnalisation des couleurs du thème Eldy
+Module100800Name= Skin Editor
+Module100800Desc= Permet l'édition et la personnalisation des couleurs et polices du thème Eldy
 SelectMainColor=Sélectionner le ton principal
-ActivateColorPersonalizing=Activer la possibilité de personnaliser les couleurs (de manière globale)
-ActivateColorPersonalizingUser=Activer la possibilité de personnaliser les couleurs (pour cet utilisateur)
-ColorEditor=Editeur de couleur
-YourUseHasPersonalized=L'utilisateur courant a personnalisé ses couleurs depuis sa fiche personnelle (Onglet <a href="%s">"Editeur de couleur"</a>). Cette personnalisation restera prioritaire sur le paramétrage global qui ne sera donc effectif que pour les utilisateurs n'ayant pas personalisés leurs couleurs pour leur compte.
+ActivateColorPersonalizing=Activer la possibilité de personnaliser les couleurs et polices (de manière globale)
+ActivateColorPersonalizingUser=Activer la possibilité de personnaliser les couleurs et polices (pour cet utilisateur)
+ColorEditor=Editeur de thème
+YourUseHasPersonalized=L'utilisateur courant a personnalisé ses couleurs depuis sa fiche personnelle (Onglet <a href="%s">"%s"</a>). Cette personnalisation restera prioritaire sur le paramétrage global qui ne sera donc effectif que pour les utilisateurs n'ayant pas personalisés leurs couleurs pour leur compte.
+FontSize=Taille de la police

@@ -80,6 +80,7 @@ if ($action == 'set')
 if ($action == 'setcolor')
 {
 	$res = dolibarr_set_const($db, 'THEME_ELDY_RGB', GETPOST('THEME_ELDY_RGB'),'chaine',0,'',$conf->entity);
+	$res = dolibarr_set_const($db, 'THEME_ELDY_FONT_SIZE1', GETPOST('THEME_ELDY_FONT_SIZE1'),'chaine',0,'',$conf->entity);
 
 	if (! $res > 0) $error++;
  	if (! $error)
@@ -131,7 +132,7 @@ if ($conf->theme != 'eldy')
 }
 else if (! empty($user->conf->THEME_ELDY_ENABLE_PERSONALIZED))
 {
-    print '<div class="warning">'.img_warning().' '.$langs->trans("YourUseHasPersonalized",dol_buildpath('/skincoloreditor/usercolors?id='.$user->id,1)).'</div>';
+    print '<div class="warning">'.img_warning().' '.$langs->trans("YourUseHasPersonalized",dol_buildpath('/skincoloreditor/usercolors?id='.$user->id,1),$langs->transnoentitiesnoconv("ColorEditor")).'</div>';
 }
 print '<br>';
 
@@ -164,7 +165,9 @@ if (! empty($conf->global->THEME_ELDY_ENABLE_PERSONALIZED))
     $defcolor=dechex(235).dechex(235).dechex(235);
     if (isset($conf->global->THEME_ELDY_RGB)) $defcolor=$conf->global->THEME_ELDY_RGB;
 
-    print $formother->select_color($defcolor,'THEME_ELDY_RGB','formcolor',1);
+    print $formother->select_color($defcolor,'THEME_ELDY_RGB','formcolor',1).'<br><br>';
+
+    print $langs->trans("FontSize").': <input type="text" class="flat" name="THEME_ELDY_FONT_SIZE1" size="4" value="'.$conf->global->THEME_ELDY_FONT_SIZE1.'"><br>';
 
     print '<br>';
     print '<div align="center"><input type="submit" class="button" name="save" value="'.$langs->trans("Save").'"></div>';
