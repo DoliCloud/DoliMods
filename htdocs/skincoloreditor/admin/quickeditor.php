@@ -123,12 +123,17 @@ else
     print img_picto($langs->trans("Enabled"),'switch_on');
     print '</a>';
 }
-print '<br><br><br>';
+print '<br><br>';
 
 if ($conf->theme != 'eldy')
 {
     print '<div class="warning">'.img_warning().' '.$langs->trans("WarningSkinMustBeEldy",$conf->theme).'</div>';
 }
+else if (! empty($user->conf->THEME_ELDY_ENABLE_PERSONALIZED))
+{
+    print '<div class="warning">'.img_warning().' '.$langs->trans("YourUseHasPersonalized",dol_buildpath('/skincoloreditor/usercolors?id='.$user->id,1)).'</div>';
+}
+print '<br>';
 
 dol_htmloutput_mesg($mesg);
 

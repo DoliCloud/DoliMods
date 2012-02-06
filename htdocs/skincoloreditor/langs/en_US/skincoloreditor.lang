@@ -12,3 +12,4 @@ SelectMainColor=Select main color
 ActivateColorPersonalizing=Activate possibility to personalize colors (globaly)
 ActivateColorPersonalizingUser=Activate possibility to personalize colors (for this user)
 ColorEditor=Color editor
+YourUseHasPersonalized=Current user has personalized its colors from its personal card (Tab <a href="%s">"Color editor"</a>). Tis personalisation will be used in priority so global setup will works only for users whose setup was not edited for themself.

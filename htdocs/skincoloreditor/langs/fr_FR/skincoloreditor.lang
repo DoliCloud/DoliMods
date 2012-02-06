@@ -12,3 +12,4 @@ SelectMainColor=Sélectionner le ton principal
 ActivateColorPersonalizing=Activer la possibilité de personnaliser les couleurs (de manière globale)
 ActivateColorPersonalizingUser=Activer la possibilité de personnaliser les couleurs (pour cet utilisateur)
 ColorEditor=Editeur de couleur
+YourUseHasPersonalized=L'utilisateur courant a personnalisé ses couleurs depuis sa fiche personnelle (Onglet <a href="%s">"Editeur de couleur"</a>). Cette personnalisation restera prioritaire sur le paramétrage global qui ne sera donc effectif que pour les utilisateurs n'ayant pas personalisés leurs couleurs pour leur compte.

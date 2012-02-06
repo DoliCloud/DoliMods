@@ -66,7 +66,7 @@ class modSkinColorEditor extends DolibarrModules
         $this->special = 2;
         // Name of image file used for this module.
         // If file is in theme/yourtheme/img directory under name object_pictovalue.png, use this->picto='pictovalue'
-        $this->picto='technic';
+        $this->picto='skincoloreditor@skincoloreditor';
 
         // Data directories to create when module is enabled.
         // Example: this->dirs = array("/cabinetmed/temp");
