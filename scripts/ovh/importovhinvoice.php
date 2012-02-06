@@ -1,3 +1,4 @@
+#!/usr/bin/php
 <?php
 /* Copyright (C) 2007-2012 Laurent Destailleur  <eldy@users.sourceforge.net>
  * Copyright (C) 2010      Jean-Francois FERRY  <jfefe@aternatik.fr>
