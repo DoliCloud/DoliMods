@@ -132,7 +132,7 @@ if ($conf->theme != 'eldy')
 }
 else if (! empty($user->conf->THEME_ELDY_ENABLE_PERSONALIZED))
 {
-    print '<div class="warning">'.img_warning().' '.$langs->trans("YourUseHasPersonalized",dol_buildpath('/skincoloreditor/usercolors?id='.$user->id,1),$langs->transnoentitiesnoconv("ColorEditor")).'</div>';
+    print '<div class="warning">'.img_warning().' '.$langs->trans("YourUseHasPersonalized",dol_buildpath('/skincoloreditor/usercolors.php',1).'?id='.$user->id,$langs->transnoentitiesnoconv("ColorEditor")).'</div>';
 }
 print '<br>';
 
