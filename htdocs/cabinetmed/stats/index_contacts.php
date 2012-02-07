@@ -225,8 +225,8 @@ if ($resql)
         	print '<td>'.$contactstatic->getNomUrl(1).'</td>';
         	print '<td align="right">'.round($obj->nb).'</td>';
         	print '<td align="right">';
-        	$ageyear=ConvertSecondToTime($obj->averageold*24*3600,'year')-1970;
-        	$agemonth=ConvertSecondToTime($obj->averageold*24*3600,'month')-1;
+        	$ageyear=convertSecondToTime($obj->averageold*24*3600,'year')-1970;
+        	$agemonth=convertSecondToTime($obj->averageold*24*3600,'month')-1;
         	if ($ageyear >= 2) print $ageyear.' '.$langs->trans("DurationYears");
         	else if ($agemonth >= 2) print $agemonth.' '.$langs->trans("DurationMonths");
         	else print $agemonth.' '.$langs->trans("DurationMonth");

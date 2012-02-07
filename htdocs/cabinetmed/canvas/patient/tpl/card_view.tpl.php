@@ -137,9 +137,8 @@ if ($soc->idprof3)
     $birthdatearray=strptime($soc->idprof3,$conf->format_date_short);
     $birthdate=dol_mktime(0,0,0,$birthdatearray['tm_mon']+1,($birthdatearray['tm_mday']),($birthdatearray['tm_year']+1900),true);
     //var_dump($birthdatearray);
-    //print ($now-$birthdate).' - '.ConvertSecondToTime($now-$birthdate,'year').'<br>';
-    $ageyear=ConvertSecondToTime($now-$birthdate,'year')-1970;
-    $agemonth=ConvertSecondToTime($now-$birthdate,'month')-1;
+    $ageyear=convertSecondToTime($now-$birthdate,'year')-1970;
+    $agemonth=convertSecondToTime($now-$birthdate,'month')-1;
     if ($ageyear >= 2) print '('.$ageyear.' '.$langs->trans("DurationYears").')';
     else if ($agemonth >= 2) print '('.$agemonth.' '.$langs->trans("DurationMonths").')';
     else print '('.$agemonth.' '.$langs->trans("DurationMonth").')';
