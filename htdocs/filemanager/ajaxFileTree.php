@@ -53,11 +53,11 @@ $openeddir = GETPOST('openeddir');
 // Security:
 // On interdit les remontees de repertoire ainsi que les pipe dans
 // les noms de fichiers.
-if (preg_match('/\.\./',$original_file) || preg_match('/[<>|]/',$original_file))
+if (preg_match('/\.\./',$selecteddir) || preg_match('/[<>|]/',$selecteddir))
 {
     dol_syslog("Refused to deliver file ".$original_file);
     // Do no show plain path in shown error message
-    dol_print_error(0,$langs->trans("ErrorFileNameInvalid",$_GET["file"]));
+    dol_print_error(0,$langs->trans("ErrorFileNameInvalid",GETPOST("file")));
     exit;
 }
 
@@ -81,7 +81,7 @@ if( file_exists($selecteddir) )
     	natcasesort($files);
     	if( count($files) > 2 )
     	{ /* The 2 accounts for . and .. */
-    		echo "<ul class=\"jqueryFileTree\" style=\"display: none;\">";
+    		echo "<ul class=\"jqueryFileTree\" style=\"display: none;\">\n";
     		// All dirs
     		foreach( $files as $file ) {
     			if( file_exists($selecteddir . $file) && $file != '.' && $file != '..' && is_dir($selecteddir . $file) ) {
@@ -99,7 +99,7 @@ if( file_exists($selecteddir) )
     				print "</li>"."\n";
     			}
     		}
-    		echo "</ul>";
+    		echo "</ul>\n";
     	}
     }
     else print "PermissionDenied";
