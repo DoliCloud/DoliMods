@@ -12,8 +12,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
 /**     \defgroup   concatpdf		Module ConcatPdf
@@ -55,7 +54,7 @@ class modConcatPdf extends DolibarrModules
 		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'numero' of module)
 		$this->name = preg_replace('/^mod/i','',get_class($this));
 		// Module description used if translation string 'ModuleXXXDesc' not found (XXX is id value)
-		$this->description = "Concat pdfs found into a directory to generated pdf files";
+		$this->description = "Concat pdfs found into a directory to generated pdf files (proposals, orders, invoices)";
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
 		$this->version = '3.2';
 		// Key used in llx_const table to save module status enabled/disabled (XXX is id value)
@@ -66,7 +65,7 @@ class modConcatPdf extends DolibarrModules
 		$this->picto='bill';
 
 		// Data directories to create when module is enabled
-		$this->dirs = array('/concatpdf/invoices');
+		$this->dirs = array('/concatpdf/invoices','/concatpdf/orders','/concatpdf/proposals');
 
 		// Config pages. Put here list of php page names stored in admin directory used to setup module
 		$this->config_page_url = array('concatpdf.php@concatpdf');
@@ -81,7 +80,7 @@ class modConcatPdf extends DolibarrModules
         // Constants
         // Example: $this->const=array(0=>array('MODULE_MY_NEW_CONST1','chaine','myvalue','This is a constant to add',1),
         //                             1=>array('MODULE_MY_NEW_CONST2','chaine','myvalue','This is another constant to add',1) );
-        $this->const = array(0=>array('MAIN_MODULE_CONCATPDF_HOOKS','chaine','invoicecard:pdfgeneration','This module add hooks on invoicecard context page',0,'current',1));
+        $this->const = array(0=>array('MAIN_MODULE_CONCATPDF_HOOKS','chaine','invoicecard:propalcard:ordercard:pdfgeneration','This module add hooks on invoicecard.propalcard and ordercard context pages and pdf generation',0,'current',1));
 
 		// Boxes
 		$this->boxes = array();			// List of boxes

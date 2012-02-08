@@ -12,8 +12,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
 /**
@@ -48,7 +47,9 @@ $def = array();
 $action=GETPOST("action");
 $actionsave=GETPOST("save");
 
-$outputdir=$conf->concatpdf->dir_output.'/invoices';
+$outputdir_invoices=$conf->concatpdf->dir_output.'/invoices';
+$outputdir_orders=$conf->concatpdf->dir_output.'/orders';
+$outputdir_proposals=$conf->concatpdf->dir_output.'/proposals';
 
 
 
@@ -73,21 +74,46 @@ print '<br>';
 
 clearstatcache();
 
-print $langs->trans("ConcatPDfTakeFileFrom",$outputdir);
-print '<br><br>';
+print $langs->trans("ConcatPDfTakeFileFrom").'<br>';
+$langs->load("propal"); $langs->load("orders"); $langs->load("bills");
+print '* '.$langs->trans("ConcatPDfTakeFileFrom2",$langs->transnoentitiesnoconv("Proposals"),$outputdir_invoices).'<br>';
+print '* '.$langs->trans("ConcatPDfTakeFileFrom2",$langs->transnoentitiesnoconv("Orders"),$outputdir_orders).'<br>';
+print '* '.$langs->trans("ConcatPDfTakeFileFrom2",$langs->transnoentitiesnoconv("Invoices"),$outputdir_proposals).'<br>';
+print '<br>';
 
 print $langs->trans("ConcatPDfPutFileManually");
-print '<br><br>';
+print '<br><br><br>';
 
 
-$listoffiles=dol_dir_list($outputdir,'files');
-if (count($listoffiles)) print $formfile->showdocuments('concatpdf','invoices',$outputdir,$_SERVER["PHP_SELF"],0,$user->admin,'',0,0,0,0,0,'',$langs->trans("PathDirectory").' '.$outputdir);
+$listoffiles=dol_dir_list($outputdir_proposals,'files');
+if (count($listoffiles)) print $formfile->showdocuments('concatpdf','proposals',$outputdir_proposals,$_SERVER["PHP_SELF"],0,$user->admin,'',0,0,0,0,0,'',$langs->trans("PathDirectory").' '.$outputdir_proposals);
 else
 {
-    print '<div class="titre">'.$langs->trans("PathDirectory").' '.$outputdir.'</div><br>';
-    print $langs->trans("NoPDFFileFound");
+    print '<div class="titre">'.$langs->trans("PathDirectory").' '.$outputdir_proposals.' :</div>';
+    print $langs->trans("NoPDFFileFound").'<br>';
 }
 
+print '<br><br>';
+
+$listoffiles=dol_dir_list($outputdir_orders,'files');
+if (count($listoffiles)) print $formfile->showdocuments('concatpdf','orders',$outputdir_orders,$_SERVER["PHP_SELF"],0,$user->admin,'',0,0,0,0,0,'',$langs->trans("PathDirectory").' '.$outputdir_orders);
+else
+{
+    print '<div class="titre">'.$langs->trans("PathDirectory").' '.$outputdir_orders.' :</div>';
+    print $langs->trans("NoPDFFileFound").'<br>';
+}
+
+print '<br><br>';
+
+$listoffiles=dol_dir_list($outputdir_invoices,'files');
+if (count($listoffiles)) print $formfile->showdocuments('concatpdf','invoices',$outputdir_invoices,$_SERVER["PHP_SELF"],0,$user->admin,'',0,0,0,0,0,'',$langs->trans("PathDirectory").' '.$outputdir_invoices);
+else
+{
+    print '<div class="titre">'.$langs->trans("PathDirectory").' '.$outputdir_invoices.' :</div>';
+    print $langs->trans("NoPDFFileFound").'<br>';
+}
+
+print '<br>';
 
 llxFooter();
 

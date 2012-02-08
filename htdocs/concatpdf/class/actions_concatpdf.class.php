@@ -63,7 +63,12 @@ class ActionsConcatPdf
         $out.='<tr class="liste_titre">';
         $out.='<td align="left" colspan="4" valign="top" class="formdoc">';
         $out.=$langs->trans("ConcatFile").' ';
-        $filescgv=glob($conf->concatpdf->dir_output."/invoices/*.pdf");
+
+        $filescgv='';
+        if ($parameters['modulepart'] == 'propal') $filescgv=glob($conf->concatpdf->dir_output."/proposals/*.pdf");
+        if ($parameters['modulepart'] == 'order'   || $parameters['modulepart'] == 'commande') $filescgv=glob($conf->concatpdf->dir_output."/orders/*.pdf");
+        if ($parameters['modulepart'] == 'invoice' || $parameters['modulepart'] == 'facture')  $filescgv=glob($conf->concatpdf->dir_output."/invoices/*.pdf");
+
         if ($filescgv)
         {
             foreach ($filescgv as $cgvfilename)
@@ -101,11 +106,15 @@ class ActionsConcatPdf
         dol_syslog(get_class($this).'::executeHooks action='.$action);
 
         $filetoconcat1=$parameters['file'];
-        $filetoconcat2=$conf->concatpdf->dir_output.'/invoices/'.GETPOST('concatpdffile').'.pdf';
+        $filetoconcat2='';
+        //var_dump($parameters['object']->element); exit;
+        if ($parameters['object']->element == 'propal')  $filetoconcat2=$conf->concatpdf->dir_output.'/proposals/'.GETPOST('concatpdffile').'.pdf';
+        if ($parameters['object']->element == 'order'   || $parameters['object']->element == 'commande') $filetoconcat2=$conf->concatpdf->dir_output.'/orders/'.GETPOST('concatpdffile').'.pdf';
+        if ($parameters['object']->element == 'invoice' || $parameters['object']->element == 'facture')  $filetoconcat2=$conf->concatpdf->dir_output.'/invoices/'.GETPOST('concatpdffile').'.pdf';
 
         dol_syslog(get_class($this).'::afterPDFCreation '.$filetoconcat1.' - '.$filetoconcat2);
 
-        if (GETPOST('concatpdffile') && GETPOST('concatpdffile') != '-1')
+        if ($filetoconcat2 && GETPOST('concatpdffile') && GETPOST('concatpdffile') != '-1')
         {
             // Create empty PDF
             $pdf=pdf_getInstance();
