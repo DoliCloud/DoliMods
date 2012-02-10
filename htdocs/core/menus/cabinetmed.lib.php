@@ -317,7 +317,7 @@ function print_cabinetmed_menu($db,$atarget,$type_user)
             print '<div class="'.$id.' '.$idsel.'"><span class="'.$id.' tmenuimage" id="mainmenuspan_'.$idsel.'"></span></div>';
             print '</a>';
             print '<a '.$classname.' id="mainmenua_'.$idsel.'" href="'.dol_buildpath('/cabinetmed/compta.php?mainmenu=accountancy2&amp;leftmenu=&search_sale='.$user->id,1).'"'.($atarget?" target=$atarget":"").'>';
-            print_text_menu_entry($langs->trans("MenuFinancial"));
+            print_text_menu_entry($langs->trans("MenuFinancialMed"));
             print '</a>';
             print_end_menu_entry();
         }
@@ -328,7 +328,7 @@ function print_cabinetmed_menu($db,$atarget,$type_user)
                 print_start_menu_entry($idsel);
                 print '<div class="'.$id.' '.$idsel.'"><span class="'.$id.'" id="mainmenuspan_'.$idsel.'"></span></div>';
                 print '<a class="tmenudisabled" id="mainmenua_'.$idsel.'" href="#" title="'.dol_escape_htmltag($langs->trans("NotAllowed")).'">';
-                print_text_menu_entry($langs->trans("MenuFinancial"));
+                print_text_menu_entry($langs->trans("MenuFinancialMed"));
                 print '</a>';
                 print_end_menu_entry();
             }
@@ -1089,7 +1089,7 @@ function print_left_cabinetmed_menu($db,$menu_array_before,$menu_array_after)
                 if ($conf->cabinetmed->enabled)
                 {
                     // Bilan, resultats
-                    $newmenu->add('/cabinetmed/compta.php?mainmenu=accountancy2&amp;leftmenu=&search_sale='.$user->id,$langs->trans("Reportings"),0,$user->rights->cabinetmed->read);
+                    $newmenu->add('/cabinetmed/compta.php?mainmenu=accountancy2&amp;leftmenu=&search_sale='.$user->id,$langs->trans("ReportingsMed"),0,$user->rights->cabinetmed->read);
                 }
             }
         }

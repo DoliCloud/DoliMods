@@ -16,6 +16,12 @@
  * or see http://www.gnu.org/
  */
 
+/**
+ *   \file       htdocs/cabinetmed/lib/cabinetmed.lib.php
+ *   \brief      List of functions for cabinetmed module
+ *   \ingroup    cabinetmed
+ */
+
 
 /**
  * List reason for consultation
