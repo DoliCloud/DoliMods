@@ -20,7 +20,7 @@
 /**
  *		\file       htdocs/core/menus/standard/cabinetmed_backoffice.php
  *		\brief      Gestionnaire nomme cabinetmed du menu du haut
- *		\version    $Id: cabinetmed_backoffice.php,v 1.1 2011/02/13 15:49:43 eldy Exp $
+ *		\version    $Id: cabinetmed_backoffice.php,v 1.2 2011/02/13 15:49:43 eldy Exp $
  *
  *		\remarks    La construction d'un gestionnaire pour le menu du haut est simple:
  *		\remarks    Toutes les entrees de menu a faire apparaitre dans la barre du haut
@@ -41,8 +41,10 @@ class MenuTop {
 
 
 	/**
-	 *    \brief      Constructeur
-	 *    \param      db      Handler d'acces base de donnee
+	 *  Constructor
+	 *
+	 *  @param	DoliDB	$db		Database handler
+	 *  @return	void
 	 */
 	function MenuTop($db)
 	{
@@ -51,11 +53,13 @@ class MenuTop {
 
 
 	/**
-	 *    \brief      Show menu
+	 *  Show menu
+	 *
+	 *  @return	void
 	 */
 	function showmenu()
 	{
-		dol_include_once('/core/menus/cabinetmed.lib.php');
+		dol_include_once('/cabinetmed/core/menus/cabinetmed.lib.php');
 
 		print_cabinetmed_menu($this->db,$this->atarget,$this->hideifnotallowed);
 	}
@@ -96,7 +100,7 @@ class MenuLeft {
      */
     function showmenu()
     {
-        dol_include_once('/core/menus/cabinetmed.lib.php');
+        dol_include_once('/cabinetmed/core/menus/cabinetmed.lib.php');
 
         $res=print_left_cabinetmed_menu($this->db,$this->menu_array,$this->menu_array_after);
 

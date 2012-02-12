@@ -104,19 +104,20 @@ class modCabinetMed extends DolibarrModules
                              8=>array('MAIN_DISABLEPROFIDRULES','chaine','1','Disable info/check links near professional id fields',1,'current',1),
                              9=>array('MAIN_FORCELANGDIR','chaine','/cabinetmed','Language files are searched into this dir first',1,'current',1),
                             10=>array('MAIN_FORCETHEMEDIR','chaine','/cabinetmed','Skins files are searched into this dir first',1,'current',1),
-//                             4=>array('MAIN_DIRECTEDITMODE','chaine','1','Notes are in edit mode directly',1,'current',1),
                             11=>array('MAIN_DISABLEVATCHECK','chaine','1','Disable link to VAT check',1,'current',1),
                             12=>array('MAIN_DISABLEDRAFTSTATUS','chaine','1','Disable draft status',1,'current',1),
-                            13=>array('MAIN_MENU_STANDARD_FORCED','chaine','cabinetmed_backoffice.php','Force menu handler to this value',1,'current',1),
-                            14=>array('MAIN_MENUFRONT_STANDARD_FORCED','chaine','cabinetmed_frontoffice.php','Force menu handler to this value',1,'current',1),
-                            15=>array('MAIN_MENU_SMARTPHONE_FORCED','chaine','cabinetmed_backoffice.php','Force menu handler to this value',1,'current',1),
-                            16=>array('MAIN_MENUFRONT_SMARTPHONE_FORCED','chaine','cabinetmed_frontoffice.php','Force menu handler to this value',1,'current',1),
-                            17=>array('MAIN_SUPPORT_CONTACT_TYPE_FOR_THIRDPARTIES','chaine','1','Can add third party type of contact',1,'current',1),
-                            18=>array('MAIN_APPLICATION_TITLE','chaine','DoliMed','Change software title',1,'current',1),
-                            19=>array('CABINETMED_RHEUMATOLOGY_ON','chaine','0','Enable features for rheumatology',0),
-                            20=>array('MAIN_MODULE_CABINETMED_HOOKS','chaine','thirdpartycard:contactcard','Add hooks',1,'current',1),
-                            21=>array('MAIN_MODULE_CABINETMED_TRIGGERS','chaine','1','Add cabinetmedtriggers',1,'current',1)
-                            );
+                            13=>array('MAIN_MODULE_CABINETMED_MENUS','chaine','1','Declare cabinetmed menus',1,'current',1),
+                            14=>array('MAIN_MENU_STANDARD_FORCED','chaine','cabinetmed_backoffice.php','Force menu handler to this value',1,'current',1),
+                            15=>array('MAIN_MENUFRONT_STANDARD_FORCED','chaine','cabinetmed_frontoffice.php','Force menu handler to this value',1,'current',1),
+                            16=>array('MAIN_MENU_SMARTPHONE_FORCED','chaine','cabinetmed_backoffice.php','Force menu handler to this value',1,'current',1),
+                            17=>array('MAIN_MENUFRONT_SMARTPHONE_FORCED','chaine','cabinetmed_frontoffice.php','Force menu handler to this value',1,'current',1),
+                            18=>array('MAIN_SUPPORT_CONTACT_TYPE_FOR_THIRDPARTIES','chaine','1','Can add third party type of contact',1,'current',1),
+                            19=>array('MAIN_APPLICATION_TITLE','chaine','DoliMed','Change software title',1,'current',1),
+                            20=>array('CABINETMED_RHEUMATOLOGY_ON','chaine','0','Enable features for rheumatology',0),
+                            21=>array('MAIN_MODULE_CABINETMED_HOOKS','chaine','thirdpartycard:contactcard','Add hooks',1,'current',1),
+                            22=>array('MAIN_MODULE_CABINETMED_TRIGGERS','chaine','1','Declare cabinetmed triggers',1,'current',1)
+                            //50=>array('MAIN_DIRECTEDITMODE','chaine','1','Notes are in edit mode directly',1,'current',1),
+                        );
 
         // Array to add new pages in new tabs
         $this->tabs = array('thirdparty:+tabcontacts:Correspondants:cabinetmed@cabinetmed:/cabinetmed/contact.php?socid=__ID__',
