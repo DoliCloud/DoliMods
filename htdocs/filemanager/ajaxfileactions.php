@@ -1,6 +1,6 @@
 <?php
 /* Copyright (C) 2004-2007 Rodolphe Quiedeville <rodolphe@quiedeville.org>
- * Copyright (C) 2004-2011 Laurent Destailleur  <eldy@users.sourceforge.net>
+ * Copyright (C) 2004-2012 Laurent Destailleur  <eldy@users.sourceforge.net>
  * Copyright (C) 2005      Simon Tosser         <simon@kornog-computing.com>
  * Copyright (C) 2005-2009 Regis Houssin        <regis@dolibarr.fr>
  * Copyright (C) 2010	   Pierre Morin         <pierre.morin@auguria.net>
@@ -24,8 +24,7 @@
 /**
  *	\file       htdocs/filemanager/ajaxeditcontent.php
  *  \brief      Service to return a HTML view of a file
- *  \version    $Id: ajaxfileactions.php,v 1.7 2011/06/01 13:58:31 eldy Exp $
- *  \remarks    Call of this service is made with URL:
+ *              Call of this service is made with URL:
  *              ajaxpreview.php?action=preview&modulepart=repfichierconcerne&file=pathrelatifdufichier
  */
 
@@ -44,9 +43,10 @@ if (! $res && file_exists("../../../dolibarr/htdocs/main.inc.php")) $res=@includ
 if (! $res && file_exists("../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
 if (! $res && file_exists("../../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
 if (! $res) die("Include of main fails");
-dol_include_once("/filemanager/class/filemanagerroots.class.php");
 include_once(DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php');
 include_once(DOL_DOCUMENT_ROOT.'/core/class/doleditor.class.php');
+include_once(DOL_DOCUMENT_ROOT."/core/lib/security2.lib.php");
+dol_include_once("/filemanager/class/filemanagerroots.class.php");
 
 
 // Do not use urldecode here ($_GET and $_REQUEST are already decoded by PHP).
@@ -130,10 +130,8 @@ if ($user->societe_id > 0)
 
 // Security:
 // Limite acces si droits non corrects
-if (! $accessallowed)
-{
-	accessforbidden();
-}
+if (! $accessallowed) accessforbidden();
+
 
 // Security:
 // On interdit les remontees de repertoire ainsi que les pipe dans
@@ -147,10 +145,7 @@ if (preg_match('/\.\./',$original_file) || preg_match('/[<>|]/',$original_file))
 }
 
 // Check permissions
-if (! $user->rights->filemanager->read)
-{
-    accessforbidden();
-}
+if (! $user->rights->filemanager->read) accessforbidden();
 
 
 
@@ -260,27 +255,31 @@ if ($action == 'save')   // Remove a file
         exit;
     }
 
-    $content=GETPOST('str',2);
     $sizeofcontent=GETPOST('sizeofcontent');
+    $textformat=GETPOST('textformat');
+    $content=GETPOST('str',2);
+    if ($textformat == 'ISO' && utf8_check($content)) $content=utf8_decode($content);
 
     if (strlen($content) != $sizeofcontent)
     {
         dol_syslog("Size of content (".strlen($content).") for new file differs of size expected (".$sizeofcontent."). May be a limit in POST/GET request. We ignore save to keep file integrity.", LOG_ERR);
-        print 'KO';
+        print 'KO SIZENOTEXPECTED';
         return -2;
     }
     else
     {
-        $f=fopen($original_file_osencoded, 'w');    // 'w'
+        $f=@fopen($original_file_osencoded, 'w');    // 'w'
         if ($f)
         {
             dol_syslog("original_file_osencoded=".$original_file_osencoded." content=".$content);
+            // If original format was ISO, we kepp this format
+
             if (fwrite($f, $content) === FALSE)
             {
                 $langs->load("errors");
                 fclose($f);
                 dol_syslog("Failed to write into file ".$original_file);
-                print '<div class="error">'.$langs->trans("ErrorFailToCreateFile").'</div>';
+                print '<div class="error">'.$langs->trans("ErrorFailToWriteIntoFile").'</div>';
                 return -3;
             }
             else
@@ -293,8 +292,9 @@ if ($action == 'save')   // Remove a file
         }
         else
         {
-            dol_syslog("Failed to open file ".$original_file, LOG_ERR);
-            print 'KO';
+            $langs->load("errors");
+            dol_syslog("Failed to write into file ".$original_file);
+            print '<div class="error">'.$langs->trans("ErrorFailToCreateFile",$original_file).'<br>'.$langs->trans("ErrorWebServerUserHasNotPermission",dol_getwebuser('user')).'</div>';
             return -1;
         }
     }
@@ -328,7 +328,7 @@ if ($action == 'edit')   // Return file content
 	$filename = basename($original_file);
 
 	// Output file on browser
-	dol_syslog(__FILE__." download $original_file $filename content-type=$type");
+	dol_syslog(__FILE__." download ".$original_file." ".$filename." content-type=".$type);
 	$original_file_osencoded=dol_osencode($original_file);	// New file name encoded in OS encoding charset
 
 	// This test if file exists should be useless. We keep it to find bug more easily
@@ -342,11 +342,18 @@ if ($action == 'edit')   // Return file content
 
 	if (preg_match('/text/i',$type))
 	{
-		$maxsize=50000;
+		$maxsize=500000;
 
-        $handle = fopen($original_file_osencoded, "r");
+		$size=dol_filesize($original_file_osencoded);
+
+		$handle = fopen($original_file_osencoded, "r");
         $content = fread($handle, $maxsize);
+        if (! utf8_check($content)) { $isoutf='iso'; $content=utf8_encode($content); }
         fclose($handle);
+
+        print 'Autodetect text format: '.($isoutf?'ISO':'UTF-8');
+        print '<input type="hidden" id="textformat" name="textformat" value="'.($isoutf?'ISO':'UTF-8').'">'."\n";
+        print '<br><br>'."\n";
 
         $okforextandededitor=false;
         $doleditor=new DolEditor('fmeditor',$content,640,0,'dolibarr_notes','In',true,true,$okforextandededitor,36,100);

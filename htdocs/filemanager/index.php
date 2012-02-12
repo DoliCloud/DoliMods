@@ -37,8 +37,9 @@ if (! defined('REQUIRE_JQUERY_LAYOUT'))  define('REQUIRE_JQUERY_LAYOUT','1');
 //if (! defined("NOLOGIN"))        define("NOLOGIN",'1');		// If this page is public (can be called outside logged session)
 
 require_once("../filemanager/pre.inc.php");
-dol_include_once("/filemanager/class/filemanagerroots.class.php");
 include_once(DOL_DOCUMENT_ROOT."/core/lib/files.lib.php");
+include_once(DOL_DOCUMENT_ROOT."/core/lib/security2.lib.php");
+dol_include_once("/filemanager/class/filemanagerroots.class.php");
 
 // Load traductions files requiredby by page
 $langs->load("companies");
@@ -321,10 +322,10 @@ if ($filemanagerroots->rootpath)
 	        // New code using jQuery only
 	        $formconfirm= '
 	            var choice=\'ko\';
-                jQuery("#dialog-confirm").attr("title", \''.dol_escape_js($langs->trans("DeleteFile")).'\');
+                jQuery("#dialog-confirm").attr("title", \''.dol_escape_js($langs->transnoentities("DeleteFile")).'\');
 	            jQuery("#dialog-confirm").empty();
-	            jQuery("#dialog-confirm").append(\''.img_help('','').' '.dol_escape_js($langs->trans("DeleteFileName")).' <b>\'+filename+\'</b>\');
-	            jQuery("#dialog-confirm").append(\'<br>'.dol_escape_js($langs->trans("ServerMustHavePermission",dol_getwebuser('user'),dol_getwebuser('group'))).'\');
+	            jQuery("#dialog-confirm").append(\''.img_help('','').' '.dol_escape_js($langs->transnoentities("DeleteFileName")).' <b>\'+filename+\'</b>\');
+	            jQuery("#dialog-confirm").append(\'<br>'.dol_escape_js($langs->transnoentities("ServerMustHavePermission",dol_getwebuser('user'),dol_getwebuser('group'))).'\');
 	            jQuery("#dialog-confirm").dialog({
 	                autoOpen: true,
 	                resizable: false,
@@ -363,13 +364,14 @@ if ($filemanagerroots->rootpath)
         {
             filename=filediractive;
             content=jQuery('#fmeditor').val();
+            textformat=jQuery('#textformat').val();
             if (content)
             {
                 // TODO Save content
                 //alert(content);
                 url='<?php echo dol_buildpath('/filemanager/ajaxfileactions.php',1); ?>?action=save&rootpath=<?php echo $filemanagerroots->id ?>&modulepart=filemanager&type=auto&file='+urlencode(filename);
                 // jQuery.post("test.php", $("#testform").serialize());
-                jQuery.post(url, { action: 'save', str: content, sizeofcontent: content.length },
+                jQuery.post(url, { action: 'save', str: content, sizeofcontent: content.length, textformat: textformat },
                 	function(data) {
                     jQuery('#mesg').show();
                     jQuery('#mesg').replaceWith('<div id="mesg">'+data+'</div>');
@@ -515,12 +517,12 @@ print '</div>'."\n";
 <?php
 // Toolbar
 print '<div class="toolbarbutton">';
-print '<a href="#" id="anewdir" disabled="disabled" class="fmbuttondir" title="'.dol_escape_htmltag($langs->trans("NewDir")).'"><img border="0" width="32" height="32" src="'.dol_buildpath('/filemanager/images/folder-new.png',1).'"></a>'."\n";
-print '<a href="#" id="adeletedir" class="fmbuttondir" title="'.dol_escape_htmltag($langs->trans("DeleteDir")).'"><img border="0" width="32" height="32" src="'.dol_buildpath('/filemanager/images/folder-delete.png',1).'"></a>'."\n";
-print '<a href="#" id="anewfile" class="fmbuttondir" title="'.dol_escape_htmltag($langs->trans("NewFile")).'"><img border="0" width="32" height="32" src="'.dol_buildpath('/filemanager/images/document-new.png',1).'"></a>'."\n";
-print '<a href="#" id="asavefile" class="fmbuttonsave" title="'.dol_escape_htmltag($langs->trans("SaveFile")).'"><img border="0" width="32" height="32" src="'.dol_buildpath('/filemanager/images/media-floppy.png',1).'"></a>'."\n";
-print '<a href="#" id="aloadandeditcontent" class="fmbuttonfile" title="'.dol_escape_htmltag($langs->trans("Edit")).'"><img border="0" width="32" height="32" src="'.dol_buildpath('/filemanager/images/edit-copy.png',1).'"></a>'."\n";
-print '<a href="#" id="adeletefile" class="fmbuttonfile" title="'.dol_escape_htmltag($langs->trans("DeleteFile")).'"><img border="0" width="32" height="32" src="'.dol_buildpath('/filemanager/images/document-delete.png',1).'"></a>'."\n";
+print '<a href="#" id="anewdir" disabled="disabled" class="fmbuttondir" title="'.dol_escape_htmltag($langs->transnoentities("NewDir")).'"><img border="0" width="32" height="32" src="'.dol_buildpath('/filemanager/images/folder-new.png',1).'"></a>'."\n";
+print '<a href="#" id="adeletedir" class="fmbuttondir" title="'.dol_escape_htmltag($langs->transnoentities("DeleteDir")).'"><img border="0" width="32" height="32" src="'.dol_buildpath('/filemanager/images/folder-delete.png',1).'"></a>'."\n";
+print '<a href="#" id="anewfile" class="fmbuttondir" title="'.dol_escape_htmltag($langs->transnoentities("NewFile")).'"><img border="0" width="32" height="32" src="'.dol_buildpath('/filemanager/images/document-new.png',1).'"></a>'."\n";
+print '<a href="#" id="asavefile" class="fmbuttonsave" title="'.dol_escape_htmltag($langs->transnoentities("Save")).'"><img border="0" width="32" height="32" src="'.dol_buildpath('/filemanager/images/media-floppy.png',1).'"></a>'."\n";
+print '<a href="#" id="aloadandeditcontent" class="fmbuttonfile" title="'.dol_escape_htmltag($langs->transnoentities("Edit")).'"><img border="0" width="32" height="32" src="'.dol_buildpath('/filemanager/images/edit-copy.png',1).'"></a>'."\n";
+print '<a href="#" id="adeletefile" class="fmbuttonfile" title="'.dol_escape_htmltag($langs->transnoentities("DeleteFile")).'"><img border="0" width="32" height="32" src="'.dol_buildpath('/filemanager/images/document-delete.png',1).'"></a>'."\n";
 print '</div>';
 ?>
     </div>

@@ -1,6 +1,6 @@
 <?php
 /* Copyright (C) 2004-2007 Rodolphe Quiedeville <rodolphe@quiedeville.org>
- * Copyright (C) 2004-2010 Laurent Destailleur  <eldy@users.sourceforge.net>
+ * Copyright (C) 2004-2012 Laurent Destailleur  <eldy@users.sourceforge.net>
  * Copyright (C) 2005      Simon Tosser         <simon@kornog-computing.com>
  * Copyright (C) 2005-2009 Regis Houssin        <regis@dolibarr.fr>
  * Copyright (C) 2010	   Pierre Morin         <pierre.morin@auguria.net>
@@ -24,8 +24,7 @@
 /**
  *	\file       htdocs/filemanager/ajaxshowpreview.php
  *  \brief      Service to return a HTML preview of a file
- *  \version    $Id: ajaxshowpreview.php,v 1.18 2011/08/01 19:28:46 eldy Exp $
- *  \remarks    Call of this service is made with URL:
+ *  			Call of this service is made with URL:
  * 				ajaxpreview.php?action=preview&modulepart=repfichierconcerne&file=pathrelatifdufichier
  */
 
@@ -120,10 +119,7 @@ if ($user->societe_id > 0)
 
 // Security:
 // Limite acces si droits non corrects
-if (! $accessallowed)
-{
-    accessforbidden();
-}
+if (! $accessallowed) accessforbidden();
 
 // Security:
 // On interdit les remontees de repertoire ainsi que les pipe dans
@@ -137,11 +133,7 @@ if (preg_match('/\.\./',$original_file) || preg_match('/[<>|]/',$original_file))
 }
 
 // Check permissions
-if (! $user->rights->filemanager->read)
-{
-    accessforbidden();
-}
-
+if (! $user->rights->filemanager->read) accessforbidden();
 
 
 
@@ -340,10 +332,9 @@ else {
                 $srclang='';    // We disable geshi
             }
 
-            // Clean values for srclang
+            // Try to detect srclang using first line
             if ($type=='text/plain' && empty($srclang))    // Try to enhance MIME detection with first line content
             {
-                //print "rr".$srclang;
                 $firstline=file_get_contents($original_file_osencoded,false,null,0,32);
                 $texts = preg_split("/((\r(?!\n))|((?<!\r)\n)|(\r\n))/", strtolower($firstline));
                 if (preg_match('/^#!.*\/bin\/(.*)$/',$texts[0],$reg))
@@ -366,6 +357,7 @@ else {
                 include_once('includes/geshi/geshi.php');
 
                 $out=file_get_contents($original_file_osencoded,false,null,0,$maxsize);
+                if (! utf8_check($out)) { $isoutf='iso'; $out=utf8_encode($out); }
 
                 $geshi = new GeSHi($out, $srclang);
                 $geshi->enable_strict_mode(true);
@@ -388,9 +380,11 @@ else {
                 $handle = @fopen($original_file_osencoded, "r");
                 if ($handle)
                 {
-                    while (!feof($handle) && $i < $maxlines) {
+                    while (!feof($handle) && $i < $maxlines)
+                    {
                         $buffer = fgets($handle, $maxsize);
-                        $out.=dol_htmlentities($buffer,ENT_COMPAT,'UTF-8')."<br>\n";
+                        if (utf8_check($buffer)) $out.=$buffer."<br>\n";
+                        else $out.=utf8_encode($buffer)."<br>\n";
                         $i++;
                     }
                     if (!feof($handle)) $more=1;
