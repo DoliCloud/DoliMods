@@ -196,6 +196,9 @@ class InterfaceActionsCabinetmed
 			//$actioncomm->usertodo  = $user;	// User affected to action
 			$actioncomm->userdone    = $user;	// User doing action
 
+			$actioncomm->fk_element  = $object->id;
+			$actioncomm->elementtype = $object->element;
+
 			$ret=$actioncomm->add($user);       // User qui saisit l'action
 			if ($ret > 0)
 			{
