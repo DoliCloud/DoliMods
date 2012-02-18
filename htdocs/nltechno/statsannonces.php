@@ -49,12 +49,12 @@ $form=new Form($db);
 $dbann=getDoliDBInstance('mysqli', $dbhostann, $dbuserann, $dbpasswordann, $dbdatabaseann, 3306);
 if (! $dbann->connected)
 {
-	dolibarr_print_error($dbann,"Can not connect to server ".$dbhostann." with user ".$dbuserann);
+	dol_print_error($dbann,"Can not connect to server ".$dbhostann." with user ".$dbuserann);
 	exit;
 }
 if (! $dbann->database_selected)
 {
-	dolibarr_print_error($dbann,"Database ".$dbdatabaseann." can not be selected");
+	dol_print_error($dbann,"Database ".$dbdatabaseann." can not be selected");
 	exit;
 }
 
@@ -108,8 +108,8 @@ if (1 == 1)
 						$val1=$obj->VALUE_STATS;
 					}
 
-					$day=dolibarr_print_date($dbann->jdate($obj->DATE_STATS),'%d');
-					if ($day == '15') $labelx=dolibarr_print_date($dbann->jdate($obj->DATE_STATS),'%b');
+					$day=dol_print_date($dbann->jdate($obj->DATE_STATS),'%d');
+					if ($day == '15') $labelx=dol_print_date($dbann->jdate($obj->DATE_STATS),'%b');
 					else $labelx='';
 
 					if ($dbann->jdate($obj->DATE_STATS) != $oldday && $oldday)
@@ -161,7 +161,7 @@ if (1 == 1)
 			}
 			else
 			{
-				dolibarr_print_error($dbann,'Error for calculating graph on key='.$key.' - '.$product->error);
+				dol_print_error($dbann,'Error for calculating graph on key='.$key.' - '.$product->error);
 			}
 		}
 

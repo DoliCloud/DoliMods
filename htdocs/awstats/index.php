@@ -308,7 +308,7 @@ else
 
 		$domains[] = $domain;
 
-		//print dolibarr_print_date(mktime(),'Y%m%d%H%M%S')." Process file ".$files[$curr]."<br>\n";
+		//print dol_print_date(mktime(),'Y%m%d%H%M%S')." Process file ".$files[$curr]."<br>\n";
 		# Check if we are filtering the domains
 		if($filter_domains == true && array_search($domain,$domain_list) == false) {
 			# Read the source file
