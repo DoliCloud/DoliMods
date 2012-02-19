@@ -164,7 +164,7 @@ if (! $error)
         //print "xxx".$result;
 
     	// This action must be set here and not in actions to be sure all lang files are already loaded
-    	if ($_GET["action"] == 'clear')
+    	if ($action == 'clear')
     	{
     		$error=0;
     		if (! $error)
@@ -175,7 +175,8 @@ if (! $error)
     		}
     	}
 
-    	if ($mesg) print '<br>'.$mesg;
+
+    	dol_htmloutput_mesg($mesg);
 
 
     	// Read cache
@@ -234,4 +235,6 @@ if (! $error)
 }
 
 llxfooter();
+
+$db->close();
 ?>
