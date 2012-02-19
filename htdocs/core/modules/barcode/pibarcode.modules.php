@@ -135,7 +135,7 @@ class modPibarcode extends ModeleBarCode
     {
     	global $conf,$filebarcode;
 
-		create_exdir($conf->barcode->dir_temp);
+		dol_mkdir($conf->barcode->dir_temp);
 		$file=$conf->barcode->dir_temp.'/barcode_'.$code.'_'.$encoding.'.png';
 		$filebarcode=$file;	// global var to be used in buildBarCode
 

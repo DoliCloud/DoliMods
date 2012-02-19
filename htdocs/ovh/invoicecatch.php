@@ -118,7 +118,7 @@ try {
                     $ref=dol_sanitizeFileName($facfou->ref);
                     $upload_dir = $conf->fournisseur->facture->dir_output.'/'.get_exdir($facfou->id,2).$ref;
 
-                    if (! is_dir($upload_dir)) create_exdir($upload_dir);
+                    if (! is_dir($upload_dir)) dol_mkdir($upload_dir);
 
                     if (is_dir($upload_dir))
                     {

@@ -364,7 +364,7 @@ class modCabinetMed extends DolibarrModules
 
         require_once(DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php');
         $dirodt=DOL_DATA_ROOT.'/doctemplates/thirdparties';
-        create_exdir($dirodt);
+        dol_mkdir($dirodt);
         $src=dol_buildpath('/cabinetmed/install/doctemplates/thirdparties/template_courrier_consult.odt');
         $dest=$dirodt.'/template_courrier_consult.odt';
    		$result=dol_copy($src,$dest,0,0);

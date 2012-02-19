@@ -98,7 +98,7 @@ if ($actionsave)
 if ($action == 'create')
 {
 	$error=0;
-	create_exdir($conf->monitoring->dir_temp.'/test');
+	dol_mkdir($conf->monitoring->dir_temp.'/test');
 
 	$step=5;
 	$opts = array( "--step", $step,

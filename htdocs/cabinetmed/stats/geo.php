@@ -66,7 +66,7 @@ $title=$langs->trans("Statistics");
 
 print_fiche_titre($title, $mesg);
 
-create_exdir($dir);
+dol_mkdir($dir);
 
 if ($mode)
 {

@@ -68,7 +68,7 @@ $dir = DOL_DATA_ROOT.'/nltechno/';
 $dirtmp = 'temp/';
 if (! file_exists($dir.$dirtmp))
 {
-	if (create_exdir($dir.$dirtmp) < 0)
+	if (dol_mkdir($dir.$dirtmp) < 0)
 	{
 		$mesg = $langs->trans("ErrorCanNotCreateDir",$dir.$dirtmp);
 	}
