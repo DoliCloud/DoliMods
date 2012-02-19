@@ -17,10 +17,9 @@
  */
 
 /**
- *   	\file       htdocs/ovh/admin/ovh_setup.php
+ *   	\file       htdocs/ovh/admin/ovh_sms_setup.php
  *		\ingroup    ovh
- *		\brief      Setup of module OVH
- *		\version    $Id: ovh_setup.php,v 1.19 2011/06/17 22:25:08 eldy Exp $
+ *		\brief      Setup of SMS of module OVH
  */
 
 define('NOCSRFCHECK',1);
@@ -187,6 +186,10 @@ if ($action == 'send' && ! $_POST['cancel'])
  * View
  */
 
+$WS_DOL_URL = $conf->global->OVHSMS_SOAPURL;
+dol_syslog("Will use URL=".$WS_DOL_URL, LOG_DEBUG);
+
+
 llxHeader('',$langs->trans('OvhSmsSetup'),'','');
 
 $linkback='<a href="'.DOL_URL_ROOT.'/admin/modules.php">'.$langs->trans("BackToModuleList").'</a>';
@@ -195,107 +198,122 @@ print_fiche_titre($langs->trans("OvhSmsSetup"),$linkback,'setup');
 
 $head=ovhadmin_prepare_head();
 
-dol_fiche_head($head, 'common', $langs->trans("Ovh"));
-
-print '<form method="post" action="'.$_SERVER["PHP_SELF"].'">';
-print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
-print '<input type="hidden" name="action" value="setvalue">';
-
-if (!extension_loaded('soap'))
-{
-    print '<div class="error">'.$langs->trans("PHPExtensionSoapRequired").'</div>';
-}
-
-$var=true;
-
-print '<table class="nobordernopadding" width="100%">';
-print '<tr class="liste_titre">';
-print '<td>'.$langs->trans("Parameter").'</td>';
-print '<td>'.$langs->trans("Value").'</td>';
-print "</tr>\n";
-
-$var=!$var;
-print '<tr '.$bc[$var].'><td width="200px" class="fieldrequired">';
-print $langs->trans("OvhSmsNick").'</td><td>';
-print '<input size="64" type="text" name="OVHSMS_NICK" value="'.$conf->global->OVHSMS_NICK.'">';
-print '<br>'.$langs->trans("Example").': AA123-OVH';
-print '</td></tr>';
-
-$var=!$var;
-print '<tr '.$bc[$var].'><td class="fieldrequired">';
-print $langs->trans("OvhSmsPass").'</td><td>';
-print '<input size="64" type="password" name="OVHSMS_PASS" value="'.$conf->global->OVHSMS_PASS.'">';
-print '</td></tr>';
-
-$var=!$var;
-print '<tr '.$bc[$var].'><td class="fieldrequired">';
-print $langs->trans("OvhSmsSoapUrl").'</td><td>';
-print '<input size="64" type="text" name="OVHSMS_SOAPURL" value="'.$conf->global->OVHSMS_SOAPURL.'">';
-print '<br>'.$langs->trans("Example").': https://www.ovh.com/soapi/soapi-re-1.26.wsdl';
-print '</td></tr>';
-
-print '<tr><td colspan="2" align="center"><input type="submit" class="button" value="'.$langs->trans("Modify").'"></td></tr>';
-print '</table>';
-
-print '</form>';
-
-dol_fiche_end();
-
-
-dol_htmloutput_mesg($mesg);
-
-
-$WS_DOL_URL = $conf->global->OVHSMS_SOAPURL;
-dol_syslog("Will use URL=".$WS_DOL_URL, LOG_DEBUG);
+dol_fiche_head($head, 'sms', $langs->trans("Ovh"));
 
 if (empty($conf->global->OVHSMS_NICK) || empty($WS_DOL_URL))
 {
-    echo '<br>'.'<div class="warning">'.$langs->trans("OvhSmsNotConfigured").'</div>';
+    echo '<div class="warning">'.$langs->trans("OvhSmsNotConfigured").'</div>';
 }
 else
 {
-    print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?action=test">'.$langs->trans("TestLoginToAPI").'</a><br><br>';
+    dol_htmloutput_mesg($mesg);
 
-    if ($action == 'test')
+    // Formulaire d'ajout de compte SMS qui sera valable pour tout Dolibarr
+    print '<form method="post" action="'.$_SERVER["PHP_SELF"].'">';
+    print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
+    print '<input type="hidden" name="action" value="setvalue_account">';
+
+    $var=true;
+
+    print '<table class="nobordernopadding" width="100%">';
+    print '<tr class="liste_titre">';
+    print '<td width="200px">'.$langs->trans("Parameter").'</td>';
+    print '<td>'.$langs->trans("Value").'</td>';
+    print '<td>&nbsp;</td>';
+    print "</tr>\n";
+
+
+    $var=!$var;
+    print '<tr '.$bc[$var].'><td class="fieldrequired">';
+    print $langs->trans("OvhSmsLabelAccount").'</td><td>';
+    print '<input size="64" type="text" name="OVHSMS_ACCOUNT" value="'.$conf->global->OVHSMS_ACCOUNT.'">';
+    print '<br>'.$langs->trans("Example").': sms-aa123-1';
+    print '<td>'.'<a href="ovh_smsrecap.php" target="_blank">'.$langs->trans("ListOfSmsAccountsForNH").'</a>';
+
+    print '</td></tr>';
+
+    print '<tr><td colspan="3" align="center"><input type="submit" class="button" value="'.$langs->trans("Modify").'"></td></tr>';
+    print '</table></form>';
+
+    dol_fiche_end();
+
+
+    if ($action != 'testsms')
     {
-        require_once(DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php');
-        $params=getSoapParams();
-        ini_set('default_socket_timeout', $params['response_timeout']);
-
-        if ($params['proxy_use']) print $langs->trans("TryToUseProxy").': '.$params['proxy_host'].':'.$params['proxy_port'].($params['proxy_login']?(' - '.$params['proxy_login'].':'.$params['proxy_password']):'').'<br>';
-        print 'URL: '.$WS_DOL_URL.'<br>';
-        print $langs->trans("ConnectionTimeout").': '.$params['connection_timeout'].'<br>';
-        print $langs->trans("ResponseTimeout").': '.$params['response_timeout'].'<br>';
-
-        $soap = new SoapClient($WS_DOL_URL,$params);
-        try {
-            $language="en";
-            $multisession=false;
-
-            //login
-            $session = $soap->login($conf->global->OVHSMS_NICK, $conf->global->OVHSMS_PASS, $language, $multisession);
-            if ($session) print '<div class="ok">'.$langs->trans("OvhSmsLoginSuccessFull").'</div><br>';
-            else print '<div class="error">Error login did not return a session id</div><br>';
-
-            //logout
-            $soap->logout($session);
-            //  echo "logout successfull\n";
-
-        }
-        catch(Exception $e)
+        print '<br>';
+        if (! empty($conf->global->OVHSMS_ACCOUNT))
         {
-            print '<div class="error">';
-            print 'Error '.$e->getMessage().'<br>';
-            print 'If this is an error to connect to OVH host, check your firewall does not block port required to reach OVH manager (for example port 1664).<br>';
-            print '</div>';
+            print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?action=testsms">'.$langs->trans("DoTestSend").'</a>';
+        }
+        else
+        {
+            print '<a class="butActionRefused" href="#">'.$langs->trans("DoTestSend").'</a>';
         }
     }
+    else
+    {
+        print '<br>';
 
-    print '<br>';
+        print_fiche_titre($langs->trans("Sms"));
+
+        // Cree l'objet formulaire mail
+        include_once(DOL_DOCUMENT_ROOT.'/core/class/html.formsms.class.php');
+        $formsms = new FormSms($db);
+        $formsms->fromtype = 'user';
+        $formsms->fromid   = $user->id;
+        $formsms->fromname = $user->getFullName($langs);
+        $formsms->fromsms = $user->user_mobile;
+        $formsms->withfrom=(empty($_POST['fromsms'])?1:$_POST['fromsms']);
+        $formsms->withfromreadonly=0;
+        $formsms->withto=(empty($_POST["sendto"])?($user->user_mobile?$user->user_mobile:1):$_POST["sendto"]);
+        $formsms->withbody=$langs->trans("SmsTestMessage");
+        $formsms->withcancel=1;
+        // Tableau des substitutions
+        $formsms->substit=$substitutionarrayfortest;
+        // Tableau des parametres complementaires du post
+        $formsms->param['action']='send';
+        $formsms->param['models']='body';
+        $formsms->param['id']=0;
+        $formsms->param['returnurl']=$_SERVER["PHP_SELF"];
+
+        $formsms->show_form();
+
+        print '<br>';
+    }
+
+    print '<br><br>';
+
+    /*
+    if ($action=='testsms')
+    {
+        // Cree l'objet formulaire mail
+        include_once(DOL_DOCUMENT_ROOT.'/core/class/html.formsms.class.php');
+        $formsms = new FormSms($db);
+        $formsms->fromtype = 'user';
+        $formsms->fromid   = $user->id;
+        $formsms->fromname = $user->getFullName($langs);
+        $formsms->fromsms = $user->user_mobile;
+        $formsms->withfrom=1;
+        $formsms->withfromreadonly=0;
+        $formsms->withto=empty($_POST["sendto"])?1:$_POST["sendto"];
+        $formsms->withbody=1;
+        $formsms->withcancel=1;
+        // Tableau des substitutions
+        $formsms->substit['__FACREF__']=$object->ref;
+        // Tableau des parametres complementaires du post
+        $formsms->param['action']=$action;
+        $formsms->param['models']=$modelmail;
+        $formsms->param['facid']=$object->id;
+        $formsms->param['returnurl']=$_SERVER["PHP_SELF"].'?id='.$object->id;
+
+        $formsms->show_form();
+
+        print '<br>';
+    }
+    */
+
 }
 
-
-// End of page
 
 llxFooter();
 
