@@ -152,12 +152,12 @@ if ($msg) print $msg.'<br>';
 $dbann=getDoliDBInstance('mysqli', $dbhostchien, $dbuserchien, $dbpasswordchien, $dbdatabasechien, 3306);
 if (! $dbann->connected)
 {
-	dolibarr_print_error($dbann,"Can not connect to server ".$dbhostchien." with user ".$dbuserchien);
+	dol_print_error($dbann,"Can not connect to server ".$dbhostchien." with user ".$dbuserchien);
 	exit;
 }
 if (! $dbann->database_selected)
 {
-	dolibarr_print_error($dbann,"Database ".$dbdatabasechien." can not be selected");
+	dol_print_error($dbann,"Database ".$dbdatabasechien." can not be selected");
 	exit;
 }
 
@@ -171,7 +171,7 @@ $dir = DOL_DATA_ROOT.'/nltechno/';
 $dirtmp = 'temp/';
 if (! file_exists($dir.$dirtmp))
 {
-	if (create_exdir($dir.$dirtmp) < 0)
+	if (dol_mkdir($dir.$dirtmp) < 0)
 	{
 		$mesg = $langs->trans("ErrorCanNotCreateDir",$dir.$dirtmp);
 	}

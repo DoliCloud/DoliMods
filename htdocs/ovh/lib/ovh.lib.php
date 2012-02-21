@@ -24,9 +24,9 @@
 
 
 /**
- *  \brief      	Define head array for tabs of ovh tools setup pages
- *  \return			Array of head
- *  \version    	$Id: ovh.lib.php,v 1.1 2011/03/05 17:35:16 eldy Exp $
+ *  Define head array for tabs of ovh tools setup pages
+ *
+ *  @return			Array of head
  */
 function ovhadmin_prepare_head()
 {
@@ -35,6 +35,11 @@ function ovhadmin_prepare_head()
 	$head = array();
 
 	$head[$h][0] = dol_buildpath("/ovh/admin/ovh_setup.php",1);
+	$head[$h][1] = $langs->trans("Common");
+	$head[$h][2] = 'common';
+	$h++;
+
+	$head[$h][0] = dol_buildpath("/ovh/admin/ovh_sms_setup.php",1);
 	$head[$h][1] = $langs->trans("Sms");
 	$head[$h][2] = 'sms';
 	$h++;
@@ -44,8 +49,21 @@ function ovhadmin_prepare_head()
 	$head[$h][2] = 'click2dial';
 	$h++;
 
+	$head[$h][0] = dol_buildpath("/ovh/admin/ovh_listinfoserver.php",1);
+	$head[$h][1] = $langs->trans("OvhDedicated");
+	$head[$h][2] = 'listservers';
+	$h++;
 
-    return $head;
+	if ($conf->global->MAIN_FEATURES_LEVEL > 0)
+	{
+    	$head[$h][0] = dol_buildpath("/ovh/admin/ovh_importinvoice.php",1);
+    	$head[$h][1] = $langs->trans("OvhGetInvoices");
+    	$head[$h][2] = 'getinvoices';
+    	$h++;
+	}
+
+	return $head;
 }
+
 
 ?>

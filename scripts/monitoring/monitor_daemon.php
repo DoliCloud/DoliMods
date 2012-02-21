@@ -132,7 +132,7 @@ for ($i = 1 ; $i < count($argv) ; $i++)
 }
 
 $dir = $conf->monitoring->dir_output;
-$result=create_exdir($dir);
+$result=dol_mkdir($dir);
 if ($result < 0)
 {
 	dol_print_error('','Failed to create dir '.$dir);
@@ -156,7 +156,7 @@ foreach($listofurls as $object)
 	$fname = $conf->monitoring->dir_output.'/'.$object['code'].'/monitoring.rrd';
 
 	$error=0;
-	create_exdir($conf->monitoring->dir_output.'/'.$object['code']);
+	dol_mkdir($conf->monitoring->dir_output.'/'.$object['code']);
 
 	if (! dol_is_file($conf->monitoring->dir_output.'/'.$object['code'].'/monitoring.rrd'))
 	{

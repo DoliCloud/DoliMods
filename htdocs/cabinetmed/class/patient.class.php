@@ -1681,22 +1681,11 @@ class Patient extends Societe
     }
 
 
-    function AddPerms($user_id, $read, $write, $perms)
-    {
-        $sql = "INSERT INTO ".MAIN_DB_PREFIX."societe_perms";
-        $sql .= " (fk_soc, fk_user, pread, pwrite, pperms) ";
-        $sql .= " VALUES (".$this->id.",".$user_id.",".$read.",".$write.",".$perms.");";
-
-        $resql=$this->db->query($sql);
-        if ($resql)
-        {
-
-        }
-    }
-
     /**
-     *       Charge les informations d'ordre info dans l'objet societe
-     *       @param     id     id de la societe a charger
+     *  Charge les informations d'ordre info dans l'objet societe
+     *
+     *  @param	int		$id     id de la societe a charger
+     *  @return	void
      */
     function info($id)
     {

@@ -37,6 +37,7 @@ if (! $res && file_exists("../../../../../dolibarr/htdocs/main.inc.php")) $res=@
 if (! $res) die("Include of main fails");
 include_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
 dol_include_once("/ovh/class/ovhsms.class.php");
+require_once(NUSOAP_PATH.'/nusoap.php');     // Include SOAP
 
 // Load traductions files requiredby by page
 $langs->load("companies");
@@ -59,16 +60,11 @@ $account = GETPOST("account");
 
 llxHeader('',$langs->trans('OvhSmsRecap'),'','');
 
-$linkback='<a href="'.dol_buildpath('/ovh/admin/ovh_setup.php',1).'">'.$langs->trans("OvhSmsBackToAdmin").'</a>';
+$linkback='<a href="'.dol_buildpath('/ovh/admin/ovh_sms_setup.php',1).'">'.$langs->trans("OvhSmsBackToAdmin").'</a>';
 print_fiche_titre($langs->trans("OvhSmsRecap"),$linkback,'setup');
 
 
 $var=true;
-
-
-require_once(DOL_DOCUMENT_ROOT."/core/nusoap/lib/nusoap.php");     // Include SOAP
-
-
 
 
 $sms = new OvhSms($db);
@@ -125,10 +121,10 @@ if (! empty($sms))  // Do not use here sms > 0 as a constructor return an object
         rsort($resulthistory);
         //print_r($resulthistory); // your code here ...
 
-        print '<table class="nopadding">';
-        print '<tr >';
+        print '<table class="nobordernopadding">';
+        print '<tr class="liste_titre">';
         //echo '<td>ID</td>';
-        echo '<th class="liste_titre" width="10%">'.$langs->trans("Date").'</th>';
+        echo '<th class="liste_titre">'.$langs->trans("Date").'</th>';
         echo '<th class="liste_titre">'.$langs->trans("Sender").'</th>';
         echo '<th class="liste_titre">'.$langs->trans("Recipient").'</th>';
         echo '<th class="liste_titre">'.$langs->trans("Text").'</th>';

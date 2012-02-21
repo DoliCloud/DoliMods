@@ -25,3 +25,6 @@ ClickToDialLink=Voici le lien URL à copier-coller dans la configuration du modu
 TestSendSMS=Tester envoi SMS
 SendersAllowed=Emetteurs autorisés via le manager OVH
 TestLoginToApi=Tester connexion aux API
+ListOfDedicatedServers=Liste de vos serveurs dédiés OVH
+OvhDedicated=Serveurs dédiés
+OvhGetInvoices=Import des factures OVH

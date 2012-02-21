@@ -132,13 +132,6 @@ global $conf;
 
 
   <script type="text/javascript" src="js/packed.js?<?php echo $gc_sJavascriptVersion ?>"></script>
-
-  <!--
-  <script type="text/javascript" src="js/jquery.js"></script>
-  <script type="text/javascript" src="js/jquery.tablesorter.js"></script>
-  <script type="text/javascript" src="js/swfobject.js"></script>
-  -->
-
   <script type="text/javascript" src="js/constants.js?<?php echo $gc_sJavascriptVersion ?>"></script>
   <script type="text/javascript" src="js/jawstats.js?<?php echo $gc_sJavascriptVersion ?>"></script>
   <script type="text/javascript">

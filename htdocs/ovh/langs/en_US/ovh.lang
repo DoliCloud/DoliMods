@@ -25,3 +25,6 @@ ClickToDialLink=This is link to copy-paste into ClickToDial module setup to use 
 TestSendSMS=SMS Sending test
 TestLoginToApi=Test connection to API
 SendersAllowed=Senders allowed from OVH manager
+ListOfDedicatedServers=List of your dedicated OVH servers
+OvhDedicated=Dedicated servers
+OvhGetInvoices=OVH invoices import

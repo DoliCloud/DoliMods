@@ -71,7 +71,7 @@ if ($action == 'create')
     //print 'xx'.$result;
 
     $error=0;
-	create_exdir($conf->monitoring->dir_output.'/'.$id);
+	dol_mkdir($conf->monitoring->dir_output.'/'.$id);
 
 	$step=$probe->frequency;
 	$opts = array( "--step", $step,
@@ -115,7 +115,7 @@ if ($action == 'graph')
     $result=$probe->fetch($id);
 
     //print dirname($conf->monitoring->dir_output.'/'.$fileimage[0]);
-    create_exdir(dirname($conf->monitoring->dir_output.'/'.$fileimage[0]));
+    dol_mkdir(dirname($conf->monitoring->dir_output.'/'.$fileimage[0]));
 
     $error=0;
 	$mesg='';
