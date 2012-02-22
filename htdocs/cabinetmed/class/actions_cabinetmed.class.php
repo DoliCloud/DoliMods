@@ -18,16 +18,14 @@
 
 /**
  *	\file       htdocs/cabinetmed/class/actions_cabinetmed.class.php
- *	\ingroup    societe
+ *	\ingroup    cabinetmed
  *	\brief      File to control actions
- *	\version    $Id: actions_cabinetmed.class.php,v 1.8 2011/09/11 18:41:48 eldy Exp $
  */
 require_once(DOL_DOCUMENT_ROOT."/core/class/commonobject.class.php");
 
 
 /**
- *	\class 		ActionsCabinetmed
- *	\brief 		Class to manage hooks for module Cabinetmed
+ *	Class to manage hooks for module Cabinetmed
  */
 class ActionsCabinetmed
 {
@@ -38,11 +36,11 @@ class ActionsCabinetmed
     /**
 	 *	Constructor
 	 *
-	 *  @param		DoliDB		$DB      Database handler
+	 *  @param		DoliDB		$db      Database handler
      */
-    function ActionsCabinetmed($DB)
+    function ActionsCabinetmed($db)
     {
-        $this->db = $DB;
+        $this->db = $db;
     }
 
 

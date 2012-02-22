@@ -4,47 +4,47 @@
  * Licensed under the GNU GPL v3 or higher (See file gpl-3.0.html)
  */
 
-/**     \defgroup   google     Module Google
- *      \brief      Module to Google tools integration.
+/**     \defgroup   google     Module DoliCloud
+ *      \brief      Module to DoliCloud tools integration.
  */
 
 /**
- *      \file       htdocs/google/core/modules/modGoogle.class.php
+ *      \file       htdocs/google/core/modules/modDoliCloud.class.php
  *      \ingroup    google
- *      \brief      Description and activation file for module Google
+ *      \brief      Description and activation file for module DoliCloud
  */
 include_once(DOL_DOCUMENT_ROOT ."/core/modules/DolibarrModules.class.php");
 
 
 /**
- *	Description and activation class for module Google
+ *	Description and activation class for module DoliCloud
  */
-class modGoogle extends DolibarrModules
+class modDoliCloud extends DolibarrModules
 {
 	/**
 	 *   Constructor. Define names, constants, directories, boxes, permissions
 	 *
 	 *   @param		DoliDB		$db		Database handler
 	 */
-	function modGoogle($db)
+	function modDoliCloud($db)
 	{
 		$this->db = $db;
 
 		// Id for module (must be unique).
 		// Use here a free id (See in Home -> System information -> Dolibarr for list of used module id).
-		$this->numero = 11000;
+		$this->numero = 102900;
 		// Key text used to identify module (for permission, menus, etc...)
-		$this->rights_class = 'google';
+		$this->rights_class = 'dolicloud';
 
 		// Family can be 'crm','financial','hr','projects','product','technic','other'
 		// It is used to group modules in module setup page
-		$this->family = "projects";
+		$this->family = "other";
 		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'numero' of module)
 		$this->name = preg_replace('/^mod/i','',get_class($this));
 		// Module description used if translation string 'ModuleXXXDesc' not found (XXX is value MyModule)
-		$this->description = "Module to integrate Google tools in dolibarr";
+		$this->description = "Module to integrate DoliCloud tools in dolibarr";
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
-		$this->version = '3.1';
+		$this->version = '3.2';
 		// Key used in llx_const table to save module status enabled/disabled (where MYMODULE is value of property name of module in uppercase)
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
 		// Where to store the module in setup page (0=common,1=interface,2=others,3=very specific)
@@ -52,7 +52,7 @@ class modGoogle extends DolibarrModules
 		// Name of image file used for this module.
 		// If file is in theme/yourtheme/img directory under name object_pictovalue.png, use this->picto='pictovalue'
 		// If file is in module/img directory under name object_pictovalue.png, use this->picto='pictovalue@module'
-		$this->picto='google@google';
+		$this->picto='technic';
 
 		// Defined if the directory /mymodule/inc/triggers/ contains triggers or not
 		$this->triggers = 1;
@@ -63,17 +63,20 @@ class modGoogle extends DolibarrModules
 		//$this->dirs[1] = DOL_DATA_ROOT.'/mymodule/temp;
 
 		// Config pages. Put here list of php page names stored in admmin directory used to setup module
-		$this->config_page_url = array('google.php@google');
+		$this->config_page_url = array();
 
 		// Dependencies
 		$this->depends = array();		// List of modules id that must be enabled if this module is enabled
 		$this->requiredby = array();	// List of modules id to disable if this one is disabled
 		$this->phpmin = array(4,1);					// Minimum version of PHP required by module
-		$this->need_dolibarr_version = array(3,1,-2);	// Minimum version of Dolibarr required by module
-		$this->langfiles = array("google@google");
+		$this->need_dolibarr_version = array(3,2,-4);	// Minimum version of Dolibarr required by module
+		$this->langfiles = array("dolicloud@dolicloud");
 
 		// Constants
-		$this->const = array();			// List of parameters
+		$this->const = array(
+			1=>array('MAIN_MODULE_DOLICLOUD_HOOKS','chaine','toprightmenu','Add hooks',1,'current',1),
+			2=>array('MAIN_MODULE_DOLICLOUD_TRIGGERS','chaine','1','Declare dolicloud triggers',1,'current',1)
+		);			// List of parameters
 
         // Tabs
         $this->tabs = array();
@@ -81,7 +84,7 @@ class modGoogle extends DolibarrModules
 							'contact:+gmaps:GMaps:@google:$conf->google->enabled&&$conf->global->GOOGLE_ENABLE_GMAPS_CONTACTS:/google/gmaps.php?mode=contact&id=__ID__',
 							'member:+gmaps:GMaps:@google:$conf->google->enabled&&$conf->global->GOOGLE_ENABLE_GMAPS_MEMBERS:/google/gmaps.php?mode=member&id=__ID__',
 						);*/
-        $this->tabs = array('agenda:+gcal:MenuAgendaGoogle:@google:$conf->google->enabled && $conf->global->GOOGLE_ENABLE_AGENDA:/google/index.php');
+        $this->tabs = array();
 
         // Boxes
 		$this->boxes = array();			// List of boxes
@@ -127,7 +130,7 @@ class modGoogle extends DolibarrModules
 		// $r++;
 		/*$this->menu[$r]=array(	'fk_menu'=>0,
 								'type'=>'top',
-								'titre'=>'MenuAgendaGoogle',
+								'titre'=>'MenuAgendaDoliCloud',
 								'mainmenu'=>'google',
 								'url'=>'/google/index.php',
 								'langs'=>'google',
