@@ -18,7 +18,7 @@
  * @package  Numbers_Words
  * @author   Xavier Noguer
  * @license  PHP 3.0 http://www.php.net/license/3_0.txt
- * @version  CVS: $Id: lang.es.php,v 1.1 2011/03/03 08:46:13 eldy Exp $
+ * @version  SVN: $Id: lang.es.php 302816 2010-08-26 16:02:29Z ifeghali $
  * @link     http://pear.php.net/package/Numbers_Words
  */
 
@@ -32,8 +32,7 @@
 /**
  * Include needed files
  */
-// DOL_CHANGE
-//require_once "Numbers/Words.php";
+require_once "Numbers/Words.php";
 
 /**
  * Class for translating numbers into Spanish (Castellano).
@@ -113,7 +112,7 @@ class Numbers_Words_es extends Numbers_Words
      */
     var $_sep = ' ';
     // }}}
-    // {{{ toWords()
+    // {{{ _toWords()
     /**
      * Converts a number to its word representation
      * in Spanish (Castellano).
@@ -126,11 +125,11 @@ class Numbers_Words_es extends Numbers_Words
      *
      * @return string  The corresponding word representation
      *
-     * @access private
+     * @access protected
      * @author Xavier Noguer
-     * @since  PHP 4.2.3
+     * @since  Numbers_Words 0.16.3
      */
-    function toWords($num, $power = 0)
+    function _toWords($num, $power = 0)
     {
         // The return string;
         $ret = '';
@@ -154,7 +153,7 @@ class Numbers_Words_es extends Numbers_Words
                 $snum = substr($num, 0, -6);
                 $snum = preg_replace('/^0+/', '', $snum);
                 if ($snum !== '') {
-                    $ret .= $this->toWords($snum, $power + 6);
+                    $ret .= $this->_toWords($snum, $power + 6);
                 }
             }
             $num = substr($num, -6);
@@ -173,7 +172,7 @@ class Numbers_Words_es extends Numbers_Words
         if ($thousands == 1) {
             $ret .= $this->_sep . 'mil';
         } elseif ($thousands > 1) {
-            $ret .= $this->toWords($thousands, 3);
+            $ret .= $this->_toWords($thousands, 3);
         }
 
         // values for digits, tens and hundreds
@@ -329,5 +328,68 @@ class Numbers_Words_es extends Numbers_Words
         return $ret;
     }
     // }}}
+
+    // DOL_CHANGE. Add the toCurrencyWords found in lang.en_US
+
+    /**
+    * Converts a currency value to its word representation
+    * (with monetary units) in Mexican Spanish language
+    *
+    * @param integer $int_curr         An international currency symbol
+    *                                  as defined by the ISO 4217 standard (three characters)
+    * @param integer $decimal          A money total amount without fraction part (e.g. amount of dollars)
+    * @param integer $fraction         Fractional part of the money amount (e.g. amount of cents)
+    *                                  Optional. Defaults to false.
+    * @param integer $convert_fraction Convert fraction to words (left as numeric if set to false).
+    *                                  Optional. Defaults to true.
+    *
+    * @return string  The corresponding word representation for the currency
+    *
+    * @access public
+    * @author Pavel Oropeza
+    */
+    function toCurrencyWords($int_curr, $decimal, $fraction = false, $convert_fraction = true)
+    {
+        if (!isset($this->_currency_names[$int_curr])) {
+            $int_curr = $this->def_currency;
+        }
+
+        $curr_names = $this->_currency_names[$int_curr];
+
+        $lev = ($decimal == 1) ? 0 : 1;
+        if ($lev > 0) {
+            $curr_names = $this->_currency_names[$int_curr];
+            if (count($curr_names[0]) > 1) {
+                $ret = $curr_names[0][$lev];
+            } else {
+                $ret = $curr_names[0][0] . 's';
+            }
+
+        } else {
+            $ret = $curr_names[0][0];
+        }
+        $ret = $this->_sep . ucfirst(trim($this->_toWords($decimal) ." " . $ret));
+
+        if ($fraction !== false) {
+            if ($convert_fraction) {
+                $ret .= $this->_sep .'con'. $this->_sep . trim($this->_toWords($fraction));
+            } else {
+                $ret .= $this->_sep .'con'. $this->_sep . $fraction;
+            }
+
+            $lev = ($fraction == 1) ? 0 : 1;
+            if ($lev > 0) {
+                if (count($curr_names[1]) > 1) {
+                    $ret .= $this->_sep . $curr_names[1][$lev];
+                } else {
+                    $ret .= $this->_sep . $curr_names[1][0] . 's';
+                }
+
+            } else {
+                $ret .= $this->_sep . $curr_names[1][0];
+            }
+        }
+        return $ret;
+
+    }
 }
-?>

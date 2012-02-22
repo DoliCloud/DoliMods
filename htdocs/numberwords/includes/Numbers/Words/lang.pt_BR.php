@@ -17,15 +17,14 @@
  * @author    Igor Feghali <ifeghali@php.net>
  * @copyright 1997-2008 The PHP Group
  * @license   http://www.php.net/license/3_01.txt  PHP License 3.01
- * @version   CVS: $Id: lang.pt_BR.php,v 1.1 2011/03/03 08:46:13 eldy Exp $
+ * @version   SVN: $Id: lang.pt_BR.php 302816 2010-08-26 16:02:29Z ifeghali $
  * @link      http://pear.php.net/package/Numbers_Words
  */
 
 /**
  * Include needed files
  */
-// DOL_CHANGE
-//require_once "Numbers/Words.php";
+require_once "Numbers/Words.php";
 
 /**
  * Class for translating numbers into Brazilian Portuguese. This class complies
@@ -145,7 +144,7 @@ class Numbers_Words_pt_BR extends Numbers_Words
          */
         array(
             '',         // 0: not displayed
-            'cento',    // 'cem' is a special case handled in toWords()
+            'cento',    // 'cem' is a special case handled in _toWords()
             'duzentos',
             'trezentos',
             'quatrocentos',
@@ -214,7 +213,7 @@ class Numbers_Words_pt_BR extends Numbers_Words
      */
     var $def_currency = 'BRL'; // Real
 
-    // {{{ toWords()
+    // {{{ _toWords()
 
     /**
      * Converts a number to its word representation
@@ -224,11 +223,11 @@ class Numbers_Words_pt_BR extends Numbers_Words
      *
      * @return string  The corresponding word representation
      *
-     * @access public
+     * @access protected
      * @author Igor Feghali <ifeghali@php.net>
-     * @since  Numbers_Words 0.11.0
+     * @since  Numbers_Words 0.16.3
      */
-    function toWords($num)
+    function _toWords($num)
     {
         $neg   = 0;
         $ret   = array();
@@ -247,7 +246,7 @@ class Numbers_Words_pt_BR extends Numbers_Words
          * Removes leading zeros, spaces, decimals etc.
          * Adds thousands separator.
          */
-        $num = number_format($num, 0, '.', '.');
+        $num = number_format((double) $num, 0, '.', '.');
 
         /**
          * Testing Zero
@@ -454,7 +453,7 @@ class Numbers_Words_pt_BR extends Numbers_Words
             /**
              * Word representation of decimal
              */
-            $ret[] = $this->toWords($num);
+            $ret[] = $this->_toWords($num);
 
             /**
              * Special case.
@@ -505,7 +504,7 @@ class Numbers_Words_pt_BR extends Numbers_Words
              * Word representation of fraction
              */
             if ($convert_fraction) {
-                $ret[] = $this->toWords($num);
+                $ret[] = $this->_toWords($num);
             } else {
                 $ret[] = $num;
             }
@@ -540,5 +539,3 @@ class Numbers_Words_pt_BR extends Numbers_Words
     }
     // }}}
 }
-
-?>

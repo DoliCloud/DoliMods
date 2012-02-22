@@ -19,13 +19,12 @@
  * @author   Ernas M. Jamil <ernasm@samba.co.id>
  * @author   Arif Rifai Dwiyanto
  * @license  PHP 3.0 http://www.php.net/license/3_0.txt
- * @version  CVS: $Id: lang.id.php,v 1.1 2011/03/03 08:46:13 eldy Exp $
+ * @version  SVN: $Id: lang.id.php 302816 2010-08-26 16:02:29Z ifeghali $
  * @link     http://pear.php.net/package/Numbers_Words
  */
 
-// DOL_CHANGE
-//require_once "PEAR.php";
-//require_once "Numbers/Words.php";
+require_once "PEAR.php";
+require_once "Numbers/Words.php";
 
 /**
 * Class for translating numbers into Indonesian.
@@ -122,7 +121,7 @@ class Numbers_Words_id extends Numbers_Words
     var $_sep = ' ';
 
     // }}}
-    // {{{ toWords()
+    // {{{ _toWords()
 
     /**
      * Converts a number to its word representation
@@ -137,11 +136,11 @@ class Numbers_Words_id extends Numbers_Words
      *
      * @return string  The corresponding word representation
      *
-     * @access public
+     * @access protected
      * @author Ernas M. Jamil
-     * @since  PHP 4.2.3
+     * @since  Numbers_Words 0.16.3
      */
-    function toWords($num, $power = 0, $powsuffix = '')
+    function _toWords($num, $power = 0, $powsuffix = '')
     {
         $ret = '';
 
@@ -171,7 +170,7 @@ class Numbers_Words_id extends Numbers_Words
                             $cursuffix .= $this->_sep . $powsuffix;
                         }
 
-                        $ret .= $this->toWords($snum, $p, $cursuffix);
+                        $ret .= $this->_toWords($snum, $p, $cursuffix);
                     }
                     $curp = $p - 1;
                     continue;
@@ -294,5 +293,3 @@ class Numbers_Words_id extends Numbers_Words
     }
     // }}}
 }
-
-?>

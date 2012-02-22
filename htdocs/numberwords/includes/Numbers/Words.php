@@ -20,7 +20,7 @@
  * @package  Numbers_Words
  * @author   Piotr Klaban <makler@man.torun.pl>
  * @license  PHP 3.0 http://www.php.net/license/3_0.txt
- * @version  CVS: $Id: Words.php,v 1.1 2011/03/03 08:46:13 eldy Exp $
+ * @version  SVN: $Id: Words.php 302815 2010-08-26 15:54:33Z ifeghali $
  * @link     http://pear.php.net/package/Numbers_Words
  */
 
@@ -39,25 +39,45 @@
  */
 class Numbers_Words
 {
+    // {{{ properties
+
+    /**
+     * Default Locale name
+     * @var string
+     * @access public
+     */
+    var $locale = 'en_US';
+
+    // }}}
     // {{{ toWords()
 
     /**
      * Converts a number to its word representation
      *
-     * @param integer $num    An integer between -infinity and infinity inclusive :)
-     *                        that should be converted to a words representation
-     * @param string  $locale Language name abbreviation. Optional. Defaults to en_US.
+     * @param integer $num     An integer between -infinity and infinity inclusive :)
+     *                         that should be converted to a words representation
+     * @param string  $locale  Language name abbreviation. Optional. Defaults to
+     *                         current loaded driver or en_US if any.
+     * @param array   $options Specific driver options
      *
      * @access public
      * @author Piotr Klaban <makler@man.torun.pl>
      * @since  PHP 4.2.3
      * @return string  The corresponding word representation
      */
-    function toWords($num, $locale = 'en_US')
+    function toWords($num, $locale = '', $options = array())
     {
+        if (empty($locale)) {
+            $locale = $this->locale;
+        }
+
+        if (empty($locale)) {
+            $locale = 'en_US';
+        }
+
 		// DOL_CHANGE
-        //include_once "Numbers/Words/lang.${locale}.php";
-        include_once (empty($this->dir)?"":$this->dir)."Numbers/Words/lang.${locale}.php";
+        if (! empty($this->dir)) set_include_path($this->dir.PATH_SEPARATOR.get_include_path());
+        require_once "Numbers/Words/lang.${locale}.php";
 
         $classname = "Numbers_Words_${locale}";
 
@@ -67,18 +87,52 @@ class Numbers_Words
 
         $methods = get_class_methods($classname);
 
-        if (!in_array('toWords', $methods) && !in_array('towords', $methods)) {
-            return Numbers_Words::raiseError("Unable to find toWords method in '$classname' class");
+        if (!in_array('_toWords', $methods) && !in_array('_towords', $methods)) {
+            return Numbers_Words::raiseError("Unable to find _toWords method in '$classname' class");
         }
-
-        @$obj = new $classname;
 
         if (!is_int($num)) {
             // cast (sanitize) to int without losing precision
             $num = preg_replace('/^[^\d]*?(-?)[ \t\n]*?(\d+)([^\d].*?)?$/', '$1$2', $num);
         }
 
-        return trim($obj->toWords($num));
+        $truth_table  = ($classname == get_class($this)) ? 'T' : 'F';
+        $truth_table .= (empty($options)) ? 'T' : 'F';
+
+        switch ($truth_table) {
+
+        /**
+         * We are a language driver
+         */
+        case 'TT':
+            return trim($this->_toWords($num));
+            break;
+
+        /**
+         * We are a language driver with custom options
+         */
+        case 'TF':
+            return trim($this->_toWords($num, $options));
+            break;
+
+        /**
+         * We are the parent class
+         */
+        case 'FT':
+            @$obj = new $classname;
+            return trim($obj->_toWords($num));
+            break;
+
+        /**
+         * We are the parent class and should pass driver options
+         */
+        case 'FF':
+            @$obj = new $classname;
+            return trim($obj->_toWords($num, $options));
+            break;
+
+        }
+
     }
     // }}}
 
@@ -108,8 +162,8 @@ class Numbers_Words
         $ret = $num;
 
 		// DOL_CHANGE
-        //include_once "Numbers/Words/lang.${locale}.php";
-        @include_once (empty($this->dir)?"":$this->dir)."Numbers/Words/lang.${locale}.php";
+        if (! empty($this->dir)) set_include_path($this->dir.PATH_SEPARATOR.get_include_path());
+        @include_once "Numbers/Words/lang.${locale}.php";
 
         $classname = "Numbers_Words_${locale}";
 
@@ -128,7 +182,7 @@ class Numbers_Words
         // DOL_CHANGE
 		$obj->_currency_names[$int_curr]=array(array($this->labelcurrency),array($this->labelcents));
 
-        // round if a float is passed, use Math_BigInteger otherwise
+		// round if a float is passed, use Math_BigInteger otherwise
         if (is_float($num)) {
             $num = round($num, 2);
         }
@@ -240,4 +294,3 @@ class Numbers_Words
 }
 
 // }}}
-?>

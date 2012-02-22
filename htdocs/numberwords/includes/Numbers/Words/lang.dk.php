@@ -18,7 +18,7 @@
  * @package  Numbers_Words
  * @author   Jesper Veggerby <pear.nosey@veggerby.dk>
  * @license  PHP 3.0 http://www.php.net/license/3_0.txt
- * @version  CVS: $Id: lang.dk.php,v 1.1 2011/03/03 08:46:13 eldy Exp $
+ * @version  SVN: $Id: lang.dk.php 302816 2010-08-26 16:02:29Z ifeghali $
  * @link     http://pear.php.net/package/Numbers_Words
  */
 
@@ -32,8 +32,7 @@
 /**
  * Include needed files
  */
-// DOL_CHANGE
-//require_once "Numbers/Words.php";
+require_once "Numbers/Words.php";
 
 /**
  * Class for translating numbers into Danish.
@@ -153,7 +152,7 @@ class Numbers_Words_dk extends Numbers_Words
     var $def_currency = 'DKK'; // Danish krone
 
     // }}}
-    // {{{ toWords()
+    // {{{ _toWords()
 
     /**
      * Converts a number to its word representation
@@ -168,11 +167,11 @@ class Numbers_Words_dk extends Numbers_Words
      *
      * @return string  The corresponding word representation
      *
-     * @access public
+     * @access protected
      * @author Jesper Veggerby <pear.nosey@veggerby.dk>
-     * @since  PHP 4.2.3
+     * @since  Numbers_Words 0.16.3
      */
-    function toWords($num, $power = 0, $powsuffix = '')
+    function _toWords($num, $power = 0, $powsuffix = '')
     {
         $ret = '';
 
@@ -202,7 +201,7 @@ class Numbers_Words_dk extends Numbers_Words
                             $cursuffix .= $this->_sep . $powsuffix;
                         }
 
-                        $ret .= $this->toWords($snum, $p, $cursuffix);
+                        $ret .= $this->_toWords($snum, $p, $cursuffix);
                     }
                     $curp = $p - 1;
                     continue;
@@ -386,7 +385,7 @@ class Numbers_Words_dk extends Numbers_Words
         $curr_names = $this->_currency_names[$int_curr];
 
         if (($decimal != "") and ($decimal != 0)) {
-            $ret = trim($this->toWords($decimal));
+            $ret = trim($this->_toWords($decimal));
             $lev = ($decimal == 1) ? 0 : 1;
             if ($lev > 0) {
                 if (count($curr_names[0]) > 1) {
@@ -405,7 +404,7 @@ class Numbers_Words_dk extends Numbers_Words
 
         if (($fraction !== false) and ($fraction != 0)) {
             if ($convert_fraction) {
-                $ret .= $this->_sep . trim($this->toWords($fraction));
+                $ret .= $this->_sep . trim($this->_toWords($fraction));
             } else {
                 $ret .= $this->_sep . $fraction;
             }
@@ -426,5 +425,3 @@ class Numbers_Words_dk extends Numbers_Words
 
 
 }
-
-?>

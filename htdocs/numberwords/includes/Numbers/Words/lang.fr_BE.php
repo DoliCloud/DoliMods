@@ -19,15 +19,14 @@
  * @author   Kouber Saparev <kouber@php.net>
  * @author   Philippe Bajoit <phil@lebutch.org
  * @license  PHP 3.0 http://www.php.net/license/3_0.txt
- * @version  CVS: $Id: lang.fr_BE.php,v 1.1 2011/03/03 08:46:13 eldy Exp $
+ * @version  SVN: $Id: lang.fr_BE.php 302816 2010-08-26 16:02:29Z ifeghali $
  * @link     http://pear.php.net/package/Numbers_Words
  */
 
 /**
  * Include needed files
  */
-// DOL_CHANGE
-//require_once "Numbers/Words.php";
+require_once "Numbers/Words.php";
 
 /**
  * Class for translating numbers into French (Belgium).
@@ -370,7 +369,7 @@ class Numbers_Words_fr_BE extends Numbers_Words
     }
     // }}}
 
-    // {{{ toWords()
+    // {{{ _toWords()
 
     /**
      * Converts a number to its word representation
@@ -380,10 +379,11 @@ class Numbers_Words_fr_BE extends Numbers_Words
      *                        and 9.99*10^302 (999 centillions) that need to be converted to words
      *
      * @return string  The corresponding word representation
-     * @access public
+     * @access protected
      * @author Kouber Saparev <kouber@php.net>
+     * @since  Numbers_Words 0.16.3
      */
-    function toWords($num = 0)
+    function _toWords($num = 0)
     {
         $ret = '';
 
@@ -434,6 +434,7 @@ class Numbers_Words_fr_BE extends Numbers_Words
 
 
     // DOL_CHANGE. Add the toCurrencyWords found in lang.en_US
+
     /**
      * Converts a currency value to its word representation
      * (with monetary units) in English language
@@ -460,7 +461,7 @@ class Numbers_Words_fr_BE extends Numbers_Words
         }
         $curr_names = $this->_currency_names[$int_curr];
 
-        $ret = trim($this->toWords($decimal));
+        $ret = trim($this->_toWords($decimal));
         $lev = ($decimal == 1) ? 0 : 1;
         if ($lev > 0) {
             if (count($curr_names[0]) > 1) {
@@ -474,7 +475,7 @@ class Numbers_Words_fr_BE extends Numbers_Words
 
         if ($fraction !== false) {
             if ($convert_fraction) {
-                $ret .= $this->_sep . trim($this->toWords($fraction));
+                $ret .= $this->_sep . trim($this->_toWords($fraction));
             } else {
                 $ret .= $this->_sep . $fraction;
             }
@@ -492,5 +493,5 @@ class Numbers_Words_fr_BE extends Numbers_Words
         return $ret;
     }
     // }}}
+
 }
-?>

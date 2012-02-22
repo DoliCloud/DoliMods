@@ -18,15 +18,14 @@
  * @package  Numbers_Words
  * @author   Kouber Saparev <kouber@php.net>
  * @license  PHP 3.0 http://www.php.net/license/3_0.txt
- * @version  CVS: $Id: lang.bg.php,v 1.1 2011/03/03 08:46:13 eldy Exp $
+ * @version  SVN: $Id: lang.bg.php 302816 2010-08-26 16:02:29Z ifeghali $
  * @link     http://pear.php.net/package/Numbers_Words
  */
 
 /**
  * Include needed files
  */
-// DOL_CHANGE
-//require_once "Numbers/Words.php";
+require_once "Numbers/Words.php";
 
 /**
  * Class for translating numbers into Bulgarian.
@@ -126,7 +125,7 @@ class Numbers_Words_bg extends Numbers_Words
      * @access private
      */
     var $_and = 'è';
-
+    
     /**
      * The word separator.
      * @var string
@@ -327,11 +326,11 @@ class Numbers_Words_bg extends Numbers_Words
 
             $ret =& $m[0];
             if ($first) {
-                array_unshift($ret, $first);
+                array_unshift($ret, $first); 
             }
             return $ret;
         }
-
+        
         return explode(' ', number_format($num, 0, '', ' ')); // a faster version for integers
     }
     // }}}
@@ -365,12 +364,12 @@ class Numbers_Words_bg extends Numbers_Words
              the array may vary.
         */
         $ret = array();
-
+        
         // extract the value of each digit from the three-digit number
         $e = $num%10;                  // ones
         $d = ($num-$e)%100/10;         // tens
         $s = ($num-$d*10-$e)%1000/100; // hundreds
-
+        
         // process the "hundreds" digit.
         if ($s) {
             switch ($s) {
@@ -435,7 +434,7 @@ class Numbers_Words_bg extends Numbers_Words
     }
     // }}}
 
-    // {{{ toWords()
+    // {{{ _toWords()
 
     /**
      * Converts a number to its word representation
@@ -446,10 +445,11 @@ class Numbers_Words_bg extends Numbers_Words
      *
      * @return string  The corresponding word representation
      *
-     * @access public
+     * @access protected
      * @author Kouber Saparev <kouber@php.net>
+     * @since  Numbers_Words 0.16.3
      */
-    function toWords($num = 0)
+    function _toWords($num = 0)
     {
         $ret = array();
 
@@ -518,4 +518,3 @@ class Numbers_Words_bg extends Numbers_Words
     }
     // }}}
 }
-?>

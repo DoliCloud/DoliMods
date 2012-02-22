@@ -18,7 +18,7 @@
  * @package  Numbers_Words
  * @author   Nils Homp
  * @license  PHP 3.0 http://www.php.net/license/3_0.txt
- * @version  CVS: $Id: lang.hu_HU.php,v 1.1 2011/03/03 08:46:13 eldy Exp $
+ * @version  SVN: $Id: lang.hu_HU.php 302816 2010-08-26 16:02:29Z ifeghali $
  * @link     http://pear.php.net/package/Numbers_Words
  */
 
@@ -36,8 +36,7 @@
 /**
  * Include needed files
  */
-// DOL_CHANGE
-//require_once "Numbers/Words.php";
+require_once "Numbers/Words.php";
 
 /**
  * Class for translating numbers into Hungarian.
@@ -52,7 +51,7 @@ class Numbers_Words_hu_HU extends Numbers_Words
 {
 
     // {{{ properties
-
+    
     /**
      * Locale name
      * @var string
@@ -73,16 +72,16 @@ class Numbers_Words_hu_HU extends Numbers_Words
      * @access public
      */
     var $lang_native = 'Magyar';
-
+    
     /**
      * The word for the minus sign
      * @var string
      * @access private
      */
-    var $_minus = 'Minusz'; // minus sign
-
+    var $_minus = 'Mínusz '; // minus sign
+    
     /**
-     * The sufixes for exponents (singular and plural)
+     * The suffixes for exponents (singular and plural)
      * Names based on:
      * http://mek.oszk.hu/adatbazis/lexikon/phplex/lexikon/d/kisokos/186.html
      * @var array
@@ -130,6 +129,13 @@ class Numbers_Words_hu_HU extends Numbers_Words
      * @access private
      */
     var $_sep = '';
+    
+    /**
+     * The thousands word separator
+     * @var string
+     * @access private
+     */
+    var $_thousand_sep = '-';
 
     /**
      * The currency names (based on the below links,
@@ -188,7 +194,7 @@ class Numbers_Words_hu_HU extends Numbers_Words
     var $def_currency = 'HUF'; // forint
 
     // }}}
-    // {{{ toWords()
+    // {{{ _toWords()
 
     /**
      * Converts a number to its word representation
@@ -203,29 +209,41 @@ class Numbers_Words_hu_HU extends Numbers_Words
      *
      * @return string  The corresponding word representation
      *
-     * @access public
+     * @access protected
      * @author Nils Homp
-     * @since  PHP 4.2.3
+     * @since  Numbers_Words 0.16.3
      */
-    function toWords($num, $power = 0, $powsuffix = '')
+    function _toWords($num, $options = array(), $power = 0, $powsuffix = '', $gt2000 = false)
     {
-        $ret = '';
+        $chk_gt2000 = true;
 
+        /**
+         * Loads user options
+         */
+        extract($options, EXTR_IF_EXISTS);
+
+        /**
+         * Return string
+         */
+    	$ret = '';        
+        
         // add a minus sign
         if (substr($num, 0, 1) == '-') {
             $ret = $this->_sep . $this->_minus;
             $num = substr($num, 1);
         }
-
+        
         // strip excessive zero signs and spaces
         $num = trim($num);
         $num = preg_replace('/^0+/', '', $num);
-
+        
+        if ($chk_gt2000) $gt2000 = $num > 2000;
+        
         if (strlen($num) > 3) {
             $maxp = strlen($num)-1;
             $curp = $maxp;
             for ($p = $maxp; $p > 0; --$p) { // power
-
+            
                 // check for highest power
                 if (isset($this->_exponent[$p])) {
                     // send substr from $curp to $p
@@ -236,8 +254,16 @@ class Numbers_Words_hu_HU extends Numbers_Words
                         if ($powsuffix != '') {
                             $cursuffix .= $this->_sep . $powsuffix;
                         }
+						
+                        $ret .= $this->_toWords(
+                            $snum,
+                            array('chk_gt2000' => false),
+                            $p,
+                            $cursuffix,
+                            $gt2000
+                        );
 
-                        $ret .= $this->toWords($snum, $p, $cursuffix);
+                    	if ($gt2000) $ret .= $this->_thousand_sep;
                     }
                     $curp = $p - 1;
                     continue;
@@ -245,14 +271,14 @@ class Numbers_Words_hu_HU extends Numbers_Words
             }
             $num = substr($num, $maxp - $curp, $curp - $p + 1);
             if ($num == 0) {
-                return $ret;
+                return rtrim($ret, $this->_thousand_sep);
             }
         } elseif ($num == 0 || $num == '') {
             return $this->_sep . $this->_digits[0];
         }
-
+    
         $h = $t = $d = 0;
-
+      
         switch(strlen($num)) {
         case 3:
             $h = (int)substr($num, -3, 1);
@@ -268,7 +294,7 @@ class Numbers_Words_hu_HU extends Numbers_Words
             return;
             break;
         }
-
+    
         if ($h) {
             $ret .= $this->_sep . $this->_digits[$h] . $this->_sep . 'száz';
         }
@@ -277,7 +303,6 @@ class Numbers_Words_hu_HU extends Numbers_Words
         switch ($t) {
         case 9:
         case 5:
-        case 4:
             $ret .= $this->_sep . $this->_digits[$t] . 'ven';
             break;
         case 8:
@@ -290,12 +315,15 @@ class Numbers_Words_hu_HU extends Numbers_Words
         case 3:
             $ret .= $this->_sep . 'harminc';
             break;
+        case 4:
+            $ret .= $this->_sep . 'negyven';
+            break;
         case 2:
             switch ($d) {
             case 0:
                 $ret .= $this->_sep . 'húsz';
-                break;
-            case 1:
+                break;   
+            case 1: 
             case 2:
             case 3:
             case 4:
@@ -312,8 +340,8 @@ class Numbers_Words_hu_HU extends Numbers_Words
             switch ($d) {
             case 0:
                 $ret .= $this->_sep . 'tíz';
-                break;
-            case 1:
+                break;   
+            case 1: 
             case 2:
             case 3:
             case 4:
@@ -331,23 +359,23 @@ class Numbers_Words_hu_HU extends Numbers_Words
         if ($d > 0) { // add digits only in <0> and <1,inf)
             $ret .= $this->_sep . $this->_digits[$d];
         }
-
+  
         if ($power > 0) {
             if (isset($this->_exponent[$power])) {
                 $lev = $this->_exponent[$power];
             }
-
+    
             if (!isset($lev) || !is_array($lev)) {
                 return null;
             }
-
+     
             $ret .= $this->_sep . $lev[0];
         }
-
+    
         if ($powsuffix != '') {
             $ret .= $this->_sep . $powsuffix;
         }
-
+    
         return $ret;
     }
     // }}}
@@ -379,7 +407,7 @@ class Numbers_Words_hu_HU extends Numbers_Words
         }
         $curr_names = $this->_currency_names[$int_curr];
 
-        $ret = trim($this->toWords($decimal));
+        $ret = trim($this->_toWords($decimal));
         $lev = ($decimal == 1) ? 0 : 1;
         if ($lev > 0) {
             if (count($curr_names[0]) > 1) {
@@ -390,10 +418,10 @@ class Numbers_Words_hu_HU extends Numbers_Words
         } else {
             $ret .= $this->_sep . $curr_names[0][0];
         }
-
+      
         if ($fraction !== false) {
             if ($convert_fraction) {
-                $ret .= $this->_sep . trim($this->toWords($fraction));
+                $ret .= $this->_sep . trim($this->_toWords($fraction));
             } else {
                 $ret .= $this->_sep . $fraction;
             }
@@ -413,5 +441,3 @@ class Numbers_Words_hu_HU extends Numbers_Words
     // }}}
 
 }
-
-?>

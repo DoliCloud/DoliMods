@@ -18,7 +18,7 @@
  * @package  Numbers_Words
  * @author   Piotr Klaban <makler@man.torun.pl>
  * @license  PHP 3.0 http://www.php.net/license/3_0.txt
- * @version  CVS: $Id: lang.nl.php,v 1.1 2011/03/03 08:46:13 eldy Exp $
+ * @version  SVN: $Id: lang.nl.php 302816 2010-08-26 16:02:29Z ifeghali $
  * @link     http://pear.php.net/package/Numbers_Words
  */
 
@@ -33,8 +33,7 @@
 /**
  * Include needed files
  */
-// DOL_CHANGE
-//require_once "Numbers/Words.php";
+require_once "Numbers/Words.php";
 
 /**
  * Class for translating numbers into Dutch.
@@ -146,7 +145,7 @@ class Numbers_Words_nl extends Numbers_Words
     var $_sep2 = '-';
 
     // }}}
-    // {{{ toWords()
+    // {{{ _toWords()
 
     /**
      * Converts a number to its word representation
@@ -161,12 +160,12 @@ class Numbers_Words_nl extends Numbers_Words
      *
      * @return string  The corresponding word representation
      *
-     * @access public
+     * @access protected
      * @author Piotr Klaban <makler@man.torun.pl>
      * @author WHAM van Dinter <willem@fkkc.nl>
-     * @since  PHP 4.2.3
+     * @since  Numbers_Words 0.16.3
      */
-    function toWords($num, $power = 0, $powsuffix = '')
+    function _toWords($num, $power = 0, $powsuffix = '')
     {
         $ret = '';
 
@@ -196,7 +195,7 @@ class Numbers_Words_nl extends Numbers_Words
                             $cursuffix .= $this->_sep . $powsuffix;
                         }
 
-                        $ret .= $this->toWords($snum, $p, $cursuffix);
+                        $ret .= $this->_toWords($snum, $p, $cursuffix);
                     }
                     $curp = $p - 1;
                     continue;
@@ -332,5 +331,3 @@ class Numbers_Words_nl extends Numbers_Words
     }
     // }}}
 }
-
-?>

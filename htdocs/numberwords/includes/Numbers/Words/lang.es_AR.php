@@ -19,7 +19,7 @@
  * @author   Xavier Noguer   <xnoguer.php@gmail.com>
  * @author   Martin Marrese  <mmare@mecon.gov.ar>
  * @license  PHP 3.0 http://www.php.net/license/3_0.txt
- * @version  CVS: $Id: lang.es_AR.php,v 1.1 2011/03/03 08:46:13 eldy Exp $
+ * @version  SVN: $Id: lang.es_AR.php 302816 2010-08-26 16:02:29Z ifeghali $
  * @link     http://pear.php.net/package/Numbers_Words
  */
 
@@ -33,8 +33,7 @@
 /**
  * Include needed files
  */
-// DOL_CHANGE
-//require_once "Numbers/Words.php";
+require_once "Numbers/Words.php";
 
 /**
  * Class for translating numbers into Argentinian Spanish.
@@ -173,7 +172,7 @@ class Numbers_Words_es_AR extends Numbers_Words
     var $def_currency = 'ARS'; // Argentinian Peso
 
     // }}}
-    // {{{ toWords()
+    // {{{ _toWords()
     /**
      * Converts a number to its word representation
      * in Argentinian Spanish.
@@ -186,10 +185,11 @@ class Numbers_Words_es_AR extends Numbers_Words
      *
      * @return string  The corresponding word representation
      *
-     * @access private
+     * @access protected
      * @author Martin Marrese
+     * @since  Numbers_Words 0.16.3
      */
-    function toWords($num, $power = 0)
+    function _toWords($num, $power = 0)
     {
         // The return string;
         $ret = '';
@@ -204,7 +204,7 @@ class Numbers_Words_es_AR extends Numbers_Words
         // strip excessive zero signs
         $num = preg_replace('/^0+/', '', $num);
 
-        $num_tmp = split('\.', $num);
+        $num_tmp = explode('.', $num);
 
         $num = $num_tmp[0];
         $dec = (@$num_tmp[1]) ? $num_tmp[1] : '';
@@ -218,7 +218,7 @@ class Numbers_Words_es_AR extends Numbers_Words
                 $snum = substr($num, 0, -6);
                 $snum = preg_replace('/^0+/', '', $snum);
                 if ($snum !== '') {
-                    $ret .= $this->toWords($snum, $power + 6);
+                    $ret .= $this->_toWords($snum, $power + 6);
                 }
             }
             $num = substr($num, -6);
@@ -237,7 +237,7 @@ class Numbers_Words_es_AR extends Numbers_Words
         if ($thousands == 1) {
             $ret .= $this->_sep . 'mil';
         } elseif ($thousands > 1) {
-            $ret .= $this->toWords($thousands, 3);
+            $ret .= $this->_toWords($thousands, 3);
         }
 
         // values for digits, tens and hundreds
@@ -391,7 +391,7 @@ class Numbers_Words_es_AR extends Numbers_Words
         }
 
         if ($dec) {
-            $dec  = $this->toWords(trim($dec));
+            $dec  = $this->_toWords(trim($dec));
             $ret .= ' con ' . trim($dec);
         }
 
@@ -439,11 +439,11 @@ class Numbers_Words_es_AR extends Numbers_Words
             $ret = $curr_names[0][0];
         }
 
-        $ret .= $this->_sep . trim($this->toWords($decimal));
+        $ret .= $this->_sep . trim($this->_toWords($decimal));
 
         if ($fraction !== false) {
             if ($convert_fraction) {
-                $ret .= $this->_sep .'con'. $this->_sep . trim($this->toWords($fraction));
+                $ret .= $this->_sep .'con'. $this->_sep . trim($this->_toWords($fraction));
             } else {
                 $ret .= $this->_sep .'con'. $this->_sep . $fraction;
             }
@@ -467,4 +467,3 @@ class Numbers_Words_es_AR extends Numbers_Words
 
 
 }
-?>

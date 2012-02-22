@@ -18,7 +18,7 @@
  * @package  Numbers_Words
  * @author   Laurynas Butkus <lauris@night.lt>
  * @license  PHP 3.0 http://www.php.net/license/3_0.txt
- * @version  CVS: $Id: lang.lt.php,v 1.1 2011/03/03 08:46:13 eldy Exp $
+ * @version  SVN: $Id: lang.lt.php 302816 2010-08-26 16:02:29Z ifeghali $
  * @link     http://pear.php.net/package/Numbers_Words
  */
 
@@ -32,8 +32,7 @@
 /**
  * Include needed files
  */
-// DOL_CHANGE
-//require_once "Numbers/Words.php";
+require_once "Numbers/Words.php";
 
 /**
  * Class for translating numbers into Lithuanian.
@@ -68,7 +67,7 @@ class Numbers_Words_lt extends Numbers_Words
      * @var string
      * @access public
      */
-    var $lang_native = 'lietuviðkai';
+    var $lang_native = 'lietuviÃ°kai';
 
     /**
      * The word for the minus sign
@@ -84,12 +83,12 @@ class Numbers_Words_lt extends Numbers_Words
      */
     var $_exponent = array(
         0 => array(''),
-        3 => array('tûkstantis','tûkstanèiai','tûkstanèiø'),
-        6 => array('milijonas','milijonai','milijonø'),
-        9 => array('bilijonas','bilijonai','bilijonø'),
-       12 => array('trilijonas','trilijonai','trilijonø'),
-       15 => array('kvadrilijonas','kvadrilijonai','kvadrilijonø'),
-       18 => array('kvintilijonas','kvintilijonai','kvintilijonø')
+        3 => array('tÃ»kstantis','tÃ»kstanÃ¨iai','tÃ»kstanÃ¨iÃ¸'),
+        6 => array('milijonas','milijonai','milijonÃ¸'),
+        9 => array('bilijonas','bilijonai','bilijonÃ¸'),
+       12 => array('trilijonas','trilijonai','trilijonÃ¸'),
+       15 => array('kvadrilijonas','kvadrilijonai','kvadrilijonÃ¸'),
+       18 => array('kvintilijonas','kvintilijonai','kvintilijonÃ¸')
         );
 
     /**
@@ -99,7 +98,7 @@ class Numbers_Words_lt extends Numbers_Words
      */
     var $_digits = array(
         0 => 'nulis', 'vienas', 'du', 'trys', 'keturi',
-        'penki', 'ðeði', 'septyni', 'aðtuoni', 'devyni'
+        'penki', 'Ã°eÃ°i', 'septyni', 'aÃ°tuoni', 'devyni'
     );
 
     /**
@@ -117,7 +116,7 @@ class Numbers_Words_lt extends Numbers_Words
     var $def_currency = 'LTL';
 
     // }}}
-    // {{{ toWords()
+    // {{{ _toWords()
 
     /**
      * Converts a number to its word representation
@@ -132,11 +131,11 @@ class Numbers_Words_lt extends Numbers_Words
      *
      * @return string  The corresponding word representation
      *
-     * @access public
+     * @access protected
      * @author Laurynas Butkus <lauris@night.lt>
-     * @since  PHP 4.2.3
+     * @since  Numbers_Words 0.16.3
      */
-    function toWords($num, $power = 0, $powsuffix = '')
+    function _toWords($num, $power = 0, $powsuffix = '')
     {
         $ret = '';
 
@@ -166,7 +165,7 @@ class Numbers_Words_lt extends Numbers_Words
                             $cursuffix .= $this->_sep . $powsuffix;
                         }
 
-                        $ret .= $this->toWords($snum, $p, $cursuffix);
+                        $ret .= $this->_toWords($snum, $p, $cursuffix);
                     }
                     $curp = $p - 1;
                     continue;
@@ -199,49 +198,49 @@ class Numbers_Words_lt extends Numbers_Words
         }
 
         if ( $h > 1 ) {
-            $ret .= $this->_sep . $this->_digits[$h] . $this->_sep . 'ðimtai';
+            $ret .= $this->_sep . $this->_digits[$h] . $this->_sep . 'Ã°imtai';
         } elseif ( $h ) {
-            $ret .= $this->_sep . 'ðimtas';
+            $ret .= $this->_sep . 'Ã°imtas';
         }
 
         // ten, twenty etc.
         switch ($t) {
         case 9:
-            $ret .= $this->_sep . 'devyniasdeðimt';
+            $ret .= $this->_sep . 'devyniasdeÃ°imt';
             break;
 
         case 8:
-            $ret .= $this->_sep . 'aðtuoniasdeðimt';
+            $ret .= $this->_sep . 'aÃ°tuoniasdeÃ°imt';
             break;
 
         case 7:
-            $ret .= $this->_sep . 'septyniasdeðimt';
+            $ret .= $this->_sep . 'septyniasdeÃ°imt';
             break;
 
         case 6:
-            $ret .= $this->_sep . 'ðeðiasdeðimt';
+            $ret .= $this->_sep . 'Ã°eÃ°iasdeÃ°imt';
             break;
 
         case 5:
-            $ret .= $this->_sep . 'penkiasdeðimt';
+            $ret .= $this->_sep . 'penkiasdeÃ°imt';
             break;
 
         case 4:
-            $ret .= $this->_sep . 'keturiasdeðimt';
+            $ret .= $this->_sep . 'keturiasdeÃ°imt';
             break;
 
         case 3:
-            $ret .= $this->_sep . 'trisdeðimt';
+            $ret .= $this->_sep . 'trisdeÃ°imt';
             break;
 
         case 2:
-            $ret .= $this->_sep . 'dvideðimt';
+            $ret .= $this->_sep . 'dvideÃ°imt';
             break;
 
         case 1:
             switch ($d) {
             case 0:
-                $ret .= $this->_sep . 'deðimt';
+                $ret .= $this->_sep . 'deÃ°imt';
                 break;
 
             case 1:
@@ -265,7 +264,7 @@ class Numbers_Words_lt extends Numbers_Words
                 break;
 
             case 6:
-                $ret .= $this->_sep . 'ðeðiolika';
+                $ret .= $this->_sep . 'Ã°eÃ°iolika';
                 break;
 
             case 7:
@@ -273,7 +272,7 @@ class Numbers_Words_lt extends Numbers_Words
                 break;
 
             case 8:
-                $ret .= $this->_sep . 'aðtuoniolika';
+                $ret .= $this->_sep . 'aÃ°tuoniolika';
                 break;
 
             case 9:
@@ -320,5 +319,3 @@ class Numbers_Words_lt extends Numbers_Words
     // }}}
 
 }
-
-?>
