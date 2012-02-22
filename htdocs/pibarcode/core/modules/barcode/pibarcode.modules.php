@@ -100,13 +100,7 @@ class modPibarcode extends ModeleBarCode
 		$_GET["readable"]=$readable;
 
 		// Chargement de la classe de codage
-		foreach ($conf->file->dol_document_root as $dirroot)
-		{
-			$file=$dirroot . '/includes/barcode/pi_barcode/pi_barcode.php';
-			$result=@include_once($file);
-			if ($result) break;
-		}
-		//require_once(DOL_DOCUMENT_ROOT.'/includes/barcode/pi_barcode/pi_barcode.php');
+		$file=dol_include_once('/pibarcode/includes/barcode/pi_barcode/pi_barcode.php');
 
 		$objCode = new pi_barcode() ;
 
@@ -149,14 +143,7 @@ class modPibarcode extends ModeleBarCode
 		$_GET["readable"]=$readable;
 
 		// Chargement de la classe de codage
-		foreach ($conf->file->dol_document_root as $dirroot)
-		{
-			$file=$dirroot . '/includes/barcode/pi_barcode/pi_barcode.php';
-			$result=@include_once($file);
-			//print $file." - ".$result;
-			if ($result) break;
-		}
-		//require_once(DOL_DOCUMENT_ROOT.'/includes/barcode/pi_barcode/pi_barcode.php');
+		$file=dol_include_once('/pibarcode/includes/barcode/pi_barcode/pi_barcode.php');
 
 		$objCode = new pi_barcode() ;
 

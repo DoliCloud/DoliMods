@@ -73,8 +73,8 @@ function numberwords_getLabelFromNumber($langs,$number,$isamount=0)
 
 	$numberwords=$number;
 
-	dol_include_once('/includes/Numbers/Words.php');
-	$path=dol_buildpath('/includes/Numbers/Words.php');
+	dol_include_once('/numberwords/includes/Numbers/Words.php');
+	$path=dol_buildpath('/numberwords/includes/Numbers/Words.php');
 	$handle = new Numbers_Words();
 	$handle->dir=dirname(dirname($path)).'/';
 	//print $handle->dir;exit;
