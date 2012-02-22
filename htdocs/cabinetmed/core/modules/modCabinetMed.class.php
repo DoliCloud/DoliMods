@@ -115,7 +115,8 @@ class modCabinetMed extends DolibarrModules
                             19=>array('MAIN_APPLICATION_TITLE','chaine','DoliMed','Change software title',1,'current',1),
                             20=>array('CABINETMED_RHEUMATOLOGY_ON','chaine','0','Enable features for rheumatology',0),
                             21=>array('MAIN_MODULE_CABINETMED_HOOKS','chaine','thirdpartycard:contactcard','Add hooks',1,'current',1),
-                            22=>array('MAIN_MODULE_CABINETMED_TRIGGERS','chaine','1','Declare cabinetmed triggers',1,'current',1)
+                            22=>array('MAIN_MODULE_CABINETMED_TRIGGERS','chaine','1','Declare cabinetmed triggers',1,'current',1),
+                            23=>array('MAIN_MODULE_CABINETMED_SUBSTITUTIONS','chaine','1','Declare cabinetmed substitutions',1,'current',1)
                             //50=>array('MAIN_DIRECTEDITMODE','chaine','1','Notes are in edit mode directly',1,'current',1),
                         );
 

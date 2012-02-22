@@ -118,8 +118,15 @@ print '</form>';
 
 //dol_fiche_end();
 
+print '<br>';
+
+// List of substitutions available
+$arraylist=array();
+complete_substitutions_array($arraylist,$langs);
+//print join('<br>',array_keys($arraylist));
+
+
+llxFooter();
 
 $db->close();
-
-llxFooter('$Date: 2011/07/13 16:20:35 $ - $Revision: 1.4 $');
 ?>

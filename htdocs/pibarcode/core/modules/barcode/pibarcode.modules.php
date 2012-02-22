@@ -28,8 +28,8 @@
 require_once(DOL_DOCUMENT_ROOT ."/core/modules/barcode/modules_barcode.php");
 
 
-/**	    \class      modPibarcode
- *		\brief      Classe du modele de generation code barre pibarcode
+/**
+ *	Classe du modele de generation code barre pibarcode
  */
 class modPibarcode extends ModeleBarCode
 {
