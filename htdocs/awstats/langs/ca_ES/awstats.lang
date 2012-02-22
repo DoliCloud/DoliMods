@@ -1,0 +1,14 @@
+# Dolibarr language file - ca_ES - awstats
+CHARSET= UTF-8
+AWStatsSetup=Configuració del mòdul AWStats
+AWStatsSummary=Resum AWStats
+AWStatsSetupNotComplete=La configuració del mòdul AWStats està incompleta
+AWSTATS_DATA_DIR=Directori arxius de dades (ruta en disc)
+AWSTATS_CGI_PATH=URL accés Awstats (en CGI)
+AWSTATS_PROG_PATH=Localització AWStats (ruta en disc)
+AWSTATS_LIMIT_CONF=Limitar les conf. mostrades en aquesta llista (buit per no filtrar o usar "," com a separador)
+ShowStats=Mostrar estadístiques detallades
+FilterDomain=Filtrar en el perfil (arxiu de configuració)
+Module12000Name=AWStats
+Module12000Desc=Mòdul per integrar els informes de l'analitzador de logs AWStats en Dolibarr
+ErrorAWStatsDataDirMustEndWithASlash=El directori ha d'acabar amb / o \

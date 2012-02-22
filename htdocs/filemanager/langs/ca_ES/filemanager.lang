@@ -1,0 +1,30 @@
+# Dolibarr language file - ca_ES - filemanager
+CHARSET=UTF-8
+FileManager=Administrador arxius
+FileManagerSetup=Configuració del mòdul FileManager
+LabelForRootFileManager=Etiqueta per al directori inicial/accés directe accessible
+RootFileManager=Directori inicial/accés directe seleccionat
+PathForRootFileManager=Ruta del directori inicial en el disc
+NoteOnFileManagerPathLocation=Tots els directoris han de tenir permisos que permetin al seu servidor web llegir-los/veure'ls.
+ListForRootPath=Llistat de directoris inicials/accessos directes
+PleaseSelectARoot=Si us plau, seleccioneu al menú un directori inicial a explorar...
+SelectAFile=Seleccioneu un directori o arxiu al panell esquerre
+DateLastAccess=Data darrer accés
+DateLastChange=Data darrera modificació
+FullPath=Ruta completa
+PreviewNotAvailableForThisType=Vista prèvia no disponible per a aquest tipus d'arxius
+NotEnoughMemoryForSyntaxColor=El PHP no té memòria suficient per activar la coloració de sintaxi en les vistes prèvies d'arxius de text.
+YouMustSelectAFileToUseFileEditorTool=Heu de seleccionar un arxiu en el panell de l'esquerra per utilitzar l'eina d'edició d'arxius.
+NoEditorForThisFormat=Sense editor per a aquest format d'arxiu.
+DeleteDir=Eliminar directori
+DeleteFileName=Eliminar l'arxiu:
+DeleteDirName=Eliminar el directori: 
+NewDir=Nou directori
+NewFile=Nou arxiu
+AddRootPath=Afegir directoris inicials a l'administrador d'arxius
+UseColorSyntaxing=Activar la coloració de sintaxi en els arxius de text (requereix més memòria. Desactivar en cas de pàgina en blanc alintentar visualitzar el contingut d'un arxiu).
+ColoringDisabled=Coloració de sintaxis desactivada
+ServerMustHavePermission=Els permisos d'arxiu han d'estar correctament atorgats a la web (%s/%s).
+#####
+Module10600Name=File manager
+Module10600Desc=Un administrador d'arxius per navegar pel contingut dels discos del servidor Dolibarr
