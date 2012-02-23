@@ -1,0 +1,23 @@
+# Dolibarr language file - ca_ES - memcached
+CHARSET=UTF-8
+MemcachedServer=Servidor Memcached
+MemcachedSetup=Configuració d'ús d'un servidor Memcached
+MemcachedDesc=Indicar aquí les dades del servidor Memcached. Automàticament, Dolibarr el farà servir per reduir els temps de procés (per exemple incloure les traduccions en memòria).
+SizeOfCache=Mida de la memòria cau
+ItemsInCache=Nombre d'objectes en la memòria cau
+NumberOfCacheInsert=Nombre d'escriptures d'objectes en la memòria cau
+NumberOfCacheRead=Nombre de lectures de la memòria cau (amb èxit / intents totals)
+FlushCache=Esborrar la memòria cau
+Flushed=Memòria cau purgada
+InformationsOnCacheServer=Informació i Estadístiques en el servidor Memcached
+FailedToReadServer=Error en consultar el servidor Memcached
+ConfigureParametersFirst=Configurar el servidor en primer lloc
+MemcachedClient=Capa client PHP <b>%s</b>
+MemcachedClientBothAvailable=Les dues capes client PHP per al servidor Memcachd estan disponibles. Dolibarr farà servir les funcions client <b>%s</b>.
+OnlyClientAvailable=Almenys una de les dues capes client del servidor Memcached està disponible. Dolibarr la farà servir.
+ClientNotFound=La seva PHP ha de suportar les funcions client d'accés al servidor Memcached (no s'han trobat ni el client PHP Memcached, ni el client PHP Memecached). Per això aquest mòdul no pot funcionar. Veure la documentació en línia per a més informació.
+PrefixForKeysInCache=Prefix de les keys Dolibarr usades en la memòria cau del servidor
+ServerSetup=Configuració del servidor
+ServerStatistics=Estadístiques del servidor
+CacheBrowser=Navegador de la memòria cau
+WarningStatsForAllServer=Atenció, les estadístiques del servidor memcached integren totes les aplicacions que usen aquest servidor, no solament Dolibarr.
