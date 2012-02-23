@@ -74,11 +74,14 @@ class modCabinetMed extends DolibarrModules
         $this->dirs = array();
         $r=0;
 
-        // Relative path to module style sheet if exists. Example: '/cabinetmed/mycss.css'.
-        $this->style_sheet = '/cabinetmed/css/styles.css';
-
         // Config pages. Put here list of php page names stored in admmin directory used to setup module.
         $this->config_page_url = array('admin.php@cabinetmed');
+        
+        // Defined all module parts (triggers, login, substitutions, menus, css, etc...)
+        $this->module_parts = array('triggers' => 1,
+        							'substitutions' => 1,
+        							'css' => '/cabinetmed/css/styles.css.php',
+        							'hooks' => array('thirdpartycard','contactcard'));
 
         // Dependencies
         $this->depends = array('modSociete');       // List of modules id that must be enabled if this module is enabled
@@ -113,10 +116,7 @@ class modCabinetMed extends DolibarrModules
                             17=>array('MAIN_MENUFRONT_SMARTPHONE_FORCED','chaine','cabinetmed_frontoffice.php','Force menu handler to this value',1,'current',1),
                             18=>array('MAIN_SUPPORT_CONTACT_TYPE_FOR_THIRDPARTIES','chaine','1','Can add third party type of contact',1,'current',1),
                             19=>array('MAIN_APPLICATION_TITLE','chaine','DoliMed','Change software title',1,'current',1),
-                            20=>array('CABINETMED_RHEUMATOLOGY_ON','chaine','0','Enable features for rheumatology',0),
-                            21=>array('MAIN_MODULE_CABINETMED_HOOKS','chaine','thirdpartycard:contactcard','Add hooks',1,'current',1),
-                            22=>array('MAIN_MODULE_CABINETMED_TRIGGERS','chaine','1','Declare cabinetmed triggers',1,'current',1),
-                            23=>array('MAIN_MODULE_CABINETMED_SUBSTITUTIONS','chaine','1','Declare cabinetmed substitutions',1,'current',1)
+                            20=>array('CABINETMED_RHEUMATOLOGY_ON','chaine','0','Enable features for rheumatology',0)
                             //50=>array('MAIN_DIRECTEDITMODE','chaine','1','Notes are in edit mode directly',1,'current',1),
                         );
 
