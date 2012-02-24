@@ -74,11 +74,14 @@ class modCabinetMed extends DolibarrModules
         $this->dirs = array();
         $r=0;
 
-        // Relative path to module style sheet if exists. Example: '/cabinetmed/mycss.css'.
-        $this->style_sheet = '/cabinetmed/css/styles.css';
-
         // Config pages. Put here list of php page names stored in admmin directory used to setup module.
         $this->config_page_url = array('admin.php@cabinetmed');
+
+        // Defined all module parts (triggers, login, substitutions, menus, css, etc...)
+        $this->module_parts = array('triggers' => 1,
+        							'substitutions' => 1,
+        							'css' => '/cabinetmed/css/styles.css.php',
+        							'hooks' => array('thirdpartycard','contactcard'));
 
         // Dependencies
         $this->depends = array('modSociete');       // List of modules id that must be enabled if this module is enabled
