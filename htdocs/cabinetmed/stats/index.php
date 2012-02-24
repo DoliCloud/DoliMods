@@ -1,6 +1,6 @@
 <?php
 /* Copyright (C) 2003-2006 Rodolphe Quiedeville <rodolphe@quiedeville.org>
- * Copyright (c) 2004-2011 Laurent Destailleur  <eldy@users.sourceforge.net>
+ * Copyright (c) 2004-2012 Laurent Destailleur  <eldy@users.sourceforge.net>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -233,7 +233,7 @@ print '</td></tr></table>';
 dol_fiche_end();
 
 
-llxFooter('');
+llxFooter();
 
 $db->close();
 ?>

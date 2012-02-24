@@ -31,7 +31,7 @@ include_once DOL_DOCUMENT_ROOT . "/core/lib/date.lib.php";
 
 
 /**
- *	Classe permettant la gestion des stats des consultations
+ *	Class to manage statistics of consultation
  */
 class CabinetMedStats extends Stats
 {
@@ -124,12 +124,12 @@ class CabinetMedStats extends Stats
 	{
 		$sql = "SELECT date_format(datecons,'%m') as dm, ";
 		$sql.= " SUM(";
-		$sql.=$this->db->ifsql('montant_cheque','montant_cheque','0').'+';
-		$sql.=$this->db->ifsql('montant_espece','montant_espece','0').'+';
-	    $sql.=$this->db->ifsql('montant_carte','montant_carte','0').'+';
-	    $sql.=$this->db->ifsql('montant_tiers','montant_tiers','0').')';
+		$sql.=$this->db->ifsql('montant_cheque IS NULL','montant_cheque','0').'+';
+		$sql.=$this->db->ifsql('montant_espece IS NULL','montant_espece','0').'+';
+	    $sql.=$this->db->ifsql('montant_carte IS NULL','montant_carte','0').'+';
+	    $sql.=$this->db->ifsql('montant_tiers IS NULL','montant_tiers','0').')';
 		$sql.= " FROM ".$this->from;
-		$sql.= " WHERE date_format(datecons,'%Y') = ".$year;
+		$sql.= " WHERE date_format(datecons,'%Y') = '".$year."'";
         $sql.= ($this->where?" AND ".$this->where:'');
         $sql.= " GROUP BY dm";
         $sql.= $this->db->order('dm','DESC');
@@ -149,10 +149,10 @@ class CabinetMedStats extends Stats
 	{
 		$sql = "SELECT date_format(datecons,'%m') as dm, ";
         $sql.= " AVG(";
-        $sql.=$this->db->ifsql('montant_cheque','montant_cheque','0').'+';
-        $sql.=$this->db->ifsql('montant_espece','montant_espece','0').'+';
-        $sql.=$this->db->ifsql('montant_carte','montant_carte','0').'+';
-        $sql.=$this->db->ifsql('montant_tiers','montant_tiers','0').')';
+        $sql.=$this->db->ifsql('montant_cheque IS NULL','montant_cheque','0').'+';
+        $sql.=$this->db->ifsql('montant_espece IS NULL','montant_espece','0').'+';
+        $sql.=$this->db->ifsql('montant_carte IS NULL','montant_carte','0').'+';
+        $sql.=$this->db->ifsql('montant_tiers IS NULL','montant_tiers','0').')';
 		$sql.= " FROM ".$this->from;
         $sql.= " WHERE datecons BETWEEN '".$this->db->idate(dol_get_first_day($year))."' AND '".$this->db->idate(dol_get_last_day($year))."'";
         $sql.= ($this->where?" AND ".$this->where:'');
@@ -171,15 +171,15 @@ class CabinetMedStats extends Stats
 	{
 		$sql = "SELECT date_format(datecons,'%Y') as year, COUNT(*) as nb, ";
         $sql.= " SUM(";
-        $sql.=$this->db->ifsql('montant_cheque','montant_cheque','0').'+';
-        $sql.=$this->db->ifsql('montant_espece','montant_espece','0').'+';
-        $sql.=$this->db->ifsql('montant_carte','montant_carte','0').'+';
-        $sql.=$this->db->ifsql('montant_tiers','montant_tiers','0').') as total, ';
+        $sql.=$this->db->ifsql('montant_cheque IS NULL','montant_cheque','0').'+';
+        $sql.=$this->db->ifsql('montant_espece IS NULL','montant_espece','0').'+';
+        $sql.=$this->db->ifsql('montant_carte IS NULL','montant_carte','0').'+';
+        $sql.=$this->db->ifsql('montant_tiers IS NULL','montant_tiers','0').') as total, ';
         $sql.= " AVG(";
-        $sql.=$this->db->ifsql('montant_cheque','montant_cheque','0').'+';
-        $sql.=$this->db->ifsql('montant_espece','montant_espece','0').'+';
-        $sql.=$this->db->ifsql('montant_carte','montant_carte','0').'+';
-        $sql.=$this->db->ifsql('montant_tiers','montant_tiers','0').') as avg';
+        $sql.=$this->db->ifsql('montant_cheque IS NULL','montant_cheque','0').'+';
+        $sql.=$this->db->ifsql('montant_espece IS NULL','montant_espece','0').'+';
+        $sql.=$this->db->ifsql('montant_carte IS NULL','montant_carte','0').'+';
+        $sql.=$this->db->ifsql('montant_tiers IS NULL','montant_tiers','0').') as avg';
 		$sql.= " FROM ".$this->from;
         $sql.= ($this->where?" WHERE ".$this->where:'');
 		$sql.= " GROUP BY year";
