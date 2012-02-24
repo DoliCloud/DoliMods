@@ -346,7 +346,7 @@ if ($id > 0 || ! empty($ref))
 	print "</table>";
 }
 
-$db->close();
+llxFooter();
 
-llxFooter('$Date: 2011/08/31 15:20:27 $');
+$db->close();
 ?>

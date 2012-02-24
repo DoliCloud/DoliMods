@@ -293,7 +293,7 @@ if ($action == '')
 dol_htmloutput_mesg($mesg);
 
 
-$db->close();
+llxFooter();
 
-llxFooter('$Date: 2011/08/24 00:17:29 $ - $Revision: 1.12 $');
+$db->close();
 ?>

@@ -542,7 +542,7 @@ if ($action == '' || $action == 'delete')
 }
 
 
-$db->close();
+llxFooter();
 
-llxFooter('$Date: 2011/08/15 18:53:54 $ - $Revision: 1.20 $');
+$db->close();
 ?>

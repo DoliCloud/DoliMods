@@ -87,6 +87,9 @@ class modCabinetMed extends DolibarrModules
         $this->need_dolibarr_version = array(3,2,-3);   // Minimum version of Dolibarr required by module
         $this->langfiles = array('cabinetmed@cabinetmed','companies');
 
+        // Defined all module parts (triggers, login, substitutions, menus, css, etc...)
+        $this->module_parts = array('triggers' => 1, 'substitutions' => 1, 'menus' => 1, 'hooks' => array('thirdpartycard','contactcard'));
+
         // Constants
 		// List of particular constants to add when module is enabled (key, 'chaine', value, desc, visible, 'current' or 'allentities', deleteonunactive)
 		// Example: $this->const=array(0=>array('MYMODULE_MYNEWCONST1','chaine','myvalue','This is a constant to add',1),
@@ -106,17 +109,13 @@ class modCabinetMed extends DolibarrModules
                             10=>array('MAIN_FORCETHEMEDIR','chaine','/cabinetmed','Skins files are searched into this dir first',1,'current',1),
                             11=>array('MAIN_DISABLEVATCHECK','chaine','1','Disable link to VAT check',1,'current',1),
                             12=>array('MAIN_DISABLEDRAFTSTATUS','chaine','1','Disable draft status',1,'current',1),
-                            13=>array('MAIN_MODULE_CABINETMED_MENUS','chaine','1','Declare cabinetmed menus',1,'current',1),
-                            14=>array('MAIN_MENU_STANDARD_FORCED','chaine','cabinetmed_backoffice.php','Force menu handler to this value',1,'current',1),
-                            15=>array('MAIN_MENUFRONT_STANDARD_FORCED','chaine','cabinetmed_frontoffice.php','Force menu handler to this value',1,'current',1),
-                            16=>array('MAIN_MENU_SMARTPHONE_FORCED','chaine','cabinetmed_backoffice.php','Force menu handler to this value',1,'current',1),
-                            17=>array('MAIN_MENUFRONT_SMARTPHONE_FORCED','chaine','cabinetmed_frontoffice.php','Force menu handler to this value',1,'current',1),
-                            18=>array('MAIN_SUPPORT_CONTACT_TYPE_FOR_THIRDPARTIES','chaine','1','Can add third party type of contact',1,'current',1),
-                            19=>array('MAIN_APPLICATION_TITLE','chaine','DoliMed','Change software title',1,'current',1),
-                            20=>array('CABINETMED_RHEUMATOLOGY_ON','chaine','0','Enable features for rheumatology',0),
-                            21=>array('MAIN_MODULE_CABINETMED_HOOKS','chaine','thirdpartycard:contactcard','Add hooks',1,'current',1),
-                            22=>array('MAIN_MODULE_CABINETMED_TRIGGERS','chaine','1','Declare cabinetmed triggers',1,'current',1),
-                            23=>array('MAIN_MODULE_CABINETMED_SUBSTITUTIONS','chaine','1','Declare cabinetmed substitutions',1,'current',1)
+                            13=>array('MAIN_MENU_STANDARD_FORCED','chaine','cabinetmed_backoffice.php','Force menu handler to this value',1,'current',1),
+                            14=>array('MAIN_MENUFRONT_STANDARD_FORCED','chaine','cabinetmed_frontoffice.php','Force menu handler to this value',1,'current',1),
+                            15=>array('MAIN_MENU_SMARTPHONE_FORCED','chaine','cabinetmed_backoffice.php','Force menu handler to this value',1,'current',1),
+                            16=>array('MAIN_MENUFRONT_SMARTPHONE_FORCED','chaine','cabinetmed_frontoffice.php','Force menu handler to this value',1,'current',1),
+                            17=>array('MAIN_SUPPORT_CONTACT_TYPE_FOR_THIRDPARTIES','chaine','1','Can add third party type of contact',1,'current',1),
+                            18=>array('MAIN_APPLICATION_TITLE','chaine','DoliMed','Change software title',1,'current',1),
+                            19=>array('CABINETMED_RHEUMATOLOGY_ON','chaine','0','Enable features for rheumatology',0)
                             //50=>array('MAIN_DIRECTEDITMODE','chaine','1','Notes are in edit mode directly',1,'current',1),
                         );
 

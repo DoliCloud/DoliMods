@@ -55,7 +55,7 @@ class modDoliCloud extends DolibarrModules
 		$this->picto='technic';
 
 		// Defined if the directory /mymodule/inc/triggers/ contains triggers or not
-		$this->triggers = 1;
+        $this->module_parts = array('triggers' => 1, 'hooks' => array('toprightmenu'));
 
 		// Data directories to create when module is enabled
 		$this->dirs = array();
@@ -73,10 +73,7 @@ class modDoliCloud extends DolibarrModules
 		$this->langfiles = array("dolicloud@dolicloud");
 
 		// Constants
-		$this->const = array(
-			1=>array('MAIN_MODULE_DOLICLOUD_HOOKS','chaine','toprightmenu','Add hooks',1,'current',1),
-			2=>array('MAIN_MODULE_DOLICLOUD_TRIGGERS','chaine','1','Declare dolicloud triggers',1,'current',1)
-		);			// List of parameters
+		$this->const = array();			// List of parameters
 
         // Tabs
         $this->tabs = array();

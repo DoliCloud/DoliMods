@@ -266,7 +266,8 @@ else
 	dol_print_error($db);
 }
 
-$db->close();
 
-llxFooter('$Date: 2011/08/20 18:10:38 $ - $Revision: 1.5 $');
+llxFooter();
+
+$db->close();
 ?>

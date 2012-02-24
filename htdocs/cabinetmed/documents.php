@@ -602,8 +602,7 @@ if ($socid > 0)
 }
 
 
+llxFooter();
 
 $db->close();
-
-llxFooter('$Date: 2011/08/17 16:42:20 $ - $Revision: 1.19 $');
 ?>

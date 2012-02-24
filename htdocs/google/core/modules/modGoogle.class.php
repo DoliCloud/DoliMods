@@ -55,7 +55,7 @@ class modGoogle extends DolibarrModules
 		$this->picto='google@google';
 
 		// Defined if the directory /mymodule/inc/triggers/ contains triggers or not
-		$this->triggers = 1;
+        $this->module_parts = array('triggers' => 1, 'hooks' => array('toprightmenu'));
 
 		// Data directories to create when module is enabled
 		$this->dirs = array();

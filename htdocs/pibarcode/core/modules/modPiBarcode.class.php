@@ -73,10 +73,10 @@ class modPiBarcode extends DolibarrModules
 		$this->need_dolibarr_version = array(3,2,-3);	// Minimum version of Dolibarr required by module
 		$this->langfiles = array();
 
+		$this->module_parts = array('barcode' => 1);
+
 		// Constants
-		$this->const = array(
-		    1=>array('MAIN_MODULE_PIBARCODE_BARCODE','chaine','1','Declare pibarcode barcode module',1,'current',1)
-		);			// List of particular constants to add when module is enabled
+		$this->const = array();			// List of particular constants to add when module is enabled
 		//Example: $this->const=array(0=>array('MYMODULE_MYNEWCONST1','chaine','myvalue','This is a constant to add',0),
 		//                            1=>array('MYMODULE_MYNEWCONST2','chaine','myvalue','This is another constant to add',0) );
 
