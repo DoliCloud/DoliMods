@@ -18,7 +18,7 @@
  * @package  Numbers_Words
  * @author   Piotr Klaban <makler@man.torun.pl>
  * @license  PHP 3.0 http://www.php.net/license/3_0.txt
- * @version  CVS: $Id: lang.en_IN.php,v 1.1 2011/03/03 08:46:13 eldy Exp $
+ * @version  SVN: $Id: lang.en_US.php 302816 2010-08-26 16:02:29Z ifeghali $
  * @link     http://pear.php.net/package/Numbers_Words
  */
 
@@ -43,7 +43,7 @@ require_once "Numbers/Words.php";
  * @license  PHP 3.0 http://www.php.net/license/3_0.txt
  * @link     http://pear.php.net/package/Numbers_Words
  */
-class Numbers_Words_en_IN extends Numbers_Words
+class Numbers_Words_en_AU extends Numbers_Words
 {
 
     // {{{ properties
@@ -53,21 +53,21 @@ class Numbers_Words_en_IN extends Numbers_Words
      * @var string
      * @access public
      */
-    var $locale = 'en_IN';
+    var $locale = 'en_AU';
 
     /**
      * Language name in English
      * @var string
      * @access public
      */
-    var $lang = 'Indian English';
+    var $lang = 'New Zealand English';
 
     /**
      * Native language name
      * @var string
      * @access public
      */
-    var $lang_native = 'Indian English';
+    var $lang_native = 'New Zealand English';
 
     /**
      * The word for the minus sign
@@ -293,9 +293,9 @@ class Numbers_Words_en_IN extends Numbers_Words
      *
      * @return string  The corresponding word representation
      *
-     * @access public
+     * @access protected
      * @author Piotr Klaban <makler@man.torun.pl>
-     * @since  PHP 4.2.3
+     * @since  Numbers_Words 0.16.3
      */
     function _toWords($num, $power = 0, $powsuffix = '')
     {
@@ -524,4 +524,3 @@ class Numbers_Words_en_IN extends Numbers_Words
     // }}}
 
 }
-
