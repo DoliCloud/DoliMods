@@ -139,13 +139,15 @@ try {
     echo "billingInvoiceList successfull (".count($result)." ".$langs->trans("Invoices").")\n";
     foreach ($result as $i => $r)
     {
+        var_dump($result);exit;
+        $vatrate=($r->totalPrice > 0?round($r->vat/$r->totalPrice,2):0);
         if ($excludenullinvoice && empty($r->totalPriceWithVat))
         {
-            print 'Discard OVH invoice '.$r->billnum." (".$r->date." - ".$langs->trans("Total").'='.$r->totalPriceWithVat." - ".$langs->trans("VatRate").'='.$r->info->taxrate.")\n";
+            print 'Discard OVH invoice '.$r->billnum." (".$r->date." - ".$langs->trans("Total").'='.$r->totalPriceWithVat." - ".$langs->trans("VatRate").'='.$vatrate.")\n";
         }
         else
         {
-            print 'Process OVH invoice '.$r->billnum." (".$r->date." - ".$langs->trans("Total").'='.$r->totalPriceWithVat." - ".$langs->trans("VatRate").'='.$r->info->taxrate.")\n";
+            print 'Process OVH invoice '.$r->billnum." (".$r->date." - ".$langs->trans("Total").'='.$r->totalPriceWithVat." - ".$langs->trans("VatRate").'='.$vatrate.")\n";
 
             foreach($r->details as $detobj)
             {
@@ -155,7 +157,7 @@ try {
             $sql="SELECT rowid ";
             $sql.=' FROM '.MAIN_DB_PREFIX.'facture_fourn as f';
             $sql.=" WHERE facnumber = '".$db->escape($r->billnum)."' and fk_soc = ".$ovhthirdparty->id;
-            $sql.=" ORDER BY datef";
+
             dol_syslog("Seach if invoice exists sql=".$sql);
             $resql = $db->query($sql);
             $num=0;
@@ -198,7 +200,7 @@ try {
                             $amount=$d->baseprice;
                             $qty=$d->quantity;
                             $price_base='HT';
-                            $tauxtva=$r->info->taxrate;
+                            $tauxtva=$vatrate;
                             $remise_percent=0;
                             $fk_product=null;
                             $ret=$facfou->addline($label, $amount, $tauxtva, 0, 0, $qty, $fk_product, $remise_percent, '', '', '', 0, $price_base);

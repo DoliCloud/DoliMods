@@ -20,6 +20,8 @@ require_once(DOL_DOCUMENT_ROOT."/core/class/html.formfile.class.php");
 require_once(NUSOAP_PATH.'/nusoap.php');     // Include SOAP
 
 $langs->load("ovh@ovh");
+$langs->load("admin");
+$langs->load("companies");
 
 $error=0;
 
@@ -37,11 +39,7 @@ if ($user->societe_id > 0) accessforbidden();
 
 if ($action == 'setvalue' && $user->admin)
 {
-    //$result=dolibarr_set_const($db, "PAYBOX_IBS_DEVISE",$_POST["PAYBOX_IBS_DEVISE"],'chaine',0,'',$conf->entity);
-    $result=dolibarr_set_const($db, "OVHSMS_NICK",$_POST["OVHSMS_NICK"],'chaine',0,'',$conf->entity);
-    $result=dolibarr_set_const($db, "OVHSMS_PASS",$_POST["OVHSMS_PASS"],'chaine',0,'',$conf->entity);
-    $result=dolibarr_set_const($db, "OVHSMS_SOAPURL",$_POST["OVHSMS_SOAPURL"],'chaine',0,'',$conf->entity);
-
+    $result=dolibarr_set_const($db, "OVH_THIRDPARTY_IMPORT",$_POST["OVH_THIRDPARTY_IMPORT"],'chaine',0,'',$conf->entity);
 
     if ($result >= 0)
     {
@@ -79,6 +77,9 @@ print_fiche_titre($langs->trans('OvhSmsSetup'),$linkback,'setup');
 
 $head=ovhadmin_prepare_head();
 
+dol_htmloutput_mesg($mesg);
+
+
 dol_fiche_head($head, 'getinvoices', $langs->trans("Ovh"));
 
 if (empty($conf->global->OVHSMS_NICK) || empty($WS_DOL_URL))
@@ -90,7 +91,7 @@ else
     // Formulaire d'ajout de compte SMS qui sera valable pour tout Dolibarr
     print '<form method="post" action="'.$_SERVER["PHP_SELF"].'">';
     print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
-    print '<input type="hidden" name="action" value="setvalue_account">';
+    print '<input type="hidden" name="action" value="setvalue">';
 
     $var=true;
 

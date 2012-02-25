@@ -81,7 +81,6 @@ class OvhSms  extends CommonObject
 
 			try {
 				$this->soap = new SoapClient($conf->global->OVHSMS_SOAPURL,$params);
-				// https://www.ovh.com/soapi/soapi-re-1.26.wsdl
 
 				$language = "en";
 				$multisession = false;
