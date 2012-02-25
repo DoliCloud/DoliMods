@@ -155,6 +155,7 @@ try {
             $sql="SELECT rowid ";
             $sql.=' FROM '.MAIN_DB_PREFIX.'facture_fourn as f';
             $sql.=" WHERE facnumber = '".$db->escape($r->billnum)."' and fk_soc = ".$ovhthirdparty->id;
+            $sql.=" ORDER BY datef";
             dol_syslog("Seach if invoice exists sql=".$sql);
             $resql = $db->query($sql);
             $num=0;
