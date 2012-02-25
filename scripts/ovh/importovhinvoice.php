@@ -67,15 +67,27 @@ print "----- ".$script_file." -----\n";
 $login=$argv[1];
 $refovhsupplier=$argv[2];
 
+$excludenullinvoice = 0;
+for ($i = 1 ; $i < count($argv) ; $i++)
+{
+    if ($argv[$i] == "--exclude-null-invoices")
+    {
+        $excludenullinvoice = 1;
+    }
+}
+
 if (empty($login) && empty($refovhsupplier))
 {
     print "This script import PDF invoices provided by OVH into Dolibarr.\n";
     print "If no corresponding Dolibarr supplier invoice are found for each OVH invoice, the script ask to create it.\n";
     print "Note that invoices are create with draft status so you can delete or validate them from Dolibarr.\n";
-    print "Usage: ".$script_file." dolibarrlogin nameforovhsupplier\n";
+    print "Usage: ".$script_file." dolibarrlogin nameforovhsupplier [--exclude-null-invoices]\n";
     exit;
 }
 
+// Reports options
+print "Exclude null invoices option: ".yn($excludenullinvoice)."\n";
+print "Login to use if we need to create invoices into Dolibarr: ".$login."\n";
 $ovhthirdparty=new Societe($db);
 $result=$ovhthirdparty->fetch('',$refovhsupplier);
 if ($result <= 0)
@@ -83,8 +95,6 @@ if ($result <= 0)
     print "Failed to get thirdparty to use to link OVH invoices\n";
     exit;
 }
-
-print "Login to use if we need to create invoices into Dolibarr: ".$login."\n";
 print "Third party to use if we need to create invoices into Dolibarr: ".$ovhthirdparty->name."\n";
 $id_ovh=$ovhthirdparty->id;
 
@@ -129,125 +139,134 @@ try {
     echo "billingInvoiceList successfull (".count($result)." ".$langs->trans("Invoices").")\n";
     foreach ($result as $i => $r)
     {
-        print "Process OVH invoice ".$r->billnum." (".$r->date." - ".$r->totalPriceWithVat." - ".$r->info->taxrate.")\n";
-        foreach($r->details as $detobj)
+        if ($excludenullinvoice && empty($r->totalPriceWithVat))
         {
-            print " ".$detobj->description."\n";
-        }
-
-        $sql="SELECT rowid ";
-        $sql.=' FROM '.MAIN_DB_PREFIX.'facture_fourn as f';
-        $sql.=" WHERE facnumber like '".$r->billnum."'";
-        $resql = $db->query($sql);
-        $num=0;
-        if ($resql)
-        {
-            $num=$db->num_rows($resql);
-        }
-        if ($num == 0)
-        {
-            print "-> Not found into Dolibarr. Create it [y/N] ? ";
-            $input = trim(fgets(STDIN));
-
-            if ($input == 'y')
-            {
-                print "We try to create supplier invoice ".$r->billnum."... ";
-                //facture n'existe pas
-                $db->begin();
-                $result[$i]->info=$soap->billingInvoiceInfo($session, $r->billnum, null, $r->billingCountry); //on recupere les details
-                $r=$result[$i];
-
-                $facfou = new FactureFournisseur($db);
-
-                $facfou->ref           = $r->billnum;
-                $facfou->socid         = $id_ovh;
-                $facfou->libelle       = "OVH ".$r->billnum;
-                $facfou->date          = strtotime($r->date);
-                $facfou->date_echeance = strtotime($r->date);
-                $facfou->note_public   = '';
-
-                $facid = $facfou->create($fuser);
-                if ($facid > 0)
-                {
-                    foreach($r->info->details as $d)
-                    {
-                        $label='<strong>ref :'.$d->service.'</strong><br>'.$d->description.'<br> >';
-                        if($d->start)
-                        $label.='<i>du '.date('d/m/Y',strtotime($d->start));
-                        if($d->end)
-                        $label.=' au '.date('d/m/Y',strtotime($d->end));
-                        $amount=$d->baseprice;
-                        $qty=$d->quantity;
-                        $price_base='HT';
-                        $tauxtva=$r->info->taxrate;
-                        $remise_percent=0;
-                        $fk_product=null;
-                        $ret=$facfou->addline($label, $amount, $tauxtva, 0, 0, $qty, $fk_product, $remise_percent, '', '', '', 0, $price_base);
-                        if ($ret < 0) $nberror++;
-                        if ($nberror)
-                        {
-                            $db->rollback();
-                            echo "ERROR: ".$facfou->error."\n";
-                        }
-                        else
-                        {
-                            print "Success\n";
-                            $db->commit();
-                        }
-                    }
-                }
-                else {
-                    $db->rollback();
-                    echo "ERROR: ".$facfou->error."\n";
-                }
-            }
+            print 'Discard OVH invoice '.$r->billnum." (".$r->date." - ".$langs->trans("Total").'='.$r->totalPriceWithVat." - ".$langs->trans("VatRate").'='.$r->info->taxrate.")\n";
         }
         else
         {
-            $row=$db->fetch_array($resql);
-            $facid=$row['rowid'];
-            print "-> Invoice found into Dolibarr with id=".$facid."\n";
-            $facfou = new FactureFournisseur($db);
-        }
+            print 'Process OVH invoice '.$r->billnum." (".$r->date." - ".$langs->trans("Total").'='.$r->totalPriceWithVat." - ".$langs->trans("VatRate").'='.$r->info->taxrate.")\n";
 
-        if ($facid > 0)
-        {
-            if ($facfou->fetch($facid))
+            foreach($r->details as $detobj)
             {
-                print "Try to get OVH document\n";
-                if ($facfou->fk_statut == 0)
+                print " ".$detobj->description."\n";
+            }
+
+            $sql="SELECT rowid ";
+            $sql.=' FROM '.MAIN_DB_PREFIX.'facture_fourn as f';
+            $sql.=" WHERE facnumber like '".$r->billnum."'";
+            $resql = $db->query($sql);
+            $num=0;
+            if ($resql)
+            {
+                $num=$db->num_rows($resql);
+            }
+            if ($num == 0)
+            {
+                print "-> Not found into Dolibarr. Create it [y/N] ? ";
+                $input = trim(fgets(STDIN));
+
+                if ($input == 'y')
                 {
-                    $ref=dol_sanitizeFileName($facfou->ref);
-                    $upload_dir = $conf->fournisseur->facture->dir_output.'/'.get_exdir($facfou->id,2).$ref;
+                    print "We try to create supplier invoice ".$r->billnum."... ";
+                    //facture n'existe pas
+                    $db->begin();
+                    $result[$i]->info=$soap->billingInvoiceInfo($session, $r->billnum, null, $r->billingCountry); //on recupere les details
+                    $r=$result[$i];
 
-                    if (! is_dir($upload_dir)) dol_mkdir($upload_dir);
+                    $facfou = new FactureFournisseur($db);
 
-                    if (is_dir($upload_dir))
+                    $facfou->ref           = $r->billnum;
+                    $facfou->socid         = $id_ovh;
+                    $facfou->libelle       = "OVH ".$r->billnum;
+                    $facfou->date          = strtotime($r->date);
+                    $facfou->date_echeance = strtotime($r->date);
+                    $facfou->note_public   = '';
+
+                    $facid = $facfou->create($fuser);
+                    if ($facid > 0)
                     {
-                        $result[$i]->info=$soap->billingInvoiceInfo($session, $r->billnum, null,
-                        $r->billingCountry); //on recupere les details
-                        $r=$result[$i];
-                        $url=$url_pdf."?reference=".$r->billnum."&passwd=".$r->info->password;
-                        $file_name=($upload_dir."/".$facfou->ref_supplier.".pdf");
-                        print "Get ".$url."\n";
-                        if(file_exists($file_name))
+                        foreach($r->info->details as $d)
                         {
-                            echo "File ".$file_name." already exists\n";
-                        }
-                        else
-                        {
-                            file_put_contents($file_name,file_get_contents($url));
-                            print "File ".$file_name." saved as joined file for supplier invoice ".$r->billnum."\n";
+                            $label='<strong>ref :'.$d->service.'</strong><br>'.$d->description.'<br> >';
+                            if($d->start)
+                            $label.='<i>du '.date('d/m/Y',strtotime($d->start));
+                            if($d->end)
+                            $label.=' au '.date('d/m/Y',strtotime($d->end));
+                            $amount=$d->baseprice;
+                            $qty=$d->quantity;
+                            $price_base='HT';
+                            $tauxtva=$r->info->taxrate;
+                            $remise_percent=0;
+                            $fk_product=null;
+                            $ret=$facfou->addline($label, $amount, $tauxtva, 0, 0, $qty, $fk_product, $remise_percent, '', '', '', 0, $price_base);
+                            if ($ret < 0) $nberror++;
+                            if ($nberror)
+                            {
+                                $db->rollback();
+                                echo "ERROR: ".$facfou->error."\n";
+                            }
+                            else
+                            {
+                                print "Success\n";
+                                $db->commit();
+                            }
                         }
                     }
+                    else {
+                        $db->rollback();
+                        echo "ERROR: ".$facfou->error."\n";
+                    }
                 }
-                //$facfou->set_valid($fuser);
             }
             else
             {
-                echo "Failed to get invoice $facid \n";
+                $row=$db->fetch_array($resql);
+                $facid=$row['rowid'];
+                print "-> Invoice found into Dolibarr with id=".$facid."\n";
+                $facfou = new FactureFournisseur($db);
             }
-            //print_r($facfou);
+
+            if ($facid > 0)
+            {
+                if ($facfou->fetch($facid))
+                {
+                    print "Try to get OVH document\n";
+                    if ($facfou->fk_statut == 0)
+                    {
+                        $ref=dol_sanitizeFileName($facfou->ref);
+                        $upload_dir = $conf->fournisseur->facture->dir_output.'/'.get_exdir($facfou->id,2).$ref;
+
+                        if (! is_dir($upload_dir)) dol_mkdir($upload_dir);
+
+                        if (is_dir($upload_dir))
+                        {
+                            $result[$i]->info=$soap->billingInvoiceInfo($session, $r->billnum, null,
+                            $r->billingCountry); //on recupere les details
+                            $r=$result[$i];
+                            $url=$url_pdf."?reference=".$r->billnum."&passwd=".$r->info->password;
+                            $file_name=($upload_dir."/".$facfou->ref_supplier.".pdf");
+                            print "Get ".$url."\n";
+                            if(file_exists($file_name))
+                            {
+                                echo "File ".$file_name." already exists\n";
+                            }
+                            else
+                            {
+                                file_put_contents($file_name,file_get_contents($url));
+                                print "File ".$file_name." saved as joined file for supplier invoice ".$r->billnum."\n";
+                            }
+                        }
+                    }
+                    //$facfou->set_valid($fuser);
+                }
+                else
+                {
+                    echo "Failed to get invoice $facid \n";
+                }
+                //print_r($facfou);
+            }
+
         }
     }
 
