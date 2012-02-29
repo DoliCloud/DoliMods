@@ -3,6 +3,6 @@ CHARSET= UTF-8
 ConcatPdfSetup=Configuration du module concatPDF
 ConcatPDfTakeFileFrom=Le module ConcatPDF permet de concatenner:
 ConcatPDfTakeFileFrom2=Aux <b>%s</b> PDF générées, n'importe quel fichier PDF trouvé dans le répertoire: <b>%s</b>
-ConcatPDfPutFileManually=Les fichiers PDF peuvent y être placé manuellement avec votre gestionnaire de fichiers.
+ConcatPDfPutFileManually=Les fichiers PDF peuvent y être placés manuellement avec votre gestionnaire de fichiers.
 NoPDFFileFound=Aucun fichier PDF trouvé dans le répertoire pour l'instant.
 ConcatFile=Concatainer le fichier PDF
