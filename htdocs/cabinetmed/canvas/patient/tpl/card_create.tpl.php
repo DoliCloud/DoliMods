@@ -18,16 +18,21 @@
 
 global $db,$conf,$mysoc,$langs,$user;
 
-// Load object modCodeTiers
 $module=$conf->global->SOCIETE_CODECLIENT_ADDON;
 if (! $module) dolibarr_error('',$langs->trans("ErrorModuleThirdPartyCodeInCompanyModuleNotDefined"));
 if (substr($module, 0, 15) == 'mod_codeclient_' && substr($module, -3) == 'php')
 {
     $module = substr($module, 0, dol_strlen($module)-4);
 }
+// Load object modCodeClient
+$dirsociete=array_merge(array('/core/modules/societe/'),$conf->societe_modules);
+foreach ($dirsociete as $dirroot)
+{
+    $res=dol_include_once($dirroot.$module.".php");
+    if ($res) break;
+}
 require_once(DOL_DOCUMENT_ROOT ."/core/class/html.formcompany.class.php");
 require_once(DOL_DOCUMENT_ROOT ."/core/class/html.formadmin.class.php");
-require_once(DOL_DOCUMENT_ROOT ."/core/modules/societe/".$module.".php");
 $modCodeClient = new $module;
 
 $form=new Form($GLOBALS['db']);

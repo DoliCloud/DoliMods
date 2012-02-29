@@ -37,7 +37,13 @@ if (substr($module, 0, 15) == 'mod_codeclient_' && substr($module, -3) == 'php')
 {
     $module = substr($module, 0, dol_strlen($module)-4);
 }
-require_once(DOL_DOCUMENT_ROOT ."/core/modules/societe/".$module.".php");
+// Load object modCodeClient
+$dirsociete=array_merge(array('/core/modules/societe/'),$conf->societe_modules);
+foreach ($dirsociete as $dirroot)
+{
+    $res=dol_include_once($dirroot.$module.".php");
+    if ($res) break;
+}
 $modCodeClient = new $module;
 // We verified if the tag prefix is used
 if ($modCodeClient->code_auto)

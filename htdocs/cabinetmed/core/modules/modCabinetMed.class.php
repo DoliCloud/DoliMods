@@ -80,6 +80,7 @@ class modCabinetMed extends DolibarrModules
         // Defined all module parts (triggers, login, substitutions, menus, css, etc...)
         $this->module_parts = array('triggers' => 1,
         							'substitutions' => 1,
+        							'menus' => 1,
         							'css' => '/cabinetmed/css/styles.css.php',
         							'hooks' => array('thirdpartycard','contactcard'));
 
@@ -89,9 +90,6 @@ class modCabinetMed extends DolibarrModules
         $this->phpmin = array(4,3);                 // Minimum version of PHP required by module
         $this->need_dolibarr_version = array(3,2,-3);   // Minimum version of Dolibarr required by module
         $this->langfiles = array('cabinetmed@cabinetmed','companies');
-
-        // Defined all module parts (triggers, login, substitutions, menus, css, etc...)
-        $this->module_parts = array('triggers' => 1, 'substitutions' => 1, 'menus' => 1, 'hooks' => array('thirdpartycard','contactcard'));
 
         // Constants
 		// List of particular constants to add when module is enabled (key, 'chaine', value, desc, visible, 'current' or 'allentities', deleteonunactive)

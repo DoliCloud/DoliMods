@@ -29,9 +29,8 @@ require_once(DOL_DOCUMENT_ROOT."/core/modules/societe/modules_societe.class.php"
 
 
 /**
-        \class 		mod_codeclient_zebre
-        \brief 		Classe permettant la gestion zebre des codes tiers
-*/
+ *	Classe permettant la gestion zebre des codes tiers
+ */
 class mod_codeclient_zebre extends ModeleThirdPartyCode
 {
 	var $nom;							// Nom du modele
@@ -43,8 +42,9 @@ class mod_codeclient_zebre extends ModeleThirdPartyCode
 	var $code_auto; 	// Numerotation automatique
 
 
-	/**		\brief      Constructeur classe
-	*/
+	/**
+	 * Constructor
+	 */
 	function mod_codeclient_zebre()
 	{
 		$this->nom = "Zebre";

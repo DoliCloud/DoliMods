@@ -29,9 +29,8 @@ require_once(DOL_DOCUMENT_ROOT."/core/modules/societe/modules_societe.class.php"
 
 
 /**
-        \class 		mod_codeclient_lion
-        \brief 		Classe permettant la gestion lion des codes tiers
-*/
+ *	Classe permettant la gestion lion des codes tiers
+ */
 class mod_codeclient_lion extends ModeleThirdPartyCode
 {
 	var $nom;							// Nom du modele
@@ -43,8 +42,9 @@ class mod_codeclient_lion extends ModeleThirdPartyCode
 	var $code_auto; // Numerotation automatique
 
 
-	/**		\brief      Constructeur classe
-	*/
+	/**
+	 * 	Constructeur classe
+	 */
 	function mod_codeclient_lion()
 	{
 		$this->nom = "Lion";
