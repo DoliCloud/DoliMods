@@ -44,7 +44,7 @@ class modMonitoring extends DolibarrModules
 		$this->db = $db;
 
 		// Id for module (must be unique).
-		$this->numero = 103100;
+		$this->numero = 101310;
 		// Key text used to identify module (for permissions, menus, etc...)
 		$this->rights_class = 'monitoring';
 
@@ -55,7 +55,7 @@ class modMonitoring extends DolibarrModules
 		// Module description, used if translation string 'ModuleXXXDesc' not found (where XXX is value of numeric property 'numero' of module)
 		$this->description = "Une interface et des fonctions pour realiser une supervision avec rrdtool";
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
-		$this->version = '3.1';
+		$this->version = '3.2';
 		// Key used in llx_const table to save module status enabled/disabled (where MYMODULE is value of property name of module in uppercase)
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
 		// Where to store the module in setup page (0=common,1=interface,2=others,3=very specific)
@@ -111,12 +111,12 @@ class modMonitoring extends DolibarrModules
 		$r=0;
 
 
-		$this->rights[$r][0] = 103101;
+		$this->rights[$r][0] = 101311;
 		$this->rights[$r][1] = 'Read monitoring';
 		$this->rights[$r][3] = 1;
 		$this->rights[$r][4] = 'read';
 		$r++;
-        $this->rights[$r][0] = 103102;
+        $this->rights[$r][0] = 101312;
         $this->rights[$r][1] = 'Add/Delete probes';
         $this->rights[$r][3] = 0;
         $this->rights[$r][4] = 'create';

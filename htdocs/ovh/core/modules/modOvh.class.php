@@ -45,7 +45,7 @@ class modOvh extends DolibarrModules
 		$this->db = $db;
 
 		// Id for module (must be unique).
-		$this->numero = 103000;
+		$this->numero = 101330;
 		// Key text used to identify module (for permissions, menus, etc...)
 		$this->rights_class = 'ovh';
 
@@ -56,7 +56,7 @@ class modOvh extends DolibarrModules
 		// Module description, used if translation string 'ModuleXXXDesc' not found (where XXX is value of numeric property 'numero' of module)
 		$this->description = "Add some features to use OVH interfaces (Send SMS with a subscription to OVH SMS API and make Click2Dial with OVH SIP server)";
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
-		$this->version = '3.1';
+		$this->version = '3.2';
 		// Key used in llx_const table to save module status enabled/disabled (where MYMODULE is value of property name of module in uppercase)
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
 		// Where to store the module in setup page (0=common,1=interface,2=others,3=very specific)
@@ -134,8 +134,8 @@ class modOvh extends DolibarrModules
 		$r=0;
 
 
-		$this->rights[$r][0] = 103001;
-		$this->rights[$r][1] = 'Envoyer un sms';
+		$this->rights[$r][0] = 101331;
+		$this->rights[$r][1] = 'Send a SMS';
 		$this->rights[$r][3] = 0;
 		$this->rights[$r][4] = 'send';
 		$r++;

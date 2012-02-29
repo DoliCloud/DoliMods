@@ -18,8 +18,8 @@
  */
 
 /**
- *	\file			htdocs/lib/admin.lib.php
- *  \brief			Library of admin functions
+ *	\file			htdocs/memcached/lib/memcached.lib.php
+ *  \brief			Library of memcached functions
  */
 
 /**

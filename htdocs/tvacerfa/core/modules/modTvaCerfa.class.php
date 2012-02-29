@@ -17,21 +17,21 @@
  */
 
 /**
- * 	\defgroup   memcached		Module Memcached
+ * 	\defgroup   memcached		Module TvaCerfa
  * 	\brief      Module for memcached server
- * 	\file       htdocs/memcached/core/modules/modMemcached.class.php
+ * 	\file       htdocs/memcached/core/modules/modTvaCerfa.class.php
  * 	\ingroup    ftp
- * 	\brief      Description and activation file for module Memcached
+ * 	\brief      Description and activation file for module TvaCerfa
  */
 
 include_once(DOL_DOCUMENT_ROOT ."/core/modules/DolibarrModules.class.php");
 
 
 /**
- * 	\class      modMemcached
- * 	\brief      Description and activation class for module Memcached
+ * 	\class      modTvaCerfa
+ * 	\brief      Description and activation class for module TvaCerfa
  */
-class modMemcached extends DolibarrModules
+class modTvaCerfa extends DolibarrModules
 {
 
     /**
@@ -45,7 +45,7 @@ class modMemcached extends DolibarrModules
 
 		// Id for module (must be unique).
 		// Use here a free id.
-		$this->numero = 101210;
+		$this->numero = 101150;
 
 		// Family can be 'crm','financial','hr','projects','product','ecm','technic','other'
 		// It is used to sort modules in module setup page
@@ -53,13 +53,13 @@ class modMemcached extends DolibarrModules
 		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'numero' of module)
 		$this->name = preg_replace('/^mod/i','',get_class($this));
 		// Module description used if translation string 'ModuleXXXDesc' not found (XXX is id value)
-		$this->description = "Use a memcached server to increase Dolibarr speed (need PHP functions Memcached or Memcache)";
+		$this->description = "Add a page to generate french VAT Cerfa documents";
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
 		$this->version = '3.2';
 		// Key used in llx_const table to save module status enabled/disabled (XXX is id value)
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
 		// Where to store the module in setup page (0=common,1=interface,2=others,3=very specific)
-		$this->special = 1;
+		$this->special = 2;
 		// Name of png file (without png) used for this module
 		$this->picto='technic';
 
@@ -67,14 +67,14 @@ class modMemcached extends DolibarrModules
 		$this->dirs = array();
 
 		// Config pages. Put here list of php page names stored in admin directory used to setup module
-		$this->config_page_url = array('memcached.php@memcached');
+		$this->config_page_url = array('tvacerfa.php@tvacerfa');
 
 		// Dependencies
 		$this->depends = array();		// List of modules id that must be enabled if this module is enabled
 		$this->requiredby = array();	// List of modules id to disable if this one is disabled
         $this->phpmin = array(4,3);                 // Minimum version of PHP required by module
-        $this->need_dolibarr_version = array(3,0,-2);  // Minimum version of Dolibarr required by module
-        $this->langfiles = array("memcached@memcached");
+        $this->need_dolibarr_version = array(3,2,-4);  // Minimum version of Dolibarr required by module
+        $this->langfiles = array("tvacerfa@tvacerfa");
 
 		// Constants
 		$this->const = array();			// List of parameters
@@ -91,7 +91,7 @@ class modMemcached extends DolibarrModules
     	//$r++;
 
 		// Permissions
-		$this->rights_class = 'memcached';	// Permission key
+		$this->rights_class = 'tvacerfa';	// Permission key
 		$this->rights = array();		// Permission array used by this module
 
 
@@ -101,19 +101,18 @@ class modMemcached extends DolibarrModules
 		$r=0;
 
 		// Top menu
-		/*$this->menu[$r]=array('fk_menu'=>0,
-							  'type'=>'top',
-							  'titre'=>'FTP',
-							  'mainmenu'=>'ftp',
-							  'url'=>'/ftp/index.php',
-							  'langs'=>'ftp',
-							  'position'=>100,
-							  'perms'=>'$user->rights->ftp->read || $user->rights->ftp->write || $user->rights->ftp->setup',
-							  'enabled'=>1,
-							  'target'=>'',
-							  'user'=>2);			// 0=Menu for internal users, 1=external users, 2=both
-		$r++;
-		*/
+		$this->menu[$r]=array(	'fk_menu'=>'fk_mainmenu=accountancy,fk_leftmenu=tax',	// Use 'fk_mainmenu=xxx' or 'fk_mainmenu=xxx,fk_leftmenu=yyy'
+								'type'=>'left',			                // This is a Left menu entry
+								'titre'=>'VATCerfa',
+								'mainmenu'=>'accountancy',
+								'leftmenu'=>'tax',
+								'url'=>'/tvacerfa/pagelevel2.php',
+								'langs'=>'tvacerfa',	                // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
+								'position'=>200,
+								'enabled'=>'$conf->tvacerfa->enabled',  // Define condition to show or hide menu entry. Use '$conf->mymodule->enabled' if entry must be visible if module is enabled. Use '$leftmenu==\'system\'' to show if leftmenu system is selected.
+								'perms'=>'1',			                // Use 'perms'=>'$user->rights->mymodule->level1->level2' if you want your menu with a permission rules
+								'target'=>'',
+								'user'=>0);				                // 0=Menu for internal users, 1=external users, 2=both
 	}
 
 	/**

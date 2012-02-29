@@ -47,7 +47,7 @@ class modSubmitEveryWhere extends DolibarrModules
 
 		// Id for module (must be unique).
 		// Use here a free id (See in Home -> System information -> Dolibarr for list of used modules id).
-		$this->numero = 102000;
+		$this->numero = 101260;
 		// Key text used to identify module (for permissions, menus, etc...)
 		$this->rights_class = 'submiteverywhere';
 
@@ -59,7 +59,7 @@ class modSubmitEveryWhere extends DolibarrModules
 		// Module description, used if translation string 'ModuleXXXDesc' not found (where XXX is value of numeric property 'numero' of module)
 		$this->description = "A manager to help to submit an article/scoop towards several targets (Twitter, Facebook, Digg, EMail, Major news web sites...)";
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
-		$this->version = '3.1';
+		$this->version = '3.2';
 		// Key used in llx_const table to save module status enabled/disabled (where NewsSubmitter is value of property name of module in uppercase)
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
 		// Where to store the module in setup page (0=common,1=interface,2=others,3=very specific)
@@ -128,14 +128,14 @@ class modSubmitEveryWhere extends DolibarrModules
 
 		// Add here list of permission defined by an id, a label, a boolean and two constant strings.
 		// Example:
-		$this->rights[$r][0] = 102000; 				// Permission id (must not be already used)
+		$this->rights[$r][0] = 101261; 				// Permission id (must not be already used)
 		$this->rights[$r][1] = 'Read submited news';	// Permission label
 		$this->rights[$r][3] = 1; 					// Permission by default for new user (0/1)
 		$this->rights[$r][4] = 'read';				// In php code, permission will be checked by test if ($user->rights->permkey->level1->level2)
 		//$this->rights[$r][5] = 'level2';				// In php code, permission will be checked by test if ($user->rights->permkey->level1->level2)
 		$r++;
 
-        $this->rights[$r][0] = 102001;              // Permission id (must not be already used)
+        $this->rights[$r][0] = 101262;              // Permission id (must not be already used)
         $this->rights[$r][1] = 'Create/Edit/Submit news';    // Permission label
         $this->rights[$r][3] = 0;                   // Permission by default for new user (0/1)
         $this->rights[$r][4] = 'create';              // In php code, permission will be checked by test if ($user->rights->permkey->level1->level2)

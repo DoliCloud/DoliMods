@@ -1,0 +1,4 @@
+# Dolibarr language file - fr_FR - tvacerfa
+CHARSET=UTF-8
+NoNeedToSetup=Aucune configuration particulière nécessaire
+TVACerfaSetup=Configuration du module TVA Cerfa

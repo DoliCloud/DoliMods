@@ -34,7 +34,7 @@ class modWebMail extends DolibarrModules
 
 		// Id for module (must be unique).
 		// Use here a free id (See in Home -> System information -> Dolibarr for list of used module id).
-		$this->numero = 103200;
+		$this->numero = 101320;
 		// Key text used to identify module (for permission, menus, etc...)
 		$this->rights_class = 'webmail';
 

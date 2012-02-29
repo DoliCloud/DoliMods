@@ -34,7 +34,7 @@ class modSurvey extends DolibarrModules
 
 		// Id for module (must be unique).
 		// Use here a free id (See in Home -> System information -> Dolibarr for list of used module id).
-		$this->numero = 100500;
+		$this->numero = 101580;
 		// Key text used to identify module (for permission, menus, etc...)
 		$this->rights_class = 'survey';
 

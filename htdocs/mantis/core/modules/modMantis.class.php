@@ -46,7 +46,7 @@ class modMantis extends DolibarrModules
 
 		// Id for module (must be unique).
 		// Use here a free id.
-		$this->numero = 50300;
+		$this->numero = 101530;
 
 		// Family can be 'crm','financial','hr','projects','product','technic','other'
 		// It is used to sort modules in module setup page

@@ -34,7 +34,7 @@ class modNLTechno extends DolibarrModules
 
 		// Id for module (must be unique).
 		// Use here a free id (See in Home -> System information -> Dolibarr for list of used module id).
-		$this->numero = 100000;
+		$this->numero = 101050;
 		// Key text used to identify module (for permission, menus, etc...)
 		$this->rights_class = 'nltechno';
 
@@ -46,7 +46,7 @@ class modNLTechno extends DolibarrModules
 		// Module description used if translation string 'ModuleXXXDesc' not found (XXX is value MyModule)
 		$this->description = "Module to integrate NLTechno tools in dolibarr";
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
-		$this->version = '3.1';
+		$this->version = '3.2';
 		// Key used in llx_const table to save module status enabled/disabled (where MYMODULE is value of property name of module in uppercase)
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
 		// Where to store the module in setup page (0=common,1=interface,2=others,3=very specific)
@@ -89,21 +89,21 @@ class modNLTechno extends DolibarrModules
 
 		// Add here list of permission defined by an id, a label, a boolean and two constant strings.
 		// Example:
-		$this->rights[$r][0] = 100001; 				// Permission id (must not be already used)
+		$this->rights[$r][0] = 101051; 				// Permission id (must not be already used)
 		$this->rights[$r][1] = 'Voir page liens';	// Permission label
 		$this->rights[$r][2] = 'r'; 					// Permission by default for new user (0/1)
 		$this->rights[$r][3] = 0; 					// Permission by default for new user (0/1)
 		$this->rights[$r][4] = 'liens';				// In php code, permission will be checked by test if ($user->rights->permkey->level1->level2)
 		$this->rights[$r][5] = 'voir';				// In php code, permission will be checked by test if ($user->rights->permkey->level1->level2)
 		$r++;
-		$this->rights[$r][0] = 100002; 				// Permission id (must not be already used)
+		$this->rights[$r][0] = 101052; 				// Permission id (must not be already used)
 		$this->rights[$r][1] = 'Voir page annonces';	// Permission label
 		$this->rights[$r][2] = 'r'; 					// Permission by default for new user (0/1)
 		$this->rights[$r][3] = 0; 					// Permission by default for new user (0/1)
 		$this->rights[$r][4] = 'annonces';				// In php code, permission will be checked by test if ($user->rights->permkey->level1->level2)
 		$this->rights[$r][5] = 'voir';				// In php code, permission will be checked by test if ($user->rights->permkey->level1->level2)
 		$r++;
-		$this->rights[$r][0] = 100003; 				// Permission id (must not be already used)
+		$this->rights[$r][0] = 101053; 				// Permission id (must not be already used)
 		$this->rights[$r][1] = 'Voir page emailings';	// Permission label
 		$this->rights[$r][2] = 'r'; 					// Permission by default for new user (0/1)
 		$this->rights[$r][3] = 0; 					// Permission by default for new user (0/1)

@@ -48,7 +48,7 @@ class modCabinetMed extends DolibarrModules
 
         // Id for module (must be unique).
         // Use here a free id (See in Home -> System information -> Dolibarr for list of used modules id).
-        $this->numero = 100700;
+        $this->numero = 101700;
         // Key text used to identify module (for permissions, menus, etc...)
         $this->rights_class = 'cabinetmed';
 
@@ -201,14 +201,14 @@ class modCabinetMed extends DolibarrModules
 
         // Add here list of permission defined by an id, a label, a boolean and two constant strings.
         // Example:
-        $this->rights[$r][0] = 100700;               // Permission id (must not be already used)
+        $this->rights[$r][0] = 101701;               // Permission id (must not be already used)
         $this->rights[$r][1] = 'Read patient outcomes';      // Permission label
         $this->rights[$r][3] = 0;                    // Permission by default for new user (0/1)
         $this->rights[$r][4] = 'read';               // In php code, permission will be checked by test if ($user->rights->permkey->level1->level2)
         $this->rights[$r][5] = '';                   // In php code, permission will be checked by test if ($user->rights->permkey->level1->level2)
         $r++;
 
-        $this->rights[$r][0] = 100701;               // Permission id (must not be already used)
+        $this->rights[$r][0] = 101702;               // Permission id (must not be already used)
         $this->rights[$r][1] = 'Create/Modify patient outcomes';      // Permission label
         $this->rights[$r][3] = 0;                    // Permission by default for new user (0/1)
         $this->rights[$r][4] = 'write';              // In php code, permission will be checked by test if ($user->rights->permkey->level1->level2)

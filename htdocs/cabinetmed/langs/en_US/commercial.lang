@@ -13,5 +13,5 @@ NoSalesRepresentativeAffected=No particular doctor
 ShowCustomer=Show patient
 ListOfCustomers=List of patients
 TasksHistoryForThisContact=Actions about this contact
-ActionAC_FAC=Send outcome by email
-ActionAC_REL=Resend outcome by email
+ActionAC_FAC=Send consultation by email
+ActionAC_REL=Resend consultation by email

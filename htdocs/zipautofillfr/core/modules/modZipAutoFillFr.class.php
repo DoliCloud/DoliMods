@@ -50,7 +50,7 @@ class modZipAutoFillFr extends DolibarrModules
         global $langs,$conf;
 
         $this->db = $db;
-		$this->numero = 12200;
+		$this->numero = 101270;
 
 		$this->family = "other";
 		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'numero' of module)
@@ -58,7 +58,7 @@ class modZipAutoFillFr extends DolibarrModules
 		$this->description = "Add zip codes and towns into database (France and Belgium)";
 
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
-		$this->version = '3.1';
+		$this->version = '3.2';
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
 		$this->special = 2;
 		$this->picto='generic';
