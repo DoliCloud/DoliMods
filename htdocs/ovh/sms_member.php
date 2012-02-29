@@ -40,7 +40,7 @@ $langs->load("sms");
 $langs->load("ovh@ovh");
 
 // Get parameters
-$id = GETPOST("id");
+$id = GETPOST('id','int');
 $action = GETPOST('action');
 $mesg='';
 

@@ -37,7 +37,7 @@ include_once("./class/cabinetmedcons.class.php");
 include_once("./class/cabinetmedexamother.class.php");
 
 $action = GETPOST("action");
-$id=GETPOST("id");  // Id consultation
+$id=GETPOST('id','int');  // Id consultation
 
 $langs->load("companies");
 $langs->load("bills");
@@ -45,7 +45,7 @@ $langs->load("banks");
 $langs->load("cabinetmed@cabinetmed");
 
 // Security check
-$socid = GETPOST("socid");
+$socid = GETPOST('socid','int');
 if ($user->societe_id) $socid=$user->societe_id;
 $result = restrictedArea($user, 'societe', $socid);
 
@@ -465,7 +465,7 @@ if ($action == '' || $action == 'delete')
     if (GETPOST("action") == 'delete')
     {
         $html = new Form($db);
-        $ret=$html->form_confirm($_SERVER["PHP_SELF"]."?socid=".$socid.'&id='.GETPOST('id'),$langs->trans("DeleteAnExam"),$langs->trans("ConfirmDeleteExam"),"confirm_delete",'',0,1);
+        $ret=$html->form_confirm($_SERVER["PHP_SELF"]."?socid=".$socid.'&id='.GETPOST('id','int'),$langs->trans("DeleteAnExam"),$langs->trans("ConfirmDeleteExam"),"confirm_delete",'',0,1);
         if ($ret == 'html') print '<br>';
     }
 

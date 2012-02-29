@@ -48,7 +48,7 @@ $langs->load("other");
 $def = array();
 $action=GETPOST("action");
 $actionsave=GETPOST("save");
-$id=GETPOST('id');
+$id=GETPOST('id','int');
 
 $fname = $conf->monitoring->dir_output."/".$id."/monitoring.rrd";
 $fileimage[0]=$id.'/monitoring-1h.png';

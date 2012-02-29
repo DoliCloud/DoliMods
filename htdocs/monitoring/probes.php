@@ -48,7 +48,7 @@ accessforbidden();
 
 $def = array();
 $action=GETPOST('action');
-$id=GETPOST('id');
+$id=GETPOST('id','int');
 
 
 /*

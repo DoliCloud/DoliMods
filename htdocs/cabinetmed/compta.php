@@ -55,7 +55,7 @@ $search_sale=GETPOST('search_sale');
 
 
 // Security check
-$socid = GETPOST("socid");
+$socid = GETPOST('socid','int');
 if ($user->societe_id > 0) $socid = $user->societe_id;
 //if (!$user->rights->cabinetmed->lire)
 //accessforbidden();

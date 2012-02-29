@@ -60,7 +60,7 @@ $original_file = GETPOST("file");	// Do not use urldecode here ($_GET are alread
 $modulepart = GETPOST("modulepart");
 $urlsource = GETPOST("urlsource");
 $rootpath = GETPOST('rootpath');
-$id=GETPOST('id');
+$id=GETPOST('id','int');
 
 // Security check
 if (empty($modulepart)) accessforbidden('Bad value for parameter modulepart');

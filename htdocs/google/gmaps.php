@@ -38,7 +38,7 @@ $address='';
 if (empty($mode) || $mode=='thirdparty')
 {
 	include_once(DOL_DOCUMENT_ROOT.'/societe/class/societe.class.php');
-	$id = GETPOST('id');
+	$id = GETPOST('id','int');
 	$object = new Societe($db);
 	$object->id = $id;
 	$object->fetch($id);
@@ -47,7 +47,7 @@ if (empty($mode) || $mode=='thirdparty')
 if ($mode=='contact')
 {
 	include_once(DOL_DOCUMENT_ROOT.'/contact/class/contact.class.php');
-	$id = GETPOST('id');
+	$id = GETPOST('id','int');
 	$object = new Contact($db);
 	$object->id = $id;
 	$object->fetch($id);
@@ -56,7 +56,7 @@ if ($mode=='contact')
 if ($mode=='member')
 {
 	include_once(DOL_DOCUMENT_ROOT.'/adherents/class/adherent.class.php');
-	$id = GETPOST('id');
+	$id = GETPOST('id','int');
 	$object = new Adherent($db);
 	$object->id = $id;
 	$object->fetch($id);

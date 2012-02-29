@@ -43,7 +43,7 @@ $langs->load("sendings");
 $langs->load("companies");
 
 // Security check
-$socid = GETPOST("socid");
+$socid = GETPOST('socid','int');
 if ($user->societe_id) $socid=$user->societe_id;
 $result = restrictedArea($user, 'societe', $socid);
 
@@ -89,7 +89,7 @@ if ($_POST["action"] == 'addcontact' && $user->rights->societe->creer)
 if ($_GET["action"] == 'swapstatut' && $user->rights->societe->creer)
 {
 	$object = new Societe($db);
-	if ($object->fetch(GETPOST("facid")))
+	if ($object->fetch(GETPOST('facid','int')))
 	{
 	    $result=$object->swapContactStatus(GETPOST('ligne'));
 	}

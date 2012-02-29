@@ -42,7 +42,7 @@ $langs->load("ovh@ovh");
 $error=0;
 
 // Get parameters
-$socid = (GETPOST('id') ? GETPOST('id') : GETPOST('socid'));
+$socid = (GETPOST('id','int') ? GETPOST('id','int') : GETPOST('socid','int'));
 // For backward compatibility
 $action = GETPOST('action');
 $sendto = GETPOST("sendto") ? GETPOST('sendto') : '';

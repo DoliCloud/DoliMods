@@ -49,7 +49,7 @@ $langs->load("other");
 // Get parameters
 $myparam=GETPOST("myparam");
 $openeddir=GETPOST('openeddir');
-$id=GETPOST("id");
+$id=GETPOST('id','int');
 
 // Check permissions
 if (! $user->rights->filemanager->read)

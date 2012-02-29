@@ -39,7 +39,7 @@ require_once(DOL_DOCUMENT_ROOT."/core/class/html.formadmin.class.php");
 dol_include_once("/submiteverywhere/core/lib/submiteverywhere.lib.php");
 dol_include_once("/submiteverywhere/class/SubmitewMessage.class.php");
 
-$id=GETPOST('id');
+$id=GETPOST('id','int');
 $action=GETPOST('action');
 
 $langs->load("mails");

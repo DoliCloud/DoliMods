@@ -42,7 +42,7 @@ $action = GETPOST('action');
 if (empty($action)) $action='edit';
 
 // Security check
-$socid = GETPOST('socid');
+$socid = GETPOST('socid','int');
 if ($user->societe_id) $socid=$user->societe_id;
 $result = restrictedArea($user, 'societe', $socid);
 

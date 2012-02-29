@@ -39,7 +39,7 @@ $langs->load("sms");
 $langs->load("ovh@ovh");
 
 // Get parameters
-$socid = GETPOST("socid")?GETPOST("socid"):GETPOST("id");
+$socid = GETPOST('socid','int')?GETPOST('socid','int'):GETPOST('id','int');
 $action = GETPOST('action');
 $mesg='';
 

@@ -47,7 +47,7 @@ dol_include_once("/filemanager/class/filemanagerroots.class.php");
 include_once(DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php');
 
 // Do not use urldecode here ($_GET and $_REQUEST are already decoded by PHP).
-$id=GETPOST('id')?GETPOST('id'):(is_numeric(GETPOST('rootpath'))?GETPOST('rootpath'):'');
+$id=GETPOST('id','int')?GETPOST('id','int'):(is_numeric(GETPOST('rootpath'))?GETPOST('rootpath'):'');
 $action=GETPOST("action");
 $original_file=GETPOST("file");
 $modulepart=GETPOST("modulepart");

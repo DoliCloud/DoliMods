@@ -41,7 +41,7 @@ include_once("./class/cabinetmedcons.class.php");
 include_once("./class/html.formfilecabinetmed.class.php");
 
 $action=GETPOST("action");
-$id=GETPOST("id");  // Id consultation
+$id=GETPOST('id','int');  // Id consultation
 $confirm=GETPOST('confirm');
 $mesg=GETPOST('mesg');
 
@@ -52,7 +52,7 @@ $langs->load("other");
 $langs->load("cabinetmed@cabinetmed");
 
 // Security check
-$socid = GETPOST("socid");
+$socid = GETPOST('socid','int');
 if ($user->societe_id) $socid=$user->societe_id;
 $result = restrictedArea($user, 'societe', $socid);
 
