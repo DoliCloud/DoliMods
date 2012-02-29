@@ -50,7 +50,7 @@ class InterfaceActionsCabinetmed
         $this->name = preg_replace('/^Interface/i','',get_class($this));
         $this->family = "cabinetmed";
         $this->description = "Triggers of this module add actions in cabinetmed according to setup made in cabinetmed setup.";
-        $this->version = 'dolibarr';                        // 'experimental' or 'dolibarr' or version
+        $this->version = '3.2';                        // 'experimental' or 'dolibarr' or version
         $this->picto = 'user';
     }
 

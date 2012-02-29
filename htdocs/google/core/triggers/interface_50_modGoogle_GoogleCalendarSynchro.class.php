@@ -52,7 +52,7 @@ class InterfaceGoogleCalendarSynchro
         $this->name = preg_replace('/^Interface/i','',get_class($this));
         $this->family = "google";
         $this->description = "Triggers of this module allows to add an event inside Google calendar for each Dolibarr business event.";
-        $this->version = 'dolibarr';                        // 'experimental' or 'dolibarr' or version
+        $this->version = '3.2';                        // 'experimental' or 'dolibarr' or version
         $this->picto = 'google@google';
     }
 
