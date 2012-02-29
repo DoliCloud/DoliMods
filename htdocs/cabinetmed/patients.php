@@ -1,6 +1,6 @@
 <?php
 /* Copyright (C) 2001-2006 Rodolphe Quiedeville <rodolphe@quiedeville.org>
- * Copyright (C) 2004-2011 Laurent Destailleur  <eldy@users.sourceforge.net>
+ * Copyright (C) 2004-2012 Laurent Destailleur  <eldy@users.sourceforge.net>
  * Copyright (C) 2005-2009 Regis Houssin        <regis@dolibarr.fr>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -21,8 +21,7 @@
 /**
  *	\file       htdocs/cabinetmed/patients.php
  *	\ingroup    commercial, societe
- *	\brief      List of customers
- *	\version    $Id: patients.php,v 1.5 2011/08/20 18:10:38 eldy Exp $
+ *	\brief      List of patients
  */
 
 $res=0;
@@ -97,12 +96,12 @@ $sql.= " s.idprof4, MAX(c.datecons) as lastcons, COUNT(c.rowid) as nb";
 if ($search_sale) $sql .= ", sc.fk_soc, sc.fk_user";
 // We'll need these fields in order to filter by categ
 if ($search_categ) $sql .= ", cs.fk_categorie, cs.fk_societe";
-$sql.= " FROM (".MAIN_DB_PREFIX."societe as s,";
-$sql.= " ".MAIN_DB_PREFIX."c_stcomm as st";
+$sql.= " FROM (".MAIN_DB_PREFIX."c_stcomm as st";
 // We'll need this table joined to the select in order to filter by sale
 if ($search_sale || !$user->rights->societe->client->voir) $sql.= ", ".MAIN_DB_PREFIX."societe_commerciaux as sc";
 // We'll need this table joined to the select in order to filter by categ
 if ($search_categ) $sql.= ", ".MAIN_DB_PREFIX."categorie_societe as cs";
+$sql.= ", ".MAIN_DB_PREFIX."societe as s";
 $sql.= ") LEFT JOIN ".MAIN_DB_PREFIX."cabinetmed_cons as c ON c.fk_soc = s.rowid";
 $sql.= " WHERE s.fk_stcomm = st.id";
 $sql.= " AND s.client IN (1, 3)";
