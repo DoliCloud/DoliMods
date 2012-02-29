@@ -20,7 +20,7 @@
  *	\file       htdocs/concatpdf/class/actions_concatpdf.class.php
  *	\ingroup    societe
  *	\brief      File to control actions
- *	\version    $Id: actions_cabinetmed.class.php,v 1.8 2011/09/11 18:41:48 eldy Exp $
+ *	\version    $Id: actions_concatpdf.class.php,v 1.8 2011/09/11 18:41:48 eldy Exp $
  */
 require_once(DOL_DOCUMENT_ROOT."/core/class/commonobject.class.php");
 
@@ -40,7 +40,7 @@ class ActionsConcatPdf
      *
      *  @param		DoliDB		$db      Database handler
      */
-    function ActionsCabinetmed($db)
+    function ActionsConcatPdf($db)
     {
         $this->db = $db;
     }
