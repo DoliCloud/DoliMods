@@ -1,22 +1,22 @@
 <?php
 /* Copyright (C) 2004      Rodolphe Quiedeville <rodolphe@quiedeville.org>
  * Copyright (C) 2006-2007 Laurent Destailleur  <eldy@users.sourceforge.net>
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
- * or see http://www.gnu.org/
- */
+*
+* This program is free software; you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation; either version 2 of the License, or
+* (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with this program; if not, write to the Free Software
+* Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+* or see http://www.gnu.org/
+*/
 
 /**
  *       \file       htdocs/core/modules/societe/mod_codeclient_lion.class.php
@@ -33,76 +33,76 @@ require_once(DOL_DOCUMENT_ROOT."/core/modules/societe/modules_societe.class.php"
  */
 class mod_codeclient_lion extends ModeleThirdPartyCode
 {
-	var $nom;							// Nom du modele
-	var $code_modifiable;				// Code modifiable
-	var $code_modifiable_invalide;		// Code modifiable si il est invalide
-	var $code_modifiable_null;			// Code modifiables si il est null
-	var $code_null;						// Code facultatif
-	var $version;		// 'development', 'experimental', 'dolibarr'
-	var $code_auto; // Numerotation automatique
+    var $nom;							// Nom du modele
+    var $code_modifiable;				// Code modifiable
+    var $code_modifiable_invalide;		// Code modifiable si il est invalide
+    var $code_modifiable_null;			// Code modifiables si il est null
+    var $code_null;						// Code facultatif
+    var $version;		// 'development', 'experimental', 'dolibarr'
+    var $code_auto; // Numerotation automatique
 
 
-	/**
-	 * 	Constructeur classe
-	 */
-	function mod_codeclient_lion()
-	{
-		$this->nom = "Lion";
-		$this->version = '$Revision: 1.5 $';
-		$this->code_modifiable = 0;
-		$this->code_modifiable_invalide = 1;
-		$this->code_modifiable_null = 1;
-		$this->code_null = 0;
-		$this->code_auto = 0;
-	}
+    /**
+     * 	Constructeur classe
+     */
+    function mod_codeclient_lion()
+    {
+        $this->nom = "Lion";
+        $this->version = '$Revision: 1.5 $';
+        $this->code_modifiable = 0;
+        $this->code_modifiable_invalide = 1;
+        $this->code_modifiable_null = 1;
+        $this->code_null = 0;
+        $this->code_auto = 1;
+    }
 
 
-	/**		\brief      Renvoi la description du module
-	*      	\return     string      Texte descripif
-	*/
-	function info($langs)
-	{
-		return "Verifie si le code client/fournisseur est de la forme numerique 999 et sur au moins 3 chiffres. Verification mais pas de generation automatique.";
-	}
+    /**		\brief      Renvoi la description du module
+     *      	\return     string      Texte descripif
+     */
+    function info($langs)
+    {
+        return "Verifie si le code client/fournisseur est de la forme numerique 999 et sur au moins 3 chiffres. Verification mais pas de generation automatique.";
+    }
 
 
-	/**		\brief      Renvoi la description du module
-	*      	\return     string      Texte descripif
-	*/
-	function getExample($langs)
-	{
-		return "001";
-	}
+    /**		\brief      Renvoi la description du module
+     *      	\return     string      Texte descripif
+     */
+    function getExample($langs)
+    {
+        return "001";
+    }
 
 
-	/**     \brief      Return next value
+    /**     \brief      Return next value
      *      \param      objsoc      Object third party
      *      \param      $type       Client ou fournisseur (1:client, 2:fournisseur)
      *      \return     string      Value if OK, '' if module not configured, <0 if KO
      */
     function getNextValue($objsoc=0,$type=-1)
     {
-    	global $db, $conf;
+        global $db, $conf;
 
-		$return='001';
+        $return='001';
 
-		$sql = "SELECT MAX(code_client) as maxval FROM ".MAIN_DB_PREFIX."societe";
-		$resql=$db->query($sql);
-		if ($resql)
-		{
-			$obj=$db->fetch_object($resql);
-			if ($obj)
-			{
-				$newval=$obj->maxval+1;
-				$return=sprintf('%03d',$newval);
-				return $return;
-			}
-		}
-		else
-		{
-			return -1;
-		}
-	}
+        $sql = "SELECT MAX(code_client) as maxval FROM ".MAIN_DB_PREFIX."societe";
+        $resql=$db->query($sql);
+        if ($resql)
+        {
+            $obj=$db->fetch_object($resql);
+            if ($obj)
+            {
+                $newval=$obj->maxval+1;
+                $return=sprintf('%03d',$newval);
+                return $return;
+            }
+        }
+        else
+        {
+            return -1;
+        }
+    }
 
 
     /**
@@ -117,7 +117,7 @@ class mod_codeclient_lion extends ModeleThirdPartyCode
      *                          -3 ErrorCustomerCodeAlreadyUsed
      *                          -4 ErrorPrefixRequired
      */
-	function verif($db, &$code, $soc, $type)
+    function verif($db, &$code, $soc, $type)
     {
         $result=0;
         $code = strtoupper(trim($code));
@@ -128,7 +128,7 @@ class mod_codeclient_lion extends ModeleThirdPartyCode
         }
         else
         {
-            if ($this->verif_syntax($code) >= 0)
+            if ($this->_verif_syntax($code) >= 0)
             {
                 $is_dispo = $this->verif_dispo($db, $code, $soc);
                 if ($is_dispo <> 0)
@@ -157,87 +157,67 @@ class mod_codeclient_lion extends ModeleThirdPartyCode
     }
 
 
-	/**
-	*		\brief		Renvoi si un code est pris ou non (par autre tiers)
-	*		\param		$db			Handler acces base
-	*		\param		$code		Code a verifier
-	*		\param		$soc		Objet societe
-	*		\return		int			0 si dispo, <0 si erreur
-	*/
-	function verif_dispo($db, $code, $soc)
-	{
-		$sql = "SELECT code_client FROM ".MAIN_DB_PREFIX."societe";
-		$sql.= " WHERE code_client = '".$code."'";
-		$sql.= " AND rowid != '".$soc->id."'";
+    /**
+     *		\brief		Renvoi si un code est pris ou non (par autre tiers)
+     *		\param		$db			Handler acces base
+     *		\param		$code		Code a verifier
+     *		\param		$soc		Objet societe
+     *		\return		int			0 si dispo, <0 si erreur
+     */
+    function verif_dispo($db, $code, $soc)
+    {
+        $sql = "SELECT code_client FROM ".MAIN_DB_PREFIX."societe";
+        $sql.= " WHERE code_client = '".$code."'";
+        $sql.= " AND rowid != '".$soc->id."'";
 
-		$resql=$db->query($sql);
-		if ($resql)
-		{
-			if ($db->num_rows($resql) == 0)
-			{
-				return 0;
-			}
-			else
-			{
-				return -1;
-			}
-		}
-		else
-		{
-			return -2;
-		}
+        $resql=$db->query($sql);
+        if ($resql)
+        {
+            if ($db->num_rows($resql) == 0)
+            {
+                return 0;
+            }
+            else
+            {
+                return -1;
+            }
+        }
+        else
+        {
+            return -2;
+        }
 
-	}
-
-
-	/**
-	*	\brief		Renvoi si un code respecte la syntaxe
-	*	\param		$code		Code a verifier
-	*	\return		int			0 si OK, <0 si KO
-	*/
-	function verif_syntax($code)
-	{
-		$res = 0;
-
-		if (strlen($code) < 3)
-		{
-			$res = -1;
-		}
-		else
-		{
-			if (preg_match('/[0-9][0-9][0-9]+/',$code))
-			{
-				$res = 0;
-			}
-			else
-			{
-				$res = -2;
-			}
-
-		}
-		return $res;
-	}
+    }
 
 
-	/**
-	*	Renvoi 0 si numerique, sinon renvoi nb de car non numerique
-	*/
-	function is_num($str)
-	{
-		$ok = 0;
+    /**
+     *	Renvoi si un code respecte la syntaxe
+     *
+     *	@param		$code		Code a verifier
+     *	@return		int			0 si OK, <0 si KO
+     */
+    private function _verif_syntax($code)
+    {
+        $res = 0;
 
-		$alpha = '0123456789';
+        if (strlen($code) < 3)
+        {
+            $res = -1;
+        }
+        else
+        {
+            if (preg_match('/[0-9][0-9][0-9]+/',$code))
+            {
+                $res = 0;
+            }
+            else
+            {
+                $res = -2;
+            }
 
-		for ($i = 0 ; $i < length($str) ; $i++)
-		{
-			if (strpos($alpha, substr($str,$i, 1)) === false)
-			{
-				$ok++;
-			}
-		}
-
-		return $ok;
-	}
+        }
+        return $res;
+    }
 
 }
 
