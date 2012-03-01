@@ -6,3 +6,5 @@ ConcatPDfTakeFileFrom2=Aux <b>%s</b> PDF générées, n'importe quel fichier PDF
 ConcatPDfPutFileManually=Les fichiers PDF peuvent y être placés manuellement avec votre gestionnaire de fichiers.
 NoPDFFileFound=Aucun fichier PDF trouvé dans le répertoire pour l'instant.
 ConcatFile=Concaténer le fichier PDF
+Module101400Name=Concat PDF
+Module101400Desc=Module pour concatainer des PDF (conditions de ventes par exemples) à tout PDF générés (factures, commandes ou propositions commerciales)

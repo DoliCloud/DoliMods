@@ -3,3 +3,5 @@ CHARSET=UTF-8
 NoNeedToSetup=No setup required
 TVACerfaSetup=VAT Cerfa module
 VATCerfa=TVA Cerfa
+Module101150Name=VAT Cerfa
+Module101150Desc=Can generate french Cerfa documents for VAT

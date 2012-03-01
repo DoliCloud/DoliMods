@@ -1,7 +1,7 @@
 # Dolibarr language file - ca_ES - cabinetmed 
 CHARSET=UTF-8
-Module100700Name=Consulta médica
-Module100700Desc=Módulo para gestionar una consulta médica
+Module101700Name=Consulta médica
+Module101700Desc=Módulo para gestionar una consulta médica
 LastHour=Última hora
 LastDay=Últim dia
 LastWeek=Última setmana

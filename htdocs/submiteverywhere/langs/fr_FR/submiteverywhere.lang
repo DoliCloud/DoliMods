@@ -21,5 +21,5 @@ ShortContent=Contenu court
 LongContent=Contenu long
 CreateMessage=Créer message
 ListOfMessage=Liste des messages
-Module102000Name=Submit Every Where
-Module102000Desc=Un gestionnaire pour aider à la soumission d'article/scoop vers différentes cibles (Twitter, Facebook, Digg, EMail, sites majeurs de nouvelles...)
+Module101260Name=Submit Every Where
+Module101260Desc=Un gestionnaire pour aider à la soumission d'article/scoop vers différentes cibles (Twitter, Facebook, Digg, EMail, sites majeurs de nouvelles...)

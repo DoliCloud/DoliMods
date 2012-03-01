@@ -3,3 +3,5 @@ CHARSET=UTF-8
 NoNeedToSetup=Aucune configuration particulière nécessaire
 TVACerfaSetup=Configuration du module TVA Cerfa
 VATCerfa=TVA Cerfa
+Module101150Name=TVA Cerfa
+Module101150Desc=Génération des documents Cerfa de TVA

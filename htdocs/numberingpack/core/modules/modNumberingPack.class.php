@@ -71,7 +71,7 @@ class modNumberingPack extends DolibarrModules
 		$this->requiredby = array();	// List of modules id to disable if this one is disabled
 		$this->phpmin = array(4,3);					// Minimum version of PHP required by module
 		$this->need_dolibarr_version = array(3,2,-3);	// Minimum version of Dolibarr required by module
-		$this->langfiles = array();
+		$this->langfiles = array('numberingpack@numberingpack');
 
 		$this->module_parts = array('societe' => 1);
 

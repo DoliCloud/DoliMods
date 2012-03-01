@@ -6,3 +6,5 @@ ConcatPDfTakeFileFrom2=To generated PDF <b>%s</b>, any PDF file found into direc
 ConcatPDfPutFileManually=PDF files can be stored here using your file manager.
 NoPDFFileFound=No PDF files found into directory for the moment
 ConcatFile=Concat PDF file
+Module101400Name=Concat PDF
+Module101400Desc=Module to contact PDF (sells conditions for example) to any generated PDF (invoices, orders or proposals)

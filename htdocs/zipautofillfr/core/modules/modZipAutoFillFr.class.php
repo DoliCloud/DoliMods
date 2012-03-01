@@ -68,6 +68,7 @@ class modZipAutoFillFr extends DolibarrModules
 
 		// Dependances
 		$this->depends = array();
+		$this->langfiles = array('zipautofillfr@zipautofillfr');
 
 		// Config pages
 		$this->config_page_url = array();
