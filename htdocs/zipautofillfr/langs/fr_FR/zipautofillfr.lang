@@ -1,0 +1,4 @@
+# Dolibarr language file - fr_FR - zipautofillfr
+CHARSET=UTF-8
+Module101270Name=ZipAutofill FR/BE
+Module101270Desc=Ajoute tous les codes postaux de France et Belgique en base permettant des complétions de code postaux/ville pleinement opérationnel. Ajoute aussi un dictionnaire pour permettre leur édition.

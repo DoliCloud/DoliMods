@@ -1,0 +1,4 @@
+# Dolibarr language file - en_US - zipautofillfr
+CHARSET=UTF-8
+Module101270Name=ZipAutofill FR/BE
+Module101270Desc=Add all zip codes for france and belgium into Dolibarr tables to have full zip/town autocomplete. Add a dictionnary to edit them.
