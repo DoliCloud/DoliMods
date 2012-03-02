@@ -1,4 +1,6 @@
-# Dolibarr language file - en_US - numberwords
+# Dolibarr language file - es_ES - numberwords
 CHARSET=UTF-8
+Module101220Name=Number Words
+Module101220Desc=Añade la posibilidad de convertir los importes o números en un valor escrito en texto alfabético (en los idiomas soportados)
 NumberWordsSetup=Configuración del módulo NumberWords
 DescNumberWords=Este módulo le ofrece convertir números o importes en cualquier cadena. También realiza la sustitución de las variables genéricas __TOTAL_TTC_WORDS__, __TOTAL_HT_WORDS__ o __TOTAL_VAT_WORDS__ por el valor de importes totales, base o del IVA, en cadena dentro del texto al que hacen referencia (texto libre de facturas, ...)
