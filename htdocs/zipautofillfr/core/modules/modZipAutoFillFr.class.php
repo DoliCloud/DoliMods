@@ -115,7 +115,7 @@ class modZipAutoFillFr extends DolibarrModules
 	{
 		global $conf;
 		// Permissions et valeurs par defaut
-		$this->remove();
+		$this->remove($options);
 
 		$sql = array();
 
