@@ -19,7 +19,7 @@ define('NOCSRFCHECK',1);
 $res=@include("../master.inc.php");
 if (! $res) @include("../../../dolibarr/htdocs/master.inc.php");	// Used on dev env only
 
-$search=isset($_GET["search"])?$_GET["search"]:$_POST["search"];
+$search=GETPOST("search");
 
 
 // Check parameters

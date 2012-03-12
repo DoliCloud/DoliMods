@@ -1,6 +1,6 @@
 <?php
 /* Copyright (C) 2003      Rodolphe Quiedeville <rodolphe@quiedeville.org>
- * Copyright (C) 2004-2010 Laurent Destailleur  <eldy@users.sourceforge.net>
+ * Copyright (C) 2004-2012 Laurent Destailleur  <eldy@users.sourceforge.net>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -24,14 +24,13 @@
 /**
  *      \file       htdocs/thomsonphonebook/core/modules/modThomsonPhoneBook.class.php
  *      \ingroup    thomsonphonebook
- *      \brief      Description and activation file for module MyModule
- *		\version	$Id: modThomsonPhoneBook.class.php,v 1.7 2011/03/27 16:51:32 eldy Exp $
+ *      \brief      Description and activation file for module ThomsonPhoneBook
  */
 include_once(DOL_DOCUMENT_ROOT ."/core/modules/DolibarrModules.class.php");
 
 
-/**     \class      modThomsonPhoneBook
- *      \brief      Description and activation class for module RiverBitTorrent
+/**
+ *	Description and activation class for module ThomsonPhoneBook
  */
 class modThomsonPhoneBook extends DolibarrModules
 {
@@ -81,7 +80,7 @@ class modThomsonPhoneBook extends DolibarrModules
         $this->requiredby = array();	// List of modules id to disable if this one is disabled
         $this->phpmin = array(4,3);					// Minimum version of PHP required by module
         $this->need_dolibarr_version = array(2,9);	// Minimum version of Dolibarr required by module
-        $this->langfiles = array();
+        $this->langfiles = array('thomsonphonebook@thomsonphonebook');
 
         // Constants
         $this->const = array();			// List of particular constants to add when module is enabled
