@@ -208,10 +208,11 @@ foreach($consult as $rowid => $val)
         $objmodel->write_record(array(),$objp,$outputlangs);
         $i++;
 
-        $olddate=$consult[$rowid]['date'];
         $nbact=0;
         $nbccam=0;
     }
+
+    $olddate=$consult[$rowid]['date'];
 
     // Break on new month
     if ($oldym != $consult[$rowid]['ym'])
