@@ -22,7 +22,6 @@
  *	\file       htdocs/numberwords/admin/numberwords.php
  *	\ingroup    numberwords
  *	\brief      Setup page for numberwords module
- *	\version    $Id: numberwords.php,v 1.3 2011/06/08 22:08:45 eldy Exp $
  */
 
 
@@ -112,6 +111,7 @@ if ($_POST["action"] == 'test' && trim($_POST["value"]) != '')
 		$object->number=price2num($_POST["value"]);
 		$source='__NUMBER_WORDS__';
 	}
+
 	$substitutionarray=array();
     complete_substitutions_array($substitutionarray, $outputlangs, $object);
 	$newvaltest=make_substitutions($source,$substitutionarray);
@@ -190,5 +190,8 @@ print '</table>';
 
 print "</form>\n";
 
+
 llxFooter('$Date: 2011/06/08 22:08:45 $ - $Revision: 1.3 $');
+
+$db->close();
 ?>

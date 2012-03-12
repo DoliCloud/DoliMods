@@ -180,12 +180,16 @@ class Numbers_Words
         @$obj = new $classname;
 
         // DOL_CHANGE
+        global $conf;
 		$obj->_currency_names[$int_curr]=array(array($this->labelcurrency),array($this->labelcents));
+        $rounding=$conf->global->MAIN_MAX_DECIMALS_TOT;
 
 		// round if a float is passed, use Math_BigInteger otherwise
-        if (is_float($num)) {
-            $num = round($num, 2);
-        }
+        // DOL_CHANGE
+        //if (is_float($num)) {
+            //$num = round($num, 2);
+            $num = round($num, $rounding);
+        //}
 
         if (strpos($num, '.') === false) {
             return trim($obj->toCurrencyWords($int_curr, $num));
@@ -193,6 +197,9 @@ class Numbers_Words
 
         $currency = explode('.', $num, 2);
 
+        // DOL_CHANGE
+        $currency[1]=substr($currency[1].'00000000',0,$rounding);
+        /*
         $len = strlen($currency[1]);
 
         if ($len == 1) {
@@ -222,6 +229,7 @@ class Numbers_Words
                 }
             }
         }
+		*/
 
         return trim($obj->toCurrencyWords($int_curr, $currency[0], $currency[1]));
     }

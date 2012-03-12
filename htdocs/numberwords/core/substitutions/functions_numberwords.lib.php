@@ -94,7 +94,8 @@ function numberwords_getLabelFromNumber($langs,$number,$isamount=0)
 
 	// Define label on currency and cent in the property of object handle
 	$handle->labelcurrency=$conf->currency;	// By default (EUR, USD)
-	$handle->labelcents='cent';				// By default
+	$handle->labelcents='cent';				// By default (s is removed)
+    if ($conf->global->MAIN_MAX_DECIMALS_TOT == 3) $handle->labelcents='thousandth'; // (s is removed)
 
 	// Overwrite label of currency to ours
 	$labelcurrencysing=$langs->transnoentitiesnoconv("CurrencySing".$conf->currency);
@@ -105,13 +106,14 @@ function numberwords_getLabelFromNumber($langs,$number,$isamount=0)
 		$labelcurrency=$langs->transnoentitiesnoconv("Currency".$conf->currency);
 		if ($labelcurrency && $labelcurrency !='Currency'.$conf->currency) $handle->labelcurrency=$labelcurrency;
 	}
-	// Overwrite label of cent to ours
-	$labelcurrencycentsing=$langs->transnoentitiesnoconv("CurrencyCentSing".$conf->currency);
-	if ($labelcurrencycentsing && $labelcurrencycentsing != -1 &&$labelcurrencycentsing!='CurrencyCentSing'.$conf->currency) $handle->labelcents=$labelcurrencycentsing;
+	// Overwrite label of decimals to ours
+	//print $langs->transnoentitiesnoconv("Currency".ucfirst($handle->labelcents)."Sing".$conf->currency);
+	$labelcurrencycentsing=$langs->transnoentitiesnoconv("Currency".ucfirst($handle->labelcents)."Sing".$conf->currency);
+	if ($labelcurrencycentsing && $labelcurrencycentsing != -1 && $labelcurrencycentsing!='Currency'.ucfirst($handle->labelcents).'Sing'.$conf->currency) $handle->labelcents=$labelcurrencycentsing;
 	else
 	{
-		$labelcurrencycent=$langs->transnoentitiesnoconv("CurrencyCent".$conf->currency);
-		if ($labelcurrencycent && $labelcurrencycent !='CurrencyCent'.$conf->currency) $handle->labelcents=$labelcurrencycent;
+		$labelcurrencycent=$langs->transnoentitiesnoconv("Currency".ucfirst($handle->labelcents).$conf->currency);
+		if ($labelcurrencycent && $labelcurrencycent !='Currency'.ucfirst($handle->labelcents).$conf->currency) $handle->labelcents=$labelcurrencycent;
 	}
 
 	// Call method of object handle to make convertion
