@@ -527,7 +527,6 @@ if ($socid > 0)
      */
     if ($action == 'presend')
     {
-        $filename=basename(GETPOST('urlfile'));
         $fullpathfile=$upload_dir . '/' . GETPOST('urlfile');
 
         $withtolist=array();
@@ -592,7 +591,7 @@ if ($socid > 0)
         if (GETPOST("mode")=='init')
         {
             $formmail->clear_attached_files();
-            $formmail->add_attached_files($fullpathfile,$filename,dol_mimetype($filename));
+            $formmail->add_attached_files($fullpathfile,basename($fullpathfile),dol_mimetype($fullpathfile));
         }
 
         $formmail->show_form();
