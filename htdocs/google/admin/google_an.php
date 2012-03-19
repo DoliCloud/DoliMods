@@ -6,7 +6,6 @@
  *	    \file       htdocs/google/admin/google_an.php
  *      \ingroup    google
  *      \brief      Setup page for google module (Analytics)
- *		\version    $Id: google_an.php,v 1.5 2011/07/18 21:46:59 eldy Exp $
  */
 
 define('NOCSRFCHECK',1);
@@ -121,7 +120,7 @@ dol_fiche_end();
 
 dol_htmloutput_mesg($mesg);
 
-llxFooter('$Date: 2011/07/18 21:46:59 $ - $Revision: 1.5 $');
+llxFooter();
 
 $db->close();
 ?>

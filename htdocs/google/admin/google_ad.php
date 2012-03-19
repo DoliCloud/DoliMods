@@ -6,7 +6,6 @@
  *	    \file       htdocs/google/admin/google_ad.php
  *      \ingroup    google
  *      \brief      Setup page for google module (AdSense)
- *		\version    $Id: google_ad.php,v 1.4 2011/07/18 21:46:59 eldy Exp $
  */
 
 define('NOCSRFCHECK',1);

@@ -6,7 +6,6 @@
  *	    \file       htdocs/google/admin/google.php
  *      \ingroup    google
  *      \brief      Setup page for google module (Calendar)
- *		\version    $Id: google.php,v 1.11 2011/07/18 21:46:59 eldy Exp $
  */
 
 define('NOCSRFCHECK',1);

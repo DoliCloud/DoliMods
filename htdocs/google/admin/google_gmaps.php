@@ -6,7 +6,6 @@
  *	    \file       htdocs/google/admin/google_gmaps.php
  *      \ingroup    google
  *      \brief      Setup page for google module (GMaps)
- *		\version    $Id: google_gmaps.php,v 1.7 2011/07/18 21:46:59 eldy Exp $
  */
 
 define('NOCSRFCHECK',1);
@@ -142,5 +141,5 @@ $message='';
 
 $db->close();
 
-llxFooter('$Date: 2011/07/18 21:46:59 $ - $Revision: 1.7 $');
+llxFooter();
 ?>
