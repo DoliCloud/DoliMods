@@ -573,6 +573,9 @@ class Patient extends Societe
         $sql .= ', te.code as typent_code';
         $sql .= ', sa.note_antemed, sa.note_antechirgen, sa.note_antechirortho, sa.note_anterhum, sa.note_other';
         $sql .= ', sa.note_traitclass, sa.note_traitallergie, sa.note_traitintol, sa.note_traitspec';
+        $sql .= ', sa.alert_antemed, sa.alert_antechirgen, sa.alert_antechirortho, sa.alert_anterhum, sa.alert_other';
+        $sql .= ', sa.alert_traitclass, sa.alert_traitallergie, sa.alert_traitintol, sa.alert_traitspec';
+        $sql .= ', sa.alert_note';
         $sql .= ' FROM '.MAIN_DB_PREFIX.'societe as s';
         $sql .= ' LEFT JOIN '.MAIN_DB_PREFIX.'cabinetmed_patient as sa ON sa.rowid = s.rowid';
         $sql .= ' LEFT JOIN '.MAIN_DB_PREFIX.'c_effectif as e ON s.fk_effectif = e.id';
@@ -711,6 +714,18 @@ class Patient extends Societe
                 $this->note_traitallergie = $obj->note_traitallergie;
                 $this->note_traitintol = $obj->note_traitintol;
                 $this->note_traitspec = $obj->note_traitspec;
+
+                $this->alert_antemed = $obj->alert_antemed;
+                $this->alert_antechirgen = $obj->alert_antechirgen;
+                $this->alert_antechirortho = $obj->alert_antechirortho;
+                $this->alert_anterhum = $obj->alert_anterhum;
+                $this->alert_other = $obj->alert_other;
+                $this->alert_traitclass = $obj->alert_traitclass;
+                $this->alert_traitallergie = $obj->alert_traitallergie;
+                $this->alert_traitintol = $obj->alert_traitintol;
+                $this->alert_traitspec = $obj->alert_traitspec;
+                $this->alert_note = $obj->alert_note;
+
 
                 $result = 1;
             }

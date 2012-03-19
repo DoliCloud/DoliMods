@@ -156,7 +156,9 @@ if ($socid > 0)
 
 
     // Spec
-    print '<tr height="80"><td valign="top">'.$langs->trans("SpecPharma").'</td>';
+    print '<tr height="80"><td valign="top">'.$langs->trans("SpecPharma");
+    print '<br><input type="checkbox" name="alert_traitspec"'.($societe->alert_traitspec?" checked":"").'"> '.$langs->trans("Alert");
+    print '</td>';
     print '<td valign="top">';
     if ($action == 'edit' && $user->rights->societe->creer)
     {
@@ -196,7 +198,9 @@ if ($socid > 0)
 
 
     // Intolerances
-    print '<tr height="80"><td valign="top">'.$langs->trans("Intolerances").'</td>';
+    print '<tr height="80"><td valign="top">'.$langs->trans("Intolerances");
+    print '<br><input type="checkbox" name="alert_traitintol"'.($societe->alert_traitintol?" checked":"").'"> '.$langs->trans("Alert");
+    print '</td>';
     print '<td valign="top">';
     if ($action == 'edit' && $user->rights->societe->creer)
     {

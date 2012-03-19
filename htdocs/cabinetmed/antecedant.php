@@ -155,7 +155,9 @@ if ($socid > 0)
     $conf->fckeditor->enabled=false;
     $height=120;
 
-    print '<tr height="80"><td valign="top">'.$langs->trans("AntecedentsMed").'</td>';
+    print '<tr height="80"><td valign="top">'.$langs->trans("AntecedentsMed");
+    print '<br><input type="checkbox" name="alert_antemed"'.($societe->alert_antemed?" checked":"").'"> '.$langs->trans("Alert");
+    print '</td>';
     print '<td valign="top">';
     if ($action == 'edit' && $user->rights->societe->creer)
     {
@@ -172,7 +174,9 @@ if ($socid > 0)
     }
     print "</td></tr>";
 
-    print '<tr height="80"><td valign="top">'.$langs->trans("AntecedentsChirGene").'</td>';
+    print '<tr height="80"><td valign="top">'.$langs->trans("AntecedentsChirGene");
+    print '<br><input type="checkbox" name="alert_antechirgen"'.($societe->alert_antechirgen?" checked":"").'"> '.$langs->trans("Alert");
+    print '</td>';
     print '<td valign="top">';
     if ($action == 'edit' && $user->rights->societe->creer)
     {
@@ -189,7 +193,9 @@ if ($socid > 0)
     }
     print "</td></tr>";
 
-    print '<tr height="80"><td valign="top">'.$langs->trans("AntecedentsChirOrtho").'</td>';
+    print '<tr height="80"><td valign="top">'.$langs->trans("AntecedentsChirOrtho");
+    print '<br><input type="checkbox" name="alert_antechirortho"'.($societe->alert_antechirortho?" checked":"").'"> '.$langs->trans("Alert");
+    print '</td>';
     print '<td valign="top">';
     if ($action == 'edit' && $user->rights->societe->creer)
     {
@@ -206,7 +212,9 @@ if ($socid > 0)
     }
     print "</td></tr>";
 
-    print '<tr height="80"><td valign="top">'.$langs->trans("AntecedentsRhumato").'</td>';
+    print '<tr height="80"><td valign="top">'.$langs->trans("AntecedentsRhumato");
+    print '<br><input type="checkbox" name="alert_anterhum"'.($societe->alert_anterhum?" checked":"").'"> '.$langs->trans("Alert");
+    print '</td>';
     print '<td valign="top">';
     if ($action == 'edit' && $user->rights->societe->creer)
     {
@@ -243,7 +251,9 @@ if ($socid > 0)
     */
 
 
-    print '<tr height="80"><td valign="top">'.$langs->trans("Allergies").'</td>';
+    print '<tr height="80"><td valign="top">'.$langs->trans("Allergies");
+    print '<br><input type="checkbox" name="alert_traitallergie"'.($societe->alert_traitallergie?" checked":"").'"> '.$langs->trans("Alert");
+    print '</td>';
     print '<td valign="top">';
     if ($action == 'edit' && $user->rights->societe->creer)
     {
