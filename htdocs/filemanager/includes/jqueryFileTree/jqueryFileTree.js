@@ -60,7 +60,8 @@ if(jQuery) (function($){
 				}
 				
 				function bindTree(t) {
-					$(t).find('LI A').bind(o.folderEvent, function() {
+					/* DOL_CHANGE Replace LI A by LI A.jqft */
+					$(t).find('LI A.jqft').bind(o.folderEvent, function() {
 						if( $(this).parent().hasClass('directory') ) {
 							if( $(this).parent().hasClass('collapsed') ) {
 								// Expand
@@ -82,7 +83,8 @@ if(jQuery) (function($){
 						return false;
 					});
 					// Prevent A from triggering the # on non-click events
-					if( o.folderEvent.toLowerCase != 'click' ) $(t).find('LI A').bind('click', function() { return false; });
+					/* DOL_CHANGE Replace LI A by LI A.jqft */
+					if( o.folderEvent.toLowerCase != 'click' ) $(t).find('LI A.jqft').bind('click', function() { return false; });
 				}
 				// Loading message
 				$(this).html('<ul class="jqueryFileTree start"><li class="wait">' + o.loadMessage + '<li></ul>');

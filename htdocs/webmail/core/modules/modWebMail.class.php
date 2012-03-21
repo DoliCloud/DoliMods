@@ -55,13 +55,23 @@ class modWebMail extends DolibarrModules
 		// If file is in theme/yourtheme/img directory under name object_pictovalue.png, use this->picto='pictovalue'
 		$this->picto='email';
 
+		// Defined all module parts (triggers, login, substitutions, menus, css, etc...)
+		// for default path (eg: /mymodule/core/xxxxx) (0=disable, 1=enable)
+		// for specific path of parts (eg: /mymodule/core/modules/barcode)
+		// for specific css file (eg: /mymodule/css/mymodule.css.php)
+		$this->module_parts = array(
+		//                        	'triggers' => 0,                                 // Set this to 1 if module has its own trigger directory
+		//							'login' => 0,                                    // Set this to 1 if module has its own login method directory
+		//							'substitutions' => 0,                            // Set this to 1 if module has its own substitution function file
+		//							'menus' => 0,                                    // Set this to 1 if module has its own menus handler directory
+		//							'barcode' => 0,                                  // Set this to 1 if module has its own barcode directory
+		//							'models' => 0,                                   // Set this to 1 if module has its own models directory
+									'css' => '/webmail/css/webmail.css.php',         // Set this to relative path of css if module has its own css file
+		//							'hooks' => array('hookcontext1','hookcontext2')  // Set here all hooks context managed by module
+		);
+
 		// Data directories to create when module is enabled
 		$this->dirs = array();
-		//$this->dirs[0] = DOL_DATA_ROOT.'/mymodule;
-		//$this->dirs[1] = DOL_DATA_ROOT.'/mymodule/temp;
-
-		// Relative path to module style sheet if exists
-		$this->style_sheet = '/webmail/css/webmail.css.php';
 
 		// Config pages. Put here list of php page names stored in admmin directory used to setup module
 		$this->config_page_url = array('webmail.php@webmail');

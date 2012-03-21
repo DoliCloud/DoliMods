@@ -85,7 +85,7 @@ if( file_exists($selecteddir) )
     		// All dirs
     		foreach( $files as $file ) {
     			if( file_exists($selecteddir . $file) && $file != '.' && $file != '..' && is_dir($selecteddir . $file) ) {
-    				print "<li class=\"directory collapsed\"><a class=\"fmdirlia\" href=\"#\" rel=\"" . dol_escape_htmltag($selecteddir . $file . '/') . "\"";
+    				print "<li class=\"directory collapsed\"><a class=\"fmdirlia jqft\" href=\"#\" rel=\"" . dol_escape_htmltag($selecteddir . $file . '/') . "\"";
     				print " onClick=\"loadandshowpreview('".dol_escape_js($selecteddir . $file)."')\"";
     				print ">" . dol_escape_htmltag($file) . "</a></li>"."\n";
     			}
@@ -95,7 +95,7 @@ if( file_exists($selecteddir) )
     			if( file_exists($selecteddir . $file) && $file != '.' && $file != '..' && !is_dir($selecteddir . $file) ) {
     				$ext = preg_replace('/^.*\./', '', $file);
     				print "<li class=\"file ext_".$ext."\">";
-    				print "<a class=\"fmfilelia\" href=\"#\" rel=\"" . dol_escape_htmltag($selecteddir . $file) . "\">" . dol_escape_htmltag($file) . "</a>";
+    				print "<a class=\"fmfilelia jqft\" href=\"#\" rel=\"" . dol_escape_htmltag($selecteddir . $file) . "\">" . dol_escape_htmltag($file) . "</a>";
     				print "</li>"."\n";
     			}
     		}

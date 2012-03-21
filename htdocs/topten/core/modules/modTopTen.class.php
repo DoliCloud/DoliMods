@@ -44,13 +44,22 @@ class modTopTen extends DolibarrModules
 		// If file is in module/img directory under name object_pictovalue.png, use this->picto='pictovalue@module'
 		$this->picto='topten.png@topten';
 
-		$this->triggers = 0;
+		// Defined all module parts (triggers, login, substitutions, menus, css, etc...)
+		// for default path (eg: /mymodule/core/xxxxx) (0=disable, 1=enable)
+		// for specific path of parts (eg: /mymodule/core/modules/barcode)
+		// for specific css file (eg: /mymodule/css/mymodule.css.php)
+		$this->module_parts = array(
+		//                        	'triggers' => 0,                                 // Set this to 1 if module has its own trigger directory
+		//							'login' => 0,                                    // Set this to 1 if module has its own login method directory
+		//							'substitutions' => 0,                            // Set this to 1 if module has its own substitution function file
+		//							'menus' => 0,                                    // Set this to 1 if module has its own menus handler directory
+		//							'barcode' => 0,                                  // Set this to 1 if module has its own barcode directory
+		//							'models' => 0,                                   // Set this to 1 if module has its own models directory
+									'css' => '/topten/css/topten.css',               // Set this to relative path of css if module has its own css file
+		//							'hooks' => array('hookcontext1','hookcontext2')  // Set here all hooks context managed by module
+        );
 
 		$this->dirs = array("/topten/factura","/topten/cliente","/topten/producto");
-		$r=0;
-
-		// Relative path to module style sheet if exists. Example: '/mymodule/css/mycss.css'.
-		$this->style_sheet = '/topten/css/topten.css';
 
 		// Config pages. Put here list of php page names stored in admmin directory used to setup module.
 		//"regaliasconfiguracion.php@regalias"
