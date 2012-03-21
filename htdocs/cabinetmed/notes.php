@@ -33,6 +33,7 @@ if (! $res && file_exists("../../../../../dolibarr/htdocs/main.inc.php")) $res=@
 if (! $res) die("Include of main fails");
 include_once(DOL_DOCUMENT_ROOT."/core/lib/company.lib.php");
 include_once("./class/patient.class.php");
+include_once("./lib/cabinetmed.lib.php");
 
 $langs->load("companies");
 $langs->load("cabinetmed@cabinetmed");
@@ -67,15 +68,9 @@ if ($action == 'add' && ! GETPOST('cancel'))
     }
 
     $alert_note=($_POST["alert_note"]?'1':'0');
+    $result=addAlert($db, 'alert_note', $socid, $alert_note);
 
-    $sql = "INSERT INTO ".MAIN_DB_PREFIX."cabinetmed_patient(rowid, alert_note) VALUES (".$socid.", ".$alert_note.")";
-    dol_syslog("sql=".$sql);
-    $resql = $db->query($sql,1);
-
-    $sql = "UPDATE ".MAIN_DB_PREFIX."cabinetmed_patient SET alert_note=".$alert_note." WHERE rowid=".$socid;
-    dol_syslog("sql=".$sql);
-    $resql = $db->query($sql);
-    if ($resql)
+    if ($result == '')
     {
          $object->alert_note=$alert_note;
          $mesgs[]=$langs->trans("RecordModifiedSuccessfully");
@@ -83,7 +78,7 @@ if ($action == 'add' && ! GETPOST('cancel'))
     else
     {
         $error++;
-        $errmesgs[]=$db->lasterror();
+        $errmesgs[]=$result;
     }
 
     if (! $error) $db->commit();
@@ -113,6 +108,26 @@ if ($socid > 0)
 
     dol_fiche_head($head, 'tabnotes', $langs->trans("ThirdParty"),0,'company');
 
+
+
+    print '<script type="text/javascript">
+        var changed=false;
+        jQuery(function() {
+            jQuery(window).bind(\'beforeunload\', function(){
+                /* alert(changed); */
+                if (changed) return \''.dol_escape_js($langs->transnoentitiesnoconv("WarningExitPageWithoutSaving")).'\';
+            });
+            jQuery(".flat").keydown(function (e) {
+    			changed=true;
+            });
+            jQuery("#alert_note").change(function () {
+			    changed=true;
+            });
+            jQuery(".ignorechange").click(function () {
+                changed=false;
+            });
+         });
+        </script>';
 
     print '<form method="POST" action="'.$_SERVER['PHP_SELF'].'">';
     print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
@@ -148,7 +163,7 @@ if ($socid > 0)
     }
 
     print '<tr><td valign="top">'.$langs->trans("Note");
-    print '<br><input type="checkbox" name="alert_note"'.((isset($_POST['alert_note'])?GETPOST('alert_note'):$object->alert_note)?' checked="checked"':'').'"> '.$langs->trans("Alert");
+    print '<br><input type="checkbox" id="alert_note" name="alert_note"'.((isset($_POST['alert_note'])?GETPOST('alert_note'):$object->alert_note)?' checked="checked"':'').'"> '.$langs->trans("Alert");
     print '</td>';
     print '<td valign="top">';
     if ($user->rights->societe->creer)
@@ -159,7 +174,7 @@ if ($socid > 0)
         // Editeur wysiwyg
         require_once(DOL_DOCUMENT_ROOT."/core/class/doleditor.class.php");
         $doleditor=new DolEditor('note',$object->note,'',360,'dolibarr_notes','In',true,false,$conf->global->FCKEDITOR_ENABLE_SOCIETE,20,70);
-        $doleditor->Create();
+        $doleditor->Create(0,'.on( \'saveSnapshot\', function(e) { changed=true; });');
     }
     else
     {
@@ -172,7 +187,7 @@ if ($socid > 0)
     if ($user->rights->societe->creer)
     {
         print '<center><br>';
-        print '<input type="submit" class="button" name="save" value="'.$langs->trans("Save").'">';
+        print '<input type="submit" class="button ignorechange" name="save" value="'.$langs->trans("Save").'">';
         print '</center>';
     }
 

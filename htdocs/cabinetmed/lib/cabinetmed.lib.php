@@ -24,6 +24,36 @@
 
 
 /**
+ * Add alert into database
+ *
+ * @param	DoliDB		$db			Database handler
+ * @param	string		$type		Type of alert
+ * @param	int			$id			Id of alert
+ * @param	string		$value		Value
+ * @return	string					'' if OK, error message if KO
+ */
+function addAlert($db, $type, $id, $value)
+{
+    $res='';
+
+    $sql = "INSERT INTO ".MAIN_DB_PREFIX."cabinetmed_patient(rowid, ".$type.") VALUES (".$id.", ".$value.")";
+    dol_syslog("sql=".$sql);
+    $resql1 = $db->query($sql,1);
+
+    $sql = "UPDATE ".MAIN_DB_PREFIX."cabinetmed_patient SET ".$type."=".$value." WHERE rowid=".$id;
+    dol_syslog("sql=".$sql);
+    $resql2 = $db->query($sql);
+
+    if (! $resql2)    // resql1 can fails if key already exists
+    {
+        $res = $db->lasterror();
+    }
+
+    return $res;
+}
+
+
+/**
  * List reason for consultation
  *
  * @param 	nboflines

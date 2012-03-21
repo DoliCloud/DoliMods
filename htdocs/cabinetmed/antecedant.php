@@ -34,6 +34,7 @@ if (! $res && file_exists("../../../../../dolibarr/htdocs/main.inc.php")) $res=@
 if (! $res) die("Include of main fails");
 include_once(DOL_DOCUMENT_ROOT."/core/lib/company.lib.php");
 include_once("./class/patient.class.php");
+include_once("./lib/cabinetmed.lib.php");
 
 $langs->load("companies");
 $langs->load("cabinetmed@cabinetmed");
@@ -54,10 +55,14 @@ if (!$user->rights->cabinetmed->read) accessforbidden();
  */
 if ($action == 'addupdate')
 {
+    $error=0;
+
+    $db->begin();
+
     $sql = "INSERT INTO ".MAIN_DB_PREFIX."cabinetmed_patient(rowid, note_antemed, note_antechirgen, note_antechirortho, note_anterhum, note_other, note_traitallergie)";
     $sql.= " VALUES('".$_POST["socid"]."','".addslashes($_POST["note_antemed"])."','".addslashes($_POST["note_antechirgen"])."',";
     $sql.= " '".addslashes($_POST["note_antechirortho"])."','".addslashes($_POST["note_anterhum"])."','".addslashes($_POST["note_other"])."','".addslashes($_POST["note_traitallergie"])."')";
-    $result = $db->query($sql);
+    $result1 = $db->query($sql,1);
     //if (! $result) dol_print_error($db);
 
     $sql = "UPDATE ".MAIN_DB_PREFIX."cabinetmed_patient SET";
@@ -68,9 +73,48 @@ if ($action == 'addupdate')
     //$sql.= " note_other='".addslashes($_POST["note_other"])."',";
     $sql.= " note_traitallergie='".addslashes($_POST["note_traitallergie"])."'";
     $sql.= " WHERE rowid=".$_POST["socid"];
-    $result = $db->query($sql);
-    if (! $result) dol_print_error($db);
-    else $mesg=$langs->trans("RecordModifiedSuccessfully");
+    $result2 = $db->query($sql);
+
+    $alert=($_POST["alert_antemed"]?'1':'0');
+    $result3=addAlert($db, 'alert_antemed', $socid, $alert);
+    if ($result3) {
+        $error++; $mesg=$result3;
+    }
+
+    $alert=($_POST["alert_antechirgen"]?'1':'0');
+    $result4=addAlert($db, 'alert_antechirgen', $socid, $alert);
+    if ($result4) {
+        $error++; $mesg=$result4;
+    }
+
+    $alert=($_POST["alert_antechirortho"]?'1':'0');
+    $result5=addAlert($db, 'alert_antechirortho', $socid, $alert);
+    if ($result5) {
+        $error++; $mesg=$result5;
+    }
+
+    $alert=($_POST["alert_anterhum"]?'1':'0');
+    $result6=addAlert($db, 'alert_anterhum', $socid, $alert);
+    if ($result6) {
+        $error++; $mesg=$result6;
+    }
+
+    $alert=($_POST["alert_traitallergie"]?'1':'0');
+    $result7=addAlert($db, 'alert_traitallergie', $socid, $alert);
+    if ($result7) {
+        $error++; $mesg=$result7;
+    }
+
+    if ((! $result2) || $result3 || $result4 || $result5 || $result6 || $result7)
+    {
+        dol_print_error($db);
+        $db->rollback();
+    }
+    else
+    {
+        $db->commit();
+        $mesg=$langs->trans("RecordModifiedSuccessfully");
+    }
 
     $action='edit';
 }
@@ -87,20 +131,20 @@ llxHeader('',$langs->trans("ATCD"));
 
 if ($socid > 0)
 {
-    $societe = new Patient($db);
-    $res=$societe->fetch($socid);
+    $object = new Patient($db);
+    $res=$object->fetch($socid);
     if ($res < 0)
     {
-        dol_print_error($db,$societe->error);
+        dol_print_error($db,$object->error);
     }
-    $societe->id=$socid;
+    $object->id=$socid;
 
     /*
      * Affichage onglets
      */
     if ($conf->notification->enabled) $langs->load("mails");
 
-    $head = societe_prepare_head($societe);
+    $head = societe_prepare_head($object);
 
     dol_fiche_head($head, 'tabantecedents', $langs->trans("ThirdParty"),0,'company');
 
@@ -123,31 +167,31 @@ if ($socid > 0)
 
     print "<form method=\"post\" action=\"".$_SERVER["PHP_SELF"]."\">";
     print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
-    print '<input type="hidden" name="socid" value="'.$societe->id.'">';
+    print '<input type="hidden" name="socid" value="'.$object->id.'">';
     print '<input type="hidden" name="action" value="addupdate">';
 
     print '<table class="border" width="100%">';
 
     print '<tr><td width="25%">'.$langs->trans('ThirdPartyName').'</td>';
     print '<td colspan="3">';
-    print $form->showrefnav($societe,'socid','',($user->societe_id?0:1),'rowid','nom');
+    print $form->showrefnav($object,'socid','',($user->societe_id?0:1),'rowid','nom');
     print '</td></tr>';
 
-    if ($societe->client)
+    if ($object->client)
     {
         print '<tr><td>';
         print $langs->trans('CustomerCode').'</td><td colspan="3">';
-        print $societe->code_client;
-        if ($societe->check_codeclient() <> 0) print ' <font class="error">('.$langs->trans("WrongCustomerCode").')</font>';
+        print $object->code_client;
+        if ($object->check_codeclient() <> 0) print ' <font class="error">('.$langs->trans("WrongCustomerCode").')</font>';
         print '</td></tr>';
     }
 
-    if ($conf->fournisseur->enabled && $societe->fournisseur)
+    if ($conf->fournisseur->enabled && $object->fournisseur)
     {
         print '<tr><td>';
         print $langs->trans('SupplierCode').'</td><td colspan="3">';
-        print $societe->code_fournisseur;
-        if ($societe->check_codefournisseur() <> 0) print ' <font class="error">('.$langs->trans("WrongSupplierCode").')</font>';
+        print $object->code_fournisseur;
+        if ($object->check_codefournisseur() <> 0) print ' <font class="error">('.$langs->trans("WrongSupplierCode").')</font>';
         print '</td></tr>';
     }
 
@@ -156,78 +200,78 @@ if ($socid > 0)
     $height=120;
 
     print '<tr height="80"><td valign="top">'.$langs->trans("AntecedentsMed");
-    print '<br><input type="checkbox" name="alert_antemed"'.($societe->alert_antemed?" checked":"").'"> '.$langs->trans("Alert");
+    print '<br><input type="checkbox" name="alert_antemed"'.((isset($_POST['alert_antemed'])?GETPOST('alert_antemed'):$object->alert_antemed)?' checked="checked"':'').'"> '.$langs->trans("Alert");
     print '</td>';
     print '<td valign="top">';
     if ($action == 'edit' && $user->rights->societe->creer)
     {
-        print "<input type=\"hidden\" name=\"socid\" value=\"".$societe->id."\">";
+        print "<input type=\"hidden\" name=\"socid\" value=\"".$object->id."\">";
 
         // Editeur wysiwyg
         require_once(DOL_DOCUMENT_ROOT."/core/class/doleditor.class.php");
-        $doleditor=new DolEditor('note_antemed',$societe->note_antemed,0,$height,'dolibarr_notes','In',false,false,$conf->fckeditor->enabled && $conf->global->FCKEDITOR_ENABLE_SOCIETE,6,70);
+        $doleditor=new DolEditor('note_antemed',$object->note_antemed,0,$height,'dolibarr_notes','In',false,false,$conf->fckeditor->enabled && $conf->global->FCKEDITOR_ENABLE_SOCIETE,6,70);
         $doleditor->Create();
     }
     else
     {
-        print nl2br($societe->note_antemed);
+        print nl2br($object->note_antemed);
     }
     print "</td></tr>";
 
     print '<tr height="80"><td valign="top">'.$langs->trans("AntecedentsChirGene");
-    print '<br><input type="checkbox" name="alert_antechirgen"'.($societe->alert_antechirgen?" checked":"").'"> '.$langs->trans("Alert");
+    print '<br><input type="checkbox" name="alert_antechirgen"'.((isset($_POST['alert_antechirgen'])?GETPOST('alert_antechirgen'):$object->alert_antemed)?' checked="checked"':'').'"> '.$langs->trans("Alert");
     print '</td>';
     print '<td valign="top">';
     if ($action == 'edit' && $user->rights->societe->creer)
     {
-        print "<input type=\"hidden\" name=\"socid\" value=\"".$societe->id."\">";
+        print "<input type=\"hidden\" name=\"socid\" value=\"".$object->id."\">";
 
         // Editeur wysiwyg
         require_once(DOL_DOCUMENT_ROOT."/core/class/doleditor.class.php");
-        $doleditor=new DolEditor('note_antechirgen',$societe->note_antechirgen,0,$height,'dolibarr_notes','In',false,false,$conf->fckeditor->enabled && $conf->global->FCKEDITOR_ENABLE_SOCIETE,6,70);
+        $doleditor=new DolEditor('note_antechirgen',$object->note_antechirgen,0,$height,'dolibarr_notes','In',false,false,$conf->fckeditor->enabled && $conf->global->FCKEDITOR_ENABLE_SOCIETE,6,70);
         $doleditor->Create();
     }
     else
     {
-        print nl2br($societe->note_antechirgen);
+        print nl2br($object->note_antechirgen);
     }
     print "</td></tr>";
 
     print '<tr height="80"><td valign="top">'.$langs->trans("AntecedentsChirOrtho");
-    print '<br><input type="checkbox" name="alert_antechirortho"'.($societe->alert_antechirortho?" checked":"").'"> '.$langs->trans("Alert");
+    print '<br><input type="checkbox" name="alert_antechirortho"'.((isset($_POST['alert_antechirortho'])?GETPOST('alert_antechirortho'):$object->alert_antechirortho)?' checked="checked"':'').'"> '.$langs->trans("Alert");
     print '</td>';
     print '<td valign="top">';
     if ($action == 'edit' && $user->rights->societe->creer)
     {
-        print "<input type=\"hidden\" name=\"socid\" value=\"".$societe->id."\">";
+        print "<input type=\"hidden\" name=\"socid\" value=\"".$object->id."\">";
 
         // Editeur wysiwyg
         require_once(DOL_DOCUMENT_ROOT."/core/class/doleditor.class.php");
-        $doleditor=new DolEditor('note_antechirortho',$societe->note_antechirortho,0,$height,'dolibarr_notes','In',false,false,$conf->fckeditor->enabled && $conf->global->FCKEDITOR_ENABLE_SOCIETE,6,70);
+        $doleditor=new DolEditor('note_antechirortho',$object->note_antechirortho,0,$height,'dolibarr_notes','In',false,false,$conf->fckeditor->enabled && $conf->global->FCKEDITOR_ENABLE_SOCIETE,6,70);
         $doleditor->Create();
     }
     else
     {
-        print nl2br($societe->note_antechirortho);
+        print nl2br($object->note_antechirortho);
     }
     print "</td></tr>";
 
     print '<tr height="80"><td valign="top">'.$langs->trans("AntecedentsRhumato");
-    print '<br><input type="checkbox" name="alert_anterhum"'.($societe->alert_anterhum?" checked":"").'"> '.$langs->trans("Alert");
+    print '<br><input type="checkbox" name="alert_anterhum"'.((isset($_POST['alert_anterhum'])?GETPOST('alert_anterhum'):$object->alert_anterhum)?' checked="checked"':'').'"> '.$langs->trans("Alert");
     print '</td>';
     print '<td valign="top">';
     if ($action == 'edit' && $user->rights->societe->creer)
     {
-        print "<input type=\"hidden\" name=\"socid\" value=\"".$societe->id."\">";
+        print "<input type=\"hidden\" name=\"socid\" value=\"".$object->id."\">";
 
         // Editeur wysiwyg
         require_once(DOL_DOCUMENT_ROOT."/core/class/doleditor.class.php");
-        $doleditor=new DolEditor('note_anterhum',$societe->note_anterhum,0,$height,'dolibarr_notes','In',false,false,$conf->fckeditor->enabled && $conf->global->FCKEDITOR_ENABLE_SOCIETE,6,70);
+        $doleditor=new DolEditor('note_anterhum',$object->note_anterhum,0,$height,'dolibarr_notes','In',false,false,$conf->fckeditor->enabled && $conf->global->FCKEDITOR_ENABLE_SOCIETE,6,70);
         $doleditor->Create();
     }
     else
     {
-        print nl2br($societe->note_anterhum);
+        print nl2br($object->note_anterhum);
     }
     print "</td></tr>";
 
@@ -236,37 +280,37 @@ if ($socid > 0)
     print '<td valign="top">';
     if ($action == 'edit' && $user->rights->societe->creer)
     {
-        print "<input type=\"hidden\" name=\"socid\" value=\"".$societe->id."\">";
+        print "<input type=\"hidden\" name=\"socid\" value=\"".$object->id."\">";
 
         // Editeur wysiwyg
         require_once(DOL_DOCUMENT_ROOT."/core/class/doleditor.class.php");
-        $doleditor=new DolEditor('note_other',$societe->note_other,0,$height,'dolibarr_notes','In',false,false,$conf->fckeditor->enabled && $conf->global->FCKEDITOR_ENABLE_SOCIETE,6,70);
+        $doleditor=new DolEditor('note_other',$object->note_other,0,$height,'dolibarr_notes','In',false,false,$conf->fckeditor->enabled && $conf->global->FCKEDITOR_ENABLE_SOCIETE,6,70);
         $doleditor->Create();
     }
     else
     {
-        print nl2br($societe->note_other);
+        print nl2br($object->note_other);
     }
     print "</td></tr>";
     */
 
 
     print '<tr height="80"><td valign="top">'.$langs->trans("Allergies");
-    print '<br><input type="checkbox" name="alert_traitallergie"'.($societe->alert_traitallergie?" checked":"").'"> '.$langs->trans("Alert");
+    print '<br><input type="checkbox" name="alert_traitallergie"'.((isset($_POST['alert_traitallergie'])?GETPOST('alert_traitallergie'):$object->alert_traitallergie)?' checked="checked"':'').'""> '.$langs->trans("Alert");
     print '</td>';
     print '<td valign="top">';
     if ($action == 'edit' && $user->rights->societe->creer)
     {
-        print "<input type=\"hidden\" name=\"socid\" value=\"".$societe->id."\">";
+        print "<input type=\"hidden\" name=\"socid\" value=\"".$object->id."\">";
 
         // Editeur wysiwyg
         require_once(DOL_DOCUMENT_ROOT."/core/class/doleditor.class.php");
-        $doleditor=new DolEditor('note_traitallergie',$societe->note_traitallergie,0,$height,'dolibarr_notes','In',false,false,$conf->fckeditor->enabled && $conf->global->FCKEDITOR_ENABLE_SOCIETE,6,70);
+        $doleditor=new DolEditor('note_traitallergie',$object->note_traitallergie,0,$height,'dolibarr_notes','In',false,false,$conf->fckeditor->enabled && $conf->global->FCKEDITOR_ENABLE_SOCIETE,6,70);
         $doleditor->Create();
     }
     else
     {
-        print nl2br($societe->note_traitallergie);
+        print nl2br($object->note_traitallergie);
     }
     print "</td></tr>";
 
@@ -293,7 +337,7 @@ if ($action == '')
 
     if ($user->rights->societe->creer)
     {
-        print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?socid='.$societe->id.'&amp;action=edit">'.$langs->trans("Modify").'</a>';
+        print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?socid='.$object->id.'&amp;action=edit">'.$langs->trans("Modify").'</a>';
     }
 
     print '</div>';
