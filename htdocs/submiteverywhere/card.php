@@ -59,7 +59,9 @@ $substitutionarray=array(
 '__OTHER2__' => 'Other2',
 '__OTHER3__' => 'Other3',
 '__OTHER4__' => 'Other4',
-'__OTHER5__' => 'Other5'
+'__OTHER5__' => 'Other5',
+'__SIGNATURE__'=>'Signature',
+'__PERSONALIZED__'=>'Personalized'
 );
 $substitutionarrayfortest=array(
 '__ID__' => 'TESTIdRecord',
@@ -70,7 +72,9 @@ $substitutionarrayfortest=array(
 '__OTHER2__' => 'TESTOther2',
 '__OTHER3__' => 'TESTOther3',
 '__OTHER4__' => 'TESTOther4',
-'__OTHER5__' => 'TESTOther5'
+'__OTHER5__' => 'TESTOther5',
+'__SIGNATURE__'=>'TESTSignature',
+'__PERSONALIZED__'=>'TESTPersonalized'
 );
 
 
