@@ -64,19 +64,39 @@ class ActionsConcatPdf
         $out.='<td align="left" colspan="4" valign="top" class="formdoc">';
         $out.=$langs->trans("ConcatFile").' ';
 
-        $filescgv='';
-        if ($parameters['modulepart'] == 'propal') $filescgv=glob($conf->concatpdf->dir_output."/proposals/*.pdf");
-        if ($parameters['modulepart'] == 'order'   || $parameters['modulepart'] == 'commande') $filescgv=glob($conf->concatpdf->dir_output."/orders/*.pdf");
-        if ($parameters['modulepart'] == 'invoice' || $parameters['modulepart'] == 'facture')  $filescgv=glob($conf->concatpdf->dir_output."/invoices/*.pdf");
-
-        if ($filescgv)
+        $morefiles=array();
+        
+        if ($parameters['modulepart'] == 'propal')
         {
-            foreach ($filescgv as $cgvfilename)
+        	$staticpdf=glob($conf->concatpdf->dir_output."/proposals/*.pdf");
+        	$modelpdf=glob($conf->concatpdf->dir_output."/proposals/pdf_*.modules.php");
+        }
+        if ($parameters['modulepart'] == 'order'   || $parameters['modulepart'] == 'commande')
+        {
+        	$staticpdf=glob($conf->concatpdf->dir_output."/orders/*.pdf");
+        	$modelpdf=glob($conf->concatpdf->dir_output."/orders/pdf_*.modules.php");
+        }
+        if ($parameters['modulepart'] == 'invoice' || $parameters['modulepart'] == 'facture')
+        {
+        	$staticpdf=glob($conf->concatpdf->dir_output."/invoices/*.pdf");
+        	$modelpdf=glob($conf->concatpdf->dir_output."/invoices/pdf_*.modules.php");
+        }
+
+        if (! empty($staticpdf))
+        {
+            foreach ($staticpdf as $filename)
             {
-                $morefiles[] = basename($cgvfilename, ".pdf");
+            	$morefiles[] = basename($filename, ".pdf");
             }
         }
-        if (count($morefiles) > 0)
+        if (! empty($modelpdf))
+        {
+        	foreach ($modelpdf as $filename)
+        	{
+        		$morefiles[] = basename($filename, ".php");
+        	}
+        }
+        if (! empty($morefiles))
         {
             $out.= $htmlform->selectarray('concatpdffile',$morefiles,(GETPOST('concatpdffile')?GETPOST('concatpdffile'):-1),1,0,1);
         }
@@ -99,22 +119,51 @@ class ActionsConcatPdf
     function afterPDFCreation($parameters,&$object,&$action)
     {
         global $langs,$conf;
+        global $hookmanager;
 
         $outputlangs=$langs;
 
-        $ret=0;
+        $ret=0; $deltemp=0;
         dol_syslog(get_class($this).'::executeHooks action='.$action);
+        
+        $concatpdffile = GETPOST('concatpdffile');
+        
+        $element='';
+        if ($parameters['object']->element == 'propal')  $element='proposals';
+        if ($parameters['object']->element == 'order'   || $parameters['object']->element == 'commande') $element='orders';
+        if ($parameters['object']->element == 'invoice' || $parameters['object']->element == 'facture')  $element='invoices';
 
         $filetoconcat1=$parameters['file'];
         $filetoconcat2='';
         //var_dump($parameters['object']->element); exit;
-        if ($parameters['object']->element == 'propal')  $filetoconcat2=$conf->concatpdf->dir_output.'/proposals/'.GETPOST('concatpdffile').'.pdf';
-        if ($parameters['object']->element == 'order'   || $parameters['object']->element == 'commande') $filetoconcat2=$conf->concatpdf->dir_output.'/orders/'.GETPOST('concatpdffile').'.pdf';
-        if ($parameters['object']->element == 'invoice' || $parameters['object']->element == 'facture')  $filetoconcat2=$conf->concatpdf->dir_output.'/invoices/'.GETPOST('concatpdffile').'.pdf';
-
+        if (preg_match('/^pdf_(.*)+\.modules/', $concatpdffile))
+        {
+        	require_once(DOL_DOCUMENT_ROOT."/core/lib/files.lib.php");
+        	
+        	$file = $conf->concatpdf->dir_output.'/'.$element.'/'.$concatpdffile.'.php';
+        	$classname = str_replace('.modules', '', $concatpdffile);
+        	require_once($file);
+        	$obj = new $classname($db);
+        	
+        	// We save charset_output to restore it because write_file can change it if needed for
+        	// output format that does not support UTF8.
+        	$sav_charset_output=$outputlangs->charset_output;
+        	$obj->write_file($parameters['object'], $outputlangs, $srctemplatepath, $hidedetails, $hidedesc, $hideref, $hookmanager);
+        	$outputlangs->charset_output=$sav_charset_output;
+        	
+        	$objectref = dol_sanitizeFileName($parameters['object']->ref);
+        	$dir = $conf->concatpdf->dir_temp . "/" . $objectref;
+        	$filetoconcat2 = $dir . "/" . $objectref . ".pdf";
+        	$deltemp++;
+        }
+        else
+        {
+        	$filetoconcat2=$conf->concatpdf->dir_output.'/'.$element.'/'.$concatpdffile.'.pdf';
+        }
+        
         dol_syslog(get_class($this).'::afterPDFCreation '.$filetoconcat1.' - '.$filetoconcat2);
 
-        if ($filetoconcat2 && GETPOST('concatpdffile') && GETPOST('concatpdffile') != '-1')
+        if ($filetoconcat2 && ! empty($concatpdffile) && $concatpdffile != '-1')
         {
             // Create empty PDF
             $pdf=pdf_getInstance();
@@ -152,7 +201,14 @@ class ActionsConcatPdf
             {
                 $pdf->Output($filetoconcat1,'F');
                 if (! empty($conf->global->MAIN_UMASK))
-            				@chmod($file, octdec($conf->global->MAIN_UMASK));
+                {
+                	@chmod($file, octdec($conf->global->MAIN_UMASK));
+                }
+                if ($deltemp)
+                {
+                	// Delete temp file
+                	dol_delete_dir_recursive($dir);
+                }
             }
         }
 
