@@ -148,12 +148,17 @@ class ActionsConcatPdf
         	// We save charset_output to restore it because write_file can change it if needed for
         	// output format that does not support UTF8.
         	$sav_charset_output=$outputlangs->charset_output;
+        	// Change the output dir
+        	$srctemplatepath = $conf->concatpdf->dir_temp;
+        	// Generate pdf
         	$obj->write_file($parameters['object'], $outputlangs, $srctemplatepath, $hidedetails, $hidedesc, $hideref, $hookmanager);
+        	// Restore charset output
         	$outputlangs->charset_output=$sav_charset_output;
         	
         	$objectref = dol_sanitizeFileName($parameters['object']->ref);
         	$dir = $conf->concatpdf->dir_temp . "/" . $objectref;
         	$filetoconcat2 = $dir . "/" . $objectref . ".pdf";
+        	
         	$deltemp++;
         }
         else
