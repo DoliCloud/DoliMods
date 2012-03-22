@@ -1,0 +1,10 @@
+ALTER TABLE llx_cabinetmed_patient ADD COLUMN alert_antemed       smallint;
+ALTER TABLE llx_cabinetmed_patient ADD COLUMN alert_antechirgen   smallint;
+ALTER TABLE llx_cabinetmed_patient ADD COLUMN alert_antechirortho smallint;
+ALTER TABLE llx_cabinetmed_patient ADD COLUMN alert_anterhum      smallint;
+ALTER TABLE llx_cabinetmed_patient ADD COLUMN alert_other         smallint;
+ALTER TABLE llx_cabinetmed_patient ADD COLUMN alert_traitclass    smallint;
+ALTER TABLE llx_cabinetmed_patient ADD COLUMN alert_traitallergie smallint;
+ALTER TABLE llx_cabinetmed_patient ADD COLUMN alert_traitintol    smallint;
+ALTER TABLE llx_cabinetmed_patient ADD COLUMN alert_traitspec     smallint;
+ALTER TABLE llx_cabinetmed_patient ADD COLUMN alert_note          smallint;

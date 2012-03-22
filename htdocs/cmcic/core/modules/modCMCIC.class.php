@@ -79,9 +79,6 @@ class modCMCIC extends DolibarrModules
 		// Example: this->dirs = array("/mymodule/temp");
 		$this->dirs = array();
 
-		// Relative path to module style sheet if exists. Example: '/mymodule/css/mycss.css'.
-		//$this->style_sheet = '/mymodule/mymodule.css.php';
-
 		// Config pages. Put here list of php page names stored in admmin directory used to setup module.
 		$this->config_page_url = array("cmcic_config.php@cmcic");
 

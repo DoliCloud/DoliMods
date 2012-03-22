@@ -58,12 +58,9 @@ if (! $user->rights->filemanager->read)
 }
 
 
-
-/*******************************************************************
-* ACTIONS
-*
-* Put here all code to do according to value of "action" parameter
-********************************************************************/
+/*
+ * Actions
+ */
 
 if (GETPOST('action')=='deletefile')
 {
@@ -121,12 +118,10 @@ if (GETPOST('action')=='deletedir')
 
 
 
+/*
+ * view
+ */
 
-/***************************************************
-* PAGE
-*
-* Put here all code to build page
-****************************************************/
 $maxheightwin=(isset($_SESSION["dol_screenheight"]) && $_SESSION["dol_screenheight"] > 500)?($_SESSION["dol_screenheight"]-166):660;
 
 $morejs=array(

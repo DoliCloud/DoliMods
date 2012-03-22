@@ -81,8 +81,8 @@ class modCabinetMed extends DolibarrModules
         $this->module_parts = array('triggers' => 1,
         							'substitutions' => 1,
         							'menus' => 1,
-        							'css' => '/cabinetmed/css/styles.css.php',
-        							'hooks' => array('thirdpartycard','contactcard'));
+        							'css' => 0,    // No new theme, only a forced dir
+        							'hooks' => array('thirdpartycard','contactcard','documentcabinetmed'));
 
         // Dependencies
         $this->depends = array('modSociete');       // List of modules id that must be enabled if this module is enabled
@@ -124,13 +124,15 @@ class modCabinetMed extends DolibarrModules
         $this->tabs = array('thirdparty:+tabcontacts:Correspondants:cabinetmed@cabinetmed:/cabinetmed/contact.php?socid=__ID__',
                             'thirdparty:+tabantecedents:AntecedentsShort:cabinetmed@cabinetmed:/cabinetmed/antecedant.php?socid=__ID__',
                             'thirdparty:+tabtraitetallergies:TraitEtAllergies:cabinetmed@cabinetmed:/cabinetmed/traitetallergies.php?socid=__ID__',
-                            'thirdparty:+tabconsultations:ConsultationsShort:cabinetmed@cabinetmed:/cabinetmed/consultations.php?socid=__ID__',
+                            'thirdparty:+tabnotes:Notes:cabinetmed@cabinetmed:/cabinetmed/notes.php?socid=__ID__',
+        					'thirdparty:+tabconsultations:ConsultationsShort:cabinetmed@cabinetmed:/cabinetmed/consultations.php?socid=__ID__',
                             'thirdparty:+tabexambio:ResultExamBio:cabinetmed@cabinetmed:/cabinetmed/exambio.php?socid=__ID__',
                             'thirdparty:+tabexamautre:ResultExamAutre:cabinetmed@cabinetmed:/cabinetmed/examautre.php?socid=__ID__',
                             'thirdparty:+tabdocument:Courriers:cabinetmed@cabinetmed:/cabinetmed/documents.php?socid=__ID__',
                             'thirdparty:-customer',
                             'thirdparty:-document',
                             'thirdparty:-notify',
+                            'thirdparty:-note',
         					'contact:+tabpatient:Patients:cabinetmed@cabinetmed:/cabinetmed/patients_of_contact.php?id=__ID__'
                             );
         // where entity can be

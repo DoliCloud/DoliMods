@@ -60,9 +60,6 @@ class modSurvey extends DolibarrModules
 		//$this->dirs[0] = DOL_DATA_ROOT.'/mymodule;
         //$this->dirs[1] = DOL_DATA_ROOT.'/mymodule/temp;
 
-		// Relative path to module style sheet if exists
-		$this->style_sheet = '';
-
 		// Config pages. Put here list of php page names stored in admmin directory used to setup module
 		$this->config_page_url = array();
 

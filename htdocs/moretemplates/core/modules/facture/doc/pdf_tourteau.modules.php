@@ -412,9 +412,12 @@ class pdf_tourteau extends ModelePDFFactures
 				$pdf->Output($file,'F');
 
 				// Add pdfgeneration hook
-				include_once(DOL_DOCUMENT_ROOT.'/core/class/hookmanager.class.php');
-				$hookmanager=new HookManager($this->db);
-				$hookmanager->callHooks(array('pdfgeneration'));
+				if (! is_object($hookmanager))
+				{
+					include_once(DOL_DOCUMENT_ROOT.'/core/class/hookmanager.class.php');
+					$hookmanager=new HookManager($this->db);
+				}
+				$hookmanager->initHooks(array('pdfgeneration'));
 				$parameters=array('file'=>$file,'object'=>$object,'outputlangs'=>$outputlangs);
 				global $action;
 				$reshook=$hookmanager->executeHooks('afterPDFCreation',$parameters,$this,$action);    // Note that $action and $object may have been modified by some hooks
@@ -724,7 +727,7 @@ class pdf_tourteau extends ModelePDFFactures
 		$pdf->SetFont('','', $default_font_size - 1);
 
 		// Tableau total
-		$lltot = 200; $col1x = 120; $col2x = 170; $largcol2 = $lltot - $col2x;
+		$col1x = 120; $col2x = 170; $largcol2 = ($this->page_largeur - $this->marge_droite - $col2x);
 
 		$useborder=0;
 		$index = 0;
@@ -1030,7 +1033,7 @@ class pdf_tourteau extends ModelePDFFactures
 		{
 			if (is_readable($logo))
 			{
-				$pdf->Image($logo, $this->marge_gauche, $posy, 0, 24);	// width=0 (auto), max height=24
+				$pdf->Image($logo, $this->marge_gauche, $posy, 0, 22);	// width=0 (auto), max height=22
 			}
 			else
 			{

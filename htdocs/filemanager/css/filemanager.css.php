@@ -53,35 +53,21 @@ div.mainmenu.filemanager {
 
 
 .filetree {
-/*				width: 350px; */
-				width: 99%;
-/*				height: 500px; */
-				height: 99%;
-/*				border-top: solid 1px #BBB;
-				border-left: solid 1px #BBB;
-				border-bottom: solid 1px #FFF;
-				border-right: solid 1px #FFF;
-*/
-				background: #FFF;
-/*				overflow: scroll; */
-				padding-left: 2px;
-				font-weight: normal;
-			}
+	width: 99%;
+	height: 99%;
+	background: #FFF;
+	padding-left: 2px;
+	font-weight: normal;
+}
 
 .fileview {
-				width: 99%;
-/*				height: 500px; */
-				height: 99%;
-/*				border-top: solid 1px #BBB;
-				border-left: solid 1px #BBB;
-				border-bottom: solid 1px #FFF;
-				border-right: solid 1px #FFF; */
-				background: #FFF;
-/*				overflow: scroll; */
-				padding-left: 2px;
-				padding-top: 4px;
-				font-weight: normal;
-			}
+	width: 99%;
+	height: 99%;
+	background: #FFF;
+	padding-left: 2px;
+	padding-top: 4px;
+	font-weight: normal;
+}
 
 div.filedirelem {
     position: relative;
@@ -90,7 +76,6 @@ div.filedirelem {
 }
 
 ul.filedirelem {
-/*    line-height: 120px; */
     padding: 2px;
     margin: 0 5px 5px 5px;
 }
@@ -106,16 +91,11 @@ ul.filedirelem li {
     border: solid 1px #DDDDDD;
 }
 
-
-
-
 ui-layout-north {
 
+}
 
-	}
-
-
-UL.jqueryFileTree {
+ul.jqueryFileTree {
 	font-family: Verdana, sans-serif;
 	font-size: 11px;
 	line-height: 18px;
@@ -124,7 +104,7 @@ UL.jqueryFileTree {
 				font-weight: normal;
 }
 
-UL.jqueryFileTree LI {
+ul.jqueryFileTree li {
 	list-style: none;
 	padding: 0px;
 	padding-left: 20px;
@@ -133,15 +113,14 @@ UL.jqueryFileTree LI {
 }
 
 /* Seems to have all links "visited"
-UL.jqueryFileTree A:active {
+ul.jqueryFileTree a:active {
     background: #BDF !important;
 }
-UL.jqueryFileTree A:visited {
+ul.jqueryFileTree a:visited {
     background: #BDF !important;
 }*/
 
-
-UL.jqueryFileTree A {
+ul.jqueryFileTree a {
 	color: #333;
 	text-decoration: none;
 	display: block;
@@ -149,11 +128,9 @@ UL.jqueryFileTree A {
 	font-weight:normal;
 }
 
-UL.jqueryFileTree A:hover {
+ul.jqueryFileTree A:hover {
     background: #BDF;
 }
-
-
 
 /* Core Styles */
 .jqueryFileTree LI.directory { font-weight:normal; background: url(../includes/jqueryFileTree/images/directory.png) left top no-repeat; }
@@ -221,7 +198,6 @@ UL.jqueryFileTree A:hover {
 .jqueryFileTree LI.ext_xls { background: url(../includes/jqueryFileTree/images/xls.png) left top no-repeat; }
 .jqueryFileTree LI.ext_xml { background: url(../includes/jqueryFileTree/images/code.png) left top no-repeat; }
 .jqueryFileTree LI.ext_zip { background: url(../includes/jqueryFileTree/images/zip.png) left top no-repeat; }
-
 
 /* Right panel */
 

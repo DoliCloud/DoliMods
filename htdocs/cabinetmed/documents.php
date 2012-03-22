@@ -79,6 +79,11 @@ $consult = new CabinetmedCons($db);
 
 $upload_dir = $conf->societe->dir_output . "/" . $socid ;
 
+// Initialize technical object to manage hooks of thirdparties. Note that conf->hooks_modules contains array array
+include_once(DOL_DOCUMENT_ROOT.'/core/class/hookmanager.class.php');
+$hookmanager=new HookManager($db);
+$hookmanager->initHooks(array('documentcabinetmed'));
+
 
 
 /*
@@ -492,15 +497,6 @@ if ($socid > 0)
 
     $var=true;
 
-    // Initialize technical object to manage hooks of thirdparties. Note that conf->hooks_modules contains array array
-    include_once(DOL_DOCUMENT_ROOT.'/core/class/hookmanager.class.php');
-    $hookmanager=new HookManager($db);
-    $conf->hooks_modules['cabinetmed']=array('xxx');
-    $hookmanager->callHooks(array('xxx'));
-
-    $instance=new CabinetmedCons($db);
-    $instance->fk_soc=$object->id;
-    //$hooks=array(0=>array('modules'=>array($instance)));
     $title=img_picto('','filenew').' '.$langs->trans("GenerateADocument");
     //$somethingshown=$formfile->show_documents('company',$object->id,$filedir,$urlsource,$genallowed,$delallowed,'',0,0,0,64,0,'',$title,'',$object->default_lang,$hookmanager);
     print $formfile->showdocuments('company','','',$urlsource,$genallowed,$delallowed,'',0,0,0,64,0,'',$title,'',$object->default_lang,$hookmanager);
