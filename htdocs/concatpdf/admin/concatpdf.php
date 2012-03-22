@@ -27,6 +27,12 @@ $res=0;
 if (! $res && file_exists("../main.inc.php")) $res=@include("../main.inc.php");
 if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.php");
 if (! $res && file_exists("../../../main.inc.php")) $res=@include("../../../main.inc.php");
+
+// Use on dev env only
+preg_match('/^\/([^\/]+)\//', dirname($_SERVER["SCRIPT_NAME"]), $regs);
+$realpath = readlink($_SERVER['DOCUMENT_ROOT'].'/'.$regs[1]);
+if (! $res && file_exists($realpath."main.inc.php")) $res=@include($realpath."main.inc.php");
+
 if (! $res && file_exists("../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../dolibarr/htdocs/main.inc.php");     // Used on dev env only
 if (! $res && file_exists("../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
 if (! $res && file_exists("../../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
@@ -47,23 +53,57 @@ $def = array();
 $action=GETPOST("action");
 $actionsave=GETPOST("save");
 
-$outputdir_invoices=$conf->concatpdf->dir_output.'/invoices';
-$outputdir_orders=$conf->concatpdf->dir_output.'/orders';
-$outputdir_proposals=$conf->concatpdf->dir_output.'/proposals';
-
+$modules = array('proposals','orders','invoices');
 
 
 /*
  * Actions
  */
 
-// None
+// Envoi fichier
+if ($_POST["sendit"] && ! empty($conf->global->MAIN_UPLOAD_DOC))
+{
+	if (preg_match('/\.pdf$/', $_FILES['userfile']['name']))
+	{
+		$upload_dir = $conf->concatpdf->dir_output.'/'.$_POST['module'];
+		
+		if (dol_mkdir($upload_dir) >= 0)
+		{
+			$resupload=dol_move_uploaded_file($_FILES['userfile']['tmp_name'], $upload_dir . "/" . $_FILES['userfile']['name'],0,0,$_FILES['userfile']['error']);
+			if (is_numeric($resupload) && $resupload > 0)
+			{
+				$mesg = '<div class="ok">'.$langs->trans("FileTransferComplete").'</div>';
+			}
+			else
+			{
+				$langs->load("errors");
+				if ($resupload < 0)	// Unknown error
+				{
+					$mesg = '<div class="error">'.$langs->trans("ErrorFileNotUploaded").'</div>';
+				}
+				else if (preg_match('/ErrorFileIsInfectedWithAVirus/',$resupload))	// Files infected by a virus
+				{
+					$mesg = '<div class="error">'.$langs->trans("ErrorFileIsInfectedWithAVirus").'</div>';
+				}
+				else	// Known error
+				{
+					$mesg = '<div class="error">'.$langs->trans($resupload).'</div>';
+				}
+			}
+		}
+	}
+	else
+	{
+		$mesg = '<div class="error">'.$langs->trans("ErrorFileNotUploaded").'</div>';
+	}
+}
 
 
-/**
+/*
  * View
  */
 
+$form=new Form($db);
 $formfile=new FormFile($db);
 
 llxHeader('','ConcatPdf',$linktohelp);
@@ -74,46 +114,38 @@ print '<br>';
 
 clearstatcache();
 
+dol_htmloutput_mesg($mesg,$mesgs);
+
 print $langs->trans("ConcatPDfTakeFileFrom").'<br>';
 $langs->load("propal"); $langs->load("orders"); $langs->load("bills");
-print '* '.$langs->trans("ConcatPDfTakeFileFrom2",$langs->transnoentitiesnoconv("Proposals"),$outputdir_invoices).'<br>';
-print '* '.$langs->trans("ConcatPDfTakeFileFrom2",$langs->transnoentitiesnoconv("Orders"),$outputdir_orders).'<br>';
-print '* '.$langs->trans("ConcatPDfTakeFileFrom2",$langs->transnoentitiesnoconv("Invoices"),$outputdir_proposals).'<br>';
-print '<br>';
-
-print $langs->trans("ConcatPDfPutFileManually");
-print '<br><br><br>';
-
-
-$listoffiles=dol_dir_list($outputdir_proposals,'files');
-if (count($listoffiles)) print $formfile->showdocuments('concatpdf','proposals',$outputdir_proposals,$_SERVER["PHP_SELF"],0,$user->admin,'',0,0,0,0,0,'',$langs->trans("PathDirectory").' '.$outputdir_proposals);
-else
+foreach ($modules as $module)
 {
-    print '<div class="titre">'.$langs->trans("PathDirectory").' '.$outputdir_proposals.' :</div>';
-    print $langs->trans("NoPDFFileFound").'<br>';
+	$outputdir=$conf->concatpdf->dir_output.'/'.$module;
+	print '* '.$langs->trans("ConcatPDfTakeFileFrom2",$langs->transnoentitiesnoconv(ucfirst($module)),$outputdir).'<br>';
 }
+print '<br><br>';
+
+//print $langs->trans("ConcatPDfPutFileManually");
+//print '<br><br><br>';
+
+$select_module=$form->selectarray('module', $modules,'',0,0,1,'',1);
+$formfile->form_attach_new_file($_SERVER['PHP_SELF'],'',0,0,1,50,'',$select_module);
 
 print '<br><br>';
 
-$listoffiles=dol_dir_list($outputdir_orders,'files');
-if (count($listoffiles)) print $formfile->showdocuments('concatpdf','orders',$outputdir_orders,$_SERVER["PHP_SELF"],0,$user->admin,'',0,0,0,0,0,'',$langs->trans("PathDirectory").' '.$outputdir_orders);
-else
+foreach ($modules as $module)
 {
-    print '<div class="titre">'.$langs->trans("PathDirectory").' '.$outputdir_orders.' :</div>';
-    print $langs->trans("NoPDFFileFound").'<br>';
+	$outputdir=$conf->concatpdf->dir_output.'/'.$module;
+	$listoffiles=dol_dir_list($outputdir,'files');
+	if (count($listoffiles)) print $formfile->showdocuments('concatpdf',$module,$outputdir,$_SERVER["PHP_SELF"],0,$user->admin,'',0,0,0,0,0,'',$langs->trans("PathDirectory").' '.$outputdir);
+	else
+	{
+		print '<div class="titre">'.$langs->trans("PathDirectory").' '.$outputdir.' :</div>';
+		print $langs->trans("NoPDFFileFound").'<br>';
+	}
+	
+	print '<br><br>';
 }
-
-print '<br><br>';
-
-$listoffiles=dol_dir_list($outputdir_invoices,'files');
-if (count($listoffiles)) print $formfile->showdocuments('concatpdf','invoices',$outputdir_invoices,$_SERVER["PHP_SELF"],0,$user->admin,'',0,0,0,0,0,'',$langs->trans("PathDirectory").' '.$outputdir_invoices);
-else
-{
-    print '<div class="titre">'.$langs->trans("PathDirectory").' '.$outputdir_invoices.' :</div>';
-    print $langs->trans("NoPDFFileFound").'<br>';
-}
-
-print '<br>';
 
 llxFooter();
 

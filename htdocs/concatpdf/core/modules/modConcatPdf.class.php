@@ -65,7 +65,7 @@ class modConcatPdf extends DolibarrModules
 		$this->picto='bill';
 
 		// Data directories to create when module is enabled
-		$this->dirs = array('/concatpdf/invoices','/concatpdf/orders','/concatpdf/proposals');
+		$this->dirs = array('/concatpdf/invoices','/concatpdf/orders','/concatpdf/proposals','/concatpdf/temp');
 
 		// Config pages. Put here list of php page names stored in admin directory used to setup module
 		$this->config_page_url = array('concatpdf.php@concatpdf');
