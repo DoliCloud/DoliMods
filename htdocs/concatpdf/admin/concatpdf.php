@@ -27,6 +27,12 @@ $res=0;
 if (! $res && file_exists("../main.inc.php")) $res=@include("../main.inc.php");
 if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.php");
 if (! $res && file_exists("../../../main.inc.php")) $res=@include("../../../main.inc.php");
+
+// Use on dev env only
+preg_match('/^\/([^\/]+)\//', dirname($_SERVER["SCRIPT_NAME"]), $regs);
+$realpath = readlink($_SERVER['DOCUMENT_ROOT'].'/'.$regs[1]);
+if (! $res && file_exists($realpath."main.inc.php")) $res=@include($realpath."main.inc.php");
+
 if (! $res && file_exists("../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../dolibarr/htdocs/main.inc.php");     // Used on dev env only
 if (! $res && file_exists("../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
 if (! $res && file_exists("../../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
