@@ -63,6 +63,21 @@ class modConcatPdf extends DolibarrModules
 		$this->special = 2;
 		// Name of png file (without png) used for this module
 		$this->picto='bill';
+		
+		// Defined all module parts (triggers, login, substitutions, menus, css, etc...)
+		// for default path (eg: /mymodule/core/xxxxx) (0=disable, 1=enable)
+		// for specific path of parts (eg: /mymodule/core/modules/barcode)
+		// for specific css file (eg: /mymodule/css/mymodule.css.php)
+		$this->module_parts = array(
+				//						'triggers' => 0,                                 // Set this to 1 if module has its own trigger directory
+				//						'login' => 0,                                    // Set this to 1 if module has its own login method directory
+				//						'substitutions' => 0,                            // Set this to 1 if module has its own substitution function file
+				//						'menus' => 0,                                    // Set this to 1 if module has its own menus handler directory
+				//						'barcode' => 0,                                  // Set this to 1 if module has its own barcode directory
+				//						'models' => 0,                                   // Set this to 1 if module has its own models directory
+				//						'css' => '/filemanager/css/concatpdf.css.php',   // Set this to relative path of css if module has its own css file
+										'hooks' => array('invoicecard','propalcard','ordercard','pdfgeneration')  // Set here all hooks context managed by module
+		);
 
 		// Data directories to create when module is enabled
 		$this->dirs = array('/concatpdf/invoices','/concatpdf/orders','/concatpdf/proposals','/concatpdf/temp');
@@ -80,7 +95,7 @@ class modConcatPdf extends DolibarrModules
         // Constants
         // Example: $this->const=array(0=>array('MODULE_MY_NEW_CONST1','chaine','myvalue','This is a constant to add',1),
         //                             1=>array('MODULE_MY_NEW_CONST2','chaine','myvalue','This is another constant to add',1) );
-        $this->const = array(0=>array('MAIN_MODULE_CONCATPDF_HOOKS','chaine','invoicecard:propalcard:ordercard:pdfgeneration','This module add hooks on invoicecard.propalcard and ordercard context pages and pdf generation',0,'current',1));
+        $this->const = array();
 
 		// Boxes
 		$this->boxes = array();			// List of boxes
