@@ -20,7 +20,6 @@
  *   	\file       htdocs/filemanager/index.php
  *		\ingroup    filemanager
  *		\brief      This is home page of filemanager module
- *		\version    $Id: index.php,v 1.32 2011/08/01 19:28:46 eldy Exp $
  */
 
 if (! defined('REQUIRE_JQUERY_LAYOUT'))  define('REQUIRE_JQUERY_LAYOUT','1');
