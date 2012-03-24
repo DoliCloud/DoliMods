@@ -128,7 +128,6 @@ $morejs=array(
 );
 $morehead="<style type=\"text/css\">
 	#containerlayout {
-		background:	#999;
 		height:		".$maxheightwin."px;
 		margin:		0 auto;
 		width:		100%;
