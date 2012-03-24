@@ -139,8 +139,8 @@ class ActionsConcatPdf
 
         $ret=0; $deltemp=array();
         dol_syslog(get_class($this).'::executeHooks action='.$action);
-        
-        $concatpdffile = GETPOST('concatpdffile');
+
+        $concatpdffile = GETPOST('concatpdffile','array');
         if (! is_array($concatpdffile)) $concatpdffile = array($concatpdffile);
         
         $element='';
@@ -151,82 +151,90 @@ class ActionsConcatPdf
         $filetoconcat1=array($parameters['file']);
         $filetoconcat2=array();
         //var_dump($parameters['object']->element); exit;
-        
-        foreach($concatpdffile as $concatfile)
+        if (! empty($concatpdffile))
         {
-        	if (preg_match('/^pdf_(.*)+\.modules/', $concatfile))
+        	foreach($concatpdffile as $concatfile)
         	{
-        		require_once(DOL_DOCUMENT_ROOT."/core/lib/files.lib.php");
-        		 
-        		$file = $conf->concatpdf->dir_output.'/'.$element.'/'.$concatfile.'.php';
-        		$classname = str_replace('.modules', '', $concatfile);
-        		require_once($file);
-        		$obj = new $classname($db);
-        		 
-        		// We save charset_output to restore it because write_file can change it if needed for
-        		// output format that does not support UTF8.
-        		$sav_charset_output=$outputlangs->charset_output;
-        		// Change the output dir
-        		$srctemplatepath = $conf->concatpdf->dir_temp;
-        		// Generate pdf
-        		$obj->write_file($parameters['object'], $outputlangs, $srctemplatepath, $hidedetails, $hidedesc, $hideref, $hookmanager);
-        		// Restore charset output
-        		$outputlangs->charset_output=$sav_charset_output;
-        		 
-        		$objectref = dol_sanitizeFileName($parameters['object']->ref);
-        		$dir = $conf->concatpdf->dir_temp . "/" . $objectref;
-        		$filetoconcat2[] = $dir . "/" . $objectref . ".pdf";
-        		 
-        		$deltemp[] = $dir;
+        		if (preg_match('/^pdf_(.*)+\.modules/', $concatfile))
+        		{
+        			require_once(DOL_DOCUMENT_ROOT."/core/lib/files.lib.php");
+        			 
+        			$file = $conf->concatpdf->dir_output.'/'.$element.'/'.$concatfile.'.php';
+        			$classname = str_replace('.modules', '', $concatfile);
+        			require_once($file);
+        			$obj = new $classname($db);
+        			 
+        			// We save charset_output to restore it because write_file can change it if needed for
+        			// output format that does not support UTF8.
+        			$sav_charset_output=$outputlangs->charset_output;
+        			// Change the output dir
+        			$srctemplatepath = $conf->concatpdf->dir_temp;
+        			// Generate pdf
+        			$obj->write_file($parameters['object'], $outputlangs, $srctemplatepath, $hidedetails, $hidedesc, $hideref, $hookmanager);
+        			// Restore charset output
+        			$outputlangs->charset_output=$sav_charset_output;
+        			 
+        			$objectref = dol_sanitizeFileName($parameters['object']->ref);
+        			$dir = $conf->concatpdf->dir_temp . "/" . $objectref;
+        			$filetoconcat2[] = $dir . "/" . $objectref . ".pdf";
+        			 
+        			$deltemp[] = $dir;
+        		}
+        		else
+        		{
+        			$filetoconcat2[] = $conf->concatpdf->dir_output.'/'.$element.'/'.$concatfile.'.pdf';
+        		}
         	}
-        	else
-        	{
-        		$filetoconcat2[] = $conf->concatpdf->dir_output.'/'.$element.'/'.$concatfile.'.pdf';
-        	}
-        }
-        
-        dol_syslog(get_class($this).'::afterPDFCreation '.$filetoconcat1.' - '.$filetoconcat2);
-
-        if (! empty($filetoconcat2) && ! empty($concatpdffile) && $concatpdffile != '-1')
-        {
-        	$filetoconcat = array_merge($filetoconcat1, $filetoconcat2);
         	
-            // Create empty PDF
-            $pdf=pdf_getInstance();
-            if (class_exists('TCPDF'))
-            {
-                $pdf->setPrintHeader(false);
-                $pdf->setPrintFooter(false);
-            }
-            $pdf->SetFont(pdf_getPDFFont($outputlangs));
-
-            if ($conf->global->MAIN_DISABLE_PDF_COMPRESSION) $pdf->SetCompression(false);
-            //$pdf->SetCompression(false);
-            
-            $pagecount = $this->concat($pdf, $filetoconcat);
-
-            if ($pagecount)
-            {
-                $pdf->Output($filetoconcat1[0],'F');
-                if (! empty($conf->global->MAIN_UMASK))
-                {
-                	@chmod($file, octdec($conf->global->MAIN_UMASK));
-                }
-                if (! empty($deltemp))
-                {
-                	// Delete temp files
-                	foreach($deltemp as $dirtemp)
-                	{
-                		dol_delete_dir_recursive($dirtemp);
-                	}
-                }
-            }
-            
-            // Save selected files and order
-            $params['concatpdf'] = $concatpdffile;
-            $parameters['object']->extraparams = array_merge($parameters['object']->extraparams, $params);
-            $result=$parameters['object']->setExtraParameters();
+        	dol_syslog(get_class($this).'::afterPDFCreation '.$filetoconcat1.' - '.$filetoconcat2);
+        	
+        	if (! empty($filetoconcat2) && ! empty($concatpdffile) && $concatpdffile != '-1')
+        	{
+        		$filetoconcat = array_merge($filetoconcat1, $filetoconcat2);
+        		 
+        		// Create empty PDF
+        		$pdf=pdf_getInstance();
+        		if (class_exists('TCPDF'))
+        		{
+        			$pdf->setPrintHeader(false);
+        			$pdf->setPrintFooter(false);
+        		}
+        		$pdf->SetFont(pdf_getPDFFont($outputlangs));
+        	
+        		if ($conf->global->MAIN_DISABLE_PDF_COMPRESSION) $pdf->SetCompression(false);
+        		//$pdf->SetCompression(false);
+        	
+        		$pagecount = $this->concat($pdf, $filetoconcat);
+        	
+        		if ($pagecount)
+        		{
+        			$pdf->Output($filetoconcat1[0],'F');
+        			if (! empty($conf->global->MAIN_UMASK))
+        			{
+        				@chmod($file, octdec($conf->global->MAIN_UMASK));
+        			}
+        			if (! empty($deltemp))
+        			{
+        				// Delete temp files
+        				foreach($deltemp as $dirtemp)
+        				{
+        					dol_delete_dir_recursive($dirtemp);
+        				}
+        			}
+        		}
+        		
+        		// Save selected files and order
+        		$params['concatpdf'] = $concatpdffile;
+        		$parameters['object']->extraparams = array_merge($parameters['object']->extraparams, $params);
+        	}
         }
+        else
+        {
+        	// Remove extraparams for concatpdf
+        	unset($parameters['object']->extraparams['concatpdf']);
+        }
+        
+        $result=$parameters['object']->setExtraParameters();
 
         return $ret;
     }

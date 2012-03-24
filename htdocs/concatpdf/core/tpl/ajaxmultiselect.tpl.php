@@ -27,7 +27,11 @@ $(document).ready(function () {
 		itemsCount:'<?php echo $langs->transnoentities("ItemsCount"); ?>'
 	});
 	$(function(){
-	  $(".multiselect").multiselect( { searchable: false } );
+		$(".multiselect").multiselect({
+			searchable: false,
+			width: 480,
+			height: 120
+		});
 	});
 });
 </script>
