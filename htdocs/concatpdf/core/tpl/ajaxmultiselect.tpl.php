@@ -29,7 +29,7 @@ $(document).ready(function () {
 	$(function(){
 		$(".multiselect").multiselect({
 			searchable: false,
-			width: 480,
+			width: $('#selectconcatpdf').width(),
 			height: 120
 		});
 	});
