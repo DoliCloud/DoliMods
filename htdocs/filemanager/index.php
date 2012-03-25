@@ -216,7 +216,7 @@ else
 print "<br>\n";
 
 
-print '<div id="mesg">'.$mesg.'</div>';
+print '<div id="mesg" class="margin-bottom: 6px;">'.$mesg.'</div>';
 
 
 // Javascript part
