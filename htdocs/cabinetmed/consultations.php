@@ -218,8 +218,8 @@ if ($action == 'add' || $action == 'update')
 
                 if (! $error)
                 {
-                    $societe = new Societe($db);
-                    $societe->fetch($consult->fk_soc);
+                    $object = new Patient($db);
+                    $object->fetch($consult->fk_soc);
 
                     foreach(array('CHQ','CB','LIQ','VIR') as $key)
                     {
@@ -228,8 +228,8 @@ if ($action == 'add' || $action == 'update')
                             $bankaccount=new Account($db);
                             $result=$bankaccount->fetch($banque[$key]);
                             if ($result < 0) dol_print_error($db,$bankaccount->error);
-                            if ($key == 'CHQ') $lineid=$bankaccount->addline(dol_now(), $key, $langs->trans("CustomerInvoicePayment"), $amount[$key], $consult->num_cheque, '', $user, $societe->name, $consult->banque);
-                            else $lineid=$bankaccount->addline(dol_now(), $key, $langs->trans("CustomerInvoicePayment"), $amount[$key], '', '', $user, $societe->name, '');
+                            if ($key == 'CHQ') $lineid=$bankaccount->addline(dol_now(), $key, $langs->trans("CustomerInvoicePayment"), $amount[$key], $consult->num_cheque, '', $user, $object->name, $consult->banque);
+                            else $lineid=$bankaccount->addline(dol_now(), $key, $langs->trans("CustomerInvoicePayment"), $amount[$key], '', '', $user, $object->name, '');
                             if ($lineid <= 0)
                             {
                                 $error++;
@@ -238,7 +238,7 @@ if ($action == 'add' || $action == 'update')
                             if (! $error)
                             {
                                 $result1=$bankaccount->add_url_line($lineid,$consult->id,dol_buildpath('/cabinetmed/consultations.php',1).'?action=edit&socid='.$consult->fk_soc.'&id=','Consultation','consultation');
-                                $result2=$bankaccount->add_url_line($lineid,$consult->fk_soc,'',$societe->name,'company');
+                                $result2=$bankaccount->add_url_line($lineid,$consult->fk_soc,'',$object->name,'company');
                                 if ($result1 <= 0 || $result2 <= 0)
                                 {
                                     $error++;
@@ -250,8 +250,8 @@ if ($action == 'add' || $action == 'update')
             }
             if ($action == 'update')
             {
-                $societe = new Societe($db);
-                $result=$societe->fetch($consult->fk_soc);
+                $object = new Patient($db);
+                $result=$object->fetch($consult->fk_soc);
 
                 $result=$consult->update($user);
                 if ($result < 0)
@@ -312,10 +312,10 @@ if ($action == 'add' || $action == 'update')
                                 $bankaccount=new Account($db);
                                 $result=$bankaccount->fetch($banque[$key]);
                             	if ($result < 0) dol_print_error($db,$bankaccount->error);
-                                if ($key == 'CHQ') $lineid=$bankaccount->addline($consult->datecons, $key, $langs->trans("CustomerInvoicePayment"), $amount[$key], $consult->num_cheque, '', $user, $societe->name, $consult->banque);
-                                else $lineid=$bankaccount->addline($consult->datecons, $key, $langs->trans("CustomerInvoicePayment"), $amount[$key], '', '', $user, $societe->name, '');
+                                if ($key == 'CHQ') $lineid=$bankaccount->addline($consult->datecons, $key, $langs->trans("CustomerInvoicePayment"), $amount[$key], $consult->num_cheque, '', $user, $object->name, $consult->banque);
+                                else $lineid=$bankaccount->addline($consult->datecons, $key, $langs->trans("CustomerInvoicePayment"), $amount[$key], '', '', $user, $object->name, '');
                                 $result1=$bankaccount->add_url_line($lineid,$consult->id,dol_buildpath('/cabinetmed/consultations.php',1).'?action=edit&socid='.$consult->fk_soc.'&id=','Consultation','consultation');
-                                $result2=$bankaccount->add_url_line($lineid,$consult->fk_soc,'',$societe->name,'company');
+                                $result2=$bankaccount->add_url_line($lineid,$consult->fk_soc,'',$object->name,'company');
                                 if ($lineid <= 0 || $result1 <= 0 || $result2 <= 0)
                                 {
                                     $error++;
@@ -369,8 +369,8 @@ llxHeader('',$langs->trans("Consultation"));
 
 if ($socid > 0)
 {
-    $societe = new Societe($db);
-    $societe->fetch($socid);
+    $object = new Patient($db);
+    $object->fetch($socid);
 
     if ($id && ! $consult->id)
     {
@@ -386,7 +386,7 @@ if ($socid > 0)
 	 */
     if ($conf->notification->enabled) $langs->load("mails");
 
-	$head = societe_prepare_head($societe);
+	$head = societe_prepare_head($object);
 	dol_fiche_head($head, 'tabconsultations', $langs->trans("ThirdParty"),0,'company');
 
 	print "<form method=\"post\" action=\"".$_SERVER["PHP_SELF"]."\">";
@@ -396,24 +396,24 @@ if ($socid > 0)
 
 	print '<tr><td width="25%">'.$langs->trans('ThirdPartyName').'</td>';
 	print '<td colspan="3">';
-	print $form->showrefnav($societe,'socid','',($user->societe_id?0:1),'rowid','nom');
+	print $form->showrefnav($object,'socid','',($user->societe_id?0:1),'rowid','nom');
 	print '</td></tr>';
 
-    if ($societe->client)
+    if ($object->client)
     {
         print '<tr><td>';
         print $langs->trans('CustomerCode').'</td><td colspan="3">';
-        print $societe->code_client;
-        if ($societe->check_codeclient() <> 0) print ' <font class="error">('.$langs->trans("WrongCustomerCode").')</font>';
+        print $object->code_client;
+        if ($object->check_codeclient() <> 0) print ' <font class="error">('.$langs->trans("WrongCustomerCode").')</font>';
         print '</td></tr>';
     }
 
-    if ($societe->fournisseur)
+    if ($object->fournisseur)
     {
         print '<tr><td>';
         print $langs->trans('SupplierCode').'</td><td colspan="3">';
-        print $societe->code_fournisseur;
-        if ($societe->check_codefournisseur() <> 0) print ' <font class="error">('.$langs->trans("WrongSupplierCode").')</font>';
+        print $object->code_fournisseur;
+        if ($object->check_codefournisseur() <> 0) print ' <font class="error">('.$langs->trans("WrongSupplierCode").')</font>';
         print '</td></tr>';
     }
 
@@ -885,7 +885,7 @@ if ($action == '' || $action == 'delete')
 
     if ($user->rights->societe->creer)
     {
-        print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?socid='.$societe->id.'&amp;action=create">'.$langs->trans("NewConsult").'</a>';
+        print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?socid='.$object->id.'&amp;action=create">'.$langs->trans("NewConsult").'</a>';
     }
 
     print '</div>';
@@ -894,16 +894,29 @@ if ($action == '' || $action == 'delete')
 
 if ($action == '' || $action == 'delete')
 {
+    if ($object->alert_antemed)       $mesgs[]=$langs->transnoentitiesnoconv("Warning").': '.$langs->transnoentitiesnoconv("AlertTriggered",$langs->transnoentitiesnoconv("AntecedentsMed"));
+    if ($object->alert_antechirgen)   $mesgs[]=$langs->transnoentitiesnoconv("Warning").': '.$langs->transnoentitiesnoconv("AlertTriggered",$langs->transnoentitiesnoconv("AntecedentsChirGene"));
+    if ($object->alert_antechirortho) $mesgs[]=$langs->transnoentitiesnoconv("Warning").': '.$langs->transnoentitiesnoconv("AlertTriggered",$langs->transnoentitiesnoconv("AntecedentsChirOrtho"));
+    if ($object->alert_anterhum)      $mesgs[]=$langs->transnoentitiesnoconv("Warning").': '.$langs->transnoentitiesnoconv("AlertTriggered",$langs->transnoentitiesnoconv("AntecedentsRhumato"));
+    if ($object->alert_other)         $mesgs[]=$langs->transnoentitiesnoconv("Warning").': '.$langs->transnoentitiesnoconv("AlertTriggered",$langs->transnoentitiesnoconv("AntecedentsMed"));
+    if ($object->alert_traitclass)    $mesgs[]=$langs->transnoentitiesnoconv("Warning").': '.$langs->transnoentitiesnoconv("AlertTriggered",$langs->transnoentitiesnoconv("xxx"));
+    if ($object->alert_traitallergie) $mesgs[]=$langs->transnoentitiesnoconv("Warning").': '.$langs->transnoentitiesnoconv("AlertTriggered",$langs->transnoentitiesnoconv("Allergies"));
+    if ($object->alert_traitintol)    $mesgs[]=$langs->transnoentitiesnoconv("Warning").': '.$langs->transnoentitiesnoconv("AlertTriggered",$langs->transnoentitiesnoconv("Intolerances"));
+    if ($object->alert_traitspec)     $mesgs[]=$langs->transnoentitiesnoconv("Warning").': '.$langs->transnoentitiesnoconv("AlertTriggered",$langs->transnoentitiesnoconv("SpecPharma"));
+    if ($object->alert_note)          $mesgs[]=$langs->transnoentitiesnoconv("Warning").': '.$langs->transnoentitiesnoconv("AlertTriggered",$langs->transnoentitiesnoconv("Note"));
+
     // Confirm delete consultation
     if (GETPOST("action") == 'delete')
     {
-        $html = new Form($db);
-        $ret=$html->form_confirm($_SERVER["PHP_SELF"]."?socid=".$socid.'&id='.GETPOST('id','int'),$langs->trans("DeleteAConsultation"),$langs->trans("ConfirmDeleteConsultation"),"confirm_delete",'',0,1);
+        $ret=$form->form_confirm($_SERVER["PHP_SELF"]."?socid=".$socid.'&id='.GETPOST('id','int'),$langs->trans("DeleteAConsultation"),$langs->trans("ConfirmDeleteConsultation"),"confirm_delete",'',0,1);
         if ($ret == 'html') print '<br>';
     }
 
-
     print_fiche_titre($langs->trans("ListOfConsultations"));
+
+
+    dol_htmloutput_mesg('',$mesgs,'warning');
+
 
     $param='&socid='.$socid;
 

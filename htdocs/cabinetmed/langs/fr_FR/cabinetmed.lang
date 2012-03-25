@@ -139,3 +139,4 @@ AverageOld=Age moyen
 PatientsPerContacts=Cette page présente des statistiques sur les patients par correspondants
 ReportingsMed=Rapports consultations
 MenuFinancialMed=Bilan consultations
+AlertTriggered=Une alerte de type %s a été cochée %s

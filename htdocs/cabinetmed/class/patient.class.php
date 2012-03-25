@@ -32,8 +32,7 @@ require_once(DOL_DOCUMENT_ROOT."/societe/class/societe.class.php");
 
 
 /**
- *	\class 		Patient
- *	\brief 		Class to manage third parties objects (customers, suppliers, prospects...)
+ *	Class to manage third parties objects (customers, suppliers, prospects...)
  */
 class Patient extends Societe
 {
@@ -133,13 +132,13 @@ class Patient extends Societe
     /**
 	 *	Constructor
 	 *
-	 *  @param		DoliDB		$DB      Database handler
+	 *  @param		DoliDB		$db      Database handler
      */
-    function Patient($DB)
+    function Patient($db)
     {
         global $conf;
 
-        $this->db = $DB;
+        $this->db = $db;
 
         $this->client = 0;
         $this->prospect = 0;
@@ -154,9 +153,10 @@ class Patient extends Societe
 
 
     /**
-     *    \brief      Create third party in database
-     *    \param      user        Object of user that ask creation
-     *    \return     int         >= 0 if OK, < 0 if KO
+     *  Create third party in database
+     *
+     *  @param	User	$user       Object of user that ask creation
+     *  @return int         		>= 0 if OK, < 0 if KO
      */
     function create($user='')
     {
@@ -165,7 +165,7 @@ class Patient extends Societe
         // Clean parameters
         $this->name=trim($this->name);
 
-        dol_syslog("Societe::create ".$this->name);
+        dol_syslog(get_class($this)."::create ".$this->name);
 
         // Check parameters
         if (! empty($conf->global->SOCIETE_MAIL_REQUIRED) && ! isValidEMail($this->email))
@@ -196,7 +196,7 @@ class Patient extends Societe
             $sql.= ", ".($this->canvas ? "'".$this->canvas."'":"null");
             $sql.= ")";
 
-            dol_syslog("Societe::create sql=".$sql);
+            dol_syslog(get_class($this)."::create sql=".$sql);
             $result=$this->db->query($sql);
             if ($result)
             {
@@ -229,13 +229,13 @@ class Patient extends Societe
                     if ($result < 0) { $error++; $this->errors=$interface->errors; }
                     // Fin appel triggers
 
-                    dol_syslog("Societe::Create success id=".$this->id);
+                    dol_syslog(get_class($this)."::Create success id=".$this->id);
                     $this->db->commit();
                     return $this->id;
                 }
                 else
                 {
-                    dol_syslog("Societe::Create echec update ".$this->error);
+                    dol_syslog(get_class($this)."::Create echec update ".$this->error);
                     $this->db->rollback();
                     return -3;
                 }
@@ -250,7 +250,7 @@ class Patient extends Societe
                 else
                 {
                     $this->error=$this->db->lasterror();
-                    dol_syslog("Societe::Create echec insert sql=".$sql);
+                    dol_syslog(get_class($this)."::Create echec insert sql=".$sql);
                 }
                 $this->db->rollback();
                 return -2;
@@ -260,14 +260,15 @@ class Patient extends Societe
         else
         {
             $this->db->rollback();
-            dol_syslog("Societe::Create echec verify ".join(',',$this->errors));
+            dol_syslog(get_class($this)."::Create echec verify ".join(',',$this->errors));
             return -1;
         }
     }
 
     /**
-     *    \brief      Check properties of third party are ok (like name, third party codes, ...)
-     *    \return     int		0 if OK, <0 if KO
+     *   Check properties of third party are ok (like name, third party codes, ...)
+     *
+     *   @return     int		0 if OK, <0 if KO
      */
     function verify()
     {
@@ -536,6 +537,7 @@ class Patient extends Societe
 
     /**
      *    Load a third party from database into memory
+     *
      *    @param      rowid			Id of third party to load
      *    @param      ref			Reference of third party, name (Warning, this can return several records)
      *    @param      ref_ext       External reference of third party (Warning, this information is a free field not provided by Dolibarr)
@@ -594,13 +596,13 @@ class Patient extends Societe
         //print $sql;
 
         $resql=$this->db->query($sql);
-        dol_syslog("Patient::fetch ".$sql);
+        dol_syslog(get_class($this)."::fetch ".$sql);
         if ($resql)
         {
             $num=$this->db->num_rows($resql);
             if ($num > 1)
             {
-                $this->error='Patient::Fetch several records found for ref='.$ref;
+                $this->error='several records found for ref='.$ref;
                 dol_syslog($this->error, LOG_ERR);
                 $result = -1;
             }
@@ -738,7 +740,7 @@ class Patient extends Societe
         }
         else
         {
-            dol_syslog('Erreur Patient::Fetch '.$this->db->error(), LOG_ERR);
+            dol_syslog('Error '.$this->db->error(), LOG_ERR);
             $this->error=$this->db->error();
             $result = -3;
         }
@@ -758,7 +760,7 @@ class Patient extends Societe
     {
         global $user,$langs,$conf;
 
-        dol_syslog("Societe::Delete", LOG_DEBUG);
+        dol_syslog(get_class($this)."::delete", LOG_DEBUG);
         $sqr = 0;
 
         // Check if third party can be deleted
@@ -779,7 +781,7 @@ class Patient extends Societe
         else
         {
             $this->error .= $this->db->lasterror();
-            dol_syslog("Societe::Delete erreur -1 ".$this->error, LOG_ERR);
+            dol_syslog(get_class($this)."::delete erreur -1 ".$this->error, LOG_ERR);
             return -1;
         }
 
@@ -816,7 +818,7 @@ class Patient extends Societe
             // Remove contacts
             $sql = "DELETE from ".MAIN_DB_PREFIX."socpeople";
             $sql.= " WHERE fk_soc = " . $id;
-            dol_syslog("Societe::Delete sql=".$sql, LOG_DEBUG);
+            dol_syslog(get_class($this)."::delete sql=".$sql, LOG_DEBUG);
             if ($this->db->query($sql))
             {
                 $sqr++;
@@ -824,13 +826,13 @@ class Patient extends Societe
             else
             {
                 $this->error .= $this->db->lasterror();
-                dol_syslog("Societe::Delete erreur -1 ".$this->error, LOG_ERR);
+                dol_syslog(get_class($this)."::delete erreur -1 ".$this->error, LOG_ERR);
             }
 
             // Update link in member table
             $sql = "UPDATE ".MAIN_DB_PREFIX."adherent";
             $sql.= " SET fk_soc = NULL where fk_soc = " . $id;
-            dol_syslog("Societe::Delete sql=".$sql, LOG_DEBUG);
+            dol_syslog(get_class($this)."::delete sql=".$sql, LOG_DEBUG);
             if ($this->db->query($sql))
             {
                 $sqr++;
@@ -838,13 +840,13 @@ class Patient extends Societe
             else
             {
                 $this->error .= $this->db->lasterror();
-                dol_syslog("Societe::Delete erreur -1 ".$this->error, LOG_ERR);
+                dol_syslog(get_class($this)."::delete erreur -1 ".$this->error, LOG_ERR);
             }
 
             // Remove ban
             $sql = "DELETE from ".MAIN_DB_PREFIX."societe_rib";
             $sql.= " WHERE fk_soc = " . $id;
-            dol_syslog("Societe::Delete sql=".$sql, LOG_DEBUG);
+            dol_syslog(get_class($this)."::delete sql=".$sql, LOG_DEBUG);
             if ($this->db->query($sql))
             {
                 $sqr++;
@@ -852,13 +854,13 @@ class Patient extends Societe
             else
             {
                 $this->error = $this->db->lasterror();
-                dol_syslog("Societe::Delete erreur -2 ".$this->error, LOG_ERR);
+                dol_syslog(get_class($this)."::delete erreur -2 ".$this->error, LOG_ERR);
             }
 
             // Remove third party
             $sql = "DELETE from ".MAIN_DB_PREFIX."societe";
             $sql.= " WHERE rowid = " . $id;
-            dol_syslog("Societe::Delete sql=".$sql, LOG_DEBUG);
+            dol_syslog(get_class($this)."::delete sql=".$sql, LOG_DEBUG);
             if ($this->db->query($sql))
             {
                 $sqr++;
@@ -866,7 +868,7 @@ class Patient extends Societe
             else
             {
                 $this->error = $this->db->lasterror();
-                dol_syslog("Societe::Delete erreur -3 ".$this->error, LOG_ERR);
+                dol_syslog(get_class($this)."::delete erreur -3 ".$this->error, LOG_ERR);
             }
 
             if ($sqr == 4)
@@ -899,8 +901,9 @@ class Patient extends Societe
     }
 
     /**
-     *    	\brief     	Define third party as a customer
-     *		\return		int		<0 if KO, >0 if OK
+     *   Define third party as a customer
+     *
+     *	 @return		int		<0 if KO, >0 if OK
      */
     function set_as_client()
     {
