@@ -110,7 +110,7 @@ class ActionsConcatPdf
         	}
         	else
         	{
-        		$out.= $form->selectarray('concatpdffile',$morefiles,(GETPOST('concatpdffile')?GETPOST('concatpdffile'):-1),1,0,1);
+        		$out.= $form->selectarray('concatpdffile',$morefiles,($object->extraparams['concatpdf'][0]?$object->extraparams['concatpdf'][0]:-1),1,0,1);
         	}
         }
         $out.='</td></tr>';
@@ -139,8 +139,10 @@ class ActionsConcatPdf
 
         $ret=0; $deltemp=array();
         dol_syslog(get_class($this).'::executeHooks action='.$action);
-
-        $concatpdffile = GETPOST('concatpdffile','array');
+        
+        $check='alpha';
+        if (! empty($conf->global->MAIN_USE_JQUERY_MULTISELECT)) $check='array';
+        $concatpdffile = GETPOST('concatpdffile',$check);
         if (! is_array($concatpdffile)) $concatpdffile = array($concatpdffile);
         
         $element='';
