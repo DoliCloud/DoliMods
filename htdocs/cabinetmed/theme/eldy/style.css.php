@@ -139,7 +139,7 @@ $colorbacklineimpair1=empty($user->conf->THEME_ELDY_ENABLE_PERSONALIZED)?(empty(
 $colorbacklineimpair2=empty($user->conf->THEME_ELDY_ENABLE_PERSONALIZED)?(empty($conf->global->THEME_ELDY_LINEIMPAIR2)  ?$colorbacklineimpair2:$conf->global->THEME_ELDY_LINEIMPAIR2):(empty($user->conf->THEME_ELDY_LINEIMPAIR2)?$colorbacklineimpair2:$user->conf->THEME_ELDY_LINEIMPAIR2);
 $colorbacklinepair1  =empty($user->conf->THEME_ELDY_ENABLE_PERSONALIZED)?(empty($conf->global->THEME_ELDY_LINEPAIR1)    ?$colorbacklinepair1:$conf->global->THEME_ELDY_LINEPAIR1)    :(empty($user->conf->THEME_ELDY_LINEPAIR1)?$colorbacklinepair1:$user->conf->THEME_ELDY_LINEPAIR1);
 $colorbacklinepair2  =empty($user->conf->THEME_ELDY_ENABLE_PERSONALIZED)?(empty($conf->global->THEME_ELDY_LINEPAIR2)    ?$colorbacklinepair2:$conf->global->THEME_ELDY_LINEPAIR2)    :(empty($user->conf->THEME_ELDY_LINEPAIR2)?$colorbacklinepair2:$user->conf->THEME_ELDY_LINEPAIR2);
-$colorbackbody       =empty($user->conf->THEME_ELDY_ENABLE_PERSONALIZED)?(empty($conf->global->THEME_ELDY_BACKBODY)      ?$colorbackbody:$conf->global->THEME_ELDY_BACKBODY)          :(empty($user->conf->THEME_ELDY_BACKBODY)?$colorbackbody:$user->conf->THEME_ELDY_BACKBODY);
+$colorbackbody       =empty($user->conf->THEME_ELDY_ENABLE_PERSONALIZED)?(empty($conf->global->THEME_ELDY_BACKBODY)     ?$colorbackbody:$conf->global->THEME_ELDY_BACKBODY)          :(empty($user->conf->THEME_ELDY_BACKBODY)?$colorbackbody:$user->conf->THEME_ELDY_BACKBODY);
 $colortext           =empty($user->conf->THEME_ELDY_ENABLE_PERSONALIZED)?(empty($conf->global->THEME_ELDY_TEXT)         ?$colortext:$conf->global->THEME_ELDY_TEXT)                  :(empty($user->conf->THEME_ELDY_TEXT)?$colortext:$user->conf->THEME_ELDY_TEXT);
 $fontsize            =empty($user->conf->THEME_ELDY_ENABLE_PERSONALIZED)?(empty($conf->global->THEME_ELDY_FONT_SIZE1)   ?$fontsize:$conf->global->THEME_ELDY_FONT_SIZE1)             :(empty($user->conf->THEME_ELDY_FONT_SIZE1)?$fontsize:$user->conf->THEME_ELDY_FONT_SIZE1);
 $fontsizesmaller     =empty($user->conf->THEME_ELDY_ENABLE_PERSONALIZED)?(empty($conf->global->THEME_ELDY_FONT_SIZE2)   ?$fontsize:$conf->global->THEME_ELDY_FONT_SIZE2)             :(empty($user->conf->THEME_ELDY_FONT_SIZE2)?$fontsize:$user->conf->THEME_ELDY_FONT_SIZE2);
@@ -159,6 +159,7 @@ print 'colorbacklineimpair2='.$colorbacklineimpair2."\n";
 print 'colorbacklinepair1='.$colorbacklinepair1."\n";
 print 'colorbacklinepair2='.$colorbacklinepair2."\n";
 print '*/'."\n";
+
 ?>
 
 /* ============================================================================== */
@@ -198,7 +199,7 @@ select.flat, form.flat select {
 	font-weight: normal;
 }
 input:disabled {
-background:#ddd;
+	background:#ddd;
 }
 input:-webkit-autofill { background-color: #FCFEFA !important; background-image:none !important; }
 textarea:disabled {
@@ -261,6 +262,9 @@ th .button {
 	-webkit-border-radius:0px !important;
 	border-radius:0px !important;
 }
+.valignmiddle {
+	vertical-align: middle;
+}
 
 /* ============================================================================== */
 /* Styles to hide objects                                                         */
@@ -301,22 +305,22 @@ div.fichecenter {
 	clear: both;	/* This is to have div fichecenter that are true rectangles */
 }
 div.fichethirdleft {
-	<?php if (empty($conf->browser->phone)) { print "float: ".$left.";\n"; } ?>
-	<?php if (empty($conf->browser->phone)) { print "width: 35%;\n"; } ?>
+	<?php if (empty($conf->browser->phone))   { print "float: ".$left.";\n"; } ?>
+	<?php if (empty($conf->browser->phone))   { print "width: 35%;\n"; } ?>
 	<?php if (! empty($conf->browser->phone)) { print "padding-bottom: 6px;\n"; } ?>
 }
 div.fichetwothirdright {
-	<?php if (empty($conf->browser->phone)) { print "float: ".$left.";\n"; } ?>
-	<?php if (empty($conf->browser->phone)) { print "width: 65%;\n"; } ?>
+	<?php if (empty($conf->browser->phone))   { print "float: ".$left.";\n"; } ?>
+	<?php if (empty($conf->browser->phone))   { print "width: 65%;\n"; } ?>
 	<?php if (! empty($conf->browser->phone)) { print "padding-bottom: 6px\n"; } ?>
 }
 div.fichehalfleft {
-	<?php if (empty($conf->browser->phone)) { print "float: ".$left.";\n"; } ?>
-	<?php if (empty($conf->browser->phone)) { print "width: 50%;\n"; } ?>
+	<?php if (empty($conf->browser->phone))   { print "float: ".$left.";\n"; } ?>
+	<?php if (empty($conf->browser->phone))   { print "width: 50%;\n"; } ?>
 }
 div.fichehalfright {
-	<?php if (empty($conf->browser->phone)) { print "float: ".$left.";\n"; } ?>
-	<?php if (empty($conf->browser->phone)) { print "width: 50%;\n"; } ?>
+	<?php if (empty($conf->browser->phone))   { print "float: ".$left.";\n"; } ?>
+	<?php if (empty($conf->browser->phone))   { print "width: 50%;\n"; } ?>
 }
 div.ficheaddleft {
 	<?php if (empty($conf->browser->phone))   { print "padding-left: 16px;\n"; } ?>
@@ -579,7 +583,7 @@ foreach($mainmenuusedarray as $key => $val)
 	{
 		if (file_exists($dirroot."/".$val."/img/".$val.".png"))
 		{
-			$url=dol_buildpath('/'.$val.'/img/'.$val.'.png',1);
+			$url=dol_buildpath('/'.$val.'/img/'.$val.'.png', 1);
 			$found=1;
 			break;
 		}
@@ -851,24 +855,35 @@ td.photo {
 /* ============================================================================== */
 
 .toolbar {
+    background-image: linear-gradient(bottom, rgb(<?php echo '240,240,240'; ?>) 15%, rgb(<?php echo '255,255,255'; ?>) 100%) !important;
+    background-image: -o-linear-gradient(bottom, rgb(<?php echo '240,240,240'; ?>) 15%, rgb(<?php echo '255,255,255'; ?>) 100%) !important;
+    background-image: -moz-linear-gradient(bottom, rgb(<?php echo '240,240,240'; ?>) 15%, rgb(<?php echo '255,255,255'; ?>) 100%) !important;
+    background-image: -webkit-linear-gradient(bottom, rgb(<?php echo '240,240,240'; ?>) 15%, rgb(<?php echo '255,255,255'; ?>) 100%) !important;
+    background-image: -ms-linear-gradient(bottom, rgb(<?php echo '240,240,240'; ?>) 15%, rgb(<?php echo '255,255,255'; ?>) 100%) !important;
 
-/* DYN */
-background-image: linear-gradient(bottom, rgb(<?php echo $colorback1; ?>) 15%, rgb(<?php echo $colorback2; ?>) 100%) !important;
-background-image: -o-linear-gradient(bottom, rgb(<?php echo $colorback1; ?>) 15%, rgb(<?php echo $colorback2; ?>) 100%) !important;
-background-image: -moz-linear-gradient(bottom, rgb(<?php echo $colorback1; ?>) 15%, rgb(<?php echo $colorback2; ?>) 100%) !important;
-background-image: -webkit-linear-gradient(bottom, rgb(<?php echo $colorback1; ?>) 15%, rgb(<?php echo $colorback2; ?>) 100%) !important;
-background-image: -ms-linear-gradient(bottom, rgb(<?php echo $colorback1; ?>) 15%, rgb(<?php echo $colorback2; ?>) 100%) !important;
+    border: 1px solid #CCC !important;
 
-    border: 1px solid #BBB !important;
+    -moz-border-radius: 5px 5px 5px 5px !important;
+	-webkit-border-radius: 5px 5px 5px 5px !important;
+	border-radius: 5px 5px 5px 5px !important;
+    -moz-box-shadow: 4px 4px 4px #EEE;
+    -webkit-box-shadow: 4px 4px 4px #EEE;
+    box-shadow: 4px 4px 4px #EEE;
+
+    padding: 0 4px 0 4px !important;
 }
 
-.toolbarbutton {
-    margin-top: 2px;
+a.toolbarbutton {
+    margin-top: 1px;
     margin-left: 4px;
+    margin-right: 4px;
+    height: 30px;
 /*    border: solid 1px #AAAAAA;
-    width: 34px;*/
-    height: 34px;
-/*    background: #FFFFFF;*/
+    width: 32px;
+    background: #FFFFFF;*/
+}
+img.toolbarbutton {
+    height: 28px;
 }
 
 
@@ -936,11 +951,11 @@ background-image: -ms-linear-gradient(bottom, rgb(<?php echo $colorback1; ?>) 15
 .ui-layout-resizer-sliding {    /* resizer when pane is 'slid open' */
     opacity: .10; /* show only a slight shadow */
     filter:  alpha(opacity=10);
-    }
-    .ui-layout-resizer-sliding-hover {  /* sliding resizer - hover */
-        opacity: 1.00; /* on-hover, show the resizer-bar normally */
-        filter:  alpha(opacity=100);
-    }
+}
+.ui-layout-resizer-sliding-hover {  /* sliding resizer - hover */
+    opacity: 1.00; /* on-hover, show the resizer-bar normally */
+    filter:  alpha(opacity=100);
+}
 /* sliding resizer - add 'outside-border' to resizer on-hover */
 /* this sample illustrates how to target specific panes and states */
 /*.ui-layout-resizer-north-sliding-hover  { border-bottom-width:  1px; }
@@ -1041,12 +1056,10 @@ background-image: -ms-linear-gradient(bottom, rgb(<?php echo $colorback1; ?>) 15
 }
 
 .ecm-layout-resizer  { /* all 'resizer-bars' */
-    background:     #EEEEEE;
     border:         1px solid #BBB;
     border-width:   0;
     }
 .ecm-layout-resizer-closed {
-    background-color: #EEEEEE;
 }
 
 .ecm-in-layout-center {
@@ -1112,7 +1125,7 @@ a.tabTitle {
     background: #657090;
     color: white;
 	font-family: <?php print $fontlist ?>;
-    font-weight: normal;
+	font-weight: normal;
     padding: 0px 6px 2px 6px;
     margin: 0px 6px;
     text-decoration: none;
@@ -1133,12 +1146,12 @@ a.tab:link, a.tab:visited, a.tab:hover, a.tab#active {
     border-<?php print $left; ?>: 1px solid #D8D8D8;
     border-top: 1px solid #D8D8D8;
 
-	/* DYN */
-	background-image: linear-gradient(bottom, rgb(<?php echo $colorbacktab1; ?>) 35%, rgb(<?php echo $colorbacktab2; ?>) 100%);
-	background-image: -o-linear-gradient(bottom, rgb(<?php echo $colorbacktab1; ?>) 35%, rgb(<?php echo $colorbacktab2; ?>) 100%);
-	background-image: -moz-linear-gradient(bottom, rgb(<?php echo $colorbacktab1; ?>) 35%, rgb(<?php echo $colorbacktab2; ?>) 100%);
-	background-image: -webkit-linear-gradient(bottom, rgb(<?php echo $colorbacktab1; ?>) 35%, rgb(<?php echo $colorbacktab2; ?>) 100%);
-	background-image: -ms-linear-gradient(bottom, rgb(<?php echo $colorbacktab1; ?>) 35%, rgb(<?php echo $colorbacktab2; ?>) 100%);
+    /* DYN */
+    background-image: linear-gradient(bottom, rgb(<?php echo $colorbacktab1; ?>) 35%, rgb(<?php echo $colorbacktab2; ?>) 100%);
+    background-image: -o-linear-gradient(bottom, rgb(<?php echo $colorbacktab1; ?>) 35%, rgb(<?php echo $colorbacktab2; ?>) 100%);
+    background-image: -moz-linear-gradient(bottom, rgb(<?php echo $colorbacktab1; ?>) 35%, rgb(<?php echo $colorbacktab2; ?>) 100%);
+    background-image: -webkit-linear-gradient(bottom, rgb(<?php echo $colorbacktab1; ?>) 35%, rgb(<?php echo $colorbacktab2; ?>) 100%);
+    background-image: -ms-linear-gradient(bottom, rgb(<?php echo $colorbacktab1; ?>) 35%, rgb(<?php echo $colorbacktab2; ?>) 100%);
 }
 
 a.tab#active {
@@ -1251,6 +1264,7 @@ span.butAction, span.butActionDelete {
 	margin-top: 12px;
 }
 
+
 .paddingrightonly {
 	border-collapse: collapse;
 	border: 0px;
@@ -1260,140 +1274,140 @@ span.butAction, span.butActionDelete {
 	padding-right: 4px;
 }
 .nocellnopadd {
-list-style-type:none;
-margin: 0px !important;
-padding: 0px !important;
+	list-style-type:none;
+	margin: 0px !important;
+	padding: 0px !important;
 }
 
 .notopnoleft {
-border-collapse: collapse;
-border: 0px;
-padding-top: 0px;
-padding-<?php print $left; ?>: 0px;
-padding-<?php print $right; ?>: 16px;
-padding-bottom: 4px;
-margin-right: 0px 0px;
+	border-collapse: collapse;
+	border: 0px;
+	padding-top: 0px;
+	padding-<?php print $left; ?>: 0px;
+	padding-<?php print $right; ?>: 16px;
+	padding-bottom: 4px;
+	margin-right: 0px 0px;
 }
 .notopnoleftnoright {
-border-collapse: collapse;
-border: 0px;
-padding-top: 0px;
-padding-left: 0px;
-padding-right: 0px;
-padding-bottom: 4px;
-margin: 0px 0px 0px 0px;
+	border-collapse: collapse;
+	border: 0px;
+	padding-top: 0px;
+	padding-left: 0px;
+	padding-right: 0px;
+	padding-bottom: 4px;
+	margin: 0px 0px 0px 0px;
 }
 
 
 table.border {
-border: 1px solid #9CACBB;
-border-collapse: collapse;
+	border: 1px solid #9CACBB;
+	border-collapse: collapse;
 }
 
 table.border td {
-padding: 1px 2px 1px 1px;
-border: 1px solid #9CACBB;
-border-collapse: collapse;
+	padding: 1px 2px 1px 1px;
+	border: 1px solid #9CACBB;
+	border-collapse: collapse;
 }
 
 td.border {
-border-top: 1px solid #000000;
-border-right: 1px solid #000000;
-border-bottom: 1px solid #000000;
-border-left: 1px solid #000000;
+	border-top: 1px solid #000000;
+	border-right: 1px solid #000000;
+	border-bottom: 1px solid #000000;
+	border-left: 1px solid #000000;
 }
 
 /* Main boxes */
 
 table.noborder, table.formdoc {
-width: 100%;
+	width: 100%;
 
-border-collapse: separate !important;
-border-spacing: 0px;
+	border-collapse: separate !important;
+	border-spacing: 0px;
+	
+	border-right-width: 0px;
+	border-right-color: #DDDDDD;
+	border-right-style: solid;
 
-border-right-width: 0px;
-border-right-color: #DDDDDD;
-border-right-style: solid;
+	border-left-width: 1px;
+	border-left-color: #DDDDDD;
+	border-left-style: solid;
 
-border-left-width: 1px;
-border-left-color: #DDDDDD;
-border-left-style: solid;
+	border-bottom-width: 1px;
+	border-bottom-color: #DDDDDD;
+	border-bottom-style: solid;
 
-border-bottom-width: 1px;
-border-bottom-color: #DDDDDD;
-border-bottom-style: solid;
+	margin: 0px 0px 2px 0px;
+	/*padding: 1px 2px 1px 2px;*/
 
-margin: 0px 0px 2px 0px;
-/*padding: 1px 2px 1px 2px;*/
+	-moz-box-shadow: 4px 4px 4px #CCC;
+	-webkit-box-shadow: 4px 4px 4px #CCC;
+	box-shadow: 4px 4px 4px #CCC;
 
--moz-box-shadow: 4px 4px 4px #CCC;
--webkit-box-shadow: 4px 4px 4px #CCC;
-box-shadow: 4px 4px 4px #CCC;
-
--moz-border-radius: 0.2em;
--webkit-border-radius: 0.2em;
-border-radius: 0.2em;
+	-moz-border-radius: 0.2em;
+	-webkit-border-radius: 0.2em;
+	border-radius: 0.2em;
 
 }
 
 table.noborder tr {
-border-top-color: #FEFEFE;
+	border-top-color: #FEFEFE;
 
-border-right-width: 1px;
-border-right-color: #BBBBBB;
-border-right-style: solid;
+	border-right-width: 1px;
+	border-right-color: #BBBBBB;
+	border-right-style: solid;
 
-border-left-width: 1px;
-border-left-color: #BBBBBB;
-border-left-style: solid;
-height: 18px;
+	border-left-width: 1px;
+	border-left-color: #BBBBBB;
+	border-left-style: solid;
+	height: 18px;
 }
 
 table.noborder th, table.noborder td {
-padding: 1px 2px 1px 3px;			/* t r b l */
+	padding: 1px 2px 1px 3px;			/* t r b l */
 }
 
 table.nobordernopadding {
-border-collapse: collapse !important;
-border: 0px;
+	border-collapse: collapse !important;
+	border: 0px;
 }
 table.nobordernopadding tr {
-border: 0px !important;
-padding: 0px 0px;
+	border: 0px !important;
+	padding: 0px 0px;
 }
 table.nobordernopadding td {
-border: 0px !important;
-padding: 0px 0px;
+	border: 0px !important;
+	padding: 0px 0px;
 }
 
 /* For lists */
 
 table.liste {
-width: 100%;
-border-collapse: collapse;
-border-top-color: #FEFEFE;
+	width: 100%;
+	border-collapse: collapse;
+	border-top-color: #FEFEFE;
 
-border-right-width: 1px;
-border-right-color: #BBBBBB;
-border-right-style: solid;
+	border-right-width: 1px;
+	border-right-color: #BBBBBB;
+	border-right-style: solid;
 
     border-left-width: 1px;
     border-left-color: #CCCCCC;
     border-left-style: solid;
 
-border-bottom-width: 1px;
-border-bottom-color: #BBBBBB;
-border-bottom-style: solid;
+	border-bottom-width: 1px;
+	border-bottom-color: #BBBBBB;
+	border-bottom-style: solid;
 
-margin-bottom: 2px;
-margin-top: 0px;
+	margin-bottom: 2px;
+	margin-top: 0px;
 
     -moz-box-shadow: 4px 4px 4px #CCC;
     -webkit-box-shadow: 4px 4px 4px #CCC;
     box-shadow: 4px 4px 4px #CCC;
 }
 table.liste td {
-padding-right: 2px;
+	padding-right: 2px;
 }
 
 div.liste_titre, tr.liste_titre, tr.liste_titre_sel
@@ -1401,12 +1415,12 @@ div.liste_titre, tr.liste_titre, tr.liste_titre_sel
     height: 20px !important;
     background-repeat: repeat-x;
 
-/* DYN */
-background-image: linear-gradient(bottom, rgb(<?php echo $colorbacktitle1; ?>) 15%, rgb(<?php echo $colorbacktitle2; ?>) 100%);
-background-image: -o-linear-gradient(bottom, rgb(<?php echo $colorbacktitle1; ?>) 15%, rgb(<?php echo $colorbacktitle2; ?>) 100%);
-background-image: -moz-linear-gradient(bottom, rgb(<?php echo $colorbacktitle1; ?>) 15%, rgb(<?php echo $colorbacktitle2; ?>) 100%);
-background-image: -webkit-linear-gradient(bottom, rgb(<?php echo $colorbacktitle1; ?>) 15%, rgb(<?php echo $colorbacktitle2; ?>) 100%);
-background-image: -ms-linear-gradient(bottom, rgb(<?php echo $colorbacktitle1; ?>) 15%, rgb(<?php echo $colorbacktitle2; ?>) 100%);
+	/* DYN */
+	background-image: linear-gradient(bottom, rgb(<?php echo $colorbacktitle1; ?>) 15%, rgb(<?php echo $colorbacktitle2; ?>) 100%);
+	background-image: -o-linear-gradient(bottom, rgb(<?php echo $colorbacktitle1; ?>) 15%, rgb(<?php echo $colorbacktitle2; ?>) 100%);
+	background-image: -moz-linear-gradient(bottom, rgb(<?php echo $colorbacktitle1; ?>) 15%, rgb(<?php echo $colorbacktitle2; ?>) 100%);
+	background-image: -webkit-linear-gradient(bottom, rgb(<?php echo $colorbacktitle1; ?>) 15%, rgb(<?php echo $colorbacktitle2; ?>) 100%);
+	background-image: -ms-linear-gradient(bottom, rgb(<?php echo $colorbacktitle1; ?>) 15%, rgb(<?php echo $colorbacktitle2; ?>) 100%);
 
     color: #<?php echo $colortextmain; ?>;
     font-family: <?php print $fontlist ?>;
@@ -1485,8 +1499,8 @@ tr.liste_total td {
 }
 /*
 .pair:hover {
-background: #c0c4c7;
-border: 0px;
+	background: #c0c4c7;
+	border: 0px;
 }
 */
 
@@ -1669,6 +1683,30 @@ div.titre {
 #divsubscribe { width: 700px; }
 #tablesubscribe { width: 100%; }
 
+div.table-border {
+	display:table;
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #9CACBB;
+}
+div.table-border-row {
+	display:table-row;
+}
+div.table-key-border-col {
+	display:table-cell;
+	width: 25%;
+	vertical-align:top;
+	padding: 1px 2px 1px 1px;
+	border: 1px solid #9CACBB;
+	border-collapse: collapse;
+}
+div.table-val-border-col {
+	display:table-cell;
+	width:auto;
+	padding: 1px 2px 1px 1px;
+	border: 1px solid #9CACBB;
+	border-collapse: collapse;
+}
 
 /* ============================================================================== */
 /* Formulaire confirmation (When Ajax JQuery is used)                             */
@@ -1736,7 +1774,7 @@ img.datecallink { padding-left: 2px !important; padding-right: 2px !important; }
 }
 
 .bodyline {
-	-moz-border-radius:8px;
+	-moz-border-radius: 8px;
 	-webkit-border-radius: 8px;
 	border-radius: 8px;
 	border: 1px #E4ECEC outset;
@@ -1796,14 +1834,14 @@ table.dp {
 /* Bouton X fermer */
 .dpInvisibleButtons
 {
-border-style:none;
-background-color:transparent;
-padding:0px;
-font-size:9px;
-border-width:0px;
-color:#0B63A2;
-vertical-align:middle;
-cursor: pointer;
+	border-style:none;
+	background-color:transparent;
+	padding:0px;
+	font-size:9px;
+	border-width:0px;
+	color:#0B63A2;
+	vertical-align:middle;
+	cursor: pointer;
 }
 
 
@@ -2180,7 +2218,7 @@ A.none, A.none:active, A.none:visited, A.none:hover {
 {
     border: 0px solid #FF0000 !important;
 }
-span.cke_skin_kama { padding: 0 ! important; }
+span.cke_skin_kama { padding: 0 !important; }
 .cke_wrapper { padding: 4px !important; }
 
 a.cke_dialog_ui_button
@@ -2220,35 +2258,6 @@ a.cke_dialog_ui_button
 
 div.scroll2 {
 	width: 582px !important;
-}
-
-/* ============================================================================== */
-/*  Table with div                                                                */
-/* ============================================================================== */
-
-div.table-border {
-	display:table;
-    width: 100%;
-    border-collapse: collapse;
-    border: 1px solid #9CACBB;
-}
-div.table-border-row {
-	display:table-row;
-}
-div.table-key-border-col {
-	display:table-cell;
-	width: 25%;
-	vertical-align:top;
-	padding: 1px 2px 1px 1px;
-	border: 1px solid #9CACBB;
-	border-collapse: collapse;
-}
-div.table-val-border-col {
-	display:table-cell;
-	width:auto;
-	padding: 1px 2px 1px 1px;
-	border: 1px solid #9CACBB;
-	border-collapse: collapse;
 }
 
 
