@@ -61,9 +61,6 @@ class ActionsConcatPdf
         $form=new Form($this->db);
 
         $out='';
-        $out.='<tr class="liste_titre">';
-        $out.='<td align="left" colspan="4" valign="top" class="formdoc">';
-        $out.=$langs->trans("ConcatFile").' ';
 
         $morefiles=array();
         
@@ -99,6 +96,10 @@ class ActionsConcatPdf
         }
         if (! empty($morefiles))
         {
+        	$out.='<tr class="liste_titre">';
+        	$out.='<td align="left" colspan="4" valign="top" class="formdoc">';
+        	$out.=$langs->trans("ConcatFile").' ';
+        	
         	if (! empty($conf->global->MAIN_USE_JQUERY_MULTISELECT))
         	{
         		$out.='</td></tr>';
@@ -143,7 +144,7 @@ class ActionsConcatPdf
         $check='alpha';
         if (! empty($conf->global->MAIN_USE_JQUERY_MULTISELECT)) $check='array';
         $concatpdffile = GETPOST('concatpdffile',$check);
-        if (! is_array($concatpdffile)) $concatpdffile = array($concatpdffile);
+        if (! is_array($concatpdffile) && ! empty($concatpdffile)) $concatpdffile = array($concatpdffile);
         
         $element='';
         if ($parameters['object']->element == 'propal')  $element='proposals';
@@ -153,6 +154,7 @@ class ActionsConcatPdf
         $filetoconcat1=array($parameters['file']);
         $filetoconcat2=array();
         //var_dump($parameters['object']->element); exit;
+        //var_dump($concatpdffile);
         if (! empty($concatpdffile))
         {
         	foreach($concatpdffile as $concatfile)
