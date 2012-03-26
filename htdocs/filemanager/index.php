@@ -146,7 +146,7 @@ $morehead="<style type=\"text/css\">
         ,   north__paneSelector:    \"#ecm-layout-north\"
         ,   west__paneSelector:     \"#ecm-layout-west\"
 		,   resizable: true
-		, 	north__size:        42
+		, 	north__size:        38
 		,   north__resizable:   false
 		,   north__closable:    false
 		,	west__size:			280
@@ -510,12 +510,12 @@ print '</div>'."\n";
 <?php
 // Toolbar
 print '<div class="toolbarbutton">';
-print '<a href="#" id="anewdir" disabled="disabled" class="fmbuttondir" title="'.dol_escape_htmltag($langs->transnoentities("NewDir")).'"><img border="0" width="32" height="32" src="'.dol_buildpath('/filemanager/images/folder-new.png',1).'"></a>'."\n";
-print '<a href="#" id="adeletedir" class="fmbuttondir" title="'.dol_escape_htmltag($langs->transnoentities("DeleteDir")).'"><img border="0" width="32" height="32" src="'.dol_buildpath('/filemanager/images/folder-delete.png',1).'"></a>'."\n";
-print '<a href="#" id="anewfile" class="fmbuttondir" title="'.dol_escape_htmltag($langs->transnoentities("NewFile")).'"><img border="0" width="32" height="32" src="'.dol_buildpath('/filemanager/images/document-new.png',1).'"></a>'."\n";
-print '<a href="#" id="asavefile" class="fmbuttonsave" title="'.dol_escape_htmltag($langs->transnoentities("Save")).'"><img border="0" width="32" height="32" src="'.dol_buildpath('/filemanager/images/media-floppy.png',1).'"></a>'."\n";
-print '<a href="#" id="aloadandeditcontent" class="fmbuttonfile" title="'.dol_escape_htmltag($langs->transnoentities("Edit")).'"><img border="0" width="32" height="32" src="'.dol_buildpath('/filemanager/images/edit-copy.png',1).'"></a>'."\n";
-print '<a href="#" id="adeletefile" class="fmbuttonfile" title="'.dol_escape_htmltag($langs->transnoentities("DeleteFile")).'"><img border="0" width="32" height="32" src="'.dol_buildpath('/filemanager/images/document-delete.png',1).'"></a>'."\n";
+print '<a href="#" id="anewdir" disabled="disabled" class="toolbarbutton fmbuttondir" title="'.dol_escape_htmltag($langs->transnoentities("NewDir")).'"><img border="0" class="toolbarbutton" src="'.dol_buildpath('/filemanager/images/folder-new.png',1).'"></a>'."\n";
+print '<a href="#" id="adeletedir" class="toolbarbutton fmbuttondir" title="'.dol_escape_htmltag($langs->transnoentities("DeleteDir")).'"><img border="0" class="toolbarbutton" src="'.dol_buildpath('/filemanager/images/folder-delete.png',1).'"></a>'."\n";
+print '<a href="#" id="anewfile" class="toolbarbutton fmbuttondir" title="'.dol_escape_htmltag($langs->transnoentities("NewFile")).'"><img border="0" class="toolbarbutton" src="'.dol_buildpath('/filemanager/images/document-new.png',1).'"></a>'."\n";
+print '<a href="#" id="asavefile" class="toolbarbutton fmbuttonsave" title="'.dol_escape_htmltag($langs->transnoentities("Save")).'"><img border="0" class="toolbarbutton" src="'.dol_buildpath('/filemanager/images/media-floppy.png',1).'"></a>'."\n";
+print '<a href="#" id="aloadandeditcontent" class="toolbarbutton fmbuttonfile" title="'.dol_escape_htmltag($langs->transnoentities("Edit")).'"><img border="0" class="toolbarbutton" src="'.dol_buildpath('/filemanager/images/edit-copy.png',1).'"></a>'."\n";
+print '<a href="#" id="adeletefile" class="toolbarbutton fmbuttonfile" title="'.dol_escape_htmltag($langs->transnoentities("DeleteFile")).'"><img border="0" class="toolbarbutton" src="'.dol_buildpath('/filemanager/images/document-delete.png',1).'"></a>'."\n";
 print '</div>';
 ?>
     </div>
