@@ -41,6 +41,8 @@ function cabinetmed_completesubstitutionarray(&$substitutionarray,$langs,$object
     dol_include_once('/cabinetmed/class/cabinetmedexambio.class.php');
     dol_include_once('/cabinetmed/class/cabinetmedexamother.class.php');
 
+    $langs->load("cabinetmed@cabinetmed");
+
     $isbio=0;
     $isother=0;
 
