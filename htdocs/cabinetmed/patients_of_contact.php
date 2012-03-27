@@ -238,12 +238,14 @@ if ($resql)
         print '</tr>';
         $i++;
     }
-    print '</table>';
 }
 else
 {
     dol_print_error($db);
 }
+
+print '</table>';
+print '<br>';
 
 llxFooter();
 
