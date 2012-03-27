@@ -127,8 +127,7 @@ class InterfaceActionsCabinetmed
 
             $object->actiontypecode='AC_OTH';
             if (empty($object->actionmsg2)) $object->actionmsg2=$langs->transnoentities("NewOutcomeToDolibarr",$object->id,$thirdparty->name);
-            $object->actionmsg=$langs->transnoentities("NewOutcomeToDolibarr",$object->name);
-            if ($object->prefix) $object->actionmsg.=" (".$object->prefix.")";
+            $object->actionmsg=$langs->transnoentities("NewOutcomeToDolibarr",$object->id,$thirdparty->name);
             //$this->desc.="\n".$langs->transnoentities("Customer").': '.yn($object->client);
             //$this->desc.="\n".$langs->transnoentities("Supplier").': '.yn($object->fournisseur);
             $object->actionmsg.="\n".$langs->transnoentities("Author").': '.$user->login;
