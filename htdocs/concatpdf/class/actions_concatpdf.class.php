@@ -63,7 +63,7 @@ class ActionsConcatPdf
         $out='';
 
         $morefiles=array();
-        
+
         if ($parameters['modulepart'] == 'propal')
         {
         	$staticpdf=glob($conf->concatpdf->dir_output."/proposals/*.pdf");
@@ -99,13 +99,13 @@ class ActionsConcatPdf
         	$out.='<tr class="liste_titre">';
         	$out.='<td align="left" colspan="4" valign="top" class="formdoc">';
         	$out.=$langs->trans("ConcatFile").' ';
-        	
+
         	if (! empty($conf->global->MAIN_USE_JQUERY_MULTISELECT))
         	{
         		$out.='</td></tr>';
-        		
+
         		dol_include_once('/concatpdf/core/tpl/ajaxmultiselect.tpl.php');
-        		
+
         		$out.='<tr><td id="selectconcatpdf" colspan="4" valign="top">';
         		$out.= $form->multiselectarray('concatpdffile', $morefiles, $object->extraparams['concatpdf'], 0, 1, '', 1);
         	}
@@ -140,12 +140,12 @@ class ActionsConcatPdf
 
         $ret=0; $deltemp=array();
         dol_syslog(get_class($this).'::executeHooks action='.$action);
-        
+
         $check='alpha';
         if (! empty($conf->global->MAIN_USE_JQUERY_MULTISELECT)) $check='array';
         $concatpdffile = GETPOST('concatpdffile',$check);
         if (! is_array($concatpdffile) && ! empty($concatpdffile)) $concatpdffile = array($concatpdffile);
-        
+
         $element='';
         if ($parameters['object']->element == 'propal')  $element='proposals';
         if ($parameters['object']->element == 'order'   || $parameters['object']->element == 'commande') $element='orders';
@@ -155,19 +155,19 @@ class ActionsConcatPdf
         $filetoconcat2=array();
         //var_dump($parameters['object']->element); exit;
         //var_dump($concatpdffile);
-        if (! empty($concatpdffile))
+        if (! empty($concatpdffile) && $concatpdffile[0] != -1)
         {
         	foreach($concatpdffile as $concatfile)
         	{
         		if (preg_match('/^pdf_(.*)+\.modules/', $concatfile))
         		{
         			require_once(DOL_DOCUMENT_ROOT."/core/lib/files.lib.php");
-        			 
+
         			$file = $conf->concatpdf->dir_output.'/'.$element.'/'.$concatfile.'.php';
         			$classname = str_replace('.modules', '', $concatfile);
         			require_once($file);
         			$obj = new $classname($db);
-        			 
+
         			// We save charset_output to restore it because write_file can change it if needed for
         			// output format that does not support UTF8.
         			$sav_charset_output=$outputlangs->charset_output;
@@ -177,11 +177,11 @@ class ActionsConcatPdf
         			$obj->write_file($parameters['object'], $outputlangs, $srctemplatepath, $hidedetails, $hidedesc, $hideref, $hookmanager);
         			// Restore charset output
         			$outputlangs->charset_output=$sav_charset_output;
-        			 
+
         			$objectref = dol_sanitizeFileName($parameters['object']->ref);
         			$dir = $conf->concatpdf->dir_temp . "/" . $objectref;
         			$filetoconcat2[] = $dir . "/" . $objectref . ".pdf";
-        			 
+
         			$deltemp[] = $dir;
         		}
         		else
@@ -189,13 +189,13 @@ class ActionsConcatPdf
         			$filetoconcat2[] = $conf->concatpdf->dir_output.'/'.$element.'/'.$concatfile.'.pdf';
         		}
         	}
-        	
+
         	dol_syslog(get_class($this).'::afterPDFCreation '.$filetoconcat1.' - '.$filetoconcat2);
-        	
+
         	if (! empty($filetoconcat2) && ! empty($concatpdffile) && $concatpdffile != '-1')
         	{
         		$filetoconcat = array_merge($filetoconcat1, $filetoconcat2);
-        		 
+
         		// Create empty PDF
         		$pdf=pdf_getInstance();
         		if (class_exists('TCPDF'))
@@ -204,12 +204,12 @@ class ActionsConcatPdf
         			$pdf->setPrintFooter(false);
         		}
         		$pdf->SetFont(pdf_getPDFFont($outputlangs));
-        	
+
         		if ($conf->global->MAIN_DISABLE_PDF_COMPRESSION) $pdf->SetCompression(false);
         		//$pdf->SetCompression(false);
-        	
+
         		$pagecount = $this->concat($pdf, $filetoconcat);
-        	
+
         		if ($pagecount)
         		{
         			$pdf->Output($filetoconcat1[0],'F');
@@ -226,7 +226,7 @@ class ActionsConcatPdf
         				}
         			}
         		}
-        		
+
         		// Save selected files and order
         		$params['concatpdf'] = $concatpdffile;
         		$parameters['object']->extraparams = array_merge($parameters['object']->extraparams, $params);
@@ -237,14 +237,14 @@ class ActionsConcatPdf
         	// Remove extraparams for concatpdf
         	unset($parameters['object']->extraparams['concatpdf']);
         }
-        
+
         $result=$parameters['object']->setExtraParameters();
 
         return $ret;
     }
-    
+
 	/**
-	 * 
+	 *
 	 * @param unknown_type $pdf
 	 * @param unknown_type $files
 	 */
@@ -261,7 +261,7 @@ class ActionsConcatPdf
 				$pdf->useTemplate($tplidx);
 			}
 		}
-		
+
 		return $pagecount;
 	}
 
