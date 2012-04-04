@@ -1,0 +1,25 @@
+# Dolibarr language file - fr_FR - openstreetmap
+CHARSET=UTF-8
+OpenStreetMapSetup=Configuration du module OpenStreetMap
+OpenStreetMapSetupHelp=L'ID Agenda est propre à chaque agenda et est visible dans la page de paramétrage OpenStreetMap de l'agenda. Il s'agit d'un identifiant qui ressemble à un email.
+OpenStreetMapAgendaNb=Agenda no %s
+OpenStreetMapIDAgenda=ID Agenda
+OpenStreetMapNbOfAgenda=Nombre d'agendas
+OpenStreetMapTools=Outils OpenStreetMap
+OpenStreetMapEnableThisTool=Ajouter l'onglet OpenStreetMap agenda sur la vue agenda
+OpenStreetMapEnableThisToolThirdParties=Activer cet outils sur les Tiers
+OpenStreetMapEnableThisToolContacts=Activer cet outils sur les Contacts
+OpenStreetMapEnableThisToolMembers=Activer cet outils sur les Adhérents
+OpenStreetMapAddPubOnLogonPage=Renseigner les informations AdSense pour ajouter une publicité OpenStreetMap sur la page de logon (sinon laisser vide)
+OpenStreetMapAddAnalyticsOnLogonPage=Renseigner l'id de suivi Analytics pour ajouter la balise OpenStreetMap Analytics sur la page de logon (sinon laisser vide)
+OpenStreetMapZoomLevel=Niveau de zoom par défaut (1 à 10)
+OpenStreetMapAddressNotDefined=L'adresse n'est pas ou pas complètement renseignée pour être géolocalisée
+OpenStreetMapMapsAddressNotFound=L'adresse n'a pu être trouvée.
+OpenStreetMapAgendaToShow=Agenda à afficher
+OpenStreetMapEnableSyncToCalendar=Créer un évènement OpenStreetMap dans OpenStreetMap Calendar lors de la création d'un évènement Dolibarr
+AgendaView=View OpenStreetMap agenda
+AgendaSync=Sync to OpenStreetMap agenda
+OPENSTREETMAP_LOGIN=OpenStreetMap Login
+OPENSTREETMAP_PASSWORD=Password
+Module101160Name=OpenStreetMap
+Module101160Desc=Module pour intégrer les outils OpenStreetMap dans Dolibarr

@@ -1,0 +1,5 @@
+# Dolibarr language file - no_NB - openstreetmap
+CHARSET=UTF-8
+OpenStreetMapSetup=Oppsett av OpenStreetMap tools integrasjon
+OpenStreetMapSetupHelp=Hjelp til å angi parametere finnes på OpenStreetMap url %s
+OpenStreetMapAgendaNb=Agenda nb %s 

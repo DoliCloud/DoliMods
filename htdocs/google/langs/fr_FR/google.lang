@@ -21,5 +21,5 @@ AgendaView=View Google agenda
 AgendaSync=Sync to Google agenda
 GOOGLE_LOGIN=Google Login
 GOOGLE_PASSWORD=Password
-Module11000Name=Google
-Module11000Desc=Module pour intégrer les outils Google dans Dolibarr
+Module101110Name=Google
+Module101110Desc=Module pour intégrer les outils Google dans Dolibarr

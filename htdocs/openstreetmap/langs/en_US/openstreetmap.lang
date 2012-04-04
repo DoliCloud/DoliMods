@@ -1,0 +1,25 @@
+# Dolibarr language file - en_US - openstreetmap
+CHARSET=UTF-8
+OpenStreetMapSetup=OpenStreetMap tools integration setup
+OpenStreetMapSetupHelp=ID Agenda can be found on OpenStreetMap parameter page for the agenda. It's an id that looks like an email.
+OpenStreetMapAgendaNb=Agenda nb %s
+OpenStreetMapIDAgenda=ID Agenda
+OpenStreetMapNbOfAgenda=Number of agendas
+OpenStreetMapTools=OpenStreetMap tools
+OpenStreetMapEnableThisTool=Add OpenStreetMap agenda tab on agenda view
+OpenStreetMapEnableThisToolThirdParties=Activate this tools on Thirdparties cards
+OpenStreetMapEnableThisToolContacts=Activate this tools on Contacts cards
+OpenStreetMapEnableThisToolMembers=Activate this tools on Members cards
+OpenStreetMapAddPubOnLogonPage=Add AdSense information to add you own advert on logon page (otherwise keep empty)
+OpenStreetMapAddAnalyticsOnLogonPage=Add Analytics id to add the OpenStreetMap Analytics tags onto your login page (otherwise keep empy)
+OpenStreetMapZoomLevel=Zoom level by default (1 to 10)
+OpenStreetMapAddressNotDefined=Address is not enough defined to be geolocalized
+OpenStreetMapMapsAddressNotFound=Address was not found.
+OpenStreetMapAgendaToShow=Agenda to show
+OpenStreetMapEnableSyncToCalendar=Create a OpenStreetMap event into OpenStreetMap Calendar when creating a Dolibarr event
+AgendaView=Vue OpenStreetMap agenda
+AgendaSync=Syncro vers OpenStreetMap agenda
+OPENSTREETMAP_LOGIN=Login OpenStreetMap
+OPENSTREETMAP_PASSWORD=Mot de passe
+Module101160Name=OpenStreetMap
+Module101160Desc=Module to integrate OpenStreetMap tools with Dolibarr

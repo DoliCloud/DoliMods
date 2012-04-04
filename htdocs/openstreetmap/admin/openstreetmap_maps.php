@@ -3,9 +3,9 @@
  */
 
 /**
- *	    \file       htdocs/google/admin/google_gmaps.php
- *      \ingroup    google
- *      \brief      Setup page for google module (GMaps)
+ *	    \file       htdocs/openstreetmap/admin/openstreetmap_gmaps.php
+ *      \ingroup    openstreetmap
+ *      \brief      Setup page for openstreetmap module (Maps)
  */
 
 define('NOCSRFCHECK',1);
@@ -22,12 +22,12 @@ require_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/date.lib.php");
 require_once(DOL_DOCUMENT_ROOT.'/core/class/html.formadmin.class.php');
 require_once(DOL_DOCUMENT_ROOT.'/core/class/html.formother.class.php');
-dol_include_once("/google/lib/google.lib.php");
+dol_include_once("/openstreetmap/lib/openstreetmap.lib.php");
 
 if (!$user->admin)
     accessforbidden();
 
-$langs->load("google@google");
+$langs->load("openstreetmap@openstreetmap");
 $langs->load("admin");
 $langs->load("other");
 
@@ -46,10 +46,10 @@ if ($actionsave)
     $db->begin();
 
 	$res=0;
-    $res+=dolibarr_set_const($db,'GOOGLE_ENABLE_GMAPS',trim($_POST["GOOGLE_ENABLE_GMAPS"]),'chaine',0);
-	$res+=dolibarr_set_const($db,'GOOGLE_ENABLE_GMAPS_CONTACTS',trim($_POST["GOOGLE_ENABLE_GMAPS_CONTACTS"]),'chaine',0);
-	$res+=dolibarr_set_const($db,'GOOGLE_ENABLE_GMAPS_MEMBERS',trim($_POST["GOOGLE_ENABLE_GMAPS_MEMBERS"]),'chaine',0);
-	$res+=dolibarr_set_const($db,'GOOGLE_GMAPS_ZOOM_LEVEL',trim($_POST["GOOGLE_GMAPS_ZOOM_LEVEL"]),'chaine',0);
+    $res+=dolibarr_set_const($db,'OPENSTREETMAP_ENABLE_MAPS',trim($_POST["OPENSTREETMAP_ENABLE_MAPS"]),'chaine',0);
+	$res+=dolibarr_set_const($db,'OPENSTREETMAP_ENABLE_MAPS_CONTACTS',trim($_POST["OPENSTREETMAP_ENABLE_MAPS_CONTACTS"]),'chaine',0);
+	$res+=dolibarr_set_const($db,'OPENSTREETMAP_ENABLE_MAPS_MEMBERS',trim($_POST["OPENSTREETMAP_ENABLE_MAPS_MEMBERS"]),'chaine',0);
+	$res+=dolibarr_set_const($db,'OPENSTREETMAP_MAPS_ZOOM_LEVEL',trim($_POST["OPENSTREETMAP_MAPS_ZOOM_LEVEL"]),'chaine',0);
 
     if ($res == 4)
     {
@@ -74,51 +74,52 @@ $form=new Form($db);
 $formadmin=new FormAdmin($db);
 $formother=new FormOther($db);
 
-$help_url='EN:Module_Google_EN|FR:Module_Google|ES:Modulo_Google';
-llxHeader('',$langs->trans("GoogleSetup"),$help_url);
+$help_url='EN:Module_OpenStreetMap_EN|FR:Module_OpenStreetMap|ES:Modulo_OpenStreetMap';
+llxHeader('',$langs->trans("OpenStreetMapSetup"),$help_url);
 
 $linkback='<a href="'.DOL_URL_ROOT.'/admin/modules.php">'.$langs->trans("BackToModuleList").'</a>';
-print_fiche_titre($langs->trans("GoogleSetup"),$linkback,'setup');
+print_fiche_titre($langs->trans("OpenStreetMapSetup"),$linkback,'setup');
 print '<br>';
 
 
-$head=googleadmin_prepare_head();
+$head=openstreetmapadmin_prepare_head();
 
-dol_fiche_head($head, 'gmaps', $langs->trans("GoogleTools"));
+dol_fiche_head($head, 'maps', $langs->trans("OpenStreetMapTools"));
 
 
-print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
+print '<form name="openstreetmapconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
 
-print $langs->trans("GoogleEnableThisToolThirdParties").': ';
+print $langs->trans("OpenStreetMapEnableThisToolThirdParties").': ';
 if ($conf->societe->enabled)
 {
-	print $form->selectyesno("GOOGLE_ENABLE_GMAPS",isset($_POST["GOOGLE_ENABLE_GMAPS"])?$_POST["GOOGLE_ENABLE_GMAPS"]:$conf->global->GOOGLE_ENABLE_GMAPS,1);
+	print $form->selectyesno("OPENSTREETMAP_ENABLE_MAPS",isset($_POST["OPENSTREETMAP_ENABLE_MAPS"])?$_POST["OPENSTREETMAP_ENABLE_MAPS"]:$conf->global->OPENSTREETMAP_ENABLE_MAPS,1);
 }
 else print $langs->trans("ModuleMustBeEnabledFirst",$langs->transnoentitiesnoconv("Module1Name"));
 print '<br>';
 
 //print '<br>';
-print $langs->trans("GoogleEnableThisToolContacts").': ';
+print $langs->trans("OpenStreetMapEnableThisToolContacts").': ';
 if ($conf->societe->enabled)
 {
-	print $form->selectyesno("GOOGLE_ENABLE_GMAPS_CONTACTS",isset($_POST["GOOGLE_ENABLE_GMAPS_CONTACTS"])?$_POST["GOOGLE_ENABLE_GMAPS_CONTACTS"]:$conf->global->GOOGLE_ENABLE_GMAPS_CONTACTS,1);
+	print $form->selectyesno("OPENSTREETMAP_ENABLE_MAPS_CONTACTS",isset($_POST["OPENSTREETMAP_ENABLE_MAPS_CONTACTS"])?$_POST["OPENSTREETMAP_ENABLE_MAPS_CONTACTS"]:$conf->global->OPENSTREETMAP_ENABLE_MAPS_CONTACTS,1);
 }
 else print $langs->trans("ModuleMustBeEnabledFirst",$langs->transnoentitiesnoconv("Module1Name"));
 print '<br>';
 
 //print '<br>';
-print $langs->trans("GoogleEnableThisToolMembers").': ';
+print $langs->trans("OpenStreetMapEnableThisToolMembers").': ';
 if ($conf->adherent->enabled)
 {
-	print $form->selectyesno("GOOGLE_ENABLE_GMAPS_MEMBERS",isset($_POST["GOOGLE_ENABLE_GMAPS_MEMBERS"])?$_POST["GOOGLE_ENABLE_GMAPS_MEMBERS"]:$conf->global->GOOGLE_ENABLE_GMAPS_MEMBERS,1);
+	print $form->selectyesno("OPENSTREETMAP_ENABLE_MAPS_MEMBERS",isset($_POST["OPENSTREETMAP_ENABLE_MAPS_MEMBERS"])?$_POST["OPENSTREETMAP_ENABLE_MAPS_MEMBERS"]:$conf->global->OPENSTREETMAP_ENABLE_MAPS_MEMBERS,1);
 }
 else print $langs->trans("ModuleMustBeEnabledFirst",$langs->transnoentitiesnoconv("Module310Name"));
 print '<br>';
 
 //print '<br>';
-print $langs->trans("GoogleZoomLevel").': ';
-print '<input class="flat" name="GOOGLE_GMAPS_ZOOM_LEVEL" id="GOOGLE_GMAPS_ZOOM_LEVEL" value="'.(isset($_POST["GOOGLE_GMAPS_ZOOM_LEVEL"])?$_POST["GOOGLE_GMAPS_ZOOM_LEVEL"]:$conf->global->GOOGLE_GMAPS_ZOOM_LEVEL).'" size="2">';
-
+/*
+print $langs->trans("OpenStreetMapZoomLevel").': ';
+print '<input class="flat" name="OPENSTREETMAP_MAPS_ZOOM_LEVEL" id="OPENSTREETMAP_MAPS_ZOOM_LEVEL" value="'.(isset($_POST["OPENSTREETMAP_MAPS_ZOOM_LEVEL"])?$_POST["OPENSTREETMAP_MAPS_ZOOM_LEVEL"]:$conf->global->OPENSTREETMAP_MAPS_ZOOM_LEVEL).'" size="2">';
+*/
 
 print '<br>';
 print '<center>';
@@ -135,9 +136,10 @@ dol_htmloutput_mesg($mesg);
 
 // Show message
 $message='';
-//$urlgooglehelp='<a href="http://www.google.com/calendar/embed/EmbedHelper_en.html" target="_blank">http://www.google.com/calendar/embed/EmbedHelper_en.html</a>';
-//$message.=$langs->trans("GoogleSetupHelp",$urlgooglehelp);
+//$urlopenstreetmaphelp='<a href="http://www.openstreetmap.com/calendar/embed/EmbedHelper_en.html" target="_blank">http://www.openstreetmap.com/calendar/embed/EmbedHelper_en.html</a>';
+//$message.=$langs->trans("OpenStreetMapSetupHelp",$urlopenstreetmaphelp);
 //print info_admin($message);
+
 
 llxFooter();
 

@@ -30,5 +30,6 @@ dolicloud			Privé
 ------ Dev -----
 des_fr				KO
 numberingpack		KO
+openstreetmap		KO
 webmail				A finir		20
 theme_pack			A finir		Free

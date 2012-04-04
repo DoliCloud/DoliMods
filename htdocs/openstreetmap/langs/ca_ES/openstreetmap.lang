@@ -1,0 +1,25 @@
+# Dolibarr language file - ca_ES - openstreetmap
+CHARSET = UTF-8
+OpenStreetMapSetup=Configuració integració amb OpenStreetMap tools
+OpenStreetMapSetupHelp=Ajuda a definir els paràmetres que es troben amb la URL de configuració de openstreetmap %s
+OpenStreetMapAgendaNb=Agenda nº %s 
+OpenStreetMapIDAgenda=ID Agenda
+OpenStreetMapNbOfAgenda=Número de agendes
+OpenStreetMapTools=Eines OpenStreetMap
+OpenStreetMapEnableThisTool=Afegir la pestanya OpenStreetMap agenda a la vista de l'agenda
+OpenStreetMapEnableThisToolThirdParties=Activar aquesta eina en els Tercers
+OpenStreetMapEnableThisToolContacts=Activar aquesta eina en els Contactes
+OpenStreetMapEnableThisToolMembers=Activar aquesta eina en els membres
+OpenStreetMapAddPubOnLogonPage=Indicar informació AdSense per afegir publicitat a la pàgina de login (en cas contrari deixar en blanc)
+OpenStreetMapAddAnalyticsOnLogonPage=Indicar l'id d'Analytics per afegir la balisa OpenStreetMap Analytics a la pàgina de login (en cas contrari deixar en blanc)
+OpenStreetMapZoomLevel=Nivell de zoom per defecte (1 a 10)
+OpenStreetMapAddressNotDefined=No hi ha adreça o no està prou completa com per poder ser geolocalitzada
+OpenStreetMapMapsAddressNotFound=No s'ha pogut trobar l'adreça.
+OpenStreetMapAgendaToShow=Agenda a mostrar
+OpenStreetMapEnableSyncToCalendar=Crear un esdeveniment OpenStreetMap a OpenStreetMap Calendar a la creació d'un esdeveniment Dolibarr
+AgendaView=Vista OpenStreetMap agenda
+AgendaSync=Sincronitzar a OpenStreetMap agenda
+OPENSTREETMAP_LOGIN=Login OpenStreetMap
+OPENSTREETMAP_PASSWORD=Contrasenya
+Module101160Name=OpenStreetMap
+Module101160Desc=Mòdul per integrar les eines OpenStreetMap en Dolibarr
