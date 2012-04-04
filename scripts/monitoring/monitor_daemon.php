@@ -326,6 +326,7 @@ function process_probe_x($object,$maxloops=0)
             //ob_start();
             list($usec, $sec) = explode(" ", microtime());
             $micro_start_time=((float)$usec + (float)$sec);
+
             $result = curl_exec($ch);
 
             list($usec, $sec) = explode(" ", microtime());

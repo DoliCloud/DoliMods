@@ -147,14 +147,72 @@ print '</table>';
 
 if ($address && $address != $object->country)
 {
+    print '<br><div id="map" style="width: 100%; height: 500px; text-align: center; align: center">';
 
-?>
+    $url='http://nominatim.openstreetmap.org/search?format=json&polygon=1&addressdetails=1&q='.urlencode($address);
 
-ICI PLAN
+    $ch = curl_init();
+    //turning off the server and peer verification(TrustManager Concept).
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
 
-<div id="map" style="width: 100%; height: 500px;" ></div>
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
+    curl_setopt($ch, CURLOPT_FAILONERROR, 1);
+    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 0);
+    curl_setopt($ch, CURLOPT_FRESH_CONNECT, 0);
 
-<?php
+    curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
+    if (! empty($conf->global->MAIN_PROXY_USE))
+    {
+        curl_setopt ($ch, CURLOPT_PROXY, $conf->global->MAIN_PROXY_HOST. ":" . $conf->global->MAIN_PROXY_PORT);
+        if (! empty($conf->global->MAIN_PROXY_USER)) curl_setopt ($ch, CURLOPT_PROXYUSERPWD, $conf->global->MAIN_PROXY_USER. ":" . $conf->global->MAIN_PROXY_PASS);
+    }
+
+    if (preg_match('/^tcp/i',$url))
+    {
+        $socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
+    }
+
+    // Protocol HTTP or HTTPS
+    if (preg_match('/^http/i',$url))
+    {
+        curl_setopt($ch, CURLOPT_URL,$url);
+
+        list($usec, $sec) = explode(" ", microtime());
+        $micro_start_time=((float)$usec + (float)$sec);
+
+        $result = curl_exec($ch);
+
+        list($usec, $sec) = explode(" ", microtime());
+        $micro_end_time=((float)$usec + (float)$sec);
+        $end_time=((float)$sec);
+
+        $delay=($micro_end_time-$micro_start_time);
+
+        if (curl_error($ch))    // Test with no response
+        {
+            print 'Error';
+        }
+        else
+        {
+            //print $result;
+            $array = json_decode($result, true);
+            $lat=$array[0]['lat'];
+            $lon=$array[0]['lon'];
+            if ($lat && $lon)
+            {
+                print '<iframe width="600" height="500" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://cartosm.eu/map?lon='.$array[0]['lon'].'&lat='.$array[0]['lat'].'&zoom=13&width=600&height=500&mark=true&nav=true&pan=true&zb=bar&style=default&icon=down">';
+                print '</iframe>';
+            }
+            else
+            {
+            	print 'Not found';
+            }
+        }
+    }
+
+    print '</div>';
+
 }
 else
 {
