@@ -198,7 +198,12 @@ if ($address && $address != $object->country)
 	}
   );
 </script>
-<div id="map" style="width: 100%; height: 500px;" ></div>
+
+<br>
+<div align="center">
+<div id="map" class="divmap" style="width: 90%; height: 500px;" ></div>
+</div>
+<br>
 
 <?php
 }

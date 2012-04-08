@@ -147,7 +147,8 @@ print '</table>';
 
 if ($address && $address != $object->country)
 {
-    print '<br><div id="map" style="width: 100%; height: 500px; text-align: center; align: center">';
+    print '<br><div align="center">';
+    print '<div id="map" class="divmap" style="width: 90%; height: 500px; text-align: center; align: center">';
 
     $url='http://nominatim.openstreetmap.org/search?format=json&polygon=1&addressdetails=1&q='.urlencode($address);
 
@@ -201,8 +202,49 @@ if ($address && $address != $object->country)
             $lon=$array[0]['lon'];
             if ($lat && $lon)
             {
-                print '<iframe width="600" height="500" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://cartosm.eu/map?lon='.$array[0]['lon'].'&lat='.$array[0]['lat'].'&zoom=13&width=600&height=500&mark=true&nav=true&pan=true&zb=bar&style=default&icon=down">';
-                print '</iframe>';
+                // See example on page http://wiki.openstreetmap.org/wiki/OpenLayers_Marker
+                print '<script src="http://www.openlayers.org/api/OpenLayers.js"></script>
+                    <script>
+
+             		map = new OpenLayers.Map("map", {
+						controls:[
+                            new OpenLayers.Control.Navigation(),
+                            new OpenLayers.Control.PanZoomBar(),
+                            //new OpenLayers.Control.Permalink(),
+                            new OpenLayers.Control.ScaleLine({geodesic: true}),
+                            //new OpenLayers.Control.Permalink(\'permalink\'),
+                            new OpenLayers.Control.MousePosition(),
+                            //new OpenLayers.Control.Attribution()
+                            ],
+                        units: \'m\',
+        	            //maxExtent: new OpenLayers.Bounds(-20037508.34,-20037508.34,20037508.34,20037508.34),
+    	                //maxResolution: 156543.0339,
+	                    //numZoomLevels: 19,
+                		projection: new OpenLayers.Projection("EPSG:900913"),
+                        displayProjection: new OpenLayers.Projection("EPSG:4326")
+					} );
+
+                    var layer = new OpenLayers.Layer.OSM();
+                    map.addLayer(layer);
+
+                    // Set marker
+					var markers = new OpenLayers.Layer.Markers( "Markers" );
+    				map.addLayer(markers);
+                    var lonLat = new OpenLayers.LonLat('.$lon.','.$lat.')
+                              .transform(
+                                new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
+                                new OpenLayers.Projection("EPSG:900913") // to Spherical Mercator Projection
+                              );
+                	markers.addMarker(new OpenLayers.Marker(lonLat));
+
+                	// Set center and zoom
+                    map.setCenter(lonLat, '.($conf->global->OPENSTREETMAP_MAPS_ZOOM_LEVEL?$conf->global->OPENSTREETMAP_MAPS_ZOOM_LEVEL:15).');
+					//map.zoomToMaxExtent();
+
+                    </script>';
+
+                //print '<iframe width="600" height="500" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://cartosm.eu/map?lon='.$array[0]['lon'].'&lat='.$array[0]['lat'].'&zoom=13&width=600&height=500&mark=true&nav=true&pan=true&zb=bar&style=default&icon=down">';
+                //print '</iframe>';
             }
             else
             {
@@ -212,7 +254,7 @@ if ($address && $address != $object->country)
     }
 
     print '</div>';
-
+    print '</div>';
 }
 else
 {

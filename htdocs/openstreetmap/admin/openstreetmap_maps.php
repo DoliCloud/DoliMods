@@ -116,10 +116,8 @@ else print $langs->trans("ModuleMustBeEnabledFirst",$langs->transnoentitiesnocon
 print '<br>';
 
 //print '<br>';
-/*
-print $langs->trans("OpenStreetMapZoomLevel").': ';
-print '<input class="flat" name="OPENSTREETMAP_MAPS_ZOOM_LEVEL" id="OPENSTREETMAP_MAPS_ZOOM_LEVEL" value="'.(isset($_POST["OPENSTREETMAP_MAPS_ZOOM_LEVEL"])?$_POST["OPENSTREETMAP_MAPS_ZOOM_LEVEL"]:$conf->global->OPENSTREETMAP_MAPS_ZOOM_LEVEL).'" size="2">';
-*/
+print $langs->trans("OpenStreetMapZoomLevel",2,18).': ';
+print '<input class="flat" name="OPENSTREETMAP_MAPS_ZOOM_LEVEL" id="OPENSTREETMAP_MAPS_ZOOM_LEVEL" value="'.(isset($_POST["OPENSTREETMAP_MAPS_ZOOM_LEVEL"])?$_POST["OPENSTREETMAP_MAPS_ZOOM_LEVEL"]:($conf->global->OPENSTREETMAP_MAPS_ZOOM_LEVEL?$conf->global->OPENSTREETMAP_MAPS_ZOOM_LEVEL:15)).'" size="2">';
 
 print '<br>';
 print '<center>';
