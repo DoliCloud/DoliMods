@@ -4,9 +4,6 @@
 hr{
 color:#3E8DB8;
 }
-fieldset{
-background:#EAEAEA;
-}
 fieldset[title=activado]{
 background:#F4F4F4;
 border-color:#600;
