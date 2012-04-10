@@ -22,9 +22,11 @@
 CREATE TABLE llx_monitoring_probes 
 (
 	rowid integer AUTO_INCREMENT PRIMARY KEY,
+	typeprot varchar(16) NOT NULL DEFAULT 'GET' after rowid;	
 	title varchar(64) NOT NULL, 
     groupname varchar(64) NULL, 
 	url varchar(250) NOT NULL,
+	url_params text NULL,
     useproxy integer default 0,
     checkkey varchar(250),	
     maxval integer,  

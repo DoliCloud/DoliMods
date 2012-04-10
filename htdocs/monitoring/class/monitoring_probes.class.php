@@ -33,9 +33,8 @@ require_once(DOL_DOCUMENT_ROOT."/core/class/commonobject.class.php");
 
 
 /**
- *      \class      Monitoring_probes
- *      \brief      Put here description of your class
- *		\remarks	Initialy built by build_class_from_table on 2011-03-08 23:24
+ *  Put here description of your class
+ *	Initialy built by build_class_from_table on 2011-03-08 23:24
  */
 class Monitoring_probes extends CommonObject
 {
@@ -50,7 +49,8 @@ class Monitoring_probes extends CommonObject
 	var $title;
     var $groupname;
 	var $url;
-    var $useproxy;
+	var $url_params;
+	var $useproxy;
 	var $checkkey;
 	var $maxvalue;
 	var $frequency;
@@ -63,20 +63,21 @@ class Monitoring_probes extends CommonObject
     /**
 	 *	Constructor
 	 *
-	 *  @param		DoliDB		$DB      Database handler
+	 *  @param		DoliDB		$db      Database handler
      */
-    function Monitoring_probes($DB)
+    function Monitoring_probes($db)
     {
-        $this->db = $DB;
+        $this->db = $db;
         return 1;
     }
 
 
     /**
-     *      \brief      Create in database
-     *      \param      user        	User that create
-     *      \param      notrigger	    0=launch triggers after, 1=disable triggers
-     *      \return     int         	<0 if KO, Id of created object if OK
+     *   Create in database
+     *
+     *   @param      user        	User that create
+     *   @param      notrigger	    0=launch triggers after, 1=disable triggers
+     *   @return     int         	<0 if KO, Id of created object if OK
      */
     function create($user, $notrigger=0)
     {
@@ -88,7 +89,9 @@ class Monitoring_probes extends CommonObject
 		// Clean parameters
 		if (isset($this->title)) $this->title=trim($this->title);
         if (isset($this->groupname)) $this->groupname=trim($this->groupname);
-		if (isset($this->url)) $this->url=trim($this->url);
+		if (isset($this->typeport)) $this->typeprot=trim($this->typeprot);
+        if (isset($this->url)) $this->url=trim($this->url);
+        if (isset($this->url_params)) $this->url_params=trim($this->url_params);
         if (isset($this->useproxy)) $this->useproxy=trim($this->useproxy);
 		if (isset($this->checkkey)) $this->checkkey=trim($this->checkkey);
 		if (isset($this->frequency)) $this->frequency=trim($this->frequency);
@@ -101,9 +104,11 @@ class Monitoring_probes extends CommonObject
         // Insert request
 		$sql = "INSERT INTO ".MAIN_DB_PREFIX."monitoring_probes(";
 		$sql.= "title,";
-        $sql.= "groupname,";
+		$sql.= "groupname,";
+		$sql.= "typeprot,";
 		$sql.= "url,";
-        $sql.= "useproxy,";
+		$sql.= "url_params,";
+		$sql.= "useproxy,";
 		$sql.= "checkkey,";
 		$sql.= "maxval,";
 		$sql.= "frequency,";
@@ -114,8 +119,10 @@ class Monitoring_probes extends CommonObject
 
 		$sql.= " ".(! isset($this->title)?'NULL':"'".$this->db->escape($this->title)."'").",";
         $sql.= " ".(! isset($this->groupname)?'NULL':"'".$this->db->escape($this->groupname)."'").",";
-		$sql.= " ".(! isset($this->url)?'NULL':"'".$this->db->escape($this->url)."'").",";
-        $sql.= " ".(! isset($this->useproxy)?'NULL':"'".$this->db->escape($this->useproxy)."'").",";
+		$sql.= " ".(! isset($this->typeprot)?"'GET'":"'".$this->db->escape($this->typeprot)."'").",";
+        $sql.= " ".(! isset($this->url)?'NULL':"'".$this->db->escape($this->url)."'").",";
+		$sql.= " ".(! isset($this->url_params)?'NULL':"'".$this->db->escape($this->url_params)."'").",";
+		$sql.= " ".(! isset($this->useproxy)?'NULL':"'".$this->db->escape($this->useproxy)."'").",";
 		$sql.= " ".(! isset($this->checkkey)?'NULL':"'".$this->db->escape($this->checkkey)."'").",";
 		$sql.= " ".(! isset($this->maxvalue)?'NULL':"'".$this->db->escape($this->maxvalue)."'").",";
 		$sql.= " ".(! isset($this->frequency)?'NULL':"'".$this->frequency."'").",";
@@ -169,9 +176,10 @@ class Monitoring_probes extends CommonObject
 
 
     /**
-     *    \brief      Load object in memory from database
-     *    \param      id          id object
-     *    \return     int         <0 if KO, >0 if OK
+     *  Load object in memory from database
+     *
+     *  @param      id          id object
+     *  @return     int         <0 if KO, >0 if OK
      */
     function fetch($id)
     {
@@ -180,8 +188,10 @@ class Monitoring_probes extends CommonObject
 		$sql.= " t.rowid,";
 		$sql.= " t.title,";
         $sql.= " t.groupname,";
-		$sql.= " t.url,";
-        $sql.= " t.useproxy,";
+		$sql.= " t.typeprot,";
+        $sql.= " t.url,";
+		$sql.= " t.url_params,";
+		$sql.= " t.useproxy,";
 		$sql.= " t.checkkey,";
 		$sql.= " t.maxval,";
 		$sql.= " t.frequency,";
@@ -205,8 +215,10 @@ class Monitoring_probes extends CommonObject
                 $this->ref   = $obj->rowid;
 				$this->title = $obj->title;
                 $this->groupname = $obj->groupname;
-				$this->url   = $obj->url;
-                $this->useproxy  = $obj->useproxy;
+				$this->typeprot = $obj->typeprot;
+                $this->url   = $obj->url;
+				$this->url_params= $obj->url_params;
+				$this->useproxy  = $obj->useproxy;
 				$this->checkkey  = $obj->checkkey;
                 $this->maxvalue  = $obj->maxval;
 				$this->frequency = $obj->frequency;
@@ -230,10 +242,11 @@ class Monitoring_probes extends CommonObject
 
 
     /**
-     *      \brief      Update database
-     *      \param      user        	User that modify
-     *      \param      notrigger	    0=launch triggers after, 1=disable triggers
-     *      \return     int         	<0 if KO, >0 if OK
+     *  Update database
+     *
+     *  @param      user        	User that modify
+     *  @param      notrigger	    0=launch triggers after, 1=disable triggers
+     *  @return     int         	<0 if KO, >0 if OK
      */
     function update($user=0, $notrigger=0)
     {
@@ -243,8 +256,10 @@ class Monitoring_probes extends CommonObject
 		// Clean parameters
 		if (isset($this->title)) $this->title=trim($this->title);
         if (isset($this->groupname)) $this->groupname=trim($this->groupname);
-		if (isset($this->url)) $this->url=trim($this->url);
-        if (isset($this->useproxy)) $this->useproxy=trim($this->useproxy);
+		if (isset($this->typeprot)) $this->typeprot=trim($this->typeprot);
+        if (isset($this->url)) $this->url=trim($this->url);
+		if (isset($this->url_params)) $this->url_params=trim($this->url_params);
+		if (isset($this->useproxy)) $this->useproxy=trim($this->useproxy);
 		if (isset($this->checkkey)) $this->checkkey=trim($this->checkkey);
 		if (isset($this->frequency)) $this->frequency=trim($this->frequency);
         if (isset($this->maxvalue)) $this->maxvalue=trim($this->maxvalue);
@@ -259,7 +274,9 @@ class Monitoring_probes extends CommonObject
         $sql = "UPDATE ".MAIN_DB_PREFIX."monitoring_probes SET";
         $sql.= " title=".(isset($this->title)?"'".$this->db->escape($this->title)."'":"null").",";
         $sql.= " groupname=".(isset($this->groupname)?"'".$this->db->escape($this->groupname)."'":"null").",";
+        $sql.= " typeprot=".(isset($this->typeprot)?"'".$this->db->escape($this->typeprot)."'":"'GET'").",";
         $sql.= " url=".(isset($this->url)?"'".$this->db->escape($this->url)."'":"null").",";
+        $sql.= " url_params=".(isset($this->url_params)?"'".$this->db->escape($this->url_params)."'":"null").",";
         $sql.= " useproxy=".(isset($this->useproxy)?"'".$this->db->escape($this->useproxy)."'":"0").",";
         $sql.= " checkkey=".(isset($this->checkkey)?"'".$this->db->escape($this->checkkey)."'":"null").",";
         $sql.= " maxval=".(isset($this->maxvalue)?"'".$this->db->escape($this->maxvalue)."'":"null").",";
@@ -312,6 +329,7 @@ class Monitoring_probes extends CommonObject
 
  	/**
 	 *  Delete object in database
+	 *
      *	@param      user        	User that delete
      *  @param      notrigger	    0=launch triggers after, 1=disable triggers
 	 *	@return		int				<0 if KO, >0 if OK
@@ -367,6 +385,7 @@ class Monitoring_probes extends CommonObject
 
     /**
      *      Update database when a status has changed
+     *
      *      @param      newstatus       New status to use. If 0, we also set value and date of first error to null.
      *      @param      end_time        Date of detection
      *      @param      errortext       To change also value and date of first error
@@ -438,9 +457,10 @@ class Monitoring_probes extends CommonObject
 
 
 	/**
-	 *		\brief      Load an object from its id and create a new one in database
-	 *		\param      fromid     		Id of object to clone
-	 * 	 	\return		int				New id of clone
+	 *	Load an object from its id and create a new one in database
+	 *
+	 *	@param      fromid     		Id of object to clone
+	 * 	@return		int				New id of clone
 	 */
 	function createFromClone($fromid)
 	{
@@ -493,6 +513,7 @@ class Monitoring_probes extends CommonObject
 
     /**
      *  Return label of object status
+     *
      *  @param      mode            0=long label, 1=short label, 2=Picto + short label, 3=Picto, 4=Picto + long label, 5=short label + picto
      *  @return     string          Label
      */
@@ -502,11 +523,12 @@ class Monitoring_probes extends CommonObject
     }
 
     /**
-     *      \brief      Renvoi le libelle d'un statut donne
-     *      \param      statut          Id statut
-     *      \param      mode            0=libelle long, 1=libelle court, 2=Picto + Libelle court, 3=Picto, 4=Picto + Libelle long, 5=Libelle court + Picto
-     *      \param      active          Active or not
-     *      \return     string          Libelle du statut
+     *  Renvoi le libelle d'un statut donne
+     *
+     *  @param      statut          Id statut
+     *  @param      mode            0=libelle long, 1=libelle court, 2=Picto + Libelle court, 3=Picto, 4=Picto + Libelle long, 5=Libelle court + Picto
+     *  @param      active          Active or not
+     *  @return     string          Libelle du statut
      */
     function LibStatut($status,$mode=0,$active=1)
     {
@@ -553,8 +575,10 @@ class Monitoring_probes extends CommonObject
     }
 
 	/**
-	 *		Initialise object with example values
-	 *		id must be 0 if object instance is a specimen.
+	 *	Initialise object with example values
+	 *	id must be 0 if object instance is a specimen.
+	 *
+	 *	@return	void
 	 */
 	function initAsSpecimen()
 	{
@@ -562,8 +586,10 @@ class Monitoring_probes extends CommonObject
 
 		$this->title='My probe';
 		$this->title='My group';
+		$this->typeprot='GET';
 		$this->url='http://mywebsite.com';
-        $this->useproxy=0;
+		$this->url_params='';
+		$this->useproxy=0;
 		$this->checkkey='';
 		$this->frequency='5';
         $this->active='1';
