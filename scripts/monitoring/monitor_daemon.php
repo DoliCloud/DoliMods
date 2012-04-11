@@ -1,6 +1,6 @@
 #!/usr/bin/php
 <?php
-/* Copyright (C) 2011 Laurent Destailleur  <eldy@users.sourceforge.net>
+/* Copyright (C) 2011-2012 Laurent Destailleur  <eldy@users.sourceforge.net>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,7 +21,6 @@
  *	\file       	scripts/monitoring/monitor_daemon.php
  *	\ingroup    	monitor
  *	\brief      	Script to execute monitor daemon
- *	\version		$Id: monitor_daemon.php,v 1.17 2011/08/31 15:41:35 eldy Exp $
  */
 
 if (! defined('NOREQUIREUSER'))  define('NOREQUIREUSER','1');
@@ -279,8 +278,8 @@ function process_probe_x($object,$maxloops=0)
 
     $fname = $conf->monitoring->dir_output.'/'.$object['code'].'/monitoring.rrd';
 
-    // Init objects
-    if (preg_match('/^http/i',$object['url']))
+    // Init objects ($ch, $socket or $client)
+    if (($object['typeprot'] == 'GET' || $object['typeprot'] == 'POST') && preg_match('/^http/i',$object['url']))
     {
         $ch = curl_init();
         //turning off the server and peer verification(TrustManager Concept).
@@ -298,13 +297,60 @@ function process_probe_x($object,$maxloops=0)
             curl_setopt ($ch, CURLOPT_PROXY, $conf->global->MAIN_PROXY_HOST. ":" . $conf->global->MAIN_PROXY_PORT);
             if (! empty($conf->global->MAIN_PROXY_USER)) curl_setopt ($ch, CURLOPT_PROXYUSERPWD, $conf->global->MAIN_PROXY_USER. ":" . $conf->global->MAIN_PROXY_PASS);
         }
-        //curl_setopt($ch, CURLOPT_POST, 0);
-        //curl_setopt($ch, CURLOPT_POSTFIELDS, "a=3&b=5");
+
+        if ($object['typeprot'] == 'GET')
+        {
+            curl_setopt($ch, CURLOPT_POST, 0);
+        }
+        if ($object['typeprot'] == 'POST')
+        {
+            curl_setopt($ch, CURLOPT_POST, 1);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $object['url_params']);
+        }
+
+        curl_setopt($ch, CURLOPT_URL,$object['url']);
     }
-    if (preg_match('/^tcp/i',$object['url']))
+    if ($object['typeprot'] == 'SOCKET' && preg_match('/^tcp/i',$object['url']))
     {
         $socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
     }
+    if ($object['typeprot'] == 'SOAP' && preg_match('/^http/i',$object['url']))
+    {
+        $arrayoption=array(
+        	'location' => $object['url'],
+			'soap_version'=>SOAP_1_2,
+            'exceptions'=>true,
+            'trace'=>1
+        );
+        // $arrayoption['keep_alive']=1;  // PHP 5.4
+        if (1 == 2)    // Mode WSDL
+        {
+            // TODO
+        }
+        else           // Mode non WSDL
+        {
+            $arrayoption['uri']  ="http://www.dolibarr.org/ns/";
+            $arrayoption['style']=SOAP_DOCUMENT;
+            $arrayoption['use']  =SOAP_LITERAL;
+        }
+        if ($object['useproxy'])
+        {
+            $arrayoption['proxy_host']    = $conf->global->MAIN_PROXY_HOST;
+            $arrayoption['proxy_port']    = $conf->global->MAIN_PROXY_PORT;
+            if (! empty($conf->global->MAIN_PROXY_USER))
+            {
+                $arrayoption['proxy_login']   = $conf->global->MAIN_PROXY_USER;
+                $arrayoption['proxy_password']= $conf->global->MAIN_PROXY_PASS;
+            }
+        }
+        //$arrayoption['authentication']=SOAP_AUTHENTICATION_BASIC;
+        //$arrayoption['login']='';
+        //$arrayoption['password']='';
+
+        $client = new SoapClient(null, $arrayoption);
+    }
+
+
 
     // Loops
     while(! $error && (empty($maxloops) || ($nbloop < $maxloops)))
@@ -315,14 +361,14 @@ function process_probe_x($object,$maxloops=0)
         $value2='U';
         $errortext='';
         $done=0;
+        $micro_start_time=$micro_end_time=$end_time='';
+        $delay=0;
 
         // Each managed protocol must define $end_time, $delay, $value1, $value2 and increase $nbok or $nbko
 
         // Protocol HTTP or HTTPS
-        if (preg_match('/^http/i',$object['url']))
+        if (($object['typeprot'] == 'GET' || $object['typeprot'] == 'POST') && preg_match('/^http/i',$object['url']))
         {
-            curl_setopt($ch, CURLOPT_URL,$object['url']);
-
             //ob_start();
             list($usec, $sec) = explode(" ", microtime());
             $micro_start_time=((float)$usec + (float)$sec);
@@ -372,7 +418,7 @@ function process_probe_x($object,$maxloops=0)
         }
 
         // Protocol TCPIP
-        if (preg_match('/^tcp/i',$object['url']))
+        if ($object['typeprot'] == 'SOCKET' && preg_match('/^tcp/i',$object['url']))
         {
             $resultat=0;
 
@@ -443,6 +489,68 @@ function process_probe_x($object,$maxloops=0)
             $done=1;
         }
 
+        if ($object['typeprot'] == 'SOAP' && preg_match('/^http/i',$object['url']))
+        {
+            list($usec, $sec) = explode(" ", microtime());
+            $micro_start_time=((float)$usec + (float)$sec);
+
+            if ($client)
+            {
+                try
+                {
+                    $args=array();
+                    $ops=array('soapaction' => 'http://www.Nanonull.com/TimeService/getVersions');
+                    $result = $client->__soapCall('getVersions',$args,$ops);
+                }
+                catch(Exception $e)
+                {
+                    $errortext='Failed to create locally a client WS. Reason is '.$e->getMessage();
+                }
+            }
+            else
+            {
+                $errortext='Failed to create locally a client WS.';
+            }
+
+
+            list($usec, $sec) = explode(" ", microtime());
+            $micro_end_time=((float)$usec + (float)$sec);
+            $end_time=((float)$sec);
+
+            $delay=($micro_end_time-$micro_start_time);
+
+            if ($errortext)    // Test with no response
+            {
+                $value1='U';
+                $value2=max(round($object['max']),1);
+                $nbko++;
+            }
+            else
+            {
+                var_dump($result);
+                if (preg_match('/'.preg_quote($object['checkkey']).'/',$result))
+                {
+                    // Test ok
+                    $value1=max(round($delay*1000),1);
+                    $value2='U';
+                    $nbok++;
+                    $errortext='';
+                }
+                else
+                {   // Test ko
+                    $value1='U';
+                    $value2=max(round($object['max']),1);
+                    $nbko++;
+                    $errortext='Failed to find string "'.$object['checkkey'].'" into reponse string.\nResponse string is '.$result;
+                }
+            }
+
+            //curl_close ($ch); unset($ch);
+
+            $done=1;
+
+        }
+
         // If no protocol found
         if (! $done)
         {
@@ -450,6 +558,11 @@ function process_probe_x($object,$maxloops=0)
             $value2=round($object['max']);
             $nbko++;
             $errortext='Url of probe has a not supported protocol';
+
+            list($usec, $sec) = explode(" ", microtime());
+            $micro_start_time=$micro_end_time=((float)$usec + (float)$sec);
+            $delay=0;
+            $end_time=((float)$sec);
         }
 
         // Manage result
@@ -466,7 +579,7 @@ function process_probe_x($object,$maxloops=0)
             $errortext='Failed to update RRD file.\nRRD functions returns: '.$err;
         }
 
-        print dol_print_date($end_time,'dayhourlog').' Probe id='.$object['code'].' loop='.$nbloop.': '.$micro_start_time.'-'.$micro_end_time.'='.$delay.' -> '.($newstatus==1?'OK':'KO').' -> '.$value1.':'.$value2." - wait ".$object['frequency']."\n";
+        print dol_print_date($end_time,'dayhourlog').' Probe id='.$object['code'].' prot='.$object['typeprot'].' loop='.$nbloop.': '.$micro_start_time.'-'.$micro_end_time.'='.$delay.' -> '.($newstatus==1?'OK':'KO').' -> '.$value1.':'.$value2." - now we wait ".$object['frequency']."\n";
         $stringupdate='N:'.$value1.':'.$value2;
 
         // Update database if status has changed

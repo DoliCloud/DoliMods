@@ -57,7 +57,7 @@ function getListOfProbes($active=1)
 
     $listofurls=array();
 
-    $sql ="SELECT rowid, groupname, title, url, useproxy, checkkey, frequency, maxval, active, status, lastreset,";
+    $sql ="SELECT rowid, groupname, title, typeprot, url, url_params, useproxy, checkkey, frequency, maxval, active, status, lastreset,";
     $sql.=" oldesterrordate, oldesterrortext";
     $sql.=" FROM ".MAIN_DB_PREFIX."monitoring_probes";
     $sql.=" WHERE active = ".$active;
@@ -74,8 +74,19 @@ function getListOfProbes($active=1)
         {
             $obj = $db->fetch_object($resql);
 
-            $listofurls[$i]=array('code'=>$obj->rowid, 'groupname'=>$obj->groupname, 'title'=>$obj->title, 'url'=>$obj->url, 'useproxy'=>$obj->useproxy,
-                'checkkey'=>$obj->checkkey, 'frequency'=>$obj->frequency, 'active'=>$obj->active, 'status'=>$obj->status, 'max'=>$obj->maxval,
+            $listofurls[$i]=array(
+            	'code'=>$obj->rowid,
+            	'groupname'=>$obj->groupname,
+            	'title'=>$obj->title,
+            	'typeprot'=>$obj->typeprot,
+            	'url'=>$obj->url,
+            	'url_params'=>$obj->url_params,
+            	'useproxy'=>$obj->useproxy,
+                'checkkey'=>$obj->checkkey,
+                'frequency'=>$obj->frequency,
+                'active'=>$obj->active,
+                'status'=>$obj->status,
+                'max'=>$obj->maxval,
                 'lastreset'=>$db->jdate($obj->lastreset),
                 'oldesterrordate'=>$db->jdate($obj->oldesterrordate),
                 'oldesterrortext'=>$obj->oldesterrortext

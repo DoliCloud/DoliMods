@@ -43,8 +43,7 @@ dol_include_once("/monitoring/class/monitoring_probes.class.php"); // We still u
 $langs->load("admin");
 $langs->load("monitoring@monitoring");
 
-if (!$user->rights->monitoring->read)
-accessforbidden();
+if (!$user->rights->monitoring->read) accessforbidden();
 
 $def = array();
 $action=GETPOST('action');
@@ -82,7 +81,9 @@ if ($action == 'modify' && ! GETPOST('cancel'))
     $probe=new Monitoring_probes($db);
     $result=$probe->fetch($id);
     $probe->title=GETPOST('probe_title');
+    $probe->typeprot=GETPOST('probe_typeprot');
     $probe->url=GETPOST('probe_url');
+    $probe->url_params=GETPOST('probe_url_params');
     $probe->useproxy=GETPOST('probe_useproxy');
     $probe->checkkey=GETPOST('probe_checkkey');
     $probe->maxvalue=GETPOST('probe_maxvalue');
@@ -114,7 +115,9 @@ if ($action == 'add' && ! GETPOST('cancel'))
     $probe=new Monitoring_probes($db);
 
     $probe->title=GETPOST('probe_title');
+    $probe->typeprot=GETPOST('probe_typeprot');
     $probe->url=GETPOST('probe_url');
+    $probe->url_params=GETPOST('probe_url_params');
     $probe->useproxy=GETPOST('probe_useproxy');
     $probe->checkkey=GETPOST('probe_checkkey');
     $probe->maxvalue=GETPOST('probe_maxvalue')>0?GETPOST('probe_maxvalue'):1000;
@@ -124,7 +127,7 @@ if ($action == 'add' && ! GETPOST('cancel'))
 
     $db->begin();
 
-    $result=$probe->create();
+    $result=$probe->create($user);
 
     if ($result > 0)
     {
@@ -146,7 +149,7 @@ if ($action == 'add' && ! GETPOST('cancel'))
  * View
  */
 
-$html=new Form($db);
+$form=new Form($db);
 
 llxHeader();
 
@@ -155,11 +158,14 @@ $linkback='';
 print_fiche_titre($langs->trans("ProbeSetup"), $linkback, 'setup');
 print '<br>';
 
-if ($mesg) print $mesg;
+
+dol_htmloutput_mesg($mesg);
 
 
 if ($action != 'edit')
 {
+    if (GETPOST('cancel')) unset($_POST);
+
     $var=false;
 
     // Formulaire ajout
@@ -168,10 +174,16 @@ if ($action != 'edit')
     print '<form name="addnewprobe" action="'.$_SERVER["PHP_SELF"].'" method="post">';
     print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
 
-    print '<table class="nobordernopadding" width="100%">';
+    print '<table class="liste" width="100%">';
+
+    /*print '<tr class="liste_titre">';
+    print '<td colspan="2">'.$langs->trans("Parameters").'</td>';
+    print '<td>'.$langs->trans("Example").'</td>';
+    print '</tr>';*/
 
     print '<tr class="liste_titre">';
-    print '<td colspan="2">'.$langs->trans("Parameters").'</td>';
+    print '<td>'.$langs->trans("Request").'</td>';
+    print '<td>'.$langs->trans("Parameters").'</td>';
     print '<td>'.$langs->trans("Example").'</td>';
     print '</tr>';
 
@@ -184,8 +196,19 @@ if ($action != 'edit')
 
     $var=!$var;
     print '<tr '.$bc[$var].'>';
+    print '<td class="fieldrequired">'.$langs->trans("Type").'</td>';
+    print '<td>';
+    $valarray=array('GET'=>'GET','POST'=>'POST','SOCKET'=>'SOCKET','SOAP'=>'SOAP');
+    print $form->selectarray('probe_typeprot', $valarray, $_POST["probe_typeprot"]);
+    print '</td>';
+    print '<td>GET, POST, SOCKET, SOAP';
+    print '</td>';
+    print '</tr>';
+
+    $var=!$var;
+    print '<tr '.$bc[$var].'>';
     print '<td class="fieldrequired">'.$langs->trans("URL").'</td>';
-    print '<td><input type="text" name="probe_url" value="" size="64"></td>';
+    print '<td><input type="text" name="probe_url" value="'.$_POST["probe_url"].'" size="64"></td>';
     print '<td>http://mywebsite.com/mylogonpage.php<br>';
     print 'tcp://localhost:81<br>';
     print '</td>';
@@ -193,13 +216,35 @@ if ($action != 'edit')
 
     $var=!$var;
     print '<tr '.$bc[$var].'>';
+    print '<td class="fieldrequired">'.$langs->trans("Parameters").'</td>';
+    print '<td><textarea cols="60" name="probe_url_params" size="64">'.$_POST["probe_url_params"].'</textarea></td>';
+    print '<td>param1=value1&amp;param2=valu2';
+    //print '<br>tcp://localhost:81<br>';
+    print '</td>';
+    print '</tr>';
+
+    $var=!$var;
+    print '<tr '.$bc[$var].'>';
     print '<td>'.$langs->trans("UseProxy").'</td>';
     print '<td>';
-    print $html->selectyesno('probe_useproxy',isset($_POST['probe_useproxy'])?$_POST['probe_useproxy']:0,1);
+    print $form->selectyesno('probe_useproxy',isset($_POST['probe_useproxy'])?$_POST['probe_useproxy']:0,1);
     print '</td>';
     print '<td>';
-    print $html->textwithpicto('',$langs->trans("SetToYesToUseGlobalProxySetup"));
+    print $form->textwithpicto('',$langs->trans("SetToYesToUseGlobalProxySetup"));
     print '</td>';
+    print '</tr>';
+
+    $var=!$var;
+    print '<tr '.$bc[$var].'>';
+    print '<td>'.$langs->trans("Frequency").'</td>';
+    print '<td><input type="text" name="probe_frequency" value="" size="2"> '.$langs->trans("seconds").'</td>';
+    print '<td>10</td>';
+    print '</tr>';
+
+    print '<tr class="liste_titre">';
+    print '<td>'.$langs->trans("Response").'</td>';
+    print '<td>'.$langs->trans("Parameters").'</td>';
+    print '<td>'.$langs->trans("Example").'</td>';
     print '</tr>';
 
     $var=!$var;
@@ -211,40 +256,40 @@ if ($action != 'edit')
 
     $var=!$var;
     print '<tr '.$bc[$var].'>';
-    print '<td class="fieldrequired">'.$langs->trans("MaxValue").'</td>';
+    print '<td>'.$langs->trans("MaxValue").'</td>';
     print '<td><input type="text" name="probe_maxvalue" value="" size="2"></td>';
     print '<td>1000</td>';
     print '</tr>';
 
-    $var=!$var;
-    print '<tr '.$bc[$var].'>';
-    print '<td class="fieldrequired">'.$langs->trans("Frequency").'</td>';
-    print '<td><input type="text" name="probe_frequency" value="" size="2"> '.$langs->trans("seconds").'</td>';
-    print '<td>10</td>';
+    print '<tr class="liste_titre">';
+    print '<td>'.$langs->trans("Other").'</td>';
+    print '<td>'.$langs->trans("Parameters").'</td>';
+    print '<td>'.$langs->trans("Example").'</td>';
     print '</tr>';
 
     $var=!$var;
     print '<tr '.$bc[$var].'>';
     print '<td>'.$langs->trans("Activable").'</td>';
     print '<td>';
-    print $html->selectyesno('probe_active',isset($_POST['probe_active'])?$_POST['probe_active']:0,1);
+    print $form->selectyesno('probe_active',isset($_POST['probe_active'])?$_POST['probe_active']:0,1);
     print '</td>';
-    print '<td>&nbsp;</td>';
+    print '<td>'.yn(1).'</td>';
     print '</tr>';
 
-    print '<tr><td colspan="3" align="center">';
+    print '</table>';
+
+    print '<div align="center">';
     if ($user->rights->monitoring->create)
     {
-        print '<input type="submit" class="button" value="'.$langs->trans("Add").'">';
+        print '<input type="submit" class="button" value=" '.$langs->trans("Add").' ">';
         print '<input type="hidden" name="action" value="add">';
     }
     else
     {
-        print '<input type="submit" class="button" disabled="disabled" value="'.$langs->trans("Add").'">';
+        print '<input type="submit" class="button" disabled="disabled" value=" '.$langs->trans("Add").' ">';
     }
-    print '</td></tr>';
+    print '</div>';
 
-    print '</table>';
     print '</form>';
 
     print '<br>';
@@ -255,28 +300,29 @@ if ($action != 'edit')
     // Confirmation de la suppression d'une ligne produit
     if ($action == 'ask_deleteline')
     {
-        $ret=$html->form_confirm($_SERVER["PHP_SELF"].'?id='.$_GET["id"], $langs->trans('DeleteProbe'), $langs->trans('ConfirmDeleteProbe'), 'confirm_deleteprobe', '', 'no', 1);
+        $ret=$form->form_confirm($_SERVER["PHP_SELF"].'?id='.$_GET["id"], $langs->trans('DeleteProbe'), $langs->trans('ConfirmDeleteProbe'), 'confirm_deleteprobe', '', 'no', 1);
         if ($ret == 'html') print '<br>';
     }
 
 
-    print '<table class="nobordernopadding" width="100%">';
+    print '<table class="liste" width="100%">';
 
     print '<tr class="liste_titre">';
     print "<td>".$langs->trans("Id")."</td>";
     print "<td>".$langs->trans("Title")."</td>";
+    print "<td>".$langs->trans("Type")."</td>";
     print "<td>".$langs->trans("URL")."</td>";
     print "<td>".$langs->trans("Proxy")."</td>";
+    print "<td>".$langs->trans("Frequency")."</td>";
     print "<td>".$langs->trans("CheckKey")."</td>";
     print "<td>".$langs->trans("MaxValue")."</td>";
-    print "<td>".$langs->trans("Frequency")."</td>";
     print '<td align="center">'.$langs->trans("Activable")."</td>";
     //print '<td align="center">'.$langs->trans("Reports")."</td>";
     print '<td width="80px">&nbsp;</td>';
     print '</tr>';
 
 
-    $sql ="SELECT rowid, title, url, useproxy, checkkey, maxval, frequency, status, active";
+    $sql ="SELECT rowid, title, typeprot, url, url_params, useproxy, checkkey, maxval, frequency, status, active";
     $sql.=" FROM ".MAIN_DB_PREFIX."monitoring_probes";
     $sql.=" ORDER BY rowid";
 
@@ -299,11 +345,12 @@ if ($action != 'edit')
     		print "<tr ".$bc[$var].">";
             print "<td>".$obj->rowid."</td>";
     		print "<td>".$obj->title."</td>";
-            print '<td><a href="'.$obj->url.'" target="_blank">'.dol_trunc($obj->url,32,'middle')."</a></td>";
+    		print "<td>".$obj->typeprot."</td>";
+    		print '<td><a href="'.$obj->url.'" target="_blank">'.dol_trunc($obj->url,32,'middle')."</a></td>";
             print "<td>".yn($obj->useproxy)."</td>";
+            print "<td>".$obj->frequency."</td>";
             print "<td>".$obj->checkkey."</td>";
             print "<td>".$obj->maxval."</td>";
-            print "<td>".$obj->frequency."</td>";
             print '<td align="center">'.yn($obj->active)."</td>";
             /*print '<td align="center">';
             if ($obj->active)
@@ -349,10 +396,11 @@ else
     print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
     print '<input type="hidden" name="id" value="'.$id.'">';
 
-    print '<table class="nobordernopadding" width="100%">';
+    print '<table class="liste" width="100%">';
 
     print '<tr class="liste_titre">';
-    print '<td colspan="2">'.$langs->trans("Parameters").'</td>';
+    print '<td>'.$langs->trans("Request").'</td>';
+    print '<td>'.$langs->trans("Parameters").'</td>';
     print '<td>'.$langs->trans("Example").'</td>';
     print '</tr>';
 
@@ -365,6 +413,16 @@ else
 
     $var=!$var;
     print '<tr '.$bc[$var].'>';
+    print '<td class="fieldrequired">'.$langs->trans("Type").'</td>';
+    print '<td>';
+    $valarray=array('GET'=>'GET','POST'=>'POST','SOCKET'=>'SOCKET','SOAP'=>'SOAP');
+    print $form->selectarray('probe_typeprot', $valarray, ($_POST['probe_typeprot']?$_POST['probe_typeprot']:$probe->typeprot));
+    print '</td>';
+    print '<td>GET, POST, SOCKET, SOAP</td>';
+    print '</tr>';
+
+    $var=!$var;
+    print '<tr '.$bc[$var].'>';
     print '<td class="fieldrequired">'.$langs->trans("URL").'</td>';
     print '<td><input type="text" name="probe_url" value="'.($_POST['probe_url']?$_POST['probe_url']:$probe->url).'" size="64"></td>';
     print '<td>http://mywebsite.com/mylogonpage.php</td>';
@@ -372,13 +430,35 @@ else
 
     $var=!$var;
     print '<tr '.$bc[$var].'>';
+    print '<td class="fieldrequired">'.$langs->trans("Parameters").'</td>';
+    print '<td><textarea cols="60" name="probe_url_params" size="64">'.($_POST['probe_url_params']?$_POST['probe_url_params']:$probe->url_params).'</textarea></td>';
+    print '<td>param1=value1&amp;param2=valu2';
+    //print '<br>tcp://localhost:81<br>';
+    print '</td>';
+    print '</tr>';
+
+    $var=!$var;
+    print '<tr '.$bc[$var].'>';
     print '<td>'.$langs->trans("UseProxy").'</td>';
     print '<td>';
-    print $html->selectyesno('probe_useproxy',isset($_POST['probe_useproxy'])?$_POST['probe_useproxy']:$probe->useproxy,1);
+    print $form->selectyesno('probe_useproxy',isset($_POST['probe_useproxy'])?$_POST['probe_useproxy']:$probe->useproxy,1);
     print '</td>';
     print '<td>'.
-    $html->textwithtooltip(img_help(),$langs->trans("SetToYesToUseGlobalProxySetup"));
+    $form->textwithtooltip(img_help(),$langs->trans("SetToYesToUseGlobalProxySetup"));
     print '</td>';
+    print '</tr>';
+
+    $var=!$var;
+    print '<tr '.$bc[$var].'>';
+    print '<td>'.$langs->trans("Frequency").'</td>';
+    print '<td><input type="text" name="probe_frequency" value="'.($_POST['probe_frequency']?$_POST['probe_frequency']:$probe->frequency).'" size="2"> '.$langs->trans("seconds").'</td>';
+    print '<td>10</td>';
+    print '</tr>';
+
+    print '<tr class="liste_titre">';
+    print '<td>'.$langs->trans("Response").'</td>';
+    print '<td>'.$langs->trans("Parameters").'</td>';
+    print '<td>'.$langs->trans("Example").'</td>';
     print '</tr>';
 
     $var=!$var;
@@ -390,28 +470,29 @@ else
 
     $var=!$var;
     print '<tr '.$bc[$var].'>';
-    print '<td class="fieldrequired">'.$langs->trans("MaxValue").'</td>';
+    print '<td>'.$langs->trans("MaxValue").'</td>';
     print '<td><input type="text" name="probe_maxvalue" value="'.($_POST['probe_maxvalue']?$_POST['probe_maxvalue']:$probe->maxvalue).'" size="2"></td>';
     print '<td>1000</td>';
     print '</tr>';
 
-    $var=!$var;
-    print '<tr '.$bc[$var].'>';
-    print '<td class="fieldrequired">'.$langs->trans("Frequency").'</td>';
-    print '<td><input type="text" name="probe_frequency" value="'.($_POST['probe_frequency']?$_POST['probe_frequency']:$probe->frequency).'" size="2"> '.$langs->trans("seconds").'</td>';
-    print '<td>10</td>';
+    print '<tr class="liste_titre">';
+    print '<td>'.$langs->trans("Other").'</td>';
+    print '<td>'.$langs->trans("Parameters").'</td>';
+    print '<td>'.$langs->trans("Example").'</td>';
     print '</tr>';
 
     $var=!$var;
     print '<tr '.$bc[$var].'>';
     print '<td>'.$langs->trans("Activable").'</td>';
     print '<td>';
-    print $html->selectyesno('probe_active',isset($_POST['probe_active'])?$_POST['probe_active']:$probe->active,1);
+    print $form->selectyesno('probe_active',isset($_POST['probe_active'])?$_POST['probe_active']:$probe->active,1);
     print '</td>';
-    print '<td>&nbsp;</td>';
+    print '<td>'.yn(1).'</td>';
     print '</tr>';
 
-    print '<tr><td colspan="3" align="center">';
+    print '</table>';
+
+    print '<div align="center">';
     if ($user->rights->monitoring->create)
     {
         print '<input type="submit" class="button" name="save" value="'.$langs->trans("Save").'">';
@@ -419,15 +500,14 @@ else
         print '<input type="submit" class="button" name="cancel" value="'.$langs->trans("Cancel").'">';
     }
     print '<input type="hidden" name="action" value="modify">';
-    print '</td></tr>';
+    print '</div>';
 
-    print '</table>';
     print '</form>';
 
 }
 
 
-$db->close();
+llxFooter();
 
-llxFooter('$Date: 2011/08/16 10:38:58 $ - $Revision: 1.15 $');
+$db->close();
 ?>
