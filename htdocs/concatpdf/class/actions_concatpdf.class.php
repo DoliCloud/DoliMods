@@ -1,26 +1,26 @@
 <?php
-/* Copyright (C) 2011 Laurent Destailleur  <eldy@users.sourceforge.net>
+/* Copyright (C) 2011-2012	Laurent Destailleur	<eldy@users.sourceforge.net>
+ * Copyright (C) 2012		Regis Houssin		<regis@dolibarr.fr>
  *
-* This program is free software; you can redistribute it and/or modify
-* it under the terms of the GNU General Public License as published by
-* the Free Software Foundation; either version 2 of the License, or
-* (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-* GNU General Public License for more details.
-*
-* You should have received a copy of the GNU General Public License
-* along with this program; if not, write to the Free Software
-* Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
-*/
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+ */
 
 /**
  *	\file       htdocs/concatpdf/class/actions_concatpdf.class.php
  *	\ingroup    societe
  *	\brief      File to control actions
- *	\version    $Id: actions_concatpdf.class.php,v 1.8 2011/09/11 18:41:48 eldy Exp $
  */
 require_once(DOL_DOCUMENT_ROOT."/core/class/commonobject.class.php");
 
@@ -100,7 +100,7 @@ class ActionsConcatPdf
         	$out.='<td align="left" colspan="4" valign="top" class="formdoc">';
         	$out.=$langs->trans("ConcatFile").' ';
 
-        	if (! empty($conf->global->MAIN_USE_JQUERY_MULTISELECT))
+        	if (! empty($conf->global->MAIN_USE_JQUERY_MULTISELECT) && ! empty($conf->global->CONCATPDF_MULTIPLE_CONCATENATION_ENABLED))
         	{
         		$out.='</td></tr>';
 
@@ -142,7 +142,10 @@ class ActionsConcatPdf
         dol_syslog(get_class($this).'::executeHooks action='.$action);
 
         $check='alpha';
-        if (! empty($conf->global->MAIN_USE_JQUERY_MULTISELECT)) $check='array';
+        if (! empty($conf->global->MAIN_USE_JQUERY_MULTISELECT) && ! empty($conf->global->CONCATPDF_MULTIPLE_CONCATENATION_ENABLED))
+        {
+        	$check='array';
+        }
         $concatpdffile = GETPOST('concatpdffile',$check);
         if (! is_array($concatpdffile) && ! empty($concatpdffile)) $concatpdffile = array($concatpdffile);
 
