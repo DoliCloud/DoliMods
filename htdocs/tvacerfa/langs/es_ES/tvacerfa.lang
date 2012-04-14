@@ -1,0 +1,7 @@
+# Dolibarr language file - es_ES - tvacerfa
+CHARSET=UTF-8
+NoNeedToSetup=No requiere configuración especial
+TVACerfaSetup=Configuración del módulo IVA Cerfa
+VATCerfa=IVA Cerfa
+Module101150Name=IVA Cerfa
+Module101150Desc=Generación de documentos Cerfa de IVA
