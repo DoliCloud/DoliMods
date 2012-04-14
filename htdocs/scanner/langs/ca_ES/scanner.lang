@@ -1,0 +1,10 @@
+# Dolibarr language file - ca_ES - scanner
+CHARSET= UTF-8
+ScannerSetup=Configuració del mòdul Scanner
+ScannerDesc=Indicar aquí el camí complet cap a les eines de gestió de escàner del servidor Dolibarr.
+PHPSANE_SCANIMAGE=Comando Scan (scanimage)
+PHPSANE_PNMTOJPEG=Eina PNM a JPG (pnmtojpeg)
+PHPSANE_PNMTOTIFF=Eina PNM a TIF (pnmtotiff)
+PHPSANE_OCR=Eina OCR (gocr)
+ScanArea=Zona a escanejar
+ResolutionDPI=Resolució DPI

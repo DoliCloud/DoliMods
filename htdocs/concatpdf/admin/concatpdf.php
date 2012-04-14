@@ -29,9 +29,7 @@ if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.p
 if (! $res && file_exists("../../../main.inc.php")) $res=@include("../../../main.inc.php");
 
 // Use on dev env only
-preg_match('/^\/([^\/]+)\//', dirname($_SERVER["SCRIPT_NAME"]), $regs);
-$realpath = readlink($_SERVER['DOCUMENT_ROOT'].'/'.$regs[1]);
-if (! $res && file_exists($realpath."main.inc.php")) $res=@include($realpath."main.inc.php");
+if (! $res && file_exists($_SERVER['DOCUMENT_ROOT']."/main.inc.php")) $res=@include($_SERVER['DOCUMENT_ROOT']."/main.inc.php");
 
 if (! $res && file_exists("../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../dolibarr/htdocs/main.inc.php");     // Used on dev env only
 if (! $res && file_exists("../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
@@ -59,6 +57,34 @@ $modules = array('proposals','orders','invoices');
 /*
  * Actions
  */
+
+if (preg_match('/set_(.*)/',$action,$reg))
+{
+	$code=$reg[1];
+	if (dolibarr_set_const($db, $code, 1, 'chaine', 0, '', 0) > 0)
+	{
+		Header("Location: ".$_SERVER["PHP_SELF"]);
+		exit;
+	}
+	else
+	{
+		dol_print_error($db);
+	}
+}
+
+if (preg_match('/del_(.*)/',$action,$reg))
+{
+	$code=$reg[1];
+	if (dolibarr_del_const($db, $code, 0) > 0)
+	{
+		Header("Location: ".$_SERVER["PHP_SELF"]);
+		exit;
+	}
+	else
+	{
+		dol_print_error($db);
+	}
+}
 
 // Envoi fichier
 if ($_POST["sendit"] && ! empty($conf->global->MAIN_UPLOAD_DOC))
@@ -125,8 +151,49 @@ foreach ($modules as $module)
 }
 print '<br><br>';
 
-//print $langs->trans("ConcatPDfPutFileManually");
-//print '<br><br><br>';
+if (! empty($conf->global->MAIN_USE_JQUERY_MULTISELECT))
+{
+	$form=new Form($db);
+	$var=true;
+	print '<table class="noborder" width="100%">';
+	print '<tr class="liste_titre">';
+	print '<td>'.$langs->trans("Parameters").'</td>'."\n";
+	print '<td align="center" width="20">&nbsp;</td>';
+	print '<td align="center" width="100">'.$langs->trans("Value").'</td>'."\n";
+	print '</tr>';
+	
+	/*
+	 * Parameters form
+	*/
+	
+	// Use multiple concatenation
+	$var=!$var;
+	print '<tr '.$bc[$var].'>';
+	print '<td>'.$langs->trans("EnableMultipleConcatenation").'</td>';
+	print '<td align="center" width="20">&nbsp;</td>';
+	
+	print '<td align="center" width="100">';
+	if ($conf->use_javascript_ajax)
+	{
+		print ajax_constantonoff('CONCATPDF_MULTIPLE_CONCATENATION_ENABLED','',0);
+	}
+	else
+	{
+		if($conf->global->CONCATPDF_MULTIPLE_CONCATENATION_ENABLED == 0)
+		{
+			print '<a href="'.$_SERVER['PHP_SELF'].'?action=set_CONCATPDF_MULTIPLE_CONCATENATION_ENABLED">'.img_picto($langs->trans("Disabled"),'off').'</a>';
+		}
+		else if($conf->global->CONCATPDF_MULTIPLE_CONCATENATION_ENABLED == 1)
+		{
+			print '<a href="'.$_SERVER['PHP_SELF'].'?action=del_CONCATPDF_MULTIPLE_CONCATENATION_ENABLED">'.img_picto($langs->trans("Enabled"),'on').'</a>';
+		}
+	}
+	print '</td></tr>';
+	
+	print '</table>';
+	
+	print '<br><br>';
+}
 
 $select_module=$form->selectarray('module', $modules,'',0,0,1,'',1);
 $formfile->form_attach_new_file($_SERVER['PHP_SELF'],'',0,0,1,50,'',$select_module);
@@ -147,7 +214,8 @@ foreach ($modules as $module)
 	print '<br><br>';
 }
 
+// Footer
 llxFooter();
-
-if (is_object($db)) $db->close();
+// Close database handler
+$db->close();
 ?>

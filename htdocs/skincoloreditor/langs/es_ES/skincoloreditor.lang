@@ -1,0 +1,16 @@
+# Dolibarr language file - es_ES - skincoloreditor 
+CHARSET= UTF-8
+SkinColorEditorSetup=Configuración del módulo Skin editor
+SkinColorEditorDesc=Este módulo permite modificar los colores del thema Eldy a su elección. Los colores pueden ser modificados globalmente para todos en esta página. Para una modificación para cada usuario, ir a la pestaña "Editor de color" en la ficha del usuario deseado.
+SkinColorEditorDescUser=Este módulo permite modificar los colores del thema Eldy a su elección. Los colores pueden ser modificados para el usuario de esta pestaña. Para una modificación global, ir a la página de configurción del módulo con un usuario admin.
+WarningSkinMustBeEldy=Atención, la modificación de colores solo es efectiva en el tema Eldy. Actualmente está usando el tema %s. 
+SkinColorEditorFastEditor=Editor rápido
+SkinColorEditorAdvancedEditor=Editor avanzado
+Module101880Name= Skin Editor
+Module101880Desc= Permite la edición y la personalización de colores del tema Eldy
+SelectMainColor=Seleccionar el tono principal
+ActivateColorPersonalizing=Activar la posibilidad de personalizar los colores y fuentes (de manera global)
+ActivateColorPersonalizingUser=Activar la posibilidad de personalizar los colores y fuentes (para este usuario)
+ColorEditor=Editor de tema
+YourUseHasPersonalized=El usuario actual ha personalizado los colores en su ficha personal (Pestaña <a href="%s">"%s"</a>). Esta personalización va a reemplazar la configuración global que se hará efectiva sólo para los usuarios que no han personalizado los colores en su cuenta.
+FontSize=Tamaño de la fuente

@@ -1,0 +1,4 @@
+# Dolibarr language file - ca_ES - phpsysinfo
+CHARSET=UTF-8
+PHPSysInfo=PHP SysInfo
+Module101550Name=PHP Sysinfo
