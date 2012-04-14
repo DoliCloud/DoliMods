@@ -1,0 +1,25 @@
+# Dolibarr language file - es_ES - submiteverywhere
+CHARSET=UTF-8
+SubmitEveryWhereSetup=Configuración del módulo "Submit EveryWhere"
+DescSubmitEveryWhere=Este módulo le permite enviar información de texto corto para diversos medios de comunicación y realizar un seguimiento de los resultados de la licitación. Está diseñado para hacer la promoción de información en el mundo o por internet.
+TargetName=Nombre del objetivo
+TargetType=Tipo/API objetivo
+TargetLang=Idioma del objetivo
+TitleLength=Tamaño máx: Título
+DescShortLength=Descripción corta
+DescLongLength=Descripción larga
+GenericWebSite=Sitio web genérico
+ListOfAvailableTargets=Lista de los objetivos de emisión disponibles
+AddTarget=Añadir un objetivo de emisión de su información
+UrlOrEMail=Url o correo electrónico para envío de artículos
+SubmitEveryWhereArea=Área inicio del módulo Submit EveryWhere
+SearchAMessage=Buscar un mensaje
+LastSubmits=Últimos envíos
+NbOfTargets=Núm. de objetivos
+NewMessage=Nuevo mensaje
+ShortContent=Contenido corto
+LongContent=Contenido largo
+CreateMessage=Crear mensaje
+ListOfMessage=Lista de mensajes
+Module101260Name=Submit Every Where
+Module101260Desc=Un gestor para ayudar en el envío de artículos para diferentes objetivos (Twitter, Facebook, Digg, e-mail, sitios de novedades...)
