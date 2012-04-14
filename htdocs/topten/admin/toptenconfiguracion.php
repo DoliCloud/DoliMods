@@ -16,15 +16,13 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
 /**
  *    \file       htdocs/externalsite/admin/externalsite.php
  *    \ingroup    externalsite
  *    \brief      Page de configuration du module externalsite
- *    \version    $Id: externalsite.php,v 1.2 2010/04/20 14:27:47 grandoc Exp $
  */
 
 require("../../main.inc.php");
@@ -70,7 +68,7 @@ if ($_POST["action"] == 'updatepagoconfiguracion')
     $i+=dolibarr_set_const($db,'NP_DIAS_ADELANTO',trim($_POST["diasadelanto"]),'chaine',0,'',$conf->entity);
     $i+=dolibarr_set_const($db,'NP_DIAS_ATRASO',trim($_POST["diasatraso"]),'chaine',0,'',$conf->entity);
 	$i+=dolibarr_set_const($db,'NP_CORREO_ECONOMICA',trim($_POST["email_economica"]),'chaine',0,'',$conf->entity);
-	
+
     if ($i >= 1)
     {
         $db->commit();
@@ -81,7 +79,7 @@ if ($_POST["action"] == 'updatepagoconfiguracion')
         $db->rollback();
         $mesg=$db->lasterror();
     }
-	
+
 }
 
 
