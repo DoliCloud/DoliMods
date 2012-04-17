@@ -219,7 +219,7 @@ if ($socid > 0)
     print "</td></tr>";
 
     print '<tr height="80"><td valign="top">'.$langs->trans("AntecedentsChirGene");
-    print '<br><input type="checkbox" name="alert_antechirgen"'.((isset($_POST['alert_antechirgen'])?GETPOST('alert_antechirgen'):$object->alert_antemed)?' checked="checked"':'').'"> '.$langs->trans("Alert");
+    print '<br><input type="checkbox" name="alert_antechirgen"'.((isset($_POST['alert_antechirgen'])?GETPOST('alert_antechirgen'):$object->alert_antechirgen)?' checked="checked"':'').'"> '.$langs->trans("Alert");
     print '</td>';
     print '<td valign="top">';
     if ($action == 'edit' && $user->rights->societe->creer)
