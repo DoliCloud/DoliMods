@@ -1,5 +1,5 @@
 <?php
-/* Copyright (C) 2005-2009 Laurent Destailleur  <eldy@users.sourceforge.net>
+/* Copyright (C) 2005-2012 Laurent Destailleur  <eldy@users.sourceforge.net>
  * Copyright (C) 2005-2010 Regis Houssin        <regis@dolibarr.fr>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -76,7 +76,7 @@ if ($filteremail)
 {
 	$sql = "SELECT m.rowid, m.titre, m.nbemail, m.statut, m.date_creat as datec, m.date_envoi as date_envoi,";
 	$sql.= " mc.statut as sendstatut";
-	$sql.= " FROM ".MAIN_DB_PREFIX."mailing as m, ".MAIN_DB_PREFIX."mailing_cibles as mc";
+	$sql.= " FROM ".MAIN_DB_PREFIX."submitew_message as m, ".MAIN_DB_PREFIX."submitew_targets as mc";
 	$sql.= " WHERE m.rowid = mc.fk_mailing AND m.entity = ".$conf->entity;
 	$sql.= " AND mc.email = '".$db->escape($filteremail)."'";
 	if ($sref) $sql.= " AND m.rowid = '".$sref."'";
@@ -89,7 +89,7 @@ if ($filteremail)
 else
 {
 	$sql = "SELECT m.rowid, m.titre, m.nbemail, m.statut, m.date_creat as datec, m.date_envoi as date_envoi";
-	$sql.= " FROM ".MAIN_DB_PREFIX."mailing as m";
+	$sql.= " FROM ".MAIN_DB_PREFIX."submitew_message as m";
 	$sql.= " WHERE m.entity = ".$conf->entity;
 	if ($sref) $sql.= " AND m.rowid = '".$sref."'";
 	if ($sall) $sql.= " AND (m.titre like '%".$sall."%' OR m.sujet like '%".$sall."%' OR m.body like '%".$sall."%')";
@@ -203,7 +203,8 @@ else
 	dol_print_error($db);
 }
 
-$db->close();
 
-llxFooter('$Date: 2011/06/20 22:08:22 $ - $Revision: 1.1 $');
+llxFooter();
+
+$db->close();
 ?>
