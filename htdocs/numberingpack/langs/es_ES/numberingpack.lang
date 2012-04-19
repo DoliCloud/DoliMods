@@ -1,0 +1,4 @@
+# Dolibarr language file - es_ES - numberingpack
+CHARSET=UTF-8
+Module101290Name=Numbering pack
+Module101290Desc=Más módulos de reglas de numeración de códigos de terceros

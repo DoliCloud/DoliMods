@@ -1,0 +1,4 @@
+# Dolibarr language file - es_ES - zipautofillfr
+CHARSET=UTF-8
+Module101270Name=ZipAutofill FR/BE
+Module101270Desc=Añade todos los códigos postales de Francia y Bélgica en base de datos para el autocompletado de códigos postales/ciudad. También añade un diccionario para permitir su edición.
