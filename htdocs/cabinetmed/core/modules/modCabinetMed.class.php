@@ -30,8 +30,8 @@
 include_once(DOL_DOCUMENT_ROOT ."/core/modules/DolibarrModules.class.php");
 
 
-/**     \class      modCabinetMed
- *      \brief      Description and activation class for module CabinetMed
+/**
+ * Description and activation class for module CabinetMed
  */
 class modCabinetMed extends DolibarrModules
 {
@@ -170,15 +170,16 @@ class modCabinetMed extends DolibarrModules
                              //,"ResultatExamBio","ResultatExamAutre"
                              ),
             'tabsql'=>array('SELECT f.rowid as rowid, f.code, f.label, f.active FROM '.MAIN_DB_PREFIX.'cabinetmed_motifcons as f',
-                            'SELECT f.rowid as rowid, f.code, f.label, f.active FROM '.MAIN_DB_PREFIX.'cabinetmed_diaglec as f',
+                            'SELECT f.rowid as rowid, f.code, f.label, f.active, f.icd, f.lang FROM '.MAIN_DB_PREFIX.'cabinetmed_diaglec as f',
                             'SELECT f.rowid as rowid, f.code, f.label, f.biorad, f.active FROM '.MAIN_DB_PREFIX.'cabinetmed_examenprescrit as f',
                             'SELECT f.rowid as rowid, f.code, f.label, f.active FROM '.MAIN_DB_PREFIX.'cabinetmed_c_examconclusion as f',
                             'SELECT f.rowid as rowid, f.code, f.label, f.active FROM '.MAIN_DB_PREFIX.'cabinetmed_c_banques as f'
                             ),
             'tabsqlsort'=>array("label ASC", "label ASC","biorad ASC, label ASC","label ASC","label ASC"),
-            'tabfield'=>array("code,label","code,label","code,label,biorad","code,label","code,label"), // Nom des champs en resultat de select pour affichage du dictionnaire
-            'tabfieldvalue'=>array("code,label","code,label","code,label,biorad","code,label","code,label"),  // Nom des champs d'edition pour modification d'un enregistrement
-            'tabfieldinsert'=>array("code,label","code,label","code,label,biorad","code,label","code,label"),
+            'tabfield'=>array("code,label","code,label,icd,lang","code,label,biorad","code,label","code,label"), // Nom des champs en resultat de select pour affichage du dictionnaire
+            'tabfieldvalue'=>array("code,label","code,label,icd,lang","code,label,biorad","code,label","code,label"),  // Nom des champs d'edition pour modification d'un enregistrement
+            'tabfieldinsert'=>array("code,label","code,label,icd,lang","code,label,biorad","code,label","code,label"),
+            'tabhelp'=>array(array(),array("icd"=>"http://en.wikipedia.org/wiki/International_Statistical_Classification_of_Diseases_and_Related_Health_Problems")),
             'tabrowid'=>array("rowid","rowid","rowid","rowid","rowid"),
             'tabcond'=>array($conf->cabinetmed->enabled,$conf->cabinetmed->enabled,$conf->cabinetmed->enabled,$conf->cabinetmed->enabled,$conf->cabinetmed->enabled)
         );
