@@ -33,11 +33,11 @@ if (! $res) die("Include of main fails");
 
 $langs->load("phpsysinfo@phpsysinfo");
 
-$mainmenu=isset($_GET["mainmenu"])?$_GET["mainmenu"]:"";
-$leftmenu=isset($_GET["leftmenu"])?$_GET["leftmenu"]:"";
-$idmenu=isset($_GET["idmenu"])?$_GET["idmenu"]:"";
-$theme=isset($_GET["theme"])?$_GET["theme"]:"";
-$codelang=isset($_GET["lang"])?$_GET["lang"]:"";
+$mainmenu=GETPOST("mainmenu");
+$leftmenu=GETPOST("leftmenu");
+$idmenu=GETPOST("idmenu");
+$theme=GETPOST("theme");
+$codelang=GETPOST("lang");
 
 print "
 <html>

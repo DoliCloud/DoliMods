@@ -1,6 +1,6 @@
 <?php
 /* Copyright (C) 2001-2003 Rodolphe Quiedeville <rodolphe@quiedeville.org>
- * Copyright (C) 2010      Laurent Destailleur  <eldy@users.sourceforge.net>
+ * Copyright (C) 2010-2012 Laurent Destailleur  <eldy@users.sourceforge.net>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@
 
 /**
  *		\file 		htdocs/externalsite/frametop.php
- *      \ingroup    externalsite
+ *      \ingroup    phpsysinfo
  *		\brief      Top frame to show external web application
  *		\version    $Id: frametop.php,v 1.2 2011/01/16 13:30:08 eldy Exp $
  */
@@ -37,6 +37,7 @@ $langs->load("phpsysinfo@phpsysinfo");
 top_htmlhead("","");
 top_menu("","","_top");
 
+$db->close();
 ?>
 
 
