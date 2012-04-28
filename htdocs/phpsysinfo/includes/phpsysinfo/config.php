@@ -17,12 +17,19 @@
 //        MAIN PARAMETERS
 // ********************************
 
-
 // DOL_CHANGE LDR
 define('NOCSRFCHECK',1);
-$res=false;
-if (file_exists("../../../master.inc.php") && ! $res) $res=@include("../../../master.inc.php");
-if (file_exists("../../../../../dolibarr/htdocs/master.inc.php") && ! $res) $res=@include("../../../../../dolibarr/htdocs/master.inc.php");
+define('NOLOCALSOCKETPGCONNECT',1);
+$res=0;
+if (! $res && file_exists("../master.inc.php")) $res=@include_once("../master.inc.php");
+if (! $res && file_exists("../../master.inc.php")) $res=@include_once("../../master.inc.php");
+if (! $res && file_exists("../../../master.inc.php")) $res=@include_once("../../../master.inc.php");
+if (! $res && file_exists("../../../../master.inc.php")) $res=@include_once("../../../../master.inc.php");
+if (! $res && file_exists("../../../dolibarr/htdocs/master.inc.php")) $res=@include_once("../../../dolibarr/htdocs/master.inc.php");     // Used on dev env only
+if (! $res && file_exists("../../../../dolibarr/htdocs/master.inc.php")) $res=@include_once("../../../../dolibarr/htdocs/master.inc.php");   // Used on dev env only
+if (! $res && file_exists("../../../../../dolibarr/htdocs/master.inc.php")) $res=@include_once("../../../../../dolibarr/htdocs/master.inc.php");   // Used on dev env only
+if (! $res && file_exists("../../../../../../dolibarr/htdocs/master.inc.php")) $res=@include_once("../../../../../../dolibarr/htdocs/master.inc.php");   // Used on dev env only
+if (! $res) die("Include of main fails");
 
 
 /**
