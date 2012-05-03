@@ -67,10 +67,10 @@ print "----- ".$script_file." -----\n";
 $login=$argv[1];
 $refovhsupplier=$argv[2];
 
-$excludenullinvoice = 0;
+$excludenullinvoice = 1;
 for ($i = 1 ; $i < count($argv) ; $i++)
 {
-    if ($argv[$i] == "--exclude-null-invoices")
+    if ($argv[$i] == "--include-null-invoices")
     {
         $excludenullinvoice = 1;
     }
@@ -81,7 +81,7 @@ if (empty($login) && empty($refovhsupplier))
     print "This script import PDF invoices provided by OVH into Dolibarr.\n";
     print "If no corresponding Dolibarr supplier invoice are found for each OVH invoice, the script ask to create it.\n";
     print "Note that invoices are create with draft status so you can delete or validate them from Dolibarr.\n";
-    print "Usage: ".$script_file." dolibarrlogin nameforovhsupplier [--exclude-null-invoices]\n";
+    print "Usage: ".$script_file." dolibarrlogin nameforovhsupplier [--include-null-invoices]\n";
     exit;
 }
 
@@ -139,7 +139,7 @@ try {
     echo "billingInvoiceList successfull (".count($result)." ".$langs->trans("Invoices").")\n";
     foreach ($result as $i => $r)
     {
-        $vatrate=($r->totalPrice > 0?round($r->vat/$r->totalPrice,2):0);
+        $vatrate=vatrate($r->totalPrice > 0?(100*$r->vat/($r->totalPrice - $r->vat)):0);
         if ($excludenullinvoice && empty($r->totalPriceWithVat))
         {
             print 'Discard OVH invoice '.$r->billnum." (".$r->date." - ".$langs->trans("Total").'='.$r->totalPriceWithVat." - ".$langs->trans("VatRate").'='.$vatrate.")\n";
