@@ -191,11 +191,9 @@ try {
                     {
                         foreach($r->info->details as $d)
                         {
-                            $label='<strong>ref :'.$d->service.'</strong><br>'.$d->description.'<br> >';
-                            if($d->start)
-                            $label.='<i>du '.date('d/m/Y',strtotime($d->start));
-                            if($d->end)
-                            $label.=' au '.date('d/m/Y',strtotime($d->end));
+                            $label='<strong>ref :'.$d->service.'</strong><br>'.$d->description.'<br>';
+                            if ($d->start) $label.=$langs->trans("From").' '.date('d/m/Y',strtotime($d->start));
+                            if ($d->end)   $label.=($d->start?' ':'').$langs->trans("To").' '.date('d/m/Y',strtotime($d->end));
                             $amount=$d->baseprice;
                             $qty=$d->quantity;
                             $price_base='HT';
