@@ -139,7 +139,6 @@ try {
     echo "billingInvoiceList successfull (".count($result)." ".$langs->trans("Invoices").")\n";
     foreach ($result as $i => $r)
     {
-        var_dump($result);exit;
         $vatrate=($r->totalPrice > 0?round($r->vat/$r->totalPrice,2):0);
         if ($excludenullinvoice && empty($r->totalPriceWithVat))
         {
