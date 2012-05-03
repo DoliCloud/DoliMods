@@ -139,7 +139,7 @@ try {
     echo "billingInvoiceList successfull (".count($result)." ".$langs->trans("Invoices").")\n";
     foreach ($result as $i => $r)
     {
-        $vatrate=vatrate($r->totalPrice > 0?(100*$r->vat/($r->totalPrice - $r->vat)):0);
+        $vatrate=vatrate($r->totalPrice > 0?round(100*$r->vat/$r->totalPrice,2):0);
         if ($excludenullinvoice && empty($r->totalPriceWithVat))
         {
             print 'Discard OVH invoice '.$r->billnum." (".$r->date." - ".$langs->trans("Total").'='.$r->totalPriceWithVat." - ".$langs->trans("VatRate").'='.$vatrate.")\n";
