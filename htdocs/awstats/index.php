@@ -465,7 +465,7 @@ else
 		}
 
 		$system_table = '<table width="'.$table_width.'" cellspacing="0" cellpadding="1" align="'.$table_align.'">
-  <tr class="header">
+  <tr class="liste_titre">
     <td width="40%" class="domain-bold">System Statistics</td>
     <td width="12%" class="visitors-bold">Visitors</td>
     <td width="12%" class="visits-bold">Visits</td>
