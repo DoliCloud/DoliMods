@@ -1,6 +1,6 @@
 <?php
 /* Copyright (C) 2001-2003,2005 Rodolphe Quiedeville <rodolphe@quiedeville.org>
- * Copyright (C) 2004-2011      Laurent Destailleur  <eldy@users.sourceforge.net>
+ * Copyright (C) 2004-2012      Laurent Destailleur  <eldy@users.sourceforge.net>
  * Copyright (C) 2005-2006      Regis Houssin        <regis@dolibarr.fr>
  * Copyright (C) 2010           Juanjo Menent        <jmenent@2byte.es>
  *
@@ -59,9 +59,12 @@ if ($action == 'addupdate')
 
     $db->begin();
 
-    $sql = "INSERT INTO ".MAIN_DB_PREFIX."cabinetmed_patient(rowid, note_antemed, note_antechirgen, note_antechirortho, note_anterhum, note_other, note_traitallergie)";
-    $sql.= " VALUES('".$_POST["socid"]."','".addslashes($_POST["note_antemed"])."','".addslashes($_POST["note_antechirgen"])."',";
-    $sql.= " '".addslashes($_POST["note_antechirortho"])."','".addslashes($_POST["note_anterhum"])."','".addslashes($_POST["note_other"])."','".addslashes($_POST["note_traitallergie"])."')";
+    $sql = "INSERT INTO ".MAIN_DB_PREFIX."cabinetmed_patient(rowid, note_antemed, note_antechirgen, note_antechirortho, note_anterhum, note_other, note_traitallergie, note_traitclass, note_traitintol, note_traitspec)";
+    $sql.= " VALUES('".$_POST["socid"]."',";
+    $sql.= " '".addslashes($_POST["note_antemed"])."','".addslashes($_POST["note_antechirgen"])."',";
+    $sql.= " '".addslashes($_POST["note_antechirortho"])."','".addslashes($_POST["note_anterhum"])."','".addslashes($_POST["note_other"])."',";
+    $sql.= " '".addslashes($_POST["note_traitallergie"])."','".addslashes($_POST["note_traitclass"])."','".addslashes($_POST["note_traitintol"])."','".addslashes($_POST["note_traitspec"])."'";
+    $sql.= ")";
     $result1 = $db->query($sql,1);
     //if (! $result) dol_print_error($db);
 
@@ -71,7 +74,10 @@ if ($action == 'addupdate')
     $sql.= " note_antechirortho='".addslashes($_POST["note_antechirortho"])."',";
     $sql.= " note_anterhum='".addslashes($_POST["note_anterhum"])."',";
     //$sql.= " note_other='".addslashes($_POST["note_other"])."',";
-    $sql.= " note_traitallergie='".addslashes($_POST["note_traitallergie"])."'";
+    $sql.= " note_traitallergie='".addslashes($_POST["note_traitallergie"])."',";
+    $sql.= " note_traitclass='".addslashes($_POST["note_traitclass"])."',";
+    $sql.= " note_traitintol='".addslashes($_POST["note_traitintol"])."',";
+    $sql.= " note_traitspec='".addslashes($_POST["note_traitspec"])."'";
     $sql.= " WHERE rowid=".$_POST["socid"];
     $result2 = $db->query($sql);
 
@@ -105,7 +111,25 @@ if ($action == 'addupdate')
         $error++; $mesg=$result7;
     }
 
-    if ((! $result2) || $result3 || $result4 || $result5 || $result6 || $result7)
+    $alert=($_POST["alert_traitclass"]?'1':'0');
+    $result8=addAlert($db, 'alert_traitclass', $socid, $alert);
+    if ($result8) {
+        $error++; $mesg=$result8;
+    }
+
+    $alert=($_POST["alert_traitintol"]?'1':'0');
+    $result9=addAlert($db, 'alert_traitintol', $socid, $alert);
+    if ($result9) {
+        $error++; $mesg=$result9;
+    }
+
+    $alert=($_POST["alert_traitspec"]?'1':'0');
+    $result10=addAlert($db, 'alert_traitspec', $socid, $alert);
+    if ($result10) {
+        $error++; $mesg=$result10;
+    }
+
+    if ((! $result2) || $result3 || $result4 || $result5 || $result6 || $result7 || $result8 || $result9 || $result10)
     {
         dol_print_error($db);
         $db->rollback();
@@ -122,7 +146,7 @@ if ($action == 'addupdate')
 
 /*
  *	View
- */
+*/
 
 $form = new Form($db);
 
@@ -141,7 +165,7 @@ if ($socid > 0)
 
     /*
      * Affichage onglets
-     */
+    */
     if ($conf->notification->enabled) $langs->load("mails");
 
     $head = societe_prepare_head($object);
@@ -195,6 +219,9 @@ if ($socid > 0)
         print '</td></tr>';
     }
 
+    print '</table><br>';
+
+    print '<table class="border" width="100%">';
 
     $conf->fckeditor->enabled=false;
     $height=120;
@@ -209,12 +236,34 @@ if ($socid > 0)
 
         // Editeur wysiwyg
         require_once(DOL_DOCUMENT_ROOT."/core/class/doleditor.class.php");
-        $doleditor=new DolEditor('note_antemed',$object->note_antemed,0,$height,'dolibarr_notes','In',false,false,$conf->fckeditor->enabled && $conf->global->FCKEDITOR_ENABLE_SOCIETE,6,70);
+        $doleditor=new DolEditor('note_antemed',$object->note_antemed,0,$height,'dolibarr_notes','In',false,false,$conf->fckeditor->enabled && $conf->global->FCKEDITOR_ENABLE_SOCIETE,8,70);
         $doleditor->Create();
     }
     else
     {
         print nl2br($object->note_antemed);
+    }
+    print "</td>";
+    //print "</tr>";
+
+    // Spec
+    //print '<tr height="80">';
+    print '<td valign="top">'.$langs->trans("SpecPharma");
+    print '<br><input type="checkbox" name="alert_traitspec"'.((isset($_POST['alert_traitspec'])?GETPOST('alert_traitspec'):$object->alert_traitspec)?' checked="checked"':'').'"> '.$langs->trans("Alert");
+    print '</td>';
+    print '<td valign="top">';
+    if ($action == 'edit' && $user->rights->societe->creer)
+    {
+        print "<input type=\"hidden\" name=\"socid\" value=\"".$object->id."\">";
+
+        // Editeur wysiwyg
+        require_once(DOL_DOCUMENT_ROOT."/core/class/doleditor.class.php");
+        $doleditor=new DolEditor('note_traitspec',$object->note_traitspec,0,$height,'dolibarr_notes','In',false,false,$conf->fckeditor->enabled && $conf->global->FCKEDITOR_ENABLE_SOCIETE,8,70);
+        $doleditor->Create();
+    }
+    else
+    {
+        print nl2br($object->note_traitspec);
     }
     print "</td></tr>";
 
@@ -228,14 +277,37 @@ if ($socid > 0)
 
         // Editeur wysiwyg
         require_once(DOL_DOCUMENT_ROOT."/core/class/doleditor.class.php");
-        $doleditor=new DolEditor('note_antechirgen',$object->note_antechirgen,0,$height,'dolibarr_notes','In',false,false,$conf->fckeditor->enabled && $conf->global->FCKEDITOR_ENABLE_SOCIETE,6,70);
+        $doleditor=new DolEditor('note_antechirgen',$object->note_antechirgen,0,$height,'dolibarr_notes','In',false,false,$conf->fckeditor->enabled && $conf->global->FCKEDITOR_ENABLE_SOCIETE,8,70);
         $doleditor->Create();
     }
     else
     {
         print nl2br($object->note_antechirgen);
     }
+    print "</td>";
+    //pritn "</tr>";
+
+    // Intolerances
+    //print '<tr height="80">';
+    print '<td valign="top">'.$langs->trans("Intolerances");
+    print '<br><input type="checkbox" name="alert_traitintol"'.((isset($_POST['alert_traitintol'])?GETPOST('alert_traitintol'):$object->alert_traitintol)?' checked="true"':'').'"> '.$langs->trans("Alert");
+    print '</td>';
+    print '<td valign="top">';
+    if ($action == 'edit' && $user->rights->societe->creer)
+    {
+        print "<input type=\"hidden\" name=\"socid\" value=\"".$object->id."\">";
+
+        // Editeur wysiwyg
+        require_once(DOL_DOCUMENT_ROOT."/core/class/doleditor.class.php");
+        $doleditor=new DolEditor('note_traitintol',$object->note_traitintol,0,$height,'dolibarr_notes','In',false,false,$conf->fckeditor->enabled && $conf->global->FCKEDITOR_ENABLE_SOCIETE,8,70);
+        $doleditor->Create();
+    }
+    else
+    {
+        print nl2br($object->note_traitintol);
+    }
     print "</td></tr>";
+
 
     print '<tr height="80"><td valign="top">'.$langs->trans("AntecedentsChirOrtho");
     print '<br><input type="checkbox" name="alert_antechirortho"'.((isset($_POST['alert_antechirortho'])?GETPOST('alert_antechirortho'):$object->alert_antechirortho)?' checked="checked"':'').'"> '.$langs->trans("Alert");
@@ -253,6 +325,27 @@ if ($socid > 0)
     else
     {
         print nl2br($object->note_antechirortho);
+    }
+    print "</td>";
+    //print "</tr>";
+
+    //print '<tr height="80">';
+    print '<td valign="top">'.$langs->trans("Allergies");
+    print '<br><input type="checkbox" name="alert_traitallergie"'.((isset($_POST['alert_traitallergie'])?GETPOST('alert_traitallergie'):$object->alert_traitallergie)?' checked="checked"':'').'""> '.$langs->trans("Alert");
+    print '</td>';
+    print '<td valign="top">';
+    if ($action == 'edit' && $user->rights->societe->creer)
+    {
+        print "<input type=\"hidden\" name=\"socid\" value=\"".$object->id."\">";
+
+        // Editeur wysiwyg
+        require_once(DOL_DOCUMENT_ROOT."/core/class/doleditor.class.php");
+        $doleditor=new DolEditor('note_traitallergie',$object->note_traitallergie,0,$height,'dolibarr_notes','In',false,false,$conf->fckeditor->enabled && $conf->global->FCKEDITOR_ENABLE_SOCIETE,6,70);
+        $doleditor->Create();
+    }
+    else
+    {
+        print nl2br($object->note_traitallergie);
     }
     print "</td></tr>";
 
@@ -273,10 +366,13 @@ if ($socid > 0)
     {
         print nl2br($object->note_anterhum);
     }
-    print "</td></tr>";
+    print "</td>";
+    print '<td colspan="2">&nbsp;</td>';
+    print "</tr>";
 
     /*
-    print '<tr height="80"><td valign="top">'.$langs->trans("Other").'</td>';
+    print '<tr height="80">';
+    print '<td valign="top">'.$langs->trans("Other").'</td>';
     print '<td valign="top">';
     if ($action == 'edit' && $user->rights->societe->creer)
     {
@@ -289,30 +385,11 @@ if ($socid > 0)
     }
     else
     {
-        print nl2br($object->note_other);
+	    print nl2br($object->note_other);
     }
-    print "</td></tr>";
+    print "</td>";
+    print "</tr>";
     */
-
-
-    print '<tr height="80"><td valign="top">'.$langs->trans("Allergies");
-    print '<br><input type="checkbox" name="alert_traitallergie"'.((isset($_POST['alert_traitallergie'])?GETPOST('alert_traitallergie'):$object->alert_traitallergie)?' checked="checked"':'').'""> '.$langs->trans("Alert");
-    print '</td>';
-    print '<td valign="top">';
-    if ($action == 'edit' && $user->rights->societe->creer)
-    {
-        print "<input type=\"hidden\" name=\"socid\" value=\"".$object->id."\">";
-
-        // Editeur wysiwyg
-        require_once(DOL_DOCUMENT_ROOT."/core/class/doleditor.class.php");
-        $doleditor=new DolEditor('note_traitallergie',$object->note_traitallergie,0,$height,'dolibarr_notes','In',false,false,$conf->fckeditor->enabled && $conf->global->FCKEDITOR_ENABLE_SOCIETE,6,70);
-        $doleditor->Create();
-    }
-    else
-    {
-        print nl2br($object->note_traitallergie);
-    }
-    print "</td></tr>";
 
     print "</table>";
 
@@ -330,7 +407,7 @@ print '</div>';
 
 /*
  * Boutons actions
- */
+*/
 if ($action == '')
 {
     print '<div class="tabsAction">';

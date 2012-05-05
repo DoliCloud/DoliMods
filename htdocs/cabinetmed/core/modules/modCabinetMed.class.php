@@ -1,6 +1,6 @@
 <?php
 /* Copyright (C) 2003      Rodolphe Quiedeville <rodolphe@quiedeville.org>
- * Copyright (C) 2004-2011 Laurent Destailleur  <eldy@users.sourceforge.net>
+ * Copyright (C) 2004-2012 Laurent Destailleur  <eldy@users.sourceforge.net>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -123,7 +123,7 @@ class modCabinetMed extends DolibarrModules
         // Array to add new pages in new tabs
         $this->tabs = array('thirdparty:+tabcontacts:Correspondants:cabinetmed@cabinetmed:/cabinetmed/contact.php?socid=__ID__',
                             'thirdparty:+tabantecedents:AntecedentsShort:cabinetmed@cabinetmed:/cabinetmed/antecedant.php?socid=__ID__',
-                            'thirdparty:+tabtraitetallergies:TraitEtAllergies:cabinetmed@cabinetmed:/cabinetmed/traitetallergies.php?socid=__ID__',
+                            //'thirdparty:+tabtraitetallergies:TraitEtAllergies:cabinetmed@cabinetmed:/cabinetmed/traitetallergies.php?socid=__ID__',
                             'thirdparty:+tabnotes:Notes:cabinetmed@cabinetmed:/cabinetmed/notes.php?socid=__ID__',
         					'thirdparty:+tabconsultations:ConsultationsShort:cabinetmed@cabinetmed:/cabinetmed/consultations.php?socid=__ID__',
                             'thirdparty:+tabexambio:ResultExamBio:cabinetmed@cabinetmed:/cabinetmed/exambio.php?socid=__ID__',
