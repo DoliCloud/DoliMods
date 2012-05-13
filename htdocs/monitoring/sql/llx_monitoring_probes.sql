@@ -19,7 +19,7 @@
 CREATE TABLE llx_monitoring_probes 
 (
 	rowid integer AUTO_INCREMENT PRIMARY KEY,
-	typeprot varchar(16) NOT NULL DEFAULT 'GET' after rowid;	
+	typeprot varchar(16) NOT NULL DEFAULT 'GET' after rowid,	
 	title varchar(64) NOT NULL, 
     groupname varchar(64) NULL, 
 	url varchar(250) NOT NULL,
