@@ -136,9 +136,10 @@ if ($action == 'confirm_deletefile' && $confirm == 'yes')
 {
     if ($object->fetch($socid))
     {
-        $file = $upload_dir . "/" . $_GET['urlfile'];   // Do not use urldecode here ($_GET and $_REQUEST are already decoded by PHP).
+        $langs->load("other");
+        $file = $upload_dir . "/" . GETPOST('urlfile');   // Do not use urldecode here ($_GET and $_REQUEST are already decoded by PHP).
         dol_delete_file($file);
-        $mesg = '<div class="ok">'.$langs->trans("FileWasRemoved").'</div>';
+        $mesg = '<div class="ok">'.$langs->trans("FileWasRemoved",GETPOST('urlfile')).'</div>';
     }
 }
 

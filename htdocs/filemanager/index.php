@@ -76,6 +76,7 @@ if (GETPOST('action')=='deletefile')
         }
         else
         {
+            $langs->load("other");
             $result=dol_delete_file($filetodelete,0,1);
             if ($result) $mesg='<div class="ok">'.$langs->trans("FileWasRemoved",$filetodelete).'</div>';
             else
