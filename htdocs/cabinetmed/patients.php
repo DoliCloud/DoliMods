@@ -159,7 +159,7 @@ if ($result)
  	if ($search_sale != '')	   $param.='&amp;search_sale='.$search_sale;
     if ($search_diagles != '') $param.='&amp;search_diagles='.$search_diagles;
 
-	print_barre_liste($langs->trans("ListOfCustomers"), $page, $_SERVER["PHP_SELF"],$param,$sortfield,$sortorder,'',$num,$nbtotalofrecords);
+	print_barre_liste($langs->trans("ListOfPatients"), $page, $_SERVER["PHP_SELF"],$param,$sortfield,$sortorder,'',$num,$nbtotalofrecords);
 
 	$i = 0;
 

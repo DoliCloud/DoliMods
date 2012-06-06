@@ -1,14 +1,11 @@
 # Dolibarr language file - fr_FR - categories
 CHARSET=UTF-8
-SuppliersCategoriesArea=Espace des catégories de patient fournisseurs
-CustomersCategoriesArea=Espace des catégories de patients
-ThirdPartyCategoriesArea=Espace des catégories de patients
+PatientsCategoriesArea=Espace des catégories de patients
 CompanyIsInCustomersCategories=Ce patient est dans les catégories patients suivantes
 CompanyIsInSuppliersCategories=Ce patient est dans les catégories fournisseurs suivantes
-CustomersCategoryShort=Catégorie patients
-CustomersCategoriesShort=Catégories patients
-CustomersProspectsCategoriesShort=Catégories patients
+PatientsCategoryShort=Catégorie patients
+PatientsCategoriesShort=Catégories patients
 ThisCategoryHasNoCustomer=Cette catégorie n'a aucun patient
-AssignedToCustomer=Attribuer à un patient
-AssignedToTheCustomer=Attribué au patient
-CatCusList=Liste des catégories patients
+AssignedToPatients=Attribuer à un patient
+AssignedToThePatients=Attribué au patient
+CatCusListPatients=Liste des catégories patients

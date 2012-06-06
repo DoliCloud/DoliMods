@@ -1,8 +1,5 @@
 # Dolibarr language file - fr_FR - commercial
 CHARSET=UTF-8
-CustomerArea=Espace patients
-Customer=Patient
-Customers=Patients
 ActionOnCompany=Evénement concernant le patient
 ActionOnContact=Evénement concernant le correspondant
 SalesRepresentative=Suivi par
@@ -10,8 +7,8 @@ SalesRepresentatives=Suivi par
 SalesRepresentativeFollowUp=Médecins (référent)
 SalesRepresentativeSignature=Médecins (signature)
 NoSalesRepresentativeAffected=Aucun médecin en particulier affecté
-ShowCustomer=Afficher patient
-ListOfCustomers=Liste des patients
+ShowPatient=Afficher patient
+ListOfPatients=Liste des patients
 TasksHistoryForThisContact=Actions vis à vis de ce correspondant
 ActionAC_FAC=Envoi consultation patient par mail
 ActionAC_REL=Relance consultation patient par mail

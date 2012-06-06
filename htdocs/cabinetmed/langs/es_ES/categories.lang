@@ -1,14 +1,11 @@
 # Dolibarr language file - es_ES - categories
 CHARSET= UTF-8
-SuppliersCategoriesArea= Área categorías de proveedores
-CustomersCategoriesArea= Área categorías de pacientes
-ThirdPartyCategoriesArea= Área categorías de pacientes
+PatientsCategoriesArea= Área categorías de pacientes
 CompanyIsInCustomersCategories= Esta paciente se encuentra en las siguientes categorías
 CompanyIsInSuppliersCategories= Esta pacient se encuentra en las siguientes categorías de proveedores
-CustomersCategoryShort= Categoría pacientes
-CustomersCategoriesShort= Categorías pacientes
-CustomersProspectsCategoriesShort=Categorías pacientes
-ThisCategoryHasNoCustomer= Esta categoría no contiene ningún paciente.
-AssignedToCustomer= Asignar a un paciente
-AssignedToTheCustomer= Asigado a un paciente
-CatCusList= Listado categorías de pacientes/potenciales
+PatientsCategoryShort= Categoría pacientes
+PatientsCategoriesShort= Categorías pacientes
+ThisCategoryHasNoPatients= Esta categoría no contiene ningún paciente.
+AssignedToPatients= Asignar a un paciente
+AssignedToThePatients= Asigado a un paciente
+CatCusListPatients= Listado categorías de pacientes/potenciales

@@ -38,7 +38,7 @@ $formfile=new FormFile($GLOBALS['db']);
 $head = societe_prepare_head($soc);
 $now=dol_now();
 
-dol_fiche_head($head, 'card', $langs->trans("ThirdParty"),0,'company');
+dol_fiche_head($head, 'card', $langs->trans("Patient"),0,'company');
 
 dol_htmloutput_errors($error,$errors);
 
@@ -55,7 +55,7 @@ dol_htmloutput_errors($GLOBALS['error'],$GLOBALS['errors']);
 print '<table class="border" width="100%">';
 
 // Name
-print '<tr><td width="20%">'.$langs->trans('ThirdPartyName').'</td>';
+print '<tr><td width="20%">'.$langs->trans('PatientName').'</td>';
 print '<td colspan="3">';
 print $form->showrefnav($soc,'socid','',($user->societe_id?0:1),'rowid','nom');
 print '</td></tr>';

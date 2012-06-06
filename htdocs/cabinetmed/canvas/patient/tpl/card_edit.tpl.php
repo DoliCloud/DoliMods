@@ -116,7 +116,7 @@ if ($_POST["nom"])
 <!-- BEGIN PHP TEMPLATE CARD_EDIT.TPL.PHP PATIENT -->
 
 <?php
-print_fiche_titre($langs->trans("EditCompany"));
+print_fiche_titre($langs->trans("EditPatient"));
 
 dol_htmloutput_errors($GLOBALS['error'],$GLOBALS['errors']);
 
@@ -132,7 +132,7 @@ if ($modCodeClient->code_auto || $modCodeFournisseur->code_auto) print '<input t
 print '<table class="border" width="100%">';
 
 // Name
-print '<tr><td><span class="fieldrequired">'.$langs->trans('ThirdPartyName').'</span></td><td><input type="text" size="40" maxlength="60" name="nom" value="'.$soc->nom.'"></td>';
+print '<tr><td><span class="fieldrequired">'.$langs->trans('PatientName').'</span></td><td><input type="text" size="40" maxlength="60" name="nom" value="'.$soc->nom.'"></td>';
 
 // Prospect/Customer
 print '<td width="25%">'.$langs->trans('CustomerCode').'</td><td>';

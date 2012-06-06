@@ -111,7 +111,7 @@ $soc->forme_juridique_code=$_POST['forme_juridique_code'];
 
 <!-- BEGIN PHP TEMPLATE -->
 <?php
-print_fiche_titre($langs->trans("NewCompany"));
+print_fiche_titre($langs->trans("NewPatient"));
 
 dol_htmloutput_errors($GOBALS['error'],$GLOBALS['errors']);
 ?>
@@ -129,7 +129,7 @@ dol_htmloutput_errors($GOBALS['error'],$GLOBALS['errors']);
 <table class="border" width="100%">
 
 <tr>
-	<td><span class="fieldrequired"><?php echo $langs->trans('ThirdPartyName'); ?></span></td>
+	<td><span class="fieldrequired"><?php echo $langs->trans('PatientName'); ?></span></td>
 	<td><input type="text" size="40" maxlength="60" name="nom" value="<?php echo $soc->nom; ?>"></td>
     <td width="25%"><?php echo $langs->trans('CustomerCode'); ?></td>
     <td width="25%">
