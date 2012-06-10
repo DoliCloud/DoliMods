@@ -46,9 +46,9 @@ class SubmitewMessage // extends CommonObject
     var $id;
 
 	var $statut;
-	var $titre;
+	var $label;
 	var $entity;
-	var $sujet;
+	var $title;
 	var $body;
 	var $bgcolor;
 	var $bgimage;
@@ -100,12 +100,10 @@ class SubmitewMessage // extends CommonObject
 		// Clean parameters
 
 		if (isset($this->statut)) $this->statut=trim($this->statut);
-		if (isset($this->titre)) $this->titre=trim($this->titre);
-		if (isset($this->entity)) $this->entity=trim($this->entity);
-		if (isset($this->sujet)) $this->sujet=trim($this->sujet);
+		if (isset($this->label)) $this->label=trim($this->label);
+		if (isset($this->title)) $this->title=trim($this->title);
 		if (isset($this->body)) $this->body=trim($this->body);
-		if (isset($this->bgcolor)) $this->bgcolor=trim($this->bgcolor);
-		if (isset($this->bgimage)) $this->bgimage=trim($this->bgimage);
+		if (isset($this->body_long)) $this->bgcolor=trim($this->body_long);
 		if (isset($this->cible)) $this->cible=trim($this->cible);
 		if (isset($this->nbemail)) $this->nbemail=trim($this->nbemail);
 		if (isset($this->email_from)) $this->email_from=trim($this->email_from);
@@ -129,12 +127,11 @@ class SubmitewMessage // extends CommonObject
 		$sql = "INSERT INTO ".MAIN_DB_PREFIX."submitew_message(";
 
 		$sql.= "statut,";
-		$sql.= "titre,";
+		$sql.= "label,";
 		$sql.= "entity,";
-		$sql.= "sujet,";
-		$sql.= "body,";
-		$sql.= "bgcolor,";
-		$sql.= "bgimage,";
+		$sql.= "title,";
+		$sql.= "body_short,";
+		$sql.= "body_long,";
 		$sql.= "cible,";
 		$sql.= "nbemail,";
 		$sql.= "email_from,";
@@ -157,12 +154,11 @@ class SubmitewMessage // extends CommonObject
         $sql.= ") VALUES (";
 
 		$sql.= " ".(! isset($this->statut)?'NULL':"'".$this->statut."'").",";
-		$sql.= " ".(! isset($this->titre)?'NULL':"'".$this->db->escape($this->titre)."'").",";
-		$sql.= " ".(! isset($this->entity)?'NULL':"'".$this->entity."'").",";
-		$sql.= " ".(! isset($this->sujet)?'NULL':"'".$this->db->escape($this->sujet)."'").",";
+		$sql.= " ".(! isset($this->label)?'NULL':"'".$this->db->escape($this->label)."'").",";
+		$sql.= " '".$conf->entity."',";
+		$sql.= " ".(! isset($this->title)?'NULL':"'".$this->db->escape($this->title)."'").",";
 		$sql.= " ".(! isset($this->body)?'NULL':"'".$this->db->escape($this->body)."'").",";
-		$sql.= " ".(! isset($this->bgcolor)?'NULL':"'".$this->db->escape($this->bgcolor)."'").",";
-		$sql.= " ".(! isset($this->bgimage)?'NULL':"'".$this->db->escape($this->bgimage)."'").",";
+		$sql.= " ".(! isset($this->body_long)?'NULL':"'".$this->db->escape($this->body_long)."'").",";
 		$sql.= " ".(! isset($this->cible)?'NULL':"'".$this->db->escape($this->cible)."'").",";
 		$sql.= " ".(! isset($this->nbemail)?'NULL':"'".$this->nbemail."'").",";
 		$sql.= " ".(! isset($this->email_from)?'NULL':"'".$this->db->escape($this->email_from)."'").",";
@@ -240,12 +236,11 @@ class SubmitewMessage // extends CommonObject
 		$sql.= " t.rowid,";
 
 		$sql.= " t.statut,";
-		$sql.= " t.titre,";
+		$sql.= " t.label,";
 		$sql.= " t.entity,";
-		$sql.= " t.sujet,";
-		$sql.= " t.body,";
-		$sql.= " t.bgcolor,";
-		$sql.= " t.bgimage,";
+		$sql.= " t.title,";
+		$sql.= " t.body_short,";
+		$sql.= " t.body_long,";
 		$sql.= " t.cible,";
 		$sql.= " t.nbemail,";
 		$sql.= " t.email_from,";
@@ -279,12 +274,11 @@ class SubmitewMessage // extends CommonObject
                 $this->id    = $obj->rowid;
 
 				$this->statut = $obj->statut;
-				$this->titre = $obj->titre;
+				$this->label = $obj->label;
 				$this->entity = $obj->entity;
-				$this->sujet = $obj->sujet;
+				$this->title = $obj->title;
 				$this->body = $obj->body;
-				$this->bgcolor = $obj->bgcolor;
-				$this->bgimage = $obj->bgimage;
+				$this->body_long = $obj->body_long;
 				$this->cible = $obj->cible;
 				$this->nbemail = $obj->nbemail;
 				$this->email_from = $obj->email_from;
@@ -333,12 +327,11 @@ class SubmitewMessage // extends CommonObject
 		// Clean parameters
 
 		if (isset($this->statut)) $this->statut=trim($this->statut);
-		if (isset($this->titre)) $this->titre=trim($this->titre);
+		if (isset($this->label)) $this->label=trim($this->label);
 		if (isset($this->entity)) $this->entity=trim($this->entity);
-		if (isset($this->sujet)) $this->sujet=trim($this->sujet);
+		if (isset($this->title)) $this->title=trim($this->title);
 		if (isset($this->body)) $this->body=trim($this->body);
-		if (isset($this->bgcolor)) $this->bgcolor=trim($this->bgcolor);
-		if (isset($this->bgimage)) $this->bgimage=trim($this->bgimage);
+		if (isset($this->body_long)) $this->bgcolor=trim($this->bgcolor);
 		if (isset($this->cible)) $this->cible=trim($this->cible);
 		if (isset($this->nbemail)) $this->nbemail=trim($this->nbemail);
 		if (isset($this->email_from)) $this->email_from=trim($this->email_from);
@@ -362,12 +355,11 @@ class SubmitewMessage // extends CommonObject
         $sql = "UPDATE ".MAIN_DB_PREFIX."submitew_message SET";
 
 		$sql.= " statut=".(isset($this->statut)?$this->statut:"null").",";
-		$sql.= " titre=".(isset($this->titre)?"'".$this->db->escape($this->titre)."'":"null").",";
+		$sql.= " label=".(isset($this->label)?"'".$this->db->escape($this->label)."'":"null").",";
 		$sql.= " entity=".(isset($this->entity)?$this->entity:"null").",";
-		$sql.= " sujet=".(isset($this->sujet)?"'".$this->db->escape($this->sujet)."'":"null").",";
+		$sql.= " title=".(isset($this->title)?"'".$this->db->escape($this->title)."'":"null").",";
 		$sql.= " body=".(isset($this->body)?"'".$this->db->escape($this->body)."'":"null").",";
-		$sql.= " bgcolor=".(isset($this->bgcolor)?"'".$this->db->escape($this->bgcolor)."'":"null").",";
-		$sql.= " bgimage=".(isset($this->bgimage)?"'".$this->db->escape($this->bgimage)."'":"null").",";
+		$sql.= " body_long=".(isset($this->body_long)?"'".$this->db->escape($this->body_long)."'":"null").",";
 		$sql.= " cible=".(isset($this->cible)?"'".$this->db->escape($this->cible)."'":"null").",";
 		$sql.= " nbemail=".(isset($this->nbemail)?$this->nbemail:"null").",";
 		$sql.= " email_from=".(isset($this->email_from)?"'".$this->db->escape($this->email_from)."'":"null").",";
@@ -552,13 +544,12 @@ class SubmitewMessage // extends CommonObject
 	{
 		$this->id=0;
 
-		$this->statut='';
-		$this->titre='';
+		$this->statut=1;
+		$this->label='Label';
 		$this->entity='';
-		$this->sujet='';
-		$this->body='';
-		$this->bgcolor='';
-		$this->bgimage='';
+		$this->title='Title';
+		$this->body='Short text';
+		$this->body_long='Long text';
 		$this->cible='';
 		$this->nbemail='';
 		$this->email_from='';
@@ -576,8 +567,6 @@ class SubmitewMessage // extends CommonObject
 		$this->joined_file2='';
 		$this->joined_file3='';
 		$this->joined_file4='';
-
-
 	}
 
 }

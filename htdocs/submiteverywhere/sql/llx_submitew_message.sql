@@ -27,12 +27,12 @@ create table llx_submitew_message
 (
   rowid				integer AUTO_INCREMENT PRIMARY KEY,
   statut			smallint       DEFAULT 0,            --
-  titre				varchar(60),                         -- Ref of mailing
+  label				varchar(60),                         -- Ref of mailing
   entity			integer DEFAULT 1 NOT NULL,	         -- multi company id
-  sujet				varchar(60),                         -- Sujet of mailing
-  body				text,
-  bgcolor			varchar(8),                          -- Backgroud color of mailing
-  bgimage			varchar(255),                        -- Backgroud image of mailing
+  title				varchar(60),                         -- Sujet of mailing
+  body_short		text,
+  body_long			text,
+  url				varchar(255),
   cible				varchar(60),
   nbemail			integer,
   email_from		varchar(160),                        -- Email address of sender

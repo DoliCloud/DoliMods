@@ -1,5 +1,5 @@
 <?php
-/* Copyright (C) 2011 Laurent Destailleur  <eldy@users.sourceforge.net>
+/* Copyright (C) 2011-201 Laurent Destailleur  <eldy@users.sourceforge.net>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -37,6 +37,37 @@ function picto_from_targetcode($targetcode)
         else $ret.=img_picto($targetcode,'object_generic');
     }
     return $ret;
+}
+
+/**
+ * Prepare array with list of tabs
+ *
+ * @param   Object	$object		Object related to tabs
+ * @return  array				Array of tabs to shoc
+ */
+function submitew_prepare_head($object)
+{
+    global $langs, $conf;
+
+    $h = 0;
+    $head = array();
+
+    $head[$h][0] = dol_buildpath("/submitew/card.php")."?id=".$object->id;
+    $head[$h][1] = $langs->trans("MailCard");
+    $head[$h][2] = 'card';
+    $h++;
+
+    $head[$h][0] = dol_buildpath("/submitew/target.php")."?id=".$object->id;
+    $head[$h][1] = $langs->trans("MailRecipients");
+    $head[$h][2] = 'targets';
+    $h++;
+
+    $head[$h][0] = dol_buildpath("/submitew/info.php")."?id=".$object->id;
+    $head[$h][1] = $langs->trans("Info");
+    $head[$h][2] = 'info';
+    $h++;
+
+    return $head;
 }
 
 ?>

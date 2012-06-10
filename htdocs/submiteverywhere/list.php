@@ -74,7 +74,7 @@ $html = new Form($db);
 
 if ($filteremail)
 {
-	$sql = "SELECT m.rowid, m.titre, m.nbemail, m.statut, m.date_creat as datec, m.date_envoi as date_envoi,";
+	$sql = "SELECT m.rowid, m.title, m.nbemail, m.statut, m.date_creat as datec, m.date_envoi as date_envoi,";
 	$sql.= " mc.statut as sendstatut";
 	$sql.= " FROM ".MAIN_DB_PREFIX."submitew_message as m, ".MAIN_DB_PREFIX."submitew_targets as mc";
 	$sql.= " WHERE m.rowid = mc.fk_mailing AND m.entity = ".$conf->entity;
@@ -88,7 +88,7 @@ if ($filteremail)
 }
 else
 {
-	$sql = "SELECT m.rowid, m.titre, m.nbemail, m.statut, m.date_creat as datec, m.date_envoi as date_envoi";
+	$sql = "SELECT m.rowid, m.title, m.nbemail, m.statut, m.date_creat as datec, m.date_envoi as date_envoi";
 	$sql.= " FROM ".MAIN_DB_PREFIX."submitew_message as m";
 	$sql.= " WHERE m.entity = ".$conf->entity;
 	if ($sref) $sql.= " AND m.rowid = '".$sref."'";

@@ -87,7 +87,7 @@ print '</td><td valign="top" width="70%" class="notopnoleftnoright">';
  * List of last submit
 */
 $limit=10;
-$sql  = "SELECT m.rowid, m.titre, m.nbemail, m.statut, m.date_creat";
+$sql  = "SELECT m.rowid, m.title, m.nbemail, m.statut, m.date_creat";
 $sql.= " FROM ".MAIN_DB_PREFIX."submitew_message as m";
 $sql.= " ORDER BY m.date_creat DESC";
 $sql.= " LIMIT ".$limit;
@@ -114,7 +114,7 @@ if ($result)
             $var=!$var;
 
             print "<tr ".$bc[$var].">";
-            print '<td nowrap="nowrap"><a href="fiche.php?id='.$obj->rowid.'">'.img_object($langs->trans("ShowEMail"),"email").' '.$obj->rowid.'</a></td>';
+            print '<td nowrap="nowrap"><a href="'.$_SERVER["PHP_SELF"].'?id='.$obj->rowid.'">'.img_object($langs->trans("ShowEMail"),"email").' '.$obj->rowid.'</a></td>';
             print '<td>'.dol_trunc($obj->titre,38).'</td>';
             print '<td align="center">'.dol_print_date($obj->date_creat,'day').'</td>';
             print '<td align="center">'.($obj->nbemail?$obj->nbemail:"0").'</td>';
