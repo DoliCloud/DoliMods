@@ -161,11 +161,11 @@ print "<table class=\"noborder\" width=\"100%\">";
 print "<tr class=\"liste_titre\">";
 print "<td>".$langs->trans("GoogleAgendaToShow")."</td>";
 print "<td>".$langs->trans("Name")."</td>";
-print "<td>";
+print '<td>';
 $text=$langs->trans("GoogleIDAgenda")." (".$langs->trans("Example").': assodolibarr@gmail.com)';
 print $form->textwithpicto($text, $langs->trans("GoogleSetupHelp"));
-print "</td>";
-print "<td>".$langs->trans("Color")."</td>";
+print '</td>';
+print '<td nowrap="nowrap" align="center">'.$langs->trans("Color").'</td>';
 print "</tr>";
 
 $i=1;
