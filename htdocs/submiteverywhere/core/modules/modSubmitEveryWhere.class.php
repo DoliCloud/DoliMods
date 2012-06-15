@@ -152,7 +152,7 @@ class modSubmitEveryWhere extends DolibarrModules
 									'url'=>'/submiteverywhere/index.php',
 									'langs'=>'submiteverywhere@submiteverywhere',	// Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 									'position'=>100,
-									'enabled'=>'1',			// Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
+									'enabled'=>'$conf->submiteverywhere->enabled',			// Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
 									'perms'=>'1',			// Use 'perms'=>'$user->rights->NewsSubmitter->level1->level2' if you want your menu with a permission rules
 									'target'=>'',
 									'user'=>0);				// 0=Menu for internal users, 1=external users, 2=both
@@ -164,7 +164,7 @@ class modSubmitEveryWhere extends DolibarrModules
 									'url'=>'/submiteverywhere/card.php?action=create',
 									'langs'=>'submiteverywhere@submiteverywhere',	// Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 									'position'=>110,
-									'enabled'=>'1',			// Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
+									'enabled'=>'$conf->submiteverywhere->enabled',			// Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
 									'perms'=>'1',			// Use 'perms'=>'$user->rights->NewsSubmitter->level1->level2' if you want your menu with a permission rules
 									'target'=>'',
 									'user'=>0);				// 0=Menu for internal users, 1=external users, 2=both
@@ -176,7 +176,7 @@ class modSubmitEveryWhere extends DolibarrModules
 									'url'=>'/submiteverywhere/list.php',
 									'langs'=>'submiteverywhere@submiteverywhere',	// Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 									'position'=>120,
-									'enabled'=>'1',			// Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
+									'enabled'=>'$conf->submiteverywhere->enabled',			// Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
 									'perms'=>'1',			// Use 'perms'=>'$user->rights->NewsSubmitter->level1->level2' if you want your menu with a permission rules
 									'target'=>'',
 									'user'=>0);				// 0=Menu for internal users, 1=external users, 2=both
