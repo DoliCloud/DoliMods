@@ -38,7 +38,7 @@ if (! $user->rights->nltechno->emailings->voir)
 }
 
 $dirmod=DOL_DOCUMENT_ROOT."/core/modules/mailings";
-if (defined('DOL_DOCUMENT_ROOT_BIS')) $dirmod2=DOL_DOCUMENT_ROOT_BIS."/core/modules/mailings";
+if (defined('DOL_DOCUMENT_ROOT_ALT')) $dirmod2=DOL_DOCUMENT_ROOT_ALT."/core/modules/mailings";
 
 $mesg = '';
 
