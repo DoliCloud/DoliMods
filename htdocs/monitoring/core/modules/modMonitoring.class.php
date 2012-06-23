@@ -28,8 +28,8 @@
 include_once(DOL_DOCUMENT_ROOT ."/core/modules/DolibarrModules.class.php");
 
 
-/**     \class      modMonitoring
- *      \brief      Description and activation class for module Monitoring
+/**
+ * Description and activation class for module Monitoring
  */
 class modMonitoring extends DolibarrModules
 {

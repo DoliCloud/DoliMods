@@ -100,12 +100,19 @@ class modDoliCloud extends DolibarrModules
 
 		// Add here list of permission defined by an id, a label, a boolean and two constant strings.
 		// Example:
-		// $this->rights[$r][0] = 2000; 				// Permission id (must not be already used)
-		// $this->rights[$r][1] = 'Permision label';	// Permission label
-		// $this->rights[$r][3] = 1; 					// Permission by default for new user (0/1)
-		// $this->rights[$r][4] = 'level1';				// In php code, permission will be checked by test if ($user->rights->permkey->level1->level2)
-		// $this->rights[$r][5] = 'level2';				// In php code, permission will be checked by test if ($user->rights->permkey->level1->level2)
-		// $r++;
+		$this->rights[$r][0] = 101900; 				// Permission id (must not be already used)
+		$this->rights[$r][1] = 'Read DoliCloud informations';	// Permission label
+		$this->rights[$r][3] = 0; 					// Permission by default for new user (0/1)
+		$this->rights[$r][4] = 'dolicloud';				// In php code, permission will be checked by test if ($user->rights->permkey->level1->level2)
+		$this->rights[$r][5] = 'read';				// In php code, permission will be checked by test if ($user->rights->permkey->level1->level2)
+		$r++;
+
+		$this->rights[$r][0] = 101901; 				// Permission id (must not be already used)
+		$this->rights[$r][1] = 'Create/edit DoliCloud data';	// Permission label
+		$this->rights[$r][3] = 0; 					// Permission by default for new user (0/1)
+		$this->rights[$r][4] = 'dolicloud';				// In php code, permission will be checked by test if ($user->rights->permkey->level1->level2)
+		$this->rights[$r][5] = 'create';				// In php code, permission will be checked by test if ($user->rights->permkey->level1->level2)
+		$r++;
 
 		// Main menu entries
 		$this->menus = array();			// List of menus to add
@@ -113,30 +120,31 @@ class modDoliCloud extends DolibarrModules
 
 		// Add here entries to declare new menus
 		// Example to declare the Top Menu entry:
-		// $this->menu[$r]=array(	'fk_menu'=>0,			// Put 0 if this is a top menu
-		//							'type'=>'top',			// This is a Top menu entry
-		//							'titre'=>'MyModule top menu',
-		//							'mainmenu'=>'mymodule',
-		//							'url'=>'/mymodule/pagetop.php',
-		//							'langs'=>'mylangfile',	// Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
-		//							'position'=>100,
-		//							'enabled'=>'1',			// Define condition to show or hide menu entry. Use '$conf->mymodule->enabled' if entry must be visible if module is enabled.
-		//							'perms'=>'1',			// Use 'perms'=>'$user->rights->mymodule->level1->level2' if you want your menu with a permission rules
-		//							'target'=>'',
-		//							'user'=>2);				// 0=Menu for internal users, 1=external users, 2=both
-		// $r++;
-		/*$this->menu[$r]=array(	'fk_menu'=>0,
-								'type'=>'top',
-								'titre'=>'MenuAgendaDoliCloud',
-								'mainmenu'=>'google',
-								'url'=>'/google/index.php',
-								'langs'=>'google',
-								'position'=>100,
-								'enabled'=>'$conf->google->enabled && $conf->global->GOOGLE_ENABLE_AGENDA',
-								'perms'=>'',
-								'target'=>'',
-								'user'=>0);
-		*/
+		$this->menu[$r]=array(   'fk_menu'=>0,            // Put 0 if this is a top menu
+		                                  'type'=>'top',          // This is a Top menu entry
+		                                  'titre'=>'DoliCloud',
+		                                  'mainmenu'=>'dolicloud',
+		                                  'url'=>'/dolicloud/index.php',
+		                                  'langs'=>'dolicloud@dolicloud',  // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
+		                                  'position'=>100,
+		                                  'enabled'=>'$conf->dolicloud->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
+		                                  'perms'=>'$user->rights->dolicloud->read',           // Use 'perms'=>'$user->rights->NewsSubmitter->level1->level2' if you want your menu with a permission rules
+		                                  'target'=>'',
+		                                  'user'=>0);             // 0=Menu for internal users, 1=external users, 2=both
+		$r++;
+
+		// Example to declare a Left Menu entry:
+		$this->menu[$r]=array(   'fk_menu'=>'r=0',        // Use r=value where r is index key used for the parent menu entry (higher parent must be a top menu entry)
+		                                  'type'=>'left',         // This is a Left menu entry
+		                                  'titre'=>'Customers',
+		                                  'mainmenu'=>'dolicloud',
+		                                  'url'=>'/dolicloud/customers.php',
+		                                  'langs'=>'dolicloud@dolicloud',  // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
+		                                  'position'=>100,
+		                                  'enabled'=>'$conf->dolicloud->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
+		                                  'perms'=>'$user->rights->dolicloud->read',           // Use 'perms'=>'$user->rights->NewsSubmitter->level1->level2' if you want your menu with a permission rules
+		                                  'target'=>'',
+		                                  'user'=>0);             // 0=Menu for internal users, 1=external users, 2=both
 		$r++;
 	}
 
