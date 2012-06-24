@@ -111,6 +111,23 @@ class modNLTechno extends DolibarrModules
 		$this->rights[$r][5] = 'voir';				// In php code, permission will be checked by test if ($user->rights->permkey->level1->level2)
 		$r++;
 
+
+		// Add here list of permission defined by an id, a label, a boolean and two constant strings.
+		// Example:
+		$this->rights[$r][0] = 101060; 				// Permission id (must not be already used)
+		$this->rights[$r][1] = 'Read DoliCloud informations';	// Permission label
+		$this->rights[$r][3] = 0; 					// Permission by default for new user (0/1)
+		$this->rights[$r][4] = 'dolicloud';				// In php code, permission will be checked by test if ($user->rights->permkey->level1->level2)
+		$this->rights[$r][5] = 'read';				// In php code, permission will be checked by test if ($user->rights->permkey->level1->level2)
+		$r++;
+
+		$this->rights[$r][0] = 101061; 				// Permission id (must not be already used)
+		$this->rights[$r][1] = 'Create/edit DoliCloud data';	// Permission label
+		$this->rights[$r][3] = 0; 					// Permission by default for new user (0/1)
+		$this->rights[$r][4] = 'dolicloud';				// In php code, permission will be checked by test if ($user->rights->permkey->level1->level2)
+		$this->rights[$r][5] = 'create';				// In php code, permission will be checked by test if ($user->rights->permkey->level1->level2)
+		$r++;
+
 		// Main menu entries
 		$this->menus = array();			// List of menus to add
 		$r=0;
@@ -122,6 +139,7 @@ class modNLTechno extends DolibarrModules
 								'url'=>'/nltechno/index.php',
 								'langs'=>'',
 								'position'=>200,
+                				'enabled'=>'$conf->nltechno->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
 								'perms'=>'$user->rights->nltechno->liens->voir||$user->rights->nltechno->annonces->voir||$user->rights->nltechno->emailings->voir',
 								'target'=>'',
 								'user'=>0);
@@ -134,6 +152,7 @@ class modNLTechno extends DolibarrModules
 								'url'=>'/nltechno/index.php',
 								'langs'=>'',
 								'position'=>200,
+                				'enabled'=>'$conf->nltechno->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
 								'perms'=>'$user->rights->nltechno->liens->voir',
 								'target'=>'',
 								'user'=>0);
@@ -146,6 +165,7 @@ class modNLTechno extends DolibarrModules
 								'url'=>'/nltechno/statsannonces.php',
 								'langs'=>'',
 								'position'=>201,
+                				'enabled'=>'$conf->nltechno->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
 								'perms'=>'$user->rights->nltechno->annonces->voir',
 								'target'=>'',
 								'user'=>0);
@@ -158,10 +178,27 @@ class modNLTechno extends DolibarrModules
 								'url'=>'/nltechno/statsemailings.php',
 								'langs'=>'',
 								'position'=>202,
+                				'enabled'=>'$conf->nltechno->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
 								'perms'=>'$user->rights->nltechno->emailings->voir',
 								'target'=>'',
 								'user'=>0);
 		$r++;
+
+		// Example to declare a Left Menu entry:
+		$this->menu[$r]=array(   'fk_menu'=>'r=0',        // Use r=value where r is index key used for the parent menu entry (higher parent must be a top menu entry)
+                				'type'=>'left',         // This is a Left menu entry
+                				'titre'=>'DoliCloud customers',
+                				'mainmenu'=>'dolicloud',
+                				'leftmenu'=>'dolicloud',
+                				'url'=>'/nltechno/dolicloud_customers.php',
+                				'langs'=>'nltechno@nltechno',  // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
+                				'position'=>110,
+                				'enabled'=>'$conf->nltechno->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
+							  'perms'=>'$user->rights->nltechno->dolicloud->read',           // Use 'perms'=>'$user->rights->NewsSubmitter->level1->level2' if you want your menu with a permission rules
+                              'target'=>'',
+                              'user'=>0);             // 0=Menu for internal users, 1=external users, 2=both
+		$r++;
+
 	}
 
 	/**
