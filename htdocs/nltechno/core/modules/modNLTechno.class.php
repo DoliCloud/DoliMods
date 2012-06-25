@@ -17,8 +17,8 @@
 include_once(DOL_DOCUMENT_ROOT ."/core/modules/DolibarrModules.class.php");
 
 
-/**     \class      modNLTechno
- *      \brief      Description and activation class for module MyModule
+/**
+ * Description and activation class for module NLTechno
  */
 class modNLTechno extends DolibarrModules
 {
@@ -51,9 +51,10 @@ class modNLTechno extends DolibarrModules
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
 		// Where to store the module in setup page (0=common,1=interface,2=others,3=very specific)
 		$this->special = 2;
-		// Name of png file (without png) used for this module.
-		// Png file must be in theme/yourtheme/img directory under name object_pictovalue.png.
-		$this->picto='generic';
+		// Name of image file used for this module.
+		// If file is in theme/yourtheme/img directory under name object_pictovalue.png, use this->picto='pictovalue'
+		// If file is in module/img directory under name object_pictovalue.png, use this->picto='pictovalue@module'
+		$this->picto='nltechno.gif@nltechno';
 
 		// Data directories to create when module is enabled
 		$this->dirs = array();
@@ -185,20 +186,47 @@ class modNLTechno extends DolibarrModules
 		$r++;
 
 		// Example to declare a Left Menu entry:
-		$this->menu[$r]=array(   'fk_menu'=>'r=0',        // Use r=value where r is index key used for the parent menu entry (higher parent must be a top menu entry)
+		$this->menu[$r]=array( 'fk_menu'=>'r=0',        // Use r=value where r is index key used for the parent menu entry (higher parent must be a top menu entry)
                 				'type'=>'left',         // This is a Left menu entry
                 				'titre'=>'DoliCloud customers',
-                				'mainmenu'=>'dolicloud',
+                				'mainmenu'=>'nltechno',
                 				'leftmenu'=>'dolicloud',
                 				'url'=>'/nltechno/dolicloud_customers.php',
                 				'langs'=>'nltechno@nltechno',  // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
-                				'position'=>110,
+                				'position'=>300,
                 				'enabled'=>'$conf->nltechno->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
-							  'perms'=>'$user->rights->nltechno->dolicloud->read',           // Use 'perms'=>'$user->rights->NewsSubmitter->level1->level2' if you want your menu with a permission rules
-                              'target'=>'',
-                              'user'=>0);             // 0=Menu for internal users, 1=external users, 2=both
+							    'perms'=>'$user->rights->nltechno->dolicloud->read',           // Use 'perms'=>'$user->rights->NewsSubmitter->level1->level2' if you want your menu with a permission rules
+                                'target'=>'',
+                                 'user'=>0);             // 0=Menu for internal users, 1=external users, 2=both
 		$r++;
 
+		$this->menu[$r]=array(	'fk_menu'=>'fk_mainmenu=nltechno,fk_leftmenu=dolicloud',
+								'type'=>'left',
+								'titre'=>'List',
+								'mainmenu'=>'nltechno',
+								'leftmenu'=>'dolicloud_list',
+								'url'=>'/nltechno/dolicloud_list.php',
+								'langs'=>'',
+								'position'=>200,
+                				'enabled'=>'$conf->nltechno->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
+								'perms'=>'$user->rights->nltechno->dolicloud->read',
+								'target'=>'',
+								'user'=>0);
+		$r++;
+
+		$this->menu[$r]=array(	'fk_menu'=>'fk_mainmenu=nltechno,fk_leftmenu=dolicloud',
+								'type'=>'left',
+								'titre'=>'New',
+								'mainmenu'=>'nltechno',
+								'leftmenu'=>'dolicloud_create',
+								'url'=>'/nltechno/dolicloud_card.php?action=create',
+								'langs'=>'',
+								'position'=>200,
+                				'enabled'=>'$conf->nltechno->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
+								'perms'=>'$user->rights->nltechno->dolicloud->create',
+								'target'=>'',
+								'user'=>0);
+		$r++;
 	}
 
 	/**
