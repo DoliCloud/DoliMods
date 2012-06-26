@@ -16,5 +16,5 @@
 -- ============================================================================
 
 
-ALTER TABLE llx_dolicloud_customers ADD UNIQUE INDEX uk_dolicloud_customers (instance);
-ALTER TABLE llx_dolicloud_customers ADD UNIQUE INDEX uk_dolicloud_email (email);
+ALTER TABLE llx_dolicloud_customers ADD UNIQUE INDEX uk_dolicloud_customers(instance);
+ALTER TABLE llx_dolicloud_customers ADD UNIQUE INDEX uk_dolicloud_customers(email);

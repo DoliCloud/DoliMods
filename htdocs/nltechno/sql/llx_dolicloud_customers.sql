@@ -34,12 +34,12 @@ CREATE TABLE llx_dolicloud_customers
 	username_web varchar(128),
 	password_web varchar(128),
 	hostname_db varchar(128),
-	database_db varchar(128)
+	database_db varchar(128),
 	port_db integer,
 	username_db varchar(128),
 	password_db varchar(128),
 	lastcheck datetime,
 	nbofusers integer,
-	lastlogin datetime
-	
+	lastlogin datetime,
+	modulesenabled varchar(10000)
 ) ENGINE = innodb;

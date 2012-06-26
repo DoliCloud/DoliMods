@@ -230,27 +230,29 @@ class modNLTechno extends DolibarrModules
 	}
 
 	/**
-	 *		Function called when module is enabled.
-	 *		The init function add constants, boxes, permissions and menus (defined in constructor) into Dolibarr database.
-	 *		It also creates data directories
+	 *	Function called when module is enabled.
+	 *	The init function add constants, boxes, permissions and menus (defined in constructor) into Dolibarr database.
+	 *	It also creates data directories
 	 *
-     *      @param      string	$options    Options when enabling module ('', 'noboxes')
-	 *      @return     int             	1 if OK, 0 if KO
+     *  @param      string	$options    Options when enabling module ('', 'noboxes')
+	 *  @return     int             	1 if OK, 0 if KO
 	 */
 	function init($options='')
 	{
 		$sql = array();
 
+		$result=$this->load_tables();
+
 		return $this->_init($sql,$options);
 	}
 
 	/**
-	 *		Function called when module is disabled.
-	 *      Remove from database constants, boxes and permissions from Dolibarr database.
-	 *		Data directories are not deleted
+	 *	Function called when module is disabled.
+	 *  Remove from database constants, boxes and permissions from Dolibarr database.
+	 *	Data directories are not deleted
 	 *
-     *      @param      string	$options    Options when enabling module ('', 'noboxes')
-	 *      @return     int             	1 if OK, 0 if KO
+     *  @param      string	$options    Options when enabling module ('', 'noboxes')
+	 *  @return     int             	1 if OK, 0 if KO
 	 */
 	function remove($options='')
 	{
@@ -259,6 +261,19 @@ class modNLTechno extends DolibarrModules
 		return $this->_remove($sql,$options);
 	}
 
+
+	/**
+	 *	Create tables and keys required by module
+	 * 	Files mymodule.sql and mymodule.key.sql with create table and create keys
+	 * 	commands must be stored in directory /mymodule/sql/
+	 *	This function is called by this->init.
+	 *
+	 * 	@return		int		<=0 if KO, >0 if OK
+	 */
+	function load_tables()
+	{
+	    return $this->_load_tables('/nltechno/sql/');
+	}
 }
 
 ?>
