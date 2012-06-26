@@ -573,7 +573,7 @@ if ($action == '' || $action == 'delete')
     print '<table class="noborder" width="100%">';
     print '<tr class="liste_titre">';
     //print_liste_field_titre($langs->trans('Num'),$_SERVER['PHP_SELF'],'t.rowid','',$param,'',$sortfield,$sortorder);
-    print_liste_field_titre($langs->trans('Date'),$_SERVER['PHP_SELF'],'t.dateexam','',$param,'',$sortfield,$sortorder);
+    print_liste_field_titre($langs->trans('Date'),$_SERVER['PHP_SELF'],'t.dateexam','',$param,'align="left"',$sortfield,$sortorder);
     print '<td>'.$langs->trans("Result").'</td>';
     if (! empty($conf->global->CABINETMED_RHEUMATOLOGY_ON))
     {

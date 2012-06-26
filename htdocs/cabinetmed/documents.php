@@ -41,7 +41,7 @@ include_once("./class/cabinetmedcons.class.php");
 include_once("./class/html.formfilecabinetmed.class.php");
 
 $action=GETPOST("action");
-$id=GETPOST('idconsult')?GETPOST('idconsult','int'):GETPOST('id','int');  // Id consultation
+$id=GETPOST('idconsult','int')?GETPOST('idconsult','int'):GETPOST('idconsult','int');  // Id consultation
 $confirm=GETPOST('confirm');
 $mesg=GETPOST('mesg');
 
@@ -178,7 +178,7 @@ if ($action == 'builddoc')  // En get ou en post
             $outputlangs = new Translate("",$conf);
             $outputlangs->setDefaultLang($newlang);
         }
-        $result=thirdparty_doc_create($db, $soc->id, '', $_REQUEST['model'], $outputlangs);
+        $result=thirdparty_doc_create($db, $soc, '', $_REQUEST['model'], $outputlangs);
         if ($result <= 0)
         {
             dol_print_error($db,$result);
