@@ -188,7 +188,7 @@ class modNLTechno extends DolibarrModules
 		// Example to declare a Left Menu entry:
 		$this->menu[$r]=array( 'fk_menu'=>'r=0',        // Use r=value where r is index key used for the parent menu entry (higher parent must be a top menu entry)
                 				'type'=>'left',         // This is a Left menu entry
-                				'titre'=>'DoliCloud customers',
+                				'titre'=>'DoliCloudCustomers',
                 				'mainmenu'=>'nltechno',
                 				'leftmenu'=>'dolicloud',
                 				'url'=>'/nltechno/dolicloud_customers.php',

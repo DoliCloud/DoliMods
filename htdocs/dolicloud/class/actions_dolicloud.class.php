@@ -54,7 +54,7 @@ class ActionsDoliCloud
     {
         global $langs, $user, $conf;
 
-        $out='<td><div class="login"><a href="https://www.on.dolicloud.com/signIn/index">Cloud</a></div></td>';
+        $out='<td><div class="login"><a href="https://www.on.dolicloud.com/signIn/index" target="_blank">DoliCloud</a></div></td>';
 
         return $out;
     }

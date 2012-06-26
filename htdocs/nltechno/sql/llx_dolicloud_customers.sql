@@ -41,5 +41,7 @@ CREATE TABLE llx_dolicloud_customers
 	lastcheck datetime,
 	nbofusers integer,
 	lastlogin datetime,
+	lastpass varchar(128),
+	date_lastlogin datetime,
 	modulesenabled varchar(10000)
 ) ENGINE = innodb;
