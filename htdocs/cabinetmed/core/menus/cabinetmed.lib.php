@@ -151,6 +151,50 @@ function print_cabinetmed_menu($db,$atarget,$type_user)
     }
 
 
+    // Correspondant
+    if ($conf->cabinetmed->enabled)
+    {
+        $langs->load("companies");
+        $langs->load("suppliers");
+        $langs->load("cabinetmed@cabinetmed");
+
+        $classname="";
+        if ($_SESSION["mainmenu"] && $_SESSION["mainmenu"] == "contacts")
+        {
+            $classname='class="tmenusel"'; $_SESSION['idmenu']='';
+        }
+        else
+        {
+            $classname = 'class="tmenu"';
+        }
+
+        $idsel='contacts';
+        if ($conf->cabinetmed->enabled && $user->rights->cabinetmed->read)
+        {
+            print_start_menu_entry($idsel,$classname);
+            print '<a class="tmenuimage" href="'.DOL_URL_ROOT.'/contact/list.php?mainmenu=contacts&amp;leftmenu="'.($atarget?" target=$atarget":"").'>';
+            print '<div class="'.$id.' '.$idsel.'"><span class="'.$id.' tmenuimage" id="mainmenuspan_'.$idsel.'"></span></div>';
+            print '</a>';
+            print '<a '.$classname.' id="mainmenua_'.$idsel.'" href="'.DOL_URL_ROOT.'/contact/list.php?mainmenu=contacts&amp;leftmenu="'.($atarget?" target=$atarget":"").'>';
+            print_text_menu_entry($langs->trans("Correspondants"));
+            print '</a>';
+            print_end_menu_entry();
+        }
+        else if (empty($conf->global->MAIN_MENU_HIDE_UNAUTHORIZED))
+        {
+            if (! $type_user)
+            {
+                print_start_menu_entry($idsel,$classname);
+                print '<div class="'.$id.' '.$idsel.'"><span class="'.$id.'" id="mainmenuspan_'.$idsel.'"></span></div>';
+                print '<a class="tmenudisabled" id="mainmenua_'.$idsel.'" href="#" title="'.dol_escape_htmltag($langs->trans("NotAllowed")).'">';
+                print_text_menu_entry($langs->trans("Correspondants"));
+                print '</a>';
+                print_end_menu_entry();
+            }
+        }
+    }
+
+
     // Products-Services
     if ($conf->product->enabled || $conf->service->enabled)
     {
@@ -857,8 +901,8 @@ function print_left_cabinetmed_menu($db,$menu_array_before,$menu_array_after)
 
 
         /*
-        * Menu Patient
-        */
+         * Menu Patient
+         */
         if ($mainmenu == 'patients')
         {
             // Societes
@@ -895,6 +939,19 @@ function print_left_cabinetmed_menu($db,$menu_array_before,$menu_array_after)
                 }
             }
 
+        }
+
+
+        /*
+         * Menu Correspondants
+         */
+        if ($mainmenu == 'contacts')
+        {
+            // Correspondants
+            $newmenu->add("/contact/list.php?leftmenu=contacts", $langs->trans("Correspondants"), 0, $user->rights->societe->contact->lire);
+            $newmenu->add("/contact/fiche.php?leftmenu=contacts&amp;action=create", $langs->trans("NewContact"), 1, $user->rights->societe->contact->creer);
+            $newmenu->add("/contact/list.php?leftmenu=contacts", $langs->trans("List"), 1, $user->rights->societe->contact->lire);
+            $newmenu->add("/cabinetmed/stats/index_contacts.php?leftmenu=customers&userid=".$user->id, $langs->trans("Statistics"), 1, $user->rights->societe->lire);
         }
 
 
