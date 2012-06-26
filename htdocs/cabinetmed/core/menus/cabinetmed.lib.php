@@ -330,6 +330,48 @@ function print_cabinetmed_menu($db,$atarget,$type_user)
         }
     }
 
+    // Financial (specific to cabinetmed)
+    if ($conf->cabinetmed->enabled)
+    {
+        $langs->load("compta");
+        $langs->load("cabinetmed@cabinetmed");
+
+        $classname="";
+        if ($_SESSION["mainmenu"] && $_SESSION["mainmenu"] == "accountancy2")
+        {
+            $classname='class="tmenusel"'; $_SESSION['idmenu']='';
+        }
+        else
+        {
+            $classname = 'class="tmenu"';
+        }
+
+        $idsel='accountancy';
+        if ($user->rights->cabinetmed->read)
+        {
+            print_start_menu_entry($idsel,$classname);
+            print '<a class="tmenuimage" href="'.dol_buildpath('/cabinetmed/compta.php?mainmenu=accountancy2&amp;leftmenu=&search_sale='.$user->id,1).'"'.($atarget?" target=$atarget":"").'>';
+            print '<div class="'.$id.' '.$idsel.'"><span class="'.$id.' tmenuimage" id="mainmenuspan_'.$idsel.'"></span></div>';
+            print '</a>';
+            print '<a '.$classname.' id="mainmenua_'.$idsel.'" href="'.dol_buildpath('/cabinetmed/compta.php?mainmenu=accountancy2&amp;leftmenu=&search_sale='.$user->id,1).'"'.($atarget?" target=$atarget":"").'>';
+            print_text_menu_entry($langs->trans("MenuFinancialMed"));
+            print '</a>';
+            print_end_menu_entry();
+        }
+        else if (empty($conf->global->MAIN_MENU_HIDE_UNAUTHORIZED))
+        {
+            if (! $type_user)
+            {
+                print_start_menu_entry($idsel,$classname);
+                print '<div class="'.$id.' '.$idsel.'"><span class="'.$id.'" id="mainmenuspan_'.$idsel.'"></span></div>';
+                print '<a class="tmenudisabled" id="mainmenua_'.$idsel.'" href="#" title="'.dol_escape_htmltag($langs->trans("NotAllowed")).'">';
+                print_text_menu_entry($langs->trans("MenuFinancialMed"));
+                print '</a>';
+               print_end_menu_entry();
+            }
+        }
+    }
+
     // Bank
     if ($conf->banque->enabled || $conf->prelevement->enabled)
     {
