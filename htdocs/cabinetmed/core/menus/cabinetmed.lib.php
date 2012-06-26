@@ -115,7 +115,7 @@ function print_cabinetmed_menu($db,$atarget,$type_user)
         $langs->load("suppliers");
 
         $classname="";
-        if ($_SESSION["mainmenu"] && $_SESSION["mainmenu"] == "companies")
+        if ($_SESSION["mainmenu"] && $_SESSION["mainmenu"] == "patients")
         {
             $classname='class="tmenusel"'; $_SESSION['idmenu']='';
         }
@@ -124,7 +124,7 @@ function print_cabinetmed_menu($db,$atarget,$type_user)
             $classname = 'class="tmenu"';
         }
 
-        $idsel='companies';
+        $idsel='patients';
         if ($conf->cabinetmed->enabled && $user->rights->cabinetmed->read)
         {
             print_start_menu_entry($idsel,$classname);
