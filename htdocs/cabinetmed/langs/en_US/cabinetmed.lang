@@ -137,4 +137,5 @@ NumberOfPatient=Number of patients
 AverageOld=Average age
 PatientsPerContacts=This page list statistics on patients per contacts
 ReportingsMed=Outcomes report
+MenuFinancialMed=Outcomes balance
 AlertTriggered=An alert into %s has been checked

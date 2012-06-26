@@ -41,7 +41,7 @@ include_once("./class/cabinetmedcons.class.php");
 include_once("./class/html.formfilecabinetmed.class.php");
 
 $action=GETPOST("action");
-$id=GETPOST('id','int');  // Id consultation
+$id=GETPOST('idconsult')?GETPOST('idconsult','int'):GETPOST('id','int');  // Id consultation
 $confirm=GETPOST('confirm');
 $mesg=GETPOST('mesg');
 
