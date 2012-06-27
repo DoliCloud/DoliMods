@@ -1,19 +1,19 @@
 <?php
 /* Copyright (C) 2004-2012 Laurent Destailleur  <eldy@users.sourceforge.net>
  *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
+* This program is free software; you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation; either version 2 of the License, or
+* (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with this program. If not, see <http://www.gnu.org/licenses/>.
+*/
 
 /**
  *       \file       htdocs/nltechno/dolicloud_card.php
@@ -29,6 +29,7 @@ require_once(DOL_DOCUMENT_ROOT."/core/class/html.formcompany.class.php");
 dol_include_once("/nltechno/core/lib/dolicloud.lib.php");
 dol_include_once('/nltechno/class/dolicloudcustomer.class.php');
 
+$langs->load("admin");
 $langs->load("companies");
 $langs->load("users");
 $langs->load("other");
@@ -67,7 +68,7 @@ $hookmanager->initHooks(array('contactcard'));
 
 /*
  *	Actions
- */
+*/
 
 $parameters=array('id'=>$id, 'objcanvas'=>$objcanvas);
 $reshook=$hookmanager->executeHooks('doActions',$parameters,$object,$action);    // Note that $action and $object may have been modified by some hooks
@@ -97,10 +98,18 @@ if (empty($reshook))
         $object->zip			= $_POST["zipcode"];
         $object->town			= $_POST["town"];
         $object->country_id		= $_POST["country_id"];
-        $object->state_id       = $_POST["departement_id"];
+        $object->state_id       = $_POST["state_id"];
         $object->email			= $_POST["email"];
-        $object->phone_pro		= $_POST["phone_pro"];
+        $object->phone        	= $_POST["phone"];
         $object->note			= $_POST["note"];
+
+        $object->hostname_web	= $_POST["hostname_web"];
+        $object->username_web	= $_POST["username_web"];
+        $object->password_web	= $_POST["password_web"];
+        $object->hostname_db	= $_POST["hostname_db"];
+        $object->database_db	= $_POST["database_db"];
+        $object->username_db    = $_POST["username_db"];
+        $object->password_db    = $_POST["password_db"];
 
         if (empty($_POST["instance"]) || empty($_POST["organization"]) || empty($_POST["plan"]) || empty($_POST["email"]))
         {
@@ -150,19 +159,18 @@ if (empty($reshook))
 
     if ($action == 'update' && ! $_POST["cancel"] && $user->rights->nltechno->dolicloud>create)
     {
-        if (empty($_POST["lastname"]))
+        if (empty($_POST["organization"]) || empty($_POST["plan"]) || empty($_POST["email"]))
         {
-            $error++; $errors=array($langs->trans("ErrorFieldRequired",$langs->transnoentities("Name").' / '.$langs->transnoentities("Label")));
+            $error++; $errors[]=$langs->trans("ErrorFieldRequired",$langs->transnoentitiesnoconv("Instance").",".$langs->transnoentitiesnoconv("Organization").",".$langs->transnoentitiesnoconv("Plan").",".$langs->transnoentitiesnoconv("EMail"));
             $action = 'edit';
         }
 
         if (! $error)
         {
-            $object->fetch($_POST["contactid"]);
+            $object->fetch(GETPOST("id"));
 
             $object->oldcopy=dol_clone($object);
 
-            $object->instance		= $_POST["instance"];
             $object->organization	= $_POST["organization"];
             $object->lastname		= $_POST["lastname"];
             $object->firstname		= $_POST["firstname"];
@@ -170,14 +178,22 @@ if (empty($reshook))
             $object->address		= $_POST["address"];
             $object->zip			= $_POST["zipcode"];
             $object->town			= $_POST["town"];
-            $object->state_id   	= $_POST["departement_id"];
+            $object->state_id   	= $_POST["state_id"];
             $object->country_id		= $_POST["country_id"];
 
             $object->email			= $_POST["email"];
-            $object->phone_pro		= $_POST["phone_pro"];
+            $object->phone    		= $_POST["phone"];
             $object->note			= $_POST["note"];
 
-            $result = $object->update(GETPOST('id'), $user);
+            $object->hostname_web	= $_POST["hostname_web"];
+            $object->username_web	= $_POST["username_web"];
+            $object->password_web	= $_POST["password_web"];
+            $object->hostname_db	= $_POST["hostname_db"];
+            $object->database_db	= $_POST["database_db"];
+            $object->username_db    = $_POST["username_db"];
+            $object->password_db    = $_POST["password_db"];
+
+            $result = $object->update($user);
 
             if ($result > 0)
             {
@@ -190,12 +206,66 @@ if (empty($reshook))
             }
         }
     }
+
+    if ($action == 'refresh')
+    {
+        $object->fetch(GETPOST("id"));
+
+        $object->oldcopy=dol_clone($object);
+
+
+        $newdb=getDoliDBInstance($conf->db->type, $object->instance.'.on.dolicloud.com', $object->username_db, $object->password_db, $object->database_db, 3306);
+
+        if (is_object($newdb))
+        {
+            // $dateregistration is date of creation of first login
+            $sql="SELECT tms FROM llx_const WHERE name = 'MAIN_VERSION_LAST_INSTALL'";
+            $resql=$newdb->query($sql);
+            $obj = $newdb->fetch_object($resql);
+            $object->date_registration=$newdb->jdate($obj->tms);
+
+            $sql='SELECT COUNT(login) as nbofusers FROM llx_user WHERE statut <> 0';
+            $resql=$newdb->query($sql);
+            $obj = $newdb->fetch_object($resql);
+            $object->nbofusers	= $obj->nbofusers;
+
+            $sql='SELECT login, pass, datelastlogin FROM llx_user WHERE statut <> 0 ORDER BY datelastlogin DESC LIMIT 1';
+            $resql=$newdb->query($sql);
+            $obj = $newdb->fetch_object($resql);
+
+            $object->lastlogin  = $obj->login;
+            $object->lastpass   = $obj->pass;
+            $object->date_lastlogin = $newdb->jdate($obj->datelastlogin);
+
+            $newdb->close();
+
+            $result = $object->update($user);
+
+            if ($result < 0)
+            {
+                $error=$object->error; $errors=$object->errors;
+            }
+            else
+          {
+                $now=dol_now();
+                $sql="UPDATE ".MAIN_DB_PREFIX."dolicloud_customers SET lastcheck = '".$db->idate($now)."' where instance ='".$object->instance."'";
+                $db->query($sql);
+
+            }
+        }
+        else
+        {
+            $error='Failed to connect '.$conf->db->type.' '.$object->instance.'.on.dolicloud.com '.$object->username_db.' '.$object->password_db.' '.$object->database_db.' 3306';
+        }
+
+        $action = 'view';
+    }
 }
 
 
 /*
  *	View
- */
+*/
 
 $help_url='';
 llxHeader('',$langs->trans("DoliCloudCustomers"),$help_url);
@@ -217,12 +287,12 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action))
     // When used with CANVAS
     // -----------------------------------------
     if (empty($object->error) && $id)
- 	{
-	     $object = new Contact($db);
-	     $object->fetch($id);
- 	}
-	$objcanvas->assign_values($action, $id);	// Set value for templates
-	$objcanvas->display_canvas($action);		// Show template
+    {
+        $object = new Contact($db);
+        $object->fetch($id);
+    }
+    $objcanvas->assign_values($action, $id);	// Set value for templates
+    $objcanvas->display_canvas($action);		// Show template
 }
 else
 {
@@ -242,7 +312,7 @@ else
 
     /*
      * Onglets
-     */
+    */
     if ($id > 0)
     {
         // Si edition contact deja existant
@@ -267,14 +337,14 @@ else
         {
             /*
              * Fiche en mode creation
-             */
+            */
             $object->canvas=$canvas;
 
             // We set country_id, country_code and label for the selected country
             $object->country_id=$_POST["country_id"]?$_POST["country_id"]:$mysoc->country_id;
             if ($object->country_id)
             {
-            	$tmparray=getCountry($object->country_id,'all');
+                $tmparray=getCountry($object->country_id,'all');
                 $object->pays_code    = $tmparray['code'];
                 $object->pays         = $tmparray['label'];
                 $object->country_code = $tmparray['code'];
@@ -307,8 +377,8 @@ else
             print '<table class="border" width="100%">';
 
             // Instance
-            print '<tr><td width="20%" class="fieldrequired">'.$langs->trans("Instance").'</td><td width="30%"><input name="instance" type="text" size="30" maxlength="80" value="'.(isset($_POST["instance"])?$_POST["instance"]:$object->instance).'"></td>';
-            print '<td width="20%" class="fieldrequired">'.$langs->trans("Organization").'/'.$langs->trans("Company").'</td><td width="30%"><input name="organization" type="text" size="30" maxlength="80" value="'.(isset($_POST["organization"])?$_POST["organization"]:$object->organization).'"></td></tr>';
+            print '<tr><td width="20%" class="fieldrequired">'.$langs->trans("Instance").'</td><td colspan="3"><input name="instance" type="text" size="30" maxlength="80" value="'.(isset($_POST["instance"])?$_POST["instance"]:$object->instance).'"></td></tr>';
+            print '<tr><td width="20%" class="fieldrequired">'.$langs->trans("Organization").'/'.$langs->trans("Company").'</td><td colspan="3"><input name="organization" type="text" size="30" maxlength="80" value="'.(isset($_POST["organization"])?$_POST["organization"]:$object->organization).'"></td></tr>';
 
             // EMail
             print '<tr><td class="fieldrequired">'.$langs->trans("Email").'</td><td colspan="3"><input name="email" type="text" size="50" maxlength="80" value="'.(isset($_POST["email"])?$_POST["email"]:$object->email).'"></td></tr>';
@@ -328,8 +398,8 @@ else
             if (($objsoc->typent_code == 'TE_PRIVATE' || ! empty($conf->global->CONTACT_USE_COMPANY_ADDRESS)) && dol_strlen(trim($object->zip)) == 0) $object->zip = $objsoc->zip;			// Predefined with third party
             if (($objsoc->typent_code == 'TE_PRIVATE' || ! empty($conf->global->CONTACT_USE_COMPANY_ADDRESS)) && dol_strlen(trim($object->town)) == 0) $object->town = $objsoc->town;	// Predefined with third party
             print '<tr><td>'.$langs->trans("Zip").' / '.$langs->trans("Town").'</td><td colspan="3">';
-            print $formcompany->select_ziptown((isset($_POST["zipcode"])?$_POST["zipcode"]:$object->zip),'zipcode',array('town','selectcountry_id','departement_id'),6).'&nbsp;';
-            print $formcompany->select_ziptown((isset($_POST["town"])?$_POST["town"]:$object->town),'town',array('zipcode','selectcountry_id','departement_id'));
+            print $formcompany->select_ziptown((isset($_POST["zipcode"])?$_POST["zipcode"]:$object->zip),'zipcode',array('town','selectcountry_id','state_id'),6).'&nbsp;';
+            print $formcompany->select_ziptown((isset($_POST["town"])?$_POST["town"]:$object->town),'town',array('zipcode','selectcountry_id','state_id'));
             print '</td></tr>';
 
             // Country
@@ -340,13 +410,12 @@ else
             print '</td></tr>';
 
             // State
-            /*
             if (empty($conf->global->SOCIETE_DISABLE_STATE))
             {
                 print '<tr><td>'.$langs->trans('State').'</td><td colspan="3">';
                 if ($object->country_id)
                 {
-                    print $formcompany->select_state(isset($_POST["departement_id"])?$_POST["departement_id"]:$object->fk_departement,$object->country_code);
+                    print $formcompany->select_state(isset($_POST["state_id"])?$_POST["state_id"]:$object->state_id,$object->country_code,'state_id');
                 }
                 else
                 {
@@ -354,17 +423,42 @@ else
                 }
                 print '</td></tr>';
             }
-			*/
 
-            // Phone / Fax
-            print '<tr><td>'.$langs->trans("PhonePro").'</td><td><input name="phone_pro" type="text" size="18" maxlength="80" value="'.(isset($_POST["phone_pro"])?$_POST["phone_pro"]:$object->phone_pro).'"></td>';
-            print '<td colspan="2"></td></tr>';
+            // Phone
+            print '<tr><td>'.$langs->trans("PhonePro").'</td><td colspan="3"><input name="phone" type="text" size="18" maxlength="80" value="'.(isset($_POST["phone"])?$_POST["phone"]:$object->phone).'"></td>';
+            print '</tr>';
 
             // Note
             print '<tr><td valign="top">'.$langs->trans("Note").'</td><td colspan="3" valign="top"><textarea name="note" cols="70" rows="'.ROWS_3.'">'.(isset($_POST["note"])?$_POST["note"]:$object->note).'</textarea></td></tr>';
 
-            print "</table><br><br>";
+            print "</table><br>";
 
+            print '<br>';
+
+            print '<table class="border" width="100%">';
+
+            // SFTP
+            print '<tr><td width="20%">'.$langs->trans("SFTP Server").'</td><td colspan="3"><input name="hostname_web" type="text" size="18" maxlength="80" value="'.(isset($_POST["hostname_web"])?$_POST["hostname_web"]:$object->hostname_web).'"></td>';
+            print '</tr>';
+            // Login/Pass
+            print '<tr>';
+            print '<td>'.$langs->trans("SFTPLogin").'</td><td><input name="username_web" type="text" size="18" maxlength="80" value="'.(isset($_POST["username_web"])?$_POST["username_web"]:$object->username_web).'"></td>';
+            print '<td>'.$langs->trans("Password").'</td><td><input name="password_web" type="text" size="18" maxlength="80" value="'.(isset($_POST["password_web"])?$_POST["password_web"]:$object->password_web).'"></td>';
+            print '</tr>';
+
+            // Database
+            print '<tr><td>'.$langs->trans("DatabaseServer").'</td><td><input name="hostname_db" type="text" size="18" maxlength="80" value="'.(isset($_POST["hostname_db"])?$_POST["hostname_db"]:$object->hostname_db).'"></td>';
+            print '<td>'.$langs->trans("DatabaseName").'</td><td><input name="database_db" type="text" size="18" maxlength="80" value="'.(isset($_POST["database_db"])?$_POST["database_db"]:$object->database_db).'"></td>';
+            print '</tr>';
+            // Login/Pass
+            print '<tr>';
+            print '<td>'.$langs->trans("DatabaseLogin").'</td><td><input name="username_db" type="text" size="18" maxlength="80" value="'.(isset($_POST["username_db"])?$_POST["username_db"]:$object->username_db).'"></td>';
+            print '<td>'.$langs->trans("Password").'</td><td><input name="password_db" type="text" size="18" maxlength="80" value="'.(isset($_POST["password_db"])?$_POST["password_db"]:$object->password_db).'"></td>';
+            print '</tr>';
+
+            print "</table>";
+
+            print "<br><br>";
 
             print '<center>';
             print '<input type="submit" class="button" name="add" value="'.$langs->trans("Add").'">';
@@ -381,16 +475,16 @@ else
         {
             /*
              * Fiche en mode edition
-             */
+            */
 
             // We set country_id, and country_code label of the chosen country
             if (isset($_POST["country_id"]) || $object->country_id)
             {
-	            $tmparray=getCountry($object->country_id,'all');
-	            $object->pays_code    =	$tmparray['code'];
-	            $object->pays         =	$tmparray['label'];
-	            $object->country_code =	$tmparray['code'];
-	            $object->country      =	$tmparray['label'];
+                $tmparray=getCountry($object->country_id,'all');
+                $object->pays_code    =	$tmparray['code'];
+                $object->pays         =	$tmparray['label'];
+                $object->country_code =	$tmparray['code'];
+                $object->country      =	$tmparray['label'];
             }
 
             // Affiche les erreurs
@@ -419,9 +513,11 @@ else
             print '<table class="border" width="100%">';
 
             // Instance
-            print '<tr><td class="fieldrequired">'.$langs->trans("Instance").'</td><td>';
+            print '<tr><td class="fieldrequired">'.$langs->trans("Instance").'</td><td colspan="3">';
             print $object->ref;
-            print '</td><td class="fieldrequired">'.$langs->trans("Organization").'</td><td>';
+            print '</td></tr>';
+
+            print '<tr><td class="fieldrequired">'.$langs->trans("Organization").'</td><td colspan="3">';
             print '<input name="organization" type="text" size="20" maxlength="80" value="'.(isset($_POST["organization"])?$_POST["organization"]:$object->organization).'">';
             print '</td></tr>';
 
@@ -442,8 +538,8 @@ else
 
             // Zip / Town
             print '<tr><td>'.$langs->trans("Zip").' / '.$langs->trans("Town").'</td><td colspan="3">';
-           print $formcompany->select_ziptown((isset($_POST["zipcode"])?$_POST["zipcode"]:$object->zip),'zipcode',array('town','selectcountry_id','departement_id'),6).'&nbsp;';
-            print $formcompany->select_ziptown((isset($_POST["town"])?$_POST["town"]:$object->town),'town',array('zipcode','selectcountry_id','departement_id'));
+            print $formcompany->select_ziptown((isset($_POST["zipcode"])?$_POST["zipcode"]:$object->zip),'zipcode',array('town','selectcountry_id','state_id'),6).'&nbsp;';
+            print $formcompany->select_ziptown((isset($_POST["town"])?$_POST["town"]:$object->town),'town',array('zipcode','selectcountry_id','state_id'));
             print '</td></tr>';
 
             // Country
@@ -453,25 +549,50 @@ else
             print '</td></tr>';
 
             // State
-            /*
             if (empty($conf->global->SOCIETE_DISABLE_STATE))
             {
                 print '<tr><td>'.$langs->trans('State').'</td><td colspan="3">';
-                print $formcompany->select_state($object->fk_departement,isset($_POST["country_id"])?$_POST["country_id"]:$object->country_id);
+                print $formcompany->select_state($object->state_id,(isset($_POST["country_id"])?$_POST["country_id"]:$object->country_id),'state_id');
                 print '</td></tr>';
             }
-            */
 
             // Phone
-            print '<tr><td>'.$langs->trans("PhonePro").'</td><td><input name="phone_pro" type="text" size="18" maxlength="80" value="'.(isset($_POST["phone_pro"])?$_POST["phone_pro"]:$object->phone_pro).'"></td>';
-            print '<td colspan="2"></td></tr>';
+            print '<tr><td>'.$langs->trans("PhonePro").'</td><td colspan="3"><input name="phone" type="text" size="18" maxlength="80" value="'.(isset($_POST["phone"])?$_POST["phone"]:$object->phone).'"></td>';
+            print '</tr>';
 
             print '<tr><td valign="top">'.$langs->trans("Note").'</td><td colspan="3">';
             print '<textarea name="note" cols="70" rows="'.ROWS_3.'">';
             print isset($_POST["note"])?$_POST["note"]:$object->note;
             print '</textarea></td></tr>';
 
-            print '</table><br>';
+            print '</table>';
+
+            print '<br>';
+
+            print '<table class="border" width="100%">';
+
+            // SFTP
+            print '<tr><td width="20%">'.$langs->trans("SFTP Server").'</td><td colspan="3"><input name="hostname_web" type="text" size="28" maxlength="80" value="'.(isset($_POST["hostname_web"])?$_POST["hostname_web"]:$object->hostname_web).'"></td>';
+            print '</tr>';
+            // Login/Pass
+            print '<tr>';
+            print '<td>'.$langs->trans("SFTPLogin").'</td><td><input name="username_web" type="text" size="18" maxlength="80" value="'.(isset($_POST["username_web"])?$_POST["username_web"]:$object->username_web).'"></td>';
+            print '<td>'.$langs->trans("Password").'</td><td><input name="password_web" type="text" size="18" maxlength="80" value="'.(isset($_POST["password_web"])?$_POST["password_web"]:$object->password_web).'"></td>';
+            print '</tr>';
+
+            // Database
+            print '<tr><td>'.$langs->trans("DatabaseServer").'</td><td><input name="hostname_db" type="text" size="28" maxlength="80" value="'.(isset($_POST["hostname_db"])?$_POST["hostname_db"]:$object->hostname_db).'"></td>';
+            print '<td>'.$langs->trans("DatabaseName").'</td><td><input name="database_db" type="text" size="28" maxlength="80" value="'.(isset($_POST["database_db"])?$_POST["database_db"]:$object->database_db).'"></td>';
+            print '</tr>';
+            // Login/Pass
+            print '<tr>';
+            print '<td>'.$langs->trans("DatabaseLogin").'</td><td><input name="username_db" type="text" size="18" maxlength="80" value="'.(isset($_POST["username_db"])?$_POST["username_db"]:$object->username_db).'"></td>';
+            print '<td>'.$langs->trans("Password").'</td><td><input name="password_db" type="text" size="18" maxlength="80" value="'.(isset($_POST["password_db"])?$_POST["password_db"]:$object->password_db).'"></td>';
+            print '</tr>';
+
+            print "</table>";
+
+            print '<br>';
 
             print '<center>';
             print '<input type="submit" class="button" name="save" value="'.$langs->trans("Save").'">';
@@ -487,16 +608,18 @@ else
     {
         /*
          * Fiche en mode visualisation
-         */
+        */
 
         dol_htmloutput_errors($error,$errors);
 
         print '<table class="border" width="100%">';
 
         // Instance / Organization
-        print '<tr><td width="20%">'.$langs->trans("Instance").'</td><td>';
-        print $form->showrefnav($object,'id');
-        print '</td><td>'.$langs->trans("Organization").'</td><td>';
+        print '<tr><td width="20%">'.$langs->trans("Instance").'</td><td colspan="3">';
+        $link=' (<a href="https://'.$object->instance.'.on.dolicloud.com" targte="_blank">https://'.$object->instance.'.on.dolicloud.com</a>)';
+        print $form->showrefnav($object,'id','',1,'','',$link);
+        print '</td></tr>';
+        print '<tr><td>'.$langs->trans("Organization").'</td><td colspan="3">';
         print $object->organization;
         print '</td></tr>';
 
@@ -505,11 +628,11 @@ else
         print '</tr>';
 
         // Plan
-        print '<tr><td width="20%">'.$langs->trans("Plan").'</td><td colspan="3">'.$object->plan.'</td>';
+        print '<tr><td width="20%">'.$langs->trans("Plan").'</td><td colspan="3">'.$object->plan.' <a href="http://www.dolicloud.com/fr/component/content/article/134-pricing" target="_blank">('.$langs->trans("Prices").')</td>';
         print '</tr>';
 
-        // Lastname / Name
-        print '<tr><td width="20%">'.$langs->trans("Lastname").' / '.$langs->trans("Label").'</td><td width="30%">'.$object->lastname.'</td>';
+        // Lastname / Firstname
+        print '<tr><td width="20%">'.$langs->trans("Lastname").'</td><td width="30%">'.$object->lastname.'</td>';
         print '<td width="20%">'.$langs->trans("Firstname").'</td><td width="30%">'.$object->firstname.'</td></tr>';
 
         // Address
@@ -519,9 +642,9 @@ else
 
         // Zip Town
         print '<tr><td>'.$langs->trans("Zip").' / '.$langs->trans("Town").'</td><td colspan="3">';
-        print $object->cp;
-        if ($object->cp) print '&nbsp;';
-        print $object->ville.'</td></tr>';
+        print $object->zip;
+        if ($object->zip) print '&nbsp;';
+        print $object->town.'</td></tr>';
 
         // Country
         print '<tr><td>'.$langs->trans("Country").'</td><td colspan="3">';
@@ -533,16 +656,75 @@ else
         // State
         if (empty($conf->global->SOCIETE_DISABLE_STATE))
         {
-            print '<tr><td>'.$langs->trans('State').'</td><td colspan="3">'.$object->departement.'</td>';
+            print '<tr><td>'.$langs->trans('State').'</td><td colspan="3">'.$object->state.'</td>';
         }
 
         // Phone
-        print '<tr><td>'.$langs->trans("PhonePro").'</td><td>'.dol_print_phone($object->phone_pro,$object->country_code,$object->id,$object->socid,'AC_TEL').'</td>';
-        print '<td colspan="2"></td></tr>';
+        print '<tr><td>'.$langs->trans("PhonePro").'</td><td colspan="3">'.dol_print_phone($object->phone,$object->country_code,$object->id,$object->socid,'AC_TEL').'</td>';
+        print '</tr>';
 
         print '<tr><td valign="top">'.$langs->trans("Note").'</td><td colspan="3">';
         print nl2br($object->note);
         print '</td></tr>';
+
+        print "</table>";
+
+        print '<br>';
+
+        print '<table class="border" width="100%">';
+
+        // SFTP
+        print '<tr><td width="20%">'.$langs->trans("SFTP Server").'</td><td colspan="3">'.$object->hostname_web.'</td>';
+        print '</tr>';
+        // Login/Pass
+        print '<tr>';
+        print '<td>'.$langs->trans("SFTPLogin").'</td><td>'.$object->username_web.'</td>';
+        print '<td>'.$langs->trans("Password").'</td><td>'.$object->password_web.'</td>';
+        print '</tr>';
+
+        // Database
+        print '<tr><td>'.$langs->trans("DatabaseServer").'</td><td>'.$object->hostname_db.'</td>';
+        print '<td>'.$langs->trans("DatabaseName").'</td><td>'.$object->database_db.'</td>';
+        print '</tr>';
+        // Login/Pass
+        print '<tr>';
+        print '<td>'.$langs->trans("DatabaseLogin").'</td><td>'.$object->username_db.'</td>';
+        print '<td>'.$langs->trans("Password").'</td><td>'.$object->password_db.'</td>';
+        print '</tr>';
+
+        print "</table>";
+
+        print '<br>';
+
+        print $langs->trans("DateLastCheck").': '.($object->lastcheck?dol_print_date($object->lastcheck,'dayhour','tzuser'):$langs->trans("Never"));
+
+        if (! $object->user_id && $user->rights->nltechno->dolicloud->create)
+        {
+            print ' <a href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&amp;action=refresh">'.img_picto($langs->trans("Refresh"),'refresh').'</a>';
+        }
+
+
+
+        print '<br>';
+        print '<table class="border" width="100%">';
+
+        // Nb of users
+        print '<tr><td width="20%">'.$langs->trans("NbOfUsers").'</td><td colspan="3">'.$object->nbofusers.'</td>';
+        print '</tr>';
+
+        // Dates
+        print '<tr><td>'.$langs->trans("DateRegistration").'</td><td>'.dol_print_date($object->date_registration,'dayhour').'</td>';
+        print '<td>'.$langs->trans("DateEndFreePeriod").'</td><td>'.dol_print_date($object->date_endfreeperiod,'dayhour').'</td>';
+        print '</tr>';
+
+        // Lastlogin
+        print '<tr>';
+        print '<td>'.$langs->trans("LastLogin").' / '.$langs->trans("Password").'</td><td>'.$object->lastlogin.' / '.$object->lastpass.'</td>';
+        print '<td>'.$langs->trans("DateLastLogin").'</td><td>'.dol_print_date($object->date_lastlogin,'dayhour').'</td>';
+        print '</tr>';
+        print '<tr>';
+        print '<td>'.$langs->trans("Modules").'</td><td colspan="3">'.$object->modulesenabled.'</td>';
+        print '</tr>';
 
         print "</table>";
 
@@ -558,11 +740,6 @@ else
                 print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&amp;action=edit">'.$langs->trans('Modify').'</a>';
             }
 
-            if (! $object->user_id && $user->rights->nltechno->dolicloud->create)
-            {
-                print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&amp;action=refresh">'.$langs->trans("Refresh").'</a>';
-            }
-
             if ($user->rights->nltechno->dolicloud->create)
             {
                 print '<a class="butActionDelete" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&amp;action=delete">'.$langs->trans('Delete').'</a>';
@@ -572,12 +749,22 @@ else
         }
 
         /*
-        print load_fiche_titre($langs->trans("TasksHistoryForThisCustomer"),'','');
+         print load_fiche_titre($langs->trans("TasksHistoryForThisCustomer"),'','');
 
         print show_actions_todo($conf,$langs,$db,'',$object);
 
         print show_actions_done($conf,$langs,$db,'',$object);
         */
+
+        $sftpconnectstring='sftp://'.$object->username_web.':'.$object->password_web.'@'.$object->hostname_web;
+        print 'SFTP connect string<br>';
+        print '<input type="text" name="sftpconnectstring" value="'.$sftpconnectstring.'" size="100"><br>';
+        print '<br>';
+
+        $mysqlconnectstring='mysql -A -u '.$object->username_db.' -p\''.$object->password_db.'\' -h '.$object->hostname_db.' -D '.$object->database_db;
+        print 'Mysql connect string<br>';
+        print '<input type="text" name="sftpconnectstring" value="'.$mysqlconnectstring.'" size="100"><br>';
+
     }
 }
 

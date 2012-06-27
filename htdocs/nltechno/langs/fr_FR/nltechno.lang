@@ -1,3 +1,11 @@
 # Dolibarr language file - fr_FR - nltechno
 CHARSET=UTF-8
 DoliCloudCustomers=Clients DoliCloud
+DateRegistration=Date inscription
+DateEndFreePeriod=Date fin essai
+DateLastCheck=Rafraichissement
+NbOfUsers=Nb util.
+LastLogin=Dernier login
+DateLastLogin=Date dernier login
+SFTPLogin=Login SFTP
+DatabaseLogin=Login base de donnée

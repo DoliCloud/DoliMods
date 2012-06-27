@@ -67,6 +67,14 @@ class Dolicloudcustomer extends CommonObject
 	var $date_lastlogin='';
 	var $modulesenabled;
 
+	var $firstname;
+	var $lastname;
+	var $address;
+	var $zip;
+	var $town;
+	var $country_id;
+	var $state_id;
+	var $phone;
 
 
 
@@ -256,7 +264,15 @@ class Dolicloudcustomer extends CommonObject
 		$sql.= " t.lastlogin,";
 		$sql.= " t.lastpass,";
 		$sql.= " t.date_lastlogin,";
-		$sql.= " t.modulesenabled";
+		$sql.= " t.modulesenabled,";
+		$sql.= " t.firstname,";
+		$sql.= " t.lastname,";
+		$sql.= " t.address,";
+		$sql.= " t.zip,";
+		$sql.= " t.town,";
+		$sql.= " t.country_id,";
+		$sql.= " t.state_id,";
+		$sql.= " t.phone";
 
         $sql.= " FROM ".MAIN_DB_PREFIX."dolicloud_customers as t";
         $sql.= " WHERE t.rowid = ".$id;
@@ -298,7 +314,20 @@ class Dolicloudcustomer extends CommonObject
 				$this->date_lastlogin = $this->db->jdate($obj->date_lastlogin);
 				$this->modulesenabled = $obj->modulesenabled;
 
+                $this->firstname = $obj->firstname;
+                $this->lastname = $obj->lastname;
+                $this->address = $obj->address;
+                $this->zip = $obj->zip;
+                $this->town = $obj->town;
+                $this->country_id = $obj->country_id;
+                $this->state_id = $obj->state_id;
+                $this->phone = $obj->phone;
 
+                include_once(DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php');
+                $tmp=getCountry($this->country_id,'all');
+                $this->country_code=$tmp['code']; $this->country=$tmp['label'];
+                $tmp=getState($this->state_id,'all');
+                $this->state_code=$tmp['code']; $this->state=$tmp['label'];
             }
             $this->db->free($resql);
 
@@ -378,8 +407,15 @@ class Dolicloudcustomer extends CommonObject
 		$sql.= " lastlogin=".(dol_strlen($this->lastlogin)!=0 ? "'".$this->lastlogin."'" : 'null').",";
 		$sql.= " lastpass=".(dol_strlen($this->lastpass)!=0 ? "'".$this->lastpass."'" : 'null').",";
 		$sql.= " date_lastlogin=".(dol_strlen($this->date_lastlogin)!=0 ? "'".$this->db->idate($this->date_lastlogin)."'" : 'null').",";
-		$sql.= " modulesenabled=".(isset($this->modulesenabled)?"'".$this->db->escape($this->modulesenabled)."'":"null")."";
-
+		$sql.= " modulesenabled=".(isset($this->modulesenabled)?"'".$this->db->escape($this->modulesenabled)."'":"null").",";
+		$sql.= " firstname=".(isset($this->firstname)?"'".$this->db->escape($this->firstname)."'":"null").",";
+		$sql.= " lastname=".(isset($this->lastname)?"'".$this->db->escape($this->lastname)."'":"null").",";
+		$sql.= " address=".(isset($this->address)?"'".$this->db->escape($this->address)."'":"null").",";
+		$sql.= " zip=".(isset($this->zip)?"'".$this->db->escape($this->zip)."'":"null").",";
+		$sql.= " town=".(isset($this->town)?"'".$this->db->escape($this->town)."'":"null").",";
+		$sql.= " country_id=".(isset($this->country_id)?"'".$this->db->escape($this->country_id)."'":"null").",";
+		$sql.= " state_id=".(isset($this->state_id)?"'".$this->db->escape($this->state_id)."'":"null").",";
+		$sql.= " phone=".(isset($this->phone)?"'".$this->db->escape($this->phone)."'":"null");
 
         $sql.= " WHERE rowid=".$this->id;
 

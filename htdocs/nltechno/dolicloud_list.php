@@ -54,6 +54,20 @@ $id			= GETPOST('id','int');
 $action		= GETPOST('action','alpha');
 $myparam	= GETPOST('myparam','alpha');
 
+$sortfield = GETPOST("sortfield",'alpha');
+$sortorder = GETPOST("sortorder",'alpha');
+$page = GETPOST("page",'int');
+if ($page == -1) {
+    $page = 0;
+}
+$offset = $conf->liste_limit * $page;
+if (! $sortorder) $sortorder='ASC';
+if (! $sortfield) $sortfield='t.date_registration';
+$limit = $conf->liste_limit;
+
+$pageprev = $page - 1;
+$pagenext = $page + 1;
+
 // Protection if external user
 if ($user->societe_id > 0)
 {
@@ -139,6 +153,8 @@ $sql.= " t.password_db,";
 $sql.= " t.lastcheck,";
 $sql.= " t.nbofusers,";
 $sql.= " t.lastlogin,";
+$sql.= " t.lastpass,";
+$sql.= " t.date_lastlogin,";
 $sql.= " t.modulesenabled";
 $sql.= " FROM ".MAIN_DB_PREFIX."dolicloud_customers as t";
 //    $sql.= " WHERE field3 = 'xxx'";
@@ -165,6 +181,7 @@ print_liste_field_titre($langs->trans('DateEndFreePeriod'),$_SERVER['PHP_SELF'],
 print_liste_field_titre($langs->trans('DateLastCheck'),$_SERVER['PHP_SELF'],'t.lastcheck','',$param,'',$sortfield,$sortorder);
 print_liste_field_titre($langs->trans('NbOfUsers'),$_SERVER['PHP_SELF'],'t.nbofusers','',$param,'',$sortfield,$sortorder);
 print_liste_field_titre($langs->trans('LastLogin'),$_SERVER['PHP_SELF'],'t.lastlogin','',$param,'',$sortfield,$sortorder);
+print_liste_field_titre($langs->trans('DateLastLogin'),$_SERVER['PHP_SELF'],'t.datelastlogin','',$param,'',$sortfield,$sortorder);
 print '</tr>';
 
 $var=false;
@@ -185,6 +202,7 @@ if ($resql)
                 $var=!$var;
                 // You can use here results
                 print '<tr '.$bc[$var].'><td align="left">';
+                $dolicloudcustomerstatic->id=$obj->rowid;
                 $dolicloudcustomerstatic->ref=$obj->instance;
                 print $dolicloudcustomerstatic->getNomUrl(1,'');
                 print '</td><td>';
@@ -194,15 +212,17 @@ if ($resql)
                 print '</td><td>';
                 print $obj->plan;
                 print '</td><td>';
-                print $obj->date_registration;
+                print dol_print_date($obj->date_registration,'dayhour');
                 print '</td><td>';
-                print $obj->date_endfreeperiod;
+                print dol_print_date($obj->date_endfreeperiod,'day');
                 print '</td><td>';
                 print $obj->lastcheck;
                 print '</td><td>';
                 print $obj->nbofusers;
                 print '</td><td>';
                 print $obj->lastlogin;
+                print '</td><td>';
+                print dol_print_date($obj->datelastlogin,'dayhour');
                 print '</td></tr>';
             }
             $i++;
