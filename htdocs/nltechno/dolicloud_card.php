@@ -25,6 +25,7 @@ require("../main.inc.php");
 require_once(DOL_DOCUMENT_ROOT."/comm/action/class/actioncomm.class.php");
 require_once(DOL_DOCUMENT_ROOT."/contact/class/contact.class.php");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/company.lib.php");
+require_once(DOL_DOCUMENT_ROOT."/core/lib/date.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/class/html.formcompany.class.php");
 dol_include_once("/nltechno/core/lib/dolicloud.lib.php");
 dol_include_once('/nltechno/class/dolicloudcustomer.class.php');
@@ -209,53 +210,104 @@ if (empty($reshook))
 
     if ($action == 'refresh')
     {
+        $error='';
+
         $object->fetch(GETPOST("id"));
 
         $object->oldcopy=dol_clone($object);
 
-
-        $newdb=getDoliDBInstance($conf->db->type, $object->instance.'.on.dolicloud.com', $object->username_db, $object->password_db, $object->database_db, 3306);
-
-        if (is_object($newdb))
+        // SFTP connect
+        $connection = ssh2_connect($object->instance.'.on.dolicloud.com', 22);
+        if ($connection)
         {
-            // $dateregistration is date of creation of first login
-            $sql="SELECT tms FROM llx_const WHERE name = 'MAIN_VERSION_LAST_INSTALL'";
-            $resql=$newdb->query($sql);
-            $obj = $newdb->fetch_object($resql);
-            $object->date_registration=$newdb->jdate($obj->tms);
+            //print $object->instance." ".$object->username_web." ".$object->password_web."<br>\n";
+            if (! @ssh2_auth_password($connection, $object->username_web, $object->password_web))
+                throw new Exception("Could not authenticate with username $username " . "and password $password.");
 
-            $sql='SELECT COUNT(login) as nbofusers FROM llx_user WHERE statut <> 0';
-            $resql=$newdb->query($sql);
-            $obj = $newdb->fetch_object($resql);
-            $object->nbofusers	= $obj->nbofusers;
+            $sftp = ssh2_sftp($connection);
 
-            $sql='SELECT login, pass, datelastlogin FROM llx_user WHERE statut <> 0 ORDER BY datelastlogin DESC LIMIT 1';
-            $resql=$newdb->query($sql);
-            $obj = $newdb->fetch_object($resql);
+            $dir=preg_replace('/_dolibarr$/','',$object->database_db);
+            $file="ssh2.sftp://".$sftp."/home/".$object->username_web.'/'.$dir.'/htdocs/conf/conf.php';
+            //print $file;
+            $stream = fopen($file, 'r');
+            $fstat=fstat($stream);
+            fclose($stream);
+            //var_dump($fstat);
+            $object->date_registration=$fstat['mtime'];
+            $object->date_endfreeperiod=dol_time_plus_duree($object->date_registration,1,'m');
+            $object->gid=$fstat['gid'];
+            $uid=$fstat['uid'];
+            $size=$fstat['size'];
+        }
+        else {
+            $error='Failed to connect to ssh2';
+        }
 
-            $object->lastlogin  = $obj->login;
-            $object->lastpass   = $obj->pass;
-            $object->date_lastlogin = $newdb->jdate($obj->datelastlogin);
 
-            $newdb->close();
+        // Database connect
+        if (! $error)
+        {
+            $newdb=getDoliDBInstance($conf->db->type, $object->instance.'.on.dolicloud.com', $object->username_db, $object->password_db, $object->database_db, 3306);
 
-            $result = $object->update($user);
-
-            if ($result < 0)
+            if (is_object($newdb))
             {
-                $error=$object->error; $errors=$object->errors;
+                // Get user/pass of admin user
+                $sql="SELECT login, pass FROM llx_user WHERE admin = 1 ORDER BY datelastlogin DESC LIMIT 1";
+                $resql=$newdb->query($sql);
+                $obj = $newdb->fetch_object($resql);
+                $object->lastlogin_admin=$obj->login;
+                $object->lastpass_admin=$obj->pass;
+                $lastloginadmin=$object->lastlogin_admin;
+                $lastpassadmin=$object->lastpass_admin;
+
+                // Get list of modules
+                $modulesenabled=array();
+                $sql="SELECT name FROM llx_const WHERE name LIKE 'MAIN_MODULE_%'";
+                $resql=$newdb->query($sql);
+                $num=$newdb->num_rows($resql);
+                $i=0;
+                while ($i < $num)
+                {
+	                $obj = $newdb->fetch_object($resql);
+	                $name=preg_replace('/^[^_]+_[^_]+_/','',$obj->name);
+	                if (! preg_match('/_/',$name)) $modulesenabled[$name]=$name;
+                    $i++;
+                }
+                $object->modulesenabled=join(',',$modulesenabled);
+
+                $sql="SELECT COUNT(login) as nbofusers FROM llx_user WHERE statut <> 0";
+                $resql=$newdb->query($sql);
+                $obj = $newdb->fetch_object($resql);
+                $object->nbofusers	= $obj->nbofusers;
+
+                $sql="SELECT login, pass, datelastlogin FROM llx_user WHERE statut <> 0 ORDER BY datelastlogin DESC LIMIT 1";
+                $resql=$newdb->query($sql);
+                $obj = $newdb->fetch_object($resql);
+
+                $object->lastlogin  = $obj->login;
+                $object->lastpass   = $obj->pass;
+                $object->date_lastlogin = $newdb->jdate($obj->datelastlogin);
+
+                $newdb->close();
+
+                $result = $object->update($user);
+
+                if ($result < 0)
+                {
+                    $error=$object->error; $errors=$object->errors;
+                }
+                else
+              {
+                    $now=dol_now();
+                    $sql="UPDATE ".MAIN_DB_PREFIX."dolicloud_customers SET lastcheck = '".$db->idate($now)."' where instance ='".$object->instance."'";
+                    $db->query($sql);
+
+                }
             }
             else
-          {
-                $now=dol_now();
-                $sql="UPDATE ".MAIN_DB_PREFIX."dolicloud_customers SET lastcheck = '".$db->idate($now)."' where instance ='".$object->instance."'";
-                $db->query($sql);
-
+            {
+                $error='Failed to connect '.$conf->db->type.' '.$object->instance.'.on.dolicloud.com '.$object->username_db.' '.$object->password_db.' '.$object->database_db.' 3306';
             }
-        }
-        else
-        {
-            $error='Failed to connect '.$conf->db->type.' '.$object->instance.'.on.dolicloud.com '.$object->username_db.' '.$object->password_db.' '.$object->database_db.' 3306';
         }
 
         $action = 'view';
@@ -312,7 +364,7 @@ else
 
     /*
      * Onglets
-    */
+     */
     if ($id > 0)
     {
         // Si edition contact deja existant
@@ -616,7 +668,8 @@ else
 
         // Instance / Organization
         print '<tr><td width="20%">'.$langs->trans("Instance").'</td><td colspan="3">';
-        $link=' (<a href="https://'.$object->instance.'.on.dolicloud.com" targte="_blank">https://'.$object->instance.'.on.dolicloud.com</a>)';
+        $url='https://'.$object->instance.'.on.dolicloud.com?username='.$lastloginadmin.'&password='.$lastpassadmin;
+        $link=' (<a href="'.$url.'" targte="_blank">'.$url.'</a>)';
         print $form->showrefnav($object,'id','',1,'','',$link);
         print '</td></tr>';
         print '<tr><td>'.$langs->trans("Organization").'</td><td colspan="3">';
@@ -709,7 +762,7 @@ else
         print '<table class="border" width="100%">';
 
         // Nb of users
-        print '<tr><td width="20%">'.$langs->trans("NbOfUsers").'</td><td colspan="3">'.$object->nbofusers.'</td>';
+        print '<tr><td width="20%">'.$langs->trans("NbOfUsers").'</td><td colspan="3"><font size="+2">'.$object->nbofusers.'</font></td>';
         print '</tr>';
 
         // Dates
@@ -723,7 +776,7 @@ else
         print '<td>'.$langs->trans("DateLastLogin").'</td><td>'.dol_print_date($object->date_lastlogin,'dayhour').'</td>';
         print '</tr>';
         print '<tr>';
-        print '<td>'.$langs->trans("Modules").'</td><td colspan="3">'.$object->modulesenabled.'</td>';
+        print '<td>'.$langs->trans("Modules").'</td><td colspan="3">'.join(', ',explode(',',$object->modulesenabled)).'</td>';
         print '</tr>';
 
         print "</table>";
