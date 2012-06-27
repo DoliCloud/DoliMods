@@ -1298,7 +1298,7 @@ function print_left_cabinetmed_menu($db,$menu_array_before,$menu_array_after)
             }
 
             // Gestion cheques
-            if ($conf->facture->enabled && $conf->banque->enabled)
+            if (($conf->facture->enabled || $conf->cabinetmed->enabled) && $conf->banque->enabled)
             {
                 $newmenu->add("/compta/paiement/cheque/index.php?leftmenu=checks&amp;mainmenu=bank",$langs->trans("MenuChequeDeposits"),0,$user->rights->banque->cheque, '', $mainmenu, 'checks');
                 $newmenu->add("/compta/paiement/cheque/fiche.php?leftmenu=checks&amp;action=new&amp;mainmenu=bank",$langs->trans("NewChequeDeposit"),1,$user->rights->banque->cheque);
