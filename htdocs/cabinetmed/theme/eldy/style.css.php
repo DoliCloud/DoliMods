@@ -556,6 +556,10 @@ div.mainmenu.companies {
 	background-image: url(<?php echo dol_buildpath($path.'/theme/eldy/img/menus/members.png',1) ?>);
 }
 
+div.mainmenu.patients {
+	background-image: url(<?php echo dol_buildpath($path.'/theme/eldy/img/menus/members.png',1) ?>);
+}
+
 div.mainmenu.contacts {
 	background-image: url(<?php echo dol_buildpath($path.'/theme/eldy/img/menus/stethoscope.png',1) ?>);
 }
@@ -1443,7 +1447,7 @@ table.noborder, table.formdoc {
 
 	border-collapse: separate !important;
 	border-spacing: 0px;
-	
+
 	border-right-width: 0px;
 	border-right-color: #DDDDDD;
 	border-right-style: solid;
