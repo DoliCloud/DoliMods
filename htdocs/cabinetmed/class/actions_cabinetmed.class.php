@@ -145,6 +145,28 @@ class ActionsCabinetmed
     }
 
 
+
+    /**
+     * Complete doc forms
+     *
+     * @param	array	$parameters		Array of parameters
+     * @return	string					HTML content to add by hook
+     */
+    function printSearchForm($parameters)
+    {
+        global $langs, $user, $conf;
+
+        if ($conf->cabinetmed->enabled && $user->rights->cabinetmed->read)
+        {
+            $langs->load("companies");
+            $langs->load("cabinetmed@cabinetmed");
+            $searchform.=printSearchForm(DOL_URL_ROOT.'/societe/societe.php', DOL_URL_ROOT.'/societe/societe.php', img_object('','patient').' '.$langs->trans("Patients"), 'soc', 'socname');
+        }
+
+        return $searchform;
+    }
+
+
     /**
      * Complete doc forms
      *

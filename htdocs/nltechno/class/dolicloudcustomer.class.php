@@ -1,6 +1,5 @@
 <?php
 /* Copyright (C) 2007-2012 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) ---Put here your own copyright and developer email---
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,14 +16,14 @@
  */
 
 /**
- *  \file       dev/skeletons/dolicloudcustomers.class.php
- *  \ingroup    mymodule othermodule1 othermodule2
+ *  \file       nltechno/class/dolicloudcustomer.class.php
+ *  \ingroup    nltechno
  *  \brief      This file is an example for a CRUD class file (Create/Read/Update/Delete)
  *				Initialy built by build_class_from_table on 2012-06-26 21:03
  */
 
 // Put here all includes required by your class file
-//require_once(DOL_DOCUMENT_ROOT."/core/class/commonobject.class.php");
+require_once(DOL_DOCUMENT_ROOT."/core/class/commonobject.class.php");
 //require_once(DOL_DOCUMENT_ROOT."/societe/class/societe.class.php");
 //require_once(DOL_DOCUMENT_ROOT."/product/class/product.class.php");
 
@@ -32,13 +31,13 @@
 /**
  *	Put here description of your class
  */
-class Dolicloudcustomers // extends CommonObject
+class Dolicloudcustomer extends CommonObject
 {
 	var $db;							//!< To store db handler
 	var $error;							//!< To return error code (or message)
 	var $errors=array();				//!< To return several error codes (or messages)
-	//var $element='dolicloudcustomers';			//!< Id that identify managed objects
-	//var $table_element='dolicloudcustomers';	//!< Name of table without prefix where object is stored
+	var $element='dolicloudcustomers';			//!< Id that identify managed objects
+	var $table_element='dolicloud_customers';	//!< Name of table without prefix where object is stored
 
     var $id;
 
@@ -273,6 +272,7 @@ class Dolicloudcustomers // extends CommonObject
                 $this->id    = $obj->rowid;
 
 				$this->instance = $obj->instance;
+				$this->ref = $obj->instance;
 				$this->organization = $obj->organization;
 				$this->email = $obj->email;
 				$this->plan = $obj->plan;
@@ -480,6 +480,30 @@ class Dolicloudcustomers // extends CommonObject
 			$this->db->commit();
 			return 1;
 		}
+	}
+
+
+	/**
+	 *  Return name of contact with link (and eventually picto)
+	 *	Use $this->id, $this->name, $this->firstname, this->civilite_id
+	 *
+	 *	@param		int			$withpicto		Include picto with link
+	 *	@param		string		$option			Where the link point to
+	 *	@param		int			$maxlen			Max length of
+	 *	@return		string						String with URL
+	 */
+	function getNomUrl($withpicto=0,$option='',$maxlen=0)
+	{
+	    global $langs;
+
+	    $result='';
+
+	    $lien = '<a href="'.dol_buildpath('/nltechno/dolicloud_card.php',1).'?id='.$this->id.'">';
+	    $lienfin='</a>';
+
+	    if ($withpicto) $result.=($lien.img_object($langs->trans("ShowCustomer").': '.$this->ref,'generic').$lienfin.' ');
+	    $result.=$lien.($maxlen?dol_trunc($this->ref,$maxlen):$this->ref).$lienfin;
+	    return $result;
 	}
 
 

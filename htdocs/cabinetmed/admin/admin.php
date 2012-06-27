@@ -61,6 +61,7 @@ if ($action == 'update')
 {
     $res=dolibarr_set_const($db, 'CABINETMED_RHEUMATOLOGY_ON', GETPOST("CABINETMED_RHEUMATOLOGY_ON"), 'texte', 0, '', $conf->entity);
     $res=dolibarr_set_const($db, 'CABINETMED_HIDETHIRPARTIESMENU', GETPOST("CABINETMED_HIDETHIRPARTIESMENU"), 'texte', 0, '', $conf->entity);
+    $res=dolibarr_set_const($db, 'MAIN_SEARCHFORM_SOCIETE', GETPOST("CABINETMED_HIDETHIRPARTIESMENU")?0:1, 'texte', 0, '', $conf->entity);        // We also hide search of companies
 
     if ($res == 1) $mesg=$langs->trans("RecordModifiedSuccessfully");
     else

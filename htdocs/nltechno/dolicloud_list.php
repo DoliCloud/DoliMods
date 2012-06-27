@@ -1,6 +1,5 @@
 <?php
 /* Copyright (C) 2007-2010 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) ---Put here your own copyright and developer email---
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,10 +16,9 @@
  */
 
 /**
- *   	\file       dev/skeletons/skeleton_page.php
- *		\ingroup    mymodule othermodule1 othermodule2
+ *   	\file       htdocs/nltechno/dolicloud_list.php
+ *		\ingroup    nltechno
  *		\brief      This file is an example of a php page
- *					Initialy built by build_class_from_table on 2012-06-26 21:03
  */
 
 //if (! defined('NOREQUIREUSER'))  define('NOREQUIREUSER','1');
@@ -44,7 +42,7 @@ if (! $res && file_exists("../../../../dolibarr/htdocs/main.inc.php")) $res=@inc
 if (! $res && file_exists("../../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
 if (! $res) die("Include of main fails");
 // Change this following line to use the correct relative path from htdocs (do not remove DOL_DOCUMENT_ROOT)
-dol_include_once("/nltechno/class/dolicloudcustomers.class.php");
+dol_include_once("/nltechno/class/dolicloudcustomer.class.php");
 
 // Load traductions files requiredby by page
 $langs->load("companies");
@@ -72,7 +70,7 @@ if ($user->societe_id > 0)
 
 if ($action == 'add')
 {
-	$myobject=new Dolicloudcustomers($db);
+	$myobject=new Dolicloudcustomer($db);
 	$myobject->prop1=$_POST["field1"];
 	$myobject->prop2=$_POST["field2"];
 	$result=$myobject->create($user);
@@ -99,6 +97,7 @@ if ($action == 'add')
 llxHeader('',$langs->transnoentitiesnoconv('DoliCloudCustomers'),'');
 
 $form=new Form($db);
+$dolicloudcustomerstatic = new Dolicloudcustomer($db);
 
 print '<script type="text/javascript" language="javascript">
 jQuery(document).ready(function() {
@@ -168,6 +167,8 @@ print_liste_field_titre($langs->trans('NbOfUsers'),$_SERVER['PHP_SELF'],'t.nbofu
 print_liste_field_titre($langs->trans('LastLogin'),$_SERVER['PHP_SELF'],'t.lastlogin','',$param,'',$sortfield,$sortorder);
 print '</tr>';
 
+$var=false;
+
 dol_syslog($script_file." sql=".$sql, LOG_DEBUG);
 $resql=$db->query($sql);
 if ($resql)
@@ -181,9 +182,11 @@ if ($resql)
             $obj = $db->fetch_object($resql);
             if ($obj)
             {
+                $var=!$var;
                 // You can use here results
-                print '<tr><td align="left">';
-                print $obj->instance;
+                print '<tr '.$bc[$var].'><td align="left">';
+                $dolicloudcustomerstatic->ref=$obj->instance;
+                print $dolicloudcustomerstatic->getNomUrl(1,'');
                 print '</td><td>';
                 print $obj->organization;
                 print '</td><td>';
