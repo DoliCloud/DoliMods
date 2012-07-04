@@ -231,10 +231,11 @@ class Dolicloudcustomer extends CommonObject
     /**
      *  Load object in memory from database
      *
-     *  @param	int		$id    Id object
-     *  @return int          	<0 if KO, >0 if OK
+     *  @param	int		$id    	Id object
+     *  @param	string	$ref   	Ref object
+     *  @return int         	<0 if KO, >0 if OK
      */
-    function fetch($id)
+    function fetch($id,$ref='')
     {
     	global $langs;
         $sql = "SELECT";
@@ -275,7 +276,8 @@ class Dolicloudcustomer extends CommonObject
 		$sql.= " t.phone";
 
         $sql.= " FROM ".MAIN_DB_PREFIX."dolicloud_customers as t";
-        $sql.= " WHERE t.rowid = ".$id;
+        if ($ref) $sql.= " WHERE t.instance = '".$ref."'";
+        else $sql.= " WHERE t.rowid = ".$id;
 
     	dol_syslog(get_class($this)."::fetch sql=".$sql, LOG_DEBUG);
         $resql=$this->db->query($sql);

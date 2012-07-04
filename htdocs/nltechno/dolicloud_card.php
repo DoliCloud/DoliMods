@@ -43,8 +43,6 @@ $action		= (GETPOST('action','alpha') ? GETPOST('action','alpha') : 'view');
 $confirm	= GETPOST('confirm','alpha');
 $backtopage = GETPOST('backtopage','alpha');
 $id			= GETPOST('id','int');
-$socid		= GETPOST('socid','int');
-if ($user->societe_id) $socid=$user->societe_id;
 
 $object = new DoliCloudCustomer($db);
 
@@ -255,8 +253,8 @@ if (empty($reshook))
 		$newdb=getDoliDBInstance($conf->db->type, $object->instance.'.on.dolicloud.com', $object->username_db, $object->password_db, $object->database_db, 3306);
 		if (is_object($newdb))
 		{
-			// Get user/pass of admin user
-			$sql="SELECT login, pass FROM llx_user WHERE admin = 1 ORDER BY datelastlogin DESC LIMIT 1";
+			// Get user/pass of last admin user
+			$sql="SELECT login, pass FROM llx_user WHERE admin = 1 ORDER BY statut DESC, datelastlogin DESC LIMIT 1";
 			$resql=$newdb->query($sql);
 			$obj = $newdb->fetch_object($resql);
 			$object->lastlogin_admin=$obj->login;
@@ -331,10 +329,9 @@ $formcompany = new FormCompany($db);
 
 $countrynotdefined=$langs->trans("ErrorSetACountryFirst").' ('.$langs->trans("SeeAbove").')';
 
-if ($socid > 0)
+if ($id > 0)
 {
-	$objsoc = new Societe($db);
-	$objsoc->fetch($socid);
+	$object->fetch($id);
 }
 
 if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action))
@@ -373,7 +370,7 @@ else
 	{
 		// Si edition contact deja existant
 		$object = new DoliCloudCustomer($db);
-		$return=$object->fetch($id, $user);
+		$return=$object->fetch($id);
 		if ($return <= 0)
 		{
 			dol_print_error('',$object->error);
@@ -665,6 +662,18 @@ else
 		/*
 		 * Fiche en mode visualisation
 		*/
+		$newdb=getDoliDBInstance($conf->db->type, $object->instance.'.on.dolicloud.com', $object->username_db, $object->password_db, $object->database_db, 3306);
+		if (is_object($newdb))
+		{
+			// Get user/pass of last admin user
+			$sql="SELECT login, pass FROM llx_user WHERE admin = 1 ORDER BY statut DESC, datelastlogin DESC LIMIT 1";
+			$resql=$newdb->query($sql);
+			$obj = $newdb->fetch_object($resql);
+			$object->lastlogin_admin=$obj->login;
+			$object->lastpass_admin=$obj->pass;
+			$lastloginadmin=$object->lastlogin_admin;
+			$lastpassadmin=$object->lastpass_admin;
+		}
 
 		dol_htmloutput_errors($error,$errors);
 
@@ -674,14 +683,14 @@ else
 		print '<tr><td width="20%">'.$langs->trans("Instance").'</td><td colspan="3">';
 		$url='https://'.$object->instance.'.on.dolicloud.com?username='.$lastloginadmin.'&password='.$lastpassadmin;
 		$link=' (<a href="'.$url.'" targte="_blank">'.$url.'</a>)';
-		print $form->showrefnav($object,'id','',1,'','',$link);
+		print $form->showrefnav($object,'instance','',1,'instance','instance',$link);
 		print '</td></tr>';
 		print '<tr><td>'.$langs->trans("Organization").'</td><td colspan="3">';
 		print $object->organization;
 		print '</td></tr>';
 
 		// Email
-		print '<tr><td>'.$langs->trans("EMail").'</td><td colspan="3">'.dol_print_email($object->email,$object->id,$object->socid,'AC_EMAIL').'</td>';
+		print '<tr><td>'.$langs->trans("EMail").'</td><td colspan="3">'.dol_print_email($object->email,$object->id,0,'AC_EMAIL').'</td>';
 		print '</tr>';
 
 		// Plan
@@ -717,7 +726,7 @@ else
 		}
 
 		// Phone
-		print '<tr><td>'.$langs->trans("PhonePro").'</td><td colspan="3">'.dol_print_phone($object->phone,$object->country_code,$object->id,$object->socid,'AC_TEL').'</td>';
+		print '<tr><td>'.$langs->trans("PhonePro").'</td><td colspan="3">'.dol_print_phone($object->phone,$object->country_code,$object->id,0,'AC_TEL').'</td>';
 		print '</tr>';
 
 		print '<tr><td valign="top">'.$langs->trans("Note").'</td><td colspan="3">';
