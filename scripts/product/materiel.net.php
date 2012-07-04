@@ -91,7 +91,7 @@ xml_parser_free($xml_parser);
  * Traite les donn�es du tableau
  *
  */
-if (sizeof($items) > 0)
+if (count($items) > 0)
 {
   while ($item = array_pop($items) )
     {

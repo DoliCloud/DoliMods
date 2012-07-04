@@ -108,7 +108,7 @@ print '--- start'."\n";
 //print 'Argument 2='.$argv[2]."\n";
 
 $verbose = 0;
-for ($i = 1 ; $i < count($argv) ; $i++)
+for ($i = 1; $i < count($argv); $i++)
 {
 	if ($argv[$i] == "-v")
 	{
@@ -239,7 +239,7 @@ if ($pid != 0)
 {
     usleep(1000);
 
-    print 'Parent process has launched '.sizeof($pid_arr)." processes. Waiting the end...\n";
+    print 'Parent process has launched '.count($pid_arr)." processes. Waiting the end...\n";
 
     // Loop until end of all processes (array is empty for childs end)
     while (count($pid_arr) > 0)
