@@ -126,7 +126,7 @@ dol_htmloutput_errors($GOBALS['error'],$GLOBALS['errors']);
 <input type="hidden" name="client" value="1">
 <?php if ($modCodeClient->code_auto || $modCodeFournisseur->code_auto) print '<input type="hidden" name="code_auto" value="1">'; ?>
 
-<table class="border" width="100%">
+<table class="border" style="width: 100%;">
 
 <tr>
 	<td><span class="fieldrequired"><?php echo $langs->trans('PatientName'); ?></span></td>
