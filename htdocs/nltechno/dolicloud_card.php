@@ -217,32 +217,39 @@ if (empty($reshook))
 		$object->oldcopy=dol_clone($object);
 
 		// SFTP connect
-		$connection = ssh2_connect($object->instance.'.on.dolicloud.com', 22);
-		if ($connection)
+		if (function_exists("ssh2_connect"))
 		{
-			//print $object->instance." ".$object->username_web." ".$object->password_web."<br>\n";
-			if (! @ssh2_auth_password($connection, $object->username_web, $object->password_web))
-				throw new Exception("Could not authenticate with username $username " . "and password $password.");
-
-			$sftp = ssh2_sftp($connection);
-
-			$dir=preg_replace('/_dolibarr$/','',$object->database_db);
-			$file="ssh2.sftp://".$sftp."/home/".$object->username_web.'/'.$dir.'/htdocs/conf/conf.php';
-			//print $file;
-			$stream = fopen($file, 'r');
-			$fstat=fstat($stream);
-			fclose($stream);
-			//var_dump($fstat);
-			$object->date_registration=$fstat['mtime'];
-			$object->date_endfreeperiod=dol_time_plus_duree($object->date_registration,1,'m');
-			$object->gid=$fstat['gid'];
-			$uid=$fstat['uid'];
-			$size=$fstat['size'];
+			$server=$object->instance.'.on.dolicloud.com';
+			$connection = ssh2_connect($server, 22);
+			if ($connection)
+			{
+				//print $object->instance." ".$object->username_web." ".$object->password_web."<br>\n";
+				if (! @ssh2_auth_password($connection, $object->username_web, $object->password_web))
+					throw new Exception("Could not authenticate with username $username " . "and password $password.");
+	
+				$sftp = ssh2_sftp($connection);
+	
+				$dir=preg_replace('/_dolibarr$/','',$object->database_db);
+				$file="ssh2.sftp://".$sftp."/home/".$object->username_web.'/'.$dir.'/htdocs/conf/conf.php';
+				//print $file;
+				$stream = fopen($file, 'r');
+				$fstat=fstat($stream);
+				fclose($stream);
+				//var_dump($fstat);
+				$object->date_registration=$fstat['mtime'];
+				$object->date_endfreeperiod=dol_time_plus_duree($object->date_registration,1,'m');
+				$object->gid=$fstat['gid'];
+				$uid=$fstat['uid'];
+				$size=$fstat['size'];
+			}
+			else {
+				$errors[]='Failed to connect to ssh2 to '.$server;
+			}
 		}
 		else {
-			$errors[]='Failed to connect to ssh2';
+			$errors[]='ssh2_connect not supported by this PHP';
 		}
-
+		
 
 		// Database connect
 		$newdb=getDoliDBInstance($conf->db->type, $object->instance.'.on.dolicloud.com', $object->username_db, $object->password_db, $object->database_db, 3306);
@@ -291,7 +298,8 @@ if (empty($reshook))
 
 			if ($result < 0)
 			{
-				$error=$object->error; $errors=$object->errors;
+				if ($object->error) $errors[]=$object->error;
+				$errors=array_merge($errors,$object->errors);
 			}
 			else
 			{
@@ -303,7 +311,7 @@ if (empty($reshook))
 		}
 		else
 		{
-			$error='Failed to connect '.$conf->db->type.' '.$object->instance.'.on.dolicloud.com '.$object->username_db.' '.$object->password_db.' '.$object->database_db.' 3306';
+			$errors[]='Failed to connect '.$conf->db->type.' '.$object->instance.'.on.dolicloud.com '.$object->username_db.' '.$object->password_db.' '.$object->database_db.' 3306';
 		}
 
 		$action = 'view';

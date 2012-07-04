@@ -324,10 +324,16 @@ class Dolicloudcustomer extends CommonObject
                 $this->phone = $obj->phone;
 
                 include_once(DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php');
-                $tmp=getCountry($this->country_id,'all');
-                $this->country_code=$tmp['code']; $this->country=$tmp['label'];
-                $tmp=getState($this->state_id,'all');
-                $this->state_code=$tmp['code']; $this->state=$tmp['label'];
+                if ($this->country_id > 0)
+                {
+                	$tmp=getCountry($this->country_id,'all');
+                	$this->country_code=$tmp['code']; $this->country=$tmp['label'];
+                }
+                if ($this->state_id > 0)
+                {
+                	$tmp=getState($this->state_id,'all');
+                	$this->state_code=$tmp['code']; $this->state=$tmp['label'];
+                }
             }
             $this->db->free($resql);
 
