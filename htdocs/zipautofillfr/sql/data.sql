@@ -8200,7 +8200,7 @@ INSERT IGNORE INTO llx_c_ziptown (zip, town, fk_county, fk_pays) VALUES
 ('88120', 'CLEURIE', NULL, 1),
 ('76450', 'CLEUVILLE', NULL, 1),
 ('76640', 'CLEVILLE', NULL, 1);
-INSERT IGNORE INTO fk_county (zip, town, fk_departement, fk_pays) VALUES
+INSERT IGNORE INTO llx_c_ziptown (zip, town, fk_county, fk_pays) VALUES
 ('14370', 'CLEVILLE', NULL, 1),
 ('28300', 'CLEVILLIERS', NULL, 1),
 ('33540', 'CLEYRAC', NULL, 1),
