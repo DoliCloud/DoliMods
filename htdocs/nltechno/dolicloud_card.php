@@ -287,9 +287,10 @@ if (empty($reshook))
 			$resql=$newdb->query($sql);
 			$obj = $newdb->fetch_object($resql);
 
+			$deltatzserver=(getServerTimeZoneInt()-0)*3600;
 			$object->lastlogin  = $obj->login;
 			$object->lastpass   = $obj->pass;
-			$object->date_lastlogin = $newdb->jdate($obj->datelastlogin);
+			$object->date_lastlogin = $newdb->jdate($obj->datelastlogin)+$deltatzserver;
 
 			$newdb->close();
 
