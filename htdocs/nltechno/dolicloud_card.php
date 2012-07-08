@@ -702,7 +702,7 @@ else
 		// Instance / Organization
 		print '<tr><td width="20%">'.$langs->trans("Instance").'</td><td colspan="3">';
 		$url='https://'.$object->instance.'.on.dolicloud.com?username='.$lastloginadmin.'&password='.$lastpassadmin;
-		$link=' (<a href="'.$url.'" targte="_blank">'.$url.'</a>)';
+		$link=' (<a href="'.$url.'" target="_blank">'.$url.'</a>)';
 		print $form->showrefnav($object,'instance','',1,'instance','instance',$link);
 		print '</td></tr>';
 		print '<tr><td>'.$langs->trans("Organization").'</td><td colspan="3">';
