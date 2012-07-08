@@ -90,7 +90,7 @@ if (empty($reshook))
 
 		$object->instance		= $_POST["instance"];
 		$object->organization	= $_POST["organization"];
-		$object->plan	= $_POST["plan"];
+		$object->plan			= $_POST["plan"];
 		$object->lastname		= $_POST["lastname"];
 		$object->firstname		= $_POST["firstname"];
 		$object->address		= $_POST["address"];
@@ -171,6 +171,7 @@ if (empty($reshook))
 			$object->oldcopy=dol_clone($object);
 
 			$object->organization	= $_POST["organization"];
+			$object->plan			= $_POST["plan"];
 			$object->lastname		= $_POST["lastname"];
 			$object->firstname		= $_POST["firstname"];
 
@@ -414,11 +415,16 @@ else
 			{
 				print "\n".'<script type="text/javascript" language="javascript">';
 				print 'jQuery(document).ready(function () {
-				jQuery("#selectcountry_id").change(function() {
-				document.formsoc.action.value="create";
-				document.formsoc.submit();
-			});
-			})';
+					jQuery("#selectcountry_id").change(function() {
+						document.formsoc.action.value="create";
+						document.formsoc.submit();
+					});
+					jQuery("#instance").keyup(function() {
+						var dolicloud=".on.dolicloud.com";
+						jQuery("#hostname_web").val(jQuery("#instance").val()+dolicloud);
+						jQuery("#hostname_db").val(jQuery("#instance").val()+dolicloud);
+					});
+				})';
 				print '</script>'."\n";
 			}
 
@@ -430,7 +436,7 @@ else
 			print '<table class="border" width="100%">';
 
 			// Instance
-			print '<tr><td width="20%" class="fieldrequired">'.$langs->trans("Instance").'</td><td colspan="3"><input name="instance" type="text" size="30" maxlength="80" value="'.(isset($_POST["instance"])?$_POST["instance"]:$object->instance).'"></td></tr>';
+			print '<tr><td width="20%" class="fieldrequired">'.$langs->trans("Instance").'</td><td colspan="3"><input name="instance" id="instance" type="text" size="30" maxlength="80" value="'.(isset($_POST["instance"])?$_POST["instance"]:$object->instance).'"></td></tr>';
 			print '<tr><td width="20%" class="fieldrequired">'.$langs->trans("Organization").'/'.$langs->trans("Company").'</td><td colspan="3"><input name="organization" type="text" size="30" maxlength="80" value="'.(isset($_POST["organization"])?$_POST["organization"]:$object->organization).'"></td></tr>';
 
 			// EMail
@@ -491,7 +497,7 @@ else
 			print '<table class="border" width="100%">';
 
 			// SFTP
-			print '<tr><td width="20%">'.$langs->trans("SFTP Server").'</td><td colspan="3"><input name="hostname_web" type="text" size="18" maxlength="80" value="'.(isset($_POST["hostname_web"])?$_POST["hostname_web"]:$object->hostname_web).'"></td>';
+			print '<tr><td width="20%">'.$langs->trans("SFTP Server").'</td><td colspan="3"><input name="hostname_web" id="hostname_web" type="text" size="18" maxlength="80" value="'.(isset($_POST["hostname_web"])?$_POST["hostname_web"]:$object->hostname_web).'"></td>';
 			print '</tr>';
 			// Login/Pass
 			print '<tr>';
@@ -500,7 +506,7 @@ else
 			print '</tr>';
 
 			// Database
-			print '<tr><td>'.$langs->trans("DatabaseServer").'</td><td><input name="hostname_db" type="text" size="18" maxlength="80" value="'.(isset($_POST["hostname_db"])?$_POST["hostname_db"]:$object->hostname_db).'"></td>';
+			print '<tr><td>'.$langs->trans("DatabaseServer").'</td><td><input name="hostname_db" id="hostname_db" type="text" size="18" maxlength="80" value="'.(isset($_POST["hostname_db"])?$_POST["hostname_db"]:$object->hostname_db).'"></td>';
 			print '<td>'.$langs->trans("DatabaseName").'</td><td><input name="database_db" type="text" size="18" maxlength="80" value="'.(isset($_POST["database_db"])?$_POST["database_db"]:$object->database_db).'"></td>';
 			print '</tr>';
 			// Login/Pass
@@ -545,13 +551,26 @@ else
 
 			if ($conf->use_javascript_ajax)
 			{
+				print "\n".'<script type="text/javascript" language="javascript">';
+				print 'jQuery(document).ready(function () {
+					jQuery("#instance").keyup(function() {
+						var dolicloud=".on.dolicloud.com";
+						jQuery("#hostname_web").val(jQuery("#instance").val()+dolicloud);
+						jQuery("#hostname_db").val(jQuery("#instance").val()+dolicloud);
+					});
+				})';
+				print '</script>'."\n";
+			}
+			
+			if ($conf->use_javascript_ajax)
+			{
 				print '<script type="text/javascript" language="javascript">';
 				print 'jQuery(document).ready(function () {
-				jQuery("#selectcountry_id").change(function() {
-				document.formsoc.action.value="edit";
-				document.formsoc.submit();
-			});
-			})';
+					jQuery("#selectcountry_id").change(function() {
+						document.formsoc.action.value="edit";
+						document.formsoc.submit();
+					});
+				})';
 				print '</script>';
 			}
 
@@ -786,7 +805,7 @@ else
 		// Lastlogin
 		print '<tr>';
 		print '<td>'.$langs->trans("LastLogin").' / '.$langs->trans("Password").'</td><td>'.$object->lastlogin.' / '.$object->lastpass.'</td>';
-		print '<td>'.$langs->trans("DateLastLogin").'</td><td>'.dol_print_date($object->date_lastlogin,'dayhour').'</td>';
+		print '<td>'.$langs->trans("DateLastLogin").'</td><td>'.dol_print_date($object->date_lastlogin,'dayhour','tzuser').'</td>';
 		print '</tr>';
 		print '<tr>';
 		print '<td>'.$langs->trans("Modules").'</td><td colspan="3">'.join(', ',explode(',',$object->modulesenabled)).'</td>';
