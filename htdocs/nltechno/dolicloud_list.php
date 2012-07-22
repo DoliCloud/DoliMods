@@ -158,7 +158,8 @@ $sql.= " t.date_lastlogin,";
 $sql.= " t.modulesenabled";
 $sql.= " FROM ".MAIN_DB_PREFIX."dolicloud_customers as t";
 //    $sql.= " WHERE field3 = 'xxx'";
-$sql.= " ORDER BY t.instance ASC";
+$sql.= $db->order($sortfield,$sortorder);
+$sql.= $db->plimit($conf->liste_limit +1, $offset);
 
 
 $param='';
@@ -222,7 +223,7 @@ if ($resql)
                 print '</td><td>';
                 print $obj->lastlogin;
                 print '</td><td>';
-                print dol_print_date($obj->datelastlogin,'dayhour');
+                print dol_print_date($obj->date_lastlogin,'dayhour');
                 print '</td></tr>';
             }
             $i++;
