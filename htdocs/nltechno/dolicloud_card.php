@@ -834,8 +834,8 @@ if ($id > 0)
 
 		// Dashboard
 		$url='https://www.on.dolicloud.com/signIn/index?email='.$object->email.'&password='.$object->password_web;	// Note that password may have change and not being the one of dolibarr admin user
+		$link='<a href="'.$url.'" target="_blank">'.$url.'</a>';
 		print 'Dashboard<br>';
-		print '<input type="text" name="sftpconnectstring" value="'.$sftpconnectstring.'" size="100"><br>';
 		print $link.'<br>';
 		print '<br>';
 
