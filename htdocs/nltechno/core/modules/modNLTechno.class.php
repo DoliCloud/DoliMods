@@ -126,7 +126,7 @@ class modNLTechno extends DolibarrModules
 		$this->rights[$r][1] = 'Create/edit DoliCloud data';	// Permission label
 		$this->rights[$r][3] = 0; 					// Permission by default for new user (0/1)
 		$this->rights[$r][4] = 'dolicloud';				// In php code, permission will be checked by test if ($user->rights->permkey->level1->level2)
-		$this->rights[$r][5] = 'create';				// In php code, permission will be checked by test if ($user->rights->permkey->level1->level2)
+		$this->rights[$r][5] = 'write';				// In php code, permission will be checked by test if ($user->rights->permkey->level1->level2)
 		$r++;
 
 		// Main menu entries
@@ -223,7 +223,7 @@ class modNLTechno extends DolibarrModules
 								'langs'=>'',
 								'position'=>200,
                 				'enabled'=>'$conf->nltechno->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
-								'perms'=>'$user->rights->nltechno->dolicloud->create',
+								'perms'=>'$user->rights->nltechno->dolicloud->write',
 								'target'=>'',
 								'user'=>0);
 		$r++;

@@ -223,7 +223,7 @@ if ($resql)
                 print '</td><td>';
                 print $obj->lastlogin;
                 print '</td><td>';
-                print dol_print_date($obj->date_lastlogin,'dayhour');
+                print ($obj->date_lastlogin?dol_print_date($obj->date_lastlogin,'dayhour','tzuser'):'');
                 print '</td></tr>';
             }
             $i++;

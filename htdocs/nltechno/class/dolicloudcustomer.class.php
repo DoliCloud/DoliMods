@@ -154,7 +154,15 @@ class Dolicloudcustomer extends CommonObject
 		$sql.= "lastlogin,";
 		$sql.= "lastpass,";
 		$sql.= "date_lastlogin,";
-		$sql.= "modulesenabled";
+		$sql.= "modulesenabled,";
+		$sql.= "firstname,";
+		$sql.= "lastname,";
+		$sql.= "address,";
+		$sql.= "zip,";
+		$sql.= "town,";
+		$sql.= "country_id,";
+		$sql.= "state_id,";
+		$sql.= "phone";
 
         $sql.= ") VALUES (";
 
@@ -181,7 +189,16 @@ class Dolicloudcustomer extends CommonObject
 		$sql.= " ".(! isset($this->lastlogin) || dol_strlen($this->lastlogin)==0?'NULL':"'".$this->lastlogin."'").",";
 		$sql.= " ".(! isset($this->lastpass) || dol_strlen($this->lastpass)==0?'NULL':"'".$this->lastpass."'").",";
 		$sql.= " ".(! isset($this->date_lastlogin) || dol_strlen($this->date_lastlogin)==0?'NULL':$this->db->idate($this->date_lastlogin)).",";
-		$sql.= " ".(! isset($this->modulesenabled)?'NULL':"'".$this->db->escape($this->modulesenabled)."'")."";
+		$sql.= " ".(! isset($this->modulesenabled)?'NULL':"'".$this->db->escape($this->modulesenabled)."'").",";
+
+		$sql.= " ".(! isset($this->firstname)?'NULL':"'".$this->db->escape($this->firstname)."'").",";
+		$sql.= " ".(! isset($this->lastname)?'NULL':"'".$this->db->escape($this->lastname)."'").",";
+		$sql.= " ".(! isset($this->address)?'NULL':"'".$this->db->escape($this->address)."'").",";
+		$sql.= " ".(! isset($this->zip)?'NULL':"'".$this->db->escape($this->zip)."'").",";
+		$sql.= " ".(! isset($this->town)?'NULL':"'".$this->db->escape($this->town)."'").",";
+		$sql.= " ".(! isset($this->country_id)?'NULL':"'".$this->db->escape($this->country_id)."'").",";
+		$sql.= " ".(! isset($this->state_id)?'NULL':"'".$this->db->escape($this->state_id)."'").",";
+		$sql.= " ".(! isset($this->phone)?'NULL':"'".$this->db->escape($this->phone)."'")."";
 
 		$sql.= ")";
 

@@ -21,7 +21,14 @@
  *       \brief      Card of a contact
  */
 
-require("../main.inc.php");
+$res=0;
+if (! $res && file_exists("../main.inc.php")) $res=@include("../main.inc.php");
+if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.php");
+if (! $res && file_exists("../../../main.inc.php")) $res=@include("../../../main.inc.php");
+if (! $res && file_exists("../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../dolibarr/htdocs/main.inc.php");     // Used on dev env only
+if (! $res && file_exists("../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
+if (! $res && file_exists("../../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
+if (! $res) die("Include of main fails");
 require_once(DOL_DOCUMENT_ROOT."/comm/action/class/actioncomm.class.php");
 require_once(DOL_DOCUMENT_ROOT."/contact/class/contact.class.php");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/company.lib.php");
@@ -46,23 +53,12 @@ $id			= GETPOST('id','int');
 
 $object = new DoliCloudCustomer($db);
 
-// Get object canvas (By default, this is not defined, so standard usage of dolibarr)
-//$object->getCanvas($id);
-$canvas = $object->canvas?$object->canvas:GETPOST("canvas");
-if (! empty($canvas))
-{
-	require_once(DOL_DOCUMENT_ROOT."/core/class/canvas.class.php");
-	$objcanvas = new Canvas($db, $action);
-	$objcanvas->getCanvas('contact', 'contactcard', $canvas);
-}
-
 // Security check
-$result = restrictedArea($user, 'contact', $id, 'socpeople&societe', '', '', '', $objcanvas); // If we create a contact with no company (shared contacts), no check on write permission
+$result = restrictedArea($user, 'nltechno', 0, '','dolicloud');
 
 // Initialize technical object to manage hooks of thirdparties. Note that conf->hooks_modules contains array array
 include_once(DOL_DOCUMENT_ROOT.'/core/class/hookmanager.class.php');
 $hookmanager=new HookManager($db);
-$hookmanager->initHooks(array('contactcard'));
 
 
 /*
@@ -82,7 +78,7 @@ if (empty($reshook))
 	}
 
 	// Add customer
-	if ($action == 'add' && $user->rights->nltechno->dolicloud->create)
+	if ($action == 'add' && $user->rights->nltechno->dolicloud->write)
 	{
 		$db->begin();
 
@@ -101,7 +97,6 @@ if (empty($reshook))
 		$object->email			= $_POST["email"];
 		$object->phone        	= $_POST["phone"];
 		$object->note			= $_POST["note"];
-
 		$object->hostname_web	= $_POST["hostname_web"];
 		$object->username_web	= $_POST["username_web"];
 		$object->password_web	= $_POST["password_web"];
@@ -156,7 +151,7 @@ if (empty($reshook))
 		}
 	}
 
-	if ($action == 'update' && ! $_POST["cancel"] && $user->rights->nltechno->dolicloud>create)
+	if ($action == 'update' && ! $_POST["cancel"] && $user->rights->nltechno->dolicloud->write)
 	{
 		if (empty($_POST["organization"]) || empty($_POST["plan"]) || empty($_POST["email"]))
 		{
@@ -225,9 +220,9 @@ if (empty($reshook))
 				//print $object->instance." ".$object->username_web." ".$object->password_web."<br>\n";
 				if (! @ssh2_auth_password($connection, $object->username_web, $object->password_web))
 					throw new Exception("Could not authenticate with username $username " . "and password $password.");
-	
+
 				$sftp = ssh2_sftp($connection);
-	
+
 				$dir=preg_replace('/_dolibarr$/','',$object->database_db);
 				$file="ssh2.sftp://".$sftp."/home/".$object->username_web.'/'.$dir.'/htdocs/conf/conf.php';
 				//print $file;
@@ -248,7 +243,7 @@ if (empty($reshook))
 		else {
 			$errors[]='ssh2_connect not supported by this PHP';
 		}
-		
+
 
 		// Database connect
 		$newdb=getDoliDBInstance($conf->db->type, $object->instance.'.on.dolicloud.com', $object->username_db, $object->password_db, $object->database_db, 3306);
@@ -283,15 +278,22 @@ if (empty($reshook))
 			$obj = $newdb->fetch_object($resql);
 			$object->nbofusers	= $obj->nbofusers;
 
+			$deltatzserver=(getServerTimeZoneInt()-0)*3600;	// Diff between TZ of NLTechno and DoliCloud
+
 			$sql="SELECT login, pass, datelastlogin FROM llx_user WHERE statut <> 0 ORDER BY datelastlogin DESC LIMIT 1";
 			$resql=$newdb->query($sql);
-			$obj = $newdb->fetch_object($resql);
+			if ($resql)
+			{
+				$obj = $newdb->fetch_object($resql);
 
-			$deltatzserver=(getServerTimeZoneInt()-0)*3600;
-			$object->lastlogin  = $obj->login;
-			$object->lastpass   = $obj->pass;
-			$object->date_lastlogin = $newdb->jdate($obj->datelastlogin)+$deltatzserver;
-
+				$object->lastlogin  = $obj->login;
+				$object->lastpass   = $obj->pass;
+				$object->date_lastlogin = ($obj->datelastlogin ? ($newdb->jdate($obj->datelastlogin)+$deltatzserver) : 0);
+			}
+			else
+			{
+				$errors[]='Failed to connect to database '.$object->instance.'.on.dolicloud.com'.' '.$object->username_db;
+			}
 			$newdb->close();
 
 			$result = $object->update($user);
@@ -336,24 +338,6 @@ if ($id > 0)
 	$object->fetch($id);
 }
 
-if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action))
-{
-	// -----------------------------------------
-	// When used with CANVAS
-	// -----------------------------------------
-	if (empty($object->error) && $id)
-	{
-		$object = new Contact($db);
-		$object->fetch($id);
-	}
-	$objcanvas->assign_values($action, $id);	// Set value for templates
-	$objcanvas->display_canvas($action);		// Show template
-}
-else
-{
-	// -----------------------------------------
-	// When used in standard mode
-	// -----------------------------------------
 
 	// Confirm deleting contact
 	if ($user->rights->nltechno->dolicloud->delete)
@@ -367,7 +351,7 @@ else
 
 	/*
 	 * Onglets
-	*/
+ 	 */
 	if ($id > 0)
 	{
 		// Si edition contact deja existant
@@ -386,7 +370,7 @@ else
 		dol_fiche_head($head, 'card', $title, 0, 'contact');
 	}
 
-	if ($user->rights->nltechno->dolicloud->create)
+	if ($user->rights->nltechno->dolicloud->write)
 	{
 		if ($action == 'create')
 		{
@@ -441,7 +425,7 @@ else
 			print '<tr><td width="20%" class="fieldrequired">'.$langs->trans("Organization").'/'.$langs->trans("Company").'</td><td colspan="3"><input name="organization" type="text" size="30" maxlength="80" value="'.(isset($_POST["organization"])?$_POST["organization"]:$object->organization).'"></td></tr>';
 
 			// EMail
-			print '<tr><td class="fieldrequired">'.$langs->trans("Email").'</td><td colspan="3"><input name="email" type="text" size="50" maxlength="80" value="'.(isset($_POST["email"])?$_POST["email"]:$object->email).'"></td></tr>';
+			print '<tr><td class="fieldrequired">'.$langs->trans("Email").'</td><td colspan="3"><input name="email" type="email" size="50" maxlength="80" value="'.(isset($_POST["email"])?$_POST["email"]:$object->email).'"></td></tr>';
 
 			// Plan
 			print '<tr><td class="fieldrequired">'.$langs->trans("Plan").'</td><td colspan="3"><input name="plan" type="text" size="50" maxlength="80" value="'.(isset($_POST["plan"])?$_POST["plan"]:($object->plan?$object->plan:'Basic')).'"></td></tr>';
@@ -562,7 +546,7 @@ else
 				})';
 				print '</script>'."\n";
 			}
-			
+
 			if ($conf->use_javascript_ajax)
 			{
 				print '<script type="text/javascript" language="javascript">';
@@ -701,9 +685,7 @@ else
 
 		// Instance / Organization
 		print '<tr><td width="20%">'.$langs->trans("Instance").'</td><td colspan="3">';
-		$url='https://'.$object->instance.'.on.dolicloud.com?username='.$lastloginadmin.'&password='.$lastpassadmin;
-		$link=' (<a href="'.$url.'" target="_blank">'.$url.'</a>)';
-		print $form->showrefnav($object,'instance','',1,'instance','instance',$link);
+		print $form->showrefnav($object,'instance','',1,'instance','instance','');
 		print '</td></tr>';
 		print '<tr><td>'.$langs->trans("Organization").'</td><td colspan="3">';
 		print $object->organization;
@@ -764,8 +746,8 @@ else
 		print '</tr>';
 		// Login/Pass
 		print '<tr>';
-		print '<td>'.$langs->trans("SFTPLogin").'</td><td>'.$object->username_web.'</td>';
-		print '<td>'.$langs->trans("Password").'</td><td>'.$object->password_web.'</td>';
+		print '<td width="20%">'.$langs->trans("SFTPLogin").'</td><td width="30%">'.$object->username_web.'</td>';
+		print '<td width="20%">'.$langs->trans("Password").'</td><td width="30%">'.$object->password_web.'</td>';
 		print '</tr>';
 
 		// Database
@@ -784,7 +766,7 @@ else
 
 		print $langs->trans("DateLastCheck").': '.($object->lastcheck?dol_print_date($object->lastcheck,'dayhour','tzuser'):$langs->trans("Never"));
 
-		if (! $object->user_id && $user->rights->nltechno->dolicloud->create)
+		if (! $object->user_id && $user->rights->nltechno->dolicloud->write)
 		{
 			print ' <a href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&amp;action=refresh">'.img_picto($langs->trans("Refresh"),'refresh').'</a>';
 		}
@@ -799,14 +781,14 @@ else
 		print '</tr>';
 
 		// Dates
-		print '<tr><td>'.$langs->trans("DateRegistration").'</td><td>'.dol_print_date($object->date_registration,'dayhour').'</td>';
-		print '<td>'.$langs->trans("DateEndFreePeriod").'</td><td>'.dol_print_date($object->date_endfreeperiod,'dayhour').'</td>';
+		print '<tr><td width="20%">'.$langs->trans("DateRegistration").'</td><td width="30%">'.dol_print_date($object->date_registration,'dayhour').'</td>';
+		print '<td width="20%">'.$langs->trans("DateEndFreePeriod").'</td><td width="30%">'.dol_print_date($object->date_endfreeperiod,'dayhour').'</td>';
 		print '</tr>';
 
 		// Lastlogin
 		print '<tr>';
 		print '<td>'.$langs->trans("LastLogin").' / '.$langs->trans("Password").'</td><td>'.$object->lastlogin.' / '.$object->lastpass.'</td>';
-		print '<td>'.$langs->trans("DateLastLogin").'</td><td>'.dol_print_date($object->date_lastlogin,'dayhour','tzuser').'</td>';
+		print '<td>'.$langs->trans("DateLastLogin").'</td><td>'.($object->date_lastlogin?dol_print_date($object->date_lastlogin,'dayhour','tzuser'):'').'</td>';
 		print '</tr>';
 		print '<tr>';
 		print '<td>'.$langs->trans("Modules").'</td><td colspan="3">'.join(', ',explode(',',$object->modulesenabled)).'</td>';
@@ -821,12 +803,12 @@ else
 		{
 			print '<div class="tabsAction">';
 
-			if ($user->rights->nltechno->dolicloud->create)
+			if ($user->rights->nltechno->dolicloud->write)
 			{
 				print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&amp;action=edit">'.$langs->trans('Modify').'</a>';
 			}
 
-			if ($user->rights->nltechno->dolicloud->create)
+			if ($user->rights->nltechno->dolicloud->write)
 			{
 				print '<a class="butActionDelete" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&amp;action=delete">'.$langs->trans('Delete').'</a>';
 			}
@@ -842,17 +824,33 @@ else
 		print show_actions_done($conf,$langs,$db,'',$object);
 		*/
 
-		$sftpconnectstring='sftp://'.$object->username_web.':'.$object->password_web.'@'.$object->hostname_web;
+		// Dolibarr instance login
+		$url='https://'.$object->instance.'.on.dolicloud.com?username='.$lastloginadmin.'&password='.$lastpassadmin;
+		$link='<a href="'.$url.'" target="_blank">'.$url.'</a>';
+		print 'Dolibarr link<br>';
+		//print '<input type="text" name="dashboardconnectstring" value="'.dashboardconnectstring.'" size="100"><br>';
+		print $link.'<br>';
+		print '<br>';
+
+		// Dashboard
+		$url='https://www.on.dolicloud.com/signIn/index?email='.$object->email.'&password='.$object->password_web;	// Note that password may have change and not being the one of dolibarr admin user
+		print 'Dashboard<br>';
+		print '<input type="text" name="sftpconnectstring" value="'.$sftpconnectstring.'" size="100"><br>';
+		print $link.'<br>';
+		print '<br>';
+
+		// SFTP
+		$sftpconnectstring=$object->username_web.':'.$object->password_web.'@'.$object->hostname_web.'/home/'.$object->username_web.'/'.preg_replace('/_dolibarr$/','',$object->database_db);
 		print 'SFTP connect string<br>';
 		print '<input type="text" name="sftpconnectstring" value="'.$sftpconnectstring.'" size="100"><br>';
 		print '<br>';
 
+		// MySQL
 		$mysqlconnectstring='mysql -A -u '.$object->username_db.' -p\''.$object->password_db.'\' -h '.$object->hostname_db.' -D '.$object->database_db;
 		print 'Mysql connect string<br>';
 		print '<input type="text" name="sftpconnectstring" value="'.$mysqlconnectstring.'" size="100"><br>';
 
 	}
-}
 
 
 llxFooter();
