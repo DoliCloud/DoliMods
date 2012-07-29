@@ -825,7 +825,7 @@ if ($id > 0)
 		*/
 
 		// Dolibarr instance login
-		$url='https://'.$object->instance.'.on.dolicloud.com?username='.$lastloginadmin.'&password='.$lastpassadmin;
+		$url='https://'.$object->instance.'.on.dolicloud.com?username='.$lastloginadmin.'&amp;password='.$lastpassadmin;
 		$link='<a href="'.$url.'" target="_blank">'.$url.'</a>';
 		print 'Dolibarr link<br>';
 		//print '<input type="text" name="dashboardconnectstring" value="'.dashboardconnectstring.'" size="100"><br>';
@@ -833,7 +833,7 @@ if ($id > 0)
 		print '<br>';
 
 		// Dashboard
-		$url='https://www.on.dolicloud.com/signIn/index?email='.$object->email.'&password='.$object->password_web;	// Note that password may have change and not being the one of dolibarr admin user
+		$url='https://www.on.dolicloud.com/signIn/index?email='.$object->email.'&amp;password='.$object->password_web;	// Note that password may have change and not being the one of dolibarr admin user
 		$link='<a href="'.$url.'" target="_blank">'.$url.'</a>';
 		print 'Dashboard<br>';
 		print $link.'<br>';
