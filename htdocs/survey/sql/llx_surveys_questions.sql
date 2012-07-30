@@ -25,4 +25,4 @@ CREATE TABLE llx_surveys_questions (
   lib_rep2          varchar(100) default NULL,
   lib_rep3          varchar(100) default NULL,
   lib_rep4          varchar(100) default NULL
-)type=innodb;
+)ENGINE=innodb;

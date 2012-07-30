@@ -24,4 +24,4 @@ CREATE TABLE llx_surveys_answers (
   rep2              decimal(6,0) default NULL,
   rep3              decimal(6,0) default NULL,
   rep4              decimal(6,0) default NULL
-)type=innodb;
+)ENGINE=innodb;
