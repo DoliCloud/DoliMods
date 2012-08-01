@@ -29,13 +29,14 @@ class InterfaceCMCICWorkflow
 {
     var $db;
 
-    /**
-     *   Constructor
-     *   @param      DB      Database handler
+	/**
+     *	Constructor
+     *
+     * 	@param	DoliDB	$db		Database handler
      */
-    function InterfaceCMCICWorkflow($DB)
+	function __construct($db)
     {
-        $this->db = $DB;
+        $this->db = $db;
 
         $this->name = preg_replace('/^Interface/i','',get_class($this));
         $this->family = "cmcic";
@@ -46,8 +47,9 @@ class InterfaceCMCICWorkflow
 
 
     /**
-     *   \brief      Renvoi nom du lot de triggers
-     *   \return     string      Nom du lot de triggers
+     *  Renvoi nom du lot de triggers
+     *
+     *  @return     string      Nom du lot de triggers
      */
     function getName()
     {
@@ -55,8 +57,9 @@ class InterfaceCMCICWorkflow
     }
 
     /**
-     *   \brief      Renvoi descriptif du lot de triggers
-     *   \return     string      Descriptif du lot de triggers
+     *  Renvoi descriptif du lot de triggers
+     *
+     *  @return     string      Descriptif du lot de triggers
      */
     function getDesc()
     {
@@ -64,8 +67,9 @@ class InterfaceCMCICWorkflow
     }
 
     /**
-     *   \brief      Renvoi version du lot de triggers
-     *   \return     string      Version du lot de triggers
+     *  Renvoi version du lot de triggers
+     *
+     *  @return     string      Version du lot de triggers
      */
     function getVersion()
     {
@@ -80,14 +84,15 @@ class InterfaceCMCICWorkflow
     }
 
     /**
-     *      \brief      Fonction appelee lors du declenchement d'un evenement Dolibarr.
-     *                  D'autres fonctions run_trigger peuvent etre presentes dans includes/triggers
-     *      \param      action      Code de l'evenement
-     *      \param      object      Objet concerne
-     *      \param      user        Objet user
-     *      \param      lang        Objet lang
-     *      \param      conf        Objet conf
-     *      \return     int         <0 if fatal error, 0 si nothing done, >0 if ok
+     *  Fonction appelee lors du declenchement d'un evenement Dolibarr.
+     *  D'autres fonctions run_trigger peuvent etre presentes dans includes/triggers
+     *
+     *  @param	string		$action     Code de l'evenement
+     *  @param  Object		$object     Objet concerne
+     *  @param  User		$user       Objet user
+     *  @param  Translate	$langs      Objet langs
+     *  @param  Conf		$conf       Objet conf
+     *  @return int         			<0 if fatal error, 0 si nothing done, >0 if ok
      */
 	function run_trigger($action, $object, $user, $langs, $conf)
     {

@@ -56,23 +56,24 @@ class FilemanagerRoots // extends CommonObject
 
 
 
-    /**
-	 *	Constructor
-	 *
-	 *  @param		DoliDB		$DB      Database handler
+	/**
+     *	Constructor
+     *
+     * 	@param	DoliDB	$db		Database handler
      */
-    function FilemanagerRoots($DB)
-    {
-        $this->db = $DB;
+	function __construct($db)
+	{
+        $this->db = $db;
         return 1;
     }
 
 
     /**
-     *      \brief      Create in database
-     *      \param      user        	User that create
-     *      \param      notrigger	    0=launch triggers after, 1=disable triggers
-     *      \return     int         	<0 if KO, Id of created object if OK
+     *   Create in database
+     *
+     *   @param      user        	User that create
+     *   @param      notrigger	    0=launch triggers after, 1=disable triggers
+     *   @return     int         	<0 if KO, Id of created object if OK
      */
     function create($user, $notrigger=0)
     {
@@ -159,9 +160,10 @@ class FilemanagerRoots // extends CommonObject
 
 
     /**
-     *    \brief      Load object in memory from database
-     *    \param      id          id object
-     *    \return     int         <0 if KO, >0 if OK
+     *  Load object in memory from database
+     *
+     *  @param      id          id object
+     *  @return     int         <0 if KO, >0 if OK
      */
     function fetch($id)
     {
@@ -213,10 +215,11 @@ class FilemanagerRoots // extends CommonObject
 
 
     /**
-     *      \brief      Update database
-     *      \param      user        	User that modify
-     *      \param      notrigger	    0=launch triggers after, 1=disable triggers
-     *      \return     int         	<0 if KO, >0 if OK
+     *   Update database
+     *
+     *   @param      user        	User that modify
+     *   @param      notrigger	    0=launch triggers after, 1=disable triggers
+     *   @return     int         	<0 if KO, >0 if OK
      */
     function update($user=0, $notrigger=0)
     {
@@ -291,10 +294,11 @@ class FilemanagerRoots // extends CommonObject
 
 
  	/**
-	 *   \brief      Delete object in database
-     *	\param      user        	User that delete
-     *   \param      notrigger	    0=launch triggers after, 1=disable triggers
-	 *	\return		int				<0 if KO, >0 if OK
+	 *  Delete object in database
+	 *
+     *	@param      user        	User that delete
+     *  @param      notrigger	    0=launch triggers after, 1=disable triggers
+	 *	@return		int				<0 if KO, >0 if OK
 	 */
 	function delete($user, $notrigger=0)
 	{
@@ -347,9 +351,10 @@ class FilemanagerRoots // extends CommonObject
 
 
 	/**
-	 *		\brief      Load an object from its id and create a new one in database
-	 *		\param      fromid     		Id of object to clone
-	 * 	 	\return		int				New id of clone
+	 *	Load an object from its id and create a new one in database
+	 *
+	 *	@param      fromid     		Id of object to clone
+	 * 	@return		int				New id of clone
 	 */
 	function createFromClone($fromid)
 	{
@@ -401,8 +406,10 @@ class FilemanagerRoots // extends CommonObject
 
 
 	/**
-	 *		\brief		Initialise object with example values
-	 *		\remarks	id must be 0 if object instance is a specimen.
+	 *	Initialise object with example values
+	 *	id must be 0 if object instance is a specimen.
+	 *
+	 *	@return	void
 	 */
 	function initAsSpecimen()
 	{

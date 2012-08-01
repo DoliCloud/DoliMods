@@ -48,14 +48,14 @@ class OvhSms  extends CommonObject
 
 
 	/**
-	 *	Constructor
-	 *
-	 *  @param		DoliDB		$DB      Database handler
-	 */
-	function OvhSms($DB)
+     *	Constructor
+     *
+     * 	@param	DoliDB	$db		Database handler
+     */
+	function __construct($db)
 	{
 		global $conf, $langs;
-		$this->db = $DB;
+		$this->db = $db;
 
 		// Réglages par défaut
 		$this->validity = 24*60;  // 24 hours. the maximum time -in minute(s)- before the message is dropped, defaut is 48 hours

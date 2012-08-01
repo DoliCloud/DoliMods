@@ -69,14 +69,14 @@ class CabinetmedCons extends CommonObject
 	var $bank;
 
 
-	/**
-	 *	Constructor
-	 *
-	 *  @param		DoliDB		$DB      Database handler
-	 */
-	function CabinetmedCons($DB)
+    /**
+     *	Constructor
+     *
+     *  @param	DoliDB	$db		Database handler
+     */
+	function __construct($db)
 	{
-		$this->db = $DB;
+		$this->db = $db;
 		return 1;
 	}
 
@@ -339,6 +339,7 @@ class CabinetmedCons extends CommonObject
 
 	/**
 	 *      Update database
+	 *
 	 *      @param      user        	User that modify
 	 *      @param      notrigger	    0=launch triggers after, 1=disable triggers
 	 *      @return     int         	<0 if KO, >0 if OK
@@ -443,6 +444,7 @@ class CabinetmedCons extends CommonObject
 
 	/**
 	 *   Delete object in database
+	 *
 	 *	 @param      user        	User that delete
 	 *   @param      notrigger	    0=launch triggers after, 1=disable triggers
 	 *	 @return	 int			<0 if KO, >0 if OK
@@ -530,9 +532,10 @@ class CabinetmedCons extends CommonObject
 
 
 	/**
-	 *		\brief      Load an object from its id and create a new one in database
-	 *		\param      fromid     		Id of object to clone
-	 * 	 	\return		int				New id of clone
+	 *	Load an object from its id and create a new one in database
+	 *
+	 *	@param      fromid     		Id of object to clone
+	 * 	@return		int				New id of clone
 	 */
 	function createFromClone($fromid)
 	{
@@ -584,8 +587,8 @@ class CabinetmedCons extends CommonObject
 
 
 	/**
-	 *		\brief		Initialise object with example values
-	 *		\remarks	id must be 0 if object instance is a specimen.
+	 *	Initialise object with example values
+	 *	id must be 0 if object instance is a specimen.
 	 */
 	function initAsSpecimen()
 	{
@@ -617,6 +620,7 @@ class CabinetmedCons extends CommonObject
 
     /**
      *      Return a link on thirdparty (with picto)
+     *
      *      @param      withpicto       Inclut le picto dans le lien (0=No picto, 1=Inclut le picto dans le lien, 2=Picto seul)
      *      @param      more            Add more param on url
      *      @return     string          String with URL

@@ -57,21 +57,21 @@ class CabinetmedExamOther // extends CommonObject
 
 
 
-
     /**
-	 *	Constructor
-	 *
-	 *  @param		DoliDB		$DB      Database handler
+     *	Constructor
+     *
+     *  @param	DoliDB	$db		Database handler
      */
-    function CabinetmedExamOther($DB)
+	function __construct($db)
     {
-        $this->db = $DB;
+        $this->db = $db;
         return 1;
     }
 
 
     /**
      *      Create object into database
+     *
      *      @param      user        	User that create
      *      @param      notrigger	    0=launch triggers after, 1=disable triggers
      *      @return     int         	<0 if KO, Id of created object if OK
@@ -155,6 +155,7 @@ class CabinetmedExamOther // extends CommonObject
 
     /**
      *    Load object in memory from database
+     *
      *    @param      id          id object
      *    @return     int         <0 if KO, >0 if OK
      */
@@ -211,6 +212,7 @@ class CabinetmedExamOther // extends CommonObject
 
     /**
      *      Update object into database
+     *
      *      @param      user        	User that modify
      *      @param      notrigger	    0=launch triggers after, 1=disable triggers
      *      @return     int         	<0 if KO, >0 if OK
@@ -290,6 +292,7 @@ class CabinetmedExamOther // extends CommonObject
 
  	/**
 	 *   Delete object in database
+	 *
      *	 @param     user        	User that delete
      *   @param     notrigger	    0=launch triggers after, 1=disable triggers
 	 *   @return	int				<0 if KO, >0 if OK
@@ -346,6 +349,7 @@ class CabinetmedExamOther // extends CommonObject
 
 	/**
 	 *		Load an object from its id and create a new one in database
+	 *
 	 *		@param      fromid     		Id of object to clone
 	 * 	 	@return		int				New id of clone
 	 */

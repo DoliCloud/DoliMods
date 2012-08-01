@@ -38,14 +38,14 @@ class FormFileCabinetmed
 	var $numoffiles;
 
 
-	/**
-	 *	Constructor
-	 *
-	 *  @param		DoliDB		$DB      Database handler
-	 */
-	function FormFileCabinetmed($DB)
+    /**
+     *	Constructor
+     *
+     *  @param	DoliDB	$db		Database handler
+     */
+	function __construct($db)
 	{
-		$this->db = $DB;
+		$this->db = $db;
 
 		$this->numoffiles=0;
 
@@ -55,6 +55,7 @@ class FormFileCabinetmed
 
     /**
      *      Show list of documents in a directory
+     *
      *      @param      filearray           Array of files loaded by dol_dir_list('files') function before calling this
      *      @param      object              Object on which document is linked to
      *      @param      modulepart          Value for modulepart used by download or viewimage wrapper

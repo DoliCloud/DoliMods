@@ -5,6 +5,7 @@
      Módulo que permite obtener los mejores 10 clientes, producto y facturas del mes año y un rango de fechas
 	 Fichero topten.class.php
  */
+
 class TOPTEN
 {
 	var $db;							//!< To store db handler
@@ -15,14 +16,15 @@ class TOPTEN
 
    var $maximo;
 
-	 /**
-     *      \brief      Constructor
-     *      \param      DB      Database handler
+	/**
+     *	Constructor
+     *
+     * 	@param	DoliDB	$db		Database handler
+     * 	@param	int		$max	Max number
      */
-    function TOPTEN($DB,$max=10)
+	function __construct($db,$max=10)
     {
-
-        $this->db = $DB;
+        $this->db = $db;
 		$this->maximo=$max;
         return 1;
     }
@@ -407,6 +409,5 @@ class TOPTEN
         $select_month .= '</select>';
         return $select_month;
     }
-
 }
 ?>

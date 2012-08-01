@@ -25,20 +25,24 @@ class mailing_mailinglist_chiensderace extends MailingTargets
 	var $picto='';
 	var $db;
 
-
-	// CHANGE THIS: Constructor name must be called mailing_xxx with xxx=name of your selector
-	function mailing_mailinglist_chiensderace($DB)
+	/**
+     *	Constructor
+     *
+     * 	@param	DoliDB	$db		Database handler
+     */
+	function __construct($db)
 	{
-		$this->db=$DB;
+		$this->db=$db;
 	}
 
 
 	/**
-	*    \brief      This is the main function that returns the array of emails
-	*    \param      mailing_id    Id of mailing. No need to use it.
-	*    \param      filterarray   If you used the formFilter function. Empty otherwise.
-	*    \return     int           <0 if error, number of emails added if ok
-	*/
+	 *  This is the main function that returns the array of emails
+	 *
+	 *  @param      mailing_id    Id of mailing. No need to use it.
+	 *  @param      filterarray   If you used the formFilter function. Empty otherwise.
+	 *  @return     int           <0 if error, number of emails added if ok
+	 */
 	function add_to_target($mailing_id,$filtersarray=array())
 	{
 		$target = array();

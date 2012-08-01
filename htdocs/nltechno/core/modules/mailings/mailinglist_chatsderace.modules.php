@@ -26,10 +26,14 @@ class mailing_mailinglist_chatsderace extends MailingTargets
 	var $db;
 
 
-	// CHANGE THIS: Constructor name must be called mailing_xxx with xxx=name of your selector
-	function mailing_mailinglist_chatsderace($DB)
+	/**
+     *	Constructor
+     *
+     * 	@param	DoliDB	$db		Database handler
+     */
+	function __construct($db)
 	{
-		$this->db=$DB;
+		$this->db=$db;
 	}
 
 

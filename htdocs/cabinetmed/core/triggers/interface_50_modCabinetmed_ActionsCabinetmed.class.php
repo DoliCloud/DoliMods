@@ -40,12 +40,13 @@ class InterfaceActionsCabinetmed
     var $desc;
 
     /**
-     *   Constructor.
-     *   @param      DB      Database handler
+     *	Constructor
+     *
+     *  @param	DoliDB	$db		Database handler
      */
-    function InterfaceActionsCabinetmed($DB)
+	function __construct($db)
     {
-        $this->db = $DB ;
+        $this->db = $db;
 
         $this->name = preg_replace('/^Interface/i','',get_class($this));
         $this->family = "cabinetmed";
@@ -56,6 +57,7 @@ class InterfaceActionsCabinetmed
 
     /**
      *   Return name of trigger file
+     *
      *   @return     string      Name of trigger file
      */
     function getName()
@@ -65,6 +67,7 @@ class InterfaceActionsCabinetmed
 
     /**
      *   Return description of trigger file
+     *
      *   @return     string      Description of trigger file
      */
     function getDesc()
@@ -74,6 +77,7 @@ class InterfaceActionsCabinetmed
 
     /**
      *   Return version of trigger file
+     *
      *   @return     string      Version of trigger file
      */
     function getVersion()
@@ -90,7 +94,6 @@ class InterfaceActionsCabinetmed
     /**
      *      Function called when a Dolibarrr business event is done.
      *      All functions "run_trigger" are triggered if file is inside directory htdocs/core/triggers
-     *
      *      Following properties must be filled:
      *      $object->actiontypecode (translation action code: AC_OTH, ...)
      *      $object->actionmsg (note, long text)
@@ -101,12 +104,12 @@ class InterfaceActionsCabinetmed
      *      $object->fk_element
      *      $object->elementtype
      *
-     *      @param      action      Event code (COMPANY_CREATE, PROPAL_VALIDATE, ...)
-     *      @param      object      Object action is done on
-     *      @param      user        Object user
-     *      @param      langs       Object langs
-     *      @param      conf        Object conf
-     *      @return     int         <0 if KO, 0 if no action are done, >0 if OK
+     *      @param	string	$action     Event code (COMPANY_CREATE, PROPAL_VALIDATE, ...)
+     *      @param  Object	$object     Object action is done on
+     *      @param  User	$user       Object user
+     *      @param  Langs	$langs      Object langs
+     *      @param  Conf	$conf       Object conf
+     *      @return int         		<0 if KO, 0 if no action are done, >0 if OK
      */
     function run_trigger($action,$object,$user,$langs,$conf)
     {

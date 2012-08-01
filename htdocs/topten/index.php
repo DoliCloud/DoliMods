@@ -1,11 +1,18 @@
 <?php
-/*   Copyright (C) 2012 Alexis José Turruella Sánchez
- Desarrollado en el mes de enero de 2012
-Correo electrónico: alexturruella@gmail.com
-Módulo que permite obtener los mejores 10 clientes, producto y facturas del mes año y un rango de fechas
-Fichero index.php
+/* Copyright (C) 2012 Alexis José Turruella Sánchez
+ * Desarrollado en el mes de enero de 2012
+ * Correo electrónico: alexturruella@gmail.com
+ * Módulo que permite obtener los mejores 10 clientes, producto y facturas del mes año y un rango de fechas
+ * Fichero index.php
 */
-require("../main.inc.php");
+
+$res=0;
+if (! $res && file_exists("../main.inc.php")) $res=@include("../main.inc.php");
+if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.php");
+if (! $res && file_exists("../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../dolibarr/htdocs/main.inc.php");     // Used on dev env only
+if (! $res && file_exists("../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
+if (! $res && file_exists("../../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
+if (! $res) die("Include of main fails");
 require_once(DOL_DOCUMENT_ROOT."/core/class/html.formfile.class.php");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/company.lib.php");
 require_once(DOL_DOCUMENT_ROOT.'/product/class/product.class.php');
@@ -75,7 +82,7 @@ if($conf->topten->enabled)
     print $langs->trans("TTTOTALGASTADO");
     print '</td>';
     print '</tr>';
-    for($i=0;$i<sizeof($mejorclientedinero);$i++)
+    for($i=0; $i<count($mejorclientedinero); $i++)
     {
         $var=!$var;
         print "<tr $bc[$var]>";
@@ -115,7 +122,7 @@ if($conf->topten->enabled)
     print '</td>';
     print '</tr>';
 
-    for($i=0;$i<sizeof($mejorclientefactura);$i++)
+    for($i=0;$i<count($mejorclientefactura);$i++)
     {
         $var=!$var;
         print "<tr $bc[$var]>";
@@ -152,7 +159,7 @@ if($conf->topten->enabled)
     print '</td>';
     print '</tr>';
 
-    for($i=0;$i<sizeof($mejorproductodinero);$i++)
+    for($i=0;$i<count($mejorproductodinero);$i++)
     {
         $var=!$var;
         print "<tr $bc[$var]>";
@@ -191,7 +198,7 @@ if($conf->topten->enabled)
     print '</td>';
     print '</tr>';
 
-    for($i=0;$i<sizeof($mejorproductocantidad);$i++)
+    for($i=0;$i<count($mejorproductocantidad);$i++)
     {
         $var=!$var;
         print "<tr $bc[$var]>";
@@ -229,7 +236,7 @@ if($conf->topten->enabled)
     print '</td>';
     print '</tr>';
 
-    for($i=0;$i<sizeof($mejorfacturadinero);$i++)
+    for($i=0;$i<count($mejorfacturadinero);$i++)
     {
         $var=!$var;
         print "<tr $bc[$var]>";
@@ -266,7 +273,7 @@ if($conf->topten->enabled)
     print '</td>';
     print '</tr>';
 
-    for($i=0;$i<sizeof($mejorfacturaproductos);$i++)
+    for($i=0;$i<count($mejorfacturaproductos);$i++)
     {
         $var=!$var;
         print "<tr $bc[$var]>";
