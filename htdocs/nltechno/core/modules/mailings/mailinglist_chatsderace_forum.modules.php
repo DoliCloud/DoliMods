@@ -11,7 +11,9 @@
 include_once DOL_DOCUMENT_ROOT.'/core/modules/mailings/modules_mailings.php';
 
 
-// CHANGE THIS: Class name must be called mailing_xxx with xxx=name of your selector
+/**
+ *	mailing_mailinglist_chatsderace_forum
+ */
 class mailing_mailinglist_chatsderace_forum extends MailingTargets
 {
 	// CHANGE THIS: Put here a name not already used
@@ -38,11 +40,12 @@ class mailing_mailinglist_chatsderace_forum extends MailingTargets
 
 
 	/**
-	*    \brief      This is the main function that returns the array of emails
-	*    \param      mailing_id    Id of mailing. No need to use it.
-	*    \param      filterarray   If you used the formFilter function. Empty otherwise.
-	*    \return     int           <0 if error, number of emails added if ok
-	*/
+	 *  This is the main function that returns the array of emails
+	 *
+	 *  @param	int		$mailing_id    	Id of mailing. No need to use it.
+	 *  @param  array	$filtersarray  	If you used the formFilter function. Empty otherwise.
+	 *  @return int           			<0 if error, number of emails added if ok
+	 */
 	function add_to_target($mailing_id,$filtersarray=array())
 	{
 		$target = array();
@@ -118,12 +121,13 @@ class mailing_mailinglist_chatsderace_forum extends MailingTargets
 
 
 	/**
-	*		\brief		On the main mailing area, there is a box with statistics.
-	*					If you want to add a line in this report you must provide an
-	*					array of SQL request that returns two field:
-	*					One called "label", One called "nb".
-	*		\return		array
-	*/
+	 *	On the main mailing area, there is a box with statistics.
+	 *	If you want to add a line in this report you must provide an
+	 *	array of SQL request that returns two field:
+	 *	One called "label", One called "nb".
+	 *
+	 *	@return		array
+	 */
 	function getSqlArrayForStats()
 	{
 		// CHANGE THIS: Optionnal
@@ -136,11 +140,14 @@ class mailing_mailinglist_chatsderace_forum extends MailingTargets
 
 
 	/**
-	*		\brief		Return here number of distinct emails returned by your selector.
-	*					For example if this selector is used to extract 500 different
-	*					emails from a text file, this function must return 500.
-	*		\return		int
-	*/
+	 *	Return here number of distinct emails returned by your selector.
+	 *	For example if this selector is used to extract 500 different
+	 *	emails from a text file, this function must return 500.
+	 *
+	 *	@param	string	$filter		Filter
+	 *	@param	string	$option		Options
+	 *	@return	int					Nb of recipients
+	 */
 	function getNbOfRecipients($filter=0,$option='')
 	{
 		// CHANGE THIS: Optionnal
@@ -161,10 +168,11 @@ class mailing_mailinglist_chatsderace_forum extends MailingTargets
 	}
 
 	/**
-	*      \brief      This is to add a form filter to provide variant of selector
-	*					If used, the HTML select must be called "filter"
-	*      \return     string      A html select zone
-	*/
+	 *  This is to add a form filter to provide variant of selector
+	 *	If used, the HTML select must be called "filter"
+	 *
+	 *  @return     string      A html select zone
+	 */
 	function formFilter()
 	{
 		// CHANGE THIS: Optionnal
@@ -180,10 +188,12 @@ class mailing_mailinglist_chatsderace_forum extends MailingTargets
 
 
 	/**
-	*      \brief      Can include an URL link on each record provided by selector
-	*					shown on target page.
-	*      \return     string      Url link
-	*/
+	 *  Can include an URL link on each record provided by selector
+	 *	shown on target page.
+	 *
+	 *  @param	int		$id		Id
+	 *  @return string      	Url link
+	 */
 	function url($id)
 	{
 		// CHANGE THIS: Optionnal

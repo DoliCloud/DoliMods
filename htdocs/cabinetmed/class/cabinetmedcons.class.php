@@ -340,9 +340,9 @@ class CabinetmedCons extends CommonObject
 	/**
 	 *      Update database
 	 *
-	 *      @param      user        	User that modify
-	 *      @param      notrigger	    0=launch triggers after, 1=disable triggers
-	 *      @return     int         	<0 if KO, >0 if OK
+	 *      @param	User	$user        	User that modify
+	 *      @param  int		$notrigger	    0=launch triggers after, 1=disable triggers
+	 *      @return int         			<0 if KO, >0 if OK
 	 */
 	function update($user=0, $notrigger=0)
 	{
@@ -445,9 +445,9 @@ class CabinetmedCons extends CommonObject
 	/**
 	 *   Delete object in database
 	 *
-	 *	 @param      user        	User that delete
-	 *   @param      notrigger	    0=launch triggers after, 1=disable triggers
-	 *	 @return	 int			<0 if KO, >0 if OK
+	 *	 @param      User	$user        	User that delete
+	 *   @param      int	$notrigger	    0=launch triggers after, 1=disable triggers
+	 *	 @return	 int					<0 if KO, >0 if OK
 	 */
 	function delete($user, $notrigger=0)
 	{
@@ -534,8 +534,8 @@ class CabinetmedCons extends CommonObject
 	/**
 	 *	Load an object from its id and create a new one in database
 	 *
-	 *	@param      fromid     		Id of object to clone
-	 * 	@return		int				New id of clone
+	 *	@param		int		$fromid     	Id of object to clone
+	 * 	@return		int						New id of clone
 	 */
 	function createFromClone($fromid)
 	{
@@ -589,6 +589,8 @@ class CabinetmedCons extends CommonObject
 	/**
 	 *	Initialise object with example values
 	 *	id must be 0 if object instance is a specimen.
+	 *
+	 *	 @return	void
 	 */
 	function initAsSpecimen()
 	{
@@ -621,9 +623,9 @@ class CabinetmedCons extends CommonObject
     /**
      *      Return a link on thirdparty (with picto)
      *
-     *      @param      withpicto       Inclut le picto dans le lien (0=No picto, 1=Inclut le picto dans le lien, 2=Picto seul)
-     *      @param      more            Add more param on url
-     *      @return     string          String with URL
+     *      @param	int		$withpicto      Inclut le picto dans le lien (0=No picto, 1=Inclut le picto dans le lien, 2=Picto seul)
+     *      @param  string	$more           Add more param on url
+     *      @return string          		String with URL
      */
     function getNomUrl($withpicto=0,$more='')
     {

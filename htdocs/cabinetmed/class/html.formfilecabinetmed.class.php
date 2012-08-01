@@ -56,17 +56,17 @@ class FormFileCabinetmed
     /**
      *      Show list of documents in a directory
      *
-     *      @param      filearray           Array of files loaded by dol_dir_list('files') function before calling this
-     *      @param      object              Object on which document is linked to
-     *      @param      modulepart          Value for modulepart used by download or viewimage wrapper
-     *      @param      param               Parameters on sort links
-     *      @param      forcedownload       Force to open dialog box "Save As" when clicking on file
-     *      @param      relativepath        Relative path of docs (autodefined if not provided)
-     *      @param      permtodelete        Permission to delete
-     *      @param      useinecm            Change output for use in ecm module
-     *      @param      textifempty         Text to show if filearray is empty
-     *      @param      maxlength           Maximum length of file name shown
-     *      @return     int                 <0 if KO, nb of files shown if OK
+     *      @param	array	$filearray          Array of files loaded by dol_dir_list('files') function before calling this
+     *      @param  Object	$object             Object on which document is linked to
+     *      @param  string	$modulepart         Value for modulepart used by download or viewimage wrapper
+     *      @param  string	$param              Parameters on sort links
+     *      @param  int		$forcedownload      Force to open dialog box "Save As" when clicking on file
+     *      @param  string	$relativepath       Relative path of docs (autodefined if not provided)
+     *      @param  int		$permtodelete       Permission to delete
+     *      @param  int		$useinecm           Change output for use in ecm module
+     *      @param  int		$textifempty        Text to show if filearray is empty
+     *      @param  int		$maxlength          Maximum length of file name shown
+     *      @return int                 		<0 if KO, nb of files shown if OK
      */
     function list_of_documents($filearray,$object,$modulepart,$param,$forcedownload=0,$relativepath='',$permtodelete=1,$useinecm=0,$textifempty='',$maxlength=0)
     {
@@ -88,7 +88,7 @@ class FormFileCabinetmed
         print_liste_field_titre('','','');
         print '</tr>';
 
-        $nboffiles=sizeof($filearray);
+        $nboffiles=count($filearray);
 
         if ($nboffiles > 0) include_once(DOL_DOCUMENT_ROOT.'/core/lib/images.lib.php');
 

@@ -71,9 +71,9 @@ class FilemanagerRoots // extends CommonObject
     /**
      *   Create in database
      *
-     *   @param      user        	User that create
-     *   @param      notrigger	    0=launch triggers after, 1=disable triggers
-     *   @return     int         	<0 if KO, Id of created object if OK
+     *   @param		User	$user        	User that create
+     *   @param     int		$notrigger	    0=launch triggers after, 1=disable triggers
+     *   @return    int         			<0 if KO, Id of created object if OK
      */
     function create($user, $notrigger=0)
     {
@@ -162,8 +162,8 @@ class FilemanagerRoots // extends CommonObject
     /**
      *  Load object in memory from database
      *
-     *  @param      id          id object
-     *  @return     int         <0 if KO, >0 if OK
+     *  @param	int		$id         id object
+     *  @return int         		<0 if KO, >0 if OK
      */
     function fetch($id)
     {
@@ -217,9 +217,9 @@ class FilemanagerRoots // extends CommonObject
     /**
      *   Update database
      *
-     *   @param      user        	User that modify
-     *   @param      notrigger	    0=launch triggers after, 1=disable triggers
-     *   @return     int         	<0 if KO, >0 if OK
+     *   @param		User	$user        	User that modify
+     *   @param     int		$notrigger	    0=launch triggers after, 1=disable triggers
+     *   @return    int         			<0 if KO, >0 if OK
      */
     function update($user=0, $notrigger=0)
     {
@@ -296,9 +296,9 @@ class FilemanagerRoots // extends CommonObject
  	/**
 	 *  Delete object in database
 	 *
-     *	@param      user        	User that delete
-     *  @param      notrigger	    0=launch triggers after, 1=disable triggers
-	 *	@return		int				<0 if KO, >0 if OK
+     *	@param		User	$user        	User that delete
+     *  @param      int		$notrigger	    0=launch triggers after, 1=disable triggers
+	 *	@return		int						<0 if KO, >0 if OK
 	 */
 	function delete($user, $notrigger=0)
 	{
@@ -353,8 +353,8 @@ class FilemanagerRoots // extends CommonObject
 	/**
 	 *	Load an object from its id and create a new one in database
 	 *
-	 *	@param      fromid     		Id of object to clone
-	 * 	@return		int				New id of clone
+	 *	@param		int		$fromid    		Id of object to clone
+	 * 	@return		int						New id of clone
 	 */
 	function createFromClone($fromid)
 	{

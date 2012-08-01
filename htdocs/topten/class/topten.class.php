@@ -6,6 +6,9 @@
 	 Fichero topten.class.php
  */
 
+/**
+ * Class TOPTEN
+ */
 class TOPTEN
 {
 	var $db;							//!< To store db handler
@@ -382,6 +385,14 @@ class TOPTEN
     }
 
 
+    /**
+     * select_month
+     *
+     * @param 	string		$selected		Selected
+     * @param 	string		$htmlname		HTMLname
+     * @param 	int			$useempty		Use empty
+     * @return 	string
+     */
 	function select_month($selected='',$htmlname='monthid',$useempty=0)
     {
         global $langs;
