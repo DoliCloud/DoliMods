@@ -1,5 +1,5 @@
 <?php
-/* Copyright (C) 2010 Laurent Destailleur  <eldy@users.sourceforge.net>
+/* Copyright (C) 2010-2012 Laurent Destailleur  <eldy@users.sourceforge.net>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,7 +19,6 @@
 /**
  *  \file           htdocs/scanner/index.php
  *  \brief          Main page of scanner module
- *  \version        $Id: index.php,v 1.9 2011/01/23 16:23:38 eldy Exp $
  */
 
 if (! defined('NOCSRFCHECK')) define('NOCSRFCHECK',1);
@@ -46,6 +45,21 @@ $langs->load("scanner@scanner");
 
 $lang_error='Error';
 $error_input=0;
+
+
+if ($action == 'remove_file')
+{
+		require_once(DOL_DOCUMENT_ROOT."/core/lib/files.lib.php");
+
+		$langs->load("other");
+		$upload_dir = $conf->scanner->dir_temp.'/'.$user->id;
+		$file = $upload_dir . '/' . GETPOST('file');
+		$ret=dol_delete_file($file,0,0,0,$object);
+		if ($ret) setEventMessage($langs->trans("FileWasRemoved", GETPOST('urlfile')));
+		else setEventMessage($langs->trans("ErrorFailToDeleteFile", GETPOST('urlfile')), 'errors');
+}
+
+
 
 $cmd_geometry_l="";
 if (($geometry_l >= 0) && ($geometry_l <= $PREVIEW_WIDTH_MM))
@@ -143,7 +157,7 @@ $cmd_device = '';
 $file_save = '';
 $file_save_image = 0;
 
-$cmd_scan=$SCANIMAGE." -d ".$scanner.$cmd_geometry_l.$cmd_geometry_t.$cmd_geometry_x.$cmd_geometry_y.$cmd_mode.$cmd_resolution.$cmd_negative.$cmd_quality_cal.$cmd_brightness.$cmd_usr_opt;
+$cmd_scan=$SCANIMAGE." -d ".escapeshellarg(str_replace('"','',$scanner)).$cmd_geometry_l.$cmd_geometry_t.$cmd_geometry_x.$cmd_geometry_y.$cmd_mode.$cmd_resolution.$cmd_negative.$cmd_quality_cal.$cmd_brightness.$cmd_usr_opt;
 
 if ($error_input == 0)
 {
@@ -151,7 +165,7 @@ if ($error_input == 0)
     if (GETPOST('actionpreview'))
     {
         $preview_images = $TMP_PREFIX."preview_".$sid.".jpg";
-        $cmd_device = $SCANIMAGE." -d ".$scanner." --resolution ".$PREVIEW_DPI."dpi -l 0mm -t 0mm -x ".$PREVIEW_WIDTH_MM."mm -y ".$PREVIEW_HEIGHT_MM."mm".$cmd_mode.$cmd_negative.$cmd_quality_cal.$cmd_brightness.$cmd_usr_opt." | ".$PNMTOJPEG." --quality=50 > \"".$preview_images."\"";
+        $cmd_device = $SCANIMAGE." -d ".escapeshellarg(str_replace('"','',$scanner))." --resolution ".$PREVIEW_DPI."dpi -l 0mm -t 0mm -x ".$PREVIEW_WIDTH_MM."mm -y ".$PREVIEW_HEIGHT_MM."mm".$cmd_mode.$cmd_negative.$cmd_quality_cal.$cmd_brightness.$cmd_usr_opt." | ".$PNMTOJPEG." --quality=50 > \"".$preview_images."\"";
     }
 
     // scan
@@ -186,10 +200,21 @@ if ($cmd_device !== '')
 {
     dol_mkdir($conf->scanner->dir_temp.'/'.$user->id);
     dol_syslog("Launch sane commande: ".$cmd_device);
-    //print "eee";exit;
 
-    $out=array();
-    $scan_yes=exec($cmd_device,$out);
+    if (! dol_is_file($SCANIMAGE))
+    {
+    	$langs->load("errors");
+    	$langs->load("admin");
+		print $langs->trans("ErrorFileNotFound",$SCANIMAGE).'<br>';
+		print $langs->trans("NoteOnPathLocation").'<br>';
+    	exit;
+    }
+    else
+    {
+	    $out=array();
+	    $scan_yes=exec($cmd_device,$out);
+	    print $scan_yes."-".$cmd_device."-".join(',',$out);
+    }
 }
 else
 {
@@ -207,6 +232,9 @@ else
 
 $help_url="EN:Module_PHPSane_En|FR:Module_PHPSane|ES:M&oacute;dulo_PHPSane";
 llxHeader('','Scanner',$help_url);
+
+$safmodeon=ini_get('safe_mode');
+//print 'ee'.$safmodeon;
 
 $form=new Form($db);
 $formfile=new FormFile($db);
@@ -337,6 +365,7 @@ else
     print "<td align=\"right\">".$langs->trans("ResolutionDPI")."&nbsp;";
 
     // change "|" separated string $list into array $resolution values.
+    if (empty($list) || $list=='detection_res_not_possible') $list='100|150|300|600';
     $resolution_list = explode("|",$list);
     //generate html selectbox and store in string $res_box
     $res_box = html_selectbox('resolution',$resolution_list,$resolution);
@@ -446,6 +475,7 @@ print  "//-->\n";
 print  "</script>\n";
 
 
-
 llxFooter();
+
+$db->close();
 ?>

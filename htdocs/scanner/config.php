@@ -163,11 +163,11 @@ if (GETPOST('actionclean'))
     {
         if (preg_match('/^resolution_/',$key))
         {
-            //print 'eeee'.$key;
-            unset($_SESSION['resolution_'.$key]);
+            unset($_SESSION[$key]);
         }
     }
     //dol_delete_file($file_save);
+    //var_dump($_SESSION);exit;
 }
 
 // Scanner device detection
@@ -220,14 +220,19 @@ if (empty($_SESSION['resolution_'.$scanner]))
     $command=$SCANIMAGE.' --help | grep -m 1 resolution';
     //print "eeee".$command;
     dol_syslog("Detect resolution of scanner with command ".$command);
+
+    // Warning: with some scanimage commande, the line with resolutions appears only for root user
     $res_list = exec($command,$out);
+
     //$res_list=`$command`;
     $start=strpos($res_list,"n")+2;
     $length = strpos($res_list,"dpi") -$start;
     $list = "".substr($res_list,$start,$length)."";
     unset($start);
     unset($length);
+
     if ($list) $_SESSION['resolution_'.$scanner]=$list;
+    else $_SESSION['resolution_'.$scanner]='detection_res_not_possible';
 }
 else
 {
