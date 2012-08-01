@@ -103,8 +103,8 @@ if ($_GET["action"] == 'buildemailingchien')
 	$race_semaine=$LIB_RACES[$j]." (Origine : ".$ORIGINE_RACES[$j].")<br><br>D�couvrez cette race cette semaine avec ChiensDeRace.com.<br><a href='http://www.chiensderace.com/php/fiche_race.php?RACE=".$ID_RACES[$j]."'>Voir la fiche de race</a><br>";
 
 	$file_in='newsletter_type_chien.html';
-    $fichier= fopen ($file_in, 'r');
-	$lines = file ($file_in);
+    $fichier= fopen($file_in, 'r');
+	$lines = file($file_in);
 
 	foreach ($lines as $line_num => $line)
 	{
