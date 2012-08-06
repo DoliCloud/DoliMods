@@ -230,7 +230,7 @@ if (empty($reshook))
 					$dir=preg_replace('/_dolibarr$/','',$object->database_db);
 					$file="ssh2.sftp://".$sftp."/home/".$object->username_web.'/'.$dir.'/htdocs/conf/conf.php';
 
-					if ($action == 'setdate')
+					/*if ($action == 'setdate')
 					{
 						$newdate=(dol_now() - 3600 * 24);
 						if (touch($file, $newdate))
@@ -241,14 +241,15 @@ if (empty($reshook))
 						{
 							// Error
 						}
-					}
+					}*/
 
 					//print $file;
 					$stream = fopen($file, 'r');
 					$fstat=fstat($stream);
 					fclose($stream);
 					//var_dump($fstat);
-					$object->date_registration=$fstat['mtime'];
+
+					if (empty($object->date_registration)) $object->date_registration=$fstat['mtime'];	// Overwrite only if not defined
 					$object->date_endfreeperiod=dol_time_plus_duree($object->date_registration,1,'m');
 					$object->gid=$fstat['gid'];
 					$uid=$fstat['uid'];
@@ -794,7 +795,7 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 
 	// Dates
 	print '<tr><td width="20%">'.$langs->trans("DateRegistration").'</td><td width="30%">'.dol_print_date($object->date_registration,'dayhour');
-	print '<a href="'.dol_buildpath('/nltechno/dolicloud_card.php',1).'?id='.$object->id.'&amp;action=setdate&amp;date=">'.$langs->trans("SetDate").'</a>';
+	//print ' (<a href="'.dol_buildpath('/nltechno/dolicloud_card.php',1).'?id='.$object->id.'&amp;action=setdate&amp;date=">'.$langs->trans("SetDate").'</a>)';
 	print '</td>';
 	print '<td width="20%">'.$langs->trans("DateEndFreePeriod").'</td><td width="30%">'.dol_print_date($object->date_endfreeperiod,'dayhour').'</td>';
 	print '</tr>';
@@ -854,7 +855,7 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 	print '<br>';
 
 	// SFTP
-	$sftpconnectstring=$object->username_web.':'.$object->password_web.'@'.$object->hostname_web.'/home/'.$object->username_web.'/'.preg_replace('/_dolibarr$/','',$object->database_db);
+	$sftpconnectstring=$object->username_web.':'.$object->password_web.'@'.$object->hostname_web.':/home/'.$object->username_web.'/'.preg_replace('/_dolibarr$/','',$object->database_db);
 	print 'SFTP connect string<br>';
 	print '<input type="text" name="sftpconnectstring" value="'.$sftpconnectstring.'" size="100"><br>';
 	print '<br>';
