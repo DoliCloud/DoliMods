@@ -249,8 +249,13 @@ if (empty($reshook))
 					fclose($stream);
 					//var_dump($fstat);
 
-					if (empty($object->date_registration)) $object->date_registration=$fstat['mtime'];	// Overwrite only if not defined
-					$object->date_endfreeperiod=dol_time_plus_duree($object->date_registration,1,'m');
+					if (empty($object->date_registration) || empty($object->date_endfreeperiod))
+					{
+						// Overwrite only if not defined
+						$object->date_registration=$fstat['mtime'];
+						//$object->date_endfreeperiod=dol_time_plus_duree($object->date_registration,1,'m');
+						$object->date_endfreeperiod=dol_time_plus_duree($object->date_registration,15,'d');
+					}
 					$object->gid=$fstat['gid'];
 					$uid=$fstat['uid'];
 					$size=$fstat['size'];
