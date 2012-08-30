@@ -250,7 +250,7 @@ if ($result)
         print $thirdpartystatic->getNomUrl(1);
 		print '</td>';
 		print '<td>'.$obj->code_client.'</td>';
-		print '<td align="center">'.dol_print_date($obj->datecons,'day').'</td>';
+		print '<td align="center">'.dol_print_date($db->jdate($obj->datecons),'day').'</td>';
         if (! empty($conf->global->CABINETMED_FRENCH_PRISEENCHARGE))
         {
     		print '<td>';
