@@ -42,6 +42,8 @@ class modBitTorrent extends DolibarrModules
      */
 	function modBitTorrent($db)
 	{
+		global $user;
+
 		$this->db = $db;
 
 		// Id for module (must be unique).
