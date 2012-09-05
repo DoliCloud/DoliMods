@@ -5,7 +5,14 @@ Correo electrónico: alexturruella@gmail.com
 Módulo que permite obtener los mejores 10 clientes, producto y facturas del mes año y un rango de fechas
 Fichero ttindexcliente.php
 */
-require("../main.inc.php");
+$res=0;
+if (! $res && file_exists("../main.inc.php")) $res=@include("../main.inc.php");
+if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.php");
+if (! $res && file_exists("../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../dolibarr/htdocs/main.inc.php");     // Used on dev env only
+if (! $res && file_exists("../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
+if (! $res && file_exists("../../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
+if (! $res) die("Include of main fails");
+
 require_once(DOL_DOCUMENT_ROOT."/core/class/html.formfile.class.php");
 dol_include_once('/topten/class/topten.class.php');
 
