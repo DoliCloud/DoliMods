@@ -28,3 +28,5 @@ TestLoginToApi=Tester connexion aux API
 ListOfDedicatedServers=Liste de vos serveurs dédiés OVH
 OvhDedicated=Serveurs dédiés
 OvhGetInvoices=Import des factures OVH
+OvhInvoiceImportShort=Import factures OVH
+SupplierToUseForImport=Fournisseur sur lequel importer les factures

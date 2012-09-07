@@ -28,3 +28,5 @@ SendersAllowed=Senders allowed from OVH manager
 ListOfDedicatedServers=List of your dedicated OVH servers
 OvhDedicated=Dedicated servers
 OvhGetInvoices=OVH invoices import
+OvhInvoiceImportShort=OVH invoices import
+SupplierToUseForImport=Supplier to create imported invoices on
