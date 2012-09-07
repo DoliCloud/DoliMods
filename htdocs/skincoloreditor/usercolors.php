@@ -38,9 +38,6 @@ require_once(DOL_DOCUMENT_ROOT.'/core/class/html.formadmin.class.php');
 require_once(DOL_DOCUMENT_ROOT.'/core/class/html.formother.class.php');
 
 
-if (!$user->admin) accessforbidden();
-
-
 $langs->load("users");
 $langs->load("admin");
 $langs->load("other");
