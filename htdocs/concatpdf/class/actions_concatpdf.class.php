@@ -229,13 +229,13 @@ class ActionsConcatPdf
         			}
         		}
 
-        		// Save selected files and order
+        		// Save selected files into extraparams
         		$params['concatpdf'] = $concatpdffile;
         		$parameters['object']->extraparams = array_merge($parameters['object']->extraparams, $params);
         	}
         }
         else
-        {
+       {
         	// Remove extraparams for concatpdf
         	unset($parameters['object']->extraparams['concatpdf']);
         }
