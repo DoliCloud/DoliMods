@@ -256,6 +256,7 @@ if (empty($conf->global->OVHSMS_NICK) || empty($WS_DOL_URL))
 }
 else
 {
+	print '<br>';
     print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?action=test">'.$langs->trans("TestLoginToAPI").'</a><br><br>';
 
     if ($action == 'test')

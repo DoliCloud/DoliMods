@@ -29,4 +29,7 @@ ListOfDedicatedServers=Liste de vos serveurs dédiés OVH
 OvhDedicated=Serveurs dédiés
 OvhGetInvoices=Import des factures OVH
 OvhInvoiceImportShort=Import factures OVH
+OvhInvoiceImportDesc=Cet écran vous permet de lister les factures chez OVH et de les importer. Cliquez sur "Récuperer la liste" puis pour chaque facture non présente, cochez la case, et choisissez "Importer".
 SupplierToUseForImport=Fournisseur sur lequel importer les factures
+ScanOvhInvoices=Récuperer liste des factures
+ExcludeNullInvoices=Exclure les factures à montant nul
