@@ -95,7 +95,8 @@ if ($action == 'setcolor')
 {
     $tab['THEME_ELDY_RGB']=GETPOST('THEME_ELDY_RGB');
     $tab['THEME_ELDY_FONT_SIZE1']=GETPOST('THEME_ELDY_FONT_SIZE1');
-	$res = dol_set_user_param($db, $conf, $fuser, $tab);
+    $tab['THEME_ELDY_USE_HOVER']=GETPOST('THEME_ELDY_USE_HOVER');
+    $res = dol_set_user_param($db, $conf, $fuser, $tab);
 
 	if (! $res > 0) $error++;
  	if (! $error)
@@ -187,9 +188,14 @@ if (! empty($fuser->conf->THEME_ELDY_ENABLE_PERSONALIZED))
     $defcolor=$conf->global->THEME_ELDY_RGB;
     if (isset($fuser->conf->THEME_ELDY_RGB)) $defcolor=$fuser->conf->THEME_ELDY_RGB;
 
+    // Color
     print $formother->select_color($defcolor,'THEME_ELDY_RGB','formcolor',1).'<br><br>';
 
+    // Font size
     print $langs->trans("FontSize").': <input type="text" class="flat" name="THEME_ELDY_FONT_SIZE1" size="4" value="'.$fuser->conf->THEME_ELDY_FONT_SIZE1.'"><br>';
+
+    // Use hover
+    print $langs->trans("UseHoverOnLists").': <input type="checkbox" class="flat" name="THEME_ELDY_USE_HOVER" '.(empty($fuser->conf->THEME_ELDY_USE_HOVER)?'':' checked="checked"').'"><br>';
 
     print '<br>';
     print '<div align="center"><input type="submit" class="button" name="save" value="'.$langs->trans("Save").'"></div>';

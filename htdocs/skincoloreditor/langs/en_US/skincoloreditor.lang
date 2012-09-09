@@ -14,3 +14,4 @@ ActivateColorPersonalizingUser=Activate possibility to personalize colors and fo
 ColorEditor=Skin editor
 YourUseHasPersonalized=Current user has personalized its colors from its personal card (Tab <a href="%s">"%s"</a>). Tis personalisation will be used in priority so global setup will works only for users whose setup was not edited for themself.
 FontSize=Font size
+UseHoverOnLists=Highlight table lines on mouse over
