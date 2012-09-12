@@ -106,11 +106,11 @@ class ActionsConcatPdf
         		dol_include_once('/concatpdf/core/tpl/ajaxmultiselect.tpl.php');
 
         		$out.='<tr><td id="selectconcatpdf" colspan="4" valign="top">';
-        		$out.= $form->multiselectarray('concatpdffile', $morefiles, $object->extraparams['concatpdf'], 0, 1, '', 1);
+        		$out.= $form->multiselectarray('concatpdffile', $morefiles, (! empty($object->extraparams['concatpdf'])?$object->extraparams['concatpdf']:''), 0, 1, '', 1);
         	}
         	else
         	{
-        		$out.= $form->selectarray('concatpdffile',$morefiles,($object->extraparams['concatpdf'][0]?$object->extraparams['concatpdf'][0]:-1),1,0,1);
+        		$out.= $form->selectarray('concatpdffile',$morefiles,(isset($object->extraparams['concatpdf'][0])?$object->extraparams['concatpdf'][0]:-1),1,0,1);
         	}
         }
         $out.='</td></tr>';
