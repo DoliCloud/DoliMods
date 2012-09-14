@@ -33,3 +33,5 @@ OvhInvoiceImportDesc=This page list all OVH invoices and suggest a way to import
 SupplierToUseForImport=Supplier to create imported invoices on
 ScanOvhInvoices=Get invoices list
 ExcludeNullInvoices=Exclude invoice with null amount
+NotFound=Not found
+ImportIt=Import it ?

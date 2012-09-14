@@ -41,6 +41,7 @@ require_once(DOL_DOCUMENT_ROOT."/core/lib/files.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/class/html.formfile.class.php");
 
 $langs->load("bills");
+$langs->load("orders");
 $langs->load("ovh@ovh");
 
 //eregi_replace($script_file,'',$_SERVER["PHP_SELF"]);
@@ -63,22 +64,25 @@ if ($action == 'import' )
 	{
 		setEventMessage($langs->trans("ErrorFieldRequired",$langs->transnoentitiesnoconv("Supplier")),'errors');
 		$error++;
+		$action='refresh';
 	}
 
 	if (! $error)
 	{
 		$ovhthirdparty=new Societe($db);
 		$result=$ovhthirdparty->fetch($idovhsupplier);
+
+		var_dump($_POST);
+
 		if ($result <= 0)
 		{
 			dol_print_error('',"Failed to get thirdparty to use to link OVH invoices");
 			exit;
 		}
 	}
-
 }
 
-// Creation r
+// Creation
 if ($action == 'create' && ! empty($r))
 {
 	print "We try to create supplier invoice ".$r->billnum."... ";
@@ -151,11 +155,15 @@ print $langs->trans("OvhInvoiceImportDesc").'<br><br>';
 print $langs->trans("OvhSmsNick").': <strong>'.$conf->global->OVHSMS_NICK.'</strong><br><br>';
 
 print '<form name="refresh" action="'.$_SERVER["PHP_SELF"].'" method="POST">';
-print '<table class="border"><tr><td>';
+
+print '<div class="tabBar">';
+print '<table class="notopnoborder"><tr><td>';
 print '<input type="checkbox" name="excludenullinvoice"'.((! isset($_POST["excludenullinvoice"]) || GETPOST('excludenullinvoice'))?' checked="true"':'').'"> '.$langs->trans("ExcludeNullInvoices").'<br>';
 print '<input type="hidden" name="action" value="refresh">';
 print ' <input type="submit" name="import" value="'.$langs->trans("ScanOvhInvoices").'" class="button">';
 print '</td></tr></table>';
+print'</div>';
+
 print '</form>';
 print '<br>';
 
@@ -195,7 +203,7 @@ if ($action == 'refresh')
 	    {
 		    if (! $excludenullinvoice || ! empty($r->totalPriceWithVat))
 		    {
-	    		$arrayinvoice[]=array('id'=>$r->id, 'billnum'=>$r->billnum, 'date'=>dol_stringtotime($r->date,1), 'vat'=>$r->vat, 'totalPrice'=>$r->totalPrice, 'totalPriceWithVat'=>$r->totalPriceWithVat, 'details'=>$r->details, 'billingCountry'=>$r->billingCountry, 'orig'=>serialize($r));
+	    		$arrayinvoice[]=array('id'=>$r->id, 'billnum'=>$r->billnum, 'date'=>dol_stringtotime($r->date,1), 'vat'=>$r->vat, 'totalPrice'=>$r->totalPrice, 'totalPriceWithVat'=>$r->totalPriceWithVat, 'details'=>$r->details, 'billingCountry'=>$r->billingCountry, 'ordernum'=>$r->ordernum, 'serialized'=>serialize($r));
 		    }
 	    }
 
@@ -207,7 +215,9 @@ if ($action == 'refresh')
 	    {
 	    	print '<strong>'.$nbfound.'</strong> '.$langs->trans("Invoices")."<br><br>\n";
 
-	    	print '<table class="noborder" width="100%">';
+	    	print '<form name="import" action="'.$_SERVER["PHP_SELF"].'" method="POST">';
+
+		    print '<table class="noborder" width="100%">';
 	    	print '<tr class="liste_titre">';
 	    	print '<td>'.$langs->trans("Invoice").' OVH</td>';
 	    	print '<td align="center">'.$langs->trans("Date").'</td>';
@@ -227,14 +237,19 @@ if ($action == 'refresh')
 		        print '<td>'.$r['billnum'].'</td><td align="center">'.dol_print_date($r['date'],'day')."</td>";
 		        print '<td align="right">'.price($r['totalPriceWithVat']).'</td><td align="right">'.vatrate($vatrate).'</td>';
 	        	print "<td>";
-	            $x=0;
+	            $x=0; $olddomain=''; $oldordernum='';
 	            foreach($r['details'] as $detobj)
 	            {
-	                print $detobj->description."\n";
+	                print $detobj->description;
+	                if (! empty($detobj->domain) && $olddomain != $detobj->domain) print ' ('.$detobj->domain.') ';
+	                $olddomain=$detobj->domain;
+	            	//if (! empty($detobj->ordernum) && $oldordernum != $detobj->ordernum) print ' ('.$langs->trans("Order").': '.$detobj->ordernum.') ';
+	            	//$oldordernum=$detobj->ordernum;
+	                print "\n";
 	                $x++;
 	            }
-	            if ($x) print '<br>';
-	            print $r['orig'];
+	            if (! empty($r['ordernum'])) print ' ('.$langs->trans("Order").' OVH: '.$r['ordernum'].') ';
+	            //if (! empty($r['serialized']))     { print ($x?'<br>':''); print $r['serialized'];	 $x++; }	// No more defined
 	            print "</td>\n";
 
 	            print '<td align="right">';
@@ -252,7 +267,7 @@ if ($action == 'refresh')
 	            }
 	            if ($num == 0)
 	            {
-	                print 'Not found into Dolibarr. Create it ? <a href="'.DOL_URL_ROOT.'/importovhinvoice.php?action=create&r='.$r['id'].'">'.$langs->trans("Create").'</a>';
+	                print $langs->trans("NotFound").'. '.$langs->trans("ImportIt").' <input class="flat" type="checkbox" name="billnum" value="'.$r['billnum'].'">';
 	            }
 	            else
 	            {
@@ -314,10 +329,9 @@ if ($action == 'refresh')
 
 
 	    // Submit form to launch import
-	    print '<form name="refresh" action="'.$_SERVER["PHP_SELF"].'">';
 	    print '<input type="hidden" name="action" value="import">';
-
-	    print $langs->trans("SupplierToUseForImport").': '.$form->select_company(GETPOST('idovhsupplier'),'refresh','',1,'supplier');
+	    print '<input type="hidden" id="excludenullinvoicehidden" name="excludenullinvoice" value="'.$excludenullinvoice.'">';
+	    print $langs->trans("SupplierToUseForImport").': '.$form->select_company(GETPOST('idovhsupplier'),'idovhsupplier','',1,'supplier');
 	    print ' <input type="submit" name="import" value="'.$langs->trans("Import").'" class="button">';
 	    print '</form>';
 
