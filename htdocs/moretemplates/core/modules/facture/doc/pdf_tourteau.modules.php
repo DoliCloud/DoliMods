@@ -67,6 +67,7 @@ class pdf_tourteau extends ModelePDFFactures
 
 		$langs->load("main");
 		$langs->load("bills");
+		$langs->load("moretemplates@moretemplates");
 
 		$this->db = $db;
 		$this->name = "tourteau";

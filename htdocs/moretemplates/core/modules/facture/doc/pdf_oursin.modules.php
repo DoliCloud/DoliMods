@@ -58,6 +58,7 @@ class pdf_oursin extends ModelePDFFactures
 		$langs->load("main");
 		$langs->load("bills");
 		$langs->load("products");
+		$langs->load("moretemplates@moretemplates");
 
 		$this->db = $db;
 		$this->name = "oursin";
