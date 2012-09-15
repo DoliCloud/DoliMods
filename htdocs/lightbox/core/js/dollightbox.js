@@ -1,12 +1,9 @@
-<script type="text/javascript">
-        jQuery(function() {
-        jQuery('.aphoto').lightBox();
-        jQuery('.photo').lightBox();
-        jQuery('.photologo').lightBox();
-        });
-</script>
+jQuery(function() {
+	jQuery('.aphoto').lightBox();
+	jQuery('.photo').lightBox();
+	jQuery('.photologo').lightBox();
+});
 <!--
-        $ret.="\n<script type=\"text/javascript\">
         jQuery(function() {
         jQuery('.photologo').lightBox({
         overlayBgColor: '#FFF',
@@ -20,6 +17,4 @@
         txtOf: 'de'
         });
         });
-        </script>\n";
-        */
 -->
