@@ -48,89 +48,134 @@ $langs->load("ovh@ovh");
 $url_pdf="https://www.ovh.com/cgi-bin/order/facture.pdf";
 
 $action=GETPOST('action');
-$idovhsupplier=GETPOST('idovhsupplier');
 $excludenullinvoice=GETPOST('excludenullinvoice');
+//$idovhsupplier=GETPOST('idovhsupplier');
+$idovhsupplier=empty($conf->global->OVH_THIRDPARTY_IMPORT)?'':$conf->global->OVH_THIRDPARTY_IMPORT;
+
+$ovhthirdparty=new Societe($db);
+if ($idovhsupplier) $result=$ovhthirdparty->fetch($idovhsupplier);
 
 $fuser = $user;
+
+// Init SoapClient
+try
+{
+	require_once(DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php');
+	$params=getSoapParams();
+	ini_set('default_socket_timeout', $params['response_timeout']);
+
+	if (empty($conf->global->OVHSMS_SOAPURL))
+	{
+		print 'Error: '.$langs->trans("ModuleSetupNotComplete")."\n";
+		exit;
+	}
+
+	$soap = new SoapClient($conf->global->OVHSMS_SOAPURL,$params);
+
+	$language = "en";
+	$multisession = false;
+
+	//login
+	$session = $soap->login($conf->global->OVHSMS_NICK, $conf->global->OVHSMS_PASS,$language,$multisession);
+	dol_syslog("login successfull");
+
+	$result = $soap->billingGetAccessByNic($session);
+	dol_syslog("billingGetAccessByNic successfull = ".join(',',$result));
+	//print "GetAccessByNic: ".join(',',$result)."<br>\n";
+}
+catch(SoapFault $fault)
+{
+	echo $fault;
+}
 
 
 /*
  * Action
  */
 
-if ($action == 'import' )
+if ($action == 'import' && $ovhthirdparty->id > 0)
 {
-	if ($idovhsupplier <= 0)
-	{
-		setEventMessage($langs->trans("ErrorFieldRequired",$langs->transnoentitiesnoconv("Supplier")),'errors');
-		$error++;
-		$action='refresh';
-	}
-
 	if (! $error)
 	{
-		$ovhthirdparty=new Societe($db);
-		$result=$ovhthirdparty->fetch($idovhsupplier);
+		$listofref=$_POST['billnum'];
+		$listofbillingcountry=$_POST['billingCountry'];
+		//$listofvat=$_POST['vat'];
 
-		var_dump($_POST);
-
-		if ($result <= 0)
+		if (count($listofref) == 0)
 		{
-			dol_print_error('',"Failed to get thirdparty to use to link OVH invoices");
-			exit;
+			setEventMessage($langs->trans("NoInvoicesSelected"),'errors');
+			$action='refresh';
+			$error++;
 		}
-	}
-}
 
-// Creation
-if ($action == 'create' && ! empty($r))
-{
-	print "We try to create supplier invoice ".$r->billnum."... ";
-	//facture n'existe pas
-	$db->begin();
-	$result[$i]->info=$soap->billingInvoiceInfo($session, $r->billnum, null, $r->billingCountry); //on recupere les details
-	$r=$result[$i];
-
-	$facfou = new FactureFournisseur($db);
-
-	$facfou->ref           = $r->billnum;
-	$facfou->socid         = $id_ovh;
-	$facfou->libelle       = "OVH ".$r->billnum;
-	$facfou->date          = strtotime($r->date);
-	$facfou->date_echeance = strtotime($r->date);
-	$facfou->note_public   = '';
-
-	$facid = $facfou->create($fuser);
-	if ($facid > 0)
-	{
-		foreach($r->info->details as $d)
+		if (! $error)
 		{
-			$label='<strong>ref :'.$d->service.'</strong><br>'.$d->description.'<br>';
-			if ($d->start) $label.=$langs->trans("From").' '.date('d/m/Y',strtotime($d->start));
-			if ($d->end)   $label.=($d->start?' ':'').$langs->trans("To").' '.date('d/m/Y',strtotime($d->end));
-			$amount=$d->baseprice;
-			$qty=$d->quantity;
-			$price_base='HT';
-			$tauxtva=$vatrate;
-			$remise_percent=0;
-			$fk_product=null;
-			$ret=$facfou->addline($label, $amount, $tauxtva, 0, 0, $qty, $fk_product, $remise_percent, '', '', '', 0, $price_base);
-			if ($ret < 0) $nberror++;
-			if ($nberror)
+			//billingInvoiceList
+			$result = $soap->billingInvoiceList($session);
+			//echo "billingInvoiceList successfull (".count($result)." ".$langs->trans("Invoices").")\n";
+
+			foreach($listofref as $key => $val)
 			{
-				$db->rollback();
-				echo "ERROR: ".$facfou->error."\n";
+				$billnum=$val;
+				$billingcountry=$listofbillingcountry[$key];
+				//$vatrate=$listofvat[$key];
+
+				//print "We try to create supplier invoice ".$billnum." ".$billingcountry."...<br>\n";
+
+				//facture n'existe pas
+				$db->begin();
+				$result[$key]->info=$soap->billingInvoiceInfo($session, $billnum, null, $billingcountry); //on recupere les details
+				$r=$result[$key];
+
+				$vatrate=price2num(($r->info->taxrate - 1) * 100);
+
+				$facfou = new FactureFournisseur($db);
+
+				$facfou->ref           = $billnum;
+				$facfou->socid         = $idovhsupplier;
+				$facfou->libelle       = "OVH ".$billnum;
+				$facfou->date          = strtotime($r->date);
+				$facfou->date_echeance = strtotime($r->date);
+				$facfou->note_public   = '';
+
+				$facid = $facfou->create($fuser);
+				if ($facid > 0)
+				{
+					foreach($r->info->details as $d)
+					{
+						$label='<strong>ref :'.$d->service.'</strong><br>'.$d->description.'<br>';
+						if ($d->start) $label.=$langs->trans("From").' '.date('d/m/Y',strtotime($d->start));
+						if ($d->end)   $label.=($d->start?' ':'').$langs->trans("To").' '.date('d/m/Y',strtotime($d->end));
+						$amount=$d->baseprice;
+						$qty=$d->quantity;
+						$price_base='HT';
+						$tauxtva=vatrate($vatrate);
+						$remise_percent=0;
+						$fk_product=null;
+						$ret=$facfou->addline($label, $amount, $tauxtva, 0, 0, $qty, $fk_product, $remise_percent, '', '', '', 0, $price_base);
+						if ($ret < 0) $nberror++;
+						if ($nberror)
+						{
+							$db->rollback();
+							$error++;
+							setEventMessage("ERROR: ".$facfou->error, 'errors');
+						}
+						else
+						{
+							//print "Success<br>\n";
+							$db->commit();
+						}
+					}
+				}
+				else {
+					$db->rollback();
+					$error++;
+					setEventMessage("ERROR: ".$facfou->error, 'errors');
+				}
 			}
-			else
-			{
-				print "Success\n";
-				$db->commit();
-			}
+
+			if (! $error) $action='refresh';
 		}
-	}
-	else {
-		$db->rollback();
-		echo "ERROR: ".$facfou->error."\n";
 	}
 }
 
@@ -146,13 +191,22 @@ llxHeader('',$langs->trans("OvhInvoiceImportShort"),'');
 if (empty($conf->global->OVHSMS_SOAPURL))
 {
 	$langs->load("errors");
-	$mesg='<div class="error">'.$langs->trans("ErrorModuleSetupNotComplete").'</div>';
+	setEventMessage($langs->trans("ErrorModuleSetupNotComplete"),'errors');
+}
+if ($ovhthirdparty->id <= 0)
+{
+	$langs->load("errors");
+	setEventMessage($langs->trans("ErrorModuleSetupNotComplete"),'errors');
 }
 
 print_fiche_titre($langs->trans("OvhInvoiceImportShort"));
 
 print $langs->trans("OvhInvoiceImportDesc").'<br><br>';
-print $langs->trans("OvhSmsNick").': <strong>'.$conf->global->OVHSMS_NICK.'</strong><br><br>';
+print $langs->trans("OvhSmsNick").': <strong>'.$conf->global->OVHSMS_NICK.'</strong><br>';
+print $langs->trans("SupplierToUseForImport").': ';
+if ($ovhthirdparty->id > 0) print $ovhthirdparty->getNomUrl(1,'supplier');
+else print '<strong>'.$langs->trans("NotDefined").'</strong>';
+print '<br><br>';
 
 print '<form name="refresh" action="'.$_SERVER["PHP_SELF"].'" method="POST">';
 
@@ -170,29 +224,6 @@ print '<br>';
 if ($action == 'refresh')
 {
 	try {
-	    require_once(DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php');
-	    $params=getSoapParams();
-	    ini_set('default_socket_timeout', $params['response_timeout']);
-
-	    if (empty($conf->global->OVHSMS_SOAPURL))
-	    {
-	        print 'Error: '.$langs->trans("ModuleSetupNotComplete")."\n";
-	        exit;
-	    }
-
-	    $soap = new SoapClient($conf->global->OVHSMS_SOAPURL,$params);
-
-	    $language = "en";
-	    $multisession = false;
-
-	    //login
-	    $session = $soap->login($conf->global->OVHSMS_NICK, $conf->global->OVHSMS_PASS,$language,$multisession);
-	    dol_syslog("login successfull");
-
-	    $result = $soap->billingGetAccessByNic($session);
-	    dol_syslog("billingGetAccessByNic successfull = ".join(',',$result));
-	    //print "GetAccessByNic: ".join(',',$result)."<br>\n";
-
 	    //billingInvoiceList
 	    $result = $soap->billingInvoiceList($session);
 	    dol_syslog("billingInvoiceList successfull (".count($result)." invoices)");
@@ -221,8 +252,9 @@ if ($action == 'refresh')
 	    	print '<tr class="liste_titre">';
 	    	print '<td>'.$langs->trans("Invoice").' OVH</td>';
 	    	print '<td align="center">'.$langs->trans("Date").'</td>';
-	    	print '<td align="right">'.$langs->trans("Amount").'</td>';
-	    	print '<td align="right">'.$langs->trans("VATRate").'</td>';
+	    	print '<td align="right">'.$langs->trans("AmountHT").'</td>';
+	    	print '<td align="right">'.$langs->trans("AmountTTC").'</td>';
+	    	//print '<td align="right">'.$langs->trans("VATRate").'</td>';
 	    	print '<td>'.$langs->trans("Description").'</td>';
 	    	print '<td align="right">'.$langs->trans("Action").'</td>';
 	    	print '</tr>';
@@ -230,12 +262,14 @@ if ($action == 'refresh')
 	    	$var=true;
 		    foreach ($arrayinvoice as $i => $r)
 		    {
-		        $vatrate=vatrate($r['totalPrice'] > 0 ? round(100*$r['vat']/$r['totalPrice'],2) : 0);
+		        //$vatrate=vatrate($r['totalPrice'] > 0 ? round(100*$r['vat']/$r['totalPrice'],2) : 0);
 
 	        	$var=!$var;
 	        	print '<tr '.$bc[$var].'>';
 		        print '<td>'.$r['billnum'].'</td><td align="center">'.dol_print_date($r['date'],'day')."</td>";
-		        print '<td align="right">'.price($r['totalPriceWithVat']).'</td><td align="right">'.vatrate($vatrate).'</td>';
+		        print '<td align="right">'.price($r['totalPrice']).'</td>';
+		        print '<td align="right">'.price($r['totalPriceWithVat']).'</td>';
+		        //print '<td align="right">'.vatrate($vatrate).'</td>';
 	        	print "<td>";
 	            $x=0; $olddomain=''; $oldordernum='';
 	            foreach($r['details'] as $detobj)
@@ -252,7 +286,11 @@ if ($action == 'refresh')
 	            //if (! empty($r['serialized']))     { print ($x?'<br>':''); print $r['serialized'];	 $x++; }	// No more defined
 	            print "</td>\n";
 
-	            print '<td align="right">';
+	            print '<td align="right" nowrap="nowrap">';
+
+
+	            // Search if invoice already exists
+	            $facid=0;
 
 	            $sql="SELECT rowid ";
 	            $sql.=' FROM '.MAIN_DB_PREFIX.'facture_fourn as f';
@@ -267,53 +305,46 @@ if ($action == 'refresh')
 	            }
 	            if ($num == 0)
 	            {
-	                print $langs->trans("NotFound").'. '.$langs->trans("ImportIt").' <input class="flat" type="checkbox" name="billnum" value="'.$r['billnum'].'">';
+	                print $langs->trans("NotFound").'. '.$langs->trans("ImportIt");
+	                print ' <input class="flat" type="checkbox" name="billnum[]" value="'.$r['billnum'].'">';
+	                print '<input type="hidden" name="billingCountry[]" value="'.$r['billingCountry'].'">';
+	                //print ' '.$langs->trans("VATRate").' <input class="flat" type="text" name="vat[]" value="'.vatrate($vatrate).'" size="3">';
 	            }
 	            else
 	            {
 	                $row=$db->fetch_array($resql);
 	                $facid=$row['rowid'];
-	                print "Invoice found into Dolibarr with id=".$facid."\n";
-	                $facfou = new FactureFournisseur($db);
-	            }
-
-	            if ($facid > 0)
-	            {
-	                if ($facfou->fetch($facid))
+		            // If invoice exist into Dolibarr database
+	                if ($facid > 0)
 	                {
-	                    print " &nbsp; &nbsp; Try to get OVH document<br>\n";
-	                    if ($facfou->fk_statut == 0)
-	                    {
-	                        $ref=dol_sanitizeFileName($facfou->ref);
-	                        $upload_dir = $conf->fournisseur->facture->dir_output.'/'.get_exdir($facfou->id,2).$ref;
+	                	$facfou = new FactureFournisseur($db);
+	                	$facfou->fetch($facid);
 
-	                        if (! is_dir($upload_dir)) dol_mkdir($upload_dir);
+	                	$ref=dol_sanitizeFileName($facfou->ref);
+	                    $upload_dir = $conf->fournisseur->facture->dir_output.'/'.get_exdir($facfou->id,2).$ref;
+	                    $file_name=($upload_dir."/".$facfou->ref_supplier.".pdf");
 
+	                	if (file_exists($file_name))
+	                	{
+	                		print $langs->trans("InvoicePDFFoundIntoDolibarr",$facfou->getNomUrl(1))."\n";
+	                		//echo "<br>File ".dol_basename($file_name)." also already exists\n";
+	                    }
+	                	else
+	                  {
+	                		print $langs->trans("InvoiceFoundIntoDolibarr",$facfou->getNomUrl(1))."\n";
+	                  		if (! is_dir($upload_dir)) dol_mkdir($upload_dir);
 	                        if (is_dir($upload_dir))
 	                        {
 	                            $result[$i]->info=$soap->billingInvoiceInfo($session, $r['billnum'], null, $r['billingCountry']); //on recupere les details
 	                            $r2=$result[$i];
-	                            $url=$url_pdf."?reference=".$r['billnum']."&passwd=".$r2['info']->password;
-	                            $file_name=($upload_dir."/".$facfou->ref_supplier.".pdf");
-	                            print " &nbsp; &nbsp; Get ".$url."\n";
-	                            if(file_exists($file_name))
-	                            {
-	                                echo " &nbsp; &nbsp; File ".$file_name." already exists\n";
-	                            }
-	                            else
-	                         {
-	                                file_put_contents($file_name,file_get_contents($url));
-	                                print " &nbsp; &nbsp; File ".$file_name." saved as joined file for supplier invoice ".$r['billnum']."\n";
-	                            }
+	                            $url=$url_pdf."?reference=".$r['billnum']."&passwd=".$r2->info->password;
+	                            //print "<br>Get ".$url."\n";
+                                file_put_contents($file_name,file_get_contents($url));
+                                print "<br>".$langs->trans("FileDownloadedAndAttached",basename($file_name))."\n";
 	                        }
 	                    }
 	                    //$facfou->set_valid($fuser);
 	                }
-	                else
-	                {
-	                    echo " &nbsp; Failed to get invoice ".$facid."\n";
-	                }
-	                //print_r($facfou);
 	            }
 	            print '</td>';
 
@@ -331,11 +362,9 @@ if ($action == 'refresh')
 	    // Submit form to launch import
 	    print '<input type="hidden" name="action" value="import">';
 	    print '<input type="hidden" id="excludenullinvoicehidden" name="excludenullinvoice" value="'.$excludenullinvoice.'">';
-	    print $langs->trans("SupplierToUseForImport").': '.$form->select_company(GETPOST('idovhsupplier'),'idovhsupplier','',1,'supplier');
-	    print ' <input type="submit" name="import" value="'.$langs->trans("Import").'" class="button">';
+	    print ' <input type="submit" name="import" value="'.$langs->trans("ToImport").'" class="button">';
 	    print '</form>';
 
-	    print '<br>';
 	}
 	catch(SoapFault $fault)
 	{
@@ -343,6 +372,8 @@ if ($action == 'refresh')
 	}
 
 }
+
+print '<br>';
 
 llxFooter();
 

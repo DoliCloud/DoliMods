@@ -58,6 +58,8 @@ if ($action == 'setvalue' && $user->admin)
  * View
  */
 
+$form=new Form($db);
+
 $WS_DOL_URL = $conf->global->OVHSMS_SOAPURL;
 dol_syslog("Will use URL=".$WS_DOL_URL, LOG_DEBUG);
 
@@ -97,7 +99,7 @@ else
 
     print '<table class="nobordernopadding" width="100%">';
     print '<tr class="liste_titre">';
-    print '<td width="200px">'.$langs->trans("Parameter").'</td>';
+    print '<td>'.$langs->trans("Parameter").'</td>';
     print '<td>'.$langs->trans("Value").'</td>';
     print '<td>&nbsp;</td>';
     print "</tr>\n";
@@ -113,8 +115,8 @@ else
 
     $var=!$var;
     print '<tr '.$bc[$var].'><td class="fieldrequired">';
-    print $langs->trans("ThirdParty").'</td><td>';
-    print '<input size="64" type="text" name="OVH_THIRDPARTY_IMPORT" value="'.$conf->global->OVH_THIRDPARTY_IMPORT.'">';
+    print $langs->trans("SupplierToUseForImport").'</td><td>';
+    print $form->select_company($conf->global->OVH_THIRDPARTY_IMPORT,'OVH_THIRDPARTY_IMPORT','s.fournisseur = 1',1,'supplier');
     print '<td>';
     print '</td></tr>';
 

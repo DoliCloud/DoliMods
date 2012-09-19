@@ -139,14 +139,14 @@ try {
     echo "billingInvoiceList successfull (".count($result)." ".$langs->trans("Invoices").")\n";
     foreach ($result as $i => $r)
     {
-        $vatrate=vatrate($r->totalPrice > 0?round(100*$r->vat/$r->totalPrice,2):0);
+        //$vatrate=vatrate($r->totalPrice > 0?round(100*$r->vat/$r->totalPrice,2):0);
         if ($excludenullinvoice && empty($r->totalPriceWithVat))
         {
-            print 'Discard OVH invoice '.$r->billnum." (".$r->date." - ".$langs->trans("Total").'='.$r->totalPriceWithVat." - ".$langs->trans("VatRate").'='.$vatrate.")\n";
+            print 'Discard OVH invoice '.$r->billnum." (".$r->date." - ".$langs->trans("Total").'='.$r->totalPriceWithVat.")\n";
         }
         else
         {
-            print 'Process OVH invoice '.$r->billnum." (".$r->date." - ".$langs->trans("Total").'='.$r->totalPriceWithVat." - ".$langs->trans("VatRate").'='.$vatrate.")\n";
+            print 'Process OVH invoice '.$r->billnum." (".$r->date." - ".$langs->trans("Total").'='.$r->totalPriceWithVat.")\n";
 
             foreach($r->details as $detobj)
             {
@@ -176,6 +176,8 @@ try {
                     $db->begin();
                     $result[$i]->info=$soap->billingInvoiceInfo($session, $r->billnum, null, $r->billingCountry); //on recupere les details
                     $r=$result[$i];
+
+                    $vatrate=price2num(($r->info->taxrate - 1) * 100);
 
                     $facfou = new FactureFournisseur($db);
 
