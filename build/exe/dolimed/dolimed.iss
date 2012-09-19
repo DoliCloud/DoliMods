@@ -1,5 +1,5 @@
 ; ----- DoliMed.iss ---------------------------------------------------------------------
-; Script to build an auto installer for Dolibarr.
+; Script to build an auto installer for DoliMed.
 ; Works with InnoSetup 5.4.0 (a)
 ; Idea from WampServer 2 (http://www.wampserver.com)
 ;----------------------------------------------------------------------------------------
@@ -9,8 +9,6 @@
 ; For this, you can edit the mysql.user table of the source database to keep
 ; only the root user with no password, stop server and catch
 ; files user.MY* to put them in the Dolibarr build/exe/doliwamp/mysql directory.
-;
-; Version: $Id: dolimed.iss,v 1.6 2011/08/06 00:15:06 eldy Exp $
 ;----------------------------------------------------------------------------------------
 
 
@@ -141,7 +139,7 @@ Name: "{group}\Tools\Admin DoliMed server"; Filename: "{app}\rundoliadmin.bat"; 
 Name: "{group}\Tools\Uninstall DoliMed"; Filename: "{app}\unins000.exe"; WorkingDir: "{app}"; IconFilename: {app}\uninstall_services.bat
 Name: "{userappdata}\Microsoft\Internet Explorer\Quick Launch\DoliMed"; WorkingDir: "{app}"; Filename: "{app}\rundoliwamp.bat"; Tasks: quicklaunchicon; IconFilename: {app}\www\dolibarr\doc\images\dolimed.ico
 Name: "{userdesktop}\DoliMed"; Filename: "{app}\rundoliwamp.bat"; WorkingDir: "{app}"; Tasks: desktopicon; IconFilename: {app}\www\dolibarr\doc\images\dolimed.ico
-Name: "{userdesktop}\Dolibarr Help center"; Filename: "{app}\rundolihelp.bat"; WorkingDir: "{app}"; Tasks: desktopicon; IconFilename: {app}\www\dolibarr\doc\images\dolihelp.ico
+Name: "{userdesktop}\DoliMed Help center"; Filename: "{app}\rundolihelp.bat"; WorkingDir: "{app}"; Tasks: desktopicon; IconFilename: {app}\www\dolibarr\doc\images\dolihelp.ico
 ;Start of servers fromstartup menu disabled as services are auto
 ;Name: "{userstartup}\DoliMed server"; Filename: "{app}\startdoliwamp.bat"; WorkingDir: "{app}"; Flags: runminimized; IconFilename: {app}\www\dolibarr\doc\images\dolimed.ico
 
