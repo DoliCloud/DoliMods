@@ -106,6 +106,10 @@ if (empty($reshook))
 		$object->username_db    = $_POST["username_db"];
 		$object->password_db    = $_POST["password_db"];
 
+		$object->status         = $_POST["status"];
+		$object->date_endfreeperiod  = dol_mktime(0, 0, 0, $_POST["endfreeperiodmonth"], $_POST["endfreeperiodday"], $_POST["endfreeperiodyear"], 1);
+		$object->partner		= $_POST["partner"];
+
 		if (empty($_POST["instance"]) || empty($_POST["organization"]) || empty($_POST["plan"]) || empty($_POST["email"]))
 		{
 			$error++; $errors[]=$langs->trans("ErrorFieldRequired",$langs->transnoentitiesnoconv("Instance").",".$langs->transnoentitiesnoconv("Organization").",".$langs->transnoentitiesnoconv("Plan").",".$langs->transnoentitiesnoconv("EMail"));
@@ -188,6 +192,10 @@ if (empty($reshook))
 			$object->database_db	= $_POST["database_db"];
 			$object->username_db    = $_POST["username_db"];
 			$object->password_db    = $_POST["password_db"];
+
+			$object->status         = $_POST["status"];
+			$object->date_endfreeperiod  = dol_mktime(0, 0, 0, $_POST["endfreeperiodmonth"], $_POST["endfreeperiodday"], $_POST["endfreeperiodyear"], 1);
+			$object->partner		= $_POST["partner"];
 
 			$result = $object->update($user);
 
@@ -415,17 +423,30 @@ if ($user->rights->nltechno->dolicloud->write)
 		if ($conf->use_javascript_ajax)
 		{
 			print "\n".'<script type="text/javascript" language="javascript">';
-			print 'jQuery(document).ready(function () {
-			jQuery("#selectcountry_id").change(function() {
-			document.formsoc.action.value="create";
-			document.formsoc.submit();
-		});
-		jQuery("#instance").keyup(function() {
-		var dolicloud=".on.dolicloud.com";
-		jQuery("#hostname_web").val(jQuery("#instance").val()+dolicloud);
-		jQuery("#hostname_db").val(jQuery("#instance").val()+dolicloud);
-		});
-		})';
+			print '
+			function initstatus()
+			{
+				if (jQuery("#status").val()==\'TRIAL\' || jQuery("#status").val()==\'TRIAL_EXPIRED\') { jQuery("#hideendfreetrial").show() }
+				else { jQuery("#hideendfreetrial").hide() };
+			}
+
+			jQuery(document).ready(function () {
+				jQuery("#selectcountry_id").change(function() {
+					document.formsoc.action.value="create";
+					document.formsoc.submit();
+				});
+				jQuery("#instance").keyup(function() {
+					var dolicloud=".on.dolicloud.com";
+					jQuery("#hostname_web").val(jQuery("#instance").val()+dolicloud);
+					jQuery("#hostname_db").val(jQuery("#instance").val()+dolicloud);
+				});
+				jQuery("#status").change(function() {
+					initstatus();
+				});
+
+				initstatus();
+			});
+			';
 			print '</script>'."\n";
 		}
 
@@ -444,7 +465,10 @@ if ($user->rights->nltechno->dolicloud->write)
 		print '<tr><td class="fieldrequired">'.$langs->trans("Email").'</td><td colspan="3"><input name="email" type="email" size="50" maxlength="80" value="'.(isset($_POST["email"])?$_POST["email"]:$object->email).'"></td></tr>';
 
 		// Plan
-		print '<tr><td class="fieldrequired">'.$langs->trans("Plan").'</td><td colspan="3"><input name="plan" type="text" size="50" maxlength="80" value="'.(isset($_POST["plan"])?$_POST["plan"]:($object->plan?$object->plan:'Basic')).'"></td></tr>';
+		print '<tr><td class="fieldrequired">'.$langs->trans("Plan").'</td><td colspan="3"><input name="plan" type="text" size="20" maxlength="80" value="'.(isset($_POST["plan"])?$_POST["plan"]:($object->plan?$object->plan:'Basic')).'"></td></tr>';
+
+		// Partner
+		print '<tr><td>'.$langs->trans("Partner").'</td><td colspan="3"><input name="partner" type="text" size="20" maxlength="80" value="'.(isset($_POST["partner"])?$_POST["partner"]:($object->partner?$object->partner:'')).'"></td></tr>';
 
 		// Name
 		print '<tr><td width="20%">'.$langs->trans("Lastname").'</td><td width="30%"><input name="lastname" type="text" size="30" maxlength="80" value="'.(isset($_POST["lastname"])?$_POST["lastname"]:$object->lastname).'"></td>';
@@ -496,6 +520,18 @@ if ($user->rights->nltechno->dolicloud->write)
 		print '<br>';
 
 		print '<table class="border" width="100%">';
+
+		// Status
+		print '<tr><td class="fieldrequired">'.$langs->trans("Status").'</td><td colspan="3">';
+		$arraystatus=array('TRIAL'=>'TRIAL','TRIAL_EXPIRED'=>'TRIAL_EXPIRED','ACTIVE'=>'ACTIVE','CLOSED_QUEUED'=>'CLOSED_QUEUED','UNDEPLOYED'=>'UNDEPLOYED');
+		print $form->selectarray('status', $arraystatus, GETPOST('status')?GETPOST('status'):'ACTIVE');
+		print '</td>';
+		print '</tr>';
+
+		// Date end of trial
+		print '<tr id="hideendfreetrial"><td>'.$langs->trans("EndFreeTrial").'</td><td>';
+		print $form->select_date(-1, 'endfreeperiod', 0, 0, 1, '', 1, 1);
+		print '</td><tr>';
 
 		// SFTP
 		print '<tr><td width="20%">'.$langs->trans("SFTP Server").'</td><td colspan="3"><input name="hostname_web" id="hostname_web" type="text" size="18" maxlength="80" value="'.(isset($_POST["hostname_web"])?$_POST["hostname_web"]:$object->hostname_web).'"></td>';
@@ -602,6 +638,9 @@ if ($user->rights->nltechno->dolicloud->write)
 		print '<tr><td width="20%" class="fieldrequired">'.$langs->trans("Plan").'</td><td width="30%" colspan="3"><input name="plan" type="text" size="20" maxlength="80" value="'.(isset($_POST["plan"])?$_POST["plan"]:$object->plan).'"></td>';
 		print '</tr>';
 
+		// Partner
+		print '<tr><td>'.$langs->trans("Partner").'</td><td colspan="3"><input name="partner" type="text" size="20" maxlength="80" value="'.(isset($_POST["partner"])?$_POST["partner"]:($object->partner?$object->partner:'')).'"></td></tr>';
+
 		// Name
 		print '<tr><td width="20%">'.$langs->trans("Lastname").'</td><td width="30%"><input name="lastname" type="text" size="20" maxlength="80" value="'.(isset($_POST["lastname"])?$_POST["lastname"]:$object->lastname).'"></td>';
 		print '<td width="20%">'.$langs->trans("Firstname").'</td><td width="30%"><input name="firstname" type="text" size="20" maxlength="80" value="'.(isset($_POST["firstname"])?$_POST["firstname"]:$object->firstname).'"></td></tr>';
@@ -643,6 +682,18 @@ if ($user->rights->nltechno->dolicloud->write)
 		print '<br>';
 
 		print '<table class="border" width="100%">';
+
+		// Status
+		print '<tr><td class="fieldrequired">'.$langs->trans("Status").'</td><td colspan="3">';
+		$arraystatus=array('TRIAL'=>'TRIAL','TRIAL_EXPIRED'=>'TRIAL_EXPIRED','ACTIVE'=>'ACTIVE','CLOSED_QUEUED'=>'CLOSED_QUEUED','UNDEPLOYED'=>'UNDEPLOYED');
+		print $form->selectarray('status', $arraystatus, GETPOST('status')?GETPOST('status'):'ACTIVE');
+		print '</td>';
+		print '</tr>';
+
+		// Date end of trial
+		print '<tr id="hideendfreetrial"><td>'.$langs->trans("EndFreeTrial").'</td><td>';
+		print $form->select_date($object->date_endfreeperiod, 'endfreeperiod', 0, 0, 1, '', 1, 0);
+		print '</td><tr>';
 
 		// SFTP
 		print '<tr><td width="20%">'.$langs->trans("SFTP Server").'</td><td colspan="3"><input name="hostname_web" type="text" size="28" maxlength="80" value="'.(isset($_POST["hostname_web"])?$_POST["hostname_web"]:$object->hostname_web).'"></td>';
@@ -715,6 +766,9 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 	print '<tr><td width="20%">'.$langs->trans("Plan").'</td><td colspan="3">'.$object->plan.' <a href="http://www.dolicloud.com/fr/component/content/article/134-pricing" target="_blank">('.$langs->trans("Prices").')</td>';
 	print '</tr>';
 
+	// Partner
+	print '<tr><td>'.$langs->trans("Partner").'</td><td colspan="3">'.$object->partner.'</td></tr>';
+
 	// Lastname / Firstname
 	print '<tr><td width="20%">'.$langs->trans("Lastname").'</td><td width="30%">'.$object->lastname.'</td>';
 	print '<td width="20%">'.$langs->trans("Firstname").'</td><td width="30%">'.$object->firstname.'</td></tr>';
@@ -774,6 +828,12 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 	print '<tr>';
 	print '<td>'.$langs->trans("DatabaseLogin").'</td><td>'.$object->username_db.'</td>';
 	print '<td>'.$langs->trans("Password").'</td><td>'.$object->password_db.'</td>';
+	print '</tr>';
+
+	// Status
+	print '<tr><td>'.$langs->trans("Status").'</td><td colspan="3">';
+	print $object->status;
+	print '</td>';
 	print '</tr>';
 
 	print "</table>";

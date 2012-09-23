@@ -414,7 +414,7 @@ class Dolicloudcustomer extends CommonObject
 		$sql.= " plan=".(isset($this->plan)?"'".$this->db->escape($this->plan)."'":"null").",";
 		$sql.= " date_registration=".(dol_strlen($this->date_registration)!=0 ? "'".$this->db->idate($this->date_registration)."'" : 'null').",";
 		$sql.= " date_endfreeperiod=".(dol_strlen($this->date_endfreeperiod)!=0 ? "'".$this->db->idate($this->date_endfreeperiod)."'" : 'null').",";
-		$sql.= " status=".(isset($this->status)?$this->status:"null").",";
+		$sql.= " status=".(isset($this->status)?"'".$this->status."'":"null").",";
 		$sql.= " partner=".(isset($this->partner)?"'".$this->db->escape($this->partner)."'":"null").",";
 		$sql.= " total_invoiced=".(isset($this->total_invoiced)?$this->total_invoiced:"null").",";
 		$sql.= " total_payed=".(isset($this->total_payed)?$this->total_payed:"null").",";
@@ -639,7 +639,7 @@ class Dolicloudcustomer extends CommonObject
 		$this->plan='';
 		$this->date_registration='';
 		$this->date_endfreeperiod='';
-		$this->status='';
+		$this->status='ACTIVE';
 		$this->partner='';
 		$this->total_invoiced='';
 		$this->total_payed='';

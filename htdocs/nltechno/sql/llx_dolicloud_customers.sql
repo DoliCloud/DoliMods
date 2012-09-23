@@ -33,7 +33,7 @@ CREATE TABLE llx_dolicloud_customers
 	phone varchar(128),
 	date_registration datetime,
 	date_endfreeperiod datetime,
-	status integer default 0,
+	status varchar(16),
 	partner varchar(128),
 	total_invoiced double(6,3),
 	total_payed double(6,3),
@@ -51,5 +51,10 @@ CREATE TABLE llx_dolicloud_customers
 	lastlogin varchar(128),
 	lastpass varchar(128),
 	date_lastlogin datetime,
-	modulesenabled varchar(10000)
+	modulesenabled varchar(10000),
+	remind_trial_expired datetime default NULL,
+	remind_trial_closed datetime default NULL,
+	paymentmethod varchar(16),
+	paymentinfo varchar(255),
+	paymentstatus varchar(16)
 ) ENGINE = innodb;
