@@ -57,6 +57,7 @@ if ($idovhsupplier) $result=$ovhthirdparty->fetch($idovhsupplier);
 
 $fuser = $user;
 
+
 // Init SoapClient
 try
 {
@@ -69,6 +70,8 @@ try
 		print 'Error: '.$langs->trans("ModuleSetupNotComplete")."\n";
 		exit;
 	}
+
+	//use_soap_error_handler(true);
 
 	$soap = new SoapClient($conf->global->OVHSMS_SOAPURL,$params);
 
@@ -85,7 +88,7 @@ try
 }
 catch(SoapFault $fault)
 {
-	echo $fault;
+	setEventMessage('SoapFault Exception: '.$fault->getMessage().' - '.$fault->getTraceAsString(),'errors');
 }
 
 
