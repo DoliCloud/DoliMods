@@ -55,13 +55,10 @@ function ovhadmin_prepare_head()
 	$head[$h][2] = 'listservers';
 	$h++;
 
-	if ($conf->global->MAIN_FEATURES_LEVEL > 0)
-	{
-    	$head[$h][0] = dol_buildpath("/ovh/admin/ovh_importinvoice.php",1);
-    	$head[$h][1] = $langs->trans("OvhGetInvoices");
-    	$head[$h][2] = 'getinvoices';
-    	$h++;
-	}
+   	$head[$h][0] = dol_buildpath("/ovh/admin/ovh_importinvoice.php",1);
+   	$head[$h][1] = $langs->trans("OvhGetInvoices");
+   	$head[$h][2] = 'getinvoices';
+   	$h++;
 
 	return $head;
 }
