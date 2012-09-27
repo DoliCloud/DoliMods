@@ -1,5 +1,5 @@
 <?php
-/* Copyright (C) 2011 Laurent Destailleur  <eldy@users.sourceforge.net>
+/* Copyright (C) 2012 Laurent Destailleur  <eldy@users.sourceforge.net>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,9 +18,8 @@
 
 /**
  *	\file       htdocs/cabinetmed/class/actions_cabinetmed.class.php
- *	\ingroup    societe
+ *	\ingroup    dolicloud
  *	\brief      File to control actions
- *	\version    $Id: actions_cabinetmed.class.php,v 1.8 2011/09/11 18:41:48 eldy Exp $
  */
 require_once(DOL_DOCUMENT_ROOT."/core/class/commonobject.class.php");
 
@@ -54,7 +53,9 @@ class ActionsDoliCloud
     {
         global $langs, $user, $conf;
 
-        $out='<td><div class="login"><a href="https://www.on.dolicloud.com/signIn/index" target="_blank">DoliCloud</a></div></td>';
+        $url='https://www.on.dolicloud.com/';
+        if (! empty($conf->global->DOLICLOUD_FORCE_URL)) $url=$conf->global->DOLICLOUD_FORCE_URL;
+        $out='<td><div class="login"><a href="'.$url.'" target="_blank">DoliCloud</a></div></td>';
 
         return $out;
     }

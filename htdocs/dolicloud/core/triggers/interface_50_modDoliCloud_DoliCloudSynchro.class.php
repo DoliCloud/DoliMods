@@ -1,5 +1,5 @@
 <?php
-/* Copyright (C) 2011 Regis Houssin	<regis@dolibarr.fr>
+/* Copyright (C) 2012 Laurent Destailleur  <eldy@users.sourceforge.net>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,8 +17,8 @@
  */
 
 /**
- *      \file       /google/core/triggers/interface_50_modDoliCloud_DoliCloudSynchro.class.php
- *      \ingroup    google
+ *      \file       /htdocs/dolicloud/core/triggers/interface_50_modDoliCloud_DoliCloudSynchro.class.php
+ *      \ingroup    dolicloud
  *      \brief      File to manage triggers for DoliCloud calendar sync
  */
 

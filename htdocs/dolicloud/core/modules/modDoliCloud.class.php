@@ -1,16 +1,16 @@
 <?php
-/* Copyright (C) 2008-2011 Laurent Destailleur  <eldy@users.sourceforge.net>
+/* Copyright (C) 2008-2012 Laurent Destailleur  <eldy@users.sourceforge.net>
  *
  * Licensed under the GNU GPL v3 or higher (See file gpl-3.0.html)
  */
 
-/**     \defgroup   google     Module DoliCloud
+/**     \defgroup   dolicloud     Module DoliCloud
  *      \brief      Module to DoliCloud tools integration.
  */
 
 /**
  *      \file       htdocs/google/core/modules/modDoliCloud.class.php
- *      \ingroup    google
+ *      \ingroup    dolicloud
  *      \brief      Description and activation file for module DoliCloud
  */
 include_once(DOL_DOCUMENT_ROOT ."/core/modules/DolibarrModules.class.php");
