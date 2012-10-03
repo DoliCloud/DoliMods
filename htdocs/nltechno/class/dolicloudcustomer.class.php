@@ -29,7 +29,7 @@ require_once(DOL_DOCUMENT_ROOT."/core/class/commonobject.class.php");
 
 
 /**
- *	Put here description of your class
+ *	Class of DoliClou dcustomers
  */
 class Dolicloudcustomer extends CommonObject
 {
@@ -567,6 +567,62 @@ class Dolicloudcustomer extends CommonObject
 	    return $result;
 	}
 
+
+	/**
+	 *    Return label of status (activity, closed)
+	 *
+	 *    @param	int		$mode       0=libelle long, 1=libelle court, 2=Picto + Libelle court, 3=Picto, 4=Picto + Libelle long
+	 *    @return   string        		Libelle
+	 */
+	function getLibStatut($mode=0)
+	{
+		return $this->LibStatut($this->status,$mode);
+	}
+
+	/**
+	 *  Renvoi le libelle d'un statut donne
+	 *
+	 *  @param	int		$statut         Id statut
+	 *  @param	int		$mode           0=libelle long, 1=libelle court, 2=Picto + Libelle court, 3=Picto, 4=Picto + Libelle long, 5=Libelle court + Picto
+	 *  @return	string          		Libelle du statut
+	 */
+	function LibStatut($statut,$mode=0)
+	{
+		global $langs;
+		$langs->load('nltechno@nltechno');
+
+		if ($this->status == 'ACTIVE') $picto=img_picto($langs->trans("Active"),'statut4');
+		elseif ($this->status == 'CLOSED_QUEUED') $picto=img_picto($langs->trans("Disabled"),'statut6');
+		elseif ($this->status == 'UNDEPLOYED') $picto=img_picto($langs->trans("Active"),'statut5');
+		elseif ($this->status == 'TRIAL_EXPIRED') $picto=img_picto($langs->trans("Expired"),'statut1');
+		elseif ($this->status == 'TRIAL') $picto=img_picto($langs->trans("Trial"),'statut0');
+		else $picto=img_picto($langs->trans("Trial"),'statut0');
+
+		if ($mode == 0)
+		{
+			return $this->status;
+		}
+		if ($mode == 1)
+		{
+			return $this->status;
+		}
+		if ($mode == 2)
+		{
+			return $picto.' '.$this->status;
+		}
+		if ($mode == 3)
+		{
+			return $picto;
+		}
+		if ($mode == 4)
+		{
+			return $picto.' '.$this->status;
+		}
+		if ($mode == 5)
+		{
+			return $this->status.' '.$picto;
+		}
+	}
 
 
 	/**

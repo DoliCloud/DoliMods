@@ -1,5 +1,5 @@
 <?php
-/* Copyright (C) 2007-2010 Laurent Destailleur  <eldy@users.sourceforge.net>
+/* Copyright (C) 2007-2012 Laurent Destailleur  <eldy@users.sourceforge.net>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -183,6 +183,7 @@ print_liste_field_titre($langs->trans('DateLastCheck'),$_SERVER['PHP_SELF'],'t.l
 print_liste_field_titre($langs->trans('NbOfUsers'),$_SERVER['PHP_SELF'],'t.nbofusers','',$param,'',$sortfield,$sortorder);
 print_liste_field_titre($langs->trans('LastLogin'),$_SERVER['PHP_SELF'],'t.lastlogin','',$param,'',$sortfield,$sortorder);
 print_liste_field_titre($langs->trans('DateLastLogin'),$_SERVER['PHP_SELF'],'t.datelastlogin','',$param,'',$sortfield,$sortorder);
+print_liste_field_titre($langs->trans('Status'),$_SERVER['PHP_SELF'],'t.status','',$param,'align="right"',$sortfield,$sortorder);
 print '</tr>';
 
 $var=false;
@@ -205,6 +206,7 @@ if ($resql)
                 print '<tr '.$bc[$var].'><td align="left">';
                 $dolicloudcustomerstatic->id=$obj->rowid;
                 $dolicloudcustomerstatic->ref=$obj->instance;
+                $dolicloudcustomerstatic->status=$obj->status;
                 print $dolicloudcustomerstatic->getNomUrl(1,'');
                 print '</td><td>';
                 print $obj->organization;
@@ -224,7 +226,10 @@ if ($resql)
                 print $obj->lastlogin;
                 print '</td><td>';
                 print ($obj->date_lastlogin?dol_print_date($obj->date_lastlogin,'dayhour','tzuser'):'');
-                print '</td></tr>';
+                print '</td><td align="right">';
+                print $dolicloudcustomerstatic->getLibStatut(3);
+                print '</td>';
+                print '</tr>';
             }
             $i++;
         }

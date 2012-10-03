@@ -832,7 +832,7 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 
 	// Status
 	print '<tr><td>'.$langs->trans("Status").'</td><td colspan="3">';
-	print $object->status;
+	print $object->getLibStatut(2);
 	print '</td>';
 	print '</tr>';
 
