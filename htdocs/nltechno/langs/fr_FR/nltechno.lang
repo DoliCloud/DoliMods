@@ -12,3 +12,5 @@ DatabaseLogin=Login base de donnée
 NeedRefresh=A rafraîchir
 RevenuePerMonth=Revenues par mois
 AverageRevenuePerCustomer=Revenues par client
+NbOfCustomersActive=Nb de clients actifs
+NbOfCustomers=Nb de clients

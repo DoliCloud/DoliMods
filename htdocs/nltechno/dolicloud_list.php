@@ -271,6 +271,11 @@ print '<br>';
 
 print '<table class="border">';
 print '<tr><td>';
+print $langs->trans("NbOfCustomersActive").' / '.$langs->trans("NbOfCustomers");
+print '</td><td>';
+print '<font size="+2">'.$totalcustomerspaying.' / '.$totalcustomers.'</font>';
+print '</td></tr>';
+print '<tr><td>';
 print $langs->trans("RevenuePerMonth");
 print '</td><td>';
 print '<font size="+2">'.price($total,1).' </font>';
