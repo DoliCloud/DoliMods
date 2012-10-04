@@ -155,8 +155,12 @@ $sql.= " t.nbofusers,";
 $sql.= " t.lastlogin,";
 $sql.= " t.lastpass,";
 $sql.= " t.date_lastlogin,";
-$sql.= " t.modulesenabled";
+$sql.= " t.modulesenabled,";
+$sql.= " p.price_instance,";
+$sql.= " p.price_user,";
+$sql.= " p.price_gb";
 $sql.= " FROM ".MAIN_DB_PREFIX."dolicloud_customers as t";
+$sql.= " LEFT JOIN ".MAIN_DB_PREFIX."c_dolicloud_plans as p ON t.plan = p.code";
 //    $sql.= " WHERE field3 = 'xxx'";
 $sql.= $db->order($sortfield,$sortorder);
 $sql.= $db->plimit($conf->liste_limit +1, $offset);
@@ -183,6 +187,7 @@ print_liste_field_titre($langs->trans('DateLastCheck'),$_SERVER['PHP_SELF'],'t.l
 print_liste_field_titre($langs->trans('NbOfUsers'),$_SERVER['PHP_SELF'],'t.nbofusers','',$param,'',$sortfield,$sortorder);
 print_liste_field_titre($langs->trans('LastLogin'),$_SERVER['PHP_SELF'],'t.lastlogin','',$param,'',$sortfield,$sortorder);
 print_liste_field_titre($langs->trans('DateLastLogin'),$_SERVER['PHP_SELF'],'t.datelastlogin','',$param,'',$sortfield,$sortorder);
+print_liste_field_titre($langs->trans('Revenue'),$_SERVER['PHP_SELF'],'','',$param,' align="right"',$sortfield,$sortorder);
 print_liste_field_titre($langs->trans('Status'),$_SERVER['PHP_SELF'],'t.status','',$param,'align="right"',$sortfield,$sortorder);
 print '</tr>';
 
@@ -224,8 +229,11 @@ if ($resql)
                 print $obj->nbofusers;
                 print '</td><td>';
                 print $obj->lastlogin;
-                print '</td><td>';
+	            print '</td><td>';
                 print ($obj->date_lastlogin?dol_print_date($obj->date_lastlogin,'dayhour','tzuser'):'');
+                print '</td><td align="right">';
+                if (empty($obj->nbofusers)) print $langs->trans("NeedRefresh");
+                else print price($obj->price_instance + ($obj->nbofusers * $obj->price_user));
                 print '</td><td align="right">';
                 print $dolicloudcustomerstatic->getLibStatut(3);
                 print '</td>';

@@ -36,6 +36,7 @@ require_once(DOL_DOCUMENT_ROOT."/core/lib/date.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/class/html.formcompany.class.php");
 dol_include_once("/nltechno/core/lib/dolicloud.lib.php");
 dol_include_once('/nltechno/class/dolicloudcustomer.class.php');
+dol_include_once('/nltechno/class/cdolicloudplans.class.php');
 
 $langs->load("admin");
 $langs->load("companies");
@@ -763,7 +764,14 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 	print '</tr>';
 
 	// Plan
-	print '<tr><td width="20%">'.$langs->trans("Plan").'</td><td colspan="3">'.$object->plan.' <a href="http://www.dolicloud.com/fr/component/content/article/134-pricing" target="_blank">('.$langs->trans("Prices").')</td>';
+	print '<tr><td width="20%">'.$langs->trans("Plan").'</td><td colspan="3">'.$object->plan.' - ';
+	$plan=new Cdolicloudplans($db);
+	$result=$plan->fetch('',$object->plan);
+	if ($plan->price_instance) print ' '.$plan->price_instance.' '.currency_name('EUR').'/instance';
+	if ($plan->price_user) print ' '.$plan->price_user.' '.currency_name('EUR').'/user';
+	if ($plan->price_gb) print ' '.$plan->price_gb.' '.currency_name('EUR').'/GB';
+	print ' <a href="http://www.dolicloud.com/fr/component/content/article/134-pricing" target="_blank">('.$langs->trans("Prices").')';
+	print '</td>';
 	print '</tr>';
 
 	// Partner
