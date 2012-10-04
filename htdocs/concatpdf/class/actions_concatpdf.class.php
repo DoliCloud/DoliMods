@@ -168,7 +168,7 @@ class ActionsConcatPdf
         			$file = $conf->concatpdf->dir_output.'/'.$element.'/'.$concatfile.'.php';
         			$classname = str_replace('.modules', '', $concatfile);
         			require_once($file);
-        			$obj = new $classname($db);
+        			$obj = new $classname($this->db);
 
         			// We save charset_output to restore it because write_file can change it if needed for
         			// output format that does not support UTF8.
