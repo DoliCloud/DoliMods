@@ -10,3 +10,5 @@ DateLastLogin=Date dernier login
 SFTPLogin=Login SFTP
 DatabaseLogin=Login base de donnée
 NeedRefresh=A rafraîchir
+RevenuePerMonth=Revenues par mois
+AverageRevenuePerCustomer=Revenues par client

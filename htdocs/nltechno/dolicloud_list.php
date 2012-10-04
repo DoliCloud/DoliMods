@@ -41,6 +41,7 @@ if (! $res && file_exists("../../../dolibarr/htdocs/main.inc.php")) $res=@includ
 if (! $res && file_exists("../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
 if (! $res && file_exists("../../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
 if (! $res) die("Include of main fails");
+require_once(DOL_DOCUMENT_ROOT."/core/lib/company.lib.php");
 // Change this following line to use the correct relative path from htdocs (do not remove DOL_DOCUMENT_ROOT)
 dol_include_once("/nltechno/class/dolicloudcustomer.class.php");
 
@@ -191,6 +192,9 @@ print_liste_field_titre($langs->trans('Revenue'),$_SERVER['PHP_SELF'],'','',$par
 print_liste_field_titre($langs->trans('Status'),$_SERVER['PHP_SELF'],'t.status','',$param,'align="right"',$sortfield,$sortorder);
 print '</tr>';
 
+$totalcustomers=0;
+$total=0;
+
 $var=false;
 
 dol_syslog($script_file." sql=".$sql, LOG_DEBUG);
@@ -206,6 +210,10 @@ if ($resql)
             $obj = $db->fetch_object($resql);
             if ($obj)
             {
+                $price=$obj->price_instance + ($obj->nbofusers * $obj->price_user);
+            	$totalcustomers++;
+            	$total+=$price;
+
                 $var=!$var;
                 // You can use here results
                 print '<tr '.$bc[$var].'><td align="left">';
@@ -233,7 +241,7 @@ if ($resql)
                 print ($obj->date_lastlogin?dol_print_date($obj->date_lastlogin,'dayhour','tzuser'):'');
                 print '</td><td align="right">';
                 if (empty($obj->nbofusers)) print $langs->trans("NeedRefresh");
-                else print price($obj->price_instance + ($obj->nbofusers * $obj->price_user));
+                else print price($price);
                 print '</td><td align="right">';
                 print $dolicloudcustomerstatic->getLibStatut(3);
                 print '</td>';
@@ -250,6 +258,20 @@ else
 }
 print '</table>';
 
+print '<br>';
+
+print '<table class="border">';
+print '<tr><td>';
+print $langs->trans("RevenuePerMonth");
+print '</td><td>';
+print '<font size="+2">'.price($total).' </font>';
+print '</td></tr>';
+print '<tr><td>';
+print $langs->trans("AverageRevenuePerCustomer");
+print '</td><td>';
+print '<font size="+2">'.price(price2num($total/$totalcustomers)).' </font>';
+print '</td></tr>';
+print '</table>';
 
 // End of page
 llxFooter();
