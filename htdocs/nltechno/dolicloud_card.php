@@ -322,7 +322,7 @@ if (empty($reshook))
 
 				$object->lastlogin  = $obj->login;
 				$object->lastpass   = $obj->pass;
-				$object->date_lastlogin = ($obj->datelastlogin ? ($newdb->jdate($obj->datelastlogin)+$deltatzserver) : 0);
+				$object->date_lastlogin = ($obj->datelastlogin ? ($newdb->jdate($obj->datelastlogin)+$deltatzserver) : '');
 			}
 			else
 			{
