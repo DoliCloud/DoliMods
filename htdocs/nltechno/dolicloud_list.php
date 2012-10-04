@@ -185,9 +185,9 @@ print_liste_field_titre($langs->trans('Plan'),$_SERVER['PHP_SELF'],'t.plan','',$
 print_liste_field_titre($langs->trans('DateRegistration'),$_SERVER['PHP_SELF'],'t.date_registration','',$param,'',$sortfield,$sortorder);
 print_liste_field_titre($langs->trans('DateEndFreePeriod'),$_SERVER['PHP_SELF'],'t.date_endfreeperiod','',$param,'',$sortfield,$sortorder);
 print_liste_field_titre($langs->trans('DateLastCheck'),$_SERVER['PHP_SELF'],'t.lastcheck','',$param,'',$sortfield,$sortorder);
-print_liste_field_titre($langs->trans('NbOfUsers'),$_SERVER['PHP_SELF'],'t.nbofusers','',$param,'',$sortfield,$sortorder);
+print_liste_field_titre($langs->trans('NbOfUsers'),$_SERVER['PHP_SELF'],'t.nbofusers','',$param,'align="right"',$sortfield,$sortorder);
 print_liste_field_titre($langs->trans('LastLogin'),$_SERVER['PHP_SELF'],'t.lastlogin','',$param,'',$sortfield,$sortorder);
-print_liste_field_titre($langs->trans('DateLastLogin'),$_SERVER['PHP_SELF'],'t.date_lastlogin','',$param,'',$sortfield,$sortorder);
+print_liste_field_titre($langs->trans('DateLastLogin'),$_SERVER['PHP_SELF'],'t.date_lastlogin','align="center"',$param,'',$sortfield,$sortorder);
 print_liste_field_titre($langs->trans('Revenue'),$_SERVER['PHP_SELF'],'','',$param,' align="right"',$sortfield,$sortorder);
 print_liste_field_titre($langs->trans('Status'),$_SERVER['PHP_SELF'],'t.status','',$param,'align="right"',$sortfield,$sortorder);
 print '</tr>';
@@ -233,11 +233,11 @@ if ($resql)
                 print dol_print_date($obj->date_endfreeperiod,'day');
                 print '</td><td>';
                 print $obj->lastcheck;
-                print '</td><td>';
+                print '</td><td align="right">';
                 print $obj->nbofusers;
                 print '</td><td>';
                 print $obj->lastlogin;
-	            print '</td><td>';
+	            print '</td><td align="center">';
                 print ($obj->date_lastlogin?dol_print_date($obj->date_lastlogin,'dayhour','tzuser'):'');
                 print '</td><td align="right">';
                 if ($obj->status != 'ACTIVE')
@@ -269,21 +269,35 @@ print '</table>';
 
 print '<br>';
 
+// Show totals
+$serverlocation=140;
+$dollareuro=0.78;
+$part=0.3;	// 30%
+$serverprice=price2num($serverlocation * $dollareuro, 'MT');
+
 print '<table class="border">';
 print '<tr><td>';
-print $langs->trans("NbOfCustomersActive").' / '.$langs->trans("NbOfCustomers");
-print '</td><td>';
+print $langs->trans("NbOfCustomersActive").' / '.$langs->trans("NbOfCustomers").' ';
+print '</td><td align="right">';
 print '<font size="+2">'.$totalcustomerspaying.' / '.$totalcustomers.'</font>';
 print '</td></tr>';
 print '<tr><td>';
+print $langs->trans("AverageRevenuePerCustomer");
+print '</td><td align="right">';
+print '<font size="+2">'.price(price2num($total/$totalcustomerspaying,'MT'),1).' </font>';
+print '</td></tr>';
+print '<tr><td>';
 print $langs->trans("RevenuePerMonth");
-print '</td><td>';
+print '</td><td align="right">';
 print '<font size="+2">'.price($total,1).' </font>';
 print '</td></tr>';
 print '<tr><td>';
-print $langs->trans("AverageRevenuePerCustomer");
-print '</td><td>';
-print '<font size="+2">'.price(price2num($total/$totalcustomerspaying,'MT'),1).' </font>';
+print $langs->trans("Benefit");
+print '<br>(';
+print price($total,1).' - '.$serverlocation.'$ - '.($part*100).'% = ';
+print price($total,1).' - '.price($serverprice).'€ - '.($part*100).'% = '.price($total - $serverprice).'€ - '.($part*100).'%';
+print ')</td><td align="right">';
+print '<font size="+2">'.price(($total - $serverprice) * (1 - $part),1).' </font>';
 print '</td></tr>';
 print '</table>';
 
