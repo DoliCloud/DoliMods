@@ -193,6 +193,7 @@ print_liste_field_titre($langs->trans('Status'),$_SERVER['PHP_SELF'],'t.status',
 print '</tr>';
 
 $totalcustomers=0;
+$totalcustomerspaying=0;
 $total=0;
 
 $var=false;
@@ -211,8 +212,7 @@ if ($resql)
             if ($obj)
             {
                 $price=$obj->price_instance + ($obj->nbofusers * $obj->price_user);
-            	$totalcustomers++;
-            	$total+=$price;
+                $totalcustomers++;
 
                 $var=!$var;
                 // You can use here results
@@ -240,8 +240,17 @@ if ($resql)
 	            print '</td><td>';
                 print ($obj->date_lastlogin?dol_print_date($obj->date_lastlogin,'dayhour','tzuser'):'');
                 print '</td><td align="right">';
-                if (empty($obj->nbofusers)) print $langs->trans("NeedRefresh");
-                else print price($price);
+                if ($obj->status != 'ACTIVE')
+                {
+                	print '';
+                }
+                else
+              {
+                	if (empty($obj->nbofusers)) print $langs->trans("NeedRefresh");
+                	else print price($price);
+                	$totalcustomerspaying++;
+                	$total+=$price;
+                }
                 print '</td><td align="right">';
                 print $dolicloudcustomerstatic->getLibStatut(3);
                 print '</td>';
@@ -264,12 +273,12 @@ print '<table class="border">';
 print '<tr><td>';
 print $langs->trans("RevenuePerMonth");
 print '</td><td>';
-print '<font size="+2">'.price($total).' </font>';
+print '<font size="+2">'.price($total,1).' </font>';
 print '</td></tr>';
 print '<tr><td>';
 print $langs->trans("AverageRevenuePerCustomer");
 print '</td><td>';
-print '<font size="+2">'.price(price2num($total/$totalcustomers)).' </font>';
+print '<font size="+2">'.price(price2num($total/$totalcustomerspaying,'MT'),1).' </font>';
 print '</td></tr>';
 print '</table>';
 
