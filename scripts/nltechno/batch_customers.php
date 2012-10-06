@@ -69,7 +69,7 @@ $db->begin();
 
 
 // Examples for manipulating class skeleton_class
-require_once(DOL_DOCUMENT_ROOT."/../dev/skeletons/dolicloudcustomers.class.php");
+dol_include_once('/nltechno/class/dolicloudcustomer.class.php');
 $myobject=new Dolicloudcustomers($db);
 
 // Example for inserting creating object in database
