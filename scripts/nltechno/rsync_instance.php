@@ -86,7 +86,10 @@ $targetdir='/home/'.$login.'/'.$dirdb;
 $server=$object->instance.'.on.dolicloud.com';
 
 print 'Synchro of files '.$dirroot.' to '.$targetdir."\n";
-print 'Password '.$object->password_web."\n";
+
+$sftpconnectstring=$object->username_web.'@'.$object->hostname_web.':/home/'.$object->username_web.'/'.preg_replace('/_dolibarr$/','',$object->database_db);
+print 'SFTP connect string : '.$sftpconnectstring."\n";
+print 'SFTP password '.$object->password_web."\n";
 
 $command="rsync";
 $output=array();
