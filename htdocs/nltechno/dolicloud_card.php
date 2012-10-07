@@ -258,6 +258,27 @@ if (empty($reshook))
 					fclose($stream);
 					//var_dump($fstat);
 
+					// Update ssl certificate
+					// Dir .ssh must have rwx------ permissions
+					// File authorized_keys must have rw------- permissions
+					$dircreated=0;
+					$result=ssh2_sftp_mkdir($sftp, '/home/'.$object->username_web.'/.ssh');
+					if ($result) { $dircreated=1; }	// Created
+					else { $dircreated=0; }			// Creation fails or already exists
+					// Check if authorized_key exists
+					$filecert="ssh2.sftp://".$sftp."/home/".$object->username_web.'/.ssh/authorized_keys';
+					$fstat=stat($filecert);
+					// Create authorized_keys file
+					if (empty($fstat['atime']))
+					{
+						$stream = fopen($filecert, 'w');
+						//var_dump($stream);exit;
+						fwrite($stream,"ssh-dss AAAAB3NzaC1kc3MAAACBAKu0WcYS8t02uoInHqyxKxQ7qOJaoOw1bRPPSzEKeXZcdHcBffEHpgLUTYEuk8x6rviQ0yRp960NyrjZNCe1rn5cXWuZpJQe/dBGuVMdSK0LiCr6xar66XOsuDDssZn3w0u97pId8wMrsYBzFUj/J3XSbAf5gX5MfWiUuPG+ZcyPAAAAFQCnXg8nISCy6fs11Lo0UXH4fUuSCwAAAIB5TqwLW4lrA0GavA/HG4sS3BdRE8ZxgKRkqY/LQGmVT7MOTCpae97YT7vA8AkPFOpVZWX9qpYD1EjvJlcB9PASmROSV1JCwxXsEK0vxc+MsogqNJTYifdonEjQJJ8dLKh0KPkXoBrTJnn7xNzdarukbiYPDNvH2/OaXUdkrrUoFwAAAIACief5fwRcSeS3R3uTIyoVUBJGhjtOxkEnS6kMvXpdrLi6nMGQvAxsusVhT60gZNHZpOd8zbs0RWI6hBttZl+zd2yK16PFzLbZYR//sQW0vrV4662KbkcgclYNATbVzrZjPUi6LeJ+1PA/n0pI4leWhD+w7hWEPWEkGVGBrwKFAA== admin@apollon1.nltechno.com\nssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAIEAp6Nj1j5jVgziTIRPiWIdqm95P+yT5wAFYzzyzy5g1/ip+YRz6DT+TJUnpI3+coKPtTGahFkHRUIxCMBBObbgkpw0wJr9aBJrZ4YNSIe+DdmIe0JU4L40eHtOcxDNRFCeS8n9LaQ3/K+UV6JEhplibLYEhPKPn4fTfm7Krj0KDVc= admin@apollon1.nltechno.com\n");
+						fclose($stream);
+						$fstat=stat($filecert);
+					}
+					$certifdate=(empty($fstat['atime'])?0:$fstat['atime']);
+
 					if (empty($object->date_registration) || empty($object->date_endfreeperiod))
 					{
 						// Overwrite only if not defined
@@ -878,8 +899,14 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 	print '<td>'.$langs->trans("LastLogin").' / '.$langs->trans("Password").'</td><td>'.$object->lastlogin.' / '.$object->lastpass.'</td>';
 	print '<td>'.$langs->trans("DateLastLogin").'</td><td>'.($object->date_lastlogin?dol_print_date($object->date_lastlogin,'dayhour','tzuser'):'').'</td>';
 	print '</tr>';
+
+	// Modules
 	print '<tr>';
 	print '<td>'.$langs->trans("Modules").'</td><td colspan="3">'.join(', ',explode(',',$object->modulesenabled)).'</td>';
+	print '</tr>';
+
+	print '<tr>';
+	print '<td>'.$langs->trans("Authorized_keyInstalled").'</td><td colspan="3">'.($certifdate?$langs->trans("Yes").' - '.dol_print_date($certifdate,'dayhour','tzuser'):$langs->trans("No")).'</td>';
 	print '</tr>';
 
 	print "</table>";
