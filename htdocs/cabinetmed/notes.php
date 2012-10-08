@@ -94,7 +94,7 @@ if ($conf->global->MAIN_DIRECTEDITMODE && $user->rights->societe->creer) $action
 
 $form = new Form($db);
 
-llxHeader('',$langs->trans("ThirdParty").' - '.$langs->trans("Notes"),$help_url);
+llxHeader('',$langs->trans("Patient").' - '.$langs->trans("Notes"),$help_url);
 
 if ($socid > 0)
 {
@@ -106,7 +106,7 @@ if ($socid > 0)
     $head = societe_prepare_head($object);
 
 
-    dol_fiche_head($head, 'tabnotes', $langs->trans("ThirdParty"),0,'company');
+    dol_fiche_head($head, 'tabnotes', $langs->trans("Patient"),0,'company');
 
 
 
@@ -134,7 +134,7 @@ if ($socid > 0)
 
     print '<table class="border" width="100%">';
 
-    print '<tr><td width="20%">'.$langs->trans('ThirdPartyName').'</td>';
+    print '<tr><td width="20%">'.$langs->trans('PatientName').'</td>';
     print '<td colspan="3">';
     print $form->showrefnav($object,'socid','',($user->societe_id?0:1),'rowid','nom');
     print '</td></tr>';

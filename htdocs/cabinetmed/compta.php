@@ -68,7 +68,7 @@ if (!$user->rights->cabinetmed->read) accessforbidden();
  * View
  */
 
-llxHeader();
+llxHeader('',$langs->trans("Compta"));
 
 $html=new Form($db);
 $htmlother=new FormOther($db);

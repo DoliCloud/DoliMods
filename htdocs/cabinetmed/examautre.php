@@ -197,14 +197,14 @@ if ($socid > 0)
     if ($conf->notification->enabled) $langs->load("mails");
 
     $head = societe_prepare_head($societe);
-    dol_fiche_head($head, 'tabexamautre', $langs->trans("ThirdParty"),0,'company');
+    dol_fiche_head($head, 'tabexamautre', $langs->trans("Patient"),0,'company');
 
     print "<form method=\"post\" action=\"".$_SERVER["PHP_SELF"]."\">";
     print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
 
     print '<table class="border" width="100%">';
 
-    print '<tr><td width="25%">'.$langs->trans('ThirdPartyName').'</td>';
+    print '<tr><td width="25%">'.$langs->trans('PatientName').'</td>';
     print '<td colspan="3">';
     print $form->showrefnav($societe,'socid','',($user->societe_id?0:1),'rowid','nom');
     print '</td></tr>';

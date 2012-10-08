@@ -1,5 +1,5 @@
 <?php
-/* Copyright (C) 2004-2011      Laurent Destailleur  <eldy@users.sourceforge.net>
+/* Copyright (C) 2004-2012      Laurent Destailleur  <eldy@users.sourceforge.net>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -370,7 +370,8 @@ llxHeader('',$langs->trans("Consultation"));
 if ($socid > 0)
 {
     $object = new Patient($db);
-    $object->fetch($socid);
+    $result=$object->fetch($socid);
+	if ($result < 0) { dol_print_error('',$object->error); }
 
     if ($id && ! $consult->id)
     {
@@ -387,14 +388,14 @@ if ($socid > 0)
     if ($conf->notification->enabled) $langs->load("mails");
 
 	$head = societe_prepare_head($object);
-	dol_fiche_head($head, 'tabconsultations', $langs->trans("ThirdParty"),0,'company');
+	dol_fiche_head($head, 'tabconsultations', $langs->trans("Patient"),0,'company');
 
 	print "<form method=\"post\" action=\"".$_SERVER["PHP_SELF"]."\">";
 	print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
 
 	print '<table class="border" width="100%">';
 
-	print '<tr><td width="25%">'.$langs->trans('ThirdPartyName').'</td>';
+	print '<tr><td width="25%">'.$langs->trans('PatientName').'</td>';
 	print '<td colspan="3">';
 	print $form->showrefnav($object,'socid','',($user->societe_id?0:1),'rowid','nom');
 	print '</td></tr>';

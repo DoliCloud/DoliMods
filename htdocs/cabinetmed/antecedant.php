@@ -170,7 +170,7 @@ if ($socid > 0)
 
     $head = societe_prepare_head($object);
 
-    dol_fiche_head($head, 'tabantecedents', $langs->trans("ThirdParty"),0,'company');
+    dol_fiche_head($head, 'tabantecedents', $langs->trans("Patient"),0,'company');
 
 
     print '<script type="text/javascript">
@@ -196,7 +196,7 @@ if ($socid > 0)
 
     print '<table class="border" width="100%">';
 
-    print '<tr><td width="25%">'.$langs->trans('ThirdPartyName').'</td>';
+    print '<tr><td width="25%">'.$langs->trans('PatientName').'</td>';
     print '<td colspan="3">';
     print $form->showrefnav($object,'socid','',($user->societe_id?0:1),'rowid','nom');
     print '</td></tr>';
