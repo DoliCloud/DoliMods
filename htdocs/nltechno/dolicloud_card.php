@@ -277,7 +277,11 @@ if (empty($reshook))
 						fclose($stream);
 						$fstat=stat($filecert);
 					}
-					$certifdate=(empty($fstat['atime'])?0:$fstat['atime']);
+					$object->fileauthorizedkey=(empty($fstat['mtime'])?'':$fstat['mtime']);
+					// Check if install.lock exists
+					$fileinstalllock="ssh2.sftp://".$sftp."/home/".$object->username_web.'/'.$dir.'/documents/install.lock';
+					$fstatlock=stat($fileinstalllock);
+					$object->filelock=(empty($fstatlock['mtime'])?'':$fstatlock['mtime']);
 
 					if (empty($object->date_registration) || empty($object->date_endfreeperiod))
 					{
@@ -390,7 +394,8 @@ $countrynotdefined=$langs->trans("ErrorSetACountryFirst").' ('.$langs->trans("Se
 
 if ($id > 0 || $instance)
 {
-	$object->fetch($id,$instance);
+	$result=$object->fetch($id,$instance);
+	if ($result < 0) dol_print_error($db,$object->error);
 }
 
 
@@ -905,8 +910,14 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 	print '<td>'.$langs->trans("Modules").'</td><td colspan="3">'.join(', ',explode(',',$object->modulesenabled)).'</td>';
 	print '</tr>';
 
+	// Authorized key
 	print '<tr>';
-	print '<td>'.$langs->trans("Authorized_keyInstalled").'</td><td colspan="3">'.($certifdate?$langs->trans("Yes").' - '.dol_print_date($certifdate,'dayhour','tzuser'):$langs->trans("No")).'</td>';
+	print '<td>'.$langs->trans("Authorized_keyInstalled").'</td><td colspan="3">'.($object->fileauthorizedkey?$langs->trans("Yes").' - '.dol_print_date($object->fileauthorizedkey,'%Y-%m-%d %H:%M:%S','tzuser'):$langs->trans("No")).'</td>';
+	print '</tr>';
+
+	// Install.lock file
+	print '<tr>';
+	print '<td>'.$langs->trans("LockfileInstalled").'</td><td colspan="3">'.($object->filelock?$langs->trans("Yes").' - '.dol_print_date($object->filelock,'%Y-%m-%d %H:%M:%S','tzuser'):$langs->trans("No")).'</td>';
 	print '</tr>';
 
 	print "</table>";

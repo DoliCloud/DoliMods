@@ -76,6 +76,8 @@ class Dolicloudcustomer extends CommonObject
 	var $state_id;
 	var $phone;
 
+	var $fileauthorizedkey;
+	var $filelock;
 
 
     /**
@@ -162,7 +164,9 @@ class Dolicloudcustomer extends CommonObject
 		$sql.= "town,";
 		$sql.= "country_id,";
 		$sql.= "state_id,";
-		$sql.= "phone";
+		$sql.= "phone,";
+		$sql.= "fileauthorizedkey,";
+		$sql.= "filelock";
 
         $sql.= ") VALUES (";
 
@@ -198,7 +202,10 @@ class Dolicloudcustomer extends CommonObject
 		$sql.= " ".(! isset($this->town)?'NULL':"'".$this->db->escape($this->town)."'").",";
 		$sql.= " ".(! isset($this->country_id)?'NULL':"'".$this->db->escape($this->country_id)."'").",";
 		$sql.= " ".(! isset($this->state_id)?'NULL':"'".$this->db->escape($this->state_id)."'").",";
-		$sql.= " ".(! isset($this->phone)?'NULL':"'".$this->db->escape($this->phone)."'")."";
+		$sql.= " ".(! isset($this->phone)?'NULL':"'".$this->db->escape($this->phone)."'").",";
+
+		$sql.= " ".(! isset($this->fileauthorizedkey) || dol_strlen($this->fileauthorizedkey)==0?'NULL':$this->db->idate($this->fileauthorizedkey)).",";
+		$sql.= " ".(! isset($this->filelock) || dol_strlen($this->filelock)==0?'NULL':$this->db->idate($this->filelock));
 
 		$sql.= ")";
 
@@ -290,7 +297,9 @@ class Dolicloudcustomer extends CommonObject
 		$sql.= " t.town,";
 		$sql.= " t.country_id,";
 		$sql.= " t.state_id,";
-		$sql.= " t.phone";
+		$sql.= " t.phone,";
+		$sql.= " t.fileauthorizedkey,";
+		$sql.= " t.filelock";
 
         $sql.= " FROM ".MAIN_DB_PREFIX."dolicloud_customers as t";
         if ($ref) $sql.= " WHERE t.instance = '".$ref."'";
@@ -341,6 +350,9 @@ class Dolicloudcustomer extends CommonObject
                 $this->country_id = $obj->country_id;
                 $this->state_id = $obj->state_id;
                 $this->phone = $obj->phone;
+
+                $this->fileauthorizedkey = $obj->fileauthorizedkey;
+                $this->filelock = $obj->filelock;
 
                 include_once(DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php');
                 if ($this->country_id > 0)
@@ -440,7 +452,9 @@ class Dolicloudcustomer extends CommonObject
 		$sql.= " town=".(isset($this->town)?"'".$this->db->escape($this->town)."'":"null").",";
 		$sql.= " country_id=".(isset($this->country_id)?"'".$this->db->escape($this->country_id)."'":"null").",";
 		$sql.= " state_id=".(isset($this->state_id)?"'".$this->db->escape($this->state_id)."'":"null").",";
-		$sql.= " phone=".(isset($this->phone)?"'".$this->db->escape($this->phone)."'":"null");
+		$sql.= " phone=".(isset($this->phone)?"'".$this->db->escape($this->phone)."'":"null").",";
+		$sql.= " fileauthorizedkey=".(dol_strlen($this->fileauthorizedkey)!=0 ? "'".$this->db->idate($this->fileauthorizedkey)."'" : 'null').",";
+		$sql.= " filelock=".(dol_strlen($this->filelock)!=0 ? "'".$this->db->idate($this->filelock)."'" : 'null');
 
         $sql.= " WHERE rowid=".$this->id;
 
@@ -714,6 +728,8 @@ class Dolicloudcustomer extends CommonObject
 		$this->lastpass='';
 		$this->date_lastlogin='2012-01-01';
 		$this->modulesenabled='';
+		$this->fileauthorizedkey='';
+		$this->filelock='';
 	}
 
 }
