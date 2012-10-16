@@ -87,12 +87,12 @@ if (preg_match('/del_(.*)/',$action,$reg))
 }
 
 // Envoi fichier
-if ($_POST["sendit"] && ! empty($conf->global->MAIN_UPLOAD_DOC))
+if (GETPOST('sendit') && ! empty($conf->global->MAIN_UPLOAD_DOC))
 {
 	if (preg_match('/\.pdf$/', $_FILES['userfile']['name']))
 	{
 		$upload_dir = $conf->concatpdf->dir_output.'/'.$_POST['module'];
-		
+
 		if (dol_mkdir($upload_dir) >= 0)
 		{
 			$resupload=dol_move_uploaded_file($_FILES['userfile']['tmp_name'], $upload_dir . "/" . $_FILES['userfile']['name'],0,0,$_FILES['userfile']['error']);
@@ -161,42 +161,42 @@ if (! empty($conf->global->MAIN_USE_JQUERY_MULTISELECT))
 	print '<td align="center" width="20">&nbsp;</td>';
 	print '<td align="center" width="100">'.$langs->trans("Value").'</td>'."\n";
 	print '</tr>';
-	
+
 	/*
 	 * Parameters form
-	*/
-	
+	 */
+
 	// Use multiple concatenation
 	$var=!$var;
 	print '<tr '.$bc[$var].'>';
 	print '<td>'.$langs->trans("EnableMultipleConcatenation").'</td>';
 	print '<td align="center" width="20">&nbsp;</td>';
-	
+
 	print '<td align="center" width="100">';
-	if ($conf->use_javascript_ajax)
+	if (! empty($conf->use_javascript_ajax))
 	{
 		print ajax_constantonoff('CONCATPDF_MULTIPLE_CONCATENATION_ENABLED','',0);
 	}
 	else
 	{
-		if($conf->global->CONCATPDF_MULTIPLE_CONCATENATION_ENABLED == 0)
+		if (empty($conf->global->CONCATPDF_MULTIPLE_CONCATENATION_ENABLED))
 		{
 			print '<a href="'.$_SERVER['PHP_SELF'].'?action=set_CONCATPDF_MULTIPLE_CONCATENATION_ENABLED">'.img_picto($langs->trans("Disabled"),'off').'</a>';
 		}
-		else if($conf->global->CONCATPDF_MULTIPLE_CONCATENATION_ENABLED == 1)
+		else
 		{
 			print '<a href="'.$_SERVER['PHP_SELF'].'?action=del_CONCATPDF_MULTIPLE_CONCATENATION_ENABLED">'.img_picto($langs->trans("Enabled"),'on').'</a>';
 		}
 	}
 	print '</td></tr>';
-	
+
 	print '</table>';
-	
+
 	print '<br><br>';
 }
 
-$select_module=$form->selectarray('module', $modules,'',0,0,1,'',1);
-$formfile->form_attach_new_file($_SERVER['PHP_SELF'],'',0,0,1,50,'',$select_module);
+$select_module=$form->selectarray('module', $modules, '', 0, 0, 1, '', 1);
+$formfile->form_attach_new_file($_SERVER['PHP_SELF'], '', 0, 0, 1, 50, '', $select_module, false);
 
 print '<br><br>';
 
@@ -204,13 +204,14 @@ foreach ($modules as $module)
 {
 	$outputdir=$conf->concatpdf->dir_output.'/'.$module;
 	$listoffiles=dol_dir_list($outputdir,'files');
-	if (count($listoffiles)) print $formfile->showdocuments('concatpdf',$module,$outputdir,$_SERVER["PHP_SELF"],0,$user->admin,'',0,0,0,0,0,'',$langs->trans("PathDirectory").' '.$outputdir);
+	if (count($listoffiles))
+		print $formfile->showdocuments('concatpdf',$module,$outputdir,$_SERVER["PHP_SELF"],0,$user->admin,'',0,0,0,0,0,'',$langs->trans("PathDirectory").' '.$outputdir);
 	else
 	{
 		print '<div class="titre">'.$langs->trans("PathDirectory").' '.$outputdir.' :</div>';
 		print $langs->trans("NoPDFFileFound").'<br>';
 	}
-	
+
 	print '<br><br>';
 }
 
