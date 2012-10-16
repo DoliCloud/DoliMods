@@ -56,5 +56,7 @@ CREATE TABLE llx_dolicloud_customers
 	remind_trial_closed datetime default NULL,
 	paymentmethod varchar(16),
 	paymentinfo varchar(255),
-	paymentstatus varchar(16)
+	paymentstatus varchar(16),
+	fileauthorizedkey datetime default NULL,
+	filelock datetime default NULL
 ) ENGINE = innodb;

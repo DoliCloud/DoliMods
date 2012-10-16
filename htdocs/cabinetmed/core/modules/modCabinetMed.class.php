@@ -40,7 +40,7 @@ class modCabinetMed extends DolibarrModules
      *
      *  @param		DoliDB		$db		Database handler
      */
-    function modCabinetMed($db)
+    function __construct($db)
     {
         global $langs,$conf;
 

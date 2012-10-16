@@ -86,7 +86,10 @@ $targetdir='/home/'.$login.'/'.$dirdb;
 $server=$object->instance.'.on.dolicloud.com';
 
 print 'Synchro of files '.$dirroot.' to '.$targetdir."\n";
-print 'Password '.$object->password_web."\n";
+
+$sftpconnectstring=$object->username_web.'@'.$object->hostname_web.':/home/'.$object->username_web.'/'.preg_replace('/_dolibarr$/','',$object->database_db);
+print 'SFTP connect string : '.$sftpconnectstring."\n";
+print 'SFTP password '.$object->password_web."\n";
 
 $command="rsync";
 $output=array();
@@ -100,7 +103,7 @@ $output[]="--exclude .gitignore";
 $output[]="--exclude .settings";
 $output[]="--exclude .project";
 $output[]="--exclude build/";
-$output[]="--exclude doc/";
+//$output[]="--exclude doc/";	// To keep files into htdocs/core/module/xxx/doc dir
 $output[]="--exclude dev/";
 $output[]="--exclude documents/";
 $output[]="--exclude test/";
@@ -164,8 +167,6 @@ else {
 	$errors[]='ssh2_connect not supported by this PHP';
 }
 */
-
-
 
 
 

@@ -177,6 +177,8 @@ class ActionsCabinetmed
     {
         global $langs, $user, $conf;
 
+        if (empty($parameters['modulepart']) || $parameters['modulepart'] != 'company') return '';	// Add nothing
+
         $htmlform=new Form($this->db);
 
         include_once(DOL_DOCUMENT_ROOT.'/core/modules/societe/modules_societe.class.php');

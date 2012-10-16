@@ -28,8 +28,10 @@ class modNLTechno extends DolibarrModules
 	 *
 	 *   @param		DoliDB		$db		Database handler
 	 */
-	function modNLTechno($db)
+	function __construct($db)
 	{
+		global $langs,$conf;
+
 		$this->db = $db;
 
 		// Id for module (must be unique).
@@ -72,6 +74,25 @@ class modNLTechno extends DolibarrModules
 
 		// Constants
 		$this->const = array();			// List of parameters
+
+		// Dictionnaries
+	    if (! isset($conf->nltechno->enabled))
+        {
+        	$conf->nltechno=(object) array();
+        	$conf->nltechno->enabled=0;
+        }
+        $this->dictionnaries=array(
+		'langs'=>'nltechno@nltechno',
+		'tabname'=>array(MAIN_DB_PREFIX."c_dolicloud_plans"),
+		'tablib'=>array("DoliCloud plans"),
+		'tabsql'=>array('SELECT f.rowid as rowid, f.code, f.label, f.price_instance, f.price_user, f.price_gb, f.active FROM '.MAIN_DB_PREFIX.'c_dolicloud_plans as f'),
+		'tabsqlsort'=>array("label ASC"),
+		'tabfield'=>array("code,label,price_instance,price_user,price_gb"), // Nom des champs en resultat de select pour affichage du dictionnaire
+		'tabfieldvalue'=>array("code,label,price_instance,price_user,price_gb"),  // Nom des champs d'edition pour modification d'un enregistrement
+		'tabfieldinsert'=>array("code,label,price_instance,price_user,price_gb"),
+		'tabrowid'=>array("rowid"),
+		'tabcond'=>array($conf->nltechno->enabled)
+		);
 
 		// Boxes
 		$this->boxes = array();			// List of boxes
