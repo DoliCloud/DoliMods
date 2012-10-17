@@ -191,9 +191,17 @@ function processPageLoad()
  */
 function getClientLoginHttpClient($user, $pass)
 {
-	$service = Zend_Gdata_Calendar::AUTH_SERVICE_NAME;
+	$client=null;
 
-	$client = Zend_Gdata_ClientLogin::getHttpClient($user, $pass, $service);
+	try {
+		$service = Zend_Gdata_Calendar::AUTH_SERVICE_NAME;
+
+		$client = Zend_Gdata_ClientLogin::getHttpClient($user, $pass, $service);
+	}
+	catch(Exception $e)
+	{
+
+	}
 	return $client;
 }
 

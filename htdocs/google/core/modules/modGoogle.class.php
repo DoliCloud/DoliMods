@@ -81,7 +81,10 @@ class modGoogle extends DolibarrModules
 							'contact:+gmaps:GMaps:@google:$conf->google->enabled&&$conf->global->GOOGLE_ENABLE_GMAPS_CONTACTS:/google/gmaps.php?mode=contact&id=__ID__',
 							'member:+gmaps:GMaps:@google:$conf->google->enabled&&$conf->global->GOOGLE_ENABLE_GMAPS_MEMBERS:/google/gmaps.php?mode=member&id=__ID__',
 						);*/
-        $this->tabs = array('agenda:+gcal:MenuAgendaGoogle:@google:$conf->google->enabled && $conf->global->GOOGLE_ENABLE_AGENDA:/google/index.php');
+        //$this->tabs = array('agenda:+gcal:MenuAgendaGoogle:@google:$conf->google->enabled && $conf->global->GOOGLE_ENABLE_AGENDA:/google/index.php');
+        $this->tabs = array('agenda:+gcal:MenuAgendaGoogle:@google:$conf->google->enabled && $conf->global->GOOGLE_ENABLE_AGENDA:/google/index.php'
+							,'user:+gsetup:GoogleUserConf:@google:$conf->google->enabled && $conf->global->GOOGLE_DUPLICATE_INTO_GCAL:/google/admin/google_calsync_user.php?id=__ID__'
+							);
 
         // Boxes
 		$this->boxes = array();			// List of boxes

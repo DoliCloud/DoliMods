@@ -57,6 +57,10 @@ if ($action == 'save')
     if (! $res > 0) $error++;
     $res=dolibarr_set_const($db,'GOOGLE_PASSWORD',trim($_POST["GOOGLE_PASSWORD"]),'chaine',0);
     if (! $res > 0) $error++;
+	$res=dolibarr_set_const($db,'GOOGLE_EVENT_LABEL_INC_SOCIETE',trim($_POST["GOOGLE_EVENT_LABEL_INC_SOCIETE"]),'chaine',0);
+    if (! $res > 0) $error++;
+	$res=dolibarr_set_const($db,'GOOGLE_EVENT_LABEL_INC_CONTACT',trim($_POST["GOOGLE_EVENT_LABEL_INC_CONTACT"]),'chaine',0);
+    if (! $res > 0) $error++;
 
     if (! $error)
     {
@@ -138,24 +142,42 @@ $var=false;
 print "<table class=\"noborder\" width=\"100%\">";
 
 print "<tr class=\"liste_titre\">";
-print '<td width="180">'.$langs->trans("Parameter")."</td>";
+print '<td width="25%">'.$langs->trans("Parameter")."</td>";
 print "<td>".$langs->trans("Value")."</td>";
 print "</tr>";
-// Timezone
+// Google login
 print "<tr ".$bc[$var].">";
 print "<td>".$langs->trans("GOOGLE_LOGIN")."</td>";
 print "<td>";
-print '<input class="flat" type="text" size="10" name="GOOGLE_LOGIN" value="'.$conf->global->GOOGLE_LOGIN.'">';
+print '<input class="flat" type="text" size="24" name="GOOGLE_LOGIN" value="'.$conf->global->GOOGLE_LOGIN.'">';
+print ' &nbsp; '.$langs->trans("KeepEmptyYoUseLoginPassOfEventUser");
 print "</td>";
 print "</tr>";
-// Nb of agenda
+// Google password
 $var=!$var;
 print "<tr ".$bc[$var].">";
 print "<td>".$langs->trans("GOOGLE_PASSWORD")."</td>";
 print "<td>";
 print '<input class="flat" type="text" size="10" name="GOOGLE_PASSWORD" value="'.$conf->global->GOOGLE_PASSWORD.'">';
+print ' &nbsp; '.$langs->trans("KeepEmptyYoUseLoginPassOfEventUser");
 print "</td>";
 print "</tr>";
+// Configuration du masque du libellé de l'évènement
+$var=!$var;
+print "<tr ".$bc[$var].">";
+print "<td>".$langs->trans("GOOGLE_EVENT_LABEL_INC_SOCIETE")."<br /></td>";
+print "<td>";
+print $form->selectyesno("GOOGLE_EVENT_LABEL_INC_SOCIETE",isset($_POST["GOOGLE_EVENT_LABEL_INC_SOCIETE"])?$_POST["GOOGLE_EVENT_LABEL_INC_SOCIETE"]:$conf->global->GOOGLE_EVENT_LABEL_INC_SOCIETE,1);
+print "</td>";
+print "</tr>";
+$var=!$var;
+print "<tr ".$bc[$var].">";
+print "<td>".$langs->trans("GOOGLE_EVENT_LABEL_INC_CONTACT")."<br /></td>";
+print "<td>";
+print $form->selectyesno("GOOGLE_EVENT_LABEL_INC_CONTACT",isset($_POST["GOOGLE_EVENT_LABEL_INC_CONTACT"])?$_POST["GOOGLE_EVENT_LABEL_INC_CONTACT"]:$conf->global->GOOGLE_EVENT_LABEL_INC_CONTACT,1);
+print "</td>";
+print "</tr>";
+
 
 print "</table>";
 print "<br>";

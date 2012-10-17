@@ -27,8 +27,7 @@ dol_include_once('/google/lib/google_calendar.lib.php');
 
 
 /**
- *     \class      InterfaceGoogleCalendarSynchro
- *     \brief      Classe des fonctions triggers des actions google calendar
+ *	Class of triggers for module Google
  */
 class InterfaceGoogleCalendarSynchro
 {
@@ -103,108 +102,124 @@ class InterfaceGoogleCalendarSynchro
      *      @param  Conf		$conf       Objet conf
      *      @return int         			<0 if KO, 0 if nothing is done, >0 if OK
      */
-    function run_trigger($action,$object,$user,$langs,$conf)
-    {
-        // Mettre ici le code a executer en reaction de l'action
-        // Les donnees de l'action sont stockees dans $object
+	function run_trigger($action, $object, $user, $langs, $conf) {
 
-        if (! $conf->google->enabled) return 0;	// Module non actif
-        if (empty($conf->global->GOOGLE_DUPLICATE_INTO_GCAL)) return 0;
+		// Création / Mise à jour / Suppression d'un évènement dans Google Calendar
 
-        // Actions
-        if ($action == 'ACTION_CREATE')
-        {
-            dol_syslog("Trigger '".$this->name."' for action '$action' launched by ".__FILE__.". id=".$object->id);
+		if (!$conf->google->enabled) return 0; // Module non actif
 
-            if (empty($conf->global->GOOGLE_LOGIN) || empty($conf->global->GOOGLE_PASSWORD))
-            {
-                dol_syslog("Setup to synchronize events into a Google calendar is on but setup (login/password) is not complete", LOG_WARNING);
-                return 0;
-            }
+		$fuser = new User($this->db);
 
-            $langs->load("other");
+		//var_dump($object); exit;
+		$user = $conf->global->GOOGLE_LOGIN;
+		$pwd = $conf->global->GOOGLE_PASSWORD;
 
-            //var_dump($object); exit;
+		if (empty($user) || empty($pwd))	// We use setup of user
+		{
+			// L'utilisateur concerné est l'utilisateur affecté à l'évènement dans Dolibarr
+			// TODO : à rendre configurable ? (choix entre créateur / affecté / réalisateur)
+			if(empty($object->usertodo->id)) return 0;
 
-	        $user = $conf->global->GOOGLE_LOGIN;
-	        $pwd = $conf->global->GOOGLE_PASSWORD;
+			$fuser->fetch($object->usertodo->id);
 
-	        $client = getClientLoginHttpClient($user, $pwd);
-	        //var_dump($client); exit;
+			$user = $fuser->conf->GOOGLE_LOGIN;
+			$pwd = $fuser->conf->GOOGLE_PASSWORD;
 
-	        $ret = createEvent($client, $object);
-	        //var_dump($ret); exit;
+			if (empty($fuser->conf->GOOGLE_DUPLICATE_INTO_GCAL)) return 0;
+		}
+		else								// We use global setup
+		{
+			if (empty($conf->global->GOOGLE_DUPLICATE_INTO_GCAL)) return 0;
+		}
+		//print $action.' - '.$user.' - '.$pwd.' - '.$conf->global->GOOGLE_DUPLICATE_INTO_GCAL; exit;
 
-	        $object->update_ref_ext($ret);    // This is to store ref_ext to allow updates
+		// Actions
+		if ($action == 'ACTION_CREATE' || $action == 'ACTION_MODIFY' || $action == 'ACTION_DELETE')
+		{
+			dol_syslog("Trigger '" . $this->name . "' for action '$action' launched by " . __FILE__ . ". id=" . $object->id);
 
-	        return 1;
-        }
+			$langs->load("other");
 
-        if ($action == 'ACTION_MODIFY')
-        {
-            dol_syslog("Trigger '".$this->name."' for action '$action' launched by ".__FILE__.". id=".$object->id);
+			if (empty($user) || empty($pwd))
+			{
+				dol_syslog("Setup to synchronize events into a Google calendar of ".$fuser->login." is on but can't find complete setup for login/password (nor global nor for user).", LOG_WARNING);
+				return 0;
+			}
 
-            $gid=basename($object->ref_ext);
-            if ($gid && preg_match('/google/i',$object->ref_ext))    // This record is linked with Google Calendar
-            {
-                if (empty($conf->global->GOOGLE_LOGIN) || empty($conf->global->GOOGLE_PASSWORD))
-                {
-                    dol_syslog("Setup to synchronize events into a Google calendar is on but setup (login/password) is not complete", LOG_WARNING);
-                    return 0;
-                }
+			$client = getClientLoginHttpClient($user, $pwd);
+			//var_dump($client); exit;
 
-                $langs->load("other");
+			if ($client == null)
+			{
+				$this->error='Failed to login to Google for login '.$user;
+				$this->errors[]=$this->error;
+				return -1;
+			}
+			else
+			{
+				// Event label can now include company and / or contact info, see configuration
+				$eventlabel = trim($object->label);
 
-                $user = $conf->global->GOOGLE_LOGIN;
-                $pwd = $conf->global->GOOGLE_PASSWORD;
+				if (! empty($object->societe->id) && $fuser->conf->GOOGLE_EVENT_LABEL_INC_SOCIETE && $fuser->conf->GOOGLE_EVENT_LABEL_INC_SOCIETE == 1 && $object->societe->id > 0) {
+					$societe = new Societe($this->db);
+					$societe->fetch($object->societe->id);
+					$eventlabel .= ' - '.$societe->name;
+				}
+				if (! empty($object->contact->id) && $fuser->conf->GOOGLE_EVENT_LABEL_INC_CONTACT && $fuser->conf->GOOGLE_EVENT_LABEL_INC_CONTACT == 1 && $object->contact->id > 0) {
+					$contact = new Contact($this->db);
+					$contact->fetch($object->contact->id);
+					$eventlabel .= ' - '.$contact->getFullName($langs, 1);
+				}
 
-                $client = getClientLoginHttpClient($user, $pwd);
-                //var_dump($client); exit;
+				$object->label = $eventlabel;
 
-                $ret = updateEvent($client, $gid, $object);
-                //var_dump($ret); exit;
+				if ($action == 'ACTION_CREATE') {
+					$ret = createEvent($client, $object);
+					//var_dump($ret); exit;
+					$object->update_ref_ext($ret);
+					// This is to store ref_ext to allow updates
 
-                if ($ret < 0)     // Fails to update, we try to create
-                {
-        	        $ret = createEvent($client, $object);
-        	        //var_dump($ret); exit;
+					return 1;
+				}
+				if ($action == 'ACTION_MODIFY') {
+					$gid = basename($object->ref_ext);
+					if ($gid && preg_match('/google/i', $object->ref_ext)) // This record is linked with Google Calendar
+					{
+						$ret = updateEvent($client, $gid, $object);
+						//var_dump($ret); exit;
 
-        	        $object->update_ref_ext($ret);    // This is to store ref_ext to allow updates
-                }
-                return 1;
-            }
-        }
+						if ($ret < 0)// Fails to update, we try to create
+						{
+							$ret = createEvent($client, $object);
+							//var_dump($ret); exit;
 
-        if ($action == 'ACTION_DELETE')
-        {
-            dol_syslog("Trigger '".$this->name."' for action '$action' launched by ".__FILE__.". id=".$object->id);
+							$object->update_ref_ext($ret);
+							// This is to store ref_ext to allow updates
+						}
+						return 1;
+					} else if ($gid == '') { // No google id, may be a reaffected event
+						$ret = createEvent($client, $object);
+						//var_dump($ret); exit;
 
-            $gid=basename($object->ref_ext);
-            if ($gid && preg_match('/google/i',$object->ref_ext))    // This record is linked with Google Calendar
-            {
-                if (empty($conf->global->GOOGLE_LOGIN) || empty($conf->global->GOOGLE_PASSWORD))
-                {
-                    dol_syslog("Setup to synchronize events into a Google calendar is on but setup (login/password) is not complete", LOG_WARNING);
-                    return 0;
-                }
+						$object->update_ref_ext($ret);
+						// This is to store ref_ext to allow updates
+					}
+				}
+				if ($action == 'ACTION_DELETE') {
+					$gid = basename($object->ref_ext);
+					if ($gid && preg_match('/google/i', $object->ref_ext)) // This record is linked with Google Calendar
+					{
+						$ret = deleteEventById($client, $gid);
+						//var_dump($ret); exit;
 
-                $langs->load("other");
-
-                $user = $conf->global->GOOGLE_LOGIN;
-                $pwd = $conf->global->GOOGLE_PASSWORD;
-
-                $client = getClientLoginHttpClient($user, $pwd);
-                //var_dump($client); exit;
-
-                $ret = deleteEventById($client, $gid);
-                //var_dump($ret); exit;
-
-                return 1;
-            }
-        }
+						return 1;
+					}
+				}
+			}
+		}
 
 		return 0;
-    }
+	}
 
-}
+	}
 ?>
