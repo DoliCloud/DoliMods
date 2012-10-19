@@ -114,7 +114,7 @@ $var=!$var;
 print "<tr ".$bc[$var].">";
 print "<td>".$langs->trans("AWSTATS_DATA_DIR")."</td>";
 print "<td><input type=\"text\" class=\"flat\" name=\"AWSTATS_DATA_DIR\" value=\"". ($_POST["AWSTATS_DATA_DIR"]?$_POST["AWSTATS_DATA_DIR"]:$conf->global->AWSTATS_DATA_DIR) . "\" size=\"50\"></td>";
-print "<td>/usr/local/awstats/data/";
+print "<td>/usr/local/awstats/data/<br>/var/lib/awstats/";
 print "</td>";
 print "</tr>";
 
