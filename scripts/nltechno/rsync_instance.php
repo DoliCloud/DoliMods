@@ -33,6 +33,7 @@ $error=0;
 
 $dirroot=isset($argv[1])?$argv[1]:'';
 $instance=isset($argv[2])?$argv[2]:'';
+$mode=isset($argv[3])?$argv[3]:'';
 
 // Include Dolibarr environment
 $res=0;
@@ -54,9 +55,9 @@ $object = new DoliCloudCustomer($db);
  *	Main
  */
 
-if (! isset($argv[2]) || ! $argv[2])
+if (empty($dirroot) || empty($instance) || empty($mode))
 {
-	print "Usage: $script_file dolibarr_root_dir dolicloud_instance\n";
+	print "Usage: $script_file dolibarr_root_dir dolicloud_instance (test|confirm)\n";
 	exit;
 }
 
@@ -93,7 +94,7 @@ print 'SFTP password '.$object->password_web."\n";
 
 $command="rsync";
 $output=array();
-if (empty($confirm)) $output[]="-n";
+if ($mode != 'confirm') $output[]="-n";
 //$output[]="-a";
 $output[]="-rlt";
 $output[]="-v";
