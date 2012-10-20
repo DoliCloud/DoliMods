@@ -1,5 +1,5 @@
 <?php
-/* Copyright (C) 2005-2010 Laurent Destailleur  <eldy@users.sourceforge.net>
+/* Copyright (C) 2005-2012 Laurent Destailleur  <eldy@users.sourceforge.net>
  * Copyright (C) 2005-2009 Regis Houssin        <regis@dolibarr.fr>
  * Copyright (C) 2007      Rodolphe Quiedeville <rodolphe@quiedeville.org>
  *
@@ -46,19 +46,27 @@ $newvaltest='';
 $outputlangs=new Translate('',$conf);
 $outputlangs->setDefaultLang($langs->defaultlang);
 
+$action=GETPOST('action');
+$value=GETPOST('value');
+
+if (empty($conf->numberwords->enabled))
+{
+	print "Error: Module is not enabled\n";
+	exit;
+}
 
 
 /*
  * Actions
  */
 
-if (! empty($_POST["action"]) && $_POST["action"] == 'setlevel')
+if ($action == 'setlevel')
 {
 	dolibarr_set_const($db,"SYSLOG_LEVEL",$_POST["level"],'chaine',0,'',0);
 	dol_syslog("admin/syslog: level ".$_POST["level"]);
 }
 
-if (! empty($_POST["action"]) && $_POST["action"] == 'set')
+if ($action == 'set')
 {
 	$optionlogoutput=$_POST["optionlogoutput"];
 	if ($optionlogoutput == "syslog")
@@ -97,24 +105,31 @@ if (! empty($_POST["action"]) && $_POST["action"] == 'set')
 	}
 }
 
-if ($_POST["action"] == 'test' && trim($_POST["value"]) != '')
+if ($action == 'test')
 {
-	if ($_POST["lang_id"]) $outputlangs->setDefaultLang($_POST["lang_id"]);
-
-	if ($_POST["level"])
+	if (trim($value) == '')
 	{
-		$object->total_ttc=price2num($_POST["value"]);
-		$source='__TOTAL_TTC_WORDS__';
+		setEventMessage($langs->trans("ErrorFieldRequired",$langs->transnoentitiesnoconv("Example")),'errors');
 	}
 	else
 	{
-		$object->number=price2num($_POST["value"]);
-		$source='__NUMBER_WORDS__';
-	}
+		if ($_POST["lang_id"]) $outputlangs->setDefaultLang($_POST["lang_id"]);
 
-	$substitutionarray=array();
-    complete_substitutions_array($substitutionarray, $outputlangs, $object);
-	$newvaltest=make_substitutions($source,$substitutionarray);
+		if ($_POST["level"])
+		{
+			$object->total_ttc=price2num($_POST["value"]);
+			$source='__TOTAL_TTC_WORDS__';
+		}
+		else
+		{
+			$object->number=price2num($_POST["value"]);
+			$source='__NUMBER_WORDS__';
+		}
+
+		$substitutionarray=array();
+	    complete_substitutions_array($substitutionarray, $outputlangs, $object);
+		$newvaltest=make_substitutions($source,$substitutionarray);
+	}
 }
 
 
