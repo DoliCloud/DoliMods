@@ -905,12 +905,17 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 	print '<td>'.$langs->trans("DateLastLogin").'</td><td>'.($object->date_lastlogin?dol_print_date($object->date_lastlogin,'dayhour','tzuser'):'').'</td>';
 	print '</tr>';
 
+	// Version
+	print '<tr>';
+	print '<td>'.$langs->trans("Version").'</td><td colspan="3">'.$object->version.'</td>';
+	print '</tr>';
+
 	// Modules
 	print '<tr>';
 	print '<td>'.$langs->trans("Modules").'</td><td colspan="3">'.join(', ',explode(',',$object->modulesenabled)).'</td>';
 	print '</tr>';
 
-	// Authorized key
+	// Authorized key file
 	print '<tr>';
 	print '<td>'.$langs->trans("Authorized_keyInstalled").'</td><td colspan="3">'.($object->fileauthorizedkey?$langs->trans("Yes").' - '.dol_print_date($object->fileauthorizedkey,'%Y-%m-%d %H:%M:%S','tzuser'):$langs->trans("No")).'</td>';
 	print '</tr>';
@@ -918,6 +923,12 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 	// Install.lock file
 	print '<tr>';
 	print '<td>'.$langs->trans("LockfileInstalled").'</td><td colspan="3">'.($object->filelock?$langs->trans("Yes").' - '.dol_print_date($object->filelock,'%Y-%m-%d %H:%M:%S','tzuser'):$langs->trans("No")).'</td>';
+	print '</tr>';
+
+	// Last backup date
+	print '<tr>';
+	print '<td>'.$langs->trans("DateLastBackup").'</td>';
+	print '<td colspan="3">'.($object->date_lastrsync?dol_print_date($object->date_lastrsync,'dayhour','tzuser'):'').'</td>';
 	print '</tr>';
 
 	print "</table>";

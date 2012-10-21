@@ -79,55 +79,44 @@ if ($user->societe_id > 0)
 
 /*******************************************************************
 * ACTIONS
-*
-* Put here all code to do according to value of "action" parameter
 ********************************************************************/
-
-if ($action == 'add')
-{
-	$myobject=new Dolicloudcustomer($db);
-	$myobject->prop1=$_POST["field1"];
-	$myobject->prop2=$_POST["field2"];
-	$result=$myobject->create($user);
-	if ($result > 0)
-	{
-		// Creation OK
-	}
-	{
-		// Creation KO
-		$mesg=$myobject->error;
-	}
-}
-
 
 
 
 
 /***************************************************
 * VIEW
-*
-* Put here all code to build page
 ****************************************************/
-
-llxHeader('',$langs->transnoentitiesnoconv('DoliCloudCustomers'),'');
 
 $form=new Form($db);
 $dolicloudcustomerstatic = new Dolicloudcustomer($db);
 
-print '<script type="text/javascript" language="javascript">
-jQuery(document).ready(function() {
-	function init_myfunc()
-	{
-		jQuery("#myid").removeAttr(\'disabled\');
-		jQuery("#myid").attr(\'disabled\',\'disabled\');
-	}
-	init_myfunc();
-	jQuery("#mybutton").click(function() {
-		init_needroot();
-	});
-});
-</script>';
+llxHeader('',$langs->transnoentitiesnoconv('DoliCloudCustomers'),'');
 
+print_fiche_titre($langs->trans("DoliCloudArea"));
+
+
+print '<table border="0" width="100%" class="notopnoleftnoright">';
+
+print '<tr><td valign="top" width="30%" class="notopnoleft">';
+
+/*
+ * Search area
+*/
+$rowspan=2;
+print '<form method="post" action="'.dol_buildpath('/nltechno/dolicloud_list.php').'">';
+print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
+print '<table class="noborder nohover" width="100%">';
+print '<tr class="liste_titre">';
+print '<td colspan="3">'.$langs->trans("Search").'</td></tr>';
+print "<tr ".$bc[false]."><td>";
+print $langs->trans("Instance").':</td><td><input class="flat" type="text" size="14" name="search_dolicloud"></td>';
+print '<td rowspan="'.$rowspan.'"><input type="submit" class="button" value="'.$langs->trans("Search").'"></td></tr>';
+
+print "</table></form><br>";
+
+
+print '</td><td valign="top" width="70%" class="notopnoleftnoright">';
 
 $sql = "SELECT";
 $sql.= " t.rowid,";
@@ -166,32 +155,6 @@ $sql.= " LEFT JOIN ".MAIN_DB_PREFIX."c_dolicloud_plans as p ON t.plan = p.code";
 $sql.= $db->order($sortfield,$sortorder);
 $sql.= $db->plimit($conf->liste_limit +1, $offset);
 
-
-$param='';
-if ($month)              $param.='&month='.$month;
-if ($year)               $param.='&year=' .$year;
-if ($search_ref)         $param.='&search_ref=' .$search_ref;
-if ($search_societe)     $param.='&search_societe=' .$search_societe;
-if ($search_sale > 0)    $param.='&search_sale=' .$search_sale;
-print_barre_liste($langs->trans('DoliCloudCustomers'),$page,$_SERVER["PHP_SELF"],$param,$sortfield,$sortorder,'',$num);
-
-
-print '<table class="liste" width="100%">';
-print '<tr class="liste_titre">';
-print_liste_field_titre($langs->trans('Instance'),$_SERVER['PHP_SELF'],'t.instance','',$param,'align="left"',$sortfield,$sortorder);
-print_liste_field_titre($langs->trans('Organization'),$_SERVER['PHP_SELF'],'t.organization','',$param,'',$sortfield,$sortorder);
-print_liste_field_titre($langs->trans('EMail'),$_SERVER['PHP_SELF'],'t.email','',$param,'',$sortfield,$sortorder);
-print_liste_field_titre($langs->trans('Plan'),$_SERVER['PHP_SELF'],'t.plan','',$param,'',$sortfield,$sortorder);
-print_liste_field_titre($langs->trans('DateRegistration'),$_SERVER['PHP_SELF'],'t.date_registration','',$param,'',$sortfield,$sortorder);
-print_liste_field_titre($langs->trans('DateEndFreePeriod'),$_SERVER['PHP_SELF'],'t.date_endfreeperiod','',$param,'',$sortfield,$sortorder);
-print_liste_field_titre($langs->trans('DateLastCheck'),$_SERVER['PHP_SELF'],'t.lastcheck','',$param,'',$sortfield,$sortorder);
-print_liste_field_titre($langs->trans('NbOfUsers'),$_SERVER['PHP_SELF'],'t.nbofusers','',$param,'align="right"',$sortfield,$sortorder);
-print_liste_field_titre($langs->trans('LastLogin'),$_SERVER['PHP_SELF'],'t.lastlogin','',$param,'',$sortfield,$sortorder);
-print_liste_field_titre($langs->trans('DateLastLogin'),$_SERVER['PHP_SELF'],'t.date_lastlogin','align="center"',$param,'',$sortfield,$sortorder);
-print_liste_field_titre($langs->trans('Revenue'),$_SERVER['PHP_SELF'],'','',$param,' align="right"',$sortfield,$sortorder);
-print_liste_field_titre($langs->trans('Status'),$_SERVER['PHP_SELF'],'t.status','',$param,'align="right"',$sortfield,$sortorder);
-print '</tr>';
-
 $totalcustomers=0;
 $totalcustomerspaying=0;
 $total=0;
@@ -214,47 +177,14 @@ if ($resql)
                 $price=$obj->price_instance + ($obj->nbofusers * $obj->price_user);
                 $totalcustomers++;
 
-                $var=!$var;
-                // You can use here results
-                print '<tr '.$bc[$var].'><td align="left">';
-                $dolicloudcustomerstatic->id=$obj->rowid;
-                $dolicloudcustomerstatic->ref=$obj->instance;
-                $dolicloudcustomerstatic->status=$obj->status;
-                print $dolicloudcustomerstatic->getNomUrl(1,'');
-                print '</td><td>';
-                print $obj->organization;
-                print '</td><td>';
-                print $obj->email;
-                print '</td><td>';
-                print $obj->plan;
-                print '</td><td>';
-                print dol_print_date($obj->date_registration,'dayhour');
-                print '</td><td>';
-                print dol_print_date($obj->date_endfreeperiod,'day');
-                print '</td><td>';
-                print $obj->lastcheck;
-                print '</td><td align="right">';
-                print $obj->nbofusers;
-                print '</td><td>';
-                print $obj->lastlogin;
-	            print '</td><td align="center">';
-                print ($obj->date_lastlogin?dol_print_date($obj->date_lastlogin,'dayhour','tzuser'):'');
-                print '</td><td align="right">';
                 if ($obj->status != 'ACTIVE')
                 {
-                	print '';
                 }
                 else
               {
-                	if (empty($obj->nbofusers)) print $langs->trans("NeedRefresh");
-                	else print price($price);
                 	$totalcustomerspaying++;
                 	$total+=$price;
                 }
-                print '</td><td align="right">';
-                print $dolicloudcustomerstatic->getLibStatut(3);
-                print '</td>';
-                print '</tr>';
             }
             $i++;
         }
@@ -265,11 +195,46 @@ else
     $error++;
     dol_print_error($db);
 }
+
+// Show totals
+$serverlocation=140;	// Price dollar
+$dollareuro=0.78;		// Price euro
+$serverprice=price2num($serverlocation * $dollareuro, 'MT');
+$part=0.3;	// 30%
+
+
+print '<table class="border" width="100%">';
+print '<tr><td>';
+print $langs->trans("NbOfCustomersActive").' / '.$langs->trans("NbOfCustomers").' ';
+print '</td><td align="right">';
+print '<font size="+2">'.$totalcustomerspaying.' / '.$totalcustomers.'</font>';
+print '</td></tr>';
+print '<tr><td>';
+print $langs->trans("AverageRevenuePerCustomer");
+print '</td><td align="right">';
+print '<font size="+2">'.price(price2num($total/$totalcustomerspaying,'MT'),1).' </font>';
+print '</td></tr>';
+print '<tr><td>';
+print $langs->trans("RevenuePerMonth");
+print '</td><td align="right">';
+print '<font size="+2">'.price($total,1).' </font>';
+print '</td></tr>';
+print '<tr><td>';
+print $langs->trans("Benefit");
+print '<br>(';
+print price($total,1).' - '.($part*100).'% - '.price($serverlocation).'$= ';
+print price($total,1).' - '.($part*100).'% - '.price($serverprice).'€ = '.price($total * (1 - $part)).'€ - '.price($serverprice).'€';
+print ')</td><td align="right">';
+print '<font size="+2">'.price(($total * (1 - $part) - $serverprice),1).' </font>';
+print '</td></tr>';
 print '</table>';
 
-print '<br>';
+
+print '</td></tr></table>';
+
 
 // End of page
 llxFooter();
+
 $db->close();
 ?>

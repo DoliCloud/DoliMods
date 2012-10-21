@@ -66,6 +66,7 @@ class Dolicloudcustomer extends CommonObject
 	var $lastpass='';
 	var $date_lastlogin='';
 	var $modulesenabled;
+	var $version;
 
 	var $firstname;
 	var $lastname;
@@ -78,7 +79,7 @@ class Dolicloudcustomer extends CommonObject
 
 	var $fileauthorizedkey;
 	var $filelock;
-
+	var $date_lastrsync='';
 
     /**
      *  Constructor
@@ -124,6 +125,7 @@ class Dolicloudcustomer extends CommonObject
 		if (isset($this->password_db)) $this->password_db=trim($this->password_db);
 		if (isset($this->nbofusers)) $this->nbofusers=trim($this->nbofusers);
 		if (isset($this->modulesenabled)) $this->modulesenabled=trim($this->modulesenabled);
+		if (isset($this->version)) $this->version=trim($this->version);
 
 
 
@@ -166,7 +168,9 @@ class Dolicloudcustomer extends CommonObject
 		$sql.= "state_id,";
 		$sql.= "phone,";
 		$sql.= "fileauthorizedkey,";
-		$sql.= "filelock";
+		$sql.= "filelock,";
+		$sql.= "version,";
+		$sql.= "lastrsync";
 
         $sql.= ") VALUES (";
 
@@ -205,7 +209,10 @@ class Dolicloudcustomer extends CommonObject
 		$sql.= " ".(! isset($this->phone)?'NULL':"'".$this->db->escape($this->phone)."'").",";
 
 		$sql.= " ".(! isset($this->fileauthorizedkey) || dol_strlen($this->fileauthorizedkey)==0?'NULL':$this->db->idate($this->fileauthorizedkey)).",";
-		$sql.= " ".(! isset($this->filelock) || dol_strlen($this->filelock)==0?'NULL':$this->db->idate($this->filelock));
+		$sql.= " ".(! isset($this->filelock) || dol_strlen($this->filelock)==0?'NULL':$this->db->idate($this->filelock)).",";
+
+		$sql.= " ".(! isset($this->date_lastrsync) || dol_strlen($this->date_lastrsync)==0?'NULL':$this->db->idate($this->date_lastrsync)).",";
+		$sql.= " ".(! isset($this->version)?'NULL':"'".$this->db->escape($this->version)."'");
 
 		$sql.= ")";
 
@@ -299,7 +306,9 @@ class Dolicloudcustomer extends CommonObject
 		$sql.= " t.state_id,";
 		$sql.= " t.phone,";
 		$sql.= " t.fileauthorizedkey,";
-		$sql.= " t.filelock";
+		$sql.= " t.filelock,";
+		$sql.= " t.lastrsync,";
+		$sql.= " t.version";
 
         $sql.= " FROM ".MAIN_DB_PREFIX."dolicloud_customers as t";
         if ($ref) $sql.= " WHERE t.instance = '".$ref."'";
@@ -353,6 +362,9 @@ class Dolicloudcustomer extends CommonObject
 
                 $this->fileauthorizedkey = $obj->fileauthorizedkey;
                 $this->filelock = $obj->filelock;
+
+                $this->date_lastrsync = $this->db->jdate($obj->lastrsync);
+                $this->version = $obj->version;
 
                 include_once(DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php');
                 if ($this->country_id > 0)
@@ -411,7 +423,7 @@ class Dolicloudcustomer extends CommonObject
 		if (isset($this->password_db)) $this->password_db=trim($this->password_db);
 		if (isset($this->nbofusers)) $this->nbofusers=trim($this->nbofusers);
 		if (isset($this->modulesenabled)) $this->modulesenabled=trim($this->modulesenabled);
-
+		if (isset($this->version)) $this->version=trim($this->version);
 
 
 		// Check parameters
@@ -454,7 +466,9 @@ class Dolicloudcustomer extends CommonObject
 		$sql.= " state_id=".(isset($this->state_id)?"'".$this->db->escape($this->state_id)."'":"null").",";
 		$sql.= " phone=".(isset($this->phone)?"'".$this->db->escape($this->phone)."'":"null").",";
 		$sql.= " fileauthorizedkey=".(dol_strlen($this->fileauthorizedkey)!=0 ? "'".$this->db->idate($this->fileauthorizedkey)."'" : 'null').",";
-		$sql.= " filelock=".(dol_strlen($this->filelock)!=0 ? "'".$this->db->idate($this->filelock)."'" : 'null');
+		$sql.= " filelock=".(dol_strlen($this->filelock)!=0 ? "'".$this->db->idate($this->filelock)."'" : 'null').",";
+		$sql.= " date_lastrsync=".(dol_strlen($this->date_lastrsync)!=0 ? "'".$this->db->idate($this->date_lastrsync)."'" : 'null').",";
+		$sql.= " version=".(isset($this->version)?"'".$this->db->escape($this->version)."'":"null").",";
 
         $sql.= " WHERE rowid=".$this->id;
 
@@ -730,6 +744,8 @@ class Dolicloudcustomer extends CommonObject
 		$this->modulesenabled='';
 		$this->fileauthorizedkey='';
 		$this->filelock='';
+		$this->version='3.0.0';
+		$this->date_lastrsync='2012-01-02';
 	}
 
 }

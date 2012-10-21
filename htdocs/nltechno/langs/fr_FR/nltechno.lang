@@ -15,3 +15,6 @@ AverageRevenuePerCustomer=Revenues par client
 NbOfCustomersActive=Nb de clients actifs
 NbOfCustomers=Nb de clients
 Authorized_keyInstalled=Fichier authorized_key installé
+LockfileInstalled=Fichier install.lock installé
+DoliCloudArea=Espace DoliCloud
+DateLastBackup=Date dernier backup

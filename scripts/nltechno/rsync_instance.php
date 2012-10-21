@@ -120,7 +120,7 @@ $return_var=0;
 
 //var_dump($output);
 print $command." ".join(" ",$output)."\n";
-//exec($command, &$output, &$return_var);
+exec($command, &$output, &$return_var);
 
 // SFTP connect
 /*

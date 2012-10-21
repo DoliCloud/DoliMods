@@ -51,6 +51,7 @@ CREATE TABLE llx_dolicloud_customers
 	lastlogin varchar(128),
 	lastpass varchar(128),
 	date_lastlogin datetime,
+    version varchar(16),
 	modulesenabled varchar(10000),
 	remind_trial_expired datetime default NULL,
 	remind_trial_closed datetime default NULL,
@@ -58,5 +59,6 @@ CREATE TABLE llx_dolicloud_customers
 	paymentinfo varchar(255),
 	paymentstatus varchar(16),
 	fileauthorizedkey datetime default NULL,
-	filelock datetime default NULL
+	filelock datetime default NULL,
+    lastrsync datetime default NULL
 ) ENGINE = innodb;
