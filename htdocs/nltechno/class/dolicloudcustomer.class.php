@@ -467,7 +467,7 @@ class Dolicloudcustomer extends CommonObject
 		$sql.= " phone=".(isset($this->phone)?"'".$this->db->escape($this->phone)."'":"null").",";
 		$sql.= " fileauthorizedkey=".(dol_strlen($this->fileauthorizedkey)!=0 ? "'".$this->db->idate($this->fileauthorizedkey)."'" : 'null').",";
 		$sql.= " filelock=".(dol_strlen($this->filelock)!=0 ? "'".$this->db->idate($this->filelock)."'" : 'null').",";
-		$sql.= " date_lastrsync=".(dol_strlen($this->date_lastrsync)!=0 ? "'".$this->db->idate($this->date_lastrsync)."'" : 'null').",";
+		$sql.= " lastrsync=".(dol_strlen($this->date_lastrsync)!=0 ? "'".$this->db->idate($this->date_lastrsync)."'" : 'null').",";
 		$sql.= " version=".(isset($this->version)?"'".$this->db->escape($this->version)."'":"null");
 
         $sql.= " WHERE rowid=".$this->id;
