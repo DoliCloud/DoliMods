@@ -1,0 +1,29 @@
+INSTALLATION
+------------
+
+Depuis la version 3, il est possible de définir un répertoire racine alternatif,
+Cela vous permet de stocker, au même endroit, les plug-ins et des modèles personnalisés.
+Il suffit de créer un répertoire à la racine de Dolibarr (par exemple custom),
+puis le déclarer dans le fichier conf.php:
+
+exemples :
+
+$dolibarr_main_url_root='http://myserver';
+$dolibarr_main_document_root='/path/of/dolibarr/htdocs';
+$dolibarr_main_url_root_alt='http://myserver/custom';
+$dolibarr_main_document_root_alt='/path/of/dolibarr/htdocs/custom';
+
+Copiez le dossier "bootstrap" à la racine du répertoire «custom» .
+
+CONFIGURATION
+-------------
+
+Le module Boostrap apparait dans Configuration des modules >> Modules principaux >> Outils multi-modules
+activez le comme tout autre module.
+Dans Configuration >> Menus >> Gestionnaire menu, cliquez sur le bouton << Modifier >> 
+et choisissez << bootstrap_backoffice >> comme gestionnaire du menu standard.
+Dans Configuration >> Affichage, cliquez sur le bouton << Modifier >> et choisissez le thème << bootstrap >>
+Dans << Zone de recherche permanente du menu de gauche >> désactivez toutes les zones 
+( Votre zone de recherche étant maintenant dans la barre du haut, et les modules activés
+pour le tri de recherche dans une liste déroulante).
+Et pour terminer, réglez à la valeur << Oui >> la ligne << Cacher le lien " Aide en ligne" du menu gauche >>
