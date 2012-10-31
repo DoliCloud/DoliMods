@@ -129,6 +129,8 @@ if (empty($reshook))
 				else setEventMessage($langs->transnoentitiesnoconv("FileAlreadyExists"),'warnings');
 
 				$object->fileauthorizedkey=(empty($fstat['atime'])?'':$fstat['atime']);
+
+				if (! empty($fstat['atime'])) $result = $object->update($user);
 			}
 		}
 		else setEventMessage($langs->transnoentitiesnoconv("FailedToConnectToSftp"),'errors');
@@ -171,6 +173,8 @@ if (empty($reshook))
 				else setEventMessage($langs->transnoentitiesnoconv("FileAlreadyExists"),'warnings');
 
 				$object->filelock=(empty($fstat['atime'])?'':$fstat['atime']);
+
+				if (! empty($fstat['atime'])) $result = $object->update($user);
 			}
 		}
 		else setEventMessage($langs->transnoentitiesnoconv("FailedToConnectToSftp"),'errors');
