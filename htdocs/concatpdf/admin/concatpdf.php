@@ -1,5 +1,6 @@
 <?php
-/* Copyright (C) 2008-2011 Laurent Destailleur  <eldy@users.sourceforge.net>
+/* Copyright (C) 2008-2011	Laurent Destailleur  <eldy@users.sourceforge.net>
+ * Copyright (C) 2012		Regis Houssin        <regis@dolibarr.fr>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -48,8 +49,9 @@ $langs->load("other");
 $langs->load("concatpdf@concatpdf");
 
 $def = array();
-$action=GETPOST("action");
-$actionsave=GETPOST("save");
+$action=GETPOST('action', 'alpha');
+$confirm=GETPOST('confirm', 'alpha');
+$actionsave=GETPOST('save', 'alpha');
 
 $modules = array('proposals','orders','invoices');
 
@@ -91,7 +93,7 @@ if (GETPOST('sendit') && ! empty($conf->global->MAIN_UPLOAD_DOC))
 {
 	if (preg_match('/\.pdf$/', $_FILES['userfile']['name']))
 	{
-		$upload_dir = $conf->concatpdf->dir_output.'/'.$_POST['module'];
+		$upload_dir = $conf->concatpdf->dir_output.'/'.GETPOST('module', 'alpha');
 
 		if (dol_mkdir($upload_dir) >= 0)
 		{
@@ -124,6 +126,18 @@ if (GETPOST('sendit') && ! empty($conf->global->MAIN_UPLOAD_DOC))
 	}
 }
 
+// Delete file
+if ($action == 'confirm_deletefile' && $confirm == 'yes')
+{
+	$file = $conf->concatpdf->dir_output . "/" . GETPOST('urlfile');	// Do not use urldecode here ($_GET and $_REQUEST are already decoded by PHP).
+
+	$ret=dol_delete_file($file);
+	if ($ret) setEventMessage($langs->trans("FileWasRemoved", GETPOST('urlfile')));
+	else setEventMessage($langs->trans("ErrorFailToDeleteFile", GETPOST('urlfile')), 'errors');
+	header('Location: '.$_SERVER["PHP_SELF"]);
+	exit;
+}
+
 
 /*
  * View
@@ -141,6 +155,15 @@ print '<br>';
 clearstatcache();
 
 dol_htmloutput_mesg($mesg,$mesgs);
+
+/*
+ * Confirmation suppression fichier
+ */
+if ($action == 'remove_file')
+{
+	$ret=$form->form_confirm($_SERVER["PHP_SELF"].'?&urlfile='.urlencode(GETPOST("file")), $langs->trans('DeleteFile'), $langs->trans('ConfirmDeleteFile'), 'confirm_deletefile', '', 0, 1);
+	if ($ret == 'html') print '<br>';
+}
 
 print $langs->trans("ConcatPDfTakeFileFrom").'<br>';
 $langs->load("propal"); $langs->load("orders"); $langs->load("bills");
@@ -205,7 +228,7 @@ foreach ($modules as $module)
 	$outputdir=$conf->concatpdf->dir_output.'/'.$module;
 	$listoffiles=dol_dir_list($outputdir,'files');
 	if (count($listoffiles))
-		print $formfile->showdocuments('concatpdf',$module,$outputdir,$_SERVER["PHP_SELF"],0,$user->admin,'',0,0,0,0,0,'',$langs->trans("PathDirectory").' '.$outputdir);
+		print $formfile->showdocuments('concatpdf',$module,$outputdir,$_SERVER["PHP_SELF"].'?module='.$module,0,$user->admin,'',0,0,0,0,0,'',$langs->trans("PathDirectory").' '.$outputdir);
 	else
 	{
 		print '<div class="titre">'.$langs->trans("PathDirectory").' '.$outputdir.' :</div>';
