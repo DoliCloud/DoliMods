@@ -93,33 +93,35 @@ print 'SFTP connect string : '.$sftpconnectstring."\n";
 print 'SFTP password '.$object->password_web."\n";
 
 $command="rsync";
-$output=array();
-if ($mode != 'confirm') $output[]="-n";
-//$output[]="-a";
-$output[]="-rlt";
-$output[]="-v";
-$output[]="--exclude .buildpath";
-$output[]="--exclude .git";
-$output[]="--exclude .gitignore";
-$output[]="--exclude .settings";
-$output[]="--exclude .project";
-$output[]="--exclude build/";
-//$output[]="--exclude doc/";	// To keep files into htdocs/core/module/xxx/doc dir
-$output[]="--exclude dev/";
-$output[]="--exclude documents/";
-$output[]="--exclude test/";
-$output[]="--exclude htdocs/conf/conf.php*";
-$output[]="--exclude htdocs/custom";
-$output[]="--exclude htdocs/customfields/";
-$output[]="--exclude htdocs/bootstrap/";
-$output[]="--stats";
-$output[]="-e ssh";
-$output[]=$dirroot.'/';
-$output[]=$login.'@'.$server.":".$targetdir;
-$return_var=0;
+$param=array();
+if ($mode != 'confirm') $param[]="-n";
+//$param[]="-a";
+$param[]="-rlt";
+$param[]="-v";
+$param[]="--exclude .buildpath";
+$param[]="--exclude .git";
+$param[]="--exclude .gitignore";
+$param[]="--exclude .settings";
+$param[]="--exclude .project";
+$param[]="--exclude build/";
+//$param[]="--exclude doc/";	// To keep files into htdocs/core/module/xxx/doc dir
+$param[]="--exclude dev/";
+$param[]="--exclude documents/";
+$param[]="--exclude test/";
+$param[]="--exclude htdocs/conf/conf.php*";
+$param[]="--exclude htdocs/custom";
+$param[]="--exclude htdocs/customfields/";
+$param[]="--exclude htdocs/bootstrap/";
+$param[]="--stats";
+$param[]="-e ssh";
+$param[]=$dirroot.'/';
+$param[]=$login.'@'.$server.":".$targetdir;
 
-//var_dump($output);
-print $command." ".join(" ",$output)."\n";
+//var_dump($param);
+$fullcommand=$command." ".join(" ",$param);
+$output=array();
+$return_var=0;
+print $fullcommand."\n";
 exec($command, &$output, &$return_var);
 
 // SFTP connect
