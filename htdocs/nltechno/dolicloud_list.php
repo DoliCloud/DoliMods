@@ -186,8 +186,8 @@ print_liste_field_titre($langs->trans('DateRegistration'),$_SERVER['PHP_SELF'],'
 print_liste_field_titre($langs->trans('DateEndFreePeriod'),$_SERVER['PHP_SELF'],'t.date_endfreeperiod','',$param,'',$sortfield,$sortorder);
 print_liste_field_titre($langs->trans('DateLastCheck'),$_SERVER['PHP_SELF'],'t.lastcheck','',$param,'',$sortfield,$sortorder);
 print_liste_field_titre($langs->trans('NbOfUsers'),$_SERVER['PHP_SELF'],'t.nbofusers','',$param,'align="right"',$sortfield,$sortorder);
-print_liste_field_titre($langs->trans('LastLogin'),$_SERVER['PHP_SELF'],'t.lastlogin','',$param,'',$sortfield,$sortorder);
-print_liste_field_titre($langs->trans('DateLastLogin'),$_SERVER['PHP_SELF'],'t.date_lastlogin','align="center"',$param,'',$sortfield,$sortorder);
+print_liste_field_titre($langs->trans('LastLogin'),$_SERVER['PHP_SELF'],'t.lastlogin','',$param,'align="center"',$sortfield,$sortorder);
+print_liste_field_titre($langs->trans('DateLastLogin'),$_SERVER['PHP_SELF'],'t.date_lastlogin','',$param,'align="center"',$sortfield,$sortorder);
 print_liste_field_titre($langs->trans('Revenue'),$_SERVER['PHP_SELF'],'','',$param,' align="right"',$sortfield,$sortorder);
 print_liste_field_titre($langs->trans('Status'),$_SERVER['PHP_SELF'],'t.status','',$param,'align="right"',$sortfield,$sortorder);
 print '</tr>';
@@ -235,7 +235,7 @@ if ($resql)
                 print $obj->lastcheck;
                 print '</td><td align="right">';
                 print $obj->nbofusers;
-                print '</td><td>';
+                print '</td><td align="center">';
                 print $obj->lastlogin;
 	            print '</td><td align="center">';
                 print ($obj->date_lastlogin?dol_print_date($obj->date_lastlogin,'dayhour','tzuser'):'');
