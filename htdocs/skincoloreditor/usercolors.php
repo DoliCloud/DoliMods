@@ -157,9 +157,18 @@ print $langs->trans("ActivateColorPersonalizingUser").': &nbsp; ';
 $name='THEME_ELDY_ENABLE_PERSONALIZED';
 if (empty($fuser->conf->$name))
 {
-    print '<a href="'.$_SERVER["PHP_SELF"].'?action=set&amp;name='.$name.'&amp;value=1&amp;id='.$fuser->id.'">';
-    print img_picto($langs->trans("Disabled"),'switch_off');
-    print '</a>';
+	if (empty($dolibarr_main_demo))
+	{
+		print '<a href="'.$_SERVER["PHP_SELF"].'?action=set&amp;name='.$name.'&amp;value=1&amp;id='.$fuser->id.'">';
+	    print img_picto($langs->trans("Disabled"),'switch_off');
+	    print '</a>';
+	}
+	else
+	{
+	    print '<a href="#">';
+	    print img_picto($langs->trans("DisabledInDemoMode"),'switch_off');
+	    print '</a>';
+	}
 }
 else
 {
