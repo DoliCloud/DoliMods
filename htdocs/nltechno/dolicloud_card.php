@@ -919,7 +919,7 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 	print '<tr><td>'.$langs->trans("Country").'</td><td colspan="3">';
 	$img=picto_from_langcode($object->country_code);
 	if ($img) print $img.' ';
-	print $object->pays;
+	print getCountry($object->country_code,0);
 	print '</td></tr>';
 
 	// State
