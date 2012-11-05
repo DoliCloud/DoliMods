@@ -153,9 +153,11 @@ if ($mode == 'confirmunlock')
 
 			// Check if install.lock exists
 			$dir=preg_replace('/_dolibarr$/','',$object->database_db);
-
 			$fileinstalllock='/home/'.$object->username_web.'/'.$dir.'/documents/install.lock';
-			ssh2_sftp_unlink($connection, $fileinstalllock);
+
+			print 'Remove file '.$fileinstalllock."\n";
+
+			ssh2_sftp_unlink($sftp, $fileinstalllock);
 		}
 	}
 	else
