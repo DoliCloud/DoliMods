@@ -58,6 +58,7 @@ $object = new DoliCloudCustomer($db);
 if (empty($dirroot) || empty($instance) || empty($mode))
 {
 	print "Usage: $script_file dolibarr_root_dir dolicloud_instance (test|confirm)\n";
+	print "Return code: 0 if success, <>0 if error\n";
 	exit(-1);
 }
 
