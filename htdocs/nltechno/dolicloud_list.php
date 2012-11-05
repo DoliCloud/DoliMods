@@ -216,7 +216,7 @@ if ($resql)
 
                 $var=!$var;
                 // You can use here results
-                print '<tr '.$bc[$var].'><td align="left">';
+                print '<tr '.$bc[$var].'><td align="left" nowrap="nowrap">';
                 $dolicloudcustomerstatic->id=$obj->rowid;
                 $dolicloudcustomerstatic->ref=$obj->instance;
                 $dolicloudcustomerstatic->status=$obj->status;
