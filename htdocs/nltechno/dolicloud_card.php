@@ -374,9 +374,9 @@ if (empty($reshook))
 					if (empty($object->date_registration) || empty($object->date_endfreeperiod))
 					{
 						// Overwrite only if not defined
-						$object->date_registration=$fstat['mtime'];
+						$object->date_registration=$fstatlock['mtime'];
 						//$object->date_endfreeperiod=dol_time_plus_duree($object->date_registration,1,'m');
-						$object->date_endfreeperiod=dol_time_plus_duree($object->date_registration,15,'d');
+						$object->date_endfreeperiod=($object->date_registration?dol_time_plus_duree($object->date_registration,15,'d'):'');
 					}
 				}
 			}
