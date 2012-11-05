@@ -58,7 +58,7 @@ $object = new DoliCloudCustomer($db);
 if (empty($dirroot) || empty($instance) || empty($mode))
 {
 	print "Usage: $script_file dolibarr_root_dir dolicloud_instance (test|confirm)\n";
-	exit;
+	exit(-1);
 }
 
 
@@ -67,17 +67,17 @@ $result=$object->fetch('',$instance);
 if ($result < 0)
 {
 	print "Error: instance ".$instance." not found.\n";
-	exit;
+	exit(-2);
 }
 if (empty($object->instance) && empty($object->username_web) && empty($object->password_web) && empty($object->database_db))
 {
 	print "Error: properties for instance ".$instance." was not registered.\n";
-	exit;
+	exit(-3);
 }
 if (! is_dir($dirroot.'/htdocs'))
 {
 	print "Error: Source directory to synchronize must contains a htdocs directory.\n";
-	exit;
+	exit(-4);
 }
 
 $dirdb=preg_replace('/_dolibarr/','',$object->database_db);
@@ -177,5 +177,5 @@ else {
 }
 */
 
-return $return_var;
+exit($return_var);
 ?>
