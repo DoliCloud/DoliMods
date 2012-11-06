@@ -30,6 +30,7 @@ CREATE TABLE llx_dolicloud_customers
 	town varchar(128),
 	country_id integer,
 	state_id integer,
+	vat_number varchar(32),
 	phone varchar(128),
 	date_registration datetime,
 	date_endfreeperiod datetime,

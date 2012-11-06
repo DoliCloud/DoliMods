@@ -75,6 +75,7 @@ class Dolicloudcustomer extends CommonObject
 	var $town;
 	var $country_id;
 	var $state_id;
+	var $vat_number;
 	var $phone;
 
 	var $fileauthorizedkey;
@@ -106,7 +107,6 @@ class Dolicloudcustomer extends CommonObject
 		$error=0;
 
 		// Clean parameters
-
 		if (isset($this->instance)) $this->instance=trim($this->instance);
 		if (isset($this->organization)) $this->organization=trim($this->organization);
 		if (isset($this->email)) $this->email=trim($this->email);
@@ -126,7 +126,7 @@ class Dolicloudcustomer extends CommonObject
 		if (isset($this->nbofusers)) $this->nbofusers=trim($this->nbofusers);
 		if (isset($this->modulesenabled)) $this->modulesenabled=trim($this->modulesenabled);
 		if (isset($this->version)) $this->version=trim($this->version);
-
+		if (isset($this->vat_number)) $this->vat_number=trim($this->vat_number);
 
 
 		// Check parameters
@@ -166,6 +166,7 @@ class Dolicloudcustomer extends CommonObject
 		$sql.= "town,";
 		$sql.= "country_id,";
 		$sql.= "state_id,";
+		$sql.= "vat_number,";
 		$sql.= "phone,";
 		$sql.= "fileauthorizedkey,";
 		$sql.= "filelock,";
@@ -206,6 +207,7 @@ class Dolicloudcustomer extends CommonObject
 		$sql.= " ".(! isset($this->town)?'NULL':"'".$this->db->escape($this->town)."'").",";
 		$sql.= " ".(! isset($this->country_id)?'NULL':"'".$this->db->escape($this->country_id)."'").",";
 		$sql.= " ".(! isset($this->state_id)?'NULL':"'".$this->db->escape($this->state_id)."'").",";
+		$sql.= " ".(! isset($this->vat_number)?'NULL':"'".$this->db->escape($this->vat_number)."'").",";
 		$sql.= " ".(! isset($this->phone)?'NULL':"'".$this->db->escape($this->phone)."'").",";
 
 		$sql.= " ".(! isset($this->fileauthorizedkey) || dol_strlen($this->fileauthorizedkey)==0?'NULL':$this->db->idate($this->fileauthorizedkey)).",";
@@ -304,6 +306,7 @@ class Dolicloudcustomer extends CommonObject
 		$sql.= " t.town,";
 		$sql.= " t.country_id,";
 		$sql.= " t.state_id,";
+		$sql.= " t.vat_number,";
 		$sql.= " t.phone,";
 		$sql.= " t.fileauthorizedkey,";
 		$sql.= " t.filelock,";
@@ -358,6 +361,7 @@ class Dolicloudcustomer extends CommonObject
                 $this->town = $obj->town;
                 $this->country_id = $obj->country_id;
                 $this->state_id = $obj->state_id;
+                $this->vat_number = $obj->vat_number;
                 $this->phone = $obj->phone;
 
                 $this->fileauthorizedkey = $obj->fileauthorizedkey;
@@ -424,6 +428,7 @@ class Dolicloudcustomer extends CommonObject
 		if (isset($this->nbofusers)) $this->nbofusers=trim($this->nbofusers);
 		if (isset($this->modulesenabled)) $this->modulesenabled=trim($this->modulesenabled);
 		if (isset($this->version)) $this->version=trim($this->version);
+		if (isset($this->vat_number)) $this->vat_number=trim($this->vat_number);
 
 
 		// Check parameters
@@ -468,7 +473,8 @@ class Dolicloudcustomer extends CommonObject
 		$sql.= " fileauthorizedkey=".(dol_strlen($this->fileauthorizedkey)!=0 ? "'".$this->db->idate($this->fileauthorizedkey)."'" : 'null').",";
 		$sql.= " filelock=".(dol_strlen($this->filelock)!=0 ? "'".$this->db->idate($this->filelock)."'" : 'null').",";
 		$sql.= " lastrsync=".(dol_strlen($this->date_lastrsync)!=0 ? "'".$this->db->idate($this->date_lastrsync)."'" : 'null').",";
-		$sql.= " version=".(isset($this->version)?"'".$this->db->escape($this->version)."'":"null");
+		$sql.= " version=".(isset($this->version)?"'".$this->db->escape($this->version)."'":"null").",";
+		$sql.= " vat_number=".(isset($this->vat_number)?"'".$this->db->escape($this->vat_number)."'":"null");
 
         $sql.= " WHERE rowid=".$this->id;
 
@@ -746,6 +752,7 @@ class Dolicloudcustomer extends CommonObject
 		$this->filelock='';
 		$this->version='3.0.0';
 		$this->date_lastrsync='2012-01-02';
+		$this->vat_number='FR123456';
 	}
 
 }

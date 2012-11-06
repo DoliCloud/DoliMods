@@ -198,6 +198,7 @@ if (empty($reshook))
 		$object->town			= $_POST["town"];
 		$object->country_id		= $_POST["country_id"];
 		$object->state_id       = $_POST["state_id"];
+		$object->vat_number     = $_POST["vat_number"];
 		$object->email			= $_POST["email"];
 		$object->phone        	= $_POST["phone"];
 		$object->note			= $_POST["note"];
@@ -210,7 +211,8 @@ if (empty($reshook))
 		$object->password_db    = $_POST["password_db"];
 
 		$object->status         = $_POST["status"];
-		$object->date_endfreeperiod  = dol_mktime(0, 0, 0, $_POST["endfreeperiodmonth"], $_POST["endfreeperiodday"], $_POST["endfreeperiodyear"], 1);
+		$object->date_registration  = dol_mktime(0, 0, 0, $_POST["date_registrationmonth"], $_POST["date_registrationday"], $_POST["date_registrationyear"], 1);
+		$object->date_endfreeperiod = dol_mktime(0, 0, 0, $_POST["endfreeperiodmonth"], $_POST["endfreeperiodday"], $_POST["endfreeperiodyear"], 1);
 		$object->partner		= $_POST["partner"];
 
 		if (empty($_POST["instance"]) || empty($_POST["organization"]) || empty($_POST["plan"]) || empty($_POST["email"]))
@@ -283,6 +285,7 @@ if (empty($reshook))
 			$object->town			= $_POST["town"];
 			$object->state_id   	= $_POST["state_id"];
 			$object->country_id		= $_POST["country_id"];
+			$object->vat_number     = $_POST["vat_number"];
 
 			$object->email			= $_POST["email"];
 			$object->phone    		= $_POST["phone"];
@@ -297,7 +300,8 @@ if (empty($reshook))
 			$object->password_db    = $_POST["password_db"];
 
 			$object->status         = $_POST["status"];
-			$object->date_endfreeperiod  = dol_mktime(0, 0, 0, $_POST["endfreeperiodmonth"], $_POST["endfreeperiodday"], $_POST["endfreeperiodyear"], 1);
+			$object->date_registration  = dol_mktime(0, 0, 0, $_POST["date_registrationmonth"], $_POST["date_registrationday"], $_POST["date_registrationyear"], 1);
+			$object->date_endfreeperiod = dol_mktime(0, 0, 0, $_POST["endfreeperiodmonth"], $_POST["endfreeperiodday"], $_POST["endfreeperiodyear"], 1);
 			$object->partner		= $_POST["partner"];
 
 			$result = $object->update($user);
@@ -632,6 +636,10 @@ if ($user->rights->nltechno->dolicloud->write)
 			print '</td></tr>';
 		}
 
+		// VAT
+		print '<tr><td>'.$langs->trans("VATIntra").'</td><td colspan="3"><input name="vat_number" type="text" size="18" maxlength="32" value="'.(isset($_POST["vat_number"])?$_POST["vat_number"]:$object->vat_number).'"></td>';
+		print '</tr>';
+
 		// Phone
 		print '<tr><td>'.$langs->trans("PhonePro").'</td><td colspan="3"><input name="phone" type="text" size="18" maxlength="80" value="'.(isset($_POST["phone"])?$_POST["phone"]:$object->phone).'"></td>';
 		print '</tr>';
@@ -653,9 +661,14 @@ if ($user->rights->nltechno->dolicloud->write)
 		print '</tr>';
 
 		// Date end of trial
-		print '<tr id="hideendfreetrial"><td>'.$langs->trans("EndFreeTrial").'</td><td>';
+		print '<tr id="hideendfreetrial">';
+		print '<td>'.$langs->trans("DateRegistration").'</td><td>';
+		print $form->select_date(-1, 'date_registration', 0, 0, 1, '', 1, 1);
+		print '</td>';
+		print '<td>'.$langs->trans("DateEndFreePeriod").'</td><td>';
 		print $form->select_date(-1, 'endfreeperiod', 0, 0, 1, '', 1, 1);
-		print '</td><tr>';
+		print '</td>';
+		print '<tr>';
 
 		// SFTP
 		print '<tr><td width="20%">'.$langs->trans("SFTP Server").'</td><td colspan="3"><input name="hostname_web" id="hostname_web" type="text" size="18" maxlength="80" value="'.(isset($_POST["hostname_web"])?$_POST["hostname_web"]:$object->hostname_web).'"></td>';
@@ -792,6 +805,10 @@ if ($user->rights->nltechno->dolicloud->write)
 			print '</td></tr>';
 		}
 
+		// VAT Number
+		print '<tr><td>'.$langs->trans("VATIntra").'</td><td colspan="3"><input name="vat_number" type="text" size="18" maxlength="32" value="'.(isset($_POST["vat_number"])?$_POST["vat_number"]:$object->vat_number).'"></td>';
+		print '</tr>';
+
 		// Phone
 		print '<tr><td>'.$langs->trans("PhonePro").'</td><td colspan="3"><input name="phone" type="text" size="18" maxlength="80" value="'.(isset($_POST["phone"])?$_POST["phone"]:$object->phone).'"></td>';
 		print '</tr>';
@@ -815,9 +832,14 @@ if ($user->rights->nltechno->dolicloud->write)
 		print '</tr>';
 
 		// Date end of trial
-		print '<tr id="hideendfreetrial"><td>'.$langs->trans("EndFreeTrial").'</td><td>';
+		print '<tr id="hideendfreetrial">';
+		print '<td>'.$langs->trans("DateRegistration").'</td><td>';
+		print $form->select_date($object->date_registration, 'date_registration', 0, 0, 1, '', 1, 0);
+		print '</td>';
+		print '<td>'.$langs->trans("DateEndFreePeriod").'</td><td>';
 		print $form->select_date($object->date_endfreeperiod, 'endfreeperiod', 0, 0, 1, '', 1, 0);
-		print '</td><tr>';
+		print '</td>';
+		print '<tr>';
 
 		// SFTP
 		print '<tr><td width="20%">'.$langs->trans("SFTP Server").'</td><td colspan="3"><input name="hostname_web" type="text" size="28" maxlength="80" value="'.(isset($_POST["hostname_web"])?$_POST["hostname_web"]:$object->hostname_web).'"></td>';
@@ -928,10 +950,15 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 		print '<tr><td>'.$langs->trans('State').'</td><td colspan="3">'.$object->state.'</td>';
 	}
 
+	// VAT number
+	print '<tr><td>'.$langs->trans("VATIntra").'</td><td colspan="3">'.$object->vat_number.'</td>';
+	print '</tr>';
+
 	// Phone
 	print '<tr><td>'.$langs->trans("PhonePro").'</td><td colspan="3">'.dol_print_phone($object->phone,$object->country_code,$object->id,0,'AC_TEL').'</td>';
 	print '</tr>';
 
+	// Note
 	print '<tr><td valign="top">'.$langs->trans("Note").'</td><td colspan="3">';
 	print nl2br($object->note);
 	print '</td></tr>';
