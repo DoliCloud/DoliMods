@@ -1,5 +1,6 @@
 Tutorial:
 https://developers.google.com/chrome/apps/docs/developers_guide?hl=fr
+https://developers.google.com/chrome/web-store/docs/get_started_simple?hl=fr#step4
 
 Build package
 cd nltechno/webstore

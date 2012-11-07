@@ -2,14 +2,15 @@
   "manifest_version": 2,
   "name": "Dolibarr ERP & CRM in the Cloud",
   "description": "Dolibarr ERP & CRM, OpenSource software for business (invoices, customers, suppliers, proposals, agenda, products, emailings...)",
-  "version": "3.2.2",
+  "default_locale": "en",
+  "version": "3.2.2.6",
   "app": {
     "urls": [
       "http://www.dolicloud.com/",
-      "https://www.on.dolicloud.com/"
+      "https://www.dolicloud.com/"
     ],
     "launch": {
-      "web_url": "https://www.on.dolicloud.com/signUp/customer?campaign=1&origin=googlewebstore"
+      "web_url": "http://www.dolicloud.com/chromewebstore/index.php"
     }
   },
   "icons": {

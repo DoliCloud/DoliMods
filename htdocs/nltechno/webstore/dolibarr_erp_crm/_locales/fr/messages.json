@@ -1,0 +1,10 @@
+{
+  "appName": {
+    "message": "Dolibarr ERP & CRM dans le Cloud",
+    "description": "Dolibarr ERP & CRM dans le Cloud (factures, devis, commandes, trésorerie, produits, stocks, agenda, fournisseurs...)."
+  },
+  "appDesc": {
+    "message": "La solution simple de gestion de votre business.", 
+    "description":"Dolibarr ERP & CRM, le logiciel simple et OpenSource pour gérer votre activité (factures, devis, commandes, trésorerie, produits, stocks, agenda, comptes bancaires, fournisseurs, associations)."
+  }
+}
