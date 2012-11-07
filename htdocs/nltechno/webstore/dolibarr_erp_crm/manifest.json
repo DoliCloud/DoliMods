@@ -3,7 +3,7 @@
   "name": "Dolibarr ERP & CRM",
   "description": "Dolibarr ERP & CRM, OpenSource software for business (invoices, customers, suppliers, proposals, agenda, products, emailings...)",
   "default_locale": "en",
-  "version": "3.2.2.6",
+  "version": "3.2.2.7",
   "app": {
     "urls": [
       "http://www.dolicloud.com/",
