@@ -1,6 +1,6 @@
 {
   "manifest_version": 2,
-  "name": "Dolibarr ERP & CRM in the Cloud",
+  "name": "Dolibarr ERP & CRM",
   "description": "Dolibarr ERP & CRM, OpenSource software for business (invoices, customers, suppliers, proposals, agenda, products, emailings...)",
   "default_locale": "en",
   "version": "3.2.2.6",
