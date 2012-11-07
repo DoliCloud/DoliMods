@@ -1,0 +1,9 @@
+Tutorial:
+https://developers.google.com/chrome/apps/docs/developers_guide?hl=fr
+
+Build package
+cd nltechno/webstore
+zip -r dolibarr_erp_crm.zip dolibarr_erp_crm
+
+Google Chrom Web Store dashboard:
+https://chrome.google.com/webstore/developer/dashboard
