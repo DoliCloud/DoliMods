@@ -8,3 +8,68 @@ zip -r dolibarr_erp_crm.zip dolibarr_erp_crm
 
 Google Chrom Web Store dashboard:
 https://chrome.google.com/webstore/developer/dashboard
+
+Description english
+-------------------
+Dolibarr ERP/CRM is a software to manage small or medium companies, freelancers or foundations. We can say Dolibarr is an ERP or CRM (or both depending on activated modules).
+It's an OpenSource project built by modules addition (you enable only features you need). Dolibarr was designed to offer an easy to use ERP and CRM software.
+
+This is a summary of main Dolibarr features...
+- Products and services catalog
+- Stock management
+- Bank accounts management
+- Customers, Suppliers or Prospects directory
+- Contacts directory
+- Commercial actions management
+- Orders management with PDF generator
+- Commercial proposals management with PDF generator
+- Contracts management
+- Invoices management with PDF generator
+- Payments management
+- Standing orders management
+- Shipping management
+- Support NPR VAT (for French DOM-TOM)
+- Foundations members management
+- Bookmarks management
+- Emailing
+- Agenda
+- Point of Sale
+- Donations management
+- Reporting
+- Data export tools
+- LDAP connectivity
+- A lot of other official or non official modules (AWStats, Bittorrent, Gravatar, Google, ...)
+
+
+
+Description French:
+-------------------
+Dolibarr ERP & CRM est un logiciel modulaire (on n'active que les fonctions que l'on désire) de gestions de TPE/PME, d'indépendants, d'entrepreneurs ou d'associations. L'offre DoliCloud vous permet de profiter de Dolibarr sur tout navigateur, quelquesoit votre localisation. Elle se démarque des autres suites de gestion d'entreprise par sa grande simplicité d'utilisation.
+
+Voici une liste des fonctionnalités principales couvertes...
+- Gestion de catalogue de produits et services
+- Gestion de stock
+- Gestion des comptes bancaires
+- Annuaires des prospects et/ou client et/ou fournisseurs
+- Annuaires des contacts
+- Gestion des actions/taches avec un agenda intégré
+- Gestion des commandes
+- Gestion des propositions commerciales
+- Gestion de contrats de services
+- Gestion des factures clients et fournisseurs
+- Gestion des paiements
+- Gestion des virements bancaires
+- Gestion des expéditions
+- Notes de frais
+- Export PDF de tous les éléments (factures, propositions commerciales, commandes, bons expéditions, etc...)
+- Gestion de la TVA NPR (non perçue récupérable - pour les utilisateurs français des DOM-TOM)
+- Gestion des adhérents d'association
+- Gestion des dons
+- Gestion de marque-pages
+- Agenda
+- Point de vente/Caisse enregistreuse
+- Fonctions d'EMailing de masses vers les clients, prospect ou utilisateurs Dolibarr
+- Rapports
+- Fonctions d'exports
+- Connectivité LDAP
+- Peut être enrichi par de nombreuses autres fonctionnalités issues de modules externes...
