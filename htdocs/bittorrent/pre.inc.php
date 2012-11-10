@@ -24,19 +24,4 @@ if (! $res) die("Include of main fails");
 global $website_url;
 require_once ("./config.php");
 
-
-$user->getrights('bittorrent');
-
-
-function llxHeader($head = "", $title="", $help_url='')
-{
-	global $conf,$langs;
-	$langs->load("other");
-
-	top_menu($head, $title);
-
-	$menu = new Menu();
-
-	left_menu($menu->liste, $help_url);
-}
 ?>

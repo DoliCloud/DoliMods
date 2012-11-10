@@ -3,9 +3,16 @@ include("./pre.inc.php");
 require_once("funcsv2.php");
 
 
-$tracker_url = $website_url . substr($_SERVER['REQUEST_URI'], 0, -15) . "announce.php";
 
-llxHeader('','BitTorrent',$website_url.'/bittorrent/docs/help.html');
+/*
+ *	View
+ */
+
+$urlwithouturlroot=preg_replace('/'.preg_quote(DOL_URL_ROOT,'/').'$/i','',$dolibarr_main_url_root);
+$tracker_url=$urlwithouturlroot.dol_buildpath('/bittorrent/announce.php',1);
+$helpurl=$urlwithouturlroot.dol_buildpath('/bittorrent/docs/help.html',1);
+
+llxHeader('','BitTorrent',$helpurl);
 
 $form=new Form($db);
 
@@ -26,10 +33,11 @@ else
 
 function addTorrent()
 {
-	global $website_url,$dbhost,$dbuser,$dbpass,$database,$prefix;
+	global $urlwithouturlroot,$website_url,$dbhost,$dbuser,$dbpass,$database,$prefix;
 	global $enablerss,$rss_title,$rss_link,$rss_description,$timezone;
 
-	$tracker_url = $website_url . '/bittorrent/announce.php';
+	$tracker_url = $urlwithouturlroot . dol_buildpath('/bittorrent/announce.php',1);
+
 	$tracker_url_http  = preg_replace('/^https:/','http:',$tracker_url);
 	$tracker_url_https = preg_replace('/^http:/','https:',$tracker_url);
 
@@ -195,9 +203,9 @@ function addTorrent()
 
 function endOutput()
 {
-	global $website_url;
+	global $urlwithouturlroot,$website_url;
 
-	$tracker_url = $website_url . '/bittorrent/announce.php';
+	$tracker_url = $urlwithouturlroot . dol_buildpath('/bittorrent/announce.php',1);
 	?>
 	<div class="center">
 	<?php
@@ -235,7 +243,7 @@ function endOutput()
 	For example if file is myfile.zip on an external server:<br>
 	http://myserver/myfile.zip<br>
 	For example if file is myfile.zip inside <?php echo DOL_DATA_ROOT.'/bittorrent/files'; ?> directory:<br>
-	<?php echo $website_url.'/document.php?modulepart=bittorrent&file=myfile.zip'; ?>
+	<?php echo $urlwithouturlroot.dol_buildpath('/document.php',1).'?modulepart=bittorrent&file=myfile.zip'; ?>
 	</td>
 	</tr>
 	<tr><td colspan="2"><hr></td></tr>

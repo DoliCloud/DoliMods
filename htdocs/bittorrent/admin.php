@@ -3,15 +3,19 @@
 include("./pre.inc.php");
 require ("funcsv2.php");
 
-$urlwithouturlroot=preg_replace('/'.preg_quote(DOL_URL_ROOT,'/').'$/i','',$dolibarr_main_url_root);
-$tracker_url = $urlwithouturlroot.DOL_URL_ROOT.'/bittorrent/announce.php';
 
 
 /*
  * View
  */
 
-llxHeader('','BitTorrent',$website_url.'/bittorrent/docs/help.html');
+$urlwithouturlroot=preg_replace('/'.preg_quote(DOL_URL_ROOT,'/').'$/i','',$dolibarr_main_url_root);
+
+$tracker_url=$urlwithouturlroot.dol_buildpath('/bittorrent/announce.php',1);
+$helpurl=$urlwithouturlroot.dol_buildpath('/bittorrent/docs/help.html',1);
+
+//$helpurl='EN:'.$helpurl.'|FR:'.$helpurl.'|ES:'.$helpurl;
+llxHeader('','BitTorrent',$helpurl);
 
 $form=new Form($db);
 
