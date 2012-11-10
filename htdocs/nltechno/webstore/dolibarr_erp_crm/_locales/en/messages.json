@@ -1,10 +1,10 @@
 {
   "appName": {
-    "message": "Dolibarr ERP & CRM",
-    "description": "Dolibarr ERP & CRM in the Cloud (invoices, customers, suppliers, proposals, agenda, products, emailings)."
+    "message": "DoliCloud ERP & CRM",
+    "description": "Online service of Dolibarr ERP & CRM in the Cloud (invoices, customers, suppliers, proposals, agenda, products, emailings)."
   },
   "appDesc": {
     "message": "The OpenSource software for business.", 
-    "description":"Dolibarr ERP & CRM, OpenSource software for business (invoices, customers, suppliers, proposals, agenda, products, emailings...)"
+    "description":"DoliCloud is the online service of Dolibarr ERP & CRM openSource software in the Cloud. Enable features you need (invoices, customers, suppliers, proposals, agenda, products, stocks, emailings, ...) and use a personalized solution to manage your business."
   }
 }
