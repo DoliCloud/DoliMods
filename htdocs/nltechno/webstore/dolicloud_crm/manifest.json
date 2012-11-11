@@ -3,14 +3,14 @@
   "name": "__MSG_appName__",
   "description": "__MSG_appDesc__",
   "default_locale": "en",
-  "version": "3.2.2.9",
+  "version": "3.2.2.10",
   "app": {
     "urls": [
       "http://www.dolicloud.com/",
       "https://www.dolicloud.com/"
     ],
     "launch": {
-      "web_url": "http://www.dolicloud.com/chromewebstore/"
+      "web_url": "http://www.dolicloud.com/chromewebstore/dolicloud_crm.php"
     }
   },
   "icons": {

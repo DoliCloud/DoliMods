@@ -4,7 +4,8 @@ https://developers.google.com/chrome/web-store/docs/get_started_simple?hl=fr#ste
 
 Build package
 cd nltechno/webstore
-zip -r dolibarr_erp_crm.zip dolibarr_erp_crm
+zip -r dolicloud_erp_crm.zip dolicloud_erp_crm
+zip -r dolicloud_crm.zip dolicloud_crm
 
 Google Chrom Web Store dashboard:
 https://chrome.google.com/webstore/developer/dashboard
