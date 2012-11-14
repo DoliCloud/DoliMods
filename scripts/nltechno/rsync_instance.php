@@ -72,7 +72,7 @@ if ($result < 0)
 }
 if (empty($object->instance) && empty($object->username_web) && empty($object->password_web) && empty($object->database_db))
 {
-	print "Error: properties for instance ".$instance." was not registered.\n";
+	print "Error: properties for instance ".$instance." was not registered into database.\n";
 	exit(-3);
 }
 if (! is_dir($dirroot.'/htdocs'))

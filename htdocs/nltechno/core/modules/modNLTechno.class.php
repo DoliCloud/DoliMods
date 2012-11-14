@@ -64,7 +64,7 @@ class modNLTechno extends DolibarrModules
 		//$this->dirs[1] = DOL_DATA_ROOT.'/mymodule/temp;
 
 		// Config pages. Put here list of php page names stored in admmin directory used to setup module
-		$this->config_page_url = array();
+		$this->config_page_url = array("setup.php@nltechno");
 
 		// Dependencies
 		$this->depends = array();		// List of modules id that must be enabled if this module is enabled
