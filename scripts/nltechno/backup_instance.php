@@ -58,7 +58,7 @@ $object = new DoliCloudCustomer($db);
 if (empty($dirroot) || empty($instance) || empty($mode))
 {
 	print "Usage:   $script_file instance    backup_dir  (test|confirm)\n";
-	print "Example: $script_file myinstance  /home/dolicloud_instances  test\n";
+	print "Example: $script_file myinstance  /home/dolicloud_instances/home  test\n";
 	print "Return code: 0 if success, <>0 if error\n";
 	exit(-1);
 }

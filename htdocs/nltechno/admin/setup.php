@@ -101,7 +101,7 @@ print '<tr '.$bc[$var].'><td>'.$langs->trans("DirForDoliCloudInstances").'</td>'
 print '<td>';
 print '<input size="40" type="text" name="DOLICLOUD_INSTANCES_PATH" value="'.$conf->global->DOLICLOUD_INSTANCES_PATH.'">';
 print '</td>';
-print '<td>/home/dolicloud_instances</td>';
+print '<td>/home/dolicloud_instances/home /</td>';
 print '<td>&nbsp;</td>';
 print '</tr>';
 
