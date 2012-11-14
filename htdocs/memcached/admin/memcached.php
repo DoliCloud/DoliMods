@@ -35,7 +35,7 @@ require_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
 // Security check
 if (!$user->admin)
 accessforbidden();
-if (! empty($dolibarr_memcached_view_disable))	// Hidden variable to add to conf file to disable browsing
+if (! empty($dolibarr_memcached_setup_disable))	// Hidden variable to add to conf file to disable setup
 accessforbidden();
 
 $langs->load("admin");
@@ -143,7 +143,7 @@ print '</table>';
 
 print "</form>\n";
 
-print '</div>';
+dol_fiche_end();
 
 
 if (! $error)
