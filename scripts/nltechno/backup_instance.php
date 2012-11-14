@@ -97,20 +97,22 @@ print 'Backup instance '.$instance.' to '.$dirroot.'/'.$login."\n";
 print 'SFTP password '.$object->password_web."\n";
 
 //$listofdir=array($dirroot.'/'.$login, $dirroot.'/'.$login.'/documents', $dirroot.'/'.$login.'/system', $dirroot.'/'.$login.'/htdocs', $dirroot.'/'.$login.'/scripts');
-$listofdir=array($dirroot.'/'.$login);
-foreach($listofdir as $dirtocreate)
+if ($mode == 'confirm')
 {
-	if (! is_dir($dirtocreate))
+	$listofdir=array($dirroot.'/'.$login);
+	foreach($listofdir as $dirtocreate)
 	{
-		$res=@mkdir($dirtocreate);
-		if (! $res)
+		if (! is_dir($dirtocreate))
 		{
-			print 'Failed to create dir '.$dirtocreate."\n";
-			exit(-6);
+			$res=@mkdir($dirtocreate);
+			if (! $res)
+			{
+				print 'Failed to create dir '.$dirtocreate."\n";
+				exit(-6);
+			}
 		}
 	}
 }
-
 
 // Define SFTP strings
 /*
@@ -136,7 +138,9 @@ $param[]="--exclude build/";
 $param[]="--exclude dev/";
 $param[]="--exclude test/";
 $param[]="--stats";
-$param[]="-e ssh";
+$param[]="-e ssh";	//  -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no
+
+
 
 //var_dump($param);
 //print "- Backup documents dir ".$dirroot."/".$instance."\n";
