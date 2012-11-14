@@ -94,6 +94,8 @@ if (empty($login) || empty($dirdb))
 }
 
 print 'Backup instance '.$instance.' to '.$dirroot.'/'.$login."\n";
+print 'SFTP password '.$object->password_web."\n";
+
 //$listofdir=array($dirroot.'/'.$login, $dirroot.'/'.$login.'/documents', $dirroot.'/'.$login.'/system', $dirroot.'/'.$login.'/htdocs', $dirroot.'/'.$login.'/scripts');
 $listofdir=array($dirroot.'/'.$login);
 foreach($listofdir as $dirtocreate)
@@ -206,7 +208,10 @@ if (empty($return_var))
 {
 	if ($mode == 'confirm')
 	{
-
+		$now=dol_now();
+		print 'Update date of backup for instance '.$object->instance.' to '.$now."\n";
+		$object->date_lastrsync=$now;
+		$object->update(0);
 	}
 }
 else

@@ -18,3 +18,5 @@ Authorized_keyInstalled=Fichier authorized_key installé
 LockfileInstalled=Fichier install.lock installé
 DoliCloudArea=Espace DoliCloud
 DateLastBackup=Date dernier backup
+NLTechnoSetup=Configuration du module NLTechno
+NLTechnoDesc=Paramétrages divers du module NLTechno
