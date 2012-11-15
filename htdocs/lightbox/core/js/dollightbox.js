@@ -3,7 +3,7 @@ jQuery(function() {
 	jQuery('.photo').lightBox();
 	jQuery('.photologo').lightBox();
 });
-<!--
+/*
         jQuery(function() {
         jQuery('.photologo').lightBox({
         overlayBgColor: '#FFF',
@@ -17,4 +17,4 @@ jQuery(function() {
         txtOf: 'de'
         });
         });
--->
+*/
