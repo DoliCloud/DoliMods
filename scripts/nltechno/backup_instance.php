@@ -137,8 +137,11 @@ $param[]="--exclude build/";
 //$param[]="--exclude doc/";	// To keep files into htdocs/core/module/xxx/doc dir
 $param[]="--exclude dev/";
 $param[]="--exclude test/";
+$param[]="--exclude system/";
+//$param[]="--delete";
+$param[]="--backup --suffix=.log --delete";
 $param[]="--stats";
-$param[]="-e ssh";	//  -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no
+$param[]="-e 'ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no'";
 
 
 
