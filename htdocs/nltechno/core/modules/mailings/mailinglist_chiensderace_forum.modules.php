@@ -24,7 +24,7 @@ class mailing_mailinglist_chiensderace_forum extends MailingTargets
 	var $require_admin=0;
 
 	var $require_module=array();
-	var $picto='';
+	var $picto='nltechno.gif@nltechno';
 	var $db;
 
 
