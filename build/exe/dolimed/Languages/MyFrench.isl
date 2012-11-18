@@ -11,7 +11,7 @@ LaunchProgram=Exécuter %1
 AssocFileExtension=&Associer %1 avec l'extension de fichier %2
 AssocingFileExtension=Associe %1 avec l'extension de fichier %2...
 
-YouWillInstallDoliWamp=Vous allez installer ou mettre à jour DoliMed (Apache+Mysql+PHP+DoliMed+Module cabinetmed) sur votre ordinateur.
+YouWillInstallDoliWamp=Vous allez installer ou mettre à jour DoliMed (Apache+Mysql+PHP+Dolibarr+Module cabinetmed) sur votre ordinateur.
 ThisAssistantInstallOrUpgrade=Cet assistant installe ou met à jour Dolibarr ERP-CRM et tous ses composants prérequis (Apache, Mysql, PHP et le module Dolibarr cabinetmed) optimisés pour une utilisation de Dolibarr afin de gérer un cabinet médical.
 IfYouHaveTechnicalKnowledge=Si vous avez des compétences techniques et envisagez de partager votre Apache, Mysql et PHP avec d'autres applications que Dolibarr, vous ne devriez pas utiliser cet assistant mais faire plutôt une installation manuelle de Dolibarr sur un socle Apache, Mysql et PHP existant.
 ButIfYouLook=Mais si vous recherchez une installation clé en main automatisée, vous êtes sur la bonne voie...

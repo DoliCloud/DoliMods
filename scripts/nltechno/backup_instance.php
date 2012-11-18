@@ -161,54 +161,6 @@ foreach($output as $outputline)
 	print $outputline."\n";
 }
 
-/*
-print "- Backup programs dir ".$dirroot."/".$instance."/htdocs\n";
-$paramhtdoc=$param;
-$paramhtdoc[]=$login.'@'.$server.":".$sourcedir.'/htdocs';
-$paramhtdoc[]=$dirroot.'/'.$login.'/htdocs';
-$fullcommand=$command." ".join(" ",$paramhtdoc);
-$outputhtdoc=array();
-$return_varhtdoc=0;
-print $fullcommand."\n";
-//exec($fullcommand, &$outputhtdoc, &$return_varhtdoc);
-
-// Output result
-foreach($outputhtdoc as $outputline)
-{
-	print $outputline."\n";
-}
-
-
-print "- Backup programs dir ".$dirroot."/".$instance."/scripts\n";
-$paramscripts=$param;
-$paramscripts[]=$login.'@'.$server.":".$sourcedir.'/scripts';
-$paramscripts[]=$dirroot.'/'.$login.'/scripts';
-$fullcommand=$command." ".join(" ",$paramscripts);
-$outputscripts=array();
-$return_varscripts=0;
-print $fullcommand."\n";
-//exec($fullcommand, &$outputscripts, &$return_varscripts);
-
-// Output result
-foreach($outputscripts as $outputline)
-{
-	print $outputline."\n";
-}
-
-
-print "- Make mysqldump ".$dirroot."/".$instance."/system\n";
-$command="mysqldump";
-$parammysql=array();
-$parammysql[]='';
-$parammysql[]='';
-$parammysql[]='';
-$fullcommand=$command." ".join(" ",$paramscripts);
-$outputscripts=array();
-$return_varmysql=0;
-print $fullcommand."\n";
-//exec($fullcommand, &$outputscripts, &$return_varscripts);
-*/
-
 // Update database
 //if (empty($return_vardoc) && empty($return_varhtdocs) && empty($return_varscripts) && empty($return_varmysql))
 if (empty($return_var))

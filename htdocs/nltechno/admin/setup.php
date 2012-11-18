@@ -1,5 +1,5 @@
 <?php
-/* Copyright (C) 2010 Laurent Destailleur  <eldy@users.sourceforge.net>
+/* Copyright (C) 2012 Laurent Destailleur  <eldy@users.sourceforge.net>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -101,7 +101,7 @@ print '<tr '.$bc[$var].'><td>'.$langs->trans("DirForDoliCloudInstances").'</td>'
 print '<td>';
 print '<input size="40" type="text" name="DOLICLOUD_INSTANCES_PATH" value="'.$conf->global->DOLICLOUD_INSTANCES_PATH.'">';
 print '</td>';
-print '<td>/home/dolicloud_instances/home /</td>';
+print '<td>/home/dolicloud_instances/home</td>';
 print '<td>&nbsp;</td>';
 print '</tr>';
 
