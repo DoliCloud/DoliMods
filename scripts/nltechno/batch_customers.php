@@ -56,9 +56,9 @@ $langs->load("main");				// To load language file for default language
 @set_time_limit(0);					// No timeout for this script
 
 // Load user and its permissions
-$result=$user->fetch('','admin');	// Load user for login 'admin'. Comment line to run as anonymous user.
-if (! $result > 0) { dol_print_error('',$user->error); exit; }
-$user->getrights();
+//$result=$user->fetch('','admin');	// Load user for login 'admin'. Comment line to run as anonymous user.
+//if (! $result > 0) { dol_print_error('',$user->error); exit; }
+//$user->getrights();
 
 
 print "***** ".$script_file." (".$version.") *****\n";
@@ -143,10 +143,13 @@ if ($action == 'backup' || $action == 'backuptest')
 			$command=($path?$path.'/':'')."backup_instance.php ".escapeshellarg($instance)." ".escapeshellarg($conf->global->DOLICLOUD_INSTANCES_PATH)." ".($action == 'backup'?'test':'confirm');
 
 			//$output = shell_exec($command);
-			ob_start();
-			passthru($command, $return_val);
-			$content_grabbed=ob_get_contents();
-			ob_end_clean();
+			if ($action == 'backup')
+			{
+				ob_start();
+				passthru($command, $return_val);
+				$content_grabbed=ob_get_contents();
+				ob_end_clean();
+			}
 
 			echo "Result: ".$return_val."\n";
 			echo "Output: ".$content_grabbed."\n";
@@ -162,8 +165,7 @@ if ($action == 'backup' || $action == 'backuptest')
 
 				if ($action == 'backup')
 				{
-
-					$object->last_=$now;
+					$object->date_lastrsync=$now;
 					$object->update();
 				}
 
