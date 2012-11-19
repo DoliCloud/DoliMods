@@ -16,7 +16,7 @@
    version="1.1"
    inkscape:version="0.48.3.1 r9886"
    sodipodi:docname="dolicloud_promo_920x680.svg"
-   inkscape:export-filename="/home/ldestail/git/nltechno/htdocs/nltechno/webstore/dolicloud_promo_920x680.png"
+   inkscape:export-filename="/home/ldestail/git/nltechno/htdocs/nltechno/chromewebstore/dolicloud_promo_920x680.png"
    inkscape:export-xdpi="90"
    inkscape:export-ydpi="90">
   <defs
@@ -1105,7 +1105,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -1306,7 +1306,7 @@
        sodipodi:cy="147.70007"
        sodipodi:rx="51.894787"
        sodipodi:ry="91.944031"
-       d="m -30.459988,147.70007 a 51.894787,91.944031 0 1 1 -103.789572,0 51.894787,91.944031 0 1 1 103.789572,0 z"
+       d="m -30.459988,147.70007 c 0,50.77929 -23.234087,91.94403 -51.894786,91.94403 -28.660696,0 -51.894786,-41.16474 -51.894786,-91.94403 0,-50.779283 23.23409,-91.944028 51.894786,-91.944028 28.660699,0 51.894786,41.164745 51.894786,91.944028 z"
        transform="matrix(3.4365812,0,0,3.2473971,1008.4177,233.14895)" />
     <text
        xml:space="preserve"

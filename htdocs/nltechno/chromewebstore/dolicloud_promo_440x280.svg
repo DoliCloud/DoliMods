@@ -15,8 +15,8 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.48.3.1 r9886"
-   sodipodi:docname="dolimed_promo_440x280.svg.2012_11_15_22_41_53.0.svg"
-   inkscape:export-filename="/home/ldestail/git/nltechno/htdocs/nltechno/webstore/dolicloud_promo_440x280.png"
+   sodipodi:docname="dolicloud_promo_440x280.svg"
+   inkscape:export-filename="/home/ldestail/git/nltechno/htdocs/nltechno/chromewebstore/dolicloud_promo_440x280.png"
    inkscape:export-xdpi="90"
    inkscape:export-ydpi="90">
   <defs
@@ -1451,7 +1451,7 @@
        sodipodi:cy="147.70007"
        sodipodi:rx="51.894787"
        sodipodi:ry="91.944031"
-       d="m -30.459988,147.70007 a 51.894787,91.944031 0 1 1 -103.789572,0 51.894787,91.944031 0 1 1 103.789572,0 z"
+       d="m -30.459988,147.70007 c 0,50.77929 -23.234087,91.94403 -51.894786,91.94403 -28.660696,0 -51.894786,-41.16474 -51.894786,-91.94403 0,-50.779283 23.23409,-91.944028 51.894786,-91.944028 28.660699,0 51.894786,41.164745 51.894786,91.944028 z"
        transform="matrix(1.6322333,0,0,1.3578266,473.14612,710.01298)" />
     <text
        xml:space="preserve"

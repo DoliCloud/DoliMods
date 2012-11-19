@@ -77,6 +77,7 @@ print '--- start'."\n";
  */
 
 $action=$argv[1];
+$nbofok=0;
 $nboferrors=0;
 
 // Start of transaction
@@ -175,6 +176,7 @@ if ($action == 'backup' || $action == 'backuptest')
 			//
 			if (! $error)
 			{
+				$nbofok++;
 				print 'Process success'."\n";
 			}
 			else
@@ -188,6 +190,8 @@ if ($action == 'backup' || $action == 'backuptest')
 
 
 // Result
+print "Nb of instances ok: ".$nbofok."\n";
+print "Nb of instances ko: ".$nboferrors."\n";
 if (! $nboferrors)
 {
 	print '--- end ok'."\n";
@@ -199,5 +203,5 @@ else
 
 $db->close();	// Close database opened handler
 
-return -$nboferrors;
+return $nboferrors;
 ?>
