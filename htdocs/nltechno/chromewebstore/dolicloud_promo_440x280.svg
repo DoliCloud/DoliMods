@@ -68,11 +68,11 @@
     <linearGradient
        id="linearGradient3988">
       <stop
-         style="stop-color:#ffffff;stop-opacity:1;"
+         style="stop-color:#ffffff;stop-opacity:0.9432624;"
          offset="0"
          id="stop3990" />
       <stop
-         style="stop-color:#ffffff;stop-opacity:0.56470591;"
+         style="stop-color:#ffffff;stop-opacity:0.70921987;"
          offset="1"
          id="stop3992" />
     </linearGradient>
@@ -231,7 +231,7 @@
        x2="616.24011"
        y2="935.22131"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(0.8946305,0,0,0.89463049,-186.23964,83.210646)" />
+       gradientTransform="matrix(0.91417721,0,0,0.91417718,-136.72621,-55.297794)" />
     <linearGradient
        inkscape:collect="always"
        xlink:href="#linearGradient3988"
@@ -241,7 +241,7 @@
        x2="643.91638"
        y2="902.65277"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(0.8946305,0,0,0.89463049,-186.23964,88.572807)" />
+       gradientTransform="matrix(1.0191923,0,0,1.0191923,-211.6754,-111.21341)" />
     <linearGradient
        inkscape:collect="always"
        xlink:href="#linearGradient3988"
@@ -251,7 +251,7 @@
        x2="660.18726"
        y2="874.8363"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(0.92875076,0,0,0.92875074,-193.34262,28.095232)" />
+       gradientTransform="matrix(0.88409316,0,0,0.88409314,-141.52671,33.106289)" />
     <linearGradient
        inkscape:collect="always"
        xlink:href="#linearGradient3988"
@@ -261,7 +261,7 @@
        x2="638.61835"
        y2="850.75684"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(0.8946305,0,0,0.89463049,-186.23964,88.572807)" />
+       gradientTransform="matrix(0.85161354,0,0,0.85161353,-114.91484,100.25886)" />
     <linearGradient
        inkscape:collect="always"
        xlink:href="#linearGradient3988"
@@ -271,7 +271,7 @@
        x2="635.06958"
        y2="820.77136"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(0.8946305,0,0,0.89463049,-186.23964,88.572807)" />
+       gradientTransform="matrix(0.85161354,0,0,0.85161353,-134.18609,100.25886)" />
     <linearGradient
        inkscape:collect="always"
        xlink:href="#linearGradient3988"
@@ -281,7 +281,7 @@
        x2="633.37427"
        y2="793.78461"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(0.8946305,0,0,0.89463049,-186.23964,88.572807)" />
+       gradientTransform="matrix(0.88531232,0,0,0.88531229,-165.80461,104.22615)" />
     <linearGradient
        inkscape:collect="always"
        xlink:href="#linearGradient3988-9"
@@ -633,7 +633,7 @@
        xlink:href="#linearGradient3988-9"
        id="linearGradient4231"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(0.85451105,0,0,0.85451103,-138.77155,178.26957)"
+       gradientTransform="matrix(0.81342315,0,0,0.81342313,-90.933168,152.09581)"
        x1="546.1463"
        y1="1010.2234"
        x2="610.41846"
@@ -643,7 +643,7 @@
        xlink:href="#linearGradient3988"
        id="linearGradient4233"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(0.95939107,0,0,0.95939105,-201.64195,-56.457218)"
+       gradientTransform="matrix(0.91326017,0,0,0.91326015,-141.13549,-71.796255)"
        x1="546.1463"
        y1="1010.2234"
        x2="610.41846"
@@ -653,7 +653,7 @@
        xlink:href="#linearGradient3988"
        id="linearGradient4235"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(0.92875074,0,0,0.92875072,-193.34262,13.713071)"
+       gradientTransform="matrix(1.0299504,0,0,1.0299504,-209.0129,-175.28683)"
        x1="604.53192"
        y1="958.50757"
        x2="664.43707"
@@ -915,14 +915,6 @@
          style="stop-color:#323b3b;stop-opacity:1"
          offset="1" />
     </linearGradient>
-    <filter
-       inkscape:collect="always"
-       id="filter4633">
-      <feGaussianBlur
-         inkscape:collect="always"
-         stdDeviation="1.5611253"
-         id="feGaussianBlur4635" />
-    </filter>
     <linearGradient
        inkscape:collect="always"
        xlink:href="#linearGradient4637"
@@ -1126,26 +1118,6 @@
     </linearGradient>
     <filter
        inkscape:collect="always"
-       id="filter4349"
-       x="-0.3149184"
-       width="1.6298368"
-       y="-1.8734167"
-       height="4.7468334">
-      <feGaussianBlur
-         inkscape:collect="always"
-         stdDeviation="1.6040989"
-         id="feGaussianBlur4351" />
-    </filter>
-    <filter
-       inkscape:collect="always"
-       id="filter4353">
-      <feGaussianBlur
-         inkscape:collect="always"
-         stdDeviation="1.6040989"
-         id="feGaussianBlur4355" />
-    </filter>
-    <filter
-       inkscape:collect="always"
        id="filter4465"
        x="-0.095191376"
        width="1.1903828"
@@ -1230,8 +1202,8 @@
      inkscape:pageopacity="1"
      inkscape:pageshadow="2"
      inkscape:zoom="0.5"
-     inkscape:cx="239.43007"
-     inkscape:cy="33.144446"
+     inkscape:cx="304.46177"
+     inkscape:cy="123.54051"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -1451,138 +1423,112 @@
        sodipodi:cy="147.70007"
        sodipodi:rx="51.894787"
        sodipodi:ry="91.944031"
-       d="m -30.459988,147.70007 c 0,50.77929 -23.234087,91.94403 -51.894786,91.94403 -28.660696,0 -51.894786,-41.16474 -51.894786,-91.94403 0,-50.779283 23.23409,-91.944028 51.894786,-91.944028 28.660699,0 51.894786,41.164745 51.894786,91.944028 z"
-       transform="matrix(1.6322333,0,0,1.3578266,473.14612,710.01298)" />
+       d="m -30.459988,147.70007 a 51.894787,91.944031 0 1 1 -103.789572,0 51.894787,91.944031 0 1 1 103.789572,0 z"
+       transform="matrix(1.4891626,0,0,1.2653791,470.78819,725.16749)" />
     <text
        xml:space="preserve"
-       style="font-size:35.27850723px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:url(#linearGradient4010);fill-opacity:1;stroke:none;font-family:Sans"
-       x="308.9888"
-       y="805.29254"
+       style="font-size:34.91105652px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:url(#linearGradient4010);fill-opacity:1;stroke:none;font-family:Sans"
+       x="324.26572"
+       y="813.48059"
        id="text3030"
        sodipodi:linespacing="125%"
-       transform="scale(0.98121347,1.0191462)"><tspan
+       transform="scale(0.9709934,1.0298731)"><tspan
          sodipodi:role="line"
          id="tspan3032"
-         x="308.9888"
-         y="805.29254"
-         style="font-size:17.63925362px;fill:url(#linearGradient4010);fill-opacity:1">Invoices</tspan></text>
+         x="324.26572"
+         y="813.48059"
+         style="font-size:17.45552826px;fill:url(#linearGradient4010);fill-opacity:1">Invoices</tspan></text>
     <text
        xml:space="preserve"
-       style="font-size:35.27850723px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:url(#linearGradient4008);fill-opacity:1;stroke:none;font-family:Sans"
-       x="287.83621"
-       y="829.28076"
+       style="font-size:33.58219147px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:url(#linearGradient4008);fill-opacity:1;stroke:none;font-family:Sans"
+       x="317.09457"
+       y="805.35083"
        id="text3030-6"
        sodipodi:linespacing="125%"
-       transform="scale(0.98121347,1.0191462)"><tspan
+       transform="scale(0.93403325,1.0706257)"><tspan
          sodipodi:role="line"
          id="tspan3032-7"
-         x="287.83621"
-         y="829.28076"
-         style="font-size:17.63925362px;fill:url(#linearGradient4008);fill-opacity:1">Customers</tspan></text>
+         x="317.09457"
+         y="805.35083"
+         style="font-size:16.79109573px;fill:url(#linearGradient4008);fill-opacity:1">Customers</tspan></text>
     <text
        xml:space="preserve"
-       style="font-size:35.27850723px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:url(#linearGradient4006);fill-opacity:1;stroke:none;font-family:Sans"
-       x="309.71835"
-       y="856.26178"
+       style="font-size:33.58219147px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:url(#linearGradient4006);fill-opacity:1;stroke:none;font-family:Sans"
+       x="357.19595"
+       y="831.03455"
        id="text3030-6-0"
        sodipodi:linespacing="125%"
-       transform="scale(0.98121347,1.0191462)"><tspan
+       transform="scale(0.93403325,1.0706257)"><tspan
          sodipodi:role="line"
          id="tspan3032-7-3"
-         x="309.71835"
-         y="856.26178"
-         style="font-size:17.63925362px;fill:url(#linearGradient4006);fill-opacity:1">Products</tspan></text>
+         x="357.19595"
+         y="831.03455"
+         style="font-size:16.79109573px;fill:url(#linearGradient4006);fill-opacity:1">Products</tspan></text>
     <text
        xml:space="preserve"
-       style="font-size:36.62399292px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:url(#linearGradient4004);fill-opacity:1;stroke:none;font-family:Sans"
-       x="350.68829"
-       y="844.64172"
-       id="text3030-6-1"
-       sodipodi:linespacing="125%"
-       transform="scale(0.94516585,1.0580154)"><tspan
-         sodipodi:role="line"
-         id="tspan3032-7-7"
-         x="350.68829"
-         y="844.64172"
-         style="font-size:14.64959431px;fill:url(#linearGradient4004);fill-opacity:1">Proposals</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-size:35.27850723px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:url(#linearGradient4002);fill-opacity:1;stroke:none;font-family:Sans"
-       x="316.91022"
-       y="900.49323"
+       style="font-size:40.19042587px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:url(#linearGradient4002);fill-opacity:1;stroke:none;font-family:Sans"
+       x="361.52942"
+       y="813.75299"
        id="text3030-6-4"
        sodipodi:linespacing="125%"
-       transform="scale(0.98121347,1.0191462)"><tspan
+       transform="scale(0.89037337,1.1231243)"><tspan
          sodipodi:role="line"
          id="tspan3032-7-2"
-         x="316.91022"
-         y="900.49323"
-         style="font-size:15.87532616px;fill:url(#linearGradient4002);fill-opacity:1">Suppliers</tspan></text>
+         x="361.52942"
+         y="813.75299"
+         style="font-size:18.08568954px;fill:url(#linearGradient4002);fill-opacity:1">Suppliers</tspan></text>
     <text
        xml:space="preserve"
-       style="font-size:35.27850723px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:url(#linearGradient4000);fill-opacity:1;stroke:none;font-family:Sans"
-       x="299.36182"
-       y="924.75439"
+       style="font-size:36.04930115px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:url(#linearGradient4000);fill-opacity:1;stroke:none;font-family:Sans"
+       x="359.48511"
+       y="804.63281"
        id="text3030-6-5"
        sodipodi:linespacing="125%"
-       transform="scale(0.98121347,1.0191462)"><tspan
+       transform="scale(0.85518596,1.1693363)"><tspan
          sodipodi:role="line"
          id="tspan3032-7-6"
-         x="299.36182"
-         y="924.75439"
-         style="font-size:17.63925362px;fill:url(#linearGradient4000);fill-opacity:1">Agenda</tspan></text>
+         x="359.48511"
+         y="804.63281"
+         style="font-size:18.02465057px;fill:url(#linearGradient4000);fill-opacity:1">Agenda</tspan></text>
     <text
        xml:space="preserve"
-       style="font-size:36.62399292px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:url(#linearGradient4235);fill-opacity:1;stroke:none;font-family:Sans"
-       x="366.68109"
-       y="907.96912"
+       style="font-size:40.61466217px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:url(#linearGradient4235);fill-opacity:1;stroke:none;font-family:Sans"
+       x="412.03275"
+       y="816.41022"
        id="text3030-6-1-8"
        sodipodi:linespacing="125%"
-       transform="scale(0.94516585,1.0580154)"><tspan
+       transform="scale(0.84822563,1.1789316)"><tspan
          sodipodi:role="line"
          id="tspan3032-7-7-0"
-         x="366.68109"
-         y="907.96912"
-         style="font-size:14.64959431px;fill:url(#linearGradient4235);fill-opacity:1">Projects</tspan></text>
+         x="412.03275"
+         y="816.41022"
+         style="font-size:16.24586296px;fill:url(#linearGradient4235);fill-opacity:1">Projects</tspan></text>
     <text
        xml:space="preserve"
-       style="font-size:35.3821373px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:url(#linearGradient3996);fill-opacity:1;stroke:none;font-family:Sans"
-       x="324.21048"
-       y="960.11139"
-       id="text3030-9"
-       sodipodi:linespacing="125%"
-       transform="scale(0.97833963,1.0221399)"><tspan
-         sodipodi:role="line"
-         id="tspan3032-2"
-         x="324.21048"
-         y="960.11139"
-         style="font-size:14.15285301px;fill:url(#linearGradient3996);fill-opacity:1">EMailings</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-size:37.8322525px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:url(#linearGradient4233);fill-opacity:1;stroke:none;font-family:Sans"
-       x="321.26624"
-       y="919.79431"
+       style="font-size:36.01314545px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:url(#linearGradient4233);fill-opacity:1;stroke:none;font-family:Sans"
+       x="356.62949"
+       y="857.51379"
        id="text3030-8"
        sodipodi:linespacing="125%"
-       transform="scale(0.91497985,1.0929202)"><tspan
+       transform="scale(0.8709844,1.1481262)"><tspan
          sodipodi:role="line"
          id="tspan3032-3"
-         x="321.26624"
-         y="919.79431"
-         style="font-size:18.91612625px;fill:url(#linearGradient4233);fill-opacity:1">Orders</tspan></text>
+         x="356.62949"
+         y="857.51379"
+         style="font-size:18.00657272px;fill:url(#linearGradient4233);fill-opacity:1">Orders</tspan></text>
     <text
        xml:space="preserve"
-       style="font-size:33.69645309px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:url(#linearGradient4231);fill-opacity:1;stroke:none;font-family:Sans"
-       x="326.97208"
-       y="1047.7977"
+       style="font-size:32.07621002px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:url(#linearGradient4231);fill-opacity:1;stroke:none;font-family:Sans"
+       x="352.41583"
+       y="979.81415"
        id="text3030-8-6"
        sodipodi:linespacing="125%"
-       transform="scale(1.0272816,0.9734429)"><tspan
+       transform="scale(0.97788628,1.0226138)"><tspan
          sodipodi:role="line"
          id="tspan3032-3-2"
-         x="326.97208"
-         y="1047.7977"
-         style="font-size:16.84822655px;fill:url(#linearGradient4231);fill-opacity:1">...</tspan></text>
+         x="352.41583"
+         y="979.81415"
+         style="font-size:16.03810501px;fill:url(#linearGradient4231);fill-opacity:1">...</tspan></text>
     <rect
        style="fill:url(#linearGradient4576);fill-opacity:1;stroke:none"
        id="rect4543-3"

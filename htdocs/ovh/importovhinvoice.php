@@ -57,6 +57,33 @@ if ($idovhsupplier) $result=$ovhthirdparty->fetch($idovhsupplier);
 
 $fuser = $user;
 
+// For compatibility with 3.2
+if (! function_exists('setEventMessage'))
+{
+	/**
+	 *	Set event message in dol_events session
+	 *
+	 *	@param	mixed	$mesgs			Message string or array
+	 *  @param  string	$style      	Which style to use ('mesgs', 'warnings', 'errors')
+	 *  @return	void
+	 *  @see	dol_htmloutput_events
+	 */
+	function setEventMessage($mesgs, $style='mesgs')
+	{
+		if (! in_array((string) $style, array('mesgs','warnings','errors'))) dol_print_error('','Bad parameter for setEventMessage');
+		if (! is_array($mesgs))		// If mesgs is a string
+		{
+			if ($mesgs) $_SESSION['dol_events'][$style][] = $mesgs;
+		}
+		else						// If mesgs is an array
+		{
+			foreach($mesgs as $mesg)
+			{
+				if ($mesg) $_SESSION['dol_events'][$style][] = $mesg;
+			}
+		}
+	}
+}
 
 // Init SoapClient
 try
@@ -195,11 +222,13 @@ if (empty($conf->global->OVHSMS_SOAPURL))
 {
 	$langs->load("errors");
 	setEventMessage($langs->trans("ErrorModuleSetupNotComplete"),'errors');
+	$mesg='<div class="errors">'.$langs->trans("ErrorModuleSetupNotComplete").'/<div>';
 }
 if ($ovhthirdparty->id <= 0)
 {
 	$langs->load("errors");
 	setEventMessage($langs->trans("ErrorModuleSetupNotComplete"),'errors');
+	$mesg='<div class="errors">'.$langs->trans("ErrorModuleSetupNotComplete").'/<div>';
 }
 
 print_fiche_titre($langs->trans("OvhInvoiceImportShort"));
