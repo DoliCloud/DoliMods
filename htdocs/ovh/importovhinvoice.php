@@ -157,7 +157,8 @@ if ($action == 'import' && $ovhthirdparty->id > 0)
 				$result[$key]->info=$soap->billingInvoiceInfo($session, $billnum, null, $billingcountry); //on recupere les details
 				$r=$result[$key];
 
-				$vatrate=price2num(($r->info->taxrate - 1) * 100);
+				if ($r->info->taxrate < 1) $vatrate=price2num($r->info->taxrate * 100);
+				else $vatrate=price2num(($r->info->taxrate - 1) * 100);
 
 				$facfou = new FactureFournisseur($db);
 
