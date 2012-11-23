@@ -67,12 +67,12 @@ if (empty($dirroot) || empty($instance) || empty($mode))
 $result=$object->fetch('',$instance);
 if ($result < 0)
 {
-	print "Error: instance ".$instance." not found.\n";
+	print "Error: Instance ".$instance." not found.\n";
 	exit(-2);
 }
-if (empty($object->instance) && empty($object->username_web) && empty($object->password_web) && empty($object->database_db))
+if (empty($object->instance) || empty($object->username_web) || empty($object->password_web) || empty($object->database_db))
 {
-	print "Error: properties for instance ".$instance." was not registered into database.\n";
+	print "Error: Some properties for instance ".$instance." was not registered into database.\n";
 	exit(-3);
 }
 if (! is_dir($dirroot.'/htdocs'))

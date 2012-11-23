@@ -16,12 +16,12 @@
 ; ----- Change this -----
 AppName=DoliMed
 ; DoliMed-x.x.x or DoliMed-x.x.x-dev or DoliMed-x.x.x-beta
-AppVerName=DoliMed-3.2.0-beta
+AppVerName=DoliMed-3.3.0-alpha
 ; DoliMed-x.x x or DoliMed-x.x.x-dev or DoliMed-x.x.x-beta
-OutputBaseFilename=DoliMed-3.2.0-beta
+OutputBaseFilename=DoliMed-3.3.0-alpha
 ; Define full path from wich all relative path are defined
 ; You must modify this to put here your dolibarr root directory
-SourceDir=C:\Documents and Settings\ldestail\git\dolibarr\
+SourceDir=Z:\home\ldestailleur\git\dolibarr\
 ; ----- End of change
 ;OutputManifestFile=build\dolimedbuild.log
 AppId=dolimed
@@ -37,16 +37,16 @@ DefaultGroupName=DoliMed
 ;Compression=none
 Compression=lzma
 SolidCompression=yes
-WizardImageFile=C:\Documents and Settings\ldestail\git\nltechno\build\exe\dolimed\dolimed.bmp
-WizardSmallImageFile=C:\Documents and Settings\ldestail\git\nltechno\build\exe\dolimed\dolimedsmall.bmp
-SetupIconFile=C:\Documents and Settings\ldestail\git\nltechno\htdocs\cabinetmed\img\dolimed.ico
+WizardImageFile=Z:\home\ldestailleur\git\nltechno\build\exe\dolimed\dolimed.bmp
+WizardSmallImageFile=Z:\home\ldestailleur\git\nltechno\build\exe\dolimed\dolimedsmall.bmp
+SetupIconFile=Z:\home\ldestailleur\git\nltechno\htdocs\cabinetmed\img\dolimed.ico
 PrivilegesRequired=admin
 DisableProgramGroupPage=yes
 ChangesEnvironment=no
 CreateUninstallRegKey=yes
 ;UseSetupLdr=no
 ;UninstallDisplayIcon={app}\bidon
-OutputDir=build
+OutputDir=Z:\home\ldestailleur\git\nltechno\build
 ShowLanguageDialog=auto
 ShowUndisplayableLanguages=no
 ;LanguageDetectionMethod=none
@@ -54,21 +54,21 @@ LanguageDetectionMethod=uilanguage
 ;SignedUninstaller=yes
 
 [Languages]
-Name: "en"; MessagesFile: "compiler:Default.isl,C:\Documents and Settings\ldestail\git\nltechno\build\exe\dolimed\Languages\MyEnglish.isl"
-Name: "br"; MessagesFile: "compiler:Languages\Portuguese.isl,C:\Documents and Settings\ldestail\git\nltechno\build\exe\dolimed\Languages\MyBrazilianPortuguese.isl"
-Name: "ca"; MessagesFile: "compiler:Languages\Catalan.isl,C:\Documents and Settings\ldestail\git\nltechno\build\exe\dolimed\Languages\MyCatalan.isl"
-Name: "da"; MessagesFile: "compiler:Languages\Danish.isl,C:\Documents and Settings\ldestail\git\nltechno\build\exe\dolimed\Languages\MyDanish.isl"
-Name: "es"; MessagesFile: "compiler:Languages\Spanish.isl,C:\Documents and Settings\ldestail\git\nltechno\build\exe\dolimed\Languages\MySpanish.isl"
-Name: "nl"; MessagesFile: "compiler:Languages\Dutch.isl,C:\Documents and Settings\ldestail\git\nltechno\build\exe\dolimed\Languages\MyDutch.isl"
-Name: "fi"; MessagesFile: "compiler:Languages\Finnish.isl,C:\Documents and Settings\ldestail\git\nltechno\build\exe\dolimed\Languages\MyFinnish.isl"
-Name: "fr"; MessagesFile: "compiler:Languages\French.isl,C:\Documents and Settings\ldestail\git\nltechno\build\exe\dolimed\Languages\MyFrench.isl"
-Name: "ge"; MessagesFile: "compiler:Languages\German.isl,C:\Documents and Settings\ldestail\git\nltechno\build\exe\dolimed\Languages\MyGerman.isl"
-Name: "it"; MessagesFile: "compiler:Languages\Italian.isl,C:\Documents and Settings\ldestail\git\nltechno\build\exe\dolimed\Languages\MyItalian.isl"
-Name: "nb"; MessagesFile: "compiler:Languages\Norwegian.isl,C:\Documents and Settings\ldestail\git\nltechno\build\exe\dolimed\Languages\MyNorwegian.isl"
-Name: "po"; MessagesFile: "compiler:Languages\Polish.isl,C:\Documents and Settings\ldestail\git\nltechno\build\exe\dolimed\Languages\MyPolish.isl"
-Name: "pt"; MessagesFile: "compiler:Languages\Portuguese.isl,C:\Documents and Settings\ldestail\git\nltechno\build\exe\dolimed\Languages\MyPortuguese.isl"
-Name: "ru"; MessagesFile: "compiler:Languages\Russian.isl,C:\Documents and Settings\ldestail\git\nltechno\build\exe\dolimed\Languages\MyRussian.isl"
-Name: "sv"; MessagesFile: "compiler:Languages\Slovenian.isl,C:\Documents and Settings\ldestail\git\nltechno\build\exe\dolimed\Languages\MySlovenian.isl"
+Name: "en"; MessagesFile: "compiler:Default.isl,Z:\home\ldestailleur\git\nltechno\build\exe\dolimed\Languages\MyEnglish.isl"
+Name: "br"; MessagesFile: "compiler:Languages\Portuguese.isl,Z:\home\ldestailleur\git\nltechno\build\exe\dolimed\Languages\MyBrazilianPortuguese.isl"
+Name: "ca"; MessagesFile: "compiler:Languages\Catalan.isl,Z:\home\ldestailleur\git\nltechno\build\exe\dolimed\Languages\MyCatalan.isl"
+Name: "da"; MessagesFile: "compiler:Languages\Danish.isl,Z:\home\ldestailleur\git\nltechno\build\exe\dolimed\Languages\MyDanish.isl"
+Name: "es"; MessagesFile: "compiler:Languages\Spanish.isl,Z:\home\ldestailleur\git\nltechno\build\exe\dolimed\Languages\MySpanish.isl"
+Name: "nl"; MessagesFile: "compiler:Languages\Dutch.isl,Z:\home\ldestailleur\git\nltechno\build\exe\dolimed\Languages\MyDutch.isl"
+Name: "fi"; MessagesFile: "compiler:Languages\Finnish.isl,Z:\home\ldestailleur\git\nltechno\build\exe\dolimed\Languages\MyFinnish.isl"
+Name: "fr"; MessagesFile: "compiler:Languages\French.isl,Z:\home\ldestailleur\git\nltechno\build\exe\dolimed\Languages\MyFrench.isl"
+Name: "ge"; MessagesFile: "compiler:Languages\German.isl,Z:\home\ldestailleur\git\nltechno\build\exe\dolimed\Languages\MyGerman.isl"
+Name: "it"; MessagesFile: "compiler:Languages\Italian.isl,Z:\home\ldestailleur\git\nltechno\build\exe\dolimed\Languages\MyItalian.isl"
+Name: "nb"; MessagesFile: "compiler:Languages\Norwegian.isl,Z:\home\ldestailleur\git\nltechno\build\exe\dolimed\Languages\MyNorwegian.isl"
+Name: "po"; MessagesFile: "compiler:Languages\Polish.isl,Z:\home\ldestailleur\git\nltechno\build\exe\dolimed\Languages\MyPolish.isl"
+Name: "pt"; MessagesFile: "compiler:Languages\Portuguese.isl,Z:\home\ldestailleur\git\nltechno\build\exe\dolimed\Languages\MyPortuguese.isl"
+Name: "ru"; MessagesFile: "compiler:Languages\Russian.isl,Z:\home\ldestailleur\git\nltechno\build\exe\dolimed\Languages\MyRussian.isl"
+Name: "sv"; MessagesFile: "compiler:Languages\Slovenian.isl,Z:\home\ldestailleur\git\nltechno\build\exe\dolimed\Languages\MySlovenian.isl"
 
 [Tasks]
 ;Name: "autostart"; Description: "Automatically launch DoliMed server on startup. If you check this option, Services will be installed as automatic. Otherwise, services will be installed as manual and will start and stop with the service manager."; GroupDescription: "Auto Start:" ;Flags: unchecked;
@@ -79,18 +79,18 @@ Name: "desktopicon"; Description: {cm:CreateDesktopIcon}; GroupDescription: {cm:
 Name: "{app}\logs"
 Name: "{app}\tmp"
 Name: "{app}\dolibarr_documents"
-Name: "{app}\bin\apache\apache2.2.6\logs"
+Name: "{app}\bin\apache\apache2.2.11\logs"
 
 [Files]
 ; Stop/start
-Source: "C:\Documents and Settings\ldestail\git\nltechno\build\exe\dolimed\stopdoliwamp.bat"; DestDir: "{app}\"; Flags: ignoreversion; AfterInstall: close()
-Source: "C:\Documents and Settings\ldestail\git\nltechno\build\exe\dolimed\startdoliwamp.bat"; DestDir: "{app}\"; Flags: ignoreversion;
+Source: "Z:\home\ldestailleur\git\nltechno\build\exe\dolimed\stopdoliwamp.bat"; DestDir: "{app}\"; Flags: ignoreversion; AfterInstall: close()
+Source: "Z:\home\ldestailleur\git\nltechno\build\exe\dolimed\startdoliwamp.bat"; DestDir: "{app}\"; Flags: ignoreversion;
 Source: "build\exe\doliwamp\removefiles.bat"; DestDir: "{app}\"; Flags: ignoreversion;
 Source: "build\exe\doliwamp\rundoliwamp.bat.install"; DestDir: "{app}\"; Flags: ignoreversion;
 Source: "build\exe\doliwamp\rundolihelp.bat.install"; DestDir: "{app}\"; Flags: ignoreversion;
 Source: "build\exe\doliwamp\rundoliadmin.bat.install"; DestDir: "{app}\"; Flags: ignoreversion;
-Source: "C:\Documents and Settings\ldestail\git\nltechno\build\exe\dolimed\install_services.bat.install"; DestDir: "{app}\"; Flags: ignoreversion;
-Source: "C:\Documents and Settings\ldestail\git\nltechno\build\exe\dolimed\uninstall_services.bat.install"; DestDir: "{app}\"; Flags: ignoreversion;
+Source: "Z:\home\ldestailleur\git\nltechno\build\exe\dolimed\install_services.bat.install"; DestDir: "{app}\"; Flags: ignoreversion;
+Source: "Z:\home\ldestailleur\git\nltechno\build\exe\dolimed\uninstall_services.bat.install"; DestDir: "{app}\"; Flags: ignoreversion;
 Source: "build\exe\doliwamp\mysqlinitpassword.bat.install"; DestDir: "{app}\"; Flags: ignoreversion;
 Source: "build\exe\doliwamp\mysqltestinstall.bat.install"; DestDir: "{app}\"; Flags: ignoreversion;
 Source: "build\exe\doliwamp\startdoliwamp_manual_donotuse.bat.install"; DestDir: "{app}\"; Flags: ignoreversion;
@@ -98,30 +98,30 @@ Source: "build\exe\doliwamp\builddemosslfiles.bat.install"; DestDir: "{app}\"; F
 Source: "build\exe\doliwamp\UsedPort.exe"; DestDir: "{app}\"; Flags: ignoreversion;
 ; PhpMyAdmin, Apache, Php, Mysql
 ; Put here path of Wampserver applications
-; Value OK: apache 2.2.6, php 5.2.5 (5.2.11 fails if php_exif is on), mysql 5.0.45 or 5.1.36
+; Value OK: apache 2.2.6, php 5.2.5 (5.2.11, 5.3.0 and 5.3.1 fails if php_exif, php_pgsql, php_zip is on), mysql 5.0.45 or 5.1.36
+; Value OK: apache 2.2.11, php 5.3.0 (if no php_exif, php_pgsql, php_zip), mysql 5.0.45 or 5.1.36
 Source: "C:\Program Files\Wamp\apps\phpmyadmin3.2.0.1\*.*"; DestDir: "{app}\apps\phpmyadmin3.2.0.1"; Flags: ignoreversion recursesubdirs; Excludes: "config.inc.php,wampserver.conf,*.log,*_log"
-Source: "C:\Program Files\Wamp\bin\apache\apache2.2.6\*.*"; DestDir: "{app}\bin\apache\apache2.2.6"; Flags: ignoreversion recursesubdirs; Excludes: "php.ini,httpd.conf,wampserver.conf,*.log,*_log"
-Source: "C:\Program Files\Wamp\bin\php\php5.2.5\*.*"; DestDir: "{app}\bin\php\php5.2.5"; Flags: ignoreversion recursesubdirs; Excludes: "php.ini,phpForApache.ini,wampserver.conf,*.log,*_log"
+Source: "C:\Program Files\Wamp\bin\apache\apache2.2.11\*.*"; DestDir: "{app}\bin\apache\apache2.2.11"; Flags: ignoreversion recursesubdirs; Excludes: "php.ini,httpd.conf,wampserver.conf,*.log,*_log"
+Source: "C:\Program Files\Wamp\bin\php\php5.3.0\*.*"; DestDir: "{app}\bin\php\php5.3.0"; Flags: ignoreversion recursesubdirs; Excludes: "php.ini,phpForApache.ini,wampserver.conf,*.log,*_log"
 Source: "C:\Program Files\Wamp\bin\mysql\mysql5.0.45\*.*"; DestDir: "{app}\bin\mysql\mysql5.0.45"; Flags: ignoreversion recursesubdirs; Excludes: "my.ini,data\*,wampserver.conf,*.log,*_log,MySQLInstanceConfig.exe"
 ; Mysql data files (does not overwrite if exists)
 Source: "build\exe\doliwamp\mysql\*.*"; DestDir: "{app}\bin\mysql\data\mysql"; Flags: onlyifdoesntexist ignoreversion recursesubdirs; Excludes: ".cvsignore,.project,CVS\*,Thumbs.db"
 ; Dolibarr
-Source: "htdocs\*.*"; DestDir: "{app}\www\dolibarr\htdocs"; Flags: ignoreversion recursesubdirs; Excludes: ".cvsignore,.project,CVS\*,Thumbs.db,custom\*,custom2\*,telephonie\*,*\conf.php,*\conf.php.mysql,*\conf.php.old,*\conf.php.postgres,*\install.forced.php,*\rodolphe"
+Source: "htdocs\*.*"; DestDir: "{app}\www\dolibarr\htdocs"; Flags: ignoreversion recursesubdirs; Excludes: ".cvsignore,.project,CVS\*,Thumbs.db,custom\*,custom2\*,PHPExcel\Shared\PDF\*,PHPExcel\Shared\PCLZip\*,*\conf.php,*\conf.php.mysql,*\conf.php.old,*\conf.php.postgres,*\install.forced.php"
 Source: "dev\*.*"; DestDir: "{app}\www\dolibarr\dev"; Flags: ignoreversion recursesubdirs; Excludes: ".cvsignore,.project,CVS\*,Thumbs.db,dbmodel\*,fpdf\*,initdata\*,iso-normes\*,licence\*,phpcheckstyle\*,phpunit\*,samples\*,test\*,uml\*,xdebug\*"
 Source: "doc\*.*"; DestDir: "{app}\www\dolibarr\doc"; Flags: ignoreversion recursesubdirs; Excludes: ".cvsignore,.project,CVS\*,Thumbs.db,wiki\*,plaquette\*,dev\*,images\dolibarr_screenshot2.png,images\dolibarr_screenshot3.png,images\dolibarr_screenshot4.png,images\dolibarr_screenshot5.png,images\dolibarr_screenshot6.png,images\dolibarr_screenshot7.png,images\dolibarr_screenshot8.png,images\dolibarr_screenshot9.png,images\dolibarr_screenshot10.png,images\dolibarr_screenshot11.png,images\dolibarr_screenshot12.png"
 Source: "scripts\*.*"; DestDir: "{app}\www\dolibarr\scripts"; Flags: ignoreversion recursesubdirs; Excludes: ".cvsignore,.project,CVS\*,Thumbs.db,product\materiel.net.php,product\import-product.php"
 Source: "*.*"; DestDir: "{app}\www\dolibarr"; Flags: ignoreversion; Excludes: ".cvsignore,.project,CVS\*,Thumbs.db,default.properties,install.lock"
-Source: "C:\Documents and Settings\ldestail\git\nltechno\htdocs\cabinetmed\*.*"; DestDir: "{app}\www\dolibarr\htdocs\cabinetmed"; Flags: ignoreversion recursesubdirs; Excludes: ".cvsignore,.project,CVS\*,Thumbs.db,custom\*,custom2\*,telephonie\*,*\conf.php,*\conf.php.mysql,*\conf.php.old,*\conf.php.postgres,*\install.forced.php,*\rodolphe"
-Source: "C:\Documents and Settings\ldestail\git\nltechno\htdocs\includes\modules\modCabinetMed.class.php"; DestDir: "{app}\www\dolibarr\htdocs\includes\modules"; Flags: ignoreversion; Excludes: ".cvsignore,.project,CVS\*,Thumbs.db,custom\*,custom2\*,telephonie\*,*\conf.php,*\conf.php.mysql,*\conf.php.old,*\conf.php.postgres,*\install.forced.php,*\rodolphe"
+Source: "Z:\home\ldestailleur\git\nltechno\htdocs\cabinetmed\*.*"; DestDir: "{app}\www\dolibarr\htdocs\cabinetmed"; Flags: ignoreversion recursesubdirs; Excludes: ".cvsignore,.project,CVS\*,Thumbs.db,custom\*,custom2\*,*\conf.php,*\conf.php.mysql,*\conf.php.old,*\conf.php.postgres,*\install.forced.php"
 ; Config files
 Source: "build\exe\doliwamp\phpmyadmin.conf.install"; DestDir: "{app}\alias"; Flags: ignoreversion;
 Source: "build\exe\doliwamp\dolibarr.conf.install"; DestDir: "{app}\alias"; Flags: ignoreversion;
 Source: "build\exe\doliwamp\config.inc.php.install"; DestDir: "{app}\apps\phpmyadmin3.2.0.1"; Flags: ignoreversion;
-Source: "build\exe\doliwamp\httpd.conf.install"; DestDir: "{app}\bin\apache\apache2.2.6\conf"; Flags: ignoreversion;
+Source: "build\exe\doliwamp\httpd.conf.install"; DestDir: "{app}\bin\apache\apache2.2.11\conf"; Flags: ignoreversion;
 Source: "build\exe\doliwamp\my.ini.install"; DestDir: "{app}\bin\mysql\mysql5.0.45"; Flags: ignoreversion;
-Source: "build\exe\doliwamp\php.ini.install"; DestDir: "{app}\bin\php\php5.2.5"; Flags: ignoreversion;
+Source: "build\exe\doliwamp\php.ini.install"; DestDir: "{app}\bin\php\php5.3.0"; Flags: ignoreversion;
 Source: "build\exe\doliwamp\index.php.install"; DestDir: "{app}\www"; Flags: ignoreversion;
-Source: "C:\Documents and Settings\ldestail\git\nltechno\build\exe\dolimed\install.forced.php.install"; DestDir: "{app}\www\dolibarr\htdocs\install"; Flags: ignoreversion;
+Source: "Z:\home\ldestailleur\git\nltechno\build\exe\dolimed\install.forced.php.install"; DestDir: "{app}\www\dolibarr\htdocs\install"; Flags: ignoreversion;
 Source: "build\exe\doliwamp\openssl.conf"; DestDir: "{app}"; Flags: ignoreversion;
 Source: "build\exe\doliwamp\ca_demo_dolibarr.crt"; DestDir: "{app}"; Flags: ignoreversion;
 Source: "build\exe\doliwamp\ca_demo_dolibarr.key"; DestDir: "{app}"; Flags: ignoreversion;
@@ -194,8 +194,8 @@ end;
 procedure InitializeWizard();
 begin
   //version des applis, a modifier pour chaque version de WampServer 2
-  apacheVersion := '2.2.6';
-  phpVersion := '5.2.5' ;
+  apacheVersion := '2.2.11';
+  phpVersion := '5.3.0' ;
   mysqlVersion := '5.0.45';
   phpmyadminVersion := '3.2.0.1';
 
@@ -383,8 +383,6 @@ begin
 
     phpDllCopy := 'php5activescript.dll';
     filecopy (pathWithSlashes+'/bin/php/php'+phpVersion+'/'+phpDllCopy, pathWithSlashes+'/bin/apache/apache'+apacheVersion+'/bin/'+phpDllCopy, False);
-    phpDllCopy := 'php5isapi.dll';
-    filecopy (pathWithSlashes+'/bin/php/php'+phpVersion+'/'+phpDllCopy, pathWithSlashes+'/bin/apache/apache'+apacheVersion+'/bin/'+phpDllCopy, False);
     phpDllCopy := 'php5nsapi.dll';
     filecopy (pathWithSlashes+'/bin/php/php'+phpVersion+'/'+phpDllCopy, pathWithSlashes+'/bin/apache/apache'+apacheVersion+'/bin/'+phpDllCopy, False);
     phpDllCopy := 'php5ts.dll';
@@ -397,7 +395,7 @@ begin
 
 
     // Remove lock file
-    lockfile := pathWithSlashes+'/www/dolibarr/install.lock';
+    lockfile := pathWithSlashes+'/dolibarr_documents/install.lock';
     if FileExists (lockfile) and not DeleteFile(lockfile) then
     begin
       themessage := FmtMessage(CustomMessage('FailedToDeleteLock'),[pathWithSlashes]);
@@ -532,7 +530,14 @@ begin
 	      end;
 	      if browser = 'iexplore.exe' then
 	      begin
-	        GetOpenFileName(CustomMessage('ChooseDefaultBrowser'), browser, winPath,'exe files (*.exe)|*.exe|All files (*.*)|*.*' ,'exe');
+            if FileExists (pfPath+'/Internet Explorer/iexplore.exe')  then
+            begin
+               GetOpenFileName(CustomMessage('ChooseDefaultBrowser'), browser, pfPath+'/Internet Explorer','exe files (*.exe)|*.exe|All files (*.*)|*.*' ,'exe');
+	        end
+	        else
+	        begin
+               GetOpenFileName(CustomMessage('ChooseDefaultBrowser'), browser, winPath,'exe files (*.exe)|*.exe|All files (*.*)|*.*' ,'exe');
+	        end;
 	      end;
 	
 	      LoadStringFromFile (srcFile, srcContents);
@@ -633,6 +638,7 @@ begin
 		      //installDir et version de php
 		      StringChangeEx (srcContents, 'WAMPROOT', pathWithSlashes, True);
 		      StringChangeEx (srcContents, 'WAMPPHPVERSION', phpVersion, True);
+              StringChangeEx (srcContents, 'WAMPAPACHEVERSION', apacheVersion, True);
 		      StringChangeEx (srcContents, 'WAMPAPACHEPORT', myporta, True);
 		      StringChangeEx (srcContents, 'WAMPAPACHEPSSL', myportas, True);
 		
@@ -871,6 +877,7 @@ begin
 		      LoadStringFromFile (srcFile, srcContents);
 		      StringChangeEx (srcContents, 'WAMPROOT', pathWithSlashes, True);
 		      StringChangeEx (srcContents, 'WAMPSMTP', mysmtp, True);
+              StringChangeEx (srcContents, 'WAMPPHPVERSION', phpVersion, True);
 		      SaveStringToFile(destFile,srcContents, False);
 		    end
 		
@@ -886,6 +893,7 @@ begin
 		      LoadStringFromFile (srcFile, srcContents);
 		      StringChangeEx (srcContents, 'WAMPROOT', pathWithSlashes, True);
 		      StringChangeEx (srcContents, 'WAMPSMTP', mysmtp, True);
+              StringChangeEx (srcContents, 'WAMPPHPVERSION', phpVersion, True);
 		      SaveStringToFile(destFile,srcContents, False);
 		    end
 		

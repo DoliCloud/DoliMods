@@ -13,7 +13,8 @@ $MINOR="3";
 $BUILD="0-alpha";		# Mettre x pour release, x-dev pour dev, x-beta pour beta, x-rc pour release candidate
 $RPMSUBVERSION="auto";	# auto use value found into BUILD
 
-@LISTETARGET=("TGZ","ZIP","RPM_GENERIC","RPM_FEDORA","RPM_MANDRIVA","RPM_OPENSUSE","DEB","APS","EXEDOLIWAMP","SNAPSHOT");   # Possible packages
+#@LISTETARGET=("TGZ","ZIP","RPM_GENERIC","RPM_FEDORA","RPM_MANDRIVA","RPM_OPENSUSE","DEB","APS","EXEDOLIWAMP","SNAPSHOT");   # Possible packages
+@LISTETARGET=("TGZ","ZIP","EXEDOLIWAMP","SNAPSHOT");   # Possible packages
 %REQUIREMENTTARGET=(                            # Tool requirement for each package
 "SNAPSHOT"=>"tar",
 "TGZ"=>"tar",
@@ -38,7 +39,7 @@ $FILENAMEZIP="$PROJECT-$MAJOR.$MINOR.$BUILD";
 $FILENAMERPM="$PROJECT-$MAJOR.$MINOR.$BUILD-$RPMSUBVERSION";
 $FILENAMEDEB="${PROJECT}_${MAJOR}.${MINOR}.${BUILD}";
 $FILENAMEAPS="$PROJECT-$MAJOR.$MINOR.$BUILD.app";
-$FILENAMEEXEDOLIWAMP="DoliWamp-$MAJOR.$MINOR.$BUILD";
+$FILENAMEEXEDOLIWAMP="DoliMed-$MAJOR.$MINOR.$BUILD";
 if (-d "/usr/src/redhat")   { $RPMDIR="/usr/src/redhat"; } # redhat
 if (-d "/usr/src/packages") { $RPMDIR="/usr/src/packages"; } # opensuse
 if (-d "/usr/src/RPM")      { $RPMDIR="/usr/src/RPM"; } # mandrake
@@ -55,6 +56,7 @@ $VERSION="3.2";
 ($DIR=$0) =~ s/([^\/\\]+)$//; ($PROG=$1) =~ s/\.([^\.]*)$//; $Extension=$1;
 $DIR||='.'; $DIR =~ s/([^\/\\])[\\\/]+$/$1/;
 
+$SOURCEMOD="$DIR/..";
 $SOURCEMOD1="$DIR/../htdocs/cabinetmed";
 #$SOURCEMOD2="$DIR/../scripts/cabinetmed";
 $SOURCEDOL="$DIR/../../dolibarr/.";
@@ -347,8 +349,9 @@ if ($nboftargetok) {
         $ret=`rm -fr $BUILDROOT/$PROJECT/htdocs/includes/tcpdf/fonts/freefont-20100919`;
         $ret=`rm -fr $BUILDROOT/$PROJECT/htdocs/includes/tcpdf/fonts/utils`;
 	    $ret=`rm -f  $BUILDROOT/$PROJECT/htdocs/includes/tcpdf/LICENSE.TXT`;
+        $ret=`rm -fr $BUILDROOT/$PROJECT/htdocs/includes/savant`;
 	}
-exit;    
+
     # Build package for each target
     #------------------------------
     foreach my $target (keys %CHOOSEDTARGET) 
@@ -781,10 +784,10 @@ exit;
      		print "Remove target $FILENAMEEXEDOLIWAMP.exe...\n";
     		unlink "$NEWDESTI/$FILENAMEEXEDOLIWAMP.exe";
  
- 			$SOURCEBACK=$SOURCEDOL;
+ 			$SOURCEBACK=$SOURCEMOD;
  			$SOURCEBACK =~ s/\//\\/g;
-    		print "Compil exe $FILENAMEEXEDOLIWAMP.exe file from iss file \"$SOURCEBACK\\build\\exe\\doliwamp\\doliwamp.iss\"\n";
-    		$cmd= "ISCC.exe \"$SOURCEBACK\\build\\exe\\doliwamp\\doliwamp.iss\"";
+    		print "Compil exe $FILENAMEEXEDOLIWAMP.exe file from iss file \"$SOURCEBACK\\build\\exe\\dolimed\\dolimed.iss\"\n";
+    		$cmd= "ISCC.exe \"$SOURCEBACK\\build\\exe\\dolimed\\dolimed.iss\"";
 			print "$cmd\n";
 			$ret= `$cmd`;
 			#print "$ret\n";

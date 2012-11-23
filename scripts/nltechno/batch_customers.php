@@ -41,7 +41,14 @@ $error=0;
 
 // -------------------- START OF YOUR CODE HERE --------------------
 // Include Dolibarr environment
-require_once($path."../../htdocs/master.inc.php");
+$res=0;
+if (! $res && file_exists($path."../../master.inc.php")) $res=@include($path."../../master.inc.php");
+if (! $res && file_exists($path."../../htdocs/master.inc.php")) $res=@include($path."../../htdocs/master.inc.php");
+if (! $res && file_exists("../master.inc.php")) $res=@include("../master.inc.php");
+if (! $res && file_exists("../../master.inc.php")) $res=@include("../../master.inc.php");
+if (! $res && file_exists("../../../master.inc.php")) $res=@include("../../../master.inc.php");
+if (! $res && file_exists($dirroot."/htdocs/master.inc.php")) $res=@include($dirroot."/htdocs/master.inc.php");
+if (! $res) die ("Failed to include master.inc.php file\n");
 // After this $db, $mysoc, $langs and $conf->entity are defined. Opened handler to database will be closed at end of file.
 
 //$langs->setDefaultLang('en_US'); 	// To change default language of $langs
@@ -49,20 +56,29 @@ $langs->load("main");				// To load language file for default language
 @set_time_limit(0);					// No timeout for this script
 
 // Load user and its permissions
-$result=$user->fetch('','admin');	// Load user for login 'admin'. Comment line to run as anonymous user.
-if (! $result > 0) { dol_print_error('',$user->error); exit; }
-$user->getrights();
+//$result=$user->fetch('','admin');	// Load user for login 'admin'. Comment line to run as anonymous user.
+//if (! $result > 0) { dol_print_error('',$user->error); exit; }
+//$user->getrights();
 
 
 print "***** ".$script_file." (".$version.") *****\n";
 if (! isset($argv[1])) {	// Check parameters
-    print "Usage: ".$script_file." param1 param2 ...\n";
+    print "Usage: ".$script_file." [backup|backuptest] param2 ...\n";
     exit;
 }
 print '--- start'."\n";
-print 'Argument 1='.$argv[1]."\n";
-print 'Argument 2='.$argv[2]."\n";
+//print 'Argument 1='.$argv[1]."\n";
+//print 'Argument 2='.$argv[2]."\n";
 
+
+
+/*
+ * Main
+ */
+
+$action=$argv[1];
+$nbofok=0;
+$nboferrors=0;
 
 // Start of transaction
 $db->begin();
@@ -70,95 +86,122 @@ $db->begin();
 
 // Examples for manipulating class skeleton_class
 dol_include_once('/nltechno/class/dolicloudcustomer.class.php');
-$myobject=new Dolicloudcustomers($db);
-
-// Example for inserting creating object in database
-/*
-dol_syslog($script_file." CREATE", LOG_DEBUG);
-$myobject->prop1='value_prop1';
-$myobject->prop2='value_prop2';
-$id=$myobject->create($user);
-if ($id < 0) { $error++; dol_print_error($db,$myobject->error); }
-else print "Object created with id=".$id."\n";
-*/
-
-// Example for reading object from database
-/*
-dol_syslog($script_file." FETCH", LOG_DEBUG);
-$result=$myobject->fetch($id);
-if ($result < 0) { $error; dol_print_error($db,$myobject->error); }
-else print "Object with id=".$id." loaded\n";
-*/
-
-// Example for updating object in database ($myobject must have been loaded by a fetch before)
-/*
-dol_syslog($script_file." UPDATE", LOG_DEBUG);
-$myobject->prop1='newvalue_prop1';
-$myobject->prop2='newvalue_prop2';
-$result=$myobject->update($user);
-if ($result < 0) { $error++; dol_print_error($db,$myobject->error); }
-else print "Object with id ".$myobject->id." updated\n";
-*/
-
-// Example for deleting object in database ($myobject must have been loaded by a fetch before)
-/*
-dol_syslog($script_file." DELETE", LOG_DEBUG);
-$result=$myobject->delete($user);
-if ($result < 0) { $error++; dol_print_error($db,$myobject->error); }
-else print "Object with id ".$myobject->id." deleted\n";
-*/
+$object=new Dolicloudcustomer($db);
 
 
-// An example of a direct SQL read without using the fetch method
-/*
-$sql = "SELECT field1, field2";
-$sql.= " FROM ".MAIN_DB_PREFIX."skeleton";
-$sql.= " WHERE field3 = 'xxx'";
-$sql.= " ORDER BY field1 ASC";
-
-dol_syslog($script_file." sql=".$sql, LOG_DEBUG);
-$resql=$db->query($sql);
-if ($resql)
+if ($action == 'backup' || $action == 'backuptest')
 {
-	$num = $db->num_rows($resql);
-	$i = 0;
-	if ($num)
+	$instances=array();
+
+	if (empty($conf->global->DOLICLOUD_INSTANCES_PATH))
 	{
-		while ($i < $num)
+		print "Error: Setup of module NLTechno not complete\n";
+		exit -1;
+	}
+
+	$sql = 'SELECT c.rowid, c.instance, c.status, c.lastrsync';
+	$sql.= ' FROM '.MAIN_DB_PREFIX.'dolicloud_customers as c';
+	$sql.= ' WHERE status = \'ACTIVE\'';
+
+	dol_syslog($script_file." sql=".$sql, LOG_DEBUG);
+	$resql=$db->query($sql);
+	if ($resql)
+	{
+		$num = $db->num_rows($resql);
+		$i = 0;
+		if ($num)
 		{
-			$obj = $db->fetch_object($resql);
-			if ($obj)
+			while ($i < $num)
 			{
-				// You can use here results
-				print $obj->field1;
-				print $obj->field2;
+				$obj = $db->fetch_object($resql);
+				if ($obj)
+				{
+					$instances[]=$obj->instance;
+					print "Found instance ".$obj->instance."\n";
+				}
+				$i++;
 			}
-			$i++;
+		}
+	}
+	else
+	{
+		$error++;
+		$nboferrors++;
+		dol_print_error($db);
+	}
+
+
+	// Loop on each instance
+	if (! $error)
+	{
+		foreach($instances as $instance)
+		{
+			$now=dol_now();
+
+			// Run backup
+			print "Process backup of instance ".$instance."\n";
+
+			$command=($path?$path.'/':'')."backup_instance.php ".escapeshellarg($instance)." ".escapeshellarg($conf->global->DOLICLOUD_INSTANCES_PATH)." ".($action == 'backup'?'test':'confirm');
+
+			//$output = shell_exec($command);
+			if ($action == 'backup')
+			{
+				ob_start();
+				passthru($command, $return_val);
+				$content_grabbed=ob_get_contents();
+				ob_end_clean();
+			}
+
+			echo "Result: ".$return_val."\n";
+			echo "Output: ".$content_grabbed."\n";
+
+			if ($return_val != 0) $error++;
+
+			// Update database
+			if (! $error)
+			{
+				$db->begin();
+
+				$result=$object->fetch('',$instance);
+
+				if ($action == 'backup')
+				{
+					$object->date_lastrsync=$now;
+					$object->update();
+				}
+
+				$db->commit();
+			}
+
+			//
+			if (! $error)
+			{
+				$nbofok++;
+				print 'Process success'."\n";
+			}
+			else
+			{
+				$nboferrors++;
+				print 'Process fails'."\n";
+			}
 		}
 	}
 }
-else
+
+
+// Result
+print "Nb of instances ok: ".$nbofok."\n";
+print "Nb of instances ko: ".$nboferrors."\n";
+if (! $nboferrors)
 {
-	$error++;
-	dol_print_error($db);
-}
-*/
-
-
-// -------------------- END OF YOUR CODE --------------------
-
-if (! $error)
-{
-	$db->commit();
 	print '--- end ok'."\n";
 }
 else
 {
-	print '--- end error code='.$error."\n";
-	$db->rollback();
+	print '--- end error code='.$nboferrors."\n";
 }
 
 $db->close();	// Close database opened handler
 
-return $error;
+return $nboferrors;
 ?>
