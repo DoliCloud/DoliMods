@@ -101,7 +101,7 @@ if ($action == 'backup' || $action == 'backuptest')
 
 	$sql = 'SELECT c.rowid, c.instance, c.status, c.lastrsync';
 	$sql.= ' FROM '.MAIN_DB_PREFIX.'dolicloud_customers as c';
-	$sql.= ' WHERE status = \'ACTIVE\'';
+	$sql.= ' WHERE status = \'ACTIVE\' OR status = \'TRIAL\'';
 
 	dol_syslog($script_file." sql=".$sql, LOG_DEBUG);
 	$resql=$db->query($sql);
