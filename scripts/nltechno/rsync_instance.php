@@ -114,7 +114,8 @@ $param[]="--exclude htdocs/custom";
 $param[]="--exclude htdocs/customfields/";
 $param[]="--exclude htdocs/bootstrap/";
 $param[]="--stats";
-$param[]="-e ssh";
+$param[]="-e 'ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no'";
+
 $param[]=$dirroot.'/';
 $param[]=$login.'@'.$server.":".$targetdir;
 

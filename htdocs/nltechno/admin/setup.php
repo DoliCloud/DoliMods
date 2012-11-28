@@ -30,6 +30,7 @@ if (! $res && file_exists("../../../../dolibarr/htdocs/main.inc.php")) $res=@inc
 if (! $res && file_exists("../../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
 if (! $res) die("Include of main fails");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
+require_once(DOL_DOCUMENT_ROOT."/core/lib/files.lib.php");
 
 // Security check
 if (!$user->admin)
@@ -55,7 +56,17 @@ if ($action == 'set')
 
 	if (! $error)
 	{
-		dolibarr_set_const($db,"DOLICLOUD_INSTANCES_PATH",GETPOST("DOLICLOUD_INSTANCES_PATH"),'chaine',0,'',$conf->entity);
+		$dir=GETPOST("DOLICLOUD_INSTANCES_PATH");
+		if (dol_is_dir($dir)) dolibarr_set_const($db,"DOLICLOUD_INSTANCES_PATH",GETPOST("DOLICLOUD_INSTANCES_PATH"),'chaine',0,'',$conf->entity);
+		else setEventMessage($langs->trans("ErrorDirNotFound",$dir),'errors');
+
+		$dir=GETPOST("DOLICLOUD_SCRIPTS_PATH");
+		if (dol_is_dir($dir)) dolibarr_set_const($db,"DOLICLOUD_SCRIPTS_PATH",GETPOST("DOLICLOUD_SCRIPTS_PATH"),'chaine',0,'',$conf->entity);
+		else setEventMessage($langs->trans("ErrorDirNotFound",$dir),'errors');
+
+		$dir=GETPOST("DOLICLOUD_LASTSTABLEVERSION_DIR");
+		if (dol_is_dir($dir)) dolibarr_set_const($db,"DOLICLOUD_LASTSTABLEVERSION_DIR",GETPOST("DOLICLOUD_LASTSTABLEVERSION_DIR"),'chaine',0,'',$conf->entity);
+		else setEventMessage($langs->trans("ErrorDirNotFound",$dir),'errors');
 	}
 }
 
@@ -102,6 +113,24 @@ print '<td>';
 print '<input size="40" type="text" name="DOLICLOUD_INSTANCES_PATH" value="'.$conf->global->DOLICLOUD_INSTANCES_PATH.'">';
 print '</td>';
 print '<td>/home/dolicloud_instances/home</td>';
+print '<td>&nbsp;</td>';
+print '</tr>';
+
+$var=!$var;
+print '<tr '.$bc[$var].'><td>'.$langs->trans("DirForScriptPath").'</td>';
+print '<td>';
+print '<input size="40" type="text" name="DOLICLOUD_SCRIPTS_PATH" value="'.$conf->global->DOLICLOUD_SCRIPTS_PATH.'">';
+print '</td>';
+print '<td>/home/dolibarr/scripts</td>';
+print '<td>&nbsp;</td>';
+print '</tr>';
+
+$var=!$var;
+print '<tr '.$bc[$var].'><td>'.$langs->trans("DirForLastStableVersionOfDolibarr").'</td>';
+print '<td>';
+print '<input size="40" type="text" name="DOLICLOUD_LASTSTABLEVERSION_DIR" value="'.$conf->global->DOLICLOUD_LASTSTABLEVERSION_DIR.'">';
+print '</td>';
+print '<td>/home/ldestailleur/git/dolibarr_old</td>';
 print '<td>&nbsp;</td>';
 print '</tr>';
 

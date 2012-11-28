@@ -40,7 +40,17 @@ function dolicloud_prepare_head($object)
 	$head[$h][2] = 'card';
 	$h++;
 
-    // Show more tabs from modules
+	$head[$h][0] = dol_buildpath('/nltechno/dolicloud_card_upgrade.php',1).'?id='.$object->id;
+	$head[$h][1] = $langs->trans("Upgrade");
+	$head[$h][2] = 'upgrade';
+	$h++;
+
+	$head[$h][0] = dol_buildpath('/nltechno/dolicloud_card_backup.php',1).'?id='.$object->id;
+	$head[$h][1] = $langs->trans("Backup");
+	$head[$h][2] = 'backup';
+	$h++;
+
+	// Show more tabs from modules
     // Entries must be declared in modules descriptor with line
     // $this->tabs = array('entity:+tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to add new tab
     // $this->tabs = array('entity:-tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to remove a tab
