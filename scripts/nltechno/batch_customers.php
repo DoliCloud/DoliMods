@@ -63,7 +63,7 @@ $langs->load("main");				// To load language file for default language
 
 print "***** ".$script_file." (".$version.") *****\n";
 if (! isset($argv[1])) {	// Check parameters
-    print "Usage: ".$script_file." [backup|backuptest] param2 ...\n";
+    print "Usage: ".$script_file." [backup|backuptest]\n";
     exit;
 }
 print '--- start'."\n";
@@ -141,7 +141,7 @@ if ($action == 'backup' || $action == 'backuptest')
 			// Run backup
 			print "Process backup of instance ".$instance."\n";
 
-			$command=($path?$path.'/':'')."backup_instance.php ".escapeshellarg($instance)." ".escapeshellarg($conf->global->DOLICLOUD_INSTANCES_PATH)." ".($action == 'backup'?'test':'confirm');
+			$command=($path?$path.'/':'')."backup_instance.php ".escapeshellarg($instance)." ".escapeshellarg($conf->global->DOLICLOUD_INSTANCES_PATH)." ".($action == 'backup'?'confirm':'test');
 
 			//$output = shell_exec($command);
 			if ($action == 'backup')
