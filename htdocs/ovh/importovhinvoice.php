@@ -86,36 +86,39 @@ if (! function_exists('setEventMessage'))
 }
 
 // Init SoapClient
-try
+if (! empty($action))
 {
-	require_once(DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php');
-	$params=getSoapParams();
-	ini_set('default_socket_timeout', $params['response_timeout']);
-
-	if (empty($conf->global->OVHSMS_SOAPURL))
+	try
 	{
-		print 'Error: '.$langs->trans("ModuleSetupNotComplete")."\n";
-		exit;
+		require_once(DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php');
+		$params=getSoapParams();
+		ini_set('default_socket_timeout', $params['response_timeout']);
+
+		if (empty($conf->global->OVHSMS_SOAPURL))
+		{
+			print 'Error: '.$langs->trans("ModuleSetupNotComplete")."\n";
+			exit;
+		}
+
+		//use_soap_error_handler(true);
+
+		$soap = new SoapClient($conf->global->OVHSMS_SOAPURL,$params);
+
+		$language = "en";
+		$multisession = false;
+
+		//login
+		$session = $soap->login($conf->global->OVHSMS_NICK, $conf->global->OVHSMS_PASS,$language,$multisession);
+		dol_syslog("login successfull");
+
+		$result = $soap->billingGetAccessByNic($session);
+		dol_syslog("billingGetAccessByNic successfull = ".join(',',$result));
+		//print "GetAccessByNic: ".join(',',$result)."<br>\n";
 	}
-
-	//use_soap_error_handler(true);
-
-	$soap = new SoapClient($conf->global->OVHSMS_SOAPURL,$params);
-
-	$language = "en";
-	$multisession = false;
-
-	//login
-	$session = $soap->login($conf->global->OVHSMS_NICK, $conf->global->OVHSMS_PASS,$language,$multisession);
-	dol_syslog("login successfull");
-
-	$result = $soap->billingGetAccessByNic($session);
-	dol_syslog("billingGetAccessByNic successfull = ".join(',',$result));
-	//print "GetAccessByNic: ".join(',',$result)."<br>\n";
-}
-catch(SoapFault $fault)
-{
-	setEventMessage('SoapFault Exception: '.$fault->getMessage().' - '.$fault->getTraceAsString(),'errors');
+	catch(SoapFault $fault)
+	{
+		setEventMessage('SoapFault Exception: '.$fault->getMessage().' - '.$fault->getTraceAsString(),'errors');
+	}
 }
 
 
