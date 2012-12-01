@@ -938,17 +938,18 @@ class Zend_Gdata_App
      * @throws Zend_Gdata_App_Exception
      * @throws Zend_Gdata_App_HttpException
      * @throws Zend_Gdata_App_InvalidArgumentException
+     * // DOLLDR
      */
-    public function delete($data, $remainingRedirects = null)
+    public function delete($data, $remainingRedirects = null, $headers = array())
     {
         if (is_string($data)) {
             $requestData = $this->prepareRequest('DELETE', $data);
         } else {
-            $headers = array();
 
             $requestData = $this->prepareRequest(
                 'DELETE', null, $headers, $data);
         }
+
         return $this->performHttpRequest($requestData['method'],
                                          $requestData['url'],
                                          $requestData['headers'],

@@ -216,10 +216,11 @@ class Zend_Gdata_App_Entry extends Zend_Gdata_App_FeedEntryParent
      *
      * @return void
      * @throws Zend_Gdata_App_Exception
+     * DOLLDR Add headers
      */
-    public function delete()
+    public function delete($headers=array())
     {
-        $this->getService()->delete($this);
+        $this->getService()->delete($this,null,$headers);
     }
 
     /**

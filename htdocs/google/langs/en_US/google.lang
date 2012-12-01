@@ -31,3 +31,5 @@ GoogleCalendarSyncConf=GoogleCalendarSyncConf
 KeepEmptyYoUseLoginPassOfEventUser=Keep empty to use Google login/pass of user the event is affected to
 GoogleUserConf=Google setup
 GoogleSetupIsGlobal=Sync setup is done globally for all users to %s 
+TestCreateUpdateDelete=Test create-update-delete
+TestSuccessfull=Test successful

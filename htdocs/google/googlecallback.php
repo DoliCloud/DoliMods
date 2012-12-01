@@ -29,7 +29,7 @@ $url='https://accounts.google.com/o/oauth2/auth?client_id='.$client_id.'&redirec
 
 /*
  * Actions
- */
+*/
 
 // Ask token (possible only if inside an oauth google session)
 if ($auth_code || empty($_SESSION['google_oauth_token']))		// We come from a redirect of Google auth page or oauth_token empty
@@ -85,7 +85,7 @@ llxHeader();
 
 // Get contacts using oauth
 /*
-print 'This page is a test page show information on your Google account using Oauth login. It is not used by module.<br>';
+ print 'This page is a test page show information on your Google account using Oauth login. It is not used by module.<br>';
 print '<a href="'.$url.'">Click here to authenticate using oauth</a><br><br>';
 
 //var_dump($_GET);
@@ -98,8 +98,8 @@ $url = 'https://www.google.com/m8/feeds/contacts/default/full?max-results='.$max
 $xmlresponse =  curl_file_get_contents($url);
 if((strlen(stristr($xmlresponse,'Authorization required'))>0) && (strlen(stristr($xmlresponse,'Error '))>0)) //At times you get Authorization error from Google.
 {
-	echo "<h2>OOPS !! Something went wrong. Please try reloading the page.</h2>";
-	exit();
+echo "<h2>OOPS !! Something went wrong. Please try reloading the page.</h2>";
+exit();
 }
 
 echo "<h3>Addresses:</h3>";
@@ -114,14 +114,15 @@ echo "<h3>Addresses:</h3>";
 
 
 
+
+// TEST CONTACT INTERFACE
+// Tutorial: http://www.ibm.com/developerworks/library/x-phpgooglecontact/index.html
+
 print "\n".'<br><br>Test contact interface<br>'."\n";
 
 $path = dol_buildpath('/google/includes/zendgdata');
 set_include_path(get_include_path() . PATH_SEPARATOR . $path);
 
-/**
- * @see Zend_Loader
- */
 require_once('Zend/Loader.php');
 Zend_Loader::loadClass('Zend_Gdata');
 Zend_Loader::loadClass('Zend_Gdata_AuthSub');
@@ -129,36 +130,170 @@ Zend_Loader::loadClass('Zend_Gdata_ClientLogin');
 Zend_Loader::loadClass('Zend_Gdata_HttpClient');
 Zend_Loader::loadClass('Zend_Gdata_Contacts');
 Zend_Loader::loadClass('Zend_Gdata_Query');
+Zend_Loader::loadClass('Zend_Gdata_Feed');
 $user = $conf->global->GOOGLE_LOGIN;
 $pwd = $conf->global->GOOGLE_PASSWORD;
 $client = Zend_Gdata_ClientLogin::getHttpClient($user, $pwd, 'cp');
+
+
+echo '<h2>List Contact (generic method)</h2>';
+
+// LIST Using generic code
+try {
+	// perform login and set protocol version to 3.0
+	$gdata = new Zend_Gdata($client);
+	$gdata->setMajorProtocolVersion(3);
+
+	// perform query and get result feed
+	$query = new Zend_Gdata_Query('http://www.google.com/m8/feeds/contacts/default/full');
+	$feed = $gdata->getFeed($query);
+
+	// display title and result count
+	print $feed->title."<br>\n";
+	print $feed->totalResults."<br>\n";
+
+	// parse feed and extract contact information
+	// into simpler objects
+	$results = array();
+	foreach($feed as $entry)
+	{
+
+		$xml = simplexml_load_string($entry->getXML());
+
+		$obj = new stdClass;
+		$obj->name = (string) $xml->name->fullName;
+
+		foreach ($xml->email as $e) {
+			$obj->emailAddress[] = (string) $e['address'];
+		}
+
+		foreach ($xml->phoneNumber as $p) {
+			$obj->phoneNumber[] = (string) $p;
+		}
+		foreach ($xml->website as $w) {
+			$obj->website[] = (string) $w['href'];
+		}
+
+		$results[] = $obj;
+	}
+} catch (Exception $e) {
+	die('ERROR:' . $e->getMessage());
+}
+
+
+echo '<h2>List Contact (gdata_contacts method)</h2>';
+
+// LIST Using Gdata_contacts method
 $gdata = new Zend_Gdata_Contacts($client);
+$gdata->setMajorProtocolVersion(3);
 $gdata->setMaxResults($max_results);
+//$gdata->setMaxResults(300);
 $gdata->setStartIndex(0);
 $feed = $gdata->getContactListFeed();
 $entries = $feed->getEntry();
 foreach($entries as $entry)
 {
-	var_dump($entry->toArray());
-	print "-------------<br><br>\n";
+	$tmp=$entry->toArray();
+	print $tmp['full_name']."<br>\n";
 }
 
 
-//$client->setHeaders('If-Match: *');
-//$gdata = new Zend_Gdata($client);
-//$gdata->setMajorProtocolVersion(3);
-//$gdata->delete($id);
+
+// GET FROM AN ID Using Gdata_contact
+/*
+$query = new Zend_Gdata_Query('http://www.google.com/m8/feeds/contacts/eldy10%40gmail.com/base/55bab38888f03eae');
+$gdata->setMajorProtocolVersion(3);
+$entryfromid = $gdata->getEntry($query,'Zend_Gdata_Contacts_ListEntry');
+//var_dump($entry->toArray());
+var_dump($entryfromid->getEditLink()->href);
+*/
 
 
-// Get from an id
-$query = new Zend_Gdata_Query('http://www.google.com/m8/feeds/contacts/eldy10%40gmail.com/base/68d4e5083cc819');
-$entry = $gdata->getEntry($query,'Zend_Gdata_Contacts_ListEntry');
-var_dump($entry->toArray());
+
+// CREATE GENERIC
+$doc  = new DOMDocument();
+try {
+	// perform login and set protocol version to 3.0
+	$gdata = new Zend_Gdata($client);
+	$gdata->setMajorProtocolVersion(3);
+
+	// create new entry
+	$doc->formatOutput = true;
+	$entry = $doc->createElement('atom:entry');
+	$entry->setAttributeNS('http://www.w3.org/2000/xmlns/' ,
+		'xmlns:atom', 'http://www.w3.org/2005/Atom');
+	$entry->setAttributeNS('http://www.w3.org/2000/xmlns/' ,
+		'xmlns:gd', 'http://schemas.google.com/g/2005');
+	$doc->appendChild($entry);
+
+	// add name element
+	$name = $doc->createElement('gd:name');
+	$entry->appendChild($name);
+	$fullName = $doc->createElement('gd:fullName', 'Test from Dolibarr');
+	$name->appendChild($fullName);
+
+	// add email element
+	$email = $doc->createElement('gd:email');
+	$email->setAttribute('address' ,'testfromdolibarr@example.com');
+	$email->setAttribute('rel' ,'http://schemas.google.com/g/2005#home');
+	$entry->appendChild($email);
+
+	// add org name element
+	$org = $doc->createElement('gd:organization');
+	$org->setAttribute('rel' ,'http://schemas.google.com/g/2005#work');
+	$entry->appendChild($org);
+	$orgName = $doc->createElement('gd:orgName', 'Dolibarr');
+	$org->appendChild($orgName);
+
+	// insert entry
+	$entryResult = $gdata->insertEntry($doc->saveXML(),	'http://www.google.com/m8/feeds/contacts/default/full');
+
+	echo '<h2>Add Contact</h2>';
+	echo 'The href of the new entry is: ' . $entryResult->getEditLink()->href.'<br>';
+
+} catch (Exception $e) {
+	die('ERROR:' . $e->getMessage());
+}
+
+
+// UPDATE
+try {
+	echo '<h2>Update Contact</h2>';
+
+	$xml = simplexml_load_string($entryResult->getXML());
+	$xml->name->fullName = 'Test Dolibarr 7';
+	$xml->name->givenName = 'Test 7';
+
+	$extra_header = array('If-Match'=>'*');
+	$newentryResult = $gdata->updateEntry($xml->saveXML(), $entryResult->getEditLink()->href, null, $extra_header);
+
+	echo 'The href of the new entry is: ' . $newentryResult->getEditLink()->href.'<br>';
+} catch (Exception $e) {
+	die('ERROR:' . $e->getMessage());
+}
+
+
+// DELETE
+try {
+	$query = new Zend_Gdata_Query($newentryResult->getEditLink()->href);
+	$gdata->setMajorProtocolVersion(3);
+	$entryfromid = $gdata->getEntry($query,'Zend_Gdata_Contacts_ListEntry');
+
+	echo '<h2>Delete Contact with etag '.$entryfromid->getEtag().'</h2>';
+	$extra_header = array('If-Match'=>$entryfromid->getEtag());
+
+	$newentryResult->delete($extra_header);
+	echo 'Entry deleted';
+} catch (Exception $e) {
+	die('ERROR:' . $e->getMessage());
+}
+
+
 
 
 // Create a contact using oauth
 /*$urltocreate='https://www.google.com/m8/feeds/contacts/testapi@testapi.com/full&oauth_token='.$oauth_token;
-$curl = curl_init();
+ $curl = curl_init();
 curl_setopt($curl,CURLOPT_URL,$urltocreate);
 curl_setopt($curl,CURLOPT_POST,0);
 //curl_setopt($curl,CURLOPT_POSTFIELDS,$post);

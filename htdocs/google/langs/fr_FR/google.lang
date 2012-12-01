@@ -31,3 +31,5 @@ GoogleCalendarSyncConf=Configuration de la synchronisation de l'agenda
 KeepEmptyYoUseLoginPassOfEventUser=Laisser vide pour utiliser le login/pass Google de l'utilisateur sur qui sera affecté la tache
 GoogleUserConf=Configuration Google
 GoogleSetupIsGlobal=La synchronisation est faite de manière globale vers le compte %s pour tout le monde
+TestCreateUpdateDelete=Tester création-mise à jour-suppression
+TestSuccessfull=Test succès
