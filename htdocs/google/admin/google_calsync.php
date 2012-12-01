@@ -45,7 +45,8 @@ $colorlist=array('7A367A','B1365F','5229A3','7A367A','29527A','2952A3','1B887A',
 
 /*
  * Actions
-*/
+ */
+
 if ($action == 'save')
 {
     $db->begin();
@@ -129,7 +130,8 @@ print '<br>';
 
 $head=googleadmin_prepare_head();
 
-dol_fiche_head($head, 'agendasync', $langs->trans("GoogleTools"));
+
+dol_fiche_head($head, 'tabagendasync', $langs->trans("GoogleTools"));
 
 
 print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
@@ -184,8 +186,6 @@ print "<br>";
 
 
 print '<center>';
-//print "<input type=\"submit\" name=\"test\" class=\"button\" value=\"".$langs->trans("TestConnection")."\">";
-//print "&nbsp; &nbsp;";
 print "<input type=\"submit\" name=\"save\" class=\"button\" value=\"".$langs->trans("Save")."\">";
 print "</center>";
 
@@ -193,9 +193,24 @@ print "</form>\n";
 
 dol_fiche_end();
 
+print '<br>';
+
+
+print '<div class="tabsActions">';
+if (empty($conf->global->GOOGLE_LOGIN) || empty($conf->global->GOOGLE_LOGIN))
+{
+	print '<a class="butActionRefused" href="#">'.$langs->trans("TestConnection")."</a>";
+}
+else
+{
+	print '<a class="butAction" href="'.$_SERVER['PHP_SELF'].'?action=testcreate">'.$langs->trans("TestCreateUpdateDelete")."</a>";
+}
+print '</div>';
+
 
 dol_htmloutput_mesg($mesg);
 dol_htmloutput_errors($error,$errors);
+
 
 
 llxFooter();

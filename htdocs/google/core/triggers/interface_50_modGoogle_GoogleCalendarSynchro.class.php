@@ -133,6 +133,8 @@ class InterfaceGoogleCalendarSynchro
 		}
 		//print $action.' - '.$user.' - '.$pwd.' - '.$conf->global->GOOGLE_DUPLICATE_INTO_GCAL; exit;
 
+
+
 		// Actions
 		if ($action == 'ACTION_CREATE' || $action == 'ACTION_MODIFY' || $action == 'ACTION_DELETE')
 		{
@@ -146,7 +148,9 @@ class InterfaceGoogleCalendarSynchro
 				return 0;
 			}
 
-			$client = getClientLoginHttpClient($user, $pwd);
+			// Create client object
+			$service= 'cl';		// cl = calendar, cp=contact, ... Search on AUTH_SERVICE_NAME into Zend API for full list
+			$client = getClientLoginHttpClient($user, $pwd, $service);
 			//var_dump($client); exit;
 
 			if ($client == null)

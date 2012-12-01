@@ -36,22 +36,22 @@ function googleadmin_prepare_head()
 
 	$head[$h][0] = dol_buildpath("/google/admin/google.php",1);
 	$head[$h][1] = $langs->trans("AgendaView");
-	$head[$h][2] = 'agenda';
+	$head[$h][2] = 'tabagenda';
 	$h++;
 
     $head[$h][0] = dol_buildpath("/google/admin/google_calsync.php",1);
     $head[$h][1] = $langs->trans("AgendaSync");
-    $head[$h][2] = 'agendasync';
+    $head[$h][2] = 'tabagendasync';
     $h++;
 
 	$head[$h][0] = dol_buildpath("/google/admin/google_gmaps.php",1);
     $head[$h][1] = $langs->trans("GMaps");
-    $head[$h][2] = 'gmaps';
+    $head[$h][2] = 'tabgmaps';
     $h++;
 
     $head[$h][0] = dol_buildpath("/google/admin/google_ad.php",1);
 	$head[$h][1] = $langs->trans("Adsense");
-	$head[$h][2] = 'adsense';
+	$head[$h][2] = 'tabadsense';
 	$h++;
 
 	include_once(DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php');
@@ -61,7 +61,7 @@ function googleadmin_prepare_head()
 	{
         $head[$h][0] = dol_buildpath("/google/admin/google_an.php",1);
         $head[$h][1] = $langs->trans("Analitycs");
-        $head[$h][2] = 'analytics';
+        $head[$h][2] = 'tabanalytics';
         $h++;
 	}
 

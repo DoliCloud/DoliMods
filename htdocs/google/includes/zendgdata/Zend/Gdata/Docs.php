@@ -16,9 +16,9 @@
  * @category   Zend
  * @package    Zend_Gdata
  * @subpackage Docs
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Docs.php,v 1.1 2011/08/01 19:28:34 eldy Exp $
+ * @version    $Id: Docs.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
 /**
@@ -53,7 +53,7 @@ require_once 'Zend/Gdata/App/Extension/Title.php';
  * @category   Zend
  * @package    Zend_Gdata
  * @subpackage Docs
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Gdata_Docs extends Zend_Gdata
@@ -61,8 +61,8 @@ class Zend_Gdata_Docs extends Zend_Gdata
 
     const DOCUMENTS_LIST_FEED_URI = 'https://docs.google.com/feeds/documents/private/full';
     const DOCUMENTS_FOLDER_FEED_URI = 'https://docs.google.com/feeds/folders/private/full';
-    const DOCUMENTS_CATEGORY_SCHEMA = 'https://schemas.google.com/g/2005#kind';
-    const DOCUMENTS_CATEGORY_TERM = 'https://schemas.google.com/docs/2007#folder';
+    const DOCUMENTS_CATEGORY_SCHEMA = 'http://schemas.google.com/g/2005#kind';
+    const DOCUMENTS_CATEGORY_TERM = 'http://schemas.google.com/docs/2007#folder';
     const AUTH_SERVICE_NAME = 'writely';
 
     protected $_defaultPostUri = self::DOCUMENTS_LIST_FEED_URI;

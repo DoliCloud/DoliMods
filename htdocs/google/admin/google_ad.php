@@ -82,7 +82,7 @@ print '<br>';
 
 $head=googleadmin_prepare_head();
 
-dol_fiche_head($head, 'adsense', $langs->trans("GoogleTools"));
+dol_fiche_head($head, 'tabadsense', $langs->trans("GoogleTools"));
 
 print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
 

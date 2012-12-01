@@ -84,7 +84,7 @@ print '<br>';
 
 $head=googleadmin_prepare_head();
 
-dol_fiche_head($head, 'gmaps', $langs->trans("GoogleTools"));
+dol_fiche_head($head, 'tabgmaps', $langs->trans("GoogleTools"));
 
 
 print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';

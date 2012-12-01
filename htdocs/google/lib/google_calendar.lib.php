@@ -185,17 +185,16 @@ function processPageLoad()
  * Returns a HTTP client object with the appropriate headers for communicating
  * with Google using the ClientLogin credentials supplied.
  *
- * @param  string $user The username, in e-mail address format, to authenticate
- * @param  string $pass The password for the user specified
- * @return Zend_Http_Client
+ * @param  	string 	$user 		The username, in e-mail address format, to authenticate
+ * @param  	string 	$pass 		The password for the user specified
+ * @param	string	$service	The service to use (cp = calendar, cl=contact, ... Search on AUTH_SERVICE_NAME into Zend API for full list)
+ * @return 	Zend_Http_Client
  */
-function getClientLoginHttpClient($user, $pass)
+function getClientLoginHttpClient($user, $pass, $service)
 {
 	$client=null;
 
 	try {
-		$service = Zend_Gdata_Calendar::AUTH_SERVICE_NAME;
-
 		$client = Zend_Gdata_ClientLogin::getHttpClient($user, $pass, $service);
 	}
 	catch(Exception $e)

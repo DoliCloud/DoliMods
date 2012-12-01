@@ -78,7 +78,7 @@ print '<br>';
 
 $head=googleadmin_prepare_head();
 
-dol_fiche_head($head, 'analytics', $langs->trans("GoogleTools"));
+dol_fiche_head($head, 'tabanalytics', $langs->trans("GoogleTools"));
 
 print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
 
