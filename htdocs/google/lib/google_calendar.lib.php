@@ -19,34 +19,11 @@
 $path = dol_buildpath('/google/includes/zendgdata');
 set_include_path(get_include_path() . PATH_SEPARATOR . $path);
 
-/**
- * @see Zend_Loader
- */
 require_once('Zend/Loader.php');
-
-/**
- * @see Zend_Gdata
- */
 Zend_Loader::loadClass('Zend_Gdata');
-
-/**
- * @see Zend_Gdata_AuthSub
- */
 Zend_Loader::loadClass('Zend_Gdata_AuthSub');
-
-/**
- * @see Zend_Gdata_ClientLogin
- */
 Zend_Loader::loadClass('Zend_Gdata_ClientLogin');
-
-/**
- * @see Zend_Gdata_HttpClient
- */
 Zend_Loader::loadClass('Zend_Gdata_HttpClient');
-
-/**
- * @see Zend_Gdata_Calendar
- */
 Zend_Loader::loadClass('Zend_Gdata_Calendar');
 
 /**
@@ -59,6 +36,8 @@ $_authSubKeyFile = null; // Example value for secure use: 'mykey.pem'
  */
 $_authSubKeyFilePassphrase = null;
 
+
+
 /**
  * Returns the full URL of the current page, based upon env variables
  *
@@ -70,13 +49,11 @@ $_authSubKeyFilePassphrase = null;
  *
  * @return string Current URL
  */
+/*
 function getCurrentUrl()
 {
 	global $_SERVER;
 
-	/**
-	 * Filter php_self to avoid a security vulnerability.
-	 */
 	$php_request_uri = htmlentities(substr($_SERVER['REQUEST_URI'], 0, strcspn($_SERVER['REQUEST_URI'], "\n\r")), ENT_QUOTES);
 
 	if (isset($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) == 'on') {
@@ -97,7 +74,7 @@ function getCurrentUrl()
 
 	return $protocol . $host . $port . $php_request_uri;
 }
-
+*/
 /**
  * Returns the AuthSub URL which the user must visit to authenticate requests
  * from this application.
@@ -107,6 +84,7 @@ function getCurrentUrl()
  *
  * @return string AuthSub URL
  */
+/*
 function getAuthSubUrl()
 {
 	global $_authSubKeyFile;
@@ -120,20 +98,7 @@ function getAuthSubUrl()
 	}
 	return Zend_Gdata_AuthSub::getAuthSubTokenUri($next, $scope, $secure, $session);
 }
-
-/**
- * Outputs a request to the user to login to their Google account, including
- * a link to the AuthSub URL.
- *
- * Uses getAuthSubUrl() to get the URL which the user must visit to authenticate
- *
- * @return void
- */
-function requestUserLogin($linkText)
-{
-	$authSubUrl = getAuthSubUrl();
-	echo "<a href=\"{$authSubUrl}\">{$linkText}</a>";
-}
+*/
 
 /**
  * Returns a HTTP client object with the appropriate headers for communicating
@@ -146,6 +111,7 @@ function requestUserLogin($linkText)
  *
  * @return Zend_Http_Client
  */
+/*
 function getAuthSubHttpClient()
 {
 	global $_SESSION, $_GET, $_authSubKeyFile, $_authSubKeyFilePassphrase;
@@ -161,25 +127,7 @@ function getAuthSubHttpClient()
 	$client->setAuthSubToken($_SESSION['sessionToken']);
 	return $client;
 }
-
-/**
- * Processes loading of this sample code through a web browser.  Uses AuthSub
- * authentication and outputs a list of a user's calendars if succesfully
- * authenticated.
- *
- * @return void
- */
-function processPageLoad()
-{
-	global $_SESSION, $_GET;
-
-	if (!isset($_SESSION['sessionToken']) && !isset($_GET['token'])) {
-		requestUserLogin('Please login to your Google Account.');
-	} else {
-		$client = getAuthSubHttpClient();
-		outputCalendarList($client);
-	}
-}
+*/
 
 /**
  * Returns a HTTP client object with the appropriate headers for communicating
@@ -363,7 +311,6 @@ function outputCalendarByFullTextQuery($client, $fullTextQuery)
  * specified event details.
  *
  * @param  Zend_Http_Client $client    The authenticated client object
- * @param  string           $title     The event title
  * @param  string			$object	   Source object into Dolibarr
  * @return string The ID URL for the event.
  */
@@ -371,7 +318,7 @@ function createEvent($client, $object)
 {
     // More examples on http://code.google.com/intl/fr/apis/calendar/data/1.0/developers_guide_php.html
 
-	$gc = new Zend_Gdata_Calendar($client);
+	$gc = new Zend_Gdata_Calendar($client, 'Dolibarr');
 
 	$newEntry = $gc->newEventEntry();
 	$newEntry->title = $gc->newTitle(trim($object->label));

@@ -1,5 +1,5 @@
 <?php
-/* Copyright (C) 2008-2011 Laurent Destailleur  <eldy@users.sourceforge.net>
+/* Copyright (C) 2008-2012 Laurent Destailleur  <eldy@users.sourceforge.net>
  */
 
 /**
@@ -23,7 +23,7 @@ require_once(DOL_DOCUMENT_ROOT."/core/lib/date.lib.php");
 require_once(DOL_DOCUMENT_ROOT.'/core/class/html.formadmin.class.php');
 require_once(DOL_DOCUMENT_ROOT.'/core/class/html.formother.class.php');
 dol_include_once("/google/lib/google.lib.php");
-dol_include_once('/google/lib/google_calendar.lib.php');
+dol_include_once('/google/lib/google_contact.lib.php');
 
 if (!$user->admin) accessforbidden();
 
@@ -33,14 +33,6 @@ $langs->load("other");
 
 $def = array();
 $action=GETPOST("action");
-
-if (empty($conf->global->GOOGLE_AGENDA_NB)) $conf->global->GOOGLE_AGENDA_NB=5;
-$MAXAGENDA=empty($conf->global->GOOGLE_AGENDA_NB)?5:$conf->global->GOOGLE_AGENDA_NB;
-
-// List of Google colors (A lot of colors are ignored by Google)
-$colorlist=array('7A367A','B1365F','5229A3','7A367A','29527A','2952A3','1B887A','28754E','0D7813','528800','88880E','AB8B00',
-                 'BE6D00','865A5A','705770','4E5D6C','5A6986','6E6E41','8D6F47','691426','5C1158','125A12','875509','754916',
-                 '5B123B','42104A','113F47','333333','711616','FFFFFF');
 
 
 /*
@@ -52,16 +44,19 @@ if ($action == 'save')
     $db->begin();
 
     //print 'color='.$color;
-    $res=dolibarr_set_const($db,'GOOGLE_DUPLICATE_INTO_GCAL'.$i,trim($_POST["GOOGLE_DUPLICATE_INTO_GCAL"]),'chaine',0);
+    $res=dolibarr_set_const($db,'GOOGLE_DUPLICATE_INTO_CONTACT'.$i,trim($_POST["GOOGLE_DUPLICATE_INTO_CONTACT"]),'chaine',0);
     if (! $res > 0) $error++;
-    $res=dolibarr_set_const($db,'GOOGLE_LOGIN',trim($_POST["GOOGLE_LOGIN"]),'chaine',0);
+    $res=dolibarr_set_const($db,'GOOGLE_CONTACT_LOGIN',trim($_POST["GOOGLE_CONTACT_LOGIN"]),'chaine',0);
     if (! $res > 0) $error++;
-    $res=dolibarr_set_const($db,'GOOGLE_PASSWORD',trim($_POST["GOOGLE_PASSWORD"]),'chaine',0);
+    $res=dolibarr_set_const($db,'GOOGLE_CONTACT_PASSWORD',trim($_POST["GOOGLE_CONTACT_PASSWORD"]),'chaine',0);
     if (! $res > 0) $error++;
-	$res=dolibarr_set_const($db,'GOOGLE_EVENT_LABEL_INC_SOCIETE',trim($_POST["GOOGLE_EVENT_LABEL_INC_SOCIETE"]),'chaine',0);
+    $res=dolibarr_set_const($db,'GOOGLE_CONTACT_LABEL',trim($_POST["GOOGLE_CONTACT_LABEL"]),'chaine',0);
+    if (! $res > 0) $error++;
+/*	$res=dolibarr_set_const($db,'GOOGLE_EVENT_LABEL_INC_SOCIETE',trim($_POST["GOOGLE_EVENT_LABEL_INC_SOCIETE"]),'chaine',0);
     if (! $res > 0) $error++;
 	$res=dolibarr_set_const($db,'GOOGLE_EVENT_LABEL_INC_CONTACT',trim($_POST["GOOGLE_EVENT_LABEL_INC_CONTACT"]),'chaine',0);
     if (! $res > 0) $error++;
+*/
 
     if (! $error)
     {
@@ -78,22 +73,22 @@ if ($action == 'save')
 // This is a hidden action to allow to test creation of event once synchro with Calendar has been enabled.
 if ($action == 'testcreate')
 {
-    include_once(DOL_DOCUMENT_ROOT.'/comm/action/class/actioncomm.class.php');
+    include_once(DOL_DOCUMENT_ROOT.'/societe/class/societe.class.php');
 
-    $object=new ActionComm($db);
+    $object=new Societe($db);
     $result=$object->initAsSpecimen();
 
-    $result=$object->add($user);
+    $object->name='Test Synchro Contact (can be deleted)';
+    $object->email='email@email.com';
+    /*$object->code_client=-1;
+    $object->code_fournisseur=-1;*/
+    $result=$object->create($user);
 
-    $object->label='New label';
-    $object->location='New location';
-    $object->note='New note';
-    $object->datep+=3600;
-    $object->datef+=3600;
+    $object->name='New test Synchro Contact (can be deleted)';
+    $object->email='newemail@newemail.com';
+    $result=$object->update($object->id, $user);
 
-    $result=$object->update($user);
-
-    $result=$object->delete();
+    $result=$object->delete($object->id);
 
     if ($result > 0)
     {
@@ -131,13 +126,13 @@ print '<br>';
 $head=googleadmin_prepare_head();
 
 
-dol_fiche_head($head, 'tabagendasync', $langs->trans("GoogleTools"));
+dol_fiche_head($head, 'tabcontactsync', $langs->trans("GoogleTools"));
 
 
 print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
 print '<input type="hidden" name="action" value="save">';
 
-print $langs->trans("GoogleEnableSyncToCalendar").' '.$form->selectyesno("GOOGLE_DUPLICATE_INTO_GCAL",isset($_POST["GOOGLE_DUPLICATE_INTO_GCAL"])?$_POST["GOOGLE_DUPLICATE_INTO_GCAL"]:$conf->global->GOOGLE_DUPLICATE_INTO_GCAL,1).'<br><br>';
+print $langs->trans("GoogleEnableSyncToContact").' '.$form->selectyesno("GOOGLE_DUPLICATE_INTO_CONTACT",isset($_POST["GOOGLE_DUPLICATE_INTO_CONTACT"])?$_POST["GOOGLE_DUPLICATE_INTO_CONTACT"]:$conf->global->GOOGLE_DUPLICATE_INTO_CONTACT,1).'<br><br>';
 
 
 $var=false;
@@ -151,8 +146,8 @@ print "</tr>";
 print "<tr ".$bc[$var].">";
 print '<td class="fieldrequired">'.$langs->trans("GOOGLE_LOGIN")."</td>";
 print "<td>";
-print '<input class="flat" type="text" size="24" name="GOOGLE_LOGIN" value="'.$conf->global->GOOGLE_LOGIN.'">';
-print ' &nbsp; '.$langs->trans("KeepEmptyYoUseLoginPassOfEventUser");
+print '<input class="flat" type="text" size="24" name="GOOGLE_CONTACT_LOGIN" value="'.$conf->global->GOOGLE_CONTACT_LOGIN.'">';
+//print ' &nbsp; '.$langs->trans("KeepEmptyYoUseLoginPassOfEventUser");
 print "</td>";
 print "</tr>";
 // Google password
@@ -160,26 +155,20 @@ $var=!$var;
 print "<tr ".$bc[$var].">";
 print '<td class="fieldrequired">'.$langs->trans("GOOGLE_PASSWORD")."</td>";
 print "<td>";
-print '<input class="flat" type="text" size="10" name="GOOGLE_PASSWORD" value="'.$conf->global->GOOGLE_PASSWORD.'">';
-print ' &nbsp; '.$langs->trans("KeepEmptyYoUseLoginPassOfEventUser");
+print '<input class="flat" type="text" size="10" name="GOOGLE_CONTACT_PASSWORD" value="'.$conf->global->GOOGLE_CONTACT_PASSWORD.'">';
+//print ' &nbsp; '.$langs->trans("KeepEmptyYoUseLoginPassOfEventUser");
 print "</td>";
 print "</tr>";
-// Configuration du masque du libellé de l'évènement
+// Label to use
+/*
 $var=!$var;
 print "<tr ".$bc[$var].">";
-print "<td>".$langs->trans("GOOGLE_EVENT_LABEL_INC_SOCIETE")."<br /></td>";
+print "<td>".$langs->trans("GOOGLE_CONTACT_LABEL")."<br /></td>";
 print "<td>";
-print $form->selectyesno("GOOGLE_EVENT_LABEL_INC_SOCIETE",isset($_POST["GOOGLE_EVENT_LABEL_INC_SOCIETE"])?$_POST["GOOGLE_EVENT_LABEL_INC_SOCIETE"]:$conf->global->GOOGLE_EVENT_LABEL_INC_SOCIETE,1);
+print '<input class="flat" type="text" size="24" name="GOOGLE_CONTACT_LABEL" value="'.$conf->global->GOOGLE_CONTACT_LABEL.'">';
 print "</td>";
 print "</tr>";
-$var=!$var;
-print "<tr ".$bc[$var].">";
-print "<td>".$langs->trans("GOOGLE_EVENT_LABEL_INC_CONTACT")."<br /></td>";
-print "<td>";
-print $form->selectyesno("GOOGLE_EVENT_LABEL_INC_CONTACT",isset($_POST["GOOGLE_EVENT_LABEL_INC_CONTACT"])?$_POST["GOOGLE_EVENT_LABEL_INC_CONTACT"]:$conf->global->GOOGLE_EVENT_LABEL_INC_CONTACT,1);
-print "</td>";
-print "</tr>";
-
+*/
 
 print "</table>";
 print "<br>";
@@ -197,7 +186,7 @@ print '<br>';
 
 
 print '<div class="tabsActions">';
-if (empty($conf->global->GOOGLE_LOGIN) || empty($conf->global->GOOGLE_LOGIN))
+if (empty($conf->global->GOOGLE_CONTACT_LOGIN) || empty($conf->global->GOOGLE_CONTACT_LOGIN))
 {
 	print '<a class="butActionRefused" href="#">'.$langs->trans("TestConnection")."</a>";
 }

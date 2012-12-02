@@ -242,7 +242,7 @@ try {
 	$org = $doc->createElement('gd:organization');
 	$org->setAttribute('rel' ,'http://schemas.google.com/g/2005#work');
 	$entry->appendChild($org);
-	$orgName = $doc->createElement('gd:orgName', 'Dolibarr');
+	$orgName = $doc->createElement('gd:orgName', 'Test org from Dolibarr');
 	$org->appendChild($orgName);
 
 	// insert entry
@@ -260,9 +260,17 @@ try {
 try {
 	echo '<h2>Update Contact</h2>';
 
+	$gdata = new Zend_Gdata($client);
+	$gdata->setMajorProtocolVersion(3);
+
+	$query = new Zend_Gdata_Query($entryResult->getEditLink()->href);
+	//$entryResult = $gdata->getEntry($query,'Zend_Gdata_Contacts_ListEntry');
+	$entryResult = $gdata->getEntry($query);
+
 	$xml = simplexml_load_string($entryResult->getXML());
-	$xml->name->fullName = 'Test Dolibarr 7';
-	$xml->name->givenName = 'Test 7';
+	$xml->name->fullName = 'Test from Dolibarr 2';
+	$xml->email['address'] = 'tesfromdolibarr2@example.com';
+	$xml->organization->orgName = 'Test org from Dolibarr 2';
 
 	$extra_header = array('If-Match'=>'*');
 	$newentryResult = $gdata->updateEntry($xml->saveXML(), $entryResult->getEditLink()->href, null, $extra_header);
