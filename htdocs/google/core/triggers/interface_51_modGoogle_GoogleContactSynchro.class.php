@@ -152,6 +152,7 @@ class InterfaceGoogleContactSynchro
 
 				if ($action == 'COMPANY_CREATE') {
 					$ret = createContact($client, $object);
+					var_dump($ref);
 					$object->update_ref_ext($ret);
 					// This is to store ref_ext to allow updates
 
@@ -186,9 +187,13 @@ class InterfaceGoogleContactSynchro
 					if ($gid && preg_match('/google/i', $object->ref_ext)) // This record is linked with Google Calendar
 					{
 						$ret = deleteContactByRef($client, $gid);
-						//var_dump($ret); exit;
-
-						return 1;
+						if ($ret)
+						{
+							$this->error=$ret;
+							$this->errors[]=$this->error;
+							return 0;
+						}
+						else return 1;
 					}
 				}
 			}

@@ -170,22 +170,31 @@ function updateContact($client, $contactId, $object)
  *
  * @param  Zend_Http_Client $client  	The authenticated client object
  * @param  string           $ref		The ref string
- * @return void
+ * @return string 						'' if OK, error message if KO
  */
 function deleteContactByRef($client, $ref)
 {
 	dol_syslog("deleteEventByRef ".$ref);
 
-	//$gdata = new Zend_Gdata_Contacts($client);
-	$gdata = new Zend_Gdata($client);
-	$gdata->setMajorProtocolVersion(3);
+	try
+	{
+		//$gdata = new Zend_Gdata_Contacts($client);
+		$gdata = new Zend_Gdata($client);
+		$gdata->setMajorProtocolVersion(3);
 
-	$query = new Zend_Gdata_Query($ref);
-	//$entryResult = $gdata->getEntry($query,'Zend_Gdata_Contacts_ListEntry');
-	$entryResult = $gdata->getEntry($query);
+		$query = new Zend_Gdata_Query($ref);
+		//$entryResult = $gdata->getEntry($query,'Zend_Gdata_Contacts_ListEntry');
+		$entryResult = $gdata->getEntry($query);
 
-	$extra_header = array('If-Match'=>$entryResult->getEtag());
-	$entryResult->delete($extra_header);
+		$extra_header = array('If-Match'=>$entryResult->getEtag());
+		$entryResult->delete($extra_header);
+
+		return '';
+	}
+	catch(Exception $e)
+	{
+		return $e->getMessage();
+	}
 }
 
 
