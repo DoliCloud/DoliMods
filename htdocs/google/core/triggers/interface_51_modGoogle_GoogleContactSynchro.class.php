@@ -152,7 +152,6 @@ class InterfaceGoogleContactSynchro
 
 				if ($action == 'COMPANY_CREATE') {
 					$ret = createContact($client, $object);
-					var_dump($ref);
 					$object->update_ref_ext($ret);
 					// This is to store ref_ext to allow updates
 

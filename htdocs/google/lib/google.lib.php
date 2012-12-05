@@ -43,7 +43,7 @@ function googleadmin_prepare_head()
     $head[$h][2] = 'tabagendasync';
     $h++;
 
-    if (! empty($conf->global->MAIN_LEVEL_FEATURES))
+    if (! empty($conf->global->MAIN_FEATURES_LEVEL))
     {
 	    $head[$h][0] = dol_buildpath("/google/admin/google_contactsync.php",1);
 	    $head[$h][1] = $langs->trans("ContactSync");

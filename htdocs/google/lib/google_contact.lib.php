@@ -14,6 +14,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  * or see http://www.gnu.org/
+ *
+ * Tutorial: http://25labs.com/import-gmail-or-google-contacts-using-google-contacts-data-api-3-0-and-oauth-2-0-in-php/
+ * Tutorial: http://www.ibm.com/developerworks/library/x-phpgooglecontact/index.html
+ * Tutorial: https://developers.google.com/google-apps/contacts/v3/
  */
 
 $path = dol_buildpath('/google/includes/zendgdata');
@@ -77,6 +81,8 @@ function createContact($client, $object)
 {
 	global $langs;
 
+	include_once(DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php');
+
 	$doc  = new DOMDocument();
 	try {
 		// perform login and set protocol version to 3.0
@@ -95,7 +101,6 @@ function createContact($client, $object)
 		// add name element
 		$name = $doc->createElement('gd:name');
 		$entry->appendChild($name);
-
 		$fullName = $doc->createElement('gd:fullName', $object->getFullName($langs));
 		$name->appendChild($fullName);
 
@@ -104,6 +109,13 @@ function createContact($client, $object)
 		$email->setAttribute('address' ,$object->email);
 		$email->setAttribute('rel' ,'http://schemas.google.com/g/2005#home');
 		$entry->appendChild($email);
+
+		// im
+		/*$im = $doc->createElement('gd:im');
+		$im->setAttribute('protocol', 'xxx');
+		$im->setAttribute('protocol', 'address');
+		$entry->appendChild($im);
+		*/
 
 		// add org name element
 		/*
@@ -114,10 +126,63 @@ function createContact($client, $object)
 		$org->appendChild($orgName);
 		*/
 
+		$address = $doc->createElement('gd:structuredPostalAddress');
+		$address->setAttribute('rel' ,'http://schemas.google.com/g/2005#work');
+		$address->setAttribute('primary' ,'true');
+		$entry->appendChild($address);
+		$city = $doc->createElement('gd:city', $object->town);
+		$address->appendChild($city);
+		$street = $doc->createElement('gd:street', $object->address);
+		$address->appendChild($street);
+		$postcode = $doc->createElement('gd:postcode', $object->zip);
+		$address->appendChild($postcode);
+		/*
+		$region = $doc->createElement('gd:region', getState($object->state_id,0));
+		$address->appendChild($region);
+		*/
+		$country = $doc->createElement('gd:country', getCountry($object->country_id,0));
+		$address->appendChild($country);
+		/*
+		$formattedaddress = $doc->createElement('gd:formattedAddress', 'eeeee');
+		$address->appendChild($formattedaddress);
+		*/
+
+		/*
+		$birthday = $doc->createElement('gd:birthday');
+		$birthday->setAttribute('when' , dol_print_date($object->birthday,'dayrfc'));
+		$entry->appendChild($birthday);
+		*/
+
+		$website = $doc->createElement('gd:website');
+		$website->setAttribute('href',$object->url);
+		$entry->appendChild($website);
+
+		$more = $doc->createElement('gd:extendedProperty');
+		$more->setAttribute('name','dolibarr-contact-id');
+		$more->setAttribute('value',$object->id);
+		$entry->appendChild($more);
+		$extid = $doc->createElement('gd:externaleId');
+		$extid->setAttribute('name','dolibarr-contact-id');
+		$extid->setAttribute('value',$object->id);
+		$entry->appendChild($extid);
+		$userdefined = $doc->createElement('gd:userDefinedField');
+		$userdefined->setAttribute('key','dolibarr-contact-id');
+		$userdefined->setAttribute('value',$object->id);
+		$entry->appendChild($userdefined);
+
+
+		$note = $doc->createElement('atom:content',$object->note);
+		$entry->appendChild($note);
+
+//		var_dump($doc->saveXML());exit;
+
 		// insert entry
 		$entryResult = $gdata->insertEntry($doc->saveXML(),	'http://www.google.com/m8/feeds/contacts/default/full');
 
+		//var_dump($doc->saveXML());exit;
+
 		//echo 'The id of the new entry is: ' . $entryResult->getId().'<br>';
+		//var_dump($entryResult);exit;
 
 		return $entryResult->getId();
 	} catch (Exception $e) {
@@ -144,15 +209,29 @@ function updateContact($client, $contactId, $object)
 	$gdata = new Zend_Gdata($client);
 	$gdata->setMajorProtocolVersion(3);
 
+	//$contactId='http://www.google.com/m8/feeds/contacts/eldy10%40gmail.com/base/75ba08690d17cdf2';
 	$query = new Zend_Gdata_Query($contactId);
 	//$entryResult = $gdata->getEntry($query,'Zend_Gdata_Contacts_ListEntry');
 	$entryResult = $gdata->getEntry($query);
 
 	$xml = simplexml_load_string($entryResult->getXML());
 
+	var_dump($entryResult->getXML());exit;
 	//$xml->name->fullName = $object->getFullName($langs);
 	$xml->name->fullName = $object->getFullName($langs);
+	//$xml->name->givenName = 'xxx';
+	//$xml->name->additionnalName = 'xxx';
+	//$xml->name->familyName = 'xxx';
+	//$xml->name->nameSuffix = 'xxx';
+	//$xml->formattedAddress;
 	$xml->email['address'] = $object->email;
+
+	foreach ($xml->phoneNumber as $p) {
+		$obj->phoneNumber[] = (string) $p;
+	}
+	foreach ($xml->website as $w) {
+		$obj->website[] = (string) $w['href'];
+	}
 
 	$extra_header = array('If-Match'=>'*');
 	$newentryResult = $gdata->updateEntry($xml->saveXML(), $entryResult->getEditLink()->href, null, $extra_header);

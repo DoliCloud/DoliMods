@@ -1,5 +1,7 @@
 <?php
 // Tutorial: http://25labs.com/import-gmail-or-google-contacts-using-google-contacts-data-api-3-0-and-oauth-2-0-in-php/
+// Tutorial: https://developers.google.com/google-apps/contacts/v3/
+
 
 $res=0;
 if (! $res && file_exists("../main.inc.php")) $res=@include("../main.inc.php");
