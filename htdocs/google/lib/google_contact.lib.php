@@ -216,7 +216,6 @@ function updateContact($client, $contactId, $object)
 
 	$xml = simplexml_load_string($entryResult->getXML());
 
-	var_dump($entryResult->getXML());exit;
 	//$xml->name->fullName = $object->getFullName($langs);
 	$xml->name->fullName = $object->getFullName($langs);
 	//$xml->name->givenName = 'xxx';
