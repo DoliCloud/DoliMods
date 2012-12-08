@@ -248,7 +248,7 @@ if ($address && $address != $object->country)
             }
             else
             {
-            	print 'Not found';
+            	print $langs->trans('AddressNotFound');
             }
         }
     }
