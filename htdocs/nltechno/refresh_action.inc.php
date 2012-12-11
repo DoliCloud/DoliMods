@@ -1,5 +1,6 @@
 <?php
 
+$langs->load("errors");
 
 if ($action == 'addauthorizedkey')
 {
@@ -47,7 +48,7 @@ if ($action == 'addauthorizedkey')
 				setEventMessage($langs->transnoentitiesnoconv("FileCreated"),'mesgs');
 
 			}
-			else setEventMessage($langs->transnoentitiesnoconv("FileAlreadyExists"),'warnings');
+			else setEventMessage($langs->transnoentitiesnoconv("ErrorFileAlreadyExists"),'warnings');
 
 			$object->fileauthorizedkey=(empty($fstat['atime'])?'':$fstat['atime']);
 
@@ -90,13 +91,49 @@ if ($action == 'addinstalllock')
 				fclose($stream);
 				$fstat=stat($fileinstalllock);
 				setEventMessage($langs->transnoentitiesnoconv("FileCreated"),'mesgs');
-
 			}
-			else setEventMessage($langs->transnoentitiesnoconv("FileAlreadyExists"),'warnings');
+			else setEventMessage($langs->transnoentitiesnoconv("ErrorFileAlreadyExists"),'warnings');
 
 			$object->filelock=(empty($fstat['atime'])?'':$fstat['atime']);
 
 			if (! empty($fstat['atime'])) $result = $object->update($user);
+		}
+	}
+	else setEventMessage($langs->transnoentitiesnoconv("FailedToConnectToSftp"),'errors');
+}
+
+
+if ($action == 'delinstalllock')
+{
+	// SFTP connect
+	if (! function_exists("ssh2_connect")) {
+		dol_print_error('','ssh2_connect function does not exists'); exit;
+	}
+
+	$server=$object->instance.'.on.dolicloud.com';
+	$connection = ssh2_connect($server, 22);
+	if ($connection)
+	{
+		//print $object->instance." ".$object->username_web." ".$object->password_web."<br>\n";
+		if (! @ssh2_auth_password($connection, $object->username_web, $object->password_web))
+		{
+			dol_syslog("Could not authenticate with username ".$username." . and password ".$password,LOG_ERR);
+		}
+		else
+		{
+			$sftp = ssh2_sftp($connection);
+
+			// Check if install.lock exists
+			$dir=preg_replace('/_dolibarr$/','',$object->database_db);
+			$filetodelete="/home/".$object->username_web.'/'.$dir.'/documents/install.lock';
+			$result=ssh2_sftp_unlink($sftp, $filetodelete);
+
+			if ($result) setEventMessage($langs->transnoentitiesnoconv("FileDeleted"),'mesgs');
+			else setEventMessage($langs->transnoentitiesnoconv("DeleteFails"),'warnings');
+
+			$object->filelock='';
+
+			if ($result) $result = $object->update($user);
 		}
 	}
 	else setEventMessage($langs->transnoentitiesnoconv("FailedToConnectToSftp"),'errors');

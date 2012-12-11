@@ -364,8 +364,8 @@ class Dolicloudcustomer extends CommonObject
                 $this->vat_number = $obj->vat_number;
                 $this->phone = $obj->phone;
 
-                $this->fileauthorizedkey = $obj->fileauthorizedkey;
-                $this->filelock = $obj->filelock;
+                $this->fileauthorizedkey = $this->db->jdate($obj->fileauthorizedkey);
+                $this->filelock = $this->db->jdate($obj->filelock);
 
                 $this->date_lastrsync = $this->db->jdate($obj->lastrsync);
                 $this->version = $obj->version;

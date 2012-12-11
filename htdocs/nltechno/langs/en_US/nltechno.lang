@@ -20,3 +20,5 @@ DoliCloudArea=DoliCloud area
 DateLastBackup=Date last backup
 NLTechnoSetup=NLTechno module setup
 NLTechnoDesc=Miscellaneous setup of Techno module
+FileDeleted=File deleted
+FileCreated=File created
