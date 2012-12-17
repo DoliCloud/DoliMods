@@ -112,7 +112,7 @@ print '<tr '.$bc[$var].'><td>'.$langs->trans("DirForDoliCloudInstances").'</td>'
 print '<td>';
 print '<input size="40" type="text" name="DOLICLOUD_INSTANCES_PATH" value="'.$conf->global->DOLICLOUD_INSTANCES_PATH.'">';
 print '</td>';
-print '<td>/home/dolicloud_instances/home</td>';
+print '<td>/home/dolicloud/home</td>';
 print '<td>&nbsp;</td>';
 print '</tr>';
 
@@ -121,7 +121,7 @@ print '<tr '.$bc[$var].'><td>'.$langs->trans("DirForScriptPath").'</td>';
 print '<td>';
 print '<input size="40" type="text" name="DOLICLOUD_SCRIPTS_PATH" value="'.$conf->global->DOLICLOUD_SCRIPTS_PATH.'">';
 print '</td>';
-print '<td>/home/dolibarr/scripts</td>';
+print '<td>/home/admin/wwwroot/dolibarr_nltechno/scripts</td>';
 print '<td>&nbsp;</td>';
 print '</tr>';
 
@@ -130,7 +130,7 @@ print '<tr '.$bc[$var].'><td>'.$langs->trans("DirForLastStableVersionOfDolibarr"
 print '<td>';
 print '<input size="40" type="text" name="DOLICLOUD_LASTSTABLEVERSION_DIR" value="'.$conf->global->DOLICLOUD_LASTSTABLEVERSION_DIR.'">';
 print '</td>';
-print '<td>/home/ldestailleur/git/dolibarr_old</td>';
+print '<td>/home/admin/wwwroot/dolibarr_old</td>';
 print '<td>&nbsp;</td>';
 print '</tr>';
 
