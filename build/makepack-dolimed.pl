@@ -107,8 +107,8 @@ for (0..@ARGV-1) {
     	$FILENAMESNAPSHOT.="-".$PREFIX; 
     }
 }
-if ($ENV{"DESTIBETARC"} && $BUILD =~ /[a-z]/i)    { $DESTI = $ENV{"DESTIBETARC"}; }		# Force output dir if env DESTI is defined
-if ($ENV{"DESTISTABLE"}  && $BUILD =~ /^[0-9]+$/) { $DESTI = $ENV{"DESTISTABLE"}; }	# Force output dir if env DESTI is defined
+if ($ENV{"DESTIDOLIMEDBETARC"} && $BUILD =~ /[a-z]/i)    { $DESTI = $ENV{"DESTIDOLIMEDBETARC"}; }		# Force output dir if env DESTI is defined
+if ($ENV{"DESTIDOLIMEDSTABLE"} && $BUILD =~ /^[0-9]+$/)  { $DESTI = $ENV{"DESTIDOLIMEDSTABLE"}; }	# Force output dir if env DESTI is defined
 
 
 print "Makepack version $VERSION\n";
