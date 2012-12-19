@@ -112,8 +112,8 @@ class InterfaceGoogleContactSynchro
 		$fuser = new User($this->db);
 
 		//var_dump($object); exit;
-		$user = $conf->global->GOOGLE_LOGIN;
-		$pwd = $conf->global->GOOGLE_PASSWORD;
+		$user = empty($conf->global->GOOGLE_CONTACT_LOGIN)?'':$conf->global->GOOGLE_CONTACT_LOGIN;
+		$pwd  = empty($conf->global->GOOGLE_CONTACT_PASSWORD)?'':$conf->global->GOOGLE_CONTACT_PASSWORD;
 
 		if (empty($conf->global->GOOGLE_DUPLICATE_INTO_CONTACT)) return 0;
 		//print $action.' - '.$user.' - '.$pwd.' - '.$conf->global->GOOGLE_DUPLICATE_INTO_CONTACT; exit;

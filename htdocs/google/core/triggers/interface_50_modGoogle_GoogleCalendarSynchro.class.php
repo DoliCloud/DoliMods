@@ -112,8 +112,8 @@ class InterfaceGoogleCalendarSynchro
 		$fuser = new User($this->db);
 
 		//var_dump($object); exit;
-		$user = $conf->global->GOOGLE_LOGIN;
-		$pwd = $conf->global->GOOGLE_PASSWORD;
+		$user = empty($conf->global->GOOGLE_LOGIN)?'':$conf->global->GOOGLE_LOGIN;
+		$pwd  = empty($conf->global->GOOGLE_PASSWORD)?'':$conf->global->GOOGLE_PASSWORD;
 
 		if (empty($user) || empty($pwd))	// We use setup of user
 		{
