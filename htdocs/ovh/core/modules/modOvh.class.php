@@ -83,7 +83,8 @@ class modOvh extends DolibarrModules
 
 		// Constants
 		$this->const = array(0=>array('MAIN_MODULE_OVH_SMS','chaine','ovh','This is to enable OVH SMS engine',0,'current',1),
-		                     1=>array('MAIN_SMS_SENDMODE','chaine','ovh','This is to enable OVH SMS engine',0)
+		                     1=>array('MAIN_SMS_SENDMODE','chaine','ovh','This is to enable OVH SMS engine',0),
+							 2=>array('MAIN_MENU_ENABLE_MODULETOOLS','chaine','ovh','To enable module tools entry',0,'allentities',1)
 		);			// List of particular constants to add when module is enabled
 		//Example: $this->const=array(0=>array('MYMODULE_MYNEWCONST1','chaine','myvalue','This is a constant to add',0),
 		//                            1=>array('MYMODULE_MYNEWCONST2','chaine','myvalue','This is another constant to add',0) );
