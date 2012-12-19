@@ -144,7 +144,13 @@ if ($action == 'import' && $ovhthirdparty->id > 0)
 		if (! $error)
 		{
 			//billingInvoiceList
-			$result = $soap->billingInvoiceList($session);
+			try {
+				$result = $soap->billingInvoiceList($session);
+			}
+			catch(Exception $e)
+			{
+				echo 'Exception soap->billingInvoiceList: '.$e->getMessage()."\n";
+			}
 			//echo "billingInvoiceList successfull (".count($result)." ".$langs->trans("Invoices").")\n";
 
 			foreach($listofref as $key => $val)
@@ -153,12 +159,24 @@ if ($action == 'import' && $ovhthirdparty->id > 0)
 				$billingcountry=$listofbillingcountry[$key];
 				//$vatrate=$listofvat[$key];
 
-				//print "We try to create supplier invoice ".$billnum." ".$billingcountry."...<br>\n";
+				// Search key into array $result for billnum $billnum
+				$keyresult=0;
+				foreach($result as $i => $r)
+				{
+					if ($r->billnum == $billnum)
+					{
+						$keyresult=$i;
+						break;
+					}
+				}
 
-				//facture n'existe pas
+				//print "We try to create supplier invoice billnum ".$billnum." ".$billingcountry.", key in listofref = ".$key.", key in result ".$keyresult." ...<br>\n";
+
+				// Invoice does not exists
 				$db->begin();
-				$result[$key]->info=$soap->billingInvoiceInfo($session, $billnum, null, $billingcountry); //on recupere les details
-				$r=$result[$key];
+
+				$result[$keyresult]->info=$soap->billingInvoiceInfo($session, $billnum, null, $billingcountry); //on recupere les details
+				$r=$result[$keyresult];
 
 				if ($r->info->taxrate < 1) $vatrate=price2num($r->info->taxrate * 100);
 				else $vatrate=price2num(($r->info->taxrate - 1) * 100);
@@ -168,18 +186,22 @@ if ($action == 'import' && $ovhthirdparty->id > 0)
 				$facfou->ref           = $billnum;
 				$facfou->socid         = $idovhsupplier;
 				$facfou->libelle       = "OVH ".$billnum;
-				$facfou->date          = strtotime($r->date);
-				$facfou->date_echeance = strtotime($r->date);
+				$facfou->date          = dol_stringtotime($r->date,1);
+				$facfou->date_echeance = dol_stringtotime($r->date,1);
 				$facfou->note_public   = '';
+
+				//var_dump($billnum.' '.$r->date.' '.dol_print_date($facfou->date,'dayhour'));exit;
 
 				$facid = $facfou->create($fuser);
 				if ($facid > 0)
 				{
 					foreach($r->info->details as $d)
 					{
+						//var_dump($d->start);
+						//var_dump($d->end);
 						$label='<strong>ref :'.$d->service.'</strong><br>'.$d->description.'<br>';
-						if ($d->start) $label.=$langs->trans("From").' '.date('d/m/Y',strtotime($d->start));
-						if ($d->end)   $label.=($d->start?' ':'').$langs->trans("To").' '.date('d/m/Y',strtotime($d->end));
+						if ($d->start && $d->start != '0000-00-00 00:00:00') $label.=$langs->trans("From").' '.dol_print_date(strtotime($d->start),'day');
+						if ($d->end && $d->end != '0000-00-00 00:00:00')     $label.=($d->start?' ':'').$langs->trans("To").' '.dol_print_date(strtotime($d->end),'day');
 						$amount=$d->baseprice;
 						$qty=$d->quantity;
 						$price_base='HT';
@@ -187,24 +209,28 @@ if ($action == 'import' && $ovhthirdparty->id > 0)
 						$remise_percent=0;
 						$fk_product=null;
 						$ret=$facfou->addline($label, $amount, $tauxtva, 0, 0, $qty, $fk_product, $remise_percent, '', '', '', 0, $price_base);
-						if ($ret < 0) $nberror++;
-						if ($nberror)
+						if ($ret < 0)
 						{
-							$db->rollback();
 							$error++;
 							setEventMessage("ERROR: ".$facfou->error, 'errors');
-						}
-						else
-						{
-							//print "Success<br>\n";
-							$db->commit();
+							break;
 						}
 					}
 				}
-				else {
-					$db->rollback();
+				else
+				{
 					$error++;
 					setEventMessage("ERROR: ".$facfou->error, 'errors');
+				}
+
+				if (! $error)
+				{
+					//print "Success<br>\n";
+					$db->commit();
+				}
+				else
+				{
+					$db->rollback();
 				}
 			}
 
@@ -263,6 +289,7 @@ if ($action == 'refresh')
 	    //billingInvoiceList
 	    $result = $soap->billingInvoiceList($session);
 	    dol_syslog("billingInvoiceList successfull (".count($result)." invoices)");
+	    //var_dump($result[0]->date.' '.dol_print_date(dol_stringtotime($r->date,1),'day'));exit;
 
 	    // Set qualified invoices into arrayinvoice
 	    $arrayinvoice=array();
