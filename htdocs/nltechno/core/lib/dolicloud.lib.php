@@ -1,6 +1,5 @@
 <?php
-/* Copyright (C) 2006-2010 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2010      Regis Houssin		<regis@dolibarr.fr>
+/* Copyright (C) 2006-2012 Laurent Destailleur  <eldy@users.sourceforge.net>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,8 +17,8 @@
  */
 
 /**
- *	    \file       htdocs/core/lib/contact.lib.php
- *		\brief      Ensemble de fonctions de base pour les contacts
+ *	    \file       htdocs/core/lib/dolicloud.lib.php
+ *		\brief      Ensemble de fonctions de base pour le module NLTechno, DoliCloud part
  */
 
 /**
@@ -35,33 +34,37 @@ function dolicloud_prepare_head($object)
 	$h = 0;
 	$head = array();
 
-	$head[$h][0] = dol_buildpath('/nltechno/dolicloud_card.php',1).'?id='.$object->id;
+	$head[$h][0] = ($object->id?dol_buildpath('/nltechno/dolicloud_card.php',1).'?id='.$object->id:'');
 	$head[$h][1] = $langs->trans("Card");
 	$head[$h][2] = 'card';
 	$h++;
 
-	$head[$h][0] = dol_buildpath('/nltechno/dolicloud_card_upgrade.php',1).'?id='.$object->id;
-	$head[$h][1] = $langs->trans("Upgrade");
-	$head[$h][2] = 'upgrade';
-	$h++;
+	if ($object->id > 0)
+	{
+		$head[$h][0] = dol_buildpath('/nltechno/dolicloud_card_upgrade.php',1).'?id='.$object->id;
+		$head[$h][1] = $langs->trans("Upgrade");
+		$head[$h][2] = 'upgrade';
+		$h++;
 
-	$head[$h][0] = dol_buildpath('/nltechno/dolicloud_card_backup.php',1).'?id='.$object->id;
-	$head[$h][1] = $langs->trans("Backup");
-	$head[$h][2] = 'backup';
-	$h++;
+		$head[$h][0] = dol_buildpath('/nltechno/dolicloud_card_backup.php',1).'?id='.$object->id;
+		$head[$h][1] = $langs->trans("Backup");
+		$head[$h][2] = 'backup';
+		$h++;
 
-	// Show more tabs from modules
-    // Entries must be declared in modules descriptor with line
-    // $this->tabs = array('entity:+tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to add new tab
-    // $this->tabs = array('entity:-tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to remove a tab
-    complete_head_from_modules($conf,$langs,$object,$head,$h,'contact');
+		// Show more tabs from modules
+	    // Entries must be declared in modules descriptor with line
+	    // $this->tabs = array('entity:+tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to add new tab
+	    // $this->tabs = array('entity:-tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to remove a tab
+	    complete_head_from_modules($conf,$langs,$object,$head,$h,'contact');
 
-    /*
-    $head[$h][0] = dol_buildpath('/nltechno/dolicloud_info.php',1).'?id='.$object->id;
-	$head[$h][1] = $langs->trans("Info");
-	$head[$h][2] = 'info';
-	$h++;
-*/
+	    /*
+	    $head[$h][0] = dol_buildpath('/nltechno/dolicloud_info.php',1).'?id='.$object->id;
+		$head[$h][1] = $langs->trans("Info");
+		$head[$h][2] = 'info';
+		$h++;
+	*/
+	}
+
 	return $head;
 }
 

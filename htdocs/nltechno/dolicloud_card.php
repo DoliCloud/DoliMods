@@ -64,7 +64,7 @@ $hookmanager=new HookManager($db);
 
 if ($id > 0 || $instance)
 {
-	$result=$object->fetch($id,$instance);
+	$result=$object->fetch($id,($id?'':$instance));
 	if ($result < 0) dol_print_error($db,$object->error);
 }
 
@@ -177,6 +177,7 @@ if (empty($reshook))
 		{
 			$object->oldcopy=dol_clone($object);
 
+			$object->instance    	= $_POST["instance"];
 			$object->organization	= $_POST["organization"];
 			$object->plan			= $_POST["plan"];
 			$object->lastname		= $_POST["lastname"];
@@ -247,10 +248,9 @@ if ($user->rights->nltechno->dolicloud->delete)
 	}
 }
 
-/*
- * Onglets
- */
-if ($id > 0 || $instance)
+
+// Tabs
+if ($id > 0 || $instance || $action == 'create')
 {
 	// Show tabs
 	$head = dolicloud_prepare_head($object);
@@ -280,9 +280,8 @@ if ($user->rights->nltechno->dolicloud->write)
 		}
 
 		$title = $addcontact = $langs->trans("DoliCloudCustomers");
-		print_fiche_titre($title);
 
-		// Affiche les erreurs
+		// Show errors
 		dol_htmloutput_errors(is_numeric($error)?'':$error,$errors);
 
 		if ($conf->use_javascript_ajax)
@@ -315,7 +314,6 @@ if ($user->rights->nltechno->dolicloud->write)
 			print '</script>'."\n";
 		}
 
-		print '<br>';
 		print '<form method="post" name="formsoc" action="'.$_SERVER["PHP_SELF"].'">';
 		print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
 		print '<input type="hidden" name="action" value="add">';
@@ -378,7 +376,7 @@ if ($user->rights->nltechno->dolicloud->write)
 		print '</tr>';
 
 		// Phone
-		print '<tr><td>'.$langs->trans("PhonePro").'</td><td colspan="3"><input name="phone" type="text" size="18" maxlength="80" value="'.(isset($_POST["phone"])?$_POST["phone"]:$object->phone).'"></td>';
+		print '<tr><td class="fieldrequired">'.$langs->trans("PhonePro").'</td><td colspan="3"><input name="phone" type="text" size="18" maxlength="80" value="'.(isset($_POST["phone"])?$_POST["phone"]:$object->phone).'"></td>';
 		print '</tr>';
 
 		// Note
@@ -445,7 +443,7 @@ if ($user->rights->nltechno->dolicloud->write)
 	{
 		/*
 		 * Fiche en mode edition
-		*/
+		 */
 
 		// We set country_id, and country_code label of the chosen country
 		if (isset($_POST["country_id"]) || $object->country_id)
@@ -497,11 +495,11 @@ if ($user->rights->nltechno->dolicloud->write)
 
 		// Instance
 		print '<tr><td class="fieldrequired">'.$langs->trans("Instance").'</td><td colspan="3">';
-		print $object->ref;
+		print '<input name="instance" type="text" size="20" maxlength="80" value="'.(isset($_POST["instance"])?$_POST["instance"]:$object->instance).'">';
 		print '</td></tr>';
 
 		print '<tr><td class="fieldrequired">'.$langs->trans("Organization").'</td><td colspan="3">';
-		print '<input name="organization" type="text" size="20" maxlength="80" value="'.(isset($_POST["organization"])?$_POST["organization"]:$object->organization).'">';
+		print '<input name="organization" type="text" size="40" maxlength="80" value="'.(isset($_POST["organization"])?$_POST["organization"]:$object->organization).'">';
 		print '</td></tr>';
 
 		// EMail
@@ -845,6 +843,11 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 	print 'Mysql connect string<br>';
 	print '<input type="text" name="mysqlconnectstring" value="'.$mysqlconnectstring.'" size="120"><br>';
 
+}
+
+if ($id > 0 || $instance || $action == 'create')
+{
+	dol_fiche_end();
 }
 
 
