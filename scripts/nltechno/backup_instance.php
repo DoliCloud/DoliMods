@@ -57,8 +57,8 @@ $object = new DoliCloudCustomer($db);
 
 if (empty($dirroot) || empty($instance) || empty($mode))
 {
-	print "Usage:   $script_file instance    backup_dir  (test|confirm)\n";
-	print "Example: $script_file myinstance  /home/dolicloud_instances/home  test\n";
+	print "Usage:   $script_file instance    backup_dir  (testrsync|testdatabase|confirmrsync|confirmdatabase|confirm)\n";
+	print "Example: $script_file myinstance  /home/dolicloud_instances/home  testrsync\n";
 	print "Return code: 0 if success, <>0 if error\n";
 	exit(-1);
 }
@@ -95,11 +95,19 @@ if (empty($login) || empty($dirdb))
 
 print 'Backup instance '.$instance.' to '.$dirroot.'/'.$login."\n";
 print 'SFTP password '.$object->password_web."\n";
+print 'Database password '.$object->password_db."\n";
 
 //$listofdir=array($dirroot.'/'.$login, $dirroot.'/'.$login.'/documents', $dirroot.'/'.$login.'/system', $dirroot.'/'.$login.'/htdocs', $dirroot.'/'.$login.'/scripts');
-if ($mode == 'confirm')
+if ($mode == 'confirm' || $mode == 'confirmrsync' || $mode == 'confirmdatabase')
 {
-	$listofdir=array($dirroot.'/'.$login);
+	$listofdir=array();
+	$listofdir[]=$dirroot.'/'.$login;
+	if ($mode == 'confirm' || $mode == 'confirmdatabase')
+	{
+		$listofdir[]=$dirroot.'/'.$login.'/documents';
+		$listofdir[]=$dirroot.'/'.$login.'/documents/admin';
+		$listofdir[]=$dirroot.'/'.$login.'/documents/admin/backup';
+	}
 	foreach($listofdir as $dirtocreate)
 	{
 		if (! is_dir($dirtocreate))
@@ -114,61 +122,91 @@ if ($mode == 'confirm')
 	}
 }
 
-// Define SFTP strings
-/*
-$sftpconnectstring=$object->username_web.'@'.$object->hostname_web.':/home/'.$object->username_web.'/'.preg_replace('/_dolibarr$/','',$object->database_db);
-print 'SFTP connect string : '.$sftpconnectstring."\n";
-print 'SFTP password '.$object->password_web."\n";
-*/
-
-
-$command="rsync";
-$param=array();
-if ($mode != 'confirm') $param[]="-n";
-//$param[]="-a";
-$param[]="-rlt";
-$param[]="-v";
-$param[]="--exclude .buildpath";
-$param[]="--exclude .git";
-$param[]="--exclude .gitignore";
-$param[]="--exclude .settings";
-$param[]="--exclude .project";
-$param[]="--exclude build/";
-//$param[]="--exclude doc/";	// To keep files into htdocs/core/module/xxx/doc dir
-$param[]="--exclude dev/";
-$param[]="--exclude test/";
-$param[]="--exclude system/";
-//$param[]="--delete";
-$param[]="--backup --suffix=.log --delete";
-$param[]="--stats";
-$param[]="-e 'ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no'";
-
-
-
-//var_dump($param);
-//print "- Backup documents dir ".$dirroot."/".$instance."\n";
-$param[]=$login.'@'.$server.":".$sourcedir;
-$param[]=$dirroot.'/'.$login;
-$fullcommand=$command." ".join(" ",$param);
-$output=array();
-$return_var=0;
-print $fullcommand."\n";
-exec($fullcommand, &$output, &$return_var);
-
-// Output result
-foreach($output as $outputline)
+if ($mode == 'testrsync' || $mode == 'confirmrsync' || $mode == 'confirm')
 {
-	print $outputline."\n";
+	$command="rsync";
+	$param=array();
+	if ($mode != 'confirm') $param[]="-n";
+	//$param[]="-a";
+	$param[]="-rlt";
+	$param[]="-v";
+	$param[]="--exclude .buildpath";
+	$param[]="--exclude .git";
+	$param[]="--exclude .gitignore";
+	$param[]="--exclude .settings";
+	$param[]="--exclude .project";
+	$param[]="--exclude build/";
+	//$param[]="--exclude doc/";	// To keep files into htdocs/core/module/xxx/doc dir
+	$param[]="--exclude dev/";
+	$param[]="--exclude test/";
+	$param[]="--exclude system/";
+	//$param[]="--delete";
+	$param[]="--backup --suffix=.log --delete";
+	$param[]="--stats";
+	$param[]="-e 'ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no'";
+
+
+
+	//var_dump($param);
+	//print "- Backup documents dir ".$dirroot."/".$instance."\n";
+	$param[]=$login.'@'.$server.":".$sourcedir;
+	$param[]=$dirroot.'/'.$login;
+	$fullcommand=$command." ".join(" ",$param);
+	$output=array();
+	$return_var=0;
+	print $fullcommand."\n";
+	exec($fullcommand, &$output, &$return_var);
+
+	// Output result
+	foreach($output as $outputline)
+	{
+		print $outputline."\n";
+	}
 }
 
+if ($mode == 'testdatabase' || $mode == 'confirmdatabase' || $mode == 'confirm')
+{
+	$command="mysqldump";
+	$param=array();
+	$param[]=$object->database_db;
+	$param[]="-h";
+	$param[]=$server;
+	$param[]="-u";
+	$param[]=$object->username_db;
+	$param[]='-p"'.str_replace(array('"','`'),array('\"','\`'),$object->password_db).'"';
+	$param[]="--compress";
+	$param[]="-l";
+	$param[]="--single-transaction";
+	$param[]="-K";
+	$param[]="--tables";
+	$param[]="-c";
+	$param[]="-e";
+	$param[]="--hex-blob";
+	$param[]="--default-character-set=utf8";
+
+	$fullcommand=$command." ".join(" ",$param);
+	if ($mode == 'testdatabase') $fullcommand.=" > /dev/null";
+	else $fullcommand.=" > ".$dirroot.'/'.$login.'/documents/admin/backup/mysqldump_'.$object->database_db.'_'.gmstrftime('%Y%m%d%H%M%S').'.sql';
+	$output=array();
+	$return_varmysql=0;
+	print $fullcommand."\n";
+	exec($fullcommand, &$output, &$return_varmysql);
+
+	// Output result
+	foreach($output as $outputline)
+	{
+		print $outputline."\n";
+	}
+}
+
+
 // Update database
-//if (empty($return_vardoc) && empty($return_varhtdocs) && empty($return_varscripts) && empty($return_varmysql))
-if (empty($return_var))
+if (empty($return_var) && empty($return_varmysql))
 {
 	if ($mode == 'confirm')
 	{
 		$now=dol_now();
-		print 'Update date of backup for instance '.$object->instance.' to '.$now."\n";
+		print 'Update date of full backup (rsync+dump) for instance '.$object->instance.' to '.$now."\n";
 		$object->date_lastrsync=$now;
 		$object->update(0);
 	}
