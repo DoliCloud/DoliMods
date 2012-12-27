@@ -185,8 +185,8 @@ if ($mode == 'testdatabase' || $mode == 'confirmdatabase' || $mode == 'confirm')
 	$param[]="--default-character-set=utf8";
 
 	$fullcommand=$command." ".join(" ",$param);
-	if ($mode == 'testdatabase') $fullcommand.=" > /dev/null";
-	else $fullcommand.=" > ".$dirroot.'/'.$login.'/documents/admin/backup/mysqldump_'.$object->database_db.'_'.gmstrftime('%Y%m%d%H%M%S').'.sql';
+	if ($mode == 'testdatabase') $fullcommand.=" | bzip2 > /dev/null";
+	else $fullcommand.=" | bzip2 > ".$dirroot.'/'.$login.'/documents/admin/backup/mysqldump_'.$object->database_db.'_'.gmstrftime('%d').'.sql.bz2';
 	$output=array();
 	$return_varmysql=0;
 	print $fullcommand."\n";
