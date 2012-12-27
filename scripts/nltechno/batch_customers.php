@@ -63,7 +63,7 @@ $langs->load("main");				// To load language file for default language
 
 print "***** ".$script_file." (".$version.") *****\n";
 if (! isset($argv[1])) {	// Check parameters
-    print "Usage: ".$script_file." [backup|backuptest]\n";
+    print "Usage: ".$script_file." [backup|backuptestrsync|backuptestdatabase]\n";
     exit;
 }
 print '--- start'."\n";
@@ -89,7 +89,7 @@ dol_include_once('/nltechno/class/dolicloudcustomer.class.php');
 $object=new Dolicloudcustomer($db);
 
 
-if ($action == 'backup' || $action == 'backuptest')
+if ($action == 'backup' || $action == 'backuptestrsync' || $action == 'backuptestdatabase')
 {
 	$instances=array();
 
@@ -141,19 +141,23 @@ if ($action == 'backup' || $action == 'backuptest')
 			// Run backup
 			print "Process backup of instance ".$instance."\n";
 
-			$command=($path?$path.'/':'')."backup_instance.php ".escapeshellarg($instance)." ".escapeshellarg($conf->global->DOLICLOUD_INSTANCES_PATH)." ".($action == 'backup'?'confirm':'test');
+			$command=($path?$path.'/':'')."backup_instance.php ".escapeshellarg($instance)." ".escapeshellarg($conf->global->DOLICLOUD_INSTANCES_PATH)." ".($action == 'backup'?'confirm':($action == 'backuptestdatabase'?'testdatabase':'testrsync'));
 
-			//$output = shell_exec($command);
 			if ($action == 'backup')
 			{
+				//$output = shell_exec($command);
 				ob_start();
 				passthru($command, $return_val);
 				$content_grabbed=ob_get_contents();
 				ob_end_clean();
-			}
 
-			echo "Result: ".$return_val."\n";
-			echo "Output: ".$content_grabbed."\n";
+				echo "Result: ".$return_val."\n";
+				echo "Output: ".$content_grabbed."\n";
+			}
+			else
+			{
+				echo $command."\n";
+			}
 
 			if ($return_val != 0) $error++;
 
