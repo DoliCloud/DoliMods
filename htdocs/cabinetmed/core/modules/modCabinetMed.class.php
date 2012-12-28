@@ -369,6 +369,8 @@ class modCabinetMed extends DolibarrModules
      */
     function init($options='')
     {
+    	global $langs;
+
         $result=$this->load_tables();
 
         require_once(DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php');
