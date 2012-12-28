@@ -83,7 +83,7 @@ class modCabinetMed extends DolibarrModules
         							'substitutions' => 1,
         							'menus' => 1,
         							'css' => 0,    // No new theme, only a forced dir
-        							'hooks' => array('thirdpartycard','contactcard','documentcabinetmed','searchform'));
+        							'hooks' => array('thirdpartycard','contactcard','documentcabinetmed','searchform','demo'));
 
         // Dependencies
         $this->depends = array('modSociete');       // List of modules id that must be enabled if this module is enabled

@@ -150,6 +150,25 @@ class ActionsCabinetmed
      * Complete doc forms
      *
      * @param	array	$parameters		Array of parameters
+     * @return	void
+     */
+    function addDemoProfile($parameters)
+    {
+    	global $conf;
+
+    	if ($conf->cabinetmed->enabled)
+    	{
+    		$GLOBALS['demoprofiles'][]=array('default'=>'0', 'key'=>'profdemomed', 'lang'=>'cabinetmed@cabinetmed', 'label'=>'DemoCabinetMed', 'url'=>'http://demodolimed.dolibarr.org',
+    		 'disablemodules'=>'adherent,boutique,don,externalsite',
+    		 'icon'=>DOL_URL_ROOT.'/public/demo/dolibarr_screenshot9.png');
+    	}
+    }
+
+
+    /**
+     * Complete doc forms
+     *
+     * @param	array	$parameters		Array of parameters
      * @return	string					HTML content to add by hook
      */
     function printSearchForm($parameters)
