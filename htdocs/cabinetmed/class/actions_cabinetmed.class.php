@@ -158,9 +158,19 @@ class ActionsCabinetmed
 
     	if ($conf->cabinetmed->enabled)
     	{
-    		$GLOBALS['demoprofiles'][]=array('default'=>'0', 'key'=>'profdemomed', 'lang'=>'cabinetmed@cabinetmed', 'label'=>'DemoCabinetMed', 'url'=>'http://demodolimed.dolibarr.org',
-    		 'disablemodules'=>'adherent,boutique,don,externalsite',
-    		 'icon'=>DOL_URL_ROOT.'/public/demo/dolibarr_screenshot9.png');
+    		if (! empty($conf->global->CABINETMED_DEMO_URL))
+    		{
+    			// $conf->global->CABINETMED_DEMO_URL = 'http://demodolimed.dolibarr.org'
+    			$GLOBALS['demoprofiles'][]=array(
+    				'default'=>'0',
+    				'key'=>'profdemomed',
+    				'lang'=>'cabinetmed@cabinetmed',
+    				'label'=>'DemoCabinetMed',
+    				'url'=>$conf->global->CABINETMED_DEMO_URL,
+    		 		'disablemodules'=>'adherent,boutique,don,externalsite',
+    		 		'icon'=>DOL_URL_ROOT.'/public/demo/dolibarr_screenshot9.png'
+    			);
+    		}
     	}
     }
 
