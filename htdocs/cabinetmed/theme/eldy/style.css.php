@@ -1,8 +1,9 @@
 <?php
-/* Copyright (C) 2004-2012 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C)      2006 Rodolphe Quiedeville <rodolphe@quiedeville.org>
- * Copyright (C) 2007-2012 Regis Houssin        <regis@dolibarr.fr>
- * Copyright (C)	  2011 Philippe Grand       <philippe.grand@atoo-net.com>
+/* Copyright (C) 2004-2012  Laurent Destailleur  <eldy@users.sourceforge.net>
+ * Copyright (C) 2006 		Rodolphe Quiedeville <rodolphe@quiedeville.org>
+ * Copyright (C) 2007-2012  Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2011       Philippe Grand       <philippe.grand@atoo-net.com>
+ * Copyright (C) 2012		Juanjo Menent			<jmenent@2byte.es>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -99,8 +100,10 @@ $colorbacktabcard2=($colred-15).','.($colgreen-15).','.($colblue-15);
 $colorbacktabactive=($colred-15).','.($colgreen-15).','.($colblue-15);
 $colorbacklineimpair1=(244+round($isred/3)).','.(244+round($isgreen/3)).','.(244+round($isblue/3));    // line impair
 $colorbacklineimpair2=(250+round($isred/3)).','.(250+round($isgreen/3)).','.(250+round($isblue/3));    // line impair
+$colorbacklineimpairhover=(230+round(($isred+$isgreen+$isblue)/9)).','.(230+round(($isred+$isgreen+$isblue)/9)).','.(230+round(($isred+$isgreen+$isblue)/9));    // line impair
 $colorbacklinepair1='255,255,255';    // line pair
 $colorbacklinepair2='255,255,255';    // line pair
+$colorbacklinepairhover=(230+round(($isred+$isgreen+$isblue)/9)).','.(230+round(($isred+$isgreen+$isblue)/9)).','.(230+round(($isred+$isgreen+$isblue)/9));
 $colorbackbody='#ffffff url('.$img_head.') 0 0 no-repeat;';
 $colortext='40,40,40';
 $fontsize=empty($conf->browser->phone)?'12':'14';
@@ -122,8 +125,10 @@ if (empty($conf->global->THEME_ELDY_ENABLE_PERSONALIZED))
     $conf->global->THEME_ELDY_BACKBODY='#ffffff url('.$img_head.') 0 0 no-repeat;';
     $conf->global->THEME_ELDY_LINEIMPAIR1='242,242,242';
     $conf->global->THEME_ELDY_LINEIMPAIR2='248,248,248';
+    $conf->global->THEME_ELDY_LINEIMPAIRHOVER='238,246,252';
     $conf->global->THEME_ELDY_LINEPAIR1='255,255,255';
     $conf->global->THEME_ELDY_LINEPAIR2='255,255,255';
+    $conf->global->THEME_ELDY_LINEPAIRHOVER='238,246,252';
     $conf->global->THEME_ELDY_BACKBODY='#ffffff url('.$img_head.') 0 0 no-repeat;';
     $conf->global->THEME_ELDY_TEXT='48,102,102';
 }
@@ -140,16 +145,27 @@ $colorbacktabcard2   =empty($user->conf->THEME_ELDY_ENABLE_PERSONALIZED)?(empty(
 $colorbacktabactive  =empty($user->conf->THEME_ELDY_ENABLE_PERSONALIZED)?(empty($conf->global->THEME_ELDY_BACKTABACTIVE)?$colorbacktabactive:$conf->global->THEME_ELDY_BACKTABACTIVE):(empty($user->conf->THEME_ELDY_BACKTABACTIVE)?$colorbacktabactive:$user->conf->THEME_ELDY_BACKTABACTIVE);
 $colorbacklineimpair1=empty($user->conf->THEME_ELDY_ENABLE_PERSONALIZED)?(empty($conf->global->THEME_ELDY_LINEIMPAIR1)  ?$colorbacklineimpair1:$conf->global->THEME_ELDY_LINEIMPAIR1):(empty($user->conf->THEME_ELDY_LINEIMPAIR1)?$colorbacklineimpair1:$user->conf->THEME_ELDY_LINEIMPAIR1);
 $colorbacklineimpair2=empty($user->conf->THEME_ELDY_ENABLE_PERSONALIZED)?(empty($conf->global->THEME_ELDY_LINEIMPAIR2)  ?$colorbacklineimpair2:$conf->global->THEME_ELDY_LINEIMPAIR2):(empty($user->conf->THEME_ELDY_LINEIMPAIR2)?$colorbacklineimpair2:$user->conf->THEME_ELDY_LINEIMPAIR2);
+$colorbacklineimpairhover=empty($user->conf->THEME_ELDY_ENABLE_PERSONALIZED)?(empty($conf->global->THEME_ELDY_LINEIMPAIRHOVER)  ?$colorbacklineimpairhover:$conf->global->THEME_ELDY_LINEIMPAIRHOVER):(empty($user->conf->THEME_ELDY_LINEIMPAIRHOVER)?$colorbacklineimpairhover:$user->conf->THEME_ELDY_LINEIMPAIRHOVER);
 $colorbacklinepair1  =empty($user->conf->THEME_ELDY_ENABLE_PERSONALIZED)?(empty($conf->global->THEME_ELDY_LINEPAIR1)    ?$colorbacklinepair1:$conf->global->THEME_ELDY_LINEPAIR1)    :(empty($user->conf->THEME_ELDY_LINEPAIR1)?$colorbacklinepair1:$user->conf->THEME_ELDY_LINEPAIR1);
 $colorbacklinepair2  =empty($user->conf->THEME_ELDY_ENABLE_PERSONALIZED)?(empty($conf->global->THEME_ELDY_LINEPAIR2)    ?$colorbacklinepair2:$conf->global->THEME_ELDY_LINEPAIR2)    :(empty($user->conf->THEME_ELDY_LINEPAIR2)?$colorbacklinepair2:$user->conf->THEME_ELDY_LINEPAIR2);
+$colorbacklinepairhover  =empty($user->conf->THEME_ELDY_ENABLE_PERSONALIZED)?(empty($conf->global->THEME_ELDY_LINEPAIRHOVER)    ?$colorbacklinepairhover:$conf->global->THEME_ELDY_LINEPAIRHOVER)    :(empty($user->conf->THEME_ELDY_LINEPAIRHOVER)?$colorbacklinepairhover:$user->conf->THEME_ELDY_LINEPAIRHOVER);
 $colorbackbody       =empty($user->conf->THEME_ELDY_ENABLE_PERSONALIZED)?(empty($conf->global->THEME_ELDY_BACKBODY)     ?$colorbackbody:$conf->global->THEME_ELDY_BACKBODY)          :(empty($user->conf->THEME_ELDY_BACKBODY)?$colorbackbody:$user->conf->THEME_ELDY_BACKBODY);
 $colortext           =empty($user->conf->THEME_ELDY_ENABLE_PERSONALIZED)?(empty($conf->global->THEME_ELDY_TEXT)         ?$colortext:$conf->global->THEME_ELDY_TEXT)                  :(empty($user->conf->THEME_ELDY_TEXT)?$colortext:$user->conf->THEME_ELDY_TEXT);
 $fontsize            =empty($user->conf->THEME_ELDY_ENABLE_PERSONALIZED)?(empty($conf->global->THEME_ELDY_FONT_SIZE1)   ?$fontsize:$conf->global->THEME_ELDY_FONT_SIZE1)             :(empty($user->conf->THEME_ELDY_FONT_SIZE1)?$fontsize:$user->conf->THEME_ELDY_FONT_SIZE1);
 $fontsizesmaller     =empty($user->conf->THEME_ELDY_ENABLE_PERSONALIZED)?(empty($conf->global->THEME_ELDY_FONT_SIZE2)   ?$fontsize:$conf->global->THEME_ELDY_FONT_SIZE2)             :(empty($user->conf->THEME_ELDY_FONT_SIZE2)?$fontsize:$user->conf->THEME_ELDY_FONT_SIZE2);
+// No hover by default, we keep only if we set var THEME_ELDY_USE_HOVER
+if ((! empty($user->conf->THEME_ELDY_ENABLE_PERSONALIZED) && empty($user->conf->THEME_ELDY_USE_HOVER))
+	|| (empty($user->conf->THEME_ELDY_ENABLE_PERSONALIZED) && empty($conf->global->THEME_ELDY_USE_HOVER)))
+{
+	$colorbacklineimpairhover='';
+	$colorbacklinepairhover='';
+}
 
 // Set text color to black or white
 $tmppart=explode(',',$colorback1);
-$tmpval=$tmppart[1]+$tmppart[2]+$tmppart[3];
+$tmpval=(! empty($tmppart[1]) ? $tmppart[1] : '');
+$tmpval+=(! empty($tmppart[2]) ? $tmppart[2] : '');
+$tmpval+=(! empty($tmppart[3]) ? $tmppart[3] : '');
 //print $tmpval;
 if ($tmpval < 340) $colortextmain='FFFFFF';
 else $colortextmain='101010';
@@ -164,8 +180,10 @@ print 'colred='.$colred.' colgreen='.$colgreen.' colblue='.$colblue."\n";
 print 'isred='.$isred.' isgreen='.$isgreen.' isblue='.$isblue."\n";
 print 'colorbacklineimpair1='.$colorbacklineimpair1."\n";
 print 'colorbacklineimpair2='.$colorbacklineimpair2."\n";
+print 'colorbacklineimpairhover='.$colorbacklineimpairhover."\n";
 print 'colorbacklinepair1='.$colorbacklinepair1."\n";
 print 'colorbacklinepair2='.$colorbacklinepair2."\n";
+print 'colorbacklinepairhover='.$colorbacklinepairhover."\n";
 print 'usecss3='.$usecss3."\n";
 print '*/'."\n";
 
@@ -221,7 +239,13 @@ select.flat, form.flat select {
 input:disabled {
 	background:#ddd;
 }
-input:-webkit-autofill { background-color: #FCFEFA !important; background-image:none !important; }
+input:-webkit-autofill {
+	background-color: #FCFEFA !important; background-image:none !important;
+}
+input.liste_titre {
+	box-shadow: none !important;
+}
+
 textarea:disabled {
 	background:#ddd;
 }
@@ -235,9 +259,9 @@ textarea:disabled {
     -moz-border-radius:0px 5px 0px 5px;
 	-webkit-border-radius:0px 5px 0px 5px;
 	border-radius:0px 5px 0px 5px;
-    -moz-box-shadow: 4px 4px 4px #CCC;
-    -webkit-box-shadow: 4px 4px 4px #CCC;
-    box-shadow: 4px 4px 4px #CCC;
+    -moz-box-shadow: 2px 2px 3px #CCC;
+    -webkit-box-shadow: 2px 2px 3px #CCC;
+    box-shadow: 2px 2px 3px #CCC;
 }
 .button:focus  {
     font-family: <?php print $fontlist ?>;
@@ -284,6 +308,9 @@ th .button {
 }
 .valignmiddle {
 	vertical-align: middle;
+}
+.centpercent {
+	width: 100%;
 }
 
 /* ============================================================================== */
@@ -586,6 +613,10 @@ div.mainmenu.gravatar {
 div.mainmenu.geopipmaxmind {
 }
 
+div.mainmenu.holiday {
+	background-image: url(<?php echo dol_buildpath($path.'/theme/eldy/img/menus/holiday.png',1) ?>);
+}
+
 div.mainmenu.members {
 	background-image: url(<?php echo dol_buildpath($path.'/theme/eldy/img/menus/members.png',1) ?>);
 }
@@ -628,7 +659,7 @@ $moduletomainmenu=array('user'=>'','syslog'=>'','societe'=>'companies','projet'=
 	'barcode'=>'','fckeditor'=>'','categorie'=>'',
 );
 $mainmenuused='home';
-foreach($conf->modules as $key => $val)
+foreach($conf->modules as $val)
 {
 	$mainmenuused.=','.(isset($moduletomainmenu[$val])?$moduletomainmenu[$val]:$val);
 }
@@ -636,8 +667,8 @@ foreach($conf->modules as $key => $val)
 $mainmenuusedarray=array_unique(explode(',',$mainmenuused));
 
 $generic=1;
-$divalreadydefined=array('home','companies','products','commercial','accountancy','project','tools','members','shop','agenda','bookmark','cashdesk','ecm','geoipmaxmind','gravatar','clicktodial','paypal','webservices');
-foreach($mainmenuusedarray as $key => $val)
+$divalreadydefined=array('home','companies','products','commercial','accountancy','project','tools','members','shop','agenda','holiday','bookmark','cashdesk','ecm','geoipmaxmind','gravatar','clicktodial','paypal','webservices');
+foreach($mainmenuusedarray as $val)
 {
 	if (empty($val) || in_array($val,$divalreadydefined)) continue;
 	//print "XXX".$val;
@@ -698,10 +729,10 @@ form#login {
 	text-shadow: 1px 1px 1px #FFF;
 }
 .login_table {
-	padding-left:8px;
-	padding-right:8px;
-	padding-top:22px;
-	padding-bottom:18px;
+	padding-left:6px;
+	padding-right:6px;
+	padding-top:14px;
+	padding-bottom:12px;
 	width: 540px;
 	border: 1px solid #C0C0C0;
 	background-color: #E0E0E0;
@@ -845,7 +876,7 @@ div.blockvmenusearch
     padding-right: 1px;
     padding-top: 3px;
     padding-bottom: 3px;
-    margin: 12px 0px 8px 2px;
+    margin: 1px 0px 8px 2px;
 	background: #E3E6E8;
 
 <?php if ($usecss3) { ?>
@@ -1332,9 +1363,9 @@ span.tabspan {
     -moz-border-radius:0px 5px 0px 5px;
 	-webkit-border-radius:0px 5px 0px 5px;
 	border-radius:0px 5px 0px 5px;
-    -moz-box-shadow: 4px 4px 4px #CCC;
-    -webkit-box-shadow: 4px 4px 4px #CCC;
-    box-shadow: 4px 4px 4px #CCC;
+    -moz-box-shadow: 2px 2px 3px #CCC;
+    -webkit-box-shadow: 2px 2px 3px #CCC;
+    box-shadow: 2px 2px 3px #CCC;
 }
 
 .butAction:hover   {
@@ -1367,6 +1398,12 @@ span.tabspan {
     -webkit-box-shadow: 4px 4px 4px #CCC;
     box-shadow: 4px 4px 4px #CCC;
 }
+
+<?php if (! empty($conf->global->MAIN_BUTTON_HIDE_UNAUTHORIZED)) { ?>
+.butActionRefused {
+	display: none;
+}
+<?php } ?>
 
 span.butAction, span.butActionDelete {
 	cursor: pointer;
@@ -1483,7 +1520,7 @@ table.noborder tr {
 	border-left-width: 1px;
 	border-left-color: #BBBBBB;
 	border-left-style: solid;
-	height: 18px;
+	height: 20px;
 }
 
 table.noborder th, table.noborder td {
@@ -1589,8 +1626,16 @@ tr.liste_total td {
     white-space: nowrap;
 }
 
+.impair:hover {
+<?php if ($colorbacklineimpairhover) { if ($usecss3) { ?>
+	background: rgb(<?php echo $colorbacklineimpairhover; ?>);
+<?php } else { ?>
+	background: #fafafa;
+<?php } } ?>
+	border: 0px;
+}
 
-.impair {
+.impair, .nohover .impair:hover, tr.impair td.nohover {
 <?php if ($usecss3) { ?>
 	background: linear-gradient(bottom, rgb(<?php echo $colorbacklineimpair1; ?>) 85%, rgb(<?php echo $colorbacklineimpair2; ?>) 100%);
 	background: -o-linear-gradient(bottom, rgb(<?php echo $colorbacklineimpair1; ?>) 85%, rgb(<?php echo $colorbacklineimpair2; ?>) 100%);
@@ -1605,14 +1650,17 @@ tr.liste_total td {
 	margin-bottom: 1px;
 	color: #202020;
 }
-/*
-.impair:hover {
-	background: #c0c4c7;
+
+.pair:hover {
+<?php if ($colorbacklinepairhover) { if ($usecss3) { ?>
+	background: rgb(<?php echo $colorbacklinepairhover; ?>);
+<?php } else { ?>
+	background: #fafafa;
+<?php } }?>
 	border: 0px;
 }
-*/
 
-.pair	{
+.pair, .nohover .pair:hover, tr.pair td.nohover {
 <?php if ($usecss3) { ?>
 	background: linear-gradient(bottom, rgb(<?php echo $colorbacklinepair1; ?>) 85%, rgb(<?php echo $colorbacklinepair2; ?>) 100%);
 	background: -o-linear-gradient(bottom, rgb(<?php echo $colorbacklinepair1; ?>) 85%, rgb(<?php echo $colorbacklinepair2; ?>) 100%);
@@ -1627,12 +1675,6 @@ tr.liste_total td {
 	margin-bottom: 1px;
 	color: #202020;
 }
-/*
-.pair:hover {
-	background: #c0c4c7;
-	border: 0px;
-}
-*/
 
 /* Disable shadows */
 .noshadow {
@@ -1675,7 +1717,7 @@ background: #7699A9;
     background-image: -moz-linear-gradient(bottom, rgb(<?php echo $colorbacktitle1; ?>) 15%, rgb(<?php echo $colorbacktitle2; ?>) 100%);
     background-image: -webkit-linear-gradient(bottom, rgb(<?php echo $colorbacktitle1; ?>) 15%, rgb(<?php echo $colorbacktitle2; ?>) 100%);
     background-image: -ms-linear-gradient(bottom, rgb(<?php echo $colorbacktitle1; ?>) 15%, rgb(<?php echo $colorbacktitle2; ?>) 100%);
-    background-image: linear-gradient(bottom, rgb(<?php echo $colorbackttitle1; ?>) 15%, rgb(<?php echo $colorbacktitle2; ?>) 100%);
+    background-image: linear-gradient(bottom, rgb(<?php echo $colorbacktitle1; ?>) 15%, rgb(<?php echo $colorbacktitle2; ?>) 100%);
 <?php } else { ?>
 	background-image: url(<?php echo DOL_URL_ROOT.'/theme/eldy/img/liste_titre2.png' ?>);
 <?php } ?>
@@ -1685,6 +1727,10 @@ background: #7699A9;
 	font-weight: normal;
 	border-bottom: 1px solid #FDFFFF;
 	white-space: nowrap;
+}
+
+tr.box_titre td.boxclose {
+	width: 30px;
 }
 
 tr.box_impair {
@@ -1725,9 +1771,7 @@ font-family: <?php print $fontlist ?>;
  */
 .ok      { color: #114466; }
 .warning { color: #887711; }
-.error   { color: #550000; font-weight: bold; }
-
-td.highlights { background: #f9c5c6; }
+.error   { color: #550000 !important; font-weight: bold; }
 
 div.ok {
   color: #114466;
@@ -1753,13 +1797,6 @@ div.error {
   -webkit-border-radius: 6px;
   border-radius: 6px;
   background: #EFCFCF;
-}
-
-div.jnotify-background {
-	opacity : 0.95 !important;
-    -moz-box-shadow: 4px 4px 4px #888 !important;
-    -webkit-box-shadow: 4px 4px 4px #888 !important;
-    box-shadow: 4px 4px 4px #888 !important;
 }
 
 /* Info admin */
@@ -1795,6 +1832,9 @@ a.impayee:hover { font-weight: bold; color: #550000; }
  *  Other
  */
 
+.product_line_stock_ok { color: #002200; }
+.product_line_stock_too_low { color: #664400; }
+
 .fieldrequired { font-weight: bold; color: #000055; }
 
 .photo {
@@ -1808,7 +1848,7 @@ div.titre {
 	font-weight: bold;
 	color: rgb(<?php print $colortext; ?>);
 	text-decoration: none;
-	text-shadow: 2px 2px 4px #BFBFBF;
+	text-shadow: 1px 1px 2px #CFCFCF;
 }
 
 #dolpaymenttable { width: 600px; font-size: 13px; }
@@ -2394,7 +2434,7 @@ a.cke_dialog_ui_button
 /* ============================================================================== */
 
 div.scroll2 {
-	width: 582px !important;
+	width: <?php print isset($_SESSION['dol_screenwidth'])?max($_SESSION['dol_screenwidth']-830,450):'450'; ?>px !important;
 }
 
 
@@ -2498,7 +2538,7 @@ div.ecmjqft {
 
 .jnotify-container {
 	position: fixed !important;
-<?php if ($conf->global->MAIN_JQUERY_JNOTIFY_BOTTOM) { ?>
+<?php if (! empty($conf->global->MAIN_JQUERY_JNOTIFY_BOTTOM)) { ?>
 	top: auto !important;
 	bottom: 4px !important;
 <?php } ?>
@@ -2507,6 +2547,32 @@ div.ecmjqft {
 	width: auto;
 	padding-left: 10px !important;
 	padding-right: 10px !important;
+}
+
+/* use or not ? */
+div.jnotify-background {
+	opacity : 0.95 !important;
+    -moz-box-shadow: 4px 4px 4px #888 !important;
+    -webkit-box-shadow: 4px 4px 4px #888 !important;
+    box-shadow: 4px 4px 4px #888 !important;
+}
+
+/* ============================================================================== */
+/*  blockUI                                                                      */
+/* ============================================================================== */
+
+/*div.growlUI { background: url(check48.png) no-repeat 10px 10px }*/
+div.dolEventValid h1, div.dolEventValid h2 {
+	color: #567b1b;
+	background-color: #e3f0db;
+	padding: 5px 5px 5px 5px;
+	text-align: left;
+}
+div.dolEventError h1, div.dolEventError h2 {
+	color: #a72947;
+	background-color: #d79eac;
+	padding: 5px 5px 5px 5px;
+	text-align: left;
 }
 
 /* ============================================================================== */
