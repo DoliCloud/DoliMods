@@ -43,6 +43,7 @@ if (! $res && file_exists("../../../../../dolibarr/htdocs/main.inc.php")) $res=@
 if (! $res) die("Include of main fails");
 dol_include_once("/filemanager/class/filemanagerroots.class.php");
 include_once(DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php');
+include_once(DOL_DOCUMENT_ROOT.'/core/class/html.formfile.class.php');
 
 // Do not use urldecode here ($_GET and $_REQUEST are already decoded by PHP).
 $id=GETPOST('id','int')?GETPOST('id','int'):(is_numeric(GETPOST('rootpath'))?GETPOST('rootpath'):'');
@@ -168,6 +169,8 @@ if ($action == 'remove_file')   // Remove a file
  * View
  */
 
+$conf->global->MAIN_USE_JQUERY_FILEUPLOAD=1;
+
 // Ajout directives pour resoudre bug IE
 header('Cache-Control: Public, must-revalidate');
 header('Pragma: public');
@@ -225,6 +228,212 @@ if ($type == 'directory')
     print '<tr><td>'.$langs->trans("DateLastAccess").':</td><td>&nbsp; <span class="fmvalue">'.dol_print_date($info['atime'],'%Y-%m-%d %H:%M:%S')."</span></td></tr>\n";
     print '<tr><td>'.$langs->trans("DateLastChange").':</td><td>&nbsp; <span class="fmvalue">'.dol_print_date($info['mtime'],'%Y-%m-%d %H:%M:%S')."</span></td></tr>\n";
     //print $langs->trans("Ctime").": ".$info['ctime']."<br>\n";
+    print '<tr><td>'.$langs->trans("Upload").':</td><td>';
+
+    //$formfile=new FormFile($db);
+    //$formfile->form_attach_new_file(DOL_URL_ROOT.'/xxx', 'none', 0, '', $user->rights->filemanager->create, 48);
+
+    // PHP post_max_size
+    $post_max_size				= ini_get('post_max_size');
+    $mul_post_max_size			= substr($post_max_size, -1);
+    $mul_post_max_size			= ($mul_post_max_size == 'M' ? 1048576 : ($mul_post_max_size == 'K' ? 1024 : ($mul_post_max_size == 'G' ? 1073741824 : 1)));
+    $post_max_size				= $mul_post_max_size * (int) $post_max_size;
+    // PHP upload_max_filesize
+    $upload_max_filesize		= ini_get('upload_max_filesize');
+    $mul_upload_max_filesize	= substr($upload_max_filesize, -1);
+    $mul_upload_max_filesize	= ($mul_upload_max_filesize == 'M' ? 1048576 : ($mul_upload_max_filesize == 'K' ? 1024 : ($mul_upload_max_filesize == 'G' ? 1073741824 : 1)));
+    $upload_max_filesize		= $mul_upload_max_filesize * (int) $upload_max_filesize;
+    // Max file size
+    $max_file_size 				= (($post_max_size < $upload_max_filesize) ? $post_max_size : $upload_max_filesize);
+    ?>
+
+    <!-- START TEMPLATE FILE UPLOAD MAIN -->
+    <script type="text/javascript">
+    window.locale = {
+    	"fileupload": {
+    	"errors": {
+    	"maxFileSize": "<?php echo dol_escape_js($langs->trans('FileIsTooBig')); ?>",
+    	"minFileSize": "<?php echo dol_escape_js($langs->trans('FileIsTooSmall')); ?>",
+    	"acceptFileTypes": "<?php echo dol_escape_js($langs->trans('FileTypeNotAllowed')); ?>",
+    	"maxNumberOfFiles": "<?php echo dol_escape_js($langs->trans('MaxNumberOfFilesExceeded')); ?>",
+    	"uploadedBytes": "<?php echo dol_escape_js($langs->trans('UploadedBytesExceedFileSize')); ?>",
+    	"emptyResult": "<?php echo dol_escape_js($langs->trans('EmptyFileUploadResult')); ?>"
+    },
+    "error": "<?php echo dol_escape_js($langs->trans('Error')); ?>",
+    "start": "<?php echo dol_escape_js($langs->trans('Start')); ?>",
+    "cancel": "<?php echo dol_escape_js($langs->trans('Cancel')); ?>",
+    "destroy": "<?php echo dol_escape_js($langs->trans('Delete')); ?>"
+    }
+    };
+
+    $(function () {
+    	'use strict';
+
+    	// Initialize the jQuery File Upload widget:
+    	$('#fileupload').fileupload();
+
+    	// Events
+    	$('#fileupload').fileupload({
+    		completed: function (e, data) {
+        		//alert('done');
+    		},
+    		destroy: function (e, data) {
+    			var that = $(this).data('fileupload');
+    			$( "#confirm-delete" ).dialog({
+    				resizable: false,
+    				width: 400,
+    				modal: true,
+    				buttons: {
+    					"<?php echo dol_escape_js($langs->trans('Ok')); ?>": function() {
+    					$( "#confirm-delete" ).dialog( "close" );
+    					if (data.url) {
+    						$.ajax(data)
+    						.success(function (data) {
+    							if (data) {
+    								that._adjustMaxNumberOfFiles(1);
+    								$(this).fadeOut(function () {
+    									$(this).remove();
+    									$.jnotify("<?php echo dol_escape_js($langs->trans('FileIsDelete')); ?>");
+    								});
+    							} else {
+    								$.jnotify("<?php echo dol_escape_js($langs->trans('ErrorFileNotDeleted')); ?>", "error", true);
+    							}
+    						});
+    					} else {
+    						data.context.fadeOut(function () {
+    							$(this).remove();
+    						});
+    					}
+    				},
+    				"<?php echo dol_escape_js($langs->trans('Cancel')); ?>": function() {
+    				$( "#confirm-delete" ).dialog( "close" );
+    				}
+    				}
+    			});
+    		}
+    	});
+    });
+    </script>
+    <!-- END TEMPLATE FILE UPLOAD MAIN -->
+
+
+<!-- START TEMPLATE FILE UPLOAD -->
+
+<!-- The file upload form used as target for the file upload widget -->
+<form id="fileupload" action="<?php echo dol_buildpath('/filemanager/ajaxfileuploader.php',1); ?>" method="POST" enctype="multipart/form-data">
+<!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
+<input type="hidden" name="upload_dir" value="<?php echo $original_file; ?>">
+<div class="row fileupload-buttonbar">
+	<div class="span7">
+		<!-- The fileinput-button span is used to style the file input field as button -->
+		<span class="btn btn-success fileinput-button">
+			<i class="icon-plus icon-white"></i>
+			<span><?php echo $langs->trans('AddFiles'); ?></span>
+			<input type="file" name="files[]" multiple>
+		</span>
+		<button type="submit" class="btn btn-primary start">
+			<i class="icon-upload icon-white"></i>
+			<span><?php echo $langs->trans('StartUpload'); ?></span>
+		</button>
+		<button type="reset" class="btn btn-warning cancel">
+			<i class="icon-ban-circle icon-white"></i>
+			<span><?php echo $langs->trans('CancelUpload'); ?></span>
+		</button>
+		<!--
+		<button type="button" class="btn btn-danger delete">
+			<i class="icon-trash icon-white"></i>
+			<span><?php echo $langs->trans('Delete'); ?></span>
+		</button>
+		<input type="checkbox" class="toggle">
+		-->
+	</div>
+	<!-- The global progress information -->
+	<div class="span5 fileupload-progress fade">
+		<!-- The global progress bar -->
+		<!--
+		<div class="progress progress-success progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+			<div class="bar" style="width:0%;"></div>
+		</div>
+		-->
+		<!-- The extended global progress information -->
+		<div class="progress-extended">&nbsp;</div>
+	</div>
+</div>
+<!-- The loading indicator is shown during file processing -->
+<div class="fileupload-loading"></div>
+<br>
+<!-- The table listing the files available for upload/download -->
+<table role="presentation" class="table table-striped"><tbody class="files" data-toggle="modal-gallery" data-target="#modal-gallery"></tbody></table>
+</form>
+
+<!-- The template to display files available for upload -->
+<!-- Warning id on script is not W3C compliant and is reported as error by phpcs but it is required by fileupload plugin -->
+<script id="template-upload" type="text/x-tmpl">
+{% for (var i=0, file; file=o.files[i]; i++) { %}
+    <tr class="template-upload fade">
+        <td class="preview"><span class="fade"></span></td>
+        <td class="name"><span>{%=file.name%}</span></td>
+        <td class="size"><span>{%=o.formatFileSize(file.size)%}</span></td>
+        {% if (file.error) { %}
+            <td class="error" colspan="2"><span class="label label-important">{%=locale.fileupload.error%}</span> {%=locale.fileupload.errors[file.error] || file.error%}</td>
+        {% } else if (o.files.valid && !i) { %}
+            <td>
+                <div class="progress progress-success progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="bar" style="width:0%;"></div></div>
+            </td>
+            <td class="start">{% if (!o.options.autoUpload) { %}
+                <button class="btn btn-primary">
+                    <i class="icon-upload icon-white"></i>
+                    <span>{%=locale.fileupload.start%}</span>
+                </button>
+            {% } %}</td>
+        {% } else { %}
+            <td colspan="2"></td>
+        {% } %}
+        <td class="cancel">{% if (!i) { %}
+            <button class="btn btn-warning">
+                <i class="icon-ban-circle icon-white"></i>
+                <span>{%=locale.fileupload.cancel%}</span>
+            </button>
+        {% } %}</td>
+    </tr>
+{% } %}
+</script>
+<!-- The template to display files available for download -->
+<!-- Warning id on script is not W3C compliant and is reported as error by phpcs but it is required by jfilepload plugin -->
+<script id="template-download" type="text/x-tmpl">
+{% for (var i=0, file; file=o.files[i]; i++) { %}
+    <tr class="template-download fade">
+        {% if (file.error) { %}
+            <td></td>
+            <td class="name"><span>{%=file.name%}</span></td>
+            <td class="size"><span>{%=o.formatFileSize(file.size)%}</span></td>
+            <td class="error" colspan="2"><span class="label label-important">{%=locale.fileupload.error%}</span> {%=locale.fileupload.errors[file.error] || file.error%}</td>
+        {% } else { %}
+            <td class="preview">{% if (file.thumbnail_url) { %}
+                <a href="{%=file.url%}" title="{%=file.name%}" rel="gallery" download="{%=file.name%}"><img src="{%=file.thumbnail_url%}"></a>
+            {% } %}</td>
+            <td class="name">
+                <a href="{%=file.url%}" title="{%=file.name%}" rel="{%=file.thumbnail_url&&'gallery'%}" download="{%=file.name%}">{%=file.name%}</a>
+            </td>
+            <td class="size"><span>{%=o.formatFileSize(file.size)%}</span></td>
+            <td colspan="2"></td>
+        {% } %}
+        <td class="delete">
+            <button class="btn btn-danger" data-type="{%=file.delete_type%}" data-url="{%=file.delete_url%}">
+                <i class="icon-trash icon-white"></i>
+                <span>{%=locale.fileupload.destroy%}</span>
+            </button>
+            <input type="checkbox" name="delete" value="1">
+        </td>
+    </tr>
+{% } %}
+</script>
+<br>
+<!-- END PHP TEMPLATE -->
+<?php
+
+
+    print "</td></tr>\n";
     print '</table>'."\n";
 
     print '<br><br>';

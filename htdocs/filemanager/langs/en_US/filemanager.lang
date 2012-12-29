@@ -20,6 +20,7 @@ DeleteDir=Delete directory
 DeleteFileName=Delete following file:
 DeleteDirName=Delete folowing directory:
 NewDir=New directory
+CreateNewDir=Create new directory
 NewFile=New file
 AddRootPath=Add root directories for filemanager
 UseColorSyntaxing=Enable color syntaxing on view file content feature (need more memory. Disable this if you experience blank page when viewing content of a text file)
