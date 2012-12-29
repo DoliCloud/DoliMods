@@ -177,7 +177,7 @@ if ($action == 'add' || $action == 'update')
             $error++;
             $mesgarray[]=$langs->trans("OnlyOneFieldIsPossible");
         }*/
-        if (trim($_POST["montant_cheque"])!='' && ! trim($_POST["banque"]))
+        if (trim($_POST["montant_cheque"])!='' && ! empty($conf->global->CABINETMED_BANK_PATIENT_REQUIRED) && ! trim($_POST["banque"]))
         {
             $error++;
             $mesgarray[]=$langs->trans("ErrorFieldRequired",$langs->transnoentities("ChequeBank"));

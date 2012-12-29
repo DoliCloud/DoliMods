@@ -139,3 +139,4 @@ PatientsPerContacts=This page list statistics on patients per contacts
 ReportingsMed=Outcomes report
 MenuFinancialMed=Outcomes balance
 AlertTriggered=An alert into %s has been checked
+CABINETMED_BANK_PATIENT_REQUIRED=Field "Bank of patient" is required when payment is a cheque

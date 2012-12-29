@@ -60,8 +60,11 @@ $action=GETPOST("action");
 if ($action == 'update')
 {
     $res=dolibarr_set_const($db, 'CABINETMED_RHEUMATOLOGY_ON', GETPOST("CABINETMED_RHEUMATOLOGY_ON"), 'texte', 0, '', $conf->entity);
+
     $res=dolibarr_set_const($db, 'CABINETMED_HIDETHIRPARTIESMENU', GETPOST("CABINETMED_HIDETHIRPARTIESMENU"), 'texte', 0, '', $conf->entity);
     $res=dolibarr_set_const($db, 'MAIN_SEARCHFORM_SOCIETE', GETPOST("CABINETMED_HIDETHIRPARTIESMENU")?0:1, 'texte', 0, '', $conf->entity);        // We also hide search of companies
+
+    $res=dolibarr_set_const($db, 'CABINETMED_BANK_PATIENT_REQUIRED', GETPOST("CABINETMED_BANK_PATIENT_REQUIRED"), 'texte', 0, '', $conf->entity);
 
     if ($res == 1) $mesg=$langs->trans("RecordModifiedSuccessfully");
     else
@@ -116,6 +119,11 @@ print '</tr>';
 $var=!$var;
 print '<tr '.$bc[$var].'><td>'.$langs->trans("HideThirdPartiesMenu").'</td>';
 print '<td>'.$html->selectyesno('CABINETMED_HIDETHIRPARTIESMENU',$conf->global->CABINETMED_HIDETHIRPARTIESMENU,1).'</td>';
+print '</tr>';
+
+$var=!$var;
+print '<tr '.$bc[$var].'><td>'.$langs->trans("CABINETMED_BANK_PATIENT_REQUIRED").'</td>';
+print '<td>'.$html->selectyesno('CABINETMED_BANK_PATIENT_REQUIRED',$conf->global->CABINETMED_BANK_PATIENT_REQUIRED,1).'</td>';
 print '</tr>';
 
 print '</table>';
