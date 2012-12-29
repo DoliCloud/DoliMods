@@ -334,7 +334,7 @@ if ($type == 'directory')
 	<div class="row fileupload-buttonbar">
 		<div class="divdolfileupload">
 			<!-- The fileinput-button span is used to style the file input field as button -->
-			<span class="btn btn-success fileinput-button">
+			<span class="btn btn-success fileinput-button largebutton">
 				<i class="icon-plus icon-white"></i>
 				<span><?php echo $langs->trans('AddFiles'); ?></span>
 				<input type="file" name="files[]" multiple>
@@ -432,7 +432,7 @@ if ($type == 'directory')
         if (dol_is_dir($val['name'])) $mimeimg='other.png';
         else $mimeimg=dol_mimetype($val['name'],'application/octet-stream',2);
 
-        print '<li class="filedirelem toolbar" style="height: 100px !important;">';
+        print '<li class="filedirelem largebutton" style="height: 100px !important;">';
         print '<br><br>';
         print '<img src="'.DOL_URL_ROOT.'/theme/common/mime/'.$mimeimg.'"><br>';
         print dol_nl2br(dol_trunc($val['name'],24,'wrap'),1);

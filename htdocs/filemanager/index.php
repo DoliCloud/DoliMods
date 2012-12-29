@@ -512,7 +512,7 @@ print '</div>'."\n";
 
 
 <div id="containerlayout"> <!-- begin div id="containerlayout" -->
-    <div id="ecm-layout-north" class="hidden toolbar">
+    <div id="ecm-layout-north" class="hidden toolbar largebutton">
 <?php
 // Toolbar
 print '<div class="toolbarbutton">';
