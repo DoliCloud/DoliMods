@@ -17,16 +17,16 @@ require_once(DOL_DOCUMENT_ROOT.'/core/class/html.formadmin.class.php');
 require_once(DOL_DOCUMENT_ROOT.'/core/class/html.formother.class.php');
 dol_include_once("/google/lib/google.lib.php");
 
+
 // You must allow Dolibarr to login to
 $client_id='258042696143.apps.googleusercontent.com';
 $client_secret='HdmLOMStzB9MBbAjCr87gz27';
 //$redirect_uri='http://localhost/dolibarrnew/custom/google/googlecallback.php?action=xxx'; // Does not work. Must be exact url
 $redirect_uri='http://localhost/dolibarrnew/custom/google/googlecallback.php';
-$max_results = 10;
+$url='https://accounts.google.com/o/oauth2/auth?client_id='.$client_id.'&redirect_uri='.urlencode($redirect_uri).'&scope=https://www.google.com/m8/feeds/&response_type=code';
 
 $auth_code = GETPOST("code");
 
-$url='https://accounts.google.com/o/oauth2/auth?client_id='.$client_id.'&redirect_uri='.urlencode($redirect_uri).'&scope=https://www.google.com/m8/feeds/&response_type=code';
 
 
 /*
@@ -34,11 +34,11 @@ $url='https://accounts.google.com/o/oauth2/auth?client_id='.$client_id.'&redirec
 */
 
 // Ask token (possible only if inside an oauth google session)
-if ($auth_code || empty($_SESSION['google_oauth_token']))		// We come from a redirect of Google auth page or oauth_token empty
+if (empty($_SESSION['google_oauth_token']) || $auth_code)		// We are not into a google session (oauth_token empty) or we come from a redirect of Google auth page
 {
 	if (empty($auth_code))	// If we are not coming from oauth page, we make a redirect to it
 	{
-		//print 'We are not coming from an oauth page, we redirect to it';
+		//print 'We are not coming from an oauth page and are not logged into google oauth, so we redirect to it';
 		header("Location: ".$url);
 		exit;
 	}
@@ -81,8 +81,13 @@ $oauth_token = $_SESSION['google_oauth_token'];
  * View
  */
 
+$max_results = 10;
+
 llxHeader();
 
+
+
+print '<iframe src="http://www.google.com/calendar/embed?showTitle=0&amp;height=600&amp;wkst=1&amp;bgcolor=%23f4f4f4&amp;src=eldy10%40gmail.com&amp;color=%237A367A&amp;ctz=Europe%2FParis" style=" border-width:0 " width="100%" height="600" frameborder="0" scrolling="no">zob</iframe>';
 
 
 // Get contacts using oauth
@@ -116,11 +121,15 @@ echo "<h3>Addresses:</h3>";
 
 
 
+/*
+
 
 // TEST CONTACT INTERFACE
 // Tutorial: http://www.ibm.com/developerworks/library/x-phpgooglecontact/index.html
 
-print "\n".'<br><br>Test contact interface<br>'."\n";
+$user = $conf->global->GOOGLE_LOGIN;
+$pwd = $conf->global->GOOGLE_PASSWORD;
+print "\n".'<br><br>Test contact interface for user='.$user.' pass='.$pwd.'<br>'."\n";
 
 $path = dol_buildpath('/google/includes/zendgdata');
 set_include_path(get_include_path() . PATH_SEPARATOR . $path);
@@ -133,8 +142,6 @@ Zend_Loader::loadClass('Zend_Gdata_HttpClient');
 Zend_Loader::loadClass('Zend_Gdata_Contacts');
 Zend_Loader::loadClass('Zend_Gdata_Query');
 Zend_Loader::loadClass('Zend_Gdata_Feed');
-$user = $conf->global->GOOGLE_LOGIN;
-$pwd = $conf->global->GOOGLE_PASSWORD;
 $client = Zend_Gdata_ClientLogin::getHttpClient($user, $pwd, 'cp');
 
 
@@ -199,19 +206,10 @@ foreach($entries as $entry)
 	print $tmp['full_name']."<br>\n";
 }
 
-
-
-// GET FROM AN ID Using Gdata_contact
-/*
-$query = new Zend_Gdata_Query('http://www.google.com/m8/feeds/contacts/eldy10%40gmail.com/base/55bab38888f03eae');
-$gdata->setMajorProtocolVersion(3);
-$entryfromid = $gdata->getEntry($query,'Zend_Gdata_Contacts_ListEntry');
-//var_dump($entry->toArray());
-var_dump($entryfromid->getEditLink()->href);
 */
 
 
-
+/*
 // CREATE GENERIC
 $doc  = new DOMDocument();
 try {
@@ -299,7 +297,7 @@ try {
 }
 
 
-
+*/
 
 // Create a contact using oauth
 /*$urltocreate='https://www.google.com/m8/feeds/contacts/testapi@testapi.com/full&oauth_token='.$oauth_token;

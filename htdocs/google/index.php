@@ -44,29 +44,80 @@ if ($user->societe_id > 0)
 $MAXAGENDA=empty($conf->global->GOOGLE_AGENDA_NB)?5:$conf->global->GOOGLE_AGENDA_NB;
 
 
+/*
+ * Actions
+ */
 
-/*******************************************************************
-* ACTIONS
-*
-* Put here all code to do according to value of "action" parameter
-********************************************************************/
+// Define $urlwithroot
+//$urlwithouturlroot=preg_replace('/'.preg_quote(DOL_URL_ROOT,'/').'$/i','',trim($dolibarr_main_url_root));
+//$urlwithroot=$urlwithouturlroot.DOL_URL_ROOT;		// This is to use external domain name found into config file
+$urlwithroot=DOL_MAIN_URL_ROOT;						// This is to use same domain name than current
+$urlwithouturlroot=preg_replace('/'.preg_quote(DOL_URL_ROOT,'/').'$/i','',$urlwithroot);
 
-// None
+// You must allow Dolibarr to login to
+$client_id=$conf->global->GOOGLE_AGENDA_CLIENT_ID;
+$client_secret=$conf->global->GOOGLE_AGENDA_CLIENT_SECRET;
+$redirect_uri=$urlwithouturlroot.dol_buildpath('/google/index.php',1);		// Must be an url without parameters
+$url='https://accounts.google.com/o/oauth2/auth?client_id='.$client_id.'&redirect_uri='.urlencode($redirect_uri).'&scope=https://www.google.com/calendar/feeds/&response_type=code';	// Values for scope are here: https://developers.google.com/gdata/faq?hl=fr#AuthScopes
+
+$auth_code = GETPOST("code");
+
+
+//print DOL_URL_ROOT.' '.DOL_MAIN_URL_ROOT.' '.$redirect_uri;exit;
+
+
+if (! empty($client_id))		// If we setup to use the oauth login
+{
+	// Ask token (possible only if inside an oauth google session)
+	if (empty($_SESSION['google_oauth_token']) || $auth_code)		// We are not into a google session (oauth_token empty) or we come from a redirect of Google auth page
+	{
+		if (empty($auth_code))	// If we are not coming from oauth page, we make a redirect to it
+		{
+			//print 'We are not coming from an oauth page and are not logged into google oauth, so we redirect to it';
+			header("Location: ".$url);
+			exit;
+		}
+
+		$fields=array(
+		'code'=>  urlencode($auth_code),
+		'client_id'=>  urlencode($client_id),
+		'client_secret'=>  urlencode($client_secret),
+		'redirect_uri'=>  urlencode($redirect_uri),
+		'grant_type'=>  urlencode('authorization_code')
+		);
+		$post = '';
+		foreach($fields as $key=>$value) {
+			$post .= $key.'='.$value.'&';
+		}
+		$post = rtrim($post,'&');
+
+		$curl = curl_init();
+		curl_setopt($curl,CURLOPT_URL,'https://accounts.google.com/o/oauth2/token');
+		curl_setopt($curl,CURLOPT_POST,5);
+		curl_setopt($curl,CURLOPT_POSTFIELDS,$post);
+		curl_setopt($curl,CURLOPT_RETURNTRANSFER,TRUE);
+		curl_setopt($curl,CURLOPT_SSL_VERIFYPEER,FALSE);
+		$result = curl_exec($curl);
+		curl_close($curl);
+
+		$response =  json_decode($result);
+
+		$_SESSION['google_oauth_token']=$response->access_token;
+	}
+
+
+	$oauth_token = $_SESSION['google_oauth_token'];
+}
 
 
 
-
-
-/***************************************************
-* PAGE
-*
-* Put here all code to build page
-****************************************************/
+/*
+ * View
+ */
 
 llxHeader('','Google',"EN:Module_GoogleEn|FR:Module_Google|ES:Modulo_Google");
 
 $form=new Form($db);
-
 
 
 $head = calendars_prepare_head('');
@@ -243,8 +294,18 @@ $frame.='</iframe>';
 
 print $frame;
 
-// End of page
-$db->close();
 
-llxFooter('$Date: 2011/08/29 07:45:09 $ - $Revision: 1.9 $');
+
+if (! empty($client_id))		// If we setup to use the oauth login
+{
+	print $langs->trans("DueToGoogleLimitYouNeedToLogin");
+}
+
+
+
+// End of page
+
+llxFooter();
+
+$db->close();
 ?>
