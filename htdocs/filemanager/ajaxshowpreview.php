@@ -432,7 +432,7 @@ if ($type == 'directory')
         if (dol_is_dir($val['name'])) $mimeimg='other.png';
         else $mimeimg=dol_mimetype($val['name'],'application/octet-stream',2);
 
-        print '<li class="filedirelem">';
+        print '<li class="filedirelem toolbar" style="height: 100px !important;">';
         print '<br><br>';
         print '<img src="'.DOL_URL_ROOT.'/theme/common/mime/'.$mimeimg.'"><br>';
         print dol_nl2br(dol_trunc($val['name'],24,'wrap'),1);
