@@ -87,7 +87,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
         			if (! is_writable($upload_dir)) $file1->error='ErrorWebServerUserHasNotPermission';
         			else $file1->error='FailedToWriteFileToTargetDir';
         		}
-        		else $files1->error='UnkownErrorDuringMove '.$result;
+        		else $file1->error='UnkownErrorDuringMove '.$result;
         	}
 
  	        // This json return format is ok with current version of jquery fileupload

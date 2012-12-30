@@ -282,11 +282,11 @@ if ($type == 'directory')
         		if (nberror < 1)
             	{
         			alert('<?php echo dol_escape_js($langs->transnoentitiesnoconv("FileTransferComplete")); ?>');
-					loadandshowpreview('<?php echo dol_escape_js($original_file); ?>', null);
+        			loadandshowpreview('<?php echo dol_escape_js($original_file); ?>', null);
             	}
         		else
         		{
-        			//
+					nberror=0;
         		}
     		},
     		destroy: function (e, data) {
@@ -381,8 +381,8 @@ if ($type == 'directory')
 	{% for (var i=0, file; file=o.files[i]; i++) { %}
     <tr class="template-upload fade">
         <td class="preview"><span class="fade"></span></td>
-        <td class="name"><span>{%=file.name%}</span></td>
-        <td class="size"><span>{%=o.formatFileSize(file.size)%}</span></td>
+        <td class="name" style="min-width: 100px;"><span>{%=file.name%}</span></td>
+        <td class="size" style="padding-left: 4px;"><span>{%=o.formatFileSize(file.size)%}</span></td>
         {% if (file.error) { %}
             <td class="error tderror" colspan="2"><span class="label label-important">{%=locale.fileupload.error%}</span> {%=locale.fileupload.errors[file.error] || file.error%}</td>
         {% } else if (o.files.valid && !i) { %}
@@ -407,7 +407,7 @@ if ($type == 'directory')
 	{% for (var i=0, file; file=o.files[i]; i++) { %}
     <tr class="template-download fade">
         {% if (file.error) { nberror++; %}
-            <td class="error tderror" colspan="5"><span class="label label-important">{%=locale.fileupload.error%}</span> {%=locale.fileupload.errors[file.error] || file.error%}</td>
+            <td class="error tderror" nowrap="nowrap" colspan="5"><span class="label label-important">{%=locale.fileupload.error%}</span> {%=locale.fileupload.errors[file.error] || file.error%}</td>
         {% } %}
     </tr>
 	{% } %}
