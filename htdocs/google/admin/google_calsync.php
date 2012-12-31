@@ -197,9 +197,9 @@ print '<br>';
 
 
 print '<div class="tabsActions">';
-if (empty($conf->global->GOOGLE_LOGIN) || empty($conf->global->GOOGLE_LOGIN))
+if (empty($conf->global->GOOGLE_LOGIN) || empty($conf->global->GOOGLE_LOGIN) || empty($conf->global->GOOGLE_DUPLICATE_INTO_GCAL))
 {
-	print '<a class="butActionRefused" href="#">'.$langs->trans("TestConnection")."</a>";
+	print '<a class="butActionRefused" href="#">'.$langs->trans("TestCreateUpdateDelete")."</a>";
 }
 else
 {

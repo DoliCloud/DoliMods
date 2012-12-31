@@ -98,6 +98,11 @@ function createContact($client, $object)
 			'xmlns:gd', 'http://schemas.google.com/g/2005');
 		$doc->appendChild($entry);
 
+
+		// Uncomment to test when all fields are empty
+		//$object->email='';	$object->url=''; $object->address=''; $object->zip=''; $object->town=''; $object->note=''; unset($object->country_id);
+
+
 		// add name element
 		$name = $doc->createElement('gd:name');
 		$entry->appendChild($name);
@@ -130,12 +135,13 @@ function createContact($client, $object)
 		$address->setAttribute('rel' ,'http://schemas.google.com/g/2005#work');
 		$address->setAttribute('primary' ,'true');
 		$entry->appendChild($address);
+
 		$city = $doc->createElement('gd:city', $object->town);
-		$address->appendChild($city);
+		if (! empty($object->town))	$address->appendChild($city);
 		$street = $doc->createElement('gd:street', $object->address);
-		$address->appendChild($street);
+		if (! empty($object->address)) $address->appendChild($street);
 		$postcode = $doc->createElement('gd:postcode', $object->zip);
-		$address->appendChild($postcode);
+		if (! empty($object->zip))	$address->appendChild($postcode);
 		/*
 		$region = $doc->createElement('gd:region', getState($object->state_id,0));
 		$address->appendChild($region);
@@ -174,7 +180,7 @@ function createContact($client, $object)
 		$note = $doc->createElement('atom:content',$object->note);
 		$entry->appendChild($note);
 
-//		var_dump($doc->saveXML());exit;
+		//var_dump($doc->saveXML());exit;
 
 		// insert entry
 		$entryResult = $gdata->insertEntry($doc->saveXML(),	'http://www.google.com/m8/feeds/contacts/default/full');
