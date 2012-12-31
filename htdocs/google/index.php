@@ -296,7 +296,7 @@ print $frame;
 
 
 
-if (! empty($client_id))		// If we setup to use the oauth login
+if (empty($client_id))		// If we setup to use the oauth login
 {
 	print $langs->trans("DueToGoogleLimitYouNeedToLogin");
 }
