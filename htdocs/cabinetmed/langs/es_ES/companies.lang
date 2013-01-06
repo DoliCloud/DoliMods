@@ -176,7 +176,6 @@ Supplier=Proveedor
 CompanyList=Listado de empresas
 AddContact=Crear contacto/dirección
 Contact=Contacto
-NoContactDefined=Ningun contacto definido para este paciente
 DefaultContact=Contacto por defecto
 AddCompany=Crear empresa
 AddThirdParty=Crear paciente
