@@ -169,14 +169,14 @@ $var=!$var;
 print "<tr ".$bc[$var].">";
 print "<td>".$langs->trans("GOOGLE_EVENT_LABEL_INC_SOCIETE")."<br /></td>";
 print "<td>";
-print $form->selectyesno("GOOGLE_EVENT_LABEL_INC_SOCIETE",isset($_POST["GOOGLE_EVENT_LABEL_INC_SOCIETE"])?$_POST["GOOGLE_EVENT_LABEL_INC_SOCIETE"]:$conf->global->GOOGLE_EVENT_LABEL_INC_SOCIETE,1);
+print $form->selectyesno("GOOGLE_EVENT_LABEL_INC_SOCIETE",isset($_POST["GOOGLE_EVENT_LABEL_INC_SOCIETE"])?$_POST["GOOGLE_EVENT_LABEL_INC_SOCIETE"]:(isset($conf->global->GOOGLE_EVENT_LABEL_INC_SOCIETE)?$conf->global->GOOGLE_EVENT_LABEL_INC_SOCIETE:1),1);
 print "</td>";
 print "</tr>";
 $var=!$var;
 print "<tr ".$bc[$var].">";
 print "<td>".$langs->trans("GOOGLE_EVENT_LABEL_INC_CONTACT")."<br /></td>";
 print "<td>";
-print $form->selectyesno("GOOGLE_EVENT_LABEL_INC_CONTACT",isset($_POST["GOOGLE_EVENT_LABEL_INC_CONTACT"])?$_POST["GOOGLE_EVENT_LABEL_INC_CONTACT"]:$conf->global->GOOGLE_EVENT_LABEL_INC_CONTACT,1);
+print $form->selectyesno("GOOGLE_EVENT_LABEL_INC_CONTACT",isset($_POST["GOOGLE_EVENT_LABEL_INC_CONTACT"])?$_POST["GOOGLE_EVENT_LABEL_INC_CONTACT"]:(isset($conf->global->GOOGLE_EVENT_LABEL_INC_CONTACT)?$conf->global->GOOGLE_EVENT_LABEL_INC_CONTACT:1),1);
 print "</td>";
 print "</tr>";
 
