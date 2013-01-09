@@ -1,5 +1,5 @@
 <?php
-/* Copyright (C) 2007-2010 Laurent Destailleur  <eldy@users.sourceforge.net>
+/* Copyright (C) 2007-2012 Laurent Destailleur  <eldy@users.sourceforge.net>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -78,23 +78,30 @@ if( file_exists($selecteddir) )
     if ($files)
     {
     	natcasesort($files);
-    	if( count($files) > 2 )
-    	{ /* The 2 accounts for . and .. */
+    	if ( count($files) > 2 )	// The 2 accounts for . and ..
+    	{
+    		// $selecteddir = '/tmp/'
+    		// $file = 'subdir'
+
     		echo "<ul class=\"jqueryFileTree\" style=\"display: none;\">\n";
     		// All dirs
     		foreach( $files as $file ) {
     			if( file_exists($selecteddir . $file) && $file != '.' && $file != '..' && is_dir($selecteddir . $file) ) {
-    				print "<li class=\"directory collapsed\"><a class=\"fmdirlia jqft\" href=\"#\" rel=\"" . dol_escape_htmltag($selecteddir . $file . '/') . "\"";
-    				print " onClick=\"loadandshowpreview('".dol_escape_js($selecteddir . $file)."')\"";
-    				print ">" . dol_escape_htmltag($file) . "</a></li>"."\n";
+    				print "<li id=\"li_".(md5($selecteddir . $file))."\" class=\"directory collapsed\">";
+    				print "<a id=\"a_".(md5($selecteddir . $file))."\" idparent=\"a_".(md5($selecteddir))."\" class=\"fmdirlia jqft\" href=\"#\" rel=\"" . dol_escape_htmltag($selecteddir . $file . '/') . "\"";
+    				print " onClick=\"loadandshowpreview('".dol_escape_js($selecteddir . $file)."', this)\"";
+    				print ">" . dol_escape_htmltag($file) . "</a>";
+    				print "</li>"."\n";
     			}
     		}
     		// All files
     		foreach( $files as $file ) {
     			if( file_exists($selecteddir . $file) && $file != '.' && $file != '..' && !is_dir($selecteddir . $file) ) {
     				$ext = preg_replace('/^.*\./', '', $file);
-    				print "<li class=\"file ext_".$ext."\">";
-    				print "<a class=\"fmfilelia jqft\" href=\"#\" rel=\"" . dol_escape_htmltag($selecteddir . $file) . "\">" . dol_escape_htmltag($file) . "</a>";
+    				print "<li id=\"li_".(md5($selecteddir . $file))."\" class=\"file ext_".$ext."\">";
+    				print "<a id=\"a_".(md5($selecteddir . $file))."\" idparent=\"a_".(md5($selecteddir))."\" class=\"fmfilelia jqft\" href=\"#\" rel=\"" . dol_escape_htmltag($selecteddir . $file) . "\"";
+    				print " onClick=\"loadandshowpreview('".dol_escape_js($selecteddir . $file)."', this)\"";
+    				print ">" . dol_escape_htmltag($file) . "</a>";
     				print "</li>"."\n";
     			}
     		}

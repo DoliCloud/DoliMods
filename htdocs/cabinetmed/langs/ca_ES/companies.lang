@@ -181,7 +181,6 @@ Supplier=Proveïdor
 CompanyList=Llistat d'empreses
 AddContact=Crear contacte/adreça
 Contact=Contacte
-NoContactDefined=Cap contacte definit per a aquest pacient
 DefaultContact=Contacte per defecte
 AddCompany=Crear empresa
 AddThirdParty=Crear pacient

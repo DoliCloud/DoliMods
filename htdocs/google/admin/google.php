@@ -49,7 +49,9 @@ if ($action == 'save')
 {
     $db->begin();
 
-	$res=dolibarr_set_const($db,'GOOGLE_ENABLE_AGENDA'.$i,trim($_POST["GOOGLE_ENABLE_AGENDA".$i]),'chaine',0);
+    $res=dolibarr_set_const($db,'GOOGLE_ENABLE_AGENDA'.$i,trim($_POST["GOOGLE_ENABLE_AGENDA".$i]),'chaine',0);
+    $res=dolibarr_set_const($db,'GOOGLE_AGENDA_CLIENT_ID'.$i,trim($_POST["GOOGLE_AGENDA_CLIENT_ID".$i]),'chaine',0);
+    $res=dolibarr_set_const($db,'GOOGLE_AGENDA_CLIENT_SECRET'.$i,trim($_POST["GOOGLE_AGENDA_CLIENT_SECRET".$i]),'chaine',0);
 
 	$i=1;
 	$error=0;
@@ -189,6 +191,48 @@ while ($i <= $MAXAGENDA)
 	print "</tr>";
 	$i++;
 }
+
+print '</table>';
+print '<br>';
+
+
+
+// Define $urlwithroot
+//$urlwithouturlroot=preg_replace('/'.preg_quote(DOL_URL_ROOT,'/').'$/i','',trim($dolibarr_main_url_root));
+//$urlwithroot=$urlwithouturlroot.DOL_URL_ROOT;		// This is to use external domain name found into config file
+$urlwithroot=DOL_MAIN_URL_ROOT;						// This is to use same domain name than current
+$urlwithouturlroot=preg_replace('/'.preg_quote(DOL_URL_ROOT,'/').'$/i','',$urlwithroot);
+
+$redirect_uri=$urlwithouturlroot.dol_buildpath('/google/index.php',1);		// Must be an url without parameters
+
+
+// Setup for Oauth
+$urltocreatekey='https://code.google.com/apis/console/';
+print $langs->trans("DueToGoogleLimitYouNeedToLogin").'<br>';
+print $langs->trans("AllowGoogleToLoginSetupKey").'<br>';
+print $langs->trans("AllowGoogleToLoginProp",$urltocreatekey,$urltocreatekey,$redirect_uri).'<br>';
+print "<table class=\"noborder\" width=\"100%\">";
+
+print "<tr class=\"liste_titre\">";
+print "<td>".$langs->trans("Parameter")."</td>";
+print "<td>".$langs->trans("Name")."</td>";
+print "</tr>";
+// Client ID
+$var=!$var;
+print "<tr ".$bc[$var].">";
+print "<td>".$langs->trans("GoogleClientId")."</td>";
+print "<td>";
+print '<input class="flat" type="text" size="60" name="GOOGLE_AGENDA_CLIENT_ID" value="'.$conf->global->GOOGLE_AGENDA_CLIENT_ID.'">';
+print "</td>";
+print "</tr>";
+// Client Secret
+$var=!$var;
+print "<tr ".$bc[$var].">";
+print "<td>".$langs->trans("GoogleClientSecret")."</td>";
+print "<td>";
+print '<input class="flat" type="text" size="60" name="GOOGLE_AGENDA_CLIENT_SECRET" value="'.$conf->global->GOOGLE_AGENDA_CLIENT_SECRET.'">';
+print "</td>";
+print "</tr>";
 
 print '</table>';
 print '<br>';

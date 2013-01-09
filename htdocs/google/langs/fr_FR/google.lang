@@ -36,3 +36,6 @@ GoogleUserConf=Configuration Google
 GoogleSetupIsGlobal=La synchronisation est faite de manière globale vers le compte %s pour tout le monde
 TestCreateUpdateDelete=Tester création-mise à jour-suppression
 TestSuccessfull=Test succès
+DueToGoogleLimitYouNeedToLogin=Pour des raisons de sécurité imposées par Google, la vue agenda de Google ne s'affichera correctement que si vous êtes logué sous Google (ceci ne fonctionne toutefois que pour 1 seul ID Agenda).
+AllowGoogleToLoginSetupKey=Afin de faciliter cela, il est possible de configurer une clé pour permettre à l'application de proposer la Logon Google si vous n'êtes pas connecté.
+AllowGoogleToLoginProp=Les informations à saisir ici s'obtiennent en créant une clé par ce lien <a href="%s" target="_blank">%s</a>: Choisir API Access, puis Créer un client ID de type Application Web, en saisissant comme url de redirection (Redirect URI), l'url <strong>%s</strong> 

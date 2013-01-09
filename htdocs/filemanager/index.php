@@ -21,7 +21,9 @@
  *		\brief      This is home page of filemanager module
  */
 
-if (! defined('REQUIRE_JQUERY_LAYOUT'))  define('REQUIRE_JQUERY_LAYOUT','1');
+if (! defined('REQUIRE_JQUERY_LAYOUT'))     define('REQUIRE_JQUERY_LAYOUT','1');
+if (! defined('REQUIRE_JQUERY_FILEUPLOAD')) define('REQUIRE_JQUERY_FILEUPLOAD','1');
+
 
 //if (! defined('NOREQUIREUSER'))  define('NOREQUIREUSER','1');
 //if (! defined('NOREQUIREDB'))    define('NOREQUIREDB','1');
@@ -120,6 +122,9 @@ if (GETPOST('action')=='deletedir')
 /*
  * view
  */
+
+$conf->global->REQUIRE_JQUERY_FILEUPLOAD=1;		// For 3.3+
+$conf->global->MAIN_USE_JQUERY_FILEUPLOAD=1; 	// For compatibility with 3.2 (constant was not enough)
 
 $maxheightwin=(isset($_SESSION["dol_screenheight"]) && $_SESSION["dol_screenheight"] > 500)?($_SESSION["dol_screenheight"]-166):660;
 
@@ -227,14 +232,15 @@ print '<div id="mesg" class="margin-bottom: 6px;">'.$mesg.'</div>';
 if ($filemanagerroots->rootpath)
 {
 ?>
+
     var filediractive='<?php echo $filemanagerroots->rootpath; ?>';
     var filetypeactive='';
 
-    function newdir()
+    function newdir(newdir)
     {
         dirname=filediractive;
         //alert(content);
-        url='<?php echo dol_buildpath('/filemanager/ajaxfileactions.php',1); ?>?action=newdir&rootpath=<?php echo $filemanagerroots->id ?>&modulepart=filemanager&type=auto&file='+urlencode(dirname+'/newdir');
+        url='<?php echo dol_buildpath('/filemanager/ajaxfileactions.php',1); ?>?action=newdir&rootpath=<?php echo $filemanagerroots->id ?>&modulepart=filemanager&type=auto&file='+urlencode(dirname+'/'+newdir);
         // jQuery.post("test.php", $("#testform").serialize());
         jQuery.post(url,
             function(data) {
@@ -401,9 +407,10 @@ if ($filemanagerroots->rootpath)
 	}
 
 
-    function loadandshowpreview(filedirname)
+    function loadandshowpreview(filedirname, element)
     {
         //alert('filename='+filename);
+        //console.log(element);
         jQuery('#fileview').empty();
 
         url='<?php echo dol_buildpath('/filemanager/ajaxshowpreview.php',1); ?>?action=preview&rootpath=<?php echo $filemanagerroots->id ?>&modulepart=filemanager&type=auto&file='+urlencode(filedirname);
@@ -439,14 +446,13 @@ if ($filemanagerroots->rootpath)
     // --------------------
     jQuery(document).ready( function() {
         <?php if ($filemanagerroots->rootpath) { ?>
-        jQuery('#filetree').fileTree({ root: '<?php echo dol_escape_js($filemanagerroots->rootpath); ?>',
-                       script: 'ajaxFileTree.php?openeddir=<?php echo urlencode($openeddir); ?>',
-                       folderEvent: 'click',
-                       multiFolder: false  },
-                     function(file) {
-                    	   jQuery("#mesg").hide();
-                    	   loadandshowpreview(file);
-               		 });
+        jQuery('#filetree').fileTree(
+                		{ root: '<?php echo dol_escape_js($filemanagerroots->rootpath); ?>',
+						script: 'ajaxFileTree.php?openeddir=<?php echo urlencode($openeddir); ?>',		// Called when we click onto a dir (loadandshowpreview is on the onClick of the a tag of dir)
+						folderEvent: 'click',
+						multiFolder: false },
+						function(file) {}																// Called when we click onto a file
+			);
         <?php } ?>
 
         <?php if (! $filemanagerroots->rootpath) { ?>
@@ -468,7 +474,8 @@ if ($filemanagerroots->rootpath)
         {
         ?>
         jQuery("#anewdir").click(function() {
-            newdir();
+            res=confirm('<?php echo dol_escape_js($langs->transnoentitiesnoconv("CreateNewDir")); ?>: '+filediractive+'/newdir');
+       		if (res) newdir('newdir');
         });
         jQuery("#adeletedir").click(function() {
             deletedir();
@@ -506,7 +513,7 @@ print '</div>'."\n";
 
 
 <div id="containerlayout"> <!-- begin div id="containerlayout" -->
-    <div id="ecm-layout-north" class="hidden toolbar">
+    <div id="ecm-layout-north" class="hidden toolbar largebutton">
 <?php
 // Toolbar
 print '<div class="toolbarbutton">';
