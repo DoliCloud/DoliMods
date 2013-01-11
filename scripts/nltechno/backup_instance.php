@@ -145,7 +145,7 @@ if ($mode == 'testrsync' || $mode == 'confirmrsync' || $mode == 'confirm')
 	$param[]="--exclude '*/test/'";
 	$param[]="--exclude '*/temp/'";
 	$param[]="--exclude '*/documents/admin/backup/'";
-	$param[]="--backup --suffix=.old --delete";
+	$param[]="--backup --suffix=.old --delete --delete-excluded";
 	$param[]="--stats";
 	$param[]="-e 'ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no'";
 
