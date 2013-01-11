@@ -139,7 +139,7 @@ if ($action == 'backup' || $action == 'backuptestrsync' || $action == 'backuptes
 			$now=dol_now();
 
 			// Run backup
-			print "Process backup of instance ".$instance."\n";
+			print "Process backup of instance ".$instance.' - '.strftime("%Y%m%d-%H%M%S")."\n";
 
 			$command=($path?$path.'/':'')."backup_instance.php ".escapeshellarg($instance)." ".escapeshellarg($conf->global->DOLICLOUD_INSTANCES_PATH)." ".($action == 'backup'?'confirm':($action == 'backuptestdatabase'?'testdatabase':'testrsync'));
 
