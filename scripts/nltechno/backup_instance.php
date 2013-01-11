@@ -129,19 +129,23 @@ if ($mode == 'testrsync' || $mode == 'confirmrsync' || $mode == 'confirm')
 	if ($mode != 'confirm') $param[]="-n";
 	//$param[]="-a";
 	$param[]="-rlt";
-	$param[]="-v";
+	$param[]="-vv";
 	$param[]="--exclude .buildpath";
 	$param[]="--exclude .git";
 	$param[]="--exclude .gitignore";
 	$param[]="--exclude .settings";
 	$param[]="--exclude .project";
-	$param[]="--exclude build/";
-	//$param[]="--exclude doc/";	// To keep files into htdocs/core/module/xxx/doc dir
-	$param[]="--exclude dev/";
-	$param[]="--exclude test/";
-	$param[]="--exclude system/";
-	//$param[]="--delete";
-	$param[]="--backup --suffix=.log --delete";
+	$param[]="--exclude '*.log'";
+	//$param[]="--exclude '*.old'";
+	$param[]="--exclude '*/build/'";
+	$param[]="--exclude '*/doc/images/'";	// To keep files into htdocs/core/module/xxx/doc/ dir
+	$param[]="--exclude '*/doc/install/'";	// To keep files into htdocs/core/module/xxx/doc/ dir
+	$param[]="--exclude '*/doc/user/'";		// To keep files into htdocs/core/module/xxx/doc/ dir
+	$param[]="--exclude '*/dev/'";
+	$param[]="--exclude '*/test/'";
+	$param[]="--exclude '*/temp/'";
+	$param[]="--exclude '*/documents/admin/backup/'";
+	$param[]="--backup --suffix=.old --delete";
 	$param[]="--stats";
 	$param[]="-e 'ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no'";
 
