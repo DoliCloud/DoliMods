@@ -61,7 +61,7 @@ $langs->load("main");				// To load language file for default language
 //$user->getrights();
 
 
-print "***** ".$script_file." (".$version.") *****\n";
+print "***** ".$script_file." (".$version.") - ".strftime("%Y%m%d")." *****\n";
 if (! isset($argv[1])) {	// Check parameters
     print "Usage: ".$script_file." [backup|backuptestrsync|backuptestdatabase]\n";
     exit;
@@ -198,11 +198,11 @@ print "Nb of instances ok: ".$nbofok."\n";
 print "Nb of instances ko: ".$nboferrors."\n";
 if (! $nboferrors)
 {
-	print '--- end ok'."\n";
+	print '--- end ok - '.strftime("%Y%m%d")."\n";
 }
 else
 {
-	print '--- end error code='.$nboferrors."\n";
+	print '--- end error code='.$nboferrors.' - '.strftime("%Y%m%d")."\n";
 }
 
 $db->close();	// Close database opened handler
