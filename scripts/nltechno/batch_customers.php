@@ -198,7 +198,7 @@ print "Nb of instances ok: ".$nbofok."\n";
 print "Nb of instances ko: ".$nboferrors."\n";
 if (! $nboferrors)
 {
-	print '--- end ok - '.strftime("%Y%m%d")."\n";
+	print '--- end ok - '.strftime("%Y%m%d-%H%M%S")."\n";
 }
 else
 {
