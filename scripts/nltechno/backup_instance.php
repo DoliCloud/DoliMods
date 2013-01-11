@@ -158,8 +158,9 @@ if ($mode == 'testrsync' || $mode == 'confirmrsync' || $mode == 'confirm')
 	$fullcommand=$command." ".join(" ",$param);
 	$output=array();
 	$return_var=0;
-	print $fullcommand."\n";
+	print strftime("%Y%m%d-%H%M%S").' '.$fullcommand."\n";
 	exec($fullcommand, &$output, &$return_var);
+	print strftime("%Y%m%d-%H%M%S").' rsync done'."\n";
 
 	// Output result
 	foreach($output as $outputline)
@@ -193,8 +194,9 @@ if ($mode == 'testdatabase' || $mode == 'confirmdatabase' || $mode == 'confirm')
 	else $fullcommand.=" | bzip2 > ".$dirroot.'/'.$login.'/documents/admin/backup/mysqldump_'.$object->database_db.'_'.gmstrftime('%d').'.sql.bz2';
 	$output=array();
 	$return_varmysql=0;
-	print $fullcommand."\n";
+	print strftime("%Y%m%d-%H%M%S").' '.$fullcommand."\n";
 	exec($fullcommand, &$output, &$return_varmysql);
+	print strftime("%Y%m%d-%H%M%S").' mysqldump done'."\n";
 
 	// Output result
 	foreach($output as $outputline)
@@ -210,7 +212,7 @@ if (empty($return_var) && empty($return_varmysql))
 	if ($mode == 'confirm')
 	{
 		$now=dol_now();
-		print 'Update date of full backup (rsync+dump) for instance '.$object->instance.' to '.$now."\n";
+		print strftime("%Y%m%d-%H%M%S").' Update date of full backup (rsync+dump) for instance '.$object->instance.' to '.$now."\n";
 		$object->date_lastrsync=$now;
 		$object->update(0);
 	}
