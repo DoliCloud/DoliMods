@@ -109,8 +109,8 @@ class modOvh extends DolibarrModules
 		// 'group'            to add a tab in group view
 		// 'contact'          to add a tab in contact view
 		// 'categories_x'	  to add a tab in category view (replace 'x' by type of category (0=product, 1=supplier, 2=customer, 3=member)
-		$this->tabs = array('thirdparty:+sms:SMS:ovh@ovh:$user->rights->ovh->send:/ovh/sms_thirdparty.php?id=__ID__',
-		                    'member:+sms:SMS:ovh@ovh:$user->rights->ovh->send:/ovh/sms_member.php?id=__ID__');
+		$this->tabs = array('thirdparty:+tabSMS:SMS:ovh@ovh:$user->rights->ovh->send:/ovh/sms_thirdparty.php?id=__ID__',
+		                    'member:+tabSMS:SMS:ovh@ovh:$user->rights->ovh->send:/ovh/sms_member.php?id=__ID__');
 
 
 
