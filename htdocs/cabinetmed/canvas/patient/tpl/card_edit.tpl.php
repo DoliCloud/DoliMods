@@ -38,7 +38,7 @@ if (substr($module, 0, 15) == 'mod_codeclient_' && substr($module, -3) == 'php')
     $module = substr($module, 0, dol_strlen($module)-4);
 }
 // Load object modCodeClient
-$dirsociete=array_merge(array('/core/modules/societe/'),$conf->societe_modules);
+$dirsociete=array_merge(array('/core/modules/societe/'),$conf->modules_parts['societe']);
 foreach ($dirsociete as $dirroot)
 {
     $res=dol_include_once($dirroot.$module.".php");
@@ -194,7 +194,7 @@ if (empty($conf->global->SOCIETE_DISABLE_STATE))
 }
 
 // Phone / Fax
-print '<tr><td>'.$langs->trans('PhonePerso').'</td><td><input type="text" name="tel" value="'.$soc->tel.'"></td>';
+print '<tr><td>'.$langs->trans('PhonePerso').'</td><td><input type="text" name="phone" value="'.$soc->tel.'"></td>';
 print '<td>'.$langs->trans('PhoneMobile').'</td><td><input type="text" name="fax" value="'.$soc->fax.'"></td></tr>';
 
 // EMail / Web

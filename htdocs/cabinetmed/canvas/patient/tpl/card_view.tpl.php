@@ -38,6 +38,12 @@ $formfile=new FormFile($GLOBALS['db']);
 $head = societe_prepare_head($soc);
 $now=dol_now();
 
+/*foreach($head as $key => $val)
+{
+	var_dump($val);
+}*/
+
+//dol_fiche_head($head, 'tabpatientcard', $langs->trans("Patient"),0,'company');
 dol_fiche_head($head, 'card', $langs->trans("Patient"),0,'company');
 
 dol_htmloutput_errors($error,$errors);

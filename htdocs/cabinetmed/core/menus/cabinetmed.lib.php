@@ -956,7 +956,7 @@ function print_left_cabinetmed_menu($db,$menu_array_before,$menu_array_after)
 
                 if ($user->rights->societe->creer)
                 {
-                    $newmenu->add("/societe/soc.php?action=create&leftmenu=customers&canvas=patient@cabinetmed",$langs->trans("MenuNewPatient"),1);
+                    $newmenu->add("/cabinetmed/soc.php?action=create&leftmenu=customers&canvas=patient@cabinetmed",$langs->trans("MenuNewPatient"),1);
                 }
             }
 

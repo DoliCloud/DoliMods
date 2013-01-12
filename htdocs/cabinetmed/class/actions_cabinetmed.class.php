@@ -56,10 +56,22 @@ class ActionsCabinetmed
      */
     function doActions($parameters,&$object,&$action)
     {
-        global $langs,$conf;
+        global $db,$langs,$conf;
 
         $ret=0;
         dol_syslog(get_class($this).'::executeHooks action='.$action);
+
+        //print 'action='.$action;
+        //var_dump($parameters);
+        if (isset($parameters['id']) && isset($parameters['context']) && in_array($parameters['context'],array('agendathirdparty','categorycard','infothirdparty')) && empty($action))
+        {
+        	$thirdparty=new Societe($db);
+        	$thirdparty->fetch($parameters['id']);
+        	if ($thirdparty->canvas == 'patient@cabinetmed')
+        	{
+        		$langs->tab_translate["ThirdParty"]=$langs->trans("Patient");
+        	}
+        }
 
         // Hook called when asking to add a new record
         if ($action == 'add')

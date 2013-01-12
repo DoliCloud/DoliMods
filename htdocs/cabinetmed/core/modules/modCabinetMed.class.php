@@ -25,7 +25,6 @@
  *      \file       htdocs/cabinetmed/core/modules/modCabinetMed.class.php
  *      \ingroup    cabinetmed
  *      \brief      Description and activation file for module CabinetMed
- *      \version    $Id: modCabinetMed.class.php,v 1.46 2011/09/07 16:26:49 eldy Exp $
  */
 include_once(DOL_DOCUMENT_ROOT ."/core/modules/DolibarrModules.class.php");
 
@@ -60,7 +59,7 @@ class modCabinetMed extends DolibarrModules
         // Module description, used if translation string 'ModuleXXXDesc' not found (where XXX is value of numeric property 'numero' of module)
         $this->description = "Module CabinetMed";
         // Possible values for version are: 'development', 'experimental', 'dolibarr' or version
-        $this->version = '3.2';
+        $this->version = '3.4.0';
         // Key used in llx_const table to save module status enabled/disabled (where MYMODULE is value of property name of module in uppercase)
         $this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
         // Where to store the module in setup page (0=common,1=interface,2=others,3=very specific)
@@ -83,13 +82,13 @@ class modCabinetMed extends DolibarrModules
         							'substitutions' => 1,
         							'menus' => 1,
         							'css' => 0,    // No new theme, only a forced dir
-        							'hooks' => array('thirdpartycard','contactcard','documentcabinetmed','searchform','demo'));
+        							'hooks' => array('thirdpartycard','categorycard','contactcard','agendathirdparty','infothirdparty','documentcabinetmed','searchform','demo'));
 
         // Dependencies
         $this->depends = array('modSociete');       // List of modules id that must be enabled if this module is enabled
         $this->requiredby = array();    // List of modules id to disable if this one is disabled
         $this->phpmin = array(4,3);                 // Minimum version of PHP required by module
-        $this->need_dolibarr_version = array(3,2,-3);   // Minimum version of Dolibarr required by module
+        $this->need_dolibarr_version = array(3,4,-3);   // Minimum version of Dolibarr required by module
         $this->langfiles = array('cabinetmed@cabinetmed','companies');
 
         // Constants
@@ -122,20 +121,23 @@ class modCabinetMed extends DolibarrModules
                         );
 
         // Array to add new pages in new tabs
-        $this->tabs = array('thirdparty:+tabcontacts:Correspondants:cabinetmed@cabinetmed:/cabinetmed/contact.php?socid=__ID__',
-                            'thirdparty:+tabantecedents:AntecedentsShort:cabinetmed@cabinetmed:/cabinetmed/antecedant.php?socid=__ID__',
-                            //'thirdparty:+tabtraitetallergies:TraitEtAllergies:cabinetmed@cabinetmed:/cabinetmed/traitetallergies.php?socid=__ID__',
-                            'thirdparty:+tabnotes:Notes:cabinetmed@cabinetmed:/cabinetmed/notes.php?socid=__ID__',
-        					'thirdparty:+tabconsultations:ConsultationsShort:cabinetmed@cabinetmed:/cabinetmed/consultations.php?socid=__ID__',
-                            'thirdparty:+tabexambio:ResultExamBio:cabinetmed@cabinetmed:/cabinetmed/exambio.php?socid=__ID__',
-                            'thirdparty:+tabexamautre:ResultExamAutre:cabinetmed@cabinetmed:/cabinetmed/examautre.php?socid=__ID__',
-                            'thirdparty:+tabdocument:Courriers:cabinetmed@cabinetmed:/cabinetmed/documents.php?socid=__ID__',
-                            'thirdparty:-customer',
-                            'thirdparty:-document',
-                            'thirdparty:-notify',
-                            'thirdparty:-note',
-        					'contact:+tabpatient:Patients:cabinetmed@cabinetmed:/cabinetmed/patients_of_contact.php?id=__ID__'
-                            );
+        $this->tabs = array(
+        				//'thirdparty:+tabpatientcard:Patient:cabinetmed@cabinetmed:/cabinetmed/soc.php?socid=__ID__',
+        				'thirdparty:+tabcontacts:Correspondants:cabinetmed@cabinetmed:/cabinetmed/contact.php?socid=__ID__',
+                        'thirdparty:+tabantecedents:AntecedentsShort:cabinetmed@cabinetmed:/cabinetmed/antecedant.php?socid=__ID__',
+                        //'thirdparty:+tabtraitetallergies:TraitEtAllergies:cabinetmed@cabinetmed:/cabinetmed/traitetallergies.php?socid=__ID__',
+                        'thirdparty:+tabnotes:Notes:cabinetmed@cabinetmed:/cabinetmed/notes.php?socid=__ID__',
+      					'thirdparty:+tabconsultations:ConsultationsShort:cabinetmed@cabinetmed:/cabinetmed/consultations.php?socid=__ID__',
+                        'thirdparty:+tabexambio:ResultExamBio:cabinetmed@cabinetmed:/cabinetmed/exambio.php?socid=__ID__',
+                        'thirdparty:+tabexamautre:ResultExamAutre:cabinetmed@cabinetmed:/cabinetmed/examautre.php?socid=__ID__',
+                        'thirdparty:+tabdocument:Courriers:cabinetmed@cabinetmed:/cabinetmed/documents.php?socid=__ID__',
+                        //'thirdparty:-card',
+     					'thirdparty:-customer',
+                        'thirdparty:-document',
+                        'thirdparty:-notify',
+                        'thirdparty:-note',
+       					'contact:+tabpatient:Patients:cabinetmed@cabinetmed:/cabinetmed/patients_of_contact.php?id=__ID__'
+                    );
         // where entity can be
 		// 'thirdparty'       to add a tab in third party view
 		// 'intervention'     to add a tab in intervention view

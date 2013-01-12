@@ -25,7 +25,7 @@ if (substr($module, 0, 15) == 'mod_codeclient_' && substr($module, -3) == 'php')
     $module = substr($module, 0, dol_strlen($module)-4);
 }
 // Load object modCodeClient
-$dirsociete=array_merge(array('/core/modules/societe/'),$conf->societe_modules);
+$dirsociete=array_merge(array('/core/modules/societe/'),$conf->modules_parts['societe']);
 foreach ($dirsociete as $dirroot)
 {
     $res=dol_include_once($dirroot.$module.".php");
@@ -168,7 +168,7 @@ dol_htmloutput_errors($GOBALS['error'],$GLOBALS['errors']);
 
 <tr>
 	<td><?php echo $langs->trans('PhonePerso'); ?></td>
-	<td><input type="text" name="tel" value="<?php echo $soc->tel; ?>"></td>
+	<td><input type="text" name="phone" value="<?php echo $soc->tel; ?>"></td>
 	<td><?php echo $langs->trans('PhoneMobile'); ?></td>
 	<td><input type="text" name="fax" value="<?php echo $soc->fax; ?>"></td>
 </tr>

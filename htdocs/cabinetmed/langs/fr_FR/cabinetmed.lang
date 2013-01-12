@@ -141,3 +141,4 @@ ReportingsMed=Rapports consultations
 MenuFinancialMed=Bilan consultations
 AlertTriggered=Une alerte de type %s a été cochée %s
 CABINETMED_BANK_PATIENT_REQUIRED=Le champ "Banque du chèque" du patient est obligatoire quand le paiement est en chèque
+EditPatient=Modifier patient
