@@ -40,3 +40,5 @@ NoInvoicesSelected=No invoices selected
 FileDownloadedAndAttached=File <strong>%s</strong> downloaded and attached to invoice
 InvoiceFoundIntoDolibarr=Invoice found into Dolibarr: %s
 InvoicePDFFoundIntoDolibarr=Invoice+PDF found into Dolibarr: %s
+ConnectionParameters=Connection parameters
+TryToUseProxy=Using proxy server

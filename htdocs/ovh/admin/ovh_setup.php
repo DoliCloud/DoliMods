@@ -117,72 +117,6 @@ if ($action == 'setvalue_account' && $user->admin)
     }
 }
 
-/* Envoi d'un SMS */
-if ($action == 'send' && ! $_POST['cancel'])
-{
-    $error=0;
-
-    $smsfrom='';
-    if (! empty($_POST["fromsms"])) $smsfrom=GETPOST("fromsms");
-    if (empty($smsfrom)) $smsfrom=GETPOST("fromname");
-    $sendto     = GETPOST("sendto");
-    $body       = GETPOST('message');
-    $deliveryreceipt= GETPOST("deliveryreceipt");
-    $deferred   = GETPOST('deferred');
-    $priority   = GETPOST('priority');
-    $class      = GETPOST('class');
-    $errors_to  = GETPOST("errorstosms");
-
-    // Create form object
-    include_once(DOL_DOCUMENT_ROOT.'/core/class/html.formsms.class.php');
-    $formsms = new FormSms($db);
-
-    if (empty($body))
-    {
-        $mesg='<div class="error">'.$langs->trans("ErrorFieldRequired",$langs->transnoentities("Message")).'</div>';
-        $action='testsms';
-        $error++;
-    }
-    if (empty($smsfrom) || ! str_replace('+','',$smsfrom))
-    {
-        $mesg='<div class="error">'.$langs->trans("ErrorFieldRequired",$langs->transnoentities("SmsFrom")).'</div>';
-        $action='testsms';
-        $error++;
-    }
-    if (empty($sendto) || ! str_replace('+','',$sendto))
-    {
-        $mesg='<div class="error">'.$langs->trans("ErrorFieldRequired",$langs->transnoentities("SmsTo")).'</div>';
-        $action='testsms';
-        $error++;
-    }
-    if (! $error)
-    {
-        // Make substitutions into message
-        $substitutionarrayfortest['__PHONEFROM__']=$smsfrom;
-        $substitutionarrayfortest['__PHONETO__']=$sendto;
-        complete_substitutions_array($substitutionarrayfortest,$langs);
-        $body=make_substitutions($body,$substitutionarrayfortest);
-
-        require_once(DOL_DOCUMENT_ROOT."/core/class/CSMSFile.class.php");
-
-        $smsfile = new CSMSFile($sendto, $smsfrom, $body, $deliveryreceipt, $deferred, $priority, $class);  // This define OvhSms->login, pass, session and account
-        $result=$smsfile->sendfile(); // This send SMS
-
-        if ($result > 0)
-        {
-            $mesg='<div class="ok">'.$langs->trans("SmsSuccessfulySent",$smsfrom,$sendto).'</div>';
-        }
-        else
-        {
-            $mesg='<div class="error">'.$langs->trans("ResultKo").'<br>'.$smsfile->error.'</div>';
-        }
-
-        $action='';
-    }
-}
-
-
-
 
 
 /*
@@ -265,10 +199,19 @@ else
         $params=getSoapParams();
         ini_set('default_socket_timeout', $params['response_timeout']);
 
+		print $langs->trans("ConnectionParameters").':<br>';
         if ($params['proxy_use']) print $langs->trans("TryToUseProxy").': '.$params['proxy_host'].':'.$params['proxy_port'].($params['proxy_login']?(' - '.$params['proxy_login'].':'.$params['proxy_password']):'').'<br>';
         print 'URL: '.$WS_DOL_URL.'<br>';
-        print $langs->trans("ConnectionTimeout").': '.$params['connection_timeout'].'<br>';
-        print $langs->trans("ResponseTimeout").': '.$params['response_timeout'].'<br>';
+        //print $langs->trans("ConnectionTimeout").': '.$params['connection_timeout'].'<br>';
+        //print $langs->trans("ResponseTimeout").': '.$params['response_timeout'].'<br>';
+		$i=0;
+		foreach ($params as $key => $val)
+		{
+			$i++;
+			if ($i > 1) print ', ';
+			print $key.': '.($key == 'proxy_password'?preg_replace('/./','*',$val):$val);
+		}
+		print '<br><br>';
 
         $soap = new SoapClient($WS_DOL_URL,$params);
         try {
@@ -291,6 +234,25 @@ else
             print 'Error '.$e->getMessage().'<br>';
             print 'If this is an error to connect to OVH host, check your firewall does not block port required to reach OVH manager (for example port 1664).<br>';
             print '</div>';
+
+            // Write dump
+			if (@is_writeable($dolibarr_main_data_root))	// Avoid fatal error on fopen with open_basedir
+			{
+				if (! empty($conf->global->MAIN_SOAP_DEBUG))
+				{
+					print "\n";
+					var_dump($e);	// This provide more info than __get functions
+					$outputfile=$dolibarr_main_data_root."/dolibarr_soap.log";
+		            $fp = fopen($outputfile,"w");
+		            fputs($fp, 'Last SOAP header request:'."\n".$soap->__getLastRequestHeaders()."\n");
+		            fputs($fp, 'Last SOAP body request:'."\n".$soap->__getLastRequest()."\n");
+		            fputs($fp, 'Last SOAP header response:'."\n".$soap->__getLastResponseHeaders()."\n");
+		            fputs($fp, 'Last SOAP body response:'."\n".$soap->__getLastResponse()."\n");
+		            fclose($fp);
+		            if (! empty($conf->global->MAIN_UMASK))
+		            	@chmod($outputfile, octdec($conf->global->MAIN_UMASK));
+				}
+			}
         }
     }
 
