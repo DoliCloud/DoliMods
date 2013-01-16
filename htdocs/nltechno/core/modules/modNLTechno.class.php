@@ -209,7 +209,7 @@ class modNLTechno extends DolibarrModules
 		// Example to declare a Left Menu entry:
 		$this->menu[$r]=array( 'fk_menu'=>'r=0',        // Use r=value where r is index key used for the parent menu entry (higher parent must be a top menu entry)
                 				'type'=>'left',         // This is a Left menu entry
-                				'titre'=>'DoliCloudCustomers',
+                				'titre'=>'DoliCloud',
                 				'mainmenu'=>'nltechno',
                 				'leftmenu'=>'dolicloud',
                 				'url'=>'/nltechno/dolicloud_customers.php',
@@ -242,7 +242,21 @@ class modNLTechno extends DolibarrModules
 								'leftmenu'=>'dolicloud_create',
 								'url'=>'/nltechno/dolicloud_card.php?action=create',
 								'langs'=>'',
-								'position'=>200,
+								'position'=>210,
+                				'enabled'=>'$conf->nltechno->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
+								'perms'=>'$user->rights->nltechno->dolicloud->write',
+								'target'=>'',
+								'user'=>0);
+		$r++;
+
+		$this->menu[$r]=array(	'fk_menu'=>'fk_mainmenu=nltechno,fk_leftmenu=dolicloud',
+								'type'=>'left',
+								'titre'=>'EMailsTemplates',
+								'mainmenu'=>'nltechno',
+								'leftmenu'=>'dolicloud_emailstemplates',
+								'url'=>'/nltechno/dolicloudemailstemplates_page.php?action=list',
+								'langs'=>'',
+								'position'=>220,
                 				'enabled'=>'$conf->nltechno->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
 								'perms'=>'$user->rights->nltechno->dolicloud->write',
 								'target'=>'',

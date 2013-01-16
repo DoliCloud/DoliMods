@@ -22,3 +22,5 @@ NLTechnoSetup=Configuration du module NLTechno
 NLTechnoDesc=Paramétrages divers du module NLTechno
 FileDeleted=Fichier supprimé
 FileCreated=Fichier créé
+EMailTemplate=Modèle EMail
+EMailsTemplates=Modèles EMails
