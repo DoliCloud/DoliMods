@@ -197,19 +197,22 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 	print '</tr>';
 
 	print "</table>";
-
 	print '<br>';
 
 
+	// Last refresh
 	print $langs->trans("DateLastCheck").': '.($object->lastcheck?dol_print_date($object->lastcheck,'dayhour','tzuser'):$langs->trans("Never"));
 
 	if (! $object->user_id && $user->rights->nltechno->dolicloud->write)
 	{
 		print ' <a href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&amp;action=refresh">'.img_picto($langs->trans("Refresh"),'refresh').'</a>';
 	}
+	print '<br><br>';
 
 
-	print '<br>';
+	// ----- DoliCloud instance -----
+	print '<strong>INSTANCE SERVEUR STRATUS5</strong><br>';
+
 	print '<table class="border" width="100%">';
 
 	// Nb of users
@@ -254,13 +257,31 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 	print '</td>';
 	print '</tr>';
 
+	print "</table>";
+	print '<br>';
+
+
+	$backupdir=$conf->global->DOLICLOUD_BACKUP_PATH;
+
+	$dirdb=preg_replace('/_dolibarr/','',$object->database_db);
+	$login=$object->username_web;
+	$password=$object->password_web;
+	$server=$object->instance.'.on.dolicloud.com';
+
+	// ----- Backup instance -----
+	print '<strong>INSTANCE BACKUP</strong><br>';
+	print '<table class="border" width="100%">';
+
 	// Last backup date
 	print '<tr>';
-	print '<td>'.$langs->trans("DateLastBackup").'</td>';
-	print '<td colspan="3">'.($object->date_lastrsync?dol_print_date($object->date_lastrsync,'dayhour','tzuser'):'').'</td>';
+	print '<td width="20%">'.$langs->trans("DateLastBackup").'</td>';
+	print '<td width="30%">'.($object->date_lastrsync?dol_print_date($object->date_lastrsync,'dayhour','tzuser'):'').'</td>';
+	print '<td>'.$langs->trans("BackupDir").'</td>';
+	print '<td>'.$backupdir.'/'.$login.'/'.$dirdb.'</td>';
 	print '</tr>';
 
-	print "</table>";
+	print "</table><br>";
+
 
 	print "</div>";
 

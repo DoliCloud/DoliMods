@@ -58,6 +58,7 @@ $myparam	= GETPOST('myparam','alpha');
 $search_dolicloud = GETPOST("search_dolicloud");	// Search from index page
 $search_instance = GETPOST("search_instance");
 $search_organization = GETPOST("search_organization");
+$search_plan = GETPOST("search_plan");
 $search_email = GETPOST("search_email");
 $search_lastlogin = GETPOST("search_lastlogin");
 
@@ -170,10 +171,11 @@ $sql.= " FROM ".MAIN_DB_PREFIX."dolicloud_customers as t";
 $sql.= " LEFT JOIN ".MAIN_DB_PREFIX."c_dolicloud_plans as p ON t.plan = p.code";
 $sql.= " WHERE 1 = 1";
 if ($search_dolicloud) $sql.='';
-if ($search_instance) $sql.=" AND t.instance LIKE '%".$search_instance."'";
-if ($search_organization) $sql.=" AND t.organization LIKE '%".$search_organization."'";
-if ($search_email) $sql.=" AND t.email LIKE '%".$search_email."'";
-if ($search_lastlogin) $sql.=" AND t.lastlogin LIKE '%".$search_lastlogin."'";
+if ($search_instance) $sql.=" AND t.instance LIKE '%".$search_instance."%'";
+if ($search_organization) $sql.=" AND t.organization LIKE '%".$search_organization."%'";
+if ($search_plan) $sql.=" AND t.email LIKE '%".$search_plan."%'";
+if ($search_email) $sql.=" AND t.email LIKE '%".$search_email."%'";
+if ($search_lastlogin) $sql.=" AND t.lastlogin LIKE '%".$search_lastlogin."%'";
 $sql.= $db->order($sortfield,$sortorder);
 $sql.= $db->plimit($conf->liste_limit +1, $offset);
 

@@ -730,7 +730,6 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 	print '</tr>';
 
 	print "</table>";
-
 	print '<br>';
 
 
