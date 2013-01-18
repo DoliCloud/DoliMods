@@ -28,11 +28,10 @@ if (substr($sapi_type, 0, 3) == 'cgi') {
 }
 
 // Global variables
-$version='$Revision: 1.4 $';
 $error=0;
 
-$dirroot=isset($argv[2])?$argv[2]:'';
 $instance=isset($argv[1])?$argv[1]:'';
+$dirroot=isset($argv[2])?$argv[2]:'';
 $mode=isset($argv[3])?$argv[3]:'';
 
 // Include Dolibarr environment
@@ -42,7 +41,6 @@ if (! $res && file_exists($path."../../htdocs/master.inc.php")) $res=@include($p
 if (! $res && file_exists("../master.inc.php")) $res=@include("../master.inc.php");
 if (! $res && file_exists("../../master.inc.php")) $res=@include("../../master.inc.php");
 if (! $res && file_exists("../../../master.inc.php")) $res=@include("../../../master.inc.php");
-if (! $res && file_exists($dirroot."/htdocs/master.inc.php")) $res=@include($dirroot."/htdocs/master.inc.php");
 if (! $res) die ("Failed to include master.inc.php file\n");
 dol_include_once("/nltechno/core/lib/dolicloud.lib.php");
 dol_include_once('/nltechno/class/dolicloudcustomer.class.php');
@@ -58,7 +56,7 @@ $object = new DoliCloudCustomer($db);
 if (empty($dirroot) || empty($instance) || empty($mode))
 {
 	print "Usage:   $script_file instance    backup_dir  (testrsync|testdatabase|confirmrsync|confirmdatabase|confirm)\n";
-	print "Example: $script_file myinstance  /home/dolicloud_instances/home  testrsync\n";
+	print "Example: $script_file myinstance  /home/dolicloud_instances/backup  testrsync\n";
 	print "Return code: 0 if success, <>0 if error\n";
 	exit(-1);
 }

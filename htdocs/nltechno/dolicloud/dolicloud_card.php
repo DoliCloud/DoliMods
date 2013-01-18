@@ -16,7 +16,7 @@
 */
 
 /**
- *       \file       htdocs/nltechno/dolicloud_card.php
+ *       \file       htdocs/nltechno/dolicloud/dolicloud_card.php
  *       \ingroup    societe
  *       \brief      Card of a contact
  */
@@ -156,7 +156,7 @@ if (empty($reshook))
 		$result = $object->delete();
 		if ($result > 0)
 		{
-			Header("Location: ".dol_buildpath('/nltechno/dolicloud_list.php'));
+			Header("Location: ".dol_buildpath('/nltechno/dolicloud/dolicloud_list.php'));
 			exit;
 		}
 		else
@@ -655,7 +655,7 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 	print '</tr>';
 
 	// Partner
-	print '<tr><td>'.$langs->trans("Partner").'</td><td colspan="3">'.$object->partner.'</td></tr>';
+	print '<tr><td>'.$langs->trans("Partner").'</td><td>'.$object->partner.'</td><td>'.$langs->trans("Source").'</td><td>Not yet'.$object->source.'</td></tr>';
 
 	// Lastname / Firstname
 	print '<tr><td width="20%">'.$langs->trans("Lastname").'</td><td width="30%">'.$object->lastname.'</td>';
@@ -735,16 +735,19 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 
 
 
+	// Last refresh
 	print $langs->trans("DateLastCheck").': '.($object->lastcheck?dol_print_date($object->lastcheck,'dayhour','tzuser'):$langs->trans("Never"));
 
 	if (! $object->user_id && $user->rights->nltechno->dolicloud->write)
 	{
 		print ' <a href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&amp;action=refresh">'.img_picto($langs->trans("Refresh"),'refresh').'</a>';
 	}
+	print '<br><br>';
 
 
+	// ----- DoliCloud instance -----
+	print '<strong>INSTANCE SERVEUR STRATUS5</strong><br>';
 
-	print '<br>';
 	print '<table class="border" width="100%">';
 
 	// Nb of users
@@ -753,7 +756,7 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 
 	// Dates
 	print '<tr><td width="20%">'.$langs->trans("DateRegistration").'</td><td width="30%">'.dol_print_date($object->date_registration,'dayhour');
-	//print ' (<a href="'.dol_buildpath('/nltechno/dolicloud_card.php',1).'?id='.$object->id.'&amp;action=setdate&amp;date=">'.$langs->trans("SetDate").'</a>)';
+	//print ' (<a href="'.dol_buildpath('/nltechno/dolicloud/dolicloud_card.php',1).'?id='.$object->id.'&amp;action=setdate&amp;date=">'.$langs->trans("SetDate").'</a>)';
 	print '</td>';
 	print '<td width="20%">'.$langs->trans("DateEndFreePeriod").'</td><td width="30%">'.dol_print_date($object->date_endfreeperiod,'dayhour').'</td>';
 	print '</tr>';
@@ -789,13 +792,91 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 	print '</td>';
 	print '</tr>';
 
-	// Last backup date
+	print "</table><br>";
+
+
+	// ----- NLTechno instance -----
+	print '<strong>INSTANCE SERVEUR NLTECHNO</strong><br>';
+	/*
+	print $langs->trans("DateLastCheck").': '.($object->lastcheck?dol_print_date($object->lastcheck,'dayhour','tzuser'):$langs->trans("Never"));
+
+	if (! $object->user_id && $user->rights->nltechno->dolicloud->write)
+	{
+		print ' <a href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&amp;action=refresh">'.img_picto($langs->trans("Refresh"),'refresh').'</a>';
+	}
+
+	print '<br>';
+	*/
+
+	print '<table class="border" width="100%">';
+	/*
+	// Nb of users
+	print '<tr><td width="20%">'.$langs->trans("NbOfUsers").'</td><td colspan="3"><font size="+2">'.$object->nbofusers.'</font></td>';
+	print '</tr>';
+
+	// Dates
+	print '<tr><td width="20%">'.$langs->trans("DateRegistration").'</td><td width="30%">'.dol_print_date($object->date_registration,'dayhour');
+	//print ' (<a href="'.dol_buildpath('/nltechno/dolicloud/dolicloud_card.php',1).'?id='.$object->id.'&amp;action=setdate&amp;date=">'.$langs->trans("SetDate").'</a>)';
+	print '</td>';
+	print '<td width="20%">'.$langs->trans("DateEndFreePeriod").'</td><td width="30%">'.dol_print_date($object->date_endfreeperiod,'dayhour').'</td>';
+	print '</tr>';
+
+	// Lastlogin
 	print '<tr>';
-	print '<td>'.$langs->trans("DateLastBackup").'</td>';
-	print '<td colspan="3">'.($object->date_lastrsync?dol_print_date($object->date_lastrsync,'dayhour','tzuser'):'').'</td>';
+	print '<td>'.$langs->trans("LastLogin").' / '.$langs->trans("Password").'</td><td>'.$object->lastlogin.' / '.$object->lastpass.'</td>';
+	print '<td>'.$langs->trans("DateLastLogin").'</td><td>'.($object->date_lastlogin?dol_print_date($object->date_lastlogin,'dayhour','tzuser'):'').'</td>';
+	print '</tr>';
+
+	// Version
+	print '<tr>';
+	print '<td>'.$langs->trans("Version").'</td><td colspan="3">'.$object->version.'</td>';
+	print '</tr>';
+
+	// Modules
+	print '<tr>';
+	print '<td>'.$langs->trans("Modules").'</td><td colspan="3">'.join(', ',explode(',',$object->modulesenabled)).'</td>';
+	print '</tr>';
+	*/
+
+	// Instance Apache (fichier vhost)
+	if (! file_exists(DOL_DOCUMENT_ROOT.'/sites-available')) print 'Error link to sites-available not found<br>';
+	else $vhostfileavailable=stat(DOL_DOCUMENT_ROOT.'/sites-available/vhost_instance');
+	if (! file_exists(DOL_DOCUMENT_ROOT.'/sites-enabled')) print 'Error link to sites-enabled not found<br>';
+	else $vhostfileenabled=stat(DOL_DOCUMENT_ROOT.'/sites-enabled/vhost_instance');
+
+	print '<tr>';
+	print '<td width="20%">'.$langs->trans("VHostFile").'</td><td colspan="3">'.($vhostfileavailable['size']?$langs->trans("Yes").' - '.dol_print_date($vhostfileavailable['mtime'],'%Y-%m-%d %H:%M:%S','tzuser'):$langs->trans("No"));
+	print ' &nbsp; (<a href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&action=addvhostfile">'.$langs->trans("Create").'</a>)';
+	if ($object->status == 'ACTIVE' && ! $vhostfileenabled['ctime']) print ' &nbsp; (<a href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&action=enablevhostfile">'.$langs->trans("Enable").'</a>)';
+	print '</td>';
 	print '</tr>';
 
 	print "</table>";
+	print '<br>';
+
+
+	$backupdir=$conf->global->DOLICLOUD_BACKUP_PATH;
+
+	$dirdb=preg_replace('/_dolibarr/','',$object->database_db);
+	$login=$object->username_web;
+	$password=$object->password_web;
+	$server=$object->instance.'.on.dolicloud.com';
+
+	// ----- Backup instance -----
+	print '<strong>INSTANCE BACKUP</strong><br>';
+	print '<table class="border" width="100%">';
+
+	// Last backup date
+	print '<tr>';
+	print '<td width="20%">'.$langs->trans("DateLastBackup").'</td>';
+	print '<td width="30%">'.($object->date_lastrsync?dol_print_date($object->date_lastrsync,'dayhour','tzuser'):'').'</td>';
+	print '<td>'.$langs->trans("BackupDir").'</td>';
+	print '<td>'.$backupdir.'/'.$login.'/'.$dirdb.'</td>';
+	print '</tr>';
+
+	print "</table><br>";
+
+
 
 	print "</div>";
 

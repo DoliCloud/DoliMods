@@ -212,7 +212,7 @@ class modNLTechno extends DolibarrModules
                 				'titre'=>'DoliCloud',
                 				'mainmenu'=>'nltechno',
                 				'leftmenu'=>'dolicloud',
-                				'url'=>'/nltechno/dolicloud_customers.php',
+                				'url'=>'/nltechno/dolicloud/dolicloud_customers.php',
                 				'langs'=>'nltechno@nltechno',  // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
                 				'position'=>300,
                 				'enabled'=>'$conf->nltechno->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
@@ -226,7 +226,7 @@ class modNLTechno extends DolibarrModules
 								'titre'=>'List',
 								'mainmenu'=>'nltechno',
 								'leftmenu'=>'dolicloud_list',
-								'url'=>'/nltechno/dolicloud_list.php',
+								'url'=>'/nltechno/dolicloud/dolicloud_list.php',
 								'langs'=>'',
 								'position'=>200,
                 				'enabled'=>'$conf->nltechno->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
@@ -240,7 +240,7 @@ class modNLTechno extends DolibarrModules
 								'titre'=>'New',
 								'mainmenu'=>'nltechno',
 								'leftmenu'=>'dolicloud_create',
-								'url'=>'/nltechno/dolicloud_card.php?action=create',
+								'url'=>'/nltechno/dolicloud/dolicloud_card.php?action=create',
 								'langs'=>'',
 								'position'=>210,
                 				'enabled'=>'$conf->nltechno->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
@@ -254,7 +254,7 @@ class modNLTechno extends DolibarrModules
 								'titre'=>'EMailsTemplates',
 								'mainmenu'=>'nltechno',
 								'leftmenu'=>'dolicloud_emailstemplates',
-								'url'=>'/nltechno/dolicloudemailstemplates_page.php?action=list',
+								'url'=>'/nltechno/dolicloud/dolicloudemailstemplates_page.php?action=list',
 								'langs'=>'',
 								'position'=>220,
                 				'enabled'=>'$conf->nltechno->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.

@@ -16,7 +16,7 @@
 */
 
 /**
- *       \file       htdocs/nltechno/dolicloud_card.php
+ *       \file       htdocs/nltechno/dolicloud/dolicloud_card.php
  *       \ingroup    societe
  *       \brief      Card of a contact
  */
@@ -69,7 +69,7 @@ if ($id > 0 || $instance)
 	if ($result < 0) dol_print_error($db,$object->error);
 }
 
-$backupstring=$conf->global->DOLICLOUD_SCRIPTS_PATH.'/nltechno/backup_instance.php '.$object->instance.' '.$conf->global->DOLICLOUD_INSTANCES_PATH;
+$upgradestring=$conf->global->DOLICLOUD_SCRIPTS_PATH.'/nltechno/rsync_instance.php '.$conf->global->DOLICLOUD_LASTSTABLEVERSION_DIR.' '.$object->instance;
 
 
 
@@ -113,7 +113,7 @@ if ($id > 0 || $instance)
 	$head = dolicloud_prepare_head($object);
 
 	$title = $langs->trans("DoliCloudCustomers");
-	dol_fiche_head($head, 'backup', $title, 0, 'contact');
+	dol_fiche_head($head, 'upgrade', $title, 0, 'contact');
 }
 
 if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
@@ -279,9 +279,9 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 */
 
 	// Upgrade link
-	$backupstringtoshow=$backupstring.' test';
-	print 'Backup command line string<br>';
-	print '<input type="text" name="backupstring" value="'.$backupstringtoshow.'" size="120"><br>';
+	$upgradestringtoshow=$upgradestring.' test';
+	print 'Upgrade command line string<br>';
+	print '<input type="text" name="upgradestring" value="'.$upgradestringtoshow.'" size="120"><br>';
 
 }
 
