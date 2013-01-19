@@ -158,7 +158,7 @@ class modCabinetMed extends DolibarrModules
         // Dictionnaries
         if (! isset($conf->cabinetmed->enabled))
         {
-        	$conf->cabinetmed=(object) array();
+        	$conf->cabinetmed=new stdClass();
         	$conf->cabinetmed->enabled=0;
         }
         $this->dictionnaries=array(

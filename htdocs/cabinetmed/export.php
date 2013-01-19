@@ -167,7 +167,7 @@ $nbccam=0;
 $i=0;
 foreach($consult as $rowid => $val)
 {
-    $objp=(object) array();
+    $objp=new stdClass();
 
     // Break on day, show total for day
     if ($i > 0 && ($olddate != $consult[$rowid]['date']))
@@ -202,7 +202,7 @@ foreach($consult as $rowid => $val)
         //$coord=$objmodel->workbook->getActiveSheet()->getCellByColumnAndRow(1, $i+1)->getCoordinate();
         //$this->workbook->getActiveSheet()->getStyle($coord)->getNumberFormat()->setFormatCode('yyyy-mm-dd');
 
-        $objp=(object) array();
+        $objp=new stdClass();
         $objmodel->write_record(array(),$objp,$outputlangs);
         $i++;
         $objmodel->write_record(array(),$objp,$outputlangs);
@@ -300,7 +300,7 @@ foreach($consult as $rowid => $val)
     $dm=dol_print_date($consult[$rowid]['date'],'%Y-%m');
 }
 
-$objp=(object) array();
+$objp=new stdClass();
 
 // Break on day, show total for day
 if ($i != 0)

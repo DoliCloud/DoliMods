@@ -78,7 +78,7 @@ class modNLTechno extends DolibarrModules
 		// Dictionnaries
 	    if (! isset($conf->nltechno->enabled))
         {
-        	$conf->nltechno=(object) array();
+        	$conf->nltechno=new stdClass();
         	$conf->nltechno->enabled=0;
         }
         $this->dictionnaries=array(
