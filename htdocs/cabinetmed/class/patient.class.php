@@ -1236,38 +1236,6 @@ class Patient extends Societe
     }
 
     /**
-     *    Return email of contact from its id
-     *    @param      rowid       id of contact
-     *    @return     string      email of contact
-     */
-    function contact_get_email($rowid)
-    {
-        $sql = "SELECT rowid, email, name, firstname FROM ".MAIN_DB_PREFIX."socpeople WHERE rowid = '".$rowid."'";
-
-        $resql=$this->db->query($sql);
-        if ($resql)
-        {
-            $nump = $this->db->num_rows($resql);
-
-            if ($nump)
-            {
-
-                $obj = $this->db->fetch_object($resql);
-
-                $contact_email = "$obj->firstname $obj->name <$obj->email>";
-
-            }
-            return $contact_email;
-        }
-        else
-        {
-            dol_print_error($this->db);
-        }
-
-    }
-
-
-    /**
      *    \brief      Affiche le rib
      */
     function display_rib()
