@@ -214,34 +214,17 @@ print "\n";
 #----------------------------------------------
 $nboftargetok=0;
 $nboftargetneedbuildroot=0;
-$nboftargetneedcvs=0;
 foreach my $target (keys %CHOOSEDTARGET) {
     if ($CHOOSEDTARGET{$target} < 0) { next; }
 	if ($target ne 'EXE' && $target ne 'EXEDOLIWAMP') 
 	{
 		$nboftargetneedbuildroot++;
 	}
-	if ($target eq 'SNAPSHOT')
-	{
-		$nboftargetneedcvs++;
-	}
 	$nboftargetok++;
 }
 
 if ($nboftargetok) {
 
-    # Update CVS if required
-    #-----------------------
-    if ($nboftargetneedcvs)
-	{
-    	print "Go to directory $SOURCE\n";
-   		$olddir=getcwd();
-   		chdir("$SOURCE");
-    	print "Run cvs update -P -d\n";
-    	$ret=`cvs update -P -d 2>&1`;
-    	chdir("$olddir");
-	}
-	
     # Update buildroot if required
     #-----------------------------
     if ($nboftargetneedbuildroot)
@@ -262,6 +245,13 @@ if ($nboftargetok) {
 	    	#$ret=`cp -pr "$SOURCEMOD2" "$BUILDROOT/$PROJECT"`;
 	    	print "Copy $SOURCEDOL into $BUILDROOT/$PROJECT\n";
 	    	$ret=`cp -pr "$SOURCEDOL" "$BUILDROOT/$PROJECT"`;
+
+			# Specific to DoliMed
+	    	print "Copy $SOURCEMOD1/img/dolimed_logo.png into $BUILDROOT/$PROJECT/htdocs/theme/dolibarr_logo.png\n";
+	    	$ret=`cp -pf "$SOURCMOD1/img/dolimed_logo.png" "$BUILDROOT/$PROJECT/htdocs/theme/dolibarr_logo.png"`;
+	    	print "Copy $SOURCEMOD1/img/dolimed.png into $BUILDROOT/$PROJECT/htdocs/theme/dolibarr.png\n";
+	    	$ret=`cp -pf "$SOURCMOD1/img/dolimed.png" "$BUILDROOT/$PROJECT/htdocs/theme/dolibarr.png"`;
+			
 	    }
 	    print "Clean $BUILDROOT\n";
 	    $ret=`rm -f  $BUILDROOT/$PROJECT/.buildpath`;
@@ -330,7 +320,12 @@ if ($nboftargetok) {
 
 	    $ret=`rm -fr $BUILDROOT/$PROJECT/documents`;
 	    $ret=`rm -fr $BUILDROOT/$PROJECT/document`;
+	    $ret=`rm -fr $BUILDROOT/$PROJECT/htdocs/documents`;
+	    $ret=`rm -fr $BUILDROOT/$PROJECT/htdocs/document`;
+	    $ret=`rm -fr $BUILDROOT/$PROJECT/htdocs/bootstrap*`;
 	    $ret=`rm -fr $BUILDROOT/$PROJECT/htdocs/custom*`;
+	    $ret=`rm -fr $BUILDROOT/$PROJECT/htdocs/multicompany*`;
+	    $ret=`rm -fr $BUILDROOT/$PROJECT/htdocs/pos*`;
 	    $ret=`rm -fr $BUILDROOT/$PROJECT/test`;
 	    $ret=`rm -fr $BUILDROOT/$PROJECT/Thumbs.db $BUILDROOT/$PROJECT/*/Thumbs.db $BUILDROOT/$PROJECT/*/*/Thumbs.db $BUILDROOT/$PROJECT/*/*/*/Thumbs.db $BUILDROOT/$PROJECT/*/*/*/*/Thumbs.db`;
 	    $ret=`rm -f  $BUILDROOT/$PROJECT/.cvsignore $BUILDROOT/$PROJECT/*/.cvsignore $BUILDROOT/$PROJECT/*/*/.cvsignore $BUILDROOT/$PROJECT/*/*/*/.cvsignore $BUILDROOT/$PROJECT/*/*/*/*/.cvsignore $BUILDROOT/$PROJECT/*/*/*/*/*/.cvsignore $BUILDROOT/$PROJECT/*/*/*/*/*/*/.cvsignore`;
