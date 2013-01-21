@@ -3,7 +3,7 @@
 --
 -- This program is free software; you can redistribute it and/or modify
 -- it under the terms of the GNU General Public License as published by
--- the Free Software Foundation; either version 2 of the License, or
+-- the Free Software Foundation; either version 3 of the License, or
 -- (at your option) any later version.
 --
 -- This program is distributed in the hope that it will be useful,
@@ -36,6 +36,7 @@ CREATE TABLE llx_dolicloud_customers
 	date_endfreeperiod datetime,
 	status varchar(16),
 	partner varchar(128),
+	source varchar(128),
 	total_invoiced double(6,3),
 	total_payed double(6,3),
 	tms timestamp,
