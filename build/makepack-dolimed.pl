@@ -60,7 +60,7 @@ $SOURCEMOD="$DIR/..";
 $SOURCEMOD1="$DIR/../htdocs/cabinetmed";
 $SOURCEMOD2="$DIR/../build/exe/dolimed";
 # Change SOURCEDOL to use another dolibarr source directory
-$SOURCEDOL="$DIR/../../dolibarr/.";	
+$SOURCEDOL="$DIR/../../dolibarr_veryold/.";	
 $DESTI="$DIR/../build";
 
 # Detect OS type
