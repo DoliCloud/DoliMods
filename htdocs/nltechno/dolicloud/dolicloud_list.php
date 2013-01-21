@@ -59,6 +59,8 @@ $search_dolicloud = GETPOST("search_dolicloud");	// Search from index page
 $search_instance = GETPOST("search_instance");
 $search_organization = GETPOST("search_organization");
 $search_plan = GETPOST("search_plan");
+$search_partner = GETPOST("search_partner");
+$search_source = GETPOST("search_source");
 $search_email = GETPOST("search_email");
 $search_lastlogin = GETPOST("search_lastlogin");
 
@@ -147,6 +149,7 @@ $sql.= " t.date_registration,";
 $sql.= " t.date_endfreeperiod,";
 $sql.= " t.status,";
 $sql.= " t.partner,";
+$sql.= " t.source,";
 $sql.= " t.total_invoiced,";
 $sql.= " t.total_payed,";
 $sql.= " t.tms,";
@@ -174,6 +177,8 @@ if ($search_dolicloud) $sql.='';
 if ($search_instance) $sql.=" AND t.instance LIKE '%".$search_instance."%'";
 if ($search_organization) $sql.=" AND t.organization LIKE '%".$search_organization."%'";
 if ($search_plan) $sql.=" AND t.email LIKE '%".$search_plan."%'";
+if ($search_partner) $sql.=" AND t.partner LIKE '%".$search_partner."%'";
+if ($search_source) $sql.=" AND t.source LIKE '%".$search_source."%'";
 if ($search_email) $sql.=" AND t.email LIKE '%".$search_email."%'";
 if ($search_lastlogin) $sql.=" AND t.lastlogin LIKE '%".$search_lastlogin."%'";
 $sql.= $db->order($sortfield,$sortorder);
@@ -197,6 +202,8 @@ print_liste_field_titre($langs->trans('Instance'),$_SERVER['PHP_SELF'],'t.instan
 print_liste_field_titre($langs->trans('Organization'),$_SERVER['PHP_SELF'],'t.organization','',$param,'',$sortfield,$sortorder);
 print_liste_field_titre($langs->trans('EMail'),$_SERVER['PHP_SELF'],'t.email','',$param,'',$sortfield,$sortorder);
 print_liste_field_titre($langs->trans('Plan'),$_SERVER['PHP_SELF'],'t.plan','',$param,'',$sortfield,$sortorder);
+print_liste_field_titre($langs->trans('Partner'),$_SERVER['PHP_SELF'],'t.partner','',$param,'',$sortfield,$sortorder);
+print_liste_field_titre($langs->trans('Source'),$_SERVER['PHP_SELF'],'t.source','',$param,'',$sortfield,$sortorder);
 print_liste_field_titre($langs->trans('DateRegistration'),$_SERVER['PHP_SELF'],'t.date_registration','',$param,'',$sortfield,$sortorder);
 print_liste_field_titre($langs->trans('DateEndFreePeriod'),$_SERVER['PHP_SELF'],'t.date_endfreeperiod','',$param,'',$sortfield,$sortorder);
 print_liste_field_titre($langs->trans('DateLastCheck'),$_SERVER['PHP_SELF'],'t.lastcheck','',$param,'',$sortfield,$sortorder);
@@ -212,6 +219,8 @@ print '<td><input type="text" name="search_instance" size="4" value="'.$search_i
 print '<td><input type="text" name="search_organization" size="4" value="'.$search_organization.'"></td>';
 print '<td><input type="text" name="search_email" size="4" value="'.$search_email.'"></td>';
 print '<td><input type="text" name="search_plan" size="4" value="'.$search_plan.'"></td>';
+print '<td><input type="text" name="search_partner" size="4" value="'.$search_partner.'"></td>';
+print '<td><input type="text" name="search_source" size="4" value="'.$search_source.'"></td>';
 print '<td></td>';
 print '<td></td>';
 print '<td></td>';
@@ -260,6 +269,10 @@ if ($resql)
                 print $obj->email;
                 print '</td><td>';
                 print $obj->plan;
+                print '</td><td>';
+                print $obj->partner;
+                print '</td><td>';
+                print $obj->source;
                 print '</td><td>';
                 print dol_print_date($obj->date_registration,'dayhour');
                 print '</td><td>';

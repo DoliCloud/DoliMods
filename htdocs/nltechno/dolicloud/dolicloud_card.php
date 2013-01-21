@@ -118,6 +118,7 @@ if (empty($reshook))
 		$object->date_registration  = dol_mktime(0, 0, 0, $_POST["date_registrationmonth"], $_POST["date_registrationday"], $_POST["date_registrationyear"], 1);
 		$object->date_endfreeperiod = dol_mktime(0, 0, 0, $_POST["endfreeperiodmonth"], $_POST["endfreeperiodday"], $_POST["endfreeperiodyear"], 1);
 		$object->partner		= $_POST["partner"];
+		$object->source			= $_POST["source"];
 
 		if (empty($_POST["instance"]) || empty($_POST["organization"]) || empty($_POST["plan"]) || empty($_POST["email"]))
 		{
@@ -206,6 +207,7 @@ if (empty($reshook))
 			$object->date_registration  = dol_mktime(0, 0, 0, $_POST["date_registrationmonth"], $_POST["date_registrationday"], $_POST["date_registrationyear"], 1);
 			$object->date_endfreeperiod = dol_mktime(0, 0, 0, $_POST["endfreeperiodmonth"], $_POST["endfreeperiodday"], $_POST["endfreeperiodyear"], 1);
 			$object->partner		= $_POST["partner"];
+			$object->source			= $_POST["source"];
 
 			$result = $object->update($user);
 
@@ -331,7 +333,8 @@ if ($user->rights->nltechno->dolicloud->write)
 		print '<tr><td class="fieldrequired">'.$langs->trans("Plan").'</td><td colspan="3"><input name="plan" type="text" size="20" maxlength="80" value="'.(isset($_POST["plan"])?$_POST["plan"]:($object->plan?$object->plan:'Basic')).'"></td></tr>';
 
 		// Partner
-		print '<tr><td>'.$langs->trans("Partner").'</td><td colspan="3"><input name="partner" type="text" size="20" maxlength="80" value="'.(isset($_POST["partner"])?$_POST["partner"]:($object->partner?$object->partner:'')).'"></td></tr>';
+		print '<tr><td>'.$langs->trans("Partner").'</td><td><input name="partner" type="text" size="20" maxlength="80" value="'.(isset($_POST["partner"])?$_POST["partner"]:($object->partner?$object->partner:'')).'"></td>';
+		print '<td>'.$langs->trans("Source").'</td><td><input name="source" type="text" size="20" maxlength="80" value="'.(isset($_POST["source"])?$_POST["source"]:($object->source?$object->source:'')).'"></td></tr>';
 
 		// Name
 		print '<tr><td width="20%">'.$langs->trans("Lastname").'</td><td width="30%"><input name="lastname" type="text" size="30" maxlength="80" value="'.(isset($_POST["lastname"])?$_POST["lastname"]:$object->lastname).'"></td>';
@@ -511,7 +514,8 @@ if ($user->rights->nltechno->dolicloud->write)
 		print '</tr>';
 
 		// Partner
-		print '<tr><td>'.$langs->trans("Partner").'</td><td colspan="3"><input name="partner" type="text" size="20" maxlength="80" value="'.(isset($_POST["partner"])?$_POST["partner"]:($object->partner?$object->partner:'')).'"></td></tr>';
+		print '<tr><td>'.$langs->trans("Partner").'</td><td><input name="partner" type="text" size="20" maxlength="80" value="'.(isset($_POST["partner"])?$_POST["partner"]:($object->partner?$object->partner:'')).'"></td>';
+		print '<td>'.$langs->trans("Source").'</td><td><input name="source" type="text" size="20" maxlength="80" value="'.(isset($_POST["source"])?$_POST["source"]:($object->source?$object->source:'')).'"></td>';
 
 		// Name
 		print '<tr><td width="20%">'.$langs->trans("Lastname").'</td><td width="30%"><input name="lastname" type="text" size="20" maxlength="80" value="'.(isset($_POST["lastname"])?$_POST["lastname"]:$object->lastname).'"></td>';
@@ -655,7 +659,7 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 	print '</tr>';
 
 	// Partner
-	print '<tr><td>'.$langs->trans("Partner").'</td><td>'.$object->partner.'</td><td>'.$langs->trans("Source").'</td><td>Not yet'.$object->source.'</td></tr>';
+	print '<tr><td width="20%">'.$langs->trans("Partner").'</td><td width="30%">'.$object->partner.'</td><td width="20%">'.$langs->trans("Source").'</td><td>'.($object->source?$object->source:'').'</td></tr>';
 
 	// Lastname / Firstname
 	print '<tr><td width="20%">'.$langs->trans("Lastname").'</td><td width="30%">'.$object->lastname.'</td>';
