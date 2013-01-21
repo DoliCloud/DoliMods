@@ -1,6 +1,6 @@
 <VirtualHost *:443 *:80>
         ServerName @webAppDomain@
-        ServerAdmin admin@eazybusiness.com
+        ServerAdmin support@dolicloud.com
         
         ServerAlias @webAppAliases@
         DocumentRoot @webAppPath@/htdocs
