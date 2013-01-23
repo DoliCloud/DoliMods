@@ -101,12 +101,12 @@ if (! $mesg)
 	$px1->SetMaxValue($px1->GetCeilMaxValue());
 	$px1->SetWidth($WIDTH);
 	$px1->SetHeight($HEIGHT);
-	$px1->SetYLabel($langs->trans("Number"));
+	$px1->SetYLabel($langs->trans("NumberConsult"));
 	$px1->SetShading(3);
 	$px1->SetHorizTickIncrement(1);
 	$px1->SetPrecisionY(0);
 	$px1->mode='depth';
-	$px1->SetTitle($langs->trans("NumberByMonth"));
+	$px1->SetTitle($langs->trans("NumberConsultByMonth"));
 
 	$px1->draw($filenamenb,$fileurlnb);
 }

@@ -244,6 +244,46 @@ function listebanques($nboflines,$newwidth=0,$defaultvalue='',$htmlname='banque'
 
 
 /**
+ * List contacts
+ *
+ * @param 	nboflines
+ * @param 	newwidth		Force width
+ * @param	htmlname		Name of HTML select field
+ * @param	selected		Preselected value
+ */
+function listcontacts($nboflines,$newwidth=0,$htmlname='diagles',$selected='')
+{
+	global $db,$width;
+
+	if (empty($newwidth)) $newwidth=$width;
+
+	$out= '<select class="flat" id="list'.$htmlname.'" name="'.$htmlname.'" style="width: '.$newwidth.'px" size="'.$nboflines.'"'.($nboflines > 1?' multiple':'').'>';
+	$out.= '<option value="0"></option>';
+	$sql = 'SELECT s.rowid, s.code, s.label';
+	$sql.= ' FROM '.MAIN_DB_PREFIX.'cabinetmed_diaglec as s';
+	$sql.= ' ORDER BY label';
+	$resql=$db->query($sql);
+	dol_syslog("consutlations sql=".$sql);
+	if ($resql)
+	{
+		$num=$db->num_rows($resql);
+		$i=0;
+
+		while ($i < $num)
+		{
+			$obj=$db->fetch_object($resql);
+			$out.= '<option value="'.$obj->code.'"';
+			if ($obj->code == $selected) $out.=' selected="selected"';
+			$out.= '>'.$obj->label.'</option>';
+			$i++;
+		}
+	}
+	$out.= '</select>'."\n";
+	return $out;
+}
+
+
+/**
  *  Return array head with list of tabs to view object stats informations
  *
  *  @param	Object	$object         Patient or null

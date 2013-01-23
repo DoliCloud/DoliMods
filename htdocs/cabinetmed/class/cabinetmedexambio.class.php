@@ -1,6 +1,5 @@
 <?php
 /* Copyright (C) 2007-2011 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) ---Put here your own copyright and developer email---
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -33,9 +32,7 @@
 
 
 /**
- *      \class      CabinetmedExamBio
- *      \brief      Put here description of your class
- *		\remarks	Initialy built by build_class_from_table on 2011-04-13 13:44
+ *	Class to manage bio exam
  */
 class CabinetmedExamBio // extends CommonObject
 {
@@ -48,6 +45,7 @@ class CabinetmedExamBio // extends CommonObject
     var $id;
 
 	var $fk_soc;
+	var $fk_user;
 	var $dateexam='';
 	var $resultat;
 	var $conclusion;
@@ -119,6 +117,7 @@ class CabinetmedExamBio // extends CommonObject
         // Insert request
 		$sql = "INSERT INTO ".MAIN_DB_PREFIX."cabinetmed_exambio(";
 		$sql.= "fk_soc,";
+		$sql.= "fk_user,";
 		$sql.= "dateexam,";
 		$sql.= "resultat,";
 		$sql.= "conclusion,";
@@ -138,6 +137,7 @@ class CabinetmedExamBio // extends CommonObject
 		$sql.= "suivisa_basdai";
         $sql.= ") VALUES (";
 		$sql.= " ".(! isset($this->fk_soc)?'NULL':"'".$this->fk_soc."'").",";
+		$sql.= " ".$user->id.",";
 		$sql.= " ".(! isset($this->dateexam) || dol_strlen($this->dateexam)==0?'NULL':$this->db->idate($this->dateexam)).",";
 		$sql.= " ".(! isset($this->resultat)?'NULL':"'".$this->db->escape($this->resultat)."'").",";
 		$sql.= " ".(! isset($this->conclusion)?'NULL':"'".$this->db->escape($this->conclusion)."'").",";
@@ -213,6 +213,7 @@ class CabinetmedExamBio // extends CommonObject
 		$sql.= " t.rowid,";
 
 		$sql.= " t.fk_soc,";
+		$sql.= " t.fk_user,";
 		$sql.= " t.dateexam,";
 		$sql.= " t.resultat,";
 		$sql.= " t.conclusion,";
@@ -247,6 +248,7 @@ class CabinetmedExamBio // extends CommonObject
                 $this->id    = $obj->rowid;
 
 				$this->fk_soc = $obj->fk_soc;
+				$this->fk_user = $obj->fk_user;
 				$this->dateexam = $this->db->jdate($obj->dateexam);
 				$this->resultat = $obj->resultat;
 				$this->conclusion = $obj->conclusion;

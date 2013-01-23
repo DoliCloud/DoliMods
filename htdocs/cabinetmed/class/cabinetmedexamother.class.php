@@ -1,6 +1,5 @@
 <?php
 /* Copyright (C) 2007-2011 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) ---Put here your own copyright and developer email---
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -33,9 +32,7 @@
 
 
 /**
- *      \class      CabinetmedExamOther
- *      \brief      Put here description of your class
- *		\remarks	Initialy built by build_class_from_table on 2011-04-13 13:43
+ *	Class to manage exam other
  */
 class CabinetmedExamOther // extends CommonObject
 {
@@ -48,6 +45,7 @@ class CabinetmedExamOther // extends CommonObject
     var $id;
 
 	var $fk_soc;
+	var $fk_user;
 	var $dateexam='';
 	var $examprinc;
 	var $examsec;
@@ -96,6 +94,7 @@ class CabinetmedExamOther // extends CommonObject
         // Insert request
 		$sql = "INSERT INTO ".MAIN_DB_PREFIX."cabinetmed_examaut(";
 		$sql.= "fk_soc,";
+		$sql.= "fk_user,";
 		$sql.= "dateexam,";
 		$sql.= "examprinc,";
 		$sql.= "examsec,";
@@ -103,6 +102,7 @@ class CabinetmedExamOther // extends CommonObject
 		$sql.= "concsec";
         $sql.= ") VALUES (";
 		$sql.= " ".(! isset($this->fk_soc)?'NULL':"'".$this->fk_soc."'").",";
+		$sql.= " ".$user->id.",";
 		$sql.= " ".(! isset($this->dateexam) || dol_strlen($this->dateexam)==0?'NULL':$this->db->idate($this->dateexam)).",";
 		$sql.= " ".(! isset($this->examprinc)?'NULL':"'".$this->db->escape($this->examprinc)."'").",";
 		$sql.= " ".(! isset($this->examsec)?'NULL':"'".$this->db->escape($this->examsec)."'").",";
@@ -164,16 +164,14 @@ class CabinetmedExamOther // extends CommonObject
     	global $langs;
         $sql = "SELECT";
 		$sql.= " t.rowid,";
-
 		$sql.= " t.fk_soc,";
+		$sql.= " t.fk_user,";
 		$sql.= " t.dateexam,";
 		$sql.= " t.examprinc,";
 		$sql.= " t.examsec,";
 		$sql.= " t.concprinc,";
 		$sql.= " t.concsec,";
 		$sql.= " t.tms";
-
-
         $sql.= " FROM ".MAIN_DB_PREFIX."cabinetmed_examaut as t";
         $sql.= " WHERE t.rowid = ".$id;
 
@@ -188,6 +186,7 @@ class CabinetmedExamOther // extends CommonObject
                 $this->id    = $obj->rowid;
 
 				$this->fk_soc = $obj->fk_soc;
+				$this->fk_user = $obj->fk_user;
 				$this->dateexam = $this->db->jdate($obj->dateexam);
 				$this->examprinc = $obj->examprinc;
 				$this->examsec = $obj->examsec;

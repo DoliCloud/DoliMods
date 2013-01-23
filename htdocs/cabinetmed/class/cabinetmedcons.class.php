@@ -225,6 +225,7 @@ class CabinetmedCons extends CommonObject
 		$sql = "SELECT";
 		$sql.= " t.rowid,";
 		$sql.= " t.fk_soc,";
+		$sql.= " t.fk_user,";
 		$sql.= " t.datecons,";
 		$sql.= " t.typepriseencharge,";
 		$sql.= " t.motifconsprinc,";
@@ -261,6 +262,7 @@ class CabinetmedCons extends CommonObject
 				$this->id    = $obj->rowid;
 
 				$this->fk_soc = $obj->fk_soc;
+				$this->fk_user = $obj->fk_user;
 				$this->datecons = $this->db->jdate($obj->datecons);
 				$this->typepriseencharge = $obj->typepriseencharge;
 				$this->motifconsprinc = $obj->motifconsprinc;

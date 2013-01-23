@@ -181,11 +181,12 @@ if ($result)
 		$moreforfilter.=$htmlother->select_salesrepresentatives($search_sale,'search_sale',$user);
 	 	$moreforfilter.=' &nbsp; &nbsp; &nbsp; ';
  	}
- 	// To add filter on
+ 	// To add filter on diagnostic
     $width="200";
  	$moreforfilter.=$langs->trans('DiagnostiqueLesionnel'). ': ';
 	$moreforfilter.=listdiagles(1,$width,'search_diagles',$search_diagles);
- 	if ($moreforfilter)
+	// More filters
+	if ($moreforfilter)
 	{
 		print '<tr class="liste_titre">';
 		print '<td class="liste_titre" colspan="9">';
@@ -194,7 +195,7 @@ if ($result)
 	}
 
 	print '<tr class="liste_titre">';
-	print_liste_field_titre($langs->trans("Company"),$_SERVER["PHP_SELF"],"s.nom","",$param,"",$sortfield,$sortorder);
+	print_liste_field_titre($langs->trans("Patient"),$_SERVER["PHP_SELF"],"s.nom","",$param,"",$sortfield,$sortorder);
     print_liste_field_titre($langs->trans("CustomerCode"),$_SERVER["PHP_SELF"],"s.code_client","",$param,"",$sortfield,$sortorder);
 	print_liste_field_titre($langs->trans("Town"),$_SERVER["PHP_SELF"],"s.ville","",$param,"",$sortfield,$sortorder);
     print_liste_field_titre($langs->trans("Profession"),$_SERVER["PHP_SELF"],"s.idprof4","",$param,"",$sortfield,$sortorder);

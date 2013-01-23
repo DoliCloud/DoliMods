@@ -33,7 +33,8 @@ if (! $res && file_exists("../../../../dolibarr/htdocs/main.inc.php")) $res=@inc
 if (! $res && file_exists("../../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
 if (! $res) die("Include of main fails");
 require_once(DOL_DOCUMENT_ROOT."/core/class/html.formother.class.php");
-include_once("./class/cabinetmedcons.class.php");
+require_once("./class/cabinetmedcons.class.php");
+require_once("./lib/cabinetmed.lib.php");
 
 $langs->load("companies");
 $langs->load("customers");
@@ -65,12 +66,15 @@ $search_ref=GETPOST("search_ref");
 // Load sale and categ filters
 $search_sale = GETPOST("search_sale");
 $search_categ = GETPOST("search_categ");
-
+$search_motifprinc = GETPOST("search_motifprinc");
+$search_diaglesprinc = GETPOST("search_diaglesprinc");
+$search_contactid = GETPOST("search_contactid");
 
 /*
  * view
  */
 
+$form=new Form($db);
 $htmlother=new FormOther($db);
 $thirdpartystatic=new Societe($db);
 $consultstatic = new CabinetmedCons($db);
@@ -90,6 +94,9 @@ if (GETPOST("button_removefilter_x"))
     $search_idprof2='';
     $search_idprof3='';
     $search_idprof4='';
+    $search_motifprinc='';
+    $search_diaglesprinc='';
+    $search_contactid='';
 }
 
 $sql = "SELECT s.rowid, s.nom as name, s.client, s.ville, st.libelle as stcomm, s.prefix_comm, s.code_client,";
@@ -99,7 +106,8 @@ $sql.= " c.rowid as cid, c.datecons, c.typepriseencharge, c.typevisit, c.motifco
 if ($search_sale) $sql .= ", sc.fk_soc, sc.fk_user";
 // We'll need these fields in order to filter by categ
 if ($search_categ) $sql .= ", cs.fk_categorie, cs.fk_societe";
-$sql.= " FROM ".MAIN_DB_PREFIX."societe as s, ".MAIN_DB_PREFIX."cabinetmed_cons as c,";
+$sql.= " FROM ".MAIN_DB_PREFIX."societe as s";
+$sql.= ", ".MAIN_DB_PREFIX."cabinetmed_cons as c,";
 $sql.= " ".MAIN_DB_PREFIX."c_stcomm as st";
 // We'll need this table joined to the select in order to filter by sale
 if ($search_sale || !$user->rights->societe->client->voir) $sql.= ", ".MAIN_DB_PREFIX."societe_commerciaux as sc";
@@ -108,6 +116,20 @@ if ($search_categ) $sql.= ", ".MAIN_DB_PREFIX."categorie_societe as cs";
 $sql.= " WHERE s.fk_stcomm = st.id AND c.fk_soc = s.rowid";
 $sql.= " AND s.client IN (1, 3)";
 $sql.= " AND s.entity = ".$conf->entity;
+if ($search_motifprinc)
+{
+	$label= dol_getIdFromCode($db,$search_motifprinc,'cabinetmed_motifcons','code','label');
+	$sql.= " AND c.motifconsprinc LIKE '%".$db->escape($label)."%'";
+}
+if ($search_diaglesprinc)
+{
+	$label= dol_getIdFromCode($db,$search_diaglesprinc,'cabinetmed_diaglec','code','label');
+	$sql.= " AND c.diaglesprinc LIKE '%".$db->escape($label)."%'";
+}
+if ($search_contactid)
+{
+
+}
 if (!$user->rights->societe->client->voir && ! $socid) $sql.= " AND s.rowid = sc.fk_soc AND sc.fk_user = " .$user->id;
 if ($socid) $sql.= " AND s.rowid = ".$socid;
 if ($search_ref)   $sql.= " AND c.rowid = ".$db->escape($search_ref);
@@ -132,7 +154,12 @@ if ($socname)
 	$sortfield = "s.nom";
 	$sortorder = "ASC";
 }
-
+//if ($search_contactid) $sql.=", ".MAIN_DB_PREFIX."element_contact as ec, ".MAIN_DB_PREFIX."c_type_contact as tc";
+//if ($search_contactid) $sql.= " AND ec.element_id = s.rowid AND ec.fk_socpeople = ".$search_contactid." AND ec.fk_c_type_contact = tc.rowid AND tc.element='societe'";
+if ($search_contactid)
+{
+	$sql .= " AND s.rowid IN (SELECT ec.element_id FROM ".MAIN_DB_PREFIX."element_contact as ec, ".MAIN_DB_PREFIX."c_type_contact as tc WHERE ec.fk_socpeople = ".$search_contactid." AND ec.fk_c_type_contact = tc.rowid AND tc.element='societe')";
+}
 // Count total nb of records
 $nbtotalofrecords = 0;
 if (empty($conf->global->MAIN_DISABLE_FULL_SCANLIST))
@@ -143,15 +170,21 @@ if (empty($conf->global->MAIN_DISABLE_FULL_SCANLIST))
 
 $sql.= $db->order($sortfield,$sortorder);
 $sql.= $db->plimit($conf->liste_limit +1, $offset);
+//print $sql;
 
 $result = $db->query($sql);
 if ($result)
 {
 	$num = $db->num_rows($result);
 
-	$param = "&amp;search_nom=".$search_nom."&amp;search_code=".$search_code."&amp;search_ville=".$search_ville;
+	if ($search_nom != '') $param = "&amp;search_nom=".$search_nom;
+	if ($search_code != '') $param.= "&amp;search_code=".$search_code;
+	if ($search_ville != '') $param.= "&amp;search_ville=".$search_ville;
  	if ($search_categ != '') $param.='&amp;search_categ='.$search_categ;
  	if ($search_sale != '')	$param.='&amp;search_sale='.$search_sale;
+ 	if ($search_motifprinc != '')	$param.='&amp;search_motifprinc='.urlencode($search_motifprinc);
+ 	if ($search_diaglesprinc != '')	$param.='&amp;search_diaglesprinc='.urlencode($search_diaglesprinc);
+ 	if ($search_contactid != '')	$param.='&amp;search_contactid='.$search_contactid;
 
 	print_barre_liste($langs->trans("ListOfConsultations"), $page, $_SERVER["PHP_SELF"],$param,$sortfield,$sortorder,'',$num,$nbtotalofrecords);
 
@@ -160,6 +193,8 @@ if ($result)
 	//print '<div class="error">PAGE EN DEVELOPPEMENT ...</div><br>';
 
 	print '<form method="get" action="'.$_SERVER["PHP_SELF"].'">'."\n";
+	print '<input type="hidden" name="sortfield" value="'.$sortfield.'">';
+	print '<input type="hidden" name="sortorder" value="'.$sortorder.'">';
 	print '<table class="liste" width="100%">'."\n";
 
 	// Filter on categories
@@ -175,7 +210,18 @@ if ($result)
  	{
 	 	$moreforfilter.=$langs->trans('By'). ': ';
 		$moreforfilter.=$htmlother->select_salesrepresentatives($search_sale,'search_sale',$user);
+	 	$moreforfilter.=' &nbsp; &nbsp; &nbsp; ';
  	}
+ 	// To add filter on diagnostic
+ 	//$width="200";
+ 	//$moreforfilter.=$langs->trans('DiagnostiqueLesionnel'). ': ';
+ 	//$moreforfilter.=listdiagles(1,$width,'search_diagles',$search_diagles);
+	//$moreforfilter.=' &nbsp; &nbsp; &nbsp; ';
+ 	// To add filter on contact
+	$width="200";
+ 	$moreforfilter.=$langs->trans('Correspondants'). ': ';
+	$moreforfilter.=$form->selectcontacts(0, $search_contactid, 'search_contactid', 1, '', '', 1);
+ 	// More filters
  	if ($moreforfilter)
 	{
 		print '<tr class="liste_titre">';
@@ -186,16 +232,16 @@ if ($result)
 
 	print '<tr class="liste_titre">';
     print_liste_field_titre($langs->trans("IdConsultShort"),$_SERVER["PHP_SELF"],"c.rowid","",$param,"",$sortfield,$sortorder);
-	print_liste_field_titre($langs->trans("Company"),$_SERVER["PHP_SELF"],"s.nom","",$param,"",$sortfield,$sortorder);
+	print_liste_field_titre($langs->trans("Patient"),$_SERVER["PHP_SELF"],"s.nom","",$param,"",$sortfield,$sortorder);
 	print_liste_field_titre($langs->trans("CustomerCode"),$_SERVER["PHP_SELF"],"s.code_client","",$param,"",$sortfield,$sortorder);
 	print_liste_field_titre($langs->trans("DateConsultationShort"),$_SERVER["PHP_SELF"],"c.datecons,c.rowid","",$param,'align="center"',$sortfield,$sortorder);
+    print_liste_field_titre($langs->trans("MotifPrincipal"),$_SERVER["PHP_SELF"],"c.motifconsprinc","",$param,'',$sortfield,$sortorder);
+	print_liste_field_titre($langs->trans("DiagLesPrincipal"),$_SERVER["PHP_SELF"],"c.diaglesprinc","",$param,'',$sortfield,$sortorder);
     if (! empty($conf->global->CABINETMED_FRENCH_PRISEENCHARGE))
     {
 	    print_liste_field_titre($langs->trans('Prise en charge'),$_SERVER['PHP_SELF'],'c.typepriseencharge','',$param,'',$sortfield,$sortorder);
     }
-    print_liste_field_titre($langs->trans("MotifPrincipal"),$_SERVER["PHP_SELF"],"c.motifconsprinc","",$param,'',$sortfield,$sortorder);
-	print_liste_field_titre($langs->trans("DiagLesPrincipal"),$_SERVER["PHP_SELF"],"","",$param,'',$sortfield,$sortorder);
-    print_liste_field_titre($langs->trans('ConsultActe'),$_SERVER['PHP_SELF'],'c.typevisit','',$param,'align="right"',$sortfield,$sortorder);
+	print_liste_field_titre($langs->trans('ConsultActe'),$_SERVER['PHP_SELF'],'c.typevisit','',$param,'align="right"',$sortfield,$sortorder);
 	print "</tr>\n";
 
 	print '<tr class="liste_titre">';
@@ -211,7 +257,12 @@ if ($result)
 	print '&nbsp;';
 	print '</td>';
     print '<td class="liste_titre">';
-    print '&nbsp;';
+    $width='200';
+    print listmotifcons(1,$width,'search_motifprinc',$search_motifprinc);
+    print '</td>';
+    print '<td class="liste_titre">';
+    $width='200';
+    print listdiagles(1,$width,'search_diaglesprinc',$search_diaglesprinc);
     print '</td>';
     if (! empty($conf->global->CABINETMED_FRENCH_PRISEENCHARGE))
     {
@@ -219,9 +270,6 @@ if ($result)
         print '&nbsp;';
         print '</td>';
     }
-    print '<td class="liste_titre">';
-    print '&nbsp;';
-    print '</td>';
     print '<td class="liste_titre" align="right"><input class="liste_titre" type="image" src="'.DOL_URL_ROOT.'/theme/'.$conf->theme.'/img/search.png" value="'.dol_escape_htmltag($langs->trans("Search")).'" title="'.dol_escape_htmltag($langs->trans("Search")).'">';
     print '&nbsp; ';
     print '<input type="image" class="liste_titre" name="button_removefilter" src="'.DOL_URL_ROOT.'/theme/'.$conf->theme.'/img/searchclear.png" value="'.dol_escape_htmltag($langs->trans("RemoveFilter")).'" title="'.dol_escape_htmltag($langs->trans("RemoveFilter")).'">';

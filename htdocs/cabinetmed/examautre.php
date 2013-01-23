@@ -336,7 +336,12 @@ if ($socid > 0)
         print '<legend>'.$langs->trans("Examen");
         if ($action=='edit' || $action=='update')
         {
-            print ' - '.$langs->trans("Numero").': '.sprintf("%08d",$examother->id);
+            print ' - '.$langs->trans("Numero").': <strong>'.sprintf("%08d",$examother->id).'</strong>';
+        }
+        if ($examother->fk_user > 0)
+        {
+        	$fuser->fetch($examother->fk_user);
+        	print ' - '.$langs->trans("CreatedBy").': <strong>'.$fuser->getFullName($langs).'</strong>';
         }
         print '</legend>'."\n";
 
