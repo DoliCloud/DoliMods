@@ -3,7 +3,7 @@
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -202,27 +202,27 @@ print '<tr><td>'.$langs->trans('EMail').($conf->global->SOCIETE_MAIL_REQUIRED?'*
 print '</tr>';
 
 print '<tr>';
-// IdProf1 (SIREN for France)
-$idprof=$langs->transcountry('ProfId1',$soc->country_code);
+// Size
+$idprof=$langs->trans('Size');
 print '<td>'.$idprof.'</td><td>';
 print '<input type="text" name="idprof1" size="6" maxlength="6" value="'.$soc->idprof1.'">';
 print '</td>';
-// IdProf2 (SIRET for France)
-$idprof=$langs->transcountry('ProfId2',$soc->country_code);
+// Weight
+$idprof=$langs->trans('Weight');
 print '<td>'.$idprof.'</td><td>';
 print '<input type="text" name="idprof2" size="6" maxlength="6" value="'.$soc->idprof2.'">';
 print '</td>';
 print '</tr>';
 print '<tr>';
-// IdProf3 (APE for France)
-$idprof=$langs->transcountry('ProfId3',$soc->country_code);
+// Date ot birth
+$idprof=$langs->trans('DateToBirth');
 print '<td>'.$idprof.'</td><td colspan="3">';
 print '<input type="text" name="idprof3" size="18" maxlength="32" value="'.$soc->idprof3.'"> ('.$conf->format_date_short_java.')';
 print '</td>';
 print '</tr>';
 
 // Sexe
-print '<tr><td>'.$langs->trans("ThirdPartyType").'</td><td colspan="3">';
+print '<tr><td>'.$langs->trans("Gender").'</td><td colspan="3">';
 print $form->selectarray("typent_id",$formcompany->typent_array(0, "AND code in ('TE_UNKNOWN', 'TE_HOMME', 'TE_FEMME')"), $soc->typent_id);
 if ($user->admin) print info_admin($langs->trans("YouCanChangeValuesForThisListFromDictionnarySetup"),1);
 print '</td>';
@@ -232,7 +232,7 @@ print '<tr><td>'.$langs->trans('JuridicalStatus').'</td><td>';
 $formcompany->select_forme_juridique($soc->forme_juridique_code, $soc->country_code, "AND f.code > '100000'");
 print '</td>';
 // IdProf4 (NU for France)
-$idprof=$langs->transcountry('ProfId4',$soc->country_code);
+$idprof=$langs->trans('Profession');
 print '<td>'.$idprof.'</td>';
 print '<td><input type="text" name="idprof4" size="32" value="'.$soc->idprof4.'"></td>';
 print '</tr>';

@@ -4,7 +4,7 @@
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -112,29 +112,19 @@ print '<tr><td>'.$langs->trans('EMail').'</td><td colspan="3">';
 print dol_print_email($soc->email,0,$soc->id,'AC_EMAIL');
 print '</td>';
 
-// ProfId1 (SIREN for France)
-$profid=$langs->transcountry('ProfId1',$soc->pays_code);
+// Size
+$profid=$langs->trans('Size');
 print '<tr><td>'.$profid.'</td><td>';
 print $soc->idprof1;
-if ($soc->idprof1)
-{
-    if ($soc->id_prof_check(1,$soc) > 0) print ' &nbsp; '.$soc->id_prof_url(1,$soc);
-    else print ' <font class="error">('.$langs->trans("ErrorWrongValue").')</font>';
-}
 print '</td>';
-// ProfId2 (SIRET for France)
-$profid=$langs->transcountry('ProfId2',$soc->pays_code);
+// Weight
+$profid=$langs->trans('Weight');
 print '<td>'.$profid.'</td><td>';
 print $soc->idprof2;
-if ($soc->idprof2)
-{
-    if ($soc->id_prof_check(2,$soc) > 0) print ' &nbsp; '.$soc->id_prof_url(2,$soc);
-    else print ' <font class="error">('.$langs->trans("ErrorWrongValue").')</font>';
-}
 print '</td></tr>';
 
-// ProfId3 (APE for France)
-$profid=$langs->transcountry('ProfId3',$soc->pays_code);
+// Birthday
+$profid=$langs->trans('DateToBirth');
 print '<tr><td>'.$profid.'</td><td colspan="3">';
 print $soc->idprof3;
 if ($soc->idprof3)
@@ -152,24 +142,19 @@ if ($soc->idprof3)
 print '</td>';
 print '</tr>';
 
-// Legal
+// Juridical status = Secteur activité
 print '<tr><td>'.$langs->trans('JuridicalStatus').'</td><td>'.$soc->forme_juridique.'</td>';
-// ProfId4 (NU for France)
-$profid=$langs->transcountry('ProfId4',$soc->pays_code);
+// Profession
+$profid=$langs->trans('Profession');
 print '<td>'.$profid.'</td><td>';
 print $soc->idprof4;
-if ($soc->idprof4)
-{
-    if ($soc->id_prof_check(4,$soc) > 0) print ' &nbsp; '.$soc->id_prof_url(4,$soc);
-    else print ' <font class="error">('.$langs->trans("ErrorWrongValue").')</font>';
-}
 print '</td></tr>';
 print '</tr>';
 
 // Type + Staff
 $arr = $formcompany->typent_array(1);
 $soc->typent= $arr[$soc->typent_code];
-print '<tr><td>'.$langs->trans("ThirdPartyType").'</td><td colspan="3">'.$soc->typent.'</td>';
+print '<tr><td>'.$langs->trans("Gender").'</td><td colspan="3">'.$soc->typent.'</td>';
 //print '<td>'.$langs->trans("Staff").'</td><td>'.$soc->effectif.'</td>';
 print '</tr>';
 

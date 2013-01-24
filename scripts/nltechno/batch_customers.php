@@ -35,7 +35,6 @@ if (substr($sapi_type, 0, 3) == 'cgi') {
 }
 
 // Global variables
-$version='1.29';
 $error=0;
 
 
@@ -47,7 +46,6 @@ if (! $res && file_exists($path."../../htdocs/master.inc.php")) $res=@include($p
 if (! $res && file_exists("../master.inc.php")) $res=@include("../master.inc.php");
 if (! $res && file_exists("../../master.inc.php")) $res=@include("../../master.inc.php");
 if (! $res && file_exists("../../../master.inc.php")) $res=@include("../../../master.inc.php");
-if (! $res && file_exists($dirroot."/htdocs/master.inc.php")) $res=@include($dirroot."/htdocs/master.inc.php");
 if (! $res) die ("Failed to include master.inc.php file\n");
 // After this $db, $mysoc, $langs and $conf->entity are defined. Opened handler to database will be closed at end of file.
 
@@ -93,9 +91,9 @@ if ($action == 'backup' || $action == 'backuptestrsync' || $action == 'backuptes
 {
 	$instances=array();
 
-	if (empty($conf->global->DOLICLOUD_INSTANCES_PATH))
+	if (empty($conf->global->DOLICLOUD_BACKUP_PATH))
 	{
-		print "Error: Setup of module NLTechno not complete\n";
+		print "Error: Setup of module NLTechno not complete. Path to backup not defined.\n";
 		exit -1;
 	}
 
@@ -141,7 +139,7 @@ if ($action == 'backup' || $action == 'backuptestrsync' || $action == 'backuptes
 			// Run backup
 			print "Process backup of instance ".$instance.' - '.strftime("%Y%m%d-%H%M%S")."\n";
 
-			$command=($path?$path.'/':'')."backup_instance.php ".escapeshellarg($instance)." ".escapeshellarg($conf->global->DOLICLOUD_INSTANCES_PATH)." ".($action == 'backup'?'confirm':($action == 'backuptestdatabase'?'testdatabase':'testrsync'));
+			$command=($path?$path.'/':'')."backup_instance.php ".escapeshellarg($instance)." ".escapeshellarg($conf->global->DOLICLOUD_BACKUP_PATH)." ".($action == 'backup'?'confirm':($action == 'backuptestdatabase'?'testdatabase':'testrsync'));
 
 			if ($action == 'backup')
 			{

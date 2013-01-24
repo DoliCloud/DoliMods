@@ -4,7 +4,7 @@
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -211,11 +211,15 @@ else
 			if ($i > 1) print ', ';
 			print $key.': '.($key == 'proxy_password'?preg_replace('/./','*',$val):$val);
 		}
-		print '<br><br>';
+		print '<br><br>'."\n";
 
-        $soap = new SoapClient($WS_DOL_URL,$params);
-        try {
-            $language="en";
+		// Set error handler to trap FATAL errors
+		set_error_handler('my_error_handler');
+
+		try {
+			$soap = new SoapClient($WS_DOL_URL,$params);
+
+        	$language="en";
             $multisession=false;
 
             //login
@@ -265,4 +269,19 @@ else
 llxFooter();
 
 $db->close();
+
+/**
+ * Function to trap FATAL errors
+ *
+ * @param string	$no
+ * @param string	$str
+ * @param string	$file
+ * @param string	$line
+ */
+function my_error_handler($no,$str,$file,$line)
+{
+	$e = new ErrorException($str,$no,0,$file,$line);
+	print $e;
+}
+
 ?>

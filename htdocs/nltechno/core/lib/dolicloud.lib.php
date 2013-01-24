@@ -3,7 +3,7 @@
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -34,19 +34,19 @@ function dolicloud_prepare_head($object)
 	$h = 0;
 	$head = array();
 
-	$head[$h][0] = ($object->id?dol_buildpath('/nltechno/dolicloud_card.php',1).'?id='.$object->id:'');
+	$head[$h][0] = ($object->id?dol_buildpath('/nltechno/dolicloud/dolicloud_card.php',1).'?id='.$object->id:'');
 	$head[$h][1] = $langs->trans("Card");
 	$head[$h][2] = 'card';
 	$h++;
 
 	if ($object->id > 0)
 	{
-		$head[$h][0] = dol_buildpath('/nltechno/dolicloud_card_upgrade.php',1).'?id='.$object->id;
+		$head[$h][0] = dol_buildpath('/nltechno/dolicloud/dolicloud_card_upgrade.php',1).'?id='.$object->id;
 		$head[$h][1] = $langs->trans("Upgrade");
 		$head[$h][2] = 'upgrade';
 		$h++;
 
-		$head[$h][0] = dol_buildpath('/nltechno/dolicloud_card_backup.php',1).'?id='.$object->id;
+		$head[$h][0] = dol_buildpath('/nltechno/dolicloud/dolicloud_card_backup.php',1).'?id='.$object->id;
 		$head[$h][1] = $langs->trans("Backup");
 		$head[$h][2] = 'backup';
 		$h++;
@@ -58,7 +58,7 @@ function dolicloud_prepare_head($object)
 	    complete_head_from_modules($conf,$langs,$object,$head,$h,'contact');
 
 	    /*
-	    $head[$h][0] = dol_buildpath('/nltechno/dolicloud_info.php',1).'?id='.$object->id;
+	    $head[$h][0] = dol_buildpath('/nltechno/dolicloud/dolicloud_info.php',1).'?id='.$object->id;
 		$head[$h][1] = $langs->trans("Info");
 		$head[$h][2] = 'info';
 		$h++;

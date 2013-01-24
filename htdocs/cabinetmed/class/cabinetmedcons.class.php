@@ -3,7 +3,7 @@
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -225,6 +225,7 @@ class CabinetmedCons extends CommonObject
 		$sql = "SELECT";
 		$sql.= " t.rowid,";
 		$sql.= " t.fk_soc,";
+		$sql.= " t.fk_user,";
 		$sql.= " t.datecons,";
 		$sql.= " t.typepriseencharge,";
 		$sql.= " t.motifconsprinc,";
@@ -261,6 +262,7 @@ class CabinetmedCons extends CommonObject
 				$this->id    = $obj->rowid;
 
 				$this->fk_soc = $obj->fk_soc;
+				$this->fk_user = $obj->fk_user;
 				$this->datecons = $this->db->jdate($obj->datecons);
 				$this->typepriseencharge = $obj->typepriseencharge;
 				$this->motifconsprinc = $obj->motifconsprinc;

@@ -3,7 +3,7 @@
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -16,7 +16,7 @@
  */
 
 /**
- *   	\file       htdocs/nltechno/dolicloud_list.php
+ *   	\file       htdocs/nltechno/dolicloud/dolicloud_list.php
  *		\ingroup    nltechno
  *		\brief      This file is an example of a php page
  */
@@ -104,7 +104,7 @@ print '<tr><td valign="top" width="30%" class="notopnoleft">';
  * Search area
 */
 $rowspan=2;
-print '<form method="post" action="'.dol_buildpath('/nltechno/dolicloud_list.php').'">';
+print '<form method="post" action="'.dol_buildpath('/nltechno/dolicloud/dolicloud_list.php',1).'">';
 print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
 print '<table class="noborder nohover" width="100%">';
 print '<tr class="liste_titre">';

@@ -3,7 +3,7 @@
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -60,6 +60,10 @@ if ($action == 'set')
 		if (dol_is_dir($dir)) dolibarr_set_const($db,"DOLICLOUD_INSTANCES_PATH",GETPOST("DOLICLOUD_INSTANCES_PATH"),'chaine',0,'',$conf->entity);
 		else setEventMessage($langs->trans("ErrorDirNotFound",$dir),'errors');
 
+		$dir=GETPOST("DOLICLOUD_BACKUP_PATH");
+		if (dol_is_dir($dir)) dolibarr_set_const($db,"DOLICLOUD_BACKUP_PATH",GETPOST("DOLICLOUD_BACKUP_PATH"),'chaine',0,'',$conf->entity);
+		else setEventMessage($langs->trans("ErrorDirNotFound",$dir),'errors');
+
 		$dir=GETPOST("DOLICLOUD_SCRIPTS_PATH");
 		if (dol_is_dir($dir)) dolibarr_set_const($db,"DOLICLOUD_SCRIPTS_PATH",GETPOST("DOLICLOUD_SCRIPTS_PATH"),'chaine',0,'',$conf->entity);
 		else setEventMessage($langs->trans("ErrorDirNotFound",$dir),'errors');
@@ -108,15 +112,6 @@ print '<td align="right"><input type="submit" class="button" value="'.$langs->tr
 print "</tr>\n";
 
 $var=!$var;
-print '<tr '.$bc[$var].'><td>'.$langs->trans("DirForDoliCloudInstances").'</td>';
-print '<td>';
-print '<input size="40" type="text" name="DOLICLOUD_INSTANCES_PATH" value="'.$conf->global->DOLICLOUD_INSTANCES_PATH.'">';
-print '</td>';
-print '<td>/home/dolicloud/home</td>';
-print '<td>&nbsp;</td>';
-print '</tr>';
-
-$var=!$var;
 print '<tr '.$bc[$var].'><td>'.$langs->trans("DirForScriptPath").'</td>';
 print '<td>';
 print '<input size="40" type="text" name="DOLICLOUD_SCRIPTS_PATH" value="'.$conf->global->DOLICLOUD_SCRIPTS_PATH.'">';
@@ -131,6 +126,24 @@ print '<td>';
 print '<input size="40" type="text" name="DOLICLOUD_LASTSTABLEVERSION_DIR" value="'.$conf->global->DOLICLOUD_LASTSTABLEVERSION_DIR.'">';
 print '</td>';
 print '<td>/home/admin/wwwroot/dolibarr_old</td>';
+print '<td>&nbsp;</td>';
+print '</tr>';
+
+$var=!$var;
+print '<tr '.$bc[$var].'><td>'.$langs->trans("DirForDoliCloudInstances").'</td>';
+print '<td>';
+print '<input size="40" type="text" name="DOLICLOUD_INSTANCES_PATH" value="'.$conf->global->DOLICLOUD_INSTANCES_PATH.'">';
+print '</td>';
+print '<td>/home/dolicloud/home</td>';
+print '<td>&nbsp;</td>';
+print '</tr>';
+
+$var=!$var;
+print '<tr '.$bc[$var].'><td>'.$langs->trans("DirForDoliCloudBackupInstances").'</td>';
+print '<td>';
+print '<input size="40" type="text" name="DOLICLOUD_BACKUP_PATH" value="'.$conf->global->DOLICLOUD_BACKUP_PATH.'">';
+print '</td>';
+print '<td>/home/dolicloud/backup</td>';
 print '<td>&nbsp;</td>';
 print '</tr>';
 

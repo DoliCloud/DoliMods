@@ -3,7 +3,7 @@
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -16,7 +16,7 @@
  */
 
 /**
- *   	\file       htdocs/nltechno/dolicloud_list.php
+ *   	\file       htdocs/nltechno/dolicloud/dolicloud_list.php
  *		\ingroup    nltechno
  *		\brief      This file is an example of a php page
  */
@@ -54,6 +54,15 @@ $langs->load("nltechno@nltechno");
 $id			= GETPOST('id','int');
 $action		= GETPOST('action','alpha');
 $myparam	= GETPOST('myparam','alpha');
+
+$search_dolicloud = GETPOST("search_dolicloud");	// Search from index page
+$search_instance = GETPOST("search_instance");
+$search_organization = GETPOST("search_organization");
+$search_plan = GETPOST("search_plan");
+$search_partner = GETPOST("search_partner");
+$search_source = GETPOST("search_source");
+$search_email = GETPOST("search_email");
+$search_lastlogin = GETPOST("search_lastlogin");
 
 $sortfield = GETPOST("sortfield",'alpha');
 $sortorder = GETPOST("sortorder",'alpha');
@@ -140,6 +149,7 @@ $sql.= " t.date_registration,";
 $sql.= " t.date_endfreeperiod,";
 $sql.= " t.status,";
 $sql.= " t.partner,";
+$sql.= " t.source,";
 $sql.= " t.total_invoiced,";
 $sql.= " t.total_payed,";
 $sql.= " t.tms,";
@@ -162,10 +172,17 @@ $sql.= " p.price_user,";
 $sql.= " p.price_gb";
 $sql.= " FROM ".MAIN_DB_PREFIX."dolicloud_customers as t";
 $sql.= " LEFT JOIN ".MAIN_DB_PREFIX."c_dolicloud_plans as p ON t.plan = p.code";
-//    $sql.= " WHERE field3 = 'xxx'";
+$sql.= " WHERE 1 = 1";
+if ($search_dolicloud) $sql.='';
+if ($search_instance) $sql.=" AND t.instance LIKE '%".$search_instance."%'";
+if ($search_organization) $sql.=" AND t.organization LIKE '%".$search_organization."%'";
+if ($search_plan) $sql.=" AND t.email LIKE '%".$search_plan."%'";
+if ($search_partner) $sql.=" AND t.partner LIKE '%".$search_partner."%'";
+if ($search_source) $sql.=" AND t.source LIKE '%".$search_source."%'";
+if ($search_email) $sql.=" AND t.email LIKE '%".$search_email."%'";
+if ($search_lastlogin) $sql.=" AND t.lastlogin LIKE '%".$search_lastlogin."%'";
 $sql.= $db->order($sortfield,$sortorder);
 $sql.= $db->plimit($conf->liste_limit +1, $offset);
-
 
 $param='';
 if ($month)              $param.='&month='.$month;
@@ -176,12 +193,17 @@ if ($search_sale > 0)    $param.='&search_sale=' .$search_sale;
 print_barre_liste($langs->trans('DoliCloudCustomers'),$page,$_SERVER["PHP_SELF"],$param,$sortfield,$sortorder,'',$num);
 
 
+// Lignes des champs de filtre
+print '<form method="POST" action="'.$_SERVER["PHP_SELF"].'">';
+
 print '<table class="liste" width="100%">';
 print '<tr class="liste_titre">';
 print_liste_field_titre($langs->trans('Instance'),$_SERVER['PHP_SELF'],'t.instance','',$param,'align="left"',$sortfield,$sortorder);
 print_liste_field_titre($langs->trans('Organization'),$_SERVER['PHP_SELF'],'t.organization','',$param,'',$sortfield,$sortorder);
 print_liste_field_titre($langs->trans('EMail'),$_SERVER['PHP_SELF'],'t.email','',$param,'',$sortfield,$sortorder);
 print_liste_field_titre($langs->trans('Plan'),$_SERVER['PHP_SELF'],'t.plan','',$param,'',$sortfield,$sortorder);
+print_liste_field_titre($langs->trans('Partner'),$_SERVER['PHP_SELF'],'t.partner','',$param,'',$sortfield,$sortorder);
+print_liste_field_titre($langs->trans('Source'),$_SERVER['PHP_SELF'],'t.source','',$param,'',$sortfield,$sortorder);
 print_liste_field_titre($langs->trans('DateRegistration'),$_SERVER['PHP_SELF'],'t.date_registration','',$param,'',$sortfield,$sortorder);
 print_liste_field_titre($langs->trans('DateEndFreePeriod'),$_SERVER['PHP_SELF'],'t.date_endfreeperiod','',$param,'',$sortfield,$sortorder);
 print_liste_field_titre($langs->trans('DateLastCheck'),$_SERVER['PHP_SELF'],'t.lastcheck','',$param,'',$sortfield,$sortorder);
@@ -191,6 +213,26 @@ print_liste_field_titre($langs->trans('DateLastLogin'),$_SERVER['PHP_SELF'],'t.d
 print_liste_field_titre($langs->trans('Revenue'),$_SERVER['PHP_SELF'],'','',$param,' align="right"',$sortfield,$sortorder);
 print_liste_field_titre($langs->trans('Status'),$_SERVER['PHP_SELF'],'t.status','',$param,'align="right"',$sortfield,$sortorder);
 print '</tr>';
+
+print '<tr class="liste_titre">';
+print '<td><input type="text" name="search_instance" size="4" value="'.$search_instance.'"></td>';
+print '<td><input type="text" name="search_organization" size="4" value="'.$search_organization.'"></td>';
+print '<td><input type="text" name="search_email" size="4" value="'.$search_email.'"></td>';
+print '<td><input type="text" name="search_plan" size="4" value="'.$search_plan.'"></td>';
+print '<td><input type="text" name="search_partner" size="4" value="'.$search_partner.'"></td>';
+print '<td><input type="text" name="search_source" size="4" value="'.$search_source.'"></td>';
+print '<td></td>';
+print '<td></td>';
+print '<td></td>';
+print '<td></td>';
+print '<td align="center"><input type="text" name="search_lastlogin" size="4" value="'.$search_lastlogin.'"></td>';
+print '<td></td>';
+print '<td></td>';
+print '<td align="right">';
+print '<input type="image" class="liste_titre" name="button_search" src="'.DOL_URL_ROOT.'/theme/'.$conf->theme.'/img/search.png"  value="'.dol_escape_htmltag($langs->trans("Search")).'" title="'.dol_escape_htmltag($langs->trans("Search")).'">';
+print '</td>';
+print '</tr>';
+
 
 $totalcustomers=0;
 $totalcustomerspaying=0;
@@ -227,6 +269,10 @@ if ($resql)
                 print $obj->email;
                 print '</td><td>';
                 print $obj->plan;
+                print '</td><td>';
+                print $obj->partner;
+                print '</td><td>';
+                print $obj->source;
                 print '</td><td>';
                 print dol_print_date($obj->date_registration,'dayhour');
                 print '</td><td>';
@@ -266,6 +312,9 @@ else
     dol_print_error($db);
 }
 print '</table>';
+
+print '</form>';
+
 
 print '<br>';
 

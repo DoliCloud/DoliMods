@@ -3,7 +3,7 @@
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -49,6 +49,7 @@ class Dolicloudcustomer extends CommonObject
 	var $date_endfreeperiod='';
 	var $status;
 	var $partner;
+	var $source;
 	var $total_invoiced;
 	var $total_payed;
 	var $tms='';
@@ -113,6 +114,7 @@ class Dolicloudcustomer extends CommonObject
 		if (isset($this->plan)) $this->plan=trim($this->plan);
 		if (isset($this->status)) $this->status=trim($this->status);
 		if (isset($this->partner)) $this->partner=trim($this->partner);
+		if (isset($this->source)) $this->source=trim($this->source);
 		if (isset($this->total_invoiced)) $this->total_invoiced=trim($this->total_invoiced);
 		if (isset($this->total_payed)) $this->total_payed=trim($this->total_payed);
 		if (isset($this->hostname_web)) $this->hostname_web=trim($this->hostname_web);
@@ -143,6 +145,7 @@ class Dolicloudcustomer extends CommonObject
 		$sql.= "date_endfreeperiod,";
 		$sql.= "status,";
 		$sql.= "partner,";
+		$sql.= "source,";
 		$sql.= "total_invoiced,";
 		$sql.= "total_payed,";
 		$sql.= "hostname_web,";
@@ -183,6 +186,7 @@ class Dolicloudcustomer extends CommonObject
 		$sql.= " ".(! isset($this->date_endfreeperiod) || dol_strlen($this->date_endfreeperiod)==0?'NULL':$this->db->idate($this->date_endfreeperiod)).",";
 		$sql.= " ".(! isset($this->status)?'NULL':"'".$this->status."'").",";
 		$sql.= " ".(! isset($this->partner)?'NULL':"'".$this->db->escape($this->partner)."'").",";
+		$sql.= " ".(! isset($this->source)?'NULL':"'".$this->db->escape($this->source)."'").",";
 		$sql.= " ".(! isset($this->total_invoiced)?'NULL':"'".$this->total_invoiced."'").",";
 		$sql.= " ".(! isset($this->total_payed)?'NULL':"'".$this->total_payed."'").",";
 		$sql.= " ".(! isset($this->hostname_web)?'NULL':"'".$this->db->escape($this->hostname_web)."'").",";
@@ -282,6 +286,7 @@ class Dolicloudcustomer extends CommonObject
 		$sql.= " t.date_endfreeperiod,";
 		$sql.= " t.status,";
 		$sql.= " t.partner,";
+		$sql.= " t.source,";
 		$sql.= " t.total_invoiced,";
 		$sql.= " t.total_payed,";
 		$sql.= " t.tms,";
@@ -336,6 +341,7 @@ class Dolicloudcustomer extends CommonObject
 				$this->date_endfreeperiod = $this->db->jdate($obj->date_endfreeperiod);
 				$this->status = $obj->status;
 				$this->partner = $obj->partner;
+				$this->source = $obj->source;
 				$this->total_invoiced = $obj->total_invoiced;
 				$this->total_payed = $obj->total_payed;
 				$this->tms = $this->db->jdate($obj->tms);
@@ -415,6 +421,7 @@ class Dolicloudcustomer extends CommonObject
 		if (isset($this->plan)) $this->plan=trim($this->plan);
 		if (isset($this->status)) $this->status=trim($this->status);
 		if (isset($this->partner)) $this->partner=trim($this->partner);
+		if (isset($this->source)) $this->source=trim($this->source);
 		if (isset($this->total_invoiced)) $this->total_invoiced=trim($this->total_invoiced);
 		if (isset($this->total_payed)) $this->total_payed=trim($this->total_payed);
 		if (isset($this->hostname_web)) $this->hostname_web=trim($this->hostname_web);
@@ -445,6 +452,7 @@ class Dolicloudcustomer extends CommonObject
 		$sql.= " date_endfreeperiod=".(dol_strlen($this->date_endfreeperiod)!=0 ? "'".$this->db->idate($this->date_endfreeperiod)."'" : 'null').",";
 		$sql.= " status=".(isset($this->status)?"'".$this->status."'":"null").",";
 		$sql.= " partner=".(isset($this->partner)?"'".$this->db->escape($this->partner)."'":"null").",";
+		$sql.= " source=".(isset($this->source)?"'".$this->db->escape($this->source)."'":"null").",";
 		$sql.= " total_invoiced=".(isset($this->total_invoiced)?$this->total_invoiced:"null").",";
 		$sql.= " total_payed=".(isset($this->total_payed)?$this->total_payed:"null").",";
 		$sql.= " tms=".(dol_strlen($this->tms)!=0 ? "'".$this->db->idate($this->tms)."'" : 'null').",";
@@ -593,7 +601,7 @@ class Dolicloudcustomer extends CommonObject
 
 	    $result='';
 
-	    $lien = '<a href="'.dol_buildpath('/nltechno/dolicloud_card.php',1).'?id='.$this->id.'">';
+	    $lien = '<a href="'.dol_buildpath('/nltechno/dolicloud/dolicloud_card.php',1).'?id='.$this->id.'">';
 	    $lienfin='</a>';
 
 	    if ($withpicto) $result.=($lien.img_object($langs->trans("ShowCustomer").': '.$this->ref,'generic').$lienfin.' ');
@@ -731,6 +739,7 @@ class Dolicloudcustomer extends CommonObject
 		$this->date_endfreeperiod='';
 		$this->status='ACTIVE';
 		$this->partner='';
+		$this->source='';
 		$this->total_invoiced='';
 		$this->total_payed='';
 		$this->tms='';

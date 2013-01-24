@@ -3,7 +3,7 @@
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -49,7 +49,7 @@ class CMCIC_Tpe {
 	public $sUrlKO;		// Url de retour KO - Return URL KO
 	public $sUrlPaiement;	// Url du serveur de paiement - Payment Server URL (Ex : https://paiement.creditmutuel.fr/paiement.cgi)
 
-	private $_sCle;		// La clé - The Key
+	private $_sCle;		// La clï¿½ - The Key
 	
 
 	// ----------------------------------------------------------------------------
@@ -60,7 +60,7 @@ class CMCIC_Tpe {
 	
 	function __construct($sVersion, $sKey, $sTpe, $sServer, $sSocieteCode, $sURLOK, $sURLKO, $sLangue = "FR") {
 
-		// contrôle de l'existence des constantes de paramétrages.
+		// contrï¿½le de l'existence des constantes de paramï¿½trages.
 		/*$aRequiredConstants = array('CMCIC_CLE', 'CMCIC_VERSION', 'CMCIC_TPE', 'CMCIC_CODESOCIETE');
 		$this->_checkTpeParams($aRequiredConstants);*/
 
@@ -81,7 +81,7 @@ class CMCIC_Tpe {
 	//
 	// Fonction / Function : getCle
 	//
-	// Renvoie la clé du TPE / return the TPE Key
+	// Renvoie la clï¿½ du TPE / return the TPE Key
 	//
 	// ----------------------------------------------------------------------------
 
@@ -94,7 +94,7 @@ class CMCIC_Tpe {
 	//
 	// Fonction / Function : _checkTpeParams
 	//
-	// Contrôle l'existence des constantes d'initialisation du TPE
+	// Contrï¿½le l'existence des constantes d'initialisation du TPE
 	// Check for the initialising constants of the TPE
 	//
 	// ----------------------------------------------------------------------------
@@ -103,7 +103,7 @@ class CMCIC_Tpe {
 
 		for ($i = 0; $i < count($aConstants); $i++)
 			if (!defined($aConstants[$i]))
-				die ("Erreur paramètre " . $aConstants[$i] . " indéfini");
+				die ("Erreur paramï¿½tre " . $aConstants[$i] . " indï¿½fini");
 	}
 
 }
@@ -117,7 +117,7 @@ class CMCIC_Tpe {
 
 class CMCIC_Hmac {
 
-	private $_sUsableKey;	// La clé du TPE en format opérationnel / The usable TPE key
+	private $_sUsableKey;	// La clï¿½ du TPE en format opï¿½rationnel / The usable TPE key
 
 	// ----------------------------------------------------------------------------
 	//
@@ -134,7 +134,7 @@ class CMCIC_Hmac {
 	//
 	// Fonction / Function : _getUsableKey
 	//
-	// Renvoie la clé dans un format utilisable par la certification hmac
+	// Renvoie la clï¿½ dans un format utilisable par la certification hmac
 	// Return the key to be used in the hmac function
 	//
 	// ----------------------------------------------------------------------------
@@ -163,7 +163,7 @@ class CMCIC_Hmac {
 	//
 	// Fonction / Function : computeHmac
 	//
-	// Renvoie le sceau HMAC d'une chaine de données
+	// Renvoie le sceau HMAC d'une chaine de donnï¿½es
 	// Return the HMAC for a data string
 	//
 	// ----------------------------------------------------------------------------
@@ -185,9 +185,9 @@ class CMCIC_Hmac {
 	// Eliminates the need to install mhash to compute a HMAC
 	// Adjusted from the md5 version by Lance Rushing .
 	//
-	// Implémentation RFC 2104 HMAC pour PHP >= 4.3.0 - Création d'un SHA1 HMAC.
+	// Implï¿½mentation RFC 2104 HMAC pour PHP >= 4.3.0 - Crï¿½ation d'un SHA1 HMAC.
 	// Elimine l'installation de mhash pour le calcul d'un HMAC
-	// Adaptée de la version MD5 de Lance Rushing.
+	// Adaptï¿½e de la version MD5 de Lance Rushing.
 	//
 	// ----------------------------------------------------------------------------
 
@@ -210,8 +210,8 @@ class CMCIC_Hmac {
 // function getMethode 
 //
 // IN: 
-// OUT: Données soumises par GET ou POST / Data sent by GET or POST
-// description: Renvoie le tableau des données / Send back the data array
+// OUT: Donnï¿½es soumises par GET ou POST / Data sent by GET or POST
+// description: Renvoie le tableau des donnï¿½es / Send back the data array
 // ----------------------------------------------------------------------------
 
 function getMethode()
@@ -229,11 +229,11 @@ function getMethode()
 // function HtmlEncode
 //
 // IN:  chaine a encoder / String to encode
-// OUT: Chaine encodée / Encoded string
+// OUT: Chaine encodï¿½e / Encoded string
 //
 // Description: Encode special characters under HTML format
 //                           ********************
-//              Encodage des caractères spéciaux au format HTML
+//              Encodage des caractï¿½res spï¿½ciaux au format HTML
 // ----------------------------------------------------------------------------
 function HtmlEncode ($data)
 {

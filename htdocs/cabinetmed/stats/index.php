@@ -4,7 +4,7 @@
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -101,12 +101,12 @@ if (! $mesg)
 	$px1->SetMaxValue($px1->GetCeilMaxValue());
 	$px1->SetWidth($WIDTH);
 	$px1->SetHeight($HEIGHT);
-	$px1->SetYLabel($langs->trans("Number"));
+	$px1->SetYLabel($langs->trans("NumberConsult"));
 	$px1->SetShading(3);
 	$px1->SetHorizTickIncrement(1);
 	$px1->SetPrecisionY(0);
 	$px1->mode='depth';
-	$px1->SetTitle($langs->trans("NumberByMonth"));
+	$px1->SetTitle($langs->trans("NumberConsultByMonth"));
 
 	$px1->draw($filenamenb,$fileurlnb);
 }

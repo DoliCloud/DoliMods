@@ -5,7 +5,7 @@
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -167,7 +167,7 @@ $nbccam=0;
 $i=0;
 foreach($consult as $rowid => $val)
 {
-    $objp=(object) array();
+    $objp=new stdClass();
 
     // Break on day, show total for day
     if ($i > 0 && ($olddate != $consult[$rowid]['date']))
@@ -202,7 +202,7 @@ foreach($consult as $rowid => $val)
         //$coord=$objmodel->workbook->getActiveSheet()->getCellByColumnAndRow(1, $i+1)->getCoordinate();
         //$this->workbook->getActiveSheet()->getStyle($coord)->getNumberFormat()->setFormatCode('yyyy-mm-dd');
 
-        $objp=(object) array();
+        $objp=new stdClass();
         $objmodel->write_record(array(),$objp,$outputlangs);
         $i++;
         $objmodel->write_record(array(),$objp,$outputlangs);
@@ -300,7 +300,7 @@ foreach($consult as $rowid => $val)
     $dm=dol_print_date($consult[$rowid]['date'],'%Y-%m');
 }
 
-$objp=(object) array();
+$objp=new stdClass();
 
 // Break on day, show total for day
 if ($i != 0)

@@ -3,7 +3,7 @@
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -363,6 +363,7 @@ if ($action == 'add' || $action == 'update')
  */
 
 $form = new Form($db);
+$fuser = new User($db);
 $width="242";
 
 llxHeader('',$langs->trans("Consultation"));
@@ -604,7 +605,12 @@ if ($socid > 0)
         print '<legend>'.$langs->trans("InfoGenerales");
         if ($action=='edit' || $action=='update')
         {
-            print ' - '.$langs->trans("ConsultationNumero").': '.sprintf("%08d",$consult->id);
+            print ' - '.$langs->trans("ConsultationNumero").': <strong>'.sprintf("%08d",$consult->id).'</strong>';
+        }
+        if ($consult->fk_user > 0)
+        {
+        	$fuser->fetch($consult->fk_user);
+        	print ' - '.$langs->trans("CreatedBy").': <strong>'.$fuser->getFullName($langs).'</strong>';
         }
         print '</legend>'."\n";
 
@@ -649,8 +655,8 @@ if ($socid > 0)
         listmotifcons(1,400);
         /*print ' '.img_picto('Ajouter motif principal','edit_add_p.png@cabinetmed');
         print ' '.img_picto('Ajouter motif secondaire','edit_add_s.png@cabinetmed');*/
-        print ' <input type="button" class="button" id="addmotifprinc" name="addmotifprinc" value="+P">';
-        print ' <input type="button" class="button" id="addmotifsec" name="addmotifsec" value="+S">';
+        print ' <input type="button" class="button" id="addmotifprinc" name="addmotifprinc" value="+P" title="'.dol_escape_htmltag($langs->trans("ClickHereToSetPrimaryReason")).'">';
+        print ' <input type="button" class="button" id="addmotifsec" name="addmotifsec" value="+S" title="'.dol_escape_htmltag($langs->trans("ClickHereToSetSecondaryReason")).'">';
         if ($user->admin) print ' '.info_admin($langs->trans("YouCanChangeValuesForThisListFromDictionnarySetup"),1);
         print '</td></tr>';
         print '<tr><td class="fieldrequired">'.$langs->trans("Primary").':';
@@ -681,8 +687,8 @@ if ($socid > 0)
         print '</td><td>';
         //print '<input type="text" size="3" class="flat" name="searchdiagles" value="'.GETPOST("searchdiagles").'" id="searchdiagles">';
         print listdiagles(1,$width);
-        print ' <input type="button" class="button" id="adddiaglesprinc" name="adddiaglesprinc" value="+P">';
-        print ' <input type="button" class="button" id="adddiaglessec" name="adddiaglessec" value="+S">';
+        print ' <input type="button" class="button" id="adddiaglesprinc" name="adddiaglesprinc" value="+P" title="'.dol_escape_htmltag($langs->trans("ClickHereToSetPrimaryDiagnostic")).'">';
+        print ' <input type="button" class="button" id="adddiaglessec" name="adddiaglessec" value="+S" title="'.dol_escape_htmltag($langs->trans("ClickHereToSetSecondaryDiagnostic")).'">';
         if ($user->admin) print ' '.info_admin($langs->trans("YouCanChangeValuesForThisListFromDictionnarySetup"),1);
         print '</td></tr>';
         print '<tr><td class="fieldrequired">'.$langs->trans("Primary").':';
@@ -796,46 +802,33 @@ if ($socid > 0)
         }
 
         print '<table class="notopnoleftnoright" id="paymentsbox" width="100%">';
+
+        // Cheque
         print '<tr><td width="160">';
         print ''.$langs->trans("PaymentTypeCheque").'</td><td>';
-
         //print '<table class="nobordernopadding"><tr><td>';
-
         print '<input type="text" class="flat" name="montant_cheque" id="montant_cheque" value="'.($consult->montant_cheque!=''?price($consult->montant_cheque):'').'" size="5">';
         if ($conf->banque->enabled)
         {
             print ' &nbsp; '.$langs->trans("RecBank").' ';
             $form->select_comptes(($consult->bank['CHQ']['account_id']?$consult->bank['CHQ']['account_id']:$defaultbankaccountchq),'bankchequeto',0,'courant = 1',0,($consult->montant_cheque?'':' disabled="disabled"'));
         }
-
         //print '</td><td>';
-
         print ' &nbsp; ';
         print $langs->trans("ChequeBank").' ';
-        //var_dump();
         //print '<input type="text" class="flat" name="banque" id="banque" value="'.$consult->banque.'" size="18"'.($consult->montant_cheque?'':' disabled="disabled"').'>';
         listebanques(1,0,$consult->banque);
         if ($user->admin) print info_admin($langs->trans("YouCanChangeValuesForThisListFromDictionnarySetup"),1);
-
         //print '</td></tr><tr><td></td><td>';
-
         if ($conf->banque->enabled)
         {
             print ' &nbsp; '.$langs->trans("ChequeOrTransferNumber").' ';
             print '<input type="text" class="flat" name="num_cheque" id="num_cheque" value="'.$consult->num_cheque.'" size="6"'.($consult->montant_cheque?'':' disabled="disabled"').'>';
         }
-
         //print '</td></tr></table>';
-
-        print '</td></tr><tr><td>';
-        print $langs->trans("PaymentTypeEspece").'</td><td>';
-        print '<input type="text" class="flat" name="montant_espece" id="montant_espece" value="'.($consult->montant_espece!=''?price($consult->montant_espece):'').'" size="5">';
-        if ($conf->banque->enabled)
-        {
-            print ' &nbsp; '.$langs->trans("RecBank").' ';
-            $form->select_comptes(($consult->bank['LIQ']['account_id']?$consult->bank['LIQ']['account_id']:$defaultbankaccountliq),'bankespeceto',0,'courant = 2',0,($consult->montant_espece?'':' disabled="disabled"'));
-        }
-        print '</td></tr><tr><td>';
+        print '</td></tr>';
+        // Card
+        print '<tr><td>';
         print $langs->trans("PaymentTypeCarte").'</td><td>';
         print '<input type="text" class="flat" name="montant_carte" id="montant_carte" value="'.($consult->montant_carte!=''?price($consult->montant_carte):'').'" size="5">';
         if ($conf->banque->enabled)
@@ -843,7 +836,19 @@ if ($socid > 0)
             print ' &nbsp; '.$langs->trans("RecBank").' ';
             $form->select_comptes(($consult->bank['CB']['account_id']?$consult->bank['CB']['account_id']:$defaultbankaccountchq),'bankcarteto',0,'courant = 1',0,($consult->montant_carte?'':' disabled="disabled"'));
         }
-        print '</td></tr><tr><td>';
+        print '</td></tr>';
+        // Cash
+        print '<tr><td>';
+        print $langs->trans("PaymentTypeEspece").'</td><td>';
+        print '<input type="text" class="flat" name="montant_espece" id="montant_espece" value="'.($consult->montant_espece!=''?price($consult->montant_espece):'').'" size="5">';
+        if ($conf->banque->enabled)
+        {
+            print ' &nbsp; '.$langs->trans("RecBank").' ';
+            $form->select_comptes(($consult->bank['LIQ']['account_id']?$consult->bank['LIQ']['account_id']:$defaultbankaccountliq),'bankespeceto',0,'courant = 2',0,($consult->montant_espece?'':' disabled="disabled"'));
+        }
+        print '</td></tr>';
+        // Third party
+        print '<tr><td>';
         print $langs->trans("PaymentTypeThirdParty").'</td><td>';
         print '<input type="text" class="flat" name="montant_tiers" id="montant_tiers" value="'.($consult->montant_tiers!=''?price($consult->montant_tiers):'').'" size="5">';
         print ' &nbsp; ('.$langs->trans("ZeroHereIfNoPayment").')';

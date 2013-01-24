@@ -6,7 +6,7 @@
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -413,7 +413,12 @@ if ($socid > 0)
         print '<legend>'.$langs->trans("Examen");
         if ($action=='edit' || $action=='update')
         {
-            print ' - '.$langs->trans("Numero").': '.sprintf("%08d",$exambio->id);
+            print ' - '.$langs->trans("Numero").': <strong>'.sprintf("%08d",$exambio->id).'</strong>';
+        }
+        if ($exambio->fk_user > 0)
+        {
+        	$fuser->fetch($exambio->fk_user);
+        	print ' - '.$langs->trans("CreatedBy").': <strong>'.$fuser->getFullName($langs).'</strong>';
         }
         print '</legend>'."\n";
 

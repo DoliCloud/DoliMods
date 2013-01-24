@@ -10,7 +10,7 @@
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -1234,38 +1234,6 @@ class Patient extends Societe
         }
         return $contacts;
     }
-
-    /**
-     *    Return email of contact from its id
-     *    @param      rowid       id of contact
-     *    @return     string      email of contact
-     */
-    function contact_get_email($rowid)
-    {
-        $sql = "SELECT rowid, email, name, firstname FROM ".MAIN_DB_PREFIX."socpeople WHERE rowid = '".$rowid."'";
-
-        $resql=$this->db->query($sql);
-        if ($resql)
-        {
-            $nump = $this->db->num_rows($resql);
-
-            if ($nump)
-            {
-
-                $obj = $this->db->fetch_object($resql);
-
-                $contact_email = "$obj->firstname $obj->name <$obj->email>";
-
-            }
-            return $contact_email;
-        }
-        else
-        {
-            dol_print_error($this->db);
-        }
-
-    }
-
 
     /**
      *    \brief      Affiche le rib

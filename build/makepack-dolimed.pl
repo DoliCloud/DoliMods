@@ -58,8 +58,9 @@ $DIR||='.'; $DIR =~ s/([^\/\\])[\\\/]+$/$1/;
 
 $SOURCEMOD="$DIR/..";
 $SOURCEMOD1="$DIR/../htdocs/cabinetmed";
-#$SOURCEMOD2="$DIR/../scripts/cabinetmed";
-$SOURCEDOL="$DIR/../../dolibarr/.";
+$SOURCEMOD2="$DIR/../build/exe/dolimed";
+# Change SOURCEDOL to use another dolibarr source directory
+$SOURCEDOL="$DIR/../../dolibarr_veryold/.";	
 $DESTI="$DIR/../build";
 
 # Detect OS type
@@ -115,7 +116,7 @@ print "Makepack version $VERSION\n";
 print "Building package name: $PROJECT\n";
 print "Building package version: $MAJOR.$MINOR.$BUILD\n";
 print "Source directory cabinetmed (SOURCEMOD1): $SOURCEMOD1\n";
-#print "Source directory cabinetmed (SOURCEMOD2): $SOURCEMOD2\n";
+print "Source directory cabinetmed (SOURCEMOD2): $SOURCEMOD2\n";
 print "Source directory dolibarr   (SOURCEDOL) : $SOURCEDOL\n";
 print "Target directory (DESTI) : $DESTI\n";
 
@@ -214,34 +215,17 @@ print "\n";
 #----------------------------------------------
 $nboftargetok=0;
 $nboftargetneedbuildroot=0;
-$nboftargetneedcvs=0;
 foreach my $target (keys %CHOOSEDTARGET) {
     if ($CHOOSEDTARGET{$target} < 0) { next; }
-	if ($target ne 'EXE' && $target ne 'EXEDOLIWAMP') 
-	{
+	#if ($target ne 'EXE' && $target ne 'EXEDOLIWAMP') 
+	#{
 		$nboftargetneedbuildroot++;
-	}
-	if ($target eq 'SNAPSHOT')
-	{
-		$nboftargetneedcvs++;
-	}
+	#}
 	$nboftargetok++;
 }
 
 if ($nboftargetok) {
 
-    # Update CVS if required
-    #-----------------------
-    if ($nboftargetneedcvs)
-	{
-    	print "Go to directory $SOURCE\n";
-   		$olddir=getcwd();
-   		chdir("$SOURCE");
-    	print "Run cvs update -P -d\n";
-    	$ret=`cvs update -P -d 2>&1`;
-    	chdir("$olddir");
-	}
-	
     # Update buildroot if required
     #-----------------------------
     if ($nboftargetneedbuildroot)
@@ -255,13 +239,23 @@ if ($nboftargetok) {
 	    	mkdir "$BUILDROOT";
 	    	mkdir "$BUILDROOT/$PROJECT";
 	    	mkdir "$BUILDROOT/$PROJECT/htdocs";
-	    	#mkdir "$BUILDROOT/$PROJECT/scripts";
+	    	mkdir "$BUILDROOT/$PROJECT/build";
+	    	mkdir "$BUILDROOT/$PROJECT/build/exe";
 	    	print "Copy $SOURCEMOD1 into $BUILDROOT/$PROJECT/htdocs\n";
 	    	$ret=`cp -pr "$SOURCEMOD1" "$BUILDROOT/$PROJECT/htdocs"`;
-	    	#print "Copy $SOURCEMOD2 into $BUILDROOT/$PROJECT\n";
-	    	#$ret=`cp -pr "$SOURCEMOD2" "$BUILDROOT/$PROJECT"`;
+	    	print "Copy $SOURCEMOD2 into $BUILDROOT/$PROJECT/build/exe\n";
+	    	$ret=`cp -pr "$SOURCEMOD2" "$BUILDROOT/$PROJECT/build/exe"`;
 	    	print "Copy $SOURCEDOL into $BUILDROOT/$PROJECT\n";
 	    	$ret=`cp -pr "$SOURCEDOL" "$BUILDROOT/$PROJECT"`;
+
+			# Specific to DoliMed
+	    	print "Copy $SOURCEMOD1/img/dolimed_logo.png into $BUILDROOT/$PROJECT/htdocs/theme/dolibarr_logo.png\n";
+	    	$ret=`cp -pf "$SOURCEMOD1/img/dolimed_logo.png" "$BUILDROOT/$PROJECT/htdocs/theme/dolibarr_logo.png"`;
+	    	print "Copy $SOURCEMOD1/img/dolimed.png into $BUILDROOT/$PROJECT/htdocs/theme/dolibarr.png\n";
+	    	$ret=`cp -pf "$SOURCEMOD1/img/dolimed.png" "$BUILDROOT/$PROJECT/htdocs/theme/dolibarr.png"`;
+	    	print "Copy $SOURCEMOD1/img/dolimed.png into $BUILDROOT/$PROJECT/htdocs/theme/dolibarr.png\n";
+	    	$ret=`cp -pf "$SOURCEMOD1/img/dolimed.png" "$BUILDROOT/$PROJECT/htdocs/theme/dolibarr.png"`;
+			
 	    }
 	    print "Clean $BUILDROOT\n";
 	    $ret=`rm -f  $BUILDROOT/$PROJECT/.buildpath`;
@@ -330,12 +324,16 @@ if ($nboftargetok) {
 
 	    $ret=`rm -fr $BUILDROOT/$PROJECT/documents`;
 	    $ret=`rm -fr $BUILDROOT/$PROJECT/document`;
+	    $ret=`rm -fr $BUILDROOT/$PROJECT/htdocs/documents`;
+	    $ret=`rm -fr $BUILDROOT/$PROJECT/htdocs/document`;
+	    $ret=`rm -fr $BUILDROOT/$PROJECT/htdocs/bootstrap*`;
 	    $ret=`rm -fr $BUILDROOT/$PROJECT/htdocs/custom*`;
+	    $ret=`rm -fr $BUILDROOT/$PROJECT/htdocs/multicompany*`;
+	    $ret=`rm -fr $BUILDROOT/$PROJECT/htdocs/pos*`;
 	    $ret=`rm -fr $BUILDROOT/$PROJECT/test`;
 	    $ret=`rm -fr $BUILDROOT/$PROJECT/Thumbs.db $BUILDROOT/$PROJECT/*/Thumbs.db $BUILDROOT/$PROJECT/*/*/Thumbs.db $BUILDROOT/$PROJECT/*/*/*/Thumbs.db $BUILDROOT/$PROJECT/*/*/*/*/Thumbs.db`;
 	    $ret=`rm -f  $BUILDROOT/$PROJECT/.cvsignore $BUILDROOT/$PROJECT/*/.cvsignore $BUILDROOT/$PROJECT/*/*/.cvsignore $BUILDROOT/$PROJECT/*/*/*/.cvsignore $BUILDROOT/$PROJECT/*/*/*/*/.cvsignore $BUILDROOT/$PROJECT/*/*/*/*/*/.cvsignore $BUILDROOT/$PROJECT/*/*/*/*/*/*/.cvsignore`;
 	    $ret=`rm -f  $BUILDROOT/$PROJECT/.gitignore $BUILDROOT/$PROJECT/*/.gitignore $BUILDROOT/$PROJECT/*/*/.gitignore $BUILDROOT/$PROJECT/*/*/*/.gitignore $BUILDROOT/$PROJECT/*/*/*/*/.gitignore $BUILDROOT/$PROJECT/*/*/*/*/*/.gitignore $BUILDROOT/$PROJECT/*/*/*/*/*/*/.gitignore`;
-        $ret=`rm -fr $BUILDROOT/$PROJECT/htdocs/theme/amarok`;
    	    $ret=`rm -f  $BUILDROOT/$PROJECT/htdocs/includes/geoip/sample*.*`;
         $ret=`rm -f  $BUILDROOT/$PROJECT/htdocs/includes/jquery/plugins/jqueryFileTree/connectors/jqueryFileTree.pl`;    # Avoid errors into rpmlint
         $ret=`rm -fr $BUILDROOT/$PROJECT/htdocs/includes/jquery/plugins/template`;  # Package not valid for most linux distributions (errors reported into compile.js). Package should be embed by modules to avoid problems.
@@ -786,17 +784,19 @@ if ($nboftargetok) {
  
  			$SOURCEBACK=$SOURCEMOD;
  			$SOURCEBACK =~ s/\//\\/g;
-    		print "Compil exe $FILENAMEEXEDOLIWAMP.exe file from iss file \"$SOURCEBACK\\build\\exe\\dolimed\\dolimed.iss\"\n";
-    		$cmd= "ISCC.exe \"$SOURCEBACK\\build\\exe\\dolimed\\dolimed.iss\"";
+    		#print "Compil exe $FILENAMEEXEDOLIWAMP.exe file from iss file \"$SOURCEBACK\\build\\exe\\dolimed\\dolimed.iss\"\n";
+    		#$cmd= "ISCC.exe \"$SOURCEBACK\\build\\exe\\dolimed\\dolimed.iss\"";
+    		print "Compil exe $FILENAMEEXEDOLIWAMP.exe file from iss file \"\\tmp\\buildroot\\build\\exe\\dolimed\\dolimed.iss\"\n";
+    		$cmd= "ISCC.exe \"\\tmp\\buildroot\\$PROJECT\\build\\exe\\dolimed\\dolimed.iss\"";
 			print "$cmd\n";
 			$ret= `$cmd`;
 			#print "$ret\n";
 
     		# Move to final dir
-			print "Move \"$DIR\\..\\build\\$FILENAMEEXEDOLIWAMP.exe\" to $NEWDESTI/$FILENAMEEXEDOLIWAMP.exe\n";
-    		rename("$DIR/../build/$FILENAMEEXEDOLIWAMP.exe","$NEWDESTI/$FILENAMEEXEDOLIWAMP.exe");
-            print "Move $DIR/../build/$FILENAMEEXEDOLIWAMP.exe to $NEWDESTI/$FILENAMEEXEDOLIWAMP.exe\n";
-            $ret=`mv "$DIR/../build/$FILENAMEEXEDOLIWAMP.exe" "$NEWDESTI/$FILENAMEEXEDOLIWAMP.exe"`;
+			print "Move $BUILDROOT/$PROJECT/build/$FILENAMEEXEDOLIWAMP.exe to $NEWDESTI/$FILENAMEEXEDOLIWAMP.exe\n";
+    		rename("$BUILDROOT/$PROJECT/build/$FILENAMEEXEDOLIWAMP.exe","$NEWDESTI/$FILENAMEEXEDOLIWAMP.exe");
+            print "Move $BUILDROOT/$PROJECT/build/$FILENAMEEXEDOLIWAMP.exe to $NEWDESTI/$FILENAMEEXEDOLIWAMP.exe\n";
+            $ret=`mv "$BUILDROOT/$PROJECT/build/$FILENAMEEXEDOLIWAMP.exe" "$NEWDESTI/$FILENAMEEXEDOLIWAMP.exe"`;
     		next;
     	}
     }
