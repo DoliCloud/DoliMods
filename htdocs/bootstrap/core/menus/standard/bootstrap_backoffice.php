@@ -34,7 +34,6 @@
 class MenuTop
 {
 	var $db;
-	var $require_left=array("bootstrap_backoffice");     // Si doit etre en phase avec un gestionnaire de menu gauche particulier
 	var $hideifnotallowed=0;						// Put 0 for back office menu, 1 for front office menu
 	var $atarget="";                                // Valeur du target a utiliser dans les liens
 
