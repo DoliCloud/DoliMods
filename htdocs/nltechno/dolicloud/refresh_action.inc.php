@@ -1,5 +1,8 @@
 <?php
 
+// Avoid errors onto ssh2 and stats function warning
+error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING);
+
 $langs->load("errors");
 
 if ($action == 'addauthorizedkey')
