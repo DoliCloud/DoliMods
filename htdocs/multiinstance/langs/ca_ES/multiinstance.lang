@@ -1,0 +1,41 @@
+# Dolibarr language file - ca_ES - multicompany 
+CHARSET=UTF-8
+
+MasterEntity=Entitat mestra
+MasterEntityDesc=Entitat mestra, no pot ser eliminada
+SwitchToAnotherEntity=Canviar d'entitat
+SelectAnEntity=Seleccionar una entitat
+AllEntities=Totes les entitas
+
+# Admin parameters tab
+AddAll=Tot
+RemoveAll=Buidar
+ItemsCount=Selecció(ns)
+EntitiesManagement=Gestió d'entitats
+ListOfEntities=Llistat d'entitats
+AddEntity=Afegir entitat
+EditEntity=Editar entitat
+EntityName=nom de l'entitat
+DefaultLanguageShort=Idioma per defecte
+CommonParameters=Paràmetres comuns d'accions
+ReferringEntity=Entitat de referència per als valors de configuració
+ThirdpartySharing=Intercanviar tercers i contactes
+ThirdpartySharingDescription=Selecció d'entitats que intercanvien els seus tercers/contactes amb aquesta entitat.
+ProductSharing=Intercanviar productes/serveis
+ProductSharingDescription=Selecció d'entitats que intercanvien els seus productes/serveis amb aquesta entitat.
+DeleteAnEntity=Eliminar una entitat
+ConfirmDeleteEntity=Esteu segur de voler eliminar aquesta entitat?
+ConfirmedEntityDeleted=L'entitat ha estat eliminada.
+
+# Admin options tab
+GroupModeTransversal=Activar la gestió creuada de grups d'usuaris
+HideLoginCombobox=Ocultar la selecció de l'entitat a la pàgina d'inici
+EnableCookieLogin=Guardar el nom d'usuari i el número de l'entitat en una cookie
+EnableGlobalSharings=Activar les funcions d'intercanvi entre entitats
+ShareProductsAndServices=Activar l'intercanvi de productes/serveis
+ShareThirdpartiesAndContacts=Activar l'intercanvi de tercers i contactes
+
+# Errors
+ErrorEntityLabelAlreadyExist=L'etiqueta d'aquesta entitat ja existeix.
+ErrorEntityIsNotValid=Aquesta entitat no és vàlida.
+ErrorNotDeleteMasterEntity=No es pot eliminar l'entitat mestra.
