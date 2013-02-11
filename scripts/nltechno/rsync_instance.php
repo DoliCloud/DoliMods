@@ -167,13 +167,17 @@ if ($mode == 'confirmunlock')
 	}
 }
 
-$actioncomm=new ActionComm($db);
-$actioncomm->datep=dol_now('tzserver');
-$actioncomm->percentage=100;
-$actioncomm->label='Upgrade instance='.$instance.' dirroot='.$dirroot.' mode='.$mode;
-$actioncomm->elementtype='dolicloudcustomers';
-$actioncomm->type_code='AC_OTH_AUTO';
-$actioncomm->add($user);
+if ($mode != 'test')
+{
+	print "Create event into database\n";
+	$actioncomm=new ActionComm($db);
+	$actioncomm->datep=dol_now('tzserver');
+	$actioncomm->percentage=100;
+	$actioncomm->label='Upgrade instance='.$instance.' dirroot='.$dirroot.' mode='.$mode;
+	$actioncomm->elementtype='dolicloudcustomers';
+	$actioncomm->type_code='AC_OTH_AUTO';
+	$actioncomm->add($user);
+}
 
 exit($return_var);
 ?>
