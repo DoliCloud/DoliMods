@@ -44,6 +44,7 @@ if (! $res && file_exists("../../../master.inc.php")) $res=@include("../../../ma
 if (! $res) die ("Failed to include master.inc.php file\n");
 dol_include_once("/nltechno/core/lib/dolicloud.lib.php");
 dol_include_once('/nltechno/class/dolicloudcustomer.class.php');
+include_once(DOL_DOCUMENT_ROOT.'/comm/action/class/actioncomm.class.php');
 
 $object = new DoliCloudCustomer($db);
 
@@ -165,6 +166,14 @@ if ($mode == 'confirmunlock')
 		exit(-6);
 	}
 }
+
+$actioncomm=new ActionComm($db);
+$actioncomm->datep=dol_now('tzserver');
+$actioncomm->percentage=100;
+$actioncomm->label='Upgrade instance='.$instance.' dirroot='.$dirroot.' mode='.$mode;
+$actioncomm->elementtype='dolicloudcustomers';
+$actioncomm->type_code='AC_OTH_AUTO';
+$actioncomm->add($user);
 
 exit($return_var);
 ?>

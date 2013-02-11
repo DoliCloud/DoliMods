@@ -901,6 +901,9 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 		print "</div><br>";
 	}
 
+
+    print '<table width="100%"><tr><td width="50%" valign="top">';
+
 	// Dolibarr instance login
 	$url='https://'.$object->instance.'.on.dolicloud.com?username='.$lastloginadmin.'&amp;password='.$lastpassadmin;
 	$link='<a href="'.$url.'" target="_blank">'.$url.'</a>';
@@ -927,6 +930,16 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 	print 'Mysql connect string<br>';
 	print '<input type="text" name="mysqlconnectstring" value="'.$mysqlconnectstring.'" size="120"><br>';
 
+	print '<br>';
+
+    print '</td><td valign="top" width="50%">';
+
+	// List of actions on element
+	include_once DOL_DOCUMENT_ROOT.'/core/class/html.formactions.class.php';
+	$formactions=new FormActions($db);
+	$somethingshown=$formactions->showactions($object,'dolicloudcustomers',0,1);
+
+	print '</td></tr></table>';
 }
 
 if ($id > 0 || $instance || $action == 'create')
