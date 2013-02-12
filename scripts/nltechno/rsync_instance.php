@@ -174,6 +174,7 @@ if ($mode != 'test')
 	$actioncomm->datep=dol_now('tzserver');
 	$actioncomm->percentage=100;
 	$actioncomm->label='Upgrade instance='.$instance.' dirroot='.$dirroot.' mode='.$mode;
+	$actioncomm->fk_element=$object->id;
 	$actioncomm->elementtype='dolicloudcustomers';
 	$actioncomm->type_code='AC_OTH_AUTO';
 	$actioncomm->add($user);
