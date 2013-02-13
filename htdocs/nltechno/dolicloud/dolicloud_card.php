@@ -292,8 +292,9 @@ if ($user->rights->nltechno->dolicloud->write)
 			print '
 			function initstatus()
 			{
-				if (jQuery("#status").val()==\'TRIAL\' || jQuery("#status").val()==\'TRIAL_EXPIRED\') { jQuery("#hideendfreetrial").show() }
-				else { jQuery("#hideendfreetrial").hide() };
+				//if (jQuery("#status").val()==\'TRIAL\' || jQuery("#status").val()==\'TRIAL_EXPIRED\') { jQuery("#hideendfreetrial").show() }
+				//else { jQuery("#hideendfreetrial").hide() };
+				jQuery("#hideendfreetrial").show();
 			}
 
 			jQuery(document).ready(function () {
