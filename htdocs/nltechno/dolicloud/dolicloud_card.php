@@ -238,6 +238,7 @@ $form = new Form($db);
 $formcompany = new FormCompany($db);
 
 $countrynotdefined=$langs->trans("ErrorSetACountryFirst").' ('.$langs->trans("SeeAbove").')';
+$arraystatus=array('TRIAL'=>'TRIAL','TRIAL_EXPIRED'=>'TRIAL_EXPIRED','ACTIVE'=>'ACTIVE','PAYMENT_ERROR'=>'PAYMENT_ERROR','CLOSED_QUEUED'=>'CLOSED_QUEUED','UNDEPLOYED'=>'UNDEPLOYED');
 
 
 // Confirm deleting object
@@ -394,7 +395,6 @@ if ($user->rights->nltechno->dolicloud->write)
 
 		// Status
 		print '<tr><td class="fieldrequired">'.$langs->trans("Status").'</td><td colspan="3">';
-		$arraystatus=array('TRIAL'=>'TRIAL','TRIAL_EXPIRED'=>'TRIAL_EXPIRED','ACTIVE'=>'ACTIVE','CLOSED_QUEUED'=>'CLOSED_QUEUED','UNDEPLOYED'=>'UNDEPLOYED');
 		print $form->selectarray('status', $arraystatus, GETPOST('status')?GETPOST('status'):'ACTIVE');
 		print '</td>';
 		print '</tr>';
@@ -566,8 +566,7 @@ if ($user->rights->nltechno->dolicloud->write)
 
 		// Status
 		print '<tr><td class="fieldrequired">'.$langs->trans("Status").'</td><td colspan="3">';
-		$arraystatus=array('TRIAL'=>'TRIAL','TRIAL_EXPIRED'=>'TRIAL_EXPIRED','ACTIVE'=>'ACTIVE','CLOSED_QUEUED'=>'CLOSED_QUEUED','UNDEPLOYED'=>'UNDEPLOYED');
-		print $form->selectarray('status', $arraystatus, GETPOST('status')?GETPOST('status'):'ACTIVE');
+		print $form->selectarray('status', $arraystatus, GETPOST('status')?GETPOST('status'):($object->status?$object->status:'ACTIVE'));
 		print '</td>';
 		print '</tr>';
 
