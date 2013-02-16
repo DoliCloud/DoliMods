@@ -110,7 +110,7 @@ print '<table class="noborder nohover" width="100%">';
 print '<tr class="liste_titre">';
 print '<td colspan="3">'.$langs->trans("Search").'</td></tr>';
 print "<tr ".$bc[false]."><td>";
-print $langs->trans("Instance").':</td><td><input class="flat" type="text" size="14" name="search_dolicloud"></td>';
+print $langs->trans("Instance").':</td><td><input class="flat" type="text" size="14" name="search_instance"></td>';
 print '<td rowspan="'.$rowspan.'"><input type="submit" class="button" value="'.$langs->trans("Search").'"></td></tr>';
 
 print "</table></form><br>";
@@ -220,7 +220,7 @@ print '</td><td align="right">';
 print '<font size="+2">'.price($total,1).' </font>';
 print '</td></tr>';
 print '<tr><td>';
-print $langs->trans("Benefit");
+print $langs->trans("BenefitDoliCloud");
 print '<br>(';
 print price($total,1).' - '.($part*100).'% - '.price($serverlocation).'$= ';
 print price($total,1).' - '.($part*100).'% - '.price($serverprice).'€ = '.price($total * (1 - $part)).'€ - '.price($serverprice).'€';

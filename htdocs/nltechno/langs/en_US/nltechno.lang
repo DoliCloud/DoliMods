@@ -24,3 +24,4 @@ FileDeleted=File deleted
 FileCreated=File created
 EMailTemplate=EMail template
 EMailsTemplates=EMails templates
+BenefitDoliCloud=Benefit (customers with status ACTIVE - Stratus5 commission)
