@@ -45,6 +45,7 @@ require_once(DOL_DOCUMENT_ROOT."/core/lib/company.lib.php");
 // Change this following line to use the correct relative path from htdocs (do not remove DOL_DOCUMENT_ROOT)
 dol_include_once("/nltechno/class/dolicloudcustomer.class.php");
 
+
 // Load traductions files requiredby by page
 $langs->load("companies");
 $langs->load("other");
@@ -181,6 +182,15 @@ if ($search_partner) $sql.=" AND t.partner LIKE '%".$search_partner."%'";
 if ($search_source) $sql.=" AND t.source LIKE '%".$search_source."%'";
 if ($search_email) $sql.=" AND t.email LIKE '%".$search_email."%'";
 if ($search_lastlogin) $sql.=" AND t.lastlogin LIKE '%".$search_lastlogin."%'";
+
+// Count total nb of records
+$nbtotalofrecords = 0;
+if (empty($conf->global->MAIN_DISABLE_FULL_SCANLIST))
+{
+	$result = $db->query($sql);
+	$nbtotalofrecords = $db->num_rows($result);
+}
+
 $sql.= $db->order($sortfield,$sortorder);
 $sql.= $db->plimit($conf->liste_limit +1, $offset);
 
@@ -190,48 +200,6 @@ if ($year)               $param.='&year=' .$year;
 if ($search_ref)         $param.='&search_ref=' .$search_ref;
 if ($search_societe)     $param.='&search_societe=' .$search_societe;
 if ($search_sale > 0)    $param.='&search_sale=' .$search_sale;
-print_barre_liste($langs->trans('DoliCloudCustomers'),$page,$_SERVER["PHP_SELF"],$param,$sortfield,$sortorder,'',$num);
-
-
-// Lignes des champs de filtre
-print '<form method="POST" action="'.$_SERVER["PHP_SELF"].'">';
-
-print '<table class="liste" width="100%">';
-print '<tr class="liste_titre">';
-print_liste_field_titre($langs->trans('Instance'),$_SERVER['PHP_SELF'],'t.instance','',$param,'align="left"',$sortfield,$sortorder);
-print_liste_field_titre($langs->trans('Organization'),$_SERVER['PHP_SELF'],'t.organization','',$param,'',$sortfield,$sortorder);
-print_liste_field_titre($langs->trans('EMail'),$_SERVER['PHP_SELF'],'t.email','',$param,'',$sortfield,$sortorder);
-print_liste_field_titre($langs->trans('Plan'),$_SERVER['PHP_SELF'],'t.plan','',$param,'',$sortfield,$sortorder);
-print_liste_field_titre($langs->trans('Partner'),$_SERVER['PHP_SELF'],'t.partner','',$param,'',$sortfield,$sortorder);
-print_liste_field_titre($langs->trans('Source'),$_SERVER['PHP_SELF'],'t.source','',$param,'',$sortfield,$sortorder);
-print_liste_field_titre($langs->trans('DateRegistration'),$_SERVER['PHP_SELF'],'t.date_registration','',$param,'',$sortfield,$sortorder);
-print_liste_field_titre($langs->trans('DateEndFreePeriod'),$_SERVER['PHP_SELF'],'t.date_endfreeperiod','',$param,'',$sortfield,$sortorder);
-print_liste_field_titre($langs->trans('DateLastCheck'),$_SERVER['PHP_SELF'],'t.lastcheck','',$param,'',$sortfield,$sortorder);
-print_liste_field_titre($langs->trans('NbOfUsers'),$_SERVER['PHP_SELF'],'t.nbofusers','',$param,'align="right"',$sortfield,$sortorder);
-print_liste_field_titre($langs->trans('LastLogin'),$_SERVER['PHP_SELF'],'t.lastlogin','',$param,'align="center"',$sortfield,$sortorder);
-print_liste_field_titre($langs->trans('DateLastLogin'),$_SERVER['PHP_SELF'],'t.date_lastlogin','',$param,'align="center"',$sortfield,$sortorder);
-print_liste_field_titre($langs->trans('Revenue'),$_SERVER['PHP_SELF'],'','',$param,' align="right"',$sortfield,$sortorder);
-print_liste_field_titre($langs->trans('Status'),$_SERVER['PHP_SELF'],'t.status','',$param,'align="right"',$sortfield,$sortorder);
-print '</tr>';
-
-print '<tr class="liste_titre">';
-print '<td><input type="text" name="search_instance" size="4" value="'.$search_instance.'"></td>';
-print '<td><input type="text" name="search_organization" size="4" value="'.$search_organization.'"></td>';
-print '<td><input type="text" name="search_email" size="4" value="'.$search_email.'"></td>';
-print '<td><input type="text" name="search_plan" size="4" value="'.$search_plan.'"></td>';
-print '<td><input type="text" name="search_partner" size="4" value="'.$search_partner.'"></td>';
-print '<td><input type="text" name="search_source" size="4" value="'.$search_source.'"></td>';
-print '<td></td>';
-print '<td></td>';
-print '<td></td>';
-print '<td></td>';
-print '<td align="center"><input type="text" name="search_lastlogin" size="4" value="'.$search_lastlogin.'"></td>';
-print '<td></td>';
-print '<td></td>';
-print '<td align="right">';
-print '<input type="image" class="liste_titre" name="button_search" src="'.DOL_URL_ROOT.'/theme/'.$conf->theme.'/img/search.png"  value="'.dol_escape_htmltag($langs->trans("Search")).'" title="'.dol_escape_htmltag($langs->trans("Search")).'">';
-print '</td>';
-print '</tr>';
 
 
 $totalcustomers=0;
@@ -245,10 +213,54 @@ $resql=$db->query($sql);
 if ($resql)
 {
     $num = $db->num_rows($resql);
+
+    print_barre_liste($langs->trans('DoliCloudCustomers'),$page,$_SERVER["PHP_SELF"],$param,$sortfield,$sortorder,'',$num,$nbtotalofrecords);
+
+    // Lignes des champs de filtre
+    print '<form method="POST" action="'.$_SERVER["PHP_SELF"].'">';
+
+    print '<table class="liste" width="100%">';
+    print '<tr class="liste_titre">';
+    print_liste_field_titre($langs->trans('Instance'),$_SERVER['PHP_SELF'],'t.instance','',$param,'align="left"',$sortfield,$sortorder);
+    print_liste_field_titre($langs->trans('Organization'),$_SERVER['PHP_SELF'],'t.organization','',$param,'',$sortfield,$sortorder);
+    print_liste_field_titre($langs->trans('EMail'),$_SERVER['PHP_SELF'],'t.email','',$param,'',$sortfield,$sortorder);
+    print_liste_field_titre($langs->trans('Plan'),$_SERVER['PHP_SELF'],'t.plan','',$param,'',$sortfield,$sortorder);
+    print_liste_field_titre($langs->trans('Partner'),$_SERVER['PHP_SELF'],'t.partner','',$param,'',$sortfield,$sortorder);
+    print_liste_field_titre($langs->trans('Source'),$_SERVER['PHP_SELF'],'t.source','',$param,'',$sortfield,$sortorder);
+    print_liste_field_titre($langs->trans('DateRegistration'),$_SERVER['PHP_SELF'],'t.date_registration','',$param,'',$sortfield,$sortorder);
+    print_liste_field_titre($langs->trans('DateEndFreePeriod'),$_SERVER['PHP_SELF'],'t.date_endfreeperiod','',$param,'',$sortfield,$sortorder);
+    print_liste_field_titre($langs->trans('DateLastCheck'),$_SERVER['PHP_SELF'],'t.lastcheck','',$param,'',$sortfield,$sortorder);
+    print_liste_field_titre($langs->trans('NbOfUsers'),$_SERVER['PHP_SELF'],'t.nbofusers','',$param,'align="right"',$sortfield,$sortorder);
+    print_liste_field_titre($langs->trans('LastLogin'),$_SERVER['PHP_SELF'],'t.lastlogin','',$param,'align="center"',$sortfield,$sortorder);
+    print_liste_field_titre($langs->trans('DateLastLogin'),$_SERVER['PHP_SELF'],'t.date_lastlogin','',$param,'align="center"',$sortfield,$sortorder);
+    print_liste_field_titre($langs->trans('Revenue'),$_SERVER['PHP_SELF'],'','',$param,' align="right"',$sortfield,$sortorder);
+    print_liste_field_titre($langs->trans('Status'),$_SERVER['PHP_SELF'],'t.status','',$param,'align="right"',$sortfield,$sortorder);
+    print '</tr>';
+
+    print '<tr class="liste_titre">';
+    print '<td><input type="text" name="search_instance" size="4" value="'.$search_instance.'"></td>';
+    print '<td><input type="text" name="search_organization" size="4" value="'.$search_organization.'"></td>';
+    print '<td><input type="text" name="search_email" size="4" value="'.$search_email.'"></td>';
+    print '<td><input type="text" name="search_plan" size="4" value="'.$search_plan.'"></td>';
+    print '<td><input type="text" name="search_partner" size="4" value="'.$search_partner.'"></td>';
+    print '<td><input type="text" name="search_source" size="4" value="'.$search_source.'"></td>';
+    print '<td></td>';
+    print '<td></td>';
+    print '<td></td>';
+    print '<td></td>';
+    print '<td align="center"><input type="text" name="search_lastlogin" size="4" value="'.$search_lastlogin.'"></td>';
+    print '<td></td>';
+    print '<td></td>';
+    print '<td align="right">';
+    print '<input type="image" class="liste_titre" name="button_search" src="'.DOL_URL_ROOT.'/theme/'.$conf->theme.'/img/search.png"  value="'.dol_escape_htmltag($langs->trans("Search")).'" title="'.dol_escape_htmltag($langs->trans("Search")).'">';
+    print '</td>';
+    print '</tr>';
+
+
     $i = 0;
     if ($num)
     {
-        while ($i < $num)
+        while ($i < min($num,$conf->liste_limit))
         {
             $obj = $db->fetch_object($resql);
             if ($obj)
@@ -305,15 +317,17 @@ if ($resql)
             $i++;
         }
     }
+
+    print '</table>';
+
+    print '</form>';
+
 }
 else
 {
     $error++;
     dol_print_error($db);
 }
-print '</table>';
-
-print '</form>';
 
 
 print '<br>';
