@@ -3,7 +3,6 @@ CHARSET=UTF-8
 ContactCard=Fiche correspondant
 NoContactCard=Pas de fiche parmi les correspondants
 ListOfUsers=Liste des utilisateurs du cabinet
-SuperAdministratorDesc=Administrateur principal ayant tous les droits
 ListOfUsersInGroup=Liste des utilisateurs du cabinet dans ce groupe
 LinkToCompanyContact=Lien patient / correspondant
 LinkedToDolibarrThirdParty=Lien patient
