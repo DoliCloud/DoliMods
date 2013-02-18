@@ -4,22 +4,22 @@
  * Licensed under the GNU GPL v3 or higher (See file gpl-3.0.html)
  */
 
-/**     \defgroup   nltechno     Module NLTechno
- *       \brief      Module to NLTechno tools integration.
+/**     \defgroup   opensurvey     Module OpenSurvey
+ *       \brief      Module to OpenSurvey integration.
  */
 
 /**
- *      \file       htdocs/nltechno/core/modules/modNLTechno.class.php
- *      \ingroup    nltechno
- *      \brief      Description and activation file for module NLTechno
+ *      \file       htdocs/opensurvey/core/modules/modOpenSurvey.class.php
+ *      \ingroup    opensurvey
+ *      \brief      Description and activation file for module OpenSurvey
  */
 include_once(DOL_DOCUMENT_ROOT ."/core/modules/DolibarrModules.class.php");
 
 
 /**
- * Description and activation class for module NLTechno
+ * Description and activation class for module opensurvey
  */
-class modNLTechno extends DolibarrModules
+class modOpenSurvey extends DolibarrModules
 {
 
 	/**
@@ -35,35 +35,35 @@ class modNLTechno extends DolibarrModules
 
 		// Id for module (must be unique).
 		// Use here a free id (See in Home -> System information -> Dolibarr for list of used module id).
-		$this->numero = 101050;
+		$this->numero = 101150;
 		// Key text used to identify module (for permission, menus, etc...)
-		$this->rights_class = 'nltechno';
+		$this->rights_class = 'opensurvey';
 
 		// Family can be 'crm','financial','hr','projects','product','technic','other'
 		// It is used to group modules in module setup page
-		$this->family = "other";
+		$this->family = "projects";
 		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'numero' of module)
 		$this->name = preg_replace('/^mod/i','',get_class($this));
 		// Module description used if translation string 'ModuleXXXDesc' not found (XXX is value MyModule)
-		$this->description = "Module to integrate NLTechno tools in dolibarr";
+		$this->description = "Module to integrate a survey (like Doodle, Studs, Rdvz, ...)";
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
-		$this->version = '3.2';
+		$this->version = '3.4.-2';
 		// Key used in llx_const table to save module status enabled/disabled (where MYMODULE is value of property name of module in uppercase)
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
 		// Where to store the module in setup page (0=common,1=interface,2=others,3=very specific)
-		$this->special = 2;
+		$this->special = 0;
 		// Name of image file used for this module.
 		// If file is in theme/yourtheme/img directory under name object_pictovalue.png, use this->picto='pictovalue'
 		// If file is in module/img directory under name object_pictovalue.png, use this->picto='pictovalue@module'
-		$this->picto='nltechno.gif@nltechno';
+		$this->picto='opensurvey.gif@opensurvey';
 
 		// Data directories to create when module is enabled
 		$this->dirs = array();
 		//$this->dirs[0] = DOL_DATA_ROOT.'/mymodule;
 		//$this->dirs[1] = DOL_DATA_ROOT.'/mymodule/temp;
 
-		// Config pages. Put here list of php page names stored in admmin directory used to setup module
-		$this->config_page_url = array("setup.php@nltechno");
+		// Config pages. Put here list of php page names stored in admin directory used to setup module
+		$this->config_page_url = array("index.php@opensurvey");
 
 		// Dependencies
 		$this->depends = array();		// List of modules id that must be enabled if this module is enabled
@@ -75,23 +75,7 @@ class modNLTechno extends DolibarrModules
 		$this->const = array();			// List of parameters
 
 		// Dictionnaries
-	    if (! isset($conf->nltechno->enabled))
-        {
-        	$conf->nltechno=new stdClass();
-        	$conf->nltechno->enabled=0;
-        }
-        $this->dictionnaries=array(
-		'langs'=>'nltechno@nltechno',
-		'tabname'=>array(MAIN_DB_PREFIX."c_dolicloud_plans"),
-		'tablib'=>array("DoliCloud plans"),
-		'tabsql'=>array('SELECT f.rowid as rowid, f.code, f.label, f.price_instance, f.price_user, f.price_gb, f.active FROM '.MAIN_DB_PREFIX.'c_dolicloud_plans as f'),
-		'tabsqlsort'=>array("label ASC"),
-		'tabfield'=>array("code,label,price_instance,price_user,price_gb"), // Nom des champs en resultat de select pour affichage du dictionnaire
-		'tabfieldvalue'=>array("code,label,price_instance,price_user,price_gb"),  // Nom des champs d'edition pour modification d'un enregistrement
-		'tabfieldinsert'=>array("code,label,price_instance,price_user,price_gb"),
-		'tabrowid'=>array("rowid"),
-		'tabcond'=>array($conf->nltechno->enabled)
-		);
+        $this->dictionnaries=array();
 
 		// Boxes
 		$this->boxes = array();			// List of boxes
@@ -155,13 +139,13 @@ class modNLTechno extends DolibarrModules
 
 		$this->menu[$r]=array(	'fk_menu'=>0,
 								'type'=>'top',
-								'titre'=>'Admin NLTechno',
-								'mainmenu'=>'nltechno',
-								'url'=>'/nltechno/index.php',
+								'titre'=>'Admin opensurvey',
+								'mainmenu'=>'opensurvey',
+								'url'=>'/opensurvey/index.php',
 								'langs'=>'',
 								'position'=>200,
-                				'enabled'=>'$conf->nltechno->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
-								'perms'=>'$user->rights->nltechno->liens->voir||$user->rights->nltechno->annonces->voir||$user->rights->nltechno->emailings->voir',
+                				'enabled'=>'$conf->opensurvey->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
+								'perms'=>'$user->rights->opensurvey->liens->voir||$user->rights->opensurvey->annonces->voir||$user->rights->opensurvey->emailings->voir',
 								'target'=>'',
 								'user'=>0);
 		$r++;
@@ -169,98 +153,16 @@ class modNLTechno extends DolibarrModules
 		$this->menu[$r]=array(	'fk_menu'=>'r=0',
 								'type'=>'left',
 								'titre'=>'Liens externes',
-								'mainmenu'=>'nltechno',
-								'url'=>'/nltechno/index.php',
+								'mainmenu'=>'opensurvey',
+								'url'=>'/opensurvey/index.php',
 								'langs'=>'',
 								'position'=>200,
-                				'enabled'=>'$conf->nltechno->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
-								'perms'=>'$user->rights->nltechno->liens->voir',
+                				'enabled'=>'$conf->opensurvey->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
+								'perms'=>'$user->rights->opensurvey->liens->voir',
 								'target'=>'',
 								'user'=>0);
 		$r++;
 
-		$this->menu[$r]=array(	'fk_menu'=>'r=0',
-								'type'=>'left',
-								'titre'=>'Outils Petites annonces',
-								'mainmenu'=>'nltechno',
-								'url'=>'/nltechno/statsannonces.php',
-								'langs'=>'',
-								'position'=>201,
-                				'enabled'=>'$conf->nltechno->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
-								'perms'=>'$user->rights->nltechno->annonces->voir',
-								'target'=>'',
-								'user'=>0);
-		$r++;
-
-		$this->menu[$r]=array(	'fk_menu'=>'r=0',
-								'type'=>'left',
-								'titre'=>'Outils EMailings',
-								'mainmenu'=>'nltechno',
-								'url'=>'/nltechno/statsemailings.php',
-								'langs'=>'',
-								'position'=>202,
-                				'enabled'=>'$conf->nltechno->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
-								'perms'=>'$user->rights->nltechno->emailings->voir',
-								'target'=>'',
-								'user'=>0);
-		$r++;
-
-		// Example to declare a Left Menu entry:
-		$this->menu[$r]=array( 'fk_menu'=>'r=0',        // Use r=value where r is index key used for the parent menu entry (higher parent must be a top menu entry)
-                				'type'=>'left',         // This is a Left menu entry
-                				'titre'=>'DoliCloud',
-                				'mainmenu'=>'nltechno',
-                				'leftmenu'=>'dolicloud',
-                				'url'=>'/nltechno/dolicloud/dolicloud_customers.php',
-                				'langs'=>'nltechno@nltechno',  // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
-                				'position'=>300,
-                				'enabled'=>'$conf->nltechno->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
-							    'perms'=>'$user->rights->nltechno->dolicloud->read',           // Use 'perms'=>'$user->rights->NewsSubmitter->level1->level2' if you want your menu with a permission rules
-                                'target'=>'',
-                                 'user'=>0);             // 0=Menu for internal users, 1=external users, 2=both
-		$r++;
-
-		$this->menu[$r]=array(	'fk_menu'=>'fk_mainmenu=nltechno,fk_leftmenu=dolicloud',
-								'type'=>'left',
-								'titre'=>'List',
-								'mainmenu'=>'nltechno',
-								'leftmenu'=>'dolicloud_list',
-								'url'=>'/nltechno/dolicloud/dolicloud_list.php',
-								'langs'=>'',
-								'position'=>200,
-                				'enabled'=>'$conf->nltechno->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
-								'perms'=>'$user->rights->nltechno->dolicloud->read',
-								'target'=>'',
-								'user'=>0);
-		$r++;
-
-		$this->menu[$r]=array(	'fk_menu'=>'fk_mainmenu=nltechno,fk_leftmenu=dolicloud',
-								'type'=>'left',
-								'titre'=>'New',
-								'mainmenu'=>'nltechno',
-								'leftmenu'=>'dolicloud_create',
-								'url'=>'/nltechno/dolicloud/dolicloud_card.php?action=create',
-								'langs'=>'',
-								'position'=>210,
-                				'enabled'=>'$conf->nltechno->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
-								'perms'=>'$user->rights->nltechno->dolicloud->write',
-								'target'=>'',
-								'user'=>0);
-		$r++;
-
-		$this->menu[$r]=array(	'fk_menu'=>'fk_mainmenu=nltechno,fk_leftmenu=dolicloud',
-								'type'=>'left',
-								'titre'=>'EMailsTemplates',
-								'mainmenu'=>'nltechno',
-								'leftmenu'=>'dolicloud_emailstemplates',
-								'url'=>'/nltechno/dolicloud/dolicloudemailstemplates_page.php?action=list',
-								'langs'=>'',
-								'position'=>220,
-                				'enabled'=>'$conf->nltechno->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
-								'perms'=>'$user->rights->nltechno->dolicloud->write',
-								'target'=>'',
-								'user'=>0);
-		$r++;
 	}
 
 	/**
@@ -306,7 +208,7 @@ class modNLTechno extends DolibarrModules
 	 */
 	function load_tables()
 	{
-	    return $this->_load_tables('/nltechno/sql/');
+	    return $this->_load_tables('/opensurvey/sql/');
 	}
 }
 
