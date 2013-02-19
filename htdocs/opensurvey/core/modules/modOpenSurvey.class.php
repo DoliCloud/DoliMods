@@ -35,7 +35,7 @@ class modOpenSurvey extends DolibarrModules
 
 		// Id for module (must be unique).
 		// Use here a free id (See in Home -> System information -> Dolibarr for list of used module id).
-		$this->numero = 101150;
+		$this->numero = 101250;
 		// Key text used to identify module (for permission, menus, etc...)
 		$this->rights_class = 'opensurvey';
 
@@ -94,44 +94,14 @@ class modOpenSurvey extends DolibarrModules
 
 		// Add here list of permission defined by an id, a label, a boolean and two constant strings.
 		// Example:
-		$this->rights[$r][0] = 101051; 				// Permission id (must not be already used)
-		$this->rights[$r][1] = 'Voir page liens';	// Permission label
+		$this->rights[$r][0] = 101251; 				// Permission id (must not be already used)
+		$this->rights[$r][1] = 'Read surveys';	// Permission label
 		$this->rights[$r][2] = 'r'; 					// Permission by default for new user (0/1)
 		$this->rights[$r][3] = 0; 					// Permission by default for new user (0/1)
-		$this->rights[$r][4] = 'liens';				// In php code, permission will be checked by test if ($user->rights->permkey->level1->level2)
-		$this->rights[$r][5] = 'voir';				// In php code, permission will be checked by test if ($user->rights->permkey->level1->level2)
-		$r++;
-		$this->rights[$r][0] = 101052; 				// Permission id (must not be already used)
-		$this->rights[$r][1] = 'Voir page annonces';	// Permission label
-		$this->rights[$r][2] = 'r'; 					// Permission by default for new user (0/1)
-		$this->rights[$r][3] = 0; 					// Permission by default for new user (0/1)
-		$this->rights[$r][4] = 'annonces';				// In php code, permission will be checked by test if ($user->rights->permkey->level1->level2)
-		$this->rights[$r][5] = 'voir';				// In php code, permission will be checked by test if ($user->rights->permkey->level1->level2)
-		$r++;
-		$this->rights[$r][0] = 101053; 				// Permission id (must not be already used)
-		$this->rights[$r][1] = 'Voir page emailings';	// Permission label
-		$this->rights[$r][2] = 'r'; 					// Permission by default for new user (0/1)
-		$this->rights[$r][3] = 0; 					// Permission by default for new user (0/1)
-		$this->rights[$r][4] = 'emailings';				// In php code, permission will be checked by test if ($user->rights->permkey->level1->level2)
-		$this->rights[$r][5] = 'voir';				// In php code, permission will be checked by test if ($user->rights->permkey->level1->level2)
-		$r++;
-
-
-		// Add here list of permission defined by an id, a label, a boolean and two constant strings.
-		// Example:
-		$this->rights[$r][0] = 101060; 				// Permission id (must not be already used)
-		$this->rights[$r][1] = 'Read DoliCloud informations';	// Permission label
-		$this->rights[$r][3] = 0; 					// Permission by default for new user (0/1)
-		$this->rights[$r][4] = 'dolicloud';				// In php code, permission will be checked by test if ($user->rights->permkey->level1->level2)
+		$this->rights[$r][4] = 'survey';				// In php code, permission will be checked by test if ($user->rights->permkey->level1->level2)
 		$this->rights[$r][5] = 'read';				// In php code, permission will be checked by test if ($user->rights->permkey->level1->level2)
 		$r++;
 
-		$this->rights[$r][0] = 101061; 				// Permission id (must not be already used)
-		$this->rights[$r][1] = 'Create/edit DoliCloud data';	// Permission label
-		$this->rights[$r][3] = 0; 					// Permission by default for new user (0/1)
-		$this->rights[$r][4] = 'dolicloud';				// In php code, permission will be checked by test if ($user->rights->permkey->level1->level2)
-		$this->rights[$r][5] = 'write';				// In php code, permission will be checked by test if ($user->rights->permkey->level1->level2)
-		$r++;
 
 		// Main menu entries
 		$this->menus = array();			// List of menus to add
@@ -139,26 +109,27 @@ class modOpenSurvey extends DolibarrModules
 
 		$this->menu[$r]=array(	'fk_menu'=>0,
 								'type'=>'top',
-								'titre'=>'Admin opensurvey',
+								'titre'=>'OpenSurvey',
 								'mainmenu'=>'opensurvey',
-								'url'=>'/opensurvey/index.php',
-								'langs'=>'',
+								'url'=>'/opensurvey/admin/index.php',
+								'langs'=>'opensurvey@opensurvey',
 								'position'=>200,
                 				'enabled'=>'$conf->opensurvey->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
-								'perms'=>'$user->rights->opensurvey->liens->voir||$user->rights->opensurvey->annonces->voir||$user->rights->opensurvey->emailings->voir',
+								'perms'=>'$user->rights->opensurvey->survey->read',
 								'target'=>'',
 								'user'=>0);
 		$r++;
 
-		$this->menu[$r]=array(	'fk_menu'=>'r=0',
+		$this->menu[$r]=array(	'fk_menu'=>'fk_mainmenu=opensurvey',
 								'type'=>'left',
-								'titre'=>'Liens externes',
+								'titre'=>'NewSurvey',
 								'mainmenu'=>'opensurvey',
-								'url'=>'/opensurvey/index.php',
-								'langs'=>'',
+								'leftmenu'=>'opensurvey',
+								'url'=>'/opensurvey/infos_sondage.php',
+								'langs'=>'opensurvey@opensurvey',
 								'position'=>200,
                 				'enabled'=>'$conf->opensurvey->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
-								'perms'=>'$user->rights->opensurvey->liens->voir',
+								'perms'=>'',
 								'target'=>'',
 								'user'=>0);
 		$r++;

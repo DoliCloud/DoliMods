@@ -10,10 +10,10 @@
 //Ce logiciel est régi par la licence CeCILL-B soumise au droit français et
 //respectant les principes de diffusion des logiciels libres. Vous pouvez
 //utiliser, modifier et/ou redistribuer ce programme sous les conditions
-//de la licence CeCILL-B telle que diffusée par le CEA, le CNRS et l'INRIA 
+//de la licence CeCILL-B telle que diffusée par le CEA, le CNRS et l'INRIA
 //sur le site "http://www.cecill.info".
 //
-//Le fait que vous puissiez accéder à cet en-tête signifie que vous avez 
+//Le fait que vous puissiez accéder à cet en-tête signifie que vous avez
 //pris connaissance de la licence CeCILL-B, et que vous en avez accepté les
 //termes. Vous pouvez trouver une copie de la licence dans le fichier LICENCE.
 //
@@ -26,10 +26,10 @@
 //borghesi@unistra.fr
 //
 //This software is governed by the CeCILL-B license under French law and
-//abiding by the rules of distribution of free software. You can  use, 
+//abiding by the rules of distribution of free software. You can  use,
 //modify and/ or redistribute the software under the terms of the CeCILL-B
 //license as circulated by CEA, CNRS and INRIA at the following URL
-//"http://www.cecill.info". 
+//"http://www.cecill.info".
 //
 //The fact that you are presently reading this means that you have had
 //knowledge of the CeCILL-B license and that you accept its terms. You can
@@ -37,19 +37,35 @@
 //
 //==========================================================================
 
+//session_start();
 
-session_start();
+$res=0;
+if (! $res && file_exists("../main.inc.php")) $res=@include("../main.inc.php");
+if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.php");
+if (! $res && file_exists("../../../main.inc.php")) $res=@include("../../../main.inc.php");
+if (! $res && file_exists("../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../dolibarr/htdocs/main.inc.php");     // Used on dev env only
+if (! $res && file_exists("../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
+if (! $res && file_exists("../../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
+if (! $res) die("Include of main fails");
+require_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
+require_once(DOL_DOCUMENT_ROOT."/core/lib/files.lib.php");
+
+// Security check
+if (!$user->admin)
+	accessforbidden();
+
 
 include_once('../variables.php');
 include_once('../fonctions.php');
 include_once('../bandeaux.php');
 
-// Ce fichier index.php se trouve dans le sous-repertoire ADMIN de Studs. Il sert à afficher l'intranet de studs 
+// Ce fichier index.php se trouve dans le sous-repertoire ADMIN de Studs. Il sert à afficher l'intranet de studs
 // pour modifier les sondages directement sans avoir reçu les mails. C'est l'interface d'aministration
 // de l'application.
 
+
 // Affichage des balises standards
-echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">'."\n";
+/*echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">'."\n";
 echo '<html>'."\n";
 echo '<head>'."\n";
 echo '<meta http-equiv="Content-Type" content="text/html; charset=utf-8">'."\n";
@@ -63,6 +79,10 @@ logo();
 bandeau_tete();
 bandeau_titre(_("Polls administrator"));
 sous_bandeau_admin();
+*/
+$langs->load("opensurvey@opensurvey");
+llxHeader();
+
 
 $sondage=$connect->Execute("select * from sondage");
 
@@ -78,21 +98,21 @@ while($dsondage = $sondage->FetchNextObject(false)) {
     echo '</table>'."\n";
     echo '<br>'."\n";
   }
-  
+
   // Traitement de la confirmation de suppression
   if ($_POST["confirmesuppression$i"]) {
     $date=date('H:i:s d/m/Y');
-    
+
     // requetes SQL qui font le ménage dans la base
     $connect->Execute('DELETE FROM sondage LEFT INNER JOIN sujet_studs ON sujet_studs.id_sondage = sondage.id_sondage '.
                       'LEFT INNER JOIN user_studs ON user_studs.id_sondage = sondage.id_sondage ' .
                       'LEFT INNER JOIN comments ON comments.id_sondage = sondage.id_sondage ' .
                       "WHERE id_sondage = '$dsondage->id_sondage' ");
-    
+
     // ecriture des traces dans le fichier de logs
     error_log($date . " SUPPRESSION: $dsondage->id_sondage\t$dsondage->format\t$dsondage->nom_admin\t$dsondage->mail_admin\t$nbuser\t$dsujets->sujet\n", 'logs_studs.txt');
   }
-  
+
   $i++;
 }
 
@@ -121,7 +141,7 @@ while($dsondage = $sondage->FetchNextObject(false)) {
   } else {
     echo '<td><font color=#FF0000>'.date("d/m/y",strtotime($dsondage->date_fin)).'</font></td>';
   }
-  
+
   echo'<td>'.$nbuser.'</td>'."\n";
   echo '<td><a href="../studs.php?sondage='.$dsondage->id_sondage.'">'. _("See the poll") .'</a></td>'."\n";
   echo '<td><a href="'.getUrlSondage($dsondage->id_sondage_admin, true).'">'. _("Change the poll") .'</a></td>'."\n";
@@ -131,7 +151,7 @@ while($dsondage = $sondage->FetchNextObject(false)) {
   $i++;
 }
 
-echo '</table>'."\n";  
+echo '</table>'."\n";
 echo'</div>'."\n";
 // fin du formulaire et de la page web
 echo '</form>'."\n";
