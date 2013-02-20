@@ -119,11 +119,13 @@ while($dsondage = $sondage->FetchNextObject(false)) {
 $sondage=$connect->Execute("select * from sondage");
 $nbsondages=$sondage->RecordCount();
 
-echo $nbsondages.' '. _("polls in the database at this time") .'<br><br>'."\n";
+print_fiche_titre($langs->trans("OpenSurveyArea"));
+
+echo $langs->trans("NoSurveysInDatabase",$nbsondages).'<br><br>'."\n";
 
 // tableau qui affiche tous les sondages de la base
-echo '<table border=1>'."\n";
-echo '<tr align=center><td>'. _("Poll ID") .'</td><td>'. _("Format") .'</td><td>'. _("Title") .'</td><td>'. _("Author") .'</td><td>'. _("Expiration's date") .'</td><td>'. _("Users") .'</td><td colspan=3>'. _("Actions") .'</td>'."\n";
+echo '<table class="liste">'."\n";
+echo '<tr class="liste_titre" align="center"><td>'. _("Poll ID") .'</td><td>'. _("Format") .'</td><td>'. _("Title") .'</td><td>'. _("Author") .'</td><td>'. _("Expiration's date") .'</td><td>'. _("Users") .'</td><td colspan=3>'. _("Actions") .'</td>'."\n";
 
 $i = 0;
 while($dsondage = $sondage->FetchNextObject(false)) {

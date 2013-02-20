@@ -1,3 +1,6 @@
 # Dolibarr language file - fr_FR - opensurvey
 CHARSET=UTF-8
 OrganizeYourMeetingEasily=Organiser vos rendez-vous ou votes facillement, librement
+NewSurvey=Nouveau sondage
+NoSurveysInDatabase=%s sondage(s) en base.
+OpenSurveyArea=Espace sondage
