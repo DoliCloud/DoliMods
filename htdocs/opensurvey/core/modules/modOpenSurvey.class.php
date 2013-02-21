@@ -109,7 +109,7 @@ class modOpenSurvey extends DolibarrModules
 
 		$this->menu[$r]=array(	'fk_menu'=>0,
 								'type'=>'top',
-								'titre'=>'OpenSurvey',
+								'titre'=>'Surveys',
 								'mainmenu'=>'opensurvey',
 								'url'=>'/opensurvey/admin/index.php',
 								'langs'=>'opensurvey@opensurvey',
