@@ -38,7 +38,7 @@ if (substr($module, 0, 15) == 'mod_codeclient_' && substr($module, -3) == 'php')
     $module = substr($module, 0, dol_strlen($module)-4);
 }
 // Load object modCodeClient
-$dirsociete=array_merge(array('/core/modules/societe/'),$conf->modules_parts['societe']);
+$dirsociete=array_merge(array('/core/modules/societe/'));
 foreach ($dirsociete as $dirroot)
 {
     $res=dol_include_once($dirroot.$module.".php");
