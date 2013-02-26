@@ -103,9 +103,10 @@ if ($search_sale || !$user->rights->societe->client->voir) $sql.= ", ".MAIN_DB_P
 if ($search_categ) $sql.= ", ".MAIN_DB_PREFIX."categorie_societe as cs";
 $sql.= ", ".MAIN_DB_PREFIX."societe as s";
 $sql.= ") LEFT JOIN ".MAIN_DB_PREFIX."cabinetmed_cons as c ON c.fk_soc = s.rowid";
-$sql.= " WHERE s.fk_stcomm = st.id";
+$sql.= ' WHERE s.entity IN ('.getEntity('societe', 1).')';
+$sql.= " AND s.canvas='patient@cabinetmed'";
+$sql.= " AND s.fk_stcomm = st.id";
 $sql.= " AND s.client IN (1, 3)";
-$sql.= " AND s.entity = ".$conf->entity;
 if ($search_diagles)
 {
     $label= dol_getIdFromCode($db,$search_diagles,'cabinetmed_diaglec','code','label');
