@@ -299,12 +299,6 @@ if ($result)
 		print '</td>';
 		print '<td>'.$obj->code_client.'</td>';
 		print '<td align="center">'.dol_print_date($db->jdate($obj->datecons),'day').'</td>';
-        if (! empty($conf->global->CABINETMED_FRENCH_PRISEENCHARGE))
-        {
-    		print '<td>';
-            print $obj->typepriseencharge;
-            print '</td>';
-        }
         print '<td>'.$obj->motifconsprinc.'</td>';
         print '<td>';
         print dol_trunc($obj->diaglesprinc,20);
@@ -312,6 +306,12 @@ if ($result)
         if ($val) $val.='<br>';
         $val=dol_trunc($obj->traitementprescrit,20);*/
         print '</td>';
+	    if (! empty($conf->global->CABINETMED_FRENCH_PRISEENCHARGE))
+        {
+    		print '<td>';
+            print $obj->typepriseencharge;
+            print '</td>';
+        }
         print '<td align="right">';
         print $langs->trans($obj->typevisit);
         print '</td>';
