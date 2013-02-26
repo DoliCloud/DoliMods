@@ -75,7 +75,7 @@ print_fiche_titre($title, $mesg);
 
 dol_mkdir($dir);
 
-$stats = new CabinetMedStats($db, $socid, $mode, ($userid>0?$userid:0), ($codageccam?" AND codageccam LIKE '".$db->escape($codageccam)."%'":''));
+$stats = new CabinetMedStats($db, $socid, $mode, ($userid>0?$userid:0), ($codageccam?" AND codageccam LIKE '".$db->escape(preg_replace('/\*/','%',$codageccam))."'":''));
 
 
 // Build graphic number of object
@@ -170,7 +170,7 @@ print '<tr><td>'.$langs->trans("User").'</td><td>';
 print $form->select_users($userid,'userid',1);
 print '</td></tr>';
 print '<tr><td>'.$langs->trans("CodageCCAM").'</td><td>';
-print '<input type="text" id="codageccam" name="codageccam" value="'.$codageccam.'" size="30">';
+print '<input type="text" id="codageccam" name="codageccam" value="'.$codageccam.'" size="30"> (* = joker)';
 print '</td></tr>';
 print '<tr><td align="center" colspan="2"><input type="submit" name="submit" class="button" value="'.$langs->trans("Refresh").'"></td></tr>';
 print '</table>';

@@ -28,7 +28,7 @@ if (substr($module, 0, 15) == 'mod_codeclient_' && substr($module, -3) == 'php')
 $dirsociete=array_merge(array('/core/modules/societe/'),$conf->modules_parts['societe']);
 foreach ($dirsociete as $dirroot)
 {
-    $res=dol_include_once($dirroot.$module.".php");
+	$res=dol_include_once($dirroot.$module.".php");
     if ($res) break;
 }
 require_once(DOL_DOCUMENT_ROOT ."/core/class/html.formcompany.class.php");
