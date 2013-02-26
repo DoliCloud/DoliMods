@@ -96,16 +96,16 @@ print '<td width="25%">'.$langs->trans('Town').'</td><td width="25%">'.$soc->vil
 
 // Country
 print '<tr><td>'.$langs->trans("Country").'</td><td colspan="3" nowrap="nowrap">';
-$img=picto_from_langcode($soc->pays_code);
-if ($soc->isInEEC()) print $form->textwithpicto(($img?$img.' ':'').$soc->pays,$langs->trans("CountryIsInEEC"),1,0);
-else print ($img?$img.' ':'').$soc->pays;
+$img=picto_from_langcode($soc->country_code);
+if ($soc->isInEEC()) print $form->textwithpicto(($img?$img.' ':'').$soc->country,$langs->trans("CountryIsInEEC"),1,0);
+else print ($img?$img.' ':'').$soc->country;
 print '</td></tr>';
 
 // State
 if (empty($conf->global->SOCIETE_DISABLE_STATE)) print '<tr><td>'.$langs->trans('State').'</td><td colspan="3">'.$soc->state.'</td>';
 
-print '<tr><td>'.$langs->trans('PhonePerso').'</td><td>'.dol_print_phone($soc->tel,$soc->pays_code,0,$soc->id,'AC_TEL').'</td>';
-print '<td>'.$langs->trans('PhoneMobile').'</td><td>'.dol_print_phone($soc->fax,$soc->pays_code,0,$soc->id,'AC_FAX').'</td></tr>';
+print '<tr><td>'.$langs->trans('PhonePerso').'</td><td>'.dol_print_phone($soc->tel,$soc->country_code,0,$soc->id,'AC_TEL').'</td>';
+print '<td>'.$langs->trans('PhoneMobile').'</td><td>'.dol_print_phone($soc->fax,$soc->country_code,0,$soc->id,'AC_FAX').'</td></tr>';
 
 // EMail
 print '<tr><td>'.$langs->trans('EMail').'</td><td colspan="3">';
