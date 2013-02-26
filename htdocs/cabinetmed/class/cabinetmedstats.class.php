@@ -49,13 +49,14 @@ class CabinetMedStats extends Stats
 	/**
 	 * Constructor
 	 *
-	 * @param	DoliDB	 	$db		   Database handler
-	 * @param 	int			$socid	   Id third party
-	 * @param 	int			$mode	   Option
-     * @param   int			$userid    Id user for filter
+	 * @param	DoliDB	 	$db		   	Database handler
+	 * @param 	int			$socid	   	Id third party
+	 * @param 	int			$mode	   	Option
+     * @param   int			$userid    	Id user for filter
+     * @param	string		$morefilter	Add filters
 	 * @return 	CabinetMedStats
 	 */
-	function CabinetMedStats($db, $socid=0, $mode, $userid=0)
+	function CabinetMedStats($db, $socid=0, $mode, $userid=0, $morefilter='')
 	{
 		global $conf;
 
@@ -73,6 +74,7 @@ class CabinetMedStats extends Stats
 			$this->where.=" AND fk_soc = ".$this->socid;
 		}
         if ($this->userid > 0) $this->where.=' AND fk_user = '.$this->userid;
+        if ($morefilter) $this->where.=$morefilter;
 	}
 
 
