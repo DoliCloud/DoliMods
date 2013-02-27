@@ -340,6 +340,7 @@ if ($socid > 0)
         }
         if ($examother->fk_user > 0)
         {
+        	$fuser=new User($db);
         	$fuser->fetch($examother->fk_user);
         	print ' - '.$langs->trans("CreatedBy").': <strong>'.$fuser->getFullName($langs).'</strong>';
         }
