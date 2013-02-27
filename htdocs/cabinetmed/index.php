@@ -121,7 +121,7 @@ else
     if ($conf->cabinetmed->enabled)
     {
         $statstring.= "<tr $bc[1]>";
-        $statstring.= '<td><a href="'.DOL_URL_ROOT.'/comm/list.php">'.$langs->trans("Patients").'</a></td><td align="right">'.round($third['customer']).'</td>';
+        $statstring.= '<td><a href="'.dol_buildpath('/cabinetmed/patients.php',1).'">'.$langs->trans("Patients").'</a></td><td align="right">'.round($third['customer']).'</td>';
         $statstring.= "</tr>";
     }
     print $statstring;
