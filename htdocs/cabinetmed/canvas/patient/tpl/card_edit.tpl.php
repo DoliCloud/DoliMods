@@ -66,10 +66,8 @@ if ($_POST["nom"])
     $soc->code_client=$_POST["code_client"];
     $soc->fournisseur=$_POST["fournisseur"]?$_POST["fournisseur"]:$soc->fournisseur;
     $soc->code_fournisseur=$_POST["code_fournisseur"];
-    $soc->adresse=$_POST["adresse"]; // TODO obsolete
-    $soc->address=$_POST["adresse"];
-    $soc->cp=$_POST["zipcode"];
-    $soc->ville=$_POST["town"];
+    $soc->adresse=$_POST["address"]; // TODO obsolete
+    $soc->address=$_POST["address"];
     $soc->zip=$_POST["zipcode"];
     $soc->town=$_POST["town"];
     $soc->state_id=$_POST["departement_id"];
@@ -168,15 +166,15 @@ if ($conf->global->MAIN_MODULE_BARCODE)
 }
 
 // Address
-print '<tr><td valign="top">'.$langs->trans('Address').'</td><td colspan="3"><textarea name="adresse" cols="40" rows="3" wrap="soft">';
+print '<tr><td valign="top">'.$langs->trans('Address').'</td><td colspan="3"><textarea name="address" cols="40" rows="3" wrap="soft">';
 print $soc->address;
 print '</textarea></td></tr>';
 
 // Zip / Town
 print '<tr><td>'.$langs->trans('Zip').'</td><td>';
-print $formcompany->select_ziptown($soc->cp,'zipcode',array('town','selectcountry_id','departement_id'),6);
+print $formcompany->select_ziptown($soc->zip,'zipcode',array('town','selectcountry_id','departement_id'),6);
 print '</td><td>'.$langs->trans('Town').'</td><td>';
-print $formcompany->select_ziptown($soc->ville,'town',array('zipcode','selectcountry_id','departement_id'));
+print $formcompany->select_ziptown($soc->town,'town',array('zipcode','selectcountry_id','departement_id'));
 print '</td></tr>';
 
 // Country

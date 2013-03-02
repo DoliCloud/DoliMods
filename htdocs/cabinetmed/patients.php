@@ -20,7 +20,7 @@
 
 /**
  *	\file       htdocs/cabinetmed/patients.php
- *	\ingroup    commercial, societe
+ *	\ingroup    cabinetmed
  *	\brief      List of patients
  */
 
@@ -89,7 +89,7 @@ if (GETPOST("button_removefilter_x"))
     $search_idprof4='';
 }
 
-$sql = "SELECT s.rowid, s.nom as name, s.client, s.ville, st.libelle as stcomm, s.prefix_comm, s.code_client,";
+$sql = "SELECT s.rowid, s.nom as name, s.client, s.town, st.libelle as stcomm, s.prefix_comm, s.code_client,";
 $sql.= " s.datec, s.datea, s.canvas,";
 $sql.= " s.idprof4, MAX(c.datecons) as lastcons, COUNT(c.rowid) as nb";
 // We'll need these fields in order to filter by sale (including the case where the user can only see his prospects)
@@ -117,7 +117,7 @@ if ($socid) $sql.= " AND s.rowid = ".$socid;
 if ($search_sale) $sql.= " AND s.rowid = sc.fk_soc";		// Join for the needed table to filter by sale
 if ($search_categ) $sql.= " AND s.rowid = cs.fk_societe";	// Join for the needed table to filter by categ
 if ($search_nom)   $sql.= " AND s.nom like '%".$db->escape(strtolower($search_nom))."%'";
-if ($search_ville) $sql.= " AND s.ville like '%".$db->escape(strtolower($search_ville))."%'";
+if ($search_ville) $sql.= " AND s.town like '%".$db->escape(strtolower($search_ville))."%'";
 if ($search_code)  $sql.= " AND s.code_client like '%".$db->escape(strtolower($search_code))."%'";
 // Insert sale filter
 if ($search_sale)
@@ -135,7 +135,7 @@ if ($socname)
 	$sortfield = "s.nom";
 	$sortorder = "ASC";
 }
-$sql.= " GROUP BY s.rowid, s.nom, s.client, s.ville, st.libelle, s.prefix_comm, s.code_client, s.datec, s.datea, s.canvas, s.idprof4";
+$sql.= " GROUP BY s.rowid, s.nom, s.client, s.town, st.libelle, s.prefix_comm, s.code_client, s.datec, s.datea, s.canvas, s.idprof4";
 if ($search_sale) $sql .= ", sc.fk_soc, sc.fk_user";
 if ($search_categ) $sql .= ", cs.fk_categorie, cs.fk_societe";
 
@@ -198,7 +198,7 @@ if ($result)
 	print '<tr class="liste_titre">';
 	print_liste_field_titre($langs->trans("Patient"),$_SERVER["PHP_SELF"],"s.nom","",$param,"",$sortfield,$sortorder);
     print_liste_field_titre($langs->trans("CustomerCode"),$_SERVER["PHP_SELF"],"s.code_client","",$param,"",$sortfield,$sortorder);
-	print_liste_field_titre($langs->trans("Town"),$_SERVER["PHP_SELF"],"s.ville","",$param,"",$sortfield,$sortorder);
+	print_liste_field_titre($langs->trans("Town"),$_SERVER["PHP_SELF"],"s.town","",$param,"",$sortfield,$sortorder);
     print_liste_field_titre($langs->trans("Profession"),$_SERVER["PHP_SELF"],"s.idprof4","",$param,"",$sortfield,$sortorder);
     print_liste_field_titre($langs->trans("NbConsult"),$_SERVER["PHP_SELF"],"nb","",$param,'align="right"',$sortfield,$sortorder);
     print_liste_field_titre($langs->trans("LastConsultShort"),$_SERVER["PHP_SELF"],"lastcons","",$param,'align="center"',$sortfield,$sortorder);
@@ -247,7 +247,7 @@ if ($result)
         print $thirdpartystatic->getNomUrl(1);
 		print '</td>';
         print '<td>'.$obj->code_client.'</td>';
-		print '<td>'.$obj->ville.'</td>';
+		print '<td>'.$obj->town.'</td>';
         print '<td>'.$obj->idprof4.'</td>';
         print '<td align="right">'.$obj->nb.'</td>';
         print '<td align="center">';

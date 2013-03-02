@@ -81,7 +81,7 @@ class modCabinetMed extends DolibarrModules
         $this->module_parts = array('triggers' => 1,
         							'substitutions' => 1,
         							'menus' => 1,
-        							'css' => 0,    // No new theme, only a forced dir
+        							'css' => array('/cabinetmed/css/styles.css.php'),
         							'hooks' => array('thirdpartycard','categorycard','contactcard','agendathirdparty','infothirdparty','documentcabinetmed','searchform','demo'));
 
         // Dependencies
@@ -107,7 +107,7 @@ class modCabinetMed extends DolibarrModules
                              7=>array('SOCIETE_DISABLE_BUILDDOC','chaine','1','Disable area to attach files',1,'current',1),
                              8=>array('MAIN_DISABLEPROFIDRULES','chaine','1','Disable info/check links near professional id fields',1,'current',1),
                              9=>array('MAIN_FORCELANGDIR','chaine','/cabinetmed','Language files are searched into this dir first',1,'current',1),
-                            10=>array('MAIN_FORCETHEMEDIR','chaine','/cabinetmed','Skins files are searched into this dir first',1,'current',1),
+                            10=>array('MAIN_OVERWRITE_THEME_RES','chaine','cabinetmed','Resource for themes (img) are searched into dir/theme/dir first',1,'current',1),
                             11=>array('MAIN_DISABLEVATCHECK','chaine','1','Disable link to VAT check',1,'current',1),
                             12=>array('MAIN_DISABLEDRAFTSTATUS','chaine','1','Disable draft status',1,'current',1),
                             13=>array('MAIN_MENU_STANDARD_FORCED','chaine','cabinetmed_backoffice.php','Force menu handler to this value',1,'current',1),

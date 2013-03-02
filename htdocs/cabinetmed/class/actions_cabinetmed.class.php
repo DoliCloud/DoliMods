@@ -201,7 +201,7 @@ class ActionsCabinetmed
         {
             $langs->load("companies");
             $langs->load("cabinetmed@cabinetmed");
-            $searchform.=printSearchForm(DOL_URL_ROOT.'/societe/societe.php', DOL_URL_ROOT.'/societe/societe.php', img_object('','patient').' '.$langs->trans("Patients"), 'soc', 'socname');
+            $searchform.=printSearchForm(dol_buildpath('/cabinetmed/patients.php',1), dol_buildpath('/cabinetmed/patients.php',1), img_picto('','object_patient').' '.$langs->trans("Patients"), '', 'search_nom');
         }
 
         return $searchform;

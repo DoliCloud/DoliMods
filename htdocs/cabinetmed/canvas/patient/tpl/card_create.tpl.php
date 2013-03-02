@@ -54,8 +54,8 @@ $soc->client=$_POST["client"]?$_POST["client"]:$soc->client;
 $soc->code_client=$_POST["code_client"];
 $soc->fournisseur=$_POST["fournisseur"]?$_POST["fournisseur"]:$soc->fournisseur;
 $soc->code_fournisseur=$_POST["code_fournisseur"];
-$soc->adresse=$_POST["adresse"]; // TODO obsolete
-$soc->address=$_POST["adresse"];
+$soc->adresse=$_POST["address"]; // TODO obsolete
+$soc->address=$_POST["address"];
 $soc->cp=$_POST["zipcode"];
 $soc->ville=$_POST["town"];
 $soc->state_id=$_POST["departement_id"];
@@ -148,7 +148,7 @@ dol_htmloutput_errors($GOBALS['error'],$GLOBALS['errors']);
 
 <tr>
 	<td valign="top"><?php echo $langs->trans('Address'); ?></td>
-	<td colspan="3"><textarea name="adresse" cols="40" rows="3"><?php echo $soc->address; ?></textarea></td>
+	<td colspan="3"><textarea name="address" cols="40" rows="3"><?php echo $soc->address; ?></textarea></td>
 </tr>
 
 <?php

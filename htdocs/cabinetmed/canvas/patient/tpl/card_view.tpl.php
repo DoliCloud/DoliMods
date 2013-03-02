@@ -91,8 +91,8 @@ print "<tr><td valign=\"top\">".$langs->trans('Address')."</td><td colspan=\"3\"
 dol_print_address($soc->address,'gmap','thirdparty',$soc->id);
 print "</td></tr>";
 
-print '<tr><td width="25%">'.$langs->trans('Zip').'</td><td width="25%">'.$soc->cp."</td>";
-print '<td width="25%">'.$langs->trans('Town').'</td><td width="25%">'.$soc->ville."</td></tr>";
+print '<tr><td width="25%">'.$langs->trans('Zip').'</td><td width="25%">'.$soc->zip."</td>";
+print '<td width="25%">'.$langs->trans('Town').'</td><td width="25%">'.$soc->town."</td></tr>";
 
 // Country
 print '<tr><td>'.$langs->trans("Country").'</td><td colspan="3" nowrap="nowrap">';
@@ -208,7 +208,7 @@ if (empty($conf->global->SOCIETE_DISABLE_PARENTCOMPANY))
         $socm = new Societe($db);
         $socm->fetch($soc->parent);
         print $socm->getNomUrl(1).' '.($socm->code_client?"(".$socm->code_client.")":"");
-        print $socm->ville?' - '.$socm->ville:'';
+        print $socm->town?' - '.$socm->town:'';
     }
     else {
         print $langs->trans("NoParentCompany");
