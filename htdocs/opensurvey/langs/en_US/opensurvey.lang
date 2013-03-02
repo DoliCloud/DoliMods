@@ -2,7 +2,7 @@
 CHARSET=UTF-8
 Survey=Survey
 Surveys=Surveys
-OrganizeYourMeetingEasily=Organize your meeting and surveys easily
+OrganizeYourMeetingEasily=Organize your meeting and surveys easily. First select type of survey...
 NewSurvey=New survey
 NoSurveysInDatabase=%s survey(s) into database.
 OpenSurveyArea=Surveys area

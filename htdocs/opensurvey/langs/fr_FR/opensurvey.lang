@@ -2,7 +2,7 @@
 CHARSET=UTF-8
 Survey=Sondage
 Surveys=Sondages
-OrganizeYourMeetingEasily=Organiser vos rendez-vous ou votes facillement, librement
+OrganizeYourMeetingEasily=Organiser vos rendez-vous ou votes facilement, librement. Sélectionnez d'abord le type de sondage...
 NewSurvey=Nouveau sondage
 NoSurveysInDatabase=%s sondage(s) en base.
 OpenSurveyArea=Espace sondage

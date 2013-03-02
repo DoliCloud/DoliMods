@@ -104,13 +104,13 @@ while($dsondage = $sondage->FetchNextObject(false)) {
     $date=date('H:i:s d/m/Y');
 
     // requetes SQL qui font le ménage dans la base
-    $connect->Execute('DELETE FROM sondage LEFT INNER JOIN sujet_studs ON sujet_studs.id_sondage = sondage.id_sondage '.
-                      'LEFT INNER JOIN user_studs ON user_studs.id_sondage = sondage.id_sondage ' .
-                      'LEFT INNER JOIN comments ON comments.id_sondage = sondage.id_sondage ' .
+    $connect->Execute('DELETE FROM '.MAIN_DB_PREFIX.'opensurvey_sondage LEFT INNER JOIN '.MAIN_DB_PREFIX.'opensurvey_sujet_studs ON sujet_studs.id_sondage = sondage.id_sondage '.
+                      'LEFT INNER JOIN '.MAIN_DB_PREFIX.'opensurvey_user_studs ON user_studs.id_sondage = sondage.id_sondage ' .
+                      'LEFT INNER JOIN '.MAIN_DB_PREFIX.'opensurvey_comments ON comments.id_sondage = sondage.id_sondage ' .
                       "WHERE id_sondage = '$dsondage->id_sondage' ");
 
     // ecriture des traces dans le fichier de logs
-    error_log($date . " SUPPRESSION: $dsondage->id_sondage\t$dsondage->format\t$dsondage->nom_admin\t$dsondage->mail_admin\t$nbuser\t$dsujets->sujet\n", 'logs_studs.txt');
+    dol_syslog($date . " SUPPRESSION: $dsondage->id_sondage\t$dsondage->format\t$dsondage->nom_admin\t$dsondage->mail_admin\t$nbuser\t$dsujets->sujet\n", LOG_ERR);
   }
 
   $i++;
@@ -130,10 +130,10 @@ echo '<tr class="liste_titre" align="center"><td>'. _("Poll ID") .'</td><td>'. _
 $i = 0;
 while($dsondage = $sondage->FetchNextObject(false)) {
   /* possible en 1 bonne requête dans $sondage */
-  $sujets=$connect->Execute( "select * from sujet_studs where id_sondage='$dsondage->id_sondage'");
+  $sujets=$connect->Execute( 'select * from '.MAIN_DB_PREFIX.'opensurvey_sujet_studs where id_sondage='.$dsondage->id_sondage);
   $dsujets=$sujets->FetchObject(false);
 
-  $user_studs=$connect->Execute( "select * from user_studs where id_sondage='$dsondage->id_sondage'");
+  $user_studs=$connect->Execute( 'select * from '.MAIN_DB_PREFIX.'opensurvey_user_studs where id_sondage='.$dsondage->id_sondage);
   $nbuser=$user_studs->RecordCount();
 
   echo '<tr align=center><td>'.$dsondage->id_sondage.'</td><td>'.$dsondage->format.'</td><td>'.$dsondage->titre.'</td><td>'.$dsondage->nom_admin.'</td>';

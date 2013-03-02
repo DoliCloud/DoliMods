@@ -37,14 +37,25 @@
 //
 //==========================================================================
 
-session_start();
+define("NOLOGIN",1);		// This means this output page does not require to be logged.
+define("NOCSRFCHECK",1);	// We accept to go on this page from external web site.
+$res=0;
+if (! $res && file_exists("../main.inc.php")) $res=@include("../main.inc.php");
+if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.php");
+if (! $res && file_exists("../../../main.inc.php")) $res=@include("../../../main.inc.php");
+if (! $res && file_exists("../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../dolibarr/htdocs/main.inc.php");     // Used on dev env only
+if (! $res && file_exists("../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
+if (! $res && file_exists("../../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
+if (! $res) die("Include of main fails");
+require_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
+require_once(DOL_DOCUMENT_ROOT."/core/lib/files.lib.php");
 
-if (file_exists('bandeaux_local.php')) {
-  include_once('bandeaux_local.php');
+if (file_exists('../bandeaux_local.php')) {
+  include_once('../bandeaux_local.php');
 } else {
-  include_once('bandeaux.php');
+  include_once('../bandeaux.php');
 }
-include_once('fonctions.php');
+include_once('../fonctions.php');
 
 // Le fichier studs.php sert a afficher les résultats d'un sondage à un simple utilisateur.
 // C'est également l'interface pour ajouter une valeur à un sondage deja créé.
@@ -109,7 +120,7 @@ if(isset($_POST['ajoutcomment']) || isset($_POST['ajoutcomment_x'])) {
     $comment = htmlentities($_POST['comment'], ENT_QUOTES, 'UTF-8');
     $comment_user = htmlentities($comment_user, ENT_QUOTES, 'UTF-8');
 
-    $sql = 'INSERT INTO '.MAIN_DB_PREFIX.'opensurvey_sondage (id_sondage, comment, usercomment) VALUES ('.
+    $sql = 'INSERT INTO '.MAIN_DB_PREFIX.'opensurvey_comments (id_sondage, comment, usercomment) VALUES ('.
 	      $connect->Param('id_sondage').','.
 	      $connect->Param('comment').','.
 	      $connect->Param('comment_user').')';
@@ -186,12 +197,10 @@ if (!is_error(NO_POLL) && (isset($_POST["boutonp"]) || isset($_POST["boutonp_x"]
   }
 }
 
-print_header(true, $dsondage->titre);
-echo '<body>'."\n";
-logo();
-bandeau_tete();
-bandeau_titre(_("Make your polls"));
-sous_bandeau();
+$arrayofjs=array('/opensurvey/block_enter.js');
+$arrayofcss=array('/opensurvey/css/style.css');
+llxHeaderSurvey($dsondage->titre, "", 0, 0, $arrayofjs, $arrayofcss);
+
 
 if($err != 0) {
   bandeau_titre(_("Error!"));
@@ -218,7 +227,7 @@ if($err != 0) {
   echo '</ul></div>';
 
   if(is_error(NO_POLL_ID) || is_error(NO_POLL)) {
-    echo '<div class=corpscentre>'."\n";
+    echo '<div class="corpscentre">'."\n";
     print "<H2>" . _("This poll doesn't exist !") . "</H2>"."\n";
     print _("Back to the homepage of") . ' <a href="index.php"> '. NOMAPPLICATION . '</a>.'."\n";
     echo '<br><br><br><br>'."\n";
@@ -231,14 +240,14 @@ if($err != 0) {
   }
 }
 
-echo '<div class="presentationdate"> '."\n";
+echo '<div class="corps"> '."\n";
 
 //affichage du titre du sondage
 $titre=str_replace("\\","",$dsondage->titre);
-echo '<H2>'.$titre.'</H2>'."\n";
+echo '<strong>'.$titre.'</strong><br>'."\n";
 
 //affichage du nom de l'auteur du sondage
-echo _("Initiator of the poll") .' : '.$dsondage->nom_admin.'<br><br>'."\n";
+echo _("Initiator of the poll") .' : '.$dsondage->nom_admin.'<br>'."\n";
 
 //affichage des commentaires du sondage
 if ($dsondage->commentaires) {
@@ -249,14 +258,13 @@ if ($dsondage->commentaires) {
   echo '<br>'."\n";
 }
 
-echo '<br>'."\n";
 echo '</div>'."\n";
 
 echo '<form name="formulaire" action="studs.php"'.'#bas" method="POST" onkeypress="javascript:process_keypress(event)">'."\n";
 echo '<input type="hidden" name="sondage" value="' . $numsondage . '"/>';
 // Todo : add CSRF protection
 echo '<div class="cadre"> '."\n";
-echo _("If you want to vote in this poll, you have to give your name, choose the values that fit best for you<br>(without paying attention to the choices of the other voters) and validate with the plus button at the end of the line.") ."\n";
+echo _("If you want to vote in this poll, you have to give your name, choose the values that fit best for you (without paying attention to the choices of the other voters) and validate with the plus button at the end of the line.") ."\n";
 echo '<br><br>'."\n";
 
 // Debut de l'affichage des resultats du sondage
@@ -527,7 +535,7 @@ for ($i=0; $i < $nbcolonnes; $i++) {
 
 // Affichage des différentes sommes des colonnes existantes
 echo '<tr>'."\n";
-echo '<td align="right">'. _("Addition") .'</td>'."\n";
+echo '<td align="right">'. $langs->trans("Total") .'</td>'."\n";
 
 for ($i=0; $i < $nbcolonnes; $i++) {
   if (isset($somme[$i]) === true) {
@@ -637,7 +645,6 @@ echo '<textarea name="comment" rows="2" cols="40"></textarea>'."\n";
 echo '<input type="image" name="ajoutcomment" value="Ajouter un commentaire" src="images/accept.png" alt="Valider"><br>'."\n";
 echo '</form>'."\n";
 // Focus javascript sur la case de texte du formulaire
-echo '<script type="text/javascript">'."\n" . 'document.formulaire.commentuser.focus();'."\n" . '</script>'."\n";
 echo '</div>'."\n";
 echo '<ul class="exports">';
 echo '<li><img alt="' . _('Export to CSV') . '" src="images/csv.png"/>'.'<a class="affichageexport" href="exportcsv.php?numsondage=' . $numsondage . '">'._("Export: Spreadsheet") .' (.CSV)' . '</a></li>';
@@ -648,7 +655,5 @@ if ( ($dsondage->format == 'D' || $dsondage->format == 'D+') && $compteursujet==
 
 echo '</ul>';
 echo '<a name="bas"></a>'."\n";
-bandeau_pied_mobile();
-// Affichage du bandeau de pied
-echo '</body>'."\n";
-echo '</html>'."\n";
+
+llxFooterSurvey();

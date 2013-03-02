@@ -11,7 +11,7 @@
  * @param 	array  		$arrayofcss			Array of complementary css files
  * @return	void
  */
-function llxHeaderVierge($title, $head="", $disablejs=0, $disablehead=0, $arrayofjs='', $arrayofcss='')
+function llxHeaderSurvey($title, $head="", $disablejs=0, $disablehead=0, $arrayofjs='', $arrayofcss='')
 {
 	global $user, $conf, $langs, $mysoc;
 	top_htmlhead($head, $title, $disablejs, $disablehead, $arrayofjs, $arrayofcss); // Show html headers
@@ -34,7 +34,8 @@ function llxHeaderVierge($title, $head="", $disablejs=0, $disablehead=0, $arrayo
 		$urllogo=DOL_URL_ROOT.'/theme/dolibarr_logo.png';
 	}
 	print '<center>';
-	print '<img alt="Logo" id="logosubscribe" title="" src="'.$urllogo.'" />';
+	print '<img alt="Logo" id="logosubscribe" title="" src="'.$urllogo.'" style="max-width: 50%" class="half" /><br>';
+	print '<strong>'.$langs->trans("OpenSurvey").'</strong>';
 	print '</center><br>';
 
 	print '<div style="margin-left: 50px; margin-right: 50px;">';
@@ -45,7 +46,7 @@ function llxHeaderVierge($title, $head="", $disablejs=0, $disablehead=0, $arrayo
  *
  * @return	void
  */
-function llxFooterVierge()
+function llxFooterSurvey()
 {
 	print '</div>';
 

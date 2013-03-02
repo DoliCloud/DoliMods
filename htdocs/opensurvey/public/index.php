@@ -74,22 +74,18 @@ if (is_readable('../bandeaux_local.php')) {
 
 $arrayofjs=array();
 $arrayofcss=array('/opensurvey/css/style.css');
-
-llxHeaderVierge($langs->trans("OpenSurvey"), "", 0, 0, $arrayofjs, $arrayofcss);
+llxHeaderSurvey($langs->trans("OpenSurvey"), "", 0, 0, $arrayofjs, $arrayofcss);
 
 
 print '<center>
-<form name="formulaire" action="../infos_sondage.php" method="POST">
+<form name="formulaire" action="infos_sondage.php" method="POST">
 <div id="interface-header" style="">
-<h1 id="application-title">'.$langs->trans("OpenSurvey").'</h1>
 <p id="application-description" class="pp-gris-fonce2">Service en ligne permettant de planifier un rendez-vous rapidement et simplement. Aucune inscription préalable n\'est nécessaire.</p><br>
-</div><h2 class="application-title">'.$langs->trans("OrganizeYourMeetingEasily").'</h2>
+</div>'.$langs->trans("OrganizeYourMeetingEasily").'
 <div class="corps">
 <br>
 <div class="index_date"><div><img class="opacity" src="images/date.png" onclick="document.formulaire.date.click()"></div><button id="date" name="choix_sondage" value="date" type="submit" class="button orange bigrounded"><img src="images/calendar-32.png" alt=""><strong>&nbsp;Créer un sondage spécial dates</strong></button></div><div class="index_sondage"><div><img class="opacity" src="images/sondage2.png" onclick="document.formulaire.autre.click()"></div><button id="autre" name="choix_sondage" value="autre" type="submit" class="button blue bigrounded"><img src="images/chart-32.png" alt=""><strong>&nbsp;Créer un sondage classique</strong></button></div><div style="clear:both;"></div>
 </div>
 </form></center>';
 
-
-echo '</body>'."\n";
-echo '</html>'."\n";
+llxFooterSurvey();
