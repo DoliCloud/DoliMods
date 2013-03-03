@@ -32,3 +32,6 @@ CommentsOfVoters=Comments of voters
 ConfirmRemovalOfPoll=Are you sure you want to remove this poll (and all votes)
 RemovePoll=Remove poll
 PollManagement=Poll's management
+BackToHoursSetup=Back to hours setup
+UrlForSurvey=URL to communicate to get a direct access to survey:<br>%s
+PollOnChoice=Your are creating a poll to make a choice for different topices. First enter the subjects to vote for:

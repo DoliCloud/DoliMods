@@ -130,7 +130,7 @@ echo $langs->trans("NoSurveysInDatabase",$nbsondages).'<br><br>'."\n";
 
 // tableau qui affiche tous les sondages de la base
 echo '<table class="liste">'."\n";
-echo '<tr class="liste_titre"><td>'. _("Poll ID") .'</td><td>'. _("Format") .'</td><td>'. _("Title") .'</td><td>'. _("Author") .'</td><td align="center">'. _("Expiration's date") .'</td><td>'. _("Users") .'</td><td colspan=3>'. _("Actions") .'</td>'."\n";
+echo '<tr class="liste_titre"><td>'. _("Poll ID") .'</td><td>'. _("Format") .'</td><td>'. _("Title") .'</td><td>'. _("Author") .'</td><td align="center">'. _("Expiration's date") .'</td><td>'. _("Users") .'</td><td colspan=2>&nbsp;</td>'."\n";
 
 $i = 0; $var = true;
 while($dsondage = $sondage->FetchNextObject(false))
@@ -148,14 +148,11 @@ while($dsondage = $sondage->FetchNextObject(false))
 	print '<a href="'.dol_buildpath('/opensurvey/adminstuds.php',1).'?sondage='.$dsondage->id_sondage_admin.'">'.$dsondage->id_sondage.'</a>';
 	print '</td><td>'.$dsondage->format.'</td><td>'.$dsondage->titre.'</td><td>'.$dsondage->nom_admin.'</td>';
 
-	if (strtotime($dsondage->date_fin) > time()) {
-		echo '<td align="center">'.dol_print_date($db->jdate($dsondage->date_fin),'day').'</td>';
-	} else {
-		echo '<td align="center"><font color=#FF0000>'.dol_print_date($db->jdate($dsondage->date_fin),'day').'</font></td>';
-	}
+	echo '<td align="center">'.dol_print_date($db->jdate($dsondage->date_fin),'day');
+	if (strtotime($dsondage->date_fin) < time()) { print ' '.img_warning(); }
+	echo '</td>';
 
 	echo'<td>'.$nbuser.'</td>'."\n";
-	echo '<td><a href="'.getUrlSondage($dsondage->id_sondage_admin, true).'">'. _("Change the poll") .'</a></td>'."\n";
 	echo '<td align="right"><input type="submit" class="button" name="supprimersondage'.$i.'" value="'. _("Remove the poll") .'"></td>'."\n";
 
 	echo '</tr>'."\n";
@@ -164,11 +161,5 @@ while($dsondage = $sondage->FetchNextObject(false))
 
 echo '</table>'."\n";
 echo'</div>'."\n";
-// fin du formulaire et de la page web
-echo '</form>'."\n";
-echo '</body>'."\n";
-echo '</html>'."\n";
 
-// si on annule la suppression, rafraichissement de la page
-if ($_POST["annulesuppression"]) {
-}
+llxFooter();

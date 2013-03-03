@@ -218,7 +218,7 @@ else
 
 	//Debut du formulaire et bandeaux de tete
 	echo '<form name="formulaire" action="choix_date.php" method="POST" onkeypress="javascript:process_keypress(event)">'."\n";
-	bandeau_titre(_("Poll dates (2 on 2)"));
+	bandeau_titre($langs->trans("CreatePoll").' (2 / 2)');
 	//sous_bandeau_choix();
 
 	//affichage de l'aide pour les jours
@@ -528,8 +528,8 @@ else
 		echo '<table>'."\n";
 		echo '<tr>'."\n";
 		echo '<td><input type="submit" class="button" name="reset" value="'. dol_escape_htmltag($langs->trans("RemoveAllDays")) .'"></td><td><input type="submit" class="button" name="reporterhoraires" value="'. dol_escape_htmltag($langs->trans("CopyHoursOfFirstDay")) .'"></td><td><input type="submit" class="button" name="resethoraires" value="'. dol_escape_htmltag($langs->trans("RemoveAllHours")) .'"></td></tr>'."\n";
-		echo'<tr><td><br></td></tr>'."\n";
-		echo '<tr><td>'. _("Next") .'</td><td><input type=image name="choixheures" value="'. _("Next") .'" src="images/next-32.png"></td></tr>'."\n";
+		echo'<tr><td colspan="3"><br><br></td></tr>'."\n";
+		echo '<tr><td colspan="3" align="center"><input type="submit" class="button" name="choixheures" value="'. $langs->trans("NextStep"). '"></td></tr>'."\n";
 		echo '</table>'."\n";
 
 		//si un seul jour et aucunes horaires choisies, : message d'erreur
@@ -554,7 +554,7 @@ else
 		// echo 'Pour finir la cr&eacute;ation du sondage, cliquez sur le bouton <img src="images/add-16.png" alt="ajout"> ci-dessous'."\n";
 		// echo '</p>'."\n";
 		echo '<table>'."\n";
-		echo '<tr><td>'. _("Back to hours") .'</td><td></td><td><input type="image" name="retourhoraires" src="images/back-32.png"></td></tr>'."\n";
+		echo '<tr><td>'. $langs->trans("BackToHoursSetup") .'</td><td></td><td><input type="image" name="retourhoraires" src="images/back-32.png"></td></tr>'."\n";
 		echo'<tr><td>'. $langs->trans("CreatePoll") .'</td><td></td><td><input type="image" name="confirmation" value="Valider la cr&eacute;ation" src="images/add.png"></td></tr>'."\n";
 		echo '</table>'."\n";
 	}

@@ -650,13 +650,24 @@ echo '</form>'."\n";
 echo '</div>'."\n";
 
 echo '<br><ul class="exports">';
-echo '<li><img alt="' . _('Export to CSV') . '" src="images/csv.png"/>'.'<a class="affichageexport" href="exportcsv.php?numsondage=' . $numsondage . '">'._("Export: Spreadsheet") .' (.CSV)' . '</a></li>';
-
-if ( ($dsondage->format == 'D' || $dsondage->format == 'D+') && $compteursujet=="1" &&  $meilleurecolonne && file_exists('iCalcreator/iCalcreator.class.php') && false /* TODO: later */) {
-	echo '<li><img alt="' . _('Export iCal') . '" src="images/ical.png">' .'<a class="affichageexport" href="exportics.php?numsondage=' . $numsondage . '">'._("Agenda") .' (.ICS)' . '</a></li>';
-}
-
+echo '<li><img src="images/csv.png"/>'.'<a class="affichageexport" href="exportcsv.php?numsondage=' . $numsondage . '">'._("Export: Spreadsheet") .' (.CSV)' . '</a></li>';
 echo '</ul>';
+
+
+// Define $urlwithroot
+$urlwithouturlroot=preg_replace('/'.preg_quote(DOL_URL_ROOT,'/').'$/i','',trim($dolibarr_main_url_root));
+$urlwithroot=$urlwithouturlroot.DOL_URL_ROOT;		// This is to use external domain name found into config file
+//$urlwithroot=DOL_MAIN_URL_ROOT;					// This is to use same domain name than current
+
+$message='';
+$url=$urlwithouturlroot.dol_buildpath('/opensurvey/public/studs.php',1).'?sondage='.$numsondage;
+$urlvcal='<a href="'.$url.'" target="_blank">'.$url.'</a>';
+$message.=img_picto('','object_globe.png').' '.$langs->trans("UrlForSurvey",$urlvcal);
+
+print '<center>'.$message.'</center>';
+
+
+
 echo '<a name="bas"></a>'."\n";
 
 llxFooterSurvey();

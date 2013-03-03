@@ -349,9 +349,7 @@ if(isset($_POST['ajoutcomment']) || isset($_POST['ajoutcomment_x'])) {
 
 /*
  * View
-*/
-
-
+ */
 
 
 echo '<div class="corps"> '."\n";
@@ -361,7 +359,7 @@ $titre=str_replace("\\","",$dsondage->titre);
 echo '<strong>'.$titre.'</strong><br>'."\n";
 
 //affichage du nom de l'auteur du sondage
-echo _("Initiator of the poll") .' : '.$dsondage->nom_admin.'<br>'."\n";
+echo $langs->trans("InitiatorOfPoll") .' : '.$dsondage->nom_admin.'<br>'."\n";
 
 //affichage des commentaires du sondage
 if ($dsondage->commentaires)
@@ -995,7 +993,7 @@ for ($i = 0; $i < $nbcolonnes + 1; $i++) {
 //affichage de la ligne contenant les sommes de chaque colonne
 echo '<tr>'."\n";
 echo '<td></td>'."\n";
-echo '<td align="right">'. _("Addition") .'</td>'."\n";
+echo '<td align="right">'. $langs->trans("Total") .'</td>'."\n";
 
 for ($i = 0; $i < $nbcolonnes; $i++) {
 	if (isset($somme[$i]) === true) {
@@ -1059,10 +1057,6 @@ if (isset($erreur_ajout_date) && $erreur_ajout_date) {
 echo '</table>'."\n";
 echo '</div>'."\n";
 
-//focus en javascript sur le champ texte pour le nom d'utilisateur
-echo '<script type="text/javascript">'."\n";
-echo 'document.formulaire.nom.focus();'."\n";
-echo '</script>'."\n";
 
 //recuperation des valeurs des sujets et adaptation pour affichage
 $toutsujet = explode(",", $dsujet->sujet);
@@ -1105,7 +1099,7 @@ echo '<p class=affichageresultats>'."\n";
 
 //affichage de la phrase annoncant le meilleur sujet
 if (isset($meilleurecolonne) && $compteursujet == "1") {
-	print "<img src=\"".dol_buildpath('/opensurvey/img/medaille.png',1)."\" alt=\"Meilleur resultat\">" . $langs->trans('TheBestChoice') . " : <b>$meilleursujet </b>" . $langs->trans("with") . " <b>$meilleurecolonne </b>" . $vote_str . ".<br>\n";
+	print "<img src=\"".dol_buildpath('/opensurvey/img/medaille.png',1)."\" alt=\"Meilleur resultat\"> " . $langs->trans('TheBestChoice') . " : <b>$meilleursujet </b>" . $langs->trans("with") . " <b>$meilleurecolonne </b>" . $vote_str . ".<br>\n";
 } elseif (isset($meilleurecolonne)) {
 	print "<img src=\"".dol_buildpath('/opensurvey/img/medaille.png',1)."\" alt=\"Meilleur resultat\"> " . $langs->trans('TheBestChoices') . " : <b>$meilleursujet </b>" . $langs->trans("with") . " <b>$meilleurecolonne </b>" . $vote_str . ".<br>\n";
 }
@@ -1113,6 +1107,23 @@ if (isset($meilleurecolonne) && $compteursujet == "1") {
 echo '<br><br>'."\n";
 echo '</p>'."\n";
 echo '</form>'."\n";
+
+// Define $urlwithroot
+$urlwithouturlroot=preg_replace('/'.preg_quote(DOL_URL_ROOT,'/').'$/i','',trim($dolibarr_main_url_root));
+$urlwithroot=$urlwithouturlroot.DOL_URL_ROOT;		// This is to use external domain name found into config file
+//$urlwithroot=DOL_MAIN_URL_ROOT;					// This is to use same domain name than current
+
+$message='';
+$url=$urlwithouturlroot.dol_buildpath('/opensurvey/public/studs.php',1).'?sondage='.$numsondage;
+$urlvcal='<a href="'.$url.'" target="_blank">'.$url.'</a>';
+$message.=img_picto('','object_globe.png').' '.$langs->trans("UrlForSurvey",$urlvcal);
+
+print '<center>'.$message.'</center>';
+print '<br><br>';
+
+
+// Part of poll's management
+//---------------------------
 
 echo "\n<hr>\n\n";
 

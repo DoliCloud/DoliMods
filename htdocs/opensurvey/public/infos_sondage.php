@@ -149,7 +149,7 @@ $langs->load("opensurvey@opensurvey");
 //affichage des bandeaux de tete
 //logo();
 //bandeau_tete();
-echo '<div class="bandeautitre">'. _("Poll creation (1 on 2)") .'</div>'."\n";
+echo '<div class="bandeautitre">'. $langs->trans("CreatePoll").' (1 / 2)' .'</div>'."\n";
 //sous_bandeau();
 
 
