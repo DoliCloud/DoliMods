@@ -14,8 +14,23 @@
 function llxHeaderSurvey($title, $head="", $disablejs=0, $disablehead=0, $arrayofjs='', $arrayofcss='')
 {
 	global $user, $conf, $langs, $mysoc;
+
 	top_htmlhead($head, $title, $disablejs, $disablehead, $arrayofjs, $arrayofcss); // Show html headers
 	print '<body id="mainbody" class="publicnewmemberform" style="margin-top: 10px;">';
+
+	showlogo();
+
+	print '<div style="margin-left: 50px; margin-right: 50px;">';
+}
+
+/**
+ * Show logo
+ *
+ * @return	void
+ */
+function showlogo()
+{
+	global $user, $conf, $langs, $mysoc;
 
 	// Print logo
 	$urllogo=DOL_URL_ROOT.'/theme/login_logo.png';
@@ -37,9 +52,8 @@ function llxHeaderSurvey($title, $head="", $disablejs=0, $disablehead=0, $arrayo
 	print '<img alt="Logo" id="logosubscribe" title="" src="'.$urllogo.'" style="max-width: 50%" class="half" /><br>';
 	print '<strong>'.$langs->trans("OpenSurvey").'</strong>';
 	print '</center><br>';
-
-	print '<div style="margin-left: 50px; margin-right: 50px;">';
 }
+
 
 /**
  * Show footer for new member

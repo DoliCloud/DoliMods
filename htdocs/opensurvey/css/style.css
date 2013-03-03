@@ -348,7 +348,6 @@ div.cadre td.casevide {
 }
 /*les cases contenant les sommes de chaque colonne dans l'affichage de calendrier*/
 div.cadre td.somme {
-	background-color: white; 
 	font-weight:  bold;
 	font-size:14px; 
 }

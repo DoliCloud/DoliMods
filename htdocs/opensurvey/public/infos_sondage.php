@@ -168,27 +168,27 @@ if(!check_table_sondage()) {
 echo '<form name="formulaire" action="infos_sondage.php" method="POST" onkeypress="javascript:process_keypress(event)">'."\n";
 
 echo '<div class=corps>'."\n";
-echo '<br>'. _("You are in the poll creation section. <br> Required fields cannot be left blank") .'<br><br>'."\n";
+echo '<br>'. $langs->trans("YouAreInPollCreateArea") .'<br><br>'."\n";
 
 //Affichage des différents champs textes a remplir
 echo '<table>'."\n";
 
-echo '<tr><td>'. _("Poll title *: ") .'</td><td><input type="text" name="titre" size="40" maxlength="80" value="'.$_SESSION["titre"].'"></td>'."\n";
+echo '<tr><td class="fieldrequired">'. $langs->trans("PollTitle") .'</td><td><input type="text" name="titre" size="40" maxlength="80" value="'.$_SESSION["titre"].'"></td>'."\n";
 if (!$_SESSION["titre"] && (issetAndNoEmpty('creation_sondage_date') || issetAndNoEmpty('creation_sondage_autre') || issetAndNoEmpty('creation_sondage_date_x') || issetAndNoEmpty('creation_sondage_autre_x'))) {
-  print "<td><font color=\"#FF0000\">" . _("Enter a title") . "</font></td>"."\n";
+  print "<td><font color=\"#FF0000\">" . $langs->trans("FieldMandatory") . "</font></td>"."\n";
 } elseif ($erreur_injection_titre) {
   print "<td><font color=\"#FF0000\">" . _("Characters < > and \" are not permitted") . "</font></td><br>"."\n";
 }
 
 echo '</tr>'."\n";
-echo '<tr><td>'. _("Comments: ") .'</td><td><textarea name="commentaires" rows="7" cols="40">'.$_SESSION["commentaires"].'</textarea></td>'."\n";
+echo '<tr><td>'. $langs->trans("Description") .'</td><td><textarea name="commentaires" rows="7" cols="40">'.$_SESSION["commentaires"].'</textarea></td>'."\n";
 
 if ($erreur_injection_commentaires) {
   print "<td><font color=\"#FF0000\">" . _("Characters < > and \" are not permitted") . "</font></td><br>"."\n";
 }
 
 echo '</tr>'."\n";
-echo '<tr><td>'. _("Your name*: ") .'</td><td>';
+echo '<tr><td class="fieldrequired">'. $langs->trans("OpenSurveyYourName") .'</td><td>';
 
 if (isset($_SERVER['REMOTE_USER'])) {
   echo '<input type="hidden" name="nom" size="40" maxlength="40" value="'.$_SESSION["nom"].'">'.$_SESSION["nom"].'</td>'."\n";
@@ -197,13 +197,13 @@ if (isset($_SERVER['REMOTE_USER'])) {
 }
 
 if (!$_SESSION["nom"] && (issetAndNoEmpty('creation_sondage_date') || issetAndNoEmpty('creation_sondage_autre') || issetAndNoEmpty('creation_sondage_date_x') || issetAndNoEmpty('creation_sondage_autre_x'))) {
-  print "<td><font color=\"#FF0000\">" . _("Enter a name") . "</font></td>"."\n";
+  print "<td><font color=\"#FF0000\">" . $langs->trans("FieldMandatory")  . "</font></td>"."\n";
 } elseif ($erreur_injection_nom) {
   print "<td><font color=\"#FF0000\">" . _("Characters < > and \" are not permitted") . "</font></td><br>"."\n";
 }
 
 echo '</tr>'."\n";
-echo '<tr><td>'. _("Your e-mail address *: ") .'</td><td>';
+echo '<tr><td class="fieldrequired">'.  $langs->trans("OpenSurveyYourEMail")  .'</td><td>';
 
 if (isset($_SERVER['REMOTE_USER'])) {
   echo '<input type="hidden" name="adresse" size="40" maxlength="64" value="'.$_SESSION["adresse"].'">'.$_SESSION["adresse"].'</td>'."\n";
@@ -212,7 +212,7 @@ if (isset($_SERVER['REMOTE_USER'])) {
 }
 
 if (!$_SESSION["adresse"] && (issetAndNoEmpty('creation_sondage_date') || issetAndNoEmpty('creation_sondage_autre') || issetAndNoEmpty('creation_sondage_date_x') || issetAndNoEmpty('creation_sondage_autre_x'))) {
-  print "<td><font color=\"#FF0000\">" . _("Enter an email address") . " </font></td>"."\n";
+  print "<td><font color=\"#FF0000\">" .$langs->trans("FieldMandatory")  . " </font></td>"."\n";
 } elseif ($erreur_adresse && (issetAndNoEmpty('creation_sondage_date') || issetAndNoEmpty('creation_sondage_autre') || issetAndNoEmpty('creation_sondage_date_x') || issetAndNoEmpty('creation_sondage_autre_x'))) {
   print "<td><font color=\"#FF0000\">" . _("The address is not correct! (You should enter a valid email address in order to receive the link to your poll)") . "</font></td>"."\n";
 }
@@ -225,7 +225,7 @@ echo '<script type="text/javascript">'."\n";
 echo 'document.formulaire.titre.focus();'."\n";
 echo '</script>'."\n";
 
-echo '<br>'. _("The fields marked with * are required!") .'<br><br>'."\n";
+echo '<br>'."\n";
 
 #affichage du cochage par défaut
 if (!$_SESSION["studsplus"] && !issetAndNoEmpty('creation_sondage_date') && !issetAndNoEmpty('creation_sondage_autre') && !issetAndNoEmpty('creation_sondage_date_x') && !issetAndNoEmpty('creation_sondage_autre_x')) {
@@ -236,21 +236,31 @@ if ($_SESSION["studsplus"]=="+") {
   $cocheplus="checked";
 }
 
-echo '<input type=checkbox name=studsplus '.$cocheplus.'>'. _(" Voters can modify their vote themselves.") .'<br>'."\n";
+echo '<input type=checkbox name=studsplus '.$cocheplus.'>'. $langs->trans("VotersCanModify") .'<br>'."\n";
 
 if ($_SESSION["mailsonde"]) {
   $cochemail="checked";
 }
 
-echo '<input type=checkbox name=mailsonde '.$cochemail.'>'. _(" To receive an email for each new vote.") .'<br>'."\n";
+echo '<input type=checkbox name=mailsonde '.$cochemail.'>'. $langs->trans("ToReceiveEMailForEachVote") .'<br>'."\n";
 
-//affichage des boutons pour choisir sondage date ou autre
-echo '<br><table >'."\n";
-echo '<tr><td>'. _("Schedule an event") .'</td><td></td> '."\n";
-echo '<td><input type="image" name="creation_sondage_date" value="Trouver une date" src="images/calendar-32.png"></td></tr>'."\n";
-echo '<tr><td>'. _("Make a choice") .'</td><td></td> '."\n";
-echo '<td><input type="image" name="creation_sondage_autre" value="'. _('Make a poll') . '" src="images/chart-32.png"></td></tr>'."\n";
-echo '</table>'."\n";
+if (GETPOST('choix_sondage'))
+{
+	if (GETPOST('choix_sondage') == 'date') echo '<input type="hidden" name="creation_sondage_date" value="date">';
+	else echo '<input type="hidden" name="creation_sondage_autre" value="autre">';
+	echo '<input type="hidden" name="choix_sondage" value="'.GETPOST('choix_sondage').'">';
+	echo '<br><input type="submit" class="button" name="submit" value="'.$langs->trans("CreatePoll").' ('.(GETPOST('choix_sondage') == 'date'?$langs->trans("TypeDate"):$langs->trans("TypeClassic")).')">';
+}
+else
+{
+	//affichage des boutons pour choisir sondage date ou autre
+	echo '<br><table >'."\n";
+	echo '<tr><td>'. _("Schedule an event") .'</td><td></td> '."\n";
+	echo '<td><input type="image" name="creation_sondage_date" value="Trouver une date" src="images/calendar-32.png"></td></tr>'."\n";
+	echo '<tr><td>'. _("Make a choice") .'</td><td></td> '."\n";
+	echo '<td><input type="image" name="creation_sondage_autre" value="'. _('Make a poll') . '" src="images/chart-32.png"></td></tr>'."\n";
+	echo '</table>'."\n";
+}
 echo '<br><br><br>'."\n";
 echo '</div>'."\n";
 echo '</form>'."\n";

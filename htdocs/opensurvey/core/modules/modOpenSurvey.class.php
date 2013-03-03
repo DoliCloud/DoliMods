@@ -107,11 +107,11 @@ class modOpenSurvey extends DolibarrModules
 		$this->menus = array();			// List of menus to add
 		$r=0;
 
-		$this->menu[$r]=array(	'fk_menu'=>0,
+		$this->menu[$r]=array(	'fk_menu'=>0,		    						// Use 'fk_mainmenu=xxx' or 'fk_mainmenu=xxx,fk_leftmenu=yyy' where xxx is mainmenucode and yyy is a leftmenucode
 								'type'=>'top',
 								'titre'=>'Surveys',
 								'mainmenu'=>'opensurvey',
-								'url'=>'/opensurvey/admin/index.php',
+								'url'=>'/opensurvey/list.php',
 								'langs'=>'opensurvey@opensurvey',
 								'position'=>200,
                 				'enabled'=>'$conf->opensurvey->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
@@ -120,17 +120,31 @@ class modOpenSurvey extends DolibarrModules
 								'user'=>0);
 		$r++;
 
-		$this->menu[$r]=array(	'fk_menu'=>'fk_mainmenu=opensurvey',
+		$this->menu[$r]=array(	'fk_menu'=>'fk_mainmenu=opensurvey',		    // Use 'fk_mainmenu=xxx' or 'fk_mainmenu=xxx,fk_leftmenu=yyy' where xxx is mainmenucode and yyy is a leftmenucode
 								'type'=>'left',
-								'titre'=>'NewSurvey',
+								'titre'=>'Survey',
 								'mainmenu'=>'opensurvey',
 								'leftmenu'=>'opensurvey',
-								'url'=>'/opensurvey/infos_sondage.php',
+								'url'=>'/opensurvey/list.php?mainmenu=opensurvey&leftmenu=opensurvey',
 								'langs'=>'opensurvey@opensurvey',
 								'position'=>200,
                 				'enabled'=>'$conf->opensurvey->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
 								'perms'=>'',
 								'target'=>'',
+								'user'=>0);
+		$r++;
+
+		$this->menu[$r]=array(	'fk_menu'=>'fk_mainmenu=opensurvey,fk_leftmenu=opensurvey',		    // Use 'fk_mainmenu=xxx' or 'fk_mainmenu=xxx,fk_leftmenu=yyy' where xxx is mainmenucode and yyy is a leftmenucode
+								'type'=>'left',
+								'titre'=>'NewSurvey',
+								'mainmenu'=>'opensurvey',
+								'leftmenu'=>'opensurvey',
+								'url'=>'/opensurvey/public/index.php',
+								'langs'=>'opensurvey@opensurvey',
+								'position'=>210,
+                				'enabled'=>'$conf->opensurvey->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
+								'perms'=>'',
+								'target'=>'_blank',
 								'user'=>0);
 		$r++;
 
