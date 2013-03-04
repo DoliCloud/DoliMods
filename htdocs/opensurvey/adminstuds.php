@@ -144,6 +144,8 @@ if (isset($_POST["confirmesuppression"]) || isset($_POST["confirmesuppression_x"
  * View
  */
 
+$form=new Form($db);
+
 $arrayofjs=array('/opensurvey/block_enter.js');
 $arrayofcss=array('/opensurvey/css/style.css');
 llxHeader('',$dsondage->titre, 0, 0, 0, 0, $arrayofjs, $arrayofcss);
@@ -171,14 +173,7 @@ if (isset($_POST["boutonnouveautitre"]) || isset($_POST["boutonnouveautitre_x"])
 		$sql = $connect->Prepare($sql);
 
 		//envoi du mail pour prevenir l'admin de sondage
-		if ($connect->Execute($sql, array($nouveautitre, $numsondage))) {
-			mail ($adresseadmin,
-				_("[ADMINISTRATOR] New title for your poll") . ' ' . NOMAPPLICATION,
-				_("You have changed the title of your poll. \nYou can modify this poll with this link") .
-				" :\n\n".getUrlSondage($numsondageadmin, true)."\n\n" .
-				_("Thanks for your confidence.") . "\n" . NOMAPPLICATION,
-				$headers);
-		}
+		$connect->Execute($sql, array($nouveautitre, $numsondage));
 	}
 }
 
@@ -193,15 +188,7 @@ if (isset($_POST["boutonnouveauxcommentaires"]) || isset($_POST["boutonnouveauxc
 		$sql = 'UPDATE '.MAIN_DB_PREFIX.'opensurvey_sondage SET commentaires = '.$connect->Param('commentaires').' WHERE id_sondage = '.$connect->Param('numsondage');
 		$sql = $connect->Prepare($sql);
 
-		if ($connect->Execute($sql, array($commentaires, $numsondage))) {
-			//envoi du mail pour prevenir l'admin de sondage
-			mail ($adresseadmin,
-				_("[ADMINISTRATOR] New comments for your poll") . ' ' . NOMAPPLICATION,
-				_("You have changed the comments of your poll. \nYou can modify this poll with this link") .
-				" :\n\n".getUrlSondage($numsondageadmin, true)." \n\n" .
-				_("Thanks for your confidence.") . "\n" . NOMAPPLICATION,
-				$headers);
-		}
+		$connect->Execute($sql, array($commentaires, $numsondage));
 	}
 }
 
@@ -216,15 +203,7 @@ if (isset($_POST["boutonnouvelleadresse"]) || isset($_POST["boutonnouvelleadress
 		$sql = 'UPDATE '.MAIN_DB_PREFIX.'opensurvey_sondage SET mail_admin = '.$connect->Param('nouvelleadresse').' WHERE id_sondage = '.$connect->Param('numsondage');
 		$sql = $connect->Prepare($sql);
 
-		if ($connect->Execute($sql, array($nouvelleadresse, $numsondage))) {
-			//envoi du mail pour prevenir l'admin de sondage
-			mail ($_POST['nouvelleadresse'],
-				_("[ADMINISTRATOR] New email address for your poll") . ' ' . NOMAPPLICATION,
-				_("You have changed your email address in your poll. \nYou can modify this poll with this link") .
-				" :\n\n".getUrlSondage($numsondageadmin, true)."\n\n" .
-				_("Thanks for your confidence.") . "\n" . NOMAPPLICATION,
-				$headers);
-		}
+		$connect->Execute($sql, array($nouvelleadresse, $numsondage));
 	}
 }
 
@@ -238,13 +217,17 @@ if (isset($_POST["ajoutsujet"]) || isset($_POST["ajoutsujet_x"])) {
 	echo '<form name="formulaire" action="'.getUrlSondage($numsondageadmin, true).'" method="POST" onkeypress="javascript:process_keypress(event)">'."\n";
 
 	echo '<div class="center">'."\n";
-	echo "<H2>" . $langs->trans("AddColumn") . "</H2><br><br>"."\n";
+	echo "<br><br>"."\n";
 
+	// Add new column
 	if ($dsondage->format=="A"||$dsondage->format=="A+")
 	{
-		echo $langs->trans("AddNewColumn") .' :<br>';
-		echo ' <input type="text" name="nouvellecolonne" size="40"> ';
-		print '<input type="submit" class="button" name="ajoutercolonne" value="'.dol_escape_htmltag($langs->trans("Add")).'"><br><br>'."\n";
+		echo $langs->trans("AddNewColumn") .' :<br><br>';
+		echo $langs->trans("TitleChoice").' <input type="text" name="nouvellecolonne" size="40"><br>';
+		$tmparray=array('checkbox'=>$langs->trans("CheckBox"),'yesno'=>$langs->trans("YesNo"),'pourcontre'=>$langs->trans("PourContre"));
+		print $langs->trans("Type").' '.$form->selectarray("typecolonne", $tmparray, GETPOST('typecolonne')).'<br><br>';
+		print '<input type="submit" class="button" name="ajoutercolonne" value="'.dol_escape_htmltag($langs->trans("Add")).'">';
+		print '<br><br>'."\n";
 	}
 	else
 	{
@@ -340,38 +323,6 @@ if(isset($_POST['ajoutcomment']) || isset($_POST['ajoutcomment_x'])) {
 	}
 }
 
-
-
-/*
- * View
- */
-
-
-echo '<div class="corps"> '."\n";
-
-//affichage du titre du sondage
-$titre=str_replace("\\","",$dsondage->titre);
-echo '<strong>'.$titre.'</strong><br>'."\n";
-
-//affichage du nom de l'auteur du sondage
-echo $langs->trans("InitiatorOfPoll") .' : '.$dsondage->nom_admin.'<br>'."\n";
-
-//affichage des commentaires du sondage
-if ($dsondage->commentaires)
-{
-	echo '<br>'.$langs->trans("Description") .' :<br>'."\n";
-	$commentaires=dol_nl2br($dsondage->commentaires);
-	echo $commentaires;
-	echo '<br>'."\n";
-}
-
-echo '</div>'."\n";
-
-
-$nbcolonnes = substr_count($dsujet->sujet, ',') + 1;
-$nblignes = $user_studs->RecordCount();
-
-//si il n'y a pas suppression alors on peut afficher normalement le tableau
 
 //action si le bouton participer est cliqué
 if (isset($_POST["boutonp"]) || isset($_POST["boutonp_x"])) {
@@ -667,6 +618,40 @@ for ($i = 0; $i < $nbcolonnes; $i++) {
 		$connect->Execute($sql, array($nouveauxsujets, $numsondage));
 	}
 }
+
+
+
+
+/*
+ * View
+ */
+
+
+echo '<div class="corps"> '."\n";
+
+//affichage du titre du sondage
+$titre=str_replace("\\","",$dsondage->titre);
+echo '<strong>'.$titre.'</strong><br>'."\n";
+
+//affichage du nom de l'auteur du sondage
+echo $langs->trans("InitiatorOfPoll") .' : '.$dsondage->nom_admin.'<br>'."\n";
+
+//affichage des commentaires du sondage
+if ($dsondage->commentaires)
+{
+	echo '<br>'.$langs->trans("Description") .' :<br>'."\n";
+	$commentaires=dol_nl2br($dsondage->commentaires);
+	echo $commentaires;
+	echo '<br>'."\n";
+}
+
+echo '</div>'."\n";
+
+
+$nbcolonnes = substr_count($dsujet->sujet, ',') + 1;
+$nblignes = $user_studs->RecordCount();
+
+//si il n'y a pas suppression alors on peut afficher normalement le tableau
 
 
 //recuperation des donnes de la base
