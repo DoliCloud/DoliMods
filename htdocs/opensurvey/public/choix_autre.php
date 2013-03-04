@@ -59,6 +59,13 @@ if (file_exists('../bandeaux_local.php')) {
 
 include_once('../creation_sondage.php');
 
+
+/*
+ * View
+ */
+
+$form=new Form($db);
+
 $arrayofjs=array('/opensurvey/block_enter.js');
 $arrayofcss=array('/opensurvey/css/style.css');
 llxHeaderSurvey($langs->trans("OpenSurvey"), "", 0, 0, $arrayofjs, $arrayofcss);
@@ -88,7 +95,7 @@ else
 		for ($i = 0; $i < $_SESSION["nbrecases"] + 1; $i++) {
 			if (isset($_POST["choix"]) && issetAndNoEmpty($i, $_POST["choix"])) {
 				$toutchoix.=',';
-				$toutchoix.=str_replace(",", " ", htmlentities(html_entity_decode($_POST["choix"][$i], ENT_QUOTES, 'UTF-8'), ENT_QUOTES, 'UTF-8'));
+				$toutchoix.=str_replace(array(",","@"), " ", $_POST["choix"][$i]).(empty($_POST["typecolonne"][$i])?'':'@'.$_POST["typecolonne"][$i]);
 			}
 		}
 
@@ -129,8 +136,11 @@ else
 	$erreur_injection = false;
 	if (isset($_SESSION["nbrecases"])) {
 		for ($i = 0; $i < $_SESSION["nbrecases"]; $i++) {
-			if (isset($_POST["choix"]) && isset($_POST["choix"][$i])) {
-				$_SESSION["choix$i"]=htmlentities(html_entity_decode($_POST["choix"][$i], ENT_QUOTES, 'UTF-8'), ENT_QUOTES, 'UTF-8');
+			if (isset($_POST["choix"][$i])) {
+				$_SESSION["choix$i"]=$_POST["choix"][$i];
+			}
+			if (isset($_POST["typecolonne"][$i])) {
+				$_SESSION["typecolonne$i"]=$_POST["typecolonne"][$i];
 			}
 		}
 	} else { //nombre de cases par défaut
@@ -140,9 +150,6 @@ else
 	if (isset($_POST["ajoutcases"]) || isset($_POST["ajoutcases_x"])) {
 		$_SESSION["nbrecases"]=$_SESSION["nbrecases"]+5;
 	}
-
-	print_header();
-	echo '<body>'."\n";
 
 	echo '<form name="formulaire" action="#bas" method="POST" onkeypress="javascript:process_keypress(event)">'."\n";
 	bandeau_titre($langs->trans("CreatePoll")." (2 / 2)");
@@ -157,19 +164,17 @@ else
 		if (isset($_SESSION["choix$i"]) === false) {
 			$_SESSION["choix$i"] = '';
 		}
-		echo '<tr><td>'. _("Choice") .' '.$j.' : </td><td><input type="text" name="choix[]" size="40" maxlength="40" value="'.str_replace("\\","",$_SESSION["choix$i"]).'" id="choix'.$i.'"></td></tr>'."\n";
+		echo '<tr><td>'. $langs->trans("TitleChoice") .' '.$j.' : </td><td><input type="text" name="choix[]" size="40" maxlength="40" value="'.dol_escape_htmltag($_SESSION["choix$i"]).'" id="choix'.$i.'">';
+		$tmparray=array('checkbox'=>$langs->trans("CheckBox"),'yesno'=>$langs->trans("YesNoList"),'pourcontre'=>$langs->trans("PourContreList"));
+		print ' &nbsp; '.$langs->trans("Type").' '.$form->selectarray("typecolonne[]", $tmparray, $_SESSION["typecolonne$i"]);
+		echo '</td></tr>'."\n";
 	}
 
 	echo '</table>'."\n";
 
-	//focus javascript sur premiere case
-	echo '<script type="text/javascript">'."\n";
-	echo 'document.formulaire.choix0.focus();'."\n";
-	echo '</script>'."\n";
-
 	//ajout de cases supplementaires
 	echo '<table><tr>'."\n";
-	echo '<td>'. _("5 choices more") .'</td><td><input type="image" name="ajoutcases" value="Retour" src="images/add-16.png"></td>'."\n";
+	echo '<td>'. $langs->trans("5 choices more") .'</td><td><input type="image" name="ajoutcases" value="Retour" src="images/add-16.png"></td>'."\n";
 	echo '</tr></table>'."\n";
 	echo'<br>'."\n";
 
@@ -187,7 +192,7 @@ else
 
 	//message d'erreur si aucun champ renseigné
 	if ($testremplissage != "ok" && (isset($_POST["fin_sondage_autre"]) || isset($_POST["fin_sondage_autre_x"]))) {
-		print "<br><font color=\"#FF0000\">" . _("Enter at least one choice") . "</font><br><br>"."\n";
+		print "<br><font color=\"#FF0000\">" . $langs->trans("Enter at least one choice") . "</font><br><br>"."\n";
 		$erreur = true;
 	}
 
@@ -208,11 +213,11 @@ else
 		echo _("Removal date (optional)") .' : <input type="text" name="champdatefin" value="'.$date_selected.'" size="10" maxlength="10"> '. _("(DD/MM/YYYY)") ."\n";
 		echo '</div>'."\n";
 		echo '<div class=presentationdatefin>'."\n";
-		echo '<font color=#FF0000>'. _("Once you have confirmed the creation of your poll, you will be automatically redirected on the page of your poll. <br><br>Then, you will receive quickly an email contening the link to your poll for sending it to the voters.") .'</font>'."\n";
+		echo '<font color=#FF0000>'. $langs->trans("InfoAfterCreate") .'</font>'."\n";
 		echo '</div>'."\n";
 		echo '<br>'."\n";
 		echo '<table>'."\n";
-		echo '<tr><td>'. _("Create the poll") .'</td><td><input type="image" name="confirmecreation" value="Valider la cr&eacute;ation"i src="images/add.png"></td></tr>'."\n";
+		echo '<tr><td>'. $langs->trans("CreatePoll") .'</td><td><input type="image" name="confirmecreation" src="images/add.png"></td></tr>'."\n";
 		echo '</table>'."\n";
 	}
 

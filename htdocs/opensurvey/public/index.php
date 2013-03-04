@@ -80,7 +80,7 @@ llxHeaderSurvey($langs->trans("OpenSurvey"), "", 0, 0, $arrayofjs, $arrayofcss);
 print '<center>
 <form name="formulaire" action="infos_sondage.php" method="POST">
 <div id="interface-header" style="">
-<p id="application-description" class="pp-gris-fonce2">Service en ligne permettant de planifier un rendez-vous rapidement et simplement. Aucune inscription préalable n\'est nécessaire.</p><br>
+<p id="application-description" class="pp-gris-fonce2">'.$langs->trans("OpenSurveyDesc").' '.$langs->trans("OpenSurveyNoRegistration").'</p><br>
 </div>'.$langs->trans("OrganizeYourMeetingEasily").'
 <div class="corps">
 <br>

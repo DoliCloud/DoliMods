@@ -205,7 +205,7 @@ if (!is_error(NO_POLL) && (isset($_POST["boutonp"]) || isset($_POST["boutonp_x"]
 
 /*
  * View
-*/
+ */
 
 $arrayofjs=array('/opensurvey/block_enter.js');
 $arrayofcss=array('/opensurvey/css/style.css');
@@ -336,7 +336,8 @@ $user_studs = $connect->Execute($sql, array($numsondage));
 $toutsujet = explode(",",$dsondage->sujet);
 
 //si le sondage est un sondage de date
-if ($dsondage->format=="D"||$dsondage->format=="D+") {
+if ($dsondage->format=="D"||$dsondage->format=="D+")
+{
 	//affichage des sujets du sondage
 	echo '<tr>'."\n";
 	echo '<td></td>'."\n";
@@ -423,15 +424,19 @@ if ($dsondage->format=="D"||$dsondage->format=="D+") {
 
 		echo '</tr>'."\n";
 	}
-} else {
+}
+else
+{
 	$toutsujet=str_replace("°","'",$toutsujet);
 
 	//affichage des sujets du sondage
 	echo '<tr>'."\n";
 	echo '<td></td>'."\n";
 
-	for ($i=0; isset($toutsujet[$i]); $i++) {
-		echo '<td class="sujet">'.$toutsujet[$i].'</td>'."\n";
+	for ($i=0; isset($toutsujet[$i]); $i++)
+	{
+		$tmp=explode('@',$toutsujet[$i]);
+		echo '<td class="sujet">'.$tmp[0].'</td>'."\n";
 	}
 
 	echo '</tr>'."\n";

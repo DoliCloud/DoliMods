@@ -57,27 +57,13 @@ include_once('./variables.php');
 include_once('./fonctions.php');
 include_once('./bandeaux.php');
 
-// Ce fichier index.php se trouve dans le sous-repertoire ADMIN de Studs. Il sert à afficher l'intranet de studs
-// pour modifier les sondages directement sans avoir reçu les mails. C'est l'interface d'aministration
-// de l'application.
+$action=GETPOST('action');
 
 
-// Affichage des balises standards
-/*echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">'."\n";
- echo '<html>'."\n";
-echo '<head>'."\n";
-echo '<meta http-equiv="Content-Type" content="text/html; charset=utf-8">'."\n";
-echo '<title>ADMINISTRATEUR de la base '.NOMAPPLICATION.'</title>'."\n";
-echo '<link rel="stylesheet" type="text/css" href="../style.css">'."\n";
-echo '</head>'."\n";
-echo '<body>'."\n";
+/*
+ * View
+ */
 
-//Affichage des bandeaux et début du formulaire
-logo();
-bandeau_tete();
-bandeau_titre(_("Polls administrator"));
-sous_bandeau_admin();
-*/
 $langs->load("opensurvey@opensurvey");
 llxHeader();
 
@@ -130,7 +116,7 @@ echo $langs->trans("NoSurveysInDatabase",$nbsondages).'<br><br>'."\n";
 
 // tableau qui affiche tous les sondages de la base
 echo '<table class="liste">'."\n";
-echo '<tr class="liste_titre"><td>'. _("Poll ID") .'</td><td>'. _("Format") .'</td><td>'. _("Title") .'</td><td>'. _("Author") .'</td><td align="center">'. _("Expiration's date") .'</td><td>'. _("Users") .'</td><td colspan=2>&nbsp;</td>'."\n";
+echo '<tr class="liste_titre"><td>'. $langs->trans("Survey").'</td><td>'. $langs->trans("Type") .'</td><td>'. $langs->trans("Title") .'</td><td>'. $langs->trans("Author") .'</td><td align="center">'. $langs->trans("ExpireDate") .'</td><td align="center">'. $langs->trans("NbOfVoters") .'</td><td colspan=2>&nbsp;</td>'."\n";
 
 $i = 0; $var = true;
 while($dsondage = $sondage->FetchNextObject(false))
@@ -145,15 +131,15 @@ while($dsondage = $sondage->FetchNextObject(false))
 	$var=!$var;
 	echo '<tr '.$bc[$var].'>';
 	print '<td>';
-	print '<a href="'.dol_buildpath('/opensurvey/adminstuds.php',1).'?sondage='.$dsondage->id_sondage_admin.'">'.$dsondage->id_sondage.'</a>';
+	print '<a href="'.dol_buildpath('/opensurvey/adminstuds.php',1).'?sondage='.$dsondage->id_sondage_admin.'">'.img_picto('','object_opensurvey@opensurvey').' '.$dsondage->id_sondage.'</a>';
 	print '</td><td>'.$dsondage->format.'</td><td>'.$dsondage->titre.'</td><td>'.$dsondage->nom_admin.'</td>';
 
 	echo '<td align="center">'.dol_print_date($db->jdate($dsondage->date_fin),'day');
 	if (strtotime($dsondage->date_fin) < time()) { print ' '.img_warning(); }
 	echo '</td>';
 
-	echo'<td>'.$nbuser.'</td>'."\n";
-	echo '<td align="right"><input type="submit" class="button" name="supprimersondage'.$i.'" value="'. _("Remove the poll") .'"></td>'."\n";
+	echo'<td align="center">'.$nbuser.'</td>'."\n";
+	echo '<td align="right"><a href="'.$_SERVER["PHP_SELF"].'?id='.$dsondage->id_sondage_admin.'&action=delete">'.img_picto('', 'delete.png').'</a></td>'."\n";
 
 	echo '</tr>'."\n";
 	$i++;

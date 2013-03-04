@@ -63,11 +63,13 @@ if (file_exists('./bandeaux_local.php')) {
 
 
 // Initialisation des variables
+$action=GETPOST('action');
 $numsondageadmin = false;
 $sondage = false;
 
 // recuperation du numero de sondage admin (24 car.) dans l'URL
-if (issetAndNoEmpty('sondage', $_GET) && is_string($_GET['sondage']) && strlen($_GET['sondage']) === 24) {
+if (issetAndNoEmpty('sondage', $_GET) && is_string($_GET['sondage']) && strlen($_GET['sondage']) === 24)
+{
 	$numsondageadmin=$_GET["sondage"];
 	//on découpe le résultat pour avoir le numéro de sondage (16 car.)
 	$numsondage=substr($numsondageadmin, 0, 16);
@@ -91,8 +93,8 @@ if (preg_match(";[\w\d]{24};i", $numsondageadmin)) {
 }
 
 //verification de l'existence du sondage, s'il n'existe pas on met une page d'erreur
-if (!$sondage || $sondage->RecordCount() != 1){
-
+if (!$sondage || $sondage->RecordCount() != 1)
+{
 	echo '<div class=corpscentre>'."\n";
 	print "<H2>" . _("This poll doesn't exist !") . "</H2><br><br>"."\n";
 	print "" . _("Back to the homepage of ") . " <a href=\"list.php\"> ".NOMAPPLICATION."</A>. "."\n";
@@ -105,6 +107,9 @@ if (!$sondage || $sondage->RecordCount() != 1){
 
 $dsujet=$sujets->FetchObject(false);
 $dsondage=$sondage->FetchObject(false);
+
+$nbcolonnes = substr_count($dsujet->sujet, ',') + 1;
+$nblignes = $user_studs->RecordCount();
 
 
 
@@ -136,33 +141,6 @@ if (isset($_POST["confirmesuppression"]) || isset($_POST["confirmesuppression_x"
 	exit();
 }
 
-
-
-
-
-/*
- * View
- */
-
-$form=new Form($db);
-
-$arrayofjs=array('/opensurvey/block_enter.js');
-$arrayofcss=array('/opensurvey/css/style.css');
-llxHeader('',$dsondage->titre, 0, 0, 0, 0, $arrayofjs, $arrayofcss);
-
-showlogo();
-
-
-//si la valeur du nouveau titre est valide et que le bouton est activé
-$adresseadmin = $dsondage->mail_admin;
-$headers_str = <<<EOF
-From: %s <%s>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-EOF;
-$headers = sprintf($headers_str, NOMAPPLICATION, ADRESSEMAILADMIN);
-
-
 if (isset($_POST["boutonnouveautitre"]) || isset($_POST["boutonnouveautitre_x"])) {
 	if(issetAndNoEmpty('nouveautitre') === false) {
 		$err |= TITLE_EMPTY;
@@ -172,7 +150,6 @@ if (isset($_POST["boutonnouveautitre"]) || isset($_POST["boutonnouveautitre_x"])
 		$sql = 'UPDATE '.MAIN_DB_PREFIX.'opensurvey_sondage SET titre = '.$connect->Param('nouveautitre').' WHERE id_sondage = '.$connect->Param('numsondage');
 		$sql = $connect->Prepare($sql);
 
-		//envoi du mail pour prevenir l'admin de sondage
 		$connect->Execute($sql, array($nouveautitre, $numsondage));
 	}
 }
@@ -207,96 +184,10 @@ if (isset($_POST["boutonnouvelleadresse"]) || isset($_POST["boutonnouvelleadress
 	}
 }
 
-// reload
-$dsujet=$sujets->FetchObject(false);
-$dsondage=$sondage->FetchObject(false);
-
-if (isset($_POST["ajoutsujet"]) || isset($_POST["ajoutsujet_x"])) {
-
-	//on recupere les données et les sujets du sondage
-	echo '<form name="formulaire" action="'.getUrlSondage($numsondageadmin, true).'" method="POST" onkeypress="javascript:process_keypress(event)">'."\n";
-
-	echo '<div class="center">'."\n";
-	echo "<br><br>"."\n";
-
-	// Add new column
-	if ($dsondage->format=="A"||$dsondage->format=="A+")
-	{
-		echo $langs->trans("AddNewColumn") .' :<br><br>';
-		echo $langs->trans("TitleChoice").' <input type="text" name="nouvellecolonne" size="40"><br>';
-		$tmparray=array('checkbox'=>$langs->trans("CheckBox"),'yesno'=>$langs->trans("YesNo"),'pourcontre'=>$langs->trans("PourContre"));
-		print $langs->trans("Type").' '.$form->selectarray("typecolonne", $tmparray, GETPOST('typecolonne')).'<br><br>';
-		print '<input type="submit" class="button" name="ajoutercolonne" value="'.dol_escape_htmltag($langs->trans("Add")).'">';
-		print '<br><br>'."\n";
-	}
-	else
-	{
-		//ajout d'une date avec creneau horaire
-		echo _("You can add a new scheduling date to your poll.<br> If you just want to add a new hour to an existant date, put the same date and choose a new hour.") .'<br><br> '."\n";
-		echo _("Add a date") .' :<br><br>'."\n";
-		echo '<select name="nouveaujour"> '."\n";
-		echo '<OPTION VALUE="vide"></OPTION>'."\n";
-		for ($i=1;$i<32;$i++){
-			echo '<OPTION VALUE="'.$i.'">'.$i.'</OPTION>'."\n";
-		}
-		echo '</SELECT>'."\n";
-
-		echo '<select name="nouveaumois"> '."\n";
-		echo '<OPTION VALUE="vide"></OPTION>'."\n";
-		for($i = 1; $i < 13; $i++) {
-			echo '<OPTION VALUE="'.$i.'">'.strftime('%B', mktime(0, 0, 0, $i)).'</OPTION>'."\n";
-		}
-		echo '</SELECT>'."\n";
-
-
-		echo '<select name="nouvelleannee"> '."\n";
-		echo '<OPTION VALUE="vide"></OPTION>'."\n";
-		for ($i = date("Y"); $i < (date("Y") + 5); $i++) {
-			echo '<OPTION VALUE="'.$i.'">'.$i.'</OPTION>'."\n";
-		}
-		echo '</SELECT>'."\n";
-		echo '<br><br>'. _("Add a start hour (optional)") .' : <br><br>'."\n";
-		echo '<select name="nouvelleheuredebut"> '."\n";
-		echo '<OPTION VALUE="vide"></OPTION>'."\n";
-		for ($i = 0; $i < 24; $i++) {
-			echo '<OPTION VALUE="'.$i.'">'.$i.' H</OPTION>'."\n";
-		}
-		echo '</SELECT>'."\n";
-		echo '<select name="nouvelleminutedebut"> '."\n";
-		echo '<OPTION VALUE="vide"></OPTION>'."\n";
-		echo '<OPTION VALUE="00">00</OPTION>'."\n";
-		echo '<OPTION VALUE="15">15</OPTION>'."\n";
-		echo '<OPTION VALUE="30">30</OPTION>'."\n";
-		echo '<OPTION VALUE="45">45</OPTION>'."\n";
-		echo '</SELECT>'."\n";
-		echo '<br><br>'. _("Add a end hour (optional)") .' : <br><br>'."\n";
-		echo '<select name="nouvelleheurefin"> '."\n";
-		echo '<OPTION VALUE="vide"></OPTION>'."\n";
-		for ($i = 0; $i < 24; $i++) {
-			echo '<OPTION VALUE="'.$i.'">'.$i.' H</OPTION>'."\n";
-		}
-		echo '</SELECT>'."\n";
-		echo '<select name="nouvelleminutefin"> '."\n";
-		echo '<OPTION VALUE="vide"></OPTION>'."\n";
-		echo '<OPTION VALUE="00">00</OPTION>'."\n";
-		echo '<OPTION VALUE="15">15</OPTION>'."\n";
-		echo '<OPTION VALUE="30">30</OPTION>'."\n";
-		echo '<OPTION VALUE="45">45</OPTION>'."\n";
-		echo '</SELECT>'."\n";
-
-		echo '<br><br><input type="image" name="retoursondage" value="Retourner au sondage" src="images/cancel.png"> '."\n";
-		echo' <input type="submit" class="button" name="ajoutercolonne" value="'.dol_escape_htmltag($langs->trans("Add")).'">'."\n";
-	}
-
-	echo '</form>'."\n";
-	echo '<br><br><br><br>'."\n";
-	echo '</div>'."\n";
-
-	exit;
-}
 
 // quand on ajoute un commentaire utilisateur
-if(isset($_POST['ajoutcomment']) || isset($_POST['ajoutcomment_x'])) {
+if (isset($_POST['ajoutcomment']) || isset($_POST['ajoutcomment_x']))
+{
 	if(issetAndNoEmpty('commentuser') === false) {
 		$err |= COMMENT_USER_EMPTY;
 	} else {
@@ -325,7 +216,8 @@ if(isset($_POST['ajoutcomment']) || isset($_POST['ajoutcomment_x'])) {
 
 
 //action si le bouton participer est cliqué
-if (isset($_POST["boutonp"]) || isset($_POST["boutonp_x"])) {
+if (isset($_POST["boutonp"]) || isset($_POST["boutonp_x"]))
+{
 	//si on a un nom dans la case texte
 	if (issetAndNoEmpty('nom')){
 		$nouveauchoix = '';
@@ -367,8 +259,8 @@ if (isset($_POST["ajoutercolonne"]) && issetAndNoEmpty('nouvellecolonne') && ($d
 
 	//on rajoute la valeur a la fin de tous les sujets deja entrés
 	$nouveauxsujets.=",";
-	$nouveauxsujets.=str_replace(","," ",$_POST["nouvellecolonne"]);
-	$nouveauxsujets = htmlentities(html_entity_decode($nouveauxsujets, ENT_QUOTES, 'UTF-8'), ENT_QUOTES, 'UTF-8');
+	$nouveauxsujets.=',';
+	$nouveauxsujets.=str_replace(array(",","@"), " ", $_POST["nouvellecolonne"]).(empty($_POST["typecolonne"])?'':'@'.$_POST["typecolonne"]);
 
 	//mise a jour avec les nouveaux sujets dans la base
 	$sql = 'UPDATE '.MAIN_DB_PREFIX.'opensurvey_sujet_studs SET sujet = '.$connect->Param('nouveauxsujets').' WHERE id_sondage = '.$connect->Param('numsondage');
@@ -385,7 +277,7 @@ if (isset($_POST["ajoutercolonne"]) && ($dsondage->format == "D" || $dsondage->f
 		isset($_POST["nouveaumois"]) && $_POST["nouveaumois"] != "vide" &&
 		isset($_POST["nouvelleannee"]) && $_POST["nouvelleannee"] != "vide") {
 
-		$nouvelledate=mktime(0, 0, 0, $_POST["nouveaumois"], $_POST["nouveaujour"], $_POST["nouvelleannee"]);
+		$nouvelledate=dol_mktime(0, 0, 0, $_POST["nouveaumois"], $_POST["nouveaujour"], $_POST["nouvelleannee"]);
 
 		if (isset($_POST["nouvelleheuredebut"]) && $_POST["nouvelleheuredebut"]!="vide"){
 			$nouvelledate.="@";
@@ -522,54 +414,11 @@ while ($dcomment = $comment_user->FetchNextObject(false)) {
 }
 
 
-//on teste pour voir si une ligne doit etre modifiée
-$testmodifier = false;
-$testligneamodifier = false;
-
-for ($i = 0; $i < $nblignes; $i++) {
-	if (isset($_POST["modifierligne$i"]) || isset($_POST['modifierligne'.$i.'_x'])) {
-		$ligneamodifier=$i;
-		$testligneamodifier="true";
-	}
-
-	//test pour voir si une ligne est a modifier
-	if (isset($_POST["validermodifier$i"]) || isset($_POST['validermodifier'.$i.'_x'])) {
-		$modifier=$i;
-		$testmodifier="true";
-	}
-}
-
-
-//si le test est valide alors on affiche des checkbox pour entrer de nouvelles valeurs
-if ($testmodifier) {
-	$nouveauchoix = '';
-	for ($i = 0; $i < $nbcolonnes; $i++) {
-		//recuperation des nouveaux choix de l'utilisateur
-		if (isset($_POST["choix$i"])) {
-			$nouveauchoix.="1";
-		} else {
-			$nouveauchoix.="0";
-		}
-	}
-
-	$compteur=0;
-
-	while ($data=$user_studs->FetchNextObject(false)) {
-		//mise a jour des données de l'utilisateur dans la base SQL
-		if ($compteur==$modifier) {
-			$sql = 'UPDATE '.MAIN_DB_PREFIX.'opensurvey_user_studs SET reponses = '.$connect->Param('reponses').' WHERE nom = '.$connect->Param('nom').' AND id_users = '.$connect->Param('id_users');
-			$sql = $connect->Prepare($sql);
-			$connect->Execute($sql, array($nouveauchoix, $data->nom, $data->id_users));
-		}
-
-		$compteur++;
-	}
-}
-
-
 //suppression de colonnes dans la base
-for ($i = 0; $i < $nbcolonnes; $i++) {
-	if ((isset($_POST["effacecolonne$i"]) || isset($_POST['effacecolonne'.$i.'_x'])) && $nbcolonnes > 1){
+for ($i = 0; $i < $nbcolonnes; $i++)
+{
+	if ((isset($_POST["effacecolonne$i"]) || isset($_POST['effacecolonne'.$i.'_x'])) && $nbcolonnes > 1)
+	{
 		$toutsujet = explode(",",$dsujet->sujet);
 		$j = 0;
 		$nouveauxsujets = '';
@@ -621,10 +470,162 @@ for ($i = 0; $i < $nbcolonnes; $i++) {
 
 
 
-
 /*
  * View
  */
+
+$form=new Form($db);
+
+$arrayofjs=array('/opensurvey/block_enter.js');
+$arrayofcss=array('/opensurvey/css/style.css');
+llxHeader('',$dsondage->titre, 0, 0, 0, 0, $arrayofjs, $arrayofcss);
+
+showlogo();
+
+
+//si la valeur du nouveau titre est valide et que le bouton est activé
+$adresseadmin = $dsondage->mail_admin;
+$headers_str = <<<EOF
+From: %s <%s>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+EOF;
+$headers = sprintf($headers_str, NOMAPPLICATION, ADRESSEMAILADMIN);
+
+
+
+// reload
+$dsujet=$sujets->FetchObject(false);
+$dsondage=$sondage->FetchObject(false);
+
+if (isset($_POST["ajoutsujet"]) || isset($_POST["ajoutsujet_x"])) {
+
+	//on recupere les données et les sujets du sondage
+	echo '<form name="formulaire" action="'.getUrlSondage($numsondageadmin, true).'" method="POST" onkeypress="javascript:process_keypress(event)">'."\n";
+
+	echo '<div class="center">'."\n";
+	echo "<br><br>"."\n";
+
+	// Add new column
+	if ($dsondage->format=="A"||$dsondage->format=="A+")
+	{
+		echo $langs->trans("AddNewColumn") .' :<br><br>';
+		echo $langs->trans("TitleChoice").' <input type="text" name="nouvellecolonne" size="40"><br>';
+		$tmparray=array('checkbox'=>$langs->trans("CheckBox"),'yesno'=>$langs->trans("YesNoList"),'pourcontre'=>$langs->trans("PourContreList"));
+		print $langs->trans("Type").' '.$form->selectarray("typecolonne", $tmparray, GETPOST('typecolonne')).'<br><br>';
+		print '<input type="submit" class="button" name="ajoutercolonne" value="'.dol_escape_htmltag($langs->trans("Add")).'">';
+		print '<br><br>'."\n";
+	}
+	else
+	{
+		//ajout d'une date avec creneau horaire
+		echo _("You can add a new scheduling date to your poll.<br> If you just want to add a new hour to an existant date, put the same date and choose a new hour.") .'<br><br> '."\n";
+		echo _("Add a date") .' :<br><br>'."\n";
+		echo '<select name="nouveaujour"> '."\n";
+		echo '<OPTION VALUE="vide"></OPTION>'."\n";
+		for ($i=1;$i<32;$i++){
+			echo '<OPTION VALUE="'.$i.'">'.$i.'</OPTION>'."\n";
+		}
+		echo '</SELECT>'."\n";
+
+		echo '<select name="nouveaumois"> '."\n";
+		echo '<OPTION VALUE="vide"></OPTION>'."\n";
+		for($i = 1; $i < 13; $i++) {
+			echo '<OPTION VALUE="'.$i.'">'.strftime('%B', mktime(0, 0, 0, $i)).'</OPTION>'."\n";
+		}
+		echo '</SELECT>'."\n";
+
+
+		echo '<select name="nouvelleannee"> '."\n";
+		echo '<OPTION VALUE="vide"></OPTION>'."\n";
+		for ($i = date("Y"); $i < (date("Y") + 5); $i++) {
+			echo '<OPTION VALUE="'.$i.'">'.$i.'</OPTION>'."\n";
+		}
+		echo '</SELECT>'."\n";
+		echo '<br><br>'. _("Add a start hour (optional)") .' : <br><br>'."\n";
+		echo '<select name="nouvelleheuredebut"> '."\n";
+		echo '<OPTION VALUE="vide"></OPTION>'."\n";
+		for ($i = 0; $i < 24; $i++) {
+			echo '<OPTION VALUE="'.$i.'">'.$i.' H</OPTION>'."\n";
+		}
+		echo '</SELECT>'."\n";
+		echo '<select name="nouvelleminutedebut"> '."\n";
+		echo '<OPTION VALUE="vide"></OPTION>'."\n";
+		echo '<OPTION VALUE="00">00</OPTION>'."\n";
+		echo '<OPTION VALUE="15">15</OPTION>'."\n";
+		echo '<OPTION VALUE="30">30</OPTION>'."\n";
+		echo '<OPTION VALUE="45">45</OPTION>'."\n";
+		echo '</SELECT>'."\n";
+		echo '<br><br>'. _("Add a end hour (optional)") .' : <br><br>'."\n";
+		echo '<select name="nouvelleheurefin"> '."\n";
+		echo '<OPTION VALUE="vide"></OPTION>'."\n";
+		for ($i = 0; $i < 24; $i++) {
+			echo '<OPTION VALUE="'.$i.'">'.$i.' H</OPTION>'."\n";
+		}
+		echo '</SELECT>'."\n";
+		echo '<select name="nouvelleminutefin"> '."\n";
+		echo '<OPTION VALUE="vide"></OPTION>'."\n";
+		echo '<OPTION VALUE="00">00</OPTION>'."\n";
+		echo '<OPTION VALUE="15">15</OPTION>'."\n";
+		echo '<OPTION VALUE="30">30</OPTION>'."\n";
+		echo '<OPTION VALUE="45">45</OPTION>'."\n";
+		echo '</SELECT>'."\n";
+
+		echo '<br><br><input type="image" name="retoursondage" value="Retourner au sondage" src="images/cancel.png"> '."\n";
+		echo' <input type="submit" class="button" name="ajoutercolonne" value="'.dol_escape_htmltag($langs->trans("Add")).'">'."\n";
+	}
+
+	echo '</form>'."\n";
+	echo '<br><br><br><br>'."\n";
+	echo '</div>'."\n";
+
+	exit;
+}
+
+
+//on teste pour voir si une ligne doit etre modifiée
+$testmodifier = false;
+$testligneamodifier = false;
+
+for ($i = 0; $i < $nblignes; $i++) {
+	if (isset($_POST["modifierligne$i"]) || isset($_POST['modifierligne'.$i.'_x'])) {
+		$ligneamodifier=$i;
+		$testligneamodifier="true";
+	}
+
+	//test pour voir si une ligne est a modifier
+	if (isset($_POST["validermodifier$i"]) || isset($_POST['validermodifier'.$i.'_x'])) {
+		$modifier=$i;
+		$testmodifier="true";
+	}
+}
+
+
+//si le test est valide alors on affiche des checkbox pour entrer de nouvelles valeurs
+if ($testmodifier) {
+	$nouveauchoix = '';
+	for ($i = 0; $i < $nbcolonnes; $i++) {
+		//recuperation des nouveaux choix de l'utilisateur
+		if (isset($_POST["choix$i"])) {
+			$nouveauchoix.="1";
+		} else {
+			$nouveauchoix.="0";
+		}
+	}
+
+	$compteur=0;
+
+	while ($data=$user_studs->FetchNextObject(false)) {
+		//mise a jour des données de l'utilisateur dans la base SQL
+		if ($compteur==$modifier) {
+			$sql = 'UPDATE '.MAIN_DB_PREFIX.'opensurvey_user_studs SET reponses = '.$connect->Param('reponses').' WHERE nom = '.$connect->Param('nom').' AND id_users = '.$connect->Param('id_users');
+			$sql = $connect->Prepare($sql);
+			$connect->Execute($sql, array($nouveauchoix, $data->nom, $data->id_users));
+		}
+
+		$compteur++;
+	}
+}
 
 
 echo '<div class="corps"> '."\n";
@@ -648,18 +649,13 @@ if ($dsondage->commentaires)
 echo '</div>'."\n";
 
 
-$nbcolonnes = substr_count($dsujet->sujet, ',') + 1;
-$nblignes = $user_studs->RecordCount();
-
-//si il n'y a pas suppression alors on peut afficher normalement le tableau
-
-
 //recuperation des donnes de la base
 $sql = 'SELECT * FROM '.MAIN_DB_PREFIX.'opensurvey_sondage WHERE id_sondage_admin = '.$connect->Param('numsondageadmin');
 $sql = $connect->Prepare($sql);
 $sondage = $connect->Execute($sql, array($numsondageadmin));
 
-if ($sondage !== false) {
+if ($sondage !== false)
+{
 	$sql = 'SELECT * FROM '.MAIN_DB_PREFIX.'opensurvey_sujet_studs WHERE id_sondage = '.$connect->Param('numsondage');
 	$sql = $connect->Prepare($sql);
 	$sujets = $connect->Execute($sql, array($numsondage));
@@ -667,21 +663,17 @@ if ($sondage !== false) {
 	$sql = 'SELECT * FROM '.MAIN_DB_PREFIX.'opensurvey_user_studs WHERE id_sondage = '.$connect->Param('numsondage').' order by id_users';
 	$sql = $connect->Prepare($sql);
 	$user_studs = $connect->Execute($sql, array($numsondage));
-} else {
-	print_header(false);
-	echo '<body>'."\n";
-	logo();
-	bandeau_tete();
-	bandeau_titre(_("Error!"));
+}
+else
+{
 	echo '<div class=corpscentre>'."\n";
 	print "<H2>" . _("This poll doesn't exist !") . "</H2><br><br>"."\n";
 	print "" . _("Back to the homepage of ") . " <a href=\"index.php\"> ".NOMAPPLICATION."</A>. "."\n";
 	echo '<br><br><br><br>'."\n";
 	echo '</div>'."\n";
-	bandeau_pied();
-	echo'</body>'."\n";
-	echo '</html>'."\n";
-	die();
+
+	llxFooterSurvey();
+	exit;
 }
 
 //on recupere les données et les sujets du sondage
@@ -715,8 +707,8 @@ for ($i = 0; isset($toutsujet[$i]); $i++) {
 echo '</tr>'."\n";
 
 //si le sondage est un sondage de date
-if ($dsondage->format=="D"||$dsondage->format=="D+") {
-
+if ($dsondage->format=="D"||$dsondage->format=="D+")
+{
 	//affichage des sujets du sondage
 	echo '<tr>'."\n";
 	echo '<td></td>'."\n";
@@ -834,7 +826,9 @@ if ($dsondage->format=="D"||$dsondage->format=="D+") {
 		echo '<td class="heure"><input type="image" name="ajoutsujet" src="'.dol_buildpath('/opensurvey/img/add-16.png',1).'"  alt="' . _('Add') . '"></td>'."\n";
 		echo '</tr>'."\n";
 	}
-} else {
+}
+else
+{
 	$toutsujet=str_replace("°","'",$toutsujet);
 
 	//affichage des sujets du sondage
@@ -842,8 +836,10 @@ if ($dsondage->format=="D"||$dsondage->format=="D+") {
 	echo '<td></td>'."\n";
 	echo '<td></td>'."\n";
 
-	for ($i = 0; isset($toutsujet[$i]); $i++) {
-		echo '<td class="sujet">'.$toutsujet[$i].'</td>'."\n";
+	for ($i = 0; isset($toutsujet[$i]); $i++)
+	{
+		$tmp=explode('@',$toutsujet[$i]);
+		echo '<td class="sujet">'.$tmp[0].'</td>'."\n";
 	}
 
 	echo '<td class="sujet"><input type="image" name="ajoutsujet" src="'.dol_buildpath('/opensurvey/img/add-16.png',1).'"  alt="' . _('Add') . '"></td>'."\n";
@@ -855,7 +851,8 @@ if ($dsondage->format=="D"||$dsondage->format=="D+") {
 $somme[] = 0;
 $compteur = 0;
 
-while ($data = $user_studs->FetchNextObject(false)) {
+while ($data = $user_studs->FetchNextObject(false))
+{
 	$ensemblereponses = $data->reponses;
 
 	echo '<tr>'."\n";
@@ -1144,13 +1141,23 @@ echo '<input type="submit" class="button" name="ajoutcomment" value="'.dol_escap
 
 dol_fiche_end();
 
-//suppression du sondage
-echo '<br>'."\n";
-echo $langs->trans("RemovePoll") .' : <input type="image" name="suppressionsondage" value="'. $langs->trans("RemovePoll") .'" src="'.dol_buildpath('/opensurvey/img/cancel.png',1).'" alt="' . _('Cancel') . '"><br><br>'."\n";
+/*
+ * Barre d'actions
+ */
+print '<div class="tabsAction">';
 
-if (isset($_POST["suppressionsondage"])) {
+if ($action != 'delete')
+{
+	print '<a class="butActionDelete" href="'.$_SERVER["PHP_SELF"].'?suppressionsondage=1&sondage='.$numsondageadmin.'&amp;action=delete"';
+	print '>'.$langs->trans('Delete').'</a>';
+}
+
+print '</div>';
+
+if ($action == 'delete')
+{
 	echo $langs->trans("ConfirmRemovalOfPoll") .' : <input type="submit" class="button" name="confirmesuppression" value="'. $langs->trans("RemovePoll") .'">'."\n";
-	echo '<input type="submit" class="button" name="annullesuppression" value="'. _("Keep this poll!") .'"><br><br>'."\n";
+	echo '<input type="submit" class="button" name="annullesuppression" value="'. $langs->trans("Cancel") .'"><br><br>'."\n";
 }
 
 echo '</form>'."\n";

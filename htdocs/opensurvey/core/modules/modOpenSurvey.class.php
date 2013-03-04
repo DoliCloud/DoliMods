@@ -55,7 +55,7 @@ class modOpenSurvey extends DolibarrModules
 		// Name of image file used for this module.
 		// If file is in theme/yourtheme/img directory under name object_pictovalue.png, use this->picto='pictovalue'
 		// If file is in module/img directory under name object_pictovalue.png, use this->picto='pictovalue@module'
-		$this->picto='opensurvey.gif@opensurvey';
+		$this->picto='opensurvey.png@opensurvey';
 
 		// Data directories to create when module is enabled
 		$this->dirs = array();
@@ -94,12 +94,22 @@ class modOpenSurvey extends DolibarrModules
 
 		// Add here list of permission defined by an id, a label, a boolean and two constant strings.
 		// Example:
-		$this->rights[$r][0] = 101251; 				// Permission id (must not be already used)
+		$this->rights[$r][0] = 101250; 				// Permission id (must not be already used)
 		$this->rights[$r][1] = 'Read surveys';	// Permission label
 		$this->rights[$r][2] = 'r'; 					// Permission by default for new user (0/1)
 		$this->rights[$r][3] = 0; 					// Permission by default for new user (0/1)
 		$this->rights[$r][4] = 'survey';				// In php code, permission will be checked by test if ($user->rights->permkey->level1->level2)
 		$this->rights[$r][5] = 'read';				// In php code, permission will be checked by test if ($user->rights->permkey->level1->level2)
+		$r++;
+
+		// Add here list of permission defined by an id, a label, a boolean and two constant strings.
+		// Example:
+		$this->rights[$r][0] = 101251; 				// Permission id (must not be already used)
+		$this->rights[$r][1] = 'Create/modify surveys';	// Permission label
+		$this->rights[$r][2] = 'w'; 					// Permission by default for new user (0/1)
+		$this->rights[$r][3] = 0; 					// Permission by default for new user (0/1)
+		$this->rights[$r][4] = 'survey';				// In php code, permission will be checked by test if ($user->rights->permkey->level1->level2)
+		$this->rights[$r][5] = 'write';				// In php code, permission will be checked by test if ($user->rights->permkey->level1->level2)
 		$r++;
 
 
