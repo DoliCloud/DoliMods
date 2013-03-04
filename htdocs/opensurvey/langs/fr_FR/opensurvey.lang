@@ -34,4 +34,4 @@ RemovePoll=Suppression du sondage
 PollManagement=Gestion du sondage
 BackToHoursSetup=Retour configuration heures
 UrlForSurvey=URL à communiquer pour accès direct au sondage:<br>%s
-PollOnChoice=Vous êtes en train de créer un sondage pour faire des choix sur différents sujets. D'abord, renseigner les sujets sur lesquels voter:
+PollOnChoice=Vous êtes en train de créer un sondage à choix multiples. Renseigner les différents choix possible de votre sondage:

@@ -233,22 +233,21 @@ $dsujet=$sujets->FetchObject(false);
 $dsondage=$sondage->FetchObject(false);
 
 if (isset($_POST["ajoutsujet"]) || isset($_POST["ajoutsujet_x"])) {
-	print_header(true);
-	echo '<body>'."\n";
-	logo();
-	bandeau_tete();
-	bandeau_titre(_("Make your polls"));
-	sous_bandeau();
 
 	//on recupere les données et les sujets du sondage
 	echo '<form name="formulaire" action="'.getUrlSondage($numsondageadmin, true).'" method="POST" onkeypress="javascript:process_keypress(event)">'."\n";
 
-	echo '<div class="corpscentre">'."\n";
-	echo "<H2>" . _("Column's adding") . "</H2><br><br>"."\n";
+	echo '<div class="center">'."\n";
+	echo "<H2>" . $langs->trans("AddColumn") . "</H2><br><br>"."\n";
 
-	if ($dsondage->format=="A"||$dsondage->format=="A+"){
-		echo _("Add a new column") .' :<br> <input type="text" name="nouvellecolonne" size="40"> <input type="image" name="ajoutercolonne" value="Ajouter une colonne" src="images/accept.png" alt="Valider"><br><br>'."\n";
-	} else {
+	if ($dsondage->format=="A"||$dsondage->format=="A+")
+	{
+		echo $langs->trans("AddNewColumn") .' :<br>';
+		echo ' <input type="text" name="nouvellecolonne" size="40"> ';
+		print '<input type="submit" class="button" name="ajoutercolonne" value="'.dol_escape_htmltag($langs->trans("Add")).'"><br><br>'."\n";
+	}
+	else
+	{
 		//ajout d'une date avec creneau horaire
 		echo _("You can add a new scheduling date to your poll.<br> If you just want to add a new hour to an existant date, put the same date and choose a new hour.") .'<br><br> '."\n";
 		echo _("Add a date") .' :<br><br>'."\n";
@@ -303,18 +302,14 @@ if (isset($_POST["ajoutsujet"]) || isset($_POST["ajoutsujet_x"])) {
 		echo '</SELECT>'."\n";
 
 		echo '<br><br><input type="image" name="retoursondage" value="Retourner au sondage" src="images/cancel.png"> '."\n";
-		echo' <input type="image" name="ajoutercolonne" value="Ajouter une colonne" src="images/accept.png" alt="Valider">'."\n";
+		echo' <input type="submit" class="button" name="ajoutercolonne" value="'.dol_escape_htmltag($langs->trans("Add")).'">'."\n";
 	}
 
 	echo '</form>'."\n";
 	echo '<br><br><br><br>'."\n";
 	echo '</div>'."\n";
 
-	bandeau_pied();
-
-	echo'</body>'."\n";
-	echo '</html>'."\n";
-	die();
+	exit;
 }
 
 // quand on ajoute un commentaire utilisateur
@@ -416,7 +411,7 @@ if (isset($_POST["boutonp"]) || isset($_POST["boutonp_x"])) {
 
 
 //action quand on ajoute une colonne au format AUTRE
-if (isset($_POST["ajoutercolonne_x"]) && issetAndNoEmpty('nouvellecolonne') && ($dsondage->format == "A" || $dsondage->format == "A+")) {
+if (isset($_POST["ajoutercolonne"]) && issetAndNoEmpty('nouvellecolonne') && ($dsondage->format == "A" || $dsondage->format == "A+")) {
 	$nouveauxsujets=$dsujet->sujet;
 
 	//on rajoute la valeur a la fin de tous les sujets deja entrés
@@ -427,19 +422,12 @@ if (isset($_POST["ajoutercolonne_x"]) && issetAndNoEmpty('nouvellecolonne') && (
 	//mise a jour avec les nouveaux sujets dans la base
 	$sql = 'UPDATE '.MAIN_DB_PREFIX.'opensurvey_sujet_studs SET sujet = '.$connect->Param('nouveauxsujets').' WHERE id_sondage = '.$connect->Param('numsondage');
 	$sql = $connect->Prepare($sql);
-	if ($connect->Execute($sql, array($nouveauxsujets, $numsondage))) {
-		//envoi d'un mail pour prévenir l'administrateur du changement
-		$headers="From: ".NOMAPPLICATION." <".ADRESSEMAILADMIN.">\r\nContent-Type: text/plain; charset=\"UTF-8\"\nContent-Transfer-Encoding: 8bit";
-		mail ("$adresseadmin", "" . _("[ADMINISTRATOR] New column for your poll").NOMAPPLICATION, "" .
-			_("You have added a new column in your poll. \nYou can inform the voters of this change with this link") .
-			" : \n\n".getUrlSondage($numsondage)." \n\n " . _("Thanks for your confidence.") . "\n".NOMAPPLICATION,
-			$headers);
-	}
+	$connect->Execute($sql, array($nouveauxsujets, $numsondage));
 }
 
 
 //action quand on ajoute une colonne au format DATE
-if (isset($_POST["ajoutercolonne_x"]) && ($dsondage->format == "D" || $dsondage->format == "D+")) {
+if (isset($_POST["ajoutercolonne"]) && ($dsondage->format == "D" || $dsondage->format == "D+")) {
 	$nouveauxsujets=$dsujet->sujet;
 
 	if (isset($_POST["nouveaujour"]) && $_POST["nouveaujour"] != "vide" &&
@@ -543,12 +531,6 @@ if (isset($_POST["ajoutercolonne_x"]) && ($dsondage->format == "D" || $dsondage-
 
 		//envoi d'un mail pour prévenir l'administrateur du changement
 		$adresseadmin = $dsondage->mail_admin;
-
-		mail ($adresseadmin,
-			_("[ADMINISTRATOR] New column for your poll"),
-			_("You have added a new column in your poll. \nYou can inform the voters of this change with this link").
-			" : \n\n".getUrlSondage($numsondage)." \n\n " . _("Thanks for your confidence.") . "\n".NOMAPPLICATION,
-			$headers);
 	} else {
 		$erreur_ajout_date="yes";
 	}
@@ -1104,35 +1086,27 @@ if (isset($meilleurecolonne) && $compteursujet == "1") {
 	print "<img src=\"".dol_buildpath('/opensurvey/img/medaille.png',1)."\" alt=\"Meilleur resultat\"> " . $langs->trans('TheBestChoices') . " : <b>$meilleursujet </b>" . $langs->trans("with") . " <b>$meilleurecolonne </b>" . $vote_str . ".<br>\n";
 }
 
-echo '<br><br>'."\n";
-echo '</p>'."\n";
+echo '<br>'."\n";
+
 echo '</form>'."\n";
 
-// Define $urlwithroot
-$urlwithouturlroot=preg_replace('/'.preg_quote(DOL_URL_ROOT,'/').'$/i','',trim($dolibarr_main_url_root));
-$urlwithroot=$urlwithouturlroot.DOL_URL_ROOT;		// This is to use external domain name found into config file
-//$urlwithroot=DOL_MAIN_URL_ROOT;					// This is to use same domain name than current
-
-$message='';
-$url=$urlwithouturlroot.dol_buildpath('/opensurvey/public/studs.php',1).'?sondage='.$numsondage;
-$urlvcal='<a href="'.$url.'" target="_blank">'.$url.'</a>';
-$message.=img_picto('','object_globe.png').' '.$langs->trans("UrlForSurvey",$urlvcal);
-
-print '<center>'.$message.'</center>';
-print '<br><br>';
 
 
 // Part of poll's management
 //---------------------------
 
-echo "\n<hr>\n\n";
+echo "\n<hr><br>\n\n";
+
+
+$s=$langs->trans("Survey") .' : '.$numsondage;
+//Gestion du sondage
+//echo '<div class=titregestionadmin>'. .')</div>'."\n";
 
 echo '<form name="formulaire4" action="#bas" method="POST" onkeypress="javascript:process_keypress(event)">'."\n";
 
-//Gestion du sondage
-echo '<div class=titregestionadmin>'. $langs->trans("PollManagement") .' :</div>'."\n";
-echo '<p class=affichageresultats>'."\n";
-echo '<br>'."\n";
+dol_fiche_head('','',$s);
+
+echo $langs->trans("Type").': '.$langs->trans(($dsondage->format=="A"||$dsondage->format=="A+")?"TypeClassic":"TypeDate").'<br><br>'."\n";
 
 //Changer le titre du sondage
 $adresseadmin=$dsondage->mail_admin;
@@ -1177,11 +1151,13 @@ if (isset($erreur_commentaire_vide) && $erreur_commentaire_vide=="yes") {
 }
 
 //affichage de la case permettant de rajouter un commentaire par les utilisateurs
-print '<div class="addcomment">' .$langs->trans("AddACommentForPoll") . "<br>\n";
+print $langs->trans("AddACommentForPoll") . "<br>\n";
 
 echo '<textarea name="comment" rows="2" cols="60"></textarea><br>'."\n";
 echo $langs->trans("Name") .' : <input type=text name="commentuser"><br>'."\n";
 echo '<input type="submit" class="button" name="ajoutcomment" value="'.dol_escape_htmltag($langs->trans("AddComment")).'"><br>'."\n";
+
+dol_fiche_end();
 
 //suppression du sondage
 echo '<br>'."\n";
@@ -1193,6 +1169,7 @@ if (isset($_POST["suppressionsondage"])) {
 }
 
 echo '</form>'."\n";
+
 
 /*
 if ($dsondage->format == "D" || $dsondage->format == "D+") {
@@ -1212,7 +1189,25 @@ if (isset($_POST["exportpdf_x"]) && !issetAndNoEmpty('lieureunion')) {
 }
 */
 
+echo '<br><ul class="exports">';
+echo '<li><img src="img/csv.png"/>'.'<a class="affichageexport" href="public/exportcsv.php?numsondage=' . $numsondage . '">'.$langs->trans("ExportSpreadsheet") .' (.CSV)' . '</a></li>';
+echo '</ul>';
+
+
+// Define $urlwithroot
+$urlwithouturlroot=preg_replace('/'.preg_quote(DOL_URL_ROOT,'/').'$/i','',trim($dolibarr_main_url_root));
+$urlwithroot=$urlwithouturlroot.DOL_URL_ROOT;		// This is to use external domain name found into config file
+//$urlwithroot=DOL_MAIN_URL_ROOT;					// This is to use same domain name than current
+
+$message='';
+$url=$urlwithouturlroot.dol_buildpath('/opensurvey/public/studs.php',1).'?sondage='.$numsondage;
+$urlvcal='<a href="'.$url.'" target="_blank">'.$url.'</a>';
+$message.=img_picto('','object_globe.png').' '.$langs->trans("UrlForSurvey",$urlvcal);
+
+print '<center>'.$message.'</center>';
+print '<br><br>';
+
+
 echo '<a name="bas"></a>'."\n";
-echo '<br><br>'."\n";
 
 llxFooterSurvey();

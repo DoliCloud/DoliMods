@@ -649,9 +649,7 @@ echo '</form>'."\n";
 // Focus javascript sur la case de texte du formulaire
 echo '</div>'."\n";
 
-echo '<br><ul class="exports">';
-echo '<li><img src="images/csv.png"/>'.'<a class="affichageexport" href="exportcsv.php?numsondage=' . $numsondage . '">'._("Export: Spreadsheet") .' (.CSV)' . '</a></li>';
-echo '</ul>';
+echo '<br><br>';
 
 
 // Define $urlwithroot
