@@ -68,7 +68,11 @@ function llxHeader($head = '', $title='', $help_url='', $target='', $disablejs=0
 		$numr = $db->num_rows($resql);
 		$i = 0;
 
-		if ($numr == 0)	$menu->add('#','NoModuleSetup',1,0);
+		if ($numr == 0)
+		{
+			$langs->load("errors");
+			$menu->add('#',$langs->trans('ErrorModuleSetupNotComplete'),1,0);
+		}
 
 		while ($i < $numr)
 		{
