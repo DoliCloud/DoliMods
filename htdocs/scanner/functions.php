@@ -57,7 +57,7 @@ function html_selectbox($name, $values, $selected=NULL, $attributes=array())
 		}
 	}
 
-	$output = '<select name="'.$name.'" id="'.$name.'"'.$attr_html.'>'."\n";
+	$output = '<select class="flat" name="'.$name.'" id="'.$name.'"'.$attr_html.'>'."\n";
 	if(is_array($values) && !empty($values))
 	{
 		foreach($values as $key=>$value)

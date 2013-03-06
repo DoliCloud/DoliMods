@@ -1,5 +1,5 @@
 <?php
-/* Copyright (C) 20010 Laurent Destailleur  <eldy@users.sourceforge.net>
+/* Copyright (C) 2013 Laurent Destailleur  <eldy@users.sourceforge.net>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -159,15 +159,18 @@ if (! preg_match('/linux/i',$os)) print ' disabled="disabled"';
 print " name=\"save\" class=\"button\" value=\"".$langs->trans("Save")."\">";
 print "</center>";
 
-print "</form>\n";
-
+print "</form><br>\n";
 
 clearstatcache();
+
+print info_admin($langs->trans("WarningWebServerUserMustBeAbleToRunCommands1"));
+print info_admin($langs->trans("WarningWebServerUserMustBeAbleToRunCommands2"));
+
 
 if ($mesg) print "<br>$mesg<br>";
 print "<br>";
 
-$db->close();
+llxFooter();
 
-llxFooter('$Date: 2011/03/29 23:17:21 $ - $Revision: 1.5 $');
+$db->close();
 ?>

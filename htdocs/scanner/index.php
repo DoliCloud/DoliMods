@@ -46,6 +46,8 @@ $langs->load("scanner@scanner");
 $lang_error='Error';
 $error_input=0;
 
+$tmplog = $conf->scanner->dir_temp.'/'.$user->id.'_scantmp.log';
+dol_delete_file($tmplog);
 
 if ($action == 'remove_file')
 {
@@ -153,11 +155,12 @@ if ($do_usr_opt)
 }
 
 $scan_yes='';
+$rescmd='';
 $cmd_device = '';
 $file_save = '';
 $file_save_image = 0;
 
-$cmd_scan=$SCANIMAGE." -d ".escapeshellarg(str_replace('"','',$scanner)).$cmd_geometry_l.$cmd_geometry_t.$cmd_geometry_x.$cmd_geometry_y.$cmd_mode.$cmd_resolution.$cmd_negative.$cmd_quality_cal.$cmd_brightness.$cmd_usr_opt;
+$cmd_scan=escapeshellcmd($SCANIMAGE)." -d ".escapeshellarg(str_replace('"','',$scanner)).$cmd_geometry_l.$cmd_geometry_t.$cmd_geometry_x.$cmd_geometry_y.$cmd_mode.$cmd_resolution.$cmd_negative.$cmd_quality_cal.$cmd_brightness.$cmd_usr_opt;
 
 if ($error_input == 0)
 {
@@ -165,7 +168,8 @@ if ($error_input == 0)
     if (GETPOST('actionpreview'))
     {
         $preview_images = $TMP_PREFIX."preview_".$sid.".jpg";
-        $cmd_device = $SCANIMAGE." -d ".escapeshellarg(str_replace('"','',$scanner))." --resolution ".$PREVIEW_DPI."dpi -l 0mm -t 0mm -x ".$PREVIEW_WIDTH_MM."mm -y ".$PREVIEW_HEIGHT_MM."mm".$cmd_mode.$cmd_negative.$cmd_quality_cal.$cmd_brightness.$cmd_usr_opt." | ".$PNMTOJPEG." --quality=50 > \"".$preview_images."\"";
+        $cmd_device = escapeshellcmd($SCANIMAGE)." -d ".escapeshellarg(str_replace('"','',$scanner))." --resolution ".$PREVIEW_DPI."dpi -l 0mm -t 0mm -x ".$PREVIEW_WIDTH_MM."mm -y ".$PREVIEW_HEIGHT_MM."mm".$cmd_mode.$cmd_negative.$cmd_quality_cal.$cmd_brightness.$cmd_usr_opt." 2> ".escapeshellarg(str_replace('"','',$tmplog))." | ".$PNMTOJPEG." --quality=50 > \"".$preview_images."\"";
+		//$cmd_device = escapeshellcmd($SCANIMAGE).' 2> '.escapeshellarg(str_replace('"','',$tmplog));
     }
 
     // scan
@@ -212,8 +216,11 @@ if ($cmd_device !== '')
     else
     {
 	    $out=array();
-	    $scan_yes=exec($cmd_device,$out);
-	    print $scan_yes."-".$cmd_device."-".join(',',$out);
+	    $return_var=0;
+	    $scan_yes=exec($cmd_device,$out,$return_var);
+	    $rescmd='Return: '.$return_var."\n".join(',',$out);
+	    $rescmd.=file_get_contents($tmplog);
+	    //print $scan_yes." | ".$cmd_device." | ".$rescmd;
     }
 }
 else
@@ -319,7 +326,7 @@ else
 
     print "<tr>\n";
     print "<td align=\"right\">\n";
-    print "<select name='pagesize' size=1>\n";
+    print '<select class="flat" name="pagesize" size="1">'."\n";
     print "<option value='0,0' onclick=\"setPageSize(this.form)\" selected>".$langs->trans("PageSize")."</option>\n";
     foreach ($PAGE_SIZE_LIST as $index => $page_values)
     {
@@ -335,14 +342,14 @@ else
 
     print "<tr>\n";
     print "<td align=\"right\">".$langs->trans("FileFormat")."&nbsp;";
-    print "<SELECT name=\"format\" size=\"1\">\n";
+    print '<select class="flat" name="format" size="1">'."\n";
     if($format=="jpg") $selected_1="selected"; else $selected_1="";
     if($format=="pnm") $selected_2="selected"; else $selected_2="";
     if($format=="tif") $selected_3="selected"; else $selected_3="";
     print "<option value=\"jpg\" $selected_1>Jpg\n";
     print "<option value=\"pnm\" $selected_2>Pnm\n";
     print "<option value=\"tif\" $selected_3>Tif\n";
-    print "</SELECT>\n";
+    print "</select>\n";
     print "</td>\n";
     print "</tr>\n";
 
@@ -432,9 +439,8 @@ print  '<hr>';
 
 if ($cmd_device)
 {
-
-    print  "# $cmd_device\n";
-
+    print  "# ".$cmd_device."<br>\n";
+    print dol_nl2br($rescmd);
     print  '<hr>';
 }
 
