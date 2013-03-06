@@ -8,3 +8,5 @@ PHPSANE_PNMTOTIFF=Outil PNM vers TIF (pnmtotiff)
 PHPSANE_OCR=Outil OCR (gocr)
 ScanArea=Zone à scanner
 ResolutionDPI=Résolution DPI
+WarningWebServerUserMustBeAbleToRunCommands1=Attention, l'utilisateur du serveur web doit avoir les droits pour exécuter la commande (vérifiez en ligne de commande).<br>En cas de problème, vérifiez les habilitations sur ces commandes et vérifier que le user apache n'ait pas besoin d'être dans le groupe <strong>scanner</strong>.
+WarningWebServerUserMustBeAbleToRunCommands2=Attention, PHP doit aussi avoir les droits pour exécuter ces commandes.<br>En cas de problèmes, vérifiez les paramètres PHP comme <strong>open_basedir, safe_dir</strong>.
