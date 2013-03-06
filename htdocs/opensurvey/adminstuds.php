@@ -480,6 +480,141 @@ $arrayofjs=array('/opensurvey/block_enter.js');
 $arrayofcss=array('/opensurvey/css/style.css');
 llxHeader('',$dsondage->titre, 0, 0, 0, 0, $arrayofjs, $arrayofcss);
 
+
+// Part of poll's management
+//---------------------------
+
+$s=$langs->trans("Survey");
+//Gestion du sondage
+//echo '<div class=titregestionadmin>'. .')</div>'."\n";
+
+echo '<form name="formulaire4" action="#bas" method="POST" onkeypress="javascript:process_keypress(event)">'."\n";
+
+$head = array();
+
+$head[0][0] = '';
+$head[0][1] = $langs->trans("Card");
+$head[0][2] = 'general';
+$h++;
+
+dol_fiche_head($head,'general',$s);
+
+echo $langs->trans("Ref").' : '.$numsondage."<br>\n";
+
+echo $langs->trans("Type").': '.$langs->trans(($dsondage->format=="A"||$dsondage->format=="A+")?"TypeClassic":"TypeDate").'<br><br>'."\n";
+
+//Changer le titre du sondage
+$adresseadmin=$dsondage->mail_admin;
+echo _("Change the title") .' :<br>' .
+	'<input type="text" name="nouveautitre" size="40" value="'.$dsondage->titre.'">'.
+	'<input type="submit" class="button" name="boutonnouveautitre" value="'.dol_escape_htmltag($langs->trans("Save")).'"><br><br>'."\n";
+
+//si la valeur du nouveau titre est invalide : message d'erreur
+if ((isset($_POST["boutonnouveautitre"]) || isset($_POST["boutonnouveautitre_x"])) && !issetAndNoEmpty('nouveautitre')) {
+	echo '<font color="#FF0000">'. _("Enter a new title!") .'</font><br><br>'."\n";
+}
+
+//Changer les commentaires du sondage
+echo $langs->trans("Description") .' :<br> <textarea name="nouveauxcommentaires" rows="7" cols="40">'.$dsondage->commentaires.'</textarea><br><input type="submit" class="button" name="boutonnouveauxcommentaires" value="'.dol_escape_htmltag($langs->trans("Save")).'"><br><br>'."\n";
+
+//Changer l'adresse de l'administrateur
+echo _("Change your email address") .' :<br> <input type="text" name="nouvelleadresse" size="40" value="'.$dsondage->mail_admin.'"> <input type="submit" class="button" name="boutonnouvelleadresse" value="'.dol_escape_htmltag($langs->trans("Save")).'"><br>'."\n";
+
+//si l'adresse est invalide ou le champ vide : message d'erreur
+if ((isset($_POST["boutonnouvelleadresse"]) || isset($_POST["boutonnouvelleadresse_x"])) && !issetAndNoEmpty('nouvelleadresse')) {
+	echo '<font color="#FF0000">'. _("Enter a new email address!") .'</font><br><br>'."\n";
+}
+
+//affichage des commentaires des utilisateurs existants
+$sql = 'SELECT * FROM '.MAIN_DB_PREFIX.'opensurvey_comments WHERE id_sondage='.$connect->Param('numsondage').' ORDER BY id_comment';
+$sql = $connect->Prepare($sql);
+$comment_user = $connect->Execute($sql, array($numsondage));
+if ($comment_user->RecordCount() != 0) {
+	print "<br><b>" . $langs->trans("CommentsOfVoters") . " :</b><br>\n";
+
+	$i = 0;
+	while ( $dcomment=$comment_user->FetchNextObject(false)) {
+		print '<input type="image" name="suppressioncomment'.$i.'" src="'.dol_buildpath('/opensurvey/img/cancel.png',1).'"> '.$dcomment->usercomment.' : '.$dcomment->comment." <br>";
+		$i++;
+	}
+
+	echo '<br>';
+}
+
+if (isset($erreur_commentaire_vide) && $erreur_commentaire_vide=="yes") {
+	print "<font color=#FF0000>" . _("Enter a name and a comment!") . "</font>";
+}
+
+//affichage de la case permettant de rajouter un commentaire par les utilisateurs
+print $langs->trans("AddACommentForPoll") . "<br>\n";
+
+echo '<textarea name="comment" rows="2" cols="60"></textarea><br>'."\n";
+echo $langs->trans("Name") .' : <input type=text name="commentuser"><br>'."\n";
+echo '<input type="submit" class="button" name="ajoutcomment" value="'.dol_escape_htmltag($langs->trans("AddComment")).'"><br>'."\n";
+
+dol_fiche_end();
+
+/*
+ * Barre d'actions
+ */
+print '<div class="tabsAction">';
+
+echo '<a class="butAction" href="public/exportcsv.php?numsondage=' . $numsondage . '">'.$langs->trans("ExportSpreadsheet") .' (.CSV)' . '</a>';
+
+if ($action != 'delete')
+{
+	print '<a class="butActionDelete" href="'.$_SERVER["PHP_SELF"].'?suppressionsondage=1&sondage='.$numsondageadmin.'&amp;action=delete"';
+	print '>'.$langs->trans('Delete').'</a>';
+}
+
+print '</div>';
+
+if ($action == 'delete')
+{
+	echo $langs->trans("ConfirmRemovalOfPoll") .' : <input type="submit" class="button" name="confirmesuppression" value="'. $langs->trans("RemovePoll") .'">'."\n";
+	echo '<input type="submit" class="button" name="annullesuppression" value="'. $langs->trans("Cancel") .'"><br><br>'."\n";
+}
+
+echo '</form>'."\n";
+
+
+/*
+if ($dsondage->format == "D" || $dsondage->format == "D+") {
+	echo '<form name="formulaire2" action="'.get_server_name().'exportpdf.php" method="POST" onkeypress="javascript:process_keypress(event)">'."\n";
+	echo _("Generate the convocation letter (.PDF), choose the place to meet and validate") .'<br>';
+	echo '<input type="text" name="lieureunion" size="100" value="" />';
+	echo '<input type="hidden" name="sondage" value="$numsondageadmin" />';
+	echo '<input type="hidden" name="meilleursujet" value="$meilleursujetexport" />';
+	echo '<input type="image" name="exportpdf" value="Export en PDF" src="'.dol_buildpath('/opensurvey/img/accept.png',1).'" alt="Export PDF"><br><br>';
+	echo '</form>'."\n";
+	// '<font color="#FF0000">'. _("Enter a meeting place!") .'</font><br><br>'."\n";
+}
+
+// TODO
+if (isset($_POST["exportpdf_x"]) && !issetAndNoEmpty('lieureunion')) {
+	echo '<font color="#FF0000">'. _("Enter a meeting place!") .'</font><br><br>'."\n";
+}
+*/
+
+
+// Define $urlwithroot
+$urlwithouturlroot=preg_replace('/'.preg_quote(DOL_URL_ROOT,'/').'$/i','',trim($dolibarr_main_url_root));
+$urlwithroot=$urlwithouturlroot.DOL_URL_ROOT;		// This is to use external domain name found into config file
+//$urlwithroot=DOL_MAIN_URL_ROOT;					// This is to use same domain name than current
+
+$message='';
+$url=$urlwithouturlroot.dol_buildpath('/opensurvey/public/studs.php',1).'?sondage='.$numsondage;
+$urlvcal='<a href="'.$url.'" target="_blank">'.$url.'</a>';
+$message.=img_picto('','object_globe.png').' '.$langs->trans("UrlForSurvey",$urlvcal);
+
+print $message;
+print '<br><br>';
+
+
+// ------------------------------
+print "\n<hr><br>\n";
+
+
 showlogo();
 
 
@@ -1041,8 +1176,11 @@ for ($i = 0; $i < $nbcolonnes; $i++) {
 			} else {
 				$meilleursujet .= dol_print_date($toutsujet[$i],'daytext'). ' ('.dol_print_date($toutsujet[$i],'%A').')';
 			}
-		} else {
-			$meilleursujet.=$toutsujet[$i];
+		}
+		else
+		{
+			$tmp=explode('@',$toutsujet[$i]);
+			$meilleursujet.=$tmp[0];
 		}
 
 		$compteursujet++;
@@ -1072,132 +1210,6 @@ echo '<br>'."\n";
 
 echo '</form>'."\n";
 
-
-
-// Part of poll's management
-//---------------------------
-
-echo "\n<hr><br>\n\n";
-
-
-$s=$langs->trans("Survey") .' : '.$numsondage;
-//Gestion du sondage
-//echo '<div class=titregestionadmin>'. .')</div>'."\n";
-
-echo '<form name="formulaire4" action="#bas" method="POST" onkeypress="javascript:process_keypress(event)">'."\n";
-
-dol_fiche_head('','',$s);
-
-echo $langs->trans("Type").': '.$langs->trans(($dsondage->format=="A"||$dsondage->format=="A+")?"TypeClassic":"TypeDate").'<br><br>'."\n";
-
-//Changer le titre du sondage
-$adresseadmin=$dsondage->mail_admin;
-echo _("Change the title") .' :<br>' .
-	'<input type="text" name="nouveautitre" size="40" value="'.$dsondage->titre.'">'.
-	'<input type="submit" class="button" name="boutonnouveautitre" value="'.dol_escape_htmltag($langs->trans("Save")).'"><br><br>'."\n";
-
-//si la valeur du nouveau titre est invalide : message d'erreur
-if ((isset($_POST["boutonnouveautitre"]) || isset($_POST["boutonnouveautitre_x"])) && !issetAndNoEmpty('nouveautitre')) {
-	echo '<font color="#FF0000">'. _("Enter a new title!") .'</font><br><br>'."\n";
-}
-
-//Changer les commentaires du sondage
-echo $langs->trans("Description") .' :<br> <textarea name="nouveauxcommentaires" rows="7" cols="40">'.$dsondage->commentaires.'</textarea><br><input type="submit" class="button" name="boutonnouveauxcommentaires" value="'.dol_escape_htmltag($langs->trans("Save")).'"><br><br>'."\n";
-
-//Changer l'adresse de l'administrateur
-echo _("Change your email address") .' :<br> <input type="text" name="nouvelleadresse" size="40" value="'.$dsondage->mail_admin.'"> <input type="submit" class="button" name="boutonnouvelleadresse" value="'.dol_escape_htmltag($langs->trans("Save")).'"><br>'."\n";
-
-//si l'adresse est invalide ou le champ vide : message d'erreur
-if ((isset($_POST["boutonnouvelleadresse"]) || isset($_POST["boutonnouvelleadresse_x"])) && !issetAndNoEmpty('nouvelleadresse')) {
-	echo '<font color="#FF0000">'. _("Enter a new email address!") .'</font><br><br>'."\n";
-}
-
-//affichage des commentaires des utilisateurs existants
-$sql = 'SELECT * FROM '.MAIN_DB_PREFIX.'opensurvey_comments WHERE id_sondage='.$connect->Param('numsondage').' ORDER BY id_comment';
-$sql = $connect->Prepare($sql);
-$comment_user = $connect->Execute($sql, array($numsondage));
-if ($comment_user->RecordCount() != 0) {
-	print "<br><b>" . $langs->trans("CommentsOfVoters") . " :</b><br>\n";
-
-	$i = 0;
-	while ( $dcomment=$comment_user->FetchNextObject(false)) {
-		print '<input type="image" name="suppressioncomment'.$i.'" src="'.dol_buildpath('/opensurvey/img/cancel.png',1).'"> '.$dcomment->usercomment.' : '.$dcomment->comment." <br>";
-		$i++;
-	}
-
-	echo '<br>';
-}
-
-if (isset($erreur_commentaire_vide) && $erreur_commentaire_vide=="yes") {
-	print "<font color=#FF0000>" . _("Enter a name and a comment!") . "</font>";
-}
-
-//affichage de la case permettant de rajouter un commentaire par les utilisateurs
-print $langs->trans("AddACommentForPoll") . "<br>\n";
-
-echo '<textarea name="comment" rows="2" cols="60"></textarea><br>'."\n";
-echo $langs->trans("Name") .' : <input type=text name="commentuser"><br>'."\n";
-echo '<input type="submit" class="button" name="ajoutcomment" value="'.dol_escape_htmltag($langs->trans("AddComment")).'"><br>'."\n";
-
-dol_fiche_end();
-
-/*
- * Barre d'actions
- */
-print '<div class="tabsAction">';
-
-if ($action != 'delete')
-{
-	print '<a class="butActionDelete" href="'.$_SERVER["PHP_SELF"].'?suppressionsondage=1&sondage='.$numsondageadmin.'&amp;action=delete"';
-	print '>'.$langs->trans('Delete').'</a>';
-}
-
-print '</div>';
-
-if ($action == 'delete')
-{
-	echo $langs->trans("ConfirmRemovalOfPoll") .' : <input type="submit" class="button" name="confirmesuppression" value="'. $langs->trans("RemovePoll") .'">'."\n";
-	echo '<input type="submit" class="button" name="annullesuppression" value="'. $langs->trans("Cancel") .'"><br><br>'."\n";
-}
-
-echo '</form>'."\n";
-
-
-/*
-if ($dsondage->format == "D" || $dsondage->format == "D+") {
-	echo '<form name="formulaire2" action="'.get_server_name().'exportpdf.php" method="POST" onkeypress="javascript:process_keypress(event)">'."\n";
-	echo _("Generate the convocation letter (.PDF), choose the place to meet and validate") .'<br>';
-	echo '<input type="text" name="lieureunion" size="100" value="" />';
-	echo '<input type="hidden" name="sondage" value="$numsondageadmin" />';
-	echo '<input type="hidden" name="meilleursujet" value="$meilleursujetexport" />';
-	echo '<input type="image" name="exportpdf" value="Export en PDF" src="'.dol_buildpath('/opensurvey/img/accept.png',1).'" alt="Export PDF"><br><br>';
-	echo '</form>'."\n";
-	// '<font color="#FF0000">'. _("Enter a meeting place!") .'</font><br><br>'."\n";
-}
-
-// TODO
-if (isset($_POST["exportpdf_x"]) && !issetAndNoEmpty('lieureunion')) {
-	echo '<font color="#FF0000">'. _("Enter a meeting place!") .'</font><br><br>'."\n";
-}
-*/
-
-echo '<br><ul class="exports">';
-echo '<li><img src="img/csv.png"/>'.'<a class="affichageexport" href="public/exportcsv.php?numsondage=' . $numsondage . '">'.$langs->trans("ExportSpreadsheet") .' (.CSV)' . '</a></li>';
-echo '</ul>';
-
-
-// Define $urlwithroot
-$urlwithouturlroot=preg_replace('/'.preg_quote(DOL_URL_ROOT,'/').'$/i','',trim($dolibarr_main_url_root));
-$urlwithroot=$urlwithouturlroot.DOL_URL_ROOT;		// This is to use external domain name found into config file
-//$urlwithroot=DOL_MAIN_URL_ROOT;					// This is to use same domain name than current
-
-$message='';
-$url=$urlwithouturlroot.dol_buildpath('/opensurvey/public/studs.php',1).'?sondage='.$numsondage;
-$urlvcal='<a href="'.$url.'" target="_blank">'.$url.'</a>';
-$message.=img_picto('','object_globe.png').' '.$langs->trans("UrlForSurvey",$urlvcal);
-
-print '<center>'.$message.'</center>';
-print '<br><br>';
 
 
 echo '<a name="bas"></a>'."\n";
