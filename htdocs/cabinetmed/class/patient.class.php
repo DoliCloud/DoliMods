@@ -238,7 +238,7 @@ class Patient extends Societe
             $sql .= ",fk_departement = '" . ($this->state_id?$this->state_id:'0') ."'";
             $sql .= ",fk_pays = '" . ($this->country_id?$this->country_id:'0') ."'";
 
-            $sql .= ",tel = ".($this->tel?"'".addslashes($this->tel)."'":"null");
+            $sql .= ",phone = ".($this->tel?"'".addslashes($this->tel)."'":"null");
             $sql .= ",fax = ".($this->fax?"'".addslashes($this->fax)."'":"null");
             $sql .= ",email = ".($this->email?"'".addslashes($this->email)."'":"null");
             $sql .= ",url = ".($this->url?"'".addslashes($this->url)."'":"null");
