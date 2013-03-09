@@ -276,8 +276,6 @@ if ($user->rights->nltechno->dolicloud->write)
 		if ($object->country_id)
 		{
 			$tmparray=getCountry($object->country_id,'all');
-			$object->pays_code    = $tmparray['code'];
-			$object->pays         = $tmparray['label'];
 			$object->country_code = $tmparray['code'];
 			$object->country      = $tmparray['label'];
 		}
@@ -453,8 +451,6 @@ if ($user->rights->nltechno->dolicloud->write)
 		if (isset($_POST["country_id"]) || $object->country_id)
 		{
 			$tmparray=getCountry($object->country_id,'all');
-			$object->pays_code    =	$tmparray['code'];
-			$object->pays         =	$tmparray['label'];
 			$object->country_code =	$tmparray['code'];
 			$object->country      =	$tmparray['label'];
 		}

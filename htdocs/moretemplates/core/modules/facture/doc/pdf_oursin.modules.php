@@ -90,7 +90,7 @@ class pdf_oursin extends ModelePDFFactures
 
 		// Recupere emmetteur
 		$this->emetteur=$mysoc;
-		if (! $this->emetteur->pays_code) $this->emetteur->pays_code=substr($langs->defaultlang,-2);    // Par defaut, si n'�tait pas d�fini
+		if (! $this->emetteur->country_code) $this->emetteur->country_code=substr($langs->defaultlang,-2);    // Par defaut, si n'�tait pas d�fini
 
 		// Defini position des colonnes
 		$this->posxdesc=$this->marge_gauche+1;
@@ -527,7 +527,7 @@ class pdf_oursin extends ModelePDFFactures
 		$pdf->SetFont('','', $default_font_size - 1);
 
 		// If France, show VAT mention if not applicable
-		if ($this->emetteur->pays_code == 'FR' && $this->franchise == 1)
+		if ($this->emetteur->country_code == 'FR' && $this->franchise == 1)
 		{
 			$pdf->SetFont('','B', $default_font_size - 2);
 			$pdf->SetXY($this->marge_gauche, $posy);

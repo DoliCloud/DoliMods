@@ -191,7 +191,7 @@ print $langs->trans("TTtopten");
 		print '<td >'.($listatoptenclientes[$i][0]->cantidad_facturas).'</td>';
 		print '<td >';
 		//var_dump($listatoptenclientes[$i][1]);
-		$codigo_pais=$listatoptenclientes[$i][1]->pays_code;
+		$codigo_pais=$listatoptenclientes[$i][1]->country_code;
 
 		if ($codigo_pais)
          {

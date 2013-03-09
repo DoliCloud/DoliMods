@@ -44,10 +44,8 @@ $soc=$GLOBALS['object'];
 
 $soc->client=1;
 
-$soc->nom=$_POST["nom"];          // deprecated
-$soc->prenom=$_POST["prenom"];    // deprecated
 $soc->lastname=$_POST["nom"];
-$soc->firstname=$_POST["prenom"];
+$soc->firstname=$_POST["firstname"];
 $soc->particulier=0;
 $soc->prefix_comm=$_POST["prefix_comm"];
 $soc->client=$_POST["client"]?$_POST["client"]:$soc->client;
@@ -56,10 +54,10 @@ $soc->fournisseur=$_POST["fournisseur"]?$_POST["fournisseur"]:$soc->fournisseur;
 $soc->code_fournisseur=$_POST["code_fournisseur"];
 $soc->adresse=$_POST["address"]; // TODO obsolete
 $soc->address=$_POST["address"];
-$soc->cp=$_POST["zipcode"];
-$soc->ville=$_POST["town"];
+$soc->zip=$_POST["zipcode"];
+$soc->town=$_POST["town"];
 $soc->state_id=$_POST["departement_id"];
-$soc->tel=$_POST["tel"];
+$soc->phone=$_POST["phone"];
 $soc->fax=$_POST["fax"];
 $soc->email=$_POST["email"];
 $soc->url=$_POST["url"];
@@ -100,8 +98,6 @@ if ($soc->country_id)
     {
         dol_print_error($db);
     }
-    $soc->pays_code=$obj->code;
-    $soc->pays=$obj->libelle;
     $soc->country_code=$obj->code;
     $soc->country=$obj->libelle;
 }
@@ -154,9 +150,9 @@ dol_htmloutput_errors($GOBALS['error'],$GLOBALS['errors']);
 <?php
         // Zip / Town
         print '<tr><td>'.$langs->trans('Zip').'</td><td>';
-        print $formcompany->select_ziptown($soc->cp,'zipcode',array('town','selectcountry_id','departement_id'),6);
+        print $formcompany->select_ziptown($soc->zip,'zipcode',array('town','selectcountry_id','departement_id'),6);
         print '</td><td>'.$langs->trans('Town').'</td><td>';
-        print $formcompany->select_ziptown($soc->ville,'town',array('zipcode','selectcountry_id','departement_id'));
+        print $formcompany->select_ziptown($soc->town,'town',array('zipcode','selectcountry_id','departement_id'));
         print '</td></tr>';
 
         // Country

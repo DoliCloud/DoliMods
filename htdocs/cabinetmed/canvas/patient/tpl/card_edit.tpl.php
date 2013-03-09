@@ -56,10 +56,8 @@ if ($_POST["nom"])
 {
     $soc->client=1;
 
-    $soc->nom=$_POST["nom"];           // deprecated
-    $soc->prenom=$_POST["prenom"];     // deprecated
     $soc->lastname=$_POST["nom"];
-    $soc->firstname=$_POST["prenom"];
+    $soc->firstname=$_POST["firstname"];
     $soc->particulier=0;
     $soc->prefix_comm=$_POST["prefix_comm"];
     $soc->client=$_POST["client"]?$_POST["client"]:$soc->client;
@@ -71,7 +69,7 @@ if ($_POST["nom"])
     $soc->zip=$_POST["zipcode"];
     $soc->town=$_POST["town"];
     $soc->state_id=$_POST["departement_id"];
-    $soc->tel=$_POST["tel"];
+    $soc->phone=$_POST["phone"];
     $soc->fax=$_POST["fax"];
     $soc->email=$_POST["email"];
     $soc->url=$_POST["url"];
@@ -101,8 +99,6 @@ if ($_POST["nom"])
     if ($soc->country_id)
     {
         $tmparray=getCountry($soc->country_id,'all');
-        $soc->pays_code   =$tmparray['code'];
-        $soc->pays        =$tmparray['label'];
         $soc->country_code=$tmparray['code'];
         $soc->country     =$tmparray['label'];
     }

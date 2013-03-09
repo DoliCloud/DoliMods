@@ -155,14 +155,14 @@ print $form->showrefnav($fuser,'id','',$user->rights->user->user->lire || $user-
 print '</td>';
 print '</tr>';
 
-// Nom
+// Lastname
 print '<tr><td width="25%" valign="top">'.$langs->trans("LastName").'</td>';
-print '<td colspan="2">'.$fuser->nom.'</td>';
+print '<td colspan="2">'.$fuser->lastname.'</td>';
 print "</tr>\n";
 
-// Prenom
+// Firstname
 print '<tr><td width="25%" valign="top">'.$langs->trans("FirstName").'</td>';
-print '<td colspan="2">'.$fuser->prenom.'</td>';
+print '<td colspan="2">'.$fuser->firstname.'</td>';
 print "</tr>\n";
 
 print '</table><br>';
