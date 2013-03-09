@@ -36,7 +36,7 @@ class ActionsMilestone
 	var $dao;
 	var $element='milestone';
 	var $table_element='milestone';
-	
+
 	// Id of module
 	var $module_number=1790;
 
@@ -44,15 +44,15 @@ class ActionsMilestone
 	var $label;
 	var $description;
 	var $priority;
-	
+
 	var $object;
 	var $objParent;
 	var $elementid;
 	var $elementtype;
-	
+
 	var $rang;
 	var $rangtouse;
-	
+
 	var $datec;
 	var $dateo;
 	var $datee;
@@ -63,14 +63,14 @@ class ActionsMilestone
 
 	/**
 	 *	Constructor
-	 * 
+	 *
 	 *	@param	DoliDB	$db		Database handler
 	 */
 	function __construct($db)
 	{
 		$this->db = $db;
 	}
-	
+
 	/**
 	 *
 	 */
@@ -80,23 +80,23 @@ class ActionsMilestone
 		{
 			$this->dao=new DaoMilestone($this->db);
 		}
-	
+
 		return $this->dao;
 	}
-	
+
 	/**
 	 *
 	 */
 	function selectMilestoneLines($object,$selected='',$htmlname='fk_parent_line')
 	{
 		global $langs;
-		
+
 		$langs->load('milestone@milestone');
-		
+
 		$milestones=array();
-		
+
 		$dao = $this->getInstanceDao();
-		
+
 		foreach($object->lines as $line)
 		{
 			if ($line->product_type == 9 && $line->special_code == $this->module_number)
@@ -104,7 +104,7 @@ class ActionsMilestone
 				$milestones[] = $line;
 			}
 		}
-		
+
 		if (empty($milestones))
 		{
 			$out = '<select id="select_'.$htmlname.'" class="flat" name="'.$htmlname.'" disabled="disabled">';
@@ -122,10 +122,10 @@ class ActionsMilestone
 			}
 		}
 		$out.= '</select>';
-		
+
 		return $out;
 	}
-	
+
 	/**
 	 *
 	 */
@@ -143,21 +143,21 @@ class ActionsMilestone
 			}
 		}
 		$out.= '</select>';
-		
+
 		return $out;
 	}
-	
+
 	/**
-	 * 
+	 *
 	 */
 	function formCreateProductOptions($parameters=false, &$object, &$action='')
 	{
 		global $langs;
-		
+
 		$out='';
-		
+
 		$langs->load('milestone@milestone');
-		
+
 		if (is_array($parameters) && ! empty($parameters))
 		{
 			foreach($parameters as $key=>$value)
@@ -165,24 +165,24 @@ class ActionsMilestone
 				$$key=$value;
 			}
 		}
-		
+
 		$out.= $langs->trans('AddTo').' '.$this->selectMilestoneLines($object,$selected);
 		$out.= '<br />';
-		
+
 		return $out;
 	}
-	
+
 	/**
-	 * 
+	 *
 	 */
 	function formEditProductOptions($parameters=false, &$object, &$action='')
 	{
 		global $langs;
-		
+
 		$out='';
-		
+
 		$langs->load('milestone@milestone');
-		
+
 		if (is_array($parameters) && ! empty($parameters))
 		{
 			foreach($parameters as $key=>$value)
@@ -190,25 +190,25 @@ class ActionsMilestone
 				$$key=$value;
 			}
 		}
-		
+
 		$out.= $langs->trans('MoveTo').' '.$this->selectMilestoneLines($object,$fk_parent_line);
 		$out.= '<br />';
-		
+
 		return $out;
 	}
 
 	/**
 	 * 	Return HTML form for add a milestone
 	 */
-	function formAddObject($parameters=false)
+	function formAddObjectLine($parameters=false)
 	{
 		global $conf, $langs, $user;
 		global $bcnd, $var;
-		
+
 		if ($user->rights->milestone->creer)
 		{
 			$langs->load('milestone@milestone');
-			
+
 			if (is_array($parameters) && ! empty($parameters))
 			{
 				foreach($parameters as $key=>$value)
@@ -216,11 +216,11 @@ class ActionsMilestone
 					$$key=$value;
 				}
 			}
-			
+
 			dol_include_once('/milestone/tpl/addmilestoneform.tpl.php');
 		}
 	}
-	
+
 	/**
 	 * 	Return HTML form for builddoc bloc
 	 */
@@ -228,11 +228,11 @@ class ActionsMilestone
 	{
 		global $conf, $langs;
 		global $bc, $var;
-		
+
 		$langs->load('milestone@milestone');
-		
+
 		$out='';
-		
+
 		if (is_array($parameters) && ! empty($parameters))
 		{
 			foreach($parameters as $key=>$value)
@@ -240,9 +240,9 @@ class ActionsMilestone
 				$$key=$value;
 			}
 		}
-		
+
 		$out.= '<input type="hidden" name="modulepart" value="' . $modulepart . '">';
-		
+
 		$checkedHideDetails = '';
 		$checkedHideDesc = '';
 		$tag = $modulepart . '_' . $id;
@@ -255,7 +255,7 @@ class ActionsMilestone
 		{
 			$checkedHideDetails = ($conf->global->MILESTONE_HIDE_PRODUCT_DETAILS ? ' checked="checked"' : '');
 		}
-		
+
 		if (isset($_SESSION['milestone_hidedesc_' . $tag]))
 		{
 			$checkedHideDesc = ($_SESSION['milestone_hidedesc_' . $tag] ? ' checked="checked"' : '');
@@ -264,29 +264,29 @@ class ActionsMilestone
 		{
 			$checkedHideDesc = ($conf->global->MILESTONE_HIDE_PRODUCT_DESC ? ' checked="checked"' : '');
 		}
-		
+
 		$out.= '<tr '.$bc[$var].'>';
 		$out.= '<td colspan="4"><input type="checkbox" name="hidedetails" value="2"' . $checkedHideDetails . ' /> '.$langs->trans('HideDetails').'</td>';
 		$out.= '</tr>';
 		$out.= '<tr '.$bc[$var].'>';
 		$out.= '<td colspan="4"><input type="checkbox" name="hidedesc" value="1"' . $checkedHideDesc . ' /> '.$langs->trans('HideDescription').'</td>';
 		$out.= '</tr>';
-		
+
 		return $out;
 	}
-	
+
 	/**
 	 * 	Return HTML with selected milestone
 	 * 	@param		object			Parent object
-	 * 	TODO mettre le html dans un template 
+	 * 	TODO mettre le html dans un template
 	 */
 	function printObjectLine($parameters=false, &$object, &$action='viewline', $hookmanager=false)
 	{
 		global $conf,$langs,$user;
 		global $form,$bc,$bcnd;
-		
+
 		$dao = $this->getInstanceDao();
-		
+
 		if (is_array($parameters) && ! empty($parameters))
 		{
 			foreach($parameters as $key=>$value)
@@ -294,9 +294,9 @@ class ActionsMilestone
 				$$key=$value;
 			}
 		}
-		
+
 		$return = $dao->fetch($object,$line);
-	
+
 		$element = $object->element;
 		// TODO uniformiser
 		if ($element == 'propal') $element = 'propale';
@@ -308,28 +308,28 @@ class ActionsMilestone
 
 			print '<td '.($showamount?'':'colspan="6"').'>';
 			print '<a name="'.$line->rowid.'"></a>'; // ancre pour retourner sur la ligne;
-			
+
 			$text = img_object($langs->trans('Milestone'),'milestone@milestone');
 			$text.= ' '.$dao->label.'<br>';
 			$description=($conf->global->PRODUIT_DESC_IN_FORM?'':dol_htmlentitiesbr($line->description));
 			print $form->textwithtooltip($text,$description,3,'','',$i);
-			
+
 			// Show range
 			//print_date_range($line->date_start,$line->date_end);
-			
+
 			// Add description in form
 			if ($conf->global->PRODUIT_DESC_IN_FORM)
 			{
 				print ($line->description?'<br>'.dol_htmlentitiesbr($line->description):'');
 			}
-			
+
 			print "</td>\n";
-			
+
 			// Icone d'edition et suppression
 			if ($object->statut == 0 && $user->rights->$element->creer)
 			{
 				$colspan='';
-				
+
 				if ($user->rights->milestone->creer)
 				{
 					print '<td align="center">';
@@ -342,7 +342,7 @@ class ActionsMilestone
 				{
 					print '<td>&nbsp;</td>';
 				}
-				
+
 				if ($user->rights->milestone->supprimer)
 				{
 					print '<td align="center">';
@@ -354,7 +354,7 @@ class ActionsMilestone
 				{
 					print '<td>&nbsp;</td>';
 				}
-				
+
 				if ($num > 1)
 				{
 					print '<td align="center" class="tdlineupdown">';
@@ -377,9 +377,9 @@ class ActionsMilestone
 			{
 				print '<td colspan="3">&nbsp;</td>';
 			}
-			
+
 			print '</tr>';
-			
+
 			$subtotal=0;
 			foreach($object->lines as $objectline)
 			{
@@ -389,7 +389,7 @@ class ActionsMilestone
 					$subtotal++;
 				}
 			}
-			
+
 			if ($subtotal)
 			{
 				print '<tr>';
@@ -399,7 +399,7 @@ class ActionsMilestone
 				print '</tr>';
 			}
 		}
-		
+
 		// Ligne en mode update
 		if ($object->statut == 0 && $action == 'editline' && $user->rights->$element->creer && $selected == $line->rowid)
 		{
@@ -410,7 +410,7 @@ class ActionsMilestone
 			print '<input type="hidden" name="lineid" value="'.$line->rowid.'">';
 			print '<input type="hidden" name="special_code" value="'.$line->special_code.'">';
 			print '<input type="hidden" name="product_type" value="'.$line->product_type.'">';
-			
+
 			// Label
 			print '<tr '.$bcnd[$var].'>';
 			print '<td colspan="5">';
@@ -419,37 +419,37 @@ class ActionsMilestone
 			print '<td align="center" colspan="4" rowspan="2" valign="center"><input type="submit" class="button" name="save" value="'.$langs->trans("Save").'">';
 			print '<br><input type="submit" class="button" name="cancel" value="'.$langs->trans("Cancel").'"></td>';
 			print '</tr>';
-			
+
 			// Description
 			print '<tr '.$bcnd[$var].'>';
 			print '<td colspan="5">';
-			
+
 			// Editor wysiwyg
 			require_once(DOL_DOCUMENT_ROOT."/core/class/doleditor.class.php");
 			$nbrows=ROWS_2;
 			if (! empty($conf->global->MAIN_INPUT_DESC_HEIGHT)) $nbrows=$conf->global->MAIN_INPUT_DESC_HEIGHT;
 			$doleditor=new DolEditor('description',$line->description,'',100,'dolibarr_details','',false,true,$conf->fckeditor->enabled && $conf->global->FCKEDITOR_ENABLE_DETAILS,$nbrows,70);
 			$doleditor->Create();
-			
+
 			print '</td>';
 			print '</tr>' . "\n";
-			
+
 			print "</form>\n";
 		}
 	}
-	
+
 	/**
 	 * 	Return HTML with origin selected milestone
 	 * 	@param		object			Parent object
-	 * 	TODO mettre le html dans un template 
+	 * 	TODO mettre le html dans un template
 	 */
 	function printOriginObjectLine($parameters=false, &$object, &$action='')
 	{
 		global $conf,$langs;
 		global $form, $bc;
-		
+
 		$dao = $this->getInstanceDao();
-		
+
 		if (is_array($parameters) && ! empty($parameters))
 		{
 			foreach($parameters as $key=>$value)
@@ -457,16 +457,16 @@ class ActionsMilestone
 				$$key=$value;
 			}
 		}
-		
+
 		$return = $dao->fetch($object,$line);
-		
+
 		print '<tr '.$bc[$var].'><td colspan="6">';
 		$text = img_object($langs->trans('Milestone'),'milestone@milestone');
 		$text.= ' '.$dao->label.'<br>';
 		$description=($conf->global->PRODUIT_DESC_IN_FORM?'':dol_htmlentitiesbr($line->desc));
 		print $form->textwithtooltip($text,$description,3,'','',$i);
 		print "</td></tr>\n";
-		
+
 		$subtotal=0;
 		foreach($object->lines as $objectline)
 		{
@@ -476,7 +476,7 @@ class ActionsMilestone
 				$subtotal++;
 			}
 		}
-		
+
 		if ($subtotal)
 		{
 			print "\n".'<tr>';
@@ -486,7 +486,7 @@ class ActionsMilestone
 			print '</tr>'."\n";
 		}
 	}
-	
+
 	/**
 	 * 	Return action of hook
 	 * 	@param		object			Linked object
@@ -494,9 +494,9 @@ class ActionsMilestone
 	function doActions($parameters=false, &$object, &$action='')
 	{
 		global $conf,$user,$langs;
-		
+
 		$dao = $this->getInstanceDao();
-		
+
 		if (is_array($parameters) && ! empty($parameters))
 		{
 			foreach($parameters as $key=>$value)
@@ -522,16 +522,16 @@ class ActionsMilestone
 				$this->error = '<div class="error">'.$langs->trans("ErrorMilestoneFieldRequired",$langs->transnoentities("Label")).'</div>';
 				$error++;
 			}
-			
+
 			if (! $error)
-			{	
+			{
 				$id = (GETPOST("id") ? GETPOST("id") : GETPOST("facid"));
 
 				$object->fetch($id);
-				
+
 				$linemax = $object->line_max();
 				$rangtouse = $linemax+1;
-				
+
 				$dao->objParent	= $object;
 				$dao->label 		= GETPOST('milestone_label');
 				$dao->description	= GETPOST('milestone_desc');
@@ -550,31 +550,31 @@ class ActionsMilestone
 				}
 			}
 		}
-		
+
 		/*
 		 * 	Update Milestone
 		 */
 		if ($action == 'updatemilestone' && $user->rights->milestone->creer && $user->rights->$element->creer && $_POST["save"] == $langs->trans("Save"))
 		{
 			$id = GETPOST("id")?GETPOST("id"):GETPOST("facid");
-			
+
 			if (! $object->fetch($id) > 0)
 			{
 				dol_print_error($db,$object->error);
 				exit;
 			}
-			
+
 			$object->fetch_thirdparty();
-			
+
 			$dao->objParent	= $object;
 			$dao->id			= GETPOST('lineid');
 			$dao->label 		= GETPOST('label');
 			$dao->description	= GETPOST('description');
 			$dao->product_type	= GETPOST('product_type');
 			$dao->special_code	= GETPOST('special_code');
-		
+
 			$res = $dao->update($user);
-			
+
 			// Define output language
 			$outputlangs = $langs;
 			$newlang='';
@@ -587,17 +587,17 @@ class ActionsMilestone
 			}
 			//propale_pdf_create($db, $propal->id, $propal->modelpdf, $outputlangs);
 		}
-		
+
 		// Remove line
 		if ($action == 'confirm_deletemilestone' && GETPOST('confirm') == 'yes' && $user->rights->milestone->creer && $user->rights->$element->creer)
 		{
 			$id = GETPOST("id")?GETPOST("id"):GETPOST("facid");
-			
+
 			$object->fetch($id);
 			$object->fetch_thirdparty();
-			
+
 			$dao->objParent	= $object;
-			
+
 			if ($dao->delete(GETPOST('lineid')))
 			{
 				// delete childs
@@ -608,11 +608,11 @@ class ActionsMilestone
 						$ret = $object->deleteline($line->rowid);
 					}
 				}
-				
+
 				// reorder lines
 				$object->line_order(true);
 			}
-				
+
 			// Define output language
 			$outputlangs = $langs;
 			$newlang='';
@@ -624,18 +624,18 @@ class ActionsMilestone
 				$outputlangs->setDefaultLang($newlang);
 			}
 			//propale_pdf_create($db, $propal->id, $propal->modelpdf, $outputlangs);
-			
+
 			if ($object->element != 'facture') Header ('Location: '.$_SERVER["PHP_SELF"].'?id='.$object->id);
 			else Header ('Location: '.$_SERVER["PHP_SELF"].'?facid='.$object->id);
 
 			exit;
 		}
-		
+
 		// Builddoc options
 		if ($action == 'builddoc')
 		{
 			$tag = GETPOST('modulepart') . '_' . (GETPOST('facid') ? GETPOST('facid') : GETPOST('id'));
-			
+
 			if (GETPOST('hidedetails'))
 			{
 				$_SESSION['milestone_hidedetails_' . $tag] = true;
@@ -644,7 +644,7 @@ class ActionsMilestone
 			{
 				$_SESSION['milestone_hidedetails_' . $tag] = false;
 			}
-			
+
 			if (GETPOST('hidedesc'))
 			{
 				$_SESSION['milestone_hidedesc_' . $tag] = true;
@@ -655,10 +655,10 @@ class ActionsMilestone
 			}
 		}
 	}
-	
+
 	/**
 	 * 	Form confirm
-	 * 
+	 *
 	 *	@param	array	$parameters		Extra parameters
 	 *	@param	object	$object			Object
 	 *	@param	string	$action			Type of action
@@ -668,9 +668,9 @@ class ActionsMilestone
 	{
 		global $langs;
 		global $form;
-		
+
 		$langs->load('milestone@milestone');
-		
+
 		if (is_array($parameters) && ! empty($parameters))
 		{
 			foreach($parameters as $key=>$value)
@@ -678,9 +678,9 @@ class ActionsMilestone
 				$$key=$value;
 			}
 		}
-		
+
 		$out='';
-		
+
 		/*
 		 * 	Delete milestone confirmation
 		 */
@@ -688,10 +688,10 @@ class ActionsMilestone
 		{
 			$out=$form->formconfirm($_SERVER["PHP_SELF"].'?id='.$object->id.'&lineid='.$lineid, $langs->trans('DeleteMilestone'), $langs->trans('ConfirmDeleteMilestone'), 'confirm_deletemilestone','',0,1);
 		}
-		
+
 		return $out;
 	}
-	
+
 	/**
 	 *	Return line description translated in outputlangs and encoded in UTF8
 	 *
@@ -703,7 +703,7 @@ class ActionsMilestone
 	function pdf_writelinedesc($parameters=false, &$object, &$action='')
 	{
 		$dao = $this->getInstanceDao();
-		
+
 		if (is_array($parameters) && ! empty($parameters))
 		{
 			foreach($parameters as $key=>$value)
@@ -711,24 +711,24 @@ class ActionsMilestone
 				$$key=$value;
 			}
 		}
-		
+
 		if ($object->lines[$i]->product_type == 9 && $object->lines[$i]->special_code == $this->module_number)
 		{
 			$dao->fetch($object, $object->lines[$i]);
-						
+
 			$pdf->SetXY ($posx, $posy-1);
 			$pdf->SetFillColor(230, 230, 230);
 			$pdf->MultiCell(200-$posx, $h+2.5, '', 0, '', 1);
-			
+
 			$pdf->SetXY ($posx, $posy);
 			$pdf->SetFont('', 'BU', 9);
 			$pdf->MultiCell($w, $h-2, $outputlangs->convToOutputCharset($dao->label), 0, 'L');
-			
+
 			$nexy = $pdf->GetY();
-			
+
 			$pdf->SetFont('', 'I', 9);
 			$description = dol_htmlentitiesbr($object->lines[$i]->desc, 1);
-			
+
 			if ($object->lines[$i]->date_start || $object->lines[$i]->date_end)
 	        {
 	        	// Show duration if exists
@@ -744,7 +744,7 @@ class ActionsMilestone
 	        	{
 	        		$period='('.$outputlangs->transnoentitiesnoconv('DateUntil',dol_print_date($object->lines[$i]->date_end, $format, false, $outputlangs)).')';
 	        	}
-	        	
+
 	        	$description.="<br>".dol_htmlentitiesbr($period, 1);
 	        }
 
@@ -752,7 +752,7 @@ class ActionsMilestone
 	        {
 	        	$pdf->writeHTMLCell($w, $h, $posx, $nexy+1, $outputlangs->convToOutputCharset($description), 0, 1);
 	        }
-			
+
 			$pdf->SetFont('', '', 9);
 		}
 		else
@@ -760,6 +760,7 @@ class ActionsMilestone
 			$labelproductservice='- '.pdf_getlinedesc($object, $i, $outputlangs, $hideref, $hidedesc, $issupplierline);
 			$pdf->writeHTMLCell($w, $h, $posx, $posy, $outputlangs->convToOutputCharset($labelproductservice), 0, 1);
 		}
+		return 1;
 	}
 
 	/**
@@ -787,7 +788,7 @@ class ActionsMilestone
 			return price($object->lines[$i]->total_ht);
 		}
 	}
-	
+
 	/**
 	 * 	Return line vat rate
 	 * 	@param		object				Object
@@ -803,13 +804,13 @@ class ActionsMilestone
 				$$key=$value;
 			}
 		}
-		
+
 		if (empty($hidedetails) && $object->lines[$i]->product_type != 9 && (empty($object->lines[$i]->special_code) || $object->lines[$i]->special_code == 3))
 		{
 			return vatrate($object->lines[$i]->tva_tx,1,$object->lines[$i]->info_bits);
 		}
 	}
-	
+
 	/**
 	 * 	Return line unit price excluding tax
 	 * 	@param		object				Object
@@ -825,13 +826,13 @@ class ActionsMilestone
 				$$key=$value;
 			}
 		}
-		
+
 		if (empty($hidedetails) && $object->lines[$i]->product_type != 9 && (empty($object->lines[$i]->special_code) || $object->lines[$i]->special_code == 3))
 		{
 			return price($object->lines[$i]->subprice);
 		}
 	}
-	
+
 	/**
 	 * 	Return line quantity
 	 * 	@param		object				Object
@@ -847,13 +848,13 @@ class ActionsMilestone
 				$$key=$value;
 			}
 		}
-		
+
 		if (empty($hidedetails) && $object->lines[$i]->product_type != 9 && empty($object->lines[$i]->special_code))
 		{
 			return $object->lines[$i]->qty;
 		}
 	}
-	
+
 	/**
 	 * 	Return line remise percent
 	 * 	@param		object				Object
@@ -869,13 +870,13 @@ class ActionsMilestone
 				$$key=$value;
 			}
 		}
-		
+
 		if (empty($hidedetails) && $object->lines[$i]->product_type != 9 && empty($object->lines[$i]->special_code))
 		{
 			return dol_print_reduction($object->lines[$i]->remise_percent,$outputlangs);
 		}
 	}
-	
+
 	/**
 	 *	Load an object from its id and create a new one in database
 	 *	@param      objFrom			From object
@@ -885,9 +886,9 @@ class ActionsMilestone
 	function createfrom($parameters=false,$object,$action='')
 	{
 		global $user;
-		
+
 		$dao = $this->getInstanceDao();
-		
+
 		if (is_array($parameters) && ! empty($parameters))
 		{
 			foreach($parameters as $key=>$value)
@@ -897,7 +898,7 @@ class ActionsMilestone
 		}
 
 		$error=0;
-		
+
 		if ((! empty($objFrom) && is_object($objFrom)) && ! empty($object->id) && ! empty($object->element))
 		{
 			$classname = ucfirst($object->element);
@@ -917,7 +918,7 @@ class ActionsMilestone
 				}
 			}
 		}
-		
+
 		if (! $error) return 1;
 		else return -1;
 	}
