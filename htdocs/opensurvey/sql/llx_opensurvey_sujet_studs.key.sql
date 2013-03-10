@@ -15,4 +15,4 @@
 -- along with this program. If not, see <http://www.gnu.org/licenses/>.
 -- ============================================================================
 
---		    FOREIGN KEY (id_sondage) REFERENCES sondage(id_sondage)
+ALTER TABLE llx_opensurvey_sujet_studs ADD INDEX idx_id_sondage id_sondage;

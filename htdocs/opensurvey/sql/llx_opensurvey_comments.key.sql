@@ -15,9 +15,8 @@
 -- along with this program. If not, see <http://www.gnu.org/licenses/>.
 -- ============================================================================
 
---
--- Name: comments; Type: TABLE;
---
+ALTER TABLE llx_opensurvey_comments ADD INDEX idx_id_comment id_comment;
+ALTER TABLE llx_opensurvey_comments ADD INDEX idx_id_sondage id_sondage;
 
---	     FOREIGN KEY (id_sondage) REFERENCES sondage(id_sondage) on delete cascade
+
 

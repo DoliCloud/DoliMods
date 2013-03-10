@@ -15,4 +15,5 @@
 -- along with this program. If not, see <http://www.gnu.org/licenses/>.
 -- ============================================================================
 
---	     FOREIGN KEY (id_sondage) REFERENCES sondage(id_sondage) on delete cascade
+ALTER TABLE llx_opensurvey_user_studs ADD INDEX idx_id_users id_users;
+ALTER TABLE llx_opensurvey_user_studs ADD INDEX idx_id_sondage id_sondage;

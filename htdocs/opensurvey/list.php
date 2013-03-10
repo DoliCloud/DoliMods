@@ -107,16 +107,14 @@ while($dsondage = $sondage->FetchNextObject(false))
 	$i++;
 }
 
-$sondage=$connect->Execute('select * from '.MAIN_DB_PREFIX.'opensurvey_sondage');
-$nbsondages=$sondage->RecordCount();
 
 print_fiche_titre($langs->trans("OpenSurveyArea"));
-
-echo $langs->trans("NoSurveysInDatabase",$nbsondages).'<br><br>'."\n";
 
 // tableau qui affiche tous les sondages de la base
 echo '<table class="liste">'."\n";
 echo '<tr class="liste_titre"><td>'. $langs->trans("Survey").'</td><td>'. $langs->trans("Type") .'</td><td>'. $langs->trans("Title") .'</td><td>'. $langs->trans("Author") .'</td><td align="center">'. $langs->trans("ExpireDate") .'</td><td align="center">'. $langs->trans("NbOfVoters") .'</td><td colspan=2>&nbsp;</td>'."\n";
+
+$sondage=$connect->Execute('select * from '.MAIN_DB_PREFIX.'opensurvey_sondage');
 
 $i = 0; $var = true;
 while($dsondage = $sondage->FetchNextObject(false))
@@ -149,3 +147,6 @@ echo '</table>'."\n";
 echo'</div>'."\n";
 
 llxFooter();
+
+$db->close();
+?>
