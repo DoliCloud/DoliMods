@@ -80,8 +80,8 @@ while($dsondage = $sondage->FetchNextObject(false))
 	if ($_POST["supprimersondage$i"])
 	{
 		echo '<table>'."\n";
-		echo '<tr><td bgcolor="#EE0000" colspan="11">'. _("Confirm removal of the poll ") .'"'.$dsondage->id_sondage.'" : <input type="submit" name="confirmesuppression'.$i.'" value="'. _("Remove this poll!") .'">'."\n";
-		echo '<input type="submit" name="annullesuppression" value="'. _("Keep this poll!") .'"></td></tr>'."\n";
+		echo '<tr><td bgcolor="#EE0000" colspan="11">'. _("Confirm removal of the poll ") .'"'.$dsondage->id_sondage.'" : <input type="submit" name="confirmesuppression'.$i.'" value="'. dol_escape_htmltag($langs->trans("RemovePoll")) .'">'."\n";
+		echo '<input type="submit" name="annullesuppression" value="'. dol_escape_htmltag($langs->trans("Cancel")) .'"></td></tr>'."\n";
 		echo '</table>'."\n";
 		echo '<br>'."\n";
 	}

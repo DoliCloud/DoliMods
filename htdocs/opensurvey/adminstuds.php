@@ -47,6 +47,7 @@ if (! $res && file_exists("../../../../../dolibarr/htdocs/main.inc.php")) $res=@
 if (! $res) die("Include of main fails");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/files.lib.php");
+dol_include_once("/opensurvey/class/opensurveysondage.class.php");
 
 // Security check
 if (!$user->admin)
@@ -475,18 +476,13 @@ for ($i = 0; $i < $nbcolonnes; $i++)
  */
 
 $form=new Form($db);
+$object=new OpenSurveySondage($db);
 
 $arrayofjs=array('/opensurvey/block_enter.js');
 $arrayofcss=array('/opensurvey/css/style.css');
 llxHeader('',$dsondage->titre, 0, 0, 0, 0, $arrayofjs, $arrayofcss);
 
-
-// Part of poll's management
-//---------------------------
-
-$s=$langs->trans("Survey");
-//Gestion du sondage
-//echo '<div class=titregestionadmin>'. .')</div>'."\n";
+$object->fetch(0,$numsondage);
 
 echo '<form name="formulaire4" action="#bas" method="POST" onkeypress="javascript:process_keypress(event)">'."\n";
 
@@ -497,40 +493,55 @@ $head[0][1] = $langs->trans("Card");
 $head[0][2] = 'general';
 $h++;
 
-dol_fiche_head($head,'general',$s);
+dol_fiche_head($head,'general',$langs->trans("Survey"));
 
-echo $langs->trans("Ref").' : '.$numsondage."<br>\n";
 
-echo $langs->trans("Type").': '.$langs->trans(($dsondage->format=="A"||$dsondage->format=="A+")?"TypeClassic":"TypeDate").'<br><br>'."\n";
+print '<table class="border" width="100%">';
 
-//Changer le titre du sondage
+$linkback = '<a href="'.dol_buildpath('/opensurvey/list.php',1).(! empty($socid)?'?socid='.$socid:'').'">'.$langs->trans("BackToList").'</a>';
+
+// Ref
+print '<tr><td width="18%">'.$langs->trans('Ref').'</td>';
+print '<td colspan="3">';
+print $form->showrefnav($object, 'sondage', $linkback, 1, 'id_sondage_admin', 'id_sondage_admin');
+print '</td>';
+print '</tr>';
+
+print '<tr><td>'.$langs->trans("Type").'</td><td colspan="2">'.$langs->trans(($dsondage->format=="A"||$dsondage->format=="A+")?"TypeClassic":"TypeDate").'</td></tr>';
+
+// Title
+print '<tr><td>';
 $adresseadmin=$dsondage->mail_admin;
-echo _("Change the title") .' :<br>' .
+echo $langs->trans("Title") .'</td><td colspan="2">' .
 	'<input type="text" name="nouveautitre" size="40" value="'.$dsondage->titre.'">'.
-	'<input type="submit" class="button" name="boutonnouveautitre" value="'.dol_escape_htmltag($langs->trans("Save")).'"><br><br>'."\n";
+	'<input type="submit" class="button" name="boutonnouveautitre" value="'.dol_escape_htmltag($langs->trans("Save")).'">'."\n";
 
 //si la valeur du nouveau titre est invalide : message d'erreur
 if ((isset($_POST["boutonnouveautitre"]) || isset($_POST["boutonnouveautitre_x"])) && !issetAndNoEmpty('nouveautitre')) {
 	echo '<font color="#FF0000">'. _("Enter a new title!") .'</font><br><br>'."\n";
 }
+print '</td></tr>';
 
-//Changer les commentaires du sondage
-echo $langs->trans("Description") .' :<br> <textarea name="nouveauxcommentaires" rows="7" cols="40">'.$dsondage->commentaires.'</textarea><br><input type="submit" class="button" name="boutonnouveauxcommentaires" value="'.dol_escape_htmltag($langs->trans("Save")).'"><br><br>'."\n";
+// Description
+print '<tr><td>'.$langs->trans("Description") .'</td><td colspan="2">';
+print '<textarea name="nouveauxcommentaires" rows="7" cols="80">'.$dsondage->commentaires.'</textarea><br><input type="submit" class="button" name="boutonnouveauxcommentaires" value="'.dol_escape_htmltag($langs->trans("Save")).'">'."\n";
+print '</td></tr>';
 
-//Changer l'adresse de l'administrateur
-echo _("Change your email address") .' :<br> <input type="text" name="nouvelleadresse" size="40" value="'.$dsondage->mail_admin.'"> <input type="submit" class="button" name="boutonnouvelleadresse" value="'.dol_escape_htmltag($langs->trans("Save")).'"><br>'."\n";
-
+// EMail
+print '<tr><td>'.$langs->trans("EMail") .'</td><td colspan="2"><input type="text" name="nouvelleadresse" size="40" value="'.$dsondage->mail_admin.'"> <input type="submit" class="button" name="boutonnouvelleadresse" value="'.dol_escape_htmltag($langs->trans("Save")).'">'."\n";
 //si l'adresse est invalide ou le champ vide : message d'erreur
 if ((isset($_POST["boutonnouvelleadresse"]) || isset($_POST["boutonnouvelleadresse_x"])) && !issetAndNoEmpty('nouvelleadresse')) {
 	echo '<font color="#FF0000">'. _("Enter a new email address!") .'</font><br><br>'."\n";
 }
+print '</td></tr>';
 
-//affichage des commentaires des utilisateurs existants
+// Comment list
 $sql = 'SELECT * FROM '.MAIN_DB_PREFIX.'opensurvey_comments WHERE id_sondage='.$connect->Param('numsondage').' ORDER BY id_comment';
 $sql = $connect->Prepare($sql);
 $comment_user = $connect->Execute($sql, array($numsondage));
-if ($comment_user->RecordCount() != 0) {
-	print "<br><b>" . $langs->trans("CommentsOfVoters") . " :</b><br>\n";
+if ($comment_user->RecordCount() != 0)
+{
+	print '<tr><td>'.$langs->trans("CommentsOfVoters") . '</td><td colspan="2">';
 
 	$i = 0;
 	while ( $dcomment=$comment_user->FetchNextObject(false)) {
@@ -538,19 +549,22 @@ if ($comment_user->RecordCount() != 0) {
 		$i++;
 	}
 
-	echo '<br>';
+	echo '</td></tr>';
 }
 
+// Add comment
+print '<tr><td>'.$langs->trans("AddACommentForPoll") . '</td><td colspan="2">';
+
+echo '<textarea name="comment" rows="2" cols="80"></textarea><br>'."\n";
+echo $langs->trans("Name") .' : <input type=text name="commentuser"><br>'."\n";
+echo '<input type="submit" class="button" name="ajoutcomment" value="'.dol_escape_htmltag($langs->trans("AddComment")).'"><br>'."\n";
 if (isset($erreur_commentaire_vide) && $erreur_commentaire_vide=="yes") {
 	print "<font color=#FF0000>" . _("Enter a name and a comment!") . "</font>";
 }
 
-//affichage de la case permettant de rajouter un commentaire par les utilisateurs
-print $langs->trans("AddACommentForPoll") . "<br>\n";
+print '</td></tr>';
 
-echo '<textarea name="comment" rows="2" cols="60"></textarea><br>'."\n";
-echo $langs->trans("Name") .' : <input type=text name="commentuser"><br>'."\n";
-echo '<input type="submit" class="button" name="ajoutcomment" value="'.dol_escape_htmltag($langs->trans("AddComment")).'"><br>'."\n";
+print '</table>';
 
 dol_fiche_end();
 
