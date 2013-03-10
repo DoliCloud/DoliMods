@@ -16,9 +16,9 @@
  */
 
 /**
- *	\file       htdocs/opensurvey/index.php
+ *	\file       htdocs/opensurvey/admin/index.php
  *	\ingroup    opensurvey
- *	\brief      Home page of opensurvey area
+ *	\brief      Setup page of opensurvey
  */
 
 $res=0;
@@ -32,9 +32,12 @@ if (! $res) die("Include of main fails");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/files.lib.php");
 
+// Security check
+if (!$user->admin) accessforbidden();
 
-include_once('./variables.php');
-include_once('./fonctions.php');
+
+include_once('../variables.php');
+include_once('../fonctions.php');
 
 
 /*
@@ -44,19 +47,9 @@ include_once('./fonctions.php');
 $langs->load("opensurvey@opensurvey");
 llxHeader();
 
-$nbsondages=0;
-$sql='SELECT COUNT(*) as nb FROM '.MAIN_DB_PREFIX.'opensurvey_sondage';
-$resql=$db->query($sql);
-if ($resql)
-{
-	$obj=$db->fetch_object($resql);
-	$nbsondages=$obj->nb;
-}
-else dol_print_error($db,'');
-
 print_fiche_titre($langs->trans("OpenSurveyArea"));
 
-echo $langs->trans("NoSurveysInDatabase",$nbsondages).'<br><br>'."\n";
+echo $langs->trans("NothingToSetup").'<br><br>'."\n";
 
 llxFooter();
 

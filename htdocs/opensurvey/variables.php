@@ -96,10 +96,4 @@ if (@file_exists('variables.local.php')) {
 // Studs version
 define('STUDS_VERSION', '0.6.6');
 
-// Do not edit the following
-$ALLOWED_LANGUAGES = array('fr_FR' => 'french',
-			   'en_GB' => 'english',
-			   'es_ES' => 'spanish',
-			   'de_DE' => 'german' );
-
 ?>

@@ -51,11 +51,8 @@ require_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/files.lib.php");
 
 include_once('../fonctions.php');
-if (file_exists('../bandeaux_local.php')) {
-  include_once('../bandeaux_local.php');
-} else {
-  include_once('../bandeaux.php');
-}
+include_once('../bandeaux_local.php');
+
 
 // On teste toutes les variables pour supprimer l'ensemble des warnings PHP
 // On transforme en entites html les données afin éviter les failles XSS
@@ -143,25 +140,15 @@ llxHeaderSurvey($langs->trans("OpenSurvey"), "", 0, 0, $arrayofjs, $arrayofcss);
 
 //affichage de la page
 $langs->load("opensurvey@opensurvey");
-//llxHeader();
-//print_header(true);
-//echo '<body>'."\n";
-//affichage des bandeaux de tete
-//logo();
-//bandeau_tete();
+
 echo '<div class="bandeautitre">'. $langs->trans("CreatePoll").' (1 / 2)' .'</div>'."\n";
-//sous_bandeau();
 
 
 // premier sondage ? test l'existence des schémas SQL avant d'aller plus loin
-if(!check_table_sondage()) {
-  echo '<p style="color:#FF0000; text-align:center">'.
-       _("STUdS is not properly installed, please check the 'INSTALL' to setup the database before continuing") .
-       "</p>"."\n";
-  bandeau_pied();
-  echo '</body>'."\n";
-  echo '</html>'."\n";
-  die();
+if(!check_table_sondage())
+{
+	dol_print_error('',"STUdS is not properly installed, please check the 'INSTALL' to setup the database before continuing");
+	exit;
 }
 
 //debut du formulaire

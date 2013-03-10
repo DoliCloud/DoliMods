@@ -48,14 +48,8 @@ if (! $res) die("Include of main fails");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/files.lib.php");
 
-// Security check
-if (!$user->admin)
-	accessforbidden();
-
-
 include_once('./variables.php');
 include_once('./fonctions.php');
-include_once('./bandeaux.php');
 
 $action=GETPOST('action');
 

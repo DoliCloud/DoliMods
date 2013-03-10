@@ -51,11 +51,7 @@ require_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/files.lib.php");
 
 include_once('../fonctions.php');
-if (file_exists('../bandeaux_local.php')) {
-	include_once('../bandeaux_local.php');
-} else {
-	include_once('../bandeaux.php');
-}
+include_once('../bandeaux_local.php');
 
 
 

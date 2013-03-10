@@ -56,11 +56,7 @@ if (!$user->admin)
 
 include_once('./variables.php');
 include_once('./fonctions.php');
-if (file_exists('./bandeaux_local.php')) {
-	include_once('./bandeaux_local.php');
-} else {
-	include_once('./bandeaux.php');
-}
+include_once('./bandeaux_local.php');
 
 
 // Initialisation des variables
@@ -499,7 +495,7 @@ $head[0][2] = 'general';
 $h++;
 
 $head[1][0] = 'adminstuds_preview.php?sondage='.$object->id_sondage_admin;
-$head[1][1] = $langs->trans("Preview");
+$head[1][1] = $langs->trans("SurveyResults").'/'.$langs->trans("Preview");
 $head[1][2] = 'preview';
 $h++;
 

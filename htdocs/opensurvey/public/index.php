@@ -61,15 +61,7 @@ require_once(DOL_DOCUMENT_ROOT."/core/lib/files.lib.php");
 
 
 include_once('../fonctions.php');
-if (is_readable('../bandeaux_local.php')) {
-  include_once('../bandeaux_local.php');
-} else {
-  include_once('../bandeaux.php');
-}
-
-//session_start();
-
-
+include_once('../bandeaux_local.php');
 
 
 $arrayofjs=array();

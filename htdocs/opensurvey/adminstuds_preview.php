@@ -50,17 +50,12 @@ require_once(DOL_DOCUMENT_ROOT."/core/lib/files.lib.php");
 dol_include_once("/opensurvey/class/opensurveysondage.class.php");
 
 // Security check
-if (!$user->admin)
-	accessforbidden();
+if (!$user->admin) accessforbidden();
 
 
 include_once('./variables.php');
 include_once('./fonctions.php');
-if (file_exists('./bandeaux_local.php')) {
-	include_once('./bandeaux_local.php');
-} else {
-	include_once('./bandeaux.php');
-}
+include_once('./bandeaux_local.php');
 
 
 // Initialisation des variables
@@ -449,7 +444,8 @@ for ($i = 0; $i < $nbcolonnes; $i++)
 		$sql = 'UPDATE '.MAIN_DB_PREFIX.'opensurvey_user_studs SET reponses = '.$connect->Param('reponses').' WHERE nom = '.$connect->Param('nom').' AND id_users = '.$connect->Param('id_users');
 		$sql = $connect->Prepare($sql);
 
-		while ($data = $user_studs->FetchNextObject(false)) {
+		while ($data = $user_studs->FetchNextObject(false))
+		{
 			$newcar = '';
 			$ensemblereponses = $data->reponses;
 
@@ -500,7 +496,7 @@ $head[0][2] = 'general';
 $h++;
 
 $head[1][0] = '';
-$head[1][1] = $langs->trans("Preview");
+$head[1][1] = $langs->trans("SurveyResults").'/'.$langs->trans("Preview");
 $head[1][2] = 'preview';
 $h++;
 
@@ -541,18 +537,6 @@ echo '</form>'."\n";
 
 
 showlogo();
-
-
-//si la valeur du nouveau titre est valide et que le bouton est activé
-$adresseadmin = $dsondage->mail_admin;
-$headers_str = <<<EOF
-From: %s <%s>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-EOF;
-$headers = sprintf($headers_str, NOMAPPLICATION, ADRESSEMAILADMIN);
-
-
 
 // reload
 $dsujet=$sujets->FetchObject(false);
@@ -662,13 +646,20 @@ for ($i = 0; $i < $nblignes; $i++) {
 
 
 //si le test est valide alors on affiche des checkbox pour entrer de nouvelles valeurs
-if ($testmodifier) {
+if ($testmodifier)
+{
 	$nouveauchoix = '';
-	for ($i = 0; $i < $nbcolonnes; $i++) {
-		//recuperation des nouveaux choix de l'utilisateur
-		if (isset($_POST["choix$i"])) {
+	for ($i = 0; $i < $nbcolonnes; $i++)
+	{
+		if (isset($_POST["choix$i"]) && $_POST["choix$i"] == '1')
+		{
 			$nouveauchoix.="1";
-		} else {
+		}
+		else if (isset($_POST["choix$i"]) && $_POST["choix$i"] == '2')
+		{
+			$nouveauchoix.="2";
+		}
+		else { // sinon c'est 0
 			$nouveauchoix.="0";
 		}
 	}
@@ -741,13 +732,19 @@ $dsujet=$sujets->FetchObject(false);
 $dsondage=$sondage->FetchObject(false);
 
 $toutsujet=explode(",",$dsujet->sujet);
+$listofanswers=array();
+foreach ($toutsujet as $value)
+{
+	$tmp=explode('@',$value);
+	$listofanswers[]=array('label'=>$tmp[0],'format'=>$tmp[1]);
+}
 $toutsujet=str_replace("@","<br>",$toutsujet);
 $toutsujet=str_replace("°","'",$toutsujet);
 $nbcolonnes=substr_count($dsujet->sujet,',')+1;
 
 echo '<form name="formulaire" action="'.getUrlSondage($numsondageadmin, true).'" method="POST" onkeypress="javascript:process_keypress(event)">'."\n";
 echo '<div class="cadre"> '."\n";
-echo _('As poll administrator, you can change all the lines of this poll with '.img_picto('','info.png@opensurvey').'. You can, as well, remove a column or a line with '.img_picto('','cancel.png@opensurvey').'. You can also add a new column with '.img_picto('','add-16.png@opensurvey').'.<br> Finally, you can change the informations of this poll like the title, the comments or your email address.') ."\n";
+echo $langs->trans("PollAdminDesc",img_picto('','cancel.png@opensurvey'),img_picto('','add-16.png@opensurvey'));
 echo '<br><br>'."\n";
 
 //debut de l'affichage de résultats
@@ -776,7 +773,8 @@ if ($dsondage->format=="D"||$dsondage->format=="D+")
 
 	//affichage des années
 	$colspan=1;
-	for ($i = 0; $i < count($toutsujet); $i++) {
+	for ($i = 0; $i < count($toutsujet); $i++)
+	{
 		$current = $toutsujet[$i];
 
 		if (strpos($toutsujet[$i], '@') !== false) {
@@ -907,10 +905,9 @@ else
 }
 
 
-//affichage des resultats
+// Loop on each answer
 $somme[] = 0;
 $compteur = 0;
-
 while ($data = $user_studs->FetchNextObject(false))
 {
 	$ensemblereponses = $data->reponses;
@@ -923,43 +920,54 @@ while ($data = $user_studs->FetchNextObject(false))
 	echo '<td class="nom">'.$nombase.'</td>'."\n";
 
 	//si la ligne n'est pas a changer, on affiche les données
-	if (!$testligneamodifier) {
-		for ($k = 0; $k < $nbcolonnes; $k++) {
-			$car = substr($ensemblereponses, $k, 1);
+	$car = substr($ensemblereponses, $i, 1);
+	if (! $testligneamodifier)
+	{
+		for ($i = 0; $i < $nbcolonnes; $i++)
+		{
 			if ($car == "1") {
 				echo '<td class="ok">OK</td>'."\n";
-				if (isset($somme[$k]) === false) {
-					$somme[$k] = 0;
+				if (isset($somme[$i]) === false) {
+					$somme[$i] = 0;
 				}
-				$somme[$k]++;
+				$somme[$i]++;
 			} else {
 				echo '<td class="non"></td>'."\n";
 			}
 		}
-	} else { //sinon on remplace les choix de l'utilisateur par une ligne de checkbox pour recuperer de nouvelles valeurs
+	}
+	else
+	{ //sinon on remplace les choix de l'utilisateur par une ligne de checkbox pour recuperer de nouvelles valeurs
 
 		//si c'est bien la ligne a modifier on met les checkbox
-		if ($compteur == "$ligneamodifier") {
-			for ($j = 0; $j < $nbcolonnes; $j++) {
-				$car = substr($ensemblereponses, $j, 1);
-				if ($car == "1") {
-					echo '<td class="vide"><input type="checkbox" name="choix'.$j.'" value="" checked></td>'."\n";
-				} else {
-					echo '<td class="vide"><input type="checkbox" name="choix'.$j.'" value=""></td>'."\n";
-				}
+		if ($compteur == "$ligneamodifier")
+		{
+			for ($i = 0; $i < $nbcolonnes; $i++)
+			{
+				if ($car == "1") echo '<td class="vide"><input type="checkbox" name="choix'.$i.'" value="" checked="checked"></td>'."\n";
+				else echo '<td class="vide"><input type="checkbox" name="choix'.$i.'" value=""></td>'."\n";
 			}
-		} else { //sinon on affiche les lignes normales
-			for ($k = 0; $k < $nbcolonnes; $k++) {
-				$car = substr($ensemblereponses, $k, 1);
-
-				if ($car == "1") {
-					echo '<td class="ok">OK</td>'."\n";
-					if (isset($somme[$k]) === false) {
-						$somme[$k] = 0;
-					}
-					$somme[$k]++;
-				} else {
-					echo '<td class="non"></td>'."\n";
+		}
+		else
+		{ //sinon on affiche les lignes normales
+			for ($i = 0; $i < $nbcolonnes; $i++)
+			{
+				if (empty($listofanswers[$i]['format']) || $listofanswers[$i]['format'] == 'yesno')
+				{
+					if ($car == "1") echo '<td class="ok">OK</td>'."\n";
+					else echo '<td class="non">&nbsp;</td>'."\n";
+					// Total
+					if (isset($somme[$i]) === false) $somme[$i] = 0;
+					if ($car == "1") $somme[$i]++;
+				}
+				if (! empty($listofanswers[$i]['format']) && $listofanswers[$i]['format'] == 'pourcontre')
+				{
+					if ($car == "1") echo '<td class="ok">'.$langs->trans("For").'</td>'."\n";
+					else if ($car == "0") echo '<td class="non">'.$langs->trans("Against").'</td>'."\n";
+					else echo '<td class="vide">&nbsp;</td>'."\n";
+					// Total
+					if (isset($somme[$i]) === false) $somme[$i] = 0;
+					if ($car == "1") $somme[$i]++;
 				}
 			}
 		}
@@ -984,16 +992,31 @@ while ($data = $user_studs->FetchNextObject(false))
 }
 
 
-//affichage de la case vide de texte pour un nouvel utilisateur
+// Add line to add new record
 echo '<tr>'."\n";
 echo '<td></td>'."\n";
 echo '<td class=nom>'."\n";
 echo '<input type="text" name="nom"><br>'."\n";
 echo '</td>'."\n";
 
-//une ligne de checkbox pour le choix du nouvel utilisateur
-for ($i = 0; $i < $nbcolonnes; $i++) {
-	echo '<td class="vide"><input type="checkbox" name="choix'.$i.'" value=""></td>'."\n";
+for ($i = 0; $i < $nbcolonnes; $i++)
+{
+	echo '<td class="vide">';
+	if (empty($listofanswers[$i]['format']) || $listofanswers[$i]['format'] == 'yesno')
+	{
+		print '<input type="checkbox" name="choix'.$i.'" value="1"';
+		if ( isset($_POST['choix'.$i]) && $_POST['choix'.$i] == '1' && is_error(NAME_EMPTY) )
+		{
+			echo ' checked="checked"';
+		}
+		echo '>';
+	}
+	if (! empty($listofanswers[$i]['format']) && $listofanswers[$i]['format'] == 'pourcontre')
+	{
+		$arraychoice=array('2'=>'&nbsp;','0'=>$langs->trans("Against"),'1'=>$langs->trans("For"));
+		print $form->selectarray("choix".$i, $arraychoice);
+	}
+	print '</td>'."\n";
 }
 
 // Affichage du bouton de formulaire pour inscrire un nouvel utilisateur dans la base

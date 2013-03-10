@@ -49,12 +49,9 @@ if (! $res && file_exists("../../../../../dolibarr/htdocs/main.inc.php")) $res=@
 if (! $res) die("Include of main fails");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/files.lib.php");
+dol_include_once("/opensurvey/class/opensurveysondage.class.php");
 
-if (file_exists('../bandeaux_local.php')) {
-	include_once('../bandeaux_local.php');
-} else {
-	include_once('../bandeaux.php');
-}
+include_once('../bandeaux_local.php');
 include_once('../fonctions.php');
 
 // Le fichier studs.php sert a afficher les résultats d'un sondage à un simple utilisateur.
@@ -85,25 +82,15 @@ if ($numsondage !== false) {
 	$err |= NO_POLL_ID;
 }
 
+
+
 /*
  * Actions
-*/
+ */
 
-//output a CSV and die()
-if(issetAndNoEmpty('export', $_GET) && $dsondage !== false) {
-	if($_GET['export'] == 'csv') {
-		require_once('exportcsv.php');
-	}
-
-	if($_GET['export'] == 'ics' && $dsondage->is_date) {
-		require_once('exportics.php');
-	}
-
-	exit();
-}
-
-// quand on ajoute un commentaire utilisateur
-if(isset($_POST['ajoutcomment']) || isset($_POST['ajoutcomment_x'])) {
+// Add comment
+if (isset($_POST['ajoutcomment']) || isset($_POST['ajoutcomment_x']))
+{
 	if (isset($_SESSION['nom'])) {
 		// Si le nom vient de la session, on le de-htmlentities
 		$comment_user = html_entity_decode($_SESSION['nom'], ENT_QUOTES, 'UTF-8');
@@ -140,25 +127,33 @@ if(isset($_POST['ajoutcomment']) || isset($_POST['ajoutcomment_x'])) {
 }
 
 
-// Action quand on clique le bouton participer
+// Add vote
 $sql = 'SELECT * FROM '.MAIN_DB_PREFIX.'opensurvey_user_studs WHERE id_sondage='.$connect->Param('numsondage').' ORDER BY id_users';
 $sql = $connect->Prepare($sql);
 $user_studs = $connect->Execute($sql, array($numsondage));
 
 $nbcolonnes = substr_count($dsondage->sujet, ',') + 1;
-if (!is_error(NO_POLL) && (isset($_POST["boutonp"]) || isset($_POST["boutonp_x"]))) {
+if (!is_error(NO_POLL) && (isset($_POST["boutonp"]) || isset($_POST["boutonp_x"])))
+{
 	//Si le nom est bien entré
 	if (issetAndNoEmpty('nom') === false) {
 		$err |= NAME_EMPTY;
 	}
 
-	if(!is_error(NAME_EMPTY) && (!isset($_SERVER['REMOTE_USER']) || $_POST["nom"] == $_SESSION["nom"])) {
+	if(!is_error(NAME_EMPTY) && (!isset($_SERVER['REMOTE_USER']) || $_POST["nom"] == $_SESSION["nom"]))
+	{
 		$nouveauchoix = '';
-		for ($i=0;$i<$nbcolonnes;$i++) {
-			// Si la checkbox est enclenchée alors la valeur est 1
-			if (isset($_POST["choix$i"]) && $_POST["choix$i"] == '1') {
+		for ($i=0;$i<$nbcolonnes;$i++)
+		{
+			if (isset($_POST["choix$i"]) && $_POST["choix$i"] == '1')
+			{
 				$nouveauchoix.="1";
-			} else { // sinon c'est 0
+			}
+			else if (isset($_POST["choix$i"]) && $_POST["choix$i"] == '2')
+			{
+				$nouveauchoix.="2";
+			}
+			else { // sinon c'est 0
 				$nouveauchoix.="0";
 			}
 		}
@@ -202,19 +197,80 @@ if (!is_error(NO_POLL) && (isset($_POST["boutonp"]) || isset($_POST["boutonp_x"]
 	}
 }
 
+// Update vote
+$nblignes = $user_studs->RecordCount();
+$testmodifier = false;
+$ligneamodifier = -1;
+for ($i=0;$i<$nblignes;$i++)
+{
+	if (isset($_POST["modifierligne$i"])) {
+		$ligneamodifier = $i;
+	}
+
+	//test pour voir si une ligne est a modifier
+	if (isset($_POST['validermodifier'.$i])) {
+		$modifier = $i;
+		$testmodifier = true;
+	}
+}
+if ($testmodifier)
+{
+	//var_dump($_POST);exit;
+	$nouveauchoix = '';
+	for ($i=0;$i<$nbcolonnes;$i++)
+	{
+		//var_dump($_POST["choix$i"]);
+		if (isset($_POST["choix$i"]) && $_POST["choix$i"] == '1')
+		{
+			$nouveauchoix.="1";
+		}
+		else if (isset($_POST["choix$i"]) && $_POST["choix$i"] == '2')
+		{
+			$nouveauchoix.="2";
+		}
+		else { // sinon c'est 0
+			$nouveauchoix.="0";
+		}
+	}
+
+	$compteur=0;
+	while ($data = $user_studs->FetchNextObject(false) )
+	{
+	//mise a jour des données de l'utilisateur dans la base SQL
+		if ($compteur == $modifier)
+		{
+			$sql = 'UPDATE '.MAIN_DB_PREFIX.'opensurvey_user_studs SET reponses='.$connect->Param('nouveauchoix').' WHERE nom='.$connect->Param('nom').' AND id_users='.$connect->Param('id_users');
+			$sql = $connect->Prepare($sql);
+			$connect->Execute($sql, array($nouveauchoix, $data->nom, $data->id_users));
+
+			if ($dsondage->mailsonde=="yes")
+			{
+				// TODO Use CMail...
+				//$headers="From: ".NOMAPPLICATION." <".ADRESSEMAILADMIN.">\r\nContent-Type: text/plain; charset=\"UTF-8\"\nContent-Transfer-Encoding: 8bit";
+				//mail ("$dsondage->mail_admin", "[".NOMAPPLICATION."] " . _("Poll's participation") . " : $dsondage->titre", "\"$data->nom\""."" . _("has filled a line.\nYou can find your poll at the link") . " :\n\n".getUrlSondage($numsondage)." \n\n" . _("Thanks for your confidence.") . "\n".NOMAPPLICATION,$headers);
+			}
+		}
+
+		$compteur++;
+	}
+}
+
+
 
 /*
  * View
  */
 
+$form=new Form($db);
+$object=new OpenSurveySondage($db);
+
 $arrayofjs=array('/opensurvey/block_enter.js');
 $arrayofcss=array('/opensurvey/css/style.css');
 llxHeaderSurvey($dsondage->titre, "", 0, 0, $arrayofjs, $arrayofcss);
 
+$object->fetch(0,$numsondage);
 
 if($err != 0) {
-	bandeau_titre(_("Error!"));
-
 	echo '<div class="error"><ul>'."\n";
 	if(is_error(NAME_EMPTY)) {
 		echo '<li class="error">' . _("Enter a name !") . "</li>\n";
@@ -242,7 +298,6 @@ if($err != 0) {
 		print _("Back to the homepage of") . ' <a href="index.php"> '. NOMAPPLICATION . '</a>.'."\n";
 		echo '<br><br><br><br>'."\n";
 		echo '</div>'."\n";
-		bandeau_pied();
 
 		echo '</body>'."\n";
 		echo '</html>'."\n";
@@ -269,7 +324,7 @@ if ($dsondage->commentaires) {
 
 echo '</div>'."\n";
 
-echo '<form name="formulaire" action="studs.php"'.'#bas" method="POST" onkeypress="javascript:process_keypress(event)">'."\n";
+echo '<form name="formulaire" action="studs.php?sondage='.$numsondage.'"'.'#bas" method="POST" onkeypress="javascript:process_keypress(event)">'."\n";
 echo '<input type="hidden" name="sondage" value="' . $numsondage . '"/>';
 // Todo : add CSRF protection
 echo '<div class="cadre"> '."\n";
@@ -279,61 +334,19 @@ echo '<br><br>'."\n";
 // Debut de l'affichage des resultats du sondage
 echo '<table class="resultats">'."\n";
 
-//On récupere les données et les sujets du sondage
-$nblignes = $user_studs->RecordCount();
-
-//on teste pour voir si une ligne doit etre modifiée
-$testmodifier = false;
-$ligneamodifier = -1;
-for ($i=0;$i<$nblignes;$i++) {
-	if (isset($_POST["modifierligne$i"]) || isset($_POST['modifierligne'.$i.'_x'])) {
-		$ligneamodifier = $i;
-	}
-
-	//test pour voir si une ligne est a modifier
-	if (isset($_POST['validermodifier'.$i]) || isset($_POST['validermodifier'.$i.'_x'])) {
-		$modifier = $i;
-		$testmodifier = true;
-	}
-}
-
-//si le test est valide alors on affiche des checkbox pour entrer de nouvelles valeurs
-if ($testmodifier) {
-	$nouveauchoix = '';
-	for ($i=0;$i<$nbcolonnes;$i++) {
-		//recuperation des nouveaux choix de l'utilisateur
-		if (isset($_POST["choix$i"]) && $_POST["choix$i"] == 1) {
-			$nouveauchoix.="1";
-		} else {
-			$nouveauchoix.="0";
-		}
-	}
-
-	$compteur=0;
-	while ($data = $user_studs->FetchNextObject(false) ) {
-		//mise a jour des données de l'utilisateur dans la base SQL
-		if ($compteur == $modifier) {
-			$sql = 'UPDATE '.MAIN_DB_PREFIX.'opensurvey_user_studs SET reponses='.$connect->Param('nouveauchoix').' WHERE nom='.$connect->Param('nom').' AND id_users='.$connect->Param('id_users');
-			$sql = $connect->Prepare($sql);
-			$connect->Execute($sql, array($nouveauchoix, $data->nom, $data->id_users));
-
-			if ($dsondage->mailsonde=="yes") {
-				$headers="From: ".NOMAPPLICATION." <".ADRESSEMAILADMIN.">\r\nContent-Type: text/plain; charset=\"UTF-8\"\nContent-Transfer-Encoding: 8bit";
-				mail ("$dsondage->mail_admin", "[".NOMAPPLICATION."] " . _("Poll's participation") . " : $dsondage->titre", "\"$data->nom\""."" . _("has filled a line.\nYou can find your poll at the link") . " :\n\n".getUrlSondage($numsondage)." \n\n" . _("Thanks for your confidence.") . "\n".NOMAPPLICATION,$headers);
-			}
-		}
-
-		$compteur++;
-	}
-}
-
 //recuperation des utilisateurs du sondage
 $sql = 'SELECT * FROM '.MAIN_DB_PREFIX.'opensurvey_user_studs WHERE id_sondage='.$connect->Param('numsondage').' ORDER BY id_users';
 $sql = $connect->Prepare($sql);
 $user_studs = $connect->Execute($sql, array($numsondage));
 
 //reformatage des données des sujets du sondage
-$toutsujet = explode(",",$dsondage->sujet);
+$toutsujet = explode(",",$object->sujet);
+$listofanswers=array();
+foreach ($toutsujet as $value)
+{
+	$tmp=explode('@',$value);
+	$listofanswers[]=array('label'=>$tmp[0],'format'=>$tmp[1]);
+}
 
 //si le sondage est un sondage de date
 if ($dsondage->format=="D"||$dsondage->format=="D+")
@@ -445,11 +458,12 @@ else
 //Usager pré-authentifié dans la liste?
 $user_mod = false;
 
-//affichage des resultats actuels
+
+// Loop on each answers
 $somme = array();
 $compteur = 0;
-
-while ($data = $user_studs->FetchNextObject(false)) {
+while ($data = $user_studs->FetchNextObject(false))
+{
 	echo '<tr>'."\n";
 	echo '<td class="nom">';
 
@@ -465,25 +479,43 @@ while ($data = $user_studs->FetchNextObject(false)) {
 	$user_mod |= $mod_ok;
 
 	// pour chaque colonne
-	for ($k=0; $k < $nbcolonnes; $k++) {
-		// on remplace les choix de l'utilisateur par une ligne de checkbox pour recuperer de nouvelles valeurs
-		if ($compteur == $ligneamodifier) {
-			echo '<td class="vide"><input type="checkbox" name="choix'.$k.'" value="1" ';
-			if(substr($ensemblereponses,$k,1) == '1') {
-				echo 'checked="checked"';
+	for ($i=0; $i < $nbcolonnes; $i++)
+	{
+		$car = substr($ensemblereponses, $i, 1);
+		if ($compteur == $ligneamodifier)
+		{
+			echo '<td class="vide">';
+			if (empty($listofanswers[$i]['format']) || $listofanswers[$i]['format'] == 'yesno')
+			{
+				print '<input type="checkbox" name="choix'.$i.'" value="1" ';
+				if ($car == '1') echo 'checked="checked"';
+				echo '>';
 			}
-
-			echo ' /></td>'."\n";
-		} else {
-			$car = substr($ensemblereponses, $k, 1);
-			if ($car == "1") {
-				echo '<td class="ok">OK</td>'."\n";
-				if (isset($somme[$k]) === false) {
-					$somme[$k] = 0;
-				}
-				$somme[$k]++;
-			} else {
-				echo '<td class="non"></td>'."\n";
+			if (! empty($listofanswers[$i]['format']) && $listofanswers[$i]['format'] == 'pourcontre')
+			{
+				$arraychoice=array('2'=>'&nbsp;','0'=>$langs->trans("Against"),'1'=>$langs->trans("For"));
+				print $form->selectarray("choix".$i, $arraychoice, $car);
+			}
+			print '</td>'."\n";
+		}
+		else
+		{
+			if (empty($listofanswers[$i]['format']) || $listofanswers[$i]['format'] == 'yesno')
+			{
+				if ($car == "1") echo '<td class="ok">OK</td>'."\n";
+				else echo '<td class="non">&nbsp;</td>'."\n";
+				// Total
+				if (isset($somme[$i]) === false) $somme[$i] = 0;
+				if ($car == "1") $somme[$i]++;
+			}
+			if (! empty($listofanswers[$i]['format']) && $listofanswers[$i]['format'] == 'pourcontre')
+			{
+				if ($car == "1") echo '<td class="ok">'.$langs->trans("For").'</td>'."\n";
+				else if ($car =="0") echo '<td class="non">'.$langs->trans("Against").'</td>'."\n";
+				else echo '<td class="vide">&nbsp;</td>'."\n";
+				// Total
+				if (isset($somme[$i]) === false) $somme[$i] = 0;
+				if ($car == "1") $somme[$i]++;
 			}
 		}
 	}
@@ -506,8 +538,9 @@ while ($data = $user_studs->FetchNextObject(false)) {
 	echo '</tr>'."\n";
 }
 
-// affichage de la ligne pour un nouvel utilisateur
-if (!isset($_SERVER['REMOTE_USER']) || !$user_mod) {
+// Add line to add new record
+if ($ligneamodifier < 0 && (!isset($_SERVER['REMOTE_USER']) || ! $user_mod))
+{
 	echo '<tr>'."\n";
 	echo '<td class="nom">'."\n";
 	if (isset($_SESSION['nom'])) {
@@ -515,17 +548,27 @@ if (!isset($_SERVER['REMOTE_USER']) || !$user_mod) {
 	} else {
 		echo '<input type=text name="nom" maxlength="64">'."\n";
 	}
-
 	echo '</td>'."\n";
 
 	// affichage des cases de formulaire checkbox pour un nouveau choix
-	for ($i=0;$i<$nbcolonnes;$i++) {
-		echo '<td class="vide"><input type="checkbox" name="choix'.$i.'" value="1"';
-		if ( isset($_POST['choix'.$i]) && $_POST['choix'.$i] == '1' && is_error(NAME_EMPTY) ) {
-			echo ' checked="checked"';
+	for ($i=0;$i<$nbcolonnes;$i++)
+	{
+		echo '<td class="vide">';
+		if (empty($listofanswers[$i]['format']) || $listofanswers[$i]['format'] == 'yesno')
+		{
+			print '<input type="checkbox" name="choix'.$i.'" value="1"';
+			if ( isset($_POST['choix'.$i]) && $_POST['choix'.$i] == '1' && is_error(NAME_EMPTY) )
+			{
+				echo ' checked="checked"';
+			}
+			echo '>';
 		}
-
-		echo '></td>'."\n";
+		if (! empty($listofanswers[$i]['format']) && $listofanswers[$i]['format'] == 'pourcontre')
+		{
+			$arraychoice=array('2'=>'&nbsp;','0'=>$langs->trans("Against"),'1'=>$langs->trans("For"));
+			print $form->selectarray("choix".$i, $arraychoice);
+		}
+		print '</td>'."\n";
 	}
 
 	// Affichage du bouton de formulaire pour inscrire un nouvel utilisateur dans la base

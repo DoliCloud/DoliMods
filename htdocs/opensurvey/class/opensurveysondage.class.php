@@ -181,7 +181,8 @@ class Opensurveysondage extends CommonObject
     function fetch($id,$numsurvey='')
     {
     	global $langs;
-        $sql = "SELECT";
+
+    	$sql = "SELECT";
 		//$sql.= " t.rowid,";
 		$sql.= " t.id_sondage,";
 		$sql.= " t.commentaires,";
@@ -218,12 +219,8 @@ class Opensurveysondage extends CommonObject
 				$this->format = $obj->format;
 				$this->mailsonde = $obj->mailsonde;
 				$this->survey_link_visible = $obj->survey_link_visible;
-
-
             }
             $this->db->free($resql);
-
-            return 1;
         }
         else
         {
@@ -231,6 +228,41 @@ class Opensurveysondage extends CommonObject
             dol_syslog(get_class($this)."::fetch ".$this->error, LOG_ERR);
             return -1;
         }
+
+        $sql = "SELECT";
+        //$sql.= " t.rowid,";
+        $sql.= " t.id_sondage,";
+        $sql.= " t.sujet";
+        $sql.= " FROM ".MAIN_DB_PREFIX."opensurvey_sujet_studs as t";
+        $sql.= " WHERE t.id_sondage = '".$obj->id_sondage."'";
+
+    	dol_syslog(get_class($this)."::fetch sql=".$sql, LOG_DEBUG);
+        $resql=$this->db->query($sql);
+        if ($resql)
+        {
+	        dol_syslog(get_class($this)."::fetch sql=".$sql, LOG_DEBUG);
+	        $resql=$this->db->query($sql);
+	        if ($resql)
+	        {
+	        	if ($this->db->num_rows($resql))
+	        	{
+	        		$obj = $this->db->fetch_object($resql);
+	        		$this->sujet = $obj->sujet;
+	        	}
+	        }
+
+	        $this->db->free($resql);
+
+	        return 1;
+        }
+        else
+        {
+        	$this->error="Error ".$this->db->lasterror();
+        	dol_syslog(get_class($this)."::fetch ".$this->error, LOG_ERR);
+        	return -1;
+        }
+
+
     }
 
 

@@ -1,4 +1,25 @@
 <?php
+/* Copyright (C) 2013 Laurent Destailleur  <eldy@users.sourceforge.net>
+ *
+* This program is free software; you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation; either version 3 of the License, or
+* (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with this program. If not, see <http://www.gnu.org/licenses/>.
+*/
+
+/**
+ *	\file       htdocs/opensurvey/admin/index.php
+ *	\ingroup    opensurvey
+ *	\brief      Setup page of opensurvey
+ */
 
 /**
  * Show header for new member
@@ -71,8 +92,6 @@ function llxFooterSurvey()
 }
 
 
-
-
 // pour get_server_name()
 include_once('fonctions.php');
 
@@ -82,93 +101,6 @@ function logo ()
 	if(defined('LOGOBANDEAU')) {
 		echo '<div class="logo"><img src="'.get_server_name().LOGOBANDEAU.'" height="74" alt="logo"></div>'."\n";
 	}
-}
-
-
-#le bandeau principal
-function bandeau_tete()
-{
-	echo '<div class="bandeau">'.NOMAPPLICATION.'</div>'."\n";
-}
-
-
-// bandeaux de titre
-function bandeau_titre($titre)
-{
-	echo '<div class="bandeautitre">'. $titre .'</div>'."\n";
-}
-
-
-function liste_lang()
-{
-	global $ALLOWED_LANGUAGES;
-
-	$str = '';
-	foreach ($ALLOWED_LANGUAGES as $k => $v ) {
-		$str .= '<a href="' . $_SERVER['PHP_SELF'] . '?lang=' . $k . '">' . $v . '</a>' . "\n" ;
-	}
-
-	return $str;
-}
-
-
-#Les sous-bandeaux contenant les boutons de navigation
-function sous_bandeau()
-{
-	echo '<div class="sousbandeau">' .
-		'<a href="' . get_server_name() . 'index.php">'. _("Home") .'</a>' .
-		'<a href="' . getUrlSondage('aqg259dth55iuhwm').'">'. _("Example") .'</a>' .
-		'<a href="' . get_server_name() . 'contacts.php">'. _("Contact") .'</a>' .
-		//'<a href="' . get_server_name() . 'sources/sources.php">'. _("Sources") .'</a>' . //not implemented
-	'<a href="' . get_server_name() . 'apropos.php">'. _("About") .'</a>' .
-	'<a href="' . get_server_name() . 'admin/index.php">'. _("Admin") .'</a>' .
-	'<span class="sousbandeau sousbandeaulangue">' .
-	liste_lang() . '</span>'.
-	'</div>' . "\n";
-}
-
-
-function sous_bandeau_admin()
-{
-	echo '<div class="sousbandeau">' .
-		'<a href="' . get_server_name() . 'index.php">'. _("Home") .'</a>';
-
-	if(is_readable('logs_studs.txt')) {
-		echo '<a href="' . get_server_name() . 'logs_studs.txt">'. _("Logs") .'</a>';
-	}
-
-	echo '<a href="' . get_server_name() . '../scripts/nettoyage_sondage.php">'. _("Cleaning") .'</a>' .
-		'<span class="sousbandeau sousbandeaulangue">' .
-		liste_lang() . '</span>'.
-		'</div>'."\n";
-}
-
-
-function sous_bandeau_choix()
-{
-	echo '<div class="sousbandeau">' .
-		'<a href="' . get_server_name() . 'index.php">'. _("Home") .'</a>' .
-		'</div>'."\n";
-}
-
-
-#les bandeaux de pied
-function sur_bandeau_pied()
-{
-	echo '<div class="surbandeaupied"></div>'."\n";
-}
-
-
-function bandeau_pied()
-{
-	echo '<div class="bandeaupied">'. _("Universit&eacute; de Strasbourg. Creation: Guilhem BORGHESI. 2008-2009") .'</div>'."\n";
-}
-
-
-function bandeau_pied_mobile()
-{
-	echo '<div class="surbandeaupiedmobile"></div>'."\n" .
-		'<div class="bandeaupiedmobile">'. _("Universit&eacute; de Strasbourg. Creation: Guilhem BORGHESI. 2008-2009") .'</div>'."\n";
 }
 
 ?>
