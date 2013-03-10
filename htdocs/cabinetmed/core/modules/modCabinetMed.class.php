@@ -97,14 +97,14 @@ class modCabinetMed extends DolibarrModules
 		//                             1=>array('MYMODULE_MYNEWCONST2','chaine','myvalue','This is another constant to add',0)
 		//                             2=>array('MAIN_MODULE_MYMODULE_HOOKS','chaine','hookcontext1:hookcontext2','To say: This module manage hooks in hookcontext1 and hookcontext2',1,'current',1)
 		// );
-        $this->const = array(0=>array('SOCIETE_DISABLE_PROSPECTS','chaine','1','Disable all prospects features',1,'current',1),
+        $this->const = array(/*0=>array('SOCIETE_DISABLE_PROSPECTS','chaine','1','Disable all prospects features',1,'current',1),
                              1=>array('SOCIETE_DISABLE_CONTACTS','chaine','1','Disable contacts features',1,'current',1),
                              2=>array('SOCIETE_DISABLE_CUSTOMERS','chaine','1','Disable all customers features',1,'current',1),
                              3=>array('SOCIETE_DISABLE_PROSPECTS_STATS','chaine','1','Disable all prospects features',1,'current',1),
                              4=>array('SOCIETE_DISABLE_STATE','chaine','1','Disable state features',1,'current',1),
                              5=>array('SOCIETE_DISABLE_BANKACCOUNT','chaine','1','Disable bank account information on third parties',1,'current',1),
                              6=>array('SOCIETE_DISABLE_PARENTCOMPANY','chaine','1','Disable parent company features',1,'current',1),
-                             7=>array('SOCIETE_DISABLE_BUILDDOC','chaine','1','Disable area to attach files',1,'current',1),
+                             7=>array('SOCIETE_DISABLE_BUILDDOC','chaine','1','Disable area to attach files',1,'current',1),*/
                              8=>array('MAIN_DISABLEPROFIDRULES','chaine','1','Disable info/check links near professional id fields',1,'current',1),
                              9=>array('MAIN_FORCELANGDIR','chaine','/cabinetmed','Language files are searched into this dir first',1,'current',1),
                             10=>array('MAIN_OVERWRITE_THEME_RES','chaine','cabinetmed','Resource for themes (img) are searched into dir/theme/dir first',1,'current',1),
