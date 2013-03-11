@@ -79,6 +79,12 @@ class Dolicloudcustomer extends CommonObject
 	var $vat_number;
 	var $phone;
 
+	var $paymentmethod;
+	var $paymentinfo;
+	var $paymentstatus;
+	var $paymentnextbillingdate;
+	var $paymentfrequency;	// 'monthly' or 'yearly'
+
 	var $fileauthorizedkey;
 	var $filelock;
 	var $date_lastrsync='';
@@ -313,6 +319,13 @@ class Dolicloudcustomer extends CommonObject
 		$sql.= " t.state_id,";
 		$sql.= " t.vat_number,";
 		$sql.= " t.phone,";
+
+		$sql.= " t.paymentmethod,";
+		$sql.= " t.paymentinfo,";
+		$sql.= " t.paymentstatus,";
+		$sql.= " t.paymentnextbillingdate,";
+		$sql.= " t.paymentfrequency,";
+
 		$sql.= " t.fileauthorizedkey,";
 		$sql.= " t.filelock,";
 		$sql.= " t.lastrsync,";
@@ -369,6 +382,12 @@ class Dolicloudcustomer extends CommonObject
                 $this->state_id = $obj->state_id;
                 $this->vat_number = $obj->vat_number;
                 $this->phone = $obj->phone;
+
+                $this->paymentmethod = $obj->paymentmethod;
+                $this->paymentinfo = $obj->paymentinfo;
+                $this->paymentstatus = $obj->paymentstatus;
+                $this->paymentnextbillingdate = $this->db->jdate($obj->paymentnextbillingdate);
+                $this->paymentfrequency = $obj->paymentfrequency;	// 'monthly' or 'yearly'
 
                 $this->fileauthorizedkey = $this->db->jdate($obj->fileauthorizedkey);
                 $this->filelock = $this->db->jdate($obj->filelock);

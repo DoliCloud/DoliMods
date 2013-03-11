@@ -55,11 +55,13 @@ CREATE TABLE llx_dolicloud_customers
 	date_lastlogin datetime,
     version varchar(16),
 	modulesenabled varchar(10000),
-	remind_trial_expired datetime default NULL,
-	remind_trial_closed datetime default NULL,
+	remind_trial_expired datetime default NULL, -- date to send email for trial expired (gentle trial expired)
+	remind_trial_closed datetime default NULL,  -- date to send email for trial closed (just before close)
 	paymentmethod varchar(16),
 	paymentinfo varchar(255),
 	paymentstatus varchar(16),
+	paymentnextbillingdate date,
+	paymentfrequency varchar(32),
 	fileauthorizedkey datetime default NULL,
 	filelock datetime default NULL,
     lastrsync datetime default NULL
