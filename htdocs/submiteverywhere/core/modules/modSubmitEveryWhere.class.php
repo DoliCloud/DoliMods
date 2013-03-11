@@ -146,7 +146,7 @@ class modSubmitEveryWhere extends DolibarrModules
 		// Add here entries to declare new menus
 		$this->menu[$r]=array(	'fk_menu'=>'fk_mainmenu=tools',		// Use 'fk_mainmenu=xxx' or 'fk_mainmenu=xxx,fk_leftmenu=yyy'
 									'type'=>'left',			// This is a Left menu entry
-									'titre'=>'Submit Everywhere home',
+									'titre'=>'Submit Everywhere',
 									'mainmenu'=>'tools',
 									'leftmenu'=>'submiteverywhere',
 									'url'=>'/submiteverywhere/index.php',
