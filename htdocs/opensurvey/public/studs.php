@@ -54,8 +54,7 @@ dol_include_once("/opensurvey/class/opensurveysondage.class.php");
 include_once('../bandeaux_local.php');
 include_once('../fonctions.php');
 
-// Le fichier studs.php sert a afficher les résultats d'un sondage à un simple utilisateur.
-// C'est également l'interface pour ajouter une valeur à un sondage deja créé.
+// Init vars
 $numsondage = false;
 
 //On récupère le numéro de sondage par le lien web.
@@ -160,28 +159,26 @@ if (!is_error(NO_POLL) && (isset($_POST["boutonp"]) || isset($_POST["boutonp_x"]
 
 		$nom=substr($_POST["nom"],0,64);
 
-		// protection contre les XSS : htmlentities
-		$nom = htmlentities($nom, ENT_QUOTES, 'UTF-8');
-
-		while($user = $user_studs->FetchNextObject(false)) {
-			if ($nom == $user->nom) {
+		while($tmpuser = $user_studs->FetchNextObject(false)) {
+			if ($nom == $tmpuser->nom) {
 				$err |= NAME_TAKEN;
 			}
 		}
 
 		// Ecriture des choix de l'utilisateur dans la base
 		if (!is_error(NAME_TAKEN) && !is_error(NAME_EMPTY)) {
-
 			$sql = 'INSERT INTO '.MAIN_DB_PREFIX.'opensurvey_user_studs (nom,id_sondage,reponses) VALUES ('.
 				$connect->Param('nom').', '.
 				$connect->Param('numsondage').', '.
 				$connect->Param('nouveauchoix').')';
 			$sql = $connect->Prepare($sql);
 
-			// Todo : Il faudrait lever une erreur en cas d'erreur d'insertion
 			$connect->Execute($sql, array($nom, $numsondage, $nouveauchoix));
 
-			if ($dsondage->mailsonde || /* compatibility for non boolean DB */ $dsondage->mailsonde=="yes" || $dsondage->mailsonde=="true") {
+			if ($dsondage->mailsonde || /* compatibility for non boolean DB */ $dsondage->mailsonde=="yes" || $dsondage->mailsonde=="true") 
+			{
+				// TODO Send email
+				/*
 				$headers="From: ".NOMAPPLICATION." <".ADRESSEMAILADMIN.">\r\nContent-Type: text/plain; charset=\"UTF-8\"\nContent-Transfer-Encoding: 8bit";
 				mail ("$dsondage->mail_admin",
 					"[".NOMAPPLICATION."] "._("Poll's participation")." : $dsondage->titre",
@@ -190,6 +187,7 @@ if (!is_error(NO_POLL) && (isset($_POST["boutonp"]) || isset($_POST["boutonp_x"]
 					getUrlSondage($numsondage)." \n\n" .
 					_("Thanks for your confidence.") . "\n". NOMAPPLICATION,
 					$headers);
+				*/
 			}
 		}
 	} else {
@@ -201,9 +199,9 @@ if (!is_error(NO_POLL) && (isset($_POST["boutonp"]) || isset($_POST["boutonp_x"]
 $nblignes = $user_studs->RecordCount();
 $testmodifier = false;
 $ligneamodifier = -1;
-for ($i=0;$i<$nblignes;$i++)
+for ($i=0; $i<$nblignes; $i++)
 {
-	if (isset($_POST["modifierligne$i"])) {
+	if (isset($_POST['modifierligne'.$i])) {
 		$ligneamodifier = $i;
 	}
 
@@ -236,7 +234,6 @@ if ($testmodifier)
 	$compteur=0;
 	while ($data = $user_studs->FetchNextObject(false) )
 	{
-	//mise a jour des données de l'utilisateur dans la base SQL
 		if ($compteur == $modifier)
 		{
 			$sql = 'UPDATE '.MAIN_DB_PREFIX.'opensurvey_user_studs SET reponses='.$connect->Param('nouveauchoix').' WHERE nom='.$connect->Param('nom').' AND id_users='.$connect->Param('id_users');
@@ -293,15 +290,8 @@ if($err != 0) {
 	echo '</ul></div>';
 
 	if(is_error(NO_POLL_ID) || is_error(NO_POLL)) {
-		echo '<div class="corpscentre">'."\n";
-		print "<H2>" . _("This poll doesn't exist !") . "</H2>"."\n";
-		print _("Back to the homepage of") . ' <a href="index.php"> '. NOMAPPLICATION . '</a>.'."\n";
-		echo '<br><br><br><br>'."\n";
-		echo '</div>'."\n";
-
-		echo '</body>'."\n";
-		echo '</html>'."\n";
-		die();
+		dol_print_error("This poll doesn't exist !");
+		exit;
 	}
 }
 
@@ -339,7 +329,7 @@ $sql = 'SELECT * FROM '.MAIN_DB_PREFIX.'opensurvey_user_studs WHERE id_sondage='
 $sql = $connect->Prepare($sql);
 $user_studs = $connect->Execute($sql, array($numsondage));
 
-//reformatage des données des sujets du sondage
+// Define format of choices
 $toutsujet = explode(",",$object->sujet);
 $listofanswers=array();
 foreach ($toutsujet as $value)
@@ -357,7 +347,8 @@ if ($dsondage->format=="D"||$dsondage->format=="D+")
 
 	//affichage des années
 	$colspan=1;
-	for ($i=0;$i<count($toutsujet);$i++) {
+	for ($i=0;$i<count($toutsujet);$i++) 
+	{
 		if (isset($toutsujet[$i+1]) && date('Y', intval($toutsujet[$i])) == date('Y', intval($toutsujet[$i+1]))) {
 			$colspan++;
 		} else {
@@ -373,8 +364,8 @@ if ($dsondage->format=="D"||$dsondage->format=="D+")
 	//affichage des mois
 	$colspan=1;
 	for ($i=0;$i<count($toutsujet);$i++) {
-		// intval() est utiliser pour supprimer le suffixe @* qui déplaît logiquement à strftime()
-		$cur = intval($toutsujet[$i]);
+		$cur = intval($toutsujet[$i]);	// intval() est utiliser pour supprimer le suffixe @* qui déplaît logiquement à strftime()
+		
 		if (isset($toutsujet[$i+1]) === false) {
 			$next = false;
 		} else {
@@ -459,24 +450,22 @@ else
 $user_mod = false;
 
 
-// Loop on each answers
+// Loop on each answer
 $somme = array();
 $compteur = 0;
 while ($data = $user_studs->FetchNextObject(false))
 {
-	echo '<tr>'."\n";
-	echo '<td class="nom">';
-
-	// Le nom de l'utilisateur
-	$nombase=str_replace("°","'",$data->nom);
-	echo $nombase.'</td>'."\n";
-
-	// Les réponses qu'il a choisit
 	$ensemblereponses = $data->reponses;
+	
+	echo '<tr>'."\n";
 
 	// ligne d'un usager pré-authentifié
 	$mod_ok = !isset($_SERVER['REMOTE_USER']) || ($nombase == $_SESSION['nom']);
 	$user_mod |= $mod_ok;
+	
+	// Name
+	$nombase=str_replace("°","'",$data->nom);
+	echo '<td class="nom">'.$nombase.'</td>'."\n";
 
 	// pour chaque colonne
 	for ($i=0; $i < $nbcolonnes; $i++)
@@ -503,7 +492,7 @@ while ($data = $user_studs->FetchNextObject(false))
 			if (empty($listofanswers[$i]['format']) || $listofanswers[$i]['format'] == 'yesno')
 			{
 				if ($car == "1") echo '<td class="ok">OK</td>'."\n";
-				else echo '<td class="non">&nbsp;</td>'."\n";
+				else echo '<td class="non">KO</td>'."\n";
 				// Total
 				if (isset($somme[$i]) === false) $somme[$i] = 0;
 				if ($car == "1") $somme[$i]++;
@@ -522,12 +511,12 @@ while ($data = $user_studs->FetchNextObject(false))
 
 	//a la fin de chaque ligne se trouve les boutons modifier
 	if ($compteur != $ligneamodifier && ($dsondage->format=="A+"||$dsondage->format=="D+") && $mod_ok) {
-		echo '<td class=casevide><input type="submit" class="button" name="modifierligne'.$compteur.'" value="'.dol_escape_htmltag($langs->trans("Edit")).'"></td>'."\n";
+		echo '<td class="casevide"><input type="submit" class="button" name="modifierligne'.$compteur.'" value="'.dol_escape_htmltag($langs->trans("Edit")).'"></td>'."\n";
 	}
 
 	//demande de confirmation pour modification de ligne
 	for ($i=0;$i<$nblignes;$i++) {
-		if (isset($_POST["modifierligne$i"]) || isset($_POST['modifierligne'.$i.'_x'])) {
+		if (isset($_POST["modifierligne$i"])) {
 			if ($compteur == $i) {
 				echo '<td class="casevide"><input type="submit" class="button" name="validermodifier'.$compteur.'" value="'.dol_escape_htmltag($langs->trans("Save")).'"></td>'."\n";
 			}
@@ -546,7 +535,7 @@ if ($ligneamodifier < 0 && (!isset($_SERVER['REMOTE_USER']) || ! $user_mod))
 	if (isset($_SESSION['nom'])) {
 		echo '<input type=hidden name="nom" value="'.$_SESSION['nom'].'">'.$_SESSION['nom']."\n";
 	} else {
-		echo '<input type=text name="nom" maxlength="64">'."\n";
+		echo '<input type="text" name="nom" maxlength="64">'."\n";
 	}
 	echo '</td>'."\n";
 
@@ -572,12 +561,11 @@ if ($ligneamodifier < 0 && (!isset($_SERVER['REMOTE_USER']) || ! $user_mod))
 	}
 
 	// Affichage du bouton de formulaire pour inscrire un nouvel utilisateur dans la base
-	echo '<td><input type="image" name="boutonp" value="' . _('Participate') . '" src="images/add-24.png"></td>'."\n";
+	echo '<td><input type="image" name="boutonp" value="' . $langs->trans('Vote') . '" src="'.dol_buildpath('/opensurvey/img/add-24.png',1).'"></td>'."\n";
 	echo '</tr>'."\n";
 }
 
-//determination de la meilleure date
-// On cherche la meilleure colonne
+// select best choice
 for ($i=0; $i < $nbcolonnes; $i++) {
 	if (isset($somme[$i]) === true) {
 		if ($i == "0") {
@@ -590,7 +578,7 @@ for ($i=0; $i < $nbcolonnes; $i++) {
 	}
 }
 
-// Affichage des différentes sommes des colonnes existantes
+// Show line total
 echo '<tr>'."\n";
 echo '<td align="right">'. $langs->trans("Total") .'</td>'."\n";
 
@@ -614,7 +602,7 @@ echo '<td class="somme"></td>'."\n";
 
 for ($i=0; $i < $nbcolonnes; $i++) {
 	if (isset($somme[$i]) && isset($meilleurecolonne) && $somme[$i] == $meilleurecolonne) {
-		echo '<td class="somme"><img src="images/medaille.png" alt="' . _('Best choice') . '"></td>'."\n";
+		echo '<td class="somme"><img src="'.dol_buildpath('/opensurvey/img/medaille.png',1).'"></td>'."\n";
 	} else {
 		echo '<td class="somme"></td>'."\n";
 	}
@@ -624,12 +612,9 @@ echo '</tr>'."\n";
 echo '</table>'."\n";
 echo '</div>'."\n";
 
-// reformatage des données de la base pour les sujets
 $toutsujet=explode(",",$dsondage->sujet);
 $toutsujet=str_replace("°","'",$toutsujet);
 
-// On compare le nombre de résultat avec le meilleur et si le résultat est égal
-//  on concatene le resultat dans $meilleursujet
 $compteursujet=0;
 $meilleursujet = '';
 
@@ -708,7 +693,7 @@ $urlwithroot=$urlwithouturlroot.DOL_URL_ROOT;		// This is to use external domain
 $message='';
 $url=$urlwithouturlroot.dol_buildpath('/opensurvey/public/studs.php',1).'?sondage='.$numsondage;
 $urlvcal='<a href="'.$url.'" target="_blank">'.$url.'</a>';
-$message.=img_picto('','object_globe.png').' '.$langs->trans("UrlForSurvey",$urlvcal);
+$message.=img_picto('','object_globe.png').' '.$langs->trans("UrlForSurvey").': '.$urlvcal;
 
 print '<center>'.$message.'</center>';
 

@@ -58,9 +58,10 @@ include_once('./fonctions.php');
 include_once('./bandeaux_local.php');
 
 
-// Initialisation des variables
+// Init vars
 $action=GETPOST('action');
 $numsondageadmin = false;
+$numsondage=false;
 $sondage = false;
 
 // recuperation du numero de sondage admin (24 car.) dans l'URL
@@ -92,13 +93,7 @@ if (preg_match(";[\w\d]{24};i", $numsondageadmin))
 //verification de l'existence du sondage, s'il n'existe pas on met une page d'erreur
 if (!$sondage || $sondage->RecordCount() != 1)
 {
-	echo '<div class=corpscentre>'."\n";
-	print "<H2>" . _("This poll doesn't exist !") . "</H2><br><br>"."\n";
-	print "" . _("Back to the homepage of ") . " <a href=\"list.php\"> ".NOMAPPLICATION."</A>. "."\n";
-	echo '<br><br><br><br>'."\n";
-	echo '</div>'."\n";
-
-	llxFooter();
+	dol_print_error('',"This poll doesn't exist !");
 	exit;
 }
 
@@ -217,38 +212,47 @@ if (isset($_POST['ajoutcomment']) || isset($_POST['ajoutcomment_x']))
 }
 
 
-//action si le bouton participer est cliqué
+// Add vote
 if (isset($_POST["boutonp"]) || isset($_POST["boutonp_x"]))
 {
 	//si on a un nom dans la case texte
-	if (issetAndNoEmpty('nom')){
+	if (issetAndNoEmpty('nom'))
+	{
 		$nouveauchoix = '';
 		$erreur_prenom = false;
 
-		for ($i=0;$i<$nbcolonnes;$i++){
-			//si la checkbox est cochée alors valeur est egale à 1
-			if (isset($_POST["choix$i"])){
+		for ($i=0;$i<$nbcolonnes;$i++)
+		{
+			if (isset($_POST["choix$i"]) && $_POST["choix$i"] == '1')
+			{
 				$nouveauchoix.="1";
-			} else { //sinon 0
+			}
+			else if (isset($_POST["choix$i"]) && $_POST["choix$i"] == '2')
+			{
+				$nouveauchoix.="2";
+			}
+			else { // sinon c'est 0
 				$nouveauchoix.="0";
 			}
 		}
 
-		$nom = htmlentities(html_entity_decode($_POST["nom"], ENT_QUOTES, 'UTF-8'), ENT_QUOTES, 'UTF-8');
+		$nom=substr($_POST["nom"],0,64);
+
 		while ($tmpuser = $user_studs->FetchNextObject(false)) {
-			if ($nom == $tmpuser->nom){
+			if ($nom == $tmpuser->nom)
+			{
 				$erreur_prenom="yes";
 			}
 		}
-
+		
 		// Ecriture des choix de l'utilisateur dans la base
 		if (!$erreur_prenom) {
 			$sql = 'INSERT INTO '.MAIN_DB_PREFIX.'opensurvey_user_studs (nom, id_sondage, reponses) VALUES ('.
 				$connect->Param('nom').','.
 				$connect->Param('numsondage').','.
 				$connect->Param('nouveauchoix').')';
-
 			$sql = $connect->Prepare($sql);
+
 			$connect->Execute($sql, array($nom, $numsondage, $nouveauchoix));
 		}
 	}
@@ -270,6 +274,58 @@ if (isset($_POST["ajoutercolonne"]) && issetAndNoEmpty('nouvellecolonne') && ($d
 	$connect->Execute($sql, array($nouveauxsujets, $numsondage));
 }
 
+
+// Update vote
+$testmodifier = false;
+$testligneamodifier = false;
+$ligneamodifier = -1;
+for ($i=0; $i<$nblignes; $i++)
+{
+	if (isset($_POST['modifierligne'.$i])) {
+		$ligneamodifier=$i;
+		$testligneamodifier=true;
+	}
+
+	//test pour voir si une ligne est a modifier
+	if (isset($_POST['validermodifier'.$i])) {
+		$modifier=$i;
+		$testmodifier=true;
+	}
+}
+if ($testmodifier)
+{
+	//var_dump($_POST);exit;
+	$nouveauchoix = '';
+	for ($i = 0; $i < $nbcolonnes; $i++)
+	{
+		//var_dump($_POST["choix$i"]);
+		if (isset($_POST["choix$i"]) && $_POST["choix$i"] == '1')
+		{
+			$nouveauchoix.="1";
+		}
+		else if (isset($_POST["choix$i"]) && $_POST["choix$i"] == '2')
+		{
+			$nouveauchoix.="2";
+		}
+		else { // sinon c'est 0
+			$nouveauchoix.="0";
+		}
+	}
+
+	$compteur=0;
+
+	while ($data=$user_studs->FetchNextObject(false)) 
+	{
+		if ($compteur==$modifier) 
+		{
+			$sql = 'UPDATE '.MAIN_DB_PREFIX.'opensurvey_user_studs SET reponses = '.$connect->Param('reponses').' WHERE nom = '.$connect->Param('nom').' AND id_users = '.$connect->Param('id_users');
+			$sql = $connect->Prepare($sql);
+			$connect->Execute($sql, array($nouveauchoix, $data->nom, $data->id_users));
+		}
+
+		$compteur++;
+	}
+}
 
 //action quand on ajoute une colonne au format DATE
 if (isset($_POST["ajoutercolonne"]) && ($dsondage->format == "D" || $dsondage->format == "D+")) {
@@ -400,7 +456,7 @@ for ($i = 0; $i < $nblignes; $i++) {
 }
 
 
-//suppression d'un commentaire utilisateur
+// delete comment
 $sql = 'SELECT * FROM '.MAIN_DB_PREFIX.'opensurvey_comments WHERE id_sondage='.$connect->Param('numsondage').' ORDER BY id_comment';
 $sql = $connect->Prepare($sql);
 $comment_user = $connect->Execute($sql, array($numsondage));
@@ -416,7 +472,7 @@ while ($dcomment = $comment_user->FetchNextObject(false)) {
 }
 
 
-//suppression de colonnes dans la base
+// delete column
 for ($i = 0; $i < $nbcolonnes; $i++)
 {
 	if ((isset($_POST["effacecolonne$i"]) || isset($_POST['effacecolonne'.$i.'_x'])) && $nbcolonnes > 1)
@@ -627,58 +683,6 @@ if (isset($_POST["ajoutsujet"]) || isset($_POST["ajoutsujet_x"])) {
 }
 
 
-//on teste pour voir si une ligne doit etre modifiée
-$testmodifier = false;
-$testligneamodifier = false;
-
-for ($i = 0; $i < $nblignes; $i++) {
-	if (isset($_POST["modifierligne$i"]) || isset($_POST['modifierligne'.$i.'_x'])) {
-		$ligneamodifier=$i;
-		$testligneamodifier="true";
-	}
-
-	//test pour voir si une ligne est a modifier
-	if (isset($_POST["validermodifier$i"]) || isset($_POST['validermodifier'.$i.'_x'])) {
-		$modifier=$i;
-		$testmodifier="true";
-	}
-}
-
-
-//si le test est valide alors on affiche des checkbox pour entrer de nouvelles valeurs
-if ($testmodifier)
-{
-	$nouveauchoix = '';
-	for ($i = 0; $i < $nbcolonnes; $i++)
-	{
-		if (isset($_POST["choix$i"]) && $_POST["choix$i"] == '1')
-		{
-			$nouveauchoix.="1";
-		}
-		else if (isset($_POST["choix$i"]) && $_POST["choix$i"] == '2')
-		{
-			$nouveauchoix.="2";
-		}
-		else { // sinon c'est 0
-			$nouveauchoix.="0";
-		}
-	}
-
-	$compteur=0;
-
-	while ($data=$user_studs->FetchNextObject(false)) {
-		//mise a jour des données de l'utilisateur dans la base SQL
-		if ($compteur==$modifier) {
-			$sql = 'UPDATE '.MAIN_DB_PREFIX.'opensurvey_user_studs SET reponses = '.$connect->Param('reponses').' WHERE nom = '.$connect->Param('nom').' AND id_users = '.$connect->Param('id_users');
-			$sql = $connect->Prepare($sql);
-			$connect->Execute($sql, array($nouveauchoix, $data->nom, $data->id_users));
-		}
-
-		$compteur++;
-	}
-}
-
-
 echo '<div class="corps"> '."\n";
 
 //affichage du titre du sondage
@@ -717,21 +721,17 @@ if ($sondage !== false)
 }
 else
 {
-	echo '<div class=corpscentre>'."\n";
-	print "<H2>" . _("This poll doesn't exist !") . "</H2><br><br>"."\n";
-	print "" . _("Back to the homepage of ") . " <a href=\"index.php\"> ".NOMAPPLICATION."</A>. "."\n";
-	echo '<br><br><br><br>'."\n";
-	echo '</div>'."\n";
+	dol_print_error('',"This poll doesn't exist !");
 
 	llxFooterSurvey();
 	exit;
 }
 
-//on recupere les données et les sujets du sondage
 $dsujet=$sujets->FetchObject(false);
 $dsondage=$sondage->FetchObject(false);
 
-$toutsujet=explode(",",$dsujet->sujet);
+// Define format of choices
+$toutsujet=explode(",",$object->sujet);
 $listofanswers=array();
 foreach ($toutsujet as $value)
 {
@@ -773,7 +773,7 @@ if ($dsondage->format=="D"||$dsondage->format=="D+")
 
 	//affichage des années
 	$colspan=1;
-	for ($i = 0; $i < count($toutsujet); $i++)
+	for ($i=0;$i<count($toutsujet);$i++)
 	{
 		$current = $toutsujet[$i];
 
@@ -805,7 +805,6 @@ if ($dsondage->format=="D"||$dsondage->format=="D+")
 	$colspan = 1;
 	for ($i = 0; $i < count($toutsujet); $i++) {
 		$current = $toutsujet[$i];
-
 		if (strpos($toutsujet[$i], '@') !== false) {
 			$current = substr($toutsujet[$i], 0, strpos($toutsujet[$i], '@'));
 		}
@@ -906,7 +905,7 @@ else
 
 
 // Loop on each answer
-$somme[] = 0;
+$somme = array();
 $compteur = 0;
 while ($data = $user_studs->FetchNextObject(false))
 {
@@ -915,43 +914,62 @@ while ($data = $user_studs->FetchNextObject(false))
 	echo '<tr>'."\n";
 	echo '<td><input type="image" name="effaceligne'.$compteur.'" value="Effacer" src="'.dol_buildpath('/opensurvey/img/cancel.png',1).'"  alt="Icone efface"></td>'."\n";
 
-	//affichage du nom
+	// Name
 	$nombase=str_replace("°","'",$data->nom);
 	echo '<td class="nom">'.$nombase.'</td>'."\n";
 
-	//si la ligne n'est pas a changer, on affiche les données
-	$car = substr($ensemblereponses, $i, 1);
+	// si la ligne n'est pas a changer, on affiche les données
 	if (! $testligneamodifier)
 	{
 		for ($i = 0; $i < $nbcolonnes; $i++)
 		{
-			if ($car == "1") {
-				echo '<td class="ok">OK</td>'."\n";
-				if (isset($somme[$i]) === false) {
-					$somme[$i] = 0;
-				}
-				$somme[$i]++;
-			} else {
-				echo '<td class="non"></td>'."\n";
+			$car = substr($ensemblereponses, $i, 1);
+			if (empty($listofanswers[$i]['format']) || $listofanswers[$i]['format'] == 'yesno')
+			{
+				if ($car == "1") echo '<td class="ok">OK</td>'."\n";
+				else echo '<td class="non">KO</td>'."\n";
+				// Total
+				if (isset($somme[$i]) === false) $somme[$i] = 0;
+				if ($car == "1") $somme[$i]++;
+			}
+			if (! empty($listofanswers[$i]['format']) && $listofanswers[$i]['format'] == 'pourcontre')
+			{
+				if ($car == "1") echo '<td class="ok">'.$langs->trans("For").'</td>'."\n";
+				else if ($car =="0") echo '<td class="non">'.$langs->trans("Against").'</td>'."\n";
+				else echo '<td class="vide">&nbsp;</td>'."\n";
+				// Total
+				if (isset($somme[$i]) === false) $somme[$i] = 0;
+				if ($car == "1") $somme[$i]++;
 			}
 		}
 	}
 	else
 	{ //sinon on remplace les choix de l'utilisateur par une ligne de checkbox pour recuperer de nouvelles valeurs
-
-		//si c'est bien la ligne a modifier on met les checkbox
-		if ($compteur == "$ligneamodifier")
+		if ($compteur == $ligneamodifier)
 		{
 			for ($i = 0; $i < $nbcolonnes; $i++)
 			{
-				if ($car == "1") echo '<td class="vide"><input type="checkbox" name="choix'.$i.'" value="" checked="checked"></td>'."\n";
-				else echo '<td class="vide"><input type="checkbox" name="choix'.$i.'" value=""></td>'."\n";
+				$car = substr($ensemblereponses, $i, 1);
+				echo '<td class="vide">';
+				if (empty($listofanswers[$i]['format']) || $listofanswers[$i]['format'] == 'yesno')
+				{
+					print '<input type="checkbox" name="choix'.$i.'" value="1" ';
+					if ($car == '1') echo 'checked="checked"';
+					echo '>';
+				}
+				if (! empty($listofanswers[$i]['format']) && $listofanswers[$i]['format'] == 'pourcontre')
+				{
+					$arraychoice=array('2'=>'&nbsp;','0'=>$langs->trans("Against"),'1'=>$langs->trans("For"));
+					print $form->selectarray("choix".$i, $arraychoice, $car);
+				}
+				print '</td>'."\n";
 			}
 		}
 		else
-		{ //sinon on affiche les lignes normales
+		{
 			for ($i = 0; $i < $nbcolonnes; $i++)
 			{
+				$car = substr($ensemblereponses, $i, 1);
 				if (empty($listofanswers[$i]['format']) || $listofanswers[$i]['format'] == 'yesno')
 				{
 					if ($car == "1") echo '<td class="ok">OK</td>'."\n";
@@ -974,15 +992,15 @@ while ($data = $user_studs->FetchNextObject(false))
 	}
 
 	//a la fin de chaque ligne se trouve les boutons modifier
-	if (!$testligneamodifier=="true") {
-		echo '<td class=somme><input type="submit" class="button" name="modifierligne'.$compteur.'" value="'.dol_escape_htmltag($langs->trans("Edit")).'" src="'.dol_buildpath('/opensurvey/img/info.png',1).'"></td>'."\n";
+	if ($compteur != $ligneamodifier) {
+		echo '<td class="casevide"><input type="submit" class="button" name="modifierligne'.$compteur.'" value="'.dol_escape_htmltag($langs->trans("Edit")).'"></td>'."\n";
 	}
 
 	//demande de confirmation pour modification de ligne
 	for ($i = 0; $i < $nblignes; $i++) {
-		if (isset($_POST["modifierligne$i"]) || isset($_POST['modifierligne'.$i.'_x'])) {
+		if (isset($_POST["modifierligne$i"])) {
 			if ($compteur == $i) {
-				echo '<td><input type="submit" class="button" name="validermodifier'.$compteur.'" value="'.dol_escape_htmltag($langs->trans("Save")).'" src="'.dol_buildpath('/opensurvey/img/accept.png',1).'"></td>'."\n";
+				echo '<td class="casevide"><input type="submit" class="button" name="validermodifier'.$compteur.'" value="'.dol_escape_htmltag($langs->trans("Save")).'"></td>'."\n";
 			}
 		}
 	}
@@ -995,8 +1013,8 @@ while ($data = $user_studs->FetchNextObject(false))
 // Add line to add new record
 echo '<tr>'."\n";
 echo '<td></td>'."\n";
-echo '<td class=nom>'."\n";
-echo '<input type="text" name="nom"><br>'."\n";
+echo '<td class="nom">'."\n";
+echo '<input type="text" name="nom" maxlength="64">'."\n";
 echo '</td>'."\n";
 
 for ($i = 0; $i < $nbcolonnes; $i++)
@@ -1020,11 +1038,11 @@ for ($i = 0; $i < $nbcolonnes; $i++)
 }
 
 // Affichage du bouton de formulaire pour inscrire un nouvel utilisateur dans la base
-echo '<td><input type="image" name="boutonp" value="Participer" src="'.dol_buildpath('/opensurvey/img/add-24.png',1).'" alt="' . _('Add') . '"></td>'."\n";
+echo '<td><input type="image" name="boutonp" value="'.$langs->trans("Vote").'" src="'.dol_buildpath('/opensurvey/img/add-24.png',1).'"></td>'."\n";
 echo '</tr>'."\n";
 
-//determination du meilleur choix
-for ($i = 0; $i < $nbcolonnes + 1; $i++) {
+// select best choice
+for ($i=0; $i < $nbcolonnes + 1; $i++) {
 	if (isset($somme[$i]) === true) {
 		if ($i == "0") {
 			$meilleurecolonne = $somme[$i];
@@ -1037,7 +1055,7 @@ for ($i = 0; $i < $nbcolonnes + 1; $i++) {
 }
 
 
-//affichage de la ligne contenant les sommes de chaque colonne
+// Show line total
 echo '<tr>'."\n";
 echo '<td></td>'."\n";
 echo '<td align="right">'. $langs->trans("Total") .'</td>'."\n";
@@ -1066,7 +1084,7 @@ echo '<td class="somme"></td>'."\n";
 
 for ($i = 0; $i < $nbcolonnes; $i++) {
 	if (isset($somme[$i]) === true && isset($meilleurecolonne) === true && $somme[$i] == $meilleurecolonne){
-		echo '<td class="somme"><img src="'.dol_buildpath('/opensurvey/img/medaille.png',1).'" alt="Meilleur resultat"></td>'."\n";
+		echo '<td class="somme"><img src="'.dol_buildpath('/opensurvey/img/medaille.png',1).'"></td>'."\n";
 	} else {
 		echo '<td class="somme"></td>'."\n";
 	}
@@ -1105,10 +1123,8 @@ echo '</table>'."\n";
 echo '</div>'."\n";
 
 
-//recuperation des valeurs des sujets et adaptation pour affichage
 $toutsujet = explode(",", $dsujet->sujet);
 
-//recuperation des sujets des meilleures colonnes
 $compteursujet = 0;
 $meilleursujet = '';
 for ($i = 0; $i < $nbcolonnes; $i++) {
