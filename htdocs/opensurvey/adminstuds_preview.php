@@ -244,7 +244,7 @@ if (isset($_POST["boutonp"]) || isset($_POST["boutonp_x"]))
 				$erreur_prenom="yes";
 			}
 		}
-		
+
 		// Ecriture des choix de l'utilisateur dans la base
 		if (!$erreur_prenom) {
 			$sql = 'INSERT INTO '.MAIN_DB_PREFIX.'opensurvey_user_studs (nom, id_sondage, reponses) VALUES ('.
@@ -314,9 +314,9 @@ if ($testmodifier)
 
 	$compteur=0;
 
-	while ($data=$user_studs->FetchNextObject(false)) 
+	while ($data=$user_studs->FetchNextObject(false))
 	{
-		if ($compteur==$modifier) 
+		if ($compteur==$modifier)
 		{
 			$sql = 'UPDATE '.MAIN_DB_PREFIX.'opensurvey_user_studs SET reponses = '.$connect->Param('reponses').' WHERE nom = '.$connect->Param('nom').' AND id_users = '.$connect->Param('id_users');
 			$sql = $connect->Prepare($sql);
@@ -1143,8 +1143,8 @@ for ($i = 0; $i < $nbcolonnes; $i++) {
 		}
 		else
 		{
-			$tmp=explode('@',$toutsujet[$i]);
-			$meilleursujet.=$tmp[0];
+			$tmps=explode('@',$toutsujet[$i]);
+			$meilleursujet .= $tmps[0];
 		}
 
 		$compteursujet++;
@@ -1156,10 +1156,9 @@ $meilleursujet = substr("$meilleursujet", 1);
 $meilleursujet = str_replace("°", "'", $meilleursujet);
 
 //ajout du S si plusieurs votes
-$vote_str = _('vote');
-if (isset($meilleurecolonne) && $meilleurecolonne > 1) {
-	$vote_str = _('votes');
-}
+$vote_str = $langs->trans('vote');
+if (isset($meilleurecolonne) && $meilleurecolonne > 1) $vote_str = $langs->trans('votes');
+
 
 echo '<p class=affichageresultats>'."\n";
 

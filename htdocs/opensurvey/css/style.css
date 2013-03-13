@@ -329,7 +329,7 @@ div.cadre td.ok {
 /*Case de tableau NON dans affichage de sondage*/
 div.cadre td.non {
 	background-color: #FF7777; 
-	width:35px;
+	min-width: 60px;
 }
 /*Case de tableau VIDE dans affichage de sondage*/
 div.cadre td.vide {
@@ -356,7 +356,6 @@ div.cadre td.somme {
 div.cadre td.sujet, div.cadre td.jour, div.cadre td.heure {
 	border: 2px;
 	background-color: #DDDDDD; 
-	font-weight:  bold;
 	font-size:14px;
 	padding:1px 5px;
 }
@@ -364,14 +363,14 @@ div.cadre td.sujet, div.cadre td.jour, div.cadre td.heure {
 div.cadre td.annee {
 	border: 2px;
 	background-color: #969696; 
-	font-weight:  bold;
+	font-weight: bold;
 	font-size:14px;
 	padding:1px 5px;
 }
 div.cadre td.mois {
 	border: 2px;
 	background-color: #C0C0C0; 
-	font-weight:  bold;
+	font-weight: bold;
 	font-size:14px;
 	padding:1px 5px;
 }

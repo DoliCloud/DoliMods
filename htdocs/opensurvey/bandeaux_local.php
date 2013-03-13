@@ -70,7 +70,7 @@ function showlogo()
 		$urllogo=DOL_URL_ROOT.'/theme/dolibarr_logo.png';
 	}
 	print '<center>';
-	print '<img alt="Logo" id="logosubscribe" title="" src="'.$urllogo.'" style="max-width: 50%" class="half" /><br>';
+	print '<img alt="Logo" id="logosubscribe" title="" src="'.$urllogo.'" style="max-width: 120px" /><br>';
 	print '<strong>'.$langs->trans("OpenSurvey").'</strong>';
 	print '</center><br>';
 }

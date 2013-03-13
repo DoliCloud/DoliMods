@@ -175,7 +175,7 @@ if (!is_error(NO_POLL) && (isset($_POST["boutonp"]) || isset($_POST["boutonp_x"]
 
 			$connect->Execute($sql, array($nom, $numsondage, $nouveauchoix));
 
-			if ($dsondage->mailsonde || /* compatibility for non boolean DB */ $dsondage->mailsonde=="yes" || $dsondage->mailsonde=="true") 
+			if ($dsondage->mailsonde || /* compatibility for non boolean DB */ $dsondage->mailsonde=="yes" || $dsondage->mailsonde=="true")
 			{
 				// TODO Send email
 				/*
@@ -319,7 +319,7 @@ echo '<input type="hidden" name="sondage" value="' . $numsondage . '"/>';
 // Todo : add CSRF protection
 echo '<div class="cadre"> '."\n";
 echo $langs->trans("OpenSurveyHowTo");
-echo '<br><br>'."\n";
+echo '<br><br><br><br>'."\n";
 
 // Debut de l'affichage des resultats du sondage
 echo '<table class="resultats">'."\n";
@@ -347,7 +347,7 @@ if ($dsondage->format=="D"||$dsondage->format=="D+")
 
 	//affichage des années
 	$colspan=1;
-	for ($i=0;$i<count($toutsujet);$i++) 
+	for ($i=0;$i<count($toutsujet);$i++)
 	{
 		if (isset($toutsujet[$i+1]) && date('Y', intval($toutsujet[$i])) == date('Y', intval($toutsujet[$i+1]))) {
 			$colspan++;
@@ -365,7 +365,7 @@ if ($dsondage->format=="D"||$dsondage->format=="D+")
 	$colspan=1;
 	for ($i=0;$i<count($toutsujet);$i++) {
 		$cur = intval($toutsujet[$i]);	// intval() est utiliser pour supprimer le suffixe @* qui déplaît logiquement à strftime()
-		
+
 		if (isset($toutsujet[$i+1]) === false) {
 			$next = false;
 		} else {
@@ -456,13 +456,13 @@ $compteur = 0;
 while ($data = $user_studs->FetchNextObject(false))
 {
 	$ensemblereponses = $data->reponses;
-	
+
 	echo '<tr>'."\n";
 
 	// ligne d'un usager pré-authentifié
 	$mod_ok = !isset($_SERVER['REMOTE_USER']) || ($nombase == $_SESSION['nom']);
 	$user_mod |= $mod_ok;
-	
+
 	// Name
 	$nombase=str_replace("°","'",$data->nom);
 	echo '<td class="nom">'.$nombase.'</td>'."\n";
@@ -535,7 +535,7 @@ if ($ligneamodifier < 0 && (!isset($_SERVER['REMOTE_USER']) || ! $user_mod))
 	if (isset($_SESSION['nom'])) {
 		echo '<input type=hidden name="nom" value="'.$_SESSION['nom'].'">'.$_SESSION['nom']."\n";
 	} else {
-		echo '<input type="text" name="nom" maxlength="64">'."\n";
+		echo '<input type="text" name="nom" maxlength="64" size="24">'."\n";
 	}
 	echo '</td>'."\n";
 
@@ -631,7 +631,8 @@ for ($i = 0; $i < $nbcolonnes; $i++) {
 				$meilleursujet .= dol_print_date($toutsujet[$i],'daytext'). ' ('.dol_print_date($toutsujet[$i],'%A').')';
 			}
 		} else {
-			$meilleursujet .= $toutsujet[$i];
+			$tmps=explode('@',$toutsujet[$i]);
+			$meilleursujet .= $tmps[0];
 		}
 
 		$compteursujet++;
@@ -639,11 +640,11 @@ for ($i = 0; $i < $nbcolonnes; $i++) {
 }
 
 $meilleursujet=substr("$meilleursujet", 1);
-$vote_str = _('vote');
+$meilleursujet = str_replace("°", "'", $meilleursujet);
 
-if (isset($meilleurecolonne) && $meilleurecolonne > 1) {
-	$vote_str = _('votes');
-}
+$vote_str = $langs->trans('vote');
+if (isset($meilleurecolonne) && $meilleurecolonne > 1) $vote_str = $langs->trans('votes');
+
 
 echo '<p class="affichageresultats">'."\n";
 
@@ -655,6 +656,8 @@ if ($compteursujet == "1" && isset($meilleurecolonne)) {
 }
 
 echo '</p>';
+
+echo '<br><br>';
 
 //affichage des commentaires des utilisateurs existants
 $sql = 'select * from '.MAIN_DB_PREFIX.'opensurvey_comments where id_sondage='.$connect->Param('numsondage').' order by id_comment';
@@ -684,7 +687,7 @@ echo '</div>'."\n";
 
 echo '<br><br>';
 
-
+/*
 // Define $urlwithroot
 $urlwithouturlroot=preg_replace('/'.preg_quote(DOL_URL_ROOT,'/').'$/i','',trim($dolibarr_main_url_root));
 $urlwithroot=$urlwithouturlroot.DOL_URL_ROOT;		// This is to use external domain name found into config file
@@ -696,7 +699,7 @@ $urlvcal='<a href="'.$url.'" target="_blank">'.$url.'</a>';
 $message.=img_picto('','object_globe.png').' '.$langs->trans("UrlForSurvey").': '.$urlvcal;
 
 print '<center>'.$message.'</center>';
-
+*/
 
 
 echo '<a name="bas"></a>'."\n";
