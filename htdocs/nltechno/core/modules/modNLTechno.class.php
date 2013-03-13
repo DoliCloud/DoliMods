@@ -254,7 +254,7 @@ class modNLTechno extends DolibarrModules
 								'mainmenu'=>'nltechno',
 								'leftmenu'=>'dolicloud_emailstemplates',
 								'url'=>'/nltechno/dolicloud/dolicloudemailstemplates_page.php?action=list',
-								'langs'=>'',
+								'langs'=>'nltechno@nltechno',
 								'position'=>220,
                 				'enabled'=>'$conf->nltechno->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
 								'perms'=>'$user->rights->nltechno->dolicloud->write',
