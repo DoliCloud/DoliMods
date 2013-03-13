@@ -25,3 +25,6 @@ FileCreated=File created
 EMailTemplate=EMail template
 EMailsTemplates=EMails templates
 BenefitDoliCloud=Benefit (customers with status ACTIVE - Stratus5 commission)
+ActivePaymentError=Payment error but instance active
+DisabledPaymentError=Payment error and instance disabled
+Trial=Trial period

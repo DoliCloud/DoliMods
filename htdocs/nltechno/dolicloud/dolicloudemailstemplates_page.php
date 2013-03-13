@@ -55,6 +55,17 @@ $id			= GETPOST('id','int');
 $action		= GETPOST('action','alpha');
 $myparam	= GETPOST('myparam','alpha');
 
+$sortfield = GETPOST("sortfield",'alpha');
+$sortorder = GETPOST("sortorder",'alpha');
+$page = GETPOST("page",'int');
+if ($page == -1) {
+	$page = 0;
+}
+$offset = $conf->liste_limit * $page;
+if (! $sortorder) $sortorder='ASC';
+if (! $sortfield) $sortfield='t.emailtype';
+$limit = $conf->liste_limit;
+
 // Protection if external user
 if ($user->societe_id > 0)
 {
@@ -189,15 +200,16 @@ if ($action == 'list')
 	$sql = "SELECT";
     $sql.= " t.rowid,";
 
-		$sql.= " t.emailtype,";
-		$sql.= " t.lang,";
-		$sql.= " t.topic,";
-		$sql.= " t.content";
-
+	$sql.= " t.emailtype,";
+	$sql.= " t.lang,";
+	$sql.= " t.topic,";
+	$sql.= " t.content";
 
     $sql.= " FROM ".MAIN_DB_PREFIX."dolicloud_emailstemplates as t";
     //$sql.= " WHERE field3 = 'xxx'";
-    $sql.= " ORDER BY lang, emailtype ASC";
+    $sql.= $db->order($sortfield, $sortorder);
+
+    $param='&action=list';
 
     print '<table class="noborder">'."\n";
     print '<tr class="liste_titre">';

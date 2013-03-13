@@ -1,5 +1,5 @@
 <?php
-/* Copyright (C) 2004-2012 Laurent Destailleur  <eldy@users.sourceforge.net>
+/* Copyright (C) 2004-2013 Laurent Destailleur  <eldy@users.sourceforge.net>
  *
 * This program is free software; you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
@@ -213,7 +213,14 @@ if (empty($reshook))
 
 			if ($result > 0)
 			{
-				$action = 'view';
+				if ($object->status == 'DISABLED_PAYMENT_ERROR' && $object->oldcopy->status != 'DISABLED_PAYMENT_ERROR')
+				{
+					$action = 'disable_instance';
+				}
+				if ($object->status != 'DISABLED_PAYMENT_ERROR' && $object->oldcopy->status == 'DISABLED_PAYMENT_ERROR')
+				{
+					$action = 'enable_instance';
+				}
 			}
 			else
 			{
@@ -223,6 +230,7 @@ if (empty($reshook))
 		}
 	}
 
+	// Add action to create file, etc...
 	include 'refresh_action.inc.php';
 }
 
@@ -238,7 +246,7 @@ $form = new Form($db);
 $formcompany = new FormCompany($db);
 
 $countrynotdefined=$langs->trans("ErrorSetACountryFirst").' ('.$langs->trans("SeeAbove").')';
-$arraystatus=array('TRIAL'=>'TRIAL','TRIAL_EXPIRED'=>'TRIAL_EXPIRED','ACTIVE'=>'ACTIVE','PAYMENT_ERROR'=>'PAYMENT_ERROR','CLOSED_QUEUED'=>'CLOSED_QUEUED','UNDEPLOYED'=>'UNDEPLOYED');
+$arraystatus=array('TRIAL'=>'TRIAL','TRIAL_EXPIRED'=>'TRIAL_EXPIRED','ACTIVE'=>'ACTIVE','ACTIVE_PAYMENT_ERROR'=>'ACTIVE_PAYMENT_ERROR','DISABLED_PAYMENT_ERROR'=>'DISABLED_PAYMENT_ERROR','CLOSED_QUEUED'=>'CLOSED_QUEUED','UNDEPLOYED'=>'UNDEPLOYED');
 
 
 // Confirm deleting object
@@ -725,7 +733,7 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 
 	// Status
 	print '<tr><td>'.$langs->trans("Status").'</td><td colspan="3">';
-	print $object->getLibStatut(2);
+	print $object->getLibStatut(4);
 	print '</td>';
 	print '</tr>';
 

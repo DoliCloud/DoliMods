@@ -62,6 +62,83 @@ if ($action == 'addauthorizedkey')
 }
 
 
+if ($action == 'disable_instance')
+{
+	// We push a page to disable instance
+
+	// SFTP connect
+	if (! function_exists("ssh2_connect")) {
+		dol_print_error('','ssh2_connect function does not exists'); exit;
+	}
+
+	$server=$object->instance.'.on.dolicloud.com';
+	$connection = ssh2_connect($server, 22);
+	if ($connection)
+	{
+		//print $object->instance." ".$object->username_web." ".$object->password_web."<br>\n";
+		if (! @ssh2_auth_password($connection, $object->username_web, $object->password_web))
+		{
+			dol_syslog("Could not authenticate with username ".$username." . and password ".$password,LOG_ERR);
+		}
+		else
+		{
+			$sftp = ssh2_sftp($connection);
+
+			// Check if install.lock exists
+			$dir=preg_replace('/_dolibarr$/','',$object->database_db);
+			$filedisabled="ssh2.sftp://".$sftp."/home/".$object->username_web.'/'.$dir.'/htdocs/index.html';
+			$fstat=stat($filedisabled);
+			if (empty($fstat['atime']))
+			{
+				$stream = fopen($filedisabled, 'w');
+				//var_dump($stream);exit;
+				$filesource=file_get_contents('index_disabled_en_US.html');
+				$filesource=preg_replace('/__instance__/', $object->instance, $filesource);
+				fwrite($stream,$filesource);
+				fclose($stream);
+				$fstat=stat($filedisabled);
+				setEventMessage($langs->transnoentitiesnoconv("FileToDisableInstanceCreated",$object->instance),'warnings');
+			}
+			else setEventMessage($langs->transnoentitiesnoconv("ErrorFileAlreadyExists"),'warnings');
+		}
+	}
+}
+
+
+if ($action == 'enable_instance')
+{
+	// SFTP connect
+	if (! function_exists("ssh2_connect")) {
+		dol_print_error('','ssh2_connect function does not exists'); exit;
+	}
+
+	$server=$object->instance.'.on.dolicloud.com';
+	$connection = ssh2_connect($server, 22);
+	if ($connection)
+	{
+		//print $object->instance." ".$object->username_web." ".$object->password_web."<br>\n";
+		if (! @ssh2_auth_password($connection, $object->username_web, $object->password_web))
+		{
+			dol_syslog("Could not authenticate with username ".$username." . and password ".$password,LOG_ERR);
+		}
+		else
+		{
+			$sftp = ssh2_sftp($connection);
+
+			// Check if install.lock exists
+			$dir=preg_replace('/_dolibarr$/','',$object->database_db);
+			$filetodelete="/home/".$object->username_web.'/'.$dir.'/htdocs/index.html';
+			$result=ssh2_sftp_unlink($sftp, $filetodelete);
+
+			if ($result) setEventMessage($langs->transnoentitiesnoconv("FileToDisableInstanceRemoved",$object->instance),'mesgs');
+			else setEventMessage($langs->transnoentitiesnoconv("DeleteFails"),'warnings');
+		}
+	}
+	else setEventMessage($langs->transnoentitiesnoconv("FailedToConnectToSftp"),'errors');
+}
+
+
+
 if ($action == 'addinstalllock')
 {
 	// SFTP connect

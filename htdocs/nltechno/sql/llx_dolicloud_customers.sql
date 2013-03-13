@@ -34,7 +34,7 @@ CREATE TABLE llx_dolicloud_customers
 	phone varchar(128),
 	date_registration datetime,
 	date_endfreeperiod datetime,
-	status varchar(16),
+	status varchar(24),
 	partner varchar(128),
 	source varchar(128),
 	total_invoiced double(6,3),

@@ -655,7 +655,8 @@ class Dolicloudcustomer extends CommonObject
 		if ($this->status == 'ACTIVE') $picto=img_picto($langs->trans("Active"),'statut4');
 		elseif ($this->status == 'CLOSED_QUEUED') $picto=img_picto($langs->trans("Disabled"),'statut6');
 		elseif ($this->status == 'UNDEPLOYED') $picto=img_picto($langs->trans("Active"),'statut5');
-		elseif ($this->status == 'PAYMENT_ERROR') $picto=img_picto($langs->trans("PaymentError"),'statut3');
+		elseif ($this->status == 'ACTIVE_PAYMENT_ERROR') $picto=img_picto($langs->trans("ActivePaymentError"),'statut3');
+		elseif ($this->status == 'DISABLED_PAYMENT_ERROR') $picto=img_picto($langs->trans("DisabledPaymentError"),'statut3');
 		elseif ($this->status == 'TRIAL_EXPIRED') $picto=img_picto($langs->trans("Expired"),'statut1');
 		elseif ($this->status == 'TRIAL') $picto=img_picto($langs->trans("Trial"),'statut0');
 		else $picto=img_picto($langs->trans("Trial"),'statut0');

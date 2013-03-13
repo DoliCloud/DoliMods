@@ -1,4 +1,17 @@
 -- To run upgrade call /install/upgrade.php?versionfrom=x.y.z&versionto=a.b.c&versionmodule=module
+--
+-- Be carefull to requests order.
+--
+-- To rename a table:       ALTER TABLE llx_table RENAME TO llx_table_new;
+-- To add a column:         ALTER TABLE llx_table ADD COLUMN newcol varchar(60) NOT NULL DEFAULT '0' AFTER existingcol;
+-- To rename a column:      ALTER TABLE llx_table CHANGE COLUMN oldname newname varchar(60);
+-- To drop a column:        ALTER TABLE llx_table DROP COLUMN oldname;
+-- To change type of field: ALTER TABLE llx_table MODIFY COLUMN name varchar(60);
+-- To drop a foreign key:   ALTER TABLE llx_table DROP FOREIGN KEY fk_name;
+-- To restrict request to Mysql version x.y use -- VMYSQLx.y
+-- To restrict request to Pgsql version x.y use -- VPGSQLx.y
+-- To make pk to be auto increment (mysql):   VMYSQL4.3 ALTER TABLE llx_c_shipment_mode CHANGE COLUMN rowid rowid INTEGER NOT NULL AUTO_INCREMENT;
+-- To make pk to be auto increment (postgres) VPGSQL8.2 ALTER TABLE llx_c_shipment_mode CHANGE COLUMN rowid INTEGER SERIAL PRIMARY KEY;
 
 alter table llx_dolicloud_customers modify column status varchar(16);
 alter table llx_dolicloud_customers add column remind_trial_expired datetime default NULL;
@@ -9,6 +22,9 @@ alter table llx_dolicloud_customers add column paymentstatus varchar(16);
 alter table llx_dolicloud_customers add column source varchar(128);
 alter table llx_dolicloud_customers add column paymentnextbillingdate date;
 alter table llx_dolicloud_customers add column paymentfrequency varchar(32);
+
+alter table llx_dolicloud_customers modify column status varchar(24);
+
 
 	
 update llx_dolicloud_customers set status = 'ACTIVE' where status IS NULL or status = '';
