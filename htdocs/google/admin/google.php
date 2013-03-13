@@ -185,8 +185,8 @@ while ($i <= $MAXAGENDA)
 	print "<td><input type=\"text\" class=\"flat\" name=\"google_agenda_src".$key."\" value=\"". $conf->global->$src . "\" size=\"60\"></td>";
 	print '<td nowrap="nowrap" align="center">';
 	// Possible colors are limited by Google
-	//print $formadmin->select_colors($conf->global->$color, "google_agenda_color".$key, $colorlist);
-	print $formother->select_color($conf->global->$color, "google_agenda_color".$key, 'googleconfig', 1, $colorlist);
+	//print $formadmin->selectColor($conf->global->$color, "google_agenda_color".$key, $colorlist);
+	print $formother->selectColor($conf->global->$color, "google_agenda_color".$key, 'googleconfig', 1, $colorlist);
 	print '</td>';
 	print "</tr>";
 	$i++;

@@ -198,7 +198,7 @@ if (! empty($fuser->conf->THEME_ELDY_ENABLE_PERSONALIZED))
     if (isset($fuser->conf->THEME_ELDY_RGB)) $defcolor=$fuser->conf->THEME_ELDY_RGB;
 
     // Color
-    print $formother->select_color($defcolor,'THEME_ELDY_RGB','formcolor',1).'<br><br>';
+    print $formother->selectColor($defcolor,'THEME_ELDY_RGB','formcolor',1).'<br><br>';
 
     // Font size
     print $langs->trans("FontSize").': <input type="text" class="flat" name="THEME_ELDY_FONT_SIZE1" size="4" value="'.$fuser->conf->THEME_ELDY_FONT_SIZE1.'"><br>';
