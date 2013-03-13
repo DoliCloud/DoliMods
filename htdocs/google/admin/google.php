@@ -49,9 +49,9 @@ if ($action == 'save')
 {
     $db->begin();
 
-    $res=dolibarr_set_const($db,'GOOGLE_ENABLE_AGENDA'.$i,trim($_POST["GOOGLE_ENABLE_AGENDA".$i]),'chaine',0);
-    $res=dolibarr_set_const($db,'GOOGLE_AGENDA_CLIENT_ID'.$i,trim($_POST["GOOGLE_AGENDA_CLIENT_ID".$i]),'chaine',0);
-    $res=dolibarr_set_const($db,'GOOGLE_AGENDA_CLIENT_SECRET'.$i,trim($_POST["GOOGLE_AGENDA_CLIENT_SECRET".$i]),'chaine',0);
+    $res=dolibarr_set_const($db,'GOOGLE_ENABLE_AGENDA'.$i,trim($_POST["GOOGLE_ENABLE_AGENDA".$i]),'chaine',0,'',$conf->entity);
+    $res=dolibarr_set_const($db,'GOOGLE_AGENDA_CLIENT_ID'.$i,trim($_POST["GOOGLE_AGENDA_CLIENT_ID".$i]),'chaine',0,'',$conf->entity);
+    $res=dolibarr_set_const($db,'GOOGLE_AGENDA_CLIENT_SECRET'.$i,trim($_POST["GOOGLE_AGENDA_CLIENT_SECRET".$i]),'chaine',0,'',$conf->entity);
 
 	$i=1;
 	$error=0;
@@ -63,11 +63,11 @@ if ($action == 'save')
 		if ($color=='-1') $color='';
 
 		//print 'color='.$color;
-		$res=dolibarr_set_const($db,'GOOGLE_AGENDA_NAME'.$i,trim($_POST["google_agenda_name".$i]),'chaine',0);
+		$res=dolibarr_set_const($db,'GOOGLE_AGENDA_NAME'.$i,trim($_POST["google_agenda_name".$i]),'chaine',0,'',$conf->entity);
 		if (! $res > 0) $error++;
-		$res=dolibarr_set_const($db,'GOOGLE_AGENDA_SRC'.$i,trim($_POST["google_agenda_src".$i]),'chaine',0);
+		$res=dolibarr_set_const($db,'GOOGLE_AGENDA_SRC'.$i,trim($_POST["google_agenda_src".$i]),'chaine',0,'',$conf->entity);
 		if (! $res > 0) $error++;
-		$res=dolibarr_set_const($db,'GOOGLE_AGENDA_COLOR'.$i,$color,'chaine',0);
+		$res=dolibarr_set_const($db,'GOOGLE_AGENDA_COLOR'.$i,$color,'chaine',0,'',$conf->entity);
 		if (! $res > 0) $error++;
 		$i++;
 	}
@@ -75,10 +75,10 @@ if ($action == 'save')
 	// Save timezone
 	$timezone=trim($_POST["google_agenda_timezone"]);
 	if ($timezone=='-1') $timezone='';
-    $res=dolibarr_set_const($db,'GOOGLE_AGENDA_TIMEZONE',$timezone,'chaine',0);
+    $res=dolibarr_set_const($db,'GOOGLE_AGENDA_TIMEZONE',$timezone,'chaine',0,'',$conf->entity);
 	if (! $res > 0) $error++;
 	// Save nb of agenda
-	$res=dolibarr_set_const($db,'GOOGLE_AGENDA_NB',trim($_POST["GOOGLE_AGENDA_NB"]),'chaine',0);
+	$res=dolibarr_set_const($db,'GOOGLE_AGENDA_NB',trim($_POST["GOOGLE_AGENDA_NB"]),'chaine',0,'',$conf->entity);
 	if (! $res > 0) $error++;
 	if (empty($conf->global->GOOGLE_AGENDA_NB)) $conf->global->GOOGLE_AGENDA_NB=5;
 	$MAXAGENDA=empty($conf->global->GOOGLE_AGENDA_NB)?5:$conf->global->GOOGLE_AGENDA_NB;
