@@ -113,7 +113,7 @@ if ($id > 0 || $instance)
 	$head = dolicloud_prepare_head($object);
 
 	$title = $langs->trans("DoliCloudCustomers");
-	dol_fiche_head($head, 'backup', $title, 0, 'contact');
+	dol_fiche_head($head, 'payments', $title, 0, 'contact');
 }
 
 if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
@@ -133,6 +133,7 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 		$lastloginadmin=$object->lastlogin_admin;
 		$lastpassadmin=$object->lastpass_admin;
 	}
+//	else print 'Error, failed to connect';
 
 	dol_htmloutput_errors($error,$errors);
 
@@ -197,16 +198,16 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 	print '</tr>';
 
 	print "</table>";
-	print '<br>';
+	//print '<br>';
 
-
+	/*
 	// Last refresh
 	print $langs->trans("DateLastCheck").': '.($object->lastcheck?dol_print_date($object->lastcheck,'dayhour','tzuser'):$langs->trans("Never"));
 
 	if (! $object->user_id && $user->rights->nltechno->dolicloud->write)
 	{
 		print ' <a href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&amp;action=refresh">'.img_picto($langs->trans("Refresh"),'refresh').'</a>';
-	}
+	}*/
 	print '<br><br>';
 
 
@@ -215,48 +216,6 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 
 	print '<table class="border" width="100%">';
 
-	// Nb of users
-	print '<tr><td width="20%">'.$langs->trans("NbOfUsers").'</td><td colspan="3"><font size="+2">'.$object->nbofusers.'</font></td>';
-	print '</tr>';
-
-	// Dates
-	print '<tr><td width="20%">'.$langs->trans("DateRegistration").'</td><td width="30%">'.dol_print_date($object->date_registration,'dayhour');
-	//print ' (<a href="'.dol_buildpath('/nltechno/dolicloud/dolicloud_card.php',1).'?id='.$object->id.'&amp;action=setdate&amp;date=">'.$langs->trans("SetDate").'</a>)';
-	print '</td>';
-	print '<td width="20%">'.$langs->trans("DateEndFreePeriod").'</td><td width="30%">'.dol_print_date($object->date_endfreeperiod,'dayhour').'</td>';
-	print '</tr>';
-
-	/*
-	// Lastlogin
-	print '<tr>';
-	print '<td>'.$langs->trans("LastLogin").' / '.$langs->trans("Password").'</td><td>'.$object->lastlogin.' / '.$object->lastpass.'</td>';
-	print '<td>'.$langs->trans("DateLastLogin").'</td><td>'.($object->date_lastlogin?dol_print_date($object->date_lastlogin,'dayhour','tzuser'):'').'</td>';
-	print '</tr>';
-	*/
-	// Version
-	print '<tr>';
-	print '<td>'.$langs->trans("Version").'</td><td colspan="3">'.$object->version.'</td>';
-	print '</tr>';
-
-	// Modules
-	print '<tr>';
-	print '<td>'.$langs->trans("Modules").'</td><td colspan="3">'.join(', ',explode(',',$object->modulesenabled)).'</td>';
-	print '</tr>';
-
-	// Authorized key file
-	print '<tr>';
-	print '<td>'.$langs->trans("Authorized_keyInstalled").'</td><td colspan="3">'.($object->fileauthorizedkey?$langs->trans("Yes").' - '.dol_print_date($object->fileauthorizedkey,'%Y-%m-%d %H:%M:%S','tzuser'):$langs->trans("No"));
-	print ' &nbsp; (<a href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&action=addauthorizedkey">'.$langs->trans("Create").'</a>)';
-	print '</td>';
-	print '</tr>';
-
-	// Install.lock file
-	print '<tr>';
-	print '<td>'.$langs->trans("LockfileInstalled").'</td><td colspan="3">'.($object->filelock?$langs->trans("Yes").' - '.dol_print_date($object->filelock,'%Y-%m-%d %H:%M:%S','tzuser'):$langs->trans("No"));
-	print ' &nbsp; (<a href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&action=addinstalllock">'.$langs->trans("Create").'</a>)';
-	print ($object->filelock?' &nbsp; (<a href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&action=delinstalllock">'.$langs->trans("Delete").'</a>)':'');
-	print '</td>';
-	print '</tr>';
 
 	print "</table>";
 	print '<br>';
@@ -270,16 +229,42 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 	$server=$object->instance.'.on.dolicloud.com';
 
 	// ----- Backup instance -----
-	print '<strong>INSTANCE BACKUP</strong><br>';
+	print '<strong>INSTANCE SERVEUR NLTECHNO</strong><br>';
 	print '<table class="border" width="100%">';
 
-	// Last backup date
-	print '<tr>';
-	print '<td width="20%">'.$langs->trans("DateLastBackup").'</td>';
-	print '<td width="30%">'.($object->date_lastrsync?dol_print_date($object->date_lastrsync,'dayhour','tzuser'):'').'</td>';
-	print '<td>'.$langs->trans("BackupDir").'</td>';
-	print '<td>'.$backupdir.'/'.$login.'/'.$dirdb.'</td>';
+	// Nb of users
+	print '<tr class="liste_titre">';
+	print '<td>'.$langs->trans("Date").'</td>';
+	print '<td>'.$langs->trans("Amount").'</td>';
+	print '<td>'.$langs->trans("Status").'</td>';
 	print '</tr>';
+
+	if (is_object($newdb))
+	{
+		// Get user/pass of last admin user
+		$sql="SELECT xxx FROM llx_user ORDER BY statut DESC";
+		$resql=$newdb->query($sql);
+		if ($resql)
+		{
+			$var=false;
+			$num=$newdb->num_rows($resql);
+			while ($i < $num)
+			{
+				$var=!$var;
+				$obj = $newdb->fetch_object($resql);
+				print '<tr '.$bc[$var].'>';
+				print '<td>'.dol_print_date($newdb->jdate($obj->date),'dayhour').'</td>';
+				print '<td>'.$obj->amount.'</td>';
+				print '<td>'.$obj->status.'</td>';
+				print '</tr>';
+				$i++;
+			}
+		}
+		else
+		{
+			dol_print_error($newdb);
+		}
+	}
 
 	print "</table><br>";
 
@@ -300,10 +285,10 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 	}
 */
 
-	// Upgrade link
-	$backupstringtoshow=$backupstring.' test';
-	print 'Backup command line string<br>';
-	print '<input type="text" name="backupstring" value="'.$backupstringtoshow.'" size="120"><br>';
+	// MySQL
+	$mysqlconnectstring='mysql -A -u '.$object->username_db.' -p\''.$object->password_db.'\' -h '.$object->hostname_db.' -D '.$object->database_db;
+	print 'Mysql connect string<br>';
+	print '<input type="text" name="mysqlconnectstring" value="'.$mysqlconnectstring.'" size="120"><br>';
 
 }
 

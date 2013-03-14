@@ -768,12 +768,13 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 	print '<td width="20%">'.$langs->trans("DateEndFreePeriod").'</td><td width="30%">'.dol_print_date($object->date_endfreeperiod,'dayhour').'</td>';
 	print '</tr>';
 
+	/*
 	// Lastlogin
 	print '<tr>';
 	print '<td>'.$langs->trans("LastLogin").' / '.$langs->trans("Password").'</td><td>'.$object->lastlogin.' / '.$object->lastpass.'</td>';
 	print '<td>'.$langs->trans("DateLastLogin").'</td><td>'.($object->date_lastlogin?dol_print_date($object->date_lastlogin,'dayhour','tzuser'):'').'</td>';
 	print '</tr>';
-
+	*/
 	// Version
 	print '<tr>';
 	print '<td>'.$langs->trans("Version").'</td><td colspan="3">'.$object->version.'</td>';

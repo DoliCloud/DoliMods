@@ -51,6 +51,16 @@ function dolicloud_prepare_head($object)
 		$head[$h][2] = 'backup';
 		$h++;
 
+		$head[$h][0] = dol_buildpath('/nltechno/dolicloud/dolicloud_card_users.php',1).'?id='.$object->id;
+		$head[$h][1] = $langs->trans("Users");
+		$head[$h][2] = 'users';
+		$h++;
+
+		$head[$h][0] = dol_buildpath('/nltechno/dolicloud/dolicloud_card_payments.php',1).'?id='.$object->id;
+		$head[$h][1] = $langs->trans("Payments");
+		$head[$h][2] = 'payments';
+		$h++;
+
 		// Show more tabs from modules
 	    // Entries must be declared in modules descriptor with line
 	    // $this->tabs = array('entity:+tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to add new tab
