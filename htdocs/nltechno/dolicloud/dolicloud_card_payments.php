@@ -285,11 +285,11 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 	}
 */
 
-	// MySQL
+/*	// MySQL
 	$mysqlconnectstring='mysql -A -u '.$object->username_db.' -p\''.$object->password_db.'\' -h '.$object->hostname_db.' -D '.$object->database_db;
 	print 'Mysql connect string<br>';
 	print '<input type="text" name="mysqlconnectstring" value="'.$mysqlconnectstring.'" size="120"><br>';
-
+*/
 }
 
 

@@ -54,6 +54,11 @@ include_once('../fonctions.php');
 include_once('../bandeaux_local.php');
 include_once('../creation_sondage.php');
 
+$erreur = false;
+$testdate = true;
+$date_selected = '';
+
+
 
 /*
  * Action
@@ -77,34 +82,6 @@ if (isset($_SESSION["nbrecases"])) {
 if (isset($_POST["ajoutcases"]) || isset($_POST["ajoutcases_x"])) {
 	$_SESSION["nbrecases"]=$_SESSION["nbrecases"]+5;
 }
-
-
-
-
-
-/*
- * View
- */
-
-$form=new Form($db);
-
-if (issetAndNoEmpty('titre', $_SESSION) === false || issetAndNoEmpty('nom', $_SESSION) === false || issetAndNoEmpty('adresse', $_SESSION) === false)
-{
-	dol_print_error('',"You haven't filled the first section of the poll creation");
-	llxFooterSurvey();
-	exit;
-}
-
-$arrayofjs=array('/opensurvey/block_enter.js');
-$arrayofcss=array('/opensurvey/css/style.css');
-llxHeaderSurvey($langs->trans("OpenSurvey"), "", 0, 0, $arrayofjs, $arrayofcss);
-
-//partie creation du sondage dans la base SQL
-//On prépare les données pour les inserer dans la base
-
-$erreur = false;
-$testdate = true;
-$date_selected = '';
 
 if (isset($_POST["confirmecreation"]) || isset($_POST["confirmecreation_x"]))
 {
@@ -151,6 +128,30 @@ if (isset($_POST["confirmecreation"]) || isset($_POST["confirmecreation_x"]))
 		$_POST["fin_sondage_autre"] = 'ok';
 	}
 }
+
+
+
+
+/*
+ * View
+ */
+
+$form=new Form($db);
+
+$arrayofjs=array('/opensurvey/block_enter.js');
+$arrayofcss=array('/opensurvey/css/style.css');
+llxHeaderSurvey($langs->trans("OpenSurvey"), "", 0, 0, $arrayofjs, $arrayofcss);
+
+if (issetAndNoEmpty('titre', $_SESSION) === false || issetAndNoEmpty('nom', $_SESSION) === false || issetAndNoEmpty('adresse', $_SESSION) === false)
+{
+	dol_print_error('',"You haven't filled the first section of the poll creation");
+	llxFooterSurvey();
+	exit;
+}
+
+
+//partie creation du sondage dans la base SQL
+//On prépare les données pour les inserer dans la base
 
 echo '<form name="formulaire" action="#bas" method="POST" onkeypress="javascript:process_keypress(event)">'."\n";
 echo '<div class="bandeautitre">'. $langs->trans("CreatePoll")." (2 / 2)" .'</div>'."\n";

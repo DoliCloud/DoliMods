@@ -451,7 +451,8 @@ $user_mod = false;
 
 
 // Loop on each answer
-$somme = array();
+$sumfor = array();
+$sumagainst = array();
 $compteur = 0;
 while ($data = $user_studs->FetchNextObject(false))
 {
@@ -474,11 +475,16 @@ while ($data = $user_studs->FetchNextObject(false))
 		if ($compteur == $ligneamodifier)
 		{
 			echo '<td class="vide">';
-			if (empty($listofanswers[$i]['format']) || $listofanswers[$i]['format'] == 'yesno')
+			if (empty($listofanswers[$i]['format']) || $listofanswers[$i]['format'] == 'checkbox')
 			{
 				print '<input type="checkbox" name="choix'.$i.'" value="1" ';
 				if ($car == '1') echo 'checked="checked"';
 				echo '>';
+			}
+			if (! empty($listofanswers[$i]['format']) && $listofanswers[$i]['format'] == 'yesno')
+			{
+				$arraychoice=array('2'=>'&nbsp;','0'=>$langs->trans("No"),'1'=>$langs->trans("Yes"));
+				print $form->selectarray("choix".$i, $arraychoice, $car);
 			}
 			if (! empty($listofanswers[$i]['format']) && $listofanswers[$i]['format'] == 'pourcontre')
 			{
@@ -489,13 +495,24 @@ while ($data = $user_studs->FetchNextObject(false))
 		}
 		else
 		{
-			if (empty($listofanswers[$i]['format']) || $listofanswers[$i]['format'] == 'yesno')
+			if (empty($listofanswers[$i]['format']) || $listofanswers[$i]['format'] == 'checkbox')
 			{
 				if ($car == "1") echo '<td class="ok">OK</td>'."\n";
 				else echo '<td class="non">KO</td>'."\n";
 				// Total
-				if (isset($somme[$i]) === false) $somme[$i] = 0;
-				if ($car == "1") $somme[$i]++;
+				if (isset($sumfor[$i]) === false) $sumfor[$i] = 0;
+				if ($car == "1") $sumfor[$i]++;
+			}
+			if (! empty($listofanswers[$i]['format']) && $listofanswers[$i]['format'] == 'yesno')
+			{
+				if ($car == "1") echo '<td class="ok">'.$langs->trans("Yes").'</td>'."\n";
+				else if ($car =="0") echo '<td class="non">'.$langs->trans("No").'</td>'."\n";
+				else echo '<td class="vide">&nbsp;</td>'."\n";
+				// Total
+				if (! isset($sumfor[$i])) $sumfor[$i] = 0;
+				if (! isset($sumagainst[$i])) $sumagainst[$i] = 0;
+				if ($car == "1") $sumfor[$i]++;
+				if ($car == "0") $sumagainst[$i]++;
 			}
 			if (! empty($listofanswers[$i]['format']) && $listofanswers[$i]['format'] == 'pourcontre')
 			{
@@ -503,8 +520,10 @@ while ($data = $user_studs->FetchNextObject(false))
 				else if ($car =="0") echo '<td class="non">'.$langs->trans("Against").'</td>'."\n";
 				else echo '<td class="vide">&nbsp;</td>'."\n";
 				// Total
-				if (isset($somme[$i]) === false) $somme[$i] = 0;
-				if ($car == "1") $somme[$i]++;
+				if (! isset($sumfor[$i])) $sumfor[$i] = 0;
+				if (! isset($sumagainst[$i])) $sumagainst[$i] = 0;
+				if ($car == "1") $sumfor[$i]++;
+				if ($car == "0") $sumagainst[$i]++;
 			}
 		}
 	}
@@ -535,7 +554,7 @@ if ($ligneamodifier < 0 && (!isset($_SERVER['REMOTE_USER']) || ! $user_mod))
 	if (isset($_SESSION['nom'])) {
 		echo '<input type=hidden name="nom" value="'.$_SESSION['nom'].'">'.$_SESSION['nom']."\n";
 	} else {
-		echo '<input type="text" name="nom" maxlength="64" size="24">'."\n";
+		echo '<input type="text" name="nom" placeholder="'.dol_escape_htmltag($langs->trans("Name")).'" maxlength="64" size="24">'."\n";
 	}
 	echo '</td>'."\n";
 
@@ -543,7 +562,7 @@ if ($ligneamodifier < 0 && (!isset($_SERVER['REMOTE_USER']) || ! $user_mod))
 	for ($i=0;$i<$nbcolonnes;$i++)
 	{
 		echo '<td class="vide">';
-		if (empty($listofanswers[$i]['format']) || $listofanswers[$i]['format'] == 'yesno')
+		if (empty($listofanswers[$i]['format']) || $listofanswers[$i]['format'] == 'checkbox')
 		{
 			print '<input type="checkbox" name="choix'.$i.'" value="1"';
 			if ( isset($_POST['choix'.$i]) && $_POST['choix'.$i] == '1' && is_error(NAME_EMPTY) )
@@ -551,6 +570,11 @@ if ($ligneamodifier < 0 && (!isset($_SERVER['REMOTE_USER']) || ! $user_mod))
 				echo ' checked="checked"';
 			}
 			echo '>';
+		}
+		if (! empty($listofanswers[$i]['format']) && $listofanswers[$i]['format'] == 'yesno')
+		{
+			$arraychoice=array('2'=>'&nbsp;','0'=>$langs->trans("No"),'1'=>$langs->trans("Yes"));
+			print $form->selectarray("choix".$i, $arraychoice);
 		}
 		if (! empty($listofanswers[$i]['format']) && $listofanswers[$i]['format'] == 'pourcontre')
 		{
@@ -565,50 +589,52 @@ if ($ligneamodifier < 0 && (!isset($_SERVER['REMOTE_USER']) || ! $user_mod))
 	echo '</tr>'."\n";
 }
 
-// select best choice
-for ($i=0; $i < $nbcolonnes; $i++) {
-	if (isset($somme[$i]) === true) {
+// Select value of best choice (for checkbox columns only)
+for ($i=0; $i < $nbcolonnes; $i++)
+{
+	if (! empty($listofanswers[$i]['format']) && $listofanswers[$i]['format'] != 'checkbox') continue;
+	if (isset($sumfor[$i]) === true)
+	{
 		if ($i == "0") {
-			$meilleurecolonne = $somme[$i];
+			$meilleurecolonne = $sumfor[$i];
 		}
 
-		if (isset($meilleurecolonne) === false || $somme[$i] > $meilleurecolonne) {
-			$meilleurecolonne = $somme[$i];
+		if (! isset($meilleurecolonne) || $sumfor[$i] > $meilleurecolonne) {
+			$meilleurecolonne = $sumfor[$i];
 		}
 	}
 }
 
 // Show line total
 echo '<tr>'."\n";
-echo '<td align="right">'. $langs->trans("Total") .'</td>'."\n";
+echo '<td align="center">'. $langs->trans("Total") .'</td>'."\n";
+for ($i = 0; $i < $nbcolonnes; $i++)
+{
+	$showsumfor = isset($sumfor[$i])?$sumfor[$i]:'';
+	$showsumagainst = isset($sumagainst[$i])?$sumagainst[$i]:'';
+	if (empty($showsumfor)) $showsumfor = 0;
+	if (empty($showsumagainst)) $showsumagainst = 0;
 
-for ($i=0; $i < $nbcolonnes; $i++) {
-	if (isset($somme[$i]) === true) {
-		$affichesomme = $somme[$i];
-
-		if ($affichesomme == "") {
-			$affichesomme = '0';
-		}
-	} else {
-		$affichesomme = '0';
-	}
-
-	echo '<td class="somme">'.$affichesomme.'</td>'."\n";
+	echo '<td class="somme">';
+	if (empty($listofanswers[$i]['format']) || $listofanswers[$i]['format'] == 'checkbox') print $showsumfor;
+	if (! empty($listofanswers[$i]['format']) && $listofanswers[$i]['format'] == 'yesno') print $langs->trans("Yes").': '.$showsumfor.'<br>'.$langs->trans("No").': '.$showsumagainst;
+	if (! empty($listofanswers[$i]['format']) && $listofanswers[$i]['format'] == 'pourcontre') print $langs->trans("For").': '.$showsumfor.'<br>'.$langs->trans("Against").': '.$showsumagainst;
+	print '</td>'."\n";
 }
-
-echo '</tr>'."\n";
+print '</tr>';
+// Show picto winnner
 echo '<tr>'."\n";
 echo '<td class="somme"></td>'."\n";
-
 for ($i=0; $i < $nbcolonnes; $i++) {
-	if (isset($somme[$i]) && isset($meilleurecolonne) && $somme[$i] == $meilleurecolonne) {
+	if (! empty($listofanswers[$i]['format']) && $listofanswers[$i]['format'] == 'checkbox' && isset($sumfor[$i]) && isset($meilleurecolonne) && $sumfor[$i] == $meilleurecolonne)
+	{
 		echo '<td class="somme"><img src="'.dol_buildpath('/opensurvey/img/medaille.png',1).'"></td>'."\n";
 	} else {
 		echo '<td class="somme"></td>'."\n";
 	}
 }
-
 echo '</tr>'."\n";
+
 echo '</table>'."\n";
 echo '</div>'."\n";
 
@@ -619,7 +645,7 @@ $compteursujet=0;
 $meilleursujet = '';
 
 for ($i = 0; $i < $nbcolonnes; $i++) {
-	if (isset($somme[$i]) && isset($meilleurecolonne) && $somme[$i] == $meilleurecolonne) {
+	if (isset($sumfor[$i]) && isset($meilleurecolonne) && $sumfor[$i] == $meilleurecolonne) {
 		$meilleursujet.=", ";
 		if ($dsondage->format=="D"||$dsondage->format=="D+") {
 			$meilleursujetexport = $toutsujet[$i];

@@ -50,3 +50,4 @@ SurveyResults=Résultats
 PollAdminDesc=Vous êtes habilités à modifier toutes les lignes de votes par le bouton "Editer". Vous pouvez supprimer une colonne ou ligne avec %s. Vou spouvez aussi ajouter une nouvelle colonne avec %s.
 5MoreChoices=5 choix suplémentaires
 Abstention=Abstention
+Against=Contre

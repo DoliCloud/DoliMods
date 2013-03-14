@@ -42,7 +42,6 @@ if(ini_get('date.timezone') == '') {
 }
 
 include_once('variables.php');
-include_once('i18n.php');
 require_once('adodb/adodb.inc.php');
 
 function connexion_base()
