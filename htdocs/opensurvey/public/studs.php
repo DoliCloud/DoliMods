@@ -265,7 +265,14 @@ $arrayofjs=array('/opensurvey/block_enter.js');
 $arrayofcss=array('/opensurvey/css/style.css');
 llxHeaderSurvey($dsondage->titre, "", 0, 0, $arrayofjs, $arrayofcss);
 
-$object->fetch(0,$numsondage);
+$res=$object->fetch(0,$numsondage);
+
+if ($res <= 0)
+{
+	print $langs->trans("ErrorPollDoesNotExists",$numsondage);
+	llxFooterSurvey();
+	exit;
+}
 
 // Define format of choices
 $toutsujet=explode(",",$object->sujet);
@@ -279,32 +286,19 @@ $toutsujet=str_replace("@","<br>",$toutsujet);
 $toutsujet=str_replace("°","'",$toutsujet);
 
 // Show error message
-if($err != 0) {
-	print '<div class="error"><ul>'."\n";
+if ($err != 0)
+{
+	print '<div class="error"><ul style="list-style-type: none;">'."\n";
 	if(is_error(NAME_EMPTY)) {
-		print '<li class="error">' . _("Enter a name !") . "</li>\n";
+		print '<li class="error">' . $langs->trans("ErrorFieldRequired",$langs->transnoentitiesnoconv("Name")) . "</li>\n";
 	}
 	if(is_error(NAME_TAKEN)) {
-		print '<li class="error">' .
-			_("The name you've chosen already exist in this poll!") .
-			"</li>\n";
+		print '<li class="error">' . $langs->trans("VoteNameAlreadyExists") . "</li>\n";
 	}
 	if(is_error(COMMENT_EMPTY) || is_error(COMMENT_USER_EMPTY)) {
-		print '<li class="error">' .
-			_("Enter a name and a comment!") .
-			"</li>\n";
-	}
-	if(is_error(COMMENT_INSERT_FAILED) ) {
-		print '<li class="error">' .
-			_("Failed to insert the comment!") .
-			"</li>\n";
+		print '<li class="error">' . $langs->trans("ErrorFieldRequired",$langs->transnoentitiesnoconv("Name")) . "</li>\n";
 	}
 	print '</ul></div>';
-
-	if(is_error(NO_POLL_ID) || is_error(NO_POLL)) {
-		dol_print_error("This poll doesn't exist !");
-		exit;
-	}
 }
 
 
@@ -572,7 +566,7 @@ if ($ligneamodifier < 0 && (! isset($_SESSION['nom']) || ! $user_mod))
 		if (empty($listofanswers[$i]['format']) || $listofanswers[$i]['format'] == 'checkbox')
 		{
 			print '<input type="checkbox" name="choix'.$i.'" value="1"';
-			if ( isset($_POST['choix'.$i]) && $_POST['choix'.$i] == '1' && is_error(NAME_EMPTY) )
+			if (isset($_POST['choix'.$i]) && $_POST['choix'.$i] == '1' && is_error(NAME_EMPTY) )
 			{
 				print ' checked="checked"';
 			}
@@ -581,12 +575,12 @@ if ($ligneamodifier < 0 && (! isset($_SESSION['nom']) || ! $user_mod))
 		if (! empty($listofanswers[$i]['format']) && $listofanswers[$i]['format'] == 'yesno')
 		{
 			$arraychoice=array('2'=>'&nbsp;','0'=>$langs->trans("No"),'1'=>$langs->trans("Yes"));
-			print $form->selectarray("choix".$i, $arraychoice);
+			print $form->selectarray("choix".$i, $arraychoice, GETPOST('choix'.$i));
 		}
 		if (! empty($listofanswers[$i]['format']) && $listofanswers[$i]['format'] == 'pourcontre')
 		{
 			$arraychoice=array('2'=>'&nbsp;','0'=>$langs->trans("Against"),'1'=>$langs->trans("For"));
-			print $form->selectarray("choix".$i, $arraychoice);
+			print $form->selectarray("choix".$i, $arraychoice, GETPOST('choix'.$i));
 		}
 		print '</td>'."\n";
 	}
@@ -746,3 +740,6 @@ print '<center>'.$message.'</center>';
 print '<a name="bas"></a>'."\n";
 
 llxFooterSurvey();
+
+$db->close();
+?>

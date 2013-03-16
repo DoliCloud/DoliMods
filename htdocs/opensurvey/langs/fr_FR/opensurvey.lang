@@ -52,3 +52,5 @@ PollAdminDesc=Vous êtes habilités à modifier toutes les lignes de votes par l
 Abstention=Abstention
 Against=Contre
 YouAreInivitedToVote=Vous êtes invité à vous prononcer sur ce vote/sondage
+VoteNameAlreadyExists=Ce nom a déjà été utilisé pour ce vote
+ErrorPollDoesNotExists=Erreur, le sondage <strong>%s</strong> n'existe pas.

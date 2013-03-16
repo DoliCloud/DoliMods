@@ -220,6 +220,8 @@ class Opensurveysondage extends CommonObject
 				$this->mailsonde = $obj->mailsonde;
 				$this->survey_link_visible = $obj->survey_link_visible;
             }
+            else return 0;
+
             $this->db->free($resql);
         }
         else

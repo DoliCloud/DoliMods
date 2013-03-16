@@ -52,3 +52,5 @@ PollAdminDesc=You are allowed to change all vote lines of this poll with button 
 Abstention=Abstention
 Against=Against
 YouAreInivitedToVote=You are invited to vote for this poll
+VoteNameAlreadyExists=This name was already used for this poll
+ErrorPollDoesNotExists=Error, poll <strong>%s</strong> does not exists.
