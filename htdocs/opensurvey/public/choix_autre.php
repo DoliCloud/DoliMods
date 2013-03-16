@@ -58,6 +58,8 @@ $erreur = false;
 $testdate = true;
 $date_selected = '';
 
+$origin=GETPOST('origin','alpha');
+
 
 
 /*
@@ -83,6 +85,7 @@ if (isset($_POST["ajoutcases"]) || isset($_POST["ajoutcases_x"])) {
 	$_SESSION["nbrecases"]=$_SESSION["nbrecases"]+5;
 }
 
+// Create survey into database
 if (isset($_POST["confirmecreation"]) || isset($_POST["confirmecreation_x"]))
 {
 	//recuperation des données de champs textes
@@ -119,11 +122,13 @@ if (isset($_POST["confirmecreation"]) || isset($_POST["confirmecreation_x"]))
 		$_SESSION["champdatefin"]=time()+15552000;
 	}
 
-	if ($testdate === true) {
+	if ($testdate === true)
+	{
 		//format du sondage AUTRE
 		$_SESSION["formatsondage"]="A".$_SESSION["studsplus"];
 
-		ajouter_sondage();
+		// Add into database
+		ajouter_sondage($origin);
 	} else {
 		$_POST["fin_sondage_autre"] = 'ok';
 	}
@@ -153,12 +158,14 @@ if (issetAndNoEmpty('titre', $_SESSION) === false || issetAndNoEmpty('nom', $_SE
 //partie creation du sondage dans la base SQL
 //On prépare les données pour les inserer dans la base
 
-echo '<form name="formulaire" action="#bas" method="POST" onkeypress="javascript:process_keypress(event)">'."\n";
-echo '<div class="bandeautitre">'. $langs->trans("CreatePoll")." (2 / 2)" .'</div>'."\n";
+print '<form name="formulaire" action="#bas" method="POST" onkeypress="javascript:process_keypress(event)">'."\n";
+print '<input type="hidden" name="origin" value="'.dol_escape_htmltag($origin).'">';
 
-echo '<div class=corps>'."\n";
-echo '<br>'. $langs->trans("PollOnChoice") .'<br><br>'."\n";
-echo '<table>'."\n";
+print '<div class="bandeautitre">'. $langs->trans("CreatePoll")." (2 / 2)" .'</div>'."\n";
+
+print '<div class=corps>'."\n";
+print '<br>'. $langs->trans("PollOnChoice") .'<br><br>'."\n";
+print '<table>'."\n";
 
 //affichage des cases texte de formulaire
 for ($i = 0; $i < $_SESSION["nbrecases"]; $i++) {
@@ -166,23 +173,23 @@ for ($i = 0; $i < $_SESSION["nbrecases"]; $i++) {
 	if (isset($_SESSION["choix$i"]) === false) {
 		$_SESSION["choix$i"] = '';
 	}
-	echo '<tr><td>'. $langs->trans("TitleChoice") .' '.$j.' : </td><td><input type="text" name="choix[]" size="40" maxlength="40" value="'.dol_escape_htmltag($_SESSION["choix$i"]).'" id="choix'.$i.'">';
+	print '<tr><td>'. $langs->trans("TitleChoice") .' '.$j.' : </td><td><input type="text" name="choix[]" size="40" maxlength="40" value="'.dol_escape_htmltag($_SESSION["choix$i"]).'" id="choix'.$i.'">';
 	$tmparray=array('checkbox'=>$langs->trans("CheckBox"),'yesno'=>$langs->trans("YesNoList"),'pourcontre'=>$langs->trans("PourContreList"));
 	print ' &nbsp; '.$langs->trans("Type").' '.$form->selectarray("typecolonne[]", $tmparray, $_SESSION["typecolonne$i"]);
-	echo '</td></tr>'."\n";
+	print '</td></tr>'."\n";
 }
 
-echo '</table>'."\n";
+print '</table>'."\n";
 
 //ajout de cases supplementaires
-echo '<table><tr>'."\n";
-echo '<td>'. $langs->trans("5MoreChoices") .'</td><td><input type="image" name="ajoutcases" value="Retour" src="images/add-16.png"></td>'."\n";
-echo '</tr></table>'."\n";
-echo'<br>'."\n";
+print '<table><tr>'."\n";
+print '<td>'. $langs->trans("5MoreChoices") .'</td><td><input type="image" name="ajoutcases" value="Retour" src="images/add-16.png"></td>'."\n";
+print '</tr></table>'."\n";
+print'<br>'."\n";
 
-echo '<table><tr>'."\n";
-echo '<td></td><td><input type="submit" class="button" name="fin_sondage_autre" value="'.dol_escape_htmltag($langs->trans("NextStep")).'" src="images/next-32.png"></td>'."\n";
-echo '</tr></table>'."\n";
+print '<table><tr>'."\n";
+print '<td></td><td><input type="submit" class="button" name="fin_sondage_autre" value="'.dol_escape_htmltag($langs->trans("NextStep")).'" src="images/next-32.png"></td>'."\n";
+print '</tr></table>'."\n";
 
 //test de remplissage des cases
 $testremplissage = '';
@@ -209,30 +216,29 @@ if ($erreur_injection) {
 
 if ((isset($_POST["fin_sondage_autre"]) || isset($_POST["fin_sondage_autre_x"])) && !$erreur && !$erreur_injection) {
 	//demande de la date de fin du sondage
-	echo '<br>'."\n";
-	echo '<div class=presentationdatefin>'."\n";
-	echo '<br>'. _("Your poll will be automatically removed after 6 months.<br> You can fix another removal date for it.") .'<br><br>'."\n";
-	echo _("Removal date (optional)") .' : <input type="text" name="champdatefin" value="'.$date_selected.'" size="10" maxlength="10"> '. _("(DD/MM/YYYY)") ."\n";
-	echo '</div>'."\n";
-	echo '<div class=presentationdatefin>'."\n";
-	echo '<font color=#FF0000>'. $langs->trans("InfoAfterCreate") .'</font>'."\n";
-	echo '</div>'."\n";
-	echo '<br>'."\n";
-	echo '<table>'."\n";
-	echo '<tr><td>'. $langs->trans("CreatePoll") .'</td><td><input type="image" name="confirmecreation" src="images/add.png"></td></tr>'."\n";
-	echo '</table>'."\n";
+	print '<br>'."\n";
+	print '<div class=presentationdatefin>'."\n";
+	print '<br>'. _("Your poll will be automatically removed after 6 months.<br> You can fix another removal date for it.") .'<br><br>'."\n";
+	print _("Removal date (optional)") .' : <input type="text" name="champdatefin" value="'.$date_selected.'" size="10" maxlength="10"> '. _("(DD/MM/YYYY)") ."\n";
+	print '</div>'."\n";
+	print '<div class=presentationdatefin>'."\n";
+	print '<font color=#FF0000>'. $langs->trans("InfoAfterCreate") .'</font>'."\n";
+	print '</div>'."\n";
+	print '<br>'."\n";
+	print '<table>'."\n";
+	print '<tr><td>'. $langs->trans("CreatePoll") .'</td><td><input type="image" name="confirmecreation" src="images/add.png"></td></tr>'."\n";
+	print '</table>'."\n";
 }
 
 //fin du formulaire et bandeau de pied
-echo '</form>'."\n";
+print '</form>'."\n";
 
 
-echo '<a name=bas></a>'."\n";
-echo '<br><br><br>'."\n";
-echo '</div>'."\n";
+print '<a name=bas></a>'."\n";
+print '<br><br><br>'."\n";
+print '</div>'."\n";
 
 llxFooterSurvey();
 
 $db->close();
-
 ?>

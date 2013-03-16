@@ -541,6 +541,18 @@ llxHeader('',$dsondage->titre, 0, 0, 0, 0, $arrayofjs, $arrayofcss);
 
 $object->fetch(0,$numsondage);
 
+// Define format of choices
+$toutsujet=explode(",",$object->sujet);
+$listofanswers=array();
+foreach ($toutsujet as $value)
+{
+	$tmp=explode('@',$value);
+	$listofanswers[]=array('label'=>$tmp[0],'format'=>($tmp[1]?$tmp[1]:'checkbox'));
+}
+$toutsujet=str_replace("@","<br>",$toutsujet);
+$toutsujet=str_replace("°","'",$toutsujet);
+
+
 echo '<form name="formulaire4" action="#" method="POST" onkeypress="javascript:process_keypress(event)">'."\n";
 
 $head = array();
@@ -569,7 +581,11 @@ print $form->showrefnav($object, 'sondage', $linkback, 1, 'id_sondage_admin', 'i
 print '</td>';
 print '</tr>';
 
-print '<tr><td>'.$langs->trans("Type").'</td><td colspan="2">'.$langs->trans(($dsondage->format=="A"||$dsondage->format=="A+")?"TypeClassic":"TypeDate").'</td></tr>';
+// Type
+$type=($dsondage->format=="A"||$dsondage->format=="A+")?'classic':'date';
+print '<tr><td>'.$langs->trans("Type").'</td><td colspan="2">';
+print img_picto('',dol_buildpath('/opensurvey/img/'.($type == 'classic'?'chart-32.png':'calendar-32.png'),1),'width="16"',1);
+print ' '.$langs->trans($type=='classic'?"TypeClassic":"TypeDate").'</td></tr>';
 
 // Link
 print '<tr><td>'.img_picto('','object_globe.png').' '.$langs->trans("UrlForSurvey",'').'</td><td>';
@@ -615,9 +631,9 @@ if (GETPOST('ajoutsujet'))
 		echo $langs->trans("TitleChoice").' <input type="text" name="nouvellecolonne" size="40"><br>';
 		$tmparray=array('checkbox'=>$langs->trans("CheckBox"),'yesno'=>$langs->trans("YesNoList"),'pourcontre'=>$langs->trans("PourContreList"));
 		print $langs->trans("Type").' '.$form->selectarray("typecolonne", $tmparray, GETPOST('typecolonne')).'<br><br>';
-		print '<input type="submit" class="button" name="cancel" value="'.dol_escape_htmltag($langs->trans("Cancel")).'">';
-		print ' &nbsp; &nbsp; ';
 		print '<input type="submit" class="button" name="ajoutercolonne" value="'.dol_escape_htmltag($langs->trans("Add")).'">';
+		print ' &nbsp; &nbsp; ';
+		print '<input type="submit" class="button" name="cancel" value="'.dol_escape_htmltag($langs->trans("Cancel")).'">';
 		print '<br><br>'."\n";
 	}
 	else
@@ -687,6 +703,8 @@ if (GETPOST('ajoutsujet'))
 }
 
 
+echo $langs->trans("PollAdminDesc",img_picto('','cancel.png@opensurvey'),img_picto('','add-16.png@opensurvey')).'<br><br>';
+
 echo '<div class="corps"> '."\n";
 
 //affichage du titre du sondage
@@ -734,22 +752,11 @@ else
 $dsujet=$sujets->FetchObject(false);
 $dsondage=$sondage->FetchObject(false);
 
-// Define format of choices
-$toutsujet=explode(",",$object->sujet);
-$listofanswers=array();
-foreach ($toutsujet as $value)
-{
-	$tmp=explode('@',$value);
-	$listofanswers[]=array('label'=>$tmp[0],'format'=>$tmp[1]);
-}
-$toutsujet=str_replace("@","<br>",$toutsujet);
-$toutsujet=str_replace("°","'",$toutsujet);
 $nbcolonnes=substr_count($dsujet->sujet,',')+1;
 
 echo '<form name="formulaire" action="'.getUrlSondage($numsondageadmin, true).'" method="POST" onkeypress="javascript:process_keypress(event)">'."\n";
 echo '<div class="cadre"> '."\n";
-echo $langs->trans("PollAdminDesc",img_picto('','cancel.png@opensurvey'),img_picto('','add-16.png@opensurvey'));
-echo '<br><br>'."\n";
+echo '<br>'."\n";
 
 //debut de l'affichage de résultats
 echo '<table class="resultats">'."\n";
@@ -1085,14 +1092,16 @@ if (empty($testligneamodifier))
 }
 
 // Select value of best choice (for checkbox columns only)
+$nbofcheckbox=0;
 for ($i=0; $i < $nbcolonnes + 1; $i++)
 {
 	if (! empty($listofanswers[$i]['format']) && $listofanswers[$i]['format'] != 'checkbox') continue;
-	if (isset($sumfor[$i]) === true) {
-		if ($i == "0") {
+	$nbofcheckbox++;
+	if (isset($sumfor[$i]))
+	{
+		if ($i == 0) {
 			$meilleurecolonne = $sumfor[$i];
 		}
-
 		if (isset($sumfor[$i]) && $sumfor[$i] > $meilleurecolonne){
 			$meilleurecolonne = $sumfor[$i];
 		}
@@ -1118,18 +1127,21 @@ for ($i = 0; $i < $nbcolonnes; $i++)
 }
 print '</tr>';
 // Show picto winner
-echo '<tr>'."\n";
-echo '<td></td>'."\n";
-echo '<td class="somme"></td>'."\n";
-for ($i = 0; $i < $nbcolonnes; $i++) {
-	if (! empty($listofanswers[$i]['format']) && $listofanswers[$i]['format'] == 'checkbox' && isset($sumfor[$i]) && isset($meilleurecolonne) && $sumfor[$i] == $meilleurecolonne)
-	{
-		echo '<td class="somme"><img src="'.dol_buildpath('/opensurvey/img/medaille.png',1).'"></td>'."\n";
-	} else {
-		echo '<td class="somme"></td>'."\n";
+if ($nbofcheckbox >= 2)
+{
+	echo '<tr>'."\n";
+	echo '<td></td>'."\n";
+	echo '<td class="somme"></td>'."\n";
+	for ($i = 0; $i < $nbcolonnes; $i++) {
+		if (! empty($listofanswers[$i]['format']) && $listofanswers[$i]['format'] == 'checkbox' && isset($sumfor[$i]) && isset($meilleurecolonne) && $sumfor[$i] == $meilleurecolonne)
+		{
+			echo '<td class="somme"><img src="'.dol_buildpath('/opensurvey/img/medaille.png',1).'"></td>'."\n";
+		} else {
+			echo '<td class="somme"></td>'."\n";
+		}
 	}
+	echo '</tr>'."\n";
 }
-echo '</tr>'."\n";
 
 // S'il a oublié de remplir un nom
 if ((isset($_POST["boutonp"]) || isset($_POST["boutonp_x"])) && $_POST["nom"] == "") {
@@ -1193,24 +1205,23 @@ for ($i = 0; $i < $nbcolonnes; $i++) {
 $meilleursujet = substr("$meilleursujet", 1);
 $meilleursujet = str_replace("°", "'", $meilleursujet);
 
-//ajout du S si plusieurs votes
-$vote_str = $langs->trans('vote');
-if (isset($meilleurecolonne) && $meilleurecolonne > 1) $vote_str = $langs->trans('votes');
+// Show best choice
+if ($nbofcheckbox >= 2)
+{
+	$vote_str = $langs->trans('votes');
+	echo '<p class=affichageresultats>'."\n";
 
-
-echo '<p class=affichageresultats>'."\n";
-
-//affichage de la phrase annoncant le meilleur sujet
-if (isset($meilleurecolonne) && $compteursujet == "1") {
-	print "<img src=\"".dol_buildpath('/opensurvey/img/medaille.png',1)."\" alt=\"Meilleur resultat\"> " . $langs->trans('TheBestChoice') . " : <b>$meilleursujet </b>" . $langs->trans("with") . " <b>$meilleurecolonne </b>" . $vote_str . ".<br>\n";
-} elseif (isset($meilleurecolonne)) {
-	print "<img src=\"".dol_buildpath('/opensurvey/img/medaille.png',1)."\" alt=\"Meilleur resultat\"> " . $langs->trans('TheBestChoices') . " : <b>$meilleursujet </b>" . $langs->trans("with") . " <b>$meilleurecolonne </b>" . $vote_str . ".<br>\n";
+	if (isset($meilleurecolonne) && $compteursujet == "1") {
+		print "<img src=\"".dol_buildpath('/opensurvey/img/medaille.png',1)."\"> " . $langs->trans('TheBestChoice') . " : <b>$meilleursujet </b>" . $langs->trans("with") . " <b>$meilleurecolonne </b>" . $vote_str . ".<br>\n";
+	} elseif (isset($meilleurecolonne)) {
+		print "<img src=\"".dol_buildpath('/opensurvey/img/medaille.png',1)."\"> " . $langs->trans('TheBestChoices') . " : <b>$meilleursujet </b>" . $langs->trans("with") . " <b>$meilleurecolonne </b>" . $vote_str . ".<br>\n";
+	}
+	echo '</p><br>'."\n";
 }
-
-echo '<br>'."\n";
 
 echo '</form>'."\n";
 
 llxFooterSurvey();
 
 $db->close();
+?>

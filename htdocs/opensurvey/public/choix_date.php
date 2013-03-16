@@ -54,6 +54,9 @@ include_once('../fonctions.php');
 include_once('../bandeaux_local.php');
 include_once('../creation_sondage.php');
 
+$origin=GETPOST('origin','alpha');
+
+
 /*
  * Actions
  */
@@ -96,7 +99,7 @@ if (issetAndNoEmpty('confirmation') || issetAndNoEmpty('confirmation_x')) {
 	}
 
 	$_SESSION["toutchoix"]=substr("$choixdate",1);
-	ajouter_sondage();
+	ajouter_sondage($origin);
 }
 
 //nombre de cases par défaut
@@ -215,28 +218,30 @@ if (is_integer($_SESSION["mois"]) && $_SESSION["mois"] > 0 && $_SESSION["mois"] 
 
 
 //Debut du formulaire et bandeaux de tete
-echo '<form name="formulaire" action="choix_date.php" method="POST" onkeypress="javascript:process_keypress(event)">'."\n";
-echo '<div class="bandeautitre">'. $langs->trans("CreatePoll")." (2 / 2)" .'</div>'."\n";
+print '<form name="formulaire" action="choix_date.php" method="POST" onkeypress="javascript:process_keypress(event)">'."\n";
+print '<input type="hidden" name="origin" value="'.dol_escape_htmltag($origin).'">';
+
+print '<div class="bandeautitre">'. $langs->trans("CreatePoll")." (2 / 2)" .'</div>'."\n";
 
 //affichage de l'aide pour les jours
-echo '<div class="bodydate">'."\n";
-echo $langs->trans("OpenSurveyStep2")."\n";
-echo '</div>'."\n";
+print '<div class="bodydate">'."\n";
+print $langs->trans("OpenSurveyStep2")."\n";
+print '</div>'."\n";
 
 //debut du tableau qui affiche le calendrier
-echo '<center><div class="corps">'."\n";
-echo '<table align=center>'."\n";
-echo '<tr><td><input type="image" name="anneeavant" value="<<" src="images/rewind.png"></td><td><input type="image" name="moisavant" value="<" src="images/previous.png"></td><td width="150px" align="center"> '.$motmois.' '.$_SESSION["annee"].' </td><td><input type="image" name="moisapres" value=">" src="images/next.png"></td><td><input type="image" name="anneeapres" value=">>" src="images/fforward.png"></td><td></td><td></td><td></td><td></td><td></td><td><input type="image" name="retourmois" value="Aujourd\'hui" src="images/reload.png"></td></tr>'."\n";
-echo '</table>'."\n";
-echo '<table>'."\n";
-echo '<tr>'."\n";
+print '<center><div class="corps">'."\n";
+print '<table align=center>'."\n";
+print '<tr><td><input type="image" name="anneeavant" value="<<" src="images/rewind.png"></td><td><input type="image" name="moisavant" value="<" src="images/previous.png"></td><td width="150px" align="center"> '.$motmois.' '.$_SESSION["annee"].' </td><td><input type="image" name="moisapres" value=">" src="images/next.png"></td><td><input type="image" name="anneeapres" value=">>" src="images/fforward.png"></td><td></td><td></td><td></td><td></td><td></td><td><input type="image" name="retourmois" value="Aujourd\'hui" src="images/reload.png"></td></tr>'."\n";
+print '</table>'."\n";
+print '<table>'."\n";
+print '<tr>'."\n";
 
 //affichage des jours de la semaine en haut du tableau
 for($i = 0; $i < 7; $i++) {
-	echo '<td class="joursemaine">'. strftime('%A',mktime(0,0,0,0, $i,10)) .'</td>';
+	print '<td class="joursemaine">'. strftime('%A',mktime(0,0,0,0, $i,10)) .'</td>';
 }
 
-echo '</tr>'."\n";
+print '</tr>'."\n";
 
 //ajout d'une entrée dans la variable de session qui contient toutes les dates
 if (issetAndNoEmpty('choixjourajout')) {
@@ -321,25 +326,25 @@ if (issetAndNoEmpty('resethoraires')) {
 }
 
 // affichage du calendrier
-echo '<tr>'."\n";
+print '<tr>'."\n";
 
 for ($i = 0; $i < $nbrejourmois + $premierjourmois; $i++) {
 	$numerojour = $i-$premierjourmois+1;
 
 	// On saute a la ligne tous les 7 jours
 	if (($i%7) == 0 && $i != 0) {
-		echo '</tr><tr>'."\n";
+		print '</tr><tr>'."\n";
 	}
 
 	// On affiche les jours precedants en gris et incliquables
 	if ($i < $premierjourmois) {
-		echo '<td class=avant></td>'."\n";
+		print '<td class=avant></td>'."\n";
 	} else {
 		if (issetAndNoEmpty('totalchoixjour', $_SESSION) === true) {
 			for ($j = 0; $j < count($_SESSION["totalchoixjour"]); $j++) {
 				//affichage des boutons ROUGES
 				if (date("j", $_SESSION["totalchoixjour"][$j]) == $numerojour && date("n", $_SESSION["totalchoixjour"][$j]) == $_SESSION["mois"] && date("Y", $_SESSION["totalchoixjour"][$j]) == $_SESSION["annee"]) {
-					echo '<td align=center class=choisi><input type=submit class="bouton OFF" name="choixjourretrait[]" value="'.$numerojour.'"></td>'."\n";
+					print '<td align=center class=choisi><input type=submit class="bouton OFF" name="choixjourretrait[]" value="'.$numerojour.'"></td>'."\n";
 					$dejafait = $numerojour;
 				}
 			}
@@ -349,18 +354,18 @@ for ($i = 0; $i < $nbrejourmois + $premierjourmois; $i++) {
 		if (isset($dejafait) === false || $dejafait != $numerojour){
 			//bouton vert
 			if (($numerojour >= $jourAJ && $_SESSION["mois"] == $moisAJ && $_SESSION["annee"] == $anneeAJ) || ($_SESSION["mois"] > $moisAJ && $_SESSION["annee"] == $anneeAJ) || $_SESSION["annee"] > $anneeAJ) {
-				echo '<td align=center class=libre><input type=submit class="bouton ON" name="choixjourajout[]" value="'.$numerojour.'"></td>'."\n";
+				print '<td align=center class=libre><input type=submit class="bouton ON" name="choixjourajout[]" value="'.$numerojour.'"></td>'."\n";
 			} else { //bouton gris
-				echo '<td class=avant>'.$numerojour.'</td>'."\n";
+				print '<td class=avant>'.$numerojour.'</td>'."\n";
 			}
 		}
 	}
 }
 
 //fin du tableau
-echo '</tr>'."\n";
-echo '</table>'."\n";
-echo '</div></center>'."\n";
+print '</tr>'."\n";
+print '</table>'."\n";
+print '</div></center>'."\n";
 
 //traitement de l'entrée des heures dans les cases texte
 $errheure = $erreur = false;
@@ -460,35 +465,35 @@ if (issetAndNoEmpty('choixheures') || issetAndNoEmpty('choixheures_x')) {
 	}
 }
 
-echo '<div class=bodydate><center>'."\n";
+print '<div class=bodydate><center>'."\n";
 
 //affichage de tous les jours choisis
 if (issetAndNoEmpty('totalchoixjour', $_SESSION) && (!issetAndNoEmpty('choixheures_x') || $erreur)) {
 	//affichage des jours
-	echo '<br>'."\n";
-	echo '<H2>'. $langs->trans("SelectedDays") .' :</H2>'."\n";
+	print '<br>'."\n";
+	print '<H2>'. $langs->trans("SelectedDays") .' :</H2>'."\n";
 	//affichage de l'aide pour les jours
-	echo _("For each selected day, you can choose, or not, meeting hours in the following format :<br>- empty,<br>- \"8h\", \"8H\" or \"8:00\" to give a meeting's start hour,<br>- \"8-11\", \"8h-11h\", \"8H-11H\" ou \"8:00-11:00\" to give a meeting's start and end hour,<br>- \"8h15-11h15\", \"8H15-11H15\" ou \"8:15-11:15\" for the same thing but with minutes.") .'<br><br>'."\n";
-	echo '<table>'."\n";
-	echo '<tr>'."\n";
-	echo '<td></td>'."\n";
+	print _("For each selected day, you can choose, or not, meeting hours in the following format :<br>- empty,<br>- \"8h\", \"8H\" or \"8:00\" to give a meeting's start hour,<br>- \"8-11\", \"8h-11h\", \"8H-11H\" ou \"8:00-11:00\" to give a meeting's start and end hour,<br>- \"8h15-11h15\", \"8H15-11H15\" ou \"8:15-11:15\" for the same thing but with minutes.") .'<br><br>'."\n";
+	print '<table>'."\n";
+	print '<tr>'."\n";
+	print '<td></td>'."\n";
 
 	for ($i = 0; $i < $_SESSION["nbrecaseshoraires"]; $i++) {
 		$j = $i+1;
-		echo '<td classe=somme>'. _("Time") .' '.$j.'</center></td>'."\n";
+		print '<td classe=somme>'. _("Time") .' '.$j.'</center></td>'."\n";
 	}
 
 	if ($_SESSION["nbrecaseshoraires"] < 10) {
-		echo '<td classe=somme><input type="image" name="ajoutcases" src="images/add-16.png"></td>'."\n";
+		print '<td classe=somme><input type="image" name="ajoutcases" src="images/add-16.png"></td>'."\n";
 	}
 
-	echo '</tr>'."\n";
+	print '</tr>'."\n";
 
 	//affichage de la liste des jours choisis
 	for ($i=0;$i<count($_SESSION["totalchoixjour"]);$i++)
 	{
-		echo '<tr>'."\n";
-		echo '<td>'.dol_print_date($_SESSION["totalchoixjour"][$i], 'daytext').' ('.dol_print_date($_SESSION["totalchoixjour"][$i], '%A').')</td>';
+		print '<tr>'."\n";
+		print '<td>'.dol_print_date($_SESSION["totalchoixjour"][$i], 'daytext').' ('.dol_print_date($_SESSION["totalchoixjour"][$i], '%A').')</td>';
 
 		$affichageerreurfindeligne=false;
 
@@ -496,7 +501,7 @@ if (issetAndNoEmpty('totalchoixjour', $_SESSION) && (!issetAndNoEmpty('choixheur
 		for ($j=0;$j<$_SESSION["nbrecaseshoraires"];$j++) {
 			//si on voit une erreur, le fond de la case est rouge
 			if (isset($errheure[$i][$j]) && $errheure[$i][$j]) {
-				echo '<td><input type=text size="10" maxlength="11" name=horaires'.$i.'[] value="'.$_SESSION["horaires$i"][$j].'" style="background-color:#FF6666;"></td>'."\n";
+				print '<td><input type=text size="10" maxlength="11" name=horaires'.$i.'[] value="'.$_SESSION["horaires$i"][$j].'" style="background-color:#FF6666;"></td>'."\n";
 				$affichageerreurfindeligne=true;
 			} else { //sinon la case est vide normalement
 				if (issetAndNoEmpty('horaires'.$i, $_SESSION) === false || issetAndNoEmpty($j, $_SESSION['horaires'.$i]) === false) {
@@ -508,30 +513,30 @@ if (issetAndNoEmpty('totalchoixjour', $_SESSION) && (!issetAndNoEmpty('choixheur
 					}
 				}
 
-				echo '<td><input type=text size="10" maxlength="11" name=horaires'.$i.'[] value="'.$_SESSION["horaires$i"][$j].'"></td>'."\n";
+				print '<td><input type=text size="10" maxlength="11" name=horaires'.$i.'[] value="'.$_SESSION["horaires$i"][$j].'"></td>'."\n";
 			}
 		}
 
 		if ($affichageerreurfindeligne) {
-			echo '<td><b><font color=#FF0000>'. _("Bad format!") .'</font></b></td>'."\n";
+			print '<td><b><font color=#FF0000>'. _("Bad format!") .'</font></b></td>'."\n";
 		}
 
-		echo '</tr>'."\n";
+		print '</tr>'."\n";
 	}
 
-	echo '</table>'."\n";
+	print '</table>'."\n";
 
 	//affichage des boutons de formulaire pour annuler, effacer les jours ou créer le sondage
-	echo '<table>'."\n";
-	echo '<tr>'."\n";
-	echo '<td><input type="submit" class="button" name="reset" value="'. dol_escape_htmltag($langs->trans("RemoveAllDays")) .'"></td><td><input type="submit" class="button" name="reporterhoraires" value="'. dol_escape_htmltag($langs->trans("CopyHoursOfFirstDay")) .'"></td><td><input type="submit" class="button" name="resethoraires" value="'. dol_escape_htmltag($langs->trans("RemoveAllHours")) .'"></td></tr>'."\n";
-	echo'<tr><td colspan="3"><br><br></td></tr>'."\n";
-	echo '<tr><td colspan="3" align="center"><input type="submit" class="button" name="choixheures" value="'. $langs->trans("NextStep"). '"></td></tr>'."\n";
-	echo '</table>'."\n";
+	print '<table>'."\n";
+	print '<tr>'."\n";
+	print '<td><input type="submit" class="button" name="reset" value="'. dol_escape_htmltag($langs->trans("RemoveAllDays")) .'"></td><td><input type="submit" class="button" name="reporterhoraires" value="'. dol_escape_htmltag($langs->trans("CopyHoursOfFirstDay")) .'"></td><td><input type="submit" class="button" name="resethoraires" value="'. dol_escape_htmltag($langs->trans("RemoveAllHours")) .'"></td></tr>'."\n";
+	print'<tr><td colspan="3"><br><br></td></tr>'."\n";
+	print '<tr><td colspan="3" align="center"><input type="submit" class="button" name="choixheures" value="'. $langs->trans("NextStep"). '"></td></tr>'."\n";
+	print '</table>'."\n";
 
 	//si un seul jour et aucunes horaires choisies, : message d'erreur
 	if ((issetAndNoEmpty('choixheures') || issetAndNoEmpty('choixheures_x')) && (count($_SESSION["totalchoixjour"])=="1" && $_POST["horaires0"][0]=="" && $_POST["horaires0"][1]=="" && $_POST["horaires0"][2]=="" && $_POST["horaires0"][3]=="" && $_POST["horaires0"][4]=="")) {
-		echo '<table><tr><td colspan=3><font color=#FF0000>'. _("Enter more choices for the voters") .'</font><br></td></tr></table>'."\n";
+		print '<table><tr><td colspan=3><font color=#FF0000>'. _("Enter more choices for the voters") .'</font><br></td></tr></table>'."\n";
 		$erreur=true;
 	}
 }
@@ -542,28 +547,28 @@ if (!$erreur  && (issetAndNoEmpty('choixheures') || issetAndNoEmpty('choixheures
 	$jour_arret = $_SESSION["totalchoixjour"][$taille_tableau]+200000;
 	$date_fin=dol_print_date($jour_arret, 'dayhourtext');
 
-	echo '<br><div class="presentationdatefin">'. _("Your poll will expire automatically 2 days after the last date of your poll.") .'<br></td></tr><tr><td><br>'. _("Removal date") .' : <b> '.$date_fin.'</b><br><br>'."\n";
-	echo '</div>'."\n";
-	echo '<div class="presentationdatefin">'."\n";
-	echo '<font color="#FF0000">'. _("Once you have confirmed the creation of your poll, you will be automatically redirected on the page of your poll. <br><br>Then, you will receive quickly an email contening the link to your poll for sending it to the voters.") .'</font>'."\n";
-	echo'</div>'."\n";
-	// echo'<p class=affichageexport>'."\n";
-	// echo 'Pour finir la cr&eacute;ation du sondage, cliquez sur le bouton <img src="images/add-16.png" alt="ajout"> ci-dessous'."\n";
-	// echo '</p>'."\n";
-	echo '<table>'."\n";
-	echo '<tr><td>'. $langs->trans("BackToHoursSetup") .'</td><td></td><td><input type="image" name="retourhoraires" src="images/back-32.png"></td></tr>'."\n";
-	echo'<tr><td>'. $langs->trans("CreatePoll") .'</td><td></td><td><input type="image" name="confirmation" value="Valider la cr&eacute;ation" src="images/add.png"></td></tr>'."\n";
-	echo '</table>'."\n";
+	print '<br><div class="presentationdatefin">'. _("Your poll will expire automatically 2 days after the last date of your poll.") .'<br></td></tr><tr><td><br>'. _("Removal date") .' : <b> '.$date_fin.'</b><br><br>'."\n";
+	print '</div>'."\n";
+	print '<div class="presentationdatefin">'."\n";
+	print '<font color="#FF0000">'. _("Once you have confirmed the creation of your poll, you will be automatically redirected on the page of your poll. <br><br>Then, you will receive quickly an email contening the link to your poll for sending it to the voters.") .'</font>'."\n";
+	print'</div>'."\n";
+	// print'<p class=affichageexport>'."\n";
+	// print 'Pour finir la cr&eacute;ation du sondage, cliquez sur le bouton <img src="images/add-16.png" alt="ajout"> ci-dessous'."\n";
+	// print '</p>'."\n";
+	print '<table>'."\n";
+	print '<tr><td>'. $langs->trans("BackToHoursSetup") .'</td><td></td><td><input type="image" name="retourhoraires" src="images/back-32.png"></td></tr>'."\n";
+	print'<tr><td>'. $langs->trans("CreatePoll") .'</td><td></td><td><input type="image" name="confirmation" value="Valider la cr&eacute;ation" src="images/add.png"></td></tr>'."\n";
+	print '</table>'."\n";
 }
 
-echo '</tr>'."\n";
-echo '</table>'."\n";
-echo '<a name=bas></a>'."\n";
+print '</tr>'."\n";
+print '</table>'."\n";
+print '<a name=bas></a>'."\n";
 //fin du formulaire et bandeau de pied
-echo '</form>'."\n";
+print '</form>'."\n";
 //bandeau de pied
-echo '<br><br><br><br>'."\n";
-echo '</center></div>'."\n";
+print '<br><br><br><br>'."\n";
+print '</center></div>'."\n";
 
 //bouton de nettoyage de tous les jours choisis
 if (issetAndNoEmpty('reset')) {

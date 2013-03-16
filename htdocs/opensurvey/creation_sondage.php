@@ -44,89 +44,86 @@ if (session_id() == "") {
 include_once('fonctions.php');
 
 
-//Generer une chaine de caractere unique et aleatoire
-function random($car)
+/**
+ * Generate a random id
+ *
+ * @return	void
+ */
+function dol_survey_random($car)
 {
-  $string = "";
-  $chaine = "abcdefghijklmnopqrstuvwxyz123456789";
-  srand((double)microtime()*1000000);
-  for($i=0; $i<$car; $i++) {
-    $string .= $chaine[rand()%strlen($chaine)];
-  }
-  return $string;
+	$string = "";
+	$chaine = "abcdefghijklmnopqrstuvwxyz123456789";
+	srand((double)microtime()*1000000);
+	for($i=0; $i<$car; $i++) {
+		$string .= $chaine[rand()%strlen($chaine)];
+	}
+	return $string;
 }
 
-function ajouter_sondage()
+/**
+ * Ajouter_sondage
+ *
+ * @return	void
+ */
+function ajouter_sondage($origin)
 {
-  $sondage=random(16);
-  $sondage_admin=$sondage.random(8);
+	$sondage=dol_survey_random(16);
+	$sondage_admin=$sondage.dol_survey_random(8);
 
-  if ($_SESSION["formatsondage"]=="A"||$_SESSION["formatsondage"]=="A+") {
-    //extraction de la date de fin choisie
-    if ($_SESSION["champdatefin"]) {
-      if ($_SESSION["champdatefin"]>time()+250000) {
-        $date_fin=$_SESSION["champdatefin"];
-      }
-    } else {
-      $date_fin=time()+15552000;
-    }
-  }
+	if ($_SESSION["formatsondage"]=="A"||$_SESSION["formatsondage"]=="A+") {
+		//extraction de la date de fin choisie
+		if ($_SESSION["champdatefin"]) {
+			if ($_SESSION["champdatefin"]>time()+250000) {
+				$date_fin=$_SESSION["champdatefin"];
+			}
+		} else {
+			$date_fin=time()+15552000;
+		}
+	}
 
-  if ($_SESSION["formatsondage"]=="D"||$_SESSION["formatsondage"]=="D+") {
-    //Calcul de la date de fin du sondage
-    $taille_tableau=sizeof($_SESSION["totalchoixjour"])-1;
-    $date_fin=$_SESSION["totalchoixjour"][$taille_tableau]+200000;
-  }
+	if ($_SESSION["formatsondage"]=="D"||$_SESSION["formatsondage"]=="D+") {
+		//Calcul de la date de fin du sondage
+		$taille_tableau=sizeof($_SESSION["totalchoixjour"])-1;
+		$date_fin=$_SESSION["totalchoixjour"][$taille_tableau]+200000;
+	}
 
-  if (is_numeric($date_fin) === false) {
-    $date_fin = time()+15552000;
-  }
+	if (is_numeric($date_fin) === false) {
+		$date_fin = time()+15552000;
+	}
 
-  $headers="From: ".NOMAPPLICATION." <".ADRESSEMAILADMIN.">\r\nContent-Type: text/plain; charset=\"UTF-8\"\nContent-Transfer-Encoding: 8bit";
+	$headers="From: ".NOMAPPLICATION." <".ADRESSEMAILADMIN.">\r\nContent-Type: text/plain; charset=\"UTF-8\"\nContent-Transfer-Encoding: 8bit";
 
-  global $connect;
+	global $connect;
 
-  $sql = 'INSERT INTO '.MAIN_DB_PREFIX.'opensurvey_sondage
-          (id_sondage, commentaires, mail_admin, nom_admin, titre, id_sondage_admin, date_fin, format, mailsonde)
-          VALUES (
-          '.$connect->Param('id_sondage').',
-          '.$connect->Param('commentaires').',
-          '.$connect->Param('mail_admin').',
-          '.$connect->Param('nom_admin').',
-          '.$connect->Param('titre').',
-          '.$connect->Param('id_sondage_admin').',
-          FROM_UNIXTIME('.$date_fin.'),
-          '.$connect->Param('format').',
-          '.$connect->Param('mailsonde').'
-          )';
+	$sql = 'INSERT INTO '.MAIN_DB_PREFIX.'opensurvey_sondage
+	(id_sondage, commentaires, mail_admin, nom_admin, titre, id_sondage_admin, date_fin, format, mailsonde, origin)
+	VALUES (
+	'.$connect->Param('id_sondage').',
+	'.$connect->Param('commentaires').',
+	'.$connect->Param('mail_admin').',
+	'.$connect->Param('nom_admin').',
+	'.$connect->Param('titre').',
+	'.$connect->Param('id_sondage_admin').',
+	FROM_UNIXTIME('.$date_fin.'),
+	'.$connect->Param('format').',
+	'.$connect->Param('mailsonde').',
+	'.$connect->Param('origin').'
+	)';
 
-  //print $sql;exit;
-  $sql = $connect->Prepare($sql);
-  $res = $connect->Execute($sql, array($sondage, $_SESSION['commentaires'], $_SESSION['adresse'], $_SESSION['nom'], $_SESSION['titre'], $sondage_admin, $_SESSION['formatsondage'], $_SESSION['mailsonde']));
+	//print $sql;exit;
+	$sql = $connect->Prepare($sql);
+	$res = $connect->Execute($sql, array($sondage, $_SESSION['commentaires'], $_SESSION['adresse'], $_SESSION['nom'], $_SESSION['titre'], $sondage_admin, $_SESSION['formatsondage'], $_SESSION['mailsonde'], $origin));
 
-  $sql = 'INSERT INTO '.MAIN_DB_PREFIX.'opensurvey_sujet_studs values ('.$connect->Param('sondage').', '.$connect->Param('choix').')';
-  $sql = $connect->Prepare($sql);
-  $connect->Execute($sql, array($sondage, $_SESSION['toutchoix']));
+	$sql = 'INSERT INTO '.MAIN_DB_PREFIX.'opensurvey_sujet_studs values ('.$connect->Param('sondage').', '.$connect->Param('choix').')';
+	$sql = $connect->Prepare($sql);
+	$connect->Execute($sql, array($sondage, $_SESSION['toutchoix']));
 
-  $message = _("This is the message you have to send to the people you want to poll. \nNow, you have to send this message to everyone you want to poll.");
-  $message .= "\n\n";
-  $message .= stripslashes($_SESSION["nom"])." " . _("hast just created a poll called") . " : \"".stripslashes($_SESSION["titre"])."\".\n";
-  $message .= _("Thanks for filling the poll at the link above") . " :\n\n%s\n\n" . _("Thanks for your confidence") . ",\n".NOMAPPLICATION;
+	dol_syslog($date . " CREATION: ".$sondage." ".$_SESSION[formatsondage]." ".$_SESSION[nom]." ".$_SESSION[adresse]." ".$_SESSION[toutchoix]."\n", LOG_DEBUG);
 
-  $message_admin = _("This message should NOT be sended to the polled people. It is private for the poll's creator.\n\nYou can now modify it at the link above");
-  $message_admin .= " :\n\n"."%s \n\n" . _("Thanks for your confidence") . ",\n".NOMAPPLICATION;
+	if ($origin == 'dolibarr') $urlback=dol_buildpath('/opensurvey/adminstuds_preview.php',1).'?sondage='.$sondage_admin;
+	else $urlback=getUrlSondage($sondage);
+	//var_dump($urlback);exit;
 
-  $message = sprintf($message, getUrlSondage($sondage));
-  $message_admin = sprintf($message_admin, getUrlSondage($sondage_admin, true));
-
-  if (validateEmail($_SESSION['adresse'])) {
-    mail ("$_SESSION[adresse]", "[".NOMAPPLICATION."][" . _("For sending to the polled users") . "] " . _("Poll") . " : ".stripslashes($_SESSION["titre"]), $message, $headers);
-    mail ("$_SESSION[adresse]", "[".NOMAPPLICATION."][" . _("Author's message") . "] " . _("Poll") . " : ".stripslashes($_SESSION["titre"]), $message, $headers);
-  }
-
-
-  $date=date('H:i:s d/m/Y:');
-  dol_syslog($date . " CREATION: $sondage\t$_SESSION[formatsondage]\t$_SESSION[nom]\t$_SESSION[adresse]\t \t$_SESSION[toutchoix]\n", LOG_ERR);
-  header("Location:".getUrlSondage($sondage));
-  exit();
+	header("Location: ".$urlback);
+	exit();
 }

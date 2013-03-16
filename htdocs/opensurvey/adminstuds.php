@@ -61,19 +61,20 @@ include_once('./bandeaux_local.php');
 
 // Initialisation des variables
 $action=GETPOST('action');
-$numsondageadmin = false;
+$numsondageadmin = '';
 $sondage = false;
 
 // recuperation du numero de sondage admin (24 car.) dans l'URL
 if (issetAndNoEmpty('sondage', $_GET) && is_string($_GET['sondage']) && strlen($_GET['sondage']) === 24)
 {
-	$numsondageadmin=$_GET["sondage"];
+	$numsondageadmin=GETPOST("sondage",'alpha');
 	//on découpe le résultat pour avoir le numéro de sondage (16 car.)
 	$numsondage=substr($numsondageadmin, 0, 16);
 }
 
 
-if (preg_match(";[\w\d]{24};i", $numsondageadmin)) {
+if (preg_match(";[\w\d]{24};i", $numsondageadmin))
+{
 	$sql = 'SELECT * FROM '.MAIN_DB_PREFIX.'opensurvey_sondage WHERE id_sondage_admin = '.$connect->Param('numsondageadmin');
 	$sql = $connect->Prepare($sql);
 	$sondage = $connect->Execute($sql, array($numsondageadmin));
@@ -89,19 +90,6 @@ if (preg_match(";[\w\d]{24};i", $numsondageadmin)) {
 	}
 }
 
-//verification de l'existence du sondage, s'il n'existe pas on met une page d'erreur
-if (!$sondage || $sondage->RecordCount() != 1)
-{
-	echo '<div class=corpscentre>'."\n";
-	print "<H2>" . _("This poll doesn't exist !") . "</H2><br><br>"."\n";
-	print "" . _("Back to the homepage of ") . " <a href=\"list.php\"> ".NOMAPPLICATION."</A>. "."\n";
-	echo '<br><br><br><br>'."\n";
-	echo '</div>'."\n";
-
-	llxFooter();
-	exit;
-}
-
 $dsujet=$sujets->FetchObject(false);
 $dsondage=$sondage->FetchObject(false);
 
@@ -114,30 +102,21 @@ $nblignes = $user_studs->RecordCount();
  * Actions
  */
 
-if (GETPOST('annullesuppression'))
+// Delete
+if ($action == 'delete_confirm')
 {
-	$action='';
-}
-
-//action si bouton confirmation de suppression est activé
-if (isset($_POST["confirmesuppression"]) || isset($_POST["confirmesuppression_x"]))
-{
-	$nbuser=$user_studs->RecordCount();
-
-	//destruction des données dans la base SQL
-	// requetes SQL qui font le ménage dans la base
-	$sql='DELETE FROM '.MAIN_DB_PREFIX."opensurvey_comments WHERE id_sondage = '".$dsondage->id_sondage."'";
+	$sql='DELETE FROM '.MAIN_DB_PREFIX."opensurvey_comments WHERE id_sondage_admin = '".$numsondageadmin."'";
 	dol_syslog("Delete poll sql=".$sql, LOG_DEBUG);
-	$connect->Execute($sql);
-	$sql='DELETE FROM '.MAIN_DB_PREFIX."opensurvey_sujet_studs WHERE id_sondage = '".$dsondage->id_sondage."'";
+	$resql=$db->query($sql);
+	$sql='DELETE FROM '.MAIN_DB_PREFIX."opensurvey_sujet_studs WHERE id_sondage_admin = '".$numsondageadmin."'";
 	dol_syslog("Delete poll sql=".$sql, LOG_DEBUG);
-	$connect->Execute($sql);
-	$sql='DELETE FROM '.MAIN_DB_PREFIX."opensurvey_user_studs WHERE id_sondage = '".$dsondage->id_sondage."'";
+	$resql=$db->query($sql);
+	$sql='DELETE FROM '.MAIN_DB_PREFIX."opensurvey_user_studs WHERE id_sondage_admin = '".$numsondageadmin."'";
 	dol_syslog("Delete poll sql=".$sql, LOG_DEBUG);
-	$connect->Execute($sql);
-	$sql='DELETE FROM '.MAIN_DB_PREFIX."opensurvey_sondage WHERE id_sondage = '".$dsondage->id_sondage."'";
+	$resql=$db->query($sql);
+	$sql='DELETE FROM '.MAIN_DB_PREFIX."opensurvey_sondage WHERE id_sondage_admin = '".$numsondageadmin."'";
 	dol_syslog("Delete poll sql=".$sql, LOG_DEBUG);
-	$connect->Execute($sql);
+	$resql=$db->query($sql);
 
 	header('Location: '.dol_buildpath('/opensurvey/list.php',1));
 	exit();
@@ -400,19 +379,12 @@ for ($i = 0; $i < $nblignes; $i++) {
 }
 
 
-//suppression d'un commentaire utilisateur
-$sql = 'SELECT * FROM '.MAIN_DB_PREFIX.'opensurvey_comments WHERE id_sondage='.$connect->Param('numsondage').' ORDER BY id_comment';
-$sql = $connect->Prepare($sql);
-$comment_user = $connect->Execute($sql, array($numsondage));
-$i = 0;
-while ($dcomment = $comment_user->FetchNextObject(false)) {
-	if (isset($_POST['suppressioncomment'.$i.'_x'])) {
-		$sql = 'DELETE FROM '.MAIN_DB_PREFIX.'opensurvey_comments WHERE id_comment = '.$connect->Param('id_comment');
-		$sql = $connect->Prepare($sql);
-		$connect->Execute($sql, array($dcomment->id_comment));
-	}
-
-	$i++;
+// Delete comment
+$idcomment=GETPOST('deletecomment','int');
+if ($idcomment)
+{
+	$sql = 'DELETE FROM '.MAIN_DB_PREFIX.'opensurvey_comments WHERE id_comment = '.$idcomment;
+	$resql = $db->query($sql);
 }
 
 
@@ -485,6 +457,18 @@ llxHeader('',$dsondage->titre, 0, 0, 0, 0, $arrayofjs, $arrayofcss);
 
 $object->fetch(0,$numsondage);
 
+// Define format of choices
+$toutsujet=explode(",",$object->sujet);
+$listofanswers=array();
+foreach ($toutsujet as $value)
+{
+	$tmp=explode('@',$value);
+	$listofanswers[]=array('label'=>$tmp[0],'format'=>($tmp[1]?$tmp[1]:'checkbox'));
+}
+$toutsujet=str_replace("@","<br>",$toutsujet);
+$toutsujet=str_replace("°","'",$toutsujet);
+
+
 echo '<form name="formulaire4" action="#" method="POST" onkeypress="javascript:process_keypress(event)">'."\n";
 
 $head = array();
@@ -513,7 +497,11 @@ print $form->showrefnav($object, 'sondage', $linkback, 1, 'id_sondage_admin', 'i
 print '</td>';
 print '</tr>';
 
-print '<tr><td>'.$langs->trans("Type").'</td><td colspan="2">'.$langs->trans(($dsondage->format=="A"||$dsondage->format=="A+")?"TypeClassic":"TypeDate").'</td></tr>';
+// Type
+$type=($dsondage->format=="A"||$dsondage->format=="A+")?'classic':'date';
+print '<tr><td>'.$langs->trans("Type").'</td><td colspan="2">';
+print img_picto('',dol_buildpath('/opensurvey/img/'.($type == 'classic'?'chart-32.png':'calendar-32.png'),1),'width="16"',1);
+print ' '.$langs->trans($type=='classic'?"TypeClassic":"TypeDate").'</td></tr>';
 
 // Title
 print '<tr><td>';
@@ -542,7 +530,7 @@ if ((isset($_POST["boutonnouvelleadresse"]) || isset($_POST["boutonnouvelleadres
 print '</td></tr>';
 
 // Comment list
-$sql = 'SELECT * FROM '.MAIN_DB_PREFIX.'opensurvey_comments WHERE id_sondage='.$connect->Param('numsondage').' ORDER BY id_comment';
+$sql = 'SELECT id_comment, usercomment, comment FROM '.MAIN_DB_PREFIX.'opensurvey_comments WHERE id_sondage='.$connect->Param('numsondage').' ORDER BY id_comment';
 $sql = $connect->Prepare($sql);
 $comment_user = $connect->Execute($sql, array($numsondage));
 if ($comment_user->RecordCount() != 0)
@@ -550,8 +538,9 @@ if ($comment_user->RecordCount() != 0)
 	print '<tr><td>'.$langs->trans("CommentsOfVoters") . '</td><td colspan="2">';
 
 	$i = 0;
-	while ( $dcomment=$comment_user->FetchNextObject(false)) {
-		print '<input type="image" name="suppressioncomment'.$i.'" src="'.dol_buildpath('/opensurvey/img/cancel.png',1).'"> '.$dcomment->usercomment.' : '.$dcomment->comment." <br>";
+	while ( $dcomment=$comment_user->FetchNextObject(false))
+	{
+		print '<a href="'.dol_buildpath('/opensurvey/adminstuds.php',1).'?deletecomment='.$dcomment->id_comment.'&sondage='.$numsondageadmin.'"> '.img_picto('', 'delete.png').' '.$dcomment->usercomment.' : '.$dcomment->comment." <br>";
 		$i++;
 	}
 
@@ -565,7 +554,7 @@ echo '<textarea name="comment" rows="2" cols="80"></textarea><br>'."\n";
 echo $langs->trans("Name") .' : <input type=text name="commentuser"><br>'."\n";
 echo '<input type="submit" class="button" name="ajoutcomment" value="'.dol_escape_htmltag($langs->trans("AddComment")).'"><br>'."\n";
 if (isset($erreur_commentaire_vide) && $erreur_commentaire_vide=="yes") {
-	print "<font color=#FF0000>" . _("Enter a name and a comment!") . "</font>";
+	print "<font color=#FF0000>" . $langs->trans("ErrorFieldRequired",$langs->transnoentitiesnoconv("Name")) . "</font>";
 }
 
 print '</td></tr>';
@@ -584,7 +573,10 @@ print $urlvcal;
 
 print '</table>';
 
+echo '</form>'."\n";
+
 dol_fiche_end();
+
 
 /*
  * Barre d'actions
@@ -593,21 +585,16 @@ print '<div class="tabsAction">';
 
 echo '<a class="butAction" href="public/exportcsv.php?numsondage=' . $numsondage . '">'.$langs->trans("ExportSpreadsheet") .' (.CSV)' . '</a>';
 
-if ($action != 'delete')
-{
-	print '<a class="butActionDelete" href="'.$_SERVER["PHP_SELF"].'?suppressionsondage=1&sondage='.$numsondageadmin.'&amp;action=delete"';
-	print '>'.$langs->trans('Delete').'</a>';
-}
+print '<a class="butActionDelete" href="'.$_SERVER["PHP_SELF"].'?suppressionsondage=1&sondage='.$numsondageadmin.'&amp;action=delete"';
+print '>'.$langs->trans('Delete').'</a>';
 
 print '</div>';
 
 if ($action == 'delete')
 {
-	echo $langs->trans("ConfirmRemovalOfPoll") .' : <input type="submit" class="button" name="confirmesuppression" value="'. $langs->trans("RemovePoll") .'">'."\n";
-	echo '<input type="submit" class="button" name="annullesuppression" value="'. $langs->trans("Cancel") .'"><br><br>'."\n";
+	print $form->formconfirm($_SERVER["PHP_SELF"].'?&sondage='.$numsondageadmin, $langs->trans("RemovePoll"), $langs->trans("ConfirmRemovalOfPoll",$id), 'delete_confirm', '', '', 1);
 }
 
-echo '</form>'."\n";
 
 
 print '<br>';
@@ -615,3 +602,4 @@ print '<br>';
 llxFooterSurvey();
 
 $db->close();
+?>

@@ -150,7 +150,7 @@ class modOpenSurvey extends DolibarrModules
 								'titre'=>'NewSurvey',
 								'mainmenu'=>'opensurvey',
 								'leftmenu'=>'opensurvey_new',
-								'url'=>'/opensurvey/public/index.php',
+								'url'=>'/opensurvey/public/index.php?origin=dolibarr',
 								'langs'=>'opensurvey@opensurvey',
 								'position'=>210,
                 				'enabled'=>'$conf->opensurvey->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
