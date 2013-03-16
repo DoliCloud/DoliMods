@@ -46,6 +46,7 @@ function cabinetmed_completesubstitutionarray(&$substitutionarray,$langs,$object
     $isbio=0;
     $isother=0;
 
+    // Consultation + Exams
     $outcome=new CabinetmedCons($db);
     $result1=$outcome->fetch(GETPOST('idconsult'));
 
@@ -92,7 +93,7 @@ function cabinetmed_completesubstitutionarray(&$substitutionarray,$langs,$object
         $substitutionarray['exambio_conclusion']='';
     }
 
-    $substitutionarray['outcome_comment']=GETPOST('outcome_comment');
+    $substitutionarray['outcome_date']=$outcome->datecons;
     $substitutionarray['outcome_reason']=$outcome->motifconsprinc;
     $substitutionarray['outcome_diagnostic']=$outcome->diaglesprinc;
     if (! empty($outcome->traitementprescrit))
@@ -105,5 +106,24 @@ function cabinetmed_completesubstitutionarray(&$substitutionarray,$langs,$object
         $substitutionarray['treatment_title']='';
         $substitutionarray['outcome_treatment']='';
     }
+
+    $substitutionarray['outcome_comment']=GETPOST('outcome_comment');
+
+    // Patient
+    $patient=new Patient($this->db);
+    $patient->fetch($object->fk_soc);
+    $substitutionarray['patient_name']=$patient->name;
+	$substitutionarray['patient_code']=$patient->code_client;
+	$substitutionarray['patient_barcode']=$patient->barcode;
+	$substitutionarray['patient_barcode_type']=$patient->barcode_type_code;
+	$substitutionarray['patient_country_code']=$patient->country_code;
+	$substitutionarray['patient_country']=$patient->country;
+	$substitutionarray['email']=$patient->email;
+	$substitutionarray['patient_size']=$patient->idprof1;
+	$substitutionarray['patient_weight']=$patient->idprof2;
+    $substitutionarray['patient_birthdate']=$patient->idprof3;
+    $substitutionarray['patient_profession']=$patient->idprof4;
+    $substitutionarray['patient_gender']=$patient->typent_code;
+    $substitutionarray['patient_socialnum']=$patient->tva_intra;
 }
 
