@@ -47,9 +47,10 @@ require_once('adodb/adodb.inc.php');
 function connexion_base()
 {
 	global $conf;
+	global $dolibarr_main_db_pass;
 
   $DB = NewADOConnection($conf->db->type);
-  $DB->Connect($conf->db->host, $conf->db->user, $conf->db->pass, $conf->db->name);
+  $DB->Connect($conf->db->host, $conf->db->user, $dolibarr_main_db_pass, $conf->db->name);
   //$DB->debug = true;
   return $DB;
 }

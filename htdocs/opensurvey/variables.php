@@ -68,7 +68,7 @@ define('BASE', $conf->db->name);
 define('USERBASE', $conf->db->user);
 
 // passwd de l'utilisateur de la base
-define('USERPASSWD', $dolibarr_main_db_pass);
+define('USERPASSWD', $conf->db->pass);
 
 // nom du serveur de base de donnees, laisser vide pour utiliser un socket
 define('SERVEURBASE', $conf->db->host);
