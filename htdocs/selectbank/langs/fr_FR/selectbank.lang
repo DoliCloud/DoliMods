@@ -1,2 +1,4 @@
 # Dolibarr language file - fr_FR - selectbank 
 CHARSET= UTF-8
+Module101600Name=Selection banque
+Select Bank=Page de configuration du moule Select Bank
