@@ -78,7 +78,7 @@ clearstatcache();
 
 dol_htmloutput_mesg($mesg,$mesgs);
 
-print 'Nothing to setup';
+print $langs->trans("NothingToSetup");
 
 // Footer
 llxFooter();

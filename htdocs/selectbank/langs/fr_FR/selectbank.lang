@@ -1,4 +1,5 @@
 # Dolibarr language file - fr_FR - selectbank 
 CHARSET= UTF-8
 Module101600Name=Selection banque
-Select Bank=Page de configuration du moule Select Bank
+SelectBank=Page de configuration du moule Select Bank
+NothingToSetup=Aucune configuration particulière n'est requise. Une liste déroulante a du apparaitre au niveau des fiches factures, propositions, commandes, si le mode de paiment a été défini à virement ou s'il n'est pas défini.
