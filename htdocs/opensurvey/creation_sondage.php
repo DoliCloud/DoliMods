@@ -69,7 +69,7 @@ function dol_survey_random($car)
 function ajouter_sondage($origin)
 {
 	global $conf, $db;
-	
+
 	$sondage=dol_survey_random(16);
 	$sondage_admin=$sondage.dol_survey_random(8);
 
@@ -97,11 +97,11 @@ function ajouter_sondage($origin)
 
 	$sql = 'INSERT INTO '.MAIN_DB_PREFIX."opensurvey_sondage
 	(id_sondage, commentaires, mail_admin, nom_admin, titre, id_sondage_admin, date_fin, format, mailsonde, origin)
-	VALUES ('".$sondage."', '".$_SESSION['commentaires']."', '".$_SESSION['adresse']."', '".$_SESSION['nom']."', '".$_SESSION['titre']."', '".$sondage_admin."', '".$db->idate($date_fin)."', '".$_SESSION['formatsondage']."', '".$_SESSION['mailsonde']."', '".$origin."')";
+	VALUES ('".$db->escape($sondage)."', '".$db->escape($_SESSION['commentaires'])."', '".$db->escape($_SESSION['adresse'])."', '".$db->escape($_SESSION['nom'])."', '".$db->escape($_SESSION['titre'])."', '".$sondage_admin."', '".$db->idate($date_fin)."', '".$_SESSION['formatsondage']."', '".$db->escape($_SESSION['mailsonde'])."', '".$db->escape($origin)."')";
 	dol_syslog($sql);
 	$resql=$db->query($sql);
-	
-	$sql = 'INSERT INTO '.MAIN_DB_PREFIX."opensurvey_sujet_studs(id_sondage, sujet) VALUES ('".$sondage."', '".$_SESSION['toutchoix']."')";
+
+	$sql = 'INSERT INTO '.MAIN_DB_PREFIX."opensurvey_sujet_studs(id_sondage, sujet) VALUES ('".$db->escape($sondage)."', '".$db->escape($_SESSION['toutchoix'])."')";
 	dol_syslog($sql);
 	$resql=$db->query($sql);
 
