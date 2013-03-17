@@ -68,7 +68,7 @@ define('BASE', $conf->db->name);
 define('USERBASE', $conf->db->user);
 
 // passwd de l'utilisateur de la base
-define('USERPASSWD', $conf->db->pass);
+define('USERPASSWD', $dolibarr_main_db_pass);
 
 // nom du serveur de base de donnees, laisser vide pour utiliser un socket
 define('SERVEURBASE', $conf->db->host);
@@ -88,10 +88,6 @@ define('LANGUE', $langs->defaultlang);
 
 // Activation des URL propre (true pour activer, false sinon)
 define('URL_PROPRE', false);
-
-if (@file_exists('variables.local.php')) {
-    include('variables.local.php');
-}
 
 // Studs version
 define('STUDS_VERSION', '0.6.6');
