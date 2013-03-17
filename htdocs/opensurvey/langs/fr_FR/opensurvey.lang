@@ -54,3 +54,4 @@ Against=Contre
 YouAreInivitedToVote=Vous êtes invité à vous prononcer sur ce vote/sondage
 VoteNameAlreadyExists=Ce nom a déjà été utilisé pour ce vote
 ErrorPollDoesNotExists=Erreur, le sondage <strong>%s</strong> n'existe pas.
+NothingToSetup=Aucune configuration particulière n'est requise. Une liste déroulante a du apparaitre au niveau des fiches factures, propositions, commandes, si le mode de paiment a été défini à virement ou s'il n'est pas défini.

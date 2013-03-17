@@ -153,13 +153,6 @@ llxHeaderSurvey($langs->trans("OpenSurvey"), "", 0, 0, $arrayofjs, $arrayofcss);
 print '<div class="bandeautitre">'. $langs->trans("CreatePoll").' (1 / 2)' .'</div>'."\n";
 
 
-// premier sondage ? test l'existence des schémas SQL avant d'aller plus loin
-if(!check_table_sondage())
-{
-	dol_print_error('',"STUdS is not properly installed, please check the 'INSTALL' to setup the database before continuing");
-	exit;
-}
-
 //debut du formulaire
 print '<form name="formulaire" action="infos_sondage.php" method="POST" onkeypress="javascript:process_keypress(event)">'."\n";
 print '<input type="hidden" name="origin" value="'.dol_escape_htmltag($origin).'">';

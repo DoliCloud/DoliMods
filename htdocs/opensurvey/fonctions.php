@@ -132,17 +132,6 @@ function print_header($js = false, $nom_sondage = '')
 }
 
 
-function check_table_sondage()
-{
-  global $connect;
-  $tables = $connect->MetaTables('TABLES');
-  if (in_array("sondage", $tables)) {
-    return true;
-  }
-  return false;
-}
-
-
 /**
  * Vérifie une adresse e-mail selon les normes RFC
  * @param  string  $email  l'adresse e-mail a vérifier

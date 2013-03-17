@@ -61,12 +61,15 @@ function dol_survey_random($car)
 }
 
 /**
- * Ajouter_sondage
+ * Add a poll
  *
+ * @param	string	$origin		Origin of poll creation
  * @return	void
  */
 function ajouter_sondage($origin)
 {
+	global $conf, $db;
+	
 	$sondage=dol_survey_random(16);
 	$sondage_admin=$sondage.dol_survey_random(8);
 
@@ -91,34 +94,16 @@ function ajouter_sondage($origin)
 		$date_fin = time()+15552000;
 	}
 
-	$headers="From: ".NOMAPPLICATION." <".ADRESSEMAILADMIN.">\r\nContent-Type: text/plain; charset=\"UTF-8\"\nContent-Transfer-Encoding: 8bit";
 
-	global $connect;
-
-	$sql = 'INSERT INTO '.MAIN_DB_PREFIX.'opensurvey_sondage
+	$sql = 'INSERT INTO '.MAIN_DB_PREFIX."opensurvey_sondage
 	(id_sondage, commentaires, mail_admin, nom_admin, titre, id_sondage_admin, date_fin, format, mailsonde, origin)
-	VALUES (
-	'.$connect->Param('id_sondage').',
-	'.$connect->Param('commentaires').',
-	'.$connect->Param('mail_admin').',
-	'.$connect->Param('nom_admin').',
-	'.$connect->Param('titre').',
-	'.$connect->Param('id_sondage_admin').',
-	FROM_UNIXTIME('.$date_fin.'),
-	'.$connect->Param('format').',
-	'.$connect->Param('mailsonde').',
-	'.$connect->Param('origin').'
-	)';
-
-	//print $sql;exit;
-	$sql = $connect->Prepare($sql);
-	$res = $connect->Execute($sql, array($sondage, $_SESSION['commentaires'], $_SESSION['adresse'], $_SESSION['nom'], $_SESSION['titre'], $sondage_admin, $_SESSION['formatsondage'], $_SESSION['mailsonde'], $origin));
-
-	$sql = 'INSERT INTO '.MAIN_DB_PREFIX.'opensurvey_sujet_studs values ('.$connect->Param('sondage').', '.$connect->Param('choix').')';
-	$sql = $connect->Prepare($sql);
-	$connect->Execute($sql, array($sondage, $_SESSION['toutchoix']));
-
-	dol_syslog($date . " CREATION: ".$sondage." ".$_SESSION[formatsondage]." ".$_SESSION[nom]." ".$_SESSION[adresse]." ".$_SESSION[toutchoix]."\n", LOG_DEBUG);
+	VALUES ('".$sondage."', '".$_SESSION['commentaires']."', '".$_SESSION['adresse']."', '".$_SESSION['nom']."', '".$_SESSION['titre']."', '".$sondage_admin."', '".$db->idate($date_fin)."', '".$_SESSION['formatsondage']."', '".$_SESSION['mailsonde']."', '".$origin."')";
+	dol_syslog($sql);
+	$resql=$db->query($sql);
+	
+	$sql = 'INSERT INTO '.MAIN_DB_PREFIX."opensurvey_sujet_studs(id_sondage, sujet) VALUES ('".$sondage."', '".$_SESSION['toutchoix']."')";
+	dol_syslog($sql);
+	$resql=$db->query($sql);
 
 	if ($origin == 'dolibarr') $urlback=dol_buildpath('/opensurvey/adminstuds_preview.php',1).'?sondage='.$sondage_admin;
 	else $urlback=getUrlSondage($sondage);
