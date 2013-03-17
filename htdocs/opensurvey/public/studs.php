@@ -276,14 +276,14 @@ if ($res <= 0)
 
 // Define format of choices
 $toutsujet=explode(",",$object->sujet);
+$toutsujet=str_replace("°","'",$toutsujet);
+
 $listofanswers=array();
 foreach ($toutsujet as $value)
 {
 	$tmp=explode('@',$value);
 	$listofanswers[]=array('label'=>$tmp[0],'format'=>($tmp[1]?$tmp[1]:'checkbox'));
 }
-$toutsujet=str_replace("@","<br>",$toutsujet);
-$toutsujet=str_replace("°","'",$toutsujet);
 
 // Show error message
 if ($err != 0)
@@ -418,8 +418,8 @@ if ($dsondage->format=="D"||$dsondage->format=="D+")
 		print '<td></td>'."\n";
 
 		for ($i=0; isset($toutsujet[$i]); $i++) {
-			$heures=explode("@",$toutsujet[$i]);
-			if (isset($heures[1]) === true) {
+			$heures=explode('@',$toutsujet[$i]);
+			if (isset($heures[1])) {
 				print '<td class="heure">'.$heures[1].'</td>'."\n";
 			} else {
 				print '<td class="heure"></td>'."\n";
@@ -475,7 +475,7 @@ while ($data = $user_studs->FetchNextObject(false))
 		if ($compteur == $ligneamodifier)
 		{
 			print '<td class="vide">';
-			if (empty($listofanswers[$i]['format']) || $listofanswers[$i]['format'] == 'checkbox')
+			if (empty($listofanswers[$i]['format']) || ! in_array($listofanswers[$i]['format'],array('yesno','pourcontre')))
 			{
 				print '<input type="checkbox" name="choix'.$i.'" value="1" ';
 				if ($car == '1') print 'checked="checked"';
@@ -495,7 +495,7 @@ while ($data = $user_studs->FetchNextObject(false))
 		}
 		else
 		{
-			if (empty($listofanswers[$i]['format']) || $listofanswers[$i]['format'] == 'checkbox')
+			if (empty($listofanswers[$i]['format']) || ! in_array($listofanswers[$i]['format'],array('yesno','pourcontre')))
 			{
 				if ($car == "1") print '<td class="ok">OK</td>'."\n";
 				else print '<td class="non">KO</td>'."\n";
@@ -563,7 +563,7 @@ if ($ligneamodifier < 0 && (! isset($_SESSION['nom']) || ! $user_mod))
 	for ($i=0;$i<$nbcolonnes;$i++)
 	{
 		print '<td class="vide">';
-		if (empty($listofanswers[$i]['format']) || $listofanswers[$i]['format'] == 'checkbox')
+		if (empty($listofanswers[$i]['format']) || ! in_array($listofanswers[$i]['format'],array('yesno','pourcontre')))
 		{
 			print '<input type="checkbox" name="choix'.$i.'" value="1"';
 			if (isset($_POST['choix'.$i]) && $_POST['choix'.$i] == '1' && is_error(NAME_EMPTY) )
@@ -620,7 +620,7 @@ for ($i = 0; $i < $nbcolonnes; $i++)
 	if (empty($showsumagainst)) $showsumagainst = 0;
 
 	print '<td class="somme">';
-	if (empty($listofanswers[$i]['format']) || $listofanswers[$i]['format'] == 'checkbox') print $showsumfor;
+	if (empty($listofanswers[$i]['format']) || ! in_array($listofanswers[$i]['format'],array('yesno','pourcontre'))) print $showsumfor;
 	if (! empty($listofanswers[$i]['format']) && $listofanswers[$i]['format'] == 'yesno') print $langs->trans("Yes").': '.$showsumfor.'<br>'.$langs->trans("No").': '.$showsumagainst;
 	if (! empty($listofanswers[$i]['format']) && $listofanswers[$i]['format'] == 'pourcontre') print $langs->trans("For").': '.$showsumfor.'<br>'.$langs->trans("Against").': '.$showsumagainst;
 	print '</td>'."\n";

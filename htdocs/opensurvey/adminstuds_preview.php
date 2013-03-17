@@ -90,18 +90,11 @@ if (preg_match(";[\w\d]{24};i", $numsondageadmin))
 	}
 }
 
-//verification de l'existence du sondage, s'il n'existe pas on met une page d'erreur
-if (!$sondage || $sondage->RecordCount() != 1)
-{
-	dol_print_error('',"This poll doesn't exist !");
-	exit;
-}
-
-$dsujet=$sujets->FetchObject(false);
-$dsondage=$sondage->FetchObject(false);
+if (is_object($sujets)) $dsujet=$sujets->FetchObject(false);
+if (is_object($sondage)) $dsondage=$sondage->FetchObject(false);
 
 $nbcolonnes = substr_count($dsujet->sujet, ',') + 1;
-$nblignes = $user_studs->RecordCount();
+if (is_object($user_studs)) $nblignes = $user_studs->RecordCount();
 
 
 
@@ -326,8 +319,9 @@ if ($testmodifier)
 	}
 }
 
-//action quand on ajoute une colonne au format DATE
-if (isset($_POST["ajoutercolonne"]) && ($dsondage->format == "D" || $dsondage->format == "D+")) {
+// Add column with format DATE
+if (isset($_POST["ajoutercolonne"]) && ($dsondage->format == "D" || $dsondage->format == "D+"))
+{
 	$nouveauxsujets=$dsujet->sujet;
 
 	if (isset($_POST["nouveaujour"]) && $_POST["nouveaujour"] != "vide" &&
@@ -437,8 +431,9 @@ if (isset($_POST["ajoutercolonne"]) && ($dsondage->format == "D" || $dsondage->f
 }
 
 
-//suppression de ligne dans la base
-for ($i = 0; $i < $nblignes; $i++) {
+// Delete line
+for ($i = 0; $i < $nblignes; $i++)
+{
 	if (isset($_POST["effaceligne$i"]) || isset($_POST['effaceligne'.$i.'_x'])) {
 		$compteur=0;
 		$sql = 'DELETE FROM '.MAIN_DB_PREFIX.'opensurvey_user_studs WHERE nom = '.$connect->Param('nom').' AND id_users = '.$connect->Param('id_users');
@@ -455,7 +450,7 @@ for ($i = 0; $i < $nblignes; $i++) {
 }
 
 
-// delete comment
+// Delete comment
 $sql = 'SELECT * FROM '.MAIN_DB_PREFIX.'opensurvey_comments WHERE id_sondage='.$connect->Param('numsondage').' ORDER BY id_comment';
 $sql = $connect->Prepare($sql);
 $comment_user = $connect->Execute($sql, array($numsondage));
@@ -471,7 +466,7 @@ while ($dcomment = $comment_user->FetchNextObject(false)) {
 }
 
 
-// delete column
+// Delete column
 for ($i = 0; $i < $nbcolonnes; $i++)
 {
 	if ((isset($_POST["effacecolonne$i"]) || isset($_POST['effacecolonne'.$i.'_x'])) && $nbcolonnes > 1)
@@ -539,7 +534,13 @@ $arrayofjs=array('/opensurvey/block_enter.js');
 $arrayofcss=array('/opensurvey/css/style.css');
 llxHeader('',$dsondage->titre, 0, 0, 0, 0, $arrayofjs, $arrayofcss);
 
-$object->fetch(0,$numsondage);
+$result=$object->fetch(0,$numsondage);
+if ($result <= 0)
+{
+	print $langs->trans("ErrorRecordNotFound");
+	llxFooter();
+	exit;
+}
 
 // Define format of choices
 $toutsujet=explode(",",$object->sujet);
@@ -553,7 +554,7 @@ $toutsujet=str_replace("@","<br>",$toutsujet);
 $toutsujet=str_replace("°","'",$toutsujet);
 
 
-echo '<form name="formulaire4" action="#" method="POST" onkeypress="javascript:process_keypress(event)">'."\n";
+print '<form name="formulaire4" action="#" method="POST" onkeypress="javascript:process_keypress(event)">'."\n";
 
 $head = array();
 
@@ -604,7 +605,13 @@ print '</table>';
 
 dol_fiche_end();
 
-echo '</form>'."\n";
+print '</form>'."\n";
+
+print '<div class="tabsAction">';
+
+print '<a class="butAction" href="public/exportcsv.php?numsondage=' . $numsondage . '">'.$langs->trans("ExportSpreadsheet") .' (.CSV)' . '</a>';
+
+print '</div>';
 
 
 showlogo();
@@ -618,17 +625,17 @@ $dsondage=$sondage->FetchObject(false);
 if (GETPOST('ajoutsujet'))
 {
 	//on recupere les données et les sujets du sondage
-	echo '<form name="formulaire" action="'.getUrlSondage($numsondageadmin, true).'" method="POST" onkeypress="javascript:process_keypress(event)">'."\n";
-	echo '<input type="hidden" name="backtourl" value="'.GETPOST('backtourl').'">';
+	print '<form name="formulaire" action="'.getUrlSondage($numsondageadmin, true).'" method="POST" onkeypress="javascript:process_keypress(event)">'."\n";
+	print '<input type="hidden" name="backtourl" value="'.GETPOST('backtourl').'">';
 
-	echo '<div class="center">'."\n";
-	echo "<br><br>"."\n";
+	print '<div class="center">'."\n";
+	print "<br><br>"."\n";
 
 	// Add new column
 	if ($dsondage->format=="A"||$dsondage->format=="A+")
 	{
-		echo $langs->trans("AddNewColumn") .' :<br><br>';
-		echo $langs->trans("TitleChoice").' <input type="text" name="nouvellecolonne" size="40"><br>';
+		print $langs->trans("AddNewColumn") .' :<br><br>';
+		print $langs->trans("Titlprintice").' <input type="text" name="nouvellecolonne" size="40"><br>';
 		$tmparray=array('checkbox'=>$langs->trans("CheckBox"),'yesno'=>$langs->trans("YesNoList"),'pourcontre'=>$langs->trans("PourContreList"));
 		print $langs->trans("Type").' '.$form->selectarray("typecolonne", $tmparray, GETPOST('typecolonne')).'<br><br>';
 		print '<input type="submit" class="button" name="ajoutercolonne" value="'.dol_escape_htmltag($langs->trans("Add")).'">';
@@ -639,91 +646,93 @@ if (GETPOST('ajoutsujet'))
 	else
 	{
 		//ajout d'une date avec creneau horaire
-		echo _("You can add a new scheduling date to your poll.<br> If you just want to add a new hour to an existant date, put the same date and choose a new hour.") .'<br><br> '."\n";
-		echo _("Add a date") .' :<br><br>'."\n";
-		echo '<select name="nouveaujour"> '."\n";
-		echo '<OPTION VALUE="vide"></OPTION>'."\n";
+		//print _("You can add a new scheduling date to your poll.<br> If you just want to add a new hour to an existant date, put the same date and choose a new hour.") .'<br><br> '."\n";
+		print $langs->trans("AddADate") .' :<br><br>'."\n";
+		print '<select name="nouveaujour"> '."\n";
+		print '<OPTION VALUE="vide"></OPTION>'."\n";
 		for ($i=1;$i<32;$i++){
-			echo '<OPTION VALUE="'.$i.'">'.$i.'</OPTION>'."\n";
+			print '<OPTION VALUE="'.$i.'">'.$i.'</OPTION>'."\n";
 		}
-		echo '</SELECT>'."\n";
+		print '</SELECT>'."\n";
 
-		echo '<select name="nouveaumois"> '."\n";
-		echo '<OPTION VALUE="vide"></OPTION>'."\n";
+		print '<select name="nouveaumois"> '."\n";
+		print '<OPTION VALUE="vide"></OPTION>'."\n";
 		for($i = 1; $i < 13; $i++) {
-			echo '<OPTION VALUE="'.$i.'">'.strftime('%B', mktime(0, 0, 0, $i)).'</OPTION>'."\n";
+			print '<OPTION VALUE="'.$i.'">'.strftime('%B', mktime(0, 0, 0, $i)).'</OPTION>'."\n";
 		}
-		echo '</SELECT>'."\n";
+		print '</SELECT>'."\n";
 
 
-		echo '<select name="nouvelleannee"> '."\n";
-		echo '<OPTION VALUE="vide"></OPTION>'."\n";
+		print '<select name="nouvelleannee"> '."\n";
+		print '<OPTION VALUE="vide"></OPTION>'."\n";
 		for ($i = date("Y"); $i < (date("Y") + 5); $i++) {
-			echo '<OPTION VALUE="'.$i.'">'.$i.'</OPTION>'."\n";
+			print '<OPTION VALUE="'.$i.'">'.$i.'</OPTION>'."\n";
 		}
-		echo '</SELECT>'."\n";
-		echo '<br><br>'. _("Add a start hour (optional)") .' : <br><br>'."\n";
-		echo '<select name="nouvelleheuredebut"> '."\n";
-		echo '<OPTION VALUE="vide"></OPTION>'."\n";
+		print '</SELECT>'."\n";
+		print '<br><br>'. $langs->trans("AddStartHour") .' : <br><br>'."\n";
+		print '<select name="nouvelleheuredebut"> '."\n";
+		print '<OPTION VALUE="vide"></OPTION>'."\n";
 		for ($i = 0; $i < 24; $i++) {
-			echo '<OPTION VALUE="'.$i.'">'.$i.' H</OPTION>'."\n";
+			print '<OPTION VALUE="'.$i.'">'.$i.' H</OPTION>'."\n";
 		}
-		echo '</SELECT>'."\n";
-		echo '<select name="nouvelleminutedebut"> '."\n";
-		echo '<OPTION VALUE="vide"></OPTION>'."\n";
-		echo '<OPTION VALUE="00">00</OPTION>'."\n";
-		echo '<OPTION VALUE="15">15</OPTION>'."\n";
-		echo '<OPTION VALUE="30">30</OPTION>'."\n";
-		echo '<OPTION VALUE="45">45</OPTION>'."\n";
-		echo '</SELECT>'."\n";
-		echo '<br><br>'. _("Add a end hour (optional)") .' : <br><br>'."\n";
-		echo '<select name="nouvelleheurefin"> '."\n";
-		echo '<OPTION VALUE="vide"></OPTION>'."\n";
+		print '</SELECT>'."\n";
+		print '<select name="nouvelleminutedebut"> '."\n";
+		print '<OPTION VALUE="vide"></OPTION>'."\n";
+		print '<OPTION VALUE="00">00</OPTION>'."\n";
+		print '<OPTION VALUE="15">15</OPTION>'."\n";
+		print '<OPTION VALUE="30">30</OPTION>'."\n";
+		print '<OPTION VALUE="45">45</OPTION>'."\n";
+		print '</SELECT>'."\n";
+		print '<br><br>'. $langs->trans("AddEndHour") .' : <br><br>'."\n";
+		print '<select name="nouvelleheurefin"> '."\n";
+		print '<OPTION VALUE="vide"></OPTION>'."\n";
 		for ($i = 0; $i < 24; $i++) {
-			echo '<OPTION VALUE="'.$i.'">'.$i.' H</OPTION>'."\n";
+			print '<OPTION VALUE="'.$i.'">'.$i.' H</OPTION>'."\n";
 		}
-		echo '</SELECT>'."\n";
-		echo '<select name="nouvelleminutefin"> '."\n";
-		echo '<OPTION VALUE="vide"></OPTION>'."\n";
-		echo '<OPTION VALUE="00">00</OPTION>'."\n";
-		echo '<OPTION VALUE="15">15</OPTION>'."\n";
-		echo '<OPTION VALUE="30">30</OPTION>'."\n";
-		echo '<OPTION VALUE="45">45</OPTION>'."\n";
-		echo '</SELECT>'."\n";
+		print '</SELECT>'."\n";
+		print '<select name="nouvelleminutefin"> '."\n";
+		print '<OPTION VALUE="vide"></OPTION>'."\n";
+		print '<OPTION VALUE="00">00</OPTION>'."\n";
+		print '<OPTION VALUE="15">15</OPTION>'."\n";
+		print '<OPTION VALUE="30">30</OPTION>'."\n";
+		print '<OPTION VALUE="45">45</OPTION>'."\n";
+		print '</SELECT>'."\n";
 
-		echo '<br><br><input type="image" name="retoursondage" value="Retourner au sondage" src="images/cancel.png"> '."\n";
-		echo' <input type="submit" class="button" name="ajoutercolonne" value="'.dol_escape_htmltag($langs->trans("Add")).'">'."\n";
+		print '<br><br>';
+		print' <input type="submit" class="button" name="ajoutercolonne" value="'.dol_escape_htmltag($langs->trans("Add")).'">'."\n";
+		print '&nbsp; &nbsp;';
+		print '<input type="submit" class="button" name="retoursondage" value="'.$langs->trans("Cancel").'">';
 	}
 
-	echo '</form>'."\n";
-	echo '<br><br><br><br>'."\n";
-	echo '</div>'."\n";
+	print '</form>'."\n";
+	print '<br><br><br><br>'."\n";
+	print '</div>'."\n";
 
 	exit;
 }
 
 
-echo $langs->trans("PollAdminDesc",img_picto('','cancel.png@opensurvey'),img_picto('','add-16.png@opensurvey')).'<br><br>';
+print $langs->trans("PollAdminDesc",img_picto('','cancel.png@opensurvey'),img_picto('','add-16.png@opensurvey')).'<br><br>';
 
-echo '<div class="corps"> '."\n";
+print '<div class="corps"> '."\n";
 
 //affichage du titre du sondage
 $titre=str_replace("\\","",$dsondage->titre);
-echo '<strong>'.$titre.'</strong><br>'."\n";
+print '<strong>'.$titre.'</strong><br>'."\n";
 
 //affichage du nom de l'auteur du sondage
-echo $langs->trans("InitiatorOfPoll") .' : '.$dsondage->nom_admin.'<br>'."\n";
+print $langs->trans("InitiatorOfPoll") .' : '.$dsondage->nom_admin.'<br>'."\n";
 
 //affichage des commentaires du sondage
 if ($dsondage->commentaires)
 {
-	echo '<br>'.$langs->trans("Description") .' :<br>'."\n";
+	print '<br>'.$langs->trans("Description") .' :<br>'."\n";
 	$commentaires=dol_nl2br($dsondage->commentaires);
-	echo $commentaires;
-	echo '<br>'."\n";
+	print $commentaires;
+	print '<br>'."\n";
 }
 
-echo '</div>'."\n";
+print '</div>'."\n";
 
 
 //recuperation des donnes de la base
@@ -741,46 +750,42 @@ if ($sondage !== false)
 	$sql = $connect->Prepare($sql);
 	$user_studs = $connect->Execute($sql, array($numsondage));
 }
-else
-{
-	dol_print_error('',"This poll doesn't exist !");
-
-	llxFooterSurvey();
-	exit;
-}
 
 $dsujet=$sujets->FetchObject(false);
 $dsondage=$sondage->FetchObject(false);
 
 $nbcolonnes=substr_count($dsujet->sujet,',')+1;
 
-echo '<form name="formulaire" action="'.getUrlSondage($numsondageadmin, true).'" method="POST" onkeypress="javascript:process_keypress(event)">'."\n";
-echo '<div class="cadre"> '."\n";
-echo '<br>'."\n";
+print '<form name="formulaire" action="'.getUrlSondage($numsondageadmin, true).'" method="POST" onkeypress="javascript:process_keypress(event)">'."\n";
+print '<div class="cadre"> '."\n";
+print '<br>'."\n";
 
 //debut de l'affichage de résultats
-echo '<table class="resultats">'."\n";
+print '<table class="resultats">'."\n";
 
 //reformatage des données des sujets du sondage
 $toutsujet=explode(",",$dsujet->sujet);
-echo '<tr>'."\n";
-echo '<td></td>'."\n";
-echo '<td></td>'."\n";
+$toutsujet=str_replace("°","'",$toutsujet);
+
+print '<tr>'."\n";
+print '<td></td>'."\n";
+print '<td></td>'."\n";
 
 //boucle pour l'affichage des boutons de suppression de colonne
 for ($i = 0; isset($toutsujet[$i]); $i++) {
-	echo '<td class=somme><input type="image" name="effacecolonne'.$i.'" value="Effacer la colonne" src="'.dol_buildpath('/opensurvey/img/cancel.png',1).'"></td>'."\n";
+	print '<td class=somme><input type="image" name="effacecolonne'.$i.'" value="Effacer la colonne" src="'.dol_buildpath('/opensurvey/img/cancel.png',1).'"></td>'."\n";
 }
 
-echo '</tr>'."\n";
+print '</tr>'."\n";
 
-//si le sondage est un sondage de date
+
+// Show choice titles
 if ($dsondage->format=="D"||$dsondage->format=="D+")
 {
 	//affichage des sujets du sondage
-	echo '<tr>'."\n";
-	echo '<td></td>'."\n";
-	echo '<td></td>'."\n";
+	print '<tr>'."\n";
+	print '<td></td>'."\n";
+	print '<td></td>'."\n";
 
 	//affichage des années
 	$colspan=1;
@@ -801,16 +806,16 @@ if ($dsondage->format=="D"||$dsondage->format=="D+")
 		if (isset($toutsujet[$i+1]) && strftime("%Y",$current) == strftime("%Y",$next)){
 			$colspan++;
 		} else {
-			echo '<td colspan='.$colspan.' class="annee">'.strftime("%Y", $current).'</td>'."\n";
+			print '<td colspan='.$colspan.' class="annee">'.strftime("%Y", $current).'</td>'."\n";
 			$colspan=1;
 		}
 	}
 
-	echo '<td class="annee"><a href="'.$_SERVER["PHP_SELF"].'?ajoutsujet=1">'.$langs->trans("Add").'</a></td>'."\n";
-	echo '</tr>'."\n";
-	echo '<tr>'."\n";
-	echo '<td></td>'."\n";
-	echo '<td></td>'."\n";
+	print '<td class="annee"><a href="'.$_SERVER["PHP_SELF"].'?ajoutsujet=1&sondage='.$dsondage->id_sondage_admin.'">'.$langs->trans("Add").'</a></td>'."\n";
+	print '</tr>'."\n";
+	print '<tr>'."\n";
+	print '<td></td>'."\n";
+	print '<td></td>'."\n";
 
 	//affichage des mois
 	$colspan = 1;
@@ -829,21 +834,17 @@ if ($dsondage->format=="D"||$dsondage->format=="D+")
 		if (isset($toutsujet[$i+1]) && strftime("%B", $current) == strftime("%B", $next) && strftime("%Y", $current) == strftime("%Y", $next)){
 			$colspan++;
 		} else {
-			if ($_SESSION["langue"]=="EN") {
-				echo '<td colspan='.$colspan.' class="mois">'.date("F",$current).'</td>'."\n";
-			} else {
-				echo '<td colspan='.$colspan.' class="mois">'.strftime("%B",$current).'</td>'."\n";
-			}
+			print '<td colspan='.$colspan.' class="mois">'.strftime("%B",$current).'</td>'."\n";
 
 			$colspan=1;
 		}
 	}
 
-	echo '<td class="mois"><a href="'.$_SERVER["PHP_SELF"].'?ajoutsujet=1">'.$langs->trans("Add").'</a></td>'."\n";
-	echo '</tr>'."\n";
-	echo '<tr>'."\n";
-	echo '<td></td>'."\n";
-	echo '<td></td>'."\n";
+	print '<td class="mois"><a href="'.$_SERVER["PHP_SELF"].'?ajoutsujet=1&sondage='.$dsondage->id_sondage_admin.'">'.$langs->trans("Add").'</a></td>'."\n";
+	print '</tr>'."\n";
+	print '<tr>'."\n";
+	print '<td></td>'."\n";
+	print '<td></td>'."\n";
 
 	//affichage des jours
 	$colspan = 1;
@@ -863,55 +864,49 @@ if ($dsondage->format=="D"||$dsondage->format=="D+")
 		if (isset($toutsujet[$i+1]) && strftime("%a %e",$current)==strftime("%a %e",$next)&&strftime("%B",$current)==strftime("%B",$next)){
 			$colspan++;
 		} else {
-			if ($_SESSION["langue"]=="EN") {
-				echo '<td colspan='.$colspan.' class="jour">'.date("D jS",$current).'</td>'."\n";
-			} else {
-				echo '<td colspan='.$colspan.' class="jour">'.strftime("%a %e",$current).'</td>'."\n";
-			}
+			print '<td colspan='.$colspan.' class="jour">'.strftime("%a %e",$current).'</td>'."\n";
 
 			$colspan=1;
 		}
 	}
 
-	echo '<td class="jour"><a href="'.$_SERVER["PHP_SELF"].'?ajoutsujet=1">'.$langs->trans("Add").'</a></td>'."\n";
-	echo '</tr>'."\n";
+	print '<td class="jour"><a href="'.$_SERVER["PHP_SELF"].'?ajoutsujet=1&sondage='.$dsondage->id_sondage_admin.'">'.$langs->trans("Add").'</a></td>'."\n";
+	print '</tr>'."\n";
 
 	//affichage des horaires
 	if (strpos($dsujet->sujet,'@') !== false) {
-		echo '<tr>'."\n";
-		echo '<td></td>'."\n";
-		echo '<td></td>'."\n";
+		print '<tr>'."\n";
+		print '<td></td>'."\n";
+		print '<td></td>'."\n";
 
 		for ($i = 0; isset($toutsujet[$i]); $i++) {
-			$heures=explode("@", $toutsujet[$i]);
+			$heures=explode('@', $toutsujet[$i]);
 			if (isset($heures[1])) {
-				echo '<td class="heure">'.$heures[1].'</td>'."\n";
+				print '<td class="heure">'.$heures[1].'</td>'."\n";
 			} else {
-				echo '<td class="heure"></td>'."\n";
+				print '<td class="heure"></td>'."\n";
 			}
 		}
 
-		echo '<td class="heure"><a href="'.$_SERVER["PHP_SELF"].'?ajoutsujet=1">'.$langs->trans("Add").'</a></td>'."\n";
-		echo '</tr>'."\n";
+		print '<td class="heure"><a href="'.$_SERVER["PHP_SELF"].'?ajoutsujet=1&sondage='.$dsondage->id_sondage_admin.'">'.$langs->trans("Add").'</a></td>'."\n";
+		print '</tr>'."\n";
 	}
 }
 else
 {
-	$toutsujet=str_replace("°","'",$toutsujet);
-
 	//affichage des sujets du sondage
-	echo '<tr>'."\n";
-	echo '<td></td>'."\n";
-	echo '<td></td>'."\n";
+	print '<tr>'."\n";
+	print '<td></td>'."\n";
+	print '<td></td>'."\n";
 
 	for ($i = 0; isset($toutsujet[$i]); $i++)
 	{
 		$tmp=explode('@',$toutsujet[$i]);
-		echo '<td class="sujet">'.$tmp[0].'</td>'."\n";
+		print '<td class="sujet">'.$tmp[0].'</td>'."\n";
 	}
 
-	echo '<td class="sujet"><a href="'.$_SERVER["PHP_SELF"].'?sondage='.$numsondageadmin.'&ajoutsujet=1&backtourl='.urlencode($_SERVER["PHP_SELF"].'?sondage='.$numsondageadmin).'">'.img_picto('',dol_buildpath('/opensurvey/img/add-16.png',1),'',1).'</a></td>'."\n";
-	echo '</tr>'."\n";
+	print '<td class="sujet"><a href="'.$_SERVER["PHP_SELF"].'?sondage='.$numsondageadmin.'&ajoutsujet=1&backtourl='.urlencode($_SERVER["PHP_SELF"].'?sondage='.$numsondageadmin).'">'.img_picto('',dol_buildpath('/opensurvey/img/add-16.png',1),'',1).'</a></td>'."\n";
+	print '</tr>'."\n";
 }
 
 
@@ -923,12 +918,12 @@ while ($data = $user_studs->FetchNextObject(false))
 {
 	$ensemblereponses = $data->reponses;
 
-	echo '<tr>'."\n";
-	echo '<td><input type="image" name="effaceligne'.$compteur.'" value="Effacer" src="'.dol_buildpath('/opensurvey/img/cancel.png',1).'"></td>'."\n";
+	print '<tr>'."\n";
+	print '<td><input type="image" name="effaceligne'.$compteur.'" value="Effacer" src="'.dol_buildpath('/opensurvey/img/cancel.png',1).'"></td>'."\n";
 
 	// Name
 	$nombase=str_replace("°","'",$data->nom);
-	echo '<td class="nom">'.$nombase.'</td>'."\n";
+	print '<td class="nom">'.$nombase.'</td>'."\n";
 
 	// si la ligne n'est pas a changer, on affiche les données
 	if (! $testligneamodifier)
@@ -936,19 +931,19 @@ while ($data = $user_studs->FetchNextObject(false))
 		for ($i = 0; $i < $nbcolonnes; $i++)
 		{
 			$car = substr($ensemblereponses, $i, 1);
-			if (empty($listofanswers[$i]['format']) || $listofanswers[$i]['format'] == 'checkbox')
+			if (empty($listofanswers[$i]['format']) || ! in_array($listofanswers[$i]['format'],array('yesno','pourcontre')))
 			{
-				if ($car == "1") echo '<td class="ok">OK</td>'."\n";
-				else echo '<td class="non">KO</td>'."\n";
+				if ($car == "1") print '<td class="ok">OK</td>'."\n";
+				else print '<td class="non">KO</td>'."\n";
 				// Total
 				if (! isset($sumfor[$i])) $sumfor[$i] = 0;
 				if ($car == "1") $sumfor[$i]++;
 			}
 			if (! empty($listofanswers[$i]['format']) && $listofanswers[$i]['format'] == 'yesno')
 			{
-				if ($car == "1") echo '<td class="ok">'.$langs->trans("Yes").'</td>'."\n";
-				else if ($car =="0") echo '<td class="non">'.$langs->trans("No").'</td>'."\n";
-				else echo '<td class="vide">&nbsp;</td>'."\n";
+				if ($car == "1") print '<td class="ok">'.$langs->trans("Yes").'</td>'."\n";
+				else if ($car =="0") print '<td class="non">'.$langs->trans("No").'</td>'."\n";
+				else print '<td class="vide">&nbsp;</td>'."\n";
 				// Total
 				if (! isset($sumfor[$i])) $sumfor[$i] = 0;
 				if (! isset($sumagainst[$i])) $sumagainst[$i] = 0;
@@ -957,9 +952,9 @@ while ($data = $user_studs->FetchNextObject(false))
 			}
 			if (! empty($listofanswers[$i]['format']) && $listofanswers[$i]['format'] == 'pourcontre')
 			{
-				if ($car == "1") echo '<td class="ok">'.$langs->trans("For").'</td>'."\n";
-				else if ($car =="0") echo '<td class="non">'.$langs->trans("Against").'</td>'."\n";
-				else echo '<td class="vide">&nbsp;</td>'."\n";
+				if ($car == "1") print '<td class="ok">'.$langs->trans("For").'</td>'."\n";
+				else if ($car =="0") print '<td class="non">'.$langs->trans("Against").'</td>'."\n";
+				else print '<td class="vide">&nbsp;</td>'."\n";
 				// Total
 				if (! isset($sumfor[$i])) $sumfor[$i] = 0;
 				if (! isset($sumagainst[$i])) $sumagainst[$i] = 0;
@@ -969,18 +964,19 @@ while ($data = $user_studs->FetchNextObject(false))
 		}
 	}
 	else
-	{ //sinon on remplace les choix de l'utilisateur par une ligne de checkbox pour recuperer de nouvelles valeurs
+	{
+		//sinon on remplace les choix de l'utilisateur par une ligne de checkbox pour recuperer de nouvelles valeurs
 		if ($compteur == $ligneamodifier)
 		{
 			for ($i = 0; $i < $nbcolonnes; $i++)
 			{
 				$car = substr($ensemblereponses, $i, 1);
-				echo '<td class="vide">';
-				if (empty($listofanswers[$i]['format']) || $listofanswers[$i]['format'] == 'checkbox')
+				print '<td class="vide">';
+				if (empty($listofanswers[$i]['format']) || ! in_array($listofanswers[$i]['format'],array('yesno','pourcontre')))
 				{
 					print '<input type="checkbox" name="choix'.$i.'" value="1" ';
-					if ($car == '1') echo 'checked="checked"';
-					echo '>';
+					if ($car == '1') print 'checked="checked"';
+					print '>';
 				}
 				if (! empty($listofanswers[$i]['format']) && $listofanswers[$i]['format'] == 'yesno')
 				{
@@ -1000,19 +996,19 @@ while ($data = $user_studs->FetchNextObject(false))
 			for ($i = 0; $i < $nbcolonnes; $i++)
 			{
 				$car = substr($ensemblereponses, $i, 1);
-				if (empty($listofanswers[$i]['format']) || $listofanswers[$i]['format'] == 'checkbox')
+				if (empty($listofanswers[$i]['format']) || ! in_array($listofanswers[$i]['format'],array('yesno','pourcontre')))
 				{
-					if ($car == "1") echo '<td class="ok">OK</td>'."\n";
-					else echo '<td class="non">&nbsp;</td>'."\n";
+					if ($car == "1") print '<td class="ok">OK</td>'."\n";
+					else print '<td class="non">&nbsp;</td>'."\n";
 					// Total
 					if (! isset($sumfor[$i])) $sumfor[$i] = 0;
 					if ($car == "1") $sumfor[$i]++;
 				}
 				if (! empty($listofanswers[$i]['format']) && $listofanswers[$i]['format'] == 'yesno')
 				{
-					if ($car == "1") echo '<td class="ok">'.$langs->trans("For").'</td>'."\n";
-					else if ($car == "0") echo '<td class="non">'.$langs->trans("Against").'</td>'."\n";
-					else echo '<td class="vide">&nbsp;</td>'."\n";
+					if ($car == "1") print '<td class="ok">'.$langs->trans("For").'</td>'."\n";
+					else if ($car == "0") print '<td class="non">'.$langs->trans("Against").'</td>'."\n";
+					else print '<td class="vide">&nbsp;</td>'."\n";
 					// Total
 					if (! isset($sumfor[$i])) $sumfor[$i] = 0;
 					if (! isset($sumagainst[$i])) $sumagainst[$i] = 0;
@@ -1021,9 +1017,9 @@ while ($data = $user_studs->FetchNextObject(false))
 				}
 				if (! empty($listofanswers[$i]['format']) && $listofanswers[$i]['format'] == 'pourcontre')
 				{
-					if ($car == "1") echo '<td class="ok">'.$langs->trans("For").'</td>'."\n";
-					else if ($car == "0") echo '<td class="non">'.$langs->trans("Against").'</td>'."\n";
-					else echo '<td class="vide">&nbsp;</td>'."\n";
+					if ($car == "1") print '<td class="ok">'.$langs->trans("For").'</td>'."\n";
+					else if ($car == "0") print '<td class="non">'.$langs->trans("Against").'</td>'."\n";
+					else print '<td class="vide">&nbsp;</td>'."\n";
 					// Total
 					if (! isset($sumfor[$i])) $sumfor[$i] = 0;
 					if (! isset($sumagainst[$i])) $sumagainst[$i] = 0;
@@ -1036,42 +1032,42 @@ while ($data = $user_studs->FetchNextObject(false))
 
 	//a la fin de chaque ligne se trouve les boutons modifier
 	if ($compteur != $ligneamodifier) {
-		echo '<td class="casevide"><input type="submit" class="button" name="modifierligne'.$compteur.'" value="'.dol_escape_htmltag($langs->trans("Edit")).'"></td>'."\n";
+		print '<td class="casevide"><input type="submit" class="button" name="modifierligne'.$compteur.'" value="'.dol_escape_htmltag($langs->trans("Edit")).'"></td>'."\n";
 	}
 
 	//demande de confirmation pour modification de ligne
 	for ($i = 0; $i < $nblignes; $i++) {
 		if (isset($_POST["modifierligne$i"])) {
 			if ($compteur == $i) {
-				echo '<td class="casevide"><input type="submit" class="button" name="validermodifier'.$compteur.'" value="'.dol_escape_htmltag($langs->trans("Save")).'"></td>'."\n";
+				print '<td class="casevide"><input type="submit" class="button" name="validermodifier'.$compteur.'" value="'.dol_escape_htmltag($langs->trans("Save")).'"></td>'."\n";
 			}
 		}
 	}
 
 	$compteur++;
-	echo '</tr>'."\n";
+	print '</tr>'."\n";
 }
 
 // Add line to add new record
 if (empty($testligneamodifier))
 {
-	echo '<tr>'."\n";
-	echo '<td></td>'."\n";
-	echo '<td class="nom">'."\n";
-	echo '<input type="text" placeholder="'.dol_escape_htmltag($langs->trans("Name")).'" name="nom" maxlength="64" size="24">'."\n";
-	echo '</td>'."\n";
+	print '<tr>'."\n";
+	print '<td></td>'."\n";
+	print '<td class="nom">'."\n";
+	print '<input type="text" placeholder="'.dol_escape_htmltag($langs->trans("Name")).'" name="nom" maxlength="64" size="24">'."\n";
+	print '</td>'."\n";
 
 	for ($i = 0; $i < $nbcolonnes; $i++)
 	{
-		echo '<td class="vide">';
-		if (empty($listofanswers[$i]['format']) || $listofanswers[$i]['format'] == 'checkbox')
+		print '<td class="vide">';
+		if (empty($listofanswers[$i]['format']) || ! in_array($listofanswers[$i]['format'],array('yesno','pourcontre')))
 		{
 			print '<input type="checkbox" name="choix'.$i.'" value="1"';
 			if ( isset($_POST['choix'.$i]) && $_POST['choix'.$i] == '1' && is_error(NAME_EMPTY) )
 			{
-				echo ' checked="checked"';
+				print ' checked="checked"';
 			}
-			echo '>';
+			print '>';
 		}
 		if (! empty($listofanswers[$i]['format']) && $listofanswers[$i]['format'] == 'yesno')
 		{
@@ -1087,15 +1083,15 @@ if (empty($testligneamodifier))
 	}
 
 	// Affichage du bouton de formulaire pour inscrire un nouvel utilisateur dans la base
-	echo '<td><input type="image" name="boutonp" value="'.$langs->trans("Vote").'" src="'.dol_buildpath('/opensurvey/img/add-24.png',1).'"></td>'."\n";
-	echo '</tr>'."\n";
+	print '<td><input type="image" name="boutonp" value="'.$langs->trans("Vote").'" src="'.dol_buildpath('/opensurvey/img/add-24.png',1).'"></td>'."\n";
+	print '</tr>'."\n";
 }
 
 // Select value of best choice (for checkbox columns only)
 $nbofcheckbox=0;
 for ($i=0; $i < $nbcolonnes + 1; $i++)
 {
-	if (! empty($listofanswers[$i]['format']) && $listofanswers[$i]['format'] != 'checkbox') continue;
+	if (empty($listofanswers[$i]['format']) || ! in_array($listofanswers[$i]['format'],array('yesno','pourcontre')))
 	$nbofcheckbox++;
 	if (isset($sumfor[$i]))
 	{
@@ -1110,9 +1106,9 @@ for ($i=0; $i < $nbcolonnes + 1; $i++)
 
 
 // Show line total
-echo '<tr>'."\n";
-echo '<td></td>'."\n";
-echo '<td align="center">'. $langs->trans("Total") .'</td>'."\n";
+print '<tr>'."\n";
+print '<td></td>'."\n";
+print '<td align="center">'. $langs->trans("Total") .'</td>'."\n";
 for ($i = 0; $i < $nbcolonnes; $i++)
 {
 	$showsumfor = isset($sumfor[$i])?$sumfor[$i]:'';
@@ -1120,8 +1116,8 @@ for ($i = 0; $i < $nbcolonnes; $i++)
 	if (empty($showsumfor)) $showsumfor = 0;
 	if (empty($showsumagainst)) $showsumagainst = 0;
 
-	echo '<td class="somme">';
-	if (empty($listofanswers[$i]['format']) || $listofanswers[$i]['format'] == 'checkbox') print $showsumfor;
+	print '<td class="somme">';
+	if (empty($listofanswers[$i]['format']) || ! in_array($listofanswers[$i]['format'],array('yesno','pourcontre'))) print $showsumfor;
 	if (! empty($listofanswers[$i]['format']) && $listofanswers[$i]['format'] == 'pourcontre') print $langs->trans("For").': '.$showsumfor.'<br>'.$langs->trans("Against").': '.$showsumagainst;
 	print '</td>'."\n";
 }
@@ -1129,48 +1125,48 @@ print '</tr>';
 // Show picto winner
 if ($nbofcheckbox >= 2)
 {
-	echo '<tr>'."\n";
-	echo '<td></td>'."\n";
-	echo '<td class="somme"></td>'."\n";
+	print '<tr>'."\n";
+	print '<td></td>'."\n";
+	print '<td class="somme"></td>'."\n";
 	for ($i = 0; $i < $nbcolonnes; $i++) {
-		if (! empty($listofanswers[$i]['format']) && $listofanswers[$i]['format'] == 'checkbox' && isset($sumfor[$i]) && isset($meilleurecolonne) && $sumfor[$i] == $meilleurecolonne)
+		if (empty($listofanswers[$i]['format']) || ! in_array($listofanswers[$i]['format'],array('yesno','pourcontre')) && isset($sumfor[$i]) && isset($meilleurecolonne) && $sumfor[$i] == $meilleurecolonne)
 		{
-			echo '<td class="somme"><img src="'.dol_buildpath('/opensurvey/img/medaille.png',1).'"></td>'."\n";
+			print '<td class="somme"><img src="'.dol_buildpath('/opensurvey/img/medaille.png',1).'"></td>'."\n";
 		} else {
-			echo '<td class="somme"></td>'."\n";
+			print '<td class="somme"></td>'."\n";
 		}
 	}
-	echo '</tr>'."\n";
+	print '</tr>'."\n";
 }
 
 // S'il a oublié de remplir un nom
 if ((isset($_POST["boutonp"]) || isset($_POST["boutonp_x"])) && $_POST["nom"] == "") {
-	echo '<tr>'."\n";
+	print '<tr>'."\n";
 	print "<td colspan=10><font color=#FF0000>" . _("Enter a name !") . "</font>\n";
-	echo '</tr>'."\n";
+	print '</tr>'."\n";
 }
 
 if (isset($erreur_prenom) && $erreur_prenom) {
-	echo '<tr>'."\n";
+	print '<tr>'."\n";
 	print "<td colspan=10><font color=#FF0000>" . _("The name you've chosen already exist in this poll!") . "</font></td>\n";
-	echo '</tr>'."\n";
+	print '</tr>'."\n";
 }
 
 if (isset($erreur_injection) && $erreur_injection) {
-	echo '<tr>'."\n";
+	print '<tr>'."\n";
 	print "<td colspan=10><font color=#FF0000>" . _("Characters \"  '  < et > are not permitted") . "</font></td>\n";
-	echo '</tr>'."\n";
+	print '</tr>'."\n";
 }
 
 if (isset($erreur_ajout_date) && $erreur_ajout_date) {
-	echo '<tr>'."\n";
+	print '<tr>'."\n";
 	print "<td colspan=10><font color=#FF0000>" . _("The date is not correct !") . "</font></td>\n";
-	echo '</tr>'."\n";
+	print '</tr>'."\n";
 }
 
 //fin du tableau
-echo '</table>'."\n";
-echo '</div>'."\n";
+print '</table>'."\n";
+print '</div>'."\n";
 
 
 $toutsujet = explode(",", $dsujet->sujet);
@@ -1186,7 +1182,7 @@ for ($i = 0; $i < $nbcolonnes; $i++) {
 
 			if (strpos($toutsujet[$i], '@') !== false) {
 				$toutsujetdate = explode("@", $toutsujet[$i]);
-				$meilleursujet .= dol_print_date($toutsujetdate[0],'daytext'). ' ('.dol_print_date($toutsujetdate[0],'%A').')' . _("for")  . ' ' . $toutsujetdate[1];
+				$meilleursujet .= dol_print_date($toutsujetdate[0],'daytext'). ' ('.dol_print_date($toutsujetdate[0],'%A').')' . ' - ' . $toutsujetdate[1];
 			} else {
 				$meilleursujet .= dol_print_date($toutsujet[$i],'daytext'). ' ('.dol_print_date($toutsujet[$i],'%A').')';
 			}
@@ -1209,17 +1205,17 @@ $meilleursujet = str_replace("°", "'", $meilleursujet);
 if ($nbofcheckbox >= 2)
 {
 	$vote_str = $langs->trans('votes');
-	echo '<p class=affichageresultats>'."\n";
+	print '<p class=affichageresultats>'."\n";
 
 	if (isset($meilleurecolonne) && $compteursujet == "1") {
 		print "<img src=\"".dol_buildpath('/opensurvey/img/medaille.png',1)."\"> " . $langs->trans('TheBestChoice') . " : <b>$meilleursujet </b>" . $langs->trans("with") . " <b>$meilleurecolonne </b>" . $vote_str . ".<br>\n";
 	} elseif (isset($meilleurecolonne)) {
 		print "<img src=\"".dol_buildpath('/opensurvey/img/medaille.png',1)."\"> " . $langs->trans('TheBestChoices') . " : <b>$meilleursujet </b>" . $langs->trans("with") . " <b>$meilleurecolonne </b>" . $vote_str . ".<br>\n";
 	}
-	echo '</p><br>'."\n";
+	print '</p><br>'."\n";
 }
 
-echo '</form>'."\n";
+print '</form>'."\n";
 
 llxFooterSurvey();
 

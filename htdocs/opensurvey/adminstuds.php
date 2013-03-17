@@ -172,7 +172,7 @@ if (isset($_POST['ajoutcomment']) || isset($_POST['ajoutcomment_x']))
 	if(issetAndNoEmpty('commentuser') === false) {
 		$err |= COMMENT_USER_EMPTY;
 	} else {
-		$comment_user = htmlentities(html_entity_decode($_POST["commentuser"], ENT_QUOTES, 'UTF-8'), ENT_QUOTES, 'UTF-8');
+		$comment_user = GETPOST("commentuser");
 	}
 
 	if(issetAndNoEmpty('comment') === false) {
@@ -180,7 +180,7 @@ if (isset($_POST['ajoutcomment']) || isset($_POST['ajoutcomment_x']))
 	}
 
 	if (issetAndNoEmpty('comment') && !is_error(COMMENT_EMPTY) && !is_error(NO_POLL) && !is_error(COMMENT_USER_EMPTY)) {
-		$comment = htmlentities(html_entity_decode($_POST["comment"], ENT_QUOTES, 'UTF-8'), ENT_QUOTES, 'UTF-8');
+		$comment = GETPOST("comment");
 
 		$sql = 'INSERT INTO '.MAIN_DB_PREFIX.'opensurvey_comments (id_sondage, comment, usercomment) VALUES ('.
 			$connect->Param('id_sondage').','.
@@ -469,7 +469,7 @@ $toutsujet=str_replace("@","<br>",$toutsujet);
 $toutsujet=str_replace("°","'",$toutsujet);
 
 
-echo '<form name="formulaire4" action="#" method="POST" onkeypress="javascript:process_keypress(event)">'."\n";
+print '<form name="formulaire4" action="'.$_SERVER["PHP_SELF"].'?sondage='.$numsondageadmin.'" method="POST">'."\n";
 
 $head = array();
 
@@ -506,57 +506,45 @@ print ' '.$langs->trans($type=='classic'?"TypeClassic":"TypeDate").'</td></tr>';
 // Title
 print '<tr><td>';
 $adresseadmin=$dsondage->mail_admin;
-echo $langs->trans("Title") .'</td><td colspan="2">' .
-	'<input type="text" name="nouveautitre" size="40" value="'.$object->titre.'">'.
-	'<input type="submit" class="button" name="boutonnouveautitre" value="'.dol_escape_htmltag($langs->trans("Save")).'">'."\n";
-
+print $langs->trans("Title") .'</td><td colspan="2">';
+if ($action == 'edit')
+{
+print '<input type="text" name="nouveautitre" size="40" value="'.dol_escape_htmltag($object->titre).'">';
+	print '<input type="submit" class="button" name="boutonnouveautitre" value="'.dol_escape_htmltag($langs->trans("Save")).'">'."\n";
+}
+else print $object->titre;
 //si la valeur du nouveau titre est invalide : message d'erreur
 if ((isset($_POST["boutonnouveautitre"]) || isset($_POST["boutonnouveautitre_x"])) && !issetAndNoEmpty('nouveautitre')) {
-	echo '<font color="#FF0000">'. $langs->trans("ErorFieldRequired").'</font><br><br>'."\n";
+	print '<font color="#FF0000">'. $langs->trans("ErrorFieldRequired").'</font><br>'."\n";
 }
+print '</td></tr>';
+
+// Auteur
+print '<tr><td>';
+print $langs->trans("Author") .'</td><td colspan="2">';
+print $object->nom_admin;
 print '</td></tr>';
 
 // Description
 print '<tr><td>'.$langs->trans("Description") .'</td><td colspan="2">';
+if ($action == 'edit')
+{
 print '<textarea name="nouveauxcommentaires" rows="7" cols="80">'.$object->commentaires.'</textarea><br><input type="submit" class="button" name="boutonnouveauxcommentaires" value="'.dol_escape_htmltag($langs->trans("Save")).'">'."\n";
+}
+else print dol_nl2br($object->commentaires);
 print '</td></tr>';
 
 // EMail
-print '<tr><td>'.$langs->trans("EMail") .'</td><td colspan="2"><input type="text" name="nouvelleadresse" size="40" value="'.$object->mail_admin.'"> <input type="submit" class="button" name="boutonnouvelleadresse" value="'.dol_escape_htmltag($langs->trans("Save")).'">'."\n";
+print '<tr><td>'.$langs->trans("EMail") .'</td><td colspan="2">';
+if ($action == 'edit')
+{
+	print '<input type="text" name="nouvelleadresse" size="40" value="'.$object->mail_admin.'"> <input type="submit" class="button" name="boutonnouvelleadresse" value="'.dol_escape_htmltag($langs->trans("Save")).'">';
+}
+else print dol_print_email($object->mail_admin);
 //si l'adresse est invalide ou le champ vide : message d'erreur
 if ((isset($_POST["boutonnouvelleadresse"]) || isset($_POST["boutonnouvelleadresse_x"])) && !issetAndNoEmpty('nouvelleadresse')) {
-	echo '<font color="#FF0000">'. $langs->trans("ErorFieldRequired") .'</font><br><br>'."\n";
+	print '<font color="#FF0000">'. $langs->trans("ErorFieldRequired") .'</font><br><br>'."\n";
 }
-print '</td></tr>';
-
-// Comment list
-$sql = 'SELECT id_comment, usercomment, comment FROM '.MAIN_DB_PREFIX.'opensurvey_comments WHERE id_sondage='.$connect->Param('numsondage').' ORDER BY id_comment';
-$sql = $connect->Prepare($sql);
-$comment_user = $connect->Execute($sql, array($numsondage));
-if ($comment_user->RecordCount() != 0)
-{
-	print '<tr><td>'.$langs->trans("CommentsOfVoters") . '</td><td colspan="2">';
-
-	$i = 0;
-	while ( $dcomment=$comment_user->FetchNextObject(false))
-	{
-		print '<a href="'.dol_buildpath('/opensurvey/adminstuds.php',1).'?deletecomment='.$dcomment->id_comment.'&sondage='.$numsondageadmin.'"> '.img_picto('', 'delete.png').' '.$dcomment->usercomment.' : '.$dcomment->comment." <br>";
-		$i++;
-	}
-
-	echo '</td></tr>';
-}
-
-// Add comment
-print '<tr><td>'.$langs->trans("AddACommentForPoll") . '</td><td colspan="2">';
-
-echo '<textarea name="comment" rows="2" cols="80"></textarea><br>'."\n";
-echo $langs->trans("Name") .' : <input type=text name="commentuser"><br>'."\n";
-echo '<input type="submit" class="button" name="ajoutcomment" value="'.dol_escape_htmltag($langs->trans("AddComment")).'"><br>'."\n";
-if (isset($erreur_commentaire_vide) && $erreur_commentaire_vide=="yes") {
-	print "<font color=#FF0000>" . $langs->trans("ErrorFieldRequired",$langs->transnoentitiesnoconv("Name")) . "</font>";
-}
-
 print '</td></tr>';
 
 // Link
@@ -573,7 +561,7 @@ print $urlvcal;
 
 print '</table>';
 
-echo '</form>'."\n";
+print '</form>'."\n";
 
 dol_fiche_end();
 
@@ -583,7 +571,7 @@ dol_fiche_end();
  */
 print '<div class="tabsAction">';
 
-echo '<a class="butAction" href="public/exportcsv.php?numsondage=' . $numsondage . '">'.$langs->trans("ExportSpreadsheet") .' (.CSV)' . '</a>';
+print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?action=edit&sondage=' . $numsondageadmin . '">'.$langs->trans("Modify") . '</a>';
 
 print '<a class="butActionDelete" href="'.$_SERVER["PHP_SELF"].'?suppressionsondage=1&sondage='.$numsondageadmin.'&amp;action=delete"';
 print '>'.$langs->trans('Delete').'</a>';
@@ -598,6 +586,42 @@ if ($action == 'delete')
 
 
 print '<br>';
+
+
+print '<form name="formulaire5" action="#" method="POST">'."\n";
+
+print_fiche_titre($langs->trans("CommentsOfVoters"),'','');
+
+// Comment list
+$sql = 'SELECT id_comment, usercomment, comment FROM '.MAIN_DB_PREFIX.'opensurvey_comments WHERE id_sondage='.$connect->Param('numsondage').' ORDER BY id_comment';
+$sql = $connect->Prepare($sql);
+$comment_user = $connect->Execute($sql, array($numsondage));
+if ($comment_user->RecordCount() != 0)
+{
+	$i = 0;
+	while ( $dcomment=$comment_user->FetchNextObject(false))
+	{
+		print '<a href="'.dol_buildpath('/opensurvey/adminstuds.php',1).'?deletecomment='.$dcomment->id_comment.'&sondage='.$numsondageadmin.'"> '.img_picto('', 'delete.png').'</a> '.$dcomment->usercomment.' : '.$dcomment->comment." <br>";
+		$i++;
+	}
+}
+else
+{
+	print $langs->trans("NoCommentYet").'<br>';;
+}
+
+print '<br>';
+
+// Add comment
+print $langs->trans("AddACommentForPoll") . '<br>';
+print '<textarea name="comment" rows="2" cols="80"></textarea><br>'."\n";
+print $langs->trans("Name") .' : <input type=text name="commentuser"><br>'."\n";
+print '<input type="submit" class="button" name="ajoutcomment" value="'.dol_escape_htmltag($langs->trans("AddComment")).'"><br>'."\n";
+if (isset($erreur_commentaire_vide) && $erreur_commentaire_vide=="yes") {
+	print "<font color=#FF0000>" . $langs->trans("ErrorFieldRequired",$langs->transnoentitiesnoconv("Name")) . "</font>";
+}
+
+print '</form>';
 
 llxFooterSurvey();
 

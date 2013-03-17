@@ -57,16 +57,18 @@ include_once('../bandeaux_local.php');
 
 /*
  * Actions
- */
+*/
 
 if(!isset($_GET['numsondage']) || ! preg_match(";^[\w\d]{16}$;i", $_GET['numsondage'])) {
-  header('Location: studs.php');
+	header('Location: studs.php');
 }
 
 
 /*
  * View
- */
+*/
+
+$now=dol_now();
 
 $user_studs=$connect->Execute('SELECT * FROM '.MAIN_DB_PREFIX."opensurvey_user_studs WHERE id_sondage='" . $_GET['numsondage'] . "' ORDER BY id_users");
 
@@ -79,46 +81,48 @@ $toutsujet=explode(",",$dsondage->sujet);
 //affichage des sujets du sondage
 $input.=";";
 for ($i=0;$toutsujet[$i];$i++) {
-  if ($dsondage->format=="D"||$dsondage->format=="D+") {
-    $input.=''.date("j/n/Y",$toutsujet[$i]).';';
-  } else {
-    $input.=''.$toutsujet[$i].';';
-  }
+	if ($dsondage->format=="D"||$dsondage->format=="D+") {
+		$input.=''.dol_print_date($toutsujet[$i],'dayhour').';';
+	} else {
+		$input.=''.$toutsujet[$i].';';
+	}
 }
 
 $input.="\r\n";
 
 if (strpos($dsondage->sujet,'@') !== false) {
-  $input.=";";
-  for ($i=0;$toutsujet[$i];$i++) {
-    $heures=explode("@",$toutsujet[$i]);
-    $input.=''.$heures[1].';';
-  }
+	$input.=";";
+	for ($i=0;$toutsujet[$i];$i++) {
+		$heures=explode("@",$toutsujet[$i]);
+		$input.=''.$heures[1].';';
+	}
 
-  $input.="\r\n";
+	$input.="\r\n";
 }
 
-while (	$data=$user_studs->FetchNextObject(false)) {
-  // Le nom de l'utilisateur
-  $nombase=str_replace("°","'",$data->nom);
-  $input.=$nombase.';';
-  //affichage des resultats
-  $ensemblereponses=$data->reponses;
-  for ($k=0;$k<$nbcolonnes;$k++) {
-    $car=substr($ensemblereponses,$k,1);
-    if ($car=="1") {
-      $input.='OK;';
-      $somme[$k]++;
-    } else {
-      $input.=';';
-    }
-  }
+while (	$data=$user_studs->FetchNextObject(false))
+{
+	// Le nom de l'utilisateur
+	$nombase=str_replace("°","'",$data->nom);
+	$input.=$nombase.';';
+	//affichage des resultats
+	$ensemblereponses=$data->reponses;
+	for ($k=0;$k<$nbcolonnes;$k++)
+	{
+		$car=substr($ensemblereponses,$k,1);
+		if ($car=="1") {
+			$input.='OK;';
+			$somme[$k]++;
+		} else {
+			$input.=';';
+		}
+	}
 
-  $input.="\r\n";
+	$input.="\r\n";
 }
 
 $filesize = strlen( $input );
-$filename=$_GET["numsondage"].".csv";
+$filename=$_GET["numsondage"]."_".dol_print_date($now,'%Y%m%d%H%M').".csv";
 
 header( 'Content-Type: text/csv; charset=utf-8' );
 header( 'Content-Length: '.$filesize );
@@ -127,5 +131,4 @@ header( 'Cache-Control: max-age=10' );
 echo $input;
 
 exit;
-
 ?>

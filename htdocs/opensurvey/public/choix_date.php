@@ -61,23 +61,7 @@ $origin=GETPOST('origin','alpha');
  * Actions
  */
 
-
-
-/*
- * View
- */
-
-if (!issetAndNoEmpty('nom', $_SESSION) && !issetAndNoEmpty('adresse', $_SESSION) && !issetAndNoEmpty('commentaires', $_SESSION) && !issetAndNoEmpty('mail', $_SESSION))
-{
-	dol_print_error('',"You haven't filled the first section of the poll creation");
-	exit;
-}
-
-$arrayofjs=array('/opensurvey/block_enter.js');
-$arrayofcss=array('/opensurvey/css/style.css');
-llxHeaderSurvey($langs->trans("OpenSurvey"), "", 0, 0, $arrayofjs, $arrayofcss);
-
-//On prépare les données pour les inserer dans la base
+// Insert survey
 if (issetAndNoEmpty('confirmation') || issetAndNoEmpty('confirmation_x')) {
 	if (issetAndNoEmpty('totalchoixjour', $_SESSION) === true) {
 		for ($i = 0; $i < count($_SESSION["totalchoixjour"]); $i++) {
@@ -101,6 +85,21 @@ if (issetAndNoEmpty('confirmation') || issetAndNoEmpty('confirmation_x')) {
 	$_SESSION["toutchoix"]=substr("$choixdate",1);
 	ajouter_sondage($origin);
 }
+
+
+/*
+ * View
+ */
+
+if (!issetAndNoEmpty('nom', $_SESSION) && !issetAndNoEmpty('adresse', $_SESSION) && !issetAndNoEmpty('commentaires', $_SESSION) && !issetAndNoEmpty('mail', $_SESSION))
+{
+	dol_print_error('',"You haven't filled the first section of the poll creation");
+	exit;
+}
+
+$arrayofjs=array('/opensurvey/block_enter.js');
+$arrayofcss=array('/opensurvey/css/style.css');
+llxHeaderSurvey($langs->trans("OpenSurvey"), "", 0, 0, $arrayofjs, $arrayofcss);
 
 //nombre de cases par défaut
 if(!issetAndNoEmpty('nbrecaseshoraires', $_SESSION)) {
@@ -465,7 +464,7 @@ if (issetAndNoEmpty('choixheures') || issetAndNoEmpty('choixheures_x')) {
 	}
 }
 
-print '<div class=bodydate><center>'."\n";
+print '<div class="bodydate"><center>'."\n";
 
 //affichage de tous les jours choisis
 if (issetAndNoEmpty('totalchoixjour', $_SESSION) && (!issetAndNoEmpty('choixheures_x') || $erreur)) {
@@ -547,10 +546,10 @@ if (!$erreur  && (issetAndNoEmpty('choixheures') || issetAndNoEmpty('choixheures
 	$jour_arret = $_SESSION["totalchoixjour"][$taille_tableau]+200000;
 	$date_fin=dol_print_date($jour_arret, 'dayhourtext');
 
-	print '<br><div class="presentationdatefin">'. _("Your poll will expire automatically 2 days after the last date of your poll.") .'<br></td></tr><tr><td><br>'. _("Removal date") .' : <b> '.$date_fin.'</b><br><br>'."\n";
+	print '<br><div class="presentationdatefin">'. $langs->trans("PollWillExpire",2) .'</td></tr><tr><td><br>'. $langs->trans("RemovalDate") .' : <b> '.$date_fin.'</b><br>'."\n";
 	print '</div>'."\n";
 	print '<div class="presentationdatefin">'."\n";
-	print '<font color="#FF0000">'. _("Once you have confirmed the creation of your poll, you will be automatically redirected on the page of your poll. <br><br>Then, you will receive quickly an email contening the link to your poll for sending it to the voters.") .'</font>'."\n";
+	print '<font color="#FF0000">'. _("Once you have confirmed the creation of your poll, you will be automatically redirected on the page of your poll. <br>Then, you will receive quickly an email contening the link to your poll for sending it to the voters.") .'</font>'."\n";
 	print'</div>'."\n";
 	// print'<p class=affichageexport>'."\n";
 	// print 'Pour finir la cr&eacute;ation du sondage, cliquez sur le bouton <img src="images/add-16.png" alt="ajout"> ci-dessous'."\n";
