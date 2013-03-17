@@ -82,17 +82,18 @@ if ($numsondage !== false) {
 }
 
 
-
 /*
  * Actions
  */
+
+$listofvoters=explode(',',$_SESSION["savevoter"]);
 
 // Add comment
 if (isset($_POST['ajoutcomment']) || isset($_POST['ajoutcomment_x']))
 {
 	if (isset($_SESSION['nom'])) {
 		// Si le nom vient de la session, on le de-htmlentities
-		$comment_user = html_entity_decode($_SESSION['nom'], ENT_QUOTES, 'UTF-8');
+		$comment_user = $_SESSION['nom'];
 	} elseif(issetAndNoEmpty('commentuser')) {
 		$comment_user = $_POST["commentuser"];
 	} elseif(isset($_POST["commentuser"])) {
@@ -127,10 +128,6 @@ if (isset($_POST['ajoutcomment']) || isset($_POST['ajoutcomment_x']))
 
 
 // Add vote
-$sql = 'SELECT * FROM '.MAIN_DB_PREFIX.'opensurvey_user_studs WHERE id_sondage='.$connect->Param('numsondage').' ORDER BY id_users';
-$sql = $connect->Prepare($sql);
-$user_studs = $connect->Execute($sql, array($numsondage));
-
 $nbcolonnes = substr_count($dsondage->sujet, ',') + 1;
 if (!is_error(NO_POLL) && (isset($_POST["boutonp"]) || isset($_POST["boutonp_x"])))
 {
@@ -139,7 +136,7 @@ if (!is_error(NO_POLL) && (isset($_POST["boutonp"]) || isset($_POST["boutonp_x"]
 		$err |= NAME_EMPTY;
 	}
 
-	if(!is_error(NAME_EMPTY) && (!isset($_SERVER['REMOTE_USER']) || $_POST["nom"] == $_SESSION["nom"]))
+	if (!is_error(NAME_EMPTY))		//
 	{
 		$nouveauchoix = '';
 		for ($i=0;$i<$nbcolonnes;$i++)
@@ -159,6 +156,10 @@ if (!is_error(NO_POLL) && (isset($_POST["boutonp"]) || isset($_POST["boutonp_x"]
 
 		$nom=substr($_POST["nom"],0,64);
 
+
+		$sql = 'SELECT * FROM '.MAIN_DB_PREFIX.'opensurvey_user_studs WHERE id_sondage='.$connect->Param('numsondage').' ORDER BY id_users';
+		$sql = $connect->Prepare($sql);
+		$user_studs = $connect->Execute($sql, array($numsondage));
 		while($tmpuser = $user_studs->FetchNextObject(false)) {
 			if ($nom == $tmpuser->nom) {
 				$err |= NAME_TAKEN;
@@ -174,6 +175,11 @@ if (!is_error(NO_POLL) && (isset($_POST["boutonp"]) || isset($_POST["boutonp_x"]
 			$sql = $connect->Prepare($sql);
 
 			$connect->Execute($sql, array($nom, $numsondage, $nouveauchoix));
+
+			// Add voter to session
+			$_SESSION["savevoter"]=$nom.','.(empty($_SESSION["savevoter"])?'':$_SESSION["savevoter"]);	// Save voter
+			$listofvoters=explode(',',$_SESSION["savevoter"]);
+
 
 			if ($dsondage->mailsonde || /* compatibility for non boolean DB */ $dsondage->mailsonde=="yes" || $dsondage->mailsonde=="true")
 			{
@@ -196,6 +202,9 @@ if (!is_error(NO_POLL) && (isset($_POST["boutonp"]) || isset($_POST["boutonp_x"]
 }
 
 // Update vote
+$sql = 'SELECT * FROM '.MAIN_DB_PREFIX.'opensurvey_user_studs WHERE id_sondage='.$connect->Param('numsondage').' ORDER BY id_users';
+$sql = $connect->Prepare($sql);
+$user_studs = $connect->Execute($sql, array($numsondage));
 $nblignes = $user_studs->RecordCount();
 $testmodifier = false;
 $ligneamodifier = -1;
@@ -454,18 +463,23 @@ $user_mod = false;
 $sumfor = array();
 $sumagainst = array();
 $compteur = 0;
+
+$sql = 'SELECT * FROM '.MAIN_DB_PREFIX.'opensurvey_user_studs WHERE id_sondage='.$connect->Param('numsondage').' ORDER BY id_users';
+$sql = $connect->Prepare($sql);
+$user_studs = $connect->Execute($sql, array($numsondage));
+
 while ($data = $user_studs->FetchNextObject(false))
 {
 	$ensemblereponses = $data->reponses;
+	$nombase=str_replace("°","'",$data->nom);
 
 	print '<tr>'."\n";
 
 	// ligne d'un usager pré-authentifié
-	$mod_ok = !isset($_SERVER['REMOTE_USER']) || ($nombase == $_SESSION['nom']);
+	$mod_ok = ($dsondage->format=="A+"||$dsondage->format=="D+") || (! empty($nombase) && in_array($nombase, $listofvoters));
 	$user_mod |= $mod_ok;
 
 	// Name
-	$nombase=str_replace("°","'",$data->nom);
 	print '<td class="nom">'.$nombase.'</td>'."\n";
 
 	// pour chaque colonne
@@ -529,7 +543,8 @@ while ($data = $user_studs->FetchNextObject(false))
 	}
 
 	//a la fin de chaque ligne se trouve les boutons modifier
-	if ($compteur != $ligneamodifier && ($dsondage->format=="A+"||$dsondage->format=="D+") && $mod_ok) {
+	if ($compteur != $ligneamodifier && $mod_ok)
+	{
 		print '<td class="casevide"><input type="submit" class="button" name="modifierligne'.$compteur.'" value="'.dol_escape_htmltag($langs->trans("Edit")).'"></td>'."\n";
 	}
 

@@ -213,7 +213,7 @@ if (isset($_POST["boutonp"]) || isset($_POST["boutonp_x"]))
 			}
 		}
 
-		$nom = htmlentities(html_entity_decode($_POST["nom"], ENT_QUOTES, 'UTF-8'), ENT_QUOTES, 'UTF-8');
+		$nom = $_POST["nom"];
 		while ($tmpuser = $user_studs->FetchNextObject(false)) {
 			if ($nom == $tmpuser->nom){
 				$erreur_prenom="yes";
@@ -229,6 +229,8 @@ if (isset($_POST["boutonp"]) || isset($_POST["boutonp_x"]))
 
 			$sql = $connect->Prepare($sql);
 			$connect->Execute($sql, array($nom, $numsondage, $nouveauchoix));
+
+			$_SESSION["savevoter"]=$nom.','.isset($_SESSION["savevoter"])?$_SESSION["savevoter"]:'';	// Save voter
 		}
 	}
 }

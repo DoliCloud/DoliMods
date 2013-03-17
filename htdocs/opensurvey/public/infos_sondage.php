@@ -180,14 +180,10 @@ if ($erreur_injection_commentaires) {
 print '</tr>'."\n";
 print '<tr><td class="fieldrequired">'. $langs->trans("OpenSurveyYourName") .'</td><td>';
 
-if (isset($_SERVER['REMOTE_USER'])) {
-  print '<input type="hidden" name="nom" size="40" maxlength="40" value="'.$_SESSION["nom"].'">'.$_SESSION["nom"].'</td>'."\n";
-} else {
-  print '<input type="text" name="nom" size="40" maxlength="40" value="'.$_SESSION["nom"].'"></td>'."\n";
-}
+print '<input type="text" name="nom" size="40" maxlength="40" value="'.$_SESSION["nom"].'"></td>'."\n";
 
 if (!$_SESSION["nom"] && (issetAndNoEmpty('creation_sondage_date') || issetAndNoEmpty('creation_sondage_autre') || issetAndNoEmpty('creation_sondage_date_x') || issetAndNoEmpty('creation_sondage_autre_x'))) {
-  print "<td><font color=\"#FF0000\">" . $langs->trans("FieldMandatory")  . "</font></td>"."\n";
+  print "<td><font color=\"#FF0000\">" . $langs->trans("ErrorFieldRequired")  . "</font></td>"."\n";
 } elseif ($erreur_injection_nom) {
   print "<td><font color=\"#FF0000\">" . _("Characters < > and \" are not permitted") . "</font></td><br>"."\n";
 }
@@ -195,11 +191,7 @@ if (!$_SESSION["nom"] && (issetAndNoEmpty('creation_sondage_date') || issetAndNo
 print '</tr>'."\n";
 print '<tr><td class="fieldrequired">'.  $langs->trans("OpenSurveyYourEMail")  .'</td><td>';
 
-if (isset($_SERVER['REMOTE_USER'])) {
-  print '<input type="hidden" name="adresse" size="40" maxlength="64" value="'.$_SESSION["adresse"].'">'.$_SESSION["adresse"].'</td>'."\n";
-} else {
-  print '<input type="text" name="adresse" size="40" maxlength="64" value="'.$_SESSION["adresse"].'"></td>'."\n";
-}
+print '<input type="text" name="adresse" size="40" maxlength="64" value="'.$_SESSION["adresse"].'"></td>'."\n";
 
 if (!$_SESSION["adresse"] && (issetAndNoEmpty('creation_sondage_date') || issetAndNoEmpty('creation_sondage_autre') || issetAndNoEmpty('creation_sondage_date_x') || issetAndNoEmpty('creation_sondage_autre_x'))) {
   print "<td><font color=\"#FF0000\">" .$langs->trans("FieldMandatory")  . " </font></td>"."\n";
@@ -218,15 +210,12 @@ print '</script>'."\n";
 print '<br>'."\n";
 
 #affichage du cochage par défaut
-if (!$_SESSION["studsplus"] && !issetAndNoEmpty('creation_sondage_date') && !issetAndNoEmpty('creation_sondage_autre') && !issetAndNoEmpty('creation_sondage_date_x') && !issetAndNoEmpty('creation_sondage_autre_x')) {
-  $_SESSION["studsplus"]="+";
-}
-
+$cocheplus='';
 if ($_SESSION["studsplus"]=="+") {
   $cocheplus="checked";
 }
 
-print '<input type=checkbox name=studsplus '.$cocheplus.'>'. $langs->trans("VotersCanModify") .'<br>'."\n";
+print '<input type="checkbox" name="studsplus" '.$cocheplus.'>'. $langs->trans("VotersCanModify") .'<br>'."\n";
 
 if ($_SESSION["mailsonde"]) {
   $cochemail="checked";

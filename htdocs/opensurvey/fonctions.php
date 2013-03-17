@@ -109,7 +109,7 @@ function is_error($cerr)
 
 function is_user()
 {
-  return isset($_SERVER['REMOTE_USER']) || (isset($_SESSION['nom']));
+  return (isset($_SESSION['nom']));
 }
 
 
