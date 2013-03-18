@@ -711,21 +711,18 @@ if ($dsondage->format=="D"||$dsondage->format=="D+")
 	//affichage des mois
 	$colspan = 1;
 	for ($i = 0; $i < count($toutsujet); $i++) {
-		$current = $toutsujet[$i];
-		if (strpos($toutsujet[$i], '@') !== false) {
-			$current = substr($toutsujet[$i], 0, strpos($toutsujet[$i], '@'));
+		$cur = intval($toutsujet[$i]);	// intval() est utiliser pour supprimer le suffixe @* qui déplaît logiquement à strftime()
+
+		if (isset($toutsujet[$i+1]) === false) {
+			$next = false;
+		} else {
+			$next = intval($toutsujet[$i+1]);
 		}
 
-		if (isset($toutsujet[$i+1]) && strpos($toutsujet[$i+1], '@') !== false) {
-			$next = substr($toutsujet[$i+1], 0, strpos($toutsujet[$i+1], '@'));
-		} elseif (isset($toutsujet[$i+1])) {
-			$next = $toutsujet[$i+1];
-		}
-
-		if (isset($toutsujet[$i+1]) && strftime("%B", $current) == strftime("%B", $next) && strftime("%Y", $current) == strftime("%Y", $next)){
+		if ($next && dol_print_date($cur, "%B") == dol_print_date($next, "%B") && dol_print_date($cur, "%Y") == dol_print_date($next, "%Y")){
 			$colspan++;
 		} else {
-			print '<td colspan='.$colspan.' class="mois">'.strftime("%B",$current).'</td>'."\n";
+			print '<td colspan='.$colspan.' class="mois">'.dol_print_date($cur, "%B").'</td>'."\n";
 
 			$colspan=1;
 		}
@@ -740,22 +737,16 @@ if ($dsondage->format=="D"||$dsondage->format=="D+")
 	//affichage des jours
 	$colspan = 1;
 	for ($i = 0; $i < count($toutsujet); $i++) {
-		$current = $toutsujet[$i];
-
-		if (strpos($toutsujet[$i], '@') !== false) {
-			$current = substr($toutsujet[$i], 0, strpos($toutsujet[$i], '@'));
+		$cur = intval($toutsujet[$i]);
+		if (isset($toutsujet[$i+1]) === false) {
+			$next = false;
+		} else {
+			$next = intval($toutsujet[$i+1]);
 		}
-
-		if (isset($toutsujet[$i+1]) && strpos($toutsujet[$i+1], '@') !== false) {
-			$next = substr($toutsujet[$i+1], 0, strpos($toutsujet[$i+1], '@'));
-		} elseif (isset($toutsujet[$i+1])) {
-			$next = $toutsujet[$i+1];
-		}
-
-		if (isset($toutsujet[$i+1]) && strftime("%a %e",$current)==strftime("%a %e",$next)&&strftime("%B",$current)==strftime("%B",$next)){
+		if ($next && dol_print_date($cur, "%a %e") == dol_print_date($next,"%a %e") && dol_print_date($cur, "%B") == dol_print_date($next, "%B")) {
 			$colspan++;
 		} else {
-			print '<td colspan='.$colspan.' class="jour">'.strftime("%a %e",$current).'</td>'."\n";
+			print '<td colspan='.$colspan.' class="jour">'.dol_print_date($cur, "%a %e").'</td>'."\n";
 
 			$colspan=1;
 		}

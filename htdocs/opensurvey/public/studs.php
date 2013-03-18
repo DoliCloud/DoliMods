@@ -364,14 +364,10 @@ if ($dsondage->format=="D"||$dsondage->format=="D+")
 			$next = intval($toutsujet[$i+1]);
 		}
 
-		if ($next && strftime("%B", $cur) == strftime("%B", $next) && date('Y', $cur) == date('Y', $next)) {
+		if ($next && dol_print_date($cur, "%B") == dol_print_date($next, "%B") && dol_print_date($cur, "%Y") == dol_print_date($next, "%Y")){
 			$colspan++;
 		} else {
-			if ($_SESSION["langue"]=="EN") { // because strftime doesn't support english suffix (like st,nd,rd,th)
-				print '<td colspan='.$colspan.' class="mois">'.date("F",$cur).'</td>'."\n";
-			} else {
-				print '<td colspan='.$colspan.' class="mois">'.strftime("%B",$cur).'</td>'."\n";
-			}
+			print '<td colspan='.$colspan.' class="mois">'.dol_print_date($cur, "%B").'</td>'."\n";
 			$colspan=1;
 		}
 	}
@@ -389,15 +385,10 @@ if ($dsondage->format=="D"||$dsondage->format=="D+")
 		} else {
 			$next = intval($toutsujet[$i+1]);
 		}
-		if ($next && strftime("%a %e", $cur) == strftime("%a %e", $next) && strftime("%B", $cur) == strftime("%B", $next)) {
+		if ($next && dol_print_date($cur, "%a %e") == dol_print_date($next,"%a %e") && dol_print_date($cur, "%B") == dol_print_date($next, "%B")) {
 			$colspan++;
 		} else {
-			if ($_SESSION["langue"]=="EN") {
-				print '<td colspan='.$colspan.' class="jour">'.date("D jS",$cur).'</td>'."\n";
-			} else {
-				print '<td colspan='.$colspan.' class="jour">'.strftime("%a %e",$cur).'</td>'."\n";
-			}
-
+			print '<td colspan="'.$colspan.'" class="jour">'.dol_print_date($cur, "%a %e").'</td>'."\n";
 			$colspan=1;
 		}
 	}
