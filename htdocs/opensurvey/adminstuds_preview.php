@@ -186,7 +186,12 @@ if ($testmodifier)
 		if ($compteur==$modifier)
 		{
 			$sql = 'UPDATE '.MAIN_DB_PREFIX."opensurvey_user_studs SET reponses = '".$db->escape($nouveauchoix)."' WHERE nom = '".$db->escape($data->nom)."' AND id_users = '".$db->escape($data->id_users)."'";
-			$sql = $db->query($resql);
+			$resql = $db->query($sql);
+			if ($resql <= 0)
+			{
+				dol_print_error($db);
+				exit;
+			}
 		}
 
 		$compteur++;
