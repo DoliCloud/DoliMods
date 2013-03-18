@@ -37,9 +37,6 @@
 //
 //==========================================================================
 
-if(ini_get('date.timezone') == '') {
-  date_default_timezone_set("Europe/Paris");
-}
 
 include_once('variables.php');
 require_once('adodb/adodb.inc.php');
@@ -49,102 +46,95 @@ function connexion_base()
 	global $conf;
 	global $dolibarr_main_db_pass;
 
-  $DB = NewADOConnection($conf->db->type);
-  $DB->Connect($conf->db->host, $conf->db->user, $dolibarr_main_db_pass, $conf->db->name);
-  //$DB->debug = true;
-  return $DB;
+	$DB = NewADOConnection($conf->db->type);
+	$DB->Connect($conf->db->host, $conf->db->user, $dolibarr_main_db_pass, $conf->db->name);
+	//$DB->debug = true;
+	return $DB;
 }
 
 
+/**
+ * get_server_name
+ */
 function get_server_name()
 {
-  $scheme = (isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] == "on") ? 'https' : 'http';
-  $url = sprintf("%s://%s%s", $scheme, STUDS_URL, dirname($_SERVER["SCRIPT_NAME"]));
+	$urlwithouturlroot=preg_replace('/'.preg_quote(DOL_URL_ROOT,'/').'$/i','',trim($dolibarr_main_url_root));
+	$urlwithroot=$urlwithouturlroot.DOL_URL_ROOT;		// This is to use external domain name found into config file
+	//$urlwithroot=DOL_MAIN_URL_ROOT;					// This is to use same domain name than current
 
-  if (!preg_match("|/$|", $url)) {
-    $url = $url."/";
-  }
+	$url=$urlwithouturlroot.dol_buildpath('/opensurvey/',1);
 
-  return $url;
+	if (!preg_match("|/$|", $url)) {
+		$url = $url."/";
+	}
+
+	return $url;
 }
 
 
+/**
+ *
+ * @param unknown_type $id
+ * @return boolean|unknown
+ */
 function get_sondage_from_id($id)
 {
-  global $connect;
+	global $connect;
 
-  // Ouverture de la base de données
-  if(preg_match(";^[\w\d]{16}$;i",$id)) {
-    $sql = 'SELECT '.MAIN_DB_PREFIX.'opensurvey_sondage.*, '.MAIN_DB_PREFIX.'opensurvey_sujet_studs.sujet FROM '.MAIN_DB_PREFIX.'opensurvey_sondage
-            LEFT OUTER JOIN '.MAIN_DB_PREFIX."opensurvey_sujet_studs ON ".MAIN_DB_PREFIX."opensurvey_sondage.id_sondage = ".MAIN_DB_PREFIX."opensurvey_sujet_studs.id_sondage
-            WHERE ".MAIN_DB_PREFIX."opensurvey_sondage.id_sondage = ".$connect->Param('id_sondage');
+	// Ouverture de la base de données
+	if(preg_match(";^[\w\d]{16}$;i",$id)) {
+		$sql = 'SELECT '.MAIN_DB_PREFIX.'opensurvey_sondage.*, '.MAIN_DB_PREFIX.'opensurvey_sujet_studs.sujet FROM '.MAIN_DB_PREFIX.'opensurvey_sondage
+		LEFT OUTER JOIN '.MAIN_DB_PREFIX."opensurvey_sujet_studs ON ".MAIN_DB_PREFIX."opensurvey_sondage.id_sondage = ".MAIN_DB_PREFIX."opensurvey_sujet_studs.id_sondage
+		WHERE ".MAIN_DB_PREFIX."opensurvey_sondage.id_sondage = ".$connect->Param('id_sondage');
 
-    $sql = $connect->Prepare($sql);
-    $sondage=$connect->Execute($sql, array($id));
+		$sql = $connect->Prepare($sql);
+		$sondage=$connect->Execute($sql, array($id));
 
-    if ($sondage === false) {
-      return false;
-    }
+		if ($sondage === false) {
+			return false;
+		}
 
-    $psondage = $sondage->FetchObject(false);
-    $psondage->date_fin = strtotime($psondage->date_fin);
+		$psondage = $sondage->FetchObject(false);
+		$psondage->date_fin = strtotime($psondage->date_fin);
 
-    return $psondage;
-  }
+		return $psondage;
+	}
 
-  return false;
+	return false;
 }
+
 
 
 function is_error($cerr)
 {
-  global $err;
-  if ( $err == 0 ) {
-    return false;
-  }
+	global $err;
+	if ( $err == 0 ) {
+		return false;
+	}
 
-  return (($err & $cerr) != 0 );
+	return (($err & $cerr) != 0 );
 }
 
 
 function is_user()
 {
-  return (isset($_SESSION['nom']));
-}
-
-
-function print_header($js = false, $nom_sondage = '')
-{
-  echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">';
-  if (empty($nom_sondage) === false) {
-    echo '
-    <title>'.$nom_sondage.' - '.NOMAPPLICATION.'</title>';
-  } else {
-    echo '
-    <title>'.NOMAPPLICATION.'</title>';
-  }
-  echo '
-    <link rel="stylesheet" type="text/css" href="'.get_server_name().'style.css">';
-
-  echo '</head>';
+	return (isset($_SESSION['nom']));
 }
 
 
 /**
  * Vérifie une adresse e-mail selon les normes RFC
- * @param  string  $email  l'adresse e-mail a vérifier
+ *
+ * @param  	string  $email  l'adresse e-mail a vérifier
  * @return  bool    vrai si l'adresse est correcte, faux sinon
- * @see http://fightingforalostcause.net/misc/2006/compare-email-regex.php
- * @see http://svn.php.net/viewvc/php/php-src/trunk/ext/filter/logical_filters.c?view=markup
+ * @see 	http://fightingforalostcause.net/misc/2006/compare-email-regex.php
+ * @see 	http://svn.php.net/viewvc/php/php-src/trunk/ext/filter/logical_filters.c?view=markup
  */
 function validateEmail($email)
 {
-  $pattern = '/^(?!(?:(?:\\x22?\\x5C[\\x00-\\x7E]\\x22?)|(?:\\x22?[^\\x5C\\x22]\\x22?)){255,})(?!(?:(?:\\x22?\\x5C[\\x00-\\x7E]\\x22?)|(?:\\x22?[^\\x5C\\x22]\\x22?)){65,}@)(?:(?:[\\x21\\x23-\\x27\\x2A\\x2B\\x2D\\x2F-\\x39\\x3D\\x3F\\x5E-\\x7E]+)|(?:\\x22(?:[\\x01-\\x08\\x0B\\x0C\\x0E-\\x1F\\x21\\x23-\\x5B\\x5D-\\x7F]|(?:\\x5C[\\x00-\\x7F]))*\\x22))(?:\\.(?:(?:[\\x21\\x23-\\x27\\x2A\\x2B\\x2D\\x2F-\\x39\\x3D\\x3F\\x5E-\\x7E]+)|(?:\\x22(?:[\\x01-\\x08\\x0B\\x0C\\x0E-\\x1F\\x21\\x23-\\x5B\\x5D-\\x7F]|(?:\\x5C[\\x00-\\x7F]))*\\x22)))*@(?:(?:(?!.*[^.]{64,})(?:(?:(?:xn--)?[a-z0-9]+(?:-[a-z0-9]+)*\\.){1,126}){1,}(?:(?:[a-z][a-z0-9]*)|(?:(?:xn--)[a-z0-9]+))(?:-[a-z0-9]+)*)|(?:\\[(?:(?:IPv6:(?:(?:[a-f0-9]{1,4}(?::[a-f0-9]{1,4}){7})|(?:(?!(?:.*[a-f0-9][:\\]]){7,})(?:[a-f0-9]{1,4}(?::[a-f0-9]{1,4}){0,5})?::(?:[a-f0-9]{1,4}(?::[a-f0-9]{1,4}){0,5})?)))|(?:(?:IPv6:(?:(?:[a-f0-9]{1,4}(?::[a-f0-9]{1,4}){5}:)|(?:(?!(?:.*[a-f0-9]:){5,})(?:[a-f0-9]{1,4}(?::[a-f0-9]{1,4}){0,3})?::(?:[a-f0-9]{1,4}(?::[a-f0-9]{1,4}){0,3}:)?)))?(?:(?:25[0-5])|(?:2[0-4][0-9])|(?:1[0-9]{2})|(?:[1-9]?[0-9]))(?:\\.(?:(?:25[0-5])|(?:2[0-4][0-9])|(?:1[0-9]{2})|(?:[1-9]?[0-9]))){3}))\\]))$/iD';
+	$pattern = '/^(?!(?:(?:\\x22?\\x5C[\\x00-\\x7E]\\x22?)|(?:\\x22?[^\\x5C\\x22]\\x22?)){255,})(?!(?:(?:\\x22?\\x5C[\\x00-\\x7E]\\x22?)|(?:\\x22?[^\\x5C\\x22]\\x22?)){65,}@)(?:(?:[\\x21\\x23-\\x27\\x2A\\x2B\\x2D\\x2F-\\x39\\x3D\\x3F\\x5E-\\x7E]+)|(?:\\x22(?:[\\x01-\\x08\\x0B\\x0C\\x0E-\\x1F\\x21\\x23-\\x5B\\x5D-\\x7F]|(?:\\x5C[\\x00-\\x7F]))*\\x22))(?:\\.(?:(?:[\\x21\\x23-\\x27\\x2A\\x2B\\x2D\\x2F-\\x39\\x3D\\x3F\\x5E-\\x7E]+)|(?:\\x22(?:[\\x01-\\x08\\x0B\\x0C\\x0E-\\x1F\\x21\\x23-\\x5B\\x5D-\\x7F]|(?:\\x5C[\\x00-\\x7F]))*\\x22)))*@(?:(?:(?!.*[^.]{64,})(?:(?:(?:xn--)?[a-z0-9]+(?:-[a-z0-9]+)*\\.){1,126}){1,}(?:(?:[a-z][a-z0-9]*)|(?:(?:xn--)[a-z0-9]+))(?:-[a-z0-9]+)*)|(?:\\[(?:(?:IPv6:(?:(?:[a-f0-9]{1,4}(?::[a-f0-9]{1,4}){7})|(?:(?!(?:.*[a-f0-9][:\\]]){7,})(?:[a-f0-9]{1,4}(?::[a-f0-9]{1,4}){0,5})?::(?:[a-f0-9]{1,4}(?::[a-f0-9]{1,4}){0,5})?)))|(?:(?:IPv6:(?:(?:[a-f0-9]{1,4}(?::[a-f0-9]{1,4}){5}:)|(?:(?!(?:.*[a-f0-9]:){5,})(?:[a-f0-9]{1,4}(?::[a-f0-9]{1,4}){0,3})?::(?:[a-f0-9]{1,4}(?::[a-f0-9]{1,4}){0,3}:)?)))?(?:(?:25[0-5])|(?:2[0-4][0-9])|(?:1[0-9]{2})|(?:[1-9]?[0-9]))(?:\\.(?:(?:25[0-5])|(?:2[0-4][0-9])|(?:1[0-9]{2})|(?:[1-9]?[0-9]))){3}))\\]))$/iD';
 
-  return (bool)preg_match($pattern, $email);
+	return (bool)preg_match($pattern, $email);
 }
 
 
@@ -156,11 +146,11 @@ function validateEmail($email)
  */
 function issetAndNoEmpty($name, $tableau = null)
 {
-  if ($tableau === null) {
-    $tableau = $_POST;
-  }
+	if ($tableau === null) {
+		$tableau = $_POST;
+	}
 
-  return (isset($tableau[$name]) === true && empty($tableau[$name]) === false);
+	return (isset($tableau[$name]) === true && empty($tableau[$name]) === false);
 }
 
 
@@ -172,21 +162,21 @@ function issetAndNoEmpty($name, $tableau = null)
  */
 function getUrlSondage($id, $admin = false)
 {
-  if (URL_PROPRE === true) {
-    if ($admin === true) {
-      $url = get_server_name().$id.'/admin';
-    } else {
-      $url = get_server_name().$id;
-    }
-  } else {
-    if ($admin === true) {
-      $url = get_server_name().'adminstuds_preview.php?sondage='.$id;
-    } else {
-      $url = get_server_name().'studs.php?sondage='.$id;
-    }
-  }
+	if (URL_PROPRE === true) {
+		if ($admin === true) {
+			$url = get_server_name().$id.'/admin';
+		} else {
+			$url = get_server_name().$id;
+		}
+	} else {
+		if ($admin === true) {
+			$url = get_server_name().'adminstuds_preview.php?sondage='.$id;
+		} else {
+			$url = get_server_name().'/public/studs.php?sondage='.$id;
+		}
+	}
 
-  return $url;
+	return $url;
 }
 
 $connect=connexion_base();

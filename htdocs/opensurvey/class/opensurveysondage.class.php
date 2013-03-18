@@ -174,9 +174,9 @@ class Opensurveysondage extends CommonObject
     /**
      *  Load object in memory from the database
      *
-     *  @param	int		$id    		Id object
-     *  @param	string	$numsurvey	Ref of survey
-     *  @return int          		<0 if KO, >0 if OK
+     *  @param	int		$id    				Id object
+     *  @param	string	$numsurvey			Ref of survey (admin or not)
+     *  @return int          				<0 if KO, >0 if OK
      */
     function fetch($id,$numsurvey='')
     {
@@ -193,10 +193,13 @@ class Opensurveysondage extends CommonObject
 		$sql.= " t.date_fin,";
 		$sql.= " t.format,";
 		$sql.= " t.mailsonde,";
-		$sql.= " t.survey_link_visible";
+		$sql.= " t.survey_link_visible,";
+		$sql.= " s.sujet";
         $sql.= " FROM ".MAIN_DB_PREFIX."opensurvey_sondage as t";
+        $sql.= " LEFT JOIN ".MAIN_DB_PREFIX."opensurvey_sujet_studs as s ON t.id_sondage = s.id_sondage";
         if ($id > 0) $sql.= " WHERE t.rowid = ".$id;
-        else $sql.= " WHERE t.id_sondage = '".$numsurvey."'";
+        else if (strlen($numsurvey) == 16) $sql.= " WHERE t.id_sondage = '".$numsurvey."'";
+        else $sql.= " WHERE t.id_sondage_admin = '".$numsurvey."'";
 
     	dol_syslog(get_class($this)."::fetch sql=".$sql, LOG_DEBUG);
         $resql=$this->db->query($sql);
@@ -219,52 +222,21 @@ class Opensurveysondage extends CommonObject
 				$this->format = $obj->format;
 				$this->mailsonde = $obj->mailsonde;
 				$this->survey_link_visible = $obj->survey_link_visible;
+				$this->sujet = $obj->sujet;
+				$ret=1;
             }
-            else return 0;
+            else $ret=0;
 
             $this->db->free($resql);
         }
         else
-        {
+       {
       	    $this->error="Error ".$this->db->lasterror();
             dol_syslog(get_class($this)."::fetch ".$this->error, LOG_ERR);
-            return -1;
+            $ret=-1;
         }
 
-        $sql = "SELECT";
-        //$sql.= " t.rowid,";
-        $sql.= " t.id_sondage,";
-        $sql.= " t.sujet";
-        $sql.= " FROM ".MAIN_DB_PREFIX."opensurvey_sujet_studs as t";
-        $sql.= " WHERE t.id_sondage = '".$obj->id_sondage."'";
-
-    	dol_syslog(get_class($this)."::fetch sql=".$sql, LOG_DEBUG);
-        $resql=$this->db->query($sql);
-        if ($resql)
-        {
-	        dol_syslog(get_class($this)."::fetch sql=".$sql, LOG_DEBUG);
-	        $resql=$this->db->query($sql);
-	        if ($resql)
-	        {
-	        	if ($this->db->num_rows($resql))
-	        	{
-	        		$obj = $this->db->fetch_object($resql);
-	        		$this->sujet = $obj->sujet;
-	        	}
-	        }
-
-	        $this->db->free($resql);
-
-	        return 1;
-        }
-        else
-        {
-        	$this->error="Error ".$this->db->lasterror();
-        	dol_syslog(get_class($this)."::fetch ".$this->error, LOG_ERR);
-        	return -1;
-        }
-
-
+        return $ret;
     }
 
 
@@ -310,7 +282,6 @@ class Opensurveysondage extends CommonObject
 		$sql.= " format=".(isset($this->format)?"'".$this->db->escape($this->format)."'":"null").",";
 		$sql.= " mailsonde=".(isset($this->mailsonde)?$this->mailsonde:"null").",";
 		$sql.= " survey_link_visible=".(isset($this->survey_link_visible)?$this->survey_link_visible:"null")."";
-
 
         $sql.= " WHERE rowid=".$this->id;
 
@@ -358,11 +329,12 @@ class Opensurveysondage extends CommonObject
  	/**
 	 *  Delete object in database
 	 *
-     *	@param  User	$user        User that deletes
-     *  @param  int		$notrigger	 0=launch triggers after, 1=disable triggers
-	 *  @return	int					 <0 if KO, >0 if OK
+     *	@param  User	$user        		User that deletes
+     *  @param  int		$notrigger	 		0=launch triggers after, 1=disable triggers
+     *  @param	string	$numsondageadmin	Num sondage to delete
+	 *  @return	int					 		<0 if KO, >0 if OK
 	 */
-	function delete($user, $notrigger=0)
+	function delete($user, $notrigger=0, $numsondageadmin)
 	{
 		global $conf, $langs;
 		$error=0;
@@ -387,8 +359,19 @@ class Opensurveysondage extends CommonObject
 
 		if (! $error)
 		{
+
+			$sql='DELETE FROM '.MAIN_DB_PREFIX."opensurvey_comments WHERE id_sondage_admin = '".$numsondageadmin."'";
+			dol_syslog(get_class($this)."::delete sql=".$sql, LOG_DEBUG);
+			$resql=$this->db->query($sql);
+			$sql='DELETE FROM '.MAIN_DB_PREFIX."opensurvey_sujet_studs WHERE id_sondage_admin = '".$numsondageadmin."'";
+			dol_syslog(get_class($this)."::delete sql=".$sql, LOG_DEBUG);
+			$resql=$this->db->query($sql);
+			$sql='DELETE FROM '.MAIN_DB_PREFIX."opensurvey_user_studs WHERE id_sondage_admin = '".$numsondageadmin."'";
+			dol_syslog(get_class($this)."::delete sql=".$sql, LOG_DEBUG);
+			$resql=$this->db->query($sql);
+
     		$sql = "DELETE FROM ".MAIN_DB_PREFIX."opensurvey_sondage";
-    		$sql.= " WHERE rowid=".$this->id;
+    		$sql.= " WHERE id_sondage_admin = '".$numsondageadmin."'";
 
     		dol_syslog(get_class($this)."::delete sql=".$sql);
     		$resql = $this->db->query($sql);

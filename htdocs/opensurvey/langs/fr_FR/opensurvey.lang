@@ -62,3 +62,4 @@ AddStartHour=Ajouter heure de début
 AddEndHour=Ajouter heure de fin
 votes=vote(s)
 NoCommentYet=Pas de commentaires laissés pour le moment sur ce sondage
+CanEditVotes=Modification des votes des autres autorisés

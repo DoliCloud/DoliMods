@@ -96,6 +96,8 @@ $dsondage=$sondage->FetchObject(false);
 $nbcolonnes = substr_count($dsujet->sujet, ',') + 1;
 $nblignes = $user_studs->RecordCount();
 
+$object=new Opensurveysondage($db);
+
 
 
 /*
@@ -105,18 +107,7 @@ $nblignes = $user_studs->RecordCount();
 // Delete
 if ($action == 'delete_confirm')
 {
-	$sql='DELETE FROM '.MAIN_DB_PREFIX."opensurvey_comments WHERE id_sondage_admin = '".$numsondageadmin."'";
-	dol_syslog("Delete poll sql=".$sql, LOG_DEBUG);
-	$resql=$db->query($sql);
-	$sql='DELETE FROM '.MAIN_DB_PREFIX."opensurvey_sujet_studs WHERE id_sondage_admin = '".$numsondageadmin."'";
-	dol_syslog("Delete poll sql=".$sql, LOG_DEBUG);
-	$resql=$db->query($sql);
-	$sql='DELETE FROM '.MAIN_DB_PREFIX."opensurvey_user_studs WHERE id_sondage_admin = '".$numsondageadmin."'";
-	dol_syslog("Delete poll sql=".$sql, LOG_DEBUG);
-	$resql=$db->query($sql);
-	$sql='DELETE FROM '.MAIN_DB_PREFIX."opensurvey_sondage WHERE id_sondage_admin = '".$numsondageadmin."'";
-	dol_syslog("Delete poll sql=".$sql, LOG_DEBUG);
-	$resql=$db->query($sql);
+	$object->delete($user,'',$numsondageadmin);
 
 	header('Location: '.dol_buildpath('/opensurvey/list.php',1));
 	exit();
@@ -127,11 +118,11 @@ if (isset($_POST["boutonnouveautitre"]) || isset($_POST["boutonnouveautitre_x"])
 		$err |= TITLE_EMPTY;
 	} else {
 		//modification de la base SQL avec le nouveau titre
-		$nouveautitre = htmlentities(html_entity_decode($_POST['nouveautitre'], ENT_QUOTES, 'UTF-8'), ENT_QUOTES, 'UTF-8');
-		$sql = 'UPDATE '.MAIN_DB_PREFIX.'opensurvey_sondage SET titre = '.$connect->Param('nouveautitre').' WHERE id_sondage = '.$connect->Param('numsondage');
-		$sql = $connect->Prepare($sql);
-
-		$connect->Execute($sql, array($nouveautitre, $numsondage));
+		$nouveautitre = GETPOST('nouveautitre');
+		$sql = 'UPDATE '.MAIN_DB_PREFIX."opensurvey_sondage SET titre = '".$db->escape($nouveautitre)."' WHERE id_sondage = '".$db->escape($numsondage)."'";
+		dol_syslog($sql);
+		$resql = $db->query($sql);
+		if ($resql < 0) dol_print_error($db,'');
 	}
 }
 
@@ -140,7 +131,7 @@ if (isset($_POST["boutonnouveauxcommentaires"]) || isset($_POST["boutonnouveauxc
 	if(issetAndNoEmpty('nouveautitre') === false) {
 		$err |= COMMENT_EMPTY;
 	} else {
-		$commentaires = htmlentities(html_entity_decode($_POST['nouveauxcommentaires'], ENT_QUOTES, 'UTF-8'), ENT_QUOTES, 'UTF-8');
+		$commentaires = GETPOST('nouveauxcommentaires');
 
 		//modification de la base SQL avec les nouveaux commentaires
 		$sql = 'UPDATE '.MAIN_DB_PREFIX.'opensurvey_sondage SET commentaires = '.$connect->Param('commentaires').' WHERE id_sondage = '.$connect->Param('numsondage');
@@ -155,7 +146,7 @@ if (isset($_POST["boutonnouvelleadresse"]) || isset($_POST["boutonnouvelleadress
 	if(issetAndNoEmpty('nouvelleadresse') === false || validateEmail($_POST["nouvelleadresse"]) === false) {
 		$err |= INVALID_EMAIL;
 	} else {
-		$nouvelleadresse = htmlentities(html_entity_decode($_POST['nouvelleadresse'], ENT_QUOTES, 'UTF-8'), ENT_QUOTES, 'UTF-8');
+		$nouvelleadresse = GETPOST('nouvelleadresse');
 
 		//modification de la base SQL avec la nouvelle adresse
 		$sql = 'UPDATE '.MAIN_DB_PREFIX.'opensurvey_sondage SET mail_admin = '.$connect->Param('nouvelleadresse').' WHERE id_sondage = '.$connect->Param('numsondage');
@@ -451,7 +442,6 @@ for ($i = 0; $i < $nbcolonnes; $i++)
  */
 
 $form=new Form($db);
-$object=new OpenSurveySondage($db);
 
 $arrayofjs=array('/opensurvey/block_enter.js');
 $arrayofcss=array('/opensurvey/css/style.css');
@@ -490,7 +480,7 @@ print dol_get_fiche_head($head,'general',$langs->trans("Survey"),0,dol_buildpath
 
 print '<table class="border" width="100%">';
 
-$linkback = '<a href="'.dol_buildpath('/opensurvey/list.php',1).(! empty($socid)?'?socid='.$socid:'').'">'.$langs->trans("BackToList").'</a>';
+$linkback = '<a href="'.dol_buildpath('/opensurvey/list.php',1).'">'.$langs->trans("BackToList").'</a>';
 
 // Ref
 print '<tr><td width="18%">'.$langs->trans('Ref').'</td>';
@@ -549,8 +539,12 @@ if ((isset($_POST["boutonnouvelleadresse"]) || isset($_POST["boutonnouvelleadres
 }
 print '</td></tr>';
 
+// Can edit other votes
+print '<tr><td>'.$langs->trans('CanEditVotes').'</td><td colspan="2">'.yn(preg_match('/\+/',$object->format)).'</td></tr>';
+
+
 // Link
-print '<tr><td>'.img_picto('','object_globe.png').' '.$langs->trans("UrlForSurvey",'').'</td><td>';
+print '<tr><td>'.img_picto('','object_globe.png').' '.$langs->trans("UrlForSurvey",'').'</td><td colspan="2">';
 
 // Define $urlwithroot
 $urlwithouturlroot=preg_replace('/'.preg_quote(DOL_URL_ROOT,'/').'$/i','',trim($dolibarr_main_url_root));

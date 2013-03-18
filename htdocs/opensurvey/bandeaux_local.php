@@ -45,6 +45,25 @@ function llxHeaderSurvey($title, $head="", $disablejs=0, $disablehead=0, $arrayo
 }
 
 /**
+ * Show footer for new member
+ *
+ * @return	void
+ */
+function llxFooterSurvey()
+{
+	print '</div>';
+
+	printCommonFooter('public');
+
+	print "</body>\n";
+	print "</html>\n";
+}
+
+
+// pour get_server_name()
+include_once('fonctions.php');
+
+/**
  * Show logo
  *
  * @return	void
@@ -73,34 +92,6 @@ function showlogo()
 	print '<img alt="Logo" id="logosubscribe" title="" src="'.$urllogo.'" style="max-width: 120px" /><br>';
 	print '<strong>'.$langs->trans("OpenSurvey").'</strong>';
 	print '</center><br>';
-}
-
-
-/**
- * Show footer for new member
- *
- * @return	void
- */
-function llxFooterSurvey()
-{
-	print '</div>';
-
-	printCommonFooter('public');
-
-	print "</body>\n";
-	print "</html>\n";
-}
-
-
-// pour get_server_name()
-include_once('fonctions.php');
-
-//le logo
-function logo ()
-{
-	if(defined('LOGOBANDEAU')) {
-		echo '<div class="logo"><img src="'.get_server_name().LOGOBANDEAU.'" height="74" alt="logo"></div>'."\n";
-	}
 }
 
 ?>

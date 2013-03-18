@@ -55,22 +55,10 @@ include_once('../bandeaux_local.php');
 include_once('../fonctions.php');
 
 // Init vars
-$numsondage = false;
-
-//On récupère le numéro de sondage par le lien web.
-if(issetAndNoEmpty('sondage', $_GET) === true) {
-	$numsondage = $_GET["sondage"];
-	$_SESSION["numsondage"] = $numsondage;
-}
-
-if(issetAndNoEmpty('sondage') === true) {
-	$numsondage = $_POST["sondage"];
-	$_SESSION["numsondage"] = $numsondage;
-} elseif(issetAndNoEmpty('sondage', $_COOKIE) === true) {
-	$numsondage = $_COOKIE["sondage"];
-} elseif(issetAndNoEmpty('numsondage', $_SESSION) === true) {
-	$numsondage = $_SESSION["numsondage"];
-}
+$numsondageadmin=GETPOST("sondage");
+$numsondage=substr($numsondageadmin, 0, 16);
+$object=new Opensurveysondage($db);
+$object->fetch(0,$numsondageadmin);
 
 if ($numsondage !== false) {
 	$dsondage = get_sondage_from_id($numsondage);
@@ -80,6 +68,8 @@ if ($numsondage !== false) {
 } else {
 	$err |= NO_POLL_ID;
 }
+
+$nbcolonnes = substr_count($dsondage->sujet, ',') + 1;
 
 
 /*
@@ -108,8 +98,7 @@ if (isset($_POST['ajoutcomment']) || isset($_POST['ajoutcomment_x']))
 
 	if (isset($_POST["comment"]) && !is_error(COMMENT_EMPTY) && !is_error(NO_POLL) && !is_error(COMMENT_USER_EMPTY)) {
 		// protection contre les XSS : htmlentities
-		$comment = htmlentities($_POST['comment'], ENT_QUOTES, 'UTF-8');
-		$comment_user = htmlentities($comment_user, ENT_QUOTES, 'UTF-8');
+		$comment = GETPOST('comment');
 
 		$sql = 'INSERT INTO '.MAIN_DB_PREFIX.'opensurvey_comments (id_sondage, comment, usercomment) VALUES ('.
 			$connect->Param('id_sondage').','.
@@ -128,15 +117,10 @@ if (isset($_POST['ajoutcomment']) || isset($_POST['ajoutcomment_x']))
 
 
 // Add vote
-$nbcolonnes = substr_count($dsondage->sujet, ',') + 1;
-if (!is_error(NO_POLL) && (isset($_POST["boutonp"]) || isset($_POST["boutonp_x"])))
+if (isset($_POST["boutonp"]) || isset($_POST["boutonp_x"]))
 {
 	//Si le nom est bien entré
-	if (issetAndNoEmpty('nom') === false) {
-		$err |= NAME_EMPTY;
-	}
-
-	if (!is_error(NAME_EMPTY))		//
+	if (issetAndNoEmpty('nom'))
 	{
 		$nouveauchoix = '';
 		for ($i=0;$i<$nbcolonnes;$i++)
@@ -183,7 +167,7 @@ if (!is_error(NO_POLL) && (isset($_POST["boutonp"]) || isset($_POST["boutonp_x"]
 
 			if ($dsondage->mailsonde || /* compatibility for non boolean DB */ $dsondage->mailsonde=="yes" || $dsondage->mailsonde=="true")
 			{
-				// TODO Send email
+				// TODO Use CMailFile
 				/*
 				$headers="From: ".NOMAPPLICATION." <".ADRESSEMAILADMIN.">\r\nContent-Type: text/plain; charset=\"UTF-8\"\nContent-Transfer-Encoding: 8bit";
 				mail ("$dsondage->mail_admin",
@@ -245,13 +229,12 @@ if ($testmodifier)
 	{
 		if ($compteur == $modifier)
 		{
-			$sql = 'UPDATE '.MAIN_DB_PREFIX.'opensurvey_user_studs SET reponses='.$connect->Param('nouveauchoix').' WHERE nom='.$connect->Param('nom').' AND id_users='.$connect->Param('id_users');
-			$sql = $connect->Prepare($sql);
-			$connect->Execute($sql, array($nouveauchoix, $data->nom, $data->id_users));
+			$sql = 'UPDATE '.MAIN_DB_PREFIX."opensurvey_user_studs SET reponses = '".$db->escape($nouveauchoix)."' WHERE nom = '".$db->escape($data->nom)."' AND id_users = '".$db->escape($data->id_users)."'";
+			$sql = $db->query($resql);
 
 			if ($dsondage->mailsonde=="yes")
 			{
-				// TODO Use CMail...
+				// TODO Use CMailFile
 				//$headers="From: ".NOMAPPLICATION." <".ADRESSEMAILADMIN.">\r\nContent-Type: text/plain; charset=\"UTF-8\"\nContent-Transfer-Encoding: 8bit";
 				//mail ("$dsondage->mail_admin", "[".NOMAPPLICATION."] " . _("Poll's participation") . " : $dsondage->titre", "\"$data->nom\""."" . _("has filled a line.\nYou can find your poll at the link") . " :\n\n".getUrlSondage($numsondage)." \n\n" . _("Thanks for your confidence.") . "\n".NOMAPPLICATION,$headers);
 			}
@@ -634,7 +617,7 @@ for ($i = 0; $i < $nbcolonnes; $i++)
 	if (empty($showsumfor)) $showsumfor = 0;
 	if (empty($showsumagainst)) $showsumagainst = 0;
 
-	print '<td class="somme">';
+	print '<td>';
 	if (empty($listofanswers[$i]['format']) || ! in_array($listofanswers[$i]['format'],array('yesno','pourcontre'))) print $showsumfor;
 	if (! empty($listofanswers[$i]['format']) && $listofanswers[$i]['format'] == 'yesno') print $langs->trans("Yes").': '.$showsumfor.'<br>'.$langs->trans("No").': '.$showsumagainst;
 	if (! empty($listofanswers[$i]['format']) && $listofanswers[$i]['format'] == 'pourcontre') print $langs->trans("For").': '.$showsumfor.'<br>'.$langs->trans("Against").': '.$showsumagainst;

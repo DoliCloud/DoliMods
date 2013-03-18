@@ -62,3 +62,4 @@ AddStartHour=Add start hour
 AddEndHour=Add end hour
 votes=vote(s)
 NoCommentYet=No comment yet posted for this poll
+CanEditVotes=Can change vote of others

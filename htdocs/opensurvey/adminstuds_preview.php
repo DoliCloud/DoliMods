@@ -60,26 +60,21 @@ include_once('./bandeaux_local.php');
 
 // Init vars
 $action=GETPOST('action');
-$numsondageadmin = false;
-$numsondage=false;
 $sondage = false;
+$numsondageadmin=GETPOST("sondage");
+$numsondage=substr($numsondageadmin, 0, 16);
+$object=new Opensurveysondage($db);
+$object->fetch(0,$numsondageadmin);
 
-// recuperation du numero de sondage admin (24 car.) dans l'URL
-if (issetAndNoEmpty('sondage', $_GET) && is_string($_GET['sondage']) && strlen($_GET['sondage']) === 24)
-{
-	$numsondageadmin=$_GET["sondage"];
-	//on découpe le résultat pour avoir le numéro de sondage (16 car.)
-	$numsondage=substr($numsondageadmin, 0, 16);
-}
-
-
+// TODO Remove this
 if (preg_match(";[\w\d]{24};i", $numsondageadmin))
 {
 	$sql = 'SELECT * FROM '.MAIN_DB_PREFIX.'opensurvey_sondage WHERE id_sondage_admin = '.$connect->Param('numsondageadmin');
 	$sql = $connect->Prepare($sql);
 	$sondage = $connect->Execute($sql, array($numsondageadmin));
 
-	if ($sondage !== false) {
+	if ($sondage !== false)
+	{
 		$sql = 'SELECT * FROM '.MAIN_DB_PREFIX.'opensurvey_sujet_studs WHERE id_sondage = '.$connect->Param('numsondage');
 		$sql = $connect->Prepare($sql);
 		$sujets = $connect->Execute($sql, array($numsondage));
@@ -102,118 +97,14 @@ if (is_object($user_studs)) $nblignes = $user_studs->RecordCount();
  * Actions
  */
 
-if (GETPOST('annullesuppression'))
-{
-	$action='';
-}
-
-//action si bouton confirmation de suppression est activé
-if (isset($_POST["confirmesuppression"]) || isset($_POST["confirmesuppression_x"]))
-{
-	$nbuser=$user_studs->RecordCount();
-
-	//destruction des données dans la base SQL
-	// requetes SQL qui font le ménage dans la base
-	$sql='DELETE FROM '.MAIN_DB_PREFIX."opensurvey_comments WHERE id_sondage = '".$dsondage->id_sondage."'";
-	dol_syslog("Delete poll sql=".$sql, LOG_DEBUG);
-	$connect->Execute($sql);
-	$sql='DELETE FROM '.MAIN_DB_PREFIX."opensurvey_sujet_studs WHERE id_sondage = '".$dsondage->id_sondage."'";
-	dol_syslog("Delete poll sql=".$sql, LOG_DEBUG);
-	$connect->Execute($sql);
-	$sql='DELETE FROM '.MAIN_DB_PREFIX."opensurvey_user_studs WHERE id_sondage = '".$dsondage->id_sondage."'";
-	dol_syslog("Delete poll sql=".$sql, LOG_DEBUG);
-	$connect->Execute($sql);
-	$sql='DELETE FROM '.MAIN_DB_PREFIX."opensurvey_sondage WHERE id_sondage = '".$dsondage->id_sondage."'";
-	dol_syslog("Delete poll sql=".$sql, LOG_DEBUG);
-	$connect->Execute($sql);
-
-	header('Location: '.dol_buildpath('/opensurvey/list.php',1));
-	exit();
-}
-
-if (isset($_POST["boutonnouveautitre"]) || isset($_POST["boutonnouveautitre_x"])) {
-	if(issetAndNoEmpty('nouveautitre') === false) {
-		$err |= TITLE_EMPTY;
-	} else {
-		//modification de la base SQL avec le nouveau titre
-		$nouveautitre = htmlentities(html_entity_decode($_POST['nouveautitre'], ENT_QUOTES, 'UTF-8'), ENT_QUOTES, 'UTF-8');
-		$sql = 'UPDATE '.MAIN_DB_PREFIX.'opensurvey_sondage SET titre = '.$connect->Param('nouveautitre').' WHERE id_sondage = '.$connect->Param('numsondage');
-		$sql = $connect->Prepare($sql);
-
-		$connect->Execute($sql, array($nouveautitre, $numsondage));
-	}
-}
-
-// si le bouton est activé, quelque soit la valeur du champ textarea
-if (isset($_POST["boutonnouveauxcommentaires"]) || isset($_POST["boutonnouveauxcommentaires_x"])) {
-	if(issetAndNoEmpty('nouveautitre') === false) {
-		$err |= COMMENT_EMPTY;
-	} else {
-		$commentaires = htmlentities(html_entity_decode($_POST['nouveauxcommentaires'], ENT_QUOTES, 'UTF-8'), ENT_QUOTES, 'UTF-8');
-
-		//modification de la base SQL avec les nouveaux commentaires
-		$sql = 'UPDATE '.MAIN_DB_PREFIX.'opensurvey_sondage SET commentaires = '.$connect->Param('commentaires').' WHERE id_sondage = '.$connect->Param('numsondage');
-		$sql = $connect->Prepare($sql);
-
-		$connect->Execute($sql, array($commentaires, $numsondage));
-	}
-}
-
-//si la valeur de la nouvelle adresse est valide et que le bouton est activé
-if (isset($_POST["boutonnouvelleadresse"]) || isset($_POST["boutonnouvelleadresse_x"])) {
-	if(issetAndNoEmpty('nouvelleadresse') === false || validateEmail($_POST["nouvelleadresse"]) === false) {
-		$err |= INVALID_EMAIL;
-	} else {
-		$nouvelleadresse = htmlentities(html_entity_decode($_POST['nouvelleadresse'], ENT_QUOTES, 'UTF-8'), ENT_QUOTES, 'UTF-8');
-
-		//modification de la base SQL avec la nouvelle adresse
-		$sql = 'UPDATE '.MAIN_DB_PREFIX.'opensurvey_sondage SET mail_admin = '.$connect->Param('nouvelleadresse').' WHERE id_sondage = '.$connect->Param('numsondage');
-		$sql = $connect->Prepare($sql);
-
-		$connect->Execute($sql, array($nouvelleadresse, $numsondage));
-	}
-}
-
-
-// quand on ajoute un commentaire utilisateur
-if (isset($_POST['ajoutcomment']) || isset($_POST['ajoutcomment_x']))
-{
-	if(issetAndNoEmpty('commentuser') === false) {
-		$err |= COMMENT_USER_EMPTY;
-	} else {
-		$comment_user = htmlentities(html_entity_decode($_POST["commentuser"], ENT_QUOTES, 'UTF-8'), ENT_QUOTES, 'UTF-8');
-	}
-
-	if(issetAndNoEmpty('comment') === false) {
-		$err |= COMMENT_EMPTY;
-	}
-
-	if (issetAndNoEmpty('comment') && !is_error(COMMENT_EMPTY) && !is_error(NO_POLL) && !is_error(COMMENT_USER_EMPTY)) {
-		$comment = htmlentities(html_entity_decode($_POST["comment"], ENT_QUOTES, 'UTF-8'), ENT_QUOTES, 'UTF-8');
-
-		$sql = 'INSERT INTO '.MAIN_DB_PREFIX.'opensurvey_comments (id_sondage, comment, usercomment) VALUES ('.
-			$connect->Param('id_sondage').','.
-			$connect->Param('comment').','.
-			$connect->Param('comment_user').')';
-		$sql = $connect->Prepare($sql);
-
-		$comments = $connect->Execute($sql, array($numsondage, $comment, $comment_user));
-		if ($comments === false) {
-			$err |= COMMENT_INSERT_FAILED;
-		}
-	}
-}
-
-
 // Add vote
 if (isset($_POST["boutonp"]) || isset($_POST["boutonp_x"]))
 {
-	//si on a un nom dans la case texte
 	if (issetAndNoEmpty('nom'))
 	{
-		$nouveauchoix = '';
 		$erreur_prenom = false;
 
+		$nouveauchoix = '';
 		for ($i=0;$i<$nbcolonnes;$i++)
 		{
 			if (isset($_POST["choix$i"]) && $_POST["choix$i"] == '1')
@@ -250,22 +141,6 @@ if (isset($_POST["boutonp"]) || isset($_POST["boutonp_x"]))
 		}
 	}
 }
-
-
-//action quand on ajoute une colonne au format AUTRE
-if (isset($_POST["ajoutercolonne"]) && issetAndNoEmpty('nouvellecolonne') && ($dsondage->format == "A" || $dsondage->format == "A+")) {
-	$nouveauxsujets=$dsujet->sujet;
-
-	//on rajoute la valeur a la fin de tous les sujets deja entrés
-	$nouveauxsujets.=',';
-	$nouveauxsujets.=str_replace(array(",","@"), " ", $_POST["nouvellecolonne"]).(empty($_POST["typecolonne"])?'':'@'.$_POST["typecolonne"]);
-
-	//mise a jour avec les nouveaux sujets dans la base
-	$sql = 'UPDATE '.MAIN_DB_PREFIX.'opensurvey_sujet_studs SET sujet = '.$connect->Param('nouveauxsujets').' WHERE id_sondage = '.$connect->Param('numsondage');
-	$sql = $connect->Prepare($sql);
-	$connect->Execute($sql, array($nouveauxsujets, $numsondage));
-}
-
 
 // Update vote
 $testmodifier = false;
@@ -310,13 +185,26 @@ if ($testmodifier)
 	{
 		if ($compteur==$modifier)
 		{
-			$sql = 'UPDATE '.MAIN_DB_PREFIX.'opensurvey_user_studs SET reponses = '.$connect->Param('reponses').' WHERE nom = '.$connect->Param('nom').' AND id_users = '.$connect->Param('id_users');
-			$sql = $connect->Prepare($sql);
-			$connect->Execute($sql, array($nouveauchoix, $data->nom, $data->id_users));
+			$sql = 'UPDATE '.MAIN_DB_PREFIX."opensurvey_user_studs SET reponses = '".$db->escape($nouveauchoix)."' WHERE nom = '".$db->escape($data->nom)."' AND id_users = '".$db->escape($data->id_users)."'";
+			$sql = $db->query($resql);
 		}
 
 		$compteur++;
 	}
+}
+
+//action quand on ajoute une colonne au format AUTRE
+if (isset($_POST["ajoutercolonne"]) && issetAndNoEmpty('nouvellecolonne') && ($dsondage->format == "A" || $dsondage->format == "A+"))
+{
+	$nouveauxsujets=$dsujet->sujet;
+
+	//on rajoute la valeur a la fin de tous les sujets deja entrés
+	$nouveauxsujets.=',';
+	$nouveauxsujets.=str_replace(array(",","@"), " ", $_POST["nouvellecolonne"]).(empty($_POST["typecolonne"])?'':'@'.$_POST["typecolonne"]);
+
+	//mise a jour avec les nouveaux sujets dans la base
+	$sql = 'UPDATE '.MAIN_DB_PREFIX."opensurvey_sujet_studs SET sujet = '".$db->escape($nouveauxsujets)."' WHERE id_sondage = '".$db->escape($numsondage)."'";
+	$resql = $db->query($sql);
 }
 
 // Add column with format DATE
@@ -625,7 +513,8 @@ $dsondage=$sondage->FetchObject(false);
 if (GETPOST('ajoutsujet'))
 {
 	//on recupere les données et les sujets du sondage
-	print '<form name="formulaire" action="'.getUrlSondage($numsondageadmin, true).'" method="POST" onkeypress="javascript:process_keypress(event)">'."\n";
+	print '<form name="formulaire" action="'.$_SERVER["PHP_SELF"].'" method="POST">'."\n";
+	print '<input type="hidden" name="sondage" value="'.$numsondageadmin.'">';
 	print '<input type="hidden" name="backtourl" value="'.GETPOST('backtourl').'">';
 
 	print '<div class="center">'."\n";
@@ -756,7 +645,9 @@ $dsondage=$sondage->FetchObject(false);
 
 $nbcolonnes=substr_count($dsujet->sujet,',')+1;
 
-print '<form name="formulaire" action="'.getUrlSondage($numsondageadmin, true).'" method="POST" onkeypress="javascript:process_keypress(event)">'."\n";
+print '<form name="formulaire" action="'.$_SERVER["PHP_SELF"].'" method="POST">'."\n";
+print '<input type="hidden" name="sondage" value="'.$numsondageadmin.'">';
+
 print '<div class="cadre"> '."\n";
 print '<br>'."\n";
 

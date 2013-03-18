@@ -106,8 +106,26 @@ function ajouter_sondage($origin)
 	$resql=$db->query($sql);
 
 	if ($origin == 'dolibarr') $urlback=dol_buildpath('/opensurvey/adminstuds_preview.php',1).'?sondage='.$sondage_admin;
-	else $urlback=getUrlSondage($sondage);
-	//var_dump($urlback);exit;
+	else
+	{
+		// Define $urlwithroot
+		$urlwithouturlroot=preg_replace('/'.preg_quote(DOL_URL_ROOT,'/').'$/i','',trim($dolibarr_main_url_root));
+		$urlwithroot=$urlwithouturlroot.DOL_URL_ROOT;		// This is to use external domain name found into config file
+		//$urlwithroot=DOL_MAIN_URL_ROOT;					// This is to use same domain name than current
+
+		$url=$urlwithouturlroot.dol_buildpath('/opensurvey/public/studs.php',1).'?sondage='.$sondage;
+
+		$urlback=$url;
+
+		//var_dump($urlback);exit;
+	}
+
+	unset($_SESSION["titre"]);
+	unset($_SESSION["nom"]);
+	unset($_SESSION["adresse"]);
+	unset($_SESSION["commentaires"]);
+	unset($_SESSION["studsplus"]);
+	unset($_SESSION["mailsonde"]);
 
 	header("Location: ".$urlback);
 	exit();
