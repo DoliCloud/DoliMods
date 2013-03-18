@@ -451,7 +451,7 @@ $head[0][1] = $langs->trans("Card");
 $head[0][2] = 'general';
 $h++;
 
-$head[1][0] = '';
+$head[1][0] = 'adminstuds_preview.php?sondage='.$object->id_sondage_admin;
 $head[1][1] = $langs->trans("SurveyResults").'/'.$langs->trans("Preview");
 $head[1][2] = 'preview';
 $h++;
