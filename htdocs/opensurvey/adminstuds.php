@@ -98,11 +98,13 @@ $nblignes = $user_studs->RecordCount();
 
 $object=new Opensurveysondage($db);
 
+$expiredate=dol_mktime(0, 0, 0, GETPOST('expiremonth'), GETPOST('expireday'), GETPOST('expireyear'));
 
 
 /*
  * Actions
  */
+
 
 // Delete
 if ($action == 'delete_confirm')
@@ -113,46 +115,35 @@ if ($action == 'delete_confirm')
 	exit();
 }
 
-if (isset($_POST["boutonnouveautitre"]) || isset($_POST["boutonnouveautitre_x"])) {
-	if(issetAndNoEmpty('nouveautitre') === false) {
-		$err |= TITLE_EMPTY;
-	} else {
-		//modification de la base SQL avec le nouveau titre
-		$nouveautitre = GETPOST('nouveautitre');
-		$sql = 'UPDATE '.MAIN_DB_PREFIX."opensurvey_sondage SET titre = '".$db->escape($nouveautitre)."' WHERE id_sondage = '".$db->escape($numsondage)."'";
-		dol_syslog($sql);
-		$resql = $db->query($sql);
-		if ($resql < 0) dol_print_error($db,'');
+if ($action == 'update')
+{
+	$error=0;
+
+	if (! GETPOST('nouveautitre'))
+	{
+		setEventMessage($langs->trans("ErrorFieldRequired",$langs->transnoentitiesnoconv("Title")));
+		$error++;
 	}
-}
 
-// si le bouton est activé, quelque soit la valeur du champ textarea
-if (isset($_POST["boutonnouveauxcommentaires"]) || isset($_POST["boutonnouveauxcommentaires_x"])) {
-	if(issetAndNoEmpty('nouveautitre') === false) {
-		$err |= COMMENT_EMPTY;
-	} else {
-		$commentaires = GETPOST('nouveauxcommentaires');
-
-		//modification de la base SQL avec les nouveaux commentaires
-		$sql = 'UPDATE '.MAIN_DB_PREFIX.'opensurvey_sondage SET commentaires = '.$connect->Param('commentaires').' WHERE id_sondage = '.$connect->Param('numsondage');
-		$sql = $connect->Prepare($sql);
-
-		$connect->Execute($sql, array($commentaires, $numsondage));
+	if (! $error)
+	{
+		$res=$object->fetch(0,$numsondageadmin);
+		if ($res < 0) dol_print_error($db,$object->error);
 	}
-}
 
-//si la valeur de la nouvelle adresse est valide et que le bouton est activé
-if (isset($_POST["boutonnouvelleadresse"]) || isset($_POST["boutonnouvelleadresse_x"])) {
-	if(issetAndNoEmpty('nouvelleadresse') === false || validateEmail($_POST["nouvelleadresse"]) === false) {
-		$err |= INVALID_EMAIL;
-	} else {
-		$nouvelleadresse = GETPOST('nouvelleadresse');
+	if (! $error)
+	{
+		$object->titre = GETPOST('nouveautitre');
+		$object->commentaires = GETPOST('nouveauxcommentaires');
+		$object->mail_admin = GETPOST('nouvelleadresse');
+		$object->date_fin = $expiredate;
 
-		//modification de la base SQL avec la nouvelle adresse
-		$sql = 'UPDATE '.MAIN_DB_PREFIX.'opensurvey_sondage SET mail_admin = '.$connect->Param('nouvelleadresse').' WHERE id_sondage = '.$connect->Param('numsondage');
-		$sql = $connect->Prepare($sql);
-
-		$connect->Execute($sql, array($nouvelleadresse, $numsondage));
+		$res=$object->update($user);
+		if ($res < 0)
+		{
+			setEventMessage($object->error,'errors');
+			$action='edit';
+		}
 	}
 }
 
@@ -461,7 +452,7 @@ $toutsujet=str_replace("@","<br>",$toutsujet);
 $toutsujet=str_replace("°","'",$toutsujet);
 
 
-print '<form name="formulaire4" action="'.$_SERVER["PHP_SELF"].'?sondage='.$numsondageadmin.'" method="POST">'."\n";
+print '<form name="updatesurvey" action="'.$_SERVER["PHP_SELF"].'?action=update&sondage='.$numsondageadmin.'" method="POST">'."\n";
 
 $head = array();
 
@@ -501,12 +492,12 @@ $adresseadmin=$dsondage->mail_admin;
 print $langs->trans("Title") .'</td><td colspan="2">';
 if ($action == 'edit')
 {
-print '<input type="text" name="nouveautitre" size="40" value="'.dol_escape_htmltag($object->titre).'">';
-	print '<input type="submit" class="button" name="boutonnouveautitre" value="'.dol_escape_htmltag($langs->trans("Save")).'">'."\n";
+	print '<input type="text" name="nouveautitre" size="40" value="'.dol_escape_htmltag($object->titre).'">';
 }
 else print $object->titre;
 //si la valeur du nouveau titre est invalide : message d'erreur
-if ((isset($_POST["boutonnouveautitre"]) || isset($_POST["boutonnouveautitre_x"])) && !issetAndNoEmpty('nouveautitre')) {
+if ((isset($_POST["boutonnouveautitre"]) || isset($_POST["boutonnouveautitre_x"])) && !issetAndNoEmpty('nouveautitre'))
+{
 	print '<font color="#FF0000">'. $langs->trans("ErrorFieldRequired").'</font><br>'."\n";
 }
 print '</td></tr>';
@@ -521,7 +512,7 @@ print '</td></tr>';
 print '<tr><td>'.$langs->trans("Description") .'</td><td colspan="2">';
 if ($action == 'edit')
 {
-print '<textarea name="nouveauxcommentaires" rows="7" cols="80">'.$object->commentaires.'</textarea><br><input type="submit" class="button" name="boutonnouveauxcommentaires" value="'.dol_escape_htmltag($langs->trans("Save")).'">'."\n";
+	print '<textarea name="nouveauxcommentaires" rows="7" cols="80">'.$object->commentaires.'</textarea>'."\n";
 }
 else print dol_nl2br($object->commentaires);
 print '</td></tr>';
@@ -530,7 +521,7 @@ print '</td></tr>';
 print '<tr><td>'.$langs->trans("EMail") .'</td><td colspan="2">';
 if ($action == 'edit')
 {
-	print '<input type="text" name="nouvelleadresse" size="40" value="'.$object->mail_admin.'"> <input type="submit" class="button" name="boutonnouvelleadresse" value="'.dol_escape_htmltag($langs->trans("Save")).'">';
+	print '<input type="text" name="nouvelleadresse" size="40" value="'.$object->mail_admin.'">';
 }
 else print dol_print_email($object->mail_admin);
 //si l'adresse est invalide ou le champ vide : message d'erreur
@@ -541,6 +532,12 @@ print '</td></tr>';
 
 // Can edit other votes
 print '<tr><td>'.$langs->trans('CanEditVotes').'</td><td colspan="2">'.yn(preg_match('/\+/',$object->format)).'</td></tr>';
+
+// Expire date
+print '<tr><td>'.$langs->trans('ExpireDate').'</td><td colspan="2">';
+if ($action == 'edit') print $form->select_date($expiredate?$expiredate:$object->date_fin,'expire');
+else print dol_print_date($object->date_fin,'day');
+print '</td></tr>';
 
 
 // Link
@@ -557,6 +554,8 @@ print $urlvcal;
 
 print '</table>';
 
+if ($action == 'edit') print '<center><br><input type="submit" class="button" name="save" value="'.dol_escape_htmltag($langs->trans("Save")).'"></center>';
+
 print '</form>'."\n";
 
 dol_fiche_end();
@@ -567,10 +566,9 @@ dol_fiche_end();
  */
 print '<div class="tabsAction">';
 
-print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?action=edit&sondage=' . $numsondageadmin . '">'.$langs->trans("Modify") . '</a>';
+if ($action != 'edit') print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?action=edit&sondage=' . $numsondageadmin . '">'.$langs->trans("Modify") . '</a>';
 
-print '<a class="butActionDelete" href="'.$_SERVER["PHP_SELF"].'?suppressionsondage=1&sondage='.$numsondageadmin.'&amp;action=delete"';
-print '>'.$langs->trans('Delete').'</a>';
+if ($action != 'edit') print '<a class="butActionDelete" href="'.$_SERVER["PHP_SELF"].'?suppressionsondage=1&sondage='.$numsondageadmin.'&amp;action=delete">'.$langs->trans('Delete').'</a>';
 
 print '</div>';
 

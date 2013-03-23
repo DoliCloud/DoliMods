@@ -209,7 +209,7 @@ class Opensurveysondage extends CommonObject
             {
                 $obj = $this->db->fetch_object($resql);
 
-                $this->id  = $obj->rowid;
+                //$this->id  = $obj->rowid;
 				$this->ref = $obj->id_sondage_admin;
 
 				$this->id_sondage = $obj->id_sondage;
@@ -272,18 +272,19 @@ class Opensurveysondage extends CommonObject
         // Update request
         $sql = "UPDATE ".MAIN_DB_PREFIX."opensurvey_sondage SET";
 
-		$sql.= " id_sondage=".(isset($this->id_sondage)?$this->id_sondage:"null").",";
+		$sql.= " id_sondage='".(isset($this->id_sondage)?$this->id_sondage:"null")."',";
 		$sql.= " commentaires=".(isset($this->commentaires)?"'".$this->db->escape($this->commentaires)."'":"null").",";
 		$sql.= " mail_admin=".(isset($this->mail_admin)?"'".$this->db->escape($this->mail_admin)."'":"null").",";
 		$sql.= " nom_admin=".(isset($this->nom_admin)?"'".$this->db->escape($this->nom_admin)."'":"null").",";
 		$sql.= " titre=".(isset($this->titre)?"'".$this->db->escape($this->titre)."'":"null").",";
-		$sql.= " id_sondage_admin=".(isset($this->id_sondage_admin)?$this->id_sondage_admin:"null").",";
+		$sql.= " id_sondage_admin='".(isset($this->id_sondage_admin)?$this->id_sondage_admin:"null")."',";
 		$sql.= " date_fin=".(dol_strlen($this->date_fin)!=0 ? "'".$this->db->idate($this->date_fin)."'" : 'null').",";
 		$sql.= " format=".(isset($this->format)?"'".$this->db->escape($this->format)."'":"null").",";
 		$sql.= " mailsonde=".(isset($this->mailsonde)?$this->mailsonde:"null").",";
 		$sql.= " survey_link_visible=".(isset($this->survey_link_visible)?$this->survey_link_visible:"null")."";
 
-        $sql.= " WHERE rowid=".$this->id;
+        //$sql.= " WHERE rowid=".$this->id;
+		$sql.= " WHERE id_sondage_admin='".$this->id_sondage_admin."'";
 
 		$this->db->begin();
 
