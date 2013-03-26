@@ -1,0 +1,17 @@
+# Dolibarr language file - fr_FR - ventilation
+CHARSET=UTF-8
+
+Module61000Name= Ventilation
+Module61000Desc= Gestion des ventilations et des marges
+
+CustomersVentilation=Ventilation clients
+SuppliersVentilation=Ventilation fournisseurs
+TradeMargin=Marge commerciale
+ByCustomerInvoice=Par factures clients
+ByMonth=Par mois
+Account=Compte comptable
+NewAccount=Nouveau Compte comptable
+update=Mettre a jour
+list=liste
+create=creer
+UpdateAccount=Modification d'un compte

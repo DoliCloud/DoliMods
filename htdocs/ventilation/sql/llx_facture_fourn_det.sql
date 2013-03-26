@@ -1,0 +1,1 @@
+ALTER TABLE `llx_facture_fourn_det` add column fk_code_ventilation int(11) NOT NULL DEFAULT 0;
