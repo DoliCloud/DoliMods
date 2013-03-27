@@ -69,8 +69,6 @@ Town=Població
 Web=Web
 Poste=Lloc
 DefaultLang=Idioma per defecte
-VATIsUsed=Subjecte a IVA
-VATIsNotUsed=No subjecte a IVA
 ##### Local Taxes #####==
 LocalTax1IsUsedES=Subjecte a RE
 LocalTax1IsNotUsedES=No subjecte a RE

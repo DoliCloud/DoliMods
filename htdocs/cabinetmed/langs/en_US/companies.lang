@@ -30,7 +30,6 @@ PatientToCreateContactWithSameName=Create automatically a contact card with pati
 ReportByCustomers=Report by patient
 ParentCompany=Son or daugther of
 PostOrFunction=Speciality
-VATIsUsed=Has a social assurance
 WrongCustomerCode=Incorrect patient code
 CustomerCodeModel=Template of patient code
 ProfId1Short=Size
