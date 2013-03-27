@@ -32,6 +32,14 @@ include_once('./fonctions.php');
 $action=GETPOST('action');
 $id=GETPOST('id');
 
+if (! $sortorder) $sortorder="ASC";
+if (! $sortfield) $sortfield="p.titre";
+if ($page < 0) {
+	$page = 0;
+}
+$limit = $conf->liste_limit;
+$offset = $limit * $page;
+
 
 /*
  * Actions
@@ -39,6 +47,8 @@ $id=GETPOST('id');
 
 if ($action == 'delete_confirm')
 {
+	$db->begin();
+
 	$sql='DELETE FROM '.MAIN_DB_PREFIX."opensurvey_comments WHERE id_sondage_admin = '".$id."'";
 	dol_syslog("Delete poll sql=".$sql, LOG_DEBUG);
 	$resql=$db->query($sql);
@@ -51,6 +61,8 @@ if ($action == 'delete_confirm')
 	$sql='DELETE FROM '.MAIN_DB_PREFIX."opensurvey_sondage WHERE id_sondage_admin = '".$id."'";
 	dol_syslog("Delete poll sql=".$sql, LOG_DEBUG);
 	$resql=$db->query($sql);
+
+	$db->commit();
 }
 
 
@@ -63,8 +75,6 @@ $form=new Form($db);
 
 $langs->load("opensurvey@opensurvey");
 llxHeader();
-
-$sondage=$connect->Execute('select * from '.MAIN_DB_PREFIX.'opensurvey_sondage');
 
 print '<div class=corps>'."\n";
 
@@ -81,34 +91,51 @@ if ($action == 'delete')
 print '<table class="liste">'."\n";
 print '<tr class="liste_titre"><td>'. $langs->trans("Survey").'</td><td>'. $langs->trans("Type") .'</td><td>'. $langs->trans("Title") .'</td><td>'. $langs->trans("Author") .'</td><td align="center">'. $langs->trans("ExpireDate") .'</td><td align="center">'. $langs->trans("NbOfVoters") .'</td><td colspan=2>&nbsp;</td>'."\n";
 
-$sondage=$connect->Execute('select * from '.MAIN_DB_PREFIX.'opensurvey_sondage');
+$sql = "SELECT id_sondage, id_sondage_admin, mail_admin, format, origin, date_fin, titre, nom_admin";
+$sql.= " FROM ".MAIN_DB_PREFIX."opensurvey_sondage as p";
+// Count total nb of records
+$nbtotalofrecords = 0;
+if (empty($conf->global->MAIN_DISABLE_FULL_SCANLIST))
+{
+	$result = $db->query($sql);
+	$nbtotalofrecords = $db->num_rows($result);
+}
+$sql.= " ORDER BY $sortfield $sortorder ";
+$sql.= " ".$db->plimit($conf->liste_limit+1, $offset);
+
+$resql=$db->query($sql);
+if (! $resql) dol_print_error($db);
+
+$num=$db->num_rows($resql);
 
 $i = 0; $var = true;
-while($dsondage = $sondage->FetchNextObject(false))
+while ($i < min($num,$limit))
 {
+	$obj=$db->fetch_object($resql);
+
 	/* possible en 1 bonne requête dans $sondage */
-	$sujets=$connect->Execute( 'select * from '.MAIN_DB_PREFIX."opensurvey_sujet_studs where id_sondage='".$dsondage->id_sondage."'");
+	$sujets=$connect->Execute( 'select * from '.MAIN_DB_PREFIX."opensurvey_sujet_studs where id_sondage='".$obj->id_sondage."'");
 	$dsujets=$sujets->FetchObject(false);
 
-	$user_studs=$connect->Execute( 'select * from '.MAIN_DB_PREFIX."opensurvey_user_studs where id_sondage='".$dsondage->id_sondage."'");
+	$user_studs=$connect->Execute( 'select * from '.MAIN_DB_PREFIX."opensurvey_user_studs where id_sondage='".$obj->id_sondage."'");
 	$nbuser=$user_studs->RecordCount();
 
 	$var=!$var;
 	print '<tr '.$bc[$var].'>';
 	print '<td>';
-	print '<a href="'.dol_buildpath('/opensurvey/adminstuds.php',1).'?sondage='.$dsondage->id_sondage_admin.'">'.img_picto('','object_opensurvey@opensurvey').' '.$dsondage->id_sondage.'</a>';
+	print '<a href="'.dol_buildpath('/opensurvey/adminstuds.php',1).'?sondage='.$obj->id_sondage_admin.'">'.img_picto('','object_opensurvey@opensurvey').' '.$obj->id_sondage.'</a>';
 	print '</td><td>';
-	$type=($dsondage->format=='A' || $dsondage->format=='A+')?'classic':'date';
+	$type=($obj->format=='A' || $obj->format=='A+')?'classic':'date';
 	print img_picto('',dol_buildpath('/opensurvey/img/'.($type == 'classic'?'chart-32.png':'calendar-32.png'),1),'width="16"',1);
 	print ' '.$langs->trans($type=='classic'?"TypeClassic":"TypeDate");
-	print '</td><td>'.$dsondage->titre.'</td><td>'.$dsondage->nom_admin.'</td>';
+	print '</td><td>'.$obj->titre.'</td><td>'.$obj->nom_admin.'</td>';
 
-	print '<td align="center">'.dol_print_date($db->jdate($dsondage->date_fin),'day');
-	if (strtotime($dsondage->date_fin) < time()) { print ' '.img_warning(); }
+	print '<td align="center">'.dol_print_date($db->jdate($obj->date_fin),'day');
+	if ($db->jdate($obj->date_fin) < time()) { print ' '.img_warning(); }
 	print '</td>';
 
 	print'<td align="center">'.$nbuser.'</td>'."\n";
-	print '<td align="right"><a href="'.$_SERVER["PHP_SELF"].'?id='.$dsondage->id_sondage_admin.'&action=delete">'.img_picto('', 'delete.png').'</a></td>'."\n";
+	print '<td align="right"><a href="'.$_SERVER["PHP_SELF"].'?id='.$obj->id_sondage_admin.'&action=delete">'.img_picto('', 'delete.png').'</a></td>'."\n";
 
 	print '</tr>'."\n";
 	$i++;

@@ -100,7 +100,7 @@ if (is_object($user_studs)) $nblignes = $user_studs->RecordCount();
 // Add vote
 if (isset($_POST["boutonp"]) || isset($_POST["boutonp_x"]))
 {
-	if (issetAndNoEmpty('nom'))
+	if (GETPOST('nom'))
 	{
 		$erreur_prenom = false;
 
@@ -120,24 +120,27 @@ if (isset($_POST["boutonp"]) || isset($_POST["boutonp_x"]))
 			}
 		}
 
-		$nom=substr($_POST["nom"],0,64);
+		$nom=substr(GETPOST("nom"),0,64);
 
-		while ($tmpuser = $user_studs->FetchNextObject(false)) {
-			if ($nom == $tmpuser->nom)
-			{
-				$erreur_prenom="yes";
-			}
+		// Check if vote already exists
+		$sql = 'SELECT id_users, nom FROM '.MAIN_DB_PREFIX."opensurvey_user_studs WHERE id_sondage='".$db->escape($numsondage)."' AND nom = '".$db->escape($nom)."' ORDER BY id_users";
+		$resql = $db->query($sql);
+		$num_rows = $db->num_rows($resql);
+		if ($num_rows > 0)
+		{
+			setEventMessage($langs->trans("VoteNameAlreadyExists"),'errors');
+			$error++;
 		}
+		else
+		{
+			$sql = 'INSERT INTO '.MAIN_DB_PREFIX.'opensurvey_user_studs (nom, id_sondage, reponses)';
+			$sql.= " VALUES ('".$db->escape($nom)."', '".$db->escape($numsondage)."','".$db->escape($nouveauchoix)."')";
+			$resql=$db->query($sql);
 
-		// Ecriture des choix de l'utilisateur dans la base
-		if (!$erreur_prenom) {
-			$sql = 'INSERT INTO '.MAIN_DB_PREFIX.'opensurvey_user_studs (nom, id_sondage, reponses) VALUES ('.
-				$connect->Param('nom').','.
-				$connect->Param('numsondage').','.
-				$connect->Param('nouveauchoix').')';
-			$sql = $connect->Prepare($sql);
-
-			$connect->Execute($sql, array($nom, $numsondage, $nouveauchoix));
+			if ($resql)
+			{
+			}
+			else  dol_print_error($db);
 		}
 	}
 }
@@ -199,7 +202,7 @@ if ($testmodifier)
 }
 
 //action quand on ajoute une colonne au format AUTRE
-if (isset($_POST["ajoutercolonne"]) && issetAndNoEmpty('nouvellecolonne') && ($dsondage->format == "A" || $dsondage->format == "A+"))
+if (GETPOST("ajoutercolonne") && GETPOST('nouvellecolonne') && ($dsondage->format == "A" || $dsondage->format == "A+"))
 {
 	$nouveauxsujets=$dsujet->sujet;
 
@@ -423,7 +426,7 @@ for ($i = 0; $i < $nbcolonnes; $i++)
 $form=new Form($db);
 $object=new OpenSurveySondage($db);
 
-$arrayofjs=array('/opensurvey/block_enter.js');
+$arrayofjs=array();
 $arrayofcss=array('/opensurvey/css/style.css');
 llxHeader('',$dsondage->titre, 0, 0, 0, 0, $arrayofjs, $arrayofcss);
 

@@ -80,16 +80,4 @@ define('BASE_TYPE', $conf->db->type);
 // Langue par défaut de l'application (à choisir dans $ALLOWED_LANGUAGES)
 define('LANGUE', $langs->defaultlang);
 
-// Nom et emplacement du logo
-//define('LOGOBANDEAU', '');
-
-// Nom et emplacement du logo de la lettre générée en PDF
-//define('LOGOLETTRE', '');
-
-// Activation des URL propre (true pour activer, false sinon)
-define('URL_PROPRE', false);
-
-// Studs version
-define('STUDS_VERSION', '0.6.6');
-
 ?>

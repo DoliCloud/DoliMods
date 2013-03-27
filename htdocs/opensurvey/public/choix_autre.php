@@ -92,7 +92,7 @@ if (isset($_POST["confirmecreation"]) || isset($_POST["confirmecreation_x"]))
 	$toutchoix = '';
 	for ($i = 0; $i < $_SESSION["nbrecases"] + 1; $i++)
 	{
-		if (isset($_POST["choix"]) && issetAndNoEmpty($i, $_POST["choix"]))
+		if (isset($_POST["choix"][$i]))
 		{
 			$toutchoix.=',';
 			$toutchoix.=str_replace(array(",","@"), " ", $_POST["choix"][$i]).(empty($_POST["typecolonne"][$i])?'':'@'.$_POST["typecolonne"][$i]);
@@ -102,7 +102,8 @@ if (isset($_POST["confirmecreation"]) || isset($_POST["confirmecreation_x"]))
 	$toutchoix=substr("$toutchoix",1);
 	$_SESSION["toutchoix"]=$toutchoix;
 
-	if (issetAndNoEmpty('champdatefin')) {
+	if (GETPOST('champdatefin'))
+	{
 		$registredate=explode("/",$_POST["champdatefin"]);
 		if (is_array($registredate) === false || count($registredate) !== 3) {
 			$testdate = false;
@@ -143,11 +144,11 @@ if (isset($_POST["confirmecreation"]) || isset($_POST["confirmecreation_x"]))
 
 $form=new Form($db);
 
-$arrayofjs=array('/opensurvey/block_enter.js');
+$arrayofjs=array();
 $arrayofcss=array('/opensurvey/css/style.css');
 llxHeaderSurvey($langs->trans("OpenSurvey"), "", 0, 0, $arrayofjs, $arrayofcss);
 
-if (issetAndNoEmpty('titre', $_SESSION) === false || issetAndNoEmpty('nom', $_SESSION) === false || issetAndNoEmpty('adresse', $_SESSION) === false)
+if (empty($_SESSION['titre']) || empty($_SESSION['nom']) || empty($_SESSION['adresse']))
 {
 	dol_print_error('',"You haven't filled the first section of the poll creation");
 	llxFooterSurvey();
@@ -193,8 +194,10 @@ print '</tr></table>'."\n";
 
 //test de remplissage des cases
 $testremplissage = '';
-for ($i=0;$i<$_SESSION["nbrecases"];$i++) {
-	if (isset($_POST["choix"]) && issetAndNoEmpty($i, $_POST["choix"])) {
+for ($i=0;$i<$_SESSION["nbrecases"];$i++)
+{
+	if (isset($_POST["choix"][$i]))
+	{
 		$testremplissage="ok";
 	}
 }

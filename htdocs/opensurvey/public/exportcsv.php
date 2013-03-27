@@ -49,6 +49,7 @@ if (! $res && file_exists("../../../../../dolibarr/htdocs/main.inc.php")) $res=@
 if (! $res) die("Include of main fails");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/files.lib.php");
+dol_include_once("/opensurvey/class/opensurveysondage.class.php");
 
 include_once('../fonctions.php');
 include_once('../bandeaux_local.php');
@@ -59,29 +60,30 @@ include_once('../bandeaux_local.php');
  * Actions
 */
 
-if(!isset($_GET['numsondage']) || ! preg_match(";^[\w\d]{16}$;i", $_GET['numsondage'])) {
+if(!isset($_GET['numsondage']) || ! preg_match(";^[\w\d]{16}$;i", $_GET['numsondage']))
+{
 	header('Location: studs.php');
+	exit;
 }
 
 
 /*
  * View
-*/
+ */
 
 $now=dol_now();
 
-$user_studs=$connect->Execute('SELECT * FROM '.MAIN_DB_PREFIX."opensurvey_user_studs WHERE id_sondage='" . $_GET['numsondage'] . "' ORDER BY id_users");
+$object=new Opensurveysondage($db);
+$object->fetch(0,GETPOST('numsondage'));
 
-$dsondage = get_sondage_from_id($_GET['numsondage']);
-$nbcolonnes=substr_count($dsondage->sujet,',')+1;
-
-$toutsujet=explode(",",$dsondage->sujet);
+$nbcolonnes=substr_count($object->sujet,',')+1;
+$toutsujet=explode(",",$object->sujet);
 #$toutsujet=str_replace("°","'",$toutsujet);
 
-//affichage des sujets du sondage
+// affichage des sujets du sondage
 $input.=";";
 for ($i=0;$toutsujet[$i];$i++) {
-	if ($dsondage->format=="D"||$dsondage->format=="D+") {
+	if ($object->format=="D"||$object->format=="D+") {
 		$input.=''.dol_print_date($toutsujet[$i],'dayhour').';';
 	} else {
 		$input.=''.$toutsujet[$i].';';
@@ -90,7 +92,7 @@ for ($i=0;$toutsujet[$i];$i++) {
 
 $input.="\r\n";
 
-if (strpos($dsondage->sujet,'@') !== false) {
+if (strpos($object->sujet,'@') !== false) {
 	$input.=";";
 	for ($i=0;$toutsujet[$i];$i++) {
 		$heures=explode("@",$toutsujet[$i]);
@@ -100,26 +102,47 @@ if (strpos($dsondage->sujet,'@') !== false) {
 	$input.="\r\n";
 }
 
-while (	$data=$user_studs->FetchNextObject(false))
-{
-	// Le nom de l'utilisateur
-	$nombase=str_replace("°","'",$data->nom);
-	$input.=$nombase.';';
-	//affichage des resultats
-	$ensemblereponses=$data->reponses;
-	for ($k=0;$k<$nbcolonnes;$k++)
-	{
-		$car=substr($ensemblereponses,$k,1);
-		if ($car=="1") {
-			$input.='OK;';
-			$somme[$k]++;
-		} else {
-			$input.=';';
-		}
-	}
 
-	$input.="\r\n";
+$sql='SELECT nom, reponses FROM '.MAIN_DB_PREFIX."opensurvey_user_studs WHERE id_sondage='" . $_GET['numsondage'] . "' ORDER BY id_users";
+$resql=$db->query($sql);
+if ($resql)
+{
+	$num=$db->num_rows($resql);
+	$i=0;
+	while ($i < $num)
+	{
+		$obj=$db->fetch_object($resql);
+
+		// Le nom de l'utilisateur
+		$nombase=str_replace("°","'",$obj->nom);
+		$input.=$nombase.';';
+
+		//affichage des resultats
+		$ensemblereponses=$obj->reponses;
+		for ($k=0;$k<$nbcolonnes;$k++)
+		{
+			$car=substr($ensemblereponses,$k,1);
+			if ($car=="1")
+			{
+				$input.='OK;';
+				$somme[$k]++;
+			}
+			else if ($car=="2")
+			{
+				$input.='KO;';
+				$somme[$k]++;
+			}
+			else
+			{
+				$input.=';';
+			}
+		}
+
+		$input.="\r\n";
+		$i++;
+	}
 }
+
 
 $filesize = strlen( $input );
 $filename=$_GET["numsondage"]."_".dol_print_date($now,'%Y%m%d%H%M').".csv";

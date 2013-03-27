@@ -68,10 +68,9 @@ foreach ($post_var as $var)
 
 // On initialise egalement la session car sinon bonjour les warning :-)
 $session_var = array('titre', 'nom', 'adresse', 'commentaires', 'mailsonde', 'studsplus', );
-foreach ($session_var as $var) {
-  if (issetAndNoEmpty($var, $_SESSION) === false) {
-    $_SESSION[$var] = null;
-  }
+foreach ($session_var as $var)
+{
+	if (isset($_SESSION[$var])) $_SESSION[$var] = null;
 }
 
 // On initialise également les autres variables
@@ -82,8 +81,8 @@ $erreur_injection_commentaires = false;
 $cocheplus = '';
 $cochemail = '';
 
-#tests
-if (issetAndNoEmpty("creation_sondage_date") || issetAndNoEmpty("creation_sondage_autre") || issetAndNoEmpty("creation_sondage_date_x") || issetAndNoEmpty("creation_sondage_autre_x"))
+// Jump to correct page
+if (GETPOST("creation_sondage_date") || GETPOST("creation_sondage_autre") || GETPOST("creation_sondage_date_x") || GETPOST("creation_sondage_autre_x"))
 {
 	$_SESSION["titre"] = $titre;
 	$_SESSION["nom"] = $nom;
@@ -164,7 +163,8 @@ print '<br>'. $langs->trans("YouAreInPollCreateArea") .'<br><br>'."\n";
 print '<table>'."\n";
 
 print '<tr><td class="fieldrequired">'. $langs->trans("PollTitle") .'</td><td><input type="text" name="titre" size="40" maxlength="80" value="'.$_SESSION["titre"].'"></td>'."\n";
-if (!$_SESSION["titre"] && (issetAndNoEmpty('creation_sondage_date') || issetAndNoEmpty('creation_sondage_autre') || issetAndNoEmpty('creation_sondage_date_x') || issetAndNoEmpty('creation_sondage_autre_x'))) {
+if (! $_SESSION["titre"] && (GETPOST('creation_sondage_date') || GETPOST('creation_sondage_autre') || GETPOST('creation_sondage_date_x') || GETPOST('creation_sondage_autre_x')))
+{
   print "<td><font color=\"#FF0000\">" . $langs->trans("FieldMandatory") . "</font></td>"."\n";
 } elseif ($erreur_injection_titre) {
   print "<td><font color=\"#FF0000\">" . _("Characters < > and \" are not permitted") . "</font></td><br>"."\n";
@@ -182,7 +182,7 @@ print '<tr><td class="fieldrequired">'. $langs->trans("OpenSurveyYourName") .'</
 
 print '<input type="text" name="nom" size="40" maxlength="40" value="'.$_SESSION["nom"].'"></td>'."\n";
 
-if (!$_SESSION["nom"] && (issetAndNoEmpty('creation_sondage_date') || issetAndNoEmpty('creation_sondage_autre') || issetAndNoEmpty('creation_sondage_date_x') || issetAndNoEmpty('creation_sondage_autre_x'))) {
+if (! $_SESSION["nom"] && (GETPOST('creation_sondage_date') || GETPOST('creation_sondage_autre') || GETPOST('creation_sondage_date_x') || GETPOST('creation_sondage_autre_x'))) {
   print "<td><font color=\"#FF0000\">" . $langs->trans("ErrorFieldRequired")  . "</font></td>"."\n";
 } elseif ($erreur_injection_nom) {
   print "<td><font color=\"#FF0000\">" . _("Characters < > and \" are not permitted") . "</font></td><br>"."\n";
@@ -193,9 +193,9 @@ print '<tr><td class="fieldrequired">'.  $langs->trans("OpenSurveyYourEMail")  .
 
 print '<input type="text" name="adresse" size="40" maxlength="64" value="'.$_SESSION["adresse"].'"></td>'."\n";
 
-if (!$_SESSION["adresse"] && (issetAndNoEmpty('creation_sondage_date') || issetAndNoEmpty('creation_sondage_autre') || issetAndNoEmpty('creation_sondage_date_x') || issetAndNoEmpty('creation_sondage_autre_x'))) {
-  print "<td><font color=\"#FF0000\">" .$langs->trans("FieldMandatory")  . " </font></td>"."\n";
-} elseif ($erreur_adresse && (issetAndNoEmpty('creation_sondage_date') || issetAndNoEmpty('creation_sondage_autre') || issetAndNoEmpty('creation_sondage_date_x') || issetAndNoEmpty('creation_sondage_autre_x'))) {
+if (!$_SESSION["adresse"] && (GETPOST('creation_sondage_date') || GETPOST('creation_sondage_autre') || GETPOST('creation_sondage_date_x') || GETPOST('creation_sondage_autre_x'))) {
+  print "<td><font color=\"#FF0000\">" .$langs->trans("ErrorFieldRequired")  . " </font></td>"."\n";
+} elseif ($erreur_adresse && (GETPOST('creation_sondage_date') || GETPOST('creation_sondage_autre') || GETPOST('creation_sondage_date_x') || GETPOST('creation_sondage_autre_x'))) {
   print "<td><font color=\"#FF0000\">" . _("The address is not correct! (You should enter a valid email address in order to receive the link to your poll)") . "</font></td>"."\n";
 }
 

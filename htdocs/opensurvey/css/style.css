@@ -492,12 +492,12 @@ div.titregestionadmin{
 }
 /*les boutons pour choisir un jour non selectionné*/
 .ON {
-    background-color: #66FF99;
+    background-color: #BBBBCC;
 }
 
 /*les boutons pour deselectionner un jour deja choisi*/
 .OFF {
-    background-color: #0077DD;
+    background-color: #AAFFAA;
 }
 
 div.nouveau_sondage a {

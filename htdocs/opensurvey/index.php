@@ -58,6 +58,7 @@ print_fiche_titre($langs->trans("OpenSurveyArea"));
 
 echo $langs->trans("NoSurveysInDatabase",$nbsondages).'<br><br>'."\n";
 
+
 llxFooter();
 
 $db->close();

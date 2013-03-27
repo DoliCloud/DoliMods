@@ -162,18 +162,10 @@ function issetAndNoEmpty($name, $tableau = null)
  */
 function getUrlSondage($id, $admin = false)
 {
-	if (URL_PROPRE === true) {
-		if ($admin === true) {
-			$url = get_server_name().$id.'/admin';
-		} else {
-			$url = get_server_name().$id;
-		}
+	if ($admin === true) {
+		$url = get_server_name().'adminstuds_preview.php?sondage='.$id;
 	} else {
-		if ($admin === true) {
-			$url = get_server_name().'adminstuds_preview.php?sondage='.$id;
-		} else {
-			$url = get_server_name().'/public/studs.php?sondage='.$id;
-		}
+		$url = get_server_name().'/public/studs.php?sondage='.$id;
 	}
 
 	return $url;

@@ -55,6 +55,8 @@ function llxFooterSurvey()
 
 	printCommonFooter('public');
 
+	dol_htmloutput_events();
+
 	print "</body>\n";
 	print "</html>\n";
 }

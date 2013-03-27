@@ -79,48 +79,42 @@ $nbcolonnes = substr_count($dsondage->sujet, ',') + 1;
 $listofvoters=explode(',',$_SESSION["savevoter"]);
 
 // Add comment
-if (isset($_POST['ajoutcomment']) || isset($_POST['ajoutcomment_x']))
+if (GETPOST('ajoutcomment'))
 {
-	if (isset($_SESSION['nom'])) {
-		// Si le nom vient de la session, on le de-htmlentities
-		$comment_user = $_SESSION['nom'];
-	} elseif(issetAndNoEmpty('commentuser')) {
-		$comment_user = $_POST["commentuser"];
-	} elseif(isset($_POST["commentuser"])) {
-		$err |= COMMENT_USER_EMPTY;
-	} else {
-		$comment_user = _('anonyme');
+	$error=0;
+
+	if (! GETPOST('comment'))
+	{
+		$error++;
+		setEventMessage($langs->trans("ErrorFieldRequired",$langs->transnoentitiesnoconv("Comment")),'errors');
+	}
+	if (! GETPOST('commentuser'))
+	{
+		$error++;
+		setEventMessage($langs->trans("ErrorFieldRequired",$langs->transnoentitiesnoconv("User")),'errors');
 	}
 
-	if(issetAndNoEmpty('comment') === false) {
-		$err |= COMMENT_EMPTY;
-	}
+	if (! $error)
+	{
+		$comment = GETPOST("comment");
+		$comment_user = GETPOST('commentuser');
 
-	if (isset($_POST["comment"]) && !is_error(COMMENT_EMPTY) && !is_error(NO_POLL) && !is_error(COMMENT_USER_EMPTY)) {
-		// protection contre les XSS : htmlentities
-		$comment = GETPOST('comment');
-
-		$sql = 'INSERT INTO '.MAIN_DB_PREFIX.'opensurvey_comments (id_sondage, comment, usercomment) VALUES ('.
-			$connect->Param('id_sondage').','.
-			$connect->Param('comment').','.
-			$connect->Param('comment_user').')';
-
-		$sql = $connect->Prepare($sql);
-
-		$comments = $connect->Execute($sql, array($numsondage, $comment, $comment_user));
-
-		if ($comments === false) {
+		$sql = "INSERT INTO ".MAIN_DB_PREFIX."opensurvey_comments (id_sondage, comment, usercomment)";
+		$sql.= " VALUES ('".$db->escape($numsondage)."','".$db->escape($comment)."','".$db->escape($comment_user)."')";
+		$resql = $db->query($sql);
+		dol_syslog("sql=".$sql);
+		if (! $resql)
+		{
 			$err |= COMMENT_INSERT_FAILED;
 		}
 	}
 }
 
-
 // Add vote
 if (isset($_POST["boutonp"]) || isset($_POST["boutonp_x"]))
 {
 	//Si le nom est bien entré
-	if (issetAndNoEmpty('nom'))
+	if (GETPOST('nom'))
 	{
 		$nouveauchoix = '';
 		for ($i=0;$i<$nbcolonnes;$i++)
@@ -140,47 +134,47 @@ if (isset($_POST["boutonp"]) || isset($_POST["boutonp_x"]))
 
 		$nom=substr($_POST["nom"],0,64);
 
-
-		$sql = 'SELECT * FROM '.MAIN_DB_PREFIX.'opensurvey_user_studs WHERE id_sondage='.$connect->Param('numsondage').' ORDER BY id_users';
-		$sql = $connect->Prepare($sql);
-		$user_studs = $connect->Execute($sql, array($numsondage));
-		while($tmpuser = $user_studs->FetchNextObject(false)) {
-			if ($nom == $tmpuser->nom) {
-				$err |= NAME_TAKEN;
-			}
+		// Check if vote already exists
+		$sql = 'SELECT id_users, nom FROM '.MAIN_DB_PREFIX."opensurvey_user_studs WHERE id_sondage='".$db->escape($numsondage)."' AND nom = '".$db->escape($nom)."' ORDER BY id_users";
+		$resql = $db->query($sql);
+		$num_rows = $db->num_rows($resql);
+		if ($num_rows > 0)
+		{
+			setEventMessage($langs->trans("VoteNameAlreadyExists"),'errors');
+			$error++;
 		}
+		else
+		{
+			$sql = 'INSERT INTO '.MAIN_DB_PREFIX.'opensurvey_user_studs (nom, id_sondage, reponses)';
+			$sql.= " VALUES ('".$db->escape($nom)."', '".$db->escape($numsondage)."','".$db->escape($nouveauchoix)."')";
+			$resql=$db->query($sql);
 
-		// Ecriture des choix de l'utilisateur dans la base
-		if (!is_error(NAME_TAKEN) && !is_error(NAME_EMPTY)) {
-			$sql = 'INSERT INTO '.MAIN_DB_PREFIX.'opensurvey_user_studs (nom,id_sondage,reponses) VALUES ('.
-				$connect->Param('nom').', '.
-				$connect->Param('numsondage').', '.
-				$connect->Param('nouveauchoix').')';
-			$sql = $connect->Prepare($sql);
-
-			$connect->Execute($sql, array($nom, $numsondage, $nouveauchoix));
-
-			// Add voter to session
-			$_SESSION["savevoter"]=$nom.','.(empty($_SESSION["savevoter"])?'':$_SESSION["savevoter"]);	// Save voter
-			$listofvoters=explode(',',$_SESSION["savevoter"]);
-
-
-			if ($dsondage->mailsonde || /* compatibility for non boolean DB */ $dsondage->mailsonde=="yes" || $dsondage->mailsonde=="true")
+			if ($resql)
 			{
-				// TODO Use CMailFile
-				/*
-				$headers="From: ".NOMAPPLICATION." <".ADRESSEMAILADMIN.">\r\nContent-Type: text/plain; charset=\"UTF-8\"\nContent-Transfer-Encoding: 8bit";
-				mail ("$dsondage->mail_admin",
-					"[".NOMAPPLICATION."] "._("Poll's participation")." : $dsondage->titre",
-					"\"$nom\" ".
-					_("has filled a line.\nYou can find your poll at the link") . " :\n\n".
-					getUrlSondage($numsondage)." \n\n" .
-					_("Thanks for your confidence.") . "\n". NOMAPPLICATION,
-					$headers);
-				*/
+				// Add voter to session
+				$_SESSION["savevoter"]=$nom.','.(empty($_SESSION["savevoter"])?'':$_SESSION["savevoter"]);	// Save voter
+				$listofvoters=explode(',',$_SESSION["savevoter"]);
+
+				if (! empty($object->mailsonde))
+				{
+					include_once DOL_DOCUMENT_ROOT.'/core/class/CMailFile.class.php';
+					$cmailfile=new CMailFile("[".DOL_APPLICATION_TITLE."] ".$langs->trans("Poll").': '.$object->titre, $object->mail_admin, $conf->global->MAIN_MAIL_EMAIL_FROM, $nom." has filled a line.\nou can find your poll at the link:\n".getUrlSondage($numsondage));
+					$result=$cmailfile->sendfile();
+					if ($result)
+					{
+
+					}
+					else
+					{
+
+					}
+				}
 			}
+			else dol_print_error($db);
 		}
-	} else {
+	}
+	else
+	{
 		$err |= NAME_EMPTY;
 	}
 }
@@ -229,7 +223,9 @@ if ($testmodifier)
 	{
 		if ($compteur == $modifier)
 		{
-			$sql = 'UPDATE '.MAIN_DB_PREFIX."opensurvey_user_studs SET reponses = '".$db->escape($nouveauchoix)."' WHERE nom = '".$db->escape($data->nom)."' AND id_users = '".$db->escape($data->id_users)."'";
+			$sql = 'UPDATE '.MAIN_DB_PREFIX."opensurvey_user_studs";
+			$sql.= " SET reponses = '".$db->escape($nouveauchoix)."'";
+			$sql.= " WHERE nom = '".$db->escape($data->nom)."' AND id_users = '".$db->escape($data->id_users)."'";
 			$resql = $db->query($sql);
 			if ($resql <= 0)
 			{
@@ -249,6 +245,14 @@ if ($testmodifier)
 	}
 }
 
+// Delete comment
+$idcomment=GETPOST('deletecomment','int');
+if ($idcomment)
+{
+	$sql = 'DELETE FROM '.MAIN_DB_PREFIX.'opensurvey_comments WHERE id_comment = '.$idcomment;
+	$resql = $db->query($sql);
+}
+
 
 
 /*
@@ -258,7 +262,7 @@ if ($testmodifier)
 $form=new Form($db);
 $object=new OpenSurveySondage($db);
 
-$arrayofjs=array('/opensurvey/block_enter.js');
+$arrayofjs=array();
 $arrayofcss=array('/opensurvey/css/style.css');
 llxHeaderSurvey($dsondage->titre, "", 0, 0, $arrayofjs, $arrayofcss);
 
@@ -688,27 +692,34 @@ if ($nbofcheckbox >= 2)
 
 print '<br>';
 
-//affichage des commentaires des utilisateurs existants
-$sql = 'select * from '.MAIN_DB_PREFIX.'opensurvey_comments where id_sondage='.$connect->Param('numsondage').' order by id_comment';
-$sql = $connect->Prepare($sql);
-$comment_user=$connect->Execute($sql, array($numsondage));
 
-if ($comment_user->RecordCount() != 0) {
+// Comment list
+$sql = 'SELECT id_comment, usercomment, comment';
+$sql.= ' FROM '.MAIN_DB_PREFIX.'opensurvey_comments';
+$sql.= " WHERE id_sondage='".$db->escape($numsondage)."'";
+$sql.= " ORDER BY id_comment";
+$resql = $db->query($sql);
+$num_rows=$db->num_rows($resql);
+if ($num_rows > 0)
+{
+	$i = 0;
 	print "<br><b>" . $langs->trans("CommentsOfVoters") . " :</b><br>\n";
-	while($dcomment = $comment_user->FetchNextObject(false)) {
-		print '<div class="comment"><span class="usercomment">'.$dcomment->usercomment. ' :</span> <span class="comment">' . nl2br($dcomment->comment) . '</span></div>';
+	while ( $i < $num_rows)
+	{
+		$obj=$db->fetch_object($resql);
+		print '<div class="comment"><span class="usercomment">';
+		if (in_array($obj->usercomment, $listofvoters)) print '<a href="'.$_SERVER["PHP_SELF"].'?deletecomment='.$obj->id_comment.'&sondage='.$numsondageadmin.'"> '.img_picto('', 'delete.png').'</a> ';
+		print $obj->usercomment.' :</span> <span class="comment">'.dol_nl2br($obj->comment)."</span></div>";
+		$i++;
 	}
 }
 
-//affichage de la case permettant de rajouter un commentaire par les utilisateurs
+// Form to add comment
 print '<div class="addcomment">' .$langs->trans("AddACommentForPoll") . "<br>\n";
 
 print '<textarea name="comment" rows="2" cols="60"></textarea><br>'."\n";
-if (isset($_SESSION['nom']) === false)
-{
-	print $langs->trans("Name") .' : ';
-	print '<input type="text" name="commentuser" maxlength="64" /> &nbsp; '."\n";
-}
+print $langs->trans("Name") .' : ';
+print '<input type="text" name="commentuser" maxlength="64" /> &nbsp; '."\n";
 print '<input type="submit" class="button" name="ajoutcomment" value="'.dol_escape_htmltag($langs->trans("AddComment")).'"><br>'."\n";
 print '</form>'."\n";
 // Focus javascript sur la case de texte du formulaire

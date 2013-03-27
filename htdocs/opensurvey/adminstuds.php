@@ -65,7 +65,7 @@ $numsondageadmin = '';
 $sondage = false;
 
 // recuperation du numero de sondage admin (24 car.) dans l'URL
-if (issetAndNoEmpty('sondage', $_GET) && is_string($_GET['sondage']) && strlen($_GET['sondage']) === 24)
+if (GETPOST('sondage') && strlen(GETPOST('sondage')) == 24)
 {
 	$numsondageadmin=GETPOST("sondage",'alpha');
 	//on découpe le résultat pour avoir le numéro de sondage (16 car.)
@@ -109,20 +109,22 @@ $expiredate=dol_mktime(0, 0, 0, GETPOST('expiremonth'), GETPOST('expireday'), GE
 // Delete
 if ($action == 'delete_confirm')
 {
-	$object->delete($user,'',$numsondageadmin);
+	$result=$object->delete($user,'',$numsondageadmin);
 
 	header('Location: '.dol_buildpath('/opensurvey/list.php',1));
 	exit();
 }
 
+// Update
 if ($action == 'update')
 {
 	$error=0;
 
 	if (! GETPOST('nouveautitre'))
 	{
-		setEventMessage($langs->trans("ErrorFieldRequired",$langs->transnoentitiesnoconv("Title")));
+		setEventMessage($langs->trans("ErrorFieldRequired",$langs->transnoentitiesnoconv("Title")),'errors');
 		$error++;
+		$action = 'edit';
 	}
 
 	if (! $error)
@@ -148,220 +150,37 @@ if ($action == 'update')
 }
 
 
-// quand on ajoute un commentaire utilisateur
-if (isset($_POST['ajoutcomment']) || isset($_POST['ajoutcomment_x']))
+// Add comment
+if (GETPOST('ajoutcomment'))
 {
-	if(issetAndNoEmpty('commentuser') === false) {
-		$err |= COMMENT_USER_EMPTY;
-	} else {
-		$comment_user = GETPOST("commentuser");
+	$error=0;
+
+	if (! GETPOST('comment'))
+	{
+		$error++;
+		setEventMessage($langs->trans("ErrorFieldRequired",$langs->transnoentitiesnoconv("Comment")),'errors');
+	}
+	if (! GETPOST('commentuser'))
+	{
+		$error++;
+		setEventMessage($langs->trans("ErrorFieldRequired",$langs->transnoentitiesnoconv("User")),'errors');
 	}
 
-	if(issetAndNoEmpty('comment') === false) {
-		$err |= COMMENT_EMPTY;
-	}
-
-	if (issetAndNoEmpty('comment') && !is_error(COMMENT_EMPTY) && !is_error(NO_POLL) && !is_error(COMMENT_USER_EMPTY)) {
+	if (! $error)
+	{
 		$comment = GETPOST("comment");
+		$comment_user = GETPOST('commentuser');
 
-		$sql = 'INSERT INTO '.MAIN_DB_PREFIX.'opensurvey_comments (id_sondage, comment, usercomment) VALUES ('.
-			$connect->Param('id_sondage').','.
-			$connect->Param('comment').','.
-			$connect->Param('comment_user').')';
-		$sql = $connect->Prepare($sql);
-
-		$comments = $connect->Execute($sql, array($numsondage, $comment, $comment_user));
-		if ($comments === false) {
+		$sql = "INSERT INTO ".MAIN_DB_PREFIX."opensurvey_comments (id_sondage, comment, usercomment)";
+		$sql.= " VALUES ('".$db->escape($numsondage)."','".$db->escape($comment)."','".$db->escape($comment_user)."')";
+		$resql = $db->query($sql);
+		dol_syslog("sql=".$sql);
+		if (! $resql)
+		{
 			$err |= COMMENT_INSERT_FAILED;
 		}
 	}
 }
-
-
-//action si le bouton participer est cliqué
-if (isset($_POST["boutonp"]) || isset($_POST["boutonp_x"]))
-{
-	//si on a un nom dans la case texte
-	if (issetAndNoEmpty('nom')){
-		$nouveauchoix = '';
-		$erreur_prenom = false;
-
-		for ($i=0;$i<$nbcolonnes;$i++){
-			//si la checkbox est cochée alors valeur est egale à 1
-			if (isset($_POST["choix$i"])){
-				$nouveauchoix.="1";
-			} else { //sinon 0
-				$nouveauchoix.="0";
-			}
-		}
-
-		$nom = $_POST["nom"];
-		while ($tmpuser = $user_studs->FetchNextObject(false)) {
-			if ($nom == $tmpuser->nom){
-				$erreur_prenom="yes";
-			}
-		}
-
-		// Ecriture des choix de l'utilisateur dans la base
-		if (!$erreur_prenom) {
-			$sql = 'INSERT INTO '.MAIN_DB_PREFIX.'opensurvey_user_studs (nom, id_sondage, reponses) VALUES ('.
-				$connect->Param('nom').','.
-				$connect->Param('numsondage').','.
-				$connect->Param('nouveauchoix').')';
-
-			$sql = $connect->Prepare($sql);
-			$connect->Execute($sql, array($nom, $numsondage, $nouveauchoix));
-
-			$_SESSION["savevoter"]=$nom.','.isset($_SESSION["savevoter"])?$_SESSION["savevoter"]:'';	// Save voter
-		}
-	}
-}
-
-
-//action quand on ajoute une colonne au format AUTRE
-if (isset($_POST["ajoutercolonne"]) && issetAndNoEmpty('nouvellecolonne') && ($dsondage->format == "A" || $dsondage->format == "A+")) {
-	$nouveauxsujets=$dsujet->sujet;
-
-	//on rajoute la valeur a la fin de tous les sujets deja entrés
-	$nouveauxsujets.=",";
-	$nouveauxsujets.=',';
-	$nouveauxsujets.=str_replace(array(",","@"), " ", $_POST["nouvellecolonne"]).(empty($_POST["typecolonne"])?'':'@'.$_POST["typecolonne"]);
-
-	//mise a jour avec les nouveaux sujets dans la base
-	$sql = 'UPDATE '.MAIN_DB_PREFIX.'opensurvey_sujet_studs SET sujet = '.$connect->Param('nouveauxsujets').' WHERE id_sondage = '.$connect->Param('numsondage');
-	$sql = $connect->Prepare($sql);
-	$connect->Execute($sql, array($nouveauxsujets, $numsondage));
-}
-
-
-//action quand on ajoute une colonne au format DATE
-if (isset($_POST["ajoutercolonne"]) && ($dsondage->format == "D" || $dsondage->format == "D+")) {
-	$nouveauxsujets=$dsujet->sujet;
-
-	if (isset($_POST["nouveaujour"]) && $_POST["nouveaujour"] != "vide" &&
-		isset($_POST["nouveaumois"]) && $_POST["nouveaumois"] != "vide" &&
-		isset($_POST["nouvelleannee"]) && $_POST["nouvelleannee"] != "vide") {
-
-		$nouvelledate=dol_mktime(0, 0, 0, $_POST["nouveaumois"], $_POST["nouveaujour"], $_POST["nouvelleannee"]);
-
-		if (isset($_POST["nouvelleheuredebut"]) && $_POST["nouvelleheuredebut"]!="vide"){
-			$nouvelledate.="@";
-			$nouvelledate.=$_POST["nouvelleheuredebut"];
-			$nouvelledate.="h";
-
-			if ($_POST["nouvelleminutedebut"]!="vide") {
-				$nouvelledate.=$_POST["nouvelleminutedebut"];
-			}
-		}
-
-		if (isset($_POST["nouvelleheurefin"]) && $_POST["nouvelleheurefin"]!="vide"){
-			$nouvelledate.="-";
-			$nouvelledate.=$_POST["nouvelleheurefin"];
-			$nouvelledate.="h";
-
-			if ($_POST["nouvelleminutefin"]!="vide") {
-				$nouvelledate.=$_POST["nouvelleminutefin"];
-			}
-		}
-
-		if($_POST["nouvelleheuredebut"] == "vide" || (isset($_POST["nouvelleheuredebut"]) && isset($_POST["nouvelleheurefin"]) && (($_POST["nouvelleheuredebut"] < $_POST["nouvelleheurefin"]) || (($_POST["nouvelleheuredebut"] == $_POST["nouvelleheurefin"]) && ($_POST["nouvelleminutedebut"] < $_POST["nouvelleminutefin"]))))) {
-			$erreur_ajout_date = false;
-		} else {
-			$erreur_ajout_date = "yes";
-		}
-
-		//on rajoute la valeur dans les valeurs
-		$datesbase = explode(",",$dsujet->sujet);
-		$taillebase = sizeof($datesbase);
-
-		//recherche de l'endroit de l'insertion de la nouvelle date dans les dates deja entrées dans le tableau
-		if ($nouvelledate < $datesbase[0]) {
-			$cleinsertion = 0;
-		} elseif ($nouvelledate > $datesbase[$taillebase-1]) {
-			$cleinsertion = count($datesbase);
-		} else {
-			for ($i = 0; $i < count($datesbase); $i++) {
-				$j = $i + 1;
-				if ($nouvelledate > $datesbase[$i] && $nouvelledate < $datesbase[$j]) {
-					$cleinsertion = $j;
-				}
-			}
-		}
-
-		array_splice($datesbase, $cleinsertion, 0, $nouvelledate);
-		$cle = array_search($nouvelledate, $datesbase);
-		$dateinsertion = '';
-		for ($i = 0; $i < count($datesbase); $i++) {
-			$dateinsertion.=",";
-			$dateinsertion.=$datesbase[$i];
-		}
-
-		$dateinsertion = substr("$dateinsertion", 1);
-
-		//mise a jour avec les nouveaux sujets dans la base
-		if (isset($erreur_ajout_date) && !$erreur_ajout_date){
-			$sql = 'UPDATE '.MAIN_DB_PREFIX.'opensurvey_sujet_studs SET sujet = '.$connect->Param('dateinsertion').' WHERE id_sondage = '.$connect->Param('numsondage');
-			$sql = $connect->Prepare($sql);
-			$connect->Execute($sql, array($dateinsertion, $numsondage));
-
-			if ($nouvelledate > strtotime($dsondage->date_fin)) {
-				$date_fin=$nouvelledate+200000;
-				$sql = 'UPDATE '.MAIN_DB_PREFIX.'opensurvey_sondage SET date_fin = '.$connect->Param('date_fin').' WHERE id_sondage = '.$connect->Param('numsondage');
-				$sql = $connect->Prepare($sql);
-				$connect->Execute($sql, array($date_fin, $numsondage));
-			}
-		}
-
-		//mise a jour des reponses actuelles correspondant au sujet ajouté
-		$sql = 'UPDATE '.MAIN_DB_PREFIX.'opensurvey_user_studs SET reponses = '.$connect->Param('reponses').' WHERE nom = '.$connect->Param('nom').' AND id_users='.$connect->Param('id_users');
-		$sql = $connect->Prepare($sql);
-		while ($data = $user_studs->FetchNextObject(false)) {
-			$ensemblereponses=$data->reponses;
-			$newcar = '';
-
-			//parcours de toutes les réponses actuelles
-			for ($j = 0; $j < $nbcolonnes; $j++) {
-				$car=substr($ensemblereponses,$j,1);
-
-				//si les reponses ne concerne pas la colonne ajoutée, on concatene
-				if ($j==$cle) {
-					$newcar.="0";
-				}
-
-				$newcar.=$car;
-			}
-
-			//mise a jour des reponses utilisateurs dans la base
-			if (isset($erreur_ajout_date) && !$erreur_ajout_date){
-				$connect->Execute($sql, array($newcar, $data->nom, $data->id_users));
-			}
-		}
-
-		//envoi d'un mail pour prévenir l'administrateur du changement
-		$adresseadmin = $dsondage->mail_admin;
-	} else {
-		$erreur_ajout_date="yes";
-	}
-}
-
-
-//suppression de ligne dans la base
-for ($i = 0; $i < $nblignes; $i++) {
-	if (isset($_POST["effaceligne$i"]) || isset($_POST['effaceligne'.$i.'_x'])) {
-		$compteur=0;
-		$sql = 'DELETE FROM '.MAIN_DB_PREFIX.'opensurvey_user_studs WHERE nom = '.$connect->Param('nom').' AND id_users = '.$connect->Param('id_users');
-		$sql = $connect->Prepare($sql);
-
-		while ($data=$user_studs->FetchNextObject(false)) {
-			if ($compteur==$i){
-				$connect->Execute($sql, array($data->nom, $data->id_users));
-			}
-
-			$compteur++;
-		}
-	}
-}
-
 
 // Delete comment
 $idcomment=GETPOST('deletecomment','int');
@@ -372,69 +191,13 @@ if ($idcomment)
 }
 
 
-//suppression de colonnes dans la base
-for ($i = 0; $i < $nbcolonnes; $i++)
-{
-	if ((isset($_POST["effacecolonne$i"]) || isset($_POST['effacecolonne'.$i.'_x'])) && $nbcolonnes > 1)
-	{
-		$toutsujet = explode(",",$dsujet->sujet);
-		$j = 0;
-		$nouveauxsujets = '';
-
-		//parcours de tous les sujets actuels
-		while (isset($toutsujet[$j])) {
-			//si le sujet n'est pas celui qui a été effacé alors on concatene
-			if ($i != $j) {
-				$nouveauxsujets .= ',';
-				$nouveauxsujets .= $toutsujet[$j];
-			}
-
-			$j++;
-		}
-
-		//on enleve la virgule au début
-		$nouveauxsujets = substr("$nouveauxsujets", 1);
-
-		//nettoyage des reponses actuelles correspondant au sujet effacé
-		$compteur = 0;
-		$sql = 'UPDATE '.MAIN_DB_PREFIX.'opensurvey_user_studs SET reponses = '.$connect->Param('reponses').' WHERE nom = '.$connect->Param('nom').' AND id_users = '.$connect->Param('id_users');
-		$sql = $connect->Prepare($sql);
-
-		while ($data = $user_studs->FetchNextObject(false)) {
-			$newcar = '';
-			$ensemblereponses = $data->reponses;
-
-			//parcours de toutes les réponses actuelles
-			for ($j = 0; $j < $nbcolonnes; $j++) {
-				$car=substr($ensemblereponses, $j, 1);
-				//si les reponses ne concerne pas la colonne effacée, on concatene
-				if ($i != $j) {
-					$newcar .= $car;
-				}
-			}
-
-			$compteur++;
-
-			//mise a jour des reponses utilisateurs dans la base
-			$connect->Execute($sql, array($newcar, $data->nom, $data->id_users));
-		}
-
-		//mise a jour des sujets dans la base
-		$sql = 'UPDATE '.MAIN_DB_PREFIX.'opensurvey_sujet_studs SET sujet = '.$connect->Param('nouveauxsujets').' WHERE id_sondage = '.$connect->Param('numsondage');
-		$sql = $connect->Prepare($sql);
-		$connect->Execute($sql, array($nouveauxsujets, $numsondage));
-	}
-}
-
-
-
 /*
  * View
  */
 
 $form=new Form($db);
 
-$arrayofjs=array('/opensurvey/block_enter.js');
+$arrayofjs=array();
 $arrayofcss=array('/opensurvey/css/style.css');
 llxHeader('',$dsondage->titre, 0, 0, 0, 0, $arrayofjs, $arrayofcss);
 
@@ -495,11 +258,6 @@ if ($action == 'edit')
 	print '<input type="text" name="nouveautitre" size="40" value="'.dol_escape_htmltag($object->titre).'">';
 }
 else print $object->titre;
-//si la valeur du nouveau titre est invalide : message d'erreur
-if ((isset($_POST["boutonnouveautitre"]) || isset($_POST["boutonnouveautitre_x"])) && !issetAndNoEmpty('nouveautitre'))
-{
-	print '<font color="#FF0000">'. $langs->trans("ErrorFieldRequired").'</font><br>'."\n";
-}
 print '</td></tr>';
 
 // Auteur
@@ -524,10 +282,6 @@ if ($action == 'edit')
 	print '<input type="text" name="nouvelleadresse" size="40" value="'.$object->mail_admin.'">';
 }
 else print dol_print_email($object->mail_admin);
-//si l'adresse est invalide ou le champ vide : message d'erreur
-if ((isset($_POST["boutonnouvelleadresse"]) || isset($_POST["boutonnouvelleadresse_x"])) && !issetAndNoEmpty('nouvelleadresse')) {
-	print '<font color="#FF0000">'. $langs->trans("ErorFieldRequired") .'</font><br><br>'."\n";
-}
 print '</td></tr>';
 
 // Can edit other votes
@@ -587,15 +341,20 @@ print '<form name="formulaire5" action="#" method="POST">'."\n";
 print_fiche_titre($langs->trans("CommentsOfVoters"),'','');
 
 // Comment list
-$sql = 'SELECT id_comment, usercomment, comment FROM '.MAIN_DB_PREFIX.'opensurvey_comments WHERE id_sondage='.$connect->Param('numsondage').' ORDER BY id_comment';
-$sql = $connect->Prepare($sql);
-$comment_user = $connect->Execute($sql, array($numsondage));
-if ($comment_user->RecordCount() != 0)
+$sql = 'SELECT id_comment, usercomment, comment';
+$sql.= ' FROM '.MAIN_DB_PREFIX.'opensurvey_comments';
+$sql.= " WHERE id_sondage='".$db->escape($numsondage)."'";
+$sql.= " ORDER BY id_comment";
+$resql = $db->query($sql);
+$num_rows=$db->num_rows($resql);
+if ($num_rows > 0)
 {
 	$i = 0;
-	while ( $dcomment=$comment_user->FetchNextObject(false))
+	while ( $i < $num_rows)
 	{
-		print '<a href="'.dol_buildpath('/opensurvey/adminstuds.php',1).'?deletecomment='.$dcomment->id_comment.'&sondage='.$numsondageadmin.'"> '.img_picto('', 'delete.png').'</a> '.$dcomment->usercomment.' : '.$dcomment->comment." <br>";
+		$obj=$db->fetch_object($resql);
+		print '<a href="'.dol_buildpath('/opensurvey/adminstuds.php',1).'?deletecomment='.$obj->id_comment.'&sondage='.$numsondageadmin.'"> '.img_picto('', 'delete.png').'</a> ';
+		print $obj->usercomment.' : '.dol_nl2br($obj->comment)." <br>";
 		$i++;
 	}
 }
