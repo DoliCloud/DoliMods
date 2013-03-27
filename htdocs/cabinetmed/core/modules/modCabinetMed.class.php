@@ -116,8 +116,8 @@ class modCabinetMed extends DolibarrModules
                             16=>array('MAIN_MENUFRONT_SMARTPHONE_FORCED','chaine','cabinetmed_menu.php','Force menu handler to this value',1,'current',1),
                             17=>array('MAIN_SUPPORT_CONTACT_TYPE_FOR_THIRDPARTIES','chaine','1','Can add third party type of contact',1,'current',1),
                             18=>array('MAIN_APPLICATION_TITLE','chaine','DoliMed','Change software title',1,'current',1),
-                            19=>array('CABINETMED_RHEUMATOLOGY_ON','chaine','0','Enable features for rheumatology',0)
-                            //50=>array('MAIN_DIRECTEDITMODE','chaine','1','Notes are in edit mode directly',1,'current',1),
+                            19=>array('CABINETMED_RHEUMATOLOGY_ON','chaine','0','Enable features for rheumatology',0),		// Do not remove if module removed
+        					20=>array('CABINETMED_HIDETHIRPARTIESMENU','chaine','1','Hide menu thirdparty',0)				// Do not remove if module removed
                         );
 
         // Array to add new pages in new tabs
