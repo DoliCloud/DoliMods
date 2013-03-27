@@ -28,7 +28,6 @@ PatientToCreateContactWithSameName=Créera automatiquement la fiche correspondan
 ReportByCustomers=Rapport par patient
 ParentCompany=Fils ou fille de
 PostOrFunction=Spécialité
-VATIsUsed=Possède une mutuelle
 WrongCustomerCode=Code patient incorrect
 CustomerCodeModel=Modèle de code patient
 ProfId1Short=Taille

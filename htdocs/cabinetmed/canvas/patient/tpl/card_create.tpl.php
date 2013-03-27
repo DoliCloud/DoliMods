@@ -241,7 +241,7 @@ dol_htmloutput_errors($GOBALS['error'],$GLOBALS['errors']);
             print '<tr>';
             print '<td>'.$langs->trans("AllocateCommercial").'</td>';
             print '<td colspan="3">';
-            $form->select_users($soc->commercial_id,'commercial_id',1);
+            $form->select_users(GETPOST('commercial_id')>0?GETPOST('commercial_id'):$user->id,'commercial_id',1);
             print '</td></tr>';
         }
 ?>
