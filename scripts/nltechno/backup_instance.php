@@ -165,6 +165,11 @@ if ($mode == 'testrsync' || $mode == 'confirmrsync' || $mode == 'confirm')
 	{
 		print $outputline."\n";
 	}
+
+	// Add file tag
+	$handle=fopen($dirroot.'/'.$login.'/last_rsync_'.$instance.'.txt','w');
+	fwrite($handle,'File created after rsync of '.$instance."\n");
+	fclose($handle);
 }
 
 if ($mode == 'testdatabase' || $mode == 'confirmdatabase' || $mode == 'confirm')
@@ -201,6 +206,11 @@ if ($mode == 'testdatabase' || $mode == 'confirmdatabase' || $mode == 'confirm')
 	{
 		print $outputline."\n";
 	}
+
+	// Add file tag
+	$handle=fopen($dirroot.'/'.$login.'/last_mysqldump_'.$instance.'.txt','w');
+	fwrite($handle,'File created after mysqldump of '.$instance."\n");
+	fclose($handle);
 }
 
 
