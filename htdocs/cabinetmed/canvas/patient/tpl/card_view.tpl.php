@@ -24,6 +24,7 @@ global $db,$conf,$mysoc,$langs,$user;
 require_once(DOL_DOCUMENT_ROOT ."/core/class/html.formcompany.class.php");
 require_once(DOL_DOCUMENT_ROOT ."/core/class/html.formfile.class.php");
 require_once(DOL_DOCUMENT_ROOT ."/core/lib/date.lib.php");
+dol_include_once("/cabinetmed/lib/cabinetmed.lib.php");
 
 $form=new Form($GLOBALS['db']);
 $formcompany=new FormCompany($GLOBALS['db']);
@@ -130,7 +131,7 @@ print $soc->idprof3;
 if ($soc->idprof3)
 {
     print ' &nbsp; ';
-    $birthdatearray=strptime($soc->idprof3,$conf->format_date_short);
+    $birthdatearray=dol_cm_strptime($soc->idprof3,$conf->format_date_short);
     $birthdate=dol_mktime(0,0,0,$birthdatearray['tm_mon']+1,($birthdatearray['tm_mday']),($birthdatearray['tm_year']+1900),true);
     //var_dump($birthdatearray);
     $ageyear=convertSecondToTime($now-$birthdate,'year')-1970;

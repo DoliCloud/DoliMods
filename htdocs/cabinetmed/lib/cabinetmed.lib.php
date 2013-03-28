@@ -350,4 +350,30 @@ function contact_patient_stats_prepare_head($object)
     return $head;
 }
 
+
+
+/**
+ * dol_cm_strptime
+ *
+ * @param 	unknown_type 	$text (%d, %m, %Y)
+ * @param 	unknown_type 	$format
+ * @return	array			Array of component of date
+ */
+function dol_cm_strptime($text, $format)
+{
+	$result=array();
+	$posday=strpos($format,'%d');
+	$posmonth=strpos($format,'%m');
+	$posyear=strpos($format,'%Y');
+	//print 'format='.$format.' posday='.$posday.' posmonth='.$posmonth.' posyear='.$posyear;
+	if ($posday >= 0) $result['tm_mday']=(int) substr($text,$posday,2);
+	if ($posmonth >= 0) $result['tm_month']=((int) substr($text,$posmonth,2)) - 1;
+	if ($posyear >= 0) $result['tm_year']=((int) substr($text,$posyear,4)) - 1900;
+	if ($result['tm_mday'] < 0) $result['tm_mday']='';
+	if ($result['tm_month'] < 0) $result['tm_month']='';
+	if ($result['tm_year'] < 0) $result['tm_year']='';
+	//var_dump($result);
+	return $result;
+}
+
 ?>
