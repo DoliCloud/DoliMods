@@ -228,48 +228,192 @@ class modCabinetMed extends DolibarrModules
         $r=0;
 
         // Add here entries to declare new menus
-        // Example to declare the Top Menu entry:
-/*      $this->menu[$r]=array(  'fk_menu'=>0,           // Put 0 if this is a top menu
+      	$this->menu[$r]=array(  'fk_menu'=>0,           // Put 0 if this is a top menu
                                     'type'=>'top',          // This is a Top menu entry
-                                    'titre'=>'CabinetMed',
-                                    'mainmenu'=>'cabinetmed',
+                                    'titre'=>'Patients',
+                                    'mainmenu'=>'patients',
                                     'url'=>'/cabinetmed/index.php',
-                                    'langs'=>'',    // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
-                                    'position'=>100,
-                                    'enabled'=>'1',         // Define condition to show or hide menu entry. Use '$conf->voyage->enabled' if entry must be visible if module is enabled.
+                                    'langs'=>'cabinetmed@cabinetmed',    // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
+                                    'position'=>1,
+                                    'enabled'=>'$conf->cabinetmed->enabled',         // Define condition to show or hide menu entry. Use '$conf->voyage->enabled' if entry must be visible if module is enabled.
                                     'perms'=>'1',           // Use 'perms'=>'$user->rights->voyage->level1->level2' if you want your menu with a permission rules
-                                    'target'=>'',
                                     'user'=>2);             // 0=Menu for internal users, 1=external users, 2=both
         $r++;
-*/
-        // Example to declare a Left Menu entry:
-        // $this->menu[$r]=array(   'fk_menu'=>'r=0',       // Use r=value where r is index key used for the parent menu entry (higher parent must be a top menu entry)
-        //                          'type'=>'left',         // This is a Left menu entry
-        //                          'titre'=>'Voyage left menu 1',
-        //                          'mainmenu'=>'voyage',
-        //                          'url'=>'/voyage/pagelevel1.php',
-        //                          'langs'=>'mylangfile',  // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
-        //                          'position'=>100,
-        //                          'enabled'=>'1',         // Define condition to show or hide menu entry. Use '$conf->voyage->enabled' if entry must be visible if module is enabled.
-        //                          'perms'=>'1',           // Use 'perms'=>'$user->rights->voyage->level1->level2' if you want your menu with a permission rules
-        //                          'target'=>'',
-        //                          'user'=>2);             // 0=Menu for internal users, 1=external users, 2=both
-        // $r++;
-        //
-        // Example to declare another Left Menu entry:
-        // $this->menu[$r]=array(   'fk_menu'=>'r=1',       // Use r=value where r is index key used for the parent menu entry (higher parent must be a top menu entry)
-        //                          'type'=>'left',         // This is a Left menu entry
-        //                          'titre'=>'Voyage left menu 2',
-        //                          'mainmenu'=>'voyage',
-        //                          'url'=>'/voyage/pagelevel2.php',
-        //                          'langs'=>'mylangfile',  // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
-        //                          'position'=>100,
-        //                          'enabled'=>'1',         // Define condition to show or hide menu entry. Use '$conf->voyage->enabled' if entry must be visible if module is enabled.
-        //                          'perms'=>'1',           // Use 'perms'=>'$user->rights->voyage->level1->level2' if you want your menu with a permission rules
-        //                          'target'=>'',
-        //                          'user'=>2);             // 0=Menu for internal users, 1=external users, 2=both
-        // $r++;
+      	$this->menu[$r]=array(  'fk_menu'=>0,           // Put 0 if this is a top menu
+                                    'type'=>'top',          // This is a Top menu entry
+                                    'titre'=>'Correspondants',
+                                    'mainmenu'=>'contacts',
+                                    'url'=>'/contact/list.php',
+                                    'langs'=>'cabinetmed@cabinetmed',    // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
+                                    'position'=>2,
+                                    'enabled'=>'$conf->cabinetmed->enabled',         // Define condition to show or hide menu entry. Use '$conf->voyage->enabled' if entry must be visible if module is enabled.
+                                    'perms'=>'1',           // Use 'perms'=>'$user->rights->voyage->level1->level2' if you want your menu with a permission rules
+                                    'user'=>2);             // 0=Menu for internal users, 1=external users, 2=both
+        $r++;
+        $this->menu[$r]=array(  'fk_menu'=>0,           // Put 0 if this is a top menu
+							        'type'=>'top',          // This is a Top menu entry
+							        'titre'=>'MenuFinancialMed',
+							        'mainmenu'=>'accountancy2',
+							        'url'=>'/cabinetmed/compta.php?mainmenu=accountancy2&amp;leftmenu=&search_sale=__USERID__',
+							        'langs'=>'cabinetmed@cabinetmed',    // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
+							        'position'=>3,
+							        'enabled'=>'$conf->cabinetmed->enabled',         // Define condition to show or hide menu entry. Use '$conf->voyage->enabled' if entry must be visible if module is enabled.
+							        'perms'=>'1',           // Use 'perms'=>'$user->rights->voyage->level1->level2' if you want your menu with a permission rules
+							        'user'=>2);             // 0=Menu for internal users, 1=external users, 2=both
+        $r++;
 
+        // Left Menu entry:
+        $this->menu[$r]=array(   'fk_menu'=>'fk_mainmenu=patients',       // Use r=value where r is index key used for the parent menu entry (higher parent must be a top menu entry)
+                                  'type'=>'left',         // This is a Left menu entry
+                                  'titre'=>'Patients',
+                                  'mainmenu'=>'patients',
+        						  'leftmenu'=>'patients',
+                                  'url'=>'/cabinetmed/index.php?leftmenu=thirdparties',
+                                  'langs'=>'cabinetmed@cabinetmed',  // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
+                                  'position'=>100,
+                                  'enabled'=>'$conf->cabinetmed->enabled',         // Define condition to show or hide menu entry. Use '$conf->voyage->enabled' if entry must be visible if module is enabled.
+                                  'perms'=>'1',           // Use 'perms'=>'$user->rights->voyage->level1->level2' if you want your menu with a permission rules
+                                  'target'=>'',
+                                  'user'=>2);             // 0=Menu for internal users, 1=external users, 2=both
+        $r++;
+        $this->menu[$r]=array(   'fk_menu'=>'fk_mainmenu=patients,fk_leftmenu=patients',       // Use r=value where r is index key used for the parent menu entry (higher parent must be a top menu entry)
+						        'type'=>'left',         // This is a Left menu entry
+						        'titre'=>'MenuNewPatient',
+						        'mainmenu'=>'patients',
+						        'leftmenu'=>'',
+						        'url'=>'/cabinetmed/soc.php?action=create&canvas=patient@cabinetmed',
+						        'langs'=>'cabinetmed@cabinetmed',  // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
+						        'position'=>110,
+						        'enabled'=>'$conf->cabinetmed->enabled',         // Define condition to show or hide menu entry. Use '$conf->voyage->enabled' if entry must be visible if module is enabled.
+						        'perms'=>'$user->rights->societe->creer',           // Use 'perms'=>'$user->rights->voyage->level1->level2' if you want your menu with a permission rules
+						        'user'=>2);             // 0=Menu for internal users, 1=external users, 2=both
+        $r++;
+        $this->menu[$r]=array(   'fk_menu'=>'fk_mainmenu=patients,fk_leftmenu=patients',       // Use r=value where r is index key used for the parent menu entry (higher parent must be a top menu entry)
+						        'type'=>'left',         // This is a Left menu entry
+						        'titre'=>'ListPatient',
+						        'mainmenu'=>'patients',
+						        'leftmenu'=>'',
+						        'url'=>'/cabinetmed/patients.php?leftmenu=customers&search_sale=__USERID__',
+						        'langs'=>'cabinetmed@cabinetmed',  // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
+						        'position'=>110,
+						        'enabled'=>'$conf->cabinetmed->enabled',         // Define condition to show or hide menu entry. Use '$conf->voyage->enabled' if entry must be visible if module is enabled.
+						        'perms'=>'1',           // Use 'perms'=>'$user->rights->voyage->level1->level2' if you want your menu with a permission rules
+						        'user'=>2);             // 0=Menu for internal users, 1=external users, 2=both
+        $r++;
+        $this->menu[$r]=array(   'fk_menu'=>'fk_mainmenu=patients,fk_leftmenu=patients',       // Use r=value where r is index key used for the parent menu entry (higher parent must be a top menu entry)
+						        'type'=>'left',         // This is a Left menu entry
+						        'titre'=>'ListConsult',
+						        'mainmenu'=>'patients',
+						        'leftmenu'=>'',
+						        'url'=>'/cabinetmed/listconsult.php?leftmenu=customers&search_sale=__USERID__',
+						        'langs'=>'cabinetmed@cabinetmed',  // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
+						        'position'=>110,
+						        'enabled'=>'$conf->cabinetmed->enabled',         // Define condition to show or hide menu entry. Use '$conf->voyage->enabled' if entry must be visible if module is enabled.
+						        'perms'=>'1',           // Use 'perms'=>'$user->rights->voyage->level1->level2' if you want your menu with a permission rules
+						        'user'=>2);             // 0=Menu for internal users, 1=external users, 2=both
+        $r++;
+        $this->menu[$r]=array(   'fk_menu'=>'fk_mainmenu=patients,fk_leftmenu=patients',       // Use r=value where r is index key used for the parent menu entry (higher parent must be a top menu entry)
+						        'type'=>'left',         // This is a Left menu entry
+						        'titre'=>'Statistics',
+						        'mainmenu'=>'patients',
+						        'leftmenu'=>'',
+						        'url'=>'/cabinetmed/stats/index.php?leftmenu=customers&userid=__USERID__',
+						        'langs'=>'cabinetmed@cabinetmed',  // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
+						        'position'=>110,
+						        'enabled'=>'$conf->cabinetmed->enabled',         // Define condition to show or hide menu entry. Use '$conf->voyage->enabled' if entry must be visible if module is enabled.
+						        'perms'=>'1',           // Use 'perms'=>'$user->rights->voyage->level1->level2' if you want your menu with a permission rules
+						        'user'=>2);             // 0=Menu for internal users, 1=external users, 2=both
+        $r++;
+        // Categories
+        $this->menu[$r]=array(   'fk_menu'=>'fk_mainmenu=patients',       // Use r=value where r is index key used for the parent menu entry (higher parent must be a top menu entry)
+						        'type'=>'left',         // This is a Left menu entry
+						        'titre'=>'PatientsCategoriesShort',
+						        'mainmenu'=>'patients',
+						        'leftmenu'=>'categorypatients',
+						        'url'=>'/categories/index.php?leftmenu=categorypatients&type=2',
+						        'langs'=>'categories',  // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
+						        'position'=>110,
+						        'enabled'=>'$conf->categorie->enabled',         // Define condition to show or hide menu entry. Use '$conf->voyage->enabled' if entry must be visible if module is enabled.
+						        'perms'=>'$user->rights->categorie->lire',           // Use 'perms'=>'$user->rights->voyage->level1->level2' if you want your menu with a permission rules
+						        'target'=>'',
+						        'user'=>2);             // 0=Menu for internal users, 1=external users, 2=both
+        $r++;
+        $this->menu[$r]=array(   'fk_menu'=>'fk_mainmenu=patients,fk_leftmenu=categorypatients',       // Use r=value where r is index key used for the parent menu entry (higher parent must be a top menu entry)
+						        'type'=>'left',         // This is a Left menu entry
+						        'titre'=>'NewCategory',
+						        'mainmenu'=>'patients',
+						        'leftmenu'=>'',
+						        'url'=>'/categories/fiche.php?action=create&type=2',
+						        'langs'=>'categories',  // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
+						        'position'=>110,
+						        'enabled'=>'$conf->categorie->enabled',         // Define condition to show or hide menu entry. Use '$conf->voyage->enabled' if entry must be visible if module is enabled.
+						        'perms'=>'$user->rights->categorie->lire',           // Use 'perms'=>'$user->rights->voyage->level1->level2' if you want your menu with a permission rules
+						        'target'=>'',
+						        'user'=>2);             // 0=Menu for internal users, 1=external users, 2=both
+        $r++;
+
+        // Left menu contacts
+        $this->menu[$r]=array(   'fk_menu'=>'fk_mainmenu=contacts',       // Use r=value where r is index key used for the parent menu entry (higher parent must be a top menu entry)
+        'type'=>'left',         // This is a Left menu entry
+        'titre'=>'Correspondants',
+        'mainmenu'=>'contacts',
+        'leftmenu'=>'contacts',
+        'url'=>'/contact/list.php',
+        'langs'=>'companies@cabinetmed',  // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
+        'position'=>110,
+        'enabled'=>'$conf->cabinetmed->enabled',         // Define condition to show or hide menu entry. Use '$conf->voyage->enabled' if entry must be visible if module is enabled.
+        'perms'=>'$user->rights->societe->contact->lire',           // Use 'perms'=>'$user->rights->voyage->level1->level2' if you want your menu with a permission rules
+        'user'=>2);             // 0=Menu for internal users, 1=external users, 2=both
+        $r++;
+        $this->menu[$r]=array(   'fk_menu'=>'fk_mainmenu=contacts,fk_leftmenu=contacts',       // Use r=value where r is index key used for the parent menu entry (higher parent must be a top menu entry)
+        'type'=>'left',         // This is a Left menu entry
+        'titre'=>'NewContact',
+        'mainmenu'=>'contacts',
+        'leftmenu'=>'',
+        'url'=>'/contact/fiche.php?leftmenu=contacts&amp;action=create',
+        'langs'=>'companies',  // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
+        'position'=>120,
+        'enabled'=>'$user->rights->societe->contact->creer',         // Define condition to show or hide menu entry. Use '$conf->voyage->enabled' if entry must be visible if module is enabled.
+        'perms'=>'1',           // Use 'perms'=>'$user->rights->voyage->level1->level2' if you want your menu with a permission rules
+        'user'=>2);             // 0=Menu for internal users, 1=external users, 2=both
+        $r++;
+        $this->menu[$r]=array(   'fk_menu'=>'fk_mainmenu=contacts,fk_leftmenu=contacts',       // Use r=value where r is index key used for the parent menu entry (higher parent must be a top menu entry)
+        'type'=>'left',         // This is a Left menu entry
+        'titre'=>'List',
+        'mainmenu'=>'contacts',
+        'leftmenu'=>'',
+        'url'=>'/contact/list.php',
+        'langs'=>'companies',  // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
+        'position'=>130,
+        'enabled'=>'$conf->cabinetmed->enabled',         // Define condition to show or hide menu entry. Use '$conf->voyage->enabled' if entry must be visible if module is enabled.
+        'perms'=>'$user->rights->societe->contact->lire',           // Use 'perms'=>'$user->rights->voyage->level1->level2' if you want your menu with a permission rules
+        'user'=>2);             // 0=Menu for internal users, 1=external users, 2=both
+        $r++;
+        $this->menu[$r]=array(   'fk_menu'=>'fk_mainmenu=contacts,fk_leftmenu=contacts',       // Use r=value where r is index key used for the parent menu entry (higher parent must be a top menu entry)
+        'type'=>'left',         // This is a Left menu entry
+        'titre'=>'Statistics',
+        'mainmenu'=>'contacts',
+        'leftmenu'=>'',
+        'url'=>'/cabinetmed/stats/index_contacts.php?leftmenu=customers&userid=__USERID__',
+        'langs'=>'',  // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
+        'position'=>140,
+        'enabled'=>'$conf->cabinetmed->enabled',         // Define condition to show or hide menu entry. Use '$conf->voyage->enabled' if entry must be visible if module is enabled.
+        'perms'=>'$user->rights->societe->lire',           // Use 'perms'=>'$user->rights->voyage->level1->level2' if you want your menu with a permission rules
+        'user'=>2);             // 0=Menu for internal users, 1=external users, 2=both
+        $r++;
+		// Left menu financial
+        $this->menu[$r]=array(   'fk_menu'=>'fk_mainmenu=accountancy2',       // Use r=value where r is index key used for the parent menu entry (higher parent must be a top menu entry)
+        'type'=>'left',         // This is a Left menu entry
+        'titre'=>'ReportingsMed',
+        'mainmenu'=>'accountancy2',
+        'leftmenu'=>'',
+        'url'=>'/cabinetmed/compta.php?mainmenu=accountancy2&amp;leftmenu=&search_sale=__USERID__',
+        'langs'=>'',  // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
+        'position'=>100,
+        'enabled'=>'$conf->cabinetmed->enabled',         // Define condition to show or hide menu entry. Use '$conf->voyage->enabled' if entry must be visible if module is enabled.
+        'perms'=>'$user->rights->cabinetmed->read',           // Use 'perms'=>'$user->rights->voyage->level1->level2' if you want your menu with a permission rules
+        'user'=>2);             // 0=Menu for internal users, 1=external users, 2=both
+        $r++;
 
         // Exports
         $r=0;

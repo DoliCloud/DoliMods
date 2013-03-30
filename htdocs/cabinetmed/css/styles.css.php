@@ -1,4 +1,4 @@
-<?php 
+<?php
 /* Copyright (C) 2013  Laurent Destailleur  <eldy@users.sourceforge.net>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -57,4 +57,12 @@ legend
 
 div.mainmenu.patients {
 	background-image: url(<?php echo dol_buildpath($path.'/theme/'.$theme.'/img/menus/members.png',1) ?>);
+}
+
+div.mainmenu.contacts {
+	background-image: url(<?php echo dol_buildpath($path.'/theme/'.$theme.'/img/menus/stethoscope.png',1) ?>);
+}
+
+div.mainmenu.accountancy2 {
+	background-image: url(<?php echo dol_buildpath($path.'/theme/'.$theme.'/img/menus/money.png',1) ?>);
 }
