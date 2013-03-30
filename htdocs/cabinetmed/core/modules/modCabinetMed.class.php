@@ -110,10 +110,10 @@ class modCabinetMed extends DolibarrModules
                             10=>array('MAIN_OVERWRITE_THEME_RES','chaine','cabinetmed','Resource for themes (img) are searched into dir/theme/dir first',1,'current',1),
                             11=>array('MAIN_DISABLEVATCHECK','chaine','1','Disable link to VAT check',1,'current',1),
                             12=>array('MAIN_DISABLEDRAFTSTATUS','chaine','1','Disable draft status',1,'current',1),
-                            13=>array('MAIN_MENU_STANDARD_FORCED','chaine','cabinetmed_menu.php','Force menu handler to this value',1,'current',1),
-                            14=>array('MAIN_MENUFRONT_STANDARD_FORCED','chaine','cabinetmed_menu.php','Force menu handler to this value',1,'current',1),
-                            15=>array('MAIN_MENU_SMARTPHONE_FORCED','chaine','cabinetmed_menu.php','Force menu handler to this value',1,'current',1),
-                            16=>array('MAIN_MENUFRONT_SMARTPHONE_FORCED','chaine','cabinetmed_menu.php','Force menu handler to this value',1,'current',1),
+                            //13=>array('MAIN_MENU_STANDARD_FORCED','chaine','cabinetmed_menu.php','Force menu handler to this value',1,'current',1),
+                            //14=>array('MAIN_MENUFRONT_STANDARD_FORCED','chaine','cabinetmed_menu.php','Force menu handler to this value',1,'current',1),
+                            //15=>array('MAIN_MENU_SMARTPHONE_FORCED','chaine','cabinetmed_menu.php','Force menu handler to this value',1,'current',1),
+                            //16=>array('MAIN_MENUFRONT_SMARTPHONE_FORCED','chaine','cabinetmed_menu.php','Force menu handler to this value',1,'current',1),
                             17=>array('MAIN_SUPPORT_CONTACT_TYPE_FOR_THIRDPARTIES','chaine','1','Can add third party type of contact',1,'current',1),
                             18=>array('MAIN_APPLICATION_TITLE','chaine','DoliMed','Change software title',1,'current',1),
                             19=>array('CABINETMED_RHEUMATOLOGY_ON','chaine','0','Enable features for rheumatology',0),		// Do not remove if module removed
@@ -234,7 +234,7 @@ class modCabinetMed extends DolibarrModules
                                     'mainmenu'=>'patients',
                                     'url'=>'/cabinetmed/index.php',
                                     'langs'=>'cabinetmed@cabinetmed',    // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
-                                    'position'=>1,
+                                    'position'=>25,
                                     'enabled'=>'$conf->cabinetmed->enabled',         // Define condition to show or hide menu entry. Use '$conf->voyage->enabled' if entry must be visible if module is enabled.
                                     'perms'=>'1',           // Use 'perms'=>'$user->rights->voyage->level1->level2' if you want your menu with a permission rules
                                     'user'=>2);             // 0=Menu for internal users, 1=external users, 2=both
@@ -245,7 +245,7 @@ class modCabinetMed extends DolibarrModules
                                     'mainmenu'=>'contacts',
                                     'url'=>'/contact/list.php',
                                     'langs'=>'cabinetmed@cabinetmed',    // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
-                                    'position'=>2,
+                                    'position'=>26,
                                     'enabled'=>'$conf->cabinetmed->enabled',         // Define condition to show or hide menu entry. Use '$conf->voyage->enabled' if entry must be visible if module is enabled.
                                     'perms'=>'1',           // Use 'perms'=>'$user->rights->voyage->level1->level2' if you want your menu with a permission rules
                                     'user'=>2);             // 0=Menu for internal users, 1=external users, 2=both
@@ -256,7 +256,7 @@ class modCabinetMed extends DolibarrModules
 							        'mainmenu'=>'accountancy2',
 							        'url'=>'/cabinetmed/compta.php?mainmenu=accountancy2&amp;leftmenu=&search_sale=__USERID__',
 							        'langs'=>'cabinetmed@cabinetmed',    // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
-							        'position'=>3,
+							        'position'=>55,
 							        'enabled'=>'$conf->cabinetmed->enabled',         // Define condition to show or hide menu entry. Use '$conf->voyage->enabled' if entry must be visible if module is enabled.
 							        'perms'=>'1',           // Use 'perms'=>'$user->rights->voyage->level1->level2' if you want your menu with a permission rules
 							        'user'=>2);             // 0=Menu for internal users, 1=external users, 2=both
