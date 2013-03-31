@@ -188,7 +188,7 @@ $sql = "SELECT";
 $sql.= " COUNT(s.rowid) as nb,";
 $sql.= " AVG(DATEDIFF(NOW(), STR_TO_DATE(s.ape, '%d/%m/%Y'))) as averageold,";
 $sql.= " c.rowid,";
-$sql.= " c.name as lastname,";
+$sql.= " c.lastname as lastname,";
 $sql.= " c.firstname as firstname";
 $sql.= " FROM (".MAIN_DB_PREFIX."societe as s,";
 $sql.= " ".MAIN_DB_PREFIX."element_contact as ec,";
@@ -198,7 +198,7 @@ $sql.= " WHERE ec.fk_socpeople = c.rowid";
 $sql.= " AND ec.element_id = s.rowid";
 $sql.= " AND ec.fk_c_type_contact = tc.rowid";
 $sql.= " AND tc.element = 'societe'";
-$sql.= " GROUP BY c.rowid, c.name, c.firstname";
+$sql.= " GROUP BY c.rowid, c.lastname, c.firstname";
 $sql.= " ORDER BY ".$sortfield." ".$sortorder.", s.rowid DESC";
 
 //print $sql;
