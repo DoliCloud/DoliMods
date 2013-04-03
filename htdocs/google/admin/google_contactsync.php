@@ -61,7 +61,9 @@ if ($action == 'save')
     $db->begin();
 
     //print 'color='.$color;
-    $res=dolibarr_set_const($db,'GOOGLE_DUPLICATE_INTO_CONTACT'.$i,trim($_POST["GOOGLE_DUPLICATE_INTO_CONTACT"]),'chaine',0);
+    $res=dolibarr_set_const($db,'GOOGLE_DUPLICATE_INTO_THIRDPARTIES'.$i,trim($_POST["GOOGLE_DUPLICATE_INTO_THIRDPARTIES"]),'chaine',0);
+    if (! $res > 0) $error++;
+    $res=dolibarr_set_const($db,'GOOGLE_DUPLICATE_INTO_CONTACTS'.$i,trim($_POST["GOOGLE_DUPLICATE_INTO_CONTACTS"]),'chaine',0);
     if (! $res > 0) $error++;
     $res=dolibarr_set_const($db,'GOOGLE_CONTACT_LOGIN',trim($_POST["GOOGLE_CONTACT_LOGIN"]),'chaine',0);
     if (! $res > 0) $error++;
@@ -220,8 +222,9 @@ dol_fiche_head($head, 'tabcontactsync', $langs->trans("GoogleTools"));
 print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
 print '<input type="hidden" name="action" value="save">';
 
-print $langs->trans("GoogleEnableSyncToContact").' '.$form->selectyesno("GOOGLE_DUPLICATE_INTO_CONTACT",isset($_POST["GOOGLE_DUPLICATE_INTO_CONTACT"])?$_POST["GOOGLE_DUPLICATE_INTO_CONTACT"]:$conf->global->GOOGLE_DUPLICATE_INTO_CONTACT,1).'<br><br>';
-
+print $langs->trans("GoogleEnableSyncToThirdparties").' '.$form->selectyesno("GOOGLE_DUPLICATE_INTO_THIRDPARTIES",isset($_POST["GOOGLE_DUPLICATE_INTO_THIRDPARTIES"])?$_POST["GOOGLE_DUPLICATE_INTO_THIRDPARTIES"]:$conf->global->GOOGLE_DUPLICATE_INTO_THIRDPARTIES,1).'<br>';
+print $langs->trans("GoogleEnableSyncToContacts").' '.$form->selectyesno("GOOGLE_DUPLICATE_INTO_CONTACTS",isset($_POST["GOOGLE_DUPLICATE_INTO_CONTACTS"])?$_POST["GOOGLE_DUPLICATE_INTO_CONTACTS"]:$conf->global->GOOGLE_DUPLICATE_INTO_CONTACTS,1).'<br>';
+print '<br>';
 
 $var=false;
 print "<table class=\"noborder\" width=\"100%\">";
@@ -274,9 +277,11 @@ print '<br>';
 
 
 print '<div class="tabsActions">';
-if (empty($conf->global->GOOGLE_CONTACT_LOGIN) || empty($conf->global->GOOGLE_DUPLICATE_INTO_CONTACT))
+if (empty($conf->global->GOOGLE_CONTACT_LOGIN) || empty($conf->global->GOOGLE_DUPLICATE_INTO_THIRDPARTIES))
 {
 	print '<a class="butActionRefused" href="#">'.$langs->trans("TestCreateUpdateDelete")."</a>";
+
+	print '<a class="butActionRefused" href="#">'.$langs->trans("TestCreate")."</a>";
 }
 else
 {
@@ -289,31 +294,39 @@ print '</div>';
 
 print '<br><br>';
 
+if (! empty($conf->global->GOOGLE_DUPLICATE_INTO_THIRDPARTIES))
+{
+	print '<br>';
 
-print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
-print '<input type="hidden" name="action" value="pushallthirdparties">';
-print $langs->trans("ExportThirdpartiesToGoogle")." ";
-print '<input type="submit" name="pushall" class="button" value="'.$langs->trans("Go").'">';
-print "</form>\n";
+	print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
+	print '<input type="hidden" name="action" value="pushallthirdparties">';
+	print $langs->trans("ExportThirdpartiesToGoogle")." ";
+	print '<input type="submit" name="pushall" class="button" value="'.$langs->trans("Go").'">';
+	print "</form>\n";
 
-print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
-print '<input type="hidden" name="action" value="deleteallthirdparties">';
-print $langs->trans("DeleteAllGoogleThirdparties")." ";
-print '<input type="submit" name="cleanup" class="button" value="'.$langs->trans("Go").'">';
-print "</form>\n";
+	print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
+	print '<input type="hidden" name="action" value="deleteallthirdparties">';
+	print $langs->trans("DeleteAllGoogleThirdparties")." ";
+	print '<input type="submit" name="cleanup" class="button" value="'.$langs->trans("Go").'">';
+	print "</form>\n";
+}
 
-print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
-print '<input type="hidden" name="action" value="pushallcontacts">';
-print $langs->trans("ExportContactToGoogle")." ";
-print '<input type="submit" name="pushall" class="button" value="'.$langs->trans("Go").'">';
-print "</form>\n";
+if (! empty($conf->global->GOOGLE_DUPLICATE_INTO_CONTACTS))
+{
+	print '<br>';
 
-print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
-print '<input type="hidden" name="action" value="deleteallcontacts">';
-print $langs->trans("DeleteAllGoogleContacts")." ";
-print '<input type="submit" name="cleanup" class="button" value="'.$langs->trans("Go").'">';
-print "</form>\n";
+	print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
+	print '<input type="hidden" name="action" value="pushallcontacts">';
+	print $langs->trans("ExportContactToGoogle")." ";
+	print '<input type="submit" name="pushall" class="button" value="'.$langs->trans("Go").'">';
+	print "</form>\n";
 
+	print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
+	print '<input type="hidden" name="action" value="deleteallcontacts">';
+	print $langs->trans("DeleteAllGoogleContacts")." ";
+	print '<input type="submit" name="cleanup" class="button" value="'.$langs->trans("Go").'">';
+	print "</form>\n";
+}
 
 dol_htmloutput_mesg($mesg);
 dol_htmloutput_errors($error,$errors);
