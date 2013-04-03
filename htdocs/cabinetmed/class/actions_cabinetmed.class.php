@@ -22,6 +22,7 @@
  *	\brief      File to control actions
  */
 require_once(DOL_DOCUMENT_ROOT."/core/class/commonobject.class.php");
+dol_include_once("/cabinetmed/lib/cabinetmed.lib.php");
 
 
 /**
@@ -73,6 +74,8 @@ class ActionsCabinetmed
         	}
         }
 
+        require_once(DOL_DOCUMENT_ROOT ."/core/lib/date.lib.php");
+
         // Hook called when asking to add a new record
         if ($action == 'add')
         {
@@ -81,7 +84,7 @@ class ActionsCabinetmed
             //$confirmduplicate=$_POST['confirmduplicate'];
 
             // Check on date
-            $birthdatearray=strptime($date,$conf->format_date_short);
+            $birthdatearray=dol_cm_strptime($date,$conf->format_date_short);
             $birthdate=dol_mktime(0,0,0,$birthdatearray['tm_mon']+1,($birthdatearray['tm_mday']),($birthdatearray['tm_year']+1900),true);
             if (GETPOST('idprof3') && empty($birthdate))
             {
@@ -137,7 +140,7 @@ class ActionsCabinetmed
             //$confirmduplicate=$_POST['confirmduplicate'];
 
             // Check on date
-            $birthdatearray=strptime($date,$conf->format_date_short);
+            $birthdatearray=dol_cm_strptime($date,$conf->format_date_short);
             $birthdate=dol_mktime(0,0,0,$birthdatearray['tm_mon']+1,($birthdatearray['tm_mday']),($birthdatearray['tm_year']+1900),true);
             if (GETPOST('idprof3') && empty($birthdate))
             {
