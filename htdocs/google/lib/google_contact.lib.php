@@ -444,8 +444,8 @@ function getTagLabel($s)
 	global $conf,$langs;
 
 	$tag=empty($conf->global->GOOGLE_TAG_PREFIX)?'Dolibarr':$conf->global->GOOGLE_TAG_PREFIX;
-	if ($s=='thirdparties') $tag.=' ('.$langs->trans("Thirdparty").')';
-	if ($s=='contact') $tag.=' ('.$langs->trans("Contact").')';
+	if ($s=='thirdparties') $tag.=' ('.$langs->trans("Thirdparties").')';
+	if ($s=='contacts') $tag.=' ('.$langs->trans("Contacts").')';
 	return $tag;
 }
 

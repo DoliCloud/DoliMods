@@ -41,6 +41,8 @@ DueToGoogleLimitYouNeedToLogin=Pour des raisons de sécurité imposées par Goog
 AllowGoogleToLoginSetupKey=Afin de faciliter cela, il est possible de configurer une clé pour permettre à l'application de proposer la Logon Google si vous n'êtes pas connecté.
 AllowGoogleToLoginProp=Les informations à saisir ici s'obtiennent en créant une clé par ce lien <a href="%s" target="_blank">%s</a>: Choisir API Access, puis Créer un client ID de type Application Web, en saisissant comme url de redirection (Redirect URI), l'url <strong>%s</strong> 
 ExportThirdpartiesToGoogle=Exporter tous les tiers Dolibarr sous GMail contact (attention, il n'y a pas de gestion de doublon pour l'export de masse).
+ExportContactToGoogle=Exporter tous les contacts/adresses Dolibarr sous GMail contact (attention, il n'y a pas de gestion de doublon pour l'export de masse).
 DeleteAllGoogleThirdparties=Effacer tous les tiers issus de Dolibarr dans GMail.
+DeleteAllGoogleContacts=Effacer tous les contacts issus de Dolibarr dans GMail.
 PushToGoogleSucess=Syncronisation vers Google contact terminée pour %s enregistrement(s).
 

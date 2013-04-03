@@ -133,7 +133,7 @@ if (preg_match('/^test/',$action))
     }
 }
 
-if ($action == 'pushall')
+if ($action == 'pushallthirdparties')
 {
 	dol_include_once('/google/class/gcontacts.class.php');
 
@@ -151,6 +151,34 @@ if ($action == 'pushall')
 	while (($obj = $db->fetch_object($resql)) && ($i < $synclimit || empty($synclimit)))
 	{
 		$gContacts[] = new GContact($obj->rowid,'thirdparty');
+		$i++;
+	}
+
+	$result=0;
+	if (count($gContacts)) $result=GContact::insertGContactsEntries($gContacts);
+
+	if ($result >= 0) $mesg = $langs->trans("PushToGoogleSucess",count($gContacts));
+	else $mesg = $langs->trans("Error");
+}
+
+if ($action == 'pushallcontacts')
+{
+	dol_include_once('/google/class/gcontacts.class.php');
+
+	//	$res = GContact::deleteDolibarrContacts();
+	$sql = 'SELECT rowid FROM '.MAIN_DB_PREFIX.'socpeople';
+	$resql = $db->query($sql);
+	if (! $resql)
+	{
+		dol_print_error($db);
+		exit;
+	}
+
+	$synclimit = 1;	// 0 = all
+	$i=0;
+	while (($obj = $db->fetch_object($resql)) && ($i < $synclimit || empty($synclimit)))
+	{
+		$gContacts[] = new GContact($obj->rowid,'contact');
 		$i++;
 	}
 
@@ -263,17 +291,28 @@ print '<br><br>';
 
 
 print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
-print '<input type="hidden" name="action" value="pushall">';
+print '<input type="hidden" name="action" value="pushallthirdparties">';
 print $langs->trans("ExportThirdpartiesToGoogle")." ";
 print '<input type="submit" name="pushall" class="button" value="'.$langs->trans("Go").'">';
 print "</form>\n";
 
 print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
-print '<input type="hidden" name="action" value="deleteall">';
+print '<input type="hidden" name="action" value="deleteallthirdparties">';
 print $langs->trans("DeleteAllGoogleThirdparties")." ";
 print '<input type="submit" name="cleanup" class="button" value="'.$langs->trans("Go").'">';
 print "</form>\n";
 
+print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
+print '<input type="hidden" name="action" value="pushallcontacts">';
+print $langs->trans("ExportContactToGoogle")." ";
+print '<input type="submit" name="pushall" class="button" value="'.$langs->trans("Go").'">';
+print "</form>\n";
+
+print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
+print '<input type="hidden" name="action" value="deleteallcontacts">';
+print $langs->trans("DeleteAllGoogleContacts")." ";
+print '<input type="submit" name="cleanup" class="button" value="'.$langs->trans("Go").'">';
+print "</form>\n";
 
 
 dol_htmloutput_mesg($mesg);
