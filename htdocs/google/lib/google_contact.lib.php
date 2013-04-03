@@ -68,6 +68,11 @@ function getClientLoginHttpClientContact($user, $pass, $service)
 }
 
 
+function getCommentIDTag()
+{
+	return	'--- (do not delete) --- dolibarr_id = ';
+}
+
 
 /**
  * Creates an event on the authenticated user's default calendar with the
@@ -83,19 +88,21 @@ function createContact($client, $object)
 
 	include_once(DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php');
 
+	$google_nltechno_tag=getCommentIDTag();
+
 	$doc  = new DOMDocument();
 	try {
 		// perform login and set protocol version to 3.0
 		$gdata = new Zend_Gdata($client);
 		$gdata->setMajorProtocolVersion(3);
 
+		$groupName = ($object->element=='societe'?'Dolibarr thirdparties':'Dolibarr contacts');
+
 		// create new entry
 		$doc->formatOutput = true;
 		$entry = $doc->createElement('atom:entry');
-		$entry->setAttributeNS('http://www.w3.org/2000/xmlns/' ,
-			'xmlns:atom', 'http://www.w3.org/2005/Atom');
-		$entry->setAttributeNS('http://www.w3.org/2000/xmlns/' ,
-			'xmlns:gd', 'http://schemas.google.com/g/2005');
+		$entry->setAttributeNS('http://www.w3.org/2000/xmlns/' , 'xmlns:atom', 'http://www.w3.org/2005/Atom');
+		$entry->setAttributeNS('http://www.w3.org/2000/xmlns/' , 'xmlns:gd', 'http://schemas.google.com/g/2005');
 		$doc->appendChild($entry);
 
 
@@ -106,13 +113,13 @@ function createContact($client, $object)
 		// add name element
 		$name = $doc->createElement('gd:name');
 		$entry->appendChild($name);
-		$fullName = $doc->createElement('gd:fullName', $object->getFullName($langs));
-		$name->appendChild($fullName);
+			$fullName = $doc->createElement('gd:fullName', $object->getFullName($langs));
+			$name->appendChild($fullName);
 
 		// add email element
 		$email = $doc->createElement('gd:email');
-		$email->setAttribute('address' ,$object->email);
-		$email->setAttribute('rel' ,'http://schemas.google.com/g/2005#home');
+		$email->setAttribute('address', ($object->email?$object->email:($object->getFullName($langs).'@noemail.com')));
+		$email->setAttribute('rel', 'http://schemas.google.com/g/2005#home');
 		$entry->appendChild($email);
 
 		// im
@@ -127,8 +134,10 @@ function createContact($client, $object)
 		$org = $doc->createElement('gd:organization');
 		$org->setAttribute('rel' ,'http://schemas.google.com/g/2005#work');
 		$entry->appendChild($org);
-		$orgName = $doc->createElement('gd:orgName', $object->name);
+		$orgName = $doc->createElement('gd:orgName', 'xxx');
 		$org->appendChild($orgName);
+		$orgTitle = $doc->createElement('gd:orgTitle', 'xxx');
+		$org->appendChild($orgTitle);
 		*/
 
 		$address = $doc->createElement('gd:structuredPostalAddress');
@@ -136,22 +145,22 @@ function createContact($client, $object)
 		$address->setAttribute('primary' ,'true');
 		$entry->appendChild($address);
 
-		$city = $doc->createElement('gd:city', $object->town);
-		if (! empty($object->town))	$address->appendChild($city);
-		$street = $doc->createElement('gd:street', $object->address);
-		if (! empty($object->address)) $address->appendChild($street);
-		$postcode = $doc->createElement('gd:postcode', $object->zip);
-		if (! empty($object->zip))	$address->appendChild($postcode);
-		/*
-		$region = $doc->createElement('gd:region', getState($object->state_id,0));
-		$address->appendChild($region);
-		*/
-		$country = $doc->createElement('gd:country', getCountry($object->country_id,0));
-		$address->appendChild($country);
-		/*
-		$formattedaddress = $doc->createElement('gd:formattedAddress', 'eeeee');
-		$address->appendChild($formattedaddress);
-		*/
+			$city = $doc->createElement('gd:city', $object->town);
+			if (! empty($object->town))	$address->appendChild($city);
+			$street = $doc->createElement('gd:street', $object->address);
+			if (! empty($object->address)) $address->appendChild($street);
+			$postcode = $doc->createElement('gd:postcode', $object->zip);
+			if (! empty($object->zip))	$address->appendChild($postcode);
+			/*$tmpstate=getState($object->state_id,0);
+			$region = $doc->createElement('gd:region', $tmpstate);
+			if ($tmpstate) $address->appendChild($region);*/
+			$tmpcountry=getCountry($object->country_id,0);
+			$country = $doc->createElement('gd:country', $tmpcountry);
+			if ($tmpcountry) $address->appendChild($country);
+			/*
+			$formattedaddress = $doc->createElement('gd:formattedAddress', 'eeeee');
+			$address->appendChild($formattedaddress);
+			*/
 
 		/*
 		$birthday = $doc->createElement('gd:birthday');
@@ -176,10 +185,12 @@ function createContact($client, $object)
 		$userdefined->setAttribute('value',$object->id);
 		$entry->appendChild($userdefined);
 
-
-		$note = $doc->createElement('atom:content',$object->note);
+		$tmpnote=$object->note;
+		if (strpos($tmpnote,$google_nltechno_tag) === false) $tmpnote.="\n\n".$google_nltechno_tag.$object->id.'/'.($object->element=='societe'?'thirdparty':$object->element);
+		$note = $doc->createElement('atom:content',$tmpnote);
 		$entry->appendChild($note);
 
+		//To list all existing field we can edit: var_dump($doc->saveXML());exit;
 		//var_dump($doc->saveXML());exit;
 
 		// insert entry
@@ -198,18 +209,59 @@ function createContact($client, $object)
 
 
 /**
+ * insertGContactGroup
+ *
+ * @param string $groupName
+ * @return *googlegroupID
+ */
+function insertGContactGroup($gdata,$groupName)
+{
+	try {
+		$doc = new DOMDocument("1.0", 'utf-8');
+		$entry = $doc->createElement("atom:entry");
+		$entry->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:atom', 'http://www.w3.org/2005/Atom');
+		$entry->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:gcontact', 'http://schemas.google.com/contact/2008');
+		$el = $doc->createElement("atom:category");
+		$el->setAttribute("term", "http://schemas.google.com/contact/2008#group");
+		$el->setAttribute("scheme", "http://schemas.google.com/g/2005#kind");
+		$entry->appendChild($el);
+		$el = $doc->createElement("atom:title", $groupName);
+		$el->setAttribute("type", "text");
+		$entry->appendChild($el);
+		$el = $doc->createElement("atom:content", $groupName);
+		$el->setAttribute("type", "text");
+		$entry->appendChild($el);
+		$doc->appendChild($entry);
+		$doc->formatOutput = true;
+		$xmlStr = $doc->saveXML();
+		// insert entry
+		$entryResult = $gdata->insertEntry($xmlStr, 'http://www.google.com/m8/feeds/groups/default/full');
+		dol_syslog(sprintf("Inserting gContact group %s in google contacts for google ID = %s", $groupName, $entryResult->id));
+	} catch (Exception $e) {
+		dol_syslog("Problem while inserting group", LOG_ERR);
+		throw new Exception(sprintf("Problem while inserting group %s : %s", $groupName, $e->getMessage()));
+	}
+	return($entryResult->id);
+}
+
+
+/**
  * Updates the title of the event with the specified ID to be
  * the title specified.  Also outputs the new and old title
  * with HTML br elements separating the lines
  *
  * @param  Zend_Http_Client $client   		The authenticated client object
  * @param  string           $contactId  	The event ID string
- * @param  string           $newTitle 		The new title to set on this event
+ * @param  Object           $object			Object
  * @return Zend_Gdata_Calendar_EventEntry|null The updated entry
  */
 function updateContact($client, $contactId, $object)
 {
 	global $langs;
+
+	$google_nltechno_tag=getCommentIDTag();
+
+	// Fields: http://tools.ietf.org/html/rfc4287
 
 	//$gdata = new Zend_Gdata_Contacts($client);
 	$gdata = new Zend_Gdata($client);
@@ -229,7 +281,7 @@ function updateContact($client, $contactId, $object)
 	//$xml->name->familyName = 'xxx';
 	//$xml->name->nameSuffix = 'xxx';
 	//$xml->formattedAddress;
-	$xml->email['address'] = $object->email;
+	$xml->email['address'] = ($object->email?$object->email:($object->getFullName($langs).'@noemail.com'));
 
 	foreach ($xml->phoneNumber as $p) {
 		$obj->phoneNumber[] = (string) $p;
@@ -237,6 +289,12 @@ function updateContact($client, $contactId, $object)
 	foreach ($xml->website as $w) {
 		$obj->website[] = (string) $w['href'];
 	}
+
+	$tmpnote=$object->note;
+	if (strpos($tmpnote, $google_nltechno_tag) === false) $tmpnote.="\n\n".$google_nltechno_tag.$object->id.'/'.($object->element=='societe'?'thirdparty':$object->element);
+	$xml->content=$tmpnote;
+
+	//List of properties to set visible with var_dump($xml->saveXML());exit;
 
 	$extra_header = array('If-Match'=>'*');
 	$newentryResult = $gdata->updateEntry($xml->saveXML(), $entryResult->getEditLink()->href, null, $extra_header);
@@ -281,4 +339,113 @@ function deleteContactByRef($client, $ref)
 	}
 }
 
+
+
+
+
+/**
+ * Insert contacts into a google account
+ *
+ * @param array $gContacts
+ */
+function insertGContactsEntries($gdata, $gContacts)
+{
+	$maxBatchLength = 98; //Google doc says max 100 entries.
+	$remainingContacts = $gContacts;
+	while (count($remainingContacts) > 0) {
+		if (count($remainingContacts) > $maxBatchLength) {
+			$firstContacts = array_slice($remainingContacts, 0, $maxBatchLength);
+			$remainingContacts = array_slice($remainingContacts, $maxBatchLength);
+		} else {
+			$firstContacts = $remainingContacts;
+			$remainingContacts = array();
+		}
+		$doc = new DOMDocument("1.0", "utf-8");
+		$doc->formatOutput = true;
+		$feed = $doc->createElement("atom:feed");
+		$feed->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:atom', 'http://www.w3.org/2005/Atom');
+		$feed->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:gdata', 'http://schemas.google.com/g/2005');
+		$feed->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:gcontact', 'http://schemas.google.com/contact/2008');
+		$feed->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:batch', 'http://schemas.google.com/gdata/batch');
+		$feed->appendChild($doc->createElement("title", "The batch title: insert contacts"));
+		$doc->appendChild($feed);
+		foreach ($firstContacts as $gContact) {
+			$entry = $gContact->atomEntry;
+			$entry = $doc->importNode($entry, true);
+			$entry->setAttribute("gdata:etag", "*");
+			$entry = $feed->appendChild($entry);
+			$el = $doc->createElement("batch:operation");
+			$el->setAttribute("type", "insert");
+			$entry->appendChild($el);
+		}
+		$xmlStr = $doc->saveXML();
+		// uncomment for debugging :
+		// file_put_contents(DOL_DATA_ROOT . "/gcontacts/temp/gmail.contacts.xml", $xmlStr);
+		// dump it with 'xmlstarlet fo gmail.contacts.xml' command
+
+		/* Be aware that Google API has some kind of side effect when you use either
+		 * http://www.google.com/m8/feeds/contacts/default/base/...
+		* or
+		* http://www.google.com/m8/feeds/contacts/default/full/...
+		* Some Ids retrieved when accessing base may not be used with full and vice versa
+		* When using base, you may not change the group membership
+		*/
+		try {
+			$response = $gdata->post($xmlStr, "http://www.google.com/m8/feeds/contacts/default/full/batch");
+			$responseXml = $response->getBody();
+			// uncomment for debugging :
+			//file_put_contents(DOL_DATA_ROOT . "/gcontacts/temp/gmail.response.xml", $responseXml);
+			// dump it with 'xmlstarlet fo gmail.response.xml' command
+			$res=parseResponse($responseXml);
+			if($res->count != count($firstContacts) || $res->errors)
+				throw new Exception(sprintf("Google error : %s", $res->lastError));
+			dol_syslog(sprintf("Inserting %d google contacts for user %s", count($firstContacts), $googleUser));
+		} catch (Exception $e) {
+			dol_syslog("Problem while inserting contact", LOG_ERR);
+			throw new Exception($e->getMessage());
+		}
+
+	}
+}
+
+/**
+ *
+ * @param unknown_type $xmlStr
+ */
+function parseResponse($xmlStr)
+{
+	//$xmlStr = file_get_contents(DOL_DATA_ROOT . "/gcontacts/temp/gmail.response.xml");
+	$doc = new DOMDocument("1.0", "utf-8");
+	$doc->loadXML($xmlStr);
+	$contentNodes = $doc->getElementsByTagName("entry");
+	$res = new stdClass();
+	$res->count = $contentNodes->length;
+	$res->errors=0;
+	foreach ($contentNodes as $node) {
+		$title = $node->getElementsByTagName("title");
+		if($title->length==1 && $title->item(0)->textContent=='Error') {
+			$res->errors++;
+			$content = $node->getElementsByTagName("content");
+			if($content->length>0)
+				$res->lastError=$content->item(0)->textContent;
+		}
+	}
+	return $res;
+}
+
+
+/**
+ * Return TAG to add into Google Gmail
+ *
+ * @param string $s		Type of tag
+ */
+function getTagLabel($s)
+{
+	global $conf,$langs;
+
+	$tag=empty($conf->global->GOOGLE_TAG_PREFIX)?'Dolibarr':$conf->global->GOOGLE_TAG_PREFIX;
+	if ($s=='thirdparties') $tag.=' ('.$langs->trans("Thirdparty").')';
+	if ($s=='contact') $tag.=' ('.$langs->trans("Contact").')';
+	return $tag;
+}
 

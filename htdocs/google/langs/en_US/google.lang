@@ -35,7 +35,11 @@ KeepEmptyYoUseLoginPassOfEventUser=Keep empty to use Google login/pass of user t
 GoogleUserConf=Google setup
 GoogleSetupIsGlobal=Sync setup is done globally for all users to %s 
 TestCreateUpdateDelete=Test create-update-delete
+TestCreate=Test create (to remove manually)
 TestSuccessfull=Test successful
 DueToGoogleLimitYouNeedToLogin=For security reasons imposed by Google, the Google calendar view will display correctly only if you are logged in to Google (this will work however for only one agenda ID).
 AllowGoogleToLoginSetupKey=To facilitate this, it is possible to configure a key to allow the application to offer the Google Logon if you are not connected.
 AllowGoogleToLoginProp=You will find information for this setup page by creating a key using this link <a href="%s" target="_blank">%s</a>: Select API Access and Create a client ID type Web Application, entering as url redirection (Redirect URI), the following url <strong>%s</strong> 
+ExportThirdpartiesToGoogle=Export all Dolibarr thirdparties to GMail contacts (warning, there is no check on duplicate record for mass export).
+DeleteAllGoogleThirdparties=Delete all thirdparties coming from Dolibarr into Gmail.
+PushToGoogleSucess=Syncronising to Google contact finished for %s record(s).

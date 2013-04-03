@@ -88,23 +88,39 @@ if ($action == 'save')
 }
 
 // This is a hidden action to allow to test creation of event once synchro with Calendar has been enabled.
-if ($action == 'testcreate')
+if (preg_match('/^test/',$action))
 {
     include_once(DOL_DOCUMENT_ROOT.'/societe/class/societe.class.php');
+    include_once(DOL_DOCUMENT_ROOT.'/contact/class/contact.class.php');
 
+    //$object=new Contact($db);
     $object=new Societe($db);
     $result=$object->initAsSpecimen();
 
-    $object->name='Test Synchro Contact (can be deleted)';
-    /*$object->code_client=-1;
-    $object->code_fournisseur=-1;*/
-    $result=$object->create($user);
+    if ($action == 'testcreate' || $action == 'testall')
+    {
+	    $object->name='Test Synchro Thirdparty (can be deleted)';
+	    $object->lastname='Contact (can be deleted)';
+	    $object->firstname='Test Synchro';
+	    /*$object->code_client=-1;
+	    $object->code_fournisseur=-1;*/
+	    $result=$object->create($user);
+    }
 
-    $object->name='New test Synchro Contact (can be deleted)';
-    $object->email='newemail@newemail.com';
-    $result=$object->update($object->id, $user);
+    if ($action == 'testall')
+    {
+	    $object->name='New test Synchro Thirdparty (can be deleted)';
+	    $object->lastname='Synchro Contact (can be deleted)';
+	    $object->firstname='New test';
+	    $object->email='newemail@newemail.com';
+	    $object->note='New private note';
+	    $result=$object->update($object->id, $user);
+    }
 
-    $result=$object->delete($object->id);
+    if ($action == 'testdelete')
+    {
+    	$result=$object->delete($object->id);
+    }
 
     if ($result > 0)
     {
@@ -115,6 +131,34 @@ if ($action == 'testcreate')
         $error='<div class="error">'.$object->error.'</div>';
         $errors=$object->errors;
     }
+}
+
+if ($action == 'pushall')
+{
+	dol_include_once('/google/class/gcontacts.class.php');
+
+	//	$res = GContact::deleteDolibarrContacts();
+	$sql = 'SELECT rowid FROM '.MAIN_DB_PREFIX.'societe';
+	$resql = $db->query($sql);
+	if (! $resql)
+	{
+		dol_print_error($db);
+		exit;
+	}
+
+	$synclimit = 3;	// 0 = all
+	$i=0;
+	while (($obj = $db->fetch_object($resql)) && ($i < $synclimit || empty($synclimit)))
+	{
+		$gContacts[] = new GContact($obj->rowid,'thirdparty');
+		$i++;
+	}
+
+	$result=0;
+	if (count($gContacts)) $result=GContact::insertGContactsEntries($gContacts);
+
+	if ($result >= 0) $mesg = $langs->trans("PushToGoogleSucess",count($gContacts));
+	else $mesg = $langs->trans("Error");
 }
 
 
@@ -202,15 +246,34 @@ print '<br>';
 
 
 print '<div class="tabsActions">';
-if (empty($conf->global->GOOGLE_CONTACT_LOGIN) || empty($conf->global->GOOGLE_CONTACT_LOGIN))
+if (empty($conf->global->GOOGLE_CONTACT_LOGIN) || empty($conf->global->GOOGLE_DUPLICATE_INTO_CONTACT))
 {
-	print '<a class="butActionRefused" href="#">'.$langs->trans("TestConnection")."</a>";
+	print '<a class="butActionRefused" href="#">'.$langs->trans("TestCreateUpdateDelete")."</a>";
 }
 else
 {
-	print '<a class="butAction" href="'.$_SERVER['PHP_SELF'].'?action=testcreate">'.$langs->trans("TestCreateUpdateDelete")."</a>";
+	print '<a class="butAction" href="'.$_SERVER['PHP_SELF'].'?action=testall">'.$langs->trans("TestCreateUpdateDelete")."</a>";
+
+	print '<a class="butAction" href="'.$_SERVER['PHP_SELF'].'?action=testcreate">'.$langs->trans("TestCreate")."</a>";
 }
 print '</div>';
+
+
+print '<br><br>';
+
+
+print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
+print '<input type="hidden" name="action" value="pushall">';
+print $langs->trans("ExportThirdpartiesToGoogle")." ";
+print '<input type="submit" name="pushall" class="button" value="'.$langs->trans("Go").'">';
+print "</form>\n";
+
+print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
+print '<input type="hidden" name="action" value="deleteall">';
+print $langs->trans("DeleteAllGoogleThirdparties")." ";
+print '<input type="submit" name="cleanup" class="button" value="'.$langs->trans("Go").'">';
+print "</form>\n";
+
 
 
 dol_htmloutput_mesg($mesg);
