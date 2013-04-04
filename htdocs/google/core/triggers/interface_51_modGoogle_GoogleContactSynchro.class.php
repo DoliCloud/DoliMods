@@ -142,6 +142,7 @@ class InterfaceGoogleContactSynchro
 
 			if ($client == null)
 			{
+				dol_syslog("Failed to login to Google for login ".$user, LOG_ERR);
 				$this->error='Failed to login to Google for login '.$user;
 				$this->errors[]=$this->error;
 				return -1;
