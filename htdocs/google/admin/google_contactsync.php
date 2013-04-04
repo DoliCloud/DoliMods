@@ -71,11 +71,11 @@ if ($action == 'save')
     if (! $res > 0) $error++;
     $res=dolibarr_set_const($db,'GOOGLE_CONTACT_LABEL',trim($_POST["GOOGLE_CONTACT_LABEL"]),'chaine',0);
     if (! $res > 0) $error++;
-/*	$res=dolibarr_set_const($db,'GOOGLE_EVENT_LABEL_INC_SOCIETE',trim($_POST["GOOGLE_EVENT_LABEL_INC_SOCIETE"]),'chaine',0);
+	$res=dolibarr_set_const($db,'GOOGLE_TAG_PREFIX',trim($_POST["GOOGLE_TAG_PREFIX"]),'chaine',0);
     if (! $res > 0) $error++;
-	$res=dolibarr_set_const($db,'GOOGLE_EVENT_LABEL_INC_CONTACT',trim($_POST["GOOGLE_EVENT_LABEL_INC_CONTACT"]),'chaine',0);
+	$res=dolibarr_set_const($db,'GOOGLE_TAG_PREFIX_CONTACTS',trim($_POST["GOOGLE_TAG_PREFIX_CONTACTS"]),'chaine',0);
     if (! $res > 0) $error++;
-*/
+
 
     if (! $error)
     {
@@ -250,16 +250,22 @@ print '<input class="flat" type="password" size="10" name="GOOGLE_CONTACT_PASSWO
 //print ' &nbsp; '.$langs->trans("KeepEmptyYoUseLoginPassOfEventUser");
 print "</td>";
 print "</tr>";
-// Label to use
-/*
+// Label to use for thirdparties
 $var=!$var;
 print "<tr ".$bc[$var].">";
-print "<td>".$langs->trans("GOOGLE_CONTACT_LABEL")."<br /></td>";
+print "<td>".$langs->trans("GOOGLE_TAG_PREFIX")."<br /></td>";
 print "<td>";
-print '<input class="flat" type="text" size="24" name="GOOGLE_CONTACT_LABEL" value="'.$conf->global->GOOGLE_CONTACT_LABEL.'">';
+print '<input class="flat" type="text" size="24" name="GOOGLE_TAG_PREFIX" value="'.dol_escape_htmltag(getTagLabel('thirdparties')).'">';
 print "</td>";
 print "</tr>";
-*/
+// Label to use for contacts
+$var=!$var;
+print "<tr ".$bc[$var].">";
+print "<td>".$langs->trans("GOOGLE_TAG_PREFIX_CONTACTS")."<br /></td>";
+print "<td>";
+print '<input class="flat" type="text" size="24" name="GOOGLE_TAG_PREFIX_CONTACTS" value="'.dol_escape_htmltag(getTagLabel('contacts')).'">';
+print "</td>";
+print "</tr>";
 
 print "</table>";
 print "<br>";
