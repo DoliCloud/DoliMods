@@ -1,5 +1,5 @@
 <?php
-/* Copyright (C) 2011 Regis Houssin	<regis@dolibarr.fr>
+/* Copyright (C) 2013 Laurent Destailleur	<eldy@users.sourceforge.net>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -43,6 +43,13 @@ $_authSubKeyFile = null; // Example value for secure use: 'mykey.pem'
 $_authSubKeyFilePassphrase = null;
 
 
+define('ATOM_NAME_SPACE','http://www.w3.org/2005/Atom');
+define('REL_WORK','http://schemas.google.com/g/2005#work');
+define('REL_MOBILE','http://schemas.google.com/g/2005#mobile');
+define('REL_HOME','http://schemas.google.com/g/2005#home');
+define('REL_WORK_FAX','http://schemas.google.com/g/2005#work_fax');
+
+
 
 /**
  * Returns a HTTP client object with the appropriate headers for communicating
@@ -67,7 +74,11 @@ function getClientLoginHttpClientContact($user, $pass, $service)
 	return $client;
 }
 
-
+/**
+ * Return value of tag to add at end of comment into Google comments
+ *
+ * @return	string		Value of tag
+ */
 function getCommentIDTag()
 {
 	return	'--- (do not delete) --- dolibarr_id = ';
@@ -88,21 +99,24 @@ function createContact($client, $object)
 
 	include_once(DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php');
 
+	dol_syslog('createContact object->id='.$object->id.' type='.$object->element);
+
 	$google_nltechno_tag=getCommentIDTag();
 
-	$doc  = new DOMDocument();
+	$doc  = new DOMDocument("1.0", "utf-8");
 	try {
 		// perform login and set protocol version to 3.0
 		$gdata = new Zend_Gdata($client);
 		$gdata->setMajorProtocolVersion(3);
 
-		$groupName = ($object->element=='societe'?'Dolibarr thirdparties':'Dolibarr contacts');
+		$groupName = getTagLabel($object->element=='societe'?'thirdparties':'contacts');
 
 		// create new entry
 		$doc->formatOutput = true;
 		$entry = $doc->createElement('atom:entry');
-		$entry->setAttributeNS('http://www.w3.org/2000/xmlns/' , 'xmlns:atom', 'http://www.w3.org/2005/Atom');
-		$entry->setAttributeNS('http://www.w3.org/2000/xmlns/' , 'xmlns:gd', 'http://schemas.google.com/g/2005');
+		$entry->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:atom', constant('ATOM_NAME_SPACE'));
+		$entry->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:gd', 'http://schemas.google.com/g/2005');
+        $entry->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:gcontact', 'http://schemas.google.com/contact/2008');
 		$doc->appendChild($entry);
 
 
@@ -190,6 +204,12 @@ function createContact($client, $object)
 		$note = $doc->createElement('atom:content',$tmpnote);
 		$entry->appendChild($note);
 
+		$googleGroups=array();
+		$el = $doc->createElement("gcontact:groupMembershipInfo");
+		$el->setAttribute("deleted", "false");
+		$el->setAttribute("href", getGoogleGroupID($gdata, $groupName, $googleGroups));
+		$entry->appendChild($el);
+
 		//To list all existing field we can edit: var_dump($doc->saveXML());exit;
 		//var_dump($doc->saveXML());exit;
 
@@ -209,43 +229,6 @@ function createContact($client, $object)
 
 
 /**
- * insertGContactGroup
- *
- * @param string $groupName
- * @return *googlegroupID
- */
-function insertGContactGroup($gdata,$groupName)
-{
-	try {
-		$doc = new DOMDocument("1.0", 'utf-8');
-		$entry = $doc->createElement("atom:entry");
-		$entry->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:atom', 'http://www.w3.org/2005/Atom');
-		$entry->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:gcontact', 'http://schemas.google.com/contact/2008');
-		$el = $doc->createElement("atom:category");
-		$el->setAttribute("term", "http://schemas.google.com/contact/2008#group");
-		$el->setAttribute("scheme", "http://schemas.google.com/g/2005#kind");
-		$entry->appendChild($el);
-		$el = $doc->createElement("atom:title", $groupName);
-		$el->setAttribute("type", "text");
-		$entry->appendChild($el);
-		$el = $doc->createElement("atom:content", $groupName);
-		$el->setAttribute("type", "text");
-		$entry->appendChild($el);
-		$doc->appendChild($entry);
-		$doc->formatOutput = true;
-		$xmlStr = $doc->saveXML();
-		// insert entry
-		$entryResult = $gdata->insertEntry($xmlStr, 'http://www.google.com/m8/feeds/groups/default/full');
-		dol_syslog(sprintf("Inserting gContact group %s in google contacts for google ID = %s", $groupName, $entryResult->id));
-	} catch (Exception $e) {
-		dol_syslog("Problem while inserting group", LOG_ERR);
-		throw new Exception(sprintf("Problem while inserting group %s : %s", $groupName, $e->getMessage()));
-	}
-	return($entryResult->id);
-}
-
-
-/**
  * Updates the title of the event with the specified ID to be
  * the title specified.  Also outputs the new and old title
  * with HTML br elements separating the lines
@@ -258,6 +241,8 @@ function insertGContactGroup($gdata,$groupName)
 function updateContact($client, $contactId, $object)
 {
 	global $langs;
+
+	dol_syslog('updateContact object->id='.$object->id.' type='.$object->element.' ref_ext='.$object->ref_ext);
 
 	$google_nltechno_tag=getCommentIDTag();
 
@@ -316,7 +301,7 @@ function updateContact($client, $contactId, $object)
  */
 function deleteContactByRef($client, $ref)
 {
-	dol_syslog("deleteEventByRef ".$ref);
+	dol_syslog('deleteContactByRef Gcontact ref to delete='.$ref);
 
 	try
 	{
@@ -344,15 +329,18 @@ function deleteContactByRef($client, $ref)
 
 
 /**
- * Insert contacts into a google account
+ * Mass insert of several contacts into a google account
  *
- * @param array $gContacts
+ * @param 	Mixed	$gdata			Handler of Gdata connexion
+ * @param 	array 	$gContacts		Array of object GContact
+ * @return	int						>0 if OK
  */
 function insertGContactsEntries($gdata, $gContacts)
 {
 	$maxBatchLength = 98; //Google doc says max 100 entries.
 	$remainingContacts = $gContacts;
-	while (count($remainingContacts) > 0) {
+	while (count($remainingContacts) > 0)
+	{
 		if (count($remainingContacts) > $maxBatchLength) {
 			$firstContacts = array_slice($remainingContacts, 0, $maxBatchLength);
 			$remainingContacts = array_slice($remainingContacts, $maxBatchLength);
@@ -363,7 +351,7 @@ function insertGContactsEntries($gdata, $gContacts)
 		$doc = new DOMDocument("1.0", "utf-8");
 		$doc->formatOutput = true;
 		$feed = $doc->createElement("atom:feed");
-		$feed->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:atom', 'http://www.w3.org/2005/Atom');
+		$feed->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:atom', constant('ATOM_NAME_SPACE'));
 		$feed->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:gdata', 'http://schemas.google.com/g/2005');
 		$feed->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:gcontact', 'http://schemas.google.com/contact/2008');
 		$feed->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:batch', 'http://schemas.google.com/gdata/batch');
@@ -380,8 +368,8 @@ function insertGContactsEntries($gdata, $gContacts)
 		}
 		$xmlStr = $doc->saveXML();
 		// uncomment for debugging :
-		// file_put_contents(DOL_DATA_ROOT . "/gcontacts/temp/gmail.contacts.xml", $xmlStr);
-		// dump it with 'xmlstarlet fo gmail.contacts.xml' command
+		file_put_contents(DOL_DATA_ROOT . "/dolibarr_google_massinsert.xml", $xmlStr);
+		// you can view this file with 'xmlstarlet fo dolibarr_google_massinsert.xml' command
 
 		/* Be aware that Google API has some kind of side effect when you use either
 		 * http://www.google.com/m8/feeds/contacts/default/base/...
@@ -394,18 +382,18 @@ function insertGContactsEntries($gdata, $gContacts)
 			$response = $gdata->post($xmlStr, "http://www.google.com/m8/feeds/contacts/default/full/batch");
 			$responseXml = $response->getBody();
 			// uncomment for debugging :
-			//file_put_contents(DOL_DATA_ROOT . "/gcontacts/temp/gmail.response.xml", $responseXml);
-			// dump it with 'xmlstarlet fo gmail.response.xml' command
+			file_put_contents(DOL_DATA_ROOT . "/dolibarr_google_massinsert_response.xml", $responseXml);
+			// you can view this file with 'xmlstarlet fo dolibarr_google_massinsert_response.xml' command
 			$res=parseResponse($responseXml);
-			if($res->count != count($firstContacts) || $res->errors)
-				throw new Exception(sprintf("Google error : %s", $res->lastError));
+			if($res->count != count($firstContacts) || $res->errors) return sprintf("Google error : %s", $res->lastError);
 			dol_syslog(sprintf("Inserting %d google contacts for user %s", count($firstContacts), $googleUser));
-		} catch (Exception $e) {
-			dol_syslog("Problem while inserting contact", LOG_ERR);
-			throw new Exception($e->getMessage());
 		}
-
+		catch (Exception $e) {
+			dol_syslog("Problem while inserting contact ".$e->getMessage(), LOG_ERR);
+		}
 	}
+
+	return 1;
 }
 
 /**
@@ -414,7 +402,6 @@ function insertGContactsEntries($gdata, $gContacts)
  */
 function parseResponse($xmlStr)
 {
-	//$xmlStr = file_get_contents(DOL_DATA_ROOT . "/gcontacts/temp/gmail.response.xml");
 	$doc = new DOMDocument("1.0", "utf-8");
 	$doc->loadXML($xmlStr);
 	$contentNodes = $doc->getElementsByTagName("entry");
@@ -451,3 +438,110 @@ function getTagLabel($s)
 	return $tag;
 }
 
+
+/**
+ * Retreive a googleGroupID for a groupName.
+ * If the groupName does not exist on Gmail account, it will be created as a side effect
+ *
+ * @param	Mixed	$gdata			GData handler
+ * @param	string	$groupName		Group name
+ * @param	array	$googleGroups	Array of Google Group we know they already exists
+ * @return 	string					Google Group ID for groupName.
+ */
+function getGoogleGroupID($gdata, $groupName, &$googleGroups=array())
+{
+	global $conf;
+
+	// Search existing groups
+	if (! is_array($googleGroups) || count($googleGroups) == 0)
+	{
+		$document = new DOMDocument("1.0", "utf-8");
+		$xmlStr = getContactGroupsXml($gdata);
+		$document->loadXML($xmlStr);
+		$xmlStr = $document->saveXML();
+		$entries = $document->documentElement->getElementsByTagNameNS(constant('ATOM_NAME_SPACE'), "entry");
+		$n = $entries->length;
+		$googleGroups = array();
+		foreach ($entries as $entry) {
+			$titleNodes = $entry->getElementsByTagNameNS(constant('ATOM_NAME_SPACE'), "title");
+			if ($titleNodes->length == 1) {
+				$title = $titleNodes->item(0)->textContent;
+				$googleIDNodes = $entry->getElementsByTagNameNS(constant('ATOM_NAME_SPACE'), "id");
+				if ($googleIDNodes->length == 1) {
+					$googleGroups[$title] = $googleIDNodes->item(0)->textContent;
+				}
+			}
+		}
+	}
+
+	// Create group if it not exists
+	if (!isset($googleGroups[$groupName]))
+	{
+		$newGroupID = insertGContactGroup($gdata, $groupName);
+		$googleGroups[$groupName] = $newGroupID;
+	}
+	return $googleGroups[$groupName];
+}
+
+
+/**
+ * Retreive a Xml feed of contacts groups from Google
+ *
+ * @param	Mixed	$gdata			GData handler
+ * @return	string					XML string with all groups
+ */
+function getContactGroupsXml($gdata)
+{
+	try {
+		$query = new Zend_Gdata_Query('http://www.google.com/m8/feeds/groups/default/full?max-results=1000');
+		$feed = $gdata->getFeed($query);
+		$xmlStr = $feed->getXML();
+		// uncomment for debugging :
+		//file_put_contents(DOL_DATA_ROOT . "/dolibarr_google_groups.xml", $xmlStr);
+		// you can view this file with 'xmlstarlet fo dolibarr_google_groups.xml' command
+	} catch (Exception $e) {
+		dol_syslog(sprintf("Error while feed xml groups : %s", $e->getMessage()), LOG_ERR);
+	}
+	return($xmlStr);
+}
+
+
+
+/**
+ * Create a group/label into Google contact
+ *
+ * @param	Mixed	$gdata			GData handler
+ * @param 	string 	$groupName		Group name to create into Google Contact
+ * @return 	string					googlegroupID
+ */
+function insertGContactGroup($gdata,$groupName)
+{
+	dol_syslog('insertGContactGroup create group '.$groupName.' into Google contact');
+
+	try {
+		$doc = new DOMDocument("1.0", 'utf-8');
+		$entry = $doc->createElement("atom:entry");
+		$entry->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:atom', constant('ATOM_NAME_SPACE'));
+		$entry->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:gcontact', 'http://schemas.google.com/contact/2008');
+		$el = $doc->createElement("atom:category");
+		$el->setAttribute("term", "http://schemas.google.com/contact/2008#group");
+		$el->setAttribute("scheme", "http://schemas.google.com/g/2005#kind");
+		$entry->appendChild($el);
+		$el = $doc->createElement("atom:title", $groupName);
+		$el->setAttribute("type", "text");
+		$entry->appendChild($el);
+		$el = $doc->createElement("atom:content", $groupName);
+		$el->setAttribute("type", "text");
+		$entry->appendChild($el);
+		$doc->appendChild($entry);
+		$doc->formatOutput = true;
+		$xmlStr = $doc->saveXML();
+		// insert entry
+		$entryResult = $gdata->insertEntry($xmlStr, 'http://www.google.com/m8/feeds/groups/default/full');
+		dol_syslog(sprintf("Inserting gContact group %s in google contacts for google ID = %s", $groupName, $entryResult->id));
+	} catch (Exception $e) {
+		dol_syslog(sprintf("Problem while inserting group %s : %s", $groupName, $e->getMessage()), LOG_ERR);
+	}
+
+	return($entryResult->id);
+}

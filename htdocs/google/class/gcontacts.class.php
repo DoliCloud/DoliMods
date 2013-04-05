@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright (C) 2012-2013 Philippe Berthet  <berthet@systune.be>
  *
@@ -222,9 +221,9 @@ class GContact {
         $this->atomEntry->appendChild($el);
     }
 
-     /**
+    /**
      * Fill the GContact class from a dolibarID
-     * @param string $dolID
+     *
      * @return GContact
      */
     private function fetchThirdpartyFromDolibarr()
@@ -324,7 +323,7 @@ class GContact {
 
     /**
      * Fill the GContact class from a dolibarID
-     * @param string $dolID
+     *
      * @return GContact
      */
     private function fetchFromDolibarr()
@@ -346,6 +345,7 @@ class GContact {
     	// Fill object with contact infos
     	$this->firstname = $dolContact->firstname;
     	$this->lastname = $dolContact->lastname;
+        $this->fullName = $dolContact->getFullName($langs);
     	$this->email = $dolContact->email;
     	if(!(empty($dolContact->address)&&empty($dolContact->zip)&&empty($dolContact->town)&&empty($dolContact->state)&&empty($dolContact->country))) {
     		$this->addr = new GCaddr();
@@ -365,9 +365,8 @@ class GContact {
     		$result=$company->fetch($dolContact->socid);
     		if ($result <=0)
     			throw new Exception($company->$error);
-    		$this->company = new GCcompany();
     		$this->orgName=$company->name;
-    		$this->company->tel=$company->tel;
+    		/*$this->company->tel=$company->tel;
     		$this->company->fax=$company->fax;
     		$this->company->email=$company->email;
     		$this->company->url=$company->url;
@@ -381,6 +380,7 @@ class GContact {
     		}
     		if($company->typent_code != 'TE_PRIVATE') $this->orgName = $company->nom;
     		$this->company->groups = self::getGroups($this->socid);
+    		*/
     	}
     	$this->poste= $dolContact->poste;
     	if(!empty($dolContact->note)) $this->note = $dolContact->note . "\n" . getCommentIDTag() . $this->dolID . "/contact";
@@ -401,9 +401,12 @@ class GContact {
     	//$this->appendTextElement($doc, $el, 'gdata:namePrefix', $peopleTitle);
     	$this->atomEntry->appendChild($el);
 
-    	// Note as comment and a custom field
+        $elfullName = $this->doc->createElement('gdata:fullName', $this->fullName);
+        $el->appendChild($elfullName);
+
+        // Note as comment and a custom field
     	$this->atomEntry->appendChild($this->doc->createElement('atom:content', $this->note));
-    	$this->appendCustomField("Origin", 'Onelog');
+    	//$this->appendCustomField("Origin", 'Onelog');
 
     	// Phones
     	$this->appendPhoneNumber(self::REL_WORK, $this->phone_pro, true);
@@ -599,10 +602,15 @@ class GContact {
 
 
     /**
+	 * insertGContactGroup
+	 *
      * @param string $groupName
      * @return *googlegroupID
      */
-    private static function insertGContactGroup($groupName) {
+    private static function insertGContactGroup($groupName)
+    {
+    	dol_syslog("insertGContactGroup Create Google group ".$groupName);
+    	
         try {
             $doc = new DOMDocument("1.0", 'utf-8');
             $entry = $doc->createElement("atom:entry");
@@ -641,38 +649,39 @@ class GContact {
      */
     public static function getGoogleGroupID($groupName)
     {
-        global $conf;
-        static $googleGroups;
-
-        // Search existing groups
-        if(!isset($googleGroups))
-        {
-            $document = new DOMDocument("1.0", "utf-8");
-            $xmlStr = self::getContactGroupsXml();
-            $document->loadXML($xmlStr);
-            $xmlStr = $document->saveXML();
-            $entries = $document->documentElement->getElementsByTagNameNS(self::ATOM_NAME_SPACE, "entry");
-            $n = $entries->length;
-            $googleGroups = array();
-            foreach ($entries as $entry) {
-                $titleNodes = $entry->getElementsByTagNameNS(self::ATOM_NAME_SPACE, "title");
-                if ($titleNodes->length == 1) {
-                    $title = $titleNodes->item(0)->textContent;
-                    $googleIDNodes = $entry->getElementsByTagNameNS(self::ATOM_NAME_SPACE, "id");
-                    if ($googleIDNodes->length == 1) {
-                        $googleGroups[$title] = $googleIDNodes->item(0)->textContent;
-                    }
-                }
-            }
-        }
-
-        // Create group if it not exists
-        if(!isset($googleGroups[$groupName])) {
-            $newGroupID = self::insertGContactGroup($groupName);
-            $googleGroups[$groupName] = $newGroupID;
-        }
-        return $googleGroups[$groupName];
+    	global $conf;
+    	static $googleGroups;
+    
+    	// Search existing groups
+    	if(!isset($googleGroups))
+    	{
+    		$document = new DOMDocument("1.0", "utf-8");
+    		$xmlStr = self::getContactGroupsXml();
+    		$document->loadXML($xmlStr);
+    		$xmlStr = $document->saveXML();
+    		$entries = $document->documentElement->getElementsByTagNameNS(self::ATOM_NAME_SPACE, "entry");
+    		$n = $entries->length;
+    		$googleGroups = array();
+    		foreach ($entries as $entry) {
+    			$titleNodes = $entry->getElementsByTagNameNS(self::ATOM_NAME_SPACE, "title");
+    			if ($titleNodes->length == 1) {
+    				$title = $titleNodes->item(0)->textContent;
+    				$googleIDNodes = $entry->getElementsByTagNameNS(self::ATOM_NAME_SPACE, "id");
+    				if ($googleIDNodes->length == 1) {
+    					$googleGroups[$title] = $googleIDNodes->item(0)->textContent;
+    				}
+    			}
+    		}
+    	}
+    
+    	// Create group if it not exists
+    	if(!isset($googleGroups[$groupName])) {
+    		$newGroupID = self::insertGContactGroup($groupName);
+    		$googleGroups[$groupName] = $newGroupID;
+    	}
+    	return $googleGroups[$groupName];
     }
+    
 
     /*
      * Rename all groups with a new prefix
@@ -1170,13 +1179,4 @@ class GCaddr {
                 $this->state_id=$obj->rowid;
         }
     }
-}
-
-class GCcompany {
-    var $name;
-    var $tel;
-    var $fax;
-    var $email;
-    var $url;
-    var $addr;
 }

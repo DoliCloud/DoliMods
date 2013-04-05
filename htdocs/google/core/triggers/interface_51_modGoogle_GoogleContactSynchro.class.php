@@ -174,7 +174,7 @@ class InterfaceGoogleContactSynchro
 							// This is to store ref_ext to allow updates
 						}
 						return 1;
-					} else if ($gid == '') { // No google id, may be a reaffected event
+					} else if ($gid == '') { // No google id
 						$ret = createContact($client, $object);
 						//var_dump($ret); exit;
 

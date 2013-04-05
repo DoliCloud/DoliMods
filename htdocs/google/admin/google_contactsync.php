@@ -1,5 +1,5 @@
 <?php
-/* Copyright (C) 2008-2012 Laurent Destailleur  <eldy@users.sourceforge.net>
+/* Copyright (C) 2008-2013 Laurent Destailleur  <eldy@users.sourceforge.net>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -95,33 +95,53 @@ if (preg_match('/^test/',$action))
     include_once(DOL_DOCUMENT_ROOT.'/societe/class/societe.class.php');
     include_once(DOL_DOCUMENT_ROOT.'/contact/class/contact.class.php');
 
-    //$object=new Contact($db);
-    $object=new Societe($db);
-    $result=$object->initAsSpecimen();
+    if ($action == 'testcreatethirdparties' || $action == 'testallthirdparties') $object=new Societe($db);
+    if ($action == 'testcreatecontacts' || $action == 'testallcontacts') $object=new Contact($db);
 
-    if ($action == 'testcreate' || $action == 'testall')
+    if ($action == 'testcreatethirdparties' || $action == 'testallthirdparties')
     {
-	    $object->name='Test Synchro Thirdparty (can be deleted)';
-	    $object->lastname='Contact (can be deleted)';
+    	$result=$object->initAsSpecimen();
+
+    	$object->name='Test Synchro Thirdparty (can be deleted)';
+	    $object->lastname='Thirdparty (can be deleted)';
 	    $object->firstname='Test Synchro';
 	    /*$object->code_client=-1;
 	    $object->code_fournisseur=-1;*/
 	    $result=$object->create($user);
     }
-
-    if ($action == 'testall')
+    if ($action == 'testcreatecontacts' || $action == 'testallcontacts')
     {
-	    $object->name='New test Synchro Thirdparty (can be deleted)';
-	    $object->lastname='Synchro Contact (can be deleted)';
-	    $object->firstname='New test';
+		$result=$object->initAsSpecimen();
+
+    	$object->name='Test Synchro Contact (can be deleted)';
+    	$object->lastname='Contact (can be deleted)';
+    	$object->firstname='Test Synchro';
+    	/*$object->code_client=-1;
+    	 $object->code_fournisseur=-1;*/
+    	$result=$object->create($user);
+    }
+
+    if ($action == 'testallthirdparties')
+    {
+    	$object->name='Test Synchro new Thirdparty (can be deleted)';
+	    $object->lastname='Thirdparty (can be deleted)';
+	    $object->firstname='Test Synchro new';
 	    $object->email='newemail@newemail.com';
 	    $object->note='New private note';
 	    $result=$object->update($object->id, $user);
-    }
 
-    if ($action == 'testdelete')
+	    $result=$object->delete($object->id);	// id of thirdparty to delete
+    }
+    if ($action == 'testallcontacts')
     {
-    	$result=$object->delete($object->id);
+		$object->name='Test Synchro new Contact (can be deleted)';
+    	$object->lastname='Contact (can be deleted)';
+    	$object->firstname='Test Synchro new';
+    	$object->email='newemail@newemail.com';
+    	$object->note='New private note';
+    	$result=$object->update($object->id, $user);
+
+	    $result=$object->delete(0);	// notrigger=0
     }
 
     if ($result > 0)
@@ -283,17 +303,31 @@ print '<br>';
 
 
 print '<div class="tabsActions">';
+// Thirdparties
 if (empty($conf->global->GOOGLE_CONTACT_LOGIN) || empty($conf->global->GOOGLE_DUPLICATE_INTO_THIRDPARTIES))
 {
-	print '<a class="butActionRefused" href="#">'.$langs->trans("TestCreateUpdateDelete")."</a>";
+	print '<font style="padding: 1em 0.7em 0em 0.7em !important;" class="butActionRefused" href="#"><div class="inline-block divButAction">'.$langs->trans("TestCreateUpdateDelete")."<br>(".$langs->trans("Thirdparty").")</div></font>";
 
-	print '<a class="butActionRefused" href="#">'.$langs->trans("TestCreate")."</a>";
+	print '<font style="padding: 1em 0.7em 0em 0.7em !important;" class="butActionRefused" href="#"><div class="inline-block divButAction">'.$langs->trans("TestCreate")."<br>(".$langs->trans("Thirdparty").")</div></font>";
 }
 else
 {
-	print '<a class="butAction" href="'.$_SERVER['PHP_SELF'].'?action=testall">'.$langs->trans("TestCreateUpdateDelete")."</a>";
+	print '<a style="padding: 1em 0.7em 0em 0.7em !important;" class="butAction" href="'.$_SERVER['PHP_SELF'].'?action=testallthirdparties"><div class="inline-block divButAction">'.$langs->trans("TestCreateUpdateDelete")."<br>(".$langs->trans("Thirdparty").")</div></a>";
 
-	print '<a class="butAction" href="'.$_SERVER['PHP_SELF'].'?action=testcreate">'.$langs->trans("TestCreate")."</a>";
+	print '<a style="padding: 1em 0.7em 0em 0.7em !important;" class="butAction" href="'.$_SERVER['PHP_SELF'].'?action=testcreatethirdparties"><div class="inline-block divButAction">'.$langs->trans("TestCreate")."<br>(".$langs->trans("Thirdparty").")</div></a>";
+}
+// Contacts
+if (empty($conf->global->GOOGLE_CONTACT_LOGIN) || empty($conf->global->GOOGLE_DUPLICATE_INTO_CONTACTS))
+{
+	print '<font style="padding: 1em 0.7em 0em 0.7em !important;" class="butActionRefused" href="#"><div class="inline-block divButAction">'.$langs->trans("TestCreateUpdateDelete")."<br>(".$langs->trans("Contact").")</div></font>";
+
+	print '<font style="padding: 1em 0.7em 0em 0.7em !important;" class="butActionRefused" href="#"><div class="inline-block divButAction">'.$langs->trans("TestCreate")."<br>(".$langs->trans("Contact").")</div></font>";
+}
+else
+{
+	print '<a style="padding: 1em 0.7em 0em 0.7em !important;" class="butAction" href="'.$_SERVER['PHP_SELF'].'?action=testallcontacts"><div class="inline-block divButAction">'.$langs->trans("TestCreateUpdateDelete")."<br>(".$langs->trans("Contact").")</div></a>";
+
+	print '<a style="padding: 1em 0.7em 0em 0.7em !important;" class="butAction" href="'.$_SERVER['PHP_SELF'].'?action=testcreatecontacts"><div class="inline-block divButAction">'.$langs->trans("TestCreate")."<br>(".$langs->trans("Contact").")</div></a>";
 }
 print '</div>';
 
