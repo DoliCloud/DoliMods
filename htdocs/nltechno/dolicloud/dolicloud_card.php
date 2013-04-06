@@ -246,7 +246,7 @@ $form = new Form($db);
 $formcompany = new FormCompany($db);
 
 $countrynotdefined=$langs->trans("ErrorSetACountryFirst").' ('.$langs->trans("SeeAbove").')';
-$arraystatus=array('TRIAL'=>'TRIAL','TRIAL_EXPIRED'=>'TRIAL_EXPIRED','ACTIVE'=>'ACTIVE','ACTIVE_PAYMENT_ERROR'=>'ACTIVE_PAYMENT_ERROR','DISABLED_PAYMENT_ERROR'=>'DISABLED_PAYMENT_ERROR','CLOSED_QUEUED'=>'CLOSED_QUEUED','UNDEPLOYED'=>'UNDEPLOYED');
+$arraystatus=Dolicloudcustomer::$listOfStatus;
 
 
 // Confirm deleting object

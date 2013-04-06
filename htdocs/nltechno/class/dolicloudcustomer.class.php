@@ -89,6 +89,10 @@ class Dolicloudcustomer extends CommonObject
 	var $filelock;
 	var $date_lastrsync='';
 
+	static $listOfStatus=array('TRIAL'=>'TRIAL','TRIAL_EXPIRED'=>'TRIAL_EXPIRED','ACTIVE'=>'ACTIVE','ACTIVE_PAYMENT_ERROR'=>'ACTIVE_PAYMENT_ERROR','DISABLED_PAYMENT_ERROR'=>'DISABLED_PAYMENT_ERROR','CLOSED_QUEUED'=>'CLOSE_QUEUED','UNDEPLOYED'=>'UNDEPLOYED');
+	static $listOfStatusShort=array('TRIAL'=>'TRIAL','TRIAL_EXPIRED'=>'TRIAL_EXP.','ACTIVE'=>'ACT.','ACTIVE_PAYMENT_ERROR'=>'ACT_PAY_ERR.','DISABLED_PAYMENT_ERROR'=>'DIS_PAY_ERR.','CLOSED_QUEUED'=>'CLOSE_Q.','UNDEPLOYED'=>'UNDEP.');
+
+
     /**
      *  Constructor
      *

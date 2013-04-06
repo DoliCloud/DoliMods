@@ -1,5 +1,5 @@
 <?php
-/* Copyright (C) 2007-2012 Laurent Destailleur  <eldy@users.sourceforge.net>
+/* Copyright (C) 2007-2013 Laurent Destailleur  <eldy@users.sourceforge.net>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -64,6 +64,7 @@ $search_partner = GETPOST("search_partner");
 $search_source = GETPOST("search_source");
 $search_email = GETPOST("search_email");
 $search_lastlogin = GETPOST("search_lastlogin");
+$search_status = GETPOST('search_status');
 
 $sortfield = GETPOST("sortfield",'alpha');
 $sortorder = GETPOST("sortorder",'alpha');
@@ -118,6 +119,8 @@ if ($action == 'add')
 *
 * Put here all code to build page
 ****************************************************/
+
+$arraystatus=Dolicloudcustomer::$listOfStatusShort;
 
 llxHeader('',$langs->transnoentitiesnoconv('DoliCloudCustomers'),'');
 
@@ -182,6 +185,7 @@ if ($search_partner) $sql.=" AND t.partner LIKE '%".$search_partner."%'";
 if ($search_source) $sql.=" AND t.source LIKE '%".$search_source."%'";
 if ($search_email) $sql.=" AND t.email LIKE '%".$search_email."%'";
 if ($search_lastlogin) $sql.=" AND t.lastlogin LIKE '%".$search_lastlogin."%'";
+if ($search_status) $sql.=" AND t.status LIKE '%".$search_status."%'";
 
 // Count total nb of records
 $nbtotalofrecords = 0;
@@ -252,6 +256,7 @@ if ($resql)
     print '<td></td>';
     print '<td></td>';
     print '<td align="right">';
+    print $form->selectarray('search_status', $arraystatus, $search_status);
     print '<input type="image" class="liste_titre" name="button_search" src="'.DOL_URL_ROOT.'/theme/'.$conf->theme.'/img/search.png"  value="'.dol_escape_htmltag($langs->trans("Search")).'" title="'.dol_escape_htmltag($langs->trans("Search")).'">';
     print '</td>';
     print '</tr>';
