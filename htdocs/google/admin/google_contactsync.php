@@ -58,24 +58,38 @@ $action=GETPOST("action");
 
 if ($action == 'save')
 {
+	$error=0;
+
+	if (GETPOST("GOOGLE_TAG_PREFIX") == GETPOST("GOOGLE_TAG_PREFIX_CONTACTS"))
+	{
+		setEventMessage($langs->trans("ErrorLabelsMustDiffers"),'errors');
+		$error++;
+	}
+	if (! GETPOST('GOOGLE_CONTACT_LOGIN') || ! GETPOST('GOOGLE_CONTACT_PASSWORD'))
+	{
+		$langs->load("errors");
+		setEventMessage($langs->trans("ErrorFieldRequired"),'errors');
+		$error++;
+	}
     $db->begin();
 
-    //print 'color='.$color;
-    $res=dolibarr_set_const($db,'GOOGLE_DUPLICATE_INTO_THIRDPARTIES'.$i,trim($_POST["GOOGLE_DUPLICATE_INTO_THIRDPARTIES"]),'chaine',0);
-    if (! $res > 0) $error++;
-    $res=dolibarr_set_const($db,'GOOGLE_DUPLICATE_INTO_CONTACTS'.$i,trim($_POST["GOOGLE_DUPLICATE_INTO_CONTACTS"]),'chaine',0);
-    if (! $res > 0) $error++;
-    $res=dolibarr_set_const($db,'GOOGLE_CONTACT_LOGIN',trim($_POST["GOOGLE_CONTACT_LOGIN"]),'chaine',0);
-    if (! $res > 0) $error++;
-    $res=dolibarr_set_const($db,'GOOGLE_CONTACT_PASSWORD',trim($_POST["GOOGLE_CONTACT_PASSWORD"]),'chaine',0);
-    if (! $res > 0) $error++;
-    $res=dolibarr_set_const($db,'GOOGLE_CONTACT_LABEL',trim($_POST["GOOGLE_CONTACT_LABEL"]),'chaine',0);
-    if (! $res > 0) $error++;
-	$res=dolibarr_set_const($db,'GOOGLE_TAG_PREFIX',trim($_POST["GOOGLE_TAG_PREFIX"]),'chaine',0);
-    if (! $res > 0) $error++;
-	$res=dolibarr_set_const($db,'GOOGLE_TAG_PREFIX_CONTACTS',trim($_POST["GOOGLE_TAG_PREFIX_CONTACTS"]),'chaine',0);
-    if (! $res > 0) $error++;
-
+    if (! $error)
+    {
+	    $res=dolibarr_set_const($db,'GOOGLE_DUPLICATE_INTO_THIRDPARTIES'.$i,trim(GETPOST("GOOGLE_DUPLICATE_INTO_THIRDPARTIES")),'chaine',0);
+	    if (! $res > 0) $error++;
+	    $res=dolibarr_set_const($db,'GOOGLE_DUPLICATE_INTO_CONTACTS'.$i,trim(GETPOST("GOOGLE_DUPLICATE_INTO_CONTACTS")),'chaine',0);
+	    if (! $res > 0) $error++;
+	    $res=dolibarr_set_const($db,'GOOGLE_CONTACT_LOGIN',trim(GETPOST("GOOGLE_CONTACT_LOGIN")),'chaine',0);
+	    if (! $res > 0) $error++;
+	    $res=dolibarr_set_const($db,'GOOGLE_CONTACT_PASSWORD',trim(GETPOST("GOOGLE_CONTACT_PASSWORD")),'chaine',0);
+	    if (! $res > 0) $error++;
+	    $res=dolibarr_set_const($db,'GOOGLE_CONTACT_LABEL',trim(GETPOST("GOOGLE_CONTACT_LABEL")),'chaine',0);
+	    if (! $res > 0) $error++;
+		$res=dolibarr_set_const($db,'GOOGLE_TAG_PREFIX',trim(GETPOST("GOOGLE_TAG_PREFIX")),'chaine',0);
+	    if (! $res > 0) $error++;
+		$res=dolibarr_set_const($db,'GOOGLE_TAG_PREFIX_CONTACTS',trim(GETPOST("GOOGLE_TAG_PREFIX_CONTACTS")),'chaine',0);
+	    if (! $res > 0) $error++;
+    }
 
     if (! $error)
     {
@@ -123,22 +137,32 @@ if (preg_match('/^test/',$action))
 
     if ($action == 'testallthirdparties')
     {
+    	$object->oldcopy = dol_clone($object);
+
     	$object->name='Test Synchro new Thirdparty (can be deleted)';
 	    $object->lastname='Thirdparty (can be deleted)';
 	    $object->firstname='Test Synchro new';
 	    $object->email='newemail@newemail.com';
+	    $object->url='www.newspecimen.com';
 	    $object->note='New private note';
+	    $object->street='New stree';
+	    $object->town='New town';
 	    $result=$object->update($object->id, $user);
 
 	    $result=$object->delete($object->id);	// id of thirdparty to delete
     }
     if ($action == 'testallcontacts')
     {
-		$object->name='Test Synchro new Contact (can be deleted)';
+    	$object->oldcopy = dol_clone($object);
+
+    	$object->name='Test Synchro new Contact (can be deleted)';
     	$object->lastname='Contact (can be deleted)';
     	$object->firstname='Test Synchro new';
     	$object->email='newemail@newemail.com';
+	    $object->url='www.newspecimen.com';
     	$object->note='New private note';
+	    $object->street='New stree';
+	    $object->town='New town';
     	$result=$object->update($object->id, $user);
 
 	    $result=$object->delete(0);	// notrigger=0
@@ -157,58 +181,96 @@ if (preg_match('/^test/',$action))
 
 if ($action == 'pushallthirdparties')
 {
-	dol_include_once('/google/class/gcontacts.class.php');
+	$user = empty($conf->global->GOOGLE_CONTACT_LOGIN)?'':$conf->global->GOOGLE_CONTACT_LOGIN;
+	$pwd  = empty($conf->global->GOOGLE_CONTACT_PASSWORD)?'':$conf->global->GOOGLE_CONTACT_PASSWORD;
 
-	//	$res = GContact::deleteDolibarrContacts();
-	$sql = 'SELECT rowid FROM '.MAIN_DB_PREFIX.'societe';
-	$resql = $db->query($sql);
-	if (! $resql)
+	// Create client object
+	$service= 'cp';		// cl = calendar, cp=contact, ... Search on AUTH_SERVICE_NAME into Zend API for full list
+	$client = getClientLoginHttpClientContact($user, $pwd, $service);
+	//var_dump($client); exit;
+
+	if ($client == null)
 	{
-		dol_print_error($db);
-		exit;
+		dol_syslog("Failed to login to Google for login ".$user, LOG_ERR);
+		$error='Failed to login to Google for login '.$user;
 	}
-
-	$synclimit = 3;	// 0 = all
-	$i=0;
-	while (($obj = $db->fetch_object($resql)) && ($i < $synclimit || empty($synclimit)))
+	else
 	{
-		$gContacts[] = new GContact($obj->rowid,'thirdparty');
-		$i++;
+		$gdata = new Zend_Gdata($client);
+		$gdata->setMajorProtocolVersion(3);
+
+		dol_include_once('/google/class/gcontacts.class.php');
+
+		//	$res = GContact::deleteDolibarrContacts();
+		$sql = 'SELECT rowid FROM '.MAIN_DB_PREFIX.'societe';
+		$resql = $db->query($sql);
+		if (! $resql)
+		{
+			dol_print_error($db);
+			exit;
+		}
+
+		$synclimit = 3;	// 0 = all
+		$i=0;
+		while (($obj = $db->fetch_object($resql)) && ($i < $synclimit || empty($synclimit)))
+		{
+			$gContacts[] = new GContact($obj->rowid,'thirdparty');
+			$i++;
+		}
+
+		$result=0;
+		if (count($gContacts)) $result=insertGContactsEntries($gdata, $gContacts);
+
+		if ($result >= 0) $mesg = $langs->trans("PushToGoogleSucess",count($gContacts));
+		else $mesg = $langs->trans("Error");
 	}
-
-	$result=0;
-	if (count($gContacts)) $result=GContact::insertGContactsEntries($gContacts);
-
-	if ($result >= 0) $mesg = $langs->trans("PushToGoogleSucess",count($gContacts));
-	else $mesg = $langs->trans("Error");
 }
 
 if ($action == 'pushallcontacts')
 {
-	dol_include_once('/google/class/gcontacts.class.php');
+	$user = empty($conf->global->GOOGLE_CONTACT_LOGIN)?'':$conf->global->GOOGLE_CONTACT_LOGIN;
+	$pwd  = empty($conf->global->GOOGLE_CONTACT_PASSWORD)?'':$conf->global->GOOGLE_CONTACT_PASSWORD;
 
-	//	$res = GContact::deleteDolibarrContacts();
-	$sql = 'SELECT rowid FROM '.MAIN_DB_PREFIX.'socpeople';
-	$resql = $db->query($sql);
-	if (! $resql)
+	// Create client object
+	$service= 'cp';		// cl = calendar, cp=contact, ... Search on AUTH_SERVICE_NAME into Zend API for full list
+	$client = getClientLoginHttpClientContact($user, $pwd, $service);
+	//var_dump($client); exit;
+
+	if ($client == null)
 	{
-		dol_print_error($db);
-		exit;
+		dol_syslog("Failed to login to Google for login ".$user, LOG_ERR);
+		$error='Failed to login to Google for login '.$user;
 	}
-
-	$synclimit = 1;	// 0 = all
-	$i=0;
-	while (($obj = $db->fetch_object($resql)) && ($i < $synclimit || empty($synclimit)))
+	else
 	{
-		$gContacts[] = new GContact($obj->rowid,'contact');
-		$i++;
+		$gdata = new Zend_Gdata($client);
+		$gdata->setMajorProtocolVersion(3);
+
+		dol_include_once('/google/class/gcontacts.class.php');
+
+		//	$res = GContact::deleteDolibarrContacts();
+		$sql = 'SELECT rowid FROM '.MAIN_DB_PREFIX.'socpeople';
+		$resql = $db->query($sql);
+		if (! $resql)
+		{
+			dol_print_error($db);
+			exit;
+		}
+
+		$synclimit = 1;	// 0 = all
+		$i=0;
+		while (($obj = $db->fetch_object($resql)) && ($i < $synclimit || empty($synclimit)))
+		{
+			$gContacts[] = new GContact($obj->rowid,'contact');
+			$i++;
+		}
+
+		$result=0;
+		if (count($gContacts)) $result=insertGContactsEntries($gdata, $gContacts);
+
+		if ($result >= 0) $mesg = $langs->trans("PushToGoogleSucess",count($gContacts));
+		else $mesg = $langs->trans("Error");
 	}
-
-	$result=0;
-	if (count($gContacts)) $result=GContact::insertGContactsEntries($gContacts);
-
-	if ($result >= 0) $mesg = $langs->trans("PushToGoogleSucess",count($gContacts));
-	else $mesg = $langs->trans("Error");
 }
 
 
@@ -271,22 +333,27 @@ print '<input class="flat" type="password" size="10" name="GOOGLE_CONTACT_PASSWO
 print "</td>";
 print "</tr>";
 // Label to use for thirdparties
-$var=!$var;
-print "<tr ".$bc[$var].">";
-print "<td>".$langs->trans("GOOGLE_TAG_PREFIX")."<br /></td>";
-print "<td>";
-print '<input class="flat" type="text" size="24" name="GOOGLE_TAG_PREFIX" value="'.dol_escape_htmltag(getTagLabel('thirdparties')).'">';
-print "</td>";
-print "</tr>";
+if (! empty($conf->global->GOOGLE_DUPLICATE_INTO_THIRDPARTIES))
+{
+	$var=!$var;
+	print "<tr ".$bc[$var].">";
+	print '<td class="fieldrequired">'.$langs->trans("GOOGLE_TAG_PREFIX")."<br /></td>";
+	print "<td>";
+	print '<input class="flat" type="text" size="28" name="GOOGLE_TAG_PREFIX" value="'.dol_escape_htmltag(getTagLabel('thirdparties')).'">';
+	print "</td>";
+	print "</tr>";
+}
 // Label to use for contacts
 $var=!$var;
-print "<tr ".$bc[$var].">";
-print "<td>".$langs->trans("GOOGLE_TAG_PREFIX_CONTACTS")."<br /></td>";
-print "<td>";
-print '<input class="flat" type="text" size="24" name="GOOGLE_TAG_PREFIX_CONTACTS" value="'.dol_escape_htmltag(getTagLabel('contacts')).'">';
-print "</td>";
-print "</tr>";
-
+if (! empty($conf->global->GOOGLE_DUPLICATE_INTO_CONTACTS))
+{
+	print "<tr ".$bc[$var].">";
+	print '<td class="fieldrequired">'.$langs->trans("GOOGLE_TAG_PREFIX_CONTACTS")."<br /></td>";
+	print "<td>";
+	print '<input class="flat" type="text" size="28" name="GOOGLE_TAG_PREFIX_CONTACTS" value="'.dol_escape_htmltag(getTagLabel('contacts')).'">';
+	print "</td>";
+	print "</tr>";
+}
 print "</table>";
 print "<br>";
 
@@ -369,7 +436,7 @@ if (! empty($conf->global->GOOGLE_DUPLICATE_INTO_CONTACTS))
 }
 
 dol_htmloutput_mesg($mesg);
-dol_htmloutput_errors($error,$errors);
+dol_htmloutput_errors((is_numeric($error)?'':$error),$errors);
 
 
 

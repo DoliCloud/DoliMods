@@ -58,8 +58,8 @@ class GContact {
     var $poste;
     var $googleID;
     var $lastMod;
-    private $doc;
-    private $atomEntry;
+    public $doc;
+    public $atomEntry;
 
     /**
      *
@@ -610,7 +610,7 @@ class GContact {
     private static function insertGContactGroup($groupName)
     {
     	dol_syslog("insertGContactGroup Create Google group ".$groupName);
-    	
+
         try {
             $doc = new DOMDocument("1.0", 'utf-8');
             $entry = $doc->createElement("atom:entry");
@@ -651,7 +651,7 @@ class GContact {
     {
     	global $conf;
     	static $googleGroups;
-    
+
     	// Search existing groups
     	if(!isset($googleGroups))
     	{
@@ -673,7 +673,7 @@ class GContact {
     			}
     		}
     	}
-    
+
     	// Create group if it not exists
     	if(!isset($googleGroups[$groupName])) {
     		$newGroupID = self::insertGContactGroup($groupName);
@@ -681,7 +681,7 @@ class GContact {
     	}
     	return $googleGroups[$groupName];
     }
-    
+
 
     /*
      * Rename all groups with a new prefix
@@ -736,14 +736,16 @@ class GContact {
     /**
      * Insert contacts into a google account
      *
-     * @param array $gContacts
+     * @param	Mixed	$gdata			GData handler
+     * @param 	array 	$gContacts		Array of GContact objects
+     * @return	int						>0 if OK
      */
-    public static function insertGContactsEntries(array $gContacts)
+    public static function insertGContactsEntries($gdata, array $gContacts)
     {
-        $gdata = self::googleDataConnection();
         $maxBatchLength = 98; //Google doc says max 100 entries.
         $remainingContacts = $gContacts;
-        while (count($remainingContacts) > 0) {
+        while (count($remainingContacts) > 0)
+        {
             if (count($remainingContacts) > $maxBatchLength) {
                 $firstContacts = array_slice($remainingContacts, 0, $maxBatchLength);
                 $remainingContacts = array_slice($remainingContacts, $maxBatchLength);
@@ -758,7 +760,7 @@ class GContact {
             $feed->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:gdata', 'http://schemas.google.com/g/2005');
             $feed->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:gcontact', 'http://schemas.google.com/contact/2008');
             $feed->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:batch', 'http://schemas.google.com/gdata/batch');
-            $feed->appendChild($doc->createElement("title", "The batch title: insert contacts"));
+            $feed->appendChild($doc->createElement("title", "Dolibarr mass insert into Google contacts"));
             $doc->appendChild($feed);
             foreach ($firstContacts as $gContact) {
                 $entry = $gContact->atomEntry;
@@ -786,18 +788,20 @@ class GContact {
                 $response = $gdata->post($xmlStr, "http://www.google.com/m8/feeds/contacts/default/full/batch");
                 $responseXml = $response->getBody();
                 // uncomment for debugging :
-                //file_put_contents(DOL_DATA_ROOT . "/gcontacts/temp/gmail.response.xml", $responseXml);
-                // dump it with 'xmlstarlet fo gmail.response.xml' command
+                file_put_contents(DOL_DATA_ROOT . "/gcontacts/temp/gmail.response.xml", $responseXml);
+                // you can view this with 'xmlstarlet fo gmail.response.xml' command
                $res=self::parseResponse($responseXml);
-               if($res->count != count($firstContacts) || $res->errors)
-                   throw new Exception(sprintf("Google error : %s", $res->lastError));
-                dol_syslog(sprintf("Inserting %d google contacts", count($firstContacts)));
+               if($res->count != count($firstContacts) || $res->errors) print sprintf("Google error : %s", $res->lastError);
+
+               dol_syslog(sprintf("Inserting %d google contacts", count($firstContacts)));
             } catch (Exception $e) {
                 dol_syslog("Problem while inserting contact", LOG_ERR);
                 throw new Exception($e->getMessage());
             }
 
         }
+
+        return 1;
     }
 
     private static function parseResponse($xmlStr) {

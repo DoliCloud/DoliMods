@@ -44,9 +44,12 @@ $_authSubKeyFilePassphrase = null;
 
 
 define('ATOM_NAME_SPACE','http://www.w3.org/2005/Atom');
+define('GD_NAME_SPACE','http://schemas.google.com/g/2005');
+define('GCONTACT_NAME_SPACE','http://schemas.google.com/contact/2008');
+
 define('REL_WORK','http://schemas.google.com/g/2005#work');
-define('REL_MOBILE','http://schemas.google.com/g/2005#mobile');
 define('REL_HOME','http://schemas.google.com/g/2005#home');
+define('REL_MOBILE','http://schemas.google.com/g/2005#mobile');
 define('REL_WORK_FAX','http://schemas.google.com/g/2005#work_fax');
 
 
@@ -109,14 +112,15 @@ function createContact($client, $object)
 		$gdata = new Zend_Gdata($client);
 		$gdata->setMajorProtocolVersion(3);
 
+		$idindolibarr=$object->id.'/'.($object->element=='societe'?'thirdparty':$object->element);
 		$groupName = getTagLabel($object->element=='societe'?'thirdparties':'contacts');
 
 		// create new entry
 		$doc->formatOutput = true;
 		$entry = $doc->createElement('atom:entry');
-		$entry->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:atom', constant('ATOM_NAME_SPACE'));
-		$entry->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:gd', 'http://schemas.google.com/g/2005');
-        $entry->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:gcontact', 'http://schemas.google.com/contact/2008');
+		$entry->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:atom',     constant('ATOM_NAME_SPACE'));
+		$entry->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:gd',       constant('GD_NAME_SPACE'));
+        $entry->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:gcontact', constant('GCONTACT_NAME_SPACE'));
 		$doc->appendChild($entry);
 
 
@@ -124,36 +128,19 @@ function createContact($client, $object)
 		//$object->email='';	$object->url=''; $object->address=''; $object->zip=''; $object->town=''; $object->note=''; unset($object->country_id);
 
 
-		// add name element
+		// Name
 		$name = $doc->createElement('gd:name');
 		$entry->appendChild($name);
 			$fullName = $doc->createElement('gd:fullName', $object->getFullName($langs));
 			$name->appendChild($fullName);
 
-		// add email element
+		// Element
 		$email = $doc->createElement('gd:email');
 		$email->setAttribute('address', ($object->email?$object->email:($object->getFullName($langs).'@noemail.com')));
 		$email->setAttribute('rel', 'http://schemas.google.com/g/2005#home');
 		$entry->appendChild($email);
 
-		// im
-		/*$im = $doc->createElement('gd:im');
-		$im->setAttribute('protocol', 'xxx');
-		$im->setAttribute('protocol', 'address');
-		$entry->appendChild($im);
-		*/
-
-		// add org name element
-		/*
-		$org = $doc->createElement('gd:organization');
-		$org->setAttribute('rel' ,'http://schemas.google.com/g/2005#work');
-		$entry->appendChild($org);
-		$orgName = $doc->createElement('gd:orgName', 'xxx');
-		$org->appendChild($orgName);
-		$orgTitle = $doc->createElement('gd:orgTitle', 'xxx');
-		$org->appendChild($orgTitle);
-		*/
-
+		// Address
 		$address = $doc->createElement('gd:structuredPostalAddress');
 		$address->setAttribute('rel' ,'http://schemas.google.com/g/2005#work');
 		$address->setAttribute('primary' ,'true');
@@ -164,7 +151,7 @@ function createContact($client, $object)
 			$street = $doc->createElement('gd:street', $object->address);
 			if (! empty($object->address)) $address->appendChild($street);
 			$postcode = $doc->createElement('gd:postcode', $object->zip);
-			if (! empty($object->zip))	$address->appendChild($postcode);
+			if (! empty($object->zip))	    $address->appendChild($postcode);
 			/*$tmpstate=getState($object->state_id,0);
 			$region = $doc->createElement('gd:region', $tmpstate);
 			if ($tmpstate) $address->appendChild($region);*/
@@ -176,34 +163,75 @@ function createContact($client, $object)
 			$address->appendChild($formattedaddress);
 			*/
 
-		/*
-		$birthday = $doc->createElement('gd:birthday');
-		$birthday->setAttribute('when' , dol_print_date($object->birthday,'dayrfc'));
-		$entry->appendChild($birthday);
-		*/
+		// Birthday
+		if (! empty($object->birthday))
+		{
+			/*
+			$birthday = $doc->createElement('gd:birthday');
+			$birthday->setAttribute('when' , dol_print_date($object->birthday,'dayrfc'));
+			$entry->appendChild($birthday);*/
+		}
 
-		$website = $doc->createElement('gd:website');
-		$website->setAttribute('href',$object->url);
-		$entry->appendChild($website);
+		// URL
+		$el = $doc->createElement('gcontact:website');
+		$el->setAttribute("label","URL");
+		$el->setAttribute("href", $object->url);
+		$entry->appendChild($el);
 
-		$more = $doc->createElement('gd:extendedProperty');
-		$more->setAttribute('name','dolibarr-contact-id');
-		$more->setAttribute('value',$object->id);
-		$entry->appendChild($more);
-		$extid = $doc->createElement('gd:externaleId');
-		$extid->setAttribute('name','dolibarr-contact-id');
-		$extid->setAttribute('value',$object->id);
-		$entry->appendChild($extid);
-		$userdefined = $doc->createElement('gd:userDefinedField');
-		$userdefined->setAttribute('key','dolibarr-contact-id');
-		$userdefined->setAttribute('value',$object->id);
+		// Phones
+		if (! empty($object->phone))
+		{
+			$el = $doc->createElement('gd:phoneNumber');
+			$el->setAttribute('rel', constant('REL_WORK'));
+			$el->appendChild($doc->createTextNode($object->phone));
+			$entry->appendChild($el);
+		}
+		if (! empty($object->phone_pro))
+		{
+			$el = $doc->createElement('gd:phoneNumber');
+			$el->setAttribute('rel', constant('REL_WORK'));
+			$el->appendChild($doc->createTextNode($object->phone_pro));
+			$entry->appendChild($el);
+		}
+		if (! empty($object->phone_perso))
+		{
+			$el = $doc->createElement('gd:phoneNumber');
+			$el->setAttribute('rel', constant('REL_HOME'));
+			$el->appendChild($doc->createTextNode($object->phone_perso));
+			$entry->appendChild($el);
+		}
+		if (! empty($object->phone_mobile))
+		{
+			$el = $doc->createElement('gd:phoneNumber');
+			$el->setAttribute('rel', constant('REL_MOBILE'));
+			$el->appendChild($doc->createTextNode($object->phone_mobile));
+			$entry->appendChild($el);
+		}
+		if (! empty($object->fax))
+		{
+			$el = $doc->createElement('gd:phoneNumber');
+			$el->setAttribute('rel', constant('REL_WORK_FAX'));
+			$el->appendChild($doc->createTextNode($object->fax));
+			$entry->appendChild($el);
+		}
+
+		// Id source
+		/*$extid = $doc->createElement('gcontact:externaleId');
+		$extid->setAttribute('name','dolibarr-id');
+		$extid->setAttribute('value',$idindolibarr);
+		$entry->appendChild($extid);*/
+		$userdefined = $doc->createElement('gcontact:userDefinedField');
+		$userdefined->setAttribute('key','dolibarr-id');
+		$userdefined->setAttribute('value',$idindolibarr);
 		$entry->appendChild($userdefined);
 
+		// Comment
 		$tmpnote=$object->note;
-		if (strpos($tmpnote,$google_nltechno_tag) === false) $tmpnote.="\n\n".$google_nltechno_tag.$object->id.'/'.($object->element=='societe'?'thirdparty':$object->element);
+		if (strpos($tmpnote,$google_nltechno_tag) === false) $tmpnote.="\n\n".$google_nltechno_tag.$idindolibarr;
 		$note = $doc->createElement('atom:content',$tmpnote);
 		$entry->appendChild($note);
 
+		// Labels
 		$googleGroups=array();
 		$el = $doc->createElement("gcontact:groupMembershipInfo");
 		$el->setAttribute("deleted", "false");
@@ -234,7 +262,7 @@ function createContact($client, $object)
  * with HTML br elements separating the lines
  *
  * @param  Zend_Http_Client $client   		The authenticated client object
- * @param  string           $contactId  	The event ID string
+ * @param  string           $contactId  	The ref into Google contact
  * @param  Object           $object			Object
  * @return Zend_Gdata_Calendar_EventEntry|null The updated entry
  */
@@ -249,40 +277,72 @@ function updateContact($client, $contactId, $object)
 	// Fields: http://tools.ietf.org/html/rfc4287
 
 	//$gdata = new Zend_Gdata_Contacts($client);
-	$gdata = new Zend_Gdata($client);
-	$gdata->setMajorProtocolVersion(3);
+	try {
+		$gdata = new Zend_Gdata($client);
+		$gdata->setMajorProtocolVersion(3);
 
-	//$contactId='http://www.google.com/m8/feeds/contacts/eldy10%40gmail.com/base/75ba08690d17cdf2';
-	$query = new Zend_Gdata_Query($contactId);
-	//$entryResult = $gdata->getEntry($query,'Zend_Gdata_Contacts_ListEntry');
-	$entryResult = $gdata->getEntry($query);
-
-	$xml = simplexml_load_string($entryResult->getXML());
-
-	//$xml->name->fullName = $object->getFullName($langs);
-	$xml->name->fullName = $object->getFullName($langs);
-	//$xml->name->givenName = 'xxx';
-	//$xml->name->additionnalName = 'xxx';
-	//$xml->name->familyName = 'xxx';
-	//$xml->name->nameSuffix = 'xxx';
-	//$xml->formattedAddress;
-	$xml->email['address'] = ($object->email?$object->email:($object->getFullName($langs).'@noemail.com'));
-
-	foreach ($xml->phoneNumber as $p) {
-		$obj->phoneNumber[] = (string) $p;
+		$contactId='http://www.google.com/m8/feeds/contacts/eldy10%40gmail.com/base/4429b3590f5b343a';
+		$query = new Zend_Gdata_Query($contactId);
+		//$entryResult = $gdata->getEntry($query,'Zend_Gdata_Contacts_ListEntry');
+		$entryResult = $gdata->getEntry($query);
 	}
-	foreach ($xml->website as $w) {
-		$obj->website[] = (string) $w['href'];
+	catch(Exception $e)
+	{
+		dol_print_error('','Failed to get record with ref='.$contactId,$e->getMessage());
 	}
 
-	$tmpnote=$object->note;
-	if (strpos($tmpnote, $google_nltechno_tag) === false) $tmpnote.="\n\n".$google_nltechno_tag.$object->id.'/'.($object->element=='societe'?'thirdparty':$object->element);
-	$xml->content=$tmpnote;
+	try {
+		$xml = simplexml_load_string($entryResult->getXML());
 
-	//List of properties to set visible with var_dump($xml->saveXML());exit;
+		//$xml->name->fullName = $object->getFullName($langs);
+		$xml->name->fullName = $object->getFullName($langs);
+		$xml->name->givenName = $object->firstname;
+		$xml->name->familyName = $object->lastname;
+		//$xml->name->additionnalName = 'xxx';
+		//$xml->name->nameSuffix = 'xxx';
+		//$xml->formattedAddress;
+		$xml->email['address'] = ($object->email?$object->email:($object->getFullName($langs).'@noemail.com'));
 
-	$extra_header = array('If-Match'=>'*');
-	$newentryResult = $gdata->updateEntry($xml->saveXML(), $entryResult->getEditLink()->href, null, $extra_header);
+		// Address
+		unset($xml->structuredPostalAddress->formattedAddress);
+		$xml->structuredPostalAddress->street=$object->address;
+		$xml->structuredPostalAddress->city=$object->town;
+		$xml->structuredPostalAddress->postcode=$object->zip;
+		$xml->structuredPostalAddress->country=($object->country_id>0?'err'.getCountry($object->country_id):0);
+		$xml->structuredPostalAddress->state=($object->state_id>0?getState($object->state_id):'');
+
+		// Phone
+		/*
+		unset($xml->phoneNumber);
+		foreach ($xml->phoneNumber as $key => $val) {
+			$oldvalue=(string) $val;
+			//var_dump($oldvalue);
+		}*/
+
+		foreach ($xml->website as $key => $val) {
+			$oldvalue=(string) $val['href'];
+			$xml->website['href'] = $object->url;
+		}
+		//var_dump($xml);exit;
+
+		// userDefinedField
+		// We don't change this
+
+		// Comment
+		$tmpnote=$object->note;
+		if (strpos($tmpnote, $google_nltechno_tag) === false) $tmpnote.="\n\n".$google_nltechno_tag.$object->id.'/'.($object->element=='societe'?'thirdparty':$object->element);
+		$xml->content=$tmpnote;
+
+		//List of properties to set visible with var_dump($xml->saveXML());exit;
+		$extra_header = array('If-Match'=>'*');
+
+		$newentryResult = $gdata->updateEntry($xml->saveXML(), $entryResult->getEditLink()->href, null, $extra_header);
+
+	}
+	catch(Exception $e)
+	{
+		dol_print_error('',$e->getMessage());
+	}
 
 	return $entryResult->getId();
 }
