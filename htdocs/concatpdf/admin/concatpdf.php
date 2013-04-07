@@ -1,5 +1,5 @@
 <?php
-/* Copyright (C) 2008-2011	Laurent Destailleur  <eldy@users.sourceforge.net>
+/* Copyright (C) 2008-2013	Laurent Destailleur  <eldy@users.sourceforge.net>
  * Copyright (C) 2012		Regis Houssin        <regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -53,7 +53,12 @@ $action=GETPOST('action', 'alpha');
 $confirm=GETPOST('confirm', 'alpha');
 $actionsave=GETPOST('save', 'alpha');
 
-$modules = array('proposals','orders','invoices');
+$modules = array();
+if ($conf->propal->enabled) $modules['proposals']='Proposals';
+if ($conf->commande->enabled) $modules['orders']='Orders';
+if ($conf->facture->enabled) $modules['invoices']='Invoices';
+//if ($conf->fournisseur->enabled) $modules['supplier_orders']='SuppliersOrders';
+//if ($conf->fournisseur->enabled) $modules['supplier_invoices']='SuppliersInvoices';
 
 
 /*
@@ -88,41 +93,51 @@ if (preg_match('/del_(.*)/',$action,$reg))
 	}
 }
 
-// Envoi fichier
+// Send file
 if (GETPOST('sendit') && ! empty($conf->global->MAIN_UPLOAD_DOC))
 {
-	if (preg_match('/\.pdf$/', $_FILES['userfile']['name']))
+	$error=0;
+	if (! GETPOST('module','alpha') || is_numeric(GETPOST('module','alpha')))
 	{
-		$upload_dir = $conf->concatpdf->dir_output.'/'.GETPOST('module', 'alpha');
+		$error++;
+		setEventMessage($langs->trans("ErrorFieldRequired",$langs->transnoentitiesnoconv("Type")),'warnings');
+	}
 
-		if (dol_mkdir($upload_dir) >= 0)
+	if (! $error)
+	{
+		if (preg_match('/\.pdf$/', $_FILES['userfile']['name']))
 		{
-			$resupload=dol_move_uploaded_file($_FILES['userfile']['tmp_name'], $upload_dir . "/" . $_FILES['userfile']['name'],0,0,$_FILES['userfile']['error']);
-			if (is_numeric($resupload) && $resupload > 0)
+			$upload_dir = $conf->concatpdf->dir_output.'/'.GETPOST('module', 'alpha');
+
+			if (dol_mkdir($upload_dir) >= 0)
 			{
-				$mesg = '<div class="ok">'.$langs->trans("FileTransferComplete").'</div>';
-			}
-			else
-			{
-				$langs->load("errors");
-				if ($resupload < 0)	// Unknown error
+				$resupload=dol_move_uploaded_file($_FILES['userfile']['tmp_name'], $upload_dir . "/" . $_FILES['userfile']['name'],0,0,$_FILES['userfile']['error']);
+				if (is_numeric($resupload) && $resupload > 0)
 				{
-					$mesg = '<div class="error">'.$langs->trans("ErrorFileNotUploaded").'</div>';
+					setEventMessage($langs->trans("FileTransferComplete"),'mesgs');
 				}
-				else if (preg_match('/ErrorFileIsInfectedWithAVirus/',$resupload))	// Files infected by a virus
+				else
 				{
-					$mesg = '<div class="error">'.$langs->trans("ErrorFileIsInfectedWithAVirus").'</div>';
-				}
-				else	// Known error
-				{
-					$mesg = '<div class="error">'.$langs->trans($resupload).'</div>';
+					$langs->load("errors");
+					if ($resupload < 0)	// Unknown error
+					{
+						setEventMessage($langs->trans("ErrorFileNotUploaded"),'mesgs');
+					}
+					else if (preg_match('/ErrorFileIsInfectedWithAVirus/',$resupload))	// Files infected by a virus
+					{
+						setEventMessage($langs->trans("ErrorFileIsInfectedWithAVirus"),'mesgs');
+					}
+					else	// Known error
+					{
+						setEventMessage($langs->trans($resupload),'errors');
+					}
 				}
 			}
 		}
-	}
-	else
-	{
-		$mesg = '<div class="error">'.$langs->trans("ErrorFileNotUploaded").'</div>';
+		else
+		{
+			setEventMessage($langs->trans("ErrorFileNotUploaded"),'errors');
+		}
 	}
 }
 
@@ -154,7 +169,6 @@ print '<br>';
 
 clearstatcache();
 
-dol_htmloutput_mesg($mesg,$mesgs);
 
 /*
  * Confirmation suppression fichier
@@ -165,12 +179,13 @@ if ($action == 'remove_file')
 	if ($ret == 'html') print '<br>';
 }
 
+// Show dir for each module
 print $langs->trans("ConcatPDfTakeFileFrom").'<br>';
 $langs->load("propal"); $langs->load("orders"); $langs->load("bills");
-foreach ($modules as $module)
+foreach ($modules as $module => $moduletranskey)
 {
 	$outputdir=$conf->concatpdf->dir_output.'/'.$module;
-	print '* '.$langs->trans("ConcatPDfTakeFileFrom2",$langs->transnoentitiesnoconv(ucfirst($module)),$outputdir).'<br>';
+	print '* '.$langs->trans("ConcatPDfTakeFileFrom2",$langs->transnoentitiesnoconv($moduletranskey),$outputdir).'<br>';
 }
 print '<br><br>';
 
@@ -218,17 +233,17 @@ if (! empty($conf->global->MAIN_USE_JQUERY_MULTISELECT))
 	print '<br><br>';
 }
 
-$select_module=$form->selectarray('module', $modules, '', 0, 0, 1, '', 1);
+
+$select_module=$form->selectarray('module', $modules, GETPOST('module'), 1, 0, 0, '', 1);
 $formfile->form_attach_new_file($_SERVER['PHP_SELF'], '', 0, 0, 1, 50, '', $select_module, false);
 
 print '<br><br>';
 
-foreach ($modules as $module)
+foreach ($modules as $module => $moduletrans)
 {
 	$outputdir=$conf->concatpdf->dir_output.'/'.$module;
 	$listoffiles=dol_dir_list($outputdir,'files');
-	if (count($listoffiles))
-		print $formfile->showdocuments('concatpdf',$module,$outputdir,$_SERVER["PHP_SELF"].'?module='.$module,0,$user->admin,'',0,0,0,0,0,'',$langs->trans("PathDirectory").' '.$outputdir);
+	if (count($listoffiles)) print $formfile->showdocuments('concatpdf',$module,$outputdir,$_SERVER["PHP_SELF"].'?module='.$module,0,$user->admin,'',0,0,0,0,0,'',$langs->trans("PathDirectory").' '.$outputdir);
 	else
 	{
 		print '<div class="titre">'.$langs->trans("PathDirectory").' '.$outputdir.' :</div>';
