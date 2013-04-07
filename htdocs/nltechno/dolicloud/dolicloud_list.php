@@ -256,7 +256,7 @@ if ($resql)
     print '<td></td>';
     print '<td></td>';
     print '<td align="right">';
-    print $form->selectarray('search_status', $arraystatus, $search_status);
+    print $form->selectarray('search_status', $arraystatus, $search_status, 1);
     print '<input type="image" class="liste_titre" name="button_search" src="'.DOL_URL_ROOT.'/theme/'.$conf->theme.'/img/search.png"  value="'.dol_escape_htmltag($langs->trans("Search")).'" title="'.dol_escape_htmltag($langs->trans("Search")).'">';
     print '</td>';
     print '</tr>';
