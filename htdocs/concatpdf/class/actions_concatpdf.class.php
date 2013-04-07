@@ -1,5 +1,5 @@
 <?php
-/* Copyright (C) 2011-2012	Laurent Destailleur	<eldy@users.sourceforge.net>
+/* Copyright (C) 2011-2013	Laurent Destailleur	<eldy@users.sourceforge.net>
  * Copyright (C) 2012		Regis Houssin		<regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -78,6 +78,16 @@ class ActionsConcatPdf
         	$staticpdf=glob($conf->concatpdf->dir_output."/invoices/*.pdf");
         	$modelpdf=glob($conf->concatpdf->dir_output."/invoices/pdf_*.modules.php");
         }
+        if ($parameters['modulepart'] == 'supplier_order' || $parameters['modulepart'] == 'commande_fournisseur')
+        {
+        	$staticpdf=glob($conf->concatpdf->dir_output."/supplier_orders/*.pdf");
+        	$modelpdf=glob($conf->concatpdf->dir_output."/supplier_orders/pdf_*.modules.php");
+        }
+        if ($parameters['modulepart'] == 'supplier_invoice' || $parameters['modulepart'] == 'facture_fournisseur')
+        {
+        	$staticpdf=glob($conf->concatpdf->dir_output."/supplier_invoices/*.pdf");
+        	$modelpdf=glob($conf->concatpdf->dir_output."/supplier_invoices/pdf_*.modules.php");
+        }
 
         if (! empty($staticpdf))
         {
@@ -93,8 +103,9 @@ class ActionsConcatPdf
         		$morefiles[] = basename($filename, ".php");
         	}
         }
-        if (! empty($morefiles))
-        {
+        if (empty($morefiles)) print "\n".'<!-- No files found for concat parameter[modulepart]='.$parameters['modulepart'].' -->'."\n";
+        else
+		{
         	$out.='<tr class="liste_titre">';
         	$out.='<td align="left" colspan="4" valign="top" class="formdoc">';
         	$out.=$langs->trans("ConcatFile").' ';
@@ -112,8 +123,8 @@ class ActionsConcatPdf
         	{
         		$out.= $form->selectarray('concatpdffile',$morefiles,(isset($object->extraparams['concatpdf'][0])?$object->extraparams['concatpdf'][0]:-1),1,0,1);
         	}
+        	$out.='</td></tr>';
         }
-        $out.='</td></tr>';
 
         return $out;
     }
@@ -152,6 +163,8 @@ class ActionsConcatPdf
         if ($parameters['object']->element == 'propal')  $element='proposals';
         if ($parameters['object']->element == 'order'   || $parameters['object']->element == 'commande') $element='orders';
         if ($parameters['object']->element == 'invoice' || $parameters['object']->element == 'facture')  $element='invoices';
+        if ($parameters['object']->element == 'order_supplier' || $parameters['object']->element == 'commande_fournisseur')  $element='supplier_orders';
+        if ($parameters['object']->element == 'invoice_supplier' || $parameters['object']->element == 'facture_fournisseur')  $element='supplier_invoices';
 
         $filetoconcat1=array($parameters['file']);
         $filetoconcat2=array();
