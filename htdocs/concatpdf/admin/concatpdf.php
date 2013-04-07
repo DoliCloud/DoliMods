@@ -57,8 +57,8 @@ $modules = array();
 if ($conf->propal->enabled) $modules['proposals']='Proposals';
 if ($conf->commande->enabled) $modules['orders']='Orders';
 if ($conf->facture->enabled) $modules['invoices']='Invoices';
-//if ($conf->fournisseur->enabled) $modules['supplier_orders']='SuppliersOrders';
-//if ($conf->fournisseur->enabled) $modules['supplier_invoices']='SuppliersInvoices';
+if ($conf->fournisseur->enabled) $modules['supplier_orders']='SuppliersOrders';
+if ($conf->fournisseur->enabled) $modules['supplier_invoices']='SuppliersInvoices';
 
 
 /*
