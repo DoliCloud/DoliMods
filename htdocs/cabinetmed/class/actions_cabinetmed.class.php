@@ -57,7 +57,7 @@ class ActionsCabinetmed
      */
     function doActions($parameters,&$object,&$action)
     {
-        global $db,$langs,$conf;
+        global $db,$langs,$conf,$backtourl;
 
         $ret=0;
         dol_syslog(get_class($this).'::executeHooks action='.$action);
@@ -120,7 +120,7 @@ class ActionsCabinetmed
                         }
                     }
                     else
-                    {
+					{
                         // Create object, set $id to its id and return 1
                         // or
                         // Do something else and return 0 to use standard code to create;
@@ -130,6 +130,8 @@ class ActionsCabinetmed
                 }
                 else dol_print_error($this->db);
             }
+
+            if ($ret == 0) $backtourl=$_SERVER["PHP_SELF"]."?socid=__ID__";
         }
 
         // Hook called when asking to update a record
