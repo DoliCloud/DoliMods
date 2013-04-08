@@ -191,11 +191,12 @@ if (empty($conf->global->SOCIETE_DISABLE_BANKACCOUNT))
 }
 
 // Parent company
+/*
 if (empty($conf->global->SOCIETE_DISABLE_PARENTCOMPANY))
 {
     print '<tr><td>';
     print '<table width="100%" class="nobordernopadding"><tr><td>';
-    print $langs->trans('ParentCompany');
+    print $langs->trans('ParentPatient');
     print '<td><td align="right">';
     if ($user->rights->societe->creer)
     print '<a href="'.DOL_URL_ROOT.'/societe/lien.php?socid='.$soc->id.'">'.img_edit() .'</a>';
@@ -216,6 +217,7 @@ if (empty($conf->global->SOCIETE_DISABLE_PARENTCOMPANY))
     }
     print '</td></tr>';
 }
+*/
 
 // Num secu
 print '<tr>';
