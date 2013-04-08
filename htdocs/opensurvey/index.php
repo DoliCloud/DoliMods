@@ -33,9 +33,6 @@ require_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/files.lib.php");
 
 
-include_once('./variables.php');
-include_once('./fonctions.php');
-
 
 /*
  * View

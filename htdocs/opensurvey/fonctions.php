@@ -103,7 +103,7 @@ function showlogo()
 dol_include_once('/opensurvey/variables.php');
 dol_include_once('/opensurvey/adodb/adodb.inc.php');
 
-
+// TODO Remove this
 function connexion_base()
 {
 	global $conf;
@@ -118,6 +118,8 @@ function connexion_base()
 
 /**
  * get_server_name
+ *
+ * @return	string		URL to use
  */
 function get_server_name()
 {
@@ -134,40 +136,12 @@ function get_server_name()
 	return $url;
 }
 
-
 /**
+ * is_error
  *
- * @param unknown_type $id
- * @return boolean|unknown
+ * @param unknown_type $cerr
+ * @return boolean
  */
-function get_sondage_from_id($id)
-{
-	global $connect;
-
-	// Ouverture de la base de données
-	if(preg_match(";^[\w\d]{16}$;i",$id)) {
-		$sql = 'SELECT '.MAIN_DB_PREFIX.'opensurvey_sondage.*, '.MAIN_DB_PREFIX.'opensurvey_sujet_studs.sujet FROM '.MAIN_DB_PREFIX.'opensurvey_sondage
-		LEFT OUTER JOIN '.MAIN_DB_PREFIX."opensurvey_sujet_studs ON ".MAIN_DB_PREFIX."opensurvey_sondage.id_sondage = ".MAIN_DB_PREFIX."opensurvey_sujet_studs.id_sondage
-		WHERE ".MAIN_DB_PREFIX."opensurvey_sondage.id_sondage = ".$connect->Param('id_sondage');
-
-		$sql = $connect->Prepare($sql);
-		$sondage=$connect->Execute($sql, array($id));
-
-		if ($sondage === false) {
-			return false;
-		}
-
-		$psondage = $sondage->FetchObject(false);
-		$psondage->date_fin = strtotime($psondage->date_fin);
-
-		return $psondage;
-	}
-
-	return false;
-}
-
-
-
 function is_error($cerr)
 {
 	global $err;
@@ -178,11 +152,6 @@ function is_error($cerr)
 	return (($err & $cerr) != 0 );
 }
 
-
-function is_user()
-{
-	return (isset($_SESSION['nom']));
-}
 
 
 /**
@@ -203,6 +172,7 @@ function validateEmail($email)
 
 /**
  * Fonction vérifiant l'existance et la valeur non vide d'une clé d'un tableau
+ *
  * @param   string  $name       La clé à tester
  * @param   array   $tableau    Le tableau où rechercher la clé ($_POST par défaut)
  * @return  bool                Vrai si la clé existe et renvoie une valeur non vide
@@ -219,6 +189,7 @@ function issetAndNoEmpty($name, $tableau = null)
 
 /**
  * Fonction permettant de générer les URL pour les sondage
+ *
  * @param   string    $id     L'identifiant du sondage
  * @param   bool      $admin  True pour générer une URL pour l'administration d'un sondage, False pour un URL publique
  * @return  string            L'url pour le sondage
@@ -233,6 +204,108 @@ function getUrlSondage($id, $admin = false)
 
 	return $url;
 }
+
+
+/**
+ * Generate a random id
+ *
+ * @return	void
+ */
+function dol_survey_random($car)
+{
+	$string = "";
+	$chaine = "abcdefghijklmnopqrstuvwxyz123456789";
+	srand((double)microtime()*1000000);
+	for($i=0; $i<$car; $i++) {
+		$string .= $chaine[rand()%strlen($chaine)];
+	}
+	return $string;
+}
+
+/**
+ * Add a poll
+ *
+ * @param	string	$origin		Origin of poll creation
+ * @return	void
+ */
+function ajouter_sondage($origin)
+{
+	global $conf, $db;
+
+	$sondage=dol_survey_random(16);
+	$sondage_admin=$sondage.dol_survey_random(8);
+
+	if ($_SESSION["formatsondage"]=="A"||$_SESSION["formatsondage"]=="A+") {
+		//extraction de la date de fin choisie
+		if ($_SESSION["champdatefin"]) {
+			if ($_SESSION["champdatefin"]>time()+250000) {
+				$date_fin=$_SESSION["champdatefin"];
+			}
+		} else {
+			$date_fin=time()+15552000;
+		}
+	}
+
+	if ($_SESSION["formatsondage"]=="D"||$_SESSION["formatsondage"]=="D+") {
+		//Calcul de la date de fin du sondage
+		$taille_tableau=sizeof($_SESSION["totalchoixjour"])-1;
+		$date_fin=$_SESSION["totalchoixjour"][$taille_tableau]+200000;
+	}
+
+	if (is_numeric($date_fin) === false) {
+		$date_fin = time()+15552000;
+	}
+	$canedit=empty($_SESSION['formatcanedit'])?'0':'1';
+
+	// Insert survey
+	$sql = 'INSERT INTO '.MAIN_DB_PREFIX.'opensurvey_sondage';
+	$sql.= '(id_sondage, commentaires, mail_admin, nom_admin, titre, id_sondage_admin, date_fin, format, mailsonde, canedit, origin, sujet)';
+	$sql.= " VALUES ('".$db->escape($sondage)."', '".$db->escape($_SESSION['commentaires'])."', '".$db->escape($_SESSION['adresse'])."', '".$db->escape($_SESSION['nom'])."',";
+	$sql.= " '".$db->escape($_SESSION['titre'])."', '".$sondage_admin."', '".$db->idate($date_fin)."', '".$_SESSION['formatsondage']."', '".$db->escape($_SESSION['mailsonde'])."',";
+	$sql.= " '".$canedit."', '".$db->escape($origin)."',";
+	$sql.= " '".$db->escape($_SESSION['toutchoix'])."'";
+	$sql.= ")";
+	dol_syslog($sql);
+	$resql=$db->query($sql);
+
+	if ($origin == 'dolibarr') $urlback=dol_buildpath('/opensurvey/adminstuds_preview.php',1).'?sondage='.$sondage_admin;
+	else
+	{
+		// Define $urlwithroot
+		$urlwithouturlroot=preg_replace('/'.preg_quote(DOL_URL_ROOT,'/').'$/i','',trim($dolibarr_main_url_root));
+		$urlwithroot=$urlwithouturlroot.DOL_URL_ROOT;		// This is to use external domain name found into config file
+		//$urlwithroot=DOL_MAIN_URL_ROOT;					// This is to use same domain name than current
+
+		$url=$urlwithouturlroot.dol_buildpath('/opensurvey/public/studs.php',1).'?sondage='.$sondage;
+
+		$urlback=$url;
+
+		//var_dump($urlback);exit;
+	}
+
+	unset($_SESSION["titre"]);
+	unset($_SESSION["nom"]);
+	unset($_SESSION["adresse"]);
+	unset($_SESSION["commentaires"]);
+	unset($_SESSION["canedit"]);
+	unset($_SESSION["mailsonde"]);
+
+	header("Location: ".$urlback);
+	exit();
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 global $connect;
 

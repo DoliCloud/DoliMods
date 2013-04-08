@@ -55,7 +55,9 @@ if (GETPOST('sondage'))
 }
 
 $object=new Opensurveysondage($db);
-$object->fetch(0,$numsondage);
+$result=$object->fetch(0,$numsondage);
+if ($result <= 0) dol_print_error('','Failed to get survey id '.$numsondage);
+
 
 $nbcolonnes = substr_count($object->sujet, ',') + 1;
 
@@ -92,10 +94,7 @@ if (GETPOST('ajoutcomment'))
 		$sql.= " VALUES ('".$db->escape($numsondage)."','".$db->escape($comment)."','".$db->escape($comment_user)."')";
 		$resql = $db->query($sql);
 		dol_syslog("sql=".$sql);
-		if (! $resql)
-		{
-			$err |= COMMENT_INSERT_FAILED;
-		}
+		if (! $resql) dol_print_error($db);
 	}
 }
 
@@ -277,22 +276,6 @@ foreach ($toutsujet as $value)
 	$listofanswers[]=array('label'=>$tmp[0],'format'=>($tmp[1]?$tmp[1]:'checkbox'));
 }
 
-// Show error message
-if ($err != 0)
-{
-	print '<div class="error"><ul style="list-style-type: none;">'."\n";
-	if(is_error(NAME_EMPTY)) {
-		print '<li class="error">' . $langs->trans("ErrorFieldRequired",$langs->transnoentitiesnoconv("Name")) . "</li>\n";
-	}
-	if(is_error(NAME_TAKEN)) {
-		print '<li class="error">' . $langs->trans("VoteNameAlreadyExists") . "</li>\n";
-	}
-	if(is_error(COMMENT_EMPTY) || is_error(COMMENT_USER_EMPTY)) {
-		print '<li class="error">' . $langs->trans("ErrorFieldRequired",$langs->transnoentitiesnoconv("Name")) . "</li>\n";
-	}
-	print '</ul></div>';
-}
-
 
 print '<div class="survey_invitation">'.$langs->trans("YouAreInivitedToVote").'</div>';
 print $langs->trans("OpenSurveyHowTo").'<br><br>';
@@ -463,7 +446,7 @@ while ($data = $user_studs->FetchNextObject(false))
 		if ($compteur == $ligneamodifier)
 		{
 			print '<td class="vide">';
-			if (empty($listofanswers[$i]['format']) || ! in_array($listofanswers[$i]['format'],array('yesno','pourcontre')))
+			if (empty($listofanswers[$i]['format']) || ! in_array($listofanswers[$i]['format'],array('yesno','foragainst')))
 			{
 				print '<input type="checkbox" name="choix'.$i.'" value="1" ';
 				if (((string) $car) == '1') print 'checked="checked"';
@@ -474,7 +457,7 @@ while ($data = $user_studs->FetchNextObject(false))
 				$arraychoice=array('2'=>'&nbsp;','0'=>$langs->trans("No"),'1'=>$langs->trans("Yes"));
 				print $form->selectarray("choix".$i, $arraychoice, $car);
 			}
-			if (! empty($listofanswers[$i]['format']) && $listofanswers[$i]['format'] == 'pourcontre')
+			if (! empty($listofanswers[$i]['format']) && $listofanswers[$i]['format'] == 'foragainst')
 			{
 				$arraychoice=array('2'=>'&nbsp;','0'=>$langs->trans("Against"),'1'=>$langs->trans("For"));
 				print $form->selectarray("choix".$i, $arraychoice, $car);
@@ -483,7 +466,7 @@ while ($data = $user_studs->FetchNextObject(false))
 		}
 		else
 		{
-			if (empty($listofanswers[$i]['format']) || ! in_array($listofanswers[$i]['format'],array('yesno','pourcontre')))
+			if (empty($listofanswers[$i]['format']) || ! in_array($listofanswers[$i]['format'],array('yesno','foragainst')))
 			{
 				if (((string) $car) == "1") print '<td class="ok">OK</td>'."\n";
 				else print '<td class="non">KO</td>'."\n";
@@ -502,7 +485,7 @@ while ($data = $user_studs->FetchNextObject(false))
 				if (((string) $car) == "1") $sumfor[$i]++;
 				if (((string) $car) == "0") $sumagainst[$i]++;
 			}
-			if (! empty($listofanswers[$i]['format']) && $listofanswers[$i]['format'] == 'pourcontre')
+			if (! empty($listofanswers[$i]['format']) && $listofanswers[$i]['format'] == 'foragainst')
 			{
 				if (((string) $car) == "1") print '<td class="ok">'.$langs->trans("For").'</td>'."\n";
 				else if (((string) $car) == "0") print '<td class="non">'.$langs->trans("Against").'</td>'."\n";
@@ -552,7 +535,7 @@ if ($ligneamodifier < 0 && (! isset($_SESSION['nom']) || ! $user_mod))
 	for ($i=0;$i<$nbcolonnes;$i++)
 	{
 		print '<td class="vide">';
-		if (empty($listofanswers[$i]['format']) || ! in_array($listofanswers[$i]['format'],array('yesno','pourcontre')))
+		if (empty($listofanswers[$i]['format']) || ! in_array($listofanswers[$i]['format'],array('yesno','foragainst')))
 		{
 			print '<input type="checkbox" name="choix'.$i.'" value="1"';
 			if (isset($_POST['choix'.$i]) && $_POST['choix'.$i] == '1' && is_error(NAME_EMPTY) )
@@ -566,7 +549,7 @@ if ($ligneamodifier < 0 && (! isset($_SESSION['nom']) || ! $user_mod))
 			$arraychoice=array('2'=>'&nbsp;','0'=>$langs->trans("No"),'1'=>$langs->trans("Yes"));
 			print $form->selectarray("choix".$i, $arraychoice, GETPOST('choix'.$i));
 		}
-		if (! empty($listofanswers[$i]['format']) && $listofanswers[$i]['format'] == 'pourcontre')
+		if (! empty($listofanswers[$i]['format']) && $listofanswers[$i]['format'] == 'foragainst')
 		{
 			$arraychoice=array('2'=>'&nbsp;','0'=>$langs->trans("Against"),'1'=>$langs->trans("For"));
 			print $form->selectarray("choix".$i, $arraychoice, GETPOST('choix'.$i));
@@ -609,9 +592,9 @@ for ($i = 0; $i < $nbcolonnes; $i++)
 	if (empty($showsumagainst)) $showsumagainst = 0;
 
 	print '<td>';
-	if (empty($listofanswers[$i]['format']) || ! in_array($listofanswers[$i]['format'],array('yesno','pourcontre'))) print $showsumfor;
+	if (empty($listofanswers[$i]['format']) || ! in_array($listofanswers[$i]['format'],array('yesno','foragainst'))) print $showsumfor;
 	if (! empty($listofanswers[$i]['format']) && $listofanswers[$i]['format'] == 'yesno') print $langs->trans("Yes").': '.$showsumfor.'<br>'.$langs->trans("No").': '.$showsumagainst;
-	if (! empty($listofanswers[$i]['format']) && $listofanswers[$i]['format'] == 'pourcontre') print $langs->trans("For").': '.$showsumfor.'<br>'.$langs->trans("Against").': '.$showsumagainst;
+	if (! empty($listofanswers[$i]['format']) && $listofanswers[$i]['format'] == 'foragainst') print $langs->trans("For").': '.$showsumfor.'<br>'.$langs->trans("Against").': '.$showsumagainst;
 	print '</td>'."\n";
 }
 print '</tr>';

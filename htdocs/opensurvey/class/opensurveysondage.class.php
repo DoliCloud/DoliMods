@@ -1,6 +1,5 @@
 <?php
-/* Copyright (C) 2007-2012 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) ---Put here your own copyright and developer email---
+/* Copyright (C) 2013 Laurent Destailleur  <eldy@users.sourceforge.net>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -196,7 +195,8 @@ class Opensurveysondage extends CommonObject
 		$sql.= " t.mailsonde,";
 		$sql.= " t.survey_link_visible,";
 		$sql.= " t.canedit,";
-		$sql.= " t.sujet";
+		$sql.= " t.sujet,";
+		$sql.= " t.tms";
         $sql.= " FROM ".MAIN_DB_PREFIX."opensurvey_sondage as t";
         if ($id > 0) $sql.= " WHERE t.rowid = ".$id;
         else if (strlen($numsurvey) == 16) $sql.= " WHERE t.id_sondage = '".$numsurvey."'";
@@ -225,6 +225,8 @@ class Opensurveysondage extends CommonObject
 				$this->survey_link_visible = $obj->survey_link_visible;
 				$this->canedit = $obj->canedit;
 				$this->sujet = $obj->sujet;
+
+				$this->date_m = $this->db->jdate($obj->tls);
 				$ret=1;
             }
             else $ret=0;

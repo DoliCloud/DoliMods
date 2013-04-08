@@ -515,7 +515,7 @@ print '</form>'."\n";
 
 print '<div class="tabsAction">';
 
-print '<a class="butAction" href="public/exportcsv.php?numsondage=' . $numsondage . '">'.$langs->trans("ExportSpreadsheet") .' (.CSV)' . '</a>';
+print '<a class="butAction" href="public/exportcsv.php?sondage=' . $numsondage . '">'.$langs->trans("ExportSpreadsheet") .' (.CSV)' . '</a>';
 
 print '</div>';
 
@@ -539,7 +539,7 @@ if (GETPOST('ajoutsujet'))
 	{
 		print $langs->trans("AddNewColumn") .' :<br><br>';
 		print $langs->trans("Titlprintice").' <input type="text" name="nouvellecolonne" size="40"><br>';
-		$tmparray=array('checkbox'=>$langs->trans("CheckBox"),'yesno'=>$langs->trans("YesNoList"),'pourcontre'=>$langs->trans("PourContreList"));
+		$tmparray=array('checkbox'=>$langs->trans("CheckBox"),'yesno'=>$langs->trans("YesNoList"),'foragainst'=>$langs->trans("PourContreList"));
 		print $langs->trans("Type").' '.$form->selectarray("typecolonne", $tmparray, GETPOST('typecolonne')).'<br><br>';
 		print '<input type="submit" class="button" name="ajoutercolonne" value="'.dol_escape_htmltag($langs->trans("Add")).'">';
 		print ' &nbsp; &nbsp; ';
@@ -810,7 +810,7 @@ while ($data = $user_studs->FetchNextObject(false))
 			$car = substr($ensemblereponses, $i, 1);
 			//print 'xx'.$i."-".$car.'-'.$listofanswers[$i]['format'].'zz';
 
-			if (empty($listofanswers[$i]['format']) || ! in_array($listofanswers[$i]['format'],array('yesno','pourcontre')))
+			if (empty($listofanswers[$i]['format']) || ! in_array($listofanswers[$i]['format'],array('yesno','foragainst')))
 			{
 				if ($car == "1") print '<td class="ok">OK</td>'."\n";
 				else print '<td class="non">KO</td>'."\n";
@@ -829,7 +829,7 @@ while ($data = $user_studs->FetchNextObject(false))
 				if (((string) $car) == "1") $sumfor[$i]++;
 				if (((string) $car) == "0") $sumagainst[$i]++;
 			}
-			if (! empty($listofanswers[$i]['format']) && $listofanswers[$i]['format'] == 'pourcontre')
+			if (! empty($listofanswers[$i]['format']) && $listofanswers[$i]['format'] == 'foragainst')
 			{
 				if (((string) $car) == "1") print '<td class="ok">'.$langs->trans("For").'</td>'."\n";
 				else if (((string) $car) == "0") print '<td class="non">'.$langs->trans("Against").'</td>'."\n";
@@ -851,7 +851,7 @@ while ($data = $user_studs->FetchNextObject(false))
 			{
 				$car = substr($ensemblereponses, $i, 1);
 				print '<td class="vide">';
-				if (empty($listofanswers[$i]['format']) || ! in_array($listofanswers[$i]['format'],array('yesno','pourcontre')))
+				if (empty($listofanswers[$i]['format']) || ! in_array($listofanswers[$i]['format'],array('yesno','foragainst')))
 				{
 					print '<input type="checkbox" name="choix'.$i.'" value="1" ';
 					if ($car == '1') print 'checked="checked"';
@@ -862,7 +862,7 @@ while ($data = $user_studs->FetchNextObject(false))
 					$arraychoice=array('2'=>'&nbsp;','0'=>$langs->trans("No"),'1'=>$langs->trans("Yes"));
 					print $form->selectarray("choix".$i, $arraychoice, $car);
 				}
-				if (! empty($listofanswers[$i]['format']) && $listofanswers[$i]['format'] == 'pourcontre')
+				if (! empty($listofanswers[$i]['format']) && $listofanswers[$i]['format'] == 'foragainst')
 				{
 					$arraychoice=array('2'=>'&nbsp;','0'=>$langs->trans("Against"),'1'=>$langs->trans("For"));
 					print $form->selectarray("choix".$i, $arraychoice, $car);
@@ -875,7 +875,7 @@ while ($data = $user_studs->FetchNextObject(false))
 			for ($i = 0; $i < $nbcolonnes; $i++)
 			{
 				$car = substr($ensemblereponses, $i, 1);
-				if (empty($listofanswers[$i]['format']) || ! in_array($listofanswers[$i]['format'],array('yesno','pourcontre')))
+				if (empty($listofanswers[$i]['format']) || ! in_array($listofanswers[$i]['format'],array('yesno','foragainst')))
 				{
 					if (((string) $car) == "1") print '<td class="ok">OK</td>'."\n";
 					else print '<td class="non">&nbsp;</td>'."\n";
@@ -894,7 +894,7 @@ while ($data = $user_studs->FetchNextObject(false))
 					if (((string) $car) == "1") $sumfor[$i]++;
 					if (((string) $car) == "0") $sumagainst[$i]++;
 				}
-				if (! empty($listofanswers[$i]['format']) && $listofanswers[$i]['format'] == 'pourcontre')
+				if (! empty($listofanswers[$i]['format']) && $listofanswers[$i]['format'] == 'foragainst')
 				{
 					if (((string) $car) == "1") print '<td class="ok">'.$langs->trans("For").'</td>'."\n";
 					else if (((string) $car) == "0") print '<td class="non">'.$langs->trans("Against").'</td>'."\n";
@@ -939,7 +939,7 @@ if (empty($testligneamodifier))
 	for ($i = 0; $i < $nbcolonnes; $i++)
 	{
 		print '<td class="vide">';
-		if (empty($listofanswers[$i]['format']) || ! in_array($listofanswers[$i]['format'],array('yesno','pourcontre')))
+		if (empty($listofanswers[$i]['format']) || ! in_array($listofanswers[$i]['format'],array('yesno','foragainst')))
 		{
 			print '<input type="checkbox" name="choix'.$i.'" value="1"';
 			if ( isset($_POST['choix'.$i]) && $_POST['choix'.$i] == '1' && is_error(NAME_EMPTY) )
@@ -953,7 +953,7 @@ if (empty($testligneamodifier))
 			$arraychoice=array('2'=>'&nbsp;','0'=>$langs->trans("No"),'1'=>$langs->trans("Yes"));
 			print $form->selectarray("choix".$i, $arraychoice);
 		}
-		if (! empty($listofanswers[$i]['format']) && $listofanswers[$i]['format'] == 'pourcontre')
+		if (! empty($listofanswers[$i]['format']) && $listofanswers[$i]['format'] == 'foragainst')
 		{
 			$arraychoice=array('2'=>'&nbsp;','0'=>$langs->trans("Against"),'1'=>$langs->trans("For"));
 			print $form->selectarray("choix".$i, $arraychoice);
@@ -970,7 +970,7 @@ if (empty($testligneamodifier))
 $nbofcheckbox=0;
 for ($i=0; $i < $nbcolonnes + 1; $i++)
 {
-	if (empty($listofanswers[$i]['format']) || ! in_array($listofanswers[$i]['format'],array('yesno','pourcontre')))
+	if (empty($listofanswers[$i]['format']) || ! in_array($listofanswers[$i]['format'],array('yesno','foragainst')))
 	$nbofcheckbox++;
 	if (isset($sumfor[$i]))
 	{
@@ -996,8 +996,8 @@ for ($i = 0; $i < $nbcolonnes; $i++)
 	if (empty($showsumagainst)) $showsumagainst = 0;
 
 	print '<td class="somme">';
-	if (empty($listofanswers[$i]['format']) || ! in_array($listofanswers[$i]['format'],array('yesno','pourcontre'))) print $showsumfor;
-	if (! empty($listofanswers[$i]['format']) && $listofanswers[$i]['format'] == 'pourcontre') print $langs->trans("For").': '.$showsumfor.'<br>'.$langs->trans("Against").': '.$showsumagainst;
+	if (empty($listofanswers[$i]['format']) || ! in_array($listofanswers[$i]['format'],array('yesno','foragainst'))) print $showsumfor;
+	if (! empty($listofanswers[$i]['format']) && $listofanswers[$i]['format'] == 'foragainst') print $langs->trans("For").': '.$showsumfor.'<br>'.$langs->trans("Against").': '.$showsumagainst;
 	print '</td>'."\n";
 }
 print '</tr>';
@@ -1008,7 +1008,7 @@ if ($nbofcheckbox >= 2)
 	print '<td></td>'."\n";
 	print '<td class="somme"></td>'."\n";
 	for ($i = 0; $i < $nbcolonnes; $i++) {
-		if (empty($listofanswers[$i]['format']) || ! in_array($listofanswers[$i]['format'],array('yesno','pourcontre')) && isset($sumfor[$i]) && isset($meilleurecolonne) && $sumfor[$i] == $meilleurecolonne)
+		if (empty($listofanswers[$i]['format']) || ! in_array($listofanswers[$i]['format'],array('yesno','foragainst')) && isset($sumfor[$i]) && isset($meilleurecolonne) && $sumfor[$i] == $meilleurecolonne)
 		{
 			print '<td class="somme"><img src="'.dol_buildpath('/opensurvey/img/medaille.png',1).'"></td>'."\n";
 		} else {
