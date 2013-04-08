@@ -48,54 +48,38 @@ if (! $res) die("Include of main fails");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/files.lib.php");
 dol_include_once("/opensurvey/class/opensurveysondage.class.php");
+include_once('./variables.php');
+include_once('./fonctions.php');
+
 
 // Security check
 if (!$user->admin) accessforbidden();
 
 
-include_once('./variables.php');
-include_once('./fonctions.php');
-include_once('./bandeaux_local.php');
-
-
 // Init vars
 $action=GETPOST('action');
-$sondage = false;
 $numsondageadmin=GETPOST("sondage");
 $numsondage=substr($numsondageadmin, 0, 16);
+
 $object=new Opensurveysondage($db);
 $object->fetch(0,$numsondageadmin);
 
 // TODO Remove this
 if (preg_match(";[\w\d]{24};i", $numsondageadmin))
 {
-	$sql = 'SELECT * FROM '.MAIN_DB_PREFIX.'opensurvey_sondage WHERE id_sondage_admin = '.$connect->Param('numsondageadmin');
+	$sql = 'SELECT * FROM '.MAIN_DB_PREFIX.'opensurvey_user_studs WHERE id_sondage = '.$connect->Param('numsondage').' order by id_users';
 	$sql = $connect->Prepare($sql);
-	$sondage = $connect->Execute($sql, array($numsondageadmin));
-
-	if ($sondage !== false)
-	{
-		$sql = 'SELECT * FROM '.MAIN_DB_PREFIX.'opensurvey_sujet_studs WHERE id_sondage = '.$connect->Param('numsondage');
-		$sql = $connect->Prepare($sql);
-		$sujets = $connect->Execute($sql, array($numsondage));
-
-		$sql = 'SELECT * FROM '.MAIN_DB_PREFIX.'opensurvey_user_studs WHERE id_sondage = '.$connect->Param('numsondage').' order by id_users';
-		$sql = $connect->Prepare($sql);
-		$user_studs = $connect->Execute($sql, array($numsondage));
-	}
+	$user_studs = $connect->Execute($sql, array($numsondage));
+	if (is_object($user_studs)) $nblignes = $user_studs->RecordCount();
 }
-
-if (is_object($sujets)) $dsujet=$sujets->FetchObject(false);
-if (is_object($sondage)) $dsondage=$sondage->FetchObject(false);
-
-$nbcolonnes = substr_count($dsujet->sujet, ',') + 1;
-if (is_object($user_studs)) $nblignes = $user_studs->RecordCount();
 
 
 
 /*
  * Actions
  */
+
+$nbcolonnes = substr_count($object->sujet, ',') + 1;
 
 // Add vote
 if (isset($_POST["boutonp"]) || isset($_POST["boutonp_x"]))
@@ -136,11 +120,13 @@ if (isset($_POST["boutonp"]) || isset($_POST["boutonp_x"]))
 			$sql = 'INSERT INTO '.MAIN_DB_PREFIX.'opensurvey_user_studs (nom, id_sondage, reponses)';
 			$sql.= " VALUES ('".$db->escape($nom)."', '".$db->escape($numsondage)."','".$db->escape($nouveauchoix)."')";
 			$resql=$db->query($sql);
+			if (! $resql) dol_print_error($db);
 
-			if ($resql)
-			{
-			}
-			else  dol_print_error($db);
+			// Update user_studs
+			$sql = 'SELECT * FROM '.MAIN_DB_PREFIX.'opensurvey_user_studs WHERE id_sondage = '.$connect->Param('numsondage').' order by id_users';
+			$sql = $connect->Prepare($sql);
+			$user_studs = $connect->Execute($sql, array($numsondage));
+			if (is_object($user_studs)) $nblignes = $user_studs->RecordCount();
 		}
 	}
 }
@@ -189,36 +175,42 @@ if ($testmodifier)
 		if ($compteur==$modifier)
 		{
 			$sql = 'UPDATE '.MAIN_DB_PREFIX."opensurvey_user_studs SET reponses = '".$db->escape($nouveauchoix)."' WHERE nom = '".$db->escape($data->nom)."' AND id_users = '".$db->escape($data->id_users)."'";
+			dol_syslog("sql=".$sql);
 			$resql = $db->query($sql);
-			if ($resql <= 0)
-			{
-				dol_print_error($db);
-				exit;
-			}
+			if (! $resql) dol_print_error($db);
 		}
 
 		$compteur++;
 	}
+
+	// Update user_studs
+	$sql = 'SELECT * FROM '.MAIN_DB_PREFIX.'opensurvey_user_studs WHERE id_sondage = '.$connect->Param('numsondage').' order by id_users';
+	$sql = $connect->Prepare($sql);
+	$user_studs = $connect->Execute($sql, array($numsondage));
+	if (is_object($user_studs)) $nblignes = $user_studs->RecordCount();
 }
 
-//action quand on ajoute une colonne au format AUTRE
-if (GETPOST("ajoutercolonne") && GETPOST('nouvellecolonne') && ($dsondage->format == "A" || $dsondage->format == "A+"))
+// Action quand on ajoute une colonne au format AUTRE
+if (GETPOST("ajoutercolonne") && GETPOST('nouvellecolonne') && ($object->format == "A" || $object->format == "A+"))
 {
-	$nouveauxsujets=$dsujet->sujet;
+	$nouveauxsujets=$object->sujet;
 
 	//on rajoute la valeur a la fin de tous les sujets deja entrés
 	$nouveauxsujets.=',';
 	$nouveauxsujets.=str_replace(array(",","@"), " ", $_POST["nouvellecolonne"]).(empty($_POST["typecolonne"])?'':'@'.$_POST["typecolonne"]);
 
 	//mise a jour avec les nouveaux sujets dans la base
-	$sql = 'UPDATE '.MAIN_DB_PREFIX."opensurvey_sujet_studs SET sujet = '".$db->escape($nouveauxsujets)."' WHERE id_sondage = '".$db->escape($numsondage)."'";
+	$sql = 'UPDATE '.MAIN_DB_PREFIX."opensurvey_sondage";
+	$sql.= " SET sujet = '".$db->escape($nouveauxsujets)."' WHERE id_sondage = '".$db->escape($numsondage)."'";
+	dol_syslog("sql=".$sql);
 	$resql = $db->query($sql);
+	if (! $resql) dol_print_error($db);
 }
 
 // Add column with format DATE
-if (isset($_POST["ajoutercolonne"]) && ($dsondage->format == "D" || $dsondage->format == "D+"))
+if (isset($_POST["ajoutercolonne"]) && ($object->format == "D" || $object->format == "D+"))
 {
-	$nouveauxsujets=$dsujet->sujet;
+	$nouveauxsujets=$object->sujet;
 
 	if (isset($_POST["nouveaujour"]) && $_POST["nouveaujour"] != "vide" &&
 		isset($_POST["nouveaumois"]) && $_POST["nouveaumois"] != "vide" &&
@@ -253,7 +245,7 @@ if (isset($_POST["ajoutercolonne"]) && ($dsondage->format == "D" || $dsondage->f
 		}
 
 		//on rajoute la valeur dans les valeurs
-		$datesbase = explode(",",$dsujet->sujet);
+		$datesbase = explode(",",$object->sujet);
 		$taillebase = sizeof($datesbase);
 
 		//recherche de l'endroit de l'insertion de la nouvelle date dans les dates deja entrées dans le tableau
@@ -281,23 +273,30 @@ if (isset($_POST["ajoutercolonne"]) && ($dsondage->format == "D" || $dsondage->f
 		$dateinsertion = substr("$dateinsertion", 1);
 
 		//mise a jour avec les nouveaux sujets dans la base
-		if (isset($erreur_ajout_date) && !$erreur_ajout_date){
-			$sql = 'UPDATE '.MAIN_DB_PREFIX.'opensurvey_sujet_studs SET sujet = '.$connect->Param('dateinsertion').' WHERE id_sondage = '.$connect->Param('numsondage');
-			$sql = $connect->Prepare($sql);
-			$connect->Execute($sql, array($dateinsertion, $numsondage));
+		if (isset($erreur_ajout_date) && !$erreur_ajout_date)
+		{
+			$sql = 'UPDATE '.MAIN_DB_PREFIX."opensurvey_sondage";
+			$sql.= " SET sujet = '".$db->escape($dateinsertion)."' WHERE id_sondage = '".$db->escape($numsondage)."'";
+			dol_syslog("sql=".$sql);
+			$resql = $db->query($sql);
+			if (! $resql) dol_print_error($db);
 
-			if ($nouvelledate > strtotime($dsondage->date_fin)) {
+			if ($nouvelledate > strtotime($object->date_fin))
+			{
 				$date_fin=$nouvelledate+200000;
-				$sql = 'UPDATE '.MAIN_DB_PREFIX.'opensurvey_sondage SET date_fin = '.$connect->Param('date_fin').' WHERE id_sondage = '.$connect->Param('numsondage');
-				$sql = $connect->Prepare($sql);
-				$connect->Execute($sql, array($date_fin, $numsondage));
+				$sql = 'UPDATE '.MAIN_DB_PREFIX.'opensurvey_sondage';
+				$sql.= " SET date_fin = '".$db->escape($date_fin)."' WHERE id_sondage = '".$db->escape($numsondage)."'";
+				dol_syslog("sql=".$sql);
+				$resql = $db->query($sql);
+				if (! $resql) dol_print_error($db);
 			}
 		}
 
 		//mise a jour des reponses actuelles correspondant au sujet ajouté
 		$sql = 'UPDATE '.MAIN_DB_PREFIX.'opensurvey_user_studs SET reponses = '.$connect->Param('reponses').' WHERE nom = '.$connect->Param('nom').' AND id_users='.$connect->Param('id_users');
 		$sql = $connect->Prepare($sql);
-		while ($data = $user_studs->FetchNextObject(false)) {
+		while ($data = $user_studs->FetchNextObject(false))
+		{
 			$ensemblereponses=$data->reponses;
 			$newcar = '';
 
@@ -320,7 +319,7 @@ if (isset($_POST["ajoutercolonne"]) && ($dsondage->format == "D" || $dsondage->f
 		}
 
 		//envoi d'un mail pour prévenir l'administrateur du changement
-		$adresseadmin = $dsondage->mail_admin;
+		$adresseadmin = $object->mail_admin;
 	} else {
 		$erreur_ajout_date="yes";
 	}
@@ -330,19 +329,28 @@ if (isset($_POST["ajoutercolonne"]) && ($dsondage->format == "D" || $dsondage->f
 // Delete line
 for ($i = 0; $i < $nblignes; $i++)
 {
-	if (isset($_POST["effaceligne$i"]) || isset($_POST['effaceligne'.$i.'_x'])) {
+	if (isset($_POST["effaceligne$i"]) || isset($_POST['effaceligne'.$i.'_x']))
+	{
 		$compteur=0;
 		$sql = 'DELETE FROM '.MAIN_DB_PREFIX.'opensurvey_user_studs WHERE nom = '.$connect->Param('nom').' AND id_users = '.$connect->Param('id_users');
 		$sql = $connect->Prepare($sql);
 
-		while ($data=$user_studs->FetchNextObject(false)) {
-			if ($compteur==$i){
+		while ($data=$user_studs->FetchNextObject(false))
+		{
+			if ($compteur==$i)
+			{
 				$connect->Execute($sql, array($data->nom, $data->id_users));
 			}
 
 			$compteur++;
 		}
 	}
+
+	// Update user_studs
+	$sql = 'SELECT * FROM '.MAIN_DB_PREFIX.'opensurvey_user_studs WHERE id_sondage = '.$connect->Param('numsondage').' order by id_users';
+	$sql = $connect->Prepare($sql);
+	$user_studs = $connect->Execute($sql, array($numsondage));
+	if (is_object($user_studs)) $nblignes = $user_studs->RecordCount();
 }
 
 
@@ -367,7 +375,7 @@ for ($i = 0; $i < $nbcolonnes; $i++)
 {
 	if ((isset($_POST["effacecolonne$i"]) || isset($_POST['effacecolonne'.$i.'_x'])) && $nbcolonnes > 1)
 	{
-		$toutsujet = explode(",",$dsujet->sujet);
+		$toutsujet = explode(",",$object->sujet);
 		$j = 0;
 		$nouveauxsujets = '';
 
@@ -411,9 +419,11 @@ for ($i = 0; $i < $nbcolonnes; $i++)
 		}
 
 		//mise a jour des sujets dans la base
-		$sql = 'UPDATE '.MAIN_DB_PREFIX.'opensurvey_sujet_studs SET sujet = '.$connect->Param('nouveauxsujets').' WHERE id_sondage = '.$connect->Param('numsondage');
-		$sql = $connect->Prepare($sql);
-		$connect->Execute($sql, array($nouveauxsujets, $numsondage));
+		$sql = 'UPDATE '.MAIN_DB_PREFIX."opensurvey_sondage";
+		$sql.= " SET sujet = '".$db->escape($nouveauxsujets)."' WHERE id_sondage = '".$db->escape($numsondage)."'";
+		dol_syslog("sql=".$sql);
+		$resql = $db->query($sql);
+		if (! $resql) dol_print_error($db);
 	}
 }
 
@@ -424,11 +434,6 @@ for ($i = 0; $i < $nbcolonnes; $i++)
  */
 
 $form=new Form($db);
-$object=new OpenSurveySondage($db);
-
-$arrayofjs=array();
-$arrayofcss=array('/opensurvey/css/style.css');
-llxHeader('',$dsondage->titre, 0, 0, 0, 0, $arrayofjs, $arrayofcss);
 
 $result=$object->fetch(0,$numsondage);
 if ($result <= 0)
@@ -437,6 +442,11 @@ if ($result <= 0)
 	llxFooter();
 	exit;
 }
+
+$arrayofjs=array();
+$arrayofcss=array('/opensurvey/css/style.css');
+llxHeader('',$object->titre, 0, 0, 0, 0, $arrayofjs, $arrayofcss);
+
 
 // Define format of choices
 $toutsujet=explode(",",$object->sujet);
@@ -479,7 +489,7 @@ print '</td>';
 print '</tr>';
 
 // Type
-$type=($dsondage->format=="A"||$dsondage->format=="A+")?'classic':'date';
+$type=($object->format=="A"||$object->format=="A+")?'classic':'date';
 print '<tr><td>'.$langs->trans("Type").'</td><td colspan="2">';
 print img_picto('',dol_buildpath('/opensurvey/img/'.($type == 'classic'?'chart-32.png':'calendar-32.png'),1),'width="16"',1);
 print ' '.$langs->trans($type=='classic'?"TypeClassic":"TypeDate").'</td></tr>';
@@ -512,10 +522,6 @@ print '</div>';
 
 showlogo();
 
-// reload
-$dsujet=$sujets->FetchObject(false);
-$dsondage=$sondage->FetchObject(false);
-
 
 // Add form to add a field
 if (GETPOST('ajoutsujet'))
@@ -529,7 +535,7 @@ if (GETPOST('ajoutsujet'))
 	print "<br><br>"."\n";
 
 	// Add new column
-	if ($dsondage->format=="A"||$dsondage->format=="A+")
+	if ($object->format=="A"||$object->format=="A+")
 	{
 		print $langs->trans("AddNewColumn") .' :<br><br>';
 		print $langs->trans("Titlprintice").' <input type="text" name="nouvellecolonne" size="40"><br>';
@@ -614,17 +620,17 @@ print $langs->trans("PollAdminDesc",img_picto('','cancel.png@opensurvey'),img_pi
 print '<div class="corps"> '."\n";
 
 //affichage du titre du sondage
-$titre=str_replace("\\","",$dsondage->titre);
+$titre=str_replace("\\","",$object->titre);
 print '<strong>'.$titre.'</strong><br>'."\n";
 
 //affichage du nom de l'auteur du sondage
-print $langs->trans("InitiatorOfPoll") .' : '.$dsondage->nom_admin.'<br>'."\n";
+print $langs->trans("InitiatorOfPoll") .' : '.$object->nom_admin.'<br>'."\n";
 
 //affichage des commentaires du sondage
-if ($dsondage->commentaires)
+if ($object->commentaires)
 {
 	print '<br>'.$langs->trans("Description") .' :<br>'."\n";
-	$commentaires=dol_nl2br($dsondage->commentaires);
+	$commentaires=dol_nl2br($object->commentaires);
 	print $commentaires;
 	print '<br>'."\n";
 }
@@ -632,26 +638,7 @@ if ($dsondage->commentaires)
 print '</div>'."\n";
 
 
-//recuperation des donnes de la base
-$sql = 'SELECT * FROM '.MAIN_DB_PREFIX.'opensurvey_sondage WHERE id_sondage_admin = '.$connect->Param('numsondageadmin');
-$sql = $connect->Prepare($sql);
-$sondage = $connect->Execute($sql, array($numsondageadmin));
-
-if ($sondage !== false)
-{
-	$sql = 'SELECT * FROM '.MAIN_DB_PREFIX.'opensurvey_sujet_studs WHERE id_sondage = '.$connect->Param('numsondage');
-	$sql = $connect->Prepare($sql);
-	$sujets = $connect->Execute($sql, array($numsondage));
-
-	$sql = 'SELECT * FROM '.MAIN_DB_PREFIX.'opensurvey_user_studs WHERE id_sondage = '.$connect->Param('numsondage').' order by id_users';
-	$sql = $connect->Prepare($sql);
-	$user_studs = $connect->Execute($sql, array($numsondage));
-}
-
-$dsujet=$sujets->FetchObject(false);
-$dsondage=$sondage->FetchObject(false);
-
-$nbcolonnes=substr_count($dsujet->sujet,',')+1;
+$nbcolonnes=substr_count($object->sujet,',')+1;
 
 print '<form name="formulaire" action="'.$_SERVER["PHP_SELF"].'" method="POST">'."\n";
 print '<input type="hidden" name="sondage" value="'.$numsondageadmin.'">';
@@ -663,7 +650,7 @@ print '<br>'."\n";
 print '<table class="resultats">'."\n";
 
 //reformatage des données des sujets du sondage
-$toutsujet=explode(",",$dsujet->sujet);
+$toutsujet=explode(",",$object->sujet);
 $toutsujet=str_replace("°","'",$toutsujet);
 
 print '<tr>'."\n";
@@ -679,7 +666,7 @@ print '</tr>'."\n";
 
 
 // Show choice titles
-if ($dsondage->format=="D"||$dsondage->format=="D+")
+if ($object->format=="D"||$object->format=="D+")
 {
 	//affichage des sujets du sondage
 	print '<tr>'."\n";
@@ -710,7 +697,7 @@ if ($dsondage->format=="D"||$dsondage->format=="D+")
 		}
 	}
 
-	print '<td class="annee"><a href="'.$_SERVER["PHP_SELF"].'?ajoutsujet=1&sondage='.$dsondage->id_sondage_admin.'">'.$langs->trans("Add").'</a></td>'."\n";
+	print '<td class="annee"><a href="'.$_SERVER["PHP_SELF"].'?ajoutsujet=1&sondage='.$object->id_sondage_admin.'">'.$langs->trans("Add").'</a></td>'."\n";
 	print '</tr>'."\n";
 	print '<tr>'."\n";
 	print '<td></td>'."\n";
@@ -736,7 +723,7 @@ if ($dsondage->format=="D"||$dsondage->format=="D+")
 		}
 	}
 
-	print '<td class="mois"><a href="'.$_SERVER["PHP_SELF"].'?ajoutsujet=1&sondage='.$dsondage->id_sondage_admin.'">'.$langs->trans("Add").'</a></td>'."\n";
+	print '<td class="mois"><a href="'.$_SERVER["PHP_SELF"].'?ajoutsujet=1&sondage='.$object->id_sondage_admin.'">'.$langs->trans("Add").'</a></td>'."\n";
 	print '</tr>'."\n";
 	print '<tr>'."\n";
 	print '<td></td>'."\n";
@@ -760,11 +747,11 @@ if ($dsondage->format=="D"||$dsondage->format=="D+")
 		}
 	}
 
-	print '<td class="jour"><a href="'.$_SERVER["PHP_SELF"].'?ajoutsujet=1&sondage='.$dsondage->id_sondage_admin.'">'.$langs->trans("Add").'</a></td>'."\n";
+	print '<td class="jour"><a href="'.$_SERVER["PHP_SELF"].'?ajoutsujet=1&sondage='.$object->id_sondage_admin.'">'.$langs->trans("Add").'</a></td>'."\n";
 	print '</tr>'."\n";
 
 	//affichage des horaires
-	if (strpos($dsujet->sujet,'@') !== false) {
+	if (strpos($object->sujet,'@') !== false) {
 		print '<tr>'."\n";
 		print '<td></td>'."\n";
 		print '<td></td>'."\n";
@@ -778,7 +765,7 @@ if ($dsondage->format=="D"||$dsondage->format=="D+")
 			}
 		}
 
-		print '<td class="heure"><a href="'.$_SERVER["PHP_SELF"].'?ajoutsujet=1&sondage='.$dsondage->id_sondage_admin.'">'.$langs->trans("Add").'</a></td>'."\n";
+		print '<td class="heure"><a href="'.$_SERVER["PHP_SELF"].'?ajoutsujet=1&sondage='.$object->id_sondage_admin.'">'.$langs->trans("Add").'</a></td>'."\n";
 		print '</tr>'."\n";
 	}
 }
@@ -821,6 +808,8 @@ while ($data = $user_studs->FetchNextObject(false))
 		for ($i = 0; $i < $nbcolonnes; $i++)
 		{
 			$car = substr($ensemblereponses, $i, 1);
+			//print 'xx'.$i."-".$car.'-'.$listofanswers[$i]['format'].'zz';
+
 			if (empty($listofanswers[$i]['format']) || ! in_array($listofanswers[$i]['format'],array('yesno','pourcontre')))
 			{
 				if ($car == "1") print '<td class="ok">OK</td>'."\n";
@@ -831,25 +820,25 @@ while ($data = $user_studs->FetchNextObject(false))
 			}
 			if (! empty($listofanswers[$i]['format']) && $listofanswers[$i]['format'] == 'yesno')
 			{
-				if ($car == "1") print '<td class="ok">'.$langs->trans("Yes").'</td>'."\n";
-				else if ($car =="0") print '<td class="non">'.$langs->trans("No").'</td>'."\n";
+				if (((string) $car) == "1") print '<td class="ok">'.$langs->trans("Yes").'</td>'."\n";
+				else if (((string) $car) == "0") print '<td class="non">'.$langs->trans("No").'</td>'."\n";
 				else print '<td class="vide">&nbsp;</td>'."\n";
 				// Total
 				if (! isset($sumfor[$i])) $sumfor[$i] = 0;
 				if (! isset($sumagainst[$i])) $sumagainst[$i] = 0;
-				if ($car == "1") $sumfor[$i]++;
-				if ($car == "0") $sumagainst[$i]++;
+				if (((string) $car) == "1") $sumfor[$i]++;
+				if (((string) $car) == "0") $sumagainst[$i]++;
 			}
 			if (! empty($listofanswers[$i]['format']) && $listofanswers[$i]['format'] == 'pourcontre')
 			{
-				if ($car == "1") print '<td class="ok">'.$langs->trans("For").'</td>'."\n";
-				else if ($car =="0") print '<td class="non">'.$langs->trans("Against").'</td>'."\n";
+				if (((string) $car) == "1") print '<td class="ok">'.$langs->trans("For").'</td>'."\n";
+				else if (((string) $car) == "0") print '<td class="non">'.$langs->trans("Against").'</td>'."\n";
 				else print '<td class="vide">&nbsp;</td>'."\n";
 				// Total
 				if (! isset($sumfor[$i])) $sumfor[$i] = 0;
 				if (! isset($sumagainst[$i])) $sumagainst[$i] = 0;
-				if ($car == "1") $sumfor[$i]++;
-				if ($car == "0") $sumagainst[$i]++;
+				if (((string) $car) == "1") $sumfor[$i]++;
+				if (((string) $car) == "0") $sumagainst[$i]++;
 			}
 		}
 	}
@@ -888,33 +877,33 @@ while ($data = $user_studs->FetchNextObject(false))
 				$car = substr($ensemblereponses, $i, 1);
 				if (empty($listofanswers[$i]['format']) || ! in_array($listofanswers[$i]['format'],array('yesno','pourcontre')))
 				{
-					if ($car == "1") print '<td class="ok">OK</td>'."\n";
+					if (((string) $car) == "1") print '<td class="ok">OK</td>'."\n";
 					else print '<td class="non">&nbsp;</td>'."\n";
 					// Total
 					if (! isset($sumfor[$i])) $sumfor[$i] = 0;
-					if ($car == "1") $sumfor[$i]++;
+					if (((string) $car) == "1") $sumfor[$i]++;
 				}
 				if (! empty($listofanswers[$i]['format']) && $listofanswers[$i]['format'] == 'yesno')
 				{
-					if ($car == "1") print '<td class="ok">'.$langs->trans("For").'</td>'."\n";
-					else if ($car == "0") print '<td class="non">'.$langs->trans("Against").'</td>'."\n";
+					if (((string) $car) == "1") print '<td class="ok">'.$langs->trans("For").'</td>'."\n";
+					else if (((string) $car) == "0") print '<td class="non">'.$langs->trans("Against").'</td>'."\n";
 					else print '<td class="vide">&nbsp;</td>'."\n";
 					// Total
 					if (! isset($sumfor[$i])) $sumfor[$i] = 0;
 					if (! isset($sumagainst[$i])) $sumagainst[$i] = 0;
-					if ($car == "1") $sumfor[$i]++;
-					if ($car == "0") $sumagainst[$i]++;
+					if (((string) $car) == "1") $sumfor[$i]++;
+					if (((string) $car) == "0") $sumagainst[$i]++;
 				}
 				if (! empty($listofanswers[$i]['format']) && $listofanswers[$i]['format'] == 'pourcontre')
 				{
-					if ($car == "1") print '<td class="ok">'.$langs->trans("For").'</td>'."\n";
-					else if ($car == "0") print '<td class="non">'.$langs->trans("Against").'</td>'."\n";
+					if (((string) $car) == "1") print '<td class="ok">'.$langs->trans("For").'</td>'."\n";
+					else if (((string) $car) == "0") print '<td class="non">'.$langs->trans("Against").'</td>'."\n";
 					else print '<td class="vide">&nbsp;</td>'."\n";
 					// Total
 					if (! isset($sumfor[$i])) $sumfor[$i] = 0;
 					if (! isset($sumagainst[$i])) $sumagainst[$i] = 0;
-					if ($car == "1") $sumfor[$i]++;
-					if ($car == "0") $sumagainst[$i]++;
+					if (((string) $car) == "1") $sumfor[$i]++;
+					if (((string) $car) == "0") $sumagainst[$i]++;
 				}
 			}
 		}
@@ -1059,7 +1048,7 @@ print '</table>'."\n";
 print '</div>'."\n";
 
 
-$toutsujet = explode(",", $dsujet->sujet);
+$toutsujet = explode(",", $object->sujet);
 
 $compteursujet = 0;
 $meilleursujet = '';
@@ -1067,7 +1056,7 @@ for ($i = 0; $i < $nbcolonnes; $i++) {
 	if (isset($sumfor[$i]) === true && isset($meilleurecolonne) === true && $sumfor[$i] == $meilleurecolonne){
 		$meilleursujet.=", ";
 
-		if ($dsondage->format == "D" || $dsondage->format == "D+") {
+		if ($object->format == "D" || $object->format == "D+") {
 			$meilleursujetexport = $toutsujet[$i];
 
 			if (strpos($toutsujet[$i], '@') !== false) {

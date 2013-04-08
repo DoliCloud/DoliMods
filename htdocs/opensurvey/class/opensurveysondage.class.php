@@ -52,6 +52,7 @@ class Opensurveysondage extends CommonObject
 	var $format;
 	var $mailsonde;
 	var $survey_link_visible;
+	var $canedit;
 
 
 
@@ -91,6 +92,7 @@ class Opensurveysondage extends CommonObject
 		if (isset($this->format)) $this->format=trim($this->format);
 		if (isset($this->mailsonde)) $this->mailsonde=trim($this->mailsonde);
 		if (isset($this->survey_link_visible)) $this->survey_link_visible=trim($this->survey_link_visible);
+		if (isset($this->canedit)) $this->canedit=trim($this->canedit);
 
 
 
@@ -109,9 +111,8 @@ class Opensurveysondage extends CommonObject
 		$sql.= "date_fin,";
 		$sql.= "format,";
 		$sql.= "mailsonde,";
-		$sql.= "survey_link_visible";
-
-
+		$sql.= "survey_link_visible,";
+		$sql.= "canedit";
         $sql.= ") VALUES (";
 
 		$sql.= " ".(! isset($this->id_sondage)?'NULL':"'".$this->id_sondage."'").",";
@@ -123,8 +124,8 @@ class Opensurveysondage extends CommonObject
 		$sql.= " ".(! isset($this->date_fin) || dol_strlen($this->date_fin)==0?'NULL':$this->db->idate($this->date_fin)).",";
 		$sql.= " ".(! isset($this->format)?'NULL':"'".$this->db->escape($this->format)."'").",";
 		$sql.= " ".(! isset($this->mailsonde)?'NULL':"'".$this->mailsonde."'").",";
-		$sql.= " ".(! isset($this->survey_link_visible)?'NULL':"'".$this->survey_link_visible."'")."";
-
+		$sql.= " ".(! isset($this->survey_link_visible)?'NULL':"'".$this->survey_link_visible."'").",";
+		$sql.= " ".(! isset($this->canedit)?'NULL':"'".$this->canedit."'")."";
 
 		$sql.= ")";
 
@@ -194,9 +195,9 @@ class Opensurveysondage extends CommonObject
 		$sql.= " t.format,";
 		$sql.= " t.mailsonde,";
 		$sql.= " t.survey_link_visible,";
-		$sql.= " s.sujet";
+		$sql.= " t.canedit,";
+		$sql.= " t.sujet";
         $sql.= " FROM ".MAIN_DB_PREFIX."opensurvey_sondage as t";
-        $sql.= " LEFT JOIN ".MAIN_DB_PREFIX."opensurvey_sujet_studs as s ON t.id_sondage = s.id_sondage";
         if ($id > 0) $sql.= " WHERE t.rowid = ".$id;
         else if (strlen($numsurvey) == 16) $sql.= " WHERE t.id_sondage = '".$numsurvey."'";
         else $sql.= " WHERE t.id_sondage_admin = '".$numsurvey."'";
@@ -222,6 +223,7 @@ class Opensurveysondage extends CommonObject
 				$this->format = $obj->format;
 				$this->mailsonde = $obj->mailsonde;
 				$this->survey_link_visible = $obj->survey_link_visible;
+				$this->canedit = $obj->canedit;
 				$this->sujet = $obj->sujet;
 				$ret=1;
             }
@@ -263,7 +265,7 @@ class Opensurveysondage extends CommonObject
 		if (isset($this->format)) $this->format=trim($this->format);
 		if (isset($this->mailsonde)) $this->mailsonde=trim($this->mailsonde);
 		if (isset($this->survey_link_visible)) $this->survey_link_visible=trim($this->survey_link_visible);
-
+		if (isset($this->canedit)) $this->canedit=trim($this->canedit);
 
 
 		// Check parameters
@@ -281,7 +283,8 @@ class Opensurveysondage extends CommonObject
 		$sql.= " date_fin=".(dol_strlen($this->date_fin)!=0 ? "'".$this->db->idate($this->date_fin)."'" : 'null').",";
 		$sql.= " format=".(isset($this->format)?"'".$this->db->escape($this->format)."'":"null").",";
 		$sql.= " mailsonde=".(isset($this->mailsonde)?$this->mailsonde:"null").",";
-		$sql.= " survey_link_visible=".(isset($this->survey_link_visible)?$this->survey_link_visible:"null")."";
+		$sql.= " survey_link_visible=".(isset($this->survey_link_visible)?$this->survey_link_visible:"null").",";
+		$sql.= " canedit=".(isset($this->canedit)?$this->canedit:"null")."";
 
         //$sql.= " WHERE rowid=".$this->id;
 		$sql.= " WHERE id_sondage_admin='".$this->id_sondage_admin."'";
@@ -362,9 +365,6 @@ class Opensurveysondage extends CommonObject
 		{
 
 			$sql='DELETE FROM '.MAIN_DB_PREFIX."opensurvey_comments WHERE id_sondage_admin = '".$numsondageadmin."'";
-			dol_syslog(get_class($this)."::delete sql=".$sql, LOG_DEBUG);
-			$resql=$this->db->query($sql);
-			$sql='DELETE FROM '.MAIN_DB_PREFIX."opensurvey_sujet_studs WHERE id_sondage_admin = '".$numsondageadmin."'";
 			dol_syslog(get_class($this)."::delete sql=".$sql, LOG_DEBUG);
 			$resql=$this->db->query($sql);
 			$sql='DELETE FROM '.MAIN_DB_PREFIX."opensurvey_user_studs WHERE id_sondage_admin = '".$numsondageadmin."'";
@@ -473,8 +473,7 @@ class Opensurveysondage extends CommonObject
 		$this->format='';
 		$this->mailsonde='';
 		$this->survey_link_visible='';
-
-
+		$this->canedit=0;
 	}
 
 }

@@ -1,41 +1,25 @@
 <?php
-//==========================================================================
-//
-//Université de Strasbourg - Direction Informatique
-//Auteur : Guilhem BORGHESI
-//Création : Février 2008
-//
-//borghesi@unistra.fr
-//
-//Ce logiciel est régi par la licence CeCILL-B soumise au droit français et
-//respectant les principes de diffusion des logiciels libres. Vous pouvez
-//utiliser, modifier et/ou redistribuer ce programme sous les conditions
-//de la licence CeCILL-B telle que diffusée par le CEA, le CNRS et l'INRIA
-//sur le site "http://www.cecill.info".
-//
-//Le fait que vous puissiez accéder à cet en-tête signifie que vous avez
-//pris connaissance de la licence CeCILL-B, et que vous en avez accepté les
-//termes. Vous pouvez trouver une copie de la licence dans le fichier LICENCE.
-//
-//==========================================================================
-//
-//Université de Strasbourg - Direction Informatique
-//Author : Guilhem BORGHESI
-//Creation : Feb 2008
-//
-//borghesi@unistra.fr
-//
-//This software is governed by the CeCILL-B license under French law and
-//abiding by the rules of distribution of free software. You can  use,
-//modify and/ or redistribute the software under the terms of the CeCILL-B
-//license as circulated by CEA, CNRS and INRIA at the following URL
-//"http://www.cecill.info".
-//
-//The fact that you are presently reading this means that you have had
-//knowledge of the CeCILL-B license and that you accept its terms. You can
-//find a copy of this license in the file LICENSE.
-//
-//==========================================================================
+/* Copyright (C) 2013      Laurent Destailleur <eldy@users.sourceforge.net>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
+
+/**
+ *	\file       htdocs/opensurvey/public/studs.php
+ *	\ingroup    opensurvey
+ *	\brief      Page to list surveys
+ */
 
 define("NOLOGIN",1);		// This means this output page does not require to be logged.
 define("NOCSRFCHECK",1);	// We accept to go on this page from external web site.
@@ -50,26 +34,31 @@ if (! $res) die("Include of main fails");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/files.lib.php");
 dol_include_once("/opensurvey/class/opensurveysondage.class.php");
+dol_include_once('/opensurvey/fonctions.php');
 
-include_once('../bandeaux_local.php');
-include_once('../fonctions.php');
 
 // Init vars
-$numsondageadmin=GETPOST("sondage");
-$numsondage=substr($numsondageadmin, 0, 16);
-$object=new Opensurveysondage($db);
-$object->fetch(0,$numsondageadmin);
-
-if ($numsondage !== false) {
-	$dsondage = get_sondage_from_id($numsondage);
-	if($dsondage === false) {
-		$err |= NO_POLL;
+$action=GETPOST('action');
+$numsondage = $numsondageadmin = '';
+if (GETPOST('sondage'))
+{
+	if (strlen(GETPOST('sondage')) == 24)	// recuperation du numero de sondage admin (24 car.) dans l'URL
+	{
+		$numsondageadmin=GETPOST("sondage",'alpha');
+		$numsondage=substr($numsondageadmin, 0, 16);
 	}
-} else {
-	$err |= NO_POLL_ID;
+	else
+	{
+		$numsondageadmin='';
+		$numsondage=GETPOST("sondage",'alpha');
+	}
 }
 
-$nbcolonnes = substr_count($dsondage->sujet, ',') + 1;
+$object=new Opensurveysondage($db);
+$object->fetch(0,$numsondage);
+
+$nbcolonnes = substr_count($object->sujet, ',') + 1;
+
 
 
 /*
@@ -179,6 +168,7 @@ if (isset($_POST["boutonp"]) || isset($_POST["boutonp_x"]))
 	}
 }
 
+
 // Update vote
 $sql = 'SELECT * FROM '.MAIN_DB_PREFIX.'opensurvey_user_studs WHERE id_sondage='.$connect->Param('numsondage').' ORDER BY id_users';
 $sql = $connect->Prepare($sql);
@@ -198,6 +188,7 @@ for ($i=0; $i<$nblignes; $i++)
 		$testmodifier = true;
 	}
 }
+
 if ($testmodifier)
 {
 	//var_dump($_POST);exit;
@@ -233,11 +224,11 @@ if ($testmodifier)
 				exit;
 			}
 
-			if ($dsondage->mailsonde=="yes")
+			if ($object->mailsonde=="yes")
 			{
 				// TODO Use CMailFile
 				//$headers="From: ".NOMAPPLICATION." <".ADRESSEMAILADMIN.">\r\nContent-Type: text/plain; charset=\"UTF-8\"\nContent-Transfer-Encoding: 8bit";
-				//mail ("$dsondage->mail_admin", "[".NOMAPPLICATION."] " . _("Poll's participation") . " : $dsondage->titre", "\"$data->nom\""."" . _("has filled a line.\nYou can find your poll at the link") . " :\n\n".getUrlSondage($numsondage)." \n\n" . _("Thanks for your confidence.") . "\n".NOMAPPLICATION,$headers);
+				//mail ("$object->mail_admin", "[".NOMAPPLICATION."] " . _("Poll's participation") . " : $object->titre", "\"$data->nom\""."" . _("has filled a line.\nYou can find your poll at the link") . " :\n\n".getUrlSondage($numsondage)." \n\n" . _("Thanks for your confidence.") . "\n".NOMAPPLICATION,$headers);
 			}
 		}
 
@@ -264,7 +255,7 @@ $object=new OpenSurveySondage($db);
 
 $arrayofjs=array();
 $arrayofcss=array('/opensurvey/css/style.css');
-llxHeaderSurvey($dsondage->titre, "", 0, 0, $arrayofjs, $arrayofcss);
+llxHeaderSurvey($object->titre, "", 0, 0, $arrayofjs, $arrayofcss);
 
 $res=$object->fetch(0,$numsondage);
 
@@ -309,16 +300,16 @@ print $langs->trans("OpenSurveyHowTo").'<br><br>';
 print '<div class="corps"> '."\n";
 
 //affichage du titre du sondage
-$titre=str_replace("\\","",$dsondage->titre);
+$titre=str_replace("\\","",$object->titre);
 print '<strong>'.$titre.'</strong><br>'."\n";
 
 //affichage du nom de l'auteur du sondage
-print $langs->trans("InitiatorOfPoll") .' : '.$dsondage->nom_admin.'<br>'."\n";
+print $langs->trans("InitiatorOfPoll") .' : '.$object->nom_admin.'<br>'."\n";
 
 //affichage des commentaires du sondage
-if ($dsondage->commentaires) {
+if ($object->commentaires) {
 	print '<br>'.$langs->trans("Description") .' :<br>'."\n";
-	$commentaires=dol_nl2br($dsondage->commentaires);
+	$commentaires=dol_nl2br($object->commentaires);
 	print $commentaires;
 	print '<br>'."\n";
 }
@@ -340,7 +331,7 @@ $sql = $connect->Prepare($sql);
 $user_studs = $connect->Execute($sql, array($numsondage));
 
 //si le sondage est un sondage de date
-if ($dsondage->format=="D"||$dsondage->format=="D+")
+if ($object->format=="D"||$object->format=="D+")
 {
 	//affichage des sujets du sondage
 	print '<tr>'."\n";
@@ -405,7 +396,7 @@ if ($dsondage->format=="D"||$dsondage->format=="D+")
 	print '</tr>'."\n";
 
 	//affichage des horaires
-	if (strpos($dsondage->sujet, '@') !== false) {
+	if (strpos($object->sujet, '@') !== false) {
 		print '<tr>'."\n";
 		print '<td></td>'."\n";
 
@@ -459,7 +450,7 @@ while ($data = $user_studs->FetchNextObject(false))
 	print '<tr>'."\n";
 
 	// ligne d'un usager pré-authentifié
-	$mod_ok = ($dsondage->format=="A+"||$dsondage->format=="D+") || (! empty($nombase) && in_array($nombase, $listofvoters));
+	$mod_ok = ($object->format=="A+"||$object->format=="D+") || (! empty($nombase) && in_array($nombase, $listofvoters));
 	$user_mod |= $mod_ok;
 
 	// Name
@@ -475,7 +466,7 @@ while ($data = $user_studs->FetchNextObject(false))
 			if (empty($listofanswers[$i]['format']) || ! in_array($listofanswers[$i]['format'],array('yesno','pourcontre')))
 			{
 				print '<input type="checkbox" name="choix'.$i.'" value="1" ';
-				if ($car == '1') print 'checked="checked"';
+				if (((string) $car) == '1') print 'checked="checked"';
 				print '>';
 			}
 			if (! empty($listofanswers[$i]['format']) && $listofanswers[$i]['format'] == 'yesno')
@@ -494,33 +485,33 @@ while ($data = $user_studs->FetchNextObject(false))
 		{
 			if (empty($listofanswers[$i]['format']) || ! in_array($listofanswers[$i]['format'],array('yesno','pourcontre')))
 			{
-				if ($car == "1") print '<td class="ok">OK</td>'."\n";
+				if (((string) $car) == "1") print '<td class="ok">OK</td>'."\n";
 				else print '<td class="non">KO</td>'."\n";
 				// Total
 				if (isset($sumfor[$i]) === false) $sumfor[$i] = 0;
-				if ($car == "1") $sumfor[$i]++;
+				if (((string) $car) == "1") $sumfor[$i]++;
 			}
 			if (! empty($listofanswers[$i]['format']) && $listofanswers[$i]['format'] == 'yesno')
 			{
-				if ($car == "1") print '<td class="ok">'.$langs->trans("Yes").'</td>'."\n";
-				else if ($car =="0") print '<td class="non">'.$langs->trans("No").'</td>'."\n";
+				if (((string) $car) == "1") print '<td class="ok">'.$langs->trans("Yes").'</td>'."\n";
+				else if (((string) $car) == "0") print '<td class="non">'.$langs->trans("No").'</td>'."\n";
 				else print '<td class="vide">&nbsp;</td>'."\n";
 				// Total
 				if (! isset($sumfor[$i])) $sumfor[$i] = 0;
 				if (! isset($sumagainst[$i])) $sumagainst[$i] = 0;
-				if ($car == "1") $sumfor[$i]++;
-				if ($car == "0") $sumagainst[$i]++;
+				if (((string) $car) == "1") $sumfor[$i]++;
+				if (((string) $car) == "0") $sumagainst[$i]++;
 			}
 			if (! empty($listofanswers[$i]['format']) && $listofanswers[$i]['format'] == 'pourcontre')
 			{
-				if ($car == "1") print '<td class="ok">'.$langs->trans("For").'</td>'."\n";
-				else if ($car =="0") print '<td class="non">'.$langs->trans("Against").'</td>'."\n";
+				if (((string) $car) == "1") print '<td class="ok">'.$langs->trans("For").'</td>'."\n";
+				else if (((string) $car) == "0") print '<td class="non">'.$langs->trans("Against").'</td>'."\n";
 				else print '<td class="vide">&nbsp;</td>'."\n";
 				// Total
 				if (! isset($sumfor[$i])) $sumfor[$i] = 0;
 				if (! isset($sumagainst[$i])) $sumagainst[$i] = 0;
-				if ($car == "1") $sumfor[$i]++;
-				if ($car == "0") $sumagainst[$i]++;
+				if (((string) $car) == "1") $sumfor[$i]++;
+				if (((string) $car) == "0") $sumagainst[$i]++;
 			}
 		}
 	}
@@ -644,7 +635,7 @@ if ($nbofcheckbox >= 2)
 print '</table>'."\n";
 print '</div>'."\n";
 
-$toutsujet=explode(",",$dsondage->sujet);
+$toutsujet=explode(",",$object->sujet);
 $toutsujet=str_replace("°","'",$toutsujet);
 
 $compteursujet=0;
@@ -653,7 +644,7 @@ $meilleursujet = '';
 for ($i = 0; $i < $nbcolonnes; $i++) {
 	if (isset($sumfor[$i]) && isset($meilleurecolonne) && $sumfor[$i] == $meilleurecolonne) {
 		$meilleursujet.=", ";
-		if ($dsondage->format=="D"||$dsondage->format=="D+") {
+		if ($object->format=="D"||$object->format=="D+") {
 			$meilleursujetexport = $toutsujet[$i];
 
 			if (strpos($toutsujet[$i], '@') !== false) {
@@ -708,7 +699,7 @@ if ($num_rows > 0)
 	{
 		$obj=$db->fetch_object($resql);
 		print '<div class="comment"><span class="usercomment">';
-		if (in_array($obj->usercomment, $listofvoters)) print '<a href="'.$_SERVER["PHP_SELF"].'?deletecomment='.$obj->id_comment.'&sondage='.$numsondageadmin.'"> '.img_picto('', 'delete.png').'</a> ';
+		if (in_array($obj->usercomment, $listofvoters)) print '<a href="'.$_SERVER["PHP_SELF"].'?deletecomment='.$obj->id_comment.'&sondage='.$numsondage.'"> '.img_picto('', 'delete.png').'</a> ';
 		print $obj->usercomment.' :</span> <span class="comment">'.dol_nl2br($obj->comment)."</span></div>";
 		$i++;
 	}

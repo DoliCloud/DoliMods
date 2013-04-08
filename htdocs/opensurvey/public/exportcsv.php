@@ -50,9 +50,7 @@ if (! $res) die("Include of main fails");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/files.lib.php");
 dol_include_once("/opensurvey/class/opensurveysondage.class.php");
-
 include_once('../fonctions.php');
-include_once('../bandeaux_local.php');
 
 
 

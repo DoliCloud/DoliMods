@@ -1,41 +1,25 @@
 <?php
-//==========================================================================
-//
-//Université de Strasbourg - Direction Informatique
-//Auteur : Guilhem BORGHESI
-//Création : Février 2008
-//
-//borghesi@unistra.fr
-//
-//Ce logiciel est régi par la licence CeCILL-B soumise au droit français et
-//respectant les principes de diffusion des logiciels libres. Vous pouvez
-//utiliser, modifier et/ou redistribuer ce programme sous les conditions
-//de la licence CeCILL-B telle que diffusée par le CEA, le CNRS et l'INRIA
-//sur le site "http://www.cecill.info".
-//
-//Le fait que vous puissiez accéder à cet en-tête signifie que vous avez
-//pris connaissance de la licence CeCILL-B, et que vous en avez accepté les
-//termes. Vous pouvez trouver une copie de la licence dans le fichier LICENCE.
-//
-//==========================================================================
-//
-//Université de Strasbourg - Direction Informatique
-//Author : Guilhem BORGHESI
-//Creation : Feb 2008
-//
-//borghesi@unistra.fr
-//
-//This software is governed by the CeCILL-B license under French law and
-//abiding by the rules of distribution of free software. You can  use,
-//modify and/ or redistribute the software under the terms of the CeCILL-B
-//license as circulated by CEA, CNRS and INRIA at the following URL
-//"http://www.cecill.info".
-//
-//The fact that you are presently reading this means that you have had
-//knowledge of the CeCILL-B license and that you accept its terms. You can
-//find a copy of this license in the file LICENSE.
-//
-//==========================================================================
+/* Copyright (C) 2013 Laurent Destailleur  <eldy@users.sourceforge.net>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
+
+/**
+ *	\file       htdocs/opensurvey/adminstuds.php
+ *	\ingroup    opensurvey
+ *	\brief      Page to edit survey
+ */
 
 $res=0;
 if (! $res && file_exists("../main.inc.php")) $res=@include("../main.inc.php");
@@ -48,57 +32,34 @@ if (! $res) die("Include of main fails");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/files.lib.php");
 dol_include_once("/opensurvey/class/opensurveysondage.class.php");
+include_once('./fonctions.php');
+
 
 // Security check
-if (!$user->admin)
-	accessforbidden();
-
-
-include_once('./variables.php');
-include_once('./fonctions.php');
-include_once('./bandeaux_local.php');
+if (!$user->admin) accessforbidden();
 
 
 // Initialisation des variables
 $action=GETPOST('action');
-$numsondageadmin = '';
-$sondage = false;
-
-// recuperation du numero de sondage admin (24 car.) dans l'URL
-if (GETPOST('sondage') && strlen(GETPOST('sondage')) == 24)
+$numsondage = $numsondageadmin = '';
+if (GETPOST('sondage'))
 {
-	$numsondageadmin=GETPOST("sondage",'alpha');
-	//on découpe le résultat pour avoir le numéro de sondage (16 car.)
-	$numsondage=substr($numsondageadmin, 0, 16);
-}
-
-
-if (preg_match(";[\w\d]{24};i", $numsondageadmin))
-{
-	$sql = 'SELECT * FROM '.MAIN_DB_PREFIX.'opensurvey_sondage WHERE id_sondage_admin = '.$connect->Param('numsondageadmin');
-	$sql = $connect->Prepare($sql);
-	$sondage = $connect->Execute($sql, array($numsondageadmin));
-
-	if ($sondage !== false) {
-		$sql = 'SELECT * FROM '.MAIN_DB_PREFIX.'opensurvey_sujet_studs WHERE id_sondage = '.$connect->Param('numsondage');
-		$sql = $connect->Prepare($sql);
-		$sujets = $connect->Execute($sql, array($numsondage));
-
-		$sql = 'SELECT * FROM '.MAIN_DB_PREFIX.'opensurvey_user_studs WHERE id_sondage = '.$connect->Param('numsondage').' order by id_users';
-		$sql = $connect->Prepare($sql);
-		$user_studs = $connect->Execute($sql, array($numsondage));
+	if (strlen(GETPOST('sondage')) == 24)	// recuperation du numero de sondage admin (24 car.) dans l'URL
+	{
+		$numsondageadmin=GETPOST("sondage",'alpha');
+		$numsondage=substr($numsondageadmin, 0, 16);
+	}
+	else
+	{
+		$numsondageadmin='';
+		$numsondage=GETPOST("sondage",'alpha');
 	}
 }
-
-$dsujet=$sujets->FetchObject(false);
-$dsondage=$sondage->FetchObject(false);
-
-$nbcolonnes = substr_count($dsujet->sujet, ',') + 1;
-$nblignes = $user_studs->RecordCount();
 
 $object=new Opensurveysondage($db);
 
 $expiredate=dol_mktime(0, 0, 0, GETPOST('expiremonth'), GETPOST('expireday'), GETPOST('expireyear'));
+
 
 
 /*
@@ -139,6 +100,8 @@ if ($action == 'update')
 		$object->commentaires = GETPOST('nouveauxcommentaires');
 		$object->mail_admin = GETPOST('nouvelleadresse');
 		$object->date_fin = $expiredate;
+		$object->survey_link_visible = GETPOST('survey_link_visible')=='on'?1:0;
+		$object->canedit = GETPOST('canedit')=='on'?1:0;
 
 		$res=$object->update($user);
 		if ($res < 0)
@@ -197,11 +160,18 @@ if ($idcomment)
 
 $form=new Form($db);
 
+$result=$object->fetch(0,$numsondage);
+if ($result <= 0)
+{
+	print $langs->trans("ErrorRecordNotFound");
+	llxFooter();
+	exit;
+}
+
 $arrayofjs=array();
 $arrayofcss=array('/opensurvey/css/style.css');
-llxHeader('',$dsondage->titre, 0, 0, 0, 0, $arrayofjs, $arrayofcss);
+llxHeader('',$object->titre, 0, 0, 0, 0, $arrayofjs, $arrayofcss);
 
-$object->fetch(0,$numsondage);
 
 // Define format of choices
 $toutsujet=explode(",",$object->sujet);
@@ -244,14 +214,14 @@ print '</td>';
 print '</tr>';
 
 // Type
-$type=($dsondage->format=="A"||$dsondage->format=="A+")?'classic':'date';
+$type=($object->format=="A"||$object->format=="A+")?'classic':'date';
 print '<tr><td>'.$langs->trans("Type").'</td><td colspan="2">';
 print img_picto('',dol_buildpath('/opensurvey/img/'.($type == 'classic'?'chart-32.png':'calendar-32.png'),1),'width="16"',1);
 print ' '.$langs->trans($type=='classic'?"TypeClassic":"TypeDate").'</td></tr>';
 
 // Title
 print '<tr><td>';
-$adresseadmin=$dsondage->mail_admin;
+$adresseadmin=$object->mail_admin;
 print $langs->trans("Title") .'</td><td colspan="2">';
 if ($action == 'edit')
 {
@@ -285,7 +255,13 @@ else print dol_print_email($object->mail_admin);
 print '</td></tr>';
 
 // Can edit other votes
-print '<tr><td>'.$langs->trans('CanEditVotes').'</td><td colspan="2">'.yn(preg_match('/\+/',$object->format)).'</td></tr>';
+print '<tr><td>'.$langs->trans('CanEditVotes').'</td><td colspan="2">';
+if ($action == 'edit')
+{
+	print '<input type="checkbox" name="canedit" size="40"'.($object->canedit?' checked="true"':'').'">';
+}
+else print yn($object->canedit);
+print '</td></tr>';
 
 // Expire date
 print '<tr><td>'.$langs->trans('ExpireDate').'</td><td colspan="2">';

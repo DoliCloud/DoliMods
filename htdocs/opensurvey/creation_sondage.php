@@ -94,14 +94,14 @@ function ajouter_sondage($origin)
 		$date_fin = time()+15552000;
 	}
 
-
-	$sql = 'INSERT INTO '.MAIN_DB_PREFIX."opensurvey_sondage
-	(id_sondage, commentaires, mail_admin, nom_admin, titre, id_sondage_admin, date_fin, format, mailsonde, origin)
-	VALUES ('".$db->escape($sondage)."', '".$db->escape($_SESSION['commentaires'])."', '".$db->escape($_SESSION['adresse'])."', '".$db->escape($_SESSION['nom'])."', '".$db->escape($_SESSION['titre'])."', '".$sondage_admin."', '".$db->idate($date_fin)."', '".$_SESSION['formatsondage']."', '".$db->escape($_SESSION['mailsonde'])."', '".$db->escape($origin)."')";
-	dol_syslog($sql);
-	$resql=$db->query($sql);
-
-	$sql = 'INSERT INTO '.MAIN_DB_PREFIX."opensurvey_sujet_studs(id_sondage, sujet) VALUES ('".$db->escape($sondage)."', '".$db->escape($_SESSION['toutchoix'])."')";
+	// Insert survey
+	$sql = 'INSERT INTO '.MAIN_DB_PREFIX.'opensurvey_sondage';
+	$sql.= '(id_sondage, commentaires, mail_admin, nom_admin, titre, id_sondage_admin, date_fin, format, mailsonde, canedit, origin, sujet)';
+	$sql.= "VALUES ('".$db->escape($sondage)."', '".$db->escape($_SESSION['commentaires'])."', '".$db->escape($_SESSION['adresse'])."', '".$db->escape($_SESSION['nom'])."',";
+	$sql.= " '".$db->escape($_SESSION['titre'])."', '".$sondage_admin."', '".$db->idate($date_fin)."', '".$_SESSION['formatsondage']."', '".$db->escape($_SESSION['mailsonde'])."',";
+	$sql.= " '".$_SESSION['formatcanedit']."', '".$db->escape($origin)."',";
+	$sql.= " '".$db->escape($_SESSION['toutchoix'])."'";
+	$sql.= ")";
 	dol_syslog($sql);
 	$resql=$db->query($sql);
 
@@ -124,7 +124,7 @@ function ajouter_sondage($origin)
 	unset($_SESSION["nom"]);
 	unset($_SESSION["adresse"]);
 	unset($_SESSION["commentaires"]);
-	unset($_SESSION["studsplus"]);
+	unset($_SESSION["canedit"]);
 	unset($_SESSION["mailsonde"]);
 
 	header("Location: ".$urlback);

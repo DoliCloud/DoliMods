@@ -26,6 +26,8 @@ CREATE TABLE llx_opensurvey_sondage (
        format VARCHAR(2),
        mailsonde varchar(2) DEFAULT '0',
        survey_link_visible integer DEFAULT 1,
+	   canedit integer DEFAULT 0,
        origin varchar(64),
+	   sujet TEXT,
        tms timestamp
 ) ENGINE=InnoDB;

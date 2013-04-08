@@ -1,45 +1,108 @@
 <?php
-//==========================================================================
-//
-//Université de Strasbourg - Direction Informatique
-//Auteur : Guilhem BORGHESI
-//Création : Février 2008
-//
-//borghesi@unistra.fr
-//
-//Ce logiciel est régi par la licence CeCILL-B soumise au droit français et
-//respectant les principes de diffusion des logiciels libres. Vous pouvez
-//utiliser, modifier et/ou redistribuer ce programme sous les conditions
-//de la licence CeCILL-B telle que diffusée par le CEA, le CNRS et l'INRIA
-//sur le site "http://www.cecill.info".
-//
-//Le fait que vous puissiez accéder à cet en-tête signifie que vous avez
-//pris connaissance de la licence CeCILL-B, et que vous en avez accepté les
-//termes. Vous pouvez trouver une copie de la licence dans le fichier LICENCE.
-//
-//==========================================================================
-//
-//Université de Strasbourg - Direction Informatique
-//Author : Guilhem BORGHESI
-//Creation : Feb 2008
-//
-//borghesi@unistra.fr
-//
-//This software is governed by the CeCILL-B license under French law and
-//abiding by the rules of distribution of free software. You can  use,
-//modify and/ or redistribute the software under the terms of the CeCILL-B
-//license as circulated by CEA, CNRS and INRIA at the following URL
-//"http://www.cecill.info".
-//
-//The fact that you are presently reading this means that you have had
-//knowledge of the CeCILL-B license and that you accept its terms. You can
-//find a copy of this license in the file LICENSE.
-//
-//==========================================================================
+/* Copyright (C) 2013 Laurent Destailleur  <eldy@users.sourceforge.net>
+ *
+* This program is free software; you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation; either version 3 of the License, or
+* (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with this program. If not, see <http://www.gnu.org/licenses/>.
+*/
+
+/**
+ *	\file       htdocs/opensurvey/fonction.php
+ *	\ingroup    opensurvey
+ *	\brief      Functions for module
+ */
 
 
-include_once('variables.php');
-require_once('adodb/adodb.inc.php');
+
+/**
+ * Show header for new member
+ *
+ * @param 	string		$title				Title
+ * @param 	string		$head				Head array
+ * @param 	int    		$disablejs			More content into html header
+ * @param 	int    		$disablehead		More content into html header
+ * @param 	array  		$arrayofjs			Array of complementary js files
+ * @param 	array  		$arrayofcss			Array of complementary css files
+ * @return	void
+ */
+function llxHeaderSurvey($title, $head="", $disablejs=0, $disablehead=0, $arrayofjs='', $arrayofcss='')
+{
+	global $user, $conf, $langs, $mysoc;
+
+	top_htmlhead($head, $title, $disablejs, $disablehead, $arrayofjs, $arrayofcss); // Show html headers
+	print '<body id="mainbody" class="publicnewmemberform" style="margin-top: 10px;">';
+
+	showlogo();
+
+	print '<div style="margin-left: 50px; margin-right: 50px;">';
+}
+
+/**
+ * Show footer for new member
+ *
+ * @return	void
+ */
+function llxFooterSurvey()
+{
+	print '</div>';
+
+	printCommonFooter('public');
+
+	dol_htmloutput_events();
+
+	print "</body>\n";
+	print "</html>\n";
+}
+
+
+/**
+ * Show logo
+ *
+ * @return	void
+ */
+function showlogo()
+{
+	global $user, $conf, $langs, $mysoc;
+
+	// Print logo
+	$urllogo=DOL_URL_ROOT.'/theme/login_logo.png';
+
+	if (! empty($mysoc->logo_small) && is_readable($conf->mycompany->dir_output.'/logos/thumbs/'.$mysoc->logo_small))
+	{
+		$urllogo=DOL_URL_ROOT.'/viewimage.php?cache=1&amp;modulepart=companylogo&amp;file='.urlencode('thumbs/'.$mysoc->logo_small);
+	}
+	elseif (! empty($mysoc->logo) && is_readable($conf->mycompany->dir_output.'/logos/'.$mysoc->logo))
+	{
+		$urllogo=DOL_URL_ROOT.'/viewimage.php?cache=1&amp;modulepart=companylogo&amp;file='.urlencode($mysoc->logo);
+		$width=128;
+	}
+	elseif (is_readable(DOL_DOCUMENT_ROOT.'/theme/dolibarr_logo.png'))
+	{
+		$urllogo=DOL_URL_ROOT.'/theme/dolibarr_logo.png';
+	}
+	print '<center>';
+	print '<img alt="Logo" id="logosubscribe" title="" src="'.$urllogo.'" style="max-width: 120px" /><br>';
+	print '<strong>'.$langs->trans("OpenSurvey").'</strong>';
+	print '</center><br>';
+}
+
+
+
+
+
+
+dol_include_once('/opensurvey/variables.php');
+dol_include_once('/opensurvey/adodb/adodb.inc.php');
+
 
 function connexion_base()
 {
@@ -171,6 +234,8 @@ function getUrlSondage($id, $admin = false)
 	return $url;
 }
 
+global $connect;
+
 $connect=connexion_base();
 //var_dump($connect); exit;
 
@@ -185,3 +250,5 @@ define('INVALID_EMAIL',         0x0010000000);
 define('TITLE_EMPTY',           0x0100000000);
 define('INVALID_DATE',          0x1000000000);
 $err = 0;
+
+?>

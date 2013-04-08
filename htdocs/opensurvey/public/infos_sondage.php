@@ -49,9 +49,7 @@ if (! $res && file_exists("../../../../../dolibarr/htdocs/main.inc.php")) $res=@
 if (! $res) die("Include of main fails");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/files.lib.php");
-
 include_once('../fonctions.php');
-include_once('../bandeaux_local.php');
 
 $langs->load("opensurvey@opensurvey");
 
@@ -60,14 +58,14 @@ $origin=GETPOST('origin','alpha');
 
 // On teste toutes les variables pour supprimer l'ensemble des warnings PHP
 // On transforme en entites html les données afin éviter les failles XSS
-$post_var = array('titre', 'nom', 'adresse', 'commentaires', 'studsplus', 'mailsonde', 'creation_sondage_date', 'creation_sondage_date_x', 'creation_sondage_autre', 'creation_sondage_autre_x',);
+$post_var = array('titre', 'nom', 'adresse', 'commentaires', 'canedit', 'mailsonde', 'creation_sondage_date', 'creation_sondage_date_x', 'creation_sondage_autre', 'creation_sondage_autre_x');
 foreach ($post_var as $var)
 {
 	$$var = GETPOST($var);
 }
 
 // On initialise egalement la session car sinon bonjour les warning :-)
-$session_var = array('titre', 'nom', 'adresse', 'commentaires', 'mailsonde', 'studsplus', );
+$session_var = array('titre', 'nom', 'adresse', 'commentaires', 'mailsonde', 'canedit');
 foreach ($session_var as $var)
 {
 	if (isset($_SESSION[$var])) $_SESSION[$var] = null;
@@ -89,12 +87,8 @@ if (GETPOST("creation_sondage_date") || GETPOST("creation_sondage_autre") || GET
 	$_SESSION["adresse"] = $adresse;
 	$_SESSION["commentaires"] = $commentaires;
 
-	unset($_SESSION["studsplus"]);
-	if ($studsplus !== null) {
-		$_SESSION["studsplus"] = '+';
-	} else {
-		$_SESSION["studsplus"] = '';
-	}
+	unset($_SESSION["canedit"]);
+	$_SESSION["canedit"] = $canedit;
 
 	unset($_SESSION["mailsonde"]);
 	if ($mailsonde !== null) {
@@ -211,11 +205,9 @@ print '<br>'."\n";
 
 #affichage du cochage par défaut
 $cocheplus='';
-if ($_SESSION["studsplus"]=="+") {
-  $cocheplus="checked";
-}
+if ($_SESSION["canedit"]) $cocheplus="checked";
 
-print '<input type="checkbox" name="studsplus" '.$cocheplus.'>'. $langs->trans("VotersCanModify") .'<br>'."\n";
+print '<input type="checkbox" name="canedit" '.$cocheplus.'>'. $langs->trans("VotersCanModify") .'<br>'."\n";
 
 if ($_SESSION["mailsonde"]) {
   $cochemail="checked";

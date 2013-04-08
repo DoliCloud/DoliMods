@@ -51,7 +51,6 @@ require_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/files.lib.php");
 
 include_once('../fonctions.php');
-include_once('../bandeaux_local.php');
 include_once('../creation_sondage.php');
 
 $erreur = false;
@@ -126,7 +125,8 @@ if (isset($_POST["confirmecreation"]) || isset($_POST["confirmecreation_x"]))
 	if ($testdate === true)
 	{
 		//format du sondage AUTRE
-		$_SESSION["formatsondage"]="A".$_SESSION["studsplus"];
+		$_SESSION["formatsondage"]="A";
+		$_SESSION["caneditsondage"]=$_SESSION["canedit"];
 
 		// Add into database
 		ajouter_sondage($origin);

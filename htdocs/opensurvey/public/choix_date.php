@@ -51,7 +51,6 @@ require_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/files.lib.php");
 
 include_once('../fonctions.php');
-include_once('../bandeaux_local.php');
 include_once('../creation_sondage.php');
 
 $origin=GETPOST('origin','alpha');
@@ -219,7 +218,8 @@ $nbrejourmois = date("t", mktime(0, 0, 0, $_SESSION["mois"], 1, $_SESSION["annee
 $premierjourmois = date("N", mktime(0, 0, 0, $_SESSION["mois"], 1, $_SESSION["annee"])) - 1;
 
 //le format du sondage est DATE
-$_SESSION["formatsondage"] = "D".$_SESSION["studsplus"];
+$_SESSION["formatsondage"] = "D";
+$_SESSION["formatcanedit"] = $_SESSION["canedit"];
 
 //traduction de la valeur du mois
 if (is_integer($_SESSION["mois"]) && $_SESSION["mois"] > 0 && $_SESSION["mois"] < 13)
