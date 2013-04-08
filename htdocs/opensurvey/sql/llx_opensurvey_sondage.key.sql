@@ -16,4 +16,4 @@
 -- ============================================================================
 
 ALTER TABLE llx_opensurvey_sondage ADD INDEX idx_id_sondage_admin id_sondage_admin;
-ALTER TABLE llx_opensurvey_sondage ADD INDEX idx_date_fine date_fin;
+ALTER TABLE llx_opensurvey_sondage ADD INDEX idx_date_fin date_fin;

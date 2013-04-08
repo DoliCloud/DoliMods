@@ -32,9 +32,6 @@ if (! $res) die("Include of main fails");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/files.lib.php");
 
-include_once('./variables.php');
-include_once('./fonctions.php');
-
 $action=GETPOST('action');
 $id=GETPOST('id');
 
@@ -56,9 +53,6 @@ if ($action == 'delete_confirm')
 	$db->begin();
 
 	$sql='DELETE FROM '.MAIN_DB_PREFIX."opensurvey_comments WHERE id_sondage_admin = '".$id."'";
-	dol_syslog("Delete poll sql=".$sql, LOG_DEBUG);
-	$resql=$db->query($sql);
-	$sql='DELETE FROM '.MAIN_DB_PREFIX."opensurvey_sujet_studs WHERE id_sondage_admin = '".$id."'";
 	dol_syslog("Delete poll sql=".$sql, LOG_DEBUG);
 	$resql=$db->query($sql);
 	$sql='DELETE FROM '.MAIN_DB_PREFIX."opensurvey_user_studs WHERE id_sondage_admin = '".$id."'";
@@ -119,12 +113,14 @@ while ($i < min($num,$limit))
 {
 	$obj=$db->fetch_object($resql);
 
-	/* possible en 1 bonne requête dans $sondage */
-	$sujets=$connect->Execute( 'select * from '.MAIN_DB_PREFIX."opensurvey_sujet_studs where id_sondage='".$obj->id_sondage."'");
-	$dsujets=$sujets->FetchObject(false);
-
-	$user_studs=$connect->Execute( 'select * from '.MAIN_DB_PREFIX."opensurvey_user_studs where id_sondage='".$obj->id_sondage."'");
-	$nbuser=$user_studs->RecordCount();
+	$sql2='select COUNT(*) as nb from '.MAIN_DB_PREFIX."opensurvey_user_studs where id_sondage='".$db->escape($obj->id_sondage)."'";
+	$resql2=$db->query($sql2);
+	if ($resql2)
+	{
+		$obj2=$db->fetch_object($resql2);
+		$nbuser=$obj2->nb;
+	}
+	else dol_print_error($db);
 
 	$var=!$var;
 	print '<tr '.$bc[$var].'>';
