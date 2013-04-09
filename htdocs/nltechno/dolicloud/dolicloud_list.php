@@ -178,14 +178,14 @@ $sql.= " FROM ".MAIN_DB_PREFIX."dolicloud_customers as t";
 $sql.= " LEFT JOIN ".MAIN_DB_PREFIX."c_dolicloud_plans as p ON t.plan = p.code";
 $sql.= " WHERE 1 = 1";
 if ($search_dolicloud) $sql.='';
-if ($search_instance) $sql.=" AND t.instance LIKE '%".$search_instance."%'";
-if ($search_organization) $sql.=" AND t.organization LIKE '%".$search_organization."%'";
-if ($search_plan) $sql.=" AND t.email LIKE '%".$search_plan."%'";
-if ($search_partner) $sql.=" AND t.partner LIKE '%".$search_partner."%'";
-if ($search_source) $sql.=" AND t.source LIKE '%".$search_source."%'";
-if ($search_email) $sql.=" AND t.email LIKE '%".$search_email."%'";
-if ($search_lastlogin) $sql.=" AND t.lastlogin LIKE '%".$search_lastlogin."%'";
-if ($search_status) $sql.=" AND t.status LIKE '%".$search_status."%'";
+if ($search_instance) $sql.=" AND t.instance LIKE '%".$db->escape($search_instance)."%'";
+if ($search_organization) $sql.=" AND t.organization LIKE '%".$db->escape($search_organization)."%'";
+if ($search_plan) $sql.=" AND t.email LIKE '%".$db->escape($search_plan)."%'";
+if ($search_partner) $sql.=" AND t.partner LIKE '%".$db->escape($search_partner)."%'";
+if ($search_source) $sql.=" AND t.source LIKE '%".$db->escape($search_source)."%'";
+if ($search_email) $sql.=" AND t.email LIKE '%".$db->escape($search_email)."%'";
+if ($search_lastlogin) $sql.=" AND t.lastlogin LIKE '%".$db->escape($search_lastlogin)."%'";
+if (! is_numeric($search_status)) $sql.=" AND t.status LIKE '%".$db->escape($search_status)."%'";
 
 // Count total nb of records
 $nbtotalofrecords = 0;
