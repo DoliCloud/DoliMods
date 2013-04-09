@@ -1,7 +1,5 @@
 # Dolibarr language file - ca_ES - mails
 CHARSET=UTF-8
-MailingModuleDescContactCompanies=Contactes de pacients (pacients potencials, pacients, proveïdors ...)
-MailingModuleDescContactsCategories=Pacients (per categoria)
-MailingModuleDescDolibarrContractsLinesExpired=Pacients amb línies de contractes de serveis expirats
-MailingModuleDescContactsByCompanyCategory=Contactes de pacients (per categoria de pacients)
-MailingModuleDescContactsByFunction=Contactes de pacients (per lloc/funció)
+MailingModuleDescContactCompanies=Contactes de tierceros/pacients
+MailingModuleDescContactsByCompanyCategory=Contactes de tierceros/pacients (per categoria)
+MailingModuleDescContactsByFunction=Contactes de tierceros/pacients (per lloc/funció)
