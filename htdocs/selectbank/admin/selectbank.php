@@ -78,7 +78,7 @@ clearstatcache();
 
 dol_htmloutput_mesg($mesg,$mesgs);
 
-print $langs->trans("NothingToSetup");
+print $langs->trans("SelectBankNothingToSetup");
 
 // Footer
 llxFooter();

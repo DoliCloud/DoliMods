@@ -1,41 +1,25 @@
 <?php
-//==========================================================================
-//
-//Université de Strasbourg - Direction Informatique
-//Auteur : Guilhem BORGHESI
-//Création : Février 2008
-//
-//borghesi@unistra.fr
-//
-//Ce logiciel est régi par la licence CeCILL-B soumise au droit français et
-//respectant les principes de diffusion des logiciels libres. Vous pouvez
-//utiliser, modifier et/ou redistribuer ce programme sous les conditions
-//de la licence CeCILL-B telle que diffusée par le CEA, le CNRS et l'INRIA
-//sur le site "http://www.cecill.info".
-//
-//Le fait que vous puissiez accéder à cet en-tête signifie que vous avez
-//pris connaissance de la licence CeCILL-B, et que vous en avez accepté les
-//termes. Vous pouvez trouver une copie de la licence dans le fichier LICENCE.
-//
-//==========================================================================
-//
-//Université de Strasbourg - Direction Informatique
-//Author : Guilhem BORGHESI
-//Creation : Feb 2008
-//
-//borghesi@unistra.fr
-//
-//This software is governed by the CeCILL-B license under French law and
-//abiding by the rules of distribution of free software. You can  use,
-//modify and/ or redistribute the software under the terms of the CeCILL-B
-//license as circulated by CEA, CNRS and INRIA at the following URL
-//"http://www.cecill.info".
-//
-//The fact that you are presently reading this means that you have had
-//knowledge of the CeCILL-B license and that you accept its terms. You can
-//find a copy of this license in the file LICENSE.
-//
-//==========================================================================
+/* Copyright (C) 2013      Laurent Destailleur <eldy@users.sourceforge.net>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
+
+/**
+ *	\file       htdocs/opensurvey/admin_studs_preview.php
+ *	\ingroup    opensurvey
+ *	\brief      Page to preview votes of a survey
+ */
 
 $res=0;
 if (! $res && file_exists("../main.inc.php")) $res=@include("../main.inc.php");
@@ -48,7 +32,6 @@ if (! $res) die("Include of main fails");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/files.lib.php");
 dol_include_once("/opensurvey/class/opensurveysondage.class.php");
-include_once('./variables.php');
 include_once('./fonctions.php');
 
 
@@ -63,16 +46,7 @@ $numsondage=substr($numsondageadmin, 0, 16);
 
 $object=new Opensurveysondage($db);
 $object->fetch(0,$numsondageadmin);
-
-// TODO Remove this
-if (preg_match(";[\w\d]{24};i", $numsondageadmin))
-{
-	$sql = 'SELECT * FROM '.MAIN_DB_PREFIX.'opensurvey_user_studs WHERE id_sondage = '.$connect->Param('numsondage').' order by id_users';
-	$sql = $connect->Prepare($sql);
-	$user_studs = $connect->Execute($sql, array($numsondage));
-	if (is_object($user_studs)) $nblignes = $user_studs->RecordCount();
-}
-
+$nblignes=count($object->fetch_lines());
 
 
 /*
@@ -107,7 +81,10 @@ if (isset($_POST["boutonp"]) || isset($_POST["boutonp_x"]))
 		$nom=substr(GETPOST("nom"),0,64);
 
 		// Check if vote already exists
-		$sql = 'SELECT id_users, nom FROM '.MAIN_DB_PREFIX."opensurvey_user_studs WHERE id_sondage='".$db->escape($numsondage)."' AND nom = '".$db->escape($nom)."' ORDER BY id_users";
+		$sql = 'SELECT id_users, nom';
+		$sql.= ' FROM '.MAIN_DB_PREFIX."opensurvey_user_studs';
+		$sql.= ' WHERE id_sondage='".$db->escape($numsondage)."' AND nom = '".$db->escape($nom)."'";
+		$sql.= ' ORDER BY id_users';
 		$resql = $db->query($sql);
 		$num_rows = $db->num_rows($resql);
 		if ($num_rows > 0)
@@ -121,12 +98,6 @@ if (isset($_POST["boutonp"]) || isset($_POST["boutonp_x"]))
 			$sql.= " VALUES ('".$db->escape($nom)."', '".$db->escape($numsondage)."','".$db->escape($nouveauchoix)."')";
 			$resql=$db->query($sql);
 			if (! $resql) dol_print_error($db);
-
-			// Update user_studs
-			$sql = 'SELECT * FROM '.MAIN_DB_PREFIX.'opensurvey_user_studs WHERE id_sondage = '.$connect->Param('numsondage').' order by id_users';
-			$sql = $connect->Prepare($sql);
-			$user_studs = $connect->Execute($sql, array($numsondage));
-			if (is_object($user_studs)) $nblignes = $user_studs->RecordCount();
 		}
 	}
 }
@@ -137,13 +108,15 @@ $testligneamodifier = false;
 $ligneamodifier = -1;
 for ($i=0; $i<$nblignes; $i++)
 {
-	if (isset($_POST['modifierligne'.$i])) {
+	if (isset($_POST['modifierligne'.$i]))
+	{
 		$ligneamodifier=$i;
 		$testligneamodifier=true;
 	}
 
 	//test pour voir si une ligne est a modifier
-	if (isset($_POST['validermodifier'.$i])) {
+	if (isset($_POST['validermodifier'.$i]))
+	{
 		$modifier=$i;
 		$testmodifier=true;
 	}
@@ -168,29 +141,17 @@ if ($testmodifier)
 		}
 	}
 
-	$compteur=0;
+	$idtomodify=$_POST["idtomodify".$modifier];
+	$sql = 'UPDATE '.MAIN_DB_PREFIX."opensurvey_user_studs";
+	$sql.= " SET reponses = '".$db->escape($nouveauchoix)."'";
+	$sql.= " WHERE id_users = '".$db->escape($idtomodify)."'";
 
-	while ($data=$user_studs->FetchNextObject(false))
-	{
-		if ($compteur==$modifier)
-		{
-			$sql = 'UPDATE '.MAIN_DB_PREFIX."opensurvey_user_studs SET reponses = '".$db->escape($nouveauchoix)."' WHERE nom = '".$db->escape($data->nom)."' AND id_users = '".$db->escape($data->id_users)."'";
-			dol_syslog("sql=".$sql);
-			$resql = $db->query($sql);
-			if (! $resql) dol_print_error($db);
-		}
-
-		$compteur++;
-	}
-
-	// Update user_studs
-	$sql = 'SELECT * FROM '.MAIN_DB_PREFIX.'opensurvey_user_studs WHERE id_sondage = '.$connect->Param('numsondage').' order by id_users';
-	$sql = $connect->Prepare($sql);
-	$user_studs = $connect->Execute($sql, array($numsondage));
-	if (is_object($user_studs)) $nblignes = $user_studs->RecordCount();
+	dol_syslog("sql=".$sql);
+	$resql = $db->query($sql);
+	if (! $resql) dol_print_error($db);
 }
 
-// Action quand on ajoute une colonne au format AUTRE
+// Add column (not for date)
 if (GETPOST("ajoutercolonne") && GETPOST('nouvellecolonne') && ($object->format == "A" || $object->format == "A+"))
 {
 	$nouveauxsujets=$object->sujet;
@@ -201,13 +162,14 @@ if (GETPOST("ajoutercolonne") && GETPOST('nouvellecolonne') && ($object->format 
 
 	//mise a jour avec les nouveaux sujets dans la base
 	$sql = 'UPDATE '.MAIN_DB_PREFIX."opensurvey_sondage";
-	$sql.= " SET sujet = '".$db->escape($nouveauxsujets)."' WHERE id_sondage = '".$db->escape($numsondage)."'";
+	$sql.= " SET sujet = '".$db->escape($nouveauxsujets)."'";
+	$sql.= " WHERE id_sondage = '".$db->escape($numsondage)."'";
 	dol_syslog("sql=".$sql);
 	$resql = $db->query($sql);
 	if (! $resql) dol_print_error($db);
 }
 
-// Add column with format DATE
+// Add column (with format date)
 if (isset($_POST["ajoutercolonne"]) && ($object->format == "D" || $object->format == "D+"))
 {
 	$nouveauxsujets=$object->sujet;
@@ -276,7 +238,8 @@ if (isset($_POST["ajoutercolonne"]) && ($object->format == "D" || $object->forma
 		if (isset($erreur_ajout_date) && !$erreur_ajout_date)
 		{
 			$sql = 'UPDATE '.MAIN_DB_PREFIX."opensurvey_sondage";
-			$sql.= " SET sujet = '".$db->escape($dateinsertion)."' WHERE id_sondage = '".$db->escape($numsondage)."'";
+			$sql.= " SET sujet = '".$db->escape($dateinsertion)."'";
+			$sql.= " WHERE id_sondage = '".$db->escape($numsondage)."'";
 			dol_syslog("sql=".$sql);
 			$resql = $db->query($sql);
 			if (! $resql) dol_print_error($db);
@@ -285,46 +248,21 @@ if (isset($_POST["ajoutercolonne"]) && ($object->format == "D" || $object->forma
 			{
 				$date_fin=$nouvelledate+200000;
 				$sql = 'UPDATE '.MAIN_DB_PREFIX.'opensurvey_sondage';
-				$sql.= " SET date_fin = '".$db->escape($date_fin)."' WHERE id_sondage = '".$db->escape($numsondage)."'";
+				$sql.= " SET date_fin = '".$db->escape($date_fin)."'";
+				$sql.= " WHERE id_sondage = '".$db->escape($numsondage)."'";
 				dol_syslog("sql=".$sql);
 				$resql = $db->query($sql);
 				if (! $resql) dol_print_error($db);
 			}
 		}
 
-		//mise a jour des reponses actuelles correspondant au sujet ajouté
-		$sql = 'UPDATE '.MAIN_DB_PREFIX.'opensurvey_user_studs SET reponses = '.$connect->Param('reponses').' WHERE nom = '.$connect->Param('nom').' AND id_users='.$connect->Param('id_users');
-		$sql = $connect->Prepare($sql);
-		while ($data = $user_studs->FetchNextObject(false))
-		{
-			$ensemblereponses=$data->reponses;
-			$newcar = '';
-
-			//parcours de toutes les réponses actuelles
-			for ($j = 0; $j < $nbcolonnes; $j++) {
-				$car=substr($ensemblereponses,$j,1);
-
-				//si les reponses ne concerne pas la colonne ajoutée, on concatene
-				if ($j==$cle) {
-					$newcar.="0";
-				}
-
-				$newcar.=$car;
-			}
-
-			//mise a jour des reponses utilisateurs dans la base
-			if (isset($erreur_ajout_date) && !$erreur_ajout_date){
-				$connect->Execute($sql, array($newcar, $data->nom, $data->id_users));
-			}
-		}
-
-		//envoi d'un mail pour prévenir l'administrateur du changement
 		$adresseadmin = $object->mail_admin;
-	} else {
+	}
+	else
+	{
 		$erreur_ajout_date="yes";
 	}
 }
-
 
 // Delete line
 for ($i = 0; $i < $nblignes; $i++)
@@ -332,79 +270,86 @@ for ($i = 0; $i < $nblignes; $i++)
 	if (isset($_POST["effaceligne$i"]) || isset($_POST['effaceligne'.$i.'_x']))
 	{
 		$compteur=0;
-		$sql = 'DELETE FROM '.MAIN_DB_PREFIX.'opensurvey_user_studs WHERE nom = '.$connect->Param('nom').' AND id_users = '.$connect->Param('id_users');
-		$sql = $connect->Prepare($sql);
 
-		while ($data=$user_studs->FetchNextObject(false))
+		// Loop on each answer
+		$compteur = 0;
+		$sql ="SELECT id_users, nom, id_sondage, reponses";
+		$sql.=" FROM ".MAIN_DB_PREFIX."opensurvey_user_studs";
+		$sql.=" WHERE id_sondage = '".$db->escape($numsondage)."'";
+		dol_syslog('sql='.$sql);
+		$resql=$db->query($sql);
+		if (! $resql) dol_print_error($db);
+		$num=$db->num_rows($resql);
+		while ($compteur < $num)
 		{
+			$obj=$db->fetch_object($resql);
+
 			if ($compteur==$i)
 			{
-				$connect->Execute($sql, array($data->nom, $data->id_users));
+				$sql2 = 'DELETE FROM '.MAIN_DB_PREFIX.'opensurvey_user_studs';
+				$sql2.= ' WHERE id_users = '.$db->escape($obj->id_users);
+				$resql2 = $db->query($sql2);
 			}
 
 			$compteur++;
 		}
 	}
-
-	// Update user_studs
-	$sql = 'SELECT * FROM '.MAIN_DB_PREFIX.'opensurvey_user_studs WHERE id_sondage = '.$connect->Param('numsondage').' order by id_users';
-	$sql = $connect->Prepare($sql);
-	$user_studs = $connect->Execute($sql, array($numsondage));
-	if (is_object($user_studs)) $nblignes = $user_studs->RecordCount();
 }
-
-
-// Delete comment
-$sql = 'SELECT * FROM '.MAIN_DB_PREFIX.'opensurvey_comments WHERE id_sondage='.$connect->Param('numsondage').' ORDER BY id_comment';
-$sql = $connect->Prepare($sql);
-$comment_user = $connect->Execute($sql, array($numsondage));
-$i = 0;
-while ($dcomment = $comment_user->FetchNextObject(false)) {
-	if (isset($_POST['suppressioncomment'.$i.'_x'])) {
-		$sql = 'DELETE FROM '.MAIN_DB_PREFIX.'opensurvey_comments WHERE id_comment = '.$connect->Param('id_comment');
-		$sql = $connect->Prepare($sql);
-		$connect->Execute($sql, array($dcomment->id_comment));
-	}
-
-	$i++;
-}
-
 
 // Delete column
 for ($i = 0; $i < $nbcolonnes; $i++)
 {
 	if ((isset($_POST["effacecolonne$i"]) || isset($_POST['effacecolonne'.$i.'_x'])) && $nbcolonnes > 1)
 	{
+		$db->begin();
+
 		$toutsujet = explode(",",$object->sujet);
 		$j = 0;
 		$nouveauxsujets = '';
 
 		//parcours de tous les sujets actuels
-		while (isset($toutsujet[$j])) {
+		while (isset($toutsujet[$j]))
+		{
 			//si le sujet n'est pas celui qui a été effacé alors on concatene
-			if ($i != $j) {
-				$nouveauxsujets .= ',';
+			if ($i != $j)
+			{
+				if (! empty($nouveauxsujets)) $nouveauxsujets .= ',';
 				$nouveauxsujets .= $toutsujet[$j];
 			}
 
 			$j++;
 		}
 
-		//on enleve la virgule au début
-		$nouveauxsujets = substr("$nouveauxsujets", 1);
+		// Mise a jour des sujets dans la base
+		$sql = 'UPDATE '.MAIN_DB_PREFIX."opensurvey_sondage";
+		$sql.= " SET sujet = '".$db->escape($nouveauxsujets)."' WHERE id_sondage = '".$db->escape($numsondage)."'";
+		dol_syslog("sql=".$sql);
+		$resql = $db->query($sql);
+		if (! $resql) dol_print_error($db);
 
-		//nettoyage des reponses actuelles correspondant au sujet effacé
+		// Clean current answer to remove deleted columns
 		$compteur = 0;
-		$sql = 'UPDATE '.MAIN_DB_PREFIX.'opensurvey_user_studs SET reponses = '.$connect->Param('reponses').' WHERE nom = '.$connect->Param('nom').' AND id_users = '.$connect->Param('id_users');
-		$sql = $connect->Prepare($sql);
-
-		while ($data = $user_studs->FetchNextObject(false))
+		$sql ="SELECT id_users, nom, id_sondage, reponses";
+		$sql.=" FROM ".MAIN_DB_PREFIX."opensurvey_user_studs";
+		$sql.=" WHERE id_sondage = '".$db->escape($numsondage)."'";
+		dol_syslog('sql='.$sql);
+		$resql=$db->query($sql);
+		if (! $resql)
 		{
-			$newcar = '';
-			$ensemblereponses = $data->reponses;
+			dol_print_error($db);
+			exit;
+		}
+		$num=$db->num_rows($resql);
+		while ($compteur < $num)
+		{
+			$obj=$db->fetch_object($resql);
 
-			//parcours de toutes les réponses actuelles
-			for ($j = 0; $j < $nbcolonnes; $j++) {
+			$newcar = '';
+			$ensemblereponses = $obj->reponses;
+
+			// parcours de toutes les réponses actuelles
+			for ($j = 0; $j < $nbcolonnes; $j++)
+			{
 				$car=substr($ensemblereponses, $j, 1);
 				//si les reponses ne concerne pas la colonne effacée, on concatene
 				if ($i != $j) {
@@ -412,18 +357,18 @@ for ($i = 0; $i < $nbcolonnes; $i++)
 				}
 			}
 
-			$compteur++;
+			// mise a jour des reponses utilisateurs dans la base
+			$sql2 = 'UPDATE '.MAIN_DB_PREFIX.'opensurvey_user_studs';
+			$sql2.= " SET reponses = '".$db->escape($newcar)."'";
+			$sql2.= " WHERE id_users = '".$db->escape($obj->id_users)."'";
+			//print $sql2;
+			dol_syslog('sql='.$sql2);
+			$resql2 = $db->query($sql2);
 
-			//mise a jour des reponses utilisateurs dans la base
-			$connect->Execute($sql, array($newcar, $data->nom, $data->id_users));
+			$compteur++;
 		}
 
-		//mise a jour des sujets dans la base
-		$sql = 'UPDATE '.MAIN_DB_PREFIX."opensurvey_sondage";
-		$sql.= " SET sujet = '".$db->escape($nouveauxsujets)."' WHERE id_sondage = '".$db->escape($numsondage)."'";
-		dol_syslog("sql=".$sql);
-		$resql = $db->query($sql);
-		if (! $resql) dol_print_error($db);
+		$db->commit();
 	}
 }
 
@@ -538,7 +483,7 @@ if (GETPOST('ajoutsujet'))
 	if ($object->format=="A"||$object->format=="A+")
 	{
 		print $langs->trans("AddNewColumn") .' :<br><br>';
-		print $langs->trans("Titlprintice").' <input type="text" name="nouvellecolonne" size="40"><br>';
+		print $langs->trans("Title").' <input type="text" name="nouvellecolonne" size="40"><br>';
 		$tmparray=array('checkbox'=>$langs->trans("CheckBox"),'yesno'=>$langs->trans("YesNoList"),'foragainst'=>$langs->trans("PourContreList"));
 		print $langs->trans("Type").' '.$form->selectarray("typecolonne", $tmparray, GETPOST('typecolonne')).'<br><br>';
 		print '<input type="submit" class="button" name="ajoutercolonne" value="'.dol_escape_htmltag($langs->trans("Add")).'">';
@@ -791,15 +736,28 @@ else
 $sumfor = array();
 $sumagainst = array();
 $compteur = 0;
-while ($data = $user_studs->FetchNextObject(false))
+$sql ="SELECT id_users, nom, id_sondage, reponses";
+$sql.=" FROM ".MAIN_DB_PREFIX."opensurvey_user_studs";
+$sql.=" WHERE id_sondage = '".$db->escape($numsondage)."'";
+dol_syslog('sql='.$sql);
+$resql=$db->query($sql);
+if (! $resql)
 {
-	$ensemblereponses = $data->reponses;
+	dol_print_error($db);
+	exit;
+}
+$num=$db->num_rows($resql);
+while ($compteur < $num)
+{
+	$obj=$db->fetch_object($resql);
+
+	$ensemblereponses = $obj->reponses;
 
 	print '<tr>'."\n";
 	print '<td><input type="image" name="effaceligne'.$compteur.'" value="Effacer" src="'.dol_buildpath('/opensurvey/img/cancel.png',1).'"></td>'."\n";
 
 	// Name
-	$nombase=str_replace("°","'",$data->nom);
+	$nombase=str_replace("°","'",$obj->nom);
 	print '<td class="nom">'.$nombase.'</td>'."\n";
 
 	// si la ligne n'est pas a changer, on affiche les données
@@ -812,11 +770,11 @@ while ($data = $user_studs->FetchNextObject(false))
 
 			if (empty($listofanswers[$i]['format']) || ! in_array($listofanswers[$i]['format'],array('yesno','foragainst')))
 			{
-				if ($car == "1") print '<td class="ok">OK</td>'."\n";
+				if (((string) $car) == "1") print '<td class="ok">OK</td>'."\n";
 				else print '<td class="non">KO</td>'."\n";
 				// Total
 				if (! isset($sumfor[$i])) $sumfor[$i] = 0;
-				if ($car == "1") $sumfor[$i]++;
+				if (((string) $car) == "1") $sumfor[$i]++;
 			}
 			if (! empty($listofanswers[$i]['format']) && $listofanswers[$i]['format'] == 'yesno')
 			{
@@ -878,7 +836,7 @@ while ($data = $user_studs->FetchNextObject(false))
 				if (empty($listofanswers[$i]['format']) || ! in_array($listofanswers[$i]['format'],array('yesno','foragainst')))
 				{
 					if (((string) $car) == "1") print '<td class="ok">OK</td>'."\n";
-					else print '<td class="non">&nbsp;</td>'."\n";
+					else print '<td class="non">KO</td>'."\n";
 					// Total
 					if (! isset($sumfor[$i])) $sumfor[$i] = 0;
 					if (((string) $car) == "1") $sumfor[$i]++;
@@ -910,15 +868,22 @@ while ($data = $user_studs->FetchNextObject(false))
 	}
 
 	//a la fin de chaque ligne se trouve les boutons modifier
-	if ($compteur != $ligneamodifier) {
+	if ($compteur != $ligneamodifier)
+	{
 		print '<td class="casevide"><input type="submit" class="button" name="modifierligne'.$compteur.'" value="'.dol_escape_htmltag($langs->trans("Edit")).'"></td>'."\n";
 	}
 
 	//demande de confirmation pour modification de ligne
-	for ($i = 0; $i < $nblignes; $i++) {
-		if (isset($_POST["modifierligne$i"])) {
-			if ($compteur == $i) {
-				print '<td class="casevide"><input type="submit" class="button" name="validermodifier'.$compteur.'" value="'.dol_escape_htmltag($langs->trans("Save")).'"></td>'."\n";
+	for ($i = 0; $i < $nblignes; $i++)
+	{
+		if (isset($_POST["modifierligne".$i]))
+		{
+			if ($compteur == $i)
+			{
+				print '<td class="casevide">';
+				print '<input type="hidden" name="idtomodify'.$compteur.'" value="'.$obj->id_users.'">';
+				print '<input type="submit" class="button" name="validermodifier'.$compteur.'" value="'.dol_escape_htmltag($langs->trans("Save")).'">';
+				print '</td>'."\n";
 			}
 		}
 	}
@@ -995,8 +960,9 @@ for ($i = 0; $i < $nbcolonnes; $i++)
 	if (empty($showsumfor)) $showsumfor = 0;
 	if (empty($showsumagainst)) $showsumagainst = 0;
 
-	print '<td class="somme">';
+	print '<td>';
 	if (empty($listofanswers[$i]['format']) || ! in_array($listofanswers[$i]['format'],array('yesno','foragainst'))) print $showsumfor;
+	if (! empty($listofanswers[$i]['format']) && $listofanswers[$i]['format'] == 'yesno') print $langs->trans("Yes").': '.$showsumfor.'<br>'.$langs->trans("No").': '.$showsumagainst;
 	if (! empty($listofanswers[$i]['format']) && $listofanswers[$i]['format'] == 'foragainst') print $langs->trans("For").': '.$showsumfor.'<br>'.$langs->trans("Against").': '.$showsumagainst;
 	print '</td>'."\n";
 }
@@ -1006,7 +972,7 @@ if ($nbofcheckbox >= 2)
 {
 	print '<tr>'."\n";
 	print '<td></td>'."\n";
-	print '<td class="somme"></td>'."\n";
+	print '<td></td>'."\n";
 	for ($i = 0; $i < $nbcolonnes; $i++) {
 		if (empty($listofanswers[$i]['format']) || ! in_array($listofanswers[$i]['format'],array('yesno','foragainst')) && isset($sumfor[$i]) && isset($meilleurecolonne) && $sumfor[$i] == $meilleurecolonne)
 		{

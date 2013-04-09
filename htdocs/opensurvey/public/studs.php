@@ -412,9 +412,6 @@ else
 	print '</tr>'."\n";
 }
 
-//Usager pré-authentifié dans la liste?
-$user_mod = false;
-
 
 // Loop on each answer
 $sumfor = array();
@@ -433,8 +430,7 @@ while ($data = $user_studs->FetchNextObject(false))
 	print '<tr>'."\n";
 
 	// ligne d'un usager pré-authentifié
-	$mod_ok = ($object->format=="A+"||$object->format=="D+") || (! empty($nombase) && in_array($nombase, $listofvoters));
-	$user_mod |= $mod_ok;
+	$mod_ok = ($object->canedit || (! empty($nombase) && in_array($nombase, $listofvoters)));
 
 	// Name
 	print '<td class="nom">'.$nombase.'</td>'."\n";
@@ -499,7 +495,7 @@ while ($data = $user_studs->FetchNextObject(false))
 		}
 	}
 
-	//a la fin de chaque ligne se trouve les boutons modifier
+	//  Button edit at end of line
 	if ($compteur != $ligneamodifier && $mod_ok)
 	{
 		print '<td class="casevide"><input type="submit" class="button" name="modifierligne'.$compteur.'" value="'.dol_escape_htmltag($langs->trans("Edit")).'"></td>'."\n";
@@ -519,7 +515,7 @@ while ($data = $user_studs->FetchNextObject(false))
 }
 
 // Add line to add new record
-if ($ligneamodifier < 0 && (! isset($_SESSION['nom']) || ! $user_mod))
+if ($ligneamodifier < 0 && (! isset($_SESSION['nom'])))
 {
 	print '<tr>'."\n";
 	print '<td class="nom">'."\n";

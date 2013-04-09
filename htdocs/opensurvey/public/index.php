@@ -50,7 +50,7 @@ $arrayofcss=array('/opensurvey/css/style.css');
 llxHeaderSurvey($langs->trans("OpenSurvey"), "", 0, 0, $arrayofjs, $arrayofcss);
 
 print '<center>
-<form name="formulaire" action="infos_sondage.php" method="POST">
+<form name="formulaire" action="create_survey.php" method="POST">
 <input type="hidden" name="origin" value="'.dol_escape_htmltag($origin).'">
 <div id="interface-header" style="">
 <p id="application-description" class="pp-gris-fonce2">'.$langs->trans("OpenSurveyDesc").' '.$langs->trans("OpenSurveyNoRegistration").'</p>

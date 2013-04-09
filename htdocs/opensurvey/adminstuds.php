@@ -279,8 +279,8 @@ $urlwithroot=$urlwithouturlroot.DOL_URL_ROOT;		// This is to use external domain
 //$urlwithroot=DOL_MAIN_URL_ROOT;					// This is to use same domain name than current
 
 $url=$urlwithouturlroot.dol_buildpath('/opensurvey/public/studs.php',1).'?sondage='.$numsondage;
-$urlvcal='<a href="'.$url.'" target="_blank">'.$url.'</a>';
-print $urlvcal;
+$urllink='<a href="'.$url.'" target="_blank">'.$url.'</a>';
+print $urllink;
 
 print '</table>';
 

@@ -399,7 +399,37 @@ class Opensurveysondage extends CommonObject
 		}
 	}
 
+	/**
+	 * Return array of lines
+	 *
+	 * @return 	array	Array of lines
+	 */
+	function fetch_lines()
+	{
+		$ret=array();
+		$sql = "SELECT id_users, nom, reponses FROM ".MAIN_DB_PREFIX."opensurvey_user_studs";
+		$sql.= " WHERE id_sondage = '".$this->id_sondage."'";
+		$resql=$this->db->query($sql);
 
+		if ($resql)
+		{
+			$num=$this->db->num_rows($resql);
+			$i=0;
+			while ($i < $num)
+			{
+				$obj=$this->db->fetch_object($resql);
+				$tmp=array('id_users'=>$obj->id_users, 'nom'=>$obj->nom, 'reponses'=>$obj->reponses);
+
+				$ret[]=$tmp;
+				$i++;
+			}
+		}
+		else dol_print_error($this->db);
+
+		$this->lines=$ret;
+
+		return $this->lines;
+	}
 
 	/**
 	 *	Load an object from its id and create a new one in database

@@ -2,4 +2,4 @@
 CHARSET= UTF-8
 Module101600Name=Selection banque
 SelectBank=Page de configuration du moule Select Bank
-NothingToSetup=Aucune configuration particulière n'est requise. Une liste déroulante a du apparaitre au niveau des fiches factures, propositions, commandes, si le mode de paiment a été défini à virement ou s'il n'est pas défini.
+SelectBankNothingToSetup=Aucune configuration particulière n'est requise. Une liste déroulante a du apparaitre au niveau des fiches factures, propositions, commandes, si le mode de paiment a été défini à virement ou s'il n'est pas défini.

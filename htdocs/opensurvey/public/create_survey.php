@@ -1,41 +1,25 @@
 <?php
-//==========================================================================
-//
-//Université de Strasbourg - Direction Informatique
-//Auteur : Guilhem BORGHESI
-//Création : Février 2008
-//
-//borghesi@unistra.fr
-//
-//Ce logiciel est régi par la licence CeCILL-B soumise au droit français et
-//respectant les principes de diffusion des logiciels libres. Vous pouvez
-//utiliser, modifier et/ou redistribuer ce programme sous les conditions
-//de la licence CeCILL-B telle que diffusée par le CEA, le CNRS et l'INRIA
-//sur le site "http://www.cecill.info".
-//
-//Le fait que vous puissiez accéder à cet en-tête signifie que vous avez
-//pris connaissance de la licence CeCILL-B, et que vous en avez accepté les
-//termes. Vous pouvez trouver une copie de la licence dans le fichier LICENCE.
-//
-//==========================================================================
-//
-//Université de Strasbourg - Direction Informatique
-//Author : Guilhem BORGHESI
-//Creation : Feb 2008
-//
-//borghesi@unistra.fr
-//
-//This software is governed by the CeCILL-B license under French law and
-//abiding by the rules of distribution of free software. You can  use,
-//modify and/ or redistribute the software under the terms of the CeCILL-B
-//license as circulated by CEA, CNRS and INRIA at the following URL
-//"http://www.cecill.info".
-//
-//The fact that you are presently reading this means that you have had
-//knowledge of the CeCILL-B license and that you accept its terms. You can
-//find a copy of this license in the file LICENSE.
-//
-//==========================================================================
+/* Copyright (C) 2013      Laurent Destailleur <eldy@users.sourceforge.net>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
+
+/**
+ *	\file       htdocs/opensurvey/public/create_survey.php
+ *	\ingroup    opensurvey
+ *	\brief      Page to create a new survey
+ */
 
 define("NOLOGIN",1);		// This means this output page does not require to be logged.
 define("NOCSRFCHECK",1);	// We accept to go on this page from external web site.
@@ -101,18 +85,6 @@ if (GETPOST("creation_sondage_date") || GETPOST("creation_sondage_autre") || GET
 		$erreur_adresse = true;
 	}
 
-	if (preg_match(';<|>|";',$titre)) {
-		$erreur_injection_titre = true;
-	}
-
-	if (preg_match(';<|>|";',$nom)) {
-		$erreur_injection_nom = true;
-	}
-
-	if (preg_match(';<|>|";',$commentaires)) {
-		$erreur_injection_commentaires = true;
-	}
-
 	//var_dump($titre.' - '.$nom.' - '.$adresse.' - '.!$erreur_adresse.' - '.! $erreur_injection_titre.' - '.! $erreur_injection_commentaires.' - '.! $erreur_injection_nom.' - '.$creation_sondage_date.' - '.$creation_sondage_autre); exit;
 
 	if ($titre && $nom && $adresse && !$erreur_adresse && ! $erreur_injection_titre && ! $erreur_injection_commentaires && ! $erreur_injection_nom)
@@ -147,7 +119,7 @@ print '<div class="bandeautitre">'. $langs->trans("CreatePoll").' (1 / 2)' .'</d
 
 
 //debut du formulaire
-print '<form name="formulaire" action="infos_sondage.php" method="POST" onkeypress="javascript:process_keypress(event)">'."\n";
+print '<form name="formulaire" action="create_survey.php" method="POST" onkeypress="javascript:process_keypress(event)">'."\n";
 print '<input type="hidden" name="origin" value="'.dol_escape_htmltag($origin).'">';
 
 print '<div class=corps>'."\n";
@@ -159,27 +131,19 @@ print '<table>'."\n";
 print '<tr><td class="fieldrequired">'. $langs->trans("PollTitle") .'</td><td><input type="text" name="titre" size="40" maxlength="80" value="'.$_SESSION["titre"].'"></td>'."\n";
 if (! $_SESSION["titre"] && (GETPOST('creation_sondage_date') || GETPOST('creation_sondage_autre') || GETPOST('creation_sondage_date_x') || GETPOST('creation_sondage_autre_x')))
 {
-  print "<td><font color=\"#FF0000\">" . $langs->trans("FieldMandatory") . "</font></td>"."\n";
-} elseif ($erreur_injection_titre) {
-  print "<td><font color=\"#FF0000\">" . _("Characters < > and \" are not permitted") . "</font></td><br>"."\n";
+	print "<td><font color=\"#FF0000\">" . $langs->trans("FieldMandatory") . "</font></td>"."\n";
 }
 
 print '</tr>'."\n";
 print '<tr><td>'. $langs->trans("Description") .'</td><td><textarea name="commentaires" rows="7" cols="40">'.$_SESSION["commentaires"].'</textarea></td>'."\n";
-
-if ($erreur_injection_commentaires) {
-  print "<td><font color=\"#FF0000\">" . _("Characters < > and \" are not permitted") . "</font></td><br>"."\n";
-}
-
 print '</tr>'."\n";
 print '<tr><td class="fieldrequired">'. $langs->trans("OpenSurveyYourName") .'</td><td>';
 
 print '<input type="text" name="nom" size="40" maxlength="40" value="'.$_SESSION["nom"].'"></td>'."\n";
 
-if (! $_SESSION["nom"] && (GETPOST('creation_sondage_date') || GETPOST('creation_sondage_autre') || GETPOST('creation_sondage_date_x') || GETPOST('creation_sondage_autre_x'))) {
-  print "<td><font color=\"#FF0000\">" . $langs->trans("ErrorFieldRequired")  . "</font></td>"."\n";
-} elseif ($erreur_injection_nom) {
-  print "<td><font color=\"#FF0000\">" . _("Characters < > and \" are not permitted") . "</font></td><br>"."\n";
+if (! $_SESSION["nom"] && (GETPOST('creation_sondage_date') || GETPOST('creation_sondage_autre') || GETPOST('creation_sondage_date_x') || GETPOST('creation_sondage_autre_x')))
+{
+	print "<td><font color=\"#FF0000\">" . $langs->trans("FieldMandatory")  . "</font></td>"."\n";
 }
 
 print '</tr>'."\n";
@@ -187,9 +151,11 @@ print '<tr><td class="fieldrequired">'.  $langs->trans("OpenSurveyYourEMail")  .
 
 print '<input type="text" name="adresse" size="40" maxlength="64" value="'.$_SESSION["adresse"].'"></td>'."\n";
 
-if (!$_SESSION["adresse"] && (GETPOST('creation_sondage_date') || GETPOST('creation_sondage_autre') || GETPOST('creation_sondage_date_x') || GETPOST('creation_sondage_autre_x'))) {
-  print "<td><font color=\"#FF0000\">" .$langs->trans("ErrorFieldRequired")  . " </font></td>"."\n";
-} elseif ($erreur_adresse && (GETPOST('creation_sondage_date') || GETPOST('creation_sondage_autre') || GETPOST('creation_sondage_date_x') || GETPOST('creation_sondage_autre_x'))) {
+if (!$_SESSION["adresse"] && (GETPOST('creation_sondage_date') || GETPOST('creation_sondage_autre') || GETPOST('creation_sondage_date_x') || GETPOST('creation_sondage_autre_x')))
+{
+  print "<td><font color=\"#FF0000\">" .$langs->trans("FieldMandatory")  . " </font></td>"."\n";
+} elseif ($erreur_adresse && (GETPOST('creation_sondage_date') || GETPOST('creation_sondage_autre') || GETPOST('creation_sondage_date_x') || GETPOST('creation_sondage_autre_x')))
+{
   print "<td><font color=\"#FF0000\">" . _("The address is not correct! (You should enter a valid email address in order to receive the link to your poll)") . "</font></td>"."\n";
 }
 
@@ -209,9 +175,7 @@ if ($_SESSION["canedit"]) $cocheplus="checked";
 
 print '<input type="checkbox" name="canedit" '.$cocheplus.'>'. $langs->trans("VotersCanModify") .'<br>'."\n";
 
-if ($_SESSION["mailsonde"]) {
-  $cochemail="checked";
-}
+if ($_SESSION["mailsonde"]) $cochemail="checked";
 
 print '<input type=checkbox name=mailsonde '.$cochemail.'>'. $langs->trans("ToReceiveEMailForEachVote") .'<br>'."\n";
 
