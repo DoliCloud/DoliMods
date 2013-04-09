@@ -71,6 +71,7 @@ class ActionsCabinetmed
         	if ($thirdparty->canvas == 'patient@cabinetmed')
         	{
         		$langs->tab_translate["ThirdParty"]=$langs->trans("Patient");
+        		$langs->tab_translate["ThirdPartyName"]=$langs->trans("PatientName");
         	}
         }
 

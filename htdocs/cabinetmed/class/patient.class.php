@@ -104,7 +104,8 @@ class Patient extends Societe
     var $code_compta;
     var $code_compta_fournisseur;
 
-    var $note;
+    var $note_public;
+    var $note_private;
     //! code statut prospect
     var $stcomm_id;
     var $statut_commercial;
@@ -361,7 +362,7 @@ class Patient extends Societe
         $sql = 'SELECT s.rowid, s.nom as name, s.entity, s.ref_ext, s.address, s.datec as dc, s.prefix_comm';
         $sql .= ', s.price_level';
         $sql .= ', s.tms as date_update';
-        $sql .= ', s.phone, s.fax, s.email, s.url, s.zip as zip, s.town as town, s.note, s.client, s.fournisseur';
+        $sql .= ', s.phone, s.fax, s.email, s.url, s.zip as zip, s.town as town, s.note_public, s.note_private, s.client, s.fournisseur';
         $sql .= ', s.siren, s.siret, s.ape, s.idprof4';
         $sql .= ', s.capital, s.tva_intra';
         $sql .= ', s.fk_typent as typent_id';
@@ -496,7 +497,7 @@ class Patient extends Societe
                 $this->client      = $obj->client;
                 $this->fournisseur = $obj->fournisseur;
 
-                $this->note = $obj->note;
+                $this->note_private = $obj->note_private;
                 $this->default_lang = $obj->default_lang;
 
                 // multiprix
@@ -578,7 +579,7 @@ class Patient extends Societe
         $this->tva_assuj=1;
         $this->tva_intra='EU1234567';
         $this->note_public='This is a comment (public)';
-        $this->note='This is a comment (private)';
+        $this->note_private='This is a comment (private)';
 
         $this->idprof1='idprof1';
         $this->idprof2='idprof2';

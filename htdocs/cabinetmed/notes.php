@@ -1,6 +1,6 @@
 <?php
 /* Copyright (C) 2001-2003,2005 Rodolphe Quiedeville <rodolphe@quiedeville.org>
- * Copyright (C) 2004-2011      Laurent Destailleur  <eldy@users.sourceforge.net>
+ * Copyright (C) 2004-2013      Laurent Destailleur  <eldy@users.sourceforge.net>
  * Copyright (C) 2005-2012      Regis Houssin        <regis@dolibarr.fr>
  * Copyright (C) 2010           Juanjo Menent        <jmenent@2byte.es>
  *
@@ -19,7 +19,7 @@
  */
 
 /**
- *   \file       htdocs/cabinetmed/note.php
+ *   \file       htdocs/cabinetmed/notes.php
  *   \brief      Tab for notes on third party
  *   \ingroup    societe
  */
@@ -60,7 +60,7 @@ if ($action == 'add' && ! GETPOST('cancel'))
 
     $db->begin();
 
-    $result=$object->update_note($_POST['note']);
+    $result=$object->update_note_private(GETPOST('note'));
     if ($result < 0)
     {
         $error++;
@@ -173,12 +173,12 @@ if ($socid > 0)
 
         // Editeur wysiwyg
         require_once(DOL_DOCUMENT_ROOT."/core/class/doleditor.class.php");
-        $doleditor=new DolEditor('note',$object->note,'',360,'dolibarr_notes','In',true,false,$conf->global->FCKEDITOR_ENABLE_SOCIETE,20,70);
+        $doleditor=new DolEditor('note',$object->note_private,'',360,'dolibarr_notes','In',true,false,$conf->global->FCKEDITOR_ENABLE_SOCIETE,20,70);
         $doleditor->Create(0,'.on( \'saveSnapshot\', function(e) { changed=true; });');
     }
     else
     {
-        print dol_textishtml($object->note)?$object->note:dol_nl2br($object->note,1,true);
+        print dol_textishtml($object->note_private)?$object->note_private:dol_nl2br($object->note_private,1,true);
     }
     print "</td></tr>";
 
