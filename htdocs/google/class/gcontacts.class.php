@@ -72,7 +72,7 @@ class GContact {
             $this->from='dolibarr';
             $this->dolID = $dolID;
             if ($type == 'thirdparty') $this->fetchThirdpartyFromDolibarr($gdata);
-            else $this->fetchFromDolibarr($gdata);
+            else if ($type == 'contact') $this->fetchContactFromDolibarr($gdata);
         } else {
             $this->from='gmail';
         }
@@ -194,10 +194,13 @@ class GContact {
     }
 
     /**
+     * Create group
+     *
      * @param	Gdata	$gdata		Gdata handler
      * @param string $groupName
      */
-    private function appendGroup($gdata, $groupName) {
+    private function appendGroup($gdata, $groupName)
+    {
         $el = $this->doc->createElement("gcontact:groupMembershipInfo");
         $el->setAttribute("deleted", "false");
         $el->setAttribute("href", self::getGoogleGroupID($gdata,$groupName));
@@ -246,9 +249,10 @@ class GContact {
         $this->socid= $dolContact->socid;
 
         $google_nltechno_tag=getCommentIDTag();
+        $idindolibarr=$this->dolID."/thirdparty";
 
-        $this->note = $dolContact->note;
-        if (strpos($this->note,$google_nltechno_tag) === false) $this->note .= "\n" . getCommentIDTag() . $this->dolID . "/thirdparty";
+        $this->note_private = $dolContact->note_private;
+        if (strpos($this->note_private,$google_nltechno_tag) === false) $this->note_private .= "\n\n".$google_nltechno_tag.$idindolibarr;
 
         // Prepare the DOM for google
         $this->doc = new DOMDocument("1.0", "utf-8");
@@ -270,7 +274,7 @@ class GContact {
         $el->appendChild($elfullName);
 
         // Note as comment and a custom field
-        $this->atomEntry->appendChild($this->doc->createElement('atom:content', $this->note));
+        $this->atomEntry->appendChild($this->doc->createElement('atom:content', $this->note_private));
         //$this->appendCustomField("Origin", 'Onelog');
 
         // Phones
@@ -304,11 +308,12 @@ class GContact {
     }
 
     /**
-     * Fill the GContact class from a dolibarID
+     * Fill GContact instance for this->dolID.
+     * Note: It creates groups if it not exists.
      *
      * @return GContact
      */
-    private function fetchFromDolibarr($gdata)
+    private function fetchContactFromDolibarr($gdata)
     {
     	global $conf,$langs;
 
@@ -328,7 +333,7 @@ class GContact {
     	$this->firstname = $dolContact->firstname;
     	$this->lastname = $dolContact->lastname;
         $this->fullName = $dolContact->getFullName($langs);
-    	$this->email = $dolContact->email;
+    	$this->email = ($dolContact->email?$dolContact->email:($this->fullName.'@noemail.com'));
     	if(!(empty($dolContact->address)&&empty($dolContact->zip)&&empty($dolContact->town)&&empty($dolContact->state)&&empty($dolContact->country))) {
     		$this->addr = new GCaddr();
     		$this->addr->street = $dolContact->address;
@@ -342,11 +347,11 @@ class GContact {
     	$this->phone_mobile= $dolContact->phone_mobile;
     	$this->fax= $dolContact->fax;
     	$this->socid= $dolContact->socid;
-    	if ($dolContact->socid) {
+    	if ($dolContact->socid)
+    	{
     		$company = new Societe($db);
     		$result=$company->fetch($dolContact->socid);
-    		if ($result <=0)
-    			throw new Exception($company->$error);
+    		if ($result <=0) throw new Exception($company->$error);
     		$this->orgName=$company->name;
     		/*$this->company->tel=$company->tel;
     		$this->company->fax=$company->fax;
@@ -365,7 +370,12 @@ class GContact {
     		*/
     	}
     	$this->poste= $dolContact->poste;
-    	if(!empty($dolContact->note)) $this->note = $dolContact->note . "\n" . getCommentIDTag() . $this->dolID . "/contact";
+
+    	$google_nltechno_tag=getCommentIDTag();
+    	$idindolibarr=$this->dolID."/contact";
+
+    	$this->note_private = $dolContact->note_private;
+    	if (strpos($this->note_private,$google_nltechno_tag) === false) $this->note_private .= "\n\n".$google_nltechno_tag.$idindolibarr;
 
     	// Prepare the DOM for google
     	$this->doc = new DOMDocument("1.0", "utf-8");
@@ -387,7 +397,7 @@ class GContact {
         $el->appendChild($elfullName);
 
         // Note as comment and a custom field
-    	$this->atomEntry->appendChild($this->doc->createElement('atom:content', $this->note));
+    	$this->atomEntry->appendChild($this->doc->createElement('atom:content', $this->note_private));
     	//$this->appendCustomField("Origin", 'Onelog');
 
     	// Phones
@@ -402,6 +412,8 @@ class GContact {
     		$this->appendWebSite($doc, $this->atomEntry, $this->company->url);
     	}*/
     	//$this->appendWebSite($doc, $this->atomEntry, '???');
+
+    	// Add tags
         $this->appendGroup($gdata, getTagLabel('contacts'));
     	$this->doc->appendChild($this->atomEntry);
     }

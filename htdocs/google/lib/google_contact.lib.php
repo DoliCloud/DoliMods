@@ -229,7 +229,7 @@ function createContact($client, $object)
 		$entry->appendChild($userdefined);
 
 		// Comment
-		$tmpnote=$object->note;
+		$tmpnote=$object->note_private;
 		if (strpos($tmpnote,$google_nltechno_tag) === false) $tmpnote.="\n\n".$google_nltechno_tag.$idindolibarr;
 		$note = $doc->createElement('atom:content',$tmpnote);
 		$entry->appendChild($note);
