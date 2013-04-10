@@ -228,7 +228,7 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 	print '<td>'.$langs->trans("DateChange").'</td>';
 	print '<td>'.$langs->trans("DateLastLogin").'</td>';
 	print '<td>'.$langs->trans("Entity").'</td>';
-	print '<td>'.$langs->trans("Link").'</td>';
+	print '<td>'.$langs->trans("ParentsId").'</td>';
 	print '<td>'.$langs->trans("Status").'</td>';
 	print '</tr>';
 
@@ -257,7 +257,7 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 				print '<td>'.dol_print_date($newdb->jdate($obj->datelastlogin),'dayhour').'</td>';
 				print '<td>'.$obj->entity.'</td>';
 				print '<td>'.$obj->fk_societe.'/'.$obj->fk_socpeople.'/'.$obj->fk_member.'</td>';
-				print '<td>'.$obj->statut.'</td>';
+				print '<td align="right">'.$obj->statut.'</td>';
 				print '</tr>';
 				$i++;
 			}
@@ -303,10 +303,13 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 	}
 */
 
-	// MySQL
-	$mysqlconnectstring='mysql -A -u '.$object->username_db.' -p\''.$object->password_db.'\' -h '.$object->hostname_db.' -D '.$object->database_db;
-	print 'Mysql connect string<br>';
-	print '<input type="text" name="mysqlconnectstring" value="'.$mysqlconnectstring.'" size="120"><br>';
+	// Dolibarr instance login
+	$url='https://'.$object->instance.'.on.dolicloud.com?username='.$lastloginadmin.'&amp;password='.$lastpassadmin;
+	$link='<a href="'.$url.'" target="_blank">'.$url.'</a>';
+	print 'Dolibarr link<br>';
+	//print '<input type="text" name="dashboardconnectstring" value="'.dashboardconnectstring.'" size="100"><br>';
+	print $link.'<br>';
+	print '<br>';
 
 }
 
