@@ -211,7 +211,7 @@ if ($action == 'pushallthirdparties')
 			exit;
 		}
 
-		$synclimit = 3;	// 0 = all
+		$synclimit = 0;	// 0 = all
 		$i=0;
 		while (($obj = $db->fetch_object($resql)) && ($i < $synclimit || empty($synclimit)))
 		{
@@ -258,7 +258,7 @@ if ($action == 'pushallcontacts')
 			exit;
 		}
 
-		$synclimit = 1;	// 0 = all
+		$synclimit = 0;	// 0 = all
 		$i=0;
 		while (($obj = $db->fetch_object($resql)) && ($i < $synclimit || empty($synclimit)))
 		{
