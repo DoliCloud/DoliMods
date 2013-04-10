@@ -173,10 +173,13 @@ function createContact($client, $object)
 		}
 
 		// URL
-		$el = $doc->createElement('gcontact:website');
-		$el->setAttribute("label","URL");
-		$el->setAttribute("href", $object->url);
-		$entry->appendChild($el);
+		if (! empty($object->url))
+		{
+			$el = $doc->createElement('gcontact:website');
+			$el->setAttribute("label","URL");
+			$el->setAttribute("href", $object->url);
+			$entry->appendChild($el);
+		}
 
 		// Phones
 		if (! empty($object->phone))
@@ -239,10 +242,12 @@ function createContact($client, $object)
 		$entry->appendChild($el);
 
 		//To list all existing field we can edit: var_dump($doc->saveXML());exit;
-		//var_dump($doc->saveXML());exit;
+		$xmlStr = $doc->saveXML();
+		// uncomment for debugging :
+		file_put_contents(DOL_DATA_ROOT . "/dolibarr_google_createContact.xml", $xmlStr);
 
 		// insert entry
-		$entryResult = $gdata->insertEntry($doc->saveXML(),	'http://www.google.com/m8/feeds/contacts/default/full');
+		$entryResult = $gdata->insertEntry($xmlStr,	'http://www.google.com/m8/feeds/contacts/default/full');
 
 		//var_dump($doc->saveXML());exit;
 
@@ -281,7 +286,7 @@ function updateContact($client, $contactId, $object)
 		$gdata = new Zend_Gdata($client);
 		$gdata->setMajorProtocolVersion(3);
 
-		$contactId='http://www.google.com/m8/feeds/contacts/eldy10%40gmail.com/base/4429b3590f5b343a';
+		//$contactId='http://www.google.com/m8/feeds/contacts/eldy10%40gmail.com/base/4429b3590f5b343a';
 		$query = new Zend_Gdata_Query($contactId);
 		//$entryResult = $gdata->getEntry($query,'Zend_Gdata_Contacts_ListEntry');
 		$entryResult = $gdata->getEntry($query);

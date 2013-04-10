@@ -42,7 +42,6 @@ if (! $res && file_exists("../../../../dolibarr/htdocs/main.inc.php")) $res=@inc
 if (! $res && file_exists("../../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
 if (! $res) die("Include of main fails");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/company.lib.php");
-// Change this following line to use the correct relative path from htdocs (do not remove DOL_DOCUMENT_ROOT)
 dol_include_once("/nltechno/class/dolicloudcustomer.class.php");
 
 

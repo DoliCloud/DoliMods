@@ -33,7 +33,6 @@ Zend_Loader::loadClass('Zend_Gdata_Feed');
 
 
 class GContact {
-    const MARKER_FOR_DELETE="OnelogMarker";
     const ATOM_NAME_SPACE = "http://www.w3.org/2005/Atom";
     const REL_WORK='http://schemas.google.com/g/2005#work';
     const REL_MOBILE='http://schemas.google.com/g/2005#mobile';
@@ -63,17 +62,17 @@ class GContact {
 
     /**
      *
-     * @param string $dolID
-     * @param string $fullName
-     * @param DOMDocument $entryDocument
+     * @param string 	$dolID
+     * @param string 	$fullName
+     * @param Gdata		$gdata		Gdata handler
      */
-    public function __construct($dolID=null,$type='contact')
+    public function __construct($dolID=null,$type='contact',$gdata)
     {
         if($dolID) {
             $this->from='dolibarr';
             $this->dolID = $dolID;
-            if ($type == 'thirdparty') $this->fetchThirdpartyFromDolibarr();
-            else $this->fetchFromDolibarr();
+            if ($type == 'thirdparty') $this->fetchThirdpartyFromDolibarr($gdata);
+            else $this->fetchFromDolibarr($gdata);
         } else {
             $this->from='gmail';
         }
@@ -195,29 +194,13 @@ class GContact {
     }
 
     /**
+     * @param	Gdata	$gdata		Gdata handler
      * @param string $groupName
      */
-    private function appendGroup($groupName) {
+    private function appendGroup($gdata, $groupName) {
         $el = $this->doc->createElement("gcontact:groupMembershipInfo");
         $el->setAttribute("deleted", "false");
-        $el->setAttribute("href", self::getGoogleGroupID($groupName));
-        $this->atomEntry->appendChild($el);
-    }
-
-    /**
-     * @param string $orgName
-     * @param string $orgTitle
-     */
-    private function appendOrgNameAndTitle($orgName, $orgTitle) {
-        $soc_name=empty($conf->global->MAIN_FIRSTNAME_NAME_POSITION)?trim($this->firstname.' '.$this->lastname):trim($this->lastname.' '.$this->firstname);
-        if($soc_name == $orgName) $orgName = '';
-        if(empty($orgName) && empty($orgTitle)) return;
-        $el = $this->doc->createElement('gdata:organization');
-        $el->setAttribute('rel',self::REL_WORK);
-        if (isset($orgName))
-            $this->appendTextElement($el, 'gdata:orgName', $orgName);
-        if (isset($orgTitle))
-            $this->appendTextElement($el, 'gdata:orgTitle', $orgTitle);
+        $el->setAttribute("href", self::getGoogleGroupID($gdata,$groupName));
         $this->atomEntry->appendChild($el);
     }
 
@@ -226,7 +209,7 @@ class GContact {
      *
      * @return GContact
      */
-    private function fetchThirdpartyFromDolibarr()
+    private function fetchThirdpartyFromDolibarr($gdata)
     {
     	global $conf,$langs;
 
@@ -315,9 +298,8 @@ class GContact {
                 if ($this->company->email != $this->email)
                     $this->appendEmail(self::REL_WORK, $this->company->email, false, $this->orgName);
         }
-        $this->appendOrgNameAndTitle($this->orgName, $this->poste);
 		// Add tags
-        $this->appendGroup(getTagLabel('thirdparties'));
+        $this->appendGroup($gdata, getTagLabel('thirdparties'));
         $this->doc->appendChild($this->atomEntry);
     }
 
@@ -326,7 +308,7 @@ class GContact {
      *
      * @return GContact
      */
-    private function fetchFromDolibarr()
+    private function fetchFromDolibarr($gdata)
     {
     	global $conf,$langs;
 
@@ -416,186 +398,89 @@ class GContact {
     	$this->appendPostalAddress(self::REL_WORK, $this->addr);
     	$this->appendEmail(self::REL_WORK, $this->email, true);
     	// Data from linked company
-    	if ($this->company) {
+    	/*if ($this->company) {
     		$this->appendWebSite($doc, $this->atomEntry, $this->company->url);
-    		$norm_phone_pro = preg_replace("/\s/","",$this->phone_pro);
-    		$norm_phone_pro = preg_replace("/\./","",$norm_phone_pro);
-    		$norm_phone_perso = preg_replace("/\s/","",$this->phone_perso);
-    		$norm_phone_perso = preg_replace("/\./","",$norm_phone_perso);
-    		if ($norm_phone_pro != $this->company->tel && $norm_phone_perso != $this->company->tel)
-    			$this->appendPhoneNumber(null, $this->company->tel,false, $this->orgName);
-    		$norm_fax = preg_replace("/\s/","",$this->fax);
-    		$norm_fax = preg_replace("/\./","",$norm_fax);
-    		if ($norm_fax != $this->company->fax)
-    			$this->appendPhoneNumber(null, $this->company->fax, false, 'Fax '.$this->orgName);
-    		if ($this->addr != $this->company->addr)
-    			$this->appendPostalAddress(null /*rel*/, $this->company->addr, $this->orgName);
-    		if ($this->company->email != $this->email)
-    			$this->appendEmail(self::REL_WORK, $this->company->email, false, $this->orgName);
-    	}
-    	$this->appendOrgNameAndTitle($this->orgName, $this->poste);
-        $this->appendGroup(getTagLabel('contacts'));
+    	}*/
+    	//$this->appendWebSite($doc, $this->atomEntry, '???');
+        $this->appendGroup($gdata, getTagLabel('contacts'));
     	$this->doc->appendChild($this->atomEntry);
     }
 
     /**
-     * Delete Google Contacts or Groups on Gmail account
-     * @param string array $googleIDs
-     * @param boolean $groupFlag
-     * @return void
+     * Get list of googleContactsIDs matching the given pattern from Google contact
+     *
+     * @param	Gdata	$gdata		Gdata handler
+     * @param 	string 	$pattern	Pattern to filter query
+     * @param	string	$type		'thirdparty' or 'contact'
+     * @return 	string 				array of google contactsID
      */
-    public static function deleteEntries(array $googleIDs, $groupFlag) {
-        $gdata = self::googleDataConnection('If-Match: *');
-        if ($groupFlag) {
-            $headers = array();
-            //Due to a bug in zend not correctly taking into account headers (in particular If-Match), we do the request by hand.
-            //instead of using the $gdata->delete
-            $headers['If-Match'] = '*';
-            foreach ($googleIDs as $googleID) {
-                try {
-                    $requestData = $gdata->prepareRequest('DELETE', $googleID, $headers);
-                    $gdata->performHttpRequest($requestData['method'], $requestData['url'], $requestData['headers'], '', $requestData['contentType'], null/* remainingRedirects */);
-                    dol_syslog("Deleting contact or group $googleID for user $googleUser");
-                    //$gdata->delete($googleID);
-                }  catch (Exception $e) {
-                    dol_syslog("Problem while deleting one entry $googleID", LOG_ERR);
-                    throw new Exception(sprintf("Problem while deleting one entry (%s) : %s", $googleID, $e->getMessage()));
-                }
-            }
-        } else {
-            $maxBatchLength = 98; //Google doc says max 100 entries.
-            $remainingIDs = $googleIDs;
-            while (count($remainingIDs) > 0) {
-                if (count($remainingIDs) > $maxBatchLength) {
-                    $firstIDs = array_slice($remainingIDs, 0, $maxBatchLength);
-                    $remainingIDs = array_slice($remainingIDs, $maxBatchLength);
-                } else {
-                    $firstIDs = $remainingIDs;
-                    $remainingIDs = array();
-                }
-                $doc = new DOMDocument("1.0", "utf-8");
-                $doc->formatOutput = true;
-                $feed = $doc->createElement("atom:feed");
-                $feed->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:atom', 'http://www.w3.org/2005/Atom');
-                $feed->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:gdata', 'http://schemas.google.com/g/2005');
-                $feed->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:gcontact', 'http://schemas.google.com/contact/2008');
-                $feed->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:batch', 'http://schemas.google.com/gdata/batch');
-                $feed->appendChild($doc->createElement("title", "The batch title: delete"));
-                $doc->appendChild($feed);
-                foreach ($firstIDs as $googleID) {
-                    $entry = $doc->createElement("atom:entry");
-                    $entry->setAttribute("gdata:etag", "*");
-                    $entry->appendChild($doc->createElement("atom:id", $googleID));
-                    $el = $doc->createElement("batch:operation");
-                    $el->setAttribute("type", "delete");
-                    $entry->appendChild($el);
-                    $feed->appendChild($entry);
-                }
-                $xmlStr = $doc->saveXML();
-                dol_syslog(sprintf("Deleting %d google contacts for user %s", count($firstIDs), $googleUser));
-                try {
-                    //TODO handle correctly possible errors in response
-                    $response = $gdata->post($xmlStr, "http://www.google.com/m8/feeds/contacts/default/base/batch");
-                    $responseXml = $response->getBody();
-                    //TODO check errors here. They are present in the response xml
-                } catch (Exception $e) {
-                    dol_syslog("Problem while deleting contacts", LOG_ERR);
-                    throw new Exception(sprintf("Problem while deleting contacts : %s", $e->getMessage()));
-                }
-            }
-        }
-    }
+    public static function getDolibarrContactsGoogleIDS($gdata, $pattern, $type)
+    {
+        dol_syslog(get_class().'::getDolibarrContactsGoogleIDS');
 
-    /**
-    * Delete dollibar groups on Gmail account : All groups beginning with 'Dolibarr'
-    * @param string pattern : default is 'OnelogMarker' wich will supress all contacts comming from Dolibarr
-    *                         To delete a specific contact, use 'OnelogMarker:XX#' where XX is the dolibarr ID of the contact
-    * @return int count of contacts deleted
-    */
-    public static function deleteDolibarrContactGroups() {
-        global $conf;
+        if (empty($type)) return array();
+
         $document = new DOMDocument("1.0", "utf-8");
-        $xmlStr = self::getContactGroupsXml();
-        $document->loadXML($xmlStr);
-        $xmlStr = $document->saveXML();
-        $entries = $document->documentElement->getElementsByTagNameNS(self::ATOM_NAME_SPACE, "entry");
-        $n = $entries->length;
-        $googleIDs = array();
-        $groupPrefix=$conf->global->GCONTACTS_GROUP_PREFIX;
-        foreach ($entries as $entry) {
-            $titleNodes = $entry->getElementsByTagNameNS(self::ATOM_NAME_SPACE, "title");
-            if ($titleNodes->length == 1) {
-                $title = $titleNodes->item(0)->textContent;
-                $a = $groupPrefix.'/';
-                $b = strlen($groupPrefix.'/');
-                if ($title==$groupPrefix || (strncasecmp($title, $groupPrefix.'/', strlen($groupPrefix.'/'))==0)) {
-                    $googleIDNodes = $entry->getElementsByTagNameNS(self::ATOM_NAME_SPACE, "id");
-                    if ($googleIDNodes->length == 1) {
-                        $googleIDs[] = $googleIDNodes->item(0)->textContent;
-                    }
-                }
-            }
-        }
-        self::deleteEntries($googleIDs, true);
-        return(count($googleIDs));
-    }
 
-    /**
-     * Get GoogleContactID of the given DolibarrID
-     * @param string $dolID
-     * @return string $googleContactID
-     */
-    public static function getDolibarrContactGoogleID($dolID=-1) {
-        if($dolID<0)
-            throw new Exception('No ID arg for getDolibarrContactGoogleIDS');
-        $googleIDs = self::getDolibarrContactsGoogleIDS(self::MARKER_FOR_DELETE.$dolID.self::MARKER_FOR_DELETE);
-        if (count($googleIDs)==1) {
-            return $googleIDs[0];
-        } else { // Maybe we can raise an exception if > 1 : could arrive if somebody modify google comment of one contact by hand and inster a dup dolibarr marker.
-            return NULL;
-        }
-    }
+		// Get full list of contacts
+    	$queryString = 'http://www.google.com/m8/feeds/contacts/default/full?max-results=1000';
+        if (! empty($pattern)) $queryString .= '&q='.$pattern;
+        $query = new Zend_Gdata_Query($queryString);
+        $feed = $gdata->getFeed($query);
+        $xmlStr = $feed->getXML();
 
-    /**
-     * Get googleContactsIDs matching the given pattern
-     * @param string pattern
-     * @return string array of google contactsID
-     */
-    public static function getDolibarrContactsGoogleIDS($pattern=self::MARKER_FOR_DELETE) {
-    	$document = new DOMDocument("1.0", "utf-8");
-        $xmlStr = self::getContactsXml($pattern);
+        // Split answers into entries array
         $document->loadXML($xmlStr);
         $entries = $document->documentElement->getElementsByTagNameNS(self::ATOM_NAME_SPACE, "entry");
+
         $n = $entries->length;
-        dol_syslog("$n contacts retrieved from google contacts ");
-        var_dump($xmlStr);exit;
-        $googleIDs = array();
+        dol_syslog(get_class().'::getDolibarrContactsGoogleIDS '.$n.' contacts retrieved from google contacts');
+
+        $tagtofind=getCommentIDTag();
+        $googleIDs = array();	// Nothing to delete by default
         foreach ($entries as $entry) {
-            $contentNodes = $entry->getElementsByTagNameNS(self::ATOM_NAME_SPACE, "content");
+        	// Try to qualify or not contact
+        	// TODO Use the dolibarr-id instead of comment
+        	$contentNodes = $entry->getElementsByTagNameNS(self::ATOM_NAME_SPACE, "content");	//<atom:content type="text"> = note
             if ($contentNodes->length == 1) {
-                $content = $contentNodes->item(0)->textContent;	//<atom:content type="text"> = note
-                //TODO be more clever to identify contacts to delete.
-                if (strpos($content, self::MARKER_FOR_DELETE) !== false) {
+                $content = $contentNodes->item(0)->textContent;
+				//print $content."<br>";
+
+                // Detect if contact is qualified to be deleted
+                if (preg_match('/'.preg_quote($tagtofind).'([0-9]+)\/'.$type.'/m', $content, $reg))
+                {
                     $googleIDNodes = $entry->getElementsByTagNameNS(self::ATOM_NAME_SPACE, "id");
+                    //$googleEMail = $entry->getElementsByTagNameNS(self::ATOM_NAME_SPACE, "content");
+					//var_dump($googleEMail->item(0)->nodeValue);
+                    //$googleEMail = $entry->getElementsByTagNameNS(self::ATOM_NAME_SPACE, "content");
+                    //var_dump($googleEMail->item(0)->nodeValue);
                     if ($googleIDNodes->length == 1) {
                         $googleIDs[] = $googleIDNodes->item(0)->textContent;
                     }
                 }
             }
         }
+
+        dol_syslog(get_class().'::getDolibarrContactsGoogleIDS '.count($googleIDs).' contacts qualified as Dolibarr records');
         return($googleIDs);
     }
 
+
     /**
      * Delete contacts marqued as comming from dolibarr on Gmail account
-     * @param string pattern : default is 'OnelogMarker' wich will supress all contacts comming from Dolibarr
-     *                         To delete a specific contact, use 'OnelogMarker:XX#' where XX is the dolibarr ID of the contact
-     * @return int count of contacts deleted
+     *
+     * @param	Gdata	$gdata		Gdata handler
+     * @param 	string 	$pattern	pattern : default is 'OnelogMarker' wich will supress all contacts comming from Dolibarr
+     *                         		To delete a specific contact, use 'OnelogMarker:XX#' where XX is the dolibarr ID of the contact
+     * @param	string	$type		'thirdparty' or 'contact'
+     * @return 	int 				<0 if KO, >=0 nb of deleted contacts
      */
-    public static function deleteDolibarrContacts($pattern=null) {
-        $googleIDs = self::getDolibarrContactsGoogleIDS($pattern);
-        dol_syslog(count($googleIDs) . " contacts googleIDS effectively found from google contacts for delete");
-        self::deleteEntries($googleIDs, false);
+    public static function deleteDolibarrContacts($gdata, $pattern, $type)
+    {
+    	// Search for id
+        $googleIDs = self::getDolibarrContactsGoogleIDS($gdata, $pattern, $type);
+
+        self::deleteEntries($gdata, $googleIDs, false);
         return(count($googleIDs));
     }
 
@@ -604,10 +489,11 @@ class GContact {
     /**
 	 * insertGContactGroup
 	 *
-     * @param string $groupName
-     * @return *googlegroupID
+     * @param	Gdata	$gdata			Gdata handler
+     * @param 	string 	$groupName		Name of group to create
+     * @return 	string					googlegroupID
      */
-    private static function insertGContactGroup($groupName)
+    private static function insertGContactGroup($gdata, $groupName)
     {
     	dol_syslog("insertGContactGroup Create Google group ".$groupName);
 
@@ -627,7 +513,6 @@ class GContact {
             $el->setAttribute("type", "text");
             $entry->appendChild($el);
             $doc->appendChild($entry);
-            $gdata = self::googleDataConnection();
             $doc->formatOutput = true;
             $xmlStr = $doc->saveXML();
             // insert entry
@@ -644,10 +529,11 @@ class GContact {
      * Retreive a googleGroupID given a groupName.
      * If the groupName does not exist on Gmail account, it will be created as a side effect
      *
-     * @params groupName
-     * @return googleGroupID.
+     * @param	Gdata	$gdata			Gdata handler
+     * @param	string	$groupName		Name of group
+     * @return 	array					Array of googleGroupID.
      */
-    public static function getGoogleGroupID($groupName)
+    public static function getGoogleGroupID($gdata,$groupName)
     {
     	global $conf;
     	static $googleGroups;
@@ -656,7 +542,7 @@ class GContact {
     	if(!isset($googleGroups))
     	{
     		$document = new DOMDocument("1.0", "utf-8");
-    		$xmlStr = self::getContactGroupsXml();
+    		$xmlStr = self::getContactGroupsXml($gdata);
     		$document->loadXML($xmlStr);
     		$xmlStr = $document->saveXML();
     		$entries = $document->documentElement->getElementsByTagNameNS(self::ATOM_NAME_SPACE, "entry");
@@ -676,7 +562,7 @@ class GContact {
 
     	// Create group if it not exists
     	if(!isset($googleGroups[$groupName])) {
-    		$newGroupID = self::insertGContactGroup($groupName);
+    		$newGroupID = self::insertGContactGroup($gdata, $groupName);
     		$googleGroups[$groupName] = $newGroupID;
     	}
     	return $googleGroups[$groupName];
@@ -832,6 +718,7 @@ class GContact {
      * @param string $queryArg
      * @return array GContacts
      */
+    /*
      public static function getContactsGoogleDetails($queryArg='', $discardDolcontacts=false) {
         global $db;
         $queryString = 'http://www.google.com/m8/feeds/contacts/default/full?max-results=1000';
@@ -989,14 +876,137 @@ class GContact {
         }
         return $contactsLst;
      }
-
-
-    /*
-     * Retreive a Xml feed of contactsGroups from Google
      */
-    private static function getContactGroupsXml() {
+
+
+     /**
+      * Delete Google Contacts or Groups on Gmail account
+      *
+      * @param	Gdata	$gdata			Gdata handler
+      * @param 	array	$googleIDs		Array of Google id to delete
+      * @param 	boolean $groupFlag		Method of deletion (false=batch mode)
+      * @return 	void
+      */
+     public static function deleteEntries($gdata, array $googleIDs, $groupFlag)
+     {
+     	if ($groupFlag)
+     	{
+     		$headers = array();
+     		//Due to a bug in zend not correctly taking into account headers (in particular If-Match), we do the request by hand.
+     		//instead of using the $gdata->delete
+     		$headers['If-Match'] = '*';
+     		foreach ($googleIDs as $googleID) {
+     			try {
+     				$requestData = $gdata->prepareRequest('DELETE', $googleID, $headers);
+     				$gdata->performHttpRequest($requestData['method'], $requestData['url'], $requestData['headers'], '', $requestData['contentType'], null/* remainingRedirects */);
+     				dol_syslog("Deleting contact or group $googleID for user $googleUser");
+     				//$gdata->delete($googleID);
+     			}  catch (Exception $e) {
+     				dol_syslog("Problem while deleting one entry $googleID", LOG_ERR);
+     				throw new Exception(sprintf("Problem while deleting one entry (%s) : %s", $googleID, $e->getMessage()));
+     			}
+     		}
+     	}
+     	else
+     	{
+     		$maxBatchLength = 98; //Google doc says max 100 entries.
+     		$remainingIDs = $googleIDs;
+     		while (count($remainingIDs) > 0) {
+     			if (count($remainingIDs) > $maxBatchLength) {
+     				$firstIDs = array_slice($remainingIDs, 0, $maxBatchLength);
+     				$remainingIDs = array_slice($remainingIDs, $maxBatchLength);
+     			} else {
+     				$firstIDs = $remainingIDs;
+     				$remainingIDs = array();
+     			}
+     			$doc = new DOMDocument("1.0", "utf-8");
+     			$doc->formatOutput = true;
+     			$feed = $doc->createElement("atom:feed");
+     			$feed->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:atom', 'http://www.w3.org/2005/Atom');
+     			$feed->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:gdata', 'http://schemas.google.com/g/2005');
+     			$feed->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:gcontact', 'http://schemas.google.com/contact/2008');
+     			$feed->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:batch', 'http://schemas.google.com/gdata/batch');
+     			$feed->appendChild($doc->createElement("title", "The batch title: delete"));
+     			$doc->appendChild($feed);
+     			foreach ($firstIDs as $googleID) {
+     				$entry = $doc->createElement("atom:entry");
+     				$entry->setAttribute("gdata:etag", "*");
+     				$entry->appendChild($doc->createElement("atom:id", $googleID));
+     				$el = $doc->createElement("batch:operation");
+     				$el->setAttribute("type", "delete");
+     				$entry->appendChild($el);
+     				$feed->appendChild($entry);
+     			}
+     			$xmlStr = $doc->saveXML();
+     			dol_syslog(sprintf("Deleting %d google contacts for user %s", count($firstIDs), $googleUser));
+     			try {
+     				// uncomment for debugging :
+     				file_put_contents(DOL_DATA_ROOT . "/dolibarr_google_massdelete.xml", $xmlStr);
+     				$response = $gdata->post($xmlStr, "http://www.google.com/m8/feeds/contacts/default/base/batch");
+     				$responseXml = $response->getBody();
+     				file_put_contents(DOL_DATA_ROOT . "/dolibarr_google_massdelete.response.xml", $xmlStr);
+     			} catch (Exception $e) {
+     				dol_syslog("Problem while deleting contacts", LOG_ERR);
+     				throw new Exception(sprintf("Problem while deleting contacts : %s", $e->getMessage()));
+     			}
+     		}
+     	}
+     }
+
+     /**
+      * Delete dollibar groups on Gmail account : All groups beginning with 'Dolibarr'
+      *
+      * @param	Gdata	$gdata		Gdata handler
+      * @return 	int 				count of contacts deleted
+      */
+     public static function deleteDolibarrContactGroups($gdata)
+     {
+     	global $conf;
+
+     	// Get list of groups
+     	$document = new DOMDocument("1.0", "utf-8");
+     	$xmlStr = self::getContactGroupsXml($gdata);
+
+     	$document->loadXML($xmlStr);
+     	$xmlStr = $document->saveXML();
+
+     	// Search into groups
+     	// TODO
+     	/*
+     	 $entries = $document->documentElement->getElementsByTagNameNS(self::ATOM_NAME_SPACE, "entry");
+     	$n = $entries->length;
+     	$googleIDs = array();
+     	$groupPrefix=$conf->global->GCONTACTS_GROUP_PREFIX;
+     	foreach ($entries as $entry) {
+     	$titleNodes = $entry->getElementsByTagNameNS(self::ATOM_NAME_SPACE, "title");
+     	if ($titleNodes->length == 1) {
+     	$title = $titleNodes->item(0)->textContent;
+     	$a = $groupPrefix.'/';
+     	$b = strlen($groupPrefix.'/');
+     	if ($title==$groupPrefix || (strncasecmp($title, $groupPrefix.'/', strlen($groupPrefix.'/'))==0)) {
+     	$googleIDNodes = $entry->getElementsByTagNameNS(self::ATOM_NAME_SPACE, "id");
+     	if ($googleIDNodes->length == 1) {
+     	$googleIDs[] = $googleIDNodes->item(0)->textContent;
+     	}
+     	}
+     	}
+     	}
+     	self::deleteEntries($googleIDs, true);
+     	*/
+     	return(count($googleIDs));
+     }
+
+
+    /**
+     * Retreive a Xml feed of contactsGroups from Google
+     *
+     * @param	Gdata	$gdata		Gdata handler
+     * @return	string				Xml string with list of groups
+     */
+    private static function getContactGroupsXml($gdata)
+    {
         try {
-            $gdata = self::googleDataConnection();
+        	// Get list of groups
             $query = new Zend_Gdata_Query('http://www.google.com/m8/feeds/groups/default/full?max-results=1000');
             $feed = $gdata->getFeed($query);
             $xmlStr = $feed->getXML();
@@ -1010,117 +1020,13 @@ class GContact {
         return($xmlStr);
     }
 
-    /*
-     * Retreive a Xml feed of contacts from Google
-     */
-    private static function getContactsXml($queryArg='') {
-        $queryString = 'http://www.google.com/m8/feeds/contacts/default/full?max-results=1000';
-        if(!empty($queryArg))
-            $queryString .= '&q='.$queryArg;   //Restrict the search to i.e OnelogMarker
-        $gdata=self::googleDataConnection();
-        $query = new Zend_Gdata_Query($queryString);
-        $feed = $gdata->getFeed($query);
-        $xmlStr = $feed->getXML();
-        // uncomment for debugging :
-       //file_put_contents(DOL_DATA_ROOT . "/gcontacts/temp/gmail.contacts.xml", $xmlStr);
-        // dump it with 'xmlstarlet fo gmail.contacts.xml' command
-        return($xmlStr);
-    }
-
-    /*
-     * Get a data feed from Google
-     */
-    private static function googleDataConnection($header=null,$googleUser=null,$googlePass=null) {
-    	static $client;
-        try {
-            if(!isset($client)) {
-                global $conf;
-                if(empty($googleUser)) $googleUser=$conf->global->GOOGLE_CONTACT_LOGIN;
-                if(empty($googlePass)) $googlePass=$conf->global->GOOGLE_CONTACT_PASSWORD;
-                $client = Zend_Gdata_ClientLogin::getHttpClient($googleUser, $googlePass, 'cp');
-            }
-            if($header) {
-                $client->setHeaders("If-Match: *");
-            } else {
-                $client->setHeaders("If-Match",false);
-            }
-            $gdata = new Zend_Gdata($client);
-            $gdata->setMajorProtocolVersion(3);
-        } catch (Exception $e) {
-            dol_syslog("Problem on google connection user=".$googleUser." password=".$googlePass, LOG_ERR);
-            throw new Exception($e->getMessage());
-        }
-        return($gdata);
-    }
-
-    public static function testGoogleConnection($header=null,$googleUser=null,$googlePass=null) {
-        try {
-            self::googleDataConnection($header,$googleUser,$googlePass);
-        } catch (Exception $e) {
-            global $langs;
-            throw new Exception($langs->trans("GOntactsGoogleConnectionProblem").' : '.$e->getMessage());
-        }
-    }
-
-    /*
-     * nl2br with dos2unix enhancement
-     */
-    public function nl2br2($string) {
-        $string = str_replace(array("\r\n", "\r", "\n"), "<br />", $string);
-        return $string;
-    }
-
-    public function getModCodeClient() {
-        global $conf, $langs;
-        $module=$conf->global->SOCIETE_CODECLIENT_ADDON;
-        if (! $module)
-            throw new Exception($langs->trans("ErrorModuleThirdPartyCodeInCompanyModuleNotDefined"));
-        if (substr($module, 0, 15) == 'mod_codeclient_' && substr($module, -3) == 'php')
-        {
-            $module = substr($module, 0, dol_strlen($module)-4);
-        }
-        $dirsociete=array_merge(array('/core/modules/societe/'),$conf->societe_modules);
-        foreach ($dirsociete as $dirroot)
-        {
-            $res=dol_include_once($dirroot.$module.".php");
-            if ($res) break;
-        }
-        return (new $module);
-    }
-
-        /**
-     *  Return array of groups
-     *   Get all commercails representatives and return their logins as group name for google
-     *
-     *  @param	socid
-     *  @return array       		Array of groups
-     */
-    private static function getGroups($socid)
-    {
-        global $conf, $db;
-
-        $groups=array();
-
-        $sql = "SELECT u.rowid, u.login";
-        $sql.= " FROM ".MAIN_DB_PREFIX."societe_commerciaux as sc, ".MAIN_DB_PREFIX."user as u";
-        $sql.= " WHERE u.rowid = sc.fk_user AND sc.fk_soc =".$socid;
-        $sql.= " AND entity in (0, ".$conf->entity.")";
-
-        $resql = $db->query($sql);
-        if (!$resql) throw new Exception($db->lasterror());
-        $num = $db->num_rows($resql);
-        $i=0;
-        while ($i < $num)
-        {
-            $obj = $db->fetch_object($resql);
-            $groups[$i]['id']=$obj->rowid;
-            $groups[$i]['groupName']=$obj->login;
-            $i++;
-        }
-        return $groups;
-    }
 }
 
+
+
+/**
+ *
+ */
 class GCaddr {
     var $street;
     var $zip;

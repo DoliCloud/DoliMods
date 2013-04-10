@@ -9,6 +9,7 @@
  */
 
 include_once DOL_DOCUMENT_ROOT.'/core/modules/mailings/modules_mailings.php';
+dol_include_once("/nltechno/class/dolicloudcustomer.class.php");
 
 
 /**
@@ -51,15 +52,16 @@ class mailing_mailinglist_nltechno_dolicloud extends MailingTargets
 
         $form=new Form($this->db);
 
+        $arraystatus=Dolicloudcustomer::$listOfStatus;
+
         $s='';
         $s.=$langs->trans("Status").': ';
         $s.='<select name="filter" class="flat">';
         $s.='<option value="none">&nbsp;</option>';
-        $s.='<option value="ACTIVE">ACTIVE</option>';
-        $s.='<option value="TRIAL">TRIAL</option>';
-        $s.='<option value="TRIAL_EXPIRED">TRIAL_EXPIRED</option>';
-        $s.='<option value="CLOSED_QUEUED">CLOSED_QUEUED</option>';
-        $s.='<option value="UNDEPLOYED">UNDEPLOYED</option>';
+        foreach($arraystatus as $status)
+        {
+	        $s.='<option value="'.$status.'">'.$status.'</option>';
+        }
         $s.='</select>';
         $s.='<br>';
 

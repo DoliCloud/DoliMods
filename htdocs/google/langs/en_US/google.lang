@@ -45,6 +45,7 @@ ExportContactToGoogle=Export all Dolibarr contacts/addresses to GMail contacts (
 DeleteAllGoogleThirdparties=Delete all thirdparties coming from Dolibarr on Gmail.
 DeleteAllGoogleContacts=Delete all contacts/addresses coming from Dolibarr on Gmail.
 PushToGoogleSucess=Syncronising to Google contact finished for %s record(s).
+DeleteToGoogleSucess=%s contact(s) deleted into Google contact.
 GOOGLE_TAG_PREFIX=Label to tags Dolibarr thirdparties into Google contact
 GOOGLE_TAG_PREFIX_CONTACTS=Label to tags Dolibarr contacts/addresses into Google contact
 ErrorLabelsMustDiffers=Error, value for labels must be unique
