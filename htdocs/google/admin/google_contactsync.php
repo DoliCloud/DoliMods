@@ -222,7 +222,10 @@ if ($action == 'pushallthirdparties')
 		$result=0;
 		if (count($gContacts)) $result=insertGContactsEntries($gdata, $gContacts);
 
-		if ($result >= 0) $mesg = $langs->trans("PushToGoogleSucess",count($gContacts));
+		if ($result >= 0)
+		{
+			$mesg = $langs->trans("PushToGoogleSucess",count($gContacts));
+		}
 		else $mesg = $langs->trans("Error");
 	}
 }
@@ -269,7 +272,10 @@ if ($action == 'pushallcontacts')
 		$result=0;
 		if (count($gContacts)) $result=insertGContactsEntries($gdata, $gContacts);
 
-		if ($result >= 0) $mesg = $langs->trans("PushToGoogleSucess",count($gContacts));
+		if ($result >= 0)
+		{
+			$mesg = $langs->trans("PushToGoogleSucess",count($gContacts));
+		}
 		else $mesg = $langs->trans("Error");
 	}
 }
@@ -299,7 +305,14 @@ if ($action == 'deleteallthirdparties')
 
 		$nbContacts = GContact::deleteDolibarrContacts($gdata,'','thirdparty');
 
-		if ($nbContacts >= 0) $mesg = $langs->trans("DeleteToGoogleSucess",$nbContacts);
+		if ($nbContacts >= 0)
+		{
+			$sql = "UPDATE ".MAIN_DB_PREFIX."societe SET ref_ext = NULL WHERE ref_ext LIKE '%google%'";
+			dol_syslog("sql=".$sql);
+			$db->query($sql);
+
+			$mesg = $langs->trans("DeleteToGoogleSucess",$nbContacts);
+		}
 		else $mesg = $langs->trans("Error");
 	}
 }
@@ -328,7 +341,14 @@ if ($action == 'deleteallcontacts')
 
 		$nbContacts = GContact::deleteDolibarrContacts($gdata,'','contact');
 
-		if ($nbContacts >= 0) $mesg = $langs->trans("DeleteToGoogleSucess",$nbContacts);
+		if ($nbContacts >= 0)
+		{
+			$sql = "UPDATE ".MAIN_DB_PREFIX."socpeople SET ref_ext = NULL WHERE ref_ext LIKE '%google%'";
+			dol_syslog("sql=".$sql);
+			$db->query($sql);
+
+			$mesg = $langs->trans("DeleteToGoogleSucess",$nbContacts);
+		}
 		else $mesg = $langs->trans("Error");
 	}
 }
