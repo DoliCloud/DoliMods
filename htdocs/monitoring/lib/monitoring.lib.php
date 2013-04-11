@@ -51,8 +51,9 @@ function monitoring_prepare_head($object)
 /**
  *  Return list of probes to scan
  *
- *  @param  int		$active     1 To get only activable probes
- *  @return	array				List of probes
+ *  @param  int		$active     	1 To get only activable probes
+ *  @param	int		$forceprobeid	Force probe id
+ *  @return	array					List of probes
  */
 function getListOfProbes($active=1,$forceprobeid=0)
 {
@@ -112,8 +113,6 @@ function getListOfProbes($active=1,$forceprobeid=0)
  *  Execute a probe
  *
  *	@param	array	$object		Array with property of object probe
- *	@param	ch		$ch			ch
- *	@param	client	$client		client
  *  @return	mixed	$result		Result
  */
 function init_probe($object)
@@ -137,8 +136,8 @@ function init_probe($object)
         curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
         if ($object['useproxy'])
         {
-            curl_setopt ($ch, CURLOPT_PROXY, $conf->global->MAIN_PROXY_HOST. ":" . $conf->global->MAIN_PROXY_PORT);
-            if (! empty($conf->global->MAIN_PROXY_USER)) curl_setopt ($ch, CURLOPT_PROXYUSERPWD, $conf->global->MAIN_PROXY_USER. ":" . $conf->global->MAIN_PROXY_PASS);
+            curl_setopt($ch, CURLOPT_PROXY, $conf->global->MAIN_PROXY_HOST. ":" . $conf->global->MAIN_PROXY_PORT);
+            if (! empty($conf->global->MAIN_PROXY_USER)) curl_setopt($ch, CURLOPT_PROXYUSERPWD, $conf->global->MAIN_PROXY_USER. ":" . $conf->global->MAIN_PROXY_PASS);
         }
 
         if ($object['typeprot'] == 'GET')
@@ -213,7 +212,7 @@ function execute_probe($object, $ch, $client)
     $found=0;
 
     list($usec, $sec) = explode(" ", microtime());
-    $micro_start_time=((float)$usec + (float)$sec);
+    $micro_start_time=((float) $usec + (float) $sec);
 
     // Protocol GET or POST
     if (($object['typeprot'] == 'GET' || $object['typeprot'] == 'POST') && preg_match('/^http/i',$object['url']))
@@ -306,8 +305,8 @@ function execute_probe($object, $ch, $client)
     }
 
     list($usec, $sec) = explode(" ", microtime());
-    $micro_end_time=((float)$usec + (float)$sec);
-    $end_time=((float)$sec);
+    $micro_end_time=((float) $usec + (float) $sec);
+    $end_time=((float) $sec);
     $delay=($micro_end_time-$micro_start_time);
 
     return array(
@@ -327,12 +326,13 @@ if (! function_exists('rrd_create'))
 {
 	/**
 	 * Create a RRD file
-	 * @param 		$fname
-	 * @param 		$opts
-	 * @param 		$nbopts
-	 * @return		int		0 if KO, >0 if OK
+	 * 
+	 * @param 	string	$fname		Fname
+	 * @param 	array	$opts		Opts
+	 * @param 	int		$nbopts		Nbopts
+	 * @return	int					0 if KO, >0 if OK
 	 */
-	function rrd_create ($fname, $opts, $nbopts)
+	function rrd_create($fname, $opts, $nbopts)
 	{
 		global $conf;
 
@@ -385,9 +385,9 @@ if (! function_exists('rrd_create'))
 	/**
 	 * Update a RRD file
 	 *
-	 * @param 		$fname
-	 * @param 		$val
-	 * @return		int		0 if KO, >0 if OK
+	 * @param	string	$fname		Fname
+	 * @param 	int		$val		Val
+	 * @return	int					0 if KO, >0 if OK
 	 */
 	function rrd_update ($fname, $val)
 	{
@@ -438,10 +438,10 @@ if (! function_exists('rrd_create'))
 	/**
 	 * Create a RRD file
      *
-	 * @param 		$fname
-	 * @param 		$opts
-	 * @param 		$nbopts
-	 * @return		int		0 if KO, array if OK
+	 * @param	string	$fileimage	Fname
+	 * @param 	array	$opts		Opts
+	 * @param 	int		$nbopts		Nb opts
+	 * @return	int					0 if KO, array if OK
 	 */
 	function rrd_graph ($fileimage, $opts, $nbopts)
 	{
@@ -499,7 +499,8 @@ if (! function_exists('rrd_create'))
 	/**
 	 * Show output content
      *
-	 * @param unknown_type $fname
+	 * @param 	string	$fname		Fname
+	 * @return	void
 	 */
 	function rrd_error($fname)
 	{

@@ -226,11 +226,12 @@ class modScanner extends DolibarrModules
 
 
 	/**
-	 *		\brief		Create tables, keys and data required by module
-	 * 					Files llx_table1.sql, llx_table1.key.sql llx_data.sql with create table, create keys
-	 * 					and create data commands must be stored in directory /scanner/sql/
-	 *					This function is called by this->init.
-	 * 		\return		int		<=0 if KO, >0 if OK
+	 *	Create tables, keys and data required by module
+	 * 	Files llx_table1.sql, llx_table1.key.sql llx_data.sql with create table, create keys
+	 * 	and create data commands must be stored in directory /scanner/sql/
+	 *	This function is called by this->init.
+	 *
+	 * 	@return		int		<=0 if KO, >0 if OK
 	 */
 	function load_tables()
 	{

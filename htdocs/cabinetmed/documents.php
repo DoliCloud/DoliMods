@@ -186,7 +186,7 @@ if ($action == 'builddoc')  // En get ou en post
         }
         else
         {
-            Header ('Location: '.$_SERVER["PHP_SELF"].'?socid='.$soc->id.(empty($conf->global->MAIN_JUMP_TAG)?'':'#builddoc'));
+            Header('Location: '.$_SERVER["PHP_SELF"].'?socid='.$soc->id.(empty($conf->global->MAIN_JUMP_TAG)?'':'#builddoc'));
             exit;
         }
     }
@@ -448,7 +448,7 @@ if ($socid > 0)
     }
 
     // Nbre fichiers
-    print '<tr><td>'.$langs->trans("NbOfAttachedFiles").'</td><td colspan="3">'.sizeof($filearray).'</td></tr>';
+    print '<tr><td>'.$langs->trans("NbOfAttachedFiles").'</td><td colspan="3">'.count($filearray).'</td></tr>';
 
     //Total taille
     print '<tr><td>'.$langs->trans("TotalSizeOfAttachedFiles").'</td><td colspan="3">'.$totalsize.' '.$langs->trans("Bytes").'</td></tr>';
@@ -524,7 +524,7 @@ if ($socid > 0)
         foreach(array('external') as $source)
         {
             $tab = $object->liste_contact(-1,$source);
-            $num=sizeof($tab);
+            $num=count($tab);
 
             $i = 0;
             while ($i < $num)

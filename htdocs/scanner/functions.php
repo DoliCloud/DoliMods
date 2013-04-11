@@ -19,19 +19,25 @@
 /**
  *  \file           htdocs/scanner/index.php
  *  \brief          Main page of scanner module
- *  \version        $Id: functions.php,v 1.1 2010/11/13 18:46:18 eldy Exp $
  */
 
-
+/**
+ * Set page size into global variable
+ *
+ * @param 	string	$page_name		Page name
+ * @param 	string	$page_x			X
+ * @param 	string	$page_y			Y
+ * @return	void
+ */
 function add_page_size($page_name, $page_x, $page_y)
 {
-  global $PREVIEW_WIDTH_MM, $PREVIEW_HEIGHT_MM;
-  global $PAGE_SIZE_LIST;
+	global $PREVIEW_WIDTH_MM, $PREVIEW_HEIGHT_MM;
+	global $PAGE_SIZE_LIST;
 
-  if (($page_x <= $PREVIEW_WIDTH_MM) && ($page_y <= $PREVIEW_HEIGHT_MM))
-  {
-    $PAGE_SIZE_LIST[] = array(0 => $page_name, $page_x, $page_y);
-  }
+	if (($page_x <= $PREVIEW_WIDTH_MM) && ($page_y <= $PREVIEW_HEIGHT_MM))
+	{
+		$PAGE_SIZE_LIST[] = array(0 => $page_name, $page_x, $page_y);
+	}
 }
 
 

@@ -48,7 +48,7 @@ class ActionsSelectBank
      * Complete doc forms
      *
      * @param	array	$parameters		Array of parameters
-     * @param	object	$object			Object
+     * @param	object	&$object			Object
      * @return	string					HTML content to add by hook
      */
     function formBuilddocOptions($parameters,&$object)

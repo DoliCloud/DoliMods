@@ -39,7 +39,14 @@ function llxHeader() {
     print '<title>OVH redirection from Dolibarr...</title>'."\n";
     print '</head>'."\n";
 }
-function llxFooter() {
+
+/**
+ * llxFooter
+ * 
+ * @return	void
+ */
+function llxFooter() 
+{
     print "\n".'</html>'."\n";
 }
 
@@ -77,11 +84,11 @@ if (empty($conf->global->OVHSMS_SOAPURL))
 }
 else $wsdlovh = $conf->global->OVHSMS_SOAPURL;
 
-#Delai d'attente avant de raccrocher
+// Delai d'attente avant de raccrocher
 $strWaitTime = "30";
-#Priority
+// Priority
 $strPriority = "1";
-#Nomber of try
+// Nomber of try
 $strMaxRetry = "2";
 
 
@@ -98,7 +105,7 @@ if (empty($login))
     exit;
 }
 
-$number=strtolower($called) ;
+$number=strtolower($called);
 $pos=strpos($number,"local");
 
 //print "$login, $password, $caller, $number, $caller";
@@ -118,11 +125,11 @@ if (! empty($number))
         dol_syslog($txt);
         print '<body onload="javascript:history.go(-1);">'."\n";
         print '<!-- '.$txt.' -->';
-        fputs($oSocket, "Username: $login\r\n" ) ;
-        fputs($oSocket, "Secret: $password\r\n\r\n" ) ;
-        fputs($oSocket, "Caller: $caller\r\n" ) ;
-        fputs($oSocket, "Called: ".$number."\r\n" ) ;
-        sleep(2) ;
+        fputs($oSocket, "Username: $login\r\n");
+        fputs($oSocket, "Secret: $password\r\n\r\n");
+        fputs($oSocket, "Caller: $caller\r\n");
+        fputs($oSocket, "Called: ".$number."\r\n");
+        sleep(2);
         print '</body>'."\n";
     }
     catch(SoapFault $fault)

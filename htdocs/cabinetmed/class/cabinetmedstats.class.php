@@ -56,7 +56,7 @@ class CabinetMedStats extends Stats
      * @param	string		$morefilter	Add filters
 	 * @return 	CabinetMedStats
 	 */
-	function CabinetMedStats($db, $socid=0, $mode, $userid=0, $morefilter='')
+	function CabinetMedStats($db, $socid, $mode, $userid=0, $morefilter='')
 	{
 		global $conf;
 
@@ -98,8 +98,8 @@ class CabinetMedStats extends Stats
 	/**
 	 * 	Renvoie le nombre de consult par mois pour une annee donnee
 	 *
-	 *	@param	year	Year to scan
-	 *	@return	array	Array of values
+	 *	@param	int		$year	Year to scan
+	 *	@return	array			Array of values
 	 */
 	function getNbByMonth($year)
 	{
@@ -119,8 +119,8 @@ class CabinetMedStats extends Stats
 	/**
 	 * 	Renvoie le montant de consult par mois pour une annee donnee
 	 *
-	 *	@param	year	Year to scan
-	 *	@return	array	Array of values
+	 *	@param	int		$year	Year to scan
+	 *	@return	array			Array of values
 	 */
 	function getAmountByMonth($year)
 	{
@@ -144,8 +144,8 @@ class CabinetMedStats extends Stats
 	/**
 	 *	Return average amount
 	 *
-	 *	@param	year	Year to scan
-	 *	@return	array	Array of values
+	 *	@param	int		$year	Year to scan
+	 *	@return	array			Array of values
 	 */
 	function getAverageByMonth($year)
 	{

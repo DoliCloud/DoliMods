@@ -264,7 +264,7 @@ if ($id > 0 || ! empty($ref))
 	foreach(array('external') as $source)
 	{
 		$tab = $societe->liste_contact(-1,$source);
-		$num=sizeof($tab);
+		$num=count($tab);
 
 		$i = 0;
 		while ($i < $num)

@@ -151,13 +151,14 @@ class Patient extends Societe
 
 
     /**
-     *      \brief      Update parameters of third party
-     *      \param      id              			id societe
-     *      \param      user            			Utilisateur qui demande la mise a jour
-     *      \param      call_trigger    			0=non, 1=oui
-     *		\param		allowmodcodeclient			Inclut modif code client et code compta
-     *		\param		allowmodcodefournisseur		Inclut modif code fournisseur et code compta fournisseur
-     *      \return     int             			<0 si ko, >=0 si ok
+     *  Update parameters of third party
+     *  
+     *  @param     	int		$id              			id societe
+     *  @param      string	$user            			Utilisateur qui demande la mise a jour
+     *  @param      int		$call_trigger    			0=non, 1=oui
+     *	@param		int		$allowmodcodeclient			Inclut modif code client et code compta
+     *	@param		int		$allowmodcodefournisseur	Inclut modif code fournisseur et code compta fournisseur
+     *  @return     int      			       			<0 si ko, >=0 si ok
      */
     function update($id, $user='', $call_trigger=1, $allowmodcodeclient=0, $allowmodcodefournisseur=0)
     {
@@ -343,14 +344,14 @@ class Patient extends Societe
     /**
      *    Load a third party from database into memory
      *
-     *    @param      rowid			Id of third party to load
-     *    @param      ref			Reference of third party, name (Warning, this can return several records)
-     *    @param      ref_ext       External reference of third party (Warning, this information is a free field not provided by Dolibarr)
-     *    @param      idprof1		Prof id 1 of third party (Warning, this can return several records)
-     *    @param      idprof2		Prof id 2 of third party (Warning, this can return several records)
-     *    @param      idprof3		Prof id 3 of third party (Warning, this can return several records)
-     *    @param      idprof4		Prof id 4 of third party (Warning, this can return several records)
-     *    @return     int			>0 if OK, <0 if KO or if two records found for same ref or idprof.
+     *    @param      int		$rowid			Id of third party to load
+     *    @param      string	$ref			Reference of third party, name (Warning, this can return several records)
+     *    @param      string	$ref_ext       	External reference of third party (Warning, this information is a free field not provided by Dolibarr)
+     *    @param      int		$idprof1		Prof id 1 of third party (Warning, this can return several records)
+     *    @param      int		$idprof2		Prof id 2 of third party (Warning, this can return several records)
+     *    @param      int		$idprof3		Prof id 3 of third party (Warning, this can return several records)
+     *    @param      int		$idprof4		Prof id 4 of third party (Warning, this can return several records)
+     *    @return     $int						>0 if OK, <0 if KO or if two records found for same ref or idprof.
      */
     function fetch($rowid, $ref='', $ref_ext='', $idprof1='',$idprof2='',$idprof3='',$idprof4='')
     {
@@ -539,8 +540,8 @@ class Patient extends Societe
         }
         else
         {
-            dol_syslog('Error '.$this->db->error(), LOG_ERR);
-            $this->error=$this->db->error();
+            dol_syslog('Error '.$this->db->lasterror(), LOG_ERR);
+            $this->error=$this->db->lasterror();
             $result = -3;
         }
 
@@ -552,8 +553,10 @@ class Patient extends Societe
 
 
     /**
-     *      Initialise an example of company with random values
-     *      Used to build previews or test instances
+     *  Initialise an example of company with random values
+     *  Used to build previews or test instances
+     *      
+     *	@return	void
      */
     function initAsSpecimen()
     {

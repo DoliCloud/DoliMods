@@ -180,21 +180,25 @@ foreach($consult as $rowid => $val)
         $objp->montant_tiers =$encaiss_tie[$d]?$encaiss_tie[$d]:'';
         $objp->montant_carte =$encaiss_car[$d]?$encaiss_car[$d]:'';
 
-        $objmodel->workbook->getActiveSheet()->getStyle('A'.($i+1).':J'.($i+1))->getBorders()->applyFromArray(array(
+        $objmodel->workbook->getActiveSheet()->getStyle('A'.($i+1).':J'.($i+1))->getBorders()->applyFromArray(
+        	array(
                  'allborders' => array(
                      'style' => PHPExcel_Style_Border::BORDER_THIN,
                      'color' => array('rgb' => '808080')
-             )));
+             ))
+        	);
         $objmodel->workbook->getActiveSheet()->getStyle('A'.($i+1).':J'.($i+1))->getFont()->setBold(true);
-        $objmodel->workbook->getActiveSheet()->getStyle('A'.($i+1).':J'.($i+1))->getFont()->getColor()->applyFromArray( array('rgb' => '303040') );
-        $objmodel->workbook->getActiveSheet()->getStyle('A'.($i+1).':J'.($i+1))->getFill()->applyFromArray(array(
+        $objmodel->workbook->getActiveSheet()->getStyle('A'.($i+1).':J'.($i+1))->getFont()->getColor()->applyFromArray(array('rgb' => '303040'));
+        $objmodel->workbook->getActiveSheet()->getStyle('A'.($i+1).':J'.($i+1))->getFill()->applyFromArray(
+        	array(
                      'type'       => PHPExcel_Style_Fill::FILL_GRADIENT_LINEAR,
                      'rotation'   => 0,
                      'startcolor' => array('rgb' => 'CCCCCC'),
                      'endcolor'   => array('argb' => 'FFFFFFFF')
-            ));
+            )
+        	);
         //$objmodel->workbook->getActiveSheet()->getStyle()->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
-        $objmodel->workbook->getActiveSheet()->getStyle('J'.($i+1))->getFont()->getColor()->applyFromArray( array('rgb' => '303070') );
+        $objmodel->workbook->getActiveSheet()->getStyle('J'.($i+1))->getFont()->getColor()->applyFromArray(array('rgb' => '303070'));
         $objmodel->workbook->getActiveSheet()->SetCellValueByColumnAndRow(9, $i+1, $encaiss_chq[$d]+$encaiss_esp[$d]+$encaiss_tie[$d]+$encaiss_car[$d]);
         $objmodel->write_record($array_selected,$objp,$outputlangs);
         $i++;
@@ -251,19 +255,23 @@ foreach($consult as $rowid => $val)
         $objp->montant_espece=$langs->trans("Cash");
         $objp->montant_tiers =$langs->trans("Other");
         $objp->montant_carte =$langs->trans("CreditCard");
-        $objmodel->workbook->getActiveSheet()->getStyle('A'.($i+1).':I'.($i+1))->getFont()->getColor()->applyFromArray( array('rgb' => '303040') );
-        $objmodel->workbook->getActiveSheet()->getStyle('A'.($i+1).':I'.($i+1))->getBorders()->applyFromArray(array(
+        $objmodel->workbook->getActiveSheet()->getStyle('A'.($i+1).':I'.($i+1))->getFont()->getColor()->applyFromArray(array('rgb' => '303040'));
+        $objmodel->workbook->getActiveSheet()->getStyle('A'.($i+1).':I'.($i+1))->getBorders()->applyFromArray(
+        	array(
                  'allborders' => array(
                      'style' => PHPExcel_Style_Border::BORDER_THIN,
                      'color' => array('rgb' => '808080')
-             )));
+             ))
+        	);
         $objmodel->workbook->getActiveSheet()->getStyle('A'.($i+1).':I'.($i+1))->getFont()->setBold(true);
-        $objmodel->workbook->getActiveSheet()->getStyle('A'.($i+1).':I'.($i+1))->getFill()->applyFromArray(array(
+        $objmodel->workbook->getActiveSheet()->getStyle('A'.($i+1).':I'.($i+1))->getFill()->applyFromArray(
+        	array(
                              'type'       => PHPExcel_Style_Fill::FILL_GRADIENT_LINEAR,
                              'rotation'   => 0,
                              'startcolor' => array('rgb' => 'EEEEEE'),
                              'endcolor'   => array('argb' => 'FFFFFFFF')
-        ));
+        	)
+        	);
         $objmodel->write_record($array_selected,$objp,$outputlangs);
         $i++;
     }
@@ -313,21 +321,25 @@ if ($i != 0)
     $objp->montant_tiers =$encaiss_tie[$d]?$encaiss_tie[$d]:'';
     $objp->montant_carte =$encaiss_car[$d]?$encaiss_car[$d]:'';
 
-        $objmodel->workbook->getActiveSheet()->getStyle('A'.($i+1).':J'.($i+1))->getBorders()->applyFromArray(array(
+        $objmodel->workbook->getActiveSheet()->getStyle('A'.($i+1).':J'.($i+1))->getBorders()->applyFromArray(
+        	array(
                  'allborders' => array(
                      'style' => PHPExcel_Style_Border::BORDER_THIN,
                      'color' => array('rgb' => '808080')
-             )));
+             ))
+        	);
         $objmodel->workbook->getActiveSheet()->getStyle('A'.($i+1).':J'.($i+1))->getFont()->setBold(true);
-        $objmodel->workbook->getActiveSheet()->getStyle('A'.($i+1).':J'.($i+1))->getFont()->getColor()->applyFromArray( array('rgb' => '303040') );
-        $objmodel->workbook->getActiveSheet()->getStyle('A'.($i+1).':J'.($i+1))->getFill()->applyFromArray(array(
+        $objmodel->workbook->getActiveSheet()->getStyle('A'.($i+1).':J'.($i+1))->getFont()->getColor()->applyFromArray(array('rgb' => '303040'));
+        $objmodel->workbook->getActiveSheet()->getStyle('A'.($i+1).':J'.($i+1))->getFill()->applyFromArray(
+        	array(
                      'type'       => PHPExcel_Style_Fill::FILL_GRADIENT_LINEAR,
                      'rotation'   => 0,
                      'startcolor' => array('rgb' => 'CCCCCC'),
                      'endcolor'   => array('argb' => 'FFFFFFFF')
-            ));
+            )
+        	);
         //$objmodel->workbook->getActiveSheet()->getStyle($i+1)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
-        $objmodel->workbook->getActiveSheet()->getStyle('J'.($i+1))->getFont()->getColor()->applyFromArray( array('rgb' => '303070') );
+        $objmodel->workbook->getActiveSheet()->getStyle('J'.($i+1))->getFont()->getColor()->applyFromArray(array('rgb' => '303070'));
         $objmodel->workbook->getActiveSheet()->SetCellValueByColumnAndRow(9, $i+1, $encaiss_chq[$d]+$encaiss_esp[$d]+$encaiss_tie[$d]+$encaiss_car[$d]);
         $objmodel->write_record($array_selected,$objp,$outputlangs);
 }
