@@ -142,8 +142,8 @@ function createContact($client, $object)
 
 		// Address
 		$address = $doc->createElement('gd:structuredPostalAddress');
-		$address->setAttribute('rel' ,'http://schemas.google.com/g/2005#work');
-		$address->setAttribute('primary' ,'true');
+		$address->setAttribute('rel', 'http://schemas.google.com/g/2005#work');
+		$address->setAttribute('primary', 'true');
 		$entry->appendChild($address);
 
 			$city = $doc->createElement('gd:city', $object->town);
@@ -462,8 +462,10 @@ function insertGContactsEntries($gdata, $gContacts)
 }
 
 /**
- *
- * @param unknown_type $xmlStr
+ * parseResponse
+ * 
+ * @param 	string		$xmlStr		String
+ * @return	stdClass				Class with response
  */
 function parseResponse($xmlStr)
 {
@@ -489,7 +491,8 @@ function parseResponse($xmlStr)
 /**
  * Return TAG to add into Google Gmail
  *
- * @param string $s		Type of tag
+ * @param 	string $s		Type of tag
+ * @return	string			Label
  */
 function getTagLabel($s)
 {
@@ -510,7 +513,7 @@ function getTagLabel($s)
  *
  * @param	Mixed	$gdata			GData handler
  * @param	string	$groupName		Group name
- * @param	array	$googleGroups	Array of Google Group we know they already exists
+ * @param	array	&$googleGroups	Array of Google Group we know they already exists
  * @return 	string					Google Group ID for groupName.
  */
 function getGoogleGroupID($gdata, $groupName, &$googleGroups=array())
