@@ -108,7 +108,8 @@ print '--- start'."\n";
 //print 'Argument 2='.$argv[2]."\n";
 
 $verbose = 0;
-for ($i = 1; $i < count($argv); $i++)
+$nbofargs=count($argv);
+for ($i = 1; $i < $nbofargs; $i++)
 {
 	if ($argv[$i] == "-v")
 	{
@@ -269,7 +270,11 @@ exit(0);
 
 
 /**
+ *	Process a probe
  *
+ *	@param	mixed	&$object	Object
+ *	@param	int		$maxloops	End after maxloops
+ *	@return void
  */
 function process_probe_x(&$object,$maxloops=0)
 {

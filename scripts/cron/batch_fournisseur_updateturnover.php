@@ -61,7 +61,7 @@ $verbose = 0;
 $now = gmmktime();
 $year = strftime('%Y',$now);
 
-for ($i = 1 ; $i < sizeof($argv) ; $i++)
+for ($i = 1; $i < count($argv); $i++)
 {
 	if ($argv[$i] == "-v")
 	{
