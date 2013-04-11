@@ -33,7 +33,7 @@ if (empty($conf->global->AWSTATS_DATA_DIR))
 {
 	llxHeader();
 	print '<div class="error">'.$langs->trans("AWStatsSetupNotComplete").'</div>';
-	llxFooter;
+	llxFooter();
 	exit;
 }
 
@@ -41,24 +41,24 @@ $AWSTATS_CGI_PATH=$conf->global->AWSTATS_CGI_PATH;
 if (! preg_match('/\?/',$AWSTATS_CGI_PATH)) { $AWSTATS_CGI_PATH.='?'; }
 else $AWSTATS_CGI_PATH.='&amp;';
 
-$history_dir 		= 	$conf->global->AWSTATS_DATA_DIR;		# Location of history files
-$filter_year		=	isset($_REQUEST["filter_year"])?$_REQUEST["filter_year"]:'';		# year or all
-if (empty($filter_year)) $filter_year=date("Y");	# Show only current year statistics
+$history_dir 		= 	$conf->global->AWSTATS_DATA_DIR;		// Location of history files
+$filter_year		=	isset($_REQUEST["filter_year"])?$_REQUEST["filter_year"]:'';		// year or all
+if (empty($filter_year)) $filter_year=date("Y");	// Show only current year statistics
 $filter_domains		=	isset($_REQUEST["filter_domains"])?$_REQUEST["filter_domains"]:'';
 $limittoconf=array();
 if (! empty($conf->global->AWSTATS_LIMIT_CONF)) $limittoconf=explode(',',$conf->global->AWSTATS_LIMIT_CONF);
 
 
-$domain_list		=	array();					# List of domains to show if filter_domains is true
-$build_domains		=	true;						# Show domain by domain statistics
-$build_system		=	false;						# Show system statistics
-$accept_query		=	true;						# Accept domain list via query string (adds to $domain_list)
-# in format ?domains=domain1.com,domain2.com,domain3.com
-$format_numbers		=	true;						# Format numbers with comma's to indicate thousands
-$gzip_compression	=	false;						# Enable gzip compression
-$system_stats_top	=	false;						# Show system statistics above domain statistics
-$table_width		=	"100%";						# Content table width
-$table_align		=	"center";					# Content table alignment
+$domain_list		=	array();					// List of domains to show if filter_domains is true
+$build_domains		=	true;						// Show domain by domain statistics
+$build_system		=	false;						// Show system statistics
+$accept_query		=	true;						// Accept domain list via query string (adds to $domain_list)
+// in format ?domains=domain1.com,domain2.com,domain3.com
+$format_numbers		=	true;						// Format numbers with comma's to indicate thousands
+$gzip_compression	=	false;						// Enable gzip compression
+$system_stats_top	=	false;						// Show system statistics above domain statistics
+$table_width		=	"100%";						// Content table width
+$table_align		=	"center";					// Content table alignment
 
 
 
@@ -72,25 +72,25 @@ llxHeader('','AWStats',$help_url);
 
 $form=new Form($db);
 
-# Check and enable gzip if requested
+// Check and enable gzip if requested
 if($gzip_compression == true && function_exists("gzopen")) {
-	ob_start("ob_gzhandler");	# Start output buffering with gzip compression
+	ob_start("ob_gzhandler");	// Start output buffering with gzip compression
 } else {
-	ob_start();					# Start output buffering without compression
+	ob_start();					// Start output buffering without compression
 }
 
-# Record Starting Time
+// Record Starting Time
 $stime = dol_now();
 
-# Build Domain List from Query (if enabled)
+// Build Domain List from Query (if enabled)
 if($accept_query == true && strlen($_GET['domains']) > 0) {
 	$get_domain_list = explode(",",$_GET['domains']);
 	$domain_list = array_merge($domain_list, $get_domain_list);
 }
-# Clear 'reserved' variables
+// Clear 'reserved' variables
 unset($domains);
 
-# Initialize all arrays
+// Initialize all arrays
 $files 			= 		array();
 $sites 			=		array();
 $stats 			= 		array();
@@ -99,19 +99,16 @@ $total			=		array();
 $max     		=		array();
 $sitecount		=		0;
 
-# Declare functions
+// Declare functions
 
-#####################
-# Timer Function	#
-#####################
+
+// Timer Function	#
 function gettime() {
 	list($usec, $sec) = explode(" ", microtime());
-	return ((float)$usec + (float)$sec);
+	return ((float) $usec + (float) $sec);
 }
 
-#########################
-# Text Functions		#
-#########################
+// Text Functions		#
 
 function read_file($file,$domain)
 {
@@ -129,9 +126,9 @@ function read_file($file,$domain)
 	$mm = $reg[1];
 
 	$filename = $history_dir."/".$file;
-	$fd = fopen ($filename, "r");
-	$contents = fread ($fd, 4096);	// Suppose TIME section is at beginning
-	fclose ($fd);
+	$fd = fopen($filename, "r");
+	$contents = fread($fd, 4096);	// Suppose TIME section is at beginning
+	fclose($fd);
 
 	if (preg_match('/^<xml/',$contents))
 	{
@@ -156,13 +153,13 @@ function read_file($file,$domain)
 			$dom_info = explode(" ",$info);
 			if(count($dom_info) < 5) { break; }
 
-			# Record number of page views
+			// Record number of page views
 			$domaininfo[$domain][$yyyy][$mm]['pages'] += $dom_info[1];
 			$total[$domain]['pages'] += $dom_info[1];
-			# Record number of hits
+			// Record number of hits
 			$domaininfo[$domain][$yyyy][$mm]['hits'] += $dom_info[2];
 			$total[$domain]['hits'] += $dom_info[2];
-			# Record ammount of traffic
+			// Record ammount of traffic
 			$domaininfo[$domain][$yyyy][$mm]['traffic'] += $dom_info[3];
 			$total[$domain]['traffic'] += $dom_info[3];
 		}
@@ -186,14 +183,14 @@ function read_file($file,$domain)
 
 			if ($dom_info[0] == 'TotalVisits')
 			{
-				# Record number of visits
+				// Record number of visits
 				$domaininfo[$domain][$yyyy][$mm]['visits'] += $dom_info[1];
 				$total[$domain]['visits'] += $dom_info[1];
 				$max['visits']=max($max['visits'],$dom_info[1]);
 			}
 			if ($dom_info[0] == 'TotalUnique')
 			{
-				# Record number of visitors
+				// Record number of visitors
 				$domaininfo[$domain][$yyyy][$mm]['visitors'] += $dom_info[1];
 				$total[$domain]['visitors'] += $dom_info[1];
 				$max['visitors']=max($max['visitors'],$dom_info[1]);
@@ -203,18 +200,14 @@ function read_file($file,$domain)
 
 }
 
-#########################
-# XML Functions			#
-#########################
+// XML Functions			#
 
-# Initialize arrays
+// Initialize arrays
 $xmldata = array();
 $bigarray = array();
 
 
-#################################
-# Number formatting function	#
-#################################
+// Number formatting function	#
 function format($number) {
 	global $format_numbers;
 
@@ -228,14 +221,12 @@ function format($number) {
 
 
 
-#############################
-# Begin Processing Files	#
-#############################
+// Begin Processing Files	#
 
-# Open History Directory
+// Open History Directory
 $dir = @opendir($history_dir);
 
-# Check if History Directory Exists
+// Check if History Directory Exists
 if(!$dir) {
 	echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -251,16 +242,16 @@ Check your <a href="'.dol_buildpath('/awstats/admin/awstats.php',1).'">AWStats s
 	exit;
 }
 
-# Define list of qualified files
+// Define list of qualified files
 while(($file = readdir($dir)) !== false)
 {
-	if((substr_count($file, "awstats") == 0 && strlen($file) >= 14) || substr_count($file,".") == 0 || $file == "." || $file == "..") continue;				# Drop all files except history files
+	if((substr_count($file, "awstats") == 0 && strlen($file) >= 14) || substr_count($file,".") == 0 || $file == "." || $file == "..") continue;				// Drop all files except history files
 	{
-		$domname = substr($file,14);								# Find Domain Name
-		$domname = substr($domname,0,-4);							# And remove trailing
+		$domname = substr($file,14);								// Find Domain Name
+		$domname = substr($domname,0,-4);							// And remove trailing
 
 		// If a limit has been set
-		if (sizeof($limittoconf))
+		if (count($limittoconf))
 		{
 			if (! in_array($domname, $limittoconf)) continue;	// Not qualified
 		}
@@ -285,7 +276,7 @@ while(($file = readdir($dir)) !== false)
 	}
 }
 
-# Check if there are any valid files, otherwise exit
+// Check if there are any valid files, otherwise exit
 if(count($files) == 0)
 {
 	$output_table = '
@@ -293,11 +284,11 @@ if(count($files) == 0)
 }
 else
 {
-	# Sort the files in ascending order and then reset the list of sites
+	// Sort the files in ascending order and then reset the list of sites
 	sort($files);
 	reset($sites);
 
-	# Check for file type
+	// Check for file type
 	$curr = 0;
 	while($curr < count($files))
 	{
@@ -309,24 +300,22 @@ else
 		$domains[] = $domain;
 
 		//print dol_print_date(mktime(),'Y%m%d%H%M%S')." Process file ".$files[$curr]."<br>\n";
-		# Check if we are filtering the domains
+		// Check if we are filtering the domains
 		if($filter_domains == true && array_search($domain,$domain_list) == false) {
-			# Read the source file
+			// Read the source file
 			read_file($files[$curr],$domain);
 		} else {
-			# Read the source file
+			// Read the source file
 			read_file($files[$curr],$domain);
 		}
 		$curr++;
 	}
-	# Remove Duplicate Domains and resort
+	// Remove Duplicate Domains and resort
 	$domains = array_unique($domains);
 	sort($domains);
 
 
-	##############################
-	# Start building the report  #
-	##############################
+	// Start building the report  #
 	$maxwidth=160;
 	if ($build_domains == true)
 	{
@@ -366,21 +355,21 @@ else
 				// List of month
 				foreach($data as $key3 => $ata)
 				{
-					if($i % 2) {			# Alternate colors
-						$bgc = "first";		# Use first bg color
+					if($i % 2) {			// Alternate colors
+						$bgc = "first";		// Use first bg color
 					} else {
-						$bgc = "second";	# Use second bg color
+						$bgc = "second";	// Use second bg color
 					}
 
 					// Define traffic
 					if (preg_match('/^XML/',$domaininfo[$key][$key2][$key3]['traffic'])) $traffic=$domaininfo[$key][$key2][$key3]['traffic'];
 					else
 					{
-						if($domaininfo[$key][$key2][$key3]['traffic'] > 1073741824) {	# Over 1GB
+						if($domaininfo[$key][$key2][$key3]['traffic'] > 1073741824) {	// Over 1GB
 							$traffic = sprintf("%.2f",$domaininfo[$key][$key2][$key3]['traffic']/1024/1024/1024).' GB';
-						} elseif($domaininfo[$key][$key2][$key3]['traffic'] > 1048576) { # Over 1MB
+						} elseif($domaininfo[$key][$key2][$key3]['traffic'] > 1048576) { // Over 1MB
 							$traffic = sprintf("%.2f",$domaininfo[$key][$key2][$key3]['traffic']/1024/1024).' MB';
-						} else { # Under 1MB
+						} else { // Under 1MB
 							$traffic = sprintf("%.2f",$domaininfo[$key][$key2][$key3]['traffic']/1024).' KB';
 						}
 					}
@@ -417,11 +406,11 @@ else
 			if (preg_match('/^XML/',$total[$key]['traffic'])) $traffic=$total[$key]['traffic'];
 			else
 			{
-				if($total[$key]['traffic'] > 1073741824) {	# Over 1GB
+				if($total[$key]['traffic'] > 1073741824) {	// Over 1GB
 					$traffic = sprintf("%.2f",$total[$key]['traffic']/1024/1024/1024).' GB';
-				} elseif($total[$key]['traffic'] > 1048576) { # Over 1MB
+				} elseif($total[$key]['traffic'] > 1048576) { // Over 1MB
 					$traffic = sprintf("%.2f",$total[$key]['traffic']/1024/1024).' MB';
-				} else { # Under 1MB
+				} else { // Under 1MB
 					$traffic = sprintf("%.2f",$total[$key]['traffic']/1024).' KB';
 				}
 			}
@@ -444,12 +433,10 @@ else
 	}
 
 
-	#####################################
-	# Check and build system statistics table.  #
-	#####################################
+	// Check and build system statistics table.  #
 	if ($build_system == true)
 	{
-		# Calculate totals
+		// Calculate totals
 		$server = array();
 		ksort($domaininfo);
 		foreach($domaininfo as $key1 => $data1) {
@@ -457,8 +444,8 @@ else
 			foreach($data1 as $key2 => $data2) {
 				foreach($data2 as $key3 => $data3) {
 					foreach($data3 as $key4 => $data4) {
-						$server[$key2][$key3][$key4] += (float)$data4;
-						$total2[$key4] += (float)$data4;
+						$server[$key2][$key3][$key4] += (float) $data4;
+						$total2[$key4] += (float) $data4;
 					}
 				}
 			}
@@ -488,11 +475,11 @@ else
 				if (preg_match('/^XML/',$server[$key1][$key2]['traffic'])) $traffic=$server[$key1][$key2]['traffic'];
 				else
 				{
-					if($server[$key1][$key2]['traffic'] > 1073741824) {	# Over 1GB
+					if($server[$key1][$key2]['traffic'] > 1073741824) {	// Over 1GB
 						$traffic = sprintf("%.2f",$server[$key1][$key2]['traffic']/1024/1024/1024).' GB';
-					} elseif($server[$key1][$key2]['traffic'] > 1048576) { # Over 1MB
+					} elseif($server[$key1][$key2]['traffic'] > 1048576) { // Over 1MB
 						$traffic = sprintf("%.2f",$server[$key1][$key2]['traffic']/1024/1024).' MB';
-					} else { # Under 1MB
+					} else { // Under 1MB
 						$traffic = sprintf("%.2f",$server[$key1][$key2]['traffic']/1024).' KB';
 					}
 				}
@@ -509,11 +496,11 @@ else
 				$i++;
 			}
 		}
-		if($total2['traffic'] > 1073741824) {	# Over 1GB
+		if($total2['traffic'] > 1073741824) {	// Over 1GB
 			$traffic = sprintf("%.2f",$total2['traffic']/1024/1024/1024).' GB';
-		} elseif($total2['traffic'] > 1048576) { # Over 1MB
+		} elseif($total2['traffic'] > 1048576) { // Over 1MB
 			$traffic = sprintf("%.2f",$total2['traffic']/1024/1024).' MB';
-		} else { # Under 1MB
+		} else { // Under 1MB
 			$traffic = sprintf("%.2f",$total2['traffic']/1024).' KB';
 		}
 		$system_table .= '
@@ -535,10 +522,10 @@ else
 
 
 
-# Record Completion Time
+// Record Completion Time
 $etime = dol_now();
 
-# Format HTML
+// Format HTML
 $html =	'';
 
 print_fiche_titre(' &nbsp; '.$langs->trans("AWStatsSummary"),'',dol_buildpath('/awstats/images/awstats.png',1),1);
@@ -555,15 +542,16 @@ print '</table>';
 print '</form>';
 print '<br>';
 
-# Format CSS
-# Piece it all together
+// Format CSS
+// Piece it all together
 if ($system_stats_top == true) {
 	$statistics = $html.$title.$system_table.$output_table.$html2;
 } else {
 	$statistics = $html.$title.$output_table.$system_table.$html2;
 }
-#	Output to the screen
+// Output to the screen
 echo $statistics;
 
-llxFooter('$Date: 2011/08/16 09:28:25 $ - $Revision: 1.23 $');
+llxFooter();
+
 ?>
