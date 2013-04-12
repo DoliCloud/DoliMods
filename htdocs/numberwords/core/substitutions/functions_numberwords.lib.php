@@ -29,7 +29,7 @@
  * 		functions xxx_completesubstitutionarray are called by make_substitutions() if file
  * 		is inside directory htdocs/core/substitutions
  *
- *		@param	array		$substitutionarray	Array with substitution key=>val
+ *		@param	array		&$substitutionarray	Array with substitution key=>val
  *		@param	Translate	$langs				Output langs
  *		@param	Object		$object				Object to use to get values
  * 		@return	void							The entry parameter $substitutionarray is modified
@@ -51,13 +51,14 @@ function numberwords_completesubstitutionarray(&$substitutionarray,$langs,$objec
 }
 
 /**
- *      Return full text translated to language label for a key. Store key-label in a cache.
- *		@param		langs		Language for output
- * 		@param		number		Number to encode in full text
- * 		@param		isamount	1=It's an amount, 0=it's just a number
- *      @return     string		Label translated in UTF8 (but without entities)
- * 								10 if setDefaultLang was en_US => ten
- * 								123 if setDefaultLang was fr_FR => cent vingt trois
+ *  Return full text translated to language label for a key. Store key-label in a cache.
+ *      
+ *	@param		Langs	$langs		Language for output
+ * 	@param		int		$number		Number to encode in full text
+ * 	@param		int		$isamount	1=It's an amount, 0=it's just a number
+ *  @return     string				Label translated in UTF8 (but without entities)
+ * 									10 if setDefaultLang was en_US => ten
+ * 									123 if setDefaultLang was fr_FR => cent vingt trois
  */
 function numberwords_getLabelFromNumber($langs,$number,$isamount=0)
 {

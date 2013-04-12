@@ -272,7 +272,7 @@ print '</td>';
 print '<td colspan="3">';
 
 $listsalesrepresentatives=$soc->getSalesRepresentatives($user);
-$nbofsalesrepresentative=sizeof($listsalesrepresentatives);
+$nbofsalesrepresentative=count($listsalesrepresentatives);
 if ($nbofsalesrepresentative > 3)   // We print only number
 {
     print '<a href="'.DOL_URL_ROOT.'/societe/commerciaux.php?socid='.$soc->id.'">';

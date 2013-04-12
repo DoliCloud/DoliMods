@@ -160,7 +160,7 @@ if ($id > 0)
     print '</td></tr>';
 
     // Role
-    print '<tr><td>'.$langs->trans("PostOrFunction" ).'</td><td colspan="3">'.$object->poste.'</td></tr>';
+    print '<tr><td>'.$langs->trans("PostOrFunction").'</td><td colspan="3">'.$object->poste.'</td></tr>';
 
     print "</table>";
 }

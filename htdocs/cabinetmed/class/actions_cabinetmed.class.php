@@ -48,12 +48,12 @@ class ActionsCabinetmed
     /**
      *    Execute action
      *
-     *    @param		parameters	Array of parameters
-     *    @param        object      Deprecated. This field is nto used
-     *    @param        action      'add', 'update', 'view'
-     *    @return       int         <0 if KO,
-     *                              =0 if OK but we want to process standard actions too,
-     *                              >0 if OK and we want to replace standard actions.
+     *    @param	array	$parameters		Array of parameters
+     *    @param    mixed	&$object      	Deprecated. This field is not used
+     *    @param    string	&$action      	'add', 'update', 'view'
+     *    @return   int         			<0 if KO,
+     *                              		=0 if OK but we want to process standard actions too,
+     *                              		>0 if OK and we want to replace standard actions.
      */
     function doActions($parameters,&$object,&$action)
     {

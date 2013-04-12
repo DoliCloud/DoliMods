@@ -32,8 +32,12 @@ Zend_Loader::loadClass('Zend_Gdata_Query');
 Zend_Loader::loadClass('Zend_Gdata_Feed');
 
 
-class GContact {
-    const ATOM_NAME_SPACE = "http://www.w3.org/2005/Atom";
+/**
+ * GContact
+ */
+class GContact
+{
+	const ATOM_NAME_SPACE = "http://www.w3.org/2005/Atom";
     const REL_WORK='http://schemas.google.com/g/2005#work';
     const REL_MOBILE='http://schemas.google.com/g/2005#mobile';
     const REL_HOME='http://schemas.google.com/g/2005#home';
@@ -61,12 +65,13 @@ class GContact {
     public $atomEntry;
 
     /**
-     *
-     * @param string 	$dolID
-     * @param string 	$fullName
+     * Constructor
+     * 
+     * @param string 	$dolID		Dolibarr id
+     * @param string 	$type		Type of Google contact
      * @param Gdata		$gdata		Gdata handler
      */
-    public function __construct($dolID=null,$type='contact',$gdata)
+    public function __construct($dolID, $type, $gdata)
     {
         if($dolID) {
             $this->from='dolibarr';
@@ -79,8 +84,11 @@ class GContact {
     }
 
     /**
-     * @param string $key
-     * @param string $value
+     * appendCustomField
+     * 
+     * @param 	string $key			Key
+     * @param 	string $value			Value
+     * @return	void
      */
     private function appendCustomField($key, $value) {
         $el = $this->doc->createElement('gcontact:userDefinedField');
@@ -90,10 +98,13 @@ class GContact {
     }
 
     /**
-     * @param string $rel
-     * @param string $email
-     * @param boolean $isPrimary
-     * @param string $label
+     * appendEmail
+     * 
+     * @param 	string $rel			Rel			Rel
+     * @param 	string $email			Email		EMail
+     * @param 	boolean $isPrimary	isPrimary	isPrimary
+     * @param 	string $label			Label		Label
+     * @return	void
      */
     private function appendEmail($rel, $email, $isPrimary, $label=null) {
         if(empty($email)) return;
@@ -110,18 +121,25 @@ class GContact {
     }
 
     /**
-     * @param string $text
-     * @param string $elName
+     * appendTextElement
+     *
+     * @param	DOMElement	$el			DOMElement
+     * @param 	string 		$elName		elName
+     * @param 	string 		$text		Text
+     * @return	void
      */
     private function appendTextElement(DOMElement $el, $elName, $text) {
         if(empty($text)) return;
         $el->appendChild($this->doc->createElement($elName, htmlspecialchars($text)));
     }
 
-    /*
-     * @param string $rel
-     * @param GCaddr $addr
-     * @param string $label
+    /**
+     * appendPostalAddress
+     * 
+     * @param 	string $rel			Rel			Rel
+     * @param 	GCaddr $addr		Addr		Addr
+     * @param 	string $label		Label		Label
+     * @return	void
      */
     private function appendPostalAddress($rel, GCaddr $addr=null,$label=null) {
         if(empty($addr)) return;
@@ -140,10 +158,13 @@ class GContact {
     }
 
     /**
-     * @param string $rel
-     * @param string $phoneNumber
-     * @param boolean $isPrimary
-     * @param string $label
+     * appendPhoneNumber
+     * 
+     * @param 	string $rel				Rel
+     * @param 	string $phoneNumber		PhoneNumber
+     * @param 	boolean $isPrimary		IsPrimary
+     * @param 	string $label			Label
+     * @return	void
      */
     private function appendPhoneNumber($rel, $phoneNumber, $isPrimary, $label=null) {
         if(empty($phoneNumber)) return;
@@ -158,7 +179,10 @@ class GContact {
     }
 
     /**
-     * @param string $href
+     * appendWebSite
+     * 
+     * @param 	string $href		Href
+     * @return	void
      */
     private function appendWebSite($href) {
         if(empty($href)) return;
@@ -169,9 +193,12 @@ class GContact {
     }
 
     /**
-     * @param string $label
-     * @param string $address
-     * @param string $protocol
+     * appendInstantMessaging
+     * 
+     * @param string $label		Label
+     * @param string $im		IM address
+     * @param string $protocol	Protocol
+     * @return	void
      */
     private function appendInstantMessaging($label, $im, $protocol) {
         $el = $this->doc->createElement('gdata:im');
@@ -182,8 +209,11 @@ class GContact {
     }
 
     /**
-     * @param string $label
-     * @param string $href
+     * appendRelation
+     * 
+     * @param 	string $label		Label
+     * @param 	string $value		Href
+     * @return	void
      */
     private function appendRelation($label, $value) {
         //Relationships
@@ -197,7 +227,8 @@ class GContact {
      * Create group
      *
      * @param	Gdata	$gdata		Gdata handler
-     * @param string $groupName
+     * @param 	string 	$groupName	Name of group
+     * @return	void
      */
     private function appendGroup($gdata, $groupName)
     {
@@ -210,7 +241,8 @@ class GContact {
     /**
      * Fill the GContact class from a dolibarID
      *
-     * @return GContact
+     * @param	Gdata		$gdata		Gdata handler
+     * @return 	GContact
      */
     private function fetchThirdpartyFromDolibarr($gdata)
     {
@@ -311,7 +343,8 @@ class GContact {
      * Fill GContact instance for this->dolID.
      * Note: It creates groups if it not exists.
      *
-     * @return GContact
+     * @param	GData	$gdata		GData
+     * @return 	GContact
      */
     private function fetchContactFromDolibarr($gdata)
     {
@@ -622,7 +655,7 @@ class GContact {
                         $node = $doc->importNode($entry, true);
                         $doc->appendChild($node);
                         $newXml = $doc->saveXML();
-                        $newXml=str_replace('<atom:title type="text">'.$oldPrefix, '<atom:title type="text">'.$newPrefix,$newXml );
+                        $newXml=str_replace('<atom:title type="text">'.$oldPrefix, '<atom:title type="text">'.$newPrefix, $newXml);
                         $googleID = $googleIDNodes->item(0)->textContent;
                         $entryResult = $gdata->updateEntry($newXml, $googleID,null,$headers);
                     }
@@ -1037,9 +1070,10 @@ class GContact {
 
 
 /**
- *
+ * GCaddr
  */
-class GCaddr {
+class GCaddr
+{
     var $street;
     var $zip;
     var $town;
@@ -1048,17 +1082,26 @@ class GCaddr {
     var $country_id;
     var $state_id;
 
-    function fillIDs() {
+    /**
+     *	Fill country and state id from labels
+     *
+     * 	@return	void
+     */
+    function fillIDs() 
+    {
         $this->guessCountryID();
         $this->guessStateID();
 
     }
 
      /**
-     * Do our best to retreive dolibarr country_id from the country label.
-     * knowing that labels from google are free and traduction problem could arise...
-     */
-    private function guessCountryID() {
+      * Do our best to retreive dolibarr country_id from the country label.
+      * knowing that labels from google are free and traduction problem could arise...
+      * 
+      * @return	string	Country id
+      */
+    private function guessCountryID() 
+    {
         if (empty($this->country)) return;
         global $db,$langs;
         $langs->load("dict");
@@ -1078,8 +1121,11 @@ class GCaddr {
 
     /**
      * Try to return the dolibarr StateID given a dolibarr countryID and a stateLabel
+     * 
+     * @return	int		State id
      */
-    private function guessStateID() {
+    private function guessStateID()
+    {
         if (empty($this->state) || empty($this->country_id)) return;
         global $db,$langs;
         $langs->load("dict");

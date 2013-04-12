@@ -123,7 +123,7 @@ $fullcommand=$command." ".join(" ",$param);
 $output=array();
 $return_var=0;
 print $fullcommand."\n";
-exec($fullcommand, &$output, &$return_var);
+exec($fullcommand, $output, $return_var);
 
 // Output result
 foreach($output as $outputline)

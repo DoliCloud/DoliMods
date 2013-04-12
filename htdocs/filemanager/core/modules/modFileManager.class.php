@@ -193,9 +193,11 @@ class modFileManager extends DolibarrModules
 	}
 
 	/**
-	 *	\brief      Fonction appelee lors de la desactivation d'un module.
-	 *              Supprime de la base les constantes, boites et permissions du module.
-	 *	\param		options		Options when disabling module
+	 *	Fonction appelee lors de la desactivation d'un module.
+	 *  Supprime de la base les constantes, boites et permissions du module.
+	 *  
+	 *	@param	string	$options		Options when disabling module
+	 *	@return	void
 	 */
 	function remove($options='')
 	{
@@ -205,11 +207,12 @@ class modFileManager extends DolibarrModules
 	}
 
 	/**
-	 *		\brief		Create tables, keys and data required by module
-	 * 					Files llx_table1.sql, llx_table1.key.sql llx_data.sql with create table, create keys
-	 * 					and create data commands must be stored in directory /mymodule/sql/
-	 *					This function is called by this->init.
-	 * 		\return		int		<=0 if KO, >0 if OK
+	 *	Create tables, keys and data required by module
+	 * 	Files llx_table1.sql, llx_table1.key.sql llx_data.sql with create table, create keys
+	 * 	and create data commands must be stored in directory /mymodule/sql/
+	 *	This function is called by this->init.
+	 *
+	 * 	@return		int		<=0 if KO, >0 if OK
 	 */
 	function load_tables()
 	{

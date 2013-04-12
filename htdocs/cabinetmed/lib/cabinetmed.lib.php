@@ -56,10 +56,11 @@ function addAlert($db, $type, $id, $value)
 /**
  * List reason for consultation
  *
- * @param 	nboflines
- * @param 	newwidth		Force width
- * @param	htmlname		Name of HTML select field
- * @param	selected		Preselected value
+ * @param 	int		$nboflines		Nb of lines
+ * @param 	int		$newwidth		Force width
+ * @param	string	$htmlname		Name of HTML select field
+ * @param	string	$selected		Preselected value
+ * @return	void
 */
 function listmotifcons($nboflines,$newwidth=0,$htmlname='motifcons',$selected='')
 {
@@ -94,10 +95,11 @@ function listmotifcons($nboflines,$newwidth=0,$htmlname='motifcons',$selected=''
 /**
  * List lesion diagnostic
  *
- * @param 	nboflines
- * @param 	newwidth		Force width
- * @param	htmlname		Name of HTML select field
- * @param	selected		Preselected value
+ * @param 	int		$nboflines		Nb of lines
+ * @param 	int		$newwidth		Force width
+ * @param	string	$htmlname		Name of HTML select field
+ * @param	string	$selected		Preselected value
+ * @return	void
 */
 function listdiagles($nboflines,$newwidth=0,$htmlname='diagles',$selected='')
 {
@@ -133,11 +135,12 @@ function listdiagles($nboflines,$newwidth=0,$htmlname='diagles',$selected='')
 /**
  *  Show combo box with all exams
  *
- *  @param          nboflines       Max nb of lines
- *  @param          newwidth        Force width
- *  @param          type            To filter on a type
- *  @param          showtype        Show type
- *  @param          htmlname        Name of html select area
+ *  @param	int		$nboflines       Max nb of lines
+ *  @param  int     $newwidth        Force width
+ *  @param  string  $type            To filter on a type
+ *  @param	string	$showtype        Show type
+ *  @param  string	$htmlname        Name of html select area
+ *  @return	void
  */
 function listexamen($nboflines,$newwidth=0,$type='',$showtype=0,$htmlname='examen')
 {
@@ -172,9 +175,10 @@ function listexamen($nboflines,$newwidth=0,$type='',$showtype=0,$htmlname='exame
 /**
  *  Show combo box with all exam conclusions
  *
- *  @param          nboflines       Max nb of lines
- *  @param          newwidth        Force width
- *  @param          htmlname        Name of html select area
+ *  @param	int		$nboflines       Max nb of lines
+ *  @param  int		$newwidth        Force width
+ *  @param  string	$htmlname        Name of html select area
+ *  @return	void
  */
 function listexamconclusion($nboflines,$newwidth=0,$htmlname='examconc')
 {
@@ -207,10 +211,11 @@ function listexamconclusion($nboflines,$newwidth=0,$htmlname='examconc')
 /**
  * Show combo box with list of banks
  *
- * @param 	nboflines
- * @param 	newwidth		Force width
- * @param	defautlvalue	Preselected value
- * @param	htmlname		Name of HTML select field
+ * @param 	int		$nboflines		Nb of lines
+ * @param 	int		$newwidth		Force width
+ * @param	string	$defaultvalue	Preselected value
+ * @param	string	$htmlname		Name of HTML select field
+ * @return	void
  */
 function listebanques($nboflines,$newwidth=0,$defaultvalue='',$htmlname='banque')
 {
@@ -246,10 +251,11 @@ function listebanques($nboflines,$newwidth=0,$defaultvalue='',$htmlname='banque'
 /**
  * List contacts
  *
- * @param 	nboflines
- * @param 	newwidth		Force width
- * @param	htmlname		Name of HTML select field
- * @param	selected		Preselected value
+ * @param 	int		$nboflines		Nb of lines
+ * @param 	int		$newwidth		Force width
+ * @param	string	$htmlname		Name of HTML select field
+ * @param	string	$selected		Preselected value
+ * @return	void
  */
 function listcontacts($nboflines,$newwidth=0,$htmlname='diagles',$selected='')
 {
@@ -355,9 +361,9 @@ function contact_patient_stats_prepare_head($object)
 /**
  * dol_cm_strptime
  *
- * @param 	unknown_type 	$text (%d, %m, %Y)
- * @param 	unknown_type 	$format
- * @return	array			Array of component of date
+ * @param 	string 	$text 		Text to parse
+ * @param 	string	$format		Format (%d, %m, %Y)
+ * @return	array				Array of component of date
  */
 function dol_cm_strptime($text, $format)
 {

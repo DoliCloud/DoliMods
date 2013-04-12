@@ -140,9 +140,10 @@ class modZipAutoFillFr extends DolibarrModules
 	}
 
 	/**
-	 *		\brief		Create tables and keys required by module
-	 *					This function is called by this->init.
-	 * 		\return		int		<=0 if KO, >0 if OK
+	 *	Create tables and keys required by module
+	 *	This function is called by this->init.
+	 *
+	 *	@return		int		<=0 if KO, >0 if OK
 	 */
 	function load_tables()
 	{

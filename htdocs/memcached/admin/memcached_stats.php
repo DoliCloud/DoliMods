@@ -77,6 +77,15 @@ function sendMemcacheCommands($command){
 	}
 	return $result;
 }
+
+/**
+ * sendMemcacheCommad
+ * 
+ * @param 	string	$server			Server
+ * @param 	int 		$port			Port
+ * @param 	string	$command		Command
+ * @return	void
+ */
 function sendMemcacheCommand($server,$port,$command){
 
 	$s = @fsockopen($server,$port);
@@ -134,12 +143,26 @@ function dumpCacheSlab($server,$slabId,$limit){
 
 }
 
-function flushServer($server){
+/**
+ * flushServer
+ * 
+ * @param 	string	$server		Server
+ * @return	void
+ */
+function flushServer($server)
+{
     list($host,$port) = explode(':',$server);
     $resp = sendMemcacheCommand($host,$port,'flush_all');
     return $resp;
 }
-function getCacheItems(){
+
+/**
+ * getCacheItems
+ * 
+ * @return multitype:multitype:number unknown  Ambigous <multitype:multitype: , unknown>
+ */
+function getCacheItems()
+{
  $items = sendMemcacheCommands('stats items');
  $serverItems = array();
  $totalItems = array();
@@ -252,12 +275,12 @@ function getMemcacheStats($total=true){
 
 function duration($ts) {
     global $time;
-    $years = (int)((($time - $ts)/(7*86400))/52.177457);
-    $rem = (int)(($time-$ts)-($years * 52.177457 * 7 * 86400));
-    $weeks = (int)(($rem)/(7*86400));
-    $days = (int)(($rem)/86400) - $weeks*7;
-    $hours = (int)(($rem)/3600) - $days*24 - $weeks*7*24;
-    $mins = (int)(($rem)/60) - $hours*60 - $days*24*60 - $weeks*7*24*60;
+    $years = (int) ((($time - $ts)/(7*86400))/52.177457);
+    $rem = (int) (($time-$ts)-($years * 52.177457 * 7 * 86400));
+    $weeks = (int) (($rem)/(7*86400));
+    $days = (int) (($rem)/86400) - $weeks*7;
+    $hours = (int) (($rem)/3600) - $days*24 - $weeks*7*24;
+    $mins = (int) (($rem)/60) - $hours*60 - $days*24*60 - $weeks*7*24*60;
     $str = '';
     if($years==1) $str .= "$years year, ";
     if($years>1) $str .= "$years years, ";
@@ -287,7 +310,13 @@ function menu_entry($ob,$title) {
 	return "<li><a class=\"active\" href=\"$PHP_SELF&op=$ob\">$title</a></li>";
 }
 
-function getHeader(){
+/**
+ * getHeader
+ * 
+ * @return string
+ */
+function getHeader()
+{
     $header = <<<EOB
 <style type="text/css"><!--
 
@@ -439,7 +468,14 @@ EOB;
 
     return $header;
 }
-function getFooter(){
+
+/**
+ * getFooter
+ * 
+ * @return string
+ */
+function getFooter()
+{
     global $VERSION;
     $footer = '<!-- Based on apc.php '.$VERSION.'--></body>
 </html>
@@ -448,7 +484,12 @@ function getFooter(){
     return $footer;
 
 }
-function getMenu(){
+
+/**
+ * getMenu
+ */
+function getMenu()
+{
     global $PHP_SELF,$langs;
 echo "<ol class=menu>";
 echo menu_entry(1,$langs->trans("Refresh"));
@@ -531,8 +572,22 @@ if (isset($_GET['IMG'])){
 		}
 	}
 
-
-    function fill_arc($im, $centerX, $centerY, $diameter, $start, $end, $color1,$color2,$text='',$placeindex=0) {
+	/**
+	 * fill_arc
+	 * 
+	 * @param int $im
+	 * @param int $centerX
+	 * @param int $centerY
+	 * @param int $diameter
+	 * @param int $start
+	 * @param int $end
+	 * @param int $color1
+	 * @param int $color2
+	 * @param int $text
+	 * @param int $placeindex
+	 */
+    function fill_arc($im, $centerX, $centerY, $diameter, $start, $end, $color1,$color2,$text='',$placeindex=0) 
+    {
 		$r=$diameter/2;
 		$w=deg2rad((360+$start+($end-$start)/2)%360);
 
@@ -588,15 +643,15 @@ if (isset($_GET['IMG'])){
     			    $angle_to = ($free*360)/$tsize;
                     $perc =sprintf("%.2f%%", ($free *100) / $tsize) ;
 
-        			fill_arc($image,$x,$y,$size,$angle_from,$angle_from + $angle_to ,$col_black,$col_green,$perc);
+        			fill_arc($image,$x,$y,$size,$angle_from,$angle_from + $angle_to,$col_black,$col_green,$perc);
         			$angle_from = $angle_from + $angle_to ;
                 }
     			if ($used>0){
     			// draw used
         			$angle_to = ($used*360)/$tsize;
-        			$perc =sprintf("%.2f%%", ($used *100) / $tsize) ;
+        			$perc =sprintf("%.2f%%", ($used *100) / $tsize);
         			fill_arc($image,$x,$y,$size,$angle_from,$angle_from + $angle_to ,$col_black,$col_red, '('.$perc.')' );
-                    $angle_from = $angle_from+ $angle_to ;
+                    $angle_from = $angle_from+ $angle_to;
     			}
     			}
 
@@ -824,7 +879,7 @@ EOB;
         // somebody has to do a fix to this.
         $theKey = htmlentities(base64_decode($_GET['key']));
 
-        $theserver = $MEMCACHE_SERVERS[(int)$_GET['server']];
+        $theserver = $MEMCACHE_SERVERS[(int) $_GET['server']];
         list($h,$p) = explode(':',$theserver);
         $r = sendMemcacheCommand($h,$p,'get '.$theKey);
 
@@ -839,7 +894,7 @@ EOB;
              " <br/>flag:",$r['VALUE'][$theKey]['stat']['flag'],
              " <br/>Size:",dol_print_size($r['VALUE'][$theKey]['stat']['size'],1),
              "</td><td>",chunk_split($r['VALUE'][$theKey]['value'],40),"</td>",
-             '<td><a href="',$PHP_SELF,'&op=5&server=',(int)$_GET['server'],'&key=',base64_encode($theKey),"\">Delete</a></td>","</tr>";
+             '<td><a href="',$PHP_SELF,'&op=5&server=',(int) $_GET['server'],'&key=',base64_encode($theKey),"\">Delete</a></td>","</tr>";
         echo <<<EOB
 			</tbody></table>
 EOB;

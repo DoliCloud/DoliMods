@@ -157,7 +157,7 @@ if ($mode == 'testrsync' || $mode == 'confirmrsync' || $mode == 'confirm')
 	$output=array();
 	$return_var=0;
 	print strftime("%Y%m%d-%H%M%S").' '.$fullcommand."\n";
-	exec($fullcommand, &$output, &$return_var);
+	exec($fullcommand, $output, $return_var);
 	print strftime("%Y%m%d-%H%M%S").' rsync done'."\n";
 
 	// Output result
@@ -198,7 +198,7 @@ if ($mode == 'testdatabase' || $mode == 'confirmdatabase' || $mode == 'confirm')
 	$output=array();
 	$return_varmysql=0;
 	print strftime("%Y%m%d-%H%M%S").' '.$fullcommand."\n";
-	exec($fullcommand, &$output, &$return_varmysql);
+	exec($fullcommand, $output, $return_varmysql);
 	print strftime("%Y%m%d-%H%M%S").' mysqldump done'."\n";
 
 	// Output result

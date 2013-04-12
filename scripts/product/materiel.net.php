@@ -81,9 +81,7 @@ while ($data = fread($fp, 4096) )
 {
   if (!xml_parse($xml_parser, $data, feof($fp)))
     {
-      die(sprintf("erreur XML : %s � la ligne %d",
-		  xml_error_string(xml_get_error_code($xml_parser)),
-		  xml_get_current_line_number($xml_parser)));
+      die(sprintf("erreur XML : %s � la ligne %d", xml_error_string(xml_get_error_code($xml_parser)), xml_get_current_line_number($xml_parser)));
     }
 }
 xml_parser_free($xml_parser);
@@ -120,6 +118,14 @@ function charData($parser, $data)
 
 }
 
+/**
+ * debutElement
+ *
+ * @param 	int		$parser		Parser
+ * @param 	string	$name		Name
+ * @param 	int		$attrs		Attrs
+ * @return	void
+ */
 function debutElement($parser, $name, $attrs)
 {
   global $depth, $index, $items, $current;
@@ -153,6 +159,13 @@ function debutElement($parser, $name, $attrs)
     }
 }
 
+/**
+ * finElement
+ *
+ * @param 	int		$parser		Parser
+ * @param 	string	$name		Name
+ * @return	void
+ */
 function finElement($parser, $name)
 {
   global $depth;

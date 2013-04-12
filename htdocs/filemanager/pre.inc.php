@@ -35,15 +35,19 @@ if (! $res) die("Include of main fails");
 
 
 /**
- *
- * @param $head
- * @param $title
- * @param $help_url
- * @param $target
- * @param $disablejs
- * @param $disablehead
- * @param $arrayofjs
- * @param $arrayofcss
+ * llxHeader
+ * 
+ * @param 	string		$head			Head
+ * @param 	string		$title			Title
+ * @param 	string		$help_url		Help url
+ * @param 	string		$target			Target
+ * @param 	int			$disablejs		Disablejs
+ * @param 	int			$disablehead	Disablehead
+ * @param 	array		$arrayofjs		Array of js
+ * @param 	array		$arrayofcss		Array of css
+ * @param	int			$notopmenu		No top menu
+ * @param	int			$noleftmenu		No left menu	
+ * @return	void
  */
 function llxHeader($head = '', $title='', $help_url='', $target='', $disablejs=0, $disablehead=0, $arrayofjs='', $arrayofcss='', $notopmenu=0, $noleftmenu=0)
 {

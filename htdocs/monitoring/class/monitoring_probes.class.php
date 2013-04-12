@@ -74,9 +74,9 @@ class Monitoring_probes extends CommonObject
     /**
      *   Create in database
      *
-     *   @param      user        	User that create
-     *   @param      notrigger	    0=launch triggers after, 1=disable triggers
-     *   @return     int         	<0 if KO, Id of created object if OK
+     *   @param		User	$user        	User that create
+     *   @param 	int		$notrigger	    0=launch triggers after, 1=disable triggers
+     *   @return    int         			<0 if KO, Id of created object if OK
      */
     function create($user, $notrigger=0)
     {
@@ -177,8 +177,8 @@ class Monitoring_probes extends CommonObject
     /**
      *  Load object in memory from database
      *
-     *  @param      id          id object
-     *  @return     int         <0 if KO, >0 if OK
+     *  @param	int		$id         id object
+     *  @return int         		<0 if KO, >0 if OK
      */
     function fetch($id)
     {
@@ -243,9 +243,9 @@ class Monitoring_probes extends CommonObject
     /**
      *  Update database
      *
-     *  @param      user        	User that modify
-     *  @param      notrigger	    0=launch triggers after, 1=disable triggers
-     *  @return     int         	<0 if KO, >0 if OK
+     *  @param	User	$user        	User that modify
+     *  @param  int		$notrigger	    0=launch triggers after, 1=disable triggers
+     *  @return int         			<0 if KO, >0 if OK
      */
     function update($user=0, $notrigger=0)
     {
@@ -329,9 +329,9 @@ class Monitoring_probes extends CommonObject
  	/**
 	 *  Delete object in database
 	 *
-     *	@param      user        	User that delete
-     *  @param      notrigger	    0=launch triggers after, 1=disable triggers
-	 *	@return		int				<0 if KO, >0 if OK
+     *	@param	User	$user        	User that delete
+     *  @param  int		$notrigger	    0=launch triggers after, 1=disable triggers
+	 *	@return	int						<0 if KO, >0 if OK
 	 */
 	function delete($user, $notrigger=0)
 	{
@@ -383,12 +383,12 @@ class Monitoring_probes extends CommonObject
 
 
     /**
-     *      Update database when a status has changed
+     *  Update database when a status has changed
      *
-     *      @param      newstatus       New status to use. If 0, we also set value and date of first error to null.
-     *      @param      end_time        Date of detection
-     *      @param      errortext       To change also value and date of first error
-     *      @return     int             <0 if KO, >0 if OK
+     *  @param	int		$newstatus      New status to use. If 0, we also set value and date of first error to null.
+     *  @param  date	$end_time       Date of detection
+     *  @param  string	$errortext      To change also value and date of first error
+     *  @return int             		<0 if KO, >0 if OK
      */
     function updateStatus($newstatus,$end_time,$errortext)
     {
@@ -458,8 +458,8 @@ class Monitoring_probes extends CommonObject
 	/**
 	 *	Load an object from its id and create a new one in database
 	 *
-	 *	@param      fromid     		Id of object to clone
-	 * 	@return		int				New id of clone
+	 *	@param		int		$fromid     Id of object to clone
+	 * 	@return		int					New id of clone
 	 */
 	function createFromClone($fromid)
 	{
@@ -513,8 +513,8 @@ class Monitoring_probes extends CommonObject
     /**
      *  Return label of object status
      *
-     *  @param      mode            0=long label, 1=short label, 2=Picto + short label, 3=Picto, 4=Picto + long label, 5=short label + picto
-     *  @return     string          Label
+     *  @param      int		$mode		0=long label, 1=short label, 2=Picto + short label, 3=Picto, 4=Picto + long label, 5=short label + picto
+     *  @return     string   		   	Label
      */
     function getLibStatut($mode=0)
     {
@@ -524,10 +524,10 @@ class Monitoring_probes extends CommonObject
     /**
      *  Renvoi le libelle d'un statut donne
      *
-     *  @param      statut          Id statut
-     *  @param      mode            0=libelle long, 1=libelle court, 2=Picto + Libelle court, 3=Picto, 4=Picto + Libelle long, 5=Libelle court + Picto
-     *  @param      active          Active or not
-     *  @return     string          Libelle du statut
+     *  @param		int		$status         Id statut
+     *  @param      int		$mode           0=libelle long, 1=libelle court, 2=Picto + Libelle court, 3=Picto, 4=Picto + Libelle long, 5=Libelle court + Picto
+     *  @param      int		$active         Active or not
+     *  @return     string          		Libelle du statut
      */
     function LibStatut($status,$mode=0,$active=1)
     {

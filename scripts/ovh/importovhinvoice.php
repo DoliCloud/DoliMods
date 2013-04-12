@@ -68,7 +68,8 @@ $login=$argv[1];
 $refovhsupplier=$argv[2];
 
 $excludenullinvoice = 1;
-for ($i = 1 ; $i < count($argv) ; $i++)
+$nbofargs=count($argv);
+for ($i = 1; $i < $nbofargs; $i++)
 {
     if ($argv[$i] == "--include-null-invoices")
     {
@@ -244,8 +245,7 @@ try {
 
                         if (is_dir($upload_dir))
                         {
-                            $result[$i]->info=$soap->billingInvoiceInfo($session, $r->billnum, null,
-                            $r->billingCountry); //on recupere les details
+                            $result[$i]->info=$soap->billingInvoiceInfo($session, $r->billnum, null, $r->billingCountry); //on recupere les details
                             $r=$result[$i];
                             $url=$url_pdf."?reference=".$r->billnum."&passwd=".$r->info->password;
                             $file_name=($upload_dir."/".$facfou->ref_supplier.".pdf");
