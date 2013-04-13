@@ -69,4 +69,5 @@ InActivity=Followed
 ActivityCeased=No more followed
 MonkeyNumRefModelDesc=Return number with mask %syymm-nnnn for patient code and %syymm-nnnn for supplier codes where yy is year, mm is month and nnnn is a sequence with no hole and no back to 0.
 # Leopard
-eopardNumRefModelDesc=Free code patient with no check. Can be modified at any time.
+LeopardNumRefModelDesc=Free code patient with no check. Can be modified at any time.
+ThirdPartyCustomersStats=Thirdparties/Patient

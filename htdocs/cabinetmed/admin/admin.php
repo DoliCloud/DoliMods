@@ -66,11 +66,15 @@ if ($action == 'update')
 	{
 		$res=dolibarr_set_const($db, 'SOCIETE_DISABLE_CUSTOMERS', 1, 'texte', 1, '', $conf->entity);
 		$res=dolibarr_set_const($db, 'SOCIETE_DISABLE_PROSPECTS', 1, 'texte', 1, '', $conf->entity);
+		//$res=dolibarr_set_const($db, 'SOCIETE_DISABLE_CUSTOMERS_STATS', 1, 'texte', 1, '', $conf->entity);	// We need this one for stats on patients
+		$res=dolibarr_set_const($db, 'SOCIETE_DISABLE_PROSPECTS_STATS', 1, 'texte', 1, '', $conf->entity);
 	}
 	else
 	{
 		$res=dolibarr_set_const($db, 'SOCIETE_DISABLE_CUSTOMERS', 0, 'texte', 1, '', $conf->entity);
 		$res=dolibarr_set_const($db, 'SOCIETE_DISABLE_PROSPECTS', 0, 'texte', 1, '', $conf->entity);
+		//$res=dolibarr_set_const($db, 'SOCIETE_DISABLE_CUSTOMERS_STATS', 1, 'texte', 1, '', $conf->entity);	// We need this one for stats on patients
+		$res=dolibarr_set_const($db, 'SOCIETE_DISABLE_PROSPECTS_STATS', 0, 'texte', 1, '', $conf->entity);
 	}
    	$res=dolibarr_set_const($db, 'MAIN_SEARCHFORM_SOCIETE', GETPOST("MAIN_SEARCHFORM_SOCIETE")?0:1, 'texte', 0, '', $conf->entity);        // We also hide search of companies
 
