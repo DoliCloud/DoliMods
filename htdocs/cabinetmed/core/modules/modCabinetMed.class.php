@@ -106,8 +106,10 @@ class modCabinetMed extends DolibarrModules
                             17=>array('MAIN_SUPPORT_CONTACT_TYPE_FOR_THIRDPARTIES','chaine','1','Can add third party type of contact',1,'current',1),
                             18=>array('MAIN_APPLICATION_TITLE','chaine','DoliMed','Change software title',1,'current',1),
                             19=>array('CABINETMED_RHEUMATOLOGY_ON','chaine','0','Enable features for rheumatology',0),		// Do not remove if module removed
-        					20=>array('CABINETMED_HIDETHIRPARTIESMENU','chaine','1','Hide menu thirdparty',0)				// Do not remove if module removed
-                        );
+        					20=>array('SOCIETE_DISABLE_CUSTOMERS','chaine','1','Hide customers',1,'current',1),
+        					21=>array('SOCIETE_DISABLE_PROSPECTS','chaine','1','Hide prospects',1,'current',1),
+        					22=>array('CABINETMED_HIDETHIRPARTIESMENU','chaine','1','Hide thirdparties',1,'current',1)
+        );
 
         // Array to add new pages in new tabs
         $this->tabs = array(
@@ -121,7 +123,6 @@ class modCabinetMed extends DolibarrModules
                         'thirdparty:+tabexamautre:ResultExamAutre:cabinetmed@cabinetmed:/cabinetmed/examautre.php?socid=__ID__',
                         'thirdparty:+tabdocument:Courriers:cabinetmed@cabinetmed:/cabinetmed/documents.php?socid=__ID__',
                         //'thirdparty:-card',
-     					'thirdparty:-customer',
                         'thirdparty:-document',
                         'thirdparty:-notify',
                         'thirdparty:-note',

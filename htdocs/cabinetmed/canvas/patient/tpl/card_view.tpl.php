@@ -75,9 +75,9 @@ if (! empty($conf->global->SOCIETE_USEPREFIX))  // Old not used prefix field
 if ($soc->client)
 {
     print '<tr><td>';
-    print $langs->trans('CustomerCode').'</td><td colspan="3">';
+    print $langs->trans('PatientCode').'</td><td colspan="3">';
     print $soc->code_client;
-    if ($soc->check_codeclient() <> 0) print ' <font class="error">('.$langs->trans("WrongCustomerCode").')</font>';
+    if ($soc->check_codeclient() <> 0) print ' <font class="error">('.$langs->trans("WrongPatientCode").')</font>';
     print '</td></tr>';
 }
 
@@ -221,7 +221,7 @@ if (empty($conf->global->SOCIETE_DISABLE_PARENTCOMPANY))
 
 // Num secu
 print '<tr>';
-print '<td nowrap="nowrap">'.$langs->trans('VATIntra').'</td><td colspan="3">';
+print '<td nowrap="nowrap">'.$langs->trans('PatientVATIntra').'</td><td colspan="3">';
 if ($soc->tva_intra)
 {
     $s='';

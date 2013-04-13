@@ -127,7 +127,7 @@ dol_htmloutput_errors($GOBALS['error'],$GLOBALS['errors']);
 <tr>
 	<td><span class="fieldrequired"><?php echo $langs->trans('PatientName'); ?></span></td>
 	<td><input type="text" size="40" maxlength="60" name="nom" value="<?php echo $soc->nom; ?>"></td>
-    <td width="25%"><?php echo $langs->trans('CustomerCode'); ?></td>
+    <td width="25%"><?php echo $langs->trans('PatientCode'); ?></td>
     <td width="25%">
 <?php
         print '<table class="nobordernopadding"><tr><td>';
@@ -222,7 +222,7 @@ dol_htmloutput_errors($GOBALS['error'],$GLOBALS['errors']);
         print '</tr>';
 
         print '<tr>';
-        print '<td nowrap="nowrap">'.$langs->trans('VATIntra').'</td>';
+        print '<td nowrap="nowrap">'.$langs->trans('PatientVATIntra').'</td>';
         print '<td nowrap="nowrap" colspan="3">';
         print '<input type="text" class="flat" name="tva_intra" size="16" maxlength="32" value="'.$soc->tva_intra.'">';
         print '</td></tr>';
