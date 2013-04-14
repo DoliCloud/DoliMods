@@ -206,7 +206,7 @@ dol_htmloutput_errors($GOBALS['error'],$GLOBALS['errors']);
         print '</td></tr>';
 
         // Legal Form
-        print '<tr><td>'.$langs->trans('JuridicalStatus').'</td>';
+        print '<tr><td>'.$langs->trans('ActivityBranch').'</td>';
         print '<td>';
         if ($GLOBALS['mysoc']->country_id)
         {

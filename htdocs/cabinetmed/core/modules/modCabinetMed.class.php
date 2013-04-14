@@ -350,7 +350,7 @@ class modCabinetMed extends DolibarrModules
         'mainmenu'=>'contacts',
         'leftmenu'=>'contacts',
         'url'=>'/contact/list.php',
-        'langs'=>'companies@cabinetmed',  // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
+        'langs'=>'companies',  // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
         'position'=>110,
         'enabled'=>'$conf->cabinetmed->enabled',         // Define condition to show or hide menu entry. Use '$conf->voyage->enabled' if entry must be visible if module is enabled.
         'perms'=>'$user->rights->societe->contact->lire',           // Use 'perms'=>'$user->rights->voyage->level1->level2' if you want your menu with a permission rules

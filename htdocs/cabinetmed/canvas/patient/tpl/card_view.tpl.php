@@ -144,7 +144,7 @@ print '</td>';
 print '</tr>';
 
 // Juridical status = Secteur activité
-print '<tr><td>'.$langs->trans('JuridicalStatus').'</td><td>'.$soc->forme_juridique.'</td>';
+print '<tr><td>'.$langs->trans('ActivityBranch').'</td><td>'.$soc->forme_juridique.'</td>';
 // Profession
 $profid=$langs->trans('Profession');
 print '<td>'.$profid.'</td><td>';
