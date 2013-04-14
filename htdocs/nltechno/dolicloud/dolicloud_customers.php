@@ -96,13 +96,12 @@ llxHeader('',$langs->transnoentitiesnoconv('DoliCloudCustomers'),'');
 print_fiche_titre($langs->trans("DoliCloudArea"));
 
 
-print '<table border="0" width="100%" class="notopnoleftnoright">';
+print '<div class="fichecenter"><div class="fichethirdleft">';
 
-print '<tr><td valign="top" width="30%" class="notopnoleft">';
 
 /*
  * Search area
-*/
+ */
 $rowspan=2;
 print '<form method="post" action="'.dol_buildpath('/nltechno/dolicloud/dolicloud_list.php',1).'">';
 print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
@@ -116,7 +115,8 @@ print '<td rowspan="'.$rowspan.'"><input type="submit" class="button" value="'.$
 print "</table></form><br>";
 
 
-print '</td><td valign="top" width="70%" class="notopnoleftnoright">';
+print '</div><div class="fichetwothirdright"><div class="ficheaddleft">';
+
 
 $sql = "SELECT";
 $sql.= " t.rowid,";
@@ -230,7 +230,7 @@ print '</td></tr>';
 print '</table>';
 
 
-print '</td></tr></table>';
+print '</div></div></div>';
 
 
 // End of page
