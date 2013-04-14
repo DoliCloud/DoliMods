@@ -47,16 +47,18 @@ function cabinetmed_completesubstitutionarray(&$substitutionarray,$langs,$object
     $isother=0;
 
     // Consultation + Exams
-    $outcome=new CabinetmedCons($db);
-    $result1=$outcome->fetch(GETPOST('idconsult'));
-
+    if (GETPOST('idconsult') > 0)
+    {
+    	$outcome=new CabinetmedCons($db);
+    	$result1=$outcome->fetch(GETPOST('idconsult'));
+		$isconsult=1;
+    }
     if (GETPOST('idbio') > 0)
     {
         $exambio=new CabinetmedExamBio($db);
         $result2=$exambio->fetch(GETPOST('idbio'));
         $isbio=1;
     }
-
     if (GETPOST('idradio') > 0)
     {
         $examother=new CabinetmedExamOther($db);
@@ -92,20 +94,27 @@ function cabinetmed_completesubstitutionarray(&$substitutionarray,$langs,$object
         $substitutionarray['exambio_title']='';
         $substitutionarray['exambio_conclusion']='';
     }
-
-    $substitutionarray['outcome_date']=dol_print_date($outcome->datecons,'day');
-    $substitutionarray['outcome_reason']=$outcome->motifconsprinc;
-    $substitutionarray['outcome_diagnostic']=$outcome->diaglesprinc;
-    if (! empty($outcome->traitementprescrit))
-    {
-        $substitutionarray['treatment_title']=$langs->transnoentitiesnoconv("TreatmentSugested");
-        $substitutionarray['outcome_treatment']=$outcome->traitementprescrit;
-    }
-    else
-    {
-        $substitutionarray['treatment_title']='';
-        $substitutionarray['outcome_treatment']='';
-    }
+	if ($isconsult)
+	{
+	    $substitutionarray['outcome_date']=dol_print_date($outcome->datecons,'day');
+	    $substitutionarray['outcome_reason']=$outcome->motifconsprinc;
+	    $substitutionarray['outcome_diagnostic']=$outcome->diaglesprinc;
+	    if (! empty($outcome->traitementprescrit))
+	    {
+	        $substitutionarray['treatment_title']=$langs->transnoentitiesnoconv("TreatmentSugested");
+	        $substitutionarray['outcome_treatment']=$outcome->traitementprescrit;
+	    }
+	    else
+	    {
+	        $substitutionarray['treatment_title']='';
+	        $substitutionarray['outcome_treatment']='';
+	    }
+	}
+	else
+	{
+		$substitutionarray['treatment_title']='';
+		$substitutionarray['outcome_treatment']='';
+	}
 
     $substitutionarray['outcome_comment']=GETPOST('outcome_comment');
 
