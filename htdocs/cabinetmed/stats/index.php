@@ -31,13 +31,13 @@ if (! $res && file_exists("../../../dolibarr/htdocs/main.inc.php")) $res=@includ
 if (! $res && file_exists("../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
 if (! $res && file_exists("../../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
 if (! $res) die("Include of main fails");
-require_once(DOL_DOCUMENT_ROOT."/core/class/dolgraph.class.php");
+require_once DOL_DOCUMENT_ROOT.'/core/class/dolgraph.class.php';
 dol_include_once("/cabinetmed/lib/cabinetmed.lib.php");
 dol_include_once("/cabinetmed/class/cabinetmedcons.class.php");
 dol_include_once("/cabinetmed/class/cabinetmedstats.class.php");
 
-$WIDTH=500;
-$HEIGHT=200;
+$WIDTH=DolGraph::getDefaultGraphSizeForStats('width',500);
+$HEIGHT=DolGraph::getDefaultGraphSizeForStats('height',200);
 
 $userid=GETPOST('userid','int'); if ($userid < 0) $userid=0;
 $socid=GETPOST('socid','int'); if ($socid < 0) $socid=0;

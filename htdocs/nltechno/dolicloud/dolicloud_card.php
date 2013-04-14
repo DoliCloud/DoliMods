@@ -332,7 +332,9 @@ if ($user->rights->nltechno->dolicloud->write)
 
 		// Instance
 		print '<tr><td width="20%" class="fieldrequired">'.$langs->trans("Instance").'</td><td colspan="3"><input name="instance" id="instance" type="text" size="30" maxlength="80" value="'.(isset($_POST["instance"])?$_POST["instance"]:$object->instance).'"></td></tr>';
-		print '<tr><td width="20%" class="fieldrequired">'.$langs->trans("Organization").'/'.$langs->trans("Company").'</td><td colspan="3"><input name="organization" type="text" size="30" maxlength="80" value="'.(isset($_POST["organization"])?$_POST["organization"]:$object->organization).'"></td></tr>';
+
+		// Organization / Company
+		print '<tr><td width="20%" class="fieldrequired">'.$langs->trans("Organization").' / '.$langs->trans("Company").'</td><td colspan="3"><input name="organization" type="text" size="30" maxlength="80" value="'.(isset($_POST["organization"])?$_POST["organization"]:$object->organization).'"></td></tr>';
 
 		// EMail
 		print '<tr><td class="fieldrequired">'.$langs->trans("Email").'</td><td colspan="3"><input name="email" type="email" size="50" maxlength="80" value="'.(isset($_POST["email"])?$_POST["email"]:$object->email).'"></td></tr>';
@@ -391,7 +393,7 @@ if ($user->rights->nltechno->dolicloud->write)
 		print '</tr>';
 
 		// Note
-		print '<tr><td valign="top">'.$langs->trans("Note").'</td><td colspan="3" valign="top"><textarea name="note" cols="70" rows="'.ROWS_3.'">'.(isset($_POST["note"])?$_POST["note"]:$object->note).'</textarea></td></tr>';
+		print '<tr><td valign="top">'.$langs->trans("Note").'</td><td colspan="3" valign="top"><textarea class="flat" name="note" cols="70" rows="'.ROWS_3.'">'.(isset($_POST["note"])?$_POST["note"]:$object->note).'</textarea></td></tr>';
 
 		print "</table><br>";
 
