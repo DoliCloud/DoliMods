@@ -67,3 +67,4 @@ MonkeyNumRefModelDesc=Renvoie le numéro sous la forme %syymm-nnnn pour les code
 # Leopard
 LeopardNumRefModelDesc=Code patient libre sans vérification. Peut être modifié à tout moment.
 ThirdPartyCustomersStats=Tiers/Patients
+AddPatient=Créer patient

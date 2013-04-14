@@ -71,3 +71,4 @@ MonkeyNumRefModelDesc=Return number with mask %syymm-nnnn for patient code and %
 # Leopard
 LeopardNumRefModelDesc=Free code patient with no check. Can be modified at any time.
 ThirdPartyCustomersStats=Thirdparties/Patient
+AddPatient=Create patient

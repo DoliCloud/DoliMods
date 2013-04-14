@@ -249,7 +249,7 @@ dol_htmloutput_errors($GOBALS['error'],$GLOBALS['errors']);
 <br>
 
 <div align="center">
-	<input type="submit" class="button" value="<?php echo $langs->trans('AddThirdParty'); ?>">
+	<input type="submit" class="button" value="<?php echo $langs->trans('AddPatient'); ?>">
 </div>
 
 </form>
