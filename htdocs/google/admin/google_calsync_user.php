@@ -173,11 +173,13 @@ $pwd = $conf->global->GOOGLE_PASSWORD;
 
 if (! empty($user) && ! empty($pwd))	// We use setup of user
 {
-	print $langs->trans("GoogleSetupIsGlobal");
+	print $langs->trans("GoogleSetupIsGlobal",$user);
 }
 else
 {
-	print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
+	print_fiche_titre($langs->trans("AgendaSync"), '', '');
+
+	print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post" autocomplete="off">';
 	print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
 	print '<input type="hidden" name="action" value="save">';
 	print '<input type="hidden" name="id" value="'.$id.'">';
@@ -189,27 +191,32 @@ else
 	print '<td width="25%">'.$langs->trans("Parameter")."</td>";
 	print "<td>".$langs->trans("Value")."</td>";
 	print "</tr>";
+
 	// Activation synchronisation
+	/*
 	print "<tr ".$bc[$var].">";
 	print "<td>".$langs->trans("GoogleEnableSyncToCalendar")."</td>";
 	print "<td>";
 	print $form->selectyesno("GOOGLE_DUPLICATE_INTO_GCAL",isset($_POST["GOOGLE_DUPLICATE_INTO_GCAL"])?$_POST["GOOGLE_DUPLICATE_INTO_GCAL"]:$fuser->conf->GOOGLE_DUPLICATE_INTO_GCAL,1);
 	print "</td>";
 	print "</tr>";
+	*/
 	// Google login
 	$var=!$var;
 	print "<tr ".$bc[$var].">";
-	print "<td>".$langs->trans("GOOGLE_LOGIN")."</td>";
+	print '<td class="fieldrequired">'.$langs->trans("GOOGLE_LOGIN")."</td>";
 	print "<td>";
-	print '<input class="flat" type="text" size="30" name="GOOGLE_LOGIN" autocomplete="off" value="'.$fuser->conf->GOOGLE_LOGIN.'">';
+	if (! empty($conf->global->GOOGLE_LOGIN)) print $conf->global->GOOGLE_LOGIN;
+	else print '<input class="flat" type="text" size="30" name="GOOGLE_LOGIN" value="'.$fuser->conf->GOOGLE_LOGIN.'">';
 	print "</td>";
 	print "</tr>";
 	// Google password
 	$var=!$var;
 	print "<tr ".$bc[$var].">";
-	print "<td>".$langs->trans("GOOGLE_PASSWORD")."</td>";
+	print '<td class="fieldrequired">'.$langs->trans("GOOGLE_PASSWORD")."</td>";
 	print "<td>";
-	print '<input class="flat" type="password" size="10" name="GOOGLE_PASSWORD" autocomplete="off" value="'.$fuser->conf->GOOGLE_PASSWORD.'">';
+	if (! empty($conf->global->GOOGLE_PASSWORD)) print $conf->global->GOOGLE_PASSWORD;
+	else print '<input class="flat" type="password" size="10" name="GOOGLE_PASSWORD" value="'.$fuser->conf->GOOGLE_PASSWORD.'">';
 	print "</td>";
 	print "</tr>";
 	// Configuration du masque du libellé de l'évènement
@@ -227,7 +234,6 @@ else
 	print $form->selectyesno("GOOGLE_EVENT_LABEL_INC_CONTACT",isset($_POST["GOOGLE_EVENT_LABEL_INC_CONTACT"])?$_POST["GOOGLE_EVENT_LABEL_INC_CONTACT"]:$fuser->conf->GOOGLE_EVENT_LABEL_INC_CONTACT,1);
 	print "</td>";
 	print "</tr>";
-
 
 	print "</table>";
 	print "<br>";
