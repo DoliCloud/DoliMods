@@ -1,5 +1,5 @@
 <?php
-/* Copyright (C) 2005-2011 Laurent Destailleur  <eldy@users.sourceforge.net>
+/* Copyright (C) 2005-2013 Laurent Destailleur  <eldy@users.sourceforge.net>
  * Copyright (C) 2010-2012 Regis Houssin        <regis@dolibarr.fr>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -201,7 +201,7 @@ else
 	print "<tr ".$bc[$var].">";
 	print "<td>".$langs->trans("GOOGLE_LOGIN")."</td>";
 	print "<td>";
-	print '<input class="flat" type="text" size="30" name="GOOGLE_LOGIN" value="'.$fuser->conf->GOOGLE_LOGIN.'">';
+	print '<input class="flat" type="text" size="30" name="GOOGLE_LOGIN" autocomplete="off" value="'.$fuser->conf->GOOGLE_LOGIN.'">';
 	print "</td>";
 	print "</tr>";
 	// Google password
@@ -209,7 +209,7 @@ else
 	print "<tr ".$bc[$var].">";
 	print "<td>".$langs->trans("GOOGLE_PASSWORD")."</td>";
 	print "<td>";
-	print '<input class="flat" type="password" size="10" name="GOOGLE_PASSWORD" value="'.$fuser->conf->GOOGLE_PASSWORD.'">';
+	print '<input class="flat" type="password" size="10" name="GOOGLE_PASSWORD" autocomplete="off" value="'.$fuser->conf->GOOGLE_PASSWORD.'">';
 	print "</td>";
 	print "</tr>";
 	// Configuration du masque du libellé de l'évènement
