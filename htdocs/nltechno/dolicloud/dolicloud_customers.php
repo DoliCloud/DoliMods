@@ -1,5 +1,5 @@
 <?php
-/* Copyright (C) 2007-2012 Laurent Destailleur  <eldy@users.sourceforge.net>
+/* Copyright (C) 2007-2013 Laurent Destailleur  <eldy@users.sourceforge.net>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,7 +16,7 @@
  */
 
 /**
- *   	\file       htdocs/nltechno/dolicloud/dolicloud_list.php
+ *   	\file       htdocs/nltechno/dolicloud/dolicloud_customers.php
  *		\ingroup    nltechno
  *		\brief      This file is an example of a php page
  */
@@ -151,9 +151,8 @@ $sql.= " p.price_user,";
 $sql.= " p.price_gb";
 $sql.= " FROM ".MAIN_DB_PREFIX."dolicloud_customers as t";
 $sql.= " LEFT JOIN ".MAIN_DB_PREFIX."c_dolicloud_plans as p ON t.plan = p.code";
-//    $sql.= " WHERE field3 = 'xxx'";
-$sql.= $db->order($sortfield,$sortorder);
-$sql.= $db->plimit($conf->liste_limit +1, $offset);
+//$sql.= $db->order($sortfield,$sortorder);
+//$sql.= $db->plimit($conf->liste_limit +1, $offset);
 
 $totalcustomers=0;
 $totalcustomerspaying=0;
