@@ -12,7 +12,7 @@ GenericMaskCodes2= <b>{cccc}</b> le code patient sur n lettres<br><b>{cccc000}</
 HideThirdPartiesMenu=Hide thirdparty menu (all customers are patients)
 
 # Modules= undefined
-Module1Name= Patient
+Module1Name= Thirdparties/Patient
 Module1Desc= Manage patients and contacts
 Permission121= Consult patient
 Permission122= Create/modify patient (+consultations and exams)

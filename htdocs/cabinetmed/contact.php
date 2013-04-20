@@ -178,9 +178,9 @@ if ($id > 0 || ! empty($ref))
     if ($societe->client)
     {
         print '<tr><td>';
-        print $langs->trans('CustomerCode').'</td><td colspan="3">';
+        print $langs->trans('PatientCode').'</td><td colspan="3">';
         print $societe->code_client;
-        if ($societe->check_codeclient() <> 0) print ' <font class="error">('.$langs->trans("WrongCustomerCode").')</font>';
+        if ($societe->check_codeclient() <> 0) print ' <font class="error">('.$langs->trans("WrongPatientCode").')</font>';
         print '</td></tr>';
     }
 

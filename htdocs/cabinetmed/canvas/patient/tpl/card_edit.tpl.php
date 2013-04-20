@@ -129,7 +129,7 @@ print '<table class="border" width="100%">';
 print '<tr><td><span class="fieldrequired">'.$langs->trans('PatientName').'</span></td><td><input type="text" size="40" maxlength="60" name="nom" value="'.$soc->nom.'"></td>';
 
 // Prospect/Customer
-print '<td width="25%">'.$langs->trans('CustomerCode').'</td><td>';
+print '<td width="25%">'.$langs->trans('PatientCode').'</td><td>';
 
 print '<table class="nobordernopadding"><tr><td>';
 if ((!$soc->code_client || $soc->code_client == -1) && $modCodeClient->code_auto)
@@ -222,7 +222,7 @@ if ($user->admin) print info_admin($langs->trans("YouCanChangeValuesForThisListF
 print '</td>';
 print '</tr>';
 
-print '<tr><td>'.$langs->trans('JuridicalStatus').'</td><td>';
+print '<tr><td>'.$langs->trans('ActivityBranch').'</td><td>';
 $formcompany->select_forme_juridique($soc->forme_juridique_code, $soc->country_code, "AND f.code > '100000'");
 print '</td>';
 // IdProf4 (NU for France)
@@ -233,7 +233,7 @@ print '</tr>';
 
 // Num secu
 print '<tr>';
-print '<td nowrap="nowrap">'.$langs->trans('VATIntra').'</td>';
+print '<td nowrap="nowrap">'.$langs->trans('PatientVATIntra').'</td>';
 print '<td nowrap="nowrap" colspan="3">';
 $s ='<input type="text" class="flat" name="tva_intra" size="12" maxlength="20" value="'.$soc->tva_intra.'">';
 

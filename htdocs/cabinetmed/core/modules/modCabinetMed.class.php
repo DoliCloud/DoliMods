@@ -106,8 +106,11 @@ class modCabinetMed extends DolibarrModules
                             17=>array('MAIN_SUPPORT_CONTACT_TYPE_FOR_THIRDPARTIES','chaine','1','Can add third party type of contact',1,'current',1),
                             18=>array('MAIN_APPLICATION_TITLE','chaine','DoliMed','Change software title',1,'current',1),
                             19=>array('CABINETMED_RHEUMATOLOGY_ON','chaine','0','Enable features for rheumatology',0),		// Do not remove if module removed
-        					20=>array('CABINETMED_HIDETHIRPARTIESMENU','chaine','1','Hide menu thirdparty',0)				// Do not remove if module removed
-                        );
+        					20=>array('SOCIETE_DISABLE_CUSTOMERS','chaine','1','Hide customers',1,'current',1),
+        					21=>array('SOCIETE_DISABLE_PROSPECTS','chaine','1','Hide prospects',1,'current',1),
+        					22=>array('SOCIETE_DISABLE_PROSPECTS_STATS','chaine','1','Hide prospects stats on home',1,'current',1),
+        					23=>array('CABINETMED_HIDETHIRPARTIESMENU','chaine','1','Hide thirdparties',1,'current',1)
+        );
 
         // Array to add new pages in new tabs
         $this->tabs = array(
@@ -121,7 +124,6 @@ class modCabinetMed extends DolibarrModules
                         'thirdparty:+tabexamautre:ResultExamAutre:cabinetmed@cabinetmed:/cabinetmed/examautre.php?socid=__ID__',
                         'thirdparty:+tabdocument:Courriers:cabinetmed@cabinetmed:/cabinetmed/documents.php?socid=__ID__',
                         //'thirdparty:-card',
-     					'thirdparty:-customer',
                         'thirdparty:-document',
                         'thirdparty:-notify',
                         'thirdparty:-note',
@@ -348,7 +350,7 @@ class modCabinetMed extends DolibarrModules
         'mainmenu'=>'contacts',
         'leftmenu'=>'contacts',
         'url'=>'/contact/list.php',
-        'langs'=>'companies@cabinetmed',  // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
+        'langs'=>'companies',  // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
         'position'=>110,
         'enabled'=>'$conf->cabinetmed->enabled',         // Define condition to show or hide menu entry. Use '$conf->voyage->enabled' if entry must be visible if module is enabled.
         'perms'=>'$user->rights->societe->contact->lire',           // Use 'perms'=>'$user->rights->voyage->level1->level2' if you want your menu with a permission rules

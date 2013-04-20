@@ -126,7 +126,8 @@ class InterfaceGoogleCalendarSynchro
 			$user = $fuser->conf->GOOGLE_LOGIN;
 			$pwd = $fuser->conf->GOOGLE_PASSWORD;
 
-			if (empty($fuser->conf->GOOGLE_DUPLICATE_INTO_GCAL)) return 0;
+			//if (empty($fuser->conf->GOOGLE_DUPLICATE_INTO_GCAL)) return 0;
+			if (empty($conf->global->GOOGLE_DUPLICATE_INTO_GCAL)) return 0;
 		}
 		else								// We use global setup
 		{

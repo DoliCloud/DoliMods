@@ -1,7 +1,7 @@
 # Dolibarr language file - fr_FR - cabinetmed
 CHARSET=UTF-8
 Module101700Name=Cabinet médical
-Module101700Desc=Module pour gérer un cabinet médical libéral
+Module101700Desc=Module pour gérer un cabinet médical libéral (patients et consultations)
 LastHour=Last hour
 LastDay=Last day
 LastWeek=Last week
@@ -149,3 +149,4 @@ ClickHereToSetSecondaryDiagnostic=Cliquer ici pour ajouter le diagnostique lési
 Gender=Genre
 NumberConsultByMonth=Nombre de consultations par mois
 NumberConsult=Nombre de consultations
+ActivityBranch=Secteur d'activité

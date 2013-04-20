@@ -1,6 +1,6 @@
 <?php
 /* Copyright (C) 2003-2006 Rodolphe Quiedeville <rodolphe@quiedeville.org>
- * Copyright (c) 2004-2012 Laurent Destailleur  <eldy@users.sourceforge.net>
+ * Copyright (c) 2004-2013 Laurent Destailleur  <eldy@users.sourceforge.net>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -31,13 +31,13 @@ if (! $res && file_exists("../../../dolibarr/htdocs/main.inc.php")) $res=@includ
 if (! $res && file_exists("../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
 if (! $res && file_exists("../../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
 if (! $res) die("Include of main fails");
-require_once(DOL_DOCUMENT_ROOT."/core/class/dolgraph.class.php");
+require_once DOL_DOCUMENT_ROOT.'/core/class/dolgraph.class.php';
 dol_include_once("/cabinetmed/lib/cabinetmed.lib.php");
 dol_include_once("/cabinetmed/class/cabinetmedcons.class.php");
 dol_include_once("/cabinetmed/class/cabinetmedstats.class.php");
 
-$WIDTH=500;
-$HEIGHT=200;
+$WIDTH=DolGraph::getDefaultGraphSizeForStats('width',500);
+$HEIGHT=DolGraph::getDefaultGraphSizeForStats('height',200);
 
 $userid=GETPOST('userid','int'); if ($userid < 0) $userid=0;
 $socid=GETPOST('socid','int'); if ($socid < 0) $socid=0;
@@ -153,8 +153,8 @@ $head = patient_stats_prepare_head(null);
 dol_fiche_head($head, 'statsconsultations', $langs->trans("Consultations"), 0, 'generic');
 
 
-print '<table class="notopnoleftnopadd" width="100%"><tr>';
-print '<td align="center" valign="top">';
+print '<div class="fichecenter"><div class="fichethirdleft">';
+
 
 // Show filter box
 print '<form name="stats" method="POST" action="'.$_SERVER["PHP_SELF"].'">';
@@ -170,7 +170,7 @@ print '<tr><td>'.$langs->trans("User").'</td><td>';
 print $form->select_users($userid,'userid',1);
 print '</td></tr>';
 print '<tr><td>'.$langs->trans("CodageCCAM").'</td><td>';
-print '<input type="text" id="codageccam" name="codageccam" value="'.$codageccam.'" size="30"> (* = joker)';
+print '<input type="text" id="codageccam" name="codageccam" value="'.$codageccam.'" size="30"><span class="hideonsmartphone"> (* = joker)</span>';
 print '</td></tr>';
 print '<tr><td align="center" colspan="2"><input type="submit" name="submit" class="button" value="'.$langs->trans("Refresh").'"></td></tr>';
 print '</table>';
@@ -219,8 +219,8 @@ foreach ($data as $val)
 print '</table>';
 
 
-print '</td>';
-print '<td align="center" valign="top">';
+print '</div><div class="fichetwothirdright"><div class="ficheaddleft">';
+
 
 // Show graphs
 print '<table class="border" width="100%"><tr valign="top"><td align="center">';
@@ -232,7 +232,10 @@ else {
 }
 print '</td></tr></table>';
 
-print '</td></tr></table>';
+
+print '</div></div></div>';
+print '<div style="clear:both"></div>';
+
 
 dol_fiche_end();
 

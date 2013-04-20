@@ -332,7 +332,9 @@ if ($user->rights->nltechno->dolicloud->write)
 
 		// Instance
 		print '<tr><td width="20%" class="fieldrequired">'.$langs->trans("Instance").'</td><td colspan="3"><input name="instance" id="instance" type="text" size="30" maxlength="80" value="'.(isset($_POST["instance"])?$_POST["instance"]:$object->instance).'"></td></tr>';
-		print '<tr><td width="20%" class="fieldrequired">'.$langs->trans("Organization").'/'.$langs->trans("Company").'</td><td colspan="3"><input name="organization" type="text" size="30" maxlength="80" value="'.(isset($_POST["organization"])?$_POST["organization"]:$object->organization).'"></td></tr>';
+
+		// Organization / Company
+		print '<tr><td width="20%" class="fieldrequired">'.$langs->trans("Organization").' / '.$langs->trans("Company").'</td><td colspan="3"><input name="organization" type="text" size="30" maxlength="80" value="'.(isset($_POST["organization"])?$_POST["organization"]:$object->organization).'"></td></tr>';
 
 		// EMail
 		print '<tr><td class="fieldrequired">'.$langs->trans("Email").'</td><td colspan="3"><input name="email" type="email" size="50" maxlength="80" value="'.(isset($_POST["email"])?$_POST["email"]:$object->email).'"></td></tr>';
@@ -391,7 +393,7 @@ if ($user->rights->nltechno->dolicloud->write)
 		print '</tr>';
 
 		// Note
-		print '<tr><td valign="top">'.$langs->trans("Note").'</td><td colspan="3" valign="top"><textarea name="note" cols="70" rows="'.ROWS_3.'">'.(isset($_POST["note"])?$_POST["note"]:$object->note).'</textarea></td></tr>';
+		print '<tr><td valign="top">'.$langs->trans("Note").'</td><td colspan="3" valign="top"><textarea class="flat" name="note" cols="70" rows="'.ROWS_3.'">'.(isset($_POST["note"])?$_POST["note"]:$object->note).'</textarea></td></tr>';
 
 		print "</table><br>";
 
@@ -742,18 +744,16 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 
 
 
+	// ----- DoliCloud instance -----
+	print '<strong>INSTANCE SERVEUR STRATUS5</strong>';
 	// Last refresh
-	print $langs->trans("DateLastCheck").': '.($object->lastcheck?dol_print_date($object->lastcheck,'dayhour','tzuser'):$langs->trans("Never"));
+	print ' - '.$langs->trans("DateLastCheck").': '.($object->lastcheck?dol_print_date($object->lastcheck,'dayhour','tzuser'):$langs->trans("Never"));
 
 	if (! $object->user_id && $user->rights->nltechno->dolicloud->write)
 	{
 		print ' <a href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&amp;action=refresh">'.img_picto($langs->trans("Refresh"),'refresh').'</a>';
 	}
-	print '<br><br>';
-
-
-	// ----- DoliCloud instance -----
-	print '<strong>INSTANCE SERVEUR STRATUS5</strong><br>';
+	print '<br>';
 
 	print '<table class="border" width="100%">';
 
@@ -804,19 +804,22 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 
 
 	// ----- NLTechno instance -----
-	print '<strong>INSTANCE SERVEUR NLTECHNO</strong><br>';
+	$DNS_ROOT=(empty($conf->global->NLTECHNO_DNS_ROOT)?'/etc/bind':$conf->global->NLTECHNO_DNS_ROOT);
+	$APACHE_ROOT=(empty($conf->global->NLTECHNO_APACHE_ROOT)?'/etc/apache2':$conf->global->NLTECHNO_APACHE_ROOT);
+
+	print '<strong>INSTANCE SERVEUR NLTECHNO</strong>';
 	/*
-	print $langs->trans("DateLastCheck").': '.($object->lastcheck?dol_print_date($object->lastcheck,'dayhour','tzuser'):$langs->trans("Never"));
+	print ' - '.$langs->trans("DateLastCheck").': '.($object->lastcheck?dol_print_date($object->lastcheck,'dayhour','tzuser'):$langs->trans("Never"));
 
 	if (! $object->user_id && $user->rights->nltechno->dolicloud->write)
 	{
 		print ' <a href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&amp;action=refresh">'.img_picto($langs->trans("Refresh"),'refresh').'</a>';
 	}
-
-	print '<br>';
 	*/
+	print '<br>';
 
 	print '<table class="border" width="100%">';
+
 	/*
 	// Nb of users
 	print '<tr><td width="20%">'.$langs->trans("NbOfUsers").'</td><td colspan="3"><font size="+2">'.$object->nbofusers.'</font></td>';
@@ -846,14 +849,58 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 	print '</tr>';
 	*/
 
-	// Instance Apache (fichier vhost)
-	if (! file_exists(DOL_DOCUMENT_ROOT.'/sites-available')) print 'Error link to sites-available not found<br>';
-	else $vhostfileavailable=stat(DOL_DOCUMENT_ROOT.'/sites-available/vhost_instance');
-	if (! file_exists(DOL_DOCUMENT_ROOT.'/sites-enabled')) print 'Error link to sites-enabled not found<br>';
-	else $vhostfileenabled=stat(DOL_DOCUMENT_ROOT.'/sites-enabled/vhost_instance');
+	/*
+	$TTL 3d
+	$ORIGIN on.dolicloud.com.
+	@               IN     SOA   ns1.on.dolicloud.com. root.on.dolicloud.com. (
+		130412009         ; serial number
+		600              ; refresh =  2 hours
+		300              ; update retry = 15 minutes
+		604800           ; expiry = 3 weeks + 12 hours
+		600              ; minimum = 2 hours + 20 minutes
+		)
+		NS              ns1.on.dolicloud.com.
+		NS              ns1.eazybusiness.com.
+		IN      TXT     "v=spf1 mx ~all".
+
+		@               IN      A       176.34.178.16
+		ns1             IN      A       176.34.178.16
+
+		www             IN      CNAME   @
+		rm              IN      CNAME   @
+
+		$ORIGIN staging.on.dolicloud.com.
+
+		@               IN      NS      ns1.staging.on.dolicloud.com.
+		ns1   5         IN      A       85.25.151.49 ;'glue' record
+
+		$ORIGIN on.dolicloud.com.
+
+		; other sub-domain records
+
+		mahema   A   176.34.178.16
+		testldr9   A   176.34.178.16
+		testldr1   A   176.34.178.16
+		testldr2   A   176.34.178.16
+	*/
+	// DNS Entry
+	if (! file_exists($DNS_ROOT.'/mysimplerp.com/mysimpleerp.com.hosts')) print 'Error link to sites-available not found<br>';
+	else $dnsfileavailable=stat($DNS_ROOT.'/mysimplerp.com/mysimpleerp.com.hosts');
 
 	print '<tr>';
-	print '<td width="20%">'.$langs->trans("VHostFile").'</td><td colspan="3">'.($vhostfileavailable['size']?$langs->trans("Yes").' - '.dol_print_date($vhostfileavailable['mtime'],'%Y-%m-%d %H:%M:%S','tzuser'):$langs->trans("No"));
+	print '<td width="20%">'.$langs->trans("DNSFileFile").' ('.$DNS_ROOT.')</td><td colspan="3">'.($dnsfileavailable['size']?$langs->trans("Yes").' - '.dol_print_date($dnsfileavailable['mtime'],'%Y-%m-%d %H:%M:%S','tzuser'):$langs->trans("No"));
+	print ' &nbsp; (<a href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&action=adddnsfile">'.$langs->trans("Create").'</a>)';
+	print '</td>';
+	print '</tr>';
+
+	// Instance Apache (fichier vhost)
+	if (! file_exists($APACHE_ROOT.'/sites-available')) print 'Error link to sites-available not found<br>';
+	else $vhostfileavailable=stat($APACHE_ROOT.'/sites-available/vhost_instance');
+	if (! file_exists($APACHE_ROOT.'/sites-enabled')) print 'Error link to sites-enabled not found<br>';
+	else $vhostfileenabled=stat($APACHE_ROOT.'/sites-enabled/vhost_instance');
+
+	print '<tr>';
+	print '<td width="20%">'.$langs->trans("VHostFile").' ('.$APACHE_ROOT.')</td><td colspan="3">'.($vhostfileavailable['size']?$langs->trans("Yes").' - '.dol_print_date($vhostfileavailable['mtime'],'%Y-%m-%d %H:%M:%S','tzuser'):$langs->trans("No"));
 	print ' &nbsp; (<a href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&action=addvhostfile">'.$langs->trans("Create").'</a>)';
 	if ($object->status == 'ACTIVE' && ! $vhostfileenabled['ctime']) print ' &nbsp; (<a href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&action=enablevhostfile">'.$langs->trans("Enable").'</a>)';
 	print '</td>';

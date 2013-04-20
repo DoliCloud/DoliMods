@@ -12,7 +12,7 @@ GenericMaskCodes2= <b>{cccc}</b> le code patient sur n lettres<br><b>{cccc000}</
 HideThirdPartiesMenu=Cacher le menu Tiers (pas d'autres clients que des patients)
 
 # Modules= undefined
-Module1Name= Patient
+Module1Name= Tiers/Patient
 Module1Desc= Gestion des patients et correspondants
 Permission121= Consulter les patients liés à l'utilisateur
 Permission122= Créer/modifier les patients (+consultations et examens) liés à l'utilisateur

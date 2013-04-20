@@ -72,6 +72,7 @@ class ActionsCabinetmed
         	{
         		$langs->tab_translate["ThirdParty"]=$langs->trans("Patient");
         		$langs->tab_translate["ThirdPartyName"]=$langs->trans("PatientName");
+        		$langs->tab_translate["CustomerCode"]=$langs->trans("PatientCode");
         	}
         }
 

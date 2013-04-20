@@ -1,7 +1,7 @@
 # Dolibarr language file - fr_FR - cabinetmed
 CHARSET=UTF-8
 Module101700Name=Medical center
-Module101700Desc=Module to manage a medical center
+Module101700Desc=Module to manage a medical center (patients and consultations)
 LastHour=Last hour
 LastDay=Last day
 LastWeek=Last week
@@ -149,3 +149,4 @@ ClickHereToSetSecondaryDiagnostic=Click here to add the secondary diagnostic
 Gender=Gender
 NumberConsultByMonth=Number of consultation per month
 NumberConsult=Number of consultation
+ActivityBranch=Activity branch

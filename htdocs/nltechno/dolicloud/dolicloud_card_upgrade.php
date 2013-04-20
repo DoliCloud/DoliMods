@@ -200,18 +200,17 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 	print '<br>';
 
 
+
+	// ----- DoliCloud instance -----
+	print '<strong>INSTANCE SERVEUR STRATUS5</strong>';
 	// Last refresh
-	print $langs->trans("DateLastCheck").': '.($object->lastcheck?dol_print_date($object->lastcheck,'dayhour','tzuser'):$langs->trans("Never"));
+	print ' - '.$langs->trans("DateLastCheck").': '.($object->lastcheck?dol_print_date($object->lastcheck,'dayhour','tzuser'):$langs->trans("Never"));
 
 	if (! $object->user_id && $user->rights->nltechno->dolicloud->write)
 	{
 		print ' <a href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&amp;action=refresh">'.img_picto($langs->trans("Refresh"),'refresh').'</a>';
 	}
-	print '<br><br>';
-
-
-	// ----- DoliCloud instance -----
-	print '<strong>INSTANCE SERVEUR STRATUS5</strong><br>';
+	print '<br>';
 
 	print '<table class="border" width="100%">';
 

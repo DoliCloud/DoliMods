@@ -134,7 +134,7 @@ $head=googleadmin_prepare_head();
 dol_fiche_head($head, 'tabagendasync', $langs->trans("GoogleTools"));
 
 
-print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
+print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post" autocomplete="off">';
 print '<input type="hidden" name="action" value="save">';
 
 print $langs->trans("GoogleEnableSyncToCalendar").' '.$form->selectyesno("GOOGLE_DUPLICATE_INTO_GCAL",isset($_POST["GOOGLE_DUPLICATE_INTO_GCAL"])?$_POST["GOOGLE_DUPLICATE_INTO_GCAL"]:$conf->global->GOOGLE_DUPLICATE_INTO_GCAL,1).'<br><br>';
@@ -165,6 +165,7 @@ print ' &nbsp; '.$langs->trans("KeepEmptyYoUseLoginPassOfEventUser");
 print "</td>";
 print "</tr>";
 // Configuration du masque du libellé de l'évènement
+/*
 $var=!$var;
 print "<tr ".$bc[$var].">";
 print "<td>".$langs->trans("GOOGLE_EVENT_LABEL_INC_SOCIETE")."<br /></td>";
@@ -179,7 +180,7 @@ print "<td>";
 print $form->selectyesno("GOOGLE_EVENT_LABEL_INC_CONTACT",isset($_POST["GOOGLE_EVENT_LABEL_INC_CONTACT"])?$_POST["GOOGLE_EVENT_LABEL_INC_CONTACT"]:(isset($conf->global->GOOGLE_EVENT_LABEL_INC_CONTACT)?$conf->global->GOOGLE_EVENT_LABEL_INC_CONTACT:1),1);
 print "</td>";
 print "</tr>";
-
+*/
 
 print "</table>";
 print "<br>";

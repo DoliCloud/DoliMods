@@ -1,8 +1,5 @@
 # Dolibarr language file - es_ES - commercial 
 CHARSET=UTF-8
-CustomerArea=Área pacientes
-Customer=Paciente
-Customers=Pacientes
 ActionOnCompany=Evento concerniente a la paciente
 ActionOnContact=Evento concerniente al contacto
 SalesRepresentativeFollowUp=Doctor
