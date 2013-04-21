@@ -110,7 +110,11 @@ class modSkinColorEditor extends DolibarrModules
 		// 'categories_x'	  to add a tab in category view (replace 'x' by type of category (0=product, 1=supplier, 2=customer, 3=member)
 
         // Dictionnaries
-        if (! isset($conf->skincoloreditor->enabled)) $conf->skincoloreditor->enabled=0;
+        if (! isset($conf->skincoloreditor->enabled)) 
+        {
+        	$conf->skincoloreditor=new stdClass();
+        	$conf->skincoloreditor->enabled=0;
+        }
         $this->dictionnaries=array();
         /* Example:
         if (! isset($conf->cabinetmed->enabled)) $conf->cabinetmed->enabled=0;	// This is to avoid warnings
