@@ -567,7 +567,7 @@ function runSpeed($info_hash, $delta)
 		//quickQuery("DELETE FROM timestamps WHERE info_hash=\"$info_hash\" AND sequence=${data[2]}");
 	if ($data[1] > 21)
 		// This query requires MySQL 4.0.x, but should rarely be used.
-		quickQuery ('DELETE FROM '.$prefix.'timestamps WHERE info_hash="'.$info_hash.'" ORDER BY sequence LIMIT '.($data['1'] - 20));
+		quickQuery('DELETE FROM '.$prefix.'timestamps WHERE info_hash="'.$info_hash.'" ORDER BY sequence LIMIT '.($data['1'] - 20));
 }
 
 // Schedules an update to the summary table. It gets so much traffic

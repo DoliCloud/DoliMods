@@ -108,7 +108,7 @@ class FormFileCabinetmed
                 print '<td align="left">'.dol_print_date($file['date'],"dayhour").'</td>';
                 print '<td>';
                 //print "XX".$file['name']; //$file['name'] must be utf8
-                print '<a href="'.DOL_URL_ROOT.'/document.php?modulepart='.$modulepart;
+                print '<a data-ajax="false" href="'.DOL_URL_ROOT.'/document.php?modulepart='.$modulepart;
                 if ($forcedownload) print '&attachment=1';
                 print '&file='.urlencode($relativepath.$file['name']).'">';
                 print img_mime($file['name'],$file['name'].' ('.dol_print_size($file['size'],0,0).')').' ';

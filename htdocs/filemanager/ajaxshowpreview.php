@@ -445,7 +445,7 @@ else {
     print '<table class="nobordernopadding" width="100%">';
     print '<tr><td>'.$langs->trans("File").':</td><td>&nbsp; <b><span class="fmvalue">'.$original_file.'</span></b></td></tr>';
     print '<tr><td>'.$langs->trans("Mime-type").':</td><td>&nbsp; <span class="fmvalue">'.$type.'</span></td>';
-    print '<td align="right"><a href="'.dol_buildpath('/filemanager/document.php',1).'?modulepart=filemanager&id='.$id.'&rootpath='.$rootpath.'&file='.urlencode($original_file).'">'.$langs->trans("Download").'</a></td>';
+    print '<td align="right"><a data-ajax="false" href="'.dol_buildpath('/filemanager/document.php',1).'?modulepart=filemanager&id='.$id.'&rootpath='.$rootpath.'&file='.urlencode($original_file).'">'.$langs->trans("Download").'</a></td>';
     print '</tr>';
 
     $info=stat($original_file_osencoded);
