@@ -52,7 +52,6 @@ class InterfaceDoliCloudSynchro
         $this->name = preg_replace('/^Interface/i','',get_class($this));
         $this->family = "dolicloud";
         $this->description = "Triggers of this module allows to add interfaces with DoliCloud.";
-        $this->version = '3.2';                        // 'experimental' or 'dolibarr' or version
         $this->picto = 'generic';
     }
 

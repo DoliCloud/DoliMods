@@ -56,7 +56,7 @@ class modMantis extends DolibarrModules
 		// Module description used translation string 'ModuleXXXDesc' not found (XXX is id value)
 		$this->description = "Interfacage avec le bug tracking Mantis";
 		// Possible values for version are: 'experimental' or 'dolibarr' or version
-		$this->version = 'development';
+		$this->version = '3.4';
 		// Id used in llx_const table to manage module status (enabled/disabled)
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
 		// Where to store the module in setup page (0=common,1=interface,2=other)

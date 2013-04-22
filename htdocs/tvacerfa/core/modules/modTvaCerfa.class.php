@@ -55,7 +55,7 @@ class modTvaCerfa extends DolibarrModules
 		// Module description used if translation string 'ModuleXXXDesc' not found (XXX is id value)
 		$this->description = "Add a page to generate french VAT Cerfa documents";
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
-		$this->version = '3.2';
+		$this->version = '3.4';
 		// Key used in llx_const table to save module status enabled/disabled (XXX is id value)
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
 		// Where to store the module in setup page (0=common,1=interface,2=others,3=very specific)
