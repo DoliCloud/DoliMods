@@ -52,6 +52,9 @@ $confirm	= GETPOST('confirm','alpha');
 $backtopage = GETPOST('backtopage','alpha');
 $id			= GETPOST('id','int');
 $instance   = GETPOST('instance');
+$date_registration  = dol_mktime(0, 0, 0, $_POST["date_registrationmonth"], $_POST["date_registrationday"], $_POST["date_registrationyear"], 1);
+$date_endfreeperiod = dol_mktime(0, 0, 0, $_POST["endfreeperiodmonth"], $_POST["endfreeperiodday"], $_POST["endfreeperiodyear"], 1);
+
 
 $object = new DoliCloudCustomer($db);
 
@@ -115,8 +118,8 @@ if (empty($reshook))
 		$object->password_db    = $_POST["password_db"];
 
 		$object->status         = $_POST["status"];
-		$object->date_registration  = dol_mktime(0, 0, 0, $_POST["date_registrationmonth"], $_POST["date_registrationday"], $_POST["date_registrationyear"], 1);
-		$object->date_endfreeperiod = dol_mktime(0, 0, 0, $_POST["endfreeperiodmonth"], $_POST["endfreeperiodday"], $_POST["endfreeperiodyear"], 1);
+		$object->date_registration  = $date_registration;
+		$object->date_endfreeperiod = $date_endfreeperiod;
 		$object->partner		= $_POST["partner"];
 		$object->source			= $_POST["source"];
 
@@ -204,8 +207,8 @@ if (empty($reshook))
 			$object->password_db    = $_POST["password_db"];
 
 			$object->status         = $_POST["status"];
-			$object->date_registration  = dol_mktime(0, 0, 0, $_POST["date_registrationmonth"], $_POST["date_registrationday"], $_POST["date_registrationyear"], 1);
-			$object->date_endfreeperiod = dol_mktime(0, 0, 0, $_POST["endfreeperiodmonth"], $_POST["endfreeperiodday"], $_POST["endfreeperiodyear"], 1);
+			$object->date_registration  = $date_registration;
+			$object->date_endfreeperiod = $date_endfreeperiod;
 			$object->partner		= $_POST["partner"];
 			$object->source			= $_POST["source"];
 
@@ -410,10 +413,10 @@ if ($user->rights->nltechno->dolicloud->write)
 		// Date end of trial
 		print '<tr id="hideendfreetrial">';
 		print '<td>'.$langs->trans("DateRegistration").'</td><td>';
-		print $form->select_date(-1, 'date_registration', 0, 0, 1, '', 1, 1);
+		print $form->select_date($date_registration?$date_registration:-1, 'date_registration', 0, 0, 1, '', 1, 1);
 		print '</td>';
 		print '<td>'.$langs->trans("DateEndFreePeriod").'</td><td>';
-		print $form->select_date(-1, 'endfreeperiod', 0, 0, 1, '', 1, 1);
+		print $form->select_date($date_endfreeperiod?$date_endfreeperiod:-1, 'endfreeperiod', 0, 0, 1, '', 1, 1);
 		print '</td>';
 		print '<tr>';
 
