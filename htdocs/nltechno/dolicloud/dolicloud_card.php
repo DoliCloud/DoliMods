@@ -389,7 +389,7 @@ if ($user->rights->nltechno->dolicloud->write)
 		print '</tr>';
 
 		// Phone
-		print '<tr><td class="fieldrequired">'.$langs->trans("PhonePro").'</td><td colspan="3"><input name="phone" type="text" size="18" maxlength="80" value="'.(isset($_POST["phone"])?$_POST["phone"]:$object->phone).'"></td>';
+		print '<tr><td>'.$langs->trans("PhonePro").'</td><td colspan="3"><input name="phone" type="text" size="18" maxlength="80" value="'.(isset($_POST["phone"])?$_POST["phone"]:$object->phone).'"></td>';
 		print '</tr>';
 
 		// Note
