@@ -432,9 +432,9 @@ if ($socid > 0)
         $x=1;
         $nboflines=4;
 
-        print '<script type="text/javascript">
+        print '<script type="text/javascript" language="javascript">
         var changed=false;
-        jQuery(function() {
+		jQuery(document).ready(function() {
             jQuery(window).bind(\'beforeunload\', function(){
 				/* alert(changed); */
             	if (changed) return \''.dol_escape_js($langs->transnoentitiesnoconv("WarningExitPageWithoutSaving")).'\';
@@ -556,6 +556,12 @@ if ($socid > 0)
  					changed=true;
     			}
             });
+    		';
+        	if ($consult->typevisit != 'CCAM')
+        	{
+        		print ' jQuery("#codageccam").attr(\'disabled\',\'disabled\'); '."\n";
+        	}
+		print '
         });
         </script>
 
@@ -567,30 +573,34 @@ if ($socid > 0)
             #paymentsbox .ui-autocomplete-input { width: 140px !important; }
         </style>
 
+		';
 
-        <script>
-            jQuery(function() {
-                jQuery( "#listmotifcons" ).combobox();
-                jQuery( "#listdiagles" ).combobox();
-                jQuery( "#listexamenprescrit" ).combobox();
-                jQuery( "#banque" ).combobox({
-                    /* comboboxContainerClass: "comboboxContainer",
-                    comboboxValueContainerClass: "comboboxValueContainer",
-                    comboboxValueContentClass: "comboboxValueContent",
-                    comboboxDropDownClass: "comboboxDropDownContainer",
-                    comboboxDropDownButtonClass: "comboboxDropDownButton",
-                    comboboxDropDownItemClass: "comboboxItem",
-                    comboboxDropDownItemHoverClass: "comboboxItemHover",
-                    comboboxDropDownGroupItemHeaderClass: "comboboxGroupItemHeader",
-                    comboboxDropDownGroupItemContainerClass: "comboboxGroupItemContainer",
-                    animationType: "slide",
-                    width: "500px" */
-                });
+        if (empty($conf->browser->phone))
+        {
+	        print '
+	        <script>
+			jQuery(document).ready(function() {
+	                jQuery( "#listmotifcons" ).combobox();
+	                jQuery( "#listdiagles" ).combobox();
+	                jQuery( "#listexamenprescrit" ).combobox();
+	                jQuery( "#banque" ).combobox({
+	                    /* comboboxContainerClass: "comboboxContainer",
+	                    comboboxValueContainerClass: "comboboxValueContainer",
+	                    comboboxValueContentClass: "comboboxValueContent",
+	                    comboboxDropDownClass: "comboboxDropDownContainer",
+	                    comboboxDropDownButtonClass: "comboboxDropDownButton",
+	                    comboboxDropDownItemClass: "comboboxItem",
+	                    comboboxDropDownItemHoverClass: "comboboxItemHover",
+	                    comboboxDropDownGroupItemHeaderClass: "comboboxGroupItemHeader",
+	                    comboboxDropDownGroupItemContainerClass: "comboboxGroupItemContainer",
+	                    animationType: "slide",
+	                    width: "500px" */
+	                });
 
-        });
-        </script>
-        ';
-
+	        });
+	        </script>
+	        ';
+        }
         //print_fiche_titre($langs->trans("NewConsult"),'','');
 
         // General
@@ -764,7 +774,7 @@ if ($socid > 0)
         print '<input type="radio" class="flat" name="typevisit" value="CCAM" id="ccam"'.($consult->typevisit=='CCAM'?' checked="checked"':'').'> '.$langs->trans("CCAM");
         print '<br>';
         print '<br>'.$langs->trans("CodageCCAM").': &nbsp; ';
-        print '<input type="text" class="flat" name="codageccam" id="codageccam" value="'.$consult->codageccam.'" size="30"'.($consult->codageccam?'':' disabled="disabled"').'>';
+        print '<input type="text" class="flat" name="codageccamname" id="codageccam" value="'.$consult->codageccam.'" size="30">';
         print '</td></tr>';
 
         print '</table>';

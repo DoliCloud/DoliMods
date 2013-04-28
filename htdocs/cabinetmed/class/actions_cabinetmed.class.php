@@ -70,9 +70,9 @@ class ActionsCabinetmed
         	$thirdparty->fetch($parameters['id']);
         	if ($thirdparty->canvas == 'patient@cabinetmed')
         	{
-        		$langs->tab_translate["ThirdParty"]=$langs->trans("Patient");
-        		$langs->tab_translate["ThirdPartyName"]=$langs->trans("PatientName");
-        		$langs->tab_translate["CustomerCode"]=$langs->trans("PatientCode");
+        		$langs->tab_translate["ThirdParty"]=$langs->transnoentitiesnoconv("Patient");
+        		$langs->tab_translate["ThirdPartyName"]=$langs->transnoentitiesnoconv("PatientName");
+        		$langs->tab_translate["CustomerCode"]=$langs->transnoentitiesnoconv("PatientCode");
         	}
         }
 

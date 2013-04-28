@@ -1,5 +1,5 @@
 <?php
-/* Copyright (C) 2004-2011      Laurent Destailleur  <eldy@users.sourceforge.net>
+/* Copyright (C) 2004-2013      Laurent Destailleur  <eldy@users.sourceforge.net>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -64,11 +64,11 @@ function addAlert($db, $type, $id, $value)
 */
 function listmotifcons($nboflines,$newwidth=0,$htmlname='motifcons',$selected='')
 {
-    global $db,$width;
+    global $conf,$db,$width;
 
     if (empty($newwidth)) $newwidth=$width;
 
-    print '<select class="flat" id="list'.$htmlname.'" name="'.$htmlname.'" style="width: '.$newwidth.'px" size="'.$nboflines.'"'.($nboflines > 1?' multiple':'').'>';
+    print '<select class="flat" id="list'.$htmlname.'" name="'.$htmlname.'" '.(empty($conf->dol_use_jmobile)?' style="width: '.$newwidth.'px" ':'').'size="'.$nboflines.'"'.($nboflines > 1?' multiple':'').'>';
     print '<option value="0"></option>';
     $sql = 'SELECT s.rowid, s.code, s.label';
     $sql.= ' FROM '.MAIN_DB_PREFIX.'cabinetmed_motifcons as s';
@@ -103,11 +103,11 @@ function listmotifcons($nboflines,$newwidth=0,$htmlname='motifcons',$selected=''
 */
 function listdiagles($nboflines,$newwidth=0,$htmlname='diagles',$selected='')
 {
-    global $db,$width;
+    global $conf,$db,$width;
 
     if (empty($newwidth)) $newwidth=$width;
 
-    $out= '<select class="flat" id="list'.$htmlname.'" name="'.$htmlname.'" style="width: '.$newwidth.'px" size="'.$nboflines.'"'.($nboflines > 1?' multiple':'').'>';
+    $out= '<select class="flat" id="list'.$htmlname.'" name="'.$htmlname.'" '.(empty($conf->dol_use_jmobile)?' style="width: '.$newwidth.'px" ':'').'size="'.$nboflines.'"'.($nboflines > 1?' multiple':'').'>';
     $out.= '<option value="0"></option>';
     $sql = 'SELECT s.rowid, s.code, s.label';
     $sql.= ' FROM '.MAIN_DB_PREFIX.'cabinetmed_diaglec as s';
@@ -144,11 +144,11 @@ function listdiagles($nboflines,$newwidth=0,$htmlname='diagles',$selected='')
  */
 function listexamen($nboflines,$newwidth=0,$type='',$showtype=0,$htmlname='examen')
 {
-    global $db,$width;
+    global $conf,$db,$width;
 
     if (empty($newwidth)) $newwidth=$width;
 
-    print '<select class="flat" id="list'.$htmlname.'" name="list'.$htmlname.'" '.($newwidth?'style="width: '.$newwidth.'px"':'').' size="'.$nboflines.'"'.($nboflines > 1?' multiple':'').'>';
+    print '<select class="flat" id="list'.$htmlname.'" name="list'.$htmlname.'" '.(empty($conf->dol_use_jmobile)?' style="width: '.$newwidth.'px" ':'').'size="'.$nboflines.'"'.($nboflines > 1?' multiple':'').'>';
     print '<option value="0"></option>';
     $sql = 'SELECT s.rowid, s.code, s.label, s.biorad as type';
     $sql.= ' FROM '.MAIN_DB_PREFIX.'cabinetmed_examenprescrit as s';
@@ -182,11 +182,11 @@ function listexamen($nboflines,$newwidth=0,$type='',$showtype=0,$htmlname='exame
  */
 function listexamconclusion($nboflines,$newwidth=0,$htmlname='examconc')
 {
-    global $db,$width;
+    global $conf,$db,$width;
 
     if (empty($newwidth)) $newwidth=$width;
 
-    print '<select class="flat" id="list'.$htmlname.'" name="list'.$htmlname.'" style="width: '.$newwidth.'px" size="'.$nboflines.'"'.($nboflines > 1?' multiple':'').'>';
+    print '<select class="flat" id="list'.$htmlname.'" name="list'.$htmlname.'" '.(empty($conf->dol_use_jmobile)?' style="width: '.$newwidth.'px" ':'').'size="'.$nboflines.'"'.($nboflines > 1?' multiple':'').'>';
     print '<option value="0"></option>';
     $sql = 'SELECT s.rowid, s.code, s.label';
     $sql.= ' FROM '.MAIN_DB_PREFIX.'cabinetmed_c_examconclusion as s';
@@ -219,11 +219,11 @@ function listexamconclusion($nboflines,$newwidth=0,$htmlname='examconc')
  */
 function listebanques($nboflines,$newwidth=0,$defaultvalue='',$htmlname='banque')
 {
-    global $db,$width;
+    global $conf,$db,$width;
 
     if (empty($newwidth)) $newwidth=$width;
 
-    print '<select class="flat" id="'.$htmlname.'" name="'.$htmlname.'" style="width: '.$newwidth.'px" size="'.$nboflines.'"'.($nboflines > 1?' multiple':'').'>';
+    print '<select class="flat" id="'.$htmlname.'" name="'.$htmlname.'" '.(empty($conf->dol_use_jmobile)?' style="width: '.$newwidth.'px" ':'').'size="'.$nboflines.'"'.($nboflines > 1?' multiple':'').'>';
     print '<option value=""></option>';
     $sql = 'SELECT s.rowid, s.code, s.label';
     $sql.= ' FROM '.MAIN_DB_PREFIX.'cabinetmed_c_banques as s';
@@ -259,11 +259,11 @@ function listebanques($nboflines,$newwidth=0,$defaultvalue='',$htmlname='banque'
  */
 function listcontacts($nboflines,$newwidth=0,$htmlname='diagles',$selected='')
 {
-	global $db,$width;
+	global $conf,$db,$width;
 
 	if (empty($newwidth)) $newwidth=$width;
 
-	$out= '<select class="flat" id="list'.$htmlname.'" name="'.$htmlname.'" style="width: '.$newwidth.'px" size="'.$nboflines.'"'.($nboflines > 1?' multiple':'').'>';
+	$out= '<select class="flat" id="list'.$htmlname.'" name="'.$htmlname.'" '.(empty($conf->dol_use_jmobile)?' style="width: '.$newwidth.'px" ':'').'size="'.$nboflines.'"'.($nboflines > 1?' multiple':'').'>';
 	$out.= '<option value="0"></option>';
 	$sql = 'SELECT s.rowid, s.code, s.label';
 	$sql.= ' FROM '.MAIN_DB_PREFIX.'cabinetmed_diaglec as s';
