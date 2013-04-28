@@ -204,14 +204,16 @@ class ActionsCabinetmed
     {
         global $langs, $user, $conf;
 
-        if ($conf->cabinetmed->enabled && $user->rights->cabinetmed->read)
+        $searchform='';
+        if (! empty($conf->cabinetmed->enabled) && ! empty($user->rights->cabinetmed->read))
         {
             $langs->load("companies");
             $langs->load("cabinetmed@cabinetmed");
-            $searchform.=printSearchForm(dol_buildpath('/cabinetmed/patients.php',1), dol_buildpath('/cabinetmed/patients.php',1), img_picto('','object_patient').' '.$langs->trans("Patients"), '', 'search_nom');
+            $searchform=printSearchForm(dol_buildpath('/cabinetmed/patients.php',1), dol_buildpath('/cabinetmed/patients.php',1), img_picto('','object_patient').' '.$langs->trans("Patients"), '', 'search_nom');
         }
+		$this->resprints = $searchform;
 
-        return $searchform;
+        return 0;
     }
 
 
