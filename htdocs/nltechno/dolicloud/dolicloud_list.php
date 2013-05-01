@@ -72,7 +72,7 @@ if ($page == -1) {
     $page = 0;
 }
 $offset = $conf->liste_limit * $page;
-if (! $sortorder) $sortorder='ASC';
+if (! $sortorder) $sortorder='DESC';
 if (! $sortfield) $sortfield='t.date_registration';
 $limit = $conf->liste_limit;
 
