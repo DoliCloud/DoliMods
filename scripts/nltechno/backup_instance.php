@@ -56,7 +56,7 @@ $object = new DoliCloudCustomer($db);
 if (empty($dirroot) || empty($instance) || empty($mode))
 {
 	print "Usage:   $script_file instance    backup_dir  (testrsync|testdatabase|confirmrsync|confirmdatabase|confirm)\n";
-	print "Example: $script_file myinstance  /home/dolicloud_instances/backup  testrsync\n";
+	print "Example: $script_file myinstance  ".$conf->global->DOLICLOUD_BACKUP_PATH."  testrsync\n";
 	print "Return code: 0 if success, <>0 if error\n";
 	exit(-1);
 }
@@ -82,7 +82,7 @@ if (! is_dir($dirroot))
 $dirdb=preg_replace('/_dolibarr/','',$object->database_db);
 $login=$object->username_web;
 $password=$object->password_web;
-$sourcedir='/home/'.$login.'/'.$dirdb;
+$sourcedir=$conf->global->DOLICLOUD_EXT_HOME.'/'.$login.'/'.$dirdb;
 $server=$object->instance.'.on.dolicloud.com';
 
 if (empty($login) || empty($dirdb))

@@ -83,12 +83,12 @@ if (! is_dir($dirroot.'/htdocs'))
 $dirdb=preg_replace('/_dolibarr/','',$object->database_db);
 $login=$object->username_web;
 $password=$object->password_web;
-$targetdir='/home/'.$login.'/'.$dirdb;
+$targetdir=$conf->global->DOLICLOUD_EXT_HOME.'/'.$login.'/'.$dirdb;
 $server=$object->instance.'.on.dolicloud.com';
 
 print 'Synchro of files '.$dirroot.' to '.$targetdir."\n";
 
-$sftpconnectstring=$object->username_web.'@'.$object->hostname_web.':/home/'.$object->username_web.'/'.preg_replace('/_dolibarr$/','',$object->database_db);
+$sftpconnectstring=$object->username_web.'@'.$object->hostname_web.':'.$conf->global->DOLICLOUD_EXT_HOME.'/'.$object->username_web.'/'.preg_replace('/_dolibarr$/','',$object->database_db);
 print 'SFTP connect string : '.$sftpconnectstring."\n";
 print 'SFTP password '.$object->password_web."\n";
 
@@ -153,7 +153,7 @@ if ($mode == 'confirmunlock')
 
 			// Check if install.lock exists
 			$dir=preg_replace('/_dolibarr$/','',$object->database_db);
-			$fileinstalllock='/home/'.$object->username_web.'/'.$dir.'/documents/install.lock';
+			$fileinstalllock=$conf->global->DOLICLOUD_EXT_HOME.'/'.$object->username_web.'/'.$dir.'/documents/install.lock';
 
 			print 'Remove file '.$fileinstalllock."\n";
 

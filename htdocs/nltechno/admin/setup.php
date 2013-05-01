@@ -50,6 +50,18 @@ $action=GETPOST('action');
  * Actions
  */
 
+if ($action == 'setstratus5')
+{
+	$error=0;
+
+	if (! $error)
+	{
+		$dir=GETPOST("DOLICLOUD_EXT_HOME");
+		dolibarr_set_const($db,"DOLICLOUD_EXT_HOME",GETPOST("DOLICLOUD_EXT_HOME"),'chaine',0,'',$conf->entity);
+		setEventMessage($langs->trans("Saved"),'mesgs');
+	}
+}
+
 if ($action == 'set')
 {
 	$error=0;
@@ -73,7 +85,6 @@ if ($action == 'set')
 		else setEventMessage($langs->trans("ErrorDirNotFound",$dir),'errors');
 	}
 }
-
 
 
 
@@ -102,8 +113,36 @@ $error=0;
 $var=true;
 print '<form action="'.$_SERVER["PHP_SELF"].'" method="post">';
 print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
+print '<input type="hidden" name="action" value="setstratus5">';
+
+print '<strong>STRATUS5</strong>';
+print '<table class="noborder" width="100%">';
+print '<tr class="liste_titre">';
+print '<td>'.$langs->trans("Parameter").'</td><td>'.$langs->trans("Value").'</td>';
+print '<td>'.$langs->trans("Examples").'</td>';
+print '<td align="right"><input type="submit" class="button" value="'.$langs->trans("Modify").'"></td>';
+print "</tr>\n";
+
+$var=!$var;
+print '<tr '.$bc[$var].'><td>'.$langs->trans("DirForDoliCloudInstances").'</td>';
+print '<td>';
+print '<input size="40" type="text" name="DOLICLOUD_EXT_HOME" value="'.$conf->global->DOLICLOUD_EXT_HOME.'">';
+print '</td>';
+print '<td>/home/jail/home</td>';
+print '<td>&nbsp;</td>';
+print '</tr>';
+
+print '</table>';
+
+print '</form>';
+
+print '<br>';
+
+print '<form action="'.$_SERVER["PHP_SELF"].'" method="post">';
+print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
 print '<input type="hidden" name="action" value="set">';
 
+print '<strong>NLTECHNO</strong>';
 print '<table class="noborder" width="100%">';
 print '<tr class="liste_titre">';
 print '<td>'.$langs->trans("Parameter").'</td><td>'.$langs->trans("Value").'</td>';
