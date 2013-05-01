@@ -30,3 +30,4 @@ FileToDisableInstanceRemoved=L'instance %s a été réactivée.
 ActivePaymentError=Paiment en erreur mais instance active
 DisabledPaymentError=Paiment en erreur et instance désactivée
 Trial=Période essai
+InstanceDolicloud=Instance DoliCloud

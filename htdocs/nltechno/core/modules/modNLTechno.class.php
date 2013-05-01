@@ -71,6 +71,13 @@ class modNLTechno extends DolibarrModules
 		$this->phpmin = array(4,1);					// Minimum version of PHP required by module
 		$this->need_dolibarr_version = array(2,4);	// Minimum version of Dolibarr required by module
 
+		// Defined all module parts (triggers, login, substitutions, menus, css, etc...)
+		$this->module_parts = array('triggers' => 0,
+									'substitutions' => 0,
+									'menus' => 0,
+									'css' => array(),
+									'hooks' => array('searchform'));
+
 		// Constants
 		$this->const = array();			// List of parameters
 

@@ -39,7 +39,7 @@ class ActionsCabinetmed
 	 *
 	 *  @param		DoliDB		$db      Database handler
      */
-    function ActionsCabinetmed($db)
+    function __construct($db)
     {
         $this->db = $db;
     }
@@ -195,7 +195,7 @@ class ActionsCabinetmed
 
 
     /**
-     * Complete doc forms
+     * Complete search forms
      *
      * @param	array	$parameters		Array of parameters
      * @return	string					HTML content to add by hook
