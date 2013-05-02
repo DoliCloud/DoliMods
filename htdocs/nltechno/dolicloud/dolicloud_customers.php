@@ -18,7 +18,7 @@
 /**
  *   	\file       htdocs/nltechno/dolicloud/dolicloud_customers.php
  *		\ingroup    nltechno
- *		\brief      This file is an example of a php page
+ *		\brief      Home page of DoliCloud service
  */
 
 //if (! defined('NOREQUIREUSER'))  define('NOREQUIREUSER','1');
@@ -154,6 +154,7 @@ $sql.= " LEFT JOIN ".MAIN_DB_PREFIX."c_dolicloud_plans as p ON t.plan = p.code";
 //$sql.= $db->order($sortfield,$sortorder);
 //$sql.= $db->plimit($conf->liste_limit +1, $offset);
 
+$totalusers=0;
 $totalcustomers=0;
 $totalcustomerspaying=0;
 $total=0;
@@ -175,7 +176,7 @@ if ($resql)
             {
                 $price=$obj->price_instance + ($obj->nbofusers * $obj->price_user);
                 $totalcustomers++;
-
+				$totalusers+=$obj->nbofusers;
                 if ($obj->status != 'ACTIVE')
                 {
                 }
@@ -201,24 +202,35 @@ $dollareuro=0.78;		// Price euro
 $serverprice=price2num($serverlocation * $dollareuro, 'MT');
 $part=0.3;	// 30%
 
-
-print '<table class="border" width="100%">';
-print '<tr><td>';
+$var=false;
+print '<table class="noborder" width="100%">';
+print '<tr class="liste_titre">';
+print '<td colspan="2">'.$langs->trans("Statistics").'</td></tr>';
+print '<tr '.$bc[$var].'><td>';
 print $langs->trans("NbOfCustomersActive").' / '.$langs->trans("NbOfCustomers").' ';
 print '</td><td align="right">';
 print '<font size="+2">'.$totalcustomerspaying.' / '.$totalcustomers.'</font>';
 print '</td></tr>';
-print '<tr><td>';
+$var=!$var;
+print '<tr '.$bc[$var].'><td>';
+print $langs->trans("NbOfUsers").' ';
+print '</td><td align="right">';
+print '<font size="+2">'.$totalusers.'</font>';
+print '</td></tr>';
+$var=!$var;
+print '<tr '.$bc[$var].'><td>';
 print $langs->trans("AverageRevenuePerCustomer");
 print '</td><td align="right">';
 print '<font size="+2">'.price(price2num($total/$totalcustomerspaying,'MT'),1).' </font>';
 print '</td></tr>';
-print '<tr><td>';
+$var=!$var;
+print '<tr '.$bc[$var].'><td>';
 print $langs->trans("RevenuePerMonth");
 print '</td><td align="right">';
 print '<font size="+2">'.price($total,1).' </font>';
 print '</td></tr>';
-print '<tr><td>';
+$var=!$var;
+print '<tr class="liste_total"><td>';
 print $langs->trans("BenefitDoliCloud");
 print '<br>(';
 print price($total,1).' - '.($part*100).'% - '.price($serverlocation).'$= ';
