@@ -19,7 +19,7 @@
 --
 -- ========================================================================
 
-create table llx_societe
+create table llx_cabinetmed_societe
 (
   rowid                    integer AUTO_INCREMENT PRIMARY KEY,
   nom                      varchar(60),                                 -- company reference name
