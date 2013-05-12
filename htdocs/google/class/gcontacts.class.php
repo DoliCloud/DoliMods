@@ -336,6 +336,12 @@ class GContact
                 if ($this->company->email != $this->email)
                     $this->appendEmail(self::REL_WORK, $this->company->email, false, $this->orgName);
         }
+
+        $userdefined = $this->doc->createElement('gcontact:userDefinedField');
+        $userdefined->setAttribute('key','dolibarr-id');
+        $userdefined->setAttribute('value',$idindolibarr);
+        $this->atomEntry->appendChild($userdefined);
+
 		// Add tags
         $this->appendGroup($gdata, getTagLabel('thirdparties'));
         $this->doc->appendChild($this->atomEntry);
@@ -447,6 +453,12 @@ class GContact
     		$this->appendWebSite($doc, $this->atomEntry, $this->company->url);
     	}*/
     	//$this->appendWebSite($doc, $this->atomEntry, '???');
+
+
+    	$userdefined = $this->doc->createElement('gcontact:userDefinedField');
+    	$userdefined->setAttribute('key','dolibarr-id');
+    	$userdefined->setAttribute('value',$idindolibarr);
+    	$this->atomEntry->appendChild($userdefined);
 
     	// Add tags
         $this->appendGroup($gdata, getTagLabel('contacts'));
