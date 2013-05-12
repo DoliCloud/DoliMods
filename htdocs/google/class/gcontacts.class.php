@@ -479,7 +479,7 @@ class GContact
     	$this->firstname = $dolContact->firstname;
     	$this->lastname = $dolContact->lastname;
     	$this->fullName = $dolContact->getFullName($langs);
-//    	if (empty($this->fullName)) $this->fullName=$dolContact->company;
+    	if (empty($this->fullName)) $this->fullName=$dolContact->company;
     	$this->email = ($dolContact->email?$dolContact->email:($this->fullName.'@noemail.com'));
     	if(!(empty($dolContact->address)&&empty($dolContact->zip)&&empty($dolContact->town)&&empty($dolContact->state)&&empty($dolContact->country))) {
     		$this->addr = new GCaddr();
