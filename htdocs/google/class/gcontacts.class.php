@@ -409,7 +409,7 @@ class GContact
     	$google_nltechno_tag=getCommentIDTag();
     	$idindolibarr=$this->dolID."/contact";
 
-    	$this->note_private = $dolContact->note_private;
+        $this->note_private = $dolContact->note_private;
     	if (strpos($this->note_private,$google_nltechno_tag) === false) $this->note_private .= "\n\n".$google_nltechno_tag.$idindolibarr;
 
     	// Prepare the DOM for google
@@ -498,7 +498,7 @@ class GContact
     	$google_nltechno_tag=getCommentIDTag();
     	$idindolibarr=$this->dolID."/member";
 
-    	$this->note_private = $dolContact->note_private;
+        $this->note_private = $dolContact->note_private;
     	if (strpos($this->note_private,$google_nltechno_tag) === false) $this->note_private .= "\n\n".$google_nltechno_tag.$idindolibarr;
 
     	// Prepare the DOM for google
@@ -536,6 +536,11 @@ class GContact
     	 $this->appendWebSite($doc, $this->atomEntry, $this->company->url);
     	}*/
     	//$this->appendWebSite($doc, $this->atomEntry, '???');
+
+    	$userdefined = $this->doc->createElement('gcontact:userDefinedField');
+    	$userdefined->setAttribute('key','dolibarr-id');
+    	$userdefined->setAttribute('value',$idindolibarr);
+    	$this->atomEntry->appendChild($userdefined);
 
     	// Add tags
     	$this->appendGroup($gdata, getTagLabel('members'));
