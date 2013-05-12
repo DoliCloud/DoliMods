@@ -118,10 +118,12 @@ class InterfaceGoogleContactSynchro
 
 		// Actions
 		if ($action == 'COMPANY_CREATE' || $action == 'COMPANY_MODIFY' || $action == 'COMPANY_DELETE'
-			|| $action == 'CONTACT_CREATE' || $action == 'CONTACT_MODIFY' || $action == 'CONTACT_DELETE')
+			|| $action == 'CONTACT_CREATE' || $action == 'CONTACT_MODIFY' || $action == 'CONTACT_DELETE'
+			|| $action == 'MEMBER_CREATE' || $action == 'MEMBER_MODIFY' || $action == 'MEMBER_DELETE')
 		{
 			if (preg_match('/^COMPANY_/',$action) && empty($conf->global->GOOGLE_DUPLICATE_INTO_THIRDPARTIES)) return 0;
 			if (preg_match('/^CONTACT_/',$action) && empty($conf->global->GOOGLE_DUPLICATE_INTO_CONTACTS)) return 0;
+			if (preg_match('/^MEMBER_/',$action) && empty($conf->global->GOOGLE_DUPLICATE_INTO_MEMBERS)) return 0;
 
 
 			dol_syslog("Trigger '" . $this->name . "' for action '$action' launched by " . __FILE__ . ". id=" . $object->id);
@@ -148,25 +150,25 @@ class InterfaceGoogleContactSynchro
 			}
 			else
 			{
-				if ($action == 'COMPANY_CREATE' || $action == 'CONTACT_CREATE')
+				if ($action == 'COMPANY_CREATE' || $action == 'CONTACT_CREATE' || $action == 'MEMBER_CREATE')
 				{
-					$ret = createContact($client, $object);
+					$ret = googleCreateContact($client, $object);
 					$object->update_ref_ext($ret);
 					// This is to store ref_ext to allow updates
 
 					return 1;
 				}
-				if ($action == 'COMPANY_MODIFY' || $action == 'CONTACT_MODIFY')
+				if ($action == 'COMPANY_MODIFY' || $action == 'CONTACT_MODIFY' || $action == 'MEMBER_MODIFY')
 				{
 					$gid = $object->ref_ext;
 					if ($gid && preg_match('/google/i', $object->ref_ext)) // This record is linked with Google Contact
 					{
-						$ret = updateContact($client, $gid, $object);
+						$ret = googleUpdateContact($client, $gid, $object);
 						//var_dump($ret); exit;
 
 						if ($ret < 0)// Fails to update, we try to create
 						{
-							$ret = createContact($client, $object);
+							$ret = googleCreateContact($client, $object);
 							//var_dump($ret); exit;
 
 							$object->update_ref_ext($ret);
@@ -174,19 +176,19 @@ class InterfaceGoogleContactSynchro
 						}
 						return 1;
 					} else if ($gid == '') { // No google id
-						$ret = createContact($client, $object);
+						$ret = googleCreateContact($client, $object);
 						//var_dump($ret); exit;
 
 						$object->update_ref_ext($ret);
 						// This is to store ref_ext to allow updates
 					}
 				}
-				if ($action == 'COMPANY_DELETE' || $action == 'CONTACT_DELETE')
+				if ($action == 'COMPANY_DELETE' || $action == 'CONTACT_DELETE' || $action == 'MEMBER_DELETE')
 				{
 					$gid = $object->ref_ext;
 					if ($gid && preg_match('/google/i', $object->ref_ext)) // This record is linked with Google Calendar
 					{
-						$ret = deleteContactByRef($client, $gid);
+						$ret = googleDeleteContactByRef($client, $gid);
 						if ($ret)
 						{
 							$this->error=$ret;

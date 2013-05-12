@@ -92,17 +92,17 @@ function getCommentIDTag()
  * Creates an event on the authenticated user's default calendar with the
  * specified event details.
  *
- * @param  Zend_Http_Client $client    The authenticated client object
- * @param  string			$object	   Source object into Dolibarr
- * @return string The ID URL for the event.
+ * @param  Zend_Http_Client $client		The authenticated client object
+ * @param  string			$object		Source object into Dolibarr
+ * @return string 						The ID URL for the event.
  */
-function createContact($client, $object)
+function googleCreateContact($client, $object)
 {
 	global $langs;
 
 	include_once(DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php');
 
-	dol_syslog('createContact object->id='.$object->id.' type='.$object->element);
+	dol_syslog('googleCreateContact object->id='.$object->id.' type='.$object->element);
 
 	$google_nltechno_tag=getCommentIDTag();
 
@@ -113,7 +113,9 @@ function createContact($client, $object)
 		$gdata->setMajorProtocolVersion(3);
 
 		$idindolibarr=$object->id.'/'.($object->element=='societe'?'thirdparty':$object->element);
-		$groupName = getTagLabel($object->element=='societe'?'thirdparties':'contacts');
+		$paramtogettag=array('societe'=>'thirdparties','contact'=>'contacts','member'=>'members');
+		$groupName = getTagLabel($paramtogettag[$object->element]);
+		if ($groupName == 'UnknownType') return 'ErrorTypeOfObjectNotSupported';
 
 		// create new entry
 		$doc->formatOutput = true;
@@ -244,7 +246,7 @@ function createContact($client, $object)
 		//To list all existing field we can edit: var_dump($doc->saveXML());exit;
 		$xmlStr = $doc->saveXML();
 		// uncomment for debugging :
-		file_put_contents(DOL_DATA_ROOT . "/dolibarr_google_createContact.xml", $xmlStr);
+		file_put_contents(DOL_DATA_ROOT . "/dolibarr_google_createcontact.xml", $xmlStr);
 
 		// insert entry
 		$entryResult = $gdata->insertEntry($xmlStr,	'http://www.google.com/m8/feeds/contacts/default/full');
@@ -271,11 +273,11 @@ function createContact($client, $object)
  * @param  Object           $object			Object
  * @return Zend_Gdata_Calendar_EventEntry|null The updated entry
  */
-function updateContact($client, $contactId, $object)
+function googleUpdateContact($client, $contactId, $object)
 {
 	global $langs;
 
-	dol_syslog('updateContact object->id='.$object->id.' type='.$object->element.' ref_ext='.$object->ref_ext);
+	dol_syslog('googleUpdateContact object->id='.$object->id.' type='.$object->element.' ref_ext='.$object->ref_ext);
 
 	$google_nltechno_tag=getCommentIDTag();
 
@@ -364,9 +366,9 @@ function updateContact($client, $contactId, $object)
  * @param  string           $ref		The ref string
  * @return string 						'' if OK, error message if KO
  */
-function deleteContactByRef($client, $ref)
+function googleDeleteContactByRef($client, $ref)
 {
-	dol_syslog('deleteContactByRef Gcontact ref to delete='.$ref);
+	dol_syslog('googleDeleteContactByRef Gcontact ref to delete='.$ref);
 
 	try
 	{
@@ -463,7 +465,7 @@ function insertGContactsEntries($gdata, $gContacts)
 
 /**
  * parseResponse
- * 
+ *
  * @param 	string		$xmlStr		String
  * @return	stdClass				Class with response
  */
@@ -501,8 +503,10 @@ function getTagLabel($s)
 	$tag='UnknownType';
 	$tagthirdparties=empty($conf->global->GOOGLE_TAG_PREFIX)?'':$conf->global->GOOGLE_TAG_PREFIX;
 	$tagcontacts=empty($conf->global->GOOGLE_TAG_PREFIX_CONTACTS)?'':$conf->global->GOOGLE_TAG_PREFIX_CONTACTS;
+	$tagmembers=empty($conf->global->GOOGLE_TAG_PREFIX_MEMBERS)?'':$conf->global->GOOGLE_TAG_PREFIX_MEMBERS;
 	if ($s=='thirdparties') $tag=$tagthirdparties?$tagthirdparties:'Dolibarr ('.$langs->trans("Thirdparties").')';
 	if ($s=='contacts')     $tag=$tagcontacts?$tagcontacts:'Dolibarr ('.$langs->trans("Contacts").')';
+	if ($s=='members')      $tag=$tagmembers?$tagmembers:'Dolibarr ('.$langs->trans("Members").')';
 	return $tag;
 }
 

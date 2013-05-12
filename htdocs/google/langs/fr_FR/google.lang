@@ -20,6 +20,7 @@ GoogleEnableSyncToCalendar=Créer un évènement Google dans Google Calendar lor
 GoogleActivateSyncToCalendar=Activer la synchronisation calendrier
 GoogleEnableSyncToThirdparties=Activer la synchronisation des tiers vers contact GMail
 GoogleEnableSyncToContacts=Activer la synchronisation des contacts/adresses vers contact GMail
+GoogleEnableSyncToMembers=Activer la synchronisation des adhérents vers contact GMail
 AgendaView=Vue Google agenda
 AgendaSync=Syncro vers Google agenda
 ContactSync=Syncro vers Google contact
@@ -43,11 +44,14 @@ AllowGoogleToLoginSetupKey=Afin de faciliter cela, il est possible de configurer
 AllowGoogleToLoginProp=Les informations à saisir ici s'obtiennent en créant une clé par ce lien <a href="%s" target="_blank">%s</a>: Choisir API Access, puis Créer un client ID de type Application Web, en saisissant comme url de redirection (Redirect URI), l'url <strong>%s</strong> 
 ExportThirdpartiesToGoogle=Exporter tous les tiers Dolibarr sous GMail contact (attention, il n'y a pas de gestion de doublon pour l'export de masse).
 ExportContactToGoogle=Exporter tous les contacts/adresses Dolibarr sous GMail contact (attention, il n'y a pas de gestion de doublon pour l'export de masse).
+ExportMembersToGoogle=Exporter tous les adhérents Dolibarr sous GMail contact (attention, il n'y a pas de gestion de doublon pour l'export de masse).
 DeleteAllGoogleThirdparties=Effacer tous les tiers issus de Dolibarr dans GMail.
 DeleteAllGoogleContacts=Effacer tous les contacts issus de Dolibarr dans GMail.
+DeleteAllGoogleMembers=Effacer tous les adhérents issus de Dolibarr dans GMail.
 PushToGoogleSucess=Syncronisation vers Google contact terminée pour %s enregistrement(s).
 DeleteToGoogleSucess=%s contact(s) supprimé(s) de Google contact.
 GOOGLE_TAG_PREFIX=Etiquette pour marquer les tiers Dolibarr dans Google contact
 GOOGLE_TAG_PREFIX_CONTACTS=Etiquette pour marquer les contacts/adresses Dolibarr dans Google contact
+GOOGLE_TAG_PREFIX_MEMBERS=Etiquette pour marquer les adhérents Dolibarr dans Google contact
 ErrorLabelsMustDiffers=Erreur, les valeurs pour les étiquettes doivent être uniques
 

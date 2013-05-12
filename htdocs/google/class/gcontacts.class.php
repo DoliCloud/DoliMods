@@ -66,7 +66,7 @@ class GContact
 
     /**
      * Constructor
-     * 
+     *
      * @param string 	$dolID		Dolibarr id
      * @param string 	$type		Type of Google contact
      * @param Gdata		$gdata		Gdata handler
@@ -77,7 +77,9 @@ class GContact
             $this->from='dolibarr';
             $this->dolID = $dolID;
             if ($type == 'thirdparty') $this->fetchThirdpartyFromDolibarr($gdata);
-            else if ($type == 'contact') $this->fetchContactFromDolibarr($gdata);
+            elseif ($type == 'contact') $this->fetchContactFromDolibarr($gdata);
+            elseif ($type == 'member') $this->fetchMemberFromDolibarr($gdata);
+            else dol_print_error('','Bad value for type');
         } else {
             $this->from='gmail';
         }
@@ -85,7 +87,7 @@ class GContact
 
     /**
      * appendCustomField
-     * 
+     *
      * @param 	string $key			Key
      * @param 	string $value			Value
      * @return	void
@@ -99,7 +101,7 @@ class GContact
 
     /**
      * appendEmail
-     * 
+     *
      * @param 	string $rel			Rel			Rel
      * @param 	string $email			Email		EMail
      * @param 	boolean $isPrimary	isPrimary	isPrimary
@@ -135,7 +137,7 @@ class GContact
 
     /**
      * appendPostalAddress
-     * 
+     *
      * @param 	string $rel			Rel			Rel
      * @param 	GCaddr $addr		Addr		Addr
      * @param 	string $label		Label		Label
@@ -159,7 +161,7 @@ class GContact
 
     /**
      * appendPhoneNumber
-     * 
+     *
      * @param 	string $rel				Rel
      * @param 	string $phoneNumber		PhoneNumber
      * @param 	boolean $isPrimary		IsPrimary
@@ -180,7 +182,7 @@ class GContact
 
     /**
      * appendWebSite
-     * 
+     *
      * @param 	string $href		Href
      * @return	void
      */
@@ -194,7 +196,7 @@ class GContact
 
     /**
      * appendInstantMessaging
-     * 
+     *
      * @param string $label		Label
      * @param string $im		IM address
      * @param string $protocol	Protocol
@@ -210,7 +212,7 @@ class GContact
 
     /**
      * appendRelation
-     * 
+     *
      * @param 	string $label		Label
      * @param 	string $value		Href
      * @return	void
@@ -448,6 +450,94 @@ class GContact
 
     	// Add tags
         $this->appendGroup($gdata, getTagLabel('contacts'));
+    	$this->doc->appendChild($this->atomEntry);
+    }
+
+    /**
+     * Fill GContact instance for this->dolID.
+     * Note: It creates groups if it not exists.
+     *
+     * @param	GData	$gdata		GData
+     * @return 	GContact
+     */
+    private function fetchMemberFromDolibarr($gdata)
+    {
+    	global $conf,$langs;
+
+    	if($this->dolID==null) throw new Exception('Internal error: dolID is null');
+    	global $db, $langs, $conf;
+    	require_once(DOL_DOCUMENT_ROOT."/adherents/class/adherent.class.php");
+
+    	$dolContact = new Adherent($db);
+    	$result=$dolContact->fetch($this->dolID);
+    	if($result==0)
+    		throw new Exception('Internal error: Contact not found');
+    	if($result==0)
+    		throw new Exception($dolContact->$error);
+
+    	// Fill object with contact infos
+    	$this->firstname = $dolContact->firstname;
+    	$this->lastname = $dolContact->lastname;
+    	$this->fullName = $dolContact->getFullName($langs);
+    	$this->email = ($dolContact->email?$dolContact->email:($this->fullName.'@noemail.com'));
+    	if(!(empty($dolContact->address)&&empty($dolContact->zip)&&empty($dolContact->town)&&empty($dolContact->state)&&empty($dolContact->country))) {
+    		$this->addr = new GCaddr();
+    		$this->addr->street = $dolContact->address;
+    		$this->addr->zip = $dolContact->zip;
+    		$this->addr->town = $dolContact->town;
+    		$this->addr->state = $dolContact->state;
+    		$this->addr->country = $dolContact->country;
+    	}
+    	$this->phone_pro= $dolContact->phone_pro;
+    	$this->phone_perso= $dolContact->phone_perso;
+    	$this->phone_mobile= $dolContact->phone_mobile;
+    	$this->fax= $dolContact->fax;
+   		$this->orgName=$dolContact->company;
+
+    	$google_nltechno_tag=getCommentIDTag();
+    	$idindolibarr=$this->dolID."/member";
+
+    	$this->note_private = $dolContact->note_private;
+    	if (strpos($this->note_private,$google_nltechno_tag) === false) $this->note_private .= "\n\n".$google_nltechno_tag.$idindolibarr;
+
+    	// Prepare the DOM for google
+    	$this->doc = new DOMDocument("1.0", "utf-8");
+    	$this->doc->formatOutput = true;
+    	$this->atomEntry = $this->doc->createElement('atom:entry');
+    	$this->atomEntry->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:atom', 'http://www.w3.org/2005/Atom');
+    	$this->atomEntry->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:gdata', 'http://schemas.google.com/g/2005');
+    	$this->atomEntry->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:gcontact', 'http://schemas.google.com/contact/2008');
+
+    	// add name element
+    	$el = $this->doc->createElement('gdata:name');
+    	$this->appendTextElement($el, 'gdata:givenName', $this->firstname);
+    	$this->appendTextElement($el, 'gdata:familyName', $this->lastname);
+    	//$this->appendTextElement($doc, $el, 'gdata:additionalName', $middleName);
+    	//$this->appendTextElement($doc, $el, 'gdata:namePrefix', $peopleTitle);
+    	$this->atomEntry->appendChild($el);
+
+    	$elfullName = $this->doc->createElement('gdata:fullName', $this->fullName);
+    	$el->appendChild($elfullName);
+
+    	// Note as comment and a custom field
+    	$this->atomEntry->appendChild($this->doc->createElement('atom:content', $this->note_private));
+    	//$this->appendCustomField("Origin", 'Onelog');
+
+    	// Phones
+    	$this->appendPhoneNumber(self::REL_WORK, $this->phone_pro, true);
+    	$this->appendPhoneNumber(self::REL_HOME, $this->phone_perso, true);
+    	$this->appendPhoneNumber(self::REL_WORK_FAX, $this->fax, true);
+    	$this->appendPhoneNumber(self::REL_MOBILE, $this->phone_mobile, false);
+    	$this->appendPostalAddress(self::REL_WORK, $this->addr);
+    	$this->appendEmail(self::REL_WORK, $this->email, true);
+    	// Data from linked company
+    	/*if ($this->company) {
+    	 $this->appendWebSite($doc, $this->atomEntry, $this->company->url);
+    	}*/
+    	//$this->appendWebSite($doc, $this->atomEntry, '???');
+
+    	// Add tags
+    	$this->appendGroup($gdata, getTagLabel('members'));
     	$this->doc->appendChild($this->atomEntry);
     }
 
@@ -1087,7 +1177,7 @@ class GCaddr
      *
      * 	@return	void
      */
-    function fillIDs() 
+    function fillIDs()
     {
         $this->guessCountryID();
         $this->guessStateID();
@@ -1097,10 +1187,10 @@ class GCaddr
      /**
       * Do our best to retreive dolibarr country_id from the country label.
       * knowing that labels from google are free and traduction problem could arise...
-      * 
+      *
       * @return	string	Country id
       */
-    private function guessCountryID() 
+    private function guessCountryID()
     {
         if (empty($this->country)) return;
         global $db,$langs;
@@ -1121,7 +1211,7 @@ class GCaddr
 
     /**
      * Try to return the dolibarr StateID given a dolibarr countryID and a stateLabel
-     * 
+     *
      * @return	int		State id
      */
     private function guessStateID()
