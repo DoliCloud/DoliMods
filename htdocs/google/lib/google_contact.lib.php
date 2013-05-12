@@ -400,7 +400,7 @@ function googleDeleteContactByRef($client, $ref)
  *
  * @param 	Mixed	$gdata			Handler of Gdata connexion
  * @param 	array 	$gContacts		Array of object GContact
- * @return	int						>0 if OK
+ * @return	int						>0 if OK, 'error string' if error
  */
 function insertGContactsEntries($gdata, $gContacts)
 {
@@ -452,8 +452,15 @@ function insertGContactsEntries($gdata, $gContacts)
 			file_put_contents(DOL_DATA_ROOT . "/dolibarr_google_massinsert_response.xml", $responseXml);
 			// you can view this file with 'xmlstarlet fo dolibarr_google_massinsert_response.xml' command
 			$res=parseResponse($responseXml);
-			if($res->count != count($firstContacts) || $res->errors) return sprintf("Google error : %s", $res->lastError);
-			dol_syslog(sprintf("Inserting %d google contacts for user %s", count($firstContacts), $googleUser));
+			if($res->count != count($firstContacts) || $res->nbOfErrors)
+			{
+				dol_syslog("Failed to batch insert nb of errors=".$res->nbOfErrors." lasterror=".$res->lastError, LOG_ERR);
+				return sprintf("Google error : %s", $res->lastError);
+			}
+			else
+			{
+				dol_syslog(sprintf("Inserting %d google contacts for user %s", count($firstContacts), $googleUser));
+			}
 		}
 		catch (Exception $e) {
 			dol_syslog("Problem while inserting contact ".$e->getMessage(), LOG_ERR);
@@ -476,14 +483,21 @@ function parseResponse($xmlStr)
 	$contentNodes = $doc->getElementsByTagName("entry");
 	$res = new stdClass();
 	$res->count = $contentNodes->length;
-	$res->errors=0;
+	$res->nbOfErrors=0;
 	foreach ($contentNodes as $node) {
 		$title = $node->getElementsByTagName("title");
-		if($title->length==1 && $title->item(0)->textContent=='Error') {
-			$res->errors++;
+		if ($title->length==1 && ($title->item(0)->textContent=='Error' || $title->item(0)->textContent=='Fatal Error'))
+		{
+			$res->nbOfErrors++;
 			$content = $node->getElementsByTagName("content");
+			//$batchinter = $node->getElementsByTagName("batch");
+			//$reason = $batchinter->item(0)->getAttribute("reason");
+			//var_dump($reason);
 			if($content->length>0)
+			{
 				$res->lastError=$content->item(0)->textContent;
+				//$res->lastError=$batchinter;
+			}
 		}
 	}
 	return $res;

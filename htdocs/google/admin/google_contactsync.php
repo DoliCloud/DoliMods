@@ -210,7 +210,7 @@ if (preg_match('/^test/',$action))
     else
     {
         $error='<div class="error">'.$object->error.'</div>';
-        $errors=$object->errors;
+        $errors[]=$object->errors;
     }
 }
 
@@ -256,11 +256,15 @@ if ($action == 'pushallthirdparties')
 		$result=0;
 		if (count($gContacts)) $result=insertGContactsEntries($gdata, $gContacts);
 
-		if ($result >= 0)
+		if (is_numeric($result) && $result >= 0)
 		{
 			$mesg = $langs->trans("PushToGoogleSucess",count($gContacts));
 		}
-		else $mesg = $langs->trans("Error");
+		else
+		{
+			$error++;
+			$errors[] = $langs->trans("Error").' '.$result;
+		}
 	}
 }
 
@@ -306,11 +310,15 @@ if ($action == 'pushallcontacts')
 		$result=0;
 		if (count($gContacts)) $result=insertGContactsEntries($gdata, $gContacts);
 
-		if ($result >= 0)
+		if (is_numeric($result) && $result >= 0)
 		{
 			$mesg = $langs->trans("PushToGoogleSucess",count($gContacts));
 		}
-		else $mesg = $langs->trans("Error");
+		else
+		{
+			$error++;
+			$errors[] = $langs->trans("Error").' '.$result;
+		}
 	}
 }
 
@@ -356,11 +364,15 @@ if ($action == 'pushallmembers')
 		$result=0;
 		if (count($gContacts)) $result=insertGContactsEntries($gdata, $gContacts);
 
-		if ($result >= 0)
+		if (is_numeric($result) && $result >= 0)
 		{
 			$mesg = $langs->trans("PushToGoogleSucess",count($gContacts));
 		}
-		else $mesg = $langs->trans("Error");
+		else
+		{
+			$error++;
+			$errors[] = $langs->trans("Error").' '.$result;
+		}
 	}
 }
 
@@ -396,7 +408,11 @@ if ($action == 'deleteallthirdparties')
 
 			$mesg = $langs->trans("DeleteToGoogleSucess",$nbContacts);
 		}
-		else $mesg = $langs->trans("Error");
+		else
+		{
+			$error++;
+			$errors[] = $langs->trans("Error");
+		}
 	}
 }
 
@@ -432,7 +448,11 @@ if ($action == 'deleteallcontacts')
 
 			$mesg = $langs->trans("DeleteToGoogleSucess",$nbContacts);
 		}
-		else $mesg = $langs->trans("Error");
+		else
+		{
+			$error++;
+			$errors[] = $langs->trans("Error");
+		}
 	}
 }
 
@@ -468,7 +488,11 @@ if ($action == 'deleteallmembers')
 
 			$mesg = $langs->trans("DeleteToGoogleSucess",$nbContacts);
 		}
-		else $mesg = $langs->trans("Error");
+		else
+		{
+			$error++;
+			$errors[] = $langs->trans("Error");
+		}
 	}
 }
 
