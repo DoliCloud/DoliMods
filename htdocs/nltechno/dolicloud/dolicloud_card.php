@@ -676,7 +676,7 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 
 	// Address
 	print '<tr><td>'.$langs->trans("Address").'</td><td colspan="3">';
-	dol_print_address($object->address,'gmap','contact',$object->id);
+	dol_print_address($object->address,'gmap','dolicloud',$object->id);
 	print '</td></tr>';
 
 	// Zip Town

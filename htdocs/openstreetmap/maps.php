@@ -121,7 +121,7 @@ print '</tr>';
 
 // Address
 print "<tr><td valign=\"top\">".$langs->trans('Address').'</td><td colspan="'.(2+(($showlogo || $showbarcode)?0:1)).'">';
-dol_print_address($object->address,'gmap','thirdparty',$object->id);
+dol_print_address($object->address,'gmap',$mode,$object->id);
 print "</td></tr>";
 
 // Zip / Town
