@@ -1,5 +1,5 @@
 <?php
-/* Copyright (C) 2011 Laurent Destailleur  <eldy@users.sourceforge.net>
+/* Copyright (C) 2013 Laurent Destailleur  <eldy@users.sourceforge.net>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -59,7 +59,7 @@ class ActionsNltechno
         {
             $langs->load("companies");
             $langs->load("nltechno@nltechno");
-            $searchform=printSearchForm(dol_buildpath('/nltechno/dolicloud/dolicloud_list.php',1), dol_buildpath('/nltechno/dolicloud/dolicloud_list.php',1), img_picto('','object_generic').' '.$langs->trans("InstanceDolicloud"), '', 'search_instance');
+            $searchform=printSearchForm(dol_buildpath('/nltechno/dolicloud/dolicloud_list.php',1), dol_buildpath('/nltechno/dolicloud/dolicloud_list.php',1), img_picto('','object_generic').' '.$langs->trans("InstanceDolicloud"), '', 'search_multi');
         }
 		$this->resprints = $searchform;
 

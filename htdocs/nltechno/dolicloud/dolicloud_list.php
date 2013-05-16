@@ -56,6 +56,7 @@ $action		= GETPOST('action','alpha');
 $myparam	= GETPOST('myparam','alpha');
 
 $search_dolicloud = GETPOST("search_dolicloud");	// Search from index page
+$search_multi = GETPOST("search_multi");
 $search_instance = GETPOST("search_instance");
 $search_organization = GETPOST("search_organization");
 $search_plan = GETPOST("search_plan");
@@ -177,6 +178,7 @@ $sql.= " FROM ".MAIN_DB_PREFIX."dolicloud_customers as t";
 $sql.= " LEFT JOIN ".MAIN_DB_PREFIX."c_dolicloud_plans as p ON t.plan = p.code";
 $sql.= " WHERE 1 = 1";
 if ($search_dolicloud) $sql.='';
+if ($search_multi) $sql.=" AND (t.instance LIKE '%".$db->escape($search_multi)."%' OR t.organization LIKE '%".$db->escape($search_multi)."%' OR t.email LIKE '%".$db->escape($search_multi)."%')";
 if ($search_instance) $sql.=" AND t.instance LIKE '%".$db->escape($search_instance)."%'";
 if ($search_organization) $sql.=" AND t.organization LIKE '%".$db->escape($search_organization)."%'";
 if ($search_plan) $sql.=" AND t.email LIKE '%".$db->escape($search_plan)."%'";
