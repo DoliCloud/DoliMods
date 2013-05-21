@@ -25,10 +25,9 @@
 require("dao_multiinstance.class.php");
 
 /**
- *	\class      ActionsMulticompany
- *	\brief      Class Actions of the module multiinstance
+ *	Class Actions of the module multiinstance
  */
-class ActionsMulticompany
+class ActionsMultiinstance
 {
 	var $db;
 	var $dao;
