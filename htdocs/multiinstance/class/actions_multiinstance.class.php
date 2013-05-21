@@ -73,7 +73,7 @@ class ActionsMultiinstance
 	{
 		if (! is_object($this->dao))
 		{
-			$this->dao = new DaoMulticompany($this->db);
+			$this->dao = new DaoMultiinstance($this->db);
 		}
 	}
 
