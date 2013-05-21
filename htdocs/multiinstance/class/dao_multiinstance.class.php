@@ -24,10 +24,9 @@
 
 
 /**
- *		\class      DaoMulticompany
- *		\brief      Class of the module multiinstance
+ *	Class of the module multiinstance
  */
-class DaoMulticompany
+class DaoMultiinstance
 {
 	var $db;
 	var $error;
