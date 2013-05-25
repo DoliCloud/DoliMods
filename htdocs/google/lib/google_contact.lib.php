@@ -133,8 +133,11 @@ function googleCreateContact($client, $object)
 		// Name
 		$name = $doc->createElement('gd:name');
 		$entry->appendChild($name);
+		if ($object->element != 'societe' && $object->element != 'thirdparty')
+		{
 			$fullName = $doc->createElement('gd:fullName', $object->getFullName($langs));
 			$name->appendChild($fullName);
+		}
 
 		// Element
 		$email = $doc->createElement('gd:email');
