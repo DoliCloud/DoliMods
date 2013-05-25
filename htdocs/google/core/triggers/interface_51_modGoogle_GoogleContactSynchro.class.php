@@ -126,7 +126,7 @@ class InterfaceGoogleContactSynchro
 			if (preg_match('/^MEMBER_/',$action) && empty($conf->global->GOOGLE_DUPLICATE_INTO_MEMBERS)) return 0;
 
 
-			dol_syslog("Trigger '" . $this->name . "' for action '$action' launched by " . __FILE__ . ". id=" . $object->id);
+			dol_syslog("Trigger '" . $this->name . "' for action '$action' launched by " . __FILE__ . ". id=" . $object->id." element=".$object->element);
 
 			$langs->load("other");
 
