@@ -136,12 +136,16 @@ function googleCreateContact($client, $object)
 		if ($object->element != 'societe' && $object->element != 'thirdparty')
 		{
 			$fullName = $doc->createElement('gd:fullName', $object->getFullName($langs));
-			$name->appendChild($fullName);
 		}
+		else
+		{
+			$fullName = $doc->createElement('gd:fullName', $object->name);
+		}
+		$name->appendChild($fullName);
 
 		// Element
 		$email = $doc->createElement('gd:email');
-		$email->setAttribute('address', ($object->email?$object->email:($object->getFullName($langs).'@noemail.com')));
+		$email->setAttribute('address', ($object->email?$object->email:((empty($object->name)?$object->lastname.$object->firstname:$object->name).'@noemail.com')));
 		$email->setAttribute('rel', 'http://schemas.google.com/g/2005#home');
 		$entry->appendChild($email);
 
@@ -250,6 +254,7 @@ function googleCreateContact($client, $object)
 		$xmlStr = $doc->saveXML();
 		// uncomment for debugging :
 		file_put_contents(DOL_DATA_ROOT . "/dolibarr_google_createcontact.xml", $xmlStr);
+		// you can view this file with 'xmlstarlet fo dolibarr_google_createcontact.xml' command
 
 		// insert entry
 		$entryResult = $gdata->insertEntry($xmlStr,	'http://www.google.com/m8/feeds/contacts/default/full');
@@ -274,7 +279,7 @@ function googleCreateContact($client, $object)
  * @param  Zend_Http_Client $client   		The authenticated client object
  * @param  string           $contactId  	The ref into Google contact
  * @param  Object           $object			Object
- * @return Zend_Gdata_Calendar_EventEntry|null The updated entry
+ * @return string							Zend_Gdata id, 0 if not found, <0 if error
  */
 function googleUpdateContact($client, $contactId, $object)
 {
@@ -298,28 +303,37 @@ function googleUpdateContact($client, $contactId, $object)
 	}
 	catch(Exception $e)
 	{
-		dol_print_error('','Failed to get record with ref='.$contactId,$e->getMessage());
+		// Not found error
+		dol_syslog('Failed to get record with ref='.$contactId,$e->getMessage(), LOG_WARNING);
+		return 0;
 	}
 
 	try {
 		$xml = simplexml_load_string($entryResult->getXML());
 
-		//$xml->name->fullName = $object->getFullName($langs);
-		$xml->name->fullName = $object->getFullName($langs);
+		if ($object->element != 'societe' && $object->element != 'thirdparty')
+		{
+			$fullNameToUse = $object->getFullName($langs);
+		}
+		else
+		{
+			$fullNameToUse = $object->name;
+		}
+		$xml->name->fullName = $fullNameToUse;
 		$xml->name->givenName = $object->firstname;
 		$xml->name->familyName = $object->lastname;
 		//$xml->name->additionnalName = 'xxx';
 		//$xml->name->nameSuffix = 'xxx';
 		//$xml->formattedAddress;
-		$xml->email['address'] = ($object->email?$object->email:($object->getFullName($langs).'@noemail.com'));
+		$xml->email['address'] = ($object->email?$object->email:((empty($object->name)?$object->lastname.$object->firstname:$object->name).'@noemail.com'));
 
 		// Address
 		unset($xml->structuredPostalAddress->formattedAddress);
-		$xml->structuredPostalAddress->street=$object->address;
-		$xml->structuredPostalAddress->city=$object->town;
-		$xml->structuredPostalAddress->postcode=$object->zip;
-		$xml->structuredPostalAddress->country=($object->country_id>0?'err'.getCountry($object->country_id):0);
-		$xml->structuredPostalAddress->state=($object->state_id>0?getState($object->state_id):'');
+		if (! empty($object->address)) $xml->structuredPostalAddress->street=$object->address;
+		if (! empty($object->town)) $xml->structuredPostalAddress->city=$object->town;
+		if (! empty($object->zip)) $xml->structuredPostalAddress->postcode=$object->zip;
+		if ($object->country_id > 0) $xml->structuredPostalAddress->country=($object->country_id>0?getCountry($object->country_id):'');
+		if ($object->state_id > 0) $xml->structuredPostalAddress->state=($object->state_id>0?getState($object->state_id):'');
 
 		// Phone
 		/*
@@ -346,12 +360,17 @@ function googleUpdateContact($client, $contactId, $object)
 		//List of properties to set visible with var_dump($xml->saveXML());exit;
 		$extra_header = array('If-Match'=>'*');
 
-		$newentryResult = $gdata->updateEntry($xml->saveXML(), $entryResult->getEditLink()->href, null, $extra_header);
+		$xmlStr=$xml->saveXML();
+		// uncomment for debugging :
+		file_put_contents(DOL_DATA_ROOT . "/dolibarr_google_updatecontact.xml", $xmlStr);
+		// you can view this file with 'xmlstarlet fo dolibarr_google_updatecontact.xml' command
 
+		$newentryResult = $gdata->updateEntry($xmlStr, $entryResult->getEditLink()->href, null, $extra_header);
 	}
 	catch(Exception $e)
 	{
-		dol_print_error('',$e->getMessage());
+		dol_print_error('','Failed to update google '.$e->getMessage());
+		return -1;
 	}
 
 	return $entryResult->getId();
@@ -436,6 +455,7 @@ function insertGContactsEntries($gdata, $gContacts)
 			$el->setAttribute("type", "insert");
 			$entry->appendChild($el);
 		}
+
 		$xmlStr = $doc->saveXML();
 		// uncomment for debugging :
 		file_put_contents(DOL_DATA_ROOT . "/dolibarr_google_massinsert.xml", $xmlStr);

@@ -153,6 +153,7 @@ class InterfaceGoogleContactSynchro
 				if ($action == 'COMPANY_CREATE' || $action == 'CONTACT_CREATE' || $action == 'MEMBER_CREATE')
 				{
 					$ret = googleCreateContact($client, $object);
+
 					$object->update_ref_ext($ret);
 					// This is to store ref_ext to allow updates
 
@@ -166,7 +167,7 @@ class InterfaceGoogleContactSynchro
 						$ret = googleUpdateContact($client, $gid, $object);
 						//var_dump($ret); exit;
 
-						if ($ret < 0)// Fails to update, we try to create
+						if ($ret == '0')// Fails to update because not found, we try to create
 						{
 							$ret = googleCreateContact($client, $object);
 							//var_dump($ret); exit;
@@ -174,14 +175,20 @@ class InterfaceGoogleContactSynchro
 							$object->update_ref_ext($ret);
 							// This is to store ref_ext to allow updates
 						}
+						else if ($ret < 0)  return $ret;
+
 						return 1;
-					} else if ($gid == '') { // No google id
+					}
+					else if ($gid == '')
+					{ // No google id
 						$ret = googleCreateContact($client, $object);
 						//var_dump($ret); exit;
 
 						$object->update_ref_ext($ret);
 						// This is to store ref_ext to allow updates
 					}
+
+					return 1;
 				}
 				if ($action == 'COMPANY_DELETE' || $action == 'CONTACT_DELETE' || $action == 'MEMBER_DELETE')
 				{
@@ -193,10 +200,10 @@ class InterfaceGoogleContactSynchro
 						{
 							$this->error=$ret;
 							$this->errors[]=$this->error;
-							return 0;
+							return 0;	// We do not stop delete if error
 						}
-						else return 1;
 					}
+					return 1;
 				}
 			}
 		}
