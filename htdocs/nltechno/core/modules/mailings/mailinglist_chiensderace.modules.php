@@ -188,8 +188,8 @@ class mailing_mailinglist_chiensderace extends MailingTargets
 		// Example: return parent::getNbOfRecipients("SELECT count(*) as nb from dolibarr_table");
 		// Example: return 500;
 		$sitedb='chiensderace_db';
-		$a=parent::getNbOfRecipients("select count(distinct(EMAIL_ADRES)) as nb from ".$sitedb.".T_ADRESSES  as p where EMAIL_ADRES IS NOT NULL AND EMAIL_ADRES != '' and ML_ADRES = ".$filter);
-		$b=parent::getNbOfRecipients("select count(distinct(EMAIL_PERSO)) as nb from ".$sitedb.".T_PERSONNES as p LEFT JOIN ".$sitedb.".T_ADRESSES as a ON p.EMAIL_PERSO = a.EMAIL_ADRES where EMAIL_ADRES IS NULL and EMAIL_PERSO IS NOT NULL and ML_PERSO = ".$filter);
+		$a=parent::getNbOfRecipients("select count(distinct(EMAIL_ADRES)) as nb from ".$sitedb.".T_ADRESSES  as p where EMAIL_ADRES IS NOT NULL AND EMAIL_ADRES != ''".($filter?" and ML_ADRES = ".$filter:""));
+		$b=parent::getNbOfRecipients("select count(distinct(EMAIL_PERSO)) as nb from ".$sitedb.".T_PERSONNES as p LEFT JOIN ".$sitedb.".T_ADRESSES as a ON p.EMAIL_PERSO = a.EMAIL_ADRES where EMAIL_ADRES IS NULL and EMAIL_PERSO IS NOT NULL".($filter?" and ML_PERSO = ".$filter:""));
 
 		if ($a < 0 || $b < 0) return -1;
 		if ($option == 'adresses') return $a;
