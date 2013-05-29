@@ -6,7 +6,6 @@
  *   	\file       htdocs/nltechno/statsannonces.php
  *		\ingroup    nltechno
  *		\brief      Page des stats annonces
- *		\version    $Id: statsannonces.php,v 1.16 2011/08/17 16:42:36 eldy Exp $
  *		\author		Laurent Destailleur
  */
 

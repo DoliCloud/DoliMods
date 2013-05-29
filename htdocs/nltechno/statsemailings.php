@@ -6,7 +6,6 @@
  *    	\file       htdocs/nltechno/statsemailings.php
  *		\ingroup    nltechno
  *		\brief      Page des stats
- *		\version    $Id: statsemailings.php,v 1.22 2011/01/16 14:55:40 eldy Exp $
  *		\author		Laurent Destailleur
  */
 
@@ -38,7 +37,7 @@ if (! $user->rights->nltechno->emailings->voir)
 }
 
 $dirmod=DOL_DOCUMENT_ROOT."/core/modules/mailings";
-if (defined('DOL_DOCUMENT_ROOT_ALT')) $dirmod2=DOL_DOCUMENT_ROOT_ALT."/core/modules/mailings";
+$dirmod2="./core/modules/mailings";
 
 $mesg = '';
 
