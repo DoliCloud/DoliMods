@@ -80,7 +80,7 @@ class box_googlemaps extends ModeleBoxes
 		{
 			$something++;
 
-			$url=dol_buildpath("/google/gmaps_all.php",1)."?mode=thirdparties";
+			$url=dol_buildpath("/google/gmaps_all.php",1)."?mode=thirdparty";
 			$this->info_box_contents[$i][0] = array('td' => 'align="left" width="16"',
                     'logo' => 'object_company',
                     'url' => $url
@@ -96,7 +96,7 @@ class box_googlemaps extends ModeleBoxes
 		{
 			$something++;
 		
-			$url=dol_buildpath("/google/gmaps_all.php",1)."?mode=contacts";
+			$url=dol_buildpath("/google/gmaps_all.php",1)."?mode=contact";
 			$this->info_box_contents[$i][0] = array('td' => 'align="left" width="16"',
 					'logo' => 'object_contact',
 					'url' => $url
@@ -112,7 +112,7 @@ class box_googlemaps extends ModeleBoxes
 		{
 			$something++;
 		
-			$url=dol_buildpath("/google/gmaps_all.php",1)."?mode=members";
+			$url=dol_buildpath("/google/gmaps_all.php",1)."?mode=member";
 			$this->info_box_contents[$i][0] = array('td' => 'align="left" width="16"',
 					'logo' => 'object_user',
 					'url' => $url
