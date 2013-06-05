@@ -217,11 +217,11 @@ if (empty($reshook))
 
 			if ($result > 0)
 			{
-				if ($object->status == 'DISABLED_PAYMENT_ERROR' && $object->oldcopy->status != 'DISABLED_PAYMENT_ERROR')
+				if ($object->status == 'SUSPENDED' && $object->oldcopy->status != 'SUSPENDED')
 				{
 					$action = 'disable_instance';
 				}
-				if ($object->status != 'DISABLED_PAYMENT_ERROR' && $object->oldcopy->status == 'DISABLED_PAYMENT_ERROR')
+				if ($object->status != 'SUSPENDED' && $object->oldcopy->status == 'SUSPENDED')
 				{
 					$action = 'enable_instance';
 				}
