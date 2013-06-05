@@ -54,4 +54,8 @@ GOOGLE_TAG_PREFIX=Etiquette pour marquer les tiers Dolibarr dans Google contact
 GOOGLE_TAG_PREFIX_CONTACTS=Etiquette pour marquer les contacts/adresses Dolibarr dans Google contact
 GOOGLE_TAG_PREFIX_MEMBERS=Etiquette pour marquer les adhérents Dolibarr dans Google contact
 ErrorLabelsMustDiffers=Erreur, les valeurs pour les étiquettes doivent être uniques
-
+BoxMaps=Liste des vues cartes disponibles
+MapOfThirdparties=Carte des tiers
+MapOfContacts=Carte des contacts
+MapOfMembers=Carte des adhérents
+NoAddressDefined=Aucune adresse n'a été définie
