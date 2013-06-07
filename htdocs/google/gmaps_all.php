@@ -1,6 +1,5 @@
 <?php
-/* Copyright (C) 2011 Jonathan
- * Copyright (C) 2011 Laurent Destailleur  <eldy@users.sourceforge.net>
+/* Copyright (C) 2011 Laurent Destailleur  <eldy@users.sourceforge.net>
  *
  * Licensed under the GNU GPL v3 or higher (See file gpl-3.0.html)
  */
@@ -8,8 +7,7 @@
 /**
  *       \file       htdocs/google/gmaps.php
  *       \ingroup    google
- *       \brief      Main google area page
- *       \version    $Id: gmaps.php,v 1.13 2011/05/12 19:00:05 eldy Exp $
+ *       \brief      Page to show a map
  *       \author     Laurent Destailleur
  */
 
@@ -133,22 +131,32 @@ if ($resql)
 		$obj=$db->fetch_object($resql);
 		if (empty($obj->country_code)) $obj->country_code=$mysoc->country_code;
 
+		$error='';
+		
 		$object=new stdClass();
 		$object->name=$obj->name;
 		$object->latitude = $obj->latitude;
 		$object->longitude = $obj->longitude;
 		$object->address=dol_format_address($obj,1," ");
 		
-		$point = geocoding($object->address);
-		if ($point !== null) 
+		if (empty($object->latitude) && empty($object->longitude))
 		{
-			$object->latitude=$point[2];
-			$object->longitude=$point[3];
+			$point = geocoding($object->address);
+			if (is_array($point)) 
+			{
+				$object->latitude=$point['lat'];
+				$object->longitude=$point['lng'];
+			}
+			else $error=$point;
 		}
 					 
-		if ($object->latitude && $object->longitude)
+		if (! $error)
 		{
 			$addresses[]=$object;
+		}
+		else
+		{
+			print 'Failed to get position for '.$object->name.' address='.$object->address.': '.$error.'<br>'."\n";
 		}
 		
 		$i++;
@@ -239,9 +247,8 @@ $db->close();
 /**
  * Geocoding an address (address -> lat,lng)
  *
- * @param string $address an address
- *
- * @return array array with precision, lat & lng
+ * @param 	string 	$address 	An address
+ * @return 	mixed				Array(lat, lng) if OK, error message string if KO
  */
 function geocoding($address)
 {
@@ -251,27 +258,27 @@ function geocoding($address)
 	ini_set("allow_url_open", "1");
 	$response = googlegetURLContent($url,'GET');
 
-	if ($response['curl_err_no'])
+	if ($response['curl_error_no'])
 	{
-		echo "<!-- geocoding : failure to geocode : " . $status . " -->\n";
-		return null;
+		$returnstring=$response['curl_error_no'].' '.$response['curl_error_msg'];
+		echo "<!-- geocoding : failure to geocode : ".dol_escape_htmltag($encodeAddress)." => " . dol_escape_htmltag($returnstring) . " -->\n";
+		return $returnstring;
 	} 
 
 	$data = json_decode($response['content']);
 	if ($data->status == "OK") 
 	{
-		$return[0] = 0; // plus utilisé
-		$return[1] = 0; // plus utilisé
-		$return[2] = $data->results[0]->geometry->location->lat;
-		$return[3] = $data->results[0]->geometry->location->lng;
+		$return=array();
+		$return['lat']=$data->results[0]->geometry->location->lat;
+		$return['lng']=$data->results[0]->geometry->location->lng;
+		return $return;
 	}
 	else 
 	{
-		echo "<!-- geocoding : failure to geocode : " . $status . " -->\n";
-		return null;
+		$returnstring='Failed to json_decode result '.$response['content'];
+		echo "<!-- geocoding : failure to geocode : " . dol_escape_htmltag($returnstring) . " -->\n";
+		return $returnstring;
 	}
-
-	return $return;
 }
 
 /**
@@ -308,10 +315,14 @@ function googlegetURLContent($url,$postorget='GET',$param='')
 {
 	//declaring of global variables
 	global $conf, $langs;
-	global $USE_PROXY, $PROXY_HOST, $PROXY_PORT, $PROXY_USER, $PROXY_PASS;
+    $USE_PROXY=empty($conf->global->MAIN_PROXY_USE)?0:$conf->global->MAIN_PROXY_USE;
+    $PROXY_HOST=empty($conf->global->MAIN_PROXY_HOST)?0:$conf->global->MAIN_PROXY_HOST;
+    $PROXY_PORT=empty($conf->global->MAIN_PROXY_PORT)?0:$conf->global->MAIN_PROXY_PORT;
+    $PROXY_USER=empty($conf->global->MAIN_PROXY_USER)?0:$conf->global->MAIN_PROXY_USER;
+    $PROXY_PASS=empty($conf->global->MAIN_PROXY_PASS)?0:$conf->global->MAIN_PROXY_PASS;
 
-	dol_syslog("getURLContent URL=".$url);
-
+	dol_syslog("getURLContent postorget=".$postorget." URL=".$url." param=".$param);
+	
 	//setting the curl parameters.
 	$ch = curl_init();
 
@@ -327,6 +338,9 @@ function googlegetURLContent($url,$postorget='GET',$param='')
 	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
 	curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
 
+    curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, empty($conf->global->MAIN_USE_CONNECT_TIMEOUT)?5:$conf->global->MAIN_USE_CONNECT_TIMEOUT);
+    curl_setopt($ch, CURLOPT_TIMEOUT, empty($conf->global->MAIN_USE_RESPONSE_TIMEOUT)?5:$conf->global->MAIN_USE_RESPONSE_TIMEOUT);
+		
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
 	if ($postorget == 'POST') curl_setopt($ch, CURLOPT_POST, 1);
 	else curl_setopt($ch, CURLOPT_POST, 0);
@@ -339,8 +353,6 @@ function googlegetURLContent($url,$postorget='GET',$param='')
 		curl_setopt($ch, CURLOPT_PROXY, $PROXY_HOST. ":" . $PROXY_PORT);
 		if ($PROXY_USER) curl_setopt($ch, CURLOPT_PROXYUSERPWD, $PROXY_USER. ":" . $PROXY_PASS);
 	}
-
-	dol_syslog("getURLContent param=".$param);
 
 	//setting the nvpreq as POST FIELD to curl
 	curl_setopt($ch, CURLOPT_POSTFIELDS, $param);
@@ -361,7 +373,7 @@ function googlegetURLContent($url,$postorget='GET',$param='')
 		$rep['curl_error_no']=curl_errno($ch);
 		$rep['curl_error_msg']=curl_error($ch);
 
-		//Execute the Error handling module to display errors.
+		dol_syslog("getURLContent curl_error array is ".join(',',$rep));
 	}
 	else
 	{
