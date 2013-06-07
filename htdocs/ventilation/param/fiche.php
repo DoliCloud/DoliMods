@@ -129,7 +129,7 @@ elseif ($action == 'update' && $user->rights->compta->ventilation->parametrer)
     $nbligne=0;
 
     $compte = new ComptaCompte($db, GETPOST('id'));
-    
+
     print_fiche_titre($langs->trans("UpdateAccount"));
 
     print '<form action="fiche.php" method="post">';
@@ -150,5 +150,5 @@ elseif ($action == 'update' && $user->rights->compta->ventilation->parametrer)
 
 $db->close();
 
-llxFooter('$Date: 2011/07/31 22:23:31 $ - $Revision: 1.14 $');
+llxFooter();
 ?>

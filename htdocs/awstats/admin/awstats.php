@@ -158,5 +158,5 @@ dol_htmloutput_mesg($mesg);
 
 $db->close();
 
-llxFooter('$Date: 2011/08/16 09:23:10 $ - $Revision: 1.9 $');
+llxFooter();
 ?>

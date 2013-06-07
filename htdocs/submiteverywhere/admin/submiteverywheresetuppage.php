@@ -486,5 +486,5 @@ print '</table>'."\n";
 
 $db->close();
 
-llxFooter('$Date: 2011/08/01 22:52:37 $ - $Revision: 1.11 $');
+llxFooter();
 ?>

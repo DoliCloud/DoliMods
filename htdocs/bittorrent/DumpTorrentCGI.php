@@ -36,6 +36,6 @@ Output type: <select name="output">
 <a href="admin.php"><img src="images/admin.png" border="0" class="icon" alt="Admin Page" title="Admin Page" /></a><a href="admin.php">Return to Admin Page</a>
 
 <?php
-llxFooter('$Date: 2011/08/21 18:17:45 $ - $Revision: 1.5 $');
+llxFooter();
 ?>
 

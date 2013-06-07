@@ -139,5 +139,5 @@ if ($mesg) print "<br>$mesg<br>";
 
 $db->close();
 
-llxFooter('$Date: 2010/04/20 14:27:47 $ - $Revision: 1.2 $');
+llxFooter();
 ?>

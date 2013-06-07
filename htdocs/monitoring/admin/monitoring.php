@@ -295,5 +295,5 @@ if (dol_is_file($conf->monitoring->dir_temp."/".$fileimage[0]))
 
 $db->close();
 
-llxFooter('$Date: 2011/08/16 10:34:10 $ - $Revision: 1.10 $');
+llxFooter();
 ?>

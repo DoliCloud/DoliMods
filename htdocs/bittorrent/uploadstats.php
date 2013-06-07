@@ -83,5 +83,5 @@ echo "Total Uploaded: " . bytesToString($httpuploaded + $btuploaded);
 <a href="admin.php"><img src="images/admin.png" border="0" class="icon" alt="Admin Page" title="Admin Page" /></a><a href="admin.php">Return to Admin Page</a>
 
 <?php
-llxFooter('$Date: 2009/03/03 19:39:21 $ - $Revision: 1.5 $');
+llxFooter();
 ?>

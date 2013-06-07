@@ -191,5 +191,5 @@ if (! empty($sms))  // Do not use here sms > 0 as a constructor return an object
 
 // End of page
 $db->close();
-llxFooter('$Date: 2011/06/08 23:19:03 $ - $Revision: 1.7 $');
+llxFooter();
 ?>
