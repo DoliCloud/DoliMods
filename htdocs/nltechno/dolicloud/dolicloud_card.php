@@ -59,6 +59,7 @@ $date_endfreeperiod = dol_mktime(0, 0, 0, $_POST["endfreeperiodmonth"], $_POST["
 $object = new DoliCloudCustomer($db);
 
 // Security check
+$user->rights->nltechno->dolicloud->delete = $user->rights->nltechno->dolicloud->write;
 $result = restrictedArea($user, 'nltechno', 0, '','dolicloud');
 
 // Initialize technical object to manage hooks of thirdparties. Note that conf->hooks_modules contains array array
@@ -153,14 +154,14 @@ if (empty($reshook))
 		}
 	}
 
-	if ($action == 'confirm_delete' && $confirm == 'yes' && $user->rights->nltechno->dolicloud->delete)
+	if ($action == 'confirm_delete' && $confirm == 'yes' && $user->rights->nltechno->dolicloud->write)
 	{
 		$result=$object->fetch($id);
 
 		$result = $object->delete();
 		if ($result > 0)
 		{
-			Header("Location: ".dol_buildpath('/nltechno/dolicloud/dolicloud_list.php'));
+			Header("Location: ".dol_buildpath('/nltechno/dolicloud/dolicloud_list.php',1));
 			exit;
 		}
 		else
@@ -216,11 +217,11 @@ if (empty($reshook))
 
 			if ($result > 0)
 			{
-				if ($object->status == 'DISABLED_PAYMENT_ERROR' && $object->oldcopy->status != 'DISABLED_PAYMENT_ERROR')
+				if ($object->status == 'SUSPENDED' && $object->oldcopy->status != 'SUSPENDED')
 				{
 					$action = 'disable_instance';
 				}
-				if ($object->status != 'DISABLED_PAYMENT_ERROR' && $object->oldcopy->status == 'DISABLED_PAYMENT_ERROR')
+				if ($object->status != 'SUSPENDED' && $object->oldcopy->status == 'SUSPENDED')
 				{
 					$action = 'enable_instance';
 				}
@@ -253,7 +254,7 @@ $arraystatus=Dolicloudcustomer::$listOfStatus;
 
 
 // Confirm deleting object
-if ($user->rights->nltechno->dolicloud->delete)
+if ($user->rights->nltechno->dolicloud->write)
 {
 	if ($action == 'delete')
 	{
@@ -937,6 +938,7 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 
 
 	print "</div>";
+
 
 	// Barre d'actions
 	if (! $user->societe_id)

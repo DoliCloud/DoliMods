@@ -240,8 +240,8 @@ if ($id)
 }
 
 
+llxFooter();
+
 // End of page
 $db->close();
-
-llxFooter('');
 ?>

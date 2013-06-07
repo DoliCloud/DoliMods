@@ -251,7 +251,7 @@ print '</tr></table>';
 dol_fiche_end();
 
 
-llxFooter('');
+llxFooter();
 
 $db->close();
 ?>

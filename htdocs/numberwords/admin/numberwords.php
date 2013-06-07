@@ -206,7 +206,7 @@ print '</table>';
 print "</form>\n";
 
 
-llxFooter('$Date: 2011/06/08 22:08:45 $ - $Revision: 1.3 $');
+llxFooter();
 
 $db->close();
 ?>

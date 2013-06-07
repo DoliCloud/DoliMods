@@ -89,8 +89,8 @@ class Dolicloudcustomer extends CommonObject
 	var $filelock;
 	var $date_lastrsync='';
 
-	static $listOfStatus=array('TRIAL'=>'TRIAL','TRIAL_EXPIRED'=>'TRIAL_EXPIRED','ACTIVE'=>'ACTIVE','ACTIVE_PAYMENT_ERROR'=>'ACTIVE_PAYMENT_ERROR','DISABLED_PAYMENT_ERROR'=>'DISABLED_PAYMENT_ERROR','CLOSED_QUEUED'=>'CLOSE_QUEUED','UNDEPLOYED'=>'UNDEPLOYED');
-	static $listOfStatusShort=array('TRIAL'=>'TRIAL','TRIAL_EXPIRED'=>'TRIAL_EXP.','ACTIVE'=>'ACT.','ACTIVE_PAYMENT_ERROR'=>'ACT_PAY_ERR.','DISABLED_PAYMENT_ERROR'=>'DIS_PAY_ERR.','CLOSED_QUEUED'=>'CLOSE_Q.','UNDEPLOYED'=>'UNDEP.');
+	static $listOfStatus=array('TRIAL'=>'TRIAL','TRIAL_EXPIRED'=>'TRIAL_EXPIRED','ACTIVE'=>'ACTIVE','ACTIVE_PAYMENT_ERROR'=>'ACTIVE_PAYMENT_ERROR','SUSPENDED'=>'SUSPENDED','CLOSED_QUEUED'=>'CLOSE_QUEUED','UNDEPLOYED'=>'UNDEPLOYED');
+	static $listOfStatusShort=array('TRIAL'=>'TRIAL','TRIAL_EXPIRED'=>'TRIAL_EXP.','ACTIVE'=>'ACT.','ACTIVE_PAYMENT_ERROR'=>'ACT_PAY_ERR.','SUSPENDED'=>'SUSPENDED','CLOSED_QUEUED'=>'CLOSE_Q.','UNDEPLOYED'=>'UNDEP.');
 
 
     /**
@@ -658,9 +658,9 @@ class Dolicloudcustomer extends CommonObject
 
 		if ($this->status == 'ACTIVE') $picto=img_picto($langs->trans("Active"),'statut4');
 		elseif ($this->status == 'CLOSED_QUEUED') $picto=img_picto($langs->trans("Disabled"),'statut6');
-		elseif ($this->status == 'UNDEPLOYED') $picto=img_picto($langs->trans("Active"),'statut5');
+		elseif ($this->status == 'UNDEPLOYED') $picto=img_picto($langs->trans("Undeployed"),'statut5');
 		elseif ($this->status == 'ACTIVE_PAYMENT_ERROR') $picto=img_picto($langs->trans("ActivePaymentError"),'statut3');
-		elseif ($this->status == 'DISABLED_PAYMENT_ERROR') $picto=img_picto($langs->trans("DisabledPaymentError"),'statut3');
+		elseif ($this->status == 'SUSPENDED') $picto=img_picto($langs->trans("Suspended"),'statut3');
 		elseif ($this->status == 'TRIAL_EXPIRED') $picto=img_picto($langs->trans("Expired"),'statut1');
 		elseif ($this->status == 'TRIAL') $picto=img_picto($langs->trans("Trial"),'statut0');
 		else $picto=img_picto($langs->trans("Trial"),'statut0');

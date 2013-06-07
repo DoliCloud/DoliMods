@@ -232,5 +232,5 @@ print '<br>';
 print info_admin($langs->trans("NoteOnFileManagerPathLocation")).'<br>';
 
 
-llxFooter('$Date: 2011/06/15 11:35:08 $ - $Revision: 1.7 $');
+llxFooter();
 ?>

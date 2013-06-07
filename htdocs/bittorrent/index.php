@@ -327,6 +327,6 @@ if (rand(1, 10) == 1)
 <a href="admin.php"><img src="images/admin.png" border="0" class="icon" alt="Admin Page" title="Admin Page" /></a><a href="admin.php">Return to Admin Page</a>
 <?php
 
-llxFooter('$Date: 2009/03/04 18:56:24 $ - $Revision: 1.7 $');
+llxFooter();
 ?>
 

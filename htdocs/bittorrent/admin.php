@@ -54,5 +54,5 @@ if (file_exists("install.php"))
 	echo errorMessage() . "Your install.php file has NOT been deleted.  This is a security risk, please delete it immediately.</p>\n";
 }
 
-llxFooter('$Date: 2010/11/11 11:41:48 $ - $Revision: 1.7 $');
+llxFooter();
 ?>

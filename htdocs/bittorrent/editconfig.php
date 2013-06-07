@@ -219,6 +219,6 @@ fclose($fr);
 <a href="admin.php"><img src="images/admin.png" border="0" class="icon" alt="Admin Page" title="Admin Page" /></a><a href="admin.php">Return to Admin Page</a>
 
 <?php
-llxFooter('$Date: 2009/03/03 20:43:12 $ - $Revision: 1.6 $');
+llxFooter();
 ?>
 

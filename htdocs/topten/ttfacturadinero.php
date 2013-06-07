@@ -219,6 +219,6 @@ if(isset($mensaje_error))
 
 $db->close();
 
-llxFooter('$Date: 2012/01/28 10:00:00 $ - $Revision: 1.0 $');
+llxFooter();
 }
 ?>

@@ -242,8 +242,8 @@ if ($socid)
 }
 
 
+llxFooter();
+
 // End of page
 $db->close();
-
-llxFooter('');
 ?>
