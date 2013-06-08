@@ -1,0 +1,21 @@
+# How to create/add/update a new package on DoliCloud
+######################################################
+
+Create a directory tree for package
+  - package/config
+  - package/src
+
+Add into package/config:
+  - A tgz file (Run script buildtgz.sh to build tgz)
+  - A package.cfg file
+  - A package.sql file 
+  - A packageScript.groovy script
+
+When files are ready, connect with SFTP to on.dolicloud.com and upload files into
+  /var/www/appProviderImages/package
+
+Go into dashboard and add package from menu with parameters
+- sourceUrl - defines the location of your application source code
+- dbScriptUrl - the location of your mysqldump
+- cfgFileUrl - the location of your config file
+
