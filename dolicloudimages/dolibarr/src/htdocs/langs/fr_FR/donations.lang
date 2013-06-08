@@ -1,0 +1,27 @@
+# Dolibarr language file - fr_FR - donations
+CHARSET=UTF-8
+Donation=Don
+Donations=Dons
+Donor=Donateur
+Donors=Donateurs
+AddDonation=Ajouter don
+NewDonation=Nouveau don
+DonationPromise=Promesse de don
+PromisesNotValid=Promesses non validées
+PromisesValid=Promesses validées
+DonationsPaid=Dons payés
+DonationsReceived=Dons encaissés
+PublicDonation=Don public
+DonationsNumber=Nombre de dons
+DonationsArea=Espace Dons
+DonationStatusPromiseNotValidated=Promesse non validée
+DonationStatusPromiseValidated=Promesse validée
+DonationStatusPaid=Don payé
+DonationStatusPromiseNotValidatedShort=Non validée
+DonationStatusPromiseValidatedShort=Validée
+DonationStatusPaidShort=Payé
+ValidPromess=Valider promesse
+BuildDonationReceipt=Créer reçu
+DonationsModels=Modèle de document de bon de réception de dons
+LastModifiedDonations=Les %s derniers dons modifiés
+SearchADonation=Rechercher un don

@@ -1,0 +1,9 @@
+# Dolibarr language file - no_NB - oscommerce
+CHARSET=UTF-8
+OSCommerce=OS Commerce
+OSCommerceSetup=OS Commerce moduloppsett
+OSCommerceSetupSaved=OS Commerce innstillinger lagret
+OSCommerceServer=OS Commerce server host/ip
+OSCommerceDatabaseName=OS Commerce databasenavn
+OSCommercePrefix=OS Commerce tabellprefix
+OSCommerceUser=OS Commerce databaseinnlogging

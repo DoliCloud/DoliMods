@@ -1,0 +1,32 @@
+﻿* Manually generated
+ * Generation date 2012-07-17 19:54:26
+
+// START - Lines manually generated (2012-07-17 19:54:26).
+ */
+// Reference language: en_US -> TR – donations
+CHARSET=UTF-8
+Donation=Bağış
+Donations=Bağışlar
+Donor=Bağışçı
+Donors=Bağışçılar
+AddDonation=Bir bağış ekle
+NewDonation=Yeni bağış
+DonationPromise=Hibe sözü
+PromisesNotValid=Doğrulanmamış sözler
+PromisesValid=Doğrulanmış sözler
+DonationsPaid=Ödenen bağışlar
+DonationsReceived=Alınan bağışlar
+PublicDonation=Kamu bağışı
+DonationsNumber=Bağış sayısı
+DonationsArea=Bağış alanı
+DonationStatusPromiseNotValidated=Söz taslağı
+DonationStatusPromiseValidated=Doğrulanmış söz
+DonationStatusPaid=Bağış alındı
+DonationStatusPromiseNotValidatedShort=Taslak
+DonationStatusPromiseValidatedShort=Doğrulanmış
+DonationStatusPaidShort=Alınan
+ValidPromess=Söz doğrula
+BuildDonationReceipt=Makbuz oluştur
+DonationsModels=Bağış makbuzları belge modelleri
+LastModifiedDonations=Düzenlenen son %s bağış
+SearchADonation=Bağış ara

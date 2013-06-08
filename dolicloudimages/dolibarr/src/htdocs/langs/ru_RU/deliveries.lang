@@ -1,0 +1,36 @@
+/*
+ * Language code: ru_RU
+ * Automatic generated via autotranslator.php tool
+ * Generation date 2009-01-19 21:30:52
+ */
+
+
+// Date 2009-01-19 21:30:52
+// START - Lines generated via autotranslator.php tool.
+// Reference language: en_US
+CHARSET=UTF-8
+Delivery=Доставка
+Deliveries=Доставки
+DeliveryCard=Карточка доставки
+DeliveryOrder=Заказ на доставку
+DeliveryOrders=Заказы на доставку
+DeliveryDate=Дата доставки
+DeliveryDateShort=Дата дост.
+CreateDeliveryOrder=Создание заказа на доставку
+QtyDelivered=Доставленное кол-во
+SetDeliveryDate=Установить дату отправки
+ValidateDeliveryReceipt=Подтверждение получения доставки
+ValidateDeliveryReceiptConfirm=Вы действительно подтвердаете получение этой доставки?
+DeleteDeliveryReceipt=Удалить подтверждение доставки
+DeleteDeliveryReceiptConfirm=Вы действительно хотите удалить подтверждение доставки <b>%s</b>?
+DeliveryMethod=Способ доставки
+TrackingNumber=Номер отправления
+DeliveryNotValidated=Доставка не подтверждена
+NameAndSignature=Имя и подпись:
+ToAndDate=Получатель ___________________________________ доставлено ____ / _____ / __________
+GoodStatusDeclaration=Указанные выше товары получены в надлежащем состоянии,
+Deliverer=Доставщик:
+Sender=Отправитель
+Recipient=Получатель
+// Date 2009-01-19 21:30:52
+// STOP - Lines generated via parser

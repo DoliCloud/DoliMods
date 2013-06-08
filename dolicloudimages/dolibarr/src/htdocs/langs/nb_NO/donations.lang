@@ -1,0 +1,39 @@
+# Dolibarr language file - no_NB - donations
+CHARSET=UTF-8
+Donation=Donasjon
+Donationss=Donasjoner
+Donor=Giver
+Donors=Givere
+AddDonation=Legg til donasjon
+NewDonation=Ny donasjon
+DonationPromise=Lovet donasjon
+PromisesNotValid=Ikke godkjente løfter
+PromisesValid=Godkjente løfter
+DonationsPaid=Betalte donasjoner
+DonationsReceived=Mottatte donasjoner
+PublicDonation=Offentlig donasjon
+DonationsNumber=Donasjonsnummer
+DonationsArea=Donasjonsområde
+DonationStatusPromiseNotValidated=Løftekladd
+DonationStatusPromiseValidated=Godkjent løfte
+DonationStatusPaid=Mottatt donasjon
+DonationStatusPromiseNotValidatedShort=Kladd
+DonationStatusPromiseValidatedShort=Godkjent
+DonationStatusPaidShort=Mottatt
+ValidPromise=Godkjenn løfte
+BuildDonationReceipt=Opprett kvittering
+DonationsModels=Dokumentmal for donasjonskvitteringer
+
+
+// START - Lines generated via autotranslator.php tool (2010-07-17 11:45:17).
+// Reference language: en_US
+Donations=Donasjoner
+ValidPromess=Valider lover
+// STOP - Lines generated via autotranslator.php tool (2010-07-17 11:49:37).
+
+
+// START - Lines generated via autotranslator.php tool (2012-02-29 17:06:43).
+// Reference language: en_US -> nb_NO
+LastModifiedDonations=Siste %s endret donasjoner
+SearchADonation=Søk etter donasjon
+// STOP - Lines generated via autotranslator.php tool (2012-02-29 17:09:03).

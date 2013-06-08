@@ -1,0 +1,126 @@
+# Dolibarr language file - no_NB - mails
+CHARSET=UTF-8
+Mailing=E-postutsendelser
+EMailing=E-postutsendelser
+Mailings=E-postutsendelser
+EMailings=E-postutsendelser
+MailCard=E-postkort
+MailTargets=Målgruppe
+MailRecipients=Mottagere
+MailRecipient=Mottager
+MailTitle=Kampanjetittel
+MailFrom=Avsender
+MailErrorsTo=Feilmeldinger til
+MailReply=Svar til
+MailTo=Mottaker(e)
+MailCC=Kopi til
+MailCCC=Cached kopi til
+MailTopic=E-postemne
+MailText=Meldingstekst
+MailFile=Filvedlegg
+MailMessage=Meldingstekst
+ShowEMailing=Vis utsendelse
+ListOfEMailings=Oversikt over utsendelser
+NewMailing=Ny utsendelse
+EditMailing=Rediger utsendelse
+DeleteMailing=Slett utsendelse
+DeleteAMailing=Slett en utsendelse
+PreviewMailing=Forhåndsvis utsendelse
+PrepareMailing=Klargjør utsendelse
+CreateMailing=Opprett utsendelse
+MailingDesc=Her kan du sende e-postutesendelser til grupper av mottagere.
+MailingResult=Sendingsresultat
+TestMailing=Test utsendelse
+ValidMailing=Godkjenn utsendelse
+ApproveMailing=Aksepter utsendelse
+MailingStatusDraft=Kladd
+MailingStatusValidated=Godkjent
+MailingStatusApproved=Akseptert
+MailingStatusSent=Sendt
+MailingStatusSentPartialy=Delvis sendt
+MailingStatusSentCompletely=Sendt fullt ut
+MailingStatusError=Feil
+MailingStatusNotSent=Ikke sendt
+MailSuccessfulySent=E-post ble sendt (fra %s til %s)
+ErrorMailRecipientIsEmpty=E-postmottager er ikke oppgitt
+WarningNoEMailsAdded=Ingen ny e-post å legge til mottagerlisten.
+ConfirmValidMailing=Er du sikker på at du vil godkjenne utsendelsen?
+ConfirmDeleteMailing=Er du sikker på at du vil slette utsendelsen?
+NbOfRecipients=Antall mottagere
+NbOfUniqueEMails=Ant. unike e-poster
+NbOfEMails=Ant. e-poster
+TotalNbOfDistinctRecipients=Antall bestemte mottagere
+NoTargetYet=Ingen mottagere angitt (Gå til fanen 'Mottakere')
+AddRecipients=Legg til mottakere
+RemoveRecipient=Fjern mottaker
+CommonSubstitutions=Vanlige flettefelt
+YouCanAddYourOwnPredefindedListHere=Les mer om hvordan du lager din egen utvalgsliste her: htdocs/core/modules/mailings/README.
+EMailTestSubstitutionReplacedByGenericValues=Når du er i testmodus blir flettefelt erstattet med generiske verdier
+MailingAddFile=Legg ved denne filen
+NoAttachedFiles=Ingen vedlagte filer
+
+# Libelle des modules de liste de destinataires mailing
+MailingModuleDescContactCompanies=Alle tredjeparters kontaktpersoner (kunder, prospekter, leverandører, ...)
+MailingModuleDescDolibarrUsers=Alle Dolibarr-brukere med egen e-post
+MailingModuleDescFundationMembers=Medlemmer med e-postadresser
+MailingModuleDescEmailsFromFile=E-poster lest inn fra teksttil (e-post;fornavn;etternavn)
+MailingModuleDescContactsCategories=Alle tredjeparters kontakter (etter kategori)
+
+LineInFile=Antall linjer i filen: %s 
+RecipientSelectionModules=Foresøprsel om lesebekreftelse
+MailSelectedRecipients=Valgte mottagere
+MailingArea=Område for e-postutsendelser
+LastMailings=Siste %s utsendelser
+TargetsStatistics=Statistikk over målgruppe
+NbOfCompaniesContacts=Unike kontaktpersoner for firmaer
+MailNoChangePossible=Du kan ikke endre mottagere når utsendelsen er godkjent
+SearchAMailing=Finn utsendelse
+SendMailing=Send utesendelse
+SendMail=Send e-post
+SentBy=Sendt av
+MailingNeedCommand=Av sikkerhetsgrunner kan utsendelser bare foretas fra kommandolinja. Be administrator om å kjøre følgedne kommando for å starte utsendelsen:
+MailingNeedCommand2=Du kan imidlertid sende dem online ver å sette parameteret MAILING_LIMIT_SENDBYWEB til en verdi tilsvarende den maksimale antalle e-poster du ønsker å sende i en økt.
+ConfirmSendingEmailing=Er du sikker på at du vil starte utsendelsen?<br>Av sikkerhetsgrunner er antall maksimalt antall e-poster som kan sendes i en økt <b>%s</b>.
+TargetsReset=Tøm liste
+ToClearAllRecipientsClickHere=Trykk på knappen for å tømme mottagerlisten
+ToAddRecipientsChooseHere=Velg i listene for å legge til mottagere
+NbOfEMailingsReceived=E-postutsendelser mottatt
+IdRecord=Post ID
+DeliveryReceipt=Mottaksbekreftelse
+
+# Module Notifications
+Notifications=Varsler
+NoNotificationsWillBeSent=Ingen e-postvarsler er planlagt for denne hendelsen/firmaet
+ANotificationsWillBeSent=1 e-postvarsel vil bli sendt med e-post
+SomeNotificationsWillBeSent=%s e-postvarsler vil bli sendt med e-post
+AddNewNotification=Slå på en ny varslingsforespørsel
+ListOfActiveNotifications=Vis alle altive varslingsforespørsler
+
+
+// START - Lines generated via autotranslator.php tool (2010-07-17 11:45:17).
+// Reference language: en_US
+AllEMailings=Alle eMailings
+ResetMailing=Send e-post
+ConfirmResetMailing=Advarsel ved reinitializing emailing <b>%s,</b> kan du gjøre en masse sending av denne e-en annen gang. Er du sikker på at du dette er hva du vil gjøre?
+BadEMail=Ugyldig verdi for Email
+CloneEMailing=Clone Emailing
+ConfirmCloneEMailing=Er du sikker på at du vil klone denne e-post?
+CloneContent=Clone melding
+CloneReceivers=Cloner mottakere
+DateLastSend=Dato for siste sending
+DateSending=Dato sending
+SentTo=Sendt til <b>%s</b>
+MailingModuleDescDolibarrContractsLinesExpired=Tredjeparter med utløpte kontraktens linjer
+LimitSendingEmailing=Ny sending av emailings er begrenset for sikkerhet og tidsavbrudd grunner til å <b>%s</b> mottakere ved å sende økt.
+YouCanUseCommaSeparatorForSeveralRecipients=Du kan bruke <b>komma</b> skilletegn for å angi flere mottakere.
+ListOfNotificationsDone=List alle e-postmeldinger sendt
+// STOP - Lines generated via autotranslator.php tool (2010-07-17 11:46:00).
+
+
+// START - Lines generated via autotranslator.php tool (2012-02-29 17:06:43).
+// Reference language: en_US -> nb_NO
+MailingStatusRead=Les
+MailingModuleDescContactsByCompanyCategory=Kontakter til tredjeparter (av tredjeparter kategori)
+MailingModuleDescMembersCategories=Foundation medlemmer etter kategorier)
+MailingModuleDescContactsByFunction=Kontakter til tredjeparter (av stilling / funksjon)
+// STOP - Lines generated via autotranslator.php tool (2012-02-29 17:06:59).

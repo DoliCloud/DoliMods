@@ -1,0 +1,143 @@
+/*
+ * Lince Translation File
+ * Filename: 
+ * Language code: pl_PL
+ * Automatic generated via autotranslator tool
+ * Generation date 2009-01-19 00:44:06
+ */
+
+
+// Date 2009-01-19 00:44:06
+// START - Lines generated via autotranslator.php tool.
+// Reference language: en_US
+CHARSET=UTF-8
+ExportsArea=Wywóz obszarze
+ImportArea=Import obszarze
+NewExport=Nowy eksport
+NewImport=Nowe importu
+ExportableDatas=Eksport danych
+ImportableDatas=Przywozowe danych
+SelectExportDataSet=Wybierz dane, które chcesz wyeksportować ...
+SelectExportFields=Wybierz pola, które chcesz wyeksportować, lub wybrać predefiniowany profil eksportu
+SaveExportModel=Zapisz ten wywóz profil jeśli masz zamiar ponownego użycia go później ...
+ExportModelName=Eksport nazwę profilu
+ExportModelSaved=Eksport profil zapisany pod <b>nazwą %s.</b>
+ExportableFields=Wywóz pola
+ExportedFields=Eksportowane pola
+DatasetToExport=Dataset do wywozu
+Dataset=Dataset
+ChooseFieldsOrdersAndTitle=Wybierz pola porządku ...
+FieldsOrder=Obszary celu
+FieldsTitle=Obszary tytuł
+ChooseExportFormat=Wybierz format eksportu
+NowClickToGenerateToBuildExportFile=Teraz kliknij na "Generuj" budować pliku eksportu ...
+AvailableFormats=Formaty disponibles
+LibraryUsed=Librairie
+LibraryVersion=Wersja
+Step=Krok
+FormatedImport=Import asystent
+FormatedImportDesc1=Obszar ten pozwala importować spersonalizowanych danych, za pomocą asystenta, który pomoże Państwu w procesie bez wiedzy technicznej.
+FormatedImportDesc2=Pierwszym krokiem jest wybór króla dane, które chcesz załadować, a następnie załadować plik, a następnie wybrać pola, które chcesz załadować.
+FormatedExport=Eksport asystent
+FormatedExportDesc1=Obszar ten pozwala na eksport spersonalizowanych danych, za pomocą asystenta, który pomoże Państwu w procesie bez wiedzy technicznej.
+FormatedExportDesc2=Pierwszym krokiem jest wybór gotowych danych, a następnie wybrać pola, które chcesz w wyniku plików, które kolejności.
+FormatedExportDesc3=Po danych na wywóz są wybierane, można określić format pliku, który chcesz wyeksportować dane.
+Sheet=Arkusz
+NoImportableData=Nr przywozowe danych (bez modułu z definicji pozwalają na import danych)
+FileSuccessfullyBuilt=Eksport plików generowanych
+// Date 2009-01-19 00:44:06
+// STOP - Lines generated via parser
+
+
+// START - Lines generated via autotranslator.php tool (2009-08-13 21:07:31).
+// Reference language: en_US
+SelectImportDataSet=Wybierz dane, które chcesz zaimportować ...
+SelectImportFields=Wybierz pola, które chcesz zaimportować, lub wybrać predefiniowany profil importu
+SaveImportModel=Zapisz ten przywóz profil jeśli masz zamiar ponownego użycia go później ...
+ImportModelName=Importuj nazwę profilu
+ImportModelSaved=Import profilu zapisany pod <b>nazwą %s.</b>
+ImportableFields=Przywozowe pola
+ImportedFields=Przywożone pola
+DatasetToImport=Dataset importować
+LibraryShort=Biblioteka
+SQLUsedForExport=Zapytanie SQL wykorzystywane do budowania pliku eksportu
+LineId=Identyfikator linii
+LineDescription=Opis linii
+LineUnitPrice=Cena jednostkowa linii
+LineVATRate=Stawka VAT linii
+LineQty=Ilość dla linii
+LineTotalHT=Kwota netto podatku dla linii
+LineTotalTTC=Kwota z podatku na linii
+LineTotalVAT=Kwota podatku VAT dla linii
+TypeOfLineServiceOrProduct=Rodzaj linii (0= produkt, usługa 1=)
+FileWithDataToImport=Plik z danymi do importu
+FileToImport=Źródło plik do zaimportowania
+FileMustHaveOneOfFollowingFormat=Plik do importu musi mieć jeden z następującego formatu
+ChooseFileToImport=Wybierz plik do zaimportowania, a następnie kliknij przycisk picto %s ...
+FieldsInSourceFile=Obszary w pliku źródłowym
+FieldsInTargetDatabase=Docelowe Dolibarr pól w bazie danych
+// STOP - Lines generated via autotranslator.php tool (2009-08-13 21:07:31).
+
+
+
+// START - Lines generated via autotranslator.php tool (2010-09-04 01:33:40).
+// Reference language: en_US -> pl_PL
+NotImportedFields=Obszary plik przywożonych źródła nie
+NoDiscardedFields=Nie pól w pliku źródłowym są odrzucane
+FieldOrder=Aby Field
+FieldTitle=pole tytuł
+DownloadEmptyExample=Pobierz przykład pusty plik źródłowy
+ChooseFormatOfFileToImport=Wybierz format pliku do wykorzystania jako format pliku importu, klikając na picto %s, aby je wybrać ...
+SourceFileFormat=format pliku źródłowego
+Field=Pole
+NoFields=Nie pól
+MoveField=Przenieś %s kolumnie polu numeru
+ExampleOfImportFile=Example_of_import_file
+SaveImportProfile=Zapisz ten profil importu
+ErrorImportDuplicateProfil=Nie udało się zapisać w tym profilu import o tej nazwie. Istniejących już profil o tej nazwie.
+ImportSummary=Import konfiguracji podsumowanie
+TablesTarget=Ukierunkowane tabele
+FieldsTarget=Określonych dziedzinach
+TableTarget=Ukierunkowane tabeli
+FieldTarget=Ukierunkowane pole
+FieldSource=polu Source
+DoNotImportFirstLine=Nie przywozili pierwszym wierszu pliku źródłowego
+NbOfSourceLines=Liczba linii w pliku źródłowym
+NowClickToTestTheImport=Sprawdź parametry na przywóz zostało to określone. Jeśli są one prawidłowe, kliknij na przycisk <b>&quot;%s&quot;,</b> aby uruchomić symulację procesu importowania (żadne dane nie zostaną zmienione w bazie danych, to tylko symulacja na razie) ...
+RunSimulateImportFile=Uruchomienie symulacji import
+FieldNeedSource=Czuje się w bazie danych wymaga danych z pliku źródłowego
+SomeMandatoryFieldHaveNoSource=Niektóre z pól obowiązkowych nie ma źródła danych z pliku
+InformationOnSourceFile=Informacje o pliku źródłowego
+InformationOnTargetTables=Informacji na temat docelowego pola
+SelectAtLeastOneField=Switch co najmniej jednego źródła pola w kolumnie pól do wywozu
+SelectFormat=Wybierz ten format pliku importu
+RunImportFile=Uruchom plik importu
+NowClickToRunTheImport=Sprawdź wynik symulacji import. Jeśli wszystko jest ok, rozpocząć ostateczne na przywóz.
+DataLoadedWithId=Wszystkie dane zostaną wczytane z następującymi id import: <b>%s</b>
+ErrorMissingMandatoryValue=Obowiązkowe jest pusty danych w pliku źródłowym dla <b>%s</b> dziedzinie.
+TooMuchErrors=Nadal <b>%s</b> inne linie z błędami, ale wyjście jest niewielki.
+TooMuchWarnings=Nadal <b>%s</b> inne linie z ostrzeżeniami, ale wyjście jest niewielki.
+EmptyLine=Pusty wiersz (zostanie odrzucona)
+CorrectErrorBeforeRunningImport=Najpierw trzeba poprawić wszystkie błędy przed uruchomieniem ostateczne na przywóz.
+YouCanUseImportIdToFindRecord=Możesz znaleźć wszystkie importowane rekordy w bazie danych przez filtrowanie <b>import_key</b> pole <b>= &quot;%s&quot;.</b>
+NbOfLinesOK=Liczba linii bez błędów i żadnych ostrzeżeń: <b>%s.</b>
+NbOfLinesImported=Liczba linii zaimportowany: <b>%s.</b>
+DataComeFromNoWhere=Wartości, aby dodać pochodzi z nigdzie w pliku źródłowym.
+DataComeFromFileFieldNb=Wartości, aby dodać pochodzi z <b>%s</b> numer pola w pliku źródłowym.
+DataComeFromIdFoundFromRef=Wartość, która pochodzi z <b>%s</b> numer dziedzinie pliku źródłowego zostaną wykorzystane w celu znalezienia id rodzica obiektu do użytkowania (So <b>%s</b> objet że ma ref. Od pliku źródłowego musi istnieć w Dolibarr).
+DataIsInsertedInto=Danych pochodzących z pliku źródłowego zostanie wstawiony w pole następujące brzmienie:
+DataIDSourceIsInsertedInto=Id rodzica znalezionego obiektu na podstawie danych w pliku źródłowym, zostaną włączone do następujących dziedzinach:
+SourceRequired=Wartość danych jest obowiązkowe
+SourceExample=Przykład możliwych wartości danych
+CSVFormatDesc=Format pliku <b>oddzielonych przecinkami jakości</b> (. Csv). <br> Jest to format pliku tekstowego, gdzie pola oddzielone są separatorem [%s]. Jeśli wewnątrz znajduje się separator zawartości pola, jest zaokrąglona przez cały charakter [%s]. Ucieczka do charakteru uciec charakter rundy [%s].
+// STOP - Lines generated via autotranslator.php tool (2010-09-04 01:53:25).
+
+
+// START - Lines generated via autotranslator.php tool (2012-02-29 17:18:29).
+// Reference language: en_US -> pl_PL
+FileWasImported=Plik został przywieziony z <b>%s</b> numerycznych.
+DataComeFromIdFoundFromCodeId=Kod, który pochodzi z <b>%s</b> liczba terenowych pliku źródłowego zostaną użyte, by znaleźć identyfikator obiektu nadrzędnego do korzystania (So kod z pliku źródłowego musi istnieje w dictionnary <b>%s).</b> Zauważ, że jeśli wiesz, id, można też użyć go do pliku źródłowego zamiast kodu. Import powinien działać w obu przypadkach.
+DataCodeIDSourceIsInsertedInto=Id linii macierzystej znaleźć z kodem, zostaną włączone do następnego pola:
+ExampleAnyRefFoundIntoElement=Wszelkie ref dla <b>%s</b> elementów
+ExampleAnyCodeOrIdFoundIntoDictionnary=Każdy kod (lub id) stwierdzono w dictionnary <b>%s</b>
+// STOP - Lines generated via autotranslator.php tool (2012-02-29 17:19:22).

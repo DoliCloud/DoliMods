@@ -1,0 +1,103 @@
+﻿# Dolibarr language file - pt_PT - categories
+CHARSET=UTF-8
+Category=Categoria
+Categories=Categorias
+Rubrique=Categoria
+Rubriques=Categorias
+categories=categorias
+TheCategorie=A Categoria
+NoCategoryYet=Nenhuma Categoria Deste Tipo Criada
+In=em
+AddIn=Adicionar em
+modify=Modificar
+Classify=Classificar
+CategoriesArea=Área Categorias
+ProductsCategoriesArea=Área Categorias de Produtos e Serviços
+SuppliersCategoriesArea=Área Categorias Fornecedores
+CustomersCategoriesArea=Área Categorias Clientes
+ThirdPartyCategoriesArea=Área Categorias de Terceiros
+MainCats=Categorias Principais
+SubCats=Sub-Categorias
+CatStatistics=Estatísticas
+CatList=Lista de Categorias
+AllCats=Todas as Categorias
+ViewCat=Ver Categoria
+NewCat=Nova Categoria
+NewCategory=Nova Categoria
+ModifCat=Modificar uma Categoria
+CatCreated=Categoria Criada
+CreateCat=Adicionar uma Categoria
+CreateThisCat=Adicionar esta Categoria
+ValidateFields=Confirmar os campos
+NoSubCat=Esta categoria não contem Nenhuma subcategoria.
+SubCatOf=Subcategoria
+FoundCats=Categorias Encontradas
+FoundCatsForName=Categorias Encontradas com o Nome:
+FoundSubCatsIn=Subcategorias Encontradas na Categoria
+ErrSameCatSelected=Selecionou a mesma categoria varias vezes
+ErrForgotCat=Esqueceu-se escolher a categoria
+ErrForgotField=Esqueceu-se atribuir um campo
+ErrCatAlreadyExists=Este nome esta ser utilizado
+AddProductToCat=¿Adicionar este produto a uma categoria?
+ImpossibleAddCat=Impossivel Adicionar a categoria
+ImpossibleAssociateCategory=Impossivel associar a categoria
+WasAddedSuccessfully=Foi adicionado com éxito.
+ObjectAlreadyLinkedToCategory=O elemento já está emparelhado a esta categoria
+CategorySuccessfullyCreated=A Categoria %s foi inserida com sucesso
+ProductIsInCategories=Este produto/serviço encontra-se nas seguintes categorias
+SupplierIsInCategories=Este fornecedor encontra-se nas seguintes categorias
+CompanyIsInCustomersCategories=Esta empresa encontra-se nas seguintes categorias
+CompanyIsInSuppliersCategories=Esta empresa encontra-se nas seguintes caterogrias de Fornecedores
+ProductHasNoCategory=Este produto/serviço não se encontra em nenhuma categoria em particular
+SupplierHasNoCategory=Este fornecedor não se encontra em Nenhuma categoria em particular
+CompanyHasNoCategory=Esta empresa não se encontra em Nenhuma categoria em particular
+ClassifyInCategory=Esta categoria não contem clientes
+NoneCategory=Nenhuma
+CategoryExistsAtSameLevel=Esta categoria já existe na mesma localização
+ReturnInProduct=Voltar à ficha produto/serviço
+ReturnInSupplier=Voltar à ficha fornecedor
+ReturnInCompany=Voltar à ficha cliente/cliente potencial
+ContentsVisibleByAll=O Conteudo Será Visivel por Todos?
+ContentsVisibleByAllShort=Conteudo visivel por todos
+ContentsNotVisibleByAllShort=Conteudo não visivel por todos
+CategoriesTree=Árvore de Categorias
+DeleteCategory=Eliminar Categoria
+ConfirmDeleteCategory=¿Está seguro de querer eliminar esta categoria?
+RemoveFromCategory=Eliminar link com categoria
+RemoveFromCategoryConfirm=¿Está seguro de querer eliminar o link entre a transação e a categoria?
+NoCategoriesDefined=Nenhuma Categoria Definida
+SuppliersCategoryShort=Categoria Fornecedores
+CustomersCategoryShort=Categoria Clientes
+ProductsCategoryShort=Categoria Produtos
+SuppliersCategoriesShort=Categorias Fornecedores
+CustomersCategoriesShort=Categorias Clientes
+CustomersProspectsCategoriesShort=Cat. Clientes/Potenciais
+ProductsCategoriesShort=Categorias Produtos
+ThisCategoryHasNoProduct=Esta categoria não contem nenhum produto.
+ThisCategoryHasNoSupplier=Esta categoria não contem a nenhum fornecedor.
+ThisCategoryHasNoCustomer=Esta categoria não contem a nenhum cliente.
+AssignedToCustomer=Atribuir a um cliente
+AssignedToTheCustomer=Atribuido a um cliente
+InternalCategory=Categoria Interna
+CategoryContents=Conteudo da Categoria
+CategId=Id Categoria
+
+
+// START - Lines generated via autotranslator.php tool (2009-08-13 21:10:10).
+// Reference language: en_US
+CatSupList=Lista de fornecedores categorias
+CatCusList=Lista de clientes / perspectiva categorias
+CatProdList=Lista dos produtos categorias
+// STOP - Lines generated via autotranslator.php tool (2009-08-13 21:10:10).
+
+
+// START - Lines generated via autotranslator.php tool (2010-09-04 01:33:40).
+// Reference language: en_US -> pt_PT
+MembersCategoriesArea=Os membros da zona categorias
+MemberIsInCategories=Este membro possui a seguinte membros categorias
+MemberHasNoCategory=Este membro não está em nenhuma categoria
+MembersCategoryShort=Membros da categoria
+MembersCategoriesShort=categorias de membros
+ThisCategoryHasNoMember=Esta categoria não contém nenhum membro.
+CatMemberList=Categorias Lista de membros
+// STOP - Lines generated via autotranslator.php tool (2010-09-04 01:35:16).

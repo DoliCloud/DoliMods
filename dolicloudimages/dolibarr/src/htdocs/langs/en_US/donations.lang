@@ -1,0 +1,27 @@
+# Dolibarr language file - en_US - donations
+CHARSET=UTF-8
+Donation=Donation
+Donations=Donations
+Donor=Donor
+Donors=Donors
+AddDonation=Add a donation
+NewDonation=New donation
+DonationPromise=Gift promise
+PromisesNotValid=Not validated promises
+PromisesValid=Validated promises
+DonationsPaid=Donations paid
+DonationsReceived=Donations received
+PublicDonation=Public donation
+DonationsNumber=Donation number
+DonationsArea=Donations area
+DonationStatusPromiseNotValidated=Draft promise
+DonationStatusPromiseValidated=Validated promise
+DonationStatusPaid=Donation received
+DonationStatusPromiseNotValidatedShort=Draft
+DonationStatusPromiseValidatedShort=Validated
+DonationStatusPaidShort=Received
+ValidPromess=Validate promise
+BuildDonationReceipt=Build receipt
+DonationsModels=Documents models for donation receipts
+LastModifiedDonations=Last %s modified donations
+SearchADonation=Search a donation

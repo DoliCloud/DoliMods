@@ -1,0 +1,11 @@
+# Dolibarr language file - no_NB - shop
+CHARSET=UTF-8
+Shop=Butikk
+ShopWeb=Nettbutikk
+LastOrders=Siste ordre
+OnStandBy=På vent
+TreatmentInProgress=Under behandling
+LastCustomers=Siste kunder
+OSCommerceShop=OSCommerce butikk
+OSCommerce=OSCommerce
+AddProd=Selg i nettbutikk

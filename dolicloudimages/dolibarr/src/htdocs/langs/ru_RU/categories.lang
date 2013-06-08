@@ -1,0 +1,113 @@
+/*
+ * Language code: ru_RU
+ * Automatic generated via autotranslator.php tool
+ * Generation date 2009-01-19 21:30:52
+ */
+
+
+// Date 2009-01-19 21:30:52
+// START - Lines generated via autotranslator.php tool.
+// Reference language: en_US
+CHARSET=UTF-8
+Category=Категория
+Categories=Категории
+Rubrique=Категория
+Rubriques=Категории
+categories=категории
+TheCategorie=Категория
+In=В
+AddIn=Добавить в
+modify=изменить
+Classify=Добавить
+CategoriesArea=Область категорий
+ProductsCategoriesArea=Область категорий Товаров/Услуг
+SuppliersCategoriesArea=Область категорий Поставщиков
+CustomersCategoriesArea=Область категорий Покупателей
+ThirdPartyCategoriesArea=Область категорий Контрагентов
+MainCats=Основные категории
+SubCats=Подкатегории
+CatStatistics=Статистика
+CatList=Список категорий
+AllCats=Все категории
+ViewCat=Просмотреть категорию
+NewCat=Добавить категорию
+NewCategory=Новая категория
+ModifCat=Изменить категорию
+CatCreated=Категория создана
+CreateCat=Создать категорию
+CreateThisCat=Создать эту категорию
+ValidateFields=Проверить поля
+NoSubCat=Нет подкатегории.
+SubCatOf=Подкатегория
+FoundCats=Найдено категорий
+FoundCatsForName=Найдено категорей по имени:
+FoundSubCatsIn=Подкатегории, найденные в категории
+ErrSameCatSelected=Вы выбрали ту же самую категорию несколько раз
+ErrForgotCat=Вы забыли выбрать категорию
+ErrForgotField=Вы забыли заполнить поля
+ErrCatAlreadyExists=Это имя уже используется
+AddProductToCat=Добавить этот продукт в категорию?
+ImpossibleAddCat=Невозможно добавить категорию
+ImpossibleAssociateCategory=Невозможно добавить категорию к
+WasAddedSuccessfully=<b>%s</b> успешно добавлена.
+ObjectAlreadyLinkedToCategory=Элемент уже связан с этой категорией.
+CategorySuccessfullyCreated=Категория %s успешно добавлена.
+ProductIsInCategories=Товар/услуга принадлежит к следующим категориям
+SupplierIsInCategories=Контрагент принадлежит к следующим категориям поставщиков
+CompanyIsInCustomersCategories=Этот контрагент принадлежит к следующим категориям покупателей/потенциальных клиентов
+CompanyIsInSuppliersCategories=Этот контрагент принадлежит к следующим категориям поставщиков
+ProductHasNoCategory=Этот товар/услуга не принадлежит к какой-либо категории
+SupplierHasNoCategory=Этот поставщик не принадлежит к какой-либо категории
+CompanyHasNoCategory=Эта компания не принадлежит к какой-либо категории
+ClassifyInCategory=Добавить категорию
+NoneCategory=Нет
+CategoryExistsAtSameLevel=Категория к таким кодом уже существует
+ReturnInProduct=Назад к карточке товара/услуги
+ReturnInSupplier=Назад к карточке поставщика
+ReturnInCompany=Назад к карточке покупателя/потенциального клиента
+ContentsVisibleByAll=Содержимое будет доступно всем
+ContentsVisibleByAllShort=Содержимое доступно всем
+ContentsNotVisibleByAllShort=Содержание не доступно всем
+CategoriesTree=Дерево категорий
+DeleteCategory=Удалить категорию
+ConfirmDeleteCategory=Вы уверены, что хотите удалить эту категорию?
+RemoveFromCategory=Удалить связь с категорией
+RemoveFromCategoryConfirm=Вы уверены, что хотите удалить связь операции и категории?
+NoCategoriesDefined=Категории не определены
+SuppliersCategoryShort=Категории Поставщиков
+CustomersCategoryShort=Категории Покупателей
+ProductsCategoryShort=Категории Товаров
+SuppliersCategoriesShort=Категории Поставщиков
+CustomersCategoriesShort=Категории Покупателей
+CustomersProspectsCategoriesShort=Категории Покупателей/Потенц. клиентов
+ProductsCategoriesShort=Категории Товаров
+ThisCategoryHasNoProduct=В этой категории нет товаров.
+ThisCategoryHasNoSupplier=В этой категории нет поставщиков.
+ThisCategoryHasNoCustomer=В этой категории нет покупателей.
+AssignedToCustomer=Установленное для покупателя
+AssignedToTheCustomer=Установленное для покупателя
+InternalCategory=Внутренняя категория
+CategoryContents=Содержание категории
+CategId=Код категории
+// Date 2009-01-19 21:30:52
+// STOP - Lines generated via parser
+
+
+// START - Lines generated via autotranslator.php tool (2009-08-13 21:14:36).
+// Reference language: en_US
+NoCategoryYet=Категории этого типа не созданы
+CatSupList=Список категорий поставщиков
+CatCusList=Список категорий покупателей / потенц. клиентов
+CatProdList=Список категорий продукции
+// STOP - Lines generated via autotranslator.php tool (2009-08-13 21:14:36).
+
+// START - Lines generated via autotranslator.php tool (2010-09-04 01:33:40).
+// Reference language: en_US -> ru_RU
+MembersCategoriesArea=Область категорий участников
+MemberIsInCategories=Этот участник принадлежит к следующим категориям
+MemberHasNoCategory=Этот пользователь не находится в какой-либо категории
+MembersCategoryShort=Категории участников
+MembersCategoriesShort=Категории участников
+ThisCategoryHasNoMember=Эта категория не содержит участников.
+CatMemberList=Список категорий участников
+// STOP - Lines generated via autotranslator.php tool (2010-09-04 01:35:21).

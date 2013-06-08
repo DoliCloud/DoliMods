@@ -1,0 +1,124 @@
+/*
+ * Lince Translation File
+ * Filename: 
+ * Language code: pl_PL
+ * Automatic generated via autotranslator tool
+ * Generation date 2009-01-19 00:44:06
+ */
+
+
+// Date 2009-01-19 00:44:06
+// START - Lines generated via autotranslator.php tool.
+// Reference language: en_US
+CHARSET=UTF-8
+Project=Project
+Projects=Projekty
+SharedProject=Współużytkowane projektu
+Myprojects=Moje projekty
+ProjectsArea=Projekty obszaru
+NewProject=Nowy projekt
+AddProject=Dodaj projekt
+DeleteAProject=Usuń projektu
+DeleteATask=Usuń zadanie
+ConfirmDeleteAProject=Czy na pewno chcesz usunąć ten projekt?
+ConfirmDeleteATask=Czy na pewno chcesz usunąć to zadanie?
+OfficerProject=Oficer projektu
+LastProjects=Ostatnia %s projektów
+AllProjects=Wszystkich projektów
+ProjectsList=Lista projektów
+ShowProject=Pokaż projekt
+SetProject=Ustaw projektu
+NoProject=Projekt zdefiniowane
+NbOpenTasks=Nb otwartych zadań
+NbOfProjects=Nb projektów
+TimeSpent=Czas spędzony
+RefTask=Nr ref. zadanie
+LabelTask=Wytwórnia zadanie
+NewTimeSpent=Nowy czas spędzony
+MyTimeSpent=Mój czas spędzony
+MyTasks=Moje zadania
+Tasks=Zadania
+Task=Zadanie
+NewTask=Nowe zadania
+AddTask=Dodaj zadanie
+AddDuration=Dodaj czas
+Activity=Aktywność
+Activities=Zadania / działania
+MyActivity=Moja aktywność
+MyActivities=Moje zadania / działania
+DurationEffective=Efektywny czas trwania
+MyProjects=Moje projekty
+Time=Czas
+ListProposalsAssociatedProject=Lista komercyjne propozycje związane z projektem
+ListOrdersAssociatedProject=Lista zamówień związanych z projektem
+ListInvoicesAssociatedProject=Lista faktur związanych z projektem
+ListSupplierOrdersAssociatedProject=Lista dostawców zamówień związanych z projektem
+ListSupplierInvoicesAssociatedProject=Lista dostawców faktur związanych z projektem
+ListContractAssociatedProject=Wykaz umów związanych z projektem
+ActivityOnProjectThisWeek=Aktywność na projekt w tym tygodniu
+ActivityOnProjectThisMonth=Aktywność w sprawie projektu w tym miesiącu
+ActivityOnProjectThisYear=Aktywność na projekt w tym roku
+ChildOfTask=Dziecko projektu / zadania
+NotOwnerOfProject=Nie prywatnego właściciela tego projektu
+AffectedTo=Affected do
+// Date 2009-01-19 00:44:06
+// STOP - Lines generated via parser
+
+
+// START - Lines generated via autotranslator.php tool (2009-08-13 21:07:31).
+// Reference language: en_US
+ListPredefinedInvoicesAssociatedProject=Lista klientów gotowych faktur związanych z projektem
+CantRemoveProject=Ten projekt nie może zostać usunięty, ponieważ jest do których odwołują się inne obiekty (faktury, zamówienia lub innych). Zobacz odsyłających tab.
+// STOP - Lines generated via autotranslator.php tool (2009-08-13 21:07:31).
+
+
+// START - Lines generated via autotranslator.php tool (2010-09-04 01:33:40).
+// Reference language: en_US -> pl_PL
+PrivateProject=Kontakt z projektu
+MyProjectsDesc=Ten widok jest ograniczony do projektów jesteś kontaktu (cokolwiek to typ).
+ProjectsPublicDesc=Ten widok przedstawia wszystkie projekty, które możesz przeczytać.
+ProjectsDesc=Ten widok przedstawia wszystkie projekty (uprawnień użytkownika przyznać uprawnienia do wyświetlania wszystko).
+MyTasksDesc=Ten widok jest ograniczony do projektów i zadań, które są do kontaktu (cokolwiek to typ).
+TasksPublicDesc=Ten widok przedstawia wszystkich projektów i zadań, które możesz przeczytać.
+TasksDesc=Ten widok przedstawia wszystkich projektów i zadań (uprawnień użytkownika przyznać uprawnienia do wyświetlania wszystko).
+Progress=Postęp
+ListFichinterAssociatedProject=Wykaz interwencji związanych z projektem
+ListTripAssociatedProject=Lista wycieczek i wydatków związanych z projektem
+ListActionsAssociatedProject=Wykaz działań związanych z projektem
+ValidateProject=Sprawdź projet
+ConfirmValidateProject=Czy na pewno chcesz sprawdzić tego projektu?
+CloseAProject=Projekt Zamknij
+ConfirmCloseAProject=Czy na pewno chcesz zamknąć ten projekt?
+ReOpenAProject=Projekt Open
+ConfirmReOpenAProject=Czy na pewno chcesz ponownie otworzyć ten projekt?
+ProjectContact=Kontakt Project
+ActionsOnProject=Działania w ramach projektu
+YouAreNotContactOfProject=Nie masz kontaktu to prywatne przedsięwzięcie
+DeleteATimeSpent=Czas spędzony Usuń
+ConfirmDeleteATimeSpent=Czy na pewno chcesz usunąć ten czas?
+DoNotShowMyTasksOnly=Zobacz także zadania i nie jestem wpływ na
+ShowMyTasksOnly=Zobacz zadania ja jestem tylko wpływ na
+TaskRessourceLinks=Zasoby
+ProjectsDedicatedToThisThirdParty=Projekty poświęcone tej trzeciej
+NoTasks=Brak zadań dla tego projektu
+LinkedToAnotherCompany=Powiązane z innymi trzeciej
+TypeContact_project_internal_PROJECTLEADER=Kierownik projektu
+TypeContact_project_external_PROJECTLEADER=Kierownik projektu
+TypeContact_project_internal_CONTRIBUTOR=Współpracownik
+TypeContact_project_external_CONTRIBUTOR=Współpracownik
+TypeContact_project_task_internal_TASKEXECUTIVE=zadań wykonawczych
+TypeContact_project_task_external_TASKEXECUTIVE=zadań wykonawczych
+TypeContact_project_task_internal_CONTRIBUTOR=Współpracownik
+TypeContact_project_task_external_CONTRIBUTOR=Współpracownik
+DocumentModelBaleine=Kompletny model projektu sprawozdania (logo. ..)
+// STOP - Lines generated via autotranslator.php tool (2010-09-04 01:36:54).
+
+
+// START - Lines generated via autotranslator.php tool (2012-02-29 17:18:29).
+// Reference language: en_US -> pl_PL
+TimesSpent=Czas spędzony
+TaskIsNotAffectedToYou=Zadanie nie przypisane do Ciebie
+ErrorTimeSpentIsEmpty=Czas spędzony jest pusty
+ThisWillAlsoRemoveTasks=Działanie to będzie także usunąć wszystkie zadania projektu <b>(%s</b> zadania w tej chwili) i wszystkimi wejściami czasu spędzonego.
+IfNeedToUseOhterObjectKeepEmpty=Jeżeli pewne obiekty (faktura, zamówienie, ...), należące do innej osoby trzeciej, musi być związane z projektem tworzenia, zachować ten pusty mieć projekt jest multi osób trzecich.
+// STOP - Lines generated via autotranslator.php tool (2012-02-29 17:21:19).

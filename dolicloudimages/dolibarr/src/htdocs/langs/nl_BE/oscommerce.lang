@@ -1,0 +1,9 @@
+# Dolibarr language file - nl_BE - oscommerce
+CHARSET=UTF-8
+OSCommerce=OS Commerce
+OSCommerceSetup=OSCommerce module setup
+OSCommerceSetupSaved=OSCommerce setup opgeslagen
+OSCommerceServer=OSCommerce server host / ip
+OSCommerceDatabaseName=OSCommerce databasenaam
+OSCommercePrefix=OSCommerce tabellen voorvoegsel
+OSCommerceUser=OSCommerce database login

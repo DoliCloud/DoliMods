@@ -1,0 +1,41 @@
+# Dolibarr language file - it_IT - cashdesk 
+# Copyright (C) 2012 Lorenzo Novaro <novalore@19.coop>
+// Reference language: en_US -> it_IT
+CHARSET					=UTF-8
+AddThisArticle				=Aggiungi questo articolo
+Article					=Articolo
+BackOffice				=Backoffice
+BankToPay				=Usa conto
+CalTip					=Clicca per visualizzare il calendario
+CashDeskBankCash			=Conto corrente bancario (cassa)
+CashDeskBankCB				=Conto corrente bancario (carta di cred.)
+CashDeskBankCheque			=Conto corrente bancario (assegno)
+CashDeskBank				=Conto corrente bancario
+CashDeskMenu				=Punto vendita
+CashDeskOn				=Su
+CashDeskProducts			=Prodotti
+CashDesk				=Punto vendita
+CashDeskSetupStock			=Vuoi scaricare il magazzino alla creazione della fattura, ma per questo prodotto le scorte non sono state impostate.<br/>Configura le scorte o scegli un magazzino.
+CashdeskShowServices			=Servizi in vendita
+CashDesks				=Punti vendita
+CashDeskStock				=Scorta
+CashDeskThirdParty			=Terza parte
+CashDeskWarehouse			=Magazzino
+Change					=Resto
+DeleteArticle				=Clicca per rimuovere l'articolo
+Difference				=Differenza
+Identification				=Identificazione
+NewSell					=Nuova vendita
+NoArticle				=Nessun articolo
+NoProductFound				=Nessun articolo trovato
+NoResults				=Nessun risultato
+NoVAT					=L'IVA non si applica alla vendita
+PrintTicket				=Stampa biglietto
+ProductFound				=Prodotto trovato
+ProductsFound				=Prodotti trovati
+RestartSelling				=Rimetti in vendita
+SellFinished				=Vendita conclusa
+ShoppingCart				=Carrello
+ShowCompany				=Mostra società
+ShowStock				=Mostra magazzino
+TotalTicket				=Totale del biglietto

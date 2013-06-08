@@ -1,0 +1,23 @@
+# Dolibarr language file - en_US - memcached
+CHARSET=UTF-8
+MemcachedServer=Memcached server
+MemcachedSetup=Memcached usage setup
+MemcachedDesc=Set here properties of Memcached server. Automatically, Dolibarr will use it to reduce process speed (using cache for language translations for example).
+SizeOfCache=Size of cache
+ItemsInCache=Number of objects into cache
+NumberOfCacheInsert=Number of cache write
+NumberOfCacheRead=Number of cache read (success/total tries)
+FlushCache=Flush cache
+Flushed=Cache flushed
+InformationsOnCacheServer=Informations and statistics about the Memcached server
+FailedToReadServer=Failed to read the Memcached server
+ConfigureParametersFirst=Setup the server first...
+MemcachedClient=PHP client functions <b>%s</b>
+MemcachedClientBothAvailable=Both PHP client functions ara available. Dolibarr will use the <b>%s</b> client functions.
+OnlyClientAvailable=At least one of the two PHP client libraries is available. Dolibarr will use it.
+ClientNotFound=Your PHP must support Memcached client features (Nor the Memcached, nor the Memcache version of client was found). This module can't work. See online documentation for more informations.
+PrefixForKeysInCache=Prefix of Dolibarr keys in server cache
+ServerSetup=Server setup
+ServerStatistics=Server Statistics
+CacheBrowser=Cache browser
+WarningStatsForAllServer=Warning, memcahed server statistics include all applications using this server, not only Dolibarr.
