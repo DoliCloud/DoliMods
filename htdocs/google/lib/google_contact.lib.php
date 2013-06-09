@@ -321,8 +321,8 @@ function googleUpdateContact($client, $contactId, $object)
 			$fullNameToUse = $object->name;
 		}
 		$xml->name->fullName = $fullNameToUse;
-		$xml->name->givenName = $object->firstname;
-		$xml->name->familyName = $object->lastname;
+		if (! empty($object->firstname))  $xml->name->givenName = $object->firstname;
+		if (! empty($object->lastname))   $xml->name->familyName = $object->lastname;
 		//$xml->name->additionnalName = 'xxx';
 		//$xml->name->nameSuffix = 'xxx';
 		//$xml->formattedAddress;
