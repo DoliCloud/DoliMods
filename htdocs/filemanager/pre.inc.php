@@ -36,7 +36,7 @@ if (! $res) die("Include of main fails");
 
 /**
  * llxHeader
- * 
+ *
  * @param 	string		$head			Head
  * @param 	string		$title			Title
  * @param 	string		$help_url		Help url
@@ -45,22 +45,27 @@ if (! $res) die("Include of main fails");
  * @param 	int			$disablehead	Disablehead
  * @param 	array		$arrayofjs		Array of js
  * @param 	array		$arrayofcss		Array of css
- * @param	int			$notopmenu		No top menu
- * @param	int			$noleftmenu		No left menu	
+ * @param	string		$morequerystring	Query string to add to the link "print" to get same parameters (use only if autodetect fails)
  * @return	void
  */
-function llxHeader($head = '', $title='', $help_url='', $target='', $disablejs=0, $disablehead=0, $arrayofjs='', $arrayofcss='', $notopmenu=0, $noleftmenu=0)
+function llxHeader($head = '', $title='', $help_url='', $target='', $disablejs=0, $disablehead=0, $arrayofjs='', $arrayofcss='', $morequerystring='')
 {
 	global $db, $user, $conf, $langs;
 
 	top_htmlhead($head, $title, $disablejs, $disablehead, $arrayofjs, $arrayofcss);	// Show html headers
-	if (empty($notopmenu)) top_menu($head, $title, $target, $disablejs, $disablehead, $arrayofjs, $arrayofcss);	// Show html headers
+
+	// top menu and left menu area
+	if (empty($conf->global->MAIN_HIDE_TOP_MENU))
+	{
+		top_menu($head, $title, $target, $disablejs, $disablehead, $arrayofjs, $arrayofcss, $morequerystring);
+	}
+
 
 	$menu = new Menu();
 
 	$numr=0;
 
-	// Entry for each bank account
+	// Entry for each bank config
 	$sql = "SELECT rowid, rootlabel, rootpath";
 	$sql.= " FROM ".MAIN_DB_PREFIX."filemanager_roots";
 	$sql.= " WHERE entity = ".$conf->entity;
@@ -75,7 +80,7 @@ function llxHeader($head = '', $title='', $help_url='', $target='', $disablejs=0
 		if ($numr == 0)
 		{
 			$langs->load("errors");
-			$menu->add('#',$langs->trans('ErrorModuleSetupNotComplete'),1,0);
+			$menu->add('#',$langs->trans('ErrorModuleSetupNotComplete'),0,0);
 		}
 
 		while ($i < $numr)
@@ -92,10 +97,11 @@ function llxHeader($head = '', $title='', $help_url='', $target='', $disablejs=0
 	$db->free($resql);
 
 
-	if (empty($noleftmenu))
+	if (empty($conf->global->MAIN_HIDE_LEFT_MENU))
 	{
-	    left_menu('', $help_url, '', $menu->liste, 1);
-	    main_area();
+		left_menu('', $help_url, '', $menu->liste, 1, $title);
 	}
+
+    main_area($title);
 }
 ?>
