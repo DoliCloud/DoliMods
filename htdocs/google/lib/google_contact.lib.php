@@ -98,7 +98,7 @@ function getCommentIDTag()
  */
 function googleCreateContact($client, $object)
 {
-	global $langs;
+	global $conf,$langs;
 
 	include_once(DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php');
 
@@ -254,6 +254,7 @@ function googleCreateContact($client, $object)
 		$xmlStr = $doc->saveXML();
 		// uncomment for debugging :
 		file_put_contents(DOL_DATA_ROOT . "/dolibarr_google_createcontact.xml", $xmlStr);
+		@chmod(DOL_DATA_ROOT . "/dolibarr_google_createcontact.xml", octdec(empty($conf->global->MAIN_UMASK)?'0664':$conf->global->MAIN_UMASK));
 		// you can view this file with 'xmlstarlet fo dolibarr_google_createcontact.xml' command
 
 		// insert entry
@@ -283,7 +284,7 @@ function googleCreateContact($client, $object)
  */
 function googleUpdateContact($client, $contactId, $object)
 {
-	global $langs;
+	global $conf,$langs;
 
 	dol_syslog('googleUpdateContact object->id='.$object->id.' type='.$object->element.' ref_ext='.$object->ref_ext);
 
@@ -363,6 +364,7 @@ function googleUpdateContact($client, $contactId, $object)
 		$xmlStr=$xml->saveXML();
 		// uncomment for debugging :
 		file_put_contents(DOL_DATA_ROOT . "/dolibarr_google_updatecontact.xml", $xmlStr);
+		@chmod(DOL_DATA_ROOT . "/dolibarr_google_updatecontact.xml", octdec(empty($conf->global->MAIN_UMASK)?'0664':$conf->global->MAIN_UMASK));
 		// you can view this file with 'xmlstarlet fo dolibarr_google_updatecontact.xml' command
 
 		$newentryResult = $gdata->updateEntry($xmlStr, $entryResult->getEditLink()->href, null, $extra_header);
@@ -426,6 +428,8 @@ function googleDeleteContactByRef($client, $ref)
  */
 function insertGContactsEntries($gdata, $gContacts)
 {
+	global $conf;
+
 	$maxBatchLength = 98; //Google doc says max 100 entries.
 	$remainingContacts = $gContacts;
 	while (count($remainingContacts) > 0)
@@ -459,6 +463,7 @@ function insertGContactsEntries($gdata, $gContacts)
 		$xmlStr = $doc->saveXML();
 		// uncomment for debugging :
 		file_put_contents(DOL_DATA_ROOT . "/dolibarr_google_massinsert.xml", $xmlStr);
+		@chmod(DOL_DATA_ROOT . "/dolibarr_google_massinsert.xml", octdec(empty($conf->global->MAIN_UMASK)?'0664':$conf->global->MAIN_UMASK));
 		// you can view this file with 'xmlstarlet fo dolibarr_google_massinsert.xml' command
 
 		/* Be aware that Google API has some kind of side effect when you use either
@@ -473,6 +478,7 @@ function insertGContactsEntries($gdata, $gContacts)
 			$responseXml = $response->getBody();
 			// uncomment for debugging :
 			file_put_contents(DOL_DATA_ROOT . "/dolibarr_google_massinsert_response.xml", $responseXml);
+			@chmod(DOL_DATA_ROOT . "/dolibarr_google_massinsert_response.xml", octdec(empty($conf->global->MAIN_UMASK)?'0664':$conf->global->MAIN_UMASK));
 			// you can view this file with 'xmlstarlet fo dolibarr_google_massinsert_response.xml' command
 			$res=parseResponse($responseXml);
 			if($res->count != count($firstContacts) || $res->nbOfErrors)
@@ -601,12 +607,15 @@ function getGoogleGroupID($gdata, $groupName, &$googleGroups=array())
  */
 function getContactGroupsXml($gdata)
 {
+	global $conf;
+
 	try {
 		$query = new Zend_Gdata_Query('http://www.google.com/m8/feeds/groups/default/full?max-results=1000');
 		$feed = $gdata->getFeed($query);
 		$xmlStr = $feed->getXML();
 		// uncomment for debugging :
 		//file_put_contents(DOL_DATA_ROOT . "/dolibarr_google_groups.xml", $xmlStr);
+		//@chmod(DOL_DATA_ROOT . "/dolibarr_google_massinsert_response.xml", octdec(empty($conf->global->MAIN_UMASK)?'0664':$conf->global->MAIN_UMASK));
 		// you can view this file with 'xmlstarlet fo dolibarr_google_groups.xml' command
 	} catch (Exception $e) {
 		dol_syslog(sprintf("Error while feed xml groups : %s", $e->getMessage()), LOG_ERR);

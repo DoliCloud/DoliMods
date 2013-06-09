@@ -1042,6 +1042,8 @@ class GContact
       */
      public static function deleteEntries($gdata, array $googleIDs, $groupFlag)
      {
+     	global $conf;
+
      	if ($groupFlag)
      	{
      		$headers = array();
@@ -1095,9 +1097,11 @@ class GContact
      			try {
      				// uncomment for debugging :
      				file_put_contents(DOL_DATA_ROOT . "/dolibarr_google_massdelete.xml", $xmlStr);
+     				@chmod(DOL_DATA_ROOT . "/dolibarr_google_massdelete.xml", octdec(empty($conf->global->MAIN_UMASK)?'0664':$conf->global->MAIN_UMASK));
      				$response = $gdata->post($xmlStr, "http://www.google.com/m8/feeds/contacts/default/base/batch");
      				$responseXml = $response->getBody();
      				file_put_contents(DOL_DATA_ROOT . "/dolibarr_google_massdelete.response.xml", $xmlStr);
+     				@chmod(DOL_DATA_ROOT . "/dolibarr_google_massdelete.response.xml", octdec(empty($conf->global->MAIN_UMASK)?'0664':$conf->global->MAIN_UMASK));
      			} catch (Exception $e) {
      				dol_syslog("Problem while deleting contacts", LOG_ERR);
      				throw new Exception(sprintf("Problem while deleting contacts : %s", $e->getMessage()));
