@@ -28,39 +28,58 @@ dol_include_once("/google/includes/GoogleMapAPIv3.class.php");
 
 $langs->load("google@google");
 
-// url is:  gmaps.php?mode=thirdparty|contact|member&id=id
+// url is:  gmaps.php?mode=thirdparty|contact|member&id=id&max=max
 
 
 $mode=GETPOST('mode');
+$id = GETPOST('id','int');
+$MAXADDRESS=GETPOST('max','int')?GETPOST('max','int'):'25';	// Set packet size to 25 if no forced from url
 $address='';
 
 // Load third party
 if (empty($mode) || $mode=='thirdparty')
 {
 	include_once(DOL_DOCUMENT_ROOT.'/societe/class/societe.class.php');
-	$id = GETPOST('id','int');
-	$object = new Societe($db);
-	$object->id = $id;
-	$object->fetch($id);
-	$address = $object->getFullAddress(1,', ');
+	if ($id > 0)
+	{
+		$object = new Societe($db);
+		$object->id = $id;
+		$object->fetch($id);
+		$address = $object->getFullAddress(1,', ');
+	}
 }
 else if ($mode=='contact')
 {
 	include_once(DOL_DOCUMENT_ROOT.'/contact/class/contact.class.php');
-	$id = GETPOST('id','int');
-	$object = new Contact($db);
-	$object->id = $id;
-	$object->fetch($id);
-	$address = $object->getFullAddress(1,', ');
+	if ($id > 0)
+	{
+		$object = new Contact($db);
+		$object->id = $id;
+		$object->fetch($id);
+		$address = $object->getFullAddress(1,', ');
+	}
 }
 else if ($mode=='member')
 {
 	include_once(DOL_DOCUMENT_ROOT.'/adherents/class/adherent.class.php');
-	$id = GETPOST('id','int');
-	$object = new Adherent($db);
-	$object->id = $id;
-	$object->fetch($id);
-	$address = $object->getFullAddress(1,', ');
+	if ($id > 0)
+	{
+		$object = new Adherent($db);
+		$object->id = $id;
+		$object->fetch($id);
+		$address = $object->getFullAddress(1,', ');
+	}
+}
+else if ($mode=='patient')
+{
+	dol_include_once('/cabinetmed/class/patient.class.php');
+	if ($id > 0)
+	{
+		$object = new Patient($db);
+		$object->id = $id;
+		$object->fetch($id);
+		$address = $object->getFullAddress(1,', ');
+	}
 }
 else 
 {
@@ -73,7 +92,6 @@ else
  * View
  */
 
-// TODO Add on body ' onunload="GUnload()"'
 llxheader();
 
 $form=new Form($db);
@@ -85,39 +103,77 @@ $act = "";
 $head=array();
 $title='';
 $picto='';
+$type='';
 if (empty($mode) || $mode=='thirdparty')
 {
-	$title=$langs->trans("ThirdParty");
+	$title=$langs->trans("MapOfThirdparties");
 	$picto='company';
+	$type='company';
 	$sql="SELECT s.rowid as id, s.nom as name, s.address, s.zip, s.town,";
 	$sql.= " c.rowid as country_id, c.code as country_code, c.libelle as country,";
-	$sql.= " g.latitude, g.longitude";
+	$sql.= " g.rowid as gid, g.fk_object, g.latitude, g.longitude, g.address as gaddress, g.result_code, g.result_label";
 	$sql.= " FROM ".MAIN_DB_PREFIX."societe as s";
 	$sql.= " LEFT JOIN ".MAIN_DB_PREFIX."c_pays as c ON s.fk_pays = c.rowid";
-	$sql.= " LEFT JOIN ".MAIN_DB_PREFIX."google_maps as g ON s.rowid = g.fk_object and g.type_object='company'";
+	$sql.= " LEFT JOIN ".MAIN_DB_PREFIX."google_maps as g ON s.rowid = g.fk_object and g.type_object='".$type."'";
 	$sql.= " WHERE s.status = 1";
+	$sql.= " ORDER BY s.rowid";
 }
 else if ($mode=='contact')
 {
-	$title=$langs->trans("ContactsAddresses");
+	$title=$langs->trans("MapOfContactsAddresses");
 	$picto='contact';
+	$type='contact';
+	$sql="SELECT s.rowid as id, s.lastname, s.firstname, s.address, s.zip, s.town,";
+	$sql.= " c.rowid as country_id, c.code as country_code, c.libelle as country,";
+	$sql.= " g.rowid as gid, g.fk_object, g.latitude, g.longitude, g.address as gaddress, g.result_code, g.result_label";
+	$sql.= " FROM ".MAIN_DB_PREFIX."socpeople as s";
+	$sql.= " LEFT JOIN ".MAIN_DB_PREFIX."c_pays as c ON s.fk_pays = c.rowid";
+	$sql.= " LEFT JOIN ".MAIN_DB_PREFIX."google_maps as g ON s.rowid = g.fk_object and g.type_object='".$type."'";
+	//$sql.= " WHERE s.status = 1";
+	$sql.= " ORDER BY s.rowid";
 }
 else if ($mode=='member')
 {
-	$title=$langs->trans("Member");
+	$title=$langs->trans("MapOfMembers");
 	$picto='user';
+	$type='member';
+	$sql="SELECT s.rowid as id, s.lastname, s.firstname, s.address, s.zip, s.town,";
+	$sql.= " c.rowid as country_id, c.code as country_code, c.libelle as country,";
+	$sql.= " g.rowid as gid, g.fk_object, g.latitude, g.longitude, g.address as gaddress, g.result_code, g.result_label";
+	$sql.= " FROM ".MAIN_DB_PREFIX."adherent as s";
+	$sql.= " LEFT JOIN ".MAIN_DB_PREFIX."c_pays as c ON s.country = c.rowid";
+	$sql.= " LEFT JOIN ".MAIN_DB_PREFIX."google_maps as g ON s.rowid = g.fk_object and g.type_object='".$type."'";
+	$sql.= " WHERE s.statut = 1";
+	$sql.= " ORDER BY s.rowid";
 }
+else if ($mode=='patient')
+{
+	$title=$langs->trans("MapOfPatients");
+	$picto='user';
+	$type='patient';
+	$sql="SELECT s.rowid as id, s.nom as name, s.address, s.zip, s.town,";
+	$sql.= " c.rowid as country_id, c.code as country_code, c.libelle as country,";
+	$sql.= " g.rowid as gid, g.fk_object, g.latitude, g.longitude, g.address as gaddress, g.result_code, g.result_label";
+	$sql.= " FROM ".MAIN_DB_PREFIX."societe as s";
+	$sql.= " LEFT JOIN ".MAIN_DB_PREFIX."c_pays as c ON s.fk_pays = c.rowid";
+	$sql.= " LEFT JOIN ".MAIN_DB_PREFIX."google_maps as g ON s.rowid = g.fk_object and g.type_object='".$type."'";
+	$sql.= " WHERE s.canvas='patient@cabinetmed'";
+	$sql.= " ORDER BY s.rowid";
+}
+//print $sql;
 
-
-print_fiche_titre($langs->trans("MapOfThirdparties"));
+print_fiche_titre($title);
 
 dol_fiche_head(array(), 'gmaps', '', 0);
 
 
 // Fill array of contacts
-$MAXADDRESS=1;
 $addresses = array();
+$adderrors = array();
 $googlemaps = new Googlemaps($db);
+$countgeoencoding=0;
+$countgeoencodedok=0;
+$countgeoencodedall=0;
 
 // Loop
 dol_syslog("Search addresses sql=".$sql);
@@ -126,49 +182,138 @@ if ($resql)
 {
 	$num=$db->num_rows($resql);
 	$i=0;
-	while ($i < $num && (empty($MAXADDRESS) || $i < $MAXADDRESS))
+	while ($i < $num)
 	{
 		$obj=$db->fetch_object($resql);
 		if (empty($obj->country_code)) $obj->country_code=$mysoc->country_code;
 
 		$error='';
-		
+
+		$addresstosearch=dol_format_address($obj,1," ");
+
 		$object=new stdClass();
-		$object->name=$obj->name;
+		$object->id=$obj->id;
+		$object->name=$obj->name?$obj->name:($obj->lastname.' '.$obj->firstname);
 		$object->latitude = $obj->latitude;
 		$object->longitude = $obj->longitude;
-		$object->address=dol_format_address($obj,1," ");
+		$object->address = $addresstosearch;
+		$object->error = '';
 		
-		if (empty($object->latitude) && empty($object->longitude))
+		$geoencodingtosearch=false;
+		if ($obj->gaddress != $addresstosearch) $geoencodingtosearch=true;  
+		else if ((empty($object->latitude) || empty($object->longitude)) && (empty($obj->result_code) || in_array($obj->result_code, array('OK','OVER_QUERY_LIMIT')))) $geoencodingtosearch=true;
+					
+		if ($geoencodingtosearch && (empty($MAXADDRESS) || $countgeoencoding < $MAXADDRESS))
 		{
+			if ($countgeoencoding && ($countgeoencoding % 10 == 0)) 
+			{
+				dol_syslog("Add a delay of 1");
+				sleep(1);
+			}
+			
+			$countgeoencoding++;
+			
 			$point = geocoding($object->address);
 			if (is_array($point)) 
 			{
 				$object->latitude=$point['lat'];
 				$object->longitude=$point['lng'];
+
+				// Update/insert database
+				$googlemaps->id=$obj->gid;
+				$googlemaps->latitude=$object->latitude;
+				$googlemaps->longitude=$object->longitude;
+				$googlemaps->address=$addresstosearch;
+				$googlemaps->fk_object=$obj->id;
+				$googlemaps->type_object=$type;
+				$googlemaps->result_code='OK';
+				$googlemaps->result_label='';
+
+				if ($googlemaps->id > 0) $result=$googlemaps->update();
+				else $result=$googlemaps->create($user);
+				if ($result < 0) dol_print_error('',$googlemaps->error);
+				
+				$countgeoencodedok++;
+				$countgeoencodedall++;
 			}
-			else $error=$point;
+			else 
+			{
+				$error=$point;
+				
+				// Update/insert database
+				$googlemaps->id=$obj->gid;
+				$googlemaps->latitude=$object->latitude;
+				$googlemaps->longitude=$object->longitude;
+				$googlemaps->address=$addresstosearch;
+				$googlemaps->fk_object=$obj->id;
+				$googlemaps->type_object=$type;
+				if ($error == 'ZERO_RESULTS') 
+				{
+					$error='Address not complete or unknown';
+					$googlemaps->result_code='ZERO_RESULTS';
+					$googlemaps->result_label=$error;
+				}
+				else if ($error == 'OVER_QUERY_LIMIT') 
+				{
+					$error='Quota reached';
+					$googlemaps->result_code='OVER_QUERY_LIMIT';
+					$googlemaps->result_label=$error;
+				}
+				else 
+				{
+					$googlemaps->result_code='ERROR';
+					$googlemaps->result_label=$error;
+				}
+				
+				if ($googlemaps->id > 0) $result=$googlemaps->update();
+				else $result=$googlemaps->create($user);
+				if ($result < 0) dol_print_error('',$googlemaps->error);
+				
+				$object->error=$error;
+				$adderrors[]=$object;
+				
+				$countgeoencodedall++;
+			}
 		}
-					 
+		else
+		{
+			if ($obj->result_code == 'OK')	// A success 
+			{
+				$countgeoencodedok++;	
+				$countgeoencodedall++;
+			}
+			else if (! empty($obj->result_code))	// An error
+			{
+				$error=$obj->result_label;
+				$object->error=$error;
+				$adderrors[]=$object;
+
+				$countgeoencodedall++;
+			}
+			else 	// No geoencoding done yet
+			{
+
+			}
+		}
+
 		if (! $error)
 		{
 			$addresses[]=$object;
 		}
-		else
-		{
-			print 'Failed to get position for '.$object->name.' address='.$object->address.': '.$error.'<br>'."\n";
-		}
-		
+
 		$i++;
 	}
+	
+	// Summary of data represented
+	if ($num > $countgeoencodedall) print $langs->trans("OnlyXAddressesAmongYWereGeoencoded",$MAXADDRESS,$countgeoencodedok).'<br>'."\n";
+	print $langs->trans("CountGeoTotal",$num,($num-$countgeoencodedall),($countgeoencodedall-$countgeoencodedok),$countgeoencodedok).'<br>'."\n";
+	if ($num > $countgeoencodedall) print '<a href="'.$_SERVER["PHP_SELF"].'?mode='.$mode.($MAXADDRESS?'&max='.$MAXADDRESS:'').'">'.$langs->trans("ClickHereToIncludeXMore",min($num-$countgeoencodedall,$MAXADDRESS)).'</a><br>';
+	print '<br>'."\n";
 }
 else
 {
 	dol_print_error($db);
 }
-
-// If no addresses
-if (count($addresses) == 0) print $langs->trans("NoAddressDefined").'<br><br>';
 
 $gmap = new GoogleMapAPI();
 $gmap->setDivId('test1');
@@ -181,62 +326,30 @@ $gmap->setSize('100%','500px');
 $gmap->setZoom(11);
 $gmap->setLang('fr');
 $gmap->setDefaultHideMarker(false);
-$gmap->addArrayMarker($addresses,$langs,$mode);
+$gmap->addArrayMarker($addresses, $langs, $mode);
 
 
 $gmap->generate();
 echo $gmap->getGoogleMap();
 
 
-/*
-$result_sql['adresse'] = 'Grand Place';
-$result_sql['cp'] = '7000';
-$result_sql['ville'] = 'Mons';
-
-print '    
-    <script type="text/javascript">//<![CDATA[
-      function load()
-        {
-        if (GBrowserIsCompatible())
-          {
-          var map = new GMap2(document.getElementById("map"));
-          // Coordonnees de l adresse provenant dans la base de données MySQL
-          var adresse = \''.$result_sql['adresse'] . ' ' . $result_sql['cp'] . ' ' . $result_sql['ville'].'\';
-          // Recherche des coordonnées d un point dont on connait l adresse :
-          var geocoder = new google.maps.ClientGeocoder();
-          geocoder.getLatLng(adresse, function (coord)
-            {
-            // Et centrage de la map sur les coordonnées renvoyées par Google :
-            map.setCenter(coord, 15);
-            // Affichage du marker
-            map.addOverlay(new GMarker(coord));
-            });
-          // ajout de la propriété d affichage des boutons "type de carte" (3 boutons par défaut)
-          map.addControl(new GMapTypeControl());
-          // ajout de la propriété ajout d un bouton "type de carte" (Relief)
-          map.addMapType(G_PHYSICAL_MAP);
-          // ajout de la propriété zoom à la carte "map"
-          map.addControl(new GSmallMapControl);
-          }
-        }
-    //]]></script>
-';
-
-if (count($result_sql))
-{
-	print '
-	
-	<br>
-	<div align="center">
-	<div id="map" class="divmap" style="width: 90%; height: 500px;" ></div>
-	</div>
-	<br>
-	
-	';
-}
-*/
-
 dol_fiche_end();
+
+
+// If no addresses
+if (count($addresses) == 0 && count($adderrors) == 0) print $langs->trans("NoAddressDefined").'<br><br>';
+
+
+// Show error
+if (count($adderrors))
+{
+	print $langs->trans("FollowingAddressCantBeLocalized",($countgeoencodedall-$countgeoencodedok)).':<br>'."\n";
+	foreach($adderrors as $object)
+	{
+		print "Name: ".$object->name." Address: ".$object->address." -> ".$object->error."<br>\n";		
+	}
+}
+
 
 llxfooter();
 
@@ -273,10 +386,21 @@ function geocoding($address)
 		$return['lng']=$data->results[0]->geometry->location->lng;
 		return $return;
 	}
-	else 
+	else if ($data->status == "OVER_QUERY_LIMIT")
 	{
+		$returnstring='OVER_QUERY_LIMIT';
+		echo "<!-- geocoding : failure to geocode : ".dol_escape_htmltag($encodeAddress)." => " . dol_escape_htmltag($returnstring) . " -->\n";
+		return $returnstring;
+	}
+	else if ($data->status == "ZERO_RESULTS")
+	{
+		$returnstring='ZERO_RESULTS';
+		echo "<!-- geocoding : failure to geocode : ".dol_escape_htmltag($encodeAddress)." => " . dol_escape_htmltag($returnstring) . " -->\n";
+		return $returnstring;
+	}
+	else {
 		$returnstring='Failed to json_decode result '.$response['content'];
-		echo "<!-- geocoding : failure to geocode : " . dol_escape_htmltag($returnstring) . " -->\n";
+		echo "<!-- geocoding : failure to geocode : ".dol_escape_htmltag($encodeAddress)." => " . dol_escape_htmltag($returnstring) . " -->\n";
 		return $returnstring;
 	}
 }
@@ -365,7 +489,7 @@ function googlegetURLContent($url,$postorget='GET',$param='')
 	$rep['curl_error_no']='';
 	$rep['curl_error_msg']='';
 
-	dol_syslog("getURLContent response=".$response);
+	//dol_syslog("getURLContent response=".$response);
 
 	if (curl_errno($ch))
 	{

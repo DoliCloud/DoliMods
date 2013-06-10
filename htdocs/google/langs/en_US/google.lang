@@ -55,6 +55,11 @@ GOOGLE_TAG_PREFIX_MEMBERS=Label to tags Dolibarr members into Google contact
 ErrorLabelsMustDiffers=Error, value for labels must be unique
 BoxMaps=List of available maps
 MapOfThirdparties=Map of thirdparties
-MapOfContacts=Map of contacts/addresses
+MapOfContactsAddresses=Map of contacts/addresses
 MapOfMembers=Map of members
+MapOfPatients=Map of patients
 NoAddressDefined=No addresses defined
+FollowingAddressCantBeLocalized=Following addresses could not be localized onto the map
+OnlyXAddressesAmongYWereGeoencoded=Due to Google quotas (localization of addresses is done by packet size of %s), some addresses are not represented because not yet geoencoded.
+CountGeoTotal=Total addresses %s - %s not yet geoencoded - %s in error = %s represented.
+ClickHereToIncludeXMore=Click here to geoencode %s more addresses.   

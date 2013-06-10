@@ -16,14 +16,4 @@
 --
 -- ===================================================================
 
-CREATE TABLE llx_google_maps (
-	rowid INTEGER NOT NULL AUTO_INCREMENT,
-	fk_object INTEGER NOT NULL,
-	type_object varchar(16) NOT NULL,
-	latitude FLOAT NULL,
-	longitude FLOAT NULL,
-	address varchar(255),
-	result_code varchar(16),
-	result_label varchar(255),
-	PRIMARY KEY (rowid)
-) ENGINE = InnoDB;
+ALTER TABLE llx_google_maps ADD UNIQUE INDEX uk_google_maps (fk_object, type_object);

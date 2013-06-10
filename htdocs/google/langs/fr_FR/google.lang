@@ -56,6 +56,11 @@ GOOGLE_TAG_PREFIX_MEMBERS=Etiquette pour marquer les adhérents Dolibarr dans Go
 ErrorLabelsMustDiffers=Erreur, les valeurs pour les étiquettes doivent être uniques
 BoxMaps=Liste des vues cartes disponibles
 MapOfThirdparties=Carte des tiers
-MapOfContacts=Carte des contacts
+MapOfContactsAddresses=Carte des contacts/addresses
 MapOfMembers=Carte des adhérents
+MapOfPatients=Carte des patients
 NoAddressDefined=Aucune adresse n'a été définie
+FollowingAddressCantBeLocalized=Les %s adresses suivantes n'ont pas pu être localisées sur la carte
+OnlyXAddressesAmongYWereGeoencoded=Pour des raisons de limitation par Google (la localisation d'adresses ne se fait que par paquet de %s), certaines adresses ne sont pas représentées car pas encore géoencodées.
+CountGeoTotal=Total d'adresse %s - %s pas encore géoencodées - %s en erreur = %s représentées.
+ClickHereToIncludeXMore=Cliquer ici pour géoencoder %s adresses suplémentaires.    

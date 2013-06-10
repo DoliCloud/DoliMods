@@ -37,7 +37,7 @@ class GoogleMapAPI
 	/** Lang of the gmap **/
 	protected $lang = 'fr';
 	/**Center of the gmap **/
-	protected $center = 'Paris France';
+	protected $center = '';
 	/** Content of the HTML generated **/
 	protected $content = '';
 	/** Add the direction button to the infowindow **/
@@ -89,7 +89,6 @@ class GoogleMapAPI
 	 * @param int $gridSize grid size (The grid size of a cluster in pixel. Each cluster will be a square. If you want the algorithm to run faster, you can set this value larger. The default value is 100.)
 	 * @param int $maxZoom maxZoom (The max zoom level monitored by a marker cluster. If not given, the marker cluster assumes the maximum map zoom level. When maxZoom is reached or exceeded all markers will be shown without cluster.)
 	 * @param int $clustererLibraryPath clustererLibraryPath
-	 *
 	 * @return void
 	 */
 
@@ -123,7 +122,6 @@ class GoogleMapAPI
 	 * Set the ID of the default gmap DIV
 	 *
 	 * @param string $googleMapId the google div ID
-	 *
 	 * @return void
 	 */
 
@@ -136,7 +134,6 @@ class GoogleMapAPI
 	 * Set the ID of the default gmap direction DIV
 	 *
 	 * @param string $googleMapDirectionId GoogleMap  Direction ID for the HTML DIV
-	 *
 	 * @return void
 	 */
 
@@ -150,7 +147,6 @@ class GoogleMapAPI
 	 *
 	 * @param int $width GoogleMap  width
 	 * @param int $height GoogleMap  height
-	 *
 	 * @return void
 	 */
 
@@ -164,7 +160,6 @@ class GoogleMapAPI
 	 * Set the with of the gmap infowindow (on marker clik)
 	 *
 	 * @param int $infoWindowWidth GoogleMap  info window width
-	 *
 	 * @return void
 	 */
 
@@ -178,7 +173,6 @@ class GoogleMapAPI
 	 *
 	 * @param int $iconWidth GoogleMap  marker icon width
 	 * @param int $iconHeight GoogleMap  marker icon height
-	 *
 	 * @return void
 	 */
 
@@ -192,7 +186,6 @@ class GoogleMapAPI
 	 * Set the lang of the gmap
 	 *
 	 * @param string $lang GoogleMap  lang : fr,en,..
-	 *
 	 * @return void
 	 */
 
@@ -205,7 +198,6 @@ class GoogleMapAPI
 	 * Set the zoom of the gmap
 	 *
 	 * @param int $zoom GoogleMap  zoom.
-	 *
 	 * @return void
 	 */
 
@@ -218,7 +210,6 @@ class GoogleMapAPI
 	 * Set the zoom of the infowindow
 	 *
 	 * @param int $zoom GoogleMap  zoom.
-	 *
 	 * @return void
 	 */
 
@@ -231,7 +222,6 @@ class GoogleMapAPI
 	 * Enable the zoom on the marker when you click on it
 	 *
 	 * @param int $zoom GoogleMap  zoom.
-	 *
 	 * @return void
 	 */
 
@@ -244,7 +234,6 @@ class GoogleMapAPI
 	 * Enable theautomatic center/zoom at the gmap load
 	 *
 	 * @param int $zoom GoogleMap  zoom.
-	 *
 	 * @return void
 	 */
 
@@ -257,7 +246,6 @@ class GoogleMapAPI
 	 * Set the center of the gmap (an address)
 	 *
 	 * @param string $center GoogleMap  center (an address)
-	 *
 	 * @return void
 	 */
 
@@ -270,7 +258,6 @@ class GoogleMapAPI
 	 * Set the center of the gmap
 	 *
 	 * @param boolean $displayDirectionFields display directions or not in the info window
-	 *
 	 * @return void
 	 */
 
@@ -283,7 +270,6 @@ class GoogleMapAPI
 	 * Set the defaultHideMarker
 	 *
 	 * @param boolean $defaultHideMarker hide all the markers on the map by default
-	 *
 	 * @return void
 	 */
 
@@ -307,7 +293,6 @@ class GoogleMapAPI
 	 * Get URL content using cURL.
 	 *
 	 * @param string $url the url
-	 *
 	 * @return string the html code
 	 *
 	 * @todo add proxy settings
@@ -352,14 +337,11 @@ class GoogleMapAPI
 	 * Geocoding an address (address -> lat,lng)
 	 *
 	 * @param string $address an address
-	 *
 	 * @return array array with precision, lat & lng
 	 */
-
 	public function geocoding($address)
 	{
 		$encodeAddress = urlencode($this->withoutSpecialChars($address));
-		//$url = "http://maps.google.com/maps/geo?q=".$encodeAddress."&output=csv";
 		$url = "http://maps.google.com/maps/api/geocode/json?address=".$encodeAddress."&sensor=false";
 		ini_set("allow_url_open", "1");
 		$data = file_get_contents($url);
@@ -371,9 +353,6 @@ class GoogleMapAPI
 			$return[1] = 0; // plus utilisé
 			$return[2] = $data->results[0]->geometry->location->lat;
 			$return[3] = $data->results[0]->geometry->location->lng;
-			
-			// TODO Update table
-			
 			
 		} else {
 			echo "<!-- geocoding : failure to geocode : " . $status . " -->\n";
@@ -391,7 +370,6 @@ class GoogleMapAPI
 	 * @param string $html html code display in the info window
 	 * @param string $category marker category
 	 * @param string $icon an icon url
-	 *
 	 * @return void
 	 */
 
@@ -419,7 +397,6 @@ class GoogleMapAPI
 	 * @param string $content html code display in the info window
 	 * @param string $category marker category
 	 * @param string $icon an icon url
-	 *
 	 * @return void
 	 */
 
@@ -436,35 +413,48 @@ class GoogleMapAPI
 	/**
 	 * Add marker by an array 
 	 *
-	 * @param string $tabAdresses an array of address
-	 * @param string $langs marker category
-	 * @param string $type an icon url
-	 *
+	 * @param string $tabAddresss 	An array of address
+	 * @param string $langs 		Language
+	 * @param string $mode 			Mode
 	 * @return void
 	 */
 
-	public function addArrayMarker($tabAdresses, $langs, $mode)
+	public function addArrayMarker($tabAddresses, $langs, $mode)
 	{
 		$this->langs = $langs;
-		foreach ($tabAdresses as $adresse) {
-			if($adresse->client == 1)
+		foreach ($tabAddresses as $address) {
+			/*if($address->client == 1)
 				$icon = "http://www.google.com/intl/en_us/mapfiles/ms/micons/green-dot.png";
 			else
 				$icon = "http://www.google.com/intl/en_us/mapfiles/ms/micons/red-dot.png";
-			$addPropre = $this->no_special_character_v2($adresse->address);
-			$lienGmaps = ' <a href=\"http://maps.google.fr/maps?q='.urlencode($this->withoutSpecialChars($adresse->address)).'\" style=\"font-weight:normal\" class=button >Google Maps</a>';
-			$html = '<a href=../societe/soc.php?socid='.$adresse->id.'><b>'.$adresse->nom.'</b><br/>'.$addPropre.'<br/><i>'.$adresse->tel.'</i></a>';
-			$html.= " <br/> ".$lienGmaps. "<br/><br/>";
-			if(isset($adresse->latitude) && isset($adresse->longitude)) {
-				$this->addMarkerByCoords($adresse->latitude, $adresse->longitude, $adresse->name, $html, '', $icon);
+			*/
+			$addPropre = $this->no_special_character_v2($address->address);
+			$lienGmaps = ' <a href=\"http://maps.google.fr/maps?q='.urlencode($this->withoutSpecialChars($address->address)).'\" style=\"font-weight:normal\" class=button >Google Maps</a>';
+			
+			$html='';
+			if ($mode == 'company') $html.= '<a href=\"'.DOL_URL_ROOT.'/societe/soc.php?socid='.$address->id.'\">';
+			elseif ($mode == 'contact') $html.= '<a href=\"'.DOL_URL_ROOT.'/contact/fiche.php?id='.$address->id.'\">';
+			elseif ($mode == 'member') $html.= '<a href=\"'.DOL_URL_ROOT.'/adherents/fiche.php?rowid='.$address->id.'\">';
+			elseif ($mode == 'patient') $html.= '<a href=\"'.DOL_URL_ROOT.'/societe/soc.php?socid='.$address->id.'\">';
+			else $html.='<a>';
+			$html.= '<b>'.$address->name.'</b>';
+			$html.= '</a>';
+			$html.= '<br/>'.$addPropre;
+			$html.= '<br/>';
+			$html.= '<br/>'.$lienGmaps.'<br/><br/>';
+
+			if(isset($address->latitude) && isset($address->longitude)) {
+				$this->addMarkerByCoords($address->latitude, $address->longitude, $address->name, $html, '', $icon);
 			}
-			else if (isset($adresse->address)) {
-				//$this->addMarkerByAddress($adresse->address, $adresse->name, $html, '', $icon, $adresse->id);
+			else if (isset($address->address)) {
+				//$this->addMarkerByAddress($address->address, $address->name, $html, '', $icon, $address->id);
 			}
 		}
 	}
 	
-	function no_special_character_v2($chaine){ 
+	
+	function no_special_character_v2($chaine)
+	{ 
 		//  les accents
 		$chaine=trim($chaine);
 		$chaine= strtr($chaine,"ÀÁÂÃÄÅàáâãäåÒÓÔÕÖØòóôõöøÈÉÊËèéêëÇçÌÍÎÏìíîïÙÚÛÜùúûüÿÑñ","aaaaaaaaaaaaooooooooooooeeeeeeeecciiiiiiiiuuuuuuuuynn");
@@ -479,7 +469,6 @@ class GoogleMapAPI
 	 *
 	 * @return void
 	 */
-
 	public function init()
 	{
 		// Google map DIV
@@ -532,9 +521,6 @@ class GoogleMapAPI
 		if ($this->displayDirectionFields == true) {
 			$this->content .= "\t\t" . 'content += \'<div style="clear:both;height:30px;"></div>\';' . "\n";
 			$this->content .= "\t\t" . 'id_name = \'marker_\'+gmarkers.length;' . "\n";
-			/*$this->content .= "\t\t" . 'content += \'<input type="text" id="\'+id_name+\'"/>\';' . "\n";
-			$this->content .= "\t\t" . 'var from = ""+latlng.lat()+","+latlng.lng();' . "\n";
-			*//*$this->content .= "\t\t" . 'content += \'<br /><input type="button" class="butAction" onClick="" value="Voir la fiche tiers"/>\';' . "\n";*/
 		}
 
 		$this->content .= "\t\t" . 'var html = \'<div style="float:left;text-align:left;width:' . $this->infoWindowWidth . ';">\'+content+\'</div>\'' . "\n";
@@ -652,16 +638,21 @@ class GoogleMapAPI
 		$this->content .= "\t" . '}' . "\n";
 	}
 
+	/**
+	 * Output map
+	 * 
+	 * @return void
+	 */
 	public function generate()
 	{
 		$this->init();
 
 		//Fonction init()
 		$this->content .= "\t" . 'function initialize() {' . "\n";
-		$this->content .= "\t" . 'var myLatlng = new google.maps.LatLng(48.8792,2.34778);' . "\n";
+		//$this->content .= "\t" . 'var myLatlng = new google.maps.LatLng(48.8792,2.34778);' . "\n";
 		$this->content .= "\t" . 'var myOptions = {' . "\n";
 		$this->content .= "\t\t" . 'zoom: ' . $this->zoom . ',' . "\n";
-		$this->content .= "\t\t" . 'center: myLatlng,' . "\n";
+		//$this->content .= "\t\t" . 'center: myLatlng,' . "\n";
 		$this->content .= "\t\t" . 'mapTypeId: google.maps.MapTypeId.' . $this->mapType . "\n";
 		$this->content .= "\t" . '}' . "\n";
 

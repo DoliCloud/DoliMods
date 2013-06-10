@@ -102,7 +102,7 @@ class box_googlemaps extends ModeleBoxes
 					'url' => $url
 			);
 			$this->info_box_contents[$i][1] = array('td' => 'align="left"',
-					'text' => '<a href="'.$url.'">'.$langs->trans("MapOfContacts").'</a>',
+					'text' => '<a href="'.$url.'">'.$langs->trans("MapOfContactsAddresses").'</a>',
 					'url' => $url
 			);
 		
@@ -124,7 +124,23 @@ class box_googlemaps extends ModeleBoxes
 		
 			$i++;
 		}
-				
+		if ($conf->cabinetmed->enabled && $user->rights->cabinetmed->read)
+		{
+			$something++;
+		
+			$url=dol_buildpath("/google/gmaps_all.php",1)."?mode=patient";
+			$this->info_box_contents[$i][0] = array('td' => 'align="left" width="16"',
+					'logo' => 'object_user',
+					'url' => $url
+			);
+			$this->info_box_contents[$i][1] = array('td' => 'align="left"',
+					'text' => '<a href="'.$url.'">'.$langs->trans("MapOfPatients").'</a>',
+					'url' => $url
+			);
+		
+			$i++;
+		}
+						
 		if (! $something)
 		{
 			$this->info_box_contents[0][0] = array('align' => 'left',

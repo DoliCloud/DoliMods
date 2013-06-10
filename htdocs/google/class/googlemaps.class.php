@@ -42,9 +42,12 @@ class Googlemaps // extends CommonObject
     var $id;
     
 	var $fk_object;
+	var $type_object;
 	var $latitude;
 	var $longitude;
-
+	var $address;
+	var $result_code;
+	var $result_label;
     
 
 
@@ -73,12 +76,9 @@ class Googlemaps // extends CommonObject
 		$error=0;
 
 		// Clean parameters
-        
 		if (isset($this->fk_object)) $this->fk_object=trim($this->fk_object);
 		if (isset($this->latitude)) $this->latitude=trim($this->latitude);
 		if (isset($this->longitude)) $this->longitude=trim($this->longitude);
-
-        
 
 		// Check parameters
 		// Put here code to add control on parameters values
@@ -86,18 +86,24 @@ class Googlemaps // extends CommonObject
         // Insert request
 		$sql = "INSERT INTO ".MAIN_DB_PREFIX."google_maps(";
 		
-		$sql.= "fk_object,";
-		$sql.= "latitude,";
-		$sql.= "longitude";
-
+		$sql.= "fk_object, ";
+		$sql.= "type_object, ";
+		$sql.= "latitude, ";
+		$sql.= "longitude, ";
+		$sql.= "address, ";
+		$sql.= "result_code, ";
+		$sql.= "result_label";
 		
         $sql.= ") VALUES (";
-        
-		$sql.= " ".(! isset($this->fk_object)?'NULL':"'".$this->fk_object."'").",";
-		$sql.= " ".(! isset($this->latitude)?'NULL':"'".$this->latitude."'").",";
-		$sql.= " ".(! isset($this->longitude)?'NULL':"'".$this->longitude."'")."";
 
-        
+		$sql.= " ".(! isset($this->fk_object)?'NULL':$this->fk_object).",";
+		$sql.= " ".(! isset($this->type_object)?'NULL':"'".$this->type_object."'").",";
+		$sql.= " ".(! isset($this->latitude)?'NULL':"'".$this->latitude."'").",";
+		$sql.= " ".(! isset($this->longitude)?'NULL':"'".$this->longitude."'").",";
+		$sql.= " ".(! isset($this->address)?'NULL':"'".$this->db->escape($this->address)."'").",";
+		$sql.= " ".(! isset($this->result_code)?'NULL':"'".$this->db->escape($this->result_code)."'").",";
+		$sql.= " ".(! isset($this->result_label)?'NULL':"'".$this->db->escape($this->result_label)."'")."";
+
 		$sql.= ")";
 
 		$this->db->begin();
@@ -156,9 +162,12 @@ class Googlemaps // extends CommonObject
 		$sql.= " t.rowid,";
 		
 		$sql.= " t.fk_object,";
+		$sql.= " t.type_object,";
 		$sql.= " t.latitude,";
-		$sql.= " t.longitude";
-
+		$sql.= " t.longitude,";
+		$sql.= " t.address,";
+		$sql.= " t.result_code,";
+		$sql.= " t.result_label";
 		
         $sql.= " FROM ".MAIN_DB_PREFIX."google_maps as t";
         $sql.= " WHERE t.fk_object = ".$id;
@@ -172,12 +181,13 @@ class Googlemaps // extends CommonObject
                 $obj = $this->db->fetch_object($resql);
 
                 $this->id    = $obj->rowid;
-                
 				$this->fk_object = $obj->fk_object;
+				$this->type_object = $obj->type_object;
 				$this->latitude = $obj->latitude;
 				$this->longitude = $obj->longitude;
-
-                
+				$this->address = $obj->address;
+				$this->result_code = $obj->result_code;
+				$this->result_label = $obj->result_label;
             }
             $this->db->free($resql);
 
@@ -205,12 +215,10 @@ class Googlemaps // extends CommonObject
 		$error=0;
 
 		// Clean parameters
-        
 		if (isset($this->fk_object)) $this->fk_object=trim($this->fk_object);
+		if (isset($this->type_object)) $this->type_object=trim($this->type_object);
 		if (isset($this->latitude)) $this->latitude=trim($this->latitude);
 		if (isset($this->longitude)) $this->longitude=trim($this->longitude);
-
-        
 
 		// Check parameters
 		// Put here code to add control on parameters values
@@ -218,10 +226,13 @@ class Googlemaps // extends CommonObject
         // Update request
         $sql = "UPDATE ".MAIN_DB_PREFIX."google_maps SET";
         
-		$sql.= " fk_object=".(isset($this->fk_object)?$this->fk_object:"null").",";
-		$sql.= " latitude=".(isset($this->latitude)?$this->latitude:"null").",";
-		$sql.= " longitude=".(isset($this->longitude)?$this->longitude:"null")."";
-
+		$sql.= " fk_object=".$this->fk_object.",";
+		$sql.= " type_object='".$this->type_object."',";
+		$sql.= " latitude=".(isset($this->latitude)?"'".$this->latitude."'":"null").",";
+		$sql.= " longitude=".(isset($this->longitude)?"'".$this->longitude."'":"null").",";
+		$sql.= " address=".(isset($this->address)?"'".$this->db->escape($this->address)."'":"null").",";
+		$sql.= " result_code=".(isset($this->result_code)?"'".$this->db->escape($this->result_code)."'":"null").",";
+		$sql.= " result_label=".(isset($this->result_label)?"'".$this->db->escape($this->result_label)."'":"null")."";
         
         $sql.= " WHERE rowid=".$this->id;
 
@@ -342,7 +353,6 @@ class Googlemaps // extends CommonObject
 		// Load source object
 		$object->fetch($fromid);
 		$object->id=0;
-		$object->statut=0;
 
 		// Clear fields
 		// ...
@@ -379,7 +389,7 @@ class Googlemaps // extends CommonObject
 
 
 	/**
-	 *		Initialisz object with example values
+	 *		Initialize object with example values
 	 *		Id must be 0 if object instance is a specimen.
 	 */
 	function initAsSpecimen()
@@ -387,9 +397,14 @@ class Googlemaps // extends CommonObject
 		$this->id=0;
 		
 		$this->fk_object='';
+		$this->type_object='company';
 		$this->latitude='';
 		$this->longitude='';
+		$this->address='A full address';
+		$this->result_code='';
+		$this->result_label='';
 	}
 
 }
+
 ?>
