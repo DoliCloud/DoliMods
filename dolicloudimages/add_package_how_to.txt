@@ -6,16 +6,22 @@ Create a directory tree for package
   - package/src
 
 Add into package/config:
-  - A tgz file (Run script buildtgz.sh to build tgz)
-  - A package.cfg file
+  - A package.tgz file (Run script buildtgz.sh to build tgz)
   - A package.sql file 
+  - A package.cfg file
   - A packageScript.groovy script
 
 When files are ready, connect with SFTP to on.dolicloud.com and upload files into
   /var/www/appProviderImages/package
+Set permission to read for apache user
+  > chmod a+r /var/www/appProviderImages/package/*
 
-Go into dashboard and add package from menu with parameters
-- sourceUrl - defines the location of your application source code
-- dbScriptUrl - the location of your mysqldump
-- cfgFileUrl - the location of your config file
+Go into dashboard and add package 
+- Script url   = http://on.dolicloud.com/appProviderImages/dolibarr/DolibarrScript.groovy
+- Default user = admin
+- Default pass = keep empty
+Then add parameters
+- sourceUrl    = defines the location of your application source code package.tgz
+- dbScriptUrl  = the location of your mysqldump package.sql
+- cfgFileUrl   = the location of your config file package.cfg
 
