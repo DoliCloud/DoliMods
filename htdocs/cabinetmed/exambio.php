@@ -393,13 +393,6 @@ if ($socid > 0)
             </style>
             ';
 
-        print '
-            <script>
-            jQuery(function() {
-            });
-            </script>
-                ';
-
         //print_fiche_titre($langs->trans("NewConsult"),'','');
 
         // General
@@ -440,8 +433,9 @@ if ($socid > 0)
 //        print '<legend>'.$langs->trans("Diagnostiques et prescriptions").'</legend>'."\n";
         print '<hr style="height:1px; color: #dddddd;">';
 
-        print '<table class="notopnoleftnoright" width="100%">';
-        print '<tr><td width="60%">';
+        //print '<table class="notopnoleftnoright" width="100%">';
+        //print '<tr><td width="50%">';
+        print '<div class="fichecenter"><div class="fichehalfleft">';
 
         print '<table class="notopnoleftnoright" width="100%">';
         print '<tr><td valign="top" width="160">';
@@ -453,7 +447,8 @@ if ($socid > 0)
         print '</tr>';
         print '</table>';
 
-        print '</td><td valign="top">';
+        //print '</td><td valign="top">';
+        print '</div><div class="fichehalfright"><div class="ficheaddleft">';
 
         print $langs->trans("Conclusion").':<br>';
         print '<textarea class="flat" name="conclusion" id="conclusion" cols="60" rows="'.ROWS_4.'">';
@@ -467,17 +462,19 @@ if ($socid > 0)
         print $exambio->comment;
         print '</textarea>';
 
-        print '</td></tr>';
+        //print '</td></tr>';
+        //print '</table>';
+        print '</div></div></div>';
 
-        print '</table>';
 
-        print '<br>';
+        print '<div class="fichecenter" style="height:10px;"></div>';
         //print '<hr style="height:1px; color: #dddddd;">';
 
         if (! empty($conf->global->CABINETMED_RHEUMATOLOGY_ON))
         {
-            print '<table width="100%">';
-            print '<tr><td width="50%" valign="top">';
+            //print '<table width="100%">';
+            //print '<tr><td width="50%" valign="top">';
+        	print '<div class="fichecenter"><div class="fichehalfleft">';
 
             print '<fieldset id="suivipr">';
             print '<legend>'.$langs->trans("SuiviPR").'</legend>';
@@ -495,7 +492,8 @@ if ($socid > 0)
             print '</table>';
             print '</fieldset>';
 
-            print '</td><td width="50%" valign="top">';
+            //print '</td><td width="50%" valign="top">';
+            print '</div><div class="fichehalfright"><div class="ficheaddleft">';
 
             print '<fieldset id="suivisa">';
             print '<legend>'.$langs->trans("SuiviSA").'</legend>';
@@ -517,11 +515,16 @@ if ($socid > 0)
             print '</fieldset>';
             // (A1+A2+A3+A4+(B1+B2/2))/5 -> C sur 10
 
-            print '</td></tr></table>';
+            //print '</td></tr></table>';
+            print '</div></div></div>';
+
             print '<br>';
         }
 
         dol_htmloutput_errors($mesg,$mesgarray);
+
+
+        print '<div class="fichecenter" style="height:10px;"></div>';
 
 
         print '<center>';
@@ -536,6 +539,8 @@ if ($socid > 0)
         print ' &nbsp; &nbsp; ';
         print '<input type="submit" class="button ignorechange" name="cancel" value="'.$langs->trans("Cancel").'">';
         print '</center>';
+
+
         print '</form>';
     }
 
