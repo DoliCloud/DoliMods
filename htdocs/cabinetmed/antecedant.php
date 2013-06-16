@@ -221,12 +221,15 @@ if ($socid > 0)
 
     print '</table><br>';
 
-    print '<table class="border" width="100%">';
+
+
+    print '<div class="fichecenter"><div class="fichehalfleft">';
+    print '<table class="border" width="100%" style="margin-bottom: 2px !important;">';
 
     $conf->fckeditor->enabled=false;
     $height=120;
 
-    print '<tr height="80"><td valign="top">'.$langs->trans("AntecedentsMed");
+    print '<tr height="80"><td valign="top" width="25%">'.$langs->trans("AntecedentsMed");
     print '<br><input type="checkbox" name="alert_antemed"'.((isset($_POST['alert_antemed'])?GETPOST('alert_antemed'):$object->alert_antemed)?' checked="checked"':'').'"> '.$langs->trans("Alert");
     print '</td>';
     print '<td valign="top">';
@@ -246,9 +249,13 @@ if ($socid > 0)
     print "</td>";
     //print "</tr>";
 
+    print '</tr></table>';
+    print '</div><div class="fichehalfright"><div class="ficheaddleft" style="margin-top: auto;">';
+    print '<table class="border" width="100%" style="margin-bottom: 2px !important;"><tr height="80">';
+
     // Spec
     //print '<tr height="80">';
-    print '<td valign="top">'.$langs->trans("SpecPharma");
+    print '<td valign="top" width="25%">'.$langs->trans("SpecPharma");
     print '<br><input type="checkbox" name="alert_traitspec"'.((isset($_POST['alert_traitspec'])?GETPOST('alert_traitspec'):$object->alert_traitspec)?' checked="checked"':'').'"> '.$langs->trans("Alert");
     print '</td>';
     print '<td valign="top">';
@@ -267,7 +274,15 @@ if ($socid > 0)
     }
     print "</td></tr>";
 
-    print '<tr height="80"><td valign="top">'.$langs->trans("AntecedentsChirGene");
+
+    print '</table>';
+    print '</div></div></div>';
+
+
+    print '<div class="fichecenter"><div class="fichehalfleft">';
+    print '<table class="border" width="100%" style="margin-bottom: 2px !important;">';
+
+    print '<tr height="80"><td valign="top" width="25%">'.$langs->trans("AntecedentsChirGene");
     print '<br><input type="checkbox" name="alert_antechirgen"'.((isset($_POST['alert_antechirgen'])?GETPOST('alert_antechirgen'):$object->alert_antechirgen)?' checked="checked"':'').'"> '.$langs->trans("Alert");
     print '</td>';
     print '<td valign="top">';
@@ -287,9 +302,13 @@ if ($socid > 0)
     print "</td>";
     //pritn "</tr>";
 
+    print '</tr></table>';
+    print '</div><div class="fichehalfright"><div class="ficheaddleft" style="margin-top: auto">';
+    print '<table class="border" width="100%" style="margin-bottom: 2px !important;"><tr height="80">';
+
     // Intolerances
     //print '<tr height="80">';
-    print '<td valign="top">'.$langs->trans("Intolerances");
+    print '<td valign="top" width="25%">'.$langs->trans("Intolerances");
     print '<br><input type="checkbox" name="alert_traitintol"'.((isset($_POST['alert_traitintol'])?GETPOST('alert_traitintol'):$object->alert_traitintol)?' checked="true"':'').'"> '.$langs->trans("Alert");
     print '</td>';
     print '<td valign="top">';
@@ -308,8 +327,14 @@ if ($socid > 0)
     }
     print "</td></tr>";
 
+    print '</table>';
+    print '</div></div></div>';
 
-    print '<tr height="80"><td valign="top">'.$langs->trans("AntecedentsChirOrtho");
+
+    print '<div class="fichecenter"><div class="fichehalfleft">';
+    print '<table class="border" width="100%" style="margin-bottom: 2px !important;">';
+
+    print '<tr height="80"><td valign="top" width="25%">'.$langs->trans("AntecedentsChirOrtho");
     print '<br><input type="checkbox" name="alert_antechirortho"'.((isset($_POST['alert_antechirortho'])?GETPOST('alert_antechirortho'):$object->alert_antechirortho)?' checked="checked"':'').'"> '.$langs->trans("Alert");
     print '</td>';
     print '<td valign="top">';
@@ -329,8 +354,12 @@ if ($socid > 0)
     print "</td>";
     //print "</tr>";
 
+    print '</tr></table>';
+    print '</div><div class="fichehalfright"><div class="ficheaddleft" style="margin-top: auto">';
+    print '<table class="border" width="100%" style="margin-bottom: 2px !important;"><tr height="80">';
+
     //print '<tr height="80">';
-    print '<td valign="top">'.$langs->trans("Allergies");
+    print '<td valign="top" width="25%">'.$langs->trans("Allergies");
     print '<br><input type="checkbox" name="alert_traitallergie"'.((isset($_POST['alert_traitallergie'])?GETPOST('alert_traitallergie'):$object->alert_traitallergie)?' checked="checked"':'').'""> '.$langs->trans("Alert");
     print '</td>';
     print '<td valign="top">';
@@ -349,7 +378,14 @@ if ($socid > 0)
     }
     print "</td></tr>";
 
-    print '<tr height="80"><td valign="top">'.$langs->trans("AntecedentsRhumato");
+    print '</table>';
+    print '</div></div></div>';
+
+
+    print '<div class="fichecenter"><div class="fichehalfleft">';
+    print '<table class="border" width="100%" style="margin-bottom: 2px !important;">';
+
+    print '<tr height="80"><td valign="top" width="25%">'.$langs->trans("AntecedentsRhumato");
     print '<br><input type="checkbox" name="alert_anterhum"'.((isset($_POST['alert_anterhum'])?GETPOST('alert_anterhum'):$object->alert_anterhum)?' checked="checked"':'').'"> '.$langs->trans("Alert");
     print '</td>';
     print '<td valign="top">';
@@ -367,32 +403,18 @@ if ($socid > 0)
         print nl2br($object->note_anterhum);
     }
     print "</td>";
+
+    print '</tr></table>';
+    print '</div><div class="fichehalfright"><div class="ficheaddleft" style="margin-top: auto">';
+    /*print '<table class="border" width="100%"><tr height="100%">';
+
     print '<td colspan="2">&nbsp;</td>';
     print "</tr>";
 
-    /*
-    print '<tr height="80">';
-    print '<td valign="top">'.$langs->trans("Other").'</td>';
-    print '<td valign="top">';
-    if ($action == 'edit' && $user->rights->societe->creer)
-    {
-        print "<input type=\"hidden\" name=\"socid\" value=\"".$object->id."\">";
+    print '</table>';*/
+    print '</div></div></div>';
 
-        // Editeur wysiwyg
-        require_once(DOL_DOCUMENT_ROOT."/core/class/doleditor.class.php");
-        $doleditor=new DolEditor('note_other',$object->note_other,0,$height,'dolibarr_notes','In',false,false,$conf->fckeditor->enabled && $conf->global->FCKEDITOR_ENABLE_SOCIETE,6,70);
-        $doleditor->Create();
-    }
-    else
-    {
-	    print nl2br($object->note_other);
-    }
-    print "</td>";
-    print "</tr>";
-    */
-
-    print "</table>";
-
+    print '<div class="fichecenter"></div>';
 
     if ($action == 'edit')
     {
