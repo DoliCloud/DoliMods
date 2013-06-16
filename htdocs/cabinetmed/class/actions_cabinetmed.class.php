@@ -64,16 +64,21 @@ class ActionsCabinetmed
 
         //print 'action='.$action;
         //var_dump($parameters);
+        $cabinetmedcontext=0;
         if (isset($parameters['id']) && isset($parameters['context']) && in_array($parameters['context'],array('agendathirdparty','categorycard','infothirdparty')) && empty($action))
         {
         	$thirdparty=new Societe($db);
         	$thirdparty->fetch($parameters['id']);
-        	if ($thirdparty->canvas == 'patient@cabinetmed')
-        	{
-        		$langs->tab_translate["ThirdParty"]=$langs->transnoentitiesnoconv("Patient");
-        		$langs->tab_translate["ThirdPartyName"]=$langs->transnoentitiesnoconv("PatientName");
-        		$langs->tab_translate["CustomerCode"]=$langs->transnoentitiesnoconv("PatientCode");
-        	}
+        	if ($thirdparty->canvas == 'patient@cabinetmed') $cabinetmedcontext++;
+        }
+		if (GETPOST('canvas') == 'patient@cabinetmed') $cabinetmedcontext++;
+        if ($cabinetmedcontext)
+        {
+       		$langs->tab_translate["ThirdParty"]=$langs->transnoentitiesnoconv("Patient");
+       		$langs->tab_translate["ThirdPartyName"]=$langs->transnoentitiesnoconv("PatientName");
+       		$langs->tab_translate["CustomerCode"]=$langs->transnoentitiesnoconv("PatientCode");
+       		$langs->load("errors");
+        	$langs->tab_translate["ErrorBadThirdPartyName"]=$langs->transnoentitiesnoconv("ErrorBadPatientName");
         }
 
         require_once(DOL_DOCUMENT_ROOT ."/core/lib/date.lib.php");
@@ -117,7 +122,7 @@ class ActionsCabinetmed
                             // If already exists, we want to block creation
                             //$_POST['confirmduplicate']=$nametocheck;
                             $langs->load("errors");
-                            $this->errors[]=$langs->trans("ErrorCompanyNameAlreadyExists",$nametocheck);
+                            $this->errors[]=$langs->trans("ErrorPatientNameAlreadyExists",$nametocheck);
                             $ret=-1;
                         }
                     }

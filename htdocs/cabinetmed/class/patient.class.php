@@ -152,7 +152,7 @@ class Patient extends Societe
 
     /**
      *  Update parameters of third party
-     *  
+     *
      *  @param     	int		$id              			id societe
      *  @param      string	$user            			Utilisateur qui demande la mise a jour
      *  @param      int		$call_trigger    			0=non, 1=oui
@@ -166,7 +166,7 @@ class Patient extends Societe
 
         global $langs,$conf;
 
-        dol_syslog("Societe::Update id=".$id." call_trigger=".$call_trigger." allowmodcodeclient=".$allowmodcodeclient." allowmodcodefournisseur=".$allowmodcodefournisseur);
+        dol_syslog(get_class($this)."::Update id=".$id." call_trigger=".$call_trigger." allowmodcodeclient=".$allowmodcodeclient." allowmodcodefournisseur=".$allowmodcodefournisseur);
 
         // Clean parameters
         $this->id=$id;
@@ -227,7 +227,7 @@ class Patient extends Societe
 
         if ($result >= 0)
         {
-            dol_syslog("Societe::Update verify ok");
+            dol_syslog(get_class($this)."::Update verify ok");
 
             $sql = "UPDATE ".MAIN_DB_PREFIX."societe";
             $sql.= " SET nom = '" . addslashes($this->name) ."'"; // Champ obligatoire
@@ -300,7 +300,7 @@ class Patient extends Societe
             $sql .= " WHERE rowid = '" . $id ."'";
 
 
-            dol_syslog("Societe::update sql=".$sql);
+            dol_syslog(get_class($this)."::update sql=".$sql);
             $resql=$this->db->query($sql);
             if ($resql)
             {
@@ -331,7 +331,7 @@ class Patient extends Societe
                 {
 
                     $this->error = $langs->trans("Error sql=".$sql);
-                    dol_syslog("Societe::Update echec sql=".$sql);
+                    dol_syslog(get_class($this)."::Update echec sql=".$sql);
                     $result =  -2;
                 }
             }
@@ -555,7 +555,7 @@ class Patient extends Societe
     /**
      *  Initialise an example of company with random values
      *  Used to build previews or test instances
-     *      
+     *
      *	@return	void
      */
     function initAsSpecimen()

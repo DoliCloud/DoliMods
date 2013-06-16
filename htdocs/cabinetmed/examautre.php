@@ -314,14 +314,8 @@ if ($socid > 0)
             </style>
             ';
 
-        print '
-            <script>
-            jQuery(function() {
-                jQuery( "#listexam" ).combobox();
-                jQuery( "#listexamconc" ).combobox();
-            });
-            </script>
-                ';
+        print ajax_combobox('listexam');
+        print ajax_combobox('listexamconc');
 
         //print_fiche_titre($langs->trans("NewConsult"),'','');
 

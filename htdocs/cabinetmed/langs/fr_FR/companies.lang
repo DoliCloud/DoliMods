@@ -1,7 +1,7 @@
 # Dolibarr language file - fr_FR - companies
 CHARSET=UTF-8
 NewPatient=Nouveau patient
-ErrorCompanyNameAlreadyExists=Le nom de patient %s existe déjà. Veuillez en choisir un autre.
+ErrorPatientNameAlreadyExists=Le nom de patient %s existe déjà. Veuillez en choisir un autre.
 DeleteThirdParty=Supprimer un patient
 ConfirmDeleteCompany=Êtes-vous sûr de vouloir supprimer ce patient et toutes les informations qui en dépendent ?
 DeleteContact=Supprimer un correspondant

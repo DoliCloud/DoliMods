@@ -154,16 +154,8 @@ if ($id > 0 || ! empty($ref))
             .ui-autocomplete-input { width: '.$width.'px; }
             </style>
             ';
-    print '
-            <script>
-            jQuery(function() {
-                /*jQuery("#.dolibarrcombobox").click(function () {
-                    alert(\'ee\');
-                });*/
-                jQuery("#contactid").combobox();
-            });
-            </script>
-    ';
+
+    print ajax_combobox('contactid');
 
     print "<form method=\"post\" action=\"".$_SERVER["PHP_SELF"]."\">";
     print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
@@ -202,7 +194,13 @@ if ($id > 0 || ! empty($ref))
 	/*
 	* Lignes de contacts
 	*/
-	echo '<br><table class="noborder" width="100%">';
+    print '<form action="contact.php?socid='.$socid.'" method="post">';
+    print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
+    print '<input type="hidden" name="action" value="addcontact">';
+    print '<input type="hidden" name="source" value="external">';
+    print '<input type="hidden" name="socid" value="'.$socid.'">';
+
+    print '<br><table class="noborder" width="100%">';
 
 	/*
 	* Ajouter une ligne de contact
@@ -210,24 +208,18 @@ if ($id > 0 || ! empty($ref))
 	*/
 	if ($_GET["action"] != 'editline')
 	{
-		print '<tr class="liste_titre">';
+		print '<thead><tr class="liste_titre">';
 		//print '<td>'.$langs->trans("Source").'</td>';
 		print '<td>'.$langs->trans("Contacts").'</td>';
 		print '<td>'.$langs->trans("ContactType").'</td>';
 		print '<td colspan="3">&nbsp;</td>';
-		print "</tr>\n";
+		print "</tr></thead>\n";
 
 		$var = true;
 
-		print '<form action="contact.php?socid='.$socid.'" method="post">';
-		print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
-		print '<input type="hidden" name="action" value="addcontact">';
-		print '<input type="hidden" name="source" value="external">';
-		print '<input type="hidden" name="socid" value="'.$socid.'">';
-
 		// Line to add contacts
 		$var=!$var;
-		print "<tr $bc[$var]>";
+		print "<tr ".$bc[$var].">";
 
 		print '<td colspan="1">';
 		// $contactAlreadySelected = $commande->getListContactId('external');	// On ne doit pas desactiver un contact deja selectionner car on doit pouvoir le seclectionner une deuxieme fois pour un autre type
@@ -245,9 +237,8 @@ if ($id > 0 || ! empty($ref))
 		print '</tr>';
 
 		print "</form>";
-
-		print '<tr><td colspan="6">&nbsp;</td></tr>';
 	}
+
 
 	// List of linked contacts
 	print '<tr class="liste_titre">';

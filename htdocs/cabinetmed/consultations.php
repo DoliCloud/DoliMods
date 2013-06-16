@@ -575,33 +575,10 @@ if ($socid > 0)
 
 		';
 
-        if (empty($conf->browser->phone))
-        {
-	        print '
-	        <script>
-			jQuery(document).ready(function() {
-	                jQuery( "#listmotifcons" ).combobox();
-	                jQuery( "#listdiagles" ).combobox();
-	                jQuery( "#listexamenprescrit" ).combobox();
-	                jQuery( "#banque" ).combobox({
-	                    /* comboboxContainerClass: "comboboxContainer",
-	                    comboboxValueContainerClass: "comboboxValueContainer",
-	                    comboboxValueContentClass: "comboboxValueContent",
-	                    comboboxDropDownClass: "comboboxDropDownContainer",
-	                    comboboxDropDownButtonClass: "comboboxDropDownButton",
-	                    comboboxDropDownItemClass: "comboboxItem",
-	                    comboboxDropDownItemHoverClass: "comboboxItemHover",
-	                    comboboxDropDownGroupItemHeaderClass: "comboboxGroupItemHeader",
-	                    comboboxDropDownGroupItemContainerClass: "comboboxGroupItemContainer",
-	                    animationType: "slide",
-	                    width: "500px" */
-	                });
-
-	        });
-	        </script>
-	        ';
-        }
-        //print_fiche_titre($langs->trans("NewConsult"),'','');
+		print ajax_combobox('listmotifcons');
+		print ajax_combobox('listdiagles');
+		print ajax_combobox('listexamenprescrit');
+		print ajax_combobox('banque');
 
         // General
         print '<form method="post" action="'.$_SERVER["PHP_SELF"].'">';
