@@ -1,4 +1,6 @@
 #!/bin/bash
-cd dolibarr/src && tar --exclude-vcs -cvzf dolibarr.tgz *
-mv dolibarr.tgz ../config
+
+export target="dolibarr"
+cd $target/src && tar --exclude-vcs -cvzf $target.tgz *
+mv $target.tgz ../config
 cd .. 
