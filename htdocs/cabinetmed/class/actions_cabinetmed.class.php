@@ -62,6 +62,8 @@ class ActionsCabinetmed
         $ret=0;
         dol_syslog(get_class($this).'::executeHooks action='.$action);
 
+        $arraytmp=dol_getdate(dol_now());
+
         //print 'action='.$action;
         //var_dump($parameters);
         $cabinetmedcontext=0;
@@ -92,8 +94,11 @@ class ActionsCabinetmed
 
             // Check on date
             $birthdatearray=dol_cm_strptime($date,$conf->format_date_short);
-            $birthdate=dol_mktime(0,0,0,$birthdatearray['tm_mon']+1,($birthdatearray['tm_mday']),($birthdatearray['tm_year']+1900),true);
-            if (GETPOST('idprof3') && empty($birthdate))
+			$day=(int) $birthdatearray['tm_mday'];
+            $month=((int) $birthdatearray['tm_month'] + 1);
+            $year=((int) $birthdatearray['tm_year'] + 1900);
+            $birthdate=dol_mktime(0,0,0,$month,$day,$year,true,true);
+            if (GETPOST('idprof3') && (empty($birthdatearray['tm_year']) || empty($birthdate) || ($day > 31) || ($month > 12) || ($year >( $arraytmp['year']+1))))
             {
                 $langs->load("errors");
                 $this->errors[]=$langs->trans("ErrorBadDateFormat",$date);
@@ -149,9 +154,14 @@ class ActionsCabinetmed
             //$confirmduplicate=$_POST['confirmduplicate'];
 
             // Check on date
-            $birthdatearray=dol_cm_strptime($date,$conf->format_date_short);
-            $birthdate=dol_mktime(0,0,0,$birthdatearray['tm_mon']+1,($birthdatearray['tm_mday']),($birthdatearray['tm_year']+1900),true);
-            if (GETPOST('idprof3') && empty($birthdate))
+			$birthdatearray=dol_cm_strptime($date,$conf->format_date_short);
+			$day=(int) $birthdatearray['tm_mday'];
+            $month=((int) $birthdatearray['tm_month'] + 1);
+            $year=((int) $birthdatearray['tm_year'] + 1900);
+            //var_dump($birthdatearray);
+            //var_dump($date."-".$birthdate."-".$day."-".$month."-".$year);exit;
+            $birthdate=dol_mktime(0,0,0,$month,$day,$year,true,true);
+            if (GETPOST('idprof3') && (empty($birthdatearray['tm_year']) || empty($birthdate) || ($day > 31) || ($month > 12) || ($year > ($arraytmp['year']+1))))
             {
                 $langs->load("errors");
                 $this->errors[]=$langs->trans("ErrorBadDateFormat",$date);
