@@ -54,8 +54,9 @@ class box_googlemaps extends ModeleBoxes
 
 		$this->db = $db;
 
+		$langs->load("google@google");
 		$this->boxlabel=$langs->trans("ListOfMaps");
-		
+
 		// disable module for such cases
 		$listofmodulesforexternal=explode(',',$conf->global->MAIN_MODULES_FOR_EXTERNAL);
 		if (! in_array('adherent',$listofmodulesforexternal) && ! empty($user->societe_id)) $this->enabled=0;	// disabled for external users
@@ -95,7 +96,7 @@ class box_googlemaps extends ModeleBoxes
 		if ($conf->societe->enabled && $user->rights->societe->lire)
 		{
 			$something++;
-		
+
 			$url=dol_buildpath("/google/gmaps_all.php",1)."?mode=contact";
 			$this->info_box_contents[$i][0] = array('td' => 'align="left" width="16"',
 					'logo' => 'object_contact',
@@ -105,13 +106,13 @@ class box_googlemaps extends ModeleBoxes
 					'text' => '<a href="'.$url.'">'.$langs->trans("MapOfContactsAddresses").'</a>',
 					'url' => $url
 			);
-		
+
 			$i++;
 		}
 		if ($conf->adherent->enabled && $user->rights->adherent->lire)
 		{
 			$something++;
-		
+
 			$url=dol_buildpath("/google/gmaps_all.php",1)."?mode=member";
 			$this->info_box_contents[$i][0] = array('td' => 'align="left" width="16"',
 					'logo' => 'object_user',
@@ -121,13 +122,13 @@ class box_googlemaps extends ModeleBoxes
 					'text' => '<a href="'.$url.'">'.$langs->trans("MapOfMembers").'</a>',
 					'url' => $url
 			);
-		
+
 			$i++;
 		}
 		if ($conf->cabinetmed->enabled && $user->rights->cabinetmed->read)
 		{
 			$something++;
-		
+
 			$url=dol_buildpath("/google/gmaps_all.php",1)."?mode=patient";
 			$this->info_box_contents[$i][0] = array('td' => 'align="left" width="16"',
 					'logo' => 'object_user',
@@ -137,10 +138,10 @@ class box_googlemaps extends ModeleBoxes
 					'text' => '<a href="'.$url.'">'.$langs->trans("MapOfPatients").'</a>',
 					'url' => $url
 			);
-		
+
 			$i++;
 		}
-						
+
 		if (! $something)
 		{
 			$this->info_box_contents[0][0] = array('align' => 'left',

@@ -64,3 +64,4 @@ FollowingAddressCantBeLocalized=Les %s adresses suivantes n'ont pas pu être loc
 OnlyXAddressesAmongYWereGeoencoded=Pour des raisons de limitation par Google (la localisation d'adresses ne se fait que par paquet de %s), certaines adresses ne sont pas représentées car pas encore géoencodées.
 CountGeoTotal=Total d'adresse %s - %s pas encore géoencodées - %s en erreur = %s représentées.
 ClickHereToIncludeXMore=Cliquer ici pour géoencoder %s adresses suplémentaires.    
+ListOfMaps=Liste des cartes disponibles
