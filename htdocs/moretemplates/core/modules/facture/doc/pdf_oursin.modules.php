@@ -546,7 +546,7 @@ class pdf_oursin extends ModelePDFFactures
 
 			$pdf->SetFont('','', $default_font_size - 2);
 			$pdf->SetXY(52, $posy);
-			$lib_condition_paiement=$outputlangs->transnoentities("PaymentCondition".$object->cond_reglement_code)!=('PaymentCondition'.$object->cond_reglement_code)?$outputlangs->transnoentities("PaymentCondition".$object->cond_reglement_code):$outputlangs->convToOutputCharset($object->cond_reglement_doc);
+			$lib_condition_paiement=$outputlangs->transnoentities("PaymentCondition".$object->cond_reglement_code)!=('PaymentCondition'.$object->cond_reglement_code)?$outputlangs->transnoentities("PaymentCondition".$object->cond_reglement_code):$outputlangs->convToOutputCharset($object->cond_reglement);
 			$lib_condition_paiement=str_replace('\n',"\n",$lib_condition_paiement);
 			$pdf->MultiCell(80, 4, $lib_condition_paiement,0,'L');
 

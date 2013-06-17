@@ -491,9 +491,6 @@ class Patient extends Societe
                 $this->remise_percent		= $obj->remise_client;
                 $this->mode_reglement_id 	= $obj->mode_reglement;
                 $this->cond_reglement_id 	= $obj->cond_reglement;
-                $this->remise_client  		= $obj->remise_client;  // TODO obsolete
-                $this->mode_reglement 		= $obj->mode_reglement; // TODO obsolete
-                $this->cond_reglement 		= $obj->cond_reglement; // TODO obsolete
 
                 $this->client      = $obj->client;
                 $this->fournisseur = $obj->fournisseur;
