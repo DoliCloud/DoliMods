@@ -138,21 +138,21 @@ if ($action == 'add' || $action == 'update')
         if (GETPOST("montant_carte") != '')  $consult->montant_carte=price2num($_POST["montant_carte"]);
         if (GETPOST("montant_tiers") != '')  $consult->montant_tiers=price2num($_POST["montant_tiers"]);
 
-        $consult->banque=trim($_POST["banque"]);
-        $consult->num_cheque=trim($_POST["num_cheque"]);
-        $consult->typepriseencharge=$_POST["typepriseencharge"];
-        $consult->motifconsprinc=$_POST["motifconsprinc"];
-        $consult->diaglesprinc=$_POST["diaglesprinc"];
-        $consult->motifconssec=$_POST["motifconssec"];
-        $consult->diaglessec=$_POST["diaglessec"];
-        $consult->hdm=trim($_POST["hdm"]);
-        $consult->examenclinique=trim($_POST["examenclinique"]);
-        $consult->examenprescrit=trim($_POST["examenprescrit"]);
-        $consult->traitementprescrit=trim($_POST["traitementprescrit"]);
-        $consult->comment=trim($_POST["comment"]);
-        $consult->typevisit=$_POST["typevisit"];
-        $consult->infiltration=trim($_POST["infiltration"]);
-        $consult->codageccam=trim($_POST["codageccam"]);
+        $consult->banque=trim(GETPOST("banque"));
+        $consult->num_cheque=trim(GETPOST("num_cheque"));
+        $consult->typepriseencharge=GETPOST("typepriseencharge");
+        $consult->motifconsprinc=GETPOST("motifconsprinc");
+        $consult->diaglesprinc=GETPOST("diaglesprinc");
+        $consult->motifconssec=GETPOST("motifconssec");
+        $consult->diaglessec=GETPOST("diaglessec");
+        $consult->hdm=trim(GETPOST("hdm"));
+        $consult->examenclinique=trim(GETPOST("examenclinique"));
+        $consult->examenprescrit=trim(GETPOST("examenprescrit"));
+        $consult->traitementprescrit=trim(GETPOST("traitementprescrit"));
+        $consult->comment=trim(GETPOST("comment"));
+        $consult->typevisit=GETPOST("typevisit");
+        $consult->infiltration=trim(GETPOST("infiltration"));
+        $consult->codageccam=trim(GETPOST("codageccamname"));
 
         //print "X".$_POST["montant_cheque"].'-'.$_POST["montant_espece"].'-'.$_POST["montant_carte"].'-'.$_POST["montant_tiers"]."Z";
         $nbnotempty=0;
@@ -751,7 +751,7 @@ if ($socid > 0)
         print '<input type="radio" class="flat" name="typevisit" value="CCAM" id="ccam"'.($consult->typevisit=='CCAM'?' checked="checked"':'').'> '.$langs->trans("CCAM");
         print '<br>';
         print '<br>'.$langs->trans("CodageCCAM").': &nbsp; ';
-        print '<input type="text" class="flat" name="codageccamname" id="codageccam" value="'.$consult->codageccam.'" size="30">';
+        print '<input type="text" class="flat" name="codageccamname" id="codageccam" value="'.$consult->codageccam.'" size="30">';	// name must differ from id
         print '</td></tr>';
 
         print '</table>';
