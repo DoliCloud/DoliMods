@@ -62,5 +62,8 @@ NoAddressDefined=No addresses defined
 FollowingAddressCantBeLocalized=Following addresses could not be localized onto the map
 OnlyXAddressesAmongYWereGeoencoded=Due to Google quotas (localization of addresses is done by packet size of %s), some addresses are not represented because not yet geoencoded.
 CountGeoTotal=Total addresses %s - %s not yet geoencoded - %s in error = %s represented.
-ClickHereToIncludeXMore=Click here to geoencode %s more addresses.   
+ClickHereToIncludeXMore=Click here to geoencode %s more addresses
 ListOfMaps=List of available maps
+By25=By 25
+By50=Byr 50
+By100=By 100
