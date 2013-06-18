@@ -17,6 +17,11 @@
 -- -- VMYSQL4.1 DELETE FROM llx_usergroup_user      WHERE fk_usergroup NOT IN (SELECT rowid from llx_usergroup);
 
 DELETE from llx_const where name='MAIN_FORCETHEMEDIR';
+DELETE from llx_const where name='MAIN_MENUFRONT_SMARTPHONE_FORCED';
+DELETE from llx_const where name='MAIN_MENUFRONT_STANDARD_FORCED';
+DELETE from llx_const where name='MAIN_MENU_SMARTPHONE_FORCED';
+DELETE from llx_const where name='MAIN_MENU_STANDARD_FORCED';
+
 
 
 -- + duplicate table llx_societe into llx_cabinetmed_societe
