@@ -353,7 +353,7 @@ if (count($adderrors))
 	{
 		$objectstatic->id=$object->id;
 		$objectstatic->name=$object->name;
-		print "Name: ".$objectstatic->getNomUrl(1).", Address: ".$object->address." -> ".$object->error."<br>\n";
+		print $langs->trans("Name").": ".$objectstatic->getNomUrl(1).", ".$langs->trans("Address").": ".$object->address." -> ".$object->error."<br>\n";
 	}
 }
 
