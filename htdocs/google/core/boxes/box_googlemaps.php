@@ -77,7 +77,7 @@ class box_googlemaps extends ModeleBoxes
         $this->info_box_head = array('text' => $langs->trans("BoxMaps",$max));
 
         $i=0;
-		if ($conf->societe->enabled && $user->rights->societe->lire)
+		if ($conf->societe->enabled && $user->rights->societe->lire && empty($conf->global->CABINETMED_HIDETHIRPARTIESMENU))
 		{
 			$something++;
 
