@@ -307,7 +307,7 @@ if ($resql)
 	// Summary of data represented
 	if ($num > $countgeoencodedall) print $langs->trans("OnlyXAddressesAmongYWereGeoencoded",$MAXADDRESS,$countgeoencodedok).'<br>'."\n";
 	print $langs->trans("CountGeoTotal",$num,($num-$countgeoencodedall),($countgeoencodedall-$countgeoencodedok),$countgeoencodedok).'<br>'."\n";
-	if ($num == $countgeoencodedall)
+	if ($num > $countgeoencodedall)
 	{
 		print $langs->trans("ClickHereToIncludeXMore");
 		print ' &nbsp; <a href="'.$_SERVER["PHP_SELF"].'?mode='.$mode.'&max=25">'.$langs->trans("By25").'</a> &nbsp;';
