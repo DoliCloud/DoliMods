@@ -81,7 +81,7 @@ else if ($mode=='patient')
 		$address = $object->getFullAddress(1,', ');
 	}
 }
-else 
+else
 {
 	dol_print_error('','Bad value for mode param into url');
 	exit;
@@ -198,23 +198,23 @@ if ($resql)
 		$object->longitude = $obj->longitude;
 		$object->address = $addresstosearch;
 		$object->error = '';
-		
+
 		$geoencodingtosearch=false;
-		if ($obj->gaddress != $addresstosearch) $geoencodingtosearch=true;  
+		if ($obj->gaddress != $addresstosearch) $geoencodingtosearch=true;
 		else if ((empty($object->latitude) || empty($object->longitude)) && (empty($obj->result_code) || in_array($obj->result_code, array('OK','OVER_QUERY_LIMIT')))) $geoencodingtosearch=true;
-					
+
 		if ($geoencodingtosearch && (empty($MAXADDRESS) || $countgeoencoding < $MAXADDRESS))
 		{
-			if ($countgeoencoding && ($countgeoencoding % 10 == 0)) 
+			if ($countgeoencoding && ($countgeoencoding % 10 == 0))
 			{
 				dol_syslog("Add a delay of 1");
 				sleep(1);
 			}
-			
+
 			$countgeoencoding++;
-			
+
 			$point = geocoding($object->address);
-			if (is_array($point)) 
+			if (is_array($point))
 			{
 				$object->latitude=$point['lat'];
 				$object->longitude=$point['lng'];
@@ -232,14 +232,14 @@ if ($resql)
 				if ($googlemaps->id > 0) $result=$googlemaps->update();
 				else $result=$googlemaps->create($user);
 				if ($result < 0) dol_print_error('',$googlemaps->error);
-				
+
 				$countgeoencodedok++;
 				$countgeoencodedall++;
 			}
-			else 
+			else
 			{
 				$error=$point;
-				
+
 				// Update/insert database
 				$googlemaps->id=$obj->gid;
 				$googlemaps->latitude=$object->latitude;
@@ -247,39 +247,39 @@ if ($resql)
 				$googlemaps->address=$addresstosearch;
 				$googlemaps->fk_object=$obj->id;
 				$googlemaps->type_object=$type;
-				if ($error == 'ZERO_RESULTS') 
+				if ($error == 'ZERO_RESULTS')
 				{
 					$error='Address not complete or unknown';
 					$googlemaps->result_code='ZERO_RESULTS';
 					$googlemaps->result_label=$error;
 				}
-				else if ($error == 'OVER_QUERY_LIMIT') 
+				else if ($error == 'OVER_QUERY_LIMIT')
 				{
 					$error='Quota reached';
 					$googlemaps->result_code='OVER_QUERY_LIMIT';
 					$googlemaps->result_label=$error;
 				}
-				else 
+				else
 				{
 					$googlemaps->result_code='ERROR';
 					$googlemaps->result_label=$error;
 				}
-				
+
 				if ($googlemaps->id > 0) $result=$googlemaps->update();
 				else $result=$googlemaps->create($user);
 				if ($result < 0) dol_print_error('',$googlemaps->error);
-				
+
 				$object->error=$error;
 				$adderrors[]=$object;
-				
+
 				$countgeoencodedall++;
 			}
 		}
 		else
 		{
-			if ($obj->result_code == 'OK')	// A success 
+			if ($obj->result_code == 'OK')	// A success
 			{
-				$countgeoencodedok++;	
+				$countgeoencodedok++;
 				$countgeoencodedall++;
 			}
 			else if (! empty($obj->result_code))	// An error
@@ -303,7 +303,7 @@ if ($resql)
 
 		$i++;
 	}
-	
+
 	// Summary of data represented
 	if ($num > $countgeoencodedall) print $langs->trans("OnlyXAddressesAmongYWereGeoencoded",$MAXADDRESS,$countgeoencodedok).'<br>'."\n";
 	print $langs->trans("CountGeoTotal",$num,($num-$countgeoencodedall),($countgeoencodedall-$countgeoencodedok),$countgeoencodedok).'<br>'."\n";
@@ -343,10 +343,17 @@ if (count($addresses) == 0 && count($adderrors) == 0) print $langs->trans("NoAdd
 // Show error
 if (count($adderrors))
 {
+	if (empty($mode) || $mode=='thirdparty') $objectstatic=new Societe($db);
+	else if ($mode=='contact') $objectstatic=new Contact($db);
+	else if ($mode=='member') $objectstatic=new Adherent($db);
+	else if ($mode=='patient') $objectstatic=new Patient($db);
+
 	print $langs->trans("FollowingAddressCantBeLocalized",($countgeoencodedall-$countgeoencodedok)).':<br>'."\n";
 	foreach($adderrors as $object)
 	{
-		print "Name: ".$object->name." Address: ".$object->address." -> ".$object->error."<br>\n";		
+		$objectstatic->id=$object->id;
+		$objectstatic->name=$object->name;
+		print "Name: ".$objectstatic->getNomUrl(1).", Address: ".$object->address." -> ".$object->error."<br>\n";
 	}
 }
 
@@ -376,10 +383,10 @@ function geocoding($address)
 		$returnstring=$response['curl_error_no'].' '.$response['curl_error_msg'];
 		echo "<!-- geocoding : failure to geocode : ".dol_escape_htmltag($encodeAddress)." => " . dol_escape_htmltag($returnstring) . " -->\n";
 		return $returnstring;
-	} 
+	}
 
 	$data = json_decode($response['content']);
-	if ($data->status == "OK") 
+	if ($data->status == "OK")
 	{
 		$return=array();
 		$return['lat']=$data->results[0]->geometry->location->lat;
@@ -446,7 +453,7 @@ function googlegetURLContent($url,$postorget='GET',$param='')
     $PROXY_PASS=empty($conf->global->MAIN_PROXY_PASS)?0:$conf->global->MAIN_PROXY_PASS;
 
 	dol_syslog("getURLContent postorget=".$postorget." URL=".$url." param=".$param);
-	
+
 	//setting the curl parameters.
 	$ch = curl_init();
 
@@ -464,7 +471,7 @@ function googlegetURLContent($url,$postorget='GET',$param='')
 
     curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, empty($conf->global->MAIN_USE_CONNECT_TIMEOUT)?5:$conf->global->MAIN_USE_CONNECT_TIMEOUT);
     curl_setopt($ch, CURLOPT_TIMEOUT, empty($conf->global->MAIN_USE_RESPONSE_TIMEOUT)?5:$conf->global->MAIN_USE_RESPONSE_TIMEOUT);
-		
+
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
 	if ($postorget == 'POST') curl_setopt($ch, CURLOPT_POST, 1);
 	else curl_setopt($ch, CURLOPT_POST, 0);
