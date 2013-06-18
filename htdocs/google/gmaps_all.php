@@ -309,7 +309,7 @@ if ($resql)
 	print $langs->trans("CountGeoTotal",$num,($num-$countgeoencodedall),($countgeoencodedall-$countgeoencodedok),$countgeoencodedok).'<br>'."\n";
 	if ($num > $countgeoencodedall)
 	{
-		print $langs->trans("ClickHereToIncludeXMore");
+		print $langs->trans("ClickHereToIncludeXMore").': &nbsp;';
 		print ' &nbsp; <a href="'.$_SERVER["PHP_SELF"].'?mode='.$mode.'&max=25">'.$langs->trans("By25").'</a> &nbsp;';
 		print ' &nbsp; <a href="'.$_SERVER["PHP_SELF"].'?mode='.$mode.'&max=50">'.$langs->trans("By50").'</a> &nbsp;';
 		print ' &nbsp; <a href="'.$_SERVER["PHP_SELF"].'?mode='.$mode.'&max=100">'.$langs->trans("By100").'</a> &nbsp;';
