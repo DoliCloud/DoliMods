@@ -127,7 +127,7 @@ class InterfaceActionsCabinetmed
             $thirdparty=new Societe($this->db);
             $thirdparty->fetch($object->fk_soc);
 
-            $object->actiontypecode='AC_OTH';
+            $object->actiontypecode='AC_OTH_AUTO';
             if (empty($object->actionmsg2)) $object->actionmsg2=$langs->transnoentities("NewOutcomeToDolibarr",$object->id,$thirdparty->name);
             $object->actionmsg=$langs->transnoentities("NewOutcomeToDolibarr",$object->id,$thirdparty->name);
             //$this->desc.="\n".$langs->transnoentities("Customer").': '.yn($object->client);
