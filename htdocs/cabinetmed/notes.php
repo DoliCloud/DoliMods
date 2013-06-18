@@ -60,7 +60,7 @@ if ($action == 'add' && ! GETPOST('cancel'))
 
     $db->begin();
 
-    $result=$object->update_note(dol_html_entity_decode(dol_htmlcleanlastbr(GETPOST('note_private')), ENT_QUOTES),'_private');
+    $result=$object->update_note(dol_html_entity_decode(dol_htmlcleanlastbr(GETPOST('note_private')?GETPOST('note_private'):GETPOST('note')), ENT_QUOTES),'_private');
     if ($result < 0)
     {
         $error++;
@@ -166,6 +166,7 @@ if ($socid > 0)
     print '<br><input type="checkbox" id="alert_note" name="alert_note"'.((isset($_POST['alert_note'])?GETPOST('alert_note'):$object->alert_note)?' checked="checked"':'').'"> '.$langs->trans("Alert");
     print '</td>';
     print '<td valign="top">';
+    $note=($object->note_private?$object->note_private:$object->note);
     if ($user->rights->societe->creer)
     {
         print '<input type="hidden" name="action" value="add" />';
@@ -173,12 +174,12 @@ if ($socid > 0)
 
         // Editeur wysiwyg
         require_once(DOL_DOCUMENT_ROOT."/core/class/doleditor.class.php");
-        $doleditor=new DolEditor('note',$object->note_private,'',360,'dolibarr_notes','In',true,false,$conf->global->FCKEDITOR_ENABLE_SOCIETE,20,70);
+        $doleditor=new DolEditor('note',$note,'',360,'dolibarr_notes','In',true,false,$conf->global->FCKEDITOR_ENABLE_SOCIETE,20,70);
         $doleditor->Create(0,'.on( \'saveSnapshot\', function(e) { changed=true; });');
     }
     else
     {
-        print dol_textishtml($object->note_private)?$object->note_private:dol_nl2br($object->note_private,1,true);
+        print dol_textishtml($note)?$note:dol_nl2br($note,1,true);
     }
     print "</td></tr>";
 
