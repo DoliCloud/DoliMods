@@ -47,6 +47,12 @@ else header('Cache-Control: no-cache');
 $path='/cabinetmed';    // This value may be used in future for external module to overwrite theme
 $theme='cabinetmed';
 
+// Define image path files
+$dol_hide_topmenu=$conf->dol_hide_topmenu;
+$dol_hide_leftmenu=$conf->dol_hide_leftmenu;
+$dol_optimize_smallscreen=$conf->dol_optimize_smallscreen;
+$dol_no_mouse_hover=$conf->dol_no_mouse_hover;
+$dol_use_jmobile=$conf->dol_use_jmobile;
 ?>
 
 legend
@@ -66,3 +72,11 @@ div.mainmenu.contacts {
 div.mainmenu.accountancy2 {
 	background-image: url(<?php echo dol_buildpath($path.'/theme/'.$theme.'/img/menus/money.png',1) ?>);
 }
+
+<?php if (! empty($dol_use_jmobile)) { ?>
+.cabpaymentcheque { border-top: 1px solid #AAA; margin-top: 4px; }
+.cabpaymentcarte { border-top: 1px solid #AAA; margin-top: 4px; }
+.cabpaymentcash { border-top: 1px solid #AAA; margin-top: 4px; }
+.cabpaymentthirdparty { border-top: 1px solid #AAA; margin-top: 4px; }
+<?php } ?>
+

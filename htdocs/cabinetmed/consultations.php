@@ -152,7 +152,7 @@ if ($action == 'add' || $action == 'update')
         $consult->comment=trim(GETPOST("comment"));
         $consult->typevisit=GETPOST("typevisit");
         $consult->infiltration=trim(GETPOST("infiltration"));
-        $consult->codageccam=trim(GETPOST("codageccamname"));
+        $consult->codageccam=trim(GETPOST("codageccam"));
 
         //print "X".$_POST["montant_cheque"].'-'.$_POST["montant_espece"].'-'.$_POST["montant_carte"].'-'.$_POST["montant_tiers"]."Z";
         $nbnotempty=0;
@@ -434,7 +434,52 @@ if ($socid > 0)
 
         print '<script type="text/javascript" language="javascript">
         var changed=false;
-		jQuery(document).ready(function() {
+        function init_montant_cheque()
+        {
+	        if (jQuery("#idmontant_cheque").val() != "")
+	        {
+		        jQuery("#banque").removeAttr(\'disabled\');
+		        jQuery("#selectbankchequeto").removeAttr(\'disabled\');
+	    	    jQuery("#idnum_cheque").removeAttr(\'disabled\');
+    	    }
+	    	else
+	    	{
+	    		jQuery("#banque").attr(\'disabled\', \'disabled\');
+	    		jQuery("#selectbankchequeto").attr(\'disabled\', \'disabled\');
+	    		jQuery("#idnum_cheque").attr(\'disabled\', \'disabled\');
+    		}
+			/* jQuery("#selectbankchequeto").selectmenu("refresh"); */
+    	}
+        function init_montant_carte()
+        {
+            if (jQuery("#idmontant_carte").val() != "")
+            {
+                jQuery("#selectbankcarteto").removeAttr(\'disabled\');
+            }
+            else
+            {
+                jQuery("#selectbankcarteto").attr(\'disabled\', \'disabled\');
+            }
+			/* jQuery("#selectbankcarteto").selectmenu("refresh"); */
+    	}
+        function init_montant_espece()
+        {
+            if (jQuery("#idmontant_espece").val() != "")
+            {
+                jQuery("#selectbankespeceto").removeAttr(\'disabled\');
+            }
+            else
+            {
+                jQuery("#selectbankespeceto").attr(\'disabled\', \'disabled\');
+            }
+			/* jQuery("#selectbankespeceto").selectmenu("refresh"); */
+    	}
+        jQuery(document).ready(function()
+        {
+           	init_montant_cheque();
+           	init_montant_carte();
+           	init_montant_espece();
+
             jQuery(window).bind(\'beforeunload\', function(){
 				/* alert(changed); */
             	if (changed) return \''.dol_escape_js($langs->transnoentitiesnoconv("WarningExitPageWithoutSaving")).'\';
@@ -446,44 +491,22 @@ if ($socid > 0)
  				changed=false;
     		});
     		jQuery("#cs").click(function () {
-                jQuery("#codageccam").attr(\'disabled\', \'disabled\');
+                jQuery("#idcodageccam").attr(\'disabled\', \'disabled\');
             });
             jQuery("#c2").click(function () {
-                jQuery("#codageccam").attr(\'disabled\', \'disabled\');
+                jQuery("#idcodageccam").attr(\'disabled\', \'disabled\');
             });
             jQuery("#ccam").click(function () {
-                jQuery("#codageccam").removeAttr(\'disabled\');
+                jQuery("#idcodageccam").removeAttr(\'disabled\');
             });
-            jQuery("#montant_cheque").keyup(function () {
-                if (jQuery("#montant_cheque").val() != "")
-                {
-                    jQuery("#banque").removeAttr(\'disabled\');
-                    jQuery("#selectbankchequeto").removeAttr(\'disabled\');
-                    jQuery("#num_cheque").removeAttr(\'disabled\');
-                }
-                else {
-                    jQuery("#banque").attr(\'disabled\', \'disabled\');
-                    jQuery("#selectbankchequeto").attr(\'disabled\', \'disabled\');
-                    jQuery("#num_cheque").attr(\'disabled\', \'disabled\');
-                }
+            jQuery("#idmontant_cheque").keyup(function () {
+            	init_montant_cheque();
             });
-            jQuery("#montant_espece").keyup(function () {
-                if (jQuery("#montant_espece").val() != "")
-                {
-                    jQuery("#selectbankespeceto").removeAttr(\'disabled\');
-                }
-                else {
-                    jQuery("#selectbankespeceto").attr(\'disabled\', \'disabled\');
-                }
-            });
-            jQuery("#montant_carte").keyup(function () {
-                if (jQuery("#montant_carte").val() != "")
-                {
-                    jQuery("#selectbankcarteto").removeAttr(\'disabled\');
-                }
-                else {
-                    jQuery("#selectbankcarteto").attr(\'disabled\', \'disabled\');
-                }
+            jQuery("#idmontant_carte").keyup(function () {
+				init_montant_carte();
+    		});
+            jQuery("#idmontant_espece").keyup(function () {
+           		init_montant_espece();
             });
 
             jQuery("#addmotifprinc").click(function () {
@@ -559,7 +582,7 @@ if ($socid > 0)
     		';
         	if ($consult->typevisit != 'CCAM')
         	{
-        		print ' jQuery("#codageccam").attr(\'disabled\',\'disabled\'); '."\n";
+        		print ' jQuery("#idcodageccam").attr(\'disabled\',\'disabled\'); '."\n";
         	}
 		print '
         });
@@ -601,11 +624,16 @@ if ($socid > 0)
         }
         print '</legend>'."\n";
 
-        print '<table class="notopnoleftnoright" width="100%">';
-        print '<tr><td width="60%" class="fieldrequired">';
+        print '<div class="fichecenter"><div class="fichehalfleft">';
+        //print '<table class="notopnoleftnoright" width="100%">';
+        //print '<tr><td width="60%" class="fieldrequired">';
+
         print $langs->trans("Date").': ';
         $form->select_date($consult->datecons,'cons');
-        print '</td><td>';
+
+        //print '</td><td>';
+        print '</div><div class="fichehalfright"><div class="ficheaddleft">';
+
         if (! empty($conf->global->CABINETMED_FRENCH_PRISEENCHARGE))
         {
             print $langs->trans("Priseencharge").': &nbsp;';
@@ -619,9 +647,11 @@ if ($socid > 0)
             print ' &nbsp; ';
             print '<input type="radio" class="flat" name="typepriseencharge" value="AME"'.($consult->typepriseencharge=='AME'?' checked="checked"':'').'> AME';
         }
-        print '</td></tr>';
 
-        print '</table>';
+        //print '</td></tr>';
+        //print '</table>';
+        print '</div></div></div>';
+
         //print '</fieldset>';
 
         //print '<br>';
@@ -629,10 +659,13 @@ if ($socid > 0)
         // Analyse
 //        print '<fieldset id="fieldsetanalyse">';
 //        print '<legend>'.$langs->trans("Diagnostiques et prescriptions").'</legend>'."\n";
+        print '<div class="fichecenter"></div>';
+
         print '<hr style="height:1px; color: #dddddd;">';
 
-        print '<table class="notopnoleftnoright" width="100%">';
-        print '<tr><td width="60%">';
+        //print '<table class="notopnoleftnoright" width="100%">';
+        //print '<tr><td width="60%">';
+        print '<div class="fichecenter"><div class="fichehalfleft">';
 
         print '<table class="notopnoleftnoright" id="addmotifbox" width="100%">';
         print '<tr><td valign="top" width="160">';
@@ -659,13 +692,17 @@ if ($socid > 0)
         print '</tr>';
         print '</table>';
 
-        print '</td><td>';
+        //print '</td><td>';
+        print '</div><div class="fichehalfright"><div class="ficheaddleft">';
 
         print ''.$langs->trans("HistoireDeLaMaladie").'<br>';
         print '<textarea name="hdm" id="hdm" class="flat" cols="50" rows="'.ROWS_5.'">'.$consult->hdm.'</textarea>';
 
         //print '</td><td valign="top">';
-        print '</td></tr><tr><td>';
+        //print '</td></tr><tr><td>';
+        print '</div></div></div>';
+
+        print '<div class="fichecenter"><div class="fichehalfleft">';
 
         print '<table class="notopnoleftnoright" id="adddiagbox" width="100%">';
         //print '<tr><td><br></td></tr>';
@@ -691,24 +728,27 @@ if ($socid > 0)
         print '</tr>';
         print '</table>';
 
-        print '</td><td>';
+        //print '</td><td>';
+        print '</div><div class="fichehalfright"><div class="ficheaddleft">';
 
         print ''.$langs->trans("ExamensCliniques").'<br>';
         print '<textarea name="examenclinique" id="examenclinique" class="flat" cols="50" rows="'.ROWS_6.'">'.$consult->examenclinique.'</textarea>';
 
-        print '</td></tr>';
-
-        print '</table>';
+        print '</div></div></div>';
+        //print '</td></tr>';
+        //print '</table>';
         //print '</fieldset>';
 
+        print '<div class="fichecenter"></div>';
 
         // Prescriptions
         //print '<fieldset id="fieldsetprescription">';
         //print '<legend>'.$langs->trans("Prescription").'</legend>'."\n";
         print '<hr style="height:1px; color: #dddddd;">';
 
-        print '<table class="notopnoleftnoright" width="100%">';
-        print '<tr><td width="60%" valign="top">';
+        print '<div class="fichecenter"><div class="fichehalfleft">';
+        //print '<table class="notopnoleftnoright" width="100%">';
+        //print '<tr><td width="60%" valign="top">';
 
         print '<table class="notopnoleftnoright" id="addexambox" width="100%">';
 
@@ -735,7 +775,8 @@ if ($socid > 0)
 
         print '</table>';
 
-        print '</td><td valign="top">';
+        //print '</td><td valign="top">';
+        print '</div><div class="fichehalfright"><div class="ficheaddleft">';
 
         print $langs->trans("TraitementsPrescrits").'<br>';
         print '<textarea name="traitementprescrit" class="flat" cols="50" rows="'.($nboflines+1).'">'.$consult->traitementprescrit.'</textarea><br>';
@@ -751,11 +792,14 @@ if ($socid > 0)
         print '<input type="radio" class="flat" name="typevisit" value="CCAM" id="ccam"'.($consult->typevisit=='CCAM'?' checked="checked"':'').'> '.$langs->trans("CCAM");
         print '<br>';
         print '<br>'.$langs->trans("CodageCCAM").': &nbsp; ';
-        print '<input type="text" class="flat" name="codageccamname" id="codageccam" value="'.$consult->codageccam.'" size="30">';	// name must differ from id
+        print '<input type="text" class="flat" name="codageccam" id="idcodageccam" value="'.$consult->codageccam.'" size="30">';	// name must differ from id
         print '</td></tr>';
 
         print '</table>';
-        print '</fieldset>';
+
+        print '</div></div></div>';
+
+        print '</fieldset>'; // End of general information
 
         print '<br>';
 
@@ -788,17 +832,18 @@ if ($socid > 0)
             }
         }
 
+
         print '<table class="notopnoleftnoright" id="paymentsbox" width="100%">';
 
         // Cheque
-        print '<tr><td width="160">';
+        print '<tr class="cabpaymentcheque"><td width="160">';
         print ''.$langs->trans("PaymentTypeCheque").'</td><td>';
         //print '<table class="nobordernopadding"><tr><td>';
-        print '<input type="text" class="flat" name="montant_cheque" id="montant_cheque" value="'.($consult->montant_cheque!=''?price($consult->montant_cheque):'').'" size="5">';
+        print '<input type="text" class="flat" name="montant_cheque" id="idmontant_cheque" value="'.($consult->montant_cheque!=''?price($consult->montant_cheque):'').'" size="5">';
         if ($conf->banque->enabled)
         {
-            print ' &nbsp; '.$langs->trans("RecBank").' ';
-            $form->select_comptes(($consult->bank['CHQ']['account_id']?$consult->bank['CHQ']['account_id']:$defaultbankaccountchq),'bankchequeto',0,'courant = 1',0,($consult->montant_cheque?'':' disabled="disabled"'));
+        	print ' &nbsp; '.$langs->trans("RecBank").' ';
+            $form->select_comptes(($consult->bank['CHQ']['account_id']?$consult->bank['CHQ']['account_id']:$defaultbankaccountchq),'bankchequeto',0,'courant = 1',0);
         }
         //print '</td><td>';
         print ' &nbsp; ';
@@ -809,37 +854,36 @@ if ($socid > 0)
         //print '</td></tr><tr><td></td><td>';
         if ($conf->banque->enabled)
         {
-            print ' &nbsp; '.$langs->trans("ChequeOrTransferNumber").' ';
-            print '<input type="text" class="flat" name="num_cheque" id="num_cheque" value="'.$consult->num_cheque.'" size="6"'.($consult->montant_cheque?'':' disabled="disabled"').'>';
+        	print ' &nbsp; '.$langs->trans("ChequeOrTransferNumber").' ';
+        	print '<input type="text" class="flat" name="num_cheque" id="idnum_cheque" value="'.$consult->num_cheque.'" size="6">';
         }
         //print '</td></tr></table>';
         print '</td></tr>';
         // Card
-        print '<tr><td>';
+        print '<tr class="cabpaymentcarte"><td>';
         print $langs->trans("PaymentTypeCarte").'</td><td>';
-        print '<input type="text" class="flat" name="montant_carte" id="montant_carte" value="'.($consult->montant_carte!=''?price($consult->montant_carte):'').'" size="5">';
+        print '<input type="text" class="flat" name="montant_carte" id="idmontant_carte" value="'.($consult->montant_carte!=''?price($consult->montant_carte):'').'" size="5">';
         if ($conf->banque->enabled)
         {
             print ' &nbsp; '.$langs->trans("RecBank").' ';
-            $form->select_comptes(($consult->bank['CB']['account_id']?$consult->bank['CB']['account_id']:$defaultbankaccountchq),'bankcarteto',0,'courant = 1',0,($consult->montant_carte?'':' disabled="disabled"'));
+            $form->select_comptes(($consult->bank['CB']['account_id']?$consult->bank['CB']['account_id']:$defaultbankaccountchq),'bankcarteto',0,'courant = 1',0);
         }
         print '</td></tr>';
         // Cash
-        print '<tr><td>';
+        print '<tr class="cabpaymentcash"><td>';
         print $langs->trans("PaymentTypeEspece").'</td><td>';
-        print '<input type="text" class="flat" name="montant_espece" id="montant_espece" value="'.($consult->montant_espece!=''?price($consult->montant_espece):'').'" size="5">';
+        print '<input type="text" class="flat" name="montant_espece" id="idmontant_espece" value="'.($consult->montant_espece!=''?price($consult->montant_espece):'').'" size="5">';
         if ($conf->banque->enabled)
         {
             print ' &nbsp; '.$langs->trans("RecBank").' ';
-            $form->select_comptes(($consult->bank['LIQ']['account_id']?$consult->bank['LIQ']['account_id']:$defaultbankaccountliq),'bankespeceto',0,'courant = 2',0,($consult->montant_espece?'':' disabled="disabled"'));
+            $form->select_comptes(($consult->bank['LIQ']['account_id']?$consult->bank['LIQ']['account_id']:$defaultbankaccountliq),'bankespeceto',0,'courant = 2',0);
         }
         print '</td></tr>';
         // Third party
-        print '<tr><td>';
+        print '<tr class="cabpaymentthirdparty"><td>';
         print $langs->trans("PaymentTypeThirdParty").'</td><td>';
-        print '<input type="text" class="flat" name="montant_tiers" id="montant_tiers" value="'.($consult->montant_tiers!=''?price($consult->montant_tiers):'').'" size="5">';
+        print '<input type="text" class="flat" name="montant_tiers" id="idmontant_tiers" value="'.($consult->montant_tiers!=''?price($consult->montant_tiers):'').'" size="5">';
         print ' &nbsp; ('.$langs->trans("ZeroHereIfNoPayment").')';
-        print '</td><td>';
         print '</td></tr>';
 
         print '</table>';
