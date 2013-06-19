@@ -98,7 +98,8 @@ class modCabinetMed extends DolibarrModules
 		//                             2=>array('MAIN_MODULE_MYMODULE_HOOKS','chaine','hookcontext1:hookcontext2','To say: This module manage hooks in hookcontext1 and hookcontext2',1,'current',1)
 		// );
         $this->const = array(
-                             8=>array('MAIN_DISABLEPROFIDRULES','chaine','1','Disable info/check links near professional id fields',1,'current',1),
+           					 1=>array('MAIN_MENU_CHEQUE_DEPOSIT_ON','chaine','1','Enabled menu cheque deposit even if module invoice not enabled',1,'current',1),
+        					 8=>array('MAIN_DISABLEPROFIDRULES','chaine','1','Disable info/check links near professional id fields',1,'current',1),
                              9=>array('MAIN_FORCELANGDIR','chaine','/cabinetmed','Language files are searched into this dir first',1,'current',1),
                             10=>array('MAIN_OVERWRITE_THEME_RES','chaine','cabinetmed','Resource for themes (img) are searched into dir/theme/dir first',1,'current',1),
                             11=>array('MAIN_DISABLEVATCHECK','chaine','1','Disable link to VAT check',1,'current',1),
