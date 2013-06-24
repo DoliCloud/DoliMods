@@ -206,17 +206,21 @@ $urlwithouturlroot=preg_replace('/'.preg_quote(DOL_URL_ROOT,'/').'$/i','',$urlwi
 $redirect_uri=$urlwithouturlroot.dol_buildpath('/google/index.php',1);		// Must be an url without parameters
 
 
+print "<table class=\"noborder\" width=\"100%\">";
+
+print "<tr class=\"liste_titre\">";
+print "<td>".$langs->trans("Parameter").' ('.$langs->trans("ParametersForGoogleOAuth").')'."</td>";
+print "<td>".$langs->trans("Name")."</td>";
+print "</tr>";
+
 // Setup for Oauth
+print '<tr><td colspan="2">';
 $urltocreatekey='https://code.google.com/apis/console/';
 print $langs->trans("DueToGoogleLimitYouNeedToLogin").'<br>';
 print $langs->trans("AllowGoogleToLoginSetupKey").'<br>';
 print $langs->trans("AllowGoogleToLoginProp",$urltocreatekey,$urltocreatekey,$redirect_uri).'<br>';
-print "<table class=\"noborder\" width=\"100%\">";
+print '</td></tr>';
 
-print "<tr class=\"liste_titre\">";
-print "<td>".$langs->trans("Parameter")."</td>";
-print "<td>".$langs->trans("Name")."</td>";
-print "</tr>";
 // Client ID
 $var=!$var;
 print "<tr ".$bc[$var].">";

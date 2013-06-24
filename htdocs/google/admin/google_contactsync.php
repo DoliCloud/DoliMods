@@ -210,7 +210,7 @@ if (preg_match('/^test/',$action))
     else
     {
         $error='<div class="error">'.$object->error.'</div>';
-        $errors[]=$object->errors;
+        $errors=$object->errors;
     }
 }
 
@@ -559,13 +559,15 @@ if ($conf->societe->enabled) print $langs->trans("GoogleEnableSyncToContacts").'
 if ($conf->adherent->enabled) print $langs->trans("GoogleEnableSyncToMembers").' '.$form->selectyesno("GOOGLE_DUPLICATE_INTO_MEMBERS",isset($_POST["GOOGLE_DUPLICATE_INTO_MEMBERS"])?$_POST["GOOGLE_DUPLICATE_INTO_MEMBERS"]:$conf->global->GOOGLE_DUPLICATE_INTO_MEMBERS,1).'<br>';
 print '<br>';
 
+
 $var=false;
 print "<table class=\"noborder\" width=\"100%\">";
 
 print "<tr class=\"liste_titre\">";
-print '<td width="25%">'.$langs->trans("Parameter")."</td>";
+print '<td width="25%">'.$langs->trans("Parameter").' ('.$langs->trans("ParametersForGoogleAPIv2Usage").')'."</td>";
 print "<td>".$langs->trans("Value")."</td>";
 print "</tr>";
+
 // Google login
 print "<tr ".$bc[$var].">";
 print '<td class="fieldrequired">'.$langs->trans("GOOGLE_LOGIN")."</td>";
@@ -583,6 +585,19 @@ print '<input class="flat" type="password" size="10" name="GOOGLE_CONTACT_PASSWO
 //print ' &nbsp; '.$langs->trans("KeepEmptyYoUseLoginPassOfEventUser");
 print "</td>";
 print "</tr>";
+
+print "</table>";
+print "<br>";
+
+
+$var=false;
+print "<table class=\"noborder\" width=\"100%\">";
+
+print "<tr class=\"liste_titre\">";
+print '<td width="25%">'.$langs->trans("Parameter")."</td>";
+print "<td>".$langs->trans("Value")."</td>";
+print "</tr>";
+// Label to use for thirdparties
 if ($conf->societe->enabled)
 {
 	$var=!$var;
@@ -604,6 +619,7 @@ if ($conf->societe->enabled)
 	print "</td>";
 	print "</tr>";
 }
+// Label to use for members
 if ($conf->adherent->enabled)
 {
 	print '<tr '.$bc[$var].' id="syncmembers">';

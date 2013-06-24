@@ -1,6 +1,6 @@
 <?php
-/*
- * Copyright (C) 2012-2013 Philippe Berthet  <berthet@systune.be>
+/* Copyright (C) 2012-2013 Philippe Berthet    <berthet@systune.be>
+ * Copyright (C) 2013      Laurent Destailleur <eldy@users.sourceforge.net>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,9 +17,9 @@
  */
 
 /**
- *	\file       htdocs/gcontact/class/gcontacts.class.php
- *      \ingroup    gcontacts
- *      \brief      class GContacts
+ *	\file       htdocs/google/class/gcontacts.class.php
+ *  \ingroup    google
+ *  \brief      class GContacts
  */
 $path = dol_buildpath('/google/includes/zendgdata');
 set_include_path(get_include_path() . PATH_SEPARATOR . $path);
