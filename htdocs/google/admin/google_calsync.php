@@ -107,6 +107,55 @@ if ($action == 'testcreate')
 }
 
 
+if ($action == 'pushallevents')
+{
+	$googleuser = empty($conf->global->GOOGLE_CONTACT_LOGIN)?'':$conf->global->GOOGLE_CONTACT_LOGIN;
+	$googlepwd  = empty($conf->global->GOOGLE_CONTACT_PASSWORD)?'':$conf->global->GOOGLE_CONTACT_PASSWORD;
+
+	// Try to use V3 API
+	$sql = 'SELECT rowid, datep, datep2 as datef, code, label, transparency, priority, fulldayevent, punctual, percent';
+	$sql.= ' FROM '.MAIN_DB_PREFIX.'action_comm';
+	$resql = $db->query($sql);
+	if (! $resql)
+	{
+		dol_print_error($db);
+		exit;
+	}
+	$synclimit = 0;	// 0 = all
+	$i=0;
+	while (($obj = $db->fetch_object($resql)) && ($i < $synclimit || empty($synclimit)))
+	{
+		$event = new ActionComm($db);
+		$event->id=$obj->rowid;
+		$event->datep=$obj->datep;
+		$event->datef=$obj->datef;
+		$event->code=$obj->code;
+		$event->label=$obj->label;
+		$event->transparency=$obj->transparency;
+		$event->priority=$obj->priority;
+		$event->fulldayevent=$obj->fulldayevent;
+		$event->punctual=$obj->punctual;
+		$event->percent=$obj->percent;
+		$gCals[]=$event;
+		
+		$i++;
+	}
+	$result=0;
+	if (count($gCals)) $result=insertGCalsEntries($gCals);
+
+	if (is_numeric($result) && $result >= 0)
+	{
+		$mesg = $langs->trans("PushToGoogleSucess",count($gCals));
+	}
+	else
+	{
+		$error++;
+		$errors[] = $langs->trans("Error").' '.$result;
+	}
+}
+
+
+
 /*
  * View
  */
@@ -141,10 +190,11 @@ print $langs->trans("GoogleEnableSyncToCalendar").' '.$form->selectyesno("GOOGLE
 
 
 $var=false;
+
 print "<table class=\"noborder\" width=\"100%\">";
 
 print "<tr class=\"liste_titre\">";
-print '<td width="25%">'.$langs->trans("Parameter")."</td>";
+print '<td width="25%">'.$langs->trans("Parameter").' ('.$langs->trans("ParametersForGoogleAPIv2Usage").')'."</td>";
 print "<td>".$langs->trans("Value")."</td>";
 print "</tr>";
 // Google login
@@ -164,23 +214,6 @@ print '<input class="flat" type="password" size="10" name="GOOGLE_PASSWORD" valu
 print ' &nbsp; '.$langs->trans("KeepEmptyYoUseLoginPassOfEventUser");
 print "</td>";
 print "</tr>";
-// Configuration du masque du libellé de l'évènement
-/*
-$var=!$var;
-print "<tr ".$bc[$var].">";
-print "<td>".$langs->trans("GOOGLE_EVENT_LABEL_INC_SOCIETE")."<br /></td>";
-print "<td>";
-print $form->selectyesno("GOOGLE_EVENT_LABEL_INC_SOCIETE",isset($_POST["GOOGLE_EVENT_LABEL_INC_SOCIETE"])?$_POST["GOOGLE_EVENT_LABEL_INC_SOCIETE"]:(isset($conf->global->GOOGLE_EVENT_LABEL_INC_SOCIETE)?$conf->global->GOOGLE_EVENT_LABEL_INC_SOCIETE:1),1);
-print "</td>";
-print "</tr>";
-$var=!$var;
-print "<tr ".$bc[$var].">";
-print "<td>".$langs->trans("GOOGLE_EVENT_LABEL_INC_CONTACT")."<br /></td>";
-print "<td>";
-print $form->selectyesno("GOOGLE_EVENT_LABEL_INC_CONTACT",isset($_POST["GOOGLE_EVENT_LABEL_INC_CONTACT"])?$_POST["GOOGLE_EVENT_LABEL_INC_CONTACT"]:(isset($conf->global->GOOGLE_EVENT_LABEL_INC_CONTACT)?$conf->global->GOOGLE_EVENT_LABEL_INC_CONTACT:1),1);
-print "</td>";
-print "</tr>";
-*/
 
 print "</table>";
 print "<br>";
@@ -207,6 +240,28 @@ else
 	print '<a class="butAction" href="'.$_SERVER['PHP_SELF'].'?action=testcreate">'.$langs->trans("TestCreateUpdateDelete")."</a>";
 }
 print '</div>';
+
+print '<br>';
+
+
+/*
+if (! empty($conf->global->GOOGLE_DUPLICATE_INTO_GCAL))
+{
+	print '<br>';
+
+	print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
+	print '<input type="hidden" name="action" value="pushallevents">';
+	print $langs->trans("ExportEventsToGoogle")." ";
+	print '<input type="submit" name="pushall" class="button" value="'.$langs->trans("Run").'">';
+	print "</form>\n";
+
+	print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
+	print '<input type="hidden" name="action" value="deleteallevents">';
+	print $langs->trans("DeleteAllEventsGoogle")." ";
+	print '<input type="submit" name="cleanup" class="button" value="'.$langs->trans("Run").'">';
+	print "</form>\n";
+}
+*/
 
 
 dol_htmloutput_mesg($mesg);
