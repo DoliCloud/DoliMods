@@ -1,5 +1,8 @@
 #!/bin/bash
+#------------------------------------------
+# Syntax:  loadsql.sh password
+#------------------------------------------
 
 export target="dolibarr"
-mysql -u dolicloud -pxxx -D dolicloud < /home/ldestailleur/git/nltechno/dolicloudimages/$target/$target.sql
+mysql -u dolicloud -p$1 -D dolicloud < /home/ldestailleur/git/nltechno/dolicloudimages/$target/config/$target.sql
 
