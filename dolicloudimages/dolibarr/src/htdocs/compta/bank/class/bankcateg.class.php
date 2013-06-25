@@ -1,10 +1,10 @@
 <?php
 /* Copyright (C) 2008 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2009 Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2009 Regis Houssin        <regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -24,9 +24,9 @@
  */
 
 // Put here all includes required by your class file
-//require_once(DOL_DOCUMENT_ROOT."/core/class/commonobject.class.php");
-//require_once(DOL_DOCUMENT_ROOT."/societe/class/societe.class.php");
-//require_once(DOL_DOCUMENT_ROOT."/product/class/product.class.php");
+//require_once DOL_DOCUMENT_ROOT.'/core/class/commonobject.class.php';
+//require_once DOL_DOCUMENT_ROOT.'/societe/class/societe.class.php';
+//require_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
 
 
 /**
@@ -46,11 +46,11 @@ class BankCateg // extends CommonObject
     /**
      *	Constructor
      *
-     *  @param		DoliDB		$DB      Database handler
+     *  @param		DoliDB		$db      Database handler
      */
-    function BankCateg($DB)
+    function __construct($db)
     {
-        $this->db = $DB;
+        $this->db = $db;
         return 1;
     }
 
@@ -98,7 +98,7 @@ class BankCateg // extends CommonObject
                 // want this action call a trigger.
 
                 //// Call triggers
-                //include_once(DOL_DOCUMENT_ROOT . "/core/class/interfaces.class.php");
+                //include_once DOL_DOCUMENT_ROOT . '/core/class/interfaces.class.php';
                 //$interface=new Interfaces($this->db);
                 //$result=$interface->run_triggers('MYOBJECT_CREATE',$this,$user,$langs,$conf);
                 //if ($result < 0) { $error++; $this->errors=$interface->errors; }
@@ -204,7 +204,7 @@ class BankCateg // extends CommonObject
                 // want this action call a trigger.
 
                 //// Call triggers
-                //include_once(DOL_DOCUMENT_ROOT . "/core/class/interfaces.class.php");
+                //include_once DOL_DOCUMENT_ROOT . '/core/class/interfaces.class.php';
                 //$interface=new Interfaces($this->db);
                 //$result=$interface->run_triggers('MYOBJECT_MODIFY',$this,$user,$langs,$conf);
                 //if ($result < 0) { $error++; $this->errors=$interface->errors; }
@@ -261,7 +261,7 @@ class BankCateg // extends CommonObject
                 // want this action call a trigger.
 
                 //// Call triggers
-                //include_once(DOL_DOCUMENT_ROOT . "/core/class/interfaces.class.php");
+                //include_once DOL_DOCUMENT_ROOT . '/core/class/interfaces.class.php';
                 //$interface=new Interfaces($this->db);
                 //$result=$interface->run_triggers('MYOBJECT_DELETE',$this,$user,$langs,$conf);
                 //if ($result < 0) { $error++; $this->errors=$interface->errors; }

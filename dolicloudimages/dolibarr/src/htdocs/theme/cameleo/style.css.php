@@ -1,13 +1,13 @@
 <?php
 /* Copyright (C) 2004-2011 Laurent Destailleur  <eldy@users.sourceforge.net>
  * Copyright (C)      2006 Rodolphe Quiedeville <rodolphe@quiedeville.org>
- * Copyright (C) 2007-2011 Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2007-2011 Regis Houssin        <regis.houssin@capnetworks.com>
  * Copyright (C) 2010-2011 Herve Prot           <herve.prot@symeos.com>
  * Copyright (C) 2011      Juanjo Menent        <jmenent@2byte.es>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -37,7 +37,7 @@ if (! defined('NOREQUIREAJAX'))   define('NOREQUIREAJAX','1');
 
 session_cache_limiter(FALSE);
 
-require_once("../../main.inc.php");
+require_once '../../main.inc.php';
 
 // Define css type
 header('Content-type: text/css');
@@ -166,6 +166,13 @@ div.float
 {
     float:<?php print $left; ?>;
 }
+.valignmiddle {
+	vertical-align: middle;
+}
+.centpercent {
+	width: 100%;
+}
+
 
 /* ============================================================================== */
 /* Styles to hide objects                                                         */
@@ -467,7 +474,7 @@ $moduletomainmenu=array('user'=>'','syslog'=>'','societe'=>'companies','projet'=
 	'barcode'=>'','fckeditor'=>'','categorie'=>'',
 );
 $mainmenuused='home';
-foreach($conf->modules as $key => $val)
+foreach($conf->modules as $val)
 {
 	$mainmenuused.=','.(isset($moduletomainmenu[$val])?$moduletomainmenu[$val]:$val);
 }
@@ -476,7 +483,7 @@ $mainmenuusedarray=array_unique(explode(',',$mainmenuused));
 
 $generic=1;
 $divalreadydefined=array('home','companies','products','commercial','accountancy','project','tools','members','shop','agenda','ecm','bookmark','cashdesk','geoipmaxmind','gravatar','clicktodial','paypal','webservices');
-foreach($mainmenuusedarray as $key => $val)
+foreach($mainmenuusedarray as $val)
 {
 	if (empty($val) || in_array($val,$divalreadydefined)) continue;
 	//print "XXX".$val;
@@ -521,6 +528,46 @@ foreach($mainmenuusedarray as $key => $val)
 
 
 /* Login */
+
+form#login {
+	margin-top: 70px;
+	margin-bottom: 30px;
+	font-size: 13px;
+}
+.login_table_title {
+	width: 540px;
+	color: #888888;
+	text-shadow: 1px 1px 1px #FFF;
+}
+.login_table label {
+	text-shadow: 1px 1px 1px #FFF;
+}
+.login_table {
+	padding:12px;
+	width: 540px;
+	border: 1px solid #C0C0C0;
+	background-color: #E0E0E0;
+
+    -moz-box-shadow: 4px 4px 4px #CCC;
+    -webkit-box-shadow: 4px 4px 4px #CCC;
+    box-shadow: 4px 4px 4px #CCC;
+
+	border-radius: 12px;
+	border:solid 1px rgba(168,168,168,.4);
+	border-top:solid 1px f8f8f8;
+	background-color: #f8f8f8;
+	background-image: -o-linear-gradient(top, rgba(240,240,240,.3) 0%, rgba(192,192,192,.3) 100%);
+	background-image: -moz-linear-gradient(top, rgba(240,240,240,.3) 0%, rgba(192,192,192,.3) 100%);
+	background-image: -webkit-linear-gradient(top, rgba(240,240,240,.3) 0%, rgba(192,192,192,.3) 100%);
+	background-image: -ms-linear-gradient(top, rgba(240,240,240,.3) 0%, rgba(192,192,192,.3) 100%);
+	background-image: linear-gradient(top, rgba(240,240,240,.3) 0%, rgba(192,192,192,.3) 100%);
+}
+#img_securitycode {
+	border: 1px solid #DDDDDD;
+}
+#img_logo {
+	max-width: 200px;
+}
 
 div.login_block {
 	position: absolute;
@@ -823,7 +870,8 @@ a.toolbarbutton {
     background: #FFFFFF;*/
 }
 img.toolbarbutton {
-    height: 28px;
+	margin-top: 2px;
+	height: 28px;
 }
 
 
@@ -982,7 +1030,6 @@ img.toolbarbutton {
 }
 
 .ecm-layout-resizer  { /* all 'resizer-bars' */
-    background:     #EEE;
     border:         1px solid #BBB;
     border-width:   0;
     }
@@ -1189,6 +1236,12 @@ span.tabspan {
     background: #FFe7ec;
 	color: #666;
 }
+
+<?php if (! empty($conf->global->MAIN_BUTTON_HIDE_UNAUTHORIZED)) { ?>
+.butActionRefused {
+	display: none;
+}
+<?php } ?>
 
 span.butAction, span.butActionDelete {
 	cursor: pointer;
@@ -1424,6 +1477,10 @@ tr.box_titre {
     border-top-right-radius:6px;
 }
 
+tr.box_titre td.boxclose {
+	width: 30px;
+}
+
 tr.box_impair {
 /* background: #e6ebed; */
 background: #eaeaea;
@@ -1458,7 +1515,7 @@ font-family: <?php print $fontlist ?>;
  */
 .ok      { color: #114466; }
 .warning { color: #887711; }
-.error   { color: #550000; font-weight: bold; }
+.error   { color: #550000 !important; font-weight: bold; }
 
 div.ok {
   color: #114466;
@@ -2235,7 +2292,7 @@ div.ecmjqft {
 
 .jnotify-container {
 	position: fixed !important;
-<?php if ($conf->global->MAIN_JQUERY_JNOTIFY_BOTTOM) { ?>
+<?php if (! empty($conf->global->MAIN_JQUERY_JNOTIFY_BOTTOM)) { ?>
 	top: auto !important;
 	bottom: 4px !important;
 <?php } ?>

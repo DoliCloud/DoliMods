@@ -6,7 +6,7 @@
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -26,12 +26,11 @@
  * \brief      Fichier de description et activation du module Comptabilite
  */
 
-include_once(DOL_DOCUMENT_ROOT ."/core/modules/DolibarrModules.class.php");
+include_once DOL_DOCUMENT_ROOT .'/core/modules/DolibarrModules.class.php';
 
 
 /**
- *		\class 		modComptabilite
- *      \brief      Classe de description et activation du module Comptabilite
+ *	Classe de description et activation du module Comptabilite
  */
 class modComptabilite extends DolibarrModules
 {
@@ -41,7 +40,7 @@ class modComptabilite extends DolibarrModules
 	 *
 	 *   @param      DoliDB		$db      Database handler
     */
-	function modComptabilite($db)
+	function __construct($db)
 	{
 		global $conf;
 

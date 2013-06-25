@@ -1,9 +1,9 @@
 <?php
-/* Copyright (C) 2009 Laurent Destailleur  <eldy@users.sourceforge.net>
+/* Copyright (C) 2009-2012 Laurent Destailleur  <eldy@users.sourceforge.net>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -20,12 +20,11 @@
  *     \brief      Page administration XCache
  */
 
-require("../../main.inc.php");
+require '../../main.inc.php';
 
 $langs->load("admin");
 
-if (!$user->admin)
-  accessforbidden();
+if (!$user->admin) accessforbidden();
 
 $action=GETPOST('action');
 
@@ -49,8 +48,17 @@ if (!function_exists('xcache_info'))
 }
 
 
-print 'Opcode cache XCache is on<br>'."\n";
+print 'Opcode cache XCache is on<br><br>'."\n\n";
 
+print $langs->trans("Split").': '.ini_get('xcache.count').' &nbsp; &nbsp; &nbsp; '.$langs->trans("Recommanded").': (cat /proc/cpuinfo | grep -c processor) + 1<br>'."\n";
+print $langs->trans("Size").': '.ini_get('xcache.size').' &nbsp; &nbsp; &nbsp; '.$langs->trans("Recommanded").': 16*Split<br>'."\n";
+
+print $langs->trans("xcache.cacher").': '.yn(ini_get('xcache.cacher')).'<br>'."\n";
+print $langs->trans("xcache.optimizer").': '.yn(ini_get('xcache.optimizer')).' (will be usefull only with xcache v2)<br>'."\n";
+print $langs->trans("xcache.stat").': '.yn(ini_get('xcache.stat')).'<br>'."\n";
+print $langs->trans("xcache.coverager").': '.yn(ini_get('xcache.coverager')).'<br>'."\n";
+
+//print xcache_get();
 /*
 $cacheinfos = array();
 for ($i = 0; $i < 10; $i ++)
@@ -69,4 +77,6 @@ if ($action == 'clear')
 */
 
 llxFooter();
+
+$db->close();
 ?>

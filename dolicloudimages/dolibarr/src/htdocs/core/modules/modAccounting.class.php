@@ -1,12 +1,13 @@
 <?php
-/* Copyright (C) 2003      Rodolphe Quiedeville <rodolphe@quiedeville.org>
- * Copyright (C) 2004-2009 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2004      Sebastien Di Cintio  <sdicintio@ressource-toi.org>
- * Copyright (C) 2004      Benoit Mortier       <benoit.mortier@opensides.be>
+/* Copyright (C) 2003		Rodolphe Quiedeville	<rodolphe@quiedeville.org>
+ * Copyright (C) 2004-2009	Laurent Destailleur		<eldy@users.sourceforge.net>
+ * Copyright (C) 2004		Sebastien Di Cintio		<sdicintio@ressource-toi.org>
+ * Copyright (C) 2004		Benoit Mortier			<benoit.mortier@opensides.be>
+ * Copyright (C) 2005-2012	Regis Houssin			<regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -26,12 +27,11 @@
  * 	\brief      Fichier de description et activation du module Comptabilite Expert
  */
 
-include_once(DOL_DOCUMENT_ROOT ."/core/modules/DolibarrModules.class.php");
+include_once DOL_DOCUMENT_ROOT .'/core/modules/DolibarrModules.class.php';
 
 
 /**
- *	\class      modAccounting
- *	\brief      Classe de description et activation du module Comptabilite Expert
+ *	Classe de description et activation du module Comptabilite Expert
  */
 class modAccounting extends DolibarrModules
 {
@@ -41,7 +41,7 @@ class modAccounting extends DolibarrModules
 	 *
 	 *   @param      DoliDB		$db      Database handler
 	 */
-	function modAccounting($db)
+	function __construct($db)
 	{
 		global $conf;
 
@@ -84,48 +84,55 @@ class modAccounting extends DolibarrModules
 		// Permissions
 		$this->rights = array();
 		$this->rights_class = 'accounting';
+		$r=0;
 
-		$this->rights[1][0] = 50401;
-		$this->rights[1][1] = 'Lire le plan de compte';
-		$this->rights[1][2] = 'r';
-		$this->rights[1][3] = 1;
-		$this->rights[1][4] = 'plancompte';
-		$this->rights[1][5] = 'lire';
+		$this->rights[$r][0] = 50401;
+		$this->rights[$r][1] = 'Lire le plan de compte';
+		$this->rights[$r][2] = 'r';
+		$this->rights[$r][3] = 1;
+		$this->rights[$r][4] = 'plancompte';
+		$this->rights[$r][5] = 'lire';
+		$r++;
 
-		$this->rights[2][0] = 50402;
-		$this->rights[2][1] = 'Creer/modifier un plan de compte';
-		$this->rights[2][2] = 'w';
-		$this->rights[2][3] = 0;
-		$this->rights[2][4] = 'plancompte';
-		$this->rights[2][5] = 'creer';
+		$this->rights[$r][0] = 50402;
+		$this->rights[$r][1] = 'Creer/modifier un plan de compte';
+		$this->rights[$r][2] = 'w';
+		$this->rights[$r][3] = 0;
+		$this->rights[$r][4] = 'plancompte';
+		$this->rights[$r][5] = 'creer';
+		$r++;
 
-		$this->rights[3][0] = 50403;
-		$this->rights[3][1] = 'Cloturer plan de compte';
-		$this->rights[3][2] = 'w';
-		$this->rights[3][3] = 0;
-		$this->rights[3][4] = 'plancompte';
-		$this->rights[3][5] = 'cloturer';
+		$this->rights[$r][0] = 50403;
+		$this->rights[$r][1] = 'Cloturer plan de compte';
+		$this->rights[$r][2] = 'w';
+		$this->rights[$r][3] = 0;
+		$this->rights[$r][4] = 'plancompte';
+		$this->rights[$r][5] = 'cloturer';
+		$r++;
 
-		$this->rights[4][0] = 50411;
-		$this->rights[4][1] = 'Lire les mouvements comptables';
-		$this->rights[4][2] = 'r';
-		$this->rights[4][3] = 1;
-		$this->rights[4][4] = 'mouvements';
-		$this->rights[4][5] = 'lire';
+		$this->rights[$r][0] = 50411;
+		$this->rights[$r][1] = 'Lire les mouvements comptables';
+		$this->rights[$r][2] = 'r';
+		$this->rights[$r][3] = 1;
+		$this->rights[$r][4] = 'mouvements';
+		$this->rights[$r][5] = 'lire';
+		$r++;
 
-		$this->rights[5][0] = 50412;
-		$this->rights[5][1] = 'Creer/modifier/annuler les mouvements comptables';
-		$this->rights[5][2] = 'w';
-		$this->rights[5][3] = 0;
-		$this->rights[5][4] = 'mouvements';
-		$this->rights[5][5] = 'creer';
+		$this->rights[$r][0] = 50412;
+		$this->rights[$r][1] = 'Creer/modifier/annuler les mouvements comptables';
+		$this->rights[$r][2] = 'w';
+		$this->rights[$r][3] = 0;
+		$this->rights[$r][4] = 'mouvements';
+		$this->rights[$r][5] = 'creer';
+		$r++;
 
-		$this->rights[6][0] = 50415;
-		$this->rights[6][1] = 'Lire CA, bilans, resultats, journaux, grands livres';
-		$this->rights[6][2] = 'r';
-		$this->rights[6][3] = 0;
-		$this->rights[6][4] = 'comptarapport';
-		$this->rights[6][5] = 'lire';
+		$this->rights[$r][0] = 50415;
+		$this->rights[$r][1] = 'Lire CA, bilans, resultats, journaux, grands livres';
+		$this->rights[$r][2] = 'r';
+		$this->rights[$r][3] = 0;
+		$this->rights[$r][4] = 'comptarapport';
+		$this->rights[$r][5] = 'lire';
+		$r++;
 	}
 
 

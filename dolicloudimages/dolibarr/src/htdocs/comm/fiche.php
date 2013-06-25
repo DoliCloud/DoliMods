@@ -3,13 +3,13 @@
  * Copyright (C) 2004-2011 Laurent Destailleur         <eldy@users.sourceforge.net>
  * Copyright (C) 2004      Eric Seigne                 <eric.seigne@ryxeo.com>
  * Copyright (C) 2006      Andre Cianfarani            <acianfa@free.fr>
- * Copyright (C) 2005-2012 Regis Houssin               <regis@dolibarr.fr>
+ * Copyright (C) 2005-2012 Regis Houssin               <regis.houssin@capnetworks.com>
  * Copyright (C) 2008      Raphael Bertrand (Resultic) <raphael.bertrand@resultic.fr>
- * Copyright (C) 2010-2011 Juanjo Menent               <jmenent@2byte.es>
+ * Copyright (C) 2010-2012 Juanjo Menent               <jmenent@2byte.es>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -27,24 +27,24 @@
  *       \brief      Page to show customer card of a third party
  */
 
-require("../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/company.lib.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/date.lib.php");
-require_once(DOL_DOCUMENT_ROOT."/contact/class/contact.class.php");
-if ($conf->facture->enabled) require_once(DOL_DOCUMENT_ROOT."/compta/facture/class/facture.class.php");
-if ($conf->propal->enabled) require_once(DOL_DOCUMENT_ROOT."/comm/propal/class/propal.class.php");
-if ($conf->commande->enabled) require_once(DOL_DOCUMENT_ROOT."/commande/class/commande.class.php");
-if ($conf->contrat->enabled) require_once(DOL_DOCUMENT_ROOT."/contrat/class/contrat.class.php");
-if ($conf->adherent->enabled) require_once(DOL_DOCUMENT_ROOT."/adherents/class/adherent.class.php");
-if ($conf->ficheinter->enabled) require_once(DOL_DOCUMENT_ROOT."/fichinter/class/fichinter.class.php");
+require '../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/contact/class/contact.class.php';
+if (! empty($conf->facture->enabled)) require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
+if (! empty($conf->propal->enabled)) require_once DOL_DOCUMENT_ROOT.'/comm/propal/class/propal.class.php';
+if (! empty($conf->commande->enabled)) require_once DOL_DOCUMENT_ROOT.'/commande/class/commande.class.php';
+if (! empty($conf->contrat->enabled)) require_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
+if (! empty($conf->adherent->enabled)) require_once DOL_DOCUMENT_ROOT.'/adherents/class/adherent.class.php';
+if (! empty($conf->ficheinter->enabled)) require_once DOL_DOCUMENT_ROOT.'/fichinter/class/fichinter.class.php';
 
 $langs->load("companies");
-if ($conf->contrat->enabled)  $langs->load("contracts");
-if ($conf->commande->enabled) $langs->load("orders");
-if ($conf->facture->enabled) $langs->load("bills");
-if ($conf->projet->enabled)  $langs->load("projects");
-if ($conf->ficheinter->enabled) $langs->load("interventions");
-if ($conf->notification->enabled) $langs->load("mails");
+if (! empty($conf->contrat->enabled))  $langs->load("contracts");
+if (! empty($conf->commande->enabled)) $langs->load("orders");
+if (! empty($conf->facture->enabled)) $langs->load("bills");
+if (! empty($conf->projet->enabled))  $langs->load("projects");
+if (! empty($conf->ficheinter->enabled)) $langs->load("interventions");
+if (! empty($conf->notification->enabled)) $langs->load("mails");
 
 // Security check
 $id = (GETPOST('socid','int') ? GETPOST('socid','int') : GETPOST('id','int'));
@@ -78,7 +78,7 @@ if ($action == 'setcustomeraccountancycode')
 	$result=$object->update($object->id,$user,1,1,0);
 	if ($result < 0)
 	{
-		$mesg=join(',',$object->errors);
+		$mesgs[]=join(',',$object->errors);
 	}
 	$action="";
 }
@@ -156,11 +156,6 @@ if ($id > 0)
 	if ($object->id <= 0)
 	{
 		dol_print_error($db,$object->error);
-	}
-
-	if ($errmesg)
-	{
-		print "<b>".$errmesg."</b><br>";
 	}
 
 	/*
@@ -272,7 +267,7 @@ if ($id > 0)
 	}
 
 	// TVA Intra
-	print '<tr><td nowrap>'.$langs->trans('VATIntraVeryShort').'</td><td colspan="3">';
+	print '<tr><td nowrap>'.$langs->trans('VATIntra').'</td><td colspan="3">';
 	print $object->tva_intra;
 	print '</td></tr>';
 
@@ -350,7 +345,7 @@ if ($id > 0)
 	print '</tr>';
 
 	// Multiprice level
-	if ($conf->global->PRODUIT_MULTIPRICES)
+	if (! empty($conf->global->PRODUIT_MULTIPRICES))
 	{
 		print '<tr><td nowrap>';
 		print '<table width="100%" class="nobordernopadding"><tr><td nowrap>';
@@ -365,8 +360,11 @@ if ($id > 0)
 		print '</tr>';
 	}
 
+	// Sales representative
+	include DOL_DOCUMENT_ROOT.'/societe/tpl/linesalesrepresentative.tpl.php';
+
     // Module Adherent
-    if ($conf->adherent->enabled)
+    if (! empty($conf->adherent->enabled))
     {
         $langs->load("members");
         $langs->load("users");
@@ -412,7 +410,7 @@ if ($id > 0)
 	/*
 	 * Last proposals
 	 */
-	if ($conf->propal->enabled && $user->rights->propale->lire)
+	if (! empty($conf->propal->enabled) && $user->rights->propal->lire)
 	{
 		$propal_static = new Propal($db);
 
@@ -439,7 +437,7 @@ if ($id > 0)
 		        print '<table class="noborder" width="100%">';
 
                 print '<tr class="liste_titre">';
-    			print '<td colspan="4"><table width="100%" class="nobordernopadding"><tr><td>'.$langs->trans("LastPropals",($num<=$MAXLIST?"":$MAXLIST)).'</td><td align="right"><a href="'.DOL_URL_ROOT.'/comm/propal.php?socid='.$object->id.'">'.$langs->trans("AllPropals").' ('.$num.')</a></td>';
+    			print '<td colspan="4"><table width="100%" class="nobordernopadding"><tr><td>'.$langs->trans("LastPropals",($num<=$MAXLIST?"":$MAXLIST)).'</td><td align="right"><a href="'.DOL_URL_ROOT.'/comm/propal/list.php?socid='.$object->id.'">'.$langs->trans("AllPropals").' ('.$num.')</a></td>';
                 print '<td width="20px" align="right"><a href="'.DOL_URL_ROOT.'/comm/propal/stats/index.php?socid='.$object->id.'">'.img_picto($langs->trans("Statistics"),'stats').'</a></td>';
     			print '</tr></table></td>';
     			print '</tr>';
@@ -457,7 +455,7 @@ if ($id > 0)
 				}
 				print '</td><td align="right" width="80">'.dol_print_date($db->jdate($objp->dp),'day')."</td>\n";
 				print '<td align="right" width="120">'.price($objp->total_ht).'</td>';
-				print '<td align="right" nowrap="nowrap">'.$propal_static->LibStatut($objp->fk_statut,5).'</td></tr>';
+				print '<td align="right" width="100" nowrap="nowrap">'.$propal_static->LibStatut($objp->fk_statut,5).'</td></tr>';
 				$var=!$var;
 				$i++;
 			}
@@ -474,7 +472,7 @@ if ($id > 0)
 	/*
 	 * Last orders
 	 */
-	if ($conf->commande->enabled && $user->rights->commande->lire)
+	if (! empty($conf->commande->enabled) && $user->rights->commande->lire)
 	{
 		$commande_static=new Commande($db);
 
@@ -495,13 +493,29 @@ if ($id > 0)
 
 			if ($num > 0)
 			{
-        		print '<table class="noborder" width="100%">';
+				// Check if there are orders billable
+				$sql2 = 'SELECT s.nom, s.rowid as socid, s.client, c.rowid, c.ref, c.total_ht, c.ref_client,';
+				$sql2.= ' c.date_valid, c.date_commande, c.date_livraison, c.fk_statut, c.facture as facturee';
+				$sql2.= ' FROM '.MAIN_DB_PREFIX.'societe as s';
+				$sql2.= ', '.MAIN_DB_PREFIX.'commande as c';
+				$sql2.= ' WHERE c.fk_soc = s.rowid';
+				$sql2.= ' AND s.rowid = '.$object->id;
+				// Show orders with status validated, shipping started and delivered (well any order we can bill)
+				$sql2.= " AND ((c.fk_statut IN (1,2)) OR (c.fk_statut = 3 AND c.facture = 0))";
 
-			    print '<tr class="liste_titre">';
-    			print '<td colspan="4"><table width="100%" class="nobordernopadding"><tr><td>'.$langs->trans("LastOrders",($num<=$MAXLIST?"":$MAXLIST)).'</td><td align="right"><a href="'.DOL_URL_ROOT.'/commande/liste.php?socid='.$object->id.'">'.$langs->trans("AllOrders").' ('.$num.')</a></td>';
-                print '<td width="20px" align="right"><a href="'.DOL_URL_ROOT.'/commande/stats/index.php?socid='.$object->id.'">'.img_picto($langs->trans("Statistics"),'stats').'</a></td>';
-    			print '</tr></table></td>';
-    			print '</tr>';
+				$resql2=$db->query($sql2);
+				$orders2invoice = $db->num_rows($resql2);
+				$db->free($resql2);
+
+				print '<table class="noborder" width="100%">';
+
+				print '<tr class="liste_titre">';
+				print '<td colspan="4"><table width="100%" class="nobordernopadding"><tr><td>'.$langs->trans("LastOrders",($num<=$MAXLIST?"":$MAXLIST)).'</td><td align="right"><a href="'.DOL_URL_ROOT.'/commande/liste.php?socid='.$object->id.'">'.$langs->trans("AllOrders").' ('.$num.')</a></td>';
+				print '<td width="20px" align="right"><a href="'.DOL_URL_ROOT.'/commande/stats/index.php?socid='.$object->id.'">'.img_picto($langs->trans("Statistics"),'stats').'</a></td>';
+				//if($num2 > 0) print '<td width="20px" align="right"><a href="'.DOL_URL_ROOT.'/commande/orderstoinvoice.php?socid='.$object->id.'">'.img_picto($langs->trans("CreateInvoiceForThisCustomer"),'object_bill').'</a></td>';
+				//else print '<td width="20px" align="right"><a href="#">'.img_picto($langs->trans("NoOrdersToInvoice"),'object_bill').'</a></td>';
+				print '</tr></table></td>';
+				print '</tr>';
 			}
 
 			$i = 0;
@@ -529,7 +543,7 @@ if ($id > 0)
 	/*
 	 * Last linked contracts
 	 */
-	if ($conf->contrat->enabled && $user->rights->contrat->lire)
+	if (! empty($conf->contrat->enabled) && $user->rights->contrat->lire)
 	{
 		$contratstatic=new Contrat($db);
 
@@ -589,7 +603,7 @@ if ($id > 0)
 	/*
 	 * Last interventions
 	 */
-	if ($conf->ficheinter->enabled && $user->rights->ficheinter->lire)
+	if (! empty($conf->ficheinter->enabled) && $user->rights->ficheinter->lire)
 	{
 		$sql = "SELECT s.nom, s.rowid, f.rowid as id, f.ref, f.fk_statut, f.duree as duration, f.datei as startdate";
 		$sql.= " FROM ".MAIN_DB_PREFIX."societe as s, ".MAIN_DB_PREFIX."fichinter as f";
@@ -624,9 +638,9 @@ if ($id > 0)
 
 				print "<tr ".$bc[$var].">";
 				print '<td nowrap="nowrap"><a href="'.DOL_URL_ROOT.'/fichinter/fiche.php?id='.$objp->id.'">'.img_object($langs->trans("ShowPropal"),"propal").' '.$objp->ref.'</a></td>'."\n";
-                //print '<td align="right">'.dol_print_date($db->jdate($objp->startdate)).'</td>'."\n";
-				print '<td align="right">'.convertSecondToTime($objp->duration).'</td>'."\n";
-				print '<td align="right">'.$fichinter_static->getLibStatut(3).'</td>'."\n";
+                //print '<td align="right" width="80">'.dol_print_date($db->jdate($objp->startdate)).'</td>'."\n";
+				print '<td align="right" width="120">'.convertSecondToTime($objp->duration).'</td>'."\n";
+				print '<td align="right" width="100">'.$fichinter_static->getLibStatut(5).'</td>'."\n";
 				print '</tr>';
 				$var=!$var;
 				$i++;
@@ -644,7 +658,7 @@ if ($id > 0)
 	/*
 	 *   Last invoices
 	 */
-	if ($conf->facture->enabled && $user->rights->facture->lire)
+	if (! empty($conf->facture->enabled) && $user->rights->facture->lire)
 	{
 		$facturestatic = new Facture($db);
 
@@ -673,7 +687,7 @@ if ($id > 0)
 
 			    $tableaushown=1;
 				print '<tr class="liste_titre">';
-				print '<td colspan="4"><table width="100%" class="nobordernopadding"><tr><td>'.$langs->trans("LastCustomersBills",($num<=$MAXLIST?"":$MAXLIST)).'</td><td align="right"><a href="'.DOL_URL_ROOT.'/compta/facture.php?socid='.$object->id.'">'.$langs->trans("AllBills").' ('.$num.')</a></td>';
+				print '<td colspan="4"><table width="100%" class="nobordernopadding"><tr><td>'.$langs->trans("LastCustomersBills",($num<=$MAXLIST?"":$MAXLIST)).'</td><td align="right"><a href="'.DOL_URL_ROOT.'/compta/facture/list.php?socid='.$object->id.'">'.$langs->trans("AllBills").' ('.$num.')</a></td>';
                 print '<td width="20px" align="right"><a href="'.DOL_URL_ROOT.'/compta/facture/stats/index.php?socid='.$object->id.'">'.img_picto($langs->trans("Statistics"),'stats').'</a></td>';
 				print '</tr></table></td>';
 				print '</tr>';
@@ -692,15 +706,15 @@ if ($id > 0)
 				print '</td>';
 				if ($objp->df > 0)
 				{
-					print "<td align=\"right\">".dol_print_date($db->jdate($objp->df),'day')."</td>\n";
+					print '<td align="right" width="80">'.dol_print_date($db->jdate($objp->df),'day').'</td>';
 				}
 				else
 				{
-					print "<td align=\"right\"><b>!!!</b></td>\n";
+					print '<td align="right"><b>!!!</b></td>';
 				}
-				print "<td align=\"right\">".price($objp->total_ttc)."</td>\n";
+				print '<td align="right" width="120">'.price($objp->total_ttc).'</td>';
 
-				print '<td align="right" nowrap="nowrap">'.($facturestatic->LibStatut($objp->paye,$objp->statut,5,$objp->am))."</td>\n";
+				print '<td align="right" nowrap="nowrap" width="100" >'.($facturestatic->LibStatut($objp->paye,$objp->statut,5,$objp->am)).'</td>';
 				print "</tr>\n";
 				$i++;
 			}
@@ -725,13 +739,13 @@ if ($id > 0)
 	 */
 	print '<div class="tabsAction">';
 
-	if ($conf->propal->enabled && $user->rights->propale->creer)
+	if (! empty($conf->propal->enabled) && $user->rights->propal->creer)
 	{
 		$langs->load("propal");
 		print '<a class="butAction" href="'.DOL_URL_ROOT.'/comm/addpropal.php?socid='.$object->id.'&amp;action=create">'.$langs->trans("AddProp").'</a>';
 	}
 
-	if ($conf->commande->enabled && $user->rights->commande->creer)
+	if (! empty($conf->commande->enabled) && $user->rights->commande->creer)
 	{
 		$langs->load("orders");
 		print '<a class="butAction" href="'.DOL_URL_ROOT.'/commande/fiche.php?socid='.$object->id.'&amp;action=create">'.$langs->trans("AddOrder").'</a>';
@@ -743,7 +757,7 @@ if ($id > 0)
 		print '<a class="butAction" href="'.DOL_URL_ROOT.'/contrat/fiche.php?socid='.$object->id.'&amp;action=create">'.$langs->trans("AddContract").'</a>';
 	}
 
-	if ($conf->ficheinter->enabled && $user->rights->ficheinter->creer)
+	if (! empty($conf->ficheinter->enabled) && $user->rights->ficheinter->creer)
 	{
 		$langs->load("fichinter");
 		print '<a class="butAction" href="'.DOL_URL_ROOT.'/fichinter/fiche.php?socid='.$object->id.'&amp;action=create">'.$langs->trans("AddIntervention").'</a>';
@@ -752,29 +766,38 @@ if ($id > 0)
 	// Add invoice
 	if ($user->societe_id == 0)
 	{
-		if ($conf->deplacement->enabled)
+		if (! empty($conf->deplacement->enabled))
 		{
 			$langs->load("trips");
 			print '<a class="butAction" href="'.DOL_URL_ROOT.'/compta/deplacement/fiche.php?socid='.$object->id.'&amp;action=create">'.$langs->trans("AddTrip").'</a>';
 		}
 
-		if ($conf->facture->enabled)
+		if (! empty($conf->facture->enabled))
 		{
 			if ($user->rights->facture->creer)
 			{
 				$langs->load("bills");
+				$langs->load("orders");
+
+				if (! empty($conf->commande->enabled))
+				{
+					if($orders2invoice > 0) print '<a class="butAction" href="'.DOL_URL_ROOT.'/commande/orderstoinvoice.php?socid='.$object->id.'">'.$langs->trans("CreateInvoiceForThisCustomer").'</a>';
+					else print '<a class="butActionRefused" title="'.dol_escape_js($langs->trans("NoOrdersToInvoice")).'" href="#">'.$langs->trans("CreateInvoiceForThisCustomer").'</a>';
+				}
+
 				if ($object->client != 0) print '<a class="butAction" href="'.DOL_URL_ROOT.'/compta/facture.php?action=create&socid='.$object->id.'">'.$langs->trans("AddBill").'</a>';
 				else print '<a class="butActionRefused" title="'.dol_escape_js($langs->trans("ThirdPartyMustBeEditAsCustomer")).'" href="#">'.$langs->trans("AddBill").'</a>';
+
 			}
 			else
 			{
-				print '<a class="butActionRefused" title="'.dol_escape_js($langs->trans("ThirdPartyMustBeEditAsCustomer")).'" href="#">'.$langs->trans("AddBill").'</a>';
+				print '<a class="butActionRefused" title="'.dol_escape_js($langs->trans("NotAllowed")).'" href="#">'.$langs->trans("AddBill").'</a>';
 			}
 		}
 	}
 
 	// Add action
-	if ($conf->agenda->enabled && ! empty($conf->global->MAIN_REPEATTASKONEACHTAB))
+	if (! empty($conf->agenda->enabled) && ! empty($conf->global->MAIN_REPEATTASKONEACHTAB))
 	{
 		if ($user->rights->agenda->myactions->create)
 		{
@@ -795,7 +818,7 @@ if ($id > 0)
 		// List of contacts
 		show_contacts($conf,$langs,$db,$object,$_SERVER["PHP_SELF"].'?socid='.$object->id);
 	}
-	
+
 	// Addresses list
 	if (! empty($conf->global->SOCIETE_ADDRESSES_MANAGEMENT) && ! empty($conf->global->MAIN_REPEATADDRESSONEACHTAB))
 	{
@@ -818,6 +841,7 @@ else
 	dol_print_error($db,'Bad value for socid parameter');
 }
 
+dol_htmloutput_mesg('',$mesgs);
 
 // End of page
 llxFooter();

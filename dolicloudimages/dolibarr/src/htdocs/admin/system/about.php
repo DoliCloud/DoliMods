@@ -3,11 +3,11 @@
  * Copyright (C) 2003      Jean-Louis Bergamo    <jlb@j1b.org>
  * Copyright (C) 2004-2012 Laurent Destailleur   <eldy@users.sourceforge.net>
  * Copyright (C) 2007      Franky Van Liedekerke <franky.van.liedekerke@telenet.be>
- * Copyright (C) 2005-2007 Regis Houssin         <regis@dolibarr.fr>
+ * Copyright (C) 2005-2007 Regis Houssin         <regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -24,7 +24,7 @@
  *       \brief      About Dolibarr File page
  */
 
-require("../../main.inc.php");
+require '../../main.inc.php';
 
 $langs->load("admin");
 $langs->load("help");
@@ -90,7 +90,7 @@ print '</li>';
 print '</ul>';
 
 
-print $langs->trans("HelpCenter");
+print $langs->trans("HelpCenter").':';
 print '<ul>';
 print '<li>';
 //print $langs->trans("SeeWikiPage",'http://wiki.dolibarr.org/index.php/List_of_OpenSource_Software_companies_and_freelancers');
@@ -98,7 +98,7 @@ print '<a target="_blank" href="'.DOL_URL_ROOT.'/support/index.php">'.$langs->tr
 print '</li>';
 print '</ul>';
 
-print $langs->trans("Foundation").':<br>';
+print $langs->trans("Foundation").':';
 
 print '<ul>';
 $url='http://wiki.dolibarr.org/index.php/Subscribe';
@@ -108,19 +108,14 @@ print '<li><a href="'.$url.'" target="_blank">'.$langs->trans("SubscribeToFounda
 print '</ul>';
 
 
-print $langs->trans("OfficialWebHostingService");
-$url='http://www.dolicloud.com'; $title='DoliCloud';
+print $langs->trans("OfficialWebHostingService").':';
+$url='http://wiki.dolibarr.org/index.php/Cloud_Solutions'; $title=$langs->trans('List');
+if (preg_match('/^fr_/i',$langs->getDefaultLang())) $url='http://wiki.dolibarr.org/index.php/Solutions_de_Cloud';
+if (preg_match('/^es_/i',$langs->getDefaultLang())) $url='http://wiki.dolibarr.org/index.php/Soluciones_en_la_Nube';
 print '<ul>';
 print '<li>';
 print '<a target="_blank" href="'.$url.'">'.$title.'</a>';
 print '</li>';
-if (preg_match('/^fr_/i',$langs->getDefaultLang()))
-{
-    $url='http://www.dolibox.fr'; $title='DoliBox';
-    print '<li>';
-    print '<a target="_blank" href="'.$url.'">'.$title.'</a>';
-    print '</li>';
-}
 print '</ul>';
 
 

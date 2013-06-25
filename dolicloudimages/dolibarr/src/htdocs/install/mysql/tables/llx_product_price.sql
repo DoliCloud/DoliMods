@@ -1,11 +1,11 @@
 -- ============================================================================
 -- Copyright (C) 2002-2003	Rodolphe Quiedeville	<rodolphe@quiedeville.org>
--- Copyright (C) 2005-2012	Regis Houssin			<regis@dolibarr.fr>
+-- Copyright (C) 2005-2012	Regis Houssin			<regis.houssin@capnetworks.com>
 -- Copyright (C) 2010		Juanjo Menent			<jmenent@2byte.es>
 --
 -- This program is free software; you can redistribute it and/or modify
 -- it under the terms of the GNU General Public License as published by
--- the Free Software Foundation; either version 2 of the License, or
+-- the Free Software Foundation; either version 3 of the License, or
 -- (at your option) any later version.
 --
 -- This program is distributed in the hope that it will be useful,
@@ -36,6 +36,7 @@ create table llx_product_price
   localtax1_tx		double(6,3) DEFAULT 0,
   localtax2_tx		double(6,3) DEFAULT 0,
   fk_user_author	integer,
-  tosell			tinyint DEFAULT 1
+  tosell			tinyint DEFAULT 1,
+  price_by_qty		integer NOT NULL DEFAULT 0
 )ENGINE=innodb;
 

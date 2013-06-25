@@ -3,7 +3,7 @@
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -21,8 +21,8 @@
  *		\brief      Page with geographical statistics on members
  */
 
-require("../../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/member.lib.php");
+require '../../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/member.lib.php';
 
 $graphwidth = 700;
 $mapratio = 0.5;
@@ -37,8 +37,7 @@ if ($user->societe_id > 0)
     $action = '';
     $socid = $user->societe_id;
 }
-if (! $user->rights->adherent->cotisation->lire)
-accessforbidden();
+$result=restrictedArea($user,'adherent','','','cotisation');
 
 $year = strftime("%Y", time());
 $startyear=$year-2;
@@ -198,7 +197,7 @@ else
 if ($mode == 'memberbycountry')
 {
     $color_file = DOL_DOCUMENT_ROOT.'/theme/'.$conf->theme.'/graph-color.php';
-    if (is_readable($color_file)) include_once($color_file);
+    if (is_readable($color_file)) include_once $color_file;
 
     // Assume we've already included the proper headers so just call our script inline
     // More doc: https://developers.google.com/chart/interactive/docs/gallery/geomap?hl=fr-FR
@@ -277,7 +276,8 @@ if ($mode)
 dol_fiche_end();
 
 
-$db->close();
 
 llxFooter();
+
+$db->close();
 ?>

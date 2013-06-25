@@ -1,12 +1,12 @@
 <?php
 /* Copyright (C) 2002-2003 Rodolphe Quiedeville <rodolphe@quiedeville.org>
  * Copyright (C) 2004-2010 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2005-2012 Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2005-2012 Regis Houssin        <regis.houssin@capnetworks.com>
  * Copyright (C) 2011	   Juanjo Menent        <jmenent@2byte.es>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -23,12 +23,11 @@
  * 	\ingroup    ficheinter
  * 	\brief      Fichier de la classe des gestion des fiches interventions
  */
-require_once(DOL_DOCUMENT_ROOT ."/core/class/commonobject.class.php");
+require_once DOL_DOCUMENT_ROOT .'/core/class/commonobject.class.php';
 
 
 /**
- * 	\class      Fichinter
- *	\brief      Classe des gestion des fiches interventions
+ *	Classe des gestion des fiches interventions
  */
 class Fichinter extends CommonObject
 {
@@ -65,7 +64,7 @@ class Fichinter extends CommonObject
 	 */
 	function __construct($db)
 	{
-		$this->db = $db ;
+		$this->db = $db;
 		$this->products = array();
 		$this->fk_project = 0;
 		$this->statut = 0;
@@ -73,10 +72,10 @@ class Fichinter extends CommonObject
 		// List of language codes for status
 		$this->statuts[0]='Draft';
 		$this->statuts[1]='Validated';
-		$this->statuts[2]='Invoiced';
+		$this->statuts[2]='StatusInterInvoiced';
 		$this->statuts_short[0]='Draft';
 		$this->statuts_short[1]='Validated';
-		$this->statuts_short[2]='Invoiced';
+		$this->statuts_short[2]='StatusInterInvoiced';
 	}
 
 
@@ -87,7 +86,7 @@ class Fichinter extends CommonObject
 	 */
 	function create()
 	{
-		global $conf;
+		global $conf, $user, $langs;
 
 		dol_syslog(get_class($this)."::create ref=".$this->ref);
 
@@ -156,18 +155,38 @@ class Fichinter extends CommonObject
 		$result=$this->db->query($sql);
 		if ($result)
 		{
+			$this->id=$this->db->last_insert_id(MAIN_DB_PREFIX."fichinter");
+
+            // Add linked object
+            if (! $error && $this->origin && $this->origin_id)
+            {
+                $ret = $this->add_object_linked();
+                if (! $ret)	dol_print_error($this->db);
+            }
+
 			// Appel des triggers
-			include_once(DOL_DOCUMENT_ROOT . "/core/class/interfaces.class.php");
+			include_once DOL_DOCUMENT_ROOT . '/core/class/interfaces.class.php';
 			$interface=new Interfaces($this->db);
-			$result=$interface->run_triggers('FICHEINTER_CREATE',$this,$user,$langs,$conf);
+			$tmpuser=new User($this->db);
+			$tmpuser->fetch($this->author);
+			$result=$interface->run_triggers('FICHINTER_CREATE',$this,$tmpuser,$langs,$conf);
 			if ($result < 0) {
 				$error++; $this->errors=$interface->errors;
 			}
 			// Fin appel triggers
-			
-			$this->id=$this->db->last_insert_id(MAIN_DB_PREFIX."fichinter");
-			$this->db->commit();
-			return $this->id;
+
+			if (! $error)
+			{
+				$this->db->commit();
+				return $this->id;
+			}
+			else
+			{
+				$this->db->rollback();
+				$this->error=join(',',$this->errors);
+				dol_syslog(get_class($this)."::create ".$this->error,LOG_ERR);
+				return -1;
+			}
 		}
 		else
 		{
@@ -203,14 +222,14 @@ class Fichinter extends CommonObject
 		if ($this->db->query($sql))
 		{
 			// Appel des triggers
-			include_once(DOL_DOCUMENT_ROOT . "/core/class/interfaces.class.php");
+			include_once DOL_DOCUMENT_ROOT . '/core/class/interfaces.class.php';
 			$interface=new Interfaces($this->db);
-			$result=$interface->run_triggers('FICHEINTER_MODIFY',$this,$user,$langs,$conf);
+			$result=$interface->run_triggers('FICHINTER_MODIFY',$this,$user,$langs,$conf);
 			if ($result < 0) {
 				$error++; $this->errors=$interface->errors;
 			}
 			// Fin appel triggers
-			
+
 			$this->db->commit();
 			return 1;
 		}
@@ -327,10 +346,9 @@ class Fichinter extends CommonObject
 	 *	Validate a intervention
 	 *
 	 *	@param		User		$user		User that validate
-	 *	@param		string		$outputdir	Output directory
 	 *	@return		int			<0 if KO, >0 if OK
 	 */
-	function setValid($user, $outputdir)
+	function setValid($user)
 	{
 		global $langs, $conf;
 
@@ -340,22 +358,24 @@ class Fichinter extends CommonObject
 		{
 			$this->db->begin();
 
+			$now=dol_now();
+
 			$sql = "UPDATE ".MAIN_DB_PREFIX."fichinter";
 			$sql.= " SET fk_statut = 1";
-			$sql.= ", date_valid = ".$this->db->idate(mktime());
+			$sql.= ", date_valid = ".$this->db->idate($now);
 			$sql.= ", fk_user_valid = ".$user->id;
 			$sql.= " WHERE rowid = ".$this->id;
 			$sql.= " AND entity = ".$conf->entity;
 			$sql.= " AND fk_statut = 0";
 
-			dol_syslog("Fichinter::setValid sql=".$sql);
+			dol_syslog(get_class($this)."::setValid sql=".$sql);
 			$resql=$this->db->query($sql);
 			if ($resql)
 			{
 				// Appel des triggers
-				include_once(DOL_DOCUMENT_ROOT . "/core/class/interfaces.class.php");
+				include_once DOL_DOCUMENT_ROOT . '/core/class/interfaces.class.php';
 				$interface=new Interfaces($this->db);
-				$result=$interface->run_triggers('FICHEINTER_VALIDATE',$this,$user,$langs,$conf);
+				$result=$interface->run_triggers('FICHINTER_VALIDATE',$this,$user,$langs,$conf);
 				if ($result < 0) { $error++; $this->errors=$interface->errors; }
 				// Fin appel triggers
 
@@ -368,7 +388,7 @@ class Fichinter extends CommonObject
 				{
 					$this->db->rollback();
 					$this->error=join(',',$this->errors);
-					dol_syslog("Fichinter::setValid ".$this->error,LOG_ERR);
+					dol_syslog(get_class($this)."::setValid ".$this->error,LOG_ERR);
 					return -1;
 				}
 			}
@@ -376,7 +396,7 @@ class Fichinter extends CommonObject
 			{
 				$this->db->rollback();
 				$this->error=$this->db->lasterror();
-				dol_syslog("Fichinter::setValid ".$this->error,LOG_ERR);
+				dol_syslog(get_class($this)."::setValid ".$this->error,LOG_ERR);
 				return -1;
 			}
 		}
@@ -442,25 +462,25 @@ class Fichinter extends CommonObject
 		{
 			if ($statut==0) return img_picto($langs->trans($this->statuts_short[$statut]),'statut0').' '.$langs->trans($this->statuts_short[$statut]);
 			if ($statut==1) return img_picto($langs->trans($this->statuts_short[$statut]),'statut4').' '.$langs->trans($this->statuts_short[$statut]);
-			if ($statut==2) return img_picto($langs->trans('StatusInterInvoiced'),'statut6').' '.$langs->trans('StatusOrderProcessed');
+			if ($statut==2) return img_picto($langs->trans($this->statuts_short[$statut]),'statut6').' '.$langs->trans($this->statuts_short[$statut]);
 		}
 		if ($mode == 3)
 		{
 			if ($statut==0) return img_picto($langs->trans($this->statuts_short[$statut]),'statut0');
 			if ($statut==1) return img_picto($langs->trans($this->statuts_short[$statut]),'statut4');
-			if ($statut==2) return img_picto($langs->trans('StatusInterInvoiced'),'statut6');
+			if ($statut==2) return img_picto($langs->trans($this->statuts_short[$statut]),'statut6');
 		}
 		if ($mode == 4)
 		{
 			if ($statut==0) return img_picto($langs->trans($this->statuts_short[$statut]),'statut0').' '.$langs->trans($this->statuts[$statut]);
 			if ($statut==1) return img_picto($langs->trans($this->statuts_short[$statut]),'statut4').' '.$langs->trans($this->statuts[$statut]);
-			if ($statut==2) return img_picto($langs->trans('StatusInterInvoiced'),'statut6').' '.$langs->trans('StatusInterInvoiced');
+			if ($statut==2) return img_picto($langs->trans($this->statuts_short[$statut]),'statut6').' '.$langs->trans($this->statuts[$statut]);
 		}
 		if ($mode == 5)
 		{
 			if ($statut==0) return $langs->trans($this->statuts_short[$statut]).' '.img_picto($langs->trans($this->statuts_short[$statut]),'statut0');
 			if ($statut==1) return $langs->trans($this->statuts_short[$statut]).' '.img_picto($langs->trans($this->statuts_short[$statut]),'statut4');
-			if ($statut==2) return $langs->trans('StatusInterInvoiced').' '.img_picto($langs->trans('StatusInterInvoiced'),'statut6');
+			if ($statut==2) return $langs->trans($this->statuts_short[$statut]).' '.img_picto($langs->trans($this->statuts_short[$statut]),'statut6');
 		}
 	}
 
@@ -515,7 +535,7 @@ class Fichinter extends CommonObject
 			}
 
 			// Chargement de la classe de numerotation
-			require_once($dir.$file);
+			require_once $dir.$file;
 
 			$obj = new $classname();
 
@@ -599,7 +619,7 @@ class Fichinter extends CommonObject
 	function delete($user)
 	{
 		global $conf;
-        require_once(DOL_DOCUMENT_ROOT."/core/lib/files.lib.php");
+        require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 
 		$error=0;
 
@@ -662,11 +682,11 @@ class Fichinter extends CommonObject
 						}
 					}
 				}
-				
+
 				// Appel des triggers
-				include_once(DOL_DOCUMENT_ROOT . "/core/class/interfaces.class.php");
+				include_once DOL_DOCUMENT_ROOT . '/core/class/interfaces.class.php';
 				$interface=new Interfaces($this->db);
-				$result=$interface->run_triggers('FICHEINTER_DELETE',$this,$user,$langs,$conf);
+				$result=$interface->run_triggers('FICHINTER_DELETE',$this,$user,$langs,$conf);
 				if ($result < 0) {
 					$error++; $this->errors=$interface->errors;
 				}
@@ -816,10 +836,11 @@ class Fichinter extends CommonObject
 		$this->ref = 'SPECIMEN';
 		$this->specimen=1;
 		$this->socid = 1;
-		$this->date = $now;
+		$this->datec = $now;
+		$this->note_private='Private note';
 		$this->note_public='SPECIMEN';
 		$this->duree = 0;
-		$nbp = 5;
+		$nbp = 20;
 		$xnbp = 0;
 		while ($xnbp < $nbp)
 		{
@@ -882,8 +903,7 @@ class Fichinter extends CommonObject
 }
 
 /**
- *	\class      FichinterLigne
- *	\brief      Classe permettant la gestion des lignes d'intervention
+ *	Classe permettant la gestion des lignes d'intervention
  */
 class FichinterLigne
 {

@@ -1,10 +1,10 @@
-<?PHP
+<?php
 /* Copyright (C) 2005-2011 Laurent Destailleur  <eldy@users.sourceforge.net>
  * Copyright (C) 2010      Juanjo Menent        <jmenent@2byte.es>
 *
 * This program is free software; you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
-* the Free Software Foundation; either version 2 of the License, or
+* the Free Software Foundation; either version 3 of the License, or
 * (at your option) any later version.
 *
 * This program is distributed in the hope that it will be useful,
@@ -21,7 +21,7 @@
  *       \ingroup    core
  *       \brief      Fichier de la classe permettant la generation du formulaire html d'envoi de mail unitaire
  */
-require_once(DOL_DOCUMENT_ROOT ."/core/class/html.form.class.php");
+require_once DOL_DOCUMENT_ROOT .'/core/class/html.form.class.php';
 
 
 /**     
@@ -64,7 +64,7 @@ class FormSms
      *
      *  @param		DoliDB		$db      Database handler
      */
-    function FormSms($db)
+    function __construct($db)
     {
         $this->db = $db;
 

@@ -1,10 +1,10 @@
 <?php
 /* Copyright (C) 2006-2010	Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2006-2012	Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2006-2012	Regis Houssin        <regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -22,11 +22,11 @@
  *       \brief      Page fiche LDAP contact
  */
 
-require("../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/contact/class/contact.class.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/contact.lib.php");
-require_once(DOL_DOCUMENT_ROOT."/core/class/ldap.class.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/ldap.lib.php");
+require '../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/contact/class/contact.class.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/contact.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/core/class/ldap.class.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/ldap.lib.php';
 
 $langs->load("companies");
 $langs->load("ldap");
@@ -35,12 +35,12 @@ $langs->load("admin");
 $action=GETPOST('action');
 
 // Security check
-$contactid = isset($_GET["id"])?$_GET["id"]:'';
+$id = GETPOST('id', 'int');
 if ($user->societe_id) $socid=$user->societe_id;
-$result = restrictedArea($user, 'contact', $contactid, 'socpeople&societe');
+$result = restrictedArea($user, 'contact', $id, 'socpeople&societe');
 
 $contact = new Contact($db);
-$contact->fetch($_GET["id"], $user);
+$contact->fetch($id, $user);
 
 
 /*
@@ -79,13 +79,15 @@ if ($action == 'dolibarr2ldap')
  *	View
  */
 
-llxHeader('',$langs->trans("ContactsAddresses"),'EN:Module_Third_Parties|FR:Module_Tiers|ES:M&oacute;dulo_Empresas');
+$title = (! empty($conf->global->SOCIETE_ADDRESSES_MANAGEMENT) ? $langs->trans("Contacts") : $langs->trans("ContactsAddresses"));
+
+llxHeader('',$title,'EN:Module_Third_Parties|FR:Module_Tiers|ES:M&oacute;dulo_Empresas');
 
 $form = new Form($db);
 
 $head = contact_prepare_head($contact);
 
-dol_fiche_head($head, 'ldap', $langs->trans("ContactsAddresses"), 0, 'contact');
+dol_fiche_head($head, 'ldap', $title, 0, 'contact');
 
 
 print '<table class="border" width="100%">';

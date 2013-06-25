@@ -1,10 +1,10 @@
 <?php
 /* Copyright (C) 2005      Laurent Destailleur <eldy@users.sourceforge.net>
- * Copyright (C) 2005-2009 Regis Houssin       <regis@dolibarr.fr>
+ * Copyright (C) 2005-2009 Regis Houssin       <regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -82,13 +82,15 @@ class mailing_fraise extends MailingTargets
 	}
 
 
-    /*
-     *		\brief		Return here number of distinct emails returned by your selector.
-     *					For example if this selector is used to extract 500 different
-     *					emails from a text file, this function must return 500.
-     *		\return		int
-     */
-    function getNbOfRecipients()
+    /**
+	 *	Return here number of distinct emails returned by your selector.
+	 *	For example if this selector is used to extract 500 different
+	 *	emails from a text file, this function must return 500.
+	 *
+	 *  @param	string	$sql		Requete sql de comptage
+	 *	@return		int			Nb of recipients
+	 */
+    function getNbOfRecipients($sql='')
     {
         $sql  = "SELECT count(distinct(a.email)) as nb";
         $sql .= " FROM ".MAIN_DB_PREFIX."adherent as a";
@@ -201,7 +203,7 @@ class mailing_fraise extends MailingTargets
                     			'firstname' => $obj->firstname,
                     			'other' =>
                                 ($langs->transnoentities("Login").'='.$obj->login).';'.
-                                ($langs->transnoentities("Civility").'='.($obj->civilite?$langs->transnoentities("Civility".$obj->civilite):'')).';'.
+                                ($langs->transnoentities("UserTitle").'='.($obj->civilite?$langs->transnoentities("Civility".$obj->civilite):'')).';'.
                                 ($langs->transnoentities("DateEnd").'='.dol_print_date($this->db->jdate($obj->datefin),'day')).';'.
                                 ($langs->transnoentities("Company").'='.$obj->societe),
                                 'source_url' => $this->url($obj->id),

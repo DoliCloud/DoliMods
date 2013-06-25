@@ -2,13 +2,13 @@
 /* Copyright (C) 2004      Rodolphe Quiedeville <rodolphe@quiedeville.org>
  * Copyright (C) 2004      Sebastien Di Cintio  <sdicintio@ressource-toi.org>
  * Copyright (C) 2004      Benoit Mortier       <benoit.mortier@opensides.be>
- * Copyright (C) 2005      Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2005      Regis Houssin        <regis.houssin@capnetworks.com>
  * Copyright (C) 2006-2011 Laurent Destailleur  <eldy@users.sourceforge.net>
  * Copyright (C) 2011 	   Juanjo Menent		<jmenent@2byte.es>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -26,10 +26,10 @@
  *      \brief      Page d'administration/configuration du module Ldap
  */
 
-require("../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
-require_once(DOL_DOCUMENT_ROOT."/core/class/ldap.class.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/ldap.lib.php");
+require '../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/core/class/ldap.class.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/ldap.lib.php';
 
 $langs->load("admin");
 
@@ -124,7 +124,7 @@ if ($conf->global->LDAP_SYNCHRO_ACTIVE && ! $conf->global->LDAP_USER_DN)
 print '</td></tr>';
 
 // Synchro contact active
-if ($conf->societe->enabled)
+if (! empty($conf->societe->enabled))
 {
 	$var=!$var;
 	print '<tr '.$bc[$var].'><td>'.$langs->trans("LDAPDnContactActive").'</td><td>';
@@ -136,7 +136,7 @@ if ($conf->societe->enabled)
 }
 
 // Synchro adherentt active
-if ($conf->adherent->enabled)
+if (! empty($conf->adherent->enabled))
 {
 	$var=!$var;
 	print '<tr '.$bc[$var].'><td>'.$langs->trans("LDAPDnMemberActive").'</td><td>';
@@ -189,7 +189,7 @@ print '</td><td>'.$langs->trans("LDAPServerExample").'</td></tr>';
 // Port
 $var=!$var;
 print '<tr '.$bc[$var].'><td>'.$langs->trans("LDAPServerPort").'</td><td>';
-if ($conf->global->LDAP_SERVER_PORT)
+if (! empty($conf->global->LDAP_SERVER_PORT))
 {
   print '<input size="25" type="text" name="port" value="'.$conf->global->LDAP_SERVER_PORT.'">';
 }
@@ -227,7 +227,7 @@ print '</td><td>'.$langs->trans("LDAPAdminDnExample").'</td></tr>';
 // Pass
 $var=!$var;
 print '<tr '.$bc[$var].'><td>'.$langs->trans("LDAPPassword").'</td><td>';
-if ($conf->global->LDAP_ADMIN_PASS)
+if (! empty($conf->global->LDAP_ADMIN_PASS))
 {
 	print '<input size="25" type="password" name="pass" value="'.$conf->global->LDAP_ADMIN_PASS.'">';// je le met en visible pour test
 }
@@ -245,6 +245,7 @@ print '</form>';
 
 print '</div>';
 
+print '<br>';
 
 
 /*
@@ -252,7 +253,7 @@ print '</div>';
  */
 if (function_exists("ldap_connect"))
 {
-	if ($conf->global->LDAP_SERVER_HOST)
+	if (! empty($conf->global->LDAP_SERVER_HOST))
 	{
 		print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?action=test">'.$langs->trans("LDAPTestConnect").'</a><br><br>';
 	}
@@ -269,7 +270,7 @@ if (function_exists("ldap_connect"))
 			print '<font class="ok">'.$langs->trans("LDAPTCPConnectOK",$conf->global->LDAP_SERVER_HOST,$conf->global->LDAP_SERVER_PORT).'</font>';
 			print '<br>';
 
-			if ($conf->global->LDAP_ADMIN_DN && $conf->global->LDAP_ADMIN_PASS)
+			if ($conf->global->LDAP_ADMIN_DN && ! empty($conf->global->LDAP_ADMIN_PASS))
 			{
 				if ($result == 2)
 				{

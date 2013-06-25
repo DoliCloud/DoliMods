@@ -1,11 +1,11 @@
 <?php
 /* Copyright (C) 2004      Rodolphe Quiedeville <rodolphe@quiedeville.org>
  * Copyright (C) 2004-2007 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2005-2009 Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2005-2009 Regis Houssin        <regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -24,12 +24,11 @@
  *	\ingroup    ldap
  *	\brief		File to describe and activate Ldap module
  */
-include_once(DOL_DOCUMENT_ROOT ."/core/modules/DolibarrModules.class.php");
+include_once DOL_DOCUMENT_ROOT .'/core/modules/DolibarrModules.class.php';
 
 
 /**
- *  \class 		modLdap
- *	\brief      Classe de description et activation du module Ldap
+ *	Classe de description et activation du module Ldap
  */
 class modLdap extends DolibarrModules
 {
@@ -38,7 +37,7 @@ class modLdap extends DolibarrModules
 	 *
 	 *   @param      DoliDB		$db      Database handler
 	 */
-	function modLdap($db)
+	function __construct($db)
 	{
 		$this->db = $db;
 		$this->numero = 200;
@@ -71,9 +70,9 @@ class modLdap extends DolibarrModules
 		0=>array('LDAP_SERVER_TYPE','chaine','openldap','',0),
 		1=>array('LDAP_SERVER_PROTOCOLVERSION','chaine','3','',0),
 		2=>array('LDAP_SERVER_HOST','chaine','localhost','',0),
-		3=>array('LDAP_USER_DN','chaine','ou=users,dc=my-domain,dc=com','',0),
-		4=>array('LDAP_GROUP_DN','chaine','ou=groups,dc=my-domain,dc=com','',0),
-		5=>array('LDAP_FILTER_CONNECTION','chaine','&(objectClass=user)(objectCategory=person)','',0),
+		3=>array('LDAP_USER_DN','chaine','ou=users,dc=example,dc=com','',0),
+		4=>array('LDAP_GROUP_DN','chaine','ou=groups,dc=example,dc=com','',0),
+		5=>array('LDAP_FILTER_CONNECTION','chaine','&(objectClass=inetOrgPerson)','',0),
 		6=>array('LDAP_FIELD_LOGIN','chaine','uid','',0),
 		7=>array('LDAP_FIELD_FULLNAME','chaine','cn','',0),
 		8=>array('LDAP_FIELD_NAME','chaine','sn','',0),

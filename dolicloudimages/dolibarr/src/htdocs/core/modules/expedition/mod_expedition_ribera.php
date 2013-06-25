@@ -3,7 +3,7 @@
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -22,10 +22,10 @@
  *  \brief      File of class to manage expedition numbering rules Ribera
  */
 
-require_once(DOL_DOCUMENT_ROOT ."/core/modules/expedition/modules_expedition.php");
+require_once DOL_DOCUMENT_ROOT .'/core/modules/expedition/modules_expedition.php';
 
-/**	    \class      mod_expedition_ribera
- *      \brief      Class to manage expedition numbering rules Ribera
+/**
+ *	Class to manage expedition numbering rules Ribera
  */
 class mod_expedition_ribera extends ModelNumRefExpedition
 {
@@ -101,7 +101,7 @@ class mod_expedition_ribera extends ModelNumRefExpedition
     {
 		global $db,$conf;
 
-		require_once(DOL_DOCUMENT_ROOT ."/core/lib/functions2.lib.php");
+		require_once DOL_DOCUMENT_ROOT .'/core/lib/functions2.lib.php';
 
 		$mask=$conf->global->EXPEDITION_RIBERA_MASK;
 

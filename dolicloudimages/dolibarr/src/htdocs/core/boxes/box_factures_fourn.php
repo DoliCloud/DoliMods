@@ -1,11 +1,11 @@
 <?php
 /* Copyright (C) 2003      Rodolphe Quiedeville <rodolphe@quiedeville.org>
- * Copyright (C) 2004-2009 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2005-2009 Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2004-2013 Laurent Destailleur  <eldy@users.sourceforge.net>
+ * Copyright (C) 2005-2009 Regis Houssin        <regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -22,7 +22,7 @@
  *      \ingroup    supplier
  *		\brief      Fichier de gestion d'une box des factures fournisseurs
  */
-include_once(DOL_DOCUMENT_ROOT."/core/boxes/modules_boxes.php");
+include_once DOL_DOCUMENT_ROOT.'/core/boxes/modules_boxes.php';
 
 
 /**
@@ -44,7 +44,7 @@ class box_factures_fourn extends ModeleBoxes
 	/**
      *  Constructor
 	 */
-	function box_factures_fourn()
+	function __construct()
 	{
 		global $langs;
 		$langs->load("boxes");
@@ -64,7 +64,7 @@ class box_factures_fourn extends ModeleBoxes
 
 		$this->max=$max;
 
-		include_once(DOL_DOCUMENT_ROOT."/fourn/class/fournisseur.facture.class.php");
+		include_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.facture.class.php';
 		$facturestatic=new FactureFournisseur($db);
 
 		$this->info_box_head = array(
@@ -96,7 +96,7 @@ class box_factures_fourn extends ModeleBoxes
 				$now=dol_now();
 
 				$i = 0;
-				$l_due_date =  $langs->trans('Late').' ('.strtolower($langs->trans('DateEcheance')).': %s)';
+				$l_due_date =  $langs->trans('Late').' ('.$langs->trans('DateEcheance').': %s)';
 
 				while ($i < $num)
 				{
@@ -105,7 +105,7 @@ class box_factures_fourn extends ModeleBoxes
 					$datec=$db->jdate($objp->datec);
 
 					$late = '';
-					if ($objp->paye == 0 && $datelimite < ($now - $conf->facture->fournisseur->warning_delay)) $late=img_warning(sprintf($l_due_date, dol_print_date($datelimite,'day')));
+					if ($objp->paye == 0 && $datelimite && $datelimite < ($now - $conf->facture->fournisseur->warning_delay)) $late=img_warning(sprintf($l_due_date, dol_print_date($datelimite,'day')));
 
 					$this->info_box_contents[$i][0] = array('td' => 'align="left" width="16"',
                     'logo' => $this->boximg,
@@ -139,7 +139,9 @@ class box_factures_fourn extends ModeleBoxes
 				if ($num==0) $this->info_box_contents[$i][0] = array('td' => 'align="center"','text'=>$langs->trans("NoModifiedSupplierBills"));
 			}
 			else {
-				dol_print_error($db);
+				$this->info_box_contents[0][0] = array(	'td' => 'align="left"',
+    	        										'maxlength'=>500,
+	            										'text' => ($db->error().' sql='.$sql));
 			}
 		}
 		else {

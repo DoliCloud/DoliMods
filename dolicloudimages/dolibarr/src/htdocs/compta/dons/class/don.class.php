@@ -1,11 +1,11 @@
 <?php
 /* Copyright (C) 2002      Rodolphe Quiedeville <rodolphe@quiedeville.org>
  * Copyright (C) 2004-2008 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2009      Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2009      Regis Houssin        <regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -23,7 +23,7 @@
  *		\brief      Fichier de la classe des dons
  */
 
-require_once(DOL_DOCUMENT_ROOT ."/core/class/commonobject.class.php");
+require_once DOL_DOCUMENT_ROOT .'/core/class/commonobject.class.php';
 
 
 /**
@@ -36,6 +36,7 @@ class Don extends CommonObject
     public $table_element='don';
 
     var $id;
+    var $ref;
     var $date;
     var $amount;
     var $prenom;
@@ -58,13 +59,13 @@ class Don extends CommonObject
     /**
      *  Constructor
      *
-     *  @param	DoliDB	$DB		Database handler
+     *  @param	DoliDB	$db 	Database handler
      */
-    function Don($DB)
+    function __construct($db)
     {
         global $langs;
 
-        $this->db = $DB ;
+        $this->db = $db;
         $this->modepaiementid = 0;
 
         $langs->load("donations");
@@ -352,7 +353,18 @@ class Don extends CommonObject
         $result = $this->db->query($sql);
         if ($result)
         {
-            return $this->db->last_insert_id(MAIN_DB_PREFIX."don");
+            $this->id = $this->db->last_insert_id(MAIN_DB_PREFIX."don");
+
+            // Appel des triggers
+            include_once DOL_DOCUMENT_ROOT . '/core/class/interfaces.class.php';
+            $interface=new Interfaces($this->db);
+            $result=$interface->run_triggers('DON_CREATE',$this,$user,$langs,$conf);
+            if ($result < 0) {
+                    $error++; $this->errors=$interface->errors;
+            }
+            // Fin appel triggers
+
+            return $this->id;
         }
         else
         {
@@ -678,11 +690,11 @@ class Don extends CommonObject
 
         $picto='generic';
 
-        $label=$langs->trans("ShowDonation").': '.$this->ref;
+        $label=$langs->trans("ShowDonation").': '.$this->id;
 
         if ($withpicto) $result.=($lien.img_object($label,$picto).$lienfin);
         if ($withpicto && $withpicto != 2) $result.=' ';
-        if ($withpicto != 2) $result.=$lien.$this->ref.$lienfin;
+        if ($withpicto != 2) $result.=$lien.$this->id.$lienfin;
         return $result;
     }
 

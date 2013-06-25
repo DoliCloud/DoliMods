@@ -4,7 +4,7 @@
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -16,11 +16,11 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-require('../main.inc.php');
-require_once(DOL_DOCUMENT_ROOT.'/cashdesk/include/environnement.php');
-require_once(DOL_DOCUMENT_ROOT.'/cashdesk/class/Facturation.class.php');
-require_once(DOL_DOCUMENT_ROOT.'/societe/class/societe.class.php');
-require_once(DOL_DOCUMENT_ROOT.'/product/class/product.class.php');
+require '../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/cashdesk/include/environnement.php';
+require_once DOL_DOCUMENT_ROOT.'/cashdesk/class/Facturation.class.php';
+require_once DOL_DOCUMENT_ROOT.'/societe/class/societe.class.php';
+require_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
 
 $obj_facturation = unserialize($_SESSION['serObjFacturation']);
 unset ($_SESSION['serObjFacturation']);
@@ -32,9 +32,9 @@ switch ( $_GET['action'] )
 		if ( $_POST['hdnSource'] != 'NULL' )
 		{
 			$sql = "SELECT p.rowid, p.ref, p.price, p.tva_tx";
-			if ($conf->stock->enabled && !empty($conf_fkentrepot)) $sql.= ", ps.reel";
+			if (! empty($conf->stock->enabled) && !empty($conf_fkentrepot)) $sql.= ", ps.reel";
 			$sql.= " FROM ".MAIN_DB_PREFIX."product as p";
-			if ($conf->stock->enabled && !empty($conf_fkentrepot)) $sql.= " LEFT JOIN ".MAIN_DB_PREFIX."product_stock as ps ON p.rowid = ps.fk_product AND ps.fk_entrepot = ".$conf_fkentrepot;
+			if (! empty($conf->stock->enabled) && !empty($conf_fkentrepot)) $sql.= " LEFT JOIN ".MAIN_DB_PREFIX."product_stock as ps ON p.rowid = ps.fk_product AND ps.fk_entrepot = ".$conf_fkentrepot;
 			$sql.= " WHERE p.entity IN (".getEntity('product', 1).")";
 
 			// Recuperation des donnees en fonction de la source (liste deroulante ou champ texte) ...
@@ -62,7 +62,7 @@ switch ( $_GET['action'] )
 					}
 
 					/** add Ditto for MultiPrix*/
-					if ($conf->global->PRODUIT_MULTIPRICES)
+					if (! empty($conf->global->PRODUIT_MULTIPRICES))
 					{
 						$thirdpartyid = $_SESSION['CASHDESK_ID_THIRDPARTY'];
 						$productid = $ret['rowid'];

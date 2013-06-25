@@ -1,11 +1,11 @@
 <?php
 /* Copyright (C) 2006-2008 Laurent Destailleur  <eldy@users.sourceforge.net>
  * Copyright (C) 2007      Rodolphe Quiedeville <rodolphe@quiedeville.org>
- * Copyright (C) 2009-2010 Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2009-2010 Regis Houssin        <regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -49,7 +49,7 @@ function product_prepare_head($object, $user)
 	$head[$h][2] = 'price';
 	$h++;
 
-	if ($conf->fournisseur->enabled && $user->rights->fournisseur->lire)
+	if (! empty($conf->fournisseur->enabled) && $user->rights->fournisseur->lire)
 	{
 		$head[$h][0] = DOL_URL_ROOT."/product/fournisseurs.php?id=".$object->id;
 		$head[$h][1] = $langs->trans("SuppliersPrices");
@@ -63,7 +63,7 @@ function product_prepare_head($object, $user)
 	$h++;
 
 	// Show category tab
-	if ($conf->categorie->enabled && $user->rights->categorie->lire)
+	if (! empty($conf->categorie->enabled) && $user->rights->categorie->lire)
 	{
 		$head[$h][0] = DOL_URL_ROOT."/categories/categorie.php?id=".$object->id.'&type=0';
 		$head[$h][1] = $langs->trans('Categories');
@@ -72,7 +72,7 @@ function product_prepare_head($object, $user)
 	}
 
 	// Multilangs
-	if($conf->global->MAIN_MULTILANGS)
+	if (! empty($conf->global->MAIN_MULTILANGS))
 	{
 		$head[$h][0] = DOL_URL_ROOT."/product/traduction.php?id=".$object->id;
 		$head[$h][1] = $langs->trans("Translation");
@@ -81,7 +81,7 @@ function product_prepare_head($object, $user)
 	}
 
 	// Sub products
-	if($conf->global->PRODUIT_SOUSPRODUITS)
+	if (! empty($conf->global->PRODUIT_SOUSPRODUITS))
 	{
 		$head[$h][0] = DOL_URL_ROOT."/product/composition/fiche.php?id=".$object->id;
 		$head[$h][1] = $langs->trans('AssociatedProducts');
@@ -101,7 +101,7 @@ function product_prepare_head($object, $user)
 
     if($object->isproduct())    // Si produit stockable
     {
-        if ($conf->stock->enabled && $user->rights->stock->lire)
+        if (! empty($conf->stock->enabled) && $user->rights->stock->lire)
         {
             $head[$h][0] = DOL_URL_ROOT."/product/stock/product.php?id=".$object->id;
             $head[$h][1] = $langs->trans("Stock");
@@ -113,7 +113,7 @@ function product_prepare_head($object, $user)
     // Show more tabs from modules
     // Entries must be declared in modules descriptor with line
     // $this->tabs = array('entity:+tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to add new tab
-    // $this->tabs = array('entity:-tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to remove a tab
+    // $this->tabs = array('entity:-tabname);   												to remove a tab
     complete_head_from_modules($conf,$langs,$object,$head,$h,'product');
 
     $head[$h][0] = DOL_URL_ROOT.'/product/document.php?id='.$object->id;
@@ -123,7 +123,8 @@ function product_prepare_head($object, $user)
 
 
 	// More tabs from canvas
-	if (is_array($object->onglets))
+	// TODO Is this still used ?
+	if (isset($object->onglets) && is_array($object->onglets))
 	{
 		foreach ($object->onglets as $onglet)
 		{
@@ -141,35 +142,34 @@ function product_prepare_head($object, $user)
 *  Return array head with list of tabs to view object informations.
 *
 *  @param	Object	$object		Product
-*  @param	string	$tab		Tab id
 *  @return	array   	        head array with tabs
 */
-function product_admin_prepare_head($object, $tab)
+function product_admin_prepare_head($object=null)
 {
-    global $langs, $conf, $user;
+	global $langs, $conf, $user;
 
-    $h = 0;
-    $head = array();
+	$h = 0;
+	$head = array();
 
-    $head[$h][0] = DOL_URL_ROOT."/product/admin/product.php";
-    $head[$h][1] = $tab;
-    $head[$h][2] = 'general';
-    $h++;
+	$head[$h][0] = DOL_URL_ROOT."/product/admin/product.php";
+	$head[$h][1] = $langs->trans('Parameters');
+	$head[$h][2] = 'general';
+	$h++;
 
-    // Show more tabs from modules
-    // Entries must be declared in modules descriptor with line
+	// Show more tabs from modules
+	// Entries must be declared in modules descriptor with line
     // $this->tabs = array('entity:+tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to add new tab
-    // $this->tabs = array('entity:-tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to remove a tab
-    complete_head_from_modules($conf,$langs,$object,$head,$h,'product_admin');
+    // $this->tabs = array('entity:-tabname);   												to remove a tab
+	complete_head_from_modules($conf,$langs,$object,$head,$h,'product_admin');
 
-    $head[$h][0] = DOL_URL_ROOT.'/product/admin/product_extrafields.php';
-    $head[$h][1] = $langs->trans("ExtraFields");
-    $head[$h][2] = 'attributes';
-    $h++;
+	$head[$h][0] = DOL_URL_ROOT.'/product/admin/product_extrafields.php';
+	$head[$h][1] = $langs->trans("ExtraFields");
+	$head[$h][2] = 'attributes';
+	$h++;
 
-    complete_head_from_modules($conf,$langs,$object,$head,$h,'product_admin','remove');
+	complete_head_from_modules($conf,$langs,$object,$head,$h,'product_admin','remove');
 
-    return $head;
+	return $head;
 }
 
 
@@ -192,7 +192,7 @@ function show_stats_for_company($product,$socid)
 	print '</tr>';
 
 	// Propals
-	if ($conf->propal->enabled && $user->rights->propale->lire)
+	if (! empty($conf->propal->enabled) && $user->rights->propale->lire)
 	{
 		$ret=$product->load_stats_propale($socid);
 		if ($ret < 0) dol_print_error($db);
@@ -209,7 +209,7 @@ function show_stats_for_company($product,$socid)
 		print '</tr>';
 	}
 	// Commandes clients
-	if ($conf->commande->enabled && $user->rights->commande->lire)
+	if (! empty($conf->commande->enabled) && $user->rights->commande->lire)
 	{
 		$ret=$product->load_stats_commande($socid);
 		if ($ret < 0) dol_print_error($db);
@@ -226,7 +226,7 @@ function show_stats_for_company($product,$socid)
 		print '</tr>';
 	}
 	// Commandes fournisseurs
-	if ($conf->fournisseur->enabled && $user->rights->fournisseur->commande->lire)
+	if (! empty($conf->fournisseur->enabled) && $user->rights->fournisseur->commande->lire)
 	{
 		$ret=$product->load_stats_commande_fournisseur($socid);
 		if ($ret < 0) dol_print_error($db);
@@ -243,7 +243,7 @@ function show_stats_for_company($product,$socid)
 		print '</tr>';
 	}
 	// Contrats
-	if ($conf->contrat->enabled && $user->rights->contrat->lire)
+	if (! empty($conf->contrat->enabled) && $user->rights->contrat->lire)
 	{
 		$ret=$product->load_stats_contrat($socid);
 		if ($ret < 0) dol_print_error($db);
@@ -260,7 +260,7 @@ function show_stats_for_company($product,$socid)
 		print '</tr>';
 	}
 	// Factures clients
-	if ($conf->facture->enabled && $user->rights->facture->lire)
+	if (! empty($conf->facture->enabled) && $user->rights->facture->lire)
 	{
 		$ret=$product->load_stats_facture($socid);
 		if ($ret < 0) dol_print_error($db);
@@ -277,7 +277,7 @@ function show_stats_for_company($product,$socid)
 		print '</tr>';
 	}
 	// Factures fournisseurs
-	if ($conf->fournisseur->enabled && $user->rights->fournisseur->facture->lire)
+	if (! empty($conf->fournisseur->enabled) && $user->rights->fournisseur->facture->lire)
 	{
 		$ret=$product->load_stats_facture_fournisseur($socid);
 		if ($ret < 0) dol_print_error($db);
@@ -324,8 +324,8 @@ function measuring_units_string($unit,$measuring_style='')
 		$measuring_units[-1] = $langs->trans("SizeUnitdm");
 		$measuring_units[-2] = $langs->trans("SizeUnitcm");
 		$measuring_units[-3] = $langs->trans("SizeUnitmm");
-        $measuring_units[99] = $langs->trans("SizeUnitinch");
         $measuring_units[98] = $langs->trans("SizeUnitfoot");
+		$measuring_units[99] = $langs->trans("SizeUnitinch");
 	}
 	else if ($measuring_style == 'surface')
 	{
@@ -333,6 +333,8 @@ function measuring_units_string($unit,$measuring_style='')
 		$measuring_units[-2] = $langs->trans("SurfaceUnitdm2");
 		$measuring_units[-4] = $langs->trans("SurfaceUnitcm2");
 		$measuring_units[-6] = $langs->trans("SurfaceUnitmm2");
+        $measuring_units[98] = $langs->trans("SurfaceUnitfoot2");
+		$measuring_units[99] = $langs->trans("SurfaceUnitinch2");
 	}
 	else if ($measuring_style == 'volume')
 	{
@@ -340,7 +342,9 @@ function measuring_units_string($unit,$measuring_style='')
 		$measuring_units[-3] = $langs->trans("VolumeUnitdm3");
 		$measuring_units[-6] = $langs->trans("VolumeUnitcm3");
 		$measuring_units[-9] = $langs->trans("VolumeUnitmm3");
-        $measuring_units[97] = $langs->trans("VolumeUnitounce");
+        $measuring_units[88] = $langs->trans("VolumeUnitfoot3");
+        $measuring_units[89] = $langs->trans("VolumeUnitinch3");
+		$measuring_units[97] = $langs->trans("VolumeUnitounce");
 		$measuring_units[98] = $langs->trans("VolumeUnitlitre");
         $measuring_units[99] = $langs->trans("VolumeUnitgallon");
 	}

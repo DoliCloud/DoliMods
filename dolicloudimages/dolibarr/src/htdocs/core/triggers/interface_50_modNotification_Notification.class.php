@@ -1,10 +1,10 @@
 <?php
 /* Copyright (C) 2006-2011 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2011      Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2011      Regis Houssin        <regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -29,15 +29,21 @@
 class InterfaceNotification
 {
     var $db;
-    var $listofmanagedevents=array('BILL_VALIDATE','ORDER_VALIDATE','PROPAL_VALIDATE',
-                            'FICHEINTER_VALIDATE','ORDER_SUPPLIER_APPROVE','ORDER_SUPPLIER_REFUSE');
+    var $listofmanagedevents=array(
+    	'BILL_VALIDATE',
+    	'ORDER_VALIDATE',
+    	'PROPAL_VALIDATE',
+        'FICHINTER_VALIDATE',
+    	'ORDER_SUPPLIER_APPROVE',
+    	'ORDER_SUPPLIER_REFUSE'
+   	);
 
     /**
      *   Constructor
      *
      *   @param		DoliDB		$db      Database handler
      */
-    function InterfaceNotification($db)
+    function __construct($db)
     {
         $this->db = $db;
 
@@ -99,7 +105,7 @@ class InterfaceNotification
     {
 		if (empty($conf->notification->enabled)) return 0;     // Module not active, we do nothing
 
-		require_once(DOL_DOCUMENT_ROOT .'/core/class/notify.class.php');
+		require_once DOL_DOCUMENT_ROOT .'/core/class/notify.class.php';
 
 		if ($action == 'BILL_VALIDATE')
 		{
@@ -146,7 +152,7 @@ class InterfaceNotification
             $notify->send($action, $object->socid, $mesg, 'propal', $object->id, $filepdf);
 		}
 
-		elseif ($action == 'FICHEINTER_VALIDATE')
+		elseif ($action == 'FICHINTER_VALIDATE')
 		{
             dol_syslog("Trigger '".$this->name."' for action '$action' launched by ".__FILE__.". id=".$object->id);
 

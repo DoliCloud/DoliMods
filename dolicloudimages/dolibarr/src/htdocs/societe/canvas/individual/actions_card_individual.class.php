@@ -1,9 +1,9 @@
 <?php
-/* Copyright (C) 2010-2011 Regis Houssin  <regis@dolibarr.fr>
+/* Copyright (C) 2010-2011 Regis Houssin  <regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -20,7 +20,7 @@
  *	\ingroup    thirdparty
  *	\brief      Fichier de la classe Thirdparty card controller (individual canvas)
  */
-include_once(DOL_DOCUMENT_ROOT.'/societe/canvas/actions_card_common.class.php');
+include_once DOL_DOCUMENT_ROOT.'/societe/canvas/actions_card_common.class.php';
 
 /**
  *	\class      ActionsCardIndividual
@@ -36,15 +36,15 @@ class ActionsCardIndividual extends ActionsCardCommon
     /**
 	 *    Constructor
 	 *
-     *    @param	DoliDB	$DB				Handler acces base de donnees
+     *    @param	DoliDB	$db				Handler acces base de donnees
      *    @param	string	$dirmodule		Name of directory of module
      *    @param	string	$targetmodule	Name of directory of module where canvas is stored
      *    @param	string	$canvas			Name of canvas
      *    @param	string	$card			Name of tab (sub-canvas)
      */
-	function __construct($DB, $dirmodule, $targetmodule, $canvas, $card)
+	function __construct($db, $dirmodule, $targetmodule, $canvas, $card)
 	{
-		$this->db				= $DB;
+		$this->db				= $db;
 		$this->dirmodule		= $dirmodule;
 		$this->targetmodule		= $targetmodule;
         $this->canvas			= $canvas;
@@ -65,8 +65,8 @@ class ActionsCardIndividual extends ActionsCardCommon
         $out='';
 
         if ($action == 'view')      $out.= $langs->trans("Individual");
-        if ($action == 'edit')      $out.= $langs->trans("EditIndividual");
-        if ($action == 'create')    $out.= $langs->trans("NewIndividual");
+        if ($action == 'edit')      $out.= $langs->trans("EditCompany");
+        if ($action == 'create')    $out.= $langs->trans("NewCompany");
 
         return $out;
     }
@@ -105,7 +105,7 @@ class ActionsCardIndividual extends ActionsCardCommon
 
 		parent::assign_values($action);
 
-		$this->tpl['title'] = $this->getTitle($action);
+        $this->tpl['title'] = load_fiche_titre($this->getTitle($action));
 
 		if ($action == 'create' || $action == 'edit')
 		{

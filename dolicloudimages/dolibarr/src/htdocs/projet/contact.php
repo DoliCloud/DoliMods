@@ -1,10 +1,10 @@
 <?php
-/* Copyright (C) 2010 Regis Houssin       <regis@dolibarr.fr>
+/* Copyright (C) 2010 Regis Houssin       <regis.houssin@capnetworks.com>
  * Copyright (C) 2012 Laurent Destailleur <eldy@users.sourceforge.net>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -22,11 +22,11 @@
  *       \brief      Onglet de gestion des contacts du projet
  */
 
-require("../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/projet/class/project.class.php");
-require_once(DOL_DOCUMENT_ROOT."/contact/class/contact.class.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/project.lib.php");
-require_once(DOL_DOCUMENT_ROOT.'/core/class/html.formcompany.class.php');
+require '../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/projet/class/project.class.php';
+require_once DOL_DOCUMENT_ROOT.'/contact/class/contact.class.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/project.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/core/class/html.formcompany.class.php';
 
 $langs->load("projects");
 $langs->load("companies");
@@ -67,7 +67,7 @@ if ($_POST["action"] == 'addcontact' && $user->rights->projet->creer)
 
 	if ($result >= 0)
 	{
-		Header("Location: contact.php?id=".$project->id);
+		header("Location: contact.php?id=".$project->id);
 		exit;
 	}
 	else
@@ -105,7 +105,7 @@ if ($_GET["action"] == 'deleteline' && $user->rights->projet->creer)
 
 	if ($result >= 0)
 	{
-		Header("Location: contact.php?id=".$project->id);
+		header("Location: contact.php?id=".$project->id);
 		exit;
 	}
 	else
@@ -156,7 +156,7 @@ if ($id > 0 || ! empty($ref))
 		 */
 		print '<table class="border" width="100%">';
 
-		//$linkback="<a href=\"".$_SERVER["PHP_SELF"]."?page=$page&socid=$socid&viewstatut=$viewstatut&sortfield=$sortfield&$sortorder\">".$langs->trans("BackToList")."</a>";
+		$linkback = '<a href="'.DOL_URL_ROOT.'/projet/liste.php">'.$langs->trans("BackToList").'</a>';
 
 		// Ref
 		print '<tr><td width="30%">'.$langs->trans('Ref').'</td><td colspan="3">';
@@ -166,7 +166,7 @@ if ($id > 0 || ! empty($ref))
             $projectsListId = $project->getProjectsAuthorizedForUser($user,$mine,0);
             $project->next_prev_filter=" rowid in (".(count($projectsListId)?join(',',array_keys($projectsListId)):'0').")";
         }
-		print $form->showrefnav($project,'ref',$linkback,1,'ref','ref','');
+		print $form->showrefnav($project, 'ref', $linkback, 1, 'ref', 'ref', '');
 		print '</td></tr>';
 
 		// Label

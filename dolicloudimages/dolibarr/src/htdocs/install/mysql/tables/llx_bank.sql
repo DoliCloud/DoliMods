@@ -4,7 +4,7 @@
 --
 -- This program is free software; you can redistribute it and/or modify
 -- it under the terms of the GNU General Public License as published by
--- the Free Software Foundation; either version 2 of the License, or
+-- the Free Software Foundation; either version 3 of the License, or
 -- (at your option) any later version.
 --
 -- This program is distributed in the hope that it will be useful,
@@ -21,6 +21,7 @@ create table llx_bank
 (
   rowid           integer AUTO_INCREMENT PRIMARY KEY,
   datec           datetime,
+  tms             timestamp,
   datev           date,                      -- date de valeur
   dateo           date,                      -- date operation
   amount          double(24,8) NOT NULL default 0,

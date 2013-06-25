@@ -1,11 +1,12 @@
 <?php
 /* Copyright (C) 2005      Patrick Rouillon     <patrick@rouillon.net>
  * Copyright (C) 2005-2011 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2005-2012 Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2005-2012 Regis Houssin        <regis.houssin@capnetworks.com>
+ * Copyright (C) 2011-2012 Philippe Grand       <philippe.grand@atoo-net.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -23,12 +24,12 @@
  *     \brief      Onglet de gestion des contacts de commande
  */
 
-require("../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/commande/class/commande.class.php");
-require_once(DOL_DOCUMENT_ROOT."/contact/class/contact.class.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/order.lib.php");
-require_once(DOL_DOCUMENT_ROOT."/core/class/html.formother.class.php");
-require_once(DOL_DOCUMENT_ROOT.'/core/class/html.formcompany.class.php');
+require '../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/commande/class/commande.class.php';
+require_once DOL_DOCUMENT_ROOT.'/contact/class/contact.class.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/order.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/core/class/html.formother.class.php';
+require_once DOL_DOCUMENT_ROOT.'/core/class/html.formcompany.class.php';
 
 $langs->load("orders");
 $langs->load("sendings");
@@ -54,13 +55,13 @@ if ($action == 'addcontact' && $user->rights->commande->creer)
 
     if ($result > 0 && $id > 0)
     {
-    	$contactid = (GETPOST('userid') ? GETPOST('userid') : GETPOST('contactid'));
-  		$result = $result = $object->add_contact($contactid, $_POST["type"], $_POST["source"]);
+    	$contactid = (GETPOST('userid','int') ? GETPOST('userid','int') : GETPOST('contactid','int'));
+  		$result = $object->add_contact($contactid, $_POST["type"], $_POST["source"]);
     }
 
 	if ($result >= 0)
 	{
-		Header("Location: ".$_SERVER['PHP_SELF']."?id=".$object->id);
+		header("Location: ".$_SERVER['PHP_SELF']."?id=".$object->id);
 		exit;
 	}
 	else
@@ -98,7 +99,7 @@ else if ($action == 'deletecontact' && $user->rights->commande->creer)
 
 	if ($result >= 0)
 	{
-		Header("Location: ".$_SERVER['PHP_SELF']."?id=".$object->id);
+		header("Location: ".$_SERVER['PHP_SELF']."?id=".$object->id);
 		exit;
 	}
 	else {
@@ -109,7 +110,8 @@ else if ($action == 'deletecontact' && $user->rights->commande->creer)
 else if ($action == 'setaddress' && $user->rights->commande->creer)
 {
 	$object->fetch($id);
-	$object->setDeliveryAddress($_POST['fk_address']);
+	$result=$object->setDeliveryAddress($_POST['fk_address']);
+	if ($result < 0) dol_print_error($db,$object->error);
 }
 
 /*
@@ -135,7 +137,7 @@ dol_htmloutput_mesg($mesg);
 if ($id > 0 || ! empty($ref))
 {
 	$langs->trans("OrderCard");
-	
+
 	if ($object->fetch($id, $ref) > 0)
 	{
 		$soc = new Societe($db);
@@ -151,9 +153,11 @@ if ($id > 0 || ! empty($ref))
 		*/
 		print '<table class="border" width="100%">';
 
+		$linkback = '<a href="'.DOL_URL_ROOT.'/commande/liste.php'.(! empty($socid)?'?socid='.$socid:'').'">'.$langs->trans("BackToList").'</a>';
+
 		// Ref
 		print '<tr><td width="18%">'.$langs->trans("Ref").'</td><td colspan="3">';
-		print $form->showrefnav($object,'ref','',1,'ref','ref');
+		print $form->showrefnav($object, 'ref', $linkback, 1, 'ref', 'ref');
 		print "</td></tr>";
 
 		// Ref commande client
@@ -172,19 +176,19 @@ if ($id > 0 || ! empty($ref))
 
 		print "<tr><td>".$langs->trans("Company")."</td>";
 		print '<td colspan="3">'.$object->client->getNomUrl(1).'</td></tr>';
-		
+
 		// Delivery address
-		if ($conf->global->SOCIETE_ADDRESSES_MANAGEMENT)
+		if (! empty($conf->global->SOCIETE_ADDRESSES_MANAGEMENT))
 		{
 			print '<tr><td>';
 			print '<table class="nobordernopadding" width="100%"><tr><td>';
 			print $langs->trans('DeliveryAddress');
 			print '</td>';
-		
+
 			if ($action != 'editdelivery_address' && $object->brouillon) print '<td align="right"><a href="'.$_SERVER["PHP_SELF"].'?action=editdelivery_address&amp;socid='.$object->socid.'&amp;id='.$object->id.'">'.img_edit($langs->transnoentitiesnoconv('SetDeliveryAddress'),1).'</a></td>';
 			print '</tr></table>';
 			print '</td><td colspan="3">';
-		
+
 			if ($action == 'editdelivery_address')
 			{
 				$formother->form_address($_SERVER['PHP_SELF'].'?id='.$object->id,$object->fk_delivery_address,GETPOST('socid','int'),'fk_address','commande',$object->id);
@@ -195,16 +199,20 @@ if ($id > 0 || ! empty($ref))
 			}
 			print '</td></tr>';
 		}
-		
+
 		print "</table>";
 
 		print '</div>';
 
 		print '<br>';
-		
-		// Contacts lines
-		include(DOL_DOCUMENT_ROOT.'/core/tpl/contacts.tpl.php');
 
+		// Contacts lines (modules that overwrite templates must declare this into descriptor)
+		$dirtpls=array_merge($conf->modules_parts['tpl'],array('/core/tpl'));
+		foreach($dirtpls as $reldir)
+		{
+		    $res=@include dol_buildpath($reldir.'/contacts.tpl.php');
+		    if ($res) break;
+		}
 	}
 	else
 	{

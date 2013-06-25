@@ -1,11 +1,11 @@
 <?php
 /* Copyright (C) 2005-2012 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2005-2009 Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2005-2009 Regis Houssin        <regis.houssin@capnetworks.com>
  * Copyright (C) 2007      Rodolphe Quiedeville <rodolphe@quiedeville.org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -23,8 +23,8 @@
  *	\brief      Setup page for logs module
  */
 
-require("../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
+require '../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
 
 if (!$user->admin) accessforbidden();
 
@@ -33,9 +33,42 @@ $langs->load("other");
 
 $error=0; $mesg='';
 $action = GETPOST("action");
-$syslog_file_on=(defined('SYSLOG_FILE_ON') && constant('SYSLOG_FILE_ON'))?1:0;
-$syslog_syslog_on=(defined('SYSLOG_SYSLOG_ON') && constant('SYSLOG_SYSLOG_ON'))?1:0;
-$syslog_firephp_on=(defined('SYSLOG_FIREPHP_ON') && constant('SYSLOG_FIREPHP_ON'))?1:0;
+
+$syslogModules = array();
+$activeModules = array();
+
+if (defined('SYSLOG_HANDLERS')) $activeModules = json_decode(constant('SYSLOG_HANDLERS'));
+
+$dir = dol_buildpath('/core/modules/syslog/');
+
+if (is_dir($dir))
+{
+	$handle = opendir($dir);
+
+	if (is_resource($handle))
+	{
+		$var=true;
+
+		while (($file = readdir($handle))!==false)
+		{
+			if (substr($file, 0, 11) == 'mod_syslog_' && substr($file, dol_strlen($file)-3, 3) == 'php')
+			{
+				$file = substr($file, 0, dol_strlen($file)-4);
+
+				require_once $dir.$file.'.php';
+
+				$module = new $file;
+
+				// Show modules according to features level
+				if ($module->getVersion() == 'development' && $conf->global->MAIN_FEATURES_LEVEL < 2) continue;
+				if ($module->getVersion() == 'experimental' && $conf->global->MAIN_FEATURES_LEVEL < 1) continue;
+
+				$syslogModules[] = $file;
+			}
+		}
+		closedir($handle);
+	}
+}
 
 
 /*
@@ -47,65 +80,34 @@ if ($action == 'set')
 {
 	$db->begin();
 
-    $res = dolibarr_del_const($db,"SYSLOG_FILE_ON",0);
-    $res = dolibarr_del_const($db,"SYSLOG_SYSLOG_ON",0);
-    $res = dolibarr_del_const($db,"SYSLOG_FIREPHP_ON",0);
+	$activeModules = array();
+	$selectedModules = (isset($_POST['SYSLOG_HANDLERS']) ? $_POST['SYSLOG_HANDLERS'] : array());
 
-    $syslog_file_on=0;
-    $syslog_syslog_on=0;
-    $syslog_firephp_on=0;
-
-	if (! $error && GETPOST("filename"))
+	foreach ($selectedModules as $syslogHandler)
 	{
-		$filename=GETPOST("filename");
-		$filelog=GETPOST("filename");
-		$filelog=preg_replace('/DOL_DATA_ROOT/i',DOL_DATA_ROOT,$filelog);
-		$file=@fopen($filelog,"a+");
-		if ($file)
+		if (in_array($syslogHandler, $syslogModules))
 		{
-			fclose($file);
+			$module = new $syslogHandler;
 
-			dol_syslog("admin/syslog: file ".$filename);
-			$res = dolibarr_set_const($db,"SYSLOG_FILE",$filename,'chaine',0,'',0);
-			if (! $res > 0) $error++;
-            $syslog_file_on=GETPOST('SYSLOG_FILE_ON');
-			if (! $error) $res = dolibarr_set_const($db,"SYSLOG_FILE_ON",$syslog_file_on,'chaine',0,'',0);
-		}
-		else
-		{
-		    $error++;
-		    $mesg = "<font class=\"error\">".$langs->trans("ErrorFailedToOpenFile",$filename)."</font>";
+			if ($module->isActive())
+			{
+				$activeModules[] = $syslogHandler;
+
+				foreach ($module->configure() as $option)
+				{
+					if ($_POST[$option['constant']])
+					{
+						dolibarr_del_const($db, $option['constant'], 0);
+						dolibarr_set_const($db, $option['constant'], $_POST[$option['constant']], 'chaine',0, '', 0);
+					}
+				}
+			}
 		}
 	}
 
-	if (! $error && GETPOST("facility"))
-	{
-	    $facility=GETPOST("facility");
-	    if (defined($_POST["facility"]))
-		{
-			// Only LOG_USER supported on Windows
-			if (! empty($_SERVER["WINDIR"])) $facility='LOG_USER';
+	dolibarr_set_const($db, 'SYSLOG_HANDLERS', json_encode($activeModules), 'chaine',0,'',0);
 
-			dol_syslog("admin/syslog: facility ".$facility);
-			$res = dolibarr_set_const($db,"SYSLOG_FACILITY",$facility,'chaine',0,'',0);
-			if (! $res > 0) $error++;
-            $syslog_syslog_on=GETPOST('SYSLOG_SYSLOG_ON');
-			if (! $error) $res = dolibarr_set_const($db,"SYSLOG_SYSLOG_ON",$syslog_syslog_on,'chaine',0,'',0);
-		}
-		else
-		{
-		    $error++;
-		    $mesg = "<font class=\"error\">".$langs->trans("ErrorUnknownSyslogConstant",$facility)."</font>";
-		}
-	}
-
-	if (! $error && isset($_POST['SYSLOG_FIREPHP_ON']))    // If firephp no available, post is not present
-	{
-        $syslog_firephp_on=GETPOST('SYSLOG_FIREPHP_ON');
-		if (! $error) $res = dolibarr_set_const($db,"SYSLOG_FIREPHP_ON",$syslog_firephp_on,'chaine',0,'',0);
-    }
-
-	if (! $error)
+    if (! $error)
 	{
 		$db->commit();
 		$mesg = "<font class=\"ok\">".$langs->trans("SetupSaved")."</font>";
@@ -176,42 +178,42 @@ print '<td align="right" colspan="2"><input type="submit" class="button" '.$opti
 print "</tr>\n";
 $var=true;
 
-$var=!$var;
-print '<tr '.$bc[$var].'><td width="140"><input '.$bc[$var].' type="checkbox" name="SYSLOG_FILE_ON" '.$option.' value="1" '.($syslog_file_on?' checked="checked"':'').'> '.$langs->trans("SyslogSimpleFile").'</td>';
-print '<td nowrap="nowrap">'.$langs->trans("SyslogFilename").': <input type="text" class="flat" name="filename" '.$option.' size="60" value="'.$defaultsyslogfile.'">';
-print '</td>';
-print "<td align=\"left\">".$form->textwithpicto('',$langs->trans("YouCanUseDOL_DATA_ROOT"));
-print '</td></tr>';
-
-$var=!$var;
-print '<tr '.$bc[$var].'><td width="140"><input '.$bc[$var].' type="checkbox" name="SYSLOG_SYSLOG_ON" '.$option.' value="1" '.($syslog_syslog_on?' checked="checked"':'').'> '.$langs->trans("SyslogSyslog").'</td>';
-print '<td nowrap="nowrap">'.$langs->trans("SyslogFacility").': <input type="text" class="flat" name="facility" '.$option.' value="'.$defaultsyslogfacility.'">';
-print '</td>';
-print "<td align=\"left\">".$form->textwithpicto('','Only LOG_USER supported on Windows');
-print '</td></tr>';
-
-try
+foreach ($syslogModules as $moduleName)
 {
-    set_include_path('/usr/share/php/');
-    $res=@include_once('FirePHPCore/FirePHP.class.php');
-    restore_include_path();
-    if ($res)
-    {
-        $var=!$var;
-        print '<tr '.$bc[$var].'><td width="140"><input '.$bc[$var].' type="checkbox" name="SYSLOG_FIREPHP_ON" '.$option.' value="1" ';
-        if (! class_exists('FirePHP')) print ' disabled="disabled"';
-        else print ($syslog_firephp_on?' checked="checked"':"");
-        print '> '.$langs->trans("FirePHP").'</td>';
-        print '<td nowrap="nowrap">';
-        print '</td>';
-        print "<td align=\"left\">".$form->textwithpicto('','FirePHP must be installed onto PHP and FirePHP plugin for Firefox must also be installed');
-        print '</td></tr>';
-    }
-}
-catch(Exception $e)
-{
-    // Do nothing
-    print '<!-- FirePHP no available into PHP -->'."\n";
+	$module = new $moduleName;
+
+	$moduleactive=$module->isActive();
+	if ($moduleactive == -1 && empty($conf->global->MAIN_FEATURES_LEVEL)) continue;		// Some modules are hidden if not activable and not into debug mode (end user must not see them)
+
+	$var=!$var;
+	print '<tr '.$bc[$var].'>';
+	print '<td width="140">';
+	print '<input '.$bc[$var].' type="checkbox" name="SYSLOG_HANDLERS[]" value="'.$moduleName.'" '.(in_array($moduleName, $activeModules) ? 'checked="checked"' : '').(!$moduleactive ? 'disabled="disabled"' : '').'> ';
+	print $module->getName();
+	print '</td>';
+
+	print '<td nowrap="nowrap">';
+	$setuparray=$module->configure();
+	if ($setuparray)
+	{
+		foreach ($setuparray as $option)
+		{
+			if (isset($_POST[$option['constant']])) $value=$_POST[$option['constant']]; 
+			else if (defined($option['constant'])) $value = constant($option['constant']);
+			else $value = (isset($option['default']) ? $option['default'] : '');
+
+			print $option['name'].': <input type="text" class="flat" name="'.$option['constant'].'" value="'.$value.'"'.(isset($option['attr']) ? ' '.$option['attr'] : '').'>';
+		}
+	}
+	print '</td>';
+
+	print '<td align="left">';
+	if ($module->getInfo())
+	{
+		print $form->textwithpicto('', $module->getInfo());
+	}
+	print '</td>';
+	print "</tr>\n";
 }
 
 print "</table>\n";

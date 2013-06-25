@@ -1,12 +1,13 @@
 <?php
 /* Copyright (C) 2001-2004 Rodolphe Quiedeville <rodolphe@quiedeville.org>
  * Copyright (C) 2004-2011 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2005-2012 Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2005-2012 Regis Houssin        <regis.houssin@capnetworks.com>
  * Copyright (C) 2011      Philippe Grand       <philippe.grand@atoo-net.com>
+ * Copyright (C) 2013      Florian Henry       <florian.henry@open-concept.pro>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -24,9 +25,9 @@
  *	\brief      Page to list prospects
  */
 
-require("../../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/comm/prospect/class/prospect.class.php");
-require_once(DOL_DOCUMENT_ROOT."/core/class/html.formother.class.php");
+require '../../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/comm/prospect/class/prospect.class.php';
+require_once DOL_DOCUMENT_ROOT.'/core/class/html.formother.class.php';
 
 $langs->load("propal");
 $langs->load("companies");
@@ -36,12 +37,16 @@ $socid = GETPOST("socid",'int');
 if ($user->societe_id) $socid=$user->societe_id;
 $result = restrictedArea($user, 'societe',$socid,'');
 
+$action				= GETPOST('action','alpha');
 $socname            = GETPOST("socname",'alpha');
 $stcomm             = GETPOST("stcomm",'int');
 $search_nom         = GETPOST("search_nom");
+$search_zipcode     = GETPOST("search_zipcode");
 $search_ville       = GETPOST("search_ville");
 $search_departement = GETPOST("search_departement");
 $search_datec       = GETPOST("search_datec");
+$search_categ       = GETPOST("search_categ",'int');
+$catid              = GETPOST("catid",'int');
 
 $sortfield = GETPOST("sortfield",'alpha');
 $sortorder = GETPOST("sortorder",'alpha');
@@ -125,8 +130,6 @@ if ($resql)
 		{
 			$search_levels[] = '"'.preg_replace('[^A-Za-z0-9_-]', '', $obj->code).'"';
 		}
-
-		$i++;
 	}
 
 	// Implode the $search_levels array so that it can be use in a "IN (...)" where clause.
@@ -136,18 +139,29 @@ if ($resql)
 else dol_print_error($db);
 
 // Load sale and categ filters
-$search_sale = isset($_GET["search_sale"])?$_GET["search_sale"]:$_POST["search_sale"];
-$search_categ = isset($_GET["search_categ"])?$_GET["search_categ"]:$_POST["search_categ"];
+$search_sale = GETPOST('search_sale');
+$search_categ = GETPOST('search_categ');
 // If the user must only see his prospect, force searching by him
 if (!$user->rights->societe->client->voir && !$socid) $search_sale = $user->id;
 
 // List of avaible states; we'll need that for each lines (quick changing prospect states) and for search bar (filter by prospect state)
 $sts = array(-1,0,1,2,3);
 
+
+// Initialize technical object to manage hooks of thirdparties. Note that conf->hooks_modules contains array array
+include_once DOL_DOCUMENT_ROOT.'/core/class/hookmanager.class.php';
+$hookmanager=new HookManager($db);
+$hookmanager->initHooks(array('prospectlist'));
+
+
 /*
  * Actions
  */
-if ($_GET["action"] == 'cstc')
+
+$parameters=array();
+$reshook=$hookmanager->executeHooks('doActions',$parameters);    // Note that $action and $object may have been modified by some hooks
+
+if ($action == 'cstc')
 {
 	$sql = "UPDATE ".MAIN_DB_PREFIX."societe SET fk_stcomm = ".$_GET["pstcomm"];
 	$sql .= " WHERE rowid = ".$_GET["socid"];
@@ -159,32 +173,30 @@ if ($_GET["action"] == 'cstc')
  * View
  */
 
-$htmlother=new FormOther($db);
+$formother=new FormOther($db);
 
-$sql = "SELECT s.rowid, s.nom, s.ville, s.datec, s.datea, s.status as status,";
+$sql = "SELECT s.rowid, s.nom, s.cp as zip, s.ville, s.datec, s.datea, s.status as status,";
 $sql.= " st.libelle as stcomm, s.prefix_comm, s.fk_stcomm, s.fk_prospectlevel,";
 $sql.= " d.nom as departement";
 // Updated by Matelli
-// We'll need these fields in order to filter by sale (including the case where the user can only see his prospects)
-if ($search_sale) $sql .= ", sc.fk_soc, sc.fk_user";
-// We'll need these fields in order to filter by categ
-if ($search_categ) $sql .= ", cs.fk_categorie, cs.fk_societe";
+if ($search_sale) $sql .= ", sc.fk_soc, sc.fk_user"; // We need these fields in order to filter by sale (including the case where the user can only see his prospects)
 $sql .= " FROM ".MAIN_DB_PREFIX."c_stcomm as st";
-// We'll need this table joined to the select in order to filter by sale
-if ($search_sale || !$user->rights->societe->client->voir) $sql.= ", ".MAIN_DB_PREFIX."societe_commerciaux as sc";
-// We'll need this table joined to the select in order to filter by categ
-if ($search_categ) $sql.= ", ".MAIN_DB_PREFIX."categorie_societe as cs";
+if ($search_sale || !$user->rights->societe->client->voir) $sql.= ", ".MAIN_DB_PREFIX."societe_commerciaux as sc"; // We need this table joined to the select in order to filter by sale
 $sql.= ", ".MAIN_DB_PREFIX."societe as s";
 $sql.= " LEFT JOIN ".MAIN_DB_PREFIX."c_departements as d on (d.rowid = s.fk_departement)";
+if (! empty($search_categ) || ! empty($catid)) $sql.= ' LEFT JOIN '.MAIN_DB_PREFIX."categorie_societe as cs ON s.rowid = cs.fk_societe"; // We need this table joined to the select in order to filter by categ
 $sql.= " WHERE s.fk_stcomm = st.id";
 $sql.= " AND s.client IN (2, 3)";
 $sql.= ' AND s.entity IN ('.getEntity('societe', 1).')';
 if ($user->societe_id) $sql.= " AND s.rowid = " .$user->societe_id;
 if ($search_sale) $sql.= " AND s.rowid = sc.fk_soc";		// Join for the needed table to filter by sale
-if ($search_categ) $sql.= " AND s.rowid = cs.fk_societe";	// Join for the needed table to filter by categ
 if (isset($stcomm) && $stcomm != '') $sql.= " AND s.fk_stcomm=".$stcomm;
-
+if ($catid > 0)          $sql.= " AND cs.fk_categorie = ".$catid;
+if ($catid == -2)        $sql.= " AND cs.fk_categorie IS NULL";
+if ($search_categ > 0)   $sql.= " AND cs.fk_categorie = ".$search_categ;
+if ($search_categ == -2) $sql.= " AND cs.fk_categorie IS NULL";
 if ($search_nom)   $sql .= " AND s.nom LIKE '%".$db->escape(strtolower($search_nom))."%'";
+if ($search_zipcode) $sql .= " AND s.cp LIKE '".$db->escape(strtolower($search_zipcode))."%'";
 if ($search_ville) $sql .= " AND s.ville LIKE '%".$db->escape(strtolower($search_ville))."%'";
 if ($search_departement) $sql .= " AND d.nom LIKE '%".$db->escape(strtolower($search_departement))."%'";
 if ($search_datec) $sql .= " AND s.datec LIKE '%".$db->escape($search_datec)."%'";
@@ -197,11 +209,6 @@ if ($search_levels)
 if ($search_sale)
 {
 	$sql .= " AND sc.fk_user = ".$db->escape($search_sale);
-}
-// Insert categ filter
-if ($search_categ)
-{
-	$sql .= " AND cs.fk_categorie = ".$db->escape($search_categ);
 }
 if ($socname)
 {
@@ -229,7 +236,7 @@ if ($resql)
 	if ($num == 1 && $socname)
 	{
 		$obj = $db->fetch_object($resql);
-		Header("Location: fiche.php?socid=".$obj->rowid);
+		header("Location: fiche.php?socid=".$obj->rowid);
 		exit;
 	}
 	else
@@ -238,7 +245,7 @@ if ($resql)
         llxHeader('',$langs->trans("ThirdParty"),$help_url);
 	}
 
-	$param='&amp;stcomm='.$stcomm.'&amp;search_nom='.urlencode($search_nom).'&amp;search_ville='.urlencode($search_ville);
+	$param='&amp;stcomm='.$stcomm.'&amp;search_nom='.urlencode($search_nom).'&amp;search_zipcode='.urlencode($search_zipcode).'&amp;search_ville='.urlencode($search_ville);
  	// Added by Matelli
  	// Store the status filter in the URL
  	if (isSet($search_cstc))
@@ -262,47 +269,55 @@ if ($resql)
 
 
  	// Print the search-by-sale and search-by-categ filters
- 	print '<form method="get" action="'.$_SERVER["PHP_SELF"].'" id="formulaire_recherche">';
-
-	print '<table class="liste" width="100%">';
+ 	print '<form method="GET" id="searchFormList" action="'.$_SERVER["PHP_SELF"].'">';
 
 	// Filter on categories
  	$moreforfilter='';
-	if ($conf->categorie->enabled)
+	if (! empty($conf->categorie->enabled))
 	{
 	 	$moreforfilter.=$langs->trans('Categories'). ': ';
-		$moreforfilter.=$htmlother->select_categories(2,$search_categ,'search_categ');
+		$moreforfilter.=$formother->select_categories(2,$search_categ,'search_categ',1);
 	 	$moreforfilter.=' &nbsp; &nbsp; &nbsp; ';
 	}
  	// If the user can view prospects other than his'
  	if ($user->rights->societe->client->voir || $socid)
  	{
 	 	$moreforfilter.=$langs->trans('SalesRepresentatives'). ': ';
-		$moreforfilter.=$htmlother->select_salesrepresentatives($search_sale,'search_sale',$user);
+		$moreforfilter.=$formother->select_salesrepresentatives($search_sale,'search_sale',$user);
  	}
  	if ($moreforfilter)
 	{
-		print '<tr class="liste_titre">';
-		print '<td class="liste_titre" colspan="8">';
+		print '<div class="liste_titre">';
 	    print $moreforfilter;
-	    print '</td></tr>';
+	    print '</div>';
 	}
+
+	print '<table class="liste" width="100%">';
 
 	print '<tr class="liste_titre">';
 	print_liste_field_titre($langs->trans("Company"),$_SERVER["PHP_SELF"],"s.nom","",$param,'',$sortfield,$sortorder);
+	print_liste_field_titre($langs->trans("Zip"),$_SERVER["PHP_SELF"],"s.cp","",$param,"",$sortfield,$sortorder);
 	print_liste_field_titre($langs->trans("Town"),$_SERVER["PHP_SELF"],"s.ville","",$param,"",$sortfield,$sortorder);
 	print_liste_field_titre($langs->trans("State"),$_SERVER["PHP_SELF"],"s.fk_departement","",$param,'align="center"',$sortfield,$sortorder);
 	print_liste_field_titre($langs->trans("DateCreation"),$_SERVER["PHP_SELF"],"s.datec","",$param,'align="center"',$sortfield,$sortorder);
 	print_liste_field_titre($langs->trans("ProspectLevelShort"),$_SERVER["PHP_SELF"],"s.fk_prospectlevel","",$param,'align="center"',$sortfield,$sortorder);
 	print_liste_field_titre($langs->trans("StatusProsp"),$_SERVER["PHP_SELF"],"s.fk_stcomm","",$param,'align="center"',$sortfield,$sortorder);
 	print '<td class="liste_titre">&nbsp;</td>';
-    print_liste_field_titre($langs->trans("Status"),$_SERVER["PHP_SELF"],"s.status","",$params,'align="right"',$sortfield,$sortorder);
+    print_liste_field_titre($langs->trans("Status"),$_SERVER["PHP_SELF"],"s.status","",$param,'align="right"',$sortfield,$sortorder);
+
+    $parameters=array();
+    $formconfirm=$hookmanager->executeHooks('printFieldListTitle',$parameters);    // Note that $action and $object may have been modified by hook
+
 	print "</tr>\n";
 
 	print '<tr class="liste_titre">';
 	print '<td class="liste_titre">';
 	print '<input type="text" class="flat" name="search_nom" size="10" value="'.$search_nom.'">';
-	print '</td><td class="liste_titre">';
+	print '</td>';
+	print '<td class="liste_titre">';
+	print '<input type="text" class="flat" name="search_zipcode" size="10" value="'.$search_zipcode.'">';
+	print '</td>';
+	print '<td class="liste_titre">';
 	print '<input type="text" class="flat" name="search_ville" size="10" value="'.$search_ville.'">';
 	print '</td>';
  	print '<td class="liste_titre" align="center">';
@@ -355,6 +370,9 @@ if ($resql)
 	print '<input class="liste_titre" name="button_search" type="image" src="'.DOL_URL_ROOT.'/theme/'.$conf->theme.'/img/search.png" value="'.dol_escape_htmltag($langs->trans("Search")).'" title="'.dol_escape_htmltag($langs->trans("Search")).'">';
 	print '</td>';
 
+	$parameters=array();
+	$formconfirm=$hookmanager->executeHooks('printFieldListOption',$parameters);    // Note that $action and $object may have been modified by hook
+
 	print "</tr>\n";
 
 	$i = 0;
@@ -376,6 +394,7 @@ if ($resql)
         $prospectstatic->status=$obj->status;
 		print $prospectstatic->getNomUrl(1,'prospect');
         print '</td>';
+        print "<td>".$obj->zip."&nbsp;</td>";
 		print "<td>".$obj->ville."&nbsp;</td>";
 		print '<td align="center">'.$obj->departement.'</td>';
 		// Creation date
@@ -406,6 +425,9 @@ if ($resql)
 		print $prospectstatic->getLibStatut(3);
         print '</td>';
 
+        $parameters=array('obj' => $obj);
+        $formconfirm=$hookmanager->executeHooks('printFieldListValue',$parameters);    // Note that $action and $object may have been modified by hook
+
         print "</tr>\n";
 		$i++;
 	}
@@ -417,13 +439,16 @@ if ($resql)
 	print "</form>";
 
 	$db->free($resql);
+
+	$parameters=array('sql' => $sql);
+	$formconfirm=$hookmanager->executeHooks('printFieldListFooter',$parameters);    // Note that $action and $object may have been modified by hook
 }
 else
 {
 	dol_print_error($db);
 }
 
-$db->close();
 
 llxFooter();
+$db->close();
 ?>

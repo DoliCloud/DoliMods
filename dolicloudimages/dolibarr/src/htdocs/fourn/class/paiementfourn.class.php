@@ -2,12 +2,12 @@
 /* Copyright (C) 2002-2004 Rodolphe Quiedeville   <rodolphe@quiedeville.org>
  * Copyright (C) 2004-2007 Laurent Destailleur    <eldy@users.sourceforge.net>
  * Copyright (C) 2005      Marc Barilley / Ocebo  <marc@ocebo.com>
- * Copyright (C) 2005-2009 Regis Houssin          <regis@dolibarr.fr>
+ * Copyright (C) 2005-2009 Regis Houssin          <regis.houssin@capnetworks.com>
  * Copyright (C) 2010-2011 Juanjo Menent          <jmenent@2byte.es>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -24,8 +24,8 @@
  *		\ingroup    fournisseur, facture
  *		\brief      File of class to manage payments of suppliers invoices
  */
-require_once(DOL_DOCUMENT_ROOT.'/compta/bank/class/account.class.php');
-require_once(DOL_DOCUMENT_ROOT.'/compta/paiement/class/paiement.class.php');
+require_once DOL_DOCUMENT_ROOT.'/compta/bank/class/account.class.php';
+require_once DOL_DOCUMENT_ROOT.'/compta/paiement/class/paiement.class.php';
 
 /**
  *	\class      PaiementFourn
@@ -60,7 +60,7 @@ class PaiementFourn extends Paiement
 	 *
 	 *  @param		DoliDB		$db      Database handler
 	 */
-	function PaiementFourn($db)
+	function __construct($db)
 	{
 		$this->db = $db;
 	}
@@ -142,9 +142,11 @@ class PaiementFourn extends Paiement
 
 		if ($this->total <> 0) // On accepte les montants negatifs
 		{
+			$now=dol_now();
+
 			$sql = 'INSERT INTO '.MAIN_DB_PREFIX.'paiementfourn (';
 			$sql.= 'datec, datep, amount, fk_paiement, num_paiement, note, fk_user_author, fk_bank)';
-			$sql.= ' VALUES ('.$this->db->idate(mktime()).',';
+			$sql.= ' VALUES ('.$this->db->idate($now).',';
 			$sql.= " ".$this->db->idate($this->datepaye).", '".$this->total."', ".$this->paiementid.", '".$this->num_paiement."', '".$this->db->escape($this->note)."', ".$user->id.", 0)";
 
 			dol_syslog("PaiementFourn::create sql=".$sql);
@@ -200,7 +202,7 @@ class PaiementFourn extends Paiement
 				if (! $error)
 				{
 		            // Appel des triggers
-		            include_once(DOL_DOCUMENT_ROOT . "/core/class/interfaces.class.php");
+		            include_once DOL_DOCUMENT_ROOT . '/core/class/interfaces.class.php';
 		            $interface=new Interfaces($this->db);
 		            $result=$interface->run_triggers('PAYMENT_SUPPLIER_CREATE',$this,$user,$langs,$conf);
 					if ($result < 0) { $error++; $this->errors=$interface->errors; }
@@ -240,9 +242,10 @@ class PaiementFourn extends Paiement
 	 *	Si le paiement porte sur un ecriture compte qui est rapprochee, on refuse
 	 *	Si le paiement porte sur au moins une facture a "payee", on refuse
 	 *
+	 *	@param		int		$notrigger		No trigger
 	 *	@return     int     <0 si ko, >0 si ok
 	 */
-	function delete()
+	function delete($notrigger=0)
 	{
 		$bank_line_id = $this->bank_line;
 
@@ -255,7 +258,7 @@ class PaiementFourn extends Paiement
 		{
 			if (count($billsarray))
 			{
-				$this->error='Impossible de supprimer un paiement portant sur au moins une facture a l\'etat paye';
+				$this->error='Can\'t delete a payment shared by at least one invoice with status payed';
 				$this->db->rollback();
 				return -1;
 			}
@@ -283,11 +286,13 @@ class PaiementFourn extends Paiement
 		// Efface la ligne de paiement (dans paiement_facture et paiement)
 		$sql = 'DELETE FROM '.MAIN_DB_PREFIX.'paiementfourn_facturefourn';
 		$sql.= ' WHERE fk_paiementfourn = '.$this->id;
+		dol_syslog("sql=".$sql);
 		$resql = $this->db->query($sql);
 		if ($resql)
 		{
 			$sql = 'DELETE FROM '.MAIN_DB_PREFIX.'paiementfourn';
 			$sql.= ' WHERE rowid = '.$this->id;
+		    dol_syslog("sql=".$sql);
 			$result = $this->db->query($sql);
 			if (! $result)
 			{

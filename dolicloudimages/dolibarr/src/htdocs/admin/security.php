@@ -1,10 +1,10 @@
 <?php
 /* Copyright (C) 2004-2009 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2005-2007 Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2005-2007 Regis Houssin        <regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -22,9 +22,9 @@
  *      \brief      Page de configuration du module securite
  */
 
-require("../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/security2.lib.php");
+require '../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/security2.lib.php';
 
 $action=GETPOST('action');
 
@@ -51,7 +51,7 @@ if ($action == 'setgeneraterule')
 	}
 	else
 	{
-		Header("Location: ".$_SERVER["PHP_SELF"]);
+		header("Location: ".$_SERVER["PHP_SELF"]);
 		exit;
 	}
 }
@@ -102,7 +102,7 @@ if ($action == 'activate_encrypt')
     if (! $error)
 	{
 		$db->commit();
-		Header("Location: security.php");
+		header("Location: security.php");
 	    exit;
 	}
 	else
@@ -119,7 +119,7 @@ else if ($action == 'disable_encrypt')
 	{
 		dolibarr_del_const($db, "DATABASE_PWD_ENCRYPTED",$conf->entity);
     }
-	Header("Location: security.php");
+	header("Location: security.php");
     exit;
 }
 
@@ -130,7 +130,7 @@ if ($action == 'activate_encryptdbpassconf')
 	{
 		// database value not required
 		//dolibarr_set_const($db, "MAIN_DATABASE_PWD_CONFIG_ENCRYPTED", "1");
-		Header("Location: security.php");
+		header("Location: security.php");
 		exit;
 	}
 	else
@@ -145,7 +145,7 @@ else if ($action == 'disable_encryptdbpassconf')
 	{
 		// database value not required
 		//dolibarr_del_const($db, "MAIN_DATABASE_PWD_CONFIG_ENCRYPTED",$conf->entity);
-		Header("Location: security.php");
+		header("Location: security.php");
 		exit;
 	}
 	else
@@ -157,26 +157,26 @@ else if ($action == 'disable_encryptdbpassconf')
 if ($action == 'activate_pdfsecurity')
 {
 	dolibarr_set_const($db, "PDF_SECURITY_ENCRYPTION", "1",'chaine',0,'',$conf->entity);
-	Header("Location: security.php");
+	header("Location: security.php");
 	exit;
 }
 else if ($action == 'disable_pdfsecurity')
 {
 	dolibarr_del_const($db, "PDF_SECURITY_ENCRYPTION",$conf->entity);
-	Header("Location: security.php");
+	header("Location: security.php");
 	exit;
 }
 
 if ($action == 'activate_MAIN_SECURITY_DISABLEFORGETPASSLINK')
 {
 	dolibarr_set_const($db, "MAIN_SECURITY_DISABLEFORGETPASSLINK", '1','chaine',0,'',$conf->entity);
-	Header("Location: security.php");
+	header("Location: security.php");
 	exit;
 }
 else if ($action == 'disable_MAIN_SECURITY_DISABLEFORGETPASSLINK')
 {
 	dolibarr_del_const($db, "MAIN_SECURITY_DISABLEFORGETPASSLINK",$conf->entity);
-	Header("Location: security.php");
+	header("Location: security.php");
 	exit;
 }
 
@@ -226,7 +226,7 @@ if (is_resource($handle))
         {
             // Chargement de la classe de numerotation
             $classname = $reg[1];
-            require_once($dir.'/'.$file);
+            require_once $dir.'/'.$file;
 
             $obj = new $classname($db,$conf,$langs,$user);
             $arrayhandler[$obj->id]=$obj;
@@ -301,7 +301,7 @@ $var=!$var;
 print "<tr ".$bc[$var].">";
 print '<td colspan="3">'.$langs->trans("DoNotStoreClearPassword").'</td>';
 print '<td align="center" width="60">';
-if ($conf->global->DATABASE_PWD_ENCRYPTED)
+if (! empty($conf->global->DATABASE_PWD_ENCRYPTED))
 {
 	print img_picto($langs->trans("Active"),'tick');
 }
@@ -312,7 +312,7 @@ if (! $conf->global->DATABASE_PWD_ENCRYPTED)
 	print '<a href="security.php?action=activate_encrypt">'.$langs->trans("Activate").'</a>';
 	print "</td>";
 }
-if($conf->global->DATABASE_PWD_ENCRYPTED)
+if (! empty($conf->global->DATABASE_PWD_ENCRYPTED))
 {
 	print '<td align="center" width="100">';
 	if ($allow_disable_encryption)

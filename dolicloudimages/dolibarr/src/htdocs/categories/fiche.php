@@ -1,12 +1,12 @@
 <?php
 /* Copyright (C) 2005      Matthieu Valleton    <mv@seeschloss.org>
  * Copyright (C) 2006-2011 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2005-2011 Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2005-2012 Regis Houssin        <regis.houssin@capnetworks.com>
  * Copyright (C) 2007      Patrick Raguin	  	<patrick.raguin@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -24,8 +24,8 @@
  *		\brief      Page to create a new category
  */
 
-require("../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/categories/class/categorie.class.php");
+require '../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
 
 $langs->load("categories");
 
@@ -40,6 +40,12 @@ $origin		= GETPOST('origin','alpha');
 $catorigin	= GETPOST('catorigin','int');
 $type 		= GETPOST('type','alpha');
 $urlfrom	= GETPOST('urlfrom','alpha');
+
+$socid=GETPOST('socid','int');
+$nom=GETPOST('nom');
+$description=GETPOST('description');
+$visible=GETPOST('visible');
+$parent=GETPOST('parent');
 
 if ($origin)
 {
@@ -101,22 +107,23 @@ if ($action == 'add' && $user->rights->categorie->creer)
 
 	$object = new Categorie($db);
 
-	$object->label			= $_POST["nom"];
-	$object->description	= $_POST["description"];
-	$object->socid			= ($_POST["socid"] ? $_POST["socid"] : 'null');
-	$object->visible		= $_POST["visible"];
+	$object->label			= $nom;
+	$object->description	= $description;
+	$object->socid			= ($socid ? $socid : 'null');
+	$object->visible		= $visible;
 	$object->type			= $type;
 
-	if($_POST['catMere'] != "-1") $object->id_mere = $_POST['catMere'];
+	if ($parent != "-1") $object->fk_parent = $parent;
 
 	if (! $object->label)
 	{
-		$object->error = $langs->trans("ErrorFieldRequired",$langs->transnoentities("Ref"));
-		$_GET["action"] = 'create';
+		$error++;
+		$errors[] = $langs->trans("ErrorFieldRequired",$langs->transnoentities("Ref"));
+		$action = 'create';
 	}
 
 	// Create category in database
-	if (! $object->error)
+	if (! $error)
 	{
 		$result = $object->create();
 		if ($result > 0)
@@ -197,25 +204,25 @@ if ($user->rights->categorie->creer)
 
 		print_fiche_titre($langs->trans("CreateCat"));
 
-		dol_htmloutput_errors($object->error);
+		dol_htmloutput_errors('',$errors);
 
 		print '<table width="100%" class="border">';
 
 		// Ref
 		print '<tr>';
-		print '<td width="25%" class="fieldrequired">'.$langs->trans("Ref").'</td><td><input name="nom" size="25" value="'.$object->label.'">';
+		print '<td width="25%" class="fieldrequired">'.$langs->trans("Ref").'</td><td><input name="nom" size="25" value="'.$nom.'">';
 		print'</td></tr>';
 
 		// Description
 		print '<tr><td valign="top">'.$langs->trans("Description").'</td><td>';
-		require_once(DOL_DOCUMENT_ROOT."/core/class/doleditor.class.php");
-		$doleditor=new DolEditor('description',$object->description,'',200,'dolibarr_notes','',false,true,$conf->global->FCKEDITOR_ENABLE_PRODUCTDESC,ROWS_6,50);
+		require_once DOL_DOCUMENT_ROOT.'/core/class/doleditor.class.php';
+		$doleditor=new DolEditor('description',$description,'',200,'dolibarr_notes','',false,true,$conf->global->FCKEDITOR_ENABLE_PRODUCTDESC,ROWS_6,50);
 		$doleditor->Create();
 		print '</td></tr>';
 
 		// Parent category
 		print '<tr><td>'.$langs->trans("AddIn").'</td><td>';
-		print $form->select_all_categories($type,$catorigin);
+		print $form->select_all_categories($type, $catorigin);
 		print '</td></tr>';
 
 		print '</table>';

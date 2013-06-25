@@ -1,12 +1,12 @@
 <?php
 /* Copyright (C) 2004		Rodolphe Quiedeville	<rodolphe@quiedeville.org>
  * Copyright (C) 2005-2011	Laurent Destailleur		<eldy@users.sourceforge.org>
- * Copyright (C) 2011-2012	Regis Houssin			<regis@dolibarr.fr>
+ * Copyright (C) 2011-2012	Regis Houssin			<regis.houssin@capnetworks.com>
  * Copyright (C) 2011-2012  Juanjo Menent			<jmenent@2byte.es>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -24,10 +24,10 @@
  * \brief      Page to setup paypal module
  */
 
-require("../../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/paypal/lib/paypal.lib.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
-require_once(DOL_DOCUMENT_ROOT."/core/class/doleditor.class.php");
+require '../../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/paypal/lib/paypal.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/core/class/doleditor.class.php';
 
 $servicename='PayPal';
 
@@ -36,8 +36,7 @@ $langs->load("other");
 $langs->load("paypal");
 $langs->load("paybox");
 
-if (!$user->admin)
-  accessforbidden();
+if (! $user->admin) accessforbidden();
 
 $action = GETPOST('action','alpha');
 
@@ -68,11 +67,11 @@ if ($action == 'setvalue' && $user->admin)
     if (! $result > 0) $error++;
     $result=dolibarr_set_const($db, "PAYPAL_MESSAGE_KO",GETPOST('PAYPAL_MESSAGE_KO','alpha'),'chaine',0,'',$conf->entity);
 	if (! $result > 0) $error++;
-	
+
 	if (! $error)
   	{
   		$db->commit();
-  		$mesg='<div class="ok">'.$langs->trans("SetupSaved").'</div>';
+  		setEventMessage($langs->trans("SetupSaved"));
   	}
   	else
   	{
@@ -101,30 +100,13 @@ dol_fiche_head($head, 'paypalaccount', $langs->trans("ModuleSetup"));
 
 print $langs->trans("PaypalDesc")."<br>\n";
 
-if ($conf->use_javascript_ajax)
+// Test if php curl exist
+if (! function_exists('curl_version'))
 {
-    print "\n".'<script type="text/javascript" language="javascript">';
-    print '$(document).ready(function () {
-            $("#apidoc").hide();
-            $("#apidoca").click(function() {
-                $("#apidoca").hide();
-                $("#apidoc").show();
-            });
-
-            $("#generate_token").click(function() {
-            	$.get( "'.DOL_URL_ROOT.'/core/ajax/security.php", {
-            		action: \'getrandompassword\',
-            		generic: true
-				},
-				function(token) {
-					$("#PAYPAL_SECURITY_TOKEN").val(token);
-				});
-            });
-    });';
-    print '</script>';
+	$langs->load("errors");
+	setEventMessage($langs->trans("ErrorPhpCurlNotInstalled"), 'errors');
 }
 
-dol_htmloutput_mesg($mesg);
 
 print '<br>';
 print '<form method="post" action="'.$_SERVER["PHP_SELF"].'">';
@@ -175,7 +157,7 @@ print "</tr>\n";
 $var=!$var;
 print '<tr '.$bc[$var].'><td class="fieldrequired">';
 print $langs->trans("PAYPAL_API_INTEGRAL_OR_PAYPALONLY").'</td><td>';
-print $form->selectarray("PAYPAL_API_INTEGRAL_OR_PAYPALONLY",array('integral'=>'Integral','paypalonly'=>'Paypal only'),$conf->global->PAYPAL_API_INTEGRAL_OR_PAYPALONLY);
+print $form->selectarray("PAYPAL_API_INTEGRAL_OR_PAYPALONLY",array('integral'=> $langs->trans('PaypalModeIntegral'),'paypalonly'=> $langs->trans('PaypalModeOnlyPaypal')),$conf->global->PAYPAL_API_INTEGRAL_OR_PAYPALONLY);
 print '</td></tr>';
 
 /*$var=!$var;
@@ -229,7 +211,8 @@ $var=!$var;
 print '<tr '.$bc[$var].'><td>';
 print $langs->trans("SecurityToken").'</td><td>';
 print '<input size="48" type="text" id="PAYPAL_SECURITY_TOKEN" name="PAYPAL_SECURITY_TOKEN" value="'.$conf->global->PAYPAL_SECURITY_TOKEN.'">';
-print '&nbsp;'.img_picto($langs->trans('Generate'), 'refresh', 'id="generate_token" class="linkobject"');
+if (! empty($conf->use_javascript_ajax))
+	print '&nbsp;'.img_picto($langs->trans('Generate'), 'refresh', 'id="generate_token" class="linkobject"');
 print '</td></tr>';
 
 $var=!$var;
@@ -250,7 +233,8 @@ print '<br><br>';
 
 // Help doc
 print '<u>'.$langs->trans("InformationToFindParameters","Paypal").'</u>:<br>';
-if ($conf->use_javascript_ajax) print '<a href="#" id="apidoca">'.$langs->trans("ClickHere").'...</a>';
+if (! empty($conf->use_javascript_ajax))
+	print '<a href="#" id="apidoca">'.$langs->trans("ClickHere").'...</a>';
 
 $realpaypalurl='www.paypal.com';
 $sandboxpaypalurl='developer.paypal.com';
@@ -277,7 +261,7 @@ $token='';
 print '<u>'.$langs->trans("FollowingUrlAreAvailableToMakePayments").':</u><br>';
 print img_picto('','object_globe.png').' '.$langs->trans("ToOfferALinkForOnlinePaymentOnFreeAmount",$servicename).':<br>';
 print '<strong>'.getPaypalPaymentUrl(1,'free')."</strong><br><br>\n";
-if ($conf->commande->enabled)
+if (! empty($conf->commande->enabled))
 {
 	print img_picto('','object_globe.png').' '.$langs->trans("ToOfferALinkForOnlinePaymentOnOrder",$servicename).':<br>';
 	print '<strong>'.getPaypalPaymentUrl(1,'order')."</strong><br>\n";
@@ -299,7 +283,7 @@ if ($conf->commande->enabled)
 	}
 	print '<br>';
 }
-if ($conf->facture->enabled)
+if (! empty($conf->facture->enabled))
 {
 	print img_picto('','object_globe.png').' '.$langs->trans("ToOfferALinkForOnlinePaymentOnInvoice",$servicename).':<br>';
 	print '<strong>'.getPaypalPaymentUrl(1,'invoice')."</strong><br>\n";
@@ -321,7 +305,7 @@ if ($conf->facture->enabled)
 	}
 	print '<br>';
 }
-if ($conf->contrat->enabled)
+if (! empty($conf->contrat->enabled))
 {
 	print img_picto('','object_globe.png').' '.$langs->trans("ToOfferALinkForOnlinePaymentOnContractLine",$servicename).':<br>';
 	print '<strong>'.getPaypalPaymentUrl(1,'contractline')."</strong><br>\n";
@@ -343,7 +327,7 @@ if ($conf->contrat->enabled)
 	}
 	print '<br>';
 }
-if ($conf->adherent->enabled)
+if (! empty($conf->adherent->enabled))
 {
 	print img_picto('','object_globe.png').' '.$langs->trans("ToOfferALinkForOnlinePaymentOnMemberSubscription",$servicename).':<br>';
 	print '<strong>'.getPaypalPaymentUrl(1,'membersubscription')."</strong><br>\n";
@@ -368,7 +352,29 @@ if ($conf->adherent->enabled)
 print "<br>";
 print info_admin($langs->trans("YouCanAddTagOnUrl"));
 
-$db->close();
+if (! empty($conf->use_javascript_ajax))
+{
+	print "\n".'<script type="text/javascript">';
+	print '$(document).ready(function () {
+            $("#apidoc").hide();
+            $("#apidoca").click(function() {
+                $("#apidoca").hide();
+                $("#apidoc").show();
+            });
+
+            $("#generate_token").click(function() {
+            	$.get( "'.DOL_URL_ROOT.'/core/ajax/security.php", {
+            		action: \'getrandompassword\',
+            		generic: true
+				},
+				function(token) {
+					$("#PAYPAL_SECURITY_TOKEN").val(token);
+				});
+            });
+    });';
+	print '</script>';
+}
 
 llxFooter();
+$db->close();
 ?>

@@ -3,11 +3,11 @@
  * Copyright (C) 2003      Jean-Louis Bergamo   <jlb@j1b.org>
  * Copyright (C) 2004-2012 Laurent Destailleur  <eldy@users.sourceforge.net>
  * Copyright (C) 2004      Christophe Combelles <ccomb@free.fr>
- * Copyright (C) 2005-2010 Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2005-2010 Regis Houssin        <regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -24,7 +24,7 @@
  *	\ingroup    banque
  *	\brief      File of class to manage bank accounts
  */
-require_once(DOL_DOCUMENT_ROOT ."/core/class/commonobject.class.php");
+require_once DOL_DOCUMENT_ROOT .'/core/class/commonobject.class.php';
 
 
 /**
@@ -35,7 +35,8 @@ class Account extends CommonObject
     public $element='bank_account';
     public $table_element='bank_account';
 
-    var $rowid;
+    var $rowid;	 	// deprecated
+    var $id;
     var $ref;
     var $label;
     //! 1=Compte courant/check/carte, 2=Compte liquide, 0=Compte épargne
@@ -548,7 +549,7 @@ class Account extends CommonObject
         $this->country_id = ($this->country_id?$this->country_id:$this->fk_pays);
 
         // Chargement librairie pour acces fonction controle RIB
-        require_once(DOL_DOCUMENT_ROOT.'/core/lib/bank.lib.php');
+        require_once DOL_DOCUMENT_ROOT.'/core/lib/bank.lib.php';
 
         dol_syslog(get_class($this)."::update_bban $this->code_banque,$this->code_guichet,$this->number,$this->cle_rib,$this->iban");
 
@@ -630,8 +631,8 @@ class Account extends CommonObject
             {
                 $obj = $this->db->fetch_object($result);
 
-                $this->id            = $obj->rowid;		// deprecated
-                $this->rowid         = $obj->rowid;
+                $this->id            = $obj->rowid;
+                $this->rowid         = $obj->rowid;		// deprecated
                 $this->ref           = $obj->ref;
                 $this->label         = $obj->label;
                 $this->type          = $obj->courant;
@@ -702,7 +703,7 @@ class Account extends CommonObject
         $sql.= " WHERE rowid  = ".$this->rowid;
         $sql.= " AND entity = ".$conf->entity;
 
-        dol_syslog("Account::delete sql=".$sql);
+        dol_syslog(get_class($this)."::delete sql=".$sql);
         $result = $this->db->query($sql);
         if ($result) {
             return 1;
@@ -961,7 +962,7 @@ class Account extends CommonObject
         // If this class is linked to a third party
         if (! empty($this->socid))
         {
-            require_once(DOL_DOCUMENT_ROOT ."/societe/class/societe.class.php");
+            require_once DOL_DOCUMENT_ROOT .'/societe/class/societe.class.php';
             $company=new Societe($this->db);
             $result=$company->fetch($this->socid);
             if (! empty($company->country_code)) return $company->country_code;
@@ -974,20 +975,33 @@ class Account extends CommonObject
     }
 
     /**
-     * 	Return if a bank account is defined with detailed information (bank code, desk code, number and key)
+     * Return if a bank account is defined with detailed information (bank code, desk code, number and key).
+     * More information on codes used by countries on page http://en.wikipedia.org/wiki/Bank_code
      *
-     * 	@return		int        0=Use only an account number
-     *                         1=Need Bank, Desk, Number and Key (France, Spain, ...)
-     *                         2=Neek Bank only (BSB for Australia)
+     * @return		int        0=No bank code need + Account number is enough
+     *                         1=Need 2 fields for bank code: Bank, Desk (France, Spain, ...) + Account number and key
+     *                         2=Neek 1 field for bank code:  Bank only (Sort code for Great Britain, BSB for Australia) + Account number
      */
     function useDetailedBBAN()
     {
         $country_code=$this->getCountryCode();
 
-        if (in_array($country_code,array('FR','ES','GA'))) return 1; // France, Spain, Gabon
-        if (in_array($country_code,array('AU'))) return 2;           // Australia
+        if (in_array($country_code,array('CH','DE','FR','ES','GA','IT'))) return 1; // France, Spain, Gabon
+        if (in_array($country_code,array('AU','BE','CA','DK','GR','GB','ID','IE','IR','KR','NL','NZ','US'))) return 2;      // Australia, Great Britain...
         return 0;
     }
+
+    /**
+     *	Load miscellaneous information for tab "Info"
+     *
+     *	@param  int		$id		Id of object to load
+     *	@return	void
+     */
+    function info($id)
+    {
+
+    }
+
 
     /**
      *  Initialise an instance with random values.
@@ -1055,7 +1069,7 @@ class AccountLine extends CommonObject
      *
      *  @param	DoliDB	$db		Database handler
      */
-    function AccountLine($db)
+    function __construct($db)
     {
         $this->db = $db;
     }
@@ -1347,38 +1361,38 @@ class AccountLine extends CommonObject
     /**
      * 	Increase value date of a rowid
      *
-     *	@param	int		$rowid		Id of line to change
-     *	@return	int					>0 if OK, 0 if KO
+     *	@param	int		$id		Id of line to change
+     *	@return	int				>0 if OK, 0 if KO
      */
-    function datev_next($rowid)
+    function datev_next($id)
     {
-        return $this->datev_change($rowid,1);
+        return $this->datev_change($id,1);
     }
 
     /**
      * 	Decrease value date of a rowid
      *
-     *	@param	int		$rowid		Id of line to change
-     *	@return	int					>0 if OK, 0 if KO
+     *	@param	int		$id		Id of line to change
+     *	@return	int				>0 if OK, 0 if KO
      */
-    function datev_previous($rowid)
+    function datev_previous($id)
     {
-        return $this->datev_change($rowid,-1);
+        return $this->datev_change($id,-1);
     }
 
 
     /**
-     *      Charge les informations d'ordre info dans l'objet
+     *	Load miscellaneous information for tab "Info"
      *
-     *      @param	int		$rowid       Id of object
-     *      @return	void
+     *	@param  int		$id		Id of object to load
+     *	@return	void
      */
-    function info($rowid)
+    function info($id)
     {
         $sql = 'SELECT b.rowid, b.datec,';
         $sql.= ' b.fk_user_author, b.fk_user_rappro';
         $sql.= ' FROM '.MAIN_DB_PREFIX.'bank as b';
-        $sql.= ' WHERE b.rowid = '.$rowid;
+        $sql.= ' WHERE b.rowid = '.$id;
 
         $result=$this->db->query($sql);
         if ($result)

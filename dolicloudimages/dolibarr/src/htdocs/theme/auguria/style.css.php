@@ -1,11 +1,12 @@
 <?php
 /* Copyright (C) 2004-2011 Laurent Destailleur  <eldy@users.sourceforge.net>
  * Copyright (C)      2006 Rodolphe Quiedeville <rodolphe@quiedeville.org>
- * Copyright (C) 2007-2011 Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2007-2011 Regis Houssin        <regis.houssin@capnetworks.com>
+ * Copyright (C) 2012	   Juanjo Menent		<jmenent@2byte.es>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -35,7 +36,7 @@ if (! defined('NOREQUIREAJAX'))   define('NOREQUIREAJAX','1');
 
 session_cache_limiter(FALSE);
 
-require_once("../../main.inc.php");
+require_once '../../main.inc.php';
 
 // Define css type
 header('Content-type: text/css');
@@ -63,6 +64,22 @@ $fontlist='arial,tahoma,verdana,helvetica';    //$fontlist='Verdana,Helvetica,Ar
 $img_liste_titre=dol_buildpath($path.'/theme/auguria/img/menus/trtitle.png',1);
 $img_head=dol_buildpath($path.'/theme/auguria/img/headbg2.jpg',1);
 $img_button=dol_buildpath($path.'/theme/auguria/img/button_bg.png',1);
+
+$colorbacklineimpairhover='210,214,217';
+$colorbacklinepairhover='210,214,217';
+
+// No hover by default, we keep only if we set var THEME_ELDY_USE_HOVER
+if ((! empty($user->conf->THEME_ELDY_ENABLE_PERSONALIZED) && empty($user->conf->THEME_ELDY_USE_HOVER))
+	|| (empty($user->conf->THEME_ELDY_ENABLE_PERSONALIZED) && empty($conf->global->THEME_ELDY_USE_HOVER)))
+{
+	$colorbacklineimpairhover='';
+	$colorbacklinepairhover='';
+}
+
+print '/*'."\n";
+print 'colorbacklineimpairhover='.$colorbacklineimpairhover."\n";
+print 'colorbacklinepairhover='.$colorbacklinepairhover."\n";
+print '*/'."\n";
 
 ?>
 
@@ -144,6 +161,13 @@ div.float
 {
     float:<?php print $left; ?>;
 }
+.valignmiddle {
+	vertical-align: middle;
+}
+.centpercent {
+	width: 100%;
+}
+
 
 /* ============================================================================== */
 /* Styles to hide objects                                                         */
@@ -320,7 +344,7 @@ $moduletomainmenu=array('user'=>'','syslog'=>'','societe'=>'companies','projet'=
 	'barcode'=>'','fckeditor'=>'','categorie'=>'',
 );
 $mainmenuused='home';
-foreach($conf->modules as $key => $val)
+foreach($conf->modules as $val)
 {
 	$mainmenuused.=','.(isset($moduletomainmenu[$val])?$moduletomainmenu[$val]:$val);
 }
@@ -331,7 +355,7 @@ $mainmenuusedarray=array();	// Disable
 
 $generic=1;
 $divalreadydefined=array('home','companies','products','commercial','accountancy','project','tools','members','shop','agenda','ecm','cashdesk');
-foreach($mainmenuusedarray as $key => $val)
+foreach($mainmenuusedarray as $val)
 {
 	if (empty($val) || in_array($val,$divalreadydefined)) continue;
 	//print "XXX".$val;
@@ -449,10 +473,44 @@ foreach($mainmenuusedarray as $key => $val)
 
 /* Login */
 
-table.login {
+form#login {
+	margin-top: 70px;
+	margin-bottom: 30px;
+	font-size: 13px;
+}
+.login_table_title {
+	width: 540px;
+	color: #888888;
+	text-shadow: 1px 1px 1px #FFF;
+}
+.login_table label {
+	text-shadow: 1px 1px 1px #FFF;
+}
+.login_table {
+	padding:12px;
+	width: 540px;
+	border: 1px solid #C0C0C0;
+	background-color: #E0E0E0;
+
     -moz-box-shadow: 4px 4px 4px #CCC;
     -webkit-box-shadow: 4px 4px 4px #CCC;
     box-shadow: 4px 4px 4px #CCC;
+
+	border-radius: 12px;
+	border:solid 1px rgba(168,168,168,.4);
+	border-top:solid 1px f8f8f8;
+	background-color: #f8f8f8;
+	background-image: -o-linear-gradient(top, rgba(240,240,240,.3) 0%, rgba(192,192,192,.3) 100%);
+	background-image: -moz-linear-gradient(top, rgba(240,240,240,.3) 0%, rgba(192,192,192,.3) 100%);
+	background-image: -webkit-linear-gradient(top, rgba(240,240,240,.3) 0%, rgba(192,192,192,.3) 100%);
+	background-image: -ms-linear-gradient(top, rgba(240,240,240,.3) 0%, rgba(192,192,192,.3) 100%);
+	background-image: linear-gradient(top, rgba(240,240,240,.3) 0%, rgba(192,192,192,.3) 100%);
+}
+#img_securitycode {
+	border: 1px solid #DDDDDD;
+}
+#img_logo {
+	max-width: 200px;
 }
 
 div.login_block {
@@ -697,7 +755,8 @@ a.toolbarbutton {
     background: #FFFFFF;*/
 }
 img.toolbarbutton {
-    height: 28px;
+	margin-top: 2px;
+	height: 28px;
 }
 
 /* ============================================================================== */
@@ -861,7 +920,6 @@ img.toolbarbutton {
 }
 
 .ecm-layout-resizer  { /* all 'resizer-bars' */
-    background:     #EEE;
     border:         1px solid #BBB;
     border-width:   0;
     }
@@ -1060,6 +1118,12 @@ span.tabspan {
 	cursor: not-allowed;
 }
 
+<?php if (! empty($conf->global->MAIN_BUTTON_HIDE_UNAUTHORIZED)) { ?>
+.butActionRefused {
+	display: none;
+}
+<?php } ?>
+
 span.butAction, span.butActionDelete {
 	cursor: pointer;
 }
@@ -1138,45 +1202,46 @@ border-left: 1px solid #000000;
 /* Main boxes */
 
 table.noborder {
-border-collapse: collapse;
-border-top-color: #FEFEFE;
+    border-collapse: collapse;
+    border-top-color: #FEFEFE;
 
-border-right-width: 1px;
-border-right-color: #BBBBBB;
-border-right-style: solid;
+    border-right-width: 1px;
+    border-right-color: #BBBBBB;
+    border-right-style: solid;
 
-border-left-width: 1px;
-border-left-color: #BBBBBB;
-border-left-style: solid;
+    border-left-width: 1px;
+    border-left-color: #BBBBBB;
+    border-left-style: solid;
 
-border-bottom-width: 1px;
-border-bottom-color: #BBBBBB;
-border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-bottom-color: #BBBBBB;
+    border-bottom-style: solid;
 
-margin-left: 1px;
-margin-right: 1px;
-margin-bottom: 2px;
-margin-top: 0px;
+    margin-left: 1px;
+    margin-right: 1px;
+    margin-bottom: 2px;
+    margin-top: 0px;
 
--moz-box-shadow: 4px 4px 4px #CCC;
--webkit-box-shadow: 4px 4px 4px #CCC;
-box-shadow: 4px 4px 4px #CCC;
+    -moz-box-shadow: 4px 4px 4px #CCC;
+    -webkit-box-shadow: 4px 4px 4px #CCC;
+    box-shadow: 4px 4px 4px #CCC;
 }
 
 table.noborder tr {
-border-top-color: #FEFEFE;
+    border-top-color: #FEFEFE;
 
-border-right-width: 1px;
-border-right-color: #BBBBBB;
-border-right-style: solid;
+    border-right-width: 1px;
+    border-right-color: #BBBBBB;
+    border-right-style: solid;
 
-border-left-width: 1px;
-border-left-color: #BBBBBB;
-border-left-style: solid;
+    border-left-width: 1px;
+    border-left-color: #BBBBBB;
+    border-left-style: solid;
+	height: 20px;
 }
 
 table.noborder td {
-padding: 1px 2px 2px 1px;			/* t r b l */
+	padding: 1px 2px 2px 1px;			/* t r b l */
 }
 
 table.nobordernopadding {
@@ -1272,31 +1337,35 @@ font-weight: normal;
 white-space: nowrap;
 }
 
-.impair {
-/* background: #d0d4d7; */
-background: #F5F6F7;
-font-family: <?php print $fontlist ?>;
-border: 0px;
-}
-/*
-.impair:hover {
-background: #c0c4c7;
-border: 0px;
-}
-*/
 
-.pair	{
-/* background: #e6ebed; */
-background: #FBFCFC;
-font-family: <?php print $fontlist ?>;
-border: 0px;
+.impair:hover {
+<?php if ($colorbacklineimpairhover) { ?>
+	background: rgb(<?php print $colorbacklineimpairhover; ?>);
+<?php } ?>
+	border: 0px;
 }
-/*
+
+.impair, .nohover .impair:hover, tr.impair td.nohover {
+	background: #F5F6F7;
+	font-family: <?php print $fontlist ?>;
+	border: 0px;
+}
+
+
 .pair:hover {
-background: #c0c4c7;
-border: 0px;
+<?php if ($colorbacklinepairhover) { ?>
+	background: rgb(<?php print $colorbacklinepairhover; ?>);
+<?php } ?>
+	border: 0px;
 }
-*/
+
+.pair, .nohover .pair:hover, tr.pair td.nohover {
+	background: #FBFCFC;
+	font-family: <?php print $fontlist ?>;
+	border: 0px;
+}
+
+
 
 /* Disable shadows */
 .noshadow {
@@ -1342,6 +1411,10 @@ white-space: nowrap;
   -moz-border-radius-topright:6px;
 }
 
+tr.box_titre td.boxclose {
+	width: 30px;
+}
+
 tr.box_impair {
 /* background: #e6ebed; */
 background: #F5F6F7;
@@ -1372,7 +1445,7 @@ font-family: <?php print $fontlist ?>;
 
 .ok      { color: #114466; }
 .warning { color: #887711; }
-.error   { color: #550000; font-weight: bold; }
+.error   { color: #550000 !important; font-weight: bold; }
 
 td.highlights { background: #f9c5c6; }
 
@@ -1427,6 +1500,9 @@ a.impayee:hover { font-weight: bold; color: #550000; }
 /*
  *  Other
  */
+
+.product_line_stock_ok { color: #002200; }
+.product_line_stock_too_low { color: #664400; }
 
 .fieldrequired { font-weight: bold; color: #000055; }
 
@@ -2164,7 +2240,7 @@ div.ecmjqft {
 
 .jnotify-container {
 	position: fixed !important;
-<?php if ($conf->global->MAIN_JQUERY_JNOTIFY_BOTTOM) { ?>
+<?php if (! empty($conf->global->MAIN_JQUERY_JNOTIFY_BOTTOM)) { ?>
 	top: auto !important;
 	bottom: 4px !important;
 <?php } ?>

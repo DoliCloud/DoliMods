@@ -2,12 +2,12 @@
 /* Copyright (C) 2001-2005 Rodolphe Quiedeville <rodolphe@quiedeville.org>
  * Copyright (C) 2003      Eric Seigne          <erics@rycks.com>
  * Copyright (C) 2004-2011 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2005-2010 Regis Houssin        <regis@dolibarr.fr>
- * Copyright (C) 2010      Juanjo Menent        <jmenent@2byte.es>
+ * Copyright (C) 2005-2010 Regis Houssin        <regis.houssin@capnetworks.com>
+ * Copyright (C) 2010-2013 Juanjo Menent        <jmenent@2byte.es>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -25,12 +25,12 @@
  *	\brief      Page for supplier third party card (view, edit)
  */
 
-require("../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/fourn/class/fournisseur.class.php");
-require_once(DOL_DOCUMENT_ROOT."/fourn/class/fournisseur.facture.class.php");
-require_once(DOL_DOCUMENT_ROOT."/contact/class/contact.class.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/company.lib.php");
-if ($conf->adherent->enabled) require_once(DOL_DOCUMENT_ROOT."/adherents/class/adherent.class.php");
+require '../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.class.php';
+require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.facture.class.php';
+require_once DOL_DOCUMENT_ROOT.'/contact/class/contact.class.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php';
+if (! empty($conf->adherent->enabled)) require_once DOL_DOCUMENT_ROOT.'/adherents/class/adherent.class.php';
 
 $langs->load('suppliers');
 $langs->load('products');
@@ -153,6 +153,7 @@ if ($object->fetch($id))
 	print '</tr>';
 
 	// Local Taxes
+	//TODO: Place into a function to control showing by country or study better option
 	if($mysoc->country_code=='ES')
 	{
 		if($mysoc->localtax1_assuj=="1" && $mysoc->localtax2_assuj=="1")
@@ -176,15 +177,23 @@ if ($object->fetch($id))
 			print yn($object->localtax2_assuj);
 			print '</td></tr>';
 		}
+		
+		if ($mysoc->localtax2_assuj!="1")
+		{
+			print '<tr><td>'.$langs->transcountry("LocalTax2IsUsed",$mysoc->country_code).'</td><td colspan="3">';
+			print yn($object->localtax2_assuj);
+			print '</td><tr>';
+		}
+		
 	}
 
     // TVA Intra
-    print '<tr><td nowrap>'.$langs->trans('VATIntraVeryShort').'</td><td colspan="3">';
+    print '<tr><td nowrap>'.$langs->trans('VATIntra').'</td><td colspan="3">';
     print $object->tva_intra;
     print '</td></tr>';
 
     // Module Adherent
-    if ($conf->adherent->enabled)
+    if (! empty($conf->adherent->enabled))
     {
         $langs->load("members");
         $langs->load("users");
@@ -223,7 +232,7 @@ if ($object->fetch($id))
 	/*
 	 * List of products
 	 */
-	if ($conf->product->enabled || $conf->service->enabled)
+	if (! empty($conf->product->enabled) || ! empty($conf->service->enabled))
 	{
 		$langs->load("products");
 		print '<table class="noborder" width="100%">';
@@ -382,7 +391,7 @@ if ($object->fetch($id))
 	}
 
     // Add action
-    if ($conf->agenda->enabled && ! empty($conf->global->MAIN_REPEATTASKONEACHTAB))
+    if (! empty($conf->agenda->enabled) && ! empty($conf->global->MAIN_REPEATTASKONEACHTAB))
     {
         if ($user->rights->agenda->myactions->create)
         {

@@ -5,7 +5,7 @@
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -23,7 +23,7 @@
  *		\ingroup    mailing
  *		\brief      File with parent class of emailing target selectors modules
  */
-require_once(DOL_DOCUMENT_ROOT.'/core/lib/functions.lib.php');
+require_once DOL_DOCUMENT_ROOT.'/core/lib/functions.lib.php';
 
 
 /**
@@ -41,7 +41,7 @@ class MailingTargets    // This can't be abstract as it is used for some method
 	 *
 	 *  @param		DoliDB		$db      Database handler
 	 */
-	function MailingTargets($db)
+	function __construct($db)
 	{
         $this->db = $db;
 	}
@@ -143,6 +143,8 @@ class MailingTargets    // This can't be abstract as it is used for some method
      */
     function add_to_target($mailing_id, $cibles)
     {
+    	global $conf;
+
     	$this->db->begin();
 
         // Insert emailing targest from array into database
@@ -150,38 +152,48 @@ class MailingTargets    // This can't be abstract as it is used for some method
         $num = count($cibles);
         for ($i = 0 ; $i < $num ; $i++)
         {
-            $sql = "INSERT INTO ".MAIN_DB_PREFIX."mailing_cibles";
-            $sql .= " (fk_mailing,";
-            $sql .= " fk_contact,";
-            $sql .= " nom, prenom, email, other, source_url, source_id, tag, source_type)";
-            $sql .= " VALUES (".$mailing_id.",";
-            $sql .= (empty($cibles[$i]['fk_contact']) ? '0' : "'".$cibles[$i]['fk_contact']."'") .",";
-            $sql .= "'".$this->db->escape($cibles[$i]['name'])."',";
-            $sql .= "'".$this->db->escape($cibles[$i]['firstname'])."',";
-            $sql .= "'".$this->db->escape($cibles[$i]['email'])."',";
-            $sql .= "'".$this->db->escape($cibles[$i]['other'])."',";
-            $sql .= "'".$this->db->escape($cibles[$i]['source_url'])."',";
-            $sql .= "'".$this->db->escape($cibles[$i]['source_id'])."',";
-            $sql .= "'".$this->db->escape(md5($cibles[$i]['email'].';'.$cibles[$i]['name'].';'.$mailing_id))."',";
-            $sql .= "'".$this->db->escape($cibles[$i]['source_type'])."')";
-            $result=$this->db->query($sql);
-            if ($result)
-            {
-                $j++;
-            }
-            else
-            {
-                if ($this->db->errno() != 'DB_ERROR_RECORD_ALREADY_EXISTS')
-                {
-                    // Si erreur autre que doublon
-                    dol_syslog($this->db->error());
-                    $this->error=$this->db->error();
-                    $this->db->rollback();
-                    return -1;
-                }
-            }
+        	if (! empty($cibles[$i]['email'])) // avoid empty email address
+        	{
+        		$sql = "INSERT INTO ".MAIN_DB_PREFIX."mailing_cibles";
+        		$sql .= " (fk_mailing,";
+        		$sql .= " fk_contact,";
+        		$sql .= " nom, prenom, email, other, source_url, source_id,";
+        		if (! empty($conf->global->MAILING_EMAIL_UNSUBSCRIBE)) {
+        			$sql .= " tag,";
+        		}
+        		$sql.= " source_type)";
+        		$sql .= " VALUES (".$mailing_id.",";
+        		$sql .= (empty($cibles[$i]['fk_contact']) ? '0' : "'".$cibles[$i]['fk_contact']."'") .",";
+        		$sql .= "'".$this->db->escape($cibles[$i]['name'])."',";
+        		$sql .= "'".$this->db->escape($cibles[$i]['firstname'])."',";
+        		$sql .= "'".$this->db->escape($cibles[$i]['email'])."',";
+        		$sql .= "'".$this->db->escape($cibles[$i]['other'])."',";
+        		$sql .= "'".$this->db->escape($cibles[$i]['source_url'])."',";
+        		$sql .= "'".$this->db->escape($cibles[$i]['source_id'])."',";
+        		if (! empty($conf->global->MAILING_EMAIL_UNSUBSCRIBE)) {
+        			$sql .= "'".$this->db->escape(md5($cibles[$i]['email'].';'.$cibles[$i]['name'].';'.$mailing_id.';'.$conf->global->MAILING_EMAIL_UNSUBSCRIBE_KEY))."',";
+        		}
+        		$sql .= "'".$this->db->escape($cibles[$i]['source_type'])."')";
+        		$result=$this->db->query($sql);
+        		if ($result)
+        		{
+        			$j++;
+        		}
+        		else
+        		{
+        			if ($this->db->errno() != 'DB_ERROR_RECORD_ALREADY_EXISTS')
+        			{
+        				// Si erreur autre que doublon
+        				dol_syslog($this->db->error());
+        				$this->error=$this->db->error();
+        				$this->db->rollback();
+        				return -1;
+        			}
+        		}
+        	}
         }
 
+        dol_syslog(get_class($this)."::add_to_target: sql ".$sql,LOG_DEBUG);
         dol_syslog(get_class($this)."::add_to_target: mailing ".$j." targets added");
 
         //Update the status to show thirdparty mail that don't want to be contacted anymore'

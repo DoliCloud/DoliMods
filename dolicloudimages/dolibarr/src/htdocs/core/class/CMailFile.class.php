@@ -5,11 +5,11 @@
  * Copyright (C) 2000-2005 Rodolphe Quiedeville <rodolphe@quiedeville.org>
  * Copyright (C) 2003      Jean-Louis Bergamo   <jlb@j1b.org>
  * Copyright (C) 2004-2012 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2005-2009 Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2005-2012 Regis Houssin        <regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -56,6 +56,7 @@ class CMailFile
 	var $error='';
 
 	var $smtps;			// Contains SMTPs object (if this method is used)
+	var $phpmailer;		// Contains PHPMailer object (if this method is used)
 
 	//CSS
 	var $css;
@@ -97,7 +98,7 @@ class CMailFile
 	 *	@param 	string	$errors_to      		Email errors
 	 *	@param	string	$css			        Css option
 	 */
-	function CMailFile($subject,$to,$from,$msg,
+	function __construct($subject,$to,$from,$msg,
 	$filename_list=array(),$mimetype_list=array(),$mimefilename_list=array(),
 	$addr_cc="",$addr_bcc="",$deliveryreceipt=0,$msgishtml=0,$errors_to='',$css='')
 	{
@@ -242,13 +243,65 @@ class CMailFile
 			// Use SMTPS library
 			// ------------------------------------------
 
-			require_once(DOL_DOCUMENT_ROOT."/core/class/smtps.class.php");
+			require_once DOL_DOCUMENT_ROOT.'/core/class/smtps.class.php';
 			$smtps = new SMTPs();
 			$smtps->setCharSet($conf->file->character_set_client);
 
 			$smtps->setSubject($this->encodetorfc2822($subject));
 			$smtps->setTO($this->getValidAddress($to,0,1));
 			$smtps->setFrom($this->getValidAddress($from,0,1));
+
+			if (! empty($this->html))
+			{
+				if (!empty($css))
+				{
+					$this->css = $css;
+					$this->styleCSS = $this->buildCSS();
+				}
+				$msg = $this->html;
+				$msg = $this->checkIfHTML($msg);
+			}
+
+			if ($this->msgishtml) $smtps->setBodyContent($msg,'html');
+			else $smtps->setBodyContent($msg,'plain');
+
+			if ($this->atleastoneimage)
+			{
+				foreach ($this->images_encoded as $img)
+				{
+					$smtps->setImageInline($img['image_encoded'],$img['name'],$img['content_type'],$img['cid']);
+				}
+			}
+
+			if ($this->atleastonefile)
+			{
+				foreach ($filename_list as $i => $val)
+				{
+					$content=file_get_contents($filename_list[$i]);
+					$smtps->setAttachment($content,$mimefilename_list[$i],$mimetype_list[$i]);
+				}
+			}
+
+			$smtps->setCC($addr_cc);
+			$smtps->setBCC($addr_bcc);
+			$smtps->setErrorsTo($errors_to);
+			$smtps->setDeliveryReceipt($deliveryreceipt);
+
+			$this->smtps=$smtps;
+		}
+		// TODO not stable, in progress
+		else if ($conf->global->MAIN_MAIL_SENDMODE == 'phpmailer')
+		{
+			// Use PHPMailer library
+			// ------------------------------------------
+
+			require_once DOL_DOCUMENT_ROOT.'/includes/phpmailer/class.phpmailer.php';
+			$this->phpmailer = new PHPMailer();
+			$this->phpmailer->CharSet = $conf->file->character_set_client;
+
+			$this->phpmailer->Subject($this->encodetorfc2822($subject));
+			$this->phpmailer->setTO($this->getValidAddress($to,0,1));
+			$this->phpmailer->SetFrom($this->getValidAddress($from,0,1));
 
 			if (! empty($this->html))
 			{
@@ -673,16 +726,13 @@ class CMailFile
 
 		$out='';
 
+		$out.= "--" . $this->mixed_boundary . $this->eol;
+
 		if ($this->atleastoneimage)
 		{
-			$out.= "--" . $this->mixed_boundary . $this->eol;
 			$out.= "Content-Type: multipart/alternative; boundary=\"".$this->alternative_boundary."\"".$this->eol;
 			$out.= $this->eol;
 			$out.= "--" . $this->alternative_boundary . $this->eol;
-		}
-		else
-		{
-			$out.= "--" . $this->mixed_boundary . $this->eol;
 		}
 
 		if ($this->msgishtml)
@@ -1013,7 +1063,7 @@ class CMailFile
 				}
 				if ($format == 0 || $format == 3)
 				{
-					if ($conf->global->MAIN_MAIL_NO_FULL_EMAIL) $newemail='<'.$email.'>';
+					if (! empty($conf->global->MAIN_MAIL_NO_FULL_EMAIL)) $newemail='<'.$email.'>';
 					elseif (! $name) $newemail='<'.$email.'>';
 					else $newemail=($format==3?'"':'').($encode?$this->encodetorfc2822($name):$name).($format==3?'"':'').' <'.$email.'>';
 				}

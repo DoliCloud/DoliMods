@@ -1,10 +1,10 @@
 <?php
 /* Copyright (C) 2008-2009 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2005-2007 Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2005-2007 Regis Houssin        <regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -47,7 +47,7 @@ function llxHeaderPaybox($title, $head = "")
 	print '<meta name="description" content="Welcome on Dolibarr online payment form">'."\n";
 	print "<title>".$title."</title>\n";
 	if ($head) print $head."\n";
-	if ($conf->global->PAYBOX_CSS_URL) print '<link rel="stylesheet" type="text/css" href="'.$conf->global->PAYBOX_CSS_URL.'?lang='.$langs->defaultlang.'">'."\n";
+	if (! empty($conf->global->PAYBOX_CSS_URL)) print '<link rel="stylesheet" type="text/css" href="'.$conf->global->PAYBOX_CSS_URL.'?lang='.$langs->defaultlang.'">'."\n";
 	else
 	{
 		print '<link rel="stylesheet" type="text/css" href="'.DOL_URL_ROOT.$conf->css.'?lang='.$langs->defaultlang.'">'."\n";
@@ -91,11 +91,11 @@ function print_paybox_redirect($PRICE,$CURRENCY,$EMAIL,$urlok,$urlko,$TAG)
 
 	// Clean parameters
 	$PBX_IDENTIFIANT="2";	// Identifiant pour v2 test
-	if ($conf->global->PAYBOX_PBX_IDENTIFIANT) $PBX_IDENTIFIANT=$conf->global->PAYBOX_PBX_IDENTIFIANT;
+	if (! empty($conf->global->PAYBOX_PBX_IDENTIFIANT)) $PBX_IDENTIFIANT=$conf->global->PAYBOX_PBX_IDENTIFIANT;
 	$IBS_SITE="1999888";    // Site test
-	if ($conf->global->PAYBOX_IBS_SITE) $IBS_SITE=$conf->global->PAYBOX_IBS_SITE;
+	if (! empty($conf->global->PAYBOX_IBS_SITE)) $IBS_SITE=$conf->global->PAYBOX_IBS_SITE;
 	$IBS_RANG="99";         // Rang test
-	if ($conf->global->PAYBOX_IBS_RANG) $IBS_RANG=$conf->global->PAYBOX_IBS_RANG;
+	if (! empty($conf->global->PAYBOX_IBS_RANG)) $IBS_RANG=$conf->global->PAYBOX_IBS_RANG;
 	$IBS_DEVISE="840";		// Currency (Dollar US by default)
 	if ($CURRENCY == 'EUR') $IBS_DEVISE="978";
 	if ($CURRENCY == 'USD') $IBS_DEVISE="840";

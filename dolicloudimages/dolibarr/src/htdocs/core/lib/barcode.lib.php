@@ -6,7 +6,7 @@
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -19,7 +19,7 @@
  */
 
 /**
- *	\file       htdocs/core/barcode.lib.php
+ *	\file       htdocs/core/lib/barcode.lib.php
  *	\brief      Set of functions used for barcode generation
  *	\ingroup    core
  */
@@ -74,11 +74,11 @@ function barcode_print($code, $encoding="ANY", $scale = 2 ,$mode = "png")
     dol_syslog("barcode.lib.php::barcode_print $code $encoding $scale $mode");
 
     $bars=barcode_encode($code,$encoding);
-
-    if (! $bars)
+    if (! $bars || ! empty($bars['error']))
     {
         // DOLCHANGE LDR Return error message instead of array
-        $error='Bad Value '.$code.' for encoding '.$encoding;
+        if (empty($bars['error'])) $error='Bad Value '.$code.' for encoding '.$encoding;
+        else $error=$bars['error'];
         dol_syslog('barcode.lib.php::barcode_print '.$error, LOG_ERR);
         return $error;
     }
@@ -133,7 +133,7 @@ function barcode_encode($code,$encoding)
         dol_syslog("barcode.lib.php::barcode_encode Use barcode_encode_ean");
         $bars=barcode_encode_ean($code, $encoding);
     }
-    else if (file_exists($genbarcode_loc))
+    else if (file_exists($genbarcode_loc))	// For example C39
     {
         /* use genbarcode */
         dol_syslog("barcode.lib.php::barcode_encode Use genbarcode ".$genbarcode_loc." code=".$code." encoding=".$encoding);
@@ -252,10 +252,11 @@ function barcode_encode_genbarcode($code,$encoding)
     $code=preg_replace("/[\\\|]/", "_", $code);
 
     $command=escapeshellarg($genbarcode_loc);
-    $paramclear=" \"".str_replace("\"", "\\\"",$code)."\" \"".str_replace("\"", "\\\"",strtoupper($encoding))."\"";
-
+    //$paramclear=" \"".str_replace("\"", "\\\"",$code)."\" \"".str_replace("\"", "\\\"",strtoupper($encoding))."\"";
+    $paramclear=" ".escapeshellarg($code)." ".escapeshellarg(strtoupper($encoding));
+    
     $fullcommandclear=$command." ".$paramclear." 2>&1";
-    //print $fullcommandclear."<br>\n";
+    //print $fullcommandclear."<br>\n";exit;
 
     dol_syslog("Run command ".$fullcommandclear);
     $fp=popen($fullcommandclear, "r");
@@ -273,14 +274,20 @@ function barcode_encode_genbarcode($code,$encoding)
     }
     //var_dump($bars);
     $ret=array(
-		"encoding" => trim($encoding),
 		"bars" => trim($bars),
-		"text" => trim($text)
+		"text" => trim($text),
+		"encoding" => trim($encoding),
+    	"error" => ""
     );
     //var_dump($ret);
-    if (!$ret['encoding']) return false;
+    if (preg_match('/permission denied/i',$ret['bars'])) 
+    { 
+    	$ret['error']=$ret['bars']; $ret['bars']='';
+    	return $ret;
+    }
     if (!$ret['bars']) return false;
     if (!$ret['text']) return false;
+    if (!$ret['encoding']) return false;
     return $ret;
 }
 
@@ -289,9 +296,7 @@ function barcode_encode_genbarcode($code,$encoding)
  *
  * @param	string	$text		the text-line (<position>:<font-size>:<character> ...)
  * @param	string	$bars   	where to place the bars  (<space-width><bar-width><space-width><bar-width>...)
- * @param	int		$scale		scale factor ( 1 < scale < unlimited (scale 50 will produce
- *                                                   5400x300 pixels when
- *                                                   using EAN-13!!!))
+ * @param	int		$scale		scale factor ( 1 < scale < unlimited (scale 50 will produce 5400x300 pixels when using EAN-13!!!))
  * @param	string	$mode   	png,gif,jpg (default='png')
  * @param	int		$total_y	the total height of the image ( default: scale * 60 )
  * @param	array	$space		default:  $space[top]   = 2 * $scale; $space[bottom]= 2 * $scale;  $space[left]  = 2 * $scale;  $space[right] = 2 * $scale;

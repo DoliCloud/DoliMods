@@ -5,7 +5,7 @@
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -17,7 +17,7 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-include_once(DOL_DOCUMENT_ROOT.'/core/lib/price.lib.php');
+include_once DOL_DOCUMENT_ROOT.'/core/lib/price.lib.php';
 
 
 /**
@@ -72,7 +72,7 @@ class Facturation
     /**
      *	Constructor
      */
-    public function Facturation()
+    public function __construct()
     {
         $this->raz();
         $this->razPers();
@@ -92,8 +92,12 @@ class Facturation
         global $conf,$db;
 
         $thirdpartyid = $_SESSION['CASHDESK_ID_THIRDPARTY'];
+
         $societe = new Societe($db);
         $societe->fetch($thirdpartyid);
+
+        $product = new Product($db);
+        $product->fetch($this->id);
 
         $sql = "SELECT taux";
         $sql.= " FROM ".MAIN_DB_PREFIX."c_tva";
@@ -109,13 +113,12 @@ class Facturation
             //var_dump($vat_rate);exit;
         }
         else
-        {
+       {
             dol_print_error($db);
         }
 
-
         // Define part of HT, VAT, TTC
-        $resultarray=calcul_price_total($this->qte,$this->prix(),$this->remisePercent(),$vat_rate,0,0,0,'HT',0);
+        $resultarray=calcul_price_total($this->qte,$this->prix(),$this->remisePercent(),$vat_rate,0,0,0,'HT',0,$product->type,0);
 
         // Calcul du total ht sans remise
         $total_ht = $resultarray[0];
@@ -132,9 +135,6 @@ class Facturation
         $montant_remise_ht = ($resultarray[6] - $resultarray[0]);
         $this->montantRemise($montant_remise_ht);
 
-        $product = new Product($db);
-        $product->fetch($this->id);
-
         $newcartarray=$_SESSION['poscart'];
         $i=count($newcartarray);
 
@@ -144,7 +144,7 @@ class Facturation
         $newcartarray[$i]['price']=$product->price;
         $newcartarray[$i]['price_ttc']=$product->price_ttc;
 
-        if ($conf->global->PRODUIT_MULTIPRICES)
+        if (! empty($conf->global->PRODUIT_MULTIPRICES))
         {
             if (isset($product->multiprices[$societe->price_level]))
             {

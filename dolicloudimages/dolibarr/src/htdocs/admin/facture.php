@@ -2,13 +2,13 @@
 /* Copyright (C) 2003-2004	Rodolphe Quiedeville		<rodolphe@quiedeville.org>
  * Copyright (C) 2004-2011	Laurent Destailleur			<eldy@users.sourceforge.net>
  * Copyright (C) 2005		Eric Seigne					<eric.seigne@ryxeo.com>
- * Copyright (C) 2005-2012	Regis Houssin				<regis@dolibarr.fr>
+ * Copyright (C) 2005-2012	Regis Houssin				<regis.houssin@capnetworks.com>
  * Copyright (C) 2008		Raphael Bertrand (Resultic)	<raphael.bertrand@resultic.fr>
  * Copyright (C) 2012		Juanjo Menent				<jmenent@2byte.es>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -26,12 +26,13 @@
  *		\brief      Page to setup invoice module
  */
 
-require("../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
-require_once(DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php');
+require '../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
 
 $langs->load("admin");
 $langs->load("errors");
+$langs->load('other');
 
 if (! $user->admin) accessforbidden();
 
@@ -87,7 +88,7 @@ if ($action == 'specimen')
 
     if ($filefound)
     {
-    	require_once($file);
+    	require_once $file;
 
     	$module = new $classname($db);
 
@@ -184,7 +185,7 @@ if ($action == 'setdoc')
     $sql_del.= " WHERE nom = '".$db->escape($value)."'";
     $sql_del.= " AND type = '".$type."'";
     $sql_del.= " AND entity = ".$conf->entity;
-    dol_syslog("facture.php ".$sql_del);
+    dol_syslog("Delete from model table ".$sql_del);
     $result1=$db->query($sql_del);
 
     $sql = "INSERT INTO ".MAIN_DB_PREFIX."document_model (nom, type, entity, libelle, description)";
@@ -192,7 +193,7 @@ if ($action == 'setdoc')
     $sql.= ($label?"'".$db->escape($label)."'":'null').", ";
     $sql.= (! empty($scandir)?"'".$scandir."'":"null");
     $sql.= ")";
-    dol_syslog("facture.php ".$sql);
+    dol_syslog("Insert into model table ".$sql);
     $result2=$db->query($sql);
     if ($result1 && $result2)
     {
@@ -200,7 +201,7 @@ if ($action == 'setdoc')
     }
     else
     {
-        dol_syslog("facture.php ".$db->lasterror(), LOG_ERR);
+        dol_syslog("Error ".$db->lasterror(), LOG_ERR);
         $db->rollback();
     }
 }
@@ -253,9 +254,9 @@ if ($action == 'set_FACTURE_DRAFT_WATERMARK')
 
 if ($action == 'set_FACTURE_FREE_TEXT')
 {
-	$free = GETPOST('FACTURE_FREE_TEXT','alpha');
+	$freetext = GETPOST('FACTURE_FREE_TEXT');	// No alpha here, we want exact string
 
-    $res = dolibarr_set_const($db, "FACTURE_FREE_TEXT",$free,'chaine',0,'',$conf->entity);
+    $res = dolibarr_set_const($db, "FACTURE_FREE_TEXT",$freetext,'chaine',0,'',$conf->entity);
 
 	if (! $res > 0) $error++;
 
@@ -314,7 +315,7 @@ print '<table class="noborder" width="100%">';
 print '<tr class="liste_titre">';
 print '<td>'.$langs->trans("Name").'</td>';
 print '<td>'.$langs->trans("Description").'</td>';
-print '<td nowrap>'.$langs->trans("Example").'</td>';
+print '<td nowrap="nowrap">'.$langs->trans("Example").'</td>';
 print '<td align="center" width="60">'.$langs->trans("Status").'</td>';
 print '<td align="center" width="16">'.$langs->trans("Infos").'</td>';
 print '</tr>'."\n";
@@ -346,7 +347,7 @@ foreach ($dirmodels as $reldir)
                     if (! class_exists($classname) && is_readable($dir.$filebis) && (preg_match('/mod_/',$filebis) || preg_match('/mod_/',$classname)) && substr($filebis, dol_strlen($filebis)-3, 3) == 'php')
                     {
                         // Chargement de la classe de numerotation
-                        require_once($dir.$filebis);
+                        require_once $dir.$filebis;
 
                         $module = new $classname($db);
 
@@ -368,7 +369,7 @@ foreach ($dirmodels as $reldir)
                             // Show example of numbering module
                             print '<td nowrap="nowrap">';
                             $tmp=$module->getExample();
-                            if (preg_match('/^Error/',$tmp)) { $langs->load("errors"); print '<div class="error">'.$langs->trans($tmp).'</div>'; }
+                            if (preg_match('/^Error/',$tmp)) print '<div class="error">'.$langs->trans($tmp).'</div>';
                             elseif ($tmp=='NotConfigured') print $langs->trans($tmp);
                             else print $tmp;
                             print '</td>'."\n";
@@ -514,7 +515,7 @@ foreach ($dirmodels as $reldir)
                     		$name = substr($file, 4, dol_strlen($file) -16);
 	                        $classname = substr($file, 0, dol_strlen($file) -12);
 
-	                        require_once($dir.'/'.$file);
+	                        require_once $dir.'/'.$file;
 	                        $module = new $classname($db);
 
 	                        $modulequalified=1;
@@ -570,7 +571,7 @@ foreach ($dirmodels as $reldir)
 	                            $htmltooltip.='<br>'.$langs->trans("Logo").': '.yn($module->option_logo,1,1);
 	                            $htmltooltip.='<br>'.$langs->trans("PaymentMode").': '.yn($module->option_modereg,1,1);
 	                            $htmltooltip.='<br>'.$langs->trans("PaymentConditions").': '.yn($module->option_condreg,1,1);
-	                            $htmltooltip.='<br>'.$langs->trans("Escompte").': '.yn($module->option_escompte,1,1);
+	                            $htmltooltip.='<br>'.$langs->trans("Discounts").': '.yn($module->option_escompte,1,1);
 	                            $htmltooltip.='<br>'.$langs->trans("CreditNote").': '.yn($module->option_credit_note,1,1);
 	                            $htmltooltip.='<br>'.$langs->trans("MultiLanguage").': '.yn($module->option_multilang,1,1);
 	                            $htmltooltip.='<br>'.$langs->trans("WatermarkOnDraftInvoices").': '.yn($module->option_draft_watermark,1,1);
@@ -627,7 +628,7 @@ $var=!$var;
 print '<tr '.$bc[$var].'>';
 print "<td>".$langs->trans("SuggestPaymentByRIBOnAccount")."</td>";
 print "<td>";
-if ($conf->banque->enabled)
+if (! empty($conf->banque->enabled))
 {
     $sql = "SELECT rowid, label";
     $sql.= " FROM ".MAIN_DB_PREFIX."bank_account";
@@ -777,7 +778,8 @@ print "</table>\n";
 
 dol_htmloutput_mesg($mesg);
 
-$db->close();
 
 llxFooter();
+
+$db->close();
 ?>

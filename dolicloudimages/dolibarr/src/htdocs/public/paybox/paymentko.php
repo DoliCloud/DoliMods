@@ -4,7 +4,7 @@
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -26,9 +26,9 @@
 define("NOLOGIN",1);		// This means this output page does not require to be logged.
 define("NOCSRFCHECK",1);	// We accept to go on this page from external web site.
 
-require("../../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/paybox/lib/paybox.lib.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/company.lib.php");
+require '../../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/paybox/lib/paybox.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php';
 
 // Security check
 if (empty($conf->paybox->enabled)) accessforbidden('',1,1,1);
@@ -56,7 +56,7 @@ $langs->load("paypal");
  * View
  */
 
-dol_syslog("Callback url when a PayBox payment was canceled. query_string=".$_SERVER["QUERY_STRING"]);
+dol_syslog("Callback url when a PayBox payment was canceled. query_string=".(empty($_SERVER["QUERY_STRING"])?'':$_SERVER["QUERY_STRING"])." script_uri=".(empty($_SERVER["SCRIPT_URI"])?'':$_SERVER["SCRIPT_URI"]));
 
 llxHeaderPayBox($langs->trans("PaymentForm"));
 
@@ -74,7 +74,8 @@ print "\n</div>\n";
 
 html_print_paybox_footer($mysoc,$langs);
 
-$db->close();
 
 llxFooterPayBox();
+
+$db->close();
 ?>

@@ -1,12 +1,12 @@
 <?php
 /* Copyright (C) 2005      Rodolphe Quiedeville <rodolphe@quiedeville.org>
  * Copyright (C) 2005-2011 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2005-2012 Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2005-2012 Regis Houssin        <regis.houssin@capnetworks.com>
  * Copyright (C) 2011      Herve Prot           <herve.prot@symeos.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -23,10 +23,10 @@
  *       \brief      Onglet groupes utilisateurs
  */
 
-require("../../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/user/class/usergroup.class.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/usergroups.lib.php");
-if(! empty($conf->multicompany->enabled)) dol_include_once("/multicompany/class/actions_multicompany.class.php");
+require '../../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/user/class/usergroup.class.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/usergroups.lib.php';
+if(! empty($conf->multicompany->enabled)) dol_include_once('/multicompany/class/actions_multicompany.class.php');
 
 // Defini si peux lire/modifier utilisateurs et permisssions
 $canreadperms=($user->admin || $user->rights->user->user->lire);
@@ -47,6 +47,7 @@ $id=GETPOST('id', 'int');
 $action=GETPOST('action', 'alpha');
 $confirm=GETPOST('confirm', 'alpha');
 $userid=GETPOST('user', 'int');
+$message='';
 
 // Security check
 $result = restrictedArea($user, 'user', $id, 'usergroup&usergroup', 'user');
@@ -68,7 +69,7 @@ if ($action == 'confirm_delete' && $confirm == "yes")
     {
         $object->fetch($id);
         $object->delete();
-        Header("Location: index.php");
+        header("Location: index.php");
         exit;
     }
     else
@@ -85,7 +86,6 @@ if ($action == 'add')
 {
     if ($caneditperms)
     {
-        $message="";
         if (! $_POST["nom"])
         {
             $message='<div class="error">'.$langs->trans("NameNotDefined").'</div>';
@@ -97,7 +97,7 @@ if ($action == 'add')
 			$object->nom	= trim($_POST["nom"]);
 			$object->note	= trim($_POST["note"]);
 
-			if ($conf->multicompany->enabled && ! empty($conf->multicompany->transverse_mode)) $object->entity = 0;
+			if (! empty($conf->multicompany->enabled) && ! empty($conf->multicompany->transverse_mode)) $object->entity = 0;
 			else $object->entity = $_POST["entity"];
 
             $db->begin();
@@ -108,7 +108,7 @@ if ($action == 'add')
             {
                 $db->commit();
 
-                Header("Location: ".$_SERVER['PHP_SELF']."?id=".$object->id);
+                header("Location: ".$_SERVER['PHP_SELF']."?id=".$object->id);
                 exit;
             }
             else
@@ -140,8 +140,8 @@ if ($action == 'adduser' || $action =='removeuser')
 
 			$edituser = new User($db);
 			$edituser->fetch($userid);
-			if ($action == 'adduser')    $result=$edituser->SetInGroup($object->id,($conf->multicompany->transverse_mode?GETPOST("entity"):$object->entity));
-			if ($action == 'removeuser') $result=$edituser->RemoveFromGroup($object->id,($conf->multicompany->transverse_mode?GETPOST("entity"):$object->entity));
+			if ($action == 'adduser')    $result=$edituser->SetInGroup($object->id,(! empty($conf->multicompany->transverse_mode)?GETPOST('entity','int'):$object->entity));
+			if ($action == 'removeuser') $result=$edituser->RemoveFromGroup($object->id,(! empty($conf->multicompany->transverse_mode)?GETPOST('entity','int'):$object->entity));
 
             if ($result > 0)
             {
@@ -166,8 +166,6 @@ if ($action == 'update')
 {
     if ($caneditperms)
     {
-        $message="";
-
         $db->begin();
 
         $object->fetch($id);
@@ -177,7 +175,7 @@ if ($action == 'update')
 		$object->nom	= trim($_POST["group"]);
 		$object->note	= dol_htmlcleanlastbr($_POST["note"]);
 
-		if ($conf->multicompany->enabled && ! empty($conf->multicompany->transverse_mode)) $object->entity = 0;
+		if (! empty($conf->multicompany->enabled) && ! empty($conf->multicompany->transverse_mode)) $object->entity = 0;
 		else $object->entity = $_POST["entity"];
 
         $ret=$object->update();
@@ -242,7 +240,7 @@ if ($action == 'create')
 	}
 
     print "<tr>".'<td valign="top">'.$langs->trans("Note").'</td><td>';
-    require_once(DOL_DOCUMENT_ROOT."/core/class/doleditor.class.php");
+    require_once DOL_DOCUMENT_ROOT.'/core/class/doleditor.class.php';
     $doleditor=new DolEditor('note','','',240,'dolibarr_notes','',false,true,$conf->global->FCKEDITOR_ENABLE_SOCIETE,ROWS_8,90);
     $doleditor->Create();
     print "</td></tr>\n";
@@ -354,7 +352,7 @@ else
 
             if (! empty($object->members))
             {
-                if (! ($conf->multicompany->enabled && $conf->multicompany->transverse_mode))
+                if (! (! empty($conf->multicompany->enabled) && ! empty($conf->multicompany->transverse_mode)))
                 {
                     foreach($object->members as $useringroup)
                     {
@@ -500,7 +498,7 @@ else
 
             print '<tr><td width="25%" valign="top">'.$langs->trans("Note").'</td>';
             print '<td class="valeur">';
-            require_once(DOL_DOCUMENT_ROOT."/core/class/doleditor.class.php");
+            require_once DOL_DOCUMENT_ROOT.'/core/class/doleditor.class.php';
             $doleditor=new DolEditor('note',$object->note,'',240,'dolibarr_notes','',true,false,$conf->global->FCKEDITOR_ENABLE_SOCIETE,ROWS_8,90);
             $doleditor->Create();
             print '</td>';

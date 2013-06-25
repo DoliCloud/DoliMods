@@ -1,10 +1,11 @@
 -- ============================================================================
--- Copyright (C) 2003 Rodolphe Quiedeville <rodolphe@quiedeville.org>
--- Copyright (C) 2009 Laurent Destailleur  <eldy@users.sourceforge.net>
+-- Copyright (C) 2003 Rodolphe Quiedeville	<rodolphe@quiedeville.org>
+-- Copyright (C) 2009 Laurent Destailleur	<eldy@users.sourceforge.net>
+-- Copyright (C) 2012 Juanjo Menent			<jmenent@2byte.es>
 --
 -- This program is free software; you can redistribute it and/or modify
 -- it under the terms of the GNU General Public License as published by
--- the Free Software Foundation; either version 2 of the License, or
+-- the Free Software Foundation; either version 3 of the License, or
 -- (at your option) any later version.
 --
 -- This program is distributed in the hope that it will be useful,
@@ -24,6 +25,7 @@ create table llx_product_stock
   fk_product      integer NOT NULL,
   fk_entrepot     integer NOT NULL,
   reel            real,           					-- physical stock
-  pmp             double(24,8) default 0 NOT NULL	-- PMP value for product in this warehouse
+  pmp             double(24,8) default 0 NOT NULL,	-- PMP value for product in this warehouse
+  import_key      varchar(14)                  -- Import key
 )ENGINE=innodb;
 

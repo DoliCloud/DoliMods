@@ -4,7 +4,7 @@
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -21,7 +21,7 @@
  *		\ingroup    facture
  *		\brief      Fichier de la classe des charges sociales
  */
-require_once(DOL_DOCUMENT_ROOT."/core/class/commonobject.class.php");
+require_once DOL_DOCUMENT_ROOT.'/core/class/commonobject.class.php';
 
 
 /**     \class      ChargeSociales
@@ -30,7 +30,7 @@ require_once(DOL_DOCUMENT_ROOT."/core/class/commonobject.class.php");
  */
 class ChargeSociales extends CommonObject
 {
-    public $element='rowid';
+    public $element='chargesociales';
     public $table='chargesociales';
     public $table_element='chargesociales';
 
@@ -52,7 +52,7 @@ class ChargeSociales extends CommonObject
      *
      * @param	DoliDB		$db		Database handler
      */
-    function ChargeSociales($db)
+    function __construct($db)
     {
         $this->db = $db;
         return 1;
@@ -115,6 +115,8 @@ class ChargeSociales extends CommonObject
      */
     function create($user)
     {
+    	global $conf;
+
         // Nettoyage parametres
         $newamount=price2num($this->amount,'MT');
 
@@ -127,10 +129,11 @@ class ChargeSociales extends CommonObject
 
         $this->db->begin();
 
-        $sql = "INSERT INTO ".MAIN_DB_PREFIX."chargesociales (fk_type, libelle, date_ech, periode, amount)";
+        $sql = "INSERT INTO ".MAIN_DB_PREFIX."chargesociales (fk_type, libelle, date_ech, periode, amount, entity)";
         $sql.= " VALUES (".$this->type.",'".$this->db->escape($this->lib)."',";
         $sql.= " '".$this->db->idate($this->date_ech)."','".$this->db->idate($this->periode)."',";
-        $sql.= " ".price2num($newamount);
+        $sql.= " '".price2num($newamount)."',";
+        $sql.= " ".$conf->entity;
         $sql.= ")";
 
         dol_syslog(get_class($this)."::create sql=".$sql);
@@ -165,7 +168,7 @@ class ChargeSociales extends CommonObject
         $this->db->begin();
 
         // Get bank transaction lines for this social contributions
-        include_once(DOL_DOCUMENT_ROOT."/compta/bank/class/account.class.php");
+        include_once DOL_DOCUMENT_ROOT.'/compta/bank/class/account.class.php';
         $account=new Account($this->db);
         $lines_url=$account->get_url('',$this->id,'sc');
 

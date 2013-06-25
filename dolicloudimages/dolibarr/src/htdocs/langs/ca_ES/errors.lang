@@ -1,7 +1,6 @@
-# Dolibarr language file - ca_ES - errors
+# Dolibarr language file - ca_ES - errors 
 CHARSET=UTF-8
-MenuManager=Gestor de menú
-# Errors
+# Errors=
 Error=Error
 Errors=Errors
 ErrorBadEMail=e-mail %s incorrecte
@@ -22,6 +21,7 @@ ErrorThisContactIsAlreadyDefinedAsThisType=Aquest contacte ja està definit com 
 ErrorCashAccountAcceptsOnlyCashMoney=Aquesta compte bancari és de tipus caixa i només accepta el mètode de pagament de tipus <b>espècie</b>.
 ErrorFromToAccountsMustDiffers=El compte origen i destinació han de ser diferents.
 ErrorBadThirdPartyName=Nom de tercer incorrecte
+ErrorProdIdIsMandatory=El %s es obligatori
 ErrorBadCustomerCodeSyntax=La sintaxi del codi client és incorrecta
 ErrorCustomerCodeRequired=Codi client obligatori
 ErrorCustomerCodeAlreadyUsed=Codi de client ja utilitzat
@@ -102,9 +102,17 @@ ErrorLoginDoesNotExists=El compte d'usuari de <b>%s</b> no s'ha trobat.
 ErrorLoginHasNoEmail=Aquest usuari no té e-mail. Impossible continuar.
 ErrorBadValueForCode=Valor no vàlid per al codi. Torneu a intentar-ho amb un nou valor ...
 ErrorBothFieldCantBeNegative=Els camps %s i %s no poden ser negatius
-ErrorNoActivatedBarcode=Cap tipus de codi de barres activat
-ErrorWebServerUserHasNotPermission=El compte d'execució del servidor web <b>%s</b> no disposa dels permisos per això
 ErrorNoActivatedBarcode=No hi ha activat cap tipus de codi de barres
+ErrorWebServerUserHasNotPermission=El compte d'execució del servidor web <b>%s</b> no disposa dels permisos per això
+ErrUnzipFails=No s'ha pogut descomprimir el fitxer %s amb ZipArchive
+ErrNoZipEngine=En aquest PHP no hi ha motor per descomprimir l'arxiu %s
+ErrorFileMustBeADolibarrPackage=El fitxer %s ha de ser un paquet Dolibarr en format zip
+ErrorFileRequired=Es requereix un fitxer de paquet Dolibarr en format zip
+ErrorPhpCurlNotInstalled=L'extensió PHP CURL no es troba instal·lada, és indispensable per dialogar amb Paypal.
+ErrorFailedToAddToMailmanList=S'ha produït un error en intentar afegir un registre a la llista Mailman o base de dades SPIP
+ErrorNewVaueCantMatchOldValue=El Nou valor no pot ser igual al antic
+ErrorFailedToValidatePasswordReset=No s'ha pogut restablir la contrasenya. És possible que aquest enllaç ja s'hagi utilitzat (aquest enllaç només es pot utilitzar una vegada). Si no és el cas prova de reiniciar el procés de restabliment de contrasenya des del principi.
+ErrorDateMustBeBeforeToday=La data no pot ser superior a avui
 
 # Warnings
 WarningSafeModeOnCheckExecDir=Atenció, està activada l'opció PHP <b>safe_mode</b>, la comanda ha d'estar dins d'un directori declarat dins del paràmetre php <b>safe_mode_exec_dir</b>.
@@ -117,3 +125,4 @@ WarningsOnXLines=Alertes a <b>%s</b> línies font
 WarningNoDocumentModelActivated=No hi ha cap model per a la generació del document activat. Es prendrà un model per defecte fins que es configuri el mòdul.
 WarningLockFileDoesNotExists=Atenció: Un cop acabada l'instal·lació, han de desactivar les eines d'instal·lació/actualització afegint l'arxiu <b>install.lock</b> al directori <b>%s</b>. L'absència d'aquest imatge mostra una fallada de seguretat.
 WarningUntilDirRemoved=Aquesta alerta seguirà activa mentre la carpeta existeixi (alerta visible per als usuaris admin solament).
+WarningCloseAlways=Avís, el tancament és realitzat encara que la quantitat total difereixi entre els elements d'origen i destí. Activi aquesta funcionalitat amb precaució.

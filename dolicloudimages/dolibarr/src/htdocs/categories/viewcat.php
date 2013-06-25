@@ -2,11 +2,11 @@
 /* Copyright (C) 2005      Matthieu Valleton	<mv@seeschloss.org>
  * Copyright (C) 2006-2010 Laurent Destailleur  <eldy@users.sourceforge.net>
  * Copyright (C) 2007      Patrick Raguin		<patrick.raguin@gmail.com>
- * Copyright (C) 2005-2012 Regis Houssin		<regis@dolibarr.fr>
+ * Copyright (C) 2005-2012 Regis Houssin		<regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -24,9 +24,9 @@
  *       \brief      Page to show a category card
  */
 
-require("../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/categories/class/categorie.class.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/categories.lib.php");
+require '../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/categories.lib.php';
 
 $langs->load("categories");
 
@@ -84,7 +84,7 @@ $form = new Form($db);
 
 llxHeader("","",$langs->trans("Categories"));
 
-if ($mesg) print $mesg.'<br>';
+dol_htmloutput_mesg($mesg);
 
 if ($type == 0) $title=$langs->trans("ProductsCategoryShort");
 elseif ($type == 1) $title=$langs->trans("SuppliersCategoryShort");
@@ -173,7 +173,6 @@ else
 		$var=true;
 		foreach ($cats as $cat)
 		{
-			$i++;
 			$var=!$var;
 			print "\t<tr ".$bc[$var].">\n";
 			print "\t\t<td nowrap=\"nowrap\">";
@@ -219,11 +218,9 @@ if ($object->type == 0)
 
 		if (count($prods) > 0)
 		{
-			$i = 0;
 			$var=true;
 			foreach ($prods as $prod)
 			{
-				$i++;
 				$var=!$var;
 				print "\t<tr ".$bc[$var].">\n";
 				print '<td nowrap="nowrap" valign="top">';
@@ -257,11 +254,9 @@ if ($object->type == 1)
 
 		if (count($socs) > 0)
 		{
-			$i = 0;
 			$var=true;
 			foreach ($socs as $soc)
 			{
-				$i++;
 				$var=!$var;
 				print "\t<tr ".$bc[$var].">\n";
 
@@ -320,7 +315,7 @@ if($object->type == 2)
 // List of members
 if ($object->type == 3)
 {
-	require_once(DOL_DOCUMENT_ROOT."/adherents/class/adherent.class.php");
+	require_once DOL_DOCUMENT_ROOT.'/adherents/class/adherent.class.php';
 
 	$prods = $object->get_type("member","Adherent","","adherent");
 	if ($prods < 0)
@@ -335,11 +330,9 @@ if ($object->type == 3)
 
 		if (count($prods) > 0)
 		{
-			$i = 0;
 			$var=true;
 			foreach ($prods as $key => $member)
 			{
-				$i++;
 				$var=!$var;
 				print "\t<tr ".$bc[$var].">\n";
 				print '<td nowrap="nowrap" valign="top">';

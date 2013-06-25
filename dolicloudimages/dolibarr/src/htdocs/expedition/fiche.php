@@ -1,13 +1,13 @@
 <?php
-/* Copyright (C) 2003-2008 Rodolphe Quiedeville <rodolphe@quiedeville.org>
- * Copyright (C) 2005-2010 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2005      Simon TOSSER         <simon@kornog-computing.com>
- * Copyright (C) 2005-2012 Regis Houssin        <regis@dolibarr.fr>
- * Copyright (C) 2011-2012 Juanjo Menent	    <jmenent@2byte.es>
+/* Copyright (C) 2003-2008	Rodolphe Quiedeville	<rodolphe@quiedeville.org>
+ * Copyright (C) 2005-2010	Laurent Destailleur		<eldy@users.sourceforge.net>
+ * Copyright (C) 2005		Simon TOSSER			<simon@kornog-computing.com>
+ * Copyright (C) 2005-2012	Regis Houssin			<regis.houssin@capnetworks.com>
+ * Copyright (C) 2011-2012	Juanjo Menent			<jmenent@2byte.es>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -25,17 +25,17 @@
  *	\brief      Fiche descriptive d'une expedition
  */
 
-require("../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/core/class/html.formfile.class.php");
-require_once(DOL_DOCUMENT_ROOT."/expedition/class/expedition.class.php");
-require_once(DOL_DOCUMENT_ROOT."/product/class/html.formproduct.class.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/product.lib.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/sendings.lib.php");
-require_once(DOL_DOCUMENT_ROOT."/core/modules/expedition/modules_expedition.php");
-if ($conf->product->enabled || $conf->service->enabled)  require_once(DOL_DOCUMENT_ROOT."/product/class/product.class.php");
-if ($conf->propal->enabled)   require_once(DOL_DOCUMENT_ROOT."/comm/propal/class/propal.class.php");
-if ($conf->commande->enabled) require_once(DOL_DOCUMENT_ROOT."/commande/class/commande.class.php");
-if ($conf->stock->enabled)    require_once(DOL_DOCUMENT_ROOT."/product/stock/class/entrepot.class.php");
+require '../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/core/class/html.formfile.class.php';
+require_once DOL_DOCUMENT_ROOT.'/expedition/class/expedition.class.php';
+require_once DOL_DOCUMENT_ROOT.'/product/class/html.formproduct.class.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/product.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/sendings.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/core/modules/expedition/modules_expedition.php';
+if (! empty($conf->product->enabled) || ! empty($conf->service->enabled))  require_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
+if (! empty($conf->propal->enabled))   require_once DOL_DOCUMENT_ROOT.'/comm/propal/class/propal.class.php';
+if (! empty($conf->commande->enabled)) require_once DOL_DOCUMENT_ROOT.'/commande/class/commande.class.php';
+if (! empty($conf->stock->enabled))    require_once DOL_DOCUMENT_ROOT.'/product/stock/class/entrepot.class.php';
 
 $langs->load("sendings");
 $langs->load("companies");
@@ -54,11 +54,22 @@ $id = $origin_id;
 $ref=GETPOST('ref','alpha');
 
 // Security check
+$socid='';
 if ($user->societe_id) $socid=$user->societe_id;
-$result=restrictedArea($user,$origin,$origin_id);
+$result=restrictedArea($user, $origin, $origin_id);
+
+// Initialize technical object to manage hooks of thirdparties. Note that conf->hooks_modules contains array array
+include_once DOL_DOCUMENT_ROOT.'/core/class/hookmanager.class.php';
+$hookmanager=new HookManager($db);
+$hookmanager->initHooks(array('expeditioncard'));
 
 $action		= GETPOST('action','alpha');
 $confirm	= GETPOST('confirm','alpha');
+
+//PDF
+$hidedetails = (GETPOST('hidedetails','int') ? GETPOST('hidedetails','int') : (! empty($conf->global->MAIN_GENERATE_DOCUMENTS_HIDE_DETAILS) ? 1 : 0));
+$hidedesc 	 = (GETPOST('hidedesc','int') ? GETPOST('hidedesc','int') : (! empty($conf->global->MAIN_GENERATE_DOCUMENTS_HIDE_DESC) ?  1 : 0));
+$hideref 	 = (GETPOST('hideref','int') ? GETPOST('hideref','int') : (! empty($conf->global->MAIN_GENERATE_DOCUMENTS_HIDE_REF) ? 1 : 0));
 
 $object = new Expedition($db);
 
@@ -117,7 +128,8 @@ if ($action == 'add')
             {
                 $ent = "entl".$i;
                 $idl = "idl".$i;
-                $entrepot_id = GETPOST($ent,'int')?GETPOST($ent,'int'):GETPOST('entrepot_id','int');
+                $entrepot_id = is_numeric(GETPOST($ent,'int'))?GETPOST($ent,'int'):GETPOST('entrepot_id','int');
+				if ($entrepot_id < 0) $entrepot_id='';
 
                 $ret=$object->addline($entrepot_id,GETPOST($idl,'int'),GETPOST($qty,'int'));
                 if ($ret < 0)
@@ -147,7 +159,7 @@ if ($action == 'add')
     if (! $error)
     {
         $db->commit();
-        Header("Location: fiche.php?id=".$object->id);
+        header("Location: fiche.php?id=".$object->id);
         exit;
     }
     else
@@ -167,7 +179,7 @@ else if ($action == 'create_delivery' && $conf->livraison_bon->enabled && $user-
     $result = $object->create_delivery($user);
     if ($result > 0)
     {
-        Header("Location: ".DOL_URL_ROOT.'/livraison/fiche.php?id='.$result);
+        header("Location: ".DOL_URL_ROOT.'/livraison/fiche.php?id='.$result);
         exit;
     }
     else
@@ -212,7 +224,7 @@ else if ($action == 'confirm_delete' && $confirm == 'yes' && $user->rights->expe
     $result = $object->delete();
     if ($result > 0)
     {
-        Header("Location: ".DOL_URL_ROOT.'/expedition/index.php');
+        header("Location: ".DOL_URL_ROOT.'/expedition/index.php');
         exit;
     }
     else
@@ -270,13 +282,12 @@ else if ($action == 'settrackingnumber' || $action == 'settrackingurl'
     {
         if ($shipping->update($user) >= 0)
         {
-            Header("Location: fiche.php?id=".$shipping->id);
+            header("Location: fiche.php?id=".$shipping->id);
             exit;
         }
-        $mesg=$shipping->error;
+        setEventMessage($shipping->error,'errors');
     }
 
-    $mesg='<div class="error">'.$mesg.'</div>';
     $action="";
 }
 
@@ -314,7 +325,7 @@ else if ($action == 'builddoc')	// En get ou en post
 // Delete file in doc form
 elseif ($action == 'remove_file')
 {
-	require_once(DOL_DOCUMENT_ROOT."/core/lib/files.lib.php");
+	require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 
 	$object = new Expedition($db);
 	if ($object->fetch($id))
@@ -323,7 +334,8 @@ elseif ($action == 'remove_file')
 		$upload_dir =	$conf->expedition->dir_output . "/sending";
 		$file =	$upload_dir	. '/' .	GETPOST('file');
 		$ret=dol_delete_file($file,0,0,0,$object);
-		$mesg = '<div class="ok">'.$langs->trans("FileWasRemoved",GETPOST('file')).'</div>';
+		if ($ret) setEventMessage($langs->trans("FileWasRemoved", GETPOST('urlfile')));
+		else setEventMessage($langs->trans("ErrorFailToDeleteFile", GETPOST('urlfile')), 'errors');
 	}
 }
 
@@ -332,14 +344,13 @@ elseif ($action == 'remove_file')
 */
 if (GETPOST('addfile','alpha'))
 {
-    require_once(DOL_DOCUMENT_ROOT."/core/lib/files.lib.php");
+    require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 
     // Set tmp user directory TODO Use a dedicated directory for temp mails files
     $vardir=$conf->user->dir_output."/".$user->id;
     $upload_dir_tmp = $vardir.'/temp';
 
-    $mesg=dol_add_file_process($upload_dir_tmp,0,0);
-
+    dol_add_file_process($upload_dir_tmp,0,0);
     $action ='presend';
 }
 
@@ -348,15 +359,14 @@ if (GETPOST('addfile','alpha'))
 */
 if (GETPOST('removedfile','alpha'))
 {
-    require_once(DOL_DOCUMENT_ROOT."/core/lib/files.lib.php");
+    require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 
     // Set tmp user directory
     $vardir=$conf->user->dir_output."/".$user->id;
     $upload_dir_tmp = $vardir.'/temp';
 
     // TODO Delete only files that was uploaded from email form
-    $mesg=dol_remove_file_process(GETPOST('removedfile','int'),0);
-
+    dol_remove_file_process(GETPOST('removedfile','int'),0);
     $action ='presend';
 }
 
@@ -424,7 +434,7 @@ if ($action == 'send' && ! GETPOST('addfile','alpha') && ! GETPOST('removedfile'
                 }
 
                 // Create form object
-                include_once(DOL_DOCUMENT_ROOT.'/core/class/html.formmail.class.php');
+                include_once DOL_DOCUMENT_ROOT.'/core/class/html.formmail.class.php';
                 $formmail = new FormMail($db);
 
                 $attachedfiles=$formmail->get_attached_files();
@@ -433,7 +443,7 @@ if ($action == 'send' && ! GETPOST('addfile','alpha') && ! GETPOST('removedfile'
                 $mimetype = $attachedfiles['mimes'];
 
                 // Send mail
-                require_once(DOL_DOCUMENT_ROOT.'/core/class/CMailFile.class.php');
+                require_once DOL_DOCUMENT_ROOT.'/core/class/CMailFile.class.php';
                 $mailfile = new CMailFile($subject,$sendto,$from,$message,$filepath,$mimetype,$filename,$sendtocc,'',$deliveryreceipt);
                 if ($mailfile->error)
                 {
@@ -444,8 +454,6 @@ if ($action == 'send' && ! GETPOST('addfile','alpha') && ! GETPOST('removedfile'
                     $result=$mailfile->sendfile();
                     if ($result)
                     {
-                        $_SESSION['mesg']=$langs->trans('MailSuccessfulySent',$mailfile->getValidAddress($from,2),$mailfile->getValidAddress($sendto,2));
-
                         $error=0;
 
                         // Initialisation donnees
@@ -457,7 +465,7 @@ if ($action == 'send' && ! GETPOST('addfile','alpha') && ! GETPOST('removedfile'
                         $object->elementtype	= $object->element;
 
                         // Appel des triggers
-                        include_once(DOL_DOCUMENT_ROOT . "/core/class/interfaces.class.php");
+                        include_once DOL_DOCUMENT_ROOT . '/core/class/interfaces.class.php';
                         $interface=new Interfaces($db);
                         $result=$interface->run_triggers('SHIPPING_SENTBYMAIL',$object,$user,$langs,$conf);
                         if ($result < 0) {
@@ -473,7 +481,9 @@ if ($action == 'send' && ! GETPOST('addfile','alpha') && ! GETPOST('removedfile'
                         {
                             // Redirect here
                             // This avoid sending mail twice if going out and then back to page
-                            Header('Location: '.$_SERVER["PHP_SELF"].'?id='.$object->id);
+                        	$mesg=$langs->trans('MailSuccessfulySent',$mailfile->getValidAddress($from,2),$mailfile->getValidAddress($sendto,2));
+                            setEventMessage($mesg);
+                            header('Location: '.$_SERVER["PHP_SELF"].'?id='.$object->id);
                             exit;
                         }
                     }
@@ -526,13 +536,14 @@ else if ($action == 'classifybilled')
 
 /*
  * View
-*/
+ */
 
 llxHeader('',$langs->trans('Sending'),'Expedition');
 
 $form = new Form($db);
 $formfile = new FormFile($db);
 $formproduct = new FormProduct($db);
+$product_static = new Product($db);
 
 if ($action == 'create2')
 {
@@ -570,7 +581,7 @@ if ($action == 'create')
             $author = new User($db);
             $author->fetch($object->user_author_id);
 
-            if ($conf->stock->enabled) $entrepot = new Entrepot($db);
+            if (! empty($conf->stock->enabled)) $entrepot = new Entrepot($db);
 
             /*
              *   Document source
@@ -590,11 +601,11 @@ if ($action == 'create')
 
             // Ref
             print '<tr><td width="30%" class="fieldrequired">';
-            if ($origin == 'commande' && $conf->commande->enabled)
+            if ($origin == 'commande' && ! empty($conf->commande->enabled))
             {
                 print $langs->trans("RefOrder").'</td><td colspan="3"><a href="'.DOL_URL_ROOT.'/commande/fiche.php?id='.$object->id.'">'.img_object($langs->trans("ShowOrder"),'order').' '.$object->ref;
             }
-            if ($origin == 'propal' && $conf->propal->enabled)
+            if ($origin == 'propal' && ! empty($conf->propal->enabled))
             {
                 print $langs->trans("RefProposal").'</td><td colspan="3"><a href="'.DOL_URL_ROOT.'/comm/fiche.php?id='.$object->id.'">'.img_object($langs->trans("ShowProposal"),'propal').' '.$object->ref;
             }
@@ -650,6 +661,7 @@ if ($action == 'create')
             print '<td colspan="3">';
             $expe->fetch_delivery_methods();
             print $form->selectarray("expedition_method_id",$expe->meths,GETPOST('expedition_method_id','int'),1,0,0,"",1);
+            if ($user->admin) print info_admin($langs->trans("YouCanChangeValuesForThisListFromDictionnarySetup"),1);
             print "</td></tr>\n";
 
             // Tracking number
@@ -657,6 +669,10 @@ if ($action == 'create')
             print '<td colspan="3">';
             print '<input name="tracking_number" size="20" value="'.GETPOST('tracking_number','alpha').'">';
             print "</td></tr>\n";
+
+            // Other attributes
+            $parameters=array('colspan' => ' colspan="3"');
+            $reshook=$hookmanager->executeHooks('formObjectOptions',$parameters,$expe,$action);    // Note that $action and $object may have been modified by hook
 
             print "</table>";
 
@@ -679,14 +695,12 @@ if ($action == 'create')
                 print '<td align="center">'.$langs->trans("QtyOrdered").'</td>';
                 print '<td align="center">'.$langs->trans("QtyShipped").'</td>';
                 print '<td align="left">'.$langs->trans("QtyToShip").'</td>';
-                if ($conf->stock->enabled)
+                if (! empty($conf->stock->enabled))
                 {
                     print '<td align="left">'.$langs->trans("Warehouse").' / '.$langs->trans("Stock").'</td>';
                 }
                 print "</tr>\n";
             }
-
-            $product_static = new Product($db);
 
             $var=true;
             $indiceAsked = 0;
@@ -719,9 +733,8 @@ if ($action == 'create')
                     $product_static->type=$line->fk_product_type;
                     $product_static->id=$line->fk_product;
                     $product_static->ref=$line->ref;
-                    $product_static->libelle=$line->product_label;
                     $text=$product_static->getNomUrl(1);
-                    $text.= ' - '.$line->product_label;
+                    $text.= ' - '.(! empty($line->label)?$line->label:$line->product_label);
                     $description=($conf->global->PRODUIT_DESC_IN_FORM?'':dol_htmlentitiesbr($line->desc));
                     print $form->textwithtooltip($text,$description,3,'','',$i);
 
@@ -729,7 +742,7 @@ if ($action == 'create')
                     print_date_range($db->jdate($line->date_start),$db->jdate($line->date_end));
 
                     // Add description in form
-                    if ($conf->global->PRODUIT_DESC_IN_FORM)
+                    if (! empty($conf->global->PRODUIT_DESC_IN_FORM))
                     {
                         print ($line->desc && $line->desc!=$line->product_label)?'<br>'.dol_htmlentitiesbr($line->desc):'';
                     }
@@ -741,7 +754,13 @@ if ($action == 'create')
                     print "<td>";
                     if ($type==1) $text = img_object($langs->trans('Service'),'service');
                     else $text = img_object($langs->trans('Product'),'product');
-                    print $text.' '.nl2br($line->desc);
+
+                    if (! empty($line->label)) {
+                    	$text.= ' <strong>'.$line->label.'</strong>';
+                    	print $form->textwithtooltip($text,$line->desc,3,'','',$i);
+                    } else {
+                    	print $text.' '.nl2br($line->desc);
+                    }
 
                     // Show range
                     print_date_range($db->jdate($line->date_start),$db->jdate($line->date_end));
@@ -762,7 +781,7 @@ if ($action == 'create')
                 $quantityToBeDelivered = $quantityAsked - $quantityDelivered;
 
                 $defaultqty=0;
-                if (GETPOST('entrepot_id','int'))
+                if (GETPOST('entrepot_id','int') > 0)
                 {
                     //var_dump($product);
                     $stock = $product->stock_warehouse[GETPOST('entrepot_id','int')]->real;
@@ -782,25 +801,23 @@ if ($action == 'create')
                 print '</td>';
 
                 // Stock
-                if ($conf->stock->enabled)
+                if (! empty($conf->stock->enabled))
                 {
                     print '<td align="left">';
                     if ($line->product_type == 0 || ! empty($conf->global->STOCK_SUPPORTS_SERVICES))
                     {
-                        // Show warehous
-                        if (GETPOST('entrepot_id','int'))
+                        // Show warehouse combo list
+                    	$ent = "entl".$indiceAsked;
+                    	$idl = "idl".$indiceAsked;
+                    	$tmpentrepot_id = is_numeric(GETPOST($ent,'int'))?GETPOST($ent,'int'):GETPOST('entrepot_id','int');
+                        print $formproduct->selectWarehouses($tmpentrepot_id,'entl'.$indiceAsked,'',1,0,$line->fk_product);
+                    	if ($tmpentrepot_id > 0 && $tmpentrepot_id == GETPOST('entrepot_id','int'))
                         {
-                            print $formproduct->selectWarehouses(GETPOST('entrepot_id','int'),'entl'.$indiceAsked,'',1,0,$line->fk_product);
                             //print $stock.' '.$quantityToBeDelivered;
-                            //if ($stock >= 0 && $stock < $quantityToBeDelivered)
                             if ($stock < $quantityToBeDelivered)
                             {
-                                print ' '.img_warning($langs->trans("StockTooLow"));
+                                print ' '.img_warning($langs->trans("StockTooLow"));	// Stock too low for entrepot_id but we may have change warehouse
                             }
-                        }
-                        else
-                        {
-                            print $formproduct->selectWarehouses('','entl'.$indiceAsked,'',1,0,$line->fk_product);
                         }
                     }
                     else
@@ -887,7 +904,7 @@ else
 
             /*
              * Confirmation de la suppression
-            */
+             */
             if ($action == 'delete')
             {
                 $ret=$form->form_confirm($_SERVER['PHP_SELF'].'?id='.$object->id,$langs->trans('DeleteSending'),$langs->trans("ConfirmDeleteSending",$object->ref),'confirm_delete','',0,1);
@@ -896,7 +913,7 @@ else
 
             /*
              * Confirmation de la validation
-            */
+             */
             if ($action == 'valid')
             {
                 $objectref = substr($object->ref, 1, 4);
@@ -913,15 +930,15 @@ else
             }
             /*
              * Confirmation de l'annulation
-            */
+             */
             if ($action == 'annuler')
             {
                 $ret=$form->form_confirm($_SERVER['PHP_SELF'].'?id='.$object->id,$langs->trans('CancelSending'),$langs->trans("ConfirmCancelSending",$object->ref),'confirm_cancel','',0,1);
                 if ($ret == 'html') print '<br>';
             }
 
-            // Calculate ture totalVeight and totalVolume for all products
-            // by adding weight and volume of each line.
+            // Calculate true totalWeight and totalVolume for all products
+            // by adding weight and volume of each product line.
             $totalWeight = '';
             $totalVolume = '';
             $weightUnit=0;
@@ -932,6 +949,7 @@ else
                 $volumeUnit=0;
                 if (! empty($lines[$i]->weight_units)) $weightUnit = $lines[$i]->weight_units;
                 if (! empty($lines[$i]->volume_units)) $volumeUnit = $lines[$i]->volume_units;
+
                 // TODO Use a function addvalueunits(val1,unit1,val2,unit2)=>(val,unit)
                 if ($lines[$i]->weight_units < 50)
                 {
@@ -956,15 +974,15 @@ else
                     $totalVolume += $lines[$i]->volume*$lines[$i]->qty_shipped;
                 }
             }
-            $totalVolume=$totalVolume;
-            //print "totalVolume=".$totalVolume." volumeUnit=".$volumeUnit;
 
             print '<table class="border" width="100%">';
+
+            $linkback = '<a href="'.DOL_URL_ROOT.'/expedition/liste.php">'.$langs->trans("BackToList").'</a>';
 
             // Ref
             print '<tr><td width="20%">'.$langs->trans("Ref").'</td>';
             print '<td colspan="3">';
-            print $form->showrefnav($object,'ref','',1,'ref','ref');
+            print $form->showrefnav($object, 'ref', $linkback, 1, 'ref', 'ref');
             print '</td></tr>';
 
             // Customer
@@ -973,7 +991,7 @@ else
             print "</tr>";
 
             // Linked documents
-            if ($typeobject == 'commande' && $object->$typeobject->id && $conf->commande->enabled)
+            if ($typeobject == 'commande' && $object->$typeobject->id && ! empty($conf->commande->enabled))
             {
                 print '<tr><td>';
                 $objectsrc=new Commande($db);
@@ -984,7 +1002,7 @@ else
                 print "</td>\n";
                 print '</tr>';
             }
-            if ($typeobject == 'propal' && $object->$typeobject->id && $conf->propal->enabled)
+            if ($typeobject == 'propal' && $object->$typeobject->id && ! empty($conf->propal->enabled))
             {
                 print '<tr><td>';
                 $objectsrc=new Propal($db);
@@ -1034,48 +1052,49 @@ else
             // Weight
             print '<tr><td>'.$form->editfieldkey("Weight",'trueWeight',$object->trueWeight,$object,$user->rights->expedition->creer).'</td><td colspan="3">';
             print $form->editfieldval("Weight",'trueWeight',$object->trueWeight,$object,$user->rights->expedition->creer);
-            print $object->weight_units?measuring_units_string($object->weight_units,"weight"):'';
+            print ($object->trueWeight && $object->weight_units!='')?' '.measuring_units_string($object->weight_units,"weight"):'';
             print '</td></tr>';
-
-            // Volume Total
-            print '<tr><td>'.$langs->trans("Volume").'</td>';
-            print '<td colspan="3">';
-            if ($object->trueVolume)
-            {
-                // If sending volume defined
-                print $object->trueVolume.' '.measuring_units_string($object->volumeUnit,"volume");
-            }
-            else
-            {
-                // If sending volume not defined we use sum of products
-                if ($totalVolume > 0)
-                {
-                    print $totalVolume.' ';
-                    if ($volumeUnit < 50) print measuring_units_string(0,"volume");
-                    else print measuring_units_string($volumeUnit,"volume");
-                }
-                else print '&nbsp;';
-            }
-            print "</td>\n";
-            print '</tr>';
 
             // Width
             print '<tr><td>'.$form->editfieldkey("Width",'trueWidth',$object->trueWidth,$object,$user->rights->expedition->creer).'</td><td colspan="3">';
             print $form->editfieldval("Width",'trueWidth',$object->trueWidth,$object,$user->rights->expedition->creer);
-            print $object->trueWidth?measuring_units_string($object->width_units,"size"):'';
+            print ($object->trueWidth && $object->width_units!='')?' '.measuring_units_string($object->width_units,"size"):'';
             print '</td></tr>';
 
             // Height
             print '<tr><td>'.$form->editfieldkey("Height",'trueHeight',$object->trueHeight,$object,$user->rights->expedition->creer).'</td><td colspan="3">';
             print $form->editfieldval("Height",'trueHeight',$object->trueHeight,$object,$user->rights->expedition->creer);
-            print $object->trueHeight?measuring_units_string($object->height_units,"size"):'';
+            print ($object->trueHeight && $object->height_units!='')?' '.measuring_units_string($object->height_units,"size"):'';
             print '</td></tr>';
 
             // Depth
             print '<tr><td>'.$form->editfieldkey("Depth",'trueDepth',$object->trueDepth,$object,$user->rights->expedition->creer).'</td><td colspan="3">';
             print $form->editfieldval("Depth",'trueDepth',$object->trueDepth,$object,$user->rights->expedition->creer);
-            print $object->trueDepth?measuring_units_string($object->depth_units,"size"):'';
+            print ($object->trueDepth && $object->depth_units!='')?' '.measuring_units_string($object->depth_units,"size"):'';
             print '</td></tr>';
+
+            // Volume
+            print '<tr><td>';
+            print $langs->trans("Volume");
+            print '</td>';
+            print '<td colspan="3">';
+            $calculatedVolume=0;
+            if ($object->trueWidth && $object->trueHeight && $object->trueDepth) $calculatedVolume=($object->trueWidth * $object->trueHeight * $object->trueDepth);
+            // If sending volume not defined we use sum of products
+            if ($calculatedVolume > 0)
+			{
+				print $calculatedVolume.' ';
+ 		        if ($volumeUnit < 50) print measuring_units_string(0,"volume");
+        	    else print measuring_units_string($volumeUnit,"volume");
+            }
+            if ($totalVolume > 0)
+            {
+            	if ($calculatedVolume) print ' ('.$langs->trans("SumOfProductVolumes").': ';
+				print $totalVolume;
+            	if ($calculatedVolume) print ')';
+            }
+            print "</td>\n";
+            print '</tr>';
 
             // Status
             print '<tr><td>'.$langs->trans("Status").'</td>';
@@ -1098,6 +1117,7 @@ else
                 print '<input type="hidden" name="action" value="setexpedition_method_id">';
                 $object->fetch_delivery_methods();
                 print $form->selectarray("expedition_method_id",$object->meths,$object->expedition_method_id,1,0,0,"",1);
+                if ($user->admin) print info_admin($langs->trans("YouCanChangeValuesForThisListFromDictionnarySetup"),1);
                 print '<input type="submit" class="button" value="'.$langs->trans('Modify').'">';
                 print '</form>';
             }
@@ -1118,6 +1138,10 @@ else
             print $form->editfieldval("TrackingNumber",'trackingnumber',$object->tracking_url,$object,$user->rights->expedition->creer,'string',$object->tracking_number);
             print '</td></tr>';
 
+            // Other attributes
+            $parameters=array('colspan' => ' colspan="3"');
+            $reshook=$hookmanager->executeHooks('formObjectOptions',$parameters,$object,$action);    // Note that $action and $object may have been modified by hook
+
             print "</table>\n";
 
             /*
@@ -1131,7 +1155,7 @@ else
             }
             print '<td>'.$langs->trans("Products").'</td>';
             print '<td align="center">'.$langs->trans("QtyOrdered").'</td>';
-            if ($object->fk_statut <= 1)
+            if ($object->statut <= 1)
             {
                 print '<td align="center">'.$langs->trans("QtyToShip").'</td>';
             }
@@ -1144,7 +1168,7 @@ else
             print '<td align="center">'.$langs->trans("CalculatedVolume").'</td>';
             //print '<td align="center">'.$langs->trans("Size").'</td>';
 
-            if ($conf->stock->enabled)
+            if (! empty($conf->stock->enabled))
             {
                 print '<td align="left">'.$langs->trans("WarehouseSource").'</td>';
             }
@@ -1184,26 +1208,25 @@ else
                     {
                         $prod = new Product($db);
                         $prod->fetch($lines[$i]->fk_product);
-                        $label = ( ! empty($prod->multilangs[$outputlangs->defaultlang]["libelle"])) ? $prod->multilangs[$outputlangs->defaultlang]["libelle"] : $lines[$i]->product_label;
+                        $label = ( ! empty($prod->multilangs[$outputlangs->defaultlang]["label"])) ? $prod->multilangs[$outputlangs->defaultlang]["label"] : $lines[$i]->product_label;
                     }
                     else
-                    $label = $lines[$i]->product_label;
+                    $label = (! empty($lines[$i]->label)?$lines[$i]->label:$lines[$i]->product_label);
 
                     print '<td>';
 
-                    // Affiche ligne produit
-                    $text = '<a href="'.DOL_URL_ROOT.'/product/fiche.php?id='.$lines[$i]->fk_product.'">';
-                    if ($lines[$i]->fk_product_type==1) $text.= img_object($langs->trans('ShowService'),'service');
-                    else $text.= img_object($langs->trans('ShowProduct'),'product');
-                    $text.= ' '.$lines[$i]->ref.'</a>';
+                    // Show product and description
+                    $product_static->type=$lines[$i]->fk_product_type;
+                    $product_static->id=$lines[$i]->fk_product;
+                    $product_static->ref=$lines[$i]->ref;
+                    $text=$product_static->getNomUrl(1);
                     $text.= ' - '.$label;
-                    $description=($conf->global->PRODUIT_DESC_IN_FORM?'':dol_htmlentitiesbr($lines[$i]->description));
-                    //print $description;
+                    $description=(! empty($conf->global->PRODUIT_DESC_IN_FORM)?'':dol_htmlentitiesbr($lines[$i]->description));
                     print $form->textwithtooltip($text,$description,3,'','',$i);
                     print_date_range($lines[$i]->date_start,$lines[$i]->date_end);
-                    if ($conf->global->PRODUIT_DESC_IN_FORM)
+                    if (! empty($conf->global->PRODUIT_DESC_IN_FORM))
                     {
-                        print ($lines[$i]->description && $lines[$i]->description!=$lines[$i]->product)?'<br>'.dol_htmlentitiesbr($lines[$i]->description):'';
+                        print (! empty($lines[$i]->description) && $lines[$i]->description!=$lines[$i]->product)?'<br>'.dol_htmlentitiesbr($lines[$i]->description):'';
                     }
                 }
                 else
@@ -1211,7 +1234,14 @@ else
                     print "<td>";
                     if ($lines[$i]->fk_product_type==1) $text = img_object($langs->trans('Service'),'service');
                     else $text = img_object($langs->trans('Product'),'product');
-                    print $text.' '.nl2br($lines[$i]->description);
+
+                    if (! empty($lines[$i]->label)) {
+                    	$text.= ' <strong>'.$lines[$i]->label.'</strong>';
+                    	print $form->textwithtooltip($text,$lines[$i]->description,3,'','',$i);
+                    } else {
+                    	print $text.' '.nl2br($lines[$i]->description);
+                    }
+
                     print_date_range($lines[$i]->date_start,$lines[$i]->date_end);
                     print "</td>\n";
                 }
@@ -1238,7 +1268,7 @@ else
                 //print '<td align="center">'.$lines[$i]->volume*$lines[$i]->qty_shipped.' '.measuring_units_string($lines[$i]->volume_units,"volume").'</td>';
 
                 // Entrepot source
-                if ($conf->stock->enabled)
+                if (! empty($conf->stock->enabled))
                 {
                     print '<td align="left">';
                     if ($lines[$i]->entrepot_id > 0)
@@ -1297,26 +1327,31 @@ else
                 else print '<a class="butActionRefused" href="#">'.$langs->trans('SendByMail').'</a>';
             }
 
-            // Create bill and Classify billed
-            if ($conf->facture->enabled && $object->statut > 0  && ! $object->billed)
+            // Create bill and Close shipment
+            if (! empty($conf->facture->enabled) && $object->statut > 0)
             {
                 if ($user->rights->facture->creer)
                 {
-                    // TODO until the module is autonomous
                     print '<a class="butAction" href="'.DOL_URL_ROOT.'/compta/facture.php?action=create&amp;origin='.$object->element.'&amp;originid='.$object->id.'&amp;socid='.$object->socid.'">'.$langs->trans("CreateBill").'</a>';
-                    //print '<a class="butAction" href="'.DOL_URL_ROOT.'/compta/facture.php?action=create&amp;origin='.$object->origin.'&amp;originid='.$object->origin_id.'&amp;socid='.$object->socid.'">'.$langs->trans("CreateBill").'</a>';
-                }
-
-                // TODO add alternative status
-                if ($user->rights->expedition->creer && $object->statut > 0)
-                {
-                    print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&amp;action=classifybilled">'.$langs->trans("ClassifyBilled").'</a>';
                 }
             }
 
-            if ($conf->livraison_bon->enabled && $object->statut == 1 && $user->rights->expedition->livraison->creer && empty($object->linkedObjectsIds))
+            // This is just to generate a delivery receipt
+            if ($conf->livraison_bon->enabled && ($object->statut == 1 || $object->statut == 2) && $user->rights->expedition->livraison->creer && empty($object->linkedObjectsIds))
             {
                 print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&amp;action=create_delivery">'.$langs->trans("DeliveryOrder").'</a>';
+            }
+
+            // Close
+            if (! empty($conf->facture->enabled) && $object->statut > 0)
+            {
+            	if ($user->rights->expedition->creer && $object->statut > 0 && ! $object->billed)
+                {
+                	$label="Close";
+                	// Label here should be "Close" or "ClassifyBilled" if we decided to make bill on shipments instead of orders
+                	if (! empty($conf->global->WORKFLOW_BILL_ON_SHIPMENT)) $label="ClassifyBilled";
+                    print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&amp;action=classifybilled">'.$langs->trans($label).'</a>';
+                }
             }
 
             if ($user->rights->expedition->supprimer)
@@ -1358,7 +1393,7 @@ else
             print '</td><td valign="top" width="50%">';
 
             // List of actions on element
-            include_once(DOL_DOCUMENT_ROOT.'/core/class/html.formactions.class.php');
+            include_once DOL_DOCUMENT_ROOT.'/core/class/html.formactions.class.php';
             $formactions=new FormActions($db);
             $somethingshown=$formactions->showactions($object,'shipping',$socid);
 
@@ -1371,8 +1406,8 @@ else
         if ($action == 'presend')
         {
             $ref = dol_sanitizeFileName($object->ref);
-            include_once(DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php');
-            $fileparams = dol_most_recent_file($conf->expedition->dir_output . '/sending/' . $ref);
+            include_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
+            $fileparams = dol_most_recent_file($conf->expedition->dir_output . '/sending/' . $ref, preg_quote($ref,'/'));
             $file=$fileparams['fullname'];
 
             // Build document if it not exists
@@ -1389,13 +1424,13 @@ else
                     $outputlangs->setDefaultLang($newlang);
                 }
 
-                $result=expedition_pdf_create($db, $object, GETPOST('model')?GETPOST('model'):$object->modelpdf, $outputlangs, GETPOST('hidedetails'), GETPOST('hidedesc'), GETPOST('hideref'), $hookmanager);
+                $result=expedition_pdf_create($db, $object, GETPOST('model')?GETPOST('model'):$object->modelpdf, $outputlangs, $hidedetails, $hidedesc, $hideref, $hookmanager);
                 if ($result <= 0)
                 {
                     dol_print_error($db,$result);
                     exit;
                 }
-                $fileparams = dol_most_recent_file($conf->expedition->dir_output . '/sending/' . $ref);
+                $fileparams = dol_most_recent_file($conf->expedition->dir_output . '/sending/' . $ref, preg_quote($ref,'/'));
                 $file=$fileparams['fullname'];
             }
 
@@ -1403,7 +1438,7 @@ else
             print_titre($langs->trans('SendShippingByEMail'));
 
             // Cree l'objet formulaire mail
-            include_once(DOL_DOCUMENT_ROOT.'/core/class/html.formmail.class.php');
+            include_once DOL_DOCUMENT_ROOT.'/core/class/html.formmail.class.php';
             $formmail = new FormMail($db);
             $formmail->fromtype = 'user';
             $formmail->fromid   = $user->id;
@@ -1453,7 +1488,7 @@ else
     }
 }
 
-$db->close();
 
 llxFooter();
+$db->close();
 ?>

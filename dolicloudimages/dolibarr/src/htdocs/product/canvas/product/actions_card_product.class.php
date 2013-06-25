@@ -1,9 +1,9 @@
 <?php
-/* Copyright (C) 2010 Regis Houssin  <regis@dolibarr.fr>
+/* Copyright (C) 2010 Regis Houssin  <regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -20,7 +20,7 @@
  *	\ingroup    produit
  *	\brief      File with class of actions for canvas product
  */
-include_once(DOL_DOCUMENT_ROOT.'/product/class/product.class.php');
+include_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
 
 
 /**
@@ -43,15 +43,15 @@ class ActionsCardProduct
     /**
 	 *    Constructor
 	 *
-     *    @param	DoliDB	$DB             Database handler
+     *    @param	DoliDB	$db             Database handler
      *    @param	string	$dirmodule		Name of directory of module
      *    @param	string	$targetmodule	Name of directory where canvas is stored
      *    @param	string	$canvas         Name of canvas
      *    @param	string	$card           Name of tab (sub-canvas)
 	 */
-	function __construct($DB, $dirmodule, $targetmodule, $canvas, $card)
+	function __construct($db, $dirmodule, $targetmodule, $canvas, $card)
 	{
-        $this->db               = $DB;
+        $this->db               = $db;
         $this->dirmodule		= $dirmodule;
         $this->targetmodule     = $targetmodule;
         $this->canvas           = $canvas;
@@ -106,7 +106,7 @@ class ActionsCardProduct
 		$this->tpl['description'] = nl2br($this->description);
 
 		// Statut
-		$this->tpl['status'] = $this->getLibStatut(2);
+		$this->tpl['status'] = $this->object->getLibStatut(2);
 
 		// Note
 		$this->tpl['note'] = nl2br($this->note);

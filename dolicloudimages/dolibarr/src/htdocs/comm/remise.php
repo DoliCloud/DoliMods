@@ -1,10 +1,10 @@
-<?PHP
+<?php
 /* Copyright (C) 2001-2004 Rodolphe Quiedeville <rodolphe@quiedeville.org>
  * Copyright (C) 2004-2011 Laurent Destailleur  <eldy@users.sourceforge.net>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -22,9 +22,9 @@
  *		\brief      Page to edit relative discount of a customer
  */
 
-require("../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/company.lib.php");
-require_once(DOL_DOCUMENT_ROOT."/contact/class/contact.class.php");
+require '../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/contact/class/contact.class.php';
 
 $langs->load("companies");
 $langs->load("orders");
@@ -46,7 +46,7 @@ $backtopage = GETPOST('backtopage','alpha');
 
 if (GETPOST('cancel') && ! empty($backtopage))
 {
-     Header("Location: ".$backtopage);
+     header("Location: ".$backtopage);
      exit;
 }
 
@@ -60,12 +60,12 @@ if (GETPOST("action") == 'setremise')
 	{
 	    if (! empty($backtopage))
 	    {
-    		Header("Location: ".$backtopage);
+    		header("Location: ".$backtopage);
     		exit;
 	    }
 	    else
 	    {
-    		Header("Location: remise.php?id=".$_GET["id"]);
+    		header("Location: remise.php?id=".$_GET["id"]);
     		exit;
 	    }
 	}
@@ -114,7 +114,7 @@ if ($socid > 0)
 
 	// Remise
 	print '<tr><td colspan="2" width="25%">';
-	print $langs->trans("CustomerRelativeDiscount").'</td><td colspan="2">'.$objsoc->remise_client."%</td></tr>";
+	print $langs->trans("CustomerRelativeDiscount").'</td><td colspan="2">'.price2num($objsoc->remise_client)."%</td></tr>";
 
 	print '</table>';
 	print '<br>';
@@ -184,7 +184,7 @@ if ($socid > 0)
 			$tag = !$tag;
 			print '<tr '.$bc[$tag].'>';
 			print '<td>'.dol_print_date($db->jdate($obj->dc),"dayhour").'</td>';
-			print '<td align="center">'.$obj->remise_client.' %</td>';
+			print '<td align="center">'.price2num($obj->remise_client).'%</td>';
 			print '<td align="left">'.$obj->note.'</td>';
 			print '<td align="center"><a href="'.DOL_URL_ROOT.'/user/fiche.php?id='.$obj->user_id.'">'.img_object($langs->trans("ShowUser"),'user').' '.$obj->login.'</a></td>';
 			print '</tr>';

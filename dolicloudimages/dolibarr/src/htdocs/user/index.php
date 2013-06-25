@@ -1,11 +1,11 @@
 <?php
 /* Copyright (C) 2002-2005 Rodolphe Quiedeville <rodolphe@quiedeville.org>
  * Copyright (C) 2004-2011 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2005-2011 Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2005-2012 Regis Houssin        <regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -23,24 +23,28 @@
  *      \brief      Page of users
  */
 
-require("../main.inc.php");
-if(! empty($conf->multicompany->enabled)) dol_include_once("/multicompany/class/actions_multicompany.class.php");
+require '../main.inc.php';
+if (! empty($conf->multicompany->enabled))
+	dol_include_once('/multicompany/class/actions_multicompany.class.php', 'ActionsMulticompany');
 
 
-if (! $user->rights->user->user->lire && ! $user->admin) accessforbidden();
+if (! $user->rights->user->user->lire && ! $user->admin)
+	accessforbidden();
 
 $langs->load("users");
 $langs->load("companies");
 
 // Security check (for external users)
 $socid=0;
-if ($user->societe_id > 0) $socid = $user->societe_id;
+if ($user->societe_id > 0)
+	$socid = $user->societe_id;
 
 $sall=GETPOST('sall','alpha');
+$search_user=GETPOST('search_user','alpha');
 
-$sortfield = GETPOST("sortfield",'alpha');
-$sortorder = GETPOST("sortorder",'alpha');
-$page = GETPOST("page",'int');
+$sortfield = GETPOST('sortfield','alpha');
+$sortorder = GETPOST('sortorder','alpha');
+$page = GETPOST('page','int');
 if ($page == -1) { $page = 0; }
 $offset = $conf->liste_limit * $page;
 $pageprev = $page - 1;
@@ -69,7 +73,7 @@ $sql.= " u.ldap_sid, u.statut, u.entity,";
 $sql.= " s.nom, s.canvas";
 $sql.= " FROM ".MAIN_DB_PREFIX."user as u";
 $sql.= " LEFT JOIN ".MAIN_DB_PREFIX."societe as s ON u.fk_societe = s.rowid";
-if(! empty($conf->multicompany->enabled) && $conf->entity == 1 && ($conf->multicompany->transverse_mode || ($user->admin && ! $user->entity)))
+if(! empty($conf->multicompany->enabled) && $conf->entity == 1 && (! empty($conf->multicompany->transverse_mode) || (! empty($user->admin) && empty($user->entity))))
 {
 	$sql.= " WHERE u.entity IS NOT NULL";
 }
@@ -77,12 +81,12 @@ else
 {
 	$sql.= " WHERE u.entity IN (0,".$conf->entity.")";
 }
-if (!empty($socid)) $sql.= " AND u.fk_societe = ".$socid;
-if ($_POST["search_user"])
+if (! empty($socid)) $sql.= " AND u.fk_societe = ".$socid;
+if (! empty($search_user))
 {
-    $sql.= " AND (u.login like '%".$_POST["search_user"]."%' OR u.name like '%".$_POST["search_user"]."%' OR u.firstname like '%".$_POST["search_user"]."%')";
+    $sql.= " AND (u.login LIKE '%".$db->escape($search_user)."%' OR u.name LIKE '%".$db->escape($search_user)."%' OR u.firstname LIKE '%".$db->escape($search_user)."%')";
 }
-if ($sall) $sql.= " AND (u.login like '%".$db->escape($sall)."%' OR u.name like '%".$db->escape($sall)."%' OR u.firstname like '%".$db->escape($sall)."%' OR u.email like '%".$db->escape($sall)."%' OR u.note like '%".$db->escape($sall)."%')";
+if ($sall) $sql.= " AND (u.login LIKE '%".$db->escape($sall)."%' OR u.name LIKE '%".$db->escape($sall)."%' OR u.firstname LIKE '%".$db->escape($sall)."%' OR u.email LIKE '%".$db->escape($sall)."%' OR u.note LIKE '%".$db->escape($sall)."%')";
 $sql.=$db->order($sortfield,$sortorder);
 
 $result = $db->query($sql);
@@ -100,7 +104,7 @@ if ($result)
     print_liste_field_titre($langs->trans("Company"),"index.php","u.fk_societe",$param,"","",$sortfield,$sortorder);
     print_liste_field_titre($langs->trans("DateCreation"),"index.php","u.datec",$param,"",'align="center"',$sortfield,$sortorder);
     print_liste_field_titre($langs->trans("LastConnexion"),"index.php","u.datelastlogin",$param,"",'align="center"',$sortfield,$sortorder);
-    print_liste_field_titre($langs->trans("Status"),"index.php","u.status",$param,"",'align="right"',$sortfield,$sortorder);
+    print_liste_field_titre($langs->trans("Status"),"index.php","u.statut",$param,"",'align="right"',$sortfield,$sortorder);
     print "</tr>\n";
     $var=True;
     while ($i < $num)
@@ -129,6 +133,7 @@ if ($result)
             $companystatic->canvas=$obj->canvas;
             print $companystatic->getNomUrl(1);
         }
+        // Multicompany enabled
         else if (! empty($conf->multicompany->enabled))
         {
         	if (! $obj->entity)
@@ -137,8 +142,12 @@ if ($result)
         	}
         	else
         	{
-        		$mc->getInfo($obj->entity);
-        		print $mc->label;
+        		// $mc is defined in conf.class.php if multicompany enabled.
+        		if (is_object($mc))
+        		{
+        			$mc->getInfo($obj->entity);
+        			print $mc->label;
+        		}
         	}
         }
         else if ($obj->ldap_sid)
@@ -171,7 +180,7 @@ else
     dol_print_error($db);
 }
 
-$db->close();
-
 llxFooter();
+
+$db->close();
 ?>

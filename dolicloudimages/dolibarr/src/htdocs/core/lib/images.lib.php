@@ -1,10 +1,10 @@
 <?php
 /* Copyright (C) 2004-2010 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2005-2007 Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2005-2007 Regis Houssin        <regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -97,7 +97,7 @@ function dol_getImageSize($file)
  */
 function dol_imageResizeOrCrop($file, $mode, $newWidth, $newHeight, $src_x=0, $src_y=0)
 {
-	require_once(DOL_DOCUMENT_ROOT."/core/lib/functions2.lib.php");
+	require_once DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php';
 
 	global $conf,$langs;
 
@@ -301,7 +301,7 @@ function dol_imageResizeOrCrop($file, $mode, $newWidth, $newHeight, $src_x=0, $s
  */
 function vignette($file, $maxWidth = 160, $maxHeight = 120, $extName='_small', $quality=50, $outdir='thumbs', $targetformat=0)
 {
-	require_once(DOL_DOCUMENT_ROOT."/core/lib/functions2.lib.php");
+	require_once DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php';
 
 	global $conf,$langs;
 

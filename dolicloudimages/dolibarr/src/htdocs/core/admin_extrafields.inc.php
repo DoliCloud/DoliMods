@@ -1,9 +1,9 @@
 <?php
-/* Copyright (C) 2011 Laurent Destailleur  <eldy@users.sourceforge.net>
+/* Copyright (C) 2011-2012 Laurent Destailleur  <eldy@users.sourceforge.net>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -24,20 +24,34 @@
 $maxsizestring=255;
 $maxsizeint=10;
 
+$extrasize=GETPOST('size');
+if (GETPOST('type')=='double' && strpos($extrasize,',')===false) $extrasize='24,8';
+if (GETPOST('type')=='date')     $extrasize='';
+if (GETPOST('type')=='datetime') $extrasize='';
+
+
 // Add attribute
 if ($action == 'add')
 {
 	if ($_POST["button"] != $langs->trans("Cancel"))
 	{
 	    // Check values
-        if (GETPOST('type')=='varchar' && GETPOST('size') > $maxsizestring)
+		if (! GETPOST('type'))
+		{
+			$error++;
+			$langs->load("errors");
+			$mesg=$langs->trans("ErrorFieldRequired",$langs->trans("Type"));
+			$action = 'create';
+		}
+
+        if (GETPOST('type')=='varchar' && $extrasize > $maxsizestring)
         {
             $error++;
             $langs->load("errors");
             $mesg=$langs->trans("ErrorSizeTooLongForVarcharType",$maxsizestring);
             $action = 'create';
         }
-        if (GETPOST('type')=='int' && GETPOST('size') > $maxsizeint)
+        if (GETPOST('type')=='int' && $extrasize > $maxsizeint)
         {
             $error++;
             $langs->load("errors");
@@ -50,10 +64,10 @@ if ($action == 'add')
     		// Type et taille non encore pris en compte => varchar(255)
     		if (isset($_POST["attrname"]) && preg_match("/^\w[a-zA-Z0-9-_]*$/",$_POST['attrname']))
     		{
-                $result=$extrafields->addExtraField($_POST['attrname'],$_POST['label'],$_POST['type'],$_POST['pos'],$_POST['size'],$elementtype);
+                $result=$extrafields->addExtraField($_POST['attrname'],$_POST['label'],$_POST['type'],$_POST['pos'],$extrasize,$elementtype,(GETPOST('unique')?1:0),(GETPOST('required')?1:0));
     			if ($result > 0)
     			{
-    				Header("Location: ".$_SERVER["PHP_SELF"]);
+    				header("Location: ".$_SERVER["PHP_SELF"]);
     				exit;
     			}
     			else
@@ -79,14 +93,21 @@ if ($action == 'update')
 	if ($_POST["button"] != $langs->trans("Cancel"))
 	{
         // Check values
-        if (GETPOST('type')=='varchar' && GETPOST('size') > $maxsizestring)
+		if (! GETPOST('type'))
+		{
+			$error++;
+			$langs->load("errors");
+			$mesg=$langs->trans("ErrorFieldRequired",$langs->trans("Type"));
+			$action = 'create';
+		}
+		if (GETPOST('type')=='varchar' && $extrasize > $maxsizestring)
         {
             $error++;
             $langs->load("errors");
             $mesg=$langs->trans("ErrorSizeTooLongForVarcharType",$maxsizestring);
             $action = 'edit';
         }
-        if (GETPOST('type')=='int' && GETPOST('size') > $maxsizeint)
+        if (GETPOST('type')=='int' && $extrasize > $maxsizeint)
         {
             $error++;
             $langs->load("errors");
@@ -98,14 +119,10 @@ if ($action == 'update')
 	    {
             if (isset($_POST["attrname"]) && preg_match("/^\w[a-zA-Z0-9-_]*$/",$_POST['attrname']))
     		{
-    			$result=$extrafields->update($_POST['attrname'],$_POST['type'],$_POST['size'],$elementtype);
+    			$result=$extrafields->update($_POST['attrname'],$_POST['label'],$_POST['type'],$extrasize,$elementtype,(GETPOST('unique')?1:0),(GETPOST('required')?1:0));
     			if ($result > 0)
     			{
-    				if (isset($_POST['label']))
-    				{
-    					$extrafields->update_label($_POST['attrname'],$_POST['label'],$_POST['type'],$_POST['size'],$elementtype);
-    				}
-    				Header("Location: ".$_SERVER["PHP_SELF"]);
+    				header("Location: ".$_SERVER["PHP_SELF"]);
     				exit;
     			}
     			else
@@ -132,7 +149,7 @@ if ($action == 'delete')
         $result=$extrafields->delete($_GET["attrname"],$elementtype);
         if ($result >= 0)
         {
-            Header("Location: ".$_SERVER["PHP_SELF"]);
+            header("Location: ".$_SERVER["PHP_SELF"]);
             exit;
         }
         else $mesg=$extrafields->error;

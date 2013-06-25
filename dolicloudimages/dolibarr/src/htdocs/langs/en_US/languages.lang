@@ -3,6 +3,7 @@ CHARSET=UTF-8
 
 Language_ar_AR=Arabic
 Language_ar_SA=Arabic
+Language_bg_BG=Bulgarian
 Language_ca_ES=Catalan
 Language_da_DA=Danish
 Language_da_DK=Danish
@@ -46,4 +47,5 @@ Language_sl_SI=Slovenian
 Language_sv_SV=Swedish
 Language_sv_SE=Swedish
 Language_zh_CN=Chinese
+Language_zh_TW=Chinese (Traditional)
 Language_is_IS=Icelandic

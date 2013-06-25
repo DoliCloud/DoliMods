@@ -1,14 +1,14 @@
 <?php
 /* Copyright (C) phpBSM
  * Copyright (C) 2005-2010 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2005-2007 Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2005-2007 Regis Houssin        <regis.houssin@capnetworks.com>
  *
  * This file is a modified version of datepicker.php from phpBSM to fix some
  * bugs, to add new features and to dramatically increase speed.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -35,7 +35,7 @@ if (! defined('NOLOGIN')) define('NOLOGIN',1);					// Not disabled cause need to
 if (! defined('NOREQUIREMENU'))  define('NOREQUIREMENU',1);
 if (! defined('NOREQUIREHTML'))  define('NOREQUIREHTML',1);
 
-require_once("../main.inc.php");
+require_once '../main.inc.php';
 
 if (GETPOST('lang')) $langs->setDefaultLang(GETPOST('lang'));	// If language was forced on URL by the main.inc.php
 $langs->load("main");
@@ -145,7 +145,7 @@ function displayBox($selectedDate,$month,$year)
 	//print "$selectedDate,$month,$year";
 	$thedate=dol_mktime(12,0,0,$month,1,$year);
 	//print "thedate=$thedate";
-	$today=mktime();
+	$today=dol_now();
 	$todayArray=dol_getdate($today);
 	if($selectedDate != "00000000")
 	{

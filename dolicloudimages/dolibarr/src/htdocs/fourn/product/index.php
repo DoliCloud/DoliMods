@@ -4,7 +4,7 @@
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -22,7 +22,7 @@
  *   \brief      Page accueil des produits et services
  */
 
-require("../../main.inc.php");
+require '../../main.inc.php';
 
 // Security check
 if (!$user->rights->produit->lire && !$user->rights->service->lire) accessforbidden();
@@ -45,12 +45,12 @@ print '<tr><td valign="top" width="30%">';
  */
 print '<form method="post" action="liste.php">';
 print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
-print '<table class="noborder" width="100%">';
+print '<table class="noborder nohover" width="100%">';
 print "<tr class=\"liste_titre\">\n";
 print '<td colspan="3">'.$langs->trans("Search").'</td></tr>';
-print "<tr $bc[0]><td>";
+print "<tr ".$bc[false]."><td>";
 print $langs->trans("Ref").' :</td><td><input class="flat" type="text" size="20" name="sf_ref"></td><td><input type="submit" value="'.$langs->trans("Search").'" class="button"></td></tr>';
-print "<tr $bc[0]><td>";
+print "<tr ".$bc[false]."><td>";
 print $langs->trans("Label").' :</td><td><input class="flat" type="text" size="20" name="snom"></td><td><input class="button" type="submit" value="'.$langs->trans("Search").'"></td></tr>';
 print "</table></form><br>\n";
 
@@ -78,13 +78,13 @@ if ($resql)
 
 print '<table class="noborder" width="100%">';
 print '<tr class="liste_titre"><td colspan="2">'.$langs->trans("Statistics").'</td></tr>';
-if ($conf->product->enabled)
+if (! empty($conf->product->enabled))
 {
     print "<tr $bc[0]>";
     print '<td><a href="liste.php?type=0">'.$langs->trans("Products").'</a></td><td>'.round($prodser[0]).'</td>';
     print "</tr>";
 }
-if ($conf->service->enabled)
+if (! empty($conf->service->enabled))
 {
     print "<tr $bc[1]>";
     print '<td><a href="liste.php?type=1">'.$langs->trans("Services").'</a></td><td>'.round($prodser[1]).'</td>';

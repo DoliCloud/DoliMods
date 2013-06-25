@@ -1,12 +1,12 @@
 <?php
 /* Copyright (C) 2001-2004 Rodolphe Quiedeville <rodolphe@quiedeville.org>
  * Copyright (C) 2004-2010 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2005-2010 Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2005-2010 Regis Houssin        <regis.houssin@capnetworks.com>
  * Copyright (C) 2012	   Juanjo Menent        <jmenent@2byte.es>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -24,27 +24,27 @@
  *		\brief      Page of project referrers
  */
 
-require("../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/projet/class/project.class.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/project.lib.php");
-if ($conf->propal->enabled)      require_once(DOL_DOCUMENT_ROOT."/comm/propal/class/propal.class.php");
-if ($conf->facture->enabled)     require_once(DOL_DOCUMENT_ROOT."/compta/facture/class/facture.class.php");
-if ($conf->facture->enabled)     require_once(DOL_DOCUMENT_ROOT."/compta/facture/class/facture-rec.class.php");
-if ($conf->commande->enabled)    require_once(DOL_DOCUMENT_ROOT."/commande/class/commande.class.php");
-if ($conf->fournisseur->enabled) require_once(DOL_DOCUMENT_ROOT."/fourn/class/fournisseur.facture.class.php");
-if ($conf->fournisseur->enabled) require_once(DOL_DOCUMENT_ROOT."/fourn/class/fournisseur.commande.class.php");
-if ($conf->contrat->enabled)     require_once(DOL_DOCUMENT_ROOT."/contrat/class/contrat.class.php");
-if ($conf->ficheinter->enabled)  require_once(DOL_DOCUMENT_ROOT."/fichinter/class/fichinter.class.php");
-if ($conf->deplacement->enabled) require_once(DOL_DOCUMENT_ROOT."/compta/deplacement/class/deplacement.class.php");
-if ($conf->agenda->enabled)      require_once(DOL_DOCUMENT_ROOT."/comm/action/class/actioncomm.class.php");
+require '../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/projet/class/project.class.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/project.lib.php';
+if (! empty($conf->propal->enabled))      require_once DOL_DOCUMENT_ROOT.'/comm/propal/class/propal.class.php';
+if (! empty($conf->facture->enabled))     require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
+if (! empty($conf->facture->enabled))     require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture-rec.class.php';
+if (! empty($conf->commande->enabled))    require_once DOL_DOCUMENT_ROOT.'/commande/class/commande.class.php';
+if (! empty($conf->fournisseur->enabled)) require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.facture.class.php';
+if (! empty($conf->fournisseur->enabled)) require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.commande.class.php';
+if (! empty($conf->contrat->enabled))     require_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
+if (! empty($conf->ficheinter->enabled))  require_once DOL_DOCUMENT_ROOT.'/fichinter/class/fichinter.class.php';
+if (! empty($conf->deplacement->enabled)) require_once DOL_DOCUMENT_ROOT.'/compta/deplacement/class/deplacement.class.php';
+if (! empty($conf->agenda->enabled))      require_once DOL_DOCUMENT_ROOT.'/comm/action/class/actioncomm.class.php';
 
 $langs->load("projects");
 $langs->load("companies");
 $langs->load("suppliers");
-if ($conf->facture->enabled)  	$langs->load("bills");
-if ($conf->commande->enabled) 	$langs->load("orders");
-if ($conf->propal->enabled)   	$langs->load("propal");
-if ($conf->ficheinter->enabled)	$langs->load("interventions");
+if (! empty($conf->facture->enabled))  	$langs->load("bills");
+if (! empty($conf->commande->enabled)) 	$langs->load("orders");
+if (! empty($conf->propal->enabled))   	$langs->load("propal");
+if (! empty($conf->ficheinter->enabled))	$langs->load("interventions");
 
 $projectid=GETPOST('id');
 $ref=GETPOST('ref');
@@ -94,6 +94,8 @@ dol_fiche_head($head, 'element', $langs->trans("Project"),0,($project->public?'p
 
 print '<table class="border" width="100%">';
 
+$linkback = '<a href="'.DOL_URL_ROOT.'/projet/liste.php">'.$langs->trans("BackToList").'</a>';
+
 print '<tr><td width="30%">'.$langs->trans("Ref").'</td><td>';
 // Define a complementary filter for search of next/prev ref.
 if (! $user->rights->projet->all->lire)
@@ -101,7 +103,7 @@ if (! $user->rights->projet->all->lire)
     $projectsListId = $project->getProjectsAuthorizedForUser($user,$mine,0);
     $project->next_prev_filter=" rowid in (".(count($projectsListId)?join(',',array_keys($projectsListId)):'0').")";
 }
-print $form->showrefnav($project,'ref','',1,'ref','ref');
+print $form->showrefnav($project, 'ref', $linkback, 1, 'ref', 'ref');
 print '</td></tr>';
 
 print '<tr><td>'.$langs->trans("Label").'</td><td>'.$project->title.'</td></tr>';
@@ -221,6 +223,7 @@ foreach ($listofreferent as $key => $value)
 				$date=$element->date;
 				if (empty($date)) $date=$element->datep;
 				if (empty($date)) $date=$element->date_contrat;
+				if (empty($date)) $date=$element->datev; //Fiche inter
 				print '<td align="center">'.dol_print_date($date,'day').'</td>';
 
 				// Third party
@@ -261,26 +264,26 @@ foreach ($listofreferent as $key => $value)
 		{
 			if ($project->societe->prospect || $project->societe->client)
 			{
-				if ($key == 'propal' && $conf->propal->enabled && $user->rights->propale->creer)
+				if ($key == 'propal' && ! empty($conf->propal->enabled) && $user->rights->propale->creer)
 				{
 					print '<a class="butAction" href="'.DOL_URL_ROOT.'/comm/addpropal.php?socid='.$project->societe->id.'&amp;action=create&amp;origin='.$project->element.'&amp;originid='.$project->id.'">'.$langs->trans("AddProp").'</a>';
 				}
-				if ($key == 'order' && $conf->commande->enabled && $user->rights->commande->creer)
+				if ($key == 'order' && ! empty($conf->commande->enabled) && $user->rights->commande->creer)
 				{
 					print '<a class="butAction" href="'.DOL_URL_ROOT.'/commande/fiche.php?socid='.$project->societe->id.'&amp;action=create&amp;origin='.$project->element.'&amp;originid='.$project->id.'">'.$langs->trans("AddCustomerOrder").'</a>';
 				}
-				if ($key == 'invoice' && $conf->facture->enabled && $user->rights->facture->creer)
+				if ($key == 'invoice' && ! empty($conf->facture->enabled) && $user->rights->facture->creer)
 				{
-					print '<a class="butAction" href="'.DOL_URL_ROOT.'/compta/facture.php?socid='.$project->societe->id.'&amp;action=create&amp;origin='.$project->element.'&amp;originid='.$project->id.'">'.$langs->trans("AddCustomerInvoice").'</a>';
+					print '<a class="butAction" href="'.DOL_URL_ROOT.'/compta/facture/list.php?socid='.$project->societe->id.'&amp;action=create&amp;origin='.$project->element.'&amp;originid='.$project->id.'">'.$langs->trans("AddCustomerInvoice").'</a>';
 				}
 			}
 			if ($project->societe->fournisseur)
 			{
-				if ($key == 'order_supplier' && $conf->fournisseur->enabled && $user->rights->fournisseur->commande->creer)
+				if ($key == 'order_supplier' && ! empty($conf->fournisseur->enabled) && $user->rights->fournisseur->commande->creer)
 				{
 					print '<a class="butAction" href="'.DOL_URL_ROOT.'/fourn/facture/fiche.php?socid='.$project->societe->id.'&amp;action=create&amp;origin='.$project->element.'&amp;originid='.$project->id.'">'.$langs->trans("AddSupplierInvoice").'</a>';
 				}
-				if ($key == 'invoice_supplier' && $conf->fournisseur->enabled && $user->rights->fournisseur->facture->creer)
+				if ($key == 'invoice_supplier' && ! empty($conf->fournisseur->enabled) && $user->rights->fournisseur->facture->creer)
 				{
 					print '<a class="butAction" href="'.DOL_URL_ROOT.'/fourn/commande/fiche.php?socid='.$project->societe->id.'&amp;action=create&amp;origin='.$project->element.'&amp;originid='.$project->id.'">'.$langs->trans("AddSupplierOrder").'</a>';
 				}

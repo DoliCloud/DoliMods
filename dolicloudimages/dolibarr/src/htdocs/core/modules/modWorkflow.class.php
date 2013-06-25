@@ -1,10 +1,10 @@
 <?php
-/* Copyright (C) 2010-2012	Regis Houssin        <regis@dolibarr.fr>
+/* Copyright (C) 2010-2012	Regis Houssin        <regis.houssin@capnetworks.com>
  * Copyright (C) 2010		Laurent Destailleur  <eldy@users.sourceforge.net>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -23,13 +23,11 @@
  *      \ingroup    workflow
  *      \brief      File to describe and activate module Workflow
  */
-
-include_once(DOL_DOCUMENT_ROOT ."/core/modules/DolibarrModules.class.php");
+include_once DOL_DOCUMENT_ROOT .'/core/modules/DolibarrModules.class.php';
 
 
 /**
- *  \class      modWorkflow
- *  \brief      Classe de description et activation du module Workflow
+ *	Classe de description et activation du module Workflow
  */
 class modWorkflow extends DolibarrModules
 {
@@ -175,7 +173,7 @@ class modWorkflow extends DolibarrModules
      */
     function load_tables()
     {
-        return $this->_load_tables('/workflow/sql/');
+        return $this->_load_tables('');
     }
 }
 ?>

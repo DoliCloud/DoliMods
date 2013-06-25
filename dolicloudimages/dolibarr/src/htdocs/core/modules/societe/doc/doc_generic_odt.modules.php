@@ -3,7 +3,7 @@
 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -22,11 +22,11 @@
  *	\brief      File of class to build ODT documents for third parties
  */
 
-require_once(DOL_DOCUMENT_ROOT."/core/modules/societe/modules_societe.class.php");
-require_once(DOL_DOCUMENT_ROOT."/societe/class/societe.class.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/company.lib.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/files.lib.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/doc.lib.php");
+require_once DOL_DOCUMENT_ROOT.'/core/modules/societe/modules_societe.class.php';
+require_once DOL_DOCUMENT_ROOT.'/societe/class/societe.class.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/doc.lib.php';
 
 
 /**
@@ -109,7 +109,7 @@ class doc_generic_odt extends ModeleThirdPartyDoc
 			if (! is_dir($tmpdir)) $texttitle.=img_warning($langs->trans("ErrorDirNotFound",$tmpdir),0);
 			else
 			{
-				$tmpfiles=dol_dir_list($tmpdir,'files',0,'\.odt');
+				$tmpfiles=dol_dir_list($tmpdir,'files',0,'\.odt','','name',SORT_ASC,0,true); // Disable hook for the moment
 				if (count($tmpfiles)) $listoffiles=array_merge($listoffiles,$tmpfiles);
 			}
 		}
@@ -155,12 +155,12 @@ class doc_generic_odt extends ModeleThirdPartyDoc
 	/**
 	 *	Function to build a document on disk using the generic odt module.
 	 *
-	 *	@param	Societe		&$object			Object source to build document
+	 *	@param	Societe		$object				Object source to build document
 	 *	@param	Translate	$outputlangs		Lang output object
 	 * 	@param	string		$srctemplatepath	Full path of source filename for generator using a template file
 	 *	@return	int         					1 if OK, <=0 if KO
 	 */
-	function write_file(&$object,$outputlangs,$srctemplatepath)
+	function write_file($object,$outputlangs,$srctemplatepath)
 	{
 		global $user,$langs,$conf,$mysoc;
 
@@ -212,7 +212,7 @@ class doc_generic_odt extends ModeleThirdPartyDoc
 				dol_mkdir($conf->societe->multidir_temp[$object->entity]);
 
 				// Open and load template
-				require_once(ODTPHP_PATH.'odf.php');
+				require_once ODTPHP_PATH.'odf.php';
 				$odfHandler = new odf(
 				    $srctemplatepath,
 				    array(
@@ -311,6 +311,7 @@ class doc_generic_odt extends ModeleThirdPartyDoc
 			}
 		}
 
+		$this->error='UnknownError';
 		return -1;
 	}
 

@@ -1,12 +1,12 @@
 <?php
 /* Copyright (C) 2004      Rodolphe Quiedeville <rodolphe@quiedeville.org>
  * Copyright (C) 2006-2009 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2007-2012 Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2007-2012 Regis Houssin        <regis.houssin@capnetworks.com>
  * Copyright (C) 2011      Juanjo Menent	    <jmenent@2byte.es>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -25,7 +25,7 @@
  *       \brief      File of class to manage third party code with elephant rule
  */
 
-require_once(DOL_DOCUMENT_ROOT."/core/modules/societe/modules_societe.class.php");
+require_once DOL_DOCUMENT_ROOT.'/core/modules/societe/modules_societe.class.php';
 
 
 /**
@@ -69,10 +69,9 @@ class mod_codeclient_elephant extends ModeleThirdPartyCode
 	function info($langs)
 	{
 		global $conf, $mc;
+		global $form;
 
 		$langs->load("companies");
-
-		$form = new Form($this->db);
 
 		$disabled = ((! empty($mc->sharings['referent']) && $mc->sharings['referent'] != $conf->entity) ? ' disabled="disabled"' : '');
 
@@ -163,7 +162,7 @@ class mod_codeclient_elephant extends ModeleThirdPartyCode
 	{
 		global $db,$conf;
 
-		require_once(DOL_DOCUMENT_ROOT ."/core/lib/functions2.lib.php");
+		require_once DOL_DOCUMENT_ROOT .'/core/lib/functions2.lib.php';
 
 		// Get Mask value
 		$mask = '';
@@ -232,7 +231,7 @@ class mod_codeclient_elephant extends ModeleThirdPartyCode
 	{
 		global $conf;
 
-		require_once(DOL_DOCUMENT_ROOT ."/core/lib/functions2.lib.php");
+		require_once DOL_DOCUMENT_ROOT .'/core/lib/functions2.lib.php';
 
 		$result=0;
 		$code = strtoupper(trim($code));

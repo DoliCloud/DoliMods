@@ -3,7 +3,7 @@
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -38,7 +38,7 @@ class InterfaceLdapsynchro
      *
      *   @param		DoliDB		$db      Database handler
      */
-    function InterfaceLdapsynchro($db)
+    function __construct($db)
     {
         $this->db = $db;
 
@@ -110,7 +110,7 @@ class InterfaceLdapsynchro
         if ($action == 'USER_CREATE')
         {
             dol_syslog("Trigger '".$this->name."' for action '$action' launched by ".__FILE__.". id=".$object->id);
-        	if ($conf->ldap->enabled && $conf->global->LDAP_SYNCHRO_ACTIVE == 'dolibarr2ldap')
+        	if (! empty($conf->ldap->enabled) && ! empty($conf->global->LDAP_SYNCHRO_ACTIVE) && $conf->global->LDAP_SYNCHRO_ACTIVE == 'dolibarr2ldap')
         	{
         		$ldap=new Ldap();
         		$ldap->connect_bind();
@@ -129,10 +129,16 @@ class InterfaceLdapsynchro
         elseif ($action == 'USER_MODIFY')
         {
             dol_syslog("Trigger '".$this->name."' for action '$action' launched by ".__FILE__.". id=".$object->id);
-        	if ($conf->ldap->enabled && $conf->global->LDAP_SYNCHRO_ACTIVE == 'dolibarr2ldap')
+        	if (! empty($conf->ldap->enabled) && ! empty($conf->global->LDAP_SYNCHRO_ACTIVE) && $conf->global->LDAP_SYNCHRO_ACTIVE == 'dolibarr2ldap')
         	{
         		$ldap=new Ldap();
         		$ldap->connect_bind();
+
+        	    if (empty($object->oldcopy) || ! is_object($object->oldcopy))
+                {
+                	dol_syslog("Trigger ".$action." was called by a function that did not set previously the property ->oldcopy onto object", LOG_WARNING);
+                	$object->oldcopy=dol_clone($object);
+                }
 
         		$oldinfo=$object->oldcopy->_load_ldap_info();
         		$olddn=$object->oldcopy->_load_ldap_dn($oldinfo);
@@ -160,10 +166,16 @@ class InterfaceLdapsynchro
         elseif ($action == 'USER_NEW_PASSWORD')
         {
             dol_syslog("Trigger '".$this->name."' for action '$action' launched by ".__FILE__.". id=".$object->id);
-            if ($conf->ldap->enabled && $conf->global->LDAP_SYNCHRO_ACTIVE == 'dolibarr2ldap')
+            if (! empty($conf->ldap->enabled) && ! empty($conf->global->LDAP_SYNCHRO_ACTIVE) && $conf->global->LDAP_SYNCHRO_ACTIVE == 'dolibarr2ldap')
             {
                 $ldap=new Ldap();
                 $ldap->connect_bind();
+
+                if (empty($object->oldcopy) || ! is_object($object->oldcopy))
+                {
+                	dol_syslog("Trigger ".$action." was called by a function that did not set previously the property ->oldcopy onto object", LOG_WARNING);
+                	$object->oldcopy=dol_clone($object);
+                }
 
                 $oldinfo=$object->oldcopy->_load_ldap_info();
                 $olddn=$object->oldcopy->_load_ldap_dn($oldinfo);
@@ -195,7 +207,7 @@ class InterfaceLdapsynchro
         elseif ($action == 'USER_DELETE')
         {
             dol_syslog("Trigger '".$this->name."' for action '$action' launched by ".__FILE__.". id=".$object->id);
-        	if ($conf->ldap->enabled && $conf->global->LDAP_SYNCHRO_ACTIVE == 'dolibarr2ldap')
+        	if (! empty($conf->ldap->enabled) && ! empty($conf->global->LDAP_SYNCHRO_ACTIVE) && $conf->global->LDAP_SYNCHRO_ACTIVE == 'dolibarr2ldap')
         	{
         		$ldap=new Ldap();
         		$ldap->connect_bind();
@@ -214,7 +226,7 @@ class InterfaceLdapsynchro
         elseif ($action == 'USER_SETINGROUP')
         {
             dol_syslog("Trigger '".$this->name."' for action '$action' launched by ".__FILE__.". id=".$object->id);
-            if ($conf->ldap->enabled && $conf->global->LDAP_SYNCHRO_ACTIVE == 'dolibarr2ldap')
+            if (! empty($conf->ldap->enabled) && ! empty($conf->global->LDAP_SYNCHRO_ACTIVE) && $conf->global->LDAP_SYNCHRO_ACTIVE == 'dolibarr2ldap')
             {
                 $ldap=new Ldap();
                 $ldap->connect_bind();
@@ -252,7 +264,7 @@ class InterfaceLdapsynchro
         elseif ($action == 'USER_REMOVEFROMGROUP')
         {
             dol_syslog("Trigger '".$this->name."' for action '$action' launched by ".__FILE__.". id=".$object->id);
-            if ($conf->ldap->enabled && $conf->global->LDAP_SYNCHRO_ACTIVE == 'dolibarr2ldap')
+            if (! empty($conf->ldap->enabled) && ! empty($conf->global->LDAP_SYNCHRO_ACTIVE) && $conf->global->LDAP_SYNCHRO_ACTIVE == 'dolibarr2ldap')
             {
                 $ldap=new Ldap();
                 $ldap->connect_bind();
@@ -291,7 +303,8 @@ class InterfaceLdapsynchro
 		// Groupes
         elseif ($action == 'GROUP_CREATE')
         {
-        	if ($conf->ldap->enabled && $conf->global->LDAP_SYNCHRO_ACTIVE == 'dolibarr2ldap')
+            dol_syslog("Trigger '".$this->name."' for action '$action' launched by ".__FILE__.". id=".$object->id);
+        	if (! empty($conf->ldap->enabled) && ! empty($conf->global->LDAP_SYNCHRO_ACTIVE) && $conf->global->LDAP_SYNCHRO_ACTIVE == 'dolibarr2ldap')
         	{
         		$ldap=new Ldap();
         		$ldap->connect_bind();
@@ -313,10 +326,17 @@ class InterfaceLdapsynchro
 		}
         elseif ($action == 'GROUP_MODIFY')
         {
-        	if ($conf->ldap->enabled && $conf->global->LDAP_SYNCHRO_ACTIVE == 'dolibarr2ldap')
+            dol_syslog("Trigger '".$this->name."' for action '$action' launched by ".__FILE__.". id=".$object->id);
+        	if (! empty($conf->ldap->enabled) && ! empty($conf->global->LDAP_SYNCHRO_ACTIVE) && $conf->global->LDAP_SYNCHRO_ACTIVE == 'dolibarr2ldap')
         	{
         		$ldap=new Ldap();
         		$ldap->connect_bind();
+
+        	    if (empty($object->oldcopy) || ! is_object($object->oldcopy))
+                {
+                	dol_syslog("Trigger ".$action." was called by a function that did not set previously the property ->oldcopy onto object", LOG_WARNING);
+                	$object->oldcopy=dol_clone($object);
+                }
 
         		$oldinfo=$object->oldcopy->_load_ldap_info();
         		$olddn=$object->oldcopy->_load_ldap_dn($oldinfo);
@@ -343,7 +363,8 @@ class InterfaceLdapsynchro
 		}
         elseif ($action == 'GROUP_DELETE')
         {
-        	if ($conf->ldap->enabled && $conf->global->LDAP_SYNCHRO_ACTIVE == 'dolibarr2ldap')
+            dol_syslog("Trigger '".$this->name."' for action '$action' launched by ".__FILE__.". id=".$object->id);
+        	if (! empty($conf->ldap->enabled) && ! empty($conf->global->LDAP_SYNCHRO_ACTIVE) && $conf->global->LDAP_SYNCHRO_ACTIVE == 'dolibarr2ldap')
         	{
         		$ldap=new Ldap();
         		$ldap->connect_bind();
@@ -364,7 +385,7 @@ class InterfaceLdapsynchro
         elseif ($action == 'CONTACT_CREATE')
         {
             dol_syslog("Trigger '".$this->name."' for action '$action' launched by ".__FILE__.". id=".$object->id);
-	      	if ($conf->ldap->enabled && $conf->global->LDAP_CONTACT_ACTIVE)
+	      	if (! empty($conf->ldap->enabled) && ! empty($conf->global->LDAP_CONTACT_ACTIVE))
         	{
         		$ldap=new Ldap();
         		$ldap->connect_bind();
@@ -383,10 +404,16 @@ class InterfaceLdapsynchro
         elseif ($action == 'CONTACT_MODIFY')
         {
             dol_syslog("Trigger '".$this->name."' for action '$action' launched by ".__FILE__.". id=".$object->id);
-        	if ($conf->ldap->enabled && $conf->global->LDAP_CONTACT_ACTIVE)
+        	if (! empty($conf->ldap->enabled) && ! empty($conf->global->LDAP_CONTACT_ACTIVE))
         	{
         		$ldap=new Ldap();
         		$ldap->connect_bind();
+
+        	    if (empty($object->oldcopy) || ! is_object($object->oldcopy))
+                {
+                	dol_syslog("Trigger ".$action." was called by a function that did not set previously the property ->oldcopy onto object", LOG_WARNING);
+                	$object->oldcopy=dol_clone($object);
+                }
 
         		$oldinfo=$object->oldcopy->_load_ldap_info();
         		$olddn=$object->oldcopy->_load_ldap_dn($oldinfo);
@@ -414,7 +441,7 @@ class InterfaceLdapsynchro
         elseif ($action == 'CONTACT_DELETE')
         {
             dol_syslog("Trigger '".$this->name."' for action '$action' launched by ".__FILE__.". id=".$object->id);
-	    	if ($conf->ldap->enabled && $conf->global->LDAP_CONTACT_ACTIVE)
+	    	if (! empty($conf->ldap->enabled) && ! empty($conf->global->LDAP_CONTACT_ACTIVE))
 	    	{
 	    		$ldap=new Ldap();
 	    		$ldap->connect_bind();
@@ -435,7 +462,7 @@ class InterfaceLdapsynchro
         elseif ($action == 'MEMBER_CREATE')
         {
             dol_syslog("Trigger '".$this->name."' for action '$action' launched by ".__FILE__.". id=".$object->id);
-        	if ($conf->ldap->enabled && $conf->global->LDAP_MEMBER_ACTIVE)
+        	if (! empty($conf->ldap->enabled) && ! empty($conf->global->LDAP_MEMBER_ACTIVE))
         	{
         		$ldap=new Ldap();
         		$ldap->connect_bind();
@@ -454,10 +481,10 @@ class InterfaceLdapsynchro
         elseif ($action == 'MEMBER_VALIDATE')
         {
             dol_syslog("Trigger '".$this->name."' for action '$action' launched by ".__FILE__.". id=".$object->id);
-        	if ($conf->ldap->enabled && $conf->global->LDAP_MEMBER_ACTIVE)
+        	if (! empty($conf->ldap->enabled) && ! empty($conf->global->LDAP_MEMBER_ACTIVE))
         	{
 				// If status field is setup to be synchronized
-				if ($conf->global->LDAP_FIELD_MEMBER_STATUS)
+				if (! empty($conf->global->LDAP_FIELD_MEMBER_STATUS))
 				{
 					$ldap=new Ldap();
 	        		$ldap->connect_bind();
@@ -478,7 +505,7 @@ class InterfaceLdapsynchro
         elseif ($action == 'MEMBER_SUBSCRIPTION')
         {
             dol_syslog("Trigger '".$this->name."' for action '$action' launched by ".__FILE__.". id=".$object->id);
-        	if ($conf->ldap->enabled && $conf->global->LDAP_MEMBER_ACTIVE)
+        	if (! empty($conf->ldap->enabled) && ! empty($conf->global->LDAP_MEMBER_ACTIVE))
         	{
 				// If subscriptions fields are setup to be synchronized
 				if ($conf->global->LDAP_FIELD_MEMBER_FIRSTSUBSCRIPTION_DATE
@@ -506,10 +533,16 @@ class InterfaceLdapsynchro
         elseif ($action == 'MEMBER_MODIFY')
         {
             dol_syslog("Trigger '".$this->name."' for action '$action' launched by ".__FILE__.". id=".$object->id);
-        	if ($conf->ldap->enabled && $conf->global->LDAP_MEMBER_ACTIVE)
+        	if (! empty($conf->ldap->enabled) && ! empty($conf->global->LDAP_MEMBER_ACTIVE))
         	{
         		$ldap=new Ldap();
         		$ldap->connect_bind();
+
+        	    if (empty($object->oldcopy) || ! is_object($object->oldcopy))
+                {
+                	dol_syslog("Trigger ".$action." was called by a function that did not set previously the property ->oldcopy onto object", LOG_WARNING);
+                	$object->oldcopy=dol_clone($object);
+                }
 
         		$oldinfo=$object->oldcopy->_load_ldap_info();
         		$olddn=$object->oldcopy->_load_ldap_dn($oldinfo);
@@ -537,7 +570,7 @@ class InterfaceLdapsynchro
         elseif ($action == 'MEMBER_NEW_PASSWORD')
         {
             dol_syslog("Trigger '".$this->name."' for action '$action' launched by ".__FILE__.". id=".$object->id);
-        	if ($conf->ldap->enabled && $conf->global->LDAP_MEMBER_ACTIVE)
+        	if (! empty($conf->ldap->enabled) && ! empty($conf->global->LDAP_MEMBER_ACTIVE))
         	{
 				// If password field is setup to be synchronized
 				if ($conf->global->LDAP_FIELD_PASSWORD || $conf->global->LDAP_FIELD_PASSWORD_CRYPTED)
@@ -561,10 +594,10 @@ class InterfaceLdapsynchro
         elseif ($action == 'MEMBER_RESILIATE')
         {
             dol_syslog("Trigger '".$this->name."' for action '$action' launched by ".__FILE__.". id=".$object->id);
-        	if ($conf->ldap->enabled && $conf->global->LDAP_MEMBER_ACTIVE)
+        	if (! empty($conf->ldap->enabled) && ! empty($conf->global->LDAP_MEMBER_ACTIVE))
         	{
 				// If status field is setup to be synchronized
-				if ($conf->global->LDAP_FIELD_MEMBER_STATUS)
+				if (! empty($conf->global->LDAP_FIELD_MEMBER_STATUS))
 				{
 					$ldap=new Ldap();
 	        		$ldap->connect_bind();
@@ -585,7 +618,7 @@ class InterfaceLdapsynchro
         elseif ($action == 'MEMBER_DELETE')
         {
             dol_syslog("Trigger '".$this->name."' for action '$action' launched by ".__FILE__.". id=".$object->id);
-			if ($conf->ldap->enabled && $conf->global->LDAP_MEMBER_ACTIVE)
+			if (! empty($conf->ldap->enabled) && ! empty($conf->global->LDAP_MEMBER_ACTIVE))
 			{
 				$ldap=new Ldap();
 				$ldap->connect_bind();

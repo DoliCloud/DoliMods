@@ -1,12 +1,12 @@
 <?php
 /* Copyright (C) 2000-2005 Rodolphe Quiedeville <rodolphe@quiedeville.org>
  * Copyright (C) 2003      Jean-Louis Bergamo   <jlb@j1b.org>
- * Copyright (C) 2004-2011 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2005-2009 Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2004-2012 Laurent Destailleur  <eldy@users.sourceforge.net>
+ * Copyright (C) 2005-2009 Regis Houssin        <regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -28,22 +28,20 @@
  */
 
 /**
- *      \class      CSMSFile
- *      \brief      Class to send SMS
- *      \remarks    Usage: $smsfile = new CSMSFile($subject,$sendto,$replyto,$message,$filepath,$mimetype,$filename,$cc,$ccc,$deliveryreceipt,$msgishtml,$errors_to);
- *      \remarks           $smsfile->sendfile();
+ *		Class to send SMS
+ *      Usage: $smsfile = new CSMSFile($subject,$sendto,$replyto,$message,$filepath,$mimetype,$filename,$cc,$ccc,$deliveryreceipt,$msgishtml,$errors_to);
+ *             $smsfile->sendfile();
  */
 class CSMSFile
 {
     var $error='';
 
-    var $message;
 	var $addr_from;
 	var $addr_to;
-	var $deliveryreceipt;
 	var $deferred;
 	var $priority;
 	var $class;
+	var $message;
 
 
 	/**
@@ -52,13 +50,13 @@ class CSMSFile
 	 *	@param	string	$to                 Recipients SMS
 	 *	@param 	string	$from               Sender SMS
 	 *	@param 	string	$msg                Message
-	 *	@param 	int		$deliveryreceipt	Ask a delivery receipt
+	 *	@param 	int		$deliveryreceipt	Not used
 	 *	@param 	int		$deferred			Deferred or not
 	 *	@param 	int		$priority			Priority
 	 *	@param 	int		$class				Class
 	 *	@return	int
 	 */
-	function CSMSFile($to,$from,$msg,$deliveryreceipt=0,$deferred=0,$priority=3,$class=1)
+	function __construct($to,$from,$msg,$deliveryreceipt=0,$deferred=0,$priority=3,$class=1)
 	{
 		global $conf;
 
@@ -75,16 +73,15 @@ class CSMSFile
 		}
 
 		dol_syslog("CSMSFile::CSMSFile: MAIN_SMS_SENDMODE=".$conf->global->MAIN_SMS_SENDMODE." charset=".$conf->file->character_set_client." from=".$from.", to=".$to.", msg length=".count($msg), LOG_DEBUG);
-		dol_syslog("CSMSFile::CSMSFile: deliveryreceipt=".$deliveryreceipt." deferred=".$deferred." priority=".$priority." class=".$class, LOG_DEBUG);
+		dol_syslog("CSMSFile::CSMSFile: deferred=".$deferred." priority=".$priority." class=".$class, LOG_DEBUG);
 
 		// Action according to choosed sending method
 	    $this->addr_from=$from;
 	    $this->addr_to=$to;
-        $this->message=$msg;
-        $this->deliveryreceipt=$deliveryreceipt;
         $this->deferred=$deferred;
         $this->priority=$priority;
         $this->class=$class;
+        $this->message=$msg;
 	}
 
 
@@ -147,10 +144,10 @@ class CSMSFile
 		            $sms = new $classname($this->db);
 		            $sms->expe=$this->addr_from;
 		            $sms->dest=$this->addr_to;
-		            $sms->message=$this->message;
 		            $sms->deferred=$this->deferred;
 		            $sms->priority=$this->priority;
 		            $sms->class=$this->class;
+		            $sms->message=$this->message;
 
                     $res=$sms->SmsSend();
     				if ($res <= 0)
@@ -205,7 +202,12 @@ class CSMSFile
 			$outputfile=$dolibarr_main_data_root."/dolibarr_sms.log";
 			$fp = fopen($outputfile,"w");
 
-			fputs($fp, $this->message);
+			fputs($fp, "From: ".$this->addr_from."\n");
+			fputs($fp, "To: ".$this->addr_to."\n");
+			fputs($fp, "Priority: ".$this->priority."\n");
+			fputs($fp, "Class: ".$this->class."\n");
+			fputs($fp, "Deferred: ".$this->deferred."\n");
+			fputs($fp, "Message:\n".$this->message);
 
 			fclose($fp);
 			if (! empty($conf->global->MAIN_UMASK))

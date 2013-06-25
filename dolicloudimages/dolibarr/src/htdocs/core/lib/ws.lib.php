@@ -3,7 +3,7 @@
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -30,7 +30,7 @@
  *  @param 	int		&$error				Number of errors
  *  @param  string	&$errorcode			Error string code
  *  @param  string	&$errorlabel		Error string label
- *  @return	User						Return user object identified by login/pass/entity into authentication array
+ *  @return User						Return user object identified by login/pass/entity into authentication array
  */
 function check_authentication($authentication,&$error,&$errorcode,&$errorlabel)
 {
@@ -48,7 +48,7 @@ function check_authentication($authentication,&$error,&$errorcode,&$errorlabel)
     if (! $error && ! empty($authentication['entity']) && ! is_numeric($authentication['entity']))
     {
         $error++;
-        $errorcode='BAD_PARAMETERS'; $errorlabel="Parameter entity must be empty (or filled with numeric id of instance if multicompany module is used).";
+        $errorcode='BAD_PARAMETERS'; $errorlabel="The entity parameter must be empty (or filled with numeric id of instance if multicompany module is used).";
     }
 
     if (! $error)
@@ -57,7 +57,7 @@ function check_authentication($authentication,&$error,&$errorcode,&$errorlabel)
         if ($result < 0)
         {
             $error++;
-            $errorcode='ERROR_FETCH_USER'; $errorlabel='A technical error occurs during fetch of user';
+            $errorcode='ERROR_FETCH_USER'; $errorlabel='A technical error occurred during fetch of user';
         }
         else if ($result == 0)
         {
@@ -70,10 +70,12 @@ function check_authentication($authentication,&$error,&$errorcode,&$errorlabel)
 			$error++;
 			$errorcode='ERROR_USER_DISABLED'; $errorlabel='This user has been locked or disabled';
 		}
-		
+
     	// Validation of login
 		if (! $error)
 		{
+			$fuser->getrights();	// Load permission of user
+
         	// Authentication mode
         	if (empty($dolibarr_main_authentication)) $dolibarr_main_authentication='http,dolibarr';
         	// Authentication mode: forceuser
@@ -81,7 +83,7 @@ function check_authentication($authentication,&$error,&$errorcode,&$errorlabel)
         	// Set authmode
         	$authmode=explode(',',$dolibarr_main_authentication);
 
-            include_once(DOL_DOCUMENT_ROOT.'/core/lib/security2.lib.php');
+            include_once DOL_DOCUMENT_ROOT.'/core/lib/security2.lib.php';
         	$login = checkLoginPassEntity($authentication['login'],$authentication['password'],$authentication['entity'],$authmode);
 			if (empty($login))
 			{

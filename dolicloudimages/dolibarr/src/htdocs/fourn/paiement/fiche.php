@@ -5,7 +5,7 @@
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -24,10 +24,10 @@
  *	\remarks	Fichier presque identique a compta/paiement/fiche.php
  */
 
-require("../../main.inc.php");
-require(DOL_DOCUMENT_ROOT.'/fourn/class/paiementfourn.class.php');
-require(DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.class.php');
-require(DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.facture.class.php');
+require '../../main.inc.php';
+require DOL_DOCUMENT_ROOT.'/fourn/class/paiementfourn.class.php';
+require DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.class.php';
+require DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.facture.class.php';
 
 $langs->load('bills');
 $langs->load('banks');
@@ -73,7 +73,7 @@ if ($action == 'confirm_delete' && $confirm == 'yes' && $user->rights->fournisse
 	if ($result > 0)
 	{
 		$db->commit();
-		Header('Location: '.DOL_URL_ROOT.'/fourn/facture/paiement.php');
+		header('Location: '.DOL_URL_ROOT.'/fourn/facture/paiement.php');
 		exit;
 	}
 	else
@@ -91,7 +91,7 @@ if ($action == 'confirm_valide' && $confirm == 'yes' && $user->rights->fournisse
 	if ($object->valide() >= 0)
 	{
 		$db->commit();
-		Header('Location: '.$_SERVER['PHP_SELF'].'?id='.$object->id);
+		header('Location: '.$_SERVER['PHP_SELF'].'?id='.$object->id);
 		exit;
 	}
 	else
@@ -197,7 +197,7 @@ if ($result > 0)
 	// Amount
 	print '<tr><td valign="top" colspan="2">'.$langs->trans('Amount').'</td><td colspan="3">'.price($object->montant).'&nbsp;'.$langs->trans('Currency'.$conf->currency).'</td></tr>';
 
-	if ($conf->global->BILL_ADD_PAYMENT_VALIDATION)
+	if (! empty($conf->global->BILL_ADD_PAYMENT_VALIDATION))
 	{
 		print '<tr><td valign="top" colspan="2">'.$langs->trans('Status').'</td><td colspan="3">'.$object->getLibStatut(4).'</td></tr>';
 	}
@@ -208,7 +208,7 @@ if ($result > 0)
     print '</td></tr>';
 
     // Bank account
-	if ($conf->banque->enabled)
+	if (! empty($conf->banque->enabled))
 	{
 		if ($object->bank_account)
 		{
@@ -308,7 +308,7 @@ if ($result > 0)
 	 */
 
 	print '<div class="tabsAction">';
-	if ($conf->global->BILL_ADD_PAYMENT_VALIDATION)
+	if (! empty($conf->global->BILL_ADD_PAYMENT_VALIDATION))
 	{
 		if ($user->societe_id == 0 && $object->statut == 0 && $action == '')
 		{

@@ -1,12 +1,13 @@
 <?php
 /* Copyright (C) 2003      Rodolphe Quiedeville  <rodolphe@quiedeville.org>
- * Copyright (C) 2005-2010 Regis Houssin         <regis@dolibarr.fr>
+ * Copyright (C) 2005-2010 Regis Houssin         <regis.houssin@capnetworks.com>
  * Copyright (C) 2006-2007 Laurent Destailleur   <eldy@users.sourceforge.net>
  * Copyright (C) 2007      Franky Van Liedekerke <franky.van.liedekerke@telenet.be>
+ * Copyright (C) 2011-2012 Philippe Grand	     <philippe.grand@atoo-net.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -24,11 +25,11 @@
  *  \brief      Fichier de la classe de gestion des bons de livraison
  */
 
-require_once(DOL_DOCUMENT_ROOT."/core/class/commonobject.class.php");
-require_once(DOL_DOCUMENT_ROOT."/expedition/class/expedition.class.php");
-require_once(DOL_DOCUMENT_ROOT."/product/stock/class/mouvementstock.class.php");
-if ($conf->propal->enabled)   require_once(DOL_DOCUMENT_ROOT."/comm/propal/class/propal.class.php");
-if ($conf->commande->enabled) require_once(DOL_DOCUMENT_ROOT."/commande/class/commande.class.php");
+require_once DOL_DOCUMENT_ROOT.'/core/class/commonobject.class.php';
+require_once DOL_DOCUMENT_ROOT.'/expedition/class/expedition.class.php';
+require_once DOL_DOCUMENT_ROOT.'/product/stock/class/mouvementstock.class.php';
+if (! empty($conf->propal->enabled))   require_once DOL_DOCUMENT_ROOT.'/comm/propal/class/propal.class.php';
+if (! empty($conf->commande->enabled)) require_once DOL_DOCUMENT_ROOT.'/commande/class/commande.class.php';
 
 
 /**
@@ -61,7 +62,7 @@ class Livraison extends CommonObject
 	 *
 	 * @param	DoliDB	$db		Database handler
 	 */
-	function Livraison($db)
+	function __construct($db)
 	{
 		$this->db = $db;
 		$this->lines = array();
@@ -323,7 +324,7 @@ class Livraison extends CommonObject
 	function valid($user)
 	{
 		global $conf, $langs;
-        require_once(DOL_DOCUMENT_ROOT."/core/lib/files.lib.php");
+        require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 
 		dol_syslog(get_class($this)."::valid begin");
 
@@ -333,7 +334,7 @@ class Livraison extends CommonObject
 
 		if ($user->rights->expedition->livraison->valider)
 		{
-			if ($conf->global->LIVRAISON_ADDON)
+			if (! empty($conf->global->LIVRAISON_ADDON))
 			{
 				// Definition du nom de module de numerotation de commande
 				$modName = $conf->global->LIVRAISON_ADDON;
@@ -341,6 +342,8 @@ class Livraison extends CommonObject
 				if (is_readable(DOL_DOCUMENT_ROOT .'/core/modules/livraison/'.$modName.'.php'))
 				{
 					require_once DOL_DOCUMENT_ROOT .'/core/modules/livraison/'.$modName.'.php';
+
+					$now=dol_now();
 
 					// Recuperation de la nouvelle reference
 					$objMod = new $modName($this->db);
@@ -375,7 +378,7 @@ class Livraison extends CommonObject
 					$sql = "UPDATE ".MAIN_DB_PREFIX."livraison SET";
 					$sql.= " ref='".$this->db->escape($numref)."'";
 					$sql.= ", fk_statut = 1";
-					$sql.= ", date_valid = ".$this->db->idate(mktime());
+					$sql.= ", date_valid = ".$this->db->idate($now);
 					$sql.= ", fk_user_valid = ".$user->id;
 					$sql.= " WHERE rowid = ".$this->id;
 					$sql.= " AND fk_statut = 0";
@@ -437,7 +440,7 @@ class Livraison extends CommonObject
 		}
 
 		// Appel des triggers
-		include_once(DOL_DOCUMENT_ROOT.'/core/class/interfaces.class.php');
+		include_once DOL_DOCUMENT_ROOT.'/core/class/interfaces.class.php';
 		$interface = new Interfaces($this->db);
 		$result = $interface->run_triggers('DELIVERY_VALIDATE', $this, $user, $langs, $conf);
 		// Fin appel triggers
@@ -549,7 +552,7 @@ class Livraison extends CommonObject
 	{
 		global $conf, $langs, $user;
 
-        require_once(DOL_DOCUMENT_ROOT."/core/lib/files.lib.php");
+        require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 		$this->db->begin();
 
 		$error=0;
@@ -580,7 +583,6 @@ class Livraison extends CommonObject
 						{
 							if (!dol_delete_file($file))
 							{
-								$this->error=$langs->trans("ErrorCanNotDeleteFile",$file);
 								return 0;
 							}
 						}
@@ -595,7 +597,7 @@ class Livraison extends CommonObject
 					}
 
 					// Call triggers
-					include_once(DOL_DOCUMENT_ROOT."/core/class/interfaces.class.php");
+					include_once DOL_DOCUMENT_ROOT.'/core/class/interfaces.class.php';
 					$interface=new Interfaces($this->db);
 					$result=$interface->run_triggers('DELIVERY_DELETE',$this,$user,$langs,$conf);
 					if ($result < 0) {
@@ -663,8 +665,8 @@ class Livraison extends CommonObject
 		$this->lines = array();
 
 		$sql = "SELECT ld.rowid, ld.fk_product, ld.description, ld.subprice, ld.total_ht, ld.qty as qty_shipped,";
-		$sql.= " cd.qty as qty_asked,";
-		$sql.= " p.ref, p.fk_product_type as fk_product_type, p.label as label, p.description as product_desc";
+		$sql.= " cd.qty as qty_asked, cd.label as custom_label,";
+		$sql.= " p.ref as product_ref, p.fk_product_type as fk_product_type, p.label as product_label, p.description as product_desc";
 		$sql.= " FROM ".MAIN_DB_PREFIX."commandedet as cd, ".MAIN_DB_PREFIX."livraisondet as ld";
 		$sql.= " LEFT JOIN ".MAIN_DB_PREFIX."product as p on p.rowid = ld.fk_product";
 		$sql.= " WHERE ld.fk_origin_line = cd.rowid";
@@ -682,19 +684,21 @@ class Livraison extends CommonObject
 
 				$obj = $this->db->fetch_object($resql);
 
-				$line->description    = $obj->description;
-				$line->fk_product     = $obj->fk_product;
-				$line->qty_asked      = $obj->qty_asked;
-				$line->qty_shipped    = $obj->qty_shipped;
+				$line->label			= $obj->custom_label;
+				$line->description		= $obj->description;
+				$line->fk_product		= $obj->fk_product;
+				$line->qty_asked		= $obj->qty_asked;
+				$line->qty_shipped		= $obj->qty_shipped;
 
-				$line->ref            = $obj->ref;
-				$line->libelle        = $obj->label;           // Label produit
-				$line->label          = $obj->label;
-				$line->product_desc   = $obj->product_desc;    // Description produit
-				$line->product_type   = $obj->fk_product_type;
+				$line->ref				= $obj->product_ref;		// deprecated
+				$line->libelle			= $obj->product_label;		// deprecated
+				$line->product_label	= $obj->product_label;		// Product label
+				$line->product_ref		= $obj->product_ref;		// Product ref
+				$line->product_desc		= $obj->product_desc;		// Product description
+				$line->product_type		= $obj->fk_product_type;
 
-				$line->price          = $obj->price;
-				$line->total_ht       = $obj->total_ht;
+				$line->price			= $obj->price;
+				$line->total_ht			= $obj->total_ht;
 
 				$this->lines[$i] = $line;
 
@@ -909,7 +913,7 @@ class LivraisonLigne
 	 *
 	 *	@param	DoliDB	$db		Database handler
 	 */
-	function LivraisonLigne($db)
+	function __construct($db)
 	{
 		$this->db=$db;
 	}

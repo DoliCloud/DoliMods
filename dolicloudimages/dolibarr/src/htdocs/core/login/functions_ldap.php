@@ -3,7 +3,7 @@
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -71,7 +71,7 @@ function check_user_password_ldap($usertotest,$passwordtotest,$entitytotest)
 
 		if ($ldapdebug) print "DEBUG: Logging LDAP steps<br>\n";
 
-		require_once(DOL_DOCUMENT_ROOT."/core/class/ldap.class.php");
+		require_once DOL_DOCUMENT_ROOT.'/core/class/ldap.class.php';
 		$ldap=new Ldap();
 		$ldap->server=array($ldaphost);
 		$ldap->serverPort=$ldapport;
@@ -146,7 +146,7 @@ function check_user_password_ldap($usertotest,$passwordtotest,$entitytotest)
 				$login=$usertotest;
 
 				// ldap2dolibarr synchronisation
-				if ($login && $conf->ldap->enabled && $conf->global->LDAP_SYNCHRO_ACTIVE == 'ldap2dolibarr')
+				if ($login && ! empty($conf->ldap->enabled) && $conf->global->LDAP_SYNCHRO_ACTIVE == 'ldap2dolibarr')
 				{
 					// On charge les attributs du user ldap
 					if ($ldapdebug) print "DEBUG: login ldap = ".$login."<br>\n";

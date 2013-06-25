@@ -4,12 +4,12 @@
  * Copyright (C) 2004-2011 Laurent Destailleur  <eldy@users.sourceforge.net>
  * Copyright (C) 2004      Sebastien Di Cintio  <sdicintio@ressource-toi.org>
  * Copyright (C) 2004      Benoit Mortier       <benoit.mortier@opensides.be>
- * Copyright (C) 2005-2011 Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2005-2011 Regis Houssin        <regis.houssin@capnetworks.com>
  * Copyright (C) 2011 	   Juanjo Menent		<jmenent@2byte.es>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -22,17 +22,18 @@
  */
 
 /**
- *   	\file       htdocs/adherents/admin/adherent.php
- *		\ingroup    member
- *		\brief      Page to setup the module Foundation
+ *   	\file       htdocs/adherents/admin/mailman.php
+ *		\ingroup    mailmanspip
+ *		\brief      Page to setup the module MailmanSpip (Mailman)
  */
 
-require("../../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/mailmanspip.lib.php");
+require '../../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/mailmanspip.lib.php';
 
 $langs->load("admin");
 $langs->load("members");
+$langs->load("mailmanspip");
 
 if (! $user->admin) accessforbidden();
 
@@ -40,7 +41,8 @@ if (! $user->admin) accessforbidden();
 $type=array('yesno','texte','chaine');
 
 $action = GETPOST("action");
-
+$testsubscribeemail = GETPOST("testsubscribeemail");
+$testunsubscribeemail = GETPOST("testunsubscribeemail");
 
 /*
  * Actions
@@ -51,16 +53,7 @@ if ($action == 'update' || $action == 'add')
 {
 	$constname=GETPOST("constname");
 	$constvalue=GETPOST("constvalue");
-
-	if (($constname=='ADHERENT_CARD_TYPE' || $constname=='ADHERENT_ETIQUETTE_TYPE') && $constvalue == -1) $constvalue='';
-	if ($constname=='ADHERENT_LOGIN_NOT_REQUIRED') // Invert choice
-	{
-		if ($constvalue) $constvalue=0;
-		else $constvalue=1;
-	}
-
-	if (in_array($constname,array('ADHERENT_MAIL_VALID','ADHERENT_MAIL_COTIS','ADHERENT_MAIL_RESIL'))) $constvalue=$_POST["constvalue".$constname];
-	$consttype=$_POST["consttype"];
+	$consttype=GETPOST("consttype");
 	$constnote=GETPOST("constnote");
 	$res=dolibarr_set_const($db,$constname,$constvalue,$type[$consttype],0,$constnote,$conf->entity);
 
@@ -79,7 +72,7 @@ if ($action == 'update' || $action == 'add')
 // Action activation d'un sous module du module adherent
 if ($action == 'set')
 {
-    $result=dolibarr_set_const($db, $_GET["name"],$_GET["value"],'',0,'',$conf->entity);
+    $result=dolibarr_set_const($db, $_GET["name"], $_GET["value"], '', 0, '', $conf->entity);
     if ($result < 0)
     {
         dol_print_error($db);
@@ -89,13 +82,60 @@ if ($action == 'set')
 // Action desactivation d'un sous module du module adherent
 if ($action == 'unset')
 {
-    $result=dolibarr_del_const($db,$_GET["name"],$conf->entity);
+    $result=dolibarr_del_const($db, $_GET["name"], $conf->entity);
     if ($result < 0)
     {
         dol_print_error($db);
     }
 }
 
+if (($action == 'testsubscribe' || $action == 'testunsubscribe') && ! empty($conf->global->ADHERENT_USE_MAILMAN))
+{
+    $email=GETPOST($action.'email');
+    if (! isValidEmail($email))
+    {
+        $langs->load("errors");
+        $mesg='<div class="error">'.$langs->trans("ErrorBadEMail",$email).'</div>';
+    }
+    else
+    {
+        include_once DOL_DOCUMENT_ROOT.'/mailmanspip/class/mailmanspip.class.php';
+        $mailmanspip=new MailmanSpip($db);
+
+        $object=new stdClass();
+        $object->email=$email;
+        $object->pass=$email;
+        /*$object->element='member';
+        $object->type='Preferred Partners'; */
+
+        if ($action == 'testsubscribe')
+        {
+            $result=$mailmanspip->add_to_mailman($object);
+            if ($result < 0)
+            {
+                $error++;
+                $mesg='<div class="error">'.$mailmanspip->error.'</div>';
+            }
+            else
+            {
+                $mesg='MailmanCreationSuccess';
+            }
+        }
+        if ($action == 'testunsubscribe')
+        {
+            $result=$mailmanspip->del_to_mailman($object);
+            if ($result < 0)
+            {
+                $error++;
+                $mesg='<div class="error">'.$mailmanspip->error.'</div>';
+            }
+            else
+            {
+                $mesg='MailmanDeletionSuccess';
+            }
+        }
+    }
+}
 
 
 /*
@@ -111,7 +151,7 @@ $linkback='<a href="'.DOL_URL_ROOT.'/admin/modules.php">'.$langs->trans("BackToM
 print_fiche_titre($langs->trans("MailmanSpipSetup"),$linkback,'setup');
 
 
-$head = mailmanspip_admin_prepare_head($adh);
+$head = mailmanspip_admin_prepare_head();
 
 dol_fiche_head($head, 'mailman', $langs->trans("Setup"), 0, 'user');
 
@@ -123,10 +163,13 @@ dol_htmloutput_mesg($mesg);
  * Mailman
  */
 $var=!$var;
-if ($conf->global->ADHERENT_USE_MAILMAN)
+if (! empty($conf->global->ADHERENT_USE_MAILMAN))
 {
-    $lien=img_picto($langs->trans("Active"),'tick').' ';
-    $lien.='<a href="'.$_SERVER["PHP_SELF"].'?action=unset&value=0&name=ADHERENT_USE_MAILMAN">'.$langs->trans("Disable").'</a>';
+    //$lien=img_picto($langs->trans("Active"),'tick').' ';
+    $lien='<a href="'.$_SERVER["PHP_SELF"].'?action=unset&value=0&name=ADHERENT_USE_MAILMAN">';
+    //$lien.=$langs->trans("Disable");
+    $lien.=img_picto($langs->trans("Activated"),'switch_on');
+    $lien.='</a>';
     // Edition des varibales globales
     $constantes=array(
         'ADHERENT_MAILMAN_ADMINPW',
@@ -135,7 +178,7 @@ if ($conf->global->ADHERENT_USE_MAILMAN)
         'ADHERENT_MAILMAN_LISTS'
     );
 
-    print_fiche_titre($langs->trans('MailmanTitle'),$lien,'');
+    print_fiche_titre($langs->trans('MailmanTitle'), $lien,'');
 
     // JQuery activity
     print '<script type="text/javascript">
@@ -157,17 +200,32 @@ if ($conf->global->ADHERENT_USE_MAILMAN)
 
     print '*'.$langs->trans("FollowingConstantsWillBeSubstituted").'<br>';
     print '%LISTE%, %MAILMAN_ADMINPW%, %EMAIL% <br>';
-
-    print '<br>';
 }
 else
 {
-    $lien='<a href="'.$_SERVER["PHP_SELF"].'?action=set&value=1&name=ADHERENT_USE_MAILMAN">'.$langs->trans("Activate").'</a>';
-    print_fiche_titre("Mailman mailing list system",$lien,'');
-    print "<hr>\n";
+    $lien='<a href="'.$_SERVER["PHP_SELF"].'?action=set&value=1&name=ADHERENT_USE_MAILMAN">';
+    //$lien.=img_$langs->trans("Activate")
+    $lien.=img_picto($langs->trans("Disabled"),'switch_off');
+    $lien.='</a>';
+    print_fiche_titre($langs->trans('MailmanTitle'), $lien,'');
 }
 
 dol_fiche_end();
+
+if (! empty($conf->global->ADHERENT_USE_MAILMAN))
+{
+    print '<form action="'.$_SERVER["PHP_SELF"].'">';
+    print '<input type="hidden" name="action" value="testsubscribe">';
+    print $langs->trans("TestSubscribe").'<br>';
+    print $langs->trans("EMail").' <input type="email" name="testsubscribeemail" value="'.GETPOST('testsubscribeemail').'"> <input class="button" type="submit" value="'.$langs->trans("Test").'"><br>';
+    print '</form>';
+    print '<form action="'.$_SERVER["PHP_SELF"].'">';
+    print '<input type="hidden" name="action" value="testunsubscribe">';
+    print $langs->trans("TestUnSubscribe").'<br>';
+    print $langs->trans("EMail").' <input type="email" name="testunsubscribeemail" value="'.GETPOST('testunsubscribeemail').'"> <input class="button" type="submit" value="'.$langs->trans("Test").'"><br>';
+    print '</form>';
+}
+
 
 llxFooter();
 

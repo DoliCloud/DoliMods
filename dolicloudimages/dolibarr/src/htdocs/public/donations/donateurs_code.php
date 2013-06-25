@@ -3,7 +3,7 @@
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -38,8 +38,8 @@ function llxHeaderVierge() { print '<html><title>Export agenda cal</title><body>
  */
 function llxFooterVierge() { print '</body></html>'; }
 
-require("../../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT ."/compta/dons/class/class/don.class.php");
+require '../../main.inc.php';
+require_once DOL_DOCUMENT_ROOT .'/compta/dons/class/class/don.class.php';
 
 // Security check
 if (empty($conf->don->enabled)) accessforbidden('',1,1,1);

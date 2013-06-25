@@ -2,11 +2,11 @@
 /* Copyright (C) 2004      Rodolphe Quiedeville  <rodolphe@quiedeville.org>
  * Copyright (C) 2003      Xavier Dutoit         <doli@sydesy.com>
  * Copyright (C) 2004-2009 Laurent Destailleur   <eldy@users.sourceforge.net>
- * Copyright (C) 2005-2009 Regis Houssin         <regis@dolibarr.fr>
+ * Copyright (C) 2005-2012 Regis Houssin         <regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -30,7 +30,7 @@ if (! defined('NOREQUIREAJAX'))  define('NOREQUIREAJAX','1');
 if (! defined('NOREQUIRESOC'))   define('NOREQUIRESOC','1');
 if (! defined('EVEN_IF_ONLY_LOGIN_ALLOWED'))  define('EVEN_IF_ONLY_LOGIN_ALLOWED','1');
 
-require_once("../main.inc.php");
+require_once '../main.inc.php';
 
 // This can happen only with a bookmark or forged url call.
 if (!empty($_SESSION["dol_authmode"]) && ($_SESSION["dol_authmode"] == 'forceuser'
@@ -40,7 +40,7 @@ if (!empty($_SESSION["dol_authmode"]) && ($_SESSION["dol_authmode"] == 'forceuse
 }
 
 // Appel des triggers
-include_once(DOL_DOCUMENT_ROOT . "/core/class/interfaces.class.php");
+include_once DOL_DOCUMENT_ROOT . '/core/class/interfaces.class.php';
 $interface=new Interfaces($db);
 $result=$interface->run_triggers('USER_LOGOUT',$user,$user,$langs,$conf,$conf->entity);
 if ($result < 0) { $error++; }
@@ -50,7 +50,8 @@ if ($result < 0) { $error++; }
 $urlfrom=empty($_SESSION["urlfrom"])?'':$_SESSION["urlfrom"];
 
 // Destroy some cookies
-if ($conf->phenix->enabled && $conf->phenix->cookie)
+// TODO external module
+if (! empty($conf->phenix->enabled) && ! empty($conf->phenix->cookie))
 {
 	// Destroy cookie
 	setcookie($conf->phenix->cookie, '', 1, "/");

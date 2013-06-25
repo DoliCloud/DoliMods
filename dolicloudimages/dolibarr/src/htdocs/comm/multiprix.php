@@ -1,11 +1,11 @@
-<?PHP
+<?php
 /* Copyright (C) 2001-2004 Rodolphe Quiedeville <rodolphe@quiedeville.org>
- * Copyright (C) 2004-2009 Laurent Destailleur  <eldy@users.sourceforge.net>
+ * Copyright (C) 2004-2012 Laurent Destailleur  <eldy@users.sourceforge.net>
  * Copyright (C) 2006      Andre Cianfarani  <acianfa@free.fr>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -23,9 +23,9 @@
  *	\brief      Onglet choix du niveau de prix
  */
 
-require("../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/company.lib.php");
-require_once(DOL_DOCUMENT_ROOT."/contact/class/contact.class.php");
+require '../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/contact/class/contact.class.php';
 
 $langs->load("orders");
 $langs->load("companies");
@@ -48,7 +48,7 @@ if ($_POST["action"] == 'setpricelevel')
 	$soc->fetch($_GET["id"]);
 	$soc->set_price_level($_POST["price_level"],$user);
 
-	Header("Location: multiprix.php?id=".$_GET["id"]);
+	header("Location: multiprix.php?id=".$_GET["id"]);
 	exit;
 }
 
@@ -109,21 +109,25 @@ if ($_socid > 0)
 	}
 	print '</select>';
 	print '</td></tr>';
-	print '<tr><td colspan="4" align="center"><input type="submit" class="button" value="'.$langs->trans("Save").'"></td></tr>';
 
 	print "</table>";
-	print "</form>";
 
 	print "</td>\n";
 
 
 	print "</td></tr>";
-	print "</table></div>\n";
+	print "</table>";
+
+	print '<div align="center"><br><input type="submit" class="button" value="'.$langs->trans("Save").'"></div>';
+
+	print "</form>";
+
+	print "</div>\n";
 	print '<br>';
 
 
 	/*
-	 * Liste de l'historique des remises
+	 * List historic of multiprices
 	 */
 	$sql  = "SELECT rc.rowid,rc.price_level, rc.datec as dc, u.rowid as uid, u.login";
 	$sql .= " FROM ".MAIN_DB_PREFIX."societe_prices as rc, ".MAIN_DB_PREFIX."user as u";

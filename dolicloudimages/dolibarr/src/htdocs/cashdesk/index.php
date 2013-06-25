@@ -5,7 +5,7 @@
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -25,8 +25,8 @@
 
 // Set and init common variables
 // This include will set: config file variable $dolibarr_xxx, $conf, $langs and $mysoc objects
-require_once("../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/product/class/html.formproduct.class.php");
+require_once '../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/product/class/html.formproduct.class.php';
 
 $langs->load("admin");
 $langs->load("cashdesk");
@@ -98,7 +98,7 @@ print $form->select_company(GETPOST('socid','int')?GETPOST('socid','int'):$conf-
 print '</td>';
 print "</tr>\n";
 
-if ($conf->stock->enabled)
+if (! empty($conf->stock->enabled))
 {
 	$langs->load("stocks");
 	print "<tr>";
@@ -111,6 +111,34 @@ if ($conf->stock->enabled)
 	print '</td>';
 	print "</tr>\n";
 }
+
+print "<tr>";
+print '<td class="label1">'.$langs->trans("CashDeskBankAccountForSell").'</td>';
+print '<td>';
+$defaultknown=0;
+if (! empty($conf->global->CASHDESK_ID_BANKACCOUNT_CASH) && $conf->global->CASHDESK_ID_BANKACCOUNT_CASH > 0) $defaultknown=1;	// If a particular stock is defined, we disable choice
+print $form->select_comptes(((GETPOST('bankid_cash') > 0)?GETPOST('bankid_cash'):$conf->global->CASHDESK_ID_BANKACCOUNT_CASH),'CASHDESK_ID_BANKACCOUNT_CASH',0,"courant=2",($defaultknown?0:2));
+print '</td>';
+print "</tr>\n";
+
+print "<tr>";
+print '<td class="label1">'.$langs->trans("CashDeskBankAccountForCheque").'</td>';
+print '<td>';
+$defaultknown=0;
+if (! empty($conf->global->CASHDESK_ID_BANKACCOUNT_CHEQUE) && $conf->global->CASHDESK_ID_BANKACCOUNT_CHEQUE > 0) $defaultknown=1;	// If a particular stock is defined, we disable choice
+print $form->select_comptes(((GETPOST('bankid_cheque') > 0)?GETPOST('bankid_cheque'):$conf->global->CASHDESK_ID_BANKACCOUNT_CHEQUE),'CASHDESK_ID_BANKACCOUNT_CHEQUE',0,"courant=1",($defaultknown?0:2));
+print '</td>';
+print "</tr>\n";
+
+print "<tr>";
+print '<td class="label1">'.$langs->trans("CashDeskBankAccountForCB").'</td>';
+print '<td>';
+$defaultknown=0;
+if (! empty($conf->global->CASHDESK_ID_BANKACCOUNT_CB) && $conf->global->CASHDESK_ID_BANKACCOUNT_CB > 0) $defaultknown=1;	// If a particular stock is defined, we disable choice
+print $form->select_comptes(((GETPOST('bankid_cb') > 0)?GETPOST('bankid_cb'):$conf->global->CASHDESK_ID_BANKACCOUNT_CB),'CASHDESK_ID_BANKACCOUNT_CB',0,"courant=1",($defaultknown?0:2));
+print '</td>';
+print "</tr>\n";
+
 ?>
 
 	<tr>
@@ -146,7 +174,7 @@ else
 </div>
 </div>
 
-<?php include('affPied.php'); ?></div>
+<?php include 'affPied.php'; ?></div>
 </div>
 </div>
 </body>

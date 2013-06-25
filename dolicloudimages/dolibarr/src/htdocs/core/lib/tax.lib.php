@@ -1,11 +1,11 @@
 <?php
 /* Copyright (C) 2004-2009	Laurent Destailleur	<eldy@users.sourceforge.net>
  * Copyright (C) 2006-2007	Yannick Warnier		<ywarnier@beeznest.org>
- * Copyright (C) 2011		Regis Houssin		<regis@dolibarr.fr>
+ * Copyright (C) 2011		Regis Houssin		<regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -45,7 +45,7 @@ function tax_prepare_head($object)
     // Show more tabs from modules
     // Entries must be declared in modules descriptor with line
     // $this->tabs = array('entity:+tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to add new tab
-    // $this->tabs = array('entity:-tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to remove a tab
+    // $this->tabs = array('entity:-tabname);   												to remove a tab
     complete_head_from_modules($conf,$langs,$object,$head,$h,'tax');
 
 	$head[$h][0] = DOL_URL_ROOT.'/compta/sociales/document.php?id='.$object->id;
@@ -57,6 +57,8 @@ function tax_prepare_head($object)
     $head[$h][1] = $langs->trans("Info");
     $head[$h][2] = 'info';
     $h++;
+
+    complete_head_from_modules($conf,$langs,$object,$head,$h,'tax','remove');
 
     return $head;
 }
@@ -106,7 +108,7 @@ function vat_by_thirdparty($db, $y, $date_start, $date_end, $modetax, $direction
     if ($modetax == 1)
     {
         // If vat paid on due invoices (non draft)
-        if ($conf->global->MAIN_MODULE_ACCOUNTING)
+        if (! empty($conf->global->MAIN_MODULE_ACCOUNTING))
         {
             // TODO a ce jour on se sait pas la compter car le montant tva d'un payment
             // n'est pas stocke dans la table des payments.
@@ -115,7 +117,7 @@ function vat_by_thirdparty($db, $y, $date_start, $date_end, $modetax, $direction
             // detail part tva et part ht).
             $sql = 'TODO';
         }
-        if ($conf->global->MAIN_MODULE_COMPTABILITE)
+        if (! empty($conf->global->MAIN_MODULE_COMPTABILITE))
         {
             $sql = "SELECT s.rowid as socid, s.nom as nom, s.siren as tva_intra, s.tva_assuj as assuj,";
             $sql.= " sum(fd.total_ht) as amount, sum(fd.".$total_tva.") as tva,";
@@ -145,7 +147,7 @@ function vat_by_thirdparty($db, $y, $date_start, $date_end, $modetax, $direction
     }
     else
     {
-        if ($conf->global->MAIN_MODULE_ACCOUNTING)
+        if (! empty($conf->global->MAIN_MODULE_ACCOUNTING))
         {
             // If vat paid on payments
             // TODO a ce jour on se sait pas la compter car le montant tva d'un payment
@@ -155,7 +157,7 @@ function vat_by_thirdparty($db, $y, $date_start, $date_end, $modetax, $direction
             // detail part tva et part ht).
             $sql = 'TODO';
         }
-        if ($conf->global->MAIN_MODULE_COMPTABILITE)
+        if (! empty($conf->global->MAIN_MODULE_COMPTABILITE))
         {
             // Tva sur factures payes (should be on payment)
 /*          $sql = "SELECT s.rowid as socid, s.nom as nom, s.tva_intra as tva_intra, s.tva_assuj as assuj,";
@@ -262,7 +264,7 @@ function vat_by_date($db, $y, $q, $date_start, $date_end, $modetax, $direction, 
     $sql='';
     if ($modetax == 1)  // Option vat on delivery for goods (payment) and debit invoice for services
     {
-        if ($conf->global->MAIN_MODULE_ACCOUNTING)
+        if (! empty($conf->global->MAIN_MODULE_ACCOUNTING))
         {
             // TODO a ce jour on se sait pas la compter car le montant tva d'un payment
             // n'est pas stocke dans la table des payments.
@@ -271,7 +273,7 @@ function vat_by_date($db, $y, $q, $date_start, $date_end, $modetax, $direction, 
             // detail part tva et part ht).
             $sql='TODO';
         }
-        if ($conf->global->MAIN_MODULE_COMPTABILITE)
+        if (! empty($conf->global->MAIN_MODULE_COMPTABILITE))
         {
             // Count on delivery date (use invoice date as delivery is unknown)
             $sql = "SELECT d.rowid, d.product_type as dtype, d.".$fk_facture." as facid, d.tva_tx as rate, d.total_ht as total_ht, d.total_ttc as total_ttc, d.".$total_tva." as total_vat, d.description as descr,";
@@ -307,7 +309,7 @@ function vat_by_date($db, $y, $q, $date_start, $date_end, $modetax, $direction, 
     }
     else    // Option vat on delivery for goods (payments) and payments for services
     {
-        if ($conf->global->MAIN_MODULE_ACCOUNTING)
+        if (! empty($conf->global->MAIN_MODULE_ACCOUNTING))
         {
             // TODO a ce jour on se sait pas la compter car le montant tva d'un payment
             // n'est pas stocke dans la table des payments.
@@ -316,7 +318,7 @@ function vat_by_date($db, $y, $q, $date_start, $date_end, $modetax, $direction, 
             // detail part tva et part ht).
             $sql='TODO';
         }
-        if ($conf->global->MAIN_MODULE_COMPTABILITE)
+        if (! empty($conf->global->MAIN_MODULE_COMPTABILITE))
         {
             // Count on delivery date (use invoice date as delivery is unknown)
             $sql = "SELECT d.rowid, d.product_type as dtype, d.".$fk_facture." as facid, d.tva_tx as rate, d.total_ht as total_ht, d.total_ttc as total_ttc, d.".$total_tva." as total_vat, d.description as descr,";
@@ -419,7 +421,7 @@ function vat_by_date($db, $y, $q, $date_start, $date_end, $modetax, $direction, 
     $sql='';
     if ($modetax == 1)  // Option vat on delivery for goods (payment) and debit invoice for services
     {
-        if ($conf->global->MAIN_MODULE_ACCOUNTING)
+        if (! empty($conf->global->MAIN_MODULE_ACCOUNTING))
         {
             // Count on invoice date
             // TODO a ce jour on se sait pas la compter car le montant tva d'un payment
@@ -429,7 +431,7 @@ function vat_by_date($db, $y, $q, $date_start, $date_end, $modetax, $direction, 
             // detail part tva et part ht).
             $sql='TODO';
         }
-        if ($conf->global->MAIN_MODULE_COMPTABILITE)
+        if (! empty($conf->global->MAIN_MODULE_COMPTABILITE))
         {
             // Count on invoice date
             $sql = "SELECT d.rowid, d.product_type as dtype, d.".$fk_facture." as facid, d.tva_tx as rate, d.total_ht as total_ht, d.total_ttc as total_ttc, d.".$total_tva." as total_vat, d.description as descr,";
@@ -465,7 +467,7 @@ function vat_by_date($db, $y, $q, $date_start, $date_end, $modetax, $direction, 
     }
     else    // Option vat on delivery for goods (payments) and payments for services
     {
-        if ($conf->global->MAIN_MODULE_ACCOUNTING)
+        if (! empty($conf->global->MAIN_MODULE_ACCOUNTING))
         {
             // Count on payments date
             // TODO a ce jour on se sait pas la compter car le montant tva d'un payment
@@ -475,7 +477,7 @@ function vat_by_date($db, $y, $q, $date_start, $date_end, $modetax, $direction, 
             // detail part tva et part ht).
             $sql='TODO';
         }
-        if ($conf->global->MAIN_MODULE_COMPTABILITE)
+        if (! empty($conf->global->MAIN_MODULE_COMPTABILITE))
         {
             // Count on payments date
             $sql = "SELECT d.rowid, d.product_type as dtype, d.".$fk_facture." as facid, d.tva_tx as rate, d.total_ht as total_ht, d.total_ttc as total_ttc, d.".$total_tva." as total_vat, d.description as descr,";

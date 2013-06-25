@@ -4,7 +4,7 @@
 *
 * This program is free software; you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
-* the Free Software Foundation; either version 2 of the License, or
+* the Free Software Foundation; either version 3 of the License, or
 * (at your option) any later version.
 *
 * This program is distributed in the hope that it will be useful,
@@ -82,13 +82,13 @@ class DolGraph
     /**
      * Constructor
      */
-    function DolGraph()
+    function __construct()
     {
         global $conf;
         global $theme_bordercolor, $theme_datacolor, $theme_bgcolor, $theme_bgcoloronglet;
 
         // To use old feature
-        if ($conf->global->MAIN_GRAPH_LIBRARY == 'artichow')
+        if (isset($conf->global->MAIN_GRAPH_LIBRARY) && $conf->global->MAIN_GRAPH_LIBRARY == 'artichow')
         {
             $this->_library='artichow';
 
@@ -113,7 +113,7 @@ class DolGraph
         $color_file = DOL_DOCUMENT_ROOT.'/theme/'.$conf->theme.'/graph-color.php';
         if (is_readable($color_file))
         {
-            include_once($color_file);
+            include_once $color_file;
             if (isset($theme_bordercolor)) $this->bordercolor = $theme_bordercolor;
             if (isset($theme_datacolor))   $this->datacolor   = $theme_datacolor;
             if (isset($theme_bgcolor))     $this->bgcolor     = $theme_bgcolor;
@@ -568,7 +568,7 @@ class DolGraph
         $classname='';
         if ($this->type[0] == 'bars')  $classname='BarPlot';    // Only first type of type is supported by artichow
         if ($this->type[0] == 'lines') $classname='LinePlot';
-        include_once(ARTICHOW_PATH.$classname.".class.php");
+        include_once ARTICHOW_PATH.$classname.'.class.php';
 
         // Definition de couleurs
         $bgcolor=new Color($this->bgcolor[0],$this->bgcolor[1],$this->bgcolor[2]);
@@ -850,7 +850,7 @@ class DolGraph
             $this->_stringtoshow.='{ ';
             if (! isset($this->type[$i]) || $this->type[$i] == 'bars') $this->_stringtoshow.='bars: { show: true, align: "'.($i==$firstlot?'center':'left').'", barWidth: 0.5 }, ';
             if (isset($this->type[$i]) && $this->type[$i] == 'lines')  $this->_stringtoshow.='lines: { show: true, fill: false }, ';
-            $this->_stringtoshow.='color: "#'.$color.'", label: "'.dol_escape_js($this->Legend[$i]).'", data: d'.$i.' }';
+            $this->_stringtoshow.='color: "#'.$color.'", label: "'.(isset($this->Legend[$i]) ? dol_escape_js($this->Legend[$i]) : '').'", data: d'.$i.' }';
             $i++;
         }
         $this->_stringtoshow.="\n".' ], { series: { stack: stack, lines: { fill: false, steps: steps }, bars: { barWidth: 0.6 } }'."\n";

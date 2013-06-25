@@ -5,7 +5,7 @@
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -24,8 +24,8 @@
  *      \author     Rodolphe Quiedeville
  */
 
-require("../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/security2.lib.php");
+require '../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/security2.lib.php';
 
 // Security check
 if (! $user->rights->adherent->export) accessforbidden();
@@ -36,6 +36,8 @@ if (! $user->rights->adherent->export) accessforbidden();
  */
 
 llxHeader();
+
+$now=dol_now();
 
 if ($sortorder == "") {  $sortorder="ASC"; }
 if ($sortfield == "") {  $sortfield="d.login"; }
@@ -56,7 +58,7 @@ $sql .= " FROM ".MAIN_DB_PREFIX."adherent as d ";
 $sql .= " WHERE d.statut = $statut ";
 if ($cotis==1)
 {
-	$sql .= " AND datefin > '".$db->idate(mktime())."'";
+	$sql .= " AND datefin > '".$db->idate($now)."'";
 }
 $sql.= $db->order($sortfield,$sortorder);
 //$sql.=$db->plimit($conf->liste_limit, $offset);

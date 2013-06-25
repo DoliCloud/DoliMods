@@ -3,7 +3,7 @@
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -29,7 +29,7 @@
  */
 function emailing_prepare_head($object)
 {
-	global $langs, $conf;
+	global $user, $langs, $conf;
 
 	$h = 0;
 	$head = array();
@@ -38,6 +38,10 @@ function emailing_prepare_head($object)
 	$head[$h][1] = $langs->trans("MailCard");
 	$head[$h][2] = 'card';
 	$h++;
+	
+	if (! empty($conf->global->MAIN_USE_ADVANCED_PERMS) && ! $user->rights->mailing->mailing_advance->recipient) {
+		return $head;
+	}
 
 	$head[$h][0] = DOL_URL_ROOT."/comm/mailing/cibles.php?id=".$object->id;
 	$head[$h][1] = $langs->trans("MailRecipients");

@@ -1,9 +1,9 @@
 <?php
-/* Copyright (C) 2005-2010 Laurent Destailleur       <eldy@users.sourceforge.net>
+/* Copyright (C) 2005-2012 Laurent Destailleur       <eldy@users.sourceforge.net>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -21,8 +21,8 @@
  *       \ingroup    bookmark
  */
 
-require("../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/bookmarks/class/bookmark.class.php");
+require '../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/bookmarks/class/bookmark.class.php';
 
 
 $sortfield = GETPOST("sortfield",'alpha');
@@ -124,7 +124,7 @@ if ($resql)
             if (! $obj->title)
             {
                 // For compatibility with old Dolibarr bookmarks
-                require_once(DOL_DOCUMENT_ROOT."/societe/class/societe.class.php");
+                require_once DOL_DOCUMENT_ROOT.'/societe/class/societe.class.php';
                 $societe=new Societe($db);
                 $societe->fetch($obj->rowid);
                 $obj->title=$societe->name;
@@ -170,7 +170,11 @@ if ($resql)
         print '<td align="right">'.$obj->position."</td>";
 
         // Actions
-        print '<td align="right">';
+        print '<td align="right" nowrap="nowrap">';
+        if ($user->rights->bookmark->creer)
+        {
+        	print "<a href=\"".DOL_URL_ROOT."/bookmarks/fiche.php?action=edit&id=".$obj->bid."&backtopage=".urlencode($_SERVER["PHP_SELF"])."\">".img_edit()."</a> ";
+        }
         if ($user->rights->bookmark->supprimer)
         {
             print "<a href=\"".$_SERVER["PHP_SELF"]."?action=delete&bid=$obj->bid\">".img_delete()."</a>";

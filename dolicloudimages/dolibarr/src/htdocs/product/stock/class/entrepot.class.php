@@ -1,12 +1,12 @@
 <?php
 /* Copyright (C) 2003-2006 Rodolphe Quiedeville <rodolphe@quiedeville.org>
  * Copyright (C) 2004-2010 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2005-2008 Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2005-2008 Regis Houssin        <regis.houssin@capnetworks.com>
  * Copyright (C) 2011	   Juanjo Menent        <jmenent@2byte.es>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -24,7 +24,7 @@
  *  \brief      Fichier de la classe de gestion des entrepots
  */
 
-require_once(DOL_DOCUMENT_ROOT."/core/class/commonobject.class.php");
+require_once DOL_DOCUMENT_ROOT.'/core/class/commonobject.class.php';
 
 
 /**
@@ -204,8 +204,15 @@ class Entrepot extends CommonObject
 			$sql.= " WHERE rowid = " . $this->id;
 
 			dol_syslog(get_class($this)."::delete sql=".$sql);
-			$resql=$this->db->query($sql);
-			if ($resql)
+			$resql1=$this->db->query($sql);
+
+			// Update denormalized fields because we change content of produt_stock
+			$sql = "UPDATE ".MAIN_DB_PREFIX."product p SET p.stock= (SELECT SUM(ps.reel) FROM ".MAIN_DB_PREFIX."product_stock ps WHERE ps.fk_product = p.rowid)";
+
+			dol_syslog(get_class($this)."::delete sql=".$sql);
+			$resql2=$this->db->query($sql);
+
+			if ($resql1 && $resql2)
 			{
 				$this->db->commit();
 				return 1;
@@ -233,42 +240,62 @@ class Entrepot extends CommonObject
 	 *	Load warehouse data
 	 *
 	 *	@param		int		$id     Warehouse id
+	 *	@param		string	$ref	Warehouse label
 	 *	@return		int				>0 if OK, <0 if KO
 	 */
-	function fetch($id)
+	function fetch($id, $ref='')
 	{
+		global $conf;
+			
 		$sql  = "SELECT rowid, label, description, statut, lieu, address, cp as zip, ville as town, fk_pays as country_id";
 		$sql .= " FROM ".MAIN_DB_PREFIX."entrepot";
-		$sql .= " WHERE rowid = ".$id;
+	
+		if ($id) 
+		{
+			$sql.= " WHERE rowid = '".$id."'";
+		}
+		
+		else
+		{
+			$sql.= " WHERE entity = " .$conf->entity;
+			if ($ref) $sql.= " AND label = '".$this->db->escape($ref)."'";
+		}
 
 		dol_syslog(get_class($this)."::fetch sql=".$sql);
 		$result = $this->db->query($sql);
 		if ($result)
 		{
-			$obj=$this->db->fetch_object($result);
+			if ($this->db->num_rows($result) > 0)
+			{
+				$obj=$this->db->fetch_object($result);
 
-			$this->id             = $obj->rowid;
-			$this->ref            = $obj->rowid;
-			$this->libelle        = $obj->label;
-			$this->description    = $obj->description;
-			$this->statut         = $obj->statut;
-			$this->lieu           = $obj->lieu;
-			$this->address        = $obj->address;
-			$this->cp             = $obj->zip;         // deprecated
-			$this->ville          = $obj->town;        // deprecated
-			$this->pays_id        = $obj->country_id;  // deprecated
-			$this->zip            = $obj->zip;
-			$this->town           = $obj->town;
-			$this->country_id     = $obj->country_id;
-
-			include_once(DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php');
-            $tmp=getCountry($this->country_id,'all');
-			$this->pays=$tmp['label'];                // deprecated
-			$this->pays_code=$tmp['code'];            // deprecated
-			$this->country=$tmp['label'];
-			$this->country_code=$tmp['code'];
-
-			return 1;
+				$this->id             = $obj->rowid;
+				$this->ref            = $obj->rowid;
+				$this->libelle        = $obj->label;
+				$this->description    = $obj->description;
+				$this->statut         = $obj->statut;
+				$this->lieu           = $obj->lieu;
+				$this->address        = $obj->address;
+				$this->cp             = $obj->zip;         // deprecated
+				$this->ville          = $obj->town;        // deprecated
+				$this->pays_id        = $obj->country_id;  // deprecated
+				$this->zip            = $obj->zip;
+				$this->town           = $obj->town;
+				$this->country_id     = $obj->country_id;
+	
+				include_once DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php';
+	            $tmp=getCountry($this->country_id,'all');
+				$this->pays=$tmp['label'];                // deprecated
+				$this->pays_code=$tmp['code'];            // deprecated
+				$this->country=$tmp['label'];
+				$this->country_code=$tmp['code'];
+	
+				return 1;
+			}
+			else
+			{
+				return 0;
+			}
 		}
 		else
 		{

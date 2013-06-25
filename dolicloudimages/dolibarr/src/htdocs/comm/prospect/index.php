@@ -1,11 +1,11 @@
 <?php
 /* Copyright (C) 2001-2004 Rodolphe Quiedeville <rodolphe@quiedeville.org>
  * Copyright (C) 2004-2011 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2005-2009 Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2005-2009 Regis Houssin        <regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -23,8 +23,8 @@
  *		\brief      Home page of propest area
  */
 
-require("../../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/agenda.lib.php");
+require '../../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/agenda.lib.php';
 
 $langs->load("propal");
 
@@ -50,10 +50,10 @@ print '<table border="0" width="100%" class="notopnoleftnoright">';
 
 print '<tr><td valign="top" width="30%" class="notopnoleft">';
 
-if ($conf->propal->enabled)
+if (! empty($conf->propal->enabled))
 {
 	$var=false;
-	print '<table class="noborder" width="100%">';
+	print '<table class="noborder nohover" width="100%">';
 	print '<form method="post" action="'.DOL_URL_ROOT.'/comm/propal.php">';
 	print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
 	print '<tr class="liste_titre"><td colspan="3">'.$langs->trans("SearchAProposal").'</td></tr>';
@@ -111,7 +111,7 @@ if ($resql)
 /*
  * Liste des propal brouillons
  */
-if ($conf->propal->enabled && $user->rights->propale->lire)
+if (! empty($conf->propal->enabled) && $user->rights->propale->lire)
 {
 	$sql = "SELECT p.rowid, p.ref, p.price, s.nom as sname";
 	$sql.= " FROM ".MAIN_DB_PREFIX."propal as p";
@@ -164,13 +164,13 @@ if ($conf->propal->enabled && $user->rights->propale->lire)
  */
 print '</td><td valign="top" width="70%" class="notopnoleftnoright">';
 
-if ($conf->agenda->enabled) show_array_actions_to_do(10);
+if (! empty($conf->agenda->enabled)) show_array_actions_to_do(10);
 
 /*
  * Dernieres propales ouvertes
  *
  */
-if ($conf->propal->enabled && $user->rights->propale->lire)
+if (! empty($conf->propal->enabled) && $user->rights->propale->lire)
 {
 	$sql = "SELECT s.nom as name, s.rowid as socid, s.client, s.canvas,";
 	$sql.= " p.rowid as propalid, p.total as total_ttc, p.ref, p.datep as dp, c.label as statut, c.id as statutid";

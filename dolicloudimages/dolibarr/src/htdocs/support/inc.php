@@ -2,11 +2,11 @@
 /* Copyright (C) 2004      Rodolphe Quiedeville <rodolphe@quiedeville.org>
  * Copyright (C) 2004      Benoit Mortier       <benoit.mortier@opensides.be>
  * Copyright (C) 2004      Sebastien DiCintio   <sdicintio@ressource-toi.org>
- * Copyright (C) 2007-2011 Laurent Destailleur  <eldy@users.sourceforge.net>
+ * Copyright (C) 2007-2012 Laurent Destailleur  <eldy@users.sourceforge.net>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -24,9 +24,11 @@
  *	\brief      File that define environment for support pages
  */
 
-define('DOL_VERSION','3.2.3');	// Also defined in htdocs/master.inc.php
+// Just to define version DOL_VERSION
+if (! defined('DOL_INC_FOR_VERSION_ERROR')) define('DOL_INC_FOR_VERSION_ERROR','1');
+require_once '../filefunc.inc.php';
 
-// Define DOL_DOCUMENT_ROOT an ADODB_PATH used for install/upgrade process
+// Define DOL_DOCUMENT_ROOT and ADODB_PATH used for install/upgrade process
 if (! defined('DOL_DOCUMENT_ROOT'))	    define('DOL_DOCUMENT_ROOT', '..');
 if (! defined('ADODB_PATH'))
 {
@@ -35,12 +37,21 @@ if (! defined('ADODB_PATH'))
     define('ADODB_PATH', $foundpath);
 }
 
-require_once('../core/class/translate.class.php');
-require_once('../core/lib/functions.lib.php');
-require_once('../core/lib/admin.lib.php');
-require_once('../core/lib/files.lib.php');
-require_once(ADODB_PATH.'adodb-time.inc.php');
+require_once DOL_DOCUMENT_ROOT.'/core/class/translate.class.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/functions.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
+require_once ADODB_PATH.'adodb-time.inc.php';
 
+// Avoid warnings with strict mode E_STRICT
+$conf = new stdClass(); // instantiate $conf explicitely
+$conf->global	= new stdClass();
+$conf->file		= new stdClass();
+$conf->db		= new stdClass();
+$conf->syslog	= new stdClass();
+
+// Force $_REQUEST["logtohtml"]
+$_REQUEST["logtohtml"]=1;
 
 // Correction PHP_SELF (ex pour apache via caudium) car PHP_SELF doit valoir URL relative
 // et non path absolu.
@@ -61,18 +72,28 @@ $conffiletoshow = "htdocs/conf/conf.php";
 //$conffile = "/etc/dolibarr/conf.php";
 //$conffiletoshow = "/etc/dolibarr/conf.php";
 
-$charset="UTF-8";	// If not output format found in any conf file
+
 if (! defined('DONOTLOADCONF') && file_exists($conffile))
 {
-	$result=include_once($conffile);	// Load conf file
+	$result=include_once $conffile;	// Load conf file
 	if ($result)
 	{
+
 		if (empty($dolibarr_main_db_type)) $dolibarr_main_db_type='mysql';	// For backward compatibility
+
+		// Clean parameters
+		$dolibarr_main_data_root        =isset($dolibarr_main_data_root)?trim($dolibarr_main_data_root):'';
+		$dolibarr_main_url_root         =isset($dolibarr_main_url_root)?trim($dolibarr_main_url_root):'';
+		$dolibarr_main_url_root_alt     =isset($dolibarr_main_url_root_alt)?trim($dolibarr_main_url_root_alt):'';
+		$dolibarr_main_document_root    =isset($dolibarr_main_document_root)?trim($dolibarr_main_document_root):'';
+		$dolibarr_main_document_root_alt=isset($dolibarr_main_document_root_alt)?trim($dolibarr_main_document_root_alt):'';
 
 		// Remove last / or \ on directories or url value
 		if (! empty($dolibarr_main_document_root) && ! preg_match('/^[\\/]+$/',$dolibarr_main_document_root)) $dolibarr_main_document_root=preg_replace('/[\\/]+$/','',$dolibarr_main_document_root);
 		if (! empty($dolibarr_main_url_root)      && ! preg_match('/^[\\/]+$/',$dolibarr_main_url_root))      $dolibarr_main_url_root=preg_replace('/[\\/]+$/','',$dolibarr_main_url_root);
 		if (! empty($dolibarr_main_data_root)     && ! preg_match('/^[\\/]+$/',$dolibarr_main_data_root))     $dolibarr_main_data_root=preg_replace('/[\\/]+$/','',$dolibarr_main_data_root);
+		if (! empty($dolibarr_main_document_root_alt)	&& ! preg_match('/^[\\/]+$/',$dolibarr_main_document_root_alt))	$dolibarr_main_document_root_alt=preg_replace('/[\\/]+$/','',$dolibarr_main_document_root_alt);
+		if (! empty($dolibarr_main_url_root_alt)		&& ! preg_match('/^[\\/]+$/',$dolibarr_main_url_root_alt))		$dolibarr_main_url_root_alt=preg_replace('/[\\/]+$/','',$dolibarr_main_url_root_alt);
 
 		// Create conf object
 		if (! empty($dolibarr_main_document_root))
@@ -84,7 +105,7 @@ if (! defined('DONOTLOADCONF') && file_exists($conffile))
 		{
 			if (! empty($dolibarr_main_document_root) && ! empty($dolibarr_main_db_type))
 			{
-				$result=include_once($dolibarr_main_document_root . "/core/db/".$dolibarr_main_db_type.".class.php");
+				$result=include_once $dolibarr_main_document_root . "/core/db/".$dolibarr_main_db_type.'.class.php';
 				if (! $result)
 				{
 					$includeconferror='ErrorBadValueForDolibarrMainDBType';
@@ -101,12 +122,23 @@ if (! defined('DONOTLOADCONF') && file_exists($conffile))
 		$includeconferror='ErrorBadFormatForConfFile';
 	}
 }
+$conf->global->MAIN_LOGTOHTML = 1;
 
 // Define prefix
 if (! isset($dolibarr_main_db_prefix) || ! $dolibarr_main_db_prefix) $dolibarr_main_db_prefix='llx_';
 define('MAIN_DB_PREFIX',(isset($dolibarr_main_db_prefix)?$dolibarr_main_db_prefix:''));
 
+define('DOL_CLASS_PATH', 'class/');                             // Filsystem path to class dir
 define('DOL_DATA_ROOT',(isset($dolibarr_main_data_root)?$dolibarr_main_data_root:''));
+if (! empty($dolibarr_main_document_root_alt))
+{
+    define('DOL_DOCUMENT_ROOT_ALT', $dolibarr_main_document_root_alt);	// Filesystem paths to alternate core php (alternate htdocs)
+}
+define('DOL_MAIN_URL_ROOT', (isset($dolibarr_main_url_root)?$dolibarr_main_url_root:''));           // URL relative root
+$uri=preg_replace('/^http(s?):\/\//i','',constant('DOL_MAIN_URL_ROOT'));  // $uri contains url without http*
+$suburi = strstr($uri, '/');       // $suburi contains url without domain
+if ($suburi == '/') $suburi = '';   // If $suburi is /, it is now ''
+define('DOL_URL_ROOT', $suburi);    // URL relative root ('', '/dolibarr', ...)
 
 if (empty($character_set_client)) $character_set_client="UTF-8";
 $conf->file->character_set_client=strtoupper($character_set_client);
@@ -148,7 +180,7 @@ function conf($dolibarr_main_document_root)
 	global $dolibarr_main_db_pass;
 	global $character_set_client;
 
-	$return=include_once($dolibarr_main_document_root."/core/class/conf.class.php");
+	$return=include_once $dolibarr_main_document_root.'/core/class/conf.class.php';
 	if (! $return) return -1;
 
 	$conf=new Conf();
@@ -166,12 +198,12 @@ function conf($dolibarr_main_document_root)
 
 
 /**
- *	Show HTML header
+ * Show HTML header
  *
- *	@param	string	$soutitre	Title
- *	@param	string	$next		Next
- *	@param	string	$action		Action
- *	@return	void
+ * @param	string	$soutitre	Title
+ * @param	string	$next		Next
+ * @param	string	$action		Action code
+ * @return	void
  */
 function pHeader($soutitre,$next,$action='none')
 {
@@ -206,7 +238,7 @@ function pHeader($soutitre,$next,$action='none')
 }
 
 /**
- * Show footer
+ * Print HTML footer
  *
  * @param	string	$nonext			No button "Next step"
  * @param   string	$setuplang		Language code

@@ -1,12 +1,12 @@
 <?php
 /* Copyright (C) 2003-2004	Rodolphe Quiedeville	<rodolphe@quiedeville.org>
  * Copyright (C) 2004-2011	Laurent Destailleur		<eldy@users.sourceforge.net>
- * Copyright (C) 2005-2012	Regis Houssin			<regis@dolibarr.fr>
+ * Copyright (C) 2005-2012	Regis Houssin			<regis.houssin@capnetworks.com>
  * Copyright (C) 2011		Juanjo Menent			<jmenent@2byte.es>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -24,9 +24,9 @@
  *	\brief      Page to setup barcode module
  */
 
-require("../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
-require_once(DOL_DOCUMENT_ROOT."/core/class/html.formbarcode.class.php");
+require '../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/core/class/html.formbarcode.class.php';
 
 $langs->load("admin");
 
@@ -70,7 +70,7 @@ else if ($action == 'GENBARCODE_BARCODETYPE_THIRDPARTY')
  else if ($_POST["action"] == 'setproductusebarcode')
  {
  dolibarr_set_const($db, "PRODUIT_USE_BARCODE",$_POST["value"],'chaine',0,'',$conf->entity);
- Header("Location: barcode.php");
+ header("Location: barcode.php");
  exit;
  }
  */
@@ -107,8 +107,8 @@ $barcodelist=array();
 clearstatcache();
 
 
-// Check if there is external substitution to do asked by plugins
-$dirbarcode=array_merge(array("/core/modules/barcode/"),$conf->barcode_modules);
+// Scan list of all barcode included provided by external modules
+$dirbarcode=array_merge(array("/core/modules/barcode/"), $conf->modules_parts['barcode']);
 
 foreach($dirbarcode as $reldir)
 {
@@ -132,7 +132,7 @@ foreach($dirbarcode as $reldir)
 						$filebis=$reg[1];
 
 						// Chargement de la classe de codage
-						require_once($newdir.$file);
+						require_once $newdir.$file;
 						$classname = "mod".ucfirst($filebis);
 						$module = new $classname($db);
 
@@ -207,7 +207,7 @@ if ($resql)
 			    // Check if directory exists (we do not use dol_is_dir to avoid loading files.lib.php)
 			    if (! is_dir($newdir)) continue;
 
-				$result=@include_once($newdir.$obj->coder.".modules.php");
+				$result=@include_once $newdir.$obj->coder.'.modules.php';
 				if ($result) break;
 			}
 			if ($result)
@@ -290,7 +290,7 @@ if (! isset($_SERVER['WINDIR']))
 }
 
 // Module produits
-if ($conf->societe->enabled)
+if (! empty($conf->societe->enabled))
 {
 	$var=!$var;
 	print "<form method=\"post\" action=\"".$_SERVER["PHP_SELF"]."\">";
@@ -308,7 +308,7 @@ if ($conf->societe->enabled)
 }
 
 // Module produits
-if ($conf->product->enabled)
+if (! empty($conf->product->enabled))
 {
 	$var=!$var;
 	print "<form method=\"post\" action=\"".$_SERVER["PHP_SELF"]."\">";

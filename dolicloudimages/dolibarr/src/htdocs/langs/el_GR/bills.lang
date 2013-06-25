@@ -352,10 +352,10 @@ TypeContact_facture_internal_SALESREPFOLL=Representative following-up customer i
 TypeContact_facture_external_BILLING=Αντιπρόσωπος τιμολογίου πελάτη
 TypeContact_facture_external_SHIPPING=Αντιπρόσωπος αποστολής πελάτη
 TypeContact_facture_external_SERVICE=Αντιπρόσωπος υπηρεσίας πελάτη
-TypeContact_facture_fourn_internal_SALESREPFOLL=Representative following-up supplier invoice
-TypeContact_facture_fourn_external_BILLING=Αντιπρόσωπος τιμολογίου προμηθευτή
-TypeContact_facture_fourn_external_SHIPPING=Αντιπρόσωπος αποστολής προμηθευτή
-TypeContact_facture_fourn_external_SERVICE=Αντιπρόσωπος υπηρεσίας προμηθευτή
+TypeContact_invoice_supplier_internal_SALESREPFOLL=Representative following-up supplier invoice
+TypeContact_invoice_supplier_external_BILLING=Αντιπρόσωπος τιμολογίου προμηθευτή
+TypeContact_invoice_supplier_external_SHIPPING=Αντιπρόσωπος αποστολής προμηθευτή
+TypeContact_invoice_supplier_external_SERVICE=Αντιπρόσωπος υπηρεσίας προμηθευτή
 =
 =
 # oursin PDF model
@@ -419,7 +419,7 @@ AddGlobalDiscount=Προσθήκη έκπτωσης
 AddCreditNote=Δημιουργία πιστωτικό σημείωμα
 InvoiceNotChecked=Δεν έχει επιλεγεί τιμολόγιο
 ShowUnpaidAll=Εμφάνιση όλων των απλήρωτων τιμολογίων
-ClosePaidInvoicesAutomatically=Ταξινομήστε &quot;Πληρωμένες» όλα τα τιμολόγια entierely payed.
+ClosePaidInvoicesAutomatically=Ταξινομήστε &quot;Πληρωμένες» όλα τα τιμολόγια entirely payed.
 AllCompletelyPayedInvoiceWillBeClosed=Όλα τιμολόγιο χωρίς παραμένουν να πληρώσουν θα κλείσει αυτόματα σε κατάσταση &quot;Πληρωμένες».
 // STOP - Lines generated via autotranslator.php tool (2011-06-26 15:36:46).
 

@@ -2,11 +2,11 @@
 /* Copyright (C) 2004      Rodolphe Quiedeville <rodolphe@quiedeville.org>
  * Copyright (C) 2004-2012 Laurent Destailleur  <eldy@users.sourceforge.net>
  * Copyright (C) 2004      Eric Seigne          <eric.seigne@ryxeo.com>
- * Copyright (C) 2005-2012 Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2005-2012 Regis Houssin        <regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -24,9 +24,9 @@
  *	\brief      Fiche d'information sur une proposition commerciale
  */
 
-require("../../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/comm/propal/class/propal.class.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/propal.lib.php");
+require '../../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/comm/propal/class/propal.class.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/propal.lib.php';
 
 $langs->load('propal');
 $langs->load('compta');
@@ -66,7 +66,7 @@ else if ($action == 'setnote' && $user->rights->propale->creer)
 /* Affichage fiche                                                            */
 /******************************************************************************/
 
-llxHeader();
+llxHeader('',$langs->trans('Proposal'),'EN:Commercial_Proposals|FR:Proposition_commerciale|ES:Presupuestos');
 
 $form = new Form($db);
 
@@ -86,7 +86,7 @@ if ($id > 0 || ! empty($ref))
 
 			print '<table class="border" width="100%">';
 
-			$linkback="<a href=\"".DOL_URL_ROOT.'/comm/propal.php'."?page=$page&socid=$socid&viewstatut=$viewstatut&sortfield=$sortfield&$sortorder\">".$langs->trans("BackToList")."</a>";
+			$linkback = '<a href="'.DOL_URL_ROOT.'/comm/propal/list.php'.(! empty($socid)?'?socid='.$socid:'').'">'.$langs->trans('BackToList').'</a>';
 
 			// Ref
 			print '<tr><td width="25%">'.$langs->trans('Ref').'</td><td colspan="3">';
@@ -146,7 +146,7 @@ if ($id > 0 || ! empty($ref))
 
 			print '<br>';
 
-			include(DOL_DOCUMENT_ROOT.'/core/tpl/notes.tpl.php');
+			include DOL_DOCUMENT_ROOT.'/core/tpl/notes.tpl.php';
 
 			dol_fiche_end();
 		}

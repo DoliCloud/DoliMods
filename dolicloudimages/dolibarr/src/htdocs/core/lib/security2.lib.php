@@ -1,10 +1,10 @@
 <?php
 /* Copyright (C) 2008-2011 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2008-2012 Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2008-2012 Regis Houssin        <regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -52,61 +52,13 @@ function dol_getwebuser($mode)
 function checkLoginPassEntity($usertotest,$passwordtotest,$entitytotest,$authmode)
 {
 	global $conf,$langs;
-    global $dolauthmode;    // To return authentication finally used
+    //global $dolauthmode;    // To return authentication finally used
 
 	// Check parameters
 	if ($entitytotest == '') $entitytotest=1;
 
     dol_syslog("checkLoginPassEntity usertotest=".$usertotest." entitytotest=".$entitytotest." authmode=".join(',',$authmode));
 	$login = '';
-
-	// Validation of login/pass/entity with a third party login module method
-	if (! empty($conf->login_modules) && is_array($conf->login_modules))
-	{
-    	foreach($conf->login_modules as $reldir)
-    	{
-    	    $dir=dol_buildpath($reldir,0);
-
-    	    $newdir=dol_osencode($dir);
-
-    		// Check if directory exists
-    		if (! is_dir($newdir)) continue;
-
-    		$handle=opendir($newdir);
-    		if (is_resource($handle))
-    		{
-    			while (($file = readdir($handle))!==false)
-    			{
-    				if (is_readable($dir.'/'.$file) && preg_match('/^functions_([^_]+)\.php/',$file,$reg))
-    				{
-    					$authfile = $dir.'/'.$file;
-    					$mode = $reg[1];
-
-    					$result=include_once($authfile);
-    					if ($result)
-    					{
-    						// Call function to check user/password
-    						$function='check_user_password_'.$mode;
-    						$login=call_user_func($function,$usertotest,$passwordtotest,$entitytotest);
-    						if ($login)
-    						{
-            					$conf->authmode=$mode;	// This properties is defined only when logged to say what mode was successfully used
-    						}
-    					}
-    					else
-    					{
-    						dol_syslog("Authentification ko - failed to load file '".$authfile."'",LOG_ERR);
-    						sleep(1);    // To slow brut force cracking
-    						$langs->load('main');
-    						$langs->load('other');
-    						$_SESSION["dol_loginmesg"]=$langs->trans("ErrorFailedToLoadLoginFileForMode",$mode);
-    					}
-    				}
-    			}
-    		    closedir($handle);
-    		}
-    	}
-	}
 
 	// Validation of login/pass/entity with standard modules
 	if (empty($login))
@@ -116,10 +68,24 @@ function checkLoginPassEntity($usertotest,$passwordtotest,$entitytotest,$authmod
     	{
     		if ($test && $mode && ! $login)
     		{
+    		    // Validation of login/pass/entity for mode $mode
     		    $mode=trim($mode);
-    			$authfile=DOL_DOCUMENT_ROOT.'/core/login/functions_'.$mode.'.php';
-    			$result=include_once($authfile);
-    			if ($result)
+        		$authfile='functions_'.$mode.'.php';
+        		$fullauthfile='';
+
+    		    $dirlogin=array_merge(array("/core/login"),(array) $conf->modules_parts['login']);
+    		    foreach($dirlogin as $reldir)
+    		    {
+    		        $dir=dol_buildpath($reldir,0);
+    		        $newdir=dol_osencode($dir);
+
+    		        // Check if file found (do not use dol_is_file to avoid loading files.lib.php)
+    		        if (is_file($newdir.'/'.$authfile)) $fullauthfile=$newdir.'/'.$authfile;
+    		    }
+
+    		    $result=false;
+    		    if ($fullauthfile) $result=include_once $fullauthfile;
+    			if ($fullauthfile && $result)
     			{
     				// Call function to check user/password
     				$function='check_user_password_'.$mode;
@@ -128,10 +94,10 @@ function checkLoginPassEntity($usertotest,$passwordtotest,$entitytotest,$authmod
     				{
     					$test=false;            // To stop once at first login success
     					$conf->authmode=$mode;	// This properties is defined only when logged to say what mode was successfully used
-    					$dol_tz=$_POST["tz"];
-    					$dol_dst=$_POST["dst"];
-    					$dol_screenwidth=$_POST["screenwidth"];
-    					$dol_screenheight=$_POST["screenheight"];
+    					$dol_tz=GETPOST('tz');
+    					$dol_dst=GETPOST('dst');
+    					$dol_screenwidth=GETPOST('screenwidth');
+    					$dol_screenheight=GETPOST('screenheight');
     				}
     			}
     			else
@@ -163,11 +129,11 @@ function dol_loginfunction($langs,$conf,$mysoc)
 {
 	global $dolibarr_main_demo,$db;
 	global $smartphone,$hookmanager;
-	
+
 	// Instantiate hooks of thirdparty module only if not already define
 	if (! is_object($hookmanager))
 	{
-		include_once(DOL_DOCUMENT_ROOT.'/core/class/hookmanager.class.php');
+		include_once DOL_DOCUMENT_ROOT.'/core/class/hookmanager.class.php';
 		$hookmanager=new HookManager($db);
 	}
 	$hookmanager->initHooks(array('mainloginpage'));
@@ -209,7 +175,7 @@ function dol_loginfunction($langs,$conf,$mysoc)
 		}
 	}
 
-	$conf->css = "/theme/".$conf->theme."/style.css.php?lang=".$langs->defaultlang;
+	$conf->css = "/theme/".(GETPOST('theme')?GETPOST('theme','alpha'):$conf->theme)."/style.css.php?lang=".$langs->defaultlang;
 	$conf_css = DOL_URL_ROOT.$conf->css;
 
 	// Set cookie for timeout management
@@ -237,10 +203,10 @@ function dol_loginfunction($langs,$conf,$mysoc)
 		$demologin=$tab[0];
 		$demopassword=$tab[1];
 	}
-	
+
 	// Execute hook getLoginPageOptions
 	// Should be an array with differents options in $hookmanager->resArray
-	$parameters=array('entity' => $_POST['entity']);
+	$parameters=array('entity' => GETPOST('entity','int'));
 	$hookmanager->executeHooks('getLoginPageOptions',$parameters);    // Note that $action and $object may have been modified by some hooks
 
 	// Login
@@ -296,6 +262,7 @@ function dol_loginfunction($langs,$conf,$mysoc)
 	}
 
 	// Home message
+	$main_home='';
 	if (! empty($conf->global->MAIN_HOME))
 	{
 		$i=0;
@@ -304,19 +271,20 @@ function dol_loginfunction($langs,$conf,$mysoc)
 			$conf->global->MAIN_HOME=preg_replace('/__\('.$reg[1].'\)__/i',$langs->trans($reg[1]),$conf->global->MAIN_HOME);
 			$i++;
 		}
+
+		$main_home=dol_htmlcleanlastbr($conf->global->MAIN_HOME);
 	}
-	$main_home=dol_htmlcleanlastbr($conf->global->MAIN_HOME);
 
 	// Google AD
 	$main_google_ad_client = ((! empty($conf->global->MAIN_GOOGLE_AD_CLIENT) && ! empty($conf->global->MAIN_GOOGLE_AD_SLOT))?1:0);
 
-	$dol_loginmesg = $_SESSION["dol_loginmesg"];
+	$dol_loginmesg = (! empty($_SESSION["dol_loginmesg"])?$_SESSION["dol_loginmesg"]:'');
 	$favicon=DOL_URL_ROOT.'/theme/'.$conf->theme.'/img/favicon.ico';
 	$jquerytheme = 'smoothness';
-	if (!empty($conf->global->MAIN_USE_JQUERY_THEME)) $jquerytheme = $conf->global->MAIN_USE_JQUERY_THEME;
+	if (! empty($conf->global->MAIN_USE_JQUERY_THEME)) $jquerytheme = $conf->global->MAIN_USE_JQUERY_THEME;
 
 
-	include($template_dir.'login.tpl.php');	// To use native PHP
+	include $template_dir.'login.tpl.php';	// To use native PHP
 
 
 	$_SESSION["dol_loginmesg"] = '';
@@ -466,12 +434,12 @@ function getRandomPassword($generic=false)
 
 	$generated_password='';
 	if ($generic) $generated_password=dol_hash(mt_rand());
-	else if ($conf->global->USER_PASSWORD_GENERATED)
+	else if (! empty($conf->global->USER_PASSWORD_GENERATED))
 	{
 		$nomclass="modGeneratePass".ucfirst($conf->global->USER_PASSWORD_GENERATED);
 		$nomfichier=$nomclass.".class.php";
 		//print DOL_DOCUMENT_ROOT."/core/modules/security/generate/".$nomclass;
-		require_once(DOL_DOCUMENT_ROOT."/core/modules/security/generate/".$nomfichier);
+		require_once DOL_DOCUMENT_ROOT."/core/modules/security/generate/".$nomfichier;
 		$genhandler=new $nomclass($db,$conf,$langs,$user);
 		$generated_password=$genhandler->getNewGeneratedPassword();
 		unset($genhandler);

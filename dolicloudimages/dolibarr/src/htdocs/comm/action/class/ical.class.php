@@ -1,11 +1,12 @@
 <?php
-/* Copyright (C) 2006      Roman Ozana		    <ozana@omdesign.cz>
- * Copyright (C) 2011 	   Juanjo Menent        <jmenent@2byte.es>
- * Copyright (C) 2012 	   Laurent Destailleur  <eldy@users.sourceforge.net>
+/* Copyright (C) 2006	Roman Ozana			<ozana@omdesign.cz>
+ * Copyright (C) 2011	Juanjo Menent		<jmenent@2byte.es>
+ * Copyright (C) 2012	Laurent Destailleur	<eldy@users.sourceforge.net>
+ * Copyright (C) 2012	Regis Houssin		<regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -19,23 +20,30 @@
 
 /**
  *       \file       htdocs/comm/action/class/ical.class.php
- *       \ingroup    commercial
+ *       \ingroup    agenda
  *       \brief      File of class to parse ical calendars
  */
-class ical
+
+
+/**
+ *		Class to parse ICal calendars
+ */
+class ICal
 {
     var $file_text; // Text in file
     var $cal; // Array to save iCalendar parse data
     var $event_count; // Number of Events
     var $todo_count; // Number of Todos
+    var $freebusy_count; // Number of Freebusy
     var $last_key; //Help variable save last key (multiline string)
 
 
 	/**
 	 * Constructor
 	 */
-	public function ical()
+	public function __construct()
 	{
+
 	}
 
 	/**
@@ -338,7 +346,7 @@ class ical
      */
     function get_event_list()
     {
-        return $this->cal['VEVENT'];
+        return (! empty($this->cal['VEVENT'])?$this->cal['VEVENT']:'');
     }
 
     /**

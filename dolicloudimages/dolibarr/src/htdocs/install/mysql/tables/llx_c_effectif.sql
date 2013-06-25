@@ -4,7 +4,7 @@
 --
 -- This program is free software; you can redistribute it and/or modify
 -- it under the terms of the GNU General Public License as published by
--- the Free Software Foundation; either version 2 of the License, or
+-- the Free Software Foundation; either version 3 of the License, or
 -- (at your option) any later version.
 --
 -- This program is distributed in the hope that it will be useful,
@@ -20,7 +20,7 @@
 create table llx_c_effectif
 (
   id      integer     PRIMARY KEY,
-  code    varchar(12) UNIQUE NOT NULL,
+  code    varchar(12) NOT NULL,
   libelle varchar(30),
   active  tinyint DEFAULT 1  NOT NULL,
   module  varchar(32) NULL

@@ -2,11 +2,12 @@
 /* Copyright (C) 2003-2004 Rodolphe Quiedeville <rodolphe@quiedeville.org>
  * Copyright (C) 2004-2011 Laurent Destailleur  <eldy@users.sourceforge.net>
  * Copyright (C) 2004      Eric Seigne          <eric.seigne@ryxeo.com>
- * Copyright (C) 2006-2011 Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2006-2011 Regis Houssin        <regis.houssin@capnetworks.com>
+ * Copyright (C) 2011-2012 Philippe Grand	    <philippe.grand@atoo-net.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -26,12 +27,11 @@
  *				et la classe mere de numerotation des bons de livraisons
  */
 
-require_once(DOL_DOCUMENT_ROOT."/core/class/commondocgenerator.class.php");
+require_once DOL_DOCUMENT_ROOT.'/core/class/commondocgenerator.class.php';
 
 
 /**
- *	\class      ModelePDFDeliveryOrder
- *	\brief      Classe mere des modeles de bon de livraison
+ *	Classe mere des modeles de bon de livraison
  */
 abstract class ModelePDFDeliveryOrder extends CommonDocGenerator
 {
@@ -51,7 +51,7 @@ abstract class ModelePDFDeliveryOrder extends CommonDocGenerator
 		$type='delivery';
 		$liste=array();
 
-		include_once(DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php');
+		include_once DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php';
 		$liste=getListOfModels($db,$type,$maxfilenamelength);
 
 		return $liste;
@@ -116,9 +116,11 @@ abstract class ModeleNumRefDeliveryOrder
 	/**
 	 * Renvoi prochaine valeur attribuee
 	 *
-	 * @return     string      Valeur
+	 *	@param	Societe		$objsoc     	Object third party
+	 *  @param  Object		$object			Object delivery
+	 *	@return	string						Valeur
 	 */
-	function getNextValue()
+	function getNextValue($objsoc, $object)
 	{
 		global $langs;
 		return $langs->trans("NotAvailable");
@@ -148,39 +150,67 @@ abstract class ModeleNumRefDeliveryOrder
  *
  *	@param	DoliDB		$db  			objet base de donnee
  *	@param	Object		$object			object delivery
- *	@param	string		$model			force le modele a utiliser ('' to not force)
+ *	@param	string		$modele			force le modele a utiliser ('' to not force)
  *	@param	Translate	$outputlangs	objet lang a utiliser pour traduction
  *  @return int         				0 if KO, 1 if OK
  */
-function delivery_order_pdf_create($db, $object, $model='', $outputlangs='')
+function delivery_order_pdf_create($db, $object, $modele, $outputlangs='')
 {
 	global $conf,$user,$langs;
 
 	$langs->load("deliveries");
 
-	$dir = "/core/modules/livraison/pdf/";
+	$error=0;
+
+	$srctemplatepath='';
 
 	// Positionne modele sur le nom du modele de bon de livraison a utiliser
-	if (! dol_strlen($model))
+	if (! dol_strlen($modele))
 	{
-		if ($conf->global->LIVRAISON_ADDON_PDF)
+		if (! empty($conf->global->LIVRAISON_ADDON_PDF))
 		{
-			$model = $conf->global->LIVRAISON_ADDON_PDF;
+			$modele = $conf->global->LIVRAISON_ADDON_PDF;
 		}
 		else
 		{
-			print $langs->trans("Error")." ".$langs->trans("Error_LIVRAISON_ADDON_PDF_NotDefined");
-			return 0;
+			$modele = 'typhon';
 		}
 	}
-	// Charge le modele
-	$file = "pdf_".$model.".modules.php";
-	// On verifie l'emplacement du modele
-	$file = dol_buildpath($dir.$file);
-	if (file_exists($file))
+
+	// If selected modele is a filename template (then $modele="modelname:filename")
+	$tmp=explode(':',$modele,2);
+    if (! empty($tmp[1]))
+    {
+        $modele=$tmp[0];
+        $srctemplatepath=$tmp[1];
+    }
+
+	// Search template files
+	$file=''; $classname=''; $filefound=0;
+	$dirmodels=array('/');
+	if (is_array($conf->modules_parts['models'])) $dirmodels=array_merge($dirmodels,$conf->modules_parts['models']);
+	foreach($dirmodels as $reldir)
 	{
-		$classname = "pdf_".$model;
-		require_once($file);
+    	foreach(array('doc','pdf') as $prefix)
+    	{
+    	    $file = $prefix."_".$modele.".modules.php";
+
+    		// On verifie l'emplacement du modele
+	        $file=dol_buildpath($reldir."core/modules/livraison/pdf/".$file,0);
+    		if (file_exists($file))
+    		{
+    			$filefound=1;
+    			$classname=$prefix.'_'.$modele;
+    			break;
+    		}
+    	}
+    	if ($filefound) break;
+    }
+
+	// Charge le modele
+	if ($filefound)
+	{
+		require_once $file;
 
 		$obj = new $classname($db);
 
@@ -192,11 +222,11 @@ function delivery_order_pdf_create($db, $object, $model='', $outputlangs='')
 			$outputlangs->charset_output=$sav_charset_output;
 
 			// we delete preview files
-        	require_once(DOL_DOCUMENT_ROOT."/core/lib/files.lib.php");
+        	require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 			dol_delete_preview($object);
 
 			// Appel des triggers
-			include_once(DOL_DOCUMENT_ROOT . "/core/class/interfaces.class.php");
+			include_once DOL_DOCUMENT_ROOT . '/core/class/interfaces.class.php';
 			$interface=new Interfaces($db);
 			$result=$interface->run_triggers('DELIVERY_BUILDDOC',$object,$user,$langs,$conf);
 			if ($result < 0) {

@@ -1,11 +1,11 @@
 <?php
 /* Copyright (C) 2001-2004 Rodolphe Quiedeville <rodolphe@quiedeville.org>
  * Copyright (C) 2004-2011 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2005-2012 Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2005-2012 Regis Houssin        <regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -30,17 +30,17 @@ require_once (DOL_DOCUMENT_ROOT."/product/class/product.class.php");
 $langs->load("products");
 $langs->load("companies");
 
-$sortfield = isset($_GET["sortfield"])?$_GET["sortfield"]:(isset($_POST["sortfield"])?$_POST["sortfield"]:'');
-$sortorder = isset($_GET["sortorder"])?$_GET["sortorder"]:(isset($_POST["sortorder"])?$_POST["sortorder"]:'');
-$page = isset($_GET["page"])?$_GET["page"]:(isset($_POST["page"])?$_POST["page"]:'');
+$sortfield=GETPOST('sortfield','alpha');
+$sortorder=GETPOST('sortorder','alpha');
+$page=GETPOST('page','int');
 
-$statut=isset($_GET["statut"])?$_GET["statut"]:1;
+$statut=GETPOST('statut')?GETPOST('statut'):1;
 
 // Security check
 $socid=0;
 $id = GETPOST('id','int');
-if ($user->societe_id) $socid=$user->societe_id;
-$result = restrictedArea($user, 'contrat',$id,'');
+if (! empty($user->societe_id)) $socid=$user->societe_id;
+$result = restrictedArea($user, 'contrat', $id);
 
 $staticcompany=new Societe($db);
 $staticcontrat=new Contrat($db);
@@ -71,12 +71,12 @@ print '<table class="notopnoleftnoright" width="100%">';
 print '<tr><td width="30%" valign="top" class="notopnoleft">';
 
 // Search contract
-if ($conf->contrat->enabled)
+if (! empty($conf->contrat->enabled))
 {
 	$var=false;
 	print '<form method="post" action="'.DOL_URL_ROOT.'/contrat/liste.php">';
 	print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
-	print '<table class="noborder" width="100%">';
+	print '<table class="noborder nohover" width="100%">';
 	print '<tr class="liste_titre"><td colspan="3">'.$langs->trans("SearchAContract").'</td></tr>';
 	print '<tr '.$bc[$var].'>';
 	print '<td nowrap>'.$langs->trans("Ref").':</td><td><input type="text" class="flat" name="search_contract" size="18"></td>';
@@ -181,8 +181,8 @@ $var=true;
 $listofstatus=array(0,4,4,5); $bool=false;
 foreach($listofstatus as $status)
 {
-    $dataseries[]=array('label'=>$staticcontratligne->LibStatut($status,1,($bool?1:0)),'data'=>($nb[$status.$bool]?(int) $nb[$status.$bool]:0));
-    if (! $conf->use_javascript_ajax)
+    $dataseries[]=array('label'=>$staticcontratligne->LibStatut($status,1,($bool?1:0)),'data'=>(isset($nb[$status.$bool])?(int) $nb[$status.$bool]:0));
+    if (empty($conf->use_javascript_ajax))
     {
         $var=!$var;
         print '<tr '.$bc[$var].'>';
@@ -193,7 +193,7 @@ foreach($listofstatus as $status)
     if ($status==4 && $bool==false) $bool=true;
     else $bool=false;
 }
-if ($conf->use_javascript_ajax)
+if (! empty($conf->use_javascript_ajax))
 {
     print '<tr><td align="center" colspan="2">';
     $data=array('series'=>$dataseries);
@@ -204,7 +204,7 @@ $var=true;
 $listofstatus=array(0,4,4,5); $bool=false;
 foreach($listofstatus as $status)
 {
-    if (! $conf->use_javascript_ajax)
+    if (empty($conf->use_javascript_ajax))
     {
         $var=!$var;
     	print '<tr '.$bc[$var].'>';
@@ -223,7 +223,7 @@ print "</table><br>";
 /**
  * Draft contratcs
  */
-if ($conf->contrat->enabled && $user->rights->contrat->lire)
+if (! empty($conf->contrat->enabled) && $user->rights->contrat->lire)
 {
 	$sql  = "SELECT c.rowid as ref, c.rowid,";
 	$sql.= " s.nom, s.rowid as socid";
@@ -233,7 +233,7 @@ if ($conf->contrat->enabled && $user->rights->contrat->lire)
 	$sql.= " AND c.entity IN (".getEntity('contract').")";
 	$sql.= " AND c.statut = 0";
 	if (!$user->rights->societe->client->voir && !$socid) $sql.= " AND s.rowid = sc.fk_soc AND sc.fk_user = " .$user->id;
-	if ($socid) $sql.= " AND s.fk_soc = ".$socid;
+	if ($socid) $sql.= " AND c.fk_soc = ".$socid;
 
 	$resql = $db->query($sql);
 

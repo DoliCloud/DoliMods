@@ -5,7 +5,7 @@
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -24,13 +24,13 @@
  *  \brief      Page fiche commande OSCommerce
  */
 
-require("../../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT.'/boutique/osc_master.inc.php');
-include_once(DOL_DOCUMENT_ROOT.'/boutique/commande/class/boutiquecommande.class.php');
+require '../../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/boutique/osc_master.inc.php';
+include_once DOL_DOCUMENT_ROOT.'/boutique/commande/class/boutiquecommande.class.php';
 
 $langs->load("products");
 
-
+$id=GETPOST('id', 'int');
 
 /*
  *	View
@@ -39,11 +39,11 @@ $langs->load("products");
 llxHeader();
 
 
-if ($_GET['id'])
+if ($id > 0)
 {
 	$commande = new BoutiqueCommande($db);
-	$result = $commande->fetch($_GET['id']);
-	if ( $result )
+	$result = $commande->fetch($id);
+	if ($result)
 	{
 		print '<div class="titre">'.$langs->trans("OrderCard").': '.$commande->id.'</div><br>';
 
@@ -69,7 +69,7 @@ if ($_GET['id'])
 		 */
 		$sql = "SELECT orders_id, products_id, products_model, products_name, products_price, final_price, products_quantity";
 		$sql .= " FROM ".$conf->global->OSC_DB_NAME.".".$conf->global->OSC_DB_TABLE_PREFIX."orders_products";
-		$sql .= " WHERE orders_id = " . $_GET['id'];
+		$sql .= " WHERE orders_id = " . $commande->id;
 		//$commande->id;
 		//	echo $sql;
 		$resql=$dbosc->query($sql);

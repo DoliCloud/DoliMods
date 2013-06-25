@@ -3,7 +3,7 @@
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -22,7 +22,7 @@
  *		\author	    Laurent Destailleur
  */
 
-require_once(DOL_DOCUMENT_ROOT ."/core/modules/export/modules_export.php");
+require_once DOL_DOCUMENT_ROOT .'/core/modules/export/modules_export.php';
 
 
 /**
@@ -60,7 +60,7 @@ class ExportCsv extends ModeleExports
 		$this->enclosure='"';
 
 		$this->id='csv';                // Same value then xxx in file name export_xxx.modules.php
-		$this->label='Csv';             // Label of driver
+		$this->label = 'CSV';             // Label of driver
 		$this->desc=$langs->trans("CSVFormatDesc",$this->separator,$this->enclosure,$this->escape);
 		$this->extension='csv';         // Extension for generated file by this driver
 		$this->picto='mime/other';		// Picto
@@ -85,7 +85,7 @@ class ExportCsv extends ModeleExports
 	/**
 	 * getDriverLabel
 	 *
-	 * @return string
+	 * @return 	string			Return driver label
 	 */
 	function getDriverLabel()
 	{

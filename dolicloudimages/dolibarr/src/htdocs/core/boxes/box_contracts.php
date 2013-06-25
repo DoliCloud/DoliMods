@@ -1,9 +1,9 @@
 <?php
-/* Copyright (C) 2010 Regis Houssin  <regis@dolibarr.fr>
+/* Copyright (C) 2010 Regis Houssin  <regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -21,7 +21,7 @@
  * 		\brief      Module de generation de l'affichage de la box contracts
  */
 
-include_once(DOL_DOCUMENT_ROOT."/core/boxes/modules_boxes.php");
+include_once DOL_DOCUMENT_ROOT.'/core/boxes/modules_boxes.php';
 
 
 /**
@@ -44,7 +44,7 @@ class box_contracts extends ModeleBoxes
     /**
      *  Constructor
      */
-    function box_contracts()
+    function __construct()
     {
     	global $langs;
 
@@ -65,7 +65,7 @@ class box_contracts extends ModeleBoxes
 
     	$this->max=$max;
 
-    	include_once(DOL_DOCUMENT_ROOT."/contrat/class/contrat.class.php");
+    	include_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
     	$contractstatic=new Contrat($db);
 
     	$this->info_box_head = array('text' => $langs->trans("BoxTitleLastContracts",$max));
@@ -138,7 +138,9 @@ class box_contracts extends ModeleBoxes
     		}
     		else
     		{
-    			dol_print_error($db);
+    			$this->info_box_contents[0][0] = array(  'td' => 'align="left"',
+                                                        'maxlength'=>500,
+                                                        'text' => ($db->error().' sql='.$sql));
     		}
     	}
     	else

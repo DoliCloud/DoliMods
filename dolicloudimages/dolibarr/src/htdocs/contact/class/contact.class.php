@@ -2,13 +2,13 @@
 /* Copyright (C) 2002-2004 Rodolphe Quiedeville        <rodolphe@quiedeville.org>
  * Copyright (C) 2004      Benoit Mortier              <benoit.mortier@opensides.be>
  * Copyright (C) 2004-2010 Laurent Destailleur         <eldy@users.sourceforge.net>
- * Copyright (C) 2005-2008 Regis Houssin               <regis@dolibarr.fr>
+ * Copyright (C) 2005-2012 Regis Houssin               <regis.houssin@capnetworks.com>
  * Copyright (C) 2007      Franky Van Liedekerke       <franky.van.liedekerker@telenet.be>
  * Copyright (C) 2008      Raphael Bertrand (Resultic) <raphael.bertrand@resultic.fr>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -25,17 +25,17 @@
  *	\ingroup    societe
  *	\brief      File of contacts class
  */
-require_once(DOL_DOCUMENT_ROOT ."/core/class/commonobject.class.php");
+require_once DOL_DOCUMENT_ROOT .'/core/class/commonobject.class.php';
 
 
 /**
- *	\class      Contact
- *	\brief      Classe permettant la gestion des contacts
+ *	Class to manage contact/addresses
  */
 class Contact extends CommonObject
 {
 	public $element='contact';
 	public $table_element='socpeople';
+	protected $ismultientitymanaged = 1;	// 0=No test on entity, 1=Test with field entity, 2=Test with link by societe
 
 	var $id;
 	var $civilite_id;  // In fact we stor civility_code
@@ -72,6 +72,7 @@ class Contact extends CommonObject
 	var $birthday;
 	var $default_lang;
     var $note;                  // Private note
+    var $no_email;				// 1=Don't send e-mail to this contact, 0=do
 
 	var $ref_facturation;       // Nb de reference facture pour lequel il est contact
 	var $ref_contrat;           // Nb de reference contrat pour lequel il est contact
@@ -90,7 +91,7 @@ class Contact extends CommonObject
 	 *
 	 *  @param		DoliDB		$db      Database handler
 	 */
-	function Contact($db)
+	function __construct($db)
 	{
 		$this->db = $db;
 	}
@@ -127,6 +128,7 @@ class Contact extends CommonObject
 		$sql.= ", priv";
 		$sql.= ", canvas";
 		$sql.= ", entity";
+		$sql.= ", import_key";
 		$sql.= ") VALUES (";
 		$sql.= "'".$this->db->idate($now)."',";
 		if ($this->socid > 0) $sql.= " ".$this->socid.",";
@@ -135,8 +137,9 @@ class Contact extends CommonObject
         $sql.= "'".$this->db->escape($this->firstname)."',";
 		$sql.= " ".($user->id > 0 ? "'".$user->id."'":"null").",";
 		$sql.= " ".$this->priv.",";
-        $sql.= " ".($this->canvas?"'".$this->canvas."'":"null").",";
-        $sql.= " ".$conf->entity;
+        $sql.= " ".(! empty($this->canvas)?"'".$this->canvas."'":"null").",";
+        $sql.= " ".$conf->entity.",";
+        $sql.= " ".(! empty($this->import_key)?"'".$this->import_key."'":"null");
 		$sql.= ")";
 
 		dol_syslog(get_class($this)."::create sql=".$sql);
@@ -147,7 +150,7 @@ class Contact extends CommonObject
 
 			if (! $error)
 			{
-                $result=$this->update($this->id, $user, 1);
+                $result=$this->update($this->id, $user, 1, 'add');
                 if ($result < 0)
                 {
                     $error++;
@@ -168,7 +171,7 @@ class Contact extends CommonObject
             if (! $error)
             {
     			// Appel des triggers
-    			include_once(DOL_DOCUMENT_ROOT . "/core/class/interfaces.class.php");
+    			include_once DOL_DOCUMENT_ROOT . '/core/class/interfaces.class.php';
     			$interface=new Interfaces($this->db);
     			$result=$interface->run_triggers('CONTACT_CREATE',$this,$user,$langs,$conf);
     			if ($result < 0) { $error++; $this->errors=$interface->errors; }
@@ -202,10 +205,11 @@ class Contact extends CommonObject
 	 *
 	 *      @param      int		$id          	Id of contact/address to update
 	 *      @param      User	$user        	Objet user making change
-	 *      @param      int		$notrigger	    0=no, 1=yesi
+	 *      @param      int		$notrigger	    0=no, 1=yes
+	 *      @param		string	$action			Current action for hookmanager
 	 *      @return     int      			   	<0 if KO, >0 if OK
 	 */
-	function update($id, $user=0, $notrigger=0)
+	function update($id, $user=0, $notrigger=0, $action='update')
 	{
 		global $conf, $langs;
 
@@ -242,14 +246,15 @@ class Contact extends CommonObject
 		$sql .= ", poste='".$this->db->escape($this->poste)."'";
 		$sql .= ", fax='".$this->db->escape($this->fax)."'";
 		$sql .= ", email='".$this->db->escape($this->email)."'";
-		$sql .= ", note='".$this->db->escape($this->note)."'";
-		$sql .= ", phone = '".$this->db->escape($this->phone_pro)."'";
-		$sql .= ", phone_perso = '".$this->db->escape($this->phone_perso)."'";
-		$sql .= ", phone_mobile = '".$this->db->escape($this->phone_mobile)."'";
-		$sql .= ", jabberid = '".$this->db->escape($this->jabberid)."'";
+		$sql .= ", note = ".(isset($this->note)?"'".$this->db->escape($this->note)."'":"null");
+		$sql .= ", phone = ".(isset($this->phone_pro)?"'".$this->db->escape($this->phone_pro)."'":"null");
+		$sql .= ", phone_perso = ".(isset($this->phone_perso)?"'".$this->db->escape($this->phone_perso)."'":"null");
+		$sql .= ", phone_mobile = ".(isset($this->phone_mobile)?"'".$this->db->escape($this->phone_mobile)."'":"null");
+		$sql .= ", jabberid = ".(isset($this->jabberid)?"'".$this->db->escape($this->jabberid)."'":"null");
 		$sql .= ", priv = '".$this->priv."'";
 		$sql .= ", fk_user_modif=".($user->id > 0 ? "'".$user->id."'":"null");
 		$sql .= ", default_lang=".($this->default_lang?"'".$this->default_lang."'":"null");
+		$sql .= ", no_email=".($this->no_email?"'".$this->no_email."'":"0");
 		$sql .= " WHERE rowid=".$id;
 
 		dol_syslog(get_class($this)."::update sql=".$sql,LOG_DEBUG);
@@ -261,10 +266,29 @@ class Contact extends CommonObject
 		    unset($this->state_code);
 		    unset($this->state);
 
+		    // Actions on extra fields (by external module or standard code)
+		    include_once DOL_DOCUMENT_ROOT.'/core/class/hookmanager.class.php';
+		    $hookmanager=new HookManager($this->db);
+		    $hookmanager->initHooks(array('contactdao'));
+		    $parameters=array('socid'=>$this->id);
+		    $reshook=$hookmanager->executeHooks('insertExtraFields',$parameters,$this,$action);    // Note that $action and $object may have been modified by some hooks
+		    if (empty($reshook))
+		    {
+		    	if (empty($conf->global->MAIN_EXTRAFIELDS_DISABLED)) // For avoid conflicts if trigger used
+		    	{
+		    		$result=$this->insertExtraFields();
+		    		if ($result < 0)
+		    		{
+		    			$error++;
+		    		}
+		    	}
+		    }
+		    else if ($reshook < 0) $error++;
+
 			if (! $error && ! $notrigger)
 			{
 				// Appel des triggers
-				include_once(DOL_DOCUMENT_ROOT . "/core/class/interfaces.class.php");
+				include_once DOL_DOCUMENT_ROOT . '/core/class/interfaces.class.php';
 				$interface=new Interfaces($this->db);
 				$result=$interface->run_triggers('CONTACT_MODIFY',$this,$user,$langs,$conf);
 				if ($result < 0) { $error++; $this->errors=$interface->errors; }
@@ -329,9 +353,9 @@ class Contact extends CommonObject
 		$this->fullname=$this->getFullName($langs);
 
 		// Fields
-		if ($this->fullname && $conf->global->LDAP_CONTACT_FIELD_FULLNAME) $info[$conf->global->LDAP_CONTACT_FIELD_FULLNAME] = $this->fullname;
-		if ($this->lastname && $conf->global->LDAP_CONTACT_FIELD_NAME) $info[$conf->global->LDAP_CONTACT_FIELD_NAME] = $this->lastname;
-		if ($this->firstname && $conf->global->LDAP_CONTACT_FIELD_FIRSTNAME) $info[$conf->global->LDAP_CONTACT_FIELD_FIRSTNAME] = $this->firstname;
+		if ($this->fullname && ! empty($conf->global->LDAP_CONTACT_FIELD_FULLNAME)) $info[$conf->global->LDAP_CONTACT_FIELD_FULLNAME] = $this->fullname;
+		if ($this->lastname && ! empty($conf->global->LDAP_CONTACT_FIELD_NAME)) $info[$conf->global->LDAP_CONTACT_FIELD_NAME] = $this->lastname;
+		if ($this->firstname && ! empty($conf->global->LDAP_CONTACT_FIELD_FIRSTNAME)) $info[$conf->global->LDAP_CONTACT_FIELD_FIRSTNAME] = $this->firstname;
 
 		if ($this->poste) $info["title"] = $this->poste;
 		if ($this->socid > 0)
@@ -344,16 +368,16 @@ class Contact extends CommonObject
 			if ($soc->client == 2)      $info["businessCategory"] = "Prospects";
 			if ($soc->fournisseur == 1) $info["businessCategory"] = "Suppliers";
 		}
-		if ($this->address && $conf->global->LDAP_CONTACT_FIELD_ADDRESS) $info[$conf->global->LDAP_CONTACT_FIELD_ADDRESS] = $this->address;
-		if ($this->cp && $conf->global->LDAP_CONTACT_FIELD_ZIP)          $info[$conf->global->LDAP_CONTACT_FIELD_ZIP] = $this->cp;
-		if ($this->ville && $conf->global->LDAP_CONTACT_FIELD_TOWN)      $info[$conf->global->LDAP_CONTACT_FIELD_TOWN] = $this->ville;
-		if ($this->country_code && $conf->global->LDAP_CONTACT_FIELD_COUNTRY)      $info[$conf->global->LDAP_CONTACT_FIELD_COUNTRY] = $this->country_code;
-		if ($this->phone_pro && $conf->global->LDAP_CONTACT_FIELD_PHONE) $info[$conf->global->LDAP_CONTACT_FIELD_PHONE] = $this->phone_pro;
-		if ($this->phone_perso && $conf->global->LDAP_CONTACT_FIELD_HOMEPHONE) $info[$conf->global->LDAP_CONTACT_FIELD_HOMEPHONE] = $this->phone_perso;
-		if ($this->phone_mobile && $conf->global->LDAP_CONTACT_FIELD_MOBILE) $info[$conf->global->LDAP_CONTACT_FIELD_MOBILE] = $this->phone_mobile;
-		if ($this->fax && $conf->global->LDAP_CONTACT_FIELD_FAX)	    $info[$conf->global->LDAP_CONTACT_FIELD_FAX] = $this->fax;
-		if ($this->note && $conf->global->LDAP_CONTACT_FIELD_DESCRIPTION) $info[$conf->global->LDAP_CONTACT_FIELD_DESCRIPTION] = $this->note;
-		if ($this->email && $conf->global->LDAP_CONTACT_FIELD_MAIL)     $info[$conf->global->LDAP_CONTACT_FIELD_MAIL] = $this->email;
+		if ($this->address && ! empty($conf->global->LDAP_CONTACT_FIELD_ADDRESS)) $info[$conf->global->LDAP_CONTACT_FIELD_ADDRESS] = $this->address;
+		if ($this->cp && ! empty($conf->global->LDAP_CONTACT_FIELD_ZIP))          $info[$conf->global->LDAP_CONTACT_FIELD_ZIP] = $this->cp;
+		if ($this->ville && ! empty($conf->global->LDAP_CONTACT_FIELD_TOWN))      $info[$conf->global->LDAP_CONTACT_FIELD_TOWN] = $this->ville;
+		if ($this->country_code && ! empty($conf->global->LDAP_CONTACT_FIELD_COUNTRY))      $info[$conf->global->LDAP_CONTACT_FIELD_COUNTRY] = $this->country_code;
+		if ($this->phone_pro && ! empty($conf->global->LDAP_CONTACT_FIELD_PHONE)) $info[$conf->global->LDAP_CONTACT_FIELD_PHONE] = $this->phone_pro;
+		if ($this->phone_perso && ! empty($conf->global->LDAP_CONTACT_FIELD_HOMEPHONE)) $info[$conf->global->LDAP_CONTACT_FIELD_HOMEPHONE] = $this->phone_perso;
+		if ($this->phone_mobile && ! empty($conf->global->LDAP_CONTACT_FIELD_MOBILE)) $info[$conf->global->LDAP_CONTACT_FIELD_MOBILE] = $this->phone_mobile;
+		if ($this->fax && ! empty($conf->global->LDAP_CONTACT_FIELD_FAX))	    $info[$conf->global->LDAP_CONTACT_FIELD_FAX] = $this->fax;
+		if ($this->note && ! empty($conf->global->LDAP_CONTACT_FIELD_DESCRIPTION)) $info[$conf->global->LDAP_CONTACT_FIELD_DESCRIPTION] = $this->note;
+		if ($this->email && ! empty($conf->global->LDAP_CONTACT_FIELD_MAIL))     $info[$conf->global->LDAP_CONTACT_FIELD_MAIL] = $this->email;
 
 		if ($conf->global->LDAP_SERVER_TYPE == 'egroupware')
 		{
@@ -468,7 +492,7 @@ class Contact extends CommonObject
 		$sql.= " c.fk_departement,";
 		$sql.= " c.birthday,";
 		$sql.= " c.poste, c.phone, c.phone_perso, c.phone_mobile, c.fax, c.email, c.jabberid,";
-		$sql.= " c.priv, c.note, c.default_lang, c.canvas,";
+		$sql.= " c.priv, c.note, c.default_lang, c.no_email, c.canvas,";
 		$sql.= " c.import_key,";
 		$sql.= " p.libelle as country, p.code as country_code,";
 		$sql.= " d.nom as state, d.code_departement as state_code,";
@@ -534,9 +558,9 @@ class Contact extends CommonObject
 				$this->mail				= $obj->email;
 
 				$this->birthday			= $this->db->jdate($obj->birthday);
-				$this->birthday_alert 	= $obj->birthday_alert;
 				$this->note				= $obj->note;
 				$this->default_lang		= $obj->default_lang;
+				$this->no_email			= $obj->no_email;
 				$this->user_id			= $obj->user_id;
 				$this->user_login		= $obj->user_login;
 				$this->canvas			= $obj->canvas;
@@ -723,10 +747,16 @@ class Contact extends CommonObject
 			}
 		}
 
+		// Removed extrafields
+		 if ((! $error) && (empty($conf->global->MAIN_EXTRAFIELDS_DISABLED))) { // For avoid conflicts if trigger used
+			$result=$this->deleteExtraFields($this);
+			if ($result < 0) $error++;
+		}
+
 		if (! $error && ! $notrigger)
 		{
 			// Appel des triggers
-			include_once(DOL_DOCUMENT_ROOT . "/core/class/interfaces.class.php");
+			include_once DOL_DOCUMENT_ROOT . '/core/class/interfaces.class.php';
 			$interface=new Interfaces($this->db);
 			$result=$interface->run_triggers('CONTACT_DELETE',$this,$user,$langs,$conf);
 			if ($result < 0) { $error++; $this->errors=$interface->errors; }
@@ -807,9 +837,9 @@ class Contact extends CommonObject
 		$sql.= " FROM ".MAIN_DB_PREFIX."mailing_cibles as mc";
 		$sql.= " WHERE mc.email = '".$this->db->escape($this->email)."'";
 		$sql.= " AND mc.statut NOT IN (-1,0)";      // -1 erreur, 0 non envoye, 1 envoye avec succes
-		
+
 		dol_syslog(get_class($this)."::getNbOfEMailings sql=".$sql, LOG_DEBUG);
-		
+
 		$resql=$this->db->query($sql);
 
 		if ($resql)
@@ -869,7 +899,7 @@ class Contact extends CommonObject
         $ret='';
         if ($withcountry && $this->country_id && (empty($this->country_code) || empty($this->country)))
         {
-            require_once(DOL_DOCUMENT_ROOT ."/core/lib/company.lib.php");
+            require_once DOL_DOCUMENT_ROOT .'/core/lib/company.lib.php';
             $tmparray=getCountry($this->country_id,'all');
             $this->country_code=$tmparray['code'];
             $this->country     =$tmparray['label'];

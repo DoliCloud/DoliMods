@@ -1,11 +1,11 @@
 <?php
 /* Copyright (C) 2003-2005 Rodolphe Quiedeville <rodolphe@quiedeville.org>
  * Copyright (C) 2004-2009 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2005-2009 Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2005-2012 Regis Houssin        <regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -23,18 +23,21 @@
  *       \brief      Fiche commande
  */
 
-require("../../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/fourn.lib.php");
-require_once(DOL_DOCUMENT_ROOT."/fourn/class/fournisseur.commande.class.php");
+require '../../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/fourn.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.commande.class.php';
 
 $langs->load("orders");
 $langs->load("suppliers");
 $langs->load("companies");
 $langs->load('stocks');
 
+$id=GETPOST('id','int');
+$ref=GETPOST('ref','alpha');
+
 // Security check
-$id = isset($_GET["id"])?$_GET["id"]:'';
-if ($user->societe_id) $socid=$user->societe_id;
+$socid='';
+if (! empty($user->societe_id)) $socid=$user->societe_id;
 $result = restrictedArea($user, 'commande_fournisseur', $id,'');
 
 
@@ -46,14 +49,12 @@ $form =	new	Form($db);
 
 $now=dol_now();
 
-$ref= $_GET['ref'];
-
 if ($id > 0 || ! empty($ref))
 {
 	$soc = new Societe($db);
 	$commande = new CommandeFournisseur($db);
 
-	$result=$commande->fetch($_GET["id"],$_GET['ref']);
+	$result=$commande->fetch($id,$ref);
 	if ($result >= 0)
 	{
 		$soc->fetch($commande->socid);
@@ -75,10 +76,12 @@ if ($id > 0 || ! empty($ref))
 
 		print '<table class="border" width="100%">';
 
+		$linkback = '<a href="'.DOL_URL_ROOT.'/fourn/commande/liste.php'.(! empty($socid)?'?socid='.$socid:'').'">'.$langs->trans("BackToList").'</a>';
+
 		// Ref
 		print '<tr><td width="20%">'.$langs->trans("Ref").'</td>';
 		print '<td colspan="2">';
-		print $form->showrefnav($commande,'ref','',1,'ref','ref');
+		print $form->showrefnav($commande, 'ref', $linkback, 1, 'ref', 'ref');
 		print '</td>';
 		print '</tr>';
 
@@ -106,7 +109,7 @@ if ($id > 0 || ! empty($ref))
 
 			if ($commande->methode_commande)
 			{
-				print '<tr><td>'.$langs->trans("Method").'</td><td colspan="2">'.$commande->methode_commande.'</td></tr>';
+                print '<tr><td>'.$langs->trans("Method").'</td><td colspan="2">'.$commande->getInputMethod().'</td></tr>';
 			}
 		}
 
@@ -184,7 +187,7 @@ if ($id > 0 || ! empty($ref))
 	}
 }
 
-$db->close();
 
 llxFooter();
+$db->close();
 ?>

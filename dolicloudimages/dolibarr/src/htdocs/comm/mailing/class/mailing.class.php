@@ -1,11 +1,11 @@
 <?php
 /* Copyright (C) 2005      Rodolphe Quiedeville <rodolphe@quiedeville.org>
  * Copyright (C) 2005-2012 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2005-2009 Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2005-2009 Regis Houssin        <regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -23,7 +23,7 @@
  *	\brief      File of class to manage emailings module
  */
 
-require_once(DOL_DOCUMENT_ROOT ."/core/class/commonobject.class.php");
+require_once DOL_DOCUMENT_ROOT .'/core/class/commonobject.class.php';
 
 
 /**
@@ -57,6 +57,8 @@ class Mailing extends CommonObject
 
 	var $date_creat;
 	var $date_valid;
+	
+	var $extraparams=array();
 
 
 	/**
@@ -64,7 +66,7 @@ class Mailing extends CommonObject
      *
      *  @param      DoliDb		$db      Database handler
 	 */
-	function Mailing($db)
+	function __construct($db)
 	{
 		$this->db = $db;
 
@@ -96,9 +98,11 @@ class Mailing extends CommonObject
 			return -1;
 		}
 
+		$now=dol_now();
+
 		$sql = "INSERT INTO ".MAIN_DB_PREFIX."mailing";
 		$sql .= " (date_creat, fk_user_creat, entity)";
-		$sql .= " VALUES (".$this->db->idate(mktime()).", ".$user->id.", ".$conf->entity.")";
+		$sql .= " VALUES (".$this->db->idate($now).", ".$user->id.", ".$conf->entity.")";
 
 		if (! $this->titre)
 		{
@@ -117,6 +121,8 @@ class Mailing extends CommonObject
 			}
 			else
 			{
+				$this->error=$this->db->lasterror();
+				dol_syslog("Mailing::Create ".$this->error, LOG_ERR);
 				$this->db->rollback();
 				return -1;
 			}
@@ -173,17 +179,20 @@ class Mailing extends CommonObject
 	 */
 	function fetch($rowid)
 	{
+		global $conf;
+		
 		$sql = "SELECT m.rowid, m.titre, m.sujet, m.body, m.bgcolor, m.bgimage";
-		$sql .= ", m.email_from, m.email_replyto, m.email_errorsto";
-		$sql .= ", m.statut, m.nbemail";
-		$sql .= ", m.fk_user_creat, m.fk_user_valid";
-		$sql .= ", m.date_creat";
-		$sql .= ", m.date_valid";
-		$sql .= ", m.date_envoi";
-		$sql .= " FROM ".MAIN_DB_PREFIX."mailing as m";
-		$sql .= " WHERE m.rowid = ".$rowid;
+		$sql.= ", m.email_from, m.email_replyto, m.email_errorsto";
+		$sql.= ", m.statut, m.nbemail";
+		$sql.= ", m.fk_user_creat, m.fk_user_valid";
+		$sql.= ", m.date_creat";
+		$sql.= ", m.date_valid";
+		$sql.= ", m.date_envoi";
+		$sql.= ", m.extraparams";
+		$sql.= " FROM ".MAIN_DB_PREFIX."mailing as m";
+		$sql.= " WHERE m.rowid = ".$rowid;
 
-		dol_syslog("Mailing.class::fetch sql=".$sql);
+		dol_syslog(get_class($this)."::fetch sql=".$sql);
 		$result=$this->db->query($sql);
 		if ($result)
 		{
@@ -191,38 +200,46 @@ class Mailing extends CommonObject
 			{
 				$obj = $this->db->fetch_object($result);
 
-				$this->id                 = $obj->rowid;
-				$this->ref                = $obj->rowid;
-				$this->statut             = $obj->statut;
-				$this->nbemail            = $obj->nbemail;
-				$this->titre              = $obj->titre;
-				$this->sujet              = $obj->sujet;
-				$this->body               = $obj->body;
-				$this->bgcolor            = $obj->bgcolor;
-				$this->bgimage            = $obj->bgimage;
+				$this->id				= $obj->rowid;
+				$this->ref				= $obj->rowid;
+				$this->statut			= $obj->statut;
+				$this->nbemail			= $obj->nbemail;
+				$this->titre			= $obj->titre;
+				
+				$this->sujet			= $obj->sujet;				
+				if (!empty($conf->global->FCKEDITOR_ENABLE_MAILING) && dol_textishtml(dol_html_entity_decode($obj->body, ENT_COMPAT | ENT_HTML401))) {
+					$this->body				= dol_html_entity_decode($obj->body, ENT_COMPAT | ENT_HTML401);
+				}else {
+					$this->body				= $obj->body;
+				}
+				
+				$this->bgcolor			= $obj->bgcolor;
+				$this->bgimage			= $obj->bgimage;
 
-				$this->email_from         = $obj->email_from;
-				$this->email_replyto      = $obj->email_replyto;
-				$this->email_errorsto     = $obj->email_errorsto;
+				$this->email_from		= $obj->email_from;
+				$this->email_replyto	= $obj->email_replyto;
+				$this->email_errorsto	= $obj->email_errorsto;
 
-				$this->user_creat         = $obj->fk_user_creat;
-				$this->user_valid         = $obj->fk_user_valid;
+				$this->user_creat		= $obj->fk_user_creat;
+				$this->user_valid		= $obj->fk_user_valid;
 
-				$this->date_creat         = $this->db->jdate($obj->date_creat);
-				$this->date_valid         = $this->db->jdate($obj->date_valid);
-				$this->date_envoi         = $this->db->jdate($obj->date_envoi);
+				$this->date_creat		= $this->db->jdate($obj->date_creat);
+				$this->date_valid		= $this->db->jdate($obj->date_valid);
+				$this->date_envoi		= $this->db->jdate($obj->date_envoi);
+				
+				$this->extraparams		= (array) json_decode($obj->extraparams, true);
 
 				return 1;
 			}
 			else
 			{
-				dol_syslog("Mailing::Fetch Erreur -1");
+				dol_syslog(get_class($this)."::fetch Erreur -1");
 				return -1;
 			}
 		}
 		else
 		{
-			dol_syslog("Mailing::Fetch Erreur -2");
+			dol_syslog(get_class($this)."::fetch Erreur -2");
 			return -2;
 		}
 	}

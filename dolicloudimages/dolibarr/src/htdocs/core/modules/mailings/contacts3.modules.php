@@ -3,7 +3,7 @@
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -85,6 +85,7 @@ class mailing_contacts3 extends MailingTargets
     	if ($filtersarray[0] <> 'all') $sql.= " ".MAIN_DB_PREFIX."categorie_societe as cs";
         $sql.= " WHERE s.rowid = sp.fk_soc";
     	$sql.= " AND sp.email != ''";     // Note that null != '' is false
+    	$sql.= " AND sp.no_email = 0";
     	$sql.= " AND sp.entity IN (".getEntity('societe', 1).")";
     	if ($filtersarray[0] <> 'all') $sql.= " AND cs.fk_categorie = c.rowid";
     	if ($filtersarray[0] <> 'all') $sql.= " AND cs.fk_societe = sp.fk_soc";
@@ -107,7 +108,7 @@ class mailing_contacts3 extends MailingTargets
                             'firstname' => $obj->firstname,
                             'other' =>
                                 ($langs->transnoentities("ThirdParty").'='.$obj->companyname).';'.
-                                ($langs->transnoentities("Civility").'='.($obj->civilite?$langs->transnoentities("Civility".$obj->civilite):'')),
+                                ($langs->transnoentities("UserTitle").'='.($obj->civilite?$langs->transnoentities("Civility".$obj->civilite):'')),
                             'source_url' => $this->url($obj->id),
                             'source_id' => $obj->id,
                             'source_type' => 'contact'
@@ -156,9 +157,10 @@ class mailing_contacts3 extends MailingTargets
     /**
      *		Return here number of distinct emails returned by your selector.
      *
+     *		@param	string	$sql		Requete sql de comptage
      *		@return		int		Number of recipients
      */
-    function getNbOfRecipients()
+    function getNbOfRecipients($sql='')
     {
     	global $conf;
 
@@ -171,6 +173,7 @@ class mailing_contacts3 extends MailingTargets
         $sql.= " WHERE s.rowid = c.fk_soc";
         $sql.= " AND c.entity IN (".getEntity('societe', 1).")";
         $sql.= " AND c.email != ''"; // Note that null != '' is false
+        $sql.= " AND c.no_email = 0";
         /*
     	$sql = "SELECT count(distinct(sp.email)) as nb";
         $sql.= " FROM ".MAIN_DB_PREFIX."socpeople as sp,";
@@ -207,6 +210,7 @@ class mailing_contacts3 extends MailingTargets
         $sql.= " ".MAIN_DB_PREFIX."categorie_societe as cs";
         $sql.= " WHERE s.rowid = sp.fk_soc";
         $sql.= " AND sp.email != ''";     // Note that null != '' is false
+        $sql.= " AND sp.no_email = 0";
         $sql.= " AND sp.entity IN (".getEntity('societe', 1).")";
         $sql.= " AND cs.fk_categorie = c.rowid";
         $sql.= " AND cs.fk_societe = sp.fk_soc";

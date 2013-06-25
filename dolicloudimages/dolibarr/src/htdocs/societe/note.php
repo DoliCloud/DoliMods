@@ -1,12 +1,12 @@
 <?php
 /* Copyright (C) 2001-2003,2005 Rodolphe Quiedeville <rodolphe@quiedeville.org>
  * Copyright (C) 2004-2011      Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2005-2012      Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2005-2012      Regis Houssin        <regis.houssin@capnetworks.com>
  * Copyright (C) 2010           Juanjo Menent        <jmenent@2byte.es>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -24,8 +24,8 @@
  *   \ingroup    societe
  */
 
-require("../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/company.lib.php");
+require '../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php';
 
 $action = GETPOST('action');
 
@@ -69,7 +69,7 @@ if ($socid > 0)
     /*
      * Affichage onglets
      */
-    if ($conf->notification->enabled) $langs->load("mails");
+    if (! empty($conf->notification->enabled)) $langs->load("mails");
 
     $head = societe_prepare_head($object);
 
@@ -118,7 +118,7 @@ if ($socid > 0)
         print '<input type="hidden" name="socid" value="'.$object->id.'" />';
 
         // Editeur wysiwyg
-        require_once(DOL_DOCUMENT_ROOT."/core/class/doleditor.class.php");
+        require_once DOL_DOCUMENT_ROOT.'/core/class/doleditor.class.php';
         $doleditor=new DolEditor('note',$object->note,'',360,'dolibarr_notes','In',true,false,$conf->global->FCKEDITOR_ENABLE_SOCIETE,20,70);
         $doleditor->Create();
     }

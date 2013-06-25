@@ -1,11 +1,12 @@
 <?php
-/* Copyright (C) 2001-2004 Rodolphe Quiedeville <rodolphe@quiedeville.org>
- * Copyright (C) 2002-2003 Jean-Louis Bergamo   <jlb@j1b.org>
- * Copyright (C) 2004-2012 Laurent Destailleur  <eldy@users.sourceforge.net>
+/* Copyright (C) 2001-2004	Rodolphe Quiedeville	<rodolphe@quiedeville.org>
+ * Copyright (C) 2002-2003	Jean-Louis Bergamo		<jlb@j1b.org>
+ * Copyright (C) 2004-2012	Laurent Destailleur		<eldy@users.sourceforge.net>
+ * Copyright (C) 2012		Regis Houssin			<regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -23,14 +24,14 @@
  *       \brief      Onglet d'ajout, edition, suppression des adhesions d'un adherent
  */
 
-require("../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/member.lib.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/date.lib.php");
-require_once(DOL_DOCUMENT_ROOT."/adherents/class/adherent.class.php");
-require_once(DOL_DOCUMENT_ROOT."/adherents/class/adherent_type.class.php");
-require_once(DOL_DOCUMENT_ROOT."/adherents/class/cotisation.class.php");
-require_once(DOL_DOCUMENT_ROOT."/compta/bank/class/account.class.php");
-require_once(DOL_DOCUMENT_ROOT."/core/class/extrafields.class.php");
+require '../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/member.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/adherents/class/adherent.class.php';
+require_once DOL_DOCUMENT_ROOT.'/adherents/class/adherent_type.class.php';
+require_once DOL_DOCUMENT_ROOT.'/adherents/class/cotisation.class.php';
+require_once DOL_DOCUMENT_ROOT.'/compta/bank/class/account.class.php';
+require_once DOL_DOCUMENT_ROOT.'/core/class/extrafields.class.php';
 
 $langs->load("companies");
 $langs->load("bills");
@@ -40,16 +41,18 @@ $langs->load("mails");
 
 
 $action=GETPOST('action','alpha');
+$confirm=GETPOST('confirm','alpha');
 $rowid=GETPOST('rowid','int');
 $typeid=GETPOST('typeid','int');
 
 // Security check
-$result=restrictedArea($user,'adherent',$rowid);
+$result=restrictedArea($user,'adherent',$rowid,'','cotisation');
 
 $object = new Adherent($db);
 $extrafields = new ExtraFields($db);
 $adht = new AdherentType($db);
 $errmsg='';
+$errmsgs=array();
 
 $defaultdelay=1;
 $defaultdelayunit='y';
@@ -87,7 +90,7 @@ if ($rowid)
  */
 
 // Create third party from a member
-if ($action == 'confirm_create_thirdparty' && $_POST["confirm"] == 'yes' && $user->rights->societe->creer)
+if ($action == 'confirm_create_thirdparty' && $confirm == 'yes' && $user->rights->societe->creer)
 {
 	if ($result > 0)
 	{
@@ -246,7 +249,7 @@ if ($user->rights->adherent->cotisation->creer && $action == 'cotisation' && ! $
         }
         else
         {
-            if ($conf->banque->enabled && $_POST["paymentsave"] != 'none')
+            if (! empty($conf->banque->enabled) && $_POST["paymentsave"] != 'none')
             {
                 if ($_POST["cotisation"])
                 {
@@ -281,7 +284,7 @@ if ($user->rights->adherent->cotisation->creer && $action == 'cotisation' && ! $
             // Insert into bank account directlty (if option choosed for) + link to llx_cotisation if option is 'bankdirect'
             if ($option == 'bankdirect' && $accountid)
             {
-                require_once(DOL_DOCUMENT_ROOT.'/compta/bank/class/account.class.php');
+                require_once DOL_DOCUMENT_ROOT.'/compta/bank/class/account.class.php';
 
                 $acct=new Account($db);
                 $result=$acct->fetch($accountid);
@@ -322,8 +325,8 @@ if ($user->rights->adherent->cotisation->creer && $action == 'cotisation' && ! $
             // If option choosed, we create invoice
             if (($option == 'bankviainvoice' && $accountid) || $option == 'invoiceonly')
             {
-                require_once(DOL_DOCUMENT_ROOT."/compta/facture/class/facture.class.php");
-                require_once(DOL_DOCUMENT_ROOT."/compta/facture/class/paymentterm.class.php");
+                require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
+                require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/paymentterm.class.php';
 
                 $invoice=new Facture($db);
                 $customer=new Societe($db);
@@ -374,9 +377,9 @@ if ($user->rights->adherent->cotisation->creer && $action == 'cotisation' && ! $
                 // Add payment onto invoice
                 if ($option == 'bankviainvoice' && $accountid)
                 {
-                    require_once(DOL_DOCUMENT_ROOT.'/compta/paiement/class/paiement.class.php');
-                    require_once(DOL_DOCUMENT_ROOT.'/compta/bank/class/account.class.php');
-                    require_once(DOL_DOCUMENT_ROOT.'/core/lib/functions.lib.php');
+                    require_once DOL_DOCUMENT_ROOT.'/compta/paiement/class/paiement.class.php';
+                    require_once DOL_DOCUMENT_ROOT.'/compta/bank/class/account.class.php';
+                    require_once DOL_DOCUMENT_ROOT.'/core/lib/functions.lib.php';
 
                     // Creation de la ligne paiement
                     $amounts[$invoice->id] = price2num($cotisation);
@@ -470,7 +473,7 @@ llxHeader('',$langs->trans("Subscriptions"),'EN:Module_Foundations|FR:Module_Adh
 
 if ($rowid)
 {
-    $res=$object->fetch($rowid,$ref);
+    $res=$object->fetch($rowid);
     if ($res < 0) { dol_print_error($db,$object->error); exit; }
     //$res=$object->fetch_optionals($object->id,$extralabels);
     //if ($res < 0) { dol_print_error($db); exit; }
@@ -483,17 +486,19 @@ if ($rowid)
 
     $rowspan=9;
     if (empty($conf->global->ADHERENT_LOGIN_NOT_REQUIRED)) $rowspan+=1;
-    if ($conf->societe->enabled) $rowspan++;
+    if (! empty($conf->societe->enabled)) $rowspan++;
 
     print '<form action="'.$_SERVER["PHP_SELF"].'" method="POST">';
     print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
     print '<input type="hidden" name="rowid" value="'.$object->id.'">';
     print '<table class="border" width="100%">';
 
+    $linkback = '<a href="'.DOL_URL_ROOT.'/adherents/liste.php">'.$langs->trans("BackToList").'</a>';
+
     // Ref
     print '<tr><td width="20%">'.$langs->trans("Ref").'</td>';
     print '<td class="valeur" colspan="2">';
-    print $form->showrefnav($object,'rowid');
+    print $form->showrefnav($object, 'rowid', $linkback);
     print '</td></tr>';
 
     $showphoto='<td rowspan="'.$rowspan.'" align="center" valign="middle" width="25%">'.$form->showphoto('memberphoto',$object).'</td>';
@@ -547,16 +552,16 @@ if ($rowid)
     print '</td></tr>';
 
     // Third party Dolibarr
-    if ($conf->societe->enabled)
+    if (! empty($conf->societe->enabled))
     {
         print '<tr><td>';
         print '<table class="nobordernopadding" width="100%"><tr><td>';
         print $langs->trans("LinkedToDolibarrThirdParty");
         print '</td>';
-        if ($_GET['action'] != 'editthirdparty' && $user->rights->adherent->creer) print '<td align="right"><a href="'.$_SERVER["PHP_SELF"].'?action=editthirdparty&amp;rowid='.$object->id.'">'.img_edit($langs->trans('SetLinkToThirdParty'),1).'</a></td>';
+        if ($action != 'editthirdparty' && $user->rights->adherent->creer) print '<td align="right"><a href="'.$_SERVER["PHP_SELF"].'?action=editthirdparty&amp;rowid='.$object->id.'">'.img_edit($langs->trans('SetLinkToThirdParty'),1).'</a></td>';
         print '</tr></table>';
         print '</td><td class="valeur">';
-        if ($_GET['action'] == 'editthirdparty')
+        if ($action == 'editthirdparty')
         {
             $htmlname='socid';
             print '<form method="POST" action="'.$_SERVER['PHP_SELF'].'" name="form'.$htmlname.'">';
@@ -591,10 +596,10 @@ if ($rowid)
     print '<table class="nobordernopadding" width="100%"><tr><td>';
     print $langs->trans("LinkedToDolibarrUser");
     print '</td>';
-    if ($_GET['action'] != 'editlogin' && $user->rights->adherent->creer) print '<td align="right"><a href="'.$_SERVER["PHP_SELF"].'?action=editlogin&amp;rowid='.$object->id.'">'.img_edit($langs->trans('SetLinkToUser'),1).'</a></td>';
+    if ($action != 'editlogin' && $user->rights->adherent->creer) print '<td align="right"><a href="'.$_SERVER["PHP_SELF"].'?action=editlogin&amp;rowid='.$object->id.'">'.img_edit($langs->trans('SetLinkToUser'),1).'</a></td>';
     print '</tr></table>';
     print '</td><td class="valeur">';
-    if ($_GET['action'] == 'editlogin')
+    if ($action == 'editlogin')
     {
         /*$include=array();
          if (empty($user->rights->user->user->creer))    // If can edit only itself user, we can link to itself only
@@ -677,7 +682,7 @@ if ($rowid)
             print '<td align="center">'.$langs->trans("DateSubscription").'</td>';
             print '<td align="center">'.$langs->trans("DateEnd").'</td>';
             print '<td align="right">'.$langs->trans("Amount").'</td>';
-            if ($conf->banque->enabled)
+            if (! empty($conf->banque->enabled))
             {
                 print '<td align="right">'.$langs->trans("Account").'</td>';
             }
@@ -695,7 +700,7 @@ if ($rowid)
                 print '<td align="center">'.dol_print_date($db->jdate($objp->dateadh),'day')."</td>\n";
                 print '<td align="center">'.dol_print_date($db->jdate($objp->datef),'day')."</td>\n";
                 print '<td align="right">'.price($objp->cotisation).'</td>';
-                if ($conf->banque->enabled)
+                if (! empty($conf->banque->enabled))
                 {
                     print '<td align="right">';
                     if ($objp->bid)
@@ -722,9 +727,9 @@ if ($rowid)
 
 
         // Link for paypal payment
-        if ($conf->paypal->enabled)
+        if (! empty($conf->paypal->enabled))
         {
-            include_once(DOL_DOCUMENT_ROOT.'/paypal/lib/paypal.lib.php');
+            include_once DOL_DOCUMENT_ROOT.'/paypal/lib/paypal.lib.php';
             print showPaypalPaymentUrl('membersubscription',$object->ref);
         }
 
@@ -739,60 +744,63 @@ if ($rowid)
 
         print_fiche_titre($langs->trans("NewCotisation"));
 
-        $bankdirect=0;        // Option to write to bank is on by default
-        $bankviainvoice=0;    // Option to write via invoice is on by default
-        $invoiceonly=0;
-        if ($conf->banque->enabled && $conf->global->ADHERENT_BANK_USE && (empty($_POST['paymentsave']) || $_POST["paymentsave"] == 'bankdirect')) $bankdirect=1;
-        if ($conf->banque->enabled && $conf->societe->enabled && $conf->facture->enabled && $object->fk_soc) $bankviainvoice=1;
+        // Define default choice to select
+        $bankdirect=0;        // 1 means option by default is write to bank direct with no invoice
+        $invoiceonly=0;		  // 1 means option by default is invoice only
+        $bankviainvoice=0;    // 1 means option by default is write to bank via invoice
+        if (GETPOST('paymentsave'))
+        {
+        	if (GETPOST('paymentsave') == 'bankdirect')     $bankdirect=1;
+        	if (GETPOST('paymentsave') == 'invoiceonly')    $invoiceonly=1;
+        	if (GETPOST('paymentsave') == 'bankviainvoice') $bankviainvoice=1;
+        }
+        else
+       {
+        	if (! empty($conf->global->ADHERENT_BANK_USE) && ! empty($conf->banque->enabled) && ! empty($conf->societe->enabled) && ! empty($conf->facture->enabled) && $object->fk_soc) $bankviainvoice=1;
+       		else if (! empty($conf->global->ADHERENT_BANK_USE) && ! empty($conf->banque->enabled)) $bankdirect=1;
+        	else if (empty($conf->global->ADHERENT_BANK_USE) && ! empty($conf->banque->enabled) && ! empty($conf->societe->enabled) && ! empty($conf->facture->enabled) && $object->fk_soc) $invoiceonly=1;
+       }
 
         print "\n\n<!-- Form add subscription -->\n";
 
         if ($conf->use_javascript_ajax)
         {
+        	//var_dump($bankdirect.'-'.$bankviainvoice.'-'.$invoiceonly.'-'.empty($conf->global->ADHERENT_BANK_USE));
             print "\n".'<script type="text/javascript" language="javascript">';
-            print 'jQuery(document).ready(function () {
-                        jQuery(".bankswitchclass").'.($bankdirect||$bankviainvoice||in_array(GETPOST('paymentsave'),array('bankdirect','bankviainvoice'))?'show()':'hide()').';
-                        jQuery(".bankswitchclass2").'.($bankdirect||$bankviainvoice||in_array(GETPOST('paymentsave'),array('bankdirect','bankviainvoice'))?'show()':'hide()').';
-                        jQuery("#none").click(function() {
-                            jQuery(".bankswitchclass").hide();
-                            jQuery(".bankswitchclass2").hide();
+            print '$(document).ready(function () {
+                        $(".bankswitchclass, .bankswitchclass2").'.(($bankdirect||$bankviainvoice)?'show()':'hide()').';
+                        $("#none, #invoiceonly").click(function() {
+                            $(".bankswitchclass").hide();
+                            $(".bankswitchclass2").hide();
                         });
-                        jQuery("#bankdirect").click(function() {
-                            jQuery(".bankswitchclass").show();
-                            jQuery(".bankswitchclass2").show();
+                        $("#bankdirect, #bankviainvoice").click(function() {
+                            $(".bankswitchclass").show();
+                            $(".bankswitchclass2").show();
                         });
-                        jQuery("#bankviainvoice").click(function() {
-                            jQuery(".bankswitchclass").show();
-                            jQuery(".bankswitchclass2").show();
-                        });
-    	                jQuery("#invoiceonly").click(function() {
-                            jQuery(".bankswitchclass").hide();
-                            jQuery(".bankswitchclass2").hide();
-                        });
-                        jQuery("#selectoperation").change(function() {
-                            code=jQuery("#selectoperation option:selected").val();
-                            if (code == \'CHQ\')
+                        $("#selectoperation").change(function() {
+                            var code = $(this).val();
+                            if (code == "CHQ")
                             {
-                                jQuery(\'.fieldrequireddyn\').addClass(\'fieldrequired\');
-                            	if (jQuery(\'#fieldchqemetteur\').val() == \'\')
+                                $(".fieldrequireddyn").addClass("fieldrequired");
+                            	if ($("#fieldchqemetteur").val() == "")
                             	{
-                                	jQuery(\'#fieldchqemetteur\').val(jQuery(\'#memberlabel\').val());
+                                	$("#fieldchqemetteur").val($("#memberlabel").val());
                             	}
                             }
                             else
                             {
-                                jQuery(\'.fieldrequireddyn\').removeClass(\'fieldrequired\');
+                                $(".fieldrequireddyn").removeClass("fieldrequired");
                             }
                         });
                         ';
-            if (GETPOST('paymentsave')) print 'jQuery("#'.GETPOST('paymentsave').'").attr(\'checked\',true);';
+            if (GETPOST('paymentsave')) print '$("#'.GETPOST('paymentsave').'").attr("checked",true);';
     	    print '});';
             print '</script>'."\n";
         }
 
 
 		// Confirm create third party
-		if ($_GET["action"] == 'create_thirdparty')
+		if ($action == 'create_thirdparty')
 		{
 			$name = $object->getFullName($langs);
 			if (! empty($name))
@@ -805,37 +813,37 @@ if ($rowid)
 			}
 
 			// Create a form array
-			$formquestion=array(			array('label' => $langs->trans("NameToCreate"), 'type' => 'text', 'name' => 'companyname', 'value' => $name));
+			$formquestion=array(array('label' => $langs->trans("NameToCreate"), 'type' => 'text', 'name' => 'companyname', 'value' => $name));
 
 			$ret=$form->form_confirm($_SERVER["PHP_SELF"]."?rowid=".$object->id,$langs->trans("CreateDolibarrThirdParty"),$langs->trans("ConfirmCreateThirdParty"),"confirm_create_thirdparty",$formquestion,1);
 			if ($ret == 'html') print '<br>';
 		}
 
 
-        print '<form name="cotisation" method="post" action="'.$_SERVER["PHP_SELF"].'">';
+        print '<form name="cotisation" method="POST" action="'.$_SERVER["PHP_SELF"].'">';
         print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
         print '<input type="hidden" name="action" value="cotisation">';
         print '<input type="hidden" name="rowid" value="'.$rowid.'">';
         print '<input type="hidden" name="memberlabel" id="memberlabel" value="'.dol_escape_htmltag($object->getFullName($langs)).'">';
-        print '<input type="hidden" name="thirdpartylabel" id="thirdpartylabel" value="'.dol_escape_htmltag($company->name).'">';
+        print '<input type="hidden" name="thirdpartylabel" id="thirdpartylabel" value="'.dol_escape_htmltag($object->name).'">';
         print "<table class=\"border\" width=\"100%\">\n";
 
-        $today=mktime();
+        $today=dol_now();
         $datefrom=0;
         $dateto=0;
         $paymentdate=-1;
 
         // Date payment
-        if ($_POST["paymentyear"] && $_POST["paymentmonth"] && $_POST["paymentday"])
+        if (GETPOST('paymentyear') && GETPOST('paymentmonth') && GETPOST('paymentday'))
         {
-            $paymentdate=dol_mktime(0, 0, 0, $_POST["paymentmonth"], $_POST["paymentday"], $_POST["paymentyear"]);
+            $paymentdate=dol_mktime(0, 0, 0, GETPOST('paymentmonth'), GETPOST('paymentday'), GETPOST('paymentyear'));
         }
 
         // Date start subscription
         print '<tr><td width="30%" class="fieldrequired">'.$langs->trans("DateSubscription").'</td><td>';
-        if ($_POST["reday"])
+        if (GETPOST('reday'))
         {
-            $datefrom=dol_mktime(0,0,0,$_POST["remonth"],$_POST["reday"],$_POST["reyear"]);
+            $datefrom=dol_mktime(0,0,0,GETPOST('remonth'),GETPOST('reday'),GETPOST('reyear'));
         }
         if (! $datefrom)
         {
@@ -844,17 +852,18 @@ if ($rowid)
                 $datefrom=dol_time_plus_duree($object->datefin,1,'d');
             }
             else
-            {
-                $datefrom=mktime();
+			{
+                //$datefrom=dol_now();
+				$datefrom=$object->datevalid;
             }
         }
-        $form->select_date($datefrom,'','','','',"cotisation");
+        $form->select_date($datefrom,'','','','',"cotisation",1,1);
         print "</td></tr>";
 
         // Date end subscription
-        if ($_POST["endday"])
+        if (GETPOST('endday'))
         {
-            $dateto=dol_mktime(0,0,0,$_POST["endmonth"],$_POST["endday"],$_POST["endyear"]);
+            $dateto=dol_mktime(0,0,0,GETPOST('endmonth'),GETPOST('endday'),GETPOST('endyear'));
         }
         if (! $dateto)
         {
@@ -867,7 +876,7 @@ if ($rowid)
         if ($adht->cotisation)
         {
             // Amount
-            print '<tr><td class="fieldrequired">'.$langs->trans("Amount").'</td><td><input type="text" name="cotisation" size="6" value="'.$_POST["cotisation"].'"> '.$langs->trans("Currency".$conf->currency).'</td></tr>';
+            print '<tr><td class="fieldrequired">'.$langs->trans("Amount").'</td><td><input type="text" name="cotisation" size="6" value="'.GETPOST('cotisation').'"> '.$langs->trans("Currency".$conf->currency).'</td></tr>';
 
             // Label
             print '<tr><td class="fieldrequired">'.$langs->trans("Label").'</td>';
@@ -875,7 +884,7 @@ if ($rowid)
             print dol_print_date(($datefrom?$datefrom:time()),"%Y").'" ></td></tr>';
 
             // Complementary action
-            if ($conf->banque->enabled || $conf->facture->enabled)
+            if (! empty($conf->banque->enabled) || ! empty($conf->facture->enabled))
             {
                 $company=new Societe($db);
                 if ($object->fk_soc)
@@ -890,16 +899,16 @@ if ($rowid)
                 print '<tr><td valign="top" class="fieldrequired">'.$langs->trans('MoreActions');
                 print '</td>';
                 print '<td>';
-                print '<input type="radio" class="moreaction" id="none" name="paymentsave" value="none"'.(!$bankdirect&&!$bankviainvoice?' checked="checked"':'').'> '.$langs->trans("None").'<br>';
-                if ($conf->banque->enabled)
+                print '<input type="radio" class="moreaction" id="none" name="paymentsave" value="none"'.(empty($bankdirect) && empty($invoiceonly) && empty($bankviainvoice)?' checked="checked"':'').'> '.$langs->trans("None").'<br>';
+                if (! empty($conf->banque->enabled))
                 {
-                    print '<input type="radio" class="moreaction" id="bankdirect" name="paymentsave" value="bankdirect"'.($bankdirect?' checked="checked"':'');
+                    print '<input type="radio" class="moreaction" id="bankdirect" name="paymentsave" value="bankdirect"'.(! empty($bankdirect)?' checked="checked"':'');
                     print '> '.$langs->trans("MoreActionBankDirect").'<br>';
                 }
-                if ($conf->societe->enabled && $conf->facture->enabled)
+                if (! empty($conf->societe->enabled) && ! empty($conf->facture->enabled))
                 {
-                    print '<input type="radio" class="moreaction" id="invoiceonly" name="paymentsave" value="invoiceonly"'.($invoiceonly?' checked="checked"':'');
-                    if (empty($object->fk_soc) || empty($bankviainvoice)) print ' disabled="disabled"';
+                    print '<input type="radio" class="moreaction" id="invoiceonly" name="paymentsave" value="invoiceonly"'.(! empty($invoiceonly)?' checked="checked"':'');
+                    if (empty($object->fk_soc)) print ' disabled="disabled"';
                     print '> '.$langs->trans("MoreActionInvoiceOnly");
                     if ($object->fk_soc) print ' ('.$langs->trans("ThirdParty").': '.$company->getNomUrl(1).')';
                     else
@@ -911,10 +920,10 @@ if ($rowid)
                     }
                     print '<br>';
                 }
-                if ($conf->banque->enabled && $conf->societe->enabled && $conf->facture->enabled)
+                if (! empty($conf->banque->enabled) && ! empty($conf->societe->enabled) && ! empty($conf->facture->enabled))
                 {
-                    print '<input type="radio" class="moreaction" id="bankviainvoice" name="paymentsave" value="bankviainvoice"'.($bankviainvoice?' checked="checked"':'');
-                    if (empty($object->fk_soc) || empty($bankviainvoice)) print ' disabled="disabled"';
+                    print '<input type="radio" class="moreaction" id="bankviainvoice" name="paymentsave" value="bankviainvoice"'.(! empty($bankviainvoice)?' checked="checked"':'');
+                    if (empty($object->fk_soc)) print ' disabled="disabled"';
                     print '> '.$langs->trans("MoreActionBankViaInvoice");
                     if ($object->fk_soc) print ' ('.$langs->trans("ThirdParty").': '.$company->getNomUrl(1).')';
                     else
@@ -930,33 +939,33 @@ if ($rowid)
 
                 // Bank account
                 print '<tr class="bankswitchclass"><td class="fieldrequired">'.$langs->trans("FinancialAccount").'</td><td>';
-                $form->select_comptes($_POST["accountid"],'accountid',0,'',1);
+                $form->select_comptes(GETPOST('accountid'),'accountid',0,'',1);
                 print "</td></tr>\n";
 
                 // Payment mode
                 print '<tr class="bankswitchclass"><td class="fieldrequired">'.$langs->trans("PaymentMode").'</td><td>';
-                $form->select_types_paiements($_POST["operation"],'operation','',2);
+                $form->select_types_paiements(GETPOST('operation'),'operation','',2);
                 print "</td></tr>\n";
 
                 // Date of payment
                 print '<tr class="bankswitchclass"><td class="fieldrequired">'.$langs->trans("DatePayment").'</td><td>';
-                $form->select_date($paymentdate?$paymentdate:-1,'payment',0,0,1,'cotisation',1,1);
+                $form->select_date(isset($paymentdate)?$paymentdate:-1,'payment',0,0,1,'cotisation',1,1);
                 print "</td></tr>\n";
 
                 print '<tr class="bankswitchclass2"><td>'.$langs->trans('Numero');
                 print ' <em>('.$langs->trans("ChequeOrTransferNumber").')</em>';
                 print '</td>';
-                print '<td><input id="fieldnum_chq" name="num_chq" type="text" size="8" value="'.(empty($_POST['num_chq'])?'':$_POST['num_chq']).'"></td></tr>';
+                print '<td><input id="fieldnum_chq" name="num_chq" type="text" size="8" value="'.(! GETPOST('num_chq')?'':GETPOST('num_chq')).'"></td></tr>';
 
                 print '<tr class="bankswitchclass2 fieldrequireddyn"><td>'.$langs->trans('CheckTransmitter');
                 print ' <em>('.$langs->trans("ChequeMaker").')</em>';
                 print '</td>';
-                print '<td><input id="fieldchqemetteur" name="chqemetteur" size="32" type="text" value="'.(empty($_POST['chqemetteur'])?$facture->client->name:$_POST['chqemetteur']).'"></td></tr>';
+                print '<td><input id="fieldchqemetteur" name="chqemetteur" size="32" type="text" value="'.(! GETPOST('chqemetteur')?'':GETPOST('chqemetteur')).'"></td></tr>';
 
                 print '<tr class="bankswitchclass2"><td>'.$langs->trans('Bank');
                 print ' <em>('.$langs->trans("ChequeBank").')</em>';
                 print '</td>';
-                print '<td><input id="chqbank" name="chqbank" size="32" type="text" value="'.(empty($_POST['chqbank'])?'':$_POST['chqbank']).'"></td></tr>';
+                print '<td><input id="chqbank" name="chqbank" size="32" type="text" value="'.(! GETPOST('chqbank')?'':GETPOST('chqbank')).'"></td></tr>';
             }
         }
 
@@ -976,14 +985,14 @@ if ($rowid)
             $subjecttosend=$object->makeSubstitution($conf->global->ADHERENT_MAIL_COTIS_SUBJECT);
             $texttosend=$object->makeSubstitution($adht->getMailOnSubscription());
 
-            $tmp='<input name="sendmail" type="checkbox"'.((isset($_POST["sendmail"])?$_POST["sendmail"]:$conf->global->ADHERENT_DEFAULT_SENDINFOBYMAIL)?' checked="checked"':'').'>';
+            $tmp='<input name="sendmail" type="checkbox"'.(GETPOST('sendmail')?GETPOST('sendmail'):(! empty($conf->global->ADHERENT_DEFAULT_SENDINFOBYMAIL)?' checked="checked"':'')).'>';
             $helpcontent='';
             $helpcontent.='<b>'.$langs->trans("MailFrom").'</b>: '.$conf->global->ADHERENT_MAIL_FROM.'<br>'."\n";
             $helpcontent.='<b>'.$langs->trans("MailRecipient").'</b>: '.$object->email.'<br>'."\n";
-            $helpcontent.='<b>'.$langs->trans("Subject").'</b>:<br>'."\n";
+            $helpcontent.='<b>'.$langs->trans("MailTopic").'</b>:<br>'."\n";
             $helpcontent.=$subjecttosend."\n";
             $helpcontent.="<br>";
-            $helpcontent.='<b>'.$langs->trans("Content").'</b>:<br>';
+            $helpcontent.='<b>'.$langs->trans("MailText").'</b>:<br>';
             $helpcontent.=dol_htmlentitiesbr($texttosend)."\n";
 
             print $form->textwithpicto($tmp,$helpcontent,1,'help');

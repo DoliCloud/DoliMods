@@ -2,13 +2,13 @@
 /* Copyright (C) 2004-2007 Rodolphe Quiedeville <rodolphe@quiedeville.org>
  * Copyright (C) 2004-2012 Laurent Destailleur  <eldy@users.sourceforge.net>
  * Copyright (C) 2005      Simon Tosser         <simon@kornog-computing.com>
- * Copyright (C) 2005-2012 Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2005-2012 Regis Houssin        <regis.houssin@capnetworks.com>
  * Copyright (C) 2010	   Pierre Morin         <pierre.morin@auguria.net>
  * Copyright (C) 2010	   Juanjo Menent        <jmenent@2byte.es>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -46,8 +46,8 @@ if (! defined('NOREQUIREAJAX')) define('NOREQUIREAJAX','1');
  */
 function llxHeader() { }
 
-require("./main.inc.php");	// Load $user and permissions
-require_once(DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php');
+require 'main.inc.php';	// Load $user and permissions
+require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 
 $encoding = '';
 $action=GETPOST('action','alpha');
@@ -75,46 +75,17 @@ if (empty($modulepart)) accessforbidden('Bad value for parameter modulepart');
 $type = 'application/octet-stream';
 if (GETPOST('type','alpha')) $type=GETPOST('type','alpha');
 else $type=dol_mimetype($original_file);
-//print 'X'.$type.'-'.$original_file;exit;
 
 // Define attachment (attachment=true to force choice popup 'open'/'save as')
 $attachment = true;
-// Text files
-if (preg_match('/\.txt$/i',$original_file))  	{ $attachment = false; }
-if (preg_match('/\.csv$/i',$original_file))  	{ $attachment = true; }
-if (preg_match('/\.tsv$/i',$original_file))  	{ $attachment = true; }
-// Documents MS office
-if (preg_match('/\.doc(x)?$/i',$original_file)) { $attachment = true; }
-if (preg_match('/\.dot(x)?$/i',$original_file)) { $attachment = true; }
-if (preg_match('/\.mdb$/i',$original_file))     { $attachment = true; }
-if (preg_match('/\.ppt(x)?$/i',$original_file)) { $attachment = true; }
-if (preg_match('/\.xls(x)?$/i',$original_file)) { $attachment = true; }
-// Documents Open office
-if (preg_match('/\.odp$/i',$original_file))     { $attachment = true; }
-if (preg_match('/\.ods$/i',$original_file))     { $attachment = true; }
-if (preg_match('/\.odt$/i',$original_file))     { $attachment = true; }
-// Misc
-if (preg_match('/\.(html|htm)$/i',$original_file)) 	{ $attachment = false; }
-if (preg_match('/\.pdf$/i',$original_file))  	{ $attachment = true; }
-if (preg_match('/\.sql$/i',$original_file))     { $attachment = true; }
-// Images
-if (preg_match('/\.jpg$/i',$original_file)) 	{ $attachment = true; }
-if (preg_match('/\.jpeg$/i',$original_file)) 	{ $attachment = true; }
-if (preg_match('/\.png$/i',$original_file)) 	{ $attachment = true; }
-if (preg_match('/\.gif$/i',$original_file)) 	{ $attachment = true; }
-if (preg_match('/\.bmp$/i',$original_file)) 	{ $attachment = true; }
-if (preg_match('/\.tiff$/i',$original_file)) 	{ $attachment = true; }
-// Calendar
-if (preg_match('/\.vcs$/i',$original_file))  	{ $attachment = true; }
-if (preg_match('/\.ics$/i',$original_file))  	{ $attachment = true; }
-if (GETPOST("attachment"))                      { $attachment = true; }
+if (preg_match('/\.(html|htm)$/i',$original_file)) $attachment = false;
+if (isset($_GET["attachment"])) $attachment = GETPOST("attachment")?true:false;
 if (! empty($conf->global->MAIN_DISABLE_FORCE_SAVEAS)) $attachment=false;
-//print "XX".$attachment;exit;
 
 // Suppression de la chaine de caractere ../ dans $original_file
 $original_file = str_replace("../","/", $original_file);
 
-// find the subdirectory name as the reference
+// Find the subdirectory name as the reference
 $refname=basename(dirname($original_file)."/");
 
 // Security check
@@ -300,8 +271,8 @@ if ($modulepart)
 		{
 			$accessallowed=1;
 		}
-		if ($conf->product->enabled) $original_file=$conf->product->multidir_output[$entity].'/'.$original_file;
-		elseif ($conf->service->enabled) $original_file=$conf->service->multidir_output[$entity].'/'.$original_file;
+		if (! empty($conf->product->enabled)) $original_file=$conf->product->multidir_output[$entity].'/'.$original_file;
+		elseif (! empty($conf->service->enabled)) $original_file=$conf->service->multidir_output[$entity].'/'.$original_file;
 	}
 
 	// Wrapping pour les contrats
@@ -312,16 +283,6 @@ if ($modulepart)
 			$accessallowed=1;
 		}
 		$original_file=$conf->contrat->dir_output.'/'.$original_file;
-	}
-
-	// Wrapping pour les documents generaux
-	else if ($modulepart == 'ged')
-	{
-		if ($user->rights->document->lire)
-		{
-			$accessallowed=1;
-		}
-		$original_file= $conf->ged->dir_output.'/'.$original_file;
 	}
 
 	// Wrapping pour les dons
@@ -382,6 +343,14 @@ if ($modulepart)
 		$original_file=$conf->admin->dir_output.'/'.$original_file;
 	}
 
+	// Wrapping for upload file test
+	else if ($modulepart == 'admin_temp')
+	{
+		if ($user->admin)
+			$accessallowed=1;
+		$original_file=$conf->admin->dir_temp.'/'.$original_file;
+	}
+
 	// Wrapping pour BitTorrent
 	else if ($modulepart == 'bittorrent')
 	{
@@ -411,6 +380,12 @@ if ($modulepart)
 	// Generic wrapping
 	else
 	{
+		// For dir temp
+		$dir_temp=false;
+		if (preg_match('/\_temp$/i', $modulepart)) {
+			$modulepart = str_replace('_temp', '', $modulepart);
+			$dir_temp=true;
+		}
 		// Define $accessallowed
 		if (($user->rights->$modulepart->lire) || ($user->rights->$modulepart->read) || ($user->rights->$modulepart->download)) $accessallowed=1;	// No subpermission, we have checked on main permission
 		elseif (preg_match('/^specimen/i',$original_file))	$accessallowed=1;    // If link to a specimen
@@ -428,7 +403,9 @@ if ($modulepart)
 		}
 
  		// Define $original_file
- 		$original_file=$conf->$modulepart->dir_output.'/'.$original_file;
+ 		$dir = $conf->$modulepart->dir_output;
+ 		if ($dir_temp) $dir = $conf->$modulepart->dir_temp;
+ 		$original_file = $dir.'/'.$original_file;
 
  		// Define $sqlprotectagainstexternals for modules who want to protect access using a SQL query.
  		$sqlProtectConstName = strtoupper($modulepart).'_SQLPROTECTAGAINSTEXTERNALS_FOR_DOCUMENTS';
@@ -483,63 +460,38 @@ if (preg_match('/\.\./',$original_file) || preg_match('/[<>|]/',$original_file))
 	exit;
 }
 
-// TODO Remove this. Some part of code still use it.
-if ($action == 'remove_file')	// Remove a file
+
+clearstatcache();
+
+$filename = basename($original_file);
+
+// Output file on browser
+dol_syslog("document.php download $original_file $filename content-type=$type");
+$original_file_osencoded=dol_osencode($original_file);	// New file name encoded in OS encoding charset
+
+// This test if file exists should be useless. We keep it to find bug more easily
+if (! file_exists($original_file_osencoded))
 {
-	clearstatcache();
-
-	dol_syslog("document.php remove $original_file $urlsource", LOG_DEBUG);
-
-	// This test should be useless. We keep it to find bug more easily
-	$original_file_osencoded=dol_osencode($original_file);	// New file name encoded in OS encoding charset
-	if (! file_exists($original_file_osencoded))
-	{
-		$file=basename($original_file);		// Do no show plain path of original_file in shown error message
-		dol_print_error(0,$langs->trans("ErrorFileDoesNotExists",$file));
-		exit;
-	}
-
-	dol_delete_file($original_file);
-
-	dol_syslog("document.php back to ".urldecode($urlsource), LOG_DEBUG);
-
-	header("Location: ".urldecode($urlsource));
-
-	return;
+	dol_print_error(0,$langs->trans("ErrorFileDoesNotExists",$original_file));
+	exit;
 }
-else						// Open and return file
-{
-	clearstatcache();
 
-	$filename = basename($original_file);
+// Les drois sont ok et fichier trouve, on l'envoie
 
-	// Output file on browser
-	dol_syslog("document.php download $original_file $filename content-type=$type");
-	$original_file_osencoded=dol_osencode($original_file);	// New file name encoded in OS encoding charset
+header('Content-Description: File Transfer');
+if ($encoding)   header('Content-Encoding: '.$encoding);
+if ($type)       header('Content-Type: '.$type.(preg_match('/text/',$type)?'; charset="'.$conf->file->character_set_client:''));
+// Add MIME Content-Disposition from RFC 2183 (inline=automatically displayed, atachment=need user action to open)
+if ($attachment) header('Content-Disposition: attachment; filename="'.$filename.'"');
+else header('Content-Disposition: inline; filename="'.$filename.'"');
+header('Content-Length: ' . dol_filesize($original_file));
+// Ajout directives pour resoudre bug IE
+header('Cache-Control: Public, must-revalidate');
+header('Pragma: public');
 
-	// This test if file exists should be useless. We keep it to find bug more easily
-	if (! file_exists($original_file_osencoded))
-	{
-		dol_print_error(0,$langs->trans("ErrorFileDoesNotExists",$original_file));
-		exit;
-	}
+//ob_clean();
+//flush();
 
-	// Les drois sont ok et fichier trouve, on l'envoie
-
-    header('Content-Description: File Transfer');
-	if ($encoding)   header('Content-Encoding: '.$encoding);
-	if ($type)       header('Content-Type: '.$type.(preg_match('/text/',$type)?'; charset="'.$conf->file->character_set_client:''));
-	if ($attachment) header('Content-Disposition: attachment; filename="'.$filename.'"');
-	else header('Content-Disposition: inline; filename="'.$filename.'"');
-	header('Content-Length: ' . dol_filesize($original_file));
-	// Ajout directives pour resoudre bug IE
-	header('Cache-Control: Public, must-revalidate');
-	header('Pragma: public');
-
-	//ob_clean();
-	//flush();
-
-	readfile($original_file_osencoded);
-}
+readfile($original_file_osencoded);
 
 ?>

@@ -1,10 +1,10 @@
 -- ============================================================================
--- Copyright (C) 2004 Rodolphe Quiedeville <rodolphe@quiedeville.org>
--- Copyright (C) 2010 Juanjo Menent        <jmenent@2byte.es>
+-- Copyright (C) 2004		Rodolphe Quiedeville <rodolphe@quiedeville.org>
+-- Copyright (C) 2010-2013	Juanjo Menent        <jmenent@2byte.es>
 --
 -- This program is free software; you can redistribute it and/or modify
 -- it under the terms of the GNU General Public License as published by
--- the Free Software Foundation; either version 2 of the License, or
+-- the Free Software Foundation; either version 3 of the License, or
 -- (at your option) any later version.
 --
 -- This program is distributed in the hope that it will be useful,
@@ -39,7 +39,9 @@ create table llx_contratdet
 
   tva_tx                double(6,3)   DEFAULT 0, 	         -- taux tva
   localtax1_tx		double(6,3)   DEFAULT 0,           -- local tax 1 rate
+  localtax1_type			 	varchar(1)	  	 NULL, 			 -- localtax1 type
   localtax2_tx		double(6,3)   DEFAULT 0,           -- local tax 2 rate
+  localtax2_type			 	varchar(1)	  	 NULL, 			 -- localtax2 type
   qty                   real          NOT NULL,            -- quantity
   remise_percent        real          DEFAULT 0,    		   -- pourcentage de remise
   subprice              double(24,8)  DEFAULT 0,           -- prix unitaire

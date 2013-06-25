@@ -3,7 +3,7 @@
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -49,7 +49,7 @@ class Ctypent // extends CommonObject
      *
      *  @param      DoliDb		$db      Database handler
      */
-    function Ctypent($db)
+    function __construct($db)
     {
         $this->db = $db;
         return 1;
@@ -118,7 +118,7 @@ class Ctypent // extends CommonObject
 	            // want this action call a trigger.
 
 	            //// Call triggers
-	            //include_once(DOL_DOCUMENT_ROOT . "/core/class/interfaces.class.php");
+	            //include_once DOL_DOCUMENT_ROOT . '/core/class/interfaces.class.php';
 	            //$interface=new Interfaces($this->db);
 	            //$result=$interface->run_triggers('MYOBJECT_CREATE',$this,$user,$langs,$conf);
 	            //if ($result < 0) { $error++; $this->errors=$interface->errors; }
@@ -236,7 +236,7 @@ class Ctypent // extends CommonObject
 	            // want this action call a trigger.
 
 	            //// Call triggers
-	            //include_once(DOL_DOCUMENT_ROOT . "/core/class/interfaces.class.php");
+	            //include_once DOL_DOCUMENT_ROOT . '/core/class/interfaces.class.php';
 	            //$interface=new Interfaces($this->db);
 	            //$result=$interface->run_triggers('MYOBJECT_MODIFY',$this,$user,$langs,$conf);
 	            //if ($result < 0) { $error++; $this->errors=$interface->errors; }
@@ -292,7 +292,7 @@ class Ctypent // extends CommonObject
 		        // want this action call a trigger.
 
 		        //// Call triggers
-		        //include_once(DOL_DOCUMENT_ROOT . "/core/class/interfaces.class.php");
+		        //include_once DOL_DOCUMENT_ROOT . '/core/class/interfaces.class.php';
 		        //$interface=new Interfaces($this->db);
 		        //$result=$interface->run_triggers('MYOBJECT_DELETE',$this,$user,$langs,$conf);
 		        //if ($result < 0) { $error++; $this->errors=$interface->errors; }

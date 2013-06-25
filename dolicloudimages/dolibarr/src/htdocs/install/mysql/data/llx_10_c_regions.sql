@@ -3,14 +3,15 @@
 -- Copyright (C) 2004-2010 Laurent Destailleur  <eldy@users.sourceforge.net>
 -- Copyright (C) 2004      Benoit Mortier       <benoit.mortier@opensides.be>
 -- Copyright (C) 2004      Guillaume Delecourt  <guillaume.delecourt@opensides.be>
--- Copyright (C) 2005-2009 Regis Houssin        <regis@dolibarr.fr>
+-- Copyright (C) 2005-2009 Regis Houssin        <regis.houssin@capnetworks.com>
 -- Copyright (C) 2007 	   Patrick Raguin       <patrick.raguin@gmail.com>
 -- Copyright (C) 2010-2011 Juanjo Menent        <jmenent@2byte.es>
 -- Copyright (C) 2012      Sebastian Neuwert    <sebastian.neuwert@modula71.de>
+-- Copyright (C) 2012	   Ricardo Schluter     <info@ripasch.nl>
 --
 -- This program is free software; you can redistribute it and/or modify
 -- it under the terms of the GNU General Public License as published by
--- the Free Software Foundation; either version 2 of the License, or
+-- the Free Software Foundation; either version 3 of the License, or
 -- (at your option) any later version.
 --
 -- This program is distributed in the hope that it will be useful,
@@ -113,9 +114,29 @@ INSERT INTO llx_c_regions (rowid, fk_pays, code_region, cheflieu, tncc, nom, act
 -- Regions Germany (id country=5) 
 INSERT INTO llx_c_regions (rowid, fk_pays, code_region, cheflieu, tncc, nom, active) VALUES (501,  5, 501, '', 0, 'Deutschland', 1); 
 
+-- Regions Greece (id_country=102)
+INSERT INTO llx_c_regions (rowid, code_region, fk_pays, cheflieu, tncc, nom, active) VALUES (10201, 10201, 102, NULL, NULL, 'Αττική', 1);
+INSERT INTO llx_c_regions (rowid, code_region, fk_pays, cheflieu, tncc, nom, active) VALUES (10202, 10202, 102, NULL, NULL, 'Στερεά Ελλάδα', 1);
+INSERT INTO llx_c_regions (rowid, code_region, fk_pays, cheflieu, tncc, nom, active) VALUES (10203, 10203, 102, NULL, NULL, 'Κεντρική Μακεδονία', 1);
+INSERT INTO llx_c_regions (rowid, code_region, fk_pays, cheflieu, tncc, nom, active) VALUES (10204, 10204, 102, NULL, NULL, 'Κρήτη', 1);
+INSERT INTO llx_c_regions (rowid, code_region, fk_pays, cheflieu, tncc, nom, active) VALUES (10205, 10205, 102, NULL, NULL, 'Ανατολική Μακεδονία και Θράκη', 1);
+INSERT INTO llx_c_regions (rowid, code_region, fk_pays, cheflieu, tncc, nom, active) VALUES (10206, 10206, 102, NULL, NULL, 'Ήπειρος', 1);
+INSERT INTO llx_c_regions (rowid, code_region, fk_pays, cheflieu, tncc, nom, active) VALUES (10207, 10207, 102, NULL, NULL, 'Ιόνια νησιά', 1);
+INSERT INTO llx_c_regions (rowid, code_region, fk_pays, cheflieu, tncc, nom, active) VALUES (10208, 10208, 102, NULL, NULL, 'Βόρειο Αιγαίο', 1);
+INSERT INTO llx_c_regions (rowid, code_region, fk_pays, cheflieu, tncc, nom, active) VALUES (10209, 10209, 102, NULL, NULL, 'Πελοπόννησος', 1);
+INSERT INTO llx_c_regions (rowid, code_region, fk_pays, cheflieu, tncc, nom, active) VALUES (10210, 10210, 102, NULL, NULL, 'Νότιο Αιγαίο', 1);
+INSERT INTO llx_c_regions (rowid, code_region, fk_pays, cheflieu, tncc, nom, active) VALUES (10211, 10211, 102, NULL, NULL, 'Δυτική Ελλάδα', 1);
+INSERT INTO llx_c_regions (rowid, code_region, fk_pays, cheflieu, tncc, nom, active) VALUES (10212, 10212, 102, NULL, NULL, 'Θεσσαλία', 1);
+INSERT INTO llx_c_regions (rowid, code_region, fk_pays, cheflieu, tncc, nom, active) VALUES (10213, 10213, 102, NULL, NULL, 'Δυτική Μακεδονία', 1);
 
 -- Regions Switzerland (id country=6) 
 INSERT INTO llx_c_regions (rowid, fk_pays, code_region, cheflieu, tncc, nom, active) VALUES (601,  6, 601, '', 1, 'Cantons', 1); 
+
+-- Regions England (id_country=7)
+INSERT INTO llx_c_regions (rowid, fk_pays, code_region, cheflieu, tncc, nom, active) VALUES (701,  7, 701, '', 0, 'England', 1);
+INSERT INTO llx_c_regions (rowid, fk_pays, code_region, cheflieu, tncc, nom, active) VALUES (702,  7, 702, '', 0, 'Wales', 1);
+INSERT INTO llx_c_regions (rowid, fk_pays, code_region, cheflieu, tncc, nom, active) VALUES (703,  7, 703, '', 0, 'Scotland', 1);
+INSERT INTO llx_c_regions (rowid, fk_pays, code_region, cheflieu, tncc, nom, active) VALUES (704,  7, 704, '', 0, 'Northern Ireland', 1);
 
 -- Regions Tunisia (id country=10)
 insert into llx_c_regions (rowid,fk_pays,code_region,cheflieu,tncc,nom) values (1001,10,1001, '',0,'Ariana');
@@ -145,6 +166,12 @@ insert into llx_c_regions (rowid,fk_pays,code_region,cheflieu,tncc,nom) values (
 
 -- Region US (id country=11)
 INSERT INTO llx_c_regions (rowid, fk_pays, code_region, cheflieu, tncc, nom, active) VALUES (1101, 11, 1101, '', 0, 'United-States', 1);
+
+-- Region Canada (id country=14)
+INSERT INTO llx_c_regions (rowid, fk_pays, code_region, cheflieu, tncc, nom, active) VALUES (1401, 14, 1401, '', 0, 'Canada', 1);
+
+-- Regions The Netherlands (id country=17)
+INSERT INTO llx_c_regions (rowid, fk_pays, code_region, cheflieu, tncc, nom, active) VALUES (1701, 17, 1701, '', 0,'Provincies van Nederland ', 1);
 
 -- Regions Argentina (id country=23)
 INSERT INTO llx_c_regions (rowid, fk_pays, code_region, cheflieu, tncc, nom, active) VALUES (2301, 23, 2301, '', 0, 'Norte', 1);

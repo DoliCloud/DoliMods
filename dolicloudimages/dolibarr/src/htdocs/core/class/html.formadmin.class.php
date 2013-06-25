@@ -1,11 +1,11 @@
 <?php
 /* Copyright (C) 2004-2012 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2005-2011 Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2005-2011 Regis Houssin        <regis.houssin@capnetworks.com>
  * Copyright (C) 2007      Patrick Raguin 		<patrick.raguin@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -38,26 +38,10 @@ class FormAdmin
 	 *
 	 *  @param		DoliDB		$db      Database handler
 	 */
-	function FormAdmin($db)
+	function __construct($db)
 	{
 		$this->db = $db;
 		return 1;
-	}
-
-	/**
-	 *    	Output list with available languages
-	 *
-	 *    	@param		string		$selected       Langue pre-selectionnee
-	 *    	@param  	string		$htmlname       Nom de la zone select
-	 *    	@param  	int			$showauto       Affiche choix auto
-	 * 		@param		int			$filter			Array of keys to exclude in list
-	 * 		@param		int			$showempty		Add empty value
-	 * 		@return		void
-	 *      @deprecated                 		Use select_language instead
-	 */
-	function select_lang($selected='',$htmlname='lang_id',$showauto=0,$filter=0,$showempty=0)
-	{
-		print $this->select_language($selected,$htmlname,$showauto,$filter,$showempty);
 	}
 
 	/**
@@ -355,7 +339,9 @@ class FormAdmin
             while ($i < $num)
             {
                 $obj=$this->db->fetch_object($resql);
-                $paperformat[$obj->code]=$obj->label.' - '.round($obj->width).'x'.round($obj->height).' '.$obj->unit;
+                $unitKey = $langs->trans('SizeUnit'.$obj->unit);
+
+                $paperformat[$obj->code]= $langs->trans('PaperFormat'.strtoupper($obj->code)).' - '.round($obj->width).'x'.round($obj->height).' '.($unitKey == 'SizeUnit'.$obj->unit ? $obj->unit : $unitKey);
 
                 $i++;
             }

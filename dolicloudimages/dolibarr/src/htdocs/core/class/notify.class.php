@@ -4,7 +4,7 @@
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -21,7 +21,7 @@
  *      \ingroup    notification
  *      \brief      File of class to manage notifications
  */
-require_once(DOL_DOCUMENT_ROOT ."/core/class/CMailFile.class.php");
+require_once DOL_DOCUMENT_ROOT .'/core/class/CMailFile.class.php';
 
 
 /**
@@ -47,7 +47,7 @@ class Notify
 	 *
 	 *	@param 		DoliDB		$db		Database handler
      */
-    function Notify($db)
+    function __construct($db)
     {
         $this->db = $db;
     }
@@ -162,7 +162,7 @@ class Notify
 
                 if (dol_strlen($sendto))
                 {
-                	include_once(DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php');
+                	include_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
                 	$application=($conf->global->MAIN_APPLICATION_TITLE?$conf->global->MAIN_APPLICATION_TITLE:'Dolibarr ERP/CRM');
 
                 	$subject = '['.$application.'] '.$langs->transnoentitiesnoconv("DolibarrNotification");
@@ -221,10 +221,11 @@ class Notify
 
                     if ($mailfile->sendfile())
                     {
+                    	$now=dol_now();
                         $sendto = htmlentities($sendto);
 
                         $sql = "INSERT INTO ".MAIN_DB_PREFIX."notify (daten, fk_action, fk_contact, objet_type, objet_id, email)";
-                        $sql.= " VALUES (".$this->db->idate(mktime()).", ".$actiondefid.", ".$obj->cid.", '".$objet_type."', ".$objet_id.", '".$this->db->escape($obj->email)."')";
+                        $sql.= " VALUES (".$this->db->idate($now).", ".$actiondefid.", ".$obj->cid.", '".$objet_type."', ".$objet_id.", '".$this->db->escape($obj->email)."')";
                         dol_syslog("Notify::send sql=".$sql);
                         if (! $this->db->query($sql) )
                         {

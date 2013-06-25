@@ -1,12 +1,12 @@
 <?php
 /* Copyright (C) 2001-2004	Rodolphe Quiedeville	<rodolphe@quiedeville.org>
  * Copyright (C) 2004-2012	Laurent Destailleur		<eldy@users.sourceforge.net>
- * Copyright (C) 2005-2012	Regis Houssin			<regis@dolibarr.fr>
- * Copyright (C) 2011   	Juanjo Menent			<jmenent@2byte.es>
+ * Copyright (C) 2005-2012	Regis Houssin			<regis.houssin@capnetworks.com>
+ * Copyright (C) 2011-2012 	Juanjo Menent			<jmenent@2byte.es>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -25,8 +25,8 @@
 
 define('NOCSRFCHECK',1);	// This is login page. We must be able to go on it from another web site.
 
-require("./main.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/core/class/html.formother.class.php");
+require 'main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/core/class/html.formother.class.php';
 
 
 // If not defined, we select menu "home"
@@ -34,7 +34,7 @@ $_GET['mainmenu']=GETPOST('mainmenu', 'alpha')?GETPOST('mainmenu', 'alpha'):'hom
 $action=GETPOST('action');
 
 
-include_once(DOL_DOCUMENT_ROOT.'/core/class/hookmanager.class.php');
+include_once DOL_DOCUMENT_ROOT.'/core/class/hookmanager.class.php';
 $hookmanager=new HookManager($db);
 $hookmanager->initHooks(array('index'));
 
@@ -46,7 +46,7 @@ $hookmanager->initHooks(array('index'));
 // Check if company name is defined (first install)
 if (!isset($conf->global->MAIN_INFO_SOCIETE_NOM) || empty($conf->global->MAIN_INFO_SOCIETE_NOM))
 {
-    header("Location: ".DOL_URL_ROOT."/admin/company.php?mainmenu=home&leftmenu=setup&mesg=setupnotcomplete");
+    header("Location: ".DOL_URL_ROOT."/admin/index.php?mainmenu=home&leftmenu=setup&mesg=setupnotcomplete");
     exit;
 }
 
@@ -63,16 +63,16 @@ if (preg_match('/^smartphone/',$conf->smart_menu) && ! empty($conf->browser->pho
     $limitmenuto=1;	// A virer
 
     // Load the smartphone menu manager
-    $result=@include_once(DOL_DOCUMENT_ROOT ."/core/menus/smartphone/".$conf->smart_menu);
+    $result=@include_once DOL_DOCUMENT_ROOT ."/core/menus/smartphone/".$conf->smart_menu;
     if (! $result)	// If failed to include, we try with standard
     {
         $conf->smart_menu='smartphone_backoffice.php';
-        include_once(DOL_DOCUMENT_ROOT ."/core/menus/smartphone/".$conf->smart_menu);
+        include_once DOL_DOCUMENT_ROOT ."/core/menus/smartphone/".$conf->smart_menu;
     }
 
     $menusmart = new MenuSmart($db);
 
-    include_once(DOL_DOCUMENT_ROOT.'/theme/phones/smartphone/tpl/menu.tpl.php');
+    include_once DOL_DOCUMENT_ROOT.'/theme/phones/smartphone/tpl/menu.tpl.php';
     exit;
 }
 
@@ -145,7 +145,7 @@ if ($user->societe_id == 0)
     ! empty($conf->propal->enabled) && $user->rights->propale->lire,
     ! empty($conf->commande->enabled) && $user->rights->commande->lire,
     ! empty($conf->facture->enabled) && $user->rights->facture->lire,
-    ! empty($conf->societe->enabled) && $user->rights->contrat->activer);
+    ! empty($conf->contrat->enabled) && $user->rights->contrat->activer);
     // Class file containing the method load_state_board for each line
     $includes=array(DOL_DOCUMENT_ROOT."/societe/class/client.class.php",
     DOL_DOCUMENT_ROOT."/comm/prospect/class/prospect.class.php",
@@ -205,12 +205,12 @@ if ($user->societe_id == 0)
     $links=array(DOL_URL_ROOT.'/comm/list.php',
     DOL_URL_ROOT.'/comm/prospect/list.php',
     DOL_URL_ROOT.'/fourn/liste.php',
-    DOL_URL_ROOT.'/adherents/liste.php?statut=1&amp;mainmenu=members',
-    DOL_URL_ROOT.'/product/liste.php?type=0&amp;mainmenu=products',
-    DOL_URL_ROOT.'/product/liste.php?type=1&amp;mainmenu=products',
-    DOL_URL_ROOT.'/comm/propal.php?mainmenu=commercial',
+    DOL_URL_ROOT.'/adherents/liste.php?statut=1&mainmenu=members',
+    DOL_URL_ROOT.'/product/liste.php?type=0&mainmenu=products',
+    DOL_URL_ROOT.'/product/liste.php?type=1&mainmenu=products',
+    DOL_URL_ROOT.'/comm/propal/list.php?mainmenu=commercial',
     DOL_URL_ROOT.'/commande/liste.php?mainmenu=commercial',
-    DOL_URL_ROOT.'/compta/facture.php?mainmenu=accountancy',
+    DOL_URL_ROOT.'/compta/facture/list.php?mainmenu=accountancy',
     DOL_URL_ROOT.'/contrat/liste.php');
     // Translation lang files
     $langfile=array("bills",
@@ -234,7 +234,7 @@ if ($user->societe_id == 0)
             // Search in cache if load_state_board is already realized
             if (! isset($boardloaded[$classe]) || ! is_object($boardloaded[$classe]))
             {
-                include_once($includes[$key]);
+                include_once $includes[$key];
 
                 $board=new $classe($db);
                 $board->load_state_board($user);
@@ -252,7 +252,7 @@ if ($user->societe_id == 0)
         }
     }
 
-    $object=(object) array();
+    $object=new stdClass();
     $parameters=array();
     $action='';
     $reshook=$hookmanager->executeHooks('addStatisticLine',$parameters,$object,$action);    // Note that $action and $object may have been modified by some hooks
@@ -287,9 +287,9 @@ print '</tr>';
 //
 
 // Number of actions to do (late)
-if ($conf->agenda->enabled && $user->rights->agenda->myactions->read)
+if (! empty($conf->agenda->enabled) && $user->rights->agenda->myactions->read)
 {
-    include_once(DOL_DOCUMENT_ROOT."/comm/action/class/actioncomm.class.php");
+    include_once DOL_DOCUMENT_ROOT.'/comm/action/class/actioncomm.class.php';
     $board=new ActionComm($db);
     $board->load_board($user);
     $board->warning_delay=$conf->actions->warning_delay/60/60/24;
@@ -301,23 +301,23 @@ if ($conf->agenda->enabled && $user->rights->agenda->myactions->read)
 }
 
 // Number of customer orders a deal
-if ($conf->commande->enabled && $user->rights->commande->lire)
+if (! empty($conf->commande->enabled) && $user->rights->commande->lire)
 {
-    include_once(DOL_DOCUMENT_ROOT."/commande/class/commande.class.php");
+    include_once DOL_DOCUMENT_ROOT.'/commande/class/commande.class.php';
     $board=new Commande($db);
     $board->load_board($user);
     $board->warning_delay=$conf->commande->client->warning_delay/60/60/24;
     $board->label=$langs->trans("OrdersToProcess");
-    $board->url=DOL_URL_ROOT.'/commande/liste.php?viewstatut=-2';
+    $board->url=DOL_URL_ROOT.'/commande/liste.php?viewstatut=-3';
     $board->img=img_object($langs->trans("Orders"),"order");
     $rowspan++;
     $dashboardlines[]=$board;
 }
 
 // Number of suppliers orders a deal
-if ($conf->fournisseur->enabled && $user->rights->fournisseur->commande->lire)
+if (! empty($conf->fournisseur->enabled) && $user->rights->fournisseur->commande->lire)
 {
-    include_once(DOL_DOCUMENT_ROOT."/fourn/class/fournisseur.commande.class.php");
+    include_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.commande.class.php';
     $board=new CommandeFournisseur($db);
     $board->load_board($user);
     $board->warning_delay=$conf->commande->fournisseur->warning_delay/60/60/24;
@@ -329,43 +329,43 @@ if ($conf->fournisseur->enabled && $user->rights->fournisseur->commande->lire)
 }
 
 // Number of commercial proposals opened (expired)
-if ($conf->propal->enabled && $user->rights->propale->lire)
+if (! empty($conf->propal->enabled) && $user->rights->propale->lire)
 {
     $langs->load("propal");
 
-    include_once(DOL_DOCUMENT_ROOT."/comm/propal/class/propal.class.php");
+    include_once DOL_DOCUMENT_ROOT.'/comm/propal/class/propal.class.php';
     $board=new Propal($db);
     $board->load_board($user,"opened");
     $board->warning_delay=$conf->propal->cloture->warning_delay/60/60/24;
     $board->label=$langs->trans("PropalsToClose");
-    $board->url=DOL_URL_ROOT.'/comm/propal.php?viewstatut=1';
+    $board->url=DOL_URL_ROOT.'/comm/propal/list.php?viewstatut=1';
     $board->img=img_object($langs->trans("Propals"),"propal");
     $rowspan++;
     $dashboardlines[]=$board;
 }
 
 // Number of commercial proposals CLOSED signed (billed)
-if ($conf->propal->enabled && $user->rights->propale->lire)
+if (! empty($conf->propal->enabled) && $user->rights->propale->lire)
 {
     $langs->load("propal");
 
-    include_once(DOL_DOCUMENT_ROOT."/comm/propal/class/propal.class.php");
+    include_once DOL_DOCUMENT_ROOT.'/comm/propal/class/propal.class.php';
     $board=new Propal($db);
     $board->load_board($user,"signed");
     $board->warning_delay=$conf->propal->facturation->warning_delay/60/60/24;
     $board->label=$langs->trans("PropalsToBill");
-    $board->url=DOL_URL_ROOT.'/comm/propal.php?viewstatut=2';
+    $board->url=DOL_URL_ROOT.'/comm/propal/list.php?viewstatut=2';
     $board->img=img_object($langs->trans("Propals"),"propal");
     $rowspan++;
     $dashboardlines[]=$board;
 }
 
 // Number of services enabled (delayed)
-if ($conf->contrat->enabled && $user->rights->contrat->lire)
+if (! empty($conf->contrat->enabled) && $user->rights->contrat->lire)
 {
     $langs->load("contracts");
 
-    include_once(DOL_DOCUMENT_ROOT."/contrat/class/contrat.class.php");
+    include_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
     $board=new Contrat($db);
     $board->load_board($user,"inactives");
     $board->warning_delay=$conf->contrat->services->inactifs->warning_delay/60/60/24;
@@ -377,11 +377,11 @@ if ($conf->contrat->enabled && $user->rights->contrat->lire)
 }
 
 // Number of active services (expired)
-if ($conf->contrat->enabled && $user->rights->contrat->lire)
+if (! empty($conf->contrat->enabled) && $user->rights->contrat->lire)
 {
     $langs->load("contracts");
 
-    include_once(DOL_DOCUMENT_ROOT."/contrat/class/contrat.class.php");
+    include_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
     $board=new Contrat($db);
     $board->load_board($user,"expired");
     $board->warning_delay=$conf->contrat->services->expires->warning_delay/60/60/24;
@@ -392,11 +392,11 @@ if ($conf->contrat->enabled && $user->rights->contrat->lire)
     $dashboardlines[]=$board;
 }
 // Number of invoices customers (has paid)
-if ($conf->facture->enabled && $user->rights->facture->lire)
+if (! empty($conf->facture->enabled) && $user->rights->facture->lire)
 {
     $langs->load("bills");
 
-    include_once(DOL_DOCUMENT_ROOT."/compta/facture/class/facture.class.php");
+    include_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
     $board=new Facture($db);
     $board->load_board($user);
     $board->warning_delay=$conf->facture->client->warning_delay/60/60/24;
@@ -408,11 +408,11 @@ if ($conf->facture->enabled && $user->rights->facture->lire)
 }
 
 // Number of supplier invoices (has paid)
-if ($conf->fournisseur->enabled && $conf->facture->enabled && $user->rights->facture->lire)
+if (! empty($conf->fournisseur->enabled) && ! empty($conf->facture->enabled) && $user->rights->facture->lire)
 {
     $langs->load("bills");
 
-    include_once(DOL_DOCUMENT_ROOT."/fourn/class/fournisseur.facture.class.php");
+    include_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.facture.class.php';
     $board=new FactureFournisseur($db);
     $board->load_board($user);
     $board->warning_delay=$conf->facture->fournisseur->warning_delay/60/60/24;
@@ -424,11 +424,11 @@ if ($conf->fournisseur->enabled && $conf->facture->enabled && $user->rights->fac
 }
 
 // Number of transactions to conciliate
-if ($conf->banque->enabled && $user->rights->banque->lire && ! $user->societe_id)
+if (! empty($conf->banque->enabled) && $user->rights->banque->lire && ! $user->societe_id)
 {
     $langs->load("banks");
 
-    include_once(DOL_DOCUMENT_ROOT."/compta/bank/class/account.class.php");
+    include_once DOL_DOCUMENT_ROOT.'/compta/bank/class/account.class.php';
     $board=new Account($db);
     $found=$board->load_board($user);
     if ($found > 0)
@@ -443,11 +443,11 @@ if ($conf->banque->enabled && $user->rights->banque->lire && ! $user->societe_id
 }
 
 // Number of cheque to send
-if ($conf->banque->enabled && $user->rights->banque->lire && ! $user->societe_id)
+if (! empty($conf->banque->enabled) && $user->rights->banque->lire && ! $user->societe_id)
 {
     $langs->load("banks");
 
-    include_once(DOL_DOCUMENT_ROOT."/compta/paiement/cheque/class/remisecheque.class.php");
+    include_once DOL_DOCUMENT_ROOT.'/compta/paiement/cheque/class/remisecheque.class.php';
     $board=new RemiseCheque($db);
     $board->load_board($user);
     $board->warning_delay=$conf->bank->cheque->warning_delay/60/60/24;
@@ -459,11 +459,11 @@ if ($conf->banque->enabled && $user->rights->banque->lire && ! $user->societe_id
 }
 
 // Number of foundation members
-if ($conf->adherent->enabled && $user->rights->adherent->lire && ! $user->societe_id)
+if (! empty($conf->adherent->enabled) && $user->rights->adherent->lire && ! $user->societe_id)
 {
     $langs->load("members");
 
-    include_once(DOL_DOCUMENT_ROOT."/adherents/class/adherent.class.php");
+    include_once DOL_DOCUMENT_ROOT.'/adherents/class/adherent.class.php';
     $board=new Adherent($db);
     $board->load_board($user);
     $board->warning_delay=$conf->adherent->cotisation->warning_delay/60/60/24;

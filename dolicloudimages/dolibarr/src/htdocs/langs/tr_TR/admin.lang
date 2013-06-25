@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Language code: tr_TR
  * Manually generated
  * Generation date 2012-24-06 23:50:00
@@ -370,10 +370,6 @@ Module1780Name=Kategoriler
 Module1780Desc=Kategorilerin yönetimi (ürünler, tedarikçiler ve müşteriler)
 Module2000Name=FCKdüzenleyici (FCKeditor)
 Module2000Desc=Gelişmiş editör kullanarak bazı metin alanlarının düzenlenmesini sağlar
-Module2200Name=Kiralama hakları
-Module2200Desc=Kiralama hakları yönetimi
-Module2300Name=Menüler
-Module2300Desc=Menülerin yönetimi
 Module2400Name=Gündem
 Module2400Desc=Eylemler/görevler ve gündem yönetimi
 Module2500Name=Elektronik İçerik Yönetimi
@@ -388,8 +384,6 @@ Module5000Name=Çoklu-firma
 Module5000Desc=Birden çok firmayı yönetmenizi sağlar
 Module10000Name=PayBox
 Module10000Desc=PayBox modülü ile kredi kartı ile çevrimiçi ödeme sayfası sunmak için
-Module13452Name=HızlıBulucu (SpeedFinder)
-Module13452Desc= AJAX’ta 2 saniye içinde bir telefon numarasının bir kısmından isim bulabilen arama motoru 
 Module50100Name=Satış Noktaları
 Module50100Desc=Satış Noktası modülü
 Permission11=Müşteri faturalarını oku
@@ -626,7 +620,6 @@ Port=Port
 VirtualServerName=Sanal sunucu adı
 AllParameters=Tüm parametreler
 OS=İşletim Sistemi
-Php=Php
 PhpEnv=Ortam
 PhpModules=Modüller
 PhpConf=Yapı
@@ -1271,7 +1264,7 @@ ProjectsModelModule=Proje raporu belge modeli
 Permission50001=Satış Noktası kullanın.
 WebUserGroup=Web sunucusu kullanıcısı/grubu
 NoLockBeforeInsert=ARAYAEKLE etrafında kilit komutu yok
-Module105Name=Postacı (Mailman) ve Spip
+Module105Name=Postacı (Mailman) ve SPIP
 Module105Desc=Üye modülleri için Postacı (Mailman) ya da SPIP arayüzü
 SecurityEventsPurged=Güvenlik eylemleri temizlendi
 ExtraFieldHasWrongValue=Öznitelik %s yanlış bir değerdir.

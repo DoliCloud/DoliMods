@@ -4,12 +4,13 @@
  * Copyright (C) 2004-2012 Laurent Destailleur  <eldy@users.sourceforge.net>
  * Copyright (C) 2004      Sebastien Di Cintio  <sdicintio@ressource-toi.org>
  * Copyright (C) 2004      Benoit Mortier       <benoit.mortier@opensides.be>
- * Copyright (C) 2005-2012 Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2005-2012 Regis Houssin        <regis.houssin@capnetworks.com>
  * Copyright (C) 2011-2012 Juanjo Menent		<jmenent@2byte.es>
+ * Copyright (C) 2012      J. Fernando Lagrange <fernando@demo-tic.org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -27,9 +28,9 @@
  *		\brief      Page to setup the module Foundation
  */
 
-require("../../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/member.lib.php");
+require '../../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/member.lib.php';
 
 $langs->load("admin");
 $langs->load("members");
@@ -110,7 +111,7 @@ $linkback='<a href="'.DOL_URL_ROOT.'/admin/modules.php">'.$langs->trans("BackToM
 print_fiche_titre($langs->trans("MembersSetup"),$linkback,'setup');
 
 
-$head = member_admin_prepare_head($adh);
+$head = member_admin_prepare_head();
 
 dol_fiche_head($head, 'general', $langs->trans("Member"), 0, 'user');
 
@@ -135,10 +136,9 @@ if ($conf->global->MAIN_FEATURES_LEVEL > 0)
     print '<form action="'.$_SERVER["PHP_SELF"].'" method="POST">';
     print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
     print '<input type="hidden" name="action" value="update">';
-    print '<input type="hidden" name="rowid" value="'.$rowid.'">';
     print '<input type="hidden" name="constname" value="ADHERENT_LOGIN_NOT_REQUIRED">';
     print '<tr '.$bc[$var].'><td>'.$langs->trans("AdherentLoginRequired").'</td><td>';
-    print $form->selectyesno('constvalue',!$conf->global->ADHERENT_LOGIN_NOT_REQUIRED,1);
+    print $form->selectyesno('constvalue',(! empty($conf->global->ADHERENT_LOGIN_NOT_REQUIRED)?$conf->global->ADHERENT_LOGIN_NOT_REQUIRED:1),1);
     print '</td><td align="center" width="80">';
     print '<input type="submit" class="button" value="'.$langs->trans("Update").'" name="Button">';
     print "</td></tr>\n";
@@ -150,10 +150,9 @@ $var=!$var;
 print '<form action="'.$_SERVER["PHP_SELF"].'" method="POST">';
 print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
 print '<input type="hidden" name="action" value="update">';
-print '<input type="hidden" name="rowid" value="'.$rowid.'">';
 print '<input type="hidden" name="constname" value="ADHERENT_MAIL_REQUIRED">';
 print '<tr '.$bc[$var].'><td>'.$langs->trans("AdherentMailRequired").'</td><td>';
-print $form->selectyesno('constvalue',$conf->global->ADHERENT_MAIL_REQUIRED,1);
+print $form->selectyesno('constvalue',(! empty($conf->global->ADHERENT_MAIL_REQUIRED)?$conf->global->ADHERENT_MAIL_REQUIRED:0),1);
 print '</td><td align="center" width="80">';
 print '<input type="submit" class="button" value="'.$langs->trans("Update").'" name="Button">';
 print "</td></tr>\n";
@@ -164,10 +163,9 @@ $var=!$var;
 print '<form action="adherent.php" method="POST">';
 print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
 print '<input type="hidden" name="action" value="update">';
-print '<input type="hidden" name="rowid" value="'.$rowid.'">';
 print '<input type="hidden" name="constname" value="ADHERENT_DEFAULT_SENDINFOBYMAIL">';
 print '<tr '.$bc[$var].'><td>'.$langs->trans("MemberSendInformationByMailByDefault").'</td><td>';
-print $form->selectyesno('constvalue',$conf->global->ADHERENT_DEFAULT_SENDINFOBYMAIL,1);
+print $form->selectyesno('constvalue',(! empty($conf->global->ADHERENT_DEFAULT_SENDINFOBYMAIL)?$conf->global->ADHERENT_DEFAULT_SENDINFOBYMAIL:0),1);
 print '</td><td align="center" width="80">';
 print '<input type="submit" class="button" value="'.$langs->trans("Update").'" name="Button">';
 print "</td></tr>\n";
@@ -178,10 +176,9 @@ $var=!$var;
 print '<form action="adherent.php" method="POST">';
 print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
 print '<input type="hidden" name="action" value="update">';
-print '<input type="hidden" name="rowid" value="'.$rowid.'">';
 print '<input type="hidden" name="constname" value="ADHERENT_BANK_USE">';
 print '<tr '.$bc[$var].'><td>'.$langs->trans("AddSubscriptionIntoAccount").'</td>';
-if ($conf->banque->enabled)
+if (! empty($conf->banque->enabled))
 {
     print '<td>';
     print $form->selectyesno('constvalue',$conf->global->ADHERENT_BANK_USE,1);
@@ -218,10 +215,9 @@ print_fiche_titre($langs->trans("MembersCards"),'','');
 form_constantes($constantes);
 
 print '*'.$langs->trans("FollowingConstantsWillBeSubstituted").'<br>';
-print '%DOL_MAIN_URL_ROOT%, %ID%, %PRENOM%, %NOM%, %LOGIN%, %PASSWORD%, ';
-print '%SOCIETE%, %ADRESSE%, %CP%, %VILLE%, %PAYS%, %EMAIL%, %NAISS%, %PHOTO%, %TYPE%, ';
+print '%DOL_MAIN_URL_ROOT%, %ID%, %FIRSTNAME%, %LASTNAME%, %FULLNAME%, %LOGIN%, %PASSWORD%, ';
+print '%COMPANY%, %ADDRESS%, %ZIP%, %TOWN%, %COUNTRY%, %EMAIL%, %NAISS%, %PHOTO%, %TYPE%, ';
 print '%YEAR%, %MONTH%, %DAY%';
-//print '%INFOS%'; Deprecated
 print '<br>';
 
 print '<br>';
@@ -230,11 +226,17 @@ print '<br>';
 /*
  * Edition info modele document
  */
-$constantes=array('ADHERENT_ETIQUETTE_TYPE');
+$constantes=array('ADHERENT_ETIQUETTE_TYPE','ADHERENT_ETIQUETTE_TEXT');
 
 print_fiche_titre($langs->trans("MembersTickets"),'','');
 
 form_constantes($constantes);
+
+print '*'.$langs->trans("FollowingConstantsWillBeSubstituted").'<br>';
+print '%DOL_MAIN_URL_ROOT%, %ID%, %FIRSTNAME%, %LASTNAME%, %FULLNAME%, %LOGIN%, %PASSWORD%, ';
+print '%COMPANY%, %ADDRESS%, %ZIP%, %TOWN%, %COUNTRY%, %EMAIL%, %NAISS%, %PHOTO%, %TYPE%, ';
+print '%YEAR%, %MONTH%, %DAY%';
+print '<br>';
 
 print '<br>';
 
@@ -243,6 +245,8 @@ print '<br>';
  * Edition des variables globales non rattache a un theme specifique
  */
 $constantes=array(
+		'ADHERENT_AUTOREGISTER_NOTIF_MAIL_SUBJECT',
+		'ADHERENT_AUTOREGISTER_NOTIF_MAIL',
 		'ADHERENT_AUTOREGISTER_MAIL_SUBJECT',
 		'ADHERENT_AUTOREGISTER_MAIL',
 		'ADHERENT_MAIL_VALID_SUBJECT',
@@ -259,10 +263,9 @@ print_fiche_titre($langs->trans("Other"),'','');
 form_constantes($constantes);
 
 print '*'.$langs->trans("FollowingConstantsWillBeSubstituted").'<br>';
-print '%DOL_MAIN_URL_ROOT%, %ID%, %PRENOM%, %NOM%, %LOGIN%, %PASSWORD%,';
-print '%SOCIETE%, %ADRESSE%, %CP%, %VILLE%, %PAYS%, %EMAIL%, %NAISS%, %PHOTO%, %TYPE%';
+print '%DOL_MAIN_URL_ROOT%, %ID%, %FIRSTNAME%, %LASTNAME%, %FULLNAME%, %LOGIN%, %PASSWORD%, ';
+print '%COMPANY%, %ADDRESS%, %ZIP%, %TOWN%, %COUNTRY%, %EMAIL%, %NAISS%, %PHOTO%, %TYPE%, ';
 //print '%YEAR%, %MONTH%, %DAY%';	// Not supported
-//print '%INFOS%'; Deprecated
 print '<br>';
 
 dol_fiche_end();

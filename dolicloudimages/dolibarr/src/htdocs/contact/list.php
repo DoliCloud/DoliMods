@@ -2,11 +2,11 @@
 /* Copyright (C) 2001-2004 Rodolphe Quiedeville <rodolphe@quiedeville.org>
  * Copyright (C) 2003      Eric Seigne          <erics@rycks.com>
  * Copyright (C) 2004-2012 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2005-2012 Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2005-2012 Regis Houssin        <regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -24,14 +24,14 @@
  *		\brief      Page to list all contacts
  */
 
-require("../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/contact/class/contact.class.php");
+require '../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/contact/class/contact.class.php';
 
 $langs->load("companies");
 $langs->load("suppliers");
 
 // Security check
-$contactid = isset($_GET["id"])?$_GET["id"]:'';
+$contactid = GETPOST('id','int');
 if ($user->societe_id) $socid=$user->societe_id;
 $result = restrictedArea($user, 'contact', $contactid,'');
 
@@ -51,9 +51,11 @@ $type=GETPOST("type");
 $view=GETPOST("view");
 
 $sall=GETPOST("contactname");
-$sortfield = GETPOST("sortfield");
-$sortorder = GETPOST("sortorder");
-$page = GETPOST("page");
+$sortfield = GETPOST('sortfield', 'alpha');
+$sortorder = GETPOST('sortorder', 'alpha');
+$page = GETPOST('page', 'int');
+$userid=GETPOST('userid','int');
+$begin=GETPOST('begin');
 
 if (! $sortorder) $sortorder="ASC";
 if (! $sortfield) $sortfield="p.name";
@@ -86,9 +88,9 @@ else if ($type == "o")
 if ($view == 'phone')  { $text=" (Vue Telephones)"; }
 if ($view == 'mail')   { $text=" (Vue EMail)"; }
 if ($view == 'recent') { $text=" (Recents)"; }
-$titre.= " $text";
+if (! empty($text)) $titre.= " $text";
 
-if ($_POST["button_removefilter"])
+if (GETPOST('button_removefilter'))
 {
     $search_nom="";
     $search_prenom="";
@@ -129,9 +131,9 @@ if (!$user->rights->societe->client->voir && !$socid) //restriction
 {
 	$sql .= " AND (sc.fk_user = " .$user->id." OR p.fk_soc IS NULL)";
 }
-if ($_GET["userid"])    // propre au commercial
+if (! empty($userid))    // propre au commercial
 {
-    $sql .= " AND p.fk_user_creat=".$_GET["userid"];
+    $sql .= " AND p.fk_user_creat=".$db->escape($userid);
 }
 
 // Filter to exclude not owned private contacts
@@ -205,7 +207,7 @@ if ($sall)
 {
     $sql .= " AND (p.name LIKE '%".$db->escape($sall)."%' OR p.firstname LIKE '%".$db->escape($sall)."%' OR p.email LIKE '%".$db->escape($sall)."%')";
 }
-if ($socid)
+if (! empty($socid))
 {
     $sql .= " AND s.rowid = ".$socid;
 }
@@ -235,8 +237,7 @@ if ($result)
 {
 	$contactstatic=new Contact($db);
 
-    $begin=$_GET["begin"];
-    $param ='&begin='.urlencode($begin).'&view='.urlencode($view).'&userid='.urlencode($_GET["userid"]).'&contactname='.urlencode($sall);
+    $param ='&begin='.urlencode($begin).'&view='.urlencode($view).'&userid='.urlencode($userid).'&contactname='.urlencode($sall);
     $param.='&type='.urlencode($type).'&view='.urlencode($view).'&search_nom='.urlencode($search_nom).'&search_prenom='.urlencode($search_prenom).'&search_societe='.urlencode($search_societe).'&search_email='.urlencode($search_email);
 	if ($search_priv == '0' || $search_priv == '1') $param.="&search_priv=".urlencode($search_priv);
 
@@ -408,7 +409,7 @@ if ($result)
 
     print '</form>';
 
-    if ($num > $limit) print_barre_liste('', $page, $_SERVER["PHP_SELF"], '&amp;begin='.$begin.'&amp;view='.$view.'&amp;userid='.$_GET["userid"], $sortfield, $sortorder, '', $num, $nbtotalofrecords, '');
+    if ($num > $limit) print_barre_liste('', $page, $_SERVER["PHP_SELF"], '&amp;begin='.$begin.'&amp;view='.$view.'&amp;userid='.$userid, $sortfield, $sortorder, '', $num, $nbtotalofrecords, '');
 
     $db->free($result);
 }
@@ -419,7 +420,7 @@ else
 
 print '<br>';
 
-$db->close();
 
 llxFooter();
+$db->close();
 ?>

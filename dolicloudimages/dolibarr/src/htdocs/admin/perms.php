@@ -1,12 +1,12 @@
 <?php
 /* Copyright (C) 2003      Rodolphe Quiedeville <rodolphe@quiedeville.org>
  * Copyright (C) 2004-2009 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2005-2010 Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2005-2010 Regis Houssin        <regis.houssin@capnetworks.com>
  * Copyright (C) 2011      Herve Prot           <herve.prot@symeos.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -24,13 +24,15 @@
  *		\brief      Page d'administration/configuration des permissions par defaut
  */
 
-require("../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/functions2.lib.php");
+require '../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php';
 
 $langs->load("admin");
 $langs->load("users");
 $langs->load("other");
+
+$action=GETPOST('action');
 
 if (!$user->admin) accessforbidden();
 
@@ -39,7 +41,7 @@ if (!$user->admin) accessforbidden();
  * Actions
  */
 
-if ($_GET["action"] == 'add')
+if ($action == 'add')
 {
     $sql = "UPDATE ".MAIN_DB_PREFIX."rights_def SET bydefault=1";
     $sql.= " WHERE id = ".$_GET["pid"];
@@ -47,7 +49,7 @@ if ($_GET["action"] == 'add')
     $db->query($sql);
 }
 
-if ($_GET["action"] == 'remove')
+if ($action == 'remove')
 {
     $sql = "UPDATE ".MAIN_DB_PREFIX."rights_def SET bydefault=0";
     $sql.= " WHERE id = ".$_GET["pid"];
@@ -66,7 +68,11 @@ print_fiche_titre($langs->trans("SecuritySetup"),'','setup');
 
 print $langs->trans("DefaultRightsDesc");
 print " ".$langs->trans("OnlyActiveElementsAreShown")."<br>\n";
+
+// Show warning about external users
+print showModulesExludedForExternal($modules).'<br>'."\n";
 print "<br>\n";
+
 
 $head=security_prepare_head();
 
@@ -97,7 +103,7 @@ foreach ($modulesdir as $dir)
 
                 if ($modName)
                 {
-                	include_once($dir.$file);
+                	include_once $dir.$file;
     	            $objMod = new $modName($db);
 
     	            // Load all lang files of module
@@ -138,7 +144,7 @@ if ($result)
     $i		= 0;
     $var	= True;
     $oldmod	= "";
-    
+
     while ($i < $num)
     {
         $obj = $db->fetch_object($result);
@@ -155,16 +161,16 @@ if ($result)
         foreach($modules[$obj->module]->rights as $key => $val)
         {
         	$rights_class=$objMod->rights_class;
-        	if ($val[4] == $obj->perms && (empty($val[5]) || $val[5] == $obj->subperms)) 
+        	if ($val[4] == $obj->perms && (empty($val[5]) || $val[5] == $obj->subperms))
         	{
         		$found=true;
         		break;
         	}
         }
-		if (! $found) 
+		if (! $found)
 		{
 			$i++;
-			continue;	
+			continue;
 		}
 
         // Break found, it's a new module to catch

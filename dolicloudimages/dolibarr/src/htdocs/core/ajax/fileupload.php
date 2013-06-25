@@ -1,10 +1,10 @@
 <?php
-/* Copyright (C) 2011-2012	Regis Houssin		<regis@dolibarr.fr>
+/* Copyright (C) 2011-2012	Regis Houssin		<regis.houssin@capnetworks.com>
  * Copyright (C) 2011		Laurent Destailleur	<eldy@users.sourceforge.net>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -33,8 +33,8 @@ if (! defined('NOREQUIREHTML'))  define('NOREQUIREHTML','1'); // If we don't nee
 //if (! defined("NOLOGIN"))        define("NOLOGIN",'1');       // If this page is public (can be called outside logged session)
 
 
-require("../../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/core/class/fileupload.class.php");
+require '../../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/core/class/fileupload.class.php';
 
 error_reporting(E_ALL | E_STRICT);
 

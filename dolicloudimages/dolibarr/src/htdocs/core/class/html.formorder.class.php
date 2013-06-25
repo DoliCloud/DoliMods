@@ -3,7 +3,7 @@
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -38,7 +38,7 @@ class FormOrder
 	 *
 	 *	@param	DoliDB	$db		Database handler
 	 */
-	function FormOrder($db)
+	function __construct($db)
 	{
 		$this->db = $db;
 		return 1;
@@ -85,7 +85,7 @@ class FormOrder
 		global $conf,$langs;
 		$listemethodes=array();
 
-		require_once(DOL_DOCUMENT_ROOT."/core/class/html.form.class.php");
+		require_once DOL_DOCUMENT_ROOT.'/core/class/html.form.class.php';
 		$form=new Form($this->db);
 
 		$sql = "SELECT rowid, code, libelle as label";

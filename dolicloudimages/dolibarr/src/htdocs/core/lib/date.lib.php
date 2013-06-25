@@ -1,11 +1,11 @@
 <?php
 /* Copyright (C) 2004-2011 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2005-2011 Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2005-2011 Regis Houssin        <regis.houssin@capnetworks.com>
  * Copyright (C) 2011	   Juanjo Menent        <jmenent@2byte.es>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -75,7 +75,7 @@ function getServerTimeZoneString()
 
 /**
  * Return server timezone int.
- * If $conf->global->MAIN_NEW_DATE is set, we use new behaviour: All convertions take care of dayling saving time.
+ * If $conf->global->MAIN_OLD_DATE is set or PHP too old, we use old behaviour: All convertions does not take care of dayling saving time.
  *
  * @param	string	$refgmtdate		Reference period for timezone (timezone differs on winter and summer. May be 'now', 'winter' or 'summer')
  * @return 	int						An offset in hour (+1 for Europe/Paris on winter and +2 for Europe/Paris on summer)
@@ -83,12 +83,12 @@ function getServerTimeZoneString()
 function getServerTimeZoneInt($refgmtdate='now')
 {
     global $conf;
-    if (method_exists('DateTimeZone','getOffset') && ! empty($conf->global->MAIN_NEW_DATE))
+    if (method_exists('DateTimeZone','getOffset') && empty($conf->global->MAIN_OLD_DATE))
     {
         // Method 1 (include daylight)
         $gmtnow=dol_now('gmt'); $yearref=dol_print_date($gmtnow,'%Y'); $monthref=dol_print_date($gmtnow,'%m'); $dayref=dol_print_date($gmtnow,'%d');
         if ($refgmtdate == 'now') $newrefgmtdate=$yearref.'-'.$monthref.'-'.$dayref;
-        elseif ($refgmtdate == 'summer') $newrefgmtdate=$yearref.'-05-15';
+        elseif ($refgmtdate == 'summer') $newrefgmtdate=$yearref.'-08-01';
         else $newrefgmtdate=$yearref.'-01-01';
         $localtz = new DateTimeZone(getServerTimeZoneString());
         $localdt = new DateTime($newrefgmtdate, $localtz);
@@ -101,7 +101,7 @@ function getServerTimeZoneInt($refgmtdate='now')
         if ($refgmtdate == 'now')
         {
             if (ini_get("date.timezone")=='UTC') return 0;
-            // We don't know server timezone string, so we don't know location, so we can't guess daylight. We assume we use same than client. Fix is to use MAIN_NEW_DATE.
+            // We don't know server timezone string, so we don't know location, so we can't guess daylight. We assume we use same than client. Fix is to use new PHP with not MAIN_OLD_DATE.
             $gmtnow=dol_now('gmt'); $yearref=dol_print_date($gmtnow,'%Y'); $monthref=dol_print_date($gmtnow,'%m'); $dayref=dol_print_date($gmtnow,'%d');
             if (dol_stringtotime($_SESSION['dol_dst_first']) <= $gmtnow && $gmtnow < dol_stringtotime($_SESSION['dol_dst_second'])) $daylight=1;
             else $daylight=0;
@@ -111,7 +111,7 @@ function getServerTimeZoneInt($refgmtdate='now')
         elseif ($refgmtdate == 'summer')
         {
             if (ini_get("date.timezone")=='UTC') return 0;
-            // We don't know server timezone string, so we don't know location, so we can't guess daylight. We assume we use same than client. Fix is to use MAIN_NEW_DATE.
+            // We don't know server timezone string, so we don't know location, so we can't guess daylight. We assume we use same than client. Fix is to use new PHP with not MAIN_OLD_DATE.
             $gmtnow=dol_now('gmt'); $yearref=dol_print_date($gmtnow,'%Y'); $monthref='08'; $dayref='01';
             if (dol_stringtotime($_SESSION['dol_dst_first']) <= dol_stringtotime($yearref.'-'.$monthref.'-'.$dayref) && dol_stringtotime($yearref.'-'.$monthref.'-'.$dayref) < dol_stringtotime($_SESSION['dol_dst_second'])) $daylight=1;
             else $daylight=0;
@@ -128,8 +128,8 @@ function getServerTimeZoneInt($refgmtdate='now')
  * Return server timezone string
  *
  * @return string			Parent company timezone string ('Europe/Paris')
- */
-/*function getParentCompanyTimeZoneString()
+ *
+function getParentCompanyTimeZoneString()
 {
     if (function_exists('date_default_timezone_get')) return date_default_timezone_get();
     else return '';
@@ -142,11 +142,11 @@ function getServerTimeZoneInt($refgmtdate='now')
  *
  * @param	string	$refdate	Reference date for timezone (timezone differs on winter and summer)
  * @return 	int					An offset in hour (+1 for Europe/Paris on winter and +2 for Europe/Paris on summer)
- */
-/*function getParentCompanyTimeZoneInt($refgmtdate='now')
+ *
+function getParentCompanyTimeZoneInt($refgmtdate='now')
 {
     global $conf;
-    if (class_exists('DateTime') && ! empty($conf->global->MAIN_NEW_DATE))
+    if (class_exists('DateTime') && empty($conf->global->MAIN_OLD_DATE))
     {
         // Method 1 (include daylight)
         $localtz = new DateTimeZone(getParentCompanyTimeZoneString());
@@ -261,16 +261,23 @@ function convertSecondToTime($iSecond,$format='all',$lengthOfDay=86400,$lengthOf
                     if ($sWeek >= 2) $weekTranslate = $langs->trans("DurationWeeks");
                     $sTime.=$sWeek.' '.$weekTranslate.' ';
                 }
-                if ($sDay>0)
+/*                if ($sDay>0)
                 {
                     $dayTranslate = $langs->trans("Day");
                     if ($sDay > 1) $dayTranslate = $langs->trans("Days");
                     $sTime.=$sDay.' '.$dayTranslate.' ';
                 }
+*/
             }
 		}
+		if ($sDay>0)
+		{
+			$dayTranslate = $langs->trans("Day");
+			if ($sDay > 1) $dayTranslate = $langs->trans("Days");
+			$sTime.=$sDay.' '.$dayTranslate.' ';
+		}
 
-		if ($sDay) $sTime.=$sDay.' '.$dayTranslate.' ';
+//		if ($sDay) $sTime.=$sDay.' '.$dayTranslate.' ';
 		if ($iSecond || empty($sDay))
 		{
 			$sTime.= dol_print_date($iSecond,'hourduration',true);
@@ -594,7 +601,7 @@ function dol_get_first_day_week($day,$month,$year,$gm=false)
 }
 
 /**
- *	Fonction retournant le nombre de jour fieries samedis et dimanches entre 2 dates entrees en timestamp
+ *	Fonction retournant le nombre de jour feries samedis et dimanches entre 2 dates entrees en timestamp
  *	Called by function num_open_day
  *
  *	@param	    timestamp	$timestampStart     Timestamp de debut
@@ -651,14 +658,14 @@ function num_public_holiday($timestampStart, $timestampEnd, $countrycode='FR')
 			//Ascension
 
 			// Calcul de Pentecote (11 jours apres Paques)
-			$date_pentecote = mktime(
-							date("H", $date_ascension),
-							date("i", $date_ascension),
-							date("s", $date_ascension),
-							date("m", $date_ascension),
-							date("d", $date_ascension) + 11,
-							date("Y", $date_ascension)
-			);
+            $date_pentecote = mktime(
+                date("H", $date_ascension),
+                date("i", $date_ascension),
+                date("s", $date_ascension),
+                date("m", $date_ascension),
+                date("d", $date_ascension) + 11,
+                date("Y", $date_ascension)
+            );
 			$jour_pentecote = date("d", $date_pentecote);
 			$mois_pentecote = date("m", $date_pentecote);
 			if($jour_pentecote == $jour && $mois_pentecote == $mois) $ferie=true;
@@ -726,11 +733,12 @@ function num_public_holiday($timestampStart, $timestampEnd, $countrycode='FR')
 
 /**
  *	Fonction retournant le nombre de jour entre deux dates
+ *  Example: 2012-01-01 2012-01-02 => 1 if lastday=0, 2 if lastday=1
  *
  *	@param	   timestamp	$timestampStart     Timestamp de debut
  *	@param	   timestamp	$timestampEnd       Timestamp de fin
- *	@param     int			$lastday            On prend en compte le dernier jour, 0: non, 1:oui
- *	@return    int								Nombre de jours
+ *	@param     int			$lastday            Last day is included, 0: non, 1:oui
+ *	@return    int								Number of days
  */
 function num_between_day($timestampStart, $timestampEnd, $lastday=0)
 {
@@ -744,32 +752,46 @@ function num_between_day($timestampStart, $timestampEnd, $lastday=0)
 		{
 			$bit = 1;
 		}
-		$nbjours = round(($timestampEnd - $timestampStart)/(60*60*24)-$bit);
+		$nbjours = (int) floor(($timestampEnd - $timestampStart)/(60*60*24)) + 1 - $bit;
 	}
+	//print ($timestampEnd - $timestampStart) - $lastday;
 	return $nbjours;
 }
 
 /**
- *	Fonction retournant le nombre de jour entre deux dates sans les jours feries (jours ouvres)
+ *	Function to return number of working days (and text of units) between two dates (working days)
  *
- *	@param	   timestamp	$timestampStart     Timestamp de debut
- *	@param	   timestamp	$timestampEnd       Timestamp de fin
- *	@param     int			$inhour             0: sort le nombre de jour , 1: sort le nombre d'heure (72 max)
- *	@param     int			$lastday            On prend en compte le dernier jour, 0: non, 1:oui
- *	@return    int								Nombre de jours ou d'heures
+ *	@param	   	timestamp	$timestampStart     Timestamp for start date
+ *	@param	   	timestamp	$timestampEnd       Timestamp for end date
+ *	@param     	int			$inhour             0: return number of days, 1: return number of hours (72h max)
+ *	@param		int			$lastday            We include last day, 0: no, 1:yes
+ *  @param		int			$halfday			Tag to define half day when holiday start and end
+ *	@return    	int								Number of days or hours
  */
-function num_open_day($timestampStart, $timestampEnd,$inhour=0,$lastday=0)
+function num_open_day($timestampStart, $timestampEnd, $inhour=0, $lastday=0, $halfday=0)
 {
 	global $langs;
 
+	dol_syslog('num_open_day timestampStart='.$timestampStart.' timestampEnd='.$timestampEnd.' bit='.$lastday);
+
+	// Check parameters
+	if (! is_int($timestampStart) && ! is_float($timestampStart)) return 'ErrorBadParameter_num_open_day';
+	if (! is_int($timestampEnd) && ! is_float($timestampEnd)) return 'ErrorBadParameter_num_open_day';
+
+	//print 'num_open_day timestampStart='.$timestampStart.' timestampEnd='.$timestampEnd.' bit='.$lastday;
 	if ($timestampStart < $timestampEnd)
 	{
-		$bit = 0;
-		if ($lastday == 1) $bit = 1;
-		$nbOpenDay = num_between_day($timestampStart, $timestampEnd, $bit) - num_public_holiday($timestampStart, $timestampEnd);
-		$nbOpenDay.= " ".$langs->trans("Days");
+		//print num_between_day($timestampStart, $timestampEnd, $lastday).' - '.num_public_holiday($timestampStart, $timestampEnd);
+		$nbOpenDay = num_between_day($timestampStart, $timestampEnd, $lastday) - num_public_holiday($timestampStart, $timestampEnd, $lastday);
+		$nbOpenDay.= " " . $langs->trans("Days");
 		if ($inhour == 1 && $nbOpenDay <= 3) $nbOpenDay = $nbOpenDay*24 . $langs->trans("HourShort");
-		return $nbOpenDay;
+		return $nbOpenDay - (($inhour == 1 ? 12 : 0.5) * abs($halfday));
+	}
+	elseif ($timestampStart == $timestampEnd)
+	{
+		$nbOpenDay=$lastday;
+		if ($inhour == 1) $nbOpenDay = $nbOpenDay*24 . $langs->trans("HourShort");
+		return $nbOpenDay - (($inhour == 1 ? 12 : 0.5) * abs($halfday));
 	}
 	else
 	{

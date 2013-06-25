@@ -4,7 +4,7 @@
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -23,7 +23,7 @@
  */
 
 // Put here all includes required by your class file
-require_once(DOL_DOCUMENT_ROOT ."/core/class/commonobject.class.php");
+require_once DOL_DOCUMENT_ROOT .'/core/class/commonobject.class.php';
 
 
 /**
@@ -55,11 +55,13 @@ class Tva extends CommonObject
     /**
 	 *	Constructor
 	 *
-	 *  @param		DoliDB		$DB      Database handler
+	 *  @param		DoliDB		$db      Database handler
      */
-    function Tva($DB)
+    function __construct($db)
     {
-        $this->db = $DB;
+        $this->db = $db;
+        $this->element = 'tva';
+        $this->table_element = 'tva';
         return 1;
     }
 
@@ -120,9 +122,9 @@ class Tva extends CommonObject
             $this->id = $this->db->last_insert_id(MAIN_DB_PREFIX."tva");
 
             // Appel des triggers
-            include_once(DOL_DOCUMENT_ROOT . "/core/class/interfaces.class.php");
+            include_once DOL_DOCUMENT_ROOT . '/core/class/interfaces.class.php';
             $interface=new Interfaces($this->db);
-            $result=$interface->run_triggers('MYOBJECT_CREATE',$this,$user,$langs,$conf);
+            $result=$interface->run_triggers('TVA_CREATE',$this,$user,$langs,$conf);
             if ($result < 0) { $error++; $this->errors=$interface->errors; }
             // Fin appel triggers
 
@@ -187,9 +189,9 @@ class Tva extends CommonObject
 		if (! $notrigger)
 		{
             // Appel des triggers
-            include_once(DOL_DOCUMENT_ROOT . "/core/class/interfaces.class.php");
+            include_once DOL_DOCUMENT_ROOT . '/core/class/interfaces.class.php';
             $interface=new Interfaces($this->db);
-            $result=$interface->run_triggers('MYOBJECT_MODIFY',$this,$user,$langs,$conf);
+            $result=$interface->run_triggers('TVA_MODIFY',$this,$user,$langs,$conf);
             if ($result < 0) { $error++; $this->errors=$interface->errors; }
             // Fin appel triggers
     	}
@@ -287,9 +289,9 @@ class Tva extends CommonObject
 		}
 
         // Appel des triggers
-        include_once(DOL_DOCUMENT_ROOT . "/core/class/interfaces.class.php");
+        include_once DOL_DOCUMENT_ROOT . '/core/class/interfaces.class.php';
         $interface=new Interfaces($this->db);
-        $result=$interface->run_triggers('MYOBJECT_DELETE',$this,$user,$langs,$conf);
+        $result=$interface->run_triggers('TVA_DELETE',$this,$user,$langs,$conf);
         if ($result < 0) { $error++; $this->errors=$interface->errors; }
         // Fin appel triggers
 
@@ -483,12 +485,12 @@ class Tva extends CommonObject
             $this->error=$langs->trans("ErrorFieldRequired",$langs->transnoentities("Amount"));
             return -4;
         }
-        if ($conf->banque->enabled && (empty($this->accountid) || $this->accountid <= 0))
+        if (! empty($conf->banque->enabled) && (empty($this->accountid) || $this->accountid <= 0))
         {
             $this->error=$langs->trans("ErrorFieldRequired",$langs->transnoentities("Account"));
             return -5;
         }
-        if ($conf->banque->enabled && (empty($this->paymenttype) || $this->paymenttype <= 0))
+        if (! empty($conf->banque->enabled) && (empty($this->paymenttype) || $this->paymenttype <= 0))
         {
             $this->error=$langs->trans("ErrorFieldRequired",$langs->transnoentities("PaymentMode"));
             return -5;
@@ -498,13 +500,13 @@ class Tva extends CommonObject
         $sql = "INSERT INTO ".MAIN_DB_PREFIX."tva (datep, datev, amount";
         if ($this->note)  $sql.=", note";
         if ($this->label) $sql.=", label";
-        $sql.= ", fk_user_creat, fk_bank";
+        $sql.= ", fk_user_creat, fk_bank, entity";
 		$sql.= ") ";
         $sql.= " VALUES ('".$this->db->idate($this->datep)."',";
         $sql.= "'".$this->db->idate($this->datev)."'," . $this->amount;
         if ($this->note)  $sql.=", '".$this->db->escape($this->note)."'";
         if ($this->label) $sql.=", '".$this->db->escape($this->label)."'";
-        $sql.=", '".$user->id."', NULL";
+        $sql.=", '".$user->id."', NULL, ".$conf->entity;
         $sql.= ")";
 
 		dol_syslog("Tva::addPayment sql=".$sql);
@@ -512,13 +514,21 @@ class Tva extends CommonObject
         if ($result)
         {
             $this->id = $this->db->last_insert_id(MAIN_DB_PREFIX."tva");    // TODO devrait s'appeler paiementtva
+
+            // Appel des triggers
+            include_once DOL_DOCUMENT_ROOT . '/core/class/interfaces.class.php';
+            $interface=new Interfaces($this->db);
+            $result=$interface->run_triggers('TVA_ADDPAYMENT',$this,$user,$langs,$conf);
+            if ($result < 0) { $error++; $this->errors=$interface->errors; }
+            // Fin appel triggers
+
             if ($this->id > 0)
             {
                 $ok=1;
-				if ($conf->banque->enabled)
+				if (! empty($conf->banque->enabled))
                 {
                     // Insertion dans llx_bank
-                    require_once(DOL_DOCUMENT_ROOT.'/compta/bank/class/account.class.php');
+                    require_once DOL_DOCUMENT_ROOT.'/compta/bank/class/account.class.php';
 
                     $acc = new Account($this->db);
 					$result=$acc->fetch($this->accountid);

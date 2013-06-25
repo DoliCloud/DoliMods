@@ -407,10 +407,10 @@ TypeContact_facture_internal_SALESREPFOLL=Edustaja seurantaan asiakkaan laskussa
 TypeContact_facture_external_BILLING=Asiakkaan lasku yhteystiedot
 TypeContact_facture_external_SHIPPING=Asiakas merenkulku yhteystiedot
 TypeContact_facture_external_SERVICE=Asiakaspalvelu ottaa yhteyttä
-TypeContact_facture_fourn_internal_SALESREPFOLL=Edustaja seurantaan toimittaja laskussa
-TypeContact_facture_fourn_external_BILLING=Toimittajan lasku yhteystiedot
-TypeContact_facture_fourn_external_SHIPPING=Toimittajan merenkulku yhteystiedot
-TypeContact_facture_fourn_external_SERVICE=Toimittajan huoltoliikkeestä
+TypeContact_invoice_supplier_internal_SALESREPFOLL=Edustaja seurantaan toimittaja laskussa
+TypeContact_invoice_supplier_external_BILLING=Toimittajan lasku yhteystiedot
+TypeContact_invoice_supplier_external_SHIPPING=Toimittajan merenkulku yhteystiedot
+TypeContact_invoice_supplier_external_SERVICE=Toimittajan huoltoliikkeestä
 PDFLinceDescription=Täydellinen lasku malli Espanjan RE ja IRPF
 // STOP - Lines generated via autotranslator.php tool (2010-07-17 11:27:05).
 
@@ -431,6 +431,6 @@ EditGlobalDiscounts=Muokkaa absoluuttinen alennukset
 AddCreditNote=Luo hyvityslasku
 InvoiceNotChecked=Ei laskun valittu
 ShowUnpaidAll=Näytä kaikki maksamattomat laskut
-ClosePaidInvoicesAutomatically=Luokittele &quot;maksanut&quot; kaikki vakio-tai korvaavan laskuja entierely maksanut.
+ClosePaidInvoicesAutomatically=Luokittele &quot;maksanut&quot; kaikki vakio-tai korvaavan laskuja entirely maksanut.
 AllCompletelyPayedInvoiceWillBeClosed=Kaikki lasku ilman jää maksaa automaattisesti suljettu tila &quot;maksanut&quot;.
 // STOP - Lines generated via autotranslator.php tool (2012-02-29 16:11:08).

@@ -1,12 +1,12 @@
 <?php
 /* Copyright (C) 2003-2005 Rodolphe Quiedeville <rodolphe@quiedeville.org>
  * Copyright (C) 2004-2010 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2005-2011 Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2005-2011 Regis Houssin        <regis.houssin@capnetworks.com>
  * Copyright (C) 2011      Juanjo Menent	    <jmenent@2byte.es>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -26,12 +26,11 @@
  *	\brief      Fichier de description et activation du module Expedition
  */
 
-include_once(DOL_DOCUMENT_ROOT ."/core/modules/DolibarrModules.class.php");
+include_once DOL_DOCUMENT_ROOT .'/core/modules/DolibarrModules.class.php';
 
 
 /**
- * 	\class modExpedition
- *	\brief      Classe de description et activation du module Expedition
+ *	Classe de description et activation du module Expedition
  */
 class modExpedition extends DolibarrModules
 {
@@ -41,8 +40,10 @@ class modExpedition extends DolibarrModules
 	 *
 	 *   @param      DoliDB		$db      Database handler
 	 */
-	function modExpedition($db)
+	function __construct($db)
 	{
+		global $conf;
+
 		$this->db = $db;
 		$this->numero = 80;
 
@@ -72,6 +73,8 @@ class modExpedition extends DolibarrModules
 		// Dependances
 		$this->depends = array("modCommande");
 		$this->requiredby = array();
+		$this->conflictwith = array();
+		$this->langfiles = array('deliveries','sendings');
 
 		// Constantes
 		$this->const = array();
@@ -84,10 +87,10 @@ class modExpedition extends DolibarrModules
 		$this->const[$r][4] = 0;
 		$r++;
 
-		$this->const[$r][0] = "EXPEDITION_ADDON";
+		$this->const[$r][0] = "EXPEDITION_ADDON_NUMBER";
 		$this->const[$r][1] = "chaine";
-		$this->const[$r][2] = "elevement";
-		$this->const[$r][3] = 'Nom du gestionnaire du type d\'expedition';
+		$this->const[$r][2] = "mod_expedition_safor";
+		$this->const[$r][3] = 'Nom du gestionnaire de numerotation des expeditions';
 		$this->const[$r][4] = 0;
 		$r++;
 
@@ -102,13 +105,6 @@ class modExpedition extends DolibarrModules
 		$this->const[$r][1] = "chaine";
 		$this->const[$r][2] = "mod_livraison_jade";
 		$this->const[$r][3] = 'Nom du gestionnaire de numerotation des bons de reception';
-		$this->const[$r][4] = 0;
-		$r++;
-
-		$this->const[$r][0] = "EXPEDITION_ADDON_NUMBER";
-		$this->const[$r][1] = "chaine";
-		$this->const[$r][2] = "mod_expedition_safor";
-		$this->const[$r][3] = 'Nom du gestionnaire de numerotation des expeditions';
 		$this->const[$r][4] = 0;
 		$r++;
 
@@ -150,6 +146,14 @@ class modExpedition extends DolibarrModules
         $this->rights[$r][5] = 'send';
 
 		$r++;
+		$this->rights[$r][0] = 106;
+		$this->rights[$r][1] = 'Exporter les expeditions';
+		$this->rights[$r][2] = 'r';
+		$this->rights[$r][3] = 0;
+		$this->rights[$r][4] = 'shipment';
+		$this->rights[$r][5] = 'export';
+
+		$r++;
 		$this->rights[$r][0] = 109;
 		$this->rights[$r][1] = 'Supprimer les expeditions';
 		$this->rights[$r][2] = 'd';
@@ -188,6 +192,25 @@ class modExpedition extends DolibarrModules
 		$this->rights[$r][4] = 'livraison';
 		$this->rights[$r][5] = 'supprimer';
 
+		// Exports
+		//--------
+		$r=0;
+
+		$r++;
+		$this->export_code[$r]=$this->rights_class.'_'.$r;
+		$this->export_label[$r]='Shipments';	// Translation key (used only if key ExportDataset_xxx_z not found)
+		$this->export_permission[$r]=array(array("expedition","shipment","export"));
+		$this->export_fields_array[$r]=array('s.rowid'=>"IdCompany",'s.nom'=>'CompanyName','s.address'=>'Address','s.cp'=>'Zip','s.ville'=>'Town','s.fk_pays'=>'Country','s.tel'=>'Phone','s.siren'=>'ProfId1','s.siret'=>'ProfId2','s.ape'=>'ProfId3','s.idprof4'=>'ProfId4','s.idprof5'=>'ProfId5','s.idprof6'=>'ProfId6','c.rowid'=>"Id",'c.ref'=>"Ref",'c.ref_customer'=>"RefCustomer",'c.fk_soc'=>"IdCompany",'c.date_creation'=>"DateCreation",'c.date_delivery'=>"DateSending",'c.tracking_number'=>"TrackingNumber",'c.height'=>"Height",'c.width'=>"Width",'c.size'=>"Depth",'c.size_units'=>'SizeUnits','c.weight'=>"Weight",'c.weight_units'=>"WeightUnits",'c.fk_statut'=>'Status','c.note'=>"Note",'ed.rowid'=>'LineId','cd.description'=>'Description','ed.qty'=>"Qty",'p.rowid'=>'ProductId','p.ref'=>'ProductRef','p.label'=>'ProductLabel');
+		//$this->export_TypeFields_array[$r]=array('s.rowid'=>"List:societe:nom",'s.nom'=>'Text','s.address'=>'Text','s.cp'=>'Text','s.ville'=>'Text','s.libelle'=>'List:c_pays:libelle:rowid','s.tel'=>'Text','s.siren'=>'Text','s.siret'=>'Text','s.ape'=>'Text','s.idprof4'=>'Text','c.ref'=>"Text",'c.ref_client'=>"Text",'c.date_creation'=>"Date",'c.date_commande'=>"Date",'c.amount_ht'=>"Number",'c.remise_percent'=>"Number",'c.total_ht'=>"Number",'c.total_ttc'=>"Number",'c.facture'=>"Boolean",'c.fk_statut'=>'Status','c.note'=>"Text",'c.date_livraison'=>'Date','ed.qty'=>"Text");
+		$this->export_TypeFields_array[$r]=array('s.nom'=>'Text','s.address'=>'Text','s.cp'=>'Text','s.ville'=>'Text','s.libelle'=>'List:c_pays:libelle:rowid','s.tel'=>'Text','s.siren'=>'Text','s.siret'=>'Text','s.ape'=>'Text','s.idprof4'=>'Text','c.ref'=>"Text",'c.ref_customer'=>"Text",'c.date_creation'=>"Date",'c.date_delivery'=>"Date",'c.tracking_number'=>"Number",'c.height'=>"Number",'c.width'=>"Number",'c.weight'=>"Number",'c.fk_statut'=>'Status','c.note'=>"Text",'ed.qty'=>"Number");
+		$this->export_entities_array[$r]=array('s.rowid'=>"company",'s.nom'=>'company','s.address'=>'company','s.cp'=>'company','s.ville'=>'company','s.fk_pays'=>'company','s.tel'=>'company','s.siren'=>'company','s.ape'=>'company','s.siret'=>'company','s.idprof4'=>'company','s.idprof5'=>'company','s.idprof6'=>'company','c.rowid'=>"shipment",'c.ref'=>"shipment",'c.ref_customer'=>"shipment",'c.fk_soc'=>"shipment",'c.date_creation'=>"shipment",'c.date_delivery'=>"shipment",'c.tracking_number'=>'shipment','c.height'=>"shipment",'c.width'=>"shipment",'c.size'=>'shipment','c.size_units'=>'shipment','c.weight'=>"shipment",'c.weight_units'=>'shipment','c.fk_statut'=>"shipment",'c.note'=>"shipment",'ed.rowid'=>'shipment_line','cd.description'=>'shipment_line','ed.qty'=>"shipment_line",'p.rowid'=>'product','p.ref'=>'product','p.label'=>'product');
+		$this->export_dependencies_array[$r]=array('shipment_line'=>'ed.rowid','product'=>'ed.rowid'); // To add unique key if we ask a field of a child to avoid the DISTINCT to discard them
+
+		$this->export_sql_start[$r]='SELECT DISTINCT ';
+		$this->export_sql_end[$r]  =' FROM ('.MAIN_DB_PREFIX.'expedition as c, '.MAIN_DB_PREFIX.'societe as s, '.MAIN_DB_PREFIX.'expeditiondet as ed, '.MAIN_DB_PREFIX.'commandedet as cd)';
+		$this->export_sql_end[$r] .=' LEFT JOIN '.MAIN_DB_PREFIX.'product as p on (cd.fk_product = p.rowid)';
+		$this->export_sql_end[$r] .=' WHERE c.fk_soc = s.rowid AND c.rowid = ed.fk_expedition AND ed.fk_origin_line = cd.rowid';
+		$this->export_sql_end[$r] .=' AND c.entity = '.$conf->entity;
 	}
 
 

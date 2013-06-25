@@ -1,11 +1,11 @@
 <?php
 /* Copyright (C) 2001-2002 Rodolphe Quiedeville <rodolphe@quiedeville.org>
- * Copyright (C) 2006-2009 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2010      Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2006-2012 Laurent Destailleur  <eldy@users.sourceforge.net>
+ * Copyright (C) 2010      Regis Houssin        <regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -27,7 +27,7 @@
 define("NOLOGIN",1);	// This means this output page does not require to be logged.
 define("NOCSRFCHECK",1);	// We accept to go on this page from external web site.
 
-require("../../main.inc.php");
+require '../../main.inc.php';
 
 $langs->load("main");
 $langs->load("install");
@@ -38,17 +38,11 @@ global $dolibarr_main_demo;
 if (empty($dolibarr_main_demo)) accessforbidden('Parameter dolibarr_main_demo must be defined in conf file with value "default login,default pass" to enable the demo entry page',1,1,1);
 
 // Initialize technical object to manage hooks of thirdparties. Note that conf->hooks_modules contains array array
-include_once(DOL_DOCUMENT_ROOT.'/core/class/hookmanager.class.php');
+include_once DOL_DOCUMENT_ROOT.'/core/class/hookmanager.class.php';
 $hookmanager=new HookManager($db);
 $hookmanager->initHooks(array('demo'));
 
 $demoprofiles=array(
-	array('default'=>'-1', 'key'=>'profdemofun','label'=>'DemoFundation',
-	'disablemodules'=>'banque,barcode,boutique,cashdesk,commande,commercial,compta,comptabilite,contrat,expedition,externalsite,facture,ficheinter,fournisseur,mailmanspip,prelevement,product,projet,propal,propale,service,societe,stock,tax',
-	'icon'=>DOL_URL_ROOT.'/public/demo/dolibarr_screenshot6.png'),
-	array('default'=>'0', 'key'=>'profdemofun2','label'=>'DemoFundation2',
-	'disablemodules'=>'barcode,boutique,cashdesk,commande,commercial,compta,comptabilite,contrat,expedition,externalsite,facture,ficheinter,fournisseur,mailmanspip,prelevement,product,projet,propal,propale,service,societe,stock,tax',
-	'icon'=>DOL_URL_ROOT.'/public/demo/dolibarr_screenshot6.png'),
 	array('default'=>'1', 'key'=>'profdemoservonly','label'=>'DemoCompanyServiceOnly',
 	'disablemodules'=>'adherent,barcode,boutique,cashdesk,categorie,don,expedition,externalsite,mailmanspip,prelevement,product,stock',
 	'icon'=>DOL_URL_ROOT.'/public/demo/dolibarr_screenshot8.png'),
@@ -60,31 +54,34 @@ $demoprofiles=array(
 	'icon'=>DOL_URL_ROOT.'/public/demo/dolibarr_screenshot2.png'),
 	array('default'=>'0', 'key'=>'profdemoall','label'=>'DemoCompanyAll',
 	'disablemodules'=>'adherent,boutique,don,externalsite,mailmanspip',
-	'icon'=>DOL_URL_ROOT.'/public/demo/dolibarr_screenshot9.png')
-	);
+	'icon'=>DOL_URL_ROOT.'/public/demo/dolibarr_screenshot9.png'),
+	array('default'=>'-1', 'key'=>'profdemofun','label'=>'DemoFundation',
+	'disablemodules'=>'banque,barcode,boutique,cashdesk,commande,commercial,compta,comptabilite,contrat,expedition,externalsite,facture,ficheinter,fournisseur,mailmanspip,prelevement,product,projet,propal,propale,service,societe,stock,tax',
+	'icon'=>DOL_URL_ROOT.'/public/demo/dolibarr_screenshot6.png'),
+	array('default'=>'0', 'key'=>'profdemofun2','label'=>'DemoFundation2',
+	'disablemodules'=>'barcode,boutique,cashdesk,commande,commercial,compta,comptabilite,contrat,expedition,externalsite,facture,ficheinter,fournisseur,mailmanspip,prelevement,product,projet,propal,propale,service,societe,stock,tax',
+	'icon'=>DOL_URL_ROOT.'/public/demo/dolibarr_screenshot6.png')
+);
 
 
 $tmpaction = 'view';
 $parameters=array();
-$object=(object) 'nothing';
+$object=new stdClass();
 $reshook=$hookmanager->executeHooks('addDemoProfile', $parameters, $object, $tmpaction);    // Note that $action and $object may have been modified by some hooks
 $error=$hookmanager->error; $errors=$hookmanager->errors;
-/*
-$demoprofiles[]=array('default'=>'0', 'key'=>'profdemomed', 'lang'=>'cabinetmed@cabinetmed', 'label'=>'DemoCabinetMed', 'url'=>'http://demodolimed.dolibarr.org',
-	'disablemodules'=>'adherent,boutique,don,externalsite',
-	'icon'=>DOL_URL_ROOT.'/public/demo/dolibarr_screenshot6.png');
-*/
 
+// Visible
 $alwayscheckedmodules=array('barcode','bookmark','externalrss','fckeditor','geoipmaxmind','gravatar','memcached','syslog','user','webservices');  // Technical module we always want
 $alwaysuncheckedmodules=array('paybox','paypal','google','scanner','workflow');  // Module we never want
+// Not visible
 $alwayshiddencheckedmodules=array('accounting','barcode','bookmark','clicktodial','comptabilite','document','domain','externalrss','externalsite','fckeditor','geoipmaxmind','gravatar','label','ldap',
 								'mailmanspip','notification','syslog','user','webservices',
                                 // Extended modules
                                 'memcached','numberwords','zipautofillfr');
 $alwayshiddenuncheckedmodules=array('boutique','ftp',
                                 // Extended modules
-                                'awstats','bittorrent','cabinetmed','cmcic','concatpdf','dolicloud','filemanager','mantis','monitoring','moretemplates','nltechno','numberingpack','openstreetmap',
-                                'ovh','phenix','phpsysinfo','pibarcode','postnuke','skincoloreditor','submiteverywhere','survey','thomsonphonebook','topten','tvacerfa','voyage','webcalendar','webmail');
+                                'awstats','bittorrent','bootstrap','cabinetmed','cmcic','concatpdf','dolicloud','filemanager','lightbox','mantis','monitoring','moretemplates','nltechno','numberingpack','openstreetmap',
+                                'ovh','phenix','phpsysinfo','pibarcode','postnuke','selectbank','skincoloreditor','submiteverywhere','survey','thomsonphonebook','topten','tvacerfa','voyage','webcalendar','webmail');
 
 // Search modules
 $dirlist=$conf->file->dol_document_root;
@@ -140,7 +137,7 @@ foreach ($modulesdir as $dir)
                 {
 		            try
 		            {
-                        include_once($dir.$file);
+                        include_once $dir.$file;
                         $objMod = new $modName($db);
 
                         if ($objMod->numero > 0)
@@ -221,8 +218,7 @@ if (GETPOST("action") == 'gotodemo')
     // Do redirect to login page
 	if ($disablestring)
 	{
-		$url=DOL_URL_ROOT.'/index.php?disablemodules='.$disablestring;
-		if (GETPOST('urlfrom','alpha')) $url.='&urlfrom='.GETPOST('urlfrom','alpha');
+		$url=DOL_URL_ROOT.'/index.php?'.(GETPOST('urlfrom','alpha')?'urlfrom='.urlencode(GETPOST('urlfrom','alpha')).'&':'').'disablemodules='.$disablestring;
 		header("Location: ".$url);
 		exit;
 	}
@@ -242,16 +238,21 @@ jQuery(document).ready(function () {
     jQuery('tr.moduleline').hide();
     // Enable this to allow personalized setup
     jQuery('.modulelineshow').attr('href','#');
+    jQuery('.cursorpointer').css('cursor','pointer');
     jQuery(".modulelineshow").click(function() {
-        var currentId = $(this).attr('id').substring(2);
-        jQuery('tr.moduleline').hide();
-        if (currentId != openedId)
+        var idstring=$(this).attr('id');
+        if (typeof idstring != "undefined")
         {
-            openedId=currentId;
-            jQuery("#tr1"+currentId).show();
-            jQuery("#tr2"+currentId).show();
+	        var currentId = idstring.substring(2);
+	        jQuery('tr.moduleline').hide();
+	        if (currentId != openedId)
+	        {
+	            openedId=currentId;
+	            jQuery("#tr1"+currentId).show();
+	            jQuery("#tr2"+currentId).show();
+	        }
+	        else openedId = '';
         }
-        else openedId = '';
     });
 });
 </script>
@@ -296,14 +297,14 @@ foreach ($demoprofiles as $profilearray)
 
 		print '<form method="POST" name="form'.$profilearray['key'].'" action="'.$_SERVER["PHP_SELF"].'">'."\n";
 		print '<input type="hidden" name="action" value="gotodemo">'."\n";
-        print '<input type="hidden" name="urlfrom" value="'.urlencode($urlfrom).'">'."\n";
+        print '<input type="hidden" name="urlfrom" value="'.dol_escape_htmltag($urlfrom).'">'."\n";
         print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">'."\n";
         print '<input type="hidden" name="username" value="demo">'."\n";
         print '<table summary="Dolibarr online demonstration for profile '.$profilearray['label'].'" style="font-size:14px;" width="100%" class="CTable CTableRow'.($i%2==0?'1':'0').'">'."\n";
 		// Title
         print '<tr>';
-		print '<td width="50"><a href="'.$urlwithmod.'" id="a1'.$profilearray['key'].'" class="'.(empty($profilearray['url'])?'modulelineshow':'nomodulelines').'"><img src="'.$profilearray['icon'].'" width="48" border="0" alt="Demo '.$profilearray['label'].'"></a></td>';
-		print '<td><a href="'.$urlwithmod.'" id="a2'.$profilearray['key'].'" class="'.(empty($profilearray['url'])?'modulelineshow':'nomodulelines').'">'.$langs->trans($profilearray['label']).'</a></td>';
+		print '<td width="50" id="a1'.$profilearray['key'].'" class="'.(empty($profilearray['url'])?'modulelineshow cursorpointer':'nomodulelines').'"><a href="'.$urlwithmod.'" class="'.(empty($profilearray['url'])?'modulelineshow':'nomodulelines').'"><img src="'.$profilearray['icon'].'" width="48" border="0" alt="Demo '.$profilearray['label'].'"></a></td>';
+		print '<td id="a2'.$profilearray['key'].'" class="'.(empty($profilearray['url'])?'modulelineshow cursorpointer':'nomodulelines').'"><a href="'.$urlwithmod.'" class="'.(empty($profilearray['url'])?'modulelineshow':'nomodulelines').'">'.$langs->trans($profilearray['label']).'</a></td>';
 		print '</tr>'."\n";
         // Modules
         if (empty($profilearray['url']))
@@ -368,17 +369,7 @@ print '<tr><td>';
 
 print '</td></tr>';
 
-// Button
-/*
-print '<tr><td align="center">';
-print '<input type="hidden" name="action" value="gotodemo">';
-print '<input class="button" type="submit" value=" < '.$langs->trans("GoToDemo").' > ">';
-print '</td></tr>';
-*/
-
 print '</table>';
-
-$db->close();
 
 // Google Adsense (need Google module)
 if (! empty($conf->global->MAIN_GOOGLE_AD_CLIENT) && ! empty($conf->global->MAIN_GOOGLE_AD_SLOT))
@@ -398,6 +389,8 @@ if (! empty($conf->global->MAIN_GOOGLE_AD_CLIENT) && ! empty($conf->global->MAIN
 }
 
 llxFooterVierge();
+
+$db->close();
 
 
 /**
@@ -449,11 +442,11 @@ border-radius: 8px;
 -webkit-box-shadow: 4px 4px 4px #EEE;
 box-shadow: 4px 4px 4px #EEE;
 
-background-image: linear-gradient(bottom, rgb(246,248,250) 85%, rgb(235,235,238) 100%);
-background-image: -o-linear-gradient(bottom, rgb(246,248,250) 85%, rgb(235,235,238) 100%);
-background-image: -moz-linear-gradient(bottom, rgb(246,248,250) 85%, rgb(235,235,238) 100%);
-background-image: -webkit-linear-gradient(bottom, rgb(246,248,250) 85%, rgb(235,235,238) 100%);
-background-image: -ms-linear-gradient(bottom, rgb(246,248,250) 85%, rgb(235,235,238) 100%);
+background-image: linear-gradient(bottom, rgb(246,248,250) 15%, rgb(235,235,238) 100%);
+background-image: -o-linear-gradient(bottom, rgb(246,248,250) 15%, rgb(235,235,238) 100%);
+background-image: -moz-linear-gradient(bottom, rgb(246,248,250) 15%, rgb(235,235,238) 100%);
+background-image: -webkit-linear-gradient(bottom, rgb(246,248,250) 15%, rgb(235,235,238) 100%);
+background-image: -ms-linear-gradient(bottom, rgb(246,248,250) 15%, rgb(235,235,238) 100%);
 
     }';
 //    print '.CTableRow1      { background: #f0f0f0; color: #000000; }';

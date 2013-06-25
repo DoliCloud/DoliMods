@@ -1,12 +1,12 @@
 <?php
 /* Copyright (C) 2004-2010 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2005-2009 Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2005-2009 Regis Houssin        <regis.houssin@capnetworks.com>
  * Copyright (C) 2006      Andre Cianfarani     <acianfa@free.fr>
  * Copyright (C) 2011 	   Juanjo Menent		<jmenent@2byte.es>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -24,8 +24,8 @@
  *		\brief      Page to setup sending module
  */
 
-require("../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
+require '../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
 
 $langs->load("admin");
 $langs->load("sendings");
@@ -40,13 +40,13 @@ $action=GETPOST('action','alpha');
 if ($action == 'activate_sending')
 {
     dolibarr_set_const($db, "MAIN_SUBMODULE_EXPEDITION", "1",'chaine',0,'',$conf->entity);
-    Header("Location: confexped.php");
+    header("Location: confexped.php");
     exit;
 }
 else if ($action == 'disable_sending')
 {
 	dolibarr_del_const($db, "MAIN_SUBMODULE_EXPEDITION",$conf->entity);
-    Header("Location: confexped.php");
+    header("Location: confexped.php");
     exit;
 }
 // Delivery note
@@ -54,13 +54,13 @@ else if ($action == 'activate_delivery')
 {
     dolibarr_set_const($db, "MAIN_SUBMODULE_EXPEDITION", "1",'chaine',0,'',$conf->entity);    // We must also enable this
     dolibarr_set_const($db, "MAIN_SUBMODULE_LIVRAISON", "1",'chaine',0,'',$conf->entity);
-	Header("Location: confexped.php");
+	header("Location: confexped.php");
 	exit;
 }
 else if ($action == 'disable_delivery')
 {
 	dolibarr_del_const($db, "MAIN_SUBMODULE_LIVRAISON",$conf->entity);
-    Header("Location: confexped.php");
+    header("Location: confexped.php");
     exit;
 }
 
@@ -84,14 +84,14 @@ $head[$h][1] = $langs->trans("Setup");
 $hselected=$h;
 $h++;
 
-if ($conf->global->MAIN_SUBMODULE_EXPEDITION)
+if (! empty($conf->global->MAIN_SUBMODULE_EXPEDITION))
 {
 	$head[$h][0] = DOL_URL_ROOT."/admin/expedition.php";
 	$head[$h][1] = $langs->trans("Sending");
 	$h++;
 }
 
-if ($conf->global->MAIN_SUBMODULE_LIVRAISON)
+if (! empty($conf->global->MAIN_SUBMODULE_LIVRAISON))
 {
 	$head[$h][0] = DOL_URL_ROOT."/admin/livraison.php";
 	$head[$h][1] = $langs->trans("Receivings");

@@ -2,12 +2,12 @@
 /* Copyright (C) 2003-2007 Rodolphe Quiedeville <rodolphe@quiedeville.org>
  * Copyright (C) 2003      Xavier Dutoit        <doli@sydesy.com>
  * Copyright (C) 2004-2012 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2005-2012 Regis Houssin      	<regis@dolibarr.fr>
+ * Copyright (C) 2005-2012 Regis Houssin      	<regis.houssin@capnetworks.com>
  * Copyright (C) 2006 	   Jean Heimburger    	<jean@tiaris.info>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -52,21 +52,15 @@ class Conf
 	public $smart_menu;
 
 	public $modules					= array();	// List of activated modules
-	public $modules_parts			= array();	// List of modules parts
+	public $modules_parts			= array('css'=>array(), 'js'=>array(),'triggers'=>array(),'login'=>array(),'substitutions'=>array(),'menus'=>array(),'theme'=>array(),'tpl'=>array(),'barcode'=>array(),'models'=>array(),'hooks'=>array(),'dir'=>array());	// List of modules parts
 
-	// TODO Remove all thoose tabs with one generic
-	public $sms_engine_modules		= array();
-	public $css_modules				= array();
+	// TODO Remove thoose arrays with generic module_parts
 	public $tabs_modules			= array();
-	public $triggers_modules		= array();
-	public $menus_modules			= array();
-	public $hooks_modules			= array();
-	public $login_modules			= array();
-	public $barcode_modules			= array();
-	public $substitutions_modules	= array();
+	public $sms_engine_modules		= array();
 	public $societe_modules	        = array();
 
 	var $logbuffer					= array();
+	var $loghandlers                = array();
 
 	//! To store properties of multi-company
 	public $multicompany;
@@ -82,35 +76,35 @@ class Conf
 	 *
 	 * @return Conf
 	 */
-	function Conf()
+	function __construct()
 	{
 		// Avoid warnings when filling this->xxx
-		$this->file				= (object) array();
-		$this->db				= (object) array();
-		$this->global			= (object) array();
-		$this->mycompany		= (object) array();
-		$this->admin			= (object) array();
-		$this->user				= (object) array();
-		$this->syslog			= (object) array();
-		$this->browser			= (object) array();
-		$this->multicompany		= (object) array();
+		$this->file				= new stdClass();
+		$this->db				= new stdClass();
+		$this->global			= new stdClass();
+		$this->mycompany		= new stdClass();
+		$this->admin			= new stdClass();
+		$this->user				= new stdClass();
+		$this->syslog			= new stdClass();
+		$this->browser			= new stdClass();
+		$this->multicompany		= new stdClass();
 
 		// First level object
-		$this->expedition_bon	= (object) array();
-		$this->livraison_bon	= (object) array();
-		$this->fournisseur		= (object) array();
-		$this->product			= (object) array();
-		$this->service			= (object) array();
-		$this->contrat			= (object) array();
-		$this->actions			= (object) array();
-		$this->commande			= (object) array();
-		$this->propal			= (object) array();
-		$this->facture			= (object) array();
-		$this->contrat			= (object) array();
-		$this->adherent			= (object) array();
-		$this->bank				= (object) array();
-		$this->notification		= (object) array();
-		$this->mailing			= (object) array();
+		$this->expedition_bon	= new stdClass();
+		$this->livraison_bon	= new stdClass();
+		$this->fournisseur		= new stdClass();
+		$this->product			= new stdClass();
+		$this->service			= new stdClass();
+		$this->contrat			= new stdClass();
+		$this->actions			= new stdClass();
+		$this->commande			= new stdClass();
+		$this->propal			= new stdClass();
+		$this->facture			= new stdClass();
+		$this->contrat			= new stdClass();
+		$this->adherent			= new stdClass();
+		$this->bank				= new stdClass();
+		$this->notification		= new stdClass();
+		$this->mailing			= new stdClass();
 
 		//! Charset for HTML output and for storing data in memory
 		$this->file->character_set_client='UTF-8';   // UTF-8, ISO-8859-1
@@ -119,17 +113,14 @@ class Conf
 
 	/**
 	 *	Load setup values into conf object (read llx_const)
+	 *  Note that this->db->xxx, this->file->xxx and this->multicompany have been already loaded when setValues is called.
 	 *
-	 *	@param      DoliDB		$db		Handler d'acces base
+	 *	@param      DoliDB		$db		Database handler
 	 *	@return     int					< 0 if KO, >= 0 if OK
 	 */
 	function setValues($db)
 	{
 		dol_syslog(get_class($this)."::setValues");
-
-		// Avoid warning if not defined
-		if (empty($this->db->dolibarr_main_db_encryption)) $this->db->dolibarr_main_db_encryption=0;
-		if (empty($this->db->dolibarr_main_db_cryptkey))   $this->db->dolibarr_main_db_cryptkey='';
 
 		/*
 		 * Definition de toutes les constantes globales d'environnement
@@ -161,45 +152,48 @@ class Conf
 				$value=$objp->value;
 				if ($key)
 				{
-					if (! defined("$key")) define("$key", $value);	// In some cases, the constant might be already forced (Example: SYSLOG_FILE_ON and SYSLOG_FILE during install)
+					if (! defined("$key")) define("$key", $value);	// In some cases, the constant might be already forced (Example: SYSLOG_HANDLERS during install)
 					$this->global->$key=$value;
 
 					if ($value && preg_match('/^MAIN_MODULE_/',$key))
 					{
 						// If this is constant for a new tab page activated by a module.
-						if (preg_match('/^MAIN_MODULE_([A-Z_]+)_TABS_/i',$key))
+						if (preg_match('/^MAIN_MODULE_([0-9A-Z_]+)_TABS_/i',$key))
 						{
 							$params=explode(':',$value,2);
-							$this->tabs_modules[$params[0]][]=$value;
+							$this->tabs_modules[$params[0]][]=$value;				// Add this module in list of modules that provide tabs
 						}
 						// If this is constant for a sms engine
-						elseif (preg_match('/^MAIN_MODULE_([A-Z_]+)_SMS$/i',$key,$reg))
+						elseif (preg_match('/^MAIN_MODULE_([0-9A-Z_]+)_SMS$/i',$key,$reg))
 						{
 							$modulename=strtolower($reg[1]);
-							$this->sms_engine_modules[$modulename]=$modulename;    // Add this module in list of modules that provide SMS
+							$this->sms_engine_modules[$modulename]=$modulename;		// Add this module in list of modules that provide SMS
+						}
+						// If this is constant for a societe submodule
+						elseif (preg_match('/^MAIN_MODULE_([0-9A-Z_]+)_SOCIETE$/i',$key,$reg))
+						{
+							$modulename=strtolower($reg[1]);
+							$this->societe_modules[$modulename]=$modulename;		// Add this module in list of modules that provide societe modules
 						}
 						// If this is constant for all generic part activated by a module
-						elseif (preg_match('/^MAIN_MODULE_([A-Z_]+)_([A-Z]+)$/i',$key,$reg))
+						elseif (preg_match('/^MAIN_MODULE_([0-9A-Z_]+)_([A-Z]+)$/i',$key,$reg))
 						{
 							$modulename = strtolower($reg[1]);
 							$partname = strtolower($reg[2]);
-							$varname = $partname.'_modules';  // TODO deprecated
-							if (! isset($this->$varname) || ! is_array($this->$varname)) { $this->$varname = array(); } // TODO deprecated
 							if (! isset($this->modules_parts[$partname]) || ! is_array($this->modules_parts[$partname])) { $this->modules_parts[$partname] = array(); }
 							$arrValue = json_decode($value,true);
 							if (is_array($arrValue) && ! empty($arrValue)) $value = $arrValue;
-							else if (in_array($partname,array('login','menus','substitutions','triggers'))) $value = '/'.$modulename.'/core/'.$partname.'/';
+							else if (in_array($partname,array('login','menus','substitutions','triggers','tpl','theme'))) $value = '/'.$modulename.'/core/'.$partname.'/';
 							else if (in_array($partname,array('models'))) $value = '/'.$modulename.'/';
 							else if ($value == 1) $value = '/'.$modulename.'/core/modules/'.$partname.'/';
-							$this->$varname = array_merge($this->$varname, array($modulename => $value));  // TODO deprecated
 							$this->modules_parts[$partname] = array_merge($this->modules_parts[$partname], array($modulename => $value));
 						}
                         // If this is a module constant (must be at end)
-						elseif (preg_match('/^MAIN_MODULE_([A-Z_]+)$/i',$key,$reg))
+						elseif (preg_match('/^MAIN_MODULE_([0-9A-Z_]+)$/i',$key,$reg))
 						{
 							$modulename=strtolower($reg[1]);
 							if ($modulename == 'propale') $modulename='propal';
-							if (! isset($this->$modulename) || ! is_object($this->$modulename)) $this->$modulename=(object) array();
+							if (! isset($this->$modulename) || ! is_object($this->$modulename)) $this->$modulename=new stdClass();
 							$this->$modulename->enabled=true;
 							$this->modules[]=$modulename;              // Add this module in list of enabled modules
 						}
@@ -222,20 +216,20 @@ class Conf
 		}
 
 		// Second or others levels object
-		$this->propal->cloture				= (object) array();
-		$this->propal->facturation			= (object) array();
-		$this->commande->client				= (object) array();
-		$this->commande->fournisseur		= (object) array();
-		$this->facture->client				= (object) array();
-		$this->facture->fournisseur			= (object) array();
-		$this->fournisseur->commande 		= (object) array();
-		$this->fournisseur->facture			= (object) array();
-		$this->contrat->services			= (object) array();
-		$this->contrat->services->inactifs	= (object) array();
-		$this->contrat->services->expires	= (object) array();
-		$this->adherent->cotisation			= (object) array();
-		$this->bank->rappro					= (object) array();
-		$this->bank->cheque					= (object) array();
+		$this->propal->cloture				= new stdClass();
+		$this->propal->facturation			= new stdClass();
+		$this->commande->client				= new stdClass();
+		$this->commande->fournisseur		= new stdClass();
+		$this->facture->client				= new stdClass();
+		$this->facture->fournisseur			= new stdClass();
+		$this->fournisseur->commande 		= new stdClass();
+		$this->fournisseur->facture			= new stdClass();
+		$this->contrat->services			= new stdClass();
+		$this->contrat->services->inactifs	= new stdClass();
+		$this->contrat->services->expires	= new stdClass();
+		$this->adherent->cotisation			= new stdClass();
+		$this->bank->rappro					= new stdClass();
+		$this->bank->cheque					= new stdClass();
 
 		// Clean some variables
 		if (empty($this->global->MAIN_MENU_STANDARD)) $this->global->MAIN_MENU_STANDARD="eldy_backoffice.php";
@@ -268,11 +262,30 @@ class Conf
 		// Define default dir_output and dir_temp for directories of modules
 		foreach($this->modules as $module)
 		{
+			// For multicompany sharings
 			$this->$module->multidir_output	= array($this->entity => $rootfordata."/".$module);
 			$this->$module->multidir_temp	= array($this->entity => $rootfordata."/".$module."/temp");
 			// For backward compatibility
 			$this->$module->dir_output	= $rootfordata."/".$module;
 			$this->$module->dir_temp	= $rootfordata."/".$module."/temp";
+		}
+
+		// External modules storage
+		if (! empty($this->modules_parts['dir']))
+		{
+			foreach($this->modules_parts['dir'] as $module => $dirs)
+			{
+				foreach($dirs as $type => $name)
+				{
+					$subdir=($type=='temp'?'/temp':'');
+					// For multicompany sharings
+					$varname = 'multidir_'.$type;
+					$this->$module->$varname = array($this->entity => $rootfordata."/".$name.$subdir);
+					// For backward compatibility
+					$varname = 'dir_'.$type;
+					$this->$module->$varname = $rootfordata."/".$name.$subdir;
+				}
+			}
 		}
 
 		// For mycompany storage
@@ -328,7 +341,8 @@ class Conf
 
 		// societe
 		if (empty($this->global->SOCIETE_CODECLIENT_ADDON))       $this->global->SOCIETE_CODECLIENT_ADDON="mod_codeclient_leopard";
-		if (empty($this->global->SOCIETE_CODEFOURNISSEUR_ADDON))  $this->global->SOCIETE_CODEFOURNISSEUR_ADDON=$this->global->SOCIETE_CODECLIENT_ADDON;
+		// Unused constant and for avoid problem with multicompany sharing
+		//if (empty($this->global->SOCIETE_CODEFOURNISSEUR_ADDON))  $this->global->SOCIETE_CODEFOURNISSEUR_ADDON=$this->global->SOCIETE_CODECLIENT_ADDON;
 		if (empty($this->global->SOCIETE_CODECOMPTA_ADDON))       $this->global->SOCIETE_CODECOMPTA_ADDON="mod_codecompta_panicum";
 
         // Security
@@ -362,7 +376,7 @@ class Conf
 		$this->css  = "/theme/".$this->theme."/style.css.php";
 
 		// conf->email_from = email pour envoi par dolibarr des mails automatiques
-		$this->email_from = "dolibarr-robot@domain.com";
+		$this->email_from = "robot@domain.com";
 		if (! empty($this->global->MAIN_MAIL_EMAIL_FROM)) $this->email_from = $this->global->MAIN_MAIL_EMAIL_FROM;
 
 		// conf->notification->email_from = email pour envoi par Dolibarr des notifications
@@ -373,7 +387,7 @@ class Conf
 		$this->mailing->email_from=$this->email_from;
 		if (! empty($this->global->MAILING_EMAIL_FROM))	$this->mailing->email_from=$this->global->MAILING_EMAIL_FROM;
 
-        // Format for date (used by default when not found or searched in lang)
+        // Format for date (used by default when not found or not searched in lang)
         $this->format_date_short="%d/%m/%Y";            // Format of day with PHP/C tags (strftime functions)
         $this->format_date_short_java="dd/MM/yyyy";     // Format of day with Java tags
         $this->format_hour_short="%H:%M";
@@ -384,10 +398,19 @@ class Conf
         $this->format_date_hour_text_short="%d %b %Y %H:%M";
         $this->format_date_hour_text="%d %B %Y %H:%M";
 
+        // Duration of workday
+        if (! isset($this->global->MAIN_DURATION_OF_WORKDAY)) $this->global->MAIN_DURATION_OF_WORKDAY=86400;
+
 		// Limites decimales si non definie (peuvent etre egale a 0)
 		if (! isset($this->global->MAIN_MAX_DECIMALS_UNIT))  $this->global->MAIN_MAX_DECIMALS_UNIT=5;
 		if (! isset($this->global->MAIN_MAX_DECIMALS_TOT))   $this->global->MAIN_MAX_DECIMALS_TOT=2;
 		if (! isset($this->global->MAIN_MAX_DECIMALS_SHOWN)) $this->global->MAIN_MAX_DECIMALS_SHOWN=8;
+
+		// Default max file size for upload
+		$this->maxfilesize = (empty($this->global->MAIN_UPLOAD_DOC) ? 0 : $this->global->MAIN_UPLOAD_DOC * 1024);
+
+		// Define list of limited modules
+		if (! isset($this->global->MAIN_MODULES_FOR_EXTERNAL)) $this->global->MAIN_MODULES_FOR_EXTERNAL='user,facture,commande,fournisseur,contact,propal,projet,contrat,societe,ficheinter,expedition,agenda';	// '' means 'all'. Note that contact is added here as it should be a module later.
 
 		// Timeouts
         if (empty($this->global->MAIN_USE_CONNECT_TIMEOUT)) $this->global->MAIN_USE_CONNECT_TIMEOUT=10;
@@ -420,26 +443,31 @@ class Conf
 		if (isset($this->contrat))   $this->contract=$this->contrat;
 		if (isset($this->categorie)) $this->category=$this->categorie;
 
-
-        // Define menu manager in setup
-        if (empty($user->societe_id))    // If internal user or not defined
-        {
-            $this->top_menu=(empty($this->global->MAIN_MENU_STANDARD_FORCED)?$this->global->MAIN_MENU_STANDARD:$this->global->MAIN_MENU_STANDARD_FORCED);
-            $this->smart_menu=(empty($this->global->MAIN_MENU_SMARTPHONE_FORCED)?$this->global->MAIN_MENU_SMARTPHONE:$this->global->MAIN_MENU_SMARTPHONE_FORCED);
-        }
-        else                        // If external user
-        {
-            $this->top_menu=(empty($this->global->MAIN_MENUFRONT_STANDARD_FORCED)?$this->global->MAIN_MENUFRONT_STANDARD:$this->global->MAIN_MENUFRONT_STANDARD_FORCED);
-            $this->smart_menu=(empty($this->global->MAIN_MENUFRONT_SMARTPHONE_FORCED)?$this->global->MAIN_MENUFRONT_SMARTPHONE:$this->global->MAIN_MENUFRONT_SMARTPHONE_FORCED);
-        }
-        // For backward compatibility
-        if ($this->top_menu == 'eldy.php') $this->top_menu='eldy_backoffice.php';
-        elseif ($this->top_menu == 'rodolphe.php') $this->top_menu='eldy_backoffice.php';
-
         // Object $mc
         if (! defined('NOREQUIREMC') && ! empty($this->multicompany->enabled))
         {
         	if (is_object($mc)) $mc->setValues($this);
+        }
+
+        // We init log handlers
+        if (defined('SYSLOG_HANDLERS')) $handlers = json_decode(constant('SYSLOG_HANDLERS'));
+        else $handlers = array();
+        foreach ($handlers as $handler)
+        {
+        	$file = DOL_DOCUMENT_ROOT.'/core/modules/syslog/'.$handler.'.php';
+           	if (!file_exists($file))
+        	{
+        		throw new Exception('Missing log handler file '.$handler.'.php');
+        	}
+
+        	require_once $file;
+        	$loghandlerinstance = new $handler();
+        	if (!$loghandlerinstance instanceof LogHandlerInterface)
+        	{
+        		throw new Exception('Log handler does not extend LogHandlerInterface');
+        	}
+
+        	if (empty($conf->loghandlers[$handler])) $this->loghandlers[$handler]=$loghandlerinstance;
         }
 	}
 }

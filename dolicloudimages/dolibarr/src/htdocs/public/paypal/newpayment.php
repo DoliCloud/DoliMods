@@ -1,11 +1,11 @@
 <?php
 /* Copyright (C) 2001-2002	Rodolphe Quiedeville	<rodolphe@quiedeville.org>
  * Copyright (C) 2006-2012	Laurent Destailleur		<eldy@users.sourceforge.net>
- * Copyright (C) 2009-2012	Regis Houssin			<regis@dolibarr.fr>
+ * Copyright (C) 2009-2012	Regis Houssin			<regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -15,6 +15,8 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * For test: https://developer.paypal.com/
  */
 
 /**
@@ -34,12 +36,12 @@ if (is_int($entity))
 	define("DOLENTITY", $entity);
 }
 
-require("../../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/paypal/lib/paypal.lib.php");
-require_once(DOL_DOCUMENT_ROOT."/paypal/lib/paypalfunctions.lib.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/company.lib.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/functions2.lib.php");
-require_once(DOL_DOCUMENT_ROOT."/product/class/product.class.php");
+require '../../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/paypal/lib/paypal.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/paypal/lib/paypalfunctions.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
 
 // Security check
 if (empty($conf->paypal->enabled)) accessforbidden('',1,1,1);
@@ -235,7 +237,10 @@ if (GETPOST("action") == 'dopayment')
         dol_syslog("email: $email", LOG_DEBUG);
         dol_syslog("desc: $desc", LOG_DEBUG);
 
-	    $_SESSION["Payment_Amount"]=$PAYPAL_API_PRICE;
+        dol_syslog("SCRIPT_URI: ".(empty($_SERVER["SCRIPT_URI"])?'':$_SERVER["SCRIPT_URI"]), LOG_DEBUG);	// If defined script uri must match domain of PAYPAL_API_OK and PAYPAL_API_KO
+	    //$_SESSION["PaymentType"]=$PAYPAL_PAYMENT_TYPE;
+	    //$_SESSION["currencyCodeType"]=$PAYPAL_API_DEVISE;
+	    //$_SESSION["Payment_Amount"]=$PAYPAL_API_PRICE;
 
 	    // A redirect is added if API call successfull
         print_paypal_redirect($PAYPAL_API_PRICE,$PAYPAL_API_DEVISE,$PAYPAL_PAYMENT_TYPE,$PAYPAL_API_OK,$PAYPAL_API_KO, $FULLTAG);
@@ -391,7 +396,7 @@ if (GETPOST("source") == 'order' && $valid)
 	$found=true;
 	$langs->load("orders");
 
-	require_once(DOL_DOCUMENT_ROOT."/commande/class/commande.class.php");
+	require_once DOL_DOCUMENT_ROOT.'/commande/class/commande.class.php';
 
 	$order=new Commande($db);
 	$result=$order->fetch('',$ref);
@@ -498,7 +503,7 @@ if (GETPOST("source") == 'invoice' && $valid)
 	$found=true;
 	$langs->load("bills");
 
-	require_once(DOL_DOCUMENT_ROOT."/compta/facture/class/facture.class.php");
+	require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
 
 	$invoice=new Facture($db);
 	$result=$invoice->fetch('',$ref);
@@ -604,7 +609,7 @@ if (GETPOST("source") == 'contractline' && $valid)
 	$found=true;
 	$langs->load("contracts");
 
-	require_once(DOL_DOCUMENT_ROOT."/contrat/class/contrat.class.php");
+	require_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
 
 	$contractline=new ContratLigne($db);
 	$result=$contractline->fetch('',$ref);
@@ -643,7 +648,7 @@ if (GETPOST("source") == 'contractline' && $valid)
 		$result=$product->fetch($contractline->fk_product);
 
 		// We define price for product (TODO Put this in a method in product class)
-		if ($conf->global->PRODUIT_MULTIPRICES)
+		if (! empty($conf->global->PRODUIT_MULTIPRICES))
 		{
 			$pu_ht = $product->multiprices[$contract->thirdparty->price_level];
 			$pu_ttc = $product->multiprices_ttc[$contract->thirdparty->price_level];
@@ -799,8 +804,8 @@ if (GETPOST("source") == 'membersubscription' && $valid)
 	$found=true;
 	$langs->load("members");
 
-	require_once(DOL_DOCUMENT_ROOT."/adherents/class/adherent.class.php");
-	require_once(DOL_DOCUMENT_ROOT."/adherents/class/cotisation.class.php");
+	require_once DOL_DOCUMENT_ROOT.'/adherents/class/adherent.class.php';
+	require_once DOL_DOCUMENT_ROOT.'/adherents/class/cotisation.class.php';
 
 	$member=new Adherent($db);
 	$result=$member->fetch('',$ref);
@@ -948,7 +953,7 @@ if ($found && ! $error)	// We are in a management option and no error
 }
 else
 {
-	dol_print_error_email();
+	dol_print_error_email('ERRORNEWPAYMENTPAYPAL');
 }
 
 print '</td></tr>'."\n";

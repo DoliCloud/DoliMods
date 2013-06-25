@@ -2,13 +2,13 @@
 /* Copyright (C) 2001-2007 Rodolphe Quiedeville <rodolphe@quiedeville.org>
  * Copyright (C) 2004-2011 Laurent Destailleur  <eldy@users.sourceforge.net>
  * Copyright (C) 2005      Eric Seigne          <eric.seigne@ryxeo.com>
- * Copyright (C) 2005-2010 Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2005-2012 Regis Houssin        <regis.houssin@capnetworks.com>
  * Copyright (C) 2006      Andre Cianfarani     <acianfa@free.fr>
  * Copyright (C) 2011      Juanjo Menent        <jmenent@2byte.es>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -26,32 +26,30 @@
  *  \brief      Page de la fiche produit
  */
 
-require("../../main.inc.php");
+require '../../main.inc.php';
 
-require_once(DOL_DOCUMENT_ROOT."/core/lib/product.lib.php");
-require_once(DOL_DOCUMENT_ROOT."/product/class/product.class.php");
-require_once(DOL_DOCUMENT_ROOT."/categories/class/categorie.class.php");
+require_once DOL_DOCUMENT_ROOT.'/core/lib/product.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
+require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
 
 $langs->load("bills");
 $langs->load("products");
 
+$id=GETPOST('id','int');
+$ref=GETPOST('ref','alpha');
+$action=GETPOST('action','alpha');
+$confirm=GETPOST('confirm','alpha');
+$cancel=GETPOST('cancel','alpha');
+$key=GETPOST('key');
+$parent=GETPOST('parent');
+
 // Security check
-if (isset($_GET["id"]) || isset($_GET["ref"]))
-{
-	$id = isset($_GET["id"])?$_GET["id"]:(isset($_GET["ref"])?$_GET["ref"]:'');
-}
-$fieldid = isset($_GET["ref"])?'ref':'rowid';
-if ($user->societe_id) $socid=$user->societe_id;
-$result=restrictedArea($user,'produit|service',$id,'product','','',$fieldid);
+if (! empty($user->societe_id)) $socid=$user->societe_id;
+$fieldvalue = (! empty($id) ? $id : (! empty($ref) ? $ref : ''));
+$fieldtype = (! empty($ref) ? 'ref' : 'rowid');
+$result=restrictedArea($user,'produit|service',$fieldvalue,'product&product','','',$fieldtype);
 
 $mesg = '';
-
-$id=isset($_GET["id"])?$_GET["id"]:$_POST["id"];
-$ref=isset($_GET["ref"])?$_GET["ref"]:$_POST["ref"];
-$key=isset($_GET["key"])?$_GET["key"]:$_POST["key"];
-$catMere=isset($_GET["catMere"])?$_GET["catMere"]:$_POST["catMere"];
-$action=isset($_GET["action"])?$_GET["action"]:$_POST["action"];
-$cancel=isset($_GET["cancel"])?$_GET["cancel"]:$_POST["cancel"];
 
 $product = new Product($db);
 $productid=0;
@@ -113,7 +111,7 @@ $cancel <> $langs->trans("Cancel") &&
 if ($cancel == $langs->trans("Cancel"))
 {
 	$action = '';
-	Header("Location: fiche.php?id=".$_POST["id"]);
+	header("Location: fiche.php?id=".$_POST["id"]);
 	exit;
 }
 
@@ -128,14 +126,14 @@ if ($action == 'search')
 	$current_lang = $langs->getDefaultLang();
 
 	$sql = 'SELECT DISTINCT p.rowid, p.ref, p.label, p.price, p.fk_product_type as type';
-	if ($conf->global->MAIN_MULTILANGS) $sql.= ', pl.label as labelm, pl.description as descriptionm';
+	if (! empty($conf->global->MAIN_MULTILANGS)) $sql.= ', pl.label as labelm, pl.description as descriptionm';
 	$sql.= ' FROM '.MAIN_DB_PREFIX.'product as p';
 	$sql.= ' LEFT JOIN '.MAIN_DB_PREFIX.'categorie_product as cp ON p.rowid = cp.fk_product';
-	if ($conf->global->MAIN_MULTILANGS) $sql.= " LEFT JOIN ".MAIN_DB_PREFIX."product_lang as pl ON pl.fk_product = p.rowid AND lang='".($current_lang)."'";
+	if (! empty($conf->global->MAIN_MULTILANGS)) $sql.= " LEFT JOIN ".MAIN_DB_PREFIX."product_lang as pl ON pl.fk_product = p.rowid AND lang='".($current_lang)."'";
 	$sql.= ' WHERE p.entity IN ('.getEntity("product", 1).')';
 	if ($key != "")
 	{
-		if ($conf->global->MAIN_MULTILANGS)
+		if (! empty($conf->global->MAIN_MULTILANGS))
 		{
 			$sql.= " AND (p.ref LIKE '%".$key."%'";
 			$sql.= " OR pl.label LIKE '%".$key."%')";
@@ -146,9 +144,9 @@ if ($action == 'search')
 			$sql.= " OR p.label LIKE '%".$key."%')";
 		}
 	}
-	if ($conf->categorie->enabled && $catMere != -1 and $catMere)
+	if (! empty($conf->categorie->enabled) && ! empty($parent) && $parent != -1)
 	{
-		$sql.= " AND cp.fk_categorie ='".$db->escape($catMere)."'";
+		$sql.= " AND cp.fk_categorie ='".$db->escape($parent)."'";
 	}
 	$sql.= " ORDER BY p.ref ASC";
 
@@ -187,7 +185,7 @@ if ($id || $ref)
 			print "<tr>";
 
 			$nblignes=6;
-			if ($product->isproduct() && $conf->stock->enabled) $nblignes++;
+			if ($product->isproduct() && ! empty($conf->stock->enabled)) $nblignes++;
 			if ($product->isservice()) $nblignes++;
 
 			// Reference
@@ -219,14 +217,14 @@ if ($id || $ref)
 					$productstatic->id=$value['id'];
 					$productstatic->type=$value['type'];
 					$productstatic->ref=$value['fullpath'];
-					if ($conf->stock->enabled) $productstatic->load_stock();
+					if (! empty($conf->stock->enabled)) $productstatic->load_stock();
 					//var_dump($value);
 					//print '<pre>'.$productstatic->ref.'</pre>';
 					//print $productstatic->getNomUrl(1).'<br>';
 					//print $value[0];	// This contains a tr line.
 					print '<tr>';
 					print '<td>'.$productstatic->getNomUrl(1,'composition').' ('.$value['nb'].') &nbsp &nbsp</td>';
-					if ($conf->stock->enabled) print '<td>'.$langs->trans("Stock").' : <b>'.$productstatic->stock_reel.'</b></td>';
+					if (! empty($conf->stock->enabled)) print '<td>'.$langs->trans("Stock").' : <b>'.$productstatic->stock_reel.'</b></td>';
 					print '</tr>';
 				}
 				print '</table>';
@@ -271,7 +269,7 @@ if ($id || $ref)
 		print "<tr>";
 
 		$nblignes=6;
-		if ($product->isproduct() && $conf->stock->enabled) $nblignes++;
+		if ($product->isproduct() && ! empty($conf->stock->enabled)) $nblignes++;
 		if ($product->isservice()) $nblignes++;
 
 			// Reference
@@ -304,14 +302,14 @@ if ($id || $ref)
 				$productstatic->id=$value['id'];
 				$productstatic->type=$value['type'];
 				$productstatic->ref=$value['fullpath'];
-				if ($conf->stock->enabled) $productstatic->load_stock();
+				if (! empty($conf->stock->enabled)) $productstatic->load_stock();
 				//var_dump($value);
 				//print '<pre>'.$productstatic->ref.'</pre>';
 				//print $productstatic->getNomUrl(1).'<br>';
 				//print $value[0];	// This contains a tr line.
 				print '<tr>';
 				print '<td>'.$productstatic->getNomUrl(1,'composition').' ('.$value['nb'].') &nbsp &nbsp</td>';
-				if ($conf->stock->enabled) print '<td>'.$langs->trans("Stock").' : <b>'.$productstatic->stock_reel.'</b></td>';
+				if (! empty($conf->stock->enabled)) print '<td>'.$langs->trans("Stock").' : <b>'.$productstatic->stock_reel.'</b></td>';
 				print '</tr>';
 			}
 			print '</table>';
@@ -347,7 +345,7 @@ if ($id || $ref)
 		print '<br>';
 
 		$rowspan=1;
-		if ($conf->categorie->enabled) $rowspan++;
+		if (! empty($conf->categorie->enabled)) $rowspan++;
 
         print_fiche_titre($langs->trans("ProductToAddSearch"),'','');
 		print '<form action="'.DOL_URL_ROOT.'/product/composition/fiche.php?id='.$id.'" method="post">';
@@ -365,10 +363,10 @@ if ($id || $ref)
 		print '<td rowspan="'.$rowspan.'" valign="middle">';
 		print '<input type="submit" class="button" value="'.$langs->trans("Search").'">';
 		print '</td></tr>';
-		if ($conf->categorie->enabled)
+		if (! empty($conf->categorie->enabled))
 		{
 			print '<tr><td>'.$langs->trans("CategoryFilter").' &nbsp; </td>';
-			print '<td>'.$form->select_all_categories(0,$catMere).'</td></tr>';
+			print '<td>'.$form->select_all_categories(0, $parent).'</td></tr>';
 		}
 
 		print '</table>';

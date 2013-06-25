@@ -1,9 +1,9 @@
 // Copyright (C) 2005-2010 Laurent Destailleur  <eldy@users.sourceforge.net>
-// Copyright (C) 2005-2009 Regis Houssin        <regis@dolibarr.fr>
+// Copyright (C) 2005-2012 Regis Houssin        <regis.houssin@capnetworks.com>
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
-// the Free Software Foundation; either version 2 of the License, or
+// the Free Software Foundation; either version 3 of the License, or
 // (at your option) any later version.
 //
 // This program is distributed in the hope that it will be useful,
@@ -627,15 +627,155 @@ function hideMessage(fieldId,message) {
 	if (textbox.value == message) textbox.value = '';
 }
 
+/*
+ * 
+ */
+function setConstant(url, code, input, entity) {
+	$.get( url, {
+		action: "set",
+		name: code,
+		entity: entity
+	},
+	function() {
+		$("#set_" + code).hide();
+		$("#del_" + code).show();
+		$.each(input, function(type, data) {
+			// Enable another element
+			if (type == "disabled") {
+				$.each(data, function(key, value) {
+					$("#" + value).removeAttr("disabled");
+					if ($("#" + value).hasClass("butActionRefused") == true) {
+						$("#" + value).removeClass("butActionRefused");
+						$("#" + value).addClass("butAction");
+					}
+				});
+			// Show another element
+			} else if (type == "showhide" || type == "show") {
+				$.each(data, function(key, value) {
+					$("#" + value).show();
+				});
+			// Set another constant
+			} else if (type == "set") {
+				$.each(data, function(key, value) {
+					$("#set_" + key).hide();
+					$("#del_" + key).show();
+					$.get( url, {
+						action: "set",
+						name: key,
+						value: value,
+						entity: entity
+					});
+				});
+			}
+		});
+	});
+}
 
+/*
+ * 
+ */
+function delConstant(url, code, input, entity) {
+	$.get( url, {
+		action: "del",
+		name: code,
+		entity: entity
+	},
+	function() {
+		$("#del_" + code).hide();
+		$("#set_" + code).show();
+		$.each(input, function(type, data) {
+			// Disable another element
+			if (type == "disabled") {
+				$.each(data, function(key, value) {
+					$("#" + value).attr("disabled", true);
+					if ($("#" + value).hasClass("butAction") == true) {
+						$("#" + value).removeClass("butAction");
+						$("#" + value).addClass("butActionRefused");
+					}
+				});
+			// Hide another element
+			} else if (type == "showhide" || type == "hide") {
+				$.each(data, function(key, value) {
+					$("#" + value).hide();
+				});
+			// Delete another constant
+			} else if (type == "del") {
+				$.each(data, function(key, value) {
+					$("#del_" + value).hide();
+					$("#set_" + value).show();
+					$.get( url, {
+						action: "del",
+						name: value,
+						entity: entity
+					});
+				});
+			}
+		});
+	});
+}
 
+/*
+ * 
+ */
+function confirmConstantAction(action, url, code, input, box, entity, yesButton, noButton) {
+	var boxConfirm = box;
+	$("#confirm_" + code)
+			.attr("title", boxConfirm.title)
+			.html(boxConfirm.content)
+			.dialog({
+				resizable: false,
+				height: 170,
+				width: 500,
+				modal: true,
+				buttons: [
+					{
+						id : 'yesButton_' + code,
+						text : yesButton,
+						click : function() {
+							if (action == "set") {
+								setConstant(url, code, input, entity);
+							} else if (action == "del") {
+								delConstant(url, code, input, entity);
+							}
+							// Close dialog
+							$(this).dialog("close");
+							// Execute another method
+							if (boxConfirm.method) {
+								var fnName = boxConfirm.method;
+								if (window.hasOwnProperty(fnName)) {
+									window[fnName]();
+								}
+							}
+						}
+					},
+					{
+						id : 'noButton_' + code,
+						text : noButton,
+						click : function() {
+							$(this).dialog("close");
+						}
+					}
+				]
+			});
+	// For information dialog box only, hide the noButton
+	if (boxConfirm.info) {
+		$("#noButton_" + code).button().hide();
+	}
+}
 
-/* This is to allow to transform all select box into ajax autocomplete box
- * with just one line: $(function() { $( "#listmotifcons" ).combobox(); });
+/* 
+ * ================================================================= 
+ * This is to allow to transform all select box into ajax autocomplete box
+ * with just one line: $(function() { $( "#idofmylist" ).combobox(); });
+ * ================================================================= 
  */
 (function( $ ) {
 	$.widget( "ui.combobox", {
+		options: {
+			minLengthToAutocomplete: 0,
+		},
         _create: function() {
+        	var savMinLengthToAutocomplete = this.options.minLengthToAutocomplete;
             var self = this,
                 select = this.element.hide(),
                 selected = select.children( ":selected" ),
@@ -645,7 +785,7 @@ function hideMessage(fieldId,message) {
                 .val( value )
                 .autocomplete({
                     delay: 0,
-                    minLength: 0,
+                    minLength: this.options.minLengthToAutocomplete,
                     source: function( request, response ) {
                         var matcher = new RegExp( $.ui.autocomplete.escapeRegex(request.term), "i" );
                         response( select.children( "option" ).map(function() {
@@ -718,7 +858,9 @@ function hideMessage(fieldId,message) {
                     }
 
                     // pass empty string as value to search for, displaying all results
+                    input.autocomplete({ minLength: 0 });
                     input.autocomplete( "search", "" );
+                    input.autocomplete({ minLength: savMinLengthToAutocomplete });
                     input.focus();
                 });
         },
@@ -731,3 +873,26 @@ function hideMessage(fieldId,message) {
         }
     });
 })( jQuery );
+
+/* 
+ * Timer for delayed keyup function
+ */
+(function($){
+	$.widget("ui.onDelayedKeyup", {
+	    _init : function() {
+	        var self = this;
+	        $(this.element).bind('keyup input', function() {
+	            if(typeof(window['inputTimeout']) != "undefined"){
+	                window.clearTimeout(inputTimeout);
+	            }  
+	            var handler = self.options.handler;
+	            window['inputTimeout'] = window.setTimeout(function() { handler.call(self.element) }, self.options.delay);
+	        });
+	    },
+	    options: {
+	        handler: $.noop(),
+	        delay: 500
+	    }
+	});
+})(jQuery);
+

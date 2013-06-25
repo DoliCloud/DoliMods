@@ -1,12 +1,12 @@
 <?php
-/* Copyright (C) 2003-2006 Rodolphe Quiedeville <rodolphe@quiedeville.org>
- * Copyright (C) 2005-2012 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2005-2012 Regis Houssin        <regis@dolibarr.fr>
- * Copyright (C) 2012 	   Juanjo Menent        <jmenent@2byte.es>
+/* Copyright (C) 2003-2006	Rodolphe Quiedeville	<rodolphe@quiedeville.org>
+ * Copyright (C) 2005-2012	Laurent Destailleur		<eldy@users.sourceforge.net>
+ * Copyright (C) 2005-2012	Regis Houssin			<regis.houssin@capnetworks.com>
+ * Copyright (C) 2012		Juanjo Menent			<jmenent@2byte.es>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -23,17 +23,31 @@
  *	\ingroup    expedition
  */
 
-require("../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/core/class/html.formfile.class.php");
-require_once(DOL_DOCUMENT_ROOT."/expedition/class/expedition.class.php");
-require_once(DOL_DOCUMENT_ROOT."/product/class/html.formproduct.class.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/order.lib.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/sendings.lib.php");
-if ($conf->product->enabled || $conf->service->enabled)  require_once(DOL_DOCUMENT_ROOT."/product/class/product.class.php");
-if ($conf->projet->enabled)   require_once(DOL_DOCUMENT_ROOT."/projet/class/project.class.php");
-if ($conf->propal->enabled)   require_once(DOL_DOCUMENT_ROOT."/comm/propal/class/propal.class.php");
-if ($conf->commande->enabled) require_once(DOL_DOCUMENT_ROOT."/commande/class/commande.class.php");
-if ($conf->stock->enabled)    require_once(DOL_DOCUMENT_ROOT."/product/stock/class/entrepot.class.php");
+require '../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/core/class/html.formfile.class.php';
+require_once DOL_DOCUMENT_ROOT.'/expedition/class/expedition.class.php';
+require_once DOL_DOCUMENT_ROOT.'/product/class/html.formproduct.class.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/order.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/sendings.lib.php';
+if (! empty($conf->projet->enabled))
+	require DOL_DOCUMENT_ROOT.'/projet/class/project.class.php';
+if (! empty($conf->stock->enabled))
+	require DOL_DOCUMENT_ROOT.'/product/stock/class/entrepot.class.php';
+if (! empty($conf->propal->enabled)) {
+	if (! class_exists('Propal')) {
+		require DOL_DOCUMENT_ROOT.'/comm/propal/class/propal.class.php';
+	}
+}
+if (! empty($conf->commande->enabled)) {
+	if (! class_exists('Commande')) {
+		require DOL_DOCUMENT_ROOT.'/commande/class/commande.class.php';
+	}
+}
+if (! empty($conf->product->enabled) || ! empty($conf->service->enabled)) {
+	if (! class_exists('Product')) {
+		require DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
+	}
+}
 
 $langs->load('orders');
 $langs->load("companies");
@@ -48,7 +62,7 @@ $action=GETPOST('action','alpha');
 
 // Security check
 $socid=0;
-if ($user->societe_id) $socid=$user->societe_id;
+if (! empty($user->societe_id)) $socid=$user->societe_id;
 $result=restrictedArea($user,'commande',$id);
 
 
@@ -152,13 +166,13 @@ if ($id > 0 || ! empty($ref))
 		 */
 		if ($action == 'cloture')
 		{
-			$ret=$form->form_confirm($_SERVER['PHP_SELF']."?id=".$id,$langs->trans("CloseOrder"),$langs->trans("ConfirmCloseOrder"),"confirm_cloture");
+			$ret=$form->form_confirm($_SERVER['PHP_SELF']."?id=".$id,$langs->trans("CloseShipment"),$langs->trans("ConfirmCloseShipment"),"confirm_cloture");
 			if ($ret == 'html') print '<br>';
 		}
 
 		// Onglet commande
 		$nbrow=7;
-		if ($conf->projet->enabled) $nbrow++;
+		if (! empty($conf->projet->enabled)) $nbrow++;
 
 		print '<table class="border" width="100%">';
 
@@ -231,15 +245,7 @@ if ($id > 0 || ! empty($ref))
 		// Date
 		print '<tr><td>'.$langs->trans('Date').'</td>';
 		print '<td colspan="2">'.dol_print_date($commande->date,'daytext').'</td>';
-		print '<td width="50%">'.$langs->trans('Source').' : '.$commande->getLabelSource();
-		if ($commande->source == 0 && $conf->propal->enabled && $commande->propale_id)
-		{
-			// Si source = propal
-			$propal = new Propal($db);
-			$propal->fetch($commande->propale_id);
-			print ' -> <a href="'.DOL_URL_ROOT.'/comm/propal.php?id='.$propal->id.'">'.$propal->ref.'</a>';
-		}
-		print '</td>';
+		print '<td width="50%">'.$langs->trans('Source').' : '.$commande->getLabelSource().'</td>';
 		print '</tr>';
 
 		// Delivery date planned
@@ -276,7 +282,7 @@ if ($id > 0 || ! empty($ref))
 		print $langs->trans('PaymentConditionsShort');
 		print '</td>';
 
-		if ($action != 'editconditions' && $commande->brouillon) print '<td align="right"><a href="'.$_SERVER["PHP_SELF"].'?action=editconditions&amp;id='.$commande->id.'">'.img_edit($langs->trans('SetConditions'),1).'</a></td>';
+		if ($action != 'editconditions' && ! empty($commande->brouillon)) print '<td align="right"><a href="'.$_SERVER["PHP_SELF"].'?action=editconditions&amp;id='.$commande->id.'">'.img_edit($langs->trans('SetConditions'),1).'</a></td>';
 		print '</tr></table>';
 		print '</td><td colspan="2">';
 		if ($action == 'editconditions')
@@ -294,7 +300,7 @@ if ($id > 0 || ! empty($ref))
 		print '<table class="nobordernopadding" width="100%"><tr><td>';
 		print $langs->trans('PaymentMode');
 		print '</td>';
-		if ($actionº != 'editmode' && $commande->brouillon) print '<td align="right"><a href="'.$_SERVER["PHP_SELF"].'?action=editmode&amp;id='.$commande->id.'">'.img_edit($langs->trans('SetMode'),1).'</a></td>';
+		if ($action != 'editmode' && ! empty($commande->brouillon)) print '<td align="right"><a href="'.$_SERVER["PHP_SELF"].'?action=editmode&amp;id='.$commande->id.'">'.img_edit($langs->trans('SetMode'),1).'</a></td>';
 		print '</tr></table>';
 		print '</td><td colspan="2">';
 		if ($action == 'editmode')
@@ -308,7 +314,7 @@ if ($id > 0 || ! empty($ref))
 		print '</td></tr>';
 
 		// Project
-		if ($conf->projet->enabled)
+		if (! empty($conf->projet->enabled))
 		{
 			$langs->load('projects');
 			print '<tr><td height="10">';
@@ -358,7 +364,7 @@ if ($id > 0 || ! empty($ref))
 		 */
 		print '<table class="liste" width="100%">';
 
-		$sql = "SELECT cd.rowid, cd.fk_product, cd.product_type, cd.description,";
+		$sql = "SELECT cd.rowid, cd.fk_product, cd.product_type, cd.label, cd.description,";
 		$sql.= " cd.price, cd.tva_tx, cd.subprice,";
 		$sql.= " cd.qty,";
 		$sql.= ' cd.date_start,';
@@ -383,7 +389,7 @@ if ($id > 0 || ! empty($ref))
 			print '<td align="center">'.$langs->trans("QtyOrdered").'</td>';
 			print '<td align="center">'.$langs->trans("QtyShipped").'</td>';
 			print '<td align="center">'.$langs->trans("KeepToShip").'</td>';
-			if ($conf->stock->enabled)
+			if (! empty($conf->stock->enabled))
 			{
 				print '<td align="center">'.$langs->trans("Stock").'</td>';
 			}
@@ -394,7 +400,8 @@ if ($id > 0 || ! empty($ref))
 			print "</tr>\n";
 
 			$var=true;
-			$reste_a_livrer = array();
+			$toBeShipped=array();
+			$toBeShippedTotal=0;
 			while ($i < $num)
 			{
 				$objp = $db->fetch_object($resql);
@@ -412,25 +419,25 @@ if ($id > 0 || ! empty($ref))
 				// Product label
 				if ($objp->fk_product > 0)
 				{
-          // Define output language
-          if (! empty($conf->global->MAIN_MULTILANGS) && ! empty($conf->global->PRODUIT_TEXTS_IN_THIRDPARTY_LANGUAGE))
-			    {
-            $commande->fetch_thirdparty();
-      			$prod = new Product($db, $objp->fk_product);
-      			$outputlangs = $langs;
-            $newlang='';
-            if (empty($newlang) && ! empty($_REQUEST['lang_id'])) $newlang=$_REQUEST['lang_id'];
-            if (empty($newlang)) $newlang=$commande->client->default_lang;
-            if (! empty($newlang))
-            {
-                $outputlangs = new Translate("",$conf);
-                $outputlangs->setDefaultLang($newlang);
-            }
+					// Define output language
+					if (! empty($conf->global->MAIN_MULTILANGS) && ! empty($conf->global->PRODUIT_TEXTS_IN_THIRDPARTY_LANGUAGE))
+					{
+						$commande->fetch_thirdparty();
+						$prod = new Product($db, $objp->fk_product);
+						$outputlangs = $langs;
+						$newlang='';
+						if (empty($newlang) && ! empty($_REQUEST['lang_id'])) $newlang=$_REQUEST['lang_id'];
+						if (empty($newlang)) $newlang=$commande->client->default_lang;
+						if (! empty($newlang))
+						{
+							$outputlangs = new Translate("",$conf);
+							$outputlangs->setDefaultLang($newlang);
+						}
 
-            $label = (! empty($prod->multilangs[$outputlangs->defaultlang]["libelle"])) ? $prod->multilangs[$outputlangs->defaultlang]["libelle"] : $objp->product_label;
-          }
-          else
-            $label = $objp->product_label;
+						$label = (! empty($prod->multilangs[$outputlangs->defaultlang]["label"])) ? $prod->multilangs[$outputlangs->defaultlang]["label"] : $objp->product_label;
+					}
+					else
+						$label = (! empty($objp->label)?$objp->label:$objp->product_label);
 
 					print '<td>';
 					print '<a name="'.$objp->rowid.'"></a>'; // ancre pour retourner sur la ligne
@@ -439,7 +446,6 @@ if ($id > 0 || ! empty($ref))
 					$product_static->type=$objp->fk_product_type;
 					$product_static->id=$objp->fk_product;
 					$product_static->ref=$objp->ref;
-					$product_static->libelle=$label;
 					$text=$product_static->getNomUrl(1);
 					$text.= ' - '.$label;
 					$description=($conf->global->PRODUIT_DESC_IN_FORM?'':dol_htmlentitiesbr($objp->description));
@@ -449,7 +455,7 @@ if ($id > 0 || ! empty($ref))
 					print_date_range($db->jdate($objp->date_start),$db->jdate($objp->date_end));
 
 					// Add description in form
-					if ($conf->global->PRODUIT_DESC_IN_FORM)
+					if (! empty($conf->global->PRODUIT_DESC_IN_FORM))
 					{
 						print ($objp->description && $objp->description!=$objp->product_label)?'<br>'.dol_htmlentitiesbr($objp->description):'';
 					}
@@ -461,7 +467,13 @@ if ($id > 0 || ! empty($ref))
 					print "<td>";
 					if ($type==1) $text = img_object($langs->trans('Service'),'service');
 					else $text = img_object($langs->trans('Product'),'product');
-					print $text.' '.nl2br($objp->description);
+
+					if (! empty($objp->label)) {
+						$text.= ' <strong>'.$objp->label.'</strong>';
+						print $form->textwithtooltip($text,$objp->description,3,'','',$i);
+					} else {
+						print $text.' '.nl2br($objp->description);
+					}
 
 					// Show range
 					print_date_range($db->jdate($objp->date_start),$db->jdate($objp->date_end));
@@ -475,17 +487,17 @@ if ($id > 0 || ! empty($ref))
 				$qtyProdCom=$objp->qty;
 				print '<td align="center">';
 				// Nb of sending products for this line of order
-				$quantite_livree = $commande->expeditions[$objp->rowid];
-				print $quantite_livree;
+				$qtyAlreadyShipped = (! empty($commande->expeditions[$objp->rowid])?$commande->expeditions[$objp->rowid]:0);
+				print $qtyAlreadyShipped;
 				print '</td>';
 
 				// Qty remains to ship
 				print '<td align="center">';
 				if ($type == 0 || ! empty($conf->global->STOCK_SUPPORTS_SERVICES))
 				{
-					$reste_a_livrer[$objp->fk_product] = $objp->qty - $quantite_livree;
-					$reste_a_livrer_total += $reste_a_livrer[$objp->fk_product];
-					print $reste_a_livrer[$objp->fk_product];
+					$toBeShipped[$objp->fk_product] = $objp->qty - $qtyAlreadyShipped;
+					$toBeShippedTotal += $toBeShipped[$objp->fk_product];
+					print $toBeShipped[$objp->fk_product];
 				}
 				else
 				{
@@ -499,11 +511,11 @@ if ($id > 0 || ! empty($ref))
 					$product->fetch($objp->fk_product);
 				}
 
-				if ($objp->fk_product > 0 && $type == 0 && $conf->stock->enabled)
+				if ($objp->fk_product > 0 && $type == 0 && ! empty($conf->stock->enabled))
 				{
 					print '<td align="center">';
 					print $product->stock_reel;
-					if ($product->stock_reel < $reste_a_livrer[$objp->fk_product])
+					if ($product->stock_reel < $toBeShipped[$objp->fk_product])
 					{
 						print ' '.img_warning($langs->trans("StockTooLow"));
 					}
@@ -525,7 +537,7 @@ if ($id > 0 || ! empty($ref))
 					// Define a new tree with quantiies recalculated
 					$prods_arbo = $product->get_arbo_each_prod($qtyProdCom);
 					//var_dump($prods_arbo);
-					if(count($prods_arbo) > 0)
+					if (count($prods_arbo) > 0)
 					{
 						foreach($prods_arbo as $key => $value)
 						{
@@ -536,11 +548,11 @@ if ($id > 0 || ! empty($ref))
 							{
 								$img=img_warning($langs->trans("StockTooLow"));
 							}
-							print "<tr><td>&nbsp; &nbsp; &nbsp; ->
-                                <a href=\"".DOL_URL_ROOT."/product/fiche.php?id=".$value['id']."\">".$value['fullpath']."
-                                </a> (".$value['nb'].")</td><td align=\"center\"> ".$value['nb_total']."</td><td>&nbsp</td><td>&nbsp</td>
-                                <td align=\"center\">".$value['stock']." ".$img."</td></tr>";
-							print $value[0];
+							print '<tr><td>&nbsp; &nbsp; &nbsp; -> <a href="'.DOL_URL_ROOT."/product/fiche.php?id=".$value['id'].'">'.$value['fullpath'].'</a> ('.$value['nb'].')</td>';
+							print '<td align="center"> '.$value['nb_total'].'</td>';
+							print '<td>&nbsp</td>';
+							print '<td>&nbsp</td>';
+							print '<td align="center">'.$value['stock'].' '.$img.'</td></tr>'."\n";
 
 							print '</td></tr>'."\n";
 						}
@@ -570,17 +582,17 @@ if ($id > 0 || ! empty($ref))
 		 * Boutons Actions
 		 */
 
-		if ($user->societe_id == 0)
+		if (empty($user->societe_id))
 		{
 			print '<div class="tabsAction">';
 
             // Bouton expedier sans gestion des stocks
-            if (! $conf->stock->enabled && ($commande->statut > 0 && $commande->statut < 3))
+            if (empty($conf->stock->enabled) && ($commande->statut > 0 && $commande->statut < 3))
 			{
 				if ($user->rights->expedition->creer)
 				{
 					print '<a class="butAction" href="'.DOL_URL_ROOT.'/expedition/fiche.php?action=create&amp;origin=commande&amp;object_id='.$id.'">'.$langs->trans("NewSending").'</a>';
-					if ($reste_a_livrer_total <= 0)
+					if ($toBeShippedTotal <= 0)
 					{
 						print ' '.img_warning($langs->trans("WarningNoQtyLeftToSend"));
 					}
@@ -595,7 +607,7 @@ if ($id > 0 || ! empty($ref))
 
 
         // Bouton expedier avec gestion des stocks
-        if ($conf->stock->enabled && ($commande->statut > 0 && $commande->statut < 3))
+        if (! empty($conf->stock->enabled) && ($commande->statut > 0 && $commande->statut < 3))
 		{
 			if ($user->rights->expedition->creer)
 			{
@@ -612,20 +624,20 @@ if ($id > 0 || ! empty($ref))
 
 				print '<tr>';
 
-				if ($conf->stock->enabled)
+				if (! empty($conf->stock->enabled))
 				{
 					print '<td>'.$langs->trans("WarehouseSource").'</td>';
 					print '<td>';
 					print $formproduct->selectWarehouses(-1,'entrepot_id','',1);
 					if (count($formproduct->cache_warehouses) <= 0)
 					{
-						print ' &nbsp; No warehouse defined, <a href="'.DOL_URL_ROOT.'/product/stock/fiche.php?action=create">add one</a>';
+						print ' &nbsp; '.$langs->trans("WarehouseSourceNotDefined").' <a href="'.DOL_URL_ROOT.'/product/stock/fiche.php?action=create">'.$langs->trans("AddOne").'</a>';
 					}
 					print '</td>';
 				}
 				print '<td align="center">';
 				print '<input type="submit" class="button" named="save" value="'.$langs->trans("NewSending").'">';
-				if ($reste_a_livrer_total <= 0)
+				if ($toBeShippedTotal <= 0)
 				{
 					print ' '.img_warning($langs->trans("WarningNoQtyLeftToSend"));
 				}

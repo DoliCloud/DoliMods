@@ -1,10 +1,10 @@
 <?php
-/* Copyright (C) 2010 Regis Houssin        <regis@dolibarr.fr>
- * Copyright (C) 2011 Laurent Destailleur  <eldy@users.sourceforge.net>
+/* Copyright (C) 2010-2012	Regis Houssin		<regis.houssin@capnetworks.com>
+ * Copyright (C) 2011-2012	Laurent Destailleur	<eldy@users.sourceforge.net>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -58,7 +58,7 @@ abstract class ActionsCardCommon
 	        if (file_exists($modelclassfile))
 	        {
 	            // Include dataservice class (model)
-	            $ret = require_once($modelclassfile);
+	            $ret = require_once $modelclassfile;
 	            if ($ret)
 	            {
 	            	// Instantiate dataservice class (model)
@@ -111,7 +111,7 @@ abstract class ActionsCardCommon
         if ((! $_POST["getcustomercode"] && ! $_POST["getsuppliercode"])
         && ($action == 'add' || $action == 'update'))
         {
-            require_once(DOL_DOCUMENT_ROOT."/core/lib/functions2.lib.php");
+            require_once DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php';
             $error=0;
 
             if (GETPOST("private") == 1)
@@ -242,19 +242,19 @@ abstract class ActionsCardCommon
 
                         if ( $this->object->client == 1 )
                         {
-                            Header("Location: ".DOL_URL_ROOT."/comm/fiche.php?socid=".$this->object->id);
+                            header("Location: ".DOL_URL_ROOT."/comm/fiche.php?socid=".$this->object->id);
                             return;
                         }
                         else
                         {
                             if (  $this->object->fournisseur == 1 )
                             {
-                                Header("Location: ".DOL_URL_ROOT."/fourn/fiche.php?socid=".$this->object->id);
+                                header("Location: ".DOL_URL_ROOT."/fourn/fiche.php?socid=".$this->object->id);
                                 return;
                             }
                             else
                             {
-                                Header("Location: ".$_SERVER["PHP_SELF"]."?socid=".$this->object->id);
+                                header("Location: ".$_SERVER["PHP_SELF"]."?socid=".$this->object->id);
                                 return;
                             }
                         }
@@ -273,7 +273,7 @@ abstract class ActionsCardCommon
                 {
                     if ($_POST["cancel"])
                     {
-                        Header("Location: ".$_SERVER["PHP_SELF"]."?socid=".$this->object->id);
+                        header("Location: ".$_SERVER["PHP_SELF"]."?socid=".$this->object->id);
                         exit;
                     }
 
@@ -286,7 +286,7 @@ abstract class ActionsCardCommon
                     $result = $this->object->update($this->object->id, $user, 1, $oldsoccanvas->codeclient_modifiable(), $oldsoccanvas->codefournisseur_modifiable());
                     if ($result >= 0)
                     {
-                        Header("Location: ".$_SERVER["PHP_SELF"]."?socid=".$this->object->id);
+                        header("Location: ".$_SERVER["PHP_SELF"]."?socid=".$this->object->id);
                         exit;
                     }
                     else
@@ -306,7 +306,7 @@ abstract class ActionsCardCommon
 
             if ($result >= 0)
             {
-                Header("Location: ".DOL_URL_ROOT."/societe/societe.php?delsoc=".$this->object->nom."");
+                header("Location: ".DOL_URL_ROOT."/societe/societe.php?delsoc=".$this->object->nom."");
                 exit;
             }
             else
@@ -328,7 +328,7 @@ abstract class ActionsCardCommon
             }
             else
             {
-                require_once(DOL_DOCUMENT_ROOT.'/core/modules/societe/modules_societe.class.php');
+                require_once DOL_DOCUMENT_ROOT.'/core/modules/societe/modules_societe.class.php';
 
                 $this->object->fetch_thirdparty();
 
@@ -350,7 +350,7 @@ abstract class ActionsCardCommon
                 }
                 else
                 {
-                    Header('Location: '.$_SERVER["PHP_SELF"].'?socid='.$this->object->id.(empty($conf->global->MAIN_JUMP_TAG)?'':'#builddoc'));
+                    header('Location: '.$_SERVER["PHP_SELF"].'?socid='.$this->object->id.(empty($conf->global->MAIN_JUMP_TAG)?'':'#builddoc'));
                     exit;
                 }
             }
@@ -384,6 +384,7 @@ abstract class ActionsCardCommon
         }
 
         $this->tpl['error'] = get_htmloutput_errors($this->object->error,$this->object->errors);
+        if (is_array($GLOBALS['errors'])) $this->tpl['error'] = get_htmloutput_mesg('',$GLOBALS['errors'],'error');
 
         if ($action == 'create')
         {
@@ -424,8 +425,7 @@ abstract class ActionsCardCommon
 			}
 
             // Load object modCodeClient
-            $module=$conf->global->SOCIETE_CODECLIENT_ADDON;
-            if (! $module) dolibarr_error('',$langs->trans("ErrorModuleThirdPartyCodeInCompanyModuleNotDefined"));
+            $module=(! empty($conf->global->SOCIETE_CODECLIENT_ADDON)?$conf->global->SOCIETE_CODECLIENT_ADDON:'mod_codeclient_leopard');
             if (substr($module, 0, 15) == 'mod_codeclient_' && substr($module, -3) == 'php')
             {
                 $module = substr($module, 0, dol_strlen($module)-4);
@@ -433,10 +433,10 @@ abstract class ActionsCardCommon
             $dirsociete=array_merge(array('/core/modules/societe/'),$conf->societe_modules);
             foreach ($dirsociete as $dirroot)
             {
-                $res=dol_include_once($dirroot.$module.".php");
+                $res=dol_include_once($dirroot.$module.'.php');
                 if ($res) break;
             }
-            $modCodeClient = new $module;
+            $modCodeClient = new $module($db);
             $this->tpl['auto_customercode'] = $modCodeClient->code_auto;
             // We verified if the tag prefix is used
             if ($modCodeClient->code_auto) $this->tpl['prefix_customercode'] = $modCodeClient->verif_prefixIsUsed();
@@ -456,7 +456,7 @@ abstract class ActionsCardCommon
             $s=$modCodeClient->getToolTip($langs,$this->object,0);
             $this->tpl['help_customercode'] = $form->textwithpicto('',$s,1);
 
-            if ($conf->fournisseur->enabled)
+            if (! empty($conf->fournisseur->enabled))
             {
             	$this->tpl['supplier_enabled'] = 1;
 
@@ -470,7 +470,7 @@ abstract class ActionsCardCommon
                 $dirsociete=array_merge(array('/core/modules/societe/'),$conf->societe_modules);
                 foreach ($dirsociete as $dirroot)
                 {
-                    $res=dol_include_once($dirroot.$module.".php");
+                    $res=dol_include_once($dirroot.$module.'.php');
                     if ($res) break;
                 }
             	$modCodeFournisseur = new $module;
@@ -510,7 +510,7 @@ abstract class ActionsCardCommon
             else $this->tpl['select_state'] = $countrynotdefined;
 
             // Language
-            if ($conf->global->MAIN_MULTILANGS) $this->tpl['select_lang'] = $formadmin->select_language(($this->object->default_lang?$this->object->default_lang:$conf->global->MAIN_LANG_DEFAULT),'default_lang',0,0,1);
+            if (! empty($conf->global->MAIN_MULTILANGS)) $this->tpl['select_lang'] = $formadmin->select_language(($this->object->default_lang?$this->object->default_lang:$conf->global->MAIN_LANG_DEFAULT),'default_lang',0,0,1);
 
             // VAT
             $this->tpl['yn_assujtva'] = $form->selectyesno('assujtva_value',$this->tpl['tva_assuj'],1);	// Assujeti par defaut en creation
@@ -575,9 +575,9 @@ abstract class ActionsCardCommon
             $arr = $formcompany->typent_array(1);
             $this->tpl['typent'] = $arr[$this->object->typent_code];
 
-            if ($conf->global->MAIN_MULTILANGS)
+            if (! empty($conf->global->MAIN_MULTILANGS))
             {
-                require_once(DOL_DOCUMENT_ROOT."/core/lib/functions2.lib.php");
+                require_once DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php';
                 //$s=picto_from_langcode($this->default_lang);
                 //print ($s?$s.' ':'');
                 $langs->load("languages");
@@ -615,7 +615,7 @@ abstract class ActionsCardCommon
             else $this->tpl['sales_representatives'].= $langs->trans("NoSalesRepresentativeAffected");
 
             // Linked member
-            if ($conf->adherent->enabled)
+            if (! empty($conf->adherent->enabled))
             {
                 $langs->load("members");
                 $adh=new Adherent($this->db);

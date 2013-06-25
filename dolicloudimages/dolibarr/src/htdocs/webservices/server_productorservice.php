@@ -1,9 +1,10 @@
 <?php
 /* Copyright (C) 2006-2010 Laurent Destailleur  <eldy@users.sourceforge.net>
+ * Copyright (C) 2012      JF FERRY             <jfefe@aternatik.fr>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -23,15 +24,20 @@
 // This is to make Dolibarr working with Plesk
 set_include_path($_SERVER['DOCUMENT_ROOT'].'/htdocs');
 
-require_once("../master.inc.php");
-require_once(NUSOAP_PATH.'/nusoap.php');        // Include SOAP
-require_once(DOL_DOCUMENT_ROOT."/core/lib/ws.lib.php");
-require_once(DOL_DOCUMENT_ROOT."/user/class/user.class.php");
+require_once '../master.inc.php';
+require_once NUSOAP_PATH.'/nusoap.php';        // Include SOAP
+require_once DOL_DOCUMENT_ROOT.'/core/lib/ws.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/functions.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/user/class/user.class.php';
 
-require_once(DOL_DOCUMENT_ROOT."/product/class/product.class.php");
+require_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
+require_once(DOL_DOCUMENT_ROOT."/categories/class/categorie.class.php");
+
 
 
 dol_syslog("Call Dolibarr webservices interfaces");
+
+$langs->load("main");
 
 // Enable and test if module web services is enabled
 if (empty($conf->global->MAIN_MODULE_WEBSERVICES))
@@ -107,15 +113,64 @@ $server->wsdl->addComplexType(
 
     	'price_net' => array('name'=>'price_net','type'=>'xsd:string'),
     	'price' => array('name'=>'price','type'=>'xsd:string'),
+    	'price_min_net' => array('name'=>'price_min_net','type'=>'xsd:string'),
+    	'price_min' => array('name'=>'price_min','type'=>'xsd:string'),
+
     	'price_base_type' => array('name'=>'price_base_type','type'=>'xsd:string'),
+
+    	'vat_rate' => array('name'=>'vat_rate','type'=>'xsd:string'),
+    	'vat_npr' => array('name'=>'vat_npr','type'=>'xsd:string'),
+    	'localtax1_tx' => array('name'=>'localtax1_tx','type'=>'xsd:string'),
+    	'localtax2_tx' => array('name'=>'localtax2_tx','type'=>'xsd:string'),
 
     	'stock_alert' => array('name'=>'stock_alert','type'=>'xsd:string'),
     	'stock_real' => array('name'=>'stock_real','type'=>'xsd:string'),
     	'stock_pmp' => array('name'=>'stock_pmp','type'=>'xsd:string'),
 		'canvas' => array('name'=>'canvas','type'=>'xsd:string'),
-		'import_key' => array('name'=>'import_key','type'=>'xsd:string')
+		'import_key' => array('name'=>'import_key','type'=>'xsd:string'),
+
+		'dir' => array('name'=>'dir','type'=>'xsd:string'),
+		'images' => array('name'=>'images','type'=>'tns:ImagesArray')
     )
 );
+
+
+/*
+ * Image of product
+ */
+$server->wsdl->addComplexType(
+	'ImagesArray',
+	'complexType',
+	'array',
+	'sequence',
+	'',
+	array(
+		'image' => array(
+		'name' => 'image',
+		'type' => 'tns:image',
+		'minOccurs' => '0',
+		'maxOccurs' => 'unbounded'
+		)
+	)
+);
+
+/*
+ * An image
+ */
+$server->wsdl->addComplexType(
+	'image',
+	'complexType',
+	'struct',
+	'all',
+	'',
+	array(
+		'photo' => array('name'=>'photo','type'=>'xsd:string'),
+		'photo_vignette' => array('name'=>'photo_vignette','type'=>'xsd:string'),
+		'imgWidth' => array('name'=>'imgWidth','type'=>'xsd:string'),
+		'imgHeight' => array('name'=>'imgHeight','type'=>'xsd:string')
+	)
+);
+
 
 // Define other specific objects
 $server->wsdl->addComplexType(
@@ -125,14 +180,14 @@ $server->wsdl->addComplexType(
     'all',
     '',
     array(
-//    	'limit' => array('name'=>'limit','type'=>'xsd:string'),
+        //'limit' => array('name'=>'limit','type'=>'xsd:string'),
 		'type' => array('name'=>'type','type'=>'xsd:string'),
 	    'status_tobuy' => array('name'=>'status_tobuy','type'=>'xsd:string'),
 	    'status_tosell' => array('name'=>'status_tosell','type'=>'xsd:string'),
     )
 );
 
-$server->wsdl->addComplexType(
+/*$server->wsdl->addComplexType(
     'ProductsArray',
     'complexType',
     'array',
@@ -143,7 +198,7 @@ $server->wsdl->addComplexType(
         array('ref'=>'SOAP-ENC:arrayType','wsdl:arrayType'=>'tns:product[]')
     ),
     'tns:product'
-);
+);*/
 $server->wsdl->addComplexType(
     'ProductsArray2',
     'complexType',
@@ -212,6 +267,20 @@ $server->register(
     'WS to get list of all products or services id and ref'
 );
 
+// Register WSDL
+$server->register(
+	'getProductsForCategory',
+	// Entry values
+	array('authentication'=>'tns:authentication','id'=>'xsd:string'),
+	// Exit values
+	array('result'=>'tns:result','products'=>'tns:ProductsArray2'),
+	$ns,
+	$ns.'#getProductsForCategory',
+	$styledoc,
+	$styleuse,
+	'WS to get list of all products or services for a category'
+);
+
 
 /**
  * Get produt or service
@@ -252,6 +321,10 @@ function getProductOrService($authentication,$id='',$ref='',$ref_ext='')
             $result=$product->fetch($id,$ref,$ref_ext);
             if ($result > 0)
             {
+            	$dir = (!empty($conf->product->dir_output)?$conf->product->dir_output:$conf->service->dir_output);
+            	$pdir = get_exdir($product->id,2) . $product->id ."/photos/";
+            	$dir = $dir . '/'. $pdir;
+
                 // Create
                 $objectresp = array(
 			    	'result'=>array('result_code'=>'OK', 'result_label'=>''),
@@ -273,15 +346,26 @@ function getProductOrService($authentication,$id='',$ref='',$ref_ext='')
 				        'country_code' => $product->country_code,
 				        'custom_code' => $product->customcode,
 
-				        'price_net' => $product->price,
-                		'price' => ($product->price_ttc-$product->price),
+			        	'price_net' => $product->price,
+			        	'price' => $product->price_ttc,
+			        	'price_min_net' => $product->price_min,
+			        	'price_min' => $product->price_min_ttc,
+			        	'price_base_type' => $product->price_base_type,
 				        'vat_rate' => $product->tva_tx,
+				        //! French VAT NPR
+				        'vat_npr' => $product->tva_npr,
+				        //! Spanish local taxes
+				        'localtax1_tx' => $product->localtax1_tx,
+				        'localtax2_tx' => $product->localtax2_tx,
+
                 		'price_base_type' => $product->price_base_type,
 
 				        'stock_real' => $product->stock_reel,
                 		'stock_alert' => $product->seuil_stock_alerte,
 				        'pmp' => $product->pmp,
-                		'import_key' => $product->import_key
+                		'import_key' => $product->import_key,
+                		'dir' => $pdir,
+                		'images' => $product->liste_photos($dir,$nbmax=10)
                 ));
             }
             else
@@ -340,7 +424,7 @@ function createProductOrService($authentication,$product)
 
     if (! $error)
     {
-        include_once(DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php');
+        include_once DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php';
 
         $newobject=new Product($db);
         $newobject->ref=$product['ref'];
@@ -490,6 +574,131 @@ function getListOfProductsOrServices($authentication,$filterproduct)
     return $objectresp;
 }
 
+
+//  return category infos and children
+function getProductsForCategory($authentication,$id)
+{
+	global $db,$conf,$langs;
+
+	dol_syslog("Function: getProductsForCategory login=".$authentication['login']." id=".$id);
+
+	if ($authentication['entity']) $conf->entity=$authentication['entity'];
+
+	$objectresp=array();
+	$errorcode='';$errorlabel='';
+	$error=0;
+
+	$fuser=check_authentication($authentication,$error,$errorcode,$errorlabel);
+
+
+	if (! $error && !$id)
+	{
+		$error++;
+		$errorcode='BAD_PARAMETERS'; $errorlabel="Parameter id must be provided.";
+	}
+
+
+	if (! $error)
+	{
+		$fuser->getrights();
+
+		if ($fuser->rights->produit->lire)
+		{
+			$categorie=new Categorie($db);
+			$result=$categorie->fetch($id);
+			if ($result > 0)
+			{
+				$table = "product";
+				$field = "product";
+				$sql  = "SELECT fk_".$field." FROM ".MAIN_DB_PREFIX."categorie_".$table;
+				$sql .= " WHERE fk_categorie = ".$id;
+				$sql .= " ORDER BY fk_".$field." ASC" ;
+
+
+				dol_syslog("GetProductsForCategory::get_type sql=".$sql);
+				$res  = $db->query($sql);
+				if ($res)
+				{
+					while ($rec = $db->fetch_array($res))
+					{
+						$obj = new Product($db);
+						$obj->fetch($rec['fk_'.$field]);
+						if($obj->status > 0 )
+						{
+							$dir = (!empty($conf->product->dir_output)?$conf->product->dir_output:$conf->service->dir_output);
+							$pdir = get_exdir($obj->id,2) . $obj->id ."/photos/";
+							$dir = $dir . '/'. $pdir;
+
+							$products[] = array(
+						    	'id' => $obj->id,
+					   			'ref' => $obj->ref,
+					   			'ref_ext' => $obj->ref_ext,
+					    		'label' => $obj->label,
+					    		'description' => $obj->description,
+					    		'date_creation' => dol_print_date($obj->date_creation,'dayhourrfc'),
+					    		'date_modification' => dol_print_date($obj->date_modification,'dayhourrfc'),
+					            'note' => $obj->note,
+					            'status_tosell' => $obj->status,
+					            'status_tobuy' => $obj->status_buy,
+		                		'type' => $obj->type,
+						        'barcode' => $obj->barcode,
+						        'barcode_type' => $obj->barcode_type,
+		                		'country_id' => $obj->country_id>0?$obj->country_id:'',
+						        'country_code' => $obj->country_code,
+						        'custom_code' => $obj->customcode,
+
+						        'price_net' => $obj->price,
+						        'price' => $obj->price_ttc,
+						        'vat_rate' => $obj->tva_tx,
+
+								'price_base_type' => $obj->price_base_type,
+
+						        'stock_real' => $obj->stock_reel,
+		                		'stock_alert' => $obj->seuil_stock_alerte,
+						        'pmp' => $obj->pmp,
+		                		'import_key' => $obj->import_key,
+		                		'dir' => $pdir,
+		                		'images' => $obj->liste_photos($dir,$nbmax=10)
+							);
+						}
+
+					}
+
+					// Retour
+					$objectresp = array(
+					'result'=>array('result_code'=>'OK', 'result_label'=>''),
+					'products'=> $products
+					);
+
+				}
+				else
+				{
+					$errorcode='NORECORDS_FOR_ASSOCIATION'; $errorlabel='No products associated'.$sql;
+					$objectresp = array('result'=>array('result_code' => $errorcode, 'result_label' => $errorlabel));
+					dol_syslog("getProductsForCategory:: ".$c->error, LOG_DEBUG);
+
+				}
+			}
+			else
+			{
+				$error++;
+				$errorcode='NOT_FOUND'; $errorlabel='Object not found for id='.$id;
+			}
+		}
+		else
+		{
+			$error++;
+			$errorcode='PERMISSION_DENIED'; $errorlabel='User does not have permission for this request';
+		}
+	}
+
+	if ($error)
+	{
+		$objectresp = array('result'=>array('result_code' => $errorcode, 'result_label' => $errorlabel));
+	}
+
+	return $objectresp;
+}
 
 
 

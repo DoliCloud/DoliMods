@@ -2,11 +2,11 @@
 /* Copyright (C) 2003-2006 Rodolphe Quiedeville <rodolphe@quiedeville.org>
  * Copyright (C) 2004-2011 Laurent Destailleur  <eldy@users.sourceforge.net>
  * Copyright (C) 2005      Simon Tosser         <simon@kornog-computing.com>
- * Copyright (C) 2005-2009 Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2005-2009 Regis Houssin        <regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -24,12 +24,12 @@
  *	\brief      Page fiche entrepot
  */
 
-require("../../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/product/stock/class/entrepot.class.php");
-require_once(DOL_DOCUMENT_ROOT."/product/class/product.class.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/stock.lib.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/product.lib.php");
-require_once(DOL_DOCUMENT_ROOT."/core/class/html.formcompany.class.php");
+require '../../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/product/stock/class/entrepot.class.php';
+require_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/stock.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/product.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/core/class/html.formcompany.class.php';
 
 $langs->load("products");
 $langs->load("stocks");
@@ -37,12 +37,16 @@ $langs->load("companies");
 
 $action=GETPOST('action');
 
-$sortfield = GETPOST("sortfield");
-$sortorder = GETPOST("sortorder");
+$sortfield = GETPOST("sortfield",'alpha');
+$sortorder = GETPOST("sortorder",'alpha');
 if (! $sortfield) $sortfield="p.ref";
 if (! $sortorder) $sortorder="DESC";
 
 $mesg = '';
+
+// Security check
+$result=restrictedArea($user,'stock');
+
 
 
 /*
@@ -182,7 +186,7 @@ if ($action == 'create')
 	// Description
 	print '<tr><td valign="top">'.$langs->trans("Description").'</td><td colspan="3">';
 	// Editeur wysiwyg
-	require_once(DOL_DOCUMENT_ROOT."/core/class/doleditor.class.php");
+	require_once DOL_DOCUMENT_ROOT.'/core/class/doleditor.class.php';
 	$doleditor=new DolEditor('desc',$object->description,'',180,'dolibarr_notes','In',false,true,$conf->fckeditor->enabled,5,70);
 	$doleditor->Create();
 	print '</td></tr>';
@@ -249,9 +253,11 @@ else
 
 			print '<table class="border" width="100%">';
 
+			$linkback = '<a href="'.DOL_URL_ROOT.'/product/stock/liste.php">'.$langs->trans("BackToList").'</a>';
+
 			// Ref
 			print '<tr><td width="25%">'.$langs->trans("Ref").'</td><td colspan="3">';
-			print $form->showrefnav($object,'id','',1,'rowid','libelle');
+			print $form->showrefnav($object, 'id', $linkback, 1, 'rowid', 'libelle');
 			print '</td>';
 
 			print '<tr><td>'.$langs->trans("LocationSummary").'</td><td colspan="3">'.$object->lieu.'</td></tr>';
@@ -388,7 +394,7 @@ else
 					$objp = $db->fetch_object($resql);
 
 					// Multilangs
-					if ($conf->global->MAIN_MULTILANGS) // si l'option est active
+					if (! empty($conf->global->MAIN_MULTILANGS)) // si l'option est active
 					{
 						$sql = "SELECT label";
 						$sql.= " FROM ".MAIN_DB_PREFIX."product_lang";
@@ -501,7 +507,7 @@ else
 			// Description
 			print '<tr><td valign="top">'.$langs->trans("Description").'</td><td colspan="3">';
 			// Editeur wysiwyg
-			require_once(DOL_DOCUMENT_ROOT."/core/class/doleditor.class.php");
+			require_once DOL_DOCUMENT_ROOT.'/core/class/doleditor.class.php';
 			$doleditor=new DolEditor('desc',$object->description,'',180,'dolibarr_notes','In',false,true,$conf->fckeditor->enabled,5,70);
 			$doleditor->Create();
 			print '</td></tr>';
@@ -534,7 +540,7 @@ else
 
 			print '<center><br><input type="submit" class="button" value="'.$langs->trans("Save").'">&nbsp;';
 			print '<input type="submit" class="button" name="cancel" value="'.$langs->trans("Cancel").'"></center>';
-			
+
 			print '</form>';
 
 		}

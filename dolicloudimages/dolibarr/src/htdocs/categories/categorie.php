@@ -1,14 +1,14 @@
 <?php
 /* Copyright (C) 2001-2007 Rodolphe Quiedeville <rodolphe@quiedeville.org>
  * Copyright (C) 2005      Brice Davoleau       <brice.davoleau@gmail.com>
- * Copyright (C) 2005-2012 Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2005-2012 Regis Houssin        <regis.houssin@capnetworks.com>
  * Copyright (C) 2006-2011 Laurent Destailleur  <eldy@users.sourceforge.net>
  * Copyright (C) 2007      Patrick Raguin  		<patrick.raguin@gmail.com>
  * Copyright (C) 2010      Juanjo Menent        <jmenent@2byte.es>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -26,8 +26,8 @@
  *  \brief      Page to show category tab
  */
 
-require("../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/categories/class/categorie.class.php");
+require '../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
 
 $langs->load("categories");
 $langs->load("products");
@@ -39,6 +39,7 @@ $type	= GETPOST('type');
 $mesg	= GETPOST('mesg');
 
 $removecat = GETPOST('removecat','int');
+$parent=GETPOST('parent','int');
 
 $dbtablename = '';
 
@@ -57,21 +58,21 @@ if ($id || $ref)
 		$dbtablename = 'product';
 		$fieldid = isset($ref)?'ref':'rowid';
 	}
-	if ($type == 1) {
+	elseif ($type == 1) {
 		$elementtype = 'fournisseur';
 		$objecttype = 'societe&categorie';
 		$objectid = isset($id)?$id:(isset($socid)?$socid:'');
 		$dbtablename = '&societe';
 		$fieldid = 'rowid';
 	}
-	if ($type == 2) {
+	elseif ($type == 2) {
 		$elementtype = 'societe';
 		$objecttype = 'societe&categorie';
 		$objectid = isset($id)?$id:(isset($socid)?$socid:'');
 		$dbtablename = '&societe';
 		$fieldid = 'rowid';
 	}
-	if ($type == 3) {
+	elseif ($type == 3) {
 		$elementtype = 'member';
 		$objecttype = 'adherent&categorie';
 		$objectid = isset($id)?$id:(isset($ref)?$ref:'');
@@ -94,7 +95,7 @@ if ($removecat > 0)
 {
 	if ($type==0 && ($user->rights->produit->creer || $user->rights->service->creer))
 	{
-		require_once(DOL_DOCUMENT_ROOT."/product/class/product.class.php");
+		require_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
 		$object = new Product($db);
 		$result = $object->fetch($id, $ref);
 		$elementtype = 'product';
@@ -111,7 +112,7 @@ if ($removecat > 0)
 	}
 	if ($type == 3 && $user->rights->adherent->creer)
 	{
-		require_once(DOL_DOCUMENT_ROOT."/adherents/class/adherent.class.php");
+		require_once DOL_DOCUMENT_ROOT.'/adherents/class/adherent.class.php';
 		$object = new Adherent($db);
 		$result = $object->fetch($objectid);
 	}
@@ -122,11 +123,11 @@ if ($removecat > 0)
 }
 
 // Add object into a category
-if (isset($_REQUEST["catMere"]) && $_REQUEST["catMere"]>=0)
+if ($parent > 0)
 {
 	if ($type==0 && ($user->rights->produit->creer || $user->rights->service->creer))
 	{
-		require_once(DOL_DOCUMENT_ROOT."/product/class/product.class.php");
+		require_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
 		$object = new Product($db);
 		$result = $object->fetch($id, $ref);
 		$elementtype = 'product';
@@ -145,13 +146,13 @@ if (isset($_REQUEST["catMere"]) && $_REQUEST["catMere"]>=0)
 	}
 	if ($type==3 && $user->rights->adherent->creer)
 	{
-		require_once(DOL_DOCUMENT_ROOT."/adherents/class/adherent.class.php");
+		require_once DOL_DOCUMENT_ROOT.'/adherents/class/adherent.class.php';
 		$object = new Adherent($db);
 		$result = $object->fetch($objectid);
 		$elementtype = 'member';
 	}
 	$cat = new Categorie($db);
-	$result=$cat->fetch($_REQUEST["catMere"]);
+	$result=$cat->fetch($parent);
 
 	$result=$cat->add_type($object,$elementtype);
 	if ($result >= 0)
@@ -163,7 +164,6 @@ if (isset($_REQUEST["catMere"]) && $_REQUEST["catMere"]>=0)
 		if ($cat->error == 'DB_ERROR_RECORD_ALREADY_EXISTS') $mesg='<div class="error">'.$langs->trans("ObjectAlreadyLinkedToCategory").'</div>';
 		else $mesg=$langs->trans("Error").' '.$cat->error;
 	}
-
 }
 
 
@@ -179,11 +179,11 @@ $form = new Form($db);
  */
 if ($socid)
 {
-	require_once(DOL_DOCUMENT_ROOT."/core/lib/company.lib.php");
-	require_once(DOL_DOCUMENT_ROOT."/societe/class/societe.class.php");
+	require_once DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php';
+	require_once DOL_DOCUMENT_ROOT.'/societe/class/societe.class.php';
 
 	$langs->load("companies");
-	if ($conf->notification->enabled) $langs->load("mails");
+	if (! empty($conf->notification->enabled)) $langs->load("mails");
 
 	$soc = new Societe($db);
 	$result = $soc->fetch($socid);
@@ -224,7 +224,7 @@ if ($socid)
 		print '</td></tr>';
 	}
 
-	if ($conf->global->MAIN_MODULE_BARCODE)
+	if (! empty($conf->barcode->enabled))
 	{
 		print '<tr><td>'.$langs->trans('Gencod').'</td><td colspan="3">'.$soc->barcode.'</td></tr>';
 	}
@@ -269,7 +269,7 @@ if ($socid)
 
 	print '</table>';
 
-	print '</div>';
+	dol_fiche_end();
 
 	dol_htmloutput_mesg($mesg);
 
@@ -288,8 +288,8 @@ else if ($id || $ref)
 		/*
 		 * Fiche categorie de produit
 		 */
-		require_once(DOL_DOCUMENT_ROOT."/core/lib/product.lib.php");
-		require_once(DOL_DOCUMENT_ROOT."/product/class/product.class.php");
+		require_once DOL_DOCUMENT_ROOT.'/core/lib/product.lib.php';
+		require_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
 
 		// Produit
 		$product = new Product($db);
@@ -329,7 +329,7 @@ else if ($id || $ref)
 
 		print '</table>';
 
-		print '</div>';
+		dol_fiche_end();
 
 		dol_htmloutput_mesg($mesg);
 
@@ -343,9 +343,9 @@ else if ($id || $ref)
 		/*
 		 * Fiche categorie d'adherent
 		 */
-		require_once(DOL_DOCUMENT_ROOT."/core/lib/member.lib.php");
-		require_once(DOL_DOCUMENT_ROOT."/adherents/class/adherent.class.php");
-		require_once(DOL_DOCUMENT_ROOT."/adherents/class/adherent_type.class.php");
+		require_once DOL_DOCUMENT_ROOT.'/core/lib/member.lib.php';
+		require_once DOL_DOCUMENT_ROOT.'/adherents/class/adherent.class.php';
+		require_once DOL_DOCUMENT_ROOT.'/adherents/class/adherent_type.class.php';
 
 		// Produit
 		$member = new Adherent($db);
@@ -364,7 +364,7 @@ else if ($id || $ref)
 
         $rowspan=5;
         if (empty($conf->global->ADHERENT_LOGIN_NOT_REQUIRED)) $rowspan+=1;
-        if ($conf->societe->enabled) $rowspan++;
+        if (! empty($conf->societe->enabled)) $rowspan++;
 
 		print '<table class="border" width="100%">';
 
@@ -410,7 +410,7 @@ else if ($id || $ref)
 
 		print '</table>';
 
-		print '</div>';
+		dol_fiche_end();
 
 		dol_htmloutput_mesg($mesg);
 
@@ -483,6 +483,7 @@ function formCategory($db,$object,$typeid,$socid=0)
 		foreach ($cats as $cat)
 		{
 			$ways = $cat->print_all_ways();
+
 			foreach ($ways as $way)
 			{
 				$var = ! $var;

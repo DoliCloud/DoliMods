@@ -4,7 +4,7 @@
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -21,7 +21,7 @@
  *       \ingroup    service
  *       \brief      Fichier de la classe des services predefinis
  */
-require_once(DOL_DOCUMENT_ROOT ."/core/class/commonobject.class.php");
+require_once DOL_DOCUMENT_ROOT .'/core/class/commonobject.class.php';
 
 
 /**
@@ -47,7 +47,7 @@ class Service extends CommonObject
 	*
 	*  @param      DoliDB		$db      Database handler
 	*/
-	function Service($db)
+	function __construct($db)
 	{
 		$this->db = $db;
 	}
@@ -66,7 +66,7 @@ class Service extends CommonObject
 
 		$sql = "SELECT count(p.rowid) as nb";
 		$sql.= " FROM ".MAIN_DB_PREFIX."product as p";
-		$sql.= ' WHERE p.entity IN ('.getEntity($this->element, 1).')';
+		$sql.= ' WHERE p.entity IN ('.getEntity('product', 1).')';
 		$sql.= " AND p.fk_product_type = 1";
 
 		$resql=$this->db->query($sql);

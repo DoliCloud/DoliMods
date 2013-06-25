@@ -1,12 +1,12 @@
 <?php
 /* Copyright (C) 2007-2008 Jeremie Ollivier      <jeremie.o@laposte.net>
  * Copyright (C) 2008-2010 Laurent Destailleur   <eldy@uers.sourceforge.net>
- * Copyright (C) 2009      Regis Houssin         <regis@dolibarr.fr>
+ * Copyright (C) 2009      Regis Houssin         <regis.houssin@capnetworks.com>
  * Copyright (C) 2011      Juanjo Menent         <jmenent@2byte.es>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -23,8 +23,8 @@
  *	\ingroup    cashdesk
  *	\brief      First page of point of sale module
  */
-require('../main.inc.php');
-require_once(DOL_DOCUMENT_ROOT.'/cashdesk/include/environnement.php');
+require '../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/cashdesk/include/environnement.php';
 
 // Test if already logged
 if ( $_SESSION['uid'] <= 0 )
@@ -64,14 +64,14 @@ print '<div class="conteneur_img_droite">'."\n";
 print '<h1 class="entete"><span>POINT OF SALE</span></h1>'."\n";
 
 print '<div class="menu_principal">'."\n";
-include_once('tpl/menu.tpl.php');
+include_once 'tpl/menu.tpl.php';
 print '</div>'."\n";
 
 print '<div class="contenu">'."\n";
-include_once('affContenu.php');
+include_once 'affContenu.php';
 print '</div>'."\n";
 
-include_once('affPied.php');
+include_once 'affPied.php';
 
 print '</div></div></div>'."\n";
 print '</body></html>'."\n";

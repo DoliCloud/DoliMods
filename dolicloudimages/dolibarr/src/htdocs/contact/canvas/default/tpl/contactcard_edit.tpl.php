@@ -1,9 +1,9 @@
 <?php
-/* Copyright (C) 2010 Regis Houssin <regis@dolibarr.fr>
+/* Copyright (C) 2010 Regis Houssin <regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -40,7 +40,7 @@ echo $this->control->tpl['ajax_selectcountry'];
 <input type="hidden" name="contactid" value="<?php echo $this->control->tpl['id']; ?>">
 <input type="hidden" name="old_name" value="<?php echo $this->control->tpl['name']; ?>">
 <input type="hidden" name="old_firstname" value="<?php echo $this->control->tpl['firstname']; ?>">
-<?php if ($this->control->tpl['company_id']) { ?>
+<?php if (! empty($this->control->tpl['company_id'])) { ?>
 <input type="hidden" name="socid" value="<?php echo $this->control->tpl['company_id']; ?>">
 <?php } ?>
 
@@ -133,12 +133,13 @@ echo $this->control->tpl['ajax_selectcountry'];
 	<td colspan="3" valign="top"><textarea name="note" cols="70" rows="<?php echo ROWS_3; ?>"><?php echo $this->control->tpl['note']; ?></textarea></td>
 </tr>
 
+<?php if (! empty($this->control->tpl['contact_element'])) { ?>
 <?php foreach ($this->control->tpl['contact_element'] as $element) { ?>
 <tr>
 	<td><?php echo $element['linked_element_label']; ?></td>
 	<td colspan="3"><?php echo $element['linked_element_value']; ?></td>
 </tr>
-<?php } ?>
+<?php } } ?>
 
 <tr>
 	<td><?php echo $langs->trans("DolibarrLogin"); ?></td>

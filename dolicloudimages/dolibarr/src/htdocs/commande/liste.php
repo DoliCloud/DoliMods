@@ -2,11 +2,12 @@
 /* Copyright (C) 2001-2005 Rodolphe Quiedeville   <rodolphe@quiedeville.org>
  * Copyright (C) 2004-2012 Laurent Destailleur    <eldy@users.sourceforge.net>
  * Copyright (C) 2005      Marc Barilley / Ocebo  <marc@ocebo.com>
- * Copyright (C) 2005-2012 Regis Houssin          <regis@dolibarr.fr>
+ * Copyright (C) 2005-2012 Regis Houssin          <regis.houssin@capnetworks.com>
+ * Copyright (C) 2012      Juanjo Menent          <jmenent@2byte.es>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -25,9 +26,11 @@
  */
 
 
-require("../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/core/class/html.formfile.class.php");
-require_once(DOL_DOCUMENT_ROOT ."/commande/class/commande.class.php");
+require '../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/core/class/html.formfile.class.php';
+require_once DOL_DOCUMENT_ROOT.'/core/class/html.formother.class.php';
+require_once DOL_DOCUMENT_ROOT.'/commande/class/commande.class.php';
 
 $langs->load('orders');
 $langs->load('deliveries');
@@ -42,6 +45,8 @@ $sref_client=GETPOST('sref_client','alpha');
 $snom=GETPOST('snom','alpha');
 $sall=GETPOST('sall');
 $socid=GETPOST('socid','int');
+$search_user=GETPOST('search_user','int');
+$search_sale=GETPOST('search_sale','int');
 
 // Security check
 $id = (GETPOST('orderid')?GETPOST('orderid'):GETPOST('id','int'));
@@ -62,6 +67,27 @@ $limit = $conf->liste_limit;
 $viewstatut=GETPOST('viewstatut');
 
 
+/*
+ * Actions
+ */
+
+// Do we click on purge search criteria ?
+if (GETPOST("button_removefilter_x"))
+{
+    $search_categ='';
+    $search_user='';
+    $search_sale='';
+    $search_ref='';
+    $search_refcustomer='';
+    $search_societe='';
+    $search_montant_ht='';
+    $orderyear='';
+    $ordermonth='';
+    $deliverymonth='';
+    $deliveryyear='';
+}
+
+
 
 /*
  * View
@@ -70,16 +96,24 @@ $viewstatut=GETPOST('viewstatut');
 $now=dol_now();
 
 $form = new Form($db);
+$formother = new FormOther($db);
 $formfile = new FormFile($db);
 $companystatic = new Societe($db);
 
-llxHeader();
+$help_url="EN:Module_Customers_Orders|FR:Module_Commandes_Clients|ES:Módulo_Pedidos_de_clientes";
+llxHeader('',$langs->trans("Orders"),$help_url);
 
 $sql = 'SELECT s.nom, s.rowid as socid, s.client, c.rowid, c.ref, c.total_ht, c.ref_client,';
 $sql.= ' c.date_valid, c.date_commande, c.date_livraison, c.fk_statut, c.facture as facturee';
 $sql.= ' FROM '.MAIN_DB_PREFIX.'societe as s';
 $sql.= ', '.MAIN_DB_PREFIX.'commande as c';
-if (!$user->rights->societe->client->voir && !$socid) $sql.= ", ".MAIN_DB_PREFIX."societe_commerciaux as sc";
+// We'll need this table joined to the select in order to filter by sale
+if ($search_sale > 0 || (! $user->rights->societe->client->voir && ! $socid)) $sql .= ", ".MAIN_DB_PREFIX."societe_commerciaux as sc";
+if ($search_user > 0)
+{
+    $sql.=", ".MAIN_DB_PREFIX."element_contact as ec";
+    $sql.=", ".MAIN_DB_PREFIX."c_type_contact as tc";
+}
 $sql.= ' WHERE c.fk_soc = s.rowid';
 $sql.= ' AND c.entity = '.$conf->entity;
 if ($socid)	$sql.= ' AND s.rowid = '.$socid;
@@ -94,9 +128,10 @@ if ($sall)
 }
 if ($viewstatut <> '')
 {
-	if ($viewstatut < 4 && $viewstatut > -2)
+	if ($viewstatut < 4 && $viewstatut > -3)
 	{
-		$sql.= ' AND c.fk_statut ='.$viewstatut; // brouillon, validee, en cours, annulee
+		if ($viewstatut == 1 && empty($conf->expedition->enabled)) $sql.= ' AND c.fk_statut IN (1,2)';	// If module expedition disabled, we include order with status 'sending in process' into 'validated'
+		else $sql.= ' AND c.fk_statut = '.$viewstatut; // brouillon, validee, en cours, annulee
 		if ($viewstatut == 3)
 		{
 			$sql.= ' AND c.facture = 0'; // need to create invoice
@@ -111,22 +146,37 @@ if ($viewstatut <> '')
 		//$sql.= ' AND c.fk_statut IN (1,2,3) AND c.facture = 0';
 		$sql.= " AND ((c.fk_statut IN (1,2)) OR (c.fk_statut = 3 AND c.facture = 0))";    // If status is 2 and facture=1, it must be selected
 	}
+	if ($viewstatut == -3)	// To bill
+	{
+		$sql.= ' AND c.fk_statut in (1,2,3)';
+		$sql.= ' AND c.facture = 0'; // invoice not created
+	}
 }
 if ($ordermonth > 0)
 {
-	$sql.= " AND date_format(c.date_valid, '%Y-%m') = '".$orderyear."-".$ordermonth."'";    // TODO do not use date_format but a between
+    if ($orderyear > 0 && empty($day))
+    $sql.= " AND c.date_valid BETWEEN '".$db->idate(dol_get_first_day($orderyear,$ordermonth,false))."' AND '".$db->idate(dol_get_last_day($orderyear,$ordermonth,false))."'";
+    else if ($orderyear > 0 && ! empty($day))
+    $sql.= " AND c.date_valid BETWEEN '".$db->idate(dol_mktime(0, 0, 0, $ordermonth, $day, $orderyear))."' AND '".$db->idate(dol_mktime(23, 59, 59, $ordermonth, $day, $orderyear))."'";
+    else
+    $sql.= " AND date_format(c.date_valid, '%m') = '".$ordermonth."'";
 }
-if ($orderyear > 0)
+else if ($orderyear > 0)
 {
-	$sql.= " AND date_format(c.date_valid, '%Y') = '".$orderyear."'";
+    $sql.= " AND c.date_valid BETWEEN '".$db->idate(dol_get_first_day($orderyear,1,false))."' AND '".$db->idate(dol_get_last_day($orderyear,12,false))."'";
 }
 if ($deliverymonth > 0)
 {
-	$sql.= " AND date_format(c.date_livraison, '%Y-%m') = '".$deliveryyear."-".$deliverymonth."'";
+    if ($deliveryyear > 0 && empty($day))
+    $sql.= " AND c.date_livraison BETWEEN '".$db->idate(dol_get_first_day($deliveryyear,$deliverymonth,false))."' AND '".$db->idate(dol_get_last_day($deliveryyear,$deliverymonth,false))."'";
+    else if ($deliveryyear > 0 && ! empty($day))
+    $sql.= " AND c.date_livraison BETWEEN '".$db->idate(dol_mktime(0, 0, 0, $deliverymonth, $day, $deliveryyear))."' AND '".$db->idate(dol_mktime(23, 59, 59, $deliverymonth, $day, $deliveryyear))."'";
+    else
+    $sql.= " AND date_format(c.date_livraison, '%m') = '".$deliverymonth."'";
 }
-if ($deliveryyear > 0)
+else if ($deliveryyear > 0)
 {
-	$sql.= " AND date_format(c.date_livraison, '%Y') = '".$deliveryyear."'";
+    $sql.= " AND c.date_livraison BETWEEN '".$db->idate(dol_get_first_day($deliveryyear,1,false))."' AND '".$db->idate(dol_get_last_day($deliveryyear,12,false))."'";
 }
 if (!empty($snom))
 {
@@ -136,12 +186,17 @@ if (!empty($sref_client))
 {
 	$sql.= ' AND c.ref_client LIKE \'%'.$db->escape($sref_client).'%\'';
 }
+if ($search_sale > 0) $sql.= " AND s.rowid = sc.fk_soc AND sc.fk_user = " .$search_sale;
+if ($search_user > 0)
+{
+    $sql.= " AND ec.fk_c_type_contact = tc.rowid AND tc.element='commande' AND tc.source='internal' AND ec.element_id = c.rowid AND ec.fk_socpeople = ".$search_user;
+}
 
 $sql.= ' ORDER BY '.$sortfield.' '.$sortorder;
 $sql.= $db->plimit($limit + 1,$offset);
 
+//print $sql;
 $resql = $db->query($sql);
-
 if ($resql)
 {
 	if ($socid)
@@ -168,21 +223,62 @@ if ($resql)
 	$title.=' - '.$langs->trans('StatusOrderCanceledShort');
 	if ($viewstatut == -2)
 	$title.=' - '.$langs->trans('StatusOrderToProcessShort');
+	if ($viewstatut == -3)
+	$title.=' - '.$langs->trans('StatusOrderValidated').', '.(empty($conf->expedition->enabled)?'':$langs->trans("StatusOrderSent").', ').$langs->trans('StatusOrderToBill');
+
+	$param='&socid='.$socid.'&viewstatut='.$viewstatut;
+	if ($ordermonth)      $param.='&ordermonth='.$ordermonth;
+	if ($orderyear)       $param.='&orderyear='.$orderyear;
+	if ($deliverymonth)   $param.='&deliverymonth='.$deliverymonth;
+	if ($deliveryyear)    $param.='&deliveryyear='.$deliveryyear;
+	if ($sref)            $param.='&sref='.$sref;
+	if ($snom)            $param.='&snom='.$snom;
+	if ($sref_client)     $param.='&sref_client='.$sref_client;
+	if ($search_user > 0) $param.='&search_user='.$search_user;
+	if ($search_sale > 0) $param.='&search_sale='.$search_sale;
 
 	$num = $db->num_rows($resql);
-	print_barre_liste($title, $page, 'liste.php','&amp;socid='.$socid.'&amp;viewstatut='.$viewstatut,$sortfield,$sortorder,'',$num);
+	print_barre_liste($title, $page,$_SERVER["PHP_SELF"],$param,$sortfield,$sortorder,'',$num);
 	$i = 0;
-	print '<table class="noborder" width="100%">';
-	print '<tr class="liste_titre">';
-	print_liste_field_titre($langs->trans('Ref'),'liste.php','c.ref','','&amp;socid='.$socid.'&amp;viewstatut='.$viewstatut,'width="25%"',$sortfield,$sortorder);
-	print_liste_field_titre($langs->trans('Company'),'liste.php','s.nom','','&amp;socid='.$socid.'&amp;viewstatut='.$viewstatut,'',$sortfield,$sortorder);
-	print_liste_field_titre($langs->trans('RefCustomerOrder'),'liste.php','c.ref_client','','&amp;socid='.$socid.'&amp;viewstatut='.$viewstatut,'',$sortfield,$sortorder);
-	print_liste_field_titre($langs->trans('OrderDate'),'liste.php','c.date_commande','','&amp;socid='.$socid.'&amp;viewstatut='.$viewstatut, 'align="right"',$sortfield,$sortorder);
-	print_liste_field_titre($langs->trans('DeliveryDate'),'liste.php','c.date_livraison','','&amp;socid='.$socid.'&amp;viewstatut='.$viewstatut, 'align="right"',$sortfield,$sortorder);
-	print_liste_field_titre($langs->trans('Status'),'liste.php','c.fk_statut','','&amp;socid='.$socid.'&amp;viewstatut='.$viewstatut,'align="right"',$sortfield,$sortorder);
-	print '</tr>';
+
 	// Lignes des champs de filtre
-	print '<form method="get" action="liste.php">';
+	print '<form method="GET" action="'.$_SERVER["PHP_SELF"].'">';
+	print '<input type="hidden" name="viewstatut" value="'.$viewstatut.'">';
+
+	print '<table class="noborder" width="100%">';
+
+	$moreforfilter='';
+
+ 	// If the user can view prospects other than his'
+ 	if ($user->rights->societe->client->voir || $socid)
+ 	{
+ 		$langs->load("commercial");
+ 		$moreforfilter.=$langs->trans('ThirdPartiesOfSaleRepresentative'). ': ';
+		$moreforfilter.=$formother->select_salesrepresentatives($search_sale,'search_sale',$user);
+	 	$moreforfilter.=' &nbsp; &nbsp; &nbsp; ';
+ 	}
+	// If the user can view prospects other than his'
+	if ($user->rights->societe->client->voir || $socid)
+	{
+	    $moreforfilter.=$langs->trans('LinkedToSpecificUsers'). ': ';
+	    $moreforfilter.=$form->select_dolusers($search_user,'search_user',1);
+	}
+	if (! empty($moreforfilter))
+	{
+	    print '<tr class="liste_titre">';
+	    print '<td class="liste_titre" colspan="9">';
+	    print $moreforfilter;
+	    print '</td></tr>';
+	}
+
+	print '<tr class="liste_titre">';
+	print_liste_field_titre($langs->trans('Ref'),$_SERVER["PHP_SELF"],'c.ref','',$param,'width="25%"',$sortfield,$sortorder);
+	print_liste_field_titre($langs->trans('Company'),$_SERVER["PHP_SELF"],'s.nom','',$param,'',$sortfield,$sortorder);
+	print_liste_field_titre($langs->trans('RefCustomerOrder'),$_SERVER["PHP_SELF"],'c.ref_client','',$param,'',$sortfield,$sortorder);
+	print_liste_field_titre($langs->trans('OrderDate'),$_SERVER["PHP_SELF"],'c.date_commande','',$param, 'align="right"',$sortfield,$sortorder);
+	print_liste_field_titre($langs->trans('DeliveryDate'),$_SERVER["PHP_SELF"],'c.date_livraison','',$param, 'align="right"',$sortfield,$sortorder);
+	print_liste_field_titre($langs->trans('Status'),$_SERVER["PHP_SELF"],'c.fk_statut','',$param,'align="right"',$sortfield,$sortorder);
+	print '</tr>';
 	print '<tr class="liste_titre">';
 	print '<td class="liste_titre">';
 	print '<input class="flat" size="10" type="text" name="sref" value="'.$sref.'">';
@@ -195,8 +291,11 @@ if ($resql)
 	print '</td><td align="right" class="liste_titre">';
 	print '<input type="image" class="liste_titre" name="button_search" src="'.DOL_URL_ROOT.'/theme/'.$conf->theme.'/img/search.png"  value="'.dol_escape_htmltag($langs->trans("Search")).'" title="'.dol_escape_htmltag($langs->trans("Search")).'">';
 	print '</td></tr>';
-	print '</form>';
-	$var=True;
+
+	$var=true;
+	$total=0;
+	$subtotal=0;
+
 	$generic_commande = new Commande($db);
 	while ($i < min($num,$limit))
 	{
@@ -210,7 +309,7 @@ if ($resql)
 
 		print '<table class="nobordernopadding"><tr class="nocellnopadd">';
 		print '<td class="nobordernopadding" nowrap="nowrap">';
-		print $generic_commande->getNomUrl(1,$objp->fk_statut);
+		print $generic_commande->getNomUrl(1,($viewstatut != 2?0:$objp->fk_statut));
 		print '</td>';
 
 		print '<td width="20" class="nobordernopadding" nowrap="nowrap">';
@@ -221,7 +320,7 @@ if ($resql)
 		$filename=dol_sanitizeFileName($objp->ref);
 		$filedir=$conf->commande->dir_output . '/' . dol_sanitizeFileName($objp->ref);
 		$urlsource=$_SERVER['PHP_SELF'].'?id='.$objp->rowid;
-		$formfile->show_documents('commande',$filename,$filedir,$urlsource,'','','',1,'',1);
+		print $formfile->getDocumentsLink($generic_commande->element, $filename, $filedir);
 		print '</td></tr></table>';
 
 		print '</td>';
@@ -232,6 +331,21 @@ if ($resql)
 		$companystatic->client=$objp->client;
 		print '<td>';
 		print $companystatic->getNomUrl(1,'customer');
+		print '&nbsp;<a href="'.DOL_URL_ROOT.'/commande/orderstoinvoice.php?socid='.$companystatic->id.'">';
+
+		// If module invoices enabled and user with invoice creation permissions
+		if (! empty($conf->facture->enabled))
+		{
+			if ($user->rights->facture->creer)
+			{
+
+				if (($objp->fk_statut > 0 && $objp->fk_statut < 3) || ($objp->fk_statut == 3 && $objp->facturee == 0))
+				{
+
+					print img_picto($langs->trans("CreateInvoiceForThisCustomer").' : '.$companystatic->nom,'object_bill').'</a>';
+				}
+			}
+		}
 		print '</td>';
 
 		print '<td>'.$objp->ref_client.'</td>';
@@ -263,11 +377,14 @@ if ($resql)
 
 		print '</tr>';
 
-		$total = $total + $objp->price;
-		$subtotal = $subtotal + $objp->price;
+		$total+=$objp->total_ht;
+		$subtotal+=$objp->total_ht;
 		$i++;
 	}
 	print '</table>';
+
+	print '</form>';
+
 	$db->free($resql);
 }
 else
@@ -275,7 +392,7 @@ else
 	print dol_print_error($db);
 }
 
-$db->close();
-
 llxFooter();
+
+$db->close();
 ?>

@@ -3,11 +3,11 @@
  * Copyright (C) 2005      Eric Seigne          <eric.seigne@ryxeo.com>
  * Copyright (C) 2006-2011 Laurent Destailleur  <eldy@users.sourceforge.net>
  * Copyright (C) 2007      Patrick Raguin       <patrick.raguin@gmail.com>
- * Copyright (C) 2005-2012 Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2005-2012 Regis Houssin        <regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -25,9 +25,9 @@
  *      \brief      Home page of category area
  */
 
-require("../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/categories/class/categorie.class.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/treeview.lib.php");
+require '../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/treeview.lib.php';
 
 $langs->load("categories");
 
@@ -35,6 +35,8 @@ if (! $user->rights->categorie->lire) accessforbidden();
 
 $id=GETPOST('id','int');
 $type=(GETPOST('type') ? GETPOST('type') : 0);
+$catname=GETPOST('catname','alpha');
+$section=(GETPOST('section')?GETPOST('section'):0);
 
 
 /*
@@ -65,12 +67,12 @@ print '<tr><td valign="top" width="30%" class="notopnoleft">';
 print '<form method="post" action="index.php?type='.$type.'">';
 print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
 print '<input type="hidden" name="type" value="'.$type.'">';
-print '<table class="noborder" width="100%">';
+print '<table class="noborder nohover" width="100%">';
 print '<tr class="liste_titre">';
 print '<td colspan="3">'.$langs->trans("Search").'</td>';
 print '</tr>';
 print '<tr '.$bc[0].'><td>';
-print $langs->trans("Name").':</td><td><input class="flat" type="text" size="20" name="catname" value="' . $_POST['catname'] . '"/></td><td><input type="submit" class="button" value="'.$langs->trans("Search").'"></td></tr>';
+print $langs->trans("Name").':</td><td><input class="flat" type="text" size="20" name="catname" value="' . $catname . '"/></td><td><input type="submit" class="button" value="'.$langs->trans("Search").'"></td></tr>';
 /*
 // faire une rech dans une sous categorie uniquement
 print '<tr '.$bc[0].'><td>';
@@ -89,9 +91,9 @@ print '</td><td valign="top" width="70%">';
 /*
  * Categories found
  */
-if($_POST['catname'] || $id > 0)
+if ($catname || $id > 0)
 {
-	$cats = $categstatic->rechercher($id,$_POST['catname'],$type);
+	$cats = $categstatic->rechercher($id,$catname,$type);
 
 	print '<table class="noborder" width="100%">';
 	print '<tr class="liste_titre"><td colspan="2">'.$langs->trans("FoundCats").'</td></tr>';
@@ -126,15 +128,8 @@ $cate_arbo = $categstatic->get_full_arbo($type);
 // Define fulltree array
 $fulltree=$cate_arbo;
 
-
-
 print '<table class="liste" width="100%">';
 print '<tr class="liste_titre"><td>'.$langs->trans("Categories").'</td><td colspan="3">'.$langs->trans("Description").'</td></tr>';
-
-
-$section=isset($_GET["section"])?$_GET["section"]:$_POST['section'];
-if (! $section) $section=0;
-
 
 
 // ----- This section will show a tree from a fulltree array -----
@@ -159,13 +154,16 @@ print '</tr>';
 
 // Define fullpathselected ( _x_y_z ) of $section parameter
 $fullpathselected='';
-foreach($fulltree as $key => $val)
+if (! empty($section))
 {
-	//print $val['id']."-".$section."<br>";
-	if ($val['id'] == $section)
+	foreach($fulltree as $key => $val)
 	{
-		$fullpathselected=$val['fullpath'];
-		break;
+		//print $val['id']."-".$section."<br>";
+		if ($val['id'] == $section)
+		{
+			$fullpathselected=$val['fullpath'];
+			break;
+		}
 	}
 }
 //print "fullpathselected=".$fullpathselected."<br>";
@@ -174,7 +172,7 @@ foreach($fulltree as $key => $val)
 $expandedsectionarray=array();
 if (isset($_SESSION['dol_catexpandedsectionarray'.$type])) $expandedsectionarray=explode(',',$_SESSION['dol_catexpandedsectionarray'.$type]);
 
-if ($section && $_GET['sectionexpand'] == 'true')
+if (! empty($section) && $_GET['sectionexpand'] == 'true')
 {
 	// We add all sections that are parent of opened section
 	$pathtosection=explode('_',$fullpathselected);
@@ -187,7 +185,7 @@ if ($section && $_GET['sectionexpand'] == 'true')
 	}
 	$_SESSION['dol_catexpandedsectionarray'.$type]=join(',',$expandedsectionarray);
 }
-if ($section && $_GET['sectionexpand'] == 'false')
+if (! empty($section) && $_GET['sectionexpand'] == 'false')
 {
 	// We removed all expanded sections that are child of the closed section
 	$oldexpandedsectionarray=$expandedsectionarray;
@@ -211,14 +209,15 @@ foreach($fulltree as $key => $val)
 	// Define showline
 	$showline=0;
 
+	//var_dump($expandedsectionarray);
+
 	// If directory is son of expanded directory, we show line
-	if (in_array($val['id_mere'],$expandedsectionarray)) $showline=4;
-	// If directory is brother of selected directory, we show line
-	elseif ($val['id'] != $section && $val['id_mere'] == $ecmdirstatic->motherof[$section]) $showline=3;
+	if (isset($val['fk_parent']) && in_array($val['fk_parent'],$expandedsectionarray)) $showline=4;
 	// If directory is parent of selected directory or is selected directory, we show line
 	elseif (preg_match('/'.$val['fullpath'].'_/i',$fullpathselected.'_')) $showline=2;
 	// If we are level one we show line
 	elseif ($val['level'] < 2) $showline=1;
+	//print 'xxx '.$val['level'].' - '.$fullpathselected.' - '.$val['fullpath'].' - '.$val['fk_parent'].' showline='.$showline.'<br>'."\n";
 
 	if ($showline)
 	{
@@ -243,7 +242,7 @@ foreach($fulltree as $key => $val)
 		print '<td valign="top">';
 		//print $val['fullpath']."(".$showline.")";
 		$n='2';
-		if ($b == 0 || ! in_array($val['id'],$expandedsectionarray)) $n='3';
+		if (! in_array($val['id'],$expandedsectionarray)) $n='3';
 		if (! in_array($val['id'],$expandedsectionarray)) $ref=img_picto('',DOL_URL_ROOT.'/theme/common/treemenu/plustop'.$n.'.gif','',1);
 		else $ref=img_picto('',DOL_URL_ROOT.'/theme/common/treemenu/minustop'.$n.'.gif','',1);
 		if ($option == 'indexexpanded') $lien = '<a href="'.$_SERVER["PHP_SELF"].'?section='.$val['id'].'&amp;type='.$type.'&amp;sectionexpand=false">';
@@ -261,7 +260,7 @@ foreach($fulltree as $key => $val)
 		$categstatic->id=$val['id'];
 		$categstatic->ref=$val['label'];
 		$categstatic->type=$type;
-		print ' &nbsp;'.$categstatic->getNomUrl(0,'',28);
+		print ' &nbsp;'.$categstatic->getNomUrl(0,'',60);
 
 		//print ' &nbsp;'.dol_trunc($val['label'],28);
 		//if ($section == $val['id']) print '</u>';
@@ -271,7 +270,7 @@ foreach($fulltree as $key => $val)
 
 		// Description
 		print '<td>';
-		print dol_trunc($categstatic->get_desc($val['id']),48);
+		print dol_trunc($val['description'],48);
 		print '</td>';
 
 		// Link to category card

@@ -142,7 +142,7 @@ AutoDetectLang=Automatisk (nettleserspråk)
 FeatureDisabledInDemo=Funksjonen er slått av i demo
 Rights=Tillatelser
 BoxesDesc=Bokser er områder på skjermen som viser informasjon på ønskede sider. Du kan velge om boksen skal vises eller ikke ved å velge målside og klikke på 'Aktiver', eller ved å klikke på papirkurven for å slå den av.
-OnlyActiveElementsAreShown=Bare elementer fra <a href="modules.php">aktiverte moduler</a> vises.
+OnlyActiveElementsAreShown=Bare elementer fra <a href="%s">aktiverte moduler</a> vises.
 ModulesDesc=Dolibarrmodulene styrer hvilken funksjonalitet som er aktivert i programmet. Noen moduler krever at du tildeler brukerne tilgangsrettigheter etter at du har slått på modulen.
 ModulesInterfaceDesc=Modulgrensesnittet i Dolibarr lar deg legge til funksjoner som bruker eksterne programmer, systemer eller tjenester.
 ModulesSpecialDesc=Spesialmoduler er svært spesifikke moduler, eller moduler som sjelden blir sjelden brukt.
@@ -299,10 +299,6 @@ Module1400Name=Regnskapsekspert
 Module1400Desc=Behandling av regnskapssopplysninger for eksperter (double parties)
 Module1780Name=Kategorier
 Module1780Desc=Behandling av kategorier (varer, leverandører og kunder)
-Module2200Name=Utlånsrettigheter
-Module2200Desc=Behandling av utlånsrettigheter
-Module2300Name=Menyer
-Module2300Desc=Menybehandling
 Module2400Name=Agenda
 Module2400Desc=Handlinger/oppgaver og agendabehandling
 Module2500Name=Electronic Content Management
@@ -480,12 +476,6 @@ BackToModuleList=Tilbake til moduloversikt
 BackToDictionnaryList=Tilbake til begrepsoversikt
 VATReceivedOnly=Special rate not charged
 VATManagement=MVA-håndtering
-VATIsUsedDesc=The VAT rate by default when creating prospects, invoices, orders etc follow the active standard rule:<br>If the seller is subjected to VAT, then VAT by default=0. End of rule.<br>If the (selling country= buying country), then the VAT by default=VAT of the product in the selling country. End of rule. <br>If seller and buyer in the European Community and goods are sold having new means of transport (car, ship, plane), the default VAT=0 ( The VAT should be paid by the buyer at the customoffice of his country and not at the seller). End of rule.<br>If seller and buyer in the European Community and goods sold by other means rather than new means of transport, then the VAT by default=VAT of product sold.  End of rule.<br>Else the proposed default VAT=1. End of rule.
-VATIsNotUsedDesc=By default the proposed VAT is 0 which can be used for cases like associations, individuals ou small companies.
-VATIsUsedExampleFR=In France, it means companies or organisations having a real fiscal system (Simplified real or normal real).  A system in which VAT is declared.
-VATIsNotUsedExampleFR=In France, it means associations that are non VAT declared or companies, organisations or liberal professions that have chosen the micro enterprise fiscal system (VAT in franchise) and paid a franchise VAT without any VAT declaration.  This choice will display the reference "Non applicable VAT - art-293B of CGI" on invoices.
-LabelUsedByDefault=Label used by default if no translation can be found for code
-LabelOnDocuments=Label on documents
 NbOfDays=Ant dager
 AtEndOfMonth=Ved månedsslutt
 Offset=Forskyvning
@@ -562,17 +552,17 @@ DelayBeforeWarning=Forsinkelse før varsling
 DelaysBeforeWarning=Forsinkelser før varsling
 DelaysOfToleranceBeforeWarning=Toleranseforsikelse før varsling
 DelaysOfToleranceDesc=Denne siden lar deg angi antall 'toleransedager' du ønsker før en forsinkelse skal varsles på skjermen med ikonet %s for hvert forsinkede element.
-DelaysOfToleranceActionsToDo=Forinkelstoleranse (i dager) før varsel om planlage handlinger som ikke er utført
-DelaysOfToleranceOrdersToProcess=Forsinkelsestoleranse (i dager) før varsel om ordrer ikke levert
-DelaysOfTolerancePropalsToClose=Forsinkelsestoleranse (i dager) før varsel om tilbud som ikke er lukket
-DelaysOfTolerancePropalsToBill=Forsinkelsestoleranse (i dager) før varsel om tilbud som ikke er fakturert
-DelaysOfToleranceNotActivatedServices=Forsinkelsestoleranse (i dager) før varsel om tjenester som ikke er aktivert
-DelaysOfToleranceRunningServices=Forsinkelsestoleranse (i dager) før varsel om utløpte tjenester
-DelaysOfToleranceSupplierBillsToPay=Forsinkelsestoleranse (i dager) før varsel om ubetalte leverandørfakturaer
-DelaysOfToleranceCustomerBillsUnpaid=Forsinkelsestoleranse (i dager) før varsel om ubetalte kundefakturaer
-DelaysOfToleranceTransactionsToConciliate=Forsinkelsestoleranse (i dager) før varsel om forfalt bankavstemming
-DelaysOfToleranceMembers=Forsinkelsestoleranse (i dager) før varsel om forsinket medlemskontingent
-DelaysOfToleranceChequesToDeposit=Forsinkelsestoleranse (i dager) før varsel om sjekker som må settes inn i bank
+Delays_MAIN_DELAY_ACTIONS_TODO=Forinkelstoleranse (i dager) før varsel om planlage handlinger som ikke er utført
+Delays_MAIN_DELAY_ORDERS_TO_PROCESS=Forsinkelsestoleranse (i dager) før varsel om ordrer ikke levert
+Delays_MAIN_DELAY_PROPALS_TO_CLOSE=Forsinkelsestoleranse (i dager) før varsel om tilbud som ikke er lukket
+Delays_MAIN_DELAY_PROPALS_TO_BILL=Forsinkelsestoleranse (i dager) før varsel om tilbud som ikke er fakturert
+Delays_MAIN_DELAY_NOT_ACTIVATED_SERVICES=Forsinkelsestoleranse (i dager) før varsel om tjenester som ikke er aktivert
+Delays_MAIN_DELAY_RUNNING_SERVICES=Forsinkelsestoleranse (i dager) før varsel om utløpte tjenester
+Delays_MAIN_DELAY_SUPPLIER_BILLS_TO_PAY=Forsinkelsestoleranse (i dager) før varsel om ubetalte leverandørfakturaer
+Delays_MAIN_DELAY_CUSTOMER_BILLS_UNPAYED=Forsinkelsestoleranse (i dager) før varsel om ubetalte kundefakturaer
+Delays_MAIN_DELAY_TRANSACTIONS_TO_CONCILIATE=Forsinkelsestoleranse (i dager) før varsel om forfalt bankavstemming
+Delays_MAIN_DELAY_MEMBERS=Forsinkelsestoleranse (i dager) før varsel om forsinket medlemskontingent
+Delays_MAIN_DELAY_CHEQUES_TO_DEPOSIT=Forsinkelsestoleranse (i dager) før varsel om sjekker som må settes inn i bank
 SetupDescription1=Alle muligheterene under innstillinger lar deg sette opp Dolibarr etter dine behov, før du begynner å bruke programmet.
 SetupDescription2=De to viktigste trinnene er de to første i menyen til venstre: Det vil si Firma/organisasjon og Moduler:
 SetupDescription3=<b>Firma/organisasjon</b> er viktig fordi informasjonen her styrer mange av funkjonene i Dolibarr (for eksempel funksjoner som påvirkes av det landet du er i).
@@ -681,7 +671,6 @@ PathDirectory=Mappe
 ProposalsNumberingModules=Nummereringsmodul for tilbud
 ProposalsPDFModules=Tilbudsmaler
 ClassifiedInvoiced=Klassifiser fakturert
-ClassifiedInvoicedWithOrder=Klassifsiser tilbudet fakturert samtidig som ordren
 HideTreadedPropal=Skjul behandlede tilbud i listen
 AddShippingDateAbility=Legg til felt for forsendelsesdato
 AddDeliveryAddressAbility=Legg til felt for leveringsdato
@@ -739,14 +728,14 @@ LDAPServerUseTLS=Use TLS
 LDAPServerUseTLSExample=Your LDAP server use TLS
 LDAPServerDn=Server DN
 LDAPAdminDn=Administrator DN
-LDAPAdminDnExample=Complete DN (ex: cn=adminldap,dc=society,dc=com)
+LDAPAdminDnExample=Complete DN (ex: cn=admin,dc=example,dc=com)
 LDAPPassword=Administrator password
 LDAPUserDn=Users' DN
-LDAPUserDnExample=Complete DN (ex: ou=users,dc=society,dc=com)
+LDAPUserDnExample=Complete DN (ex: ou=users,dc=example,dc=com)
 LDAPGroupDn=Groups' DN
-LDAPGroupDnExample=Complete DN (ex: ou=groups,dc=society,dc=com)
+LDAPGroupDnExample=Complete DN (ex: ou=groups,dc=example,dc=com)
 LDAPServerExample=Server address (ex: localhost, 192.168.0.2, ldaps://ldap.example.com/)
-LDAPServerDnExample=Complete DN (ex: dc=company,dc=com)
+LDAPServerDnExample=Complete DN (ex: dc=example,dc=com)
 LDAPPasswordExample=Admin password
 LDAPDnSynchroActive=Users and groups synchronization
 LDAPDnSynchroActiveExample=LDAP to Dolibarr or Dolibarr to LDAP synchronization
@@ -756,9 +745,9 @@ LDAPDnContactActiveExample=Activated/Unactivated synchronization
 LDAPDnMemberActive=Members' synchronization
 LDAPDnMemberActiveExample=Activated/Unactivated synchronization
 LDAPContactDn=Dolibarr contacts' DN
-LDAPContactDnExample=Complete DN (ex: ou=contacts,dc=society,dc=com)
+LDAPContactDnExample=Complete DN (ex: ou=contacts,dc=example,dc=com)
 LDAPMemberDn=Dolibarr members' DN
-LDAPMemberDnExample=Complete DN (ex: ou=members,dc=society,dc=com)
+LDAPMemberDnExample=Complete DN (ex: ou=members,dc=example,dc=com)
 LDAPMemberObjectClassList=List of objectClass
 LDAPMemberObjectClassListExample=List of objectClass defining record attributes (ex: top,inetOrgPerson or top,user for active directory)
 LDAPUserObjectClassList=List of objectClass
@@ -768,7 +757,7 @@ LDAPGroupObjectClassListExample=List of objectClass defining record attributes (
 LDAPContactObjectClassList=List of objectClass
 LDAPContactObjectClassListExample=List of objectClass defining record attributes (ex: top,inetOrgPerson or top,user for active directory)
 LDAPMemberTypeDn=Dolibarr member's type DN
-LDAPMemberTypeDnExample=Complete DN (ex: ou=type_members,dc=society,dc=com)
+LDAPMemberTypeDnExample=Complete DN (ex: ou=type_members,dc=example,dc=com)
 LDAPTestConnect=Test LDAP connection
 LDAPTestSynchroContact=Test contact's synchronization
 LDAPTestSynchroUser=Test user's synchronization
@@ -806,7 +795,7 @@ LDAPFieldCommonNameExample=Example : cn
 LDAPFieldName=Name
 LDAPFieldNameExample=Example : sn
 LDAPFieldFirstName=Firstname
-LDAPFieldFirstNameExample=Example : givenname
+LDAPFieldFirstNameExample=Example : givenName
 LDAPFieldMail=Email address
 LDAPFieldMailExample=Example : mail
 LDAPFieldPhone=Professional phone number
@@ -1054,8 +1043,6 @@ Module5000Name=Multi-selskap
 Module5000Desc=Lar deg administrere flere selskaper
 Module10000Name=PayBox
 Module10000Desc=Modul å tilby en online betaling med kredittkort siden med PayBox
-Module13452Name=SpeedFinder
-Module13452Desc=Søkemotor i AJAX for å finne et navn fra en del av et telefonnummer i løpet av to sekunder
 Permission13=Unvalidate fakturaer
 Permission28=Eksporter kommersielle forslag
 Permission36=Se / administrere skjulte produkter
@@ -1272,7 +1259,7 @@ DictionnarySource=Origin of forslag / pålegg
 MenuSmartphoneManager=Smartphone-menyen leder
 DefaultMenuManager=Standard meny leder
 DefaultMenuSmartphoneManager=Smartphone-menyen leder
-DelaysOfToleranceSuppliersOrdersToProcess=Forsinkelse toleranse (i dager) før varsel på leverandørers ordre ennå ikke behandlet
+Delays_MAIN_DELAY_SUPPLIER_ORDERS_TO_PROCESS=Forsinkelse toleranse (i dager) før varsel på leverandørers ordre ennå ikke behandlet
 SecurityEventsPurged=Sikkerhetshendelser renset
 ShowProfIdInAddress=Vis Profesjonell id med adresser på dokumenter
 TranslationUncomplete=Delvis oversettelse

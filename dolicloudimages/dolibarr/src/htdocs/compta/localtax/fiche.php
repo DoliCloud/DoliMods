@@ -3,7 +3,7 @@
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -21,9 +21,9 @@
  *		\brief      Page of IRPF payments
  */
 
-require('../../main.inc.php');
-require_once(DOL_DOCUMENT_ROOT."/compta/localtax/class/localtax.class.php");
-require_once(DOL_DOCUMENT_ROOT."/compta/bank/class/account.class.php");
+require '../../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/compta/localtax/class/localtax.class.php';
+require_once DOL_DOCUMENT_ROOT.'/compta/bank/class/account.class.php';
 
 $langs->load("compta");
 $langs->load("banks");
@@ -40,13 +40,13 @@ $result = restrictedArea($user, 'tax', '', '', 'charges');
 
 
 /*
- * Actions 
+ * Actions
  */
 
 //add payment of localtax
 if ($_POST["action"] == 'add' && $_POST["cancel"] <> $langs->trans("Cancel"))
 {
-    $localtax = new localtax($db);
+    $localtax = new Localtax($db);
 
     $db->begin();
 
@@ -64,7 +64,7 @@ if ($_POST["action"] == 'add' && $_POST["cancel"] <> $langs->trans("Cancel"))
     if ($ret > 0)
     {
         $db->commit();
-        Header("Location: reglement.php");
+        header("Location: reglement.php");
         exit;
     }
     else
@@ -78,7 +78,7 @@ if ($_POST["action"] == 'add' && $_POST["cancel"] <> $langs->trans("Cancel"))
 //delete payment of localtax
 if ($_GET["action"] == 'delete')
 {
-    $localtax = new localtax($db);
+    $localtax = new Localtax($db);
     $result=$localtax->fetch($_GET['id']);
 
 	if ($localtax->rappro == 0)
@@ -131,7 +131,7 @@ $form = new Form($db);
 
 if ($id)
 {
-    $vatpayment = new localtax($db);
+    $vatpayment = new Localtax($db);
 	$result = $vatpayment->fetch($id);
 	if ($result <= 0)
 	{
@@ -168,7 +168,7 @@ if ($_GET["action"] == 'create')
 	// Amount
 	print '<tr><td class="fieldrequired">'.$langs->trans("Amount").'</td><td><input name="amount" size="10" value="'.$_POST["amount"].'"></td></tr>';
 
-    if ($conf->banque->enabled)
+    if (! empty($conf->banque->enabled))
     {
 		print '<tr><td class="fieldrequired">'.$langs->trans("Account").'</td><td>';
         $form->select_comptes($_POST["accountid"],"accountid",0,"courant=1",1);  // Affiche liste des comptes courant
@@ -227,7 +227,7 @@ if ($id)
 
 	print '<tr><td>'.$langs->trans("Amount").'</td><td colspan="3">'.price($vatpayment->amount).'</td></tr>';
 
-	if ($conf->banque->enabled)
+	if (! empty($conf->banque->enabled))
 	{
 		if ($vatpayment->fk_account > 0)
 		{

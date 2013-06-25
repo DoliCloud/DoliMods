@@ -1,11 +1,11 @@
 <?php
 /* Copyright (C) 2001-2004 Rodolphe Quiedeville <rodolphe@quiedeville.org>
  * Copyright (C) 2004-2012 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2005-2009 Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2005-2009 Regis Houssin        <regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -22,30 +22,31 @@
  *	\brief       Page reporting CA
  */
 
-require('../../main.inc.php');
-require_once(DOL_DOCUMENT_ROOT."/core/lib/report.lib.php");
-
+require '../../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/report.lib.php';
 
 $year_start=GETPOST("year_start");
 $year_current = strftime("%Y",time());
 $nbofyear=4;
 if (! $year_start) {
-    $year_start = $year_current - ($nbofyear-1);
-    $year_end = $year_current;
+	$year_start = $year_current - ($nbofyear-1);
+	$year_end = $year_current;
 }
 else {
-    $year_end=$year_start + ($nbofyear-1);
+	$year_end=$year_start + ($nbofyear-1);
 }
-
 $userid=GETPOST('userid','int');
-$socid=GETPOST('socid','int');
-// Security check
-if ($user->societe_id > 0) $socid = $user->societe_id;
-if (!$user->rights->compta->resultat->lire && !$user->rights->accounting->comptarapport->lire) accessforbidden();
-
+$socid = GETPOST('socid','int');
 // Define modecompta ('CREANCES-DETTES' or 'RECETTES-DEPENSES')
 $modecompta = $conf->global->COMPTA_MODE;
 if ($_GET["modecompta"]) $modecompta=$_GET["modecompta"];
+
+// Security check
+if ($user->societe_id > 0) $socid = $user->societe_id;
+if (! empty($conf->comptabilite->enabled)) $result=restrictedArea($user,'compta','','','resultat');
+if (! empty($conf->accounting->enabled)) $result=restrictedArea($user,'accounting','','','comptarapport');
+
+
 
 
 /*
@@ -216,9 +217,10 @@ for ($mois = 1+$nb_mois_decalage ; $mois <= 12+$nb_mois_decalage ; $mois++)
 	print "<td>".dol_print_date(dol_mktime(12,0,0,$mois_modulo,1,2000),"%B")."</td>";
 	for ($annee = $year_start ; $annee <= $year_end ; $annee++)
 	{
+		$now=dol_now();
 		$annee_decalage=$annee;
-		if($mois>12) {$annee_decalage=$annee+1;}
-		$casenow = dol_print_date(mktime(),"%Y-%m");
+		if ($mois>12) {$annee_decalage=$annee+1;}
+		$casenow = dol_print_date($now,"%Y-%m");
 		$case = dol_print_date(dol_mktime(1,1,1,$mois_modulo,1,$annee_decalage),"%Y-%m");
 		$caseprev = dol_print_date(dol_mktime(1,1,1,$mois_modulo,1,$annee_decalage-1),"%Y-%m");
 
@@ -251,7 +253,8 @@ for ($mois = 1+$nb_mois_decalage ; $mois <= 12+$nb_mois_decalage ; $mois++)
 			}
 			if (! $cum[$caseprev] && $cum[$case])
 			{
-				print '<td align="right">+Inf%</td>';
+				//print '<td align="right">+Inf%</td>';
+				print '<td align="right">-</td>';
 			}
 			if (isset($cum[$caseprev]) && ! $cum[$caseprev] && ! $cum[$case])
 			{

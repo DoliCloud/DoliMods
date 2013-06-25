@@ -1,7 +1,7 @@
 <?php
 /* Copyright (C) 2003-2007 Rodolphe Quiedeville    <rodolphe@quiedeville.org>
  * Copyright (C) 2004-2011 Laurent Destailleur     <eldy@users.sourceforge.net>
- * Copyright (C) 2005-2011 Regis Houssin           <regis@dolibarr.fr>
+ * Copyright (C) 2005-2011 Regis Houssin           <regis.houssin@capnetworks.com>
  * Copyright (C) 2004      Sebastien Di Cintio     <sdicintio@ressource-toi.org>
  * Copyright (C) 2004      Benoit Mortier          <benoit.mortier@opensides.be>
  * Copyright (C) 2010-2012 Juanjo Menent           <jmenent@2byte.es>
@@ -9,7 +9,7 @@
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -27,13 +27,14 @@
  *  \brief      Page d'administration-configuration du module Fournisseur
  */
 
-require("../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
-require_once(DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.class.php');
-require_once(DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.commande.class.php');
-require_once(DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.facture.class.php');
+require '../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.class.php';
+require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.commande.class.php';
+require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.facture.class.php';
 
 $langs->load("admin");
+$langs->load('other');
 
 if (!$user->admin)
 accessforbidden();
@@ -93,7 +94,7 @@ if ($action == 'specimen')  // For orders
 
     if ($filefound)
     {
-    	require_once($file);
+    	require_once $file;
 
     	$module = new $classname($db,$commande);
 
@@ -139,7 +140,7 @@ if ($action == 'specimenfacture')   // For invoices
 
     if ($filefound)
     {
-    	require_once($file);
+    	require_once $file;
 
     	$module = new $classname($db,$facture);
 
@@ -249,8 +250,9 @@ if ($action == 'addcat')
 
 if ($action == 'set_SUPPLIER_INVOICE_FREE_TEXT')
 {
-    $free = GETPOST('SUPPLIER_INVOICE_FREE_TEXT','alpha');
-    $res = dolibarr_set_const($db, "SUPPLIER_INVOICE_FREE_TEXT",$free,'chaine',0,'',$conf->entity);
+    $freetext = GETPOST('SUPPLIER_INVOICE_FREE_TEXT');	// No alpha here, we want exact string
+
+    $res = dolibarr_set_const($db, "SUPPLIER_INVOICE_FREE_TEXT",$freetext,'chaine',0,'',$conf->entity);
 
     if (! $res > 0) $error++;
 
@@ -313,7 +315,7 @@ foreach ($dirmodels as $reldir)
                 {
                     $file = substr($file, 0, dol_strlen($file)-4);
 
-                    require_once($dir.$file.".php");
+                    require_once $dir.$file.'.php';
 
                     $module = new $file;
 
@@ -355,7 +357,6 @@ foreach ($dirmodels as $reldir)
                         // Info
                         $htmltooltip='';
                         $htmltooltip.=''.$langs->trans("Version").': <b>'.$module->getVersion().'</b><br>';
-                        $facture->type=0;
                         $nextval=$module->getNextValue($mysoc,$commande);
                         if ("$nextval" != $langs->trans("NotAvailable"))	// Keep " on nextval
                         {
@@ -454,7 +455,7 @@ foreach ($dirmodels as $reldir)
                     print "<tr ".$bc[$var].">\n";
                     print "<td>".$name."</td>\n";
                     print "<td>\n";
-                    require_once($dir.$file);
+                    require_once $dir.$file;
                     $module = new $classname($db,$specimenthirdparty);
                     print $module->description;
                     print "</td>\n";
@@ -586,7 +587,7 @@ foreach ($dirmodels as $reldir)
                     print "<tr ".$bc[$var].">\n";
                     print "<td>".$name."</td>\n";
                     print "<td>";
-                    require_once($dir.$file);
+                    require_once $dir.$file;
                     $module = new $classname($db,$specimenthirdparty);
                     print $module->description;
                     print "</td>\n";

@@ -1,12 +1,12 @@
-<?PHP
-/* Copyright (C) 2001-2006 Rodolphe Quiedeville <rodolphe@quiedeville.org>
- * Copyright (C) 2004-2012 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2005-2011 Regis Houssin        <regis@dolibarr.fr>
- * Copyright (C) 2012-2012 Vinicius Nogueira    <viniciusvgn@gmail.com>
+<?php
+/* Copyright (C) 2001-2006	Rodolphe Quiedeville	<rodolphe@quiedeville.org>
+ * Copyright (C) 2004-2012	Laurent Destailleur		<eldy@users.sourceforge.net>
+ * Copyright (C) 2005-2012	Regis Houssin			<regis.houssin@capnetworks.com>
+ * Copyright (C) 2012		Vinicius Nogueira		<viniciusvgn@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -24,13 +24,13 @@
  *	 \brief      Home page of supplier's orders area
  */
 
-require("../../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/core/class/html.formfile.class.php");
-require_once(DOL_DOCUMENT_ROOT."/fourn/class/fournisseur.commande.class.php");
-require_once(DOL_DOCUMENT_ROOT."/contact/class/contact.class.php");
+require '../../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/core/class/html.formfile.class.php';
+require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.commande.class.php';
+require_once DOL_DOCUMENT_ROOT.'/contact/class/contact.class.php';
 
 // Security check
-$orderid = isset($_GET["orderid"])?$_GET["orderid"]:'';
+$orderid = GETPOST('orderid');
 if ($user->societe_id) $socid=$user->societe_id;
 $result = restrictedArea($user, 'commande_fournisseur', $orderid,'');
 
@@ -40,7 +40,7 @@ $langs->load("orders");
 
 /*
  * 	View
-*/
+ */
 
 llxHeader('',$langs->trans("SuppliersOrdersArea"));
 
@@ -48,7 +48,7 @@ $commandestatic = new CommandeFournisseur($db);
 $userstatic=new User($db);
 $formfile = new FormFile($db);
 
-print_barre_liste($langs->trans("SuppliersOrdersArea"), $page, "index.php", "", $sortfield, $sortorder, '', $num);
+print_fiche_titre($langs->trans("SuppliersOrdersArea"));
 
 print '<table class="notopnoleftnoright" width="100%">';
 print '<tr valign="top"><td class="notopnoleft" width="30%">';
@@ -58,7 +58,7 @@ print '<tr valign="top"><td class="notopnoleft" width="30%">';
  * Search form
 */
 $var=false;
-print '<table class="noborder" width="100%">';
+print '<table class="noborder nohover" width="100%">';
 print '<form method="post" action="liste.php">';
 print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
 print '<tr class="liste_titre"><td colspan="3">'.$langs->trans("SearchOrder").'</td></tr>';
@@ -202,7 +202,7 @@ else
  * Draft orders
  */
 
-if ($conf->fournisseur->enabled)
+if (! empty($conf->fournisseur->enabled))
 {
     $sql = "SELECT c.rowid, c.ref, s.nom, s.rowid as socid";
     $sql.= " FROM ".MAIN_DB_PREFIX."commande_fournisseur as c";
@@ -211,7 +211,7 @@ if ($conf->fournisseur->enabled)
     $sql.= " WHERE c.fk_soc = s.rowid";
     $sql.= " AND c.entity = ".$conf->entity;
     $sql.= " AND c.fk_statut = 0";
-    if ($socid) $sql.= " AND c.fk_soc = ".$socid;
+    if (! empty($socid)) $sql.= " AND c.fk_soc = ".$socid;
     if (!$user->rights->societe->client->voir && !$socid) $sql.= " AND s.rowid = sc.fk_soc AND sc.fk_user = " .$user->id;
 
     $resql=$db->query($sql);
@@ -307,7 +307,7 @@ if (!$user->rights->societe->client->voir && !$socid) $sql.= ", ".MAIN_DB_PREFIX
 $sql.= " WHERE c.fk_soc = s.rowid";
 $sql.= " AND c.entity = ".$conf->entity;
 //$sql.= " AND c.fk_statut > 2";
-if ($socid) $sql .= " AND c.fk_soc = ".$socid;
+if (! empty($socid)) $sql .= " AND c.fk_soc = ".$socid;
 if (!$user->rights->societe->client->voir && !$socid) $sql.= " AND s.rowid = sc.fk_soc AND sc.fk_user = " .$user->id;
 $sql.= " ORDER BY c.tms DESC";
 $sql.= $db->plimit($max, 0);
@@ -348,7 +348,7 @@ if ($resql)
             $filename=dol_sanitizeFileName($obj->ref);
             $filedir=$conf->commande->dir_output . '/' . dol_sanitizeFileName($obj->ref);
             $urlsource=$_SERVER['PHP_SELF'].'?id='.$obj->rowid;
-            $formfile->show_documents('commande',$filename,$filedir,$urlsource,'','','',1,'',1);
+            print $formfile->getDocumentsLink($commandestatic->element, $filename, $filedir);
             print '</td></tr></table>';
 
             print '</td>';
@@ -416,7 +416,7 @@ print '<td width="16" align="right" class="nobordernopadding">';
 $filename=dol_sanitizeFileName($obj->ref);
 $filedir=$conf->commande->dir_output . '/' . dol_sanitizeFileName($obj->ref);
 $urlsource=$_SERVER['PHP_SELF'].'?id='.$obj->rowid;
-$formfile->show_documents('commande',$filename,$filedir,$urlsource,'','','',1,'',1);
+print $formfile->getDocumentsLink($commandestatic->element, $filename, $filedir);
 print '</td></tr></table>';
 
 print '</td>';
@@ -436,7 +436,7 @@ print "</table><br>";
 
 print '</td></tr></table>';
 
-$db->close();
-
 llxFooter();
+
+$db->close();
 ?>

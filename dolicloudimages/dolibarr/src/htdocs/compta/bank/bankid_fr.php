@@ -2,11 +2,11 @@
 /* Copyright (C) 2002-2006 Rodolphe Quiedeville <rodolphe@quiedeville.org>
  * Copyright (C) 2003      Jean-Louis Bergamo   <jlb@j1b.org>
  * Copyright (C) 2004-2008 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copytight (C) 2005-2009 Regis Houssin        <regis@dolibarr.fr>
+ * Copytight (C) 2005-2009 Regis Houssin        <regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -24,9 +24,9 @@
  *  \brief      Fiche creation compte bancaire
  */
 
-require("./pre.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/bank.lib.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/company.lib.php");
+require 'pre.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/bank.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php';
 
 $langs->load("banks");
 $langs->load("bills");
@@ -135,10 +135,12 @@ if (($_GET["id"] || $_GET["ref"]) && $action != 'edit')
 
 	print '<table class="border" width="100%">';
 
+	$linkback = '<a href="'.DOL_URL_ROOT.'/compta/bank/index.php">'.$langs->trans("BackToList").'</a>';
+
 	// Ref
 	print '<tr><td valign="top" width="25%">'.$langs->trans("Ref").'</td>';
 	print '<td colspan="3">';
-	print $form->showrefnav($account,'ref','',1,'ref');
+	print $form->showrefnav($account, 'ref', $linkback, 1, 'ref');
 	print '</td></tr>';
 
 	// Label
@@ -163,6 +165,13 @@ if (($_GET["id"] || $_GET["ref"]) && $action != 'edit')
 
 	if ($account->type == 0 || $account->type == 1)
 	{
+	    // Country
+	    print '<tr><td valign="top">'.$langs->trans("BankAccountCountry").'</td><td colspan="3">';
+	    $img=picto_from_langcode($account->country_code);
+	    print $img?$img.' ':'';
+	    print getCountry($account->getCountryCode(),0,$db);
+	    print "</td></tr>\n";
+
 		print '<tr><td valign="top">'.$langs->trans("BankName").'</td>';
 		print '<td colspan="3">'.$account->bank.'</td></tr>';
 
@@ -207,13 +216,6 @@ if (($_GET["id"] || $_GET["ref"]) && $action != 'edit')
 
 		print '<tr><td valign="top">'.$langs->trans("BankAccountDomiciliation").'</td><td colspan="3">';
 		print nl2br($account->domiciliation);
-		print "</td></tr>\n";
-
-		// Country
-		print '<tr><td valign="top">'.$langs->trans("BankAccountCountry").'</td><td colspan="3">';
-		$img=picto_from_langcode($account->country_code);
-		print $img?$img.' ':'';
-		print getCountry($account->getCountryCode(),0,$db);
 		print "</td></tr>\n";
 
 		print '<tr><td valign="top">'.$langs->trans("BankAccountOwner").'</td><td colspan="3">';

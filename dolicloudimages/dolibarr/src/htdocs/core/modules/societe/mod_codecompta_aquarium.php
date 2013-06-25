@@ -5,7 +5,7 @@
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -23,7 +23,7 @@
  *	\ingroup    societe
  *	\brief      File of class to manage accountancy code of thirdparties with Panicum rules
  */
-require_once(DOL_DOCUMENT_ROOT."/core/modules/societe/modules_societe.class.php");
+require_once DOL_DOCUMENT_ROOT.'/core/modules/societe/modules_societe.class.php';
 
 
 /**
@@ -60,10 +60,9 @@ class mod_codecompta_aquarium extends ModeleAccountancyCode
 	function info($langs)
 	{
 	    global $conf;
+	    global $form;
 
 		$langs->load("companies");
-
-		$form = new Form($this->db);
 
         $tooltip='';
 		$texte = '<form action="'.$_SERVER["PHP_SELF"].'" method="POST">';
@@ -110,14 +109,20 @@ class mod_codecompta_aquarium extends ModeleAccountancyCode
 		$i = 0;
 		$this->db = $db;
 
-		dol_syslog("mod_codecompta_aquarium::get_code search code for type=".$type." company=".$societe->nom);
+		dol_syslog("mod_codecompta_aquarium::get_code search code for type=".$type." company=".(! empty($societe->nom)?$societe->nom:''));
 
 		// Regle gestion compte compta
 		$codetouse='';
-		if ($type == 'customer') $codetouse = $this->prefixcustomeraccountancycode;
-		if ($type == 'supplier') $codetouse = $this->prefixsupplieraccountancycode;
-		if ($type == 'customer') $codetouse.= ($societe->code_client?$societe->code_client:'CUSTCODE');
-		if ($type == 'supplier') $codetouse.= ($societe->code_fournisseur?$societe->code_fournisseur:'SUPPCODE');
+		if ($type == 'customer')
+		{
+			$codetouse = $this->prefixcustomeraccountancycode;
+			$codetouse.= (! empty($societe->code_client)?$societe->code_client:'CUSTCODE');
+		}
+		else if ($type == 'supplier')
+		{
+			$codetouse = $this->prefixsupplieraccountancycode;
+			$codetouse.= (! empty($societe->code_fournisseur)?$societe->code_fournisseur:'SUPPCODE');
+		}
 		$codetouse=strtoupper(preg_replace('/([^a-z0-9])/i','',$codetouse));
 
 		$is_dispo = $this->verif($db, $codetouse, $societe, $type);
@@ -148,13 +153,13 @@ class mod_codecompta_aquarium extends ModeleAccountancyCode
 	{
 		$sql = "SELECT ";
 		if ($type == 'customer') $sql.= "code_compta";
-		if ($type == 'supplier') $sql.= "code_compta_fournisseur";
+		else if ($type == 'supplier') $sql.= "code_compta_fournisseur";
 		$sql.= " FROM ".MAIN_DB_PREFIX."societe";
 		$sql.= " WHERE ";
 		if ($type == 'customer') $sql.= "code_compta";
-		if ($type == 'supplier') $sql.= "code_compta_fournisseur";
+		else if ($type == 'supplier') $sql.= "code_compta_fournisseur";
 		$sql.= " = '".$this->db->escape($code)."'";
-		if ($societe->id > 0) $sql.= " AND rowid <> ".$societe->id;
+		if (! empty($societe->id)) $sql.= " AND rowid <> ".$societe->id;
 
 		$resql=$db->query($sql);
 		if ($resql)

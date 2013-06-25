@@ -3,7 +3,7 @@
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -22,7 +22,7 @@
  *      \brief      File to manage no password generation.
  */
 
-require_once(DOL_DOCUMENT_ROOT ."/core/modules/security/generate/modules_genpassword.php");
+require_once DOL_DOCUMENT_ROOT .'/core/modules/security/generate/modules_genpassword.php';
 
 
 /**
@@ -48,7 +48,7 @@ class modGeneratePassNone extends ModeleGenPassword
 	 *	@param		Translate	$langs		Handler de langue
 	 *	@param		User		$user		Handler du user connecte
 	 */
-	function modGeneratePassNone($db, $conf, $langs, $user)
+	function __construct($db, $conf, $langs, $user)
 	{
 		$this->id = "none";
 		$this->length = 0;

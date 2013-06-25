@@ -1,11 +1,11 @@
 <?php
 /* Copyright (C) 2005      Rodolphe Quiedeville <rodolphe@quiedeville.org>
  * Copyright (C) 2005-2009 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2010      Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2010      Regis Houssin        <regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -23,14 +23,16 @@
  *       \brief      Page accueil de la zone mailing
  */
 
-require("../../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT ."/comm/mailing/class/mailing.class.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/functions2.lib.php");
+require '../../main.inc.php';
+require_once DOL_DOCUMENT_ROOT .'/comm/mailing/class/mailing.class.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php';
 
 $langs->load("commercial");
 $langs->load("orders");
 
-if (! $user->rights->mailing->lire || $user->societe_id > 0) accessforbidden();
+
+// Security check
+$result=restrictedArea($user,'mailing');
 
 
 /*
@@ -51,7 +53,7 @@ print '<tr><td valign="top" width="30%" class="notopnoleft">';
 $var=false;
 print '<form method="post" action="'.DOL_URL_ROOT.'/comm/mailing/liste.php">';
 print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
-print '<table class="noborder" width="100%">';
+print '<table class="noborder nohover" width="100%">';
 print '<tr class="liste_titre"><td colspan="3">'.$langs->trans("SearchAMailing").'</td></tr>';
 print '<tr '.$bc[$var].'><td nowrap>';
 print $langs->trans("Ref").':</td><td><input type="text" class="flat" name="sref" size="18"></td>';
@@ -84,7 +86,7 @@ if (is_resource($handle))
                 // Chargement de la classe
                 $file = $dir."/".$modulename.".modules.php";
                 $classname = "mailing_".$modulename;
-                require_once($file);
+                require_once $file;
                 $mailmodule = new $classname($db);
 
                 $qualified=1;
@@ -174,7 +176,7 @@ if ($result)
 	  print "<tr $bc[$var]>";
 	  print '<td nowrap="nowrap"><a href="fiche.php?id='.$obj->rowid.'">'.img_object($langs->trans("ShowEMail"),"email").' '.$obj->rowid.'</a></td>';
 	  print '<td>'.dol_trunc($obj->titre,38).'</td>';
-	  print '<td align="center">'.dol_print_date($obj->date_creat,'day').'</td>';
+	  print '<td align="center">'.dol_print_date($db->jdate($obj->date_creat),'day').'</td>';
 	  print '<td align="center">'.($obj->nbemail?$obj->nbemail:"0").'</td>';
 	  $mailstatic=new Mailing($db);
 	  print '<td align="right">'.$mailstatic->LibStatut($obj->statut,5).'</td>';

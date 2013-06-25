@@ -1,11 +1,11 @@
 <?php
 /* Copyright (C) 2007      Patrick Raguin       <patrick.raguin@gmail.com>
  * Copyright (C) 2007-2012 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2009-2011 Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2009-2012 Regis Houssin        <regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -23,24 +23,27 @@
  *  \brief      Index page for menu editor
  */
 
-require("../../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/core/class/html.formadmin.class.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/treeview.lib.php");
+require '../../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/core/class/html.formadmin.class.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/treeview.lib.php';
 
 $langs->load("other");
 $langs->load("admin");
 
 if (! $user->admin) accessforbidden();
 
-$dirstandard = array("/core/menus/standard");
-$dirsmartphone = array("/core/menus/smartphone");
-foreach($conf->menus_modules as $dir)
+$dirstandard = array();
+$dirsmartphone = array();
+$dirmenus=array_merge(array("/core/menus/"),(array) $conf->modules_parts['menus']);
+foreach($dirmenus as $dirmenu)
 {
-    $dirstandard[]=$dir.'standard';
-    $dirsmartphone[]=$dir.'standard';
+    $dirstandard[]=$dirmenu.'standard';
+    $dirsmartphone[]=$dirmenu.'smartphone';
 }
 
-$mesg=$_GET["mesg"];
+$action=GETPOST('action','alpha');
+$confirm=GETPOST('confirm','alpha');
+$mesg=GETPOST('mesg');
 
 $menu_handler_top=$conf->global->MAIN_MENU_STANDARD;
 $menu_handler_smartphone=$conf->global->MAIN_MENU_SMARTPHONE;
@@ -51,15 +54,15 @@ $menu_handler_smartphone=preg_replace('/_frontoffice.php/i','',$menu_handler_sma
 
 $menu_handler=$menu_handler_top;
 
-if ($_REQUEST["handler_origine"]) $menu_handler=$_REQUEST["handler_origine"];
-if ($_REQUEST["menu_handler"])    $menu_handler=$_REQUEST["menu_handler"];
+if (GETPOST("handler_origine")) $menu_handler=GETPOST("handler_origine");
+if (GETPOST("menu_handler"))    $menu_handler=GETPOST("menu_handler");
 
 
 /*
 * Actions
 */
 
-if (isset($_GET["action"]) && ($_GET["action"] == 'up'))
+if ($action == 'up')
 {
 	$current=array();
 	$previous=array();
@@ -115,7 +118,7 @@ if (isset($_GET["action"]) && ($_GET["action"] == 'up'))
 	$db->query($sql);
 }
 
-if (isset($_GET["action"]) && $_GET["action"] == 'down')
+elseif ($action == 'down')
 {
 	$current=array();
 	$next=array();
@@ -171,7 +174,7 @@ if (isset($_GET["action"]) && $_GET["action"] == 'down')
 	$db->query($sql);
 }
 
-if ($_POST["action"] == 'confirm_delete' && $_POST["confirm"] == 'yes')
+elseif ($action == 'confirm_delete' && $confirm == 'yes')
 {
 	$db->begin();
 
@@ -182,7 +185,7 @@ if ($_POST["action"] == 'confirm_delete' && $_POST["confirm"] == 'yes')
 	{
 		$db->commit();
 
-		Header("Location: ".DOL_URL_ROOT.'/admin/menus/index.php?menu_handler='.$menu_handler.'&mesg='.urlencode($langs->trans("MenuDeleted")));
+		header("Location: ".DOL_URL_ROOT.'/admin/menus/index.php?menu_handler='.$menu_handler.'&mesg='.urlencode($langs->trans("MenuDeleted")));
 		exit ;
 	}
 	else
@@ -190,7 +193,7 @@ if ($_POST["action"] == 'confirm_delete' && $_POST["confirm"] == 'yes')
 		$db->rollback();
 
 		$reload = 0;
-		$_GET["action"]='';
+		$action='';
 	}
 }
 
@@ -236,7 +239,7 @@ print "<br>\n";
 
 
 // Confirmation for remove menu entry
-if ($_GET["action"] == 'delete')
+if ($action == 'delete')
 {
 	$sql = "SELECT m.titre";
 	$sql.= " FROM ".MAIN_DB_PREFIX."menu as m";
@@ -285,19 +288,19 @@ if ($conf->use_javascript_ajax)
 	*/
 	//il faut d'abord declarer un element racine de l'arbre
 
-	$data[] = array(0,-1,"racine");
+	$data[] = array('rowid'=>0,'fk_menu'=>-1,'title'=>"racine",'mainmenu'=>'','leftmenu'=>'','fk_mainmenu'=>'','fk_leftmenu'=>'');
 
 	//puis tous les elements enfants
 
-
-	$sql = "SELECT m.rowid, m.fk_menu, m.titre, m.langs";
+	$sql = "SELECT m.rowid, m.titre, m.langs, m.mainmenu, m.leftmenu, m.fk_menu, m.fk_mainmenu, m.fk_leftmenu";
 	$sql.= " FROM ".MAIN_DB_PREFIX."menu as m";
 	$sql.= " WHERE menu_handler = '".$menu_handler."'";
 	$sql.= " AND entity = ".$conf->entity;
 	$sql.= " AND fk_menu >= 0";
 	$sql.= " ORDER BY m.position, m.rowid";		// Order is position then rowid (because we need a sort criteria when position is same)
-	$res  = $db->query($sql);
 
+	dol_syslog("sql=".$sql);
+	$res  = $db->query($sql);
 	if ($res)
 	{
 		$num = $db->num_rows($res);
@@ -307,15 +310,15 @@ if ($conf->use_javascript_ajax)
 		{
 			if (! empty($menu['langs'])) $langs->load($menu['langs']);
 			$titre = $langs->trans($menu['titre']);
-			$data[] = array($menu['rowid'],$menu['fk_menu'],$titre);
+			$data[] = array('rowid'=>$menu['rowid'],'fk_menu'=>$menu['fk_menu'],'title'=>$titre,'mainmenu'=>$menu['mainmenu'],'leftmenu'=>$menu['leftmenu'],'fk_mainmenu'=>$menu['fk_mainmenu'],'fk_leftmenu'=>$menu['fk_leftmenu']);
 			$i++;
 		}
 	}
 
 	// Appelle de la fonction recursive (ammorce)
 	// avec recherche depuis la racine.
-	// array($menu['rowid'],$menu['fk_menu'],$titre);
-	tree_recur($data,0,0);
+	//var_dump($data);
+	tree_recur($data,$data[0],0);
 
 	print '</td>';
 
@@ -340,8 +343,9 @@ else
 	print '<div class="error">'.$langs->trans("ErrorFeatureNeedJavascript").'</div>';
 }
 
-$db->close();
-
 print '<br>';
 
 llxFooter();
+
+$db->close();
+?>

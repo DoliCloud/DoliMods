@@ -1,10 +1,10 @@
 <?php
-/* Copyright (C) 2010 Regis Houssin       <regis@dolibarr.fr>
+/* Copyright (C) 2010 Regis Houssin       <regis.houssin@capnetworks.com>
  * Copyright (C) 2011 Laurent Destailleur <eldy@users.sourceforge.net>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -29,8 +29,8 @@ if (! defined('NOREQUIREAJAX'))  define('NOREQUIREAJAX','1');
 if (! defined('NOREQUIRESOC'))   define('NOREQUIRESOC','1');
 if (! defined('NOCSRFCHECK'))    define('NOCSRFCHECK','1');
 
-require('../../main.inc.php');
-require_once(DOL_DOCUMENT_ROOT."/core/class/html.formcompany.class.php");
+require '../../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/core/class/html.formcompany.class.php';
 
 
 
@@ -47,7 +47,7 @@ top_httphead();
 
 //print '<!-- Ajax page called with url '.$_SERVER["PHP_SELF"].'?'.$_SERVER["QUERY_STRING"].' -->'."\n";
 
-dol_syslog("GET is ".join(',',$_GET));
+dol_syslog("GET is ".join(',',$_GET).', MAIN_USE_ZIPTOWN_DICTIONNARY='.(empty($conf->global->MAIN_USE_ZIPTOWN_DICTIONNARY)?'':$conf->global->MAIN_USE_ZIPTOWN_DICTIONNARY));
 //var_dump($_GET);
 
 // Generation of list of zip-town
@@ -60,7 +60,7 @@ if (! empty($_GET['zipcode']) || ! empty($_GET['town']))
 	$zipcode = $_GET['zipcode']?$_GET['zipcode']:'';
 	$town = $_GET['town']?$_GET['town']:'';
 
-	if ($conf->global->MAIN_USE_ZIPTOWN_DICTIONNARY)   // Use zip-town table
+	if (! empty($conf->global->MAIN_USE_ZIPTOWN_DICTIONNARY))   // Use zip-town table
 	{
     	$sql = "SELECT z.rowid, z.zip, z.town, z.fk_county, z.fk_pays as fk_country";
     	$sql.= ", p.rowid as fk_country, p.code as country_code, p.libelle as country";
@@ -132,5 +132,7 @@ else
 {
 
 }
+
+$db->close();
 
 ?>

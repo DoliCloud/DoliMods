@@ -1,11 +1,11 @@
 <?php
 /* Copyright (C) 2004      Rodolphe Quiedeville <rodolphe@quiedeville.org>
  * Copyright (C) 2004-2011 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2005-2012 Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2005-2012 Regis Houssin        <regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -23,9 +23,9 @@
  *       \brief      Onglet informations personnelles d'un contact
  */
 
-require("../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/contact/class/contact.class.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/contact.lib.php");
+require '../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/contact/class/contact.class.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/contact.lib.php';
 
 $langs->load("companies");
 $langs->load("other");
@@ -69,7 +69,9 @@ if ($action == 'update' && ! $_POST["cancel"] && $user->rights->societe->contact
 
 $now=dol_now();
 
-llxHeader('',$langs->trans("ContactsAddresses"),'EN:Module_Third_Parties|FR:Module_Tiers|ES:M&oacute;dulo_Empresas');
+$title = (! empty($conf->global->SOCIETE_ADDRESSES_MANAGEMENT) ? $langs->trans("Contacts") : $langs->trans("ContactsAddresses"));
+
+llxHeader('',$title,'EN:Module_Third_Parties|FR:Module_Tiers|ES:M&oacute;dulo_Empresas');
 
 $form = new Form($db);
 
@@ -77,7 +79,7 @@ $object->fetch($id, $user);
 
 $head = contact_prepare_head($object);
 
-dol_fiche_head($head, 'perso', $langs->trans("ContactsAddresses"), 0, 'contact');
+dol_fiche_head($head, 'perso', $title, 0, 'contact');
 
 if ($action == 'edit')
 {
@@ -131,7 +133,7 @@ if ($action == 'edit')
     print '</td>';
 
     print '<td colspan="2">'.$langs->trans("Alert").': ';
-    if ($object->birthday_alert)
+    if (! empty($object->birthday_alert))
     {
         print '<input type="checkbox" name="birthday_alert" checked="checked"></td>';
     }
@@ -158,9 +160,11 @@ else
      */
     print '<table class="border" width="100%">';
 
+    $linkback = '<a href="'.DOL_URL_ROOT.'/contact/list.php">'.$langs->trans("BackToList").'</a>';
+
     // Ref
     print '<tr><td width="20%">'.$langs->trans("Ref").'</td><td colspan="3">';
-    print $form->showrefnav($object,'id');
+    print $form->showrefnav($object, 'id', $linkback);
     print '</td></tr>';
 
     // Name
@@ -193,9 +197,9 @@ else
 
     // Date To Birth
     print '<tr>';
-    if ($object->birthday != '')
+    if (! empty($object->birthday))
     {
-        include_once(DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php');
+        include_once DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php';
 
         print '<td>'.$langs->trans("DateToBirth").'</td><td colspan="3">'.dol_print_date($object->birthday,"day");
 
@@ -224,7 +228,6 @@ else
 }
 
 dol_fiche_end();
-
 
 if ($action != 'edit')
 {

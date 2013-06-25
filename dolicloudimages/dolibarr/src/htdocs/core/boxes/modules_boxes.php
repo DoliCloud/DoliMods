@@ -1,9 +1,10 @@
 <?php
-/* Copyright (C) 2004-2009 Laurent Destailleur  <eldy@users.sourceforge.net>
+/* Copyright (C) 2004-2012 Laurent Destailleur  <eldy@users.sourceforge.net>
+ * Copyright (C) 2005-2012	Regis Houssin		<regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -31,6 +32,16 @@ class ModeleBoxes    // Can't be abtract as it is instanciated to build "empty" 
 	var $db;
 	var $error='';
 	var $max=5;
+	var $enabled=1;
+	
+	var $rowid;
+	var $id;
+	var $position;
+	var $box_order;
+	var $fk_user;
+	var $sourcefile;
+	var $box_id;
+	var $note;
 
 
 	/**
@@ -38,7 +49,7 @@ class ModeleBoxes    // Can't be abtract as it is instanciated to build "empty" 
 	 *
 	 *	@param	DoliDB		$db		Database hanlder
 	 */
-	function ModeleBoxes($db)
+	function __construct($db)
 	{
 		$this->db=$db;
 	}
@@ -62,10 +73,13 @@ class ModeleBoxes    // Can't be abtract as it is instanciated to build "empty" 
 	 */
 	function fetch($rowid)
 	{
+		global $conf;
+
 		// Recupere liste des boites d'un user si ce dernier a sa propre liste
 		$sql = "SELECT b.rowid, b.box_id, b.position, b.box_order, b.fk_user";
 		$sql.= " FROM ".MAIN_DB_PREFIX."boxes as b";
-		$sql.= " WHERE b.rowid = ".$rowid;
+		$sql.= " WHERE b.entity = ".$conf->entity;
+		$sql.= " AND b.rowid = ".$rowid;
 		dol_syslog(get_class($this)."::fetch rowid=".$rowid);
 
 		$resql = $this->db->query($sql);
@@ -109,7 +123,7 @@ class ModeleBoxes    // Can't be abtract as it is instanciated to build "empty" 
 		$bcx[1] = 'class="box_impair"';
 		$var = false;
 
-		dol_syslog(get_Class($this));
+		dol_syslog(get_class($this).'::showBox');
 
 		// Define nbcol and nblines of the box to show
 		$nbcol=0;
@@ -148,7 +162,7 @@ class ModeleBoxes    // Can't be abtract as it is instanciated to build "empty" 
 			}
 			if ($conf->use_javascript_ajax)
 			{
-				print '</td><td class="nocellnopadd" width="30" nowrap="nowrap">';
+				print '</td><td class="nocellnopadd boxclose" nowrap="nowrap">';
 				// The image must have the class 'boxhandle' beause it's value used in DOM draggable objects to define the area used to catch the full object
 				print img_picto($langs->trans("MoveBox",$this->box_id),'grip','class="boxhandle" style="cursor:move;"');
 				print img_picto($langs->trans("Close",$this->box_id),'close','class="boxclose" style="cursor:pointer;" id="imgclose'.$this->box_id.'"');

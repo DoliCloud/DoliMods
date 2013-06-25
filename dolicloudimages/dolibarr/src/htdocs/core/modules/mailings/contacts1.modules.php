@@ -1,11 +1,11 @@
 <?php
 /* Copyright (C) 2005      Rodolphe Quiedeville <rodolphe@quiedeville.org>
  * Copyright (C) 2005-2009 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2005-2009 Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2005-2009 Regis Houssin        <regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -77,6 +77,7 @@ class mailing_contacts1 extends MailingTargets
 		$statssql[0].= " AND c.entity IN (".getEntity('societe', 1).")";
 		$statssql[0].= " AND s.client IN (1, 3)";
 		$statssql[0].= " AND c.email != ''";      // Note that null != '' is false
+		$statssql[0].= " AND c.no_email = 0";
 
 		return $statssql;
 	}
@@ -87,9 +88,10 @@ class mailing_contacts1 extends MailingTargets
 	 *	For example if this selector is used to extract 500 different
 	 *	emails from a text file, this function must return 500.
 	 *
+	 *  @param	string	$sql		Requete sql de comptage
 	 *	@return		int
 	 */
-	function getNbOfRecipients()
+	function getNbOfRecipients($sql='')
 	{
 		global $conf;
 
@@ -99,6 +101,7 @@ class mailing_contacts1 extends MailingTargets
 		$sql .= " WHERE s.rowid = c.fk_soc";
 		$sql .= " AND c.entity IN (".getEntity('societe', 1).")";
 		$sql .= " AND c.email != ''"; // Note that null != '' is false
+		$sql .= " AND c.no_email = 0";
 
 		// La requete doit retourner un champ "nb" pour etre comprise
 		// par parent::getNbOfRecipients
@@ -205,6 +208,7 @@ class mailing_contacts1 extends MailingTargets
 		$sql.= " WHERE s.rowid = c.fk_soc";
 		$sql.= " AND c.entity IN (".getEntity('societe', 1).")";
 		$sql.= " AND c.email != ''";
+		$sql.= " AND c.no_email = 0";
 		foreach($filtersarray as $key)
 		{
 			if ($key == 'prospects') $sql.= " AND s.client=2";
@@ -239,7 +243,7 @@ class mailing_contacts1 extends MailingTargets
                     		'firstname' => $obj->firstname,
                     		'other' =>
                                 ($langs->transnoentities("ThirdParty").'='.$obj->companyname).';'.
-                                ($langs->transnoentities("Civility").'='.($obj->civilite?$langs->transnoentities("Civility".$obj->civilite):'')),
+                                ($langs->transnoentities("UserTitle").'='.($obj->civilite?$langs->transnoentities("Civility".$obj->civilite):'')),
                             'source_url' => $this->url($obj->id),
                             'source_id' => $obj->id,
                             'source_type' => 'contact'

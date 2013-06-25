@@ -1,14 +1,14 @@
 <?php
 /* Copyright (C) 2003-2007 Rodolphe Quiedeville <rodolphe@quiedeville.org>
  * Copyright (C) 2003      Jean-Louis Bergamo   <jlb@j1b.org>
- * Copyright (C) 2004-2010 Laurent Destailleur  <eldy@users.sourceforge.net>
+ * Copyright (C) 2004-2012 Laurent Destailleur  <eldy@users.sourceforge.net>
  * Copyright (C) 2004      Eric Seigne          <eric.seigne@ryxeo.com>
- * Copyright (C) 2005-2011 Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2005-2012 Regis Houssin        <regis.houssin@capnetworks.com>
  * Copyright (C) 2011	   Juanjo Menent        <jmenent@2byte.es>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -25,22 +25,20 @@
  *  \brief      Page to activate/disable all modules
  */
 
-require("../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
+require '../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
 
 $langs->load("errors");
 $langs->load("admin");
 
-$mode=GETPOST('mode', 'alpha');
-if (!isset($mode)) {
-	if (isset($_SESSION['mode'])) {	$mode=$_SESSION['mode'];}
-	else {$mode=0;}
-}
-$mesg=GETPOST("mesg");
-$action=GETPOST('action', 'alpha');
+$mode=GETPOST('mode', 'alpha')?GETPOST('mode', 'alpha'):(isset($_SESSION['mode'])?$_SESSION['mode']:0);
+$action=GETPOST('action','alpha');
 $value=GETPOST('value', 'alpha');
 
-if (!$user->admin) accessforbidden();
+if (! $user->admin)
+	accessforbidden();
+
+$specialtostring=array(0=>'common', 1=>'interfaces', 2=>'other', 3=>'functional', 4=>'marketplace');
 
 
 /*
@@ -50,18 +48,16 @@ if (!$user->admin) accessforbidden();
 if ($action == 'set' && $user->admin)
 {
     $result=activateModule($value);
-    $mesg='';
-    if ($result) $mesg=$result;
-    Header("Location: modules.php?mode=".$mode."&mesg=".urlencode($mesg));
+    if ($result) setEventMessage($result, 'errors');
+    header("Location: modules.php?mode=".$mode);
 	exit;
 }
 
 if ($action == 'reset' && $user->admin)
 {
     $result=unActivateModule($value);
-    $mesg='';
-    if ($result) $mesg=$result;
-    Header("Location: modules.php?mode=".$mode."&mesg=".urlencode($mesg));
+    if ($result) setEventMessage($result, 'errors');
+    header("Location: modules.php?mode=".$mode);
 	exit;
 }
 
@@ -116,7 +112,7 @@ foreach ($modulesdir as $dir)
 {
 	// Load modules attributes in arrays (name, numero, orders) from dir directory
 	//print $dir."\n<br>";
-	dol_syslog("Scan directory ".$dir." for modules");
+	dol_syslog("Scan directory ".$dir." for module descriptor files (modXXX.class.php)");
 	$handle=@opendir($dir);
 	if (is_resource($handle))
 	{
@@ -132,13 +128,14 @@ foreach ($modulesdir as $dir)
 		        	if (! empty($modNameLoaded[$modName]))
 		        	{
 		        		$mesg="Error: Module ".$modName." was found twice: Into ".$modNameLoaded[$modName]." and ".$dir.". You probably have an old file on your disk.<br>";
-		                dol_syslog($mesg, LOG_ERR);
+		        		setEventMessage($mesg, 'warnings');
+		        		dol_syslog($mesg, LOG_ERR);
 						continue;
 		        	}
 
 		            try
 		            {
-		                $res=include_once($dir.$file);
+		                $res=include_once $dir.$file;
 		                $objMod = new $modName($db);
 						$modNameLoaded[$modName]=$dir;
 
@@ -155,17 +152,22 @@ foreach ($modulesdir as $dir)
 
     					// We discard modules according to features level (PS: if module is activated we always show it)
     					$const_name = 'MAIN_MODULE_'.strtoupper(preg_replace('/^mod/i','',get_class($objMod)));
-    					if ($objMod->version == 'development'  && $conf->global->MAIN_FEATURES_LEVEL < 2 && ! $conf->global->$const_name) $modulequalified=0;
-    					if ($objMod->version == 'experimental' && $conf->global->MAIN_FEATURES_LEVEL < 1 && ! $conf->global->$const_name) $modulequalified=0;
+    					if ($objMod->version == 'development'  && (empty($conf->global->$const_name) && ($conf->global->MAIN_FEATURES_LEVEL < 2))) $modulequalified=0;
+    					if ($objMod->version == 'experimental' && (empty($conf->global->$const_name) && ($conf->global->MAIN_FEATURES_LEVEL < 1))) $modulequalified=0;
+						//if ($mode == 'expdev' && ($objMod->version != 'experimental' && $objMod->version != 'development')) $modulequalified=0;
 
+    					// Define array $categ with categ with at least one qualified module
     					if ($modulequalified)
     					{
     						$modules[$i] = $objMod;
     			            $filename[$i]= $modName;
-    			            $orders[$i]  = $objMod->family."_".$j;   // Tri par famille puis numero module
-    						//print "x".$modName." ".$orders[$i]."\n<br>";
-    						if (isset($categ[$objMod->special])) $categ[$objMod->special]++;					// Array of all different modules categories
-    			            else $categ[$objMod->special]=1;
+    			            $orders[$i]  = $objMod->family."_".$j;   // Sort by family, then by module number
+    			            $special     = isset($specialtostring[$objMod->special])?$specialtostring[$objMod->special]:'unknown';
+    			            if ($objMod->version == 'development' || $objMod->version == 'experimental') $special='expdev';
+
+    						//print "x".$modName." ".$orders[$i]." ".$special."\n<br>";
+    						if (isset($categ[$special])) $categ[$special]++;					// Array of all different modules categories
+    			            else $categ[$special]=1;
     						$dirmod[$i] = $dir;
     						$j++;
     			            $i++;
@@ -192,19 +194,24 @@ asort($orders);
 //var_dump($categ);
 //var_dump($modules);
 
-// Affichage debut page
+// Start to show page
+if (empty($mode)) $mode='common';
+if ($mode==='common')      print $langs->trans("ModulesDesc")."<br>\n";
+if ($mode==='other')       print $langs->trans("ModulesSpecialDesc")."<br>\n";
+if ($mode==='interfaces')  print $langs->trans("ModulesInterfaceDesc")."<br>\n";
+if ($mode==='functional')  print $langs->trans("ModulesJobDesc")."<br>\n";
+if ($mode==='marketplace') print $langs->trans("ModulesMarketPlaceDesc")."<br>\n";
+if ($mode==='expdev')      print $langs->trans("ModuleFamilyExperimental")."<br>\n";
 
-if ($mode==0) { $tagmode = 'common';      print $langs->trans("ModulesDesc")."<br>\n"; }
-if ($mode==2) { $tagmode = 'other';       print $langs->trans("ModulesSpecialDesc")."<br>\n"; }
-if ($mode==1) { $tagmode = 'interfaces';  print $langs->trans("ModulesInterfaceDesc")."<br>\n"; }
-if ($mode==3) { $tagmode = 'functional';  print $langs->trans("ModulesJobDesc")."<br>\n"; }
-if ($mode==4) { $tagmode = 'marketplace'; print $langs->trans("ModulesMarketPlaceDesc")."<br>\n"; }
-print "<br>\n";
+$nbofactivatedmodules=count($conf->modules);
+print $langs->trans("TotalNumberOfActivatedModules",($nbofactivatedmodules-1));
+if ($nbofactivatedmodules <= 1) print ' '.img_warning($langs->trans("YouMustEnableOneModule"));
+print '<br>'."\n";
 
 
 $h = 0;
 
-$categidx=0;    // Main
+$categidx='common';    // Main
 if (! empty($categ[$categidx]))
 {
 	$head[$h][0] = DOL_URL_ROOT."/admin/modules.php?mode=".$categidx;
@@ -213,7 +220,7 @@ if (! empty($categ[$categidx]))
 	$h++;
 }
 
-$categidx=2;    // Other
+$categidx='other';    // Other
 if (! empty($categ[$categidx]))
 {
 	$head[$h][0] = DOL_URL_ROOT."/admin/modules.php?mode=".$categidx;
@@ -222,7 +229,7 @@ if (! empty($categ[$categidx]))
 	$h++;
 }
 
-$categidx=1;    // Interfaces
+$categidx='interfaces';    // Interfaces
 if (! empty($categ[$categidx]))
 {
 	$head[$h][0] = DOL_URL_ROOT."/admin/modules.php?mode=".$categidx;
@@ -231,7 +238,7 @@ if (! empty($categ[$categidx]))
 	$h++;
 }
 
-$categidx=3;    // Not used
+$categidx='functional';    // Not used
 if (! empty($categ[$categidx]))
 {
 	$head[$h][0] = DOL_URL_ROOT."/admin/modules.php?mode=".$categidx;
@@ -240,27 +247,38 @@ if (! empty($categ[$categidx]))
 	$h++;
 }
 
-$categidx=4;
-//if (! empty($categ[$categidx]))
-//{
+$categidx='expdev';
+if (! empty($categ[$categidx]))
+{
+	$form = new Form($db);
+	$categidx='expdev';
     $head[$h][0] = DOL_URL_ROOT."/admin/modules.php?mode=".$categidx;
-    $head[$h][1] = $langs->trans("ModulesMarketPlaces");
-    $head[$h][2] = 'marketplace';
+    $head[$h][1] = $form->textwithpicto($langs->trans("ModuleFamilyExperimental"), $langs->trans('DoNotUseInProduction'), 1, 'warning', '', 0, 3);
+    $head[$h][2] = 'expdev';
     $h++;
-//}
+}
+
+$categidx='marketplace';
+$head[$h][0] = DOL_URL_ROOT."/admin/modules.php?mode=".$categidx;
+$head[$h][1] = $langs->trans("ModulesMarketPlaces");
+$head[$h][2] = 'marketplace';
+$h++;
 
 
-dol_fiche_head($head, $tagmode, $langs->trans("Modules"));
+// Show warning about external users
+print showModulesExludedForExternal($modules).'<br>'."\n";
+print "<br>\n";
 
 
-if ($mesg) print '<div class="error">'.$mesg.'</div>';
+dol_fiche_head($head, $mode, $langs->trans("Modules"));
 
+$var=true;
 
-if ($mode != 4)
+if ($mode != 'marketplace')
 {
     print "<table summary=\"list_of_modules\" class=\"noborder\" width=\"100%\">\n";
     //print "<tr class=\"liste_titre\">\n";
-    print '<tr class="liste_total">'."\n";
+    print '<tr class="liste_titre">'."\n";
     //print "  <td>".$langs->trans("Family")."</td>\n";
     print "  <td colspan=\"2\">".$langs->trans("Module")."</td>\n";
     print "  <td>".$langs->trans("Description")."</td>\n";
@@ -271,9 +289,8 @@ if ($mode != 4)
     print "</tr>\n";
 
 
-    // Affichage liste modules
+    // Show list of modules
 
-    $var=true;
     $oldfamily='';
 
     $familylib=array(
@@ -295,9 +312,11 @@ if ($mode != 4)
 
         $modName = $filename[$key];
     	$objMod  = $modules[$key];
-    	//var_dump($objMod);
 
-    	if ($objMod->special != $mode) continue;    // Discard if not for tab
+    	//print $objMod->name." - ".$key." - ".$objMod->special.' - '.$objMod->version."<br>";
+    	if (($mode != (isset($specialtostring[$objMod->special])?$specialtostring[$objMod->special]:'unknown')	&& $mode != 'expdev')
+    		|| ($mode == 'expdev' && $objMod->version != 'development' && $objMod->version != 'experimental')) continue;    // Discard if not for current tab
+
         if (! $objMod->getName())
         {
         	dol_syslog("Error for module ".$key." - Property name of module looks empty", LOG_WARNING);
@@ -327,8 +346,6 @@ if ($mode != 4)
             //print "<tr><td>yy".$oldfamily."-".$family."-".$atleastoneforfamily."<br></td><tr>";
         }
 
-        if ($objMod->special == $mode)
-        {
             $atleastoneforfamily++;
 
             if ($family!=$oldfamily)
@@ -341,7 +358,7 @@ if ($mode != 4)
             $var=!$var;
 
             //print "\n<!-- Module ".$objMod->numero." ".$objMod->getName()." found into ".$dirmod[$key]." -->\n";
-            print '<tr height="18" '.$bc[$var].">\n";
+            print '<tr '.$bc[$var].">\n";
 
             // Picto
             print '  <td valign="top" width="14" align="center">';
@@ -378,13 +395,13 @@ if ($mode != 4)
             {
                 $disableSetup = 0;
 
-                print "<td align=\"center\" valign=\"top\">";
+                print "<td align=\"center\" valign=\"middle\">";
 
             	// Module actif
-                if (! empty($objMod->always_enabled) || (($conf->global->MAIN_MODULE_MULTICOMPANY && $objMod->core_enabled) && ($user->entity || $conf->entity!=1)))
+                if (! empty($objMod->always_enabled) || ((! empty($conf->multicompany->enabled) && $objMod->core_enabled) && ($user->entity || $conf->entity!=1)))
                 {
                 	print $langs->trans("Required");
-                	if ($conf->global->MAIN_MODULE_MULTICOMPANY && $user->entity) $disableSetup++;
+                	if (! empty($conf->multicompany->enabled) && $user->entity) $disableSetup++;
                 	print '</td>'."\n";
                 }
                 else
@@ -439,7 +456,7 @@ if ($mode != 4)
             }
             else
             {
-                print "<td align=\"center\" valign=\"top\">";
+                print "<td align=\"center\" valign=\"middle\">";
 
                 if (! empty($objMod->always_enabled))
                 {
@@ -453,7 +470,6 @@ if ($mode != 4)
             }
 
             print "</tr>\n";
-        }
 
     }
     print "</table>\n";
@@ -483,9 +499,6 @@ else
 
 dol_fiche_end();
 
-// Pour eviter bug mise en page IE
-print '<div class="tabsAction">';
-print '</div>';
 
 llxFooter();
 

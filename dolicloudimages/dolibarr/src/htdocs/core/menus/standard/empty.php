@@ -3,7 +3,7 @@
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -28,7 +28,7 @@ class MenuTop
 {
 	var $db;
     var $require_left=array("empty");   // If this top menu handler must be used with a particular left menu handler
-    var $hideifnotallowed=false;		// Put 0 for back office menu, 1 for front office menu
+	var $type_user=0;					// Put 0 for internal users, 1 for external users
     var $atarget="";               		// To store arget to use in menu links
 
 
@@ -37,7 +37,7 @@ class MenuTop
 	 *
 	 *  @param		DoliDB		$db      Database handler
      */
-    function MenuTop($db)
+    function __construct($db)
     {
         $this->db=$db;
     }
@@ -50,7 +50,7 @@ class MenuTop
      */
     function showmenu()
     {
-        global $user,$conf,$langs,$dolibarr_main_db_name;;
+        global $user,$conf,$langs,$dolibarr_main_db_name;
 
         print_start_menu_array_empty();
 
@@ -155,7 +155,7 @@ class MenuLeft
      *  @param  array		&$menu_array    	Table of menu entries to show before entries of menu handler
      *  @param  array		&$menu_array_after  Table of menu entries to show after entries of menu handler
      */
-    function MenuLeft($db,&$menu_array,&$menu_array_after)
+    function __construct($db,&$menu_array,&$menu_array_after)
     {
         $this->db=$db;
         $this->menu_array=$menu_array;

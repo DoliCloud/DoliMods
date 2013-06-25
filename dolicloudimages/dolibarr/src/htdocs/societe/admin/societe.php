@@ -2,12 +2,12 @@
 /* Copyright (C) 2004      Rodolphe Quiedeville <rodolphe@quiedeville.org>
  * Copyright (C) 2004      Eric Seigne          <eric.seigne@ryxeo.com>
  * Copyright (C) 2005-2011 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2005-2012 Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2005-2012 Regis Houssin        <regis.houssin@capnetworks.com>
  * Copyright (C) 2011-2012 Juanjo Menent        <jmenent@2byte.es>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -25,9 +25,9 @@
  *	\brief      Third party module setup page
  */
 
-require("../../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/company.lib.php");
+require '../../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php';
 
 $langs->load("admin");
 
@@ -45,7 +45,7 @@ if ($action == 'setcodeclient')
 {
 	if (dolibarr_set_const($db, "SOCIETE_CODECLIENT_ADDON",$value,'chaine',0,'',$conf->entity) > 0)
 	{
-		Header("Location: ".$_SERVER["PHP_SELF"]);
+		header("Location: ".$_SERVER["PHP_SELF"]);
 		exit;
 	}
 	else
@@ -58,7 +58,7 @@ if ($action == 'setcodecompta')
 {
 	if (dolibarr_set_const($db, "SOCIETE_CODECOMPTA_ADDON",$value,'chaine',0,'',$conf->entity) > 0)
 	{
-		Header("Location: ".$_SERVER["PHP_SELF"]);
+		header("Location: ".$_SERVER["PHP_SELF"]);
 		exit;
 	}
 	else
@@ -186,7 +186,24 @@ if ($action == 'setprofid')
 	$idprof="SOCIETE_IDPROF".$value."_UNIQUE";
 	if (dolibarr_set_const($db, $idprof,$status,'chaine',0,'',$conf->entity) > 0)
 	{
-		Header("Location: ".$_SERVER["PHP_SELF"]);
+		header("Location: ".$_SERVER["PHP_SELF"]);
+		exit;
+	}
+	else
+	{
+		dol_print_error($db);
+	}
+}
+
+//Activate ProfId
+if ($action == 'setprofidmandatory')
+{
+	$status = GETPOST('status','alpha');
+
+	$idprof="SOCIETE_IDPROF".$value."_MANDATORY";
+	if (dolibarr_set_const($db, $idprof,$status,'chaine',0,'',$conf->entity) > 0)
+	{
+		header("Location: ".$_SERVER["PHP_SELF"]);
 		exit;
 	}
 	else
@@ -213,7 +230,7 @@ print_fiche_titre($langs->trans("CompanySetup"),$linkback,'setup');
 
 $head = societe_admin_prepare_head(null);
 
-dol_fiche_head($head, 'general', $langs->trans("ThirdParty"), 0, 'company');
+dol_fiche_head($head, 'general', $langs->trans("ThirdParties"), 0, 'company');
 
 dol_htmloutput_mesg($mesg);
 
@@ -250,7 +267,7 @@ foreach ($dirsociete as $dirroot)
     			$file = substr($file, 0, dol_strlen($file)-4);
 
     			try {
-        			dol_include_once($dirroot.$file.".php");
+        			dol_include_once($dirroot.$file.'.php');
     			}
     			catch(Exception $e)
     			{
@@ -280,7 +297,7 @@ foreach ($dirsociete as $dirroot)
     				$disabled = false;
     				if (! empty($conf->multicompany->enabled) && (is_object($mc) && ! empty($mc->sharings['referent']) && $mc->sharings['referent'] == $conf->entity) ? false : true);
     				print '<td align="center">';
-    				if (! $disabled) print '<a href="'.$_SERVER['PHP_SELF'].'?action=setcodeclient&amp;value='.$file.'">';
+    				if (! $disabled) print '<a href="'.$_SERVER['PHP_SELF'].'?action=setcodeclient&value='.$file.'">';
     				print img_picto($langs->trans("Disabled"),'switch_off');
     				if (! $disabled) print '</a>';
     				print '</td>';
@@ -330,7 +347,7 @@ foreach ($dirsociete as $dirroot)
     			$file = substr($file, 0, dol_strlen($file)-4);
 
     		    try {
-        			dol_include_once($dirroot.$file.".php");
+        			dol_include_once($dirroot.$file.'.php');
     			}
     			catch(Exception $e)
     			{
@@ -354,7 +371,7 @@ foreach ($dirsociete as $dirroot)
     			}
     			else
     			{
-    				print '<td align="center"><a href="'.$_SERVER['PHP_SELF'].'?action=setcodecompta&amp;value='.$file.'">';
+    				print '<td align="center"><a href="'.$_SERVER['PHP_SELF'].'?action=setcodecompta&value='.$file.'">';
     				print img_picto($langs->trans("Disabled"),'switch_off');
     				print '</a></td>';
     			}
@@ -433,8 +450,10 @@ foreach ($dirsociete as $dirroot)
     			$module = new $classname($db);
 
 				$modulequalified=1;
-				if ($module->version == 'development'  && $conf->global->MAIN_FEATURES_LEVEL < 2) $modulequalified=0;
-				if ($module->version == 'experimental' && $conf->global->MAIN_FEATURES_LEVEL < 1) $modulequalified=0;
+				if (! empty($module->version)) {
+					if ($module->version == 'development'  && $conf->global->MAIN_FEATURES_LEVEL < 2) $modulequalified=0;
+					else if ($module->version == 'experimental' && $conf->global->MAIN_FEATURES_LEVEL < 1) $modulequalified=0;
+				}
 
 				if ($modulequalified)
 				{
@@ -452,7 +471,7 @@ foreach ($dirsociete as $dirroot)
 						print "<td align=\"center\">\n";
 						//if ($conf->global->COMPANY_ADDON_PDF != "$name")
 						//{
-							print '<a href="'.$_SERVER["PHP_SELF"].'?action=del&amp;value='.$name.'&amp;scandir='.$module->scandir.'&amp;label='.urlencode($module->name).'">';
+							print '<a href="'.$_SERVER["PHP_SELF"].'?action=del&value='.$name.'&scandir='.$module->scandir.'&label='.urlencode($module->name).'">';
 							print img_picto($langs->trans("Enabled"),'switch_on');
 							print '</a>';
 						//}
@@ -473,7 +492,7 @@ foreach ($dirsociete as $dirroot)
 						else
 						{
 							print "<td align=\"center\">\n";
-							print '<a href="'.$_SERVER["PHP_SELF"].'?action=set&amp;value='.$name.'&amp;scandir='.$module->scandir.'&amp;label='.urlencode($module->name).'">'.img_picto($langs->trans("Disabled"),'switch_off').'</a>';
+							print '<a href="'.$_SERVER["PHP_SELF"].'?action=set&value='.$name.'&scandir='.$module->scandir.'&label='.urlencode($module->name).'">'.img_picto($langs->trans("Disabled"),'switch_off').'</a>';
 							print "</td>";
 						}
 					}
@@ -481,16 +500,16 @@ foreach ($dirsociete as $dirroot)
 					// Info
 					$htmltooltip =    ''.$langs->trans("Name").': '.$module->name;
 					$htmltooltip.='<br>'.$langs->trans("Type").': '.($module->type?$module->type:$langs->trans("Unknown"));
-					if ($modele->type == 'pdf')
+					if ($module->type == 'pdf')
 					{
 						$htmltooltip.='<br>'.$langs->trans("Height").'/'.$langs->trans("Width").': '.$module->page_hauteur.'/'.$module->page_largeur;
 					}
 					$htmltooltip.='<br><br><u>'.$langs->trans("FeaturesSupported").':</u>';
-					$htmltooltip.='<br>'.$langs->trans("WatermarkOnDraft").': '.yn($module->option_draft_watermark,1,1);
+					$htmltooltip.='<br>'.$langs->trans("WatermarkOnDraft").': '.yn((! empty($module->option_draft_watermark)?$module->option_draft_watermark:''), 1, 1);
 
 
 					print '<td align="center" nowrap="nowrap">';
-					if ($modele->type == 'pdf')
+					if ($module->type == 'pdf')
 					{
 						$linkspec='<a href="'.$_SERVER["PHP_SELF"].'?action=specimen&module='.$name.'">'.img_object($langs->trans("Preview"),'bill').'</a>';
 					}
@@ -520,6 +539,7 @@ print '<tr class="liste_titre">';
 print '<td>'.$langs->trans("Name").'</td>';
 print '<td>'.$langs->trans("Description").'</td>';
 print '<td align="center">'.$langs->trans("MustBeUnique").'</td>';
+print '<td align="center">'.$langs->trans("MustBeMandatory").'</td>';
 print "</tr>\n";
 
 $profid[0][0]=$langs->trans("ProfId1");
@@ -530,6 +550,10 @@ $profid[2][0]=$langs->trans("ProfId3");
 $profid[2][1]=$langs->transcountry('ProfId3', $mysoc->country_code);
 $profid[3][0]=$langs->trans("ProfId4");
 $profid[3][1]=$langs->transcountry('ProfId4', $mysoc->country_code);
+$profid[4][0]=$langs->trans("ProfId5");
+$profid[4][1]=$langs->transcountry('ProfId5', $mysoc->country_code);
+$profid[5][0]=$langs->trans("ProfId6");
+$profid[5][1]=$langs->transcountry('ProfId6', $mysoc->country_code);
 
 $var = true;
 $i=0;
@@ -537,42 +561,47 @@ $i=0;
 $nbofloop=count($profid);
 while ($i < $nbofloop)
 {
-	$var = !$var;
-
-	print '<tr '.$bc[$var].'>';
-	print '<td>'.$profid[$i][0]."</td><td>\n";
-	print $profid[$i][1];
-	print '</td>';
-
-	switch($i)
+	if ($profid[$i][1]!='-')
 	{
-        case 0:
-        	$verif=(!$conf->global->SOCIETE_IDPROF1_UNIQUE?false:true);
-        	break;
-        case 1:
-        	$verif=(!$conf->global->SOCIETE_IDPROF2_UNIQUE?false:true);
-        	break;
-        case 2:
-        	$verif=(!$conf->global->SOCIETE_IDPROF3_UNIQUE?false:true);
-        	break;
-        case 3:
-        	$verif=(!$conf->global->SOCIETE_IDPROF4_UNIQUE?false:true);
-        	break;
+		$var = !$var;
+	
+		print '<tr '.$bc[$var].'>';
+		print '<td>'.$profid[$i][0]."</td><td>\n";
+		print $profid[$i][1];
+		print '</td>';
+	
+		$idprof_unique ='SOCIETE_IDPROF'.($i+1).'_UNIQUE';
+		$idprof_mandatory ='SOCIETE_IDPROF'.($i+1).'_MANDATORY';
+		$verif=(empty($conf->global->$idprof_unique)?false:true);
+		$mandatory=(empty($conf->global->$idprof_mandatory)?false:true);
+	
+		if ($verif)
+		{
+			print '<td align="center"><a href="'.$_SERVER['PHP_SELF'].'?action=setprofid&value='.($i+1).'&status=0">';
+			print img_picto($langs->trans("Activated"),'switch_on');
+			print '</a></td>';
+		}
+		else
+		{
+			print '<td align="center"><a href="'.$_SERVER['PHP_SELF'].'?action=setprofid&value='.($i+1).'&status=1">';
+			print img_picto($langs->trans("Disabled"),'switch_off');
+			print '</a></td>';
+		}
+		
+		if ($mandatory)
+		{
+			print '<td align="center"><a href="'.$_SERVER['PHP_SELF'].'?action=setprofidmandatory&value='.($i+1).'&status=0">';
+			print img_picto($langs->trans("Activated"),'switch_on');
+			print '</a></td>';
+		}
+		else
+		{
+			print '<td align="center"><a href="'.$_SERVER['PHP_SELF'].'?action=setprofidmandatory&value='.($i+1).'&status=1">';
+			print img_picto($langs->trans("Disabled"),'switch_off');
+			print '</a></td>';
+		}
+		print "</tr>\n";
 	}
-
-	if ($verif)
-	{
-		print '<td align="center"><a href="'.$_SERVER['PHP_SELF'].'?action=setprofid&amp;value='.($i+1).'&amp;status=0">';
-		print img_picto($langs->trans("Activated"),'switch_on');
-		print '</a></td>';
-	}
-	else
-	{
-		print '<td align="center"><a href="'.$_SERVER['PHP_SELF'].'?action=setprofid&amp;value='.($i+1).'&amp;status=1">';
-		print img_picto($langs->trans("Disabled"),'switch_off');
-		print '</a></td>';
-	}
-	print "</tr>\n";
 	$i++;
 }
 

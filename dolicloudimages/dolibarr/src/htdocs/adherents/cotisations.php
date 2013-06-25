@@ -5,7 +5,7 @@
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -23,10 +23,10 @@
  *		\brief      Page de consultation et insertion d'une cotisation
  */
 
-require("../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/adherents/class/adherent.class.php");
-require_once(DOL_DOCUMENT_ROOT."/adherents/class/cotisation.class.php");
-require_once(DOL_DOCUMENT_ROOT."/compta/bank/class/account.class.php");
+require '../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/adherents/class/adherent.class.php';
+require_once DOL_DOCUMENT_ROOT.'/adherents/class/cotisation.class.php';
+require_once DOL_DOCUMENT_ROOT.'/compta/bank/class/account.class.php';
 
 $langs->load("members");
 
@@ -46,8 +46,8 @@ if (! $sortfield) {  $sortfield="c.dateadh"; }
 $msg='';
 $date_select=isset($_GET["date_select"])?$_GET["date_select"]:$_POST["date_select"];
 
-if (! $user->rights->adherent->cotisation->lire)
-accessforbidden();
+// Security check
+$result=restrictedArea($user,'adherent','','','cotisation');
 
 
 /*
@@ -99,7 +99,7 @@ if ($result)
     print_liste_field_titre($langs->trans("Name"),"cotisations.php","d.nom",$param,"","",$sortfield,$sortorder);
     print_liste_field_titre($langs->trans("Login"),"cotisations.php","d.login",$param,"","",$sortfield,$sortorder);
     print_liste_field_titre($langs->trans("Label"),"cotisations.php","c.note",$param,"",'align="left"',$sortfield,$sortorder);
-    if ($conf->banque->enabled)
+    if (! empty($conf->banque->enabled))
     {
         print_liste_field_titre($langs->trans("Account"),"cotisations.php","b.fk_account",$pram,"","",$sortfield,$sortorder);
     }
@@ -131,7 +131,7 @@ if ($result)
 
         $var=!$var;
 
-        if ($allowinsertbankafter && ! $objp->fk_account && $conf->banque->enabled && $objp->cotisation)
+        if ($allowinsertbankafter && ! $objp->fk_account && ! empty($conf->banque->enabled) && $objp->cotisation)
         {
             print "<form method=\"post\" action=\"cotisations.php\">";
             print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
@@ -153,7 +153,7 @@ if ($result)
         print '</td>';
 
         // Banque
-        if ($conf->banque->enabled)
+        if (! empty($conf->banque->enabled))
         {
             if ($objp->fk_account)
             {
@@ -193,7 +193,7 @@ if ($result)
         print '<td align="right">'.price($objp->cotisation).'</td>';
 
         print "</tr>";
-        if ($allowinsertbankafter && ! $objp->fk_account && $conf->banque->enabled && $objp->cotisation)
+        if ($allowinsertbankafter && ! $objp->fk_account && ! empty($conf->banque->enabled) && $objp->cotisation)
         {
             print "</form>\n";
         }
@@ -207,7 +207,7 @@ if ($result)
     print "<td align=\"right\">&nbsp;</td>\n";
     print "<td align=\"right\">&nbsp;</td>\n";
     print "<td align=\"right\">&nbsp;</td>\n";
-    if ($conf->banque->enabled)
+    if (! empty($conf->banque->enabled))
     {
         print '<td>&nbsp;</td>';
     }

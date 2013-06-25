@@ -1,11 +1,11 @@
 -- ===================================================================
--- Copyright (C) 2007      Rodolphe Quiedeville <rodolphe@quiedeville.org>
--- Copyright (C) 2007-2009 Laurent Destailleur  <eldy@users.sourceforge.net>
--- Copyright (C) 2010      Juanjo Menent        <jmenent@2byte.es>
+-- Copyright (C) 2007      Rodolphe Quiedeville	<rodolphe@quiedeville.org>
+-- Copyright (C) 2007-2009 Laurent Destailleur	<eldy@users.sourceforge.net>
+-- Copyright (C) 2010-2012 Juanjo Menent		<jmenent@2byte.es>
 --
 -- This program is free software; you can redistribute it and/or modify
 -- it under the terms of the GNU General Public License as published by
--- the Free Software Foundation; either version 2 of the License, or
+-- the Free Software Foundation; either version 3 of the License, or
 -- (at your option) any later version.
 --
 -- This program is distributed in the hope that it will be useful,
@@ -28,7 +28,9 @@ create table llx_commande_fournisseurdet
   description                text,
   tva_tx                     double(6,3)  DEFAULT 0,    -- taux tva
   localtax1_tx               double(6,3)  DEFAULT 0,    -- localtax1 rate
+  localtax1_type			 varchar(1)	  NULL, 		-- localtax1 type
   localtax2_tx               double(6,3)  DEFAULT 0,    -- localtax2 rate
+  localtax2_type			 varchar(1)	  NULL, 		-- localtax2 type
   qty                        real,                      -- quantity
   remise_percent             real         DEFAULT 0,    -- pourcentage de remise
   remise                     real         DEFAULT 0,    -- montant de la remise
@@ -41,5 +43,6 @@ create table llx_commande_fournisseurdet
   product_type		         integer      DEFAULT 0,
   date_start                 datetime     DEFAULT NULL,       -- date debut si service
   date_end                   datetime     DEFAULT NULL,       -- date fin si service
-  info_bits	                 integer      DEFAULT 0     -- TVA NPR ou non
+  info_bits	                 integer      DEFAULT 0,     -- TVA NPR ou non
+  import_key				 varchar(14)
 )ENGINE=innodb;

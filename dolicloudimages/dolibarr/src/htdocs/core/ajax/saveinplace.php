@@ -1,9 +1,9 @@
 <?php
-/* Copyright (C) 2011-2012 Regis Houssin  <regis@dolibarr.fr>
+/* Copyright (C) 2011-2012 Regis Houssin  <regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -27,8 +27,8 @@ if (! defined('NOREQUIREAJAX'))  define('NOREQUIREAJAX','1');
 if (! defined('NOREQUIRESOC'))   define('NOREQUIRESOC','1');
 //if (! defined('NOREQUIRETRAN'))  define('NOREQUIRETRAN','1');
 
-require('../../main.inc.php');
-require_once(DOL_DOCUMENT_ROOT."/core/class/genericobject.class.php");
+require '../../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/core/class/genericobject.class.php';
 
 $field			= GETPOST('field','alpha',2);
 $element		= GETPOST('element','alpha',2);
@@ -54,6 +54,7 @@ if (! empty($field) && ! empty($element) && ! empty($table_element) && ! empty($
 	$loadmethod			= GETPOST('loadmethod','alpha',2);
 	$savemethod			= GETPOST('savemethod','alpha',2);
 	$savemethodname		= (! empty($savemethod) ? $savemethod : 'setValueFrom');
+	$newelement			= $element;
 
 	$view='';
 	$format='text';
@@ -66,20 +67,22 @@ if (! empty($field) && ! empty($element) && ! empty($table_element) && ! empty($
 		$subelement = $regs[2];
 	}
 
-	if ($element == 'propal') $element = 'propale';
-	else if ($element == 'fichinter') $element = 'ficheinter';
-	else if ($element == 'product') $element = 'produit';
+	if ($element == 'propal') $newelement = 'propale';
+	else if ($element == 'fichinter') $newelement = 'ficheinter';
+	else if ($element == 'product') $newelement = 'produit';
+	else if ($element == 'member') $newelement = 'adherent';
 	else if ($element == 'order_supplier') {
-		$element = 'fournisseur';
+		$newelement = 'fournisseur';
 		$subelement = 'commande';
 	}
 	else if ($element == 'invoice_supplier') {
-		$element = 'fournisseur';
+		$newelement = 'fournisseur';
 		$subelement = 'facture';
 	}
+	else $newelement = $element;
 
-	if ($user->rights->$element->creer || $user->rights->$element->write
-	|| (isset($subelement) && ($user->rights->$element->$subelement->creer || $user->rights->$element->$subelement->write))
+	if (! empty($user->rights->$newelement->creer) || ! empty($user->rights->$newelement->write)
+	|| (isset($subelement) && (! empty($user->rights->$newelement->$subelement->creer) || ! empty($user->rights->$newelement->$subelement->write)))
 	|| ($element == 'payment' && $user->rights->facture->paiement)
 	|| ($element == 'payment_supplier' && $user->rights->fournisseur->facture->creer))
 	{
@@ -117,7 +120,7 @@ if (! empty($field) && ! empty($element) && ! empty($table_element) && ! empty($
 				{
 					$loadcache = $form->$loadcachename;
 					$value = $loadcache[$newvalue];
-					
+
 					if (! empty($form->$loadviewname))
 					{
 						$loadview = $form->$loadviewname;
@@ -138,7 +141,7 @@ if (! empty($field) && ! empty($element) && ! empty($table_element) && ! empty($
 					$module = $regs[1];
 					$subelement = $regs[2];
 				}
-				
+
 				dol_include_once('/'.$module.'/class/actions_'.$subelement.'.class.php');
 				$classname = 'Actions'.ucfirst($subelement);
 				$object = new $classname($db);
@@ -147,7 +150,7 @@ if (! empty($field) && ! empty($element) && ! empty($table_element) && ! empty($
 				{
 					$loadcache = $object->$loadcachename;
 					$value = $loadcache[$newvalue];
-					
+
 					if (! empty($object->$loadviewname))
 					{
 						$loadview = $object->$loadviewname;
@@ -164,7 +167,7 @@ if (! empty($field) && ! empty($element) && ! empty($table_element) && ! empty($
 
 		if (! $error)
 		{
-			if (! is_object($object) || empty($savemethod)) $object = new GenericObject($db);
+			if ((isset($object) && ! is_object($object)) || empty($savemethod)) $object = new GenericObject($db);
 
 			// Specific for add_object_linked()
 			// TODO add a function for variable treatment
@@ -172,7 +175,7 @@ if (! empty($field) && ! empty($element) && ! empty($table_element) && ! empty($
 			$object->ext_element = $ext_element;
 			$object->fk_element = $fk_element;
 			$object->element = $element;
-			
+
 			$ret=$object->$savemethodname($field, $newvalue, $table_element, $fk_element, $format);
 			if ($ret > 0)
 			{

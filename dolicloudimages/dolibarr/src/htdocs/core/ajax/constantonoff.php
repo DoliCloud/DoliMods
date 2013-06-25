@@ -1,9 +1,9 @@
 <?php
-/* Copyright (C) 2011-2012 Regis Houssin  <regis@dolibarr.fr>
+/* Copyright (C) 2011-2012 Regis Houssin  <regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -27,9 +27,11 @@ if (! defined('NOREQUIREAJAX'))  define('NOREQUIREAJAX','1');
 if (! defined('NOREQUIRESOC'))   define('NOREQUIRESOC','1');
 if (! defined('NOREQUIRETRAN'))  define('NOREQUIRETRAN','1');
 
-require('../../main.inc.php');
-require_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
+require '../../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
 
+$action=GETPOST('action','alpha');
+$name=GETPOST('name','alpha');
 
 /*
  * View
@@ -45,17 +47,16 @@ top_httphead();
 print '<!-- Ajax page called with url '.$_SERVER["PHP_SELF"].'?'.$_SERVER["QUERY_STRING"].' -->'."\n";
 
 // Registering the location of boxes
-if ((isset($_GET['action']) && ! empty($_GET['action'])) && (isset($_GET['name']) && ! empty($_GET['name'])) )
+if (! empty($action) && ! empty($name))
 {
 	$entity = GETPOST('entity','int');
-	$action = GETPOST('action', 'alpha');
-	$name = GETPOST('name', 'alpha');
+	$value = (GETPOST('value')?GETPOST('value'):1);
 
 	if ($user->admin)
 	{
 		if ($action == 'set')
 		{
-			dolibarr_set_const($db, $name, 1, 'chaine', 0, '', $entity);
+			dolibarr_set_const($db, $name, $value, 'chaine', 0, '', $entity);
 		}
 		else if ($action == 'del')
 		{

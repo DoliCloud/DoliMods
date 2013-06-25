@@ -4,7 +4,7 @@
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -23,11 +23,11 @@
  *  \ingroup    gravatar
  *  \brief      Description and activation file for module Gravatar
  */
-include_once(DOL_DOCUMENT_ROOT ."/core/modules/DolibarrModules.class.php");
+include_once DOL_DOCUMENT_ROOT .'/core/modules/DolibarrModules.class.php';
 
 
-/**     \class      modGravatar
- *      \brief      Description and activation class for module Gravatar
+/**
+ * 	Description and activation class for module Gravatar
  */
 class modGravatar extends DolibarrModules
 {
@@ -36,7 +36,7 @@ class modGravatar extends DolibarrModules
 	 *
 	 *   @param      DoliDB		$db      Database handler
 	 */
-	function modGravatar($db)
+	function __construct($db)
 	{
 		$this->db = $db;
 
@@ -220,7 +220,7 @@ class modGravatar extends DolibarrModules
 	 */
 	function load_tables()
 	{
-		return $this->_load_tables('/mymodule/sql/');
+		return $this->_load_tables('');
 	}
 }
 

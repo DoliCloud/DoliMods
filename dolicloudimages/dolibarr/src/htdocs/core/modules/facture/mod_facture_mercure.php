@@ -1,12 +1,12 @@
 <?php
 /* Copyright (C) 2003-2007 Rodolphe Quiedeville <rodolphe@quiedeville.org>
  * Copyright (C) 2004-2011 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2005-2007 Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2005-2007 Regis Houssin        <regis.houssin@capnetworks.com>
  * Copyright (C) 2008      Raphael Bertrand (Resultic) <raphael.bertrand@resultic.fr>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -24,7 +24,7 @@
  *	\ingroup    facture
  *	\brief      File containing class for numbering module Mercure
  */
-require_once(DOL_DOCUMENT_ROOT ."/core/modules/facture/modules_facture.php");
+require_once DOL_DOCUMENT_ROOT .'/core/modules/facture/modules_facture.php';
 
 
 /**
@@ -119,7 +119,7 @@ class mod_facture_mercure extends ModeleNumRefFactures
     {
         global $db,$conf;
 
-        require_once(DOL_DOCUMENT_ROOT ."/core/lib/functions2.lib.php");
+        require_once DOL_DOCUMENT_ROOT .'/core/lib/functions2.lib.php';
 
         // Get Mask value
         $mask = '';

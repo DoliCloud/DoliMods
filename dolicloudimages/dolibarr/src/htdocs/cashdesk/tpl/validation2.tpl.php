@@ -1,9 +1,10 @@
 <?php
 /* Copyright (C) 2007-2008	Jeremie Ollivier	<jeremie.o@laposte.net>
+ * Copyright (C) 2012       Marcos García       <marcosgdf@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -31,7 +32,7 @@ $langs->load("main");
 		largeur = 600;
 		hauteur = 500
 		opt = 'width='+largeur+', height='+hauteur+', left='+(screen.width - largeur)/2+', top='+(screen.height-hauteur)/2+'';
-		window.open('validation_ticket.php?facid=<?php echo $_GET['facid']; ?>', 'Print ticket', opt);
+		window.open('validation_ticket.php?facid=<?php echo $_GET['facid']; ?>', '<?php echo $langs->trans('PrintTicket') ?>', opt);
 	}
 
 	popupTicket();

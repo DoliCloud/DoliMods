@@ -1,10 +1,10 @@
 -- ========================================================================
 -- Copyright (C) 2005      Rodolphe Quiedeville <rodolphe@quiedeville.org>
--- Copyright (C) 2005-2012 Regis Houssin        <regis@dolibarr.fr>
+-- Copyright (C) 2005-2012 Regis Houssin        <regis.houssin@capnetworks.com>
 --
 -- This program is free software; you can redistribute it and/or modify
 -- it under the terms of the GNU General Public License as published by
--- the Free Software Foundation; either version 2 of the License, or
+-- the Free Software Foundation; either version 3 of the License, or
 -- (at your option) any later version.
 --
 -- This program is distributed in the hope that it will be useful,
@@ -30,7 +30,7 @@ create table llx_mailing
   titre				varchar(60),                         -- Ref of mailing
   entity			integer DEFAULT 1 NOT NULL,	         -- multi company id
   sujet				varchar(60),                         -- Sujet of mailing
-  body				text,
+  body				mediumtext,
   bgcolor			varchar(8),                          -- Backgroud color of mailing
   bgimage			varchar(255),                        -- Backgroud image of mailing
   cible				varchar(60),
@@ -46,6 +46,7 @@ create table llx_mailing
   fk_user_creat		integer,                             -- user creator
   fk_user_valid		integer,                             -- user validator
   fk_user_appro		integer,                             -- not used
+  extraparams		varchar(255),						 -- for stock other parameters with json format
   joined_file1		varchar(255),
   joined_file2		varchar(255),
   joined_file3		varchar(255),

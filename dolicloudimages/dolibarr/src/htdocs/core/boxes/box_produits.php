@@ -1,11 +1,11 @@
 <?php
 /* Copyright (C) 2003      Rodolphe Quiedeville <rodolphe@quiedeville.org>
  * Copyright (C) 2004-2011 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2005-2011 Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2005-2012 Regis Houssin        <regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -23,8 +23,8 @@
  *	\brief      Module to generate box of last products/services
  */
 
-include_once(DOL_DOCUMENT_ROOT."/core/boxes/modules_boxes.php");
-include_once(DOL_DOCUMENT_ROOT."/product/class/product.class.php");
+include_once DOL_DOCUMENT_ROOT.'/core/boxes/modules_boxes.php';
+include_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
 
 
 /**
@@ -47,7 +47,7 @@ class box_produits extends ModeleBoxes
 	/**
      *  Constructor
 	 */
-	function box_produits()
+	function __construct()
 	{
 		global $langs;
 		$langs->load("boxes");
@@ -67,7 +67,7 @@ class box_produits extends ModeleBoxes
 
 		$this->max=$max;
 
-		include_once(DOL_DOCUMENT_ROOT."/product/class/product.class.php");
+		include_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
 		$productstatic=new Product($db);
 
 		$this->info_box_head = array('text' => $langs->trans("BoxTitleLastProducts",$max));
@@ -93,7 +93,7 @@ class box_produits extends ModeleBoxes
 					$datem=$db->jdate($objp->tms);
 
 					// Multilangs
-					if ($conf->global->MAIN_MULTILANGS) // si l'option est active
+					if (! empty($conf->global->MAIN_MULTILANGS)) // si l'option est active
 					{
 						$sqld = "SELECT label";
 						$sqld.= " FROM ".MAIN_DB_PREFIX."product_lang";
@@ -105,7 +105,8 @@ class box_produits extends ModeleBoxes
 						if ($resultd)
 						{
 							$objtp = $db->fetch_object($resultd);
-							if ($objtp->label != '') $objp->label = $objtp->label;
+							if (isset($objtp->label) && $objtp->label != '')
+								$objp->label = $objtp->label;
 						}
 					}
 

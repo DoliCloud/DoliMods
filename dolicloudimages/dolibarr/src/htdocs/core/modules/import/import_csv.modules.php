@@ -1,10 +1,12 @@
 <?php
-/* Copyright (C) 2006-2012 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2009-2010 Regis Houssin        <regis@dolibarr.fr>
+/* Copyright (C) 2006-2012	Laurent Destailleur	<eldy@users.sourceforge.net>
+ * Copyright (C) 2009-2012	Regis Houssin		<regis.houssin@capnetworks.com>
+ * Copyright (C) 2012      Christophe Battarel  <christophe.battarel@altairis.fr>
+ * Copyright (C) 2012       Juanjo Menent		<jmenent@2byte.es>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -23,7 +25,7 @@
  *		\brief      File to load import files with CSV format
  */
 
-require_once(DOL_DOCUMENT_ROOT ."/core/modules/import/modules_import.php");
+require_once DOL_DOCUMENT_ROOT .'/core/modules/import/modules_import.php';
 
 
 /**
@@ -64,8 +66,7 @@ class ImportCsv extends ModeleImports
 		global $conf,$langs;
 		$this->db = $db;
 
-		$this->separator=',';	// Change also function cleansep
-		if (! empty($conf->global->IMPORT_CSV_SEPARATOR_TO_USE)) $this->separator=$conf->global->IMPORT_CSV_SEPARATOR_TO_USE;
+		$this->separator=(GETPOST('separator')?GETPOST('separator'):(empty($conf->global->IMPORT_CSV_SEPARATOR_TO_USE)?',':$conf->global->IMPORT_CSV_SEPARATOR_TO_USE));
 		$this->enclosure='"';
 		$this->escape='"';
 
@@ -95,9 +96,9 @@ class ImportCsv extends ModeleImports
 	}
 
 	/**
-	 * getDriverLabel
+	 *	getDriverLabel
 	 *
-	 * @return string	Label
+	 *	@return string	Label
 	 */
 	function getDriverLabel()
 	{
@@ -105,9 +106,9 @@ class ImportCsv extends ModeleImports
 	}
 
 	/**
-	 * getDriverDesc
+	 *	getDriverDesc
 	 *
-	 * @return string	Description
+	 *	@return string	Description
 	 */
 	function getDriverDesc()
 	{
@@ -125,9 +126,9 @@ class ImportCsv extends ModeleImports
 	}
 
 	/**
-	 * getDriverVersion
+	 *	getDriverVersion
 	 *
-	 * @return string	Driver version
+	 *	@return string	Driver version
 	 */
 	function getDriverVersion()
 	{
@@ -135,9 +136,9 @@ class ImportCsv extends ModeleImports
 	}
 
 	/**
-	 * getDriverLabel
+	 *	getDriverLabel
 	 *
-	 * @return string	Label of external lib
+	 *	@return string	Label of external lib
 	 */
 	function getLibLabel()
 	{
@@ -147,7 +148,7 @@ class ImportCsv extends ModeleImports
 	/**
 	 * getLibVersion
 	 *
-	 * @return string	Version of external lib
+	 *	@return string	Version of external lib
 	 */
 	function getLibVersion()
 	{
@@ -536,9 +537,9 @@ class ImportCsv extends ModeleImports
 						if ($listfields) { $listfields.=', '; $listvalues.=', '; }
 						$listfields.=$fieldname;
 
-						if ($arrayrecord[($key-1)]['type'] < 0)      $listvalues.=($newval=='0'?$newval:"null");
-						elseif ($arrayrecord[($key-1)]['type'] == 0) $listvalues.="''";
-						elseif ($arrayrecord[($key-1)]['type'] > 0)	 $listvalues.="'".$this->db->escape($newval)."'";
+						if (empty($newval) && $arrayrecord[($key-1)]['type'] < 0)       $listvalues.=($newval=='0'?$newval:"null");
+						elseif (empty($newval) && $arrayrecord[($key-1)]['type'] == 0) $listvalues.="''";
+						else															 $listvalues.="'".$this->db->escape($newval)."'";
 					}
 					$i++;
 				}
@@ -577,9 +578,18 @@ class ImportCsv extends ModeleImports
 					    //var_dump($objimport->array_import_convertvalue); exit;
 
 						// Build SQL request
-						$sql ='INSERT INTO '.$tablename.'('.$listfields.', import_key';
-						if (! empty($objimport->array_import_tables_creator[0][$alias])) $sql.=', '.$objimport->array_import_tables_creator[0][$alias];
-						$sql.=') VALUES('.$listvalues.", '".$importid."'";
+						if (! tablewithentity($tablename))
+						{
+							$sql ='INSERT INTO '.$tablename.'('.$listfields.', import_key';
+							if (! empty($objimport->array_import_tables_creator[0][$alias])) $sql.=', '.$objimport->array_import_tables_creator[0][$alias];
+							$sql.=') VALUES('.$listvalues.", '".$importid."'";
+						}
+						else
+						{
+							$sql ='INSERT INTO '.$tablename.'('.$listfields.', import_key, entity';
+							if (! empty($objimport->array_import_tables_creator[0][$alias])) $sql.=', '.$objimport->array_import_tables_creator[0][$alias];
+							$sql.=') VALUES('.$listvalues.", '".$importid."', ".$conf->entity ;
+						}
 						if (! empty($objimport->array_import_tables_creator[0][$alias])) $sql.=', '.$user->id;
 						$sql.=')';
 						dol_syslog("import_csv.modules sql=".$sql);
@@ -630,5 +640,26 @@ function cleansep($value)
 {
 	return str_replace(',','/',$value);
 };
+
+/**
+ * Returns if a table contains entity column
+ *
+ * @param  string 	$table	Table name
+ * @return int				1 if table contains entity, 0 if not and -1 if error
+ */
+function tablewithentity($table)
+{
+	global $db;
+	
+	$resql=$db->DDLDescTable($table,'entity');
+	if ($resql)
+	{
+		$i=0;
+		$obj=$db->fetch_object($resql);
+		if ($obj) return 1;
+		else return 0;
+	}
+	else return -1; 
+}
 
 ?>

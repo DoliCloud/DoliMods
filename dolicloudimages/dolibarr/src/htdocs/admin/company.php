@@ -1,13 +1,13 @@
 <?php
 /* Copyright (C) 2001-2007	Rodolphe Quiedeville	<rodolphe@quiedeville.org>
- * Copyright (C) 2004-2011	Laurent Destailleur		<eldy@users.sourceforge.net>
- * Copyright (C) 2005-2012	Regis Houssin			<regis@dolibarr.fr>
+ * Copyright (C) 2004-2012	Laurent Destailleur		<eldy@users.sourceforge.net>
+ * Copyright (C) 2005-2012	Regis Houssin			<regis.houssin@capnetworks.com>
  * Copyright (C) 2010		Juanjo Menent			<jmenent@2byte.es>
  * Copyright (C) 2011		Philippe Grand			<philippe.grand@atoo-net.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -25,21 +25,23 @@
  *	\brief      Setup page to configure company/foundation
  */
 
-require("../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/company.lib.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/date.lib.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/images.lib.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/functions2.lib.php");
-require_once(DOL_DOCUMENT_ROOT."/core/class/html.formother.class.php");
-require_once(DOL_DOCUMENT_ROOT."/core/class/html.formcompany.class.php");
+require '../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/images.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/core/class/html.formother.class.php';
+require_once DOL_DOCUMENT_ROOT.'/core/class/html.formcompany.class.php';
 
 $action=GETPOST('action');
 
 $langs->load("admin");
 $langs->load("companies");
 
-if (!$user->admin) accessforbidden();
+if (! $user->admin) accessforbidden();
+
+$message='';
 
 
 /*
@@ -49,13 +51,18 @@ if (!$user->admin) accessforbidden();
 if ( ($action == 'update' && empty($_POST["cancel"]))
 || ($action == 'updateedit') )
 {
-    require_once(DOL_DOCUMENT_ROOT."/core/lib/files.lib.php");
+    require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 
-    $new_country_id=$_POST["country_id"];
-    $new_country_code=getCountry($new_country_id,2);
-    $new_country_label=getCountry($new_country_id,0);
+    $tmparray=getCountry(GETPOST('country_id','int'),'all',$db,$langs,0);
+    if (! empty($tmparray['id']))
+    {
+        $mysoc->country_id   =$tmparray['id'];
+        $mysoc->country_code =$tmparray['code'];
+        $mysoc->country_label=$tmparray['label'];
 
-    dolibarr_set_const($db, "MAIN_INFO_SOCIETE_PAYS", $new_country_id.':'.$new_country_code.':'.$new_country_label,'chaine',0,'',$conf->entity);
+        $s=$mysoc->country_id.':'.$mysoc->country_code.':'.$mysoc->country_label;
+        dolibarr_set_const($db, "MAIN_INFO_SOCIETE_PAYS", $s,'chaine',0,'',$conf->entity);
+    }
 
     dolibarr_set_const($db, "MAIN_INFO_SOCIETE_NOM",$_POST["nom"],'chaine',0,'',$conf->entity);
     dolibarr_set_const($db, "MAIN_INFO_SOCIETE_ADRESSE",$_POST["address"],'chaine',0,'',$conf->entity);
@@ -137,7 +144,7 @@ if ( ($action == 'update' && empty($_POST["cancel"]))
     dolibarr_set_const($db, "MAIN_INFO_SIRET",$_POST["siret"],'chaine',0,'',$conf->entity);
     dolibarr_set_const($db, "MAIN_INFO_APE",$_POST["ape"],'chaine',0,'',$conf->entity);
     dolibarr_set_const($db, "MAIN_INFO_RCS",$_POST["rcs"],'chaine',0,'',$conf->entity);
-    dolibarr_set_const($db, "MAIN_INFO_TRAINER",$_POST["trainer"],'chaine',0,'',$conf->entity);
+    dolibarr_set_const($db, "MAIN_INFO_PROFID5",$_POST["MAIN_INFO_PROFID5"],'chaine',0,'',$conf->entity);
     dolibarr_set_const($db, "MAIN_INFO_PROFID6",$_POST["MAIN_INFO_PROFID6"],'chaine',0,'',$conf->entity);
 
     dolibarr_set_const($db, "MAIN_INFO_TVAINTRA",$_POST["tva"],'chaine',0,'',$conf->entity);
@@ -152,7 +159,7 @@ if ( ($action == 'update' && empty($_POST["cancel"]))
 
     if ($action != 'updateedit' && ! $message)
     {
-        Header("Location: ".$_SERVER["PHP_SELF"]);
+        header("Location: ".$_SERVER["PHP_SELF"]);
         exit;
     }
 }
@@ -186,7 +193,7 @@ if ($action == 'addthumb')
             }
             else dol_syslog($imgThumbMini);
 
-            Header("Location: ".$_SERVER["PHP_SELF"]);
+            header("Location: ".$_SERVER["PHP_SELF"]);
             exit;
         }
         else
@@ -204,7 +211,7 @@ if ($action == 'addthumb')
 
 if ($action == 'removelogo')
 {
-    require_once(DOL_DOCUMENT_ROOT."/core/lib/files.lib.php");
+    require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 
     $logofile=$conf->mycompany->dir_output.'/logos/'.$mysoc->logo;
     dol_delete_file($logofile);
@@ -235,31 +242,6 @@ $formother=new FormOther($db);
 $formcompany=new FormCompany($db);
 
 $countrynotdefined='<font class="error">'.$langs->trans("ErrorSetACountryFirst").' ('.$langs->trans("SeeAbove").')</font>';
-
-// We define country_id, country_code and country
-if (! empty($conf->global->MAIN_INFO_SOCIETE_PAYS))
-{
-    $tmp=explode(':',$conf->global->MAIN_INFO_SOCIETE_PAYS);
-    $country_id=$tmp[0];
-    if (! empty($tmp[1]))   // If $conf->global->MAIN_INFO_SOCIETE_PAYS is "id:code:label"
-    {
-        $country_code=$tmp[1];
-        $country=$tmp[2];
-    }
-    else
-    {
-        $tmparray=getCountry($country_id,'all');
-        $country_code=$tmparray['code'];
-        $country=$tmparray['label'];
-    }
-}
-else
-{
-    $country_id=0;
-    $country_code='';
-    $country='';
-}
-
 
 print_fiche_titre($langs->trans("CompanyFoundation"),'','setup');
 
@@ -307,15 +289,14 @@ if ($action == 'edit' || $action == 'updateedit')
     // Country
     $var=!$var;
     print '<tr '.$bc[$var].'><td class="fieldrequired">'.$langs->trans("Country").'</td><td>';
-    $pays_selected=$country_id;
     //if (empty($pays_selected)) $pays_selected=substr($langs->defaultlang,-2);    // Par defaut, pays de la localisation
-    print $form->select_country($pays_selected,'country_id');
+    print $form->select_country($mysoc->country_id,'country_id');
     if ($user->admin) print info_admin($langs->trans("YouCanChangeValuesForThisListFromDictionnarySetup"),1);
     print '</td></tr>'."\n";
 
     $var=!$var;
     print '<tr '.$bc[$var].'><td>'.$langs->trans("State").'</td><td>';
-    $formcompany->select_departement($conf->global->MAIN_INFO_SOCIETE_DEPARTEMENT,$country_code,'departement_id');
+    $formcompany->select_departement($conf->global->MAIN_INFO_SOCIETE_DEPARTEMENT,$mysoc->country_code,'departement_id');
     print '</td></tr>'."\n";
 
     $var=!$var;
@@ -324,7 +305,7 @@ if ($action == 'edit' || $action == 'updateedit')
     print '</td></tr>'."\n";
 
     $var=!$var;
-    print '<tr '.$bc[$var].'><td>'.$langs->trans("Tel").'</td><td>';
+    print '<tr '.$bc[$var].'><td>'.$langs->trans("Phone").'</td><td>';
     print '<input name="tel" value="'. $conf->global->MAIN_INFO_SOCIETE_TEL . '"></td></tr>';
     print '</td></tr>'."\n";
 
@@ -334,7 +315,7 @@ if ($action == 'edit' || $action == 'updateedit')
     print '</td></tr>'."\n";
 
     $var=!$var;
-    print '<tr '.$bc[$var].'><td>'.$langs->trans("Mail").'</td><td>';
+    print '<tr '.$bc[$var].'><td>'.$langs->trans("EMail").'</td><td>';
     print '<input name="mail" size="60" value="'. $conf->global->MAIN_INFO_SOCIETE_MAIL . '"></td></tr>';
     print '</td></tr>'."\n";
 
@@ -345,7 +326,7 @@ if ($action == 'edit' || $action == 'updateedit')
     print '</td></tr>'."\n";
 
     // Barcode
-    if ($conf->barcode->enabled)
+    if (! empty($conf->barcode->enabled))
     {
         $var=!$var;
         print '<tr '.$bc[$var].'><td>'.$langs->trans("Gencod").'</td><td>';
@@ -359,7 +340,7 @@ if ($action == 'edit' || $action == 'updateedit')
     print '<table width="100%" class="nocellnopadd"><tr class="nocellnopadd"><td valign="middle" class="nocellnopadd">';
     print '<input type="file" class="flat" name="logo" size="50">';
     print '</td><td valign="middle" align="right">';
-    if ($mysoc->logo_mini)
+    if (! empty($mysoc->logo_mini))
     {
         print '<a href="'.$_SERVER["PHP_SELF"].'?action=removelogo">'.img_delete($langs->trans("Delete")).'</a>';
         if (file_exists($conf->mycompany->dir_output.'/logos/thumbs/'.$mysoc->logo_mini))
@@ -378,7 +359,7 @@ if ($action == 'edit' || $action == 'updateedit')
     // Note
     $var=!$var;
     print '<tr '.$bc[$var].'><td valign="top">'.$langs->trans("Note").'</td><td>';
-    print '<textarea class="flat" name="note" cols="80" rows="'.ROWS_5.'">'.$conf->global->MAIN_INFO_SOCIETE_NOTE.'</textarea></td></tr>';
+    print '<textarea class="flat" name="note" cols="80" rows="'.ROWS_5.'">'.(! empty($conf->global->MAIN_INFO_SOCIETE_NOTE) ? $conf->global->MAIN_INFO_SOCIETE_NOTE : '').'</textarea></td></tr>';
     print '</td></tr>';
 
     print '</table>';
@@ -400,9 +381,9 @@ if ($action == 'edit' || $action == 'updateedit')
     // Forme juridique
     $var=!$var;
     print '<tr '.$bc[$var].'><td>'.$langs->trans("JuridicalStatus").'</td><td>';
-    if ($country_code)
+    if ($mysoc->country_code)
     {
-        $formcompany->select_forme_juridique($conf->global->MAIN_INFO_SOCIETE_FORME_JURIDIQUE,$country_code);
+        $formcompany->select_forme_juridique($conf->global->MAIN_INFO_SOCIETE_FORME_JURIDIQUE,$mysoc->country_code);
     }
     else
     {
@@ -411,13 +392,13 @@ if ($action == 'edit' || $action == 'updateedit')
     print '</td></tr>';
 
     // ProfID1
-    if ($langs->transcountry("ProfId1",$country_code) != '-')
+    if ($langs->transcountry("ProfId1",$mysoc->country_code) != '-')
     {
         $var=!$var;
-        print '<tr '.$bc[$var].'><td width="35%">'.$langs->transcountry("ProfId1",$country_code).'</td><td>';
-        if ($country_code)
+        print '<tr '.$bc[$var].'><td width="35%">'.$langs->transcountry("ProfId1",$mysoc->country_code).'</td><td>';
+        if (! empty($mysoc->country_code))
         {
-            print '<input name="siren" size="20" value="' . $conf->global->MAIN_INFO_SIREN . '">';
+            print '<input name="siren" size="20" value="' . (! empty($conf->global->MAIN_INFO_SIREN) ? $conf->global->MAIN_INFO_SIREN : '') . '">';
         }
         else
         {
@@ -427,13 +408,13 @@ if ($action == 'edit' || $action == 'updateedit')
     }
 
     // ProfId2
-    if ($langs->transcountry("ProfId2",$country_code) != '-')
+    if ($langs->transcountry("ProfId2",$mysoc->country_code) != '-')
     {
         $var=!$var;
-        print '<tr '.$bc[$var].'><td width="35%">'.$langs->transcountry("ProfId2",$country_code).'</td><td>';
-        if ($country_code)
+        print '<tr '.$bc[$var].'><td width="35%">'.$langs->transcountry("ProfId2",$mysoc->country_code).'</td><td>';
+        if (! empty($mysoc->country_code))
         {
-            print '<input name="siret" size="20" value="' . $conf->global->MAIN_INFO_SIRET . '">';
+            print '<input name="siret" size="20" value="' . (! empty($conf->global->MAIN_INFO_SIRET) ? $conf->global->MAIN_INFO_SIRET : '' ) . '">';
         }
         else
         {
@@ -443,13 +424,13 @@ if ($action == 'edit' || $action == 'updateedit')
     }
 
     // ProfId3
-    if ($langs->transcountry("ProfId3",$country_code) != '-')
+    if ($langs->transcountry("ProfId3",$mysoc->country_code) != '-')
     {
         $var=!$var;
-        print '<tr '.$bc[$var].'><td width="35%">'.$langs->transcountry("ProfId3",$country_code).'</td><td>';
-        if ($country_code)
+        print '<tr '.$bc[$var].'><td width="35%">'.$langs->transcountry("ProfId3",$mysoc->country_code).'</td><td>';
+        if (! empty($mysoc->country_code))
         {
-            print '<input name="ape" size="20" value="' . $conf->global->MAIN_INFO_APE . '">';
+            print '<input name="ape" size="20" value="' . (! empty($conf->global->MAIN_INFO_APE) ? $conf->global->MAIN_INFO_APE : '') . '">';
         }
         else
         {
@@ -459,13 +440,13 @@ if ($action == 'edit' || $action == 'updateedit')
     }
 
     // ProfId4
-    if ($langs->transcountry("ProfId4",$country_code) != '-')
+    if ($langs->transcountry("ProfId4",$mysoc->country_code) != '-')
     {
         $var=!$var;
-        print '<tr '.$bc[$var].'><td width="35%">'.$langs->transcountry("ProfId4",$country_code).'</td><td>';
-        if ($country_code)
+        print '<tr '.$bc[$var].'><td width="35%">'.$langs->transcountry("ProfId4",$mysoc->country_code).'</td><td>';
+        if (! empty($mysoc->country_code))
         {
-            print '<input name="rcs" size="20" value="' . $conf->global->MAIN_INFO_RCS . '">';
+            print '<input name="rcs" size="20" value="' . (! empty($conf->global->MAIN_INFO_RCS) ? $conf->global->MAIN_INFO_RCS : '') . '">';
         }
         else
         {
@@ -475,13 +456,13 @@ if ($action == 'edit' || $action == 'updateedit')
     }
 
     // ProfId5
-    if ($langs->transcountry("ProfId5",$country_code) != '-')
+    if ($langs->transcountry("ProfId5",$mysoc->country_code) != '-')
     {
         $var=!$var;
-        print '<tr '.$bc[$var].'><td width="35%">'.$langs->transcountry("ProfId5",$country_code).'</td><td>';
-        if ($country_code)
+        print '<tr '.$bc[$var].'><td width="35%">'.$langs->transcountry("ProfId5",$mysoc->country_code).'</td><td>';
+        if (! empty($mysoc->country_code))
         {
-            print '<input name="trainer" size="20" value="' . $conf->global->MAIN_INFO_TRAINER . '">';
+            print '<input name="MAIN_INFO_PROFID5" size="20" value="' . (! empty($conf->global->MAIN_INFO_PROFID5) ? $conf->global->MAIN_INFO_PROFID5 : '') . '">';
         }
         else
         {
@@ -491,13 +472,13 @@ if ($action == 'edit' || $action == 'updateedit')
     }
 
     // ProfId6
-    if ($langs->transcountry("ProfId6",$country_code) != '-')
+    if ($langs->transcountry("ProfId6",$mysoc->country_code) != '-')
     {
         $var=!$var;
-        print '<tr '.$bc[$var].'><td width="35%">'.$langs->transcountry("ProfId6",$country_code).'</td><td>';
-        if ($country_code)
+        print '<tr '.$bc[$var].'><td width="35%">'.$langs->transcountry("ProfId6",$mysoc->country_code).'</td><td>';
+        if (! empty($mysoc->country_code))
         {
-            print '<input name="MAIN_INFO_PROFID6" size="20" value="' . $conf->global->MAIN_INFO_PROFID6 . '">';
+            print '<input name="MAIN_INFO_PROFID6" size="20" value="' . (! empty($conf->global->MAIN_INFO_PROFID6) ? $conf->global->MAIN_INFO_PROFID6 : '') . '">';
         }
         else
         {
@@ -509,7 +490,7 @@ if ($action == 'edit' || $action == 'updateedit')
     // TVA Intra
     $var=!$var;
     print '<tr '.$bc[$var].'><td width="35%">'.$langs->trans("VATIntra").'</td><td>';
-    print '<input name="tva" size="20" value="' . $conf->global->MAIN_INFO_TVAINTRA . '">';
+    print '<input name="tva" size="20" value="' . (! empty($conf->global->MAIN_INFO_TVAINTRA) ? $conf->global->MAIN_INFO_TVAINTRA : '') . '">';
     print '</td></tr>';
 
     print '</table>';
@@ -566,60 +547,66 @@ if ($action == 'edit' || $action == 'updateedit')
     /*
      *  Local Taxes
      */
-    if ($country_code=='ES')
+    if ($mysoc->hasLocalTax(1))
     {
         // Local Tax 1
         print '<br>';
         print '<table class="noborder" width="100%">';
         print '<tr class="liste_titre">';
-        print '<td>'.$langs->transcountry("LocalTax1Management",$country_code).'</td><td>'.$langs->trans("Description").'</td>';
+        print '<td>'.$langs->transcountry("LocalTax1Management",$mysoc->country_code).'</td><td>'.$langs->trans("Description").'</td>';
         print '<td align="right">&nbsp;</td>';
         print "</tr>\n";
         $var=true;
 
         $var=!$var;
-        print "<tr ".$bc[$var]."><td width=\"140\"><label><input type=\"radio\" name=\"optionlocaltax1\" value=\"localtax1on\"".($conf->global->FACTURE_LOCAL_TAX1_OPTION != "localtax1off"?" checked":"")."> ".$langs->transcountry("LocalTax1IsUsed",$country_code)."</label></td>";
+        print "<tr ".$bc[$var]."><td width=\"140\"><label><input type=\"radio\" name=\"optionlocaltax1\" value=\"localtax1on\"".($conf->global->FACTURE_LOCAL_TAX1_OPTION != "localtax1off"?" checked":"")."> ".$langs->transcountry("LocalTax1IsUsed",$mysoc->country_code)."</label></td>";
         print '<td colspan="2">';
         print "<table>";
-        print "<tr><td>".$langs->transcountry("LocalTax1IsUsedDesc",$country_code)."</td></tr>";
-        print "<tr><td><i>".$langs->trans("Example").': '.$langs->transcountry("LocalTax1IsUsedExample",$country_code)."</i></td></tr>\n";
+        print "<tr><td>".$langs->transcountry("LocalTax1IsUsedDesc",$mysoc->country_code)."</td></tr>";
+        $example=$langs->transcountry("LocalTax1IsUsedExample",$mysoc->country_code);
+        print ($example!="LocalTax1IsUsedExample"?"<tr><td><i>".$langs->trans("Example").': '.$langs->transcountry("LocalTax1IsUsedExample",$mysoc->country_code)."</i></td></tr>\n":"");
         print "</table>";
         print "</td></tr>\n";
 
         $var=!$var;
-        print "<tr ".$bc[$var]."><td width=\"140\"><label><input type=\"radio\" name=\"optionlocaltax1\" value=\"localtax1off\"".($conf->global->FACTURE_LOCAL_TAX1_OPTION == "localtax1off"?" checked":"")."> ".$langs->transcountry("LocalTax1IsNotUsed",$country_code)."</label></td>";
+        print "<tr ".$bc[$var]."><td width=\"140\"><label><input type=\"radio\" name=\"optionlocaltax1\" value=\"localtax1off\"".($conf->global->FACTURE_LOCAL_TAX1_OPTION == "localtax1off"?" checked":"")."> ".$langs->transcountry("LocalTax1IsNotUsed",$mysoc->country_code)."</label></td>";
         print '<td colspan="2">';
         print "<table>";
-        print "<tr><td>".$langs->transcountry("LocalTax1IsNotUsedDesc",$country_code)."</td></tr>";
-        print "<tr><td><i>".$langs->trans("Example").': '.$langs->transcountry("LocalTax1IsNotUsedExample",$country_code)."</i></td></tr>\n";
+        print "<tr><td>".$langs->transcountry("LocalTax1IsNotUsedDesc",$mysoc->country_code)."</td></tr>";
+        $example=$langs->transcountry("LocalTax1IsNotUsedExample",$mysoc->country_code);
+        print ($example!="LocalTax1IsNotUsedExample"?"<tr><td><i>".$langs->trans("Example").': '.$langs->transcountry("LocalTax1IsNotUsedExample",$mysoc->country_code)."</i></td></tr>\n":"");
         print "</table>";
         print "</td></tr>\n";
         print "</table>";
-
+	}
+    if ($mysoc->hasLocalTax(2))
+    {
         // Local Tax 2
         print '<br>';
         print '<table class="noborder" width="100%">';
         print '<tr class="liste_titre">';
-        print '<td>'.$langs->transcountry("LocalTax2Management",$country_code).'</td><td>'.$langs->trans("Description").'</td>';
+        print '<td>'.$langs->transcountry("LocalTax2Management",$mysoc->country_code).'</td><td>'.$langs->trans("Description").'</td>';
         print '<td align="right">&nbsp;</td>';
         print "</tr>\n";
         $var=true;
 
         $var=!$var;
-        print "<tr ".$bc[$var]."><td width=\"140\"><label><input type=\"radio\" name=\"optionlocaltax2\" value=\"localtax2on\"".($conf->global->FACTURE_LOCAL_TAX2_OPTION != "localtax2off"?" checked":"")."> ".$langs->transcountry("LocalTax2IsUsed",$country_code)."</label></td>";
+        print "<tr ".$bc[$var]."><td width=\"140\"><label><input type=\"radio\" name=\"optionlocaltax2\" value=\"localtax2on\"".($conf->global->FACTURE_LOCAL_TAX2_OPTION != "localtax2off"?" checked":"")."> ".$langs->transcountry("LocalTax2IsUsed",$mysoc->country_code)."</label></td>";
         print '<td colspan="2">';
         print "<table>";
-        print "<tr><td>".$langs->transcountry("LocalTax2IsUsedDesc",$country_code)."</td></tr>";
-        print "<tr><td><i>".$langs->trans("Example").': '.$langs->transcountry("LocalTax2IsUsedExample",$country_code)."</i></td></tr>\n";
+        print "<tr><td>".$langs->transcountry("LocalTax2IsUsedDesc",$mysoc->country_code)."</td></tr>";
+        $example=$langs->transcountry("LocalTax2IsUsedExample",$mysoc->country_code);
+        print ($example!="LocalTax2IsUsedExample"?"<tr><td><i>".$langs->trans("Example").': '.$langs->transcountry("LocalTax2IsUsedExample",$mysoc->country_code)."</i></td></tr>\n":"");
         print "</table>";
         print "</td></tr>\n";
 
         $var=!$var;
-        print "<tr ".$bc[$var]."><td width=\"140\"><label><input type=\"radio\" name=\"optionlocaltax2\" value=\"localtax2off\"".($conf->global->FACTURE_LOCAL_TAX2_OPTION == "localtax2off"?" checked":"")."> ".$langs->transcountry("LocalTax2IsNotUsed",$country_code)."</label></td>";
+        print "<tr ".$bc[$var]."><td width=\"140\"><label><input type=\"radio\" name=\"optionlocaltax2\" value=\"localtax2off\"".($conf->global->FACTURE_LOCAL_TAX2_OPTION == "localtax2off"?" checked":"")."> ".$langs->transcountry("LocalTax2IsNotUsed",$mysoc->country_code)."</label></td>";
         print '<td colspan="2">';
         print "<table>";
-        print "<tr><td>".$langs->transcountry("LocalTax2IsNotUsedDesc",$country_code)."</td></tr>";
-        print "<tr><td><i>".$langs->trans("Example").': '.$langs->transcountry("LocalTax2IsNotUsedExample",$country_code)."</i></td></tr>\n";
+        print "<tr><td>".$langs->transcountry("LocalTax2IsNotUsedDesc",$mysoc->country_code)."</td></tr>";
+        $example=$langs->transcountry("LocalTax2IsNotUsedExample",$mysoc->country_code);
+        print ($example!="LocalTax2IsNotUsedExample"?"<tr><td><i>".$langs->trans("Example").': '.$langs->transcountry("LocalTax2IsNotUsedExample",$mysoc->country_code)."</i></td></tr>\n":"");
         print "</table>";
         print "</td></tr>\n";
         print "</table>";
@@ -669,18 +656,18 @@ else
 
     $var=!$var;
     print '<tr '.$bc[$var].'><td>'.$langs->trans("CompanyCountry").'</td><td>';
-    if ($country_code)
+    if ($mysoc->country_code)
     {
-        $img=picto_from_langcode($country_code);
+        $img=picto_from_langcode($mysoc->country_code);
         print $img?$img.' ':'';
-        print getCountry($country_code,1);
+        print getCountry($mysoc->country_code,1);
     }
     else print img_warning().' <font class="error">'.$langs->trans("ErrorFieldRequired",$langs->transnoentitiesnoconv("CompanyCountry")).'</font>';
     print '</td></tr>';
 
     $var=!$var;
     print '<tr '.$bc[$var].'><td>'.$langs->trans("State").'</td><td>';
-    if ($conf->global->MAIN_INFO_SOCIETE_DEPARTEMENT) print getState($conf->global->MAIN_INFO_SOCIETE_DEPARTEMENT);
+    if (! empty($conf->global->MAIN_INFO_SOCIETE_DEPARTEMENT)) print getState($conf->global->MAIN_INFO_SOCIETE_DEPARTEMENT);
     else print '&nbsp;';
     print '</td></tr>';
 
@@ -691,7 +678,7 @@ else
     print '</td></tr>';
 
     $var=!$var;
-    print '<tr '.$bc[$var].'><td width="35%">'.$langs->trans("Tel").'</td><td>' . dol_print_phone($conf->global->MAIN_INFO_SOCIETE_TEL,$mysoc->country_code) . '</td></tr>';
+    print '<tr '.$bc[$var].'><td width="35%">'.$langs->trans("Phone").'</td><td>' . dol_print_phone($conf->global->MAIN_INFO_SOCIETE_TEL,$mysoc->country_code) . '</td></tr>';
 
     $var=!$var;
     print '<tr '.$bc[$var].'><td width="35%">'.$langs->trans("Fax").'</td><td>' . dol_print_phone($conf->global->MAIN_INFO_SOCIETE_FAX,$mysoc->country_code) . '</td></tr>';
@@ -704,7 +691,7 @@ else
     print '<tr '.$bc[$var].'><td width="35%">'.$langs->trans("Web").'</td><td>' . dol_print_url($conf->global->MAIN_INFO_SOCIETE_WEB,'_blank',80) . '</td></tr>';
 
     // Barcode
-    if ($conf->barcode->enabled)
+    if (! empty($conf->barcode->enabled))
     {
         $var=!$var;
         print '<tr '.$bc[$var].'><td width="35%">'.$langs->trans("Gencod").'</td><td>' . $conf->global->MAIN_INFO_SOCIETE_GENCOD . '</td></tr>';
@@ -736,7 +723,7 @@ else
     print '</td></tr>';
 
     $var=!$var;
-    print '<tr '.$bc[$var].'><td width="35%" valign="top">'.$langs->trans("Note").'</td><td>' . nl2br($conf->global->MAIN_INFO_SOCIETE_NOTE) . '</td></tr>';
+    print '<tr '.$bc[$var].'><td width="35%" valign="top">'.$langs->trans("Note").'</td><td>' . (! empty($conf->global->MAIN_INFO_SOCIETE_NOTE) ? nl2br($conf->global->MAIN_INFO_SOCIETE_NOTE) : '') . '</td></tr>';
 
     print '</table>';
 
@@ -763,74 +750,86 @@ else
     print '</td></tr>';
 
     // ProfId1
-    if ($langs->transcountry("ProfId1",$country_code) != '-')
+    if ($langs->transcountry("ProfId1",$mysoc->country_code) != '-')
     {
         $var=!$var;
-        print '<tr '.$bc[$var].'><td width="35%">'.$langs->transcountry("ProfId1",$country_code).'</td><td>';
-        if ($langs->transcountry("ProfId1",$country_code) != '-')
+        print '<tr '.$bc[$var].'><td width="35%">'.$langs->transcountry("ProfId1",$mysoc->country_code).'</td><td>';
+        if (! empty($conf->global->MAIN_INFO_SIREN))
         {
             print $conf->global->MAIN_INFO_SIREN;
-            if ($conf->global->MAIN_INFO_SIREN && $country_code == 'FR') print ' &nbsp; <a href="http://avis-situation-sirene.insee.fr/avisitu/jsp/avis.jsp" target="_blank">'.$langs->trans("Check").'</a>';
+            if ($mysoc->country_code == 'FR') print ' &nbsp; <a href="http://avis-situation-sirene.insee.fr/avisitu/jsp/avis.jsp" target="_blank">'.$langs->trans("Check").'</a>';
+        } else {
+        	print '&nbsp;';
         }
         print '</td></tr>';
     }
 
     // ProfId2
-    if ($langs->transcountry("ProfId2",$country_code) != '-')
+    if ($langs->transcountry("ProfId2",$mysoc->country_code) != '-')
     {
         $var=!$var;
-        print '<tr '.$bc[$var].'><td width="35%">'.$langs->transcountry("ProfId2",$country_code).'</td><td>';
-        if ($langs->transcountry("ProfId2",$country_code) != '-')
+        print '<tr '.$bc[$var].'><td width="35%">'.$langs->transcountry("ProfId2",$mysoc->country_code).'</td><td>';
+        if (! empty($conf->global->MAIN_INFO_SIRET))
         {
             print $conf->global->MAIN_INFO_SIRET;
+        } else {
+        	print '&nbsp;';
         }
         print '</td></tr>';
     }
 
     // ProfId3
-    if ($langs->transcountry("ProfId3",$country_code) != '-')
+    if ($langs->transcountry("ProfId3",$mysoc->country_code) != '-')
     {
         $var=!$var;
-        print '<tr '.$bc[$var].'><td width="35%">'.$langs->transcountry("ProfId3",$country_code).'</td><td>';
-        if ($langs->transcountry("ProfId3",$country_code) != '-')
+        print '<tr '.$bc[$var].'><td width="35%">'.$langs->transcountry("ProfId3",$mysoc->country_code).'</td><td>';
+        if (! empty($conf->global->MAIN_INFO_APE))
         {
             print $conf->global->MAIN_INFO_APE;
+        } else {
+        	print '&nbsp;';
         }
         print '</td></tr>';
     }
 
     // ProfId4
-    if ($langs->transcountry("ProfId4",$country_code) != '-')
+    if ($langs->transcountry("ProfId4",$mysoc->country_code) != '-')
     {
         $var=!$var;
-        print '<tr '.$bc[$var].'><td width="35%">'.$langs->transcountry("ProfId4",$country_code).'</td><td>';
-        if ($langs->transcountry("ProfId4",$country_code) != '-')
+        print '<tr '.$bc[$var].'><td width="35%">'.$langs->transcountry("ProfId4",$mysoc->country_code).'</td><td>';
+        if (! empty($conf->global->MAIN_INFO_RCS))
         {
             print $conf->global->MAIN_INFO_RCS;
+        } else {
+        	print '&nbsp;';
         }
         print '</td></tr>';
     }
 
     // ProfId5
-    if ($langs->transcountry("ProfId5",$country_code) != '-')
+    if ($langs->transcountry("ProfId5",$mysoc->country_code) != '-')
     {
         $var=!$var;
-        print '<tr '.$bc[$var].'><td width="35%">'.$langs->transcountry("ProfId5",$country_code).'</td><td>';
-        if ($langs->transcountry("ProfId5",$country_code) != '-')
+        print '<tr '.$bc[$var].'><td width="35%">'.$langs->transcountry("ProfId5",$mysoc->country_code).'</td><td>';
+        if (! empty($conf->global->MAIN_INFO_PROFID5))
         {
-            print $conf->global->MAIN_INFO_TRAINER;
+            print $conf->global->MAIN_INFO_PROFID5;
+        } else {
+        	print '&nbsp;';
         }
         print '</td></tr>';
     }
 
     // ProfId6
-    if ($langs->transcountry("ProfId6",$country_code) != '-')
+    if ($langs->transcountry("ProfId6",$mysoc->country_code) != '-')
     {
         $var=!$var;
-        print '<tr '.$bc[$var].'><td width="35%">'.$langs->transcountry("ProfId6",$country_code).'</td><td>';
-        if ($langs->transcountry("ProfId6",$country_code) != '-')
+        print '<tr '.$bc[$var].'><td width="35%">'.$langs->transcountry("ProfId6",$mysoc->country_code).'</td><td>';
+        if (! empty($conf->global->MAIN_INFO_PROFID6))
         {
             print $conf->global->MAIN_INFO_PROFID6;
+        } else {
+        	print '&nbsp;';
         }
         print '</td></tr>';
     }
@@ -839,7 +838,7 @@ else
     $var=!$var;
     print '<tr '.$bc[$var].'><td>'.$langs->trans("VATIntra").'</td>';
     print '<td>';
-    if ($conf->global->MAIN_INFO_TVAINTRA)
+    if (! empty($conf->global->MAIN_INFO_TVAINTRA))
     {
         $s='';
         $s.=$conf->global->MAIN_INFO_TVAINTRA;
@@ -847,7 +846,7 @@ else
         if (empty($conf->global->MAIN_DISABLEVATCHECK))
         {
             $s.=' &nbsp; ';
-            if ($conf->use_javascript_ajax)
+            if (! empty($conf->use_javascript_ajax))
             {
                 print "\n";
                 print '<script language="JavaScript" type="text/javascript">';
@@ -928,61 +927,67 @@ else
     /*
      *  Local Taxes
      */
-    if ($country_code=='ES')
+    if ($mysoc->hasLocalTax(1))
     {
         // Local Tax 1
         print '<br>';
         print '<table class="noborder" width="100%">';
         print '<tr class="liste_titre">';
-        print '<td>'.$langs->transcountry("LocalTax1Management",$country_code).'</td><td>'.$langs->trans("Description").'</td>';
+        print '<td>'.$langs->transcountry("LocalTax1Management",$mysoc->country_code).'</td><td>'.$langs->trans("Description").'</td>';
         print '<td align="right">&nbsp;</td>';
         print "</tr>\n";
         $var=true;
 
         $var=!$var;
-        print "<tr ".$bc[$var]."><td width=\"140\"><label><input ".$bc[$var]." type=\"radio\" name=\"optionlocaltax1\" disabled value=\"localtax1on\"".($conf->global->FACTURE_LOCAL_TAX1_OPTION != "localtax1off"?" checked":"")."> ".$langs->transcountry("LocalTax1IsUsed",$country_code)."</label></td>";
+        print "<tr ".$bc[$var]."><td width=\"140\"><label><input ".$bc[$var]." type=\"radio\" name=\"optionlocaltax1\" disabled value=\"localtax1on\"".($conf->global->FACTURE_LOCAL_TAX1_OPTION != "localtax1off"?" checked":"")."> ".$langs->transcountry("LocalTax1IsUsed",$mysoc->country_code)."</label></td>";
         print '<td colspan="2">';
         print "<table>";
-        print "<tr><td>".$langs->transcountry("LocalTax1IsUsedDesc",$country_code)."</td></tr>";
-        print "<tr><td><i>".$langs->trans("Example",$country_code).': '.$langs->transcountry("LocalTax1IsUsedExample",$country_code)."</i></td></tr>\n";
+        print "<tr><td>".$langs->transcountry("LocalTax1IsUsedDesc",$mysoc->country_code)."</td></tr>";
+        $example=$langs->transcountry("LocalTax1IsUsedExample",$mysoc->country_code);
+        print ($example!="LocalTax1IsUsedExample"?"<tr><td><i>".$langs->trans("Example").': '.$langs->transcountry("LocalTax1IsUsedExample",$mysoc->country_code)."</i></td></tr>\n":"");
         print "</table>";
         print "</td></tr>\n";
 
         $var=!$var;
-        print "<tr ".$bc[$var]."><td width=\"140\"><label><input ".$bc[$var]." type=\"radio\" name=\"optionlocaltax1\" disabled value=\"localtax1off\"".($conf->global->FACTURE_LOCAL_TAX1_OPTION == "localtax1off"?" checked":"")."> ".$langs->transcountry("LocalTax1IsNotUsed",$country_code)."</label></td>";
+        print "<tr ".$bc[$var]."><td width=\"140\"><label><input ".$bc[$var]." type=\"radio\" name=\"optionlocaltax1\" disabled value=\"localtax1off\"".($conf->global->FACTURE_LOCAL_TAX1_OPTION == "localtax1off"?" checked":"")."> ".$langs->transcountry("LocalTax1IsNotUsed",$mysoc->country_code)."</label></td>";
         print '<td colspan="2">';
         print "<table>";
-        print "<tr><td>".$langs->transcountry("LocalTax1IsNotUsedDesc",$country_code)."</td></tr>";
-        print "<tr><td><i>".$langs->trans("Example",$country_code).': '.$langs->transcountry("LocalTax1IsNotUsedExample",$country_code)."</i></td></tr>\n";
+        print "<tr><td>".$langs->transcountry("LocalTax1IsNotUsedDesc",$mysoc->country_code)."</td></tr>";
+        $example=$langs->transcountry("LocalTax1IsNotUsedExample",$mysoc->country_code);
+        print ($example!="LocalTax1IsNotUsedExample"?"<tr><td><i>".$langs->trans("Example").': '.$langs->transcountry("LocalTax1IsNotUsedExample",$mysoc->country_code)."</i></td></tr>\n":"");
         print "</table>";
         print "</td></tr>\n";
 
         print "</table>";
-
+	}
+    if ($mysoc->hasLocalTax(2))
+    {
         // Local Tax 2
         print '<br>';
         print '<table class="noborder" width="100%">';
         print '<tr class="liste_titre">';
-        print '<td>'.$langs->transcountry("LocalTax2Management",$country_code).'</td><td>'.$langs->trans("Description").'</td>';
+        print '<td>'.$langs->transcountry("LocalTax2Management",$mysoc->country_code).'</td><td>'.$langs->trans("Description").'</td>';
         print '<td align="right">&nbsp;</td>';
         print "</tr>\n";
         $var=true;
 
         $var=!$var;
-        print "<tr ".$bc[$var]."><td width=\"140\"><label><input ".$bc[$var]." type=\"radio\" name=\"optionlocaltax2\" disabled value=\"localtax2on\"".($conf->global->FACTURE_LOCAL_TAX2_OPTION != "localtax2off"?" checked":"")."> ".$langs->transcountry("LocalTax2IsUsed",$country_code)."</label></td>";
+        print "<tr ".$bc[$var]."><td width=\"140\"><label><input ".$bc[$var]." type=\"radio\" name=\"optionlocaltax2\" disabled value=\"localtax2on\"".($conf->global->FACTURE_LOCAL_TAX2_OPTION != "localtax2off"?" checked":"")."> ".$langs->transcountry("LocalTax2IsUsed",$mysoc->country_code)."</label></td>";
         print '<td colspan="2">';
         print "<table>";
-        print "<tr><td>".$langs->transcountry("LocalTax2IsUsedDesc",$country_code)."</td></tr>";
-        print "<tr><td><i>".$langs->trans("Example").': '.$langs->transcountry("LocalTax2IsUsedExample",$country_code)."</i></td></tr>\n";
+        print "<tr><td>".$langs->transcountry("LocalTax2IsUsedDesc",$mysoc->country_code)."</td></tr>";
+        $example=$langs->transcountry("LocalTax2IsUsedExample",$mysoc->country_code);
+        print ($example!="LocalTax2IsUsedExample"?"<tr><td><i>".$langs->trans("Example").': '.$langs->transcountry("LocalTax2IsUsedExample",$mysoc->country_code)."</i></td></tr>\n":"");
         print "</table>";
         print "</td></tr>\n";
 
         $var=!$var;
-        print "<tr ".$bc[$var]."><td width=\"140\"><label><input ".$bc[$var]." type=\"radio\" name=\"optionlocaltax2\" disabled value=\"localtax2off\"".($conf->global->FACTURE_LOCAL_TAX2_OPTION == "localtax2off"?" checked":"")."> ".$langs->transcountry("LocalTax2IsNotUsed",$country_code)."</label></td>";
+        print "<tr ".$bc[$var]."><td width=\"140\"><label><input ".$bc[$var]." type=\"radio\" name=\"optionlocaltax2\" disabled value=\"localtax2off\"".($conf->global->FACTURE_LOCAL_TAX2_OPTION == "localtax2off"?" checked":"")."> ".$langs->transcountry("LocalTax2IsNotUsed",$mysoc->country_code)."</label></td>";
         print '<td colspan="2">';
         print "<table>";
-        print "<tr><td>".$langs->transcountry("LocalTax2IsNotUsedDesc",$country_code)."</td></tr>";
-        print "<tr><td><i>".$langs->trans("Example").': '.$langs->transcountry("LocalTax2IsNotUsedExample",$country_code)."</i></td></tr>\n";
+        print "<tr><td>".$langs->transcountry("LocalTax2IsNotUsedDesc",$mysoc->country_code)."</td></tr>";
+        $example=$langs->transcountry("LocalTax2IsNotUsedExample",$mysoc->country_code);
+        print ($example!="LocalTax2IsNotUsedExample"?"<tr><td><i>".$langs->trans("Example").': '.$langs->transcountry("LocalTax2IsNotUsedExample",$mysoc->country_code)."</i></td></tr>\n":"");
         print "</table>";
         print "</td></tr>\n";
 

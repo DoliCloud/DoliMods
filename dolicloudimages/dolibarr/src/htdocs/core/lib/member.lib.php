@@ -3,7 +3,7 @@
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -96,6 +96,9 @@ function member_prepare_head($object)
 	$head[$h][2] = 'info';
 	$h++;
 
+
+	complete_head_from_modules($conf,$langs,$object,$head,$h,'member','remove');
+
 	return $head;
 }
 
@@ -103,10 +106,9 @@ function member_prepare_head($object)
 /**
  *  Return array head with list of tabs to view object informations
  *
- *  @param	Object	$object         Member
- *  @return array           		head
+ *  @return	array		head
  */
-function member_admin_prepare_head($object)
+function member_admin_prepare_head()
 {
     global $langs, $conf, $user;
 
@@ -122,7 +124,7 @@ function member_admin_prepare_head($object)
     // Entries must be declared in modules descriptor with line
     // $this->tabs = array('entity:+tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to add new tab
     // $this->tabs = array('entity:-tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to remove a tab
-    complete_head_from_modules($conf,$langs,$object,$head,$h,'member_admin');
+    complete_head_from_modules($conf,$langs,'',$head,$h,'member_admin');
 
     $head[$h][0] = DOL_URL_ROOT.'/adherents/admin/adherent_extrafields.php';
     $head[$h][1] = $langs->trans("ExtraFields");
@@ -134,7 +136,7 @@ function member_admin_prepare_head($object)
     $head[$h][2] = 'public';
     $h++;
 
-    complete_head_from_modules($conf,$langs,$object,$head,$h,'member_admin','remove');
+    complete_head_from_modules($conf,$langs,'',$head,$h,'member_admin','remove');
 
     return $head;
 }
@@ -173,11 +175,18 @@ function member_stats_prepare_head($object)
     $head[$h][2] = 'statstown';
     $h++;
 
+    $head[$h][0] = DOL_URL_ROOT.'/adherents/stats/byproperties.php';
+    $head[$h][1] = $langs->trans('ByProperties');
+    $head[$h][2] = 'statsbyproperties';
+    $h++;
+
     // Show more tabs from modules
     // Entries must be declared in modules descriptor with line
     // $this->tabs = array('entity:+tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to add new tab
-    // $this->tabs = array('entity:-tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to remove a tab
+    // $this->tabs = array('entity:-tabname);   												to remove a tab
     complete_head_from_modules($conf,$langs,$object,$head,$h,'member_stats');
+
+    complete_head_from_modules($conf,$langs,$object,$head,$h,'member_stats','remove');
 
     return $head;
 }

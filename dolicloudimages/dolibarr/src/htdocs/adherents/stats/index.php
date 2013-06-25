@@ -1,11 +1,11 @@
 <?php
 /* Copyright (C) 2003      Rodolphe Quiedeville <rodolphe@quiedeville.org>
  * Copyright (C) 2004-2011 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2005-2012 Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2005-2012 Regis Houssin        <regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -23,22 +23,24 @@
  *		\brief      Page of subscription members statistics
  */
 
-require("../../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/adherents/class/adherentstats.class.php");
-require_once(DOL_DOCUMENT_ROOT."/core/class/dolgraph.class.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/member.lib.php");
+require '../../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/adherents/class/adherentstats.class.php';
+require_once DOL_DOCUMENT_ROOT.'/core/class/dolgraph.class.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/member.lib.php';
 
 $WIDTH=500;
 $HEIGHT=200;
 
 $userid=GETPOST('userid','int'); if ($userid < 0) $userid=0;
 $socid=GETPOST('socid','int'); if ($socid < 0) $socid=0;
+
 // Security check
 if ($user->societe_id > 0)
 {
     $action = '';
     $socid = $user->societe_id;
 }
+$result=restrictedArea($user,'adherent','','','cotisation');
 
 $year = strftime("%Y", time());
 $startyear=$year-2;

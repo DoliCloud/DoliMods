@@ -1,12 +1,12 @@
 <?php
-/* Copyright (C) 2010 		Regis Houssin		<regis@dolibarr.fr>
+/* Copyright (C) 2010 		Regis Houssin		<regis.houssin@capnetworks.com>
  * Copyright (C) 2011 		Laurent Destailleur	<eldy@users.sourceforge.net>
  * Copyright (C) 2011-2012 	Juanjo Menent		<jmenent@2byte.es>
  * Copyright (C) 2011-2012  Philippe Grand	    <philippe.grand@atoo-net.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -24,10 +24,10 @@
  *  \brief      Page to setup project module
  */
 
-require("../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
-require_once(DOL_DOCUMENT_ROOT.'/projet/class/project.class.php');
-require_once(DOL_DOCUMENT_ROOT.'/projet/class/task.class.php');
+require '../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/projet/class/project.class.php';
+require_once DOL_DOCUMENT_ROOT.'/projet/class/task.class.php';
 
 $langs->load("admin");
 $langs->load("errors");
@@ -51,7 +51,7 @@ if ($action == 'updateMask')
 {
 	$maskconstproject=GETPOST('maskconstproject','alpha');
 	$maskproject=GETPOST('maskproject','alpha');
-	
+
 	if ($maskconstproject)  $res = dolibarr_set_const($db,$maskconstproject,$maskproject,'chaine',0,'',$conf->entity);
 
 	if (! $res > 0) $error++;
@@ -86,10 +86,10 @@ if ($action == 'specimen')
 			break;
 		}
 	}
-	
+
 	if ($filefound)
 	{
-		require_once($file);
+		require_once $file;
 
 		$module = new $classname($db);
 
@@ -198,7 +198,7 @@ foreach ($dirmodels as $reldir)
 					$file = $reg[1];
 					$classname = substr($file,4);
 
-					require_once(DOL_DOCUMENT_ROOT ."/core/modules/project/".$file.".php");
+					require_once DOL_DOCUMENT_ROOT ."/core/modules/project/".$file.'.php';
 
 					$module = new $file;
 
@@ -207,7 +207,7 @@ foreach ($dirmodels as $reldir)
 					if ($module->version == 'experimental' && $conf->global->MAIN_FEATURES_LEVEL < 1) continue;
 
 					if ($module->isEnabled())
-					{						
+					{
 						$var=!$var;
 						print '<tr '.$bc[$var].'><td>'.$module->nom."</td><td>\n";
 						print $module->info();
@@ -216,7 +216,7 @@ foreach ($dirmodels as $reldir)
 						// Show example of numbering module
 						print '<td nowrap="nowrap">';
 						$tmp=$module->getExample();
-						if (preg_match('/^Error/',$tmp)) { $langs->load("errors"); print '<div class="error">'.$langs->trans($tmp).'</div>'; }
+						if (preg_match('/^Error/',$tmp)) print '<div class="error">'.$langs->trans($tmp).'</div>';
 						elseif ($tmp=='NotConfigured') print $langs->trans($tmp);
 						else print $tmp;
 						print '</td>'."\n";
@@ -331,7 +331,7 @@ foreach ($dirmodels as $reldir)
 					$var=!$var;
 					print "<tr ".$bc[$var].">\n  <td>$name";
 					print "</td>\n  <td>\n";
-					require_once($dir.$file);
+					require_once $dir.$file;
 					$module = new $classname($db);
 					print $module->description;
 					print "</td>\n";
@@ -339,10 +339,10 @@ foreach ($dirmodels as $reldir)
 					// Active
 					if (in_array($name, $def))
 					{
-						print "<td align=\"center\">\n";						
+						print "<td align=\"center\">\n";
 						print '<a href="'.$_SERVER["PHP_SELF"].'?action=del&amp;value='.$name.'&amp;scandir='.$module->scandir.'&amp;label='.urlencode($module->name).'">';
 						print img_picto($langs->trans("Enabled"),'switch_on');
-						print '</a>';						
+						print '</a>';
 						print "</td>";
 					}
 					else
@@ -371,7 +371,7 @@ foreach ($dirmodels as $reldir)
 					$htmltooltip.='<br><br><u>'.$langs->trans("FeaturesSupported").':</u>';
 					$htmltooltip.='<br>'.$langs->trans("Logo").': '.yn($module->option_logo,1,1);
 					print '<td align="center">';
-					$link='<a href="'.$_SERVER["PHP_SELF"].'?action=specimen&amp;module='.$name.'">'.img_object($langs->trans("Preview"),'order').'</a>';
+					$link='<a href="'.$_SERVER["PHP_SELF"].'?action=specimen&amp;module='.$name.'">'.img_object($langs->trans("Preview"),'project').'</a>';
 					print $form->textwithpicto(' &nbsp; &nbsp; '.$link,$htmltooltip,-1,0);
 					print '</td>';
 

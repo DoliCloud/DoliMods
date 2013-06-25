@@ -1,11 +1,11 @@
 <?php
 /* Copyright (C) 2008-2010 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2005-2009 Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2005-2009 Regis Houssin        <regis.houssin@capnetworks.com>
  * Copyright (C) 2011	   Juanjo Menent        <jmenent@2byte.es>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -44,10 +44,10 @@
  */
 function print_actions_filter($form,$canedit,$status,$year,$month,$day,$showbirthday,$filtera,$filtert,$filterd,$pid,$socid,$showextcals=array())
 {
-	global $conf,$langs,$db;
+	global $conf,$user,$langs,$db;
 
 	// Filters
-	if ($canedit || $conf->projet->enabled)
+	if ($canedit || ! empty($conf->projet->enabled))
 	{
 		print '<form name="listactionsfilter" class="listactionsfilter" action="'.$_SERVER["PHP_SELF"].'" method="POST">';
 		print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
@@ -57,7 +57,7 @@ function print_actions_filter($form,$canedit,$status,$year,$month,$day,$showbirt
 		print '<input type="hidden" name="day" value="'.$day.'">';
 		print '<input type="hidden" name="showbirthday" value="'.$showbirthday.'">';
 		print '<table class="nobordernopadding" width="100%">';
-		if ($canedit || $conf->projet->enabled)
+		if ($canedit || ! empty($conf->projet->enabled))
 		{
 			print '<tr><td nowrap="nowrap">';
 
@@ -87,17 +87,20 @@ function print_actions_filter($form,$canedit,$status,$year,$month,$day,$showbirt
 				print $form->select_dolusers($filterd,'userdone',1,'',!$canedit);
 				print '</td></tr>';
 
-				include_once(DOL_DOCUMENT_ROOT.'/core/class/html.formactions.class.php');
+				include_once DOL_DOCUMENT_ROOT.'/core/class/html.formactions.class.php';
 				$formactions=new FormActions($db);
 				print '<tr>';
 				print '<td nowrap="nowrap">';
 				print $langs->trans("Type");
 				print ' &nbsp;</td><td nowrap="nowrap">';
-				print $formactions->select_type_actions(GETPOST('actioncode'), "actioncode");
+
+				// print $formactions->select_type_actions(GETPOST('actioncode'), "actioncode");
+				print $formactions->select_type_actions(GETPOST('actioncode')?GETPOST('actioncode'):'manual', "actioncode", '', (empty($conf->global->AGENDA_USE_EVENT_TYPE)?1:0));
+
 				print '</td></tr>';
 			}
 
-			if ($conf->projet->enabled)
+			if (! empty($conf->projet->enabled) && $user->rights->projet->lire)
 			{
 				print '<tr>';
 				print '<td nowrap="nowrap">';
@@ -175,17 +178,16 @@ function show_array_actions_to_do($max=5)
 
 	$now=dol_now();
 
-	include_once(DOL_DOCUMENT_ROOT.'/comm/action/class/actioncomm.class.php');
-	include_once(DOL_DOCUMENT_ROOT.'/societe/class/client.class.php');
+	include_once DOL_DOCUMENT_ROOT.'/comm/action/class/actioncomm.class.php';
+	include_once DOL_DOCUMENT_ROOT.'/societe/class/client.class.php';
 
-	$sql = "SELECT a.id, a.label, a.datep as dp, a.fk_user_author, a.percent,";
+	$sql = "SELECT a.id, a.label, a.datep as dp, a.datep2 as dp2, a.fk_user_author, a.percent,";
 	$sql.= " c.code, c.libelle,";
 	$sql.= " s.nom as sname, s.rowid, s.client";
-	$sql.= " FROM (".MAIN_DB_PREFIX."c_actioncomm as c,";
+	$sql.= " FROM ".MAIN_DB_PREFIX."c_actioncomm as c,";
 	$sql.= " ".MAIN_DB_PREFIX."actioncomm as a";
-	if (!$user->rights->societe->client->voir && !$socid) $sql.= ", ".MAIN_DB_PREFIX."societe_commerciaux as sc";
-	$sql.= ")";
     $sql.= " LEFT JOIN ".MAIN_DB_PREFIX."societe as s ON a.fk_soc = s.rowid";
+	if (!$user->rights->societe->client->voir && !$socid) $sql.= ", ".MAIN_DB_PREFIX."societe_commerciaux as sc";
 	$sql.= " WHERE c.id = a.fk_action";
 	$sql.= " AND a.entity = ".$conf->entity;
     $sql.= " AND ((a.percent >= 0 AND a.percent < 100) OR (a.percent = -1 AND a.datep2 > '".$db->idate($now)."'))";
@@ -226,13 +228,13 @@ function show_array_actions_to_do($max=5)
 
             print '<td>';
             if ($obj->rowid > 0)
-                {
-                    $customerstatic->id=$obj->rowid;
-                    $customerstatic->name=$obj->sname;
-                    $customerstatic->client=$obj->client;
-                    print $customerstatic->getNomUrl(1,'',16);
-                }
-                print '</td>';
+            {
+            	$customerstatic->id=$obj->rowid;
+            	$customerstatic->name=$obj->sname;
+            	$customerstatic->client=$obj->client;
+            	print $customerstatic->getNomUrl(1,'',16);
+            }
+            print '</td>';
 
             $datep=$db->jdate($obj->dp);
             $datep2=$db->jdate($obj->dp2);
@@ -280,11 +282,10 @@ function show_array_last_actions_done($max=5)
 	$sql = "SELECT a.id, a.percent, a.datep as da, a.datep2 as da2, a.fk_user_author, a.label,";
 	$sql.= " c.code, c.libelle,";
 	$sql.= " s.rowid, s.nom as sname, s.client";
-	$sql.= " FROM (".MAIN_DB_PREFIX."c_actioncomm as c,";
+	$sql.= " FROM ".MAIN_DB_PREFIX."c_actioncomm as c,";
 	$sql.= " ".MAIN_DB_PREFIX."actioncomm as a";
-	if (!$user->rights->societe->client->voir && !$socid) $sql.= ", ".MAIN_DB_PREFIX."societe_commerciaux as sc";
-	$sql.=")";
     $sql.= " LEFT JOIN ".MAIN_DB_PREFIX."societe as s ON a.fk_soc = s.rowid";
+	if (!$user->rights->societe->client->voir && !$socid) $sql.= ", ".MAIN_DB_PREFIX."societe_commerciaux as sc";
 	$sql.= " WHERE c.id = a.fk_action";
 	$sql.= " AND a.entity = ".$conf->entity;
     $sql.= " AND (a.percent >= 100 OR (a.percent = -1 AND a.datep2 <= '".$db->idate($now)."'))";
@@ -381,6 +382,15 @@ function agenda_prepare_head()
 	$head[$h][2] = 'extsites';
 	$h++;
 
+	complete_head_from_modules($conf,$langs,$object,$head,$h,'agenda_admin');
+
+	$head[$h][0] = DOL_URL_ROOT."/admin/agenda_extrafields.php";
+	$head[$h][1] = $langs->trans("ExtraFields");
+	$head[$h][2] = 'attributes';
+	$h++;
+
+	complete_head_from_modules($conf,$langs,$object,$head,$h,'agenda_admin','remove');
+
 
 	return $head;
 }
@@ -402,6 +412,14 @@ function actions_prepare_head($object)
 	$head[$h][1] = $langs->trans("CardAction");
 	$head[$h][2] = 'card';
 	$h++;
+
+	if (! empty($conf->global->AGENDA_USE_SEVERAL_CONTACTS))
+	{
+		$head[$h][0] = DOL_URL_ROOT.'/comm/action/contact.php?id='.$object->id;
+		$head[$h][1] = $langs->trans("Contacts");
+		$head[$h][2] = 'contact';
+		$h++;
+	}
 
 	$head[$h][0] = DOL_URL_ROOT.'/comm/action/document.php?id='.$object->id;
 	$head[$h][1] = $langs->trans('Documents');
@@ -435,13 +453,15 @@ function calendars_prepare_head($param)
     $head[$h][2] = 'card';
     $h++;
 
-	$object=(object) array();
+	$object=new stdClass();
 
     // Show more tabs from modules
     // Entries must be declared in modules descriptor with line
     // $this->tabs = array('entity:+tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to add new tab
-    // $this->tabs = array('entity:-tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to remove a tab
+    // $this->tabs = array('entity:-tabname);   												to remove a tab
     complete_head_from_modules($conf,$langs,$object,$head,$h,'agenda');
+
+    complete_head_from_modules($conf,$langs,$object,$head,$h,'agenda','remove');
 
     return $head;
 }

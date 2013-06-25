@@ -1,12 +1,12 @@
 -- ========================================================================
 -- Copyright (C) 2000-2004 Rodolphe Quiedeville <rodolphe@quiedeville.org>
 -- Copyright (C) 2004-2010 Laurent Destailleur  <eldy@users.sourceforge.net>
--- Copyright (C) 2005-2010 Regis Houssin        <regis@dolibarr.fr>
+-- Copyright (C) 2005-2010 Regis Houssin        <regis.houssin@capnetworks.com>
 -- Copyright (C) 2010      Juanjo Menent        <dolibarr@2byte.es>
 --
 -- This program is free software; you can redistribute it and/or modify
 -- it under the terms of the GNU General Public License as published by
--- the Free Software Foundation; either version 2 of the License, or
+-- the Free Software Foundation; either version 3 of the License, or
 -- (at your option) any later version.
 --
 -- This program is distributed in the hope that it will be useful,
@@ -25,7 +25,7 @@ create table llx_societe
   nom                      varchar(60),                                 -- company reference name
   entity                   integer DEFAULT 1 NOT NULL,                  -- multi company id
 
-  ref_ext                  varchar(60),                                 -- reference into an external system (not used by dolibarr)
+  ref_ext                  varchar(128),                                 -- reference into an external system (not used by dolibarr)
   ref_int                  varchar(60),                                 -- reference into an internal system (used by dolibarr)
 
   statut                   tinyint        DEFAULT 0,            		-- statut
@@ -49,7 +49,6 @@ create table llx_societe
   fax                      varchar(20),                         		-- fax number
   url                      varchar(255),                        		--
   email                    varchar(128),                        		--
-  fk_secteur               integer        DEFAULT 0,            		--
   fk_effectif              integer        DEFAULT 0,            		--
   fk_typent                integer        DEFAULT 0,            		--
   fk_forme_juridique       integer        DEFAULT 0,            		-- juridical status
@@ -59,12 +58,11 @@ create table llx_societe
   ape                      varchar(128),                         		-- IDProf3: code ape for france
   idprof4                  varchar(128),                         		-- IDProf4: nu for france
   idprof5                  varchar(128),                         		-- IDProf5: nu for france
+  idprof6                  varchar(128),                         		-- IDProf6: nu for france
   tva_intra                varchar(20),                         		-- tva
   capital                  real,                                		-- capital de la societe
-  description              text,                                		--
   fk_stcomm                integer        DEFAULT 0 NOT NULL,      		-- commercial statut
   note                     text,                                		--
-  services                 tinyint        DEFAULT 0,            		--
   prefix_comm              varchar(5),                          		-- prefix commercial
   client                   tinyint        DEFAULT 0,            		-- client 0/1/2
   fournisseur              tinyint        DEFAULT 0,            		-- fournisseur 0/1

@@ -4,7 +4,7 @@
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -30,6 +30,7 @@
 function memcached_prepare_head()
 {
 	global $langs, $conf, $user;
+	global $dolibarr_memcached_view_setup,$dolibarr_memcached_view_disable;
 	$h = 0;
 	$head = array();
 
@@ -40,13 +41,16 @@ function memcached_prepare_head()
 
 	if (class_exists("Memcache") || class_exists("Memcached"))
 	{
-		if (empty($dolibarr_memcached_view_disable))	// Hidden variable to add to conf file to disable browsing
+		if (empty($dolibarr_memcached_view_setup))	// Hidden variable to add to conf file to disable setup
 		{
 			$head[$h][0] = dol_buildpath("/memcached/admin/memcached_stats.php?op=1",1);
 			$head[$h][1] = $langs->trans("ServerStatistics");
 			$head[$h][2] = 'serverstats';
 			$h++;
+		}
 
+		if (empty($dolibarr_memcached_view_setup) && empty($dolibarr_memcached_view_disable))	// Hidden variable to add to conf file to disable setup or disable cache browsing
+		{
 			$head[$h][0] = dol_buildpath("/memcached/admin/memcached_stats.php?op=2",1);
 			$head[$h][1] = $langs->trans("CacheBrowser");
 			$head[$h][2] = 'cachebrowser';

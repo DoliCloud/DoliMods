@@ -1,12 +1,12 @@
 <?php
 /* Copyright (C) 2001-2002  Rodolphe Quiedeville <rodolphe@quiedeville.org>
  * Copyright (C) 2004-2008  Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copytight (C) 2005-2010  Regis Houssin        <regis@dolibarr.fr>
+ * Copytight (C) 2005-2010  Regis Houssin        <regis.houssin@capnetworks.com>
  * Copytight (C) 2012       Vinícius Nogueira    <viniciusvgn@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -24,11 +24,11 @@
  *	\brief      List of bank transactions
  */
 
-require("./pre.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/bank.lib.php");
-require_once(DOL_DOCUMENT_ROOT."/societe/class/societe.class.php");
-require_once(DOL_DOCUMENT_ROOT."/compta/bank/class/account.class.php");
-require_once(DOL_DOCUMENT_ROOT."/compta/bank/class/bankcateg.class.php");
+require 'pre.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/bank.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/societe/class/societe.class.php';
+require_once DOL_DOCUMENT_ROOT.'/compta/bank/class/account.class.php';
+require_once DOL_DOCUMENT_ROOT.'/compta/bank/class/bankcateg.class.php';
 
 // Security check
 if ($user->societe_id) $socid=$user->societe_id;
@@ -117,11 +117,6 @@ if (is_numeric($credit)) {
 	$si++;
 	$sqlw[$si] .= " b.amount = " . $credit;
 }
-// Search criteria description
-if ($description) {
-	$si++;
-	$sqlw[$si] .= " b.label like '%" . $description . "%'";
-}
 // Other search criteria
 for ($i = 1 ; $i <= $si; $i++) {
 	$sql .= " AND " . $sqlw[$i];
@@ -195,75 +190,87 @@ if ($resql)
 	{
 		$objp = $db->fetch_object($resql);
 
-		$var=!$var;
-
-		print "<tr $bc[$var]>";
-
-		// Ref
-		print '<td align="left" nowrap="nowrap">';
-		print "<a href=\"ligne.php?rowid=".$objp->rowid.'">'.img_object($langs->trans("ShowPayment"),"payment").' '.$objp->rowid."</a> &nbsp; ";
-		print '</td>';
-
-		// Date ope
-        print '<td align="center" nowrap="nowrap">'.dol_print_date($db->jdate($objp->do),"day")."</td>\n";
-
-        // Date value
-        print '<td align="center" nowrap="nowrap">'.dol_print_date($db->jdate($objp->dv),"day")."</td>\n";
-
-        // Payment type
-        print "<td align=\"center\">";
-        $labeltype=($langs->trans("PaymentTypeShort".$objp->fk_type)!="PaymentTypeShort".$objp->fk_type)?$langs->trans("PaymentTypeShort".$objp->fk_type):$langs->getLabelFromKey($db,$objp->fk_type,'c_paiement','code','libelle');
-        if ($labeltype == 'SOLD') print '&nbsp;'; //$langs->trans("InitialBankBalance");
-        else print $labeltype;
-        print "</td>\n";
-
-        // Num
-        print '<td nowrap>'.($objp->num_chq?$objp->num_chq:"")."</td>\n";
-
-        // Description
-		print "<td>";
-
-		print "<a href=\"ligne.php?rowid=".$objp->rowid."&amp;account=".$objp->fk_account."\">";
-		$reg=array();
-		preg_match('/\((.+)\)/i',$objp->label,$reg);	// Si texte entoure de parenthee on tente recherche de traduction
-		if ($reg[1] && $langs->trans($reg[1])!=$reg[1]) print $langs->trans($reg[1]);
-		else print dol_trunc($objp->label,40);
-		print "</a>&nbsp;";
-
-		print '</td>';
-
-		// Third party
-		print "<td>";
-		if ($objp->url_id)
-		{
-			$companystatic->id=$objp->url_id;
-			$companystatic->nom=$objp->labelurl;
-			print $companystatic->getNomUrl(1);
+		$printline=false;
+		//Search Description
+		if ($description) {
+			preg_match('/\((.+)\)/i',$objp->label,$reg);	// Si texte entoure de parenthee on tente recherche de traduction
+			if ($reg[1]) {
+				if ($langs->transnoentities($reg[1])==$description) {
+					$printline=true;
+				}
+			}elseif ($objp->label==$description) {$printline=true;}
+		}else {$printline=true;}
+		
+		if ($printline) {
+			$var=!$var;
+	
+			print "<tr $bc[$var]>";
+	
+			// Ref
+			print '<td align="left" nowrap="nowrap">';
+			print "<a href=\"ligne.php?rowid=".$objp->rowid.'">'.img_object($langs->trans("ShowPayment"),"payment").' '.$objp->rowid."</a> &nbsp; ";
+			print '</td>';
+	
+			// Date ope
+	        print '<td align="center" nowrap="nowrap">'.dol_print_date($db->jdate($objp->do),"day")."</td>\n";
+	
+	        // Date value
+	        print '<td align="center" nowrap="nowrap">'.dol_print_date($db->jdate($objp->dv),"day")."</td>\n";
+	
+	        // Payment type
+	        print "<td align=\"center\">";
+	        $labeltype=($langs->trans("PaymentTypeShort".$objp->fk_type)!="PaymentTypeShort".$objp->fk_type)?$langs->trans("PaymentTypeShort".$objp->fk_type):$langs->getLabelFromKey($db,$objp->fk_type,'c_paiement','code','libelle');
+	        if ($labeltype == 'SOLD') print '&nbsp;'; //$langs->trans("InitialBankBalance");
+	        else print $labeltype;
+	        print "</td>\n";
+	
+	        // Num
+	        print '<td nowrap>'.($objp->num_chq?$objp->num_chq:"")."</td>\n";
+	
+	        // Description
+			print "<td>";
+	
+			print "<a href=\"ligne.php?rowid=".$objp->rowid."&amp;account=".$objp->fk_account."\">";
+			$reg=array();
+			preg_match('/\((.+)\)/i',$objp->label,$reg);	// Si texte entoure de parenthee on tente recherche de traduction
+			if ($reg[1] && $langs->trans($reg[1])!=$reg[1]) print $langs->trans($reg[1]);
+			else print dol_trunc($objp->label,40);
+			print "</a>&nbsp;";
+	
+			print '</td>';
+	
+			// Third party
+			print "<td>";
+			if ($objp->url_id)
+			{
+				$companystatic->id=$objp->url_id;
+				$companystatic->nom=$objp->labelurl;
+				print $companystatic->getNomUrl(1);
+			}
+			else
+			{
+				print '&nbsp;';
+			}
+			print '</td>';
+	
+			// Debit/Credit
+			if ($objp->amount < 0)
+			{
+				print "<td align=\"right\">".price($objp->amount * -1)."</td><td>&nbsp;</td>\n";
+			}
+			else
+			{
+				print "<td>&nbsp;</td><td align=\"right\">".price($objp->amount)."</td>\n";
+			}
+	
+			// Bank account
+			print '<td align="left" nowrap="nowrap">';
+			$bankaccountstatic->id=$objp->bankid;
+			$bankaccountstatic->label=$objp->bankref;
+			print $bankaccountstatic->getNomUrl(1);
+			print "</td>\n";
+			print "</tr>";
 		}
-		else
-		{
-			print '&nbsp;';
-		}
-		print '</td>';
-
-		// Debit/Credit
-		if ($objp->amount < 0)
-		{
-			print "<td align=\"right\">".price($objp->amount * -1)."</td><td>&nbsp;</td>\n";
-		}
-		else
-		{
-			print "<td>&nbsp;</td><td align=\"right\">".price($objp->amount)."</td>\n";
-		}
-
-		// Bank account
-		print '<td align="left" nowrap="nowrap">';
-		$bankaccountstatic->id=$objp->bankid;
-		$bankaccountstatic->label=$objp->bankref;
-		print $bankaccountstatic->getNomUrl(1);
-		print "</td>\n";
-		print "</tr>";
-
 		$i++;
 	}
 

@@ -1,11 +1,11 @@
 <?php
 /* Copyright (C) 2005-2009	Laurent Destailleur	<eldy@users.sourceforge.net>
- * Copyright (C) 2005-2012	Regis Houssin		<regis@dolibarr.fr>
+ * Copyright (C) 2005-2012	Regis Houssin		<regis.houssin@capnetworks.com>
  * Copyright (C) 2006		Marc Barilley		<marc@ocebo.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -40,7 +40,7 @@ function facturefourn_prepare_head($object)
 	$head[$h][1] = $langs->trans('CardBill');
 	$head[$h][2] = 'card';
 	$h++;
-	
+
 	if (empty($conf->global->MAIN_DISABLE_CONTACTS_TAB))
 	{
 		$head[$h][0] = DOL_URL_ROOT.'/fourn/facture/contact.php?facid='.$object->id;
@@ -52,9 +52,9 @@ function facturefourn_prepare_head($object)
     // Show more tabs from modules
     // Entries must be declared in modules descriptor with line
     // $this->tabs = array('entity:+tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to add new tab
-    // $this->tabs = array('entity:-tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to remove a tab
+    // $this->tabs = array('entity:-tabname);   												to remove a tab
     complete_head_from_modules($conf,$langs,$object,$head,$h,'supplier_invoice');
-    
+
     if (empty($conf->global->MAIN_DISABLE_NOTES_TAB))
     {
     	$head[$h][0] = DOL_URL_ROOT.'/fourn/facture/note.php?facid='.$object->id;
@@ -65,7 +65,7 @@ function facturefourn_prepare_head($object)
 
 	$head[$h][0] = DOL_URL_ROOT.'/fourn/facture/document.php?facid='.$object->id;
 	/*$filesdir = $conf->fournisseur->dir_output.'/facture/'.get_exdir($fac->id,2).$fac->id;
-	include_once(DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php');
+	include_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 	$listoffiles=dol_dir_list($filesdir,'files',1);
 	$head[$h][1] = (count($listoffiles)?$langs->trans('DocumentsNb',count($listoffiles)):$langs->trans('Documents'));*/
 	$head[$h][1] = $langs->trans('Documents');
@@ -77,7 +77,9 @@ function facturefourn_prepare_head($object)
 	$head[$h][2] = 'info';
 	$h++;
 
-	return $head;
+    complete_head_from_modules($conf,$langs,$object,$head,$h,'supplier_invoice','remove');
+
+    return $head;
 }
 
 
@@ -98,7 +100,7 @@ function ordersupplier_prepare_head($object)
 	$head[$h][2] = 'card';
 	$h++;
 
-	if ($conf->stock->enabled && $conf->global->STOCK_CALCULATE_ON_SUPPLIER_DISPATCH_ORDER)
+	if (! empty($conf->stock->enabled) && ! empty($conf->global->STOCK_CALCULATE_ON_SUPPLIER_DISPATCH_ORDER))
 	{
 		$langs->load("stocks");
 		$head[$h][0] = DOL_URL_ROOT.'/fourn/commande/dispatch.php?id='.$object->id;
@@ -106,7 +108,7 @@ function ordersupplier_prepare_head($object)
 		$head[$h][2] = 'dispatch';
 		$h++;
 	}
-	
+
 	if (empty($conf->global->MAIN_DISABLE_CONTACTS_TAB))
 	{
 		$head[$h][0] = DOL_URL_ROOT.'/fourn/commande/contact.php?id='.$object->id;
@@ -120,7 +122,7 @@ function ordersupplier_prepare_head($object)
     // $this->tabs = array('entity:+tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to add new tab
     // $this->tabs = array('entity:-tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to remove a tab
     complete_head_from_modules($conf,$langs,$object,$head,$h,'supplier_order');
-    
+
     if (empty($conf->global->MAIN_DISABLE_NOTES_TAB))
     {
     	$head[$h][0] = DOL_URL_ROOT.'/fourn/commande/note.php?id='.$object->id;
@@ -131,7 +133,7 @@ function ordersupplier_prepare_head($object)
 
 	$head[$h][0] = DOL_URL_ROOT.'/fourn/commande/document.php?id='.$object->id;
 	/*$filesdir = $conf->fournisseur->dir_output . "/commande/" . dol_sanitizeFileName($commande->ref);
-	include_once(DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php');
+	include_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 	$listoffiles=dol_dir_list($filesdir,'files',1);
 	$head[$h][1] = (count($listoffiles)?$langs->trans('DocumentsNb',count($listoffiles)):$langs->trans('Documents'));*/
 	$head[$h][1] = $langs->trans('Documents');

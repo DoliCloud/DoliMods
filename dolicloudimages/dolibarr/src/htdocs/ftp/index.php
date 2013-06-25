@@ -1,10 +1,10 @@
 <?php
 /* Copyright (C) 2008-2009 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2008-2009 Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2008-2009 Regis Houssin        <regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -23,10 +23,10 @@
  *	\author		Laurent Destailleur
  */
 
-require("./pre.inc.php");	// We use pre.inc.php to have a dynamic menu
-require_once(DOL_DOCUMENT_ROOT."/core/class/html.formfile.class.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/files.lib.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/treeview.lib.php");
+require 'pre.inc.php';	// We use pre.inc.php to have a dynamic menu
+require_once DOL_DOCUMENT_ROOT.'/core/class/html.formfile.class.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/treeview.lib.php';
 
 // Load traductions files
 $langs->load("ftp");
@@ -63,11 +63,13 @@ $s_ftp_server='FTP_SERVER_'.$numero_ftp;
 $s_ftp_port='FTP_PORT_'.$numero_ftp;
 $s_ftp_user='FTP_USER_'.$numero_ftp;
 $s_ftp_password='FTP_PASSWORD_'.$numero_ftp;
+$s_ftp_passive='FTP_PASSIVE_'.$numero_ftp;
 $ftp_name=$conf->global->$s_ftp_name;
 $ftp_server=$conf->global->$s_ftp_server;
 $ftp_port=$conf->global->$s_ftp_port; if (empty($ftp_port)) $ftp_port=21;
 $ftp_user=$conf->global->$s_ftp_user;
 $ftp_password=$conf->global->$s_ftp_password;
+$ftp_passive=$conf->global->$s_ftp_passive;
 
 $conn_id=0;	// FTP connection ID
 
@@ -82,7 +84,7 @@ $conn_id=0;	// FTP connection ID
 // Envoie fichier
 if ( $_POST["sendit"] && ! empty($conf->global->MAIN_UPLOAD_DOC))
 {
-	require_once(DOL_DOCUMENT_ROOT."/core/lib/files.lib.php");
+	require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 
 	$result=$ecmdir->fetch($_REQUEST["section"]);
 	if (! $result > 0)
@@ -106,15 +108,15 @@ if ( $_POST["sendit"] && ! empty($conf->global->MAIN_UPLOAD_DOC))
 			$langs->load("errors");
 			if ($resupload < 0)	// Unknown error
 			{
-				$mesg = '<div class="error">'.$langs->trans("ErrorFileNotUploaded").'</div>';
+				setEventMessage($langs->trans("ErrorFileNotUploaded"), 'errors');
 			}
 			else if (preg_match('/ErrorFileIsInfectedWithAVirus/',$resupload))	// Files infected by a virus
 			{
-				$mesg = '<div class="error">'.$langs->trans("ErrorFileIsInfectedWithAVirus").'</div>';
+				setEventMessage($langs->trans("ErrorFileIsInfectedWithAVirus"), 'errors');
 			}
 			else	// Known error
 			{
-				$mesg = '<div class="error">'.$langs->trans($resupload).'</div>';
+				setEventMessage($langs->trans($resupload), 'errors');
 			}
 		}
 	}
@@ -136,7 +138,7 @@ if ($_POST["action"] == 'add' && $user->rights->ftp->setup)
 	$id = $ecmdir->create($user);
 	if ($id > 0)
 	{
-		Header("Location: ".$_SERVER["PHP_SELF"]);
+		header("Location: ".$_SERVER["PHP_SELF"]);
 		exit;
 	}
 	else
@@ -153,7 +155,7 @@ if ($_REQUEST['action'] == 'confirm_deletefile' && $_REQUEST['confirm'] == 'yes'
 	if (! $conn_id)
 	{
 		$newsectioniso=utf8_decode($section);
-		$resultarray=dol_ftp_connect($ftp_server, $ftp_port, $ftp_user, $ftp_password, $newsectioniso);
+		$resultarray=dol_ftp_connect($ftp_server, $ftp_port, $ftp_user, $ftp_password, $newsectioniso, $ftp_passive);
 		$conn_id=$resultarray['conn_id'];
 		$ok=$resultarray['ok'];
 		$mesg=$resultarray['mesg'];
@@ -198,7 +200,7 @@ if ($_POST["const"] && $_POST["delete"] && $_POST["delete"] == $langs->trans("De
 	if (! $conn_id)
 	{
 		$newsectioniso=utf8_decode($section);
-		$resultarray=dol_ftp_connect($ftp_server, $ftp_port, $ftp_user, $ftp_password, $newsectioniso);
+		$resultarray=dol_ftp_connect($ftp_server, $ftp_port, $ftp_user, $ftp_password, $newsectioniso, $ftp_passive);
 		$conn_id=$resultarray['conn_id'];
 		$ok=$resultarray['ok'];
 		$mesg=$resultarray['mesg'];
@@ -251,7 +253,7 @@ if ($_REQUEST['action'] == 'confirm_deletesection' && $_REQUEST['confirm'] == 'y
 	if (! $conn_id)
 	{
 		$newsectioniso=utf8_decode($section);
-		$resultarray=dol_ftp_connect($ftp_server, $ftp_port, $ftp_user, $ftp_password, $newsectioniso);
+		$resultarray=dol_ftp_connect($ftp_server, $ftp_port, $ftp_user, $ftp_password, $newsectioniso, $ftp_passive);
 		$conn_id=$resultarray['conn_id'];
 		$ok=$resultarray['ok'];
 		$mesg=$resultarray['mesg'];
@@ -291,7 +293,7 @@ if ($_REQUEST['action'] == 'download')
 	if (! $conn_id)
 	{
 		$newsectioniso=utf8_decode($section);
-		$resultarray=dol_ftp_connect($ftp_server, $ftp_port, $ftp_user, $ftp_password, $newsectioniso);
+		$resultarray=dol_ftp_connect($ftp_server, $ftp_port, $ftp_user, $ftp_password, $newsectioniso, $ftp_passive);
 		$conn_id=$resultarray['conn_id'];
 		$ok=$resultarray['ok'];
 		$mesg=$resultarray['mesg'];
@@ -413,7 +415,7 @@ else
 		}
 
 		print $langs->trans("Server").': <b>'.$ftp_server.'</b><br>';
-		print $langs->trans("Port").': <b>'.$ftp_port.'</b><br>';
+		print $langs->trans("Port").': <b>'.$ftp_port.'</b> '.($ftp_passive?"(Passive)":"(Active)").'<br>';
 		print $langs->trans("User").': <b>'.$ftp_user.'</b><br>';
 
 		print $langs->trans("Directory").': ';
@@ -468,7 +470,7 @@ else
 		// set up a connection or die
 		if (! $conn_id)
 		{
-			$resultarray=dol_ftp_connect($ftp_server, $ftp_port, $ftp_user, $ftp_password, $section);
+			$resultarray=dol_ftp_connect($ftp_server, $ftp_port, $ftp_user, $ftp_password, $section, $ftp_passive);
 			$conn_id=$resultarray['conn_id'];
 			$ok=$resultarray['ok'];
 			$mesg=$resultarray['mesg'];
@@ -638,11 +640,12 @@ llxFooter();
  * @param 	string	$ftp_user		FTP user
  * @param 	string	$ftp_password	FTP password
  * @param 	string	$section		Directory
+ * @param	string	$ftp_passive	Use a passive mode
  * @return	int 	<0 if OK, >0 if KO
  */
-function dol_ftp_connect($ftp_server, $ftp_port, $ftp_user, $ftp_password, $section)
+function dol_ftp_connect($ftp_server, $ftp_port, $ftp_user, $ftp_password, $section, $ftp_passive=0)
 {
-	global $langs;
+	global $langs, $conf;
 
 	$ok=1;
 
@@ -654,16 +657,18 @@ function dol_ftp_connect($ftp_server, $ftp_port, $ftp_user, $ftp_password, $sect
 
 	if ($ok)
 	{
-		$conn_id = ftp_connect($ftp_server, $ftp_port, 20);
+		$connecttimeout=(empty($conf->global->FTP_CONNECT_TIMEOUT)?40:$conf->global->FTP_CONNECT_TIMEOUT);
+		if (! empty($conf->global->FTP_CONNECT_WITH_SSL)) $conn_id = ftp_ssl_connect($ftp_server, $ftp_port, $connecttimeout);
+		else $conn_id = ftp_connect($ftp_server, $ftp_port, $connecttimeout);
 		if ($conn_id)
 		{
-			// turn on passive mode transfers
-			//ftp_pasv ($conn_id, true);
-
 			if ($ftp_user)
 			{
 				if (ftp_login($conn_id, $ftp_user, $ftp_password))
 				{
+					// Turn on passive mode transfers (must be after a successful login
+					if ($ftp_passive) ftp_pasv($conn_id, true);
+
 					// Change the dir
 					$newsectioniso=utf8_decode($section);
 					ftp_chdir($conn_id, $newsectioniso);

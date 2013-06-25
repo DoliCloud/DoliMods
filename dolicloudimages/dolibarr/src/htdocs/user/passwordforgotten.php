@@ -1,11 +1,11 @@
 <?php
 /* Copyright (C) 2007-2011	Laurent Destailleur	<eldy@users.sourceforge.net>
- * Copyright (C) 2008-2012	Regis Houssin		<regis@dolibarr.fr>
+ * Copyright (C) 2008-2012	Regis Houssin		<regis.houssin@capnetworks.com>
  * Copyright (C) 2008-2011	Juanjo Menent		<jmenent@2byte.es>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -24,10 +24,11 @@
 
 define("NOLOGIN",1);	// This means this output page does not require to be logged.
 
-require("../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/contact/class/contact.class.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/usergroups.lib.php");
-if ($conf->ldap->enabled) require_once(DOL_DOCUMENT_ROOT."/core/class/ldap.class.php");
+require '../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/contact/class/contact.class.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/usergroups.lib.php';
+if (! empty($conf->ldap->enabled))
+	require_once DOL_DOCUMENT_ROOT.'/core/class/ldap.class.php';
 
 $langs->load("errors");
 $langs->load("users");
@@ -36,7 +37,7 @@ $langs->load("ldap");
 $langs->load("other");
 
 // Security check
-if ($conf->global->MAIN_SECURITY_DISABLEFORGETPASSLINK)
+if (! empty($conf->global->MAIN_SECURITY_DISABLEFORGETPASSLINK))
 {
     header("Location: ".DOL_URL_ROOT.'/');
     exit;
@@ -83,7 +84,8 @@ if ($action == 'validatenewpassword' && $username && $passwordmd5)
         }
         else
         {
-            $message = '<div class="error">'.$langs->trans("ErrorFailedToValidatePassword").'</div>';
+        	$langs->load("errors");
+            $message = '<div class="error">'.$langs->trans("ErrorFailedToValidatePasswordReset").'</div>';
         }
     }
 }
@@ -193,7 +195,7 @@ else $focus_element = 'password';
 // Send password button enabled ?
 $disabled='disabled';
 if (preg_match('/dolibarr/i',$mode)) $disabled='';
-if ($conf->global->MAIN_SECURITY_ENABLE_SENDPASSWORD) $disabled='';	 // To force button enabled
+if (! empty($conf->global->MAIN_SECURITY_ENABLE_SENDPASSWORD)) $disabled='';	 // To force button enabled
 
 // Show logo (search in order: small company logo, large company logo, theme logo, common logo)
 $width=0;
@@ -201,25 +203,27 @@ $rowspan=2;
 $urllogo=DOL_URL_ROOT.'/theme/login_logo.png';
 if (! empty($mysoc->logo_small) && is_readable($conf->mycompany->dir_output.'/logos/thumbs/'.$mysoc->logo_small))
 {
-    $urllogo=DOL_URL_ROOT.'/viewimage.php?cache=1&amp;modulepart=companylogo&amp;file='.urlencode('thumbs/'.$mysoc->logo_small);
+	$urllogo=DOL_URL_ROOT.'/viewimage.php?cache=1&amp;modulepart=companylogo&amp;file='.urlencode('thumbs/'.$mysoc->logo_small);
 }
 elseif (! empty($mysoc->logo_small) && is_readable($conf->mycompany->dir_output.'/logos/'.$mysoc->logo))
 {
-    $urllogo=DOL_URL_ROOT.'/viewimage.php?cache=1&amp;modulepart=companylogo&amp;file='.urlencode($mysoc->logo);
-    $width=128;
-}elseif (is_readable(DOL_DOCUMENT_ROOT.'/theme/'.$conf->theme.'/img/dolibarr_logo.png'))
-	{
-		$urllogo=DOL_URL_ROOT.'/theme/'.$conf->theme.'/img/dolibarr_logo.png';
-}elseif (is_readable(DOL_DOCUMENT_ROOT.'/theme/dolibarr_logo.png'))
-	{
-    $urllogo=DOL_URL_ROOT.'/theme/dolibarr_logo.png';
+	$urllogo=DOL_URL_ROOT.'/viewimage.php?cache=1&amp;modulepart=companylogo&amp;file='.urlencode($mysoc->logo);
+	$width=128;
+}
+elseif (is_readable(DOL_DOCUMENT_ROOT.'/theme/'.$conf->theme.'/img/dolibarr_logo.png'))
+{
+	$urllogo=DOL_URL_ROOT.'/theme/'.$conf->theme.'/img/dolibarr_logo.png';
+}
+elseif (is_readable(DOL_DOCUMENT_ROOT.'/theme/dolibarr_logo.png'))
+{
+	$urllogo=DOL_URL_ROOT.'/theme/dolibarr_logo.png';
 }
 
 // Security graphical code
 if (function_exists("imagecreatefrompng") && ! $disabled)
 {
-    $captcha = 1;
-    $captcha_refresh = img_picto($langs->trans("Refresh"),'refresh','id="captcha_refresh_img"');
+	$captcha = 1;
+	$captcha_refresh = img_picto($langs->trans("Refresh"),'refresh','id="captcha_refresh_img"');
 }
 
 // Execute hook getPasswordForgottenPageOptions

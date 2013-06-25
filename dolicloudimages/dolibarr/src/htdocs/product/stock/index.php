@@ -1,11 +1,11 @@
 <?php
 /* Copyright (C) 2003-2006 Rodolphe Quiedeville <rodolphe@quiedeville.org>
  * Copyright (C) 2004-2011 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2005-2009 Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2005-2009 Regis Houssin        <regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -24,13 +24,13 @@
  *  \brief      Home page of stock area
  */
 
-require("../../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/product/stock/class/entrepot.class.php");
+require '../../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/product/stock/class/entrepot.class.php';
 
 $langs->load("stocks");
 
-if (!$user->rights->stock->lire)
-  accessforbidden();
+// Security check
+$result=restrictedArea($user,'stock');
 
 
 /*
@@ -50,12 +50,12 @@ print '<tr><td valign="top" width="30%" class="notopnoleft">';
  */
 print '<form method="post" action="'.DOL_URL_ROOT.'/product/stock/liste.php">';
 print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
-print '<table class="noborder" width="100%">';
+print '<table class="noborder nohover" width="100%">';
 print "<tr class=\"liste_titre\">";
 print '<td colspan="3">'.$langs->trans("Search").'</td></tr>';
-print "<tr $bc[0]><td>";
+print "<tr ".$bc[false]."><td>";
 print $langs->trans("Ref").':</td><td><input class="flat" type="text" size="18" name="sref"></td><td rowspan="2"><input type="submit" value="'.$langs->trans("Search").'" class="button"></td></tr>';
-print "<tr $bc[0]><td>".$langs->trans("Other").':</td><td><input type="text" name="sall" class="flat" size="18"></td>';
+print "<tr ".$bc[false]."><td>".$langs->trans("Other").':</td><td><input type="text" name="sall" class="flat" size="18"></td>';
 print "</table></form><br>";
 
 $sql = "SELECT e.label, e.rowid, e.statut";

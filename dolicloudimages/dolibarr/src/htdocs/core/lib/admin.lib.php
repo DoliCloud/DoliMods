@@ -1,10 +1,11 @@
 <?php
-/* Copyright (C) 2008-2011 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2005-2012 Regis Houssin        <regis@dolibarr.fr>
+/* Copyright (C) 2008-2011	Laurent Destailleur		<eldy@users.sourceforge.net>
+ * Copyright (C) 2005-2012	Regis Houssin			<regis.houssin@capnetworks.com>
+ * Copyright (C) 2012		J. Fernando Lagrange	<fernando@demo-tic.org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -253,7 +254,7 @@ function run_sql($sqlfile,$silent=1,$entity='',$usesavepoint=1,$handler='',$oker
             dol_syslog('Admin.lib::run_sql Request '.($i+1).' sql='.$newsql, LOG_DEBUG);
 
             // Replace for encrypt data
-            if (preg_match_all('/__ENCRYPT\(\'([A-Za-z0-9_]+)\'\)__/i',$newsql,$reg))
+            if (preg_match_all('/__ENCRYPT\(\'([A-Za-z0-9_\"\[\]]+)\'\)__/i',$newsql,$reg))
             {
                 $num=count($reg[0]);
 
@@ -684,7 +685,7 @@ function activateModule($value,$withdeps=1)
     {
         if (file_exists($dir.$modFile))
         {
-            $found=@include_once($dir.$modFile);
+            $found=@include_once $dir.$modFile;
             if ($found) break;
         }
     }
@@ -719,7 +720,7 @@ function activateModule($value,$withdeps=1)
 
     if (! $ret && $withdeps)
     {
-        if (is_array($objMod->depends) && ! empty($objMod->depends))
+        if (isset($objMod->depends) && is_array($objMod->depends) && ! empty($objMod->depends))
         {
             // Activation des modules dont le module depend
             $num = count($objMod->depends);
@@ -735,7 +736,7 @@ function activateModule($value,$withdeps=1)
             }
         }
 
-        if (is_array($objMod->conflictwith) && ! empty($objMod->conflictwith))
+        if (isset($objMod->conflictwith) && is_array($objMod->conflictwith) && ! empty($objMod->conflictwith))
         {
             // Desactivation des modules qui entrent en conflit
             $num = count($objMod->conflictwith);
@@ -803,7 +804,7 @@ function unActivateModule($value, $requiredby=1)
     {
         if (file_exists($dir.$modFile))
         {
-            $found=@include_once($dir.$modFile);
+            $found=@include_once $dir.$modFile;
             if ($found) break;
         }
     }
@@ -851,9 +852,10 @@ function unActivateModule($value, $requiredby=1)
  * 	@param		array		&$tabfieldinsert	Tabfieldinsert
  * 	@param		array		&$tabrowid			Tabrowid
  * 	@param		array		&$tabcond			Tabcond
+ * 	@param		array		&$tabhelp			Tabhelp
  * 	@return		int			1
  */
-function complete_dictionnary_with_modules(&$taborder,&$tabname,&$tablib,&$tabsql,&$tabsqlsort,&$tabfield,&$tabfieldvalue,&$tabfieldinsert,&$tabrowid,&$tabcond)
+function complete_dictionnary_with_modules(&$taborder,&$tabname,&$tablib,&$tabsql,&$tabsqlsort,&$tabfield,&$tabfieldvalue,&$tabfieldinsert,&$tabrowid,&$tabcond,&$tabhelp)
 {
     global $db, $modules, $conf, $langs;
 
@@ -906,7 +908,7 @@ function complete_dictionnary_with_modules(&$taborder,&$tabname,&$tablib,&$tabsq
 
                     if ($modName)
                     {
-                        include_once($dir.$file);
+                        include_once $dir.$file;
                         $objMod = new $modName($db);
 
                         if ($objMod->numero > 0)
@@ -964,7 +966,8 @@ function complete_dictionnary_with_modules(&$taborder,&$tabname,&$tablib,&$tabsq
                                 foreach($objMod->dictionnaries['tabfieldinsert'] as $val) $tabfieldinsert[] = $val;
                                 foreach($objMod->dictionnaries['tabrowid'] as $val) $tabrowid[] = $val;
                                 foreach($objMod->dictionnaries['tabcond'] as $val) $tabcond[] = $val;
-                                //                                foreach($objMod->dictionnaries['tabsqlsort'] as $val) $tablib[] = $val;
+                                if (! empty($objMod->dictionnaries['tabhelp'])) foreach($objMod->dictionnaries['tabhelp'] as $val) $tabhelp[] = $val;
+                                //foreach($objMod->dictionnaries['tabsqlsort'] as $val) $tablib[] = $val;
                                 //$tabname = array_merge ($tabname, $objMod->dictionnaries['tabname']);
                                 //var_dump($tabcond);
                                 //exit;
@@ -1021,7 +1024,7 @@ function form_constantes($tableau)
         $sql.= ", note";
         $sql.= " FROM ".MAIN_DB_PREFIX."const";
         $sql.= " WHERE ".$db->decrypt('name')." = '".$const."'";
-        $sql.= " AND entity in (0, ".$conf->entity.")";
+        $sql.= " AND entity IN (0, ".$conf->entity.")";
         $sql.= " ORDER BY name ASC, entity DESC";
         $result = $db->query($sql);
 
@@ -1030,6 +1033,11 @@ function form_constantes($tableau)
         {
             $obj = $db->fetch_object($result);	// Take first result of select
             $var=!$var;
+
+            // For avoid warning in strict mode
+            if (empty($obj)) {
+            	$obj = (object) array('rowid'=>'','name'=>'','value'=>'','type'=>'','note'=>'');
+            }
 
             print "\n".'<form action="'.$_SERVER["PHP_SELF"].'" method="POST">';
 
@@ -1043,9 +1051,9 @@ function form_constantes($tableau)
             print '<input type="hidden" name="constname" value="'.$const.'">';
             print '<input type="hidden" name="constnote" value="'.nl2br(dol_escape_htmltag($obj->note)).'">';
 
-            print $langs->trans("Desc".$const) != ("Desc".$const) ? $langs->trans("Desc".$const) : ($obj->note?$obj->note:$const);
+            print $langs->trans('Desc'.$const);
 
-            if ($const=='ADHERENT_MAILMAN_URL')
+            if ($const == 'ADHERENT_MAILMAN_URL')
             {
                 print '. '.$langs->trans("Example").': <a href="#" id="exampleclick1">'.img_down().'</a><br>';
                 //print 'http://lists.domain.com/cgi-bin/mailman/admin/%LISTE%/members?adminpw=%MAILMAN_ADMINPW%&subscribees=%EMAIL%&send_welcome_msg_to_this_batch=1';
@@ -1053,7 +1061,7 @@ function form_constantes($tableau)
                 print 'http://lists.domain.com/cgi-bin/mailman/admin/%LISTE%/members/add?subscribees_upload=%EMAIL%&amp;adminpw=%MAILMAN_ADMINPW%&amp;subscribe_or_invite=0&amp;send_welcome_msg_to_this_batch=0&amp;notification_to_list_owner=0';
                 print '</div>';
             }
-            if ($const=='ADHERENT_MAILMAN_UNSUB_URL')
+            if ($const == 'ADHERENT_MAILMAN_UNSUB_URL')
             {
                 print '. '.$langs->trans("Example").': <a href="#" id="exampleclick2">'.img_down().'</a><br>';
                 print '<div id="example2" class="hidden">';
@@ -1062,14 +1070,13 @@ function form_constantes($tableau)
                 //print 'http://lists.domain.com/cgi-bin/mailman/admin/%LISTE%/members/remove?adminpw=%MAILMAN_ADMINPW%&unsubscribees=%EMAIL%';
             }
 
-
             print "</td>\n";
 
             if ($const == 'ADHERENT_CARD_TYPE' || $const == 'ADHERENT_ETIQUETTE_TYPE')
             {
                 print '<td>';
                 // List of possible labels (defined into $_Avery_Labels variable set into format_cards.lib.php)
-                require_once(DOL_DOCUMENT_ROOT.'/core/lib/format_cards.lib.php');
+                require_once DOL_DOCUMENT_ROOT.'/core/lib/format_cards.lib.php';
                 $arrayoflabels=array();
                 foreach(array_keys($_Avery_Labels) as $codecards)
                 {
@@ -1084,17 +1091,17 @@ function form_constantes($tableau)
             {
                 print '<td>';
                 //print 'aa'.$const;
-                if (in_array($const,array('ADHERENT_CARD_TEXT','ADHERENT_CARD_TEXT_RIGHT')))
+                if (in_array($const,array('ADHERENT_CARD_TEXT','ADHERENT_CARD_TEXT_RIGHT','ADHERENT_ETIQUETTE_TEXT')))
                 {
-                    print '<textarea class="flat" name="constvalue" cols="35" rows="5" wrap="soft">'."\n";
+                    print '<textarea class="flat" name="constvalue" cols="50" rows="5" wrap="soft">'."\n";
                     print $obj->value;
                     print "</textarea>\n";
                     print '</td><td>';
                     print '<input type="hidden" name="consttype" value="texte">';
                 }
-                else if (in_array($const,array('ADHERENT_AUTOREGISTER_MAIL','ADHERENT_MAIL_VALID','ADHERENT_MAIL_COTIS','ADHERENT_MAIL_RESIL')))
+                else if (in_array($const,array('ADHERENT_AUTOREGISTER_NOTIF_MAIL','ADHERENT_AUTOREGISTER_MAIL','ADHERENT_MAIL_VALID','ADHERENT_MAIL_COTIS','ADHERENT_MAIL_RESIL')))
                 {
-                    require_once(DOL_DOCUMENT_ROOT."/core/class/doleditor.class.php");
+                    require_once DOL_DOCUMENT_ROOT.'/core/class/doleditor.class.php';
                     $doleditor=new DolEditor('constvalue_'.$const,$obj->value,'',160,'dolibarr_notes','',false,false,$conf->fckeditor->enabled,5,60);
                     $doleditor->Create();
 
@@ -1125,6 +1132,40 @@ function form_constantes($tableau)
     }
     print '</table>';
 }
+
+
+/**
+ *	Show array with constants to edit
+ *
+ *	@param	array	$modules		Array of all modules
+ *	@return	string					HTML string with warning
+ */
+function showModulesExludedForExternal($modules)
+{
+	global $conf,$langs;
+
+	$text=$langs->trans("OnlyFollowingModulesAreOpenedToExternalUsers");
+	$listofmodules=explode(',',$conf->global->MAIN_MODULES_FOR_EXTERNAL);
+	$i=0;
+	if (!empty($modules)) {
+		foreach($modules as $module)
+		{
+			$moduleconst=$module->const_name;
+			$modulename=strtolower($module->name);
+			//print 'modulename='.$modulename;
+	
+			//if (empty($conf->global->$moduleconst)) continue;
+			if (! in_array($modulename,$listofmodules)) continue;
+	
+			if ($i > 0) $text.=', ';
+			else $text.=' ';
+			$i++;
+			$text .= $langs->trans('Module'.$module->numero.'Name');
+		}
+	}
+	return img_picto($langs->trans('InfoAdmin'), 'star').' '.$text;
+}
+
 
 /**
  *	Add document model used by doc generator
@@ -1193,6 +1234,35 @@ function delDocumentModel($name, $type)
 		$db->rollback();
 		return -1;
 	}
+}
+
+
+/**
+ *	Return the php_info into an array
+ *
+ *	@return		array		Array with PHP infos
+ */
+function phpinfo_array()
+{
+	ob_start();
+	phpinfo();
+	$info_arr = array();
+	$info_lines = explode("\n", strip_tags(ob_get_clean(), "<tr><td><h2>"));	// end of ob_start()
+	$cat = "General";
+	foreach($info_lines as $line)
+	{
+		// new cat?
+		preg_match("~<h2>(.*)</h2>~", $line, $title) ? $cat = $title[1] : null;
+		if(preg_match("~<tr><td[^>]+>([^<]*)</td><td[^>]+>([^<]*)</td></tr>~", $line, $val))
+		{
+			$info_arr[trim($cat)][trim($val[1])] = $val[2];
+		}
+		elseif(preg_match("~<tr><td[^>]+>([^<]*)</td><td[^>]+>([^<]*)</td><td[^>]+>([^<]*)</td></tr>~", $line, $val))
+		{
+			$info_arr[trim($cat)][trim($val[1])] = array("local" => $val[2], "master" => $val[3]);
+		}
+	}
+	return $info_arr;
 }
 
 ?>

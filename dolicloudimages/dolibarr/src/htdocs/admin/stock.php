@@ -1,12 +1,12 @@
 <?php
 /* Copyright (C) 2006      Rodolphe Quiedeville <rodolphe@quiedeville.org>
  * Copyright (C) 2008-2010 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2005-2009 Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2005-2009 Regis Houssin        <regis.houssin@capnetworks.com>
  * Copyright (C) 2012      Juanjo Menent		<jmenent@2byte.es>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -23,8 +23,8 @@
  *	\ingroup    stock
  *	\brief      Page d'administration/configuration du module gestion de stock
  */
-require("../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
+require '../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
 
 $langs->load("admin");
 $langs->load("stocks");
@@ -133,7 +133,7 @@ print "  <td align=\"right\" width=\"160\">&nbsp;</td>\n";
 print '</tr>'."\n";
 $var=true;
 
-if ($conf->facture->enabled)
+if (! empty($conf->facture->enabled))
 {
 	$var=!$var;
 	print "<tr ".$bc[$var].">";
@@ -147,7 +147,7 @@ if ($conf->facture->enabled)
 	print "</form>\n</td>\n</tr>\n";
 }
 
-if ($conf->commande->enabled)
+if (! empty($conf->commande->enabled))
 {
 	$var=!$var;
 	print "<tr ".$bc[$var].">";
@@ -161,7 +161,7 @@ if ($conf->commande->enabled)
 	print "</form>\n</td>\n</tr>\n";
 }
 
-if ($conf->expedition->enabled)
+if (! empty($conf->expedition->enabled))
 {
 	$var=!$var;
 	print "<tr ".$bc[$var].">";
@@ -183,7 +183,7 @@ print "  <td align=\"right\" width=\"160\">&nbsp;</td>\n";
 print '</tr>'."\n";
 $var=true;
 
-if ($conf->fournisseur->enabled)
+if (! empty($conf->fournisseur->enabled))
 {
 	$var=!$var;
 	print "<tr ".$bc[$var].">";
@@ -197,7 +197,7 @@ if ($conf->fournisseur->enabled)
 	print "</form>\n</td>\n</tr>\n";
 }
 
-if ($conf->fournisseur->enabled)
+if (! empty($conf->fournisseur->enabled))
 {
 	$var=!$var;
 	print "<tr ".$bc[$var].">";
@@ -210,7 +210,7 @@ if ($conf->fournisseur->enabled)
 	print '<input type="submit" class="button" value="'.$langs->trans("Modify").'">';
 	print "</form>\n</td>\n</tr>\n";
 }
-if ($conf->fournisseur->enabled)
+if (! empty($conf->fournisseur->enabled))
 {
 	$var=!$var;
 	print "<tr ".$bc[$var].">";

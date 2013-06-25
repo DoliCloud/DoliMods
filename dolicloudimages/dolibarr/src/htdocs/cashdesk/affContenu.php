@@ -1,11 +1,11 @@
 <?php
 /* Copyright (C) 2007-2008 Jeremie Ollivier      <jeremie.o@laposte.net>
  * Copyright (C) 2008-2009 Laurent Destailleur   <eldy@uers.sourceforge.net>
- * Copyright (C) 2009      Regis Houssin         <regis@dolibarr.fr>
+ * Copyright (C) 2009      Regis Houssin         <regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -22,7 +22,7 @@
  *	\ingroup    cashdesk
  *	\brief      Include to show main page for cashdesk module
  */
-require_once('class/Facturation.class.php');
+require_once 'class/Facturation.class.php';
 
 // Si nouvelle vente, reinitialisation des donnees (destruction de l'objet et vidage de la table contenant la liste des articles)
 if ( $_GET['id'] == 'NOUV' )
@@ -56,11 +56,11 @@ print '<div class="principal">';
 
 if ( $_GET['menu'] )
 {
-	include($_GET['menu'].'.php');
+	include $_GET['menu'].'.php';
 }
 else
 {
-	include('facturation.php');
+	include 'facturation.php';
 }
 
 print '</div>';

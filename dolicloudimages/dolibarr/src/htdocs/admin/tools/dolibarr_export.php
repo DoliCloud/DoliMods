@@ -1,9 +1,10 @@
 <?php
-/* Copyright (C) 2006-2012 Laurent Destailleur  <eldy@users.sourceforge.net>
+/* Copyright (C) 2006-2012	Laurent Destailleur	<eldy@users.sourceforge.net>
+ * Copyright (C) 2006-2012	Regis Houssin		<regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -21,26 +22,26 @@
  *		\brief      Page to export database
  */
 
-require("../../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/files.lib.php");
-require_once(DOL_DOCUMENT_ROOT."/core/class/html.formfile.class.php");
+require '../../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/core/class/html.formfile.class.php';
 
 $langs->load("admin");
 
-$action=GETPOST('action');
+$action=GETPOST('action','alpha');
 
-$sortfield = GETPOST("sortfield");
-$sortorder = GETPOST("sortorder");
-$page = GETPOST("page");
+$sortfield = GETPOST('sortfield','alpha');
+$sortorder = GETPOST('sortorder','alpha');
+$page = GETPOST('page','int');
 if (! $sortorder) $sortorder="DESC";
 if (! $sortfield) $sortfield="date";
 if ($page < 0) { $page = 0; }
 $limit = $conf->liste_limit;
 $offset = $limit * $page;
 
-if (! $user->admin) accessforbidden();
-
+if (! $user->admin)
+	accessforbidden();
 
 
 /*
@@ -49,7 +50,10 @@ if (! $user->admin) accessforbidden();
 
 if ($action == 'delete')
 {
-    dol_delete_file($conf->admin->dir_output.'/backup/'.GETPOST('urlfile'),1);
+	$file=$conf->admin->dir_output.'/backup/'.GETPOST('urlfile');
+    $ret=dol_delete_file($file, 1);
+    if ($ret) setEventMessage($langs->trans("FileWasRemoved", GETPOST('urlfile')));
+    else setEventMessage($langs->trans("ErrorFailToDeleteFile", GETPOST('urlfile')), 'errors');
     $action='';
 }
 
@@ -72,7 +76,7 @@ jQuery(document).ready(function() {
 
 	function hideoptions () {
 		jQuery("#mysql_options").hide();
-		jQuery("#mysql_options_nobin").hide();
+		jQuery("#mysql_nobin_options").hide();
 		jQuery("#postgresql_options").hide();
 	}
 
@@ -83,7 +87,7 @@ jQuery(document).ready(function() {
 	});
 	jQuery("#radio_dump_mysql_nobin").click(function() {
 		hideoptions();
-		jQuery("#mysql_options_nobin").show();
+		jQuery("#mysql_nobin_options").show();
 	});
 	jQuery("#radio_dump_postgresql").click(function() {
 		hideoptions();
@@ -112,13 +116,6 @@ print $langs->trans("BackupDescX").'<br><br>';
 print $langs->trans("BackupDesc3",DOL_DATA_ROOT).'<br>';
 print $langs->trans("BackupDescY").'<br><br>';
 
-if ($_GET["msg"])
-{
-	print '<div class="error">'.$_GET["msg"].'</div>';
-	print '<br>';
-	print "\n";
-}
-
 
 ?>
 
@@ -142,16 +139,11 @@ if ($_GET["msg"])
 			<div class="formelementrow"><input type="radio" name="what" value="mysql" id="radio_dump_mysql" />
 			<label for="radio_dump_mysql">MySQL	Dump (mysqldump)</label>
 			</div>
-			<?php
-			if (! empty($conf->global->MAIN_FEATURES_LEVEL))
-			{
-			?>
 			<br>
 			<div class="formelementrow"><input type="radio" name="what" value="mysqlnobin" id="radio_dump_mysql_nobin" />
-			<label for="radio_dump_mysql">MySQL	Dump (php) <?php print img_warning('Backup can\'t be guaranted with this method. Prefer previous one'); ?></label>
+			<label for="radio_dump_mysql">MySQL Dump (php) <?php print img_warning($langs->trans('BackupPHPWarning')) ?></label>
 			</div>
 			<?php
-			}
 		}
 		else if ($label == 'PostgreSQL')
 		{
@@ -226,7 +218,7 @@ if ($_GET["msg"])
 			<br>
 			<fieldset><legend> <input type="checkbox" name="sql_structure"
 				value="structure" id="checkbox_sql_structure" checked="checked" /> <label
-				for="checkbox_sql_structure"> Structure</label> </legend> <input
+				for="checkbox_sql_structure"> <?php echo $langs->trans('ExportStructure') ?></label> </legend> <input
 				type="checkbox" name="drop" value="1" id="checkbox_dump_drop" /> <label
 				for="checkbox_dump_drop"><?php echo $langs->trans("AddDropTable"); ?></label><br>
 			</fieldset>
@@ -263,6 +255,50 @@ if ($_GET["msg"])
 
 			</fieldset>
 			</fieldset>
+
+                        <!--  Fieldset mysql_nobin -->
+			<fieldset id="mysql_nobin_options"><legend><?php echo $langs->trans("MySqlExportParameters"); ?></legend>
+                            <fieldset>
+                                <legend><?php echo $langs->trans("ExportOptions"); ?></legend>
+                                <div class="formelementrow"><input type="checkbox"
+                                        name="nobin_use_transaction" value="yes" id="checkbox_use_transaction" /> <label
+                                        for="checkbox_use_transaction"> <?php echo $langs->trans("UseTransactionnalMode"); ?></label>
+
+                                </div>
+
+                                <div class="formelementrow"><input type="checkbox" name="nobin_disable_fk"
+                                        value="yes" id="checkbox_disable_fk" checked="checked" /> <label
+                                        for="checkbox_disable_fk"> <?php echo $langs->trans("CommandsToDisableForeignKeysForImport"); ?> <?php print img_info($langs->trans('CommandsToDisableForeignKeysForImportWarning')); ?></label>
+                                </div>
+                            </fieldset>
+
+                            <br>
+                            <fieldset><legend><?php echo $langs->trans('ExportStructure') ?></legend> <input
+                                    type="checkbox" name="nobin_drop" value="1" id="checkbox_dump_drop" /> <label
+                                    for="checkbox_dump_drop"><?php echo $langs->trans("AddDropTable"); ?></label><br>
+                            </fieldset>
+
+                            <br>
+                            <fieldset>
+                                <legend><?php echo $langs->trans("Datas"); ?></legend>
+
+                                <input type="checkbox" name="nobin_nolocks" value="no"
+                                        id="checkbox_dump_disable-add-locks" /> <label
+                                        for="checkbox_dump_disable-add-locks"> <?php echo $langs->trans("NoLockBeforeInsert"); ?></label><br>
+
+                                <input type="checkbox" name="nobin_delayed" value="yes"
+                                        id="checkbox_dump_delayed" /> <label for="checkbox_dump_delayed"> <?php echo $langs->trans("DelayedInsert"); ?></label><br>
+
+                                <input type="checkbox" name="nobin_sql_ignore" value="yes"
+                                        id="checkbox_dump_ignore" /> <label for="checkbox_dump_ignore"> <?php echo $langs->trans("IgnoreDuplicateRecords"); ?></label><br>
+
+                                <input type="checkbox" name="nobin_charset_utf8" value="yes"
+                                        id="checkbox_charset_utf8" checked="checked" disabled="disabled" /> <label
+                                        for="checkbox_charset_utf8"> <?php echo $langs->trans("UTF8"); ?></label><br>
+
+                            </fieldset>
+			</fieldset>
+
 		<?php
 		}
 
@@ -300,7 +336,7 @@ if ($_GET["msg"])
 			<br>
 			<fieldset><legend> <input type="checkbox" name="sql_structure"
 				value="structure" id="checkbox_sql_structure" checked="checked" /> <label
-				for="checkbox_sql_structure"> Structure</label> </legend></fieldset>
+				for="checkbox_sql_structure"> <?php echo $langs->trans('ExportStructure') ?></label> </legend></fieldset>
 
 			<br>
 			<fieldset><legend> <input type="checkbox" name="sql_data" value="data"
@@ -341,13 +377,13 @@ echo $file;
 
 // Define compressions array
 $compression=array(
-	'none' => array('function' => '',         'id' => 'radio_compression_none', 'label' => $langs->trans("None")),
-//	'zip'  => array('function' => 'zip_open', 'id' => 'radio_compression_zip',  'label' => $langs->trans("Zip")),		Not open source
-	'gz'   => array('function' => 'gzopen',   'id' => 'radio_compression_gzip', 'label' => $langs->trans("Gzip")),
+	'none' => array('function' => '',       'id' => 'radio_compression_none', 'label' => $langs->trans("None")),
+	'gz'   => array('function' => 'gzopen', 'id' => 'radio_compression_gzip', 'label' => $langs->trans("Gzip")),
 );
 if ($label == 'MySQL')
 {
-	$compression['bz']=array('function' => 'bzopen',  'id' => 'radio_compression_bzip', 'label' => $langs->trans("Bzip2"));
+//	$compression['zip']= array('function' => 'dol_compress', 'id' => 'radio_compression_zip',  'label' => $langs->trans("FormatZip"));		// Not open source format. Must implement dol_compress function
+    $compression['bz'] = array('function' => 'bzopen',       'id' => 'radio_compression_bzip', 'label' => $langs->trans("Bzip2"));
 }
 
 

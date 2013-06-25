@@ -1,11 +1,11 @@
 <?php
 /* Copyright (C) 2003		Rodolphe Quiedeville	<rodolphe@quiedeville.org>
  * Copyright (C) 2004-2012	Laurent Destailleur		<eldy@users.sourceforge.net>
- * Copyright (C) 2005-2011	Regis Houssin			<regis@dolibarr.fr>
+ * Copyright (C) 2005-2012	Regis Houssin			<regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -18,7 +18,7 @@
  */
 
 /**
- *	\file       htdocs/core/class/infobox.php
+ *	\file       htdocs/core/class/infobox.class.php
  *	\brief      File of class to manage widget boxes
  */
 
@@ -33,11 +33,11 @@ class InfoBox
      *  @param	DoliDB	$db				Database handler
      *  @param	string	$mode			'available' or 'activated'
      *  @param	string	$zone			Name or area (-1 for all, 0 for Homepage, 1 for xxx, ...)
-     *  @param  User    $user	  		Objet user to filter (used only if $zone >= 0)
+     *  @param  User    $user	  		Objet user to filter
      *  @param	array	$excludelist	Array of box id (box.box_id = boxes_def.rowid) to exclude
      *  @return array               	Array of boxes
      */
-    static function listBoxes($db, $mode,$zone,$user,$excludelist=array())
+    static function listBoxes($db, $mode, $zone, $user, $excludelist=array())
     {
         global $conf;
 
@@ -50,9 +50,9 @@ class InfoBox
             $sql.= " d.rowid as box_id, d.file, d.note, d.tms";
             $sql.= " FROM ".MAIN_DB_PREFIX."boxes as b, ".MAIN_DB_PREFIX."boxes_def as d";
             $sql.= " WHERE b.box_id = d.rowid";
-            $sql.= " AND d.entity = ".$conf->entity;
+            $sql.= " AND b.entity = ".$conf->entity;
             if ($zone >= 0) $sql.= " AND b.position = ".$zone;
-            if ($user->id && $user->conf->$confuserzone) $sql.= " AND b.fk_user = ".$user->id;
+            if (is_object($user)) $sql.= " AND b.fk_user IN (0,".$user->id.")";
             else $sql.= " AND b.fk_user = 0";
             $sql.= " ORDER BY b.box_order";
         }
@@ -60,10 +60,18 @@ class InfoBox
         {
             $sql = "SELECT d.rowid as box_id, d.file, d.note, d.tms";
             $sql.= " FROM ".MAIN_DB_PREFIX."boxes_def as d";
-            $sql.= " WHERE entity = ".$conf->entity;
+            if (! empty($conf->multicompany->enabled) && ! empty($conf->multicompany->transverse_mode)) {
+
+            	$sql.= " WHERE entity IN (1,".$conf->entity.")"; // TODO add method for define another master entity
+
+            } else {
+
+            	$sql.= " WHERE entity = ".$conf->entity;
+
+            }
         }
 
-        dol_syslog(get_class()."::listBoxes get default box list sql=".$sql, LOG_DEBUG);
+        dol_syslog(get_class()."::listBoxes get default box list for mode=".$mode." userid=".(is_object($user)?$user->id:'')." sql=".$sql, LOG_DEBUG);
         $resql = $db->query($sql);
         if ($resql)
         {
@@ -93,13 +101,13 @@ class InfoBox
                         $box=new $boxname($db,$obj->note);
 
                         // box properties
-                        $box->rowid=$obj->rowid;
-                        $box->id=$obj->box_id;
-                        $box->position=$obj->position;
-                        $box->box_order=$obj->box_order;
-                        $box->fk_user=$obj->fk_user;
+                        $box->rowid		= (empty($obj->rowid) ? '' : $obj->rowid);
+                        $box->id		= (empty($obj->box_id) ? '' : $obj->box_id);
+                        $box->position	= (empty($obj->position) ? '' : $obj->position);
+                        $box->box_order	= (empty($obj->box_order) ? '' : $obj->box_order);
+                        $box->fk_user	= (empty($obj->fk_user) ? 0 : $obj->fk_user);
                         $box->sourcefile=$relsourcefile;
-                        if ($mode == 'activated' && (! $user->id || ! $user->conf->$confuserzone))
+                        if ($mode == 'activated' && ! is_object($user))	// List of activated box was not yet personalized into database
                         {
                             if (is_numeric($box->box_order))
                             {
@@ -108,18 +116,20 @@ class InfoBox
                             }
                         }
                         // box_def properties
-                        $box->box_id=$obj->box_id;
-                        $box->note=$obj->note;
+                        $box->box_id	= (empty($obj->box_id) ? '' : $obj->box_id);
+                        $box->note		= (empty($obj->note) ? '' : $obj->note);
 
-                        $enabled=true;
-                        if ($box->depends && count($box->depends) > 0)
+                        $enabled=$box->enabled;
+                        if (isset($box->depends) && count($box->depends) > 0)
                         {
                             foreach($box->depends as $module)
                             {
                                 //print $boxname.'-'.$module.'<br>';
-                                if (empty($conf->$module->enabled)) $enabled=false;
+                                if (empty($conf->$module->enabled)) $enabled=0;
                             }
                         }
+
+                        //print 'xx module='.$module.' enabled='.$enabled;
                         if ($enabled) $boxes[]=$box;
                     }
                 }
@@ -129,9 +139,8 @@ class InfoBox
         else
         {
             //dol_print_error($db);
-            $this->error=$db->error();
-            dol_syslog(get_class()."::listBoxes Error ".$this->error, LOG_ERR);
-            return array();
+            $error=$db->lasterror();
+            dol_syslog(get_class()."::listBoxes Error ".$error, LOG_ERR);
         }
 
         return $boxes;
@@ -153,7 +162,7 @@ class InfoBox
 
         $error=0;
 
-        require_once(DOL_DOCUMENT_ROOT."/core/lib/functions2.lib.php");
+        require_once DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php';
 
         dol_syslog(get_class()."::saveboxorder zone=".$zone." userid=".$userid);
 
@@ -176,11 +185,9 @@ class InfoBox
 
         // Delete all lines
         $sql = "DELETE FROM ".MAIN_DB_PREFIX."boxes";
-        $sql.= " USING ".MAIN_DB_PREFIX."boxes, ".MAIN_DB_PREFIX."boxes_def";
-        $sql.= " WHERE ".MAIN_DB_PREFIX."boxes.box_id = ".MAIN_DB_PREFIX."boxes_def.rowid";
-        $sql.= " AND ".MAIN_DB_PREFIX."boxes_def.entity = ".$conf->entity;
-        $sql.= " AND ".MAIN_DB_PREFIX."boxes.fk_user = ".$userid;
-        $sql.= " AND ".MAIN_DB_PREFIX."boxes.position = ".$zone;
+        $sql.= " WHERE entity = ".$conf->entity;
+        $sql.= " AND fk_user = ".$userid;
+        $sql.= " AND position = ".$zone;
 
         dol_syslog(get_class()."::saveboxorder sql=".$sql);
         $result = $db->query($sql);
@@ -204,12 +211,13 @@ class InfoBox
                         $i++;
                         $ii=sprintf('%02d',$i);
                         $sql = "INSERT INTO ".MAIN_DB_PREFIX."boxes";
-                        $sql.= "(box_id, position, box_order, fk_user)";
+                        $sql.= "(box_id, position, box_order, fk_user, entity)";
                         $sql.= " values (";
                         $sql.= " ".$id.",";
                         $sql.= " ".$zone.",";
                         $sql.= " '".$colonne.$ii."',";
-                        $sql.= " ".$userid;
+                        $sql.= " ".$userid.",";
+                        $sql.= " ".$conf->entity;
                         $sql.= ")";
 
                         dol_syslog(get_class()."::saveboxorder sql=".$sql);
@@ -224,7 +232,7 @@ class InfoBox
             }
             if ($error)
             {
-                $this->error=$db->error();
+                $error=$db->error();
                 $db->rollback();
                 return -2;
             }
@@ -236,9 +244,9 @@ class InfoBox
         }
         else
         {
-            $this->error=$db->lasterror();
+            $error=$db->lasterror();
             $db->rollback();
-            dol_syslog(get_class()."::saveboxorder ".$this->error);
+            dol_syslog(get_class()."::saveboxorder ".$error);
             return -1;
         }
     }

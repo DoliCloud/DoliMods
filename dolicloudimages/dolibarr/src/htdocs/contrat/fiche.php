@@ -1,13 +1,13 @@
 <?php
 /* Copyright (C) 2003-2004	Rodolphe Quiedeville	<rodolphe@quiedeville.org>
  * Copyright (C) 2004-2012	Laurent Destailleur		<eldy@users.sourceforge.net>
- * Copyright (C) 2005-2012	Regis Houssin			<regis@dolibarr.fr>
+ * Copyright (C) 2005-2012	Regis Houssin			<regis.houssin@capnetworks.com>
  * Copyright (C) 2006		Andre Cianfarani		<acianfa@free.fr>
  * Copyright (C) 2010-2012	Juanjo Menent			<jmenent@2byte.es>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -26,15 +26,17 @@
  */
 
 require ("../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/date.lib.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/price.lib.php");
-require_once(DOL_DOCUMENT_ROOT.'/core/lib/contract.lib.php');
-require_once(DOL_DOCUMENT_ROOT."/contrat/class/contrat.class.php");
-require_once(DOL_DOCUMENT_ROOT."/core/modules/contract/modules_contract.php");
-if ($conf->produit->enabled || $conf->service->enabled)  require_once(DOL_DOCUMENT_ROOT."/product/class/product.class.php");
-if ($conf->projet->enabled)  require_once(DOL_DOCUMENT_ROOT."/projet/class/project.class.php");
-if ($conf->propal->enabled)  require_once(DOL_DOCUMENT_ROOT."/comm/propal/class/propal.class.php");
-if ($conf->projet->enabled)  require_once(DOL_DOCUMENT_ROOT."/core/lib/project.lib.php");
+require_once DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/price.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/contract.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
+require_once DOL_DOCUMENT_ROOT.'/core/modules/contract/modules_contract.php';
+if (! empty($conf->produit->enabled) || ! empty($conf->service->enabled))  require_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
+if (! empty($conf->propal->enabled))  require_once DOL_DOCUMENT_ROOT.'/comm/propal/class/propal.class.php';
+if (! empty($conf->projet->enabled)) {
+	require_once DOL_DOCUMENT_ROOT.'/projet/class/project.class.php';
+	require_once DOL_DOCUMENT_ROOT.'/core/lib/project.lib.php';
+}
 
 $langs->load("contracts");
 $langs->load("orders");
@@ -48,11 +50,18 @@ $socid = GETPOST('socid','int');
 $id = GETPOST('id','int');
 $ref=GETPOST('ref','alpha');
 
+$datecontrat='';
+
 // Security check
 if ($user->societe_id) $socid=$user->societe_id;
 $result=restrictedArea($user,'contrat',$id);
 
-$usehm=$conf->global->MAIN_USE_HOURMIN_IN_DATE_RANGE;
+$usehm=(! empty($conf->global->MAIN_USE_HOURMIN_IN_DATE_RANGE)?$conf->global->MAIN_USE_HOURMIN_IN_DATE_RANGE:0);
+
+// Initialize technical object to manage hooks of thirdparties. Note that conf->hooks_modules contains array array
+include_once DOL_DOCUMENT_ROOT.'/core/class/hookmanager.class.php';
+$hookmanager=new HookManager($db);
+$hookmanager->initHooks(array('contractcard'));
 
 $object = new Contrat($db);
 
@@ -64,11 +73,11 @@ $object = new Contrat($db);
 if ($action == 'confirm_active' && $confirm == 'yes' && $user->rights->contrat->activer)
 {
     $object->fetch($id);
-    $result = $object->active_line($user, $_GET["ligne"], $_GET["date"], $_GET["dateend"], $_GET["comment"]);
+    $result = $object->active_line($user, GETPOST('ligne'), GETPOST('date'), GETPOST('dateend'), GETPOST('comment'));
 
     if ($result > 0)
     {
-        Header("Location: ".$_SERVER['PHP_SELF']."?id=".$object->id);
+        header("Location: ".$_SERVER['PHP_SELF']."?id=".$object->id);
         exit;
     }
     else {
@@ -79,11 +88,11 @@ if ($action == 'confirm_active' && $confirm == 'yes' && $user->rights->contrat->
 else if ($action == 'confirm_closeline' && $confirm == 'yes' && $user->rights->contrat->activer)
 {
     $object->fetch($id);
-    $result = $object->close_line($user, $_GET["ligne"], $_GET["dateend"], urldecode($_GET["comment"]));
+    $result = $object->close_line($user, GETPOST('ligne'), GETPOST('dateend'), urldecode(GETPOST('comment')));
 
     if ($result > 0)
     {
-        Header("Location: ".$_SERVER['PHP_SELF']."?id=".$object->id);
+        header("Location: ".$_SERVER['PHP_SELF']."?id=".$object->id);
         exit;
     }
     else {
@@ -92,32 +101,32 @@ else if ($action == 'confirm_closeline' && $confirm == 'yes' && $user->rights->c
 }
 
 // Si ajout champ produit predefini
-if ($_POST["mode"]=='predefined')
+if (GETPOST('mode')=='predefined')
 {
     $date_start='';
     $date_end='';
-    if ($_POST["date_startmonth"] && $_POST["date_startday"] && $_POST["date_startyear"])
+    if (GETPOST('date_startmonth') && GETPOST('date_startday') && GETPOST('date_startyear'))
     {
-        $date_start=dol_mktime($_POST["date_starthour"], $_POST["date_startmin"], 0, $_POST["date_startmonth"], $_POST["date_startday"], $_POST["date_startyear"]);
+        $date_start=dol_mktime(GETPOST('date_starthour'), GETPOST('date_startmin'), 0, GETPOST('date_startmonth'), GETPOST('date_startday'), GETPOST('date_startyear'));
     }
-    if ($_POST["date_endmonth"] && $_POST["date_endday"] && $_POST["date_endyear"])
+    if (GETPOST('date_endmonth') && GETPOST('date_endday') && GETPOST('date_endyear'))
     {
-        $date_end=dol_mktime($_POST["date_endhour"], $_POST["date_endmin"], 0, $_POST["date_endmonth"], $_POST["date_endday"], $_POST["date_endyear"]);
+        $date_end=dol_mktime(GETPOST('date_endhour'), GETPOST('date_endmin'), 0, GETPOST('date_endmonth'), GETPOST('date_endday'), GETPOST('date_endyear'));
     }
 }
 
 // Si ajout champ produit libre
-if ($_POST["mode"]=='libre')
+if (GETPOST('mode')=='libre')
 {
     $date_start_sl='';
     $date_end_sl='';
-    if ($_POST["date_start_slmonth"] && $_POST["date_start_slday"] && $_POST["date_start_slyear"])
+    if (GETPOST('date_start_slmonth') && GETPOST('date_start_slday') && GETPOST('date_start_slyear'))
     {
-        $date_start_sl=dol_mktime($_POST["date_start_slhour"], $_POST["date_start_slmin"], 0, $_POST["date_start_slmonth"], $_POST["date_start_slday"], $_POST["date_start_slyear"]);
+        $date_start_sl=dol_mktime(GETPOST('date_start_slhour'), GETPOST('date_start_slmin'), 0, GETPOST('date_start_slmonth'), GETPOST('date_start_slday'), GETPOST('date_start_slyear'));
     }
-    if ($_POST["date_end_slmonth"] && $_POST["date_end_slday"] && $_POST["date_end_slyear"])
+    if (GETPOST('date_end_slmonth') && GETPOST('date_end_slday') && GETPOST('date_end_slyear'))
     {
-        $date_end_sl=dol_mktime($_POST["date_end_slhour"], $_POST["date_end_slmin"], 0, $_POST["date_end_slmonth"], $_POST["date_end_slday"], $_POST["date_end_slyear"]);
+        $date_end_sl=dol_mktime(GETPOST('date_end_slhour'), GETPOST('date_end_slmin'), 0, GETPOST('date_end_slmonth'), GETPOST('date_end_slday'), GETPOST('date_end_slyear'));
     }
 }
 
@@ -127,25 +136,25 @@ $date_start_update='';
 $date_end_update='';
 $date_start_real_update='';
 $date_end_real_update='';
-if ($_POST["date_start_updatemonth"] && $_POST["date_start_updateday"] && $_POST["date_start_updateyear"])
+if (GETPOST('date_start_updatemonth') && GETPOST('date_start_updateday') && GETPOST('date_start_updateyear'))
 {
-    $date_start_update=dol_mktime($_POST["date_start_updatehour"], $_POST["date_start_updatemin"], 0, $_POST["date_start_updatemonth"], $_POST["date_start_updateday"], $_POST["date_start_updateyear"]);
+    $date_start_update=dol_mktime(GETPOST('date_start_updatehour'), GETPOST('date_start_updatemin'), 0, GETPOST('date_start_updatemonth'), GETPOST('date_start_updateday'), GETPOST('date_start_updateyear'));
 }
-if ($_POST["date_end_updatemonth"] && $_POST["date_end_updateday"] && $_POST["date_end_updateyear"])
+if (GETPOST('date_end_updatemonth') && GETPOST('date_end_updateday') && GETPOST('date_end_updateyear'))
 {
-    $date_end_update=dol_mktime($_POST["date_end_updatehour"], $_POST["date_end_updatemin"], 0, $_POST["date_end_updatemonth"], $_POST["date_end_updateday"], $_POST["date_end_updateyear"]);
+    $date_end_update=dol_mktime(GETPOST('date_end_updatehour'), GETPOST('date_end_updatemin'), 0, GETPOST('date_end_updatemonth'), GETPOST('date_end_updateday'), GETPOST('date_end_updateyear'));
 }
-if ($_POST["date_start_real_updatemonth"] && $_POST["date_start_real_updateday"] && $_POST["date_start_real_updateyear"])
+if (GETPOST('date_start_real_updatemonth') && GETPOST('date_start_real_updateday') && GETPOST('date_start_real_updateyear'))
 {
-    $date_start_real_update=dol_mktime($_POST["date_start_real_updatehour"], $_POST["date_start_real_updatemin"], 0, $_POST["date_start_real_updatemonth"], $_POST["date_start_real_updateday"], $_POST["date_start_real_updateyear"]);
+    $date_start_real_update=dol_mktime(GETPOST('date_start_real_updatehour'), GETPOST('date_start_real_updatemin'), 0, GETPOST('date_start_real_updatemonth'), GETPOST('date_start_real_updateday'), GETPOST('date_start_real_updateyear'));
 }
-if ($_POST["date_end_real_updatemonth"] && $_POST["date_end_real_updateday"] && $_POST["date_end_real_updateyear"])
+if (GETPOST('date_end_real_updatemonth') && GETPOST('date_end_real_updateday') && GETPOST('date_end_real_updateyear'))
 {
-    $date_end_real_update=dol_mktime($_POST["date_end_real_updatehour"], $_POST["date_end_real_updatemin"], 0, $_POST["date_end_real_updatemonth"], $_POST["date_end_real_updateday"], $_POST["date_end_real_updateyear"]);
+    $date_end_real_update=dol_mktime(GETPOST('date_end_real_updatehour'), GETPOST('date_end_real_updatemin'), 0, GETPOST('date_end_real_updatemonth'), GETPOST('date_end_real_updateday'), GETPOST('date_end_real_updateyear'));
 }
-if ($_POST["remonth"] && $_POST["reday"] && $_POST["reyear"])
+if (GETPOST('remonth') && GETPOST('reday') && GETPOST('reyear'))
 {
-    $datecontrat = dol_mktime($_POST["rehour"], $_POST["remin"], 0, $_POST["remonth"], $_POST["reday"], $_POST["reyear"]);
+    $datecontrat = dol_mktime(GETPOST('rehour'), GETPOST('remin'), 0, GETPOST('remonth'), GETPOST('reday'), GETPOST('reyear'));
 }
 
 if ($action == 'add' && $user->rights->contrat->creer)
@@ -153,13 +162,13 @@ if ($action == 'add' && $user->rights->contrat->creer)
     $object->socid						= $socid;
     $object->date_contrat				= $datecontrat;
 
-    $object->commercial_suivi_id		= $_POST["commercial_suivi_id"];
-    $object->commercial_signature_id	= $_POST["commercial_signature_id"];
+    $object->commercial_suivi_id		= GETPOST('commercial_suivi_id','int');
+    $object->commercial_signature_id	= GETPOST('commercial_signature_id','int');
 
-    $object->note						= trim($_POST["note"]);
-    $object->fk_project					= trim($_POST["projectid"]);
-    $object->remise_percent				= trim($_POST["remise_percent"]);
-    $object->ref						= trim($_POST["ref"]);
+    $object->note						= GETPOST('note','alpha');
+    $object->fk_project					= GETPOST('projectid','int');
+    $object->remise_percent				= GETPOST('remise_percent','alpha');
+    $object->ref						= GETPOST('ref','alpha');
 
     // Check
     if (empty($datecontrat))
@@ -174,7 +183,7 @@ if ($action == 'add' && $user->rights->contrat->creer)
         $result = $object->create($user,$langs,$conf);
         if ($result > 0)
         {
-            Header("Location: ".$_SERVER['PHP_SELF']."?id=".$object->id);
+            header("Location: ".$_SERVER['PHP_SELF']."?id=".$object->id);
             exit;
         }
         else {
@@ -187,12 +196,23 @@ if ($action == 'add' && $user->rights->contrat->creer)
 else if ($action == 'classin' && $user->rights->contrat->creer)
 {
     $object->fetch($id);
-    $object->setProject($_POST["projectid"]);
+    $object->setProject(GETPOST('projectid'));
 }
 
 else if ($action == 'addline' && $user->rights->contrat->creer)
 {
-    if ($_POST["pqty"] && (($_POST["pu"] != '' && $_POST["desc"]) || $_POST["idprod"]))
+    if (! GETPOST('qty'))
+    {
+    	setEventMessage($langs->trans("ErrorFieldRequired", $langs->transnoentitiesnoconv("Qty")),'errors');
+    	$error++;
+    }
+    if ((GETPOST('price_ht') == '' || ! GETPOST('dp_desc')) && ! GETPOST('idprod'))
+    {
+    	setEventMessage($langs->trans("ErrorFieldRequired", $langs->transnoentitiesnoconv("Description")),'errors');
+    	$error++;
+    }
+    
+    if (! $error)
     {
         $ret=$object->fetch($id);
         if ($ret < 0)
@@ -205,27 +225,27 @@ else if ($action == 'addline' && $user->rights->contrat->creer)
         $date_start='';
         $date_end='';
         // Si ajout champ produit libre
-        if ($_POST['mode'] == 'libre')
+        if (GETPOST('mode') == 'libre')
         {
-            if ($_POST["date_start_slmonth"] && $_POST["date_start_slday"] && $_POST["date_start_slyear"])
+            if (GETPOST('date_start_slmonth') && GETPOST('date_start_slday') && GETPOST('date_start_slyear'))
             {
-                $date_start=dol_mktime($_POST["date_start_slhour"], $_POST["date_start_slmin"], 0, $_POST["date_start_slmonth"], $_POST["date_start_slday"], $_POST["date_start_slyear"]);
+                $date_start=dol_mktime(GETPOST('date_start_slhour'), GETPOST('date_start_slmin'), 0, GETPOST('date_start_slmonth'), GETPOST('date_start_slday'), GETPOST('date_start_slyear'));
             }
-            if ($_POST["date_end_slmonth"] && $_POST["date_end_slday"] && $_POST["date_end_slyear"])
+            if (GETPOST('date_end_slmonth') && GETPOST('date_end_slday') && GETPOST('date_end_slyear'))
             {
-                $date_end=dol_mktime($_POST["date_end_slhour"], $_POST["date_end_slmin"], 0, $_POST["date_end_slmonth"], $_POST["date_end_slday"], $_POST["date_end_slyear"]);
+                $date_end=dol_mktime(GETPOST('date_end_slhour'), GETPOST('date_end_slmin'), 0, GETPOST('date_end_slmonth'), GETPOST('date_end_slday'), GETPOST('date_end_slyear'));
             }
         }
         // Si ajout champ produit predefini
-        if ($_POST['mode'] == 'predefined')
+        if (GETPOST('mode') == 'predefined')
         {
-            if ($_POST["date_startmonth"] && $_POST["date_startday"] && $_POST["date_startyear"])
+            if (GETPOST('date_startmonth') && GETPOST('date_startday') && GETPOST('date_startyear'))
             {
-                $date_start=dol_mktime($_POST["date_starthour"], $_POST["date_startmin"], 0, $_POST["date_startmonth"], $_POST["date_startday"], $_POST["date_startyear"]);
+                $date_start=dol_mktime(GETPOST('date_starthour'), GETPOST('date_startmin'), 0, GETPOST('date_startmonth'), GETPOST('date_startday'), GETPOST('date_startyear'));
             }
-            if ($_POST["date_endmonth"] && $_POST["date_endday"] && $_POST["date_endyear"])
+            if (GETPOST('date_endmonth') && GETPOST('date_endday') && GETPOST('date_endyear'))
             {
-                $date_end=dol_mktime($_POST["date_endhour"], $_POST["date_endmin"], 0, $_POST["date_endmonth"], $_POST["date_endday"], $_POST["date_endyear"]);
+                $date_end=dol_mktime(GETPOST('date_endhour'), GETPOST('date_endmin'), 0, GETPOST('date_endmonth'), GETPOST('date_endday'), GETPOST('date_endyear'));
             }
         }
 
@@ -233,10 +253,10 @@ else if ($action == 'addline' && $user->rights->contrat->creer)
         // Ecrase $desc par celui du produit
         // Ecrase $txtva par celui du produit
         // Ecrase $base_price_type par celui du produit
-        if ($_POST['idprod'])
+        if (GETPOST('idprod'))
         {
             $prod = new Product($db);
-            $prod->fetch($_POST['idprod']);
+            $prod->fetch(GETPOST('idprod'));
 
             $tva_tx = get_default_tva($mysoc,$object->thirdparty,$prod->id);
             $tva_npr = get_default_npr($mysoc,$object->thirdparty,$prod->id);
@@ -272,16 +292,16 @@ else if ($action == 'addline' && $user->rights->contrat->creer)
             }
 
            	$desc = $prod->description;
-           	$desc.= $prod->description && $_POST['desc'] ? "\n" : "";
-           	$desc.= $_POST['desc'];
+           	$desc.= $prod->description && GETPOST('desc') ? "\n" : "";
+           	$desc.= GETPOST('desc');
         }
         else
         {
-            $pu_ht=$_POST['pu'];
+            $pu_ht=GETPOST('price_ht');
             $price_base_type = 'HT';
-            $tva_tx=str_replace('*','',$_POST['tva_tx']);
-            $tva_npr=preg_match('/\*/',$_POST['tva_tx'])?1:0;
-            $desc=$_POST['desc'];
+            $tva_tx=GETPOST('tva_tx')?str_replace('*','',GETPOST('tva_tx')):0;		// tva_tx field may be disabled, so we use vat rate 0 
+            $tva_npr=preg_match('/\*/',GETPOST('tva_tx'))?1:0;
+            $desc=GETPOST('dp_desc');
         }
 
         $localtax1_tx=get_localtax($tva_tx,1,$object->societe);
@@ -290,7 +310,7 @@ else if ($action == 'addline' && $user->rights->contrat->creer)
         $info_bits=0;
         if ($tva_npr) $info_bits |= 0x01;
 
-        if($price_min && (price2num($pu_ht)*(1-price2num($_POST['remise_percent'])/100) < price2num($price_min)))
+        if($price_min && (price2num($pu_ht)*(1-price2num(GETPOST('remise_percent'))/100) < price2num($price_min)))
         {
             $object->error = $langs->trans("CantBeLessThanMinPrice",price2num($price_min,'MU').' '.$langs->trans("Currency".$conf->currency));
             $result = -1 ;
@@ -301,12 +321,12 @@ else if ($action == 'addline' && $user->rights->contrat->creer)
             $result = $object->addline(
                 $desc,
                 $pu_ht,
-                $_POST["pqty"],
+                GETPOST('qty'),
                 $tva_tx,
                 $localtax1_tx,
                 $localtax2_tx,
-                $_POST["idprod"],
-                $_POST["premise"],
+                GETPOST('idprod'),
+                GETPOST('remise_percent'),
                 $date_start,
                 $date_end,
                 $price_base_type,
@@ -334,6 +354,14 @@ else if ($action == 'addline' && $user->rights->contrat->creer)
              	contrat_pdf_create($db, $object->id, $object->modelpdf, $outputlangs);
              }
              */
+
+        	unset($_POST['qty']);
+        	unset($_POST['type']);
+        	unset($_POST['idprod']);
+        	unset($_POST['remise_percent']);
+        	unset($_POST['price_ht']);
+        	unset($_POST['tva_tx']);
+        	unset($_POST['dp_desc']);
         }
         else
         {
@@ -342,7 +370,7 @@ else if ($action == 'addline' && $user->rights->contrat->creer)
     }
 }
 
-else if ($action == 'updateligne' && $user->rights->contrat->creer && ! $_POST["cancel"])
+else if ($action == 'updateligne' && $user->rights->contrat->creer && ! GETPOST('cancel'))
 {
 	$ret=$object->fetch($id);
 	if ($ret < 0)
@@ -353,22 +381,22 @@ else if ($action == 'updateligne' && $user->rights->contrat->creer && ! $_POST["
 
 	$object->fetch_thirdparty();
     $objectline = new ContratLigne($db);
-    if ($objectline->fetch($_POST["elrowid"]))
+    if ($objectline->fetch(GETPOST('elrowid')))
     {
         $db->begin();
 
         if ($date_start_real_update == '') $date_start_real_update=$objectline->date_ouverture;
         if ($date_end_real_update == '')   $date_end_real_update=$objectline->date_cloture;
 
-		$localtax1_tx=get_localtax($_POST["eltva_tx"],1,$object->thirdparty);
-        $localtax2_tx=get_localtax($_POST["eltva_tx"],2,$object->thirdparty);
+		$localtax1_tx=get_localtax(GETPOST('eltva_tx'),1,$object->thirdparty);
+        $localtax2_tx=get_localtax(GETPOST('eltva_tx'),2,$object->thirdparty);
 
-        $objectline->description=$_POST["eldesc"];
-        $objectline->price_ht=$_POST["elprice"];
-        $objectline->subprice=$_POST["elprice"];
-        $objectline->qty=$_POST["elqty"];
-        $objectline->remise_percent=$_POST["elremise_percent"];
-        $objectline->tva_tx=$_POST["eltva_tx"];
+        $objectline->description=GETPOST('product_desc');
+        $objectline->price_ht=GETPOST('elprice');
+        $objectline->subprice=GETPOST('elprice');
+        $objectline->qty=GETPOST('elqty');
+        $objectline->remise_percent=GETPOST('elremise_percent');
+        $objectline->tva_tx=GETPOST('eltva_tx')?GETPOST('eltva_tx'):0;	// Field may be disabled, so we use vat rate 0
         $objectline->localtax1_tx=$localtax1_tx;
         $objectline->localtax2_tx=$localtax2_tx;
         $objectline->date_ouverture_prevue=$date_start_update;
@@ -399,11 +427,11 @@ else if ($action == 'updateligne' && $user->rights->contrat->creer && ! $_POST["
 else if ($action == 'confirm_deleteline' && $confirm == 'yes' && $user->rights->contrat->creer)
 {
     $object->fetch($id);
-    $result = $object->deleteline($_GET["lineid"],$user);
+    $result = $object->deleteline(GETPOST('lineid'),$user);
 
     if ($result >= 0)
     {
-        Header("Location: ".$_SERVER['PHP_SELF']."?id=".$object->id);
+        header("Location: ".$_SERVER['PHP_SELF']."?id=".$object->id);
         exit;
     }
     else
@@ -432,7 +460,7 @@ else if ($action == 'confirm_delete' && $confirm == 'yes' && $user->rights->cont
 	$result=$object->delete($user);
 	if ($result >= 0)
 	{
-		Header("Location: index.php");
+		header("Location: index.php");
 		return;
 	}
 	else
@@ -443,15 +471,15 @@ else if ($action == 'confirm_delete' && $confirm == 'yes' && $user->rights->cont
 
 else if ($action == 'confirm_move' && $confirm == 'yes' && $user->rights->contrat->creer)
 {
-	if ($_POST['newcid'] > 0)
+	if (GETPOST('newcid') > 0)
 	{
 		$contractline = new ContratLigne($db);
-		$result=$contractline->fetch($_GET["lineid"]);
-		$contractline->fk_contrat = $_POST["newcid"];
+		$result=$contractline->fetch(GETPOST('lineid'));
+		$contractline->fk_contrat = GETPOST('newcid');
 		$result=$contractline->update($user,1);
 		if ($result >= 0)
 		{
-			Header("Location: ".$_SERVER['PHP_SELF']."?id=".$id);
+			header("Location: ".$_SERVER['PHP_SELF']."?id=".$id);
 			return;
 		}
 		else
@@ -477,21 +505,21 @@ else if ($action == 'setnote' && $user->rights->contrat->creer)
 	if ($result < 0) dol_print_error($db,$object->error);
 }
 
-if (! empty($conf->global->MAIN_DISABLE_CONTACTS_TAB))
+if (! empty($conf->global->MAIN_DISABLE_CONTACTS_TAB) && $user->rights->contrat->creer)
 {
-	if ($action == 'addcontact' && $user->rights->contrat->creer)
+	if ($action == 'addcontact')
 	{
 		$result = $object->fetch($id);
 
 		if ($result > 0 && $id > 0)
 		{
 			$contactid = (GETPOST('userid') ? GETPOST('userid') : GETPOST('contactid'));
-			$result = $result = $object->add_contact($contactid, $_POST["type"], $_POST["source"]);
+			$result = $result = $object->add_contact($contactid, GETPOST('type'), GETPOST('source'));
 		}
 
 		if ($result >= 0)
 		{
-			Header("Location: ".$_SERVER['PHP_SELF']."?id=".$object->id);
+			header("Location: ".$_SERVER['PHP_SELF']."?id=".$object->id);
 			exit;
 		}
 		else
@@ -509,7 +537,7 @@ if (! empty($conf->global->MAIN_DISABLE_CONTACTS_TAB))
 	}
 
 	// bascule du statut d'un contact
-	else if ($action == 'swapstatut' && $user->rights->contrat->creer)
+	else if ($action == 'swapstatut')
 	{
 		if ($object->fetch($id))
 		{
@@ -522,14 +550,14 @@ if (! empty($conf->global->MAIN_DISABLE_CONTACTS_TAB))
 	}
 
 	// Efface un contact
-	else if ($action == 'deletecontact' && $user->rights->contrat->creer)
+	else if ($action == 'deletecontact')
 	{
 		$object->fetch($id);
-		$result = $object->delete_contact($_GET["lineid"]);
+		$result = $object->delete_contact(GETPOST('lineid'));
 
 		if ($result >= 0)
 		{
-			Header("Location: ".$_SERVER['PHP_SELF']."?id=".$object->id);
+			header("Location: ".$_SERVER['PHP_SELF']."?id=".$object->id);
 			exit;
 		}
 		else {
@@ -557,7 +585,7 @@ $objectlignestatic=new ContratLigne($db);
  *********************************************************************/
 if ($action == 'create')
 {
-    dol_fiche_head($head, $a, $langs->trans("AddContract"), 0, 'contract');
+    dol_fiche_head('', '', $langs->trans("AddContract"), 0, 'contract');
 
     dol_htmloutput_errors($mesg,'');
 
@@ -565,7 +593,6 @@ if ($action == 'create')
     $soc->fetch($socid);
 
     $object->date_contrat = dol_now();
-    if ($contratid) $result=$object->fetch($contratid);
 
     $numct = $object->getNextNumRef($soc);
 
@@ -610,7 +637,7 @@ if ($action == 'create')
     $form->select_date($datecontrat,'',0,0,'',"contrat");
     print "</td></tr>";
 
-    if ($conf->projet->enabled)
+    if (! empty($conf->projet->enabled))
     {
         print '<tr><td>'.$langs->trans("Project").'</td><td>';
         select_projects($soc->id,GETPOST("projectid"),"projectid");
@@ -618,17 +645,32 @@ if ($action == 'create')
     }
 
     print '<tr><td>'.$langs->trans("NotePublic").'</td><td valign="top">';
+
+    require_once DOL_DOCUMENT_ROOT.'/core/class/doleditor.class.php';
+    $doleditor=new DolEditor('note_public', GETPOST('note_public'), '', '100', 'dolibarr_notes', 'In', 1, true, true, ROWS_3, 70);
+    print $doleditor->Create(1);
+    /*
     print '<textarea name="note_public" wrap="soft" cols="70" rows="'.ROWS_3.'">';
     print GETPOST("note_public");
     print '</textarea></td></tr>';
+	*/
 
     if (! $user->societe_id)
     {
         print '<tr><td>'.$langs->trans("NotePrivate").'</td><td valign="top">';
+        require_once DOL_DOCUMENT_ROOT.'/core/class/doleditor.class.php';
+        $doleditor=new DolEditor('note', GETPOST('note'), '', '100', 'dolibarr_notes', 'In', 1, true, true, ROWS_3, 70);
+        print $doleditor->Create(1);
+        /*
         print '<textarea name="note" wrap="soft" cols="70" rows="'.ROWS_3.'">';
         print GETPOST("note");
-        print '</textarea></td></tr>';
+        print '</textarea>';*/
+        print '</td></tr>';
     }
+
+    // Other attributes
+    $parameters=array('colspan' => ' colspan="3"');
+    $reshook=$hookmanager->executeHooks('formObjectOptions',$parameters,$object,$action);    // Note that $action and $object may have been modified by hook
 
     print "</table>\n";
 
@@ -713,7 +755,7 @@ else
         /*
          *   Contrat
          */
-        if ($object->brouillon && $user->rights->contrat->creer)
+        if (! empty($object->brouillon) && $user->rights->contrat->creer)
         {
             print '<form action="'.$_SERVER['PHP_SELF'].'?id='.$object->id.'" method="POST">';
             print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
@@ -722,9 +764,11 @@ else
 
         print '<table class="border" width="100%">';
 
+        $linkback = '<a href="'.DOL_URL_ROOT.'/contrat/liste.php'.(! empty($socid)?'?socid='.$socid:'').'">'.$langs->trans("BackToList").'</a>';
+
         // Ref du contrat
         print '<tr><td width="25%">'.$langs->trans("Ref").'</td><td colspan="3">';
-        print $form->showrefnav($object,'ref','',1,'ref','ref','');
+        print $form->showrefnav($object, 'ref', $linkback, 1, 'ref', 'ref', '');
         print "</td></tr>";
 
         // Customer
@@ -753,7 +797,7 @@ else
         print '<td colspan="3">'.dol_print_date($object->date_contrat,"dayhour")."</td></tr>\n";
 
         // Projet
-        if ($conf->projet->enabled)
+        if (! empty($conf->projet->enabled))
         {
             $langs->load("projects");
             print '<tr><td>';
@@ -774,9 +818,13 @@ else
             print "</td></tr>";
         }
 
+        // Other attributes
+        $parameters=array('colspan' => ' colspan="3"');
+        $reshook=$hookmanager->executeHooks('formObjectOptions',$parameters,$object,$action);    // Note that $action and $object may have been modified by hook
+
         print "</table>";
 
-        if ($object->brouillon == 1 && $user->rights->contrat->creer)
+        if (! empty($object->brouillon) && $user->rights->contrat->creer)
         {
             print '</form>';
         }
@@ -785,23 +833,20 @@ else
 
         if (! empty($conf->global->MAIN_DISABLE_CONTACTS_TAB))
         {
-        	require_once(DOL_DOCUMENT_ROOT.'/core/class/html.formcompany.class.php');
-        	$formcompany= new FormCompany($db);
-
         	$blocname = 'contacts';
         	$title = $langs->trans('ContactsAddresses');
-        	include(DOL_DOCUMENT_ROOT.'/core/tpl/bloc_showhide.tpl.php');
+        	include DOL_DOCUMENT_ROOT.'/core/tpl/bloc_showhide.tpl.php';
         }
 
         if (! empty($conf->global->MAIN_DISABLE_NOTES_TAB))
         {
         	$blocname = 'notes';
         	$title = $langs->trans('Notes');
-        	include(DOL_DOCUMENT_ROOT.'/core/tpl/bloc_showhide.tpl.php');
+        	include DOL_DOCUMENT_ROOT.'/core/tpl/bloc_showhide.tpl.php';
         }
 
 
-        $servicepos=(isset($_REQUEST["servicepos"])?$_REQUEST["servicepos"]:1);
+        $servicepos=(GETPOST('servicepos')?GETPOST('servicepos'):1); // FIXME : not used ?
         $colorb='666666';
 
         $arrayothercontracts=$object->getListOfContracts('others');
@@ -810,8 +855,6 @@ else
          * Lines of contracts
          */
         $productstatic=new Product($db);
-
-        // TODO move css and DAO
 
         // Title line for service
         print '<table class="notopnoleft allwidth">';	// Array with (n*2)+1 lines
@@ -857,7 +900,7 @@ else
 
                 $var=!$var;
 
-                if ($action != 'editline' || $_GET["rowid"] != $objp->rowid)
+                if ($action != 'editline' || GETPOST('rowid') != $objp->rowid)
                 {
                     print '<tr '.$bc[$var].' valign="top">';
                     // Libelle
@@ -874,7 +917,7 @@ else
                     }
                     else
                     {
-                        print "<td>".nl2br($objp->description)."</td>\n";
+                        print "<td>".dol_htmlentitiesbr($objp->description)."</td>\n";
                     }
                     // TVA
                     print '<td align="center">'.vatrate($objp->tva_tx,'%',$objp->info_bits).'</td>';
@@ -956,7 +999,7 @@ else
                     print '<form name="update" action="'.$_SERVER['PHP_SELF'].'?id='.$object->id.'" method="post">';
                     print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
                     print '<input type="hidden" name="action" value="updateligne">';
-                    print '<input type="hidden" name="elrowid" value="'.$_GET["rowid"].'">';
+                    print '<input type="hidden" name="elrowid" value="'.GETPOST('rowid').'">';
                     // Ligne carac
                     print "<tr $bc[$var]>";
                     print '<td>';
@@ -973,13 +1016,22 @@ else
                     {
                         print $objp->label?$objp->label.'<br>':'';
                     }
-                    print '<textarea name="eldesc" cols="70" rows="1">'.$objp->description.'</textarea></td>';
+
+                    // editeur wysiwyg
+                    require_once DOL_DOCUMENT_ROOT.'/core/class/doleditor.class.php';
+                    $nbrows=ROWS_2;
+                    if (! empty($conf->global->MAIN_INPUT_DESC_HEIGHT)) $nbrows=$conf->global->MAIN_INPUT_DESC_HEIGHT;
+                    $enable=(isset($conf->global->FCKEDITOR_ENABLE_DETAILS)?$conf->global->FCKEDITOR_ENABLE_DETAILS:0);
+                    $doleditor=new DolEditor('product_desc',$objp->description,'',92,'dolibarr_details','',false,true,$enable,$nbrows,70);
+                    $doleditor->Create();
+
+                    print '</td>';
                     print '<td align="right">';
                     print $form->load_tva("eltva_tx",$objp->tva_tx,$mysoc,$object->thirdparty);
                     print '</td>';
                     print '<td align="right"><input size="5" type="text" name="elprice" value="'.price($objp->subprice).'"></td>';
                     print '<td align="center"><input size="2" type="text" name="elqty" value="'.$objp->qty.'"></td>';
-                    print '<td align="right"><input size="1" type="text" name="elremise_percent" value="'.$objp->remise_percent.'">%</td>';
+                    print '<td align="right" nowrap="nowrap"><input size="1" type="text" name="elremise_percent" value="'.$objp->remise_percent.'">%</td>';
                     print '<td align="center" rowspan="2" valign="middle"><input type="submit" class="button" name="save" value="'.$langs->trans("Modify").'">';
                     print '<br><input type="submit" class="button" name="cancel" value="'.$langs->trans("Cancel").'">';
                     print '</td>';
@@ -1016,16 +1068,16 @@ else
             /*
              * Confirmation to delete service line of contract
              */
-            if ($action == 'deleteline' && ! $_REQUEST["cancel"] && $user->rights->contrat->creer && $object->lines[$cursorline-1]->id == $_GET["rowid"])
+            if ($action == 'deleteline' && ! $_REQUEST["cancel"] && $user->rights->contrat->creer && $object->lines[$cursorline-1]->id == GETPOST('rowid'))
             {
-                $ret=$form->form_confirm($_SERVER["PHP_SELF"]."?id=".$object->id."&lineid=".$_GET["rowid"],$langs->trans("DeleteContractLine"),$langs->trans("ConfirmDeleteContractLine"),"confirm_deleteline",'',0,1);
+                $ret=$form->form_confirm($_SERVER["PHP_SELF"]."?id=".$object->id."&lineid=".GETPOST('rowid'),$langs->trans("DeleteContractLine"),$langs->trans("ConfirmDeleteContractLine"),"confirm_deleteline",'',0,1);
                 if ($ret == 'html') print '<table class="notopnoleftnoright" width="100%"><tr '.$bc[false].' height="6"><td></td></tr></table>';
             }
 
             /*
              * Confirmation to move service toward another contract
              */
-            if ($action == 'move' && ! $_REQUEST["cancel"] && $user->rights->contrat->creer && $object->lines[$cursorline-1]->id == $_GET["rowid"])
+            if ($action == 'move' && ! $_REQUEST["cancel"] && $user->rights->contrat->creer && $object->lines[$cursorline-1]->id == GETPOST('rowid'))
             {
                 $arraycontractid=array();
                 foreach($arrayothercontracts as $contractcursor)
@@ -1038,31 +1090,31 @@ else
 				'text' => $langs->trans("ConfirmMoveToAnotherContractQuestion"),
                 array('type' => 'select', 'name' => 'newcid', 'values' => $arraycontractid));
 
-                $form->form_confirm($_SERVER["PHP_SELF"]."?id=".$object->id."&lineid=".$_GET["rowid"],$langs->trans("MoveToAnotherContract"),$langs->trans("ConfirmMoveToAnotherContract"),"confirm_move",$formquestion);
+                $form->form_confirm($_SERVER["PHP_SELF"]."?id=".$object->id."&lineid=".GETPOST('rowid'),$langs->trans("MoveToAnotherContract"),$langs->trans("ConfirmMoveToAnotherContract"),"confirm_move",$formquestion);
                 print '<table class="notopnoleftnoright" width="100%"><tr '.$bc[false].' height="6"><td></td></tr></table>';
             }
 
             /*
              * Confirmation de la validation activation
              */
-            if ($action == 'active' && ! $_REQUEST["cancel"] && $user->rights->contrat->activer && $object->lines[$cursorline-1]->id == $_GET["ligne"])
+            if ($action == 'active' && ! $_REQUEST["cancel"] && $user->rights->contrat->activer && $object->lines[$cursorline-1]->id == GETPOST('ligne'))
             {
-                $dateactstart = dol_mktime(12, 0, 0, $_POST["remonth"], $_POST["reday"], $_POST["reyear"]);
-                $dateactend   = dol_mktime(12, 0, 0, $_POST["endmonth"], $_POST["endday"], $_POST["endyear"]);
-                $comment      = $_POST["comment"];
-                $form->form_confirm($_SERVER["PHP_SELF"]."?id=".$object->id."&ligne=".$_GET["ligne"]."&date=".$dateactstart."&dateend=".$dateactend."&comment=".urlencode($comment),$langs->trans("ActivateService"),$langs->trans("ConfirmActivateService",dol_print_date($dateactstart,"%A %d %B %Y")),"confirm_active", '', 0, 1);
+                $dateactstart = dol_mktime(12, 0, 0, GETPOST('remonth'), GETPOST('reday'), GETPOST('reyear'));
+                $dateactend   = dol_mktime(12, 0, 0, GETPOST('endmonth'), GETPOST('endday'), GETPOST('endyear'));
+                $comment      = GETPOST('comment');
+                $form->form_confirm($_SERVER["PHP_SELF"]."?id=".$object->id."&ligne=".GETPOST('ligne')."&date=".$dateactstart."&dateend=".$dateactend."&comment=".urlencode($comment),$langs->trans("ActivateService"),$langs->trans("ConfirmActivateService",dol_print_date($dateactstart,"%A %d %B %Y")),"confirm_active", '', 0, 1);
                 print '<table class="notopnoleftnoright" width="100%"><tr '.$bc[false].' height="6"><td></td></tr></table>';
             }
 
             /*
              * Confirmation de la validation fermeture
              */
-            if ($action == 'closeline' && ! $_REQUEST["cancel"] && $user->rights->contrat->activer && $object->lines[$cursorline-1]->id == $_GET["ligne"])
+            if ($action == 'closeline' && ! $_REQUEST["cancel"] && $user->rights->contrat->activer && $object->lines[$cursorline-1]->id == GETPOST('ligne'))
             {
-                $dateactstart = dol_mktime(12, 0, 0, $_POST["remonth"], $_POST["reday"], $_POST["reyear"]);
-                $dateactend   = dol_mktime(12, 0, 0, $_POST["endmonth"], $_POST["endday"], $_POST["endyear"]);
-                $comment      = $_POST["comment"];
-                $form->form_confirm($_SERVER["PHP_SELF"]."?id=".$object->id."&ligne=".$_GET["ligne"]."&date=".$dateactstart."&dateend=".$dateactend."&comment=".urlencode($comment), $langs->trans("CloseService"), $langs->trans("ConfirmCloseService",dol_print_date($dateactend,"%A %d %B %Y")), "confirm_closeline", '', 0, 1);
+                $dateactstart = dol_mktime(12, 0, 0, GETPOST('remonth'), GETPOST('reday'), GETPOST('reyear'));
+                $dateactend   = dol_mktime(12, 0, 0, GETPOST('endmonth'), GETPOST('endday'), GETPOST('endyear'));
+                $comment      = GETPOST('comment');
+                $form->form_confirm($_SERVER["PHP_SELF"]."?id=".$object->id."&ligne=".GETPOST('ligne')."&date=".$dateactstart."&dateend=".$dateactend."&comment=".urlencode($comment), $langs->trans("CloseService"), $langs->trans("ConfirmCloseService",dol_print_date($dateactend,"%A %d %B %Y")), "confirm_closeline", '', 0, 1);
                 print '<table class="notopnoleftnoright" width="100%"><tr '.$bc[false].' height="6"><td></td></tr></table>';
             }
 
@@ -1120,12 +1172,12 @@ else
                 print '</table>';
             }
 
-            if ($user->rights->contrat->activer && $action == 'activateline' && $object->lines[$cursorline-1]->id == $_GET["ligne"])
+            if ($user->rights->contrat->activer && $action == 'activateline' && $object->lines[$cursorline-1]->id == GETPOST('ligne'))
             {
                 /**
                  * Activer la ligne de contrat
                  */
-                print '<form name="active" action="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&amp;ligne='.$_GET["ligne"].'&amp;action=active" method="post">';
+                print '<form name="active" action="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&amp;ligne='.GETPOST('ligne').'&amp;action=active" method="post">';
                 print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
 
                 print '<table class="noborder" width="100%">';
@@ -1133,11 +1185,11 @@ else
 
                 // Definie date debut et fin par defaut
                 $dateactstart = $objp->date_debut;
-                if ($_POST["remonth"]) $dateactstart = dol_mktime(12, 0, 0, $_POST["remonth"], $_POST["reday"], $_POST["reyear"]);
+                if (GETPOST('remonth')) $dateactstart = dol_mktime(12, 0, 0, GETPOST('remonth'), GETPOST('reday'), GETPOST('reyear'));
                 elseif (! $dateactstart) $dateactstart = time();
 
                 $dateactend = $objp->date_fin;
-                if ($_POST["endmonth"]) $dateactend = dol_mktime(12, 0, 0, $_POST["endmonth"], $_POST["endday"], $_POST["endyear"]);
+                if (GETPOST('endmonth')) $dateactend = dol_mktime(12, 0, 0, GETPOST('endmonth'), GETPOST('endday'), GETPOST('endyear'));
                 elseif (! $dateactend)
                 {
                     if ($objp->fk_product > 0)
@@ -1163,14 +1215,14 @@ else
 
                 print '</tr>';
 
-                print '<tr '.$bc[$var].'><td>'.$langs->trans("Comment").'</td><td colspan="3"><input size="80" type="text" name="comment" value="'.$_POST["comment"].'"></td></tr>';
+                print '<tr '.$bc[$var].'><td>'.$langs->trans("Comment").'</td><td colspan="3"><input size="80" type="text" name="comment" value="'.GETPOST('comment').'"></td></tr>';
 
                 print '</table>';
 
                 print '</form>';
             }
 
-            if ($user->rights->contrat->activer && $action == 'unactivateline' && $object->lines[$cursorline-1]->id == $_GET["ligne"])
+            if ($user->rights->contrat->activer && $action == 'unactivateline' && $object->lines[$cursorline-1]->id == GETPOST('ligne'))
             {
                 /**
                  * Desactiver la ligne de contrat
@@ -1182,11 +1234,11 @@ else
 
                 // Definie date debut et fin par defaut
                 $dateactstart = $objp->date_debut_reelle;
-                if ($_POST["remonth"]) $dateactstart = dol_mktime(12, 0, 0, $_POST["remonth"], $_POST["reday"], $_POST["reyear"]);
+                if (GETPOST('remonth')) $dateactstart = dol_mktime(12, 0, 0, GETPOST('remonth'), GETPOST('reday'), GETPOST('reyear'));
                 elseif (! $dateactstart) $dateactstart = time();
 
                 $dateactend = $objp->date_fin_reelle;
-                if ($_POST["endmonth"]) $dateactend = dol_mktime(12, 0, 0, $_POST["endmonth"], $_POST["endday"], $_POST["endyear"]);
+                if (GETPOST('endmonth')) $dateactend = dol_mktime(12, 0, 0, GETPOST('endmonth'), GETPOST('endday'), GETPOST('endyear'));
                 elseif (! $dateactend)
                 {
                     if ($objp->fk_product > 0)
@@ -1196,7 +1248,7 @@ else
                         $dateactend = dol_time_plus_duree(time(), $product->duration_value, $product->duration_unit);
                     }
                 }
-                $now=mktime();
+                $now=dol_now();
                 if ($dateactend > $now) $dateactend=$now;
 
                 print '<tr '.$bc[$var].'><td colspan="2">';
@@ -1214,7 +1266,7 @@ else
                 print '<input type="submit" class="button" name="cancel" value="'.$langs->trans("Cancel").'">';
                 print '</td></tr>';
 
-                print '<tr '.$bc[$var].'><td>'.$langs->trans("Comment").'</td><td><input size="70" type="text" class="flat" name="comment" value="'.$_POST["comment"].'"></td></tr>';
+                print '<tr '.$bc[$var].'><td>'.$langs->trans("Comment").'</td><td><input size="70" type="text" class="flat" name="comment" value="'.GETPOST('comment').'"></td></tr>';
                 print '</table>';
 
                 print '</form>';
@@ -1228,107 +1280,60 @@ else
         }
         print '</table>';
 
-        /*
-         * Ajouter une ligne produit/service
-         */
+		// Form to add new line
         if ($user->rights->contrat->creer && ($object->statut >= 0))
         {
+        	$dateSelector=1;
+        	
             print '<br>';
-            print '<table class="noborder" width="100%">';	// Array with (n*2)+1 lines
+            print '<table id="tablelines" class="noborder" width="100%">';	// Array with (n*2)+1 lines
 
-            print "<tr class=\"liste_titre\">";
-            print '<td>'.$langs->trans("Service").'</td>';
-            print '<td align="center">'.$langs->trans("VAT").'</td>';
-            print '<td align="right">'.$langs->trans("PriceUHT").'</td>';
-            print '<td align="center">'.$langs->trans("Qty").'</td>';
-            print '<td align="right">'.$langs->trans("ReductionShort").'</td>';
-            print '<td>&nbsp;</td>';
-            print '<td>&nbsp;</td>';
-            print "</tr>\n";
+            // Trick to not show product entries
+            $savproductenabled=$conf->product->enabled;
+            $conf->product->enabled = 0;
 
-            $var=false;
+        	// Form to add new line
+        	if ($action != 'editline')
+        	{
+        		$var=true;
 
-            // Service sur produit predefini
-            print '<form name="addline" action="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'" method="post">';
-            print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
-            print '<input type="hidden" name="action" value="addline">';
-            print '<input type="hidden" name="mode" value="predefined">';
-            print '<input type="hidden" name="id" value="'.$object->id.'">';
-
-            print "<tr ".$bc[$var].">";
-            print '<td colspan="3">';
-            // multiprix
-            if($conf->global->PRODUIT_MULTIPRICES)
-            $form->select_produits('','idprod',1,$conf->product->limit_size,$object->thirdparty->price_level);
-            else
-            $form->select_produits('','idprod',1,$conf->product->limit_size);
-            print '<textarea name="desc" cols="70" rows="'.ROWS_2.'"></textarea>';
-            print '</td>';
-
-            print '<td align="center"><input type="text" class="flat" size="2" name="pqty" value="1"></td>';
-            print '<td align="right" nowrap><input type="text" class="flat" size="1" name="premise" value="'.$object->thirdparty->remise_client.'">%</td>';
-            print '<td align="center" colspan="2" rowspan="2"><input type="submit" class="button" value="'.$langs->trans("Add").'"></td>';
-            print '</tr>'."\n";
-
-            print "<tr ".$bc[$var].">";
-            print '<td colspan="8">';
-            print $langs->trans("DateStartPlanned").' ';
-            $form->select_date('',"date_start",$usehm,$usehm,1,"addline");
-            print ' &nbsp; '.$langs->trans("DateEndPlanned").' ';
-            $form->select_date('',"date_end",$usehm,$usehm,1,"addline");
-            print '</td>';
-            print '</tr>';
-
-            print '</form>';
-
-            $var=!$var;
-
-            // Service libre
-            print '<form name="addline_sl" action="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'" method="post">';
-            print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
-            print '<input type="hidden" name="action" value="addline">';
-            print '<input type="hidden" name="mode" value="libre">';
-            print '<input type="hidden" name="id" value="'.$object->id.'">';
-
-            print "<tr $bc[$var]>";
-            print '<td><textarea name="desc" cols="70" rows="'.ROWS_2.'"></textarea></td>';
-
-            print '<td>';
-            print $form->load_tva("tva_tx",-1,$mysoc,$object->thirdparty);
-            print '</td>';
-            print '<td align="right"><input type="text" class="flat" size="4" name="pu" value=""></td>';
-            print '<td align="center"><input type="text" class="flat" size="2" name="pqty" value="1"></td>';
-            print '<td align="right" nowrap><input type="text" class="flat" size="1" name="premise" value="'.$object->thirdparty->remise_client.'">%</td>';
-            print '<td align="center" rowspan="2" colspan="2"><input type="submit" class="button" value="'.$langs->trans("Add").'"></td>';
-
-            print '</tr>'."\n";
-
-            print "<tr $bc[$var]>";
-            print '<td colspan="8">';
-            print $langs->trans("DateStartPlanned").' ';
-            $form->select_date('',"date_start_sl",$usehm,$usehm,1,"addline_sl");
-            print ' &nbsp; '.$langs->trans("DateEndPlanned").' ';
-            $form->select_date('',"date_end_sl",$usehm,$usehm,1,"addline_sl");
-            print '</td>';
-            print '</tr>';
-
+        		if ($conf->global->MAIN_FEATURES_LEVEL > 1)
+        		{
+        			// Add free or predefined products/services
+        			$object->formAddObjectLine($dateSelector,$mysoc,$object->thirdparty,$hookmanager);
+        		}
+        		else
+        		{
+        			// Add free products/services
+        			$object->formAddFreeProduct($dateSelector,$mysoc,$object->thirdparty,$hookmanager);
+        	
+        			// Add predefined products/services
+        			if (! empty($conf->product->enabled) || ! empty($conf->service->enabled))
+        			{
+        				$var=!$var;
+        				$object->formAddPredefinedProduct($dateSelector,$mysoc,$object->thirdparty,$hookmanager);
+        			}
+        		}
+        	
+        		$parameters=array();
+        		$reshook=$hookmanager->executeHooks('formAddObjectLine',$parameters,$object,$action);    // Note that $action and $object may have been modified by hook
+        	}
+        	
+        	// Restore correct setup
+        	$conf->product->enabled = $savproductenabled;
+      
             print '</form>';
 
             print '</table>';
         }
 
 
-
-        //print '</td><td align="center" class="tab" style="padding: 4px; border-right: 1px solid #'.$colorb.'; border-top: 1px solid #'.$colorb.'; border-bottom: 1px solid #'.$colorb.';">';
-
-        //print '</td></tr></table>';
-
         print '</div>';
 
 
-        /*************************************************************
-         * Boutons Actions
-         *************************************************************/
+        /*
+         * Buttons
+         */
 
         if ($user->societe_id == 0)
         {
@@ -1340,7 +1345,7 @@ else
                 else print '<a class="butActionRefused" href="#" title="'.$langs->trans("NotEnoughPermissions").'">'.$langs->trans("Validate").'</a>';
             }
 
-            if ($conf->facture->enabled && $object->statut > 0)
+            if (! empty($conf->facture->enabled) && $object->statut > 0 && $object->nbofservicesclosed < $nbofservices)
             {
                 $langs->load("bills");
                 if ($user->rights->facture->creer) print '<a class="butAction" href="'.DOL_URL_ROOT.'/compta/facture.php?action=create&amp;origin='.$object->element.'&amp;originid='.$object->id.'&amp;socid='.$object->thirdparty->id.'">'.$langs->trans("CreateBill").'</a>';
@@ -1366,6 +1371,10 @@ else
             {
                 print '<a class="butActionDelete" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&amp;action=delete">'.$langs->trans("Delete").'</a>';
             }
+            else
+            {
+            	print '<a class="butActionRefused" href="#" title="'.dol_escape_htmltag($langs->trans("NotAllowed")).'">'.$langs->trans("Delete").'</a>';
+            }
 
             print "</div>";
             print '<br>';
@@ -1385,5 +1394,6 @@ else
 
 
 llxFooter();
+
 $db->close();
 ?>

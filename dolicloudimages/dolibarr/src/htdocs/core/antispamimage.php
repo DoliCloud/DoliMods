@@ -3,7 +3,7 @@
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -29,7 +29,7 @@ if (! defined('NOREQUIRETRAN'))   define('NOREQUIRETRAN',1);
 if (! defined('NOREQUIRESOC'))    define('NOREQUIRESOC',1);
 if (! defined('NOTOKENRENEWAL'))  define('NOTOKENRENEWAL',1);
 
-require_once("../main.inc.php");
+require_once '../main.inc.php';
 
 
 /*

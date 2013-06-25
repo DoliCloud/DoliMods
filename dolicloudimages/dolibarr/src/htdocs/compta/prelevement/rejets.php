@@ -1,11 +1,12 @@
-<?PHP
+<?php
 /* Copyright (C) 2005      Rodolphe Quiedeville <rodolphe@quiedeville.org>
- * Copyright (C) 2005-2009 Regis Houssin        <regis@dolibarr.fr>
- * Copyright (C) 2010-2012 Juanjo Menent 		<jmenent@2byte.es>
+ * Copyright (C) 2005-2009 Regis Houssin        <regis.houssin@capnetworks.com>
+ * Copyright (C) 2010-2013 Juanjo Menent 		<jmenent@2byte.es>
+ * Copyright (C) 2005-2012 Laurent Destailleur  <eldy@users.sourceforge.net>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -18,12 +19,15 @@
  */
 
 /**
- * 
+ *      \file       htdocs/compta/prelevement/rejets.php
+ *      \ingroup    prelevement
+ *      \brief      Reject page
  */
 
-require("../bank/pre.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/compta/prelevement/class/rejet-prelevement.class.php");
-require_once(DOL_DOCUMENT_ROOT."/compta/paiement/class/paiement.class.php");
+require '../bank/pre.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/compta/prelevement/class/rejetprelevement.class.php';
+require_once DOL_DOCUMENT_ROOT.'/compta/prelevement/class/ligneprelevement.class.php';
+require_once DOL_DOCUMENT_ROOT.'/compta/paiement/class/paiement.class.php';
 
 $langs->load("withdrawals");
 $langs->load("companies");
@@ -53,6 +57,7 @@ if ($sortorder == "") $sortorder="DESC";
 if ($sortfield == "") $sortfield="p.datec";
 
 $rej = new RejetPrelevement($db, $user);
+$ligne = new LignePrelevement($db, $user);
 
 /*
  * Liste des factures
@@ -81,7 +86,7 @@ if ($result)
 	print"\n<!-- debut table -->\n";
 	print '<table class="noborder" width="100%" cellspacing="0" cellpadding="4">';
 	print '<tr class="liste_titre">';
-	print_liste_field_titre($langs->trans("Nb"),"rejets.php","p.ref",'',$urladd);
+	print_liste_field_titre($langs->trans("Line"),"rejets.php","p.ref",'',$urladd);
 	print_liste_field_titre($langs->trans("ThirdParty"),"rejets.php","s.nom",'',$urladd);
 	print_liste_field_titre($langs->trans("Reason"),"rejets.php","pr.motif","",$urladd);
 	print '</tr>';
@@ -95,7 +100,7 @@ if ($result)
 		$obj = $db->fetch_object($result);
 
 		print "<tr $bc[$var]><td>";
-		print '<img border="0" src="./img/statut'.$obj->statut.'.png"></a>&nbsp;';
+		print $ligne->LibStatut($obj->statut,2).'&nbsp;';
 		print '<a href="'.DOL_URL_ROOT.'/compta/prelevement/ligne.php?id='.$obj->rowid.'">';
 
 		print substr('000000'.$obj->rowid, -6)."</a></td>";

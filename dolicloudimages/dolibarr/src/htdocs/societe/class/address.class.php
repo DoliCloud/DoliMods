@@ -1,11 +1,11 @@
 <?php
 /* Copyright (C) 2002-2005 Rodolphe Quiedeville <rodolphe@quiedeville.org>
  * Copyright (C) 2004-2006 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2005-2011 Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2005-2011 Regis Houssin        <regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -85,8 +85,10 @@ class Address
 
 		if ($result >= 0)
 		{
+			$now=dol_now();
+
 			$sql = "INSERT INTO ".MAIN_DB_PREFIX."societe_address (label, fk_soc, name, datec, fk_user_creat) ";
-			$sql .= " VALUES ('".$this->db->escape($this->label)."', '".$socid."', '".$this->db->escape($this->name)."', ".$this->db->idate(mktime()).", '".$user->id."')";
+			$sql .= " VALUES ('".$this->db->escape($this->label)."', '".$socid."', '".$this->db->escape($this->name)."', ".$this->db->idate($now).", '".$user->id."')";
 
 			$result=$this->db->query($sql);
 			if ($result)
@@ -186,7 +188,7 @@ class Address
 		if ($result >= 0)
 		{
 			dol_syslog(get_class($this)."::Update verify ok");
-			
+
 			$this->db->begin();
 
 			$sql = "UPDATE ".MAIN_DB_PREFIX."societe_address";
@@ -201,7 +203,7 @@ class Address
 			$sql.= ", fax = ".($this->fax?"'".$this->db->escape($this->fax)."'":"null");
 			if ($user) $sql .= ",fk_user_modif = '".$user->id."'";
 			$sql .= " WHERE fk_soc = '" . $socid ."' AND rowid = '" . $id ."'";
-			
+
 			dol_syslog(get_class($this)."::Update sql=".$sql, LOG_DEBUG);
 			$resql=$this->db->query($sql);
 			if ($resql)
@@ -214,7 +216,7 @@ class Address
 			{
 				if ($this->db->errno() == 'DB_ERROR_RECORD_ALREADY_EXISTS')
 				{
-				
+
 					$this->error=$langs->trans("ErrorDuplicateField",$this->name);
 					$result=-1;
 				}
@@ -300,7 +302,7 @@ class Address
 						$line->phone			= $objp->tel;
 						$line->fax				= $objp->fax;
 						$line->note				= $objp->note;
-						
+
 						// deprecated
 						$line->cp				= $line->zip;
 						$line->ville			= $line->town;
@@ -379,14 +381,14 @@ class Address
 				$this->phone			= $obj->tel;
 				$this->fax				= $obj->fax;
 				$this->note				= $obj->note;
-				
+
 				// deprecated
-				$line->cp				= $line->zip;
-				$line->ville			= $line->town;
-				$line->pays_id			= $line->country_id;
-				$line->pays_code		= $line->country_code;
-				$line->pays				= $line->country;
-				$line->tel				= $line->phone;
+				$this->cp				= $this->zip;
+				$this->ville			= $this->town;
+				$this->pays_id			= $this->country_id;
+				$this->pays_code		= $this->country_code;
+				$this->pays				= $this->country;
+				$this->tel				= $this->phone;
 
 				$result = 1;
 			}
@@ -433,7 +435,7 @@ class Address
 			print $this->db->error() . '<br>' . $sql;
 		}
 	}
-	
+
 	/**
 	 *  Return name of address with link (and eventually picto)
 	 *	Use $this->id, $this->label, $this->socid
@@ -445,12 +447,12 @@ class Address
 	function getNomUrl($withpicto=0,$option='')
 	{
 		global $langs;
-	
+
 		$result='';
-	
+
 		$lien = '<a href="'.DOL_URL_ROOT.'/comm/address.php?id='.$this->id.'&socid='.$this->socid.'">';
 		$lienfin='</a>';
-	
+
 		if ($withpicto) $result.=($lien.img_object($langs->trans("ShowAddress").': '.$this->label,'address').$lienfin.' ');
 		$result.=$lien.$this->label.$lienfin;
 		return $result;

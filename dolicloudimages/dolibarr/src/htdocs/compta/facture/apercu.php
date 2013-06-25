@@ -2,12 +2,12 @@
 /* Copyright (C) 2002-2005 Rodolphe Quiedeville <rodolphe@quiedeville.org>
  * Copyright (C) 2004      Eric Seigne          <eric.seigne@ryxeo.com>
  * Copyright (C) 2004-2007 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2005-2011 Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2005-2011 Regis Houssin        <regis.houssin@capnetworks.com>
  * Copyright (C) 2011	   Juanjo Menent        <jmenent@2byte.es>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -26,11 +26,11 @@
  * 		\brief      Page de l'onglet apercu d'une facture
  */
 
-require("../../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/compta/facture/class/facture.class.php");
-require_once(DOL_DOCUMENT_ROOT.'/core/lib/invoice.lib.php');
-require_once(DOL_DOCUMENT_ROOT."/core/lib/files.lib.php");
-if ($conf->projet->enabled) require_once(DOL_DOCUMENT_ROOT."/projet/class/project.class.php");
+require '../../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/invoice.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
+if (! empty($conf->projet->enabled)) require_once DOL_DOCUMENT_ROOT.'/projet/class/project.class.php';
 
 $langs->load("bills");
 
@@ -85,8 +85,19 @@ if ($id > 0 || ! empty($ref))
         print '<table class="border" width="100%">';
         $rowspan=3;
 
-        // Reference
+        // Ref
         print '<tr><td width="20%">'.$langs->trans('Ref').'</td><td colspan="5">'.$object->ref.'</td></tr>';
+
+        // Ref customer
+        print '<tr><td width="20%">';
+        print '<table class="nobordernopadding" width="100%"><tr><td>';
+        print $langs->trans('RefCustomer');
+        print '</td>';
+        print '</tr></table>';
+        print '</td>';
+        print '<td colspan="5">';
+        print $object->ref_client;
+        print '</td></tr>';
 
         // Societe
         print '<tr><td>'.$langs->trans("Company").'</td>';
@@ -277,7 +288,7 @@ if ($id > 0 || ! empty($ref))
         print '</td>';
 
         $nbrows=5;
-        if ($conf->projet->enabled) $nbrows++;
+        if (! empty($conf->projet->enabled)) $nbrows++;
         print '<td rowspan="'.$nbrows.'" colspan="2" valign="top">';
 
         /*
@@ -355,7 +366,7 @@ if ($id > 0 || ! empty($ref))
         print '<tr><td>'.$langs->trans('Status').'</td><td align="left" colspan="3">'.($object->getLibStatut(4,$totalpaye)).'</td></tr>';
 
         // Projet
-        if ($conf->projet->enabled)
+        if (! empty($conf->projet->enabled))
         {
             $langs->load("projects");
             print '<tr>';

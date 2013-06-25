@@ -1,10 +1,11 @@
 <?php
 /* Copyright (C) 2005-2011 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2005-2009 Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2005-2009 Regis Houssin        <regis.houssin@capnetworks.com>
+ * Copyright (C) 2012 Christophe Battarel  		<christophe.battarel@altairis.fr>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -22,21 +23,20 @@
  *      \brief      Pages of import Wizard
  */
 
-require_once("../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/core/class/html.formfile.class.php");
-require_once(DOL_DOCUMENT_ROOT."/core/class/html.formother.class.php");
-require_once(DOL_DOCUMENT_ROOT."/imports/class/import.class.php");
-require_once(DOL_DOCUMENT_ROOT.'/core/modules/import/modules_import.php');
-require_once(DOL_DOCUMENT_ROOT."/core/lib/files.lib.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/images.lib.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/import.lib.php");
+require_once '../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/core/class/html.formfile.class.php';
+require_once DOL_DOCUMENT_ROOT.'/core/class/html.formother.class.php';
+require_once DOL_DOCUMENT_ROOT.'/imports/class/import.class.php';
+require_once DOL_DOCUMENT_ROOT.'/core/modules/import/modules_import.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/images.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/import.lib.php';
 
 $langs->load("exports");
 $langs->load("errors");
 
 // Security check
-if ($user->societe_id) $socid=$user->societe_id;
-$result=restrictedArea($user,'import',$origin_id,'');
+$result=restrictedArea($user, 'import');
 
 $entitytoicon=array(
 	'invoice'=>'bill','invoice_line'=>'bill',
@@ -68,12 +68,15 @@ $entitytolang=array(		// Translation code
 $datatoimport		= GETPOST('datatoimport');
 $format				= GETPOST('format');
 $filetoimport		= GETPOST('filetoimport');
-$action				= GETPOST('action');
+$action				= GETPOST('action','alpha');
+$confirm			= GETPOST('confirm','alpha');
 $step				= (GETPOST('step') ? GETPOST('step') : 1);
 $import_name		= GETPOST('import_name');
 $hexa				= GETPOST('hexa');
 $importmodelid		= GETPOST('importmodelid');
 $excludefirstline	= (GETPOST('excludefirstline') ? GETPOST('excludefirstline') : 0);
+$separator			= (GETPOST('separator') ? GETPOST('separator') : (! empty($conf->global->IMPORT_CSV_SEPARATOR_TO_USE)?$conf->global->IMPORT_CSV_SEPARATOR_TO_USE:','));
+$enclosure			= (GETPOST('enclosure') ? GETPOST('enclosure') : '"');
 
 $objimport=new Import($db);
 $objimport->load_arrays($user,($step==1?'':$datatoimport));
@@ -92,7 +95,7 @@ foreach($fieldsarray as $elem)
 {
 	$tabelem=explode('=',$elem,2);
 	$key=$tabelem[0];
-	$val=$tabelem[1];
+	$val=(isset($tabelem[1])?$tabelem[1]:'');
 	if ($key && $val)
 	{
 		$array_match_file_to_database[$key]=$val;
@@ -192,7 +195,7 @@ if ($action == 'add_import_model')
 
 if ($step == 3 && $datatoimport)
 {
-	if ( $_POST["sendit"] && ! empty($conf->global->MAIN_UPLOAD_DOC))
+	if (GETPOST('sendit') && ! empty($conf->global->MAIN_UPLOAD_DOC))
 	{
 		dol_mkdir($conf->import->dir_temp);
 		$nowyearmonth=dol_print_date(dol_now(),'%Y%m%d%H%M%S');
@@ -205,8 +208,24 @@ if ($step == 3 && $datatoimport)
 		else
 		{
 			$langs->load("errors");
-			$mesg = $langs->trans("ErrorFailedToSaveFile");
+			setEventMessage($langs->trans("ErrorFailedToSaveFile"), 'errors');
 		}
+	}
+
+	// Delete file
+	if ($action == 'confirm_deletefile' && $confirm == 'yes')
+	{
+		$langs->load("other");
+
+		$param='&datatoimport='.$datatoimport.'&format='.$format;
+		if ($excludefirstline) $param.='&excludefirstline=1';
+
+		$file = $conf->import->dir_temp . '/' . GETPOST('urlfile');	// Do not use urldecode here ($_GET and $_REQUEST are already decoded by PHP).
+		$ret=dol_delete_file($file);
+		if ($ret) setEventMessage($langs->trans("FileWasRemoved", GETPOST('urlfile')));
+		else setEventMessage($langs->trans("ErrorFailToDeleteFile", GETPOST('urlfile')), 'errors');
+		Header('Location: '.$_SERVER["PHP_SELF"].'?step='.$step.$param);
+		exit;
 	}
 }
 
@@ -305,8 +324,10 @@ if ($step == 1 || ! $datatoimport)
 	$array_match_file_to_database=array();
 	$_SESSION["dol_array_match_file_to_database"]='';
 
-	$parm='';
+	$param='';
 	if ($excludefirstline) $param.='&excludefirstline=1';
+	if ($separator) $param.='&separator='.urlencode($separator);
+	if ($enclosure) $param.='&enclosure='.urlencode($enclosure);
 
 	llxHeader('',$langs->trans("NewImport"),'EN:Module_Imports_En|FR:Module_Imports|ES:M&oacute;dulo_Importaciones');
 
@@ -371,6 +392,8 @@ if ($step == 2 && $datatoimport)
 {
 	$param='&datatoimport='.$datatoimport;
 	if ($excludefirstline) $param.='&excludefirstline=1';
+	if ($separator) $param.='&separator='.urlencode($separator);
+	if ($enclosure) $param.='&enclosure='.urlencode($enclosure);
 
 	llxHeader('',$langs->trans("NewImport"),'EN:Module_Imports_En|FR:Module_Imports|ES:M&oacute;dulo_Importaciones');
 
@@ -418,9 +441,9 @@ if ($step == 2 && $datatoimport)
 	{
 		$var=!$var;
 		print '<tr '.$bc[$var].'>';
-		print '<td width="16">'.img_picto_common($key,$objmodelimport->getPicto($key)).'</td>';
-    	$text=$objmodelimport->getDriverDesc($key);
-    	print '<td>'.$form->textwithpicto($objmodelimport->getDriverLabel($key),$text).'</td>';
+		print '<td width="16">'.img_picto_common($key,$objmodelimport->getPictoForKey($key)).'</td>';
+    	$text=$objmodelimport->getDriverDescForKey($key);
+    	print '<td>'.$form->textwithpicto($objmodelimport->getDriverLabelForKey($key),$text).'</td>';
 		print '<td align="center"><a href="'.DOL_URL_ROOT.'/imports/emptyexample.php?format='.$key.$param.'" target="_blank">'.$langs->trans("DownloadEmptyExample").'</a></td>';
 		// Action button
 		print '<td align="right">';
@@ -442,15 +465,25 @@ if ($step == 3 && $datatoimport)
 {
 	$param='&datatoimport='.$datatoimport.'&format='.$format;
 	if ($excludefirstline) $param.='&excludefirstline=1';
+	if ($separator) $param.='&separator='.urlencode($separator);
+	if ($enclosure) $param.='&enclosure='.urlencode($enclosure);
 
 	$liste=$objmodelimport->liste_modeles($db);
 
 	llxHeader('',$langs->trans("NewImport"),'EN:Module_Imports_En|FR:Module_Imports|ES:M&oacute;dulo_Importaciones');
 
-    $head = import_prepare_head($param,3);
+    $head = import_prepare_head($param, 3);
 
 	dol_fiche_head($head, 'step3', $langs->trans("NewImport"));
 
+	/*
+	 * Confirm delete file
+	 */
+	if ($action == 'delete')
+	{
+		$ret=$form->form_confirm($_SERVER["PHP_SELF"].'?urlfile='.urlencode(GETPOST('urlfile')).'&step=3'.$param, $langs->trans('DeleteFile'), $langs->trans('ConfirmDeleteFile'), 'confirm_deletefile', '', 0, 1);
+		if ($ret == 'html') print '<br>';
+	}
 
 	print '<table width="100%" class="border">';
 
@@ -476,8 +509,8 @@ if ($step == 3 && $datatoimport)
 	// Source file format
 	print '<tr><td width="25%">'.$langs->trans("SourceFileFormat").'</td>';
 	print '<td>';
-    $text=$objmodelimport->getDriverDesc($format);
-    print $form->textwithpicto($objmodelimport->getDriverLabel($format),$text);
+    $text=$objmodelimport->getDriverDescForKey($format);
+    print $form->textwithpicto($objmodelimport->getDriverLabelForKey($format),$text);
     print '</td><td align="right" nowrap="nowrap"><a href="'.DOL_URL_ROOT.'/imports/emptyexample.php?format='.$format.$param.'" target="_blank">'.$langs->trans("DownloadEmptyExample").'</a>';
 
 	print '</td></tr>';
@@ -507,11 +540,13 @@ if ($step == 3 && $datatoimport)
 	print '<input type="hidden" value="'.$step.'" name="step">';
 	print '<input type="hidden" value="'.$format.'" name="format">';
 	print '<input type="hidden" value="'.$excludefirstline.'" name="excludefirstline">';
+	print '<input type="hidden" value="'.$separator.'" name="separator">';
+	print '<input type="hidden" value="'.$enclosure.'" name="enclosure">';
 	print '<input type="hidden" value="'.$datatoimport.'" name="datatoimport">';
 	print "</tr>\n";
 
 	// Search available imports
-	$filearray=dol_dir_list($conf->import->dir_temp,'files',0,'','','name',SORT_DESC);
+	$filearray=dol_dir_list($conf->import->dir_temp, 'files', 0, '', '', 'name', SORT_DESC);
 	if (count($filearray) > 0)
 	{
 		$dir=$conf->import->dir_temp;
@@ -534,8 +569,6 @@ if ($step == 3 && $datatoimport)
 			print '<tr '.$bc[$var].'>';
 			print '<td width="16">'.img_mime($file).'</td>';
 			print '<td>';
-			$modulepart='import';
-			//$relativepath=$filetoimport;
     		print '<a href="'.DOL_URL_ROOT.'/document.php?modulepart='.$modulepart.'&file='.urlencode($relativepath).'&step=3'.$param.'" target="_blank">';
     		print $file;
     		print '</a>';
@@ -545,12 +578,11 @@ if ($step == 3 && $datatoimport)
 			// Affiche date fichier
 			print '<td align="right">'.dol_print_date(dol_filemtime($dir.'/'.$file),'dayhour').'</td>';
 			// Del button
-			print '<td align="right"><a href="'.DOL_URL_ROOT.'/document.php?action=remove_file&step=3'.$param.'&modulepart='.$modulepart.'&file='.urlencode($relativepath);
-			print '&urlsource='.urlencode($urlsource);
+			print '<td align="right"><a href="'.$_SERVER['PHP_SELF'].'?action=delete&step=3'.$param.'&urlfile='.urlencode($relativepath);
 			print '">'.img_delete().'</a></td>';
 			// Action button
 			print '<td align="right">';
-			print '<a href="'.DOL_URL_ROOT.'/imports/import.php?step=4'.$param.'&filetoimport='.urlencode($relativepath).'">'.img_picto($langs->trans("NewImport"),'filenew').'</a>';
+			print '<a href="'.$_SERVER['PHP_SELF'].'?step=4'.$param.'&filetoimport='.urlencode($relativepath).'">'.img_picto($langs->trans("NewImport"),'filenew').'</a>';
 			print '</td>';
 			print '</tr>';
 		}
@@ -575,8 +607,12 @@ if ($step == 4 && $datatoimport)
 	$dir = DOL_DOCUMENT_ROOT . "/core/modules/import/";
 	$file = "import_".$model.".modules.php";
 	$classname = "Import".ucfirst($model);
-	require_once($dir.$file);
+	require_once $dir.$file;
 	$obj = new $classname($db,$datatoimport);
+	if ($model == 'csv') {
+	    $obj->separator = $separator;
+	    $obj->enclosure = $enclosure;
+	}
 
 	// Load source fields in input file
 	$fieldssource=array();
@@ -645,6 +681,8 @@ if ($step == 4 && $datatoimport)
 
 	$param='&format='.$format.'&datatoimport='.$datatoimport.'&filetoimport='.urlencode($filetoimport);
 	if ($excludefirstline) $param.='&excludefirstline=1';
+	if ($separator) $param.='&separator='.urlencode($separator);
+	if ($enclosure) $param.='&enclosure='.urlencode($enclosure);
 
 	llxHeader('',$langs->trans("NewImport"),'EN:Module_Imports_En|FR:Module_Imports|ES:M&oacute;dulo_Importaciones');
 
@@ -676,9 +714,28 @@ if ($step == 4 && $datatoimport)
 	// Source file format
 	print '<tr><td width="25%">'.$langs->trans("SourceFileFormat").'</td>';
 	print '<td>';
-    $text=$objmodelimport->getDriverDesc($format);
-    print $form->textwithpicto($objmodelimport->getDriverLabel($format),$text);
+    $text=$objmodelimport->getDriverDescForKey($format);
+    print $form->textwithpicto($objmodelimport->getDriverLabelForKey($format),$text);
 	print '</td></tr>';
+
+	// Separator and enclosure
+    if ($model == 'csv') {
+		print '<tr><td width="25%">'.$langs->trans("CsvOptions").'</td>';
+		print '<td>';
+		print '<form>';
+		print '<input type="hidden" value="'.$step.'" name="step">';
+		print '<input type="hidden" value="'.$format.'" name="format">';
+		print '<input type="hidden" value="'.$excludefirstline.'" name="excludefirstline">';
+		print '<input type="hidden" value="'.$datatoimport.'" name="datatoimport">';
+		print '<input type="hidden" value="'.$filetoimport.'" name="filetoimport">';
+		print $langs->trans("Separator").' : ';
+		print '<input type="text" size="1" name="separator" value="'.htmlentities($separator).'"/>';
+		print '&nbsp;&nbsp;&nbsp;&nbsp;'.$langs->trans("Enclosure").' : ';
+		print '<input type="text" size="1" name="enclosure" value="'.htmlentities($enclosure).'"/>';
+		print '<input type="submit" value="'.$langs->trans('Update').'" class="button" />';
+		print '</form>';
+		print '</td></tr>';
+    }
 
 	// File to import
 	print '<tr><td width="25%">'.$langs->trans("FileToImport").'</td>';
@@ -704,6 +761,8 @@ if ($step == 4 && $datatoimport)
     print '<input type="hidden" name="datatoimport" value="'.$datatoimport.'">';
     print '<input type="hidden" name="filetoimport" value="'.$filetoimport.'">';
     print '<input type="hidden" name="excludefirstline" value="'.$excludefirstline.'">';
+	print '<input type="hidden" name="separator" value="'.$separator.'">';
+	print '<input type="hidden" name="enclosure" value="'.$enclosure.'">';
     print '<table><tr><td colspan="2">';
     print $langs->trans("SelectImportFields",img_picto('','uparrow','')).' ';
     $htmlother->select_import_model($importmodelid,'importmodelid',$datatoimport,1);
@@ -958,7 +1017,7 @@ if ($step == 4 && $datatoimport)
 		}
 		else
 		{
-			print '<a class="butActionRefused" href="#" title="'.dol_escape_htmltag($langs->trans("SomeMandatoryFieldHaveNoSource")).'">'.$langs->trans("NextStep").'</a>';
+			print '<a class="butActionRefused" href="#" title="'.dol_escape_htmltag($langs->transnoentitiesnoconv("SomeMandatoryFieldHaveNoSource")).'">'.$langs->trans("NextStep").'</a>';
 		}
 	}
 
@@ -980,6 +1039,9 @@ if ($step == 4 && $datatoimport)
 		print '<input type="hidden" name="datatoimport" value="'.$datatoimport.'">';
     	print '<input type="hidden" name="filetoimport" value="'.$filetoimport.'">';
 		print '<input type="hidden" name="hexa" value="'.$hexa.'">';
+    	print '<input type="hidden" name="excludefirstline" value="'.$excludefirstline.'">';
+		print '<input type="hidden" value="'.$separator.'" name="separator">';
+		print '<input type="hidden" value="'.$enclosure.'" name="enclosure">';
 
 		print '<table summary="selectofimportprofil" class="noborder" width="100%">';
 		print '<tr class="liste_titre">';
@@ -1038,8 +1100,12 @@ if ($step == 5 && $datatoimport)
 	$dir = DOL_DOCUMENT_ROOT . "/core/modules/import/";
 	$file = "import_".$model.".modules.php";
 	$classname = "Import".ucfirst($model);
-	require_once($dir.$file);
+	require_once $dir.$file;
 	$obj = new $classname($db,$datatoimport);
+	if ($model == 'csv') {
+	    $obj->separator = $separator;
+	    $obj->enclosure = $enclosure;
+	}
 
 	// Load source fields in input file
 	$fieldssource=array();
@@ -1060,9 +1126,11 @@ if ($step == 5 && $datatoimport)
 
 	$nboflines=dol_count_nb_of_line($conf->import->dir_temp.'/'.$filetoimport);
 
-	$param='&format='.$format.'&datatoimport='.$datatoimport.'&filetoimport='.urlencode($filetoimport).'&nboflines='.$nboflines;
-	$param2='&format='.$format.'&datatoimport='.$datatoimport.'&filetoimport='.urlencode($filetoimport).'&nboflines='.$nboflines;
-	if ($excludefirstline) $param.='&excludefirstline=1';
+	$param='&leftmenu=import&format='.$format.'&datatoimport='.$datatoimport.'&filetoimport='.urlencode($filetoimport).'&nboflines='.$nboflines.'&separator='.urlencode($separator).'&enclosure='.urlencode($enclosure);
+	$param2 = $param;
+	if ($excludefirstline) {
+		$param.='&excludefirstline=1';
+	}
 
 	llxHeader('',$langs->trans("NewImport"),'EN:Module_Imports_En|FR:Module_Imports|ES:M&oacute;dulo_Importaciones');
 
@@ -1095,8 +1163,8 @@ if ($step == 5 && $datatoimport)
 	// Source file format
 	print '<tr><td width="25%">'.$langs->trans("SourceFileFormat").'</td>';
 	print '<td>';
-    $text=$objmodelimport->getDriverDesc($format);
-    print $form->textwithpicto($objmodelimport->getDriverLabel($format),$text);
+    $text=$objmodelimport->getDriverDescForKey($format);
+    print $form->textwithpicto($objmodelimport->getDriverLabelForKey($format),$text);
 	print '</td></tr>';
 
 	// File to import
@@ -1122,7 +1190,7 @@ if ($step == 5 && $datatoimport)
 	print '</td><td>';
 	print '<input type="checkbox" name="excludefirstline" value="1"';
 	print ($excludefirstline?' checked="checked"':'');
-	print ' onClick="javascript: window.location=\''.$_SERVER["PHP_SELF"].'?leftmenu=import&excludefirstline='.($excludefirstline?'0':'1').'&step=5'.$param2.'\';">';
+	print ' onClick="javascript: window.location=\''.$_SERVER["PHP_SELF"].'?step=5&excludefirstline='.($excludefirstline?'0':'1').$param2.'\';">';
 	print ' '.$langs->trans("DoNotImportFirstLine");
 	print '</td></tr>';
 
@@ -1213,7 +1281,7 @@ if ($step == 5 && $datatoimport)
         }
         else
         {
-            print '<a class="butActionRefused" href="#" title="'.dol_escape_htmltag($langs->trans("NotEnoughPermissions")).'">'.$langs->trans("RunSimulateImportFile").'</a>';
+            print '<a class="butActionRefused" href="#" title="'.dol_escape_htmltag($langs->transnoentitiesnoconv("NotEnoughPermissions")).'">'.$langs->trans("RunSimulateImportFile").'</a>';
         }
         print '</center>';
     }
@@ -1367,8 +1435,12 @@ if ($step == 6 && $datatoimport)
 	$dir = DOL_DOCUMENT_ROOT . "/core/modules/import/";
 	$file = "import_".$model.".modules.php";
 	$classname = "Import".ucfirst($model);
-	require_once($dir.$file);
+	require_once $dir.$file;
 	$obj = new $classname($db,$datatoimport);
+	if ($model == 'csv') {
+	    $obj->separator = $separator;
+	    $obj->enclosure = $enclosure;
+	}
 
 	// Load source fields in input file
 	$fieldssource=array();
@@ -1391,6 +1463,8 @@ if ($step == 6 && $datatoimport)
 
 	$param='&format='.$format.'&datatoimport='.$datatoimport.'&filetoimport='.urlencode($filetoimport).'&nboflines='.$nboflines;
 	if ($excludefirstline) $param.='&excludefirstline=1';
+	if ($separator) $param.='&separator='.urlencode($separator);
+	if ($enclosure) $param.='&enclosure='.urlencode($enclosure);
 
 	llxHeader('',$langs->trans("NewImport"),'EN:Module_Imports_En|FR:Module_Imports|ES:M&oacute;dulo_Importaciones');
 
@@ -1423,8 +1497,8 @@ if ($step == 6 && $datatoimport)
 	// Source file format
 	print '<tr><td width="25%">'.$langs->trans("SourceFileFormat").'</td>';
 	print '<td>';
-    $text=$objmodelimport->getDriverDesc($format);
-    print $form->textwithpicto($objmodelimport->getDriverLabel($format),$text);
+    $text=$objmodelimport->getDriverDescForKey($format);
+    print $form->textwithpicto($objmodelimport->getDriverLabelForKey($format),$text);
 	print '</td></tr>';
 
 	// File to import

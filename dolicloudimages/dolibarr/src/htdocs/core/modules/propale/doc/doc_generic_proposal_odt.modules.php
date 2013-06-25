@@ -4,7 +4,7 @@
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -18,17 +18,17 @@
  */
 
 /**
- *	\file       htdocs/core/modules/propale/doc_generic_proposal_odt.modules.php
+ *	\file       htdocs/core/modules/propale/doc/doc_generic_proposal_odt.modules.php
  *	\ingroup    societe
  *	\brief      File of class to build ODT documents for third parties
  */
 
-require_once(DOL_DOCUMENT_ROOT."/core/modules/propale/modules_propale.php");
-require_once(DOL_DOCUMENT_ROOT."/product/class/product.class.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/company.lib.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/functions2.lib.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/files.lib.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/doc.lib.php");
+require_once DOL_DOCUMENT_ROOT.'/core/modules/propale/modules_propale.php';
+require_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/doc.lib.php';
 
 
 /**
@@ -114,6 +114,7 @@ class doc_generic_proposal_odt extends ModelePDFPropales
         	'object_total_ht'=>price($object->total_ht,0,$outputlangs),
             'object_total_vat'=>price($object->total_tva,0,$outputlangs),
             'object_total_ttc'=>price($object->total_ttc,0,$outputlangs),
+            'object_total_discount_ht' => price($object->getTotalDiscount(), 0, $outputlangs),
             'object_vatrate'=>vatrate($object->tva),
             'object_note_private'=>$object->note,
             'object_note'=>$object->note_public,
@@ -314,7 +315,7 @@ class doc_generic_proposal_odt extends ModelePDFPropales
                 if (! empty($usecontact))
                 {
                     // On peut utiliser le nom de la societe du contact
-                    if ($conf->global->MAIN_USE_COMPANY_NAME_OF_CONTACT) $socobject = $object->contact;
+                    if (! empty($conf->global->MAIN_USE_COMPANY_NAME_OF_CONTACT)) $socobject = $object->contact;
                     else $socobject = $object->client;
                 }
                 else
@@ -341,7 +342,7 @@ class doc_generic_proposal_odt extends ModelePDFPropales
 			    }
 
                 // Open and load template
-				require_once(ODTPHP_PATH.'odf.php');
+				require_once ODTPHP_PATH.'odf.php';
 				$odfHandler = new odf(
 				    $srctemplatepath,
 				    array(
@@ -454,6 +455,7 @@ class doc_generic_proposal_odt extends ModelePDFPropales
                     foreach ($object->lines as $line)
                     {
                         $tmparray=$this->get_substitutionarray_lines($line,$outputlangs);
+                        complete_substitutions_array($tmparray, $outputlangs, $object, $line, "completesubstitutionarray_lines");
                         foreach($tmparray as $key => $val)
                         {
                              try

@@ -4,11 +4,11 @@
  * Copyright (C) 2004      Benoit Mortier       <benoit.mortier@opensides.be>
  * Copyright (C) 2004      Eric Seigne          <eric.seigne@ryxeo.com>
  * Copyright (C) 2005-2012 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2005-2012 Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2005-2012 Regis Houssin        <regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -66,9 +66,6 @@ abstract class DolibarrModules
         $err=0;
 
         $this->db->begin();
-
-        // Insert line in module table
-        if (! $err) $err+=$this->_dbactive();
 
         // Insert activation module constant
         if (! $err) $err+=$this->_active();
@@ -160,9 +157,6 @@ abstract class DolibarrModules
         $err=0;
 
         $this->db->begin();
-
-        // Remove line in activation module (entry in table llx_dolibarr_modules)
-        if (! $err) $err+=$this->_dbunactive();
 
         // Remove activation module line (constant MAIN_MODULE_MYMODULE in llx_const)
         if (! $err) $err+=$this->_unactive();
@@ -346,69 +340,6 @@ abstract class DolibarrModules
         }
     }
 
-    /**
-     *  Insert line in dolibarr_modules table.
-     *  Storage is made for information only, table is not required for Dolibarr usage
-     *
-     *  @return     int     Nb of errors (0 if OK)
-     */
-    function _dbactive()
-    {
-        global $conf;
-
-        $err = 0;
-
-        $sql = "DELETE FROM ".MAIN_DB_PREFIX."dolibarr_modules";
-        $sql.= " WHERE numero = ".$this->numero;
-        $sql.= " AND entity = ".$conf->entity;
-
-        dol_syslog(get_class($this)."::_dbactive sql=".$sql, LOG_DEBUG);
-        $this->db->query($sql);
-
-        $sql = "INSERT INTO ".MAIN_DB_PREFIX."dolibarr_modules (";
-        $sql.= "numero";
-        $sql.= ", entity";
-        $sql.= ", active";
-        $sql.= ", active_date";
-        $sql.= ", active_version";
-        $sql.= ")";
-        $sql.= " VALUES (";
-        $sql.= $this->numero;
-        $sql.= ", ".$conf->entity;
-        $sql.= ", 1";
-        $sql.= ", '".$this->db->idate(dol_now())."'";
-        $sql.= ", '".$this->version."'";
-        $sql.= ")";
-
-        dol_syslog(get_class($this)."::_dbactive sql=".$sql, LOG_DEBUG);
-        $this->db->query($sql);
-
-        return $err;
-    }
-
-
-    /**
-     *  Remove line in dolibarr_modules table
-     *  Storage is made for information only, table is not required for Dolibarr usage
-     *
-     *  @return     int     Nb of errors (0 if OK)
-     */
-    function _dbunactive()
-    {
-        global $conf;
-
-        $err = 0;
-
-        $sql = "DELETE FROM ".MAIN_DB_PREFIX."dolibarr_modules";
-        $sql.= " WHERE numero = ".$this->numero;
-        $sql.= " AND entity IN (0, ".$conf->entity.")";
-
-        dol_syslog(get_class($this)."::_dbunactive sql=".$sql, LOG_DEBUG);
-        $this->db->query($sql);
-
-        return $err;
-    }
-
 
     /**
      *      Insert constant to activate module
@@ -484,8 +415,11 @@ abstract class DolibarrModules
         global $db,$conf;
 
         $error=0;
+		$dirfound=0;
 
-        include_once(DOL_DOCUMENT_ROOT ."/core/lib/admin.lib.php");
+		if (empty($reldir)) return 1;
+
+        include_once DOL_DOCUMENT_ROOT .'/core/lib/admin.lib.php';
 
         $ok = 1;
         foreach($conf->file->dol_document_root as $dirroot)
@@ -495,11 +429,13 @@ abstract class DolibarrModules
                 $dir = $dirroot.$reldir;
                 $ok = 0;
 
-                // Run llx_mytable.sql files
                 $handle=@opendir($dir);         // Dir may not exists
                 if (is_resource($handle))
                 {
-                    while (($file = readdir($handle))!==false)
+                	$dirfound++;
+                	
+	                // Run llx_mytable.sql files
+                	while (($file = readdir($handle))!==false)
                     {
                         if (preg_match('/\.sql$/i',$file) && ! preg_match('/\.key\.sql$/i',$file) && substr($file,0,4) == 'llx_' && substr($file,0,4) != 'data')
                         {
@@ -507,14 +443,11 @@ abstract class DolibarrModules
                             if ($result <= 0) $error++;
                         }
                     }
-                    closedir($handle);
-                }
+                    
+                    rewinddir($handle);
 
-                // Run llx_mytable.key.sql files (Must be done after llx_mytable.sql)
-                $handle=@opendir($dir);         // Dir may not exist
-                if (is_resource($handle))
-                {
-                    while (($file = readdir($handle))!==false)
+	                // Run llx_mytable.key.sql files (Must be done after llx_mytable.sql)
+                	while (($file = readdir($handle))!==false)
                     {
                         if (preg_match('/\.key\.sql$/i',$file) && substr($file,0,4) == 'llx_' && substr($file,0,4) != 'data')
                         {
@@ -522,14 +455,11 @@ abstract class DolibarrModules
                             if ($result <= 0) $error++;
                         }
                     }
-                    closedir($handle);
-                }
 
-                // Run data_xxx.sql files (Must be done after llx_mytable.key.sql)
-                $handle=@opendir($dir);         // Dir may not exist
-                if (is_resource($handle))
-                {
-                    while (($file = readdir($handle))!==false)
+                    rewinddir($handle);
+                    
+                    // Run data_xxx.sql files (Must be done after llx_mytable.key.sql)
+                	while (($file = readdir($handle))!==false)
                     {
                         if (preg_match('/\.sql$/i',$file) && ! preg_match('/\.key\.sql$/i',$file) && substr($file,0,4) == 'data')
                         {
@@ -537,14 +467,11 @@ abstract class DolibarrModules
                             if ($result <= 0) $error++;
                         }
                     }
-                    closedir($handle);
-                }
-
-                // Run update_xxx.sql files
-                $handle=@opendir($dir);         // Dir may not exist
-                if (is_resource($handle))
-                {
-                    while (($file = readdir($handle))!==false)
+                    
+                    rewinddir($handle);
+                    
+                    // Run update_xxx.sql files
+                	while (($file = readdir($handle))!==false)
                     {
                         if (preg_match('/\.sql$/i',$file) && ! preg_match('/\.key\.sql$/i',$file) && substr($file,0,6) == 'update')
                         {
@@ -552,6 +479,7 @@ abstract class DolibarrModules
                             if ($result <= 0) $error++;
                         }
                     }
+                    
                     closedir($handle);
                 }
 
@@ -562,6 +490,7 @@ abstract class DolibarrModules
             }
         }
 
+        if (! $dirfound) dol_syslog("A module ask to load sql files into ".$reldir." but this directory was not found.", LOG_WARNING);
         return $ok;
     }
 
@@ -615,8 +544,8 @@ abstract class DolibarrModules
                         {
                             $lastid=$this->db->last_insert_id(MAIN_DB_PREFIX."boxes_def","rowid");
 
-                            $sql = "INSERT INTO ".MAIN_DB_PREFIX."boxes (box_id,position,box_order,fk_user)";
-                            $sql.= " VALUES (".$lastid.", 0, '0', 0)";
+                            $sql = "INSERT INTO ".MAIN_DB_PREFIX."boxes (box_id,position,box_order,fk_user,entity)";
+                            $sql.= " VALUES (".$lastid.", 0, '0', 0, ".$conf->entity.")";
 
                             dol_syslog(get_class($this)."::insert_boxes sql=".$sql);
                             $resql=$this->db->query($sql);
@@ -671,7 +600,7 @@ abstract class DolibarrModules
                 $sql.= " USING ".MAIN_DB_PREFIX."boxes, ".MAIN_DB_PREFIX."boxes_def";
                 $sql.= " WHERE ".MAIN_DB_PREFIX."boxes.box_id = ".MAIN_DB_PREFIX."boxes_def.rowid";
                 $sql.= " AND ".MAIN_DB_PREFIX."boxes_def.file = '".$this->db->escape($file)."'";
-                $sql.= " AND ".MAIN_DB_PREFIX."boxes_def.entity = ".$conf->entity;
+                $sql.= " AND ".MAIN_DB_PREFIX."boxes.entity = ".$conf->entity;
 
                 dol_syslog(get_class($this)."::delete_boxes sql=".$sql);
                 $resql=$this->db->query($sql);
@@ -903,7 +832,7 @@ abstract class DolibarrModules
         if ($resql)
         {
             $obj=$this->db->fetch_object($resql);
-            if ($obj->value)
+            if (! empty($obj->value) && ! empty($this->rights))
             {
                 // Si module actif
                 foreach ($this->rights as $key => $value)
@@ -961,7 +890,9 @@ abstract class DolibarrModules
                     // If we want to init permissions on admin users
                     if ($reinitadminperms)
                     {
-                        include_once(DOL_DOCUMENT_ROOT.'/user/class/user.class.php');
+                    	if (! class_exists('User')) {
+                    		require DOL_DOCUMENT_ROOT.'/user/class/user.class.php';
+                    	}
                         $sql="SELECT rowid FROM ".MAIN_DB_PREFIX."user WHERE admin = 1";
                         dol_syslog(get_class($this)."::insert_permissions Search all admin users sql=".$sql);
                         $resqlseladmin=$this->db->query($sql,1);
@@ -975,7 +906,9 @@ abstract class DolibarrModules
                                 dol_syslog(get_class($this)."::insert_permissions Add permission to user id=".$obj2->rowid);
                                 $tmpuser=new User($this->db);
                                 $tmpuser->fetch($obj2->rowid);
-                                $tmpuser->addrights($r_id);
+                                if (!empty($tmpuser->id)) {
+                                	$tmpuser->addrights($r_id);
+                                }
                                 $i++;
                             }
                             if (! empty($user->admin))  // Reload permission for current user if defined
@@ -1037,7 +970,7 @@ abstract class DolibarrModules
     {
     	global $user;
 
-        require_once(DOL_DOCUMENT_ROOT."/core/class/menubase.class.php");
+        require_once DOL_DOCUMENT_ROOT.'/core/class/menubase.class.php';
 
         $err=0;
 
@@ -1170,7 +1103,7 @@ abstract class DolibarrModules
 
         $err=0;
 
-        if (is_array($this->dirs))
+        if (isset($this->dirs) && is_array($this->dirs))
         {
             foreach ($this->dirs as $key => $value)
             {
@@ -1184,19 +1117,19 @@ abstract class DolibarrModules
                     $subname   = empty($this->dirs[$key][3])?'':strtoupper($this->dirs[$key][3]); // Add submodule name (ex: $conf->module->submodule->dir_output)
                     $forcename = empty($this->dirs[$key][4])?'':strtoupper($this->dirs[$key][4]); // Change the module name if different
 
-                    if ($forcename) $constname = 'MAIN_MODULE_'.$forcename."_DIR_";
-                    if ($subname)   $constname = $constname.$subname."_";
+                    if (! empty($forcename)) $constname = 'MAIN_MODULE_'.$forcename."_DIR_";
+                    if (! empty($subname))   $constname = $constname.$subname."_";
 
-                    $name      = $constname.strtoupper($this->dirs[$key][0]);
+                    $name = $constname.strtoupper($this->dirs[$key][0]);
                 }
 
                 // Define directory full path ($dir must start with "/")
                 if (empty($conf->global->MAIN_MODULE_MULTICOMPANY) || $conf->entity == 1) $fulldir = DOL_DATA_ROOT.$dir;
                 else $fulldir = DOL_DATA_ROOT."/".$conf->entity.$dir;
                 // Create dir if it does not exists
-                if ($fulldir && ! file_exists($fulldir))
+                if (! empty($fulldir) && ! file_exists($fulldir))
                 {
-                    if (dol_mkdir($fulldir) < 0)
+                    if (dol_mkdir($fulldir, DOL_DATA_ROOT) < 0)
                     {
                         $this->error = $langs->trans("ErrorCanNotCreateDir",$fulldir);
                         dol_syslog(get_class($this)."::_init ".$this->error, LOG_ERR);
@@ -1205,9 +1138,9 @@ abstract class DolibarrModules
                 }
 
                 // Define the constant in database if requested (not the default mode)
-                if ($addtodatabase)
+                if (! empty($addtodatabase))
                 {
-                    $result = $this->insert_dirs($name,$dir);
+                    $result = $this->insert_dirs($name, $dir);
                     if ($result) $err++;
                 }
             }
@@ -1273,7 +1206,7 @@ abstract class DolibarrModules
         $err=0;
 
         $sql = "DELETE FROM ".MAIN_DB_PREFIX."const";
-        $sql.= " WHERE ".$this->db->decrypt('name')." like '".$this->const_name."_DIR_%'";
+        $sql.= " WHERE ".$this->db->decrypt('name')." LIKE '".$this->const_name."_DIR_%'";
         $sql.= " AND entity = ".$conf->entity;
 
         dol_syslog(get_class($this)."::delete_dirs sql=".$sql);
@@ -1289,6 +1222,20 @@ abstract class DolibarrModules
 
     /**
      * Insert activation of generic parts from modules in llx_const
+	 * Input entry use $this->module_parts = array(
+	 *                        	'triggers' => 0,                                 // Set this to 1 if module has its own trigger directory (core/triggers)
+	 *							'login' => 0,                                    // Set this to 1 if module has its own login method directory (core/login)
+	 *							'substitutions' => 0,                            // Set this to 1 if module has its own substitution function file (core/substitutions)
+	 *							'menus' => 0,                                    // Set this to 1 if module has its own menus handler directory (core/menus)
+	 *							'theme' => 0,                                    // Set this to 1 if module has its own theme directory (core/theme)
+	 *                        	'tpl' => 0,                                      // Set this to 1 if module overwrite template dir (core/tpl)
+	 *							'barcode' => 0,                                  // Set this to 1 if module has its own barcode directory (core/modules/barcode)
+	 *							'models' => 0,                                   // Set this to 1 if module has its own models directory (core/modules/xxx)
+	 *							'css' => '/mymodule/css/mymodule.css.php',       // Set this to relative path of css file if module has its own css file
+	 *							'js' => '/mymodule/js/mymodule.js',              // Set this to relative path of js file if module must load a js on all pages
+	 *							'hooks' => array('hookcontext1','hookcontext2')  // Set here all hooks context managed by module
+	 *							'workflow' => array('WORKFLOW_MODULE1_YOURACTIONTYPE_MODULE2'=>array('enabled'=>'! empty($conf->module1->enabled) && ! empty($conf->module2->enabled)', 'picto'=>'yourpicto@mymodule') // Set here all workflow context managed by module
+	 * )
      *
      * @return     int     Nb of errors (0 if OK)
      */

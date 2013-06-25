@@ -1,4 +1,4 @@
-# Dolibarr language file - ca_ES - main
+# Dolibarr language file - ca_ES - main 
 CHARSET=UTF-8
 DIRECTION=ltr
 SeparatorDecimal=,
@@ -14,6 +14,8 @@ FormatDateHourShort=%d/%m/%Y %H:%M
 FormatDateHourTextShort=%d %b %Y %H:%M
 FormatDateHourText=%d %B %Y %H:%M
 DatabaseConnection=Connexió a la base de dades
+NoTranslation=Sense traducció
+NoRecordFound=No s'han trobat registres
 NoError=Cap error
 Error=Error
 ErrorFieldRequired=El camp '%s' és obligatori
@@ -132,6 +134,7 @@ ToClone=Copiar
 ConfirmClone=Seleccions dades que voleu copiar.
 NoCloneOptionsSpecified=no hi ha dades definits per copiar
 Of=de
+Go=Anar
 CopyOf=Còpia de
 Show=Veure
 ShowCardHere=Veure la fitxa aquí
@@ -247,6 +250,7 @@ Quadri=Trimistre
 MonthOfDay=Mes del dia
 HourShort=H
 Rate=Tipus
+UseLocalTax=Incloure taxes
 Bytes=Bytes
 KiloBytes=Kilobytes
 MegaBytes=Megabytes
@@ -622,7 +626,12 @@ ByDay=Per dia
 BySalesRepresentative=Per comercial
 LinkedToSpecificUsers=Enllaçat a un contacte d'usuari particular
 DeleteAFile=Eliminació d'arxiu
-ConfirmDeleteAFile=Confirma l'eliminació de l'arxiu
+ConfirmDeleteAFile=Confirme l'eliminació de l'arxiu
+NoResults=Cap resultat
+ModulesSystemTools=Mòduls utilitats
+View=Veure
+Test=Prova
+Element=Element
 
 # Week day
 Monday=Dilluns

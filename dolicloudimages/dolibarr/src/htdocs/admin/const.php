@@ -1,11 +1,11 @@
 <?php
 /* Copyright (C) 2003		Rodolphe Quiedeville	<rodolphe@quiedeville.org>
- * Copyright (C) 2004-2011	Laurent Destailleur		<eldy@users.sourceforge.net>
- * Copyright (C) 2005-2012	Regis Houssin			<regis@dolibarr.fr>
+ * Copyright (C) 2004-2013	Laurent Destailleur		<eldy@users.sourceforge.net>
+ * Copyright (C) 2005-2012	Regis Houssin			<regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -23,17 +23,29 @@
  *	\brief      Admin page to define miscellaneous constants
  */
 
-require("../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
+require '../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
 
 $langs->load("admin");
 
-if (! $user->admin) accessforbidden();
+if (! $user->admin)
+	accessforbidden();
 
-$action = GETPOST('action');
-$debug = GETPOST('debug');
+$rowid=GETPOST('rowid','int');
+$entity=GETPOST('entity','int');
+$action=GETPOST('action','alpha');
+$update=GETPOST('update','alpha');
+$delete=GETPOST('delete');	// Do not use alpha here
+$debug=GETPOST('debug','int');
+$consts=GETPOST('const');
+$constname=GETPOST('constname','alpha');
+$constvalue=GETPOST('constvalue');
+$constnote=GETPOST('constnote','alpha');
+$consttype=(GETPOST('consttype','alpha')?GETPOST('consttype','alpha'):'chaine');
 
-$typeconst=array('yesno','texte','chaine');
+$typeconst=array('yesno' => 'yesno', 'texte' => 'texte', 'chaine' => 'chaine');
+$mesg='';
+
 
 
 /*
@@ -44,12 +56,12 @@ if ($action == 'add')
 {
 	$error=0;
 
-	if (empty($_POST["constname"]))
+	if (empty($constname))
 	{
 		$mesg='<div class="error">'.$langs->trans("ErrorFieldRequired",$langs->transnoentitiesnoconv("Name")).'</div>';
 		$error++;
 	}
-	if ($_POST["constvalue"]=='')
+	if ($constvalue == '')
 	{
 		$mesg='<div class="error">'.$langs->trans("ErrorFieldRequired",$langs->transnoentitiesnoconv("Value")).'</div>';
 		$error++;
@@ -57,46 +69,70 @@ if ($action == 'add')
 
 	if (! $error)
 	{
-		if (dolibarr_set_const($db, $_POST["constname"],$_POST["constvalue"],$typeconst[$_POST["consttype"]],1,isset($_POST["constnote"])?$_POST["constnote"]:'',$_POST["entity"]) < 0)
+		if (dolibarr_set_const($db, $constname, $constvalue, $typeconst[$consttype], 1, $constnote, $entity) >= 0)
+		{
+			setEventMessage($langs->trans("RecordSaved"));
+		}
+		else
 		{
 			dol_print_error($db);
 		}
 	}
 }
 
-if (($_POST["const"] && isset($_POST["update"]) && $_POST["update"] == $langs->trans("Modify")))
+// Mass update
+if (! empty($consts) && $action == 'update')
 {
-	foreach($_POST["const"] as $const)
+	$nbmodified=0;
+	foreach($consts as $const)
 	{
-		if ($const["check"])
+		if (! empty($const["check"]))
 		{
-			if (dolibarr_set_const($db, $const["name"],$const["value"],$const["type"],1,$const["note"],$const["entity"]) < 0)
+			if (dolibarr_set_const($db, $const["name"], $const["value"], $const["type"], 1, $const["note"], $const["entity"]) >= 0)
+			{
+				$nbmodified++;
+			}
+			else
 			{
 				dol_print_error($db);
 			}
 		}
 	}
+	if ($nbmodified > 0) setEventMessage($langs->trans("RecordSaved"));
+	$action='';
 }
 
-// Delete several lines at once
-if ($_POST["const"] && $_POST["delete"] && $_POST["delete"] == $langs->trans("Delete"))
+// Mass delete
+if (! empty($consts) && $action == 'delete')
 {
-	foreach($_POST["const"] as $const)
+
+	$nbdeleted=0;
+	foreach($consts as $const)
 	{
-		if ($const["check"])	// Is checkbox checked
+		if (! empty($const["check"]))	// Is checkbox checked
 		{
-			if (dolibarr_del_const($db, $const["rowid"], -1) < 0)
+			if (dolibarr_del_const($db, $const["rowid"], -1) >= 0)
+			{
+				$nbdeleted++;
+			}
+			else
 			{
 				dol_print_error($db);
 			}
 		}
 	}
+	if ($nbdeleted > 0) setEventMessage($langs->trans("RecordDeleted"));
+	$action='';
 }
 
 // Delete line from delete picto
 if ($action == 'delete')
 {
-	if (dolibarr_del_const($db, $_GET["rowid"], $_GET["entity"]) < 0)
+	if (dolibarr_del_const($db, $rowid, $entity) >= 0)
+	{
+		setEventMessage($langs->trans("RecordDeleted"));
+	}
+	else
 	{
 		dol_print_error($db);
 	}
@@ -119,11 +155,13 @@ jQuery(document).ready(function() {
 	jQuery("#delconst").hide();
 	jQuery(".checkboxfordelete").click(function() {
 		jQuery("#delconst").show();
+		jQuery("#action").val('delete');
 	});
-	jQuery(".inputforupdate").keypress(function() {
+	jQuery(".inputforupdate").keyup(function() {	// keypress does not support back
 		var field_id = jQuery(this).attr("id");
 		var row_num = field_id.split("_");
 		jQuery("#updateconst").show();
+		jQuery("#action").val('update');
 		jQuery("#check_" + row_num[1]).attr("checked",true);
 	});
 });
@@ -136,7 +174,7 @@ print_fiche_titre($langs->trans("OtherSetup"),'','setup');
 print $langs->trans("ConstDesc")."<br>\n";
 print "<br>\n";
 
-if ($mesg) print $mesg;
+dol_htmloutput_mesg($mesg);
 
 print '<table class="noborder" width="100%">';
 print '<tr class="liste_titre">';
@@ -185,6 +223,7 @@ print "\n";
 
 print '<form action="'.$_SERVER["PHP_SELF"].((empty($user->entity) && $debug)?'?debug=1':'').'" method="POST">';
 print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
+print '<input type="hidden" id="action" name="action" value="">';
 
 // Show constants
 $sql = "SELECT";

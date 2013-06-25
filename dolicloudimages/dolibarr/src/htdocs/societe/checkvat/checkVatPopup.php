@@ -3,7 +3,7 @@
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -22,8 +22,8 @@
  */
 
 require ("../../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/company.lib.php");
-require_once(NUSOAP_PATH.'/nusoap.php');
+require_once DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php';
+require_once NUSOAP_PATH.'/nusoap.php';
 
 $langs->load("companies");
 
@@ -61,7 +61,7 @@ else
 
 	// Set the WebService URL
 	dol_syslog("Create nusoap_client for URL=".$WS_DOL_URL." WSDL=".$WS_DOL_URL_WSDL);
-    require_once(DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php');
+    require_once DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php';
     $params=getSoapParams();
     //ini_set('default_socket_timeout', $params['response_timeout']);
     //$soapclient = new SoapClient($WS_DOL_URL_WSDL,$params);

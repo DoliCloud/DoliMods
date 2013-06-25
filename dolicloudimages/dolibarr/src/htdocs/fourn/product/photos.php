@@ -4,7 +4,7 @@
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -22,8 +22,8 @@
  *  \brief      Page de la fiche produit
  */
 
-require("../../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/product/class/product.class.php");
+require '../../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
 
 $id = GETPOST('id', 'int');
 
@@ -70,7 +70,7 @@ if ($id)
 		$h++;
 
 
-		if ($conf->stock->enabled)
+		if (! empty($conf->stock->enabled))
 		{
 	  $head[$h][0] = DOL_URL_ROOT."/product/stock/product.php?id=".$object->id;
 	  $head[$h][1] = $langs->trans("Stock");
@@ -83,7 +83,7 @@ if ($id)
 		$h++;
 
 		//Affichage onglet Categories
-		if ($conf->categorie->enabled){
+		if (! empty($conf->categorie->enabled)){
 			$head[$h][0] = DOL_URL_ROOT."/fourn/product/categorie.php?id=".$object->id;
 			$head[$h][1] = $langs->trans('Categories');
 			$h++;

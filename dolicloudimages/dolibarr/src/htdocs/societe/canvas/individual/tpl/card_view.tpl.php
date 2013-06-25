@@ -1,9 +1,9 @@
 <?php
-/* Copyright (C) 2010-2011 Regis Houssin <regis@dolibarr.fr>
+/* Copyright (C) 2010-2011 Regis Houssin <regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -68,7 +68,7 @@ dol_fiche_head($head, 'card', $langs->trans("ThirdParty"),0,'company');
 </tr>
 <?php } ?>
 
-<?php if ($conf->global->MAIN_MODULE_BARCODE) { ?>
+<?php if (! empty($conf->barcode->enabled)) { ?>
 <tr>
 	<td><?php echo $langs->trans('Gencod'); ?></td>
 	<td colspan="3"><?php echo $this->control->tpl['barcode']; ?></td>
@@ -123,7 +123,7 @@ dol_fiche_head($head, 'card', $langs->trans("ThirdParty"),0,'company');
 	<td colspan="3"><?php echo $this->control->tpl['typent']; ?></td>
 </tr>
 
-<?php if ($conf->global->MAIN_MULTILANGS) { ?>
+<?php if (! empty($conf->global->MAIN_MULTILANGS)) { ?>
 <tr>
 	<td><?php echo $langs->trans("DefaultLang"); ?></td>
 	<td colspan="3"><?php echo $this->control->tpl['default_lang']; ?></td>
@@ -166,7 +166,7 @@ dol_fiche_head($head, 'card', $langs->trans("ThirdParty"),0,'company');
 	<td colspan="3"><?php echo $this->control->tpl['sales_representatives'];	?></td>
 </tr>
 
-<?php if ($conf->adherent->enabled) { ?>
+<?php if (! empty($conf->adherent->enabled)) { ?>
 <tr>
 	<td width="25%" valign="top"><?php echo $langs->trans("LinkedToDolibarrMember"); ?></td>
 	<td colspan="3"><?php echo $this->control->tpl['linked_member']; ?></td>

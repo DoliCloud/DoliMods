@@ -1,11 +1,11 @@
 <?php
 /* Copyright (C) 2005      Patrick Rouillon     <patrick@rouillon.net>
  * Copyright (C) 2005-2011 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2005-2012 Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2005-2012 Regis Houssin        <regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -23,12 +23,12 @@
  *     \brief      Onglet de gestion des contacts de expedition
  */
 
-require("../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/expedition/class/expedition.class.php");
-require_once(DOL_DOCUMENT_ROOT."/contact/class/contact.class.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/sendings.lib.php");
-require_once(DOL_DOCUMENT_ROOT."/core/class/html.formother.class.php");
-require_once(DOL_DOCUMENT_ROOT.'/core/class/html.formcompany.class.php');
+require '../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/expedition/class/expedition.class.php';
+require_once DOL_DOCUMENT_ROOT.'/contact/class/contact.class.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/sendings.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/core/class/html.formother.class.php';
+require_once DOL_DOCUMENT_ROOT.'/core/class/html.formcompany.class.php';
 
 $langs->load("orders");
 $langs->load("sendings");
@@ -46,6 +46,7 @@ $object = new Expedition($db);
 if ($id > 0 || ! empty($ref))
 {
     $object->fetch($id, $ref);
+    $object->fetch_thirdparty();
 
     if (!empty($object->origin))
     {
@@ -55,12 +56,12 @@ if ($id > 0 || ! empty($ref))
     }
 
     // Linked documents
-    if ($typeobject == 'commande' && $object->$typeobject->id && $conf->commande->enabled)
+    if ($typeobject == 'commande' && $object->$typeobject->id && ! empty($conf->commande->enabled))
     {
         $objectsrc=new Commande($db);
         $objectsrc->fetch($object->$typeobject->id);
     }
-    if ($typeobject == 'propal' && $object->$typeobject->id && $conf->propal->enabled)
+    if ($typeobject == 'propal' && $object->$typeobject->id && ! empty($conf->propal->enabled))
     {
         $objectsrc=new Propal($db);
         $objectsrc->fetch($object->$typeobject->id);
@@ -81,7 +82,7 @@ if ($action == 'addcontact' && $user->rights->expedition->creer)
 
 	if ($result >= 0)
 	{
-		Header("Location: ".$_SERVER['PHP_SELF']."?id=".$object->id);
+		header("Location: ".$_SERVER['PHP_SELF']."?id=".$object->id);
 		exit;
 	}
 	else
@@ -111,7 +112,7 @@ else if ($action == 'deleteline' && $user->rights->expedition->creer)
 
 	if ($result >= 0)
 	{
-		Header("Location: ".$_SERVER['PHP_SELF']."?id=".$object->id);
+		header("Location: ".$_SERVER['PHP_SELF']."?id=".$object->id);
 		exit;
 	}
 	else {
@@ -151,32 +152,29 @@ if ($id > 0 || ! empty($ref))
 {
 	$langs->trans("OrderCard");
 
-	$soc = new Societe($db);
-	$soc->fetch($object->socid);
-
-
 	$head = shipping_prepare_head($object);
 	dol_fiche_head($head, 'contact', $langs->trans("Sending"), 0, 'sending');
 
-	if (is_null($object->client))	$object->fetch_thirdparty();
 
    /*
 	*   Facture synthese pour rappel
 	*/
 	print '<table class="border" width="100%">';
 
+	$linkback = '<a href="'.DOL_URL_ROOT.'/expedition/liste.php">'.$langs->trans("BackToList").'</a>';
+
 	// Ref
 	print '<tr><td width="18%">'.$langs->trans("Ref").'</td><td colspan="3">';
-	print $form->showrefnav($object,'ref','',1,'ref','ref');
+	print $form->showrefnav($object, 'ref', $linkback, 1, 'ref', 'ref');
 	print "</td></tr>";
 
 	// Customer
 	print '<tr><td width="20%">'.$langs->trans("Customer").'</td>';
-	print '<td colspan="3">'.$soc->getNomUrl(1).'</td>';
+	print '<td colspan="3">'.$object->thirdparty->getNomUrl(1).'</td>';
 	print "</tr>";
 
 	// Linked documents
-	if ($typeobject == 'commande' && $object->$typeobject->id && $conf->commande->enabled)
+	if ($typeobject == 'commande' && $object->$typeobject->id && ! empty($conf->commande->enabled))
 	{
 		print '<tr><td>';
 		$objectsrc=new Commande($db);
@@ -187,7 +185,7 @@ if ($id > 0 || ! empty($ref))
 		print "</td>\n";
 		print '</tr>';
 	}
-	if ($typeobject == 'propal' && $object->$typeobject->id && $conf->propal->enabled)
+	if ($typeobject == 'propal' && $object->$typeobject->id && ! empty($conf->propal->enabled))
 	{
 		print '<tr><td>';
 		$objectsrc=new Propal($db);
@@ -209,19 +207,19 @@ if ($id > 0 || ! empty($ref))
 	print $objectsrc->ref_client;
 	print '</td>';
 	print '</tr>';
-	
+
 	// Delivery address
-	if ($conf->global->SOCIETE_ADDRESSES_MANAGEMENT)
+	if (! empty($conf->global->SOCIETE_ADDRESSES_MANAGEMENT))
 	{
 		print '<tr><td>';
 		print '<table class="nobordernopadding" width="100%"><tr><td>';
 		print $langs->trans('DeliveryAddress');
 		print '</td>';
-	
+
 		if ($action != 'editdelivery_address' && $object->brouillon) print '<td align="right"><a href="'.$_SERVER["PHP_SELF"].'?action=editdelivery_address&amp;socid='.$object->socid.'&amp;id='.$object->id.'">'.img_edit($langs->transnoentitiesnoconv('SetDeliveryAddress'),1).'</a></td>';
 		print '</tr></table>';
 		print '</td><td colspan="3">';
-	
+
 		if ($action == 'editdelivery_address')
 		{
 			$formother->form_address($_SERVER['PHP_SELF'].'?id='.$object->id,$object->fk_delivery_address,$object->socid,'fk_address','shipping',$object->id);
@@ -274,8 +272,7 @@ if ($id > 0 || ! empty($ref))
 		print '</td>';
 
 		print '<td colspan="1">';
-		//$userAlreadySelected = $object->getListContactId('internal');	// On ne doit pas desactiver un contact deja selectionne car on doit pouvoir le selectionner une deuxieme fois pour un autre type
-		$form->select_users($user->id,'contactid',0,$userAlreadySelected);
+		$form->select_users($user->id,'contactid');
 		print '</td>';
 		print '<td>';
 		$formcompany->selectTypeContact($objectsrc, '', 'type','internal');

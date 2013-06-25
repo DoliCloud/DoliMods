@@ -4,7 +4,7 @@
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -34,12 +34,12 @@ class Auth
 	/**
 	 * Enter description here ...
 	 *
-	 * @param	DoliDB	$DB			Database handler
+	 * @param	DoliDB	$db			Database handler
 	 * @return	void
 	 */
-	function Auth($DB)
+	function __construct($db)
 	{
-		$this->db = $DB;
+		$this->db = $db;
 		$this->reponse(null);
 	}
 
@@ -102,7 +102,7 @@ class Auth
         $authmode=explode(',',$dolibarr_main_authentication);
 
         // No authentication mode
-        if (! count($authmode) && empty($conf->login_modules))
+        if (! count($authmode))
         {
             $langs->load('main');
             dol_print_error('',$langs->trans("ErrorConfigParameterNotDefined",'dolibarr_main_authentication'));
@@ -122,7 +122,7 @@ class Auth
 
         if ($test && $goontestloop)
         {
-            include_once(DOL_DOCUMENT_ROOT.'/core/lib/security2.lib.php');
+            include_once DOL_DOCUMENT_ROOT.'/core/lib/security2.lib.php';
 			$login = checkLoginPassEntity($usertotest,$passwordtotest,$entitytotest,$authmode);
             if ($login)
             {

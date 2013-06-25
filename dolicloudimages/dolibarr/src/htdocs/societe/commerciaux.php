@@ -1,11 +1,11 @@
 <?php
 /* Copyright (C) 2005 		Rodolphe Quiedeville <rodolphe@quiedeville.org>
  * Copyright (C) 2010 		Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2010-2011 	Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2010-2011 	Regis Houssin        <regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -23,8 +23,8 @@
  *  \brief      Page of links to sales representatives
  */
 
-require("../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/company.lib.php");
+require '../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php';
 
 $langs->load("companies");
 $langs->load("commercial");
@@ -51,12 +51,12 @@ if($_GET["socid"] && $_GET["commid"])
 		$soc->fetch($_GET["socid"]);
 		$soc->add_commercial($user, $_GET["commid"]);
 
-		Header("Location: commerciaux.php?socid=".$soc->id);
+		header("Location: commerciaux.php?socid=".$soc->id);
 		exit;
 	}
 	else
 	{
-		Header("Location: commerciaux.php?socid=".$_GET["socid"]);
+		header("Location: commerciaux.php?socid=".$_GET["socid"]);
 		exit;
 	}
 }
@@ -70,12 +70,12 @@ if($_GET["socid"] && $_GET["delcommid"])
 		$soc->fetch($_GET["socid"]);
 		$soc->del_commercial($user, $_GET["delcommid"]);
 
-		Header("Location: commerciaux.php?socid=".$soc->id);
+		header("Location: commerciaux.php?socid=".$soc->id);
 		exit;
 	}
 	else
 	{
-		Header("Location: commerciaux.php?socid=".$_GET["socid"]);
+		header("Location: commerciaux.php?socid=".$_GET["socid"]);
 		exit;
 	}
 }

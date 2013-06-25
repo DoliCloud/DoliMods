@@ -2,8 +2,8 @@
 CHARSET=UTF-8
 Category=Categoría
 Categories=Categorías
-Rubrique=Directorio
-Rubriques=Directorios
+Rubrique=Categoría
+Rubriques=Categorías
 categories=categoría(s)
 TheCategorie=La categoría
 NoCategoryYet=Ninguna categoría de este tipo creada
@@ -42,7 +42,7 @@ ErrCatAlreadyExists=Este nombre esta siendo utilizado
 AddProductToCat=¿Añadir este producto a una categoría?
 ImpossibleAddCat=Imposible añadir la categoría
 ImpossibleAssociateCategory=Imposible asociar la categoría
-WasAddedSuccessfully=se ha añadido con éxito.
+WasAddedSuccessfully=La categoría se ha añadido con éxito.
 ObjectAlreadyLinkedToCategory=El elemento ya está enlazado a esta categoría
 CategorySuccessfullyCreated=La categoría %s se insertado correctamente.
 ProductIsInCategories=Este producto/servicio se encuentra en las siguientes categorías
@@ -91,3 +91,7 @@ CatSupList=Listado categorías de proveedores
 CatCusList=Listado categorías de clientes/potenciales
 CatProdList=Listado categorías de productos
 CatMemberList=Listado categorías de miembros
+# Imports
+CatProdLinks=Productos
+CatCusLinks=Clientes/Clientes potenciales
+CatSupLinks=Proveedores

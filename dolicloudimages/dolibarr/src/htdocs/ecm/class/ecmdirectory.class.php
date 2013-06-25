@@ -1,10 +1,10 @@
 <?php
-/* Copyright (C) 2007-2010 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2008-2009 Regis Houssin        <regis@dolibarr.fr>
+/* Copyright (C) 2007-2012 Laurent Destailleur  <eldy@users.sourceforge.net>
+ * Copyright (C) 2008-2012 Regis Houssin        <regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -20,13 +20,11 @@
  *  \file       htdocs/ecm/class/ecmdirectory.class.php
  *  \ingroup    ecm
  *  \brief      This file is an example for a class file
- *  \author		Laurent Destailleur
  */
 
 /**
  *  \class      EcmDirectory
  *  \brief      Class to manage ECM directories
- *  \remarks	Initialy built by build_class_from_table on 2008-02-24 19:24
  */
 class EcmDirectory // extends CommonObject
 {
@@ -38,7 +36,7 @@ class EcmDirectory // extends CommonObject
 	var $label;
 	var $fk_parent;
 	var $description;
-	var $cachenbofdoc;
+	var $cachenbofdoc=-1;	// By default cache initialized with value 'not calculated'
 	var $date_c;
 	var $date_m;
 
@@ -53,7 +51,7 @@ class EcmDirectory // extends CommonObject
 	 *
 	 *  @param		DoliDB		$db      Database handler
 	 */
-	function EcmDirectory($db)
+	function __construct($db)
 	{
 		$this->db = $db;
 		return 1;
@@ -77,7 +75,6 @@ class EcmDirectory // extends CommonObject
 		$this->label=dol_sanitizeFileName(trim($this->label));
 		$this->fk_parent=trim($this->fk_parent);
 		$this->description=trim($this->description);
-		if (! $this->cachenbofdoc) $this->cachenbofdoc=0;
 		$this->date_c=$now;
 		$this->fk_user_c=$user->id;
 		if ($this->fk_parent <= 0) $this->fk_parent=0;
@@ -132,7 +129,7 @@ class EcmDirectory // extends CommonObject
 			$sql.= " '".$conf->entity."',";
 			$sql.= " '".$this->fk_parent."',";
 			$sql.= " '".$this->db->escape($this->description)."',";
-			$sql.= " ".($this->cachenbofdoc).",";
+			$sql.= " ".$this->cachenbofdoc.",";
 			$sql.= " '".$this->db->idate($this->date_c)."',";
 			$sql.= " '".$this->fk_user_c."'";
 			$sql.= ")";
@@ -147,7 +144,7 @@ class EcmDirectory // extends CommonObject
 				$result=dol_mkdir($dir);
 
 				// Appel des triggers
-				include_once(DOL_DOCUMENT_ROOT . "/core/class/interfaces.class.php");
+				include_once DOL_DOCUMENT_ROOT . '/core/class/interfaces.class.php';
 				$interface=new Interfaces($this->db);
 				$result=$interface->run_triggers('MYECMDIR_CREATE',$this,$user,$langs,$conf);
 				if ($result < 0) { $error++; $this->errors=$interface->errors; }
@@ -216,7 +213,7 @@ class EcmDirectory // extends CommonObject
 		if (! $error && ! $notrigger)
 		{
 			// Appel des triggers
-			include_once(DOL_DOCUMENT_ROOT . "/core/class/interfaces.class.php");
+			include_once DOL_DOCUMENT_ROOT . '/core/class/interfaces.class.php';
 			$interface=new Interfaces($this->db);
 			$result=$interface->run_triggers('MYECMDIR_MODIFY',$this,$user,$langs,$conf);
 			if ($result < 0) { $error++; $this->errors=$interface->errors; }
@@ -327,7 +324,7 @@ class EcmDirectory // extends CommonObject
 	function delete($user)
 	{
 		global $conf, $langs;
-        require_once(DOL_DOCUMENT_ROOT."/core/lib/files.lib.php");
+        require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 
 		$error=0;
 
@@ -368,7 +365,7 @@ class EcmDirectory // extends CommonObject
 		if (! $error)
 		{
 			// Appel des triggers
-			include_once(DOL_DOCUMENT_ROOT . "/core/class/interfaces.class.php");
+			include_once DOL_DOCUMENT_ROOT . '/core/class/interfaces.class.php';
 			$interface=new Interfaces($this->db);
 			$result=$interface->run_triggers('MYECMDIR_DELETE',$this,$user,$langs,$conf);
 			if ($result < 0) { $error++; $this->errors=$interface->errors; }
@@ -403,18 +400,19 @@ class EcmDirectory // extends CommonObject
 	 *  @param	int		$withpicto		0=Pas de picto, 1=Inclut le picto dans le lien, 2=Picto seul
 	 *  @param	string	$option			Sur quoi pointe le lien
 	 *  @param	int		$max			Max length
+	 *  @param	string	$more			Add more param on a link
 	 *  @return	string					Chaine avec URL
 	 */
-	function getNomUrl($withpicto=0,$option='',$max=0)
+	function getNomUrl($withpicto=0,$option='',$max=0,$more='')
 	{
 		global $langs;
 
 		$result='';
 
-		$lien = '<a href="'.DOL_URL_ROOT.'/ecm/docmine.php?section='.$this->id.'">';
-		if ($option == 'index') $lien = '<a href="'.DOL_URL_ROOT.'/ecm/index.php?section='.$this->id.'&amp;sectionexpand=true">';
-		if ($option == 'indexexpanded') $lien = '<a href="'.DOL_URL_ROOT.'/ecm/index.php?section='.$this->id.'&amp;sectionexpand=false">';
-		if ($option == 'indexnotexpanded') $lien = '<a href="'.DOL_URL_ROOT.'/ecm/index.php?section='.$this->id.'&amp;sectionexpand=true">';
+		$lien = '<a href="'.DOL_URL_ROOT.'/ecm/docmine.php?section='.$this->id.'"'.($more?' '.$more:'').'>';
+		if ($option == 'index') $lien = '<a href="'.DOL_URL_ROOT.'/ecm/index.php?section='.$this->id.'&amp;sectionexpand=true"'.($more?' '.$more:'').'>';
+		if ($option == 'indexexpanded') $lien = '<a href="'.DOL_URL_ROOT.'/ecm/index.php?section='.$this->id.'&amp;sectionexpand=false"'.($more?' '.$more:'').'>';
+		if ($option == 'indexnotexpanded') $lien = '<a href="'.DOL_URL_ROOT.'/ecm/index.php?section='.$this->id.'&amp;sectionexpand=true"'.($more?' '.$more:'').'>';
 		$lienfin='</a>';
 
 		//$picto=DOL_URL_ROOT.'/theme/common/treemenu/folder.gif';
@@ -481,13 +479,13 @@ class EcmDirectory // extends CommonObject
 
 		$this->motherof=array();
 
-		// Charge tableau des meres
+		// Load array[child]=parent
 		$sql = "SELECT fk_parent as id_parent, rowid as id_son";
 		$sql.= " FROM ".MAIN_DB_PREFIX."ecm_directories";
 		$sql.= " WHERE fk_parent != 0";
 		$sql.= " AND entity = ".$conf->entity;
 
-		dol_syslog(get_class($this)."::get_full_arbo sql=".$sql);
+		dol_syslog(get_class($this)."::load_motherof sql=".$sql);
 		$resql = $this->db->query($sql);
 		if ($resql)
 		{
@@ -528,7 +526,7 @@ class EcmDirectory // extends CommonObject
 	{
 		global $conf;
 
-		if (empty($force) && $this->full_arbo_loaded)
+		if (empty($force) && ! empty($this->full_arbo_loaded))
 		{
 			return $this->cats;
 		}
@@ -543,8 +541,7 @@ class EcmDirectory // extends CommonObject
 		$sql.= " c.date_c,";
 		$sql.= " u.login as login_c,";
 		$sql.= " ca.rowid as rowid_fille";
-		$sql.= " FROM ".MAIN_DB_PREFIX."user as u";
-		$sql.= ", ".MAIN_DB_PREFIX."ecm_directories as c";
+		$sql.= " FROM ".MAIN_DB_PREFIX."user as u, ".MAIN_DB_PREFIX."ecm_directories as c";
 		$sql.= " LEFT JOIN ".MAIN_DB_PREFIX."ecm_directories as ca";
 		$sql.= " ON c.rowid = ca.fk_parent";
 		$sql.= " WHERE c.fk_user_c = u.rowid";
@@ -560,7 +557,7 @@ class EcmDirectory // extends CommonObject
 			while ($obj = $this->db->fetch_object($resql))
 			{
 				$this->cats[$obj->rowid]['id'] = $obj->rowid;
-				$this->cats[$obj->rowid]['id_mere'] = $this->motherof[$obj->rowid];
+				$this->cats[$obj->rowid]['id_mere'] = (isset($this->motherof[$obj->rowid])?$this->motherof[$obj->rowid]:'');
 				$this->cats[$obj->rowid]['label'] = $obj->label;
 				$this->cats[$obj->rowid]['description'] = $obj->description;
 				$this->cats[$obj->rowid]['cachenbofdoc'] = $obj->cachenbofdoc;
@@ -568,9 +565,9 @@ class EcmDirectory // extends CommonObject
 				$this->cats[$obj->rowid]['fk_user_c'] = $obj->fk_user_c;
 				$this->cats[$obj->rowid]['login_c'] = $obj->login_c;
 
-				if ($obj->rowid_fille)
+				if (! empty($obj->rowid_fille))
 				{
-					if (is_array($this->cats[$obj->rowid]['id_children']))
+					if (isset($this->cats[$obj->rowid]['id_children']) && is_array($this->cats[$obj->rowid]['id_children']))
 					{
 						$newelempos=count($this->cats[$obj->rowid]['id_children']);
 						//print "this->cats[$i]['id_children'] est deja un tableau de $newelem elements<br>";
@@ -606,8 +603,8 @@ class EcmDirectory // extends CommonObject
 	}
 
 	/**
-	 *	Calcule les proprietes fullpath, fullrelativename, fulllabel d'un repertoire
-	 *	du tableau this->cats et de toutes ces enfants.
+	 *	Define properties fullpath, fullrelativename, fulllabel of a directory of array this->cats and all its childs.
+	 *  Separator between directories is always '/', whatever is OS.
 	 *
 	 * 	@param	int		$id_categ		id_categ entry to update
 	 * 	@param	int		$protection		Deep counter to avoid infinite loop
@@ -616,7 +613,7 @@ class EcmDirectory // extends CommonObject
 	function build_path_from_id_categ($id_categ,$protection=0)
 	{
 		// Define fullpath
-		if (isset($this->cats[$id_categ]['id_mere']))
+		if (! empty($this->cats[$id_categ]['id_mere']))
 		{
 			$this->cats[$id_categ]['fullpath'] =$this->cats[$this->cats[$id_categ]['id_mere']]['fullpath'];
 			$this->cats[$id_categ]['fullpath'].='_'.$id_categ;
@@ -637,7 +634,7 @@ class EcmDirectory // extends CommonObject
 		// Traite ces enfants
 		$protection++;
 		if ($protection > 20) return;	// On ne traite pas plus de 20 niveaux
-		if (is_array($this->cats[$id_categ]['id_children']))
+		if (isset($this->cats[$id_categ]['id_children']) && is_array($this->cats[$id_categ]['id_children']))
 		{
 			foreach($this->cats[$id_categ]['id_children'] as $key => $val)
 			{
@@ -649,15 +646,15 @@ class EcmDirectory // extends CommonObject
 	}
 
 	/**
-	 *	Refresh value for cachenboffile
+	 *	Refresh value for cachenboffile. This scan and count files into directory.
 	 *
-	 *  @param		int		$all       	0=refresh this id , 1=refresh this entity
-	 * 	@return		int					<0 if KO, Nb of files in directory if OK
+	 *  @param		int		$all       	0=refresh record using this->id , 1=refresh record using this->entity
+	 * 	@return		int					-1 if KO, Nb of files in directory if OK
 	 */
 	function refreshcachenboffile($all=0)
 	{
 		global $conf;
-		include_once(DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php');
+		include_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 
 		$dir=$conf->ecm->dir_output.'/'.$this->getRelativePath();
 		$filelist=dol_dir_list($dir,'files',0,'','\.meta$');

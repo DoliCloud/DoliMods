@@ -3,7 +3,7 @@
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -42,17 +42,17 @@ class DolGeoIP
 	 * @param	string	$datfile	Data file
 	 * @return 	GeoIP
 	 */
-	function DolGeoIP($type,$datfile)
+	function __construct($type,$datfile)
 	{
 		if ($type == 'country')
 		{
 		    // geoip may have been already included with PEAR
-		    if (! function_exists('geoip_country_code_by_name')) $res=include_once(GEOIP_PATH."geoip.inc");
+		    if (! function_exists('geoip_country_code_by_name')) $res=include_once GEOIP_PATH.'geoip.inc';
 		}
 		else if ($type == 'city')
 		{
 		    // geoip may have been already included with PEAR
-		    if (! function_exists('geoip_country_code_by_name')) $res=include_once(GEOIP_PATH."geoipcity.inc");
+		    if (! function_exists('geoip_country_code_by_name')) $res=include_once GEOIP_PATH.'geoipcity.inc';
 		}
 		else { print 'ErrorBadParameterInConstructor'; return 0; }
 

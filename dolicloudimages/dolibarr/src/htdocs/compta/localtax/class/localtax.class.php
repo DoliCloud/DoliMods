@@ -3,7 +3,7 @@
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -21,14 +21,13 @@
  *      \author		Laurent Destailleur
  */
 
-require_once(DOL_DOCUMENT_ROOT ."/core/class/commonobject.class.php");
+require_once DOL_DOCUMENT_ROOT .'/core/class/commonobject.class.php';
 
 
 /**
- *	\class      Localtax
- *	\brief      Put here description of your class
+ *	Class to manage local tax
  */
-class localtax extends CommonObject
+class Localtax extends CommonObject
 {
     var $id;
     var $ref;
@@ -45,11 +44,11 @@ class localtax extends CommonObject
     /**
 	 *	Constructor
 	 *
-	 *  @param		DoliDB		$DB      Database handler
+	 *  @param		DoliDB		$db      Database handler
      */
-    function __construct($DB)
+    function __construct($db)
     {
-        $this->db = $DB;
+        $this->db = $db;
     }
 
 
@@ -103,7 +102,7 @@ class localtax extends CommonObject
             $this->id = $this->db->last_insert_id(MAIN_DB_PREFIX."localtax");
 
             // Appel des triggers
-            include_once(DOL_DOCUMENT_ROOT . "/core/class/interfaces.class.php");
+            include_once DOL_DOCUMENT_ROOT . '/core/class/interfaces.class.php';
             $interface=new Interfaces($this->db);
             $result=$interface->run_triggers('LOCALTAX_CREATE',$this,$user,$langs,$conf);
             if ($result < 0) { $error++; $this->errors=$interface->errors; }
@@ -165,7 +164,7 @@ class localtax extends CommonObject
 		if (! $notrigger)
 		{
             // Appel des triggers
-            include_once(DOL_DOCUMENT_ROOT . "/core/class/interfaces.class.php");
+            include_once DOL_DOCUMENT_ROOT . '/core/class/interfaces.class.php';
             $interface=new Interfaces($this->db);
             $result=$interface->run_triggers('LOCALTAX_MODIFY',$this,$user,$langs,$conf);
             if ($result < 0) { $error++; $this->errors=$interface->errors; }
@@ -264,7 +263,7 @@ class localtax extends CommonObject
 		}
 
         // Appel des triggers
-        include_once(DOL_DOCUMENT_ROOT . "/core/class/interfaces.class.php");
+        include_once DOL_DOCUMENT_ROOT . '/core/class/interfaces.class.php';
         $interface=new Interfaces($this->db);
         $result=$interface->run_triggers('LOCALTAX_DELETE',$this,$user,$langs,$conf);
         if ($result < 0) { $error++; $this->errors=$interface->errors; }
@@ -465,12 +464,12 @@ class localtax extends CommonObject
             $this->error=$langs->trans("ErrorFieldRequired",$langs->transnoentities("Amount"));
             return -4;
         }
-        if ($conf->banque->enabled && (empty($this->accountid) || $this->accountid <= 0))
+        if (! empty($conf->banque->enabled) && (empty($this->accountid) || $this->accountid <= 0))
         {
             $this->error=$langs->trans("ErrorFieldRequired",$langs->transnoentities("Account"));
             return -5;
         }
-        if ($conf->banque->enabled && (empty($this->paymenttype) || $this->paymenttype <= 0))
+        if (! empty($conf->banque->enabled) && (empty($this->paymenttype) || $this->paymenttype <= 0))
         {
             $this->error=$langs->trans("ErrorFieldRequired",$langs->transnoentities("PaymentMode"));
             return -5;
@@ -497,10 +496,10 @@ class localtax extends CommonObject
             if ($this->id > 0)
             {
                 $ok=1;
-				if ($conf->banque->enabled)
+				if (! empty($conf->banque->enabled))
                 {
                     // Insertion dans llx_bank
-                    require_once(DOL_DOCUMENT_ROOT.'/compta/bank/class/account.class.php');
+                    require_once DOL_DOCUMENT_ROOT.'/compta/bank/class/account.class.php';
 
                     $acc = new Account($this->db);
 					$result=$acc->fetch($this->accountid);

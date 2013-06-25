@@ -1,10 +1,10 @@
 -- ===================================================================
--- Copyright (C) 2008 Laurent Destailleur  <eldy@users.sourceforge.net>
--- Copyright (C) 2009 Regis Houssin        <regis@dolibarr.fr>
+-- Copyright (C) 2008-2012	Laurent Destailleur	<eldy@users.sourceforge.net>
+-- Copyright (C) 2009-2012	Regis Houssin		<regis.houssin@capnetworks.com>
 --
 -- This program is free software; you can redistribute it and/or modify
 -- it under the terms of the GNU General Public License as published by
--- the Free Software Foundation; either version 2 of the License, or
+-- the Free Software Foundation; either version 3 of the License, or
 -- (at your option) any later version.
 --
 -- This program is distributed in the hope that it will be useful,
@@ -21,14 +21,18 @@
 
 create table llx_ecm_directories
 (
-  rowid           integer AUTO_INCREMENT PRIMARY KEY,
-  label           varchar(32) NOT NULL,
-  entity          integer DEFAULT 1 NOT NULL,	-- multi company id
-  fk_parent       integer,
-  description     varchar(255) NOT NULL,
-  cachenbofdoc    integer NOT NULL DEFAULT 0,
-  date_c		  datetime,
-  date_m		  timestamp,
-  fk_user_c		  integer,
-  fk_user_m		  integer
+  rowid				integer AUTO_INCREMENT PRIMARY KEY,
+  label				varchar(64) NOT NULL,
+  entity			integer DEFAULT 1 NOT NULL,		-- multi company id
+  fk_parent			integer,
+  description		varchar(255) NOT NULL,
+  cachenbofdoc		integer NOT NULL DEFAULT 0,
+  fullpath    		varchar(255),
+  extraparams		varchar(255),					-- for stock other parameters with json format
+  date_c			datetime,
+  date_m			timestamp,
+  fk_user_c			integer,
+  fk_user_m			integer,
+  acl				text
+  
 ) ENGINE=innodb;

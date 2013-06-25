@@ -1,10 +1,11 @@
 <?php
-/* Copyright (C) 2001-2002 Rodolphe Quiedeville <rodolphe@quiedeville.org>
- * Copyright (C) 2004-2011 Laurent Destailleur  <eldy@users.sourceforge.net>
+/* Copyright (C) 2001-2002	Rodolphe Quiedeville	<rodolphe@quiedeville.org>
+ * Copyright (C) 2004-2011	Laurent Destailleur		<eldy@users.sourceforge.net>
+ * Copyright (C) 2005-2012	Regis Houssin			<regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -22,29 +23,36 @@
  *		\brief      Page of donation card
  */
 
-require("../../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/core/modules/dons/modules_don.php");
-require_once(DOL_DOCUMENT_ROOT."/core/class/html.formfile.class.php");
-require_once(DOL_DOCUMENT_ROOT."/core/class/html.formcompany.class.php");
-require_once(DOL_DOCUMENT_ROOT."/compta/dons/class/don.class.php");
-require_once(DOL_DOCUMENT_ROOT."/compta/paiement/class/paiement.class.php");
-if ($conf->projet->enabled) require_once(DOL_DOCUMENT_ROOT.'/core/lib/project.lib.php');
+require '../../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/core/modules/dons/modules_don.php';
+require_once DOL_DOCUMENT_ROOT.'/core/class/html.formfile.class.php';
+require_once DOL_DOCUMENT_ROOT.'/core/class/html.formcompany.class.php';
+require_once DOL_DOCUMENT_ROOT.'/compta/dons/class/don.class.php';
+require_once DOL_DOCUMENT_ROOT.'/compta/paiement/class/paiement.class.php';
+if (! empty($conf->projet->enabled)) require_once DOL_DOCUMENT_ROOT.'/core/lib/project.lib.php';
 
 $langs->load("companies");
 $langs->load("donations");
 $langs->load("bills");
 
-$id=GETPOST('rowid')?GETPOST('rowid'):GETPOST('id','int');
-$action=GETPOST('action');
+$id=GETPOST('rowid')?GETPOST('rowid','int'):GETPOST('id','int');
+$action=GETPOST('action','alpha');
+$cancel=GETPOST('cancel');
+$amount=GETPOST('amount');
 
 $mesg="";
 $mesgs=array();
 
 $don = new Don($db);
-$donation_date=dol_mktime(12, 0, 0, $_POST["remonth"], $_POST["reday"], $_POST["reyear"]);
+$donation_date=dol_mktime(12, 0, 0, GETPOST('remonth'), GETPOST('reday'), GETPOST('reyear'));
 
 // Security check
 $result = restrictedArea($user, 'don', $id);
+
+// Initialize technical object to manage hooks of thirdparties. Note that conf->hooks_modules contains array array
+include_once DOL_DOCUMENT_ROOT.'/core/class/hookmanager.class.php';
+$hookmanager=new HookManager($db);
+$hookmanager->initHooks(array('doncard'));
 
 
 /*
@@ -53,9 +61,9 @@ $result = restrictedArea($user, 'don', $id);
 
 if ($action == 'update')
 {
-	if (! empty($_POST['cancel']))
+	if (! empty($cancel))
 	{
-		Header("Location: fiche.php?rowid=".$_POST["rowid"]);
+		header("Location: ".$_SERVER['PHP_SELF']."?id=".$id);
 		exit;
 	}
 
@@ -68,7 +76,7 @@ if ($action == 'update')
         $error++;
     }
 
-	if (! $_POST["amount"] > 0)
+	if (empty($amount))
 	{
 		$mesgs[]=$langs->trans("ErrorFieldRequired",$langs->trans("Amount"));
 		$action = "create";
@@ -77,8 +85,7 @@ if ($action == 'update')
 
 	if (! $error)
 	{
-		$don->id = $_POST["rowid"];
-		$don->fetch($_POST["rowid"]);
+		$don->fetch($id);
 
 		$don->prenom      = $_POST["prenom"];
 		$don->nom         = $_POST["nom"];
@@ -100,7 +107,7 @@ if ($action == 'update')
 
 		if ($don->update($user) > 0)
 		{
-			Header("Location: fiche.php?rowid=".$don->id);
+			header("Location: ".$_SERVER['PHP_SELF']."?id=".$don->id);
 			exit;
 		}
 	}
@@ -108,9 +115,9 @@ if ($action == 'update')
 
 if ($action == 'add')
 {
-	if (! empty($_POST['cancel']))
+	if (! empty($cancel))
 	{
-		Header("Location: index.php");
+		header("Location: index.php");
 		exit;
 	}
 
@@ -119,14 +126,14 @@ if ($action == 'add')
     if (empty($donation_date))
     {
         $mesgs[]=$langs->trans("ErrorFieldRequired",$langs->trans("Date"));
-        $_GET["action"] = "create";
+        $action = "create";
         $error++;
     }
 
-	if (! $_POST["amount"] > 0)
+	if (empty($amount))
 	{
 		$mesgs[]=$langs->trans("ErrorFieldRequired",$langs->trans("Amount"));
-		$_GET["action"] = "create";
+		$action = "create";
 		$error++;
 	}
 
@@ -152,7 +159,7 @@ if ($action == 'add')
 
 		if ($don->create($user) > 0)
 		{
-			Header("Location: index.php");
+			header("Location: index.php");
 			exit;
 		}
 	}
@@ -160,48 +167,47 @@ if ($action == 'add')
 
 if ($action == 'delete')
 {
-	$don->delete($_GET["rowid"]);
-	Header("Location: liste.php");
+	$don->delete($id);
+	header("Location: liste.php");
 	exit;
 }
 if ($action == 'commentaire')
 {
-	$don->fetch($_POST["rowid"]);
+	$don->fetch($id);
 	$don->update_note($_POST["commentaire"]);
-	$_GET["rowid"] = $_POST["rowid"];
 }
 if ($action == 'valid_promesse')
 {
-	if ($don->valid_promesse($_GET["rowid"], $user->id) >= 0)
+	if ($don->valid_promesse($id, $user->id) >= 0)
 	{
-		Header("Location: fiche.php?rowid=".$_GET["rowid"]);
+		header("Location: ".$_SERVER['PHP_SELF']."?id=".$id);
 		exit;
 	}
     else $mesg=$don->error;
 }
 if ($action == 'set_cancel')
 {
-    if ($don->set_cancel($_GET["rowid"]) >= 0)
+    if ($don->set_cancel($id) >= 0)
     {
-        Header("Location: fiche.php?rowid=".$_GET["rowid"]);
+        header("Location: ".$_SERVER['PHP_SELF']."?id=".$id);
         exit;
     }
     else $mesg=$don->error;
 }
 if ($action == 'set_paid')
 {
-	if ($don->set_paye($_GET["rowid"], $modepaiement) >= 0)
+	if ($don->set_paye($id, $modepaiement) >= 0)
 	{
-		Header("Location: fiche.php?rowid=".$_GET["rowid"]);
+		header("Location: ".$_SERVER['PHP_SELF']."?id=".$id);
 		exit;
 	}
     else $mesg=$don->error;
 }
 if ($action == 'set_encaisse')
 {
-	if ($don->set_encaisse($_GET["rowid"]) >= 0)
+	if ($don->set_encaisse($id) >= 0)
 	{
-        Header("Location: fiche.php?rowid=".$_GET["rowid"]);
+        header("Location: ".$_SERVER['PHP_SELF']."?id=".$id);
 		exit;
 	}
     else $mesg=$don->error;
@@ -213,7 +219,7 @@ if ($action == 'set_encaisse')
 if ($action == 'builddoc')
 {
 	$donation = new Don($db);
-	$donation->fetch($_GET['rowid']);
+	$donation->fetch($id);
 
 	if ($_REQUEST['model'])
 	{
@@ -238,7 +244,7 @@ if ($action == 'builddoc')
 	}
 	else
 	{
-		Header('Location: '.$_SERVER["PHP_SELF"].'?rowid='.$donation->id.(empty($conf->global->MAIN_JUMP_TAG)?'':'#builddoc'));
+		header('Location: '.$_SERVER["PHP_SELF"].'?id='.$donation->id.(empty($conf->global->MAIN_JUMP_TAG)?'':'#builddoc'));
 		exit;
 	}
 }
@@ -248,7 +254,7 @@ if ($action == 'builddoc')
  * View
  */
 
-llxHeader('',$langs->trans("Donations"),'EN:Module_Donations|FR:Module_Dons|ES:M&oacute;dulo_Subvenciones');
+llxHeader('',$langs->trans("Donations"),'EN:Module_Donations|FR:Module_Dons|ES:M&oacute;dulo_Donaciones');
 
 $form=new Form($db);
 $formfile = new FormFile($db);
@@ -274,7 +280,7 @@ if ($action == 'create')
 	print '<input type="hidden" name="action" value="add">';
 
     $nbrows=11;
-    if ($conf->projet->enabled) $nbrows++;
+    if (! empty($conf->projet->enabled)) $nbrows++;
 
     // Date
 	print '<tr><td class="fieldrequired">'.$langs->trans("Date").'</td><td>';
@@ -312,13 +318,17 @@ if ($action == 'create')
     $form->select_types_paiements('', 'modepaiement', 'CRDT', 0, 1);
     print "</td></tr>\n";
 
-	if ($conf->projet->enabled)
+	if (! empty($conf->projet->enabled))
     {
         // Si module projet actif
         print "<tr><td>".$langs->trans("Project")."</td><td>";
         select_projects('',$_POST["projectid"],"projectid");
         print "</td></tr>\n";
     }
+
+    // Other attributes
+    $parameters=array('colspan' => ' colspan="1"');
+    $reshook=$hookmanager->executeHooks('formObjectOptions',$parameters,$don,$action);    // Note that $action and $object may have been modified by hook
 
 	print "</table>\n";
 	print '<br><center><input type="submit" class="button" name="save" value="'.$langs->trans("Save").'"> &nbsp; &nbsp; <input type="submit" class="button" name="cancel" value="'.$langs->trans("Cancel").'"></center>';
@@ -332,12 +342,12 @@ if ($action == 'create')
 /*                                                              */
 /* ************************************************************ */
 
-if ($id && $_GET["action"] == 'edit')
+if (! empty($id) && $action == 'edit')
 {
 	$don->fetch($id);
 
 	$h=0;
-	$head[$h][0] = DOL_URL_ROOT."/compta/dons/fiche.php?rowid=".$_GET["rowid"];
+	$head[$h][0] = $_SERVER['PHP_SELF']."?id=".$don->id;
 	$head[$h][1] = $langs->trans("Card");
 	$hselected=$h;
 	$h++;
@@ -358,7 +368,7 @@ if ($id && $_GET["action"] == 'edit')
 	print '</tr>';
 
     $nbrows=12;
-    if ($conf->projet->enabled) $nbrows++;
+    if (! empty($conf->projet->enabled)) $nbrows++;
 
     // Date
 	print "<tr>".'<td width="25%" class="fieldrequired">'.$langs->trans("Date").'</td><td>';
@@ -395,19 +405,27 @@ if ($id && $_GET["action"] == 'edit')
 	print "<tr>".'<td>'.$langs->trans("EMail").'</td><td><input type="text" name="email" size="40" value="'.$don->email.'"></td></tr>';
 
     print "<tr><td>".$langs->trans("PaymentMode")."</td><td>\n";
-    $form->select_types_paiements('', 'modepaiement', 'CRDT', 0, 1);
+
+    if ($don->modepaiementid) $selected = $don->modepaiementid;
+    else $selected = '';
+
+    $form->select_types_paiements($selected, 'modepaiement', 'CRDT', 0, 1);
     print "</td></tr>\n";
 
 	print "<tr>".'<td>'.$langs->trans("Status").'</td><td>'.$don->getLibStatut(4).'</td></tr>';
 
     // Project
-    if ($conf->projet->enabled)
+    if (! empty($conf->projet->enabled))
     {
         $langs->load('projects');
         print '<tr><td>'.$langs->trans('Project').'</td><td>';
-        select_projects($soc->id, isset($_POST["projectid"])?$_POST["projectid"]:$don->fk_project, 'projectid');
+        select_projects(-1, (isset($_POST["projectid"])?$_POST["projectid"]:$don->fk_project), 'projectid');
         print '</td></tr>';
     }
+
+    // Other attributes
+    $parameters=array('colspan' => ' colspan="1"');
+    $reshook=$hookmanager->executeHooks('formObjectOptions',$parameters,$don,$action);    // Note that $action and $object may have been modified by hook
 
 	print "</table>\n";
 
@@ -425,12 +443,12 @@ if ($id && $_GET["action"] == 'edit')
 /* Fiche don en mode visu                                       */
 /*                                                              */
 /* ************************************************************ */
-if ($id && $action != 'edit')
+if (! empty($id) && $action != 'edit')
 {
 	$result=$don->fetch($id);
 
 	$h=0;
-	$head[$h][0] = DOL_URL_ROOT."/compta/dons/fiche.php?rowid=".$_GET["rowid"];
+	$head[$h][0] = $_SERVER['PHP_SELF']."?id=".$don->id;
 	$head[$h][1] = $langs->trans("Card");
 	$hselected=$h;
 	$h++;
@@ -441,12 +459,14 @@ if ($id && $action != 'edit')
 	print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
 	print '<table class="border" width="100%">';
 
+	$linkback = '<a href="'.DOL_URL_ROOT.'/compta/dons/liste.php'.(! empty($socid)?'?socid='.$socid:'').'">'.$langs->trans("BackToList").'</a>';
+
     $nbrows=12;
-    if ($conf->projet->enabled) $nbrows++;
+    if (! empty($conf->projet->enabled)) $nbrows++;
 
 	// Ref
 	print "<tr>".'<td>'.$langs->trans("Ref").'</td><td colspan="2">';
-	print $form->showrefnav($don,'rowid','',1,'rowid','ref','');
+	print $form->showrefnav($don, 'rowid', $linkback, 1, 'rowid', 'ref', '');
 	print '</td>';
 	print '</tr>';
 
@@ -480,16 +500,20 @@ if ($id && $action != 'edit')
 
 	// Payment mode
 	print "<tr><td>".$langs->trans("PaymentMode")."</td><td>";
-	print $don->modepaiement;
+	print $form->form_modes_reglement(null, $don->modepaiementid,'none');
 	print "</td></tr>\n";
 
 	print "<tr>".'<td>'.$langs->trans("Status").'</td><td>'.$don->getLibStatut(4).'</td></tr>';
 
     // Project
-    if ($conf->projet->enabled)
+    if (! empty($conf->projet->enabled))
     {
         print "<tr>".'<td>'.$langs->trans("Project").'</td><td>'.$don->projet.'</td></tr>';
     }
+
+    // Other attributes
+    $parameters=array('colspan' => ' colspan="1"');
+    $reshook=$hookmanager->executeHooks('formObjectOptions',$parameters,$don,$action);    // Note that $action and $object may have been modified by hook
 
 	print "</table>\n";
 	print "</form>\n";
@@ -565,8 +589,6 @@ if ($id && $action != 'edit')
 }
 
 
-
-$db->close();
-
 llxFooter();
+$db->close();
 ?>

@@ -3,7 +3,7 @@
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -21,9 +21,9 @@
  *	\brief      Setup page of module Contracts
  */
 
-require("../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
-require_once(DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php');
+require '../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
 
 $langs->load("admin");
 $langs->load("errors");
@@ -113,7 +113,7 @@ if (is_resource($handle))
         {
             $file = substr($file, 0, dol_strlen($file)-4);
 
-            require_once(DOL_DOCUMENT_ROOT ."/core/modules/contract/".$file.".php");
+            require_once DOL_DOCUMENT_ROOT ."/core/modules/contract/".$file.'.php';
 
             $module = new $file;
 
@@ -156,7 +156,6 @@ if (is_resource($handle))
                 // Info
                 $htmltooltip='';
                 $htmltooltip.=''.$langs->trans("Version").': <b>'.$module->getVersion().'</b><br>';
-                $facture->type=0;
                 $nextval=$module->getNextValue($mysoc,$contract);
                 if ("$nextval" != $langs->trans("NotAvailable"))	// Keep " on nextval
                 {

@@ -3,7 +3,7 @@
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -26,10 +26,10 @@ function llxHeader() { print '<html><title>Build an import example file</title><
 // This file is a wrapper, so empty footer
 function llxFooter() { print '</body></html>'; }
 
-require("../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/files.lib.php");
-require_once(DOL_DOCUMENT_ROOT."/imports/class/import.class.php");
-require_once(DOL_DOCUMENT_ROOT.'/core/modules/import/modules_import.php');
+require '../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/imports/class/import.class.php';
+require_once DOL_DOCUMENT_ROOT.'/core/modules/import/modules_import.php';
 
 $datatoimport=GETPOST('datatoimport');
 $format=GETPOST('format');
@@ -77,7 +77,8 @@ $contentlinevalues=array();
 $i = 0;
 foreach($fieldstarget as $code=>$label)
 {
-	$headerlinefields[]=$fieldstarget[$code].' ('.$code.')';
+	$withoutstar=preg_replace('/\*/','',$fieldstarget[$code]);
+	$headerlinefields[]=$langs->transnoentities($withoutstar).($withoutstar != $fieldstarget[$code]?'*':'').' ('.$code.')';
 	$contentlinevalues[]=$valuestarget[$code];
 }
 //var_dump($headerlinefields);

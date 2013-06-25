@@ -1,10 +1,10 @@
 <?php
-/* Copyright (C) 2010 Regis Houssin       <regis@dolibarr.fr>
+/* Copyright (C) 2010 Regis Houssin       <regis.houssin@capnetworks.com>
  * Copyright (C) 2011 Laurent Destailleur <eldy@users.sourceforge.net>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -36,7 +36,7 @@ class InterfaceWorkflowManager
      *
      *   @param		DoliDB		$db      Database handler
      */
-    function InterfaceWorkflowManager($db)
+    function __construct($db)
     {
         $this->db = $db;
 
@@ -106,7 +106,7 @@ class InterfaceWorkflowManager
         	dol_syslog("Trigger '".$this->name."' for action '$action' launched by ".__FILE__.". id=".$object->id);
             if (! empty($conf->commande->enabled) && ! empty($conf->global->WORKFLOW_PROPAL_AUTOCREATE_ORDER))
             {
-                include_once(DOL_DOCUMENT_ROOT.'/commande/class/commande.class.php');
+                include_once DOL_DOCUMENT_ROOT.'/commande/class/commande.class.php';
                 $newobject = new Commande($this->db);
 
                 $ret=$newobject->createFromProposal($object);
@@ -121,7 +121,7 @@ class InterfaceWorkflowManager
             dol_syslog("Trigger '".$this->name."' for action '$action' launched by ".__FILE__.". id=".$object->id);
             if (! empty($conf->facture->enabled) && ! empty($conf->global->WORKFLOW_ORDER_AUTOCREATE_INVOICE))
             {
-                include_once(DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php');
+                include_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
                 $newobject = new Facture($this->db);
 
                 $ret=$newobject->createFromOrder($object);
@@ -148,10 +148,11 @@ class InterfaceWorkflowManager
         	}
         }
 
-        // Order classify billed proposal
+        // Invoice classify billed order
         if ($action == 'BILL_PAYED')
         {
         	dol_syslog("Trigger '".$this->name."' for action '$action' launched by ".__FILE__.". id=".$object->id);
+
         	if (! empty($conf->commande->enabled) && ! empty($conf->global->WORKFLOW_INVOICE_CLASSIFY_BILLED_ORDER))
         	{
         		$object->fetchObjectLinked('','commande',$object->id,$object->element);

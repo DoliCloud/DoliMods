@@ -2,11 +2,11 @@
 /* Copyright (C) 2001-2002 Rodolphe Quiedeville <rodolphe@quiedeville.org>
  * Copyright (C) 2003      Jean-Louis Bergamo   <jlb@j1b.org>
  * Copyright (C) 2004-2011 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2005-2012 Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2005-2012 Regis Houssin        <regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -24,9 +24,9 @@
  *		\brief      Member's type setup
  */
 
-require("../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/adherents/class/adherent.class.php");
-require_once(DOL_DOCUMENT_ROOT."/adherents/class/adherent_type.class.php");
+require '../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/adherents/class/adherent.class.php';
+require_once DOL_DOCUMENT_ROOT.'/adherents/class/adherent_type.class.php';
 
 $langs->load("members");
 
@@ -83,7 +83,7 @@ if ($action == 'add' && $user->rights->adherent->configurer)
 			$id=$adht->create($user->id);
 			if ($id > 0)
 			{
-				Header("Location: ".$_SERVER["PHP_SELF"]);
+				header("Location: ".$_SERVER["PHP_SELF"]);
 				exit;
 			}
 			else
@@ -114,7 +114,7 @@ if ($action == 'update' && $user->rights->adherent->configurer)
 
 		$adht->update($user->id);
 
-		Header("Location: ".$_SERVER["PHP_SELF"]."?rowid=".$_POST["rowid"]);
+		header("Location: ".$_SERVER["PHP_SELF"]."?rowid=".$_POST["rowid"]);
 		exit;
 	}
 }
@@ -123,7 +123,7 @@ if ($action == 'delete' && $user->rights->adherent->configurer)
 {
 	$adht = new AdherentType($db);
 	$adht->delete($rowid);
-	Header("Location: ".$_SERVER["PHP_SELF"]);
+	header("Location: ".$_SERVER["PHP_SELF"]);
 	exit;
 }
 
@@ -244,7 +244,7 @@ if ($action == 'create')
 	print '<textarea name="comment" wrap="soft" cols="60" rows="3"></textarea></td></tr>';
 
 	print '<tr><td valign="top">'.$langs->trans("WelcomeEMail").'</td><td>';
-	require_once(DOL_DOCUMENT_ROOT."/core/class/doleditor.class.php");
+	require_once DOL_DOCUMENT_ROOT.'/core/class/doleditor.class.php';
 	$doleditor=new DolEditor('mail_valid',$adht->mail_valid,'',280,'dolibarr_notes','',false,true,$conf->fckeditor->enabled,15,90);
 	$doleditor->Create();
 	print '</td></tr>';
@@ -282,10 +282,12 @@ if ($rowid > 0)
 
 		print '<table class="border" width="100%">';
 
+		$linkback = '<a href="'.DOL_URL_ROOT.'/adherents/type.php">'.$langs->trans("BackToList").'</a>';
+
 		// Ref
 		print '<tr><td width="15%">'.$langs->trans("Ref").'</td>';
 		print '<td>';
-		print $form->showrefnav($adht,'rowid');
+		print $form->showrefnav($adht, 'rowid', $linkback);
 		print '</td></tr>';
 
 		// Label
@@ -336,6 +338,8 @@ if ($rowid > 0)
 		// Show list of members (nearly same code than in page liste.php)
 
 		$membertypestatic=new AdherentType($db);
+		
+		$now=dol_now();
 
 		$sql = "SELECT d.rowid, d.login, d.prenom as firstname, d.nom as lastname, d.societe, ";
 		$sql.= " d.datefin,";
@@ -376,11 +380,11 @@ if ($rowid > 0)
 		}
 		if ($filter == 'uptodate')
 		{
-		    $sql.=" AND datefin >= ".$db->idate(mktime());
+		    $sql.=" AND datefin >= ".$db->idate($now);
 		}
 		if ($filter == 'outofdate')
 		{
-		    $sql.=" AND datefin < ".$db->idate(mktime());
+		    $sql.=" AND datefin < ".$db->idate($now);
 		}
 		// Count total nb of records
 		$nbtotalofrecords = 0;
@@ -622,7 +626,7 @@ if ($rowid > 0)
 		print '<textarea name="comment" wrap="soft" cols="90" rows="3">'.$adht->note.'</textarea></td></tr>';
 
 		print '<tr><td valign="top">'.$langs->trans("WelcomeEMail").'</td><td>';
-		require_once(DOL_DOCUMENT_ROOT."/core/class/doleditor.class.php");
+		require_once DOL_DOCUMENT_ROOT.'/core/class/doleditor.class.php';
 		$doleditor=new DolEditor('mail_valid',$adht->mail_valid,'',280,'dolibarr_notes','',false,true,$conf->fckeditor->enabled,15,90);
 		$doleditor->Create();
 		print "</td></tr>";

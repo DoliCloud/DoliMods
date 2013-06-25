@@ -16,6 +16,34 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `llx_accounting_system`
+--
+
+DROP TABLE IF EXISTS `llx_accounting_system`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `llx_accounting_system` (
+  `rowid` int(11) NOT NULL AUTO_INCREMENT,
+  `pcg_version` varchar(12) NOT NULL,
+  `fk_pays` int(11) NOT NULL,
+  `label` varchar(128) NOT NULL,
+  `active` smallint(6) DEFAULT '0',
+  PRIMARY KEY (`rowid`),
+  UNIQUE KEY `uk_accounting_system_pcg_version` (`pcg_version`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `llx_accounting_system`
+--
+
+LOCK TABLES `llx_accounting_system` WRITE;
+/*!40000 ALTER TABLE `llx_accounting_system` DISABLE KEYS */;
+INSERT INTO `llx_accounting_system` VALUES (1,'PCG99-ABREGE',1,'The simple accountancy french plan',1),(2,'PCG99-BASE',1,'The base accountancy french plan',1);
+/*!40000 ALTER TABLE `llx_accounting_system` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `llx_accountingaccount`
 --
 
@@ -24,16 +52,17 @@ DROP TABLE IF EXISTS `llx_accountingaccount`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `llx_accountingaccount` (
   `rowid` int(11) NOT NULL AUTO_INCREMENT,
-  `fk_pcg_version` varchar(12) COLLATE utf8_unicode_ci NOT NULL,
-  `pcg_type` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
-  `pcg_subtype` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
-  `account_number` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
-  `account_parent` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `label` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
+  `fk_pcg_version` varchar(12) NOT NULL,
+  `pcg_type` varchar(20) NOT NULL,
+  `pcg_subtype` varchar(20) NOT NULL,
+  `account_number` varchar(20) NOT NULL,
+  `account_parent` varchar(20) DEFAULT NULL,
+  `label` varchar(128) NOT NULL,
+  `active` tinyint(4) NOT NULL DEFAULT '1',
   PRIMARY KEY (`rowid`),
   KEY `idx_accountingaccount_fk_pcg_version` (`fk_pcg_version`),
-  CONSTRAINT `fk_accountingaccount_fk_pcg_version` FOREIGN KEY (`fk_pcg_version`) REFERENCES `llx_accountingsystem` (`pcg_version`)
-) ENGINE=InnoDB AUTO_INCREMENT=439 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  CONSTRAINT `fk_accountingaccount_fk_pcg_version` FOREIGN KEY (`fk_pcg_version`) REFERENCES `llx_accounting_system` (`pcg_version`)
+) ENGINE=InnoDB AUTO_INCREMENT=439 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -42,7 +71,7 @@ CREATE TABLE `llx_accountingaccount` (
 
 LOCK TABLES `llx_accountingaccount` WRITE;
 /*!40000 ALTER TABLE `llx_accountingaccount` DISABLE KEYS */;
-INSERT INTO `llx_accountingaccount` VALUES (1,'PCG99-ABREGE','CAPIT','CAPITAL','101','1','Capital'),(2,'PCG99-ABREGE','CAPIT','XXXXXX','105','1','Ecarts de réévaluation'),(3,'PCG99-ABREGE','CAPIT','XXXXXX','1061','1','Réserve légale'),(4,'PCG99-ABREGE','CAPIT','XXXXXX','1063','1','Réserves statutaires ou contractuelles'),(5,'PCG99-ABREGE','CAPIT','XXXXXX','1064','1','Réserves réglementées'),(6,'PCG99-ABREGE','CAPIT','XXXXXX','1068','1','Autres réserves'),(7,'PCG99-ABREGE','CAPIT','XXXXXX','108','1','Compte de l\'exploitant'),(8,'PCG99-ABREGE','CAPIT','XXXXXX','12','1','Résultat de l\'exercice'),(9,'PCG99-ABREGE','CAPIT','XXXXXX','145','1','Amortissements dérogatoires'),(10,'PCG99-ABREGE','CAPIT','XXXXXX','146','1','Provision spéciale de réévaluation'),(11,'PCG99-ABREGE','CAPIT','XXXXXX','147','1','Plus-values réinvesties'),(12,'PCG99-ABREGE','CAPIT','XXXXXX','148','1','Autres provisions réglementées'),(13,'PCG99-ABREGE','CAPIT','XXXXXX','15','1','Provisions pour risques et charges'),(14,'PCG99-ABREGE','CAPIT','XXXXXX','16','1','Emprunts et dettes assimilees'),(15,'PCG99-ABREGE','IMMO','XXXXXX','20','2','Immobilisations incorporelles'),(16,'PCG99-ABREGE','IMMO','XXXXXX','201','20','Frais d\'établissement'),(17,'PCG99-ABREGE','IMMO','XXXXXX','206','20','Droit au bail'),(18,'PCG99-ABREGE','IMMO','XXXXXX','207','20','Fonds commercial'),(19,'PCG99-ABREGE','IMMO','XXXXXX','208','20','Autres immobilisations incorporelles'),(20,'PCG99-ABREGE','IMMO','XXXXXX','21','2','Immobilisations corporelles'),(21,'PCG99-ABREGE','IMMO','XXXXXX','23','2','Immobilisations en cours'),(22,'PCG99-ABREGE','IMMO','XXXXXX','27','2','Autres immobilisations financieres'),(23,'PCG99-ABREGE','IMMO','XXXXXX','280','2','Amortissements des immobilisations incorporelles'),(24,'PCG99-ABREGE','IMMO','XXXXXX','281','2','Amortissements des immobilisations corporelles'),(25,'PCG99-ABREGE','IMMO','XXXXXX','290','2','Provisions pour dépréciation des immobilisations incorporelles'),(26,'PCG99-ABREGE','IMMO','XXXXXX','291','2','Provisions pour dépréciation des immobilisations corporelles'),(27,'PCG99-ABREGE','IMMO','XXXXXX','297','2','Provisions pour dépréciation des autres immobilisations financières'),(28,'PCG99-ABREGE','STOCK','XXXXXX','31','3','Matieres premières'),(29,'PCG99-ABREGE','STOCK','XXXXXX','32','3','Autres approvisionnements'),(30,'PCG99-ABREGE','STOCK','XXXXXX','33','3','En-cours de production de biens'),(31,'PCG99-ABREGE','STOCK','XXXXXX','34','3','En-cours de production de services'),(32,'PCG99-ABREGE','STOCK','XXXXXX','35','3','Stocks de produits'),(33,'PCG99-ABREGE','STOCK','XXXXXX','37','3','Stocks de marchandises'),(34,'PCG99-ABREGE','STOCK','XXXXXX','391','3','Provisions pour dépréciation des matières premières'),(35,'PCG99-ABREGE','STOCK','XXXXXX','392','3','Provisions pour dépréciation des autres approvisionnements'),(36,'PCG99-ABREGE','STOCK','XXXXXX','393','3','Provisions pour dépréciation des en-cours de production de biens'),(37,'PCG99-ABREGE','STOCK','XXXXXX','394','3','Provisions pour dépréciation des en-cours de production de services'),(38,'PCG99-ABREGE','STOCK','XXXXXX','395','3','Provisions pour dépréciation des stocks de produits'),(39,'PCG99-ABREGE','STOCK','XXXXXX','397','3','Provisions pour dépréciation des stocks de marchandises'),(40,'PCG99-ABREGE','TIERS','SUPPLIER','400','4','Fournisseurs et Comptes rattachés'),(41,'PCG99-ABREGE','TIERS','XXXXXX','409','4','Fournisseurs débiteurs'),(42,'PCG99-ABREGE','TIERS','CUSTOMER','410','4','Clients et Comptes rattachés'),(43,'PCG99-ABREGE','TIERS','XXXXXX','419','4','Clients créditeurs'),(44,'PCG99-ABREGE','TIERS','XXXXXX','421','4','Personnel'),(45,'PCG99-ABREGE','TIERS','XXXXXX','428','4','Personnel'),(46,'PCG99-ABREGE','TIERS','XXXXXX','43','4','Sécurité sociale et autres organismes sociaux'),(47,'PCG99-ABREGE','TIERS','XXXXXX','444','4','Etat - impôts sur bénéfice'),(48,'PCG99-ABREGE','TIERS','XXXXXX','445','4','Etat - Taxes sur chiffre affaire'),(49,'PCG99-ABREGE','TIERS','XXXXXX','447','4','Autres impôts, taxes et versements assimilés'),(50,'PCG99-ABREGE','TIERS','XXXXXX','45','4','Groupe et associes'),(51,'PCG99-ABREGE','TIERS','XXXXXX','455','45','Associés'),(52,'PCG99-ABREGE','TIERS','XXXXXX','46','4','Débiteurs divers et créditeurs divers'),(53,'PCG99-ABREGE','TIERS','XXXXXX','47','4','Comptes transitoires ou d\'attente'),(54,'PCG99-ABREGE','TIERS','XXXXXX','481','4','Charges à répartir sur plusieurs exercices'),(55,'PCG99-ABREGE','TIERS','XXXXXX','486','4','Charges constatées d\'avance'),(56,'PCG99-ABREGE','TIERS','XXXXXX','487','4','Produits constatés d\'avance'),(57,'PCG99-ABREGE','TIERS','XXXXXX','491','4','Provisions pour dépréciation des comptes de clients'),(58,'PCG99-ABREGE','TIERS','XXXXXX','496','4','Provisions pour dépréciation des comptes de débiteurs divers'),(59,'PCG99-ABREGE','FINAN','XXXXXX','50','5','Valeurs mobilières de placement'),(60,'PCG99-ABREGE','FINAN','BANK','51','5','Banques, établissements financiers et assimilés'),(61,'PCG99-ABREGE','FINAN','CASH','53','5','Caisse'),(62,'PCG99-ABREGE','FINAN','XXXXXX','54','5','Régies d\'avance et accréditifs'),(63,'PCG99-ABREGE','FINAN','XXXXXX','58','5','Virements internes'),(64,'PCG99-ABREGE','FINAN','XXXXXX','590','5','Provisions pour dépréciation des valeurs mobilières de placement'),(65,'PCG99-ABREGE','CHARGE','PRODUCT','60','6','Achats'),(66,'PCG99-ABREGE','CHARGE','XXXXXX','603','60','Variations des stocks'),(67,'PCG99-ABREGE','CHARGE','SERVICE','61','6','Services extérieurs'),(68,'PCG99-ABREGE','CHARGE','XXXXXX','62','6','Autres services extérieurs'),(69,'PCG99-ABREGE','CHARGE','XXXXXX','63','6','Impôts, taxes et versements assimiles'),(70,'PCG99-ABREGE','CHARGE','XXXXXX','641','6','Rémunérations du personnel'),(71,'PCG99-ABREGE','CHARGE','XXXXXX','644','6','Rémunération du travail de l\'exploitant'),(72,'PCG99-ABREGE','CHARGE','SOCIAL','645','6','Charges de sécurité sociale et de prévoyance'),(73,'PCG99-ABREGE','CHARGE','XXXXXX','646','6','Cotisations sociales personnelles de l\'exploitant'),(74,'PCG99-ABREGE','CHARGE','XXXXXX','65','6','Autres charges de gestion courante'),(75,'PCG99-ABREGE','CHARGE','XXXXXX','66','6','Charges financières'),(76,'PCG99-ABREGE','CHARGE','XXXXXX','67','6','Charges exceptionnelles'),(77,'PCG99-ABREGE','CHARGE','XXXXXX','681','6','Dotations aux amortissements et aux provisions'),(78,'PCG99-ABREGE','CHARGE','XXXXXX','686','6','Dotations aux amortissements et aux provisions'),(79,'PCG99-ABREGE','CHARGE','XXXXXX','687','6','Dotations aux amortissements et aux provisions'),(80,'PCG99-ABREGE','CHARGE','XXXXXX','691','6','Participation des salariés aux résultats'),(81,'PCG99-ABREGE','CHARGE','XXXXXX','695','6','Impôts sur les bénéfices'),(82,'PCG99-ABREGE','CHARGE','XXXXXX','697','6','Imposition forfaitaire annuelle des sociétés'),(83,'PCG99-ABREGE','CHARGE','XXXXXX','699','6','Produits'),(84,'PCG99-ABREGE','PROD','PRODUCT','701','7','Ventes de produits finis'),(85,'PCG99-ABREGE','PROD','SERVICE','706','7','Prestations de services'),(86,'PCG99-ABREGE','PROD','PRODUCT','707','7','Ventes de marchandises'),(87,'PCG99-ABREGE','PROD','PRODUCT','708','7','Produits des activités annexes'),(88,'PCG99-ABREGE','PROD','XXXXXX','709','7','Rabais, remises et ristournes accordés par l\'entreprise'),(89,'PCG99-ABREGE','PROD','XXXXXX','713','7','Variation des stocks'),(90,'PCG99-ABREGE','PROD','XXXXXX','72','7','Production immobilisée'),(91,'PCG99-ABREGE','PROD','XXXXXX','73','7','Produits nets partiels sur opérations à long terme'),(92,'PCG99-ABREGE','PROD','XXXXXX','74','7','Subventions d\'exploitation'),(93,'PCG99-ABREGE','PROD','XXXXXX','75','7','Autres produits de gestion courante'),(94,'PCG99-ABREGE','PROD','XXXXXX','753','75','Jetons de présence et rémunérations d\'administrateurs, gérants,...'),(95,'PCG99-ABREGE','PROD','XXXXXX','754','75','Ristournes perçues des coopératives'),(96,'PCG99-ABREGE','PROD','XXXXXX','755','75','Quotes-parts de résultat sur opérations faites en commun'),(97,'PCG99-ABREGE','PROD','XXXXXX','76','7','Produits financiers'),(98,'PCG99-ABREGE','PROD','XXXXXX','77','7','Produits exceptionnels'),(99,'PCG99-ABREGE','PROD','XXXXXX','781','7','Reprises sur amortissements et provisions'),(100,'PCG99-ABREGE','PROD','XXXXXX','786','7','Reprises sur provisions pour risques'),(101,'PCG99-ABREGE','PROD','XXXXXX','787','7','Reprises sur provisions'),(102,'PCG99-ABREGE','PROD','XXXXXX','79','7','Transferts de charges'),(103,'PCG99-BASE','CAPIT','XXXXXX','10','1','Capital  et réserves'),(104,'PCG99-BASE','CAPIT','CAPITAL','101','10','Capital'),(105,'PCG99-BASE','CAPIT','XXXXXX','104','10','Primes liées au capital social'),(106,'PCG99-BASE','CAPIT','XXXXXX','105','10','Ecarts de réévaluation'),(107,'PCG99-BASE','CAPIT','XXXXXX','106','10','Réserves'),(108,'PCG99-BASE','CAPIT','XXXXXX','107','10','Ecart d\'equivalence'),(109,'PCG99-BASE','CAPIT','XXXXXX','108','10','Compte de l\'exploitant'),(110,'PCG99-BASE','CAPIT','XXXXXX','109','10','Actionnaires : capital souscrit - non appelé'),(111,'PCG99-BASE','CAPIT','XXXXXX','11','1','Report à nouveau (solde créditeur ou débiteur)'),(112,'PCG99-BASE','CAPIT','XXXXXX','110','11','Report à nouveau (solde créditeur)'),(113,'PCG99-BASE','CAPIT','XXXXXX','119','11','Report à nouveau (solde débiteur)'),(114,'PCG99-BASE','CAPIT','XXXXXX','12','1','Résultat de l\'exercice (bénéfice ou perte)'),(115,'PCG99-BASE','CAPIT','XXXXXX','120','12','Résultat de l\'exercice (bénéfice)'),(116,'PCG99-BASE','CAPIT','XXXXXX','129','12','Résultat de l\'exercice (perte)'),(117,'PCG99-BASE','CAPIT','XXXXXX','13','1','Subventions d\'investissement'),(118,'PCG99-BASE','CAPIT','XXXXXX','131','13','Subventions d\'équipement'),(119,'PCG99-BASE','CAPIT','XXXXXX','138','13','Autres subventions d\'investissement'),(120,'PCG99-BASE','CAPIT','XXXXXX','139','13','Subventions d\'investissement inscrites au compte de résultat'),(121,'PCG99-BASE','CAPIT','XXXXXX','14','1','Provisions réglementées'),(122,'PCG99-BASE','CAPIT','XXXXXX','142','14','Provisions réglementées relatives aux immobilisations'),(123,'PCG99-BASE','CAPIT','XXXXXX','143','14','Provisions réglementées relatives aux stocks'),(124,'PCG99-BASE','CAPIT','XXXXXX','144','14','Provisions réglementées relatives aux autres éléments de l\'actif'),(125,'PCG99-BASE','CAPIT','XXXXXX','145','14','Amortissements dérogatoires'),(126,'PCG99-BASE','CAPIT','XXXXXX','146','14','Provision spéciale de réévaluation'),(127,'PCG99-BASE','CAPIT','XXXXXX','147','14','Plus-values réinvesties'),(128,'PCG99-BASE','CAPIT','XXXXXX','148','14','Autres provisions réglementées'),(129,'PCG99-BASE','CAPIT','XXXXXX','15','1','Provisions pour risques et charges'),(130,'PCG99-BASE','CAPIT','XXXXXX','151','15','Provisions pour risques'),(131,'PCG99-BASE','CAPIT','XXXXXX','153','15','Provisions pour pensions et obligations similaires'),(132,'PCG99-BASE','CAPIT','XXXXXX','154','15','Provisions pour restructurations'),(133,'PCG99-BASE','CAPIT','XXXXXX','155','15','Provisions pour impôts'),(134,'PCG99-BASE','CAPIT','XXXXXX','156','15','Provisions pour renouvellement des immobilisations (entreprises concessionnaires)'),(135,'PCG99-BASE','CAPIT','XXXXXX','157','15','Provisions pour charges à répartir sur plusieurs exercices'),(136,'PCG99-BASE','CAPIT','XXXXXX','158','15','Autres provisions pour charges'),(137,'PCG99-BASE','CAPIT','XXXXXX','16','1','Emprunts et dettes assimilees'),(138,'PCG99-BASE','CAPIT','XXXXXX','161','16','Emprunts obligataires convertibles'),(139,'PCG99-BASE','CAPIT','XXXXXX','163','16','Autres emprunts obligataires'),(140,'PCG99-BASE','CAPIT','XXXXXX','164','16','Emprunts auprès des établissements de crédit'),(141,'PCG99-BASE','CAPIT','XXXXXX','165','16','Dépôts et cautionnements reçus'),(142,'PCG99-BASE','CAPIT','XXXXXX','166','16','Participation des salariés aux résultats'),(143,'PCG99-BASE','CAPIT','XXXXXX','167','16','Emprunts et dettes assortis de conditions particulières'),(144,'PCG99-BASE','CAPIT','XXXXXX','168','16','Autres emprunts et dettes assimilées'),(145,'PCG99-BASE','CAPIT','XXXXXX','169','16','Primes de remboursement des obligations'),(146,'PCG99-BASE','CAPIT','XXXXXX','17','1','Dettes rattachées à des participations'),(147,'PCG99-BASE','CAPIT','XXXXXX','171','17','Dettes rattachées à des participations (groupe)'),(148,'PCG99-BASE','CAPIT','XXXXXX','174','17','Dettes rattachées à des participations (hors groupe)'),(149,'PCG99-BASE','CAPIT','XXXXXX','178','17','Dettes rattachées à des sociétés en participation'),(150,'PCG99-BASE','CAPIT','XXXXXX','18','1','Comptes de liaison des établissements et sociétés en participation'),(151,'PCG99-BASE','CAPIT','XXXXXX','181','18','Comptes de liaison des établissements'),(152,'PCG99-BASE','CAPIT','XXXXXX','186','18','Biens et prestations de services échangés entre établissements (charges)'),(153,'PCG99-BASE','CAPIT','XXXXXX','187','18','Biens et prestations de services échangés entre établissements (produits)'),(154,'PCG99-BASE','CAPIT','XXXXXX','188','18','Comptes de liaison des sociétés en participation'),(155,'PCG99-BASE','IMMO','XXXXXX','20','2','Immobilisations incorporelles'),(156,'PCG99-BASE','IMMO','XXXXXX','201','20','Frais d\'établissement'),(157,'PCG99-BASE','IMMO','XXXXXX','203','20','Frais de recherche et de développement'),(158,'PCG99-BASE','IMMO','XXXXXX','205','20','Concessions et droits similaires, brevets, licences, marques, procédés, logiciels, droits et valeurs similaires'),(159,'PCG99-BASE','IMMO','XXXXXX','206','20','Droit au bail'),(160,'PCG99-BASE','IMMO','XXXXXX','207','20','Fonds commercial'),(161,'PCG99-BASE','IMMO','XXXXXX','208','20','Autres immobilisations incorporelles'),(162,'PCG99-BASE','IMMO','XXXXXX','21','2','Immobilisations corporelles'),(163,'PCG99-BASE','IMMO','XXXXXX','211','21','Terrains'),(164,'PCG99-BASE','IMMO','XXXXXX','212','21','Agencements et aménagements de terrains'),(165,'PCG99-BASE','IMMO','XXXXXX','213','21','Constructions'),(166,'PCG99-BASE','IMMO','XXXXXX','214','21','Constructions sur sol d\'autrui'),(167,'PCG99-BASE','IMMO','XXXXXX','215','21','Installations techniques, matériels et outillage industriels'),(168,'PCG99-BASE','IMMO','XXXXXX','218','21','Autres immobilisations corporelles'),(169,'PCG99-BASE','IMMO','XXXXXX','22','2','Immobilisations mises en concession'),(170,'PCG99-BASE','IMMO','XXXXXX','23','2','Immobilisations en cours'),(171,'PCG99-BASE','IMMO','XXXXXX','231','23','Immobilisations corporelles en cours'),(172,'PCG99-BASE','IMMO','XXXXXX','232','23','Immobilisations incorporelles en cours'),(173,'PCG99-BASE','IMMO','XXXXXX','237','23','Avances et acomptes versés sur immobilisations incorporelles'),(174,'PCG99-BASE','IMMO','XXXXXX','238','23','Avances et acomptes versés sur commandes d\'immobilisations corporelles'),(175,'PCG99-BASE','IMMO','XXXXXX','25','2','Parts dans des entreprises liées et créances sur des entreprises liées'),(176,'PCG99-BASE','IMMO','XXXXXX','26','2','Participations et créances rattachées à des participations'),(177,'PCG99-BASE','IMMO','XXXXXX','261','26','Titres de participation'),(178,'PCG99-BASE','IMMO','XXXXXX','266','26','Autres formes de participation'),(179,'PCG99-BASE','IMMO','XXXXXX','267','26','Créances rattachées à des participations'),(180,'PCG99-BASE','IMMO','XXXXXX','268','26','Créances rattachées à des sociétés en participation'),(181,'PCG99-BASE','IMMO','XXXXXX','269','26','Versements restant à effectuer sur titres de participation non libérés'),(182,'PCG99-BASE','IMMO','XXXXXX','27','2','Autres immobilisations financieres'),(183,'PCG99-BASE','IMMO','XXXXXX','271','27','Titres immobilisés autres que les titres immobilisés de l\'activité de portefeuille (droit de propriété)'),(184,'PCG99-BASE','IMMO','XXXXXX','272','27','Titres immobilisés (droit de créance)'),(185,'PCG99-BASE','IMMO','XXXXXX','273','27','Titres immobilisés de l\'activité de portefeuille'),(186,'PCG99-BASE','IMMO','XXXXXX','274','27','Prêts'),(187,'PCG99-BASE','IMMO','XXXXXX','275','27','Dépôts et cautionnements versés'),(188,'PCG99-BASE','IMMO','XXXXXX','276','27','Autres créances immobilisées'),(189,'PCG99-BASE','IMMO','XXXXXX','277','27','(Actions propres ou parts propres)'),(190,'PCG99-BASE','IMMO','XXXXXX','279','27','Versements restant à effectuer sur titres immobilisés non libérés'),(191,'PCG99-BASE','IMMO','XXXXXX','28','2','Amortissements des immobilisations'),(192,'PCG99-BASE','IMMO','XXXXXX','280','28','Amortissements des immobilisations incorporelles'),(193,'PCG99-BASE','IMMO','XXXXXX','281','28','Amortissements des immobilisations corporelles'),(194,'PCG99-BASE','IMMO','XXXXXX','282','28','Amortissements des immobilisations mises en concession'),(195,'PCG99-BASE','IMMO','XXXXXX','29','2','Dépréciations des immobilisations'),(196,'PCG99-BASE','IMMO','XXXXXX','290','29','Dépréciations des immobilisations incorporelles'),(197,'PCG99-BASE','IMMO','XXXXXX','291','29','Dépréciations des immobilisations corporelles'),(198,'PCG99-BASE','IMMO','XXXXXX','292','29','Dépréciations des immobilisations mises en concession'),(199,'PCG99-BASE','IMMO','XXXXXX','293','29','Dépréciations des immobilisations en cours'),(200,'PCG99-BASE','IMMO','XXXXXX','296','29','Provisions pour dépréciation des participations et créances rattachées à des participations'),(201,'PCG99-BASE','IMMO','XXXXXX','297','29','Provisions pour dépréciation des autres immobilisations financières'),(202,'PCG99-BASE','STOCK','XXXXXX','31','3','Matières premières (et fournitures)'),(203,'PCG99-BASE','STOCK','XXXXXX','311','31','Matières (ou groupe) A'),(204,'PCG99-BASE','STOCK','XXXXXX','312','31','Matières (ou groupe) B'),(205,'PCG99-BASE','STOCK','XXXXXX','317','31','Fournitures A, B, C,'),(206,'PCG99-BASE','STOCK','XXXXXX','32','3','Autres approvisionnements'),(207,'PCG99-BASE','STOCK','XXXXXX','321','32','Matières consommables'),(208,'PCG99-BASE','STOCK','XXXXXX','322','32','Fournitures consommables'),(209,'PCG99-BASE','STOCK','XXXXXX','326','32','Emballages'),(210,'PCG99-BASE','STOCK','XXXXXX','33','3','En-cours de production de biens'),(211,'PCG99-BASE','STOCK','XXXXXX','331','33','Produits en cours'),(212,'PCG99-BASE','STOCK','XXXXXX','335','33','Travaux en cours'),(213,'PCG99-BASE','STOCK','XXXXXX','34','3','En-cours de production de services'),(214,'PCG99-BASE','STOCK','XXXXXX','341','34','Etudes en cours'),(215,'PCG99-BASE','STOCK','XXXXXX','345','34','Prestations de services en cours'),(216,'PCG99-BASE','STOCK','XXXXXX','35','3','Stocks de produits'),(217,'PCG99-BASE','STOCK','XXXXXX','351','35','Produits intermédiaires'),(218,'PCG99-BASE','STOCK','XXXXXX','355','35','Produits finis'),(219,'PCG99-BASE','STOCK','XXXXXX','358','35','Produits résiduels (ou matières de récupération)'),(220,'PCG99-BASE','STOCK','XXXXXX','37','3','Stocks de marchandises'),(221,'PCG99-BASE','STOCK','XXXXXX','371','37','Marchandises (ou groupe) A'),(222,'PCG99-BASE','STOCK','XXXXXX','372','37','Marchandises (ou groupe) B'),(223,'PCG99-BASE','STOCK','XXXXXX','39','3','Provisions pour dépréciation des stocks et en-cours'),(224,'PCG99-BASE','STOCK','XXXXXX','391','39','Provisions pour dépréciation des matières premières'),(225,'PCG99-BASE','STOCK','XXXXXX','392','39','Provisions pour dépréciation des autres approvisionnements'),(226,'PCG99-BASE','STOCK','XXXXXX','393','39','Provisions pour dépréciation des en-cours de production de biens'),(227,'PCG99-BASE','STOCK','XXXXXX','394','39','Provisions pour dépréciation des en-cours de production de services'),(228,'PCG99-BASE','STOCK','XXXXXX','395','39','Provisions pour dépréciation des stocks de produits'),(229,'PCG99-BASE','STOCK','XXXXXX','397','39','Provisions pour dépréciation des stocks de marchandises'),(230,'PCG99-BASE','TIERS','XXXXXX','40','4','Fournisseurs et Comptes rattachés'),(231,'PCG99-BASE','TIERS','XXXXXX','400','40','Fournisseurs et Comptes rattachés'),(232,'PCG99-BASE','TIERS','SUPPLIER','401','40','Fournisseurs'),(233,'PCG99-BASE','TIERS','XXXXXX','403','40','Fournisseurs - Effets à payer'),(234,'PCG99-BASE','TIERS','XXXXXX','404','40','Fournisseurs d\'immobilisations'),(235,'PCG99-BASE','TIERS','XXXXXX','405','40','Fournisseurs d\'immobilisations - Effets à payer'),(236,'PCG99-BASE','TIERS','XXXXXX','408','40','Fournisseurs - Factures non parvenues'),(237,'PCG99-BASE','TIERS','XXXXXX','409','40','Fournisseurs débiteurs'),(238,'PCG99-BASE','TIERS','XXXXXX','41','4','Clients et comptes rattachés'),(239,'PCG99-BASE','TIERS','XXXXXX','410','41','Clients et Comptes rattachés'),(240,'PCG99-BASE','TIERS','CUSTOMER','411','41','Clients'),(241,'PCG99-BASE','TIERS','XXXXXX','413','41','Clients - Effets à recevoir'),(242,'PCG99-BASE','TIERS','XXXXXX','416','41','Clients douteux ou litigieux'),(243,'PCG99-BASE','TIERS','XXXXXX','418','41','Clients - Produits non encore facturés'),(244,'PCG99-BASE','TIERS','XXXXXX','419','41','Clients créditeurs'),(245,'PCG99-BASE','TIERS','XXXXXX','42','4','Personnel et comptes rattachés'),(246,'PCG99-BASE','TIERS','XXXXXX','421','42','Personnel - Rémunérations dues'),(247,'PCG99-BASE','TIERS','XXXXXX','422','42','Comités d\'entreprises, d\'établissement, ...'),(248,'PCG99-BASE','TIERS','XXXXXX','424','42','Participation des salariés aux résultats'),(249,'PCG99-BASE','TIERS','XXXXXX','425','42','Personnel - Avances et acomptes'),(250,'PCG99-BASE','TIERS','XXXXXX','426','42','Personnel - Dépôts'),(251,'PCG99-BASE','TIERS','XXXXXX','427','42','Personnel - Oppositions'),(252,'PCG99-BASE','TIERS','XXXXXX','428','42','Personnel - Charges à payer et produits à recevoir'),(253,'PCG99-BASE','TIERS','XXXXXX','43','4','Sécurité sociale et autres organismes sociaux'),(254,'PCG99-BASE','TIERS','XXXXXX','431','43','Sécurité sociale'),(255,'PCG99-BASE','TIERS','XXXXXX','437','43','Autres organismes sociaux'),(256,'PCG99-BASE','TIERS','XXXXXX','438','43','Organismes sociaux - Charges à payer et produits à recevoir'),(257,'PCG99-BASE','TIERS','XXXXXX','44','4','État et autres collectivités publiques'),(258,'PCG99-BASE','TIERS','XXXXXX','441','44','État - Subventions à recevoir'),(259,'PCG99-BASE','TIERS','XXXXXX','442','44','Etat - Impôts et taxes recouvrables sur des tiers'),(260,'PCG99-BASE','TIERS','XXXXXX','443','44','Opérations particulières avec l\'Etat, les collectivités publiques, les organismes internationaux'),(261,'PCG99-BASE','TIERS','XXXXXX','444','44','Etat - Impôts sur les bénéfices'),(262,'PCG99-BASE','TIERS','XXXXXX','445','44','Etat - Taxes sur le chiffre d\'affaires'),(263,'PCG99-BASE','TIERS','XXXXXX','446','44','Obligations cautionnées'),(264,'PCG99-BASE','TIERS','XXXXXX','447','44','Autres impôts, taxes et versements assimilés'),(265,'PCG99-BASE','TIERS','XXXXXX','448','44','Etat - Charges à payer et produits à recevoir'),(266,'PCG99-BASE','TIERS','XXXXXX','449','44','Quotas d\'émission à restituer à l\'Etat'),(267,'PCG99-BASE','TIERS','XXXXXX','45','4','Groupe et associes'),(268,'PCG99-BASE','TIERS','XXXXXX','451','45','Groupe'),(269,'PCG99-BASE','TIERS','XXXXXX','455','45','Associés - Comptes courants'),(270,'PCG99-BASE','TIERS','XXXXXX','456','45','Associés - Opérations sur le capital'),(271,'PCG99-BASE','TIERS','XXXXXX','457','45','Associés - Dividendes à payer'),(272,'PCG99-BASE','TIERS','XXXXXX','458','45','Associés - Opérations faites en commun et en G.I.E.'),(273,'PCG99-BASE','TIERS','XXXXXX','46','4','Débiteurs divers et créditeurs divers'),(274,'PCG99-BASE','TIERS','XXXXXX','462','46','Créances sur cessions d\'immobilisations'),(275,'PCG99-BASE','TIERS','XXXXXX','464','46','Dettes sur acquisitions de valeurs mobilières de placement'),(276,'PCG99-BASE','TIERS','XXXXXX','465','46','Créances sur cessions de valeurs mobilières de placement'),(277,'PCG99-BASE','TIERS','XXXXXX','467','46','Autres comptes débiteurs ou créditeurs'),(278,'PCG99-BASE','TIERS','XXXXXX','468','46','Divers - Charges à payer et produits à recevoir'),(279,'PCG99-BASE','TIERS','XXXXXX','47','4','Comptes transitoires ou d\'attente'),(280,'PCG99-BASE','TIERS','XXXXXX','471','47','Comptes d\'attente'),(281,'PCG99-BASE','TIERS','XXXXXX','476','47','Différence de conversion - Actif'),(282,'PCG99-BASE','TIERS','XXXXXX','477','47','Différences de conversion - Passif'),(283,'PCG99-BASE','TIERS','XXXXXX','478','47','Autres comptes transitoires'),(284,'PCG99-BASE','TIERS','XXXXXX','48','4','Comptes de régularisation'),(285,'PCG99-BASE','TIERS','XXXXXX','481','48','Charges à répartir sur plusieurs exercices'),(286,'PCG99-BASE','TIERS','XXXXXX','486','48','Charges constatées d\'avance'),(287,'PCG99-BASE','TIERS','XXXXXX','487','48','Produits constatés d\'avance'),(288,'PCG99-BASE','TIERS','XXXXXX','488','48','Comptes de répartition périodique des charges et des produits'),(289,'PCG99-BASE','TIERS','XXXXXX','489','48','Quotas d\'émission alloués par l\'Etat'),(290,'PCG99-BASE','TIERS','XXXXXX','49','4','Provisions pour dépréciation des comptes de tiers'),(291,'PCG99-BASE','TIERS','XXXXXX','491','49','Provisions pour dépréciation des comptes de clients'),(292,'PCG99-BASE','TIERS','XXXXXX','495','49','Provisions pour dépréciation des comptes du groupe et des associés'),(293,'PCG99-BASE','TIERS','XXXXXX','496','49','Provisions pour dépréciation des comptes de débiteurs divers'),(294,'PCG99-BASE','FINAN','XXXXXX','50','5','Valeurs mobilières de placement'),(295,'PCG99-BASE','FINAN','XXXXXX','501','50','Parts dans des entreprises liées'),(296,'PCG99-BASE','FINAN','XXXXXX','502','50','Actions propres'),(297,'PCG99-BASE','FINAN','XXXXXX','503','50','Actions'),(298,'PCG99-BASE','FINAN','XXXXXX','504','50','Autres titres conférant un droit de propriété'),(299,'PCG99-BASE','FINAN','XXXXXX','505','50','Obligations et bons émis par la société et rachetés par elle'),(300,'PCG99-BASE','FINAN','XXXXXX','506','50','Obligations'),(301,'PCG99-BASE','FINAN','XXXXXX','507','50','Bons du Trésor et bons de caisse à court terme'),(302,'PCG99-BASE','FINAN','XXXXXX','508','50','Autres valeurs mobilières de placement et autres créances assimilées'),(303,'PCG99-BASE','FINAN','XXXXXX','509','50','Versements restant à effectuer sur valeurs mobilières de placement non libérées'),(304,'PCG99-BASE','FINAN','XXXXXX','51','5','Banques, établissements financiers et assimilés'),(305,'PCG99-BASE','FINAN','XXXXXX','511','51','Valeurs à l\'encaissement'),(306,'PCG99-BASE','FINAN','BANK','512','51','Banques'),(307,'PCG99-BASE','FINAN','XXXXXX','514','51','Chèques postaux'),(308,'PCG99-BASE','FINAN','XXXXXX','515','51','\"Caisses\" du Trésor et des établissements publics'),(309,'PCG99-BASE','FINAN','XXXXXX','516','51','Sociétés de bourse'),(310,'PCG99-BASE','FINAN','XXXXXX','517','51','Autres organismes financiers'),(311,'PCG99-BASE','FINAN','XXXXXX','518','51','Intérêts courus'),(312,'PCG99-BASE','FINAN','XXXXXX','519','51','Concours bancaires courants'),(313,'PCG99-BASE','FINAN','XXXXXX','52','5','Instruments de trésorerie'),(314,'PCG99-BASE','FINAN','CASH','53','5','Caisse'),(315,'PCG99-BASE','FINAN','XXXXXX','531','53','Caisse siège social'),(316,'PCG99-BASE','FINAN','XXXXXX','532','53','Caisse succursale (ou usine) A'),(317,'PCG99-BASE','FINAN','XXXXXX','533','53','Caisse succursale (ou usine) B'),(318,'PCG99-BASE','FINAN','XXXXXX','54','5','Régies d\'avance et accréditifs'),(319,'PCG99-BASE','FINAN','XXXXXX','58','5','Virements internes'),(320,'PCG99-BASE','FINAN','XXXXXX','59','5','Provisions pour dépréciation des comptes financiers'),(321,'PCG99-BASE','FINAN','XXXXXX','590','59','Provisions pour dépréciation des valeurs mobilières de placement'),(322,'PCG99-BASE','CHARGE','PRODUCT','60','6','Achats'),(323,'PCG99-BASE','CHARGE','XXXXXX','601','60','Achats stockés - Matières premières (et fournitures)'),(324,'PCG99-BASE','CHARGE','XXXXXX','602','60','Achats stockés - Autres approvisionnements'),(325,'PCG99-BASE','CHARGE','XXXXXX','603','60','Variations des stocks (approvisionnements et marchandises)'),(326,'PCG99-BASE','CHARGE','XXXXXX','604','60','Achats stockés - Matières premières (et fournitures)'),(327,'PCG99-BASE','CHARGE','XXXXXX','605','60','Achats de matériel, équipements et travaux'),(328,'PCG99-BASE','CHARGE','XXXXXX','606','60','Achats non stockés de matière et fournitures'),(329,'PCG99-BASE','CHARGE','XXXXXX','607','60','Achats de marchandises'),(330,'PCG99-BASE','CHARGE','XXXXXX','608','60','(Compte réservé, le cas échéant, à la récapitulation des frais accessoires incorporés aux achats)'),(331,'PCG99-BASE','CHARGE','XXXXXX','609','60','Rabais, remises et ristournes obtenus sur achats'),(332,'PCG99-BASE','CHARGE','SERVICE','61','6','Services extérieurs'),(333,'PCG99-BASE','CHARGE','XXXXXX','611','61','Sous-traitance générale'),(334,'PCG99-BASE','CHARGE','XXXXXX','612','61','Redevances de crédit-bail'),(335,'PCG99-BASE','CHARGE','XXXXXX','613','61','Locations'),(336,'PCG99-BASE','CHARGE','XXXXXX','614','61','Charges locatives et de copropriété'),(337,'PCG99-BASE','CHARGE','XXXXXX','615','61','Entretien et réparations'),(338,'PCG99-BASE','CHARGE','XXXXXX','616','61','Primes d\'assurances'),(339,'PCG99-BASE','CHARGE','XXXXXX','617','61','Etudes et recherches'),(340,'PCG99-BASE','CHARGE','XXXXXX','618','61','Divers'),(341,'PCG99-BASE','CHARGE','XXXXXX','619','61','Rabais, remises et ristournes obtenus sur services extérieurs'),(342,'PCG99-BASE','CHARGE','XXXXXX','62','6','Autres services extérieurs'),(343,'PCG99-BASE','CHARGE','XXXXXX','621','62','Personnel extérieur à l\'entreprise'),(344,'PCG99-BASE','CHARGE','XXXXXX','622','62','Rémunérations d\'intermédiaires et honoraires'),(345,'PCG99-BASE','CHARGE','XXXXXX','623','62','Publicité, publications, relations publiques'),(346,'PCG99-BASE','CHARGE','XXXXXX','624','62','Transports de biens et transports collectifs du personnel'),(347,'PCG99-BASE','CHARGE','XXXXXX','625','62','Déplacements, missions et réceptions'),(348,'PCG99-BASE','CHARGE','XXXXXX','626','62','Frais postaux et de télécommunications'),(349,'PCG99-BASE','CHARGE','XXXXXX','627','62','Services bancaires et assimilés'),(350,'PCG99-BASE','CHARGE','XXXXXX','628','62','Divers'),(351,'PCG99-BASE','CHARGE','XXXXXX','629','62','Rabais, remises et ristournes obtenus sur autres services extérieurs'),(352,'PCG99-BASE','CHARGE','XXXXXX','63','6','Impôts, taxes et versements assimilés'),(353,'PCG99-BASE','CHARGE','XXXXXX','631','63','Impôts, taxes et versements assimilés sur rémunérations (administrations des impôts)'),(354,'PCG99-BASE','CHARGE','XXXXXX','633','63','Impôts, taxes et versements assimilés sur rémunérations (autres organismes)'),(355,'PCG99-BASE','CHARGE','XXXXXX','635','63','Autres impôts, taxes et versements assimilés (administrations des impôts)'),(356,'PCG99-BASE','CHARGE','XXXXXX','637','63','Autres impôts, taxes et versements assimilés (autres organismes)'),(357,'PCG99-BASE','CHARGE','XXXXXX','64','6','Charges de personnel'),(358,'PCG99-BASE','CHARGE','XXXXXX','641','64','Rémunérations du personnel'),(359,'PCG99-BASE','CHARGE','XXXXXX','644','64','Rémunération du travail de l\'exploitant'),(360,'PCG99-BASE','CHARGE','SOCIAL','645','64','Charges de sécurité sociale et de prévoyance'),(361,'PCG99-BASE','CHARGE','XXXXXX','646','64','Cotisations sociales personnelles de l\'exploitant'),(362,'PCG99-BASE','CHARGE','XXXXXX','647','64','Autres charges sociales'),(363,'PCG99-BASE','CHARGE','XXXXXX','648','64','Autres charges de personnel'),(364,'PCG99-BASE','CHARGE','XXXXXX','65','6','Autres charges de gestion courante'),(365,'PCG99-BASE','CHARGE','XXXXXX','651','65','Redevances pour concessions, brevets, licences, marques, procédés, logiciels, droits et valeurs similaires'),(366,'PCG99-BASE','CHARGE','XXXXXX','653','65','Jetons de présence'),(367,'PCG99-BASE','CHARGE','XXXXXX','654','65','Pertes sur créances irrécouvrables'),(368,'PCG99-BASE','CHARGE','XXXXXX','655','65','Quote-part de résultat sur opérations faites en commun'),(369,'PCG99-BASE','CHARGE','XXXXXX','658','65','Charges diverses de gestion courante'),(370,'PCG99-BASE','CHARGE','XXXXXX','66','6','Charges financières'),(371,'PCG99-BASE','CHARGE','XXXXXX','661','66','Charges d\'intérêts'),(372,'PCG99-BASE','CHARGE','XXXXXX','664','66','Pertes sur créances liées à des participations'),(373,'PCG99-BASE','CHARGE','XXXXXX','665','66','Escomptes accordés'),(374,'PCG99-BASE','CHARGE','XXXXXX','666','66','Pertes de change'),(375,'PCG99-BASE','CHARGE','XXXXXX','667','66','Charges nettes sur cessions de valeurs mobilières de placement'),(376,'PCG99-BASE','CHARGE','XXXXXX','668','66','Autres charges financières'),(377,'PCG99-BASE','CHARGE','XXXXXX','67','6','Charges exceptionnelles'),(378,'PCG99-BASE','CHARGE','XXXXXX','671','67','Charges exceptionnelles sur opérations de gestion'),(379,'PCG99-BASE','CHARGE','XXXXXX','672','67','(Compte à la disposition des entités pour enregistrer, en cours d\'exercice, les charges sur exercices antérieurs)'),(380,'PCG99-BASE','CHARGE','XXXXXX','675','67','Valeurs comptables des éléments d\'actif cédés'),(381,'PCG99-BASE','CHARGE','XXXXXX','678','67','Autres charges exceptionnelles'),(382,'PCG99-BASE','CHARGE','XXXXXX','68','6','Dotations aux amortissements et aux provisions'),(383,'PCG99-BASE','CHARGE','XXXXXX','681','68','Dotations aux amortissements et aux provisions - Charges d\'exploitation'),(384,'PCG99-BASE','CHARGE','XXXXXX','686','68','Dotations aux amortissements et aux provisions - Charges financières'),(385,'PCG99-BASE','CHARGE','XXXXXX','687','68','Dotations aux amortissements et aux provisions - Charges exceptionnelles'),(386,'PCG99-BASE','CHARGE','XXXXXX','69','6','Participation des salariés - impôts sur les bénéfices et assimiles'),(387,'PCG99-BASE','CHARGE','XXXXXX','691','69','Participation des salariés aux résultats'),(388,'PCG99-BASE','CHARGE','XXXXXX','695','69','Impôts sur les bénéfices'),(389,'PCG99-BASE','CHARGE','XXXXXX','696','69','Suppléments d\'impôt sur les sociétés liés aux distributions'),(390,'PCG99-BASE','CHARGE','XXXXXX','697','69','Imposition forfaitaire annuelle des sociétés'),(391,'PCG99-BASE','CHARGE','XXXXXX','698','69','Intégration fiscale'),(392,'PCG99-BASE','CHARGE','XXXXXX','699','69','Produits - Reports en arrière des déficits'),(393,'PCG99-BASE','PROD','XXXXXX','70','7','Ventes de produits fabriqués, prestations de services, marchandises'),(394,'PCG99-BASE','PROD','PRODUCT','701','70','Ventes de produits finis'),(395,'PCG99-BASE','PROD','XXXXXX','702','70','Ventes de produits intermédiaires'),(396,'PCG99-BASE','PROD','XXXXXX','703','70','Ventes de produits résiduels'),(397,'PCG99-BASE','PROD','XXXXXX','704','70','Travaux'),(398,'PCG99-BASE','PROD','XXXXXX','705','70','Etudes'),(399,'PCG99-BASE','PROD','SERVICE','706','70','Prestations de services'),(400,'PCG99-BASE','PROD','PRODUCT','707','70','Ventes de marchandises'),(401,'PCG99-BASE','PROD','PRODUCT','708','70','Produits des activités annexes'),(402,'PCG99-BASE','PROD','XXXXXX','709','70','Rabais, remises et ristournes accordés par l\'entreprise'),(403,'PCG99-BASE','PROD','XXXXXX','71','7','Production stockée (ou déstockage)'),(404,'PCG99-BASE','PROD','XXXXXX','713','71','Variation des stocks (en-cours de production, produits)'),(405,'PCG99-BASE','PROD','XXXXXX','72','7','Production immobilisée'),(406,'PCG99-BASE','PROD','XXXXXX','721','72','Immobilisations incorporelles'),(407,'PCG99-BASE','PROD','XXXXXX','722','72','Immobilisations corporelles'),(408,'PCG99-BASE','PROD','XXXXXX','74','7','Subventions d\'exploitation'),(409,'PCG99-BASE','PROD','XXXXXX','75','7','Autres produits de gestion courante'),(410,'PCG99-BASE','PROD','XXXXXX','751','75','Redevances pour concessions, brevets, licences, marques, procédés, logiciels, droits et valeurs similaires'),(411,'PCG99-BASE','PROD','XXXXXX','752','75','Revenus des immeubles non affectés à des activités professionnelles'),(412,'PCG99-BASE','PROD','XXXXXX','753','75','Jetons de présence et rémunérations d\'administrateurs, gérants,...'),(413,'PCG99-BASE','PROD','XXXXXX','754','75','Ristournes perçues des coopératives (provenant des excédents)'),(414,'PCG99-BASE','PROD','XXXXXX','755','75','Quotes-parts de résultat sur opérations faites en commun'),(415,'PCG99-BASE','PROD','XXXXXX','758','75','Produits divers de gestion courante'),(416,'PCG99-BASE','PROD','XXXXXX','76','7','Produits financiers'),(417,'PCG99-BASE','PROD','XXXXXX','761','76','Produits de participations'),(418,'PCG99-BASE','PROD','XXXXXX','762','76','Produits des autres immobilisations financières'),(419,'PCG99-BASE','PROD','XXXXXX','763','76','Revenus des autres créances'),(420,'PCG99-BASE','PROD','XXXXXX','764','76','Revenus des valeurs mobilières de placement'),(421,'PCG99-BASE','PROD','XXXXXX','765','76','Escomptes obtenus'),(422,'PCG99-BASE','PROD','XXXXXX','766','76','Gains de change'),(423,'PCG99-BASE','PROD','XXXXXX','767','76','Produits nets sur cessions de valeurs mobilières de placement'),(424,'PCG99-BASE','PROD','XXXXXX','768','76','Autres produits financiers'),(425,'PCG99-BASE','PROD','XXXXXX','77','7','Produits exceptionnels'),(426,'PCG99-BASE','PROD','XXXXXX','771','77','Produits exceptionnels sur opérations de gestion'),(427,'PCG99-BASE','PROD','XXXXXX','772','77','(Compte à la disposition des entités pour enregistrer, en cours d\'exercice, les produits sur exercices antérieurs)'),(428,'PCG99-BASE','PROD','XXXXXX','775','77','Produits des cessions d\'éléments d\'actif'),(429,'PCG99-BASE','PROD','XXXXXX','777','77','Quote-part des subventions d\'investissement virée au résultat de l\'exercice'),(430,'PCG99-BASE','PROD','XXXXXX','778','77','Autres produits exceptionnels'),(431,'PCG99-BASE','PROD','XXXXXX','78','7','Reprises sur amortissements et provisions'),(432,'PCG99-BASE','PROD','XXXXXX','781','78','Reprises sur amortissements et provisions (à inscrire dans les produits d\'exploitation)'),(433,'PCG99-BASE','PROD','XXXXXX','786','78','Reprises sur provisions pour risques (à inscrire dans les produits financiers)'),(434,'PCG99-BASE','PROD','XXXXXX','787','78','Reprises sur provisions (à inscrire dans les produits exceptionnels)'),(435,'PCG99-BASE','PROD','XXXXXX','79','7','Transferts de charges'),(436,'PCG99-BASE','PROD','XXXXXX','791','79','Transferts de charges d\'exploitation '),(437,'PCG99-BASE','PROD','XXXXXX','796','79','Transferts de charges financières'),(438,'PCG99-BASE','PROD','XXXXXX','797','79','Transferts de charges exceptionnelles');
+INSERT INTO `llx_accountingaccount` VALUES (1,'PCG99-ABREGE','CAPIT','CAPITAL','101','1','Capital',1),(2,'PCG99-ABREGE','CAPIT','XXXXXX','105','1','Ecarts de réévaluation',1),(3,'PCG99-ABREGE','CAPIT','XXXXXX','1061','1','Réserve légale',1),(4,'PCG99-ABREGE','CAPIT','XXXXXX','1063','1','Réserves statutaires ou contractuelles',1),(5,'PCG99-ABREGE','CAPIT','XXXXXX','1064','1','Réserves réglementées',1),(6,'PCG99-ABREGE','CAPIT','XXXXXX','1068','1','Autres réserves',1),(7,'PCG99-ABREGE','CAPIT','XXXXXX','108','1','Compte de l\'exploitant',1),(8,'PCG99-ABREGE','CAPIT','XXXXXX','12','1','Résultat de l\'exercice',1),(9,'PCG99-ABREGE','CAPIT','XXXXXX','145','1','Amortissements dérogatoires',1),(10,'PCG99-ABREGE','CAPIT','XXXXXX','146','1','Provision spéciale de réévaluation',1),(11,'PCG99-ABREGE','CAPIT','XXXXXX','147','1','Plus-values réinvesties',1),(12,'PCG99-ABREGE','CAPIT','XXXXXX','148','1','Autres provisions réglementées',1),(13,'PCG99-ABREGE','CAPIT','XXXXXX','15','1','Provisions pour risques et charges',1),(14,'PCG99-ABREGE','CAPIT','XXXXXX','16','1','Emprunts et dettes assimilees',1),(15,'PCG99-ABREGE','IMMO','XXXXXX','20','2','Immobilisations incorporelles',1),(16,'PCG99-ABREGE','IMMO','XXXXXX','201','20','Frais d\'établissement',1),(17,'PCG99-ABREGE','IMMO','XXXXXX','206','20','Droit au bail',1),(18,'PCG99-ABREGE','IMMO','XXXXXX','207','20','Fonds commercial',1),(19,'PCG99-ABREGE','IMMO','XXXXXX','208','20','Autres immobilisations incorporelles',1),(20,'PCG99-ABREGE','IMMO','XXXXXX','21','2','Immobilisations corporelles',1),(21,'PCG99-ABREGE','IMMO','XXXXXX','23','2','Immobilisations en cours',1),(22,'PCG99-ABREGE','IMMO','XXXXXX','27','2','Autres immobilisations financieres',1),(23,'PCG99-ABREGE','IMMO','XXXXXX','280','2','Amortissements des immobilisations incorporelles',1),(24,'PCG99-ABREGE','IMMO','XXXXXX','281','2','Amortissements des immobilisations corporelles',1),(25,'PCG99-ABREGE','IMMO','XXXXXX','290','2','Provisions pour dépréciation des immobilisations incorporelles',1),(26,'PCG99-ABREGE','IMMO','XXXXXX','291','2','Provisions pour dépréciation des immobilisations corporelles',1),(27,'PCG99-ABREGE','IMMO','XXXXXX','297','2','Provisions pour dépréciation des autres immobilisations financières',1),(28,'PCG99-ABREGE','STOCK','XXXXXX','31','3','Matieres premières',1),(29,'PCG99-ABREGE','STOCK','XXXXXX','32','3','Autres approvisionnements',1),(30,'PCG99-ABREGE','STOCK','XXXXXX','33','3','En-cours de production de biens',1),(31,'PCG99-ABREGE','STOCK','XXXXXX','34','3','En-cours de production de services',1),(32,'PCG99-ABREGE','STOCK','XXXXXX','35','3','Stocks de produits',1),(33,'PCG99-ABREGE','STOCK','XXXXXX','37','3','Stocks de marchandises',1),(34,'PCG99-ABREGE','STOCK','XXXXXX','391','3','Provisions pour dépréciation des matières premières',1),(35,'PCG99-ABREGE','STOCK','XXXXXX','392','3','Provisions pour dépréciation des autres approvisionnements',1),(36,'PCG99-ABREGE','STOCK','XXXXXX','393','3','Provisions pour dépréciation des en-cours de production de biens',1),(37,'PCG99-ABREGE','STOCK','XXXXXX','394','3','Provisions pour dépréciation des en-cours de production de services',1),(38,'PCG99-ABREGE','STOCK','XXXXXX','395','3','Provisions pour dépréciation des stocks de produits',1),(39,'PCG99-ABREGE','STOCK','XXXXXX','397','3','Provisions pour dépréciation des stocks de marchandises',1),(40,'PCG99-ABREGE','TIERS','SUPPLIER','400','4','Fournisseurs et Comptes rattachés',1),(41,'PCG99-ABREGE','TIERS','XXXXXX','409','4','Fournisseurs débiteurs',1),(42,'PCG99-ABREGE','TIERS','CUSTOMER','410','4','Clients et Comptes rattachés',1),(43,'PCG99-ABREGE','TIERS','XXXXXX','419','4','Clients créditeurs',1),(44,'PCG99-ABREGE','TIERS','XXXXXX','421','4','Personnel',1),(45,'PCG99-ABREGE','TIERS','XXXXXX','428','4','Personnel',1),(46,'PCG99-ABREGE','TIERS','XXXXXX','43','4','Sécurité sociale et autres organismes sociaux',1),(47,'PCG99-ABREGE','TIERS','XXXXXX','444','4','Etat - impôts sur bénéfice',1),(48,'PCG99-ABREGE','TIERS','XXXXXX','445','4','Etat - Taxes sur chiffre affaires',1),(49,'PCG99-ABREGE','TIERS','XXXXXX','447','4','Autres impôts, taxes et versements assimilés',1),(50,'PCG99-ABREGE','TIERS','XXXXXX','45','4','Groupe et associes',1),(51,'PCG99-ABREGE','TIERS','XXXXXX','455','45','Associés',1),(52,'PCG99-ABREGE','TIERS','XXXXXX','46','4','Débiteurs divers et créditeurs divers',1),(53,'PCG99-ABREGE','TIERS','XXXXXX','47','4','Comptes transitoires ou d\'attente',1),(54,'PCG99-ABREGE','TIERS','XXXXXX','481','4','Charges à répartir sur plusieurs exercices',1),(55,'PCG99-ABREGE','TIERS','XXXXXX','486','4','Charges constatées d\'avance',1),(56,'PCG99-ABREGE','TIERS','XXXXXX','487','4','Produits constatés d\'avance',1),(57,'PCG99-ABREGE','TIERS','XXXXXX','491','4','Provisions pour dépréciation des comptes de clients',1),(58,'PCG99-ABREGE','TIERS','XXXXXX','496','4','Provisions pour dépréciation des comptes de débiteurs divers',1),(59,'PCG99-ABREGE','FINAN','XXXXXX','50','5','Valeurs mobilières de placement',1),(60,'PCG99-ABREGE','FINAN','BANK','51','5','Banques, établissements financiers et assimilés',1),(61,'PCG99-ABREGE','FINAN','CASH','53','5','Caisse',1),(62,'PCG99-ABREGE','FINAN','XXXXXX','54','5','Régies d\'avance et accréditifs',1),(63,'PCG99-ABREGE','FINAN','XXXXXX','58','5','Virements internes',1),(64,'PCG99-ABREGE','FINAN','XXXXXX','590','5','Provisions pour dépréciation des valeurs mobilières de placement',1),(65,'PCG99-ABREGE','CHARGE','PRODUCT','60','6','Achats',1),(66,'PCG99-ABREGE','CHARGE','XXXXXX','603','60','Variations des stocks',1),(67,'PCG99-ABREGE','CHARGE','SERVICE','61','6','Services extérieurs',1),(68,'PCG99-ABREGE','CHARGE','XXXXXX','62','6','Autres services extérieurs',1),(69,'PCG99-ABREGE','CHARGE','XXXXXX','63','6','Impôts, taxes et versements assimiles',1),(70,'PCG99-ABREGE','CHARGE','XXXXXX','641','6','Rémunérations du personnel',1),(71,'PCG99-ABREGE','CHARGE','XXXXXX','644','6','Rémunération du travail de l\'exploitant',1),(72,'PCG99-ABREGE','CHARGE','SOCIAL','645','6','Charges de sécurité sociale et de prévoyance',1),(73,'PCG99-ABREGE','CHARGE','XXXXXX','646','6','Cotisations sociales personnelles de l\'exploitant',1),(74,'PCG99-ABREGE','CHARGE','XXXXXX','65','6','Autres charges de gestion courante',1),(75,'PCG99-ABREGE','CHARGE','XXXXXX','66','6','Charges financières',1),(76,'PCG99-ABREGE','CHARGE','XXXXXX','67','6','Charges exceptionnelles',1),(77,'PCG99-ABREGE','CHARGE','XXXXXX','681','6','Dotations aux amortissements et aux provisions',1),(78,'PCG99-ABREGE','CHARGE','XXXXXX','686','6','Dotations aux amortissements et aux provisions',1),(79,'PCG99-ABREGE','CHARGE','XXXXXX','687','6','Dotations aux amortissements et aux provisions',1),(80,'PCG99-ABREGE','CHARGE','XXXXXX','691','6','Participation des salariés aux résultats',1),(81,'PCG99-ABREGE','CHARGE','XXXXXX','695','6','Impôts sur les bénéfices',1),(82,'PCG99-ABREGE','CHARGE','XXXXXX','697','6','Imposition forfaitaire annuelle des sociétés',1),(83,'PCG99-ABREGE','CHARGE','XXXXXX','699','6','Produits',1),(84,'PCG99-ABREGE','PROD','PRODUCT','701','7','Ventes de produits finis',1),(85,'PCG99-ABREGE','PROD','SERVICE','706','7','Prestations de services',1),(86,'PCG99-ABREGE','PROD','PRODUCT','707','7','Ventes de marchandises',1),(87,'PCG99-ABREGE','PROD','PRODUCT','708','7','Produits des activités annexes',1),(88,'PCG99-ABREGE','PROD','XXXXXX','709','7','Rabais, remises et ristournes accordés par l\'entreprise',1),(89,'PCG99-ABREGE','PROD','XXXXXX','713','7','Variation des stocks',1),(90,'PCG99-ABREGE','PROD','XXXXXX','72','7','Production immobilisée',1),(91,'PCG99-ABREGE','PROD','XXXXXX','73','7','Produits nets partiels sur opérations à long terme',1),(92,'PCG99-ABREGE','PROD','XXXXXX','74','7','Subventions d\'exploitation',1),(93,'PCG99-ABREGE','PROD','XXXXXX','75','7','Autres produits de gestion courante',1),(94,'PCG99-ABREGE','PROD','XXXXXX','753','75','Jetons de présence et rémunérations d\'administrateurs, gérants,...',1),(95,'PCG99-ABREGE','PROD','XXXXXX','754','75','Ristournes perçues des coopératives',1),(96,'PCG99-ABREGE','PROD','XXXXXX','755','75','Quotes-parts de résultat sur opérations faites en commun',1),(97,'PCG99-ABREGE','PROD','XXXXXX','76','7','Produits financiers',1),(98,'PCG99-ABREGE','PROD','XXXXXX','77','7','Produits exceptionnels',1),(99,'PCG99-ABREGE','PROD','XXXXXX','781','7','Reprises sur amortissements et provisions',1),(100,'PCG99-ABREGE','PROD','XXXXXX','786','7','Reprises sur provisions pour risques',1),(101,'PCG99-ABREGE','PROD','XXXXXX','787','7','Reprises sur provisions',1),(102,'PCG99-ABREGE','PROD','XXXXXX','79','7','Transferts de charges',1),(103,'PCG99-BASE','CAPIT','XXXXXX','10','1','Capital  et réserves',1),(104,'PCG99-BASE','CAPIT','CAPITAL','101','10','Capital',1),(105,'PCG99-BASE','CAPIT','XXXXXX','104','10','Primes liées au capital social',1),(106,'PCG99-BASE','CAPIT','XXXXXX','105','10','Ecarts de réévaluation',1),(107,'PCG99-BASE','CAPIT','XXXXXX','106','10','Réserves',1),(108,'PCG99-BASE','CAPIT','XXXXXX','107','10','Ecart d\'equivalence',1),(109,'PCG99-BASE','CAPIT','XXXXXX','108','10','Compte de l\'exploitant',1),(110,'PCG99-BASE','CAPIT','XXXXXX','109','10','Actionnaires : capital souscrit - non appelé',1),(111,'PCG99-BASE','CAPIT','XXXXXX','11','1','Report à nouveau (solde créditeur ou débiteur)',1),(112,'PCG99-BASE','CAPIT','XXXXXX','110','11','Report à nouveau (solde créditeur)',1),(113,'PCG99-BASE','CAPIT','XXXXXX','119','11','Report à nouveau (solde débiteur)',1),(114,'PCG99-BASE','CAPIT','XXXXXX','12','1','Résultat de l\'exercice (bénéfice ou perte)',1),(115,'PCG99-BASE','CAPIT','XXXXXX','120','12','Résultat de l\'exercice (bénéfice)',1),(116,'PCG99-BASE','CAPIT','XXXXXX','129','12','Résultat de l\'exercice (perte)',1),(117,'PCG99-BASE','CAPIT','XXXXXX','13','1','Subventions d\'investissement',1),(118,'PCG99-BASE','CAPIT','XXXXXX','131','13','Subventions d\'équipement',1),(119,'PCG99-BASE','CAPIT','XXXXXX','138','13','Autres subventions d\'investissement',1),(120,'PCG99-BASE','CAPIT','XXXXXX','139','13','Subventions d\'investissement inscrites au compte de résultat',1),(121,'PCG99-BASE','CAPIT','XXXXXX','14','1','Provisions réglementées',1),(122,'PCG99-BASE','CAPIT','XXXXXX','142','14','Provisions réglementées relatives aux immobilisations',1),(123,'PCG99-BASE','CAPIT','XXXXXX','143','14','Provisions réglementées relatives aux stocks',1),(124,'PCG99-BASE','CAPIT','XXXXXX','144','14','Provisions réglementées relatives aux autres éléments de l\'actif',1),(125,'PCG99-BASE','CAPIT','XXXXXX','145','14','Amortissements dérogatoires',1),(126,'PCG99-BASE','CAPIT','XXXXXX','146','14','Provision spéciale de réévaluation',1),(127,'PCG99-BASE','CAPIT','XXXXXX','147','14','Plus-values réinvesties',1),(128,'PCG99-BASE','CAPIT','XXXXXX','148','14','Autres provisions réglementées',1),(129,'PCG99-BASE','CAPIT','XXXXXX','15','1','Provisions pour risques et charges',1),(130,'PCG99-BASE','CAPIT','XXXXXX','151','15','Provisions pour risques',1),(131,'PCG99-BASE','CAPIT','XXXXXX','153','15','Provisions pour pensions et obligations similaires',1),(132,'PCG99-BASE','CAPIT','XXXXXX','154','15','Provisions pour restructurations',1),(133,'PCG99-BASE','CAPIT','XXXXXX','155','15','Provisions pour impôts',1),(134,'PCG99-BASE','CAPIT','XXXXXX','156','15','Provisions pour renouvellement des immobilisations (entreprises concessionnaires)',1),(135,'PCG99-BASE','CAPIT','XXXXXX','157','15','Provisions pour charges à répartir sur plusieurs exercices',1),(136,'PCG99-BASE','CAPIT','XXXXXX','158','15','Autres provisions pour charges',1),(137,'PCG99-BASE','CAPIT','XXXXXX','16','1','Emprunts et dettes assimilees',1),(138,'PCG99-BASE','CAPIT','XXXXXX','161','16','Emprunts obligataires convertibles',1),(139,'PCG99-BASE','CAPIT','XXXXXX','163','16','Autres emprunts obligataires',1),(140,'PCG99-BASE','CAPIT','XXXXXX','164','16','Emprunts auprès des établissements de crédit',1),(141,'PCG99-BASE','CAPIT','XXXXXX','165','16','Dépôts et cautionnements reçus',1),(142,'PCG99-BASE','CAPIT','XXXXXX','166','16','Participation des salariés aux résultats',1),(143,'PCG99-BASE','CAPIT','XXXXXX','167','16','Emprunts et dettes assortis de conditions particulières',1),(144,'PCG99-BASE','CAPIT','XXXXXX','168','16','Autres emprunts et dettes assimilées',1),(145,'PCG99-BASE','CAPIT','XXXXXX','169','16','Primes de remboursement des obligations',1),(146,'PCG99-BASE','CAPIT','XXXXXX','17','1','Dettes rattachées à des participations',1),(147,'PCG99-BASE','CAPIT','XXXXXX','171','17','Dettes rattachées à des participations (groupe)',1),(148,'PCG99-BASE','CAPIT','XXXXXX','174','17','Dettes rattachées à des participations (hors groupe)',1),(149,'PCG99-BASE','CAPIT','XXXXXX','178','17','Dettes rattachées à des sociétés en participation',1),(150,'PCG99-BASE','CAPIT','XXXXXX','18','1','Comptes de liaison des établissements et sociétés en participation',1),(151,'PCG99-BASE','CAPIT','XXXXXX','181','18','Comptes de liaison des établissements',1),(152,'PCG99-BASE','CAPIT','XXXXXX','186','18','Biens et prestations de services échangés entre établissements (charges)',1),(153,'PCG99-BASE','CAPIT','XXXXXX','187','18','Biens et prestations de services échangés entre établissements (produits)',1),(154,'PCG99-BASE','CAPIT','XXXXXX','188','18','Comptes de liaison des sociétés en participation',1),(155,'PCG99-BASE','IMMO','XXXXXX','20','2','Immobilisations incorporelles',1),(156,'PCG99-BASE','IMMO','XXXXXX','201','20','Frais d\'établissement',1),(157,'PCG99-BASE','IMMO','XXXXXX','203','20','Frais de recherche et de développement',1),(158,'PCG99-BASE','IMMO','XXXXXX','205','20','Concessions et droits similaires, brevets, licences, marques, procédés, logiciels, droits et valeurs similaires',1),(159,'PCG99-BASE','IMMO','XXXXXX','206','20','Droit au bail',1),(160,'PCG99-BASE','IMMO','XXXXXX','207','20','Fonds commercial',1),(161,'PCG99-BASE','IMMO','XXXXXX','208','20','Autres immobilisations incorporelles',1),(162,'PCG99-BASE','IMMO','XXXXXX','21','2','Immobilisations corporelles',1),(163,'PCG99-BASE','IMMO','XXXXXX','211','21','Terrains',1),(164,'PCG99-BASE','IMMO','XXXXXX','212','21','Agencements et aménagements de terrains',1),(165,'PCG99-BASE','IMMO','XXXXXX','213','21','Constructions',1),(166,'PCG99-BASE','IMMO','XXXXXX','214','21','Constructions sur sol d\'autrui',1),(167,'PCG99-BASE','IMMO','XXXXXX','215','21','Installations techniques, matériels et outillage industriels',1),(168,'PCG99-BASE','IMMO','XXXXXX','218','21','Autres immobilisations corporelles',1),(169,'PCG99-BASE','IMMO','XXXXXX','22','2','Immobilisations mises en concession',1),(170,'PCG99-BASE','IMMO','XXXXXX','23','2','Immobilisations en cours',1),(171,'PCG99-BASE','IMMO','XXXXXX','231','23','Immobilisations corporelles en cours',1),(172,'PCG99-BASE','IMMO','XXXXXX','232','23','Immobilisations incorporelles en cours',1),(173,'PCG99-BASE','IMMO','XXXXXX','237','23','Avances et acomptes versés sur immobilisations incorporelles',1),(174,'PCG99-BASE','IMMO','XXXXXX','238','23','Avances et acomptes versés sur commandes d\'immobilisations corporelles',1),(175,'PCG99-BASE','IMMO','XXXXXX','25','2','Parts dans des entreprises liées et créances sur des entreprises liées',1),(176,'PCG99-BASE','IMMO','XXXXXX','26','2','Participations et créances rattachées à des participations',1),(177,'PCG99-BASE','IMMO','XXXXXX','261','26','Titres de participation',1),(178,'PCG99-BASE','IMMO','XXXXXX','266','26','Autres formes de participation',1),(179,'PCG99-BASE','IMMO','XXXXXX','267','26','Créances rattachées à des participations',1),(180,'PCG99-BASE','IMMO','XXXXXX','268','26','Créances rattachées à des sociétés en participation',1),(181,'PCG99-BASE','IMMO','XXXXXX','269','26','Versements restant à effectuer sur titres de participation non libérés',1),(182,'PCG99-BASE','IMMO','XXXXXX','27','2','Autres immobilisations financieres',1),(183,'PCG99-BASE','IMMO','XXXXXX','271','27','Titres immobilisés autres que les titres immobilisés de l\'activité de portefeuille (droit de propriété)',1),(184,'PCG99-BASE','IMMO','XXXXXX','272','27','Titres immobilisés (droit de créance)',1),(185,'PCG99-BASE','IMMO','XXXXXX','273','27','Titres immobilisés de l\'activité de portefeuille',1),(186,'PCG99-BASE','IMMO','XXXXXX','274','27','Prêts',1),(187,'PCG99-BASE','IMMO','XXXXXX','275','27','Dépôts et cautionnements versés',1),(188,'PCG99-BASE','IMMO','XXXXXX','276','27','Autres créances immobilisées',1),(189,'PCG99-BASE','IMMO','XXXXXX','277','27','(Actions propres ou parts propres)',1),(190,'PCG99-BASE','IMMO','XXXXXX','279','27','Versements restant à effectuer sur titres immobilisés non libérés',1),(191,'PCG99-BASE','IMMO','XXXXXX','28','2','Amortissements des immobilisations',1),(192,'PCG99-BASE','IMMO','XXXXXX','280','28','Amortissements des immobilisations incorporelles',1),(193,'PCG99-BASE','IMMO','XXXXXX','281','28','Amortissements des immobilisations corporelles',1),(194,'PCG99-BASE','IMMO','XXXXXX','282','28','Amortissements des immobilisations mises en concession',1),(195,'PCG99-BASE','IMMO','XXXXXX','29','2','Dépréciations des immobilisations',1),(196,'PCG99-BASE','IMMO','XXXXXX','290','29','Dépréciations des immobilisations incorporelles',1),(197,'PCG99-BASE','IMMO','XXXXXX','291','29','Dépréciations des immobilisations corporelles',1),(198,'PCG99-BASE','IMMO','XXXXXX','292','29','Dépréciations des immobilisations mises en concession',1),(199,'PCG99-BASE','IMMO','XXXXXX','293','29','Dépréciations des immobilisations en cours',1),(200,'PCG99-BASE','IMMO','XXXXXX','296','29','Provisions pour dépréciation des participations et créances rattachées à des participations',1),(201,'PCG99-BASE','IMMO','XXXXXX','297','29','Provisions pour dépréciation des autres immobilisations financières',1),(202,'PCG99-BASE','STOCK','XXXXXX','31','3','Matières premières (et fournitures)',1),(203,'PCG99-BASE','STOCK','XXXXXX','311','31','Matières (ou groupe) A',1),(204,'PCG99-BASE','STOCK','XXXXXX','312','31','Matières (ou groupe) B',1),(205,'PCG99-BASE','STOCK','XXXXXX','317','31','Fournitures A, B, C,',1),(206,'PCG99-BASE','STOCK','XXXXXX','32','3','Autres approvisionnements',1),(207,'PCG99-BASE','STOCK','XXXXXX','321','32','Matières consommables',1),(208,'PCG99-BASE','STOCK','XXXXXX','322','32','Fournitures consommables',1),(209,'PCG99-BASE','STOCK','XXXXXX','326','32','Emballages',1),(210,'PCG99-BASE','STOCK','XXXXXX','33','3','En-cours de production de biens',1),(211,'PCG99-BASE','STOCK','XXXXXX','331','33','Produits en cours',1),(212,'PCG99-BASE','STOCK','XXXXXX','335','33','Travaux en cours',1),(213,'PCG99-BASE','STOCK','XXXXXX','34','3','En-cours de production de services',1),(214,'PCG99-BASE','STOCK','XXXXXX','341','34','Etudes en cours',1),(215,'PCG99-BASE','STOCK','XXXXXX','345','34','Prestations de services en cours',1),(216,'PCG99-BASE','STOCK','XXXXXX','35','3','Stocks de produits',1),(217,'PCG99-BASE','STOCK','XXXXXX','351','35','Produits intermédiaires',1),(218,'PCG99-BASE','STOCK','XXXXXX','355','35','Produits finis',1),(219,'PCG99-BASE','STOCK','XXXXXX','358','35','Produits résiduels (ou matières de récupération)',1),(220,'PCG99-BASE','STOCK','XXXXXX','37','3','Stocks de marchandises',1),(221,'PCG99-BASE','STOCK','XXXXXX','371','37','Marchandises (ou groupe) A',1),(222,'PCG99-BASE','STOCK','XXXXXX','372','37','Marchandises (ou groupe) B',1),(223,'PCG99-BASE','STOCK','XXXXXX','39','3','Provisions pour dépréciation des stocks et en-cours',1),(224,'PCG99-BASE','STOCK','XXXXXX','391','39','Provisions pour dépréciation des matières premières',1),(225,'PCG99-BASE','STOCK','XXXXXX','392','39','Provisions pour dépréciation des autres approvisionnements',1),(226,'PCG99-BASE','STOCK','XXXXXX','393','39','Provisions pour dépréciation des en-cours de production de biens',1),(227,'PCG99-BASE','STOCK','XXXXXX','394','39','Provisions pour dépréciation des en-cours de production de services',1),(228,'PCG99-BASE','STOCK','XXXXXX','395','39','Provisions pour dépréciation des stocks de produits',1),(229,'PCG99-BASE','STOCK','XXXXXX','397','39','Provisions pour dépréciation des stocks de marchandises',1),(230,'PCG99-BASE','TIERS','XXXXXX','40','4','Fournisseurs et Comptes rattachés',1),(231,'PCG99-BASE','TIERS','XXXXXX','400','40','Fournisseurs et Comptes rattachés',1),(232,'PCG99-BASE','TIERS','SUPPLIER','401','40','Fournisseurs',1),(233,'PCG99-BASE','TIERS','XXXXXX','403','40','Fournisseurs - Effets à payer',1),(234,'PCG99-BASE','TIERS','XXXXXX','404','40','Fournisseurs d\'immobilisations',1),(235,'PCG99-BASE','TIERS','XXXXXX','405','40','Fournisseurs d\'immobilisations - Effets à payer',1),(236,'PCG99-BASE','TIERS','XXXXXX','408','40','Fournisseurs - Factures non parvenues',1),(237,'PCG99-BASE','TIERS','XXXXXX','409','40','Fournisseurs débiteurs',1),(238,'PCG99-BASE','TIERS','XXXXXX','41','4','Clients et comptes rattachés',1),(239,'PCG99-BASE','TIERS','XXXXXX','410','41','Clients et Comptes rattachés',1),(240,'PCG99-BASE','TIERS','CUSTOMER','411','41','Clients',1),(241,'PCG99-BASE','TIERS','XXXXXX','413','41','Clients - Effets à recevoir',1),(242,'PCG99-BASE','TIERS','XXXXXX','416','41','Clients douteux ou litigieux',1),(243,'PCG99-BASE','TIERS','XXXXXX','418','41','Clients - Produits non encore facturés',1),(244,'PCG99-BASE','TIERS','XXXXXX','419','41','Clients créditeurs',1),(245,'PCG99-BASE','TIERS','XXXXXX','42','4','Personnel et comptes rattachés',1),(246,'PCG99-BASE','TIERS','XXXXXX','421','42','Personnel - Rémunérations dues',1),(247,'PCG99-BASE','TIERS','XXXXXX','422','42','Comités d\'entreprises, d\'établissement, ...',1),(248,'PCG99-BASE','TIERS','XXXXXX','424','42','Participation des salariés aux résultats',1),(249,'PCG99-BASE','TIERS','XXXXXX','425','42','Personnel - Avances et acomptes',1),(250,'PCG99-BASE','TIERS','XXXXXX','426','42','Personnel - Dépôts',1),(251,'PCG99-BASE','TIERS','XXXXXX','427','42','Personnel - Oppositions',1),(252,'PCG99-BASE','TIERS','XXXXXX','428','42','Personnel - Charges à payer et produits à recevoir',1),(253,'PCG99-BASE','TIERS','XXXXXX','43','4','Sécurité sociale et autres organismes sociaux',1),(254,'PCG99-BASE','TIERS','XXXXXX','431','43','Sécurité sociale',1),(255,'PCG99-BASE','TIERS','XXXXXX','437','43','Autres organismes sociaux',1),(256,'PCG99-BASE','TIERS','XXXXXX','438','43','Organismes sociaux - Charges à payer et produits à recevoir',1),(257,'PCG99-BASE','TIERS','XXXXXX','44','4','État et autres collectivités publiques',1),(258,'PCG99-BASE','TIERS','XXXXXX','441','44','État - Subventions à recevoir',1),(259,'PCG99-BASE','TIERS','XXXXXX','442','44','Etat - Impôts et taxes recouvrables sur des tiers',1),(260,'PCG99-BASE','TIERS','XXXXXX','443','44','Opérations particulières avec l\'Etat, les collectivités publiques, les organismes internationaux',1),(261,'PCG99-BASE','TIERS','XXXXXX','444','44','Etat - Impôts sur les bénéfices',1),(262,'PCG99-BASE','TIERS','XXXXXX','445','44','Etat - Taxes sur le chiffre d\'affaires',1),(263,'PCG99-BASE','TIERS','XXXXXX','446','44','Obligations cautionnées',1),(264,'PCG99-BASE','TIERS','XXXXXX','447','44','Autres impôts, taxes et versements assimilés',1),(265,'PCG99-BASE','TIERS','XXXXXX','448','44','Etat - Charges à payer et produits à recevoir',1),(266,'PCG99-BASE','TIERS','XXXXXX','449','44','Quotas d\'émission à restituer à l\'Etat',1),(267,'PCG99-BASE','TIERS','XXXXXX','45','4','Groupe et associes',1),(268,'PCG99-BASE','TIERS','XXXXXX','451','45','Groupe',1),(269,'PCG99-BASE','TIERS','XXXXXX','455','45','Associés - Comptes courants',1),(270,'PCG99-BASE','TIERS','XXXXXX','456','45','Associés - Opérations sur le capital',1),(271,'PCG99-BASE','TIERS','XXXXXX','457','45','Associés - Dividendes à payer',1),(272,'PCG99-BASE','TIERS','XXXXXX','458','45','Associés - Opérations faites en commun et en G.I.E.',1),(273,'PCG99-BASE','TIERS','XXXXXX','46','4','Débiteurs divers et créditeurs divers',1),(274,'PCG99-BASE','TIERS','XXXXXX','462','46','Créances sur cessions d\'immobilisations',1),(275,'PCG99-BASE','TIERS','XXXXXX','464','46','Dettes sur acquisitions de valeurs mobilières de placement',1),(276,'PCG99-BASE','TIERS','XXXXXX','465','46','Créances sur cessions de valeurs mobilières de placement',1),(277,'PCG99-BASE','TIERS','XXXXXX','467','46','Autres comptes débiteurs ou créditeurs',1),(278,'PCG99-BASE','TIERS','XXXXXX','468','46','Divers - Charges à payer et produits à recevoir',1),(279,'PCG99-BASE','TIERS','XXXXXX','47','4','Comptes transitoires ou d\'attente',1),(280,'PCG99-BASE','TIERS','XXXXXX','471','47','Comptes d\'attente',1),(281,'PCG99-BASE','TIERS','XXXXXX','476','47','Différence de conversion - Actif',1),(282,'PCG99-BASE','TIERS','XXXXXX','477','47','Différences de conversion - Passif',1),(283,'PCG99-BASE','TIERS','XXXXXX','478','47','Autres comptes transitoires',1),(284,'PCG99-BASE','TIERS','XXXXXX','48','4','Comptes de régularisation',1),(285,'PCG99-BASE','TIERS','XXXXXX','481','48','Charges à répartir sur plusieurs exercices',1),(286,'PCG99-BASE','TIERS','XXXXXX','486','48','Charges constatées d\'avance',1),(287,'PCG99-BASE','TIERS','XXXXXX','487','48','Produits constatés d\'avance',1),(288,'PCG99-BASE','TIERS','XXXXXX','488','48','Comptes de répartition périodique des charges et des produits',1),(289,'PCG99-BASE','TIERS','XXXXXX','489','48','Quotas d\'émission alloués par l\'Etat',1),(290,'PCG99-BASE','TIERS','XXXXXX','49','4','Provisions pour dépréciation des comptes de tiers',1),(291,'PCG99-BASE','TIERS','XXXXXX','491','49','Provisions pour dépréciation des comptes de clients',1),(292,'PCG99-BASE','TIERS','XXXXXX','495','49','Provisions pour dépréciation des comptes du groupe et des associés',1),(293,'PCG99-BASE','TIERS','XXXXXX','496','49','Provisions pour dépréciation des comptes de débiteurs divers',1),(294,'PCG99-BASE','FINAN','XXXXXX','50','5','Valeurs mobilières de placement',1),(295,'PCG99-BASE','FINAN','XXXXXX','501','50','Parts dans des entreprises liées',1),(296,'PCG99-BASE','FINAN','XXXXXX','502','50','Actions propres',1),(297,'PCG99-BASE','FINAN','XXXXXX','503','50','Actions',1),(298,'PCG99-BASE','FINAN','XXXXXX','504','50','Autres titres conférant un droit de propriété',1),(299,'PCG99-BASE','FINAN','XXXXXX','505','50','Obligations et bons émis par la société et rachetés par elle',1),(300,'PCG99-BASE','FINAN','XXXXXX','506','50','Obligations',1),(301,'PCG99-BASE','FINAN','XXXXXX','507','50','Bons du Trésor et bons de caisse à court terme',1),(302,'PCG99-BASE','FINAN','XXXXXX','508','50','Autres valeurs mobilières de placement et autres créances assimilées',1),(303,'PCG99-BASE','FINAN','XXXXXX','509','50','Versements restant à effectuer sur valeurs mobilières de placement non libérées',1),(304,'PCG99-BASE','FINAN','XXXXXX','51','5','Banques, établissements financiers et assimilés',1),(305,'PCG99-BASE','FINAN','XXXXXX','511','51','Valeurs à l\'encaissement',1),(306,'PCG99-BASE','FINAN','BANK','512','51','Banques',1),(307,'PCG99-BASE','FINAN','XXXXXX','514','51','Chèques postaux',1),(308,'PCG99-BASE','FINAN','XXXXXX','515','51','\"Caisses\" du Trésor et des établissements publics',1),(309,'PCG99-BASE','FINAN','XXXXXX','516','51','Sociétés de bourse',1),(310,'PCG99-BASE','FINAN','XXXXXX','517','51','Autres organismes financiers',1),(311,'PCG99-BASE','FINAN','XXXXXX','518','51','Intérêts courus',1),(312,'PCG99-BASE','FINAN','XXXXXX','519','51','Concours bancaires courants',1),(313,'PCG99-BASE','FINAN','XXXXXX','52','5','Instruments de trésorerie',1),(314,'PCG99-BASE','FINAN','CASH','53','5','Caisse',1),(315,'PCG99-BASE','FINAN','XXXXXX','531','53','Caisse siège social',1),(316,'PCG99-BASE','FINAN','XXXXXX','532','53','Caisse succursale (ou usine) A',1),(317,'PCG99-BASE','FINAN','XXXXXX','533','53','Caisse succursale (ou usine) B',1),(318,'PCG99-BASE','FINAN','XXXXXX','54','5','Régies d\'avance et accréditifs',1),(319,'PCG99-BASE','FINAN','XXXXXX','58','5','Virements internes',1),(320,'PCG99-BASE','FINAN','XXXXXX','59','5','Provisions pour dépréciation des comptes financiers',1),(321,'PCG99-BASE','FINAN','XXXXXX','590','59','Provisions pour dépréciation des valeurs mobilières de placement',1),(322,'PCG99-BASE','CHARGE','PRODUCT','60','6','Achats',1),(323,'PCG99-BASE','CHARGE','XXXXXX','601','60','Achats stockés - Matières premières (et fournitures)',1),(324,'PCG99-BASE','CHARGE','XXXXXX','602','60','Achats stockés - Autres approvisionnements',1),(325,'PCG99-BASE','CHARGE','XXXXXX','603','60','Variations des stocks (approvisionnements et marchandises)',1),(326,'PCG99-BASE','CHARGE','XXXXXX','604','60','Achats stockés - Matières premières (et fournitures)',1),(327,'PCG99-BASE','CHARGE','XXXXXX','605','60','Achats de matériel, équipements et travaux',1),(328,'PCG99-BASE','CHARGE','XXXXXX','606','60','Achats non stockés de matière et fournitures',1),(329,'PCG99-BASE','CHARGE','XXXXXX','607','60','Achats de marchandises',1),(330,'PCG99-BASE','CHARGE','XXXXXX','608','60','(Compte réservé, le cas échéant, à la récapitulation des frais accessoires incorporés aux achats)',1),(331,'PCG99-BASE','CHARGE','XXXXXX','609','60','Rabais, remises et ristournes obtenus sur achats',1),(332,'PCG99-BASE','CHARGE','SERVICE','61','6','Services extérieurs',1),(333,'PCG99-BASE','CHARGE','XXXXXX','611','61','Sous-traitance générale',1),(334,'PCG99-BASE','CHARGE','XXXXXX','612','61','Redevances de crédit-bail',1),(335,'PCG99-BASE','CHARGE','XXXXXX','613','61','Locations',1),(336,'PCG99-BASE','CHARGE','XXXXXX','614','61','Charges locatives et de copropriété',1),(337,'PCG99-BASE','CHARGE','XXXXXX','615','61','Entretien et réparations',1),(338,'PCG99-BASE','CHARGE','XXXXXX','616','61','Primes d\'assurances',1),(339,'PCG99-BASE','CHARGE','XXXXXX','617','61','Etudes et recherches',1),(340,'PCG99-BASE','CHARGE','XXXXXX','618','61','Divers',1),(341,'PCG99-BASE','CHARGE','XXXXXX','619','61','Rabais, remises et ristournes obtenus sur services extérieurs',1),(342,'PCG99-BASE','CHARGE','XXXXXX','62','6','Autres services extérieurs',1),(343,'PCG99-BASE','CHARGE','XXXXXX','621','62','Personnel extérieur à l\'entreprise',1),(344,'PCG99-BASE','CHARGE','XXXXXX','622','62','Rémunérations d\'intermédiaires et honoraires',1),(345,'PCG99-BASE','CHARGE','XXXXXX','623','62','Publicité, publications, relations publiques',1),(346,'PCG99-BASE','CHARGE','XXXXXX','624','62','Transports de biens et transports collectifs du personnel',1),(347,'PCG99-BASE','CHARGE','XXXXXX','625','62','Déplacements, missions et réceptions',1),(348,'PCG99-BASE','CHARGE','XXXXXX','626','62','Frais postaux et de télécommunications',1),(349,'PCG99-BASE','CHARGE','XXXXXX','627','62','Services bancaires et assimilés',1),(350,'PCG99-BASE','CHARGE','XXXXXX','628','62','Divers',1),(351,'PCG99-BASE','CHARGE','XXXXXX','629','62','Rabais, remises et ristournes obtenus sur autres services extérieurs',1),(352,'PCG99-BASE','CHARGE','XXXXXX','63','6','Impôts, taxes et versements assimilés',1),(353,'PCG99-BASE','CHARGE','XXXXXX','631','63','Impôts, taxes et versements assimilés sur rémunérations (administrations des impôts)',1),(354,'PCG99-BASE','CHARGE','XXXXXX','633','63','Impôts, taxes et versements assimilés sur rémunérations (autres organismes)',1),(355,'PCG99-BASE','CHARGE','XXXXXX','635','63','Autres impôts, taxes et versements assimilés (administrations des impôts)',1),(356,'PCG99-BASE','CHARGE','XXXXXX','637','63','Autres impôts, taxes et versements assimilés (autres organismes)',1),(357,'PCG99-BASE','CHARGE','XXXXXX','64','6','Charges de personnel',1),(358,'PCG99-BASE','CHARGE','XXXXXX','641','64','Rémunérations du personnel',1),(359,'PCG99-BASE','CHARGE','XXXXXX','644','64','Rémunération du travail de l\'exploitant',1),(360,'PCG99-BASE','CHARGE','SOCIAL','645','64','Charges de sécurité sociale et de prévoyance',1),(361,'PCG99-BASE','CHARGE','XXXXXX','646','64','Cotisations sociales personnelles de l\'exploitant',1),(362,'PCG99-BASE','CHARGE','XXXXXX','647','64','Autres charges sociales',1),(363,'PCG99-BASE','CHARGE','XXXXXX','648','64','Autres charges de personnel',1),(364,'PCG99-BASE','CHARGE','XXXXXX','65','6','Autres charges de gestion courante',1),(365,'PCG99-BASE','CHARGE','XXXXXX','651','65','Redevances pour concessions, brevets, licences, marques, procédés, logiciels, droits et valeurs similaires',1),(366,'PCG99-BASE','CHARGE','XXXXXX','653','65','Jetons de présence',1),(367,'PCG99-BASE','CHARGE','XXXXXX','654','65','Pertes sur créances irrécouvrables',1),(368,'PCG99-BASE','CHARGE','XXXXXX','655','65','Quote-part de résultat sur opérations faites en commun',1),(369,'PCG99-BASE','CHARGE','XXXXXX','658','65','Charges diverses de gestion courante',1),(370,'PCG99-BASE','CHARGE','XXXXXX','66','6','Charges financières',1),(371,'PCG99-BASE','CHARGE','XXXXXX','661','66','Charges d\'intérêts',1),(372,'PCG99-BASE','CHARGE','XXXXXX','664','66','Pertes sur créances liées à des participations',1),(373,'PCG99-BASE','CHARGE','XXXXXX','665','66','Escomptes accordés',1),(374,'PCG99-BASE','CHARGE','XXXXXX','666','66','Pertes de change',1),(375,'PCG99-BASE','CHARGE','XXXXXX','667','66','Charges nettes sur cessions de valeurs mobilières de placement',1),(376,'PCG99-BASE','CHARGE','XXXXXX','668','66','Autres charges financières',1),(377,'PCG99-BASE','CHARGE','XXXXXX','67','6','Charges exceptionnelles',1),(378,'PCG99-BASE','CHARGE','XXXXXX','671','67','Charges exceptionnelles sur opérations de gestion',1),(379,'PCG99-BASE','CHARGE','XXXXXX','672','67','(Compte à la disposition des entités pour enregistrer, en cours d\'exercice, les charges sur exercices antérieurs)',1),(380,'PCG99-BASE','CHARGE','XXXXXX','675','67','Valeurs comptables des éléments d\'actif cédés',1),(381,'PCG99-BASE','CHARGE','XXXXXX','678','67','Autres charges exceptionnelles',1),(382,'PCG99-BASE','CHARGE','XXXXXX','68','6','Dotations aux amortissements et aux provisions',1),(383,'PCG99-BASE','CHARGE','XXXXXX','681','68','Dotations aux amortissements et aux provisions - Charges d\'exploitation',1),(384,'PCG99-BASE','CHARGE','XXXXXX','686','68','Dotations aux amortissements et aux provisions - Charges financières',1),(385,'PCG99-BASE','CHARGE','XXXXXX','687','68','Dotations aux amortissements et aux provisions - Charges exceptionnelles',1),(386,'PCG99-BASE','CHARGE','XXXXXX','69','6','Participation des salariés - impôts sur les bénéfices et assimiles',1),(387,'PCG99-BASE','CHARGE','XXXXXX','691','69','Participation des salariés aux résultats',1),(388,'PCG99-BASE','CHARGE','XXXXXX','695','69','Impôts sur les bénéfices',1),(389,'PCG99-BASE','CHARGE','XXXXXX','696','69','Suppléments d\'impôt sur les sociétés liés aux distributions',1),(390,'PCG99-BASE','CHARGE','XXXXXX','697','69','Imposition forfaitaire annuelle des sociétés',1),(391,'PCG99-BASE','CHARGE','XXXXXX','698','69','Intégration fiscale',1),(392,'PCG99-BASE','CHARGE','XXXXXX','699','69','Produits - Reports en arrière des déficits',1),(393,'PCG99-BASE','PROD','XXXXXX','70','7','Ventes de produits fabriqués, prestations de services, marchandises',1),(394,'PCG99-BASE','PROD','PRODUCT','701','70','Ventes de produits finis',1),(395,'PCG99-BASE','PROD','XXXXXX','702','70','Ventes de produits intermédiaires',1),(396,'PCG99-BASE','PROD','XXXXXX','703','70','Ventes de produits résiduels',1),(397,'PCG99-BASE','PROD','XXXXXX','704','70','Travaux',1),(398,'PCG99-BASE','PROD','XXXXXX','705','70','Etudes',1),(399,'PCG99-BASE','PROD','SERVICE','706','70','Prestations de services',1),(400,'PCG99-BASE','PROD','PRODUCT','707','70','Ventes de marchandises',1),(401,'PCG99-BASE','PROD','PRODUCT','708','70','Produits des activités annexes',1),(402,'PCG99-BASE','PROD','XXXXXX','709','70','Rabais, remises et ristournes accordés par l\'entreprise',1),(403,'PCG99-BASE','PROD','XXXXXX','71','7','Production stockée (ou déstockage)',1),(404,'PCG99-BASE','PROD','XXXXXX','713','71','Variation des stocks (en-cours de production, produits)',1),(405,'PCG99-BASE','PROD','XXXXXX','72','7','Production immobilisée',1),(406,'PCG99-BASE','PROD','XXXXXX','721','72','Immobilisations incorporelles',1),(407,'PCG99-BASE','PROD','XXXXXX','722','72','Immobilisations corporelles',1),(408,'PCG99-BASE','PROD','XXXXXX','74','7','Subventions d\'exploitation',1),(409,'PCG99-BASE','PROD','XXXXXX','75','7','Autres produits de gestion courante',1),(410,'PCG99-BASE','PROD','XXXXXX','751','75','Redevances pour concessions, brevets, licences, marques, procédés, logiciels, droits et valeurs similaires',1),(411,'PCG99-BASE','PROD','XXXXXX','752','75','Revenus des immeubles non affectés à des activités professionnelles',1),(412,'PCG99-BASE','PROD','XXXXXX','753','75','Jetons de présence et rémunérations d\'administrateurs, gérants,...',1),(413,'PCG99-BASE','PROD','XXXXXX','754','75','Ristournes perçues des coopératives (provenant des excédents)',1),(414,'PCG99-BASE','PROD','XXXXXX','755','75','Quotes-parts de résultat sur opérations faites en commun',1),(415,'PCG99-BASE','PROD','XXXXXX','758','75','Produits divers de gestion courante',1),(416,'PCG99-BASE','PROD','XXXXXX','76','7','Produits financiers',1),(417,'PCG99-BASE','PROD','XXXXXX','761','76','Produits de participations',1),(418,'PCG99-BASE','PROD','XXXXXX','762','76','Produits des autres immobilisations financières',1),(419,'PCG99-BASE','PROD','XXXXXX','763','76','Revenus des autres créances',1),(420,'PCG99-BASE','PROD','XXXXXX','764','76','Revenus des valeurs mobilières de placement',1),(421,'PCG99-BASE','PROD','XXXXXX','765','76','Escomptes obtenus',1),(422,'PCG99-BASE','PROD','XXXXXX','766','76','Gains de change',1),(423,'PCG99-BASE','PROD','XXXXXX','767','76','Produits nets sur cessions de valeurs mobilières de placement',1),(424,'PCG99-BASE','PROD','XXXXXX','768','76','Autres produits financiers',1),(425,'PCG99-BASE','PROD','XXXXXX','77','7','Produits exceptionnels',1),(426,'PCG99-BASE','PROD','XXXXXX','771','77','Produits exceptionnels sur opérations de gestion',1),(427,'PCG99-BASE','PROD','XXXXXX','772','77','(Compte à la disposition des entités pour enregistrer, en cours d\'exercice, les produits sur exercices antérieurs)',1),(428,'PCG99-BASE','PROD','XXXXXX','775','77','Produits des cessions d\'éléments d\'actif',1),(429,'PCG99-BASE','PROD','XXXXXX','777','77','Quote-part des subventions d\'investissement virée au résultat de l\'exercice',1),(430,'PCG99-BASE','PROD','XXXXXX','778','77','Autres produits exceptionnels',1),(431,'PCG99-BASE','PROD','XXXXXX','78','7','Reprises sur amortissements et provisions',1),(432,'PCG99-BASE','PROD','XXXXXX','781','78','Reprises sur amortissements et provisions (à inscrire dans les produits d\'exploitation)',1),(433,'PCG99-BASE','PROD','XXXXXX','786','78','Reprises sur provisions pour risques (à inscrire dans les produits financiers)',1),(434,'PCG99-BASE','PROD','XXXXXX','787','78','Reprises sur provisions (à inscrire dans les produits exceptionnels)',1),(435,'PCG99-BASE','PROD','XXXXXX','79','7','Transferts de charges',1),(436,'PCG99-BASE','PROD','XXXXXX','791','79','Transferts de charges d\'exploitation ',1),(437,'PCG99-BASE','PROD','XXXXXX','796','79','Transferts de charges financières',1),(438,'PCG99-BASE','PROD','XXXXXX','797','79','Transferts de charges exceptionnelles',1);
 /*!40000 ALTER TABLE `llx_accountingaccount` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -68,35 +97,6 @@ CREATE TABLE `llx_accountingdebcred` (
 LOCK TABLES `llx_accountingdebcred` WRITE;
 /*!40000 ALTER TABLE `llx_accountingdebcred` DISABLE KEYS */;
 /*!40000 ALTER TABLE `llx_accountingdebcred` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `llx_accountingsystem`
---
-
-DROP TABLE IF EXISTS `llx_accountingsystem`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `llx_accountingsystem` (
-  `pcg_version` varchar(12) COLLATE utf8_unicode_ci NOT NULL,
-  `fk_pays` int(11) NOT NULL,
-  `label` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
-  `datec` varchar(12) COLLATE utf8_unicode_ci NOT NULL,
-  `fk_author` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `tms` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `active` smallint(6) DEFAULT '0',
-  PRIMARY KEY (`pcg_version`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `llx_accountingsystem`
---
-
-LOCK TABLES `llx_accountingsystem` WRITE;
-/*!40000 ALTER TABLE `llx_accountingsystem` DISABLE KEYS */;
-INSERT INTO `llx_accountingsystem` VALUES ('PCG99-ABREGE',1,'The simple accountancy french plan','2012-10-11',NULL,'2012-10-11 14:07:45',0),('PCG99-BASE',1,'The base accountancy french plan','2012-10-11',NULL,'2012-10-11 14:07:45',0);
-/*!40000 ALTER TABLE `llx_accountingsystem` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -164,7 +164,7 @@ CREATE TABLE `llx_actioncomm` (
   `durationa` double DEFAULT NULL,
   `note` text COLLATE utf8_unicode_ci,
   `fk_element` int(11) DEFAULT NULL,
-  `elementtype` varchar(16) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `elementtype` varchar(32) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `idx_actioncomm_datea` (`datea`),
   KEY `idx_actioncomm_fk_soc` (`fk_soc`),
@@ -179,6 +179,32 @@ CREATE TABLE `llx_actioncomm` (
 LOCK TABLES `llx_actioncomm` WRITE;
 /*!40000 ALTER TABLE `llx_actioncomm` DISABLE KEYS */;
 /*!40000 ALTER TABLE `llx_actioncomm` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `llx_actioncomm_extrafields`
+--
+
+DROP TABLE IF EXISTS `llx_actioncomm_extrafields`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `llx_actioncomm_extrafields` (
+  `rowid` int(11) NOT NULL AUTO_INCREMENT,
+  `tms` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `fk_object` int(11) NOT NULL,
+  `import_key` varchar(14) DEFAULT NULL,
+  PRIMARY KEY (`rowid`),
+  KEY `idx_actioncomm_extrafields` (`fk_object`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `llx_actioncomm_extrafields`
+--
+
+LOCK TABLES `llx_actioncomm_extrafields` WRITE;
+/*!40000 ALTER TABLE `llx_actioncomm_extrafields` DISABLE KEYS */;
+/*!40000 ALTER TABLE `llx_actioncomm_extrafields` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -223,12 +249,13 @@ CREATE TABLE `llx_adherent` (
   `fk_user_mod` int(11) DEFAULT NULL,
   `fk_user_valid` int(11) DEFAULT NULL,
   `import_key` varchar(14) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `canvas` varchar(32) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`rowid`),
   UNIQUE KEY `uk_adherent_login` (`login`,`entity`),
   UNIQUE KEY `uk_adherent_fk_soc` (`fk_soc`),
   KEY `idx_adherent_fk_adherent_type` (`fk_adherent_type`),
-  CONSTRAINT `fk_adherent_adherent_type` FOREIGN KEY (`fk_adherent_type`) REFERENCES `llx_adherent_type` (`rowid`),
-  CONSTRAINT `adherent_fk_soc` FOREIGN KEY (`fk_soc`) REFERENCES `llx_societe` (`rowid`)
+  CONSTRAINT `adherent_fk_soc` FOREIGN KEY (`fk_soc`) REFERENCES `llx_societe` (`rowid`),
+  CONSTRAINT `fk_adherent_adherent_type` FOREIGN KEY (`fk_adherent_type`) REFERENCES `llx_adherent_type` (`rowid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -308,6 +335,7 @@ DROP TABLE IF EXISTS `llx_bank`;
 CREATE TABLE `llx_bank` (
   `rowid` int(11) NOT NULL AUTO_INCREMENT,
   `datec` datetime DEFAULT NULL,
+  `tms` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `datev` date DEFAULT NULL,
   `dateo` date DEFAULT NULL,
   `amount` double(24,8) NOT NULL DEFAULT '0.00000000',
@@ -356,7 +384,7 @@ CREATE TABLE `llx_bank_account` (
   `label` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
   `entity` int(11) NOT NULL DEFAULT '1',
   `bank` varchar(60) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `code_banque` varchar(7) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `code_banque` varchar(8) COLLATE utf8_unicode_ci DEFAULT NULL,
   `code_guichet` varchar(6) COLLATE utf8_unicode_ci DEFAULT NULL,
   `number` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `cle_rib` varchar(5) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -541,17 +569,18 @@ DROP TABLE IF EXISTS `llx_boxes`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `llx_boxes` (
   `rowid` int(11) NOT NULL AUTO_INCREMENT,
+  `entity` int(11) NOT NULL DEFAULT '1',
   `box_id` int(11) NOT NULL,
   `position` smallint(6) NOT NULL,
   `box_order` varchar(3) COLLATE utf8_unicode_ci NOT NULL,
   `fk_user` int(11) NOT NULL DEFAULT '0',
   `maxline` int(11) DEFAULT NULL,
   PRIMARY KEY (`rowid`),
-  UNIQUE KEY `uk_boxes` (`box_id`,`position`,`fk_user`),
+  UNIQUE KEY `uk_boxes` (`entity`,`box_id`,`position`,`fk_user`),
   KEY `idx_boxes_boxid` (`box_id`),
   KEY `idx_boxes_fk_user` (`fk_user`),
   CONSTRAINT `fk_boxes_box_id` FOREIGN KEY (`box_id`) REFERENCES `llx_boxes_def` (`rowid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -578,7 +607,7 @@ CREATE TABLE `llx_boxes_def` (
   `note` varchar(130) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`rowid`),
   UNIQUE KEY `uk_boxes_def` (`file`,`entity`,`note`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -615,7 +644,7 @@ CREATE TABLE `llx_c_action_trigger` (
 
 LOCK TABLES `llx_c_action_trigger` WRITE;
 /*!40000 ALTER TABLE `llx_c_action_trigger` DISABLE KEYS */;
-INSERT INTO `llx_c_action_trigger` VALUES (1,'FICHEINTER_VALIDATE','Intervention validated','Executed when a intervention is validated','ficheinter',18),(2,'BILL_VALIDATE','Customer invoice validated','Executed when a customer invoice is approved','facture',6),(3,'ORDER_SUPPLIER_APPROVE','Supplier order request approved','Executed when a supplier order is approved','order_supplier',11),(4,'ORDER_SUPPLIER_REFUSE','Supplier order request refused','Executed when a supplier order is refused','order_supplier',12),(5,'ORDER_VALIDATE','Customer order validate','Executed when a customer order is validated','commande',4),(6,'PROPAL_VALIDATE','Customer proposal validated','Executed when a commercial proposal is validated','propal',2),(7,'WITHDRAW_TRANSMIT','Withdraw command transmitted','Executed when a withdrawal command is transmited','withdraw',25),(8,'WITHDRAW_CREDIT','Withdraw credited','Executed when a withdrawal is credited','withdraw',26),(9,'WITHDRAW_EMIT','Withdraw emit','Executed when a withdrawal is emited','withdraw',27),(10,'COMPANY_CREATE','Third party created','Executed when a third party is created','societe',1),(11,'CONTRACT_VALIDATE','Contract validated','Executed when a contract is validated','contrat',17),(12,'PROPAL_SENTBYMAIL','Commercial proposal sent by mail','Executed when a commercial proposal is sent by mail','propal',3),(13,'ORDER_SENTBYMAIL','Customer order sent by mail','Executed when a customer order is sent by mail ','commande',5),(14,'BILL_PAYED','Customer invoice payed','Executed when a customer invoice is payed','facture',7),(15,'BILL_CANCEL','Customer invoice canceled','Executed when a customer invoice is conceled','facture',8),(16,'BILL_SENTBYMAIL','Customer invoice sent by mail','Executed when a customer invoice is sent by mail','facture',9),(17,'ORDER_SUPPLIER_VALIDATE','Supplier order validated','Executed when a supplier order is validated','order_supplier',10),(18,'ORDER_SUPPLIER_SENTBYMAIL','Supplier order sent by mail','Executed when a supplier order is sent by mail','order_supplier',13),(19,'BILL_SUPPLIER_VALIDATE','Supplier invoice validated','Executed when a supplier invoice is validated','invoice_supplier',14),(20,'BILL_SUPPLIER_PAYED','Supplier invoice payed','Executed when a supplier invoice is payed','invoice_supplier',15),(21,'BILL_SUPPLIER_SENTBYMAIL','Supplier invoice sent by mail','Executed when a supplier invoice is sent by mail','invoice_supplier',16),(22,'SHIPPING_VALIDATE','Shipping validated','Executed when a shipping is validated','shipping',19),(23,'SHIPPING_SENTBYMAIL','Shipping sent by mail','Executed when a shipping is sent by mail','shipping',20),(24,'MEMBER_VALIDATE','Member validated','Executed when a member is validated','member',21),(25,'MEMBER_SUBSCRIPTION','Member subscribed','Executed when a member is subscribed','member',22),(26,'MEMBER_RESILIATE','Member resiliated','Executed when a member is resiliated','member',23),(27,'MEMBER_DELETE','Member deleted','Executed when a member is deleted','member',24);
+INSERT INTO `llx_c_action_trigger` VALUES (1,'FICHINTER_VALIDATE','Intervention validated','Executed when a intervention is validated','ficheinter',18),(2,'BILL_VALIDATE','Customer invoice validated','Executed when a customer invoice is approved','facture',6),(3,'ORDER_SUPPLIER_APPROVE','Supplier order request approved','Executed when a supplier order is approved','order_supplier',11),(4,'ORDER_SUPPLIER_REFUSE','Supplier order request refused','Executed when a supplier order is refused','order_supplier',12),(5,'ORDER_VALIDATE','Customer order validate','Executed when a customer order is validated','commande',4),(6,'PROPAL_VALIDATE','Customer proposal validated','Executed when a commercial proposal is validated','propal',2),(10,'COMPANY_CREATE','Third party created','Executed when a third party is created','societe',1),(11,'CONTRACT_VALIDATE','Contract validated','Executed when a contract is validated','contrat',17),(12,'PROPAL_SENTBYMAIL','Commercial proposal sent by mail','Executed when a commercial proposal is sent by mail','propal',3),(13,'ORDER_SENTBYMAIL','Customer order sent by mail','Executed when a customer order is sent by mail ','commande',5),(14,'BILL_PAYED','Customer invoice payed','Executed when a customer invoice is payed','facture',7),(15,'BILL_CANCEL','Customer invoice canceled','Executed when a customer invoice is conceled','facture',8),(16,'BILL_SENTBYMAIL','Customer invoice sent by mail','Executed when a customer invoice is sent by mail','facture',9),(17,'ORDER_SUPPLIER_VALIDATE','Supplier order validated','Executed when a supplier order is validated','order_supplier',10),(18,'ORDER_SUPPLIER_SENTBYMAIL','Supplier order sent by mail','Executed when a supplier order is sent by mail','order_supplier',13),(19,'BILL_SUPPLIER_VALIDATE','Supplier invoice validated','Executed when a supplier invoice is validated','invoice_supplier',14),(20,'BILL_SUPPLIER_PAYED','Supplier invoice payed','Executed when a supplier invoice is payed','invoice_supplier',15),(21,'BILL_SUPPLIER_SENTBYMAIL','Supplier invoice sent by mail','Executed when a supplier invoice is sent by mail','invoice_supplier',16),(22,'SHIPPING_VALIDATE','Shipping validated','Executed when a shipping is validated','shipping',19),(23,'SHIPPING_SENTBYMAIL','Shipping sent by mail','Executed when a shipping is sent by mail','shipping',20),(24,'MEMBER_VALIDATE','Member validated','Executed when a member is validated','member',21),(25,'MEMBER_SUBSCRIPTION','Member subscribed','Executed when a member is subscribed','member',22),(26,'MEMBER_RESILIATE','Member resiliated','Executed when a member is resiliated','member',23),(27,'MEMBER_DELETE','Member deleted','Executed when a member is deleted','member',24);
 /*!40000 ALTER TABLE `llx_c_action_trigger` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -636,7 +665,7 @@ CREATE TABLE `llx_c_actioncomm` (
   `todo` tinyint(4) DEFAULT NULL,
   `position` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `code` (`code`)
+  UNIQUE KEY `uk_c_actioncomm` (`code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -646,7 +675,7 @@ CREATE TABLE `llx_c_actioncomm` (
 
 LOCK TABLES `llx_c_actioncomm` WRITE;
 /*!40000 ALTER TABLE `llx_c_actioncomm` DISABLE KEYS */;
-INSERT INTO `llx_c_actioncomm` VALUES (1,'AC_TEL','system','Phone call',NULL,1,NULL,2),(2,'AC_FAX','system','Send Fax',NULL,1,NULL,3),(3,'AC_PROP','system','Send commercial proposal by email','propal',1,NULL,10),(4,'AC_EMAIL','system','Send Email',NULL,1,NULL,4),(5,'AC_RDV','system','Rendez-vous',NULL,1,NULL,1),(8,'AC_COM','system','Send customer order by email','order',1,NULL,8),(9,'AC_FAC','system','Send customer invoice by email','invoice',1,NULL,6),(10,'AC_SHIP','system','Send shipping by email','shipping',1,NULL,11),(30,'AC_SUP_ORD','system','Send supplier order by email','order_supplier',1,NULL,9),(31,'AC_SUP_INV','system','Send supplier invoice by email','invoice_supplier',1,NULL,7),(50,'AC_OTH','system','Other',NULL,1,NULL,5);
+INSERT INTO `llx_c_actioncomm` VALUES (1,'AC_TEL','system','Phone call',NULL,1,NULL,2),(2,'AC_FAX','system','Send Fax',NULL,1,NULL,3),(3,'AC_PROP','systemauto','Send commercial proposal by email','propal',0,NULL,10),(4,'AC_EMAIL','system','Send Email',NULL,1,NULL,4),(5,'AC_RDV','system','Rendez-vous',NULL,1,NULL,1),(8,'AC_COM','systemauto','Send customer order by email','order',0,NULL,8),(9,'AC_FAC','systemauto','Send customer invoice by email','invoice',0,NULL,6),(10,'AC_SHIP','systemauto','Send shipping by email','shipping',0,NULL,11),(30,'AC_SUP_ORD','systemauto','Send supplier order by email','order_supplier',0,NULL,9),(31,'AC_SUP_INV','systemauto','Send supplier invoice by email','invoice_supplier',0,NULL,7),(40,'AC_OTH_AUTO','systemauto','Other (automatically inserted events)',NULL,1,NULL,20),(50,'AC_OTH','system','Other (manually inserted events)',NULL,1,NULL,5);
 /*!40000 ALTER TABLE `llx_c_actioncomm` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -718,6 +747,7 @@ CREATE TABLE `llx_c_chargesociales` (
   `deductible` smallint(6) NOT NULL DEFAULT '0',
   `active` tinyint(4) NOT NULL DEFAULT '1',
   `code` varchar(12) COLLATE utf8_unicode_ci NOT NULL,
+  `accountancy_code` varchar(15) COLLATE utf8_unicode_ci DEFAULT NULL,
   `fk_pays` int(11) NOT NULL DEFAULT '1',
   `module` varchar(32) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -730,7 +760,7 @@ CREATE TABLE `llx_c_chargesociales` (
 
 LOCK TABLES `llx_c_chargesociales` WRITE;
 /*!40000 ALTER TABLE `llx_c_chargesociales` DISABLE KEYS */;
-INSERT INTO `llx_c_chargesociales` VALUES (1,'Allocations familiales',1,1,'TAXFAM',1,NULL),(2,'CSG Deductible',1,1,'TAXCSGD',1,NULL),(3,'CSG/CRDS NON Deductible',0,1,'TAXCSGND',1,NULL),(10,'Taxe apprentissage',0,1,'TAXAPP',1,NULL),(11,'Taxe professionnelle',0,1,'TAXPRO',1,NULL),(12,'Cotisation fonciere des entreprises',0,1,'TAXCFE',1,NULL),(13,'Cotisation sur la valeur ajoutee des entreprises',0,1,'TAXCVAE',1,NULL),(20,'Impots locaux/fonciers',0,1,'TAXFON',1,NULL),(25,'Impots revenus',0,1,'TAXREV',1,NULL),(30,'Assurance Sante',0,1,'TAXSECU',1,NULL),(40,'Mutuelle',0,1,'TAXMUT',1,NULL),(50,'Assurance vieillesse',0,1,'TAXRET',1,NULL),(60,'Assurance Chomage',0,1,'TAXCHOM',1,NULL),(201,'ONSS',1,1,'TAXBEONSS',2,NULL),(210,'Precompte professionnel',1,1,'TAXBEPREPRO',2,NULL),(220,'Prime existence',1,1,'TAXBEPRIEXI',2,NULL),(230,'Precompte immobilier',1,1,'TAXBEPREIMMO',2,NULL);
+INSERT INTO `llx_c_chargesociales` VALUES (1,'Allocations familiales',1,1,'TAXFAM',NULL,1,NULL),(2,'CSG Deductible',1,1,'TAXCSGD',NULL,1,NULL),(3,'CSG/CRDS NON Deductible',0,1,'TAXCSGND',NULL,1,NULL),(10,'Taxe apprentissage',0,1,'TAXAPP',NULL,1,NULL),(11,'Taxe professionnelle',0,1,'TAXPRO',NULL,1,NULL),(12,'Cotisation fonciere des entreprises',0,1,'TAXCFE',NULL,1,NULL),(13,'Cotisation sur la valeur ajoutee des entreprises',0,1,'TAXCVAE',NULL,1,NULL),(20,'Impots locaux/fonciers',0,1,'TAXFON',NULL,1,NULL),(25,'Impots revenus',0,1,'TAXREV',NULL,1,NULL),(30,'Assurance Sante',0,1,'TAXSECU',NULL,1,NULL),(40,'Mutuelle',0,1,'TAXMUT',NULL,1,NULL),(50,'Assurance vieillesse',0,1,'TAXRET',NULL,1,NULL),(60,'Assurance Chomage',0,1,'TAXCHOM',NULL,1,NULL),(201,'ONSS',1,1,'TAXBEONSS',NULL,2,NULL),(210,'Precompte professionnel',1,1,'TAXBEPREPRO',NULL,2,NULL),(220,'Prime existence',1,1,'TAXBEPRIEXI',NULL,2,NULL),(230,'Precompte immobilier',1,1,'TAXBEPREIMMO',NULL,2,NULL);
 /*!40000 ALTER TABLE `llx_c_chargesociales` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -748,7 +778,7 @@ CREATE TABLE `llx_c_civilite` (
   `active` tinyint(4) NOT NULL DEFAULT '1',
   `module` varchar(32) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`rowid`),
-  UNIQUE KEY `code` (`code`)
+  UNIQUE KEY `uk_c_civilite` (`code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -817,7 +847,7 @@ CREATE TABLE `llx_c_departements` (
 
 LOCK TABLES `llx_c_departements` WRITE;
 /*!40000 ALTER TABLE `llx_c_departements` DISABLE KEYS */;
-INSERT INTO `llx_c_departements` VALUES (1,'0',0,'0',0,'-','-',1),(2,'01',82,'01053',5,'AIN','Ain',1),(3,'02',22,'02408',5,'AISNE','Aisne',1),(4,'03',83,'03190',5,'ALLIER','Allier',1),(5,'04',93,'04070',4,'ALPES-DE-HAUTE-PROVENCE','Alpes-de-Haute-Provence',1),(6,'05',93,'05061',4,'HAUTES-ALPES','Hautes-Alpes',1),(7,'06',93,'06088',4,'ALPES-MARITIMES','Alpes-Maritimes',1),(8,'07',82,'07186',5,'ARDECHE','Ardèche',1),(9,'08',21,'08105',4,'ARDENNES','Ardennes',1),(10,'09',73,'09122',5,'ARIEGE','Ariège',1),(11,'10',21,'10387',5,'AUBE','Aube',1),(12,'11',91,'11069',5,'AUDE','Aude',1),(13,'12',73,'12202',5,'AVEYRON','Aveyron',1),(14,'13',93,'13055',4,'BOUCHES-DU-RHONE','Bouches-du-Rhône',1),(15,'14',25,'14118',2,'CALVADOS','Calvados',1),(16,'15',83,'15014',2,'CANTAL','Cantal',1),(17,'16',54,'16015',3,'CHARENTE','Charente',1),(18,'17',54,'17300',3,'CHARENTE-MARITIME','Charente-Maritime',1),(19,'18',24,'18033',2,'CHER','Cher',1),(20,'19',74,'19272',3,'CORREZE','Corrèze',1),(21,'2A',94,'2A004',3,'CORSE-DU-SUD','Corse-du-Sud',1),(22,'2B',94,'2B033',3,'HAUTE-CORSE','Haute-Corse',1),(23,'21',26,'21231',3,'COTE-D OR','Côte-d Or',1),(24,'22',53,'22278',4,'COTES-D ARMOR','Côtes-d Armor',1),(25,'23',74,'23096',3,'CREUSE','Creuse',1),(26,'24',72,'24322',3,'DORDOGNE','Dordogne',1),(27,'25',43,'25056',2,'DOUBS','Doubs',1),(28,'26',82,'26362',3,'DROME','Drôme',1),(29,'27',23,'27229',5,'EURE','Eure',1),(30,'28',24,'28085',1,'EURE-ET-LOIR','Eure-et-Loir',1),(31,'29',53,'29232',2,'FINISTERE','Finistère',1),(32,'30',91,'30189',2,'GARD','Gard',1),(33,'31',73,'31555',3,'HAUTE-GARONNE','Haute-Garonne',1),(34,'32',73,'32013',2,'GERS','Gers',1),(35,'33',72,'33063',3,'GIRONDE','Gironde',1),(36,'34',91,'34172',5,'HERAULT','Hérault',1),(37,'35',53,'35238',1,'ILLE-ET-VILAINE','Ille-et-Vilaine',1),(38,'36',24,'36044',5,'INDRE','Indre',1),(39,'37',24,'37261',1,'INDRE-ET-LOIRE','Indre-et-Loire',1),(40,'38',82,'38185',5,'ISERE','Isère',1),(41,'39',43,'39300',2,'JURA','Jura',1),(42,'40',72,'40192',4,'LANDES','Landes',1),(43,'41',24,'41018',0,'LOIR-ET-CHER','Loir-et-Cher',1),(44,'42',82,'42218',3,'LOIRE','Loire',1),(45,'43',83,'43157',3,'HAUTE-LOIRE','Haute-Loire',1),(46,'44',52,'44109',3,'LOIRE-ATLANTIQUE','Loire-Atlantique',1),(47,'45',24,'45234',2,'LOIRET','Loiret',1),(48,'46',73,'46042',2,'LOT','Lot',1),(49,'47',72,'47001',0,'LOT-ET-GARONNE','Lot-et-Garonne',1),(50,'48',91,'48095',3,'LOZERE','Lozère',1),(51,'49',52,'49007',0,'MAINE-ET-LOIRE','Maine-et-Loire',1),(52,'50',25,'50502',3,'MANCHE','Manche',1),(53,'51',21,'51108',3,'MARNE','Marne',1),(54,'52',21,'52121',3,'HAUTE-MARNE','Haute-Marne',1),(55,'53',52,'53130',3,'MAYENNE','Mayenne',1),(56,'54',41,'54395',0,'MEURTHE-ET-MOSELLE','Meurthe-et-Moselle',1),(57,'55',41,'55029',3,'MEUSE','Meuse',1),(58,'56',53,'56260',2,'MORBIHAN','Morbihan',1),(59,'57',41,'57463',3,'MOSELLE','Moselle',1),(60,'58',26,'58194',3,'NIEVRE','Nièvre',1),(61,'59',31,'59350',2,'NORD','Nord',1),(62,'60',22,'60057',5,'OISE','Oise',1),(63,'61',25,'61001',5,'ORNE','Orne',1),(64,'62',31,'62041',2,'PAS-DE-CALAIS','Pas-de-Calais',1),(65,'63',83,'63113',2,'PUY-DE-DOME','Puy-de-Dôme',1),(66,'64',72,'64445',4,'PYRENEES-ATLANTIQUES','Pyrénées-Atlantiques',1),(67,'65',73,'65440',4,'HAUTES-PYRENEES','Hautes-Pyrénées',1),(68,'66',91,'66136',4,'PYRENEES-ORIENTALES','Pyrénées-Orientales',1),(69,'67',42,'67482',2,'BAS-RHIN','Bas-Rhin',1),(70,'68',42,'68066',2,'HAUT-RHIN','Haut-Rhin',1),(71,'69',82,'69123',2,'RHONE','Rhône',1),(72,'70',43,'70550',3,'HAUTE-SAONE','Haute-Saône',1),(73,'71',26,'71270',0,'SAONE-ET-LOIRE','Saône-et-Loire',1),(74,'72',52,'72181',3,'SARTHE','Sarthe',1),(75,'73',82,'73065',3,'SAVOIE','Savoie',1),(76,'74',82,'74010',3,'HAUTE-SAVOIE','Haute-Savoie',1),(77,'75',11,'75056',0,'PARIS','Paris',1),(78,'76',23,'76540',3,'SEINE-MARITIME','Seine-Maritime',1),(79,'77',11,'77288',0,'SEINE-ET-MARNE','Seine-et-Marne',1),(80,'78',11,'78646',4,'YVELINES','Yvelines',1),(81,'79',54,'79191',4,'DEUX-SEVRES','Deux-Sèvres',1),(82,'80',22,'80021',3,'SOMME','Somme',1),(83,'81',73,'81004',2,'TARN','Tarn',1),(84,'82',73,'82121',0,'TARN-ET-GARONNE','Tarn-et-Garonne',1),(85,'83',93,'83137',2,'VAR','Var',1),(86,'84',93,'84007',0,'VAUCLUSE','Vaucluse',1),(87,'85',52,'85191',3,'VENDEE','Vendée',1),(88,'86',54,'86194',3,'VIENNE','Vienne',1),(89,'87',74,'87085',3,'HAUTE-VIENNE','Haute-Vienne',1),(90,'88',41,'88160',4,'VOSGES','Vosges',1),(91,'89',26,'89024',5,'YONNE','Yonne',1),(92,'90',43,'90010',0,'TERRITOIRE DE BELFORT','Territoire de Belfort',1),(93,'91',11,'91228',5,'ESSONNE','Essonne',1),(94,'92',11,'92050',4,'HAUTS-DE-SEINE','Hauts-de-Seine',1),(95,'93',11,'93008',3,'SEINE-SAINT-DENIS','Seine-Saint-Denis',1),(96,'94',11,'94028',2,'VAL-DE-MARNE','Val-de-Marne',1),(97,'95',11,'95500',2,'VAL-D OISE','Val-d Oise',1),(98,'971',1,'97105',3,'GUADELOUPE','Guadeloupe',1),(99,'972',2,'97209',3,'MARTINIQUE','Martinique',1),(100,'973',3,'97302',3,'GUYANE','Guyane',1),(101,'974',4,'97411',3,'REUNION','Réunion',1),(102,'01',201,'',1,'ANVERS','Anvers',1),(103,'02',203,'',3,'BRUXELLES-CAPITALE','Bruxelles-Capitale',1),(104,'03',202,'',2,'BRABANT-WALLON','Brabant-Wallon',1),(105,'04',201,'',1,'BRABANT-FLAMAND','Brabant-Flamand',1),(106,'05',201,'',1,'FLANDRE-OCCIDENTALE','Flandre-Occidentale',1),(107,'06',201,'',1,'FLANDRE-ORIENTALE','Flandre-Orientale',1),(108,'07',202,'',2,'HAINAUT','Hainaut',1),(109,'08',201,'',2,'LIEGE','Liège',1),(110,'09',202,'',1,'LIMBOURG','Limbourg',1),(111,'10',202,'',2,'LUXEMBOURG','Luxembourg',1),(112,'11',201,'',2,'NAMUR','Namur',1),(113,'AG',315,NULL,NULL,NULL,'AGRIGENTO',1),(114,'AL',312,NULL,NULL,NULL,'ALESSANDRIA',1),(115,'AN',310,NULL,NULL,NULL,'ANCONA',1),(116,'AO',319,NULL,NULL,NULL,'AOSTA',1),(117,'AR',316,NULL,NULL,NULL,'AREZZO',1),(118,'AP',310,NULL,NULL,NULL,'ASCOLI PICENO',1),(119,'AT',312,NULL,NULL,NULL,'ASTI',1),(120,'AV',304,NULL,NULL,NULL,'AVELLINO',1),(121,'BA',313,NULL,NULL,NULL,'BARI',1),(122,'BT',313,NULL,NULL,NULL,'BARLETTA-ANDRIA-TRANI',1),(123,'BL',320,NULL,NULL,NULL,'BELLUNO',1),(124,'BN',304,NULL,NULL,NULL,'BENEVENTO',1),(125,'BG',309,NULL,NULL,NULL,'BERGAMO',1),(126,'BI',312,NULL,NULL,NULL,'BIELLA',1),(127,'BO',305,NULL,NULL,NULL,'BOLOGNA',1),(128,'BZ',317,NULL,NULL,NULL,'BOLZANO',1),(129,'BS',309,NULL,NULL,NULL,'BRESCIA',1),(130,'BR',313,NULL,NULL,NULL,'BRINDISI',1),(131,'CA',314,NULL,NULL,NULL,'CAGLIARI',1),(132,'CL',315,NULL,NULL,NULL,'CALTANISSETTA',1),(133,'CB',311,NULL,NULL,NULL,'CAMPOBASSO',1),(134,'CI',314,NULL,NULL,NULL,'CARBONIA-IGLESIAS',1),(135,'CE',304,NULL,NULL,NULL,'CASERTA',1),(136,'CT',315,NULL,NULL,NULL,'CATANIA',1),(137,'CZ',303,NULL,NULL,NULL,'CATANZARO',1),(138,'CH',301,NULL,NULL,NULL,'CHIETI',1),(139,'CO',309,NULL,NULL,NULL,'COMO',1),(140,'CS',303,NULL,NULL,NULL,'COSENZA',1),(141,'CR',309,NULL,NULL,NULL,'CREMONA',1),(142,'KR',303,NULL,NULL,NULL,'CROTONE',1),(143,'CN',312,NULL,NULL,NULL,'CUNEO',1),(144,'EN',315,NULL,NULL,NULL,'ENNA',1),(145,'FM',310,NULL,NULL,NULL,'FERMO',1),(146,'FE',305,NULL,NULL,NULL,'FERRARA',1),(147,'FI',316,NULL,NULL,NULL,'FIRENZE',1),(148,'FG',313,NULL,NULL,NULL,'FOGGIA',1),(149,'FC',305,NULL,NULL,NULL,'FORLI-CESENA',1),(150,'FR',307,NULL,NULL,NULL,'FROSINONE',1),(151,'GE',308,NULL,NULL,NULL,'GENOVA',1),(152,'GO',306,NULL,NULL,NULL,'GORIZIA',1),(153,'GR',316,NULL,NULL,NULL,'GROSSETO',1),(154,'IM',308,NULL,NULL,NULL,'IMPERIA',1),(155,'IS',311,NULL,NULL,NULL,'ISERNIA',1),(156,'SP',308,NULL,NULL,NULL,'LA SPEZIA',1),(157,'AQ',301,NULL,NULL,NULL,'L AQUILA',1),(158,'LT',307,NULL,NULL,NULL,'LATINA',1),(159,'LE',313,NULL,NULL,NULL,'LECCE',1),(160,'LC',309,NULL,NULL,NULL,'LECCO',1),(161,'LI',314,NULL,NULL,NULL,'LIVORNO',1),(162,'LO',309,NULL,NULL,NULL,'LODI',1),(163,'LU',316,NULL,NULL,NULL,'LUCCA',1),(164,'MC',310,NULL,NULL,NULL,'MACERATA',1),(165,'MN',309,NULL,NULL,NULL,'MANTOVA',1),(166,'MS',316,NULL,NULL,NULL,'MASSA-CARRARA',1),(167,'MT',302,NULL,NULL,NULL,'MATERA',1),(168,'VS',314,NULL,NULL,NULL,'MEDIO CAMPIDANO',1),(169,'ME',315,NULL,NULL,NULL,'MESSINA',1),(170,'MI',309,NULL,NULL,NULL,'MILANO',1),(171,'MB',309,NULL,NULL,NULL,'MONZA e BRIANZA',1),(172,'MO',305,NULL,NULL,NULL,'MODENA',1),(173,'NA',304,NULL,NULL,NULL,'NAPOLI',1),(174,'NO',312,NULL,NULL,NULL,'NOVARA',1),(175,'NU',314,NULL,NULL,NULL,'NUORO',1),(176,'OG',314,NULL,NULL,NULL,'OGLIASTRA',1),(177,'OT',314,NULL,NULL,NULL,'OLBIA-TEMPIO',1),(178,'OR',314,NULL,NULL,NULL,'ORISTANO',1),(179,'PD',320,NULL,NULL,NULL,'PADOVA',1),(180,'PA',315,NULL,NULL,NULL,'PALERMO',1),(181,'PR',305,NULL,NULL,NULL,'PARMA',1),(182,'PV',309,NULL,NULL,NULL,'PAVIA',1),(183,'PG',318,NULL,NULL,NULL,'PERUGIA',1),(184,'PU',310,NULL,NULL,NULL,'PESARO e URBINO',1),(185,'PE',301,NULL,NULL,NULL,'PESCARA',1),(186,'PC',305,NULL,NULL,NULL,'PIACENZA',1),(187,'PI',316,NULL,NULL,NULL,'PISA',1),(188,'PT',316,NULL,NULL,NULL,'PISTOIA',1),(189,'PN',306,NULL,NULL,NULL,'PORDENONE',1),(190,'PZ',302,NULL,NULL,NULL,'POTENZA',1),(191,'PO',316,NULL,NULL,NULL,'PRATO',1),(192,'RG',315,NULL,NULL,NULL,'RAGUSA',1),(193,'RA',305,NULL,NULL,NULL,'RAVENNA',1),(194,'RC',303,NULL,NULL,NULL,'REGGIO CALABRIA',1),(195,'RE',305,NULL,NULL,NULL,'REGGIO NELL EMILIA',1),(196,'RI',307,NULL,NULL,NULL,'RIETI',1),(197,'RN',305,NULL,NULL,NULL,'RIMINI',1),(198,'RM',307,NULL,NULL,NULL,'ROMA',1),(199,'RO',320,NULL,NULL,NULL,'ROVIGO',1),(200,'SA',304,NULL,NULL,NULL,'SALERNO',1),(201,'SS',314,NULL,NULL,NULL,'SASSARI',1),(202,'SV',308,NULL,NULL,NULL,'SAVONA',1),(203,'SI',316,NULL,NULL,NULL,'SIENA',1),(204,'SR',315,NULL,NULL,NULL,'SIRACUSA',1),(205,'SO',309,NULL,NULL,NULL,'SONDRIO',1),(206,'TA',313,NULL,NULL,NULL,'TARANTO',1),(207,'TE',301,NULL,NULL,NULL,'TERAMO',1),(208,'TR',318,NULL,NULL,NULL,'TERNI',1),(209,'TO',312,NULL,NULL,NULL,'TORINO',1),(210,'TP',315,NULL,NULL,NULL,'TRAPANI',1),(211,'TN',317,NULL,NULL,NULL,'TRENTO',1),(212,'TV',320,NULL,NULL,NULL,'TREVISO',1),(213,'TS',306,NULL,NULL,NULL,'TRIESTE',1),(214,'UD',306,NULL,NULL,NULL,'UDINE',1),(215,'VA',309,NULL,NULL,NULL,'VARESE',1),(216,'VE',320,NULL,NULL,NULL,'VENEZIA',1),(217,'VB',312,NULL,NULL,NULL,'VERBANO-CUSIO-OSSOLA',1),(218,'VC',312,NULL,NULL,NULL,'VERCELLI',1),(219,'VR',320,NULL,NULL,NULL,'VERONA',1),(220,'VV',303,NULL,NULL,NULL,'VIBO VALENTIA',1),(221,'VI',320,NULL,NULL,NULL,'VICENZA',1),(222,'VT',307,NULL,NULL,NULL,'VITERBO',1),(223,'NSW',2801,'',1,'','New South Wales',1),(224,'VIC',2801,'',1,'','Victoria',1),(225,'QLD',2801,'',1,'','Queensland',1),(226,'SA',2801,'',1,'','South Australia',1),(227,'ACT',2801,'',1,'','Australia Capital Territory',1),(228,'TAS',2801,'',1,'','Tasmania',1),(229,'WA',2801,'',1,'','Western Australia',1),(230,'NT',2801,'',1,'','Northern Territory',1),(231,'01',419,'',19,'PAIS VASCO','País Vasco',1),(232,'02',404,'',4,'ALBACETE','Albacete',1),(233,'03',411,'',11,'ALICANTE','Alicante',1),(234,'04',401,'',1,'ALMERIA','Almería',1),(235,'05',403,'',3,'AVILA','Avila',1),(236,'06',412,'',12,'BADAJOZ','Badajoz',1),(237,'07',414,'',14,'ISLAS BALEARES','Islas Baleares',1),(238,'08',406,'',6,'BARCELONA','Barcelona',1),(239,'09',403,'',8,'BURGOS','Burgos',1),(240,'10',412,'',12,'CACERES','Cáceres',1),(241,'11',401,'',1,'CADIz','Cádiz',1),(242,'12',411,'',11,'CASTELLON','Castellón',1),(243,'13',404,'',4,'CIUDAD REAL','Ciudad Real',1),(244,'14',401,'',1,'CORDOBA','Córdoba',1),(245,'15',413,'',13,'LA CORUÑA','La Coruña',1),(246,'16',404,'',4,'CUENCA','Cuenca',1),(247,'17',406,'',6,'GERONA','Gerona',1),(248,'18',401,'',1,'GRANADA','Granada',1),(249,'19',404,'',4,'GUADALAJARA','Guadalajara',1),(250,'20',419,'',19,'GUIPUZCOA','Guipúzcoa',1),(251,'21',401,'',1,'HUELVA','Huelva',1),(252,'22',402,'',2,'HUESCA','Huesca',1),(253,'23',401,'',1,'JAEN','Jaén',1),(254,'24',403,'',3,'LEON','León',1),(255,'25',406,'',6,'LERIDA','Lérida',1),(256,'26',415,'',15,'LA RIOJA','La Rioja',1),(257,'27',413,'',13,'LUGO','Lugo',1),(258,'28',416,'',16,'MADRID','Madrid',1),(259,'29',401,'',1,'MALAGA','Málaga',1),(260,'30',417,'',17,'MURCIA','Murcia',1),(261,'31',408,'',8,'NAVARRA','Navarra',1),(262,'32',413,'',13,'ORENSE','Orense',1),(263,'33',418,'',18,'ASTURIAS','Asturias',1),(264,'34',403,'',3,'PALENCIA','Palencia',1),(265,'35',405,'',5,'LAS PALMAS','Las Palmas',1),(266,'36',413,'',13,'PONTEVEDRA','Pontevedra',1),(267,'37',403,'',3,'SALAMANCA','Salamanca',1),(268,'38',405,'',5,'STA. CRUZ DE TENERIFE','Sta. Cruz de Tenerife',1),(269,'39',410,'',10,'CANTABRIA','Cantabria',1),(270,'40',403,'',3,'SEGOVIA','Segovia',1),(271,'41',401,'',1,'SEVILLA','Sevilla',1),(272,'42',403,'',3,'SORIA','Soria',1),(273,'43',406,'',6,'TARRAGONA','Tarragona',1),(274,'44',402,'',2,'TERUEL','Teruel',1),(275,'45',404,'',5,'TOLEDO','Toledo',1),(276,'46',411,'',11,'VALENCIA','Valencia',1),(277,'47',403,'',3,'VALLADOLID','Valladolid',1),(278,'48',419,'',19,'VIZCAYA','Vizcaya',1),(279,'49',403,'',3,'ZAMORA','Zamora',1),(280,'50',402,'',1,'ZARAGOZA','Zaragoza',1),(281,'51',407,'',7,'CEUTA','Ceuta',1),(282,'52',409,'',9,'MELILLA','Melilla',1),(283,'53',420,'',20,'OTROS','Otros',1),(284,'BW',501,NULL,NULL,'BADEN-WÜRTTEMBERG','Baden-Württemberg',1),(285,'BY',501,NULL,NULL,'BAYERN','Bayern',1),(286,'BE',501,NULL,NULL,'BERLIN','Berlin',1),(287,'BB',501,NULL,NULL,'BRANDENBURG','Brandenburg',1),(288,'HB',501,NULL,NULL,'BREMEN','Bremen',1),(289,'HH',501,NULL,NULL,'HAMBURG','Hamburg',1),(290,'HE',501,NULL,NULL,'HESSEN','Hessen',1),(291,'MV',501,NULL,NULL,'MECKLENBURG-VORPOMMERN','Mecklenburg-Vorpommern',1),(292,'NI',501,NULL,NULL,'NIEDERSACHSEN','Niedersachsen',1),(293,'NW',501,NULL,NULL,'NORDRHEIN-WESTFALEN','Nordrhein-Westfalen',1),(294,'RP',501,NULL,NULL,'RHEINLAND-PFALZ','Rheinland-Pfalz',1),(295,'SL',501,NULL,NULL,'SAARLAND','Saarland',1),(296,'SN',501,NULL,NULL,'SACHSEN','Sachsen',1),(297,'ST',501,NULL,NULL,'SACHSEN-ANHALT','Sachsen-Anhalt',1),(298,'SH',501,NULL,NULL,'SCHLESWIG-HOLSTEIN','Schleswig-Holstein',1),(299,'TH',501,NULL,NULL,'THÜRINGEN','Thüringen',1),(300,'AG',601,NULL,NULL,'ARGOVIE','Argovie',1),(301,'AI',601,NULL,NULL,'APPENZELL RHODES INTERIEURES','Appenzell Rhodes intérieures',1),(302,'AR',601,NULL,NULL,'APPENZELL RHODES EXTERIEURES','Appenzell Rhodes extérieures',1),(303,'BE',601,NULL,NULL,'BERNE','Berne',1),(304,'BL',601,NULL,NULL,'BALE CAMPAGNE','Bâle Campagne',1),(305,'BS',601,NULL,NULL,'BALE VILLE','Bâle Ville',1),(306,'FR',601,NULL,NULL,'FRIBOURG','Fribourg',1),(307,'GE',601,NULL,NULL,'GENEVE','Genève',1),(308,'GL',601,NULL,NULL,'GLARIS','Glaris',1),(309,'GR',601,NULL,NULL,'GRISONS','Grisons',1),(310,'JU',601,NULL,NULL,'JURA','Jura',1),(311,'LU',601,NULL,NULL,'LUCERNE','Lucerne',1),(312,'NE',601,NULL,NULL,'NEUCHATEL','Neuchâtel',1),(313,'NW',601,NULL,NULL,'NIDWALD','Nidwald',1),(314,'OW',601,NULL,NULL,'OBWALD','Obwald',1),(315,'SG',601,NULL,NULL,'SAINT-GALL','Saint-Gall',1),(316,'SH',601,NULL,NULL,'SCHAFFHOUSE','Schaffhouse',1),(317,'SO',601,NULL,NULL,'SOLEURE','Soleure',1),(318,'SZ',601,NULL,NULL,'SCHWYZ','Schwyz',1),(319,'TG',601,NULL,NULL,'THURGOVIE','Thurgovie',1),(320,'TI',601,NULL,NULL,'TESSIN','Tessin',1),(321,'UR',601,NULL,NULL,'URI','Uri',1),(322,'VD',601,NULL,NULL,'VAUD','Vaud',1),(323,'VS',601,NULL,NULL,'VALAIS','Valais',1),(324,'ZG',601,NULL,NULL,'ZUG','Zug',1),(325,'ZH',601,NULL,NULL,'ZURICH','Zürich',1),(326,'AL',1101,'',0,'ALABAMA','Alabama',1),(327,'AK',1101,'',0,'ALASKA','Alaska',1),(328,'AZ',1101,'',0,'ARIZONA','Arizona',1),(329,'AR',1101,'',0,'ARKANSAS','Arkansas',1),(330,'CA',1101,'',0,'CALIFORNIA','California',1),(331,'CO',1101,'',0,'COLORADO','Colorado',1),(332,'CT',1101,'',0,'CONNECTICUT','Connecticut',1),(333,'DE',1101,'',0,'DELAWARE','Delaware',1),(334,'FL',1101,'',0,'FLORIDA','Florida',1),(335,'GA',1101,'',0,'GEORGIA','Georgia',1),(336,'HI',1101,'',0,'HAWAII','Hawaii',1),(337,'ID',1101,'',0,'IDAHO','Idaho',1),(338,'IL',1101,'',0,'ILLINOIS','Illinois',1),(339,'IN',1101,'',0,'INDIANA','Indiana',1),(340,'IA',1101,'',0,'IOWA','Iowa',1),(341,'KS',1101,'',0,'KANSAS','Kansas',1),(342,'KY',1101,'',0,'KENTUCKY','Kentucky',1),(343,'LA',1101,'',0,'LOUISIANA','Louisiana',1),(344,'ME',1101,'',0,'MAINE','Maine',1),(345,'MD',1101,'',0,'MARYLAND','Maryland',1),(346,'MA',1101,'',0,'MASSACHUSSETTS','Massachusetts',1),(347,'MI',1101,'',0,'MICHIGAN','Michigan',1),(348,'MN',1101,'',0,'MINNESOTA','Minnesota',1),(349,'MS',1101,'',0,'MISSISSIPPI','Mississippi',1),(350,'MO',1101,'',0,'MISSOURI','Missouri',1),(351,'MT',1101,'',0,'MONTANA','Montana',1),(352,'NE',1101,'',0,'NEBRASKA','Nebraska',1),(353,'NV',1101,'',0,'NEVADA','Nevada',1),(354,'NH',1101,'',0,'NEW HAMPSHIRE','New Hampshire',1),(355,'NJ',1101,'',0,'NEW JERSEY','New Jersey',1),(356,'NM',1101,'',0,'NEW MEXICO','New Mexico',1),(357,'NY',1101,'',0,'NEW YORK','New York',1),(358,'NC',1101,'',0,'NORTH CAROLINA','North Carolina',1),(359,'ND',1101,'',0,'NORTH DAKOTA','North Dakota',1),(360,'OH',1101,'',0,'OHIO','Ohio',1),(361,'OK',1101,'',0,'OKLAHOMA','Oklahoma',1),(362,'OR',1101,'',0,'OREGON','Oregon',1),(363,'PA',1101,'',0,'PENNSYLVANIA','Pennsylvania',1),(364,'RI',1101,'',0,'RHODE ISLAND','Rhode Island',1),(365,'SC',1101,'',0,'SOUTH CAROLINA','South Carolina',1),(366,'SD',1101,'',0,'SOUTH DAKOTA','South Dakota',1),(367,'TN',1101,'',0,'TENNESSEE','Tennessee',1),(368,'TX',1101,'',0,'TEXAS','Texas',1),(369,'UT',1101,'',0,'UTAH','Utah',1),(370,'VT',1101,'',0,'VERMONT','Vermont',1),(371,'VA',1101,'',0,'VIRGINIA','Virginia',1),(372,'WA',1101,'',0,'WASHINGTON','Washington',1),(373,'WV',1101,'',0,'WEST VIRGINIA','West Virginia',1),(374,'WI',1101,'',0,'WISCONSIN','Wisconsin',1),(375,'WY',1101,'',0,'WYOMING','Wyoming',1),(376,'SS',8601,NULL,NULL,NULL,'San Salvador',1),(377,'SA',8603,NULL,NULL,NULL,'Santa Ana',1),(378,'AH',8603,NULL,NULL,NULL,'Ahuachapan',1),(379,'SO',8603,NULL,NULL,NULL,'Sonsonate',1),(380,'US',8602,NULL,NULL,NULL,'Usulutan',1),(381,'SM',8602,NULL,NULL,NULL,'San Miguel',1),(382,'MO',8602,NULL,NULL,NULL,'Morazan',1),(383,'LU',8602,NULL,NULL,NULL,'La Union',1),(384,'LL',8601,NULL,NULL,NULL,'La Libertad',1),(385,'CH',8601,NULL,NULL,NULL,'Chalatenango',1),(386,'CA',8601,NULL,NULL,NULL,'Cabañas',1),(387,'LP',8601,NULL,NULL,NULL,'La Paz',1),(388,'SV',8601,NULL,NULL,NULL,'San Vicente',1),(389,'CU',8601,NULL,NULL,NULL,'Cuscatlan',1),(390,'2301',2301,'',0,'CATAMARCA','Catamarca',1),(391,'2302',2301,'',0,'JUJUY','Jujuy',1),(392,'2303',2301,'',0,'TUCAMAN','Tucamán',1),(393,'2304',2301,'',0,'SANTIAGO DEL ESTERO','Santiago del Estero',1),(394,'2305',2301,'',0,'SALTA','Salta',1),(395,'2306',2302,'',0,'CHACO','Chaco',1),(396,'2307',2302,'',0,'CORRIENTES','Corrientes',1),(397,'2308',2302,'',0,'ENTRE RIOS','Entre Ríos',1),(398,'2309',2302,'',0,'FORMOSA MISIONES','Formosa Misiones',1),(399,'2310',2302,'',0,'SANTA FE','Santa Fe',1),(400,'2311',2303,'',0,'LA RIOJA','La Rioja',1),(401,'2312',2303,'',0,'MENDOZA','Mendoza',1),(402,'2313',2303,'',0,'SAN JUAN','San Juan',1),(403,'2314',2303,'',0,'SAN LUIS','San Luis',1),(404,'2315',2304,'',0,'CORDOBA','Córdoba',1),(405,'2316',2304,'',0,'BUENOS AIRES','Buenos Aires',1),(406,'2317',2304,'',0,'CABA','Caba',1),(407,'2318',2305,'',0,'LA PAMPA','La Pampa',1),(408,'2319',2305,'',0,'NEUQUEN','Neuquén',1),(409,'2320',2305,'',0,'RIO NEGRO','Río Negro',1),(410,'2321',2305,'',0,'CHUBUT','Chubut',1),(411,'2322',2305,'',0,'SANTA CRUZ','Santa Cruz',1),(412,'2323',2305,'',0,'TIERRA DEL FUEGO','Tierra del Fuego',1),(413,'2324',2305,'',0,'ISLAS MALVINAS','Islas Malvinas',1),(414,'2325',2305,'',0,'ANTARTIDA','Antártida',1),(415,'AC',5601,'ACRE',0,'AC','Acre',1),(416,'AL',5601,'ALAGOAS',0,'AL','Alagoas',1),(417,'AP',5601,'AMAPA',0,'AP','Amapá',1),(418,'AM',5601,'AMAZONAS',0,'AM','Amazonas',1),(419,'BA',5601,'BAHIA',0,'BA','Bahia',1),(420,'CE',5601,'CEARA',0,'CE','Ceará',1),(421,'ES',5601,'ESPIRITO SANTO',0,'ES','Espirito Santo',1),(422,'GO',5601,'GOIAS',0,'GO','Goiás',1),(423,'MA',5601,'MARANHAO',0,'MA','Maranhão',1),(424,'MT',5601,'MATO GROSSO',0,'MT','Mato Grosso',1),(425,'MS',5601,'MATO GROSSO DO SUL',0,'MS','Mato Grosso do Sul',1),(426,'MG',5601,'MINAS GERAIS',0,'MG','Minas Gerais',1),(427,'PA',5601,'PARA',0,'PA','Pará',1),(428,'PB',5601,'PARAIBA',0,'PB','Paraiba',1),(429,'PR',5601,'PARANA',0,'PR','Paraná',1),(430,'PE',5601,'PERNAMBUCO',0,'PE','Pernambuco',1),(431,'PI',5601,'PIAUI',0,'PI','Piauí',1),(432,'RJ',5601,'RIO DE JANEIRO',0,'RJ','Rio de Janeiro',1),(433,'RN',5601,'RIO GRANDE DO NORTE',0,'RN','Rio Grande do Norte',1),(434,'RS',5601,'RIO GRANDE DO SUL',0,'RS','Rio Grande do Sul',1),(435,'RO',5601,'RONDONIA',0,'RO','Rondônia',1),(436,'RR',5601,'RORAIMA',0,'RR','Roraima',1),(437,'SC',5601,'SANTA CATARINA',0,'SC','Santa Catarina',1),(438,'SE',5601,'SERGIPE',0,'SE','Sergipe',1),(439,'SP',5601,'SAO PAULO',0,'SP','Sao Paulo',1),(440,'TO',5601,'TOCANTINS',0,'TO','Tocantins',1),(441,'DF',5601,'DISTRITO FEDERAL',0,'DF','Distrito Federal',1),(442,'151',6715,'',0,'151','Arica',1),(443,'152',6715,'',0,'152','Parinacota',1),(444,'011',6701,'',0,'011','Iquique',1),(445,'014',6701,'',0,'014','Tamarugal',1),(446,'021',6702,'',0,'021','Antofagasa',1),(447,'022',6702,'',0,'022','El Loa',1),(448,'023',6702,'',0,'023','Tocopilla',1),(449,'031',6703,'',0,'031','Copiapó',1),(450,'032',6703,'',0,'032','Chañaral',1),(451,'033',6703,'',0,'033','Huasco',1),(452,'041',6704,'',0,'041','Elqui',1),(453,'042',6704,'',0,'042','Choapa',1),(454,'043',6704,'',0,'043','Limarí',1),(455,'051',6705,'',0,'051','Valparaíso',1),(456,'052',6705,'',0,'052','Isla de Pascua',1),(457,'053',6705,'',0,'053','Los Andes',1),(458,'054',6705,'',0,'054','Petorca',1),(459,'055',6705,'',0,'055','Quillota',1),(460,'056',6705,'',0,'056','San Antonio',1),(461,'057',6705,'',0,'057','San Felipe de Aconcagua',1),(462,'058',6705,'',0,'058','Marga Marga',1),(463,'061',6706,'',0,'061','Cachapoal',1),(464,'062',6706,'',0,'062','Cardenal Caro',1),(465,'063',6706,'',0,'063','Colchagua',1),(466,'071',6707,'',0,'071','Talca',1),(467,'072',6707,'',0,'072','Cauquenes',1),(468,'073',6707,'',0,'073','Curicó',1),(469,'074',6707,'',0,'074','Linares',1),(470,'081',6708,'',0,'081','Concepción',1),(471,'082',6708,'',0,'082','Arauco',1),(472,'083',6708,'',0,'083','Biobío',1),(473,'084',6708,'',0,'084','Ñuble',1),(474,'091',6709,'',0,'091','Cautín',1),(475,'092',6709,'',0,'092','Malleco',1),(476,'141',6714,'',0,'141','Valdivia',1),(477,'142',6714,'',0,'142','Ranco',1),(478,'101',6710,'',0,'101','Llanquihue',1),(479,'102',6710,'',0,'102','Chiloé',1),(480,'103',6710,'',0,'103','Osorno',1),(481,'104',6710,'',0,'104','Palena',1),(482,'111',6711,'',0,'111','Coihaique',1),(483,'112',6711,'',0,'112','Aisén',1),(484,'113',6711,'',0,'113','Capitán Prat',1),(485,'114',6711,'',0,'114','General Carrera',1),(486,'121',6712,'',0,'121','Magallanes',1),(487,'122',6712,'',0,'122','Antártica Chilena',1),(488,'123',6712,'',0,'123','Tierra del Fuego',1),(489,'124',6712,'',0,'124','Última Esperanza',1),(490,'131',6713,'',0,'131','Santiago',1),(491,'132',6713,'',0,'132','Cordillera',1),(492,'133',6713,'',0,'133','Chacabuco',1),(493,'134',6713,'',0,'134','Maipo',1),(494,'135',6713,'',0,'135','Melipilla',1),(495,'136',6713,'',0,'136','Talagante',1),(496,'AN',11701,NULL,0,'AN','Andaman & Nicobar',1),(497,'AP',11701,NULL,0,'AP','Andhra Pradesh',1),(498,'AR',11701,NULL,0,'AR','Arunachal Pradesh',1),(499,'AS',11701,NULL,0,'AS','Assam',1),(500,'BR',11701,NULL,0,'BR','Bihar',1),(501,'CG',11701,NULL,0,'CG','Chattisgarh',1),(502,'CH',11701,NULL,0,'CH','Chandigarh',1),(503,'DD',11701,NULL,0,'DD','Daman & Diu',1),(504,'DL',11701,NULL,0,'DL','Delhi',1),(505,'DN',11701,NULL,0,'DN','Dadra and Nagar Haveli',1),(506,'GA',11701,NULL,0,'GA','Goa',1),(507,'GJ',11701,NULL,0,'GJ','Gujarat',1),(508,'HP',11701,NULL,0,'HP','Himachal Pradesh',1),(509,'HR',11701,NULL,0,'HR','Haryana',1),(510,'JH',11701,NULL,0,'JH','Jharkhand',1),(511,'JK',11701,NULL,0,'JK','Jammu & Kashmir',1),(512,'KA',11701,NULL,0,'KA','Karnataka',1),(513,'KL',11701,NULL,0,'KL','Kerala',1),(514,'LD',11701,NULL,0,'LD','Lakshadweep',1),(515,'MH',11701,NULL,0,'MH','Maharashtra',1),(516,'ML',11701,NULL,0,'ML','Meghalaya',1),(517,'MN',11701,NULL,0,'MN','Manipur',1),(518,'MP',11701,NULL,0,'MP','Madhya Pradesh',1),(519,'MZ',11701,NULL,0,'MZ','Mizoram',1),(520,'NL',11701,NULL,0,'NL','Nagaland',1),(521,'OR',11701,NULL,0,'OR','Orissa',1),(522,'PB',11701,NULL,0,'PB','Punjab',1),(523,'PY',11701,NULL,0,'PY','Puducherry',1),(524,'RJ',11701,NULL,0,'RJ','Rajasthan',1),(525,'SK',11701,NULL,0,'SK','Sikkim',1),(526,'TN',11701,NULL,0,'TN','Tamil Nadu',1),(527,'TR',11701,NULL,0,'TR','Tripura',1),(528,'UL',11701,NULL,0,'UL','Uttarakhand',1),(529,'UP',11701,NULL,0,'UP','Uttar Pradesh',1),(530,'WB',11701,NULL,0,'WB','West Bengal',1),(531,'DIF',15401,'',0,'DIF','Distrito Federal',1),(532,'AGS',15401,'',0,'AGS','Aguascalientes',1),(533,'BCN',15401,'',0,'BCN','Baja California Norte',1),(534,'BCS',15401,'',0,'BCS','Baja California Sur',1),(535,'CAM',15401,'',0,'CAM','Campeche',1),(536,'CHP',15401,'',0,'CHP','Chiapas',1),(537,'CHI',15401,'',0,'CHI','Chihuahua',1),(538,'COA',15401,'',0,'COA','Coahuila',1),(539,'COL',15401,'',0,'COL','Colima',1),(540,'DUR',15401,'',0,'DUR','Durango',1),(541,'GTO',15401,'',0,'GTO','Guanajuato',1),(542,'GRO',15401,'',0,'GRO','Guerrero',1),(543,'HGO',15401,'',0,'HGO','Hidalgo',1),(544,'JAL',15401,'',0,'JAL','Jalisco',1),(545,'MEX',15401,'',0,'MEX','México',1),(546,'MIC',15401,'',0,'MIC','Michoacán de Ocampo',1),(547,'MOR',15401,'',0,'MOR','Morelos',1),(548,'NAY',15401,'',0,'NAY','Nayarit',1),(549,'NLE',15401,'',0,'NLE','Nuevo León',1),(550,'OAX',15401,'',0,'OAX','Oaxaca',1),(551,'PUE',15401,'',0,'PUE','Puebla',1),(552,'QRO',15401,'',0,'QRO','Querétaro',1),(553,'ROO',15401,'',0,'ROO','Quintana Roo',1),(554,'SLP',15401,'',0,'SLP','San Luis Potosí',1),(555,'SIN',15401,'',0,'SIN','Sinaloa',1),(556,'SON',15401,'',0,'SON','Sonora',1),(557,'TAB',15401,'',0,'TAB','Tabasco',1),(558,'TAM',15401,'',0,'TAM','Tamaulipas',1),(559,'TLX',15401,'',0,'TLX','Tlaxcala',1),(560,'VER',15401,'',0,'VER','Veracruz',1),(561,'YUC',15401,'',0,'YUC','Yucatán',1),(562,'ZAC',15401,'',0,'ZAC','Zacatecas',1),(563,'ANT',7001,'',0,'ANT','Antioquia',1),(564,'BOL',7001,'',0,'BOL','Bolívar',1),(565,'BOY',7001,'',0,'BOY','Boyacá',1),(566,'CAL',7001,'',0,'CAL','Caldas',1),(567,'CAU',7001,'',0,'CAU','Cauca',1),(568,'CUN',7001,'',0,'CUN','Cundinamarca',1),(569,'HUI',7001,'',0,'HUI','Huila',1),(570,'LAG',7001,'',0,'LAG','La Guajira',1),(571,'MET',7001,'',0,'MET','Meta',1),(572,'NAR',7001,'',0,'NAR','Nariño',1),(573,'NDS',7001,'',0,'NDS','Norte de Santander',1),(574,'SAN',7001,'',0,'SAN','Santander',1),(575,'SUC',7001,'',0,'SUC','Sucre',1),(576,'TOL',7001,'',0,'TOL','Tolima',1),(577,'VAC',7001,'',0,'VAC','Valle del Cauca',1),(578,'RIS',7001,'',0,'RIS','Risalda',1),(579,'ATL',7001,'',0,'ATL','Atlántico',1),(580,'COR',7001,'',0,'COR','Córdoba',1),(581,'SAP',7001,'',0,'SAP','San Andrés, Providencia y Santa Catalina',1),(582,'ARA',7001,'',0,'ARA','Arauca',1),(583,'CAS',7001,'',0,'CAS','Casanare',1),(584,'AMA',7001,'',0,'AMA','Amazonas',1),(585,'CAQ',7001,'',0,'CAQ','Caquetá',1),(586,'CHO',7001,'',0,'CHO','Chocó',1),(587,'GUA',7001,'',0,'GUA','Guainía',1),(588,'GUV',7001,'',0,'GUV','Guaviare',1),(589,'PUT',7001,'',0,'PUT','Putumayo',1),(590,'QUI',7001,'',0,'QUI','Quindío',1),(591,'VAU',7001,'',0,'VAU','Vaupés',1),(592,'BOG',7001,'',0,'BOG','Bogotá',1),(593,'VID',7001,'',0,'VID','Vichada',1),(594,'CES',7001,'',0,'CES','Cesar',1),(595,'MAG',7001,'',0,'MAG','Magdalena',1),(596,'AT',11401,'',0,'AT','Atlántida',1),(597,'CH',11401,'',0,'CH','Choluteca',1),(598,'CL',11401,'',0,'CL','Colón',1),(599,'CM',11401,'',0,'CM','Comayagua',1),(600,'CO',11401,'',0,'CO','Copán',1),(601,'CR',11401,'',0,'CR','Cortés',1),(602,'EP',11401,'',0,'EP','El Paraíso',1),(603,'FM',11401,'',0,'FM','Francisco Morazán',1),(604,'GD',11401,'',0,'GD','Gracias a Dios',1),(605,'IN',11401,'',0,'IN','Intibucá',1),(606,'IB',11401,'',0,'IB','Islas de la Bahía',1),(607,'LP',11401,'',0,'LP','La Paz',1),(608,'LM',11401,'',0,'LM','Lempira',1),(609,'OC',11401,'',0,'OC','Ocotepeque',1),(610,'OL',11401,'',0,'OL','Olancho',1),(611,'SB',11401,'',0,'SB','Santa Bárbara',1),(612,'VL',11401,'',0,'VL','Valle',1),(613,'YO',11401,'',0,'YO','Yoro',1),(614,'DC',11401,'',0,'DC','Distrito Central',1),(615,'CC',4601,'Oistins',0,'CC','Christ Church',1),(616,'SA',4601,'Greenland',0,'SA','Saint Andrew',1),(617,'SG',4601,'Bulkeley',0,'SG','Saint George',1),(618,'JA',4601,'Holetown',0,'JA','Saint James',1),(619,'SJ',4601,'Four Roads',0,'SJ','Saint John',1),(620,'SB',4601,'Bathsheba',0,'SB','Saint Joseph',1),(621,'SL',4601,'Crab Hill',0,'SL','Saint Lucy',1),(622,'SM',4601,'Bridgetown',0,'SM','Saint Michael',1),(623,'SP',4601,'Speightstown',0,'SP','Saint Peter',1),(624,'SC',4601,'Crane',0,'SC','Saint Philip',1),(625,'ST',4601,'Hillaby',0,'ST','Saint Thomas',1),(626,'VE-L',23201,'',0,'VE-L','Mérida',1),(627,'VE-T',23201,'',0,'VE-T','Trujillo',1),(628,'VE-E',23201,'',0,'VE-E','Barinas',1),(629,'VE-M',23202,'',0,'VE-M','Miranda',1),(630,'VE-W',23202,'',0,'VE-W','Vargas',1),(631,'VE-A',23202,'',0,'VE-A','Distrito Capital',1),(632,'VE-D',23203,'',0,'VE-D','Aragua',1),(633,'VE-G',23203,'',0,'VE-G','Carabobo',1),(634,'VE-I',23204,'',0,'VE-I','Falcón',1),(635,'VE-K',23204,'',0,'VE-K','Lara',1),(636,'VE-U',23204,'',0,'VE-U','Yaracuy',1),(637,'VE-F',23205,'',0,'VE-F','Bolívar',1),(638,'VE-X',23205,'',0,'VE-X','Amazonas',1),(639,'VE-Y',23205,'',0,'VE-Y','Delta Amacuro',1),(640,'VE-O',23206,'',0,'VE-O','Nueva Esparta',1),(641,'VE-Z',23206,'',0,'VE-Z','Dependencias Federales',1),(642,'VE-C',23207,'',0,'VE-C','Apure',1),(643,'VE-J',23207,'',0,'VE-J','Guárico',1),(644,'VE-H',23207,'',0,'VE-H','Cojedes',1),(645,'VE-P',23207,'',0,'VE-P','Portuguesa',1),(646,'VE-B',23208,'',0,'VE-B','Anzoátegui',1),(647,'VE-N',23208,'',0,'VE-N','Monagas',1),(648,'VE-R',23208,'',0,'VE-R','Sucre',1),(649,'VE-V',23209,'',0,'VE-V','Zulia',1),(650,'VE-S',23209,'',0,'VE-S','Táchira',1);
+INSERT INTO `llx_c_departements` VALUES (1,'0',0,'0',0,'-','-',1),(2,'01',82,'01053',5,'AIN','Ain',1),(3,'02',22,'02408',5,'AISNE','Aisne',1),(4,'03',83,'03190',5,'ALLIER','Allier',1),(5,'04',93,'04070',4,'ALPES-DE-HAUTE-PROVENCE','Alpes-de-Haute-Provence',1),(6,'05',93,'05061',4,'HAUTES-ALPES','Hautes-Alpes',1),(7,'06',93,'06088',4,'ALPES-MARITIMES','Alpes-Maritimes',1),(8,'07',82,'07186',5,'ARDECHE','Ardèche',1),(9,'08',21,'08105',4,'ARDENNES','Ardennes',1),(10,'09',73,'09122',5,'ARIEGE','Ariège',1),(11,'10',21,'10387',5,'AUBE','Aube',1),(12,'11',91,'11069',5,'AUDE','Aude',1),(13,'12',73,'12202',5,'AVEYRON','Aveyron',1),(14,'13',93,'13055',4,'BOUCHES-DU-RHONE','Bouches-du-Rhône',1),(15,'14',25,'14118',2,'CALVADOS','Calvados',1),(16,'15',83,'15014',2,'CANTAL','Cantal',1),(17,'16',54,'16015',3,'CHARENTE','Charente',1),(18,'17',54,'17300',3,'CHARENTE-MARITIME','Charente-Maritime',1),(19,'18',24,'18033',2,'CHER','Cher',1),(20,'19',74,'19272',3,'CORREZE','Corrèze',1),(21,'2A',94,'2A004',3,'CORSE-DU-SUD','Corse-du-Sud',1),(22,'2B',94,'2B033',3,'HAUTE-CORSE','Haute-Corse',1),(23,'21',26,'21231',3,'COTE-D OR','Côte-d Or',1),(24,'22',53,'22278',4,'COTES-D ARMOR','Côtes-d Armor',1),(25,'23',74,'23096',3,'CREUSE','Creuse',1),(26,'24',72,'24322',3,'DORDOGNE','Dordogne',1),(27,'25',43,'25056',2,'DOUBS','Doubs',1),(28,'26',82,'26362',3,'DROME','Drôme',1),(29,'27',23,'27229',5,'EURE','Eure',1),(30,'28',24,'28085',1,'EURE-ET-LOIR','Eure-et-Loir',1),(31,'29',53,'29232',2,'FINISTERE','Finistère',1),(32,'30',91,'30189',2,'GARD','Gard',1),(33,'31',73,'31555',3,'HAUTE-GARONNE','Haute-Garonne',1),(34,'32',73,'32013',2,'GERS','Gers',1),(35,'33',72,'33063',3,'GIRONDE','Gironde',1),(36,'34',91,'34172',5,'HERAULT','Hérault',1),(37,'35',53,'35238',1,'ILLE-ET-VILAINE','Ille-et-Vilaine',1),(38,'36',24,'36044',5,'INDRE','Indre',1),(39,'37',24,'37261',1,'INDRE-ET-LOIRE','Indre-et-Loire',1),(40,'38',82,'38185',5,'ISERE','Isère',1),(41,'39',43,'39300',2,'JURA','Jura',1),(42,'40',72,'40192',4,'LANDES','Landes',1),(43,'41',24,'41018',0,'LOIR-ET-CHER','Loir-et-Cher',1),(44,'42',82,'42218',3,'LOIRE','Loire',1),(45,'43',83,'43157',3,'HAUTE-LOIRE','Haute-Loire',1),(46,'44',52,'44109',3,'LOIRE-ATLANTIQUE','Loire-Atlantique',1),(47,'45',24,'45234',2,'LOIRET','Loiret',1),(48,'46',73,'46042',2,'LOT','Lot',1),(49,'47',72,'47001',0,'LOT-ET-GARONNE','Lot-et-Garonne',1),(50,'48',91,'48095',3,'LOZERE','Lozère',1),(51,'49',52,'49007',0,'MAINE-ET-LOIRE','Maine-et-Loire',1),(52,'50',25,'50502',3,'MANCHE','Manche',1),(53,'51',21,'51108',3,'MARNE','Marne',1),(54,'52',21,'52121',3,'HAUTE-MARNE','Haute-Marne',1),(55,'53',52,'53130',3,'MAYENNE','Mayenne',1),(56,'54',41,'54395',0,'MEURTHE-ET-MOSELLE','Meurthe-et-Moselle',1),(57,'55',41,'55029',3,'MEUSE','Meuse',1),(58,'56',53,'56260',2,'MORBIHAN','Morbihan',1),(59,'57',41,'57463',3,'MOSELLE','Moselle',1),(60,'58',26,'58194',3,'NIEVRE','Nièvre',1),(61,'59',31,'59350',2,'NORD','Nord',1),(62,'60',22,'60057',5,'OISE','Oise',1),(63,'61',25,'61001',5,'ORNE','Orne',1),(64,'62',31,'62041',2,'PAS-DE-CALAIS','Pas-de-Calais',1),(65,'63',83,'63113',2,'PUY-DE-DOME','Puy-de-Dôme',1),(66,'64',72,'64445',4,'PYRENEES-ATLANTIQUES','Pyrénées-Atlantiques',1),(67,'65',73,'65440',4,'HAUTES-PYRENEES','Hautes-Pyrénées',1),(68,'66',91,'66136',4,'PYRENEES-ORIENTALES','Pyrénées-Orientales',1),(69,'67',42,'67482',2,'BAS-RHIN','Bas-Rhin',1),(70,'68',42,'68066',2,'HAUT-RHIN','Haut-Rhin',1),(71,'69',82,'69123',2,'RHONE','Rhône',1),(72,'70',43,'70550',3,'HAUTE-SAONE','Haute-Saône',1),(73,'71',26,'71270',0,'SAONE-ET-LOIRE','Saône-et-Loire',1),(74,'72',52,'72181',3,'SARTHE','Sarthe',1),(75,'73',82,'73065',3,'SAVOIE','Savoie',1),(76,'74',82,'74010',3,'HAUTE-SAVOIE','Haute-Savoie',1),(77,'75',11,'75056',0,'PARIS','Paris',1),(78,'76',23,'76540',3,'SEINE-MARITIME','Seine-Maritime',1),(79,'77',11,'77288',0,'SEINE-ET-MARNE','Seine-et-Marne',1),(80,'78',11,'78646',4,'YVELINES','Yvelines',1),(81,'79',54,'79191',4,'DEUX-SEVRES','Deux-Sèvres',1),(82,'80',22,'80021',3,'SOMME','Somme',1),(83,'81',73,'81004',2,'TARN','Tarn',1),(84,'82',73,'82121',0,'TARN-ET-GARONNE','Tarn-et-Garonne',1),(85,'83',93,'83137',2,'VAR','Var',1),(86,'84',93,'84007',0,'VAUCLUSE','Vaucluse',1),(87,'85',52,'85191',3,'VENDEE','Vendée',1),(88,'86',54,'86194',3,'VIENNE','Vienne',1),(89,'87',74,'87085',3,'HAUTE-VIENNE','Haute-Vienne',1),(90,'88',41,'88160',4,'VOSGES','Vosges',1),(91,'89',26,'89024',5,'YONNE','Yonne',1),(92,'90',43,'90010',0,'TERRITOIRE DE BELFORT','Territoire de Belfort',1),(93,'91',11,'91228',5,'ESSONNE','Essonne',1),(94,'92',11,'92050',4,'HAUTS-DE-SEINE','Hauts-de-Seine',1),(95,'93',11,'93008',3,'SEINE-SAINT-DENIS','Seine-Saint-Denis',1),(96,'94',11,'94028',2,'VAL-DE-MARNE','Val-de-Marne',1),(97,'95',11,'95500',2,'VAL-D OISE','Val-d Oise',1),(98,'971',1,'97105',3,'GUADELOUPE','Guadeloupe',1),(99,'972',2,'97209',3,'MARTINIQUE','Martinique',1),(100,'973',3,'97302',3,'GUYANE','Guyane',1),(101,'974',4,'97411',3,'REUNION','Réunion',1),(102,'01',201,'',1,'ANVERS','Anvers',1),(103,'02',203,'',3,'BRUXELLES-CAPITALE','Bruxelles-Capitale',1),(104,'03',202,'',2,'BRABANT-WALLON','Brabant-Wallon',1),(105,'04',201,'',1,'BRABANT-FLAMAND','Brabant-Flamand',1),(106,'05',201,'',1,'FLANDRE-OCCIDENTALE','Flandre-Occidentale',1),(107,'06',201,'',1,'FLANDRE-ORIENTALE','Flandre-Orientale',1),(108,'07',202,'',2,'HAINAUT','Hainaut',1),(109,'08',201,'',2,'LIEGE','Liège',1),(110,'09',202,'',1,'LIMBOURG','Limbourg',1),(111,'10',202,'',2,'LUXEMBOURG','Luxembourg',1),(112,'11',201,'',2,'NAMUR','Namur',1),(113,'AG',315,NULL,NULL,NULL,'AGRIGENTO',1),(114,'AL',312,NULL,NULL,NULL,'ALESSANDRIA',1),(115,'AN',310,NULL,NULL,NULL,'ANCONA',1),(116,'AO',319,NULL,NULL,NULL,'AOSTA',1),(117,'AR',316,NULL,NULL,NULL,'AREZZO',1),(118,'AP',310,NULL,NULL,NULL,'ASCOLI PICENO',1),(119,'AT',312,NULL,NULL,NULL,'ASTI',1),(120,'AV',304,NULL,NULL,NULL,'AVELLINO',1),(121,'BA',313,NULL,NULL,NULL,'BARI',1),(122,'BT',313,NULL,NULL,NULL,'BARLETTA-ANDRIA-TRANI',1),(123,'BL',320,NULL,NULL,NULL,'BELLUNO',1),(124,'BN',304,NULL,NULL,NULL,'BENEVENTO',1),(125,'BG',309,NULL,NULL,NULL,'BERGAMO',1),(126,'BI',312,NULL,NULL,NULL,'BIELLA',1),(127,'BO',305,NULL,NULL,NULL,'BOLOGNA',1),(128,'BZ',317,NULL,NULL,NULL,'BOLZANO',1),(129,'BS',309,NULL,NULL,NULL,'BRESCIA',1),(130,'BR',313,NULL,NULL,NULL,'BRINDISI',1),(131,'CA',314,NULL,NULL,NULL,'CAGLIARI',1),(132,'CL',315,NULL,NULL,NULL,'CALTANISSETTA',1),(133,'CB',311,NULL,NULL,NULL,'CAMPOBASSO',1),(134,'CI',314,NULL,NULL,NULL,'CARBONIA-IGLESIAS',1),(135,'CE',304,NULL,NULL,NULL,'CASERTA',1),(136,'CT',315,NULL,NULL,NULL,'CATANIA',1),(137,'CZ',303,NULL,NULL,NULL,'CATANZARO',1),(138,'CH',301,NULL,NULL,NULL,'CHIETI',1),(139,'CO',309,NULL,NULL,NULL,'COMO',1),(140,'CS',303,NULL,NULL,NULL,'COSENZA',1),(141,'CR',309,NULL,NULL,NULL,'CREMONA',1),(142,'KR',303,NULL,NULL,NULL,'CROTONE',1),(143,'CN',312,NULL,NULL,NULL,'CUNEO',1),(144,'EN',315,NULL,NULL,NULL,'ENNA',1),(145,'FM',310,NULL,NULL,NULL,'FERMO',1),(146,'FE',305,NULL,NULL,NULL,'FERRARA',1),(147,'FI',316,NULL,NULL,NULL,'FIRENZE',1),(148,'FG',313,NULL,NULL,NULL,'FOGGIA',1),(149,'FC',305,NULL,NULL,NULL,'FORLI-CESENA',1),(150,'FR',307,NULL,NULL,NULL,'FROSINONE',1),(151,'GE',308,NULL,NULL,NULL,'GENOVA',1),(152,'GO',306,NULL,NULL,NULL,'GORIZIA',1),(153,'GR',316,NULL,NULL,NULL,'GROSSETO',1),(154,'IM',308,NULL,NULL,NULL,'IMPERIA',1),(155,'IS',311,NULL,NULL,NULL,'ISERNIA',1),(156,'SP',308,NULL,NULL,NULL,'LA SPEZIA',1),(157,'AQ',301,NULL,NULL,NULL,'L AQUILA',1),(158,'LT',307,NULL,NULL,NULL,'LATINA',1),(159,'LE',313,NULL,NULL,NULL,'LECCE',1),(160,'LC',309,NULL,NULL,NULL,'LECCO',1),(161,'LI',314,NULL,NULL,NULL,'LIVORNO',1),(162,'LO',309,NULL,NULL,NULL,'LODI',1),(163,'LU',316,NULL,NULL,NULL,'LUCCA',1),(164,'MC',310,NULL,NULL,NULL,'MACERATA',1),(165,'MN',309,NULL,NULL,NULL,'MANTOVA',1),(166,'MS',316,NULL,NULL,NULL,'MASSA-CARRARA',1),(167,'MT',302,NULL,NULL,NULL,'MATERA',1),(168,'VS',314,NULL,NULL,NULL,'MEDIO CAMPIDANO',1),(169,'ME',315,NULL,NULL,NULL,'MESSINA',1),(170,'MI',309,NULL,NULL,NULL,'MILANO',1),(171,'MB',309,NULL,NULL,NULL,'MONZA e BRIANZA',1),(172,'MO',305,NULL,NULL,NULL,'MODENA',1),(173,'NA',304,NULL,NULL,NULL,'NAPOLI',1),(174,'NO',312,NULL,NULL,NULL,'NOVARA',1),(175,'NU',314,NULL,NULL,NULL,'NUORO',1),(176,'OG',314,NULL,NULL,NULL,'OGLIASTRA',1),(177,'OT',314,NULL,NULL,NULL,'OLBIA-TEMPIO',1),(178,'OR',314,NULL,NULL,NULL,'ORISTANO',1),(179,'PD',320,NULL,NULL,NULL,'PADOVA',1),(180,'PA',315,NULL,NULL,NULL,'PALERMO',1),(181,'PR',305,NULL,NULL,NULL,'PARMA',1),(182,'PV',309,NULL,NULL,NULL,'PAVIA',1),(183,'PG',318,NULL,NULL,NULL,'PERUGIA',1),(184,'PU',310,NULL,NULL,NULL,'PESARO e URBINO',1),(185,'PE',301,NULL,NULL,NULL,'PESCARA',1),(186,'PC',305,NULL,NULL,NULL,'PIACENZA',1),(187,'PI',316,NULL,NULL,NULL,'PISA',1),(188,'PT',316,NULL,NULL,NULL,'PISTOIA',1),(189,'PN',306,NULL,NULL,NULL,'PORDENONE',1),(190,'PZ',302,NULL,NULL,NULL,'POTENZA',1),(191,'PO',316,NULL,NULL,NULL,'PRATO',1),(192,'RG',315,NULL,NULL,NULL,'RAGUSA',1),(193,'RA',305,NULL,NULL,NULL,'RAVENNA',1),(194,'RC',303,NULL,NULL,NULL,'REGGIO CALABRIA',1),(195,'RE',305,NULL,NULL,NULL,'REGGIO NELL EMILIA',1),(196,'RI',307,NULL,NULL,NULL,'RIETI',1),(197,'RN',305,NULL,NULL,NULL,'RIMINI',1),(198,'RM',307,NULL,NULL,NULL,'ROMA',1),(199,'RO',320,NULL,NULL,NULL,'ROVIGO',1),(200,'SA',304,NULL,NULL,NULL,'SALERNO',1),(201,'SS',314,NULL,NULL,NULL,'SASSARI',1),(202,'SV',308,NULL,NULL,NULL,'SAVONA',1),(203,'SI',316,NULL,NULL,NULL,'SIENA',1),(204,'SR',315,NULL,NULL,NULL,'SIRACUSA',1),(205,'SO',309,NULL,NULL,NULL,'SONDRIO',1),(206,'TA',313,NULL,NULL,NULL,'TARANTO',1),(207,'TE',301,NULL,NULL,NULL,'TERAMO',1),(208,'TR',318,NULL,NULL,NULL,'TERNI',1),(209,'TO',312,NULL,NULL,NULL,'TORINO',1),(210,'TP',315,NULL,NULL,NULL,'TRAPANI',1),(211,'TN',317,NULL,NULL,NULL,'TRENTO',1),(212,'TV',320,NULL,NULL,NULL,'TREVISO',1),(213,'TS',306,NULL,NULL,NULL,'TRIESTE',1),(214,'UD',306,NULL,NULL,NULL,'UDINE',1),(215,'VA',309,NULL,NULL,NULL,'VARESE',1),(216,'VE',320,NULL,NULL,NULL,'VENEZIA',1),(217,'VB',312,NULL,NULL,NULL,'VERBANO-CUSIO-OSSOLA',1),(218,'VC',312,NULL,NULL,NULL,'VERCELLI',1),(219,'VR',320,NULL,NULL,NULL,'VERONA',1),(220,'VV',303,NULL,NULL,NULL,'VIBO VALENTIA',1),(221,'VI',320,NULL,NULL,NULL,'VICENZA',1),(222,'VT',307,NULL,NULL,NULL,'VITERBO',1),(223,'NSW',2801,'',1,'','New South Wales',1),(224,'VIC',2801,'',1,'','Victoria',1),(225,'QLD',2801,'',1,'','Queensland',1),(226,'SA',2801,'',1,'','South Australia',1),(227,'ACT',2801,'',1,'','Australia Capital Territory',1),(228,'TAS',2801,'',1,'','Tasmania',1),(229,'WA',2801,'',1,'','Western Australia',1),(230,'NT',2801,'',1,'','Northern Territory',1),(231,'01',419,'',19,'ALAVA','Álava',1),(232,'02',404,'',4,'ALBACETE','Albacete',1),(233,'03',411,'',11,'ALICANTE','Alicante',1),(234,'04',401,'',1,'ALMERIA','Almería',1),(235,'05',403,'',3,'AVILA','Avila',1),(236,'06',412,'',12,'BADAJOZ','Badajoz',1),(237,'07',414,'',14,'ISLAS BALEARES','Islas Baleares',1),(238,'08',406,'',6,'BARCELONA','Barcelona',1),(239,'09',403,'',8,'BURGOS','Burgos',1),(240,'10',412,'',12,'CACERES','Cáceres',1),(241,'11',401,'',1,'CADIz','Cádiz',1),(242,'12',411,'',11,'CASTELLON','Castellón',1),(243,'13',404,'',4,'CIUDAD REAL','Ciudad Real',1),(244,'14',401,'',1,'CORDOBA','Córdoba',1),(245,'15',413,'',13,'LA CORUÑA','La Coruña',1),(246,'16',404,'',4,'CUENCA','Cuenca',1),(247,'17',406,'',6,'GERONA','Gerona',1),(248,'18',401,'',1,'GRANADA','Granada',1),(249,'19',404,'',4,'GUADALAJARA','Guadalajara',1),(250,'20',419,'',19,'GUIPUZCOA','Guipúzcoa',1),(251,'21',401,'',1,'HUELVA','Huelva',1),(252,'22',402,'',2,'HUESCA','Huesca',1),(253,'23',401,'',1,'JAEN','Jaén',1),(254,'24',403,'',3,'LEON','León',1),(255,'25',406,'',6,'LERIDA','Lérida',1),(256,'26',415,'',15,'LA RIOJA','La Rioja',1),(257,'27',413,'',13,'LUGO','Lugo',1),(258,'28',416,'',16,'MADRID','Madrid',1),(259,'29',401,'',1,'MALAGA','Málaga',1),(260,'30',417,'',17,'MURCIA','Murcia',1),(261,'31',408,'',8,'NAVARRA','Navarra',1),(262,'32',413,'',13,'ORENSE','Orense',1),(263,'33',418,'',18,'ASTURIAS','Asturias',1),(264,'34',403,'',3,'PALENCIA','Palencia',1),(265,'35',405,'',5,'LAS PALMAS','Las Palmas',1),(266,'36',413,'',13,'PONTEVEDRA','Pontevedra',1),(267,'37',403,'',3,'SALAMANCA','Salamanca',1),(268,'38',405,'',5,'STA. CRUZ DE TENERIFE','Sta. Cruz de Tenerife',1),(269,'39',410,'',10,'CANTABRIA','Cantabria',1),(270,'40',403,'',3,'SEGOVIA','Segovia',1),(271,'41',401,'',1,'SEVILLA','Sevilla',1),(272,'42',403,'',3,'SORIA','Soria',1),(273,'43',406,'',6,'TARRAGONA','Tarragona',1),(274,'44',402,'',2,'TERUEL','Teruel',1),(275,'45',404,'',5,'TOLEDO','Toledo',1),(276,'46',411,'',11,'VALENCIA','Valencia',1),(277,'47',403,'',3,'VALLADOLID','Valladolid',1),(278,'48',419,'',19,'VIZCAYA','Vizcaya',1),(279,'49',403,'',3,'ZAMORA','Zamora',1),(280,'50',402,'',1,'ZARAGOZA','Zaragoza',1),(281,'51',407,'',7,'CEUTA','Ceuta',1),(282,'52',409,'',9,'MELILLA','Melilla',1),(283,'53',420,'',20,'OTROS','Otros',1),(284,'BW',501,NULL,NULL,'BADEN-WÜRTTEMBERG','Baden-Württemberg',1),(285,'BY',501,NULL,NULL,'BAYERN','Bayern',1),(286,'BE',501,NULL,NULL,'BERLIN','Berlin',1),(287,'BB',501,NULL,NULL,'BRANDENBURG','Brandenburg',1),(288,'HB',501,NULL,NULL,'BREMEN','Bremen',1),(289,'HH',501,NULL,NULL,'HAMBURG','Hamburg',1),(290,'HE',501,NULL,NULL,'HESSEN','Hessen',1),(291,'MV',501,NULL,NULL,'MECKLENBURG-VORPOMMERN','Mecklenburg-Vorpommern',1),(292,'NI',501,NULL,NULL,'NIEDERSACHSEN','Niedersachsen',1),(293,'NW',501,NULL,NULL,'NORDRHEIN-WESTFALEN','Nordrhein-Westfalen',1),(294,'RP',501,NULL,NULL,'RHEINLAND-PFALZ','Rheinland-Pfalz',1),(295,'SL',501,NULL,NULL,'SAARLAND','Saarland',1),(296,'SN',501,NULL,NULL,'SACHSEN','Sachsen',1),(297,'ST',501,NULL,NULL,'SACHSEN-ANHALT','Sachsen-Anhalt',1),(298,'SH',501,NULL,NULL,'SCHLESWIG-HOLSTEIN','Schleswig-Holstein',1),(299,'TH',501,NULL,NULL,'THÜRINGEN','Thüringen',1),(300,'AG',601,NULL,NULL,'ARGOVIE','Argovie',1),(301,'AI',601,NULL,NULL,'APPENZELL RHODES INTERIEURES','Appenzell Rhodes intérieures',1),(302,'AR',601,NULL,NULL,'APPENZELL RHODES EXTERIEURES','Appenzell Rhodes extérieures',1),(303,'BE',601,NULL,NULL,'BERNE','Berne',1),(304,'BL',601,NULL,NULL,'BALE CAMPAGNE','Bâle Campagne',1),(305,'BS',601,NULL,NULL,'BALE VILLE','Bâle Ville',1),(306,'FR',601,NULL,NULL,'FRIBOURG','Fribourg',1),(307,'GE',601,NULL,NULL,'GENEVE','Genève',1),(308,'GL',601,NULL,NULL,'GLARIS','Glaris',1),(309,'GR',601,NULL,NULL,'GRISONS','Grisons',1),(310,'JU',601,NULL,NULL,'JURA','Jura',1),(311,'LU',601,NULL,NULL,'LUCERNE','Lucerne',1),(312,'NE',601,NULL,NULL,'NEUCHATEL','Neuchâtel',1),(313,'NW',601,NULL,NULL,'NIDWALD','Nidwald',1),(314,'OW',601,NULL,NULL,'OBWALD','Obwald',1),(315,'SG',601,NULL,NULL,'SAINT-GALL','Saint-Gall',1),(316,'SH',601,NULL,NULL,'SCHAFFHOUSE','Schaffhouse',1),(317,'SO',601,NULL,NULL,'SOLEURE','Soleure',1),(318,'SZ',601,NULL,NULL,'SCHWYZ','Schwyz',1),(319,'TG',601,NULL,NULL,'THURGOVIE','Thurgovie',1),(320,'TI',601,NULL,NULL,'TESSIN','Tessin',1),(321,'UR',601,NULL,NULL,'URI','Uri',1),(322,'VD',601,NULL,NULL,'VAUD','Vaud',1),(323,'VS',601,NULL,NULL,'VALAIS','Valais',1),(324,'ZG',601,NULL,NULL,'ZUG','Zug',1),(325,'ZH',601,NULL,NULL,'ZURICH','Zürich',1),(326,'AL',1101,'',0,'ALABAMA','Alabama',1),(327,'AK',1101,'',0,'ALASKA','Alaska',1),(328,'AZ',1101,'',0,'ARIZONA','Arizona',1),(329,'AR',1101,'',0,'ARKANSAS','Arkansas',1),(330,'CA',1101,'',0,'CALIFORNIA','California',1),(331,'CO',1101,'',0,'COLORADO','Colorado',1),(332,'CT',1101,'',0,'CONNECTICUT','Connecticut',1),(333,'DE',1101,'',0,'DELAWARE','Delaware',1),(334,'FL',1101,'',0,'FLORIDA','Florida',1),(335,'GA',1101,'',0,'GEORGIA','Georgia',1),(336,'HI',1101,'',0,'HAWAII','Hawaii',1),(337,'ID',1101,'',0,'IDAHO','Idaho',1),(338,'IL',1101,'',0,'ILLINOIS','Illinois',1),(339,'IN',1101,'',0,'INDIANA','Indiana',1),(340,'IA',1101,'',0,'IOWA','Iowa',1),(341,'KS',1101,'',0,'KANSAS','Kansas',1),(342,'KY',1101,'',0,'KENTUCKY','Kentucky',1),(343,'LA',1101,'',0,'LOUISIANA','Louisiana',1),(344,'ME',1101,'',0,'MAINE','Maine',1),(345,'MD',1101,'',0,'MARYLAND','Maryland',1),(346,'MA',1101,'',0,'MASSACHUSSETTS','Massachusetts',1),(347,'MI',1101,'',0,'MICHIGAN','Michigan',1),(348,'MN',1101,'',0,'MINNESOTA','Minnesota',1),(349,'MS',1101,'',0,'MISSISSIPPI','Mississippi',1),(350,'MO',1101,'',0,'MISSOURI','Missouri',1),(351,'MT',1101,'',0,'MONTANA','Montana',1),(352,'NE',1101,'',0,'NEBRASKA','Nebraska',1),(353,'NV',1101,'',0,'NEVADA','Nevada',1),(354,'NH',1101,'',0,'NEW HAMPSHIRE','New Hampshire',1),(355,'NJ',1101,'',0,'NEW JERSEY','New Jersey',1),(356,'NM',1101,'',0,'NEW MEXICO','New Mexico',1),(357,'NY',1101,'',0,'NEW YORK','New York',1),(358,'NC',1101,'',0,'NORTH CAROLINA','North Carolina',1),(359,'ND',1101,'',0,'NORTH DAKOTA','North Dakota',1),(360,'OH',1101,'',0,'OHIO','Ohio',1),(361,'OK',1101,'',0,'OKLAHOMA','Oklahoma',1),(362,'OR',1101,'',0,'OREGON','Oregon',1),(363,'PA',1101,'',0,'PENNSYLVANIA','Pennsylvania',1),(364,'RI',1101,'',0,'RHODE ISLAND','Rhode Island',1),(365,'SC',1101,'',0,'SOUTH CAROLINA','South Carolina',1),(366,'SD',1101,'',0,'SOUTH DAKOTA','South Dakota',1),(367,'TN',1101,'',0,'TENNESSEE','Tennessee',1),(368,'TX',1101,'',0,'TEXAS','Texas',1),(369,'UT',1101,'',0,'UTAH','Utah',1),(370,'VT',1101,'',0,'VERMONT','Vermont',1),(371,'VA',1101,'',0,'VIRGINIA','Virginia',1),(372,'WA',1101,'',0,'WASHINGTON','Washington',1),(373,'WV',1101,'',0,'WEST VIRGINIA','West Virginia',1),(374,'WI',1101,'',0,'WISCONSIN','Wisconsin',1),(375,'WY',1101,'',0,'WYOMING','Wyoming',1),(376,'SS',8601,NULL,NULL,NULL,'San Salvador',1),(377,'SA',8603,NULL,NULL,NULL,'Santa Ana',1),(378,'AH',8603,NULL,NULL,NULL,'Ahuachapan',1),(379,'SO',8603,NULL,NULL,NULL,'Sonsonate',1),(380,'US',8602,NULL,NULL,NULL,'Usulutan',1),(381,'SM',8602,NULL,NULL,NULL,'San Miguel',1),(382,'MO',8602,NULL,NULL,NULL,'Morazan',1),(383,'LU',8602,NULL,NULL,NULL,'La Union',1),(384,'LL',8601,NULL,NULL,NULL,'La Libertad',1),(385,'CH',8601,NULL,NULL,NULL,'Chalatenango',1),(386,'CA',8601,NULL,NULL,NULL,'Cabañas',1),(387,'LP',8601,NULL,NULL,NULL,'La Paz',1),(388,'SV',8601,NULL,NULL,NULL,'San Vicente',1),(389,'CU',8601,NULL,NULL,NULL,'Cuscatlan',1),(390,'2301',2301,'',0,'CATAMARCA','Catamarca',1),(391,'2302',2301,'',0,'JUJUY','Jujuy',1),(392,'2303',2301,'',0,'TUCAMAN','Tucamán',1),(393,'2304',2301,'',0,'SANTIAGO DEL ESTERO','Santiago del Estero',1),(394,'2305',2301,'',0,'SALTA','Salta',1),(395,'2306',2302,'',0,'CHACO','Chaco',1),(396,'2307',2302,'',0,'CORRIENTES','Corrientes',1),(397,'2308',2302,'',0,'ENTRE RIOS','Entre Ríos',1),(398,'2309',2302,'',0,'FORMOSA MISIONES','Formosa Misiones',1),(399,'2310',2302,'',0,'SANTA FE','Santa Fe',1),(400,'2311',2303,'',0,'LA RIOJA','La Rioja',1),(401,'2312',2303,'',0,'MENDOZA','Mendoza',1),(402,'2313',2303,'',0,'SAN JUAN','San Juan',1),(403,'2314',2303,'',0,'SAN LUIS','San Luis',1),(404,'2315',2304,'',0,'CORDOBA','Córdoba',1),(405,'2316',2304,'',0,'BUENOS AIRES','Buenos Aires',1),(406,'2317',2304,'',0,'CABA','Caba',1),(407,'2318',2305,'',0,'LA PAMPA','La Pampa',1),(408,'2319',2305,'',0,'NEUQUEN','Neuquén',1),(409,'2320',2305,'',0,'RIO NEGRO','Río Negro',1),(410,'2321',2305,'',0,'CHUBUT','Chubut',1),(411,'2322',2305,'',0,'SANTA CRUZ','Santa Cruz',1),(412,'2323',2305,'',0,'TIERRA DEL FUEGO','Tierra del Fuego',1),(413,'2324',2305,'',0,'ISLAS MALVINAS','Islas Malvinas',1),(414,'2325',2305,'',0,'ANTARTIDA','Antártida',1),(415,'AC',5601,'ACRE',0,'AC','Acre',1),(416,'AL',5601,'ALAGOAS',0,'AL','Alagoas',1),(417,'AP',5601,'AMAPA',0,'AP','Amapá',1),(418,'AM',5601,'AMAZONAS',0,'AM','Amazonas',1),(419,'BA',5601,'BAHIA',0,'BA','Bahia',1),(420,'CE',5601,'CEARA',0,'CE','Ceará',1),(421,'ES',5601,'ESPIRITO SANTO',0,'ES','Espirito Santo',1),(422,'GO',5601,'GOIAS',0,'GO','Goiás',1),(423,'MA',5601,'MARANHAO',0,'MA','Maranhão',1),(424,'MT',5601,'MATO GROSSO',0,'MT','Mato Grosso',1),(425,'MS',5601,'MATO GROSSO DO SUL',0,'MS','Mato Grosso do Sul',1),(426,'MG',5601,'MINAS GERAIS',0,'MG','Minas Gerais',1),(427,'PA',5601,'PARA',0,'PA','Pará',1),(428,'PB',5601,'PARAIBA',0,'PB','Paraiba',1),(429,'PR',5601,'PARANA',0,'PR','Paraná',1),(430,'PE',5601,'PERNAMBUCO',0,'PE','Pernambuco',1),(431,'PI',5601,'PIAUI',0,'PI','Piauí',1),(432,'RJ',5601,'RIO DE JANEIRO',0,'RJ','Rio de Janeiro',1),(433,'RN',5601,'RIO GRANDE DO NORTE',0,'RN','Rio Grande do Norte',1),(434,'RS',5601,'RIO GRANDE DO SUL',0,'RS','Rio Grande do Sul',1),(435,'RO',5601,'RONDONIA',0,'RO','Rondônia',1),(436,'RR',5601,'RORAIMA',0,'RR','Roraima',1),(437,'SC',5601,'SANTA CATARINA',0,'SC','Santa Catarina',1),(438,'SE',5601,'SERGIPE',0,'SE','Sergipe',1),(439,'SP',5601,'SAO PAULO',0,'SP','Sao Paulo',1),(440,'TO',5601,'TOCANTINS',0,'TO','Tocantins',1),(441,'DF',5601,'DISTRITO FEDERAL',0,'DF','Distrito Federal',1),(442,'151',6715,'',0,'151','Arica',1),(443,'152',6715,'',0,'152','Parinacota',1),(444,'011',6701,'',0,'011','Iquique',1),(445,'014',6701,'',0,'014','Tamarugal',1),(446,'021',6702,'',0,'021','Antofagasa',1),(447,'022',6702,'',0,'022','El Loa',1),(448,'023',6702,'',0,'023','Tocopilla',1),(449,'031',6703,'',0,'031','Copiapó',1),(450,'032',6703,'',0,'032','Chañaral',1),(451,'033',6703,'',0,'033','Huasco',1),(452,'041',6704,'',0,'041','Elqui',1),(453,'042',6704,'',0,'042','Choapa',1),(454,'043',6704,'',0,'043','Limarí',1),(455,'051',6705,'',0,'051','Valparaíso',1),(456,'052',6705,'',0,'052','Isla de Pascua',1),(457,'053',6705,'',0,'053','Los Andes',1),(458,'054',6705,'',0,'054','Petorca',1),(459,'055',6705,'',0,'055','Quillota',1),(460,'056',6705,'',0,'056','San Antonio',1),(461,'057',6705,'',0,'057','San Felipe de Aconcagua',1),(462,'058',6705,'',0,'058','Marga Marga',1),(463,'061',6706,'',0,'061','Cachapoal',1),(464,'062',6706,'',0,'062','Cardenal Caro',1),(465,'063',6706,'',0,'063','Colchagua',1),(466,'071',6707,'',0,'071','Talca',1),(467,'072',6707,'',0,'072','Cauquenes',1),(468,'073',6707,'',0,'073','Curicó',1),(469,'074',6707,'',0,'074','Linares',1),(470,'081',6708,'',0,'081','Concepción',1),(471,'082',6708,'',0,'082','Arauco',1),(472,'083',6708,'',0,'083','Biobío',1),(473,'084',6708,'',0,'084','Ñuble',1),(474,'091',6709,'',0,'091','Cautín',1),(475,'092',6709,'',0,'092','Malleco',1),(476,'141',6714,'',0,'141','Valdivia',1),(477,'142',6714,'',0,'142','Ranco',1),(478,'101',6710,'',0,'101','Llanquihue',1),(479,'102',6710,'',0,'102','Chiloé',1),(480,'103',6710,'',0,'103','Osorno',1),(481,'104',6710,'',0,'104','Palena',1),(482,'111',6711,'',0,'111','Coihaique',1),(483,'112',6711,'',0,'112','Aisén',1),(484,'113',6711,'',0,'113','Capitán Prat',1),(485,'114',6711,'',0,'114','General Carrera',1),(486,'121',6712,'',0,'121','Magallanes',1),(487,'122',6712,'',0,'122','Antártica Chilena',1),(488,'123',6712,'',0,'123','Tierra del Fuego',1),(489,'124',6712,'',0,'124','Última Esperanza',1),(490,'131',6713,'',0,'131','Santiago',1),(491,'132',6713,'',0,'132','Cordillera',1),(492,'133',6713,'',0,'133','Chacabuco',1),(493,'134',6713,'',0,'134','Maipo',1),(494,'135',6713,'',0,'135','Melipilla',1),(495,'136',6713,'',0,'136','Talagante',1),(496,'AN',11701,NULL,0,'AN','Andaman & Nicobar',1),(497,'AP',11701,NULL,0,'AP','Andhra Pradesh',1),(498,'AR',11701,NULL,0,'AR','Arunachal Pradesh',1),(499,'AS',11701,NULL,0,'AS','Assam',1),(500,'BR',11701,NULL,0,'BR','Bihar',1),(501,'CG',11701,NULL,0,'CG','Chattisgarh',1),(502,'CH',11701,NULL,0,'CH','Chandigarh',1),(503,'DD',11701,NULL,0,'DD','Daman & Diu',1),(504,'DL',11701,NULL,0,'DL','Delhi',1),(505,'DN',11701,NULL,0,'DN','Dadra and Nagar Haveli',1),(506,'GA',11701,NULL,0,'GA','Goa',1),(507,'GJ',11701,NULL,0,'GJ','Gujarat',1),(508,'HP',11701,NULL,0,'HP','Himachal Pradesh',1),(509,'HR',11701,NULL,0,'HR','Haryana',1),(510,'JH',11701,NULL,0,'JH','Jharkhand',1),(511,'JK',11701,NULL,0,'JK','Jammu & Kashmir',1),(512,'KA',11701,NULL,0,'KA','Karnataka',1),(513,'KL',11701,NULL,0,'KL','Kerala',1),(514,'LD',11701,NULL,0,'LD','Lakshadweep',1),(515,'MH',11701,NULL,0,'MH','Maharashtra',1),(516,'ML',11701,NULL,0,'ML','Meghalaya',1),(517,'MN',11701,NULL,0,'MN','Manipur',1),(518,'MP',11701,NULL,0,'MP','Madhya Pradesh',1),(519,'MZ',11701,NULL,0,'MZ','Mizoram',1),(520,'NL',11701,NULL,0,'NL','Nagaland',1),(521,'OR',11701,NULL,0,'OR','Orissa',1),(522,'PB',11701,NULL,0,'PB','Punjab',1),(523,'PY',11701,NULL,0,'PY','Puducherry',1),(524,'RJ',11701,NULL,0,'RJ','Rajasthan',1),(525,'SK',11701,NULL,0,'SK','Sikkim',1),(526,'TN',11701,NULL,0,'TN','Tamil Nadu',1),(527,'TR',11701,NULL,0,'TR','Tripura',1),(528,'UL',11701,NULL,0,'UL','Uttarakhand',1),(529,'UP',11701,NULL,0,'UP','Uttar Pradesh',1),(530,'WB',11701,NULL,0,'WB','West Bengal',1),(531,'DIF',15401,'',0,'DIF','Distrito Federal',1),(532,'AGS',15401,'',0,'AGS','Aguascalientes',1),(533,'BCN',15401,'',0,'BCN','Baja California Norte',1),(534,'BCS',15401,'',0,'BCS','Baja California Sur',1),(535,'CAM',15401,'',0,'CAM','Campeche',1),(536,'CHP',15401,'',0,'CHP','Chiapas',1),(537,'CHI',15401,'',0,'CHI','Chihuahua',1),(538,'COA',15401,'',0,'COA','Coahuila',1),(539,'COL',15401,'',0,'COL','Colima',1),(540,'DUR',15401,'',0,'DUR','Durango',1),(541,'GTO',15401,'',0,'GTO','Guanajuato',1),(542,'GRO',15401,'',0,'GRO','Guerrero',1),(543,'HGO',15401,'',0,'HGO','Hidalgo',1),(544,'JAL',15401,'',0,'JAL','Jalisco',1),(545,'MEX',15401,'',0,'MEX','México',1),(546,'MIC',15401,'',0,'MIC','Michoacán de Ocampo',1),(547,'MOR',15401,'',0,'MOR','Morelos',1),(548,'NAY',15401,'',0,'NAY','Nayarit',1),(549,'NLE',15401,'',0,'NLE','Nuevo León',1),(550,'OAX',15401,'',0,'OAX','Oaxaca',1),(551,'PUE',15401,'',0,'PUE','Puebla',1),(552,'QRO',15401,'',0,'QRO','Querétaro',1),(553,'ROO',15401,'',0,'ROO','Quintana Roo',1),(554,'SLP',15401,'',0,'SLP','San Luis Potosí',1),(555,'SIN',15401,'',0,'SIN','Sinaloa',1),(556,'SON',15401,'',0,'SON','Sonora',1),(557,'TAB',15401,'',0,'TAB','Tabasco',1),(558,'TAM',15401,'',0,'TAM','Tamaulipas',1),(559,'TLX',15401,'',0,'TLX','Tlaxcala',1),(560,'VER',15401,'',0,'VER','Veracruz',1),(561,'YUC',15401,'',0,'YUC','Yucatán',1),(562,'ZAC',15401,'',0,'ZAC','Zacatecas',1),(563,'ANT',7001,'',0,'ANT','Antioquia',1),(564,'BOL',7001,'',0,'BOL','Bolívar',1),(565,'BOY',7001,'',0,'BOY','Boyacá',1),(566,'CAL',7001,'',0,'CAL','Caldas',1),(567,'CAU',7001,'',0,'CAU','Cauca',1),(568,'CUN',7001,'',0,'CUN','Cundinamarca',1),(569,'HUI',7001,'',0,'HUI','Huila',1),(570,'LAG',7001,'',0,'LAG','La Guajira',1),(571,'MET',7001,'',0,'MET','Meta',1),(572,'NAR',7001,'',0,'NAR','Nariño',1),(573,'NDS',7001,'',0,'NDS','Norte de Santander',1),(574,'SAN',7001,'',0,'SAN','Santander',1),(575,'SUC',7001,'',0,'SUC','Sucre',1),(576,'TOL',7001,'',0,'TOL','Tolima',1),(577,'VAC',7001,'',0,'VAC','Valle del Cauca',1),(578,'RIS',7001,'',0,'RIS','Risalda',1),(579,'ATL',7001,'',0,'ATL','Atlántico',1),(580,'COR',7001,'',0,'COR','Córdoba',1),(581,'SAP',7001,'',0,'SAP','San Andrés, Providencia y Santa Catalina',1),(582,'ARA',7001,'',0,'ARA','Arauca',1),(583,'CAS',7001,'',0,'CAS','Casanare',1),(584,'AMA',7001,'',0,'AMA','Amazonas',1),(585,'CAQ',7001,'',0,'CAQ','Caquetá',1),(586,'CHO',7001,'',0,'CHO','Chocó',1),(587,'GUA',7001,'',0,'GUA','Guainía',1),(588,'GUV',7001,'',0,'GUV','Guaviare',1),(589,'PUT',7001,'',0,'PUT','Putumayo',1),(590,'QUI',7001,'',0,'QUI','Quindío',1),(591,'VAU',7001,'',0,'VAU','Vaupés',1),(592,'BOG',7001,'',0,'BOG','Bogotá',1),(593,'VID',7001,'',0,'VID','Vichada',1),(594,'CES',7001,'',0,'CES','Cesar',1),(595,'MAG',7001,'',0,'MAG','Magdalena',1),(596,'AT',11401,'',0,'AT','Atlántida',1),(597,'CH',11401,'',0,'CH','Choluteca',1),(598,'CL',11401,'',0,'CL','Colón',1),(599,'CM',11401,'',0,'CM','Comayagua',1),(600,'CO',11401,'',0,'CO','Copán',1),(601,'CR',11401,'',0,'CR','Cortés',1),(602,'EP',11401,'',0,'EP','El Paraíso',1),(603,'FM',11401,'',0,'FM','Francisco Morazán',1),(604,'GD',11401,'',0,'GD','Gracias a Dios',1),(605,'IN',11401,'',0,'IN','Intibucá',1),(606,'IB',11401,'',0,'IB','Islas de la Bahía',1),(607,'LP',11401,'',0,'LP','La Paz',1),(608,'LM',11401,'',0,'LM','Lempira',1),(609,'OC',11401,'',0,'OC','Ocotepeque',1),(610,'OL',11401,'',0,'OL','Olancho',1),(611,'SB',11401,'',0,'SB','Santa Bárbara',1),(612,'VL',11401,'',0,'VL','Valle',1),(613,'YO',11401,'',0,'YO','Yoro',1),(614,'DC',11401,'',0,'DC','Distrito Central',1),(615,'CC',4601,'Oistins',0,'CC','Christ Church',1),(616,'SA',4601,'Greenland',0,'SA','Saint Andrew',1),(617,'SG',4601,'Bulkeley',0,'SG','Saint George',1),(618,'JA',4601,'Holetown',0,'JA','Saint James',1),(619,'SJ',4601,'Four Roads',0,'SJ','Saint John',1),(620,'SB',4601,'Bathsheba',0,'SB','Saint Joseph',1),(621,'SL',4601,'Crab Hill',0,'SL','Saint Lucy',1),(622,'SM',4601,'Bridgetown',0,'SM','Saint Michael',1),(623,'SP',4601,'Speightstown',0,'SP','Saint Peter',1),(624,'SC',4601,'Crane',0,'SC','Saint Philip',1),(625,'ST',4601,'Hillaby',0,'ST','Saint Thomas',1),(626,'VE-L',23201,'',0,'VE-L','Mérida',1),(627,'VE-T',23201,'',0,'VE-T','Trujillo',1),(628,'VE-E',23201,'',0,'VE-E','Barinas',1),(629,'VE-M',23202,'',0,'VE-M','Miranda',1),(630,'VE-W',23202,'',0,'VE-W','Vargas',1),(631,'VE-A',23202,'',0,'VE-A','Distrito Capital',1),(632,'VE-D',23203,'',0,'VE-D','Aragua',1),(633,'VE-G',23203,'',0,'VE-G','Carabobo',1),(634,'VE-I',23204,'',0,'VE-I','Falcón',1),(635,'VE-K',23204,'',0,'VE-K','Lara',1),(636,'VE-U',23204,'',0,'VE-U','Yaracuy',1),(637,'VE-F',23205,'',0,'VE-F','Bolívar',1),(638,'VE-X',23205,'',0,'VE-X','Amazonas',1),(639,'VE-Y',23205,'',0,'VE-Y','Delta Amacuro',1),(640,'VE-O',23206,'',0,'VE-O','Nueva Esparta',1),(641,'VE-Z',23206,'',0,'VE-Z','Dependencias Federales',1),(642,'VE-C',23207,'',0,'VE-C','Apure',1),(643,'VE-J',23207,'',0,'VE-J','Guárico',1),(644,'VE-H',23207,'',0,'VE-H','Cojedes',1),(645,'VE-P',23207,'',0,'VE-P','Portuguesa',1),(646,'VE-B',23208,'',0,'VE-B','Anzoátegui',1),(647,'VE-N',23208,'',0,'VE-N','Monagas',1),(648,'VE-R',23208,'',0,'VE-R','Sucre',1),(649,'VE-V',23209,'',0,'VE-V','Zulia',1),(650,'VE-S',23209,'',0,'VE-S','Táchira',1);
 /*!40000 ALTER TABLE `llx_c_departements` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -865,7 +895,7 @@ CREATE TABLE `llx_c_effectif` (
   `active` tinyint(4) NOT NULL DEFAULT '1',
   `module` varchar(32) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `code` (`code`)
+  UNIQUE KEY `uk_c_effectif` (`code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -985,7 +1015,7 @@ CREATE TABLE `llx_c_input_reason` (
   `module` varchar(32) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`rowid`),
   UNIQUE KEY `uk_c_input_reason` (`code`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -994,7 +1024,7 @@ CREATE TABLE `llx_c_input_reason` (
 
 LOCK TABLES `llx_c_input_reason` WRITE;
 /*!40000 ALTER TABLE `llx_c_input_reason` DISABLE KEYS */;
-INSERT INTO `llx_c_input_reason` VALUES (1,'SRC_INTE','Web site',1,NULL),(2,'SRC_CAMP_MAIL','Mailing campaign',1,NULL),(3,'SRC_CAMP_PHO','Phone campaign',1,NULL),(4,'SRC_CAMP_FAX','Fax campaign',1,NULL),(5,'SRC_COMM','Commercial contact',1,NULL),(6,'SRC_SHOP','Shop contact',1,NULL),(7,'SRC_CAMP_EMAIL','EMailing campaign',1,NULL);
+INSERT INTO `llx_c_input_reason` VALUES (1,'SRC_INTE','Web site',1,NULL),(2,'SRC_CAMP_MAIL','Mailing campaign',1,NULL),(3,'SRC_CAMP_PHO','Phone campaign',1,NULL),(4,'SRC_CAMP_FAX','Fax campaign',1,NULL),(5,'SRC_COMM','Commercial contact',1,NULL),(6,'SRC_SHOP','Shop contact',1,NULL),(7,'SRC_CAMP_EMAIL','EMailing campaign',1,NULL),(8,'SRC_WOM','Word of mouth',1,NULL),(9,'SRC_PARTNER','Partner',1,NULL),(10,'SRC_EMPLOYEE','Employee',1,NULL),(11,'SRC_SPONSORING','Sponsoring',1,NULL);
 /*!40000 ALTER TABLE `llx_c_input_reason` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1013,7 +1043,7 @@ CREATE TABLE `llx_c_paiement` (
   `active` tinyint(4) NOT NULL DEFAULT '1',
   `module` varchar(32) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `code` (`code`)
+  UNIQUE KEY `uk_c_paiement` (`code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -1132,7 +1162,7 @@ CREATE TABLE `llx_c_propalst` (
   `label` varchar(30) COLLATE utf8_unicode_ci DEFAULT NULL,
   `active` tinyint(4) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `code` (`code`)
+  UNIQUE KEY `uk_c_propalst` (`code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -1247,7 +1277,7 @@ CREATE TABLE `llx_c_stcomm` (
   `libelle` varchar(30) COLLATE utf8_unicode_ci DEFAULT NULL,
   `active` tinyint(4) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `code` (`code`)
+  UNIQUE KEY `uk_c_stcomm` (`code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -1273,11 +1303,14 @@ CREATE TABLE `llx_c_tva` (
   `fk_pays` int(11) NOT NULL,
   `taux` double NOT NULL,
   `localtax1` double NOT NULL DEFAULT '0',
+  `localtax1_type` varchar(1) COLLATE utf8_unicode_ci DEFAULT NULL,
   `localtax2` double NOT NULL DEFAULT '0',
+  `localtax2_type` varchar(1) COLLATE utf8_unicode_ci DEFAULT NULL,
   `recuperableonly` int(11) NOT NULL DEFAULT '0',
   `note` varchar(128) COLLATE utf8_unicode_ci DEFAULT NULL,
   `active` tinyint(4) NOT NULL DEFAULT '1',
-  `accountancy_code` varchar(15) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `accountancy_code_sell` varchar(15) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `accountancy_code_buy` varchar(15) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`rowid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2462 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -1288,7 +1321,7 @@ CREATE TABLE `llx_c_tva` (
 
 LOCK TABLES `llx_c_tva` WRITE;
 /*!40000 ALTER TABLE `llx_c_tva` DISABLE KEYS */;
-INSERT INTO `llx_c_tva` VALUES (11,1,19.6,0,0,0,'VAT standard rate (France hors DOM-TOM)',1,NULL),(12,1,8.5,0,0,0,'VAT standard rate (DOM sauf Guyane et Saint-Martin)',0,NULL),(13,1,8.5,0,0,1,'VAT standard rate (DOM sauf Guyane et Saint-Martin), non perçu par le vendeur mais récupérable par acheteur',0,NULL),(14,1,5.5,0,0,0,'VAT reduced rate (France hors DOM-TOM)',1,NULL),(15,1,0,0,0,0,'VAT Rate 0 ou non applicable',1,NULL),(16,1,2.1,0,0,0,'VAT super-reduced rate',1,NULL),(17,1,7,0,0,0,'VAT reduced rate',1,NULL),(21,2,21,0,0,0,'VAT standard rate',1,NULL),(22,2,6,0,0,0,'VAT reduced rate',1,NULL),(23,2,0,0,0,0,'VAT Rate 0 ou non applicable',1,NULL),(24,2,12,0,0,0,'VAT reduced rate',1,NULL),(31,3,21,0,0,0,'VAT standard rate',1,NULL),(32,3,10,0,0,0,'VAT reduced rate',1,NULL),(33,3,4,0,0,0,'VAT super-reduced rate',1,NULL),(34,3,0,0,0,0,'VAT Rate 0',1,NULL),(41,4,21,5.2,0,0,'VAT standard rate',1,NULL),(42,4,10,1.4,0,0,'VAT reduced rate',1,NULL),(43,4,4,0.5,0,0,'VAT super-reduced rate',1,NULL),(44,4,0,0,0,0,'VAT Rate 0',1,NULL),(51,5,19,0,0,0,'allgemeine Ust.',1,NULL),(52,5,7,0,0,0,'ermäßigte USt.',1,NULL),(53,5,0,0,0,0,'keine USt.',1,NULL),(54,5,5.5,0,0,0,'USt. Forst',0,NULL),(55,5,10.7,0,0,0,'USt. Landwirtschaft',0,NULL),(61,6,7.6,0,0,0,'VAT standard rate',1,NULL),(62,6,3.6,0,0,0,'VAT reduced rate',1,NULL),(63,6,2.4,0,0,0,'VAT super-reduced rate',1,NULL),(64,6,0,0,0,0,'VAT Rate 0',1,NULL),(71,7,20,0,0,0,'VAT standard rate',1,NULL),(72,7,17.5,0,0,0,'VAT standard rate before 2011',1,NULL),(73,7,5,0,0,0,'VAT reduced rate',1,NULL),(74,7,0,0,0,0,'VAT Rate 0',1,NULL),(91,9,17,0,0,0,'VAT standard rate',1,NULL),(92,9,13,0,0,0,'VAT reduced rate 0',1,NULL),(93,9,3,0,0,0,'VAT super reduced rate 0',1,NULL),(94,9,0,0,0,0,'VAT Rate 0',1,NULL),(101,10,6,0,0,0,'VAT 6%',1,NULL),(102,10,12,0,0,0,'VAT 12%',1,NULL),(103,10,18,0,0,0,'VAT 18%',1,NULL),(104,10,7.5,0,0,0,'VAT 6% Majoré à 25% (7.5%)',1,NULL),(105,10,15,0,0,0,'VAT 12% Majoré à 25% (15%)',1,NULL),(106,10,22.5,0,0,0,'VAT 18% Majoré à 25% (22.5%)',1,NULL),(107,10,0,0,0,0,'VAT Rate 0',1,NULL),(111,11,0,0,0,0,'No Sales Tax',1,NULL),(112,11,4,0,0,0,'Sales Tax 4%',1,NULL),(113,11,6,0,0,0,'Sales Tax 6%',1,NULL),(121,12,20,0,0,0,'VAT standard rate',1,NULL),(122,12,14,0,0,0,'VAT reduced rate',1,NULL),(123,12,10,0,0,0,'VAT reduced rate',1,NULL),(124,12,7,0,0,0,'VAT super-reduced rate',1,NULL),(125,12,0,0,0,0,'VAT Rate 0',1,NULL),(141,14,7,0,0,0,'VAT standard rate',1,NULL),(142,14,0,0,0,0,'VAT Rate 0',1,NULL),(171,17,19,0,0,0,'Algemeen BTW tarief',1,NULL),(172,17,6,0,0,0,'Verlaagd BTW tarief',1,NULL),(173,17,0,0,0,0,'0 BTW tarief',1,NULL),(174,17,21,0,0,0,'Algemeen BTW tarief (vanaf 1 oktober 2012)',0,NULL),(201,20,25,0,0,0,'VAT standard rate',1,NULL),(202,20,12,0,0,0,'VAT reduced rate',1,NULL),(203,20,6,0,0,0,'VAT super-reduced rate',1,NULL),(204,20,0,0,0,0,'VAT Rate 0',1,NULL),(231,23,21,0,0,0,'IVA standard rate',1,NULL),(232,23,10.5,0,0,0,'IVA reduced rate',1,NULL),(233,23,0,0,0,0,'IVA Rate 0',1,NULL),(251,25,20,0,0,0,'VAT standard rate',1,NULL),(252,25,12,0,0,0,'VAT reduced rate',1,NULL),(253,25,0,0,0,0,'VAT Rate 0',1,NULL),(254,25,5,0,0,0,'VAT reduced rate',1,NULL),(281,28,10,0,0,0,'VAT standard rate',1,NULL),(282,28,0,0,0,0,'VAT Rate 0',1,NULL),(411,41,20,0,0,0,'VAT standard rate',1,NULL),(412,41,10,0,0,0,'VAT reduced rate',1,NULL),(413,41,0,0,0,0,'VAT Rate 0',1,NULL),(461,46,0,0,0,0,'No VAT',1,NULL),(462,46,15,0,0,0,'VAT 15%',1,NULL),(463,46,7.5,0,0,0,'VAT 7.5%',1,NULL),(561,56,0,0,0,0,'VAT reduced rate',1,NULL),(591,59,20,0,0,0,'VAT standard rate',1,NULL),(592,59,7,0,0,0,'VAT reduced rate',1,NULL),(593,59,0,0,0,0,'VAT Rate 0',1,NULL),(671,67,19,0,0,0,'VAT standard rate',1,NULL),(672,67,0,0,0,0,'VAT Rate 0',1,NULL),(801,80,25,0,0,0,'VAT standard rate',1,NULL),(802,80,0,0,0,0,'VAT Rate 0',1,NULL),(861,86,13,0,0,0,'IVA 13',1,NULL),(862,86,0,0,0,0,'SIN IVA',1,NULL),(1141,114,0,0,0,0,'No ISV',1,NULL),(1142,114,12,0,0,0,'ISV 12%',1,NULL),(1161,116,25.5,0,0,0,'VAT standard rate',1,NULL),(1162,116,7,0,0,0,'VAT reduced rate',1,NULL),(1163,116,0,0,0,0,'VAT rate 0',1,NULL),(1171,117,12.5,0,0,0,'VAT standard rate',1,NULL),(1172,117,4,0,0,0,'VAT reduced rate',1,NULL),(1173,117,1,0,0,0,'VAT super-reduced rate',1,NULL),(1174,117,0,0,0,0,'VAT Rate 0',1,NULL),(1231,123,0,0,0,0,'VAT Rate 0',1,NULL),(1232,123,5,0,0,0,'VAT Rate 5',1,NULL),(1401,140,15,0,0,0,'VAT standard rate',1,NULL),(1402,140,12,0,0,0,'VAT reduced rate',1,NULL),(1403,140,6,0,0,0,'VAT reduced rate',1,NULL),(1404,140,3,0,0,0,'VAT super-reduced rate',1,NULL),(1405,140,0,0,0,0,'VAT Rate 0',1,NULL),(1521,152,0,0,0,0,'VAT Rate 0',1,NULL),(1522,152,15,0,0,0,'VAT Rate 15',1,NULL),(1541,154,0,0,0,0,'No VAT',1,NULL),(1542,154,16,0,0,0,'VAT 16%',1,NULL),(1543,154,10,0,0,0,'VAT Frontero',1,NULL),(1662,166,15,0,0,0,'VAT standard rate',1,NULL),(1663,166,0,0,0,0,'VAT Rate 0',1,NULL),(1731,173,25,0,0,0,'VAT standard rate',1,NULL),(1732,173,14,0,0,0,'VAT reduced rate',1,NULL),(1733,173,8,0,0,0,'VAT reduced rate',1,NULL),(1734,173,0,0,0,0,'VAT Rate 0',1,NULL),(1841,184,20,0,0,0,'VAT standard rate',1,NULL),(1842,184,7,0,0,0,'VAT reduced rate',1,NULL),(1843,184,3,0,0,0,'VAT reduced rate',1,NULL),(1844,184,0,0,0,0,'VAT Rate 0',1,NULL),(1881,188,24,0,0,0,'VAT standard rate',1,NULL),(1882,188,9,0,0,0,'VAT reduced rate',1,NULL),(1883,188,0,0,0,0,'VAT Rate 0',1,NULL),(1884,188,5,0,0,0,'VAT reduced rate',1,NULL),(1931,193,0,0,0,0,'No VAT in SPM',1,NULL),(2011,201,19,0,0,0,'VAT standard rate',1,NULL),(2012,201,10,0,0,0,'VAT reduced rate',1,NULL),(2013,201,0,0,0,0,'VAT Rate 0',1,NULL),(2021,202,20,0,0,0,'VAT standard rate',1,NULL),(2022,202,8.5,0,0,0,'VAT reduced rate',1,NULL),(2023,202,0,0,0,0,'VAT Rate 0',1,NULL),(2261,226,20,0,0,0,'VAT standart rate',1,NULL),(2262,226,0,0,0,0,'VAT Rate 0',1,NULL),(2321,232,0,0,0,0,'No VAT',1,NULL),(2322,232,12,0,0,0,'VAT 12%',1,NULL),(2323,232,8,0,0,0,'VAT 8%',1,NULL),(2461,246,0,0,0,0,'VAT Rate 0',1,NULL);
+INSERT INTO `llx_c_tva` VALUES (11,1,19.6,0,'0',0,'0',0,'VAT standard rate (France hors DOM-TOM)',1,NULL,NULL),(12,1,8.5,0,'0',0,'0',0,'VAT standard rate (DOM sauf Guyane et Saint-Martin)',0,NULL,NULL),(13,1,8.5,0,'0',0,'0',1,'VAT standard rate (DOM sauf Guyane et Saint-Martin), non perçu par le vendeur mais récupérable par acheteur',0,NULL,NULL),(14,1,5.5,0,'0',0,'0',0,'VAT reduced rate (France hors DOM-TOM)',1,NULL,NULL),(15,1,0,0,'0',0,'0',0,'VAT Rate 0 ou non applicable',1,NULL,NULL),(16,1,2.1,0,'0',0,'0',0,'VAT super-reduced rate',1,NULL,NULL),(17,1,7,0,'0',0,'0',0,'VAT reduced rate',1,NULL,NULL),(21,2,21,0,'0',0,'0',0,'VAT standard rate',1,NULL,NULL),(22,2,6,0,'0',0,'0',0,'VAT reduced rate',1,NULL,NULL),(23,2,0,0,'0',0,'0',0,'VAT Rate 0 ou non applicable',1,NULL,NULL),(24,2,12,0,'0',0,'0',0,'VAT reduced rate',1,NULL,NULL),(31,3,21,0,'0',0,'0',0,'VAT standard rate',1,NULL,NULL),(32,3,10,0,'0',0,'0',0,'VAT reduced rate',1,NULL,NULL),(33,3,4,0,'0',0,'0',0,'VAT super-reduced rate',1,NULL,NULL),(34,3,0,0,'0',0,'0',0,'VAT Rate 0',1,NULL,NULL),(41,4,21,5.2,'3',-15,'1',0,'VAT standard rate',1,NULL,NULL),(42,4,10,1.4,'3',-15,'1',0,'VAT reduced rate',1,NULL,NULL),(43,4,4,0.5,'3',-15,'1',0,'VAT super-reduced rate',1,NULL,NULL),(44,4,0,0,'0',0,'0',0,'VAT Rate 0',1,NULL,NULL),(51,5,19,0,'0',0,'0',0,'allgemeine Ust.',1,NULL,NULL),(52,5,7,0,'0',0,'0',0,'ermäßigte USt.',1,NULL,NULL),(53,5,0,0,'0',0,'0',0,'keine USt.',1,NULL,NULL),(54,5,5.5,0,'0',0,'0',0,'USt. Forst',0,NULL,NULL),(55,5,10.7,0,'0',0,'0',0,'USt. Landwirtschaft',0,NULL,NULL),(61,6,7.6,0,'0',0,'0',0,'VAT standard rate',1,NULL,NULL),(62,6,3.6,0,'0',0,'0',0,'VAT reduced rate',1,NULL,NULL),(63,6,2.4,0,'0',0,'0',0,'VAT super-reduced rate',1,NULL,NULL),(64,6,0,0,'0',0,'0',0,'VAT Rate 0',1,NULL,NULL),(71,7,20,0,'0',0,'0',0,'VAT standard rate',1,NULL,NULL),(72,7,17.5,0,'0',0,'0',0,'VAT standard rate before 2011',1,NULL,NULL),(73,7,5,0,'0',0,'0',0,'VAT reduced rate',1,NULL,NULL),(74,7,0,0,'0',0,'0',0,'VAT Rate 0',1,NULL,NULL),(91,9,17,0,'0',0,'0',0,'VAT standard rate',1,NULL,NULL),(92,9,13,0,'0',0,'0',0,'VAT reduced rate 0',1,NULL,NULL),(93,9,3,0,'0',0,'0',0,'VAT super reduced rate 0',1,NULL,NULL),(94,9,0,0,'0',0,'0',0,'VAT Rate 0',1,NULL,NULL),(101,10,6,1,'4',0.4,'7',0,'VAT 6%',1,NULL,NULL),(102,10,12,1,'4',0.4,'7',0,'VAT 12%',1,NULL,NULL),(103,10,18,1,'4',0.4,'7',0,'VAT 18%',1,NULL,NULL),(104,10,7.5,1,'4',0.4,'7',0,'VAT 6% Majoré à 25% (7.5%)',1,NULL,NULL),(105,10,15,1,'4',0.4,'7',0,'VAT 12% Majoré à 25% (15%)',1,NULL,NULL),(106,10,22.5,1,'4',0.4,'7',0,'VAT 18% Majoré à 25% (22.5%)',1,NULL,NULL),(107,10,0,1,'4',0.4,'7',0,'VAT Rate 0',1,NULL,NULL),(111,11,0,0,'0',0,'0',0,'No Sales Tax',1,NULL,NULL),(112,11,4,0,'0',0,'0',0,'Sales Tax 4%',1,NULL,NULL),(113,11,6,0,'0',0,'0',0,'Sales Tax 6%',1,NULL,NULL),(121,12,20,0,'0',0,'0',0,'VAT standard rate',1,NULL,NULL),(122,12,14,0,'0',0,'0',0,'VAT reduced rate',1,NULL,NULL),(123,12,10,0,'0',0,'0',0,'VAT reduced rate',1,NULL,NULL),(124,12,7,0,'0',0,'0',0,'VAT super-reduced rate',1,NULL,NULL),(125,12,0,0,'0',0,'0',0,'VAT Rate 0',1,NULL,NULL),(141,14,7,0,'0',0,'0',0,'VAT standard rate',1,NULL,NULL),(142,14,0,0,'0',0,'0',0,'VAT Rate 0',1,NULL,NULL),(171,17,19,0,'0',0,'0',0,'Algemeen BTW tarief',1,NULL,NULL),(172,17,6,0,'0',0,'0',0,'Verlaagd BTW tarief',1,NULL,NULL),(173,17,0,0,'0',0,'0',0,'0 BTW tarief',1,NULL,NULL),(174,17,21,0,'0',0,'0',0,'Algemeen BTW tarief (vanaf 1 oktober 2012)',0,NULL,NULL),(201,20,25,0,'0',0,'0',0,'VAT standard rate',1,NULL,NULL),(202,20,12,0,'0',0,'0',0,'VAT reduced rate',1,NULL,NULL),(203,20,6,0,'0',0,'0',0,'VAT super-reduced rate',1,NULL,NULL),(204,20,0,0,'0',0,'0',0,'VAT Rate 0',1,NULL,NULL),(231,23,21,0,'0',0,'0',0,'IVA standard rate',1,NULL,NULL),(232,23,10.5,0,'0',0,'0',0,'IVA reduced rate',1,NULL,NULL),(233,23,0,0,'0',0,'0',0,'IVA Rate 0',1,NULL,NULL),(251,25,20,0,'0',0,'0',0,'VAT standard rate',1,NULL,NULL),(252,25,12,0,'0',0,'0',0,'VAT reduced rate',1,NULL,NULL),(253,25,0,0,'0',0,'0',0,'VAT Rate 0',1,NULL,NULL),(254,25,5,0,'0',0,'0',0,'VAT reduced rate',1,NULL,NULL),(271,27,19.6,0,'0',0,'0',0,'VAT standard rate (France hors DOM-TOM)',1,NULL,NULL),(272,27,8.5,0,'0',0,'0',0,'VAT standard rate (DOM sauf Guyane et Saint-Martin)',0,NULL,NULL),(273,27,8.5,0,'0',0,'0',1,'VAT standard rate (DOM sauf Guyane et Saint-Martin), non perçu par le vendeur mais récupérable par acheteur',0,NULL,NULL),(274,27,5.5,0,'0',0,'0',0,'VAT reduced rate (France hors DOM-TOM)',0,NULL,NULL),(275,27,0,0,'0',0,'0',0,'VAT Rate 0 ou non applicable',1,NULL,NULL),(276,27,2.1,0,'0',0,'0',0,'VAT super-reduced rate',1,NULL,NULL),(277,27,7,0,'0',0,'0',0,'VAT reduced rate',1,NULL,NULL),(281,28,10,0,'0',0,'0',0,'VAT standard rate',1,NULL,NULL),(282,28,0,0,'0',0,'0',0,'VAT Rate 0',1,NULL,NULL),(411,41,20,0,'0',0,'0',0,'VAT standard rate',1,NULL,NULL),(412,41,10,0,'0',0,'0',0,'VAT reduced rate',1,NULL,NULL),(413,41,0,0,'0',0,'0',0,'VAT Rate 0',1,NULL,NULL),(461,46,0,0,'0',0,'0',0,'No VAT',1,NULL,NULL),(462,46,15,0,'0',0,'0',0,'VAT 15%',1,NULL,NULL),(463,46,7.5,0,'0',0,'0',0,'VAT 7.5%',1,NULL,NULL),(561,56,0,0,'0',0,'0',0,'VAT reduced rate',1,NULL,NULL),(591,59,20,0,'0',0,'0',0,'VAT standard rate',1,NULL,NULL),(592,59,7,0,'0',0,'0',0,'VAT reduced rate',1,NULL,NULL),(593,59,0,0,'0',0,'0',0,'VAT Rate 0',1,NULL,NULL),(671,67,19,0,'0',0,'0',0,'VAT standard rate',1,NULL,NULL),(672,67,0,0,'0',0,'0',0,'VAT Rate 0',1,NULL,NULL),(801,80,25,0,'0',0,'0',0,'VAT standard rate',1,NULL,NULL),(802,80,0,0,'0',0,'0',0,'VAT Rate 0',1,NULL,NULL),(861,86,13,0,'0',0,'0',0,'IVA 13',1,NULL,NULL),(862,86,0,0,'0',0,'0',0,'SIN IVA',1,NULL,NULL),(1141,114,0,0,'0',0,'0',0,'No ISV',1,NULL,NULL),(1142,114,12,0,'0',0,'0',0,'ISV 12%',1,NULL,NULL),(1161,116,25.5,0,'0',0,'0',0,'VAT standard rate',1,NULL,NULL),(1162,116,7,0,'0',0,'0',0,'VAT reduced rate',1,NULL,NULL),(1163,116,0,0,'0',0,'0',0,'VAT rate 0',1,NULL,NULL),(1171,117,12.5,0,'0',0,'0',0,'VAT standard rate',1,NULL,NULL),(1172,117,4,0,'0',0,'0',0,'VAT reduced rate',1,NULL,NULL),(1173,117,1,0,'0',0,'0',0,'VAT super-reduced rate',1,NULL,NULL),(1174,117,0,0,'0',0,'0',0,'VAT Rate 0',1,NULL,NULL),(1231,123,0,0,'0',0,'0',0,'VAT Rate 0',1,NULL,NULL),(1232,123,5,0,'0',0,'0',0,'VAT Rate 5',1,NULL,NULL),(1401,140,15,0,'0',0,'0',0,'VAT standard rate',1,NULL,NULL),(1402,140,12,0,'0',0,'0',0,'VAT reduced rate',1,NULL,NULL),(1403,140,6,0,'0',0,'0',0,'VAT reduced rate',1,NULL,NULL),(1404,140,3,0,'0',0,'0',0,'VAT super-reduced rate',1,NULL,NULL),(1405,140,0,0,'0',0,'0',0,'VAT Rate 0',1,NULL,NULL),(1521,152,0,0,'0',0,'0',0,'VAT Rate 0',1,NULL,NULL),(1522,152,15,0,'0',0,'0',0,'VAT Rate 15',1,NULL,NULL),(1541,154,0,0,'0',0,'0',0,'No VAT',1,NULL,NULL),(1542,154,16,0,'0',0,'0',0,'VAT 16%',1,NULL,NULL),(1543,154,10,0,'0',0,'0',0,'VAT Frontero',1,NULL,NULL),(1662,166,15,0,'0',0,'0',0,'VAT standard rate',1,NULL,NULL),(1663,166,0,0,'0',0,'0',0,'VAT Rate 0',1,NULL,NULL),(1731,173,25,0,'0',0,'0',0,'VAT standard rate',1,NULL,NULL),(1732,173,14,0,'0',0,'0',0,'VAT reduced rate',1,NULL,NULL),(1733,173,8,0,'0',0,'0',0,'VAT reduced rate',1,NULL,NULL),(1734,173,0,0,'0',0,'0',0,'VAT Rate 0',1,NULL,NULL),(1841,184,20,0,'0',0,'0',0,'VAT standard rate',1,NULL,NULL),(1842,184,7,0,'0',0,'0',0,'VAT reduced rate',1,NULL,NULL),(1843,184,3,0,'0',0,'0',0,'VAT reduced rate',1,NULL,NULL),(1844,184,0,0,'0',0,'0',0,'VAT Rate 0',1,NULL,NULL),(1881,188,24,0,'0',0,'0',0,'VAT standard rate',1,NULL,NULL),(1882,188,9,0,'0',0,'0',0,'VAT reduced rate',1,NULL,NULL),(1883,188,0,0,'0',0,'0',0,'VAT Rate 0',1,NULL,NULL),(1884,188,5,0,'0',0,'0',0,'VAT reduced rate',1,NULL,NULL),(1931,193,0,0,'0',0,'0',0,'No VAT in SPM',1,NULL,NULL),(2011,201,19,0,'0',0,'0',0,'VAT standard rate',1,NULL,NULL),(2012,201,10,0,'0',0,'0',0,'VAT reduced rate',1,NULL,NULL),(2013,201,0,0,'0',0,'0',0,'VAT Rate 0',1,NULL,NULL),(2021,202,20,0,'0',0,'0',0,'VAT standard rate',1,NULL,NULL),(2022,202,8.5,0,'0',0,'0',0,'VAT reduced rate',1,NULL,NULL),(2023,202,0,0,'0',0,'0',0,'VAT Rate 0',1,NULL,NULL),(2261,226,20,0,'0',0,'0',0,'VAT standart rate',1,NULL,NULL),(2262,226,0,0,'0',0,'0',0,'VAT Rate 0',1,NULL,NULL),(2321,232,0,0,'0',0,'0',0,'No VAT',1,NULL,NULL),(2322,232,12,0,'0',0,'0',0,'VAT 12%',1,NULL,NULL),(2323,232,8,0,'0',0,'0',0,'VAT 8%',1,NULL,NULL),(2461,246,0,0,'0',0,'0',0,'VAT Rate 0',1,NULL,NULL);
 /*!40000 ALTER TABLE `llx_c_tva` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1318,7 +1351,7 @@ CREATE TABLE `llx_c_type_contact` (
 
 LOCK TABLES `llx_c_type_contact` WRITE;
 /*!40000 ALTER TABLE `llx_c_type_contact` DISABLE KEYS */;
-INSERT INTO `llx_c_type_contact` VALUES (10,'contrat','internal','SALESREPSIGN','Commercial signataire du contrat',1,NULL),(11,'contrat','internal','SALESREPFOLL','Commercial suivi du contrat',1,NULL),(20,'contrat','external','BILLING','Contact client facturation contrat',1,NULL),(21,'contrat','external','CUSTOMER','Contact client suivi contrat',1,NULL),(22,'contrat','external','SALESREPSIGN','Contact client signataire contrat',1,NULL),(31,'propal','internal','SALESREPFOLL','Commercial à l\'origine de la propale',1,NULL),(40,'propal','external','BILLING','Contact client facturation propale',1,NULL),(41,'propal','external','CUSTOMER','Contact client suivi propale',1,NULL),(50,'facture','internal','SALESREPFOLL','Responsable suivi du paiement',1,NULL),(60,'facture','external','BILLING','Contact client facturation',1,NULL),(61,'facture','external','SHIPPING','Contact client livraison',1,NULL),(62,'facture','external','SERVICE','Contact client prestation',1,NULL),(70,'invoice_supplier','internal','SALESREPFOLL','Responsable suivi du paiement',1,NULL),(71,'invoice_supplier','external','BILLING','Contact fournisseur facturation',1,NULL),(72,'invoice_supplier','external','SHIPPING','Contact fournisseur livraison',1,NULL),(73,'invoice_supplier','external','SERVICE','Contact fournisseur prestation',1,NULL),(91,'commande','internal','SALESREPFOLL','Responsable suivi de la commande',1,NULL),(100,'commande','external','BILLING','Contact client facturation commande',1,NULL),(101,'commande','external','CUSTOMER','Contact client suivi commande',1,NULL),(102,'commande','external','SHIPPING','Contact client livraison commande',1,NULL),(120,'fichinter','internal','INTERREPFOLL','Responsable suivi de l\'intervention',1,NULL),(121,'fichinter','internal','INTERVENING','Intervenant',1,NULL),(130,'fichinter','external','BILLING','Contact client facturation intervention',1,NULL),(131,'fichinter','external','CUSTOMER','Contact client suivi de l\'intervention',1,NULL),(140,'order_supplier','internal','SALESREPFOLL','Responsable suivi de la commande',1,NULL),(141,'order_supplier','internal','SHIPPING','Responsable réception de la commande',1,NULL),(142,'order_supplier','external','BILLING','Contact fournisseur facturation commande',1,NULL),(143,'order_supplier','external','CUSTOMER','Contact fournisseur suivi commande',1,NULL),(145,'order_supplier','external','SHIPPING','Contact fournisseur livraison commande',1,NULL),(160,'project','internal','PROJECTLEADER','Chef de Projet',1,NULL),(161,'project','internal','CONTRIBUTOR','Intervenant',1,NULL),(170,'project','external','PROJECTLEADER','Chef de Projet',1,NULL),(171,'project','external','CONTRIBUTOR','Intervenant',1,NULL),(180,'project_task','internal','TASKEXECUTIVE','Responsable',1,NULL),(181,'project_task','internal','CONTRIBUTOR','Intervenant',1,NULL),(190,'project_task','external','TASKEXECUTIVE','Responsable',1,NULL),(191,'project_task','external','CONTRIBUTOR','Intervenant',1,NULL);
+INSERT INTO `llx_c_type_contact` VALUES (10,'contrat','internal','SALESREPSIGN','Commercial signataire du contrat',1,NULL),(11,'contrat','internal','SALESREPFOLL','Commercial suivi du contrat',1,NULL),(20,'contrat','external','BILLING','Contact client facturation contrat',1,NULL),(21,'contrat','external','CUSTOMER','Contact client suivi contrat',1,NULL),(22,'contrat','external','SALESREPSIGN','Contact client signataire contrat',1,NULL),(31,'propal','internal','SALESREPFOLL','Commercial à l\'origine de la propale',1,NULL),(40,'propal','external','BILLING','Contact client facturation propale',1,NULL),(41,'propal','external','CUSTOMER','Contact client suivi propale',1,NULL),(50,'facture','internal','SALESREPFOLL','Responsable suivi du paiement',1,NULL),(60,'facture','external','BILLING','Contact client facturation',1,NULL),(61,'facture','external','SHIPPING','Contact client livraison',1,NULL),(62,'facture','external','SERVICE','Contact client prestation',1,NULL),(70,'invoice_supplier','internal','SALESREPFOLL','Responsable suivi du paiement',1,NULL),(71,'invoice_supplier','external','BILLING','Contact fournisseur facturation',1,NULL),(72,'invoice_supplier','external','SHIPPING','Contact fournisseur livraison',1,NULL),(73,'invoice_supplier','external','SERVICE','Contact fournisseur prestation',1,NULL),(80,'agenda','internal','ACTOR','Responsable',1,NULL),(81,'agenda','internal','GUEST','Guest',1,NULL),(85,'agenda','external','ACTOR','Responsable',1,NULL),(86,'agenda','external','GUEST','Guest',1,NULL),(91,'commande','internal','SALESREPFOLL','Responsable suivi de la commande',1,NULL),(100,'commande','external','BILLING','Contact client facturation commande',1,NULL),(101,'commande','external','CUSTOMER','Contact client suivi commande',1,NULL),(102,'commande','external','SHIPPING','Contact client livraison commande',1,NULL),(120,'fichinter','internal','INTERREPFOLL','Responsable suivi de l\'intervention',1,NULL),(121,'fichinter','internal','INTERVENING','Intervenant',1,NULL),(130,'fichinter','external','BILLING','Contact client facturation intervention',1,NULL),(131,'fichinter','external','CUSTOMER','Contact client suivi de l\'intervention',1,NULL),(140,'order_supplier','internal','SALESREPFOLL','Responsable suivi de la commande',1,NULL),(141,'order_supplier','internal','SHIPPING','Responsable réception de la commande',1,NULL),(142,'order_supplier','external','BILLING','Contact fournisseur facturation commande',1,NULL),(143,'order_supplier','external','CUSTOMER','Contact fournisseur suivi commande',1,NULL),(145,'order_supplier','external','SHIPPING','Contact fournisseur livraison commande',1,NULL),(160,'project','internal','PROJECTLEADER','Chef de Projet',1,NULL),(161,'project','internal','CONTRIBUTOR','Intervenant',1,NULL),(170,'project','external','PROJECTLEADER','Chef de Projet',1,NULL),(171,'project','external','CONTRIBUTOR','Intervenant',1,NULL),(180,'project_task','internal','TASKEXECUTIVE','Responsable',1,NULL),(181,'project_task','internal','CONTRIBUTOR','Intervenant',1,NULL),(190,'project_task','external','TASKEXECUTIVE','Responsable',1,NULL),(191,'project_task','external','CONTRIBUTOR','Intervenant',1,NULL);
 /*!40000 ALTER TABLE `llx_c_type_contact` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1336,7 +1369,7 @@ CREATE TABLE `llx_c_type_fees` (
   `active` tinyint(4) NOT NULL DEFAULT '1',
   `module` varchar(32) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `code` (`code`)
+  UNIQUE KEY `uk_c_type_fees` (`code`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -1364,7 +1397,7 @@ CREATE TABLE `llx_c_typent` (
   `active` tinyint(4) NOT NULL DEFAULT '1',
   `module` varchar(32) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `code` (`code`)
+  UNIQUE KEY `uk_c_typent` (`code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -1421,7 +1454,8 @@ DROP TABLE IF EXISTS `llx_categorie`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `llx_categorie` (
   `rowid` int(11) NOT NULL AUTO_INCREMENT,
-  `label` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `fk_parent` int(11) NOT NULL DEFAULT '0',
+  `label` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `type` tinyint(4) NOT NULL DEFAULT '1',
   `entity` int(11) NOT NULL DEFAULT '1',
   `description` text COLLATE utf8_unicode_ci,
@@ -1429,8 +1463,9 @@ CREATE TABLE `llx_categorie` (
   `visible` tinyint(4) NOT NULL DEFAULT '1',
   `import_key` varchar(14) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`rowid`),
-  UNIQUE KEY `uk_categorie_ref` (`label`,`type`,`entity`),
-  KEY `idx_categorie_type` (`type`)
+  UNIQUE KEY `uk_categorie_ref` (`entity`,`fk_parent`,`label`,`type`),
+  KEY `idx_categorie_type` (`type`),
+  KEY `idx_categorie_label` (`label`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -1454,9 +1489,7 @@ CREATE TABLE `llx_categorie_association` (
   `fk_categorie_mere` int(11) NOT NULL,
   `fk_categorie_fille` int(11) NOT NULL,
   UNIQUE KEY `uk_categorie_association` (`fk_categorie_mere`,`fk_categorie_fille`),
-  UNIQUE KEY `uk_categorie_association_fk_categorie_fille` (`fk_categorie_fille`),
-  CONSTRAINT `fk_categorie_asso_fk_categorie_fille` FOREIGN KEY (`fk_categorie_fille`) REFERENCES `llx_categorie` (`rowid`),
-  CONSTRAINT `fk_categorie_asso_fk_categorie_mere` FOREIGN KEY (`fk_categorie_mere`) REFERENCES `llx_categorie` (`rowid`)
+  UNIQUE KEY `uk_categorie_association_fk_categorie_fille` (`fk_categorie_fille`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -1479,11 +1512,12 @@ DROP TABLE IF EXISTS `llx_categorie_fournisseur`;
 CREATE TABLE `llx_categorie_fournisseur` (
   `fk_categorie` int(11) NOT NULL,
   `fk_societe` int(11) NOT NULL,
+  `import_key` varchar(14) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`fk_categorie`,`fk_societe`),
   KEY `idx_categorie_fournisseur_fk_categorie` (`fk_categorie`),
   KEY `idx_categorie_fournisseur_fk_societe` (`fk_societe`),
-  CONSTRAINT `fk_categorie_fournisseur_fk_soc` FOREIGN KEY (`fk_societe`) REFERENCES `llx_societe` (`rowid`),
-  CONSTRAINT `fk_categorie_fournisseur_categorie_rowid` FOREIGN KEY (`fk_categorie`) REFERENCES `llx_categorie` (`rowid`)
+  CONSTRAINT `fk_categorie_fournisseur_categorie_rowid` FOREIGN KEY (`fk_categorie`) REFERENCES `llx_categorie` (`rowid`),
+  CONSTRAINT `fk_categorie_fournisseur_fk_soc` FOREIGN KEY (`fk_societe`) REFERENCES `llx_societe` (`rowid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -1533,11 +1567,12 @@ DROP TABLE IF EXISTS `llx_categorie_product`;
 CREATE TABLE `llx_categorie_product` (
   `fk_categorie` int(11) NOT NULL,
   `fk_product` int(11) NOT NULL,
+  `import_key` varchar(14) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`fk_categorie`,`fk_product`),
   KEY `idx_categorie_product_fk_categorie` (`fk_categorie`),
   KEY `idx_categorie_product_fk_product` (`fk_product`),
-  CONSTRAINT `fk_categorie_product_product_rowid` FOREIGN KEY (`fk_product`) REFERENCES `llx_product` (`rowid`),
-  CONSTRAINT `fk_categorie_product_categorie_rowid` FOREIGN KEY (`fk_categorie`) REFERENCES `llx_categorie` (`rowid`)
+  CONSTRAINT `fk_categorie_product_categorie_rowid` FOREIGN KEY (`fk_categorie`) REFERENCES `llx_categorie` (`rowid`),
+  CONSTRAINT `fk_categorie_product_product_rowid` FOREIGN KEY (`fk_product`) REFERENCES `llx_product` (`rowid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -1560,11 +1595,12 @@ DROP TABLE IF EXISTS `llx_categorie_societe`;
 CREATE TABLE `llx_categorie_societe` (
   `fk_categorie` int(11) NOT NULL,
   `fk_societe` int(11) NOT NULL,
+  `import_key` varchar(14) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`fk_categorie`,`fk_societe`),
   KEY `idx_categorie_societe_fk_categorie` (`fk_categorie`),
   KEY `idx_categorie_societe_fk_societe` (`fk_societe`),
-  CONSTRAINT `fk_categorie_societe_fk_soc` FOREIGN KEY (`fk_societe`) REFERENCES `llx_societe` (`rowid`),
-  CONSTRAINT `fk_categorie_societe_categorie_rowid` FOREIGN KEY (`fk_categorie`) REFERENCES `llx_categorie` (`rowid`)
+  CONSTRAINT `fk_categorie_societe_categorie_rowid` FOREIGN KEY (`fk_categorie`) REFERENCES `llx_categorie` (`rowid`),
+  CONSTRAINT `fk_categorie_societe_fk_soc` FOREIGN KEY (`fk_societe`) REFERENCES `llx_societe` (`rowid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -1654,7 +1690,7 @@ CREATE TABLE `llx_commande` (
   `fk_mode_reglement` int(11) DEFAULT NULL,
   `date_livraison` date DEFAULT NULL,
   `fk_availability` int(11) DEFAULT NULL,
-  `fk_demand_reason` int(11) DEFAULT NULL,
+  `fk_input_reason` int(11) DEFAULT NULL,
   `fk_adresse_livraison` int(11) DEFAULT NULL,
   `import_key` varchar(14) COLLATE utf8_unicode_ci DEFAULT NULL,
   `extraparams` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -1702,11 +1738,11 @@ CREATE TABLE `llx_commande_fournisseur` (
   `tms` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `date_creation` datetime DEFAULT NULL,
   `date_valid` datetime DEFAULT NULL,
-  `date_cloture` datetime DEFAULT NULL,
+  `date_approve` datetime DEFAULT NULL,
   `date_commande` date DEFAULT NULL,
   `fk_user_author` int(11) DEFAULT NULL,
   `fk_user_valid` int(11) DEFAULT NULL,
-  `fk_user_cloture` int(11) DEFAULT NULL,
+  `fk_user_approve` int(11) DEFAULT NULL,
   `source` smallint(6) NOT NULL,
   `fk_statut` smallint(6) DEFAULT '0',
   `amount_ht` double DEFAULT '0',
@@ -1722,9 +1758,10 @@ CREATE TABLE `llx_commande_fournisseur` (
   `model_pdf` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `fk_cond_reglement` int(11) DEFAULT NULL,
   `fk_mode_reglement` int(11) DEFAULT NULL,
-  `fk_methode_commande` int(11) DEFAULT '0',
+  `fk_input_method` int(11) DEFAULT '0',
   `import_key` varchar(14) COLLATE utf8_unicode_ci DEFAULT NULL,
   `extraparams` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `date_livraison` date DEFAULT NULL,
   PRIMARY KEY (`rowid`),
   UNIQUE KEY `uk_commande_fournisseur_ref` (`ref`,`fk_soc`,`entity`),
   KEY `idx_commande_fournisseur_fk_soc` (`fk_soc`),
@@ -1814,7 +1851,9 @@ CREATE TABLE `llx_commande_fournisseurdet` (
   `description` text COLLATE utf8_unicode_ci,
   `tva_tx` double(6,3) DEFAULT '0.000',
   `localtax1_tx` double(6,3) DEFAULT '0.000',
+  `localtax1_type` varchar(1) COLLATE utf8_unicode_ci DEFAULT NULL,
   `localtax2_tx` double(6,3) DEFAULT '0.000',
+  `localtax2_type` varchar(1) COLLATE utf8_unicode_ci DEFAULT NULL,
   `qty` double DEFAULT NULL,
   `remise_percent` double DEFAULT '0',
   `remise` double DEFAULT '0',
@@ -1828,6 +1867,7 @@ CREATE TABLE `llx_commande_fournisseurdet` (
   `date_start` datetime DEFAULT NULL,
   `date_end` datetime DEFAULT NULL,
   `info_bits` int(11) DEFAULT '0',
+  `import_key` varchar(14) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`rowid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -1853,10 +1893,13 @@ CREATE TABLE `llx_commandedet` (
   `fk_commande` int(11) NOT NULL,
   `fk_parent_line` int(11) DEFAULT NULL,
   `fk_product` int(11) DEFAULT NULL,
+  `label` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `description` text COLLATE utf8_unicode_ci,
   `tva_tx` double(6,3) DEFAULT NULL,
   `localtax1_tx` double(6,3) DEFAULT NULL,
+  `localtax1_type` varchar(1) COLLATE utf8_unicode_ci DEFAULT NULL,
   `localtax2_tx` double(6,3) DEFAULT NULL,
+  `localtax2_type` varchar(1) COLLATE utf8_unicode_ci DEFAULT NULL,
   `qty` double DEFAULT NULL,
   `remise_percent` double DEFAULT '0',
   `remise` double DEFAULT '0',
@@ -1872,8 +1915,8 @@ CREATE TABLE `llx_commandedet` (
   `date_start` datetime DEFAULT NULL,
   `date_end` datetime DEFAULT NULL,
   `info_bits` int(11) DEFAULT '0',
-  `marge_tx` double(6,3) DEFAULT '0.000',
-  `marque_tx` double(6,3) DEFAULT '0.000',
+  `fk_product_fournisseur_price` int(11) DEFAULT NULL,
+  `buy_price_ht` double(24,8) DEFAULT '0.00000000',
   `special_code` int(10) unsigned DEFAULT '0',
   `rang` int(11) DEFAULT '0',
   `import_key` varchar(14) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -1997,7 +2040,7 @@ CREATE TABLE `llx_const` (
   `tms` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`rowid`),
   UNIQUE KEY `uk_const` (`name`,`entity`)
-) ENGINE=InnoDB AUTO_INCREMENT=71 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=83 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2006,7 +2049,7 @@ CREATE TABLE `llx_const` (
 
 LOCK TABLES `llx_const` WRITE;
 /*!40000 ALTER TABLE `llx_const` DISABLE KEYS */;
-INSERT INTO `llx_const` VALUES (2,'MAIN_FEATURES_LEVEL',0,'0','chaine',1,'Level of features to show (0=stable only, 1=stable+experimental, 2=stable+experimental+development','2012-10-11 14:07:49'),(3,'SYSLOG_FILE_ON',0,'0','chaine',0,'Log to file Directory where to write log file','2013-06-08 18:50:50'),(4,'SYSLOG_FILE',0,'DOL_DATA_ROOT/dolibarr.log','chaine',0,'Directory where to write log file','2012-10-11 14:07:49'),(5,'SYSLOG_LEVEL',0,'7','chaine',0,'Level of debug info to show','2012-10-11 14:07:49'),(6,'MAIN_MAIL_SMTP_SERVER',0,'','chaine',0,'Host or ip address for SMTP server','2012-10-11 14:07:49'),(7,'MAIN_MAIL_SMTP_PORT',0,'','chaine',0,'Port for SMTP server','2012-10-11 14:07:49'),(8,'MAIN_UPLOAD_DOC',0,'2048','chaine',0,'Max size for file upload (0 means no upload allowed)','2012-10-11 14:07:49'),(9,'MAIN_MONNAIE',1,'EUR','chaine',0,'Monnaie','2012-10-11 14:07:49'),(10,'MAIN_MAIL_EMAIL_FROM',1,'dolibarr-robot@domain.com','chaine',0,'EMail emetteur pour les emails automatiques Dolibarr','2012-10-11 14:07:49'),(11,'MAIN_SIZE_LISTE_LIMIT',0,'25','chaine',0,'Longueur maximum des listes','2012-10-11 14:07:49'),(12,'MAIN_SHOW_WORKBOARD',0,'1','yesno',0,'Affichage tableau de bord de travail Dolibarr','2012-10-11 14:07:49'),(13,'MAIN_MENU_STANDARD',1,'eldy_backoffice.php','chaine',0,'Module de gestion de la barre de menu pour utilisateurs internes','2012-10-11 14:07:49'),(14,'MAIN_MENUFRONT_STANDARD',1,'eldy_frontoffice.php','chaine',0,'Module de gestion de la barre de menu pour utilisateurs externes','2012-10-11 14:07:49'),(15,'MAIN_MENU_SMARTPHONE',1,'eldy_backoffice.php','chaine',0,'Module de gestion de la barre de menu smartphone pour utilisateurs internes','2012-10-11 14:07:49'),(16,'MAIN_MENUFRONT_SMARTPHONE',1,'eldy_frontoffice.php','chaine',0,'Module de gestion de la barre de menu smartphone pour utilisateurs externes','2012-10-11 14:07:49'),(17,'MAIN_DELAY_ACTIONS_TODO',1,'7','chaine',0,'Tolérance de retard avant alerte (en jours) sur actions planifiées non réalisées','2012-10-11 14:07:49'),(18,'MAIN_DELAY_ORDERS_TO_PROCESS',1,'2','chaine',0,'Tolérance de retard avant alerte (en jours) sur commandes clients non traitées','2012-10-11 14:07:49'),(19,'MAIN_DELAY_SUPPLIER_ORDERS_TO_PROCESS',1,'7','chaine',0,'Tolérance de retard avant alerte (en jours) sur commandes fournisseurs non traitées','2012-10-11 14:07:49'),(20,'MAIN_DELAY_PROPALS_TO_CLOSE',1,'31','chaine',0,'Tolérance de retard avant alerte (en jours) sur propales à cloturer','2012-10-11 14:07:49'),(21,'MAIN_DELAY_PROPALS_TO_BILL',1,'7','chaine',0,'Tolérance de retard avant alerte (en jours) sur propales non facturées','2012-10-11 14:07:49'),(22,'MAIN_DELAY_CUSTOMER_BILLS_UNPAYED',1,'31','chaine',0,'Tolérance de retard avant alerte (en jours) sur factures client impayées','2012-10-11 14:07:49'),(23,'MAIN_DELAY_SUPPLIER_BILLS_TO_PAY',1,'2','chaine',0,'Tolérance de retard avant alerte (en jours) sur factures fournisseur impayées','2012-10-11 14:07:49'),(24,'MAIN_DELAY_NOT_ACTIVATED_SERVICES',1,'0','chaine',0,'Tolérance de retard avant alerte (en jours) sur services à activer','2012-10-11 14:07:49'),(25,'MAIN_DELAY_RUNNING_SERVICES',1,'0','chaine',0,'Tolérance de retard avant alerte (en jours) sur services expirés','2012-10-11 14:07:49'),(26,'MAIN_DELAY_MEMBERS',1,'31','chaine',0,'Tolérance de retard avant alerte (en jours) sur cotisations adhérent en retard','2012-10-11 14:07:49'),(27,'MAIN_DELAY_TRANSACTIONS_TO_CONCILIATE',1,'62','chaine',0,'Tolérance de retard avant alerte (en jours) sur rapprochements bancaires à faire','2012-10-11 14:07:49'),(28,'SOCIETE_NOLIST_COURRIER',0,'1','yesno',0,'Liste les fichiers du repertoire courrier','2012-10-11 14:07:49'),(29,'SOCIETE_CODECLIENT_ADDON',1,'mod_codeclient_leopard','yesno',0,'Module to control third parties codes','2012-10-11 14:07:49'),(30,'SOCIETE_CODECOMPTA_ADDON',1,'mod_codecompta_panicum','yesno',0,'Module to control third parties codes','2012-10-11 14:07:49'),(31,'MAILING_EMAIL_FROM',1,'dolibarr@domain.com','chaine',0,'EMail emmetteur pour les envois d emailings','2012-10-11 14:07:49'),(63,'MAIN_MODULE_USER',0,'1',NULL,0,NULL,'2012-10-11 14:11:12'),(64,'MAIN_VERSION_LAST_INSTALL',0,'3.2.3','chaine',0,'Dolibarr version when install','2012-10-11 14:11:12'),(65,'MAIN_LANG_DEFAULT',1,'auto','chaine',0,'Default language','2012-10-11 14:11:12'),(66,'MAIN_MODULE_MEMCACHED',1,'1',NULL,0,NULL,'2012-05-17 16:11:10'),(67,'MEMCACHED_SERVER',1,'localhost:11211','chaine',0,'','2012-05-17 16:14:36'),(70,'MAIN_FIX_FOR_BUGGED_MTA',1,'1','chaine',1,'Do not delete this value','2013-06-08 18:49:46');
+INSERT INTO `llx_const` VALUES (2,'MAIN_FEATURES_LEVEL',0,'0','chaine',1,'Level of features to show (0=stable only, 1=stable+experimental, 2=stable+experimental+development','2012-10-11 14:07:49'),(3,'SYSLOG_FILE_ON',0,'0','chaine',0,'Log to file Directory where to write log file','2013-06-08 18:50:50'),(4,'SYSLOG_FILE',0,'DOL_DATA_ROOT/dolibarr.log','chaine',0,'Directory where to write log file','2012-10-11 14:07:49'),(5,'SYSLOG_LEVEL',0,'7','chaine',0,'Level of debug info to show','2012-10-11 14:07:49'),(6,'MAIN_MAIL_SMTP_SERVER',0,'','chaine',0,'Host or ip address for SMTP server','2012-10-11 14:07:49'),(7,'MAIN_MAIL_SMTP_PORT',0,'','chaine',0,'Port for SMTP server','2012-10-11 14:07:49'),(8,'MAIN_UPLOAD_DOC',0,'2048','chaine',0,'Max size for file upload (0 means no upload allowed)','2012-10-11 14:07:49'),(9,'MAIN_MONNAIE',1,'EUR','chaine',0,'Monnaie','2012-10-11 14:07:49'),(10,'MAIN_MAIL_EMAIL_FROM',1,'dolibarr-robot@domain.com','chaine',0,'EMail emetteur pour les emails automatiques Dolibarr','2012-10-11 14:07:49'),(11,'MAIN_SIZE_LISTE_LIMIT',0,'25','chaine',0,'Longueur maximum des listes','2012-10-11 14:07:49'),(12,'MAIN_SHOW_WORKBOARD',0,'1','yesno',0,'Affichage tableau de bord de travail Dolibarr','2012-10-11 14:07:49'),(13,'MAIN_MENU_STANDARD',1,'eldy_backoffice.php','chaine',0,'Module de gestion de la barre de menu pour utilisateurs internes','2012-10-11 14:07:49'),(14,'MAIN_MENUFRONT_STANDARD',1,'eldy_frontoffice.php','chaine',0,'Module de gestion de la barre de menu pour utilisateurs externes','2012-10-11 14:07:49'),(15,'MAIN_MENU_SMARTPHONE',1,'eldy_backoffice.php','chaine',0,'Module de gestion de la barre de menu smartphone pour utilisateurs internes','2012-10-11 14:07:49'),(16,'MAIN_MENUFRONT_SMARTPHONE',1,'eldy_frontoffice.php','chaine',0,'Module de gestion de la barre de menu smartphone pour utilisateurs externes','2012-10-11 14:07:49'),(17,'MAIN_DELAY_ACTIONS_TODO',1,'7','chaine',0,'Tolérance de retard avant alerte (en jours) sur actions planifiées non réalisées','2012-10-11 14:07:49'),(18,'MAIN_DELAY_ORDERS_TO_PROCESS',1,'2','chaine',0,'Tolérance de retard avant alerte (en jours) sur commandes clients non traitées','2012-10-11 14:07:49'),(19,'MAIN_DELAY_SUPPLIER_ORDERS_TO_PROCESS',1,'7','chaine',0,'Tolérance de retard avant alerte (en jours) sur commandes fournisseurs non traitées','2012-10-11 14:07:49'),(20,'MAIN_DELAY_PROPALS_TO_CLOSE',1,'31','chaine',0,'Tolérance de retard avant alerte (en jours) sur propales à cloturer','2012-10-11 14:07:49'),(21,'MAIN_DELAY_PROPALS_TO_BILL',1,'7','chaine',0,'Tolérance de retard avant alerte (en jours) sur propales non facturées','2012-10-11 14:07:49'),(22,'MAIN_DELAY_CUSTOMER_BILLS_UNPAYED',1,'31','chaine',0,'Tolérance de retard avant alerte (en jours) sur factures client impayées','2012-10-11 14:07:49'),(23,'MAIN_DELAY_SUPPLIER_BILLS_TO_PAY',1,'2','chaine',0,'Tolérance de retard avant alerte (en jours) sur factures fournisseur impayées','2012-10-11 14:07:49'),(24,'MAIN_DELAY_NOT_ACTIVATED_SERVICES',1,'0','chaine',0,'Tolérance de retard avant alerte (en jours) sur services à activer','2012-10-11 14:07:49'),(25,'MAIN_DELAY_RUNNING_SERVICES',1,'0','chaine',0,'Tolérance de retard avant alerte (en jours) sur services expirés','2012-10-11 14:07:49'),(26,'MAIN_DELAY_MEMBERS',1,'31','chaine',0,'Tolérance de retard avant alerte (en jours) sur cotisations adhérent en retard','2012-10-11 14:07:49'),(27,'MAIN_DELAY_TRANSACTIONS_TO_CONCILIATE',1,'62','chaine',0,'Tolérance de retard avant alerte (en jours) sur rapprochements bancaires à faire','2012-10-11 14:07:49'),(28,'SOCIETE_NOLIST_COURRIER',0,'1','yesno',0,'Liste les fichiers du repertoire courrier','2012-10-11 14:07:49'),(29,'SOCIETE_CODECLIENT_ADDON',1,'mod_codeclient_leopard','yesno',0,'Module to control third parties codes','2012-10-11 14:07:49'),(30,'SOCIETE_CODECOMPTA_ADDON',1,'mod_codecompta_panicum','yesno',0,'Module to control third parties codes','2012-10-11 14:07:49'),(31,'MAILING_EMAIL_FROM',1,'dolibarr@domain.com','chaine',0,'EMail emmetteur pour les envois d emailings','2012-10-11 14:07:49'),(64,'MAIN_VERSION_LAST_INSTALL',0,'3.2.3','chaine',0,'Dolibarr version when install','2012-10-11 14:11:12'),(65,'MAIN_LANG_DEFAULT',1,'auto','chaine',0,'Default language','2012-10-11 14:11:12'),(66,'MAIN_MODULE_MEMCACHED',1,'1',NULL,0,NULL,'2012-05-17 16:11:10'),(67,'MEMCACHED_SERVER',1,'localhost:11211','chaine',0,'','2012-05-17 16:14:36'),(70,'MAIN_FIX_FOR_BUGGED_MTA',1,'1','chaine',1,'Do not delete this value','2013-06-08 18:49:46'),(71,'PRODUCT_CODEPRODUCT_ADDON',1,'mod_codeproduct_leopard','yesno',0,'Module to control product codes','2013-06-25 19:14:58'),(72,'MAIN_MODULE_USER',0,'1',NULL,0,NULL,'2013-06-25 19:15:13'),(73,'MAIN_VERSION_LAST_UPGRADE',0,'3.3.3','chaine',0,'Dolibarr version for last upgrade','2013-06-25 19:15:15'),(77,'MAIN_MINNB_MODULE',1,'2','chaine',1,'','2013-06-25 19:19:36'),(79,'SOCIETE_FISCAL_MONTH_START',1,'','chaine',0,'Mettre le numero du mois du debut d\\\'annee fiscale, ex: 9 pour septembre','2013-06-25 19:22:53'),(80,'MAIN_SEARCHFORM_SOCIETE',1,'1','yesno',0,'Show form for quick company search','2013-06-25 19:22:53'),(81,'MAIN_SEARCHFORM_CONTACT',1,'1','yesno',0,'Show form for quick contact search','2013-06-25 19:22:53'),(82,'COMPANY_ADDON_PDF_ODT_PATH',1,'DOL_DATA_ROOT/doctemplates/thirdparties','chaine',0,NULL,'2013-06-25 19:22:53');
 /*!40000 ALTER TABLE `llx_const` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -2080,7 +2123,9 @@ CREATE TABLE `llx_contratdet` (
   `date_cloture` datetime DEFAULT NULL,
   `tva_tx` double(6,3) DEFAULT '0.000',
   `localtax1_tx` double(6,3) DEFAULT '0.000',
+  `localtax1_type` varchar(1) COLLATE utf8_unicode_ci DEFAULT NULL,
   `localtax2_tx` double(6,3) DEFAULT '0.000',
+  `localtax2_type` varchar(1) COLLATE utf8_unicode_ci DEFAULT NULL,
   `qty` double NOT NULL,
   `remise_percent` double DEFAULT '0',
   `subprice` double(24,8) DEFAULT '0.00000000',
@@ -2102,8 +2147,8 @@ CREATE TABLE `llx_contratdet` (
   KEY `idx_contratdet_date_ouverture_prevue` (`date_ouverture_prevue`),
   KEY `idx_contratdet_date_ouverture` (`date_ouverture`),
   KEY `idx_contratdet_date_fin_validite` (`date_fin_validite`),
-  CONSTRAINT `fk_contratdet_fk_product` FOREIGN KEY (`fk_product`) REFERENCES `llx_product` (`rowid`),
-  CONSTRAINT `fk_contratdet_fk_contrat` FOREIGN KEY (`fk_contrat`) REFERENCES `llx_contrat` (`rowid`)
+  CONSTRAINT `fk_contratdet_fk_contrat` FOREIGN KEY (`fk_contrat`) REFERENCES `llx_contrat` (`rowid`),
+  CONSTRAINT `fk_contratdet_fk_product` FOREIGN KEY (`fk_product`) REFERENCES `llx_product` (`rowid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -2217,35 +2262,6 @@ LOCK TABLES `llx_deplacement` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `llx_document`
---
-
-DROP TABLE IF EXISTS `llx_document`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `llx_document` (
-  `rowid` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `file_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `file_extension` varchar(5) COLLATE utf8_unicode_ci NOT NULL,
-  `date_generation` datetime DEFAULT NULL,
-  `fk_owner` int(11) DEFAULT NULL,
-  `fk_group` int(11) DEFAULT NULL,
-  `permissions` char(9) COLLATE utf8_unicode_ci DEFAULT 'rw-rw-rw',
-  PRIMARY KEY (`rowid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `llx_document`
---
-
-LOCK TABLES `llx_document` WRITE;
-/*!40000 ALTER TABLE `llx_document` DISABLE KEYS */;
-/*!40000 ALTER TABLE `llx_document` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `llx_document_generator`
 --
 
@@ -2296,33 +2312,6 @@ CREATE TABLE `llx_document_model` (
 LOCK TABLES `llx_document_model` WRITE;
 /*!40000 ALTER TABLE `llx_document_model` DISABLE KEYS */;
 /*!40000 ALTER TABLE `llx_document_model` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `llx_dolibarr_modules`
---
-
-DROP TABLE IF EXISTS `llx_dolibarr_modules`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `llx_dolibarr_modules` (
-  `numero` int(11) NOT NULL DEFAULT '0',
-  `entity` int(11) NOT NULL DEFAULT '1',
-  `active` tinyint(4) NOT NULL DEFAULT '0',
-  `active_date` datetime NOT NULL,
-  `active_version` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`numero`,`entity`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `llx_dolibarr_modules`
---
-
-LOCK TABLES `llx_dolibarr_modules` WRITE;
-/*!40000 ALTER TABLE `llx_dolibarr_modules` DISABLE KEYS */;
-INSERT INTO `llx_dolibarr_modules` VALUES (0,1,1,'2012-10-11 14:11:12','dolibarr');
-/*!40000 ALTER TABLE `llx_dolibarr_modules` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -2407,17 +2396,24 @@ DROP TABLE IF EXISTS `llx_ecm_directories`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `llx_ecm_directories` (
   `rowid` int(11) NOT NULL AUTO_INCREMENT,
-  `label` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
+  `label` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   `entity` int(11) NOT NULL DEFAULT '1',
   `fk_parent` int(11) DEFAULT NULL,
   `description` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `cachenbofdoc` int(11) NOT NULL DEFAULT '0',
+  `fullpath` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `extraparams` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `date_c` datetime DEFAULT NULL,
   `date_m` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `fk_user_c` int(11) DEFAULT NULL,
   `fk_user_m` int(11) DEFAULT NULL,
+  `acl` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`rowid`),
-  UNIQUE KEY `idx_ecm_directories` (`label`,`fk_parent`,`entity`)
+  UNIQUE KEY `idx_ecm_directories` (`label`,`fk_parent`,`entity`),
+  KEY `idx_ecm_directories_fk_user_c` (`fk_user_c`),
+  KEY `idx_ecm_directories_fk_user_m` (`fk_user_m`),
+  CONSTRAINT `fk_ecm_directories_fk_user_m` FOREIGN KEY (`fk_user_m`) REFERENCES `llx_user` (`rowid`),
+  CONSTRAINT `fk_ecm_directories_fk_user_c` FOREIGN KEY (`fk_user_c`) REFERENCES `llx_user` (`rowid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -2541,11 +2537,10 @@ DROP TABLE IF EXISTS `llx_element_lock`;
 CREATE TABLE `llx_element_lock` (
   `rowid` int(11) NOT NULL AUTO_INCREMENT,
   `fk_element` int(11) NOT NULL,
-  `elementtype` varchar(16) COLLATE utf8_unicode_ci NOT NULL,
+  `elementtype` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   `datel` datetime DEFAULT NULL,
   `datem` datetime DEFAULT NULL,
-  `fk_user_modif` int(11) DEFAULT NULL,
-  `status` tinyint(4) DEFAULT '0',
+  `sessionid` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`rowid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -2557,6 +2552,34 @@ CREATE TABLE `llx_element_lock` (
 LOCK TABLES `llx_element_lock` WRITE;
 /*!40000 ALTER TABLE `llx_element_lock` DISABLE KEYS */;
 /*!40000 ALTER TABLE `llx_element_lock` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `llx_element_tag`
+--
+
+DROP TABLE IF EXISTS `llx_element_tag`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `llx_element_tag` (
+  `rowid` int(11) NOT NULL AUTO_INCREMENT,
+  `entity` int(11) NOT NULL DEFAULT '1',
+  `lang` varchar(5) NOT NULL,
+  `tag` varchar(255) NOT NULL,
+  `fk_element` int(11) NOT NULL,
+  `element` varchar(64) NOT NULL,
+  PRIMARY KEY (`rowid`),
+  UNIQUE KEY `uk_element_tag` (`entity`,`lang`,`tag`,`fk_element`,`element`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `llx_element_tag`
+--
+
+LOCK TABLES `llx_element_tag` WRITE;
+/*!40000 ALTER TABLE `llx_element_tag` DISABLE KEYS */;
+/*!40000 ALTER TABLE `llx_element_tag` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -2582,6 +2605,7 @@ CREATE TABLE `llx_entrepot` (
   `statut` tinyint(4) DEFAULT '1',
   `valo_pmp` float(12,4) DEFAULT NULL,
   `fk_user_author` int(11) DEFAULT NULL,
+  `import_key` varchar(14) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`rowid`),
   UNIQUE KEY `uk_entrepot_label` (`label`,`entity`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -2655,6 +2679,7 @@ CREATE TABLE `llx_expedition` (
   `tracking_number` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
   `fk_statut` smallint(6) DEFAULT '0',
   `height` int(11) DEFAULT NULL,
+  `height_unit` int(11) DEFAULT NULL,
   `width` int(11) DEFAULT NULL,
   `size_units` int(11) DEFAULT NULL,
   `size` int(11) DEFAULT NULL,
@@ -2752,6 +2777,7 @@ CREATE TABLE `llx_export_model` (
   `label` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `type` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
   `field` text COLLATE utf8_unicode_ci NOT NULL,
+  `filter` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`rowid`),
   UNIQUE KEY `uk_export_model` (`label`,`type`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -2781,8 +2807,10 @@ CREATE TABLE `llx_extrafields` (
   `tms` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `label` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `type` varchar(8) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `size` int(11) DEFAULT '0',
+  `size` varchar(8) COLLATE utf8_unicode_ci DEFAULT NULL,
   `pos` int(11) DEFAULT '0',
+  `fieldunique` int(11) DEFAULT '0',
+  `fieldrequired` int(11) DEFAULT '0',
   PRIMARY KEY (`rowid`),
   UNIQUE KEY `uk_extrafields_name` (`name`,`entity`,`elementtype`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -2953,9 +2981,12 @@ CREATE TABLE `llx_facture_fourn_det` (
   `pu_ht` double(24,8) DEFAULT NULL,
   `pu_ttc` double(24,8) DEFAULT NULL,
   `qty` double DEFAULT NULL,
+  `remise_percent` double DEFAULT '0',
   `tva_tx` double(6,3) DEFAULT NULL,
   `localtax1_tx` double(6,3) DEFAULT '0.000',
+  `localtax1_type` varchar(1) COLLATE utf8_unicode_ci DEFAULT NULL,
   `localtax2_tx` double(6,3) DEFAULT '0.000',
+  `localtax2_type` varchar(1) COLLATE utf8_unicode_ci DEFAULT NULL,
   `total_ht` double(24,8) DEFAULT NULL,
   `tva` double(24,8) DEFAULT NULL,
   `total_localtax1` double(24,8) DEFAULT '0.00000000',
@@ -3015,6 +3046,7 @@ CREATE TABLE `llx_facture_rec` (
   `date_last_gen` datetime DEFAULT NULL,
   `nb_gen_done` int(11) DEFAULT NULL,
   `nb_gen_max` int(11) DEFAULT NULL,
+  `usenewprice` int(11) DEFAULT NULL,
   PRIMARY KEY (`rowid`),
   UNIQUE KEY `idx_facture_rec_uk_titre` (`titre`,`entity`),
   KEY `idx_facture_rec_fk_soc` (`fk_soc`),
@@ -3047,10 +3079,13 @@ CREATE TABLE `llx_facturedet` (
   `fk_facture` int(11) NOT NULL,
   `fk_parent_line` int(11) DEFAULT NULL,
   `fk_product` int(11) DEFAULT NULL,
+  `label` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `description` text COLLATE utf8_unicode_ci,
   `tva_tx` double(6,3) DEFAULT NULL,
   `localtax1_tx` double(6,3) DEFAULT '0.000',
+  `localtax1_type` varchar(1) COLLATE utf8_unicode_ci DEFAULT NULL,
   `localtax2_tx` double(6,3) DEFAULT '0.000',
+  `localtax2_type` varchar(1) COLLATE utf8_unicode_ci DEFAULT NULL,
   `qty` double DEFAULT NULL,
   `remise_percent` double DEFAULT '0',
   `remise` double DEFAULT '0',
@@ -3066,6 +3101,8 @@ CREATE TABLE `llx_facturedet` (
   `date_start` datetime DEFAULT NULL,
   `date_end` datetime DEFAULT NULL,
   `info_bits` int(11) DEFAULT '0',
+  `fk_product_fournisseur_price` int(11) DEFAULT NULL,
+  `buy_price_ht` double(24,8) DEFAULT '0.00000000',
   `fk_code_ventilation` int(11) NOT NULL DEFAULT '0',
   `fk_export_compta` int(11) NOT NULL DEFAULT '0',
   `special_code` int(10) unsigned DEFAULT '0',
@@ -3101,10 +3138,13 @@ CREATE TABLE `llx_facturedet_rec` (
   `fk_parent_line` int(11) DEFAULT NULL,
   `fk_product` int(11) DEFAULT NULL,
   `product_type` int(11) DEFAULT '0',
+  `label` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `description` text COLLATE utf8_unicode_ci,
   `tva_tx` double(6,3) DEFAULT '19.600',
   `localtax1_tx` double(6,3) DEFAULT '0.000',
+  `localtax1_type` varchar(1) COLLATE utf8_unicode_ci DEFAULT NULL,
   `localtax2_tx` double(6,3) DEFAULT '0.000',
+  `localtax2_type` varchar(1) COLLATE utf8_unicode_ci DEFAULT NULL,
   `qty` double DEFAULT NULL,
   `remise_percent` double DEFAULT '0',
   `remise` double DEFAULT '0',
@@ -3200,6 +3240,149 @@ CREATE TABLE `llx_fichinterdet` (
 LOCK TABLES `llx_fichinterdet` WRITE;
 /*!40000 ALTER TABLE `llx_fichinterdet` DISABLE KEYS */;
 /*!40000 ALTER TABLE `llx_fichinterdet` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `llx_holiday`
+--
+
+DROP TABLE IF EXISTS `llx_holiday`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `llx_holiday` (
+  `rowid` int(11) NOT NULL AUTO_INCREMENT,
+  `fk_user` int(11) NOT NULL,
+  `date_create` datetime NOT NULL,
+  `description` varchar(255) NOT NULL,
+  `date_debut` date NOT NULL,
+  `date_fin` date NOT NULL,
+  `halfday` int(11) DEFAULT '0',
+  `statut` int(11) NOT NULL DEFAULT '1',
+  `fk_validator` int(11) NOT NULL,
+  `date_valid` datetime DEFAULT NULL,
+  `fk_user_valid` int(11) DEFAULT NULL,
+  `date_refuse` datetime DEFAULT NULL,
+  `fk_user_refuse` int(11) DEFAULT NULL,
+  `date_cancel` datetime DEFAULT NULL,
+  `fk_user_cancel` int(11) DEFAULT NULL,
+  `detail_refuse` varchar(250) DEFAULT NULL,
+  PRIMARY KEY (`rowid`),
+  KEY `idx_holiday_fk_user` (`fk_user`),
+  KEY `idx_holiday_date_debut` (`date_debut`),
+  KEY `idx_holiday_date_fin` (`date_fin`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `llx_holiday`
+--
+
+LOCK TABLES `llx_holiday` WRITE;
+/*!40000 ALTER TABLE `llx_holiday` DISABLE KEYS */;
+/*!40000 ALTER TABLE `llx_holiday` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `llx_holiday_config`
+--
+
+DROP TABLE IF EXISTS `llx_holiday_config`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `llx_holiday_config` (
+  `rowid` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `value` text,
+  PRIMARY KEY (`rowid`),
+  UNIQUE KEY `name` (`name`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `llx_holiday_config`
+--
+
+LOCK TABLES `llx_holiday_config` WRITE;
+/*!40000 ALTER TABLE `llx_holiday_config` DISABLE KEYS */;
+INSERT INTO `llx_holiday_config` VALUES (1,'userGroup',NULL),(2,'lastUpdate',NULL),(3,'nbUser',NULL),(4,'delayForRequest','31'),(5,'AlertValidatorDelay','0'),(6,'AlertValidatorSolde','0'),(7,'nbHolidayDeducted','1'),(8,'nbHolidayEveryMonth','2.08334');
+/*!40000 ALTER TABLE `llx_holiday_config` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `llx_holiday_events`
+--
+
+DROP TABLE IF EXISTS `llx_holiday_events`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `llx_holiday_events` (
+  `rowid` int(11) NOT NULL AUTO_INCREMENT,
+  `entity` int(11) NOT NULL DEFAULT '1',
+  `name` varchar(255) NOT NULL,
+  `value` text NOT NULL,
+  PRIMARY KEY (`rowid`),
+  UNIQUE KEY `uk_holiday_name` (`name`,`entity`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `llx_holiday_events`
+--
+
+LOCK TABLES `llx_holiday_events` WRITE;
+/*!40000 ALTER TABLE `llx_holiday_events` DISABLE KEYS */;
+/*!40000 ALTER TABLE `llx_holiday_events` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `llx_holiday_logs`
+--
+
+DROP TABLE IF EXISTS `llx_holiday_logs`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `llx_holiday_logs` (
+  `rowid` int(11) NOT NULL AUTO_INCREMENT,
+  `date_action` datetime NOT NULL,
+  `fk_user_action` int(11) NOT NULL,
+  `fk_user_update` int(11) NOT NULL,
+  `type_action` varchar(255) NOT NULL,
+  `prev_solde` varchar(255) NOT NULL,
+  `new_solde` varchar(255) NOT NULL,
+  PRIMARY KEY (`rowid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `llx_holiday_logs`
+--
+
+LOCK TABLES `llx_holiday_logs` WRITE;
+/*!40000 ALTER TABLE `llx_holiday_logs` DISABLE KEYS */;
+/*!40000 ALTER TABLE `llx_holiday_logs` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `llx_holiday_users`
+--
+
+DROP TABLE IF EXISTS `llx_holiday_users`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `llx_holiday_users` (
+  `fk_user` int(11) NOT NULL,
+  `nb_holiday` double NOT NULL DEFAULT '0',
+  PRIMARY KEY (`fk_user`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `llx_holiday_users`
+--
+
+LOCK TABLES `llx_holiday_users` WRITE;
+/*!40000 ALTER TABLE `llx_holiday_users` DISABLE KEYS */;
+/*!40000 ALTER TABLE `llx_holiday_users` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -3353,7 +3536,7 @@ CREATE TABLE `llx_mailing` (
   `titre` varchar(60) COLLATE utf8_unicode_ci DEFAULT NULL,
   `entity` int(11) NOT NULL DEFAULT '1',
   `sujet` varchar(60) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `body` text COLLATE utf8_unicode_ci,
+  `body` mediumtext COLLATE utf8_unicode_ci,
   `bgcolor` varchar(8) COLLATE utf8_unicode_ci DEFAULT NULL,
   `bgimage` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `cible` varchar(60) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -3373,6 +3556,7 @@ CREATE TABLE `llx_mailing` (
   `joined_file2` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `joined_file3` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `joined_file4` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `extraparams` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`rowid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -3438,8 +3622,8 @@ CREATE TABLE `llx_menu` (
   `mainmenu` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `leftmenu` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   `fk_menu` int(11) NOT NULL,
-  `fk_mainmenu` varchar(16) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `fk_leftmenu` varchar(16) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `fk_mainmenu` varchar(24) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `fk_leftmenu` varchar(24) COLLATE utf8_unicode_ci DEFAULT NULL,
   `position` int(11) NOT NULL,
   `url` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `target` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -3849,9 +4033,9 @@ DROP TABLE IF EXISTS `llx_product`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `llx_product` (
   `rowid` int(11) NOT NULL AUTO_INCREMENT,
-  `ref` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
+  `ref` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
   `entity` int(11) NOT NULL DEFAULT '1',
-  `ref_ext` varchar(32) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ref_ext` varchar(128) COLLATE utf8_unicode_ci DEFAULT NULL,
   `datec` datetime DEFAULT NULL,
   `tms` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `virtual` tinyint(4) NOT NULL DEFAULT '0',
@@ -3940,31 +4124,6 @@ LOCK TABLES `llx_product_association` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `llx_product_ca`
---
-
-DROP TABLE IF EXISTS `llx_product_ca`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `llx_product_ca` (
-  `fk_product` int(11) DEFAULT NULL,
-  `date_calcul` datetime DEFAULT NULL,
-  `year` smallint(5) unsigned DEFAULT NULL,
-  `ca_genere` float DEFAULT NULL,
-  UNIQUE KEY `fk_product` (`fk_product`,`year`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `llx_product_ca`
---
-
-LOCK TABLES `llx_product_ca` WRITE;
-/*!40000 ALTER TABLE `llx_product_ca` DISABLE KEYS */;
-/*!40000 ALTER TABLE `llx_product_ca` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `llx_product_extrafields`
 --
 
@@ -4008,9 +4167,14 @@ CREATE TABLE `llx_product_fournisseur_price` (
   `fk_availability` int(11) DEFAULT NULL,
   `price` double(24,8) DEFAULT '0.00000000',
   `quantity` double DEFAULT NULL,
+  `remise_percent` double NOT NULL DEFAULT '0',
+  `remise` double NOT NULL DEFAULT '0',
   `unitprice` double(24,8) DEFAULT '0.00000000',
+  `charges` double(24,8) DEFAULT '0.00000000',
+  `unitcharges` double(24,8) DEFAULT '0.00000000',
   `tva_tx` double(6,3) NOT NULL,
   `fk_user` int(11) DEFAULT NULL,
+  `import_key` varchar(14) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`rowid`),
   UNIQUE KEY `uk_product_fournisseur_price_ref` (`ref_fourn`,`fk_soc`,`quantity`,`entity`),
   KEY `idx_product_fournisseur_price_fk_user` (`fk_user`),
@@ -4111,6 +4275,7 @@ CREATE TABLE `llx_product_price` (
   `localtax2_tx` double(6,3) DEFAULT '0.000',
   `fk_user_author` int(11) DEFAULT NULL,
   `tosell` tinyint(4) DEFAULT '1',
+  `price_by_qty` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`rowid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -4122,6 +4287,38 @@ CREATE TABLE `llx_product_price` (
 LOCK TABLES `llx_product_price` WRITE;
 /*!40000 ALTER TABLE `llx_product_price` DISABLE KEYS */;
 /*!40000 ALTER TABLE `llx_product_price` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `llx_product_price_by_qty`
+--
+
+DROP TABLE IF EXISTS `llx_product_price_by_qty`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `llx_product_price_by_qty` (
+  `rowid` int(11) NOT NULL AUTO_INCREMENT,
+  `fk_product_price` int(11) NOT NULL,
+  `date_price` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `price` double(24,8) DEFAULT '0.00000000',
+  `price_ttc` double(24,8) DEFAULT '0.00000000',
+  `remise_percent` double NOT NULL DEFAULT '0',
+  `remise` double NOT NULL DEFAULT '0',
+  `qty_min` double DEFAULT '0',
+  PRIMARY KEY (`rowid`),
+  UNIQUE KEY `uk_product_price_by_qty_level` (`fk_product_price`,`qty_min`),
+  KEY `idx_product_price_by_qty_fk_product_price` (`fk_product_price`),
+  CONSTRAINT `fk_product_price_by_qty_fk_product_price` FOREIGN KEY (`fk_product_price`) REFERENCES `llx_product_price` (`rowid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `llx_product_price_by_qty`
+--
+
+LOCK TABLES `llx_product_price_by_qty` WRITE;
+/*!40000 ALTER TABLE `llx_product_price_by_qty` DISABLE KEYS */;
+/*!40000 ALTER TABLE `llx_product_price_by_qty` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -4138,6 +4335,7 @@ CREATE TABLE `llx_product_stock` (
   `fk_entrepot` int(11) NOT NULL,
   `reel` double DEFAULT NULL,
   `pmp` double(24,8) NOT NULL DEFAULT '0.00000000',
+  `import_key` varchar(14) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`rowid`),
   UNIQUE KEY `uk_product_stock` (`fk_product`,`fk_entrepot`),
   KEY `idx_product_stock_fk_product` (`fk_product`),
@@ -4311,7 +4509,7 @@ CREATE TABLE `llx_propal` (
   `model_pdf` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `date_livraison` date DEFAULT NULL,
   `fk_availability` int(11) DEFAULT NULL,
-  `fk_demand_reason` int(11) DEFAULT NULL,
+  `fk_input_reason` int(11) DEFAULT NULL,
   `import_key` varchar(14) COLLATE utf8_unicode_ci DEFAULT NULL,
   `extraparams` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `fk_adresse_livraison` int(11) DEFAULT NULL,
@@ -4353,11 +4551,14 @@ CREATE TABLE `llx_propaldet` (
   `fk_propal` int(11) NOT NULL,
   `fk_parent_line` int(11) DEFAULT NULL,
   `fk_product` int(11) DEFAULT NULL,
+  `label` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `description` text COLLATE utf8_unicode_ci,
   `fk_remise_except` int(11) DEFAULT NULL,
   `tva_tx` double(6,3) DEFAULT '0.000',
   `localtax1_tx` double(6,3) DEFAULT '0.000',
+  `localtax1_type` varchar(1) COLLATE utf8_unicode_ci DEFAULT NULL,
   `localtax2_tx` double(6,3) DEFAULT '0.000',
+  `localtax2_type` varchar(1) COLLATE utf8_unicode_ci DEFAULT NULL,
   `qty` double DEFAULT NULL,
   `remise_percent` double DEFAULT '0',
   `remise` double DEFAULT '0',
@@ -4372,9 +4573,8 @@ CREATE TABLE `llx_propaldet` (
   `date_start` datetime DEFAULT NULL,
   `date_end` datetime DEFAULT NULL,
   `info_bits` int(11) DEFAULT '0',
-  `pa_ht` double(24,8) DEFAULT '0.00000000',
-  `marge_tx` double(6,3) DEFAULT '0.000',
-  `marque_tx` double(6,3) DEFAULT '0.000',
+  `fk_product_fournisseur_price` int(11) DEFAULT NULL,
+  `buy_price_ht` double(24,8) DEFAULT '0.00000000',
   `special_code` int(11) DEFAULT '0',
   `rang` int(11) DEFAULT '0',
   PRIMARY KEY (`rowid`),
@@ -4434,7 +4634,7 @@ CREATE TABLE `llx_societe` (
   `rowid` int(11) NOT NULL AUTO_INCREMENT,
   `nom` varchar(60) COLLATE utf8_unicode_ci DEFAULT NULL,
   `entity` int(11) NOT NULL DEFAULT '1',
-  `ref_ext` varchar(60) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ref_ext` varchar(128) COLLATE utf8_unicode_ci DEFAULT NULL,
   `ref_int` varchar(60) COLLATE utf8_unicode_ci DEFAULT NULL,
   `statut` tinyint(4) DEFAULT '0',
   `parent` int(11) DEFAULT NULL,
@@ -4455,7 +4655,6 @@ CREATE TABLE `llx_societe` (
   `fax` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
   `url` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `email` varchar(128) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `fk_secteur` int(11) DEFAULT '0',
   `fk_effectif` int(11) DEFAULT '0',
   `fk_typent` int(11) DEFAULT '0',
   `fk_forme_juridique` int(11) DEFAULT '0',
@@ -4465,12 +4664,11 @@ CREATE TABLE `llx_societe` (
   `ape` varchar(128) COLLATE utf8_unicode_ci DEFAULT NULL,
   `idprof4` varchar(128) COLLATE utf8_unicode_ci DEFAULT NULL,
   `idprof5` varchar(128) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `idprof6` varchar(128) COLLATE utf8_unicode_ci DEFAULT NULL,
   `tva_intra` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
   `capital` double DEFAULT NULL,
-  `description` text COLLATE utf8_unicode_ci,
   `fk_stcomm` int(11) NOT NULL DEFAULT '0',
   `note` text COLLATE utf8_unicode_ci,
-  `services` tinyint(4) DEFAULT '0',
   `prefix_comm` varchar(5) COLLATE utf8_unicode_ci DEFAULT NULL,
   `client` tinyint(4) DEFAULT '0',
   `fournisseur` tinyint(4) DEFAULT '0',
@@ -4742,11 +4940,12 @@ CREATE TABLE `llx_societe_rib` (
   `code_guichet` varchar(6) COLLATE utf8_unicode_ci DEFAULT NULL,
   `number` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `cle_rib` varchar(5) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `bic` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `bic` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
   `iban_prefix` varchar(34) COLLATE utf8_unicode_ci DEFAULT NULL,
   `domiciliation` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `proprio` varchar(60) COLLATE utf8_unicode_ci DEFAULT NULL,
   `adresse_proprio` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `import_key` varchar(14) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`rowid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -4790,6 +4989,7 @@ CREATE TABLE `llx_socpeople` (
   `email` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `jabberid` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `priv` smallint(6) NOT NULL DEFAULT '0',
+  `no_email` smallint(6) NOT NULL DEFAULT '0',
   `fk_user_creat` int(11) DEFAULT '0',
   `fk_user_modif` int(11) DEFAULT NULL,
   `note` text COLLATE utf8_unicode_ci,
@@ -4799,8 +4999,8 @@ CREATE TABLE `llx_socpeople` (
   PRIMARY KEY (`rowid`),
   KEY `idx_socpeople_fk_soc` (`fk_soc`),
   KEY `idx_socpeople_fk_user_creat` (`fk_user_creat`),
-  CONSTRAINT `fk_socpeople_user_creat_user_rowid` FOREIGN KEY (`fk_user_creat`) REFERENCES `llx_user` (`rowid`),
-  CONSTRAINT `fk_socpeople_fk_soc` FOREIGN KEY (`fk_soc`) REFERENCES `llx_societe` (`rowid`)
+  CONSTRAINT `fk_socpeople_fk_soc` FOREIGN KEY (`fk_soc`) REFERENCES `llx_societe` (`rowid`),
+  CONSTRAINT `fk_socpeople_user_creat_user_rowid` FOREIGN KEY (`fk_user_creat`) REFERENCES `llx_user` (`rowid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -4811,6 +5011,32 @@ CREATE TABLE `llx_socpeople` (
 LOCK TABLES `llx_socpeople` WRITE;
 /*!40000 ALTER TABLE `llx_socpeople` DISABLE KEYS */;
 /*!40000 ALTER TABLE `llx_socpeople` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `llx_socpeople_extrafields`
+--
+
+DROP TABLE IF EXISTS `llx_socpeople_extrafields`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `llx_socpeople_extrafields` (
+  `rowid` int(11) NOT NULL AUTO_INCREMENT,
+  `tms` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `fk_object` int(11) NOT NULL,
+  `import_key` varchar(14) DEFAULT NULL,
+  PRIMARY KEY (`rowid`),
+  KEY `idx_socpeople_extrafields` (`fk_object`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `llx_socpeople_extrafields`
+--
+
+LOCK TABLES `llx_socpeople_extrafields` WRITE;
+/*!40000 ALTER TABLE `llx_socpeople_extrafields` DISABLE KEYS */;
+/*!40000 ALTER TABLE `llx_socpeople_extrafields` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -4930,6 +5156,7 @@ CREATE TABLE `llx_user` (
   `civilite` varchar(6) COLLATE utf8_unicode_ci DEFAULT NULL,
   `name` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
   `firstname` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `job` varchar(128) COLLATE utf8_unicode_ci DEFAULT NULL,
   `office_phone` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
   `office_fax` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
   `user_mobile` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -4967,7 +5194,7 @@ CREATE TABLE `llx_user` (
 
 LOCK TABLES `llx_user` WRITE;
 /*!40000 ALTER TABLE `llx_user` DISABLE KEYS */;
-INSERT INTO `llx_user` VALUES (1,0,NULL,NULL,'2012-10-11 14:11:12','2012-10-11 14:11:12','admin','q1w2e3r4','c62d929e7b7e7b6165923a5dfc60cb56',NULL,NULL,'SuperAdmin','','','','','','',1,'','','',1,1,NULL,NULL,NULL,'','2013-06-09 00:03:08','2012-10-11 14:13:22',NULL,'',NULL,1,NULL,NULL);
+INSERT INTO `llx_user` VALUES (1,0,NULL,NULL,'2012-10-11 14:11:12','2012-10-11 14:11:12','admin','q1w2e3r4','c62d929e7b7e7b6165923a5dfc60cb56',NULL,NULL,'SuperAdmin','',NULL,'','','','','',1,'','','',1,1,NULL,NULL,NULL,'','2013-06-09 00:03:08','2012-10-11 14:13:22',NULL,'',NULL,1,NULL,NULL);
 /*!40000 ALTER TABLE `llx_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -5022,6 +5249,32 @@ LOCK TABLES `llx_user_clicktodial` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `llx_user_extrafields`
+--
+
+DROP TABLE IF EXISTS `llx_user_extrafields`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `llx_user_extrafields` (
+  `rowid` int(11) NOT NULL AUTO_INCREMENT,
+  `tms` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `fk_object` int(11) NOT NULL,
+  `import_key` varchar(14) DEFAULT NULL,
+  PRIMARY KEY (`rowid`),
+  KEY `idx_user_extrafields` (`fk_object`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `llx_user_extrafields`
+--
+
+LOCK TABLES `llx_user_extrafields` WRITE;
+/*!40000 ALTER TABLE `llx_user_extrafields` DISABLE KEYS */;
+/*!40000 ALTER TABLE `llx_user_extrafields` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `llx_user_param`
 --
 
@@ -5060,7 +5313,7 @@ CREATE TABLE `llx_user_rights` (
   PRIMARY KEY (`rowid`),
   UNIQUE KEY `uk_user_rights` (`fk_user`,`fk_id`),
   CONSTRAINT `fk_user_rights_fk_user_user` FOREIGN KEY (`fk_user`) REFERENCES `llx_user` (`rowid`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -5069,7 +5322,7 @@ CREATE TABLE `llx_user_rights` (
 
 LOCK TABLES `llx_user_rights` WRITE;
 /*!40000 ALTER TABLE `llx_user_rights` DISABLE KEYS */;
-INSERT INTO `llx_user_rights` VALUES (1,1,341),(2,1,342),(3,1,343),(4,1,344);
+INSERT INTO `llx_user_rights` VALUES (32,1,121),(29,1,122),(31,1,125),(33,1,126),(25,1,251),(6,1,252),(8,1,253),(9,1,254),(11,1,255),(13,1,256),(34,1,262),(40,1,281),(37,1,282),(39,1,283),(41,1,286),(14,1,341),(15,1,342),(16,1,343),(17,1,344),(23,1,351),(20,1,352),(22,1,353),(24,1,354),(26,1,358);
 /*!40000 ALTER TABLE `llx_user_rights` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -5166,4 +5419,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-06-09  0:03:54
+-- Dump completed on 2013-06-25 21:33:53

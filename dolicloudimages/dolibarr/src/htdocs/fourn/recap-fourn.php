@@ -4,7 +4,7 @@
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -22,9 +22,9 @@
  *		\brief      Page de fiche recap fournisseur
  */
 
-require("../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/company.lib.php");
-require_once(DOL_DOCUMENT_ROOT."/fourn/class/fournisseur.facture.class.php");
+require '../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.facture.class.php';
 
 $langs->load("companies");
 $langs->load("bills");
@@ -83,7 +83,7 @@ if ($socid > 0)
 
 
 
-    if ($conf->fournisseur->enabled && $user->rights->facture->lire)
+    if (! empty($conf->fournisseur->enabled) && $user->rights->facture->lire)
     {
         // Invoices list
         print_fiche_titre($langs->trans("SupplierPreview"));

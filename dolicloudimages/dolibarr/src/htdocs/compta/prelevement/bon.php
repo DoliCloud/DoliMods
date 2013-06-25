@@ -1,11 +1,11 @@
-<?PHP
+<?php
 /* Copyright (C) 2005 	   Rodolphe Quiedeville <rodolphe@quiedeville.org>
  * Copyright (C) 2005 	   Laurent Destailleur  <eldy@users.sourceforge.net>
  * Copyright (C) 2010-2012 Juanjo Menent 	    <jmenent@2byte.es>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -23,10 +23,10 @@
  *      \brief      Fiche apercu du bon de prelevement
  */
 
-require("../bank/pre.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/prelevement.lib.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/files.lib.php");
-require_once DOL_DOCUMENT_ROOT."/compta/prelevement/class/bon-prelevement.class.php";
+require '../bank/pre.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/prelevement.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/compta/prelevement/class/bonprelevement.class.php';
 
 $langs->load("bills");
 $langs->load("categories");
@@ -49,7 +49,7 @@ if ($id > 0 || ! empty($ref))
 
 	if ($object->fetch($id) == 0)
     {
-		$head = prelevement_prepare_head($object);	
+		$head = prelevement_prepare_head($object);
 		dol_fiche_head($head, 'preview', 'Prelevement : '. $object->ref);
 
 		print '<table class="border" width="100%">';

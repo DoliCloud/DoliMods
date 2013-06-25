@@ -4,7 +4,7 @@
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -18,14 +18,13 @@
 
 /**
  *       \file       htdocs/comm/action/class/cactioncomm.class.php
- *       \ingroup    commercial
+ *       \ingroup    agenda
  *       \brief      File of class to manage type of agenda events
  */
 
 
 /**
- *      \class      CActionComm
- *	    \brief      Class to manage different types of events
+ *		Class to manage different types of events
  */
 class CActionComm
 {
@@ -47,7 +46,7 @@ class CActionComm
      *
      *  @param	DoliDB		$db		Database handler
      */
-    function CActionComm($db)
+    function __construct($db)
     {
         $this->db = $db;
     }
@@ -96,13 +95,15 @@ class CActionComm
     }
 
     /**
-     *    Return list of event types
+     *  Return list of event types
      *
-     *    @param    int			$active     1 or 0 to filter on event state active or not ('' by default = no filter)
-     *    @param	string		$idorcode	'id' or 'code'
-     *    @return   array       			Array of all event types if OK, <0 if KO
+     *  @param	int			$active     	1 or 0 to filter on event state active or not ('' by default = no filter)
+     *  @param	string		$idorcode		'id' or 'code'
+     *  @param	string		$excludetype	Type to exclude
+     *  @param	string		$onlyautoornot	Group list by auto events or not
+     *  @return array      					Array of all event types if OK, <0 if KO
      */
-    function liste_array($active='',$idorcode='id')
+    function liste_array($active='',$idorcode='id',$excludetype='',$onlyautoornot=0)
     {
         global $langs,$conf;
         $langs->load("commercial");
@@ -110,12 +111,10 @@ class CActionComm
         $repid = array();
         $repcode = array();
 
-        $sql = "SELECT id, code, libelle, module";
+        $sql = "SELECT id, code, libelle, module, type";
         $sql.= " FROM ".MAIN_DB_PREFIX."c_actioncomm";
-        if ($active != '')
-        {
-            $sql.=" WHERE active=".$active;
-        }
+        if ($active != '') $sql.=" WHERE active=".$active;
+        if (! empty($excludetype)) $sql.=($active != ''?" AND":" WHERE")." type <> '".$excludetype."'";
         $sql.= " ORDER BY module, position";
 
         dol_syslog(get_class($this)."::liste_array sql=".$sql);
@@ -129,20 +128,31 @@ class CActionComm
                 while ($i < $nump)
                 {
                     $obj = $this->db->fetch_object($resql);
+
                     $qualified=1;
-                    if ($obj->module)
+
+                    // $obj->type can be system, systemauto, module, moduleauto, xxx, xxxauto
+                    if ($qualified && $onlyautoornot && preg_match('/^system/',$obj->type) && ! preg_match('/^AC_OTH/',$obj->code)) $qualified=0;	// We discard detailed system events. We keep only the 2 generic lines (AC_OTH and AC_OTHER)
+
+                    if ($qualified && $obj->module)
                     {
                         if ($obj->module == 'invoice' && ! $conf->facture->enabled)	 $qualified=0;
                         if ($obj->module == 'order'   && ! $conf->commande->enabled) $qualified=0;
                         if ($obj->module == 'propal'  && ! $conf->propal->enabled)	 $qualified=0;
                         if ($obj->module == 'invoice_supplier' && ! $conf->fournisseur->enabled)   $qualified=0;
                         if ($obj->module == 'order_supplier'   && ! $conf->fournisseur->enabled)   $qualified=0;
+                        if ($obj->module == 'shipping'  && ! $conf->expedition->enabled)	 $qualified=0;
                     }
+
                     if ($qualified)
                     {
-                        $transcode=$langs->trans("Action".$obj->code);
-                        $repid[$obj->id] = ($transcode!="Action".$obj->code?$transcode:$langs->trans($obj->libelle));
-                        $repcode[$obj->code] = ($transcode!="Action".$obj->code?$transcode:$langs->trans($obj->libelle));
+                    	$code=$obj->code;
+                    	if ($onlyautoornot && $code == 'AC_OTH') $code='AC_MANUAL';
+                    	if ($onlyautoornot && $code == 'AC_OTH_AUTO') $code='AC_AUTO';
+                    	$transcode=$langs->trans("Action".$code);
+                        $repid[$obj->id] = ($transcode!="Action".$code?$transcode:$langs->trans($obj->libelle));
+                        $repcode[$obj->code] = ($transcode!="Action".$code?$transcode:$langs->trans($obj->libelle));
+                        if ($onlyautoornot && preg_match('/^module/',$obj->type) && $obj->module) $repcode[$obj->code].=' ('.$langs->trans("Module").': '.$obj->module.')';
                     }
                     $i++;
                 }

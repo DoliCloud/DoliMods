@@ -4,12 +4,13 @@
  * Copyright (C) 2004      Sebastien Di Cintio  <sdicintio@ressource-toi.org>
  * Copyright (C) 2004      Benoit Mortier       <benoit.mortier@opensides.be>
  * Copyright (C) 2004      Eric Seigne          <eric.seigne@ryxeo.com>
- * Copyright (C) 2005-2011 Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2005-2012 Regis Houssin        <regis.houssin@capnetworks.com>
  * Copyright (C) 2011-2012 Juanjo Menent	    <jmenent@2byte.es>
+ * Copyright (C) 2011-2012 Philippe Grand		<philippe.grand@atoo-net.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -26,18 +27,22 @@
  *      \ingroup    livraison
  *      \brief      Page d'administration/configuration du module Livraison
  */
-require("../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
-require_once(DOL_DOCUMENT_ROOT."/livraison/class/livraison.class.php");
+require '../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/livraison/class/livraison.class.php';
 
 $langs->load("admin");
 $langs->load("sendings");
 $langs->load("deliveries");
+$langs->load('other');
 
 if (!$user->admin) accessforbidden();
 
-$action = GETPOST('action','alpha');
-$value = GETPOST('value','alpha');
+$action  = GETPOST('action','alpha');
+$value   = GETPOST('value','alpha');
+$label   = GETPOST('label','alpha');
+$scandir = GETPOST('scandir','alpha');
+$type='delivery';
 
 /*
  * Actions
@@ -61,105 +66,6 @@ if ($action == 'updateMask')
     }
 }
 
-if ($action == 'specimen')
-{
-	$modele=GETPOST('module','alpha');
-
-	$sending = new Livraison($db);
-	$sending->initAsSpecimen();
-	//$sending->fetch_commande();
-
-	// Charge le modele
-	$dir = DOL_DOCUMENT_ROOT . "/core/modules/livraison/pdf/";
-	$file = "pdf_".$modele.".modules.php";
-	if (file_exists($dir.$file))
-	{
-		$classname = "pdf_".$modele;
-		require_once($dir.$file);
-
-		$obj = new $classname($db);
-
-		if ($obj->write_file($sending,$langs) > 0)
-		{
-			header("Location: ".DOL_URL_ROOT."/document.php?modulepart=livraison&file=SPECIMEN.pdf");
-			return;
-		}
-		else
-		{
-			$mesg='<font class="error">'.$obj->error.'</font>';
-			dol_syslog($obj->error, LOG_ERR);
-		}
-	}
-	else
-	{
-		$mesg='<font class="error">'.$langs->trans("ErrorModuleNotFound").'</font>';
-		dol_syslog($langs->trans("ErrorModuleNotFound"), LOG_ERR);
-	}
-}
-
-if ($action == 'set')
-{
-	$label = GETPOST('label','alpha');
-	$scandir = GETPOST('scandir','alpha');
-
-	$type='delivery';
-    $sql = "INSERT INTO ".MAIN_DB_PREFIX."document_model (nom, type, entity, libelle, description)";
-    $sql.= " VALUES ('".$db->escape($value)."','".$type."',".$conf->entity.", ";
-    $sql.= ($label?"'".$db->escape($label)."'":'null').", ";
-    $sql.= (! empty($scandir)?"'".$db->escape($scandir)."'":"null");
-    $sql.= ")";
-    $resql=$db->query($sql);
-}
-
-if ($action == 'del')
-{
-    $type='delivery';
-    $sql = "DELETE FROM ".MAIN_DB_PREFIX."document_model";
-    $sql.= " WHERE nom = '".$db->escape($value)."'";
-    $sql.= " AND type = '".$type."'";
-    $sql.= " AND entity = ".$conf->entity;
-
-    if ($db->query($sql))
-    {
-        if ($conf->global->LIVRAISON_ADDON_PDF == "$value") dolibarr_del_const($db, 'LIVRAISON_ADDON_PDF',$conf->entity);
-    }
-}
-
-if ($action == 'setdoc')
-{
-	$label = GETPOST('label','alpha');
-	$scandir = GETPOST('scandir','alpha');
-	$db->begin();
-
-    if (dolibarr_set_const($db, "LIVRAISON_ADDON_PDF",$value,'chaine',0,'',$conf->entity))
-    {
-        $conf->global->LIVRAISON_ADDON_PDF = $value;
-    }
-
-    // On active le modele
-    $type='delivery';
-    $sql_del = "DELETE FROM ".MAIN_DB_PREFIX."document_model";
-    $sql_del.= " WHERE nom = '".$db->escape($value)."'";
-    $sql_del.= " AND type = '".$type."'";
-    $sql_del.= " AND entity = ".$conf->entity;
-    $result1=$db->query($sql_del);
-
-    $sql = "INSERT INTO ".MAIN_DB_PREFIX."document_model (nom, type, entity, libelle, description)";
-    $sql.= " VALUES ('".$db->escape($value)."', '".$type."', ".$conf->entity.", ";
-    $sql.= ($label?"'".$db->escape($label)."'":'null').", ";
-    $sql.= (! empty($scandir)?"'".$db->escape($scandir)."'":"null");
-    $sql.= ")";
-    $result2=$db->query($sql);
-    if ($result1 && $result2)
-    {
-		$db->commit();
-    }
-    else
-    {
-    	$db->rollback();
-    }
-}
-
 if ($action == 'set_DELIVERY_FREE_TEXT')
 {
 	$free=GETPOST('DELIVERY_FREE_TEXT','alpha');
@@ -177,6 +83,82 @@ if ($action == 'set_DELIVERY_FREE_TEXT')
     }
 }
 
+if ($action == 'specimen')
+{
+	$modele=GETPOST('module','alpha');
+
+	$sending = new Livraison($db);
+	$sending->initAsSpecimen();
+
+	// Search template files
+	$file=''; $classname=''; $filefound=0;
+	$dirmodels=array_merge(array('/'),(array) $conf->modules_parts['models']);
+	foreach($dirmodels as $reldir)
+	{
+	    $file=dol_buildpath($reldir."core/modules/livraison/pdf/pdf_".$modele.".modules.php",0);
+		if (file_exists($file))
+		{
+			$filefound=1;
+			$classname = "pdf_".$modele;
+			break;
+		}
+	}
+
+	if ($filefound)
+	{
+		require_once $file;
+
+		$module = new $classname($db);
+
+		if ($module->write_file($sending,$langs) > 0)
+		{
+			header("Location: ".DOL_URL_ROOT."/document.php?modulepart=livraison&file=SPECIMEN.pdf");
+			return;
+		}
+		else
+		{
+			$mesg='<font class="error">'.$module->error.'</font>';
+			dol_syslog($module->error, LOG_ERR);
+		}
+	}
+	else
+	{
+		$mesg='<font class="error">'.$langs->trans("ErrorModuleNotFound").'</font>';
+		dol_syslog($langs->trans("ErrorModuleNotFound"), LOG_ERR);
+	}
+}
+
+if ($action == 'set')
+{	
+	$ret = addDocumentModel($value, $type, $label, $scandir);
+}
+
+if ($action == 'del')
+{
+   $ret = delDocumentModel($value, $type);
+	if ($ret > 0)
+    {
+        if ($conf->global->LIVRAISON_ADDON_PDF == "$value") dolibarr_del_const($db, 'LIVRAISON_ADDON_PDF',$conf->entity);
+    }
+}
+
+if ($action == 'setdoc')
+{
+    if (dolibarr_set_const($db, "LIVRAISON_ADDON_PDF",$value,'chaine',0,'',$conf->entity))
+    {
+		// La constante qui a ete lue en avant du nouveau set
+		// on passe donc par une variable pour avoir un affichage coherent
+        $conf->global->LIVRAISON_ADDON_PDF = $value;
+    }
+
+    // On active le modele
+	$ret = delDocumentModel($value, $type);
+	if ($ret > 0)
+	{
+		$ret = addDocumentModel($value, $type, $label, $scandir);
+	}
+}
+
 if ($action == 'setmod')
 {
     // TODO Verifier si module numerotation choisi peut etre active
@@ -190,9 +172,11 @@ if ($action == 'setmod')
  * View
  */
 
-$form=new Form($db);
+$dirmodels=array_merge(array('/'),(array) $conf->modules_parts['models']);
 
 llxHeader("","");
+
+$form=new Form($db);
 
 $linkback='<a href="'.DOL_URL_ROOT.'/admin/modules.php">'.$langs->trans("BackToModuleList").'</a>';
 print_fiche_titre($langs->trans("SendingsSetup"),$linkback,'setup');
@@ -205,7 +189,7 @@ $head[$h][0] = DOL_URL_ROOT."/admin/confexped.php";
 $head[$h][1] = $langs->trans("Setup");
 $h++;
 
-if ($conf->global->MAIN_SUBMODULE_EXPEDITION)
+if (! empty($conf->global->MAIN_SUBMODULE_EXPEDITION))
 {
 	$head[$h][0] = DOL_URL_ROOT."/admin/expedition.php";
 	$head[$h][1] = $langs->trans("Sending");
@@ -236,9 +220,9 @@ print '</tr>'."\n";
 
 clearstatcache();
 
-foreach ($conf->file->dol_document_root as $dirroot)
+foreach ($dirmodels as $reldir)
 {
-	$dir = $dirroot . "/core/modules/livraison/";
+	$dir = dol_buildpath($reldir."core/modules/livraison/");
 
 	if (is_dir($dir))
 	{
@@ -252,7 +236,7 @@ foreach ($conf->file->dol_document_root as $dirroot)
 				{
 					$file = substr($file, 0, dol_strlen($file)-4);
 
-					require_once(DOL_DOCUMENT_ROOT ."/core/modules/livraison/".$file.".php");
+					require_once DOL_DOCUMENT_ROOT ."/core/modules/livraison/".$file.'.php';
 
 					$module = new $file;
 
@@ -292,7 +276,6 @@ foreach ($conf->file->dol_document_root as $dirroot)
 						// Info
 						$htmltooltip='';
 						$htmltooltip.=''.$langs->trans("Version").': <b>'.$module->getVersion().'</b><br>';
-						$facture->type=0;
 				        $nextval=$module->getNextValue($mysoc,$livraison);
 						if ("$nextval" != $langs->trans("NotAvailable"))	// Keep " on nextval
 						{
@@ -366,9 +349,10 @@ print "</tr>\n";
 
 clearstatcache();
 
-foreach ($conf->file->dol_document_root as $dirroot)
+$var=true;
+foreach ($dirmodels as $reldir)
 {
-	$dir = $dirroot . "/core/modules/livraison/pdf/";
+	$dir = dol_buildpath($reldir."core/modules/livraison/pdf/");
 
 	if (is_dir($dir))
 	{
@@ -383,10 +367,11 @@ foreach ($conf->file->dol_document_root as $dirroot)
 	    			$classname = substr($file, 0, dol_strlen($file) - 12);
 
 	    			$var=!$var;
-	    			print "<tr $bc[$var]><td>";
+
+	    			print '<tr '.$bc[$var].'><td>';
 	    			print $name;
 	    			print "</td><td>\n";
-	    			require_once($dir.$file);
+	    			require_once $dir.$file;
 	    			$module = new $classname($db);
 
 	    			print $module->description;
@@ -395,17 +380,10 @@ foreach ($conf->file->dol_document_root as $dirroot)
 	    			// Activ
 	    			if (in_array($name, $def))
 	    			{
-	    				print "<td align=\"center\">\n";
-	    				//if ($conf->global->LIVRAISON_ADDON_PDF != "$name")
-	    				//{
-	    					print '<a href="'.$_SERVER["PHP_SELF"].'?action=del&amp;value='.$name.'&amp;scandir='.$module->scandir.'&amp;label='.urlencode($module->name).'">';
-	    					print img_picto($langs->trans("Enabled"),'switch_on');
-	    					print '</a>';
-	    				//}
-	    				//else
-	    				//{
-	    				//	print img_picto($langs->trans("Enabled"),'switch_on');
-	    				//}
+	    				print "<td align=\"center\">\n";	    				
+	    				print '<a href="'.$_SERVER["PHP_SELF"].'?action=del&amp;value='.$name.'&amp;scandir='.$module->scandir.'&amp;label='.urlencode($module->name).'">';
+	    				print img_picto($langs->trans("Enabled"),'switch_on');
+	    				print '</a>';	    				
 	    				print "</td>";
 	    			}
 	    			else
@@ -448,11 +426,9 @@ foreach ($conf->file->dol_document_root as $dirroot)
 }
 
 print '</table>';
-
 /*
-*
-*
-*/
+ *  Autres Options
+ */
 print "<br>";
 print_titre($langs->trans("OtherOptions"));
 

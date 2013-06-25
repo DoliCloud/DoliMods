@@ -4,7 +4,7 @@
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -22,12 +22,11 @@
  *		\brief      File of class to manage subscriptions of foundation members
  */
 
-require_once(DOL_DOCUMENT_ROOT."/core/class/commonobject.class.php");
+require_once DOL_DOCUMENT_ROOT.'/core/class/commonobject.class.php';
 
 
 /**
- *	\class 		Cotisation
- *	\brief      Class to manage subscriptions of foundation members
+ *	Class to manage subscriptions of foundation members
  */
 class Cotisation extends CommonObject
 {
@@ -50,7 +49,7 @@ class Cotisation extends CommonObject
 	 *
 	 *	@param 		DoliDB		$db		Database handler
 	 */
-	function Cotisation($db)
+	function __construct($db)
 	{
 		$this->db = $db;
 	}
@@ -65,6 +64,9 @@ class Cotisation extends CommonObject
 	function create($userid)
 	{
 		global $langs;
+
+		$now=dol_now();
+
 		// Check parameters
 		if ($this->datef <= $this->dateh)
 		{
@@ -73,7 +75,7 @@ class Cotisation extends CommonObject
 		}
 
 		$sql = "INSERT INTO ".MAIN_DB_PREFIX."cotisation (fk_adherent, datec, dateadh, datef, cotisation, note)";
-        $sql.= " VALUES (".$this->fk_adherent.", '".$this->db->idate(mktime())."',";
+        $sql.= " VALUES (".$this->fk_adherent.", '".$this->db->idate($now)."',";
 		$sql.= " '".$this->db->idate($this->dateh)."',";
 		$sql.= " '".$this->db->idate($this->datef)."',";
 		$sql.= " ".$this->amount.",'".$this->db->escape($this->note)."')";
@@ -195,7 +197,7 @@ class Cotisation extends CommonObject
 		// It subscription is linked to a bank transaction, we get it
 		if ($this->fk_bank)
 		{
-			require_once(DOL_DOCUMENT_ROOT."/compta/bank/class/account.class.php");
+			require_once DOL_DOCUMENT_ROOT.'/compta/bank/class/account.class.php';
 			$accountline=new AccountLine($this->db);
 			$result=$accountline->fetch($this->fk_bank);
 		}
@@ -210,12 +212,12 @@ class Cotisation extends CommonObject
 			$num=$this->db->affected_rows($resql);
 			if ($num)
 			{
-				require_once(DOL_DOCUMENT_ROOT."/adherents/class/adherent.class.php");
+				require_once DOL_DOCUMENT_ROOT.'/adherents/class/adherent.class.php';
 				$member=new Adherent($this->db);
 				$result=$member->fetch($this->fk_adherent);
 				$result=$member->update_end_date($user);
 
-				if ($this->fk_bank)
+				if ($accountline->rowid > 0)	// If we found bank account line (this means this->fk_bank defined)
 				{
 					$result=$accountline->delete($user);		// Return false if refused because line is conciliated
 					if ($result > 0)

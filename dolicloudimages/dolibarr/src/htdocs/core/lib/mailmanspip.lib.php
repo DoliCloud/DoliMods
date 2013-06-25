@@ -3,7 +3,7 @@
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -24,27 +24,24 @@
 /**
  *  Return array head with list of tabs to view object informations
  *
- *  @param	Object	$object         Member
- *  @return array           		head
+ *  @return array Tabs of the module
  */
-function mailmanspip_admin_prepare_head($object)
+function mailmanspip_admin_prepare_head()
 {
-    global $langs, $conf, $user;
+    global $langs;
 
-    $h = 0;
-    $head = array();
-
-    $head[$h][0] = DOL_URL_ROOT.'/adherents/admin/mailman.php';
-    $head[$h][1] = $langs->trans("Mailman");
-    $head[$h][2] = 'mailman';
-    $h++;
-
-    $head[$h][0] = DOL_URL_ROOT.'/adherents/admin/spip.php';
-    $head[$h][1] = $langs->trans("SPIP");
-    $head[$h][2] = 'spip';
-    $h++;
-
-    return $head;
+    return array(
+        array(
+            DOL_URL_ROOT.'/adherents/admin/mailman.php',
+            $langs->trans('Mailman'),
+            'mailman'
+        ),
+        array(
+            DOL_URL_ROOT.'/adherents/admin/spip.php',
+            $langs->trans('SPIP'),
+            'spip'
+        )
+    );
 }
 
 ?>

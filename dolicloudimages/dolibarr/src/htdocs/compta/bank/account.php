@@ -3,12 +3,13 @@
  * Copyright (C) 2003      Jean-Louis Bergamo   <jlb@j1b.org>
  * Copyright (C) 2004-2011 Laurent Destailleur  <eldy@users.sourceforge.net>
  * Copyright (C) 2004      Christophe Combelles <ccomb@free.fr>
- * Copyright (C) 2005-2012 Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2005-2012 Regis Houssin        <regis.houssin@capnetworks.com>
  * Copyright (C) 2010-2011 Juanjo Menent        <jmenent@@2byte.es>
+ * Copyright (C) 2012      Marcos García         <marcosgdf@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -26,14 +27,14 @@
  *		\brief      List of details of bank transactions for an account
  */
 
-require("./pre.inc.php");	// We use pre.inc.php to have a dynamic menu
-require_once(DOL_DOCUMENT_ROOT."/core/lib/bank.lib.php");
-require_once(DOL_DOCUMENT_ROOT."/societe/class/societe.class.php");
-require_once(DOL_DOCUMENT_ROOT."/adherents/class/adherent.class.php");
-require_once(DOL_DOCUMENT_ROOT."/compta/sociales/class/chargesociales.class.php");
-require_once(DOL_DOCUMENT_ROOT."/compta/paiement/class/paiement.class.php");
-require_once(DOL_DOCUMENT_ROOT."/compta/tva/class/tva.class.php");
-require_once(DOL_DOCUMENT_ROOT."/fourn/class/paiementfourn.class.php");
+require 'pre.inc.php';	// We use pre.inc.php to have a dynamic menu
+require_once DOL_DOCUMENT_ROOT.'/core/lib/bank.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/societe/class/societe.class.php';
+require_once DOL_DOCUMENT_ROOT.'/adherents/class/adherent.class.php';
+require_once DOL_DOCUMENT_ROOT.'/compta/sociales/class/chargesociales.class.php';
+require_once DOL_DOCUMENT_ROOT.'/compta/paiement/class/paiement.class.php';
+require_once DOL_DOCUMENT_ROOT.'/compta/tva/class/tva.class.php';
+require_once DOL_DOCUMENT_ROOT.'/fourn/class/paiementfourn.class.php';
 
 $langs->load("bills");
 
@@ -96,7 +97,7 @@ if ($action == 'add' && $id && ! isset($_POST["cancel"]) && $user->rights->banqu
 		$insertid = $object->addline($dateop, $operation, $label, $amount, $num_chq, $cat1, $user);
 		if ($insertid > 0)
 		{
-			Header("Location: ".$_SERVER['PHP_SELF']."?id=".$id."&action=addline");
+			header("Location: ".$_SERVER['PHP_SELF']."?id=".$id."&action=addline");
 			exit;
 		}
 		else
@@ -211,7 +212,7 @@ if ($id > 0 || ! empty($ref))
 		$mode_search = 1;
 	}
 
-	$sql = "SELECT count(*) as nb";
+	$sql = "SELECT count(*) as total";
 	$sql.= " FROM ".MAIN_DB_PREFIX."bank_account as ba";
 	$sql.= ", ".MAIN_DB_PREFIX."bank as b";
 	if ($mode_search)
@@ -229,12 +230,9 @@ if ($id > 0 || ! empty($ref))
 	if ($result)
 	{
 		$obj = $db->fetch_object($result);
-		$nbline = $obj->nb;
+		$nbline = $obj->total;
 		$total_lines = $nbline;
 
-		if ($nbline > $viewline ) $limit = $nbline - $viewline ;
-		else $limit = $viewline;
-		
 		$db->free($result);
 	}
 	else
@@ -242,9 +240,12 @@ if ($id > 0 || ! empty($ref))
 		dol_print_error($db);
 	}
 
+	//Total pages
+	$totalPages = ceil($total_lines/$viewline);
+
 	if ($page > 0)
 	{
-		$limitsql = $nbline - ($page * $viewline);
+		$limitsql = ($totalPages - $page) * $viewline;
 		if ($limitsql < $viewline) $limitsql = $viewline;
 		$nbline = $limitsql;
 	}
@@ -261,10 +262,12 @@ if ($id > 0 || ! empty($ref))
 
 	print '<table class="border" width="100%">';
 
+	$linkback = '<a href="'.DOL_URL_ROOT.'/compta/bank/index.php">'.$langs->trans("BackToList").'</a>';
+
 	// Ref
 	print '<tr><td valign="top" width="25%">'.$langs->trans("Ref").'</td>';
 	print '<td colspan="3">';
-	print $form->showrefnav($object,'ref','',1,'ref');
+	print $form->showrefnav($object, 'ref', $linkback, 1, 'ref');
 	print '</td></tr>';
 
 	// Label
@@ -283,22 +286,20 @@ if ($id > 0 || ! empty($ref))
 	$param.='&amp;account='.$object->id;
 
 	// Define transaction list navigation string
-	$navig='';
-	$navig.='<form action="'.$_SERVER["PHP_SELF"].'" name="newpage" method="GET">';
-	$nbpage=floor($total_lines/$viewline)+($total_lines % $viewline > 0?1:0);  // Nombre de page total
-	//print 'nbpage='.$nbpage.' viewline='.$viewline.' limitsql='.$limitsql;
+	$navig = '<form action="'.$_SERVER["PHP_SELF"].'" name="newpage" method="GET">';
+	//print 'nbpage='.$totalPages.' viewline='.$viewline.' limitsql='.$limitsql;
 	if ($limitsql > $viewline) $navig.='<a href="account.php?'.$param.'&amp;page='.($page+1).'">'.img_previous().'</a>';
 	$navig.= $langs->trans("Page")." "; // ' Page ';
-	$navig.='<input type="text" name="negpage" size="1" class="flat" value="'.($nbpage-$page).'">';
+	$navig.='<input type="text" name="negpage" size="1" class="flat" value="'.($totalPages-$page).'">';
 	$navig.='<input type="hidden" name="paiementtype" value="'.$paiementtype.'">';
 	$navig.='<input type="hidden" name="req_nb"     value="'.$req_nb.'">';
 	$navig.='<input type="hidden" name="req_desc"   value="'.GETPOST("req_desc").'">';
 	$navig.='<input type="hidden" name="req_debit"  value="'.GETPOST("req_debit").'">';
 	$navig.='<input type="hidden" name="req_credit" value="'.GETPOST("req_credit").'">';
 	$navig.='<input type="hidden" name="thirdparty" value="'.$thirdparty.'">';
-	$navig.='<input type="hidden" name="nbpage"  value="'.$nbpage.'">';
+	$navig.='<input type="hidden" name="nbpage"  value="'.$totalPages.'">';
 	$navig.='<input type="hidden" name="id" value="'.$object->id.'">';
-	$navig.='/'.$nbpage.' ';
+	$navig.='/'.$totalPages.' ';
 	if ($total_lines > $limitsql )
 	{
 		$navig.= '<a href="'.$_SERVER["PHP_SELF"].'?'.$param.'&amp;page='.($page-1).'">'.img_next().'</a>';
@@ -428,11 +429,11 @@ if ($id > 0 || ! empty($ref))
 		$sql.= ", s.rowid as socid, s.nom as thirdparty";
 	}
 	/*
-	if ($mode_search && $conf->adherent->enabled)
+	if ($mode_search && ! empty($conf->adherent->enabled))
 	{
 
 	}
-	if ($mode_search && $conf->tax->enabled)
+	if ($mode_search && ! empty($conf->tax->enabled))
 	{
 
 	}
@@ -444,12 +445,12 @@ if ($id > 0 || ! empty($ref))
 		$sql.= " LEFT JOIN ".MAIN_DB_PREFIX."bank_url as bu1 ON bu1.fk_bank = b.rowid AND bu1.type='company'";
 		$sql.= " LEFT JOIN ".MAIN_DB_PREFIX."societe as s ON bu1.url_id = s.rowid";
 	}
-	if ($mode_search && $conf->tax->enabled)
+	if ($mode_search && ! empty($conf->tax->enabled))
 	{
 		$sql.= " LEFT JOIN ".MAIN_DB_PREFIX."bank_url as bu2 ON bu2.fk_bank = b.rowid AND bu2.type='payment_vat'";
 		$sql.= " LEFT JOIN ".MAIN_DB_PREFIX."tva as t ON bu2.url_id = t.rowid";
 	}
-	if ($mode_search && $conf->adherent->enabled)
+	if ($mode_search && ! empty($conf->adherent->enabled))
 	{
 		// TODO Mettre jointure sur adherent pour recherche sur un adherent
 		//$sql.= " LEFT JOIN ".MAIN_DB_PREFIX."bank_url as bu3 ON bu3.fk_bank = b.rowid AND bu3.type='company'";
@@ -481,7 +482,7 @@ if ($id > 0 || ! empty($ref))
 		{
 			$objp = $db->fetch_object($result);
 			$total = price2num($total + $objp->amount,'MT');
-			if ($i >= ($nbline - $viewline))
+			if ($i >= ($viewline * (($totalPages-$page)-1)))
 			{
 				$var=!$var;
 

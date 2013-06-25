@@ -1,9 +1,9 @@
 <?php
-/* Copyright (C) 2009-2012 Regis Houssin <regis@dolibarr.fr>
+/* Copyright (C) 2009-2012 Regis Houssin <regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -33,11 +33,27 @@ print '<head>
 print '<!-- Includes for JQuery (Ajax library) -->'."\n";
 if (constant('JS_JQUERY_UI')) print '<link rel="stylesheet" type="text/css" href="'.JS_JQUERY_UI.'css/'.$jquerytheme.'/jquery-ui.min.css" />'."\n";  // JQuery
 else print '<link rel="stylesheet" type="text/css" href="'.DOL_URL_ROOT.'/includes/jquery/css/'.$jquerytheme.'/jquery-ui-latest.custom.css" />'."\n";    // JQuery
+// CSS forced by modules (relative url starting with /)
+if (isset($conf->modules_parts['css']))
+{
+	$arraycss=(array) $conf->modules_parts['css'];
+	foreach($arraycss as $modcss => $filescss)
+	{
+		$filescss=(array) $filescss;	// To be sure filecss is an array
+		foreach($filescss as $cssfile)
+		{
+			// cssfile is a relative path
+			print '<link rel="stylesheet" type="text/css" title="default" href="'.dol_buildpath($cssfile,1);
+			// We add params only if page is not static, because some web server setup does not return content type text/css if url has parameters, so browser cache is not used.
+			if (!preg_match('/\.css$/i',$cssfile)) print $themeparam;
+			print '"><!-- Added by module '.$modcss. '-->'."\n";
+		}
+	}
+}
 // JQuery. Must be before other includes
 $ext='.js';
-if (isset($conf->global->MAIN_OPTIMIZE_SPEED) && ($conf->global->MAIN_OPTIMIZE_SPEED & 0x01)) $ext='.jgz';
 print '<!-- Includes JS for JQuery -->'."\n";
-if (constant('JS_JQUERY')) print '<script type="text/javascript" src="'.JS_JQUERY.'jquery.min.js"></script>'."\n";
+if (constant('JS_JQUERY')) print '<script type="text/javascript" src="'.JS_JQUERY.'jquery.min'.$ext.'"></script>'."\n";
 else print '<script type="text/javascript" src="'.DOL_URL_ROOT.'/includes/jquery/js/jquery-latest.min'.$ext.'"></script>'."\n";
 print '<script type="text/javascript" src="'.DOL_URL_ROOT.'/core/js/dst.js"></script>'."\n";
 print '<link rel="stylesheet" type="text/css" href="'.dol_escape_htmltag($conf_css).'" />
@@ -75,11 +91,14 @@ $(document).ready(function () {
 <input type="hidden" name="loginfunction" value="loginfunction" />
 <!-- Add fields to send local user information -->
 <input type="hidden" name="tz" id="tz" value="" />
+<input type="hidden" name="tz_string" id="tz_string" value="" />
 <input type="hidden" name="dst_observed" id="dst_observed" value="" />
 <input type="hidden" name="dst_first" id="dst_first" value="" />
 <input type="hidden" name="dst_second" id="dst_second" value="" />
 <input type="hidden" name="screenwidth" id="screenwidth" value="" />
 <input type="hidden" name="screenheight" id="screenheight" value="" />
+<input type="hidden" name="dol_hide_topmenu" id="dol_hide_topmenu" value="" />
+<input type="hidden" name="dol_hide_leftmenu" id="dol_hide_leftmenu" value="" />
 
 <div id="infoVersion"><?php echo $title; ?></div>
 

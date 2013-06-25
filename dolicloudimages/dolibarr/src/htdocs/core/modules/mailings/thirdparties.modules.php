@@ -1,6 +1,6 @@
 <?php
 /* Copyright (C) 2005-2010 Laurent Destailleur <eldy@users.sourceforge.net>
- * Copyright (C) 2005-2009 Regis Houssin       <regis@dolibarr.fr>
+ * Copyright (C) 2005-2009 Regis Houssin       <regis.houssin@capnetworks.com>
  *
  * This file is an example to follow to add your own email selector inside
  * the Dolibarr email tool.
@@ -19,20 +19,15 @@ include_once DOL_DOCUMENT_ROOT.'/core/modules/mailings/modules_mailings.php';
 
 
 /**
- *	    \class      mailing_thirdparties
- *		\brief      Class to manage a list of personalised recipients for mailing feature
+ *	Class to manage a list of personalised recipients for mailing feature
  */
 class mailing_thirdparties extends MailingTargets
 {
-	// CHANGE THIS: Put here a name not already used
 	var $name='ContactsCategories';
-	// CHANGE THIS: Put here a description of your selector module.
-	// This label is used if no translation found for key MailingModuleDescXXX where XXX=name is found
 	var $desc="Third parties (by categories)";
-	// CHANGE THIS: Set to 1 if selector is available for admin users only
 	var $require_admin=0;
 
-	var $require_module=array("categorie","societe");
+	var $require_module=array("societe");	// This module allows to select by categories must be also enabled if category module is not activated
 	var $picto='company';
 	var $db;
 
@@ -44,6 +39,8 @@ class mailing_thirdparties extends MailingTargets
 	 */
 	function __construct($db)
 	{
+		global $conf;
+
 		$this->db=$db;
 	}
 
@@ -151,13 +148,15 @@ class mailing_thirdparties extends MailingTargets
 	}
 
 
-	/*
-	 *		\brief		Return here number of distinct emails returned by your selector.
-	 *					For example if this selector is used to extract 500 different
-	 *					emails from a text file, this function must return 500.
-	 *		\return		int
+	/**
+	 *	Return here number of distinct emails returned by your selector.
+	 *	For example if this selector is used to extract 500 different
+	 *	emails from a text file, this function must return 500.
+	 *
+	 *  @param      string	$sql        Requete sql de comptage
+	 *	@return		int			Nb of recipients
 	 */
-	function getNbOfRecipients()
+	function getNbOfRecipients($sql='')
 	{
 		global $conf;
 
@@ -199,6 +198,8 @@ class mailing_thirdparties extends MailingTargets
 		if ($resql)
 		{
 			$num = $this->db->num_rows($resql);
+
+			if (empty($conf->categorie->enabled)) $num=0;	// Force empty list if category module is not enabled
 
 			if ($num) $s.='<option value="0">&nbsp;</option>';
 			else $s.='<option value="0">'.$langs->trans("ContactsAllShort").'</option>';

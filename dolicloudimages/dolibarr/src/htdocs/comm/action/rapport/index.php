@@ -2,11 +2,11 @@
 /* Copyright (C) 2001-2004 Rodolphe Quiedeville <rodolphe@quiedeville.org>
  * Copyright (C) 2003      Eric Seigne          <erics@rycks.com>
  * Copyright (C) 2004-2009 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2005-2011 Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2005-2012 Regis Houssin        <regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -21,14 +21,24 @@
 /**
  *	    \file       htdocs/comm/action/rapport/index.php
  *      \ingroup    commercial
- *		\brief      Page with reports of actions $
+ *		\brief      Page with reports of actions
  */
 
-require("../../../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/files.lib.php");
-require_once(DOL_DOCUMENT_ROOT."/contact/class/contact.class.php");
-require_once(DOL_DOCUMENT_ROOT."/comm/action/class/actioncomm.class.php");
-require_once(DOL_DOCUMENT_ROOT."/core/modules/action/rapport.pdf.php");
+require '../../../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/contact/class/contact.class.php';
+require_once DOL_DOCUMENT_ROOT.'/comm/action/class/actioncomm.class.php';
+require_once DOL_DOCUMENT_ROOT.'/core/modules/action/rapport.pdf.php';
+
+$langs->load("agenda");
+$langs->load("commercial");
+
+$action=GETPOST('action','alpha');
+$month=GETPOST('month');
+$year=GETPOST('year');
+
+$mesg='';
+$mesgs=array();
 
 $sortfield = GETPOST("sortfield",'alpha');
 $sortorder = GETPOST("sortorder",'alpha');
@@ -44,15 +54,13 @@ $socid = GETPOST('socid','int');
 if ($user->societe_id) $socid=$user->societe_id;
 $result = restrictedArea($user, 'agenda', $socid, '', 'myactions');
 
-$langs->load("commercial");
-
 
 /*
  * Actions
  */
-if ($_GET["action"] == 'builddoc')
+if ($action == 'builddoc')
 {
-	$cat = new CommActionRapport($db, $_GET["month"], $_GET["year"]);
+	$cat = new CommActionRapport($db, $month, $year);
 	$result=$cat->write_file(GETPOST('id','int'));
 	if ($result < 0)
 	{
@@ -89,13 +97,13 @@ if ($resql)
 
 	print_barre_liste($langs->trans("Actions"), $page, "index.php",'',$sortfield,$sortorder,'',$num);
 
-	if ($mesg) print $mesg.'<br>';
+	dol_htmloutput_mesg($mesg,$mesgs);
 
 	$i = 0;
 	print '<table class="noborder" width="100%">';
 	print '<tr class="liste_titre">';
 	print '<td>'.$langs->trans("Date").'</td>';
-	print '<td align="center">'.$langs->trans("Nb").'</td>';
+	print '<td align="center">'.$langs->trans("EventsNb").'</td>';
 	print '<td>'.$langs->trans("Action").'</td>';
 	print '<td align="center">'.$langs->trans("PDF").'</td>';
 	print '<td align="center">'.$langs->trans("Date").'</td>';
@@ -115,7 +123,7 @@ if ($resql)
 			print '<td align="center">'.$obj->cc.'</td>';
 
 			print '<td>';
-			print '<a href="'.$_SERVER["PHP_SELF"].'?action=builddoc&amp;page='.$page.'&amp;month='.$obj->month.'&amp;year='.$obj->year.'">'.img_picto('','filenew').'</a>';
+			print '<a href="'.$_SERVER["PHP_SELF"].'?action=builddoc&amp;page='.$page.'&amp;month='.$obj->month.'&amp;year='.$obj->year.'">'.img_picto($langs->trans('GenerateReport'),'filenew').'</a>';
 			print '</td>';
 
 			$name = "actions-".$obj->month."-".$obj->year.".pdf";

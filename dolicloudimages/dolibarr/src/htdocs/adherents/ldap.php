@@ -1,10 +1,10 @@
 <?php
 /* Copyright (C) 2006 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2006 Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2006 Regis Houssin        <regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -22,12 +22,12 @@
  *       \brief      Page fiche LDAP adherent
  */
 
-require("../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/member.lib.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/ldap.lib.php");
-require_once(DOL_DOCUMENT_ROOT."/core/class/ldap.class.php");
-require_once(DOL_DOCUMENT_ROOT."/adherents/class/adherent.class.php");
-require_once(DOL_DOCUMENT_ROOT."/adherents/class/adherent_type.class.php");
+require '../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/member.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/ldap.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/core/class/ldap.class.php';
+require_once DOL_DOCUMENT_ROOT.'/adherents/class/adherent.class.php';
+require_once DOL_DOCUMENT_ROOT.'/adherents/class/adherent_type.class.php';
 
 $langs->load("companies");
 $langs->load("members");
@@ -120,7 +120,7 @@ print '</tr>';
 print '<tr><td>'.$langs->trans("Login").'</td><td class="valeur">'.$adh->login.'&nbsp;</td></tr>';
 
 // Password not crypted
-if ($conf->global->LDAP_MEMBER_FIELD_PASSWORD)
+if (! empty($conf->global->LDAP_MEMBER_FIELD_PASSWORD))
 {
 	print '<tr><td>'.$langs->trans("LDAPFieldPasswordNotCrypted").'</td>';
 	print '<td class="valeur">'.$adh->pass.'</td>';
@@ -128,7 +128,7 @@ if ($conf->global->LDAP_MEMBER_FIELD_PASSWORD)
 }
 
 // Password crypted
-if ($conf->global->LDAP_MEMBER_FIELD_PASSWORD_CRYPTED)
+if (! empty($conf->global->LDAP_MEMBER_FIELD_PASSWORD_CRYPTED))
 {
 	print '<tr><td>'.$langs->trans("LDAPFieldPasswordCrypted").'</td>';
 	print '<td class="valeur">'.$adh->pass_crypted.'</td>';

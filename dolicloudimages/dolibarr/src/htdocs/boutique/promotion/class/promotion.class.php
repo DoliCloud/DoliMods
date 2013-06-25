@@ -3,7 +3,7 @@
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -43,7 +43,7 @@ class Promotion
 	 *
 	 * 	@param		DoliDB		$db		Database handler
 	 */
-	function Promotion($db)
+	function __construct($db)
 	{
 		$this->db = $db;
 	}
@@ -73,11 +73,13 @@ class Promotion
 
 		$newprice = $percent * $this->price_init;
 
-		$date_exp = "2003-05-01";
+		$date_exp = "2003-05-01";  // TODO ????
+		
+		$now=dol_now();
 
 		$sql = "INSERT INTO ".$conf->global->OSC_DB_NAME.".".$conf->global->OSC_DB_TABLE_PREFIX."specials ";
 		$sql .= " (products_id, specials_new_products_price, specials_date_added, specials_last_modified, expires_date, date_status_change, status) ";
-		$sql .= " VALUES ($pid, $newprice, '".$this->db->idate(mktime())."', NULL, '".$this->db->idate(mktime()+3600*24*365)."', NULL, 1)";
+		$sql .= " VALUES ($pid, $newprice, '".$this->db->idate($now)."', NULL, '".$this->db->idate($now+3600*24*365)."', NULL, 1)";
 
 		if ($this->db->query($sql) )
 		{

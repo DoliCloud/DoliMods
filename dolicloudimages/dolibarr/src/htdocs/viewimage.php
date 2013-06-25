@@ -1,11 +1,11 @@
 <?php
 /* Copyright (C) 2004-2005 Rodolphe Quiedeville <rodolphe@quiedeville.org>
  * Copyright (C) 2005-2012 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2005-2012 Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2005-2012 Regis Houssin        <regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -44,8 +44,8 @@ if ((isset($_GET["modulepart"]) && $_GET["modulepart"] == 'companylogo') && ! de
  */
 function llxHeader() { }
 
-require("./main.inc.php");
-require_once(DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php');
+require 'main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 
 
 $action=GETPOST('action','alpha');
@@ -343,12 +343,18 @@ if (preg_match('/\.\./',$original_file) || preg_match('/[<>|]/',$original_file))
 
 if ($modulepart == 'barcode')
 {
-    $generator=$_GET["generator"];
-    $code=$_GET["code"];
-    $encoding=$_GET["encoding"];
-    $readable=$_GET["readable"]?$_GET["readable"]:"Y";
+    $generator=GETPOST("generator","alpha");
+    $code=GETPOST("code");
+    $encoding=GETPOST("encoding","alpha");
+    $readable=GETPOST("readable")?GETPOST("readable","alpha"):"Y";
 
-    $dirbarcode=array_merge(array("/core/modules/barcode/"),$conf->barcode_modules);
+    if (empty($generator) || empty($encoding))
+    {
+        dol_print_error(0,'Error, parameter "generator" or "encoding" not defined');
+        exit;
+    }
+
+    $dirbarcode=array_merge(array("/core/modules/barcode/"),$conf->modules_parts['barcode']);
 
     $result=0;
 
@@ -360,7 +366,7 @@ if ($modulepart == 'barcode')
         // Check if directory exists (we do not use dol_is_dir to avoid loading files.lib.php)
         if (! is_dir($newdir)) continue;
 
-        $result=@include_once($newdir.$generator.".modules.php");
+        $result=@include_once $newdir.$generator.'.modules.php';
         if ($result) break;
     }
 

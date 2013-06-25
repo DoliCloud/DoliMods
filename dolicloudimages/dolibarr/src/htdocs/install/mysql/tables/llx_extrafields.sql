@@ -1,12 +1,10 @@
 -- ===================================================================
--- Copyright (C) 2002-2003 Rodolphe Quiedeville <rodolphe@quiedeville.org>
--- Copyright (C) 2002-2003 Jean-Louis Bergamo   <jlb@j1b.org>
--- Copyright (C) 2009      Regis Houssin        <regis@dolibarr.fr>
--- Copyright (C) 2011      Laurent Destailleur  <eldy@users.sourceforge.net>
+-- Copyright (C) 2011-2012 Regis Houssin        <regis.houssin@capnetworks.com>
+-- Copyright (C) 2011-2012 Laurent Destailleur  <eldy@users.sourceforge.net>
 --
 -- This program is free software; you can redistribute it and/or modify
 -- it under the terms of the GNU General Public License as published by
--- the Free Software Foundation; either version 2 of the License, or
+-- the Free Software Foundation; either version 3 of the License, or
 -- (at your option) any later version.
 --
 -- This program is distributed in the hope that it will be useful,
@@ -28,6 +26,8 @@ create table llx_extrafields
 	tms             timestamp,
 	label           varchar(255) NOT NULL,      -- label correspondant a l'attribut
 	type            varchar(8),
-	size            integer DEFAULT 0,
+	size            varchar(8) DEFAULT NULL,
+	fieldunique     integer DEFAULT 0,
+	fieldrequired   integer DEFAULT 0,
 	pos             integer DEFAULT 0
 )ENGINE=innodb;

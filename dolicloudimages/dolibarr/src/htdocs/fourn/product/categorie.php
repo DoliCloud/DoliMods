@@ -1,12 +1,12 @@
 <?php
 /* Copyright (C) 2001-2005 Rodolphe Quiedeville <rodolphe@quiedeville.org>
  * Copyright (C) 2005      Brice Davoleau       <brice.davoleau@gmail.com>
- * Copyright (C) 2005-2007 Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2005-2007 Regis Houssin        <regis.houssin@capnetworks.com>
  * Copyright (C) 2012      Laurent Destailleur  <eldy@users.sourceforge.net>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -24,8 +24,8 @@
  *	\brief      Page of products categories
  */
 
-require("../../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/product/class/product.class.php");
+require '../../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
 
 $langs->load("categories");
 
@@ -77,14 +77,14 @@ if ($_GET["id"])
       $h++;
 
 
-      if ($conf->stock->enabled)
+      if (! empty($conf->stock->enabled))
 	{
 	  $head[$h][0] = DOL_URL_ROOT."/product/stock/product.php?id=".$product->id;
 	  $head[$h][1] = $langs->trans("Stock");
 	  $h++;
 	}
 
-      if ($conf->fournisseur->enabled)
+      if (! empty($conf->fournisseur->enabled))
 	{
 	  $head[$h][0] = DOL_URL_ROOT."/product/fournisseurs.php?id=".$product->id;
 	  $head[$h][1] = $langs->trans("Suppliers");
@@ -100,7 +100,7 @@ if ($_GET["id"])
       $h++;
 
       //affichage onglet cat�gorie
-      if ($conf->categorie->enabled){
+      if (! empty($conf->categorie->enabled)){
 	$head[$h][0] = DOL_URL_ROOT."/fourn/product/categorie.php?id=".$product->id;
 	$head[$h][1] = $langs->trans('Categories');
 	$hselected = $h;

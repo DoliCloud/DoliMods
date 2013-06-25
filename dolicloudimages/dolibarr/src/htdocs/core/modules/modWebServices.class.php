@@ -3,7 +3,7 @@
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -22,14 +22,11 @@
  *       \ingroup    webservices
  *       \brief      File to describe webservices module
  */
-
-include_once(DOL_DOCUMENT_ROOT ."/core/modules/DolibarrModules.class.php");
+include_once DOL_DOCUMENT_ROOT .'/core/modules/DolibarrModules.class.php';
 
 /**
- *       \class      modWebServices
- *       \brief      Class to describe a WebServices module
+ *	Class to describe a WebServices module
  */
-
 class modWebServices extends DolibarrModules
 {
 
@@ -38,7 +35,7 @@ class modWebServices extends DolibarrModules
 	 *
 	 *   @param      DoliDB		$db      Database handler
      */
-    function modWebServices($db)
+    function __construct($db)
     {
         $this->db = $db;
         $this->numero = 2600;

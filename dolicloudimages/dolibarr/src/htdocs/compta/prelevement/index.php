@@ -1,12 +1,12 @@
 <?php
 /* Copyright (C) 2004-2005 Rodolphe Quiedeville <rodolphe@quiedeville.org>
- * Copyright (C) 2005-2011 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2005-2009 Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2005-2012 Laurent Destailleur  <eldy@users.sourceforge.net>
+ * Copyright (C) 2005-2009 Regis Houssin        <regis.houssin@capnetworks.com>
  * Copyright (C) 2011      Juanjo Menent		<jmenent@2byte.es>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -20,14 +20,15 @@
 
 /**
  *	\file       htdocs/compta/prelevement/index.php
- *	\brief      Prelevement
+ *  \ingroup    prelevement
+ *	\brief      Prelevement index page
  */
 
-require("../bank/pre.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/compta/prelevement/class/bon-prelevement.class.php");
-require_once(DOL_DOCUMENT_ROOT."/compta/facture/class/facture.class.php");
-require_once(DOL_DOCUMENT_ROOT."/societe/class/societe.class.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/prelevement.lib.php");
+require '../bank/pre.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/compta/prelevement/class/bonprelevement.class.php';
+require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
+require_once DOL_DOCUMENT_ROOT.'/societe/class/societe.class.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/prelevement.lib.php';
 
 $langs->load("withdrawals");
 $langs->load("categories");
@@ -74,7 +75,7 @@ print '<tr class="liste_titre"><td colspan="2">'.$langs->trans("Statistics").'</
 $var=!$var;
 print '<tr '.$bc[$var].'><td>'.$langs->trans("NbOfInvoiceToWithdraw").'</td>';
 print '<td align="right">';
-print '<a href="'.DOL_URL_ROOT.'/compta/prelevement/demandes.php?status=0&mainmenu=bank">';
+print '<a href="'.DOL_URL_ROOT.'/compta/prelevement/demandes.php?status=0">';
 print $bprev->NbFactureAPrelever();
 print '</a>';
 print '</td></tr>';
@@ -92,10 +93,10 @@ print '</td><td valign="top" width="70%">';
  * Withdraw receipts
  */
 $limit=5;
-$sql = "SELECT p.rowid, p.ref, p.amount, p.datec";
-$sql .= " ,p.statut ";
-$sql .= " FROM ".MAIN_DB_PREFIX."prelevement_bons as p";
-$sql .= " ORDER BY datec DESC LIMIT ".$limit;
+$sql = "SELECT p.rowid, p.ref, p.amount, p.datec, p.statut";
+$sql.= " FROM ".MAIN_DB_PREFIX."prelevement_bons as p";
+$sql.= " ORDER BY datec DESC";
+$sql.= $db->plimit($limit);
 
 $result = $db->query($sql);
 if ($result)
@@ -109,6 +110,7 @@ if ($result)
     print '<tr class="liste_titre"><td>'.$langs->trans("LastWithdrawalReceipt",$limit).'</td>';
     print '<td>'.$langs->trans("Date").'</td>';
     print '<td align="right">'.$langs->trans("Amount").'</td>';
+    print '<td align="right">'.$langs->trans("Status").'</td>';
     print '</tr>';
 
     while ($i < min($num,$limit))
@@ -116,15 +118,17 @@ if ($result)
         $obj = $db->fetch_object($result);
         $var=!$var;
 
-        print "<tr $bc[$var]><td>";
+        print "<tr ".$bc[$var].">";
 
-        print '<img border="0" src="./img/statut'.$obj->statut.'.png"></a>&nbsp;';
-
-        print '<a href="fiche.php?id='.$obj->rowid.'">'.$obj->ref."</a></td>\n";
-
+        print "<td>";
+        $bprev->id=$obj->rowid;
+        $bprev->ref=$obj->ref;
+        $bprev->statut=$obj->statut;
+        print $bprev->getNomUrl(1);
+        print "</td>\n";
         print '<td>'.dol_print_date($db->jdate($obj->datec),"dayhour")."</td>\n";
-
         print '<td align="right">'.price($obj->amount)."</td>\n";
+        print '<td align="right">'.$bprev->getLibStatut(3)."</td>\n";
 
         print "</tr>\n";
         $i++;

@@ -4,7 +4,7 @@
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -22,7 +22,7 @@
  *      \ingroup    societe
  *      \brief      File of class to manage accountancy code of thirdparties with Panicum rules
  */
-require_once(DOL_DOCUMENT_ROOT."/core/modules/societe/modules_societe.class.php");
+require_once DOL_DOCUMENT_ROOT.'/core/modules/societe/modules_societe.class.php';
 
 
 /**
@@ -77,10 +77,14 @@ class mod_codecompta_panicum extends ModeleAccountancyCode
 	 */
 	function get_code($db, $societe, $type='')
 	{
-		// Renvoie toujours ok
-		if ($type == 'supplier') $this->code = $societe->code_compta_fournisseur;
-	    else $this->code = $societe->code_compta;
-		return 0;
+		$this->code='';
+
+		if (is_object($societe)) {
+			if ($type == 'supplier') $this->code = (! empty($societe->code_compta_fournisseur)?$societe->code_compta_fournisseur:'');
+			else $this->code = (! empty($societe->code_compta)?$societe->code_compta:'');
+		}
+
+		return 0; // return ok
 	}
 }
 

@@ -1,13 +1,13 @@
 <?php
 /* Copyright (C) 2001-2004 Rodolphe Quiedeville <rodolphe@quiedeville.org>
  * Copyright (C) 2004-2011 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2005-2010 Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2005-2012 Regis Houssin        <regis.houssin@capnetworks.com>
  * Copyright (C) 2006      Andre Cianfarani     <acianfa@free.fr>
  * Copyright (C) 2011      Philippe Grand       <philippe.grand@atoo-net.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -25,27 +25,28 @@
  *	\brief      Page to add a new commercial proposal
  */
 
-require("../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT.'/comm/propal/class/propal.class.php');
-require_once(DOL_DOCUMENT_ROOT.'/core/modules/propale/modules_propale.php');
-if ($conf->projet->enabled)
-{
-	require_once(DOL_DOCUMENT_ROOT."/projet/class/project.class.php");
-	require_once(DOL_DOCUMENT_ROOT.'/core/lib/project.lib.php');
+require '../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/comm/propal/class/propal.class.php';
+require_once DOL_DOCUMENT_ROOT.'/core/modules/propale/modules_propale.php';
+if (! empty($conf->projet->enabled)) {
+	require_once DOL_DOCUMENT_ROOT.'/projet/class/project.class.php';
+	require_once DOL_DOCUMENT_ROOT.'/core/lib/project.lib.php';
 }
 
 $langs->load("propal");
-if ($conf->projet->enabled) $langs->load("projects");
+if (! empty($conf->projet->enabled))
+	$langs->load("projects");
 $langs->load("companies");
 $langs->load("bills");
 $langs->load("orders");
 $langs->load("deliveries");
 
-$action=GETPOST('action');
-$mesg=GETPOST('mesg');
+$action=GETPOST('action','alpha');
+$origin=GETPOST('origin','alpha');
+$originid=GETPOST('originid','int');
 
 // Initialize technical object to manage hooks of thirdparties. Note that conf->hooks_modules contains array array
-include_once(DOL_DOCUMENT_ROOT.'/core/class/hookmanager.class.php');
+include_once DOL_DOCUMENT_ROOT.'/core/class/hookmanager.class.php';
 $hookmanager=new HookManager($db);
 $hookmanager->initHooks(array('propalcard'));
 
@@ -67,8 +68,6 @@ print_fiche_titre($langs->trans("NewProp"));
 
 $form=new Form($db);
 
-dol_htmloutput_mesg($mesg);
-
 // Add new proposal
 if ($action == 'create')
 {
@@ -88,7 +87,7 @@ if ($action == 'create')
 	{
 		if (! empty($conf->global->PROPALE_ADDON) && is_readable(DOL_DOCUMENT_ROOT ."/core/modules/propale/".$conf->global->PROPALE_ADDON.".php"))
 		{
-			require_once(DOL_DOCUMENT_ROOT ."/core/modules/propale/".$conf->global->PROPALE_ADDON.".php");
+			require_once DOL_DOCUMENT_ROOT ."/core/modules/propale/".$conf->global->PROPALE_ADDON.'.php';
 			$modPropale = new $obj;
 			$numpr = $modPropale->getNextValue($soc,$object);
 		}
@@ -117,16 +116,19 @@ if ($action == 'create')
 	print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
 	print '<input type="hidden" name="action" value="add">';
 
-	if (isset($_GET["origin"]) && $_GET["origin"] != 'project' && isset($_GET["originid"]))
+	if ($origin != 'project' && $originid)
 	{
-		print '<input type="hidden" name="origin" value="'.$_GET["origin"].'">';
-		print '<input type="hidden" name="originid" value="'.$_GET["originid"].'">';
+		print '<input type="hidden" name="origin" value="'.$origin.'">';
+		print '<input type="hidden" name="originid" value="'.$originid.'">';
 	}
 
 	print '<table class="border" width="100%">';
 
 	// Ref
-	print '<tr><td class="fieldrequired">'.$langs->trans("Ref").'</td><td colspan="2"><input name="ref" value="'.$numpr.'"></td></tr>';
+	print '<tr><td class="fieldrequired">'.$langs->trans("Ref").'</td>';
+	print '<td colspan="2">'.$numpr.'</td>';
+	print '<input type="hidden" name="ref" value="'.$numpr.'">';
+	print '</tr>';
 
 	// Ref customer
 	print '<tr><td>'.$langs->trans('RefCustomer').'</td><td colspan="2">';
@@ -141,7 +143,7 @@ if ($action == 'create')
 
 	// Contacts
 	print "<tr><td>".$langs->trans("DefaultContact")."</td><td colspan=\"2\">\n";
-	$form->select_contacts($soc->id,$setcontact,'contactidp',1);
+	$form->select_contacts($soc->id,'','contactidp',1);
 	print '</td></tr>';
 
 	// Ligne info remises tiers
@@ -175,12 +177,12 @@ if ($action == 'create')
 
 	// What trigger creation
     print '<tr><td>'.$langs->trans('Source').'</td><td>';
-    $form->select_demand_reason($object->demand_reason,'demand_reason_id',"SRC_PROP",1);
+    $form->select_demand_reason('','demand_reason_id',"SRC_PROP",1);
     print '</td></tr>';
 
 	// Delivery delay
     print '<tr><td>'.$langs->trans('AvailabilityPeriod').'</td><td colspan="2">';
-    $form->select_availability($object->availability,'availability_id','',1);
+    $form->select_availability('','availability_id','',1);
     print '</td></tr>';
 
 	// Delivery date (or manufacturing)
@@ -210,10 +212,10 @@ if ($action == 'create')
 	print "</td></tr>";
 
 	// Project
-	if ($conf->projet->enabled)
+	if (! empty($conf->projet->enabled))
 	{
 		$projectid = 0;
-		if (isset($_GET["origin"]) && $_GET["origin"] == 'project') $projectid = ($_GET["originid"]?$_GET["originid"]:0);
+		if ($origin == 'project') $projectid = ($originid?$originid:0);
 
 		print '<tr>';
 		print '<td valign="top">'.$langs->trans("Project").'</td><td colspan="2">';
@@ -228,14 +230,16 @@ if ($action == 'create')
 	}
 
 	// Other attributes
-	$parameters=array('socid'=>$socid, 'colspan' => ' colspan="3"');
+	$parameters=array('colspan' => ' colspan="3"');
 	$reshook=$hookmanager->executeHooks('formObjectOptions',$parameters,$object,$action);    // Note that $action and $object may have been modified by hook
 	if (empty($reshook) && ! empty($extrafields->attribute_label))
 	{
 	    foreach($extrafields->attribute_label as $key=>$label)
 	    {
 	        $value=(isset($_POST["options_".$key])?$_POST["options_".$key]:$object->array_options["options_".$key]);
-	        print "<tr><td>".$label.'</td><td colspan="3">';
+       		print '<tr><td';
+       		if (! empty($extrafields->attribute_required[$key])) print ' class="fieldrequired"';
+       		print '>'.$label.'</td><td colspan="3">';
 	        print $extrafields->showInputField($key,$value);
 	        print '</td></tr>'."\n";
 	    }
@@ -292,7 +296,7 @@ if ($action == 'create')
 		}
 		print '</td></tr>';
 
-		if ($conf->global->PRODUCT_SHOW_WHEN_CREATE) print '<tr><td colspan="3">&nbsp;</td></tr>';
+		if (! empty($conf->global->PRODUCT_SHOW_WHEN_CREATE)) print '<tr><td colspan="3">&nbsp;</td></tr>';
 
 		print '<tr><td valign="top"><input type="radio" name="createmode" value="empty" checked="checked"></td>';
 		print '<td valign="top" colspan="2">'.$langs->trans("CreateEmptyPropal").'</td></tr>';
@@ -301,7 +305,7 @@ if ($action == 'create')
 	if (! empty($conf->global->PRODUCT_SHOW_WHEN_CREATE))
 	{
 		print '<tr><td colspan="3">';
-		if ($conf->product->enabled || $conf->service->enabled)
+		if (! empty($conf->product->enabled) || ! empty($conf->service->enabled))
 		{
 			$lib=$langs->trans("ProductsAndServices");
 
@@ -336,11 +340,13 @@ if ($action == 'create')
 	$langs->load("bills");
 	print '<center>';
 	print '<input type="submit" class="button" value="'.$langs->trans("CreateDraft").'">';
+	print '&nbsp;<input type="button" class="button" value="'.$langs->trans("Cancel").'" onClick="javascript:history.go(-1)">';
 	print '</center>';
 
 	print "</form>";
 }
 
-$db->close();
+
 llxFooter();
+$db->close();
 ?>

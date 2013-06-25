@@ -1,12 +1,12 @@
 <?php
 
 /* Copyright (C) 2002-2005 Rodolphe Quiedeville <rodolphe@quiedeville.org>
- * Copyright (C) 2005-2008 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2005-2010 Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2005-2012 Laurent Destailleur  <eldy@users.sourceforge.net>
+ * Copyright (C) 2005-2010 Regis Houssin        <regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -21,26 +21,27 @@
 /**
  * 		\file       htdocs/projet/class/project.class.php
  * 		\ingroup    projet
- * 		\brief      Fichier de la classe de gestion des projets
+ * 		\brief      File of class to manage projects
  */
-require_once(DOL_DOCUMENT_ROOT . "/core/class/commonobject.class.php");
+require_once DOL_DOCUMENT_ROOT . '/core/class/commonobject.class.php';
 
 /**
- * 		\class      Project
- * 		\brief      Class to manage projects
+ *	Class to manage projects
  */
 class Project extends CommonObject
 {
 
     public $element = 'project';    //!< Id that identify managed objects
     public $table_element = 'projet';  //!< Name of table without prefix where object is stored
+    public $table_element_line = 'projet_task';
+    public $fk_element = 'fk_projet';
+    protected $ismultientitymanaged = 1;  // 0=No test on entity, 1=Test with field entity, 2=Test with link by societe
+
     var $id;
     var $ref;
     var $description;
     var $statut;
     var $title;
-    var $date_c;
-    var $date_m;
     var $date_start;
     var $date_end;
     var $socid;
@@ -51,6 +52,7 @@ class Project extends CommonObject
     var $statuts_short;
     var $statuts;
     var $oldcopy;
+    
 
     /**
      *  Constructor
@@ -110,7 +112,7 @@ class Project extends CommonObject
         $sql.= ", " . $user->id;
         $sql.= ", 0";
         $sql.= ", " . ($this->public ? 1 : 0);
-        $sql.= ", " . ($this->datec != '' ? $this->db->idate($this->datec) : 'null');
+        $sql.= ", " . $this->db->idate(dol_now());
         $sql.= ", " . ($this->date_start != '' ? $this->db->idate($this->date_start) : 'null');
         $sql.= ", " . ($this->date_end != '' ? $this->db->idate($this->date_end) : 'null');
         $sql.= ", ".$conf->entity;
@@ -126,7 +128,7 @@ class Project extends CommonObject
             if (!$notrigger)
             {
                 // Call triggers
-                include_once(DOL_DOCUMENT_ROOT . "/core/class/interfaces.class.php");
+                include_once DOL_DOCUMENT_ROOT . '/core/class/interfaces.class.php';
                 $interface = new Interfaces($this->db);
                 $result = $interface->run_triggers('PROJECT_CREATE', $this, $user, $langs, $conf);
                 if ($result < 0)
@@ -194,13 +196,13 @@ class Project extends CommonObject
             $sql.= ", datee=" . ($this->date_end != '' ? $this->db->idate($this->date_end) : 'null');
             $sql.= " WHERE rowid = " . $this->id;
 
-            dol_syslog("Project::Update sql=" . $sql, LOG_DEBUG);
+            dol_syslog(get_class($this)."::Update sql=" . $sql, LOG_DEBUG);
             if ($this->db->query($sql))
             {
                 if (!$notrigger)
                 {
                     // Call triggers
-                    include_once(DOL_DOCUMENT_ROOT . "/core/class/interfaces.class.php");
+                    include_once DOL_DOCUMENT_ROOT . '/core/class/interfaces.class.php';
                     $interface = new Interfaces($this->db);
                     $result = $interface->run_triggers('PROJECT_MODIFY', $this, $user, $langs, $conf);
                     if ($result < 0)
@@ -235,13 +237,13 @@ class Project extends CommonObject
             else
             {
                 $this->error = $this->db->lasterror();
-                dol_syslog("Project::Update error -2 " . $this->error, LOG_ERR);
+                dol_syslog(get_class($this)."::Update error -2 " . $this->error, LOG_ERR);
                 $result = -2;
             }
         }
         else
         {
-            dol_syslog("Project::Update ref null");
+            dol_syslog(get_class($this)."::Update ref null");
             $result = -1;
         }
 
@@ -272,7 +274,7 @@ class Project extends CommonObject
         	$sql.= " AND entity IN (".getEntity('project').")";
         }
 
-        dol_syslog("Project::fetch sql=" . $sql, LOG_DEBUG);
+        dol_syslog(get_class($this)."::fetch sql=" . $sql, LOG_DEBUG);
         $resql = $this->db->query($sql);
         if ($resql)
         {
@@ -311,7 +313,7 @@ class Project extends CommonObject
         else
         {
             $this->error = $this->db->lasterror();
-            dol_syslog("Project::fetch " . $this->error, LOG_ERR);
+            dol_syslog(get_class($this)."::fetch " . $this->error, LOG_ERR);
             return -1;
         }
     }
@@ -391,7 +393,7 @@ class Project extends CommonObject
         if (! $sql) return -1;
 
         //print $sql;
-        dol_syslog("Project::get_element_list sql=" . $sql);
+        dol_syslog(get_class($this)."::get_element_list sql=" . $sql);
         $result = $this->db->query($sql);
         if ($result)
         {
@@ -429,7 +431,7 @@ class Project extends CommonObject
     function delete($user, $notrigger=0)
     {
         global $langs, $conf;
-        require_once(DOL_DOCUMENT_ROOT . "/core/lib/files.lib.php");
+        require_once DOL_DOCUMENT_ROOT . '/core/lib/files.lib.php';
 
         $error = 0;
 
@@ -481,7 +483,7 @@ class Project extends CommonObject
             if (!$notrigger)
             {
                 // Call triggers
-                include_once(DOL_DOCUMENT_ROOT . "/core/class/interfaces.class.php");
+                include_once DOL_DOCUMENT_ROOT . '/core/class/interfaces.class.php';
                 $interface = new Interfaces($this->db);
                 $result = $interface->run_triggers('PROJECT_DELETE', $this, $user, $langs, $conf);
                 if ($result < 0)
@@ -526,12 +528,12 @@ class Project extends CommonObject
             $sql.= " WHERE rowid = " . $this->id;
             $sql.= " AND entity = " . $conf->entity;
 
-            dol_syslog("Project::setValid sql=" . $sql);
+            dol_syslog(get_class($this)."::setValid sql=" . $sql);
             $resql = $this->db->query($sql);
             if ($resql)
             {
                 // Appel des triggers
-                include_once(DOL_DOCUMENT_ROOT . "/core/class/interfaces.class.php");
+                include_once DOL_DOCUMENT_ROOT . '/core/class/interfaces.class.php';
                 $interface = new Interfaces($this->db);
                 $result = $interface->run_triggers('PROJECT_VALIDATE', $this, $user, $langs, $conf);
                 if ($result < 0)
@@ -544,14 +546,14 @@ class Project extends CommonObject
                 if (!$error)
                 {
                 	$this->statut=1;
-                    $this->db->commit();
+                	$this->db->commit();
                     return 1;
                 }
                 else
                 {
                     $this->db->rollback();
                     $this->error = join(',', $this->errors);
-                    dol_syslog("Project::setValid " . $this->error, LOG_ERR);
+                    dol_syslog(get_class($this)."::setValid " . $this->error, LOG_ERR);
                     return -1;
                 }
             }
@@ -559,7 +561,7 @@ class Project extends CommonObject
             {
                 $this->db->rollback();
                 $this->error = $this->db->lasterror();
-                dol_syslog("Project::setValid " . $this->error, LOG_ERR);
+                dol_syslog(get_class($this)."::setValid " . $this->error, LOG_ERR);
                 return -1;
             }
         }
@@ -587,12 +589,12 @@ class Project extends CommonObject
             $sql.= " AND entity = " . $conf->entity;
             $sql.= " AND fk_statut = 1";
 
-            dol_syslog("Project::setClose sql=" . $sql);
+            dol_syslog(get_class($this)."::setClose sql=" . $sql);
             $resql = $this->db->query($sql);
             if ($resql)
             {
                 // Appel des triggers
-                include_once(DOL_DOCUMENT_ROOT . "/core/class/interfaces.class.php");
+                include_once DOL_DOCUMENT_ROOT . '/core/class/interfaces.class.php';
                 $interface = new Interfaces($this->db);
                 $result = $interface->run_triggers('PROJECT_CLOSE', $this, $user, $langs, $conf);
                 if ($result < 0)
@@ -612,7 +614,7 @@ class Project extends CommonObject
                 {
                     $this->db->rollback();
                     $this->error = join(',', $this->errors);
-                    dol_syslog("Project::setClose " . $this->error, LOG_ERR);
+                    dol_syslog(get_class($this)."::setClose " . $this->error, LOG_ERR);
                     return -1;
                 }
             }
@@ -620,7 +622,7 @@ class Project extends CommonObject
             {
                 $this->db->rollback();
                 $this->error = $this->db->lasterror();
-                dol_syslog("Project::setClose " . $this->error, LOG_ERR);
+                dol_syslog(get_class($this)."::setClose " . $this->error, LOG_ERR);
                 return -1;
             }
         }
@@ -738,7 +740,7 @@ class Project extends CommonObject
     {
         global $user, $langs, $conf;
 
-        $now = mktime();
+        $now=dol_now();
 
         // Charge tableau des produits prodids
         $prodids = array();
@@ -847,7 +849,7 @@ class Project extends CommonObject
      * @param 	int		$mode			0=All project I have permission on, 1=Projects affected to me only, 2=Will return list of all projects with no test on contacts
      * @param 	int		$list			0=Return array,1=Return string list
      * @param	int		$socid			0=No filter on third party, id of third party
-     * @return 	array 					Array of projects
+     * @return 	array or string			Array of projects id, or string with projects id separated with ","
      */
     function getProjectsAuthorizedForUser($user, $mode=0, $list=0, $socid=0)
     {
@@ -910,7 +912,7 @@ class Project extends CommonObject
 
             if ($list)
             {
-                if (empty($temp)) return 0;
+                if (empty($temp)) return '0';
                 $result = implode(',', $temp);
                 return $result;
             }
@@ -922,6 +924,320 @@ class Project extends CommonObject
 
         return $projects;
     }
+
+     /**
+      * Load an object from its id and create a new one in database
+	  *
+	  *	@param	int		$fromid     	Id of object to clone
+	  *	@param	bool	$clone_contact	clone contact of project
+	  *	@param	bool	$clone_task		clone task of project
+	  *	@param	bool	$clone_file		clone file of project
+      *	@param	bool	$clone_note		clone note of project
+	  * @return	int						New id of clone
+	  */
+	function createFromClone($fromid,$clone_contact=false,$clone_task=true,$clone_file=false,$clone_note=true)
+	{
+		global $user,$langs,$conf;
+
+		$error=0;
+
+		dol_syslog("createFromClone clone_contact=".$clone_contact." clone_task=".$clone_task." clone_file=".$clone_file." clone_note=".$clone_note);
+
+		$now = dol_mktime(0,0,0,idate('m',dol_now()),idate('d',dol_now()),idate('Y',dol_now()));
+
+		$clone_project=new Project($this->db);
+
+		$this->db->begin();
+
+		// Load source object
+		$clone_project->fetch($fromid);
+
+		$orign_dt_start=$clone_project->date_start;
+		$orign_project_ref=$clone_project->ref;
+
+		$clone_project->id=0;
+        $clone_project->date_start = $now;
+        if (!(empty($clone_project->date_end)))
+        {
+        	$clone_project->date_end = $clone_project->date_end + ($now - $orign_dt_start);
+        }
+
+        $clone_project->datec = $now;
+
+        if (! $clone_note)
+        {
+        	    $clone_project->note_private='';
+    			$clone_project->note_public='';
+        }
+
+		//Generate next ref
+		$defaultref='';
+    	$obj = empty($conf->global->PROJECT_ADDON)?'mod_project_simple':$conf->global->PROJECT_ADDON;
+    	if (! empty($conf->global->PROJECT_ADDON) && is_readable(DOL_DOCUMENT_ROOT ."/core/modules/project/".$conf->global->PROJECT_ADDON.".php"))
+    	{
+
+        	require_once DOL_DOCUMENT_ROOT ."/core/modules/project/".$conf->global->PROJECT_ADDON.'.php';
+        	$modProject = new $obj;
+        	$defaultref = $modProject->getNextValue($clone_project->societe->id,$clone_project);
+    	}
+
+    	if (is_numeric($defaultref) && $defaultref <= 0) $defaultref='';
+
+		$clone_project->ref=$defaultref;
+
+		// Create clone
+		$result=$clone_project->create($user);
+
+		// Other options
+		if ($result < 0)
+		{
+			$this->error.=$clone_project->error;
+			$error++;
+		}
+
+		if (! $error)
+		{
+			$this->db->commit();
+
+			//Get the new project id
+			$clone_project_id=$clone_project->id;
+
+			//Note Update
+			if (!$clone_note)
+       		{
+        	    $clone_project->note_private='';
+    			$clone_project->note_public='';
+        	}
+        	else
+        	{
+        		$this->db->begin();
+				$res=$clone_project->update_note_public(dol_html_entity_decode($clone_project->note_public, ENT_QUOTES));
+				if ($res < 0)
+				{
+					$this->error.=$clone_project->error;
+					$error++;
+					$this->db->rollback();
+				}
+				else
+				{
+					$this->db->commit();
+				}
+
+				$this->db->begin();
+				$res=$clone_project->update_note(dol_html_entity_decode($clone_project->note_private, ENT_QUOTES));
+				if ($res < 0)
+				{
+					$this->error.=$clone_project->error;
+					$error++;
+					$this->db->rollback();
+				}
+				else
+				{
+					$this->db->commit();
+				}
+        	}
+
+			//Duplicate contact
+			if ($clone_contact)
+			{
+				$origin_project = new Project($this->db);
+				$origin_project->fetch($fromid);
+
+				foreach(array('internal','external') as $source)
+				{
+					$tab = $origin_project->liste_contact(-1,$source);
+
+					foreach ($tab as $contacttoadd)
+					{
+						$clone_project->add_contact($contacttoadd['id'], $contacttoadd['code'], $contacttoadd['source']);
+						if ($clone_project->error == 'DB_ERROR_RECORD_ALREADY_EXISTS')
+						{
+							$langs->load("errors");
+							$this->error.=$langs->trans("ErrorThisContactIsAlreadyDefinedAsThisType");
+							$error++;
+						}
+						else
+						{
+							if ($clone_project->error!='')
+							{
+								$this->error.=$clone_project->error;
+								$error++;
+							}
+						}
+					}
+				}
+			}
+
+			//Duplicate file
+			if ($clone_file)
+			{
+				require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
+
+				$clone_project_dir = $conf->projet->dir_output . "/" . dol_sanitizeFileName($defaultref);
+				$ori_project_dir = $conf->projet->dir_output . "/" . dol_sanitizeFileName($orign_project_ref);
+
+				if (dol_mkdir($clone_project_dir) >= 0)
+				{
+					$filearray=dol_dir_list($ori_project_dir,"files",0,'','\.meta$','',SORT_ASC,1);
+					foreach($filearray as $key => $file)
+					{
+						$rescopy = dol_copy($ori_project_dir . '/' . $file['name'], $clone_project_dir . '/' . $file['name'],0,1);
+						if (is_numeric($rescopy) && $rescopy < 0)
+						{
+							$this->error.=$langs->trans("ErrorFailToCopyFile",$ori_project_dir . '/' . $file['name'],$clone_project_dir . '/' . $file['name']);
+							$error++;
+						}
+					}
+				}
+				else
+				{
+					$this->error.=$langs->trans('ErrorInternalErrorDetected').':dol_mkdir';
+					$error++;
+				}
+			}
+
+			//Duplicate task
+			if ($clone_task)
+			{
+				$taskstatic = new Task($this->db);
+
+				// Security check
+				$socid=0;
+				if ($user->societe_id > 0) $socid = $user->societe_id;
+
+				$tasksarray=$taskstatic->getTasksArray(0, 0, $fromid, $socid, 0);
+
+				//manage new parent clone task id
+				$tab_conv_child_parent=array();
+
+			    foreach ($tasksarray as $tasktoclone)
+			    {
+					$result_clone = $taskstatic->createFromClone($tasktoclone->id,$clone_project_id,$tasktoclone->fk_parent,true,true,false,true,true,false);
+					if ($result_clone <= 0)
+				    {
+				    	$this->error.=$result_clone->error;
+						$error++;
+				    }
+				    else
+				    {
+				    	$new_task_id=$result_clone;
+				    	$taskstatic->fetch($tasktoclone->id);
+
+				    	//manage new parent clone task id
+				    	// if the current task has child we store the original task id and the equivalent clone task id
+						if (($taskstatic->hasChildren()) && !array_key_exists($tasktoclone->id,$tab_conv_child_parent))
+						{
+							$tab_conv_child_parent[$tasktoclone->id] =  $new_task_id;
+						}
+				    }
+
+			    }
+
+			    //Parse all clone node to be sure to update new parent
+			    $tasksarray=$taskstatic->getTasksArray(0, 0, $clone_project_id, $socid, 0);
+			    foreach ($tasksarray as $task_cloned)
+			    {
+			    	$taskstatic->fetch($task_cloned->id);
+			    	if ($taskstatic->fk_task_parent!=0)
+			    	{
+			    		$taskstatic->fk_task_parent=$tab_conv_child_parent[$taskstatic->fk_task_parent];
+			    	}
+			    	$res=$taskstatic->update($user);
+			    	if ($result_clone <= 0)
+				    {
+				    	$this->error.=$taskstatic->error;
+						$error++;
+				    }
+			    }
+			}
+
+
+
+			if (! $error)
+			{
+				return $clone_project_id;
+			}
+			else
+			{
+				dol_syslog(get_class($this)."::createFromClone nbError: ".$error." error : " . $this->error, LOG_ERR);
+				return -1;
+			}
+
+		}
+		else
+		{
+			$this->db->rollback();
+			return -1;
+		}
+	}
+
+
+	 /**
+	  *    Shift project task date from current date to delta
+	  *
+	  *    @param	timestamp		$old_project_dt_start	old project start date
+	  *    @return	int				1 if OK or < 0 if KO
+	  */
+	function shiftTaskDate($old_project_dt_start)
+	{
+		global $user,$langs,$conf;
+
+		$error=0;
+
+		$taskstatic = new Task($this->db);
+
+		// Security check
+		$socid=0;
+		if ($user->societe_id > 0) $socid = $user->societe_id;
+
+		$tasksarray=$taskstatic->getTasksArray(0, 0, $this->id, $socid, 0);
+
+	    foreach ($tasksarray as $tasktoshiftdate)
+	    {
+	    	$to_update=false;
+	    	// Fetch only if update of date will be made
+	    	if ((!empty($tasktoshiftdate->date_start)) || (!empty($tasktoshiftdate->date_end)))
+	    	{
+	    		//dol_syslog(get_class($this)."::shiftTaskDate to_update", LOG_DEBUG);
+	    		$to_update=true;
+		    	$task = new Task($this->db);
+		    	$result = $task->fetch($tasktoshiftdate->id);
+		    	if (!$result)
+		    	{
+		    		$error++;
+		    		$this->error.=$task->error;
+		    	}
+	    	}
+			//print "$this->date_start + $tasktoshiftdate->date_start - $old_project_dt_start";exit;
+
+	    	//Calcultate new task start date with difference between old proj start date and origin task start date
+	    	if (!empty($tasktoshiftdate->date_start))
+	    	{
+				$task->date_start			= $this->date_start + ($tasktoshiftdate->date_start - $old_project_dt_start);
+	    	}
+
+	    	//Calcultate new task end date with difference between origin proj end date and origin task end date
+	    	if (!empty($tasktoshiftdate->date_end))
+	    	{
+				$task->date_end		    	= $this->date_start + ($tasktoshiftdate->date_end - $old_project_dt_start);
+	    	}
+
+			if ($to_update)
+			{
+		    	$result = $task->update($user);
+		    	if (!$result)
+		    	{
+		    		$error++;
+		    		$this->error.=$task->error;
+		    	}
+			}
+	    }
+	    if ($error!=0)
+	    {
+	    	return -1;
+	    }
+	    return $result;
+	}
 
 }
 

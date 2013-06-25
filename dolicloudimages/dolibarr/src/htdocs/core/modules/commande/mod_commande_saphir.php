@@ -1,12 +1,12 @@
 <?php
 /* Copyright (C) 2003-2007 Rodolphe Quiedeville        <rodolphe@quiedeville.org>
  * Copyright (C) 2004-2007 Laurent Destailleur         <eldy@users.sourceforge.net>
- * Copyright (C) 2005-2009 Regis Houssin               <regis@dolibarr.fr>
+ * Copyright (C) 2005-2009 Regis Houssin               <regis.houssin@capnetworks.com>
  * Copyright (C) 2008      Raphael Bertrand (Resultic) <raphael.bertrand@resultic.fr>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -25,13 +25,12 @@
  * \brief      Fichier contenant la classe du modele de numerotation de reference de commande Saphir
  */
 
-require_once(DOL_DOCUMENT_ROOT ."/core/modules/commande/modules_commande.php");
+require_once DOL_DOCUMENT_ROOT .'/core/modules/commande/modules_commande.php';
 
 
 /**
-	\class      mod_commande_saphir
-	\brief      Classe du modele de numerotation de reference de commande Saphir
-*/
+ *	Class to manage customer order numbering rules Saphir
+ */
 class mod_commande_saphir extends ModeleNumRefCommandes
 {
 	var $version='dolibarr';		// 'development', 'experimental', 'dolibarr'
@@ -111,7 +110,7 @@ class mod_commande_saphir extends ModeleNumRefCommandes
     {
 		global $db,$conf;
 
-		require_once(DOL_DOCUMENT_ROOT ."/core/lib/functions2.lib.php");
+		require_once DOL_DOCUMENT_ROOT .'/core/lib/functions2.lib.php';
 
 		// We get cursor rule
 		$mask=$conf->global->COMMANDE_SAPHIR_MASK;

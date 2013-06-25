@@ -1,11 +1,11 @@
 <?php
 /* Copyright (C) 2004      Rodolphe Quiedeville <rodolphe@quiedeville.org>
  * Copyright (C) 2004-2010 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2005-2012 Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2005-2012 Regis Houssin        <regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -23,14 +23,19 @@
  *		\brief      Onglet vcard d'un contact
  */
 
-require("../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/contact/class/contact.class.php");
-require_once(DOL_DOCUMENT_ROOT."/societe/class/societe.class.php");
-require_once(DOL_DOCUMENT_ROOT."/core/class/vcard.class.php");
+require '../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/contact/class/contact.class.php';
+require_once DOL_DOCUMENT_ROOT.'/societe/class/societe.class.php';
+require_once DOL_DOCUMENT_ROOT.'/core/class/vcard.class.php';
 
+
+$id = GETPOST('id', 'int');
+
+// Security check
+$result = restrictedArea($user, 'contact', $id, 'socpeople&societe');
 
 $contact = new Contact($db);
-$result=$contact->fetch($_GET["id"]);
+$result=$contact->fetch($id);
 
 $physicalperson=1;
 
@@ -89,10 +94,10 @@ $filenameurlencoded = dol_sanitizeFileName(urlencode($filename));
 //$filename = dol_sanitizeFileName($filename);
 
 
-Header("Content-Disposition: attachment; filename=\"".$filename."\"");
-Header("Content-Length: ".dol_strlen($output));
-Header("Connection: close");
-Header("Content-Type: text/x-vcard; name=\"".$filename."\"");
+header("Content-Disposition: attachment; filename=\"".$filename."\"");
+header("Content-Length: ".dol_strlen($output));
+header("Connection: close");
+header("Content-Type: text/x-vcard; name=\"".$filename."\"");
 
 print $output;
 

@@ -4,7 +4,7 @@
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -22,10 +22,10 @@
  *      \brief      Fiche de notes sur un adherent
 */
 
-require("../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT.'/core/lib/member.lib.php');
-require_once(DOL_DOCUMENT_ROOT.'/adherents/class/adherent.class.php');
-require_once(DOL_DOCUMENT_ROOT."/adherents/class/adherent_type.class.php");
+require '../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/member.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/adherents/class/adherent.class.php';
+require_once DOL_DOCUMENT_ROOT.'/adherents/class/adherent_type.class.php';
 
 $langs->load("companies");
 $langs->load("members");
@@ -57,7 +57,7 @@ if ($action == 'update' && $user->rights->adherent->creer && ! $_POST["cancel"])
 	$res=$object->update_note($_POST["note"],$user);
 	if ($res < 0)
 	{
-		$mesg='<div class="error">'.$object->error.'</div>';
+		setEventMessage($object->error, 'errors');
 		$db->rollback();
 	}
 	else
@@ -82,17 +82,17 @@ if ($id)
 
 	dol_fiche_head($head, 'note', $langs->trans("Member"), 0, 'user');
 
-	dol_htmloutput_errors($msg);
-
 	print "<form method=\"post\" action=\"note.php\">";
 	print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
 
     print '<table class="border" width="100%">';
 
+    $linkback = '<a href="'.DOL_URL_ROOT.'/adherents/liste.php">'.$langs->trans("BackToList").'</a>';
+
     // Reference
 	print '<tr><td width="20%">'.$langs->trans('Ref').'</td>';
 	print '<td colspan="3">';
-	print $form->showrefnav($object,'id');
+	print $form->showrefnav($object, 'id', $linkback);
 	print '</td>';
 	print '</tr>';
 
@@ -136,7 +136,7 @@ if ($id)
 	{
 	    print "<input type=\"hidden\" name=\"action\" value=\"update\">";
 		print "<input type=\"hidden\" name=\"id\" value=\"".$object->id."\">";
-        require_once(DOL_DOCUMENT_ROOT."/core/class/doleditor.class.php");
+        require_once DOL_DOCUMENT_ROOT.'/core/class/doleditor.class.php';
         $doleditor=new DolEditor('note',$object->note,'',280,'dolibarr_notes','',true,true,$conf->global->FCKEDITOR_ENABLE_SOCIETE,10,80);
         $doleditor->Create();
 	}

@@ -1,9 +1,10 @@
 <?php
-/* Copyright (C) 2010 Regis Houssin <regis@dolibarr.fr>
+/* Copyright (C) 2010      Regis Houssin       <regis.houssin@capnetworks.com>
+ * Copyright (C) 2010-2012 Laurent Destailleur <eldy@users.sourceforge.net>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -19,9 +20,9 @@
 
 <!-- BEGIN PHP TEMPLATE CARD_CREATE.TPL.PHP COMPANY -->
 
-<?php print_fiche_titre($this->control->tpl['title']); ?>
+<?php echo $this->control->tpl['title']; ?>
 
-<?php dol_htmloutput_errors($this->control->tpl['error'],$this->control->tpl['errors']); ?>
+<?php echo $this->control->tpl['error']; ?>
 
 <?php if ($conf->use_javascript_ajax) { ?>
 <?php echo $this->control->tpl['ajax_selecttype']; ?>
@@ -95,7 +96,7 @@
 </tr>
 <?php } }?>
 
-<?php if ($conf->global->MAIN_MODULE_BARCODE) { ?>
+<?php if (! empty($conf->barcode->enabled)) { ?>
 <tr>
 	<td><?php echo $langs->trans('Gencod'); ?></td>
 	<td colspan="3"><input type="text" name="barcode" value="<?php echo $this->control->tpl['barcode']; ?>"></td>
@@ -171,7 +172,7 @@ for ($i=1; $i<=4; $i++) {
 	<td><?php echo $this->control->tpl['select_workforce']; echo $this->control->tpl['info_admin']; ?></td>
 </tr>
 
-<?php if ($conf->global->MAIN_MULTILANGS) { ?>
+<?php if (! empty($conf->global->MAIN_MULTILANGS)) { ?>
 <tr>
 	<td><?php echo $langs->trans("DefaultLang"); ?></td>
 	<td colspan="3"><?php echo $this->control->tpl['select_lang']; ?></td>

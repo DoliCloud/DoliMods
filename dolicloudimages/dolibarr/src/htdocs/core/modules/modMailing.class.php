@@ -1,11 +1,11 @@
 <?php
 /* Copyright (C) 2005      Rodolphe Quiedeville <rodolphe@quiedeville.org>
  * Copyright (C) 2005-2008 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2005-2009 Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2005-2009 Regis Houssin        <regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -25,12 +25,11 @@
  *	\brief      Fichier de description et activation du module Mailing
  */
 
-include_once(DOL_DOCUMENT_ROOT ."/core/modules/DolibarrModules.class.php");
+include_once DOL_DOCUMENT_ROOT .'/core/modules/DolibarrModules.class.php';
 
 
 /**
- *	\class      modMailing
- *	\brief      Classe de description et activation du module Mailing
+ *	Classe de description et activation du module Mailing
  */
 class modMailing extends DolibarrModules
 {
@@ -40,7 +39,7 @@ class modMailing extends DolibarrModules
 	 *
 	 *   @param      DoliDB		$db      Database handler
 	 */
-	function modMailing($db)
+	function __construct($db)
 	{
 		$this->db = $db;
 		$this->numero = 22;
@@ -74,30 +73,59 @@ class modMailing extends DolibarrModules
 		// Permissions
 		$this->rights = array();
 		$this->rights_class = 'mailing';
+		$r=0;
 
-		$this->rights[1][0] = 221; // id de la permission
-		$this->rights[1][1] = 'Consulter les mailings'; // libelle de la permission
-		$this->rights[1][2] = 'r'; // type de la permission (deprecie a ce jour)
-		$this->rights[1][3] = 1; // La permission est-elle une permission par defaut
-		$this->rights[1][4] = 'lire';
+		$r++;
+		$this->rights[$r][0] = 221; // id de la permission
+		$this->rights[$r][1] = 'Consulter les mailings'; // libelle de la permission
+		$this->rights[$r][2] = 'r'; // type de la permission (deprecie a ce jour)
+		$this->rights[$r][3] = 1; // La permission est-elle une permission par defaut
+		$this->rights[$r][4] = 'lire';
 
-		$this->rights[2][0] = 222;
-		$this->rights[2][1] = 'Creer/modifier les mailings (sujet, destinataires...)';
-		$this->rights[2][2] = 'w';
-		$this->rights[2][3] = 0;
-		$this->rights[2][4] = 'creer';
+		$r++;
+		$this->rights[$r][0] = 222;
+		$this->rights[$r][1] = 'Creer/modifier les mailings (sujet, destinataires...)';
+		$this->rights[$r][2] = 'w';
+		$this->rights[$r][3] = 0;
+		$this->rights[$r][4] = 'creer';
 
-		$this->rights[3][0] = 223;
-		$this->rights[3][1] = 'Valider les mailings (permet leur envoi)';
-		$this->rights[3][2] = 'w';
-		$this->rights[3][3] = 0;
-		$this->rights[3][4] = 'valider';
+		$r++;
+		$this->rights[$r][0] = 223;
+		$this->rights[$r][1] = 'Valider les mailings (permet leur envoi)';
+		$this->rights[$r][2] = 'w';
+		$this->rights[$r][3] = 0;
+		$this->rights[$r][4] = 'valider';
 
-		$this->rights[4][0] = 229;
-		$this->rights[4][1] = 'Supprimer les mailings)';
-		$this->rights[4][2] = 'd';
-		$this->rights[4][3] = 0;
-		$this->rights[4][4] = 'supprimer';
+		$r++;
+		$this->rights[$r][0] = 229;
+		$this->rights[$r][1] = 'Supprimer les mailings';
+		$this->rights[$r][2] = 'd';
+		$this->rights[$r][3] = 0;
+		$this->rights[$r][4] = 'supprimer';
+
+		$r++;
+		$this->rights[$r][0] = 237;
+		$this->rights[$r][1] = 'View recipients and info';
+		$this->rights[$r][2] = 'r';
+		$this->rights[$r][3] = 0;
+		$this->rights[$r][4] = 'mailing_advance';		// Visible if option MAIN_USE_ADVANCED_PERMS is on
+		$this->rights[$r][5] = 'recipient';
+
+		$r++;
+		$this->rights[$r][0] = 238;
+		$this->rights[$r][1] = 'Manually send mailings';
+		$this->rights[$r][2] = 'w';
+		$this->rights[$r][3] = 0;
+		$this->rights[$r][4] = 'mailing_advance';		// Visible if option MAIN_USE_ADVANCED_PERMS is on
+		$this->rights[$r][5] = 'send';
+
+		$r++;
+		$this->rights[$r][0] = 239;
+		$this->rights[$r][1] = 'Delete mailings after validation and/or sent';
+		$this->rights[$r][2] = 'd';
+		$this->rights[$r][3] = 0;
+		$this->rights[$r][4] = 'mailing_advance';		// Visible if option MAIN_USE_ADVANCED_PERMS is on
+		$this->rights[$r][5] = 'delete';
 
 	}
 

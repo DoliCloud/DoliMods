@@ -1,10 +1,10 @@
 <?php
 /* Copyright (C) 2005-2011 Laurent Destailleur <eldy@users.sourceforge.net>
- * Copyright (C) 2005-2009 Regis Houssin       <regis@dolibarr.fr>
+ * Copyright (C) 2005-2009 Regis Houssin       <regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -77,13 +77,15 @@ class mailing_pomme extends MailingTargets
 	}
 
 
-	/*
-	 *		\brief		Return here number of distinct emails returned by your selector.
-	 *					For example if this selector is used to extract 500 different
-	 *					emails from a text file, this function must return 500.
-	 *		\return		int
-	 */
-	function getNbOfRecipients()
+    /**
+     *	Return here number of distinct emails returned by your selector.
+     *	For example if this selector is used to extract 500 different
+     *	emails from a text file, this function must return 500.
+     *
+     *	@param	string	$sql		Requete sql de comptage
+     *	@return	int					Number of recipients
+     */
+	function getNbOfRecipients($sql='')
 	{
 		global $conf;
 
@@ -180,7 +182,7 @@ class mailing_pomme extends MailingTargets
                     			'firstname' => $obj->firstname,
                     			'other' =>
 					            ($langs->transnoentities("Login").'='.$obj->login).';'.
-//                                ($langs->transnoentities("Civility").'='.$obj->civilite).';'.
+//                                ($langs->transnoentities("UserTitle").'='.$obj->civilite).';'.
 					            ($langs->transnoentities("PhonePro").'='.$obj->office_phone),
                                 'source_url' => $this->url($obj->id),
                                 'source_id' => $obj->id,

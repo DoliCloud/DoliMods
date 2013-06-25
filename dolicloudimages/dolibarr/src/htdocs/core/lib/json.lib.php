@@ -1,10 +1,10 @@
 <?php
 /* Copyright (C) 2011-2012	Laurent Destailleur	<eldy@users.sourceforge.net>
- * Copyright (C) 2011-2012	Regis Houssin		<regis@dolibarr.fr>
+ * Copyright (C) 2011-2012	Regis Houssin		<regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -45,7 +45,13 @@ if (! function_exists('json_encode'))
  */
 function dol_json_encode($elements)
 {
-	$num = count($elements);
+	$num=count($elements);
+	if (is_object($elements))	// Count number of properties for an object
+	{
+		$num=0;
+		foreach($elements as $key => $value) $num++;
+	}
+	//var_dump($num);
 
 	// determine type
 	if (is_numeric(key($elements)))
@@ -54,9 +60,9 @@ function dol_json_encode($elements)
 		$output = '[';
 		for ($i = 0, $last = ($num - 1); isset($elements[$i]); ++$i)
 		{
-			if (is_array($elements[$i])) $output.= json_encode($elements[$i]);
+			if (is_array($elements[$i]) || is_object($elements[$i])) $output.= json_encode($elements[$i]);
 			else $output .= _val($elements[$i]);
-			if($i !== $last) $output.= ',';
+			if ($i !== $last) $output.= ',';
 		}
 		$output.= ']';
 	}
@@ -66,7 +72,10 @@ function dol_json_encode($elements)
 		$output = '{';
 		$last = $num - 1;
 		$i = 0;
-		foreach($elements as $key => $value)
+		$tmpelements=array();
+		if (is_array($elements)) $tmpelements=$elements;
+		if (is_object($elements)) $tmpelements=get_object_vars($elements);
+		foreach($tmpelements as $key => $value)
 		{
 			$output .= '"'.$key.'":';
 			if (is_array($value)) $output.= json_encode($value);
@@ -206,13 +215,14 @@ if (! function_exists('json_decode'))
  * Implement json_decode for PHP that does not support it
  *
  * @param	string	$json		Json encoded to PHP Object or Array
- * @param	bool	$assoc		False return an object, true return an array
+ * @param	bool	$assoc		False return an object, true return an array. Try to always use it with true !
  * @return 	mixed				Object or Array
  */
 function dol_json_decode($json, $assoc=false)
 {
 	$comment = false;
 
+    $out='';
 	$strLength = strlen($json);    // Must stay strlen and not dol_strlen because we want technical length, not visible length
 	for ($i=0; $i<$strLength; $i++)
 	{
@@ -266,7 +276,7 @@ function _unval($val)
 	{
 	    // single, escaped unicode character
 	    $utf16 = chr(hexdec($reg[1])) . chr(hexdec($reg[2]));
-	    $utf8 .= utf162utf8($utf16);
+	    $utf8  = utf162utf8($utf16);
 	    $val=preg_replace('/\\\u'.$reg[1].$reg[2].'/i',$utf8,$val);
 	}
 	return $val;

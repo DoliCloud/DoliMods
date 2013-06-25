@@ -1,11 +1,11 @@
 <?php
 /* Copyright (C) 2003      Rodolphe Quiedeville <rodolphe@quiedeville.org>
  * Copyright (C) 2005-2011 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2005-2011 Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2005-2011 Regis Houssin        <regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -23,7 +23,7 @@
  *      \brief      Module de generation de l'affichage de la box services_vendus
  */
 
-include_once(DOL_DOCUMENT_ROOT."/core/boxes/modules_boxes.php");
+include_once DOL_DOCUMENT_ROOT.'/core/boxes/modules_boxes.php';
 
 
 /**
@@ -45,7 +45,7 @@ class box_services_contracts extends ModeleBoxes
 	/**
      *  Constructor
 	 */
-	function box_services_contracts()
+	function __construct()
 	{
 		global $langs;
 		$langs->load("boxes");
@@ -65,7 +65,7 @@ class box_services_contracts extends ModeleBoxes
 
 		$this->max=$max;
 
-		include_once(DOL_DOCUMENT_ROOT."/contrat/class/contrat.class.php");
+		include_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
 		$contratlignestatic=new ContratLigne($db);
 
 		$this->info_box_head = array('text' => $langs->trans("BoxLastProductsInContract",$max));
@@ -105,7 +105,7 @@ class box_services_contracts extends ModeleBoxes
 					$datem=$db->jdate($objp->datem);
 
 					// Multilangs
-					if ($conf->global->MAIN_MULTILANGS) // si l'option est active
+					if (! empty($conf->global->MAIN_MULTILANGS)) // si l'option est active
 					{
 						$sqld = "SELECT label";
 						$sqld.= " FROM ".MAIN_DB_PREFIX."product_lang";

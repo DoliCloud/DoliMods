@@ -3,7 +3,7 @@
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -42,11 +42,11 @@ class AccountancySystem
 	/**
 	 *	Constructor
 	 *
-	 *  @param		DoliDB		$DB      Database handler
+	 *  @param		DoliDB		$db      Database handler
 	 */
-	function AccountancySystem($DB)
+	function __construct($db)
 	{
-		$this->db = $DB;
+		$this->db = $db;
 	}
 
 
@@ -58,14 +58,16 @@ class AccountancySystem
 	 */
 	function create($user)
 	{
-		$sql = "INSERT INTO ".MAIN_DB_PREFIX."accountingsystem";
+		$now=dol_now();
+
+		$sql = "INSERT INTO ".MAIN_DB_PREFIX."accounting_system";
 		$sql.= " (date_creation, fk_user_author, numero,intitule)";
-		$sql.= " VALUES (".$this->db->idate(mktime()).",".$user->id.",'".$this->numero."','".$this->intitule."')";
+		$sql.= " VALUES (".$this->db->idate($now).",".$user->id.",'".$this->numero."','".$this->intitule."')";
 
 		$resql = $this->db->query($sql);
 		if ($resql)
 		{
-			$id = $this->db->last_insert_id(MAIN_DB_PREFIX."accountingsystem");
+			$id = $this->db->last_insert_id(MAIN_DB_PREFIX."accounting_system");
 
 			if ($id > 0)
 			{

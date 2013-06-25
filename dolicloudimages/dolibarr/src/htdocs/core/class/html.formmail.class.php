@@ -1,11 +1,11 @@
-<?PHP
+<?php
 /* Copyright (C) 2005-2012 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2005-2011 Regis Houssin		<regis@dolibarr.fr>
+ * Copyright (C) 2005-2012 Regis Houssin		<regis.houssin@capnetworks.com>
  * Copyright (C) 2010-2011 Juanjo Menent		<jmenent@2byte.es>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -22,7 +22,7 @@
  *       \ingroup    core
  *       \brief      Fichier de la classe permettant la generation du formulaire html d'envoi de mail unitaire
  */
-require_once(DOL_DOCUMENT_ROOT ."/core/class/html.form.class.php");
+require_once DOL_DOCUMENT_ROOT .'/core/class/html.form.class.php';
 
 
 /**
@@ -61,6 +61,7 @@ class FormMail
     var $withfilereadonly;
     var $withdeliveryreceipt;
     var $withcancel;
+    var $withfckeditor;
 
     var $substit=array();
     var $param=array();
@@ -73,7 +74,7 @@ class FormMail
      *
      *  @param	DoliDB	$db      Database handler
      */
-    function FormMail($db)
+    function __construct($db)
     {
         $this->db = $db;
 
@@ -98,6 +99,7 @@ class FormMail
         $this->withfilereadonly=0;
         $this->withbodyreadonly=0;
         $this->withdeliveryreceiptreadonly=0;
+        $this->withfckeditor=0;
 
         return 1;
     }
@@ -110,7 +112,7 @@ class FormMail
     function clear_attached_files()
     {
         global $conf,$user;
-        require_once(DOL_DOCUMENT_ROOT."/core/lib/files.lib.php");
+        require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 
         // Set tmp user directory
         $vardir=$conf->user->dir_output."/".$user->id;
@@ -245,7 +247,7 @@ class FormMail
         $out.= '<table class="border" width="100%">'."\n";
 
         // Substitution array
-        if ($this->withsubstit)
+        if (! empty($this->withsubstit))
         {
             $out.= '<tr><td colspan="2">';
             $help="";
@@ -258,9 +260,9 @@ class FormMail
         }
 
         // From
-        if ($this->withfrom)
+        if (! empty($this->withfrom))
         {
-            if ($this->withfromreadonly)
+            if (! empty($this->withfromreadonly))
             {
                 $out.= '<input type="hidden" id="fromname" name="fromname" value="'.$this->fromname.'" />';
                 $out.= '<input type="hidden" id="frommail" name="frommail" value="'.$this->frommail.'" />';
@@ -302,7 +304,7 @@ class FormMail
         }
 
         // Replyto
-        if ($this->withreplyto)
+        if (! empty($this->withreplyto))
         {
             if ($this->withreplytoreadonly)
             {
@@ -314,7 +316,7 @@ class FormMail
         }
 
         // Errorsto
-        if ($this->witherrorsto)
+        if (! empty($this->witherrorsto))
         {
             //if (! $this->errorstomail) $this->errorstomail=$this->frommail;
             $errorstomail = (! empty($conf->global->MAIN_MAIL_ERRORS_TO) ? $conf->global->MAIN_MAIL_ERRORS_TO : $this->errorstomail);
@@ -334,7 +336,7 @@ class FormMail
         }
 
         // To
-        if ($this->withto || is_array($this->withto))
+        if (! empty($this->withto) || is_array($this->withto))
         {
             $out.= '<tr><td width="180">';
             if ($this->withtofree) $out.= $form->textwithpicto($langs->trans("MailTo"),$langs->trans("YouCanUseCommaSeparatorForSeveralRecipients"));
@@ -375,16 +377,16 @@ class FormMail
             }
             else
             {
-                if ($this->withtofree)
+                if (! empty($this->withtofree))
                 {
                     $out.= '<input size="'.(is_array($this->withto)?"30":"60").'" id="sendto" name="sendto" value="'.(! is_array($this->withto) && ! is_numeric($this->withto)? (isset($_REQUEST["sendto"])?$_REQUEST["sendto"]:$this->withto) :"").'" />';
                 }
-                if (is_array($this->withto))
+                if (! empty($this->withto) && is_array($this->withto))
                 {
-                    if ($this->withtofree) $out.= " ".$langs->trans("or")." ";
+                    if (! empty($this->withtofree)) $out.= " ".$langs->trans("or")." ";
                     $out.= $form->selectarray("receiver", $this->withto, GETPOST("receiver"), 1);
                 }
-                if ($this->withtosocid > 0) // deprecated. TODO Remove this. Instead, fill withto with array before calling method.
+                if (isset($this->withtosocid) && $this->withtosocid > 0) // deprecated. TODO Remove this. Instead, fill withto with array before calling method.
                 {
                     $liste=array();
                     $soc=new Societe($this->db);
@@ -401,7 +403,7 @@ class FormMail
         }
 
         // CC
-        if ($this->withtocc || is_array($this->withtocc))
+        if (! empty($this->withtocc) || is_array($this->withtocc))
         {
             $out.= '<tr><td width="180">';
             $out.= $form->textwithpicto($langs->trans("MailCC"),$langs->trans("YouCanUseCommaSeparatorForSeveralRecipients"));
@@ -413,12 +415,12 @@ class FormMail
             else
             {
                 $out.= '<input size="'.(is_array($this->withtocc)?"30":"60").'" id="sendtocc" name="sendtocc" value="'.((! is_array($this->withtocc) && ! is_numeric($this->withtocc))? (isset($_POST["sendtocc"])?$_POST["sendtocc"]:$this->withtocc) : (isset($_POST["sendtocc"])?$_POST["sendtocc"]:"") ).'" />';
-                if (is_array($this->withto))
+                if (! empty($this->withto) && is_array($this->withto))
                 {
                     $out.= " ".$langs->trans("or")." ";
                     $out.= $form->selectarray("receivercc", $this->withto, GETPOST("receivercc"), 1);
                 }
-                if ($this->withtoccsocid > 0) // deprecated. TODO Remove this. Instead, fill withto with array before calling method.
+                if (! empty($this->withtoccsocid) && $this->withtoccsocid > 0) // deprecated. TODO Remove this. Instead, fill withto with array before calling method.
                 {
                     $liste=array();
                     $soc=new Societe($this->db);
@@ -435,24 +437,24 @@ class FormMail
         }
 
         // CCC
-        if ($this->withtoccc || is_array($this->withtoccc))
+        if (! empty($this->withtoccc) || is_array($this->withtoccc))
         {
             $out.= '<tr><td width="180">';
             $out.= $form->textwithpicto($langs->trans("MailCCC"),$langs->trans("YouCanUseCommaSeparatorForSeveralRecipients"));
             $out.= '</td><td>';
-            if ($this->withtocccreadonly)
+            if (! empty($this->withtocccreadonly))
             {
                 $out.= (! is_array($this->withtoccc) && ! is_numeric($this->withtoccc))?$this->withtoccc:"";
             }
             else
             {
                 $out.= '<input size="'.(is_array($this->withtoccc)?"30":"60").'" id="sendtoccc" name="sendtoccc" value="'.((! is_array($this->withtoccc) && ! is_numeric($this->withtoccc))? (isset($_POST["sendtoccc"])?$_POST["sendtoccc"]:$this->withtoccc) : (isset($_POST["sendtoccc"])?$_POST["sendtoccc"]:"") ).'" />';
-                if (is_array($this->withto))
+                if (! empty($this->withto) && is_array($this->withto))
                 {
                     $out.= " ".$langs->trans("or")." ";
                     $out.= $form->selectarray("receiverccc", $this->withto, GETPOST("receiverccc"), 1);
                 }
-                if ($this->withtocccsocid > 0) // deprecated. TODO Remove this. Instead, fill withto with array before calling method.
+                if (! empty($this->withtocccsocid) && $this->withtocccsocid > 0) // deprecated. TODO Remove this. Instead, fill withto with array before calling method.
                 {
                     $liste=array();
                     $soc=new Societe($this->db);
@@ -470,11 +472,11 @@ class FormMail
         }
 
         // Ask delivery receipt
-        if ($this->withdeliveryreceipt)
+        if (! empty($this->withdeliveryreceipt))
         {
             $out.= '<tr><td width="180">'.$langs->trans("DeliveryReceipt").'</td><td>';
 
-            if ($this->withdeliveryreceiptreadonly)
+            if (! empty($this->withdeliveryreceiptreadonly))
             {
                 $out.= yn($this->withdeliveryreceipt);
             }
@@ -487,7 +489,7 @@ class FormMail
         }
 
         // Topic
-        if ($this->withtopic)
+        if (! empty($this->withtopic))
         {
             $this->withtopic=make_substitutions($this->withtopic,$this->substit);
 
@@ -507,7 +509,7 @@ class FormMail
         }
 
         // Attached files
-        if ($this->withfile)
+        if (! empty($this->withfile))
         {
             $out.= '<tr>';
             $out.= '<td width="180">'.$langs->trans("MailFile").'</td>';
@@ -549,7 +551,7 @@ class FormMail
         }
 
         // Message
-        if ($this->withbody)
+        if (! empty($this->withbody))
         {
             $defaultmessage="";
 
@@ -565,9 +567,9 @@ class FormMail
             elseif (! is_numeric($this->withbody))                      { $defaultmessage=$this->withbody; }
 
             // Complete substitution array
-            if ($conf->paypal->enabled && $conf->global->PAYPAL_ADD_PAYMENT_URL)
+            if (! empty($conf->paypal->enabled) && ! empty($conf->global->PAYPAL_ADD_PAYMENT_URL))
             {
-                require_once(DOL_DOCUMENT_ROOT."/paypal/lib/paypal.lib.php");
+                require_once DOL_DOCUMENT_ROOT.'/paypal/lib/paypal.lib.php';
 
                 $langs->load('paypal');
 
@@ -597,25 +599,17 @@ class FormMail
             }
             else
             {
-                if(! empty($conf->global->MAIL_USE_SIGN) && $this->fromid > 0)
-                {
-                    $fuser=new User($this->db);
-                    $fuser->fetch($this->fromid);
-
-                    if(!empty($fuser->signature)) {
-                        $defaultmessage.=dol_htmlentitiesbr_decode($fuser->signature);
-                    }
-                }
+            	if (! isset($this->ckeditortoolbar)) $this->ckeditortoolbar = 'dolibarr_notes';
 
                 // Editor wysiwyg
-                require_once(DOL_DOCUMENT_ROOT."/core/class/doleditor.class.php");
-                $doleditor=new DolEditor('message',$defaultmessage,'',280,'dolibarr_notes','In',true,false,$this->withfckeditor,8,72);
+                require_once DOL_DOCUMENT_ROOT.'/core/class/doleditor.class.php';
+                $doleditor=new DolEditor('message',$defaultmessage,'',280,$this->ckeditortoolbar,'In',true,true,$this->withfckeditor,8,72);
                 $out.= $doleditor->Create(1);
             }
             $out.= "</td></tr>\n";
         }
 
-        if ($this->withform)
+        if (! empty($this->withform))
         {
             $out.= '<tr><td align="center" colspan="2"><center>';
             $out.= '<input class="button" type="submit" id="sendmail" name="sendmail" value="'.$langs->trans("SendMail").'"';
@@ -635,7 +629,7 @@ class FormMail
 
         $out.= '</table>'."\n";
 
-        if ($this->withform) $out.= '</form>'."\n";
+        if (! empty($this->withform)) $out.= '</form>'."\n";
         $out.= "<!-- Fin form mail -->\n";
 
         return $out;

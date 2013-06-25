@@ -1,11 +1,12 @@
 -- ============================================================================
 -- Copyright (C) 2003		Rodolphe Quiedeville	<rodolphe@quiedeville.org>
 -- Copyright (C) 2009-2011	Laurent Destailleur		<eldy@users.sourceforge.net>
--- Copyright (C) 2009-2012	Regis Houssin			<regis@dolibarr.fr>
+-- Copyright (C) 2009-2012	Regis Houssin			<regis.houssin@capnetworks.com>
+-- Copyright (C) 2012		Juanjo Menent			<jmenent@2byte.es>
 --
 -- This program is free software; you can redistribute it and/or modify
 -- it under the terms of the GNU General Public License as published by
--- the Free Software Foundation; either version 2 of the License, or
+-- the Free Software Foundation; either version 3 of the License, or
 -- (at your option) any later version.
 --
 -- This program is distributed in the hope that it will be useful,
@@ -23,14 +24,19 @@ create table llx_product_fournisseur_price
   rowid						integer AUTO_INCREMENT PRIMARY KEY,
   entity					integer DEFAULT 1 NOT NULL,	   -- multi company id
   datec						datetime,
-  tms						timestamp,
-  fk_product				integer,
+  tms							timestamp,
+  fk_product			integer,
   fk_soc					integer,
-  ref_fourn					varchar(30),
-  fk_availability			integer,	   
+  ref_fourn				varchar(30),
+  fk_availability	integer,	   
   price						double(24,8) DEFAULT 0,
-  quantity					double,
-  unitprice					double(24,8) DEFAULT 0,
+  quantity				double,
+  remise_percent			double NOT NULL DEFAULT 0,
+  remise				double NOT NULL DEFAULT 0,
+  unitprice				double(24,8) DEFAULT 0,
+	charges					double(24,8) DEFAULT 0,
+  unitcharges			double(24,8) DEFAULT 0,
   tva_tx					double(6,3) NOT NULL,
-  fk_user					integer
+  fk_user					integer,
+  import_key      varchar(14)                  -- Import key
 )ENGINE=innodb;

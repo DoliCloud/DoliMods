@@ -1,11 +1,11 @@
 <?php
 /* Copyright (C) 2001-2005 Rodolphe Quiedeville <rodolphe@quiedeville.org>
  * Copyright (C) 2004-2006 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2005-2012 Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2005-2012 Regis Houssin        <regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -23,10 +23,10 @@
  *      \brief      Tab address of thirdparty
  */
 
-require("../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/company.lib.php");
-require_once(DOL_DOCUMENT_ROOT."/core/class/html.formcompany.class.php");
-require_once(DOL_DOCUMENT_ROOT."/societe/class/address.class.php");
+require '../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/core/class/html.formcompany.class.php';
+require_once DOL_DOCUMENT_ROOT.'/societe/class/address.class.php';
 
 $langs->load("companies");
 $langs->load("commercial");
@@ -80,27 +80,27 @@ if ($action == 'add' || $action == 'update')
         {
         	if (! empty($backtopage))
         	{
-        		Header("Location: ".$backtopage);
+        		header("Location: ".$backtopage);
         		exit;
         	}
             else if ($origin == 'commande')
             {
-                Header("Location: ../commande/contact.php?action=editdelivery_adress&socid=".$socid."&id=".$originid);
+                header("Location: ../commande/contact.php?action=editdelivery_adress&socid=".$socid."&id=".$originid);
                 exit;
             }
             elseif ($origin == 'propal')
             {
-                Header("Location: ../comm/propal/contact.php?action=editdelivery_adress&socid=".$socid."&id=".$originid);
+                header("Location: ../comm/propal/contact.php?action=editdelivery_adress&socid=".$socid."&id=".$originid);
                 exit;
             }
             elseif ($origin == 'shipment')
             {
-            	Header("Location: ../expedition/fiche.php?id=".$originid);
+            	header("Location: ../expedition/fiche.php?id=".$originid);
             	exit;
             }
             else
             {
-                Header("Location: ".$_SERVER['PHP_SELF']."?socid=".$socid);
+                header("Location: ".$_SERVER['PHP_SELF']."?socid=".$socid);
                 exit;
             }
         }
@@ -120,27 +120,27 @@ if ($action == 'add' || $action == 'update')
         {
         	if (! empty($backtopage))
         	{
-        		Header("Location: ".$backtopage);
+        		header("Location: ".$backtopage);
         		exit;
         	}
             else if ($origin == 'commande')
             {
-                Header("Location: ../commande/contact.php?id=".$originid);
+                header("Location: ../commande/contact.php?id=".$originid);
                 exit;
             }
             elseif ($origin == 'propal')
             {
-                Header("Location: ../comm/propal/contact.php?id=".$originid);
+                header("Location: ../comm/propal/contact.php?id=".$originid);
                 exit;
             }
             elseif ($origin == 'shipment')
             {
-                Header("Location: ../expedition/fiche.php?id=".$originid);
+                header("Location: ../expedition/fiche.php?id=".$originid);
                 exit;
             }
             else
             {
-                Header("Location: ".$_SERVER['PHP_SELF']."?socid=".$socid);
+                header("Location: ".$_SERVER['PHP_SELF']."?socid=".$socid);
                 exit;
             }
         }
@@ -160,7 +160,7 @@ else if ($action == 'confirm_delete' && $confirm == 'yes' && $user->rights->soci
 
     if ($result == 0)
     {
-        Header("Location: ".$_SERVER['PHP_SELF']."?socid=".$socid);
+        header("Location: ".$_SERVER['PHP_SELF']."?socid=".$socid);
         exit ;
     }
     else

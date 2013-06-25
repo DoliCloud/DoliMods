@@ -1,10 +1,10 @@
 <?php
 /* Copyright (C) 2008-2011 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2008-2012 Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2008-2012 Regis Houssin        <regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -88,12 +88,12 @@ function dol_hash($chain,$type=0)
  * 	If GETPOST('action') defined, we also check write and delete permission.
  *
  *	@param	User	$user      	  	User to check
- *	@param  string	$features	    Features to check (in most cases, it's module name. Examples: 'societe', 'contact', 'produit|service', ...)
- *	@param  int		$objectid      	Object ID if we want to check permission on a particular record (optionnal)
- *	@param  string	$dbtablename    'TableName&SharedElement' with Tablename is table where object is stored, SharedElement is key to define where to check entity. Not used if objectid is null (optionnal)
+ *	@param  string	$features	    Features to check (it must be module name. Examples: 'societe', 'contact', 'produit&service', ...)
+ *	@param  int		$objectid      	Object ID if we want to check a particular record (optionnal) is linked to a owned thirdparty (optionnal).
+ *	@param  string	$dbtablename    'TableName&SharedElement' with Tablename is table where object is stored. SharedElement is an optionnal key to define where to check entity. Not used if objectid is null (optionnal)
  *	@param  string	$feature2		Feature to check, second level of permission (optionnal)
- *  @param  string	$dbt_keyfield   Field name for socid foreign key if not fk_soc (optionnal)
- *  @param  string	$dbt_select     Field name for select if not rowid (optionnal)
+ *  @param  string	$dbt_keyfield   Field name for socid foreign key if not fk_soc. Not used if objectid is null (optionnal)
+ *  @param  string	$dbt_select     Field name for select if not rowid. Not used if objectid is null (optionnal)
  *  @param	Canvas	$objcanvas		Object canvas
  * 	@return	int						Always 1, die process if not allowed
  */
@@ -112,19 +112,32 @@ function restrictedArea($user, $features, $objectid=0, $dbtablename='', $feature
         if (method_exists($objcanvas->control,'restrictedArea')) return $objcanvas->control->restrictedArea($user,$features,$objectid,$dbtablename,$feature2,$dbt_keyfield,$dbt_select);
     }
 
-    if ($dbt_select != 'rowid') $objectid = "'".$objectid."'";
+    if ($dbt_select != 'rowid' && $dbt_select != 'id') $objectid = "'".$objectid."'";
 
     // More features to check
-    $features = explode("&",$features);
+    $features = explode("&", $features);
+
+    // More subfeatures to check
+    if (!empty($feature2))
+    	$feature2 = explode("&", $feature2);
 
     // More parameters
-    list($dbtablename, $sharedelement) = explode('&', $dbtablename);
+    $params = explode('&', $dbtablename);
+    $dbtablename=(! empty($params[0]) ? $params[0] : '');
+    $sharedelement=(! empty($params[1]) ? $params[1] : '');
 
-    // Check read permission from module
-    // TODO Replace "feature" param into caller by first level of permission
+	$listofmodules=explode(',',$conf->global->MAIN_MODULES_FOR_EXTERNAL);
+
+	// Check read permission from module
     $readok=1;
     foreach ($features as $feature)
     {
+    	if (! empty($user->societe_id) && ! empty($conf->global->MAIN_MODULES_FOR_EXTERNAL) && ! in_array($feature,$listofmodules))	// If limits on modules for external users, module must be into list of modules for external users
+    	{
+    		$readok=0;
+    		continue;
+    	}
+
         if ($feature == 'societe')
         {
             if (! $user->rights->societe->lire && ! $user->rights->fournisseur->lire) $readok=0;
@@ -155,8 +168,11 @@ function restrictedArea($user, $features, $objectid=0, $dbtablename='', $feature
         }
         else if (! empty($feature2))	// This should be used for future changes
         {
-            if (empty($user->rights->$feature->$feature2->lire)
-            && empty($user->rights->$feature->$feature2->read)) $readok=0;
+        	foreach($feature2 as $subfeature)
+        	{
+        		if (empty($user->rights->$feature->$subfeature->lire) && empty($user->rights->$feature->$subfeature->read)) $readok=0;
+        		else { $readok=1; break; } // For bypass the second test if the first is ok
+        	}
         }
         else if (! empty($feature) && ($feature!='user' && $feature!='usergroup'))		// This is for old permissions
         {
@@ -201,8 +217,13 @@ function restrictedArea($user, $features, $objectid=0, $dbtablename='', $feature
             }
             else if (! empty($feature2))	// This should be used for future changes
             {
-                if (empty($user->rights->$feature->$feature2->creer)
-                && empty($user->rights->$feature->$feature2->write)) $createok=0;
+            	foreach($feature2 as $subfeature)
+            	{
+            		if (empty($user->rights->$feature->$subfeature->creer) 
+            		&& empty($user->rights->$feature->$subfeature->write)
+            		&& empty($user->rights->$feature->$subfeature->create)) $createok=0;
+            		else { $createok=1; break; } // For bypass the second test if the first is ok
+            	}
             }
             else if (! empty($feature))		// This is for old permissions
             {
@@ -262,14 +283,18 @@ function restrictedArea($user, $features, $objectid=0, $dbtablename='', $feature
             }
             else if (! empty($feature2))	// This should be used for future changes
             {
-                if (empty($user->rights->$feature->$feature2->supprimer)
-                && empty($user->rights->$feature->$feature2->delete)) $deleteok=0;
+            	foreach($feature2 as $subfeature)
+            	{
+            		if (empty($user->rights->$feature->$subfeature->supprimer) && empty($user->rights->$feature->$subfeature->delete)) $deleteok=0;
+            		else { $deleteok=1; break; } // For bypass the second test if the first is ok
+            	}
             }
             else if (! empty($feature))		// This is for old permissions
             {
                 //print '<br>feature='.$feature.' creer='.$user->rights->$feature->supprimer.' write='.$user->rights->$feature->delete;
                 if (empty($user->rights->$feature->supprimer)
-                && empty($user->rights->$feature->delete)) $deleteok=0;
+                && empty($user->rights->$feature->delete)
+                && empty($user->rights->$feature->run)) $deleteok=0;
             }
         }
 
@@ -371,7 +396,7 @@ function restrictedArea($user, $features, $objectid=0, $dbtablename='', $feature
             {
                 if (! empty($conf->projet->enabled) && ! $user->rights->projet->all->lire)
                 {
-                    include_once(DOL_DOCUMENT_ROOT."/projet/class/project.class.php");
+                    include_once DOL_DOCUMENT_ROOT.'/projet/class/project.class.php';
                     $projectstatic=new Project($db);
                     $tmps=$projectstatic->getProjectsAuthorizedForUser($user,0,1,0);
                     $tmparray=explode(',',$tmps);
@@ -454,7 +479,7 @@ function accessforbidden($message='',$printheader=1,$printfooter=1,$showonlymess
     global $conf, $db, $user, $langs;
     if (! is_object($langs))
     {
-        include_once(DOL_DOCUMENT_ROOT.'/core/class/translate.class.php');
+        include_once DOL_DOCUMENT_ROOT.'/core/class/translate.class.php';
         $langs=new Translate('',$conf);
     }
 

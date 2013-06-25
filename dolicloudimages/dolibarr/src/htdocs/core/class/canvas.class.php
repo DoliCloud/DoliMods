@@ -1,10 +1,10 @@
 <?php
-/* Copyright (C) 2010-2011	Regis Houssin		<regis@dolibarr.fr>
+/* Copyright (C) 2010-2011	Regis Houssin		<regis.houssin@capnetworks.com>
  * Copyright (C) 2011 		Laurent Destailleur	<eldy@users.sourceforge.net>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -104,7 +104,7 @@ class Canvas
 		{
             // Include actions class (controller)
             $this->control_file=$controlclassfile;
-            require_once($controlclassfile);
+            require_once $controlclassfile;
 
             // Instantiate actions class (controller)
             $controlclassname = 'Actions'.ucfirst($this->card).ucfirst($this->canvas);
@@ -161,7 +161,7 @@ class Canvas
 		global $db, $conf, $langs, $user, $canvas;
 		global $form, $formfile;
 
-		include($this->template_dir.($this->card?$this->card.'_':'').$this->_cleanaction($action).'.tpl.php');        // Include native PHP template
+		include $this->template_dir.($this->card?$this->card.'_':'').$this->_cleanaction($action).'.tpl.php';        // Include native PHP template
 	}
 
 

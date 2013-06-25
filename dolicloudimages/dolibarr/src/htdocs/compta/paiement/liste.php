@@ -1,11 +1,11 @@
 <?php
 /* Copyright (C) 2001-2006 Rodolphe Quiedeville <rodolphe@quiedeville.org>
  * Copyright (C) 2004-2011 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2005-2009 Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2005-2009 Regis Houssin        <regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -23,9 +23,9 @@
  *  \brief      Page liste des paiements des factures clients
  */
 
-require("../../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT.'/compta/paiement/class/paiement.class.php');
-require_once(DOL_DOCUMENT_ROOT.'/compta/bank/class/account.class.php');
+require '../../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/compta/paiement/class/paiement.class.php';
+require_once DOL_DOCUMENT_ROOT.'/compta/bank/class/account.class.php';
 
 $langs->load("bills");
 
@@ -108,11 +108,11 @@ else
         else  $sql.= " AND f.fk_user_author = ".$userid;
     }
     // Search criteria
-    if ($_REQUEST["search_ref"])         $sql .=" AND p.rowid=".$_REQUEST["search_ref"];
-    if ($_REQUEST["search_account"])     $sql .=" AND b.fk_account=".$_REQUEST["search_account"];
-    if ($_REQUEST["search_paymenttype"]) $sql .=" AND c.code='".$_REQUEST["search_paymenttype"]."'";
-    if ($_REQUEST["search_amount"])      $sql .=" AND p.amount=".price2num($_REQUEST["search_amount"]);
-    if ($_REQUEST["search_company"])     $sql .=" AND s.nom LIKE '%".$db->escape($_REQUEST["search_company"])."%'";
+    if (GETPOST("search_ref"))         		$sql .=" AND p.rowid=".GETPOST("search_ref",'int');
+    if (GETPOST("search_account") > 0)      $sql .=" AND b.fk_account=".GETPOST("search_account",'int');
+    if (GETPOST("search_paymenttype") > 0)  $sql .=" AND c.code='".GETPOST("search_paymenttype",'int')."'";
+    if (GETPOST("search_amount"))      		$sql .=" AND p.amount=".price2num(GETPOST("search_amount"));
+    if (GETPOST("search_company"))     		$sql .=" AND s.nom LIKE '%".$db->escape(GETPOST("search_company"))."%'";
 }
 $sql.= $db->order($sortfield,$sortorder);
 $sql.= $db->plimit($limit+1, $offset);
@@ -143,7 +143,7 @@ if ($resql)
     print_liste_field_titre($langs->trans("Account"),$_SERVER["PHP_SELF"],"ba.label","",$paramlist,"",$sortfield,$sortorder);
     print_liste_field_titre($langs->trans("Amount"),$_SERVER["PHP_SELF"],"p.amount","",$paramlist,'align="right"',$sortfield,$sortorder);
     //print_liste_field_titre($langs->trans("Invoices"),"","","",$paramlist,'align="left"',$sortfield,$sortorder);
-    if ($conf->global->BILL_ADD_PAYMENT_VALIDATION)
+    if (! empty($conf->global->BILL_ADD_PAYMENT_VALIDATION))
     {
         print_liste_field_titre($langs->trans("Status"),$_SERVER["PHP_SELF"],"p.statut","",$paramlist,'align="right"',$sortfield,$sortorder);
     }
@@ -168,7 +168,7 @@ if ($resql)
     print '<input class="fat" type="text" size="4" name="search_amount" value="'.$_REQUEST["search_amount"].'">';
     print '<input type="image" class="liste_titre" name="button_search" src="'.DOL_URL_ROOT.'/theme/'.$conf->theme.'/img/search.png" value="'.dol_escape_htmltag($langs->trans("Search")).'" title="'.dol_escape_htmltag($langs->trans("Search")).'">';
     print '</td>';
-    if ($conf->global->BILL_ADD_PAYMENT_VALIDATION)
+    if (! empty($conf->global->BILL_ADD_PAYMENT_VALIDATION))
     {
         print '<td align="right">';
         print '</td>';
@@ -213,7 +213,7 @@ if ($resql)
         print '</td>';
         print '<td align="right">'.price($objp->amount).'</td>';
 
-        if ($conf->global->BILL_ADD_PAYMENT_VALIDATION)
+        if (! empty($conf->global->BILL_ADD_PAYMENT_VALIDATION))
         {
             print '<td align="right">';
             if ($objp->statut == 0) print '<a href="fiche.php?id='.$objp->rowid.'&amp;action=valide">';

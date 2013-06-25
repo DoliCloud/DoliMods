@@ -2,12 +2,12 @@
 /* Copyright (C) 2004-2005 Rodolphe Quiedeville <rodolphe@quiedeville.org>
  * Copyright (C) 2004-2012 Laurent Destailleur  <eldy@users.sourceforge.net>
  * Copyright (C) 2004      Benoit Mortier       <benoit.mortier@opensides.be>
- * Copyright (C) 2005-2012 Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2005-2012 Regis Houssin        <regis.houssin@capnetworks.com>
  * Copyright (C) 2007      Franky Van Liedekerke <franky.van.liedekerke@telenet.be>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -25,12 +25,13 @@
  *       \brief      Card of a contact
  */
 
-require("../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/comm/action/class/actioncomm.class.php");
-require_once(DOL_DOCUMENT_ROOT."/contact/class/contact.class.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/contact.lib.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/company.lib.php");
-require_once(DOL_DOCUMENT_ROOT."/core/class/html.formcompany.class.php");
+require '../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/comm/action/class/actioncomm.class.php';
+require_once DOL_DOCUMENT_ROOT.'/contact/class/contact.class.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/contact.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/core/class/html.formcompany.class.php';
+require_once DOL_DOCUMENT_ROOT.'/core/class/extrafields.class.php';
 
 $langs->load("companies");
 $langs->load("users");
@@ -47,22 +48,24 @@ $socid		= GETPOST('socid','int');
 if ($user->societe_id) $socid=$user->societe_id;
 
 $object = new Contact($db);
+$extrafields = new ExtraFields($db);
 
 // Get object canvas (By default, this is not defined, so standard usage of dolibarr)
 $object->getCanvas($id);
-$canvas = $object->canvas?$object->canvas:GETPOST("canvas");
+$objcanvas=null;
+$canvas = (! empty($object->canvas)?$object->canvas:GETPOST("canvas"));
 if (! empty($canvas))
 {
-    require_once(DOL_DOCUMENT_ROOT."/core/class/canvas.class.php");
+    require_once DOL_DOCUMENT_ROOT.'/core/class/canvas.class.php';
     $objcanvas = new Canvas($db, $action);
     $objcanvas->getCanvas('contact', 'contactcard', $canvas);
 }
 
 // Security check
-$result = restrictedArea($user, 'contact', $id, 'socpeople&societe', '', '', '', $objcanvas); // If we create a contact with no company (shared contacts), no check on write permission
+$result = restrictedArea($user, 'contact', $id, 'socpeople&societe', '', '', 'rowid', $objcanvas); // If we create a contact with no company (shared contacts), no check on write permission
 
 // Initialize technical object to manage hooks of thirdparties. Note that conf->hooks_modules contains array array
-include_once(DOL_DOCUMENT_ROOT.'/core/class/hookmanager.class.php');
+include_once DOL_DOCUMENT_ROOT.'/core/class/hookmanager.class.php';
 $hookmanager=new HookManager($db);
 $hookmanager->initHooks(array('contactcard'));
 
@@ -73,6 +76,7 @@ $hookmanager->initHooks(array('contactcard'));
 
 $parameters=array('id'=>$id, 'objcanvas'=>$objcanvas);
 $reshook=$hookmanager->executeHooks('doActions',$parameters,$object,$action);    // Note that $action and $object may have been modified by some hooks
+$error=$hookmanager->error; $errors=array_merge($errors, (array) $hookmanager->errors);
 
 if (empty($reshook))
 {
@@ -137,8 +141,6 @@ if (empty($reshook))
         $object->address		= $_POST["address"];
         $object->zip			= $_POST["zipcode"];
         $object->town			= $_POST["town"];
-        $object->fk_pays		= $_POST["country_id"];
-        $object->fk_departement = $_POST["departement_id"];
         $object->country_id		= $_POST["country_id"];
         $object->state_id       = $_POST["departement_id"];
         $object->email			= $_POST["email"];
@@ -147,12 +149,22 @@ if (empty($reshook))
         $object->phone_mobile	= $_POST["phone_mobile"];
         $object->fax			= $_POST["fax"];
         $object->jabberid		= $_POST["jabberid"];
+		$object->no_email		= $_POST["no_email"];
         $object->priv			= $_POST["priv"];
         $object->note			= $_POST["note"];
 
         // Note: Correct date should be completed with location to have exact GM time of birth.
         $object->birthday = dol_mktime(0,0,0,$_POST["birthdaymonth"],$_POST["birthdayday"],$_POST["birthdayyear"]);
         $object->birthday_alert = $_POST["birthday_alert"];
+
+        // Get extra fields
+        foreach($_POST as $key => $value)
+        {
+        	if (preg_match("/^options_/",$key))
+        	{
+        		$object->array_options[$key]=GETPOST($key);
+        	}
+        }
 
         if (! $_POST["lastname"])
         {
@@ -175,7 +187,7 @@ if (empty($reshook))
             $db->commit();
             if (! empty($backtopage)) $url=$backtopage;
             else $url='fiche.php?id='.$id;
-            Header("Location: ".$url);
+            header("Location: ".$url);
             exit;
         }
         else
@@ -194,7 +206,7 @@ if (empty($reshook))
         $result = $object->delete();
         if ($result > 0)
         {
-            Header("Location: ".DOL_URL_ROOT.'/contact/list.php');
+            header("Location: ".DOL_URL_ROOT.'/contact/list.php');
             exit;
         }
         else
@@ -229,8 +241,6 @@ if (empty($reshook))
             $object->address		= $_POST["address"];
             $object->zip			= $_POST["zipcode"];
             $object->town			= $_POST["town"];
-            $object->fk_departement	= $_POST["departement_id"];
-            $object->fk_pays		= $_POST["country_id"];
             $object->state_id   	= $_POST["departement_id"];
             $object->country_id		= $_POST["country_id"];
 
@@ -240,8 +250,18 @@ if (empty($reshook))
             $object->phone_mobile	= $_POST["phone_mobile"];
             $object->fax			= $_POST["fax"];
             $object->jabberid		= $_POST["jabberid"];
+			$object->no_email		= $_POST["no_email"];
             $object->priv			= $_POST["priv"];
             $object->note			= $_POST["note"];
+
+            // Get extra fields
+            foreach($_POST as $key => $value)
+            {
+            	if (preg_match("/^options_/",$key))
+            	{
+            		$object->array_options[$key]=GETPOST($key);
+            	}
+            }
 
             $result = $object->update($_POST["contactid"], $user);
 
@@ -265,6 +285,9 @@ if (empty($reshook))
  *	View
  */
 
+// fetch optionals attributes and labels
+$extralabels=$extrafields->fetch_name_optionals_label('contact');
+
 $help_url='EN:Module_Third_Parties|FR:Module_Tiers|ES:Empresas';
 llxHeader('',$langs->trans("ContactsAddresses"),$help_url);
 
@@ -284,10 +307,10 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action))
     // -----------------------------------------
     // When used with CANVAS
     // -----------------------------------------
-    if (! $objcanvas->hasActions() && $id)
+    if (empty($object->error) && $id)
  	{
-	     $object = new Societe($db);
-	     $object->fetch($id);                   // For use with "pure canvas" (canvas that contains templates only)
+	     $object = new Contact($db);
+	     $object->fetch($id);
  	}
 	$objcanvas->assign_values($action, $id);	// Set value for templates
 	$objcanvas->display_canvas($action);		// Show template
@@ -315,12 +338,9 @@ else
     {
         // Si edition contact deja existant
         $object = new Contact($db);
-        $return=$object->fetch($id, $user);
-        if ($return <= 0)
-        {
-            dol_print_error('',$object->error);
-            $id=0;
-        }
+        $res=$object->fetch($id, $user);
+        if ($res < 0) { dol_print_error($db,$object->error); exit; }
+        $res=$object->fetch_optionals($object->id,$extralabels);
 
         // Show tabs
         $head = contact_prepare_head($object);
@@ -338,15 +358,13 @@ else
              */
             $object->canvas=$canvas;
 
-            $object->fk_departement = $_POST["departement_id"];
+            $object->state_id = $_POST["state_id"];
 
             // We set country_id, country_code and label for the selected country
-            $object->country_id=$_POST["country_id"]?$_POST["country_id"]:$mysoc->country_id;
+            $object->country_id=$_POST["country_id"]?$_POST["country_id"]:(empty($objsoc->country_id)?$mysoc->country_id:$objsoc->country_id);
             if ($object->country_id)
             {
             	$tmparray=getCountry($object->country_id,'all');
-                $object->pays_code    = $tmparray['code'];
-                $object->pays         = $tmparray['label'];
                 $object->country_code = $tmparray['code'];
                 $object->country      = $tmparray['label'];
             }
@@ -359,14 +377,23 @@ else
 
             if ($conf->use_javascript_ajax)
             {
-                print "\n".'<script type="text/javascript" language="javascript">';
-                print 'jQuery(document).ready(function () {
+				print "\n".'<script type="text/javascript" language="javascript">'."\n";
+				print 'jQuery(document).ready(function () {
 							jQuery("#selectcountry_id").change(function() {
 								document.formsoc.action.value="create";
 								document.formsoc.submit();
-                        	});
-						})';
-                print '</script>'."\n";
+							});
+
+							$("#copyaddressfromsoc").click(function() {
+								$(\'textarea[name="address"]\').text("'.dol_escape_js($objsoc->address).'");
+								$(\'input[name="zipcode"]\').val("'.dol_escape_js($objsoc->zip).'");
+								$(\'input[name="town"]\').val("'.dol_escape_js($objsoc->town).'");
+								$(\'select[name="country_id"]\').val("'.dol_escape_js($objsoc->country_id).'");
+								$(\'select[name="state_id"]\').val("'.dol_escape_js($objsoc->state_id).'");
+								$(\'input[name="email"]\').val("'.dol_escape_js($objsoc->email).'");
+            			});
+						})'."\n";
+				print '</script>'."\n";
             }
 
             print '<br>';
@@ -394,7 +421,7 @@ else
                 }
                 else {
                     print '<tr><td>'.$langs->trans("Company").'</td><td colspan="3">';
-                    print $form->select_company(GETPOST('socid','int'),'socid','',1);
+                    print $form->select_company($socid,'socid','',1);
                     print '</td></tr>';
                 }
             }
@@ -406,21 +433,35 @@ else
 
             print '<tr><td>'.$langs->trans("PostOrFunction").'</td><td colspan="3"><input name="poste" type="text" size="50" maxlength="80" value="'.(isset($_POST["poste"])?$_POST["poste"]:$object->poste).'"></td>';
 
+            $colspan=3;
+            if ($conf->use_javascript_ajax && $socid > 0) $colspan=2;
+
             // Address
             if (($objsoc->typent_code == 'TE_PRIVATE' || ! empty($conf->global->CONTACT_USE_COMPANY_ADDRESS)) && dol_strlen(trim($object->address)) == 0) $object->address = $objsoc->address;	// Predefined with third party
-            print '<tr><td>'.$langs->trans("Address").'</td><td colspan="3"><textarea class="flat" name="address" cols="70">'.(isset($_POST["address"])?$_POST["address"]:$object->address).'</textarea></td>';
+            print '<tr><td>'.$langs->trans("Address");
+            print '</td><td colspan="'.$colspan.'"><textarea class="flat" name="address" cols="70">'.(isset($_POST["address"])?$_POST["address"]:$object->address).'</textarea></td>';
+
+            if ($conf->use_javascript_ajax && $socid > 0)
+            {
+	            $rowspan=3;
+	    		if (empty($conf->global->SOCIETE_DISABLE_STATE)) $rowspan++;
+
+	            print '<td valign="middle" align="center" rowspan="'.$rowspan.'">';
+		        print '<a href="#" id="copyaddressfromsoc">'.$langs->trans('CopyAddressFromSoc').'</a>';
+	            print '</td>';
+            }
+            print '</tr>';
 
             // Zip / Town
             if (($objsoc->typent_code == 'TE_PRIVATE' || ! empty($conf->global->CONTACT_USE_COMPANY_ADDRESS)) && dol_strlen(trim($object->zip)) == 0) $object->zip = $objsoc->zip;			// Predefined with third party
             if (($objsoc->typent_code == 'TE_PRIVATE' || ! empty($conf->global->CONTACT_USE_COMPANY_ADDRESS)) && dol_strlen(trim($object->town)) == 0) $object->town = $objsoc->town;	// Predefined with third party
-            print '<tr><td>'.$langs->trans("Zip").' / '.$langs->trans("Town").'</td><td colspan="3">';
-            print $formcompany->select_ziptown((isset($_POST["zipcode"])?$_POST["zipcode"]:$object->zip),'zipcode',array('town','selectcountry_id','departement_id'),6).'&nbsp;';
-            print $formcompany->select_ziptown((isset($_POST["town"])?$_POST["town"]:$object->town),'town',array('zipcode','selectcountry_id','departement_id'));
+            print '<tr><td>'.$langs->trans("Zip").' / '.$langs->trans("Town").'</td><td colspan="'.$colspan.'">';
+            print $formcompany->select_ziptown((isset($_POST["zipcode"])?$_POST["zipcode"]:$object->zip),'zipcode',array('town','selectcountry_id','state_id'),6).'&nbsp;';
+            print $formcompany->select_ziptown((isset($_POST["town"])?$_POST["town"]:$object->town),'town',array('zipcode','selectcountry_id','state_id'));
             print '</td></tr>';
 
             // Country
-            if (dol_strlen(trim($object->fk_pays)) == 0) $object->fk_pays = $objsoc->country_id;	// Predefined with third party
-            print '<tr><td>'.$langs->trans("Country").'</td><td colspan="3">';
+            print '<tr><td>'.$langs->trans("Country").'</td><td colspan="'.$colspan.'">';
             print $form->select_country((isset($_POST["country_id"])?$_POST["country_id"]:$object->country_id),'country_id');
             if ($user->admin) print info_admin($langs->trans("YouCanChangeValuesForThisListFromDictionnarySetup"),1);
             print '</td></tr>';
@@ -428,13 +469,13 @@ else
             // State
             if (empty($conf->global->SOCIETE_DISABLE_STATE))
             {
-                print '<tr><td>'.$langs->trans('State').'</td><td colspan="3">';
+                print '<tr><td>'.$langs->trans('State').'</td><td colspan="'.$colspan.'">';
                 if ($object->country_id)
                 {
-                    print $formcompany->select_state(isset($_POST["departement_id"])?$_POST["departement_id"]:$object->fk_departement,$object->country_code);
+                    print $formcompany->select_state(isset($_POST["state_id"])?$_POST["state_id"]:$object->state_id,$object->country_code,'state_id');
                 }
                 else
-                {
+              {
                     print $countrynotdefined;
                 }
                 print '</td></tr>';
@@ -442,18 +483,27 @@ else
 
             // Phone / Fax
             if (($objsoc->typent_code == 'TE_PRIVATE' || ! empty($conf->global->CONTACT_USE_COMPANY_ADDRESS)) && dol_strlen(trim($object->phone_pro)) == 0) $object->phone_pro = $objsoc->tel;	// Predefined with third party
-            print '<tr><td>'.$langs->trans("PhonePro").'</td><td><input name="phone_pro" type="text" size="18" maxlength="80" value="'.(isset($_POST["phone_pro"])?$_POST["phone_pro"]:$object->phone_pro).'"></td>';
-            print '<td>'.$langs->trans("PhonePerso").'</td><td><input name="phone_perso" type="text" size="18" maxlength="80" value="'.(isset($_POST["phone_perso"])?$_POST["phone_perso"]:$object->phone_perso).'"></td></tr>';
+            print '<tr><td>'.$langs->trans("PhonePro").'</td><td><input name="phone_pro" id="phone_pro" type="text" size="18" maxlength="80" value="'.(isset($_POST["phone_pro"])?$_POST["phone_pro"]:$object->phone_pro).'"></td>';
+            print '<td>'.$langs->trans("PhonePerso").'</td><td><input name="phone_perso" id="phone_perso" type="text" size="18" maxlength="80" value="'.(isset($_POST["phone_perso"])?$_POST["phone_perso"]:$object->phone_perso).'"></td></tr>';
 
             if (($objsoc->typent_code == 'TE_PRIVATE' || ! empty($conf->global->CONTACT_USE_COMPANY_ADDRESS)) && dol_strlen(trim($object->fax)) == 0) $object->fax = $objsoc->fax;	// Predefined with third party
-            print '<tr><td>'.$langs->trans("PhoneMobile").'</td><td><input name="phone_mobile" type="text" size="18" maxlength="80" value="'.(isset($_POST["phone_mobile"])?$_POST["phone_mobile"]:$object->phone_mobile).'"></td>';
-            print '<td>'.$langs->trans("Fax").'</td><td><input name="fax" type="text" size="18" maxlength="80" value="'.(isset($_POST["fax"])?$_POST["fax"]:$object->fax).'"></td></tr>';
+            print '<tr><td>'.$langs->trans("PhoneMobile").'</td><td><input name="phone_mobile" id="phone_mobile" type="text" size="18" maxlength="80" value="'.(isset($_POST["phone_mobile"])?$_POST["phone_mobile"]:$object->phone_mobile).'"></td>';
+            print '<td>'.$langs->trans("Fax").'</td><td><input name="fax" id="fax" type="text" size="18" maxlength="80" value="'.(isset($_POST["fax"])?$_POST["fax"]:$object->fax).'"></td></tr>';
 
             // EMail
             if (($objsoc->typent_code == 'TE_PRIVATE' || ! empty($conf->global->CONTACT_USE_COMPANY_ADDRESS)) && dol_strlen(trim($object->email)) == 0) $object->email = $objsoc->email;	// Predefined with third party
-            print '<tr><td>'.$langs->trans("Email").'</td><td colspan="3"><input name="email" type="text" size="50" maxlength="80" value="'.(isset($_POST["email"])?$_POST["email"]:$object->email).'"></td></tr>';
+            print '<tr><td>'.$langs->trans("Email").'</td><td><input name="email" id="email" type="text" size="50" maxlength="80" value="'.(isset($_POST["email"])?$_POST["email"]:$object->email).'"></td>';
+            if (! empty($conf->mailing->enabled))
+            {
+            	print '<td>'.$langs->trans("No_Email").'</td><td>'.$form->selectyesno('no_email',(isset($_POST["no_email"])?$_POST["no_email"]:$object->no_email), 1).'</td>';
+            }
+            else
+			{
+          		print '<td colspan="2">&nbsp;</td>';
+            }
+            print '</tr>';
 
-            // Instant message
+            // Instant message and no email
             print '<tr><td>'.$langs->trans("IM").'</td><td colspan="3"><input name="jabberid" type="text" size="50" maxlength="80" value="'.(isset($_POST["jabberid"])?$_POST["jabberid"]:$object->jabberid).'"></td></tr>';
 
             // Visibility
@@ -464,6 +514,22 @@ else
 
             // Note
             print '<tr><td valign="top">'.$langs->trans("Note").'</td><td colspan="3" valign="top"><textarea name="note" cols="70" rows="'.ROWS_3.'">'.(isset($_POST["note"])?$_POST["note"]:$object->note).'</textarea></td></tr>';
+
+            // Other attributes
+            $parameters=array('colspan' => ' colspan="3"');
+            $reshook=$hookmanager->executeHooks('formObjectOptions',$parameters,$object,$action);    // Note that $action and $object may have been modified by hook
+            if (empty($reshook) && ! empty($extrafields->attribute_label))
+            {
+            	foreach($extrafields->attribute_label as $key=>$label)
+            	{
+            		$value=(isset($_POST["options_".$key])?$_POST["options_".$key]:(isset($object->array_options["options_".$key])?$object->array_options["options_".$key]:''));
+            		print '<tr><td';
+            		if (! empty($extrafields->attribute_required[$key])) print ' class="fieldrequired"';
+            		print '>'.$label.'</td><td colspan="3">';
+            		print $extrafields->showInputField($key,$value);
+            		print '</td></tr>'."\n";
+            	}
+            }
 
             print "</table><br>";
 
@@ -527,29 +593,41 @@ else
 	            $object->country      =	$tmparray['label'];
             }
 
+			$objsoc = new Societe($db);
+			$objsoc->fetch($object->socid);
+
             // Affiche les erreurs
             dol_htmloutput_errors($error,$errors);
 
             if ($conf->use_javascript_ajax)
             {
-                print '<script type="text/javascript" language="javascript">';
-                print 'jQuery(document).ready(function () {
+				print "\n".'<script type="text/javascript" language="javascript">'."\n";
+				print 'jQuery(document).ready(function () {
 							jQuery("#selectcountry_id").change(function() {
 								document.formsoc.action.value="edit";
 								document.formsoc.submit();
 							});
-						})';
-                print '</script>';
+
+							$("#copyaddressfromsoc").click(function() {
+								$(\'textarea[name="address"]\').text("'.addslashes($objsoc->address).'");
+								$(\'input[name="zipcode"]\').val("'.addslashes($objsoc->zip).'");
+								$(\'input[name="town"]\').val("'.addslashes($objsoc->town).'");
+								$(\'select[name="country_id"]\').val("'.addslashes($objsoc->country_id).'");
+								$(\'select[name="state_id"]\').val("'.addslashes($objsoc->state_id).'");
+            				});
+						})'."\n";
+				print '</script>'."\n";
             }
 
             print '<form method="post" action="'.$_SERVER["PHP_SELF"].'?id='.$id.'" name="formsoc">';
             print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
             print '<input type="hidden" name="id" value="'.$id.'">';
             print '<input type="hidden" name="action" value="update">';
-            print '<input type="hidden" name="backtopage" value="'.$backtopage.'">';
             print '<input type="hidden" name="contactid" value="'.$object->id.'">';
             print '<input type="hidden" name="old_name" value="'.$object->name.'">';
             print '<input type="hidden" name="old_firstname" value="'.$object->firstname.'">';
+            if (! empty($backtopage)) print '<input type="hidden" name="backtopage" value="'.$backtopage.'">';
+
             print '<table class="border" width="100%">';
 
             // Ref
@@ -579,16 +657,24 @@ else
             print '<tr><td>'.$langs->trans("PostOrFunction").'</td><td colspan="3"><input name="poste" type="text" size="50" maxlength="80" value="'.(isset($_POST["poste"])?$_POST["poste"]:$object->poste).'"></td></tr>';
 
             // Address
-            print '<tr><td>'.$langs->trans("Address").'</td><td colspan="3"><textarea class="flat" name="address" cols="70">'.(isset($_POST["address"])?$_POST["address"]:$object->address).'</textarea></td>';
+            print '<tr><td>'.$langs->trans("Address");
+            print '</td><td colspan="2"><textarea class="flat" name="address" cols="70">'.(isset($_POST["address"])?$_POST["address"]:$object->address).'</textarea></td>';
+
+            $rowspan=3;
+    		if (empty($conf->global->SOCIETE_DISABLE_STATE)) $rowspan++;
+
+            print '<td valign="middle" align="center" rowspan="'.$rowspan.'">';
+            if ($conf->use_javascript_ajax) print '<a href="#" id="copyaddressfromsoc">'.$langs->trans('CopyAddressFromSoc').'</a>';
+            print '</td></tr>';
 
             // Zip / Town
-            print '<tr><td>'.$langs->trans("Zip").' / '.$langs->trans("Town").'</td><td colspan="3">';
-            print $formcompany->select_ziptown((isset($_POST["zipcode"])?$_POST["zipcode"]:$object->zip),'zipcode',array('town','selectcountry_id','departement_id'),6).'&nbsp;';
-            print $formcompany->select_ziptown((isset($_POST["town"])?$_POST["town"]:$object->town),'town',array('zipcode','selectcountry_id','departement_id'));
+            print '<tr><td>'.$langs->trans("Zip").' / '.$langs->trans("Town").'</td><td colspan="2">';
+            print $formcompany->select_ziptown((isset($_POST["zipcode"])?$_POST["zipcode"]:$object->zip),'zipcode',array('town','selectcountry_id','state_id'),6).'&nbsp;';
+            print $formcompany->select_ziptown((isset($_POST["town"])?$_POST["town"]:$object->town),'town',array('zipcode','selectcountry_id','state_id'));
             print '</td></tr>';
 
             // Country
-            print '<tr><td>'.$langs->trans("Country").'</td><td colspan="3">';
+            print '<tr><td>'.$langs->trans("Country").'</td><td colspan="2">';
             print $form->select_country(isset($_POST["country_id"])?$_POST["country_id"]:$object->country_id,'country_id');
             if ($user->admin) print info_admin($langs->trans("YouCanChangeValuesForThisListFromDictionnarySetup"),1);
             print '</td></tr>';
@@ -596,8 +682,8 @@ else
             // State
             if (empty($conf->global->SOCIETE_DISABLE_STATE))
             {
-                print '<tr><td>'.$langs->trans('State').'</td><td colspan="3">';
-                print $formcompany->select_state($object->fk_departement,isset($_POST["country_id"])?$_POST["country_id"]:$object->country_id);
+                print '<tr><td>'.$langs->trans('State').'</td><td colspan="2">';
+                print $formcompany->select_state($object->state_id,isset($_POST["country_id"])?$_POST["country_id"]:$object->country_id,'state_id');
                 print '</td></tr>';
             }
 
@@ -610,20 +696,29 @@ else
 
             // EMail
             print '<tr><td>'.$langs->trans("EMail").'</td><td><input name="email" type="text" size="40" maxlength="80" value="'.(isset($_POST["email"])?$_POST["email"]:$object->email).'"></td>';
-            if ($conf->mailing->enabled)
+            if (! empty($conf->mailing->enabled))
             {
                 $langs->load("mails");
                 print '<td nowrap>'.$langs->trans("NbOfEMailingsReceived").'</td>';
                 print '<td>'.$object->getNbOfEMailings().'</td>';
             }
             else
-            {
-                print '<td colspan="2">&nbsp;</td>';
+			{
+				print '<td colspan="2">&nbsp;</td>';
             }
             print '</tr>';
 
             // Jabberid
-            print '<tr><td>Jabberid</td><td colspan="3"><input name="jabberid" type="text" size="40" maxlength="80" value="'.(isset($_POST["jabberid"])?$_POST["jabberid"]:$object->jabberid).'"></td></tr>';
+            print '<tr><td>Jabberid</td><td><input name="jabberid" type="text" size="40" maxlength="80" value="'.(isset($_POST["jabberid"])?$_POST["jabberid"]:$object->jabberid).'"></td>';
+            if (! empty($conf->mailing->enabled))
+            {
+            	print '<td>'.$langs->trans("No_Email").'</td><td>'.$form->selectyesno('no_email',(isset($_POST["no_email"])?$_POST["no_email"]:$object->no_email), 1).'</td>';
+            }
+            else
+			{
+				print '<td colspan="2">&nbsp;</td>';
+			}
+            print '</tr>';
 
             // Visibility
             print '<tr><td>'.$langs->trans("ContactVisibility").'</td><td colspan="3">';
@@ -631,35 +726,52 @@ else
             print $form->selectarray('priv',$selectarray,$object->priv,0);
             print '</td></tr>';
 
+            // Note
             print '<tr><td valign="top">'.$langs->trans("Note").'</td><td colspan="3">';
             print '<textarea name="note" cols="70" rows="'.ROWS_3.'">';
             print isset($_POST["note"])?$_POST["note"]:$object->note;
             print '</textarea></td></tr>';
 
+            // Other attributes
+            $parameters=array('colspan' => ' colspan="3"');
+            $reshook=$hookmanager->executeHooks('formObjectOptions',$parameters,$object,$action);    // Note that $action and $object may have been modified by hook
+            if (empty($reshook) && ! empty($extrafields->attribute_label))
+            {
+            	foreach($extrafields->attribute_label as $key=>$label)
+            	{
+            		$value=(isset($_POST["options_".$key])?$_POST["options_".$key]:$object->array_options["options_".$key]);
+            		print '<tr><td';
+            		if (! empty($extrafields->attribute_required[$key])) print ' class="fieldrequired"';
+            		print '>'.$label.'</td><td colspan="3">';
+            		print $extrafields->showInputField($key,$value);
+            		print "</td></tr>\n";
+            	}
+            }
+
             $object->load_ref_elements();
 
-            if ($conf->commande->enabled)
+            if (! empty($conf->commande->enabled))
             {
                 print '<tr><td>'.$langs->trans("ContactForOrders").'</td><td colspan="3">';
                 print $object->ref_commande?$object->ref_commande:$langs->trans("NoContactForAnyOrder");
                 print '</td></tr>';
             }
 
-            if ($conf->propal->enabled)
+            if (! empty($conf->propal->enabled))
             {
                 print '<tr><td>'.$langs->trans("ContactForProposals").'</td><td colspan="3">';
                 print $object->ref_propal?$object->ref_propal:$langs->trans("NoContactForAnyProposal");
                 print '</td></tr>';
             }
 
-            if ($conf->contrat->enabled)
+            if (! empty($conf->contrat->enabled))
             {
                 print '<tr><td>'.$langs->trans("ContactForContracts").'</td><td colspan="3">';
                 print $object->ref_contrat?$object->ref_contrat:$langs->trans("NoContactForAnyContract");
                 print '</td></tr>';
             }
 
-            if ($conf->facture->enabled)
+            if (! empty($conf->facture->enabled))
             {
                 print '<tr><td>'.$langs->trans("ContactForInvoices").'</td><td colspan="3">';
                 print $object->ref_facturation?$object->ref_facturation:$langs->trans("NoContactForAnyInvoice");
@@ -702,13 +814,13 @@ else
         if ($action == 'create_user')
         {
             // Full firstname and name separated with a dot : firstname.name
-            include_once(DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php');
+            include_once DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php';
             $login=dol_buildlogin($object->nom,$object->prenom);
 
             $generated_password='';
             if (! $ldap_sid) // TODO ldap_sid ?
             {
-                require_once(DOL_DOCUMENT_ROOT."/core/lib/security2.lib.php");
+                require_once DOL_DOCUMENT_ROOT.'/core/lib/security2.lib.php';
                 $generated_password=getRandomPassword('');
             }
             $password=$generated_password;
@@ -720,7 +832,7 @@ else
             //array('label' => $form->textwithpicto($langs->trans("Type"),$langs->trans("InternalExternalDesc")), 'type' => 'select', 'name' => 'intern', 'default' => 1, 'values' => array(0=>$langs->trans('Internal'),1=>$langs->trans('External')))
             );
             $text=$langs->trans("ConfirmCreateContact").'<br>';
-            if ($conf->societe->enabled)
+            if (! empty($conf->societe->enabled))
             {
                 if ($object->socid > 0) $text.=$langs->trans("UserWillBeExternalUser");
                 else $text.=$langs->trans("UserWillBeInternalUser");
@@ -731,9 +843,11 @@ else
 
         print '<table class="border" width="100%">';
 
+        $linkback = '<a href="'.DOL_URL_ROOT.'/contact/list.php">'.$langs->trans("BackToList").'</a>';
+
         // Ref
         print '<tr><td width="20%">'.$langs->trans("Ref").'</td><td colspan="3">';
-        print $form->showrefnav($object,'id');
+        print $form->showrefnav($object, 'id', $linkback);
         print '</td></tr>';
 
         // Name
@@ -785,7 +899,7 @@ else
         // State
         if (empty($conf->global->SOCIETE_DISABLE_STATE))
         {
-            print '<tr><td>'.$langs->trans('State').'</td><td colspan="3">'.$object->departement.'</td>';
+            print '<tr><td>'.$langs->trans('State').'</td><td colspan="3">'.$object->state.'</td>';
         }
 
         // Phone
@@ -797,7 +911,7 @@ else
 
         // Email
         print '<tr><td>'.$langs->trans("EMail").'</td><td>'.dol_print_email($object->email,$object->id,$object->socid,'AC_EMAIL').'</td>';
-        if ($conf->mailing->enabled)
+        if (! empty($conf->mailing->enabled))
         {
             $langs->load("mails");
             print '<td nowrap>'.$langs->trans("NbOfEMailingsReceived").'</td>';
@@ -809,41 +923,65 @@ else
         }
         print '</tr>';
 
-        // Instant message
-        print '<tr><td>'.$langs->trans("IM").'</td><td colspan="3">'.$object->jabberid.'</td></tr>';
+        // Instant message and no email
+        print '<tr><td>'.$langs->trans("IM").'</td><td>'.$object->jabberid.'</td>';
+        if (!empty($conf->mailing->enabled))
+        {
+        	print '<td>'.$langs->trans("No_Email").'</td><td>'.yn($object->no_email).'</td>';
+        }
+        else
+       {
+	       	print '<td colspan="2">&nbsp;</td>';
+        }
+        print '</tr>';
 
         print '<tr><td>'.$langs->trans("ContactVisibility").'</td><td colspan="3">';
         print $object->LibPubPriv($object->priv);
         print '</td></tr>';
 
+        // Note
         print '<tr><td valign="top">'.$langs->trans("Note").'</td><td colspan="3">';
         print nl2br($object->note);
         print '</td></tr>';
 
+        // Other attributes
+        $parameters=array('socid'=>$socid, 'colspan' => ' colspan="3"');
+        $reshook=$hookmanager->executeHooks('formObjectOptions',$parameters,$object,$action);    // Note that $action and $object may have been modified by hook
+        if (empty($reshook) && ! empty($extrafields->attribute_label))
+        {
+        	foreach($extrafields->attribute_label as $key=>$label)
+        	{
+        		$value=(isset($_POST["options_".$key])?$_POST["options_".$key]:(isset($object->array_options['options_'.$key])?$object->array_options['options_'.$key]:''));
+        		print '<tr><td>'.$label.'</td><td colspan="3">';
+        		print $extrafields->showOutputField($key,$value);
+        		print "</td></tr>\n";
+        	}
+        }
+
         $object->load_ref_elements();
 
-        if ($conf->commande->enabled)
+        if (! empty($conf->commande->enabled))
         {
             print '<tr><td>'.$langs->trans("ContactForOrders").'</td><td colspan="3">';
             print $object->ref_commande?$object->ref_commande:$langs->trans("NoContactForAnyOrder");
             print '</td></tr>';
         }
 
-        if ($conf->propal->enabled)
+        if (! empty($conf->propal->enabled))
         {
             print '<tr><td>'.$langs->trans("ContactForProposals").'</td><td colspan="3">';
             print $object->ref_propal?$object->ref_propal:$langs->trans("NoContactForAnyProposal");
             print '</td></tr>';
         }
 
-        if ($conf->contrat->enabled)
+        if (! empty($conf->contrat->enabled))
         {
             print '<tr><td>'.$langs->trans("ContactForContracts").'</td><td colspan="3">';
             print $object->ref_contrat?$object->ref_contrat:$langs->trans("NoContactForAnyContract");
             print '</td></tr>';
         }
 
-        if ($conf->facture->enabled)
+        if (! empty($conf->facture->enabled))
         {
             print '<tr><td>'.$langs->trans("ContactForInvoices").'</td><td colspan="3">';
             print $object->ref_facturation?$object->ref_facturation:$langs->trans("NoContactForAnyInvoice");

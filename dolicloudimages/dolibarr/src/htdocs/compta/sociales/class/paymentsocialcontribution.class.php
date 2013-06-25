@@ -4,7 +4,7 @@
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -22,7 +22,7 @@
  *		\brief      File of class to manage payment of social contributions
  */
 
-require_once(DOL_DOCUMENT_ROOT."/core/class/commonobject.class.php");
+require_once DOL_DOCUMENT_ROOT.'/core/class/commonobject.class.php';
 
 
 /**     \class      PaymentSocialContribution
@@ -54,7 +54,7 @@ class PaymentSocialContribution extends CommonObject
 	 *
 	 *  @param		DoliDB		$db      Database handler
 	 */
-	function PaymentSocialContribution($db)
+	function __construct($db)
 	{
 		$this->db = $db;
 	}
@@ -275,7 +275,7 @@ class PaymentSocialContribution extends CommonObject
 				// want this action call a trigger.
 
 				//// Call triggers
-				//include_once(DOL_DOCUMENT_ROOT . "/core/class/interfaces.class.php");
+				//include_once DOL_DOCUMENT_ROOT . '/core/class/interfaces.class.php';
 				//$interface=new Interfaces($this->db);
 				//$result=$interface->run_triggers('MYOBJECT_MODIFY',$this,$user,$langs,$conf);
 				//if ($result < 0) { $error++; $this->errors=$interface->errors; }
@@ -344,7 +344,7 @@ class PaymentSocialContribution extends CommonObject
 				// want this action call a trigger.
 
 				//// Call triggers
-				//include_once(DOL_DOCUMENT_ROOT . "/core/class/interfaces.class.php");
+				//include_once DOL_DOCUMENT_ROOT . '/core/class/interfaces.class.php';
 				//$interface=new Interfaces($this->db);
 				//$result=$interface->run_triggers('MYOBJECT_DELETE',$this,$user,$langs,$conf);
 				//if ($result < 0) { $error++; $this->errors=$interface->errors; }
@@ -472,9 +472,9 @@ class PaymentSocialContribution extends CommonObject
 
         $error=0;
 
-        if ($conf->banque->enabled)
+        if (! empty($conf->banque->enabled))
         {
-            require_once(DOL_DOCUMENT_ROOT.'/compta/bank/class/account.class.php');
+            require_once DOL_DOCUMENT_ROOT.'/compta/bank/class/account.class.php';
 
             $acc = new Account($this->db);
             $acc->fetch($accountid);

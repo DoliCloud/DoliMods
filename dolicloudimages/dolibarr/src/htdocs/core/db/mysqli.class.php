@@ -1,13 +1,13 @@
 <?php
-/* Copyright (C) 2001      Fabien Seisen        <seisen@linuxfr.org>
- * Copyright (C) 2002-2005 Rodolphe Quiedeville <rodolphe@quiedeville.org>
- * Copyright (C) 2004-2011 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2006      Andre Cianfarani     <acianfa@free.fr>
- * Copyright (C) 2005-2009 Regis Houssin        <regis@dolibarr.fr>
+/* Copyright (C) 2001		Fabien Seisen			<seisen@linuxfr.org>
+ * Copyright (C) 2002-2005	Rodolphe Quiedeville	<rodolphe@quiedeville.org>
+ * Copyright (C) 2004-2011	Laurent Destailleur		<eldy@users.sourceforge.net>
+ * Copyright (C) 2006		Andre Cianfarani		<acianfa@free.fr>
+ * Copyright (C) 2005-2012	Regis Houssin			<regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -26,8 +26,7 @@
 
 
 /**
- *	\class      DoliDBMysqli
- *	\brief      Class to manage Dolibarr database access for a Mysql database
+ *	Class to manage Dolibarr database access for a Mysql database
  */
 class DoliDBMysqli
 {
@@ -80,7 +79,7 @@ class DoliDBMysqli
 	 *	@param	    int		$port		Port of database server
 	 *	@return	    int					1 if OK, 0 if not
      */
-    function DoliDBMysqli($type, $host, $user, $pass, $name='', $port=0)
+    function __construct($type, $host, $user, $pass, $name='', $port=0)
     {
         global $conf,$langs;
 
@@ -188,7 +187,7 @@ class DoliDBMysqli
      *  @param     string	$type	Type of SQL order ('ddl' for insert, update, select, delete or 'dml' for create, alter...)
      *  @return    string   		SQL request line converted
      */
-    function convertSQLFromMysql($line,$type='ddl')
+    static function convertSQLFromMysql($line,$type='ddl')
     {
         return $line;
     }
@@ -286,12 +285,14 @@ class DoliDBMysqli
             {
                 $this->transaction_opened++;
                 dol_syslog("BEGIN Transaction",LOG_DEBUG);
+				dol_syslog('',0,1);
             }
             return $ret;
         }
         else
         {
             $this->transaction_opened++;
+			dol_syslog('',0,1);
             return 1;
         }
     }
@@ -304,7 +305,8 @@ class DoliDBMysqli
      */
     function commit($log='')
     {
-        if ($this->transaction_opened<=1)
+		dol_syslog('',0,-1);
+    	if ($this->transaction_opened<=1)
         {
             $ret=$this->query("COMMIT");
             if ($ret)
@@ -329,7 +331,8 @@ class DoliDBMysqli
      */
     function rollback($log='')
     {
-        if ($this->transaction_opened<=1)
+		dol_syslog('',0,-1);
+    	if ($this->transaction_opened<=1)
         {
             $ret=$this->query("ROLLBACK");
             $this->transaction_opened=0;
@@ -709,7 +712,7 @@ class DoliDBMysqli
         global $conf;
 
         // Type of encryption (2: AES (recommended), 1: DES , 0: no encryption)
-        $cryptType = ($conf->db->dolibarr_main_db_encryption?$conf->db->dolibarr_main_db_encryption:0);
+        $cryptType = (!empty($conf->db->dolibarr_main_db_encryption)?$conf->db->dolibarr_main_db_encryption:0);
 
         //Encryption key
         $cryptKey = (!empty($conf->db->dolibarr_main_db_cryptkey)?$conf->db->dolibarr_main_db_cryptkey:'');
@@ -742,7 +745,7 @@ class DoliDBMysqli
         global $conf;
 
         // Type of encryption (2: AES (recommended), 1: DES , 0: no encryption)
-        $cryptType = ($conf->db->dolibarr_main_db_encryption?$conf->db->dolibarr_main_db_encryption:0);
+        $cryptType = (!empty($conf->db->dolibarr_main_db_encryption)?$conf->db->dolibarr_main_db_encryption:0);
 
         //Encryption key
         $cryptKey = (!empty($conf->db->dolibarr_main_db_cryptkey)?$conf->db->dolibarr_main_db_cryptkey:'');
@@ -869,28 +872,33 @@ class DoliDBMysqli
     {
         // cles recherchees dans le tableau des descriptions (fields) : type,value,attribute,null,default,extra
         // ex. : $fields['rowid'] = array('type'=>'int','value'=>'11','null'=>'not null','extra'=> 'auto_increment');
-        $sql = "create table ".$table."(";
+        $sql = "CREATE TABLE ".$table."(";
         $i=0;
         foreach($fields as $field_name => $field_desc)
         {
-            $sqlfields[$i] = $field_name." ";
-            $sqlfields[$i]  .= $field_desc['type'];
-            if( preg_match("/^[^\s]/i",$field_desc['value']))
-            $sqlfields[$i]  .= "(".$field_desc['value'].")";
-            else if( preg_match("/^[^\s]/i",$field_desc['attribute']))
-            $sqlfields[$i]  .= " ".$field_desc['attribute'];
-            else if( preg_match("/^[^\s]/i",$field_desc['default']))
-            {
-                if(preg_match("/null/i",$field_desc['default']))
-                $sqlfields[$i]  .= " default ".$field_desc['default'];
-                else
-                $sqlfields[$i]  .= " default '".$field_desc['default']."'";
-            }
-            else if( preg_match("/^[^\s]/i",$field_desc['null']))
-            $sqlfields[$i]  .= " ".$field_desc['null'];
-
-            else if( preg_match("/^[^\s]/i",$field_desc['extra']))
-            $sqlfields[$i]  .= " ".$field_desc['extra'];
+        	$sqlfields[$i] = $field_name." ";
+			$sqlfields[$i]  .= $field_desc['type'];
+			if( preg_match("/^[^\s]/i",$field_desc['value'])) {
+				$sqlfields[$i]  .= "(".$field_desc['value'].")";
+			}
+			if( preg_match("/^[^\s]/i",$field_desc['attribute'])) {
+				$sqlfields[$i]  .= " ".$field_desc['attribute'];
+			}
+			if( preg_match("/^[^\s]/i",$field_desc['default']))
+			{
+				if ((preg_match("/null/i",$field_desc['default'])) || (preg_match("/CURRENT_TIMESTAMP/i",$field_desc['default']))) {
+					$sqlfields[$i]  .= " default ".$field_desc['default'];
+				}
+				else {
+					$sqlfields[$i]  .= " default '".$field_desc['default']."'";
+				}
+			}
+			if( preg_match("/^[^\s]/i",$field_desc['null'])) {
+				$sqlfields[$i]  .= " ".$field_desc['null'];
+			}
+			if( preg_match("/^[^\s]/i",$field_desc['extra'])) {
+				$sqlfields[$i]  .= " ".$field_desc['extra'];
+			}
             $i++;
         }
         if($primary_key != "")
@@ -935,7 +943,7 @@ class DoliDBMysqli
 	 *
 	 *	@param	string		$table	Name of table
 	 *	@param	string		$field	Optionnel : Name of field if we want description of field
-	 *	@return	resource			Resource
+	 *	@return	resultset			Resultset x (x->Field, x->Type, ...)
      */
     function DDLDescTable($table,$field="")
     {
@@ -1004,7 +1012,10 @@ class DoliDBMysqli
     {
         $sql = "ALTER TABLE ".$table;
         $sql .= " MODIFY COLUMN ".$field_name." ".$field_desc['type'];
-        if ($field_desc['type'] == 'int' || $field_desc['type'] == 'varchar') $sql.="(".$field_desc['value'].")";
+        if ($field_desc['type'] == 'tinyint' || $field_desc['type'] == 'int' || $field_desc['type'] == 'varchar') {
+        	$sql.="(".$field_desc['value'].")";
+        }
+        if ($field_desc['null'] == 'not null' || $field_desc['null'] == 'NOT NULL') $sql.=" NOT NULL";
 
         dol_syslog(get_class($this)."::DDLUpdateField ".$sql,LOG_DEBUG);
         if (! $this->query($sql))

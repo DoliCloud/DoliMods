@@ -7,14 +7,15 @@ Agendas= Agendas
 Calendar= Calendar
 Calendars= Calendars
 LocalAgenda=Local calendar
-AffectedTo= Affected to
+AffectedTo= Assigned to
 DoneBy= Done by
 Events= Events
+EventsNb=Number of events
 MyEvents=My events
 OtherEvents=Other events
 ListOfActions=List of events
 Location=Location
-EventOnFullDay=Event on full day
+EventOnFullDay=Event on all day(s)
 SearchAnAction= Search an event/task
 MenuToDoActions= All incomplete events
 MenuDoneActions= All terminated events
@@ -22,7 +23,7 @@ MenuToDoMyActions= My incomplete events
 MenuDoneMyActions= My terminated events
 ListOfEvents= List of Dolibarr events
 ActionsAskedBy=Events reported by
-ActionsToDoBy=Events affected to
+ActionsToDoBy=Events assigned to
 ActionsDoneBy=Events done by
 AllMyActions= All my events/tasks
 AllActions= All events/tasks
@@ -59,9 +60,9 @@ DateActionDoneEnd= Real end date
 DateActionStart= Start date
 DateActionEnd= End date
 AgendaUrlOptions1=You can also add following parameters to filter output:
-AgendaUrlOptions2=<b>login=%s</b> to restrict output to actions created by, affected to or done by user <b>%s</b>.
+AgendaUrlOptions2=<b>login=%s</b> to restrict output to actions created by, assigned to or done by user <b>%s</b>.
 AgendaUrlOptions3=<b>logina=%s</b> to restrict output to actions created by user <b>%s</b>.
-AgendaUrlOptions4=<b>logint=%s</b> to restrict output to actions affected to user <b>%s</b>.
+AgendaUrlOptions4=<b>logint=%s</b> to restrict output to actions assigned to user <b>%s</b>.
 AgendaUrlOptions5=<b>logind=%s</b> to restrict output to actions done by user <b>%s</b>.
 AgendaShowBirthdayEvents=Show birthday's contacts
 AgendaHideBirthdayEvents=Hide birthday's contacts

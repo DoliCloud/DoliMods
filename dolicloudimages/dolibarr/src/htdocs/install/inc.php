@@ -2,11 +2,12 @@
 /* Copyright (C) 2004      Rodolphe Quiedeville <rodolphe@quiedeville.org>
  * Copyright (C) 2004      Benoit Mortier       <benoit.mortier@opensides.be>
  * Copyright (C) 2004      Sebastien DiCintio   <sdicintio@ressource-toi.org>
- * Copyright (C) 2007-2011 Laurent Destailleur  <eldy@users.sourceforge.net>
+ * Copyright (C) 2007-2012 Laurent Destailleur  <eldy@users.sourceforge.net>
+ * Copyright (C) 2012      Marcos García        <marcosgdf@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -24,9 +25,13 @@
  *	\brief      File that define environment for support pages
  */
 
-define('DOL_VERSION','3.2.3');	// Also defined in htdocs/master.inc.php (Ex: x.y.z-alpha, x.y.z)
+// Just to define version DOL_VERSION
+if (! defined('DOL_INC_FOR_VERSION_ERROR')) define('DOL_INC_FOR_VERSION_ERROR','1');
+require_once '../filefunc.inc.php';
 
-// Define DOL_DOCUMENT_ROOT an ADODB_PATH used for install/upgrade process
+
+
+// Define DOL_DOCUMENT_ROOT and ADODB_PATH used for install/upgrade process
 if (! defined('DOL_DOCUMENT_ROOT'))	    define('DOL_DOCUMENT_ROOT', '..');
 if (! defined('ADODB_PATH'))
 {
@@ -35,22 +40,20 @@ if (! defined('ADODB_PATH'))
     define('ADODB_PATH', $foundpath);
 }
 
-require_once('../core/class/translate.class.php');
-require_once('../core/lib/functions.lib.php');
-require_once('../core/lib/admin.lib.php');
-require_once('../core/lib/files.lib.php');
-require_once(ADODB_PATH.'adodb-time.inc.php');
+require_once DOL_DOCUMENT_ROOT.'/core/class/translate.class.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/functions.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
+require_once ADODB_PATH.'adodb-time.inc.php';
 
-error_reporting(E_ALL);	// To have all errors without disabled E_STRICT
-
-// IMPORTANT with strict mode E_STRICT
+// Avoid warnings with strict mode E_STRICT
 $conf = new stdClass(); // instantiate $conf explicitely
-$conf->global	= (object) array();
-$conf->file		= (object) array();
-$conf->db		= (object) array();
-$conf->syslog	= (object) array();
+$conf->global	= new stdClass();
+$conf->file		= new stdClass();
+$conf->db		= new stdClass();
+$conf->syslog	= new stdClass();
 
-// Define $_REQUEST["logtohtml"]
+// Force $_REQUEST["logtohtml"]
 $_REQUEST["logtohtml"]=1;
 
 // Correction PHP_SELF (ex pour apache via caudium) car PHP_SELF doit valoir URL relative
@@ -60,27 +63,6 @@ if (isset($_SERVER["DOCUMENT_URI"]) && $_SERVER["DOCUMENT_URI"])
     $_SERVER["PHP_SELF"]=$_SERVER["DOCUMENT_URI"];
 }
 
-
-// Define syslog constants
-if (! defined('LOG_DEBUG'))
-{
-    if (function_exists("define_syslog_variables"))
-    {
-        define_syslog_variables(); // Deprecated since php 5.3.0, syslog variables no longer need to be initialized
-    }
-    else
-    {
-        // Pour PHP sans syslog (comme sous Windows)
-        define('LOG_EMERG',0);
-        define('LOG_ALERT',1);
-        define('LOG_CRIT',2);
-        define('LOG_ERR',3);
-        define('LOG_WARNING',4);
-        define('LOG_NOTICE',5);
-        define('LOG_INFO',6);
-        define('LOG_DEBUG',7);
-    }
-}
 
 $includeconferror='';
 
@@ -97,10 +79,12 @@ $conffiletoshow = "htdocs/conf/conf.php";
 
 if (! defined('DONOTLOADCONF') && file_exists($conffile))
 {
-    $result=include_once($conffile);	// Load conf file
+    $result=include_once $conffile;	// Load conf file
     if ($result)
     {
-    	// Clean parameters
+		if (empty($dolibarr_main_db_type)) $dolibarr_main_db_type='mysql';	// For backward compatibility
+
+		// Clean parameters
     	$dolibarr_main_data_root        =isset($dolibarr_main_data_root)?trim($dolibarr_main_data_root):'';
     	$dolibarr_main_url_root         =isset($dolibarr_main_url_root)?trim($dolibarr_main_url_root):'';
     	$dolibarr_main_url_root_alt     =isset($dolibarr_main_url_root_alt)?trim($dolibarr_main_url_root_alt):'';
@@ -124,7 +108,7 @@ if (! defined('DONOTLOADCONF') && file_exists($conffile))
         {
             if (! empty($dolibarr_main_document_root) && ! empty($dolibarr_main_db_type))
             {
-                $result=include_once($dolibarr_main_document_root . "/core/db/".$dolibarr_main_db_type.".class.php");
+                $result=include_once $dolibarr_main_document_root . "/core/db/".$dolibarr_main_db_type.'.class.php';
                 if (! $result)
                 {
                     $includeconferror='ErrorBadValueForDolibarrMainDBType';
@@ -216,17 +200,36 @@ if (constant('DOL_DATA_ROOT') && file_exists($lockfile))
 // Force usage of log file for install and upgrades
 $conf->syslog->enabled=1;
 $conf->global->SYSLOG_LEVEL=constant('LOG_DEBUG');
-if (! defined('SYSLOG_FILE_ON')) define('SYSLOG_FILE_ON',1);
+if (! defined('SYSLOG_HANDLERS')) define('SYSLOG_HANDLERS','["mod_syslog_file"]');
 if (! defined('SYSLOG_FILE'))	// To avoid warning on systems with constant already defined
 {
-    if (@is_writable('/tmp')) define('SYSLOG_FILE','/tmp/dolibarr_install.log');
-    else if (! empty($_ENV["TMP"])  && @is_writable($_ENV["TMP"]))  define('SYSLOG_FILE',$_ENV["TMP"].'/dolibarr_install.log');
-    else if (! empty($_ENV["TEMP"]) && @is_writable($_ENV["TEMP"])) define('SYSLOG_FILE',$_ENV["TEMP"].'/dolibarr_install.log');
-    else if (@is_writable('../../../../') && @file_exists('../../../../startdoliwamp.bat')) define('SYSLOG_FILE','../../../../dolibarr_install.log');	// For DoliWamp
-    else if (@is_writable('../../')) define('SYSLOG_FILE','../../dolibarr_install.log');				// For others
-    //print 'SYSLOG_FILE='.SYSLOG_FILE;exit;
+	if (@is_writable('/tmp')) define('SYSLOG_FILE','/tmp/dolibarr_install.log');
+	else if (! empty($_ENV["TMP"])  && @is_writable($_ENV["TMP"]))  define('SYSLOG_FILE',$_ENV["TMP"].'/dolibarr_install.log');
+	else if (! empty($_ENV["TEMP"]) && @is_writable($_ENV["TEMP"])) define('SYSLOG_FILE',$_ENV["TEMP"].'/dolibarr_install.log');
+	else if (@is_writable('../../../../') && @file_exists('../../../../startdoliwamp.bat')) define('SYSLOG_FILE','../../../../dolibarr_install.log');	// For DoliWamp
+	else if (@is_writable('../../')) define('SYSLOG_FILE','../../dolibarr_install.log');				// For others
+	//print 'SYSLOG_FILE='.SYSLOG_FILE;exit;
 }
 if (! defined('SYSLOG_FILE_NO_ERROR')) define('SYSLOG_FILE_NO_ERROR',1);
+// We init log handler for install
+$handlers = array('mod_syslog_file');
+foreach ($handlers as $handler)
+{
+	$file = DOL_DOCUMENT_ROOT.'/core/modules/syslog/'.$handler.'.php';
+	if (!file_exists($file))
+	{
+		throw new Exception('Missing log handler file '.$handler.'.php');
+	}
+
+	require_once $file;
+	$loghandlerinstance = new $handler();
+	if (!$loghandlerinstance instanceof LogHandlerInterface)
+	{
+		throw new Exception('Log handler does not extend LogHandlerInterface');
+	}
+
+	if (empty($conf->loghandlers[$handler])) $conf->loghandlers[$handler]=$loghandlerinstance;
+}
 
 // Removed magic_quotes
 if (function_exists('get_magic_quotes_gpc'))	// magic_quotes_* removed in PHP 5.4
@@ -251,7 +254,8 @@ if (function_exists('get_magic_quotes_gpc'))	// magic_quotes_* removed in PHP 5.
 
 // Defini objet langs
 $langs = new Translate('..',$conf);
-$langs->setDefaultLang('auto');
+if (GETPOST('lang')) $langs->setDefaultLang(GETPOST('lang'));
+else $langs->setDefaultLang('auto');
 
 $bc[false]=' class="bg1"';
 $bc[true]=' class="bg2"';
@@ -274,7 +278,7 @@ function conf($dolibarr_main_document_root)
     global $dolibarr_main_db_pass;
     global $character_set_client;
 
-    $return=include_once($dolibarr_main_document_root."/core/class/conf.class.php");
+    $return=include_once $dolibarr_main_document_root.'/core/class/conf.class.php';
     if (! $return) return -1;
 
     $conf=new Conf();
@@ -299,7 +303,7 @@ function conf($dolibarr_main_document_root)
     // Force usage of log file for install and upgrades
     $conf->syslog->enabled=1;
     $conf->global->SYSLOG_LEVEL=constant('LOG_DEBUG');
-    if (! defined('SYSLOG_FILE_ON')) define('SYSLOG_FILE_ON',1);
+    if (! defined('SYSLOG_HANDLERS')) define('SYSLOG_HANDLERS','["mod_syslog_file"]');
     if (! defined('SYSLOG_FILE'))	// To avoid warning on systems with constant already defined
     {
         if (@is_writable('/tmp')) define('SYSLOG_FILE','/tmp/dolibarr_install.log');
@@ -310,44 +314,92 @@ function conf($dolibarr_main_document_root)
         //print 'SYSLOG_FILE='.SYSLOG_FILE;exit;
     }
     if (! defined('SYSLOG_FILE_NO_ERROR')) define('SYSLOG_FILE_NO_ERROR',1);
-
+    // We init log handler for install
+    $handlers = array('mod_syslog_file');
+    foreach ($handlers as $handler)
+    {
+    	$file = DOL_DOCUMENT_ROOT.'/core/modules/syslog/'.$handler.'.php';
+    	if (!file_exists($file))
+    	{
+    		throw new Exception('Missing log handler file '.$handler.'.php');
+    	}
+    
+    	require_once $file;
+    	$loghandlerinstance = new $handler();
+    	if (!$loghandlerinstance instanceof LogHandlerInterface)
+    	{
+    		throw new Exception('Log handler does not extend LogHandlerInterface');
+    	}
+    
+    	if (empty($conf->loghandlers[$handler])) $conf->loghandlers[$handler]=$loghandlerinstance;
+    }
+    
     return 1;
 }
 
 
 /**
- * Show header of install pages
+ * Show HTML header of install pages
  *
- * @param	string		$soutitre	Sous titre
- * @param 	string		$next		Next
- * @param 	string		$action     Action code ('set' or 'upgrade')
- * @param 	string		$param		Param
+ * @param	string		$subtitle			Title
+ * @param 	string		$next				Next
+ * @param 	string		$action    			Action code ('set' or 'upgrade')
+ * @param 	string		$param				Param
+ * @param	string		$forcejqueryurl		Set jquery relative URL (must end with / if defined)
  * @return	void
  */
-function pHeader($soutitre,$next,$action='set',$param='')
+function pHeader($subtitle,$next,$action='set',$param='',$forcejqueryurl='')
 {
     global $conf;
     global $langs;
     $langs->load("main");
     $langs->load("admin");
 
-    // On force contenu dans format sortie
+    $jquerytheme='smoothness';
+
+    if ($forcejqueryurl)
+    {
+        $jQueryCustomPath = $forcejqueryurl;
+        $jQueryUiCustomPath = $forcejqueryurl;
+    }
+    else
+    {
+        $jQueryCustomPath = (defined('JS_JQUERY') && constant('JS_JQUERY')) ? JS_JQUERY : false;
+        $jQueryUiCustomPath = (defined('JS_JQUERY_UI') && constant('JS_JQUERY_UI')) ? JS_JQUERY_UI : false;
+    }
+
+    // We force the content charset
     header("Content-type: text/html; charset=".$conf->file->character_set_client);
 
     print '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">'."\n";
     print '<html>'."\n";
     print '<head>'."\n";
     print '<meta http-equiv="content-type" content="text/html; charset='.$conf->file->character_set_client.'">'."\n";
-    print '<link rel="stylesheet" type="text/css" href="./default.css">'."\n";
-    print '<link rel="stylesheet" type="text/css" href="../includes/jquery/css/smoothness/jquery-ui-latest.custom.css" type="text/css">'."\n";
-    print '<script type="text/javascript" src="../includes/jquery/js/jquery-latest.min.js"></script>'."\n";
-    print '<script type="text/javascript" src="../includes/jquery/js/jquery-ui-latest.custom.min.js"></script>'."\n";
+    print '<link rel="stylesheet" type="text/css" href="default.css">'."\n";
+
+    print '<!-- Includes CSS for JQuery -->'."\n";
+    if ($jQueryUiCustomPath) print '<link rel="stylesheet" type="text/css" href="'.$jQueryUiCustomPath.'css/'.$jquerytheme.'/jquery-ui.min.css" />'."\n";  // JQuery
+    else print '<link rel="stylesheet" type="text/css" href="../includes/jquery/css/'.$jquerytheme.'/jquery-ui-latest.custom.css" />'."\n";    // JQuery
+
+    print '<!-- Includes JS for JQuery -->'."\n";
+    if ($jQueryCustomPath) print '<script type="text/javascript" src="'.$jQueryCustomPath.'jquery.min.js"></script>'."\n";
+    else print '<script type="text/javascript" src="../includes/jquery/js/jquery-latest.min.js"></script>'."\n";
+    if ($jQueryUiCustomPath) print '<script type="text/javascript" src="'.$jQueryUiCustomPath.'jquery-ui.min.js"></script>'."\n";
+    else print '<script type="text/javascript" src="../includes/jquery/js/jquery-ui-latest.custom.min.js"></script>'."\n";
+
     print '<title>'.$langs->trans("DolibarrSetup").'</title>'."\n";
     print '</head>'."\n";
+
     print '<body>'."\n";
+
+    print '<div style="text-align:center">';
+    print '<img src="../theme/dolibarr_logo.png" alt="Dolibarr logo"><br>';
+    print DOL_VERSION;
+    print '</div><br><br>';
+
     print '<span class="titre">'.$langs->trans("DolibarrSetup");
-    if ($soutitre) {
-        print ' - '.$soutitre;
+    if ($subtitle) {
+        print ' - '.$subtitle;
     }
     print '</span>'."\n";
 
@@ -361,14 +413,15 @@ function pHeader($soutitre,$next,$action='set',$param='')
 }
 
 /**
- * Output footer of install pages
+ * Print HTML footer of install pages
  *
- * @param 	string	$nonext				No next
- * @param	string	$setuplang			Setup lang
+ * @param 	string	$nonext				No button "Next step"
+ * @param	string	$setuplang			Language code
  * @param	string	$jscheckfunction	Add a javascript check function
+ * @param	string	$withpleasewait		Add also please wait tags
  * @return	void
  */
-function pFooter($nonext=0,$setuplang='',$jscheckfunction='')
+function pFooter($nonext=0,$setuplang='',$jscheckfunction='', $withpleasewait=0)
 {
     global $conf,$langs;
 
@@ -383,7 +436,7 @@ function pFooter($nonext=0,$setuplang='',$jscheckfunction='')
         print '<div class="nextbutton" id="nextbutton"><input type="submit" value="'.$langs->trans("NextStep").' ->"';
         if ($jscheckfunction) print ' onClick="return '.$jscheckfunction.'();"';
         print '></div>';
-        print '<div style="visibility: hidden;" class="pleasewait" id="pleasewait"><br>'.$langs->trans("NextStepMightLastALongTime").'<br><br><div class="blinkwait">'.$langs->trans("PleaseBePatient").'</div></div>';
+        if ($withpleasewait) print '<div style="visibility: hidden;" class="pleasewait" id="pleasewait"><br>'.$langs->trans("NextStepMightLastALongTime").'<br><br><div class="blinkwait">'.$langs->trans("PleaseBePatient").'</div></div>';
     }
     if ($setuplang)
     {

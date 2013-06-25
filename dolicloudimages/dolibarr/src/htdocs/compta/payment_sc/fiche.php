@@ -2,11 +2,11 @@
 /* Copyright (C) 2004      Rodolphe Quiedeville  <rodolphe@quiedeville.org>
  * Copyright (C) 2004-2010 Laurent Destailleur   <eldy@users.sourceforge.net>
  * Copyright (C) 2005      Marc Barilley / Ocebo <marc@ocebo.com>
- * Copyright (C) 2005-2009 Regis Houssin         <regis@dolibarr.fr>
+ * Copyright (C) 2005-2009 Regis Houssin         <regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -25,12 +25,12 @@
  *		\remarks	Fichier presque identique a fournisseur/paiement/fiche.php
  */
 
-require('../../main.inc.php');
-require_once(DOL_DOCUMENT_ROOT."/compta/sociales/class/chargesociales.class.php");
-require_once(DOL_DOCUMENT_ROOT."/compta/sociales/class/paymentsocialcontribution.class.php");
-require_once(DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php');
-require_once(DOL_DOCUMENT_ROOT."/core/modules/facture/modules_facture.php");
-if ($conf->banque->enabled) require_once(DOL_DOCUMENT_ROOT.'/compta/bank/class/account.class.php');
+require '../../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/compta/sociales/class/chargesociales.class.php';
+require_once DOL_DOCUMENT_ROOT.'/compta/sociales/class/paymentsocialcontribution.class.php';
+require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
+require_once DOL_DOCUMENT_ROOT.'/core/modules/facture/modules_facture.php';
+if (! empty($conf->banque->enabled)) require_once DOL_DOCUMENT_ROOT.'/compta/bank/class/account.class.php';
 
 $langs->load('bills');
 $langs->load('banks');
@@ -61,7 +61,7 @@ if ($_REQUEST['action'] == 'confirm_delete' && $_REQUEST['confirm'] == 'yes' && 
 	if ($result > 0)
 	{
         $db->commit();
-        Header("Location: ".DOL_URL_ROOT."/compta/charges/index.php?mode=sconly");
+        header("Location: ".DOL_URL_ROOT."/compta/charges/index.php?mode=sconly");
         exit;
 	}
 	else
@@ -97,7 +97,7 @@ if ($_REQUEST['action'] == 'confirm_valide' && $_REQUEST['confirm'] == 'yes' && 
 			if (empty($conf->global->MAIN_DISABLE_PDF_AUTOUPDATE)) facture_pdf_create($db, $fac, $fac->modelpdf, $outputlangs, $hookmanager);
 		}
 
-		Header('Location: fiche.php?id='.$paiement->id);
+		header('Location: fiche.php?id='.$paiement->id);
 		exit;
 	}
 	else
@@ -189,7 +189,7 @@ print '<tr><td valign="top">'.$langs->trans('Amount').'</td><td colspan="3">'.pr
 print '<tr><td valign="top">'.$langs->trans('Note').'</td><td colspan="3">'.nl2br($paiement->note).'</td></tr>';
 
 // Bank account
-if ($conf->banque->enabled)
+if (! empty($conf->banque->enabled))
 {
     if ($paiement->bank_account)
     {
@@ -293,7 +293,7 @@ print '</div>';
 print '<div class="tabsAction">';
 
 /*
-if ($conf->global->BILL_ADD_PAYMENT_VALIDATION)
+if (! empty($conf->global->BILL_ADD_PAYMENT_VALIDATION))
 {
 	if ($user->societe_id == 0 && $paiement->statut == 0 && $_GET['action'] == '')
 	{

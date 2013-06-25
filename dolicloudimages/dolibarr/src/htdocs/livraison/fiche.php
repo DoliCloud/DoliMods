@@ -1,13 +1,13 @@
 <?php
-/* Copyright (C) 2003-2005 Rodolphe Quiedeville  <rodolphe@quiedeville.org>
- * Copyright (C) 2005-2010 Laurent Destailleur   <eldy@users.sourceforge.net>
- * Copyright (C) 2005      Simon TOSSER          <simon@kornog-computing.com>
- * Copyright (C) 2007      Franky Van Liedekerke <franky.van.liedekerke@telenet.be>
- * Copyright (C) 2005-2010 Regis Houssin         <regis@dolibarr.fr>
+/* Copyright (C) 2003-2005	Rodolphe Quiedeville	<rodolphe@quiedeville.org>
+ * Copyright (C) 2005-2010	Laurent Destailleur		<eldy@users.sourceforge.net>
+ * Copyright (C) 2005		Simon TOSSER			<simon@kornog-computing.com>
+ * Copyright (C) 2005-2012	Regis Houssin			<regis.houssin@capnetworks.com>
+ * Copyright (C) 2007		Franky Van Liedekerke	<franky.van.liedekerke@telenet.be>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -25,25 +25,28 @@
  *	\brief      Fiche descriptive d'un bon de livraison=reception
  */
 
-require("../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/livraison/class/livraison.class.php");
-require_once(DOL_DOCUMENT_ROOT."/core/modules/livraison/modules_livraison.php");
-require_once(DOL_DOCUMENT_ROOT."/core/class/html.formfile.class.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/sendings.lib.php");
-if ($conf->product->enabled || $conf->service->enabled) require_once(DOL_DOCUMENT_ROOT."/product/class/product.class.php");
-if ($conf->expedition_bon->enabled) require_once(DOL_DOCUMENT_ROOT."/expedition/class/expedition.class.php");
-if ($conf->stock->enabled) require_once(DOL_DOCUMENT_ROOT."/product/stock/class/entrepot.class.php");
+require '../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/livraison/class/livraison.class.php';
+require_once DOL_DOCUMENT_ROOT.'/core/modules/livraison/modules_livraison.php';
+require_once DOL_DOCUMENT_ROOT.'/core/class/html.formfile.class.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/sendings.lib.php';
+if (! empty($conf->product->enabled) || ! empty($conf->service->enabled))
+	require_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
+if (! empty($conf->expedition_bon->enabled))
+	require_once DOL_DOCUMENT_ROOT.'/expedition/class/expedition.class.php';
+if (! empty($conf->stock->enabled))
+	require_once DOL_DOCUMENT_ROOT.'/product/stock/class/entrepot.class.php';
 
-if (!$user->rights->expedition->livraison->lire) accessforbidden();
 
 $langs->load("sendings");
 $langs->load("bills");
 $langs->load('deliveries');
 
 $action=GETPOST('action', 'alpha');
+$confirm=GETPOST('confirm', 'alpha');
 
 // Security check
-$id = isset($_GET["id"])?$_GET["id"]:'';
+$id = GETPOST('id', 'int');
 if ($user->societe_id) $socid=$user->societe_id;
 $result=restrictedArea($user,'expedition',$id,'livraison','livraison');
 
@@ -53,7 +56,7 @@ $result=restrictedArea($user,'expedition',$id,'livraison','livraison');
  * Actions
  */
 
-if ($_POST["action"] == 'add')
+if ($action == 'add')
 {
 	$db->begin();
 
@@ -64,7 +67,7 @@ if ($_POST["action"] == 'add')
 	$delivery->note             = $_POST["note"];
 	$delivery->commande_id      = $_POST["commande_id"];
 
-	if (!$conf->expedition_bon->enabled && $conf->stock->enabled)
+	if (!$conf->expedition_bon->enabled && ! empty($conf->stock->enabled))
 	{
 		$expedition->entrepot_id     = $_POST["entrepot_id"];
 	}
@@ -89,22 +92,23 @@ if ($_POST["action"] == 'add')
 	if ($ret > 0)
 	{
 		$db->commit();
-		Header("Location: fiche.php?id=".$delivery->id);
+		header("Location: ".$_SERVER['PHP_SELF']."?id=".$delivery->id);
 		exit;
 	}
 	else
 	{
+		setEventMessage($delivery->error, 'errors');
 		$db->rollback();
-		$mesg='<div class="error">'.$delivery->error.'</div>';
+
 		$_GET["commande_id"]=$_POST["commande_id"];
-		$_GET["action"]='create';
+		$action='create';
 	}
 }
 
-if ($_REQUEST["action"] == 'confirm_valid' && $_REQUEST["confirm"] == 'yes' && $user->rights->expedition->livraison->valider)
+else if ($action == 'confirm_valid' && $confirm == 'yes' && $user->rights->expedition->livraison->valider)
 {
 	$object = new Livraison($db);
-	$object->fetch($_GET["id"]);
+	$object->fetch($id);
 	$object->fetch_thirdparty();
 
 	$result = $object->valid($user);
@@ -131,10 +135,10 @@ if ($_REQUEST["action"] == 'confirm_valid' && $_REQUEST["confirm"] == 'yes' && $
 	}
 }
 
-if ($_REQUEST["action"] == 'confirm_delete' && $_REQUEST["confirm"] == 'yes' && $user->rights->expedition->livraison->supprimer)
+if ($action == 'confirm_delete' && $confirm == 'yes' && $user->rights->expedition->livraison->supprimer)
 {
 	$object = new Livraison($db);
-	$object->fetch($_GET["id"]);
+	$object->fetch($id);
 	$object->fetch_thirdparty();
 
 	$db->begin();
@@ -143,7 +147,7 @@ if ($_REQUEST["action"] == 'confirm_delete' && $_REQUEST["confirm"] == 'yes' && 
 	if ($result > 0)
 	{
 		$db->commit();
-		Header("Location: ".DOL_URL_ROOT.'/expedition/index.php');
+		header("Location: ".DOL_URL_ROOT.'/expedition/index.php');
 		exit;
 	}
 	else
@@ -155,10 +159,10 @@ if ($_REQUEST["action"] == 'confirm_delete' && $_REQUEST["confirm"] == 'yes' && 
 /*
  * Build document
  */
-if ($_REQUEST['action'] == 'builddoc')	// En get ou en post
+if ($action == 'builddoc')	// En get ou en post
 {
 	$object = new Livraison($db);
-	$object->fetch($_REQUEST['id']);
+	$object->fetch($id);
 	$object->fetch_thirdparty();
 
 	if ($_REQUEST['model'])
@@ -191,7 +195,7 @@ if ($_REQUEST['action'] == 'builddoc')	// En get ou en post
 // Delete file in doc form
 elseif ($action == 'remove_file')
 {
-	require_once(DOL_DOCUMENT_ROOT."/core/lib/files.lib.php");
+	require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 
 	$object = new Livraison($db);
 	if ($object->fetch($id))
@@ -200,7 +204,8 @@ elseif ($action == 'remove_file')
 		$upload_dir =	$conf->expedition->dir_output . "/receipt";
 		$file =	$upload_dir	. '/' .	GETPOST('file');
 		$ret=dol_delete_file($file,0,0,0,$object);
-		$mesg = '<div class="ok">'.$langs->trans("FileWasRemoved",GETPOST('file')).'</div>';
+		if ($ret) setEventMessage($langs->trans("FileWasRemoved", GETPOST('urlfile')));
+		else setEventMessage($langs->trans("ErrorFailToDeleteFile", GETPOST('urlfile')), 'errors');
 	}
 }
 
@@ -219,7 +224,7 @@ $formfile = new FormFile($db);
  * Mode creation
  *
  *********************************************************************/
-if ($_GET["action"] == 'create')
+if ($action == 'create')
 {
 
 	print_fiche_titre($langs->trans("CreateADeliveryOrder"));
@@ -232,14 +237,14 @@ if ($_GET["action"] == 'create')
 	$commande = new Commande($db);
 	$commande->livraison_array();
 
-	if ( $commande->fetch($_GET["commande_id"]))
+	if ($commande->fetch($_GET["commande_id"]))
 	{
 		$soc = new Societe($db);
 		$soc->fetch($commande->socid);
 		$author = new User($db);
 		$author->fetch($commande->user_author_id);
 
-		if (!$conf->expedition_bon->enabled && $conf->stock->enabled)
+		if (!$conf->expedition_bon->enabled && ! empty($conf->stock->enabled))
 		{
 			$entrepot = new Entrepot($db);
 		}
@@ -251,7 +256,7 @@ if ($_GET["action"] == 'create')
 		print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
 		print '<input type="hidden" name="action" value="add">';
 		print '<input type="hidden" name="commande_id" value="'.$commande->id.'">';
-		if (!$conf->expedition_bon->enabled && $conf->stock->enabled)
+		if (!$conf->expedition_bon->enabled && ! empty($conf->stock->enabled))
 		{
 			print '<input type="hidden" name="entrepot_id" value="'.$_GET["entrepot_id"].'">';
 		}
@@ -271,7 +276,7 @@ if ($_GET["action"] == 'create')
 
 		print '<tr>';
 
-		if (!$conf->expedition_bon->enabled && $conf->stock->enabled)
+		if (!$conf->expedition_bon->enabled && ! empty($conf->stock->enabled))
 		{
 			print '<td>'.$langs->trans("Warehouse").'</td>';
 			print '<td>';
@@ -290,7 +295,6 @@ if ($_GET["action"] == 'create')
 
 		/*
 		 * Lignes de commandes
-		 *
 		 */
 		print '<br><table class="noborder" width="100%">';
 
@@ -306,10 +310,10 @@ if ($_GET["action"] == 'create')
 		{
 			print '<tr class="liste_titre">';
 			print '<td width="54%">'.$langs->trans("Description").'</td>';
-			print '<td align="center">Quan. commandee</td>';
-			print '<td align="center">Quan. livree</td>';
-			print '<td align="center">Quan. a livrer</td>';
-			if ($conf->stock->enabled)
+			print '<td align="center">'.$langs->trans("QtyOrdered").'</td>';
+			print '<td align="center">'.$langs->trans("QtyReceived").'</td>';
+			print '<td align="center">'.$langs->trans("QtyToShip").'</td>';
+			if (! empty($conf->stock->enabled))
 			{
 				print '<td width="12%" align="center">'.$langs->trans("Stock").'</td>';
 			}
@@ -328,24 +332,24 @@ if ($_GET["action"] == 'create')
 				$product->fetch($line->fk_product);
 				$product->load_stock();
 
-        // Define output language
-        if (! empty($conf->global->MAIN_MULTILANGS) && ! empty($conf->global->PRODUIT_TEXTS_IN_THIRDPARTY_LANGUAGE))
-			  {
-          $commande->fetch_thirdparty();
-    			$outputlangs = $langs;
-          $newlang='';
-          if (empty($newlang) && ! empty($_REQUEST['lang_id'])) $newlang=$_REQUEST['lang_id'];
-          if (empty($newlang)) $newlang=$commande->client->default_lang;
-          if (! empty($newlang))
-          {
-              $outputlangs = new Translate("",$conf);
-              $outputlangs->setDefaultLang($newlang);
-          }
+				// Define output language
+				if (! empty($conf->global->MAIN_MULTILANGS) && ! empty($conf->global->PRODUIT_TEXTS_IN_THIRDPARTY_LANGUAGE))
+				{
+					$commande->fetch_thirdparty();
+					$outputlangs = $langs;
+					$newlang='';
+					if (empty($newlang) && ! empty($_REQUEST['lang_id'])) $newlang=$_REQUEST['lang_id'];
+					if (empty($newlang)) $newlang=$commande->client->default_lang;
+					if (! empty($newlang))
+					{
+						$outputlangs = new Translate("",$conf);
+						$outputlangs->setDefaultLang($newlang);
+					}
 
-          $label = (! empty($product->multilangs[$outputlangs->defaultlang]["libelle"])) ? $product->multilangs[$outputlangs->defaultlang]["libelle"] : $product->libelle;
-        }
-        else
-          $label = $product->libelle;
+					$label = (! empty($product->multilangs[$outputlangs->defaultlang]["label"])) ? $product->multilangs[$outputlangs->defaultlang]["label"] : $product->label;
+				}
+				else
+					$label = (! empty($line->label)?$line->label:$product->label);
 
 				print '<td>';
 				print '<a href="'.DOL_URL_ROOT.'/product/fiche.php?id='.$line->fk_product.'">'.img_object($langs->trans("ShowProduct"),"product").' '.$product->ref.'</a> - '.$label;
@@ -354,7 +358,19 @@ if ($_GET["action"] == 'create')
 			}
 			else
 			{
-				print "<td>".nl2br($line->description)."</td>\n";
+				print "<td>";
+				if ($line->fk_product_type==1) $text = img_object($langs->trans('Service'),'service');
+				else $text = img_object($langs->trans('Product'),'product');
+
+				if (! empty($line->label)) {
+					$text.= ' <strong>'.$line->label.'</strong>';
+					print $form->textwithtooltip($text,$line->description,3,'','',$i);
+				} else {
+					print $text.' '.nl2br($line->description);
+				}
+
+				print_date_range($lines[$i]->date_start,$lines[$i]->date_end);
+				print "</td>\n";
 			}
 
 			print '<td align="center">'.$line->qty.'</td>';
@@ -369,7 +385,7 @@ if ($_GET["action"] == 'create')
 			$quantite_commandee = $line->qty;
 			$quantite_a_livrer = $quantite_commandee - $quantite_livree;
 
-			if ($conf->stock->enabled)
+			if (! empty($conf->stock->enabled))
 			{
 				$stock = $product->stock_warehouse[$_GET["entrepot_id"]]->real;
 				$stock+=0;  // Convertit en numerique
@@ -425,10 +441,10 @@ else
 /*                                                                             */
 /* *************************************************************************** */
 {
-	if ($_GET["id"] > 0)
+	if ($id > 0)
 	{
 		$delivery = new Livraison($db);
-		$result = $delivery->fetch($_GET["id"]);
+		$result = $delivery->fetch($id);
 		$delivery->fetch_thirdparty();
 
 		$expedition=new Expedition($db);
@@ -440,7 +456,7 @@ else
 			$delivery->fetch_origin();
 		}
 
-		if ( $delivery->id > 0)
+		if ($delivery->id > 0)
 		{
 			$soc = new Societe($db);
 			$soc->fetch($delivery->socid);
@@ -452,7 +468,7 @@ else
 			 * Confirmation de la suppression
 			 *
 			 */
-			if ($_GET["action"] == 'delete')
+			if ($action == 'delete')
 			{
 				$expedition_id = $_GET["expid"];
 				$ret=$form->form_confirm($_SERVER['PHP_SELF'].'?id='.$delivery->id.'&amp;expid='.$expedition_id,$langs->trans("DeleteDeliveryReceipt"),$langs->trans("DeleteDeliveryReceiptConfirm",$delivery->ref),'confirm_delete','','',1);
@@ -463,7 +479,7 @@ else
 			 * Confirmation de la validation
 			 *
 			 */
-			if ($_GET["action"] == 'valid')
+			if ($action == 'valid')
 			{
 				$ret=$form->form_confirm($_SERVER['PHP_SELF'].'?id='.$delivery->id,$langs->trans("ValidateDeliveryReceipt"),$langs->trans("ValidateDeliveryReceiptConfirm",$delivery->ref),'confirm_valid','','',1);
 				if ($ret == 'html') print '<br>';
@@ -485,7 +501,7 @@ else
 			print "</tr>";
 
 			// Document origine
-			if ($typeobject == 'commande' && $expedition->origin_id && $conf->commande->enabled)
+			if ($typeobject == 'commande' && $expedition->origin_id && ! empty($conf->commande->enabled))
 			{
 				print '<tr><td>'.$langs->trans("RefOrder").'</td>';
 				$order=new Commande($db);
@@ -495,7 +511,7 @@ else
 				print "</td>\n";
 				print '</tr>';
 			}
-			if ($typeobject == 'propal' && $expedition->origin_id && $conf->propal->enabled)
+			if ($typeobject == 'propal' && $expedition->origin_id && ! empty($conf->propal->enabled))
 			{
 				$propal=new Propal($db);
 				$propal->fetch($expedition->origin_id);
@@ -527,7 +543,7 @@ else
 			print '<td colspan="3">'.$delivery->getLibStatut(4)."</td>\n";
 			print '</tr>';
 
-			if (!$conf->expedition_bon->enabled && $conf->stock->enabled)
+			if (!$conf->expedition_bon->enabled && ! empty($conf->stock->enabled))
 			{
 				// Entrepot
 				$entrepot = new Entrepot($db);
@@ -569,24 +585,24 @@ else
 					$product = new Product($db);
 					$product->fetch($delivery->lines[$i]->fk_product);
 
-          // Define output language
-          if (! empty($conf->global->MAIN_MULTILANGS) && ! empty($conf->global->PRODUIT_TEXTS_IN_THIRDPARTY_LANGUAGE))
-			    {
-            $delivery->fetch_thirdparty();
-      			$outputlangs = $langs;
-            $newlang='';
-            if (empty($newlang) && ! empty($_REQUEST['lang_id'])) $newlang=$_REQUEST['lang_id'];
-            if (empty($newlang)) $newlang=$delivery->client->default_lang;
-            if (! empty($newlang))
-            {
-                $outputlangs = new Translate("",$conf);
-                $outputlangs->setDefaultLang($newlang);
-            }
+					// Define output language
+					if (! empty($conf->global->MAIN_MULTILANGS) && ! empty($conf->global->PRODUIT_TEXTS_IN_THIRDPARTY_LANGUAGE))
+					{
+						$delivery->fetch_thirdparty();
+						$outputlangs = $langs;
+						$newlang='';
+						if (empty($newlang) && ! empty($_REQUEST['lang_id'])) $newlang=$_REQUEST['lang_id'];
+						if (empty($newlang)) $newlang=$delivery->client->default_lang;
+						if (! empty($newlang))
+						{
+							$outputlangs = new Translate("",$conf);
+							$outputlangs->setDefaultLang($newlang);
+						}
 
-            $label = (! empty($product->multilangs[$outputlangs->defaultlang]["libelle"])) ? $product->multilangs[$outputlangs->defaultlang]["libelle"] : $delivery->lines[$i]->product_label;
-          }
-          else
-            $label = $delivery->lines[$i]->product_label;
+						$label = (! empty($product->multilangs[$outputlangs->defaultlang]["label"])) ? $product->multilangs[$outputlangs->defaultlang]["label"] : $delivery->lines[$i]->product_label;
+					}
+					else
+						$label = ( ! empty($delivery->lines[$i]->label)?$delivery->lines[$i]->label:$delivery->lines[$i]->product_label);
 
 					print '<td>';
 
@@ -594,15 +610,15 @@ else
 					$text = '<a href="'.DOL_URL_ROOT.'/product/fiche.php?id='.$delivery->lines[$i]->fk_product.'">';
 					if ($delivery->lines[$i]->fk_product_type==1) $text.= img_object($langs->trans('ShowService'),'service');
 					else $text.= img_object($langs->trans('ShowProduct'),'product');
-					$text.= ' '.$delivery->lines[$i]->ref.'</a>';
+					$text.= ' '.$delivery->lines[$i]->product_ref.'</a>';
 					$text.= ' - '.$label;
-					$description=($conf->global->PRODUIT_DESC_IN_FORM?'':dol_htmlentitiesbr($delivery->lines[$i]->description));
+					$description=(! empty($conf->global->PRODUIT_DESC_IN_FORM)?'':dol_htmlentitiesbr($delivery->lines[$i]->description));
 					//print $description;
 					print $form->textwithtooltip($text,$description,3,'','',$i);
 					print_date_range($delivery->lines[$i]->date_start,$delivery->lines[$i]->date_end);
-					if ($conf->global->PRODUIT_DESC_IN_FORM)
+					if (! empty($conf->global->PRODUIT_DESC_IN_FORM))
 					{
-						print ($delivery->lines[$i]->description && $delivery->lines[$i]->description!=$delivery->lines[$i]->label)?'<br>'.dol_htmlentitiesbr($delivery->lines[$i]->description):'';
+						print (! empty($delivery->lines[$i]->description) && $delivery->lines[$i]->description!=$delivery->lines[$i]->product_label)?'<br>'.dol_htmlentitiesbr($delivery->lines[$i]->description):'';
 					}
 				}
 				else
@@ -610,7 +626,14 @@ else
 					print "<td>";
 					if ($delivery->lines[$i]->fk_product_type==1) $text = img_object($langs->trans('Service'),'service');
 					else $text = img_object($langs->trans('Product'),'product');
-					print $text.' '.nl2br($delivery->lines[$i]->description);
+
+					if (! empty($delivery->lines[$i]->label)) {
+						$text.= ' <strong>'.$delivery->lines[$i]->label.'</strong>';
+						print $form->textwithtooltip($text,$delivery->lines[$i]->description,3,'','',$i);
+					} else {
+						print $text.' '.nl2br($delivery->lines[$i]->description);
+					}
+
 					print_date_range($objp->date_start,$objp->date_end);
 					print "</td>\n";
 				}
@@ -699,7 +722,7 @@ else
 	}
 }
 
-$db->close();
 
 llxFooter();
+$db->close();
 ?>

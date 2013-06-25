@@ -1,11 +1,11 @@
-<?PHP
+<?php
 /* Copyright (C) 2001-2006 Rodolphe Quiedeville <rodolphe@quiedeville.org>
  * Copyright (C) 2004-2010 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2005-2011 Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2005-2012 Regis Houssin        <regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -23,25 +23,25 @@
  *   \brief      List of suppliers orders
  */
 
-require("../../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/fourn/class/fournisseur.class.php");
-require_once(DOL_DOCUMENT_ROOT."/fourn/class/fournisseur.commande.class.php");
+require '../../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.class.php';
+require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.commande.class.php';
 
 $langs->load("orders");
 
-$sref=isset($_GET['search_ref'])?$_GET['search_ref']:$_POST['search_ref'];
-$snom=isset($_GET['search_nom'])?$_GET['search_nom']:$_POST['search_nom'];
-$suser=isset($_GET['search_user'])?$_GET['search_user']:$_POST['search_user'];
-$sttc=isset($_GET['search_ttc'])?$_GET['search_ttc']:$_POST['search_ttc'];
-$sall=isset($_GET['search_all'])?$_GET['search_all']:$_POST['search_all'];
+$sref=GETPOST('search_ref');
+$snom=GETPOST('search_nom');
+$suser=GETPOST('search_user');
+$sttc=GETPOST('search_ttc');
+$sall=GETPOST('search_all');
 
-$page  = (is_numeric($_GET["page"]) ?  $_GET["page"] : 0);
-$socid = (is_numeric($_GET["socid"]) ? $_GET["socid"] : 0);
-$sortorder = $_GET["sortorder"];
-$sortfield = $_GET["sortfield"];
+$page  = GETPOST('page','int');
+$socid = GETPOST('socid','int');
+$sortorder = GETPOST('sortorder','alpha');
+$sortfield = GETPOST('sortfield','alpha');
 
 // Security check
-$orderid = isset($_GET["orderid"])?$_GET["orderid"]:'';
+$orderid = GETPOST('orderid');
 if ($user->societe_id) $socid=$user->societe_id;
 $result = restrictedArea($user, 'commande_fournisseur', $orderid,'');
 
@@ -105,9 +105,9 @@ if ($sall)
 }
 if ($socid) $sql.= " AND s.rowid = ".$socid;
 
-if (dol_strlen($_GET["statut"]))
+if (GETPOST('statut'))
 {
-	$sql .= " AND fk_statut =".$_GET["statut"];
+	$sql .= " AND fk_statut =".GETPOST('statut');
 }
 
 $sql .= " ORDER BY $sortfield $sortorder " . $db->plimit($conf->liste_limit+1, $offset);
@@ -122,7 +122,7 @@ if ($resql)
 
 	print_barre_liste($title, $page, "liste.php", "", $sortfield, $sortorder, '', $num);
 	print '<form action="liste.php" method="GET">';
-	print '<table class="liste">';
+	print '<table class="noborder" width="100%">';
 	print '<tr class="liste_titre">';
 	print_liste_field_titre($langs->trans("Ref"),$_SERVER["PHP_SELF"],"cf.ref","","",'',$sortfield,$sortorder);
 	print_liste_field_titre($langs->trans("Company"),$_SERVER["PHP_SELF"],"s.nom","","",'',$sortfield,$sortorder);
@@ -200,7 +200,7 @@ else
 	dol_print_error($db);
 }
 
-$db->close();
 
 llxFooter();
+$db->close();
 ?>

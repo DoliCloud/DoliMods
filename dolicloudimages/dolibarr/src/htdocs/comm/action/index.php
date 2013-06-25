@@ -2,12 +2,12 @@
 /* Copyright (C) 2001-2004 Rodolphe Quiedeville <rodolphe@quiedeville.org>
  * Copyright (C) 2003      Eric Seigne          <erics@rycks.com>
  * Copyright (C) 2004-2012 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2005-2011 Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2005-2012 Regis Houssin        <regis.houssin@capnetworks.com>
  * Copyright (C) 2011      Juanjo Menent        <jmenent@2byte.es>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -25,13 +25,13 @@
  *  \brief      Home page of calendar events
  */
 
-require("../../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/societe/class/societe.class.php");
-require_once(DOL_DOCUMENT_ROOT."/contact/class/contact.class.php");
-require_once(DOL_DOCUMENT_ROOT."/comm/action/class/actioncomm.class.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/date.lib.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/agenda.lib.php");
-if ($conf->projet->enabled) require_once(DOL_DOCUMENT_ROOT."/core/lib/project.lib.php");
+require '../../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/societe/class/societe.class.php';
+require_once DOL_DOCUMENT_ROOT.'/contact/class/contact.class.php';
+require_once DOL_DOCUMENT_ROOT.'/comm/action/class/actioncomm.class.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/agenda.lib.php';
+if (! empty($conf->projet->enabled)) require_once DOL_DOCUMENT_ROOT.'/core/lib/project.lib.php';
 
 if (! isset($conf->global->AGENDA_MAX_EVENTS_DAY_VIEW)) $conf->global->AGENDA_MAX_EVENTS_DAY_VIEW=3;
 
@@ -42,8 +42,8 @@ $filterd = GETPOST("userdone","int",3)?GETPOST("userdone","int",3):GETPOST("filt
 $showbirthday = empty($conf->use_javascript_ajax)?GETPOST("showbirthday","int"):1;
 
 
-$sortfield = GETPOST("sortfield");
-$sortorder = GETPOST("sortorder");
+$sortfield = GETPOST("sortfield",'alpha');
+$sortorder = GETPOST("sortorder",'alpha');
 $page = GETPOST("page","int");
 if ($page == -1) { $page = 0; }
 $limit = $conf->liste_limit;
@@ -75,6 +75,7 @@ $day=GETPOST("day","int")?GETPOST("day","int"):0;
 $actioncode=GETPOST("actioncode","alpha",3);
 $pid=GETPOST("projectid","int",3);
 $status=GETPOST("status");
+$type=GETPOST("type");
 $maxprint=(isset($_GET["maxprint"])?GETPOST("maxprint"):$conf->global->AGENDA_MAX_EVENTS_DAY_VIEW);
 
 if (GETPOST('viewcal'))  {
@@ -87,6 +88,7 @@ if (GETPOST('viewday'))  {
     $action='show_day'; $day=($day?$day:date("d"));
 }                                  // View by day
 
+$langs->load("agenda");
 $langs->load("other");
 $langs->load("commercial");
 
@@ -138,13 +140,13 @@ if (empty($conf->global->AGENDA_DISABLE_EXT) && $conf->global->AGENDA_EXT_NB > 0
     while($i < $conf->global->AGENDA_EXT_NB)
     {
         $i++;
-        $paramkey='AGENDA_EXT_SRC'.$i;
-        $url=$conf->global->$paramkey;
-        $paramkey='AGENDA_EXT_NAME'.$i;
-        $namecal = $conf->global->$paramkey;
-        $paramkey='AGENDA_EXT_COLOR'.$i;
-        $colorcal = $conf->global->$paramkey;
-        if ($url && $namecal) $listofextcals[]=array('src'=>$url,'name'=>$namecal,'color'=>$colorcal);
+        $source='AGENDA_EXT_SRC'.$i;
+        $name='AGENDA_EXT_NAME'.$i;
+        $color='AGENDA_EXT_COLOR'.$i;
+        if (! empty($conf->global->$source) && ! empty($conf->global->$name))
+        {
+        	$listofextcals[]=array('src'=>$conf->global->$source,'name'=>$conf->global->$name,'color'=>$conf->global->$color);
+        }
     }
 }
 
@@ -219,6 +221,7 @@ if ($status == 'done') $title=$langs->trans("DoneActions");
 if ($status == 'todo') $title=$langs->trans("ToDoActions");
 
 $param='';
+$region='';
 if ($status)  $param="&status=".$status;
 if ($filter)  $param.="&filter=".$filter;
 if ($filtera) $param.="&filtera=".$filtera;
@@ -228,7 +231,7 @@ if ($socid)   $param.="&socid=".$socid;
 if ($showbirthday) $param.="&showbirthday=1";
 if ($pid)     $param.="&projectid=".$pid;
 if ($actioncode) $param.="&actioncode=".$actioncode;
-if (GETPOST("type"))   $param.="&type=".GETPOST("type");
+if ($type)   $param.="&type=".$type;
 if ($action == 'show_day' || $action == 'show_week') $param.='&action='.$action;
 $param.="&maxprint=".$maxprint;
 
@@ -303,15 +306,15 @@ $sql.= ' a.priority, a.fulldayevent, a.location,';
 $sql.= ' a.fk_soc, a.fk_contact,';
 $sql.= ' ca.code';
 $sql.= ' FROM ('.MAIN_DB_PREFIX.'c_actioncomm as ca,';
-if (! $user->rights->societe->client->voir && ! $socid) $sql.= " ".MAIN_DB_PREFIX."societe_commerciaux as sc,";
 $sql.= " ".MAIN_DB_PREFIX.'user as u,';
 $sql.= " ".MAIN_DB_PREFIX."actioncomm as a)";
+if (! $user->rights->societe->client->voir && ! $socid) $sql.= " LEFT JOIN ".MAIN_DB_PREFIX."societe_commerciaux as sc ON a.fk_soc = sc.fk_soc";
 $sql.= ' WHERE a.fk_action = ca.id';
 $sql.= ' AND a.fk_user_author = u.rowid';
 $sql.= ' AND a.entity IN ('.getEntity().')';
 if ($actioncode) $sql.=" AND ca.code='".$db->escape($actioncode)."'";
 if ($pid) $sql.=" AND a.fk_project=".$db->escape($pid);
-if (! $user->rights->societe->client->voir && ! $socid) $sql.= " AND a.fk_soc = sc.fk_soc AND sc.fk_user = " .$user->id;
+if (! $user->rights->societe->client->voir && ! $socid) $sql.= " AND (a.fk_soc IS NULL OR sc.fk_user = " .$user->id . ")";
 if ($user->societe_id) $sql.= ' AND a.fk_soc = '.$user->societe_id; // To limit to external user company
 if ($action == 'show_day')
 {
@@ -340,7 +343,7 @@ else
     $sql.= " AND datep2 > '".$db->idate(dol_mktime(23,59,59,$month,28,$year)+(60*60*24*10))."')";
     $sql.= ')';
 }
-if ($_GET["type"]) $sql.= " AND ca.id = ".$_GET["type"];
+if ($type) $sql.= " AND ca.id = ".$type;
 if ($status == 'done') { $sql.= " AND (a.percent = 100 OR (a.percent = -1 AND a.datep2 <= '".$db->idate($now)."'))"; }
 if ($status == 'todo') { $sql.= " AND ((a.percent >= 0 AND a.percent < 100) OR (a.percent = -1 AND a.datep2 > '".$db->idate($now)."'))"; }
 if ($filtera > 0 || $filtert > 0 || $filterd > 0)
@@ -517,14 +520,14 @@ if ($showbirthday)
 
 if (count($listofextcals))
 {
-    require_once(DOL_DOCUMENT_ROOT."/comm/action/class/ical.class.php");
+    require_once DOL_DOCUMENT_ROOT.'/comm/action/class/ical.class.php';
     foreach($listofextcals as $extcal)
     {
         $url=$extcal['src'];    // Example: https://www.google.com/calendar/ical/eldy10%40gmail.com/private-cde92aa7d7e0ef6110010a821a2aaeb/basic.ics
         $namecal = $extcal['name'];
         $colorcal = $extcal['color'];
         //print "url=".$url." namecal=".$namecal." colorcal=".$colorcal;
-        $ical=new ical();
+        $ical=new ICal();
         $ical->parse($url);
         // After this $ical->cal['VEVENT'] contains array of events, $ical->cal['DAYLIGHT'] contains daylight info, $ical->cal['STANDARD'] contains non daylight info, ...
         //var_dump($ical->cal); exit;
@@ -538,7 +541,7 @@ if (count($listofextcals))
             $moreicalevents=array();
             foreach($icalevents as $icalevent)
             {
-                if (is_array($icalevent['RRULE'])) //repeatable event
+                if (isset($icalevent['RRULE']) && is_array($icalevent['RRULE'])) //repeatable event
                 {
                     //if ($event->date_start_in_calendar < $firstdaytoshow) $event->date_start_in_calendar=$firstdaytoshow;
                     //if ($event->date_end_in_calendar > $lastdaytoshow) $event->date_end_in_calendar=$lastdaytoshow;
@@ -645,7 +648,7 @@ if (count($listofextcals))
                 // Create a new object action
                 $event=new ActionComm($db);
                 $addevent = false;
-                if ($icalevent['DTSTART;VALUE=DATE']) // fullday event
+                if (isset($icalevent['DTSTART;VALUE=DATE'])) // fullday event
                 {
                     // For full day events, date are also GMT but they wont but converted using tz during output
                     $datestart=dol_stringtotime($icalevent['DTSTART;VALUE=DATE'],1);
@@ -736,7 +739,7 @@ $cachecontacts=array();
 $color_file = DOL_DOCUMENT_ROOT."/theme/".$conf->theme."/graph-color.php";
 if (is_readable($color_file))
 {
-    include_once($color_file);
+    include_once $color_file;
 }
 if (! is_array($theme_datacolor)) $theme_datacolor=array(array(120,130,150), array(200,160,180), array(190,190,220));
 
@@ -979,8 +982,22 @@ function show_day_events($db, $day, $month, $year, $monthshown, $style, &$eventa
 
                     // Define $color and $cssclass of event
                     $color=-1; $cssclass=''; $colorindex=-1;
-                    if ($event->author->id == $user->id || $event->usertodo->id == $user->id || $event->userdone->id == $user->id) { $nummytasks++; $colorindex=1; $cssclass='family_mytasks'; }
-                    else if ($event->type_code == 'ICALEVENT') { $numical++; $numicals[dol_string_nospecial($event->icalname)]++; $color=$event->icalcolor; $cssclass=($event->icalname?'family_'.dol_string_nospecial($event->icalname):'family_other'); }
+                    if ((! empty($event->author->id) && $event->author->id == $user->id)
+                    || (! empty($event->usertodo->id) && $event->usertodo->id == $user->id)
+                    || (! empty($event->userdone->id) && $event->userdone->id == $user->id)) {
+                    	$nummytasks++; $colorindex=1; $cssclass='family_mytasks';
+                    }
+                    else if ($event->type_code == 'ICALEVENT') {
+                    	$numical++;
+                    	if (! empty($event->icalname)) {
+                    		if (! isset($numicals[dol_string_nospecial($event->icalname)])) {
+                    			$numicals[dol_string_nospecial($event->icalname)] = 0;
+                    		}
+                    		$numicals[dol_string_nospecial($event->icalname)]++;
+                    	}
+                    	$color=$event->icalcolor;
+                    	$cssclass=(! empty($event->icalname)?'family_'.dol_string_nospecial($event->icalname):'family_other');
+                    }
                     else if ($event->type_code == 'BIRTHDAY')  { $numbirthday++; $colorindex=2; $cssclass='family_birthday'; }
                     else { $numother++; $colorindex=2; $cssclass='family_other'; }
                     if ($color == -1) $color=sprintf("%02x%02x%02x",$theme_datacolor[$colorindex][0],$theme_datacolor[$colorindex][1],$theme_datacolor[$colorindex][2]);
@@ -1074,7 +1091,7 @@ function show_day_events($db, $day, $month, $year, $monthshown, $style, &$eventa
                         if (! empty($event->societe->id) && ! empty($event->contact->id)) $length=round($length/2);
                         if (! empty($event->societe->id) && $event->societe->id > 0)
                         {
-                            if (! is_object($cachethirdparties[$event->societe->id]))
+                            if (! isset($cachethirdparties[$event->societe->id]) || ! is_object($cachethirdparties[$event->societe->id]))
                             {
                                 $thirdparty=new Societe($db);
                                 $thirdparty->fetch($event->societe->id);

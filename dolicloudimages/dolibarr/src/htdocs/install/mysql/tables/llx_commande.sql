@@ -1,11 +1,11 @@
 -- ===================================================================
 -- Copyright (C) 2003      Rodolphe Quiedeville <rodolphe@quiedeville.org>
--- Copyright (C) 2005-2012 Regis Houssin        <regis@dolibarr.fr>
+-- Copyright (C) 2005-2012 Regis Houssin        <regis.houssin@capnetworks.com>
 -- Copyright (C) 2010      Juanjo Menent        <jmenent@2byte.es>
 --
 -- This program is free software; you can redistribute it and/or modify
 -- it under the terms of the GNU General Public License as published by
--- the Free Software Foundation; either version 2 of the License, or
+-- the Free Software Foundation; either version 3 of the License, or
 -- (at your option) any later version.
 --
 -- This program is distributed in the hope that it will be useful,
@@ -62,7 +62,7 @@ create table llx_commande
   
   date_livraison		date 	  default NULL,
   fk_availability		integer NULL,
-  fk_demand_reason		integer,						-- should be named fk_input_reason
+  fk_input_reason		integer,
   fk_adresse_livraison	integer,						-- delivery address (deprecated)
   import_key			varchar(14),
   extraparams			varchar(255)					-- for stock other parameters with json format

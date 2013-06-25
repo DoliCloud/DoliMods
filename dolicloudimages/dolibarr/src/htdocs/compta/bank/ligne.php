@@ -3,11 +3,11 @@
  * Copyright (C) 2003      Xavier DUTOIT        <doli@sydesy.com>
  * Copyright (C) 2004-2011 Laurent Destailleur  <eldy@users.sourceforge.net>
  * Copyright (C) 2004      Christophe Combelles <ccomb@free.fr>
- * Copyright (C) 2005-2012 Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2005-2012 Regis Houssin        <regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -25,14 +25,14 @@
  *	\brief      Page to edit a bank transaction record
  */
 
-require("./pre.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/compta/bank/class/account.class.php");
+require 'pre.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/compta/bank/class/account.class.php';
 
 $langs->load("banks");
 $langs->load("compta");
 $langs->load("bills");
 $langs->load("categories");
-if ($conf->adherent->enabled) $langs->load("members");
+if (! empty($conf->adherent->enabled)) $langs->load("members");
 
 
 $id = (GETPOST('id','int') ? GETPOST('id','int') : GETPOST('account','int'));
@@ -221,19 +221,19 @@ if ($result)
 }
 
 $var=false;
-$h=0;
 
+$tabs = array(
+    array(
+        DOL_URL_ROOT.'/compta/bank/ligne.php?rowid='.$rowid,
+        $langs->trans('Card')
+    ),
+    array(
+        DOL_URL_ROOT.'/compta/bank/info.php?rowid='.$rowid,
+        $langs->trans('Info')
+    )
+);
 
-$head[$h][0] = $_SERVER['PHP_SELF'].'?rowid='.$rowid;
-$head[$h][1] = $langs->trans('Card');
-$hselected=$h;
-$h++;
-
-$head[$h][0] = DOL_URL_ROOT.'/compta/bank/info.php?rowid='.$rowid;
-$head[$h][1] = $langs->trans("Info");
-$h++;
-
-dol_fiche_head($head, $hselected, $langs->trans('LineRecord'),0,'account');
+dol_fiche_head($tabs, 0, $langs->trans('LineRecord'), 0, 'account');
 
 dol_htmloutput_mesg($mesg);
 
@@ -278,10 +278,12 @@ if ($result)
 
         print '<table class="border" width="100%">';
 
+        $linkback = '<a href="'.DOL_URL_ROOT.'/compta/bank/search.php">'.$langs->trans("BackToList").'</a>';
+
         // Ref
         print '<tr><td width="20%">'.$langs->trans("Ref")."</td>";
         print '<td colspan="4">';
-        print $form->showrefnav($bankline,'rowid','',1,'rowid','rowid');
+        print $form->showrefnav($bankline, 'rowid', $linkback, 1, 'rowid', 'rowid');
         print '</td>';
         print '</tr>';
 
@@ -376,7 +378,7 @@ if ($result)
             print '<input type="text" class="flat" name="num_chq" value="'.(empty($objp->num_chq) ? '' : $objp->num_chq).'">';
             if ($objp->receiptid)
             {
-                include_once(DOL_DOCUMENT_ROOT.'/compta/paiement/cheque/class/remisecheque.class.php');
+                include_once DOL_DOCUMENT_ROOT.'/compta/paiement/cheque/class/remisecheque.class.php';
                 $receipt=new RemiseCheque($db);
                 $receipt->fetch($objp->receiptid);
                 print ' &nbsp; &nbsp; '.$langs->trans("CheckReceipt").': '.$receipt->getNomUrl(2);

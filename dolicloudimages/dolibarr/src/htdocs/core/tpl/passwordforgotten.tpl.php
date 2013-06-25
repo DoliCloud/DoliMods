@@ -1,10 +1,10 @@
 <?php
-/* Copyright (C) 2009-2010 Regis Houssin <regis@dolibarr.fr>
+/* Copyright (C) 2009-2010 Regis Houssin <regis.houssin@capnetworks.com>
  * Copyright (C) 2011-2012 Laurent Destailleur <eldy@users.sourceforge.net>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -34,26 +34,29 @@ print '<head>
 print '<!-- Includes for JQuery (Ajax library) -->'."\n";
 if (constant('JS_JQUERY_UI')) print '<link rel="stylesheet" type="text/css" href="'.JS_JQUERY_UI.'css/'.$jquerytheme.'/jquery-ui.min.css" />'."\n";  // JQuery
 else print '<link rel="stylesheet" type="text/css" href="'.DOL_URL_ROOT.'/includes/jquery/css/'.$jquerytheme.'/jquery-ui-latest.custom.css" />'."\n";    // JQuery
+// CSS forced by modules (relative url starting with /)
+if (isset($conf->modules_parts['css']))
+{
+	$arraycss=(array) $conf->modules_parts['css'];
+	foreach($arraycss as $modcss => $filescss)
+	{
+		$filescss=(array) $filescss;	// To be sure filecss is an array
+		foreach($filescss as $cssfile)
+		{
+			// cssfile is a relative path
+			print '<link rel="stylesheet" type="text/css" title="default" href="'.dol_buildpath($cssfile,1);
+			// We add params only if page is not static, because some web server setup does not return content type text/css if url has parameters, so browser cache is not used.
+			if (!preg_match('/\.css$/i',$cssfile)) print $themeparam;
+			print '"><!-- Added by module '.$modcss. '-->'."\n";
+		}
+	}
+}
 // JQuery. Must be before other includes
 $ext='.js';
-if (isset($conf->global->MAIN_OPTIMIZE_SPEED) && ($conf->global->MAIN_OPTIMIZE_SPEED & 0x01)) $ext='.jgz';
 print '<!-- Includes JS for JQuery -->'."\n";
 if (constant('JS_JQUERY')) print '<script type="text/javascript" src="'.JS_JQUERY.'jquery.min.js"></script>'."\n";
 else print '<script type="text/javascript" src="'.DOL_URL_ROOT.'/includes/jquery/js/jquery-latest.min'.$ext.'"></script>'."\n";
-print '<link rel="stylesheet" type="text/css" href="'.dol_escape_htmltag($conf_css).'" />
-<style type="text/css">
-<!--
-#login {
-	margin-top: 70px;
-	margin-bottom: 30px;
-}
-.login_table {
-	width: 512px;
-	border: 1px solid #C0C0C0;
-	background: #F0F0F0 url('.$login_background.') repeat-x;
-}
--->
-</style>'."\n";
+print '<link rel="stylesheet" type="text/css" href="'.dol_escape_htmltag($conf_css).'" />'."\n";
 if (! empty($conf->global->MAIN_HTML_HEADER)) print $conf->global->MAIN_HTML_HEADER;
 print '<!-- HTTP_USER_AGENT = '.$_SERVER['HTTP_USER_AGENT'].' -->
 </head>';
@@ -66,7 +69,7 @@ print '<!-- HTTP_USER_AGENT = '.$_SERVER['HTTP_USER_AGENT'].' -->
 <input type="hidden" name="token" value="<?php echo $_SESSION['newtoken']; ?>">
 <input type="hidden" name="action" value="buildnewpassword">
 
-<table class="login_table" summary="<?php echo $title; ?>" cellpadding="0" cellspacing="0" border="0" align="center">
+<table class="login_table_title" summary="<?php echo $title; ?>" cellpadding="0" cellspacing="0" border="0" align="center">
 <tr class="vmenu"><td align="center"><?php echo $title; ?></td></tr>
 </table>
 <br>
@@ -99,9 +102,9 @@ if (! empty($hookmanager->resArray['options'])) {
 	<tr><td valign="middle" nowrap="nowrap"> &nbsp; <b><?php echo $langs->trans('SecurityCode'); ?></b></td>
 	<td valign="middle" nowrap="nowrap" align="left" class="none">
 
-	<table class="login_table" style="width: 100px;"><tr>
+	<table class="login_table_securitycode" style="width: 100px;"><tr>
 	<td><input id="securitycode" class="flat" type="text" size="6" maxlength="5" name="code" tabindex="3"></td>
-	<td><img src="<?php echo $dol_url_root.'/core/antispamimage.php'; ?>" border="0" width="80" height="32"></td>
+	<td><img src="<?php echo $dol_url_root.'/core/antispamimage.php'; ?>" border="0" width="80" height="32" id="img_securitycode"></td>
 	<td><a href="<?php echo $php_self; ?>"><?php echo $captcha_refresh; ?></a></td>
 	</tr></table>
 
@@ -112,7 +115,7 @@ if (! empty($hookmanager->resArray['options'])) {
 </td>
 
 <td align="center" valign="top">
-<img alt="Logo" title="" src="<?php echo $urllogo; ?>" />
+<img alt="Logo" title="" src="<?php echo $urllogo; ?>" id="img_logo" />
 </td>
 
 </tr>

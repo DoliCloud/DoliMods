@@ -31,10 +31,12 @@ if (! $res) die("Include of main fails");
 $res=dol_include_once("/memcached/lib/memcached.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
 
+$op=GETPOST('op','int');
+
 // Security check
 if (!$user->admin)
 accessforbidden();
-if (! empty($dolibarr_memcached_view_disable))	// Hidden variable to add to conf file to disable browsing
+if (! empty($dolibarr_memcached_setup_disable) || ($op == 2 && ! empty($dolibarr_memcached_view_disable)))	// Hidden variable to add to conf file to disabled setup or disable browsing only
 accessforbidden();
 
 $langs->load("admin");
@@ -439,7 +441,7 @@ EOB;
 }
 function getFooter(){
     global $VERSION;
-    $footer = '</div><!-- Based on apc.php '.$VERSION.'--></body>
+    $footer = '<!-- Based on apc.php '.$VERSION.'--></body>
 </html>
 ';
 
@@ -634,6 +636,7 @@ print_fiche_titre($langs->trans('MemcachedSetup'),$linkback,'setup');
 $head=memcached_prepare_head();
 $tabval='serverstats';
 if ($_GET["op"] > 1) $tabval='cachebrowser';
+
 dol_fiche_head($head, $tabval, $langs->trans("MemCached"));
 
 
@@ -859,6 +862,9 @@ EOB;
         echo 'Flush  '.$theserver.":".$r;
    break;
 }
+
+dol_fiche_end();
+
 echo getFooter();
 
 ?>

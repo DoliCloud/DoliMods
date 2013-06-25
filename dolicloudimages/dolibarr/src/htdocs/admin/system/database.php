@@ -6,7 +6,7 @@
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -23,7 +23,7 @@
  *   \brief      Page with system information of database
  */
 
-require("../../main.inc.php");
+require '../../main.inc.php';
 
 $langs->load("admin");
 
@@ -39,7 +39,7 @@ $form=new Form($db);
 
 llxHeader();
 
-print_fiche_titre($langs->trans("DatabaseConfiguration"),'','setup');
+print_fiche_titre($langs->trans("InfoDatabase"),'','setup');
 
 // Database
 print '<table class="noborder" width="100%">';
@@ -53,6 +53,13 @@ print '<tr '.$bc[1].'><td width="300">'.$langs->trans("User").'</td><td>'.$conf-
 print '<tr '.$bc[0].'><td width="300">'.$langs->trans("Password").'</td><td>'.preg_replace('/./i','*',$dolibarr_main_db_pass).'</td></tr>'."\n";
 print '<tr '.$bc[1].'><td width="300">'.$langs->trans("DBStoringCharset").'</td><td>'.$db->getDefaultCharacterSetDatabase().'</td></tr>'."\n";
 print '<tr '.$bc[0].'><td width="300">'.$langs->trans("DBSortingCharset").'</td><td>'.$db->getDefaultCollationDatabase().'</td></tr>'."\n";
+print '</table>';
+
+// Tables
+print '<br>';
+print '<table class="noborder" width="100%">';
+print '<tr class="liste_titre"><td colspan="2">'.$langs->trans("Tables").'</td></tr>'."\n";
+print '<tr '.$bc[0].'><td width="300"><a href="'.DOL_URL_ROOT.'/admin/system/database-tables.php?mainmenu=home">'.$langs->trans("List").'</a></td></tr>'."\n";
 print '</table>';
 
 
@@ -86,7 +93,7 @@ else
 		print '<br>';
 		print '<table class="noborder" width="100%">';
 		print '<tr class="liste_titre">';
-		print '<td width="300">'.$langs->trans("Parameter").'</td>';
+		print '<td width="300">'.$langs->trans("Parameters").'</td>';
 		print '<td>'.$langs->trans("Value").'</td>';
 		print '</tr>'."\n";
 
@@ -95,10 +102,8 @@ else
 		if (preg_match('/mysql/i',$db->type))
 		{
 			$arraytest=array(
-//				"character_set_connection"=>'UTF-8',
-				'character_set_database'=>'dolibarr_main_db_character_set',
-//				'collation_connection'=>"UTF-8",
-				'collation_database'=>'dolibarr_main_db_collation'
+				'character_set_database'=>array('var'=>'dolibarr_main_db_character_set','valifempty'=>'utf8'),
+				'collation_database'=>array('var'=>'dolibarr_main_db_collation','valifempty'=>'utf8_general_ci')
 			);
 		}
 
@@ -118,7 +123,8 @@ else
 				foreach($arraytest as $key => $val)
 				{
 					if ($key != $row[0]) continue;
-					$text='Should be in line with value of param <b>'.$val.'</b> thas is <b>'.${$val}.'</b>';
+					$val2=${$val['var']};
+					$text='Should be in line with value of param <b>'.$val['var'].'</b> thas is <b>'.($val2?$val2:"'' (=".$val['valifempty'].")").'</b>';
 					$show=1;
 				}
 				if ($show==0) print $row[1];

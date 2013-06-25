@@ -1,11 +1,11 @@
 <?php
 /* Copyright (C) 2004      Rodolphe Quiedeville <rodolphe@quiedeville.org>
- * Copyright (C) 2004-2008 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2005-2009 Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2004-2012 Laurent Destailleur  <eldy@users.sourceforge.net>
+ * Copyright (C) 2005-2009 Regis Houssin        <regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -24,13 +24,12 @@
  *	\brief      File to build PDF with events
  */
 
-require_once(DOL_DOCUMENT_ROOT.'/core/lib/pdf.lib.php');
-require_once(DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php');
-require_once(DOL_DOCUMENT_ROOT."/core/lib/company.lib.php");
+require_once DOL_DOCUMENT_ROOT.'/core/lib/pdf.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php';
 
 /**
- *	\class      CommActionRapport
- *	\brief      Classe permettant la generation des rapports d'actions
+ *	Class to generate event report
  */
 class CommActionRapport
 {
@@ -43,6 +42,12 @@ class CommActionRapport
 	var $title;
 	var $subject;
 
+	var $marge_gauche;
+	var	$marge_droite;
+	var	$marge_haute;
+	var	$marge_basse;
+
+
 	/**
 	 * Constructor
 	 *
@@ -52,7 +57,7 @@ class CommActionRapport
 	 */
 	function __construct($db, $month, $year)
 	{
-		global $langs;
+		global $conf,$langs;
 		$langs->load("commercial");
 
 		$this->db = $db;
@@ -67,10 +72,10 @@ class CommActionRapport
 		$this->page_largeur = $formatarray['width'];
 		$this->page_hauteur = $formatarray['height'];
 		$this->format = array($this->page_largeur,$this->page_hauteur);
-		$this->marge_gauche=5;
-		$this->marge_droite=5;
-		$this->marge_haute=10;
-		$this->marge_basse=10;
+		$this->marge_gauche=isset($conf->global->MAIN_PDF_MARGIN_LEFT)?$conf->global->MAIN_PDF_MARGIN_LEFT:10;
+		$this->marge_droite=isset($conf->global->MAIN_PDF_MARGIN_RIGHT)?$conf->global->MAIN_PDF_MARGIN_RIGHT:10;
+		$this->marge_haute =isset($conf->global->MAIN_PDF_MARGIN_TOP)?$conf->global->MAIN_PDF_MARGIN_TOP:10;
+		$this->marge_basse =isset($conf->global->MAIN_PDF_MARGIN_BOTTOM)?$conf->global->MAIN_PDF_MARGIN_BOTTOM:10;
 
         $this->title=$langs->transnoentitiesnoconv("ActionsReport").' '.$this->year."-".$this->month;
         $this->subject=$langs->transnoentitiesnoconv("ActionsReport").' '.$this->year."-".$this->month;
@@ -113,7 +118,6 @@ class CommActionRapport
 		if (file_exists($dir))
 		{
             $pdf=pdf_getInstance($this->format);
-
             $heightforinfotot = 50;	// Height reserved to output the info and total part
             $heightforfreetext= (isset($conf->global->MAIN_PDF_FREETEXT_HEIGHT)?$conf->global->MAIN_PDF_FREETEXT_HEIGHT:5);	// Height reserved to output the free text on last page
             $heightforfooter = $this->marge_basse + 8;	// Height reserved to output the footer (value include bottom margin)
@@ -138,7 +142,6 @@ class CommActionRapport
 			$pdf->SetKeywords($outputlangs->convToOutputCharset($this->title." ".$this->subject));
 
 			$pdf->SetMargins($this->marge_gauche, $this->marge_haute, $this->marge_droite);   // Left, Top, Right
-			$pdf->SetAutoPageBreak(1,0);
 
 			$nbpage = $this->_pages($pdf, $outputlangs);
 
@@ -214,23 +217,31 @@ class CommActionRapport
 				}
 				$y++;
 
+				// Date
 				$pdf->SetXY($this->marge_gauche, $y);
 				$pdf->MultiCell(22, $height, dol_print_date($this->db->jdate($obj->dp),"day")."\n".dol_print_date($this->db->jdate($obj->dp),"hour"), 0, 'L', 0);
 				$y0 = $pdf->GetY();
 
+				// Third party
 				$pdf->SetXY(26, $y);
 				$pdf->MultiCell(32, $height, dol_trunc($outputlangs->convToOutputCharset($obj->societe),32), 0, 'L', 0);
 				$y1 = $pdf->GetY();
 
+				// Action code
+				$code=$obj->code;
+				if (empty($conf->global->AGENDA_USE_EVENT_TYPE))
+				{
+					if ($code == 'AC_OTH')      $code='AC_MANUAL';
+					if ($code == 'AC_OTH_AUTO') $code='AC_AUTO';
+				}
 				$pdf->SetXY(60,$y);
-				$pdf->MultiCell(32, $height, dol_trunc($outputlangs->convToOutputCharset($outputlangs->transnoentitiesnoconv("Action".$obj->code)),32), 0, 'L', 0);
+				$pdf->MultiCell(32, $height, dol_trunc($outputlangs->convToOutputCharset($outputlangs->transnoentitiesnoconv("Action".$code)),32), 0, 'L', 0);
 				$y2 = $pdf->GetY();
 
+				// Description of event
 				$pdf->SetXY(106,$y);
 				$pdf->MultiCell(94, $height, $outputlangs->convToOutputCharset($text), 0, 'L', 0);
 				$y3 = $pdf->GetY();
-
-				//$pdf->MultiCell(94,2,"y=$y y3=$y3",0,'L',0);
 
 				$i++;
 			}

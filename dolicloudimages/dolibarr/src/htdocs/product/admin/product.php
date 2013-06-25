@@ -3,13 +3,13 @@
  * Copyright (C) 2006      Andre Cianfarani     <acianfa@free.fr>
  * Copyright (C) 2006-2007 Rodolphe Quiedeville <rodolphe@quiedeville.org>
  * Copyright (C) 2007      Auguria SARL         <info@auguria.org>
- * Copyright (C) 2005-2012 Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2005-2012 Regis Houssin        <regis.houssin@capnetworks.com>
  * Copyright (C) 2011-2012 Juanjo Menent        <jmenent@2byte.es>
  * Copyright (C) 2012      Christophe Battarel   <christophe.battarel@altairis.fr>
 **
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -22,15 +22,15 @@
  */
 
 /**
- *  \file       htdocs/product/admin/produit.php
+ *  \file       htdocs/product/admin/product.php
  *  \ingroup    produit
- *  \brief      Page d'administration/configuration du module Produit
+ *  \brief      Setup page of product module
  */
 
-require("../../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/product.lib.php");
-require_once(DOL_DOCUMENT_ROOT."/core/class/html.formbarcode.class.php");
+require '../../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/product.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/core/class/html.formbarcode.class.php';
 
 $langs->load("admin");
 $langs->load("products");
@@ -46,6 +46,47 @@ $value = GETPOST('value','alpha');
 /*
  * Actions
  */
+if ($action == 'setcodeproduct')
+{
+	if (dolibarr_set_const($db, "PRODUCT_CODEPRODUCT_ADDON",$value,'chaine',0,'',$conf->entity) > 0)
+	{
+		header("Location: ".$_SERVER["PHP_SELF"]);
+		exit;
+	}
+	else
+	{
+		dol_print_error($db);
+	}
+}
+
+// Define constants for submodules that contains parameters (forms with param1, param2, ... and value1, value2, ...)
+if ($action == 'setModuleOptions')
+{
+	$post_size=count($_POST);
+
+	$db->begin();
+
+	for($i=0;$i < $post_size;$i++)
+    {
+    	if (array_key_exists('param'.$i,$_POST))
+    	{
+    		$param=GETPOST("param".$i,'alpha');
+    		$value=GETPOST("value".$i,'alpha');
+    		if ($param) $res = dolibarr_set_const($db,$param,$value,'chaine',0,'',$conf->entity);
+	    	if (! $res > 0) $error++;
+    	}
+    }
+	if (! $error)
+    {
+        $db->commit();
+        $mesg = "<font class=\"ok\">".$langs->trans("SetupSaved")."</font>";
+    }
+    else
+    {
+        $db->rollback();
+        $mesg = "<font class=\"error\">".$langs->trans("Error")."</font>";
+	}
+}
 
 if ($action == 'nbprod')
 {
@@ -132,10 +173,100 @@ llxHeader('',$title);
 $linkback='<a href="'.DOL_URL_ROOT.'/admin/modules.php">'.$langs->trans("BackToModuleList").'</a>';
 print_fiche_titre($title,$linkback,'setup');
 
-$head = product_admin_prepare_head(null, $tab);
+$head = product_admin_prepare_head();
 dol_fiche_head($head, 'general', $tab, 0, 'product');
 
 $form=new Form($db);
+
+/*
+ * Module to manage product / services code
+ */
+$dirproduct=array('/core/modules/product/');
+
+print_titre($langs->trans("ProductCodeChecker"));
+
+print '<table class="noborder" width="100%">'."\n";
+print '<tr class="liste_titre">'."\n";
+print '  <td>'.$langs->trans("Name").'</td>';
+print '  <td>'.$langs->trans("Description").'</td>';
+print '  <td>'.$langs->trans("Example").'</td>';
+print '  <td align="center" width="80">'.$langs->trans("Status").'</td>';
+print '  <td align="center" width="60">'.$langs->trans("Infos").'</td>';
+print "</tr>\n";
+
+$var = true;
+foreach ($dirproduct as $dirroot)
+{
+	$dir = dol_buildpath($dirroot,0);
+
+    $handle = @opendir($dir);
+    if (is_resource($handle))
+    {
+    	// Loop on each module find in opened directory
+    	while (($file = readdir($handle))!==false)
+    	{
+    		if (substr($file, 0, 16) == 'mod_codeproduct_' && substr($file, -3) == 'php')
+    		{
+    			$file = substr($file, 0, dol_strlen($file)-4);
+
+    			try {
+        			dol_include_once($dirroot.$file.'.php');
+    			}
+    			catch(Exception $e)
+    			{
+    			    dol_syslog($e->getMessage(), LOG_ERR);
+    			}
+
+    			$modCodeProduct = new $file;
+
+    			// Show modules according to features level
+    			if ($modCodeProduct->version == 'development'  && $conf->global->MAIN_FEATURES_LEVEL < 2) continue;
+    			if ($modCodeProduct->version == 'experimental' && $conf->global->MAIN_FEATURES_LEVEL < 1) continue;
+
+    			$var = !$var;
+    			print '<tr '.$bc[$var].'>'."\n";
+    			print '<td width="140">'.$modCodeProduct->nom.'</td>'."\n";
+    			print '<td>'.$modCodeProduct->info($langs).'</td>'."\n";
+    			print '<td nowrap="nowrap">'.$modCodeProduct->getExample($langs).'</td>'."\n";
+
+    			if (! empty($conf->global->PRODUCT_CODEPRODUCT_ADDON) && $conf->global->PRODUCT_CODEPRODUCT_ADDON == $file)
+    			{
+    				print '<td align="center">'."\n";
+    				print img_picto($langs->trans("Activated"),'switch_on');
+    				print "</td>\n";
+    			}
+    			else
+    			{
+    				$disabled = false;
+    				if (! empty($conf->multicompany->enabled) && (is_object($mc) && ! empty($mc->sharings['referent']) && $mc->sharings['referent'] == $conf->entity) ? false : true);
+    				print '<td align="center">';
+    				if (! $disabled) print '<a href="'.$_SERVER['PHP_SELF'].'?action=setcodeproduct&value='.$file.'">';
+    				print img_picto($langs->trans("Disabled"),'switch_off');
+    				if (! $disabled) print '</a>';
+    				print '</td>';
+    			}
+
+    			print '<td align="center">';
+    			$s=$modCodeProduct->getToolTip($langs,null,-1);
+    			print $form->textwithpicto('',$s,1);
+    			print '</td>';
+
+    			print '</tr>';
+    		}
+    	}
+    	closedir($handle);
+    }
+}
+print '</table>';
+
+/*
+ * Other conf
+ */
+
+print "<br>";
+
+print_titre($langs->trans("ProductOtherConf"));
+
 $var=true;
 print '<table class="noborder" width="100%">';
 print '<tr class="liste_titre">';
@@ -164,7 +295,7 @@ print '</form>';
 
 
 // multiprix nombre de prix a proposer
-if($conf->global->PRODUIT_MULTIPRICES)
+if (! empty($conf->global->PRODUIT_MULTIPRICES))
 {
 	$var=!$var;
 	print '<form method="POST" action="'.$_SERVER['PHP_SELF'].'">';
@@ -200,7 +331,7 @@ print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
 print '<input type="hidden" name="action" value="usesearchtoselectproduct">';
 print '<tr '.$bc[$var].'>';
 print '<td>'.$langs->trans("UseSearchToSelectProduct").'</td>';
-if (! $conf->use_javascript_ajax)
+if (empty($conf->use_javascript_ajax))
 {
 	print '<td nowrap="nowrap" align="right" colspan="2">';
 	print $langs->trans("NotAvailableWhenAjaxDisabled");
@@ -261,7 +392,7 @@ if (! empty($conf->global->MAIN_MULTILANGS))
 	print '<tr '.$bc[$var].'>';
 	print '<td>'.$langs->trans("ViewProductDescInThirdpartyLanguageAbility").'</td>';
 	print '<td width="60" align="right">';
-	print $form->selectyesno("activate_viewProdTextsInThirdpartyLanguage",$conf->global->PRODUIT_TEXTS_IN_THIRDPARTY_LANGUAGE,1);
+	print $form->selectyesno("activate_viewProdTextsInThirdpartyLanguage", (! empty($conf->global->PRODUIT_TEXTS_IN_THIRDPARTY_LANGUAGE)?$conf->global->PRODUIT_TEXTS_IN_THIRDPARTY_LANGUAGE:0), 1);
 	print '</td><td align="right">';
 	print '<input type="submit" class="button" value="'.$langs->trans("Modify").'">';
 	print '</td>';
@@ -270,7 +401,7 @@ if (! empty($conf->global->MAIN_MULTILANGS))
 }
 
 
-if ($conf->global->PRODUCT_CANVAS_ABILITY)
+if (! empty($conf->global->PRODUCT_CANVAS_ABILITY))
 {
 	// Add canvas feature
 	$dir = DOL_DOCUMENT_ROOT . "/product/canvas/";
@@ -283,7 +414,7 @@ if ($conf->global->PRODUCT_CANVAS_ABILITY)
 
 	if (is_dir($dir))
 	{
-		require_once(DOL_DOCUMENT_ROOT . "/product/class/product.class.php");
+		require_once DOL_DOCUMENT_ROOT . '/product/class/product.class.php';
 
 		$handle=opendir($dir);
         if (is_resource($handle))
@@ -295,7 +426,7 @@ if ($conf->global->PRODUCT_CANVAS_ABILITY)
     				$classfile = $dir.$file.'/product.'.$file.'.class.php';
     				$classname = 'Product'.ucfirst($file);
 
-    				require_once($classfile);
+    				require_once $classfile;
     				$object = new $classname();
 
     				$module = $object->module;

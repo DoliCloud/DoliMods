@@ -4,13 +4,13 @@
  * Copyright (c) 2004-2012 Laurent Destailleur  <eldy@users.sourceforge.net>
  * Copyright (C) 2004      Sebastien Di Cintio  <sdicintio@ressource-toi.org>
  * Copyright (C) 2004      Benoit Mortier       <benoit.mortier@opensides.be>
- * Copyright (C) 2005-2012 Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2005-2012 Regis Houssin        <regis.houssin@capnetworks.com>
  * Copyright (C) 2005      Lionel Cousteix      <etm_ltd@tiscali.co.uk>
  * Copyright (C) 2011      Herve Prot           <herve.prot@symeos.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -28,7 +28,7 @@
  *  \ingroup	core
  */
 
-require_once(DOL_DOCUMENT_ROOT ."/core/class/commonobject.class.php");
+require_once DOL_DOCUMENT_ROOT .'/core/class/commonobject.class.php';
 
 
 /**
@@ -51,6 +51,7 @@ class User extends CommonObject
 	var $firstname;
 	var $note;
 	var $email;
+	var $job;
 	var $signature;
 	var $office_phone;
 	var $office_fax;
@@ -86,15 +87,12 @@ class User extends CommonObject
 	var $photo;
 	var $lang;
 
-	//! Liste des entrepots auquel a acces l'utilisateur
-	var $entrepots;
-
 	var $rights;                        // Array of permissions user->rights->permx
 	var $all_permissions_are_loaded;	/**< \private all_permissions_are_loaded */
 	private $_tab_loaded=array();		// Array of cache of already loaded permissions
 
 	var $conf;           // To store personal config
-	var $oldcopy;        // To contains a clone of this when we need to save old properties of object
+	var $oldcopy;                // To contains a clone of this when we need to save old properties of object
 
 
 
@@ -114,11 +112,11 @@ class User extends CommonObject
 		$this->all_permissions_are_loaded = 0;
 		$this->admin=0;
 
-		$this->conf				    = (object) array();
-		$this->rights				= (object) array();
-		$this->rights->user			= (object) array();
-		$this->rights->user->user	= (object) array();
-		$this->rights->user->self	= (object) array();
+		$this->conf				    = new stdClass();
+		$this->rights				= new stdClass();
+		$this->rights->user			= new stdClass();
+		$this->rights->user->user	= new stdClass();
+		$this->rights->user->self	= new stdClass();
 	}
 
 	/**
@@ -138,7 +136,7 @@ class User extends CommonObject
 		$login=trim($login);
 
 		// Get user
-		$sql = "SELECT u.rowid, u.name, u.firstname, u.email, u.signature, u.office_phone, u.office_fax, u.user_mobile,";
+		$sql = "SELECT u.rowid, u.name, u.firstname, u.email, u.job, u.signature, u.office_phone, u.office_fax, u.user_mobile,";
 		$sql.= " u.admin, u.login, u.webcal_login, u.phenix_login, u.phenix_pass, u.note,";
 		$sql.= " u.pass, u.pass_crypted, u.pass_temp,";
 		$sql.= " u.fk_societe, u.fk_socpeople, u.fk_member, u.ldap_sid,";
@@ -193,28 +191,29 @@ class User extends CommonObject
 				$this->prenom 		= $obj->firstname;	// TODO deprecated
 				$this->firstname 	= $obj->firstname;
 
-				$this->login = $obj->login;
+				$this->login		= $obj->login;
 				$this->pass_indatabase = $obj->pass;
 				$this->pass_indatabase_crypted = $obj->pass_crypted;
-				$this->pass = $obj->pass;
-				$this->pass_temp = $obj->pass_temp;
-				$this->office_phone = $obj->office_phone;
+				$this->pass			= $obj->pass;
+				$this->pass_temp	= $obj->pass_temp;
+				$this->office_phone	= $obj->office_phone;
 				$this->office_fax   = $obj->office_fax;
 				$this->user_mobile  = $obj->user_mobile;
-				$this->email = $obj->email;
-				$this->signature = $obj->signature;
-				$this->admin = $obj->admin;
-				$this->note = $obj->note;
-				$this->statut = $obj->statut;
-				$this->photo = $obj->photo;
-				$this->openid = $obj->openid;
-				$this->lang = $obj->lang;
-				$this->entity = $obj->entity;
+				$this->email		= $obj->email;
+				$this->job			= $obj->job;
+				$this->signature	= $obj->signature;
+				$this->admin		= $obj->admin;
+				$this->note			= $obj->note;
+				$this->statut		= $obj->statut;
+				$this->photo		= $obj->photo;
+				$this->openid		= $obj->openid;
+				$this->lang			= $obj->lang;
+				$this->entity		= $obj->entity;
 
-				$this->datec  = $this->db->jdate($obj->datec);
-				$this->datem  = $this->db->jdate($obj->datem);
-				$this->datelastlogin     = $this->db->jdate($obj->datel);
-				$this->datepreviouslogin = $this->db->jdate($obj->datep);
+				$this->datec				= $this->db->jdate($obj->datec);
+				$this->datem				= $this->db->jdate($obj->datem);
+				$this->datelastlogin		= $this->db->jdate($obj->datel);
+				$this->datepreviouslogin	= $this->db->jdate($obj->datep);
 
 				$this->webcal_login         = $obj->webcal_login;
 				$this->phenix_login         = $obj->phenix_login;
@@ -249,6 +248,7 @@ class User extends CommonObject
 			$sql = "SELECT param, value FROM ".MAIN_DB_PREFIX."user_param";
 			$sql.= " WHERE fk_user = ".$this->id;
 			$sql.= " AND entity = ".$conf->entity;
+			//dol_syslog(get_class($this).'::fetch load personalized conf sql='.$sql, LOG_DEBUG);
 			$resql=$this->db->query($sql);
 			if ($resql)
 			{
@@ -257,8 +257,8 @@ class User extends CommonObject
 				while ($i < $num)
 				{
 					$obj = $this->db->fetch_object($resql);
-					$p=$obj->param;
-					if ($p) $this->conf->$p = $obj->value;
+					$p=(! empty($obj->param)?$obj->param:'');
+					if (! empty($p)) $this->conf->$p = $obj->value;
 					$i++;
 				}
 				$this->db->free($resql);
@@ -277,16 +277,19 @@ class User extends CommonObject
 	/**
 	 *  Ajoute un droit a l'utilisateur
 	 *
-	 * 	@param	int		$rid         id du droit a ajouter
-	 *  @param  string	$allmodule   Ajouter tous les droits du module allmodule
-	 *  @param  string	$allperms    Ajouter tous les droits du module allmodule, perms allperms
-	 *  @return int   			     > 0 if OK, < 0 if KO
+	 * 	@param	int		$rid			id du droit a ajouter
+	 *  @param  string	$allmodule		Ajouter tous les droits du module allmodule
+	 *  @param  string	$allperms		Ajouter tous les droits du module allmodule, perms allperms
+	 *  @param	int		$entity			Entity to use
+	 *  @return int						> 0 if OK, < 0 if KO
 	 */
-	function addrights($rid, $allmodule='', $allperms='')
+	function addrights($rid, $allmodule='', $allperms='', $entity='')
 	{
 		global $conf;
 
-		dol_syslog(get_class($this)."::addrights $rid, $allmodule, $allperms");
+		$entity = (! empty($entity)?$entity:$conf->entity);
+
+		dol_syslog(get_class($this)."::addrights $rid, $allmodule, $allperms, $entity");
 		$err=0;
 		$whereforadd='';
 
@@ -299,7 +302,7 @@ class User extends CommonObject
 			$sql = "SELECT module, perms, subperms";
 			$sql.= " FROM ".MAIN_DB_PREFIX."rights_def";
 			$sql.= " WHERE id = '".$this->db->escape($rid)."'";
-			$sql.= " AND entity = ".$conf->entity;
+			$sql.= " AND entity = ".$entity;
 
 			$result=$this->db->query($sql);
 			if ($result) {
@@ -334,7 +337,7 @@ class User extends CommonObject
 			$sql = "SELECT id";
 			$sql.= " FROM ".MAIN_DB_PREFIX."rights_def";
 			$sql.= " WHERE ".$whereforadd;
-			$sql.= " AND entity = ".$conf->entity;
+			$sql.= " AND entity = ".$entity;
 
 			$result=$this->db->query($sql);
 			if ($result)
@@ -379,14 +382,16 @@ class User extends CommonObject
 	 *  @param	int		$rid        Id du droit a retirer
 	 *  @param  string	$allmodule  Retirer tous les droits du module allmodule
 	 *  @param  string	$allperms   Retirer tous les droits du module allmodule, perms allperms
+	 *  @param	int		$entity			Entity to use
 	 *  @return int         		> 0 if OK, < 0 if OK
 	 */
-	function delrights($rid, $allmodule='', $allperms='')
+	function delrights($rid, $allmodule='', $allperms='', $entity='')
 	{
 		global $conf;
 
 		$err=0;
 		$wherefordel='';
+		$entity = (! empty($entity)?$entity:$conf->entity);
 
 		$this->db->begin();
 
@@ -397,7 +402,7 @@ class User extends CommonObject
 			$sql = "SELECT module, perms, subperms";
 			$sql.= " FROM ".MAIN_DB_PREFIX."rights_def";
 			$sql.= " WHERE id = '".$this->db->escape($rid)."'";
-			$sql.= " AND entity = ".$conf->entity;
+			$sql.= " AND entity = ".$entity;
 
 			$result=$this->db->query($sql);
 			if ($result) {
@@ -431,7 +436,7 @@ class User extends CommonObject
 			$sql = "SELECT id";
 			$sql.= " FROM ".MAIN_DB_PREFIX."rights_def";
 			$sql.= " WHERE $wherefordel";
-			$sql.= " AND entity = ".$conf->entity;
+			$sql.= " AND entity = ".$entity;
 
 			$result=$this->db->query($sql);
 			if ($result)
@@ -533,11 +538,11 @@ class User extends CommonObject
 
 				if ($perms)
 				{
-					if (! isset($this->rights) || ! is_object($this->rights)) $this->rights = (object) array(); // For avoid error
-					if (! isset($this->rights->$module) || ! is_object($this->rights->$module)) $this->rights->$module = (object) array();
+					if (! isset($this->rights) || ! is_object($this->rights)) $this->rights = new stdClass(); // For avoid error
+					if (! isset($this->rights->$module) || ! is_object($this->rights->$module)) $this->rights->$module = new stdClass();
 					if ($subperms)
 					{
-						if (! isset($this->rights->$module->$perms) || ! is_object($this->rights->$module->$perms)) $this->rights->$module->$perms = (object) array();
+						if (! isset($this->rights->$module->$perms) || ! is_object($this->rights->$module->$perms)) $this->rights->$module->$perms = new stdClass();
 						$this->rights->$module->$perms->$subperms = 1;
 					}
 					else
@@ -583,11 +588,11 @@ class User extends CommonObject
 
 				if ($perms)
 				{
-					if (! isset($this->rights) || ! is_object($this->rights)) $this->rights = (object) array(); // For avoid error
-					if (! isset($this->rights->$module) || ! is_object($this->rights->$module)) $this->rights->$module = (object) array();
+					if (! isset($this->rights) || ! is_object($this->rights)) $this->rights = new stdClass(); // For avoid error
+					if (! isset($this->rights->$module) || ! is_object($this->rights->$module)) $this->rights->$module = new stdClass();
 					if ($subperms)
 					{
-						if (! isset($this->rights->$module->$perms) || ! is_object($this->rights->$module->$perms)) $this->rights->$module->$perms = (object) array();
+						if (! isset($this->rights->$module->$perms) || ! is_object($this->rights->$module->$perms)) $this->rights->$module->$perms = new stdClass();
 						$this->rights->$module->$perms->$subperms = 1;
 					}
 					else
@@ -648,7 +653,7 @@ class User extends CommonObject
 		if ($result)
 		{
 			// Appel des triggers
-			include_once(DOL_DOCUMENT_ROOT . "/core/class/interfaces.class.php");
+			include_once DOL_DOCUMENT_ROOT . '/core/class/interfaces.class.php';
 			$interface=new Interfaces($this->db);
 			$result=$interface->run_triggers('USER_ENABLEDISABLE',$this,$user,$langs,$conf);
 			if ($result < 0) { $error++; $this->errors=$interface->errors; }
@@ -685,36 +690,62 @@ class User extends CommonObject
 
 		// Supprime droits
 		$sql = "DELETE FROM ".MAIN_DB_PREFIX."user_rights WHERE fk_user = ".$this->id;
-		if ($this->db->query($sql))
+		if (! $error && ! $this->db->query($sql))
 		{
-
+			$error++;
+        	$this->error = $this->db->lasterror();
+        	dol_syslog(get_class($this)."::delete error -1 ".$this->error, LOG_ERR);
 		}
 
 		// Remove group
 		$sql = "DELETE FROM ".MAIN_DB_PREFIX."usergroup_user WHERE fk_user  = ".$this->id;
-		if ($this->db->query($sql))
+		if (! $error && ! $this->db->query($sql))
 		{
-
+			$error++;
+        	$this->error = $this->db->lasterror();
+        	dol_syslog(get_class($this)."::delete error -2 ".$this->error, LOG_ERR);
 		}
 
 		// Si contact, supprime lien
 		if ($this->contact_id)
 		{
 			$sql = "UPDATE ".MAIN_DB_PREFIX."socpeople SET fk_user_creat = null WHERE rowid = ".$this->contact_id;
-			if ($this->db->query($sql))
+			if (! $error && ! $this->db->query($sql))
 			{
-
+				$error++;
+	        	$this->error = $this->db->lasterror();
+	        	dol_syslog(get_class($this)."::delete error -3 ".$this->error, LOG_ERR);
 			}
 		}
 
-		// Supprime utilisateur
-		$sql = "DELETE FROM ".MAIN_DB_PREFIX."user WHERE rowid = $this->id";
-		$result = $this->db->query($sql);
+		// Remove extrafields
+		if ((! $error) && (empty($conf->global->MAIN_EXTRAFIELDS_DISABLED))) // For avoid conflicts if trigger used
+        {
+			$result=$this->deleteExtraFields();
+			if ($result < 0)
+			{
+           		$error++;
+           		dol_syslog(get_class($this)."::delete error -4 ".$this->error, LOG_ERR);
+           	}
+        }
 
-		if ($result)
+		// Remove user
+        if (! $error)
+        {
+	        $sql = "DELETE FROM ".MAIN_DB_PREFIX."user WHERE rowid = ".$this->id;
+	       	dol_syslog(get_class($this)."::delete sql=".$sql);
+	       	if (! $this->db->query($sql))
+	       	{
+	       		$error++;
+	       		$this->error = $this->db->lasterror();
+	       		dol_syslog(get_class($this)."::delete error -5 ".$this->error, LOG_ERR);
+	       	}
+        }
+
+		if (! $error)
 		{
 			// Appel des triggers
-			include_once(DOL_DOCUMENT_ROOT . "/core/class/interfaces.class.php");
+			include_once DOL_DOCUMENT_ROOT . '/core/class/interfaces.class.php';
 			$interface=new Interfaces($this->db);
 			$result=$interface->run_triggers('USER_DELETE',$this,$user,$langs,$conf);
 			if ($result < 0) { $error++; $this->errors=$interface->errors; }
@@ -793,7 +824,7 @@ class User extends CommonObject
 					// Set default rights
 					if ($this->set_default_rights() < 0)
 					{
-						$this->error=$this->db->error();
+						$this->error='ErrorFailedToSetDefaultRightOfUser';
 						$this->db->rollback();
 						return -5;
 					}
@@ -808,7 +839,7 @@ class User extends CommonObject
 
 					if (! empty($conf->global->STOCK_USERSTOCK_AUTOCREATE))
 					{
-						require_once(DOL_DOCUMENT_ROOT."/product/stock/class/entrepot.class.php");
+						require_once DOL_DOCUMENT_ROOT.'/product/stock/class/entrepot.class.php';
 						$langs->load("stocks");
 						$entrepot = new Entrepot($this->db);
 						$entrepot->libelle = $langs->trans("PersonalStock",$this->getFullName($langs));
@@ -821,7 +852,7 @@ class User extends CommonObject
 					if (! $notrigger)
 					{
 						// Appel des triggers
-						include_once(DOL_DOCUMENT_ROOT . "/core/class/interfaces.class.php");
+						include_once DOL_DOCUMENT_ROOT . '/core/class/interfaces.class.php';
 						$interface = new Interfaces($this->db);
 						$result = $interface->run_triggers('USER_CREATE',$this,$user,$langs,$conf);
 						if ($result < 0) { $error++; $this->errors=$interface->errors; }
@@ -878,14 +909,14 @@ class User extends CommonObject
 		$this->admin		= 0;
 		$this->nom			= $contact->nom;			// TODO deprecated
 		$this->prenom		= $contact->prenom;	// TODO deprecated
-		$this->lastname		= $contact->nom;
-		$this->firstname	= $contact->prenom;
+		$this->lastname		= $contact->lastname;
+		$this->firstname	= $contact->firstname;
 		$this->email		= $contact->email;
 		$this->office_phone	= $contact->phone_pro;
 		$this->office_fax	= $contact->fax;
 		$this->user_mobile	= $contact->phone_mobile;
 
-		if (empty($login)) $login=strtolower(substr($contact->prenom, 0, 4)) . strtolower(substr($contact->nom, 0, 4));
+		if (empty($login)) $login=strtolower(substr($contact->firstname, 0, 4)) . strtolower(substr($contact->lastname, 0, 4));
 		$this->login = $login;
 
 		$this->db->begin();
@@ -904,7 +935,7 @@ class User extends CommonObject
 			if ($resql)
 			{
 				// Appel des triggers
-				include_once(DOL_DOCUMENT_ROOT . "/core/class/interfaces.class.php");
+				include_once DOL_DOCUMENT_ROOT . '/core/class/interfaces.class.php';
 				$interface = new Interfaces($this->db);
 				$result = $interface->run_triggers('USER_CREATE_FROM_CONTACT',$this,$user,$langs,$conf);
 				if ($result < 0) { $error++; $this->errors=$interface->errors; }
@@ -1065,6 +1096,7 @@ class User extends CommonObject
 		$this->office_fax   = trim($this->office_fax);
 		$this->user_mobile  = trim($this->user_mobile);
 		$this->email        = trim($this->email);
+		$this->job    		= trim($this->job);
 		$this->signature    = trim($this->signature);
 		$this->note         = trim($this->note);
 		$this->openid       = trim(empty($this->openid)?'':$this->openid);    // Avoid warning
@@ -1096,7 +1128,8 @@ class User extends CommonObject
 		$sql.= ", office_fax = '".$this->db->escape($this->office_fax)."'";
 		$sql.= ", user_mobile = '".$this->db->escape($this->user_mobile)."'";
 		$sql.= ", email = '".$this->db->escape($this->email)."'";
-		$sql.= ", signature = '".addslashes($this->signature)."'";
+		$sql.= ", job = '".$this->db->escape($this->job)."'";
+		$sql.= ", signature = '".$this->db->escape($this->signature)."'";
 		$sql.= ", webcal_login = '".$this->db->escape($this->webcal_login)."'";
 		$sql.= ", phenix_login = '".$this->db->escape($this->phenix_login)."'";
 		$sql.= ", phenix_pass = '".$this->db->escape($this->phenix_pass)."'";
@@ -1141,7 +1174,7 @@ class User extends CommonObject
 			{
 				if ($this->fk_member > 0 && ! $nosyncmember)
 				{
-					require_once(DOL_DOCUMENT_ROOT."/adherents/class/adherent.class.php");
+					require_once DOL_DOCUMENT_ROOT.'/adherents/class/adherent.class.php';
 
 					// This user is linked with a member, so we also update members informations
 					// if this is an update.
@@ -1183,10 +1216,29 @@ class User extends CommonObject
 				}
 			}
 
+			// Actions on extra fields (by external module or standard code)
+			include_once DOL_DOCUMENT_ROOT.'/core/class/hookmanager.class.php';
+			$hookmanager=new HookManager($this->db);
+			$hookmanager->initHooks(array('userdao'));
+			$parameters=array('socid'=>$this->id);
+			$reshook=$hookmanager->executeHooks('insertExtraFields',$parameters,$this,$action);    // Note that $action and $object may have been modified by some hooks
+			if (empty($reshook))
+			{
+				if (empty($conf->global->MAIN_EXTRAFIELDS_DISABLED)) // For avoid conflicts if trigger used
+				{
+					$result=$this->insertExtraFields();
+					if ($result < 0)
+					{
+						$error++;
+					}
+				}
+			}
+			else if ($reshook < 0) $error++;
+
 			if (! $error && ! $notrigger)
 			{
 				// Appel des triggers
-				include_once(DOL_DOCUMENT_ROOT . "/core/class/interfaces.class.php");
+				include_once DOL_DOCUMENT_ROOT . '/core/class/interfaces.class.php';
 				$interface=new Interfaces($this->db);
 				$result=$interface->run_triggers('USER_MODIFY',$this,$user,$langs,$conf);
 				if ($result < 0) { $error++; $this->errors=$interface->errors; }
@@ -1261,7 +1313,7 @@ class User extends CommonObject
 	function setPassword($user, $password='', $changelater=0, $notrigger=0, $nosyncmember=0)
 	{
 		global $conf, $langs;
-		require_once(DOL_DOCUMENT_ROOT ."/core/lib/security2.lib.php");
+		require_once DOL_DOCUMENT_ROOT .'/core/lib/security2.lib.php';
 
 		$error=0;
 
@@ -1306,7 +1358,7 @@ class User extends CommonObject
 
 					if ($this->fk_member && ! $nosyncmember)
 					{
-						require_once(DOL_DOCUMENT_ROOT."/adherents/class/adherent.class.php");
+						require_once DOL_DOCUMENT_ROOT.'/adherents/class/adherent.class.php';
 
 						// This user is linked with a member, so we also update members informations
 						// if this is an update.
@@ -1335,7 +1387,7 @@ class User extends CommonObject
 					if (! $error && ! $notrigger)
 					{
 						// Appel des triggers
-						include_once(DOL_DOCUMENT_ROOT . "/core/class/interfaces.class.php");
+						include_once DOL_DOCUMENT_ROOT . '/core/class/interfaces.class.php';
 						$interface=new Interfaces($this->db);
 						$result=$interface->run_triggers('USER_NEW_PASSWORD',$this,$user,$langs,$conf);
 						if ($result < 0) $this->errors=$interface->errors;
@@ -1391,7 +1443,7 @@ class User extends CommonObject
 		global $conf,$langs;
 		global $dolibarr_main_url_root;
 
-		require_once DOL_DOCUMENT_ROOT."/core/class/CMailFile.class.php";
+		require_once DOL_DOCUMENT_ROOT.'/core/class/CMailFile.class.php';
 
 		$subject = $langs->trans("SubjectNewPassword");
 		$msgishtml=0;
@@ -1584,7 +1636,7 @@ class User extends CommonObject
 			    $this->newgroupid=$group;
 
 				// Appel des triggers
-				include_once(DOL_DOCUMENT_ROOT . "/core/class/interfaces.class.php");
+				include_once DOL_DOCUMENT_ROOT . '/core/class/interfaces.class.php';
 				$interface=new Interfaces($this->db);
 				$result=$interface->run_triggers('USER_SETINGROUP',$this,$user,$langs,$conf);
 				if ($result < 0) { $error++; $this->errors=$interface->errors; }
@@ -1642,7 +1694,7 @@ class User extends CommonObject
 			    $this->oldgroupid=$group;
 
 				// Appel des triggers
-				include_once(DOL_DOCUMENT_ROOT . "/core/class/interfaces.class.php");
+				include_once DOL_DOCUMENT_ROOT . '/core/class/interfaces.class.php';
 				$interface=new Interfaces($this->db);
 				$result=$interface->run_triggers('USER_REMOVEFROMGROUP',$this,$user,$langs,$conf);
 				if ($result < 0) { $error++; $this->errors=$interface->errors; }
@@ -1820,13 +1872,13 @@ class User extends CommonObject
 		$this->fullname=$this->getFullName($langs);
 
 		// Champs
-		if ($this->fullname && $conf->global->LDAP_FIELD_FULLNAME)   $info[$conf->global->LDAP_FIELD_FULLNAME] = $this->fullname;
-		if ($this->lastname && $conf->global->LDAP_FIELD_NAME)       $info[$conf->global->LDAP_FIELD_NAME] = $this->lastname;
-		if ($this->firstname && $conf->global->LDAP_FIELD_FIRSTNAME) $info[$conf->global->LDAP_FIELD_FIRSTNAME] = $this->firstname;
-		if ($this->login && $conf->global->LDAP_FIELD_LOGIN)         $info[$conf->global->LDAP_FIELD_LOGIN] = $this->login;
-		if ($this->login && $conf->global->LDAP_FIELD_LOGIN_SAMBA)   $info[$conf->global->LDAP_FIELD_LOGIN_SAMBA] = $this->login;
-		if ($this->pass && $conf->global->LDAP_FIELD_PASSWORD)       $info[$conf->global->LDAP_FIELD_PASSWORD] = $this->pass;	// this->pass = mot de passe non crypte
-		if ($this->ldap_sid && $conf->global->LDAP_FIELD_SID)        $info[$conf->global->LDAP_FIELD_SID] = $this->ldap_sid;
+		if ($this->fullname && ! empty($conf->global->LDAP_FIELD_FULLNAME))   $info[$conf->global->LDAP_FIELD_FULLNAME] = $this->fullname;
+		if ($this->lastname && ! empty($conf->global->LDAP_FIELD_NAME))       $info[$conf->global->LDAP_FIELD_NAME] = $this->lastname;
+		if ($this->firstname && ! empty($conf->global->LDAP_FIELD_FIRSTNAME)) $info[$conf->global->LDAP_FIELD_FIRSTNAME] = $this->firstname;
+		if ($this->login && ! empty($conf->global->LDAP_FIELD_LOGIN))         $info[$conf->global->LDAP_FIELD_LOGIN] = $this->login;
+		if ($this->login && ! empty($conf->global->LDAP_FIELD_LOGIN_SAMBA))   $info[$conf->global->LDAP_FIELD_LOGIN_SAMBA] = $this->login;
+		if ($this->pass && ! empty($conf->global->LDAP_FIELD_PASSWORD))       $info[$conf->global->LDAP_FIELD_PASSWORD] = $this->pass;	// this->pass = mot de passe non crypte
+		if ($this->ldap_sid && ! empty($conf->global->LDAP_FIELD_SID))        $info[$conf->global->LDAP_FIELD_SID] = $this->ldap_sid;
 		if ($this->societe_id > 0)
 		{
 			$soc = new Societe($this->db);
@@ -1837,14 +1889,14 @@ class User extends CommonObject
 			if ($soc->client == 2)      $info["businessCategory"] = "Prospects";
 			if ($soc->fournisseur == 1) $info["businessCategory"] = "Suppliers";
 		}
-		if ($this->address && $conf->global->LDAP_FIELD_ADDRESS)     $info[$conf->global->LDAP_FIELD_ADDRESS] = $this->address;
-		if ($this->zip && $conf->global->LDAP_FIELD_ZIP)             $info[$conf->global->LDAP_FIELD_ZIP] = $this->zip;
-		if ($this->town && $conf->global->LDAP_FIELD_TOWN)           $info[$conf->global->LDAP_FIELD_TOWN] = $this->town;
-		if ($this->office_phone && $conf->global->LDAP_FIELD_PHONE)  $info[$conf->global->LDAP_FIELD_PHONE] = $this->office_phone;
-		if ($this->user_mobile && $conf->global->LDAP_FIELD_MOBILE)  $info[$conf->global->LDAP_FIELD_MOBILE] = $this->user_mobile;
-		if ($this->office_fax && $conf->global->LDAP_FIELD_FAX)	     $info[$conf->global->LDAP_FIELD_FAX] = $this->office_fax;
-		if ($this->note && $conf->global->LDAP_FIELD_DESCRIPTION)    $info[$conf->global->LDAP_FIELD_DESCRIPTION] = $this->note;
-		if ($this->email && $conf->global->LDAP_FIELD_MAIL)          $info[$conf->global->LDAP_FIELD_MAIL] = $this->email;
+		if ($this->address && ! empty($conf->global->LDAP_FIELD_ADDRESS))     $info[$conf->global->LDAP_FIELD_ADDRESS] = $this->address;
+		if ($this->zip && ! empty($conf->global->LDAP_FIELD_ZIP))             $info[$conf->global->LDAP_FIELD_ZIP] = $this->zip;
+		if ($this->town && ! empty($conf->global->LDAP_FIELD_TOWN))           $info[$conf->global->LDAP_FIELD_TOWN] = $this->town;
+		if ($this->office_phone && ! empty($conf->global->LDAP_FIELD_PHONE))  $info[$conf->global->LDAP_FIELD_PHONE] = $this->office_phone;
+		if ($this->user_mobile && ! empty($conf->global->LDAP_FIELD_MOBILE))  $info[$conf->global->LDAP_FIELD_MOBILE] = $this->user_mobile;
+		if ($this->office_fax && ! empty($conf->global->LDAP_FIELD_FAX))	     $info[$conf->global->LDAP_FIELD_FAX] = $this->office_fax;
+		if ($this->note && ! empty($conf->global->LDAP_FIELD_DESCRIPTION))    $info[$conf->global->LDAP_FIELD_DESCRIPTION] = $this->note;
+		if ($this->email && ! empty($conf->global->LDAP_FIELD_MAIL))          $info[$conf->global->LDAP_FIELD_MAIL] = $this->email;
 
 		if ($conf->global->LDAP_SERVER_TYPE == 'egroupware')
 		{

@@ -3,7 +3,7 @@
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -23,15 +23,18 @@
 // This is to make Dolibarr working with Plesk
 set_include_path($_SERVER['DOCUMENT_ROOT'].'/htdocs');
 
-require_once("../master.inc.php");
-require_once(NUSOAP_PATH.'/nusoap.php');		// Include SOAP
-require_once(DOL_DOCUMENT_ROOT."/core/lib/ws.lib.php");
-require_once(DOL_DOCUMENT_ROOT."/user/class/user.class.php");
+require_once '../master.inc.php';
+require_once NUSOAP_PATH.'/nusoap.php';		// Include SOAP
+require_once DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/ws.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/user/class/user.class.php';
 
-require_once(DOL_DOCUMENT_ROOT."/compta/facture/class/facture.class.php");
+require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
 
 
 dol_syslog("Call Dolibarr webservices interfaces");
+
+$langs->load("main");
 
 // Enable and test if module web services is enabled
 if (empty($conf->global->MAIN_MODULE_WEBSERVICES))
@@ -91,11 +94,12 @@ $server->wsdl->addComplexType(
         'id' => array('name'=>'id','type'=>'xsd:string'),
         'type' => array('name'=>'type','type'=>'xsd:int'),
         'desc' => array('name'=>'desc','type'=>'xsd:string'),
+        'vat_rate' => array('name'=>'vat_rate','type'=>'xsd:double'),
+        'qty' => array('name'=>'qty','type'=>'xsd:double'),
+        'unitprice' => array('name'=>'unitprice','type'=>'xsd:double'),
         'total_net' => array('name'=>'total_net','type'=>'xsd:double'),
     	'total_vat' => array('name'=>'total_vat','type'=>'xsd:double'),
     	'total' => array('name'=>'total','type'=>'xsd:double'),
-        'vat_rate' => array('name'=>'vat_rate','type'=>'xsd:double'),
-        'qty' => array('name'=>'qty','type'=>'xsd:double'),
         'date_start' => array('name'=>'date_start','type'=>'xsd:date'),
         'date_end' => array('name'=>'date_end','type'=>'xsd:date'),
         // From product
@@ -290,7 +294,7 @@ function getInvoice($authentication,$id='',$ref='',$ref_ext='')
 					$linesresp[]=array(
 						'id'=>$line->rowid,
 						'type'=>$line->product_type,
-                        'desc'=>dol_htmlcleanlastbr($line->description),
+                        'desc'=>dol_htmlcleanlastbr($line->desc),
 					    'total_net'=>$line->total_ht,
 						'total_vat'=>$line->total_tva,
 						'total'=>$line->total_ttc,
@@ -495,7 +499,6 @@ function createInvoice($authentication,$invoice)
     $errorcode='';$errorlabel='';
     $error=0;
     $fuser=check_authentication($authentication,$error,$errorcode,$errorlabel);
-    // Check parameters
 
     if (! $error)
     {
@@ -503,32 +506,40 @@ function createInvoice($authentication,$invoice)
         $newobject->socid=$invoice['thirdparty_id'];
         $newobject->type=$invoice['type'];
         $newobject->ref_ext=$invoice['ref_ext'];
-        $newobject->date=$invoice['date'];
-        $newobject->date_lim_reglement=$invoice['date_due'];
+        $newobject->date=dol_stringtotime($invoice['date'],'dayrfc');
         $newobject->note=$invoice['note'];
         $newobject->note_public=$invoice['note_public'];
         $newobject->statut=$invoice['status'];
         $newobject->fk_project=$invoice['project_id'];
         $newobject->date_creation=$now;
-        foreach($invoice['lines'] as $line)
+
+        // Trick because nusoap does not store data with same structure if there is one or several lines
+        $arrayoflines=array();
+        if (isset($invoice['lines']['line'][0])) $arrayoflines=$invoice['lines']['line'];
+        else $arrayoflines=$invoice['lines'];
+
+        foreach($arrayoflines as $key => $line)
         {
+            // $key can be 'line' or '0','1',...
             $newline=new FactureLigne($db);
             $newline->type=$line['type'];
             $newline->desc=$line['desc'];
             $newline->fk_product=$line['fk_product'];
-            $newline->total_ht=$line['total_net'];
-            $newline->total_vat=$line['total_vat'];
-            $newline->total_ttc=$line['total'];
-            $newline->vat=$line['vat_rate'];
+            $newline->tva_tx=$line['vat_rate'];
             $newline->qty=$line['qty'];
+            $newline->subprice=$line['unitprice'];
+            $newline->total_ht=$line['total_net'];
+            $newline->total_tva=$line['total_vat'];
+            $newline->total_ttc=$line['total'];
             $newline->fk_product=$line['product_id'];
+            $newobject->lines[]=$newline;
         }
-        //var_dump($invoice['ref_ext']);
+        //var_dump($newobject->date_lim_reglement); exit;
         //var_dump($invoice['lines'][0]['type']);
 
         $db->begin();
 
-        $result=$newobject->create($fuser,0,0);
+        $result=$newobject->create($fuser,0,dol_stringtotime($invoice['date_due'],'dayrfc'));
         if ($result < 0)
         {
             $error++;
@@ -568,6 +579,6 @@ function createInvoice($authentication,$invoice)
 
 
 // Return the results.
-$server->service($HTTP_RAW_POST_DATA);
+$server->service((isset($HTTP_RAW_POST_DATA)?$HTTP_RAW_POST_DATA:''));
 
 ?>

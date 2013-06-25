@@ -4,12 +4,12 @@
  * Copyright (C) 2004-2011 Laurent Destailleur  <eldy@users.sourceforge.net>
  * Copyright (C) 2004      Sebastien Di Cintio  <sdicintio@ressource-toi.org>
  * Copyright (C) 2004      Benoit Mortier       <benoit.mortier@opensides.be>
- * Copyright (C) 2005-2011 Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2005-2011 Regis Houssin        <regis.houssin@capnetworks.com>
  * Copyright (C) 2011 	    Juanjo Menent		<jmenent@2byte.es>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -27,9 +27,9 @@
  *      \brief      Page to setupe module ExternalRss
  */
 
-require("../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
-require_once(DOL_DOCUMENT_ROOT."/core/class/rssparser.class.php");
+require '../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/core/class/rssparser.class.php';
 
 $langs->load("admin");
 
@@ -137,7 +137,8 @@ if ($_POST["delete"])
 				$obj=$db->fetch_object($resql);
 
 		        $sql = "DELETE FROM ".MAIN_DB_PREFIX."boxes";
-		        $sql.= " WHERE box_id = ".$obj->rowid;
+		        $sql.= " WHERE entity = ".$conf->entity;
+		        $sql.= " AND box_id = ".$obj->rowid;
 				$resql=$db->query($sql);
 
 		        $sql = "DELETE FROM ".MAIN_DB_PREFIX."boxes_def";
@@ -205,11 +206,11 @@ print '</tr>';
 print '<tr class="impair">';
 print '<td width="100">'.$langs->trans("Title").'</td>';
 print '<td><input type="text" name="external_rss_title_'.($lastexternalrss+1).'" value="'.@constant("EXTERNAL_RSS_TITLE_" . ($lastexternalrss+1)).'" size="64"></td>';
-print '<td>An interesting RSS feed</td>';
+print '<td>'.$langs->trans('RSSUrlExample').'</td>';
 print '</tr>';
 
 print '<tr class="pair">';
-print '<td>URL du RSS</td>';
+print '<td>'.$langs->trans('RSSUrl').'</td>';
 print '<td><input type="text" name="external_rss_urlrss_'.($lastexternalrss+1).'" value="'.@constant("EXTERNAL_RSS_URLRSS_" . ($lastexternalrss+1)).'" size="64"></td>';
 print '<td>http://news.google.com/news?ned=us&topic=h&output=rss<br>http://www.dolibarr.org/rss</td>';
 print '</tr>';

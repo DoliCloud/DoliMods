@@ -2,11 +2,11 @@
 /* Copyright (C) 2003-2005 Rodolphe Quiedeville <rodolphe@quiedeville.org>
  * Copyright (C) 2004-2008 Laurent Destailleur  <eldy@users.sourceforge.net>
  * Copyright (C) 2004      Eric Seigne          <eric.seigne@ryxeo.com>
- * Copyright (C) 2005      Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2005      Regis Houssin        <regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -24,8 +24,8 @@
  *		\ingroup    don
  *		\brief      File of class to manage donation document generation
  */
-require_once(DOL_DOCUMENT_ROOT."/core/class/commondocgenerator.class.php");
-require_once(DOL_DOCUMENT_ROOT."/compta/dons/class/don.class.php");
+require_once DOL_DOCUMENT_ROOT.'/core/class/commondocgenerator.class.php';
+require_once DOL_DOCUMENT_ROOT.'/compta/dons/class/don.class.php';
 
 
 
@@ -50,7 +50,7 @@ abstract class ModeleDon extends CommonDocGenerator
         $type='donation';
         $liste=array();
 
-        include_once(DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php');
+        include_once DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php';
         $liste=getListOfModels($db,$type,$maxfilenamelength);
 
         return $liste;
@@ -154,12 +154,20 @@ function don_create($db, $id, $message, $modele, $outputlangs)
     global $conf, $langs;
     $langs->load("bills");
 
-    $dir = DOL_DOCUMENT_ROOT . "/core/modules/dons/";
+    $eror=0;
+
+    // Increase limit for PDF build
+    $err=error_reporting();
+    error_reporting(0);
+    @set_time_limit(120);
+    error_reporting($err);
+
+    $srctemplatepath='';
 
     // Set template to use
     if (! dol_strlen($modele))
     {
-        if ($conf->global->DON_ADDON_MODEL)
+        if (! empty($conf->global->DON_ADDON_MODEL))
         {
             $modele = $conf->global->DON_ADDON_MODEL;
         }
@@ -170,27 +178,56 @@ function don_create($db, $id, $message, $modele, $outputlangs)
         }
     }
 
-    // Charge le modele
-    $file = $modele.".modules.php";
-    if (file_exists($dir.$file))
+    // If selected modele is a filename template (then $modele="modelname:filename")
+    $tmp=explode(':',$modele,2);
+    if (! empty($tmp[1]))
     {
+    	$modele=$tmp[0];
+    	$srctemplatepath=$tmp[1];
+    }
+
+    // Search template files
+    $file=''; $classname=''; $filefound=0;
+    $dirmodels=array('/');
+    if (is_array($conf->modules_parts['models'])) $dirmodels=array_merge($dirmodels,$conf->modules_parts['models']);
+    foreach($dirmodels as $reldir)
+    {
+    	foreach(array('html','doc','pdf') as $prefix)
+    	{
+    		$file = $prefix."_".preg_replace('/^html_/','',$modele).".modules.php";
+
+    		// On verifie l'emplacement du modele
+    		$file=dol_buildpath($reldir."core/modules/dons/".$file,0);
+    		if (file_exists($file))
+    		{
+    			$filefound=1;
+    			$classname=$prefix.'_'.$modele;
+    			break;
+    		}
+    	}
+    	if ($filefound) break;
+    }
+
+    // Charge le modele
+	if ($filefound)
+	{
+        require_once $file;
+
         $object=new Don($db);
         $object->fetch($id);
 
-
-        require_once($dir.$file);
         $classname = $modele;
-        $module = new $classname($db);
+        $obj = new $classname($db);
 
         // We save charset_output to restore it because write_file can change it if needed for
         // output format that does not support UTF8.
         $sav_charset_output=$outputlangs->charset_output;
-        if ($module->write_file($object,$outputlangs) > 0)
+        if ($obj->write_file($object,$outputlangs, $srctemplatepath, $hidedetails, $hidedesc, $hideref, $hookmanager) > 0)
         {
             $outputlangs->charset_output=$sav_charset_output;
 
 			// we delete preview files
-        	require_once(DOL_DOCUMENT_ROOT."/core/lib/files.lib.php");
+        	require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
             dol_delete_preview($object);
             return 1;
         }
@@ -198,7 +235,7 @@ function don_create($db, $id, $message, $modele, $outputlangs)
         {
             $outputlangs->charset_output=$sav_charset_output;
             dol_syslog("Erreur dans don_create");
-            dol_print_error($db,$module->error);
+            dol_print_error($db,$obj->error);
             return 0;
         }
     }

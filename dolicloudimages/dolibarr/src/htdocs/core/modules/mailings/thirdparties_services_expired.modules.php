@@ -14,12 +14,11 @@
  *	\brief      File of class to offer a selector of emailing targets with Rule 'services expired'.
  */
 include_once DOL_DOCUMENT_ROOT.'/core/modules/mailings/modules_mailings.php';
-require_once(DOL_DOCUMENT_ROOT."/core/lib/functions2.lib.php");
+require_once DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php';
 
 
 /**
- *	\class      mailing_thirdparties_services_expired
- *	\brief      Class to offer a selector of emailing targets with Rule 'services expired'.
+ *	Class to offer a selector of emailing targets with Rule 'services expired'.
  */
 class mailing_thirdparties_services_expired extends MailingTargets
 {
@@ -176,11 +175,9 @@ class mailing_thirdparties_services_expired extends MailingTargets
      *	For example if this selector is used to extract 500 different
      *	emails from a text file, this function must return 500.
      *
-     *	@param	int		$filter		Filter
-     *	@param	string	$option		Option
      *	@return	int					Number of recipients
      */
-    function getNbOfRecipients($filter=1,$option='')
+    function getNbOfRecipients($sql='')
     {
         $now=dol_now();
 

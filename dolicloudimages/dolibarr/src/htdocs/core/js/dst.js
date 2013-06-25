@@ -1,9 +1,9 @@
 // Copyright (C) 2011-2012	Laurent Destailleur	<eldy@users.sourceforge.net>
-// Copyright (C) 2011-2012	Regis Houssin		<regis@dolibarr.fr>
+// Copyright (C) 2011-2012	Regis Houssin		<regis.houssin@capnetworks.com>
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
-// the Free Software Foundation; either version 2 of the License, or
+// the Free Software Foundation; either version 3 of the License, or
 // (at your option) any later version.
 //
 // This program is distributed in the hope that it will be useful,
@@ -38,10 +38,17 @@ $(document).ready(function () {
 	} else {
 	    dst = "1"; // daylight savings time is observed
 	}
+	var now=new Date();
+	var tz=now.toTimeString().match(/\(.*\)/);
+	//alert('date=' + now + ' string=' + now.toTimeString());
 	var dst_first=DisplayDstSwitchDates('first');
 	var dst_second=DisplayDstSwitchDates('second');
 	//alert(dst);
 	$('#tz').val(std_time_offset);   				  // returns TZ
+	// tz is null with IE
+	if (tz != null) {
+		$('#tz_string').val(tz[0].replace('(','').replace(')',''));		// returns TZ string
+	}
 	$('#dst_observed').val(dst);   				  // returns if DST is observed on summer
 	$('#dst_first').val(dst_first);   				  // returns DST first switch in year
 	$('#dst_second').val(dst_second);   			  // returns DST second switch in year

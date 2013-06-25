@@ -1,11 +1,12 @@
 <?php
 /* Copyright (C) 2002-2006 Rodolphe Quiedeville <rodolphe@quiedeville.org>
- * Copyright (C) 2004-2011 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2005-2009 Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2004-2013 Laurent Destailleur  <eldy@users.sourceforge.net>
+ * Copyright (C) 2005-2013 Regis Houssin        <regis.houssin@capnetworks.com>
+ * Copyright (C) 2013	   Philippe Grand		<philippe.grand@atoo-net.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -23,11 +24,11 @@
  *       \brief      List of suppliers invoices
  */
 
-require("../../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/fourn/class/fournisseur.facture.class.php");
-require_once(DOL_DOCUMENT_ROOT."/fourn/class/fournisseur.class.php");
-require_once(DOL_DOCUMENT_ROOT."/core/class/html.formother.class.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/date.lib.php");
+require '../../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.facture.class.php';
+require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.class.php';
+require_once DOL_DOCUMENT_ROOT.'/core/class/html.formother.class.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php';
 
 if (!$user->rights->fournisseur->facture->lire) accessforbidden();
 
@@ -47,9 +48,9 @@ if ($user->societe_id > 0)
 $mode=GETPOST("mode");
 $modesearch=GETPOST("mode_search");
 
-$page=GETPOST("page");
-$sortorder = GETPOST("sortorder");
-$sortfield = GETPOST("sortfield");
+$page=GETPOST("page",'int');
+$sortorder = GETPOST("sortorder",'alpha');
+$sortfield = GETPOST("sortfield",'alpha');
 
 if ($page == -1) { $page = 0 ; }
 $limit = $conf->liste_limit;
@@ -57,7 +58,7 @@ $offset = $limit * $page ;
 $pageprev = $page - 1;
 $pagenext = $page + 1;
 if (! $sortorder) $sortorder="DESC";
-if (! $sortfield) $sortfield="fac.datef";
+if (! $sortfield) $sortfield="fac.datef,fac.rowid";
 
 $month    = GETPOST('month','int');
 $year     = GETPOST('year','int');
@@ -114,9 +115,9 @@ if ($socid)
 {
 	$sql .= " AND s.rowid = ".$socid;
 }
-if ($_GET["filtre"])
+if (GETPOST('filtre'))
 {
-	$filtrearr = explode(",", $_GET["filtre"]);
+	$filtrearr = explode(",", GETPOST('filtre'));
 	foreach ($filtrearr as $fil)
 	{
 		$filt = explode(":", $fil);
@@ -126,11 +127,11 @@ if ($_GET["filtre"])
 
 if (GETPOST("search_ref"))
 {
-	$sql .= " AND fac.rowid like '%".$db->escape(GETPOST("search_ref"))."%'";
+	$sql .= " AND fac.rowid = ".$db->escape(GETPOST("search_ref"));
 }
 if (GETPOST("search_ref_supplier"))
 {
-	$sql .= " AND fac.facnumber like '%".$db->escape(GETPOST("search_ref_supplier"))."%'";
+	$sql .= " AND fac.facnumber LIKE '%".$db->escape(GETPOST("search_ref_supplier"))."%'";
 }
 if ($month > 0)
 {
@@ -145,22 +146,22 @@ else if ($year > 0)
 }
 if (GETPOST("search_libelle"))
 {
-	$sql .= " AND fac.libelle like '%".$db->escape(GETPOST("search_libelle"))."%'";
+	$sql .= " AND fac.libelle LIKE '%".$db->escape(GETPOST("search_libelle"))."%'";
 }
 
 if (GETPOST("search_societe"))
 {
-	$sql .= " AND s.nom like '%".$db->escape(GETPOST("search_societe"))."%'";
+	$sql .= " AND s.nom LIKE '%".$db->escape(GETPOST("search_societe"))."%'";
 }
 
 if (GETPOST("search_montant_ht"))
 {
-	$sql .= " AND fac.total_ht = '".$db->escape(GETPOST("search_montant_ht"))."'";
+	$sql .= " AND fac.total_ht = '".$db->escape(price2num(GETPOST("search_montant_ht")))."'";
 }
 
 if (GETPOST("search_montant_ttc"))
 {
-	$sql .= " AND fac.total_ttc = '".$db->escape(GETPOST("search_montant_ttc"))."'";
+	$sql .= " AND fac.total_ttc = '".$db->escape(price2num(GETPOST("search_montant_ttc")))."'";
 }
 
 $sql.= $db->order($sortfield,$sortorder);
@@ -193,7 +194,7 @@ if ($resql)
 	print '<tr class="liste_titre">';
 	print_liste_field_titre($langs->trans("Ref"),$_SERVER["PHP_SELF"],"fac.rowid","",$param,"",$sortfield,$sortorder);
 	print_liste_field_titre($langs->trans("RefSupplier"),$_SERVER["PHP_SELF"],"facnumber","",$param,"",$sortfield,$sortorder);
-	print_liste_field_titre($langs->trans("Date"),$_SERVER["PHP_SELF"],"fac.datef","",$param,'align="center"',$sortfield,$sortorder);
+	print_liste_field_titre($langs->trans("Date"),$_SERVER["PHP_SELF"],"fac.datef,fac.rowid","",$param,'align="center"',$sortfield,$sortorder);
 	print_liste_field_titre($langs->trans("DateDue"),$_SERVER["PHP_SELF"],"fac.date_lim_reglement","",$param,'align="center"',$sortfield,$sortorder);
 	print_liste_field_titre($langs->trans("Label"),$_SERVER["PHP_SELF"],"fac.libelle","",$param,"",$sortfield,$sortorder);
 	print_liste_field_titre($langs->trans("ThirdParty"),$_SERVER["PHP_SELF"],"s.nom","",$param,"",$sortfield,$sortorder);
@@ -270,7 +271,8 @@ if ($resql)
 		// Affiche statut de la facture
 		print '<td align="right" nowrap="nowrap">';
 		// TODO  le montant deja paye objp->am n'est pas definie
-		print $facturestatic->LibStatut($obj->paye,$obj->fk_statut,5,$objp->am);
+		//print $facturestatic->LibStatut($obj->paye,$obj->fk_statut,5,$objp->am);
+		print $facturestatic->LibStatut($obj->paye,$obj->fk_statut,5);
 		print '</td>';
 
 		print "</tr>\n";

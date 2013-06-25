@@ -1,10 +1,11 @@
 <?php
 /* Copyright (C) 2007-2010 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2007-2012 Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2007-2012 Regis Houssin        <regis.houssin@capnetworks.com>
+ * Copyright (C) 2012      Christophe Battarel  <christophe.battarel@altairis.fr>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -29,50 +30,147 @@
  *  @param	string	$selected           Preselecte value
  *	@param	string	$htmlname           HTML name of input field
  *	@param	string	$url                Url for request: /chemin/fichier.php
- *  @param	string	$option				More parameters on URL request
+ *  @param	string	$urloption			More parameters on URL request
  *  @param	int		$minLength			Minimum number of chars to trigger that Ajax search
  *  @param	int		$autoselect			Automatic selection if just one value
+ *  @param	array	$ajaxoptions		Multiple options array
  *	@return string              		Script
  */
-function ajax_autocompleter($selected,$htmlname,$url,$option='',$minLength=2,$autoselect=0)
+function ajax_autocompleter($selected, $htmlname, $url, $urloption='', $minLength=2, $autoselect=0, $ajaxoptions=array())
 {
     if (empty($minLength)) $minLength=1;
 
 	$script = '<input type="hidden" name="'.$htmlname.'" id="'.$htmlname.'" value="'.$selected.'" />';
 
 	$script.= '<script type="text/javascript">';
-	$script.= 'jQuery(document).ready(function() {
+	$script.= '$(document).ready(function() {
 					var autoselect = '.$autoselect.';
-					jQuery("input#search_'.$htmlname.'").blur(function() {
-    					//console.log(this.value.length);
-					    if (this.value.length == 0)
-					    {
-                            jQuery("#search_'.$htmlname.'").val("");
-                            jQuery("#'.$htmlname.'").val("");
-					    }
+					var options = '.json_encode($ajaxoptions).';
+
+					// Remove product id before select another product
+					// use keyup instead change to avoid loosing the product id
+					$("input#search_'.$htmlname.'").keydown(function() {
+						//console.log(\'purge_id_after_keydown\');
+						$("#'.$htmlname.'").val("");
+					});
+					$("input#search_'.$htmlname.'").change(function() {
+						//console.log(\'keyup\');
+						$("#'.$htmlname.'").trigger("change");
+					});
+					// Check when keyup
+					$("input#search_'.$htmlname.'").onDelayedKeyup({ handler: function() {
+						    if ($(this).val().length == 0)
+						    {
+	                            $("#search_'.$htmlname.'").val("");
+	                            $("#'.$htmlname.'").val("").trigger("change");
+	                            if (options.option_disabled) {
+	    							$("#" + options.option_disabled).removeAttr("disabled");
+	    						}
+	    						if (options.disabled) {
+	    							$.each(options.disabled, function(key, value) {
+	    								$("#" + value).removeAttr("disabled");
+									});
+	    						}
+	    						if (options.update) {
+	    							$.each(options.update, function(key, value) {
+	    								$("#" + key).val("").trigger("change");
+									});
+								}
+								if (options.show) {
+	    							$.each(options.show, function(key, value) {
+	    								$("#" + value).hide().trigger("hide");
+									});
+								}
+								if (options.update_textarea) {
+	    							$.each(options.update_textarea, function(key, value) {
+	    								if (typeof CKEDITOR == "object" && typeof CKEDITOR.instances != "undefined" && CKEDITOR.instances[key] != "undefined") {
+	    									CKEDITOR.instances[key].setData("");
+	    								} else {
+	    									$("#" + key).html("");
+										}
+	    							});
+	    						}
+						    }
+						}
                     });
-    				jQuery("input#search_'.$htmlname.'").autocomplete({
+    				$("input#search_'.$htmlname.'").autocomplete({
     					source: function( request, response ) {
-    						jQuery.get("'.$url.($option?'?'.$option:'').'", { '.$htmlname.': request.term }, function(data){
-								response( jQuery.map( data, function( item ) {
+    						$.get("'.$url.($urloption?'?'.$urloption:'').'", { '.$htmlname.': request.term }, function(data){
+								response($.map( data, function( item ) {
 									if (autoselect == 1 && data.length == 1) {
-										jQuery("#search_'.$htmlname.'").val(item.value);
-										jQuery("#'.$htmlname.'").val(item.key);
+										$("#search_'.$htmlname.'").val(item.value);
+										$("#'.$htmlname.'").val(item.key).trigger("change");
 									}
 									var label = item.label.toString();
-									return { label: label, value: item.value, id: item.key}
+									var update = {};
+									if (options.update) {
+										$.each(options.update, function(key, value) {
+											update[key] = item[value];
+										});
+									}
+									var textarea = {};
+									if (options.update_textarea) {
+										$.each(options.update_textarea, function(key, value) {
+											textarea[key] = item[value];
+										});
+									}
+									return { label: label, value: item.value, id: item.key, update: update, textarea: textarea, disabled: item.disabled }
 								}));
 							}, "json");
 						},
 						dataType: "json",
     					minLength: '.$minLength.',
     					select: function( event, ui ) {
-    						jQuery("#'.$htmlname.'").val(ui.item.id);
+							//console.log(\'set value of id with \'+ui.item.id);
+    						$("#'.$htmlname.'").val(ui.item.id).trigger("change");
+    						// Disable an element
+    						if (options.option_disabled) {
+    							if (ui.item.disabled) {
+    								$("#" + options.option_disabled).attr("disabled", "disabled");
+    								if (options.error) {
+    									$.jnotify(options.error, "error", true);
+    								}
+    							} else {
+    								$("#" + options.option_disabled).removeAttr("disabled");
+    							}
+    						}
+    						if (options.disabled) {
+    							$.each(options.disabled, function(key, value) {
+    								$("#" + value).attr("disabled", "disabled");
+    							});
+    						}
+    						if (options.show) {
+    							$.each(options.show, function(key, value) {
+    								$("#" + value).show().trigger("show");
+    							});
+    						}
+    						// Update an input
+    						if (ui.item.update) {
+    							// clear old data before update
+    							$.each(ui.item.update, function(key, value) {
+    								$("#" + key).val("");
+    							});
+    							// update fields
+    							$.each(ui.item.update, function(key, value) {
+    								$("#" + key).val(value).trigger("change");
+    							});
+    						}
+    						if (ui.item.textarea) {
+    							$.each(ui.item.textarea, function(key, value) {
+    								if (typeof CKEDITOR == "object" && typeof CKEDITOR.instances != "undefined" && CKEDITOR.instances[key] != "undefined") {
+    									CKEDITOR.instances[key].setData(value);
+    									CKEDITOR.instances[key].focus();
+    								} else {
+    									$("#" + key).html(value);
+    									$("#" + key).focus();
+									}
+    							});
+    						}
     					}
 					}).data( "autocomplete" )._renderItem = function( ul, item ) {
-						return jQuery( "<li></li>" )
+						return $( "<li></li>" )
 						.data( "item.autocomplete", item )
-						.append( \'<a href="#"><span class="tag">\' + item.label + "</span></a>" )
+						.append( \'<a><span class="tag">\' + item.label + "</span></a>" )
 						.appendTo(ul);
 					};
   				});';
@@ -186,7 +284,7 @@ function ajax_dialog($title,$message,$w=350,$h=150)
 	        modal: true,
 	        buttons: {
 	        	Ok: function() {
-					jQuery(this ).dialog(\'close\');
+					jQuery(this).dialog(\'close\');
 				}
 	        }
 	    });
@@ -199,27 +297,28 @@ function ajax_dialog($title,$message,$w=350,$h=150)
 }
 
 /**
- * 	Convert a select html field into an ajax combobox
+ * 	Convert a html select field into an ajax combobox
  *
- * 	@param	string	$htmlname		Name of html field
- * 	@param	array	$event			Event options
+ * 	@param	string	$htmlname		Name of html select field
+ * 	@param	array	$event			Event options. Example: array(array('method'=>'getContacts', 'url'=>dol_buildpath('/core/ajax/contacts.php',1), 'htmlname'=>'contactid', 'params'=>array('add-customer-contact'=>'disabled')))
  *  @return	string					Return html string to convert a select field into a combo
  */
-function ajax_combobox($htmlname, $event=array())
+function ajax_combobox($htmlname, $event=array(), $minLengthToAutocomplete=0)
 {
-	$msg.= '<script type="text/javascript">
+	$msg = '<script type="text/javascript">
     $(function() {
     	$("#'.$htmlname.'").combobox({
+    		minLengthToAutocomplete : '.$minLengthToAutocomplete.',
     		selected : function(event,ui) {
     			var obj = '.json_encode($event).';
-    			$.each(obj, function(key,values) { 
+    			$.each(obj, function(key,values) {
     				if (values.method.length) {
     					getMethod(values);
     				}
 				});
 			}
 		});
-    	
+
 		function getMethod(obj) {
 			var id = $("#'.$htmlname.'").val();
 			var method = obj.method;
@@ -255,11 +354,11 @@ function ajax_combobox($htmlname, $event=array())
  * 	On/off button for constant
  *
  * 	@param	string	$code		Name of constant
- * 	@param	array	$input		Input element
+ * 	@param	array	$input		Input element (enable/disable or show/hide another element, set/del another constant)
  * 	@param	int		$entity		Entity to set
  * 	@return	void
  */
-function ajax_constantonoff($code,$input=array(),$entity=false)
+function ajax_constantonoff($code, $input=array(), $entity=false)
 {
 	global $conf, $langs;
 
@@ -268,67 +367,45 @@ function ajax_constantonoff($code,$input=array(),$entity=false)
 	$out= '<script type="text/javascript">
 		$(function() {
 			var input = '.json_encode($input).';
+			var url = \''.DOL_URL_ROOT.'/core/ajax/constantonoff.php\';
+			var code = \''.$code.'\';
+			var entity = \''.$entity.'\';
+			var yesButton = "'.dol_escape_js($langs->transnoentities("Yes")).'";
+			var noButton = "'.dol_escape_js($langs->transnoentities("No")).'";
 
 			// Set constant
-			$("#set_'.$code.'").click(function() {
-				$.get( "'.DOL_URL_ROOT.'/core/ajax/constantonoff.php", {
-					action: \'set\',
-					name: \''.$code.'\',
-					entity: \''.$entity.'\'
-				},
-				function() {
-					$("#set_'.$code.'").hide();
-					$("#del_'.$code.'").show();
-					// Enable another element
-					if (input.disabled && input.disabled.length > 0) {
-						$.each(input.disabled, function(key,value) {
-							$("#" + value).removeAttr("disabled");
-							if ($("#" + value).hasClass("butActionRefused") == true) {
-								$("#" + value).removeClass("butActionRefused");
-								$("#" + value).addClass("butAction");
-							}
-						});
-					// Show another element
-					} else if (input.showhide && input.showhide.length > 0) {
-						$.each(input.showhide, function(key,value) {
-							$("#" + value).show();
-						});
-					}
-				});
+			$("#set_" + code).click(function() {
+				if (input.alert && input.alert.set) {
+					// Posibility to force label of buttons
+					if (input.alert.set.yesButton)
+						yesButton = input.alert.set.yesButton;
+					if (input.alert.set.noButton)
+						noButton = input.alert.set.noButton;
+					confirmConstantAction("set", url, code, input, input.alert.set, entity, yesButton, noButton);
+				} else {
+					setConstant(url, code, input, entity);
+				}
 			});
 
 			// Del constant
-			$("#del_'.$code.'").click(function() {
-				$.get( "'.DOL_URL_ROOT.'/core/ajax/constantonoff.php", {
-					action: \'del\',
-					name: \''.$code.'\',
-					entity: \''.$entity.'\'
-				},
-				function() {
-					$("#del_'.$code.'").hide();
-					$("#set_'.$code.'").show();
-					// Disable another element
-					if (input.disabled && input.disabled.length > 0) {
-						$.each(input.disabled, function(key,value) {
-							$("#" + value).attr("disabled", true);
-							if ($("#" + value).hasClass("butAction") == true) {
-								$("#" + value).removeClass("butAction");
-								$("#" + value).addClass("butActionRefused");
-							}
-						});
-					// Hide another element
-					} else if (input.showhide && input.showhide.length > 0) {
-						$.each(input.showhide, function(key,value) {
-							$("#" + value).hide();
-						});
-					}
-				});
+			$("#del_" + code).click(function() {
+				if (input.alert && input.alert.del) {
+					// Posibility to force label of buttons
+					if (input.alert.del.yesButton)
+						yesButton = input.alert.del.yesButton;
+					if (input.alert.del.noButton)
+						noButton = input.alert.del.noButton;
+					confirmConstantAction("del", url, code, input, input.alert.del, entity, yesButton, noButton);
+				} else {
+					delConstant(url, code, input, entity);
+				}
 			});
 		});
 	</script>';
 
-	$out.= '<span id="set_'.$code.'" class="linkobject '.($conf->global->$code?'hideobject':'').'">'.img_picto($langs->trans("Disabled"),'switch_off').'</span>';
-	$out.= '<span id="del_'.$code.'" class="linkobject '.($conf->global->$code?'':'hideobject').'">'.img_picto($langs->trans("Enabled"),'switch_on').'</span>';
+	$out.= '<div id="confirm_'.$code.'" title="" style="display: none;"></div>';
+	$out.= '<span id="set_'.$code.'" class="linkobject '.(! empty($conf->global->$code)?'hideobject':'').'">'.img_picto($langs->trans("Disabled"),'switch_off').'</span>';
+	$out.= '<span id="del_'.$code.'" class="linkobject '.(! empty($conf->global->$code)?'':'hideobject').'">'.img_picto($langs->trans("Enabled"),'switch_on').'</span>';
 
 	return $out;
 }

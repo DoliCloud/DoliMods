@@ -1,11 +1,11 @@
 <?php
 /* Copyright (C) 2005      Rodolphe Quiedeville <rodolphe@quiedeville.org>
- * Copyright (C) 2004-2011 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2005-2012 Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2004-2012 Laurent Destailleur  <eldy@users.sourceforge.net>
+ * Copyright (C) 2005-2012 Regis Houssin        <regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -24,11 +24,11 @@
  */
 
 require ("../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/projet/class/project.class.php");
-require_once(DOL_DOCUMENT_ROOT."/projet/class/task.class.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/project.lib.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/date.lib.php");
-require_once(DOL_DOCUMENT_ROOT."/core/class/html.formother.class.php");
+require_once DOL_DOCUMENT_ROOT.'/projet/class/project.class.php';
+require_once DOL_DOCUMENT_ROOT.'/projet/class/task.class.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/project.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/core/class/html.formother.class.php';
 
 $langs->load("users");
 $langs->load("projects");
@@ -54,6 +54,11 @@ $socid=0;
 if ($user->societe_id > 0) $socid = $user->societe_id;
 $result = restrictedArea($user, 'projet', $id);
 
+// Initialize technical object to manage hooks of thirdparties. Note that conf->hooks_modules contains array array
+include_once DOL_DOCUMENT_ROOT.'/core/class/hookmanager.class.php';
+$hookmanager=new HookManager($db);
+$hookmanager->initHooks(array('projecttaskcard'));
+
 $progress=GETPOST('progress', 'int');
 $label=GETPOST('label', 'alpha');
 $description=GETPOST('description');
@@ -70,8 +75,8 @@ if ($action == 'createtask' && $user->rights->projet->creer)
 {
 	$error=0;
 
-	$date_start = dol_mktime(12,0,0,$_POST['dateomonth'],$_POST['dateoday'],$_POST['dateoyear']);
-    $date_end = dol_mktime(12,0,0,$_POST['dateemonth'],$_POST['dateeday'],$_POST['dateeyear']);
+	$date_start = dol_mktime(0,0,0,$_POST['dateomonth'],$_POST['dateoday'],$_POST['dateoyear']);
+    $date_end = dol_mktime(0,0,0,$_POST['dateemonth'],$_POST['dateeday'],$_POST['dateeyear']);
 
 	if (empty($_POST["cancel"]))
 	{
@@ -119,12 +124,12 @@ if ($action == 'createtask' && $user->rights->projet->creer)
 		{
 		    if (! empty($backtopage))
 			{
-				Header("Location: ".$backtopage);
+				header("Location: ".$backtopage);
 				exit;
 			}
 			else if (empty($projectid))
 			{
-				Header("Location: ".DOL_URL_ROOT.'/projet/tasks/index.php'.(empty($mode)?'':'?mode='.$mode));
+				header("Location: ".DOL_URL_ROOT.'/projet/tasks/index.php'.(empty($mode)?'':'?mode='.$mode));
 				exit;
 			}
 		}
@@ -133,13 +138,13 @@ if ($action == 'createtask' && $user->rights->projet->creer)
 	{
 		if (! empty($backtopage))
 		{
-			Header("Location: ".$backtopage);
+			header("Location: ".$backtopage);
 			exit;
 		}
 	    else if (empty($id))
         {
             // We go back on task list
-            Header("Location: ".DOL_URL_ROOT.'/projet/tasks/index.php'.(empty($mode)?'':'?mode='.$mode));
+            header("Location: ".DOL_URL_ROOT.'/projet/tasks/index.php'.(empty($mode)?'':'?mode='.$mode));
             exit;
         }
 	}
@@ -178,6 +183,8 @@ if ($id > 0 || ! empty($ref))
 
     print '<table class="border" width="100%">';
 
+    $linkback = '<a href="'.DOL_URL_ROOT.'/projet/liste.php">'.$langs->trans("BackToList").'</a>';
+
     // Ref
     print '<tr><td width="30%">';
     print $langs->trans("Ref");
@@ -188,7 +195,7 @@ if ($id > 0 || ! empty($ref))
         $projectsListId = $object->getProjectsAuthorizedForUser($user,$mine,0);
         $object->next_prev_filter=" rowid in (".(count($projectsListId)?join(',',array_keys($projectsListId)):'0').")";
     }
-    print $form->showrefnav($object,'ref','',1,'ref','ref','',$param);
+    print $form->showrefnav($object, 'ref', $linkback, 1, 'ref', 'ref', '', $param);
     print '</td></tr>';
 
     print '<tr><td>'.$langs->trans("Label").'</td><td>'.$object->title.'</td></tr>';
@@ -207,6 +214,16 @@ if ($id > 0 || ! empty($ref))
 
     // Statut
     print '<tr><td>'.$langs->trans("Status").'</td><td>'.$object->getLibStatut(4).'</td></tr>';
+
+    // Date start
+    print '<tr><td>'.$langs->trans("DateStart").'</td><td>';
+    print dol_print_date($object->date_start,'day');
+    print '</td></tr>';
+
+    // Date end
+    print '<tr><td>'.$langs->trans("DateEnd").'</td><td>';
+    print dol_print_date($object->date_end,'day');
+    print '</td></tr>';
 
     print '</table>';
 
@@ -264,6 +281,10 @@ if ($action == 'create' && $user->rights->projet->creer && (empty($object->socie
 	print '<td>';
 	print '<textarea name="description" wrap="soft" cols="80" rows="'.ROWS_3.'">'.$description.'</textarea>';
 	print '</td></tr>';
+
+        // Other options
+        $parameters=array();
+        $reshook=$hookmanager->executeHooks('formObjectOptions',$parameters,$object,$action); // Note that $action and $object may have been modified by hook
 
 	print '</table>';
 
@@ -333,7 +354,12 @@ else
 	//var_dump($tasksarray);
 	//var_dump($tasksrole);
 
-	print '<table class="noborder" width="100%">';
+	if (! empty($conf->use_javascript_ajax))
+	{
+		include DOL_DOCUMENT_ROOT.'/core/tpl/ajaxrow.tpl.php';
+	}
+
+	print '<table id="tablelines" class="noborder" width="100%">';
 	print '<tr class="liste_titre">';
 	// print '<td>'.$langs->trans("Project").'</td>';
 	print '<td width="80">'.$langs->trans("RefTask").'</td>';
@@ -342,12 +368,13 @@ else
 	print '<td align="center">'.$langs->trans("DateEnd").'</td>';
 	print '<td align="right">'.$langs->trans("Progress").'</td>';
 	print '<td align="right">'.$langs->trans("TimeSpent").'</td>';
+	print '<td>&nbsp;</td>';
 	print "</tr>\n";
 	if (count($tasksarray) > 0)
 	{
 		// Show all lines in taskarray (recursive function to go down on tree)
 		$j=0;
-		$nboftaskshown=projectLinesa($j, 0, $tasksarray, $level, true, 0, $tasksrole);
+		$nboftaskshown=projectLinesa($j, 0, $tasksarray, $level, true, 0, $tasksrole, '', 1);
 	}
 	else
 	{

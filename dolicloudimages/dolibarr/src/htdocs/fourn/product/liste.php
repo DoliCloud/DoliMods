@@ -1,12 +1,13 @@
 <?php
 /* Copyright (C) 2001-2005 Rodolphe Quiedeville <rodolphe@quiedeville.org>
  * Copyright (C) 2004-2012 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2005-2007 Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2005-2007 Regis Houssin        <regis.houssin@capnetworks.com>
  * Copyright (C) 2010	   Juanjo Menent        <jmenent@2byte.es>
+ * Copyright (C) 2012      Christophe Battarel   <christophe.battarel@altairis.fr>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -24,10 +25,10 @@
  *		\brief      Page liste des produits ou services
  */
 
-require("../../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/product/class/product.class.php");
-require_once(DOL_DOCUMENT_ROOT."/societe/class/societe.class.php");
-require_once(DOL_DOCUMENT_ROOT."/fourn/class/fournisseur.class.php");
+require '../../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
+require_once DOL_DOCUMENT_ROOT.'/societe/class/societe.class.php';
+require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.class.php';
 
 $langs->load("products");
 $langs->load("suppliers");
@@ -99,6 +100,10 @@ if ($_POST["mode"] == 'search')
 {
 	$sql .= " AND (p.ref LIKE '%".$_POST["sall"]."%'";
 	$sql .= " OR p.label LIKE '%".$_POST["sall"]."%')";
+	if ($sRefSupplier)
+	{
+		$sql .= " AND ppf.ref_fourn LIKE '%".$sRefSupplier."%'";
+	}
 }
 else
 {
@@ -143,7 +148,7 @@ if ($resql)
 	if ($num == 1 && ( isset($_POST["sall"]) || $snom || $sref ) )
 	{
 		$objp = $db->fetch_object($resql);
-		Header("Location: fiche.php?id=".$objp->rowid);
+		header("Location: fiche.php?id=".$objp->rowid);
 		exit;
 	}
 

@@ -1,11 +1,11 @@
 <?php
-/* Copyright (C) 2004-2011 Laurent Destailleur   <eldy@users.sourceforge.net>
- * Copyright (C) 2005-2011 Regis Houssin         <regis@dolibarr.fr>
- * Copyright (C) 2012	   Juanjo Menent         <jmenent@2byte.es>
+/* Copyright (C) 2004-2011	Laurent Destailleur	<eldy@users.sourceforge.net>
+ * Copyright (C) 2005-2012	Regis Houssin		<regis.houssin@capnetworks.com>
+ * Copyright (C) 2012		Juanjo Menent		<jmenent@2byte.es>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -24,9 +24,9 @@
  *  \brief      Page d'activation du module FCKeditor dans les autres modules
  */
 
-require("../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
-require_once(DOL_DOCUMENT_ROOT."/core/class/doleditor.class.php");
+require '../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/core/class/doleditor.class.php';
 
 $langs->load("admin");
 $langs->load("fckeditor");
@@ -45,9 +45,9 @@ $modules = array(
 // Conditions pour que l'option soit proposee
 $conditions = array(
 'SOCIETE' => 1,
-'PRODUCTDESC' => ($conf->product->enabled||$conf->service->enabled),
-'MAILING' => $conf->mailing->enabled,
-'DETAILS' => ($conf->facture->enabled||$conf->propal->enabled||$conf->commande->enabled),
+'PRODUCTDESC' => (! empty($conf->product->enabled) || ! empty($conf->service->enabled)),
+'MAILING' => ! empty($conf->mailing->enabled),
+'DETAILS' => (! empty($conf->facture->enabled) || ! empty($conf->propal->enabled) || ! empty($conf->commande->enabled)),
 );
 // Picto
 $picto = array(
@@ -69,17 +69,17 @@ foreach($modules as $const => $desc)
     {
         dolibarr_set_const($db, "FCKEDITOR_ENABLE_".$const, "1",'chaine',0,'',$conf->entity);
         // Si fckeditor est active dans la description produit/service, on l'active dans les formulaires
-        if ($const == 'PRODUCTDESC' && $conf->global->PRODUIT_DESC_IN_FORM)
+        if ($const == 'PRODUCTDESC' && ! empty($conf->global->PRODUIT_DESC_IN_FORM))
         {
             dolibarr_set_const($db, "FCKEDITOR_ENABLE_DETAILS", "1",'chaine',0,'',$conf->entity);
         }
-        Header("Location: ".$_SERVER["PHP_SELF"]);
+        header("Location: ".$_SERVER["PHP_SELF"]);
         exit;
     }
     if ($action == 'disable_'.strtolower($const))
     {
         dolibarr_del_const($db, "FCKEDITOR_ENABLE_".$const,$conf->entity);
-        Header("Location: ".$_SERVER["PHP_SELF"]);
+        header("Location: ".$_SERVER["PHP_SELF"]);
         exit;
     }
 }
@@ -129,14 +129,14 @@ else
         print '<td>'.$langs->trans($desc).'</td>';
         print '<td align="center" width="100">';
         $constante = 'FCKEDITOR_ENABLE_'.$const;
-        $value = $conf->global->$constante;
-        if($value == 0)
+        $value = (isset($conf->global->$constante)?$conf->global->$constante:0);
+        if ($value == 0)
         {
-            print '<a href="fckeditor.php?action=activate_'.strtolower($const).'">'.img_picto($langs->trans("Disabled"),'switch_off').'</a>';
+            print '<a href="'.$_SERVER['PHP_SELF'].'?action=activate_'.strtolower($const).'">'.img_picto($langs->trans("Disabled"),'switch_off').'</a>';
         }
-        else if($value == 1)
+        else if ($value == 1)
         {
-            print '<a href="fckeditor.php?action=disable_'.strtolower($const).'">'.img_picto($langs->trans("Enabled"),'switch_on').'</a>';
+            print '<a href="'.$_SERVER['PHP_SELF'].'?action=disable_'.strtolower($const).'">'.img_picto($langs->trans("Enabled"),'switch_on').'</a>';
         }
 
         print "</td>";
@@ -164,7 +164,7 @@ else
      */
 }
 
-$db->close();
 
 llxFooter();
+$db->close();
 ?>

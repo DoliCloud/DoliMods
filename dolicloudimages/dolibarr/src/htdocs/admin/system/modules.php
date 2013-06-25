@@ -1,11 +1,11 @@
 <?php
 /* Copyright (C) 2005-2009	Laurent Destailleur		<eldy@users.sourceforge.net>
  * Copyright (C) 2007		Rodolphe Quiedeville	<rodolphe@quiedeville.org>
- * Copyright (C) 2010-2011	Regis Houssin			<regis@dolibarr.fr>
+ * Copyright (C) 2010-2012	Regis Houssin			<regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -22,14 +22,15 @@
  *  \brief      File to list all Dolibarr modules
  */
 
-require("../../main.inc.php");
+require '../../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php';
 
 $langs->load("admin");
 $langs->load("install");
 $langs->load("other");
 
-if (!$user->admin)
-accessforbidden();
+if (! $user->admin)
+	accessforbidden();
 
 
 /*
@@ -46,36 +47,12 @@ print "<br>\n";
 $modules = array();
 $modules_names = array();
 $modules_files = array();
-
-// Search modules dirs
-$modulesdir = array();
-foreach ($conf->file->dol_document_root as $type => $dirroot)
-{
-    $modulesdir[$dirroot . '/core/modules/'] = $dirroot . '/core/modules/';
-
-    $handle=@opendir($dirroot);
-    if (is_resource($handle))
-    {
-        while (($file = readdir($handle))!==false)
-        {
-            if (is_dir($dirroot.'/'.$file) && substr($file, 0, 1) <> '.' && substr($file, 0, 3) <> 'CVS' && $file != 'includes')
-            {
-                if (is_dir($dirroot . '/' . $file . '/core/modules/'))
-                {
-                    $modulesdir[$dirroot . '/' . $file . '/core/modules/'] = $dirroot . '/' . $file . '/core/modules/';
-                }
-            }
-        }
-        closedir($handle);
-    }
-}
-//var_dump($modulesdir);
-
+$modulesdir = dolGetModulesDirs();
 
 // Load list of modules
 foreach($modulesdir as $dir)
 {
-	$handle=@opendir($dir);
+	$handle=@opendir(dol_osencode($dir));
     if (is_resource($handle))
     {
     	while (($file = readdir($handle))!==false)
@@ -86,7 +63,7 @@ foreach($modulesdir as $dir)
 
     			if ($modName)
     			{
-    				include_once($dir.$file);
+    				include_once $dir.$file;
     				$objMod = new $modName($db);
 
     				$modules[$objMod->numero]=$objMod;
@@ -147,12 +124,14 @@ foreach($sortorder as $numero=>$name)
 print '</table>';
 print '<br>';
 sort($rights_ids);
+$old='';
 foreach($rights_ids as $right_id)
 {
 	if ($old == $right_id)
-	print "Warning duplicate id on permission : ".$right_id."<br>";
+		print "Warning duplicate id on permission : ".$right_id."<br>";
 	$old = $right_id;
 }
 
 llxFooter();
+$db->close();
 ?>

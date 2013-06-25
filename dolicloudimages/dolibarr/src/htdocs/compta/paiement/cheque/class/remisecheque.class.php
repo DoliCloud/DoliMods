@@ -1,12 +1,12 @@
 <?php
 /* Copyright (C) 2006      Rodolphe Quiedeville <rodolphe@quiedeville.org>
  * Copyright (C) 2007-2011 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2005-2009 Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2005-2009 Regis Houssin        <regis.houssin@capnetworks.com>
  * Copyright (C) 2011      Juanjo Menent        <jmenent@2byte.es>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -23,12 +23,11 @@
  *	\ingroup    compta
  *	\brief      Fichier de la classe des bordereau de remise de cheque
  */
-require_once(DOL_DOCUMENT_ROOT ."/core/class/commonobject.class.php");
+require_once DOL_DOCUMENT_ROOT .'/core/class/commonobject.class.php';
 
 
 /**
- *	\class RemiseCheque
- *	\brief Classe permettant la gestion des remises de cheque
+ *	Classe permettant la gestion des remises de cheque
  */
 class RemiseCheque extends CommonObject
 {
@@ -44,11 +43,11 @@ class RemiseCheque extends CommonObject
 	/**
 	 *	Constructor
 	 *
-	 *  @param		DoliDB		$DB      Database handler
+	 *  @param		DoliDB		$db      Database handler
 	 */
-	function RemiseCheque($DB)
+	function __construct($db)
 	{
-		$this->db = $DB;
+		$this->db = $db;
 		$this->next_id = 0;
 		$this->previous_id = 0;
 	}
@@ -491,8 +490,8 @@ class RemiseCheque extends CommonObject
 		$file = "pdf_".$model.".class.php";
 		if (file_exists($dir.$file))
 		{
-			require_once(DOL_DOCUMENT_ROOT ."/compta/bank/class/account.class.php");
-			require_once($dir.$file);
+			require_once DOL_DOCUMENT_ROOT .'/compta/bank/class/account.class.php';
+			require_once $dir.$file;
 
 			$classname='BordereauCheque'.ucfirst($model);
 			$docmodel = new $classname($this->db);
@@ -514,6 +513,7 @@ class RemiseCheque extends CommonObject
 				$i = 0;
 				while ($objp = $this->db->fetch_object($result))
 				{
+					$docmodel->lines[$i] = new stdClass();
 					$docmodel->lines[$i]->bank_chq = $objp->banque;
 					$docmodel->lines[$i]->emetteur_chq = $objp->emetteur;
 					$docmodel->lines[$i]->amount_chq = $objp->amount;

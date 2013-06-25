@@ -1,9 +1,9 @@
 <?php
-/* Copyright (C) 2012 Regis Houssin <regis@dolibarr.fr>
+/* Copyright (C) 2012 Regis Houssin <regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -16,15 +16,23 @@
  *
  */
 
+if (! class_exists('Contact')) {
+	require DOL_DOCUMENT_ROOT.'/contact/class/contact.class.php';
+}
+if (! class_exists('FormCompany')) {
+	require DOL_DOCUMENT_ROOT.'/core/class/html.formcompany.class.php';
+}
+
 $module = $object->element;
-$permission=(isset($permission)?$permission:$user->rights->$module->creer);    // If already defined by caller page
 
 // Special cases
 if ($module == 'propal')				{ $permission=$user->rights->propale->creer; }
 elseif ($module == 'fichinter')			{ $permission=$user->rights->ficheinter->creer; }
 elseif ($module == 'invoice_supplier')	{ $permission=$user->rights->fournisseur->facture->creer; }
 elseif ($module == 'order_supplier')	{ $permission=$user->rights->fournisseur->commande->creer; }
+elseif (! isset($permission))			{ $permission=$user->rights->$module->creer; } // If already defined by caller page
 
+$formcompany= new FormCompany($db);
 $companystatic=new Societe($db);
 $contactstatic=new Contact($db);
 $userstatic=new User($db);
@@ -54,7 +62,7 @@ $userstatic=new User($db);
 	<tr <?php echo $bc[$var]; ?>>
 		<td nowrap="nowrap"><?php echo img_object('','user').' '.$langs->trans("Users"); ?></td>
 		<td><?php echo $conf->global->MAIN_INFO_SOCIETE_NOM; ?></td>
-		<td><?php echo $form->select_users($user->id,'userid',0,$userAlreadySelected); ?></td>
+		<td><?php echo $form->select_users($user->id,'userid',0,(! empty($userAlreadySelected)?$userAlreadySelected:'')); ?></td>
 		<td><?php echo $formcompany->selectTypeContact($object, '', 'type','internal'); ?></td>
 		<td align="right" colspan="3" ><input type="submit" class="button" value="<?php echo $langs->trans("Add"); ?>"></td>
 	</tr>
@@ -70,7 +78,7 @@ $userstatic=new User($db);
 
 	<tr <?php echo $bc[$var]; ?>>
 		<td nowrap="nowrap"><?php echo img_object('','contact').' '.$langs->trans("ThirdPartyContacts"); ?></td>
-		<?php if ($conf->use_javascript_ajax && $conf->global->COMPANY_USE_SEARCH_TO_SELECT) { ?>
+		<?php if ($conf->use_javascript_ajax && ! empty($conf->global->COMPANY_USE_SEARCH_TO_SELECT)) { ?>
 		<td>
 			<?php
 			$events=array();

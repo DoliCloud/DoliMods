@@ -1,11 +1,11 @@
 <?php
 /* Copyright (C) 2003-2005 Rodolphe Quiedeville <rodolphe@quiedeville.org>
  * Copyright (C) 2004-2012 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2005-2011 Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2005-2012 Regis Houssin        <regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -22,17 +22,18 @@
  *   \brief      Page to setup boxes
  */
 
-require("../main.inc.php");
-include_once(DOL_DOCUMENT_ROOT."/core/boxes/modules_boxes.php");
-require_once(DOL_DOCUMENT_ROOT."/core/class/infobox.class.php");
-include_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
+require '../main.inc.php';
+include_once DOL_DOCUMENT_ROOT.'/core/boxes/modules_boxes.php';
+require_once DOL_DOCUMENT_ROOT.'/core/class/infobox.class.php';
+include_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
 
 $langs->load("admin");
 
-if (!$user->admin) accessforbidden();
+if (! $user->admin) accessforbidden();
 
 $rowid = GETPOST('rowid','int');
-$action = GETPOST('action');
+$action = GETPOST('action','alpha');
+$errmesg='';
 
 // Definition des positions possibles pour les boites
 $pos_array = array(0);                             // Positions possibles pour une boite (0,1,2,...)
@@ -89,9 +90,9 @@ if ($action == 'add')
 	    if (! $error && $fk_user != 0)    // We will add fk_user = 0 later.
 	    {
 	        $sql = "INSERT INTO ".MAIN_DB_PREFIX."boxes (";
-	        $sql.= "box_id, position, box_order, fk_user";
+	        $sql.= "box_id, position, box_order, fk_user, entity";
 	        $sql.= ") values (";
-	        $sql.= GETPOST("boxid","int").", ".GETPOST("pos","alpha").", 'A01', ".$fk_user;
+	        $sql.= GETPOST("boxid","int").", ".GETPOST("pos","alpha").", 'A01', ".$fk_user.", ".$conf->entity;
 	        $sql.= ")";
 
 	        dol_syslog("boxes.php activate box sql=".$sql);
@@ -108,9 +109,9 @@ if ($action == 'add')
 	if (! $error)
 	{
 	    $sql = "INSERT INTO ".MAIN_DB_PREFIX."boxes (";
-	    $sql.= "box_id, position, box_order, fk_user";
+	    $sql.= "box_id, position, box_order, fk_user, entity";
 	    $sql.= ") values (";
-	    $sql.= GETPOST("boxid","int").", ".GETPOST("pos","alpha").", 'A01', 0";
+	    $sql.= GETPOST("boxid","int").", ".GETPOST("pos","alpha").", 'A01', 0, ".$conf->entity;
 	    $sql.= ")";
 
 	    dol_syslog("boxes.php activate box sql=".$sql);
@@ -124,7 +125,7 @@ if ($action == 'add')
 
 	if (! $error)
 	{
-		Header("Location: boxes.php");
+		header("Location: boxes.php");
 	    $db->commit();
 		exit;
 	}
@@ -136,9 +137,9 @@ if ($action == 'add')
 
 if ($action == 'delete')
 {
-
 	$sql = "SELECT box_id FROM ".MAIN_DB_PREFIX."boxes";
 	$sql.= " WHERE rowid=".$rowid;
+
 	$resql = $db->query($sql);
 	$obj=$db->fetch_object($resql);
     if (! empty($obj->box_id))
@@ -151,7 +152,9 @@ if ($action == 'delete')
         //	$resql = $db->query($sql);
 
 	    $sql = "DELETE FROM ".MAIN_DB_PREFIX."boxes";
-    	$sql.= " WHERE box_id=".$obj->box_id;
+	    $sql.= " WHERE entity = ".$conf->entity;
+    	$sql.= " AND box_id=".$obj->box_id;
+
     	$resql = $db->query($sql);
 
     	$db->commit();
@@ -181,12 +184,12 @@ if ($action == 'switch')
 	         $newsecondnum=preg_replace('/[a-zA-Z]+/','',$newsecond);
 	         $newsecond=sprintf("%s%02d",$newsecondchar?$newsecondchar:'A',$newsecondnum+1);
 	    }
-		$sql="UPDATE ".MAIN_DB_PREFIX."boxes set box_order='".$newfirst."' WHERE rowid=".$objfrom->rowid;
+		$sql="UPDATE ".MAIN_DB_PREFIX."boxes SET box_order='".$newfirst."' WHERE rowid=".$objfrom->rowid;
 		dol_syslog($sql);
 		$resultupdatefrom = $db->query($sql);
 		if (! $resultupdatefrom) { dol_print_error($db); }
 
-		$sql="UPDATE ".MAIN_DB_PREFIX."boxes set box_order='".$newsecond."' WHERE rowid=".$objto->rowid;
+		$sql="UPDATE ".MAIN_DB_PREFIX."boxes SET box_order='".$newsecond."' WHERE rowid=".$objto->rowid;
 		dol_syslog($sql);
 		$resultupdateto = $db->query($sql);
 		if (! $resultupdateto) { dol_print_error($db); }
@@ -208,8 +211,6 @@ if ($action == 'switch')
  */
 
 $form=new Form($db);
-$emptyuser=new User($db);
-//$infobox=new InfoBox($db);
 
 llxHeader('',$langs->trans("Boxes"));
 
@@ -230,8 +231,8 @@ $actives = array();
 $sql = "SELECT b.rowid, b.box_id, b.position, b.box_order,";
 $sql.= " bd.rowid as boxid";
 $sql.= " FROM ".MAIN_DB_PREFIX."boxes as b, ".MAIN_DB_PREFIX."boxes_def as bd";
-$sql.= " WHERE b.box_id = bd.rowid";
-$sql.= " AND bd.entity = ".$conf->entity;
+$sql.= " WHERE b.entity = ".$conf->entity;
+$sql.= " AND b.box_id = bd.rowid";
 $sql.= " AND b.fk_user=0";
 $sql.= " ORDER by b.position, b.box_order";
 
@@ -255,7 +256,7 @@ if ($resql)
 		// This occurs just after an insert.
 		if ($decalage)
 		{
-			$sql="UPDATE ".MAIN_DB_PREFIX."boxes set box_order='".$decalage."' WHERE rowid=".$obj->rowid;
+			$sql="UPDATE ".MAIN_DB_PREFIX."boxes SET box_order='".$decalage."' WHERE rowid=".$obj->rowid;
 			$db->query($sql);
 		}
 	}
@@ -266,7 +267,8 @@ if ($resql)
 		// This occurs just after an insert.
 		$sql = "SELECT box_order";
 		$sql.= " FROM ".MAIN_DB_PREFIX."boxes";
-		$sql.= " WHERE length(box_order) <= 2";
+		$sql.= " WHERE entity = ".$conf->entity;
+		$sql.= " AND LENGTH(box_order) <= 2";
 
 		dol_syslog("Execute requests to renumber box order sql=".$sql);
 		$result = $db->query($sql);
@@ -279,13 +281,13 @@ if ($resql)
 					if (preg_match("/[13579]{1}/",substr($record['box_order'],-1)))
 					{
 						$box_order = "A0".$record['box_order'];
-						$sql="UPDATE ".MAIN_DB_PREFIX."boxes SET box_order = '".$box_order."' WHERE box_order = '".$record['box_order']."'";
+						$sql="UPDATE ".MAIN_DB_PREFIX."boxes SET box_order = '".$box_order."' WHERE entity = ".$conf->entity." AND box_order = '".$record['box_order']."'";
 						$resql = $db->query($sql);
 					}
 					else if (preg_match("/[02468]{1}/",substr($record['box_order'],-1)))
 					{
 						$box_order = "B0".$record['box_order'];
-						$sql="UPDATE ".MAIN_DB_PREFIX."boxes SET box_order = '".$box_order."' WHERE box_order = '".$record['box_order']."'";
+						$sql="UPDATE ".MAIN_DB_PREFIX."boxes SET box_order = '".$box_order."' WHERE entity = ".$conf->entity." AND box_order = '".$record['box_order']."'";
 						$resql = $db->query($sql);
 					}
 				}
@@ -294,13 +296,13 @@ if ($resql)
 					if (preg_match("/[13579]{1}/",substr($record['box_order'],-1)))
 					{
 						$box_order = "A".$record['box_order'];
-						$sql="UPDATE ".MAIN_DB_PREFIX."boxes SET box_order = '".$box_order."' WHERE box_order = '".$record['box_order']."'";
+						$sql="UPDATE ".MAIN_DB_PREFIX."boxes SET box_order = '".$box_order."' WHERE entity = ".$conf->entity." AND box_order = '".$record['box_order']."'";
 						$resql = $db->query($sql);
 					}
 					else if (preg_match("/[02468]{1}/",substr($record['box_order'],-1)))
 					{
 						$box_order = "B".$record['box_order'];
-						$sql="UPDATE ".MAIN_DB_PREFIX."boxes SET box_order = '".$box_order."' WHERE box_order = '".$record['box_order']."'";
+						$sql="UPDATE ".MAIN_DB_PREFIX."boxes SET box_order = '".$box_order."' WHERE entity = ".$conf->entity." AND box_order = '".$record['box_order']."'";
 						$resql = $db->query($sql);
 					}
 				}
@@ -312,7 +314,7 @@ if ($resql)
 
 
 // Available boxes
-$boxtoadd=InfoBox::listboxes($db,'available',-1,$emptyuser,$actives);
+$boxtoadd=InfoBox::listBoxes($db,'available',-1,null,$actives);
 
 print "<br>\n";
 print_titre($langs->trans("BoxesAvailable"));
@@ -362,7 +364,7 @@ print '</table>';
 
 
 // Activated boxes
-$boxactivated=InfoBox::listboxes($db,'activated',-1,$emptyuser);
+$boxactivated=InfoBox::listBoxes($db,'activated',-1,null);
 
 print "<br>\n\n";
 print_titre($langs->trans("BoxesActivated"));
@@ -396,7 +398,7 @@ foreach($boxactivated as $key => $box)
 	print '<tr '.$bc[$var].'>';
 	print '<td>'.img_object("",$logo).' '.$box->boxlabel.'</td>';
 	print '<td>' . ($box->note?$box->note:'&nbsp;') . '</td>';
-	print '<td align="center">' . $pos_name[$box->position] . '</td>';
+	print '<td align="center">' . (isset($pos_name[$box->position])?$pos_name[$box->position]:'') . '</td>';
 	$hasnext=($key < (count($boxactivated)-1));
 	$hasprevious=($key != 0);
 	print '<td align="center">'.($key+1).'</td>';

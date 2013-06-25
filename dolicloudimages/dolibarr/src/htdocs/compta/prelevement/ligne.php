@@ -1,12 +1,12 @@
-<?PHP
+<?php
 /* Copyright (C) 2005      Rodolphe Quiedeville <rodolphe@quiedeville.org>
- * Copyright (C) 2005-2008 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2005-2009 Regis Houssin        <regis@dolibarr.fr>
- * Copyright (C) 2010-2012 Juanjo Menent        <jmenent@2byte.es>
+ * Copyright (C) 2005-2012 Laurent Destailleur  <eldy@users.sourceforge.net>
+ * Copyright (C) 2005-2009 Regis Houssin        <regis.houssin@capnetworks.com>
+ * Copyright (C) 2010-2013 Juanjo Menent        <jmenent@2byte.es>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -24,11 +24,11 @@
  *	\brief      card of withdraw line
  */
 
-require("../bank/pre.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/compta/prelevement/class/bon-prelevement.class.php");
-require_once(DOL_DOCUMENT_ROOT."/compta/prelevement/class/ligne-prelevement.class.php");
-require_once(DOL_DOCUMENT_ROOT."/compta/prelevement/class/rejet-prelevement.class.php");
-require_once(DOL_DOCUMENT_ROOT."/compta/paiement/class/paiement.class.php");
+require '../bank/pre.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/compta/prelevement/class/bonprelevement.class.php';
+require_once DOL_DOCUMENT_ROOT.'/compta/prelevement/class/ligneprelevement.class.php';
+require_once DOL_DOCUMENT_ROOT.'/compta/prelevement/class/rejetprelevement.class.php';
+require_once DOL_DOCUMENT_ROOT.'/compta/paiement/class/paiement.class.php';
 
 // Security check
 if ($user->societe_id > 0) accessforbidden();
@@ -50,34 +50,54 @@ if ($action == 'confirm_rejet')
 {
 	if ( GETPOST("confirm") == 'yes')
 	{
-		$daterej = mktime(2, 0, 0, GETPOST('remonth','int'), GETPOST('reday','int'), GETPOST('reyear','int'));
-
-		$lipre = new LignePrelevement($db, $user);
-
-		if ($lipre->fetch($id) == 0)
+		if (GETPOST('remonth','int'))
 		{
+			$daterej = mktime(2, 0, 0, GETPOST('remonth','int'), GETPOST('reday','int'), GETPOST('reyear','int'));
+		}
 
-			if (GETPOST('motif','alpha') > 0 && $daterej < time())
+		if (empty($daterej))
+		{
+			$error++;
+			setEventMessage($langs->trans("ErrorFieldRequired",$langs->trans("Date")),'errors');
+		}
+		
+		elseif ($daterej > dol_now())
+		{
+			$error++;
+			$langs->load("error");
+			setEventMessage($langs->transnoentities("ErrorDateMustBeBeforeToday"),'errors');
+		}
+		
+		if (GETPOST('motif','alpha') == 0)
+		{
+			$error++;
+			setEventMessage($langs->trans("ErrorFieldRequired",$langs->transnoentities("RefusedReason")),'errors');
+		}
+		
+		if ( ! $error )
+		{
+			$lipre = new LignePrelevement($db, $user);
+			
+			if ($lipre->fetch($id) == 0)
+			
 			{
 				$rej = new RejetPrelevement($db, $user);
-
+				
 				$rej->create($user, $id, GETPOST('motif','alpha'), $daterej, $lipre->bon_rowid, GETPOST('facturer','int'));
 
-				Header("Location: ligne.php?id=".$id);
+				header("Location: ligne.php?id=".$id);
 				exit;
 			}
-			else
-			{
-				dol_syslog("Motif : ".GETPOST('motif','alpha'));
-				dol_syslog("$daterej $time ");
-				Header("Location: ligne.php?id=".$id."&action=rejet");
-				exit;
-			}
+			
+		}
+		else
+		{
+			$action="rejet";
 		}
 	}
 	else
 	{
-		Header("Location: ligne.php?id=".$id);
+		header("Location: ligne.php?id=".$id);
 		exit;
 	}
 }
@@ -110,11 +130,11 @@ if ($id)
 		print '<tr><td width="20%">'.$langs->trans("WithdrawalReceipt").'</td><td>';
 		print '<a href="fiche.php?id='.$lipre->bon_rowid.'">'.$lipre->bon_ref.'</a></td></tr>';
 		print '<tr><td width="20%">'.$langs->trans("Date").'</td><td>'.dol_print_date($bon->datec,'day').'</td></tr>';
-		print '<tr><td width="20%">'.$langs->trans("Amount").'</td><td>'.price($lipre->amount).'</td></tr>';		
+		print '<tr><td width="20%">'.$langs->trans("Amount").'</td><td>'.price($lipre->amount).'</td></tr>';
 		print '<tr><td width="20%">'.$langs->trans("Status").'</td><td>';
-		
+
 		print $lipre->LibStatut($lipre->statut,1).'</td></tr>';
-		
+
 		if ($lipre->statut == 3)
 		{
 			$rej = new RejetPrelevement($db, $user);
@@ -165,37 +185,37 @@ if ($id)
 
 		print '<tr class="liste_titre">';
 		print '<td colspan="3">'.$langs->trans("WithdrawalRefused").'</td></tr>';
-		
+
 		//Select yes/no
 		print '<tr><td class="valid">'.$langs->trans("WithdrawalRefusedConfirm").' '.$soc->nom.' ?</td>';
 		print '<td colspan="2" class="valid">';
 		print $form->selectyesno("confirm",1,0);
 		print '</td></tr>';
-		
+
 		//Date
-		print '<tr><td class="valid">'.$langs->trans("RefusedData").'</td>';
+		print '<tr><td class="fieldrequired" class="valid">'.$langs->trans("RefusedData").'</td>';
 		print '<td colspan="2" class="valid">';
 		print $form->select_date('','','','','',"confirm_rejet");
 		print '</td></tr>';
-		
+
 		//Reason
-		print '<tr><td class="valid">'.$langs->trans("RefusedReason").'</td>';
+		print '<tr><td class="fieldrequired" class="valid">'.$langs->trans("RefusedReason").'</td>';
 		print '<td class="valid">';
 		print $form->selectarray("motif", $rej->motifs);
 		print '</td></tr>';
-			
+
 		//Facturer
 		print '<tr><td class="valid">'.$langs->trans("RefusedInvoicing").'</td>';
 		print '<td class="valid" colspan="2">';
 		print $form->selectarray("facturer", $rej->facturer);
 		print '</td></tr>';
 		print '</table><br>';
-		
+
 		//Confirm Button
 		print '<center><input type="submit" class="valid" value='.$langs->trans("Confirm").'><center>';
 		print '</form>';
 	}
-	
+
 	/* ************************************************************************** */
 	/*                                                                            */
 	/* Barre d'action                                                             */
@@ -210,7 +230,7 @@ if ($id)
 		{
 	  		print "<a class=\"butAction\" href=\"ligne.php?action=rejet&amp;id=$lipre->id\">".$langs->trans("StandingOrderReject")."</a>";
 		}
-		else 
+		else
 		{
 			print "<a class=\"butActionRefused\" href=\"#\">".$langs->trans("StandingOrderReject")."</a>";
 		}
@@ -303,8 +323,9 @@ if ($id)
 		dol_print_error($db);
 	}
 
-	$db->close();
 }
 
 llxFooter();
+
+$db->close();
 ?>

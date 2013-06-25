@@ -1,9 +1,10 @@
 <?php
-/* Copyright (C) 2008-2012 Laurent Destailleur  <eldy@users.sourceforge.net>
+/* Copyright (C) 2008-2012	Laurent Destailleur	<eldy@users.sourceforge.net>
+ * Copyright (C) 2012		Regis Houssin		<regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -20,8 +21,8 @@
  *	\ingroup    expedition
  *	\brief      Library for expedition module
  */
-require_once(DOL_DOCUMENT_ROOT."/product/class/product.class.php");
-require_once(DOL_DOCUMENT_ROOT."/expedition/class/expedition.class.php");
+require_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
+require_once DOL_DOCUMENT_ROOT.'/expedition/class/expedition.class.php';
 
 
 /**
@@ -65,9 +66,11 @@ function shipping_prepare_head($object)
 
 	// Show more tabs from modules
 	// Entries must be declared in modules descriptor with line
-	// $this->tabs = array('entity:+tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to add new tab
-	// $this->tabs = array('entity:-tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to remove a tab
+    // $this->tabs = array('entity:+tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to add new tab
+    // $this->tabs = array('entity:-tabname);   												to remove a tab
 	complete_head_from_modules($conf,$langs,$object,$head,$h,'delivery');
+
+	complete_head_from_modules($conf,$langs,$object,$head,$h,'delivery','remove');
 
 	return $head;
 }
@@ -104,9 +107,11 @@ function delivery_prepare_head($object)
 
 	// Show more tabs from modules
 	// Entries must be declared in modules descriptor with line
-	// $this->tabs = array('entity:+tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to add new tab
-	// $this->tabs = array('entity:-tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to remove a tab
+    // $this->tabs = array('entity:+tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to add new tab
+    // $this->tabs = array('entity:-tabname);   												to remove a tab
 	complete_head_from_modules($conf,$langs,$object,$head,$h,'delivery');
+
+	complete_head_from_modules($conf,$langs,$object,$head,$h,'delivery','remove');
 
 	return $head;
 }
@@ -127,11 +132,11 @@ function show_list_sending_receive($origin,$origin_id,$filter='')
 	$product_static=new Product($db);
 	$expedition=new Expedition($db);
 
-	$sql = "SELECT obj.rowid, obj.fk_product, obj.description, obj.product_type as fk_product_type, obj.qty as qty_asked";
+	$sql = "SELECT obj.rowid, obj.fk_product, obj.label, obj.description, obj.product_type as fk_product_type, obj.qty as qty_asked, obj.date_start, obj.date_end";
 	$sql.= ", ed.qty as qty_shipped, ed.fk_expedition as expedition_id, ed.fk_origin_line";
 	$sql.= ", e.rowid as sendingid, e.ref as exp_ref, e.date_creation, e.date_delivery, e.date_expedition,";
 	//if ($conf->livraison_bon->enabled) $sql .= " l.rowid as livraison_id, l.ref as livraison_ref, l.date_delivery, ld.qty as qty_received,";
-	$sql.= ' p.label as product, p.ref, p.fk_product_type, p.rowid as prodid,';
+	$sql.= ' p.label as product_label, p.ref, p.fk_product_type, p.rowid as prodid,';
 	$sql.= ' p.description as product_desc';
 	$sql.= " FROM ".MAIN_DB_PREFIX."expeditiondet as ed";
 	$sql.= ", ".MAIN_DB_PREFIX."expedition as e";
@@ -204,11 +209,11 @@ function show_list_sending_receive($origin,$origin_id,$filter='')
 							$outputlangs->setDefaultLang($newlang);
 						}
 
-						$label = (! empty($prod->multilangs[$outputlangs->defaultlang]["libelle"])) ? $prod->multilangs[$outputlangs->defaultlang]["libelle"] : $objp->product;
+						$label = (! empty($prod->multilangs[$outputlangs->defaultlang]["label"])) ? $prod->multilangs[$outputlangs->defaultlang]["label"] : $objp->product_label;
 					}
 					else
 					{
-						$label = $objp->product;
+						$label = (! empty($objp->label)?$objp->label:$objp->product_label);
 					}
 
 					print '<td>';
@@ -217,19 +222,18 @@ function show_list_sending_receive($origin,$origin_id,$filter='')
 					$product_static->type=$objp->fk_product_type;
 					$product_static->id=$objp->fk_product;
 					$product_static->ref=$objp->ref;
-					$product_static->libelle=$label;
 					$text=$product_static->getNomUrl(1);
 					$text.= ' - '.$label;
-					$description=($conf->global->PRODUIT_DESC_IN_FORM?'':dol_htmlentitiesbr($objp->description));
+					$description=(! empty($conf->global->PRODUIT_DESC_IN_FORM)?'':dol_htmlentitiesbr($objp->description));
 					print $form->textwithtooltip($text,$description,3,'','',$i);
 
 					// Show range
 					print_date_range($objp->date_start,$objp->date_end);
 
 					// Add description in form
-					if ($conf->global->PRODUIT_DESC_IN_FORM)
+					if (! empty($conf->global->PRODUIT_DESC_IN_FORM))
 					{
-						print ($objp->description && $objp->description!=$objp->product)?'<br>'.dol_htmlentitiesbr($objp->description):'';
+						print (! empty($objp->description) && $objp->description!=$objp->product)?'<br>'.dol_htmlentitiesbr($objp->description):'';
 					}
 
 					print '</td>';
@@ -239,7 +243,13 @@ function show_list_sending_receive($origin,$origin_id,$filter='')
 					print "<td>";
 					if ($objp->fk_product_type==1) $text = img_object($langs->trans('Service'),'service');
 					else $text = img_object($langs->trans('Product'),'product');
-					print $text.' '.nl2br($objp->description);
+
+					if (! empty($objp->label)) {
+						$text.= ' <strong>'.$objp->label.'</strong>';
+						print $form->textwithtooltip($text,$objp->description,3,'','',$i);
+					} else {
+						print $text.' '.nl2br($objp->description);
+					}
 
 					// Show range
 					print_date_range($objp->date_start,$objp->date_end);
@@ -258,13 +268,13 @@ function show_list_sending_receive($origin,$origin_id,$filter='')
 				print '<td align="center">'.$objp->qty_shipped.'</td>';
 
 				// Informations on receipt
-				if ($conf->livraison_bon->enabled)
+				if (! empty($conf->livraison_bon->enabled))
 				{
-					include_once(DOL_DOCUMENT_ROOT.'/livraison/class/livraison.class.php');
+					include_once DOL_DOCUMENT_ROOT.'/livraison/class/livraison.class.php';
 					$expedition->id=$objp->sendingid;
 					$expedition->fetchObjectLinked($expedition->id,$expedition->element);
 					//var_dump($expedition->linkedObjects);
-					$receiving=$expedition->linkedObjects['delivery'][0];
+					$receiving=(! empty($expedition->linkedObjects['delivery'][0])?$expedition->linkedObjects['delivery'][0]:'');
 
 					if (! empty($receiving))
 					{

@@ -5,7 +5,7 @@
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -23,9 +23,9 @@
  *  \brief      Page des stats factures
  */
 
-require("../../../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/core/class/dolgraph.class.php");
-require_once(DOL_DOCUMENT_ROOT."/compta/facture/class/facturestats.class.php");
+require '../../../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/core/class/dolgraph.class.php';
+require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facturestats.class.php';
 
 $WIDTH=500;
 $HEIGHT=200;
@@ -214,11 +214,11 @@ complete_head_from_modules($conf,$langs,$object,$head,$h,$type);
 
 dol_fiche_head($head,'byyear',$langs->trans("Statistics"));
 
-if (empty($socid))
-{
-	print '<table class="notopnoleftnopadd" width="100%"><tr>';
-	print '<td align="center" valign="top">';
+print '<table class="notopnoleftnopadd" width="100%"><tr>';
+print '<td align="center" valign="top">';
 
+//if (empty($socid))
+//{
 	// Show filter box
 	print '<form name="stats" method="POST" action="'.$_SERVER["PHP_SELF"].'">';
 	print '<input type="hidden" name="mode" value="'.$mode.'">';
@@ -244,7 +244,7 @@ if (empty($socid))
 	print '</table>';
 	print '</form>';
 	print '<br><br>';
-}
+//}
 
 print '<table class="border" width="100%">';
 print '<tr height="24">';

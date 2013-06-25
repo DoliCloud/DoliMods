@@ -1,11 +1,11 @@
 <?php
 /* Copyright (C) 2003-2005 Rodolphe Quiedeville <rodolphe@quiedeville.org>
  * Copyright (C) 2004-2011 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2005-2012 Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2005-2012 Regis Houssin        <regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -23,9 +23,9 @@
  *       \brief      Home page of shipping area.
  */
 
-require("../main.inc.php");
-require(DOL_DOCUMENT_ROOT."/commande/class/commande.class.php");
-require(DOL_DOCUMENT_ROOT."/expedition/class/expedition.class.php");
+require '../main.inc.php';
+require DOL_DOCUMENT_ROOT.'/commande/class/commande.class.php';
+require DOL_DOCUMENT_ROOT.'/expedition/class/expedition.class.php';
 
 $langs->load("orders");
 $langs->load("sendings");
@@ -47,7 +47,7 @@ print '<table class="notopnoleftnoright" width="100%">';
 print '<tr><td valign="top" width="30%" class="notopnoleft">';
 
 $var=false;
-print '<table class="noborder" width="100%">';
+print '<table class="noborder nohover" width="100%">';
 print '<form method="post" action="liste.php">';
 print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
 print '<tr class="liste_titre"><td colspan="3">'.$langs->trans("SearchASending").'</td></tr>';

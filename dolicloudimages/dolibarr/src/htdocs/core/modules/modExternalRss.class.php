@@ -4,7 +4,7 @@
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -24,13 +24,12 @@
  *	\brief      Fichier de description et activation du module externalrss
  */
 
-include_once(DOL_DOCUMENT_ROOT ."/core/modules/DolibarrModules.class.php");
+include_once DOL_DOCUMENT_ROOT .'/core/modules/DolibarrModules.class.php';
 
 
-/**     \class      modExternalRss
- *		\brief      Classe de description et activation du module externalrss
+/**
+ *	Classe de description et activation du module externalrss
  */
-
 class modExternalRss extends DolibarrModules
 {
 
@@ -39,7 +38,7 @@ class modExternalRss extends DolibarrModules
 	 *
 	 *   @param      DoliDB		$db      Database handler
 	 */
-	function modExternalRss($db)
+	function __construct($db)
 	{
 		global $conf;
 
@@ -130,10 +129,10 @@ class modExternalRss extends DolibarrModules
     function remove($options='')
     {
 		$sql = array();
-		
+
 		// Delete old declarations of RSS box
 		$this->boxes[0][1] = "box_external_rss.php";
-		
+
 		return $this->_remove($sql,$options);
     }
 

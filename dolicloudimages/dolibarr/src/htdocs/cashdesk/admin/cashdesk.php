@@ -4,7 +4,7 @@
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -22,9 +22,9 @@
  *	\brief      Setup page for cashdesk module
  */
 
-require("../../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
-require_once(DOL_DOCUMENT_ROOT."/product/class/html.formproduct.class.php");
+require '../../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/product/class/html.formproduct.class.php';
 
 // If socid provided by ajax company selector
 if (! empty($_REQUEST['CASHDESK_ID_THIRDPARTY_id']))
@@ -105,7 +105,7 @@ print '<tr '.$bc[$var].'><td width=\"50%\">'.$langs->trans("CashDeskThirdPartyFo
 print '<td colspan="2">';
 print $form->select_company($conf->global->CASHDESK_ID_THIRDPARTY,'socid','s.client in (1,3)',1,1);
 print '</td></tr>';
-if ($conf->banque->enabled)
+if (! empty($conf->banque->enabled))
 {
 	$var=!$var;
 	print '<tr '.$bc[$var].'><td>'.$langs->trans("CashDeskBankAccountForSell").'</td>';
@@ -126,7 +126,7 @@ if ($conf->banque->enabled)
 	print '</td></tr>';
 }
 
-if ($conf->stock->enabled)
+if (! empty($conf->stock->enabled))
 {
 	$var=!$var;
 	print '<tr '.$bc[$var].'><td>'.$langs->trans("CashDeskIdWareHouse").'</td>';
@@ -135,7 +135,7 @@ if ($conf->stock->enabled)
 	print '</td></tr>';
 }
 
-if ($conf->service->enabled)
+if (! empty($conf->service->enabled))
 {
     $var=! $var;
     print '<tr '.$bc[$var].'><td>';

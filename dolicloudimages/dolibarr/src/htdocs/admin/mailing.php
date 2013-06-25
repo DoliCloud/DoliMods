@@ -1,11 +1,11 @@
 <?php
 /* Copyright (C) 2004      Rodolphe Quiedeville 	<rodolphe@quiedeville.org>
- * Copyright (C) 2005-2011 Laurent Destailleur  	<eldy@users.sourceforge.org>
+ * Copyright (C) 2005-2012 Laurent Destailleur  	<eldy@users.sourceforge.org>
  * Copyright (C) 2011-2012 Juanjo Menent			<jmenent@2byte.es>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -23,33 +23,62 @@
  *		\brief      Page to setup emailing module
  */
 
-require("../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
+require '../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/security2.lib.php';
 
 $langs->load("admin");
 $langs->load("mails");
 
-if (!$user->admin)
-  accessforbidden();
+if (!$user->admin) accessforbidden();
 
 $action = GETPOST('action','alpha');
+
+
 
 /*
  * Actions
  */
 
-if ($action == 'setvalue' && $user->admin)
+if ($action == 'setMAILING_EMAIL_UNSUBSCRIBE')
+{
+	$res=dolibarr_set_const($db, "MAILING_EMAIL_UNSUBSCRIBE",1,'chaine',0,'',$conf->entity);
+}
+if ($action == 'unsetMAILING_EMAIL_UNSUBSCRIBE')
+{
+	$res=dolibarr_del_const($db, "MAILING_EMAIL_UNSUBSCRIBE");
+}
+
+if ($action == 'setvalue')
 {
 	$db->begin();
 
 	$mailfrom = GETPOST('MAILING_EMAIL_FROM','alpha');
 	$mailerror = GETPOST('MAILING_EMAIL_ERRORSTO','alpha');
+	$checkread = GETPOST('value','alpha');
+	$checkread_key = GETPOST('MAILING_EMAIL_UNSUBSCRIBE_KEY','alpha');
 
 	$res=dolibarr_set_const($db, "MAILING_EMAIL_FROM",$mailfrom,'chaine',0,'',$conf->entity);
 	if (! $res > 0) $error++;
 	$res=dolibarr_set_const($db, "MAILING_EMAIL_ERRORSTO",$mailerror,'chaine',0,'',$conf->entity);
 	if (! $res > 0) $error++;
-	$res=dolibarr_set_const($db, "MAILING_EMAIL_UNSUBSCRIBE",$checkread,'chaine',0,'',$conf->entity);
+	if ($checkread=='on')
+	{
+		$res=dolibarr_set_const($db, "MAILING_EMAIL_UNSUBSCRIBE",1,'chaine',0,'',$conf->entity);
+		if (! $res > 0) $error++;
+	}
+	else if ($checkread=='off')
+	{
+		$res=dolibarr_set_const($db, "MAILING_EMAIL_UNSUBSCRIBE",0,'chaine',0,'',$conf->entity);
+		if (! $res > 0) $error++;
+	}
+
+	//Create temporary encryption key if nedded
+	if (($conf->global->MAILING_EMAIL_UNSUBSCRIBE==1) && (empty($checkread_key)))
+	{
+	    $checkread_key=getRandomPassword(true);
+	}
+	$res=dolibarr_set_const($db, "MAILING_EMAIL_UNSUBSCRIBE_KEY",$checkread_key,'chaine',0,'',$conf->entity);
 	if (! $res > 0) $error++;
 
  	if (! $error)
@@ -83,7 +112,7 @@ print '<input type="hidden" name="action" value="setvalue">';
 
 $var=true;
 
-print '<table class="nobordernopadding" width="100%">';
+print '<table class="noborder" width="100%">';
 print '<tr class="liste_titre">';
 print '<td>'.$langs->trans("Parameter").'</td>';
 print '<td>'.$langs->trans("Value").'</td>';
@@ -103,29 +132,38 @@ print '<input size="32" type="text" name="MAILING_EMAIL_ERRORSTO" value="'.$conf
 if (!empty($conf->global->MAILING_EMAIL_ERRORSTO) && ! isValidEmail($conf->global->MAILING_EMAIL_ERRORSTO)) print ' '.img_warning($langs->trans("BadEMail"));
 print '</td></tr>';
 
-/*
+// TODO the precedent values are deleted after turn on this switch
 $var=!$var;
 print '<tr '.$bc[$var].'><td>';
 print $langs->trans("ActivateCheckRead").'</td><td>';
-if ($conf->global->MAILING_EMAIL_UNSUBSCRIBE==1)
+if (!empty($conf->global->MAILING_EMAIL_UNSUBSCRIBE))
 {
-	print '<a href="'.$_SERVER["PHP_SELF"].'?action=setvalue&value=0">';
+	print '<a href="'.$_SERVER["PHP_SELF"].'?action=unsetMAILING_EMAIL_UNSUBSCRIBE">';
 	print img_picto($langs->trans("Enabled"),'switch_on');
 	print '</a>';
+	$readonly='';
 }
 else
 {
-	print '<a href="'.$_SERVER["PHP_SELF"].'?action=setvalue&value=1">';
+	print '<a href="'.$_SERVER["PHP_SELF"].'?action=setMAILING_EMAIL_UNSUBSCRIBE">';
 	print img_picto($langs->trans("Disabled"),'switch_off');
 	print '</a>';
+	$readonly='disabled="disabled"';
 }
 print '</td></tr>';
-*/
 
+$var=!$var;
+print '<tr '.$bc[$var].'><td>';
+print $langs->trans("ActivateCheckReadKey").'</td><td>';
+print '<input size="32" type="text" name="MAILING_EMAIL_UNSUBSCRIBE_KEY" '.$readonly.' value="'.$conf->global->MAILING_EMAIL_UNSUBSCRIBE_KEY.'">';
+print '</td></tr>';
 
-print '<tr><td colspan="3" align="center"><input type="submit" class="button" value="'.$langs->trans("Modify").'"></td></tr>';
-print '</table></form>';
+print '</table>';
 
+print '<br>';
+print '<div align="center"><input type="submit" class="button" value="'.$langs->trans("Modify").'"></div>';
+
+print '</form>';
 
 llxFooter();
 

@@ -4,13 +4,13 @@
  * Copyright (C) 2004      Sebastien Di Cintio         <sdicintio@ressource-toi.org>
  * Copyright (C) 2004      Benoit Mortier              <benoit.mortier@opensides.be>
  * Copyright (C) 2004      Eric Seigne                 <eric.seigne@ryxeo.com>
- * Copyright (C) 2005-2012 Regis Houssin               <regis@dolibarr.fr>
+ * Copyright (C) 2005-2012 Regis Houssin               <regis.houssin@capnetworks.com>
  * Copyright (C) 2008      Raphael Bertrand (Resultic) <raphael.bertrand@resultic.fr>
  * Copyright (C) 2011-2012 Juanjo Menent			   <jmenent@2byte.es>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -23,17 +23,18 @@
  */
 
 /**
- *	    \file       htdocs/admin/propale.php
+ *	    \file       htdocs/admin/propal.php
  *		\ingroup    propale
- *		\brief      Page d'administration/configuration du module Propale
+ *		\brief      Setup page for commercial proposal module
  */
 
-require("../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
-require_once(DOL_DOCUMENT_ROOT."/comm/propal/class/propal.class.php");
+require '../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/comm/propal/class/propal.class.php';
 
 $langs->load("admin");
 $langs->load("errors");
+$langs->load('other');
 
 if (! $user->admin) accessforbidden();
 
@@ -88,7 +89,7 @@ if ($action == 'specimen')
 
 	if ($filefound)
 	{
-		require_once($file);
+		require_once $file;
 
 		$module = new $classname($db);
 
@@ -129,7 +130,7 @@ if ($action == 'set_PROPALE_DRAFT_WATERMARK')
 
 if ($action == 'set_PROPALE_FREE_TEXT')
 {
-	$freetext = GETPOST('PROPALE_FREE_TEXT','alpha');
+	$freetext = GETPOST('PROPALE_FREE_TEXT');	// No alpha here, we want exact string
 
 	$res = dolibarr_set_const($db, "PROPALE_FREE_TEXT",$freetext,'chaine',0,'',$conf->entity);
 
@@ -161,20 +162,35 @@ if ($action == 'setdefaultduration')
     }
 }
 
-if ($action == 'setclassifiedinvoiced')
+// Define constants for submodules that contains parameters (forms with param1, param2, ... and value1, value2, ...)
+if ($action == 'setModuleOptions')
 {
-	$res = dolibarr_set_const($db, "PROPALE_CLASSIFIED_INVOICED_WITH_ORDER",$value,'chaine',0,'',$conf->entity);
-	if (! $res > 0) $error++;
+	$post_size=count($_POST);
 
- 	if (! $error)
-    {
-        $mesg = "<font class=\"ok\">".$langs->trans("SetupSaved")."</font>";
-    }
-    else
-    {
-        $mesg = "<font class=\"error\">".$langs->trans("Error")."</font>";
-    }
+	$db->begin();
+
+	for($i=0;$i < $post_size;$i++)
+	{
+	if (array_key_exists('param'.$i,$_POST))
+	{
+	$param=GETPOST("param".$i,'alpha');
+		$value=GETPOST("value".$i,'alpha');
+			if ($param) $res = dolibarr_set_const($db,$param,$value,'chaine',0,'',$conf->entity);
+				if (! $res > 0) $error++;
+	}
+	}
+	if (! $error)
+	{
+	$db->commit();
+	$mesg = "<font class=\"ok\">".$langs->trans("SetupSaved")."</font>";
+	}
+		else
+		{
+		$db->rollback();
+			$mesg = "<font class=\"error\">".$langs->trans("Error")."</font>";
+	}
 }
+
 
 /*if ($action == 'setusecustomercontactasrecipient')
 {
@@ -271,7 +287,7 @@ foreach ($dirmodels as $reldir)
 				{
 					$file = substr($file, 0, dol_strlen($file)-4);
 
-					require_once($dir.$file.".php");
+					require_once $dir.$file.'.php';
 
 					$module = new $file;
 
@@ -289,7 +305,7 @@ foreach ($dirmodels as $reldir)
                         // Show example of numbering module
                         print '<td nowrap="nowrap">';
                         $tmp=$module->getExample();
-                        if (preg_match('/^Error/',$tmp)) { $langs->load("errors"); print '<div class="error">'.$langs->trans($tmp).'</div>'; }
+                        if (preg_match('/^Error/',$tmp)) print '<div class="error">'.$langs->trans($tmp).'</div>';
                         elseif ($tmp=='NotConfigured') print $langs->trans($tmp);
                         else print $tmp;
                         print '</td>'."\n";
@@ -413,7 +429,7 @@ foreach ($dirmodels as $reldir)
                     		$name = substr($file, 4, dol_strlen($file) -16);
 	                        $classname = substr($file, 0, dol_strlen($file) -12);
 
-	                        require_once($dir.'/'.$file);
+	                        require_once $dir.'/'.$file;
 	                        $module = new $classname($db);
 
 	                        $modulequalified=1;
@@ -470,7 +486,7 @@ foreach ($dirmodels as $reldir)
 								$htmltooltip.='<br>'.$langs->trans("PaymentMode").': '.yn($module->option_modereg,1,1);
 								$htmltooltip.='<br>'.$langs->trans("PaymentConditions").': '.yn($module->option_condreg,1,1);
 								$htmltooltip.='<br>'.$langs->trans("MultiLanguage").': '.yn($module->option_multilang,1,1);
-								//$htmltooltip.='<br>'.$langs->trans("Escompte").': '.yn($module->option_escompte,1,1);
+								//$htmltooltip.='<br>'.$langs->trans("Discounts").': '.yn($module->option_escompte,1,1);
 								//$htmltooltip.='<br>'.$langs->trans("CreditNote").': '.yn($module->option_credit_note,1,1);
 								$htmltooltip.='<br>'.$langs->trans("WatermarkOnDraftProposal").': '.yn($module->option_draft_watermark,1,1);
 
@@ -544,22 +560,6 @@ print '<input type="submit" class="button" value="'.$langs->trans("Modify").'">'
 print "</td></tr>\n";
 print '</form>';
 */
-
-if ($conf->commande->enabled)
-{
-	$var=!$var;
-	print "<form method=\"post\" action=\"".$_SERVER["PHP_SELF"]."\">";
-	print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
-	print "<input type=\"hidden\" name=\"action\" value=\"setclassifiedinvoiced\">";
-	print "<tr ".$bc[$var].">";
-	print '<td>'.$langs->trans("ClassifiedInvoicedWithOrder").'</td>';
-	print '<td width="60" align="center">';
-	print $form->selectyesno('value',$conf->global->PROPALE_CLASSIFIED_INVOICED_WITH_ORDER,1);
-	print "</td>";
-	print '<td align="right"><input type="submit" class="button" value="'.$langs->trans("Modify").'"></td>';
-	print '</tr>';
-	print '</form>';
-}
 
 $var=! $var;
 print '<form action="'.$_SERVER["PHP_SELF"].'" method="post">';

@@ -1,10 +1,10 @@
 <?php
-/* Copyright (C) 2005-2009 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2005-2007 Regis Houssin        <regis@dolibarr.fr>
+/* Copyright (C) 2005-2012	Laurent Destailleur	<eldy@users.sourceforge.net>
+ * Copyright (C) 2005-2012	Regis Houssin		<regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -22,7 +22,7 @@
  *	\ingroup    export
  *	\brief      File of parent class for import file readers
  */
-require_once(DOL_DOCUMENT_ROOT.'/core/lib/functions.lib.php');
+require_once DOL_DOCUMENT_ROOT.'/core/lib/functions.lib.php';
 
 
 /**
@@ -88,18 +88,18 @@ class ModeleImports
     				$file = $dir."/import_".$moduleid.".modules.php";
     				$classname = "Import".ucfirst($moduleid);
 
-    				require_once($file);
+    				require_once $file;
     				$module = new $classname($db,'');
 
     				// Picto
     				$this->picto[$module->id]=$module->picto;
     				// Driver properties
-    				$this->_driverlabel[$module->id]=$module->getDriverLabel();
-    				$this->_driverdesc[$module->id]=$module->getDriverDesc();
-    				$this->_driverversion[$module->id]=$module->getDriverVersion();
+    				$this->_driverlabel[$module->id]=$module->getDriverLabel('');
+    				$this->_driverdesc[$module->id]=$module->getDriverDesc('');
+    				$this->_driverversion[$module->id]=$module->getDriverVersion('');
     				// If use an external lib
-    				$this->_liblabel[$module->id]=$module->getLibLabel();
-    				$this->_libversion[$module->id]=$module->getLibVersion();
+    				$this->_liblabel[$module->id]=$module->getLibLabel('');
+    				$this->_libversion[$module->id]=$module->getLibVersion('');
 
     				$i++;
     			}
@@ -116,7 +116,7 @@ class ModeleImports
 	 *	@param	string	$key	Key
 	 *	@return	string
 	 */
-	function getPicto($key)
+	function getPictoForKey($key)
 	{
 		return $this->picto[$key];
 	}
@@ -127,7 +127,7 @@ class ModeleImports
 	 *	@param	string	$key	Key
 	 *	@return	string
 	 */
-	function getDriverLabel($key)
+	function getDriverLabelForKey($key)
 	{
 		return $this->_driverlabel[$key];
 	}
@@ -138,7 +138,7 @@ class ModeleImports
 	 *	@param	string	$key	Key
 	 *	@return	string
 	 */
-	function getDriverDesc($key)
+	function getDriverDescForKey($key)
 	{
 		return $this->_driverdesc[$key];
 	}
@@ -149,7 +149,7 @@ class ModeleImports
 	 *	@param	string	$key	Key
 	 *	@return	string
 	 */
-	function getDriverVersion($key)
+	function getDriverVersionForKey($key)
 	{
 		return $this->_driverversion[$key];
 	}
@@ -160,7 +160,7 @@ class ModeleImports
 	 *	@param	string	$key	Key
 	 *	@return	string
 	 */
-	function getLibLabel($key)
+	function getLibLabelForKey($key)
 	{
 		return $this->_liblabel[$key];
 	}
@@ -171,7 +171,7 @@ class ModeleImports
 	 *	@param	string	$key	Key
 	 *	@return	string
 	 */
-	function getLibVersion($key)
+	function getLibVersionForKey($key)
 	{
 		return $this->_libversion[$key];
 	}

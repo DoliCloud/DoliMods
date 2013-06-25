@@ -1,11 +1,11 @@
-<?PHP
+<?php
 /* Copyright (C) 2001-2004 Rodolphe Quiedeville        <rodolphe@quiedeville.org>
  * Copyright (C) 2004-2012 Laurent Destailleur         <eldy@users.sourceforge.net>
  * Copyright (C) 2008      Raphael Bertrand (Resultic) <raphael.bertrand@resultic.fr>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -23,10 +23,10 @@
  *		\brief      Page to edit absolute discounts for a customer
  */
 
-require("../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/company.lib.php");
-require_once(DOL_DOCUMENT_ROOT."/compta/facture/class/facture.class.php");
-require_once(DOL_DOCUMENT_ROOT."/core/class/discount.class.php");
+require '../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
+require_once DOL_DOCUMENT_ROOT.'/core/class/discount.class.php';
 
 $langs->load("orders");
 $langs->load("bills");
@@ -49,7 +49,7 @@ if ($user->societe_id > 0)
 
 if (GETPOST('cancel') && ! empty($backtopage))
 {
-     Header("Location: ".$backtopage);
+     header("Location: ".$backtopage);
      exit;
 }
 
@@ -154,12 +154,12 @@ if ($action == 'setremise')
 			{
 			    if (! empty($backtopage))
 			    {
-			        Header("Location: ".$backtopage.'&discountid='.$discountid);
+			        header("Location: ".$backtopage.'&discountid='.$discountid);
 			        exit;
 			    }
 				else
 				{
-				    Header("Location: remx.php?id=".$_GET["id"]);
+				    header("Location: remx.php?id=".$_GET["id"]);
 				    exit;
 				}
 			}

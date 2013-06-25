@@ -1,12 +1,13 @@
 <?php
-/* Copyright (C) 2003      Rodolphe Quiedeville <rodolphe@quiedeville.org>
- * Copyright (C) 2004-2005 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2004      Sebastien Di Cintio  <sdicintio@ressource-toi.org>
- * Copyright (C) 2004      Benoit Mortier       <benoit.mortier@opensides.be>
+/* Copyright (C) 2003		Rodolphe Quiedeville	<rodolphe@quiedeville.org>
+ * Copyright (C) 2004-2005	Laurent Destailleur		<eldy@users.sourceforge.net>
+ * Copyright (C) 2004		Sebastien Di Cintio		<sdicintio@ressource-toi.org>
+ * Copyright (C) 2004		Benoit Mortier			<benoit.mortier@opensides.be>
+ * Copyright (C) 2005-2012	Regis Houssin			<regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -23,16 +24,19 @@
  *	\brief      Page d'infos des tables de la base
  */
 
-require("../../main.inc.php");
+require '../../main.inc.php';
 
 $langs->load("admin");
 
-if (!$user->admin) accessforbidden();
+if (! $user->admin)
+	accessforbidden();
+
+$action=GETPOST('action','alpha');
 
 
-if ($_GET["action"] == 'convert')
+if ($action == 'convert')
 {
-	$db->query("alter table ".$_GET["table"]." type=INNODB");
+	$db->query("alter table ".$_GET["table"]." ENGINE=INNODB");
 }
 
 
@@ -77,14 +81,14 @@ else
 		print '<td>'.$langs->trans("TableName").'</td>';
 		print '<td colspan="2">'.$langs->trans("Type").'</td>';
 		print '<td>'.$langs->trans("Format").'</td>';
-		print '<td>'.$langs->trans("NbOfRecord").'</td>';
-		print '<td>Avg_row_length</td>';
-		print '<td>Data_length</td>';
-		print '<td>Max_Data_length</td>';
-		print '<td>Index_length</td>';
-		print '<td>Increment</td>';
-		print '<td>Last check</td>';
-		print '<td>Collation</td>';
+		print '<td align="right">'.$langs->trans("NbOfRecord").'</td>';
+		print '<td align="right">Avg_row_length</td>';
+		print '<td align="right">Data_length</td>';
+		print '<td align="right">Max_Data_length</td>';
+		print '<td align="right">Index_length</td>';
+		print '<td align="right">Increment</td>';
+		print '<td align="right">Last check</td>';
+		print '<td align="right">Collation</td>';
 		print "</tr>\n";
 
 		$sql = "SHOW TABLE STATUS";
@@ -103,7 +107,7 @@ else
 
 				print '<td><a href="dbtable.php?table='.$obj->Name.'">'.$obj->Name.'</a></td>';
 				print '<td>'.$obj->Engine.'</td>';
-				if ($row[1] == "MyISAM")
+				if (isset($row[1]) && $row[1] == "MyISAM")
 				{
 					print '<td><a href="database-tables.php?action=convert&amp;table='.$row[0].'">'.$langs->trans("Convert").'</a></td>';
 				}
@@ -138,7 +142,9 @@ else
 		print '<td>Nb tuples modify</td>';
 		print '<td>Nb tuples delete</td>';
 		print "</tr>\n";
-		$sql = "select relname,seq_tup_read,idx_tup_fetch,n_tup_ins,n_tup_upd,n_tup_del from pg_stat_user_tables;";
+
+		$sql = "SELECT relname, seq_tup_read, idx_tup_fetch, n_tup_ins, n_tup_upd, n_tup_del";
+		$sql.= " FROM pg_stat_user_tables";
 
 		$resql = $db->query($sql);
 		if ($resql)
@@ -166,4 +172,5 @@ else
 }
 
 llxFooter();
+$db->close();
 ?>

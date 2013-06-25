@@ -1,11 +1,11 @@
 <?php
 /* Copyright (C) 2003-2007 Rodolphe Quiedeville <rodolphe@quiedeville.org>
- * Copyright (C) 2004-2012 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2005-2009 Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2004-2013 Laurent Destailleur  <eldy@users.sourceforge.net>
+ * Copyright (C) 2005-2012 Regis Houssin        <regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -19,11 +19,11 @@
 
 /**
  *	\file       htdocs/core/boxes/box_members.php
- *	\ingroup    societes
- *	\brief      Module de generation de l'affichage de la box clients
+ *	\ingroup    adherent
+ *	\brief      Module to show box of members
  */
 
-include_once(DOL_DOCUMENT_ROOT."/core/boxes/modules_boxes.php");
+include_once DOL_DOCUMENT_ROOT.'/core/boxes/modules_boxes.php';
 
 
 /**
@@ -38,19 +38,25 @@ class box_members extends ModeleBoxes
 
 	var $db;
 	var $param;
-
+	var $enabled = 1;
+	
 	var $info_box_head = array();
 	var $info_box_contents = array();
+
 
 	/**
      *  Constructor
 	 */
-	function box_members()
+	function __construct()
 	{
-		global $langs;
+		global $conf, $langs, $user;
 		$langs->load("boxes");
 
 		$this->boxlabel=$langs->transnoentitiesnoconv("BoxLastMembers");
+		
+		// disable module for such cases
+		$listofmodulesforexternal=explode(',',$conf->global->MAIN_MODULES_FOR_EXTERNAL);
+		if (! in_array('banque',$listofmodulesforexternal) && ! empty($user->societe_id)) $this->enabled=0;	// disabled for external users
 	}
 
 	/**
@@ -66,14 +72,14 @@ class box_members extends ModeleBoxes
 
 		$this->max=$max;
 
-        include_once(DOL_DOCUMENT_ROOT."/adherents/class/adherent.class.php");
+        include_once DOL_DOCUMENT_ROOT.'/adherents/class/adherent.class.php';
         $memberstatic=new Adherent($db);
 
 		$this->info_box_head = array('text' => $langs->trans("BoxTitleLastModifiedMembers",$max));
 
 		if ($user->rights->societe->lire)
 		{
-			$sql = "SELECT a.rowid, a.nom as lastname, a.prenom as firstname, a.societe, a.fk_soc,";
+			$sql = "SELECT a.rowid, a.nom as lastname, a.prenom as firstname, a.societe as company, a.fk_soc,";
 			$sql.= " a.datec, a.tms, a.statut as status, a.datefin as date_end_subscription,";
 			$sql.= " t.cotisation";
 			$sql.= " FROM ".MAIN_DB_PREFIX."adherent as a, ".MAIN_DB_PREFIX."adherent_type as t";

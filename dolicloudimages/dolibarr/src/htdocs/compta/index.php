@@ -1,11 +1,11 @@
 <?php
 /* Copyright (C) 2001-2005 Rodolphe Quiedeville <rodolphe@quiedeville.org>
  * Copyright (C) 2004-2011 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2005-2009 Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2005-2012 Regis Houssin        <regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -23,13 +23,16 @@
  *	\brief      Main page of accountancy area
  */
 
-require('../main.inc.php');
-require_once(DOL_DOCUMENT_ROOT."/core/class/html.formfile.class.php");
-require_once(DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php');
-require_once(DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.facture.class.php');
-if ($conf->commande->enabled) require_once(DOL_DOCUMENT_ROOT.'/commande/class/commande.class.php');
-if ($conf->commande->enabled) require_once(DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.commande.class.php');
-if ($conf->tax->enabled) require_once(DOL_DOCUMENT_ROOT.'/compta/sociales/class/chargesociales.class.php');
+require '../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/core/class/html.formfile.class.php';
+require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
+require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.facture.class.php';
+if (! empty($conf->commande->enabled))
+	require_once DOL_DOCUMENT_ROOT.'/commande/class/commande.class.php';
+if (! empty($conf->commande->enabled))
+	require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.commande.class.php';
+if (! empty($conf->tax->enabled))
+	require_once DOL_DOCUMENT_ROOT.'/compta/sociales/class/chargesociales.class.php';
 
 // L'espace compta/treso doit toujours etre actif car c'est un espace partage
 // par de nombreux modules (banque, facture, commande a facturer, etc...) independamment
@@ -40,7 +43,11 @@ if ($conf->tax->enabled) require_once(DOL_DOCUMENT_ROOT.'/compta/sociales/class/
 
 $langs->load("compta");
 $langs->load("bills");
-if ($conf->commande->enabled) $langs->load("orders");
+if (! empty($conf->commande->enabled))
+	$langs->load("orders");
+
+$action=GETPOST('action', 'alpha');
+$bid=GETPOST('bid', 'int');
 
 // Security check
 $socid='';
@@ -55,23 +62,25 @@ if ($user->societe_id > 0)
  * Actions
  */
 
-if (isset($_GET["action"]) && $_GET["action"] == 'add_bookmark')
+if ($action == 'add_bookmark')
 {
+	$now=dol_now();
+
 	$sql = "DELETE FROM ".MAIN_DB_PREFIX."bookmark WHERE fk_soc = ".$socid." AND fk_user=".$user->id;
 	if (! $db->query($sql) )
 	{
 		dol_print_error($db);
 	}
-	$sql = "INSERT INTO ".MAIN_DB_PREFIX."bookmark (fk_soc, dateb, fk_user) VALUES (".$socid.", ".$db->idate(mktime()).",".$user->id.");";
+	$sql = "INSERT INTO ".MAIN_DB_PREFIX."bookmark (fk_soc, dateb, fk_user) VALUES (".$socid.", ".$db->idate($now).",".$user->id.");";
 	if (! $db->query($sql) )
 	{
 		dol_print_error($db);
 	}
 }
 
-if (isset($_GET["action"]) && $_GET["action"] == 'del_bookmark')
+if ($action == 'del_bookmark' && ! empty($bid))
 {
-	$sql = "DELETE FROM ".MAIN_DB_PREFIX."bookmark WHERE rowid=".$_GET["bid"];
+	$sql = "DELETE FROM ".MAIN_DB_PREFIX."bookmark WHERE rowid=".$db->escape($bid);
 	$result = $db->query($sql);
 }
 
@@ -106,11 +115,11 @@ $max=3;
 /*
  * Search invoices
  */
-if ($conf->facture->enabled && $user->rights->facture->lire)
+if (! empty($conf->facture->enabled) && $user->rights->facture->lire)
 {
-	print '<form method="post" action="'.DOL_URL_ROOT.'/compta/facture.php">';
+	print '<form method="post" action="'.DOL_URL_ROOT.'/compta/facture/list.php">';
 	print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
-	print '<table class="noborder" width="100%">';
+	print '<table class="noborder nohover" width="100%">';
 	print "<tr class=\"liste_titre\">";
 	print '<td colspan="3">'.$langs->trans("SearchACustomerInvoice").'</td></tr>';
 	print "<tr $bc[0]><td>".$langs->trans("Ref").':</td><td><input type="text" name="sf_ref" class="flat" size="18"></td>';
@@ -123,11 +132,11 @@ if ($conf->facture->enabled && $user->rights->facture->lire)
 /*
  * Search supplier invoices
  */
-if ($conf->fournisseur->enabled && $user->rights->fournisseur->lire)
+if (! empty($conf->fournisseur->enabled) && $user->rights->fournisseur->lire)
 {
 	print '<form method="post" action="'.DOL_URL_ROOT.'/fourn/facture/index.php">';
 	print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
-	print '<table class="noborder" width="100%">';
+	print '<table class="noborder nohover" width="100%">';
 	print '<tr class="liste_titre"><td colspan="3">'.$langs->trans("SearchASupplierInvoice").'</td></tr>';
 	print "<tr ".$bc[0].">";
 	print "<td>".$langs->trans("Ref").':</td><td><input type="text" name="search_ref" class="flat" size="18"></td>';
@@ -140,11 +149,11 @@ if ($conf->fournisseur->enabled && $user->rights->fournisseur->lire)
 /*
  * Search donations
  */
-if ($conf->don->enabled && $user->rights->don->lire)
+if (! empty($conf->don->enabled) && $user->rights->don->lire)
 {
     print '<form method="post" action="'.DOL_URL_ROOT.'/compta/dons/liste.php">';
     print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
-    print '<table class="noborder" width="100%">';
+    print '<table class="noborder nohover" width="100%">';
     print '<tr class="liste_titre"><td colspan="3">'.$langs->trans("SearchADonation").'</td></tr>';
     print "<tr ".$bc[0].">";
     print "<td>".$langs->trans("Ref").':</td><td><input type="text" name="search_ref" class="flat" size="18"></td>';
@@ -157,11 +166,11 @@ if ($conf->don->enabled && $user->rights->don->lire)
 /*
  * Search expenses
  */
-if ($conf->deplacement->enabled && $user->rights->deplacement->lire)
+if (! empty($conf->deplacement->enabled) && $user->rights->deplacement->lire)
 {
     print '<form method="post" action="'.DOL_URL_ROOT.'/compta/deplacement/list.php">';
     print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
-    print '<table class="noborder" width="100%">';
+    print '<table class="noborder nohover" width="100%">';
     print '<tr class="liste_titre"><td colspan="3">'.$langs->trans("SearchATripAndExpense").'</td></tr>';
     print "<tr ".$bc[0].">";
     print "<td>".$langs->trans("Ref").':</td><td><input type="text" name="search_ref" class="flat" size="18"></td>';
@@ -174,7 +183,7 @@ if ($conf->deplacement->enabled && $user->rights->deplacement->lire)
 /**
  * Draft customers invoices
  */
-if ($conf->facture->enabled && $user->rights->facture->lire)
+if (! empty($conf->facture->enabled) && $user->rights->facture->lire)
 {
 	$sql  = "SELECT f.facnumber, f.rowid, f.total_ttc, f.type,";
 	$sql.= " s.nom, s.rowid as socid";
@@ -248,7 +257,7 @@ if ($conf->facture->enabled && $user->rights->facture->lire)
 /**
  * Draft suppliers invoices
  */
-if ($conf->fournisseur->enabled && $user->rights->fournisseur->facture->lire)
+if (! empty($conf->fournisseur->enabled) && $user->rights->fournisseur->facture->lire)
 {
 	$sql  = "SELECT f.facnumber, f.rowid, f.total_ttc, f.type,";
 	$sql.= " s.nom, s.rowid as socid";
@@ -318,7 +327,7 @@ print '</td>';
 print '<td valign="top" width="70%" class="notopnoleftnoright">';
 
 // Last modified customer invoices
-if ($conf->facture->enabled && $user->rights->facture->lire)
+if (! empty($conf->facture->enabled) && $user->rights->facture->lire)
 {
 	$langs->load("boxes");
 	$facstatic=new Facture($db);
@@ -347,7 +356,7 @@ if ($conf->facture->enabled && $user->rights->facture->lire)
 
 		print '<table class="noborder" width="100%">';
 		print '<tr class="liste_titre"><td colspan="2">'.$langs->trans("BoxTitleLastCustomerBills",$max).'</td>';
-		if ($conf->global->MAIN_SHOW_HT_ON_SUMMARY) print '<td align="right">'.$langs->trans("AmountHT").'</td>';
+		if (! empty($conf->global->MAIN_SHOW_HT_ON_SUMMARY)) print '<td align="right">'.$langs->trans("AmountHT").'</td>';
 		print '<td align="right">'.$langs->trans("AmountTTC").'</td>';
 		print '<td align="right">'.$langs->trans("DateModificationShort").'</td>';
 		print '<td width="16">&nbsp;</td>';
@@ -376,7 +385,7 @@ if ($conf->facture->enabled && $user->rights->facture->lire)
 				$filename=dol_sanitizeFileName($obj->facnumber);
 				$filedir=$conf->facture->dir_output . '/' . dol_sanitizeFileName($obj->facnumber);
 				$urlsource=$_SERVER['PHP_SELF'].'?facid='.$obj->rowid;
-				$formfile->show_documents('facture',$filename,$filedir,$urlsource,'','','',1,'',1);
+				print $formfile->getDocumentsLink($facturestatic->element, $filename, $filedir);
 				print '</td></tr></table>';
 
 				print '</td>';
@@ -386,7 +395,7 @@ if ($conf->facture->enabled && $user->rights->facture->lire)
 				$thirdpartystatic->client=1;
 				print $thirdpartystatic->getNomUrl(1,'customer',44);
 				print '</td>';
-				if ($conf->global->MAIN_SHOW_HT_ON_SUMMARY) print '<td align="right">'.price($obj->total).'</td>';
+				if (! empty($conf->global->MAIN_SHOW_HT_ON_SUMMARY)) print '<td align="right">'.price($obj->total).'</td>';
 				print '<td align="right">'.price($obj->total_ttc).'</td>';
 				print '<td align="right">'.dol_print_date($db->jdate($obj->tms),'day').'</td>';
 				print '<td>'.$facstatic->LibStatut($obj->paye,$obj->fk_statut,3,$obj->am).'</td>';
@@ -402,7 +411,7 @@ if ($conf->facture->enabled && $user->rights->facture->lire)
 		else
 		{
 			$colspan=5;
-			if ($conf->global->MAIN_SHOW_HT_ON_SUMMARY) $colspan++;
+			if (! empty($conf->global->MAIN_SHOW_HT_ON_SUMMARY)) $colspan++;
 			print '<tr '.$bc[$var].'><td colspan="'.$colspan.'">'.$langs->trans("NoInvoice").'</td></tr>';
 		}
 		print '</table><br>';
@@ -417,7 +426,7 @@ if ($conf->facture->enabled && $user->rights->facture->lire)
 
 
 // Last modified supplier invoices
-if ($conf->fournisseur->enabled && $user->rights->fournisseur->facture->lire)
+if (! empty($conf->fournisseur->enabled) && $user->rights->fournisseur->facture->lire)
 {
 	$langs->load("boxes");
 	$facstatic=new FactureFournisseur($db);
@@ -444,7 +453,7 @@ if ($conf->fournisseur->enabled && $user->rights->fournisseur->facture->lire)
 
 		print '<table class="noborder" width="100%">';
 		print '<tr class="liste_titre"><td colspan="2">'.$langs->trans("BoxTitleLastSupplierBills",$max).'</td>';
-		if ($conf->global->MAIN_SHOW_HT_ON_SUMMARY) print '<td align="right">'.$langs->trans("AmountHT").'</td>';
+		if (! empty($conf->global->MAIN_SHOW_HT_ON_SUMMARY)) print '<td align="right">'.$langs->trans("AmountHT").'</td>';
 		print '<td align="right">'.$langs->trans("AmountTTC").'</td>';
 		print '<td align="right">'.$langs->trans("DateModificationShort").'</td>';
 		print '<td width="16">&nbsp;</td>';
@@ -467,7 +476,7 @@ if ($conf->fournisseur->enabled && $user->rights->fournisseur->facture->lire)
 				$thirdpartystatic->fournisseur=1;
 				print $thirdpartystatic->getNomUrl(1,'supplier',44);
 				print '</td>';
-				if ($conf->global->MAIN_SHOW_HT_ON_SUMMARY) print '<td align="right">'.price($obj->total_ht).'</td>';
+				if (! empty($conf->global->MAIN_SHOW_HT_ON_SUMMARY)) print '<td align="right">'.price($obj->total_ht).'</td>';
 				print '<td align="right">'.price($obj->total_ttc).'</td>';
 				print '<td align="right">'.dol_print_date($db->jdate($obj->tms),'day').'</td>';
 				print '<td>'.$facstatic->LibStatut($obj->paye,$obj->fk_statut,3).'</td>';
@@ -482,7 +491,7 @@ if ($conf->fournisseur->enabled && $user->rights->fournisseur->facture->lire)
 		else
 		{
 			$colspan=5;
-			if ($conf->global->MAIN_SHOW_HT_ON_SUMMARY) $colspan++;
+			if (! empty($conf->global->MAIN_SHOW_HT_ON_SUMMARY)) $colspan++;
 			print '<tr '.$bc[$var].'><td colspan="'.$colspan.'">'.$langs->trans("NoInvoice").'</td></tr>';
 		}
 		print '</table><br>';
@@ -496,9 +505,9 @@ if ($conf->fournisseur->enabled && $user->rights->fournisseur->facture->lire)
 
 
 // Last donations
-if ($conf->don->enabled && $user->rights->societe->lire)
+if (! empty($conf->don->enabled) && $user->rights->societe->lire)
 {
-	include_once(DOL_DOCUMENT_ROOT.'/compta/dons/class/don.class.php');
+	include_once DOL_DOCUMENT_ROOT.'/compta/dons/class/don.class.php';
 
 	$langs->load("boxes");
     $donationstatic=new Don($db);
@@ -561,13 +570,13 @@ if ($conf->don->enabled && $user->rights->societe->lire)
 
 
 // Last trips and expenses
-if ($conf->deplacement->enabled && $user->rights->deplacement->lire)
+if (! empty($conf->deplacement->enabled) && $user->rights->deplacement->lire)
 {
-    include_once(DOL_DOCUMENT_ROOT.'/compta/deplacement/class/deplacement.class.php');
+    include_once DOL_DOCUMENT_ROOT.'/compta/deplacement/class/deplacement.class.php';
 
     $langs->load("boxes");
 
-	$sql = "SELECT u.rowid as uid, u.name, u.firstname, d.rowid, d.dated as date, d.tms as dm, d.km";
+	$sql = "SELECT u.rowid as uid, u.name, u.firstname, d.fk_statut, d.rowid, d.dated as date, d.tms as dm, d.km";
 	$sql.= " FROM ".MAIN_DB_PREFIX."deplacement as d, ".MAIN_DB_PREFIX."user as u";
 	if (!$user->rights->societe->client->voir && !$user->societe_id) $sql.= ", ".MAIN_DB_PREFIX."societe as s, ".MAIN_DB_PREFIX."societe_commerciaux as sc";
 	$sql.= " WHERE u.rowid = d.fk_user";
@@ -631,7 +640,7 @@ if ($conf->deplacement->enabled && $user->rights->deplacement->lire)
 /**
  * Social contributions to pay
  */
-if ($conf->tax->enabled && $user->rights->tax->charges->lire)
+if (! empty($conf->tax->enabled) && $user->rights->tax->charges->lire)
 {
 	if (!$socid)
 	{
@@ -707,7 +716,7 @@ if ($conf->tax->enabled && $user->rights->tax->charges->lire)
 /*
  * Customers orders to be billed
  */
-if ($conf->facture->enabled && $conf->commande->enabled && $user->rights->commande->lire)
+if (! empty($conf->facture->enabled) && ! empty($conf->commande->enabled) && $user->rights->commande->lire)
 {
 	$commandestatic=new Commande($db);
 	$langs->load("orders");
@@ -740,7 +749,7 @@ if ($conf->facture->enabled && $conf->commande->enabled && $user->rights->comman
 			print '<table class="noborder" width="100%">';
 			print "<tr class=\"liste_titre\">";
 			print '<td colspan="2">'.$langs->trans("OrdersToBill").' <a href="'.DOL_URL_ROOT.'/commande/liste.php?status=3&afacturer=1">('.$num.')</a></td>';
-			if ($conf->global->MAIN_SHOW_HT_ON_SUMMARY) print '<td align="right">'.$langs->trans("AmountHT").'</td>';
+			if (! empty($conf->global->MAIN_SHOW_HT_ON_SUMMARY)) print '<td align="right">'.$langs->trans("AmountHT").'</td>';
 			print '<td align="right">'.$langs->trans("AmountTTC").'</td>';
 			print '<td align="right">'.$langs->trans("ToBill").'</td>';
 			print '<td align="center" width="16">&nbsp;</td>';
@@ -768,7 +777,7 @@ if ($conf->facture->enabled && $conf->commande->enabled && $user->rights->comman
 				$filename=dol_sanitizeFileName($obj->ref);
 				$filedir=$conf->commande->dir_output . '/' . dol_sanitizeFileName($obj->ref);
 				$urlsource=$_SERVER['PHP_SELF'].'?id='.$obj->rowid;
-				$formfile->show_documents('commande',$filename,$filedir,$urlsource,'','','',1,'',1);
+				print $formfile->getDocumentsLink($commandestatic->element, $filename, $filedir);
 				print '</td></tr></table>';
 
 				print '</td>';
@@ -779,7 +788,7 @@ if ($conf->facture->enabled && $conf->commande->enabled && $user->rights->comman
                 $societestatic->client=1;
                 print $societestatic->getNomUrl(1,'customer',44);
 				print '</a></td>';
-				if ($conf->global->MAIN_SHOW_HT_ON_SUMMARY) print '<td align="right">'.price($obj->total_ht).'</td>';
+				if (! empty($conf->global->MAIN_SHOW_HT_ON_SUMMARY)) print '<td align="right">'.price($obj->total_ht).'</td>';
 				print '<td align="right">'.price($obj->total_ttc).'</td>';
 				print '<td align="right">'.price($obj->total_ttc-$obj->tot_fttc).'</td>';
 				print '<td>'.$commandestatic->LibStatut($obj->fk_statut,$obj->facture,3).'</td>';
@@ -793,7 +802,7 @@ if ($conf->facture->enabled && $conf->commande->enabled && $user->rights->comman
 			}
 
 			print '<tr class="liste_total"><td colspan="2">'.$langs->trans("Total").' &nbsp; <font style="font-weight: normal">('.$langs->trans("RemainderToBill").': '.price($tot_tobill).')</font> </td>';
-			if ($conf->global->MAIN_SHOW_HT_ON_SUMMARY) print '<td align="right">'.price($tot_ht).'</td>';
+			if (! empty($conf->global->MAIN_SHOW_HT_ON_SUMMARY)) print '<td align="right">'.price($tot_ht).'</td>';
 			print '<td align="right">'.price($tot_ttc).'</td>';
 			print '<td align="right">'.price($tot_tobill).'</td>';
 			print '<td>&nbsp;</td>';
@@ -811,7 +820,7 @@ if ($conf->facture->enabled && $conf->commande->enabled && $user->rights->comman
 /*
  * Unpaid customers invoices
  */
-if ($conf->facture->enabled && $user->rights->facture->lire)
+if (! empty($conf->facture->enabled) && $user->rights->facture->lire)
 {
 	$facstatic=new Facture($db);
 
@@ -838,7 +847,7 @@ if ($conf->facture->enabled && $user->rights->facture->lire)
 
 		print '<table class="noborder" width="100%">';
 		print '<tr class="liste_titre"><td colspan="2">'.$langs->trans("BillsCustomersUnpaid",$num).' <a href="'.DOL_URL_ROOT.'/compta/facture/impayees.php">('.$num.')</a></td>';
-		if ($conf->global->MAIN_SHOW_HT_ON_SUMMARY) print '<td align="right">'.$langs->trans("AmountHT").'</td>';
+		if (! empty($conf->global->MAIN_SHOW_HT_ON_SUMMARY)) print '<td align="right">'.$langs->trans("AmountHT").'</td>';
 		print '<td align="right">'.$langs->trans("AmountTTC").'</td>';
 		print '<td align="right">'.$langs->trans("Received").'</td>';
 		print '<td width="16">&nbsp;</td>';
@@ -850,7 +859,6 @@ if ($conf->facture->enabled && $user->rights->facture->lire)
 			while ($i < $num && $i < $conf->liste_limit)
 			{
 				$obj = $db->fetch_object($resql);
-
 
 				print '<tr '.$bc[$var].'>';
 				print '<td nowrap="nowrap">';
@@ -869,7 +877,7 @@ if ($conf->facture->enabled && $user->rights->facture->lire)
 				$filename=dol_sanitizeFileName($obj->facnumber);
 				$filedir=$conf->facture->dir_output . '/' . dol_sanitizeFileName($obj->facnumber);
 				$urlsource=$_SERVER['PHP_SELF'].'?facid='.$obj->rowid;
-				$formfile->show_documents('facture',$filename,$filedir,$urlsource,'','','',1,'',1);
+				print $formfile->getDocumentsLink($facturestatic->element, $filename, $filedir);
 				print '</td></tr></table>';
 
 				print '</td>';
@@ -879,7 +887,7 @@ if ($conf->facture->enabled && $user->rights->facture->lire)
                 $societestatic->client=1;
 				print $societestatic->getNomUrl(1,'customer',44);
 				print '</a></td>';
-				if ($conf->global->MAIN_SHOW_HT_ON_SUMMARY) print '<td align="right">'.price($obj->total).'</td>';
+				if (! empty($conf->global->MAIN_SHOW_HT_ON_SUMMARY)) print '<td align="right">'.price($obj->total).'</td>';
 				print '<td align="right">'.price($obj->total_ttc).'</td>';
 				print '<td align="right">'.price($obj->am).'</td>';
 				print '<td>'.$facstatic->LibStatut($obj->paye,$obj->fk_statut,3,$obj->am).'</td>';
@@ -893,7 +901,7 @@ if ($conf->facture->enabled && $user->rights->facture->lire)
 			}
 
 			print '<tr class="liste_total"><td colspan="2">'.$langs->trans("Total").' &nbsp; <font style="font-weight: normal">('.$langs->trans("RemainderToTake").': '.price($total_ttc-$totalam).')</font> </td>';
-			if ($conf->global->MAIN_SHOW_HT_ON_SUMMARY) print '<td align="right">'.price($total).'</td>';
+			if (! empty($conf->global->MAIN_SHOW_HT_ON_SUMMARY)) print '<td align="right">'.price($total).'</td>';
 			print '<td align="right">'.price($total_ttc).'</td>';
 			print '<td align="right">'.price($totalam).'</td>';
 			print '<td>&nbsp;</td>';
@@ -902,7 +910,7 @@ if ($conf->facture->enabled && $user->rights->facture->lire)
 		else
 		{
 			$colspan=5;
-			if ($conf->global->MAIN_SHOW_HT_ON_SUMMARY) $colspan++;
+			if (! empty($conf->global->MAIN_SHOW_HT_ON_SUMMARY)) $colspan++;
 			print '<tr '.$bc[$var].'><td colspan="'.$colspan.'">'.$langs->trans("NoInvoice").'</td></tr>';
 		}
 		print '</table><br>';
@@ -917,11 +925,11 @@ if ($conf->facture->enabled && $user->rights->facture->lire)
 /*
  * Unpayed supplier invoices
  */
-if ($conf->fournisseur->enabled && $user->rights->fournisseur->facture->lire)
+if (! empty($conf->fournisseur->enabled) && $user->rights->fournisseur->facture->lire)
 {
 	$facstatic=new FactureFournisseur($db);
 
-	$sql = "SELECT ff.rowid, ff.facnumber, ff.fk_statut, ff.libelle, ff.total_ht, ff.total_ttc,";
+	$sql = "SELECT ff.rowid, ff.facnumber, ff.fk_statut, ff.libelle, ff.total_ht, ff.total_ttc, ff.paye,";
 	$sql.= " s.nom, s.rowid as socid,";
 	$sql.= " sum(pf.amount) as am";
 	$sql.= " FROM ".MAIN_DB_PREFIX."societe as s, ".MAIN_DB_PREFIX."facture_fourn as ff";
@@ -933,7 +941,8 @@ if ($conf->fournisseur->enabled && $user->rights->fournisseur->facture->lire)
 	$sql.= " AND ff.fk_statut = 1";
 	if (!$user->rights->societe->client->voir && !$socid) $sql.= " AND s.rowid = sc.fk_soc AND sc.fk_user = ".$user->id;
 	if ($socid) $sql.= " AND ff.fk_soc = ".$socid;
-	$sql.= " GROUP BY ff.rowid, ff.facnumber, ff.fk_statut, ff.libelle, ff.total_ht, ff.total_ttc, s.nom, s.rowid";
+	$sql.= " GROUP BY ff.rowid, ff.facnumber, ff.fk_statut, ff.libelle, ff.total_ht, ff.total_ttc, ff.paye,";
+	$sql.= " s.nom, s.rowid";
 
 	$resql=$db->query($sql);
 	if ($resql)
@@ -943,7 +952,7 @@ if ($conf->fournisseur->enabled && $user->rights->fournisseur->facture->lire)
 
 		print '<table class="noborder" width="100%">';
 		print '<tr class="liste_titre"><td colspan="2">'.$langs->trans("BillsSuppliersUnpaid",$num).' <a href="'.DOL_URL_ROOT.'/fourn/facture/impayees.php">('.$num.')</a></td>';
-		if ($conf->global->MAIN_SHOW_HT_ON_SUMMARY) print '<td align="right">'.$langs->trans("AmountHT").'</td>';
+		if (! empty($conf->global->MAIN_SHOW_HT_ON_SUMMARY)) print '<td align="right">'.$langs->trans("AmountHT").'</td>';
 		print '<td align="right">'.$langs->trans("AmountTTC").'</td>';
 		print '<td align="right">'.$langs->trans("Paid").'</td>';
 		print '<td width="16">&nbsp;</td>';
@@ -966,7 +975,7 @@ if ($conf->fournisseur->enabled && $user->rights->fournisseur->facture->lire)
                 $societestatic->nom=$obj->nom;
                 $societestatic->client=0;
 				print '<td>'.$societestatic->getNomUrl(1, 'supplier', 44).'</td>';
-				if ($conf->global->MAIN_SHOW_HT_ON_SUMMARY) print '<td align="right">'.price($obj->total_ht).'</td>';
+				if (! empty($conf->global->MAIN_SHOW_HT_ON_SUMMARY)) print '<td align="right">'.price($obj->total_ht).'</td>';
 				print '<td align="right">'.price($obj->total_ttc).'</td>';
 				print '<td align="right">'.price($obj->am).'</td>';
 				print '<td>'.$facstatic->LibStatut($obj->paye,$obj->fk_statut,3).'</td>';
@@ -979,7 +988,7 @@ if ($conf->fournisseur->enabled && $user->rights->fournisseur->facture->lire)
 			}
 
 			print '<tr class="liste_total"><td colspan="2">'.$langs->trans("Total").' &nbsp; <font style="font-weight: normal">('.$langs->trans("RemainderToPay").': '.price($total_ttc-$totalam).')</font> </td>';
-			if ($conf->global->MAIN_SHOW_HT_ON_SUMMARY) print '<td align="right">'.price($total).'</td>';
+			if (! empty($conf->global->MAIN_SHOW_HT_ON_SUMMARY)) print '<td align="right">'.price($total).'</td>';
 			print '<td align="right">'.price($total_ttc).'</td>';
 			print '<td align="right">'.price($totalam).'</td>';
 			print '<td>&nbsp;</td>';
@@ -988,7 +997,7 @@ if ($conf->fournisseur->enabled && $user->rights->fournisseur->facture->lire)
 		else
 		{
 			$colspan=5;
-			if ($conf->global->MAIN_SHOW_HT_ON_SUMMARY) $colspan++;
+			if (! empty($conf->global->MAIN_SHOW_HT_ON_SUMMARY)) $colspan++;
 			print '<tr '.$bc[$var].'><td colspan="'.$colspan.'">'.$langs->trans("NoInvoice").'</td></tr>';
 		}
 		print '</table><br>';

@@ -2,11 +2,11 @@
 /* Copyright (C) 2003-2005 Rodolphe Quiedeville <rodolphe@quiedeville.org>
  * Copyright (C) 2004-2010 Laurent Destailleur  <eldy@users.sourceforge.net>
  * Copyright (C) 2004      Eric Seigne          <eric.seigne@ryxeo.com>
- * Copyright (C) 2005-2007 Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2005-2012 Regis Houssin        <regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -24,7 +24,7 @@
  *		\ingroup    societe
  *		\brief      File with parent class of submodules to manage numbering and document generation
  */
-require_once(DOL_DOCUMENT_ROOT."/core/class/commondocgenerator.class.php");
+require_once DOL_DOCUMENT_ROOT.'/core/class/commondocgenerator.class.php';
 
 
 /**
@@ -49,7 +49,7 @@ abstract class ModeleThirdPartyDoc extends CommonDocGenerator
         $type='company';
         $liste=array();
 
-        include_once(DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php');
+        include_once DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php';
         $liste=getListOfModels($db,$type,$maxfilenamelength);
 
         return $liste;
@@ -193,25 +193,25 @@ abstract class ModeleThirdPartyCode
         if ($type == 0)
         {
             $s.=$langs->trans("RequiredIfCustomer").': ';
-            if ($conf->global->MAIN_COMPANY_CODE_ALWAYS_REQUIRED && !empty($this->code_null)) $s.='<strike>';
+            if (! empty($conf->global->MAIN_COMPANY_CODE_ALWAYS_REQUIRED) && ! empty($this->code_null)) $s.='<strike>';
             $s.=yn(!$this->code_null,1,2);
-            if ($conf->global->MAIN_COMPANY_CODE_ALWAYS_REQUIRED && !empty($this->code_null)) $s.='</strike> '.yn(1,1,2).' ('.$langs->trans("ForcedToByAModule",$langs->transnoentities("yes")).')';
+            if (! empty($conf->global->MAIN_COMPANY_CODE_ALWAYS_REQUIRED) && ! empty($this->code_null)) $s.='</strike> '.yn(1,1,2).' ('.$langs->trans("ForcedToByAModule",$langs->transnoentities("yes")).')';
             $s.='<br>';
         }
         if ($type == 1)
         {
             $s.=$langs->trans("RequiredIfSupplier").': ';
-            if ($conf->global->MAIN_COMPANY_CODE_ALWAYS_REQUIRED && !empty($this->code_null)) $s.='<strike>';
+            if (! empty($conf->global->MAIN_COMPANY_CODE_ALWAYS_REQUIRED) && ! empty($this->code_null)) $s.='<strike>';
             $s.=yn(!$this->code_null,1,2);
-            if ($conf->global->MAIN_COMPANY_CODE_ALWAYS_REQUIRED && !empty($this->code_null)) $s.='</strike> '.yn(1,1,2).' ('.$langs->trans("ForcedToByAModule",$langs->transnoentities("yes")).')';
+            if (! empty($conf->global->MAIN_COMPANY_CODE_ALWAYS_REQUIRED) && ! empty($this->code_null)) $s.='</strike> '.yn(1,1,2).' ('.$langs->trans("ForcedToByAModule",$langs->transnoentities("yes")).')';
             $s.='<br>';
         }
         if ($type == -1)
         {
             $s.=$langs->trans("Required").': ';
-            if ($conf->global->MAIN_COMPANY_CODE_ALWAYS_REQUIRED && !empty($this->code_null)) $s.='<strike>';
+            if (! empty($conf->global->MAIN_COMPANY_CODE_ALWAYS_REQUIRED) && ! empty($this->code_null)) $s.='<strike>';
             $s.=yn(!$this->code_null,1,2);
-            if ($conf->global->MAIN_COMPANY_CODE_ALWAYS_REQUIRED && !empty($this->code_null)) $s.='</strike> '.yn(1,1,2).' ('.$langs->trans("ForcedToByAModule",$langs->transnoentities("yes")).')';
+            if (! empty($conf->global->MAIN_COMPANY_CODE_ALWAYS_REQUIRED) && ! empty($this->code_null)) $s.='</strike> '.yn(1,1,2).' ('.$langs->trans("ForcedToByAModule",$langs->transnoentities("yes")).')';
             $s.='<br>';
         }
         $s.=$langs->trans("CanBeModifiedIfOk").': ';
@@ -364,13 +364,13 @@ abstract class ModeleAccountancyCode
  *	Create a document for third party
  *
  *	@param	DoliDB		$db  			Database handler
- *	@param  Societe		&$object			Object of third party to use
+ *	@param  Societe		$object			Object of third party to use
  *	@param	string		$message		Message
  *	@param	string		$modele			Force model to use ('' to not force). model can be a model name or a template file.
  *	@param	Translate	$outputlangs	Object lang to use for translation
  *	@return int        					<0 if KO, >0 if OK
  */
-function thirdparty_doc_create($db, &$object, $message, $modele, $outputlangs)
+function thirdparty_doc_create($db, $object, $message, $modele, $outputlangs)
 {
     global $conf,$langs,$user;
     $langs->load("bills");
@@ -381,7 +381,7 @@ function thirdparty_doc_create($db, &$object, $message, $modele, $outputlangs)
     // Positionne modele sur le nom du modele a utiliser
     if (! dol_strlen($modele))
     {
-        if ($conf->global->COMPANY_ADDON_PDF)
+        if (! empty($conf->global->COMPANY_ADDON_PDF))
         {
             $modele = $conf->global->COMPANY_ADDON_PDF;
         }
@@ -405,7 +405,7 @@ function thirdparty_doc_create($db, &$object, $message, $modele, $outputlangs)
     if (file_exists($dir.'/'.$file))
     {
         $classname = "doc_".$modele;
-        require_once($dir.'/'.$file);
+        require_once $dir.'/'.$file;
 
         $obj = new $classname($db);
         $obj->message = $message;
@@ -418,7 +418,7 @@ function thirdparty_doc_create($db, &$object, $message, $modele, $outputlangs)
             $outputlangs->charset_output=$sav_charset_output;
 
             // Appel des triggers
-            include_once(DOL_DOCUMENT_ROOT . "/core/class/interfaces.class.php");
+            include_once DOL_DOCUMENT_ROOT . '/core/class/interfaces.class.php';
             $interface=new Interfaces($db);
             $result=$interface->run_triggers('COMPANY_BUILDDOC',$object,$user,$langs,$conf);
             if ($result < 0) {

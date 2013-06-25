@@ -1,11 +1,11 @@
 <?php
 /* Copyright (C) 2001-2002 Rodolphe Quiedeville <rodolphe@quiedeville.org>
  * Copyright (C) 2006-2012 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2009      Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2009      Regis Houssin        <regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -27,11 +27,11 @@
 define("NOLOGIN",1);		// This means this output page does not require to be logged.
 define("NOCSRFCHECK",1);	// We accept to go on this page from external web site.
 
-require("../../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/paybox/lib/paybox.lib.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/company.lib.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/functions2.lib.php");
-require_once(DOL_DOCUMENT_ROOT."/product/class/product.class.php");
+require '../../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/paybox/lib/paybox.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
 
 // Security check
 if (empty($conf->paybox->enabled)) accessforbidden('',1,1,1);
@@ -290,7 +290,7 @@ if (GETPOST("source") == 'order' && $valid)
 	$found=true;
 	$langs->load("orders");
 
-	require_once(DOL_DOCUMENT_ROOT."/commande/class/commande.class.php");
+	require_once DOL_DOCUMENT_ROOT.'/commande/class/commande.class.php';
 
 	$order=new Commande($db);
 	$result=$order->fetch('',$ref);
@@ -378,7 +378,7 @@ if (GETPOST("source") == 'invoice' && $valid)
 	$found=true;
 	$langs->load("bills");
 
-	require_once(DOL_DOCUMENT_ROOT."/compta/facture/class/facture.class.php");
+	require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
 
 	$invoice=new Facture($db);
 	$result=$invoice->fetch('',$ref);
@@ -465,7 +465,7 @@ if (GETPOST("source") == 'contractline' && $valid)
 	$found=true;
 	$langs->load("contracts");
 
-	require_once(DOL_DOCUMENT_ROOT."/contrat/class/contrat.class.php");
+	require_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
 
 	$contractline=new ContratLigne($db);
 	$result=$contractline->fetch('',$ref);
@@ -504,7 +504,7 @@ if (GETPOST("source") == 'contractline' && $valid)
 		$result=$product->fetch($contractline->fk_product);
 
 		// We define price for product (TODO Put this in a method in product class)
-		if ($conf->global->PRODUIT_MULTIPRICES)
+		if (! empty($conf->global->PRODUIT_MULTIPRICES))
 		{
 			$pu_ht = $product->multiprices[$contract->thirdparty->price_level];
 			$pu_ttc = $product->multiprices_ttc[$contract->thirdparty->price_level];
@@ -642,8 +642,8 @@ if (GETPOST("source") == 'membersubscription' && $valid)
 	$found=true;
 	$langs->load("members");
 
-	require_once(DOL_DOCUMENT_ROOT."/adherents/class/adherent.class.php");
-	require_once(DOL_DOCUMENT_ROOT."/adherents/class/cotisation.class.php");
+	require_once DOL_DOCUMENT_ROOT.'/adherents/class/adherent.class.php';
+	require_once DOL_DOCUMENT_ROOT.'/adherents/class/cotisation.class.php';
 
 	$member=new Adherent($db);
 	$result=$member->fetch('',$ref);
@@ -765,7 +765,7 @@ if ($found && ! $error)	// We are in a management option and no error
 }
 else
 {
-	dol_print_error_email();
+	dol_print_error_email('ERRORNEWPAYMENTPAYBOX');
 }
 
 print '</td></tr>'."\n";

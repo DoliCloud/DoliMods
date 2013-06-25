@@ -1,11 +1,11 @@
 <?php
 /* Copyright (C) 2001-2006 Rodolphe Quiedeville <rodolphe@quiedeville.org>
  * Copyright (C) 2004-2011 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2005-2011 Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2005-2012 Regis Houssin        <regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -23,8 +23,8 @@
  *  \brief      Page accueil des produits et services
  */
 
-require("../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT.'/product/class/product.class.php');
+require '../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
 
 $type=isset($_GET["type"])?$_GET["type"]:(isset($_POST["type"])?$_POST["type"]:'');
 if ($type =='' && !$user->rights->produit->lire) $type='1';	// Force global page on service page only
@@ -74,23 +74,23 @@ print '<tr><td valign="top" width="30%" class="notopnoleft">';
  * Zone recherche produit/service
  */
 $rowspan=2;
-if ($conf->barcode->enabled) $rowspan++;
+if (! empty($conf->barcode->enabled)) $rowspan++;
 print '<form method="post" action="'.DOL_URL_ROOT.'/product/liste.php">';
 print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
-print '<table class="noborder" width="100%">';
+print '<table class="noborder nohover" width="100%">';
 print "<tr class=\"liste_titre\">";
 print '<td colspan="3">'.$langs->trans("Search").'</td></tr>';
-print "<tr $bc[0]><td>";
+print "<tr ".$bc[false]."><td>";
 print $langs->trans("Ref").':</td><td><input class="flat" type="text" size="14" name="sref"></td>';
 print '<td rowspan="'.$rowspan.'"><input type="submit" class="button" value="'.$langs->trans("Search").'"></td></tr>';
-if ($conf->barcode->enabled)
+if (! empty($conf->barcode->enabled))
 {
-	print "<tr $bc[0]><td>";
+	print "<tr ".$bc[false]."><td>";
 	print $langs->trans("BarCode").':</td><td><input class="flat" type="text" size="14" name="sbarcode"></td>';
 	//print '<td><input type="submit" class="button" value="'.$langs->trans("Search").'"></td>';
 	print '</tr>';
 }
-print "<tr $bc[0]><td>";
+print "<tr ".$bc[false]."><td>";
 print $langs->trans("Other").':</td><td><input class="flat" type="text" size="14" name="sall"></td>';
 //print '<td><input type="submit" class="button" value="'.$langs->trans("Search").'"></td>';
 print '</tr>';
@@ -117,7 +117,7 @@ while ($objp = $db->fetch_object($result))
 
 print '<table class="noborder" width="100%">';
 print '<tr class="liste_titre"><td colspan="2">'.$langs->trans("Statistics").'</td></tr>';
-if ($conf->product->enabled)
+if (! empty($conf->product->enabled))
 {
 	$statProducts = "<tr $bc[0]>";
 	$statProducts.= '<td><a href="liste.php?type=0&amp;tosell=0&amp;tobuy=0">'.$langs->trans("ProductsNotOnSell").'</a></td><td align="right">'.round($prodser[0][0]).'</td>';
@@ -126,7 +126,7 @@ if ($conf->product->enabled)
 	$statProducts.= '<td><a href="liste.php?type=0&amp;tosell=1">'.$langs->trans("ProductsOnSell").'</a></td><td align="right">'.round($prodser[0][1]).'</td>';
 	$statProducts.= "</tr>";
 }
-if ($conf->service->enabled)
+if (! empty($conf->service->enabled))
 {
 	$statServices = "<tr $bc[0]>";
 	$statServices.= '<td><a href="liste.php?type=1&amp;tosell=0&amp;tobuy=0">'.$langs->trans("ServicesNotOnSell").'</a></td><td align="right">'.round($prodser[1][0]).'</td>';
@@ -198,7 +198,7 @@ if ($result)
 			$objp = $db->fetch_object($result);
 
 			//Multilangs
-			if ($conf->global->MAIN_MULTILANGS)
+			if (! empty($conf->global->MAIN_MULTILANGS))
 			{
 				$sql = "SELECT label";
 				$sql.= " FROM ".MAIN_DB_PREFIX."product_lang";

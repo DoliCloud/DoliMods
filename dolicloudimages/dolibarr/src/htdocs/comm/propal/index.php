@@ -1,11 +1,11 @@
 <?php
 /* Copyright (C) 2003-2004 Rodolphe Quiedeville <rodolphe@quiedeville.org>
  * Copyright (C) 2004-2011 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2005-2012 Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2005-2012 Regis Houssin        <regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -23,30 +23,27 @@
  *	\brief      Home page of proposal area
  */
 
-require("../../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/core/class/html.formfile.class.php");
-require_once(DOL_DOCUMENT_ROOT ."/comm/propal/class/propal.class.php");
-
-if (!$user->rights->propale->lire) accessforbidden();
+require '../../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/core/class/html.formfile.class.php';
+require_once DOL_DOCUMENT_ROOT .'/comm/propal/class/propal.class.php';
 
 $langs->load("propal");
 $langs->load("companies");
 
 // Security check
-$socid='';
-if ($_GET["socid"]) { $socid=$_GET["socid"]; }
-if ($user->societe_id > 0)
+$socid=GETPOST('socid','int');
+if (isset($user->societe_id) && $user->societe_id  > 0)
 {
 	$action = '';
 	$socid = $user->societe_id;
 }
-
+$result = restrictedArea($user, 'propal');
 
 
 /*
  * View
  */
-
+$now=dol_now();
 $propalstatic=new Propal($db);
 $companystatic=new Societe($db);
 $form = new Form($db);
@@ -65,8 +62,8 @@ print '<tr><td valign="top" width="30%" class="notopnoleft">';
  * Search form
  */
 $var=false;
-print '<table class="noborder" width="100%">';
-print '<form method="post" action="'.DOL_URL_ROOT.'/comm/propal.php">';
+print '<table class="noborder nohover" width="100%">';
+print '<form method="post" action="'.DOL_URL_ROOT.'/comm/propal/list.php">';
 print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
 print '<tr class="liste_titre"><td colspan="3">'.$langs->trans("SearchPropal").'</td></tr>';
 print '<tr '.$bc[$var].'><td>';
@@ -154,7 +151,7 @@ else
 /*
  * Draft proposals
  */
-if ($conf->propal->enabled)
+if (! empty($conf->propal->enabled))
 {
 	$sql = "SELECT c.rowid, c.ref, s.nom as socname, s.rowid as socid, s.canvas, s.client";
 	$sql.= " FROM ".MAIN_DB_PREFIX."propal as c";
@@ -260,7 +257,7 @@ if ($resql)
 			$filename=dol_sanitizeFileName($obj->ref);
 			$filedir=$conf->propal->dir_output . '/' . dol_sanitizeFileName($obj->ref);
 			$urlsource=$_SERVER['PHP_SELF'].'?id='.$obj->rowid;
-			$formfile->show_documents('propal',$filename,$filedir,$urlsource,'','','',1,'',1);
+			print $formfile->getDocumentsLink($propalstatic->element, $filename, $filedir);
 			print '</td></tr></table>';
 
 			print '</td>';
@@ -285,11 +282,13 @@ else dol_print_error($db);
 /*
  * Opened proposals
  */
-if ($conf->propal->enabled && $user->rights->propale->lire)
+if (! empty($conf->propal->enabled) && $user->rights->propale->lire)
 {
 	$langs->load("propal");
 
-	$sql = "SELECT s.nom as socname, s.rowid as socid, s.canvas, s.client, p.rowid as propalid, p.total as total_ttc, p.total_ht, p.ref, p.fk_statut, p.datep as dp";
+	$now=dol_now();
+
+	$sql = "SELECT s.nom as socname, s.rowid as socid, s.canvas, s.client, p.rowid as propalid, p.total as total_ttc, p.total_ht, p.ref, p.fk_statut, p.datep as dp, p.fin_validite as dfv";
 	$sql.= " FROM ".MAIN_DB_PREFIX."societe as s";
 	$sql.= ", ".MAIN_DB_PREFIX."propal as p";
 	if (!$user->rights->societe->client->voir && !$socid) $sql.= ", ".MAIN_DB_PREFIX."societe_commerciaux as sc";
@@ -329,13 +328,13 @@ if ($conf->propal->enabled && $user->rights->propale->lire)
 				print $propalstatic->getNomUrl(1);
 				print '</td>';
 				print '<td width="18" class="nobordernopadding" nowrap="nowrap">';
-				if ($db->jdate($obj->dp) < ($now - $conf->propal->cloture->warning_delay)) print img_warning($langs->trans("Late"));
+				if ($db->jdate($obj->dfv) < ($now - $conf->propal->cloture->warning_delay)) print img_warning($langs->trans("Late"));
 				print '</td>';
 				print '<td width="16" align="center" class="nobordernopadding">';
 				$filename=dol_sanitizeFileName($obj->ref);
 				$filedir=$conf->propal->dir_output . '/' . dol_sanitizeFileName($obj->ref);
 				$urlsource=$_SERVER['PHP_SELF'].'?id='.$obj->propalid;
-				$formfile->show_documents('propal',$filename,$filedir,$urlsource,'','','',1,'',1);
+				print $formfile->getDocumentsLink($propalstatic->element, $filename, $filedir);
 				print '</td></tr></table>';
 
 				print "</td>";
@@ -370,7 +369,7 @@ if ($conf->propal->enabled && $user->rights->propale->lire)
  * Proposals to process
  */
 /*
-if ($conf->propal->enabled)
+if (! empty($conf->propal->enabled))
 {
 	$sql = "SELECT c.rowid, c.ref, c.fk_statut, s.nom, s.rowid as socid";
 	$sql.=" FROM ".MAIN_DB_PREFIX."propal as c";
@@ -419,7 +418,7 @@ if ($conf->propal->enabled)
 				$filename=dol_sanitizeFileName($obj->ref);
 				$filedir=$conf->commande->dir_output . '/' . dol_sanitizeFileName($obj->ref);
 				$urlsource=$_SERVER['PHP_SELF'].'?id='.$obj->rowid;
-				$formfile->show_documents('propal',$filename,$filedir,$urlsource,'','','',1,'',1);
+				print $formfile->getDocumentsLink($propalstatic->element, $filename, $filedir);
 				print '</td></tr></table>';
 
 				print '</td>';
@@ -442,7 +441,7 @@ if ($conf->propal->enabled)
 /*
  * Proposal that are in a shipping process
  */
-/*if ($conf->propal->enabled)
+/*if (! empty($conf->propal->enabled))
 {
 	$sql = "SELECT c.rowid, c.ref, c.fk_statut, c.facture, s.nom, s.rowid as socid";
 	$sql.= " FROM ".MAIN_DB_PREFIX."commande as c";
@@ -491,7 +490,7 @@ if ($conf->propal->enabled)
 				$filename=dol_sanitizeFileName($obj->ref);
 				$filedir=$conf->commande->dir_output . '/' . dol_sanitizeFileName($obj->ref);
 				$urlsource=$_SERVER['PHP_SELF'].'?id='.$obj->rowid;
-				$formfile->show_documents('propal',$filename,$filedir,$urlsource,'','','',1,'',1);
+				print $formfile->getDocumentsLink($propalstatic->element, $filename, $filedir);
 				print '</td></tr></table>';
 
 				print '</td>';

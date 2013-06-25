@@ -1,11 +1,11 @@
 <?php
 /* Copyright (C) 2001-2005 Rodolphe Quiedeville <rodolphe@quiedeville.org>
  * Copyright (C) 2004-2010 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2005-2011 Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2005-2011 Regis Houssin        <regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -23,9 +23,9 @@
  *  \brief      Page of links to other third parties
  */
 
-require("../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/company.lib.php");
-require_once(DOL_DOCUMENT_ROOT."/core/class/html.formcompany.class.php");
+require '../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/core/class/html.formcompany.class.php';
 
 $langs->load("companies");
 $langs->load("customers");
@@ -52,12 +52,12 @@ if ($socid && $_GET["select"])
 		$soc->fetch($_GET["socid"]);
 		$soc->set_parent($_GET["select"]);
 
-		Header("Location: lien.php?socid=".$soc->id);
+		header("Location: lien.php?socid=".$soc->id);
 		exit;
 	}
 	else
 	{
-		Header("Location: lien.php?socid=".$_GET["socid"]);
+		header("Location: lien.php?socid=".$_GET["socid"]);
 		exit;
 	}
 }
@@ -72,12 +72,12 @@ if ($socid && $_GET["delsocid"])
 		$soc->fetch($_GET["socid"]);
 		$soc->remove_parent($_GET["delsocid"]);
 
-		Header("Location: lien.php?socid=".$soc->id);
+		header("Location: lien.php?socid=".$soc->id);
 		exit;
 	}
 	else
 	{
-		Header("Location: lien.php?socid=".$_GET["socid"]);
+		header("Location: lien.php?socid=".$_GET["socid"]);
 		exit;
 	}
 }

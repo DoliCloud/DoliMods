@@ -1,12 +1,12 @@
 <?php
 /* Copyright (C) 2003		Rodolphe Quiedeville <rodolphe@quiedeville.org>
  * Copyright (C) 2004-2012	Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2005-2012	Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2005-2012	Regis Houssin        <regis.houssin@capnetworks.com>
  * Copyright (C) 2012		Juanjo Menent        <jmenent@2byte.es>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -23,14 +23,14 @@
  *  \brief      	Page to show a trip card
  */
 
-require("../../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/trip.lib.php");
-require_once(DOL_DOCUMENT_ROOT."/compta/deplacement/class/deplacement.class.php");
-require_once(DOL_DOCUMENT_ROOT."/core/class/html.formfile.class.php");
-if ($conf->projet->enabled)
+require '../../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/trip.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/compta/deplacement/class/deplacement.class.php';
+require_once DOL_DOCUMENT_ROOT.'/core/class/html.formfile.class.php';
+if (! empty($conf->projet->enabled))
 {
-    require_once(DOL_DOCUMENT_ROOT."/core/lib/project.lib.php");
-    require_once(DOL_DOCUMENT_ROOT."/projet/class/project.class.php");
+    require_once DOL_DOCUMENT_ROOT.'/core/lib/project.lib.php';
+    require_once DOL_DOCUMENT_ROOT.'/projet/class/project.class.php';
 }
 
 $langs->load("trips");
@@ -48,6 +48,11 @@ $mesg = '';
 
 $object = new Deplacement($db);
 
+// Initialize technical object to manage hooks of thirdparties. Note that conf->hooks_modules contains array array
+include_once DOL_DOCUMENT_ROOT.'/core/class/hookmanager.class.php';
+$hookmanager=new HookManager($db);
+$hookmanager->initHooks(array('tripsandexpensescard'));
+
 
 /*
  * Actions
@@ -60,7 +65,7 @@ if ($action == 'validate' && $user->rights->deplacement->creer)
         $result = $object->setStatut(1);
         if ($result > 0)
         {
-            Header("Location: " . $_SERVER["PHP_SELF"] . "?id=" . $id);
+            header("Location: " . $_SERVER["PHP_SELF"] . "?id=" . $id);
             exit;
         }
         else
@@ -90,7 +95,7 @@ else if ($action == 'unblock' && $user->rights->deplacement->unvalidate)
 
         if ($result > 0)
         {
-            Header("Location: " . $_SERVER["PHP_SELF"] . "?id=" . $id);
+            header("Location: " . $_SERVER["PHP_SELF"] . "?id=" . $id);
             exit;
         }
         else
@@ -105,7 +110,7 @@ else if ($action == 'confirm_delete' && $confirm == "yes" && $user->rights->depl
     $result=$object->delete($id);
     if ($result >= 0)
     {
-        Header("Location: index.php");
+        header("Location: index.php");
         exit;
     }
     else
@@ -151,7 +156,7 @@ else if ($action == 'add' && $user->rights->deplacement->creer)
 
             if ($id > 0)
             {
-                Header("Location: " . $_SERVER["PHP_SELF"] . "?id=" . $id);
+                header("Location: " . $_SERVER["PHP_SELF"] . "?id=" . $id);
                 exit;
             }
             else
@@ -167,7 +172,7 @@ else if ($action == 'add' && $user->rights->deplacement->creer)
     }
     else
     {
-        Header("Location: index.php");
+        header("Location: index.php");
         exit;
     }
 }
@@ -191,7 +196,7 @@ else if ($action == 'update' && $user->rights->deplacement->creer)
 
         if ($result > 0)
         {
-            Header("Location: " . $_SERVER["PHP_SELF"] . "?id=" . $id);
+            header("Location: " . $_SERVER["PHP_SELF"] . "?id=" . $id);
             exit;
         }
         else
@@ -201,7 +206,7 @@ else if ($action == 'update' && $user->rights->deplacement->creer)
     }
     else
     {
-        Header("Location: " . $_SERVER["PHP_SELF"] . "?id=" . $id);
+        header("Location: " . $_SERVER["PHP_SELF"] . "?id=" . $id);
         exit;
     }
 }
@@ -256,7 +261,7 @@ $form = new Form($db);
 if ($action == 'create')
 {
     //WYSIWYG Editor
-    require_once(DOL_DOCUMENT_ROOT."/core/class/doleditor.class.php");
+    require_once DOL_DOCUMENT_ROOT.'/core/class/doleditor.class.php';
 
     print_fiche_titre($langs->trans("NewTrip"));
 
@@ -317,6 +322,10 @@ if ($action == 'create')
         print '</td></tr>';
     }
 
+    // Other attributes
+    $parameters=array('colspan' => ' colspan="2"');
+    $reshook=$hookmanager->executeHooks('formObjectOptions',$parameters,$object,$action);    // Note that $action and $object may have been modified by hook
+
     print '</table>';
 
     print '<br><center><input class="button" type="submit" value="'.$langs->trans("Save").'"> &nbsp; &nbsp; ';
@@ -338,7 +347,7 @@ else if ($id)
         if ($action == 'edit' && $user->rights->deplacement->creer)
         {
             //WYSIWYG Editor
-            require_once(DOL_DOCUMENT_ROOT."/core/class/doleditor.class.php");
+            require_once DOL_DOCUMENT_ROOT.'/core/class/doleditor.class.php';
 
             $soc = new Societe($db);
             if ($object->socid)
@@ -408,6 +417,10 @@ else if ($id)
                 print "</td></tr>";
             }
 
+            // Other attributes
+            $parameters=array('colspan' => ' colspan="3"');
+            $reshook=$hookmanager->executeHooks('formObjectOptions',$parameters,$object,$action);    // Note that $action and $object may have been modified by hook
+
             print '</table>';
 
             print '<br><center><input type="submit" class="button" value="'.$langs->trans("Save").'"> &nbsp; ';
@@ -434,9 +447,11 @@ else if ($id)
 
             print '<table class="border" width="100%">';
 
+            $linkback = '<a href="'.DOL_URL_ROOT.'/compta/deplacement/list.php'.(! empty($socid)?'?socid='.$socid:'').'">'.$langs->trans("BackToList").'</a>';
+
             // Ref
             print '<tr><td width="25%">'.$langs->trans("Ref").'</td><td>';
-            print $form->showrefnav($object,'id','',1,'rowid','ref','');
+            print $form->showrefnav($object, 'id', $linkback, 1, 'rowid', 'ref', '');
             print '</td></tr>';
 
             // Type
@@ -474,7 +489,7 @@ else if ($id)
             print '</td></tr>';
 
             // Project
-            if ($conf->projet->enabled)
+            if (! empty($conf->projet->enabled))
             {
                 $langs->load('projects');
                 print '<tr>';
@@ -506,12 +521,16 @@ else if ($id)
             // Statut
             print '<tr><td>'.$langs->trans("Status").'</td><td>'.$object->getLibStatut(4).'</td></tr>';
 
+            // Other attributes
+            $parameters=array('colspan' => ' colspan="3"');
+            $reshook=$hookmanager->executeHooks('formObjectOptions',$parameters,$object,$action);    // Note that $action and $object may have been modified by hook
+
             print "</table><br>";
 
             // Notes
             $blocname = 'notes';
             $title = $langs->trans('Notes');
-            include(DOL_DOCUMENT_ROOT.'/core/tpl/bloc_showhide.tpl.php');
+            include DOL_DOCUMENT_ROOT.'/core/tpl/bloc_showhide.tpl.php';
 
             print '</div>';
 

@@ -1,11 +1,11 @@
 <?php
 /* Copyright (C) 2001-2005 Rodolphe Quiedeville <rodolphe@quiedeville.org>
- * Copyright (C) 2004-2011 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2005-2012 Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2004-2013 Laurent Destailleur  <eldy@users.sourceforge.net>
+ * Copyright (C) 2005-2012 Regis Houssin        <regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -23,51 +23,53 @@
  *	\brief      Home page of commercial area
  */
 
-require("../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/core/class/html.formfile.class.php");
-require_once(DOL_DOCUMENT_ROOT."/societe/class/client.class.php");
-require_once(DOL_DOCUMENT_ROOT."/comm/action/class/actioncomm.class.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/agenda.lib.php");
-if ($conf->contrat->enabled) require_once(DOL_DOCUMENT_ROOT."/contrat/class/contrat.class.php");
-if ($conf->propal->enabled)  require_once(DOL_DOCUMENT_ROOT."/comm/propal/class/propal.class.php");
+require '../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/core/class/html.formfile.class.php';
+require_once DOL_DOCUMENT_ROOT.'/societe/class/client.class.php';
+require_once DOL_DOCUMENT_ROOT.'/comm/action/class/actioncomm.class.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/agenda.lib.php';
+if (! empty($conf->contrat->enabled)) require_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
+if (! empty($conf->propal->enabled))  require_once DOL_DOCUMENT_ROOT.'/comm/propal/class/propal.class.php';
 
-if (!$user->rights->societe->lire)
-accessforbidden();
+if (! $user->rights->societe->lire) accessforbidden();
 
 $langs->load("commercial");
 
+$action=GETPOST('action', 'alpha');
+$bid=GETPOST('bid', 'int');
+
 // Securite acces client
-$socid='';
-if ($_GET["socid"]) { $socid=$_GET["socid"]; }
-if ($user->societe_id > 0)
+$socid=GETPOST('socid','int');
+if (isset($user->societe_id) && $user->societe_id > 0)
 {
 	$action = '';
 	$socid = $user->societe_id;
 }
 
 $max=5;
+$now=dol_now();
 
 /*
  * Actions
  */
 
-if (isset($_GET["action"]) && $_GET["action"] == 'add_bookmark')
+if ($action == 'add_bookmark' && ! empty($socid))
 {
-	$sql = "DELETE FROM ".MAIN_DB_PREFIX."bookmark WHERE fk_soc = ".$_GET["socid"]." AND fk_user=".$user->id;
+	$sql = "DELETE FROM ".MAIN_DB_PREFIX."bookmark WHERE fk_soc = ".$db->escape($socid)." AND fk_user=".$user->id;
 	if (! $db->query($sql) )
 	{
 		dol_print_error($db);
 	}
-	$sql = "INSERT INTO ".MAIN_DB_PREFIX."bookmark (fk_soc, dateb, fk_user) VALUES (".$_GET["socid"].", ".$db->idate(mktime()).",".$user->id.");";
+	$sql = "INSERT INTO ".MAIN_DB_PREFIX."bookmark (fk_soc, dateb, fk_user) VALUES (".$db->escape($socid).", ".$db->idate($now).",".$user->id.");";
 	if (! $db->query($sql) )
 	{
 		dol_print_error($db);
 	}
 }
 
-if (isset($_GET["action"]) && $_GET["action"] == 'del_bookmark')
+if ($action == 'del_bookmark' && ! empty($bid))
 {
-	$sql = "DELETE FROM ".MAIN_DB_PREFIX."bookmark WHERE rowid=".$_GET["bid"];
+	$sql = "DELETE FROM ".MAIN_DB_PREFIX."bookmark WHERE rowid=".$db->escape($bid);
 	$result = $db->query($sql);
 }
 
@@ -76,12 +78,10 @@ if (isset($_GET["action"]) && $_GET["action"] == 'del_bookmark')
  * View
  */
 
-$now=dol_now();
-
 $form = new Form($db);
 $formfile = new FormFile($db);
 $companystatic=new Societe($db);
-if ($conf->propal->enabled) $propalstatic=new Propal($db);
+if (! empty($conf->propal->enabled)) $propalstatic=new Propal($db);
 
 llxHeader();
 
@@ -90,20 +90,20 @@ print_fiche_titre($langs->trans("CustomerArea"));
 print '<table border="0" width="100%" class="notopnoleftnoright">';
 
 print '<tr>';
-if (($conf->propal->enabled && $user->rights->propale->lire) ||
-    ($conf->contrat->enabled && $user->rights->contrat->lire) ||
-    ($conf->commande->enabled && $user->rights->commande->lire))
+if ((! empty($conf->propal->enabled) && $user->rights->propale->lire) ||
+    (! empty($conf->contrat->enabled) && $user->rights->contrat->lire) ||
+    (! empty($conf->commande->enabled) && $user->rights->commande->lire))
 {
 	print '<td valign="top" width="30%" class="notopnoleft">';
 }
 
 // Recherche Propal
-if ($conf->propal->enabled && $user->rights->propale->lire)
+if (! empty($conf->propal->enabled) && $user->rights->propal->lire)
 {
 	$var=false;
-	print '<form method="post" action="'.DOL_URL_ROOT.'/comm/propal.php">';
+	print '<form method="post" action="'.DOL_URL_ROOT.'/comm/propal/list.php">';
 	print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
-	print '<table class="noborder" width="100%">';
+	print '<table class="noborder nohover" width="100%">';
 	print '<tr class="liste_titre"><td colspan="3">'.$langs->trans("SearchAProposal").'</td></tr>';
 	print '<tr '.$bc[$var].'>';
 	print '<td nowrap>'.$langs->trans("Ref").':</td><td><input type="text" class="flat" name="sf_ref" size="18"></td>';
@@ -117,12 +117,12 @@ if ($conf->propal->enabled && $user->rights->propale->lire)
 /*
  * Recherche Contrat
  */
-if ($conf->contrat->enabled && $user->rights->contrat->lire)
+if (! empty($conf->contrat->enabled) && $user->rights->contrat->lire)
 {
 	$var=false;
 	print '<form method="post" action="'.DOL_URL_ROOT.'/contrat/liste.php">';
 	print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
-	print '<table class="noborder" width="100%">';
+	print '<table class="noborder nohover" width="100%">';
 	print '<tr class="liste_titre"><td colspan="3">'.$langs->trans("SearchAContract").'</td></tr>';
 	print '<tr '.$bc[$var].'>';
 	print '<td nowrap>'.$langs->trans("Ref").':</td><td><input type="text" class="flat" name="search_contract" size="18"></td>';
@@ -136,7 +136,7 @@ if ($conf->contrat->enabled && $user->rights->contrat->lire)
 /*
  * Draft proposals
  */
-if ($conf->propal->enabled && $user->rights->propale->lire)
+if (! empty($conf->propal->enabled) && $user->rights->propal->lire)
 {
 	$sql = "SELECT p.rowid, p.ref, p.total_ht, s.rowid as socid, s.nom as name, s.client, s.canvas";
 	$sql.= " FROM ".MAIN_DB_PREFIX."propal as p";
@@ -179,7 +179,7 @@ if ($conf->propal->enabled && $user->rights->propale->lire)
 				print '</td>';
 				print '<td align="right" nowrap="nowrap">'.price($obj->total_ht).'</td></tr>';
 				$i++;
-				$total += $obj->price;
+				$total += $obj->total_ht;
 			}
 			if ($total>0)
 			{
@@ -188,7 +188,7 @@ if ($conf->propal->enabled && $user->rights->propale->lire)
 			}
 		}
 		print "</table><br>";
-		
+
 		$db->free($resql);
 	}
 	else
@@ -201,7 +201,7 @@ if ($conf->propal->enabled && $user->rights->propale->lire)
 /*
  * Draft orders
  */
-if ($conf->commande->enabled && $user->rights->commande->lire)
+if (! empty($conf->commande->enabled) && $user->rights->commande->lire)
 {
 	$langs->load("orders");
 
@@ -251,14 +251,14 @@ if ($conf->commande->enabled && $user->rights->commande->lire)
 			}
 		}
 		print "</table><br>";
-		
+
 		$db->free($resql);
 	}
 }
 
-if (($conf->propal->enabled && $user->rights->propale->lire) ||
-    ($conf->contrat->enabled && $user->rights->contrat->lire) ||
-    ($conf->commande->enabled && $user->rights->commande->lire))
+if ((! empty($conf->propal->enabled) && $user->rights->propale->lire) ||
+    (! empty($conf->contrat->enabled) && $user->rights->contrat->lire) ||
+    (! empty($conf->commande->enabled) && $user->rights->commande->lire))
 {
 	print '</td>';
 	print '<td valign="top" width="70%" class="notopnoleftnoright">';
@@ -277,11 +277,11 @@ $max=3;
 /*
  * Last modified customers or prospects
  */
-if ($conf->societe->enabled && $user->rights->societe->lire)
+if (! empty($conf->societe->enabled) && $user->rights->societe->lire)
 {
 	$langs->load("boxes");
 
-	$sql = "SELECT s.rowid, s.nom as name, s.client, s.datec,s.tms";
+	$sql = "SELECT s.rowid, s.nom as name, s.client, s.datec, s.tms, s.canvas";
 	$sql.= " FROM ".MAIN_DB_PREFIX."societe as s";
 	if (! $user->rights->societe->client->voir && ! $socid) $sql.= ", ".MAIN_DB_PREFIX."societe_commerciaux as sc";
 	$sql.= " WHERE s.client IN (1, 2, 3)";
@@ -337,7 +337,7 @@ if ($conf->societe->enabled && $user->rights->societe->lire)
 }
 
 // Last suppliers
-if ($conf->fournisseur->enabled && $user->rights->societe->lire)
+if (! empty($conf->fournisseur->enabled) && $user->rights->societe->lire)
 {
 	$langs->load("boxes");
 
@@ -409,7 +409,7 @@ if ($user->rights->agenda->myactions->read)
 /*
  * Last contracts
  */
-if ($conf->contrat->enabled && $user->rights->contrat->lire && 0) // TODO A REFAIRE DEPUIS NOUVEAU CONTRAT
+if (! empty($conf->contrat->enabled) && $user->rights->contrat->lire && 0) // TODO A REFAIRE DEPUIS NOUVEAU CONTRAT
 {
 	$langs->load("contracts");
 
@@ -467,11 +467,11 @@ if ($conf->contrat->enabled && $user->rights->contrat->lire && 0) // TODO A REFA
 /*
  * Opened proposals
  */
-if ($conf->propal->enabled && $user->rights->propale->lire)
+if (! empty($conf->propal->enabled) && $user->rights->propal->lire)
 {
 	$langs->load("propal");
 
-	$sql = "SELECT s.nom, s.rowid, p.rowid as propalid, p.total as total_ttc, p.total_ht, p.ref, p.fk_statut, p.datep as dp";
+	$sql = "SELECT s.nom, s.rowid, p.rowid as propalid, p.total as total_ttc, p.total_ht, p.ref, p.fk_statut, p.datep as dp, p.fin_validite as dfv";
 	$sql.= " FROM ".MAIN_DB_PREFIX."societe as s";
 	$sql.= ", ".MAIN_DB_PREFIX."propal as p";
 	if (! $user->rights->societe->client->voir && ! $socid) $sql.= ", ".MAIN_DB_PREFIX."societe_commerciaux as sc";
@@ -511,13 +511,13 @@ if ($conf->propal->enabled && $user->rights->propale->lire)
 				print $propalstatic->getNomUrl(1);
 				print '</td>';
 				print '<td width="18" class="nobordernopadding" nowrap="nowrap">';
-				if ($db->jdate($obj->dp) < ($now - $conf->propal->cloture->warning_delay)) print img_warning($langs->trans("Late"));
+				if ($db->jdate($obj->dfv) < ($now - $conf->propal->cloture->warning_delay)) print img_warning($langs->trans("Late"));
 				print '</td>';
 				print '<td width="16" align="center" class="nobordernopadding">';
 				$filename=dol_sanitizeFileName($obj->ref);
 				$filedir=$conf->propal->dir_output . '/' . dol_sanitizeFileName($obj->ref);
 				$urlsource=$_SERVER['PHP_SELF'].'?id='.$obj->propalid;
-				$formfile->show_documents('propal',$filename,$filedir,$urlsource,'','','',1,'',1);
+				print $formfile->getDocumentsLink($propalstatic->element, $filename, $filedir);
 				print '</td></tr></table>';
 
 				print "</td>";

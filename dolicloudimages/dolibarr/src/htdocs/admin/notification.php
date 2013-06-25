@@ -4,7 +4,7 @@
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -22,12 +22,15 @@
  *		\brief      Page to setup notification module
  */
 
-require("../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
-require_once(DOL_DOCUMENT_ROOT."/core/triggers/interface_50_modNotification_Notification.class.php");
+require '../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/core/triggers/interface_50_modNotification_Notification.class.php';
 
 $langs->load("admin");
 $langs->load("other");
+$langs->load("orders");
+$langs->load("propal");
+$langs->load("bills");
 
 // Security check
 if (!$user->admin)
@@ -109,8 +112,14 @@ foreach($listofnotifiedevents as $notifiedevent)
 {
     $var=!$var;
     $label=$langs->trans("Notify_".$notifiedevent['code']); //!=$langs->trans("Notify_".$notifiedevent['code'])?$langs->trans("Notify_".$notifiedevent['code']):$notifiedevent['label'];
+
+    if ($notifiedevent['elementtype'] == 'order_supplier') $elementLabel = $langs->trans('SupplierOrder');
+    elseif ($notifiedevent['elementtype'] == 'propal') $elementLabel = $langs->trans('Proposal');
+    elseif ($notifiedevent['elementtype'] == 'facture') $elementLabel = $langs->trans('Bill');
+    elseif ($notifiedevent['elementtype'] == 'commande') $elementLabel = $langs->trans('Order');
+
     print '<tr '.$bc[$var].'>';
-    print '<td>'.$notifiedevent['elementtype'].'</td>';
+    print '<td>'.$elementLabel.'</td>';
     print '<td>'.$notifiedevent['code'].'</td>';
     print '<td>'.$label.'</td>';
     print '</tr>';

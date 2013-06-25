@@ -1,14 +1,14 @@
 <?php
 /* Copyright (C) 2004      Rodolphe Quiedeville <rodolphe@quiedeville.org>
  * Copyright (C) 2004      Eric Seigne          <eric.seigne@ryxeo.com>
- * Copyright (C) 2004-2011 Laurent Destailleur  <eldy@users.sourceforge.net>
+ * Copyright (C) 2004-2012 Laurent Destailleur  <eldy@users.sourceforge.net>
  * Copyright (C) 2004      Benoit Mortier       <benoit.mortier@opensides.be>
  * Copyright (C) 2004      Sebastien DiCintio   <sdicintio@ressource-toi.org>
- * Copyright (C) 2005-2011 Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2005-2011 Regis Houssin        <regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -25,28 +25,30 @@
  *       \ingroup    install
  *       \brief      Ask all informations required to build Dolibarr htdocs/conf/conf.php file (will be wrote on disk on next page)
  */
-include_once("./inc.php");
 
+include_once 'inc.php';
 
 $err=0;
 
-$setuplang=isset($_POST["selectlang"])?$_POST["selectlang"]:(isset($_GET["selectlang"])?$_GET["selectlang"]:(isset($_GET["lang"])?$_GET["lang"]:'auto'));
+$setuplang=GETPOST("selectlang",'',3)?GETPOST("selectlang",'',3):(isset($_GET["lang"])?$_GET["lang"]:'auto');
 $langs->setDefaultLang($setuplang);
 
 $langs->load("install");
 $langs->load("errors");
 
+dolibarr_install_syslog("Fileconf: Entering fileconf.php page");
+
 // You can force preselected values of the config step of Dolibarr by adding a file
 // install.forced.php into directory htdocs/install (This is the case with some wizard
 // installer like DoliWamp, DoliMamp or DoliBuntu).
 // We first init "forced values" to nothing.
-if (! isset($force_install_noedit))				$force_install_noedit='';
+if (! isset($force_install_noedit))			$force_install_noedit='';	// 1=To block var specific to distrib, 2 to block all technical parameters
 if (! isset($force_install_type))				$force_install_type='';
 if (! isset($force_install_dbserver))			$force_install_dbserver='';
 if (! isset($force_install_port))				$force_install_port='';
 if (! isset($force_install_database))			$force_install_database='';
-if (! isset($force_install_prefix))				$force_install_prefix='';
-if (! isset($force_install_createdatabase))		$force_install_createdatabase='';
+if (! isset($force_install_prefix))			$force_install_prefix='';
+if (! isset($force_install_createdatabase))	$force_install_createdatabase='';
 if (! isset($force_install_databaselogin))		$force_install_databaselogin='';
 if (! isset($force_install_databasepass))		$force_install_databasepass='';
 if (! isset($force_install_databaserootlogin))	$force_install_databaserootlogin='';
@@ -54,18 +56,22 @@ if (! isset($force_install_databaserootpass))	$force_install_databaserootpass=''
 // Now we load forced value from install.forced.php file.
 $useforcedwizard=false;
 $forcedfile="./install.forced.php";
-if ($conffile == "/etc/dolibarr/conf.php") $forcedfile="/etc/dolibarr/install.forced.php";
-if (@file_exists($forcedfile)) { $useforcedwizard=true; include_once($forcedfile); }
+if ($conffile == "/etc/dolibarr/conf.php") $forcedfile="/etc/dolibarr/install.forced.php";	// Must be after inc.php
+if (@file_exists($forcedfile)) {
+	$useforcedwizard=true; include_once $forcedfile;
+}
 
-dolibarr_install_syslog("Fileconf: Entering fileconf.php page");
-
+//$force_install_message='This is the message';
+//$force_install_noedit=1;
 
 
 /*
  *	View
  */
 
-pHeader($langs->trans("ConfigurationFile"),"etape1");
+session_start();	// To be able to keep info into session (used for not loosing pass during navigation. pass must not transit throug parmaeters)
+
+pHeader($langs->trans("ConfigurationFile"),"etape1","set","",(empty($force_dolibarr_js_JQUERY)?'':$force_dolibarr_js_JQUERY.'/'));
 
 // Test if we can run a first install process
 if (! is_writable($conffile))
@@ -77,11 +83,27 @@ if (! is_writable($conffile))
 
 if (! empty($force_install_message))
 {
-    print '<b>'.$langs->trans($force_install_message).'</b><br>';
+    print '<div><table><tr><td valign="middle"><img src="../theme/common/information.png" style="height:40px;"></td><td valign="middle">'.$langs->trans($force_install_message).'</td></tr></table>';
+
+    /*print '<script type="text/javascript">';
+    print '	jQuery(document).ready(function() {
+				jQuery("#linktoshowtechnicalparam").click(function() {
+					jQuery(".hidewhenedit").hide();
+					jQuery(".hidewhennoedit").show();
+				});';
+    			if ($force_install_noedit) print 'jQuery(".hidewhennoedit").hide();';
+	print '});';
+    print '</script>';
+
+    print '<br><a href="#" id="linktoshowtechnicalparam" class="hidewhenedit">'.$langs->trans("ShowEditTechnicalParameters").'</a><br>';
+    */
 }
 
 ?>
-<table class="nobordernopadding">
+<div>
+
+
+<table class="nobordernopadding<?php if ($force_install_noedit) print ' hidewhennoedit'; ?>">
 
 	<tr>
 		<td colspan="3" class="label" align="center">
@@ -281,7 +303,7 @@ if (! empty($force_install_message))
 		        {
 		            $type=$reg[1];
                     $class='DoliDB'.ucfirst($type);
-                    include_once($dir."/".$file);
+                    include_once $dir."/".$file;
 
                     if ($type == 'sqlite') continue;    // We hide sqlite because support can't be complete unti sqlit does not manage foreign key creation after table creation
 
@@ -384,9 +406,14 @@ if (! empty($force_install_message))
 	<tr class="hidesqlite">
 		<td class="label" valign="top"><b><?php echo $langs->trans("Password"); ?></b>
 		</td>
-		<td class="label" valign="top"><input type="password" id="db_pass"
+		<td class="label" valign="top"><input type="text" id="db_pass" autocomplete="off"
 			name="db_pass"
-			value="<?php print (! empty($dolibarr_main_db_pass))?$dolibarr_main_db_pass:$force_install_databasepass; ?>"></td>
+			value="<?php
+			//$autofill=((! empty($dolibarr_main_db_pass))?$dolibarr_main_db_pass:$force_install_databasepass);
+			$autofill=((! empty($_SESSION['dol_save_pass']))?$_SESSION['dol_save_pass']:$force_install_databasepass);
+			if (! empty($dolibarr_main_prod)) $autofill='';
+			print dol_escape_htmltag($autofill);
+			?>"></td>
 		<td class="comment"><?php echo $langs->trans("AdminPassword"); ?></td>
 	</tr>
 
@@ -407,14 +434,14 @@ if (! empty($force_install_message))
 	$force_install_databaserootlogin=preg_replace('/__SUPERUSERLOGIN__/','root',$force_install_databaserootlogin);
 	$force_install_databaserootpass=preg_replace('/__SUPERUSERPASSWORD__/','',$force_install_databaserootpass);
 	?>
-	<tr class="hidesqlite">
+	<tr class="hidesqlite hideroot">
 		<td colspan="3" class="label" align="center"><br>
 		<h3><?php echo $langs->trans("DatabaseSuperUserAccess"); ?></h3>
 		</td>
 	</tr>
 
-	<tr class="hidesqlite">
-		<td class="label" valign="top"><?php echo $langs->trans("Login"); ?></td>
+	<tr class="hidesqlite hideroot">
+		<td class="label" valign="top"><b><?php echo $langs->trans("Login"); ?></b></td>
 		<td class="label" valign="top"><input type="text" id="db_user_root"
 			name="db_user_root" class="needroot"
 			value="<?php print (! empty($db_user_root))?$db_user_root:$force_install_databaserootlogin; ?>"></td>
@@ -430,17 +457,22 @@ if (! empty($force_install_message))
 
 	</tr>
 
-	<tr class="hidesqlite">
-		<td class="label" valign="top"><?php echo $langs->trans("Password"); ?>
+	<tr class="hidesqlite hideroot">
+		<td class="label" valign="top"><b><?php echo $langs->trans("Password"); ?></b>
 		</td>
-		<td class="label" valign="top"><input type="password"
+		<td class="label" valign="top"><input type="text" autocomplete="off"
 			id="db_pass_root" name="db_pass_root" class="needroot"
-			value="<?php print (! empty($db_pass_root))?$db_pass_root:$force_install_databaserootpass; ?>"></td>
+			value="<?php
+			$autofill=((! empty($db_pass_root))?$db_pass_root:$force_install_databaserootpass);
+			if (! empty($dolibarr_main_prod)) $autofill='';
+			print dol_escape_htmltag($autofill);
+			?>"></td>
 		<td class="comment"><?php echo $langs->trans("KeepEmptyIfNoPassword"); ?>
 		</td>
 	</tr>
 
 </table>
+</div>
 
 <script type="text/javascript">
 jQuery(document).ready(function() {
@@ -455,10 +487,12 @@ jQuery(document).ready(function() {
 		/*alert(jQuery("#db_create_database").attr("checked")); */
 		if (jQuery("#db_create_database").attr("checked") || jQuery("#db_create_user").attr("checked"))
 		{
+			jQuery(".hideroot").show();
 			jQuery(".needroot").removeAttr('disabled');
 		}
 		else
 		{
+			jQuery(".hideroot").hide();
 			jQuery(".needroot").attr('disabled','disabled');
 		}
 	}
@@ -470,7 +504,7 @@ jQuery(document).ready(function() {
 	jQuery("#db_create_user").click(function() {
 		init_needroot();
 	});
-	<?php if ($force_install_noedit) { ?>
+	<?php if ($force_install_noedit && empty($force_install_databasepass)) { ?>
 	jQuery("#db_pass").focus();
 	<?php } ?>
 });
@@ -541,9 +575,10 @@ function jscheckparam()
 }
 </script>
 
-	<?php
 
-	// $db->close();	Not database connexion yet
+<?php
 
-	pFooter($err,$setuplang,'jscheckparam');
-	?>
+// $db->close();	Not database connexion yet
+
+pFooter($err,$setuplang,'jscheckparam');
+?>
