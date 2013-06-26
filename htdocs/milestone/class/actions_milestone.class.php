@@ -266,10 +266,10 @@ class ActionsMilestone
 		}
 
 		$out.= '<tr '.$bc[$var].'>';
-		$out.= '<td colspan="4"><input type="checkbox" name="hidedetails" value="2"' . $checkedHideDetails . ' /> '.$langs->trans('HideDetails').'</td>';
+		$out.= '<td colspan="4"><label><input type="checkbox" name="hidedetails" value="2"' . $checkedHideDetails . ' /> '.$langs->trans('HideDetails').'</label></td>';
 		$out.= '</tr>';
 		$out.= '<tr '.$bc[$var].'>';
-		$out.= '<td colspan="4"><input type="checkbox" name="hidedesc" value="1"' . $checkedHideDesc . ' /> '.$langs->trans('HideDescription').'</td>';
+		$out.= '<td colspan="4"><label><input type="checkbox" name="hidedesc" value="1"' . $checkedHideDesc . ' /> '.$langs->trans('HideDescription').'</label></td>';
 		$out.= '</tr>';
 
 		return $out;
