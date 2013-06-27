@@ -244,8 +244,7 @@ print '</div>';
 print '<br>';
 
 
-/*
-if (! empty($conf->global->GOOGLE_DUPLICATE_INTO_GCAL))
+if ($conf->global->MAIN_FEATURES_LEVEL > 0 && ! empty($conf->global->GOOGLE_DUPLICATE_INTO_GCAL))
 {
 	print '<br>';
 
@@ -257,11 +256,11 @@ if (! empty($conf->global->GOOGLE_DUPLICATE_INTO_GCAL))
 
 	print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
 	print '<input type="hidden" name="action" value="deleteallevents">';
-	print $langs->trans("DeleteAllEventsGoogle")." ";
+	print $langs->trans("DeleteAllGoogleEvents")." ";
 	print '<input type="submit" name="cleanup" class="button" value="'.$langs->trans("Run").'">';
 	print "</form>\n";
 }
-*/
+
 
 
 dol_htmloutput_mesg($mesg);
