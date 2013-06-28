@@ -16,9 +16,9 @@
  */
 
 /**
- *	    \file       htdocs/partipirate/admin/partipirate.php
+ *	    \file       htdocs/partipirate/index.php
  *      \ingroup    partipirate
- *      \brief      Page to setup module PartiPirate
+ *      \brief      Page index PartiPirate
  */
 
 define('NOCSRFCHECK',1);
@@ -91,47 +91,38 @@ if (preg_match('/del_(.*)/',$action,$reg))
 if (GETPOST('sendit') && ! empty($conf->global->MAIN_UPLOAD_DOC))
 {
 	$error=0;
-	if (! GETPOST('module','alpha') || is_numeric(GETPOST('module','alpha')))
-	{
-		$error++;
-		setEventMessage($langs->trans("ErrorFieldRequired",$langs->transnoentitiesnoconv("Type")),'warnings');
-	}
 
-	if (! $error)
+	$upload_dir = $conf->partipirate->dir_temp;
+
+	if (dol_mkdir($upload_dir) >= 0)
 	{
-		if (preg_match('/\.pdf$/', $_FILES['userfile']['name']))
+		$resupload=dol_move_uploaded_file($_FILES['userfile']['tmp_name'], $upload_dir."/".$_FILES['userfile']['name'], 1, 0, $_FILES['userfile']['error']);
+		if (is_numeric($resupload) && $resupload > 0)
 		{
-			$upload_dir = $conf->partipirate->dir_output.'/'.GETPOST('module', 'alpha');
-
-			if (dol_mkdir($upload_dir) >= 0)
-			{
-				$resupload=dol_move_uploaded_file($_FILES['userfile']['tmp_name'], $upload_dir . "/" . $_FILES['userfile']['name'],0,0,$_FILES['userfile']['error']);
-				if (is_numeric($resupload) && $resupload > 0)
-				{
-					setEventMessage($langs->trans("FileTransferComplete"),'mesgs');
-				}
-				else
-				{
-					$langs->load("errors");
-					if ($resupload < 0)	// Unknown error
-					{
-						setEventMessage($langs->trans("ErrorFileNotUploaded"),'mesgs');
-					}
-					else if (preg_match('/ErrorFileIsInfectedWithAVirus/',$resupload))	// Files infected by a virus
-					{
-						setEventMessage($langs->trans("ErrorFileIsInfectedWithAVirus"),'mesgs');
-					}
-					else	// Known error
-					{
-						setEventMessage($langs->trans($resupload),'errors');
-					}
-				}
-			}
+			setEventMessage($langs->trans("FileTransferComplete"),'mesgs');
+			$showmessage=1;
 		}
 		else
 		{
-			setEventMessage($langs->trans("ErrorFileNotUploaded"),'errors');
+			$langs->load("errors");
+			if ($resupload < 0)	// Unknown error
+			{
+				setEventMessage($langs->trans("ErrorFileNotUploaded"),'mesgs');
+			}
+			else if (preg_match('/ErrorFileIsInfectedWithAVirus/',$resupload))	// Files infected by a virus
+			{
+				setEventMessage($langs->trans("ErrorFileIsInfectedWithAVirus"),'mesgs');
+			}
+			else	// Known error
+			{
+				setEventMessage($langs->trans($resupload),'errors');
+			}
 		}
+	}
+
+	if ($error)
+	{
+		setEventMessage($langs->trans("ErrorFileNotUploaded"),'errors');
 	}
 }
 
@@ -157,11 +148,22 @@ $formfile=new FormFile($db);
 
 llxHeader('','PartiPirate',$linktohelp);
 
-
-$linkback='<a href="'.DOL_URL_ROOT.'/admin/modules.php">'.$langs->trans("BackToModuleList").'</a>';
-print_fiche_titre($langs->trans("PartiPirateSetup"),$linkback,'setup');
+print_fiche_titre($langs->trans("Page de fonctionnalités spécifiques au PartiPirate"))."\n";
 print '<br>';
 
+$formfile->form_attach_new_file($_SERVER['PHP_SELF'], $langs->trans("ImporterFichierAdherentsOuCotisations"), 0, 0, 1, 50, '', '', false);
+
+$sapi_type = php_sapi_name();
+$script_file = basename(__FILE__);
+$path=dirname(__FILE__).'/';
+
+if ($showmessage) 
+{
+	print 'Pour importer ce fichier, lancer la commande suivante depuis la ligne de commande<br>';
+	print '<textarea cols="120">';
+	print 'php '.preg_replace('#('.preg_quote('htdocs/partipirate/').'|'.preg_quote('htdocs\partipirate/').')$#','',$path).'scripts/partipirate/import-adherent-cotisation.php '.$user->login.' &lt;membertyperef&gt; '.$upload_dir . "/" . $_FILES['userfile']['name'];
+	print '</textarea>';
+}
 
 
 // Footer

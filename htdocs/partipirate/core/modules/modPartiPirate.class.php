@@ -60,7 +60,7 @@ class modPartiPirate extends DolibarrModules
 		// Where to store the module in setup page (0=common,1=interface,2=others,3=very specific)
 		$this->special = 2;
 		// Name of png file (without png) used for this module
-		$this->picto='generic';
+		$this->picto='partipirate@partipirate';
 
 		// Defined all module parts (triggers, login, substitutions, menus, css, etc...)
 		// for default path (eg: /mymodule/core/xxxxx) (0=disable, 1=enable)
@@ -109,7 +109,26 @@ class modPartiPirate extends DolibarrModules
 		// Permissions
 		$this->rights_class = 'partipirate';	// Permission key
 		$this->rights = array();		// Permission array used by this module
-
+		$r=0;
+		
+		// Add here list of permission defined by an id, a label, a boolean and two constant strings.
+		// Example:
+		$this->rights[$r][0] = 101481; 				// Permission id (must not be already used)
+		$this->rights[$r][1] = 'Lire adhérents/cotisations';	// Permission label
+		$this->rights[$r][3] = 1; 					// Permission by default for new user (0/1)
+		$this->rights[$r][4] = 'read';				// In php code, permission will be checked by test if ($user->rights->permkey->level1->level2)
+		//$this->rights[$r][5] = 'level2';				// In php code, permission will be checked by test if ($user->rights->permkey->level1->level2)
+		$r++;
+		
+		// Add here list of permission defined by an id, a label, a boolean and two constant strings.
+		// Example:
+		$this->rights[$r][0] = 101482; 				// Permission id (must not be already used)
+		$this->rights[$r][1] = 'Saisir adhérent/cotisation';	// Permission label
+		$this->rights[$r][3] = 0; 					// Permission by default for new user (0/1)
+		$this->rights[$r][4] = 'write';				// In php code, permission will be checked by test if ($user->rights->permkey->level1->level2)
+		//$this->rights[$r][5] = 'level2';				// In php code, permission will be checked by test if ($user->rights->permkey->level1->level2)
+		$r++;
+		
 
 		// Menus
 		//------
@@ -117,19 +136,18 @@ class modPartiPirate extends DolibarrModules
 		$r=0;
 
 		// Top menu
-		/*$this->menu[$r]=array('fk_menu'=>0,
+		$this->menu[$r]=array('fk_menu'=>0,
 							  'type'=>'top',
-							  'titre'=>'FTP',
-							  'mainmenu'=>'ftp',
-							  'url'=>'/ftp/index.php',
-							  'langs'=>'ftp',
+							  'titre'=>'PartiPirate',
+							  'mainmenu'=>'partipirate',
+							  'url'=>'/partipirate/index.php',
+							  'langs'=>'partipirate@partipirate',
 							  'position'=>100,
-							  'perms'=>'$user->rights->ftp->read || $user->rights->ftp->write || $user->rights->ftp->setup',
+							  'perms'=>'$user->rights->partipirate->read || $user->rights->partipirate->write',
 							  'enabled'=>1,
 							  'target'=>'',
 							  'user'=>2);			// 0=Menu for internal users, 1=external users, 2=both
 		$r++;
-		*/
 	}
 
 	/**
