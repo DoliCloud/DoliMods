@@ -160,7 +160,7 @@ $path=dirname(__FILE__).'/';
 if ($showmessage) 
 {
 	print 'Pour importer ce fichier, lancer la commande suivante depuis la ligne de commande<br>';
-	print '<textarea cols="120">';
+	print '<textarea class="flat" cols="120">';
 	print 'php '.preg_replace('#('.preg_quote('htdocs/partipirate/').'|'.preg_quote('htdocs\partipirate/').')$#','',$path).'scripts/partipirate/import-adherent-cotisation.php '.$user->login.' &lt;membertyperef&gt; '.$upload_dir . "/" . $_FILES['userfile']['name'];
 	print '</textarea>';
 }
