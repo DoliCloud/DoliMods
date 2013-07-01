@@ -620,3 +620,113 @@ function deleteEventByUrl ($client, $url)
 	$gdataCal = new Zend_Gdata_Calendar($client);
 	$gdataCal->delete($url);
 }
+
+
+/**
+ * Mass insert of several contacts into a google account
+ *
+ * @param 	array 	$gCals			Array of object ActionComm
+ * @return	int						>0 if OK, 'error string' if error
+ */
+function insertGCalsEntries($gCals)
+{
+	global $conf;
+
+	$maxBatchLength = 98; //Google doc says max 100 entries.
+	$remainingCals = $gCals;
+	while (count($remainingCals) > 0)
+	{
+		if (count($remainingCals) > $maxBatchLength) {
+			$firstContacts = array_slice($remainingCals, 0, $maxBatchLength);
+			$remainingCals = array_slice($remainingCals, $maxBatchLength);
+		} else {
+			$firstContacts = $remainingCals;
+			$remainingCals = array();
+		}
+
+		foreach ($firstContacts as $gContact) {
+
+		}
+
+		/*
+		$client_id='258042696143.apps.googleusercontent.com';
+		$client_secret='HdmLOMStzB9MBbAjCr87gz27';
+		$redirect_uri='http://localhost/dolibarrnew/custom/google/googlecallback.php';
+		$url='https://accounts.google.com/o/oauth2/auth?client_id='.$client_id.'&redirect_uri='.urlencode($redirect_uri).'&scope=https://www.google.com/m8/feeds/&response_type=code';
+		
+		dol_include_once('/google/includes/google-api-php-client/src/Google_Client.php');
+		dol_include_once('/google/includes/google-api-php-client/src/contrib/Google_CalendarService.php');
+		
+		$client = new Google_Client();
+		$client->setApplicationName("Google Calendar PHP Starter Application");
+		
+		// Visit https://code.google.com/apis/console?api=calendar to generate your
+		// client id, client secret, and to register your redirect uri.
+		$client->setClientId($client_id);
+		$client->setClientSecret($client_secret);
+		$client->setRedirectUri($redirect_uri);
+		$client->setDeveloperKey('insert_your_developer_key');
+
+		$cal = new Google_CalendarService($client);
+		if (isset($_GET['logout'])) {
+			unset($_SESSION['google_oauth_token']);
+		}
+		
+		if (isset($_GET['code'])) {
+			$client->authenticate($_GET['code']);
+			$_SESSION['google_oauth_token'] = $client->getAccessToken();
+			header('Location: http://' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF']);
+		}
+		
+		if (isset($_SESSION['google_oauth_token'])) {
+			$client->setAccessToken($_SESSION['google_oauth_token']);
+		}
+		
+		if ($client->getAccessToken()) {
+			$calList = $cal->calendarList->listCalendarList();
+			print "<h1>Calendar List</h1><pre>" . print_r($calList, true) . "</pre>";
+		
+			$_SESSION['google_oauth_token'] = $client->getAccessToken();
+		} else {
+			$authUrl = $client->createAuthUrl();
+			print "<a class='login' href='$authUrl'>Connect Me!</a>";
+		}
+		*/
+		
+		$xmlStr = '';
+		// uncomment for debugging :
+		file_put_contents(DOL_DATA_ROOT . "/dolibarr_google_cal_massinsert.xml", $xmlStr);
+		@chmod(DOL_DATA_ROOT . "/dolibarr_google_cal_massinsert.xml", octdec(empty($conf->global->MAIN_UMASK)?'0664':$conf->global->MAIN_UMASK));
+		// you can view this file with 'xmlstarlet fo dolibarr_google_massinsert.xml' command
+
+		/* Be aware that Google API has some kind of side effect when you use either
+		 * http://www.google.com/m8/feeds/contacts/default/base/...
+		* or
+		* http://www.google.com/m8/feeds/contacts/default/full/...
+		* Some Ids retrieved when accessing base may not be used with full and vice versa
+		* When using base, you may not change the group membership
+		*/
+		try {
+			$responseXml = '';
+			// uncomment for debugging :
+			file_put_contents(DOL_DATA_ROOT . "/dolibarr_google_cal_massinsert_response.xml", $responseXml);
+			@chmod(DOL_DATA_ROOT . "/dolibarr_google_cal_massinsert_response.xml", octdec(empty($conf->global->MAIN_UMASK)?'0664':$conf->global->MAIN_UMASK));
+			// you can view this file with 'xmlstarlet fo dolibarr_google_massinsert_response.xml' command
+			//$res=parseResponse($responseXml);
+			if($res->count != count($firstContacts) || $res->nbOfErrors)
+			{
+				dol_syslog("Failed to batch insert nb of errors=".$res->nbOfErrors." lasterror=".$res->lastError, LOG_ERR);
+				return sprintf("Google error : %s", $res->lastError);
+			}
+			else
+			{
+				dol_syslog(sprintf("Inserting %d google events", count($firstContacts)));
+			}
+		}
+		catch (Exception $e) {
+			dol_syslog("Problem while inserting events ".$e->getMessage(), LOG_ERR);
+		}
+	}
+
+	return 1;
+}

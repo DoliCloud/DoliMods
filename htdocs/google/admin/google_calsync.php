@@ -22,6 +22,7 @@ require_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/date.lib.php");
 require_once(DOL_DOCUMENT_ROOT.'/core/class/html.formadmin.class.php');
 require_once(DOL_DOCUMENT_ROOT.'/core/class/html.formother.class.php');
+require_once(DOL_DOCUMENT_ROOT.'/comm/action/class/actioncomm.class.php');
 dol_include_once("/google/lib/google.lib.php");
 dol_include_once('/google/lib/google_calendar.lib.php');
 
@@ -113,8 +114,8 @@ if ($action == 'pushallevents')
 	$googlepwd  = empty($conf->global->GOOGLE_CONTACT_PASSWORD)?'':$conf->global->GOOGLE_CONTACT_PASSWORD;
 
 	// Try to use V3 API
-	$sql = 'SELECT rowid, datep, datep2 as datef, code, label, transparency, priority, fulldayevent, punctual, percent';
-	$sql.= ' FROM '.MAIN_DB_PREFIX.'action_comm';
+	$sql = 'SELECT id, datep, datep2 as datef, code, label, transparency, priority, fulldayevent, punctual, percent';
+	$sql.= ' FROM '.MAIN_DB_PREFIX.'actioncomm';
 	$resql = $db->query($sql);
 	if (! $resql)
 	{
