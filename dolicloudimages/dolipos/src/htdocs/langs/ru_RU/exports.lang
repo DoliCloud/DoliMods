@@ -1,0 +1,146 @@
+/*
+ * Language code: ru_RU
+ * Automatic generated via autotranslator.php tool
+ * Generation date 2009-01-19 21:30:52
+ */
+
+
+// Date 2009-01-19 21:30:52
+// START - Lines generated via autotranslator.php tool.
+// Reference language: en_US
+CHARSET=UTF-8
+ExportsArea=Экспорт области
+ImportArea=Импорт области
+NewExport=Новый экспорт
+NewImport=Новые импортные
+ExportableDatas=Экспортировать данные
+ImportableDatas=ИМПОРТИРОВАННАЯ данных
+SelectExportDataSet=Выберите набор данных вы хотите экспортировать ...
+SelectExportFields=Выбрать поля, вы хотите экспортировать, или выбрать заранее экспортировать профиль
+SaveExportModel=Сохранить этот экспортный профиль, если вы планируете использовать повторно момент ...
+ExportModelName=Экспорт имя профиля
+ExportModelSaved=Экспорт профиль сохраняется под <b>именем %s.</b>
+ExportableFields=Экспортируемых полей
+ExportedFields=Экспортируемые поля
+DatasetToExport=Dataset экспорта
+Dataset=Dataset
+ChooseFieldsOrdersAndTitle=Выбрать поля порядке ...
+FieldsOrder=Поля порядка
+FieldsTitle=Поля заголовка
+ChooseExportFormat=Выберите формат экспорта
+NowClickToGenerateToBuildExportFile=Теперь нажмите кнопку "Создать", чтобы построить экспортный файл ...
+AvailableFormats=Форматы доступное
+LibraryUsed=Librairie
+LibraryVersion=Версии
+Step=Шаг
+FormatedImport=Импорт ассистент
+FormatedImportDesc1=Эта область позволяет импортировать персонализированных данных, с помощью ассистента, чтобы помочь вам в процессе без технических знаний.
+FormatedImportDesc2=Первый шаг состоит в том, чтобы выбирать царя из данных, которые вы хотите загрузить, а затем файл для загрузки, а затем выбрать поля, которые вы хотите загрузить.
+FormatedExport=Ассистент по экспорту
+FormatedExportDesc1=Эта область позволяет экспортировать персонализированных данных, с помощью ассистента, чтобы помочь вам в процессе без технических знаний.
+FormatedExportDesc2=Первый шаг состоит в том, чтобы выбирать заранее данных, а затем выбрать, какие поля нужно в результате файлы, и которые тем.
+FormatedExportDesc3=Когда данные экспортировать выбраны, вы можете задать формат выходного файла вы хотите экспортировать данные.
+Sheet=Лист
+NoImportableData=Нет данных ввозимый (без модуля с определениями разрешить импорт данных)
+FileSuccessfullyBuilt=Экспортный файл
+// Date 2009-01-19 21:30:52
+// STOP - Lines generated via parser
+
+
+// START - Lines generated via autotranslator.php tool (2009-08-13 21:14:36).
+// Reference language: en_US
+SelectImportDataSet=Выбор данных, вы хотите импортировать ...
+SelectImportFields=Выбрать поля, вы хотите импортировать, или выбрать заранее импорта профиль
+SaveImportModel=Сохранить профиль импорт, если вы планируете использовать повторно момент ...
+ImportModelName=Импорт имя профиля
+ImportModelSaved=Импорт профиль сохраняется под <b>именем %s.</b>
+ImportableFields=ИМПОРТИРОВАННАЯ поля
+ImportedFields=Импортирована поля
+DatasetToImport=Набор данных для импорта
+LibraryShort=Библиотека
+SQLUsedForExport=SQL запрос, используемых для создания экспортного файла
+LineId=Идентификатор строки
+LineDescription=Описание строки
+LineUnitPrice=Цена за единицу линии
+LineVATRate=Ставка НДС в строке
+LineQty=Кол-во в строке
+LineTotalHT=Сумма за вычетом налога на линию
+LineTotalTTC=Сумма налога с на линию
+LineTotalVAT=Сумма налога на добавленную стоимость по строке
+TypeOfLineServiceOrProduct=Тип линии (0= продукт, услуга 1=)
+FileWithDataToImport=Файл с данными для импорта
+FileToImport=Исходный файл для импорта
+FileMustHaveOneOfFollowingFormat=Файл для импорта должны иметь один из следующих форматах
+ChooseFileToImport=Выберите файл для импорта выберите пункт о picto %s ...
+FieldsInSourceFile=Поля в исходном файле
+FieldsInTargetDatabase=Задача поля в базе данных Dolibarr
+// STOP - Lines generated via autotranslator.php tool (2009-08-13 21:14:36).
+
+
+
+// START - Lines generated via autotranslator.php tool (2010-09-04 01:33:40).
+// Reference language: en_US -> ru_RU
+NotImportedFields=Области исходный файл не импортируется
+NoDiscardedFields=Нет полей в исходном файле не учитываются
+FieldOrder=Порядок полей
+FieldTitle=Поле название
+DownloadEmptyExample=Скачать пример пустого исходного файла
+ChooseFormatOfFileToImport=Выберите формат файла для использования в качестве формата файла импорта, нажав на Picto %s, чтобы выделить ее ...
+SourceFileFormat=Формат исходного файла
+Field=Поле
+NoFields=Нет поля
+MoveField=Перемещение поля %s номер столбца
+ExampleOfImportFile=Example_of_import_file
+SaveImportProfile=Сохранить импорт профиля
+ErrorImportDuplicateProfil=Не удалось сохранить импорт профиль с таким именем. Существующий профиль уже существует с таким названием.
+ImportSummary=Импорт установки резюме
+TablesTarget=Целевые таблицы
+FieldsTarget=Целевые поля
+TableTarget=Целевые таблицы
+FieldTarget=Целевые области
+FieldSource=Источник области
+DoNotImportFirstLine=Не импортировать первые строки исходного файла
+NbOfSourceLines=Количество строк в исходном файле
+NowClickToTestTheImport=Проверить параметры импорта вы определили. Если они верны, нажмите на кнопку <b>&quot;%s&quot;,</b> чтобы начать моделирование процесса импорта (данные не будут изменены в базе данных, это только имитация на данный момент) ...
+RunSimulateImportFile=Запуск импорта моделирования
+FieldNeedSource=Это чувствует себя в базе данных требует данных из исходных файлов
+SomeMandatoryFieldHaveNoSource=Некоторые обязательные поля не имеют источника из файла данных
+InformationOnSourceFile=Информация об исходном файле
+InformationOnTargetTables=Информация о целевых полей
+SelectAtLeastOneField=Switch по крайней мере один источник поля в колонке полей для экспорта
+SelectFormat=Выберите этот формат файла для импорта
+RunImportFile=Запуск файла для импорта
+NowClickToRunTheImport=Проверьте результат импорта моделирования. Если все в порядке, начало окончательного импорта.
+DataLoadedWithId=Все данные будут загружены следующие идентификатор импорт: <b>%s</b>
+ErrorMissingMandatoryValue=Обязательные данные пуст в исходном файле на местах <b>%s.</b>
+TooMuchErrors=Существует еще <b>%s</b> других линий источника ошибок, но выход был ограниченным.
+TooMuchWarnings=Существует еще <b>%s</b> другие линии источника с предупреждениями, но выход был ограниченным.
+EmptyLine=Пустые строки (будет использоваться)
+CorrectErrorBeforeRunningImport=Прежде всего, необходимо исправить все ошибки перед запуском окончательного импорта.
+YouCanUseImportIdToFindRecord=Вы можете найти все импортируемые записей в базе данных с помощью фильтрации на поле <b>import_key = %s.</b>
+NbOfLinesOK=Количество строк, без ошибок и предупреждений нет: <b>%s.</b>
+NbOfLinesImported=Количество линий успешно импортированы: <b>%s.</b>
+DataComeFromNoWhere=Соотношение вставить приходит из ниоткуда в исходном файле.
+DataComeFromFileFieldNb=Соотношение вставить происходит от области число <b>%s</b> в исходном файле.
+DataComeFromIdFoundFromRef=Соотношение, что исходит от области число <b>%s</b> исходного файла будет использоваться, чтобы найти идентификатор родительского объекта для использования (так Objet <b>%s</b> которая исх. Из исходного файла должно существует в Dolibarr).
+DataIsInsertedInto=Данные поступившие от исходного файла будет вставлено в следующее поле:
+DataIDSourceIsInsertedInto=Идентификатор родительского объекта найти с помощью данных в исходном файле, будут включены в следующие поля:
+SourceRequired=Данные значения является обязательным
+SourceExample=Пример возможных значений данных
+CSVFormatDesc=<b>Разделителями-запятыми</b> файл (формат. CSV). <br> Это текстовый формат файла, в котором поля разделены сепаратором [%s]. Если разделитель находится внутри области содержания, поля окружены круглый характер [%s]. Escape характер бежать вокруг характер [%s].
+// STOP - Lines generated via autotranslator.php tool (2010-09-04 01:53:44).
+
+
+// START - Lines generated via autotranslator.php tool (2011-08-27 16:56:14).
+// Reference language: en_US -> ru_RU
+FileWasImported=Файл был импортирован с номером <b>%s.</b>
+// STOP - Lines generated via autotranslator.php tool (2011-08-27 16:59:13).
+
+
+// START - Lines generated via autotranslator.php tool (2012-02-29 17:28:02).
+// Reference language: en_US -> ru_RU
+DataComeFromIdFoundFromCodeId=Код, который приходит с поля число <b>%s</b> исходного файла будет использоваться, чтобы найти идентификатор родительского объекта для использования (так код из исходного файла должен существовать в <b>%s</b> словаря). Заметим, что если вы знаете идентификатор, вы можете также использовать его в исходном файле, а не код. Импорт должна работать в обоих случаях.
+DataCodeIDSourceIsInsertedInto=Идентификатор материнской линии обнаружил в коде, будут включены в следующее поле:
+ExampleAnyRefFoundIntoElement=Любая ссылка на элемент найден <b>%s</b>
+ExampleAnyCodeOrIdFoundIntoDictionnary=Любой код (или идентификатор) обнаружил в словаре <b>%s</b>
+// STOP - Lines generated via autotranslator.php tool (2012-02-29 17:28:23).

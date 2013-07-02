@@ -1,0 +1,30 @@
+# Dolibarr language file - it_IT - contracts        
+# Copyright (C) 2012 Lorenzo Novaro <novalore@19.coop>
+// Reference language: en_US -> it_IT
+CHARSET						=UTF-8
+AddDonation					=Aggiungi una donazione
+BuildDonationReceipt				=Genera ricevuta donazione
+Donation					=Donazione
+DonationPromise					=Donazione promessa
+DonationsArea					=Area donazioni
+Donations					=Donazioni
+DonationsModels					=Modelli per ricevute donazione
+DonationsNumber					=Numero donazione
+DonationsPaid					=Donazioni versate
+DonationsReceived				=Donazioni ricevute
+Donationss					=Donazioni
+DonationStatusPaid				=Donazione ricevuta
+DonationStatusPaidShort			 	=Ricevuta
+DonationStatusPromiseNotValidated		=Promessa di donazione non convalidata
+DonationStatusPromiseNotValidatedShort		=Promessa non conv.
+DonationStatusPromiseValidated			=Promessa di donazione convalidata
+DonationStatusPromiseValidatedShort		=Promessa convalidata
+Donor						=Donatore
+Donors						=Donatori
+LastModifiedDonations				=Ultime %s donazioni modificate
+NewDonation					=Nuova donazione
+PromisesNotValid				=Promesse non convalidate
+PromisesValid					=Promesse convalidate
+PublicDonation					=Donazione Pubblica
+SearchADonation					=Cerca una donazione
+ValidPromess					=Convalida una promessa

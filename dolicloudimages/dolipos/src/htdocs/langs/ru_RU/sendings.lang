@@ -1,0 +1,90 @@
+/*
+ * Language code: ru_RU
+ * Automatic generated via autotranslator.php tool
+ * Generation date 2009-01-19 21:30:52
+ */
+
+
+// Date 2009-01-19 21:30:52
+// START - Lines generated via autotranslator.php tool.
+// Reference language: en_US
+CHARSET=UTF-8
+RefSending=Ref. отправка
+Sending=Отправка
+Sendings=Отправок
+Receivings=Receivings
+SendingsArea=Отправок области
+ListOfSendings=Список отправок
+SendingMethod=Отправка метод
+SendingReceipt=Отправка получения
+LastSendings=Последнее %s отправок
+SearchASending=Поиск направления
+StatisticsOfSendings=Статистика отправок
+NbOfSendings=Число отправок
+SendingCard=
+NewSending=Новые направления
+CreateASending=Создать отправке
+CreateSending=Создать отправке
+QtyOrdered=Количество заказанных
+QtyShipped=Количество отгружен
+QtyToShip=Количество судов
+QtyReceived=Количество получил
+KeepToShip=Держите на корабль
+OtherSendingsForSameOrder=Другие отправок с этой целью
+DateSending=Дата отправки порядка
+DateSendingShort=Дата отправки порядка
+SendingsForSameOrder=Отправок с этой целью
+SendingsAndReceivingForSameOrder=Отправок и receivings в таком порядке
+SendingsToValidate=Отправка на проверку
+StatusSendingDraft=Черновик
+StatusSendingValidated=Удостоверенная (продукты для судна или уже отгружен)
+StatusSendingDraftShort=Черновик
+StatusSendingValidatedShort=Подтвержденные
+SendingSheet=Отправка листа
+Carriers=Перевозчики
+Carrier=Перевозчик
+CarriersArea=Перевозчики области
+NewCarrier=Новый перевозчик
+ConfirmDeleteSending=Вы уверены, что хотите удалить эту отправку?
+ConfirmValidateSending=Вы уверены, что хотите valdate этой передаче?
+ConfirmCancelSending=Вы уверены, что хотите отменить отправку?
+GenericTransport=Общие транспорт
+Enlevement=Полученной клиентом
+DocumentModelSimple=Простая модель документа
+WarningNoQtyLeftToSend=Внимание, без продуктов, ожидающих отправки.
+// Date 2009-01-19 21:30:52
+// STOP - Lines generated via parser
+
+
+// START - Lines generated via autotranslator.php tool (2009-08-13 21:14:36).
+// Reference language: en_US
+StatsOnShipmentsOnlyValidated=Статистика проводится на поставки только апробированные
+SendingMethodCATCH=Catch заказчиком
+SendingMethodTRANS=Transporter
+SendingMethodCOLSUI=Colissimo
+DocumentModelSirocco=Простая модель документа для доставки квитанций
+DocumentModelTyphon=Более полная модель документа для доставки квитанций (logo. ..)
+// STOP - Lines generated via autotranslator.php tool (2009-08-13 21:14:36).
+
+
+
+// START - Lines generated via autotranslator.php tool (2010-09-04 01:33:40).
+// Reference language: en_US -> ru_RU
+Shipments=Поставки
+StatusSendingCanceled=Отменен
+StatusSendingCanceledShort=Отменен
+DocumentModelMerou=Mérou модели A5
+DateDeliveryPlanned=Планируемая дата поставки
+DateReceived=Дата доставки получили
+// STOP - Lines generated via autotranslator.php tool (2010-09-04 01:37:29).
+
+
+// START - Lines generated via autotranslator.php tool (2011-08-27 16:56:14).
+// Reference language: en_US -> ru_RU
+SendShippingByEMail=Отправить доставкой по EMail
+SendShippingRef=Отправить доставки %s
+ActionsOnShipping=Acions на судоходство
+LinkToTrackYourPackage=Ссылка на дорожку ваш пакет
+ShipmentCreationIsDoneFromOrder=На данный момент, создание новой партии производится с целью карту.
+Error_EXPEDITION_ADDON_NUMBER_NotDefined=Постоянное EXPEDITION_ADDON_NUMBER не определена
+// STOP - Lines generated via autotranslator.php tool (2011-08-27 17:00:56).

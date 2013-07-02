@@ -1,0 +1,89 @@
+/*
+ * Language code: fi_FI
+ * Automatic generated via autotranslator.php tool
+ * Generation date 2009-01-19 22:07:11
+ */
+
+
+// Date 2009-01-19 22:07:11
+// START - Lines generated via autotranslator.php tool.
+// Reference language: en_US
+CHARSET=UTF-8
+RefSending=Ref. lähettäminen
+Sending=Lähettävä
+Sendings=Sendings
+Receivings=Receivings
+SendingsArea=Sendings alueella
+ListOfSendings=Luettelo sendings
+SendingMethod=Lähetysvalinnat menetelmä
+SendingReceipt=Lähettävä vastaanottanut
+LastSendings=Viimeisin %s sendings
+SearchASending=Haku lähettävä
+StatisticsOfSendings=Tilastot sendings
+NbOfSendings=Lukumäärä sendings
+SendingCard=Lähetysvalinnat-kortti
+NewSending=Uusi lähettäminen
+CreateASending=Luo lähettäminen
+CreateSending=Luo lähettäminen
+QtyOrdered=Kpl velvoitti
+QtyShipped=Kpl lähetysvuotta
+QtyToShip=Kpl alusten
+QtyReceived=Kpl saanut
+KeepToShip=Pidä alusten
+OtherSendingsForSameOrder=Muut sendings tässä tilauksessa
+DateSending=Päiväys lähettämistä, jotta
+DateSendingShort=Päiväys lähettämistä, jotta
+SendingsForSameOrder=Sendings tässä tilauksessa
+SendingsAndReceivingForSameOrder=Sendings ja receivings tässä tilauksessa
+SendingsToValidate=Lähetysvalinnat validoida
+StatusSendingDraft=Vedos
+StatusSendingValidated=Validoidut (tuotteet alukselle tai jo lähettänyt)
+StatusSendingDraftShort=Vedos
+StatusSendingValidatedShort=Validoidut
+SendingSheet=Lähetysvalinnat arkin
+Carriers=Varustamot
+Carrier=Carrier
+CarriersArea=Liikenteenharjoittajia alueella
+NewCarrier=Uusi operaattori
+ConfirmDeleteSending=Oletko varma, että haluat poistaa tämän lähettämistä?
+ConfirmValidateSending=Oletko varma, että haluat valdate tämän lähettämistä?
+ConfirmCancelSending=Oletko varma, että haluat peruuttaa tämän lähettämistä?
+GenericTransport=Generic liikenne
+Enlevement=Saanut asiakkaan
+DocumentModelSimple=Yksinkertaisen mallin
+WarningNoQtyLeftToSend=Varoitus, ei tuotteet odottavat lähettämistä.
+// Date 2009-01-19 22:07:11
+// STOP - Lines generated via parser
+
+
+// START - Lines generated via autotranslator.php tool (2009-08-13 20:45:19).
+// Reference language: en_US
+StatsOnShipmentsOnlyValidated=Tilastot tehdään siirtoja ainoastaan validoitava
+SendingMethodCATCH=Saalis asiakas
+SendingMethodTRANS=Transporter
+SendingMethodCOLSUI=Colissimo
+DocumentModelSirocco=Yksinkertaisen mallin toimitusten kuitit
+DocumentModelTyphon=Täydellisempi mallin toimitusten kuitit (logo. ..)
+// STOP - Lines generated via autotranslator.php tool (2009-08-13 20:45:19).
+
+
+// START - Lines generated via autotranslator.php tool (2010-07-17 11:26:22).
+// Reference language: en_US
+Shipments=Toimitukset
+StatusSendingCanceled=Peruttu
+StatusSendingCanceledShort=Peruttu
+DocumentModelMerou=Merou A5 malli
+DateDeliveryPlanned=Höylätty toimituspäivämäärä
+DateReceived=Päivämäärä toimitus sai
+// STOP - Lines generated via autotranslator.php tool (2010-07-17 11:26:41).
+
+
+// START - Lines generated via autotranslator.php tool (2012-02-29 16:10:23).
+// Reference language: en_US -> fi_FI
+SendShippingByEMail=Lähetä lähetys sähköpostitse
+SendShippingRef=Lähetä lähetys %s
+ActionsOnShipping=Tapahtumat lähetystä
+LinkToTrackYourPackage=Linkki seurata pakettisi
+ShipmentCreationIsDoneFromOrder=Tällä hetkellä uuden lähetys tehdään tilauksesta kortin.
+Error_EXPEDITION_ADDON_NUMBER_NotDefined=Jatkuva EXPEDITION_ADDON_NUMBER ei määritelty
+// STOP - Lines generated via autotranslator.php tool (2012-02-29 16:13:07).

@@ -1,0 +1,88 @@
+--------------------------------------------------------------
+English POS ChangeLog
+--------------------------------------------------------------
+***** ChangeLog for 3.3.4 compared to 3.3.3 *****
+Fix: Bug in tactil mode
+Fix: Bug in 'more' button on frontend
+Fix: Bug in module configuration
+
+***** ChangeLog for 3.3.3 compared to 3.3.2 *****
+Fix: Bug with multycompany compatibility
+Fix: Bug in frontend products tab
+Fix: Translation correction
+New: Optional Help Tab
+
+***** ChangeLog for 3.3.2 compared to 3.3.1 *****
+Fix: Bug with multycompany compatibility
+
+***** ChangeLog for 3.3.1 compared to 3.3 *****
+Fix: Warning on frontend login
+New: Catalan translation
+Fix: Bug on Credit Note
+
+***** ChangeLog for 3.3 compared to 3.2.8 *****
+New: Graphic design improvements
+New: Integration with 2Rewards
+New: Compatibility with Multientity module
+New: More reports on backend
+New: Customers discount on frontend
+New: POS works with multiprice
+New: Tickets can be classified to Cancelled
+New: Gift ticket
+New: Fullscreen button on frontend
+New: Possibility to print and send by email tickets on frontend
+New: Close cash rights
+New: Ticket and ticket line's notes
+New: Draft ticket can be deleted
+New: Places
+New: Product's price can be changed on frontend
+New: Can see stock of all warehouses on frontend
+New: Possibility to sell or not products without stock
+
+***** ChangeLog for 3.2.8 compared to 3.2.7 *****
+Fix: Bug in terminal statics
+
+***** ChangeLog for 3.2.7 compared to 3.2.6 *****
+Fix: Bug in facsim numeration
+
+***** ChangeLog for 3.2.6 compared to 3.2.5 *****
+Fix: Bug on products with negative price
+Fix: Bug on POS reports
+New: Adapt to new european directive about simplified invoices
+
+***** ChangeLog for 3.2.5 compared to 3.2.4 *****
+Fix: Bug printing close cash
+Fix: Customer creations's bug from frontend
+Fix: Security improvements
+Fix: Save ticket bug
+Fix: Return to backend when pos not's in custom
+Fix: Select employees on frontend
+Fix: Logout terminal bug
+Fix: Pagination closecash bug
+Fix: Include bug
+
+***** ChangeLog for 3.2.4 compared to 3.2.3 *****
+New: Help link
+New: Readme
+Fix: Discount bug
+Fix: Frontend's security
+
+***** ChangeLog for 3.2.3 compared to 3.2.2 *****
+Fix: Not possible to sell under min price.
+Fix: Ticket payment must be a modal window.
+
+***** ChangeLog for 3.2.2 compared to 3.2.1 *****
+Fix: Works if no use custom directory
+Fix: Sales journal works with Dolibarr 3.3
+Fix: Graph compatibility
+
+***** ChangeLog for 3.2.1 compared to 3.2 *****
+Fix: Bad link
+
+***** ChangeLog for 3.2 compared to 3.1.1 *****
+New: Compatibility with Dolibarr 3.2
+
+***** ChangeLog for 3.1.1 compared to 3.1*****
+Fix: Show subcategories in Frontend
+Fix: Add scrollbars in customers tab in Frontend
+Fix: Draft ticket no payable or printable

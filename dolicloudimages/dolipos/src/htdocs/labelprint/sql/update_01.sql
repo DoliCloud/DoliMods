@@ -1,0 +1,1 @@
+ALTER TABLE llx_labelprint ADD price_level INT NULL DEFAULT NULL; 

@@ -1,0 +1,123 @@
+/*
+ * Language code: ru_RU
+ * Automatic generated via autotranslator.php tool
+ * Generation date 2009-01-19 21:30:52
+ */
+
+
+// Date 2009-01-19 21:30:52
+// START - Lines generated via autotranslator.php tool.
+// Reference language: en_US
+CHARSET=UTF-8
+Project=Проект
+Projects=Проекты
+SharedProject=Общий проект
+Myprojects=Мои проекты
+ProjectsArea=Проекты области
+NewProject=Новый проект
+AddProject=Добавить проект
+DeleteAProject=Удаление проекта
+DeleteATask=Удалить задание
+ConfirmDeleteAProject=Вы уверены, что хотите удалить этот проект?
+ConfirmDeleteATask=Вы уверены, что хотите удалить эту задачу?
+OfficerProject=Сотрудник по проектам
+LastProjects=Последнее %s проекты
+AllProjects=Все проекты
+ProjectsList=Список проектов
+ShowProject=Показать проекта
+SetProject=Комплекс проектов
+NoProject=Нет проекта определена
+NbOpenTasks=Nb открытых задач
+NbOfProjects=Nb проектов
+TimeSpent=Время, затраченное
+RefTask=Ref. задача
+LabelTask=Этикетка задачи
+NewTimeSpent=Новое время
+MyTimeSpent=Мое время
+MyTasks=Мои задачи
+Tasks=Задание
+Task=Задача
+NewTask=Новые задачи
+AddTask=Добавить задачу
+AddDuration=Добавить продолжительность
+Activity=Мероприятие
+Activities=Задачи / мероприятия
+MyActivity=Наша деятельность
+MyActivities=Мои задачи / мероприятия
+DurationEffective=Эффективная длительность
+MyProjects=Мои проекты
+Time=Время
+ListProposalsAssociatedProject=Списки коммерческих предложений, связанных с проектом
+ListOrdersAssociatedProject=Списки заказы, связанные с проектом
+ListInvoicesAssociatedProject=Списки счетов, связанных с проектом
+ListSupplierOrdersAssociatedProject=Список поставщиков заказов, связанных с проектом
+ListSupplierInvoicesAssociatedProject=Список поставщиков счетов-фактур, связанных с проектом
+ListContractAssociatedProject=Перечень договоров, связанных с проектом
+ActivityOnProjectThisWeek=Деятельность по проекту на этой неделе
+ActivityOnProjectThisMonth=Деятельность по проектам в этом месяце
+ActivityOnProjectThisYear=Деятельность по проектам в этом году
+ChildOfTask=Детский проекта / задачи
+NotOwnerOfProject=Не владелец этого частного проекта
+AffectedTo=Затронутые в
+// Date 2009-01-19 21:30:52
+// STOP - Lines generated via parser
+
+
+// START - Lines generated via autotranslator.php tool (2009-08-13 21:14:36).
+// Reference language: en_US
+ListPredefinedInvoicesAssociatedProject=Список клиентов заранее счетов, связанных с проектом
+CantRemoveProject=Этот проект не может быть удалена, как он ссылается на другие объекты (счета-фактуры, приказы или другие). См. реферрала вкладке.
+// STOP - Lines generated via autotranslator.php tool (2009-08-13 21:14:36).
+
+
+
+// START - Lines generated via autotranslator.php tool (2010-09-04 01:33:40).
+// Reference language: en_US -> ru_RU
+PrivateProject=Контакты проекта
+MyProjectsDesc=Эта точка зрения ограничена проекты, которые Вы контакте (что бы это тип).
+ProjectsPublicDesc=Эта точка зрения представлены все проекты, которые Вы позволили читать.
+ProjectsDesc=Эта точка зрения представляет все проекты (разрешений пользователей предоставить вам разрешение для просмотра всего).
+MyTasksDesc=Эта точка зрения ограничена на проекты или задачи, которые являются для контакта (что бы это тип).
+TasksPublicDesc=Эта точка зрения представляет всех проектов и задач, которые могут читать.
+TasksDesc=Эта точка зрения представляет всех проектов и задач (разрешений пользователей предоставить вам разрешение для просмотра всего).
+Progress=Прогресс
+ListFichinterAssociatedProject=Список мероприятий, связанных с проектом
+ListTripAssociatedProject=Список поездки и расходы, связанные с проектом
+ListActionsAssociatedProject=Список мероприятий, связанных с проектом
+ValidateProject=Проверка Projet
+ConfirmValidateProject=Вы уверены, что хотите проверить этот проект?
+CloseAProject=Закрыть проект
+ConfirmCloseAProject=Вы уверены, что хотите, чтобы закрыть этот проект?
+ReOpenAProject=Открытый проект
+ConfirmReOpenAProject=Вы уверены, что хотите, чтобы вновь открыть этот проект?
+ProjectContact=Проект контакты
+ActionsOnProject=Действия по проекту
+YouAreNotContactOfProject=Вы не контакт этого частного проекта
+DeleteATimeSpent=Удалить времени
+ConfirmDeleteATimeSpent=Вы уверены, что хотите удалить этот раз провели?
+DoNotShowMyTasksOnly=См. также задачи, я не влияет на
+ShowMyTasksOnly=Открыть только задачи я затронутые
+TaskRessourceLinks=Библиография
+ProjectsDedicatedToThisThirdParty=Проектов, посвященных этой третьей стороне
+NoTasks=Нет задач, для этого проекта
+LinkedToAnotherCompany=Связь с другими третий участник
+TypeContact_project_internal_PROJECTLEADER=Руководитель проекта
+TypeContact_project_external_PROJECTLEADER=Руководитель проекта
+TypeContact_project_internal_CONTRIBUTOR=Участник
+TypeContact_project_external_CONTRIBUTOR=Участник
+TypeContact_project_task_internal_TASKEXECUTIVE=Целевая исполнительной
+TypeContact_project_task_external_TASKEXECUTIVE=Целевая исполнительной
+TypeContact_project_task_internal_CONTRIBUTOR=Участник
+TypeContact_project_task_external_CONTRIBUTOR=Участник
+DocumentModelBaleine=доклад полной проекта модели (logo. ..)
+// STOP - Lines generated via autotranslator.php tool (2010-09-04 01:37:12).
+
+
+// START - Lines generated via autotranslator.php tool (2011-08-27 16:56:14).
+// Reference language: en_US -> ru_RU
+TimesSpent=Время, проведенное
+TaskIsNotAffectedToYou=Задача не выделено для вас
+ErrorTimeSpentIsEmpty=Время, проведенное пуста
+ThisWillAlsoRemoveTasks=Это действие приведет к удалению всех задач проекта <b>(%s</b> задач на данный момент), и все входы затраченного времени.
+IfNeedToUseOhterObjectKeepEmpty=Если некоторые объекты (счет-фактура, заказ, ...), принадлежащей другому третьему лицу, должна быть увязана с проектом по созданию, держать этот пустой иметь проект, несколько третьих лиц.
+// STOP - Lines generated via autotranslator.php tool (2011-08-27 17:00:46).

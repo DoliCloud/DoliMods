@@ -1,0 +1,376 @@
+/*
+ * Language code: ru_RU
+ * Automatic generated via autotranslator.php tool
+ * Generation date 2009-01-19 21:30:52
+ */
+
+
+// Date 2009-01-19 21:30:52
+// START - Lines generated via autotranslator.php tool.
+// Reference language: en_US
+CHARSET=UTF-8
+SecurityCode=Защитный код
+Calendar=Календарь
+AddTrip=Добавить поездку
+Tools=Инструменты
+Birthday=День рождения
+BirthdayDate=День рождения
+DateToBirth=Дата рождения
+Notify_FICHINTER_VALIDATE=Проверка вмешательства
+Notify_BILL_VALIDATE=Проверка векселя
+NbOfAttachedFiles=Количество прикрепленных файлов / документов
+TotalSizeOfAttachedFiles=Общий размер присоединенных файлов / документы
+MaxSize=Максимальный размер
+AttachANewFile=Присоединить новый файл / документ
+LinkedObject=Связанные объект
+Miscellanous=Разное
+NbOfActiveNotifications=Количество уведомлений
+ChooseYourDemoProfil=Выберите демо-профиль, которые соответствуют Вашей деятельности ...
+DemoFundation=Управление членов Фонда
+DemoFundation2=Управление членами и банковские счета Фонда
+DemoCompanyShopWithCashDesk=Работа магазина в кассу
+DemoCompanyProductAndStocks=Управление небольшой или средней компании продавать продукцию
+DemoCompanyAll=Управление небольшой или средней компании с несколькими деятельности (все основные модули)
+GoToDemo=Откройте демо -
+CreatedBy=Создан %s
+ModifiedBy=Модифицированное% по S
+ValidatedBy=Подтверждено %s
+CanceledBy=Отменена %s
+ClosedBy=Закрытые% по S
+FileWasRemoved=Файл был удален
+DirWasRemoved=Каталог был удален
+FeatureNotYetAvailableShort=Имеющиеся в следующей версии
+FeatureNotYetAvailable=Функция пока не доступны в этой версии
+FeatureExperimental=Экспериментальная функция. Не стабильна в этой версии
+FeatureDevelopment=Развитие функции. Не стабильна в этой версии
+FeaturesSupported=Особенности поддержали
+Width=Ширина
+Height=Высота
+Weight=Вес
+Depth=Глубина
+TotalWeight=Общий вес
+WeightUnitton=т
+WeightUnitkg=кг
+WeightUnitg=G
+WeightUnitmg=мг
+Volume=Объем
+TotalVolume=Общий объем
+VolumeUnitm3=м3
+VolumeUnitdm3=дм3
+VolumeUnitcm3=см3
+VolumeUnitmm3=mm3
+Size=размер
+SizeUnitm=м
+SizeUnitdm=дм
+SizeUnitcm=см
+SizeUnitmm=мм
+BugTracker=Ошибка Tracker
+BackToLoginPage=Перейти на страницу входа
+AuthenticationDoesNotAllowSendNewPassword=Аутентификация <b>режим %s.</b> <br> В этом режиме Dolibarr можете не знать, ни изменить свой пароль. <br> Обратитесь к системному администратору, если вы хотите изменить свой пароль.
+EnableGDLibraryDesc=Установка или позволить GD библиотеку с PHP для использования этой опции.
+EnablePhpAVModuleDesc=Вам нужно установить модуль совместим с вашей антивирусной. (ClamAV: PHP4-clamavlib или php5-clamavlib)
+ProfIdShortDesc=<b>Проф Id %s</b> является информация в зависимости от сторонних страны. <br> Например, для страны <b>с%,</b> то <b>с кодом%.</b>
+DolibarrDemo=Dolibarr ERP / CRM демо
+StatsByNumberOfUnits=Статистика количества единиц
+StatsByNumberOfEntities=Статистика в ряде организаций
+NumberOfProposals=Количество предложений на последние 12 месяцев
+NumberOfCustomerOrders=Количество заказов на последние 12 месяцев
+NumberOfCustomerInvoices=Количество клиентских счетов в последние 12 месяцев
+NumberOfSupplierInvoices=Количество поставщиком счета-фактуры на последние 12 месяцев
+NumberOfUnitsCustomerOrders=Количество единиц по заказам на последние 12 месяцев
+NumberOfUnitsCustomerInvoices=Количество единиц на счетах клиента в последние 12 месяцев
+NumberOfUnitsSupplierInvoices=Количество единиц по поставщиком счета-фактуры на последние 12 месяцев
+EMailTextOrderApproved=Приказ% с утвержденными
+EMailTextOrderApprovedBy=Приказ %s одобрен %s
+EMailTextOrderRefused=Приказ %s отказала
+EMailTextOrderRefusedBy=Приказ %s отказано %s
+LoginWebcal=Логин для Webcalendar
+ErrorWebcalLoginNotDefined=Webcalendar вход, связанные с вашей Dolibarr вход <b>S%,</b> не определена.
+ErrorPhenixLoginNotDefined=Phenix входа, связанные с вашей Dolibarr вход <b>S%,</b> не определена.
+AddCalendarEntry=Добавить запись в календаре %s
+NewCompanyToDolibarr=Компания S% добавлен в Dolibarr
+ContractValidatedInDolibarr=Контракт %s проверены в Dolibarr
+ContractCanceledInDolibarr=Контракт %s отменена в Dolibarr
+ContractClosedInDolibarr=Контракт% с закрытым в Dolibarr
+PropalClosedSignedInDolibarr=Предложение% ы подписали в Dolibarr
+PropalClosedRefusedInDolibarr=Предложение %s отказала в Dolibarr
+PropalValidatedInDolibarr=Предложение %s проверены в Dolibarr
+InvoiceValidatedInDolibarr=Счет %s проверены в Dolibarr
+InvoicePaidInDolibarr=Счет %s изменено на выигрыш в Dolibarr
+InvoiceCanceledInDolibarr=Счет %s отменена в Dolibarr
+PaymentDoneInDolibarr=Оплата %s сделали в Dolibarr
+CustomerPaymentDoneInDolibarr=Заказчиком оплаты %s сделали в Dolibarr
+SupplierPaymentDoneInDolibarr=Поставщик оплаты %s сделали в Dolibarr
+MemberValidatedInDolibarr=Член %s проверены в Dolibarr
+MemberResiliatedInDolibarr=Член %s resiliated в Dolibarr
+MemberDeletedInDolibarr=Член %s исключить из Dolibarr
+MemberSubscriptionAddedInDolibarr=Подписка на члена %s добавили в Dolibarr
+ExportsArea=Экспорт области
+AvailableFormats=Доступные форматы
+LibraryUsed=Librairy использовали
+LibraryVersion=Версии
+ExportableDatas=Экспортировать данные
+NoExportableData=Нет экспортировать данные (не модули для экспорта данных, загруженных или недостающие разрешения)
+ToExport=Экспорт
+NewExport=Новый экспорт
+// Date 2009-01-19 21:30:52
+// STOP - Lines generated via parser
+
+
+// START - Lines generated via autotranslator.php tool (2009-08-13 21:14:36).
+// Reference language: en_US
+BirthdayAlertOn=рождения активного оповещения
+BirthdayAlertOff=рождения оповещения неактивные
+Notify_ORDER_SUPPLIER_APPROVE=Поставщик утвердил порядок
+Notify_ORDER_SUPPLIER_REFUSE=Поставщик порядке отказалась
+DemoDesc=Dolibarr является компактным ERP / CRM составе нескольких функциональных модулей. В демо, что включает в себя все модули, не означает ничего, как этого никогда не происходит. Так, несколько демо-профилей доступны.
+DemoCompanyServiceOnly=Управление внештатным деятельности службы только в продаже
+SendNewPasswordDesc=Эта форма позволяет запросить новый пароль. Он будет отправить на ваш адрес электронной почты. <br> Изменения вступят в силу только после нажатия на ссылку в подтверждение этого сообщения. <br> Проверьте ваш электронный читатель программного обеспечения.
+EMailTextInterventionValidated=Вмешательство %s проверены
+EMailTextInvoiceValidated=Счет %s проверены
+ImportedWithSet=Импорт данных
+DolibarrNotification=Автоматические уведомления
+// STOP - Lines generated via autotranslator.php tool (2009-08-13 21:14:36).
+
+
+// START - Lines generated via autotranslator.php tool (2010-07-17 12:23:40).
+// Reference language: en_US
+BirthdayAlertOn=bursdag varsling aktive
+BirthdayAlertOff=bursdag varsling inaktive
+Notify_ORDER_SUPPLIER_APPROVE=Leverandør bestill godkjent
+Notify_ORDER_SUPPLIER_REFUSE=Leverandør bestill nektet
+Notify_ORDER_VALIDATE=Kundeordre validert
+Notify_PROPAL_VALIDATE=Kunden forslaget validert
+PredefinedMailTest=Dette er en test post. \ NDe to linjer er atskilt med en vognretur.
+PredefinedMailTestHtml=Dette er en <b>test</b> mail (ordet testen må være i fet skrift). <br> De to linjene er skilt med en vognretur.
+FeatureNotYetAvailableShort=Tilgjengelig i en neste versjon
+CalculatedWeight=Beregnet vekt
+CalculatedVolume=Beregnet volum
+Length=Lengde
+LengthUnitm=m
+LengthUnitdm=dm
+LengthUnitcm=cm
+LengthUnitmm=mm
+Surface=Område
+SurfaceUnitm2=m2
+SurfaceUnitdm2=DM2
+SurfaceUnitcm2=cm2
+SurfaceUnitmm2=mm2
+StatsByNumberOfUnits=Statistikk i antall produkter / tjenester enheter
+StatsByNumberOfEntities=Statistikk i antall henvisende enheter
+NumberOfProposals=Antall forslag på 12 siste måned
+NumberOfCustomerOrders=Antall kundeordre på siste 12 mnd
+NumberOfCustomerInvoices=Antall kundefakturaer på siste 12 mnd
+NumberOfSupplierInvoices=Antall leverandørfakturaer på siste 12 mnd
+NumberOfUnitsProposals=Antall enheter på forslag på siste 12 mnd
+NumberOfUnitsCustomerOrders=Antall enheter på kundeordrer på siste 12 mnd
+NumberOfUnitsCustomerInvoices=Antall enheter på kundenes fakturaer på siste 12 mnd
+NumberOfUnitsSupplierInvoices=Antall enheter på leverandørfakturaer på siste 12 mnd
+EMailTextInterventionValidated=Intervensjonen %s har blitt validert.
+EMailTextInvoiceValidated=Fakturaen %s har blitt validert.
+EMailTextProposalValidated=Forslaget %s har blitt validert.
+EMailTextOrderValidated=Ordren %s har blitt validert.
+EMailTextOrderApproved=Ordren %s er godkjent.
+EMailTextOrderApprovedBy=Ordren %s er godkjent av %s.
+EMailTextOrderRefused=Ordren %s har blitt nektet.
+EMailTextOrderRefusedBy=Ordren %s har blitt nektet av %s.
+ImportedWithSet=Innførsel datasett
+DolibarrNotification=Automatisk varsling
+ResizeDesc=Skriv inn ny <b>bredde</b> eller ny høyde. Forhold vil bli holdt under resizing ...
+NewLength=Ny bredde
+NewHeight=Ny høyde
+NewSizeAfterCropping=Ny størrelse etter beskjæring
+DefineNewAreaToPick=Definer nytt område på bildet for å plukke (venstre klikk på bildet og dra til du kommer til motsatt hjørne)
+CurrentInformationOnImage=Informasjon om gjeldende bilde
+YouReceiveMailBecauseOfNotification=Du mottar denne meldingen fordi din e-post har blitt lagt til listen over mål for å bli informert om spesielle hendelser i %s programvare av %s.
+YouReceiveMailBecauseOfNotification2=Denne hendelsen er følgende:
+ExternalSites=Eksterne nettsteder
+Notify_ORDER_VALIDATE=Bestelling van de klant gevalideerd
+Notify_PROPAL_VALIDATE=Klant voorstel gevalideerd
+PredefinedMailTest=Dit is een test e-mail. \ NDe twee lijnen worden gescheiden door een harde return.
+PredefinedMailTestHtml=Dit is een <b>test</b> e-mail (het woord test moet worden in het vet). <br> De twee lijnen worden gescheiden door een harde return.
+CalculatedWeight=Berekend gewicht
+CalculatedVolume=Berekende volume
+Length=Lengte
+LengthUnitm=m
+LengthUnitdm=dm
+LengthUnitcm=cm
+LengthUnitmm=mm
+Surface=Gebied
+SurfaceUnitm2=m2
+SurfaceUnitdm2=dm2
+SurfaceUnitcm2=cm2
+SurfaceUnitmm2=mm2
+EMailTextProposalValidated=Het voorstel is gevalideerd %s.
+EMailTextOrderValidated=De volgorde %s is gevalideerd.
+ResizeDesc=Voer een nieuwe breedte <b>of</b> hoogte van nieuwe. Ratio zullen worden gehouden gedurende resizen ...
+NewLength=Nieuwe breedte
+NewHeight=Nieuwe hoogte
+NewSizeAfterCropping=Nieuwe grootte na bijsnijden
+DefineNewAreaToPick=Definieer nieuwe ruimte op de afbeelding om uit te kiezen (klik links op de afbeelding en sleep totdat u bij de tegenoverliggende hoek)
+CurrentInformationOnImage=Informatie over de huidige afbeelding
+YouReceiveMailBecauseOfNotification=U ontvangt dit bericht omdat uw e-mail is toegevoegd aan de lijst van doelstellingen te worden geïnformeerd over bepaalde gebeurtenissen in de software van %s %s.
+YouReceiveMailBecauseOfNotification2=Dit evenement is de volgende:
+ExternalSites=Externe sites
+CalculatedWeight=Berekend gewicht
+CalculatedVolume=Berekende volume
+YouReceiveMailBecauseOfNotification=U ontvangt dit bericht omdat uw e-mail is toegevoegd aan de lijst van doelstellingen te worden geïnformeerd over bepaalde gebeurtenissen in de software van %s %s.
+YouReceiveMailBecauseOfNotification2=Dit evenement is de volgende:
+Notify_ORDER_VALIDATE=Aby Klient zatwierdzone
+Notify_PROPAL_VALIDATE=wniosek Klienta zatwierdzone
+PredefinedMailTest=To jest test mail. Czeka na zatwierdzenie nowego dwie linie oddzielone są znakiem powrotu karetki.
+PredefinedMailTestHtml=To jest mail <b>do badań</b> (test słowa muszą być pogrubione). <br> Dwie linie oddzielone są znakiem powrotu karetki.
+CalculatedWeight=Oblicza masy
+CalculatedVolume=Objętości
+Length=Długość
+LengthUnitm=m
+LengthUnitdm=dm
+LengthUnitcm=cm
+LengthUnitmm=mm
+Surface=Obszar
+SurfaceUnitm2=m2
+SurfaceUnitdm2=dm2
+SurfaceUnitcm2=cm2
+SurfaceUnitmm2=mm2
+NumberOfUnitsProposals=Liczba jednostek na propozycje dotyczące ostatnich 12 miesięcy
+EMailTextProposalValidated=%s wniosek został zatwierdzony.
+EMailTextOrderValidated=Aby %s został zatwierdzony.
+ResizeDesc=Wpisz nową szerokość <b>lub</b> nowy wysokości. Stosunek będą przechowywane w zmianie rozmiaru ...
+NewLength=Nowa szerokość
+NewHeight=Nowa wysokość
+NewSizeAfterCropping=Nowy rozmiar po przycięciu
+DefineNewAreaToPick=Określenia nowego obszaru na zdjęcie, aby wybrać (z lewej kliknąć na zdjęcie, a następnie przeciągnąć aż do przeciwnego rogu)
+CurrentInformationOnImage=Informacje na temat bieżącego obrazu
+YouReceiveMailBecauseOfNotification=Pojawieniu się tego komunikatu, ponieważ e-mail został dodany do listy celów do informacji o wydarzeniach w szczególności z %s %s oprogramowania.
+YouReceiveMailBecauseOfNotification2=To wydarzenie jest następujące:
+ExternalSites=tereny zewnętrzne
+Notify_ORDER_VALIDATE=ordem do cliente validado
+Notify_PROPAL_VALIDATE=proposta do cliente validado
+PredefinedMailTest=Este é um mail de teste. \ NO duas linhas são separadas por um retorno de carro.
+PredefinedMailTestHtml=Este é um mail <b>de teste</b> (o teste da Palavra deve ser em negrito). <br> As duas linhas são separadas por um retorno de carro.
+CalculatedWeight=peso calculado
+CalculatedVolume=volume calculado
+Length=Comprimento
+LengthUnitm=m
+LengthUnitdm=dm
+LengthUnitcm=centímetros
+LengthUnitmm=milímetro
+Surface=Área
+SurfaceUnitm2=m2
+SurfaceUnitdm2=dm2
+SurfaceUnitcm2=cm2
+SurfaceUnitmm2=mm2
+EMailTextProposalValidated=A proposta %s foi validado.
+EMailTextOrderValidated=A ordem %s foi validado.
+ResizeDesc=Digite nova largura <b>ou</b> altura de novo. Razão será mantido durante o redimensionamento ...
+NewLength=largura Novo
+NewHeight=Nova altura
+NewSizeAfterCropping=Novo tamanho após a colheita
+DefineNewAreaToPick=Definir nova área na imagem para escolher (clique na imagem à esquerda, em seguida, arrastar até chegar ao canto oposto)
+CurrentInformationOnImage=Informações sobre a imagem atual
+YouReceiveMailBecauseOfNotification=Você receberá esta mensagem porque seu e-mail foi adicionado à lista de alvos a ser informado dos acontecimentos em particular do software %s %s.
+YouReceiveMailBecauseOfNotification2=Este evento é o seguinte:
+ExternalSites=Sites externos
+Notify_ORDER_VALIDATE=Клиент для проверки
+Notify_PROPAL_VALIDATE=Клиент предложение проверки
+PredefinedMailTest=Это тест почты. \ NЭтот две строки, разделенные символом возврата каретки.
+PredefinedMailTestHtml=Это <b>тест</b> почты (слово "испытание должно быть жирным шрифтом). <br> 2 линии разделяются символом возврата каретки.
+CalculatedWeight=Расчетный вес
+CalculatedVolume=Расчетный объем
+Length=Длина
+LengthUnitm=метр
+LengthUnitdm=дм
+LengthUnitcm=см
+LengthUnitmm=мм
+Surface=Площадь
+SurfaceUnitm2=м2
+SurfaceUnitdm2=DM2
+SurfaceUnitcm2=см2
+SurfaceUnitmm2=мм2
+NumberOfUnitsProposals=Количество единиц по предложениям за последние 12 месяцев
+EMailTextProposalValidated=Предложение %s была утверждена.
+EMailTextOrderValidated=Для %s была утверждена.
+ResizeDesc=Введите новые значения ширины <b>или</b> новые высоты. Отношение будут храниться в течение размера ...
+NewLength=Новая ширина
+NewHeight=Новая высота
+NewSizeAfterCropping=Новый размер после обрезания
+DefineNewAreaToPick=Определить новые области на изображение, чтобы получить (левой кнопкой мыши на изображении, а затем перетащить пока не дойдете до противоположного угла)
+CurrentInformationOnImage=Информация о текущем изображении
+YouReceiveMailBecauseOfNotification=Это сообщение появляется, потому что ваше сообщение было добавлено в список целей, которые должны быть проинформированы о конкретных мероприятий в %s программного обеспечения %s.
+YouReceiveMailBecauseOfNotification2=Это событие имеет следующий вид:
+ExternalSites=На внешних сайтах
+// STOP - Lines generated via autotranslator.php tool (2010-07-17 12:40:17).
+
+
+// START - Lines generated via autotranslator.php tool (2010-09-04 01:33:40).
+// Reference language: en_US -> ru_RU
+PredefinedMailContentSendSupplierOrder=Вы найдете здесь наш заказ __ORDERREF__ \n\n__PERSONALIZED__Sincerely \n\n__SIGNATURE__
+WeightUnitpound=фунт
+VolumeUnitounce=унция
+VolumeUnitlitre=литр
+VolumeUnitgallon=галлон
+SizeUnitinch=дюйм
+SizeUnitfoot=фут
+ImageEditor=Редактор изображений
+// STOP - Lines generated via autotranslator.php tool (2010-09-04 01:57:12).
+
+
+// START - Lines generated via autotranslator.php tool (2011-08-27 16:56:14).
+// Reference language: en_US -> ru_RU
+ToolsDesc=Эта область посвящена группе разные инструменты не доступны в другие пункты меню. <br><br> Эти инструменты могут быть достигнуты из меню на стороне.
+Notify_WITHDRAW_TRANSMIT=Передача вывода
+Notify_WITHDRAW_CREDIT=Кредитный выход
+Notify_WITHDRAW_EMIT=Isue вывода
+PredefinedMailContentSendSupplierInvoice=Только здесь вы найдете счета __FACREF__ \n\n__PERSONALIZED__Sincerely \n\n
+PredefinedMailContentSendShipping=Здесь вы найдете доставку __SHIPPINGREF__ \n\n__PERSONALIZED__Sincerely \n\n
+PredefinedMailContentSendFichInter=Вы найдете здесь вмешательство __FICHINTERREF__ \n\n__PERSONALIZED__Sincerely \n\n
+Top=Топ
+Bottom=Дно
+Left=Левый
+Right=Право
+ThisIsListOfModules=Это список модулей, предварительно на эту демонстрацию, профиль (только наиболее распространенных модулей видны в этой демо). Редактировать этот иметь более персонализированное демо и нажмите на кнопку &quot;Пуск&quot;.
+ClickHere=Нажмите здесь
+UseAdvancedPerms=Используйте дополнительные разрешения некоторых модулей
+FileFormat=Формат файлов
+SelectAColor=Выберите цвет
+AddFiles=Добавить файлы
+StartUpload=Начать загрузку
+CancelUpload=Отмена загрузки
+FileIsTooBig=Файлы слишком велик
+Export=Экспорт
+// STOP - Lines generated via autotranslator.php tool (2011-08-27 17:00:19).
+
+
+// START - Lines generated via autotranslator.php tool (2011-10-10 02:45:33).
+// Reference language: en_US -> ru_RU
+Notify_BILL_CANCEL=Клиенту счет-фактура отменен
+Notify_BILL_SENTBYMAIL=Клиенту счет-фактура высылается по почте
+Notify_ORDER_SUPPLIER_VALIDATE=Поставщик целью проверки
+Notify_ORDER_SUPPLIER_SENTBYMAIL=Поставщик поручение, отправленные по почте
+Notify_BILL_SUPPLIER_VALIDATE=Поставщик проверки счета
+Notify_BILL_SUPPLIER_PAYED=Поставщик оплачен счет-фактура
+Notify_BILL_SUPPLIER_SENTBYMAIL=Поставщиком счета по почте
+Notify_CONTRACT_VALIDATE=Договор проверку
+Notify_FICHEINTER_VALIDATE=Вмешательство проверку
+Notify_SHIPPING_VALIDATE=Доставка проверку
+// STOP - Lines generated via autotranslator.php tool (2011-10-10 04:36:32).
+
+
+// START - Lines generated via autotranslator.php tool (2012-02-29 17:28:02).
+// Reference language: en_US -> ru_RU
+Notify_ORDER_SENTBYMAIL=Покупатель делает заказ по почте
+Notify_COMPANY_CREATE=Третья партия, созданная
+Notify_PROPAL_SENTBYMAIL=Коммерческое предложение по почте
+Notify_ORDER_SENTBYMAIL=Envío pedido ПОР электронной почте
+Notify_BILL_PAYED=Клиенту счет оплачен
+Notify_SHIPPING_SENTBYMAIL=Доставка по почте
+Notify_MEMBER_VALIDATE=Член проверки
+Notify_MEMBER_SUBSCRIPTION=Член подписки
+Notify_MEMBER_RESILIATE=Член resiliated
+Notify_MEMBER_DELETE=Член удален
+PredefinedMailContentSendInvoice=Здесь вы найдете счет __FACREF__ \n\n__PERSONALIZED__ уважением \n\n__SIGNATURE__
+PredefinedMailContentSendInvoiceReminder=Мы бы хотели предупредить Вас, что счет-фактура __FACREF__, кажется, не оплачиваются. Так что это счета-фактуры в приложении опять же, как напоминание. \n\n__PERSONALIZED__ уважением \n\n__SIGNATURE__
+PredefinedMailContentSendProposal=Здесь вы найдете коммерческие propoal __PROPREF__ \n\n__PERSONALIZED__ уважением \n\n__SIGNATURE__
+PredefinedMailContentSendOrder=Вы найдете здесь порядок __ORDERREF__ \n\n__PERSONALIZED__ уважением \n\n__SIGNATURE__
+ShipmentValidatedInDolibarr=Отгрузка %s подтверждены в Dolibarr
+// STOP - Lines generated via autotranslator.php tool (2012-02-29 17:28:06).

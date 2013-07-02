@@ -1,0 +1,112 @@
+/*
+ * Language code: fi_FI
+ * Automatic generated via autotranslator.php tool
+ * Generation date 2009-01-19 22:07:11
+ */
+
+
+// Date 2009-01-19 22:07:11
+// START - Lines generated via autotranslator.php tool.
+// Reference language: en_US
+CHARSET=UTF-8
+Commercial=Kaupalliset
+CommercialArea=Kaupallinen ala
+CommercialCard=Kaupalliset kortti
+CustomerArea=Asiakkaat alueella
+Customer=Asiakas
+Customers=Asiakkaat
+Prospect=Esitetilaus
+Prospects=Näkymät
+DeleteAction=Poista toiminto / tehtävä
+NewAction=Uusi toimi / tehtävä
+AddAction=Lisää toiminta / tehtävä
+AddAnAction=Lisää toiminta / tehtävä
+ConfirmDeleteAction=Oletko varma, että haluat poistaa tämän tehtävän?
+CardAction=Toimi-kortti
+PercentDone=Prosenttiosuus tehnyt
+ActionOnCompany=Task noin yritys
+ActionOnContact=Task noin yhteyttä
+TaskRDV=Kokoukset
+TaskRDVWith=Tapaaminen %s
+ShowTask=Näytä tehtävä
+ShowAction=Näytä toiminta
+ActionsReport=Toimet raportti
+SalesRepresentative=Myyntiedustaja
+SalesRepresentatives=Myyntiedustajat
+SalesRepresentativeFollowUp=Myyntiedustajaasi (follow-up)
+SalesRepresentativeSignature=Myyntiedustajaasi (allekirjoitus)
+CommercialInterlocutor=Kaupalliset keskustelukumppani
+ErrorWrongCode=Väärä koodi
+NoSalesRepresentativeAffected=Mitään erityistä myyntiedustajaasi vaikuttaa
+ShowCustomer=Näytä asiakas
+ShowProspect=Näytä näköpiirissä
+ListOfProspects=Luettelo näkymät
+ListOfCustomers=Luettelo asiakkaille
+LastDoneTasks=Viimeisin %s tehnyt tehtävänsä
+LastRecordedTasks=Viimeisin kirjataan tehtävät
+LastActionsToDo=Viimeisin %s vanhin toimia ei ole saatu
+DoneAndToDoActionsFor=Tehty ja tehdä tehtäviä %s
+DoneAndToDoActions=Tehty ja tehdä tehtäviä
+DoneActions=Tehty toimia
+DoneActionsFor=Tehty toimia %s
+SendPropalRef=Lähetä kaupallinen ehdotus %s
+SendOrderRef=Lähetä jotta %s
+NoRecordedProspects=Ole näköpiirissä kirjataan
+StatusActionToDo=Voit tehdä
+StatusActionDone=Tehty
+MyActionsAsked=Toimet olen kirjataan
+MyActionsToDo=Toimet Olen tehdä
+MyActionsDone=Toimet vaikuttaa minusta
+StatusActionInProcess=In process
+TasksHistoryForThisContact=Toimet tähän yhteyttä
+LastProspectDoNotContact=Älä yhteyttä
+LastProspectNeverContacted=Älä koskaan yhteyttä
+LastProspectToContact=Voit ottaa yhteyttä
+LastProspectContactInProcess=Yhteystiedot prosessi
+LastProspectContactDone=Yhteystiedot tehnyt
+DateActionPlanned=Päiväys toimia varten
+DateActionDone=Päiväys toiminta tapahtuu
+ActionAskedBy=Toimi pyytänyt
+ActionAffectedTo=Toiminta vaikuttaa
+ActionDoneBy=Toiminta tapahtuu
+ActionUserAsk=Tallennettu
+ErrorStatusCantBeZeroIfStarted=Jos kenttä <b>"Päiväys tehtävä</b> on täytetty, toiminta on alkanut (tai valmis), joten alalla" <b>Tila</b> "ei voi olla 0%%.
+ActionAC_TEL=Puhelinsoitto
+ActionAC_FAX=Lähetä faksi
+ActionAC_PROP=Lähetä ehdotus
+ActionAC_EMAIL=Lähetä sähköpostiviesti
+ActionAC_RDV=Kokoukset
+ActionAC_FAC=Lähetä laskutustietosi
+ActionAC_REL=Lähetä laskutustilanteesi (muistutus)
+ActionAC_CLO=Sulje
+ActionAC_EMAILING=Lähetä massa sähköpostia
+ActionAC_COM=Lähetä tilata postitse
+// Date 2009-01-19 22:07:11
+// STOP - Lines generated via parser
+
+
+// START - Lines generated via autotranslator.php tool (2009-08-19 20:44:21).
+// Reference language: en_US
+AddActionRendezVous=Lisää Rendezvous tehtävä
+Rendez-Vous=Rendezvous
+// STOP - Lines generated via autotranslator.php tool (2009-08-19 20:44:21).
+
+
+// START - Lines generated via autotranslator.php tool (2010-07-17 11:26:22).
+// Reference language: en_US
+ToDoActions=Puutteellinen toimet
+ToDoActionsFor=Puutteellinen toimia %s
+ActionAC_SUP_ORD=Lähetä toimittaja tilaa postitse
+ActionAC_SUP_INV=Lähetä toimittaja lasku postitse
+// STOP - Lines generated via autotranslator.php tool (2010-07-17 11:28:03).
+
+
+// START - Lines generated via autotranslator.php tool (2012-02-29 16:10:23).
+// Reference language: en_US -> fi_FI
+StatusNotApplicable=Ei sovelleta
+ActionAC_SHIP=Lähetä toimitus postitse
+ActionAC_OTH=Muut
+StatusProsp=Prospect tila
+DraftPropals=Suunnitelmiin liiketoimintaehdotukset
+SearchPropal=Etsi kaupallinen ehdotuksen
+// STOP - Lines generated via autotranslator.php tool (2012-02-29 16:10:49).

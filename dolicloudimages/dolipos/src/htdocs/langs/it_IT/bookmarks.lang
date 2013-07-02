@@ -1,0 +1,18 @@
+# Dolibarr language file - it_IT - bookmarks 
+# Copyright (C) 2012 Lorenzo Novaro <novalore@19.coop>
+// Reference language: en_US -> it_IT
+CHARSET				=UTF-8
+AddThisPageToBookmarks		=Aggiungi segnalibro per questa pagina
+
+Bookmark					     =Segnalibro
+BookmarksManagement				     =Gestione segnalibri
+Bookmarks					     =Segnalibri
+BookmarkTargetNewWindowShort			     =Nuova finestra 
+BookmarkTargetReplaceWindowShort		     =Finestra corrente 
+BookmarkTitle					     =Titolo segnalibro
+ChooseIfANewWindowMustBeOpenedOnClickOnBookmark	     =Scegli se caricare la pagina del collegamento in questa finestra o in una nuova 
+CreateBookmark					     =Crea segnalibro
+ListOfBookmarks					     =Elenco segnalibri
+NewBookmark					     =Nuovo segnalibro
+ShowBookmark					     =Visualizza segnalibro
+UrlOrLink					     =URL o link

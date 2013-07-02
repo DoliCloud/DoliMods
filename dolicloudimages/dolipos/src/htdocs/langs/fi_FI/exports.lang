@@ -1,0 +1,140 @@
+/*
+ * Language code: fi_FI
+ * Automatic generated via autotranslator.php tool
+ * Generation date 2009-01-19 22:07:11
+ */
+
+
+// Date 2009-01-19 22:07:11
+// START - Lines generated via autotranslator.php tool.
+// Reference language: en_US
+CHARSET=UTF-8
+ExportsArea=Vienti alueen
+ImportArea=Tuo alue
+NewExport=Uusia vientimahdollisuuksia
+NewImport=Uusi tuonti
+ExportableDatas=Exportable tietokokonaisuus
+ImportableDatas=Tuoda maahan tietokokonaisuus
+SelectExportDataSet=Valitse tiedot, jonka haluat viedä ...
+SelectExportFields=Valitse kentät, jonka haluat viedä tai valita ennalta vienti profil
+SaveExportModel=Tallenna tämä vienti profiili, jos aiot käyttää uudelleen myöhemmin ...
+ExportModelName=Vienti profiilin nimi
+ExportModelSaved=Vienti profiili tallennetaan <b>nimi %s.</b>
+ExportableFields=Exportable kentät
+ExportedFields=Viedyt kentät
+DatasetToExport=Tietokokonaisuus viedä
+Dataset=Tietokokonaisuus
+ChooseFieldsOrdersAndTitle=Valitse kentät, jotta ...
+FieldsOrder=Aloilla, jotta
+FieldsTitle=Fields otsikko
+ChooseExportFormat=Valitse vientimuoto
+NowClickToGenerateToBuildExportFile=Nyt klikkaa "Luo" rakentaa vienti tiedostoa ...
+AvailableFormats=Muodot disponibles
+LibraryUsed=Librairie
+LibraryVersion=Version
+Step=Vaihe
+FormatedImport=Tuo avustaja
+FormatedImportDesc1=Tämä alue voidaan tuoda henkikökohtaiset tietoja käyttäen avustaja auttaa sinua prosessi ilman teknistä osaamista.
+FormatedImportDesc2=Ensimmäinen askel on valita kuningas tietoja haluat kuormitus, sitten tiedosto latautuu, sitten valita kentät, jotka haluat ladata.
+FormatedExport=Vienti avustaja
+FormatedExportDesc1=Tämä alue voidaan viedä henkikökohtaiset tietoja käyttäen avustaja auttaa sinua prosessi ilman teknistä osaamista.
+FormatedExportDesc2=Ensimmäinen askel on valita ennalta tiedot, sitten valita kentät, jotka haluat teidän tulos kuvaa, ja missä järjestyksessä.
+FormatedExportDesc3=Kun tiedot vienti on valittu, voit määritellä lähtö-tiedostomuodossa, jonka haluat viedä tietosi.
+Sheet=Arkki
+NoImportableData=Ei tuoda maahan tiedot (ei-moduulin määritelmiä mahdollistaa tietojen tuonti)
+FileSuccessfullyBuilt=Vie tiedosto luotu
+// Date 2009-01-19 22:07:11
+// STOP - Lines generated via parser
+
+
+// START - Lines generated via autotranslator.php tool (2009-08-13 20:45:19).
+// Reference language: en_US
+SelectImportDataSet=Valitse tiedot haluat tuoda ...
+SelectImportFields=Valitse kentät haluat tuoda, tai valitse ennalta tuonti profil
+SaveImportModel=Tallenna tämä tuonti profiili, jos aiot käyttää uudelleen myöhemmin ...
+ImportModelName=Tuo profiilin nimi
+ImportModelSaved=Tuo profiili tallennetaan <b>nimi %s.</b>
+ImportableFields=Tuoda maahan kentät
+ImportedFields=Maahantuodut kentät
+DatasetToImport=Tietokokonaisuus tuoda
+LibraryShort=Kirjasto
+SQLUsedForExport=SQL Pyydä tarkoitus rakentaa viedä tiedosto
+LineId=Id-linjan
+LineDescription=Kuvaus linja
+LineUnitPrice=Yksikköhinta radan
+LineVATRate=Alv-linjan
+LineQty=Määrä rivin
+LineTotalHT=Määrä verottomia rivin
+LineTotalTTC=Määrä vero rivin
+LineTotalVAT=Arvonlisäveron määrästä linja
+TypeOfLineServiceOrProduct=Type of line (0= tuotteen, 1= palvelu)
+FileWithDataToImport=Tiedoston tiedot tuoda
+FileToImport=Lähdetiedostoa tuoda
+FileMustHaveOneOfFollowingFormat=Tiedoston tuonti on oltava yksi seuraavassa muodossa
+ChooseFileToImport=Valitse tiedosto tuoda sitten picto %s ...
+FieldsInSourceFile=Toimialoja lähdetiedostoa
+FieldsInTargetDatabase=Kohdekieli kentät Dolibarr tietokanta
+// STOP - Lines generated via autotranslator.php tool (2009-08-13 20:45:19).
+
+
+// START - Lines generated via autotranslator.php tool (2010-07-17 11:26:22).
+// Reference language: en_US
+NotImportedFields=Aihealue lähdetiedoston ei tuoda
+NoDiscardedFields=Ei aloilla lähdetiedosto on hävitettävä
+FieldOrder=Kenttä järjestys
+FieldTitle=Kentän nimi
+DownloadEmptyExample=Lataa esimerkiksi tyhjiä lähdetiedoston
+ChooseFormatOfFileToImport=Valitse tiedostomuoto käyttää kuin tuoda tiedostomuodossa napsauttamalla picto %s valitse se ...
+SourceFileFormat=Lähde tiedostomuoto
+Field=Kenttä
+NoFields=Ei kentät
+MoveField=Siirrä kenttä sarakkeeseen numero %s
+ExampleOfImportFile=Example_of_import_file
+SaveImportProfile=Tallenna tämä tuonti profiili
+ErrorImportDuplicateProfil=Tallennus epäonnistui tämän tuoda profiilin tällä nimellä. Nykyinen profiili on jo olemassa tällä nimellä.
+ImportSummary=Tuo setup yhteenveto
+TablesTarget=Kohdennettu taulukot
+FieldsTarget=Kohdennettu kentät
+TableTarget=Kohdennettu taulukko
+FieldTarget=Alalta
+FieldSource=Lähde kenttä
+DoNotImportFirstLine=Älä tuo ensimmäinen rivi lähdetiedoston
+NbOfSourceLines=Määrä riviä lähdetiedoston
+NowClickToTestTheImport=Tarkista tuonti parametrit olet määrittänyt. Jos ne ovat oikein, klikkaa painiketta <b>"%s"</b> käynnistää simulaation tuominen (eikä tietoja muuttaa tietokannan, se on vain simulaatio tällä hetkellä) ...
+RunSimulateImportFile=Käynnistä tuonti simulointi
+FieldNeedSource=Tämä tuntuu tietokannassa vaatia tietoja lähdetiedoston
+SomeMandatoryFieldHaveNoSource=Jotkut pakolliset kentät eivät lähde tiedosto
+InformationOnSourceFile=Tietoa lähdetiedosto
+InformationOnTargetTables=Tietoa kohde-kentät
+SelectAtLeastOneField=Vaihda ainakin yksi lähde kenttä-sarakkeen kenttiin viedä
+SelectFormat=Valitse tämä tuonti tiedostomuoto
+RunImportFile=Käynnistä tuo tiedosto
+NowClickToRunTheImport=Tarkista tulos tuonti simulointi. Jos kaikki on ok, aloittaa lopullista maahantuontia.
+DataLoadedWithId=Kaikki tiedot ladataan seuraavat tuonti id: <b>%s</b>
+ErrorMissingMandatoryValue=Pakollinen tieto on tyhjä lähdetiedostossa Kentän <b>%s.</b>
+TooMuchErrors=Vielä on <b>%s</b> muulta radoilla virheitä, mutta tuotanto on ollut vähäistä.
+TooMuchWarnings=Vielä on <b>%s</b> muulta linjat varoituksia, mutta tuotanto on ollut vähäistä.
+EmptyLine=Tyhjä rivi (on hävitettävä)
+CorrectErrorBeforeRunningImport=Sinun on ensin korjata kaikki virheet ennen jatkuva lopullista maahantuontia.
+YouCanUseImportIdToFindRecord=Löydät kaikki tuodut tietokannan tietueisiin suodattamalla pellolla <b>import_key = "%s".</b>
+NbOfLinesOK=Rivien määrä ilman virheitä ja varoituksia ei: <b>%s.</b>
+NbOfLinesImported=Rivien määrä Tuodut: <b>%s.</b>
+DataComeFromNoWhere=Arvo lisätä peräisin missään lähdetiedostoon.
+DataComeFromFileFieldNb=Arvoa lisää tulee kentän numero <b>%s</b> vuonna lähdetiedostossa.
+DataComeFromIdFoundFromRef=Arvo, joka tulee kentän numero <b>%s</b> lähteitä tiedosto voidaan löytää id vanhempi vastustaa käyttää (siis esine <b>%s</b> joka on viite. Lähteestä tiedosto on olemassa osaksi Dolibarr).
+DataIsInsertedInto=Tiedot ovat peräisin lähteestä tiedosto lisätään seuraavilla aloilla:
+DataIDSourceIsInsertedInto=Id emoyhtiön esine löytyi käyttää tietoja lähdetiedoston on lisättävä seuraavilla aloilla:
+SourceRequired=Tiedon arvo on pakollinen
+SourceExample=Esimerkki mahdollisesta tietojen arvo
+CSVFormatDesc=<b>Pilkuin erotellut</b> tiedostomuodossa (. Csv). <br> Tämä on tekstitiedosto muodossa, jossa kentät on erotettu separaattori [%s]. Jos erotin on sisäpuolella kentän sisältöä, kenttä on pyöristetty pyöreä merkki [%s]. Escape paeta pyöreä merkki on [%s].
+// STOP - Lines generated via autotranslator.php tool (2010-07-17 11:28:17).
+
+
+// START - Lines generated via autotranslator.php tool (2012-02-29 16:10:23).
+// Reference language: en_US -> fi_FI
+FileWasImported=Tiedoston tuotiin numerolla <b>%s.</b>
+DataComeFromIdFoundFromCodeId=Tämä koodi tulee kentän numero <b>%s</b> ja lähdetiedoston käytetään löytää id vanhemman esineen käyttö (siis koodi lähdetiedosto on olemassa osaksi dictionnary <b>%s).</b> Huomaa, että jos tiedät tunnus, voit käyttää sen lähdetiedoston sijasta koodia. Tuo pitäisi toimia molemmissa tapauksissa.
+DataCodeIDSourceIsInsertedInto=Id vanhemman linjan löydy koodia, lisätään osaksi seuraavilla aloilla:
+ExampleAnyRefFoundIntoElement=Jos ref löytynyt elementin <b>%s</b>
+ExampleAnyCodeOrIdFoundIntoDictionnary=Kaikki koodia (tai id) löytyi tulee dictionnary <b>%s</b>
+// STOP - Lines generated via autotranslator.php tool (2012-02-29 16:11:12).

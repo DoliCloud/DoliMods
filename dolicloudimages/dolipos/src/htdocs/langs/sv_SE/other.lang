@@ -1,0 +1,217 @@
+/*
+ * Language code: sv_SV
+ * Automatic generated via autotranslator.php tool
+ * Generation date 2010-08-28 13:09:36
+ */
+
+
+// START - Lines generated via autotranslator.php tool (2010-08-28 13:09:36).
+// Reference language: en_US
+CHARSET=UTF-8
+SecurityCode=Säkerhetskod
+Calendar=Kalender
+AddTrip=Lägg resa
+Tools=Verktyg
+Birthday=Födelsedag
+BirthdayDate=Födelsedag
+DateToBirth=Datum för födelse
+BirthdayAlertOn=födelsedag alert aktiva
+BirthdayAlertOff=födelsedag alert inaktiv
+Notify_FICHINTER_VALIDATE=Intervention validerade
+Notify_BILL_VALIDATE=Kundfaktura validerade
+Notify_ORDER_SUPPLIER_APPROVE=Leverantör för godkänd
+Notify_ORDER_SUPPLIER_REFUSE=Leverantör för vägrat
+Notify_ORDER_VALIDATE=Kundorder validerade
+Notify_PROPAL_VALIDATE=Kunden förslag validerade
+NbOfAttachedFiles=Antal bifogade filer / dokument
+TotalSizeOfAttachedFiles=Total storlek på bifogade filer / dokument
+MaxSize=Maximal storlek
+AttachANewFile=Bifoga en ny fil / dokument
+LinkedObject=Länkat objekt
+Miscellanous=Diverse
+NbOfActiveNotifications=Antal anmälningar
+PredefinedMailTest=Detta är en test post. \ NDet två linjerna är åtskilda av en vagnretur.
+PredefinedMailTestHtml=Detta är en <b>test</b> post (ordet Provningen skall i fetstil). <br> De två linjerna är åtskilda av en vagnretur.
+DemoDesc=Dolibarr är en kompakt ERP / CRM består av flera funktionella moduler. En demo som inkluderar alla moduler inte betyder något som detta inträffar aldrig. Så, flera demo profiler finns tillgängliga.
+ChooseYourDemoProfil=Välj demo profil som matchar din aktivitet ...
+DemoFundation=Hantera medlemmar av en stiftelse
+DemoFundation2=Hantera medlemmar och bankkonto i en stiftelse
+DemoCompanyServiceOnly=Hantera en frilansande verksamhet säljer bruk
+DemoCompanyShopWithCashDesk=Hantera en butik med en kassa
+DemoCompanyProductAndStocks=Hantera ett litet eller medelstort företag som säljer produkter
+DemoCompanyAll=Hantera ett litet eller medelstort företag med flera verksamheter (alla huvudsakliga moduler)
+GoToDemo=Gå till demo
+CreatedBy=Skapad av %s
+ModifiedBy=Uppdaterad av %s
+ValidatedBy=Bekräftad av %s
+CanceledBy=Annullerats av %s
+ClosedBy=Stängt av %s
+FileWasRemoved=Arkiv %s togs bort
+DirWasRemoved=Nummer %s togs bort
+FeatureNotYetAvailableShort=Finns i en kommande version
+FeatureNotYetAvailable=Feature ännu inte tillgänglig i denna version
+FeatureExperimental=Experimentell funktion. Inte stabila i denna version
+FeatureDevelopment=Utveckling funktionen. Inte stabila i denna version
+FeaturesSupported=Funktioner som stöds
+Width=Bredd
+Height=Höjd
+Depth=Djup
+CalculatedWeight=Beräknad vikt
+CalculatedVolume=Beräknade volymen
+Weight=Vikt
+TotalWeight=Totalvikt
+WeightUnitton=ton
+WeightUnitkg=kg
+WeightUnitg=g
+WeightUnitmg=mg
+WeightUnitpound=pund
+Length=Längd
+LengthUnitm=m
+LengthUnitdm=dm
+LengthUnitcm=cm
+LengthUnitmm=mm
+Surface=Area
+SurfaceUnitm2=m2
+SurfaceUnitdm2=dm2
+SurfaceUnitcm2=cm2
+SurfaceUnitmm2=mm2
+Volume=Volym
+TotalVolume=Total volym
+VolumeUnitm3=m3
+VolumeUnitdm3=dm3
+VolumeUnitcm3=cm3
+VolumeUnitmm3=mm3
+VolumeUnitounce=uns
+VolumeUnitlitre=liter
+VolumeUnitgallon=gallon
+Size=storlek
+SizeUnitm=m
+SizeUnitdm=dm
+SizeUnitcm=cm
+SizeUnitmm=mm
+SizeUnitinch=tum
+SizeUnitfoot=fot
+BugTracker=Bug tracker
+SendNewPasswordDesc=Denna blankett kan du begära ett nytt lösenord. Det kommer att skickas till din e-postadress. <br> Förändring kommer att ha verkan först efter att klicka på bekräftelse länk inne i den här e-postmeddelandet. <br> Kontrollera dina program e läsare.
+BackToLoginPage=Tillbaka till inloggningssidan
+AuthenticationDoesNotAllowSendNewPassword=Autentiseringsläge är <b>%s.</b> <br> I detta läge kan Dolibarr vet inte heller ändra ditt lösenord. <br> Kontakta systemadministratören om du vill ändra ditt lösenord.
+EnableGDLibraryDesc=Installera eller aktivera GD biblioteket med din PHP för det här alternativet.
+EnablePhpAVModuleDesc=Du behöver installera en modul kompatibel med ditt antivirusprogram. (Clamav: php4-clamavlib ou php5-clamavlib)
+ProfIdShortDesc=<b>Prof Id %s</b> är en information är beroende av tredje part land. <br> Till exempel för landets <b>%s,</b> det är kod <b>%s.</b>
+DolibarrDemo=Dolibarr ERP / CRM-demo
+StatsByNumberOfUnits=Statistik i antal produkter / tjänster enheter
+StatsByNumberOfEntities=Statistik på antalet nationella enheter
+NumberOfProposals=Antal förslag om senaste 12 månaderna
+NumberOfCustomerOrders=Antal kundorder på senaste 12 månaderna
+NumberOfCustomerInvoices=Antal kundfakturor den senaste 12 månaderna
+NumberOfSupplierInvoices=Antal leverantörsfakturor på senaste 12 månaderna
+NumberOfUnitsProposals=Antal enheter på förslag om senaste 12 månaderna
+NumberOfUnitsCustomerOrders=Antal enheter på kundens order på senaste 12 månaderna
+NumberOfUnitsCustomerInvoices=Antal enheter på kundernas fakturor senaste 12 månaderna
+NumberOfUnitsSupplierInvoices=Antal enheter på leverantörsfakturor på senaste 12 månaderna
+EMailTextInterventionValidated=Interventionen %s har validerats.
+EMailTextInvoiceValidated=Fakturan %s har validerats.
+EMailTextProposalValidated=Förslaget %s har validerats.
+EMailTextOrderValidated=Ordern %s har validerats.
+EMailTextOrderApproved=Ordern %s har godkänts.
+EMailTextOrderApprovedBy=Ordern %s har godkänts av %s.
+EMailTextOrderRefused=Ordern %s har avslagits.
+EMailTextOrderRefusedBy=Ordern %s har avslagits %s.
+ImportedWithSet=Import dataunderlaget
+DolibarrNotification=Automatisk anmälan
+ResizeDesc=Ange nya <b>bredd</b> eller ny höjd. Förhållandet kommer att hållas under storleksändring ...
+NewLength=Ny bredd
+NewHeight=Ny höjd
+NewSizeAfterCropping=Ny storlek efter beskärning
+DefineNewAreaToPick=Definiera nya området på bilden för att plocka (till vänster klicka på bilden och dra tills du kommer till motsatt hörn)
+CurrentInformationOnImage=Detta verktyg har utformats för att hjälpa dig att ändra storlek på eller beskära en bild. Detta är informationer om aktuella redigerade bilden
+ImageEditor=Bildredigerare
+YouReceiveMailBecauseOfNotification=Du får detta meddelande eftersom din e-post har lagts till i förteckningen över de mål som skall informeras om särskilda händelser i %s programvara %s.
+YouReceiveMailBecauseOfNotification2=Denna händelse är följande:
+LoginWebcal=Logga in för WebCalendar
+ErrorWebcalLoginNotDefined=Den WebCalendar inloggning associerade till din Dolibarr inloggning <b>%s</b> definieras inte.
+ErrorPhenixLoginNotDefined=Den Phenix inloggning associerade till din Dolibarr inloggning <b>%s</b> definieras inte.
+AddCalendarEntry=Lägg till post i kalendern %s
+NewCompanyToDolibarr=Företag %s la till Dolibarr
+ContractValidatedInDolibarr=Kontrakt %s validerats i Dolibarr
+ContractCanceledInDolibarr=Kontrakt %s annulleras i Dolibarr
+ContractClosedInDolibarr=Kontrakt %s stängdes Dolibarr
+PropalClosedSignedInDolibarr=Förslag %s undertecknades i Dolibarr
+PropalClosedRefusedInDolibarr=Förslag %s avslås Dolibarr
+PropalValidatedInDolibarr=Förslag %s validerats i Dolibarr
+InvoiceValidatedInDolibarr=Faktura %s validerats i Dolibarr
+InvoicePaidInDolibarr=Faktura %s ändras till betalas i Dolibarr
+InvoiceCanceledInDolibarr=Faktura %s annulleras i Dolibarr
+PaymentDoneInDolibarr=Betalning %s gjort i Dolibarr
+CustomerPaymentDoneInDolibarr=Kundbetalning %s gjort i Dolibarr
+SupplierPaymentDoneInDolibarr=Leverantör betalning %s gjort i Dolibarr
+MemberValidatedInDolibarr=Medlem %s validerats i Dolibarr
+MemberResiliatedInDolibarr=Medlem %s resiliated i Dolibarr
+MemberDeletedInDolibarr=Medlem %s bort från Dolibarr
+MemberSubscriptionAddedInDolibarr=Teckning av medlem %s till i Dolibarr
+ExportsArea=Export område
+AvailableFormats=Tillgängliga format
+LibraryUsed=Librairy används
+LibraryVersion=Version
+ExportableDatas=Exporteras data
+NoExportableData=Inga exporteras data (ingen moduler med exporteras laddats uppgifter, eller behörigheter som saknas)
+ToExport=Export
+NewExport=Nya exportmöjligheter
+ExternalSites=Externa webbplatser
+// STOP - Lines generated via autotranslator.php tool (2010-08-28 13:13:55).
+
+
+// START - Lines generated via autotranslator.php tool (2011-10-10 02:45:33).
+// Reference language: en_US -> sv_SE
+ToolsDesc=Detta område är avsedd för gruppen diverse verktyg som inte finns i andra menyposter. <br><br> Dessa verktyg kan nås från menyn på sidan.
+Notify_WITHDRAW_TRANSMIT=Överföring tillbakadragande
+Notify_WITHDRAW_CREDIT=Credit tillbakadragande
+Notify_WITHDRAW_EMIT=Isue tillbakadragande
+Notify_ORDER_SENTBYMAIL=Kundorder skickas per post
+Notify_COMPANY_CREATE=Tredje part som skapats
+Notify_ORDER_SUPPLIER_VALIDATE=Leverantör för validerade
+Notify_ORDER_SUPPLIER_SENTBYMAIL=Leverantör beställning skickas per post
+Notify_BILL_SUPPLIER_VALIDATE=Leverantörsfaktura validerade
+Notify_BILL_SUPPLIER_PAYED=Leverantörsfaktura betalas
+Notify_BILL_SUPPLIER_SENTBYMAIL=Leverantör faktura skickas per post
+Notify_CONTRACT_VALIDATE=Kontrakt validerade
+Notify_FICHEINTER_VALIDATE=Intervention validerade
+Notify_SHIPPING_VALIDATE=Frakt validerade
+Notify_SHIPPING_SENTBYMAIL=Leverans skickas per post
+Notify_MEMBER_VALIDATE=Medlem validerade
+Top=Topp
+Bottom=Botten
+Left=Vänster
+Right=Höger
+ThisIsListOfModules=Detta är en lista över moduler förvalda genom denna demo profil (endast vanligaste modulerna är synas i denna demo). Redigera den här att ha en mer personlig demo och klicka på &quot;Start&quot;.
+ClickHere=Klicka här
+UseAdvancedPerms=Använd den avancerade behörigheter för vissa moduler
+FileFormat=Filformat
+SelectAColor=Välj en färg
+AddFiles=Lägg till filer
+// STOP - Lines generated via autotranslator.php tool (2011-10-10 05:08:05).
+
+
+// START - Lines generated via autotranslator.php tool (2012-02-29 17:32:03).
+// Reference language: en_US -> sv_SE
+Notify_PROPAL_SENTBYMAIL=Kommersiell förslag skickas per post
+Notify_BILL_PAYED=Kundfaktura betalade
+Notify_BILL_CANCEL=Kundfaktura avbryts
+Notify_BILL_SENTBYMAIL=Kundfaktura skickas per post
+Notify_MEMBER_SUBSCRIPTION=Medlem tecknat
+Notify_MEMBER_RESILIATE=Medlem resiliated
+Notify_MEMBER_DELETE=Elementet bort
+PredefinedMailContentSendInvoice=Här hittar du fakturan __FACREF__ \n\n__PERSONALIZED__ Sincerely \n\n__SIGNATURE__
+PredefinedMailContentSendInvoiceReminder=Vi vill varna dig för att fakturan __FACREF__ verkar inte betalt. Så detta är fakturan i bilagan igen, som en påminnelse. \n\n__PERSONALIZED__ Sincerely \n\n__SIGNATURE__
+PredefinedMailContentSendProposal=Här hittar du den kommersiella propoal __PROPREF__ \n\n__PERSONALIZED__ Sincerely \n\n__SIGNATURE__
+PredefinedMailContentSendOrder=Här hittar du den ordning __ORDERREF__ \n\n__PERSONALIZED__ Sincerely \n\n__SIGNATURE__
+PredefinedMailContentSendSupplierOrder=Här hittar du vårt beställningsformulär __ORDERREF__ \n\n__PERSONALIZED__ Sincerely \n\n__SIGNATURE__
+PredefinedMailContentSendSupplierInvoice=Här hittar du fakturan __FACREF__ \n\n__PERSONALIZED__ Sincerely \n\n__SIGNATURE__
+PredefinedMailContentSendShipping=Här hittar du sjöfarten __SHIPPINGREF__ \n\n__PERSONALIZED__ Sincerely \n\n__SIGNATURE__
+PredefinedMailContentSendFichInter=Här hittar du insatsen __FICHINTERREF__ \n\n__PERSONALIZED__ Sincerely \n\n__SIGNATURE__
+StartUpload=Starta upp
+CancelUpload=Avbryt upp
+FileIsTooBig=Filer är för stor
+ShipmentValidatedInDolibarr=Transport %s validerats i Dolibarr
+Export=Exportera
+// STOP - Lines generated via autotranslator.php tool (2012-02-29 17:32:07).

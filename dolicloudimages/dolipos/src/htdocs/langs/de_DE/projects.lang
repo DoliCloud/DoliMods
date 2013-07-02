@@ -1,0 +1,105 @@
+/*
+* Language code: de_DE
+* Manually translated by modula71.de
+* Generation date 2012-05-23
+* QA release date 2012-05-27
+*/
+
+CHARSET=UTF-8
+
+Project=Projekt
+Projects=Projekte
+SharedProject=Jeder
+PrivateProject=Kontakte zum Projekt
+MyProjectsDesc=Hier können Sie nur die Projekte einsehen, bei welchen Sie als Kontakt hinzugefügt sind.
+ProjectsPublicDesc=Ihnen werden alle Projekte angezeigt bei welchen Sie über Leserechte verfügen.
+ProjectsDesc=Es werden alle Projekte angezeigt (Ihre Benutzerberechtigungen berechtigt Sie alles zu sehen).
+MyTasksDesc=Diese Ansicht ist für Sie beschränkt auf Projekte oder Aufgaben bei welchen Sie als Ansprechpartner eingetragen sind.
+TasksPublicDesc=Diese Ansicht ist beschränkt auf Projekt und Aufgaben bei welchen Sie über Leserechte verfügen.
+TasksDesc=Diese Ansicht zeigt alle Projekte und Aufgaben (Ihre Benutzerberechtigungen berechtigt Sie alles zu sehen).
+Myprojects=Meine Projekte
+ProjectsArea=Projektübersicht
+NewProject=Neues Projekt
+AddProject=Projekt hinzufügen
+DeleteAProject=Löschen eines Projekts
+DeleteATask=Löschen einer Aufgabe
+ConfirmDeleteAProject=Möchten Sie dieses Projekt wirklich löschen?
+ConfirmDeleteATask=Möchten Sie diese Aufgabe wirklich löschen?
+OfficerProject=Projektverantwortlicher
+LastProjects=Die %s neuesten Projekte
+AllProjects=Alle Projekte
+ProjectsList=Liste der Projekte
+ShowProject=Zeige Projekt
+SetProject=Projekt setzen
+NoProject=Kein Projekt definiert oder keine Rechte
+NbOpenTasks=Anzahl der offenen Aufgaben
+NbOfProjects=Anzahl der Projekte
+TimeSpent=Zeitaufwand
+TimesSpent=Zeitaufwände
+RefTask=Aufgaben-Nr.
+LabelTask=Aufgabenbezeichnung
+NewTimeSpent=Neuer Zeitaufwand
+MyTimeSpent=Mein Zeitaufwand
+MyTasks=Meine Aufgaben
+Tasks=Aufgaben
+Task=Aufgabe
+NewTask=Neue Aufgabe
+AddTask=Aufgabe hinzufügen
+AddDuration=Dauer hinzufügen
+Activity=Tätigkeit
+Activities=Aufgaben/Tätigkeiten
+MyActivity=Meine Tätigkeit
+MyActivities=Meine Aufgaben/Tätigkeiten
+MyProjects=Meine Projekte
+DurationEffective=Effektivdauer
+Progress=Fortschritt
+Time=Zeitaufwand
+ListProposalsAssociatedProject=Liste der mit diesem Projekt verbundenen Angebote
+ListOrdersAssociatedProject=Liste der mit diesem Projekt verbundenen Bestellungen
+ListInvoicesAssociatedProject=Liste der mit diesem Projekt verbundenen Rechnungen
+ListPredefinedInvoicesAssociatedProject=Liste der mit diesem Projekt verknüpften Rechnungsvorlagen
+ListSupplierOrdersAssociatedProject=Liste der mit diesem Projekt verbundenen Lieferantenbestellungen
+ListSupplierInvoicesAssociatedProject=Liste der mit diesem Projekt verbundenen Lieferantenrechnungen
+ListContractAssociatedProject=Liste der mit diesem Projekt verbundenen Verträge
+ListFichinterAssociatedProject=Liste der mit diesem Projekt verknüpften Services
+ListTripAssociatedProject=Liste der mit diesem Projekt verknüpften Reisekosten
+ListActionsAssociatedProject=Liste der mit diesem Projekt verknüpften Maßnahmen
+ActivityOnProjectThisWeek=Projektaktivitäten dieser Woche
+ActivityOnProjectThisMonth=Projektaktivitäten dieses Monats
+ActivityOnProjectThisYear=Projektaktivitäten dieses Jahres
+ChildOfTask=Kindelement von Projekt/Aufgabe
+NotOwnerOfProject=Nicht Eigner des privaten Projekts
+AffectedTo=Zugewiesen an
+CantRemoveProject=Löschen des Projekts auf Grund verbundener Elemente (Rechnungen, Bestellungen oder andere) nicht möglich. Näheres finden Sie in der Verweiskarte.
+ValidateProject=Projekt freigeben
+ConfirmValidateProject=Möchten Sie dieses Projekt wirklich freigeben?
+CloseAProject=Projekt schließen
+ConfirmCloseAProject=Möchten Sie dieses Projekt wirklich schließen?
+ReOpenAProject=Projekt öffnen
+ConfirmReOpenAProject=Möchten Sie dieses Projekt wirklich wiedereröffnen?
+ProjectContact=Projektkontakt
+ActionsOnProject=Projektaktionen
+YouAreNotContactOfProject=Sie sind diesem privaten Projekt nicht als Kontakt zugeordnet.
+DeleteATimeSpent=Lösche einen Zeitaufwand
+ConfirmDeleteATimeSpent=Möchten Sie diesen Zeitaufwand wirklich löschen?
+DoNotShowMyTasksOnly=Zeige auch die Aufgaben der Anderen
+ShowMyTasksOnly=Zeige nur meine Aufgaben
+TaskRessourceLinks=Ressourcen
+ProjectsDedicatedToThisThirdParty=Mit diesem Partner verknüpfte Projekte
+NoTasks=Keine Aufgaben für dieses Projekt
+LinkedToAnotherCompany=Mit Partner verknüpft
+TaskIsNotAffectedToYou=Der Aufgabe sind sie nicht zugeordnet
+ErrorTimeSpentIsEmpty=Zeitaufwand ist leer
+ThisWillAlsoRemoveTasks=Diese Aktion löscht ebenfalls alle Aufgaben zum Projekt (<b>%s</b> akutelle Aufgaben) und alle Zeitaufwände.
+IfNeedToUseOhterObjectKeepEmpty=Wenn einige Zuordnungen (Rechnung, Bestellung, ...), einem Dritten gehören, müssen Sie erst alle mit dem Projekt verbinden, damit das Projekt auch Dritten zugänglich ist .
+##### Types de contacts #####
+TypeContact_project_internal_PROJECTLEADER=Projektleiter
+TypeContact_project_external_PROJECTLEADER=Projektleiter
+TypeContact_project_internal_CONTRIBUTOR=Mitwirkender
+TypeContact_project_external_CONTRIBUTOR=Mitwirkender
+TypeContact_project_task_internal_TASKEXECUTIVE=Verantwortlich
+TypeContact_project_task_external_TASKEXECUTIVE=Verantwortlich
+TypeContact_project_task_internal_CONTRIBUTOR=Mitwirkender
+TypeContact_project_task_external_CONTRIBUTOR=Mitwirkender
+# Documents models
+DocumentModelBaleine=Eine vollständige Projektberichtsvorlage (Logo, uwm.)

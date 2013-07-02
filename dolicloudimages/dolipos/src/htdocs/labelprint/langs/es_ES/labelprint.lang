@@ -1,0 +1,59 @@
+# Dolibarr language file - es_ES - Labelprint
+CHARSET=UTF-8
+
+Module40007Name=Impresión etiquetas
+Module40007Desc=Impresión de etiquetas de productos
+
+Labels=Etiquetas
+
+LabelPrintSetup=Configuración del módulo Etiquetas
+ShowLabelsIn=Mostrar gestión etiquetas
+
+Miscellanous=Miscelánea
+ProductsDesc=Gestionar etiquetas desde las fichas de productos
+InvoiceSuppliers=Facturas de proveedores
+InvoiceSuppliersDesc=Gestionar etiquetas desde las facturas de proveedores
+OrderSuppliers=Pedidos a proveedores
+OrderSuppliersDesc=Gestionar etiquetas desde los pedidos a proveedores
+MenuProducts=Menú Productos
+MenuProductsDesc=Gestionar etiquetas desde menú propio
+TypeLabels=Tipos de etiquetas
+70x36=Etiquetas 70x36
+7036Desc=Etiquetas autoadhesivas de 70x36cm en formato A4 (Avery 3475, Apli 2426, Herma 4360 y otras marcas compatibles)
+70x37=Etiquetas 70x37
+7037Desc=Etiquetas autoadhesivas de 70x37cm en formato A4 (Avery 3474, Apli 1212, Herma 4464 y otras marcas compatibles)
+Use=Usar
+LabSetupSaved=Configuración guardada correctamente
+ShowOptions=Información etiquetas
+max2=(Elegir un máximo de dos)
+ShowCompanyName=Mostrar nombre empresa
+ShowProdLabel=Mostrar nombre producto
+FreeText=Texto libre
+OtherShowOptions=Más información etiquetas
+max1=(Elegir solo uno)
+ShowWeight=Mostrar peso
+ShowLength=Mostrar longitud
+ShowVolume=Mostrar volumen
+ShowArea=Mostrar área
+ShowCountry=Mostrar país de origen
+
+Truncate=Vaciar lista
+AddToPrint=Añadir a la lista
+PrintLabels=Imprimir lista
+QtyToPrint=Cant. a imprimir
+TruncateList=Vaciar lista
+ListTruncated=Lista vacía
+AddedBy=Añadido por
+ConfirmTruncateList=¿Está seguro de querer vaciar la lista de impresión?
+LineDeleted=Producto eliminado correctamente de la lista
+LineUpdated=Producto actualizado correctamente en la lista
+LinesAdded=Productos añadidos a la lista
+InvoiceNotValidated=La factura no está validada
+OrderNotValidated=El pedido no está validado
+BarcodeGenerated=Código de barras generado
+GenerateBarcode=Generar código de barras
+Position=Posición
+SelectPosition=Seleccionar posición de inicio
+ConfirmPosition=Seleccione la posición de inicio de la impresión de etiquetas
+HowManyPos=¿Cuantas etiquetas se han usado ya?
+ConfirmSelectPosition=Confirme la posición de inicio de la impresión

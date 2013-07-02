@@ -1,0 +1,184 @@
+/*
+* Skeleton V1.1
+* Copyright 2011, Dave Gamache
+* www.getskeleton.com
+* Free to use under the MIT license.
+* http://www.opensource.org/licenses/mit-license.php
+* 8/17/2011
+*/
+
+
+/* Table of Content
+==================================================
+	#Reset & Basics
+	#Basic Styles
+	#Site Styles
+	#Typography
+	#Links
+	#Lists
+	#Images
+	#Buttons
+	#Tabs
+	#Forms
+	#Misc */
+
+/* #Reset & Basics (Inspired by E. Meyers)
+================================================== */
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+		margin: 0;
+		padding: 0;
+		border: 0;
+		font-size: 100%;
+		font: inherit;
+		vertical-align: baseline; }
+	article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+		display: block; }
+	body {
+		line-height: 1; }
+	ol, ul {
+		list-style: none; }
+	blockquote, q {
+		quotes: none; }
+	blockquote:before, blockquote:after,
+	q:before, q:after {
+		content: '';
+		content: none; }
+	table {
+		border-collapse: collapse;
+		border-spacing: 0; }
+		
+/* #Basic Styles
+================================================== */
+	body {
+		 background: #404040 url('../img/bck_main.png') repeat top center; color: #fff; display:block; width:100%; height:100%; 
+		 margin: 0; padding: 0; font: 0.7em verdana, arial, helvetica;
+ }		
+ .container .twelve2.columns                 { text-align:center;}
+ 
+ /* #Typography
+================================================== */
+	h1, h2, h3, h4, h5, h6 {
+		color: #fff;
+		font-family: 'Exo', sans-serif;
+		font-weight: normal; text-shadow:0px 1px 0 #3c6084 }
+	h1 a, h2 a, h3 a, h4 a, h5 a, h6 a { font-weight: inherit; }
+	h1 { font-size: 46px; line-height: 50px; margin-bottom: 14px;}
+	h2 { font-size: 32px; line-height: 40px; margin-bottom: 10px; }
+	h3 { font-size: 22px; line-height: 28px; margin-bottom: 15px; font-weight:700; text-shadow:0 1px 0 #779bbe; }
+	h4 { font-size: 21px; line-height: 30px; margin-bottom: 4px; }
+	h5 { font-size: 17px; line-height: 24px; }
+	h6 { font-size: 14px; line-height: 21px; }
+	.subheader { color: #777; }
+	
+	h3.col1 {}
+	h3.col2 {}
+	h3.col3 {}
+
+	p { margin: 0 0 15px 0; }
+	p img { margin: 0; }
+	p.lead { font-size: 21px; line-height: 27px; color: #777;  }
+	p.info { font-size:11px; line-height:14px; padding-top:8px; border-top:1px dashed #3C6084}
+	p.info img { vertical-align:middle; float:left; margin:0 10px 0 0}
+
+	em { font-style: italic; }
+	strong { font-weight: bold; color: #333; }
+	small { font-size: 80%; }
+
+/*	Blockquotes  */
+	blockquote, blockquote p { font-size: 17px; line-height: 24px; color: #777; font-style: italic; }
+	blockquote { margin: 0 0 20px; padding: 9px 20px 0 19px; border-left: 1px solid #ddd; }
+	blockquote cite { display: block; font-size: 12px; color: #555; }
+	blockquote cite:before { content: "\2014 \0020"; }
+	blockquote cite a, blockquote cite a:visited, blockquote cite a:visited { color: #555; }
+
+	hr { border-top:1px solid #174a7b; border-bottom:1px solid #6e9dcb; clear: both; margin: 10px 0 20px; height: 0; }
+	
+	/* #Links
+================================================== */
+	a, a:visited { color: #ffffff; text-decoration: underline; outline: 0; }
+	a:hover, a:focus { color: #ffffff; }
+	p a, p a:visited { line-height: inherit; }
+	
+/* #Images
+================================================== */
+
+	img.scale-with-grid {
+		max-width: 100%; -webkit-box-shadow:0 0 10px rgba(0,0,0,0.3); -moz-box-shadow:0 0 10px rgba(0,0,0,0.3); box-shadow:0 0 10px rgba(0,0,0,0.3);
+		height: auto; margin-bottom:-5px }	
+	
+	
+/* #Forms
+================================================== */
+
+
+	form {
+		margin-bottom: 20px; }
+	fieldset {
+		margin-bottom: 20px; }
+	input[type="text"],
+	input[type="password"],
+	input[type="email"],
+	textarea,
+	select {
+		border: 1px solid #ccc;
+		padding: 6px 4px;
+		outline: none;
+		-moz-border-radius: 2px;
+		-webkit-border-radius: 2px;
+		border-radius: 2px;
+		font: 15px "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+		color: #777;
+		margin: 0;
+		width: 280px;
+		max-width: 100%;
+		display: block;
+		margin-bottom: 20px;
+		background: #fff;
+		}
+	
+	select {
+		padding: 0; }
+	input[type="text"]:focus,
+	input[type="password"]:focus,
+	input[type="email"]:focus,
+	textarea:focus {
+		border: 1px solid #aaa;
+ 		color: #444;
+ 		-moz-box-shadow: 0 0 3px rgba(0,0,0,.2);
+		-webkit-box-shadow: 0 0 3px rgba(0,0,0,.2);
+		box-shadow:  0 0 3px rgba(0,0,0,.2); }
+	textarea {
+		min-height: 60px; }
+	label,
+	legend {
+		text-align: left;
+		display: block;
+		font-weight: bold;
+		font-size: 15px;
+		color: #444; 
+		 }
+	p {
+		text-align: center;
+		display: block;
+		font-weight: bold;
+		font-size: 18px;
+		color: #8A9A9F;	
+		
+		}
+	select {
+		width: 280px; }
+	input[type="checkbox"] {
+		display: inline; }
+	label span,
+	legend span {
+		font-weight: normal;
+		font-size: 15px;
+		color: #444;
+		 }
+	.six.columns div.sep { height:10px; display:block; clear:both}
+	.six.columns { margin: 30px 40px 30px 30px; padding: 0; float:left; }
+	.six2.columns div.sep { height:10px; display:block; clear:both}
+	.six2.columns { margin: 30px 40px 30px 30px; padding: 0; float:left; }
+	div.milogo {max-width: 100%; -webkit-box-shadow:0 0 10px rgba(0,0,0,0.3); -moz-box-shadow:0 0 10px rgba(0,0,0,0.3); box-shadow:0 0 10px rgba(0,0,0,0.3);
+	margin:0 auto 0; width:424px; -webkit-border-radius:10px; -moz-border-radius:10px; border-radius:10px; overflow:hidden; border:1px solid #1e5488; border-bottom:1px solid #8ab4dd; border-right:1px solid #8ab4dd;}
+	div.milogo img {-moz-opacity:.50; filter:alpha(opacity=50); opacity:.50;}

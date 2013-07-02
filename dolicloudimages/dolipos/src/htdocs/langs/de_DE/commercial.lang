@@ -1,0 +1,92 @@
+/*
+* Language code: de_DE
+* Manually translated by modula71.de
+* Generation date 2012-05-23
+* QA release date 2012-05-27
+*/
+
+CHARSET=UTF-8
+
+Commercial=Vertrieb
+CommercialArea=Vertriebsübersicht
+CommercialCard=Vertriebskarte
+CustomerArea=Kundenübersicht
+Customer=Kunde
+Customers=Kunden
+Prospect=Lead
+Prospects=Leads
+DeleteAction=Maßnahme / Aufgabe löschen
+NewAction=Neue Maßnahme / Aufgabe
+AddAction=Maßnahme / Aufgabe hinzufügen
+AddAnAction=Hinzufügen einer Maßnahme / Aufgabe
+AddActionRendezVous=Treffen anlegen
+Rendez-Vous=Treffen
+ConfirmDeleteAction=Möchten Sie diese Aufgabe wirklich löschen?
+CardAction=Maßnahmenkarte
+PercentDone=Fortschritt
+ActionOnCompany=Partner
+ActionOnContact=Kontakt
+TaskRDV=Treffen
+TaskRDVWith=Treffen mit %s
+ShowTask=Zeige Aufgabe
+ShowAction=Zeige Maßnahme
+ActionsReport=Maßnahmenbericht
+SalesRepresentative=Vertriebsmitarbeiter
+SalesRepresentatives=Vertreter
+SalesRepresentativeFollowUp=Vertriebsmitarbeiter (Follow-up)
+SalesRepresentativeSignature=Vertriebsmitarbeiter (Unterschrift)
+CommercialInterlocutor=Ansprechpartner Verkauf
+ErrorWrongCode=Falscher Code
+NoSalesRepresentativeAffected=Keine besonderen Vertriebsmitarbeiter betroffen
+ShowCustomer=Zeige Kunden
+ShowProspect=Zeige Lead
+ListOfProspects=Leads-Liste
+ListOfCustomers=Kundenliste
+LastDoneTasks=Letzte %s abgeschlossene Aufgaben
+LastRecordedTasks=Letzte Aufgaben
+LastActionsToDo=Letzte %s älteste, nicht abgeschlossene Maßnahmen
+DoneAndToDoActionsFor=Abgeschlossene und zu erledigende Maßnahmen für %s
+DoneAndToDoActions=Abgeschlossene und zu erledigende Maßnahmen
+DoneActions=Abgeschlossene Maßnahmen
+DoneActionsFor=Abgeschlossene Maßnahmen für %s
+ToDoActions=Unvollständige Maßnahmen
+ToDoActionsFor=Unvollständige Maßnahmen für %s
+SendPropalRef=Unser Angebot %s
+SendOrderRef=Sende Bestellung %s
+StatusNotApplicable=Nicht anwendbar
+StatusActionToDo=Zu erledigen
+StatusActionDone=Abgeschlossen
+MyActionsAsked=Selbst angelegte Maßnahmen
+MyActionsToDo=Meine To-Do-Liste
+MyActionsDone=Meine abgeschlossenen Maßnahmen
+StatusActionInProcess=In Bearbeitung
+TasksHistoryForThisContact=Maßnahmen zu diesem Kontakt
+LastProspectDoNotContact=Nicht kontaktieren
+LastProspectNeverContacted=Noch nicht kontaktiert
+LastProspectToContact=Zu kontaktieren
+LastProspectContactInProcess=Kontaktaufnahme läuft
+LastProspectContactDone=Kontaktaufnahme erledigt
+DateActionPlanned=Geplantes Erledigungsdatum 
+DateActionDone=Echtes Erledigungsdatum
+ActionAskedBy=Maßnahme erbeten von
+ActionAffectedTo=Maßnahme zugewiesen an
+ActionDoneBy=Maßnahme erledigt von 
+ActionUserAsk=Aufgenommen durch
+ErrorStatusCantBeZeroIfStarted=Ist das Feld '<b>Echtes Erledigungsdatum</b>' ausgefüllt, so wurde die Aktion bereits gestartet (oder beendet) und der '<b>Status</b>' kann nicht 0%% sein.
+ActionAC_TEL=Anruf
+ActionAC_FAX=Fax versenden
+ActionAC_PROP=Angebot senden
+ActionAC_EMAIL=E-Mail senden
+ActionAC_RDV=Treffen
+ActionAC_FAC=Kundenrechnung senden
+ActionAC_REL=Kundenrechnung senden(Erinnerung)
+ActionAC_CLO=Schließen
+ActionAC_EMAILING=E-Mail-Kampagne starten
+ActionAC_COM=Sende Bestellung per Post
+ActionAC_SHIP=Lieferschein senden
+ActionAC_SUP_ORD=Sende Lieferantenbestellung per Post
+ActionAC_SUP_INV=Sende Lieferantenrechnung per Post
+ActionAC_OTH=Sonstiges
+StatusProsp=Lead Status
+DraftPropals=Entworfene Angebote
+SearchPropal=Ein Angebot suchen

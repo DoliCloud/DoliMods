@@ -1,0 +1,105 @@
+﻿* Manually generated
+ * Generation date 2012-07-08 14:42:26
+
+
+// START - Lines manually generated (2012-07-08 14:42:26).
+ */
+// Reference language: en_US -> TR – projects
+
+CHARSET=UTF-8
+Project=Proje
+Projects=Projeler
+SharedProject=Herkes
+PrivateProject=Proje ilgilileri
+MyProjectsDesc=Bu görünüm ilgilisi olduğunuz projelerle sınırlıdır (türü ne olursa olsun).
+ProjectsPublicDesc=Bu görünüm okuma izininiz olan tüm projeleri içerir.
+ProjectsDesc=Bu görünüm tüm projeleri içerir (size verilen kullanıcı izinleri her şeyi görmenizi sağlar).
+MyTasksDesc=Bu görünüm ilgilisi olduğunuz projelerle ya da görevlerle sınırlıdır (türü ne olursa olsun).
+TasksPublicDesc=Bu görünüm okuma izininiz olan tüm projeleri ve görevleri içerir.
+TasksDesc=Bu görünüm tüm projeleri ve görevleri içerir (size verilen kullanıcı izinleri her şeyi görmenizi sağlar).
+Myprojects=Projelerim
+ProjectsArea=Projeler alanı
+NewProject=Yeni proje
+AddProject=Proje ekle
+DeleteAProject=Bir proje sil
+DeleteATask=Bir görev sil
+ConfirmDeleteAProject=Bu projeyi silmek istediğinizden emin misiniz?
+ConfirmDeleteATask=Bu görevi silmek istediğinizden emin misiniz?
+OfficerProject=Proje sorumlusu
+LastProjects=Son %s proje
+AllProjects=Tüm projeler
+ProjectsList=Proje listesi
+ShowProject=Proje göster
+SetProject=Proje ayarla
+NoProject=Tanımlı ya da sahip olunan hiçbir proje yok
+NbOpenTasks=Açık görev sayısı
+NbOfProjects=Proje sayısı
+TimeSpent=Harcanan süre
+TimesSpent=Harcanan süre
+RefTask=Görev ref.
+LabelTask=Görev etiketi
+NewTimeSpent=Yeni harcanan süre
+MyTimeSpent=Harcadığım sürelerim
+MyTasks=Grevlerim
+Tasks=Görevler
+Task=Görev
+NewTask=Yeni görev
+AddTask=Görev ekle
+AddDuration=Süre ekle
+Activity=Etkinlik
+Activities=Görevler/etkinlikler
+MyActivity=Etkinliğim
+MyActivities=Görevlerim/etkinlikler
+MyProjects=Projelerim
+DurationEffective=Etken süre
+Progress=İlerleme
+Time=Süre
+ListProposalsAssociatedProject=Proje ile ilgili ticari tekliflerin listesi
+ListOrdersAssociatedProject=Proje ile ilgili müşteri siparişleri listesi
+ListInvoicesAssociatedProject=Proje ile ilgili müşteri faturaları listesi
+ListPredefinedInvoicesAssociatedProject=Proje ile ilgili müşteri ön tanımlı faturalarının listesi
+ListSupplierOrdersAssociatedProject=Proje ile ilgili tedarikçi siparişlerinin listesi
+ListSupplierInvoicesAssociatedProject=Proje ile ilgili tedarikçi faturalarının listesi
+ListContractAssociatedProject=Proje ile ilgili sözleşmelerin listesi
+ListFichinterAssociatedProject=Proje ile ilgili müdahalelerin listesi
+ListTripAssociatedProject=Proje ile ilgili geziler ve giderlerin listesi
+ListActionsAssociatedProject=Proje ile ilgili eylemlerin listesi
+ActivityOnProjectThisWeek=Projede bu haftaki etkinlik
+ActivityOnProjectThisMonth=Projede bu ayki etkinlik
+ActivityOnProjectThisYear=Projede bu yılki etkinlik
+ChildOfTask=Alt proje /görev
+NotOwnerOfProject=Bu özel projenin sahibi değil
+AffectedTo=Ayrılan
+CantRemoveProject=Bu proje kaldırılamıyor çünkü Bazı diğer nesneler tarafından başvurulUYOR (fatura, sipariş veya diğerleri). Başvuru sekmesine bakın.
+ValidateProject=Proje doğrula
+ConfirmValidateProject=Bu projeyi doğrulamak  istediğinizden emin misiniz?
+CloseAProject=Proje kapat
+ConfirmCloseAProject=Bu projyie kapatmak istediğinizden emin misiniz?
+ReOpenAProject=Proje aç
+ConfirmReOpenAProject=Bu projeyi yeniden açmak istediğinizden emin misiniz?
+ProjectContact=Proje ilgilileri
+ActionsOnProject=Proje etkinlikleri
+YouAreNotContactOfProject=Bu özel projenin bir ilgilisi değilsiniz
+DeleteATimeSpent=Harcana süre sil
+ConfirmDeleteATimeSpent=Bu harcanan süreyi silmek istediğinizden emin misiniz?
+DoNotShowMyTasksOnly=Bana ayrılmamış görevlere de bakın
+ShowMyTasksOnly=Sadece bana ayrılan görevleri gözter
+TaskRessourceLinks=Kaynaklar
+ProjectsDedicatedToThisThirdParty=Bu üçüncü parti atanmış projeler
+NoTasks=Bu proje için hiçbir görev yok
+LinkedToAnotherCompany=Diğer üçüncü partiye bağlantılı
+TaskIsNotAffectedToYou=Görev size ayrılmamış
+ErrorTimeSpentIsEmpty=Harcanan süre boş
+ThisWillAlsoRemoveTasks=Bu eylem aynı zamanda projenin tüm görevlerini (şu andaki <b>%s</b> görevleri) ve tüm harcanan süre girişlernii siler .
+IfNeedToUseOhterObjectKeepEmpty=Eğer bazı nesneler başka bir üçüncü partiye aitse  (fatura, sipariş, ...), oluşturulması  için bu projeye bağlanmalıdır, projenin birden çok üçüncü partiye bağlı olması için bunu boş bırakın.
+##### Kişi türleri #####
+TypeContact_project_internal_PROJECTLEADER=Proje önderi
+TypeContact_project_external_PROJECTLEADER=Proje önderi
+TypeContact_project_internal_CONTRIBUTOR=Katılımcı
+TypeContact_project_external_CONTRIBUTOR=Katılımcı
+TypeContact_project_task_internal_TASKEXECUTIVE=Görev yöneticisi
+TypeContact_project_task_external_TASKEXECUTIVE=Görev yöneticisi
+TypeContact_project_task_internal_CONTRIBUTOR=Katılımcı
+TypeContact_project_task_external_CONTRIBUTOR=Katılımcı
+# Belge modelleri
+DocumentModelBaleine=Eksiksiz bir proje rapor modeli (logo. ..)

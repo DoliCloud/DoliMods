@@ -1,0 +1,98 @@
+# Dolibarr language file - pt_PT - stocks
+CHARSET=UTF-8
+WarehouseCard=Ficha Armazem
+Warehouse=Armazem
+NewWarehouse=Novo Armazem ou Zona de Armazenagem
+MenuNewWarehouse=Novo Armazem
+WarehouseOpened=Armazem Aberto
+WarehouseClosed=Armazem Fechado
+WarehouseSource=Armazem Origem
+WarehouseTarget=Armazem Destino
+ValidateSending=Confirmar Envío
+CancelSending=Cancelar Envío
+DeleteSending=Eliminar Envío
+Stock=Stock
+Stocks=Stocks
+Movement=Movimento
+Movements=Movimentos
+ErrorWarehouseRefRequired=O nome de referencia do armazem é obrigatório
+ErrorWarehouseLabelRequired=A etiqueta do armazem é obrigatória
+CorrectStock=Corrigir Stock
+ListOfWarehouses=Lista de Armazens
+ListOfStockMovements=Lista de movimentos de stock
+StocksArea=Área stocks
+Location=Localização
+LocationSummary=Nome abreviado da localização
+NumberOfProducts=Numero total de produtos
+LastMovement=Último movimento
+LastMovements=Últimos movimentos
+Units=Unidades
+Unit=Unidade
+StockCorrection=Correcção stock
+StockMovement=Transferencia
+StockMovements=Movimentos de stock
+NumberOfUnit=Número de peças
+TotalStock=Total em stock
+StockTooLow=Stock insuficiente
+EnhancedValue=Valor
+PMPValue=Valor (PMP)
+PMPValueShort=PMP
+EnhancedValueOfWarehouses=Valor de stocks
+UserWarehouseAutoCreate=Criar existencias automáticamente na criação de um utilizador
+QtyDispatched=Quantidade desagregada
+OrderDispatch=Recepção de stocks
+RuleForStockManagementDecrease=Regra de Gestão de decrementos de stock
+RuleForStockManagementIncrease=Regra de Gestão de incrementos de stock
+DeStockOnBill=Decrementar os stocks físicos sobre as facturas/recibos
+DeStockOnValidateOrder=Decrementar os stocks físicos sobre os pedidos
+DeStockOnShipment=Decrementar os stocks físicos sobre os envíos (recomendado)
+ReStockOnBill=Incrementar os stocks físicos sobre as facturas/recibos
+ReStockOnValidateOrder=Incrementar os stocks físicos sobre os pedidos
+StockDiffPhysicTeoric=Motivo da diferença entre valores físicos e teóricos
+StockLimitShort=Límite máximo
+StockLimit=Límite máximo existencias
+PhysicalStock=Stock físico
+RealStock=Stock real
+TheoreticalStock=Stock teórico
+VirtualStock=Stock virtual
+MininumStock=Stock mínimo
+StockUp=Stock máximo
+MininumStockShort=Stock min.
+StockUpShort=Stock max.
+IdWarehouse=Id. armazem
+DescWareHouse=Descrição armazem
+LieuWareHouse=Localização armazem
+WarehousesAndProducts=Armazens e produtos
+
+
+// START - Lines generated via autotranslator.php tool (2009-08-13 21:10:10).
+// Reference language: en_US
+AverageUnitPricePMPShort=Média dos preços de entrada
+AverageUnitPricePMP=Média dos preços de entrada
+EstimatedStockValueShort=Valor estimado de stock
+EstimatedStockValue=Valor estimado de stock
+// STOP - Lines generated via autotranslator.php tool (2009-08-13 21:10:10).
+
+
+// START - Lines generated via autotranslator.php tool (2010-09-04 01:33:40).
+// Reference language: en_US -> pt_PT
+WarehouseEdit=Modificar armazém
+ReStockOnDispatchOrder=Aumentar o stock real de manual de expedição em armazéns, após receber ordem de fornecedor
+OrderStatusNotReadyToDispatch=Pedido não está pronto para despacho.
+NoPredefinedProductToDispatch=Não há produtos pré-definidos para este objeto. Portanto, não despachando em stock é exigido.
+DispatchVerb=Expedição
+DeleteAWarehouse=Excluir um armazém
+ConfirmDeleteWarehouse=Tem certeza de que deseja excluir o <b>%s</b> armazém?
+PersonalStock=Pessoal %s stock
+ThisWarehouseIsPersonalStock=Este armazém representa stock pessoal de %s %s
+// STOP - Lines generated via autotranslator.php tool (2010-09-04 01:35:56).
+
+
+// START - Lines generated via autotranslator.php tool (2012-02-29 15:45:52).
+// Reference language: en_US -> pt_PT
+SellPriceMin=Vendendo Preço unitário
+EstimatedStockValueSellShort=Valor para vender
+EstimatedStockValueSell=Valor para vender
+SelectWarehouseForStockDecrease=Escolha depósito a ser usado para diminuição de ações
+SelectWarehouseForStockIncrease=Escolha depósito a ser usado para aumentar stock
+// STOP - Lines generated via autotranslator.php tool (2012-02-29 15:46:12).

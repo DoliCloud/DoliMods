@@ -1,0 +1,22 @@
+/*
+ * Language code: ru_RU
+ * Automatic generated via autotranslator.php tool
+ * Generation date 2010-07-17 11:45:17
+ */
+
+
+
+// START - Lines generated via autotranslator.php tool (2010-09-04 01:33:40).
+// Reference language: en_US -> ru_RU
+CHARSET=UTF-8
+FTPClientSetup=Настройка модуля FTP-клиента
+NewFTPClient=Настройка нового соединения FTP
+FTPArea=FTP-область
+FTPAreaDesc=На этом экране вам показано содержимое FTP-сервера
+SetupOfFTPClientModuleNotComplete=Установка модуля FTP-клиента, по-видимому, не завершена
+FTPFeatureNotSupportedByYourPHP=Ваша версия PHP не поддерживает FTP-функций
+FailedToConnectToFTPServer=Не удалось подключиться к FTP-серверу (сервер %s, порт %s)
+FailedToConnectToFTPServerWithCredentials=Не удалось войти на FTP-сервер с указанными Логином и паролем
+FTPFailedToRemoveFile=Не удалось удалить файл <b>%s</b>.
+FTPFailedToRemoveDir=Не удалось удалить каталог <b>%s</b> (Проверьте разрешения и убедитесь, что каталог пуст).
+// STOP - Lines generated via autotranslator.php tool (2010-09-04 01:53:10).

@@ -1,0 +1,59 @@
+# Dolibarr language file - ca_ES - Labelprint
+CHARSET=UTF-8
+
+Module40007Name=Impresió etiquetes
+Module40007Desc=Impresió d'etiquetes de productes
+
+Labels=Etiquetes
+
+LabelPrintSetup=Configuració del mòdulo Etiquetes
+ShowLabelsIn=Mostrar gestió etiquetes
+
+Miscellanous=Miscel·lània
+ProductsDesc=Gestionar etiquetes des de les fitxes de productes
+InvoiceSuppliers=Factures de proveedors
+InvoiceSuppliersDesc=Gestionar etiquetes des de les factures de proveïdors
+OrderSuppliers=Comandes a proveïdors
+OrderSuppliersDesc=Gestionar etiquetes des de les comandes a proveïdors
+MenuProducts=Menú Productes
+MenuProductsDesc=Gestionar etiquetes des de menú propi
+TypeLabels=Tipus d'etiquetes
+70x36=Etiquetes 70x36
+7036Desc=Etiquetes autoadhesives de 70x36cm en format A4 (Avery 3475, Apli 2426, Herma 4360 i altres marques compatibles)
+70x37=Etiquetes 70x37
+7037Desc=Etiquetes autoadhesives de 70x37cm en format A4 (Avery 3474, Apli 1212, Herma 4464 i altres marques compatibles)
+Use=Utilitzar
+LabSetupSaved=Configuració guardada correctament
+ShowOptions=Informació etiquetes
+max2=(Escollir un màxim de dos)
+ShowCompanyName=Mostrar nom empresa
+ShowProdLabel=Mostrar nom producte
+FreeText=Text lliure
+OtherShowOptions=Més informació etiquetes
+max1=(Escollir sols un)
+ShowArea=Mostrar àrea
+ShowCountry=Mostrar pais d'origen
+ShowWeight=Mostrar pes
+ShowLength=Mostrar longitud
+ShowVolume=Mostrar volum
+
+Truncate=Buidar llista
+AddToPrint=Afegir a la llista
+PrintLabels=Imprimir llista
+QtyToPrint=Cant. a imprimir
+TruncateList=Buidar llista
+ListTruncated=Llista buida
+AddedBy=Afegit per
+ConfirmTruncateList=Està segur de voler buidar la llista d'impressió?
+LineDeleted=Producte eliminat correctament de la llista
+LineUpdated=Producte actualitzat correctamente a la llista
+LinesAdded=Productes afegits a la lista
+InvoiceNotValidated=La factura no està validada
+OrderNotValidated=La comanda no està validada
+BarcodeGenerated=Codi de barres generat
+GenerateBarcode=Generar codi de barres
+Position=Posició
+SelectPosition=Seleccionar posició d'inici
+ConfirmPosition=Seleccione la posició d'inici de la impressió d'etiquetes
+HowManyPos=Quantes etiquetes s'han fet servir ja?
+ConfirmSelectPosition=Confirme la posició d'inici de la impressió

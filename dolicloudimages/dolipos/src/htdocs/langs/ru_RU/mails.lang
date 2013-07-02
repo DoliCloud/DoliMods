@@ -1,0 +1,143 @@
+/*
+ * Language code: ru_RU
+ * Automatic generated via autotranslator.php tool
+ * Generation date 2009-01-19 21:30:52
+ */
+
+
+// Date 2009-01-19 21:30:52
+// START - Lines generated via autotranslator.php tool.
+// Reference language: en_US
+CHARSET=UTF-8
+Mailing=Отправка
+EMailing=Отправка
+Mailings=EMailings
+EMailings=EMailings
+MailCard=Отправка карточки
+MailTargets=Цели
+MailRecipients=Получатели
+MailRecipient=Получатель
+MailTitle=Название
+MailFrom=Отправитель
+MailErrorsTo=Ошибки в
+MailReply=Ответить
+MailTo=Получатель (и)
+MailCC=Копия
+MailCCC=Сохраненная копия
+MailTopic=EMail темы
+MailText=Сообщение
+MailFile=Присоединенные файлы
+MailMessage=EMail тела
+ShowEMailing=Показать адреса
+ListOfEMailings=Список emailings
+NewMailing=Новый адрес
+EditMailing=Изменить адрес
+DeleteMailing=Удалить электронной почте
+DeleteAMailing=Удалить электронной почте
+PreviewMailing=Предварительный электронной почте
+PrepareMailing=Подготовка по электронной почте
+CreateMailing=Создание электронной почте
+MailingDesc=Эта страница позволяет отправить emailings на группу людей.
+MailingResult=Отправка писем результат
+TestMailing=Тест по электронной почте
+ValidMailing=Действующий по электронной почте
+ApproveMailing=Утвердить по электронной почте
+MailingStatusDraft=Черновик
+MailingStatusValidated=Подтвержденные
+MailingStatusApproved=Утверждено
+MailingStatusSent=Отправленный
+MailingStatusSentPartialy=Отправлено частично
+MailingStatusSentCompletely=Отправлено полностью
+MailingStatusError=Ошибка
+MailingStatusNotSent=Не отправлено
+MailSuccessfulySent=Электронная почта успешно отправлено (% от S в %s)
+ErrorMailRecipientIsEmpty=Email получателя пуста
+WarningNoEMailsAdded=Нет новых сообщений, чтобы добавить в список получателей.
+ConfirmValidMailing=Вы уверены, что хотите проверить этот адрес?
+ConfirmDeleteMailing=Вы уверены, что хотите удалить этот emailling?
+NbOfRecipients=Число получателей
+NbOfUniqueEMails=Nb уникальных писем
+NbOfEMails=Nb писем
+TotalNbOfDistinctRecipients=Число различных адресатов
+NoTargetYet=Не определено еще получателей (Перейдите на вкладку 'Получатели')
+AddRecipients=Добавить получателей
+RemoveRecipient=Удалить получателем
+CommonSubstitutions=Общие подстановками
+YouCanAddYourOwnPredefindedListHere=Чтобы создать свой электронный селектор модуля, см. htdocs / входит / модули / рассылки / README.
+EMailTestSubstitutionReplacedByGenericValues=При тестовом режиме, замен переменных заменяются на общих ценностях
+MailingAddFile=Приложите этот файл
+NoAttachedFiles=Нет прикрепленных файлов
+MailingModuleDescContactCompanies=Контакты всех третьих лиц (клиентов, проспект, поставщик, ...)
+MailingModuleDescDolibarrUsers=Все Dolibarr пользователям электронной почты
+MailingModuleDescFundationMembers=Члены фонда с письма
+MailingModuleDescEmailsFromFile=Письма из текстового файла (электронная почта; имя фамилия)
+MailingModuleDescContactsCategories=Контакты всех третьих лиц (по категориям)
+LineInFile=Линия %s в файл
+RecipientSelectionModules=Определяется запросы для получателей выбор
+MailSelectedRecipients=Отобранные получатели
+MailingArea=EMailings области
+LastMailings=Последнее %s emailings
+TargetsStatistics=Цели статистика
+NbOfCompaniesContacts=Уникальный контактов компаний
+MailNoChangePossible=Получатели для подтверждена электронной почте не может быть изменен
+SearchAMailing=Поиск рассылку
+SendMailing=Отправить по электронной почте
+SendMail=Отправить письмо
+SentBy=Прислал
+MailingNeedCommand=Для ценных бумаг причине, отправка электронной почты могут быть выполнены только из командной строки. Попросите вашего администратора для запуска следующей команды для отправки по электронной почте всем адресатам:
+MailingNeedCommand2=Однако вы можете отправить их в Интернете, добавив параметр MAILING_LIMIT_SENDBYWEB с величиной максимальное количество писем вы хотите отправить на сессии.
+ConfirmSendingEmailing=Вы уверены, что хотите отправить почтовую? <br> В строке отправку emailings ограничены для обеспечения безопасности <b>причина %s</b> получателей, отправив сессии.
+TargetsReset=Очистить список
+ToClearAllRecipientsClickHere=Чтобы очистить получателей список для этого адреса, нажмите кнопку
+ToAddRecipientsChooseHere=Чтобы добавить адресатов, выберите в этих списках
+NbOfEMailingsReceived=Массовые emailings получил
+IdRecord=Код записи
+DeliveryReceipt=Доставка квитанции
+Notifications=Уведомления
+NoNotificationsWillBeSent=Нет электронной почте уведомления, планируется к этому мероприятию и компании
+ANotificationsWillBeSent=1 уведомление будет отправлено по электронной почте
+SomeNotificationsWillBeSent= %s уведомления будут отправлены по электронной почте
+AddNewNotification=Включить новое уведомление запросу
+ListOfActiveNotifications=Список всех активных уведомлений запросов
+// Date 2009-01-19 21:30:52
+// STOP - Lines generated via parser
+
+
+// START - Lines generated via autotranslator.php tool (2009-08-13 21:14:36).
+// Reference language: en_US
+AllEMailings=Все eMailings
+ResetMailing=Resend электронной почте
+ConfirmResetMailing=Предупреждение, по электронной почте <b>reinitializing %s,</b> вы позволите сделать массу отправки этого письма еще раз. Вы уверены, что это то, что вы хотите сделать?
+BadEMail=Плохо стоимости EMail
+CloneEMailing=Клон Отправка
+ConfirmCloneEMailing=Вы уверены, что хотите клон этой электронной почте?
+CloneContent=Клон сообщение
+CloneReceivers=Cloner получателей
+DateLastSend=Дата последней отправки
+MailingModuleDescDolibarrContractsLinesExpired=Третьи стороны истек контракт с линий
+YouCanUseCommaSeparatorForSeveralRecipients=Вы можете использовать сепаратор для <b>запятую</b> указать несколько получателей.
+// STOP - Lines generated via autotranslator.php tool (2009-08-13 21:14:36).
+
+
+
+// START - Lines generated via autotranslator.php tool (2010-09-04 01:33:40).
+// Reference language: en_US -> ru_RU
+DateSending=Дата отправки
+SentTo=Направлено в <b>%s</b>
+LimitSendingEmailing=В строке отправки emailings ограничены для обеспечения безопасности и тайм-аут причин <b>%s</b> получателей, отправив сессии.
+ListOfNotificationsDone=Список всех уведомлений по электронной почте отправлено
+// STOP - Lines generated via autotranslator.php tool (2010-09-04 01:34:57).
+
+
+// START - Lines generated via autotranslator.php tool (2011-08-27 16:56:14).
+// Reference language: en_US -> ru_RU
+MailingModuleDescContactsByCompanyCategory=Контакты третьих лиц (по третьей категории сторон)
+MailingModuleDescMembersCategories=Фонд членов (по категориям)
+MailingModuleDescContactsByFunction=Контакты третьих лиц (по должности / функции)
+// STOP - Lines generated via autotranslator.php tool (2011-08-27 16:59:25).
+
+
+// START - Lines generated via autotranslator.php tool (2012-02-29 17:28:02).
+// Reference language: en_US -> ru_RU
+MailingStatusRead=Читать
+// STOP - Lines generated via autotranslator.php tool (2012-02-29 17:28:13).

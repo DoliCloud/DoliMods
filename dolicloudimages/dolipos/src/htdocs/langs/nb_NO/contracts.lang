@@ -1,0 +1,104 @@
+# Dolibarr language file - no_NB - contracts
+ContractsArea=Kontraktsområde
+ListOfContracts=Oversikt over kontrakter
+LastContracts=Siste %s endrede kontrakter
+AllContracts=Alle kontrakter
+ContractCard=Kontraktskort
+ContractStatus=Kontraktstatus
+ContractStatusNotRunning=Ikke i drift
+ContractStatusRunning=I drift
+ContractStatusDraft=Kladd
+ContractStatusValidated=Godkjent
+ContractStatusClosed=Lukket
+ServiceStatusInitial=Ikke i drift
+ServiceStatusRunning=I drift
+ServiceStatusLate=I drift, utløpt
+ServiceStatusClosed=Lukket
+ServicesLegend=Tjeneste legend
+Contracts=Kontrakter
+Contract=Kontrakt
+NoContracts=Ingen kontrakter
+MenuServices=Tjenester
+MenuInactiveServices=Ikke aktive tjenester
+MenuRunningServices=Løpende tjenester
+MenuExpiredServices=Utløpte tjenester
+MenuClosedServices=Lukkede tjenester
+NewContract=Ny kontrakt
+AddContract=Legg til kontrakt
+SearchAContract=Finn kontrakt
+DeleteAContract=Slett kontrakt
+CloseAContract=Lukk kontrakt
+ConfirmDeleteAContract=Er du sikker på at du vil slette denne kontrakten med alle tilhørende thenester?
+ConfirmValidateContract=Er du sikker på at du vil godkjenne denne kontrakten?
+ConfirmCloseContract=Dette vil lukke alle tjenester (aktive eller ikke). Er du sikker på at du vil lukke kontrakten?
+ConfirmCloseService=Er du sikker på at du vil lukke denne tjenesten med datoen <b>%s</b> ?
+ValidateAContract=Goskjenn en kontrakt
+ActivateService=Aktiver tjeneste
+ConfirmActivateService=Er du sikker på at du vil aktivere denne tjensten med datoen <b>%s</b> ?
+DateContract=Kontraktsdato
+DateServiceActivate=Dato for aktivering av tjenste
+DateServiceUnactivate=Dato for deaktivering av tjeneste
+DateServiceStart=Startdato for tjenstene
+DateServiceEnd=Sluttdato for tjenesten
+ShowContract=Vis kontrakt
+ListOfServices=Oversikt over tjenester
+ListOfRunningContractsLines=Oversikt over løpende kontraktslinjer
+ListOfRunningServices=Overikt over løpende tjenster
+NotActivatedServices=Ikke aktiverte tjenester (blant godkjente kontrakter)
+BoardNotActivatedServices=Tjenester til aktivering blant godkjente kontrakter
+LastContracts=Siste % kontrakter
+LastActivatedServices=Siste %s aktiverte tjenester
+LastModifiedServices=Siste %s endrede tjenester
+EditServiceLine=Rediger tjenestelinje
+ContractStartDate=Startdato
+ContractEndDate=Sluttdato
+DateStartPlanned=Planlagt startdato
+DateStartPlannedShort=Planlagt startdato
+DateEndPlanned=Planlagt sluttdato
+DateEndPlannedShort=Planlagt sluttdato
+DateStartReal=Virkelig startdato
+DateStartRealShort=Virkelig startdato
+DateEndReal=Virkelig sluttdato
+DateEndRealShort=Virkelig sluttdato
+NbOfServices=Ant. tjenester
+CloseService=Lukk tjeneste
+ServicesNomberShort=%s tjeneste(r)
+RunningServices=Løpende tjenester
+BoardRunningServices=Utløpte løpende tjenester
+ServiceStatus=Tjenestestatus
+DraftContracts=Kontraktskladder
+CloseRefusedBecauseOneServiceActive=Kontrakten kan ikke lukkes ettersom det er minst en åpen tjenste på den
+CloseAllContracts=Lukk alle kontrakter
+MoveToAnotherContract=Flytt tjeneste til annen kontrakt
+ConfirmMoveToAnotherContract=Jeg bekrefter at jeg hat valgt ny målkontrakt og at jeg ønsker å flytte denne tjenesten inn i den nye kontrakten.
+ConfirmMoveToAnotherContractQuestion=Velg hvilken eksisterende kontrakt (eid av samme tredjepart) du vil flytte tjenesten til
+##### Types de contacts #####
+TypeContact_contrat_internal_SALESREPSIGN=Salgsrepresentant som signerer kontrakten
+TypeContact_contrat_internal_SALESREPFOLL=Salgsrepresentant som følger opp kontrakten
+TypeContact_contrat_external_BILLING=Kundens fakturakontakt
+TypeContact_contrat_external_CUSTOMER=Kundens oppfølgingskontakt
+TypeContact_contrat_external_SALESREPSIGN=Kundens signaturkontakt
+
+
+// START - Lines generated via autotranslator.php tool (2010-07-17 11:45:17).
+// Reference language: en_US
+CHARSET=UTF-8
+ServiceStatusNotLate=Running, ikke er utløpt
+ServiceStatusNotLateShort=Ikke er utløpt
+ServiceStatusLateShort=Utløpt
+ListOfInactiveServices=Liste over ikke aktive tjenester
+ListOfExpiredServices=Liste over utløpt aktive tjenester
+ListOfClosedServices=Liste over lukkede tjenester
+DeleteContractLine=Slette en kontrakt linje
+ConfirmDeleteContractLine=Er du sikker på at du vil slette denne kontrakten linje?
+PaymentRenewContractId=Forny kontrakt linje (antall %s)
+ExpiredSince=Utløpsdato
+RelatedContracts=Relaterte kontrakter
+// STOP - Lines generated via autotranslator.php tool (2010-07-17 11:48:39).
+
+
+// START - Lines generated via autotranslator.php tool (2012-02-29 17:06:43).
+// Reference language: en_US -> nb_NO
+NoExpiredServices=Ingen utgåtte aktive tjenester
+Error_CONTRACT_ADDON_NotDefined=Konstant CONTRACT_ADDON ikke definert
+// STOP - Lines generated via autotranslator.php tool (2012-02-29 17:06:58).

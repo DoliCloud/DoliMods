@@ -1,0 +1,433 @@
+/*
+ * Language code: ru_RU
+ * Automatic generated via autotranslator.php tool
+ * Generation date 2009-01-19 21:30:52
+ */
+
+
+// Date 2009-01-19 21:30:52
+// START - Lines generated via autotranslator.php tool.
+// Reference language: en_US
+CHARSET=UTF-8
+Bill=Счет-фактура
+Bills=Счета-фактуры
+BillsCustomers=Счета-фактуры Покупателям
+BillsSuppliers=Счета-фактуры Поставщиков
+BillsStatistics=Статистика счетов-фактур Покупателям
+BillsStatisticsSuppliers=Статистика счетов-фактур Поставщиков
+InvoiceStandard=Стандартный счет-фактура
+InvoiceStandardAsk=Стандартный счет-фактура
+InvoiceStandardDesc=Такой вид счета-фактуры является общим.
+InvoiceReplacement=Замена счета-фактуры
+InvoiceReplacementAsk=Замена счета-фактуры на другой
+InvoiceAvoir=Кредитовое авизо
+InvoiceAvoirAsk=Кредитовое авизо для исправления счета-фактуры
+InvoiceAvoirDesc=<b>Кредитовое авизо</b> - это 'обратный' счет-фактура, который используется для решения проблемы, когда выставлен счета-фактуры в сумме отличной от действительно оплаченной (если клиентом оплатил слишком много по ошибке, или не наоборот - не оплатил счет-фактуру полностью, поскольку он вернулся некоторые продукты, например).
+ReplaceInvoice=Заменить счет-фактуру %s
+ReplacementInvoice=Заменяющий счет-фактура
+ReplacedByInvoice=Заменен счетом-фактурой %s
+ReplacementByInvoice=Заменен счетом-фактурой
+CorrectInvoice=Правильный счет-фактура %s
+CorrectInvoice=Правильный счет-фактура %s
+CorrectionInvoice=Корректирующий счет-фактура
+NoReplacableInvoice=Нет счетов-фактур для замены
+NoInvoiceToCorrect=Нет счетов-фактур для корректировки
+InvoiceHasAvoir=Исправлен одним или несколькими счетами-фактурами
+CardBill=Карточка счета-фактуры
+PredefinedInvoices=Предопределенные Счета-фактуры
+Invoice=Счет-фактура
+Invoices=Счета-фактуры
+InvoiceLine=Строка счета-фактуры
+InvoiceCustomer=Счет-фактура Покупателю
+CustomerInvoice=Счет-фактура Покупателю
+CustomersInvoices=Счета-фактуры Покупателей
+SupplierInvoice=Счет-фактура Поставщика
+SuppliersInvoices=Счета-фактуры Поставщиков
+SupplierBill=Счет-фактура Поставщика
+SupplierBills=счета-фактуры Поставщиков
+Payment=Платеж
+PaymentBack=Возврат платежа
+Payments=Платежи
+PaymentsBack=Возвраты платежа
+DatePayment=Дата платежа
+DeletePayment=Удалить платеж
+ConfirmDeletePayment=Вы уверены, что хотите удалить этот платеж?
+ConfirmConvertToReduc=Вы хотите перевести это кредитовое авизо или полученный платеж в абсолютном скидку? <br> В таком случае сумма будет сохранена среди всех скидок и может быть использована в качестве скидки для нынешних или будущих счетов-фактур этого клиента.
+SupplierPayments=Платежи Поставщикам
+ReceivedPayments=Полученные платежи
+ReceivedCustomersPayments=Платежи, полученные от покупателей
+ReceivedCustomersPaymentsToValid=Полученные платежи покупателей для подтверждения
+PaymentsReportsForYear=Отчеты о платежах за %s
+PaymentsReports=Отчеты о платежах
+PaymentsAlreadyDone=Платежи уже сделаны
+PaymentRule=Правила оплаты
+PaymentMode=Тип платежа
+PaymentConditions=Условия платежа
+PaymentConditionsShort=Условия платежа
+PaymentAmount=Сумма платежа
+PaymentHigherThanReminderToPay=Платеж больше, чем в напоминании об оплате
+ClassifyPaid=Классифицировать как 'Оплачен'
+ClassifyPaidPartially=Классифицировать как 'Оплачен частично'
+ClassifyClosed=Классифицировать как 'Закрыт'
+CreateBill=Создать счет-фактуру
+AddBill=Добавить счет-фактуру или кредитовое авизо
+DeleteBill=Удалить счет-фактуру
+SearchACustomerInvoice=Поиск счета-фактуры Покупателю
+SearchASupplierInvoice=Поиск счета-фактуры Поставщика
+CancelBill=Отменить счет-фактуру
+SendByMail=Отправить по EMail
+SendRemindByMail=Отправить напоминание по EMail
+DoPayment=Совершить платеж
+DoPaymentBack=Возвратить платеж
+ConvertToReduc=Преобразовать в будущую скидку
+EnterPaymentReceivedFromCustomer=Ввести платеж, полученный от покупателя
+EnterPaymentDueToCustomer=Произвести платеж за счет Покупателя
+DisabledBecauseRemainderToPayIsZero=Неактивно, поскольку напоминание о платеже равно нулю
+Amount=Сумма
+PriceBase=Ценовая база
+BillStatus=Статус счета-фактуры
+BillStatusDraft=Проект (должен быть подтвержден)
+BillStatusPaid=Оплачен
+BillStatusPaidBackOrConverted=Оплачен или конвертирован в скидку
+BillStatusValidated=Подтвержден (необходимо оплатить)
+BillStatusStarted=Начат
+BillStatusNotPaid=Неоплачен
+BillStatusClosedPaidPartially=Оплачен (частично)
+BillShortStatusDraft=Проект
+BillShortStatusPaid=Оплачен
+BillShortStatusPaidBackOrConverted=Обработан
+BillShortStatusValidated=Подтвержден
+BillShortStatusStarted=Начат
+BillShortStatusNotPaid=Неоплачен
+BillShortStatusClosedPaidPartially=Оплачен (частично)
+PaymentStatusToValidShort=На подтверждении
+ErrorVATIntraNotConfigured=Номер плательщика НДС еще не установлен
+ErrorNoPaiementModeConfigured=Режим оплаты по умолчанию не установлен. Перейдите в настройку модуля Счетов-фактур  для исправления данной ситуации.
+ErrorCreateBankAccount=Создайт банковский счет, а затем перейдите к панели настройки модуля Счетов-фактур для установки способов оплаты
+ErrorBillNotFound=Счет-фактура %s не существует
+ErrorInvoiceAlreadyReplaced=Ошибка при попытке подтвеждения счета-фактуры, заменяющего счет-фактуру %s. Этот счет-фактура уже был заменен счетом-фактурой %s.
+ErrorDiscountAlreadyUsed=Ошибка, скидка уже используется
+ErrorInvoiceAvoirMustBeNegative=Ошибка, корректирующий счет-фактура должен иметь отрицательную сумму
+ErrorInvoiceOfThisTypeMustBePositive=Ошибка, такой тип счета-фактуры должен иметь положительную сумму
+ErrorCantCancelIfReplacementInvoiceNotValidated=Ошибка, невозможно отменить счет-фактуру, который был заменен на другой счет-фактуру, находящийся в статусе Проекта
+BillFrom=Продавец
+BillTo=Покупатель
+ActionsOnBill=Действия со счетом-фактурой
+NewBill=Новый счет-фактура
+Prélèvement=Постоянное поручение
+Prélèvements=Постоянные поручения
+LastBills=Последние %s счетов-фактур
+LastCustomersBills=Последние %s счетов-фактур Покупателям
+LastSuppliersBills=Последние %s счетов-фактур Поставщиков
+AllBills=Все счета-фактуры
+OtherBills=Другие счета-фактуры
+DraftBills=Проекты счетов-фактур
+CustomersDraftInvoices=Проекты счетов-фактур Покупателям
+SuppliersDraftInvoices=Проекты счетов-фактур Поставщиков
+ConfirmDeleteBill=Вы уверены, что хотите удалить этот счет-фактуру?
+ConfirmValidateBill=Вы уверены, что хотите подтвердить этот счет-фактуру с референсом <b>%s</b>?
+ConfirmClassifyPaidBill=Вы уверены, что хотите изменить статус счет-фактуры <b>%s</b>  на 'Оплачен'?
+ConfirmCancelBill=Вы уверены, что хотите отменить счет-фактуру <b>%s</b>?
+ConfirmClassifyPaidPartially=Вы  уверены, что хотите изменить статус счет-фактуры <b>%s</b>  на 'Оплачен'?
+ConfirmClassifyPaidPartiallyQuestion=Этот счет-фактура не оплачен полностью. Укажите причины закрытия счета-фактуры?
+ConfirmClassifyPaidPartiallyReasonAvoir=Остаток к оплате <b>(%s %s)</b> предоставлен в виде скидки, так как платеж был произведен досрочно. Я отрегулирую НДС при помощи кредитового авизо.
+ConfirmClassifyPaidPartiallyReasonDiscountNoVat=Остаток к оплате <b>(%s %s)</b> предоставлен в виде скидки, так как платеж был произведен досрочно. Я согласен потерять НДС по этой скидке.
+ConfirmClassifyPaidPartiallyReasonDiscountVat=Остаток к оплате <b>(%s %s)</b> предоставлен в виде скидки, так как платеж был произведен досрочно. Я восстановлю НДС по этой скидке без кредитового авизо.
+ConfirmClassifyPaidPartiallyReasonBadCustomer=Плохой Покупатель
+ConfirmClassifyPaidPartiallyReasonProductReturned=Продукция частично возвращена
+ConfirmClassifyPaidPartiallyReasonDiscountVatDesc=В некоторых странах, этот выбор может быть возможным только, если ваш счет-фактура содержит правильные сведения.
+ConfirmClassifyPaidPartiallyReasonAvoirDesc=Используйте этот выбор, если все остальные не подходят
+ConfirmClassifyPaidPartiallyReasonBadCustomerDesc=<b>Плохой Покупатель</b> - это заказчик, который отказывается оплачивать свои долги.
+ConfirmClassifyPaidPartiallyReasonProductReturnedDesc=Этот выбор используется при неполной оплате, когда некоторая продукция была возвращена
+ConfirmClassifyPaidPartiallyReasonOtherDesc=Используйте этот выбор, если все остальные не подходят, например, в следующей ситуации: <br> - оплата не завершена, поскольку некоторые товары были отправлены обратно <br> - заявленная сумма очень важна, потому что скидка была забыта <br> Во всех случаях чрезмерно заявленная сумма должна быть исправлена в системе бухгалтерского учета путем создания кредитных авизо.
+ConfirmClassifyAbandonReasonOther=Другой
+ConfirmClassifyAbandonReasonOtherDesc=Этот выбор будет использоваться во всех других случаях. Например, потому, что вы планируете создать заменяющий счет-фактуру.
+ConfirmCustomerPayment=Вы подтверждаете ввод этого платежа на <b>%s</b> %s?
+ValidateBill=Подтвердить счет-фактуру
+NumberOfBills=Кол-во счетов-фактур
+NumberOfBillsByMonthHT=Кол-во счетов-фактур в месяц (за вычетом налогов)
+AmountOfBills=Сумма счетов-фактур
+AmountOfBillsByMonth=Сумма счетов-фактур за месяц
+ShowSocialContribution=Показать социальный взнос
+ShowBill=Показать счет-фактуру
+ShowInvoice=Показать счет-фактуру
+ShowInvoiceReplace=Показать заменяющий счет-фактуру
+ShowInvoiceAvoir=Показать кредитое авизо
+ShowPayment=Показать платеж
+File=Файл
+AlreadyPaid=Уже оплачен
+Abandoned=Брошен
+RemainderToPay=Остаток к оплате
+RemainderToTake=Остаток к получению
+AmountExpected=Заявленная сумма
+ExcessReceived=Полученный излишек
+EscompteOffered=Предоставлена скидка (за досрочный платеж)
+CreateDraft=Создать проект
+SendBillRef=Отправить счет-фактуру %s
+SendReminderBillRef=Отправить счет-фактуру %s (напоминание)
+StandingOrders=Регламенты
+StandingOrder=Регламент
+NoDraftBills=Нет проектов счетов-фактур
+NoOtherDraftBills=Нет других проектов счетов-фактур
+RefBill=Референс Счета-фактуры
+ToBill=Для выставления
+RemainderToBill=Остаток к выставлению
+SendBillByMail=Отправить счет-фактуру по email
+SendReminderBillByMail=Отправить напоминание по email
+RelatedCommercialProposals=Связанные коммерческие предложения
+MenuToValid=Для проверки
+DateMaxPayment=Оплата до
+DateEcheance=Предельная дата оплаты
+DateInvoice=Дата счета-фактуры
+NoInvoice=Нет счетов-фактур
+ClassifyBill=Классифицировать счет-фактуру
+SupplierBillsToPay=Счета-фактуры Поставщиков для оплаты
+DispenseMontantLettres=The bill drafted by mechanographical are exempt from the order in letters
+DispenseMontantLettres=Письменное счетов через mecanographic процедур обойтись в том порядке, в письмах
+NonPercuRecuperable=Не подлежащий взысканию
+SetConditions=Установить условия оплаты
+SetMode=Установить режим оплаты
+Billed=Выставлен
+RepeatableInvoice=Шаблон счета-фактуры
+RepeatableInvoices=Шаблоны счетов-фактур
+Repeatable=Шаблон
+Repeatables=Шаблоны
+ChangeIntoRepeatableInvoice=Преобразовать в шаблон
+CreateRepeatableInvoice=Создать шаблон счета-фактуры
+CreateFromRepeatableInvoice=Создать по шаблонк счета-фактуры
+CustomersInvoicesAndInvoiceLines=Счета-фактуры Покупателям и строки счетов-фактур
+CustomersInvoicesAndPayments=Счета-фактуры Покупателям и платежи
+ExportDataset_invoice_1=Счета-фактуры Покупателям и строки счетов-фактур
+ExportDataset_invoice_2=Счета-фактуры Покупателям и платежи
+ProformaBill=Встречный вексель:
+Reduction=Сокращение
+ReductionShort=Сокр.
+Reductions=Сокращения
+ReductionsShort=Сокр.
+Discount=Скидка
+Discounts=Скидки
+ShowDiscount=Показать скидку
+RelativeDiscount=Относительная скидка
+GlobalDiscount=Глобальная скидка
+CreditNote=Кредитовое авизо
+CreditNotes=Кредитовое авизо
+DiscountFromCreditNote=Скидка из кредитового авизо %s
+NewGlobalDiscount=Новая фиксированная скидка
+NoteReason=Примечание / Основание
+ReasonDiscount=Основание
+DiscountOfferedBy=Предоставлена
+DiscountStillRemaining=Остаток скидки
+DiscountAlreadyCounted=Скидка уже рассчитана
+BillAddress=Адрес выставления
+HelpEscompte=Эта скидка предоставлена Покупателю за досрочный платеж.
+HelpAbandonBadCustomer=От этой суммы отказался Покупатель (считается плохим клиентом) и она считается чрезвычайной потерей.
+HelpAbandonOther=От этой суммы отказались из-за ошибки (например, неправильный клиент или счет-фактура был заменен на другой)
+InvoiceId=Код счета-фактуры
+InvoiceRef=Ref. счета-фактуры
+InvoiceDateCreation=Дата создания счета-фактуры
+InvoiceStatus=Статус Счета-фактуры
+InvoiceNote=Примечание к счету-фактуре
+InvoicePaid=Счет-фактура оплачен
+PaymentNumber=Номера платежа
+RemoveDiscount=Удалить скидку
+WatermarkOnDraftBill=Водяной знак на проекте счета (ничего, если пусто)
+CloneInvoice=Дублировать счет-фактуру
+CloneMainAttributes=Дублирование объекта с его основными атрибутами
+ConfirmCloneInvoice=Вы уверены, что хотите дублировать счет-фактуру <b>%s</b>?
+DisabledBecauseReplacedInvoice=Действия отключены поскольку счет-фактура был заменен
+PaymentConditionShortRECEP=Немедленно
+PaymentConditionRECEP=Немедленно
+PaymentConditionShort30D=30 дней
+PaymentCondition30D=30 дней
+PaymentConditionShort30DENDMONTH=30 дней в конце месяца
+PaymentCondition30DENDMONTH=30 дней в конце месяца
+PaymentConditionShort60D=60 дней
+PaymentCondition60D=60 дней
+PaymentConditionShort60DENDMONTH=60 дней в конце месяца
+PaymentCondition60DENDMONTH=60 дней в конце месяца
+PaymentTypeVIR=Взнос в Банк
+PaymentTypeShortVIR=Взнос в Банк
+PaymentTypePRE=Платежное поручение
+PaymentTypeShortPRE=Плат. поручение
+PaymentTypeLIQ=Наличные
+PaymentTypeShortLIQ=Наличные
+PaymentTypeCB=Кредитная карта
+PaymentTypeShortCB=Кред. карта
+PaymentTypeCHQ=Чек
+PaymentTypeShortCHQ=Чек
+PaymentTypeTIP=TIP
+PaymentTypeShortTIP=TIP
+PaymentTypeVAD=Он-лайн платеж
+PaymentTypeShortVAD=Он-лайн платеж
+PaymentTypeTRA=Оплата векселем
+PaymentTypeShortTRA=Вексель
+BankDetails=Банковские реквизиты
+BankCode=Код банка
+DeskCode=Код описания
+BankAccountNumber=Номер счета
+BankAccountNumberKey=Ключ
+Residence=Домицилирование
+IBANNumber=Номер IBAN
+IBAN=IBAN
+BIC=BIC/SWIFT
+BICNumber=Номер BIC/SWIFT
+ExtraInfos=Доп.инфо
+RegulatedOn=Регулируемый по
+ChequeNumber=Чек N
+ChequeOrTransferNumber=Чек/Перевод N
+ChequeMaker=Проверьте отправителя
+ChequeBank=Банк чека
+NetToBePaid=Чистыми к оплате
+PhoneNumber=Тел.
+FullPhoneNumber=Телефон
+TeleFax=Факс
+PrettyLittleSentence=Согласен с суммой причитающихся платежей по чекам выписанным на мое имя, как член ассоциации бухгалтерского учета, утвержденный Финансовой администрацией.
+IntracommunityVATNumber=Внутренний номер НДС
+PaymentByChequeOrderedTo=Платеж чеком (включая налог) выплачиваемый %s отправить
+PaymentByChequeOrderedToShort=Платеж чеком (вкл-я налог) выплатить
+SendTo=отправлено
+PaymentByTransferOnThisBankAccount=Оплата с помощью перевода на следующий банковский счет
+VATIsNotUsedForInvoice=* Неприменяемых НДС арт-293B из CGI
+LawApplicationPart1=По применению закона 80.335 от 12/05/80
+LawApplicationPart2=товары остаются в собственности
+LawApplicationPart3=продавца до полной оплаты
+LawApplicationPart4=их стоимости.
+LimitedLiabilityCompanyCapital=SARL с капиталом
+UseDiscount=Использовать скидку
+UseCreditNoteInInvoicePayment=Уменьшить сумму к оплате по этому кредиту
+MenuChequeDeposits=Оплаты чеками
+MenuCheques=Чеки
+MenuChequesReceipts=Квитанции чеков
+NewChequeDeposit=Новое поступление
+ChequesReceipts=Квитанции чеков
+ChequesArea=Область Оплаты чеками
+ChequeDeposits=Оплаты чеками
+Cheques=Чеки
+CreditNoteConvertedIntoDiscount=Это кредитовое авизо (счет-фактура) было преобразована в %s
+UsBillingContactAsIncoiveRecipientIfExist=Использовать в качестве получателя счета платежный контактный адрес клиента вместо адреса контрагента
+PDFBerniqueDescription=Шаблон Счета-фактуры Bernique
+PDFBigorneauDescription=Шаблон Счета-фактуры Bigorneau
+PDFBulotDescription=Шаблон Счета-фактуры Bulot
+PDFCrabeDescription=Шаблон Счета-фактуры Crabe. Полный шаблон (вспомогательные опции НДС, скидки, условия платежей, логотип и т.д. ..)
+PDFHuitreDescription=Шаблон Счета-фактуры Huitre
+PDFOursinDescription=Шаблон Счета-фактуры Oursin. Полный шаблон (альтернативный)
+PDFTourteauDescription=Шаблон Счета-фактуры Tourteau
+TerreNumRefModelDesc1=Возвращать Номер с форматом %syymm-nnnn для стандартных счетов-фактур и %syymm-nnnn для кредитовых авизо, где yy - это год, mm - месяц, и nnnn - последовательная нумерация без обнуления
+TerreNumRefModelError=Документ, начинающийся с $syymm, уже существует и не совместим с этой моделью последовательности. Удалите или переименуйте его, чтобы активировать этот модуль.
+// Date 2009-01-19 21:30:52
+// STOP - Lines generated via parser
+
+
+// START - Lines generated via autotranslator.php tool (2009-08-13 21:14:36).
+// Reference language: en_US
+InvoiceDeposit=Счета-фактура на взнос
+InvoiceDepositAsk=Счета-фактура на взнос
+InvoiceDepositDesc=Этот вид счета-фактуры оформляется при получении взноса.
+InvoiceProForma=Формальный счет-фактура
+InvoiceProFormaAsk=Формальный счет-фактура
+InvoiceProFormaDesc=<b>Формальный счет-фактура</b> является образом подлинного счета-фактуры, но не имеет бухгалтерской учетной стоимости.
+UsedByInvoice=Использован для оплаты счета-фактуры %s
+ConsumedBy=Использован
+NotConsumed=Не использован
+HelpPaymentHigherThanReminderToPay=Внимание, сумма оплаты по одному или нескольким документам выше остатка к оплате. <br> Измените вашу запись, или подтвердите и подумать о создании кредитового авизо на превышения, полученные за каждый переплаченный счет-фактуру.
+BillStatusConverted=Преобразован в скидку
+BillShortStatusConverted=Обработан
+ShowInvoiceDeposit=Показать счет-фактуру на взнос
+SetDate=Установить дату
+Deposit=Взнос
+Deposits=Взносы
+DiscountFromDeposit=Платежи с депозитного счета-фактуры %s
+AbsoluteDiscountUse=Такой тип кредита может быть использован по счету-фактуре до его подтверждения
+CreditNoteDepositUse=Счет-фактура должен быть подтвержден, чтобы использовать эту тип кредиты
+NewRelativeDiscount=Новая относительная скидку
+IdSocialContribution=Код Социальных взносов
+PaymentId=Код платежа
+DescTaxAndDividendsArea=Эта область представляет собой сводку всех выплат по налоговым или социальным взноса. Сюда включены записи только с оплатой в течение фиксированного года.
+NbOfPayments=Кол-во платежей
+SplitDiscount=Разделить скидку на две
+ConfirmSplitDiscount=Вы уверены, что хотите разделить эту скидку <b>%s</b> %s на 2 меньшие скидки?
+TypeAmountOfEachNewDiscount=Введите сумму каждой из двух частей:
+TotalOfTwoDiscountMustEqualsOriginal=Сумма двух новых скидок должна быть равна размеру первоначальной скидки.
+ConfirmRemoveDiscount=Вы уверены, что хотите удалить эту скидку?
+UseCredit=Использовать кредит
+ShowUnpaidLateOnly=Показать только просроченные неоплаченные счета-фактуры
+PaymentInvoiceRef=Оплата счета-фактуры %s
+// STOP - Lines generated via autotranslator.php tool (2009-08-13 21:14:36).
+
+
+// START - Lines generated via autotranslator.php tool (2009-08-19 20:18:27).
+// Reference language: en_US
+BillsCustomersUnpaid=Неоплаченные счета-фактуры Покупателям
+BillsCustomersUnpaidForCompany=Неоплаченные счета-фактуры Покупателю для %s
+BillsSuppliersUnpaid=Неоплаченные счетов-фактуры Поставщиков
+BillsUnpaid=Неоплачен
+InvoiceReplacementDesc=<b>Заменяющий счет-фактура</b> используется, чтобы отменить и заменить полностью счет-фактуру не оплаченный до сих пор.<br><br> Примечание: только счет-фактура без каких-либо платежей по нему может быть заменен. Если не закрыт, она будет автоматически закрыта на 'Аннулирован'.
+BillStatusClosedUnpaid=Закрыт (неоплачен)
+BillShortStatusClosedUnpaid=Закрыт
+Unpaid=Неоплачен
+ConfirmCancelBillQuestion=Почему вы хотите классифицировать этот счет-фактуру как 'Аннулирован'?
+ConfirmClassifyPaidPartiallyReasonOther=Сумма, аннулированная по другим причинам
+ConfirmValidatePayment=Вы уверены, что хотите подтвердить этот платеж? Изменить однажды подтвержденный платеж невозможно.
+NoSupplierBillsUnpaid=Нет неоплаченных счетов-фактур Поставщиков
+CustomerBillsUnpaid=Неоплаченные счета-фактуры Покупателям
+// STOP - Lines generated via autotranslator.php tool (2009-08-19 20:18:27).
+
+
+// START - Lines generated via autotranslator.php tool (2010-09-04 01:33:40).
+// Reference language: en_US -> ru_RU
+ClassifyCanceled=Классифицировать как 'Аннулирован'
+BillStatusCanceled=Аннулирован
+BillShortStatusCanceled=Аннулирован
+ConfirmClassifyPaidPartiallyReasonDiscountNoVatDesc=Такой выбор возможен, только если счет-фактура был снабжен необходимым комментарием. (Например, «Только налог, соответствующий фактически уплаченной цене, дает права на вычет»)
+AlreadyPaidNoCreditNotesNoDeposits=Уже оплачен (без кредитовых авизо и взносов)
+RelatedBill=Связанный счет-фактура
+RelatedBills=Связанные счета-фактуры
+ValidateInvoice=Подтвердить счет-фактуру
+Cash=Наличные
+Reported=Задержан
+DisabledBecausePayments=Невозможно, поскольку есть некоторые платежи
+CantRemovePaymentWithOneInvoicePaid=Не удается удалить оплаты поскольку есть по крайней мере один счет-фактура классифицированный как 'оплачен'
+ExpectedToPay=Ожидаемые платежи
+PayedByThisPayment=Оплачен этим платежом
+TypeContact_facture_internal_SALESREPFOLL=Четко отследить счет-фактуру Покупателю
+TypeContact_facture_external_BILLING=обратитесь в отдел счетов-фактур Покупателям
+TypeContact_facture_external_SHIPPING=обратитесь в службу доставки
+TypeContact_facture_external_SERVICE=обратитесь в клиентскую службу
+TypeContact_invoice_supplier_internal_SALESREPFOLL=Четко отследить счет-фактуру поставщика
+TypeContact_invoice_supplier_external_BILLING=обратитесь в отдел счетов-фактур Поставщика
+TypeContact_invoice_supplier_external_SHIPPING=обратитесь в службу доставки Поставщика
+TypeContact_invoice_supplier_external_SERVICE=обратитесь в клиентскую службу Поставщика
+// STOP - Lines generated via autotranslator.php tool (2010-09-04 01:41:38).
+// до сюда перевел
+
+// START - Lines generated via autotranslator.php tool (2011-07-28 18:04:19).
+// Reference language: en_US -> ru_RU
+BillsCustomer=Счета-фактуры Покупателя
+BillsSuppliersUnpaidForCompany=Неоплаченные счета-фактуры поставщика для %s
+BillsLate=Просроченные платежи
+DisabledBecauseNotErasable=Неактивны, потому что не могут быть стерты
+InvoiceNotChecked=Счет-фактура не выбран
+ShowUnpaidAll=Показать все неоплаченные счета-фактуры
+// STOP - Lines generated via autotranslator.php tool (2011-07-28 18:05:12).
+
+
+// START - Lines generated via autotranslator.php tool (2011-08-18 23:26:41).
+// Reference language: en_US -> ru_RU
+NumberOfBillsByMonth=Кол-во счетов-фактур по месяцам
+AmountOfBillsByMonthHT=Сумма счетов-фактур за месяц (за вычетом налога)
+AddDiscount=Создать абсолютную скидку
+AddGlobalDiscount=Добавить скидку
+AddCreditNote=Создать кредитовое авизо
+ClosePaidInvoicesAutomatically=Классифицировать как 'Оплачен' все полностью оплаченные счета-фактуры.
+AllCompletelyPayedInvoiceWillBeClosed=Все счета, без остатка к оплате будут автоматически закрыты со статусом "Оплачен".
+// STOP - Lines generated via autotranslator.php tool (2011-08-18 23:27:56).
+
+
+// START - Lines generated via autotranslator.php tool (2012-02-29 17:28:02).
+// Reference language: en_US -> ru_RU
+ConfirmUnvalidateBill=Вы уверены, что хотите изменить счет <b>%s</b> к проекту статус?
+UnvalidateBill=Unvalidate счет
+AddRelativeDiscount=Создать относительная скидка
+EditRelativelDiscount=Редактировать relatvie скидки
+EditGlobalDiscounts=Редактировать абсолютной скидки
+// STOP - Lines generated via autotranslator.php tool (2012-02-29 17:28:21).

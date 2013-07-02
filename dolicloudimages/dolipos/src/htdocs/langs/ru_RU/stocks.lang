@@ -1,0 +1,114 @@
+/*
+ * Language code: ru_RU
+ * Automatic generated via autotranslator.php tool
+ * Generation date 2009-01-19 21:30:52
+ */
+
+
+// Date 2009-01-19 21:30:52
+// START - Lines generated via autotranslator.php tool.
+// Reference language: en_US
+CHARSET=UTF-8
+WarehouseCard=Склад-карты
+Warehouse=Склад
+NewWarehouse=Новый склад / Фондовый области
+MenuNewWarehouse=Новый склад
+WarehouseOpened=Склад открыт
+WarehouseClosed=Склад закрыто
+WarehouseSource=Источник склад
+WarehouseTarget=Целевой показатель на складе
+ValidateSending=Удалить отправке
+CancelSending=Отменить отправку
+DeleteSending=Удалить отправке
+Stock=Фондовый
+Stocks=Акции
+Movement=Движение
+Movements=Перевозкой
+ErrorWarehouseRefRequired=Склад ссылкой зовут требуется
+ErrorWarehouseLabelRequired=Склад этикетке необходимо
+CorrectStock=Правильно запас
+ListOfWarehouses=Список складов
+ListOfStockMovements=Список акций движения
+StocksArea=Акции области
+Location=Вместо
+LocationSummary=Сокращенное наименование расположение
+NumberOfProducts=Общее количество продукции
+LastMovement=Последнее движение
+LastMovements=Последние движения
+Units=Единицы
+Unit=Единица
+StockCorrection=Правильно запас
+StockMovement=Трансфер
+StockMovements=Фондовый переводы
+NumberOfUnit=Количество единиц
+TotalStock=Всего на складе
+StockTooLow=Фондовый слишком низкими
+EnhancedValue=Значение
+PMPValue=Значение
+EnhancedValueOfWarehouses=Склады стоимости
+UserWarehouseAutoCreate=Создать запас автоматически при создании пользователя
+QtyDispatched=Количество направил
+OrderDispatch=Приказ диспетчерского
+RuleForStockManagementDecrease=Правило для управления запасами сокращение
+RuleForStockManagementIncrease=Правило для управления запасами увеличить
+DeStockOnBill=Снижение реальных запасов на счета / кредитных нот
+DeStockOnValidateOrder=Снижение реальных запасов по заказам записки
+ReStockOnBill=Увеличение реальных запасов на счета / кредитных нот
+ReStockOnValidateOrder=Увеличение реальных запасов по заказам записки
+StockDiffPhysicTeoric=Причина разницы запас физических и теоретических
+StockLimitShort=Предельные
+StockLimit=Фондовый предел для оповещения
+PhysicalStock=Физическая запас
+RealStock=Real фондовая
+TheoreticalStock=Therocial запас
+VirtualStock=Виртуальный запас
+MininumStock=Минимальный запас
+StockUp=Запасти
+MininumStockShort=Фондовый мин
+StockUpShort=Запасти
+IdWarehouse=Идентификатор склад
+DescWareHouse=Описание склада
+LieuWareHouse=Локализация склад
+WarehousesAndProducts=Склады и продукты
+// Date 2009-01-19 21:30:52
+// STOP - Lines generated via parser
+
+
+// START - Lines generated via autotranslator.php tool (2009-08-13 21:14:36).
+// Reference language: en_US
+PMPValueShort=WAP
+AverageUnitPricePMPShort=Средняя цена входного
+AverageUnitPricePMP=Средняя цена входного
+EstimatedStockValueShort=Ориентировочная стоимость товарно-материальных запасов
+EstimatedStockValue=Ориентировочная стоимость товарно-материальных запасов
+// STOP - Lines generated via autotranslator.php tool (2009-08-13 21:14:36).
+
+
+// START - Lines generated via autotranslator.php tool (2010-09-04 01:33:40).
+// Reference language: en_US -> ru_RU
+WarehouseEdit=Изменить склад
+DeStockOnShipment=Снижение реальных запасов отгрузки проверки
+ReStockOnDispatchOrder=Увеличение реальных запасов на ручной посылаем в склады, после получения заказа поставщиком
+OrderStatusNotReadyToDispatch=Заказ еще не или не более статуса, который позволяет отправку товаров на складе склады.
+NoPredefinedProductToDispatch=Нет предопределенного продуктов для данного объекта. Так что не диспетчеризации в акции не требуется.
+DispatchVerb=Отправка
+DeleteAWarehouse=Удалить склад
+ConfirmDeleteWarehouse=Вы уверены, что хотите удалить склад <b>%s?</b>
+PersonalStock=Личный %s складе
+ThisWarehouseIsPersonalStock=Этот склад представляет собой персональный запас %s %s
+// STOP - Lines generated via autotranslator.php tool (2010-09-04 01:36:02).
+
+
+// START - Lines generated via autotranslator.php tool (2011-08-27 16:56:14).
+// Reference language: en_US -> ru_RU
+SellPriceMin=Продажа Цена за штуку
+EstimatedStockValueSellShort=Значение продать
+EstimatedStockValueSell=Значение для продажи
+// STOP - Lines generated via autotranslator.php tool (2011-08-27 17:01:31).
+
+
+// START - Lines generated via autotranslator.php tool (2012-02-29 17:28:02).
+// Reference language: en_US -> ru_RU
+SelectWarehouseForStockDecrease=Выберите хранилище, чтобы использовать для снижения акции
+SelectWarehouseForStockIncrease=Выберите склад для использования в запас увеличения
+// STOP - Lines generated via autotranslator.php tool (2012-02-29 17:28:15).

@@ -1,0 +1,131 @@
+# Dolibarr language file - no_NB - users
+CHARSET=UTF-8
+UserCard=Brukerkort
+ContactCard=Kontaktperson-kort
+GroupCard=Guppekort
+NoContactCard=Ingen kort blant kontaktpersonene
+Permission=Rettighet
+Permissions=Rettigheter
+EditPassword=Endre passord
+SendNewPassword=Send nytt passord
+ReinitPassword=Generer nytt passord
+PasswordChangedTo=Passordet er endret til : %s
+SubjectNewPassword=Ditt nye passord til Dolibarr
+AvailableRights=Tilgjengelige rettigheter
+OwnedRights=Egne rettigheter
+GroupRights=Grupperettigheter
+UserRights=Brukerrettigheter
+UserGUISetup=Brukerens visningsoppsett
+DisableUser=Deaktiver
+DisableAUser=Deaktiver en bruker
+DeleteUser=Slett
+DeleteAUser=Slette en bruker
+DisableGroup=Slå av
+DisableAGroup=Slå av en grupper
+EnableAUser=Slå på en bruker
+EnableAGroup=Slå på en gruppe
+DeleteGroup=Slett
+DeleteAGroup=Slett en gruppe
+ConfirmDisableUser=Er du sikker på at du vil deaktivere brukeren <b>%s</b> ?
+ConfirmDisableGroup=Er du sikker på at du vil deaktivere gruppen <b>%s</b> ?
+ConfirmDeleteUser=Er du sikker på at du vil slette brukeren <b>%s</b> ?
+ConfirmDeleteGroup=Er du sikker på at du vil slette gruppen <b>%s</b> ?
+ConfirmEnableUser=Er du sikker på at du vil aktivere brukeren <b>%s</b> ?
+ConfirmEnableGroup=Er du sikker på at du vil aktivere gruppen <b>%s</b> ?
+ConfirmReinitPassword=Er du sikker på at du vil generere ett nytt passord for brukeren <b>%s</b> ?
+ConfirmSendNewPassword=Er du sikker på at du vil generere og sende ett nytt passord for brukeren <b>%s</b> ?
+NewUser=Ny bruker
+CreateUser=Lag bruker
+SearchAGroup=Søk etter gruppe
+SearchAUser=Søk ette bruker
+LoginNotDefined=Brukernavn ikke oppgitt.
+NameNotDefined=Navn ikke oppgitt.
+ListOfUsers=Brukeroversikt
+Administrator=Administrator
+DefaultRights=Forvalgte rettigheter
+DefaultRightsDesc=Her kan du angi hvilke rettigheter som automatisk skal gis til nye brukere.
+DolibarrUsers=Dolibarrbrukere
+LastName=Navn
+FirstName=Fornavn
+ListOfGroups=Gruppeoversikt
+NewGroup=Ny gruppe
+CreateGroup=Lag gruppe
+RemoveFromGroup=Fjern fra gruppe
+PasswordChangedAndSentTo=Passordet er endret og sendt til <b>%s</b>.
+PasswordChangeRequestSent=Anmodning om å endre passordet for <b>%s</b> er sendt til <b>%s</b>.
+MenuUsersAndGroups=Brukere og grupper
+LastGroupsCreated=Siste %s opprettede grupper
+LastUsersCreated=Siste %s opprettede brukere
+ShowGroup=Vis gruppe
+ShowUser=Vis bruker
+NonAffectedUsers=Ikke berørte brukere
+UserModified=Brukeren er endret
+GroupModified=Gruppen er endret
+PhotoFile=Bildefil
+UserWithDolibarrAccess=Bruker med Dolibarrtilgang
+ListOfUsersInGroup=Oversikt over brukere i denne gruppen
+ListOfGroupsForUser=Oversikt over grupper for denne brukeren
+UsersToAdd=Brukere å legge til i denne gruppen
+GroupsToAdd=Grupper å legge til denne brukeren
+NoLogin=Ingen innlogging
+CreateDolibarrLogin=Lag Dolibarrkonto
+LoginAccountDisable=Kontoen er deaktivert, put a new login to activate it.
+LoginAccountDisableInDolibarr=Kontoen er deaktivert i Dolibarr.
+LoginAccountDisableInLdap=Kontoen er deaktivert i domenet.
+UsePersonalValue=Bruk personlig verdie
+GuiLanguage=Språk
+InternalUser=Intern bruker
+MyInformations=Mine data
+ExportDataset_user_1=Dolibarr brukere og egenskaper
+DomainUser=Domenebruker %s
+Reactivate=Reaktiver
+CreateInternalUserDesc=Her kan du opprette interne brukere (ansatte). For å lage en ekstern bruker (kunde, leverandør, ...) bruker du knappen 'Lag Dolibarr bruker' fra tredjepartens kontaktkort. 
+InternalExternalDesc=En <b>intern</b> bruker er er en som er en del av firmaet/organisasjonen.<br>En <b>ekstern</b> bruker er en kunde, leverandør eller annen tredjeperson.<br><br>I begge tilfelle styres brukeren av Dolibarr-rettigheter. Dessuten kan eksterne brukere ha en annen menybehandler enn interne brukere (Se Hjem - Instillinger - Visning)
+PermissionInheritedFromAGroup=Rettigheter innvilget fordi de er arvet av en brukegruppe.
+IdPhoneCaller=ID phone caller
+UserLogged=Brukeren %s er logget inn
+NewUserCreated=Brukeren %s er opprettet
+NewUserPassword=Passord er endret for %s
+EventUserModified=Brukeren %s er endret
+UserDisabled=Brukeren %s er deaktivert
+UserEnabled=Brukeren %s er aktivert
+UserDeleted=Brukeren %s er fjernet
+NewGroupCreated=Gruppen %s er oprettet
+GroupModified=Gruppen %s er endret
+GroupDeleted=Gruppen %s er fjernet
+ConfirmCreateContact=Er du sikker på at du vil lage en Dolibarr-konto til denne kontaktpersonen?
+LoginToCreate=Brukernavn å opprette
+
+
+// START - Lines generated via autotranslator.php tool (2010-07-17 11:45:17).
+// Reference language: en_US
+SuperAdministrator=Super Administrator
+SuperAdministratorDesc=Administrator med alle rettigheter
+LinkToCompanyContact=Lenke til tredjepart / kontakt
+LinkedToDolibarrMember=Link til medlem
+LinkedToDolibarrUser=Link til Dolibarr brukeren
+LinkedToDolibarrThirdParty=Link til Dolibarr tredjepart
+CreateDolibarrThirdParty=Lag en tredjepart
+Inherited=Arvet
+ConfirmCreateLogin=Er du sikker på at du vil opprette en Dolibarr konto for medlemmet?
+ConfirmCreateThirdParty=Er du sikker på at du vil opprette en tredje part for medlemmet?
+NameToCreate=Navn på tredjepart til å lage
+YourRole=Din roller
+YourQuotaOfUsersIsReached=Din kvote på aktive brukere er nådd!
+// STOP - Lines generated via autotranslator.php tool (2010-07-17 11:46:22).
+
+
+// START - Lines generated via autotranslator.php tool (2011-10-10 02:45:33).
+// Reference language: en_US -> nb_NO
+AdministratorDesc=Administrator er enhet
+// STOP - Lines generated via autotranslator.php tool (2011-10-10 12:47:47).
+
+
+// START - Lines generated via autotranslator.php tool (2012-02-29 17:06:43).
+// Reference language: en_US -> nb_NO
+UserWillBeInternalUser=Opprettet bruker vil være en intern bruker (fordi ikke knyttet til en bestemt tredjepart)
+UserWillBeExternalUser=Opprettet bruker vil være en ekstern bruker (fordi knyttes til et bestemt tredjepart)
+UserLogoff=Bruker %s utlogging
+NbOfUsers=Nb av brukere
+DontDowngradeSuperAdmin=Bare en superadmin kan nedgradere en superadmin
+// STOP - Lines generated via autotranslator.php tool (2012-02-29 17:07:02).

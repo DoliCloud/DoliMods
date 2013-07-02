@@ -1,0 +1,19 @@
+# Dolibarr language file - en_GB - main
+CHARSET=UTF-8
+SeparatorDecimal=.
+SeparatorThousand=,
+FormatDateShort=%d/%m/%Y
+FormatDateShortJava=dd/MM/yyyy
+FormatHourShort=%H:%M
+FormatDateTextShort=%d %b %Y
+FormatDateText=%d %B %Y
+FormatDateHourShort=%d/%m/%Y %H:%M
+FormatDateHourTextShort=%d %b %Y %H:%M
+FormatDateHourText=%d %B %Y %H:%M
+TotalVAT=Total VAT
+IncludedVAT=Included VAT
+HT=Net of tax
+TTC=Inc. VAT
+VAT=VAT
+VATRate=VAT Rate
+AmountVAT=Amount VAT

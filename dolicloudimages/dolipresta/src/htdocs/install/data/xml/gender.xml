@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity_gender>
+  <fields id="name" class="Gender" image="genders">
+    <field name="type"/>
+  </fields>
+  <entities>
+    <gender id="1" type="0"/>
+    <gender id="2" type="1"/>
+    <gender id="3" type="1"/>
+  </entities>
+</entity_gender>

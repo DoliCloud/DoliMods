@@ -1,0 +1,96 @@
+﻿# Dolibarr language file - pt_PT - commercial
+CHARSET=UTF-8
+Commercial=Comercial
+CommercialArea=Área comercial
+CommercialCard=Ficha comercial
+CustomerArea=Área de Clientes
+Customer=Cliente
+Customers=Clientes
+Prospect=Cliente Potencial
+Prospects=Clientes Potenciais
+DeleteAction=Eliminar uma Acção
+NewAction=Nova Acção
+AddAction=Criar Acção
+AddAnAction=Criar uma Acção
+AddActionRendezVous=Criar uma Reunião
+Rendez-Vous=Reunião
+ConfirmDeleteAction=Está seguro de querer eliminar esta acção?
+CardAction=Ficha da Acção
+PercentDone=Percentagem Realizada
+ActionOnCompany=Acção Relativa à Empresa
+ActionOnContact=Acção Relativa ao Contacto
+TaskRDV=Reunião
+TaskRDVWith=Reunião com %s
+ShowTask=Ver tarefa
+ShowAction=Ver acção
+ActionsReport=Relatório de acções
+SalesRepresentative=Commercial
+SalesRepresentatives=Comerciais
+SalesRepresentativeFollowUp=Comercial (seguimento)
+SalesRepresentativeSignature=Comercial (assinatura)
+CommercialInterlocutor=Interlocutor comercial
+ErrorWrongCode=Código incorrecto
+NoSalesRepresentativeAffected=Nenhum comercial afectado
+ShowCustomer=Ver cliente
+ShowProspect=Ver clientes potenciais
+ListOfProspects=Lista de Clientes Potenciais
+ListOfCustomers=Lista de Clientes
+LastDoneTasks=As %s últimas acções efectuadas
+LastActionsToDo=As %s últimas acções não completadas
+LastRecordedTasks=Ultimas acções registadas
+DoneActions=Lista de acções realizadas
+DoneActionsFor=Lista de acções realizadas por %s
+ToDoActions=Lista de acções incompletas
+ToDoActionsFor=Lista de acções incompletas de %s
+DoneAndToDoActionsFor=Lista de acções realizadas ou a realizar por %s
+DoneAndToDoActions=Lista de acções realizadas ou a realizar
+SendPropalRef=Enviar orçamento %s
+SendOrderRef=Enviar pedido %s
+NoRecordedProspects=Nenhum cliente potencial registado
+StatusActionToDo=A realizar
+StatusActionDone=Realizado
+StatusActionInProcess=Em curso
+MyActionsAsked=Acções que registei
+MyActionsToDo=Acções que tenho que fazer
+MyActionsDone=Acções que me afectam
+TasksHistoryForThisContact=Acções respeito ao contacto
+LastProspectDoNotContact=Não contactar
+LastProspectNeverContacted=Não contactado
+LastProspectToContact=A contactar
+LastProspectContactInProcess=Contacto em curso
+LastProspectContactDone=Clientes potenciais contactados
+DateActionPlanned=Data planificação
+DateActionDone=Data realização
+ActionAskedBy=Acção questionada por
+ActionAffectedTo=Acção assignada a
+ActionDoneBy=Acção realizada por
+ActionUserAsk=Registada por
+ErrorStatusCantBeZeroIfStarted=Se o campo '<b>Ficha de Realização</b>' tiver dados a acção está em curso, por isso o campo 'Estado' não pode ser 0%%.
+ActionAC_TEL=Chamada telefónica
+ActionAC_FAX=Envío Fax
+ActionAC_PROP=Envío orçamento por correio
+ActionAC_EMAIL=Envio E-Mail
+ActionAC_RDV=Reunião
+ActionAC_FAC=Envío factura por correio
+ActionAC_REL=Lembrete factura por correio
+ActionAC_CLO=Fechar
+ActionAC_EMAILING=Envío mailing massivo
+ActionAC_COM=Envío pedido por correio
+Stats=Estatisticas de Venda
+
+// START - Lines generated via autotranslator.php tool (2010-09-04 01:33:40).
+// Reference language: en_US -> pt_PT
+ActionAC_SUP_ORD=Enviar por e-mail para fornecedor
+ActionAC_SUP_INV=Enviar fatura do fornecedor por e-mail
+// STOP - Lines generated via autotranslator.php tool (2010-09-04 01:53:01).
+
+
+// START - Lines generated via autotranslator.php tool (2012-02-29 15:45:52).
+// Reference language: en_US -> pt_PT
+StatusNotApplicable=Não aplicável
+ActionAC_SHIP=Enviar envio por correio
+ActionAC_OTH=Outro
+StatusProsp=Estado Prospect
+DraftPropals=Elaborar propostas comerciais
+SearchPropal=Procure uma proposta comercial
+// STOP - Lines generated via autotranslator.php tool (2012-02-29 15:46:16).

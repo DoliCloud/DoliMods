@@ -1,0 +1,23 @@
+# Dolibarr language file - ca_ES - trips
+CHARSET=UTF-8
+Trip=Desplaçament
+Trips=Desplaçaments
+TripsAndExpenses=Honoraris
+TripsAndExpensesStatistics=Estadístiques honoraris
+TripId=Id honorari
+TripCard=Fitxa honorari
+AddTrip=Crear honorari
+ListOfTrips=Llistat de honorari
+ListOfFees=Llistat notes de honoraris
+NewTrip=Nou honorari
+CompanyVisited=Empresa/institució visitada
+Kilometers=Quilòmetres
+FeesKilometersOrAmout=Import o quilòmetres
+DeleteTrip=Eliminar honorari
+ConfirmDeleteTrip=Esteu segur de voler eliminar aquest honorari?
+TF_OTHER=Altre
+TF_LUNCH=Dieta
+TF_TRIP=Viatge
+ListTripsAndExpenses=Llistat notes de honoraris
+ExpensesArea=Àrea Notes d'honoraris
+SearchATripAndExpense=Cercar un honorari

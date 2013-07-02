@@ -1,0 +1,184 @@
+/*
+ * Language code: ro_RO
+ * Automatic generated via autotranslator.php tool
+ * Generation date 2009-01-19 21:32:52
+ */
+
+
+// Date 2009-01-19 21:32:52
+// START - Lines generated via autotranslator.php tool.
+// Reference language: en_US
+CHARSET=UTF-8
+Accountancy=Contabilitate
+AccountancyCard=Contabilitate carte
+Treasury=Trezoreria
+MenuFinancial=Financiar
+OptionMode=Opţiunea pentru contabilitate
+OptionModeVirtual=Opţiunea Credite-debite
+OptionModeVirtualDesc=În acest context, cifra de afaceri se calculează pe facturi (data de validare). Când aceste facturi se datorează, indiferent dacă acestea au fost plătite sau nu, ele sunt enumerate în cifra de afaceri de ieşire.
+FeatureIsSupportedInInOutModeOnly=Caracteristicã disponibil doar în CREDITE-DEBTS Mod de contabilitate (a se vedea modul de configurare de contabilitate)
+Param=Setup
+AccountsGeneral=Conturi
+Account=Cont
+Accounts=Conturi
+BillsForSuppliers=Notele de plata pentru furnizorii
+Income=Venituri
+Outcome=Rezultat
+ReportInOut=Venituri / Rezultate
+PaymentsNotLinkedToInvoice=Plăţile nu sunt legate de orice factură, astfel încât nu au legătură cu o terţă parte
+PaymentsNotLinkedToUser=Plăţile nu sunt legate de orice utilizator
+Profit=Profit
+Balance=Balanţa
+Debit=Debit
+Credit=De credit
+Withdrawal=Retragerea
+Withdrawals=Retrageri
+AmountHTVATRealReceived=HT colectate
+AmountHTVATRealPaid=HT platite
+VATToPay=La plata TVA-ului
+VATReceived=TVA-ul a primit
+VATToCollect=TVA-ul pentru a colecta
+VATSummary=TVA Sumar
+VATPaid=Plata TVA-ului
+VATCollected=TVA colectat
+ToPay=Pentru a plăti
+ToGet=Pentru a primi înapoi
+TaxAndDividendsArea=De impozitare, contribuţii sociale şi dividende zona
+SocialContribution=Social contribuţie
+SocialContributions=Contribuţii sociale
+MenuTaxAndDividends=Impozite şi dividende
+MenuSocialContributions=Contribuţii sociale
+MenuNewSocialContribution=New contribuţie
+NewSocialContribution=New contribuţiilor sociale
+ContributionsToPay=Contribuţii la plata
+AccountancyTreasuryArea=Contabilitate / Trezoreria zona
+AccountancySetup=Contabilitate setup
+NewPayment=New plată
+Payments=Plăţi
+PaymentCustomerInvoice=Clientul facturii de plată
+PaymentSupplierInvoice=Furnizor facturii de plată
+PaymentSocialContribution=Social plata contribuţiei
+PaymentVat=TVA de plată
+ListPayment=Lista de plăţi
+ListOfPayments=Lista de plăţi
+ListOfCustomerPayments=Lista de clienţi de plăţi
+ListOfSupplierPayments=Lista de furnizor de plăţi
+DatePayment=Plata data
+NewVATPayment=New plata TVA
+VATPayment=TVA de plată
+VATPayments=TVA Plăţi
+TotalToPay=Total de a plăti
+TotalVATReceived=Total TVA primit
+CustomerAccountancyCode=Clientul contabile cod
+AlreadyPaid=Deja platite
+AccountNumberShort=Numărul de cont
+AccountNumber=Numărul de cont
+NewAccount=Cont nou
+SalesTurnover=Vanzari cifra de afaceri
+ByThirdParties=Bu terţi
+ByUserAuthorOfInvoice=Prin factura autor
+AccountancyExport=Contabilitate export
+ErrorWrongAccountancyCodeForCompany=Bad client contabile cod pentru %s
+SuppliersProductsSellSalesTurnover=A cifrei de afaceri generate de vânzările de furnizorii de produse.
+CheckReceipt=Verificaţi depozit
+CheckReceiptShort=Verificaţi depozit
+NewCheckReceipt=Noua reducere
+NewCheckDeposit=New verifica depozit
+NewCheckDepositOn=New verifica depozit în contul: %s
+NoWaitingChecks=Nu controale de aşteptare pentru depozit.
+DateChequeReceived=Cec Recepţie data de intrare
+NbOfCheques=Nb de cecuri
+PaySocialContribution=Plătesc o contribuţie socială
+ConfirmPaySocialContribution=Sunteţi sigur că doriţi pentru a clasifica această contribuţie socială ca platite?
+DeleteSocialContribution=Ştergeţi o contribuţie socială
+ConfirmDeleteSocialContribution=Sunteţi sigur că doriţi să ştergeţi această contribuţie socială?
+ExportDataset_tax_1=Contribuţii sociale, cât şi plăţile
+AnnualSummaryDueDebtMode=Bilan des recettes et dpenses, rsum annuel, en <b>Mod %sCrances-Dettes %s</b> dit <b>comptabilit de angajament.</b>
+AnnualSummaryInputOutputMode=Bilan des recettes et dpenses, rsum annuel, en <b>Mod %sRecettes-Dpenses %s</b> dit <b>comptabilit de Caisse.</b>
+AnnualByCompaniesDueDebtMode=Bilan des recettes et dpenses, dtail par niveluri, en <b>Mod %sCrances-Dettes %s</b> dit <b>comptabilit de angajament.</b>
+AnnualByCompaniesInputOutputMode=Bilan des recettes et dpenses, dtail par niveluri, en <b>Mod %sRecettes-Dpenses %s</b> dit <b>comptabilit de Caisse.</b>
+SeeReportInInputOutputMode=Voir le <b>Rapport %sRecettes-Dpenses %s</b> dit <b>comptabilit de Caisse</b> turna un calcul sur les paiements effectivement raliss
+SeeReportInDueDebtMode=Voir le <b>Rapport %sCrances-Dettes %s</b> dit <b>comptabilit d'angajament</b> turna un calcul sur les factures mises
+RulesResultDue=- Sumele indicate sunt cu toate taxele incluse <br> - Ea include facturilor restante, a cheltuielilor şi a TVA-ului, indiferent dacă acestea sunt plătite sau nu. <br> - Se bazează pe data de validare de facturi si TVA-ul şi cu privire la data scadentă pentru cheltuieli.
+RulesResultInOut=- Sumele indicate sunt cu toate taxele incluse <br> - Ea include real plăţile efectuate de pe facturi, cheltuielilor şi a TVA-ului. <br> - Se bazează pe datele de plată a facturilor, cheltuielile anf TVA. <br>
+RulesCADue=- Ea include clientilor din cauza facturilor, indiferent dacă acestea sunt plătite sau nu. <br> - Se bazează pe data de validare a acestor facturi. <br>
+RulesCAIn=- Ea include toate plăţile efective a facturilor primite de la clienti. <br> - Se bazează pe data de plată a acestor facturi <br>
+PercentOfInvoice=%%/factura
+Dispatch=Dispecerizare
+Dispatched=Expediate
+ToDispatch=Pentru a expedierii
+// Date 2009-01-19 21:32:52
+// STOP - Lines generated via parser
+
+
+// START - Lines generated via autotranslator.php tool (2009-08-13 21:12:07).
+// Reference language: en_US
+ReportTurnover=Cifra de afaceri
+NotUsedForGoods=Nu sunt utilizate pentru cumpărarea de bunuri
+// STOP - Lines generated via autotranslator.php tool (2009-08-13 21:12:07).
+
+
+// START - Lines generated via autotranslator.php tool (2009-08-19 20:22:33).
+// Reference language: en_US
+OptionModeTrue=Opţiunea de intrare-iesire
+OptionModeTrueDesc=În acest context, se calculează cifra de afaceri de peste de plăţi (data de plăţi). \ nThe valabilitate a cifrelor este asigurată numai în cazul în care cartea-ţinerea este analizată prin intrare / ieşire de pe conturi, prin intermediul facturilor.
+ShowVatPayment=Arata plata TVA
+SupplierAccountancyCode=Furnizor de contabilitate cod
+// STOP - Lines generated via autotranslator.php tool (2009-08-19 20:22:33).
+
+
+// START - Lines generated via autotranslator.php tool (2010-07-17 11:36:47).
+// Reference language: en_US
+TaxModuleSetupToModifyRules=Du-te la <a href="%s">modul de configurare</a> a modifica normele de calcul
+VATReportBuildWithOptionDefinedInModule=Sumele prezentate aici sunt calculate folosind regulile definite de modul de configurare fiscale.
+SocialContributionsPayments=Contribuţii sociale plăţi
+VATReportByCustomersInInputOutputMode=Raport de TVA clientului colectate şi plătite (TVA primire)
+VATReportByCustomersInDueDebtMode=Raport de TVA clientului colectate şi plătite (TVA)
+VATReportByQuartersInInputOutputMode=Raport de rata a TVA colectate şi plătite (TVA primire)
+VATReportByQuartersInDueDebtMode=Raport de rata a TVA colectate şi plătite (TVA)
+SeeVATReportInInputOutputMode=A se vedea raportul <b>%sVAT encasement%s</b> pentru un calcul standard
+SeeVATReportInDueDebtMode=A se vedea raportul <b>privind %sVAT flow%s</b> pentru un calcul, cu o opţiune de pe fluxul
+RulesVATIn=Pentru servicii, raportul include TVA lege efectiv primite sau eliberate pe baza de data plăţii. <br> - Pentru bunuri materiale, aceasta include facturi cu TVA, pe baza de la data validării a facturii.
+RulesVATDue=Pentru servicii, raportul include facturile TVA datorată, plătite sau nu, în funcţie de data de validarea acestor facturi. <br> - Pentru bunuri materiale, aceasta include facturi cu TVA, în funcţie de data de validare a facturii.
+OptionVatInfoModuleComptabilite=Notă: Pentru bunuri materiale, ar trebui să utilizeze la data livrării să fie mai echitabil.
+ThirdPartyMustBeEditAsCustomer=A treia parte trebuie să fie definit ca un client
+// STOP - Lines generated via autotranslator.php tool (2010-07-17 11:38:42).
+
+
+
+// START - Lines generated via autotranslator.php tool (2011-10-10 02:45:33).
+// Reference language: en_US -> ro_RO
+InvoiceStats=Statistici privind facturile
+SellsJournal=Jurnalul de vânzări
+PurchasesJournal=Cumparari Jurnalul
+DescSellsJournal=Jurnalul de vânzări
+DescPurchasesJournal=Cumparari Jurnalul
+InvoiceRef=Factură ref.
+CodeNotDef=Nu a fost definit
+AddRemind=Expedierea Suma disponibilă
+RemainToDivide=Ramaneti la expediere:
+WarningDepositsNotIncluded=Depozitele facturile nu sunt incluse in aceasta versiune cu acest modul de contabilitate.
+// STOP - Lines generated via autotranslator.php tool (2011-10-10 06:19:18).
+
+
+// START - Lines generated via autotranslator.php tool (2012-02-29 17:23:15).
+// Reference language: en_US -> ro_RO
+RemainingAmountPayment=Suma rămasă de plată:
+AmountToBeCharged=Suma totală pentru plata:
+LT2SummaryES=Balanţa IRPF
+LT2PaidES=IRPF plătit
+LT2CustomerES=IRPF de vânzări
+LT2SupplierES=IRPF achiziţii
+newLT2PaymentES=Nou IRPF plată
+LT2PaymentES=IRPF de plata
+LT2PaymentsES=IRPF Plăţi
+DepositsAreNotIncluded=- Facturile de depozit sunt nici nu sunt incluse
+DepositsAreIncluded=- Facturile de depozit sunt incluse
+LT2ReportByCustomersInInputOutputModeES=Raport de terţă parte IRPF
+RulesVATInServices=- Pentru servicii, raportul include reglementări de TVA efectiv primite sau emise pe baza de data plăţii. <br> - Pentru activele materiale, aceasta include TVA facturile pe baza de data facturii.
+RulesVATInProducts=- Pentru activele materiale, aceasta include TVA facturile pe baza de data facturii.
+RulesVATDueServices=- Pentru servicii, raportul include facturi TVA-ului datorat, plătite sau nu, în funcţie de data facturii.
+RulesVATDueProducts=- Pentru activele materiale, aceasta include facturi cu TVA, pe baza data facturii.
+ProposalStats=Statistici privind propunerile
+OrderStats=Statistici privind ordinele de
+// STOP - Lines generated via autotranslator.php tool (2012-02-29 17:23:25).

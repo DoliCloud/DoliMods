@@ -1,0 +1,91 @@
+/*
+* Language code: de_DE
+* Manually translated by modula71.de
+* Generation date 2012-05-23
+* QA release date 2012-05-27
+*/
+
+CHARSET=UTF-8
+
+WarehouseCard=Warenlagerkarte
+Warehouse=Warenlager
+NewWarehouse=Neues Warenlager
+WarehouseEdit=Warenlager bearbeiten
+MenuNewWarehouse=Neues Warenlager
+WarehouseOpened=Warenlager aktiv
+WarehouseClosed=Warenlager geschlossen
+WarehouseSource=Ursprungslager
+WarehouseTarget=Ziellager
+ValidateSending=Sendung freigeben
+CancelSending=Sendung abbrechen
+DeleteSending=Sendung löschen
+Stock=Warenbestand
+Stocks=Warenbestände
+Movement=Lagerbewegung
+Movements=Lagerbewegungen
+ErrorWarehouseRefRequired=Warenlager-Referenz erforderlich
+ErrorWarehouseLabelRequired=Warenlager-Label erforderlich
+CorrectStock=Lagerbestand anpassen
+ListOfWarehouses=Liste der Warenlager
+ListOfStockMovements=Liste der Lagerbewegungen
+StocksArea=Warenbestandsübersicht
+Location=Standort
+LocationSummary=Kurzbezeichnung Standort
+NumberOfProducts=Anzahl der Produkte
+LastMovement=Letzte Bewegung
+LastMovements=Letzte Bewegungen
+Units=Einheiten
+Unit=Einheit
+StockCorrection=Lageranpassung
+StockMovement=Lagerbewegung
+StockMovements=Lagerbewegungen
+NumberOfUnit=Anzahl der Einheiten
+TotalStock=Gesamtbestand
+StockTooLow=Mindestbestand unterschritten
+EnhancedValue=Warenwert
+PMPValueShort=DSWP
+PMPValue=Gewichteter Warenwert
+EnhancedValueOfWarehouses=Lagerwert
+UserWarehouseAutoCreate=Beim Anlegen eines Benutzers automatisch neues Warenlager erstellen
+QtyDispatched=Menge
+OrderDispatch=Bestellabwicklung
+RuleForStockManagementDecrease=Regel für Lagerstandsanpassung (Verringerung)
+RuleForStockManagementIncrease=Regel für Lagerstandsanpassung (Erhöhung)
+DeStockOnBill=Verringere realen Bestände in den Rechnungen / Gutschriften
+DeStockOnValidateOrder=Decrease realen Bestände auf Bestellungen stellt fest
+DeStockOnShipment=Verringere Lagerstände nach erfolgtem Versand (empfohlen)
+ReStockOnBill=Erhöhung der tatsächlichen Bestände in den Rechnungen / Gutschriften
+ReStockOnValidateOrder=Erhöhung der realen Bestände auf Bestellungen stellt fest
+ReStockOnDispatchOrder=Reale Bestände auf manuelle Dispatching in Hallen, nach Erhalt Lieferanten bestellen
+StockLimitShort=Mindestbestand
+StockLimit=Sicherungsbestand für autom. Benachrichtigung
+OrderStatusNotReadyToDispatch=Auftrag wurde noch nicht oder nicht mehr ein Status, der Erzeugnisse auf Lager Hallen Versand ermöglicht.
+StockDiffPhysicTeoric=Grund für die Differenz physisch. und theoret. Lagerbestand
+NoPredefinedProductToDispatch=Keine vordefinierten Produkte für dieses Objekt. Also kein Versand im Lager erforderlich ist.
+DispatchVerb=Versand
+
+PhysicalStock=Physisches Warenlager
+RealStock=Realer Lagerbestand
+TheoreticalStock=Theoretischer Lagerbestand
+VirtualStock=Virtuelles Warenlager
+MininumStock=Mindestlagerstand
+StockUp=Aufstocken
+MininumStockShort=Sicherungsbestand
+StockUpShort=Aufstocken
+IdWarehouse=Warenlager ID
+DescWareHouse=Beschreibung Warenlager
+LieuWareHouse=Standort Warenlager
+WarehousesAndProducts=Warenlager und Produkte
+AverageUnitPricePMPShort=Gewichteter Durchschnitts-Einkaufspreis
+AverageUnitPricePMP=Gewichteter Durchschnitts-Eingangspreis
+SellPriceMin=Verkaufspreis
+EstimatedStockValueSellShort=Abverkaufsmenge
+EstimatedStockValueSell=Abverkaufsmenge
+EstimatedStockValueShort=Eingangsmenge
+EstimatedStockValue=Eingangsmenge
+DeleteAWarehouse=Warenlager löschen
+ConfirmDeleteWarehouse=Möchten Sie das Warenlager <b>%s</b> wirklich löschen?
+PersonalStock=Persönlicher Warenbestand %s
+ThisWarehouseIsPersonalStock=Dieses Lager bezeichnet den persönlichen Bestand von %s %s 
+SelectWarehouseForStockDecrease=Wählen Sie das Lager für die Entnahme
+SelectWarehouseForStockIncrease=Wählen Sie das Lager für den Wareneingang

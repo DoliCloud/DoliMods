@@ -1,0 +1,122 @@
+﻿* Manually generated
+ * Generation date 2012-07-18 00:22:26
+
+// START - Lines manually generated (2012-07-18 00:22:26).
+ */
+// Reference language: en_US -> TR – errors
+CHARSET=UTF-8
+
+# Hatalar
+Error=Hata
+Errors=Hatalar
+ErrorBadEMail=%s EPostası yanlış
+ErrorBadUrl=URL %s yanlış
+ErrorLoginAlreadyExists=%s girişi zaten var.
+ErrorGroupAlreadyExists=%s Grubu zaten var.
+ErrorRecordNotFound=Kayıt bulunamadı.
+ErrorFailToCopyFile='<b>%s</b>' dosyası '<b>%s</b>' içine kopyalanamadı.
+ErrorFailToRenameFile='<b>%s</b>' dosyasının adı '<b>%s</b>' olarak değiştirilemedi.
+ErrorFailToDeleteFile='<b>%s</b>' dosyası kaldırılamadı
+ErrorFailToCreateFile='<b>%s</b>' dosyası oluşturulamadı
+ErrorFailToRenameDir='<b>%s</b>' dizinin adı '<b>%s</b>' olarak değiştirilemedi.
+ErrorFailToCreateDir='<b>%s</b>' dizini oluşturulamadı
+ErrorFailToDeleteDir='<b>%s</b>' dizini silinemedi
+ErrorFailedToDeleteJoinedFiles=Ortam silinemiyor, çünkü bazı birleşik dosyalar bulunmaktadır. Önce birleşik dosyaları kaldırın.
+ErrorThisContactIsAlreadyDefinedAsThisType=Bu kişi zaten bu tür için kişi olarak tanımlıdır.
+ErrorCashAccountAcceptsOnlyCashMoney=Bu banka hesabı kasa hesabı lduğundan yalnızca nakit ödemeleri kabul eder.
+ErrorFromToAccountsMustDiffers=Kaynak ve hedef banka hesapları farklı olmalıdır.
+ErrorBadThirdPartyName=Üçüncü parti adı için hatalı değer
+ErrorBadCustomerCodeSyntax=Hatalı müşteri kodu
+ErrorCustomerCodeRequired=Müşteri kodu gereklidir
+ErrorCustomerCodeAlreadyUsed=Müşteri kodu zaten kullanılmış
+ErrorPrefixRequired=Önek gerekli
+ErrorUrlNotValid=Web sitesi adresi yanlış
+ErrorBadSupplierCodeSyntax=Tedarikçi kodu için hatalı kod
+ErrorSupplierCodeRequired=Tedarikçi kodu gereklidir
+ErrorSupplierCodeAlreadyUsed=Tedarikçi kodu zaten kullanılmaktadır
+ErrorBadParameters=Hatalı parametreler
+ErrorBadValueForParameter=Hatalı '%s' parametresi için yanlış '%s' değeri
+ErrorBadImageFormat=Görüntü dosyası desteklenen bir biçimde değil.
+ErrorBadDateFormat=%s Değeri yanlış tarih biçiminde
+ErrorFailedToWriteInDir=%s dizinine yazılamadı
+ErrorFoundBadEmailInFile=Dosyada %s satır hatalı e-posta sözdizimi bulundu (örneğin eposta=%s teki satır %s)
+ErrorUserCannotBeDelete=Kullanıcı silinemez. Belki Dolibarr öğeleri ile ilişkili olabilir.
+ErrorFieldsRequired=Bazı gerekli alanlar doldurulmamış.
+ErrorFailedToCreateDir=Dizin oluşturulamadı. Web sunucusu kullanıcısının Dolibarr belgeleri dizinine yazma izinlerini denetleyin. Eğer bu parametre <b>guvenli_mod</b> bu PHP üzerinde etkinleştirilmişse, Dolibarr php dosyalarının web sunucusu kullanıcısına (ya da grubuna) sahip olduğunu denetleyin.
+ErrorNoMailDefinedForThisUser=Bu kullanıcı için tanımlı posta yok
+ErrorFeatureNeedJavascript=Bu özelliğin çalışması için JavaScriptin etkinleştirilmesi gerekir. Bunu Kurulum-görünüm menüsünden değiştirebilirsiniz.
+ErrorTopMenuMustHaveAParentWithId0='Üst' menü tipi menünün bir ana menüsü olamaz. Ana menüye 0 koyun ya da 'Sol' menü türünü seçin.
+ErrorLeftMenuMustHaveAParentId='Sol' tipli bir menünün bir üst tanımı olmalıdır.
+ErrorFileNotFound=<b>%s</b> dosyası bulunamadı (Hatalı yol, yanlış izinler ya da erişim PHP openbasedir tarafından engellenmiş ya da  güvenli_mod parametresinde olabilir)
+ErrorDirNotFound=<b>%s</b> dizini bulunamadı (Hatalı yol, yanlış izinler ya da PHP openbasedir tarafından erişim reddedilmiş ya da güvenli_mod parametresi olabilir)
+ErrorFunctionNotAvailableInPHP=<b>%s</b> işlevi bu özellik için gereklidir ama bu özellik PHP nin bu sürümü/kurulumu için geçerli değildir.
+ErrorDirAlreadyExists=Bu isimli bir dizin zaten var.
+ErrorFileAlreadyExists=Bu isimde bir dosya zaten var.
+ErrorPartialFile=Dosya sunucu tarafından tamamen alınmadı.
+ErrorNoTmpDir=Geçici %s dizini yok.
+ErrorUploadBlockedByAddon=Dosya gönderme PHP/Apache eklentisi tarafından bloke edilmiş.
+ErrorFileSizeTooLarge=Dosya boyutu çok büyük.
+ErrorSizeTooLongForIntType=Tam sayı türü için boyut çok uzun (ençok %s ondalık)
+ErrorSizeTooLongForVarcharType=Dize türü için boyut çok uzun (ençok %s karakter)
+ErrorFieldCanNotContainSpecialCharacters=<b>%s</b> alanı özel karakterler içermemelidir.
+ErrorNoAccountancyModuleLoaded=Etkinleştirilmiş muhasebe modülü yok
+ErrorExportDuplicateProfil=Bu profil adı zaten bu dışaaktarım ayarı için var.
+ErrorLDAPSetupNotComplete=Dolibarr-LDAP eşleşmesi tamamlanmamış.
+ErrorLDAPMakeManualTest=A. Ldif dosyası %s dizininde oluşturuldu. Hatalar hakkında daha fazla bilgi almak için komut satırından elle yüklemeyi deneyin.
+ErrorCantSaveADoneUserWithZeroPercentage="Başlamış durumdaki" bir eylem, "yapan" alanı dolu olsa bile kaydedilemez.
+ErrorRefAlreadyExists=Oluşturulması için kullanılan referans zaten var.
+ErrorPleaseTypeBankTransactionReportName=Lütfen işlemin banka dekontunun adını yazın (Biçim YYYYAA veya YYYYAAGG)
+ErrorRecordHasChildren=Bazı alt kayıtları olduğundan kayıtlar silinemedi.
+ErrorModuleRequireJavascript=Bu özelliğin çalışması için Javascript engellenmiş olmamalıdır. Etkinleştirmek/engellemek için Giriş->Kurulum->Görünüm menüsüne gidin.
+ErrorPasswordsMustMatch=Her iki yazdığınız şifrenin birbiriyle eşleşmesi gerekir
+ErrorContactEMail=Teknik bir hata oluştu. Lütfen, aşağıdaki <b>%s</b> Eposta ile yöneticiye danışın, mesajınızda <b>%s</b> hata kodunu belirtin ve hatta bir ekran görünümünü de eklerseniz daha iyi olur.
+ErrorWrongValueForField=<b>%s</b> alan numarası için yanlış değer ('<b>%s</b>' değeri '<b>%s</b>' regex kuralı ile uyuşmuyor)
+ErrorFieldValueNotIn=<b>%s</b> alan numarası için yanlış değer ('<b>%s</b>' değeri <b>%s</b> tablosunun <b>%s</b> alanı için uygun bir değer değildir)
+ErrorFieldRefNotIn=Alan numarası <b>%s</b> için yanlış değer (değer <b>'%s'</b> bir <b>%s</b> ref mevcut değildir)
+ErrorsOnXLines=<b>%</b> kaynak satırlarındaki hatalar
+ErrorFileIsInfectedWithAVirus=Virüs koruma programı dosyayı doğrulayamıyor (dosyaya bir virüs bulaşmış olabilir)
+ErrorSpecialCharNotAllowedForField=%s alanında özel karakterlere izin verilmez
+ErrorDatabaseParameterWrong=Veritabanı kurulum parametresi '<b>%s</b>' Dolibarr'da kullanmak için uyumlu olmayan bir değere sahiptir (değerin '<b>%s</b>' olması gerekir)
+ErrorNumRefModel=Veritabanına (%s) bir başvuru var ve bu numaralandırma kuralı ile uyumlu değildir. Kaydı kaldırın ya da bu modülü etkinleştirmek için başvurunun adını değiştirin.
+ErrorQtyTooLowForThisSupplier=Bu tedarikçi için miktar çok az ya da bu tedarikçi için bu ürüne tanımlı fiyat yok
+ErrorModuleSetupNotComplete=Modül Kurulumu tamamlanmamış görünüyor. Tamamlamak için Kurulum->Modül menüsüne gidin.
+ErrorBadMask=Maskede hata
+ErrorBadMaskFailedToLocatePosOfSequence=Hata, sıra numarasız  maske
+ErrorBadMaskBadRazMonth=Hata, kötü sıfırlama değeri
+ErrorSelectAtLeastOne=Hata. En az bir giriş seçin.
+ErrorProductWithRefNotExist='<i>%s</i>' referanslı ürün ürün yoktur
+ErrorDeleteNotPossibleLineIsConsolidated=Kaydın silinmesi mümkün değildir çünkü kayıt uzlaştırılmış bir banka işlemiyle bağlantılıdır
+ErrorProdIdAlreadyExist=%s diğer bir üçüncüye atanmış
+ErrorFailedToSendPassword=Parola gönderilemedi
+ErrorFailedToLoadRSSFile=RSS beslemesi alınamıyor. Eğer hata mesajları yeterli bilgi sağlamıyorsa MAIN_SIMPLEXMLLOAD_DEBUG değişmezini eklemeyi deneyin.
+ErrorPasswordDiffers=Parolalar farklıdır, bunları tekrar yazın lütfen.
+ErrorForbidden=Erişim engellendi.<br>Kimlik doğrulama sı gerektiren ya da kullanıcınızın izni olmayan bir sayfa, alan veya özelliğe erişmeye çalışın.
+ErrorForbidden2=Bu giriş için izin Dolibarr yöneticiniz tarafından %s->%s menüsünden tanımlanabilir.
+ErrorForbidden3=Dolibarr bir kimlik doğrulama oturumu üzerinden kullanılmamış gibi görünüyor. Kimlik doğrulama nasıl yönetileceğini öğrenmek Dolibarr kurulum belgelerine bir göz atın (htaccess, mod_auth veya diğer ...).
+ErrorNoImagickReadimage=Bu PHP Class Imagick yok. Önizleme kullanılır olmayabilir. Yöneticiler Kurulum - Görünüm menüsünde bu sekmeyi devre dışı bırakabilir.
+ErrorRecordAlreadyExists=Kayıt zaten var
+ErrorCantReadFile=Dosya '%s' okunamadı
+ErrorCantReadDir=Dizin '%s' okunamadı
+ErrorFailedToFindEntity=Ortam '%s' okunamadı
+ErrorBadLoginPassword=Kullanıcı veya parola için hatalı değer
+ErrorLoginDisabled=Hesabınız engellendi
+ErrorFailedToRunExternalCommand=Dış komut çalıştırılamıyor. PHP sunucunuz tarafından kullanılabilir ve çalıştırılabilir olup olmadığını kontrol edin. PHP <b>Güvenli Mod</b> etkinse, komutun <b>safe_mode_exec_dir</b> parametresiyle tanımlanmış bir dizin içinde olup olmadığını kontrol edin.
+ErrorFailedToChangePassword=Parola değiştirilemedi
+ErrorLoginDoesNotExists=<b>%s</b> girişli kullanıcı bulunamadı.
+ErrorLoginHasNoEmail=Bu kullanıcının e-posta adresi yoktur. İşlem iptal edildi.
+ErrorBadValueForCode=Güvenlik kodu için hatalı değer. Yeni değer ile tekrar deneyin...
+ErrorBothFieldCantBeNegative=%s ve %s alanlarının ikisi birden eksi olamaz
+ErrorWebServerUserHasNotPermission=Web sunucusunu çalıştırmak için kullanılan <b>%s</b> kullanıcı hesabnın bunun için izni yok
+ErrorNoActivatedBarcode=Etkinleştirilmiş barkod türü yok
+
+# Uyarılar
+WarningSafeModeOnCheckExecDir=Uyarı, PHP seçeneği <b>güvenli_mode</b> açıktır, böylece komut php parametresi <b>güvenli_mode_exec_dir</b> tarafından bildirilen bir dizine saklanabilir.
+WarningAllowUrlFopenMustBeOn=<b>allow_url_fopen</b> Parametresi <b>php.ini</b> dosyalayıcısında bu modülün tam olarak çalışması için <b>on</b> ye ayarlanmalıdır. Bu dosyayı el ile değiştirmeniz gerekir.
+WarningBuildScriptNotRunned=<b>%s</b> komut dizisi henüz grafik oluşturmak için çalıştırılmadı ya da gösterilecek veri yok.
+WarningBookmarkAlreadyExists=Bu konulu ya da bu hedefli (URL) bir yerimi zaten var.
+WarningPassIsEmpty=Uyarı, veritabanı parolası boş. Bu bir güvenlik açığıdır. Veritabanına bir parola eklemelesiniz ve bu yansıtmak için conf.php dosyanızı değiştirin.
+WarningConfFileMustBeReadOnly=Uyarı, web sunucusu tarafından yapılandırma dosyanızın (<b>htdocs/conf/conf.php</b>)  üzerine üzerine yazılabilir.Bu ciddi bir güvenlik açığıdır. Web sunucusun kullandığı sistem kullanıcısının çalışması için dosyadaki izinleri sadece okumaya değiştirin. Windows ve disk için FAT biçimini kullanıyorsanız, bu dosya sisteminin dosya izinleri eklemek izin vermediğini bilmelisiniz, bu nedenle tamamen güvenli olamaz.
+WarningsOnXLines=<b>%s</b> kaynak satırlarındaki uyarılar
+WarningNoDocumentModelActivated=Hiçbir model, belge üretimi için aktive edilmemiştir. Modül kurulumunuzu kontrol edene kadar bir model varsayılan olarak seçilecektir.
+WarningInstallDirExists=Uyarı, kurulum bir kez tamalanırsa,  <b>install.lock</b> dosyasını <b>%s</b> dizinine ekleyerek kur/taşıma aracını devre dışı bırakmalısınız. Bu dosyanın olmaması ciddi bir güvenlik açığıdır.
+WarningUntilDirRemoved=Tüm güvenlik uyarıları (sadece admin kullanıcıları tarafından görülebilir) savunmasızlık olduğu sürece etkin olur (ya da MAIN_REMOVE_INSTALL_WARNING değişmezi Kurulum->Diğer menüsünde kuruluma eklenir).

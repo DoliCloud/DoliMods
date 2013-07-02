@@ -1,0 +1,107 @@
+﻿/*
+ * Language code: tr_TR
+ * Manually generated
+ * Generation date 2012-07-05 10:49:00
+ */
+
+// START - Lines generated manually (2012-07-05 10:49:00).
+// Reference language: en_US – propal
+
+CHARSET=UTF-8
+Proposals=Ticari teklifler
+Proposal=Ticari teklif
+ProposalShort=Teklif
+ProposalsDraft=Taslak ticari teklifler
+ProposalDraft=Taslak ticari teklif
+ProposalsOpened=Açık ticari teklifler
+Prop=Ticari teklifler
+CommercialProposal=Ticari teklif
+CommercialProposals=Ticari teklifler
+ProposalCard=Teklif kartı
+NewProp=Yeni ticari teklif
+NewProposal=Yeni ticari teklif
+NewPropal=Yeni teklif
+Prospect=Aday
+ProspectList=Aday listesi
+DeleteProp=Ticari teklif sil
+ValidateProp=Ticari teklif doğrula
+AddProp=Teklif ekle
+ConfirmDeleteProp=Bu ticari teklifi silmek istediğinizden emin misiniz?
+ConfirmValidateProp=Bu ticari teklifi doğrulamak istediğinizden emin misiniz?
+LastPropals=Son %s teklif
+LastClosedProposals=Son %s kapalı teklif
+LastModifiedProposals=Son %s değiştirilen teklif 
+AllPropals=Tüm teklifler
+LastProposals=Son teklifler
+SearchAProposal=Bir teklif ara
+ProposalsStatistics=Ticari teklif istatistikleri
+NumberOfProposalsByMonth=Aylara göre sayısı
+AmountOfProposalsByMonthHT=Aylık tutar (vergi hariç)
+NbOfProposals=Ticari teklif sayısı
+ShowPropal=Teklif göster
+PropalsDraft=Taslaklar
+PropalsOpened=Açık
+PropalsNotBilled=Kapalı faturalandırılmamış
+PropalStatusDraft=Taslak (doğrulama gerektiriyor)
+PropalStatusValidated=Onaylı (teklif açık)
+PropalStatusOpened=Onaylı (teklif açık)
+PropalStatusClosed=Kapalı
+PropalStatusSigned=İmzalanmış(faturalandırılması gerekiyor)
+PropalStatusNotSigned=İmzalanmamış (kapalı)
+PropalStatusBilled=Faturalanmış
+PropalStatusDraftShort=Taslak
+PropalStatusValidatedShort=Doğrulanmış
+PropalStatusOpenedShort=Açık
+PropalStatusClosedShort=Kapalı
+PropalStatusSignedShort=İmzalı
+PropalStatusNotSignedShort=İmzalanmamış
+PropalStatusBilledShort=Faturalandırılmış
+PropalsToClose=Kapatılacak ticari teklifler
+PropalsToBill=Faturalandırılacak imzalı ticari teklifler
+ListOfProposals=Ticari teklif listesi
+ActionsOnPropal=Tekliler için yapılan eylemler
+NoOpenedPropals=Açık ticari teklif yok
+NoOtherOpenedPropals=Başka hiçbir açık ticari teklif yok
+RefProposal=Ticari teklif ilgisi
+SendPropalByMail=Ticari teklifi postayla gönder
+FileNotUploaded=Dosya yüklenemedi
+FileUploaded=Dosya başarıyla yüklendi
+AssociatedDocuments=Bu teklif ile ilişkili belgeler:
+ErrorCantOpenDir=Dizin açılamıyor
+DatePropal=Teklif tarihi
+DateEndPropal=Son geçerlilik tarihi
+DateEndPropalShort=Son tarih
+ValidityDuration=Geçerlilik süresi
+CloseAs=Kapalı durumda
+ClassifyBilled=Faturalandırılmış olarak sınıflandır
+BuildBill=Fatura oluştur
+ErrorPropalNotFound=%s Teklifi bulunamadı
+Estimate=Tahmin:
+EstimateShort=Tahmin
+OtherPropals=Diğer teklifler
+CopyPropalFrom=Varolan teklifi kopyalayarak ticari teklif oluşturma
+CreateEmptyPropal=Boş ticari teklif oluştur veya ürünler/hizmetler listesinden oluştur
+DefaultProposalDurationValidity=Varsayılan ticari teklif geçerlilik süresi (gün olarak)
+UseCustomerContactAsPropalRecipientIfExist=Teklif alıcısı olarak üçüncü parti yerine, eğer tanımlanmışsa, kişi adresini kullan
+ClonePropal=Ticari teklif kopyala
+ConfirmClonePropal=Bu ticari teklifi <b>%s</b> kopyalamak istediğinizden emin misiniz?
+ConfirmReOpenProp=Bu ticari teklifi <b>%s</b> yeniden açmak istediğinizden emin misiniz?
+ProposalsAndProposalsLines=Ticari teklif ve satırları
+ProposalLine=Teklif satırı
+AvailabilityPeriod=Kabul edilebilir gecikme
+SetAvailability=Kabul edilebilir gecikmeyi ayarla
+AfterOrder=Siparişten sonra
+##### Uygunluk #####
+AvailabilityTypeAV_NOW=Acil
+AvailabilityTypeAV_1W=1 hafta
+AvailabilityTypeAV_2W=2 hafta
+AvailabilityTypeAV_3W=3 hafta
+AvailabilityTypeAV_1M=1 ay
+##### Kişi türleri #####
+TypeContact_propal_internal_SALESREPFOLL=Teklif izleme temsilcisi
+TypeContact_propal_external_BILLING=Müşteri faturası ilgilisi
+TypeContact_propal_external_CUSTOMER=Müşteri teklif izleme ilgilisi
+# Document models
+DocModelAzurDescription=Tam bir teklif modeli (logo. ..)
+DocModelJauneDescription=Jaune modeli teklif
+

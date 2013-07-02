@@ -1,0 +1,135 @@
+/*
+ * Lince Translation File
+ * Filename: 
+ * Language code: pl_PL
+ * Automatic generated via autotranslator tool
+ * Generation date 2009-01-19 00:44:06
+ */
+
+
+// Date 2009-01-19 00:44:06
+// START - Lines generated via autotranslator.php tool.
+// Reference language: en_US
+CHARSET=UTF-8
+ErrorLoginAlreadyExists=Zaloguj %s już istnieje.
+ErrorGroupAlreadyExists=Grupa %s już istnieje.
+ErrorFailToDeleteFile=Nie można usunąć pliku <b>" %s".</b>
+ErrorFailToCreateFile=Nie można utworzyć pliku <b>' %s'.</b>
+ErrorFailToRenameDir=Nie można zmienić nazwy katalogu <b>' %s' do' %s'.</b>
+ErrorFailToCreateDir=Nie można utworzyć katalogu <b>' %s'.</b>
+ErrorFailToDeleteDir=Nie można usunąć katalogu <b>" %s".</b>
+ErrorFailedToDeleteJoinedFiles=Nie można usunąć, ponieważ jednostka nie ma przystąpiły niektóre pliki. Usuń dołączyć plików.
+ErrorThisContactIsAlreadyDefinedAsThisType=Ten kontakt jest już zdefiniowana jako kontaktowy dla tego typu.
+ErrorCashAccountAcceptsOnlyCashMoney=To konto bankowe jest gotówką uwagę, dlatego akceptuje płatności typu cash only.
+ErrorFromToAccountsMustDiffers=Źródło i celów rachunków bankowych muszą być różne.
+ErrorBadThirdPartyName=Zła wartość w trzeciej imię
+ErrorBadCustomerCodeSyntax=Bad składni kodu klienta
+ErrorCustomerCodeRequired=Klient kod wymagane
+ErrorCustomerCodeAlreadyUsed=Klient kod już używane
+ErrorPrefixRequired=Prefiks wymagana
+ErrorBadSupplierCodeSyntax=Bad składni kodu dostawcy
+ErrorSupplierCodeRequired=Dostawca kod wymagane
+ErrorSupplierCodeAlreadyUsed=Dostawca kod już używane
+ErrorBadParameters=Bad parametry
+ErrorFailedToWriteInDir=Nie można zapisać w katalogu %s
+ErrorFoundBadEmailInFile=Found incorrect email syntax for %s lines in file (example line %s with email=Znaleziono nieprawidłowy adres e-mail składni %s linii w pliku (np. z linii email %s= %s)
+ErrorUserCannotBeDelete=Użytkownik nie może być usunięty. Może być to związane jest na Dolibarr podmiotów.
+ErrorFieldsRequired=Niektóre pola wymagane nie były obsadzone.
+ErrorFailedToCreateDir=Nie można utworzyć katalogu. Sprawdź, czy serwer WWW użytkownik ma uprawnienia do zapisu do katalogu dokumentów Dolibarr. Jeśli parametr <b>safe_mode</b> jest włączona w tym PHP, czy posiada Dolibarr php pliki do serwera internetowego użytkownika (lub grupy).
+ErrorNoMailDefinedForThisUser=Nie określono mail do tego użytkownika
+ErrorFeatureNeedJavascript=Ta funkcja JavaScript trzeba być aktywowany do pracy. Zmień to w konfiguracji - wyświetlacz.
+ErrorTopMenuMustHaveAParentWithId0=Menu typu "góry" nie może mieć dominującej menu. Umieść 0 dominującej w menu lub wybrać z menu typu "Lewy".
+ErrorLeftMenuMustHaveAParentId=Menu typu "Lewy" musi mieć identyfikator rodzica.
+ErrorFileNotFound=Nie znaleziono pliku (Złe drogi, złe uprawnienia lub odmowa dostępu przez openbasedir parametr)
+ErrorFunctionNotAvailableInPHP=<b>Funkcja %s</b> jest wymagane dla tej funkcji, ale nie jest dostępny w tej wersji / konfiguracji PHP.
+ErrorDirAlreadyExists=A katalog o takiej nazwie już istnieje.
+ErrorFieldCanNotContainSpecialCharacters=<b>Pole %s</b> nie zawiera znaki specjalne.
+WarningAllowUrlFopenMustBeOn=<b>Allow_url_fopen</b> Parametr musi być ustawiony <b>w</b> Filer <b>php.ini</b> za ten moduł pracy całkowicie. Należy zmodyfikować ten plik ręcznie.
+WarningBuildScriptNotRunned=<b>Skrypt %s</b> nie zostało jeszcze prowadził do tworzenia grafiki, lub nie ma danych do pokazania.
+WarningBookmarkAlreadyExists=Zakładka z tego tytułu lub ten cel (URL) już istnieje.
+WarningPassIsEmpty=Ostrzeżenie, hasło bazy danych jest pusta. To jest chroniony. Należy dodać hasło do bazy danych i zmienić conf.php pliku w celu odzwierciedlenia tego.
+ErrorNoAccountancyModuleLoaded=Nr rachunkowych moduł aktywowany
+ErrorExportDuplicateProfil=Ten profil nazwie już istnieje dla tego zestawu eksportowych.
+ErrorLDAPSetupNotComplete=Dolibarr-LDAP dopasowywania nie jest kompletna.
+ErrorLDAPMakeManualTest=A. LDIF plik został wygenerowany w katalogu %s. Spróbuj załadować go ręcznie z wiersza polecenia, aby mieć więcej informacji na temat błędów.
+ErrorCantSaveADoneUserWithZeroPercentage=Nie można zapisać działania z "Statut nie rozpocznie", jeśli pole "wykonana przez" jest wypełniona.
+ErrorRefAlreadyExists=Numer identyfikacyjny używany do tworzenia już istnieje.
+ErrorPleaseTypeBankTransactionReportName=Wpisz nazwę banku otrzymania gdy transakcja jest zgłaszane (Format RRRRMM lub RRRRMMDD)
+ErrorRecordHasChildren=Nie można usunąć rekordy, ponieważ ma pewne Childs.
+// Date 2009-01-19 00:44:06
+// STOP - Lines generated via parser
+
+
+// START - Lines generated via autotranslator.php tool (2009-08-13 21:07:31).
+// Reference language: en_US
+ErrorUrlNotValid=Adres strony internetowej jest nieprawidłowy
+Error=Błąd
+Errors=Błędy
+ErrorBadEMail=EMail %s jest nie tak
+ErrorBadUrl=Url %s jest nie tak
+ErrorRecordNotFound=Rekord nie został znaleziony.
+ErrorDirNotFound=Nie znaleziono katalogu <b>%s</b> (Bad ścieżki złe uprawnienia lub odmowa dostępu przez openbasedir PHP safe_mode lub parametr)
+ErrorFileAlreadyExists=Plik o takiej nazwie już istnieje.
+ErrorPartialFile=Plik nie otrzymał całkowicie przez serwer.
+ErrorNoTmpDir=Tymczasowy directy %s nie istnieje.
+ErrorUploadBlockedByAddon=Prześlij zablokowane / PHP wtyczki Apache.
+ErrorFileSizeTooLarge=Rozmiar pliku jest zbyt duży.
+WarningSafeModeOnCheckExecDir=Uwaga, opcja <b>safe_mode</b> w PHP jest więc polecenia muszą być przechowywane wewnątrz katalogu <b>safe_mode_exec_dir</b> parametrów deklarowanych przez php.
+WarningConfFileMustBeReadOnly=Uwaga, plik konfiguracyjny <b>(htdocs / conf / conf.php)</b> mogą być zastąpione przez serwer internetowy. Jest to poważna luka w zabezpieczeniach. Modyfikowanie uprawnień na wniosek jest w trybie tylko do odczytu dla użytkownika system operacyjny używany przez serwer sieci Web. Jeśli używasz systemu Windows i format FAT na dysku, musisz wiedzieć, że ten system plików nie pozwala na dodawanie uprawnień do pliku, więc nie może być całkowicie bezpieczne.
+ErrorModuleRequireJavascript=JavaScript nie musi być wyłączona do tej pracy funkcji. Aby włączyć / wyłączyć Javascript, przejdź do menu Start-> Ustawienia-> Ekran.
+ErrorPasswordsMustMatch=Zarówno wpisane hasło musi się zgadzać się
+ErrorWrongValueForField=Nieprawidłowa wartość dla <b>%s</b> numer pola (wartość <b>&quot;%s&quot;</b> nie pasuje regex <b>%s</b> zasady)
+ErrorsOnXLines=Błędów na linii źródło <b>%s</b>
+WarningsOnXLines=Ostrzeżeń na linii źródło <b>%s</b>
+ErrorFileIsInfectedWithAVirus=Program antywirusowy nie był w stanie potwierdzić (plik może być zainfekowany przez wirusa)
+ErrorSpecialCharNotAllowedForField=Znaki specjalne nie są dozwolone dla pola &quot;%s&quot;
+WarningNoDocumentModelActivated=Nie modelu do generowania dokumentu, został aktywowany. Model będzie wybraną domyślnie dopóki nie zajrzysz do modułu konfiguracji.
+ErrorDatabaseParameterWrong=parametr konfiguracji bazy danych <b>&quot;%s&quot;</b> ma wartość nie jest zgodna korzystać Dolibarr (musi mieć wartość <b>&quot;%s&quot;).</b>
+ErrorNumRefModel=Odniesienia nie istnieje w bazie danych (%s) i nie jest zgodna z tą zasadą numeracji. Zmiana nazwy lub usuwanie zapisu w odniesieniu do aktywacji tego modułu.
+ErrorQtyTooLowForThisSupplier=Zbyt mała ilość tego dostawcy lub ceny nie określono tego produktu dla tego dostawca
+ErrorFailedToSendPassword=Nie można wysłać hasło
+ErrorPasswordDiffers=Hasła różni, wpisz je ponownie.
+ErrorForbidden=Dostęp zabroniony. <br> Podczas próby dostępu do strony, na powierzchni lub funkcji bez poświadczoną sesji lub które nie są dopuszczone do użytkownika.
+ErrorForbidden2=Wykorzystanie tej nazwie może być zdefiniowana przez administratora z menu Dolibarr %s-> %s.
+ErrorForbidden3=Wydaje się, że Dolibarr nie jest używany przez uwierzytelniane sesji. Rzuć okiem na Dolibarr konfiguracji dokumentacji wiedzieć, jak zarządzać authentications (htaccess, mod_auth lub innych ...).
+ErrorNoImagickReadimage=Funkcja imagick_readimage nie jest w tej PHP. Podgląd może być dostępny. Administratorzy mogą wyłączyć tę zakładkę z menu Ustawienia - Ekran.
+ErrorRecordAlreadyExists=Zapis już istnieje
+ErrorCantReadFile=Nie można odczytać pliku ' %s'
+ErrorCantReadDir=Nie można odczytać katalogu ' %s'
+ErrorFailedToFindEntity=Nie można odczytać jednostki " %s"
+ErrorBadLoginPassword=Zła wartość dla loginu lub hasła
+ErrorLoginDisabled=Twoje konto zostało zablokowane
+ErrorFailedToRunExternalCommand=Nie można uruchomić polecenia zewnętrznych. Zameldowanie jest ona dostępna i runnable przez serwer PHP. Jeśli PHP <b>safe mode</b> jest włączony, czy polecenie wewnątrz katalogu określonym przez parametr <b>safe_mode_exec_dir.</b>
+ErrorFailedToChangePassword=Nie można zmienić hasła
+ErrorLoginDoesNotExists=Użytkownik z <b>logowania %s</b> nie może zostać znaleziony.
+ErrorLoginHasNoEmail=Ten użytkownik nie ma adresu e-mail. Proces przerwany.
+ErrorBadValueForCode=Zła wartość typy kodu. Spróbuj ponownie z nową wartość ...
+ErrorFileIsInfectedWith=Ten plik jest zainfekowany %s
+WarningInstallDirExists=Ostrzeżenie zainstalować katalog ( %s), nadal istnieje. Jest to poważne dziury bezpieczeństwa. Należy usunąć go jak najszybciej.
+WarningUntilDirRemoved=To ostrzeżenie pozostanie aktywne, dopóki ten katalog jest obecny (Widoczne tylko admin użytkowników).
+
+// START - Lines generated via autotranslator.php tool (2012-02-29 17:18:29).
+// Reference language: en_US -> pl_PL
+ErrorFailToCopyFile=Nie udało się skopiować pliku <b>'%s</b> &quot;na&quot; <b>%s</b> strony'.
+ErrorFailToRenameFile=Nie można zmienić nazwy pliku <b>'%s</b> &quot;na&quot; <b>%s</b> strony'.
+ErrorBadValueForParameter=Wrong wartość '%s &quot;dla parametrów nieprawidłowe&quot; %s spacerem
+ErrorBadImageFormat=Plik obrazu ma nie obsługiwanym formacie
+ErrorBadDateFormat=Wartość '%s &quot;ma zły format daty
+ErrorSizeTooLongForIntType=Rozmiar zbyt długo typu int (%s cyfr maksimum)
+ErrorSizeTooLongForVarcharType=Rozmiar zbyt długo typu string (%s znaków maksymalnie)
+ErrorContactEMail=Techniczny błąd. Proszę skontaktować się z administratorem, aby po <b>%s</b> email pl zapewnić <b>%s</b> kod błędu w wiadomości, a nawet lepsze, dodając kopię ekranu strony.
+ErrorFieldValueNotIn=Nieprawidłowa wartość dla <b>%s</b> liczba terenowych (value <b>'%s</b> &quot;nie wartość dostępna w <b>%s</b> terenowych <b>%s</b> deserowe)
+ErrorFieldRefNotIn=Nieprawidłowa wartość dla <b>%s</b> liczba pól (wartość <b>'%s</b> &quot;nie jest <b>%s</b> istniejących ref)
+ErrorModuleSetupNotComplete=Instalacja modułu wygląda na uncomplete. Idź na instalacji - Moduły do ​​wykonania.
+ErrorBadMask=Błąd na masce
+ErrorBadMaskFailedToLocatePosOfSequence=Błąd, maska ​​bez kolejnego numeru
+ErrorBadMaskBadRazMonth=Błąd, zła wartość zresetowane
+ErrorSelectAtLeastOne=Błąd. Wybierz co najmniej jeden wpis.
+ErrorProductWithRefNotExist=Produkt z <i>'%s</i> &quot;odniesienia nie istnieje
+ErrorDeleteNotPossibleLineIsConsolidated=Usuń nie możliwe, ponieważ zapis jest związany z transation bankowego, który jest conciliated
+ErrorProdIdAlreadyExist=%s jest przypisany do innego państwa
+ErrorFailedToLoadRSSFile=Nie dostać kanału RSS. Spróbuj dodać stałą MAIN_SIMPLEXMLLOAD_DEBUG czy komunikaty o błędach nie zawiera wystarczających informacji.
+ErrorBothFieldCantBeNegative=Pola %s i %s nie może być zarówno negatywny
+ErrorWebServerUserHasNotPermission=Konto użytkownika <b>%s</b> wykorzystywane do wykonywania serwer WWW nie ma zgody na który
+ErrorNoActivatedBarcode=Nie Typ aktywny kodów kreskowych
+// STOP - Lines generated via autotranslator.php tool (2012-02-29 17:19:12).

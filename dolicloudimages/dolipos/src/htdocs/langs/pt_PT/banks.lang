@@ -1,0 +1,164 @@
+﻿# Dolibarr language file - pt_PT - banks
+CHARSET=UTF-8
+Bank=Banco
+Banks=Bancos
+MenuBankCash=Bancos/Caixas
+MenuSetupBank=Param. banco/Caixa
+BankName=Nome do banco
+FinancialAccount=Conta
+FinancialAccounts=Contas
+BankAccount=Conta bancária
+BankAccounts=Contas Bancárias
+AccountRef=Ref. Conta financeira
+AccountLabel=Etiqueta Conta financeira
+CashAccount=Conta Caixa/efectivo
+CashAccounts=Contas Caixa/efectivo
+MainAccount=Conta corrente
+CurrentAccount=Conta corrente
+CurrentAccounts=Contas correntes
+SavingAccount=Conta a prazo
+SavingAccounts=Contas a prazo
+ErrorBankLabelAlreadyExists=Etiqueta de Conta financeira já existente
+BankBalance=Saldo
+BalanceMinimalAllowed=Saldo Máximo Autorizado
+BalanceMinimalDesired=Saldo Mínimo Desejado
+InitialBankBalance=Saldo Inicial
+EndBankBalance=Saldo Final
+CurrentBalance=Saldo Actual
+FutureBalance=Saldo Previsto
+ShowAllTimeBalance=Mostrar Balanço Desde o Início
+Reconciliation=Conciliação
+RIB=Conta bancária
+IBAN=Identificador IBAN
+BIC=Identificador BIC/SWIFT
+StandingOrders=Débitos Directos
+StandingOrder=Domiciliação
+Withdrawals=Reembolsos
+Withdrawal=Reembolso
+AccountStatement=Extracto
+AccountStatementShort=Extracto
+AccountStatements=Extractos
+LastAccountStatements=Últimos extractos bancários
+Rapprochement=Conciliação
+IOMonthlyReporting=Relatório mensal E/S
+BankAccountDomiciliation=Domiciliação de Conta
+BankAccountOwner=Nome do proprietário da Conta
+BankAccountOwnerAddress=Direcção do proprietário da Conta
+RIBControlError=O controlo da chave indica que a informação desta Conta bancaria é incompleta ou incorrecta.
+CreateAccount=Criar Conta
+StandingOrderToProcess=A Processar
+StandingOrderProcessed=Processados
+NewAccount=Nova Conta
+NewBankAccount=Nova Conta bancaria
+NewFinancialAccount=Nova Conta financeira
+MenuNewFinancialAccount=Nova Conta
+NewCurrentAccount=Nova Conta corrente
+NewSavingAccount=Nova Conta a prazo
+NewCashAccount=Nova Conta de Caixa
+EditFinancialAccount=Edição Conta
+AccountSetup=Configuração das Contas financeiras
+SearchBankMovement=Procurar registo bancário
+Debts=Dívidas
+LabelBankCashAccount=Etiqueta da Conta de Caixa
+AccountType=Tipo de Conta
+BankType0=Conta bancária a prazo
+BankType1=Conta bancária corrente
+BankType2=Conta Caixa/efectivo
+IfBankAccount=Conta bancária
+AccountsArea=Área Contas
+AccountCard=Ficha Conta
+DeleteAccount=Apagar Conta
+ConfirmDeleteAccount=Deseja mesmo eliminar esta conta?
+Account=Conta
+ByCategories=Por categorias
+ByRubriques=Por rubricas
+BankTransactionByCategories=Registos bancários por rubricas
+BankTransactionForCategory=Registos bancários por a rubrica <b>%s</b>
+RemoveFromRubrique=Eliminar link com rubrica
+RemoveFromRubriqueConfirm=Deseja mesmo eliminar a ligação entre a transacção e a rubrica?
+ListBankTransactions=Lista de transações
+IdTransaction=Id de transacção
+BankTransactions=Transacções bancárias
+SearchTransaction=Procurar registo
+ListTransactions=Lista transacções
+ListTransactionsByCategory=Lista transacções/categoria
+TransactionsToConciliate=Registos a conciliar
+Conciliable=Conciliável
+Conciliate=Conciliar
+Conciliation=Conciliação
+ConciliationForAccount=Conciliações nesta Conta
+IncludeClosedAccount=Incluir Contas fechadas
+OnlyOpenedAccount=Somente Contas abertas
+AccountToCredit=Conta de crédito
+AccountToDebit=Conta de débito
+DisableConciliation=Desactivar a função de Conciliação para esta Conta
+ConciliationDisabled=Função de Conciliação desactivada
+StatusAccountOpened=Aberta
+StatusAccountClosed=Fechada
+AccountIdShort=Número
+EditBankRecord=Editar registo
+LineRecord=Registo
+AddBankRecord=Adicionar registo
+AddBankRecordLong=Realizar um registo manual fora de uma factura
+ConciliatedBy=Conciliado por
+DateConciliating=Data Conciliação
+BankLineConciliated=Registo conciliado
+CustomerInvoicePayment=Pagamento de cliente
+SupplierInvoicePayment=Pagamento a fornecedor
+SocialContributionPayment=Pagamento carga social
+FinancialAccountJournal=Diário de tesouraria da Conta
+BankTransfer=Transferência bancária
+BankTransfers=Transferencias bancarias
+TransferDesc=Ao criar uma transferência de uma das suas contas bancárias para outra serão criados os registos contabilísticos em ambas (um de débito numa Conta e outro de crédito, do mesmo Montante, na outra Conta. A data e a descrição da transferência será a mesma em ambas as contas)
+TransferFrom=De
+TransferTo=Para
+TransferFromToDone=A transferência de <b>%s</b> para <b>%s</b> de <b>%s</b> %s foi criado.
+CheckTransmitter=Emissor
+ValidateCheckReceipt=Deseja mesmo validar este recebimento?
+ConfirmValidateCheckReceipt=Deseja mesmo confirmar esta ficha? (Não será possivel efectuar modificações uma vez que a ficha será validada)
+DeleteCheckReceipt=Deseja mesmo eliminar esta ficha?
+ConfirmDeleteCheckReceipt=Deseja mesmo eliminar esta ficha?
+BankChecks=Cheques
+BankChecksToReceipt=Cheques a depositar
+NumberOfCheques=Nº de cheques
+DeleteTransaction=Eliminar a transacção
+ConfirmDeleteTransaction=Deseja mesmo eliminar esta transacção?
+ThisWillAlsoDeleteBankRecord=Eliminará também os registos bancários gerados
+BankMovements=Movimentos
+CashBudget=Orçamento de tesouraria
+PlannedTransactions=Transacções previstas
+ExportDataset_banque_1=Transacção bancária e extracto
+TransactionOnTheOtherAccount=Transacção sobre outra Conta
+TransactionWithOtherAccount=Transferência de Conta
+PaymentNumberUpdateSucceeded=Número de pagamento modificado
+PaymentNumberUpdateFailed=Não foi possivel modificar o número de pagamento
+PaymentDateUpdateSucceeded=Data de pagamento modificada
+PaymentDateUpdateFailed=Não foi possível modificar a data de pagamento
+Transactions=Transacção
+BankTransactionLine=Transacção Bancária
+AllAccounts=Todas as Contas bancárias/de Caixa
+BackToAccount=Voltar à Conta
+ShowAllAccounts=Mostrar para todas as Contas
+
+
+
+
+// START - Lines generated via autotranslator.php tool (2010-09-04 01:33:40).
+// Reference language: en_US -> pt_PT
+BankAccountCountry=Conta do país
+// STOP - Lines generated via autotranslator.php tool (2010-09-04 01:37:37).
+
+
+// START - Lines generated via autotranslator.php tool (2011-10-10 02:45:33).
+// Reference language: en_US -> pt_PT
+WithdrawalPayment=Pagamento de retirada
+ShowCheckReceipt=Mostrar recibo de depósito
+Graph=Gráficos
+// STOP - Lines generated via autotranslator.php tool (2011-10-10 07:16:14).
+
+
+// START - Lines generated via autotranslator.php tool (2012-02-29 15:45:52).
+// Reference language: en_US -> pt_PT
+FutureTransaction=Transacção futura. Não há forma de conciliar.
+SelectChequeTransactionAndGenerate=Selecione o que pretende incluir no recibo de depósito e clique em &quot;Criar&quot;.
+// STOP - Lines generated via autotranslator.php tool (2012-02-29 15:45:58).
