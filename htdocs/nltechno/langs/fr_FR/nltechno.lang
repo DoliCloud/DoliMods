@@ -36,3 +36,4 @@ DirForScriptPath=Répertoires des scripts outils
 DirForLastStableVersionOfDolibarr=Répertoire de la version maintenance de Dolibarr
 DirForDoliCloudBackupInstances=Répertoire des sauvegardes
 ErrorConnectOkButFailedToCreateFile=Connexion SSH ok, mais échec de création du fichier
+MotD=Bienvenu sur la page de configuration de votre logiciel, amélioré des modules NLTechno.
