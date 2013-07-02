@@ -17,7 +17,6 @@
 
 /**     \defgroup   concatpdf		Module ConcatPdf
  *      \brief      Module for concatpdf server
- *		\version	$Id: modConcatPdf.class.php,v 1.1 2011/05/18 15:51:47 eldy Exp $
  */
 
 /**
@@ -29,8 +28,8 @@
 include_once(DOL_DOCUMENT_ROOT ."/core/modules/DolibarrModules.class.php");
 
 
-/**     \class      modConcatPdf
- *      \brief      Description and activation class for module concatpdf
+/**
+ * 	Description and activation class for module concatpdf
  */
 class modConcatPdf extends DolibarrModules
 {
@@ -40,7 +39,7 @@ class modConcatPdf extends DolibarrModules
 	 *
 	 *   @param		DoliDB		$db		Database handler
      */
-	function modConcatPdf($db)
+	function __construct($db)
 	{
 		$this->db = $db;
 
