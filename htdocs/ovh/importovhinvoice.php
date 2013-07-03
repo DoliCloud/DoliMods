@@ -446,7 +446,7 @@ if ($action == 'refresh')
 
 }
 
-print '<br>';
+print '<br><br>';
 
 llxFooter();
 
