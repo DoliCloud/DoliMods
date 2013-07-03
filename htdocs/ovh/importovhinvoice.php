@@ -38,6 +38,7 @@ require_once(DOL_DOCUMENT_ROOT.'/product/class/product.class.php');
 require_once(DOL_DOCUMENT_ROOT."/core/lib/date.lib.php");
 require_once(DOL_DOCUMENT_ROOT.'/core/lib/fourn.lib.php');
 require_once(DOL_DOCUMENT_ROOT."/core/lib/files.lib.php");
+require_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/class/html.formfile.class.php");
 
 $langs->load("bills");
@@ -355,10 +356,19 @@ if ($action == 'refresh')
 	            // Search if invoice already exists
 	            $facid=0;
 
-	            $sql="SELECT rowid ";
-	            $sql.=' FROM '.MAIN_DB_PREFIX.'facture_fourn as f';
-	            $sql.=" WHERE facnumber = '".$db->escape($r['billnum'])."' and fk_soc = ".$ovhthirdparty->id;
-
+	            $version=preg_split('/[\.-]/',DOL_VERSION);
+	            if (versioncompare($version,array(3,4,-3)) >= 0)	// For dolibarr 3.4.*
+	            {
+		            $sql="SELECT rowid ";
+		            $sql.=' FROM '.MAIN_DB_PREFIX.'facture_fourn as f';
+		            $sql.=" WHERE ref_supplier = '".$db->escape($r['billnum'])."' and fk_soc = ".$ovhthirdparty->id;
+	            }
+	            else
+				{
+					$sql="SELECT rowid ";
+					$sql.=' FROM '.MAIN_DB_PREFIX.'facture_fourn as f';
+					$sql.=" WHERE facnumber = '".$db->escape($r['billnum'])."' and fk_soc = ".$ovhthirdparty->id;
+	            }
 	            dol_syslog("Seach if invoice exists sql=".$sql);
 	            $resql = $db->query($sql);
 	            $num=0;
