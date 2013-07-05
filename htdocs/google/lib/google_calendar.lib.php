@@ -329,17 +329,17 @@ function createEvent($client, $object)
 
 	$tzfix=0;
 	if (! empty($conf->global->GOOGLE_CAL_TZ_FIX) && is_numeric($conf->global->GOOGLE_CAL_TZ_FIX)) $tzfix=$conf->global->GOOGLE_CAL_TZ_FIX;
-	
+
 	$when = $gc->newWhen();
     if (empty($object->fulldayevent))
     {
-        $when->startTime = dol_print_date($tzfix + $object->datep,"dayhourrfc",'gmt');
-        $when->endTime = dol_print_date($tzfix + empty($object->datef)?$object->datep:$object->datef,"dayhourrfc",'gmt');
+        $when->startTime = dol_print_date(($tzfix*3600) + $object->datep,"dayhourrfc",'gmt');
+        $when->endTime = dol_print_date(($tzfix*3600) + empty($object->datef)?$object->datep:$object->datef,"dayhourrfc",'gmt');
     }
     else
     {
-        $when->startTime = dol_print_date($tzfix + $object->datep,"dayrfc");
-        $when->endTime = dol_print_date($tzfix + empty($object->datef)?$object->datep:$object->datef,"dayrfc");
+        $when->startTime = dol_print_date(($tzfix*3600) + $object->datep,"dayrfc");
+        $when->endTime = dol_print_date(($tzfix*3600) + empty($object->datef)?$object->datep:$object->datef,"dayrfc");
     }
     $newEntry->when = array($when);
 
@@ -507,17 +507,17 @@ function updateEvent($client, $eventId, $object)
 
 	    $tzfix=0;
 	    if (! empty($conf->global->GOOGLE_CAL_TZ_FIX) && is_numeric($conf->global->GOOGLE_CAL_TZ_FIX)) $tzfix=$conf->global->GOOGLE_CAL_TZ_FIX;
-	     
+
 	    $when = $gdataCal->newWhen();
 	    if (empty($object->fulldayevent))
 	    {
-	        $when->startTime = dol_print_date($tzfix + $object->datep,"dayhourrfc",'gmt');
-	        $when->endTime = dol_print_date($tzfix + empty($object->datef)?$object->datep:$object->datef,"dayhourrfc",'gmt');
+	        $when->startTime = dol_print_date(($tzfix*3600) + $object->datep,"dayhourrfc",'gmt');
+	        $when->endTime = dol_print_date(($tzfix*3600) + empty($object->datef)?$object->datep:$object->datef,"dayhourrfc",'gmt');
 	    }
 	    else
 	    {
-	        $when->startTime = dol_print_date($tzfix + $object->datep,"dayrfc");
-	        $when->endTime = dol_print_date($tzfix + empty($object->datef)?$object->datep:$object->datef,"dayrfc");
+	        $when->startTime = dol_print_date(($tzfix*3600) + $object->datep,"dayrfc");
+	        $when->endTime = dol_print_date(($tzfix*3600) + empty($object->datef)?$object->datep:$object->datef,"dayrfc");
 	    }
 	    $eventOld->when = array($when);
 
@@ -659,13 +659,13 @@ function insertGCalsEntries($gCals)
 		$client_secret='HdmLOMStzB9MBbAjCr87gz27';
 		$redirect_uri='http://localhost/dolibarrnew/custom/google/googlecallback.php';
 		$url='https://accounts.google.com/o/oauth2/auth?client_id='.$client_id.'&redirect_uri='.urlencode($redirect_uri).'&scope=https://www.google.com/m8/feeds/&response_type=code';
-		
+
 		dol_include_once('/google/includes/google-api-php-client/src/Google_Client.php');
 		dol_include_once('/google/includes/google-api-php-client/src/contrib/Google_CalendarService.php');
-		
+
 		$client = new Google_Client();
 		$client->setApplicationName("Google Calendar PHP Starter Application");
-		
+
 		// Visit https://code.google.com/apis/console?api=calendar to generate your
 		// client id, client secret, and to register your redirect uri.
 		$client->setClientId($client_id);
@@ -677,28 +677,28 @@ function insertGCalsEntries($gCals)
 		if (isset($_GET['logout'])) {
 			unset($_SESSION['google_oauth_token']);
 		}
-		
+
 		if (isset($_GET['code'])) {
 			$client->authenticate($_GET['code']);
 			$_SESSION['google_oauth_token'] = $client->getAccessToken();
 			header('Location: http://' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF']);
 		}
-		
+
 		if (isset($_SESSION['google_oauth_token'])) {
 			$client->setAccessToken($_SESSION['google_oauth_token']);
 		}
-		
+
 		if ($client->getAccessToken()) {
 			$calList = $cal->calendarList->listCalendarList();
 			print "<h1>Calendar List</h1><pre>" . print_r($calList, true) . "</pre>";
-		
+
 			$_SESSION['google_oauth_token'] = $client->getAccessToken();
 		} else {
 			$authUrl = $client->createAuthUrl();
 			print "<a class='login' href='$authUrl'>Connect Me!</a>";
 		}
 		*/
-		
+
 		$xmlStr = '';
 		// uncomment for debugging :
 		file_put_contents(DOL_DATA_ROOT . "/dolibarr_google_cal_massinsert.xml", $xmlStr);

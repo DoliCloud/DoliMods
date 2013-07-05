@@ -158,9 +158,9 @@ class modGoogle extends DolibarrModules
 		// Declare box
 		$this->boxes[0]['file'] = "box_googlemaps@google";
 		$this->boxes[0]['enabledbydefaulton'] = 1;
-		
+
 		$result=$this->load_tables();
-		
+
 		return $this->_init($sql,$options);
 	}
 
@@ -177,7 +177,7 @@ class modGoogle extends DolibarrModules
 		$sql = array();
 
 		$this->boxes[0]['file'] = "box_googlemaps.php@google";
-		
+
 		return $this->_remove($sql,$options);
 	}
 
@@ -192,7 +192,7 @@ class modGoogle extends DolibarrModules
 	function load_tables()
 	{
 		return $this->_load_tables('/google/sql/');
-	}	
+	}
 }
 
 ?>
