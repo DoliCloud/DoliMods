@@ -327,18 +327,21 @@ function createEvent($client, $object)
 	$newEntry->content = $gc->newContent(dol_string_nohtmltag($object->note));
 	$newEntry->content->type = 'text';
 
+	$tzfix=0;
+	if (! empty($conf->global->GOOGLE_CAL_TZ_FIX) && is_numeric($conf->global->GOOGLE_CAL_TZ_FIX)) $tzfix=$conf->global->GOOGLE_CAL_TZ_FIX;
+	
 	$when = $gc->newWhen();
     if (empty($object->fulldayevent))
     {
-        $when->startTime = dol_print_date($object->datep,"dayhourrfc",'gmt');
-        $when->endTime = dol_print_date(empty($object->datef)?$object->datep:$object->datef,"dayhourrfc",'gmt');
+        $when->startTime = dol_print_date($tzfix + $object->datep,"dayhourrfc",'gmt');
+        $when->endTime = dol_print_date($tzfix + empty($object->datef)?$object->datep:$object->datef,"dayhourrfc",'gmt');
     }
     else
     {
-        $when->startTime = dol_print_date($object->datep,"dayrfc");
-        $when->endTime = dol_print_date(empty($object->datef)?$object->datep:$object->datef,"dayrfc");
+        $when->startTime = dol_print_date($tzfix + $object->datep,"dayrfc");
+        $when->endTime = dol_print_date($tzfix + empty($object->datef)?$object->datep:$object->datef,"dayrfc");
     }
-	$newEntry->when = array($when);
+    $newEntry->when = array($when);
 
 	dol_syslog("startTime=".$when->startTime." endTime=".$when->endTime);
 	// Add Dolibarr action id into Google event properties
@@ -502,16 +505,19 @@ function updateEvent($client, $eventId, $object)
 	    $eventOld->content = $gdataCal->newContent(dol_string_nohtmltag($object->note));
 	    $eventOld->content->type = 'text';
 
+	    $tzfix=0;
+	    if (! empty($conf->global->GOOGLE_CAL_TZ_FIX) && is_numeric($conf->global->GOOGLE_CAL_TZ_FIX)) $tzfix=$conf->global->GOOGLE_CAL_TZ_FIX;
+	     
 	    $when = $gdataCal->newWhen();
 	    if (empty($object->fulldayevent))
 	    {
-	        $when->startTime = dol_print_date($object->datep,"dayhourrfc",'gmt');
-	        $when->endTime = dol_print_date(empty($object->datef)?$object->datep:$object->datef,"dayhourrfc",'gmt');
+	        $when->startTime = dol_print_date($tzfix + $object->datep,"dayhourrfc",'gmt');
+	        $when->endTime = dol_print_date($tzfix + empty($object->datef)?$object->datep:$object->datef,"dayhourrfc",'gmt');
 	    }
 	    else
 	    {
-	        $when->startTime = dol_print_date($object->datep,"dayrfc");
-	        $when->endTime = dol_print_date(empty($object->datef)?$object->datep:$object->datef,"dayrfc");
+	        $when->startTime = dol_print_date($tzfix + $object->datep,"dayrfc");
+	        $when->endTime = dol_print_date($tzfix + empty($object->datef)?$object->datep:$object->datef,"dayrfc");
 	    }
 	    $eventOld->when = array($when);
 
