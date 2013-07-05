@@ -63,7 +63,9 @@ if ($action == 'save')
     if (! $res > 0) $error++;
 	$res=dolibarr_set_const($db,'GOOGLE_EVENT_LABEL_INC_CONTACT',trim($_POST["GOOGLE_EVENT_LABEL_INC_CONTACT"]),'chaine',0);
     if (! $res > 0) $error++;
-
+	$res=dolibarr_set_const($db,'GOOGLE_CAL_TZ_FIX',trim($_POST["GOOGLE_CAL_TZ_FIX"]),'chaine',0);
+    if (! $res > 0) $error++;
+    
     if (! $error)
     {
         $db->commit();
@@ -219,6 +221,24 @@ print "</tr>";
 print "</table>";
 print "<br>";
 
+print "<table class=\"noborder\" width=\"100%\">";
+
+print "<tr class=\"liste_titre\">";
+print '<td width="25%">'.$langs->trans("Parameter")."</td>";
+print "<td>".$langs->trans("Value")."</td>";
+print "</tr>";
+// Google login
+print "<tr ".$bc[$var].">";
+print '<td class="fieldrequired">'.$langs->trans("GOOGLE_FIX_TZ")."</td>";
+print "<td>";
+print '<input class="flat" type="text" size="4" name="GOOGLE_CAL_TZ_FIX" value="'.$conf->global->GOOGLE_CAL_TZ_FIX.'">';
+print ' &nbsp; '.$langs->trans("FillThisOnlyIfRequired");
+print "</td>";
+print "</tr>";
+
+print '</table>';
+
+print '<br>';
 
 print '<center>';
 print "<input type=\"submit\" name=\"save\" class=\"button\" value=\"".$langs->trans("Save")."\">";

@@ -72,3 +72,5 @@ ParametersForGoogleAPIv2Usage=For Google API V2
 ParametersForGoogleAPIv3Usage=For Google API V3
 GoogleClientId=Client ID
 GoogleClientSecret=Client secret
+GOOGLE_FIX_TZ=TimeZone fix
+FillThisOnlyIfRequired=Example: +2 (fill only if problem experienced)

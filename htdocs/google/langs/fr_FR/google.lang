@@ -75,3 +75,5 @@ ParametersForGoogleAPIv2Usage=Pour Google API V2
 ParametersForGoogleAPIv3Usage=Pour Google API V3
 GoogleClientId=Client ID
 GoogleClientSecret=Client secret
+GOOGLE_FIX_TZ=Correctif du TimeZone
+FillThisOnlyIfRequired=Exemple: +2 (ne renseigner que si décalage constaté)
