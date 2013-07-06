@@ -28,7 +28,7 @@
 */
 
 require("../../../main.inc.php");
-require_once(DOL_DOCUMENT_ROOT_ALT."/ventilation/compta/class/comptacompte.class.php");
+dol_buildpath("/ventilation/compta/class/comptacompte.class.php");
 
 $langs->load("ventilation@ventilation");
 
