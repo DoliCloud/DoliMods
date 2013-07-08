@@ -317,6 +317,7 @@ function outputCalendarByFullTextQuery($client, $fullTextQuery)
 function createEvent($client, $object)
 {
     // More examples on http://code.google.com/intl/fr/apis/calendar/data/1.0/developers_guide_php.html
+	global $conf;
 
 	$gc = new Zend_Gdata_Calendar($client, 'Dolibarr');
 
@@ -493,6 +494,8 @@ function getEvent($client, $eventId)
  */
 function updateEvent($client, $eventId, $object)
 {
+	global $conf;
+
 	$gdataCal = new Zend_Gdata_Calendar($client);
 
 	$eventOld = getEvent($client, $eventId);
