@@ -335,12 +335,12 @@ function createEvent($client, $object)
     if (empty($object->fulldayevent))
     {
         $when->startTime = dol_print_date(($tzfix*3600) + $object->datep,"dayhourrfc",'gmt');
-        $when->endTime = dol_print_date(($tzfix*3600) + empty($object->datef)?$object->datep:$object->datef,"dayhourrfc",'gmt');
+        $when->endTime = dol_print_date(($tzfix*3600) + (empty($object->datef)?$object->datep:$object->datef),"dayhourrfc",'gmt');
     }
     else
     {
         $when->startTime = dol_print_date(($tzfix*3600) + $object->datep,"dayrfc");
-        $when->endTime = dol_print_date(($tzfix*3600) + empty($object->datef)?$object->datep:$object->datef,"dayrfc");
+        $when->endTime = dol_print_date(($tzfix*3600) + (empty($object->datef)?$object->datep:$object->datef),"dayrfc");
     }
     $newEntry->when = array($when);
 
@@ -515,12 +515,12 @@ function updateEvent($client, $eventId, $object)
 	    if (empty($object->fulldayevent))
 	    {
 	        $when->startTime = dol_print_date(($tzfix*3600) + $object->datep,"dayhourrfc",'gmt');
-	        $when->endTime = dol_print_date(($tzfix*3600) + empty($object->datef)?$object->datep:$object->datef,"dayhourrfc",'gmt');
+	        $when->endTime = dol_print_date(($tzfix*3600) + (empty($object->datef)?$object->datep:$object->datef),"dayhourrfc",'gmt');
 	    }
 	    else
 	    {
 	        $when->startTime = dol_print_date(($tzfix*3600) + $object->datep,"dayrfc");
-	        $when->endTime = dol_print_date(($tzfix*3600) + empty($object->datef)?$object->datep:$object->datef,"dayrfc");
+	        $when->endTime = dol_print_date(($tzfix*3600) + (empty($object->datef)?$object->datep:$object->datef),"dayrfc");
 	    }
 	    $eventOld->when = array($when);
 
