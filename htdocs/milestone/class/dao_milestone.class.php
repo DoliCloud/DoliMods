@@ -38,14 +38,14 @@ class DaoMilestone extends CommonObject
 	var $label;
 	var $description;
 	var $priority;
-	
+
 	var $objParent;
 	var $fk_element;
 	var $elementtype;
-	
+
 	var $rang;
 	var $rangtouse;
-	
+
 	var $fk_user_modif;
 
 	var $lines=array();			// Tableau en memoire des jalons
@@ -69,7 +69,7 @@ class DaoMilestone extends CommonObject
 	{
 		$element = (is_object($object) ? $object->element : $object);
 		$lineid = (is_object($line) ? $line->rowid : $line);
-		
+
 		$sql = "SELECT rowid, fk_element, elementtype, label, tms, priority, fk_user_modif";
 		$sql.= " FROM ".MAIN_DB_PREFIX."milestone";
 		$sql.= " WHERE fk_element = ".$lineid;
@@ -106,23 +106,23 @@ class DaoMilestone extends CommonObject
 	function create($user,$clone=0)
 	{
 		global $conf,$langs;
-		
+
 		$langs->load('milestone');
 
 		// Clean parameters
 		$this->label=trim($this->label);
 		$this->description=trim($this->description);
-		
+
 		// TODO uniformiser
 		if ($this->objParent->element == 'propal') $fields = array($this->objParent->id,$this->description,0,0,0,0,0,0,0,"HT",0,0,$this->product_type,$this->rang,$this->special_code);
 		if ($this->objParent->element == 'commande') $fields = array($this->objParent->id,$this->description,0,0,0,0,0,0,0,0,0,'HT',0,$this->dateo,$this->datee,$this->product_type,$this->rang,$this->special_code);
 		if ($this->objParent->element == 'facture') $fields = array($this->objParent->id,$this->description,0,0,0,0,0,0,0,$this->dateo,$this->datee,0,0,0,'HT',0,$this->product_type,$this->rang,$this->special_code);
-		
+
 		$this->db->begin();
-		
+
 		if (!$clone)
 		{
-			$result = $this->objParent->addline($fields[0],$fields[1],$fields[2],$fields[3],$fields[4],$fields[5],$fields[6],$fields[7],$fields[8],$fields[9],$fields[10],$fields[11],$fields[12],$fields[13],$fields[14],$fields[15],$fields[16],$fields[17],$fields[18]);
+			$result = $this->objParent->addline($fields[1],$fields[2],$fields[3],$fields[4],$fields[5],$fields[6],$fields[7],$fields[8],$fields[9],$fields[10],$fields[11],$fields[12],$fields[13],$fields[14],$fields[15],$fields[16],$fields[17],$fields[18]);
 		}
 		else
 		{
@@ -145,7 +145,7 @@ class DaoMilestone extends CommonObject
 			if ($res)
 			{
 				$this->id = $this->db->last_insert_id (MAIN_DB_PREFIX."milestone");
-				
+
 				if ($this->id > 0)
 				{
 					// Appel des triggers
@@ -154,7 +154,7 @@ class DaoMilestone extends CommonObject
 					$result=$interface->run_triggers('MILESTONE_CREATE',$this,$user,$langs,$conf);
 					if ($result < 0) { $error++; $this->errors=$interface->errors; }
 					// Fin appel triggers
-					
+
 					$this->db->commit();
 					return 1;
 				}
@@ -173,7 +173,7 @@ class DaoMilestone extends CommonObject
 				$this->db->rollback();
 				return -2;
 			}
-		}	
+		}
 	}
 
 	/**
@@ -189,7 +189,7 @@ class DaoMilestone extends CommonObject
 		// Clean parameters
 		$this->label=trim($this->label);
 		$this->description=trim($this->description);
-		
+
 		// TODO uniformiser
 		if ($this->objParent->element == 'propal') $fields = array($this->id,0,0,0,0,0,0,$this->description,"HT",0,$this->special_code,0,1);
 		if ($this->objParent->element == 'commande') $fields = array($this->id,$this->description,0,0,0,0,0,0,'HT',0,$this->dateo,$this->datee,$this->product_type,0,1);
@@ -210,14 +210,14 @@ class DaoMilestone extends CommonObject
 			if ($this->db->query($sql))
 			{
 				$this->db->commit();
-				
+
 				// Appel des triggers
 				include_once(DOL_DOCUMENT_ROOT . "/core/class/interfaces.class.php");
 				$interface=new Interfaces($this->db);
 				$result=$interface->run_triggers('MILESTONE_MODIFY',$this,$user,$langs,$conf);
 				if ($result < 0) { $error++; $this->errors=$interface->errors; }
 				// Fin appel triggers
-				
+
 				return 1;
 			}
 			else
@@ -235,20 +235,20 @@ class DaoMilestone extends CommonObject
 	function delete($lineid,$element='',$delparent=true)
 	{
 		global $conf, $user, $langs;
-		
+
 		$this->db->begin();
-		
+
 		$element = ($element?$element:$this->objParent->element);
-		
+
 		if ($delparent) $ret=$this->objParent->deleteline($lineid);
 		else $ret=1;
-		
+
 		if ($ret > 0)
 		{
 			$sql = "DELETE FROM ".MAIN_DB_PREFIX."milestone";
 			$sql.= " WHERE fk_element = ".$lineid;
 			$sql.= " AND elementtype = '".$element."'";
-			
+
 			if (!$this->db->query($sql))
 			{
 				$this->db->rollback();
@@ -258,35 +258,35 @@ class DaoMilestone extends CommonObject
 			else
 			{
 				$this->db->commit();
-				
+
 				// Appel des triggers
 				include_once(DOL_DOCUMENT_ROOT . "/core/class/interfaces.class.php");
 				$interface=new Interfaces($this->db);
 				$result=$interface->run_triggers('MILESTONE_DELETE',$this,$user,$langs,$conf);
 				if ($result < 0) { $error++; $this->errors=$interface->errors; }
 				// Fin appel triggers
-				
+
 				return 1;
 			}
 		}
 	}
-	
+
 	/**
-	 * 
+	 *
 	 */
 	function getChildObject($object)
 	{
 		global $conf;
-		
+
 		$element = $object->element;
-		
+
 		$sql = "SELECT rowid";
 		$sql.= " FROM ".MAIN_DB_PREFIX.$element;
 		$sql.= " WHERE fk_parent_line = ".$lineid;
-		
+
 		if ($this->db->query($sql))
 		{
-			
+
 		}
 	}
 
