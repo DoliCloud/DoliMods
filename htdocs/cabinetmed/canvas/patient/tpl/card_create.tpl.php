@@ -44,6 +44,7 @@ $soc=$GLOBALS['object'];
 
 $soc->client=1;
 
+$soc->name=$_POST["nom"];
 $soc->lastname=$_POST["nom"];
 $soc->firstname=$_POST["firstname"];
 $soc->particulier=0;
@@ -126,7 +127,7 @@ dol_htmloutput_errors($GOBALS['error'],$GLOBALS['errors']);
 
 <tr>
 	<td><span class="fieldrequired"><?php echo $langs->trans('PatientName'); ?></span></td>
-	<td><input type="text" size="40" maxlength="60" name="nom" value="<?php echo $soc->nom; ?>"></td>
+	<td><input type="text" size="40" maxlength="60" name="nom" value="<?php echo $soc->name; ?>"></td>
     <td width="25%"><?php echo $langs->trans('PatientCode'); ?></td>
     <td width="25%">
 <?php
@@ -164,7 +165,7 @@ dol_htmloutput_errors($GOBALS['error'],$GLOBALS['errors']);
 
 <tr>
 	<td><?php echo $langs->trans('PhonePerso'); ?></td>
-	<td><input type="text" name="phone" value="<?php echo $soc->tel; ?>"></td>
+	<td><input type="text" name="phone" value="<?php echo $soc->phone; ?>"></td>
 	<td><?php echo $langs->trans('PhoneMobile'); ?></td>
 	<td><input type="text" name="fax" value="<?php echo $soc->fax; ?>"></td>
 </tr>
