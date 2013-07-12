@@ -16,9 +16,9 @@
  */
 
 /**
- *	    \file       htdocs/partipirate/index.php
- *      \ingroup    partipirate
- *      \brief      Page index PartiPirate
+ *	    \file       htdocs/nltechno/dolicloud/dolicloud_list_payments.php
+ *      \ingroup    nltechno
+ *      \brief      Page list payment
  */
 
 define('NOCSRFCHECK',1);
@@ -45,7 +45,7 @@ if (!$user->admin) accessforbidden();
 
 $langs->load("admin");
 $langs->load("other");
-$langs->load("partipirate@partipirate");
+$langs->load("nltechno@nltechno");
 
 $def = array();
 $action=GETPOST('action', 'alpha');
@@ -92,7 +92,7 @@ if (GETPOST('sendit') && ! empty($conf->global->MAIN_UPLOAD_DOC))
 {
 	$error=0;
 
-	$upload_dir = $conf->partipirate->dir_temp;
+	$upload_dir = $conf->nltechno->dir_temp;
 
 	if (dol_mkdir($upload_dir) >= 0)
 	{
@@ -129,7 +129,7 @@ if (GETPOST('sendit') && ! empty($conf->global->MAIN_UPLOAD_DOC))
 // Delete file
 if ($action == 'remove_file')
 {
-	$file = $conf->partipirate->dir_temp . "/" . GETPOST('file');	// Do not use urldecode here ($_GET and $_REQUEST are already decoded by PHP).
+	$file = $conf->nltechno->dir_temp . "/" . GETPOST('file');	// Do not use urldecode here ($_GET and $_REQUEST are already decoded by PHP).
 
 	$ret=dol_delete_file($file);
 	if ($ret) setEventMessage($langs->trans("FileWasRemoved", GETPOST('file')));
@@ -146,27 +146,19 @@ if ($action == 'remove_file')
 $form=new Form($db);
 $formfile=new FormFile($db);
 
-llxHeader('','PartiPirate',$linktohelp);
+llxHeader('','DoliCloud',$linktohelp);
 
-print_fiche_titre($langs->trans("Page de fonctionnalités spécifiques au PartiPirate"))."\n";
+print_fiche_titre($langs->trans("List payments"))."\n";
 print '<br>';
 
-$formfile->form_attach_new_file($_SERVER['PHP_SELF'], $langs->trans("ImporterFichierAdherentsOuCotisations"), 0, 0, 1, 50, '', '', false);
+$formfile->form_attach_new_file($_SERVER['PHP_SELF'], $langs->trans("ImportFilePayments"), 0, 0, 1, 50, '', '', false);
 
 $sapi_type = php_sapi_name();
 $script_file = basename(__FILE__);
 $path=dirname(__FILE__).'/';
 
-if ($showmessage) 
-{
-	print 'Pour importer ce fichier, lancer la commande suivante depuis la ligne de commande<br>';
-	print '<textarea class="flat" cols="120">';
-	print 'php '.preg_replace('#('.preg_quote('htdocs/partipirate/').'|'.preg_quote('htdocs\partipirate/').')$#','',$path).'scripts/partipirate/import-adherent-cotisation.php '.$user->login.' &lt;membertyperef&gt; '.$upload_dir . "/" . $_FILES['userfile']['name'];
-	print '</textarea>';
-}
-
-print '<br>';
-print $formfile->showdocuments('partipirate_temp', '', $conf->partipirate->dir_temp, $_SERVER["PHP_SELF"], 0, 1);
+$morehtml='xxx';
+print $formfile->showdocuments('nltechno_temp', '', $conf->nltechno->dir_temp, $_SERVER["PHP_SELF"], 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, $morehtml);
 
 // Footer
 llxFooter();

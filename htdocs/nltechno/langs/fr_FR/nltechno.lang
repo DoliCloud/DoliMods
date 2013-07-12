@@ -37,3 +37,6 @@ DirForLastStableVersionOfDolibarr=Répertoire de la version maintenance de Dolib
 DirForDoliCloudBackupInstances=Répertoire des sauvegardes
 ErrorConnectOkButFailedToCreateFile=Connexion SSH ok, mais échec de création du fichier
 MotD=Bienvenu sur la page de configuration de votre logiciel, amélioré des modules NLTechno.
+CommissionPerMonth=Commission à redistribuer par mois
+ChargePerMonth=Frais par mois
+ImportFilePayments=Import des fichiers de paiements
