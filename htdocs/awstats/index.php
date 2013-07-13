@@ -340,12 +340,15 @@ else
 <td width="'.$maxwidth.'" align="center">';
 			$output_table .= '<a href="'.$AWSTATS_CGI_PATH.($key?'config='.$key:'').'" alt="AWStats" title="AWStats" target="_blank">';
 			$output_table .= '<img src="'.dol_buildpath('/awstats/images/awstats_screen.png',1).'" border="0">';
-			if ($key)
+			if ($conf->global->MAIN_FEATURES_LEVEL > 0)
 			{
-				$output_table .= ' &nbsp; ';
-				$output_table .= '<a href="'.dol_buildpath('/awstats/jawstats/index.php',1).($key?'?config='.$key:'').'" alt="JAWStats" title="JAWStats" >';
-				$output_table .= '<img src="'.dol_buildpath('/awstats/images/jawstats_screen.png',1).'" border="0">';
-				$output_table .= '</a>';
+				if ($key)
+				{
+					$output_table .= ' &nbsp; ';
+					$output_table .= '<a href="'.dol_buildpath('/awstats/jawstats/index.php',1).($key?'?config='.$key:'').'" alt="JAWStats" title="JAWStats" >';
+					$output_table .= '<img src="'.dol_buildpath('/awstats/images/jawstats_screen.png',1).'" border="0">';
+					$output_table .= '</a>';
+				}
 			}
 			$output_table .= '</td>';
 			$output_table .= '</tr>';
