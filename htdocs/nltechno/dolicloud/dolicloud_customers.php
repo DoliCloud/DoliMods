@@ -157,6 +157,7 @@ $sql.= " LEFT JOIN ".MAIN_DB_PREFIX."c_dolicloud_plans as p ON t.plan = p.code";
 $totalusers=0;
 $totalcustomers=0;
 $totalcustomerspaying=0;
+$totalcommissions=0;
 $total=0;
 
 $var=false;
@@ -184,6 +185,10 @@ if ($resql)
               {
                 	$totalcustomerspaying++;
                 	$total+=$price;
+                	if (! empty($obj->partner))
+                	{
+                		$totalcommissions+=price2num($price * 0.2);
+                	}
                 }
             }
             $i++;
@@ -221,7 +226,7 @@ $var=!$var;
 print '<tr '.$bc[$var].'><td>';
 print $langs->trans("AverageRevenuePerCustomer");
 print '</td><td align="right">';
-print '<font size="+2">'.price(price2num($total/$totalcustomerspaying,'MT'),1).' </font>';
+print '<font size="+2">'.($totalcustomerspaying?price(price2num($total/$totalcustomerspaying,'MT'),1):'0').' </font>';
 print '</td></tr>';
 $var=!$var;
 print '<tr '.$bc[$var].'><td>';
@@ -230,13 +235,25 @@ print '</td><td align="right">';
 print '<font size="+2">'.price($total,1).' </font>';
 print '</td></tr>';
 $var=!$var;
+print '<tr '.$bc[$var].'><td>';
+print $langs->trans("CommissionPerMonth").' ';
+print '</td><td align="right">';
+print '<font size="+2">'.price($totalcommission).'</font>';
+print '</td></tr>';
+$var=!$var;
+print '<tr '.$bc[$var].'><td>';
+print $langs->trans("ChargePerMonth").' ';
+print '</td><td align="right">';
+print '<font size="+2">'.price($serverlocation).'$='.price($serverprice).'€</font>';
+print '</td></tr>';
+$var=!$var;
 print '<tr class="liste_total"><td>';
 print $langs->trans("BenefitDoliCloud");
 print '<br>(';
-print price($total,1).' - '.($part*100).'% - '.price($serverlocation).'$= ';
-print price($total,1).' - '.($part*100).'% - '.price($serverprice).'€ = '.price($total * (1 - $part)).'€ - '.price($serverprice).'€';
+//print price($total,1).' - '.($part*100).'% - '.price($serverlocation).'$= ';
+print price($total,1).' - '.($part*100).'% - '.price($serverprice).'€ - '.price($totalcommission).'€ = '.price($total * (1 - $part)).'€ - '.price($serverprice).'€ - '.price($totalcommission).'€';
 print ')</td><td align="right">';
-print '<font size="+2">'.price(($total * (1 - $part) - $serverprice),1).' </font>';
+print '<font size="+2">'.price(($total * (1 - $part) - $serverprice - $totalcommissions),1).' </font>';
 print '</td></tr>';
 print '</table>';
 
