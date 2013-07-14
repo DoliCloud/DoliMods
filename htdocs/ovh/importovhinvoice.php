@@ -184,7 +184,7 @@ if ($action == 'import' && $ovhthirdparty->id > 0)
 
 				$facfou = new FactureFournisseur($db);
 
-				$facfou->ref           = $billnum;
+				$facfou->ref_supplier  = $billnum;
 				$facfou->socid         = $idovhsupplier;
 				$facfou->libelle       = "OVH ".$billnum;
 				$facfou->date          = dol_stringtotime($r->date,1);
