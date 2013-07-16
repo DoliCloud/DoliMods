@@ -278,13 +278,17 @@ class Dolicloudcustomer extends CommonObject
     /**
      *  Load object in memory from database
      *
-     *  @param	int		$id    	Id object
-     *  @param	string	$ref   	Ref object
-     *  @return int         	<0 if KO, >0 if OK
+     *  @param	int		$id    			Id
+     *  @param	string	$ref   			Ref
+     *  @param	string	$organization 	Organization
+     *  @return int         			<0 if KO, >0 if OK
      */
-    function fetch($id,$ref='')
+    function fetch($id,$ref='',$organization='')
     {
     	global $langs;
+    	
+    	if (empty($id) && empty($ref) && empty($organization)) dol_print_error('','Bad parameters for fetch');
+    	
         $sql = "SELECT";
 		$sql.= " t.rowid,";
 
@@ -336,7 +340,8 @@ class Dolicloudcustomer extends CommonObject
 		$sql.= " t.version";
 
         $sql.= " FROM ".MAIN_DB_PREFIX."dolicloud_customers as t";
-        if ($ref) $sql.= " WHERE t.instance = '".$ref."'";
+        if ($ref) $sql.= " WHERE t.instance = '".$this->db->escape($ref)."'";
+        elseif ($organization) $sql.= " WHERE t.organization = '".$this->db->escape($organization)."'";
         else $sql.= " WHERE t.rowid = ".$id;
 
     	dol_syslog(get_class($this)."::fetch sql=".$sql, LOG_DEBUG);
@@ -410,10 +415,14 @@ class Dolicloudcustomer extends CommonObject
                 	$tmp=getState($this->state_id,'all');
                 	$this->state_code=$tmp['code']; $this->state=$tmp['label'];
                 }
+                
+                $ret=1;
             }
+            else $ret=0;
+            
             $this->db->free($resql);
 
-            return 1;
+            return $ret;
         }
         else
         {

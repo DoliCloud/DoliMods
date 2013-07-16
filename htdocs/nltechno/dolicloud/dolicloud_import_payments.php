@@ -16,7 +16,7 @@
  */
 
 /**
- *	    \file       htdocs/nltechno/dolicloud/dolicloud_list_payments.php
+ *	    \file       htdocs/nltechno/dolicloud/dolicloud_import_payments.php
  *      \ingroup    nltechno
  *      \brief      Page list payment
  */
@@ -51,6 +51,7 @@ $def = array();
 $action=GETPOST('action', 'alpha');
 $confirm=GETPOST('confirm', 'alpha');
 $actionsave=GETPOST('save', 'alpha');
+$file=GETPOST('file');
 
 $modules = array();
 
@@ -157,8 +158,10 @@ $sapi_type = php_sapi_name();
 $script_file = basename(__FILE__);
 $path=dirname(__FILE__).'/';
 
-$morehtml='xxx';
+$morehtml=' &nbsp; <a href="'.$_SERVER["PHP_SELF"].'?module=nltechno_temp&action=import&file=__FILENAMEURLENCODED__">'.$langs->trans("Import").'</a>';
 print $formfile->showdocuments('nltechno_temp', '', $conf->nltechno->dir_temp, $_SERVER["PHP_SELF"], 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, $morehtml);
+
+print $importresult;
 
 // Footer
 llxFooter();

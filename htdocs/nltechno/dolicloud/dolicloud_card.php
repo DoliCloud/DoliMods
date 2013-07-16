@@ -52,8 +52,9 @@ $confirm	= GETPOST('confirm','alpha');
 $backtopage = GETPOST('backtopage','alpha');
 $id			= GETPOST('id','int');
 $instance   = GETPOST('instance');
-$date_registration  = dol_mktime(0, 0, 0, $_POST["date_registrationmonth"], $_POST["date_registrationday"], $_POST["date_registrationyear"], 1);
-$date_endfreeperiod = dol_mktime(0, 0, 0, $_POST["endfreeperiodmonth"], $_POST["endfreeperiodday"], $_POST["endfreeperiodyear"], 1);
+$date_registration  = dol_mktime(0, 0, 0, GETPOST("date_registrationmonth"), GETPOST("date_registrationday"), GETPOST("date_registrationyear"), 1);
+$date_endfreeperiod = dol_mktime(0, 0, 0, GETPOST("endfreeperiodmonth"), GETPOST("endfreeperiodday"), GETPOST("endfreeperiodyear"), 1);
+if (empty($date_endfreeperiod) && ! empty($date_registration)) $date_endfreeperiod=$date_registration+15*24*3600;
 
 
 $object = new DoliCloudCustomer($db);
@@ -335,13 +336,13 @@ if ($user->rights->nltechno->dolicloud->write)
 		print '<table class="border" width="100%">';
 
 		// Instance
-		print '<tr><td width="20%" class="fieldrequired">'.$langs->trans("Instance").'</td><td colspan="3"><input name="instance" id="instance" type="text" size="30" maxlength="80" value="'.(isset($_POST["instance"])?$_POST["instance"]:$object->instance).'"></td></tr>';
+		print '<tr><td width="20%" class="fieldrequired">'.$langs->trans("Instance").'</td><td colspan="3"><input name="instance" id="instance" type="text" size="30" maxlength="80" value="'.(GETPOST("instance")?GETPOST("instance"):$object->instance).'"></td></tr>';
 
 		// Organization / Company
-		print '<tr><td width="20%" class="fieldrequired">'.$langs->trans("Organization").' / '.$langs->trans("Company").'</td><td colspan="3"><input name="organization" type="text" size="30" maxlength="80" value="'.(isset($_POST["organization"])?$_POST["organization"]:$object->organization).'"></td></tr>';
+		print '<tr><td width="20%" class="fieldrequired">'.$langs->trans("Organization").' / '.$langs->trans("Company").'</td><td colspan="3"><input name="organization" type="text" size="30" maxlength="80" value="'.(GETPOST("organization")?GETPOST("organization"):$object->organization).'"></td></tr>';
 
 		// EMail
-		print '<tr><td class="fieldrequired">'.$langs->trans("Email").'</td><td colspan="3"><input name="email" type="email" size="50" maxlength="80" value="'.(isset($_POST["email"])?$_POST["email"]:$object->email).'"></td></tr>';
+		print '<tr><td class="fieldrequired">'.$langs->trans("Email").'</td><td colspan="3"><input name="email" type="email" size="50" maxlength="80" value="'.(GETPOST("email")?GETPOST("email"):$object->email).'"></td></tr>';
 
 		// Plan
 		print '<tr><td class="fieldrequired">'.$langs->trans("Plan").'</td><td colspan="3"><input name="plan" type="text" size="20" maxlength="80" value="'.(isset($_POST["plan"])?$_POST["plan"]:($object->plan?$object->plan:'Basic')).'"></td></tr>';
