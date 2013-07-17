@@ -221,21 +221,24 @@ if ($action == 'import' || $action == 'create')
 		fclose($handle);
 
 		// Test entries not into file
-		$sql=" SELECT c.organization FROM ".MAIN_DB_PREFIX."dolicloud_customers as c";
-		$sql.=" WHERE c.status = 'ACTIVE' AND c.rowid NOT IN (".join(',',array_keys($listofid)).")";
-		$resql=$db->query($sql);
-		if ($resql)
+		if (count($listofid) > 0)
 		{
-			$num=$db->num_rows($resql);
-			$i=0;
-			while($i < $num)
+			$sql=" SELECT c.organization FROM ".MAIN_DB_PREFIX."dolicloud_customers as c";
+			$sql.=" WHERE c.status = 'ACTIVE' AND c.rowid NOT IN (".join(',',array_keys($listofid)).")";
+			$resql=$db->query($sql);
+			if ($resql)
 			{
-				$obj=$db->fetch_object($resql);
-				$importresult.='Warning: Organization active into database and not into file: '.$obj->organization.'<br>'."\n";
-				$i++;
+				$num=$db->num_rows($resql);
+				$i=0;
+				while($i < $num)
+				{
+					$obj=$db->fetch_object($resql);
+					$importresult.='Warning: Organization active into database and not into file: '.$obj->organization.'<br>'."\n";
+					$i++;
+				}
 			}
+			else dol_print_error($db);
 		}
-		else dol_print_error($db);
 	}
 	else dol_print_error('','Failed to open file '.$conf->nltechno->dir_temp.'/'.$file);
 }
