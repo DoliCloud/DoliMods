@@ -151,6 +151,7 @@ if ($action == 'import' || $action == 'create')
 	{
 		$importresult.='Import file '.$conf->nltechno->dir_temp.'/'.$file.'<br>';
 
+		$listofid=array();
 		$i=0; $j=0;
 		$dolicloudcustomer=new Dolicloudcustomer($db);
 		while(($data = fgetcsv($handle, 1000, ",")) !== FALSE)
@@ -183,6 +184,8 @@ if ($action == 'import' || $action == 'create')
 			}
 			else
 			{
+				$listofid[]=$dolicloudcustomer->id;
+
 				$importresult.='Organization "'.$organization.'" found.';
 
 				$partner=(preg_match('/2Byte/i',$plan)?'2Byte':'');		// TODO Not complete
@@ -213,7 +216,24 @@ if ($action == 'import' || $action == 'create')
 				}
 			}
 
-			$importresult.="\n";
+			$importresult.="<br>\n";
+
+			// Test entries not into file
+			$sql=" SELECT organization FROM ".MAIN_DB_PREFIX."dolicloud_customers";
+			$sql.=" WHERE status = 'ACTIVE' NOT IN (".join(',',$listofid).")";
+			$resql=$db->query($sql);
+			if ($resql)
+			{
+				$num=$db->num_rows($resql);
+				$i=0;
+				while($i < $num)
+				{
+					$obj=$db->fetch_object($resql);
+					print 'Warning: Organization active into database and not into file: '.$obj->organization.'<br>'."\n";
+					$i++;
+				}
+			}
+			else dol_print_error($db);
 		}
 		fclose($handle);
 	}
