@@ -252,7 +252,7 @@ $formfile=new FormFile($db);
 
 llxHeader('','DoliCloud',$linktohelp);
 
-print_fiche_titre($langs->trans("List payments"))."\n";
+print_fiche_titre($langs->trans("List customers"))."\n";
 print '<br>';
 
 $formfile->form_attach_new_file($_SERVER['PHP_SELF'], $langs->trans("ImportFileCustomers"), 0, 0, 1, 50, '', '', false);

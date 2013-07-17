@@ -1,5 +1,5 @@
 <?php
-/* Copyright (C) 2004-2012 Laurent Destailleur  <eldy@users.sourceforge.net>
+/* Copyright (C) 2004-2013 Laurent Destailleur  <eldy@users.sourceforge.net>
  *
 * This program is free software; you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
@@ -235,12 +235,14 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 	if (is_object($newdb))
 	{
 		// Get user/pass of last admin user
-		$sql="SELECT login, name as lastname, firstname, admin, email, pass, pass_crypted, datec, tms as datem, datelastlogin, fk_societe, fk_socpeople, fk_member, entity, statut FROM llx_user ORDER BY statut DESC";
+		$sql ="SELECT login, name as lastname, firstname, admin, email, pass, pass_crypted, datec, tms as datem, datelastlogin, fk_societe, fk_socpeople, fk_member, entity, statut";
+		$sql.=" FROM llx_user ORDER BY statut DESC";
 		$resql=$newdb->query($sql);
 		if ($resql)
 		{
 			$var=false;
 			$num=$newdb->num_rows($resql);
+			$i=0;
 			while ($i < $num)
 			{
 				$var=!$var;
