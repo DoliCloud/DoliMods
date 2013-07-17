@@ -160,7 +160,7 @@ $script_file = basename(__FILE__);
 $path=dirname(__FILE__).'/';
 
 $morehtml=' &nbsp; <a href="'.$_SERVER["PHP_SELF"].'?module=nltechno_temp&action=import&file=__FILENAMEURLENCODED__">'.$langs->trans("Import").'</a>';
-print $formfile->showdocuments('nltechno_temp', '', $upload_dir, $_SERVER["PHP_SELF"], 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, $morehtml);
+print $formfile->showdocuments('nltechno_temp', '/dolicloud', $conf->nltechno->dir_temp.'/dolicloud', $_SERVER["PHP_SELF"], 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, $morehtml);
 
 print $importresult;
 

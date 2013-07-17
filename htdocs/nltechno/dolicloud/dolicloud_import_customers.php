@@ -133,7 +133,7 @@ if (GETPOST('sendit') && ! empty($conf->global->MAIN_UPLOAD_DOC))
 // Delete file
 if ($action == 'remove_file')
 {
-	$file = $upload_dir . "/" . GETPOST('file');	// Do not use urldecode here ($_GET and $_REQUEST are already decoded by PHP).
+	$file = $conf->nltechno->dir_temp . "/" . $file;	// Do not use urldecode here ($_GET and $_REQUEST are already decoded by PHP).
 
 	$ret=dol_delete_file($file);
 	if ($ret) setEventMessage($langs->trans("FileWasRemoved", GETPOST('file')));
@@ -146,12 +146,12 @@ if ($action == 'import' || $action == 'create')
 {
 	$importresult='';
 
-	$handle=fopen($upload_dir.'/'.$file, 'r');
+	$handle=fopen($conf->nltechno->dir_temp.'/'.$file, 'r');
 	if ($handle)
 	{
-		$importresult.='Import file '.$file.'<br>';
+		$importresult.='Import file '.$conf->nltechno->dir_temp.'/'.$file.'<br>';
 
-		$i=0;
+		$i=0; $j=0;
 		$dolicloudcustomer=new Dolicloudcustomer($db);
 		while(($data = fgetcsv($handle, 1000, ",")) !== FALSE)
 		{
@@ -166,49 +166,52 @@ if ($action == 'import' || $action == 'create')
 			if ($organization == 'Organization') continue;	// Discard first line
 			if (empty($total_invoiced)) continue;
 
-				$result=$dolicloudcustomer->fetch('','',$organization);
-				if ($result <= 0)
+			$j++;
+			$importresult.=str_pad($j,4,'0',STR_PAD_LEFT).' - Line '.str_pad($i,4,'0',STR_PAD_LEFT).' - ';
+
+			$result=$dolicloudcustomer->fetch('','',$organization);
+			if ($result <= 0)
+			{
+				$importresult.='Organization "'.$organization.'" not found. ';
+				//$importresult.='<a href="'.$_SERVER["PHP_SELF"].'?action=create&line='.$i.'&file='.urlencode($file).'">Click to create</a>.<br>';
+				$importresult.='<a target="_blank" href="'.dol_buildpath('/nltechno/dolicloud/dolicloud_card.php',1).'?';
+				$importresult.='action=create&plan='.urlencode($plan).'&organization='.urlencode($organization).'&email='.urlencode($email);
+				$importresult.='&date_registrationmonth='.dol_print_date($date_acquired,'%m');
+				$importresult.='&date_registrationday='.dol_print_date($date_acquired,'%d');
+				$importresult.='&date_registrationyear='.dol_print_date($date_acquired,'%Y');
+				$importresult.='">Click to create</a>.<br>';
+			}
+			else
+			{
+				$importresult.='Organization "'.$organization.'" found.';
+
+				$partner=(preg_match('/2Byte/i',$plan)?'2Byte':'');		// TODO Not complete
+
+				//var_dump($dolicloudcustomer->plan.' '.$plan.' '.$dolicloudcustomer->partner.' '.$partner.' '.$dolicloudcustomer->date_registration.' '.$date_acquired);
+				$change=false;
+				if ($dolicloudcustomer->plan!=$plan) $change=true;
+				if ($dolicloudcustomer->partner!=$partner) $change=true;
+				if ($dolicloudcustomer->date_registration!=$date_acquired) $change=true;
+				if ($dolicloudcustomer->status!=$status) $change=true;
+				if (! in_array($status,$arraystatus))
 				{
-					$importresult.='Organization "'.$organization.'" not found. ';
-					//$importresult.='<a href="'.$_SERVER["PHP_SELF"].'?action=create&line='.$i.'&file='.urlencode($file).'">Click to create</a>.<br>';
-					$importresult.='<a target="_blank" href="'.dol_buildpath('/nltechno/dolicloud/dolicloud_card.php',1).'?';
-					$importresult.='action=create&plan='.urlencode($plan).'&organization='.urlencode($organization).'&email='.urlencode($email);
-					$importresult.='&date_registrationmonth='.dol_print_date($date_acquired,'%m');
-					$importresult.='&date_registrationday='.dol_print_date($date_acquired,'%d');
-					$importresult.='&date_registrationyear='.dol_print_date($date_acquired,'%Y');
-					$importresult.='">Click to create</a>.<br>';
+					$importresult.=' Status is not recognized.';
+				}
+				else if ($change)
+				{
+					$dolicloudcustomer->plan=$plan;
+					$dolicloudcustomer->partner=$partner;
+					$dolicloudcustomer->date_registration=$date_acquired;
+					$dolicloudcustomer->status=$status;
+
+					$result=$dolicloudcustomer->update($user,1);
+					$importresult.=' We update record.<br>';
 				}
 				else
 				{
-					$importresult.='Organization "'.$organization.'" found.';
-
-					$partner=(preg_match('/2Byte/i',$plan)?'2Byte':'');		// TODO Not complete
-
-					//var_dump($dolicloudcustomer->plan.' '.$plan.' '.$dolicloudcustomer->partner.' '.$partner.' '.$dolicloudcustomer->date_registration.' '.$date_acquired);
-					$change=false;
-					if ($dolicloudcustomer->plan!=$plan) $change=true;
-					if ($dolicloudcustomer->partner!=$partner) $change=true;
-					if ($dolicloudcustomer->date_registration!=$date_acquired) $change=true;
-					if ($dolicloudcustomer->status!=$status) $change=true;
-					if (! in_array($status,$arraystatus))
-					{
-						$importresult.=' Status is not recognized.';
-					}
-					else if ($change)
-					{
-						$dolicloudcustomer->plan=$plan;
-						$dolicloudcustomer->partner=$partner;
-						$dolicloudcustomer->date_registration=$date_acquired;
-						$dolicloudcustomer->status=$status;
-
-						$result=$dolicloudcustomer->update($user,1);
-						$importresult.=' We update record.<br>';
-					}
-					else
-					{
-						$importresult.=' No need to update.<br>';
-					}
+					$importresult.=' No need to update. Current status is '.$status.'<br>';
 				}
+			}
 
 			$importresult.="\n";
 		}
@@ -239,7 +242,7 @@ $script_file = basename(__FILE__);
 $path=dirname(__FILE__).'/';
 
 $morehtml=' &nbsp; <a href="'.$_SERVER["PHP_SELF"].'?module=nltechno_temp&action=import&file=__FILENAMEURLENCODED__">'.$langs->trans("Import").'</a>';
-print $formfile->showdocuments('nltechno_temp', '', $upload_dir, $_SERVER["PHP_SELF"], 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, $morehtml);
+print $formfile->showdocuments('nltechno_temp', 'dolicloud', $conf->nltechno->dir_temp.'/dolicloud', $_SERVER["PHP_SELF"], 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, $morehtml);
 
 if ($importresult)
 {
