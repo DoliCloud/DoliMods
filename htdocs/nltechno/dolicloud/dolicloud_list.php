@@ -201,11 +201,16 @@ $sql.= $db->order($sortfield,$sortorder);
 $sql.= $db->plimit($conf->liste_limit +1, $offset);
 
 $param='';
-if ($month)              $param.='&month='.$month;
-if ($year)               $param.='&year=' .$year;
-if ($search_ref)         $param.='&search_ref=' .$search_ref;
-if ($search_societe)     $param.='&search_societe=' .$search_societe;
-if ($search_sale > 0)    $param.='&search_sale=' .$search_sale;
+if ($month)              	$param.='&month='.$month;
+if ($year)               	$param.='&year=' .$year;
+if ($search_instance)    	$param.='&search_instance='.urlencode($search_instance);
+if ($search_organization) 	$param.='&search_organization='.urlencode($search_organization);
+if ($search_plan) 			$param.='&search_plan='.urlencode($search_plan);
+if ($search_partner) 		$param.='&search_partner='.urlencode($search_partner);
+if ($search_source) 		$param.='&search_source='.urlencode($search_source);
+if ($search_email) 			$param.='&search_email='.urlencode($search_email);
+if ($search_lastlogin) 		$param.='&search_lastlogin='.urlencode($search_lastlogin);
+if ($search_status)      	$param.='&search_status='.urlencode($search_status);
 
 
 $totalcustomers=0;
