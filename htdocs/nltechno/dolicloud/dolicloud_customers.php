@@ -175,6 +175,7 @@ if ($resql)
             $obj = $db->fetch_object($resql);
             if ($obj)
             {
+				//print $price."=".$obj->price_instance." + (".$obj->nbofusers." * ".$obj->price_user.")<br>\n";
                 $price=$obj->price_instance + ($obj->nbofusers * $obj->price_user);
                 $totalcustomers++;
 				$totalusers+=$obj->nbofusers;

@@ -171,6 +171,7 @@ $sql.= " t.lastlogin,";
 $sql.= " t.lastpass,";
 $sql.= " t.date_lastlogin,";
 $sql.= " t.modulesenabled,";
+$sql.= " p.rowid as planid,";
 $sql.= " p.price_instance,";
 $sql.= " p.price_user,";
 $sql.= " p.price_gb";
@@ -286,7 +287,8 @@ if ($resql)
                 print '</td><td>';
                 print $obj->email;
                 print '</td><td>';
-                print $obj->plan;
+                if (empty($obj->planid)) print 'ERROR Bad value for Plan';
+              	else print $obj->plan;
                 print '</td><td>';
                 print $obj->partner;
                 print '</td><td>';

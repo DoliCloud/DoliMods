@@ -19,7 +19,7 @@
 CREATE TABLE llx_c_dolicloud_plans
 (
     rowid integer AUTO_INCREMENT PRIMARY KEY,
-    code varchar(32),
+    code varchar(128),
     label varchar(128),
     price_instance integer,
     price_user integer,
