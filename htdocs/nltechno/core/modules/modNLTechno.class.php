@@ -268,6 +268,34 @@ class modNLTechno extends DolibarrModules
 								'target'=>'',
 								'user'=>0);
 		$r++;
+
+		$this->menu[$r]=array(	'fk_menu'=>'fk_mainmenu=nltechno,fk_leftmenu=dolicloud',
+								'type'=>'left',
+								'titre'=>'ImportCustomers',
+								'mainmenu'=>'nltechno',
+								'leftmenu'=>'dolicloud_import_custmers',
+								'url'=>'/nltechno/dolicloud/dolicloud_import_customers.php',
+								'langs'=>'nltechno@nltechno',
+								'position'=>220,
+                				'enabled'=>'$conf->nltechno->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
+								'perms'=>'$user->rights->nltechno->dolicloud->write',
+								'target'=>'',
+								'user'=>0);
+		$r++;
+
+		$this->menu[$r]=array(	'fk_menu'=>'fk_mainmenu=nltechno,fk_leftmenu=dolicloud',
+								'type'=>'left',
+								'titre'=>'ImportPayments',
+								'mainmenu'=>'nltechno',
+								'leftmenu'=>'dolicloud_import_payments',
+								'url'=>'/nltechno/dolicloud/dolicloud_import_payments.php',
+								'langs'=>'nltechno@nltechno',
+								'position'=>220,
+                				'enabled'=>'$conf->nltechno->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
+								'perms'=>'$user->rights->nltechno->dolicloud->write',
+								'target'=>'',
+								'user'=>0);
+		$r++;
 	}
 
 	/**

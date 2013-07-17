@@ -57,6 +57,7 @@ $line=GETPOST('line');
 
 $modules = array();
 $arraystatus=Dolicloudcustomer::$listOfStatus;
+$upload_dir = $conf->nltechno->dir_temp.'/dolicloud';
 
 /*
  * Actions
@@ -95,7 +96,7 @@ if (GETPOST('sendit') && ! empty($conf->global->MAIN_UPLOAD_DOC))
 {
 	$error=0;
 
-	$upload_dir = $conf->nltechno->dir_temp;
+	dol_mkdir($dir);
 
 	if (dol_mkdir($upload_dir) >= 0)
 	{
@@ -132,7 +133,7 @@ if (GETPOST('sendit') && ! empty($conf->global->MAIN_UPLOAD_DOC))
 // Delete file
 if ($action == 'remove_file')
 {
-	$file = $conf->nltechno->dir_temp . "/" . GETPOST('file');	// Do not use urldecode here ($_GET and $_REQUEST are already decoded by PHP).
+	$file = $upload_dir . "/" . GETPOST('file');	// Do not use urldecode here ($_GET and $_REQUEST are already decoded by PHP).
 
 	$ret=dol_delete_file($file);
 	if ($ret) setEventMessage($langs->trans("FileWasRemoved", GETPOST('file')));
@@ -144,12 +145,12 @@ if ($action == 'remove_file')
 if ($action == 'import' || $action == 'create')
 {
 	$importresult='';
-	
-	$handle=fopen($conf->nltechno->dir_temp.'/'.$file, 'r');
+
+	$handle=fopen($upload_dir.'/'.$file, 'r');
 	if ($handle)
 	{
 		$importresult.='Import file '.$file.'<br>';
-		
+
 		$i=0;
 		$dolicloudcustomer=new Dolicloudcustomer($db);
 		while(($data = fgetcsv($handle, 1000, ",")) !== FALSE)
@@ -164,9 +165,9 @@ if ($action == 'import' || $action == 'create')
 			$status=$data[6];
 			if ($organization == 'Organization') continue;	// Discard first line
 			if (empty($total_invoiced)) continue;
-			
+
 				$result=$dolicloudcustomer->fetch('','',$organization);
-				if ($result <= 0) 
+				if ($result <= 0)
 				{
 					$importresult.='Organization "'.$organization.'" not found. ';
 					//$importresult.='<a href="'.$_SERVER["PHP_SELF"].'?action=create&line='.$i.'&file='.urlencode($file).'">Click to create</a>.<br>';
@@ -177,7 +178,7 @@ if ($action == 'import' || $action == 'create')
 					$importresult.='&date_registrationyear='.dol_print_date($date_acquired,'%Y');
 					$importresult.='">Click to create</a>.<br>';
 				}
-				else 
+				else
 				{
 					$importresult.='Organization "'.$organization.'" found.';
 
@@ -191,7 +192,7 @@ if ($action == 'import' || $action == 'create')
 					if ($dolicloudcustomer->status!=$status) $change=true;
 					if (! in_array($status,$arraystatus))
 					{
-						$importresult.=' Status is not recognized.';						
+						$importresult.=' Status is not recognized.';
 					}
 					else if ($change)
 					{
@@ -208,9 +209,9 @@ if ($action == 'import' || $action == 'create')
 						$importresult.=' No need to update.<br>';
 					}
 				}
-						
+
 			$importresult.="\n";
-		}	
+		}
 		fclose($handle);
 	}
 	else dol_print_error('','Failed to open file '.$conf->nltechno->dir_temp.'/'.$file);
@@ -231,14 +232,14 @@ llxHeader('','DoliCloud',$linktohelp);
 print_fiche_titre($langs->trans("List payments"))."\n";
 print '<br>';
 
-$formfile->form_attach_new_file($_SERVER['PHP_SELF'], $langs->trans("ImportFilePayments"), 0, 0, 1, 50, '', '', false);
+$formfile->form_attach_new_file($_SERVER['PHP_SELF'], $langs->trans("ImportFileCustomers"), 0, 0, 1, 50, '', '', false);
 
 $sapi_type = php_sapi_name();
 $script_file = basename(__FILE__);
 $path=dirname(__FILE__).'/';
 
 $morehtml=' &nbsp; <a href="'.$_SERVER["PHP_SELF"].'?module=nltechno_temp&action=import&file=__FILENAMEURLENCODED__">'.$langs->trans("Import").'</a>';
-print $formfile->showdocuments('nltechno_temp', '', $conf->nltechno->dir_temp, $_SERVER["PHP_SELF"], 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, $morehtml);
+print $formfile->showdocuments('nltechno_temp', '', $upload_dir, $_SERVER["PHP_SELF"], 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, $morehtml);
 
 if ($importresult)
 {

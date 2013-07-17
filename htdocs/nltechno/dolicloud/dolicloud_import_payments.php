@@ -54,6 +54,7 @@ $actionsave=GETPOST('save', 'alpha');
 $file=GETPOST('file');
 
 $modules = array();
+$upload_dir = $conf->nltechno->dir_temp.'/dolicloud';
 
 
 /*
@@ -93,7 +94,7 @@ if (GETPOST('sendit') && ! empty($conf->global->MAIN_UPLOAD_DOC))
 {
 	$error=0;
 
-	$upload_dir = $conf->nltechno->dir_temp;
+	dol_mkdir($dir);
 
 	if (dol_mkdir($upload_dir) >= 0)
 	{
@@ -130,7 +131,7 @@ if (GETPOST('sendit') && ! empty($conf->global->MAIN_UPLOAD_DOC))
 // Delete file
 if ($action == 'remove_file')
 {
-	$file = $conf->nltechno->dir_temp . "/" . GETPOST('file');	// Do not use urldecode here ($_GET and $_REQUEST are already decoded by PHP).
+	$file = $upload_dir . "/" . GETPOST('file');	// Do not use urldecode here ($_GET and $_REQUEST are already decoded by PHP).
 
 	$ret=dol_delete_file($file);
 	if ($ret) setEventMessage($langs->trans("FileWasRemoved", GETPOST('file')));
@@ -159,7 +160,7 @@ $script_file = basename(__FILE__);
 $path=dirname(__FILE__).'/';
 
 $morehtml=' &nbsp; <a href="'.$_SERVER["PHP_SELF"].'?module=nltechno_temp&action=import&file=__FILENAMEURLENCODED__">'.$langs->trans("Import").'</a>';
-print $formfile->showdocuments('nltechno_temp', '', $conf->nltechno->dir_temp, $_SERVER["PHP_SELF"], 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, $morehtml);
+print $formfile->showdocuments('nltechno_temp', '', $upload_dir, $_SERVER["PHP_SELF"], 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, $morehtml);
 
 print $importresult;
 

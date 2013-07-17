@@ -40,3 +40,6 @@ MotD=Bienvenu sur la page de configuration de votre logiciel, amélioré des mod
 CommissionPerMonth=Commission à redistribuer par mois
 ChargePerMonth=Frais par mois
 ImportFilePayments=Import des fichiers de paiements
+ImportFileCustomers=Import des fichiers clients
+ImportCustomers=Import clients
+ImportPayments=Import paiements
