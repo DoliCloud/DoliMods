@@ -17,22 +17,22 @@
  */
 
 /**
- * 		\defgroup   SubmitEveryWhere     Module SubmitEveryWhere
- *      \brief      Descriptor of module SubmitEveryWhere.
+ * 		\defgroup   ThemesPack     Module ThemesPack
+ *      \brief      Descriptor of module ThemesPack.
  */
 
 /**
- *      \file       htdocs/submiteverywhere/core/modules/modSubmitEveryWhere.class.php
+ *      \file       htdocs/submiteverywhere/core/modules/modThemesPack.class.php
  *      \ingroup    submiteverywhere
- *      \brief      Description and activation file for module SubmitEveryWhere
+ *      \brief      Description and activation file for module ThemesPack
  */
 include_once(DOL_DOCUMENT_ROOT ."/core/modules/DolibarrModules.class.php");
 
 
 /**
- *		Description and activation class for module SubmitEveryWhere
+ *		Description and activation class for module ThemesPack
  */
-class modSubmitEveryWhere extends DolibarrModules
+class modThemesPack extends DolibarrModules
 {
 	/**
 	 *   Constructor. Define names, constants, directories, boxes, permissions
@@ -45,9 +45,9 @@ class modSubmitEveryWhere extends DolibarrModules
 
 		// Id for module (must be unique).
 		// Use here a free id (See in Home -> System information -> Dolibarr for list of used modules id).
-		$this->numero = 101260;
+		$this->numero = 101370;
 		// Key text used to identify module (for permissions, menus, etc...)
-		$this->rights_class = 'submiteverywhere';
+		$this->rights_class = 'themespack';
 
 		// Family can be 'crm','financial','hr','projects','products','ecm','technic','other'
 		// It is used to group modules in module setup page
@@ -55,7 +55,7 @@ class modSubmitEveryWhere extends DolibarrModules
 		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'numero' of module)
 		$this->name = preg_replace('/^mod/i','',get_class($this));
 		// Module description, used if translation string 'ModuleXXXDesc' not found (where XXX is value of numeric property 'numero' of module)
-		$this->description = "A manager to help to submit an article/scoop towards several targets (Twitter, Facebook, Digg, EMail, Major news web sites...)";
+		$this->description = "Add more templates";
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
 		$this->version = '3.4';
 		// Key used in llx_const table to save module status enabled/disabled (where NewsSubmitter is value of property name of module in uppercase)
@@ -65,10 +65,28 @@ class modSubmitEveryWhere extends DolibarrModules
 		// Name of image file used for this module.
 		// If file is in theme/yourtheme/img directory under name object_pictovalue.png, use this->picto='pictovalue'
 		// If file is in module/img directory under name object_pictovalue.png, use this->picto='pictovalue@module'
-		$this->picto='globe';
+		$this->picto='generic';
 
-		// Defined if the directory /NewsSubmitter/inc/triggers/ contains triggers or not
-		$this->triggers = 0;
+		// Defined all module parts (triggers, login, substitutions, menus, css, etc...)
+		// for default path (eg: /mymodule/core/xxxxx) (0=disable, 1=enable)
+		// for specific path of parts (eg: /mymodule/core/modules/barcode)
+		// for specific css file (eg: /mymodule/css/mymodule.css.php)
+		//$this->module_parts = array(
+		//                        	'triggers' => 0,                                 	// Set this to 1 if module has its own trigger directory (core/triggers)
+		//							'login' => 0,                                    	// Set this to 1 if module has its own login method directory (core/login)
+		//							'substitutions' => 0,                            	// Set this to 1 if module has its own substitution function file (core/substitutions)
+		//							'menus' => 0,                                    	// Set this to 1 if module has its own menus handler directory (core/menus)
+		//							'theme' => 0,                                    	// Set this to 1 if module has its own theme directory (theme)
+		//                        	'tpl' => 0,                                      	// Set this to 1 if module overwrite template dir (core/tpl)
+		//							'barcode' => 0,                                  	// Set this to 1 if module has its own barcode directory (core/modules/barcode)
+		//							'models' => 0,                                   	// Set this to 1 if module has its own models directory (core/modules/xxx)
+		//							'css' => array('/mymodule/css/mymodule.css.php'),	// Set this to relative path of css file if module has its own css file
+	 	//							'js' => array('/mymodule/js/mymodule.js'),          // Set this to relative path of js file if module must load a js on all pages
+		//							'hooks' => array('hookcontext1','hookcontext2')  	// Set here all hooks context managed by module
+		//							'dir' => array('output' => 'othermodulename'),      // To force the default directories names
+		//							'workflow' => array('WORKFLOW_MODULE1_YOURACTIONTYPE_MODULE2'=>array('enabled'=>'! empty($conf->module1->enabled) && ! empty($conf->module2->enabled)', 'picto'=>'yourpicto@mymodule')) // Set here all workflow context managed by module
+		//                        );
+		$this->module_parts = array('theme'=>1);
 
 		// Data directories to create when module is enabled.
 		// Example: this->dirs = array("/NewsSubmitter/temp");
@@ -76,14 +94,14 @@ class modSubmitEveryWhere extends DolibarrModules
 		$r=0;
 
 		// Config pages. Put here list of php page names stored in admmin directory used to setup module.
-		$this->config_page_url = array("submiteverywheresetuppage.php@submiteverywhere");
+		$this->config_page_url = array();
 
 		// Dependencies
 		$this->depends = array();		// List of modules id that must be enabled if this module is enabled
 		$this->requiredby = array();	// List of modules id to disable if this one is disabled
 		$this->phpmin = array(4,3);					// Minimum version of PHP required by module
 		$this->need_dolibarr_version = array(3,1,-3);	// Minimum version of Dolibarr required by module
-		$this->langfiles = array("submiteverywhere@submiteverywhere");
+		$this->langfiles = array();
 
 		// Constants
 		// Example: $this->const=array(0=>array('NewsSubmitter_MYNEWCONST1','chaine','myvalue','This is a constant to add',0),
@@ -120,68 +138,6 @@ class modSubmitEveryWhere extends DolibarrModules
 		// Permissions
 		$this->rights = array();		// Permission array used by this module
 		$r=0;
-
-		// Add here list of permission defined by an id, a label, a boolean and two constant strings.
-		// Example:
-		$this->rights[$r][0] = 101261; 				// Permission id (must not be already used)
-		$this->rights[$r][1] = 'Read submited news';	// Permission label
-		$this->rights[$r][3] = 1; 					// Permission by default for new user (0/1)
-		$this->rights[$r][4] = 'read';				// In php code, permission will be checked by test if ($user->rights->permkey->level1->level2)
-		//$this->rights[$r][5] = 'level2';				// In php code, permission will be checked by test if ($user->rights->permkey->level1->level2)
-		$r++;
-
-        $this->rights[$r][0] = 101262;              // Permission id (must not be already used)
-        $this->rights[$r][1] = 'Create/Edit/Submit news';    // Permission label
-        $this->rights[$r][3] = 0;                   // Permission by default for new user (0/1)
-        $this->rights[$r][4] = 'create';              // In php code, permission will be checked by test if ($user->rights->permkey->level1->level2)
-        //$this->rights[$r][5] = 'level2';              // In php code, permission will be checked by test if ($user->rights->permkey->level1->level2)
-        $r++;
-
-		// Main menu entries
-		$this->menus = array();			// List of menus to add
-		$r=0;
-
-		// Add here entries to declare new menus
-		$this->menu[$r]=array(	'fk_menu'=>'fk_mainmenu=tools',		// Use 'fk_mainmenu=xxx' or 'fk_mainmenu=xxx,fk_leftmenu=yyy'
-									'type'=>'left',			// This is a Left menu entry
-									'titre'=>'Submit Everywhere',
-									'mainmenu'=>'tools',
-									'leftmenu'=>'submiteverywhere',
-									'url'=>'/submiteverywhere/index.php',
-									'langs'=>'submiteverywhere@submiteverywhere',	// Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
-									'position'=>100,
-									'enabled'=>'$conf->submiteverywhere->enabled',			// Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
-									'perms'=>'1',			// Use 'perms'=>'$user->rights->NewsSubmitter->level1->level2' if you want your menu with a permission rules
-									'target'=>'',
-									'user'=>0);				// 0=Menu for internal users, 1=external users, 2=both
-		$r++;
-
-		$this->menu[$r]=array(	'fk_menu'=>'fk_mainmenu=tools,fk_leftmenu=submiteverywhere',		// Use r=value where r is index key used for the parent menu entry (higher parent must be a top menu entry)
-									'type'=>'left',			// This is a Left menu entry
-									'titre'=>'NewMessage',
-									'url'=>'/submiteverywhere/card.php?action=create',
-									'langs'=>'submiteverywhere@submiteverywhere',	// Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
-									'position'=>110,
-									'enabled'=>'$conf->submiteverywhere->enabled',			// Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
-									'perms'=>'1',			// Use 'perms'=>'$user->rights->NewsSubmitter->level1->level2' if you want your menu with a permission rules
-									'target'=>'',
-									'user'=>0);				// 0=Menu for internal users, 1=external users, 2=both
-		$r++;
-
-		$this->menu[$r]=array(	'fk_menu'=>'fk_mainmenu=tools,fk_leftmenu=submiteverywhere',		// Use r=value where r is index key used for the parent menu entry (higher parent must be a top menu entry)
-									'type'=>'left',			// This is a Left menu entry
-									'titre'=>'List',
-									'url'=>'/submiteverywhere/list.php',
-									'langs'=>'submiteverywhere@submiteverywhere',	// Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
-									'position'=>120,
-									'enabled'=>'$conf->submiteverywhere->enabled',			// Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
-									'perms'=>'1',			// Use 'perms'=>'$user->rights->NewsSubmitter->level1->level2' if you want your menu with a permission rules
-									'target'=>'',
-									'user'=>0);				// 0=Menu for internal users, 1=external users, 2=both
-		$r++;
-
-		// Exports
-		$r=1;
 
 		// Example:
 		// $this->export_code[$r]=$this->rights_class.'_'.$r;
@@ -239,7 +195,7 @@ class modSubmitEveryWhere extends DolibarrModules
 	 */
 	function load_tables()
 	{
-		return $this->_load_tables('/submiteverywhere/sql/');
+		return $this->_load_tables();
 	}
 }
 
