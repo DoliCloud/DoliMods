@@ -189,7 +189,7 @@ print $langs->trans("TTtopten");
 			$facturestatic->type=$listatoptenfacturas[$i][1]->type;
 
 		print '<td >'.($i+1).'</td>';
-		print '<td nowrap="nowrap">'.$facturestatic->getNomUrl(1,'',30).'</td>';
+		print '<td class="nowrap">'.$facturestatic->getNomUrl(1,'',30).'</td>';
 		print '<td >'.($listatoptenfacturas[$i][0]->suma_productos).'</td>';
 		print '<td >';
 		//var_dump($listatoptenfacturas[$i][1]->client);
@@ -207,7 +207,7 @@ print $langs->trans("TTtopten");
 	 $var=!$var;
 	 print "<tr $bc[$var]>";
 		print '<td >'.($i+1).'</td>';
-		print '<td nowrap="nowrap"> </td>';
+		print '<td class="nowrap"> </td>';
 		print '<td > </td>';
 		print '<td > </td>';
 		print '<td > </td>';

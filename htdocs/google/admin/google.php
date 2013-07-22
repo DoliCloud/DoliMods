@@ -167,7 +167,7 @@ print "<td>";
 $text=$langs->trans("GoogleIDAgenda")." (".$langs->trans("Example").': assodolibarr@gmail.com)';
 print $form->textwithpicto($text, $langs->trans("GoogleSetupHelp"));
 print "</td>";
-print '<td nowrap="nowrap" align="center">'.$langs->trans("Color")."</td>";
+print '<td class="nowrap" align="center">'.$langs->trans("Color")."</td>";
 print "</tr>";
 
 $i=1;
@@ -177,13 +177,13 @@ while ($i <= $MAXAGENDA)
 	$key=$i;
 	$var=!$var;
 	print "<tr ".$bc[$var].">";
-	print '<td width="180" nowrap="nowrap">'.$langs->trans("GoogleAgendaNb",$key)."</td>";
+	print '<td width="180" class="nowrap">'.$langs->trans("GoogleAgendaNb",$key)."</td>";
 	$name='GOOGLE_AGENDA_NAME'.$key;
 	$src='GOOGLE_AGENDA_SRC'.$key;
 	$color='GOOGLE_AGENDA_COLOR'.$key;
 	print "<td><input type=\"text\" class=\"flat\" name=\"google_agenda_name".$key."\" value=\"". $conf->global->$name . "\" size=\"28\"></td>";
 	print "<td><input type=\"text\" class=\"flat\" name=\"google_agenda_src".$key."\" value=\"". $conf->global->$src . "\" size=\"60\"></td>";
-	print '<td nowrap="nowrap" align="center">';
+	print '<td class="nowrap" align="center">';
 	// Possible colors are limited by Google
 	//print $formadmin->selectColor($conf->global->$color, "google_agenda_color".$key, $colorlist);
 	print $formother->selectColor($conf->global->$color, "google_agenda_color".$key, 'googleconfig', 1, $colorlist);

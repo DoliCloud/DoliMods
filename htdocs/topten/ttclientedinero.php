@@ -190,7 +190,7 @@ print $langs->trans("TTtopten");
 			$thirdparty_static->client=$listatoptenclientes[$i][1];
 
 		print '<td >'.($i+1).'</td>';
-		print '<td nowrap="nowrap">'.$thirdparty_static->getNomUrl(1,'',30).'</td>';
+		print '<td class="nowrap">'.$thirdparty_static->getNomUrl(1,'',30).'</td>';
 		print '<td >'.price($listatoptenclientes[$i][0]->total_gastado).'</td>';
 		print '<td >';
 		//var_dump($listatoptenclientes[$i][1]);
@@ -214,7 +214,7 @@ print $langs->trans("TTtopten");
 	 $var=!$var;
 	 print "<tr $bc[$var]>";
 		print '<td >'.($i+1).'</td>';
-		print '<td nowrap="nowrap"> </td>';
+		print '<td class="nowrap"> </td>';
 		print '<td > </td>';
 		print '<td > </td>';
 		print '<td > </td>';

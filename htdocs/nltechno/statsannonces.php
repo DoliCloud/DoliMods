@@ -244,7 +244,7 @@ if (1 == 1)
 			print '<tr class="liste_total"><td>Total categorie '.$oldcateg.'</td><td></td>';
 			foreach ($prixarray as $pval)
 			{
-				print '<td nowrap="nowrap"></td>';
+				print '<td class="nowrap"></td>';
 			}
 			print '</tr>';
 		}
@@ -258,7 +258,7 @@ if (1 == 1)
 			// For each price
 			foreach ($prixarray as $pval)
 			{
-				print '<td nowrap="nowrap">';
+				print '<td class="nowrap">';
 				if (is_array($val[$key2][$pval]))
 				{
 					foreach ($val[$key2][$pval] as $pokey => $poval)
@@ -276,7 +276,7 @@ if (1 == 1)
 	print '<tr class="liste_total"><td>Total categorie '.$oldcateg.'</td><td></td>';
 	foreach ($prixarray as $pval)
 	{
-		print '<td nowrap="nowrap"></td>';
+		print '<td class="nowrap"></td>';
 	}
 	print '</tr>';
 	print '</table>';

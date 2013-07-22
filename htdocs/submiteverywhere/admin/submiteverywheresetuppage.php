@@ -455,7 +455,7 @@ if ($resql)
             }
         }
         print '</td>';
-        print '<td nowrap="nowrap" align="right">';
+        print '<td class="nowrap" align="right">';
         if ($action == 'edit' && $id == $obj->rowid)
         {
             print '<input type="submit" name="submit" value="'.$langs->trans("Save").'" class="button"><br>';

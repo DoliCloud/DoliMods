@@ -188,7 +188,7 @@ print $langs->trans("TTtopten");
 			$product_static->type=$listatoptenproductos[$i][1]->fk_product_type;
 
 		print '<td >'.($i+1).'</td>';
-		print '<td nowrap="nowrap">'.$product_static->getNomUrl(1,'',30).'</td>';
+		print '<td class="nowrap">'.$product_static->getNomUrl(1,'',30).'</td>';
 		print '<td >'.($listatoptenproductos[$i][0]->cantidad_vendida).'</td>';
 		print '<td >';
 		//var_dump($listatoptenproductos[$i][1]);
@@ -212,7 +212,7 @@ print $langs->trans("TTtopten");
 	 $var=!$var;
 	 print "<tr $bc[$var]>";
 		print '<td >'.($i+1).'</td>';
-		print '<td nowrap="nowrap"> </td>';
+		print '<td class="nowrap"> </td>';
 		print '<td > </td>';
 		print '<td > </td>';
 		print '<td > </td>';

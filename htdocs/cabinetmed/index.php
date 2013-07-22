@@ -179,7 +179,7 @@ if ($result)
             $var=!$var;
             print "<tr $bc[$var]>";
             // Name
-            print '<td nowrap="nowrap">';
+            print '<td class="nowrap">';
             $thirdparty_static->id=$objp->rowid;
             $thirdparty_static->name=$objp->name;
             $thirdparty_static->client=$objp->client;

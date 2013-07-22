@@ -195,7 +195,7 @@ if ($action == 'import' || $action == 'create')
 				if ($dolicloudcustomer->plan!=$plan) $change=true;
 				if ($dolicloudcustomer->partner!=$partner) $change=true;
 				if ($dolicloudcustomer->date_registration!=$date_acquired) $change=true;
-				if ($dolicloudcustomer->status!=$status) $change=true;
+				if ($dolicloudcustomer->status!=$status && ! preg_match('/'.$dolicloudcustomer->status.'/i',$status)) $change=true;
 				if (! in_array($status,$arraystatus))
 				{
 					$importresult.=' Status is not recognized.';
@@ -208,7 +208,7 @@ if ($action == 'import' || $action == 'create')
 					$dolicloudcustomer->status=$status;
 
 					$result=$dolicloudcustomer->update($user,1);
-					$importresult.=' We update record.<br>';
+					$importresult.=' We update record. Status after is '.$status.'<br>';
 				}
 				else
 				{

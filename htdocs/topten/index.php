@@ -89,7 +89,7 @@ if($conf->topten->enabled)
         $thirdparty_static->id=$mejorclientedinero[$i][1]->id;
         $thirdparty_static->nom=$mejorclientedinero[$i][1]->nom;
         $thirdparty_static->client=$mejorclientedinero[$i][1];
-        print '<td nowrap="nowrap">'.$thirdparty_static->getNomUrl(1,'',30).'</td>';
+        print '<td class="nowrap">'.$thirdparty_static->getNomUrl(1,'',30).'</td>';
         print '<td>'.price($mejorclientedinero[$i][0]->total_gastado).'</td>';
         print '</tr>';
     }
@@ -129,7 +129,7 @@ if($conf->topten->enabled)
         $thirdparty_static->id=$mejorclientefactura[$i][1]->id;
         $thirdparty_static->nom=$mejorclientefactura[$i][1]->nom;
         $thirdparty_static->client=$mejorclientefactura[$i][1];
-        print '<td nowrap="nowrap">'.$thirdparty_static->getNomUrl(1,'',30).'</td>';
+        print '<td class="nowrap">'.$thirdparty_static->getNomUrl(1,'',30).'</td>';
         print '<td>'.($mejorclientefactura[$i][0]->cantidad_facturas).'</td>';
         print '</tr>';
     }
@@ -167,7 +167,7 @@ if($conf->topten->enabled)
         $product_static->ref=$mejorproductodinero[$i][1]->ref;
         $product_static->type=$mejorproductodinero[$i][1]->fk_product_type;
 
-        print '<td nowrap="nowrap">'.$product_static->getNomUrl(1,'',30).'</td>';
+        print '<td class="nowrap">'.$product_static->getNomUrl(1,'',30).'</td>';
         print '<td>'.price($mejorproductodinero[$i][0]->dinero_recaudado).'</td>';
         print '</tr>';
     }
@@ -206,7 +206,7 @@ if($conf->topten->enabled)
         $product_static->ref=$mejorproductocantidad[$i][1]->ref;
         $product_static->type=$mejorproductocantidad[$i][1]->fk_product_type;
 
-        print '<td nowrap="nowrap">'.$product_static->getNomUrl(1,'',30).'</td>';
+        print '<td class="nowrap">'.$product_static->getNomUrl(1,'',30).'</td>';
         print '<td>'.($mejorproductocantidad[$i][0]->cantidad_vendida).'</td>';
         print '</tr>';
     }
@@ -244,7 +244,7 @@ if($conf->topten->enabled)
         $facturestatic->ref=$mejorfacturadinero[$i][1]->ref;
         $facturestatic->type=$mejorfacturadinero[$i][1]->type;
 
-        print '<td nowrap="nowrap">'.$facturestatic->getNomUrl(1,'',30).'</td>';
+        print '<td class="nowrap">'.$facturestatic->getNomUrl(1,'',30).'</td>';
         print '<td>'.price($mejorfacturadinero[$i][0]->importe).'</td>';
         print '</tr>';
     }
@@ -281,7 +281,7 @@ if($conf->topten->enabled)
         $facturestatic->ref=$mejorfacturaproductos[$i][1]->ref;
         $facturestatic->type=$mejorfacturaproductos[$i][1]->type;
 
-        print '<td nowrap="nowrap">'.$facturestatic->getNomUrl(1,'',30).'</td>';
+        print '<td class="nowrap">'.$facturestatic->getNomUrl(1,'',30).'</td>';
         print '<td>'.($mejorfacturaproductos[$i][0]->suma_productos).'</td>';
         print '</tr>';
     }

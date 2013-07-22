@@ -221,7 +221,7 @@ if (empty($conf->global->SOCIETE_DISABLE_PARENTCOMPANY))
 
 // Num secu
 print '<tr>';
-print '<td nowrap="nowrap">'.$langs->trans('PatientVATIntra').'</td><td colspan="3">';
+print '<td class="nowrap">'.$langs->trans('PatientVATIntra').'</td><td colspan="3">';
 if ($soc->tva_intra)
 {
     $s='';

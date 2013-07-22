@@ -64,10 +64,10 @@ print '<form method="post" action="'.dol_buildpath('/submiteverywhere/index.php'
 print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
 print '<table class="noborder" width="100%">';
 print '<tr class="liste_titre"><td colspan="3">'.$langs->trans("SearchAMessage").'</td></tr>';
-print '<tr '.$bc[$var].'><td nowrap>';
+print '<tr '.$bc[$var].'>7.2';
 print $langs->trans("Ref").':</td><td><input type="text" class="flat" name="sref" size="18"></td>';
 print '<td rowspan="2"><input type="submit" value="'.$langs->trans("Search").'" class="button"></td></tr>';
-print '<tr '.$bc[$var].'><td nowrap>';
+print '<tr '.$bc[$var].'>7.2';
 print $langs->trans("Other").':</td><td><input type="text" class="flat" name="sall" size="18"></td>';
 
 print "</table></form><br>\n";
@@ -114,7 +114,7 @@ if ($result)
             $var=!$var;
 
             print "<tr ".$bc[$var].">";
-            print '<td nowrap="nowrap"><a href="'.$_SERVER["PHP_SELF"].'?id='.$obj->rowid.'">'.img_object($langs->trans("ShowEMail"),"email").' '.$obj->rowid.'</a></td>';
+            print '<td class="nowrap"><a href="'.$_SERVER["PHP_SELF"].'?id='.$obj->rowid.'">'.img_object($langs->trans("ShowEMail"),"email").' '.$obj->rowid.'</a></td>';
             print '<td>'.dol_trunc($obj->titre,38).'</td>';
             print '<td align="center">'.dol_print_date($obj->date_creat,'day').'</td>';
             print '<td align="center">'.($obj->nbemail?$obj->nbemail:"0").'</td>';

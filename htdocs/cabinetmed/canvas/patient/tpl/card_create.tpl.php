@@ -223,8 +223,8 @@ dol_htmloutput_errors($GOBALS['error'],$GLOBALS['errors']);
         print '</tr>';
 
         print '<tr>';
-        print '<td nowrap="nowrap">'.$langs->trans('PatientVATIntra').'</td>';
-        print '<td nowrap="nowrap" colspan="3">';
+        print '<td class="nowrap">'.$langs->trans('PatientVATIntra').'</td>';
+        print '<td class="nowrap" colspan="3">';
         print '<input type="text" class="flat" name="tva_intra" size="16" maxlength="32" value="'.$soc->tva_intra.'">';
         print '</td></tr>';
 
