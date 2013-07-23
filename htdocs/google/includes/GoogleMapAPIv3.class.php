@@ -7,11 +7,11 @@
  *
  * This copyright notice MUST APPEAR in all copies of the script!
  *
- *  @author            CERDAN Yohann <cerdanyohann@yahoo.fr>
- *  @copyright      (c) 20101  CERDAN Yohann, All rights reserved
- *  @ version         11/02/2011
+ * @author         CERDAN Yohann <cerdanyohann@yahoo.fr>
+ * @copyright      (c) 2011  CERDAN Yohann, All rights reserved
+ * @copyright      (c) 2013  Laurent Destailleur
+ * @version        2013-07-23
  */
-
 class GoogleMapAPI
 {
 	/** GoogleMap ID for the HTML DIV  **/
@@ -68,9 +68,9 @@ class GoogleMapAPI
 	/** factor by which to fudge the boundaries so that when we zoom encompass, the markers aren't too close to the edge **/
 	protected $coordCoef = 0.01;
 	/** Type of map to display **/
-	protected $mapType = 'ROADMAP';	
+	protected $mapType = 'ROADMAP';
 	protected $langs;
-	
+
 	/**
 	 * Class constructor
 	 *
@@ -79,7 +79,7 @@ class GoogleMapAPI
 
 	public function __construct()
 	{
-	
+
 	}
 
 	/**
@@ -318,11 +318,11 @@ class GoogleMapAPI
 	 * @return string
 	 */
 	public function withoutSpecialChars($str, $replaceBy = '_')
-	{ 
-		$str = htmlentities($str, ENT_NOQUOTES, 'utf-8');		
+	{
+		$str = htmlentities($str, ENT_NOQUOTES, 'utf-8');
 		$str = preg_replace('#&([A-za-z])(?:acute|cedil|circ|grave|orn|ring|slash|th|tilde|uml);#', '\1', $str);
 		$str = preg_replace('#&([A-za-z]{2})(?:lig);#', '\1', $str); // pour les ligatures e.g. '&oelig;'
-		$str = preg_replace('#&[^;]+;#', '', $str); // supprime les autres caractères		
+		$str = preg_replace('#&[^;]+;#', '', $str); // supprime les autres caractères
 		return $str;
 		/*
 		$accents = "ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ";
@@ -345,7 +345,7 @@ class GoogleMapAPI
 		$url = "http://maps.google.com/maps/api/geocode/json?address=".$encodeAddress."&sensor=false";
 		ini_set("allow_url_open", "1");
 		$data = file_get_contents($url);
-		
+
 		$data = json_decode($data);
 
 		if ($data->status == "OK") {
@@ -353,7 +353,7 @@ class GoogleMapAPI
 			$return[1] = 0; // plus utilisé
 			$return[2] = $data->results[0]->geometry->location->lat;
 			$return[3] = $data->results[0]->geometry->location->lng;
-			
+
 		} else {
 			echo "<!-- geocoding : failure to geocode : " . $status . " -->\n";
 			$return = null; // failure to geocode
@@ -411,14 +411,13 @@ class GoogleMapAPI
 	}
 
 	/**
-	 * Add marker by an array 
+	 * Add marker by an array
 	 *
 	 * @param string $tabAddresss 	An array of address
 	 * @param string $langs 		Language
 	 * @param string $mode 			Mode
 	 * @return void
 	 */
-
 	public function addArrayMarker($tabAddresses, $langs, $mode)
 	{
 		$this->langs = $langs;
@@ -428,9 +427,9 @@ class GoogleMapAPI
 			else
 				$icon = "http://www.google.com/intl/en_us/mapfiles/ms/micons/red-dot.png";
 			*/
-			$addPropre = $this->no_special_character_v2($address->address);
-			$lienGmaps = ' <a href=\"http://maps.google.fr/maps?q='.urlencode($this->withoutSpecialChars($address->address)).'\" style=\"font-weight:normal\" class=button >Google Maps</a>';
-			
+			$addPropre = $this->dol_escape_js($this->no_special_character_v2($address->address));
+			$lienGmaps = ' <a href=\"http://maps.google.fr/maps?q='.urlencode($this->withoutSpecialChars($address->address)).'\" style=\"font-weight:normal\" class=\"button\" >Google Maps</a>';
+
 			$html='';
 			if ($mode == 'company') $html.= '<a href=\"'.DOL_URL_ROOT.'/societe/soc.php?socid='.$address->id.'\">';
 			elseif ($mode == 'contact') $html.= '<a href=\"'.DOL_URL_ROOT.'/contact/fiche.php?id='.$address->id.'\">';
@@ -451,18 +450,104 @@ class GoogleMapAPI
 			}
 		}
 	}
-	
-	
+
+
 	function no_special_character_v2($chaine)
-	{ 
-		//  les accents
-		$chaine=trim($chaine);
-		$chaine= strtr($chaine,"ÀÁÂÃÄÅàáâãäåÒÓÔÕÖØòóôõöøÈÉÊËèéêëÇçÌÍÎÏìíîïÙÚÛÜùúûüÿÑñ","aaaaaaaaaaaaooooooooooooeeeeeeeecciiiiiiiiuuuuuuuuynn");
-		$chaine = preg_replace('/([^. a-z0-9]+)/i', '-', $chaine);
-	 
-		return $chaine;
-	 
+	{
+        $str=trim($chaine);
+        if ($this->utf8_check($str))
+        {
+                $string = rawurlencode($str);
+                $replacements = array(
+                '%C3%80' => 'A','%C3%81' => 'A',
+                '%C3%88' => 'E','%C3%89' => 'E',
+                '%C3%8C' => 'I','%C3%8D' => 'I',
+                '%C3%92' => 'O','%C3%93' => 'O',
+                '%C3%99' => 'U','%C3%9A' => 'U',
+                '%C3%A0' => 'a','%C3%A1' => 'a','%C3%A2' => 'a',
+                '%C3%A8' => 'e','%C3%A9' => 'e','%C3%AA' => 'e','%C3%AB' => 'e',
+                '%C3%AC' => 'i','%C3%AD' => 'i','%C3%AE' => 'i',
+                '%C3%B2' => 'o','%C3%B3' => 'o',
+                '%C3%B9' => 'u','%C3%BA' => 'u'
+                );
+                $string=strtr($string, $replacements);
+                return rawurldecode($string);
+        }
+        else
+       {
+                $string = strtr(
+                        $str,
+                        "\xC0\xC1\xC2\xC3\xC5\xC7
+                        \xC8\xC9\xCA\xCB\xCC\xCD\xCE\xCF\xD0\xD1
+                        \xD2\xD3\xD4\xD5\xD8\xD9\xDA\xDB\xDD
+                        \xE0\xE1\xE2\xE3\xE5\xE7\xE8\xE9\xEA\xEB
+                        \xEC\xED\xEE\xEF\xF0\xF1\xF2\xF3\xF4\xF5\xF8
+                        \xF9\xFA\xFB\xFD\xFF",
+                        "AAAAAC
+                        EEEEIIIIDN
+                        OOOOOUUUY
+                        aaaaaceeee
+                        iiiidnooooo
+                        uuuyy"
+                );
+                $string = strtr($string, array("\xC4"=>"Ae", "\xC6"=>"AE", "\xD6"=>"Oe", "\xDC"=>"Ue", "\xDE"=>"TH", "\xDF"=>"ss", "\xE4"=>"ae", "\xE6"=>"ae", "\xF6"=>"oe", "\xFC"=>"ue", "\xFE"=>"th"));
+                return $string;
+        }
+    }
+
+	/**
+	 *      Check if a string is in UTF8
+	 *
+	 *      @param  string  $str        String to check
+	 *              @return boolean                         True if string is UTF8 or ISO compatible with UTF8, False if not (ISO with special char or Binary)
+	 */
+	function utf8_check($str)
+	{
+	        // We must use here a binary strlen function (so not dol_strlen)
+	        $strLength = $this->dol_strlen($str);
+	        for ($i=0; $i<$strLength; $i++)
+	        {
+	                if (ord($str[$i]) < 0x80) continue; // 0bbbbbbb
+	                elseif ((ord($str[$i]) & 0xE0) == 0xC0) $n=1; // 110bbbbb
+	                elseif ((ord($str[$i]) & 0xF0) == 0xE0) $n=2; // 1110bbbb
+	                elseif ((ord($str[$i]) & 0xF8) == 0xF0) $n=3; // 11110bbb
+	                elseif ((ord($str[$i]) & 0xFC) == 0xF8) $n=4; // 111110bb
+	                elseif ((ord($str[$i]) & 0xFE) == 0xFC) $n=5; // 1111110b
+	                else return false; // Does not match any model
+	                for ($j=0; $j<$n; $j++) { // n bytes matching 10bbbbbb follow ?
+	                        if ((++$i == strlen($str)) || ((ord($str[$i]) & 0xC0) != 0x80))
+	                        return false;
+	                }
+	        }
+	        return true;
 	}
+
+	/**
+	 * Make a strlen call. Works even if mbstring module not enabled
+	 *
+	 * @param   string              $string                         String to calculate length
+	 * @param   string              $stringencoding         Encoding of string
+	 * @return  int                                                         Length of string
+	 */
+	function dol_strlen($string,$stringencoding='UTF-8')
+	{
+	        if (function_exists('mb_strlen')) return mb_strlen($string,$stringencoding);
+	        else return strlen($string);
+	}
+
+	/**
+	 *  Returns text escaped for inclusion into javascript code
+	 *
+	 *  @param       string		$stringtoescape		String to escape
+	 *  @return      string     		 			Escaped string
+	 */
+	function dol_escape_js($stringtoescape)
+	{
+		// escape quotes and backslashes, newlines, etc.
+		$substitjs=array("&#039;"=>"\\'",'\\'=>'\\\\',"'"=>"\\'",'"'=>"\\'","\r"=>'\\r',"\n"=>'\\n','</'=>'<\/');
+		return strtr($stringtoescape, $substitjs);
+	}
+
 
 	/**
 	 * Initialize the javascript code
@@ -508,7 +593,7 @@ class GoogleMapAPI
 		$this->content .= "\t\t" . 'return current_lng;' . "\n";
 		$this->content .= "\t" . '}' . "\n";
 
-		// JS public function to add a  marker 
+		// JS public function to add a  marker
 		$this->content .= "\t" . 'function addMarker(latlng,title,content,category,icon) {' . "\n";
 		$this->content .= "\t\t" . 'var marker = new google.maps.Marker({' . "\n";
 		$this->content .= "\t\t\t" . 'map: map,' . "\n";
@@ -544,7 +629,7 @@ class GoogleMapAPI
 		}
 		$this->content .= "\t" . '}' . "\n";
 
-		// JS public function to add a geocode marker 
+		// JS public function to add a geocode marker
 		$this->content .= "\t" . 'function geocodeMarker(address,title,content,category,icon) {' . "\n";
 		$this->content .= "\t\t" . 'if (geocoder) {' . "\n";
 		$this->content .= "\t\t\t" . 'geocoder.geocode( { "address" : address}, function(results, status) {' . "\n";
@@ -640,7 +725,7 @@ class GoogleMapAPI
 
 	/**
 	 * Output map
-	 * 
+	 *
 	 * @return void
 	 */
 	public function generate()
@@ -701,4 +786,4 @@ class GoogleMapAPI
 
 	}
 
-}        
+}
