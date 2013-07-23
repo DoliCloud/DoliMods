@@ -164,6 +164,7 @@ if ($action == 'import' || $action == 'create')
 			$total_invoiced=$data[4];
 			$total_payed=$data[5];
 			$status=$data[6];
+			if ($status == 'CLOSURE_REQUESTED') $status='CLOSE_QUEUED';		// TODO Use CLOSURE_REQUESTED into database
 			if ($organization == 'Organization') continue;	// Discard first line
 			if (empty($total_invoiced)) continue;
 
@@ -195,7 +196,7 @@ if ($action == 'import' || $action == 'create')
 				if ($dolicloudcustomer->plan!=$plan) $change=true;
 				if ($dolicloudcustomer->partner!=$partner) $change=true;
 				if ($dolicloudcustomer->date_registration!=$date_acquired) $change=true;
-				if ($dolicloudcustomer->status!=$status && ! preg_match('/'.$dolicloudcustomer->status.'/i',$status)) $change=true;
+				if ($dolicloudcustomer->status!=$status && ! preg_match('/'.$status.'/i',$dolicloudcustomer->status)) $change=true;
 				if (! in_array($status,$arraystatus))
 				{
 					$importresult.=' Status is not recognized.';
@@ -205,14 +206,14 @@ if ($action == 'import' || $action == 'create')
 					$dolicloudcustomer->plan=$plan;
 					$dolicloudcustomer->partner=$partner;
 					$dolicloudcustomer->date_registration=$date_acquired;
-					$dolicloudcustomer->status=$status;
+					if (! preg_match('/'.$status.'/',$dolicloudcustomer->status)) $dolicloudcustomer->status=$status;
 
 					$result=$dolicloudcustomer->update($user,1);
-					$importresult.=' We update record. Status after is '.$status.'<br>';
+					$importresult.=' We update record. Status after is '.$dolicloudcustomer->status.'<br>';
 				}
 				else
 				{
-					$importresult.=' No need to update. Current status is '.$status.'<br>';
+					$importresult.=' No need to update. Current status is '.$dolicloudcustomer->status.'<br>';
 				}
 			}
 
