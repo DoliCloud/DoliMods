@@ -167,7 +167,7 @@ print $form->select_company($socid,'socid',$filter,1);
 print '</td></tr>';
 */
 print '<tr><td>'.$langs->trans("User").'</td><td>';
-print $form->select_users($userid,'userid',1);
+print $form->select_dolusers($userid,'userid',1);
 print '</td></tr>';
 print '<tr><td>'.$langs->trans("CodageCCAM").'</td><td>';
 print '<input type="text" id="codageccam" name="codageccam" value="'.$codageccam.'" size="30"><span class="hideonsmartphone"> (* = joker)</span>';
