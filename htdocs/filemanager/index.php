@@ -130,6 +130,12 @@ $maxheightwin=(isset($_SESSION["dol_screenheight"]) && $_SESSION["dol_screenheig
 
 $morejs=array(
 "/filemanager/includes/jqueryFileTree/jqueryFileTree.js",
+"/filemanager/includes/jquery/plugins/template/tmpl.min.js",
+"/filemanager/includes/jquery/plugins/fileupload/js/jquery.iframe-transport.js",
+"/filemanager/includes/jquery/plugins/fileupload/js/jquery.fileupload.js",
+"/filemanager/includes/jquery/plugins/fileupload/js/jquery.fileupload-fp.js",
+"/filemanager/includes/jquery/plugins/fileupload/js/jquery.fileupload-ui.js",
+"/filemanager/includes/jquery/plugins/fileupload/js/jquery.fileupload-jui.js"
 );
 $morehead="<style type=\"text/css\">
 	#containerlayout {
