@@ -170,6 +170,7 @@ if ($action == 'remove_file')   // Remove a file
  * View
  */
 
+$conf->global->REQUIRE_JQUERY_FILEUPLOAD=1;		// For 3.3+
 $conf->global->MAIN_USE_JQUERY_FILEUPLOAD=1;
 
 // Ajout directives pour resoudre bug IE
