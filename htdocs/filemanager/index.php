@@ -128,6 +128,9 @@ $conf->global->MAIN_USE_JQUERY_FILEUPLOAD=1; 	// For compatibility with 3.2 (con
 
 $maxheightwin=(isset($_SESSION["dol_screenheight"]) && $_SESSION["dol_screenheight"] > 500)?($_SESSION["dol_screenheight"]-166):660;
 
+$morecss=array(
+"/includes/jquery/plugins/fileupload/css/jquery.fileupload-ui.css"
+);
 $morejs=array(
 "/filemanager/includes/jqueryFileTree/jqueryFileTree.js",
 "/filemanager/includes/jquery/plugins/template/tmpl.min.js",
@@ -178,7 +181,7 @@ $morehead="<style type=\"text/css\">
 //		,	slidable:				true	// when closed, pane can 'slide' open over other panes - closes on mouse-out
 
 
-llxHeader($morehead,$langs->trans("FileManager"),'','','','',$morejs,'',0,0);
+llxHeader($morehead,$langs->trans("FileManager"),'','','','',$morejs,$morecss,0,0);
 
 print_fiche_titre($langs->trans("FileManager"));
 
