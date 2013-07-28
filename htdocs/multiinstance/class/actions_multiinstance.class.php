@@ -847,7 +847,7 @@ class ActionsMultiinstance
 		$htmltext.='<br><b>'.$langs->trans("Label").'</b>: '.$this->label."\n";
 		$htmltext.='<br><b>'.$langs->trans("Description").'</b>: '.$this->description."\n";
 
-		$out.= $form->textwithtooltip('',$htmltext,2,1,$text,'',1);
+		$out.= $form->textwithtooltip('',$htmltext,2,1,$text,'login_block_elem',2);
 
 		$out.= '<script type="text/javascript">
 			$( "#switchentity" ).click(function() {
