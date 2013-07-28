@@ -19,10 +19,6 @@
 -- Current Database: `prestashop_db`
 --
 
-CREATE DATABASE /*!32312 IF NOT EXISTS*/ `prestashop_db` /*!40100 DEFAULT CHARACTER SET latin1 */;
-
-USE `prestashop_db`;
-
 --
 -- Table structure for table `ps_access`
 --
@@ -2320,7 +2316,7 @@ CREATE TABLE `ps_employee` (
 
 LOCK TABLES `ps_employee` WRITE;
 /*!40000 ALTER TABLE `ps_employee` DISABLE KEYS */;
-INSERT INTO `ps_employee` VALUES (1,1,1,'NOM','PRENOM','EMAIL','87ff15cb7871dd0d142ff5f50664f0bd','2013-06-19 09:28:59','2013-06-19','2013-06-19',NULL,'default',0,0,1,1,0,0,0);
+INSERT INTO `ps_employee` VALUES (1,1,1,'NOM','PRENOM','admin@admin.com','password','2013-06-19 09:28:59','2013-06-19','2013-06-19',NULL,'default',0,0,1,1,0,0,0);
 /*!40000 ALTER TABLE `ps_employee` ENABLE KEYS */;
 UNLOCK TABLES;
 

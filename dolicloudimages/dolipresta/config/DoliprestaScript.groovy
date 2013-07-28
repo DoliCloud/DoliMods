@@ -107,7 +107,7 @@ public class DolibarrScript extends ScriptContext {
                  try {
                      apache.createWebApp(app)
                      fs.chown(appPath, "$osUsername:$osGroupname")
-                     // fs.chmod(appPath, '700')
+                     fs.chmod(appPath, '700')
                      // fs.chmod(appPath+'/htdocs/conf/conf.php', '400')
                  } catch (e) {
                      log.error("Create Web Failed. So rolling back")

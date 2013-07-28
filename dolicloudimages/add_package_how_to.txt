@@ -1,6 +1,8 @@
 # How to create/add/update a new package on DoliCloud
 ######################################################
 
+----- Prepare master files
+
 Create a directory tree for package
   - package/config
   - package/src
@@ -11,15 +13,28 @@ Add into package/config:
   - A package.cfg file
   - A packageScript.groovy script
 
+- Check sql does not contains create or use statements.
+- Check tgz does not contains dir that should be deleted after install
+- Check .groovy file has correct config file and set correct permissions.
+
+
+----- Install master files
+
 When files are ready, connect with SFTP to on.dolicloud.com and upload files into
   /var/www/appProviderImages/package
 Set permission to read for apache user
   > chmod a+r /var/www/appProviderImages/package/*
 
+Check you can download files with URL
+ http://on.dolicloud.com/appProviderImages/dolipresta/DoliprestaScript.groovy
+
+Go into dashboard and add ressource UsersXXX
+
 Go into dashboard and add package 
 - Script url   = http://on.dolicloud.com/appProviderImages/dolibarr/DolibarrScript.groovy
 - Default user = admin
 - Default pass = keep empty
+
 Then add parameters
 - sourceUrl    = defines the location of your application source code package.tgz
 - dbScriptUrl  = the location of your mysqldump package.sql
