@@ -55,9 +55,13 @@ class ActionsDoliCloud
 
         $url='https://www.on.dolicloud.com/';
         if (! empty($conf->global->DOLICLOUD_FORCE_URL)) $url=$conf->global->DOLICLOUD_FORCE_URL;
-        $out='<td><div class="login"><a href="'.$url.'" target="_blank">DoliCloud</a></div></td>';
+        //$out='<td>';
+        $out.='<div class="login" id="linkdolicloud"><a href="'.$url.'" target="_blank">DoliCloud</a></div>';
+        //$out.='</td>';
 
-        return $out;
+        $this->resprints=$out;
+
+        return 0;
     }
 }
 
