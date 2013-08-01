@@ -62,6 +62,9 @@ if ($user->societe_id) $socid=$user->societe_id;
 $object = new Societe($db);
 $extrafields = new ExtraFields($db);
 
+// fetch optionals attributes and labels
+$extralabels=$extrafields->fetch_name_optionals_label($object->table_element);
+
 // Get object canvas (By default, this is not defined, so standard usage of dolibarr)
 $object->getCanvas($socid);
 $canvas = $object->canvas?$object->canvas:GETPOST("canvas");
@@ -77,8 +80,6 @@ if (! empty($canvas))
 $result = restrictedArea($user, 'societe', $socid, '&societe', '', 'fk_soc', 'rowid', $objcanvas);
 
 // Initialize technical object to manage hooks of thirdparties. Note that conf->hooks_modules contains array array
-include_once DOL_DOCUMENT_ROOT.'/core/class/hookmanager.class.php';
-$hookmanager=new HookManager($db);
 $hookmanager->initHooks(array('thirdpartycard'));
 
 
@@ -178,14 +179,8 @@ if (empty($reshook))
         $object->commercial_id         = GETPOST('commercial_id');
         $object->default_lang          = GETPOST('default_lang');
 
-        // Get extra fields
-        foreach($_POST as $key => $value)
-        {
-            if (preg_match("/^options_/",$key))
-            {
-                $object->array_options[$key]=GETPOST($key);
-            }
-        }
+        // Fill array 'array_options' with data from add form
+        $ret = $extrafields->setOptionalsFromPost($extralabels,$object);
 
         if (GETPOST('deletephoto')) $object->logo = '';
         else if (! empty($_FILES['photo']['name'])) $object->logo = dol_sanitizeFileName($_FILES['photo']['name']);
@@ -233,7 +228,7 @@ if (empty($reshook))
 					{
 						$langs->load("errors");
                 		$error++; $errors[] = $langs->transcountry('ProfId'.$i, $object->country_code)." ".$langs->trans("ErrorProdIdAlreadyExist", $vallabel);
-                		$action = ($action=='add'?'create':'edit');
+                		$action = (($action=='add'||$action=='create')?'create':'edit');
 					}
 				}
 
@@ -243,7 +238,7 @@ if (empty($reshook))
 					$langs->load("errors");
 					$error++;
 					$errors[] = $langs->trans("ErrorProdIdIsMandatory", $langs->transcountry('ProfId'.$i, $object->country_code));
-					$action = ($action=='add'?'create':'edit');
+					$action = (($action=='add'||$action=='create')?'create':'edit');
 				}
 			}
         }
@@ -355,7 +350,7 @@ if (empty($reshook))
                 if (empty($object->fournisseur)&& empty($object->oldcopy->code_fournisseur)) $object->code_fournisseur='';
                 //var_dump($object);exit;
 
-                $result = $object->update($socid,$user,1,$object->oldcopy->codeclient_modifiable(),$object->oldcopy->codefournisseur_modifiable());
+                $result = $object->update($socid, $user, 1, $object->oldcopy->codeclient_modifiable(), $object->oldcopy->codefournisseur_modifiable(), 'update', 0);
                 if ($result <=  0)
                 {
                     $error = $object->error; $errors = $object->errors;
@@ -406,6 +401,22 @@ if (empty($reshook))
                 }
                 // Gestion du logo de la société
 
+            
+                // Update linked member
+                if (! $error && $object->fk_soc > 0)
+                {
+
+                	$sql = "UPDATE ".MAIN_DB_PREFIX."adherent";
+                	$sql.= " SET fk_soc = NULL WHERE fk_soc = " . $id;
+                	dol_syslog(get_class($this)."::delete sql=".$sql, LOG_DEBUG);
+                	if (! $this->db->query($sql))
+                	{
+                		$error++;
+                		$this->error .= $this->db->lasterror();
+                		dol_syslog(get_class($this)."::delete erreur -1 ".$this->error, LOG_ERR);
+                	}
+                }
+                
                 if (! $error && ! count($errors))
                 {
 
@@ -440,7 +451,13 @@ if (empty($reshook))
         }
     }
 
+    // Set parent company
+    if ($action == 'set_thirdparty' && $user->rights->societe->creer)
+    {
+    	$result = $object->set_parent(GETPOST('editparentcompany','int'));
+    }
 
+    
     /*
      * Generate document
      */
@@ -503,9 +520,6 @@ if (empty($reshook))
  *  View
  */
 
-// fetch optionals attributes and labels
-$extralabels=$extrafields->fetch_name_optionals_label('company');
-
 $help_url='EN:Module_Third_Parties|FR:Module_Tiers|ES:Empresas';
 llxHeader('',$langs->trans("ThirdParty"),$help_url);
 
@@ -525,9 +539,10 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action))
     if (empty($object->error) && $socid)
  	{
 	     $object = new Societe($db);
-	     $object->fetch($socid);
+	     $result=$object->fetch($socid);
+	     if ($result <= 0) dol_print_error('',$object->error);
  	}
-   	$objcanvas->assign_values($action, $socid);	// Set value for templates
+   	$objcanvas->assign_values($action, $object->id, $object->ref);	// Set value for templates
     $objcanvas->display_canvas($action);		// Show template
 }
 else

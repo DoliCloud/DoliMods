@@ -51,7 +51,7 @@ dol_htmloutput_errors($error,$errors);
 
 
 // Confirm delete third party
-if ($action == 'delete' || $conf->use_javascript_ajax)
+if ($action == 'delete' || ($conf->use_javascript_ajax && empty($conf->dol_use_jmobile)))
 {
     $ret=$form->form_confirm($_SERVER["PHP_SELF"]."?socid=".$soc->id,$langs->trans("DeleteACompany"),$langs->trans("ConfirmDeleteCompany"),"confirm_delete",'',0,"action-delete");
     if ($ret == 'html') print '<br>';
@@ -313,7 +313,7 @@ if ($user->rights->societe->creer)
 
 if ($user->rights->societe->supprimer)
 {
-    if ($conf->use_javascript_ajax)
+    if ($conf->use_javascript_ajax && empty($conf->dol_use_jmobile))
     {
         print '<span id="action-delete" class="butActionDelete">'.$langs->trans('Delete').'</span>'."\n";
     }
