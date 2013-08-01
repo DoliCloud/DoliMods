@@ -121,7 +121,7 @@ $id=GETPOST('id');
 			// Recuperation et affichage de la date et de l'heure
 			$now = dol_now();
 			$label=$object->type==0?$langs->trans("InvoiceStandard"):$langs->trans("InvoiceAvoir");
-			print '<p class="date_heure" align="right">'.$object->ref."<br>".dol_print_date($object->date_closed,'dayhourtext').'</p><br>';
+			print '<p class="date_heure" align="right">'.$object->ref."<br>".dol_print_date($object->date_creation,'dayhourtext').'</p><br>';
 		?>
 	</div>
 </div>

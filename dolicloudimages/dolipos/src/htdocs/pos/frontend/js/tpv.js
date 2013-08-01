@@ -598,7 +598,7 @@ var Ticket = jQuery.Class({
 		$('.tax_types').click(function(){
 			$('.tax_types').removeClass('btnon');
 			$(this).addClass('btnon');
-			product.tax = $(this).find('a:first').attr('id').substring(14);
+			product.tax = $(this).find('a:first').attr('id').substring(7);
 		})
 		$('#id_btn_add_product').unbind('click');
 		$('#id_btn_add_product').click(function(){

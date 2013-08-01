@@ -3160,7 +3160,8 @@ class POS extends CommonObject
 		$object->nom                   	= $object->name;     // TODO obsolete
 		$object->nom_particulier       	= $aryCustomer["nom"];
 		$object->prenom                	= $aryCustomer["prenom"];
-		$object->siren                 	= $aryCustomer["idprof1"]; 
+		$object->address				= $aryCustomer["address"];
+		$object->idprof1               	= $aryCustomer["idprof1"]; 
         $object->tel					= $aryCustomer["tel"] ;     
         $object->email					= $aryCustomer["email"] ; 
         
@@ -3655,7 +3656,7 @@ class POS extends CommonObject
 					$espacio .="    \t";
 				}
 				$message .= dol_trunc($line->libelle,33).$espacio;
-				$message .= "\t\t".$line->qty." * ".price($line->price)."\t\t".$line->remise_percent."%\t\t\t".price($totalline).' '.$langs->trans(currency_name($conf->currency))."\n";
+				$message .= "\t\t".$line->qty." * ".price($line->subprice)."\t\t".$line->remise_percent."%\t\t\t".price($totalline).' '.$langs->trans(currency_name($conf->currency))."\n";
 				$subtotal+=$totalline;
 			}
 		}
@@ -3721,7 +3722,7 @@ class POS extends CommonObject
 		$label=$facture->ref;
 					
 		$message = $conf->global->MAIN_INFO_SOCIETE_NOM." \n".$conf->global->MAIN_INFO_SOCIETE_ADRESSE." \n". $conf->global->MAIN_INFO_SOCIETE_CP.' '.$conf->global->MAIN_INFO_SOCIETE_VILLE." \n\n";
-		$message .= $label." \n".dol_print_date($facture->date_valid,'dayhourtext')." \n";
+		$message .= $label." \n".dol_print_date($facture->date_creation,'dayhourtext')." \n";
 		$message .= $langs->transnoentities("Vendor").': '.$userstatic->nom."\n";
 		
 		$sql = "SELECT fk_place,fk_cash FROM ".MAIN_DB_PREFIX."pos_facture WHERE fk_facture =".$facture->id;
@@ -3749,7 +3750,7 @@ class POS extends CommonObject
 					$espacio .="    \t";
 				}
 				$message .= dol_trunc($line->libelle,33).$espacio;
-				$message .= "\t\t".$line->qty." * ".price($line->price)."\t\t".$line->remise_percent."%\t\t\t".price($totalline).' '.$langs->trans(currency_name($conf->currency))."\n";
+				$message .= "\t\t".$line->qty." * ".price($line->subprice)."\t\t".$line->remise_percent."%\t\t\t".price($totalline).' '.$langs->trans(currency_name($conf->currency))."\n";
 				$subtotal+=$totalline;
 			}
 		}
