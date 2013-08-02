@@ -3,6 +3,7 @@ English POS ChangeLog
 --------------------------------------------------------------
 ***** ChangeLog for 3.3.6 compared to 3.3.5 *****
 Fix: Not shown date in factures
+Fix: Bug when not show products without stock
 
 ***** ChangeLog for 3.3.5 compared to 3.3.4 *****
 Fix: Bug when create customer from frontend

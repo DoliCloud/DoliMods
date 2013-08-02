@@ -185,71 +185,71 @@ class POS extends CommonObject
 				{
 					//$prods = $object->get_type("product","Product");
 					$prods = self::get_prod($idCat,$more);
-					if (sizeof ($prods) > 0)
-					{
-						$ret=array();
+					//if (sizeof ($prods) > 0)
+					//{
+						//$ret=array();
 						
-						foreach ( $prods as $prod )
+						/*foreach ( $prods as $prod )
 						{
-							$showing2 = 0;
-							if($conf->global->POS_STOCK)
-							{
-								$showing2=1;
-							}
-							else if($prod["type"] == 1)
-							{
-								$showing2=1;
-							}
-							else
-							{
-								$cashid = $_SESSION['TERMINAL_ID'];
-								$cash = new Cash($db);
-								$cash->fetch($cashid);
-								$warehouse = $cash->fk_warehouse;
-								
-								$sql = 'SELECT rowid FROM '.MAIN_DB_PREFIX.'product_stock';
-								$sql .= ' WHERE fk_product = '.$prod["id"].' AND fk_entrepot='.$warehouse.' AND reel > 0';
-								$resql = $db->query($sql);
-								
-								if($resql)
-								{
-									$num = $db->num_rows($resql);
-									if($num > 0)
-									{
-										$showing2=1;
-									}
-								}
-							} 
-							$showing = ($conf->global->POS_SERVICES?1:($prod["type"]==0?1:0));
-							if ( $showing && $showing2)
-							{
-								$ret[$prod["id"]]["id"] = $prod["id"];
-								$ret[$prod["id"]]["ref"] = $prod["ref"];
-								$ret[$prod["id"]]["label"] = $prod["label"];
-								$ret[$prod["id"]]["description"] = $prod["description"];
+							$ret[$prod["id"]]["id"] = $prod["id"];
+							$ret[$prod["id"]]["ref"] = $prod["ref"];
+							$ret[$prod["id"]]["label"] = $prod["label"];
+							$ret[$prod["id"]]["description"] = $prod["description"];
 																
-								$ret[$prod["id"]]["image"] = self::getImageProduct($prod["id"], false);
-								$ret[$prod["id"]]["thumb"] = self::getImageProduct($prod["id"], true);
-							}
+							$ret[$prod["id"]]["image"] = $prod["image"];//self::getImageProduct($prod["id"], false);
+							$ret[$prod["id"]]["thumb"] = $prod["thumb"];//self::getImageProduct($prod["id"], true);
+							
 						}
-						return $ret;
-					}	
+						return $ret;*/
+						return $prods;
+					//}	
 				}	
 			}
 		}
 		else //Productos sin categorías
 		{
 			
-			$sql ="SELECT rowid as id, ref, label, description,";
-			$sql .=" fk_product_type";
-			$sql .=" FROM ".MAIN_DB_PREFIX."product ";
-			$sql .=" WHERE rowid NOT IN ";
-			$sql .=" (SELECT fk_product FROM ".MAIN_DB_PREFIX."categorie_product)";
-			$sql .=" AND tosell=1";
-			$sql.= " AND entity IN (".getEntity("product", 1).")";
+			$sql = "SELECT o.rowid as id, o.ref, o.label, o.description, ";
+			$sql .=" o.fk_product_type";
+			$sql.= " FROM ".MAIN_DB_PREFIX."product as o";
+			
+			if($conf->global->POS_STOCK){
+				$sql .=" WHERE rowid NOT IN ";
+				$sql .=" (SELECT fk_product FROM ".MAIN_DB_PREFIX."categorie_product)";
+				$sql .=" AND tosell=1";
+				$sql.= " AND entity IN (".getEntity("product", 1).")";
+				if(!$conf->global->POS_SERVICES){
+					$sql .= " AND o.fk_product_type = 0";
+				}
+			}
+			else
+			{
+				$cashid = $_SESSION['TERMINAL_ID'];
+				$cash = new Cash($db);
+				$cash->fetch($cashid);
+				$warehouse = $cash->fk_warehouse;
+					
+				$sql .= ", ".MAIN_DB_PREFIX."product_stock as ps";
+				$sql .=" WHERE o.rowid NOT IN ";
+				$sql .=" (SELECT fk_product FROM ".MAIN_DB_PREFIX."categorie_product)";
+				$sql .=" AND tosell=1";
+				$sql.= " AND entity IN (".getEntity("product", 1).")";
+				$sql .= " AND o.rowid = ps.fk_product";
+				$sql .= " AND ps.fk_entrepot = ".$warehouse;
+				$sql .= " AND ps.reel > 0";
+				if($conf->global->POS_SERVICES){
+					$sql .= " union select o.rowid as id, o.ref, o.label, o.description,	";
+					$sql .= " o.fk_product_type";
+					$sql .= " FROM ".MAIN_DB_PREFIX."product as o";
+					$sql .=" WHERE o.rowid NOT IN ";
+					$sql .=" (SELECT fk_product FROM ".MAIN_DB_PREFIX."categorie_product)";
+					$sql .=" AND tosell=1";
+					$sql .=" AND fk_product_type=1";
+					$sql.= " AND entity IN (".getEntity("product", 1).")";
+				}
+			}
 			if($more >= 0)
 				$sql.=" LIMIT ".$more.",10 ";
-			
 			
 			$res = $db->query($sql);
 			
@@ -262,48 +262,14 @@ class POS extends CommonObject
 				{
 					$objp = $db->fetch_object($res);
 					
-					$showing2 = 0;
-					if($conf->global->POS_STOCK)
-					{
-						$showing2=1;
-					}
-					else if($objp->fk_product_type==1)
-					{
-						$showing2=1;
-					}
-					else
-					{
-						$cashid = $_SESSION['TERMINAL_ID'];
-						$cash = new Cash($db);
-						$cash->fetch($cashid);
-						$warehouse = $cash->fk_warehouse;
+					$ret[$objp->id]["id"] = $objp->id;
+					$ret[$objp->id]["ref"] = $objp->ref;
+					$ret[$objp->id]["label"] = $objp->label;
+					$ret[$objp->id]["description"] = $objp->description;
+											
+					$ret[$objp->id]["image"] = self::getImageProduct($objp->id, false);
+					$ret[$objp->id]["thumb"] = self::getImageProduct($objp->id, true);
 					
-						$sql = 'SELECT rowid FROM '.MAIN_DB_PREFIX.'product_stock';
-						$sql .= ' WHERE fk_product = '.$objp->id.' AND fk_entrepot='.$warehouse.' AND reel > 0';
-						$resql = $db->query($sql);
-					
-						if($resql)
-						{
-							$numrows = $db->num_rows($resql);
-							if($numrows > 0)
-							{
-								$showing2=1;
-							}
-						}
-					}
-					
-					
-					$showing = ($conf->global->POS_SERVICES?1:($objp->fk_product_type==0?1:0));
-					if( $showing && $showing2)
-					{
-						$ret[$objp->id]["id"] = $objp->id;
-						$ret[$objp->id]["ref"] = $objp->ref;
-						$ret[$objp->id]["label"] = $objp->label;
-						$ret[$objp->id]["description"] = $objp->description;
-												
-						$ret[$objp->id]["image"] = self::getImageProduct($objp->id, false);
-						$ret[$objp->id]["thumb"] = self::getImageProduct($objp->id, true);
-					}
 					$i++;
 								
 				}
@@ -4259,16 +4225,46 @@ class POS extends CommonObject
 	{
 		global $db,$conf;
 		$objs = array();
-		
 			
-		$sql = "SELECT o.rowid as id, o.ref, o.label, o.description, c.fk_product,";
+		$sql = "SELECT o.rowid as id, o.ref, o.label, o.description, ";
 		$sql .=" o.fk_product_type";
 		$sql.= " FROM ".MAIN_DB_PREFIX."categorie_product as c";
 		$sql.= ", ".MAIN_DB_PREFIX."product as o";
-		$sql.= " WHERE o.entity IN (".getEntity("product", 1).")";
-		$sql.= " AND c.fk_categorie = ".$idCat;
-		$sql.= " AND c.fk_product = o.rowid";
-		$sql.= " AND o.tosell = 1";
+		if($conf->global->POS_STOCK){
+			$sql.= " WHERE o.entity IN (".getEntity("product", 1).")";
+			$sql.= " AND c.fk_categorie = ".$idCat;
+			$sql.= " AND c.fk_product = o.rowid";
+			$sql.= " AND o.tosell = 1";
+			if(!$conf->global->POS_SERVICES){
+				$sql .= " AND o.fk_product_type = 0";
+			}
+		}
+		else 
+		{
+			$cashid = $_SESSION['TERMINAL_ID'];
+			$cash = new Cash($db);
+			$cash->fetch($cashid);
+			$warehouse = $cash->fk_warehouse;
+					
+			$sql .= ", ".MAIN_DB_PREFIX."product_stock as ps";
+			$sql .= " WHERE o.entity IN (".getEntity("product", 1).")";
+			$sql .= " AND c.fk_categorie = ".$idCat;
+			$sql .= " AND c.fk_product = o.rowid";
+			$sql .= " AND o.tosell = 1";
+			$sql .= " AND o.rowid = ps.fk_product";
+			$sql .= " AND ps.fk_entrepot = ".$warehouse;
+			$sql .= " AND ps.reel > 0";
+			if($conf->global->POS_SERVICES){
+				$sql .= " union select o.rowid as id, o.ref, o.label, o.description,	";
+				$sql .= " o.fk_product_type";
+				$sql .= " FROM ".MAIN_DB_PREFIX."categorie_product as c,";
+				$sql .= MAIN_DB_PREFIX."product as o";
+				$sql .= " where c.fk_categorie = ".$idCat;
+				$sql .= " AND c.fk_product = o.rowid";
+				$sql .= " AND o.tosell = 1";
+				$sql .=" AND fk_product_type=1";
+			}
+		}
 		if($more >= 0)
 			$sql.=" LIMIT ".$more.",10 ";
 		
