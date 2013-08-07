@@ -31,6 +31,7 @@ if (! $res && file_exists("../../../../dolibarr/htdocs/main.inc.php")) $res=@inc
 if (! $res && file_exists("../../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
 if (! $res) die("Include of main fails");
 require_once(DOL_DOCUMENT_ROOT.'/societe/class/societe.class.php');
+dol_include_once('/cabinetmed/class/patient.class.php');
 
 $langs->load("companies");
 
@@ -40,7 +41,7 @@ if ($user->societe_id) $socid=$user->societe_id;
 // Security check
 $result=restrictedArea($user,'societe',0,'','','','');
 
-$thirdparty_static = new Societe($db);
+$thirdparty_static = new Patient($db);
 
 
 /*
@@ -137,7 +138,7 @@ print '</div><div class="fichetwothirdright"><div class="ficheaddleft">';
 
 
 /*
- * Last third parties modified
+ * Last patients modified
  */
 $max=15;
 $sql = "SELECT s.rowid, s.nom as name, s.client, s.fournisseur, s.canvas, s.tms as datem, s.status as status";
@@ -191,23 +192,8 @@ if ($result)
             print "</td>\n";
             // Type
             print '<td align="center">';
-            if ($thirdparty_static->client==1 || $thirdparty_static->client==3)
-            {
-            	$thirdparty_static->name=$langs->trans("Customer");
-            	print $thirdparty_static->getNomUrl(0,'customer');
-            }
-            if ($thirdparty_static->client == 3 && empty($conf->global->SOCIETE_DISABLE_PROSPECTS)) print " / ";
-            if (($thirdparty_static->client==2 || $thirdparty_static->client==3) && empty($conf->global->SOCIETE_DISABLE_PROSPECTS))
-            {
-            	$thirdparty_static->name=$langs->trans("Prospect");
-            	print $thirdparty_static->getNomUrl(0,'prospect');
-            }
-            if ($conf->fournisseur->enabled && $thirdparty_static->fournisseur)
-            {
-                if ($thirdparty_static->client) print " / ";
-            	$thirdparty_static->name=$langs->trans("Supplier");
-            	print $thirdparty_static->getNomUrl(0,'supplier');
-            }
+           	$thirdparty_static->name=$langs->trans("Patient");
+            print $thirdparty_static->getNomUrl(0,'patient');
             print '</td>';
             // Last modified date
             print '<td align="right">';
