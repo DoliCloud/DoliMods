@@ -5,17 +5,17 @@
 // Take a look at conf.php.example file for an example of conf.php file
 // and explanations for all possibles parameters.
 //
-$dolibarr_main_url_root='http://localhostdolibarr/dolicloud';
-$dolibarr_main_document_root='/home/ldestailleur/git/nltechno/dolicloudimages/dolibarr/src/htdocs';
+$dolibarr_main_url_root='http://localhostdolibarr/dolipos';
+$dolibarr_main_document_root='/home/ldestailleur/git/nltechno/dolicloudimages/dolipos/src/htdocs';
 //$dolibarr_main_url_root_alt='http://localhostdolibarr/dolicloud/htdocs/custom';
 //$dolibarr_main_document_root_alt='/home/ldestailleur/git/nltechno/dolicloudimages/dolibarr/src/htdocs/custom';
 $dolibarr_main_data_root='/tmp';
 $dolibarr_main_db_host='localhost';
 $dolibarr_main_db_port='';
-$dolibarr_main_db_name='dolicloud';
+$dolibarr_main_db_name='dolipos';
 $dolibarr_main_db_prefix='llx_';
-$dolibarr_main_db_user='dolicloud';
-$dolibarr_main_db_pass='dolicloud-do';
+$dolibarr_main_db_user='dolipos';
+$dolibarr_main_db_pass='dolipos-do';
 $dolibarr_main_db_type='mysql';
 $dolibarr_main_db_character_set='utf8';
 $dolibarr_main_db_collation='utf8_general_ci';
