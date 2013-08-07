@@ -224,7 +224,7 @@ class ActionsCabinetmed
         {
             $langs->load("companies");
             $langs->load("cabinetmed@cabinetmed");
-            $searchform=printSearchForm(dol_buildpath('/cabinetmed/patients.php',1), dol_buildpath('/cabinetmed/patients.php',1), img_picto('','object_patient').' '.$langs->trans("Patients"), '', 'search_nom');
+            $searchform=printSearchForm(dol_buildpath('/cabinetmed/patients.php',1), dol_buildpath('/cabinetmed/patients.php',1), img_picto('','object_patient@cabinetmed').' '.$langs->trans("Patients"), '', 'search_nom');
         }
 		$this->resprints = $searchform;
 
