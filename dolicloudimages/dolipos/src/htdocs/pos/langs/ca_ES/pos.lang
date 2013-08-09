@@ -197,7 +197,7 @@ TotalCash=Vendes efectiu
 TotalPOS=Total vendes
 Date=Data
 Terminal=Terminal
-NotHasTerminal=No hi ha terminals oberts.<br>Consulte amb l'administrador.
+NotHasTerminal=No hi ha terminals oberts.<br>Consulte amb l'administrador perquè creï o obri un des del backend.
 Normal=Normal
 Mobile=Mòbil
 
@@ -273,6 +273,7 @@ NoRewardsInstalled=No té el mòdul 2Rewards instal·lat/activat.
 GetRewards=Per a conseguir-ho, faci click <a target="_blank" href="%s">ací</a> i/o activi'l.
 BillWasCreated=La factura ha sigut creada correctamente.
 POSHelpTab=Mostrar pestanya d'ajuda
+PredefMsg=Text lliure al ticket
 
 #Place
 Place=Lloc

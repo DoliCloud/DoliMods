@@ -68,6 +68,13 @@ $id=GETPOST('id');
 		float: right;
 		text-align: right;
 	}
+	
+	.note{
+		float: right;
+		font-size: 12px;
+		width: 100%;
+		text-align: center;
+	}
 
 	.lien {
 		position: absolute;
@@ -125,7 +132,11 @@ $id=GETPOST('id');
 		?>
 	</div>
 </div>
-
+<h3>
+<?php 
+print $langs->trans("GiftTicket");
+?>
+</h3>
 <table class="liste_articles">
 	<tr class="titres"><th><?php print $langs->trans("Label"); ?></th><th><?php print $langs->trans("Qty")?></th></tr>
 
@@ -167,6 +178,8 @@ $id=GETPOST('id');
 		
 	?>
 </table>
+
+<div class="note"><p><?php print $conf->global->POS_PREDEF_MSG; ?> </p></div>
 
 <script type="text/javascript">
 

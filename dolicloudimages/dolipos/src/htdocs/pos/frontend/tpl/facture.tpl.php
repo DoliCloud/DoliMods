@@ -68,6 +68,13 @@ $id=GETPOST('id');
 		float: right;
 		text-align: right;
 	}
+	
+	.note{
+		float: right;
+		font-size: 12px;
+		width: 100%;
+		text-align: center;
+	}
 
 	.lien {
 		position: absolute;
@@ -214,6 +221,8 @@ $id=GETPOST('id');
 		}
 	?>
 </table>
+
+<div class="note"><p><?php print $conf->global->POS_PREDEF_MSG; ?> </p></div>
 
 <script type="text/javascript">
 

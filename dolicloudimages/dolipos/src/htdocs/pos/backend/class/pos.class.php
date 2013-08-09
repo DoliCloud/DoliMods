@@ -3663,6 +3663,7 @@ class POS extends CommonObject
 					$message .= $langs->transnoentities("CustomerDeb").":\t".price(abs($difpayment))." ".$langs->trans(currency_name($conf->currency))."\n";
 			}
 		}
+		$message .= $conf->global->POS_PREDEF_MSG;
 		return $message;
 	}
 	
@@ -3781,6 +3782,7 @@ class POS extends CommonObject
 			$now = dol_now();
 			$message.= $langs->trans("TotalDispoPoints").":\t".dol_print_date($now,'day')." \t".price($total_points)." ".$langs->trans('Points')."\n";
 		}
+		$message .= $conf->global->POS_PREDEF_MSG;
 		return $message;
 	}
 	

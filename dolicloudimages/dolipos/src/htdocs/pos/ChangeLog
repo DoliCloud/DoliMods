@@ -1,6 +1,12 @@
 --------------------------------------------------------------
 English POS ChangeLog
 --------------------------------------------------------------
+***** ChangeLog for 3.3.7 compared to 3.3.6 *****
+Fix: Error when print closecash
+Fix: Access to frontend in new tab
+Fix: Improve transalations
+New: Add free text on tickets
+
 ***** ChangeLog for 3.3.6 compared to 3.3.5 *****
 Fix: Not shown date in factures
 Fix: Bug when not show products without stock

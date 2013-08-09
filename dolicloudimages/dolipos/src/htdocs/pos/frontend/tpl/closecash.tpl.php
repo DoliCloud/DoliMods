@@ -160,7 +160,7 @@ $terminal=GETPOST('terminal');
 	            while ($i < $num)
 	            {
 	            	$objp = $db->fetch_object($result);
-	            	if($objp->type > 0)$objp->total_ttc= $objp->total_ttc * -1;
+	            	if($objp->type == 1)$objp->total_ttc= $objp->total_ttc * -1;
 	            	echo ('<tr><td align="left">'.$objp->ticketnumber.'</td><td align="right">'.price($objp->total_ttc).'</td></tr>'."\n");
 	            	$i++;
 	            	$subtotalcash+=$objp->total_ttc;
@@ -209,7 +209,7 @@ $terminal=GETPOST('terminal');
 	            while ($i < $num)
 	            {
 	            	$objp = $db->fetch_object($result);
-	            	if($objp->type > 0)$objp->total_ttc= $objp->total_ttc * -1;
+	            	if($objp->type == 1)$objp->total_ttc= $objp->total_ttc * -1;
 	            	echo ('<tr><td align="left">'.$objp->ticketnumber.'</td><td align="right">'.price($objp->total_ttc).'</td></tr>'."\n");
 	            	$i++;
 	            	$subtotalcard+=$objp->total_ttc;

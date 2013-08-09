@@ -196,7 +196,7 @@ TotalCash=Cash sales
 TotalPOS=Total sales
 Date=Date
 Terminal=Terminal
-NotHasTerminal=No open terminals. <br> Consult the administrator.
+NotHasTerminal=No open terminals. <br>Ask your administrator to create or open one from the backoffice.
 Normal=Normal
 Mobile=Mobile
 
@@ -267,6 +267,7 @@ NoRewardsInstalled=You do not have 2Rewards module installed/activated
 GetRewards=To get it, click <a target="_blank" href="%s">here</a> and/or activate it.
 BillWasCreated=The bill was created successfully.
 POSHelpTab=Show help tab
+PredefMsg=Free text on ticket
 
 #Place
 Place=Place

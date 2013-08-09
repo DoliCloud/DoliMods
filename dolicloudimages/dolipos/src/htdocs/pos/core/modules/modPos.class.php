@@ -65,7 +65,7 @@ class modPos extends DolibarrModules
 		// Module description, used if translation string 'ModuleXXXDesc' not found (where XXX is value of numeric property 'numero' of module)
 		$this->description = "POS module";
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
-		$this->version = '3.3.6';
+		$this->version = '3.3.7';
 		// Key used in llx_const table to save module status enabled/disabled (where MYMODULE is value of property name of module in uppercase)
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
 		// Where to store the module in setup page (0=common,1=interface,2=others,3=very specific)
@@ -441,7 +441,7 @@ class modPos extends DolibarrModules
 									'position'=>100,
 									'enabled'=>'1',			// Define condition to show or hide menu entry. Use '$conf->mymodule->enabled' if entry must be visible if module is enabled.
 									'perms'=>'$user->rights->pos->frontend',			// Use 'perms'=>'$user->rights->mymodule->level1->level2' if you want your menu with a permission rules
-									'target'=>'',
+									'target'=>'_pos',
 									'user'=>0);				// 0
 		 $r++; //16
 		//
@@ -455,7 +455,7 @@ class modPos extends DolibarrModules
 									'position'=>100,
 									'enabled'=>'1',			// Define condition to show or hide menu entry. Use '$conf->mymodule->enabled' if entry must be visible if module is enabled.
 									'perms'=>'$user->rights->pos->frontend',			// Use 'perms'=>'$user->rights->mymodule->level1->level2' if you want your menu with a permission rules
-									'target'=>'',
+									'target'=>'_pos',
 									'user'=>0);				// 0
 		 $r++; //17
 		 //

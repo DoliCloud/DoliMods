@@ -93,6 +93,9 @@ if (GETPOST("action") == 'set')
 	if (! $res > 0) $error++;
 	$res = dolibarr_set_const($db,"POS_HELP", GETPOST("POS_HELP"),'chaine',0,'',$conf->entity);
 	
+	if (! $res > 0) $error++;
+	$res = dolibarr_set_const($db,"POS_PREDEF_MSG", GETPOST("POS_PREDEF_MSG"),'chaine',0,'',$conf->entity);
+	
 	
 	if (! $res > 0) $error++;
  	if (! $error)
@@ -482,13 +485,19 @@ if ($conf->service->enabled)
 	print '<td colspan="2">';
 	print $html->selectyesno("POS_HELP",$conf->global->POS_HELP,1);
 	print "</td></tr>\n";
+	
+	$var=! $var;
+	print '<tr '.$bc[$var].'><td colspan="2">';
+	print $langs->trans("PredefMsg").'<br>';
+	print '<textarea name="POS_PREDEF_MSG" class="flat" cols="120">'.$conf->global->POS_PREDEF_MSG.'</textarea>';
+	print '</td></tr>';
 
 print '</table>';
 print '<br>';
 
 print '<center><input type="submit" class="button" value="'.$langs->trans("Save").'"></center>';
 
-print "</form>\n";
+print "</form>";
 
 dol_htmloutput_mesg($mesg);
 

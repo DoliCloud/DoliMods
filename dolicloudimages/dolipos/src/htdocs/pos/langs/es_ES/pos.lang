@@ -197,7 +197,7 @@ TotalCash=Ventas efectivo
 TotalPOS=Total ventas
 Date=Fecha
 Terminal=Terminal
-NotHasTerminal=No hay terminales abiertos.<br>Consulte con el administrador.
+NotHasTerminal=No hay terminales abiertos.<br>Consulte con el administrador para que cree o abra uno desde el backend.
 Normal=Normal
 Mobile=Móvil
 
@@ -273,6 +273,7 @@ NoRewardsInstalled=No tiene el módulo 2Rewards instalado/activado.
 GetRewards=Para conseguirlo, haga click <a target="_blank" href="%s">aquí</a> y/o actívelo.
 BillWasCreated=La factura se ha creado correctamente.
 POSHelpTab=Mostrar pestaña de ayuda
+PredefMsg=Texto libre en ticket
 
 #Place
 Place=Puesto
