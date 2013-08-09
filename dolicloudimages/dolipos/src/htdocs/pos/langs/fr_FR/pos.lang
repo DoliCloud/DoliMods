@@ -196,7 +196,7 @@ TotalCash=Ventes en liquide
 TotalPOS=Ventes totales
 Date=Date
 Terminal=Terminal
-NotHasTerminal=Pas de terminals ouverts.<br>Demandez à votre administrateur de créer ou d'ouvrir un de l'backoffice.
+NotHasTerminal=Pas de terminals ouverts.<br>Demandez à votre administrateur de créer ou d'ouvrir un terminal depuis le backoffice.
 Normal=Normal
 Mobile=Mobile
 
