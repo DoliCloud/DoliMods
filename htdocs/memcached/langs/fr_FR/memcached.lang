@@ -21,3 +21,8 @@ ServerSetup=Configuration serveur
 ServerStatistics=Statistiques serveur
 CacheBrowser=Navigateur cache
 WarningStatsForAllServer=Attention, les statistiques du serveur memcached intègrent toutes les applications utilisant ce serveur et pas seulement Dolibarr.
+AboutInfo=Ce module est développé et diffusé par Laurent Destailleur pour NLTechno, <a target="_blank" href="http://www.nltechno.com">www.nltechno.com</a> (société labellisé Dolibarr Prefered Partner).
+MoreModules=D'autres modules du même auteur sont disponibles sur la place de marché officielle DoliStore...
+MoreModulesLink=<a target="_blank" href="http://www.dolistore.com/search.php?search_query=nltechno">Cliquer ici pour voir la liste</a>
+MoreCloudHosting=Pour une utilisation en ligne de Dolibarr, optez pour l'hébergement sécurisé DoliCloud.
+MoreCloudHostingLink=<a target="_blank" href="http://www.dolicloud.com">Cliquez ici pour plus d'information</a>

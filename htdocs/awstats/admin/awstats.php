@@ -17,10 +17,9 @@
  */
 
 /**
- *	    \file       htdocs/admin/awstats.php
+ *	    \file       htdocs/awstats/admin/awstats.php
  *      \ingroup    awstats
  *      \brief      Page de configuration du module AWStats
- *		\version    $Id: awstats.php,v 1.9 2011/08/16 09:23:10 eldy Exp $
  */
 
 define('NOCSRFCHECK',1);
@@ -99,6 +98,19 @@ $linkback='<a href="'.DOL_URL_ROOT.'/admin/modules.php">'.$langs->trans("BackToM
 print_fiche_titre($langs->trans("AWStatsSetup"),$linkback,'setup');
 print '<br>';
 
+$h=0;
+$head[$h][0] = $_SERVER["PHP_SELF"];
+$head[$h][1] = $langs->trans("Setup");
+$head[$h][2] = 'tabsetup';
+$h++;
+
+$head[$h][0] = 'about.php';
+$head[$h][1] = $langs->trans("About");
+$head[$h][2] = 'tababout';
+$h++;
+
+dol_fiche_head($head, 'tabsetup', '');
+
 
 print '<form name="awstatsform" action="'.$_SERVER["PHP_SELF"].'" method="post">';
 print "<table class=\"noborder\" width=\"100%\">";
@@ -152,11 +164,14 @@ print "</center>";
 print "</form>\n";
 
 
+dol_fiche_end();
+
 clearstatcache();
 
 dol_htmloutput_mesg($mesg);
 
-$db->close();
 
 llxFooter();
+
+$db->close();
 ?>

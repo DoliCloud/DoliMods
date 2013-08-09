@@ -154,6 +154,21 @@ print_fiche_titre($langs->trans("NumberWordsSetup"),$linkback,'setup');
 print $langs->trans("DescNumberWords").'<br>';
 print '<br>';
 
+
+$h=0;
+$head[$h][0] = $_SERVER["PHP_SELF"];
+$head[$h][1] = $langs->trans("Setup");
+$head[$h][2] = 'tabsetup';
+$h++;
+
+$head[$h][0] = 'about.php';
+$head[$h][1] = $langs->trans("About");
+$head[$h][2] = 'tababout';
+$h++;
+
+dol_fiche_head($head, 'tabsetup', '');
+
+
 // Mode
 print '<form action="'.$_SERVER["PHP_SELF"].'" method="post">';
 print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
@@ -204,6 +219,8 @@ print '</tr>';
 print '</table>';
 
 print "</form>\n";
+
+dol_fiche_end();
 
 
 llxFooter();

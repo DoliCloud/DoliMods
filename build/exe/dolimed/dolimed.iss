@@ -16,9 +16,9 @@
 ; ----- Change this -----
 AppName=DoliMed
 ; DoliMed-x.x.x or DoliMed-x.x.x-dev or DoliMed-x.x.x-beta
-AppVerName=DoliMed-3.4.0-dev
+AppVerName=DoliMed-3.4.0
 ; DoliMed-x.x x or DoliMed-x.x.x-dev or DoliMed-x.x.x-beta
-OutputBaseFilename=DoliMed-3.4.0-dev
+OutputBaseFilename=DoliMed-3.4.0
 ; Define full path from wich all relative path are defined
 ; You must modify this to put here your dolibarr root directory
 ;SourceDir=Z:\home\ldestailleur\git\dolibarrxxx
