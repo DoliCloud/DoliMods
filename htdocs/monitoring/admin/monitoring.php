@@ -209,6 +209,19 @@ $linkback='<a href="'.DOL_URL_ROOT.'/admin/modules.php">'.$langs->trans("BackToM
 print_fiche_titre($langs->trans("RrdSetup"),$linkback,'setup');
 print '<br>';
 
+$h=0;
+$head[$h][0] = $_SERVER["PHP_SELF"];
+$head[$h][1] = $langs->trans("Setup");
+$head[$h][2] = 'tabsetup';
+$h++;
+
+$head[$h][0] = 'about.php';
+$head[$h][1] = $langs->trans("About");
+$head[$h][2] = 'tababout';
+$h++;
+
+dol_fiche_head($head, 'tabsetup', '');
+
 
 print '<form name="rrdform" action="'.$_SERVER["PHP_SELF"].'" method="post">';
 print "<table class=\"noborder\" width=\"100%\">";
@@ -236,6 +249,9 @@ print "<input type=\"submit\" name=\"save\" class=\"button\" value=\"".$langs->t
 print "</center>";
 
 print "</form>\n";
+
+dol_fiche_end();
+
 
 print '<br>';
 

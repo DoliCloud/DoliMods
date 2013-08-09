@@ -71,7 +71,7 @@ class modZipAutoFillFr extends DolibarrModules
 		$this->langfiles = array('zipautofillfr@zipautofillfr');
 
 		// Config pages
-		$this->config_page_url = array();
+		$this->config_page_url = array('zipautofillfr.php@zipautofillfr');
 
         // Constants
         // List of particular constants to add when module is enabled (key, 'chaine', value, desc, visible, 'current' or 'allentities', deleteonunactive)

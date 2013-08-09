@@ -82,8 +82,10 @@ llxHeader("",$langs->trans("MemcachedSetup"),$help_url);
 $linkback='<a href="'.DOL_URL_ROOT.'/admin/modules.php">'.$langs->trans("BackToModuleList").'</a>';
 print_fiche_titre($langs->trans('MemcachedSetup'),$linkback,'setup');
 
+print '<br>';
+
 $head=memcached_prepare_head();
-dol_fiche_head($head, 'serversetup', $langs->trans("MemCached"));
+dol_fiche_head($head, 'serversetup', '');
 
 print $langs->trans("MemcachedDesc")."<br>\n";
 print "<br>\n";
