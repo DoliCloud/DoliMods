@@ -103,16 +103,20 @@ print '<br>';
 
 dol_htmloutput_mesg($mesg);
 
-/*
-$h = 0;
 
-$head[$h][0] = DOL_URL_ROOT."/admin/facture.php";
-$head[$h][1] = $langs->trans("Invoices");
-$hselected=$h;
+$h=0;
+$head[$h][0] = $_SERVER["PHP_SELF"];
+$head[$h][1] = $langs->trans("Setup");
+$head[$h][2] = 'tabsetup';
 $h++;
 
-dol_fiche_head($head, $hselected, $langs->trans("ModuleSetup"));
-*/
+$head[$h][0] = 'about.php';
+$head[$h][1] = $langs->trans("About");
+$head[$h][2] = 'tababout';
+$h++;
+
+dol_fiche_head($head, 'tabsetup', '');
+
 
 $var=true;
 
@@ -145,7 +149,7 @@ print '</table>';
 print '<center><br><input type="submit" name="save" value="'.$langs->trans("Save").'" class="button"></center>';
 print '</form>';
 
-//dol_fiche_end();
+dol_fiche_end();
 
 print '<br>';
 
@@ -153,7 +157,6 @@ print '<br>';
 $arraylist=array();
 complete_substitutions_array($arraylist,$langs);
 //print join('<br>',array_keys($arraylist));
-
 
 llxFooter();
 

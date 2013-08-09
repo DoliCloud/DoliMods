@@ -2,3 +2,11 @@
 CHARSET=UTF-8
 Module101270Name=ZipAutofill FR/BE
 Module101270Desc=Ajoute tous les codes postaux de France et Belgique en base permettant des complétions de code postaux/ville pleinement opérationnel. Ajoute aussi un dictionnaire pour permettre leur édition.
+ZipAutoFillSetup=Configuration du module ZipAutoFillFr
+ZipAutoFillDesc=Ce module charge tous les codes postaux (FR et BE) dans une table. Dolibarr utilise ensuite cette table pour suggérer les villes ou codes postaux par autocompletion des champs. Une entrée dans le menu Accueil - Configuration - Dictionnaires est aussi ajouter pour éditer les villes et codes postaux manuellement.
+ZipAutoFillNoSetup=Il n'y a rien de particulier à configurer. Ce module est directement opérationnel à son activation.
+AboutInfo=Ce module est développé et diffusé par Laurent Destailleur pour NLTechno, <a target="_blank" href="http://www.nltechno.com">www.nltechno.com</a> (société labellisé Dolibarr Prefered Partner).
+MoreModules=D'autres modules du même auteur sont disponibles sur la place de marché officielle DoliStore...
+MoreModulesLink=<a target="_blank" href="http://www.dolistore.com/search.php?search_query=nltechno">Cliquer ici pour voir la liste</a>
+MoreCloudHosting=Pour une utilisation en ligne de Dolibarr, optez pour l'hébergement sécurisé DoliCloud.
+MoreCloudHostingLink=<a target="_blank" href="http://www.dolicloud.com">Cliquez ici pour plus d'information</a>

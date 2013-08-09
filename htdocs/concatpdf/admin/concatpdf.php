@@ -170,6 +170,20 @@ print '<br>';
 clearstatcache();
 
 
+$h=0;
+$head[$h][0] = $_SERVER["PHP_SELF"];
+$head[$h][1] = $langs->trans("Setup");
+$head[$h][2] = 'tabsetup';
+$h++;
+
+$head[$h][0] = 'about.php';
+$head[$h][1] = $langs->trans("About");
+$head[$h][2] = 'tababout';
+$h++;
+
+dol_fiche_head($head, 'tabsetup', '');
+
+
 /*
  * Confirmation suppression fichier
  */
@@ -234,10 +248,15 @@ if (! empty($conf->global->MAIN_USE_JQUERY_MULTISELECT))
 }
 
 
+
 $select_module=$form->selectarray('module', $modules, GETPOST('module'), 1, 0, 0, '', 1);
 $formfile->form_attach_new_file($_SERVER['PHP_SELF'], '', 0, 0, 1, 50, '', $select_module, false);
 
+dol_fiche_end();
+
+
 print '<br><br>';
+
 
 foreach ($modules as $module => $moduletrans)
 {
@@ -252,6 +271,8 @@ foreach ($modules as $module => $moduletrans)
 
 	print '<br><br>';
 }
+
+
 
 // Footer
 llxFooter();

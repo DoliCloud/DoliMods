@@ -80,7 +80,7 @@ function sendMemcacheCommands($command){
 
 /**
  * sendMemcacheCommad
- * 
+ *
  * @param 	string	$server			Server
  * @param 	int 		$port			Port
  * @param 	string	$command		Command
@@ -145,7 +145,7 @@ function dumpCacheSlab($server,$slabId,$limit){
 
 /**
  * flushServer
- * 
+ *
  * @param 	string	$server		Server
  * @return	void
  */
@@ -158,7 +158,7 @@ function flushServer($server)
 
 /**
  * getCacheItems
- * 
+ *
  * @return multitype:multitype:number unknown  Ambigous <multitype:multitype: , unknown>
  */
 function getCacheItems()
@@ -312,7 +312,7 @@ function menu_entry($ob,$title) {
 
 /**
  * getHeader
- * 
+ *
  * @return string
  */
 function getHeader()
@@ -471,7 +471,7 @@ EOB;
 
 /**
  * getFooter
- * 
+ *
  * @return string
  */
 function getFooter()
@@ -574,7 +574,7 @@ if (isset($_GET['IMG'])){
 
 	/**
 	 * fill_arc
-	 * 
+	 *
 	 * @param int $im
 	 * @param int $centerX
 	 * @param int $centerY
@@ -586,7 +586,7 @@ if (isset($_GET['IMG'])){
 	 * @param int $text
 	 * @param int $placeindex
 	 */
-    function fill_arc($im, $centerX, $centerY, $diameter, $start, $end, $color1,$color2,$text='',$placeindex=0) 
+    function fill_arc($im, $centerX, $centerY, $diameter, $start, $end, $color1,$color2,$text='',$placeindex=0)
     {
 		$r=$diameter/2;
 		$w=deg2rad((360+$start+($end-$start)/2)%360);
@@ -688,11 +688,13 @@ llxHeader($header,$langs->trans("MemcachedSetup"),$help_url);
 $linkback='<a href="'.DOL_URL_ROOT.'/admin/modules.php">'.$langs->trans("BackToModuleList").'</a>';
 print_fiche_titre($langs->trans('MemcachedSetup'),$linkback,'setup');
 
+print '<br>';
+
 $head=memcached_prepare_head();
 $tabval='serverstats';
 if ($_GET["op"] > 1) $tabval='cachebrowser';
 
-dol_fiche_head($head, $tabval, $langs->trans("MemCached"));
+dol_fiche_head($head, $tabval, '');
 
 
 // Show refresh button

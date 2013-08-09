@@ -126,6 +126,20 @@ print '<br>';
 if ($mesg) print $mesg.'<br>';
 
 
+$h=0;
+$head[$h][0] = $_SERVER["PHP_SELF"];
+$head[$h][1] = $langs->trans("Setup");
+$head[$h][2] = 'tabsetup';
+$h++;
+
+$head[$h][0] = 'about.php';
+$head[$h][1] = $langs->trans("About");
+$head[$h][2] = 'tababout';
+$h++;
+
+dol_fiche_head($head, 'tabsetup', '');
+
+
 // Param
 $var=true;
 print '<form action="'.$_SERVER["PHP_SELF"].'" method="post">';
@@ -151,6 +165,7 @@ print '</tr>';
 
 print '</table>';
 print '</form>';
+
 
 print '<br><br>';
 
@@ -186,7 +201,8 @@ print '<center><input type="submit" class="button" value="'.$langs->trans("Add")
 
 print "</form>\n";
 
-//print $langs->trans("More");
+dol_fiche_end();
+
 
 print '<br>';
 

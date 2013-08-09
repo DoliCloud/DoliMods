@@ -78,7 +78,22 @@ clearstatcache();
 
 dol_htmloutput_mesg($mesg,$mesgs);
 
+$h=0;
+$head[$h][0] = $_SERVER["PHP_SELF"];
+$head[$h][1] = $langs->trans("Setup");
+$head[$h][2] = 'tabsetup';
+$h++;
+
+$head[$h][0] = 'about.php';
+$head[$h][1] = $langs->trans("About");
+$head[$h][2] = 'tababout';
+$h++;
+
+dol_fiche_head($head, 'tabsetup', '');
+
 print $langs->trans("SelectBankNothingToSetup");
+
+dol_fiche_end();
 
 // Footer
 llxFooter();

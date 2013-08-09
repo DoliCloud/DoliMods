@@ -150,3 +150,8 @@ Gender=Gender
 NumberConsultByMonth=Number of consultation per month
 NumberConsult=Number of consultation
 ActivityBranch=Activity branch
+AboutInfo=This module is developped and distributed by Laurent Destailleur for NLTechno, <a href="http://www.nltechno.com">www.nltechno.com</a> (A Dolibarr Preferred Partner company).
+MoreModules=Other modules of same author are available on the official DoliStore market place...
+MoreModulesLink=<a target="_blank" href="http://www.dolistore.com/search.php?search_query=nltechno">Click here to see full list</a>  
+MoreCloudHosting=To use online Dolibarr, choose the secured hosting DoliCloud.
+MoreCloudHostingLink=<a target="_blank" href="http://www.dolicloud.com">Click here for more information</a>

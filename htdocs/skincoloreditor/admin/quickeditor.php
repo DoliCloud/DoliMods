@@ -110,6 +110,25 @@ print '<br>';
 print $langs->trans("SkinColorEditorDesc").'<br>';
 print '<br>';
 
+
+$head=array();
+$h=0;
+
+$head[$h][0] = dol_buildpath("/skincoloreditor/admin/quickeditor.php",1);
+$head[$h][1] = $langs->trans("SkinColorEditorFastEditor");
+$head[$h][2] = 'fasteditor';
+$h++;
+
+$head[$h][0] = 'about.php';
+$head[$h][1] = $langs->trans("About");
+$head[$h][2] = 'tababout';
+$h++;
+
+dol_fiche_head($head,'fasteditor');
+
+
+print '<br>';
+
 print $langs->trans("ActivateColorPersonalizing").': &nbsp; ';
 $name='THEME_ELDY_ENABLE_PERSONALIZED';
 if (empty($conf->global->$name))
@@ -124,32 +143,29 @@ else
     print img_picto($langs->trans("Enabled"),'switch_on');
     print '</a>';
 }
-print '<br><br>';
+
+
+print '<br>';
 
 if ($conf->theme != 'eldy')
 {
-    print '<div class="warning">'.img_warning().' '.$langs->trans("WarningSkinMustBeEldy",$conf->theme).'</div>';
+	print '<br><br>';
+
+	print '<div class="warning">'.img_warning().' '.$langs->trans("WarningSkinMustBeEldy",$conf->theme).'</div>';
 }
 else if (! empty($user->conf->THEME_ELDY_ENABLE_PERSONALIZED))
 {
-    print '<div class="warning">'.img_warning().' '.$langs->trans("YourUseHasPersonalized",dol_buildpath('/skincoloreditor/usercolors.php',1).'?id='.$user->id,$langs->transnoentitiesnoconv("ColorEditor")).'</div>';
+	print '<br><br>';
+
+	print '<div class="warning">'.img_warning().' '.$langs->trans("YourUseHasPersonalized",dol_buildpath('/skincoloreditor/usercolors.php',1).'?id='.$user->id,$langs->transnoentitiesnoconv("ColorEditor")).'</div>';
 }
 print '<br>';
 
 dol_htmloutput_mesg($mesg);
 
 
-
 if (! empty($conf->global->THEME_ELDY_ENABLE_PERSONALIZED))
 {
-    $head=array();
-    $h=0;
-
-    $head[$h][0] = dol_buildpath("/skincoloreditor/admin/quickeditor.php",1);
-    $head[$h][1] = $langs->trans("SkinColorEditorFastEditor");
-    $head[$h][2] = 'fasteditor';
-    $h++;
-
     /*
     $head[$h][0] = dol_buildpath("/skincoloreditor/admin/advancededitor.php",1);
     $head[$h][1] = $langs->trans("SkinColorEditorAdvancedEditor");
@@ -157,7 +173,6 @@ if (! empty($conf->global->THEME_ELDY_ENABLE_PERSONALIZED))
     $h++;
 	*/
 
-    dol_fiche_head($head,'fasteditor');
 
     print '<form name="formcolor" method="POST" action="'.$_SERVER["PHP_SELF"].'">';
     print '<input type="hidden" name="action" value="setcolor">';
@@ -177,9 +192,10 @@ if (! empty($conf->global->THEME_ELDY_ENABLE_PERSONALIZED))
     print '<br>';
     print '<div align="center"><input type="submit" class="button" name="save" value="'.$langs->trans("Save").'"></div>';
     print '</form>';
-
-    dol_fiche_end();
 }
+
+
+dol_fiche_end();
 
 
 llxFooter();
