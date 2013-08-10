@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.5.31, for debian-linux-gnu (x86_64)
+-- MySQL dump 10.13  Distrib 5.5.32, for debian-linux-gnu (x86_64)
 --
--- Host: localhost    Database: dolicloud
+-- Host: localhost    Database: dolipos
 -- ------------------------------------------------------
--- Server version	5.5.31-0ubuntu0.12.04.2
+-- Server version	5.5.32-0ubuntu0.12.04.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -580,7 +580,7 @@ CREATE TABLE `llx_boxes` (
   KEY `idx_boxes_boxid` (`box_id`),
   KEY `idx_boxes_fk_user` (`fk_user`),
   CONSTRAINT `fk_boxes_box_id` FOREIGN KEY (`box_id`) REFERENCES `llx_boxes_def` (`rowid`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -589,6 +589,7 @@ CREATE TABLE `llx_boxes` (
 
 LOCK TABLES `llx_boxes` WRITE;
 /*!40000 ALTER TABLE `llx_boxes` DISABLE KEYS */;
+INSERT INTO `llx_boxes` VALUES (5,1,5,0,'0',0,NULL),(6,1,6,0,'0',0,NULL),(7,1,7,0,'0',0,NULL),(8,1,8,0,'0',0,NULL),(9,1,9,0,'0',0,NULL),(10,1,10,0,'0',0,NULL),(11,1,11,0,'0',0,NULL),(14,1,14,0,'0',0,NULL),(15,1,15,0,'0',0,NULL);
 /*!40000 ALTER TABLE `llx_boxes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -607,7 +608,7 @@ CREATE TABLE `llx_boxes_def` (
   `note` varchar(130) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`rowid`),
   UNIQUE KEY `uk_boxes_def` (`file`,`entity`,`note`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -616,6 +617,7 @@ CREATE TABLE `llx_boxes_def` (
 
 LOCK TABLES `llx_boxes_def` WRITE;
 /*!40000 ALTER TABLE `llx_boxes_def` DISABLE KEYS */;
+INSERT INTO `llx_boxes_def` VALUES (5,'box_clients.php',1,'2013-08-10 10:33:34',NULL),(6,'box_prospect.php',1,'2013-08-10 10:33:34',NULL),(7,'box_contacts.php',1,'2013-08-10 10:33:34',NULL),(8,'box_activity.php',1,'2013-08-10 10:33:34',NULL),(9,'box_comptes.php',1,'2013-08-10 10:33:38',NULL),(10,'box_factures_imp.php',1,'2013-08-10 10:33:38',NULL),(11,'box_factures.php',1,'2013-08-10 10:33:38',NULL),(14,'box_produits.php',1,'2013-08-10 10:33:38',NULL),(15,'box_produits_alerte_stock.php',1,'2013-08-10 10:33:38',NULL);
 /*!40000 ALTER TABLE `llx_boxes_def` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -2040,7 +2042,7 @@ CREATE TABLE `llx_const` (
   `tms` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`rowid`),
   UNIQUE KEY `uk_const` (`name`,`entity`)
-) ENGINE=InnoDB AUTO_INCREMENT=83 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=102 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2049,7 +2051,7 @@ CREATE TABLE `llx_const` (
 
 LOCK TABLES `llx_const` WRITE;
 /*!40000 ALTER TABLE `llx_const` DISABLE KEYS */;
-INSERT INTO `llx_const` VALUES (2,'MAIN_FEATURES_LEVEL',0,'0','chaine',1,'Level of features to show (0=stable only, 1=stable+experimental, 2=stable+experimental+development','2012-10-11 14:07:49'),(3,'SYSLOG_FILE_ON',0,'0','chaine',0,'Log to file Directory where to write log file','2013-06-08 18:50:50'),(4,'SYSLOG_FILE',0,'DOL_DATA_ROOT/dolibarr.log','chaine',0,'Directory where to write log file','2012-10-11 14:07:49'),(5,'SYSLOG_LEVEL',0,'7','chaine',0,'Level of debug info to show','2012-10-11 14:07:49'),(6,'MAIN_MAIL_SMTP_SERVER',0,'','chaine',0,'Host or ip address for SMTP server','2012-10-11 14:07:49'),(7,'MAIN_MAIL_SMTP_PORT',0,'','chaine',0,'Port for SMTP server','2012-10-11 14:07:49'),(8,'MAIN_UPLOAD_DOC',0,'2048','chaine',0,'Max size for file upload (0 means no upload allowed)','2012-10-11 14:07:49'),(9,'MAIN_MONNAIE',1,'EUR','chaine',0,'Monnaie','2012-10-11 14:07:49'),(10,'MAIN_MAIL_EMAIL_FROM',1,'dolibarr-robot@domain.com','chaine',0,'EMail emetteur pour les emails automatiques Dolibarr','2012-10-11 14:07:49'),(11,'MAIN_SIZE_LISTE_LIMIT',0,'25','chaine',0,'Longueur maximum des listes','2012-10-11 14:07:49'),(12,'MAIN_SHOW_WORKBOARD',0,'1','yesno',0,'Affichage tableau de bord de travail Dolibarr','2012-10-11 14:07:49'),(13,'MAIN_MENU_STANDARD',1,'eldy_backoffice.php','chaine',0,'Module de gestion de la barre de menu pour utilisateurs internes','2012-10-11 14:07:49'),(14,'MAIN_MENUFRONT_STANDARD',1,'eldy_frontoffice.php','chaine',0,'Module de gestion de la barre de menu pour utilisateurs externes','2012-10-11 14:07:49'),(15,'MAIN_MENU_SMARTPHONE',1,'eldy_backoffice.php','chaine',0,'Module de gestion de la barre de menu smartphone pour utilisateurs internes','2012-10-11 14:07:49'),(16,'MAIN_MENUFRONT_SMARTPHONE',1,'eldy_frontoffice.php','chaine',0,'Module de gestion de la barre de menu smartphone pour utilisateurs externes','2012-10-11 14:07:49'),(17,'MAIN_DELAY_ACTIONS_TODO',1,'7','chaine',0,'Tolérance de retard avant alerte (en jours) sur actions planifiées non réalisées','2012-10-11 14:07:49'),(18,'MAIN_DELAY_ORDERS_TO_PROCESS',1,'2','chaine',0,'Tolérance de retard avant alerte (en jours) sur commandes clients non traitées','2012-10-11 14:07:49'),(19,'MAIN_DELAY_SUPPLIER_ORDERS_TO_PROCESS',1,'7','chaine',0,'Tolérance de retard avant alerte (en jours) sur commandes fournisseurs non traitées','2012-10-11 14:07:49'),(20,'MAIN_DELAY_PROPALS_TO_CLOSE',1,'31','chaine',0,'Tolérance de retard avant alerte (en jours) sur propales à cloturer','2012-10-11 14:07:49'),(21,'MAIN_DELAY_PROPALS_TO_BILL',1,'7','chaine',0,'Tolérance de retard avant alerte (en jours) sur propales non facturées','2012-10-11 14:07:49'),(22,'MAIN_DELAY_CUSTOMER_BILLS_UNPAYED',1,'31','chaine',0,'Tolérance de retard avant alerte (en jours) sur factures client impayées','2012-10-11 14:07:49'),(23,'MAIN_DELAY_SUPPLIER_BILLS_TO_PAY',1,'2','chaine',0,'Tolérance de retard avant alerte (en jours) sur factures fournisseur impayées','2012-10-11 14:07:49'),(24,'MAIN_DELAY_NOT_ACTIVATED_SERVICES',1,'0','chaine',0,'Tolérance de retard avant alerte (en jours) sur services à activer','2012-10-11 14:07:49'),(25,'MAIN_DELAY_RUNNING_SERVICES',1,'0','chaine',0,'Tolérance de retard avant alerte (en jours) sur services expirés','2012-10-11 14:07:49'),(26,'MAIN_DELAY_MEMBERS',1,'31','chaine',0,'Tolérance de retard avant alerte (en jours) sur cotisations adhérent en retard','2012-10-11 14:07:49'),(27,'MAIN_DELAY_TRANSACTIONS_TO_CONCILIATE',1,'62','chaine',0,'Tolérance de retard avant alerte (en jours) sur rapprochements bancaires à faire','2012-10-11 14:07:49'),(28,'SOCIETE_NOLIST_COURRIER',0,'1','yesno',0,'Liste les fichiers du repertoire courrier','2012-10-11 14:07:49'),(29,'SOCIETE_CODECLIENT_ADDON',1,'mod_codeclient_leopard','yesno',0,'Module to control third parties codes','2012-10-11 14:07:49'),(30,'SOCIETE_CODECOMPTA_ADDON',1,'mod_codecompta_panicum','yesno',0,'Module to control third parties codes','2012-10-11 14:07:49'),(31,'MAILING_EMAIL_FROM',1,'dolibarr@domain.com','chaine',0,'EMail emmetteur pour les envois d emailings','2012-10-11 14:07:49'),(64,'MAIN_VERSION_LAST_INSTALL',0,'3.2.3','chaine',0,'Dolibarr version when install','2012-10-11 14:11:12'),(65,'MAIN_LANG_DEFAULT',1,'auto','chaine',0,'Default language','2012-10-11 14:11:12'),(67,'MEMCACHED_SERVER',1,'localhost:11211','chaine',0,'','2012-05-17 16:14:36'),(70,'MAIN_FIX_FOR_BUGGED_MTA',1,'1','chaine',1,'Do not delete this value','2013-06-08 18:49:46'),(71,'PRODUCT_CODEPRODUCT_ADDON',1,'mod_codeproduct_leopard','yesno',0,'Module to control product codes','2013-06-25 19:14:58'),(72,'MAIN_MODULE_USER',0,'1',NULL,0,NULL,'2013-06-25 19:15:13'),(73,'MAIN_VERSION_LAST_UPGRADE',0,'3.3.3','chaine',0,'Dolibarr version for last upgrade','2013-06-25 19:15:15'),(77,'MAIN_MINNB_MODULE',1,'2','chaine',1,'','2013-06-25 19:19:36'),(79,'SOCIETE_FISCAL_MONTH_START',1,'','chaine',0,'Mettre le numero du mois du debut d\\\'annee fiscale, ex: 9 pour septembre','2013-06-25 19:22:53'),(80,'MAIN_SEARCHFORM_SOCIETE',1,'1','yesno',0,'Show form for quick company search','2013-06-25 19:22:53'),(81,'MAIN_SEARCHFORM_CONTACT',1,'1','yesno',0,'Show form for quick contact search','2013-06-25 19:22:53'),(82,'COMPANY_ADDON_PDF_ODT_PATH',1,'DOL_DATA_ROOT/doctemplates/thirdparties','chaine',0,NULL,'2013-06-25 19:22:53');
+INSERT INTO `llx_const` VALUES (2,'MAIN_FEATURES_LEVEL',0,'0','chaine',1,'Level of features to show (0=stable only, 1=stable+experimental, 2=stable+experimental+development','2012-10-11 14:07:49'),(3,'SYSLOG_FILE_ON',0,'0','chaine',0,'Log to file Directory where to write log file','2013-06-08 18:50:50'),(4,'SYSLOG_FILE',0,'DOL_DATA_ROOT/dolibarr.log','chaine',0,'Directory where to write log file','2012-10-11 14:07:49'),(5,'SYSLOG_LEVEL',0,'7','chaine',0,'Level of debug info to show','2012-10-11 14:07:49'),(6,'MAIN_MAIL_SMTP_SERVER',0,'','chaine',0,'Host or ip address for SMTP server','2012-10-11 14:07:49'),(7,'MAIN_MAIL_SMTP_PORT',0,'','chaine',0,'Port for SMTP server','2012-10-11 14:07:49'),(8,'MAIN_UPLOAD_DOC',0,'2048','chaine',0,'Max size for file upload (0 means no upload allowed)','2012-10-11 14:07:49'),(9,'MAIN_MONNAIE',1,'EUR','chaine',0,'Monnaie','2012-10-11 14:07:49'),(10,'MAIN_MAIL_EMAIL_FROM',1,'dolibarr-robot@domain.com','chaine',0,'EMail emetteur pour les emails automatiques Dolibarr','2012-10-11 14:07:49'),(11,'MAIN_SIZE_LISTE_LIMIT',0,'25','chaine',0,'Longueur maximum des listes','2012-10-11 14:07:49'),(12,'MAIN_SHOW_WORKBOARD',0,'1','yesno',0,'Affichage tableau de bord de travail Dolibarr','2012-10-11 14:07:49'),(13,'MAIN_MENU_STANDARD',1,'eldy_backoffice.php','chaine',0,'Module de gestion de la barre de menu pour utilisateurs internes','2012-10-11 14:07:49'),(14,'MAIN_MENUFRONT_STANDARD',1,'eldy_frontoffice.php','chaine',0,'Module de gestion de la barre de menu pour utilisateurs externes','2012-10-11 14:07:49'),(15,'MAIN_MENU_SMARTPHONE',1,'eldy_backoffice.php','chaine',0,'Module de gestion de la barre de menu smartphone pour utilisateurs internes','2012-10-11 14:07:49'),(16,'MAIN_MENUFRONT_SMARTPHONE',1,'eldy_frontoffice.php','chaine',0,'Module de gestion de la barre de menu smartphone pour utilisateurs externes','2012-10-11 14:07:49'),(17,'MAIN_DELAY_ACTIONS_TODO',1,'7','chaine',0,'Tolérance de retard avant alerte (en jours) sur actions planifiées non réalisées','2012-10-11 14:07:49'),(18,'MAIN_DELAY_ORDERS_TO_PROCESS',1,'2','chaine',0,'Tolérance de retard avant alerte (en jours) sur commandes clients non traitées','2012-10-11 14:07:49'),(19,'MAIN_DELAY_SUPPLIER_ORDERS_TO_PROCESS',1,'7','chaine',0,'Tolérance de retard avant alerte (en jours) sur commandes fournisseurs non traitées','2012-10-11 14:07:49'),(20,'MAIN_DELAY_PROPALS_TO_CLOSE',1,'31','chaine',0,'Tolérance de retard avant alerte (en jours) sur propales à cloturer','2012-10-11 14:07:49'),(21,'MAIN_DELAY_PROPALS_TO_BILL',1,'7','chaine',0,'Tolérance de retard avant alerte (en jours) sur propales non facturées','2012-10-11 14:07:49'),(22,'MAIN_DELAY_CUSTOMER_BILLS_UNPAYED',1,'31','chaine',0,'Tolérance de retard avant alerte (en jours) sur factures client impayées','2012-10-11 14:07:49'),(23,'MAIN_DELAY_SUPPLIER_BILLS_TO_PAY',1,'2','chaine',0,'Tolérance de retard avant alerte (en jours) sur factures fournisseur impayées','2012-10-11 14:07:49'),(24,'MAIN_DELAY_NOT_ACTIVATED_SERVICES',1,'0','chaine',0,'Tolérance de retard avant alerte (en jours) sur services à activer','2012-10-11 14:07:49'),(25,'MAIN_DELAY_RUNNING_SERVICES',1,'0','chaine',0,'Tolérance de retard avant alerte (en jours) sur services expirés','2012-10-11 14:07:49'),(26,'MAIN_DELAY_MEMBERS',1,'31','chaine',0,'Tolérance de retard avant alerte (en jours) sur cotisations adhérent en retard','2012-10-11 14:07:49'),(27,'MAIN_DELAY_TRANSACTIONS_TO_CONCILIATE',1,'62','chaine',0,'Tolérance de retard avant alerte (en jours) sur rapprochements bancaires à faire','2012-10-11 14:07:49'),(28,'SOCIETE_NOLIST_COURRIER',0,'1','yesno',0,'Liste les fichiers du repertoire courrier','2012-10-11 14:07:49'),(29,'SOCIETE_CODECLIENT_ADDON',1,'mod_codeclient_leopard','yesno',0,'Module to control third parties codes','2012-10-11 14:07:49'),(30,'SOCIETE_CODECOMPTA_ADDON',1,'mod_codecompta_panicum','yesno',0,'Module to control third parties codes','2012-10-11 14:07:49'),(31,'MAILING_EMAIL_FROM',1,'dolibarr@domain.com','chaine',0,'EMail emmetteur pour les envois d emailings','2012-10-11 14:07:49'),(64,'MAIN_VERSION_LAST_INSTALL',0,'3.2.3','chaine',0,'Dolibarr version when install','2012-10-11 14:11:12'),(65,'MAIN_LANG_DEFAULT',1,'auto','chaine',0,'Default language','2012-10-11 14:11:12'),(67,'MEMCACHED_SERVER',1,'localhost:11211','chaine',0,'','2012-05-17 16:14:36'),(70,'MAIN_FIX_FOR_BUGGED_MTA',1,'1','chaine',1,'Do not delete this value','2013-06-08 18:49:46'),(71,'PRODUCT_CODEPRODUCT_ADDON',1,'mod_codeproduct_leopard','yesno',0,'Module to control product codes','2013-06-25 19:14:58'),(77,'MAIN_MINNB_MODULE',1,'2','chaine',1,'','2013-06-25 19:19:36'),(79,'SOCIETE_FISCAL_MONTH_START',1,'','chaine',0,'Mettre le numero du mois du debut d\\\'annee fiscale, ex: 9 pour septembre','2013-06-25 19:22:53'),(80,'MAIN_SEARCHFORM_SOCIETE',1,'1','yesno',0,'Show form for quick company search','2013-06-25 19:22:53'),(81,'MAIN_SEARCHFORM_CONTACT',1,'1','yesno',0,'Show form for quick contact search','2013-06-25 19:22:53'),(82,'COMPANY_ADDON_PDF_ODT_PATH',1,'DOL_DATA_ROOT/doctemplates/thirdparties','chaine',0,NULL,'2013-06-25 19:22:53'),(84,'MAIN_MODULE_USER',0,'1',NULL,0,NULL,'2013-08-10 10:33:27'),(85,'MAIN_VERSION_LAST_UPGRADE',0,'3.3.4','chaine',0,'Dolibarr version for last upgrade','2013-08-10 10:33:29'),(88,'POS_USE_TICKETS',1,'1','chaine',0,'','2013-08-10 10:33:38'),(89,'POS_MAX_TTC',1,'100','chaine',0,'','2013-08-10 10:33:38'),(90,'MAIN_MODULE_POS',1,'1',NULL,0,NULL,'2013-08-10 10:33:38'),(91,'TICKET_ADDON',1,'mod_ticket_avenc','chaine',0,'Nom du gestionnaire de numerotation des tickets','2013-08-10 10:33:38'),(92,'MAIN_MODULE_BANQUE',1,'1',NULL,0,NULL,'2013-08-10 10:33:38'),(93,'MAIN_MODULE_FACTURE',1,'1',NULL,0,NULL,'2013-08-10 10:33:38'),(94,'FACTURE_ADDON_PDF',1,'crabe','chaine',0,'Name of PDF model of invoice','2013-08-10 10:33:38'),(95,'FACTURE_ADDON',1,'mod_facture_terre','chaine',0,'Name of numbering numerotation rules of invoice','2013-08-10 10:33:38'),(96,'FACTURE_ADDON_PDF_ODT_PATH',1,'DOL_DATA_ROOT/doctemplates/invoices','chaine',0,NULL,'2013-08-10 10:33:38'),(97,'MAIN_MODULE_SOCIETE',1,'1',NULL,0,NULL,'2013-08-10 10:33:38'),(99,'MAIN_SEARCHFORM_PRODUITSERVICE',1,'1','yesno',0,'Show form for quick product search','2013-08-10 10:33:38'),(100,'MAIN_MODULE_STOCK',1,'1',NULL,0,NULL,'2013-08-10 10:33:38'),(101,'MAIN_MODULE_PRODUCT',1,'1',NULL,0,NULL,'2013-08-10 10:33:38');
 /*!40000 ALTER TABLE `llx_const` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -2302,7 +2304,7 @@ CREATE TABLE `llx_document_model` (
   `description` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`rowid`),
   UNIQUE KEY `uk_document_model` (`nom`,`type`,`entity`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2311,6 +2313,7 @@ CREATE TABLE `llx_document_model` (
 
 LOCK TABLES `llx_document_model` WRITE;
 /*!40000 ALTER TABLE `llx_document_model` DISABLE KEYS */;
+INSERT INTO `llx_document_model` VALUES (1,'crabe',1,'invoice',NULL,NULL);
 /*!40000 ALTER TABLE `llx_document_model` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -2618,6 +2621,31 @@ CREATE TABLE `llx_entrepot` (
 LOCK TABLES `llx_entrepot` WRITE;
 /*!40000 ALTER TABLE `llx_entrepot` DISABLE KEYS */;
 /*!40000 ALTER TABLE `llx_entrepot` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `llx_event_element`
+--
+
+DROP TABLE IF EXISTS `llx_event_element`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `llx_event_element` (
+  `rowid` int(11) NOT NULL AUTO_INCREMENT,
+  `fk_source` int(11) NOT NULL,
+  `fk_target` int(11) NOT NULL,
+  `targettype` varchar(32) NOT NULL,
+  PRIMARY KEY (`rowid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `llx_event_element`
+--
+
+LOCK TABLES `llx_event_element` WRITE;
+/*!40000 ALTER TABLE `llx_event_element` DISABLE KEYS */;
+/*!40000 ALTER TABLE `llx_event_element` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -3295,7 +3323,7 @@ CREATE TABLE `llx_holiday_config` (
   `value` text,
   PRIMARY KEY (`rowid`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3637,7 +3665,7 @@ CREATE TABLE `llx_menu` (
   PRIMARY KEY (`rowid`),
   UNIQUE KEY `idx_menu_uk_menu` (`menu_handler`,`fk_menu`,`position`,`url`,`entity`),
   KEY `idx_menu_menuhandler_type` (`menu_handler`,`type`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3646,6 +3674,7 @@ CREATE TABLE `llx_menu` (
 
 LOCK TABLES `llx_menu` WRITE;
 /*!40000 ALTER TABLE `llx_menu` DISABLE KEYS */;
+INSERT INTO `llx_menu` VALUES (1,'all',1,'pos','top','pos','1',0,NULL,NULL,100,'/pos/backend/liste.php','','POS','pos@pos',NULL,'1','1',2,'2013-08-10 10:33:38'),(2,'all',1,'pos','left','pos',NULL,1,NULL,NULL,100,'/pos/backend/liste.php','','Tickets','pos@pos',NULL,'$user->rights->pos->backend','$conf->global->POS_USE_TICKETS',0,'2013-08-10 10:33:38'),(3,'all',1,'pos','left','pos',NULL,2,NULL,NULL,100,'/pos/backend/liste.php','','List','main',NULL,'$user->rights->pos->backend','$conf->global->POS_USE_TICKETS',0,'2013-08-10 10:33:38'),(4,'all',1,'pos','left','pos',NULL,3,NULL,NULL,100,'/pos/backend/liste.php?viewstatut=0','','StatusTicketDraft','pos@pos',NULL,'$user->rights->pos->backend','$conf->global->POS_USE_TICKETS',0,'2013-08-10 10:33:38'),(5,'all',1,'pos','left','@pos',NULL,3,NULL,NULL,100,'/pos/backend/liste.php?viewstatut=1','','StatusTicketClosed','main',NULL,'$user->rights->pos->backend','$conf->global->POS_USE_TICKETS',0,'2013-08-10 10:33:38'),(6,'all',1,'pos','left','@pos',NULL,3,NULL,NULL,100,'/pos/backend/liste.php?viewstatut=2','','StatusTicketProcessed','main',NULL,'$user->rights->pos->backend','$conf->global->POS_USE_TICKETS',0,'2013-08-10 10:33:38'),(7,'all',1,'pos','left','@pos',NULL,3,NULL,NULL,100,'/pos/backend/liste.php?viewstatut=3','','StatusTicketCanceled','main',NULL,'$user->rights->pos->backend','$conf->global->POS_USE_TICKETS',0,'2013-08-10 10:33:38'),(8,'all',1,'pos','left','@pos',NULL,3,NULL,NULL,100,'/pos/backend/liste.php?viewtype=1','','StatusTicketReturned','main',NULL,'$user->rights->pos->backend','$conf->global->POS_USE_TICKETS',0,'2013-08-10 10:33:38'),(9,'all',1,'pos','left','pos',NULL,1,NULL,NULL,100,'/pos/backend/listefac.php','','Factures','pos@pos',NULL,'$user->rights->pos->backend','$conf->global->POS_FACTURE',0,'2013-08-10 10:33:38'),(10,'all',1,'pos','left','pos',NULL,9,NULL,NULL,100,'/pos/backend/listefac.php','','List','main',NULL,'$user->rights->pos->backend','$conf->global->POS_FACTURE',0,'2013-08-10 10:33:38'),(11,'all',1,'pos','left','pos',NULL,10,NULL,NULL,100,'/pos/backend/liste.php?viewstatut=0','','BillStatusDraft','bills',NULL,'$user->rights->pos->backend','$conf->global->POS_FACTURE',0,'2013-08-10 10:33:38'),(12,'all',1,'pos','left','@pos',NULL,10,NULL,NULL,100,'/pos/backend/listefac.php?viewstatut=1','','BillStatusValidated','bills',NULL,'$user->rights->pos->backend','$conf->global->POS_FACTURE',0,'2013-08-10 10:33:38'),(13,'all',1,'pos','left','@pos',NULL,10,NULL,NULL,100,'/pos/backend/listefac.php?viewstatut=2','','BillStatusPaid','bills',NULL,'$user->rights->pos->backend','$conf->global->POS_FACTURE',0,'2013-08-10 10:33:38'),(14,'all',1,'pos','left','@pos',NULL,10,NULL,NULL,100,'/pos/backend/listefac.php?viewstatut=3','','BillStatusCanceled','bills',NULL,'$user->rights->pos->backend','$conf->global->POS_FACTURE',0,'2013-08-10 10:33:38'),(15,'all',1,'pos','left','@pos',NULL,10,NULL,NULL,100,'/pos/backend/listefac.php?viewtype=2','','BillStatusReturned','main',NULL,'$user->rights->pos->backend','$conf->global->POS_FACTURE',0,'2013-08-10 10:33:38'),(16,'all',1,'pos','left','@pos',NULL,1,NULL,NULL,100,'/pos/frontend/index.php','_pos','POS','main',NULL,'$user->rights->pos->frontend','1',0,'2013-08-10 10:33:38'),(17,'all',1,'pos','left','@pos',NULL,16,NULL,NULL,100,'/pos/frontend/index.php','_pos','NewTicket','main',NULL,'$user->rights->pos->frontend','1',0,'2013-08-10 10:33:38'),(18,'all',1,'pos','left','@pos',NULL,16,NULL,NULL,101,'/pos/backend/closes.php','','CloseandArching','main',NULL,'$user->rights->pos->backend','1',0,'2013-08-10 10:33:38'),(19,'all',1,'pos','left','@pos',NULL,1,NULL,NULL,100,'/pos/backend/terminal/cash.php','','Cash','main',NULL,'$user->rights->pos->backend','1',0,'2013-08-10 10:33:38'),(20,'all',1,'pos','left','@pos',NULL,19,NULL,NULL,100,'/pos/backend/terminal/fiche.php?action=create','','NewCash','main',NULL,'$user->rights->pos->backend','1',0,'2013-08-10 10:33:38'),(21,'all',1,'pos','left','@pos',NULL,19,NULL,NULL,101,'/pos/backend/terminal/cash.php','','List','main',NULL,'$user->rights->pos->backend','1',0,'2013-08-10 10:33:38'),(22,'all',1,'pos','left','@pos',NULL,1,NULL,NULL,100,'/pos/backend/place/place.php','','Place','main',NULL,'$user->rights->pos->backend','$conf->global->POS_PLACES',0,'2013-08-10 10:33:38'),(23,'all',1,'pos','left','@pos',NULL,22,NULL,NULL,100,'/pos/backend/place/fiche.php?action=create','','NewPlace','main',NULL,'$user->rights->pos->backend','$conf->global->POS_PLACES',0,'2013-08-10 10:33:38'),(24,'all',1,'pos','left','@pos',NULL,22,NULL,NULL,101,'/pos/backend/place/place.php','','List','main',NULL,'$user->rights->pos->backend','$conf->global->POS_PLACES',0,'2013-08-10 10:33:38'),(25,'all',1,'pos','left','@pos',NULL,18,NULL,NULL,101,'/pos/backend/closes.php?viewstatut=0','','Arqueo','main',NULL,'$user->rights->pos->backend','1',0,'2013-08-10 10:33:38'),(26,'all',1,'pos','left','@pos',NULL,18,NULL,NULL,102,'/pos/backend/closes.php?viewstatut=1','','Closes','main',NULL,'$user->rights->pos->backend','1',0,'2013-08-10 10:33:38'),(27,'all',1,'pos','left','@pos',NULL,1,NULL,NULL,102,'/pos/backend/transfers.php','','Transfer','main',NULL,'$user->rights->pos->transfer','1',0,'2013-08-10 10:33:38'),(28,'all',1,'pos','left','@pos',NULL,1,NULL,NULL,102,'/pos/backend/resultat/index.php','','RapportTicket','main',NULL,'$user->rights->pos->stats','$conf->global->POS_USE_TICKETS',0,'2013-08-10 10:33:38'),(29,'all',1,'pos','left','@pos',NULL,28,NULL,NULL,102,'/pos/backend/resultat/ticket.php','','Tickets','main',NULL,'$user->rights->pos->stats','$conf->global->POS_USE_TICKETS',0,'2013-08-10 10:33:38'),(30,'all',1,'pos','left','@pos',NULL,28,NULL,NULL,102,'/pos/backend/resultat/casoc.php','','ReportsCustomer','main',NULL,'$user->rights->pos->stats','$conf->global->POS_USE_TICKETS',0,'2013-08-10 10:33:38'),(31,'all',1,'pos','left','@pos',NULL,28,NULL,NULL,102,'/pos/backend/resultat/causer.php','','ReportsUser','main',NULL,'$user->rights->pos->stats','$conf->global->POS_USE_TICKETS',0,'2013-08-10 10:33:38'),(32,'all',1,'pos','left','@pos',NULL,28,NULL,NULL,102,'/pos/backend/resultat/terminal.php','','Terminal','main',NULL,'$user->rights->pos->stats','$conf->global->POS_USE_TICKETS',0,'2013-08-10 10:33:38'),(33,'all',1,'pos','left','@pos',NULL,28,NULL,NULL,102,'/pos/backend/resultat/place.php','','Place','main',NULL,'$user->rights->pos->stats','$conf->global->POS_USE_TICKETS && $conf->global->POS_PLACES',0,'2013-08-10 10:33:38'),(34,'all',1,'pos','left','@pos',NULL,28,NULL,NULL,102,'/pos/backend/resultat/sellsjournal.php','','ReportsSells','main',NULL,'$user->rights->pos->stats','$conf->global->POS_USE_TICKETS',0,'2013-08-10 10:33:38'),(35,'all',1,'pos','left','@pos',NULL,1,NULL,NULL,102,'/pos/backend/resultat/indexfac.php','','RapportFacture','main',NULL,'$user->rights->pos->stats','$conf->global->POS_FACTURE',0,'2013-08-10 10:33:38'),(36,'all',1,'pos','left','@pos',NULL,35,NULL,NULL,102,'/pos/backend/resultat/facture.php','','Factures','main',NULL,'$user->rights->pos->stats','$conf->global->POS_FACTURE',0,'2013-08-10 10:33:38'),(37,'all',1,'pos','left','@pos',NULL,35,NULL,NULL,102,'/pos/backend/resultat/casocfac.php','','ReportsCustomer','main',NULL,'$user->rights->pos->stats','$conf->global->POS_FACTURE',0,'2013-08-10 10:33:38'),(38,'all',1,'pos','left','@pos',NULL,35,NULL,NULL,102,'/pos/backend/resultat/causerfac.php','','ReportsUser','main',NULL,'$user->rights->pos->stats','$conf->global->POS_FACTURE',0,'2013-08-10 10:33:38'),(39,'all',1,'pos','left','@pos',NULL,35,NULL,NULL,102,'/pos/backend/resultat/terminalfac.php','','Terminal','main',NULL,'$user->rights->pos->stats','$conf->global->POS_FACTURE',0,'2013-08-10 10:33:38'),(40,'all',1,'pos','left','@pos',NULL,35,NULL,NULL,102,'/pos/backend/resultat/placefac.php','','Place','main',NULL,'$user->rights->pos->stats','$conf->global->POS_FACTURE && $conf->global->POS_PLACES',0,'2013-08-10 10:33:38'),(41,'all',1,'pos','left','@pos',NULL,35,NULL,NULL,102,'/pos/backend/resultat/sellsjournalfac.php','','ReportsSells','main',NULL,'$user->rights->pos->stats','$conf->global->POS_FACTURE',0,'2013-08-10 10:33:38');
 /*!40000 ALTER TABLE `llx_menu` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -3864,6 +3893,314 @@ CREATE TABLE `llx_paiementfourn_facturefourn` (
 LOCK TABLES `llx_paiementfourn_facturefourn` WRITE;
 /*!40000 ALTER TABLE `llx_paiementfourn_facturefourn` DISABLE KEYS */;
 /*!40000 ALTER TABLE `llx_paiementfourn_facturefourn` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `llx_pos_cash`
+--
+
+DROP TABLE IF EXISTS `llx_pos_cash`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `llx_pos_cash` (
+  `rowid` int(11) NOT NULL AUTO_INCREMENT,
+  `entity` int(11) NOT NULL DEFAULT '1',
+  `code` varchar(3) DEFAULT NULL,
+  `name` varchar(30) DEFAULT NULL,
+  `tactil` tinyint(4) NOT NULL DEFAULT '0',
+  `barcode` tinyint(4) NOT NULL DEFAULT '0',
+  `fk_paycash` int(11) DEFAULT NULL,
+  `fk_modepaycash` int(11) DEFAULT NULL,
+  `fk_paybank` int(11) DEFAULT NULL,
+  `fk_modepaybank` int(11) DEFAULT NULL,
+  `fk_warehouse` int(11) DEFAULT NULL,
+  `fk_device` int(11) DEFAULT NULL,
+  `fk_soc` int(11) DEFAULT NULL,
+  `is_used` tinyint(4) DEFAULT '0',
+  `fk_user_u` int(11) DEFAULT NULL,
+  `fk_user_c` int(11) DEFAULT NULL,
+  `fk_user_m` int(11) DEFAULT NULL,
+  `datec` datetime DEFAULT NULL,
+  `datea` datetime DEFAULT NULL,
+  `is_closed` tinyint(4) DEFAULT '0',
+  PRIMARY KEY (`rowid`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `llx_pos_cash`
+--
+
+LOCK TABLES `llx_pos_cash` WRITE;
+/*!40000 ALTER TABLE `llx_pos_cash` DISABLE KEYS */;
+/*!40000 ALTER TABLE `llx_pos_cash` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `llx_pos_control_cash`
+--
+
+DROP TABLE IF EXISTS `llx_pos_control_cash`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `llx_pos_control_cash` (
+  `rowid` int(11) NOT NULL AUTO_INCREMENT,
+  `entity` int(11) NOT NULL DEFAULT '1',
+  `fk_cash` int(11) DEFAULT NULL,
+  `fk_user` int(11) DEFAULT NULL,
+  `date_c` datetime DEFAULT NULL,
+  `type_control` tinyint(4) DEFAULT '0',
+  `amount_teor` double(24,8) DEFAULT NULL,
+  `amount_real` double(24,8) DEFAULT NULL,
+  `amount_diff` double(24,8) DEFAULT NULL,
+  `amount_mov_out` double(24,8) DEFAULT NULL,
+  `amount_mov_int` double(24,8) DEFAULT NULL,
+  `amount_next_day` double(24,8) DEFAULT NULL,
+  `comment` text,
+  PRIMARY KEY (`rowid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `llx_pos_control_cash`
+--
+
+LOCK TABLES `llx_pos_control_cash` WRITE;
+/*!40000 ALTER TABLE `llx_pos_control_cash` DISABLE KEYS */;
+/*!40000 ALTER TABLE `llx_pos_control_cash` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `llx_pos_facture`
+--
+
+DROP TABLE IF EXISTS `llx_pos_facture`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `llx_pos_facture` (
+  `rowid` int(11) NOT NULL AUTO_INCREMENT,
+  `fk_cash` int(11) NOT NULL,
+  `fk_place` int(11) DEFAULT NULL,
+  `fk_facture` int(11) NOT NULL,
+  `fk_control_cash` int(11) DEFAULT NULL,
+  PRIMARY KEY (`rowid`),
+  KEY `fk_facture_fk_cash` (`fk_cash`),
+  KEY `fk_facture_fk_place` (`fk_place`),
+  KEY `fk_facture_fk_control_cash` (`fk_control_cash`),
+  CONSTRAINT `fk_facture_fk_cash` FOREIGN KEY (`fk_cash`) REFERENCES `llx_pos_cash` (`rowid`),
+  CONSTRAINT `fk_facture_fk_control_cash` FOREIGN KEY (`fk_control_cash`) REFERENCES `llx_pos_control_cash` (`rowid`),
+  CONSTRAINT `fk_facture_fk_place` FOREIGN KEY (`fk_place`) REFERENCES `llx_pos_places` (`rowid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `llx_pos_facture`
+--
+
+LOCK TABLES `llx_pos_facture` WRITE;
+/*!40000 ALTER TABLE `llx_pos_facture` DISABLE KEYS */;
+/*!40000 ALTER TABLE `llx_pos_facture` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `llx_pos_moviments`
+--
+
+DROP TABLE IF EXISTS `llx_pos_moviments`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `llx_pos_moviments` (
+  `rowid` int(11) NOT NULL AUTO_INCREMENT,
+  `entity` int(11) NOT NULL DEFAULT '1',
+  `fk_cash` int(11) DEFAULT NULL,
+  `fk_user` int(11) DEFAULT NULL,
+  `date_m` datetime DEFAULT NULL,
+  `amount` double(24,8) DEFAULT NULL,
+  `type` tinyint(4) DEFAULT NULL,
+  `comment` text,
+  PRIMARY KEY (`rowid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `llx_pos_moviments`
+--
+
+LOCK TABLES `llx_pos_moviments` WRITE;
+/*!40000 ALTER TABLE `llx_pos_moviments` DISABLE KEYS */;
+/*!40000 ALTER TABLE `llx_pos_moviments` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `llx_pos_paiement_ticket`
+--
+
+DROP TABLE IF EXISTS `llx_pos_paiement_ticket`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `llx_pos_paiement_ticket` (
+  `rowid` int(11) NOT NULL AUTO_INCREMENT,
+  `fk_paiement` int(11) DEFAULT NULL,
+  `fk_ticket` int(11) DEFAULT NULL,
+  `amount` double(24,8) DEFAULT '0.00000000',
+  PRIMARY KEY (`rowid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `llx_pos_paiement_ticket`
+--
+
+LOCK TABLES `llx_pos_paiement_ticket` WRITE;
+/*!40000 ALTER TABLE `llx_pos_paiement_ticket` DISABLE KEYS */;
+/*!40000 ALTER TABLE `llx_pos_paiement_ticket` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `llx_pos_places`
+--
+
+DROP TABLE IF EXISTS `llx_pos_places`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `llx_pos_places` (
+  `rowid` int(11) NOT NULL AUTO_INCREMENT,
+  `entity` int(11) NOT NULL DEFAULT '1',
+  `name` varchar(30) NOT NULL,
+  `description` text,
+  `fk_ticket` int(11) DEFAULT NULL,
+  `status` int(11) NOT NULL DEFAULT '1',
+  `fk_user_c` int(11) DEFAULT NULL,
+  `fk_user_m` int(11) DEFAULT NULL,
+  `datec` datetime DEFAULT NULL,
+  `datea` datetime DEFAULT NULL,
+  PRIMARY KEY (`rowid`),
+  KEY `idx_places_fk_ticket` (`fk_ticket`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `llx_pos_places`
+--
+
+LOCK TABLES `llx_pos_places` WRITE;
+/*!40000 ALTER TABLE `llx_pos_places` DISABLE KEYS */;
+/*!40000 ALTER TABLE `llx_pos_places` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `llx_pos_ticket`
+--
+
+DROP TABLE IF EXISTS `llx_pos_ticket`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `llx_pos_ticket` (
+  `rowid` int(11) NOT NULL AUTO_INCREMENT,
+  `ticketnumber` varchar(30) NOT NULL,
+  `type` int(11) DEFAULT NULL,
+  `entity` int(11) NOT NULL DEFAULT '1',
+  `fk_cash` int(11) DEFAULT NULL,
+  `fk_soc` int(11) NOT NULL,
+  `fk_place` int(11) DEFAULT NULL,
+  `date_creation` datetime DEFAULT NULL,
+  `date_ticket` date DEFAULT NULL,
+  `date_closed` datetime DEFAULT NULL,
+  `tms` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `paye` smallint(6) NOT NULL DEFAULT '0',
+  `remise_percent` double DEFAULT '0',
+  `remise_absolute` double DEFAULT '0',
+  `remise` double DEFAULT '0',
+  `customer_pay` double(24,8) DEFAULT '0.00000000',
+  `difpayment` double(24,8) DEFAULT '0.00000000',
+  `tva` double(24,8) DEFAULT '0.00000000',
+  `localtax1` double(24,8) DEFAULT '0.00000000',
+  `localtax2` double(24,8) DEFAULT '0.00000000',
+  `total_ht` double(24,8) DEFAULT '0.00000000',
+  `total_ttc` double(24,8) DEFAULT '0.00000000',
+  `fk_statut` smallint(6) NOT NULL DEFAULT '0',
+  `fk_user_author` int(11) DEFAULT NULL,
+  `fk_user_close` int(11) DEFAULT NULL,
+  `fk_facture` int(11) DEFAULT NULL,
+  `fk_ticket_source` int(11) DEFAULT NULL,
+  `fk_mode_reglement` int(11) DEFAULT NULL,
+  `fk_control` int(11) DEFAULT NULL,
+  `note` text,
+  `note_public` text,
+  `model_pdf` varchar(255) DEFAULT NULL,
+  `import_key` varchar(14) DEFAULT NULL,
+  PRIMARY KEY (`rowid`),
+  KEY `idx_ticket_fk_soc` (`fk_soc`),
+  KEY `idx_ticket_fk_user_author` (`fk_user_author`),
+  KEY `idx_ticket_fk_ticket_source` (`fk_ticket_source`),
+  KEY `idx_ticket_fk_place` (`fk_place`),
+  CONSTRAINT `fk_ticket_fk_place` FOREIGN KEY (`fk_place`) REFERENCES `llx_pos_places` (`rowid`),
+  CONSTRAINT `fk_ticket_fk_soc` FOREIGN KEY (`fk_soc`) REFERENCES `llx_societe` (`rowid`),
+  CONSTRAINT `fk_ticket_fk_user_author` FOREIGN KEY (`fk_user_author`) REFERENCES `llx_user` (`rowid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `llx_pos_ticket`
+--
+
+LOCK TABLES `llx_pos_ticket` WRITE;
+/*!40000 ALTER TABLE `llx_pos_ticket` DISABLE KEYS */;
+/*!40000 ALTER TABLE `llx_pos_ticket` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `llx_pos_ticketdet`
+--
+
+DROP TABLE IF EXISTS `llx_pos_ticketdet`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `llx_pos_ticketdet` (
+  `rowid` int(11) NOT NULL AUTO_INCREMENT,
+  `fk_ticket` int(11) NOT NULL,
+  `fk_parent_line` int(11) DEFAULT NULL,
+  `fk_product` int(11) DEFAULT NULL,
+  `description` text,
+  `tva_tx` double(6,3) DEFAULT NULL,
+  `localtax1_tx` double(6,3) DEFAULT '0.000',
+  `localtax1_type` int(11) DEFAULT NULL,
+  `localtax2_tx` double(6,3) DEFAULT '0.000',
+  `localtax2_type` int(11) DEFAULT NULL,
+  `qty` double DEFAULT NULL,
+  `remise_percent` double DEFAULT '0',
+  `remise` double DEFAULT '0',
+  `fk_remise_except` int(11) DEFAULT NULL,
+  `subprice` double(24,8) DEFAULT NULL,
+  `price` double(24,8) DEFAULT NULL,
+  `total_ht` double(24,8) DEFAULT NULL,
+  `total_tva` double(24,8) DEFAULT NULL,
+  `total_localtax1` double(24,8) DEFAULT '0.00000000',
+  `total_localtax2` double(24,8) DEFAULT '0.00000000',
+  `total_ttc` double(24,8) DEFAULT NULL,
+  `product_type` int(11) DEFAULT '0',
+  `date_start` datetime DEFAULT NULL,
+  `date_end` datetime DEFAULT NULL,
+  `info_bits` int(11) DEFAULT '0',
+  `fk_code_ventilation` int(11) NOT NULL DEFAULT '0',
+  `fk_export_compta` int(11) NOT NULL DEFAULT '0',
+  `rang` int(11) DEFAULT '0',
+  `import_key` varchar(14) DEFAULT NULL,
+  `note` text,
+  PRIMARY KEY (`rowid`),
+  UNIQUE KEY `uk_fk_remise_except` (`fk_remise_except`,`fk_ticket`),
+  KEY `idx_ticketdet_fk_ticket` (`fk_ticket`),
+  KEY `idx_ticketdet_fk_product` (`fk_product`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `llx_pos_ticketdet`
+--
+
+LOCK TABLES `llx_pos_ticketdet` WRITE;
+/*!40000 ALTER TABLE `llx_pos_ticketdet` DISABLE KEYS */;
+/*!40000 ALTER TABLE `llx_pos_ticketdet` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -4619,7 +4956,7 @@ CREATE TABLE `llx_rights_def` (
 
 LOCK TABLES `llx_rights_def` WRITE;
 /*!40000 ALTER TABLE `llx_rights_def` DISABLE KEYS */;
-INSERT INTO `llx_rights_def` VALUES (251,'Consulter les autres utilisateurs','user',1,'user','lire','r',0),(252,'Consulter les permissions des autres utilisateurs','user',1,'user_advance','readperms','r',0),(253,'Creer/modifier utilisateurs internes et externes','user',1,'user','creer','w',0),(254,'Creer/modifier utilisateurs externes seulement','user',1,'user_advance','write','w',0),(255,'Modifier le mot de passe des autres utilisateurs','user',1,'user','password','w',0),(256,'Supprimer ou desactiver les autres utilisateurs','user',1,'user','supprimer','d',0),(341,'Consulter ses propres permissions','user',1,'self_advance','readperms','r',1),(342,'Creer/modifier ses propres infos utilisateur','user',1,'self','creer','w',1),(343,'Modifier son propre mot de passe','user',1,'self','password','w',1),(344,'Modifier ses propres permissions','user',1,'self_advance','writeperms','w',1),(351,'Consulter les groupes','user',1,'group_advance','read','r',0),(352,'Consulter les permissions des groupes','user',1,'group_advance','readperms','r',0),(353,'Creer/modifier les groupes et leurs permissions','user',1,'group_advance','write','w',0),(354,'Supprimer ou desactiver les groupes','user',1,'group_advance','delete','d',0),(358,'Exporter les utilisateurs','user',1,'user','export','r',0);
+INSERT INTO `llx_rights_def` VALUES (11,'Lire les factures','facture',1,'lire',NULL,'a',1),(12,'Creer/modifier les factures','facture',1,'creer',NULL,'a',0),(13,'Dévalider les factures','facture',1,'invoice_advance','unvalidate','a',0),(14,'Valider les factures','facture',1,'valider',NULL,'a',0),(15,'Envoyer les factures par mail','facture',1,'invoice_advance','send','a',0),(16,'Emettre des paiements sur les factures','facture',1,'paiement',NULL,'a',0),(19,'Supprimer les factures','facture',1,'supprimer',NULL,'a',0),(31,'Lire les produits','produit',1,'lire',NULL,'r',1),(32,'Creer/modifier les produits','produit',1,'creer',NULL,'w',0),(34,'Supprimer les produits','produit',1,'supprimer',NULL,'d',0),(38,'Exporter les produits','produit',1,'export',NULL,'r',0),(111,'Lire les comptes bancaires','banque',1,'lire',NULL,'r',1),(112,'Creer/modifier montant/supprimer ecriture bancaire','banque',1,'modifier',NULL,'w',0),(113,'Configurer les comptes bancaires (creer, gerer categories)','banque',1,'configurer',NULL,'a',0),(114,'Rapprocher les ecritures bancaires','banque',1,'consolidate',NULL,'w',0),(115,'Exporter transactions et releves','banque',1,'export',NULL,'r',0),(116,'Virements entre comptes','banque',1,'transfer',NULL,'w',0),(117,'Gerer les envois de cheques','banque',1,'cheque',NULL,'w',0),(121,'Lire les societes','societe',1,'lire',NULL,'r',1),(122,'Creer modifier les societes','societe',1,'creer',NULL,'w',0),(125,'Supprimer les societes','societe',1,'supprimer',NULL,'d',0),(126,'Exporter les societes','societe',1,'export',NULL,'r',0),(251,'Consulter les autres utilisateurs','user',1,'user','lire','r',0),(252,'Consulter les permissions des autres utilisateurs','user',1,'user_advance','readperms','r',0),(253,'Creer/modifier utilisateurs internes et externes','user',1,'user','creer','w',0),(254,'Creer/modifier utilisateurs externes seulement','user',1,'user_advance','write','w',0),(255,'Modifier le mot de passe des autres utilisateurs','user',1,'user','password','w',0),(256,'Supprimer ou desactiver les autres utilisateurs','user',1,'user','supprimer','d',0),(262,'Consulter tous les tiers par utilisateurs internes (sinon uniquement si contact commercial). Non effectif pour utilisateurs externes (tjs limités à eux-meme).','societe',1,'client','voir','r',1),(281,'Lire les contacts','societe',1,'contact','lire','r',1),(282,'Creer modifier les contacts','societe',1,'contact','creer','w',0),(283,'Supprimer les contacts','societe',1,'contact','supprimer','d',0),(286,'Exporter les contacts','societe',1,'contact','export','d',0),(341,'Consulter ses propres permissions','user',1,'self_advance','readperms','r',1),(342,'Creer/modifier ses propres infos utilisateur','user',1,'self','creer','w',1),(343,'Modifier son propre mot de passe','user',1,'self','password','w',1),(344,'Modifier ses propres permissions','user',1,'self_advance','writeperms','w',1),(351,'Consulter les groupes','user',1,'group_advance','read','r',0),(352,'Consulter les permissions des groupes','user',1,'group_advance','readperms','r',0),(353,'Creer/modifier les groupes et leurs permissions','user',1,'group_advance','write','w',0),(354,'Supprimer ou desactiver les groupes','user',1,'group_advance','delete','d',0),(358,'Exporter les utilisateurs','user',1,'user','export','r',0),(1001,'Lire les stocks','stock',1,'lire',NULL,'r',1),(1002,'Creer/Modifier les stocks','stock',1,'creer',NULL,'w',0),(1003,'Supprimer les stocks','stock',1,'supprimer',NULL,'d',0),(1004,'Lire mouvements de stocks','stock',1,'mouvement','lire','r',1),(1005,'Creer/modifier mouvements de stocks','stock',1,'mouvement','creer','w',0),(1321,'Exporter les factures clients, attributs et reglements','facture',1,'facture','export','r',0),(4000051,'Use POS','pos',1,'frontend',NULL,'a',1),(4000052,'Use Backend','pos',1,'backend',NULL,'a',1),(4000053,'Make Transfers','pos',1,'transfer',NULL,'a',1),(4000055,'Stats','pos',1,'stats',NULL,'a',1),(4000056,'Make Closecash','pos',1,'closecash',NULL,'a',1);
 /*!40000 ALTER TABLE `llx_rights_def` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -5194,7 +5531,7 @@ CREATE TABLE `llx_user` (
 
 LOCK TABLES `llx_user` WRITE;
 /*!40000 ALTER TABLE `llx_user` DISABLE KEYS */;
-INSERT INTO `llx_user` VALUES (1,0,NULL,NULL,'2012-10-11 14:11:12','2012-10-11 14:11:12','admin','q1w2e3r4','c62d929e7b7e7b6165923a5dfc60cb56',NULL,NULL,'SuperAdmin','',NULL,'','','','','',1,'','','',1,1,NULL,NULL,NULL,'','2013-06-09 00:03:08','2012-10-11 14:13:22',NULL,'',NULL,1,NULL,NULL);
+INSERT INTO `llx_user` VALUES (1,0,NULL,NULL,'2012-10-11 14:11:12','2012-10-11 14:11:12','admin','admin','c62d929e7b7e7b6165923a5dfc60cb56',NULL,NULL,'SuperAdmin','',NULL,'','','','','',1,'','','',1,1,NULL,NULL,NULL,'','2013-06-09 00:03:08','2012-10-11 14:13:22',NULL,'',NULL,1,NULL,NULL);
 /*!40000 ALTER TABLE `llx_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -5313,7 +5650,7 @@ CREATE TABLE `llx_user_rights` (
   PRIMARY KEY (`rowid`),
   UNIQUE KEY `uk_user_rights` (`fk_user`,`fk_id`),
   CONSTRAINT `fk_user_rights_fk_user_user` FOREIGN KEY (`fk_user`) REFERENCES `llx_user` (`rowid`)
-) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=146 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -5322,7 +5659,7 @@ CREATE TABLE `llx_user_rights` (
 
 LOCK TABLES `llx_user_rights` WRITE;
 /*!40000 ALTER TABLE `llx_user_rights` DISABLE KEYS */;
-INSERT INTO `llx_user_rights` VALUES (32,1,121),(29,1,122),(31,1,125),(33,1,126),(25,1,251),(6,1,252),(8,1,253),(9,1,254),(11,1,255),(13,1,256),(34,1,262),(40,1,281),(37,1,282),(39,1,283),(41,1,286),(14,1,341),(15,1,342),(16,1,343),(17,1,344),(23,1,351),(20,1,352),(22,1,353),(24,1,354),(26,1,358);
+INSERT INTO `llx_user_rights` VALUES (106,1,11),(99,1,12),(100,1,13),(102,1,14),(103,1,15),(105,1,16),(107,1,19),(144,1,31),(141,1,32),(143,1,34),(145,1,38),(95,1,111),(86,1,112),(88,1,113),(90,1,114),(92,1,115),(94,1,116),(96,1,117),(114,1,121),(111,1,122),(113,1,125),(115,1,126),(62,1,251),(43,1,252),(45,1,253),(46,1,254),(48,1,255),(50,1,256),(116,1,262),(122,1,281),(119,1,282),(121,1,283),(123,1,286),(51,1,341),(52,1,342),(53,1,343),(54,1,344),(60,1,351),(57,1,352),(59,1,353),(61,1,354),(63,1,358),(134,1,1001),(133,1,1002),(135,1,1003),(137,1,1004),(138,1,1005),(108,1,1321),(79,1,4000051),(80,1,4000052),(81,1,4000053),(82,1,4000055),(83,1,4000056);
 /*!40000 ALTER TABLE `llx_user_rights` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -5419,4 +5756,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-06-25 21:33:53
+-- Dump completed on 2013-08-10 12:35:16
