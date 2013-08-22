@@ -6,6 +6,6 @@ NumberWordsSetup=Configuration du module Number Words
 DescNumberWords=Ce module amène des fonctions de conversion de nombre ou montant en toute chaine. Il effectue aussi des remplacements de variables génériques __TOTAL_TTC_WORDS__, __TOTAL_HT_WORDS__ ou __TOTAL_VAT_WORDS__ par leur valeur du montant ttc, ht ou de la tva, en chaine dans les textes qui y font référence (texte libre des factures, ...)
 AboutInfo=Ce module est développé et diffusé par Laurent Destailleur pour NLTechno, <a target="_blank" href="http://www.nltechno.com">www.nltechno.com</a> (société labellisé Dolibarr Prefered Partner).
 MoreModules=D'autres modules du même auteur sont disponibles sur la place de marché officielle DoliStore...
-MoreModulesLink=<a target="_blank" href="http://www.dolistore.com/search.php?search_query=nltechno">Cliquer ici pour voir la liste</a>
+MoreModulesLink=<a target="_blank" href="http://www.dolistore.com/search.php?search_query=nltechno">Cliquez ici pour voir la liste</a>
 MoreCloudHosting=Pour une utilisation en ligne de Dolibarr, optez pour l'hébergement sécurisé DoliCloud.
 MoreCloudHostingLink=<a target="_blank" href="http://www.dolicloud.com">Cliquez ici pour plus d'information</a>
