@@ -175,7 +175,11 @@ if ($action == 'import' || $action == 'create')
 			$result=$dolicloudcustomer->fetch('','',$organization);
 			if ($result <= 0)
 			{
+				if ($status != 'UNDEPLOYED') $importresult.='<span style="color: red">';
+				else $importresult.='<span style="color: yellow">';
 				$importresult.='Organization "'.$organization.'" not found. ';
+				$importresult.='</span>';
+				$importresult.='We need to set it to status '.$status.'. ';
 				//$importresult.='<a href="'.$_SERVER["PHP_SELF"].'?action=create&line='.$i.'&file='.urlencode($file).'">Click to create</a>.<br>';
 				$importresult.='<a target="_blank" href="'.dol_buildpath('/nltechno/dolicloud/dolicloud_card.php',1).'?';
 				$importresult.='action=create&plan='.urlencode($plan).'&organization='.urlencode($organization).'&email='.urlencode($email);
@@ -200,7 +204,7 @@ if ($action == 'import' || $action == 'create')
 				if ($dolicloudcustomer->status!=$status && ! preg_match('/'.$status.'/i',$dolicloudcustomer->status)) $change=true;
 				if (! in_array($status,$arraystatus))
 				{
-					$importresult.=' Status '.$status.' is not recognized.';
+					$importresult.=' <span style="color: red">Status '.$status.' is not recognized</span>.';
 				}
 				else if ($change)
 				{
@@ -210,7 +214,7 @@ if ($action == 'import' || $action == 'create')
 					if (! preg_match('/'.$status.'/',$dolicloudcustomer->status)) $dolicloudcustomer->status=$status;
 
 					$result=$dolicloudcustomer->update($user,1);
-					$importresult.=' We update record. Status after is '.$dolicloudcustomer->status.'<br>';
+					$importresult.=' <span style="color: blue">We update record</span>. Status after is '.$dolicloudcustomer->status.'<br>';
 				}
 				else
 				{
