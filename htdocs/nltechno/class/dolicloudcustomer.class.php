@@ -286,9 +286,9 @@ class Dolicloudcustomer extends CommonObject
     function fetch($id,$ref='',$organization='')
     {
     	global $langs;
-    	
+
     	if (empty($id) && empty($ref) && empty($organization)) dol_print_error('','Bad parameters for fetch');
-    	
+
         $sql = "SELECT";
 		$sql.= " t.rowid,";
 
@@ -415,11 +415,11 @@ class Dolicloudcustomer extends CommonObject
                 	$tmp=getState($this->state_id,'all');
                 	$this->state_code=$tmp['code']; $this->state=$tmp['label'];
                 }
-                
+
                 $ret=1;
             }
             else $ret=0;
-            
+
             $this->db->free($resql);
 
             return $ret;

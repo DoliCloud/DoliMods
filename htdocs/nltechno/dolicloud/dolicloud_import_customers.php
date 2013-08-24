@@ -165,6 +165,7 @@ if ($action == 'import' || $action == 'create')
 			$total_payed=$data[5];
 			$status=$data[6];
 			if ($status == 'CLOSURE_REQUESTED') $status='CLOSE_QUEUED';		// TODO Use CLOSURE_REQUESTED into database
+			if ($status == 'CLOSED') $status='UNDEPLOYED';
 			if ($organization == 'Organization') continue;	// Discard first line
 			if (empty($total_invoiced)) continue;
 
@@ -199,7 +200,7 @@ if ($action == 'import' || $action == 'create')
 				if ($dolicloudcustomer->status!=$status && ! preg_match('/'.$status.'/i',$dolicloudcustomer->status)) $change=true;
 				if (! in_array($status,$arraystatus))
 				{
-					$importresult.=' Status is not recognized.';
+					$importresult.=' Status '.$status.' is not recognized.';
 				}
 				else if ($change)
 				{
