@@ -1,7 +1,0 @@
-#tablaTicket .ui-block-a { width: 75% }
-#tablaTicket .ui-block-b { width: 25%; text-align:center; }
-#tablaTicket .ui-block-a, #tablaTicket .ui-block-b{}
-.ui-li-link-alt .ui-btn{z-index:100} 
-#listplaces li{width:50%;float:left;-moz-border-radius: 15px;border-radius: 15px;}
-#info_product #bigpic{width:100%;}
-#cart .ui-link{text-decoration:none;}
