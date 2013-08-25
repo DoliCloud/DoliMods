@@ -159,7 +159,12 @@ if ($action == 'import' || $action == 'create')
 			$i++;
 			$organization=$data[0];
 			$email=$data[1];
-			$date_acquired=dol_stringtotime($data[2]);
+			if (preg_match('/^([0-9][0-9])\/([0-9][0-9])\/([0-9][0-9])$/',$data[2],$reg))
+			{
+				$tmp='20'.$reg[3].'-'.$reg[2].'-'.$reg[1];
+				$date_acquired=dol_stringtotime($tmp);
+			}
+			else $date_acquired=dol_stringtotime($data[2]);
 			$plan=$data[3];
 			$total_invoiced=$data[4];
 			$total_payed=$data[5];
@@ -239,7 +244,7 @@ if ($action == 'import' || $action == 'create')
 				while($i < $num)
 				{
 					$obj=$db->fetch_object($resql);
-					$importresult.='Warning: Organization active into database and not into file: '.$obj->organization.'<br>'."\n";
+					$importresult.='<span style="color: red">Warning: Organization active into database and not into file: '.$obj->organization.'</span><br>'."\n";
 					$i++;
 				}
 			}
