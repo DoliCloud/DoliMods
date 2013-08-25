@@ -299,9 +299,9 @@ if ($resql)
                 print '</td><td>';
                 print $obj->source;
                 print '</td><td>';
-                print dol_print_date($obj->date_registration,'dayhour');
+                print dol_print_date($db->jdate($obj->date_registration),'dayhour','tzuser');
                 print '</td><td>';
-                print dol_print_date($obj->date_endfreeperiod,'day');
+                print dol_print_date($db->jdate($obj->date_endfreeperiod),'day','tzuser');
                 print '</td><td>';
                 print $obj->lastcheck;
                 print '</td><td align="right">';
@@ -309,7 +309,7 @@ if ($resql)
                 print '</td><td align="center">';
                 print $obj->lastlogin;
 	            print '</td><td align="center">';
-                print ($obj->date_lastlogin?dol_print_date($obj->date_lastlogin,'dayhour','tzuser'):'');
+                print ($obj->date_lastlogin?dol_print_date($db->jdate($obj->date_lastlogin),'dayhour','tzuser'):'');
                 print '</td><td align="right">';
                 if ($obj->status != 'ACTIVE')
                 {
