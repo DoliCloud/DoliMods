@@ -120,6 +120,7 @@ if ($mode == 'confirm' || $mode == 'confirmrsync' || $mode == 'confirmdatabase')
 	}
 }
 
+// Backup files
 if ($mode == 'testrsync' || $mode == 'confirmrsync' || $mode == 'confirm')
 {
 	$command="rsync";
@@ -172,6 +173,7 @@ if ($mode == 'testrsync' || $mode == 'confirmrsync' || $mode == 'confirm')
 	fclose($handle);
 }
 
+// Backup database
 if ($mode == 'testdatabase' || $mode == 'confirmdatabase' || $mode == 'confirm')
 {
 	$command="mysqldump";

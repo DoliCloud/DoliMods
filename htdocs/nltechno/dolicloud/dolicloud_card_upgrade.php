@@ -45,13 +45,15 @@ $langs->load("other");
 $langs->load("commercial");
 $langs->load("nltechno@nltechno");
 
-$mesg=''; $error=0; $errors=array();
+$mesg='';
 
 $action		= (GETPOST('action','alpha') ? GETPOST('action','alpha') : 'view');
 $confirm	= GETPOST('confirm','alpha');
 $backtopage = GETPOST('backtopage','alpha');
 $id			= GETPOST('id','int');
 $instance   = GETPOST('instance');
+
+$error=0; $errors=array();
 
 $object = new DoliCloudCustomer($db);
 

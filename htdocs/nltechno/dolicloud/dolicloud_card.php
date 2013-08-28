@@ -56,6 +56,7 @@ $date_registration  = dol_mktime(0, 0, 0, GETPOST("date_registrationmonth"), GET
 $date_endfreeperiod = dol_mktime(0, 0, 0, GETPOST("endfreeperiodmonth"), GETPOST("endfreeperiodday"), GETPOST("endfreeperiodyear"), 1);
 if (empty($date_endfreeperiod) && ! empty($date_registration)) $date_endfreeperiod=$date_registration+15*24*3600;
 
+$error = 0; $errors = array();
 
 $object = new DoliCloudCustomer($db);
 
@@ -281,7 +282,7 @@ if ($user->rights->nltechno->dolicloud->write)
 	{
 		/*
 		 * Fiche en mode creation
-		*/
+		 */
 		$object->canvas=$canvas;
 
 		// We set country_id, country_code and label for the selected country

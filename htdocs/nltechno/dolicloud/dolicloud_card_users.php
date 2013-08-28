@@ -53,6 +53,8 @@ $backtopage = GETPOST('backtopage','alpha');
 $id			= GETPOST('id','int');
 $instance   = GETPOST('instance');
 
+$error = 0; $errors = array();
+
 $object = new DoliCloudCustomer($db);
 
 // Security check

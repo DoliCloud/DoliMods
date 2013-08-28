@@ -1,7 +1,6 @@
 #!/usr/bin/php
 <?php
 /* Copyright (C) 2007-2011 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) ---Put here your own copyright and developer email---
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,14 +13,14 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * along with this program. If not, see <http://www.gnu.org/licenses/>
+ * or see http://www.gnu.org/*
  */
 
 /**
- *      \file       dev/skeletons/dolicloudcustomers_script.php
- *		\ingroup    mymodule othermodule1 othermodule2
- *      \brief      This file is an example for a command line script
- *					Initialy built by build_class_from_table on 2012-06-26 21:03
+ *      \file       scripts/nltechno/batch_customers.php
+ *		\ingroup    nltechno
+ *      \brief      Main master Dolicloud batch (run rsync and database backup)
  */
 
 $sapi_type = php_sapi_name();
@@ -61,7 +60,7 @@ $langs->load("main");				// To load language file for default language
 
 print "***** ".$script_file." (".$version.") - ".strftime("%Y%m%d-%H%M%S")." *****\n";
 if (! isset($argv[1])) {	// Check parameters
-    print "Usage: ".$script_file." [backup|backuptestrsync|backuptestdatabase]\n";
+    print "Usage: ".$script_file." (backuptestrsync|backuptestdatabase|backup|updatedatabase)\n";
     exit;
 }
 print '--- start'."\n";
@@ -87,47 +86,50 @@ dol_include_once('/nltechno/class/dolicloudcustomer.class.php');
 $object=new Dolicloudcustomer($db);
 
 
+$instances=array();
+
+// Get list of instance
+$sql = "SELECT c.rowid, c.instance, c.status, c.lastrsync";
+$sql.= " FROM ".MAIN_DB_PREFIX."dolicloud_customers as c";
+$sql.= " WHERE status NOT IN ('CLOSE_QUEUED', 'UNDEPLOYED')";
+
+dol_syslog($script_file." sql=".$sql, LOG_DEBUG);
+$resql=$db->query($sql);
+if ($resql)
+{
+	$num = $db->num_rows($resql);
+	$i = 0;
+	if ($num)
+	{
+		while ($i < $num)
+		{
+			$obj = $db->fetch_object($resql);
+			if ($obj)
+			{
+				$instances[]=$obj->instance;
+				print "Found instance ".$obj->instance."\n";
+			}
+			$i++;
+		}
+	}
+}
+else
+{
+	$error++;
+	$nboferrors++;
+	dol_print_error($db);
+}
+print "Found ".count($instances)." instances\n";
+
+
+//print "----- Start loop for backup_instance\n";
 if ($action == 'backup' || $action == 'backuptestrsync' || $action == 'backuptestdatabase')
 {
-	$instances=array();
-
 	if (empty($conf->global->DOLICLOUD_BACKUP_PATH))
 	{
 		print "Error: Setup of module NLTechno not complete. Path to backup not defined.\n";
 		exit -1;
 	}
-
-	$sql = 'SELECT c.rowid, c.instance, c.status, c.lastrsync';
-	$sql.= ' FROM '.MAIN_DB_PREFIX.'dolicloud_customers as c';
-	$sql.= ' WHERE status = \'ACTIVE\' OR status = \'TRIAL\'';
-
-	dol_syslog($script_file." sql=".$sql, LOG_DEBUG);
-	$resql=$db->query($sql);
-	if ($resql)
-	{
-		$num = $db->num_rows($resql);
-		$i = 0;
-		if ($num)
-		{
-			while ($i < $num)
-			{
-				$obj = $db->fetch_object($resql);
-				if ($obj)
-				{
-					$instances[]=$obj->instance;
-					print "Found instance ".$obj->instance."\n";
-				}
-				$i++;
-			}
-		}
-	}
-	else
-	{
-		$error++;
-		$nboferrors++;
-		dol_print_error($db);
-	}
-
 
 	// Loop on each instance
 	if (! $error)
@@ -135,11 +137,13 @@ if ($action == 'backup' || $action == 'backuptestrsync' || $action == 'backuptes
 		foreach($instances as $instance)
 		{
 			$now=dol_now();
+			$return_val=0;
 
 			// Run backup
 			print "Process backup of instance ".$instance.' - '.strftime("%Y%m%d-%H%M%S")."\n";
 
 			$command=($path?$path.'/':'')."backup_instance.php ".escapeshellarg($instance)." ".escapeshellarg($conf->global->DOLICLOUD_BACKUP_PATH)." ".($action == 'backup'?'confirm':($action == 'backuptestdatabase'?'testdatabase':'testrsync'));
+			echo $command."\n";
 
 			if ($action == 'backup')
 			{
@@ -151,10 +155,6 @@ if ($action == 'backup' || $action == 'backuptestrsync' || $action == 'backuptes
 
 				echo "Result: ".$return_val."\n";
 				echo "Output: ".$content_grabbed."\n";
-			}
-			else
-			{
-				echo $command."\n";
 			}
 
 			if ($return_val != 0) $error++;
@@ -168,7 +168,7 @@ if ($action == 'backup' || $action == 'backuptestrsync' || $action == 'backuptes
 
 				if ($action == 'backup')
 				{
-					$object->date_lastrsync=$now;
+					$object->date_lastrsync=$now;	// date last files and database rsync
 					$object->update();
 				}
 
@@ -191,6 +191,64 @@ if ($action == 'backup' || $action == 'backuptestrsync' || $action == 'backuptes
 }
 
 
+print "----- Start updatedatabase\n";
+
+$error=''; $errors=array();
+
+dol_include_once('/nltechno/dolicloud/lib/refresh.lib.php');
+
+if ($action == 'updatedatabase')
+{
+	// Loop on each instance
+	if (! $error)
+	{
+		foreach($instances as $instance)
+		{
+			$now=dol_now();
+			$return_val=0;
+			$error=0; $errors=array();
+
+			// Run database update
+			print "Process update database info of instance ".$instance.' - '.strftime("%Y%m%d-%H%M%S")."\n";
+
+			$db->begin();
+
+			$result=$object->fetch('',$instance);
+			if ($result < 0) dol_print_error('',$object->error);
+
+			$object->oldcopy=dol_clone($object);
+
+			// Files refresh
+			//$ret=dolicloud_files_refresh($conf,$db,$object,$errors);
+
+			// Database refresh
+			$ret=dolicloud_database_refresh($conf,$db,$object,$errors);
+
+			if (count($errors) == 0)
+			{
+				print 'OK. Update data and last update date'."\n";
+				$object->date_lastrsync=$now;	// date last files and database rsync
+				$object->update();
+
+				$nbofok++;
+				$db->commit();
+			}
+			else
+			{
+				$nboferrors++;
+				print 'KO. '.join(',',$errors)."\n";
+				$db->rollback();
+			}
+		}
+	}
+}
+
+
+print "----- Start calculate amount\n";
+// TODO Add more batch here
+
+
+
 // Result
 print "Nb of instances ok: ".$nbofok."\n";
 print "Nb of instances ko: ".$nboferrors."\n";
@@ -205,5 +263,5 @@ else
 
 $db->close();	// Close database opened handler
 
-return $nboferrors;
+exit($nboferrors);
 ?>
