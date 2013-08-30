@@ -308,7 +308,7 @@ class GContact
         $el->appendChild($elfullName);
 
         // Note as comment and a custom field
-        $this->atomEntry->appendChild($this->doc->createElement('atom:content', $this->note_private));
+        $this->atomEntry->appendChild($this->doc->createElement('atom:content', google_html_convert_entities($this->note_private)));
         //$this->appendCustomField("Origin", 'Onelog');
 
         // Phones
