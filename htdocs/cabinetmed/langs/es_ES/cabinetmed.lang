@@ -1,4 +1,4 @@
-# Dolibarr language file - es_ES - cabinetmed 
+# Dolibarr language file - es_ES - cabinetmed
 CHARSET=UTF-8
 Module101700Name=Consulta médica
 Module101700Desc=Módulo para gestionar una consulta médica
@@ -139,3 +139,18 @@ PatientsPerContacts=Esta página proporciona estadísticas sobre los pacientes p
 ReportingsMed=Informes consultas
 MenuFinancialMed=Facturación consultas
 AlertTriggered=Una alerta de tipo %s a sido comprobada %s
+CABINETMED_BANK_PATIENT_REQUIRED=El campo "Banco del cheque" del paciente es obligatorio cuando el pago es por cheque
+EditPatient=Modificar paciente
+ClickHereToSetPrimaryReason=Haga clic aquí para poner el motivo principal de la consulta
+ClickHereToSetSecondaryReason=Haga clic aquí para poner el motivo secundario de la consulta
+ClickHereToSetPrimaryDiagnostic=Haga clic aquí para poner el diagnóstico principal
+ClickHereToSetSecondaryDiagnostic=Haga clic aquí para añadir el diagnóstico secundario
+Gender=Género
+NumberConsultByMonth=Número de consultas por mes
+NumberConsult=Número de consultas
+ActivityBranch=Sector de actividad
+AboutInfo=Este módulo ha sido desarrollado y distribuido por Laurent Destaillerur para NLTechno, <a target="_blank" href="http://www.nltechno.com">www.nltechno.com</a> (Empresa Dolibarr Prefered Partner).
+MoreModules=Otros módulos del mismo autor se encuentran disponibles en la tienda oficial DoliStore...
+MoreModulesLink=<a target="_blank" href="http://www.dolistore.com/search.php?search_query=nltechno">Haga clic aquí para ver el listado</a>
+MoreCloudHosting=Para usar Dolibarr en línea , puede optar por DoliCloud
+MoreCloudHostingLink=<a target="_blank" href="http://www.dolicloud.com">Haga clic aquí para más información</a>
