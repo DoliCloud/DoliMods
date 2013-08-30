@@ -1,7 +1,9 @@
-# Dolibarr language file - es_ES - commercial 
+# Dolibarr language file - es_Es - commercial
 CHARSET=UTF-8
 ActionOnCompany=Evento concerniente a la paciente
 ActionOnContact=Evento concerniente al contacto
+SalesRepresentative=Seguido por
+SalesRepresentatives=Seguido por
 SalesRepresentativeFollowUp=Doctor
 SalesRepresentativeSignature=Doctor
 NoSalesRepresentativeAffected=Ningún doctor afectado

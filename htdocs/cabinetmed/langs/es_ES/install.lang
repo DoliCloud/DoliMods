@@ -1,0 +1,3 @@
+# Dolibarr language file - es_ES - install
+CHARSET=UTF-8
+KeepDefaultValuesWamp=Como utiliza el asistente de instalación de Dolibarr desde DoliMed, los valores propuestos ya están optimizados. No los modifique sin conocimiento de causa.
