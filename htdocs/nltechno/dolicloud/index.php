@@ -198,31 +198,132 @@ $endyear=2013;
 $startyear=$endyear-2;
 
 // array(array(0=>'labelxA',1=>yA1,...,n=>yAn), array('labelxB',yB1,...yBn))
-$data2 = array();
-$statkey='totalcustomers';
+$data1 = array();
 $sql ='SELECT name, x, y FROM '.MAIN_DB_PREFIX.'dolicloud_stats';
-$sql.=" WHERE name = '".$statkey."'";
+$sql.=" WHERE name IN ('total', 'totalcommissions')";
 $resql=$db->query($sql);
 if ($resql)
 {
 	$num = $db->num_rows($resql);
 	$i=0;
 
-	$serie[0]='totalcustomers';
+	$oldx='';
+	$absice=array();
 	while ($i < $num)
 	{
 		$obj=$db->fetch_object($resql);
 		if ($obj->x < $startyear."01") continue;
 		if ($obj->x > $endyear."12") continue;
-		$serie[$obj->x]=$obj->y;
+
+		if ($oldx && $oldx != $obj->x)
+		{
+			// break
+			$absice[0]=preg_replace('/^20/','',$oldx);
+			$benefit=price2num($absice[1] * (1 - $part) - $serverprice - $absice[2], 'MT');
+			$absice[3]=$benefit;
+			ksort($absice);
+			$data1[]=$absice;
+			$absice=array();
+		}
+
+		$oldx=$obj->x;
+
+		if ($obj->name == 'total') $absice[1]=$obj->y;
+		if ($obj->name == 'totalcommissions') $absice[2]=$obj->y;
+
 		$i++;
 	}
 
-	$data2[]=$serie;
+	if ($oldx)
+	{
+		$absice[0]=preg_replace('/^20/','',$oldx);
+		$benefit=price2num($absice[1] * (1 - $part) - $serverprice - $absice[2], 'MT');
+		$absice[3]=$benefit;
+		ksort($absice);
+		$data1[]=$absice;
+	}
 }
 else dol_print_error($db);
 
+
+$data2 = array();
+$sql ='SELECT name, x, y FROM '.MAIN_DB_PREFIX.'dolicloud_stats';
+$sql.=" WHERE name IN ('totalcustomerspaying', 'totalusers')";
+$resql=$db->query($sql);
+if ($resql)
+{
+	$num = $db->num_rows($resql);
+	$i=0;
+
+	$oldx='';
+	$absice=array();
+	while ($i < $num)
+	{
+		$obj=$db->fetch_object($resql);
+		if ($obj->x < $startyear."01") continue;
+		if ($obj->x > $endyear."12") continue;
+
+		if ($oldx && $oldx != $obj->x)
+		{
+			// break
+			$absice[0]=preg_replace('/^20/','',$oldx);
+			ksort($absice);
+			$data2[]=$absice;
+			$absice=array();
+		}
+
+		$oldx=$obj->x;
+
+		if ($obj->name == 'totalcustomerspaying') $absice[1]=$obj->y;
+		if ($obj->name == 'totalusers') $absice[2]=$obj->y;
+
+		$i++;
+	}
+
+	if ($oldx)
+	{
+		$absice[0]=preg_replace('/^20/','',$oldx);
+		ksort($absice);
+		$data2[]=$absice;
+	}
+}
+else dol_print_error($db);
+
+//$WIDTH=DolGraph::getDefaultGraphSizeForStats('width');
+//$HEIGHT=DolGraph::getDefaultGraphSizeForStats('height');
+$WIDTH=800;
+$HEIGHT=300;
+
 // Show graph
+$px1 = new DolGraph();
+$mesg = $px1->isGraphKo();
+if (! $mesg)
+{
+	$px1->SetData($data1);
+	unset($data1);
+	$px1->SetPrecisionY(0);
+
+	$legend=array();
+	$legend[0]=$langs->trans("RevenuePerMonth");
+	$legend[1]=$langs->trans("CommissionPerMonth");
+	$legend[2]=$langs->trans("BenefitDoliCloud");
+
+	$px1->SetLegend($legend);
+	$px1->SetMaxValue($px1->GetCeilMaxValue());
+	$px1->SetWidth($WIDTH);
+	$px1->SetHeight($HEIGHT);
+	$px1->SetYLabel($langs->trans("Nb"));
+	$px1->SetShading(3);
+	$px1->SetHorizTickIncrement(1);
+	$px1->SetPrecisionY(0);
+	$px1->SetCssPrefix("cssboxes");
+	$px1->SetType(array('lines','lines','lines'));
+	$px1->mode='depth';
+	$px1->SetTitle($langs->trans("Amount"));
+
+	$px1->draw('dolicloudamount.png',$fileurlnb);
+}
+
 $px2 = new DolGraph();
 $mesg = $px2->isGraphKo();
 if (! $mesg)
@@ -230,33 +331,33 @@ if (! $mesg)
 	$px2->SetData($data2);
 	unset($data2);
 	$px2->SetPrecisionY(0);
-	$i=$startyear;$legend=array();
-	while ($i <= $endyear)
-	{
-		$legend[]=$i;
-		$i++;
-	}
+
+	$legend=array();
+	$legend[0]=$langs->trans("NbOfCustomersActive");
+	$legend[1]=$langs->trans("NbOfUsers");
+
 	$px2->SetLegend($legend);
 	$px2->SetMaxValue($px2->GetCeilMaxValue());
 	$px2->SetWidth($WIDTH);
 	$px2->SetHeight($HEIGHT);
-	$px2->SetYLabel($langs->trans("AmountOfBillsHT"));
+	$px2->SetYLabel($langs->trans("Nb"));
 	$px2->SetShading(3);
 	$px2->SetHorizTickIncrement(1);
 	$px2->SetPrecisionY(0);
 	$px2->SetCssPrefix("cssboxes");
+	$px2->SetType(array('lines','lines'));
 	$px2->mode='depth';
-	$px2->SetTitle($langs->trans("AmountOfBillsByMonthHT"));
+	$px2->SetTitle($langs->trans("Customers").'/'.$langs->trans("Users"));
 
-	$px2->draw($filenamenb,$fileurlnb);
+	$px2->draw('dolicloudcustomersusers.png',$fileurlnb);
 }
 
 
-print '<div>';
-
+print '<div class="fichecenter"><div class="fichehalfleft">';
+print $px1->show();
+print '</div><div class="fichehalfright"><div class="ficheaddleft">';
 print $px2->show();
-
-print '</div>';
+print '</div></div></div>';
 
 
 // End of page
