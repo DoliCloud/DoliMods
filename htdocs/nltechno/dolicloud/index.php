@@ -352,10 +352,14 @@ if (! $mesg)
 	$px2->draw('dolicloudcustomersusers.png',$fileurlnb);
 }
 
+print '<div class="fichecenter"><br></div>';
 
-print '<div class="fichecenter"><div class="fichehalfleft">';
+//print '<hr>';
+print '<div class="fichecenter liste_titre" style="height: 20px;">'.$langs->trans("Graphics").'</div>';
+
+print '<div class="fichecenter"><div class="fichehalfleft impair">';
 print $px1->show();
-print '</div><div class="fichehalfright"><div class="ficheaddleft">';
+print '</div><div class="fichehalfright"><div class="ficheaddleft impair">';
 print $px2->show();
 print '</div></div></div>';
 
