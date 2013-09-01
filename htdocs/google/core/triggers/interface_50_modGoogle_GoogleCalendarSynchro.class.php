@@ -165,12 +165,12 @@ class InterfaceGoogleCalendarSynchro
 				// Event label can now include company and / or contact info, see configuration
 				$eventlabel = trim($object->label);
 
-				if (! empty($object->societe->id) && $fuser->conf->GOOGLE_EVENT_LABEL_INC_SOCIETE && $fuser->conf->GOOGLE_EVENT_LABEL_INC_SOCIETE == 1 && $object->societe->id > 0) {
+				if (! empty($object->societe->id) && $object->societe->id > 0 && ! empty($conf->GOOGLE_DISABLE_EVENT_LABEL_INC_SOCIETE)) {
 					$societe = new Societe($this->db);
 					$societe->fetch($object->societe->id);
 					$eventlabel .= ' - '.$societe->name;
 				}
-				if (! empty($object->contact->id) && $fuser->conf->GOOGLE_EVENT_LABEL_INC_CONTACT && $fuser->conf->GOOGLE_EVENT_LABEL_INC_CONTACT == 1 && $object->contact->id > 0) {
+				if (! empty($object->contact->id) && $object->contact->id > 0 && ! empty($conf->GOOGLE_DISABLE_EVENT_LABEL_INC_CONTACT)) {
 					$contact = new Contact($this->db);
 					$contact->fetch($object->contact->id);
 					$eventlabel .= ' - '.$contact->getFullName($langs, 1);

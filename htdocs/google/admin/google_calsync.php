@@ -59,13 +59,13 @@ if ($action == 'save')
     if (! $res > 0) $error++;
     $res=dolibarr_set_const($db,'GOOGLE_PASSWORD',trim($_POST["GOOGLE_PASSWORD"]),'chaine',0);
     if (! $res > 0) $error++;
-	$res=dolibarr_set_const($db,'GOOGLE_EVENT_LABEL_INC_SOCIETE',trim($_POST["GOOGLE_EVENT_LABEL_INC_SOCIETE"]),'chaine',0);
+	$res=dolibarr_set_const($db,'GOOGLE_DISABLE_EVENT_LABEL_INC_SOCIETE',trim($_POST["GOOGLE_DISABLE_EVENT_LABEL_INC_SOCIETE"]),'chaine',0);
     if (! $res > 0) $error++;
-	$res=dolibarr_set_const($db,'GOOGLE_EVENT_LABEL_INC_CONTACT',trim($_POST["GOOGLE_EVENT_LABEL_INC_CONTACT"]),'chaine',0);
+	$res=dolibarr_set_const($db,'GOOGLE_DISABLE_EVENT_LABEL_INC_CONTACT',trim($_POST["GOOGLE_DISABLE_EVENT_LABEL_INC_CONTACT"]),'chaine',0);
     if (! $res > 0) $error++;
 	$res=dolibarr_set_const($db,'GOOGLE_CAL_TZ_FIX',trim($_POST["GOOGLE_CAL_TZ_FIX"]),'chaine',0);
     if (! $res > 0) $error++;
-    
+
     if (! $error)
     {
         $db->commit();
@@ -140,7 +140,7 @@ if ($action == 'pushallevents')
 		$event->punctual=$obj->punctual;
 		$event->percent=$obj->percent;
 		$gCals[]=$event;
-		
+
 		$i++;
 	}
 	$result=0;

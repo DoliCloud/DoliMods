@@ -91,8 +91,6 @@ if ($action == 'save' && ($caneditfield  || $user->admin))
         $tabparam["GOOGLE_DUPLICATE_INTO_GCAL"]=$_POST["GOOGLE_DUPLICATE_INTO_GCAL"];
         $tabparam["GOOGLE_LOGIN"]=$_POST["GOOGLE_LOGIN"];
         $tabparam["GOOGLE_PASSWORD"]=$_POST["GOOGLE_PASSWORD"];
-        $tabparam["GOOGLE_EVENT_LABEL_INC_SOCIETE"]=$_POST["GOOGLE_EVENT_LABEL_INC_SOCIETE"];
-		$tabparam["GOOGLE_EVENT_LABEL_INC_CONTACT"]=$_POST["GOOGLE_EVENT_LABEL_INC_CONTACT"];
 
         $result=dol_set_user_param($db, $conf, $fuser, $tabparam);
 
@@ -219,7 +217,7 @@ else
 	else print '<input class="flat" type="password" size="10" name="GOOGLE_PASSWORD" value="'.$fuser->conf->GOOGLE_PASSWORD.'">';
 	print "</td>";
 	print "</tr>";
-	// Configuration du masque du libellé de l'évènement
+	/* Done by default
 	$var=!$var;
 	print "<tr ".$bc[$var].">";
 	print "<td>".$langs->trans("GOOGLE_EVENT_LABEL_INC_SOCIETE")."<br /></td>";
@@ -234,6 +232,7 @@ else
 	print $form->selectyesno("GOOGLE_EVENT_LABEL_INC_CONTACT",isset($_POST["GOOGLE_EVENT_LABEL_INC_CONTACT"])?$_POST["GOOGLE_EVENT_LABEL_INC_CONTACT"]:$fuser->conf->GOOGLE_EVENT_LABEL_INC_CONTACT,1);
 	print "</td>";
 	print "</tr>";
+	*/
 
 	print "</table>";
 	print "<br>";

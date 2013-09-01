@@ -42,6 +42,7 @@ if (! $res && file_exists("../../../../dolibarr/htdocs/main.inc.php")) $res=@inc
 if (! $res && file_exists("../../../../../dolibarr/htdocs/main.inc.php")) $res=@include("../../../../../dolibarr/htdocs/main.inc.php");   // Used on dev env only
 if (! $res) die("Include of main fails");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/company.lib.php");
+require_once(DOL_DOCUMENT_ROOT."/core/class/dolgraph.class.php");
 // Change this following line to use the correct relative path from htdocs (do not remove DOL_DOCUMENT_ROOT)
 dol_include_once("/nltechno/class/dolicloudcustomer.class.php");
 dol_include_once("/nltechno/dolicloud/lib/refresh.lib.php");
@@ -192,6 +193,70 @@ print '</table>';
 
 
 print '</div></div></div>';
+
+$endyear=2013;
+$startyear=$endyear-2;
+
+// array(array(0=>'labelxA',1=>yA1,...,n=>yAn), array('labelxB',yB1,...yBn))
+$data2 = array();
+$statkey='totalcustomers';
+$sql ='SELECT name, x, y FROM '.MAIN_DB_PREFIX.'dolicloud_stats';
+$sql.=" WHERE name = '".$statkey."'";
+$resql=$db->query($sql);
+if ($resql)
+{
+	$num = $db->num_rows($resql);
+	$i=0;
+
+	$serie[0]='totalcustomers';
+	while ($i < $num)
+	{
+		$obj=$db->fetch_object($resql);
+		if ($obj->x < $startyear."01") continue;
+		if ($obj->x > $endyear."12") continue;
+		$serie[$obj->x]=$obj->y;
+		$i++;
+	}
+
+	$data2[]=$serie;
+}
+else dol_print_error($db);
+
+// Show graph
+$px2 = new DolGraph();
+$mesg = $px2->isGraphKo();
+if (! $mesg)
+{
+	$px2->SetData($data2);
+	unset($data2);
+	$px2->SetPrecisionY(0);
+	$i=$startyear;$legend=array();
+	while ($i <= $endyear)
+	{
+		$legend[]=$i;
+		$i++;
+	}
+	$px2->SetLegend($legend);
+	$px2->SetMaxValue($px2->GetCeilMaxValue());
+	$px2->SetWidth($WIDTH);
+	$px2->SetHeight($HEIGHT);
+	$px2->SetYLabel($langs->trans("AmountOfBillsHT"));
+	$px2->SetShading(3);
+	$px2->SetHorizTickIncrement(1);
+	$px2->SetPrecisionY(0);
+	$px2->SetCssPrefix("cssboxes");
+	$px2->mode='depth';
+	$px2->SetTitle($langs->trans("AmountOfBillsByMonthHT"));
+
+	$px2->draw($filenamenb,$fileurlnb);
+}
+
+
+print '<div>';
+
+print $px2->show();
+
+print '</div>';
 
 
 // End of page
