@@ -77,11 +77,7 @@ $action=$argv[1];
 $nbofok=0;
 $nboferrors=0;
 
-// Start of transaction
-$db->begin();
 
-
-// Examples for manipulating class skeleton_class
 dol_include_once('/nltechno/class/dolicloudcustomer.class.php');
 $object=new Dolicloudcustomer($db);
 
@@ -168,7 +164,7 @@ if ($action == 'backup' || $action == 'backuptestrsync' || $action == 'backuptes
 
 				if ($action == 'backup')
 				{
-					$object->date_lastrsync=$now;	// date last files and database rsync
+					$object->date_lastrsync=$now;	// date last files and database rsync backup
 					$object->update();
 				}
 
@@ -218,17 +214,15 @@ if ($action == 'updatedatabase')
 
 			$object->oldcopy=dol_clone($object);
 
-			// Files refresh
+			// Files refresh (does not update lastcheck field)
 			//$ret=dolicloud_files_refresh($conf,$db,$object,$errors);
 
-			// Database refresh
-			$ret=dolicloud_database_refresh($conf,$db,$object,$errors);
+			// Database refresh (also update lastcheck field)
+			$ret=dolicloud_database_refresh($conf,$db,$object,$errors);		// Update database (or not if error
 
 			if (count($errors) == 0)
 			{
-				print 'OK. Update data and last update date'."\n";
-				$object->date_lastrsync=$now;	// date last files and database rsync
-				$object->update();
+				print "OK.\n";
 
 				$nbofok++;
 				$db->commit();

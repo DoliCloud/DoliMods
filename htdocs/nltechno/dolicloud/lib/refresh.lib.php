@@ -1,16 +1,18 @@
 <?php
 // Files with some lib
 
-include(DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php');
+include_once(DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php');
 
 
 /**
- * Process refresh of setup files for customer $object
+ * Process refresh of setup files for customer $object.
+ * This does not update any lastcheck fields.
  *
  * @param 	Conf				$conf		Conf
  * @param 	Database			$db			Database handler
  * @param 	DoliCloudCustomer 	&$object	Customer (can modify caller)
  * @param	array				&$errors	Array of errors
+ * @return	int								1
  */
 function dolicloud_files_refresh($conf, $db, &$object, &$errors)
 {
@@ -86,122 +88,134 @@ function dolicloud_files_refresh($conf, $db, &$object, &$errors)
 
 /**
  * Process refresh of database for customer $object
+ * This also update database field lastcheck.
  *
  * @param 	Conf				$conf		Conf
  * @param 	Database			$db			Database handler
  * @param 	DoliCloudCustomer 	&$object	Customer (can modify caller)
  * @param	array				&$errors	Array of errors
+ * @return	int								1
  */
 function dolicloud_database_refresh($conf, $db, &$object, &$errors)
 {
 	$newdb=getDoliDBInstance($conf->db->type, $object->instance.'.on.dolicloud.com', $object->username_db, $object->password_db, $object->database_db, 3306);
-	if (is_object($newdb) && $newdb->connected)
+	if (is_object($newdb))
 	{
 		$error=0;
+		$done=0;
 
-		// Get user/pass of last admin user
-		if (! $error)
+		if ($newdb->connected)
 		{
-			$sql="SELECT login, pass FROM llx_user WHERE admin = 1 ORDER BY statut DESC, datelastlogin DESC LIMIT 1";
-			$resql=$newdb->query($sql);
-			if ($resql)
+			// Get user/pass of last admin user
+			if (! $error)
 			{
-				$obj = $newdb->fetch_object($resql);
-				$object->lastlogin_admin=$obj->login;
-				$object->lastpass_admin=$obj->pass;
-				$lastloginadmin=$object->lastlogin_admin;
-				$lastpassadmin=$object->lastpass_admin;
-			}
-			else $error++;
-		}
-
-		// Get list of modules
-		if (! $error)
-		{
-			$modulesenabled=array(); $lastinstall=''; $lastupgrade='';
-			$sql="SELECT name, value FROM llx_const WHERE name LIKE 'MAIN_MODULE_%' or name = 'MAIN_VERSION_LAST_UPGRADE' or name = 'MAIN_VERSION_LAST_INSTALL'";
-			$resql=$newdb->query($sql);
-			if ($resql)
-			{
-				$num=$newdb->num_rows($resql);
-				$i=0;
-				while ($i < $num)
+				$sql="SELECT login, pass FROM llx_user WHERE admin = 1 ORDER BY statut DESC, datelastlogin DESC LIMIT 1";
+				dol_syslog('sql='.$sql);
+				$resql=$newdb->query($sql);
+				if ($resql)
 				{
 					$obj = $newdb->fetch_object($resql);
-					if (preg_match('/MAIN_MODULE_/',$obj->name))
-					{
-						$name=preg_replace('/^[^_]+_[^_]+_/','',$obj->name);
-						if (! preg_match('/_/',$name)) $modulesenabled[$name]=$name;
-					}
-					if (preg_match('/MAIN_VERSION_LAST_UPGRADE/',$obj->name))
-					{
-						$lastupgrade=$obj->value;
-					}
-					if (preg_match('/MAIN_VERSION_LAST_INSTALL/',$obj->name))
-					{
-						$lastinstall=$obj->value;
-					}
-					$i++;
+					$object->lastlogin_admin=$obj->login;
+					$object->lastpass_admin=$obj->pass;
+					$lastloginadmin=$object->lastlogin_admin;
+					$lastpassadmin=$object->lastpass_admin;
 				}
-				$object->modulesenabled=join(',',$modulesenabled);
-				$object->version=($lastupgrade?$lastupgrade:$lastinstall);
+				else $error++;
 			}
-			else $error++;
+
+			// Get list of modules
+			if (! $error)
+			{
+				$modulesenabled=array(); $lastinstall=''; $lastupgrade='';
+				$sql="SELECT name, value FROM llx_const WHERE name LIKE 'MAIN_MODULE_%' or name = 'MAIN_VERSION_LAST_UPGRADE' or name = 'MAIN_VERSION_LAST_INSTALL'";
+				dol_syslog('sql='.$sql);
+				$resql=$newdb->query($sql);
+				if ($resql)
+				{
+					$num=$newdb->num_rows($resql);
+					$i=0;
+					while ($i < $num)
+					{
+						$obj = $newdb->fetch_object($resql);
+						if (preg_match('/MAIN_MODULE_/',$obj->name))
+						{
+							$name=preg_replace('/^[^_]+_[^_]+_/','',$obj->name);
+							if (! preg_match('/_/',$name)) $modulesenabled[$name]=$name;
+						}
+						if (preg_match('/MAIN_VERSION_LAST_UPGRADE/',$obj->name))
+						{
+							$lastupgrade=$obj->value;
+						}
+						if (preg_match('/MAIN_VERSION_LAST_INSTALL/',$obj->name))
+						{
+							$lastinstall=$obj->value;
+						}
+						$i++;
+					}
+					$object->modulesenabled=join(',',$modulesenabled);
+					$object->version=($lastupgrade?$lastupgrade:$lastinstall);
+				}
+				else $error++;
+			}
+
+			// Get nb of users
+			if (! $error)
+			{
+				$sql="SELECT COUNT(login) as nbofusers FROM llx_user WHERE statut <> 0";
+				dol_syslog('sql='.$sql);
+				$resql=$newdb->query($sql);
+				if ($resql)
+				{
+					$obj = $newdb->fetch_object($resql);
+					$object->nbofusers	= $obj->nbofusers;
+				}
+				else $error++;
+			}
+
+			$deltatzserver=(getServerTimeZoneInt()-0)*3600;	// Diff between TZ of NLTechno and DoliCloud
+
+			// Get last login of users
+			if (! $error)
+			{
+				$sql="SELECT login, pass, datelastlogin FROM llx_user WHERE statut <> 0 ORDER BY datelastlogin DESC LIMIT 1";
+				dol_syslog('sql='.$sql);
+				$resql=$newdb->query($sql);
+				if ($resql)
+				{
+					$obj = $newdb->fetch_object($resql);
+
+					$object->lastlogin  = $obj->login;
+					$object->lastpass   = $obj->pass;
+					$object->date_lastlogin = ($obj->datelastlogin ? ($newdb->jdate($obj->datelastlogin)+$deltatzserver) : '');
+				}
+				else
+				{
+					$error++;
+					$errors[]='Failed to connect to database '.$object->instance.'.on.dolicloud.com'.' '.$object->username_db;
+				}
+			}
+
+			$done++;
 		}
-
-		// Get nb of users
-		if (! $error)
+		else
 		{
-			$sql="SELECT COUNT(login) as nbofusers FROM llx_user WHERE statut <> 0";
-			$resql=$newdb->query($sql);
-			if ($resql)
-			{
-				$obj = $newdb->fetch_object($resql);
-				$object->nbofusers	= $obj->nbofusers;
-			}
-			else $error++;
-		}
-
-		$deltatzserver=(getServerTimeZoneInt()-0)*3600;	// Diff between TZ of NLTechno and DoliCloud
-
-		// Get last login of users
-		if (! $error)
-		{
-			$sql="SELECT login, pass, datelastlogin FROM llx_user WHERE statut <> 0 ORDER BY datelastlogin DESC LIMIT 1";
-			$resql=$newdb->query($sql);
-			if ($resql)
-			{
-				$obj = $newdb->fetch_object($resql);
-
-				$object->lastlogin  = $obj->login;
-				$object->lastpass   = $obj->pass;
-				$object->date_lastlogin = ($obj->datelastlogin ? ($newdb->jdate($obj->datelastlogin)+$deltatzserver) : '');
-			}
-			else
-			{
-				$error++;
-				$errors[]='Failed to connect to database '.$object->instance.'.on.dolicloud.com'.' '.$object->username_db;
-			}
+			$errors[]='Failed to connect '.$conf->db->type.' '.$object->instance.'.on.dolicloud.com '.$object->username_db.' '.$object->password_db.' '.$object->database_db.' 3306';
 		}
 
 		$newdb->close();
 
-		if (! $error)
+		if (! $error && $done)
 		{
-			$result = $object->update($user);
+			$now=dol_now();
+			$object->lastcheck=$now;
+
+			$result = $object->update($user);	// persist
 
 			if ($result < 0)
 			{
+				dol_syslog("Failed to persist data on object into database", LOG_ERR);
 				if ($object->error) $errors[]=$object->error;
 				$errors=array_merge($errors,$object->errors);
-			}
-			else
-			{
-				$now=dol_now();
-				$sql="UPDATE ".MAIN_DB_PREFIX."dolicloud_customers SET lastcheck = '".$db->idate($now)."' where instance ='".$object->instance."'";
-				$db->query($sql);
-
-				$object->lastcheck=$now;
 			}
 		}
 	}

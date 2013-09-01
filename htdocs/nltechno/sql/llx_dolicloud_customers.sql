@@ -48,7 +48,7 @@ CREATE TABLE llx_dolicloud_customers
 	port_db integer,
 	username_db varchar(128),
 	password_db varchar(128),
-	lastcheck datetime,
+	lastcheck datetime,							-- date last update successful of instance content
 	nbofusers integer,
 	lastlogin varchar(128),
 	lastpass varchar(128),
@@ -64,5 +64,5 @@ CREATE TABLE llx_dolicloud_customers
 	paymentfrequency varchar(32),
 	fileauthorizedkey datetime default NULL,
 	filelock datetime default NULL,
-    lastrsync datetime default NULL
+    lastrsync datetime default NULL			-- date last rsync backup
 ) ENGINE = innodb;

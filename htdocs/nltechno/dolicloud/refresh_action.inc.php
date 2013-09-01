@@ -236,10 +236,10 @@ if ($action == 'refresh' || $action == 'setdate')
 
 	$object->oldcopy=dol_clone($object);
 
-	// Setup files refresh
+	// Setup files refresh (does not update lastcheck field)
 	$ret=dolicloud_files_refresh($conf,$db,$object,$errors);
 
-	// Database refresh
+	// Database refresh (also update lastcheck field)
 	$ret=dolicloud_database_refresh($conf,$db,$object,$errors);
 
 	$action = 'view';
