@@ -16,7 +16,7 @@
  */
 
 /**
- *   	\file       htdocs/nltechno/dolicloud/dolicloud_customers.php
+ *   	\file       htdocs/nltechno/dolicloud/index.php
  *		\ingroup    nltechno
  *		\brief      Home page of DoliCloud service
  */
@@ -44,6 +44,7 @@ if (! $res) die("Include of main fails");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/company.lib.php");
 // Change this following line to use the correct relative path from htdocs (do not remove DOL_DOCUMENT_ROOT)
 dol_include_once("/nltechno/class/dolicloudcustomer.class.php");
+dol_include_once("/nltechno/dolicloud/lib/refresh.lib.php");
 
 // Load traductions files requiredby by page
 $langs->load("companies");
@@ -118,96 +119,27 @@ print "</table></form><br>";
 print '</div><div class="fichetwothirdright"><div class="ficheaddleft">';
 
 
-$sql = "SELECT";
-$sql.= " t.rowid,";
-
-$sql.= " t.instance,";
-$sql.= " t.organization,";
-$sql.= " t.email,";
-$sql.= " t.plan,";
-$sql.= " t.date_registration,";
-$sql.= " t.date_endfreeperiod,";
-$sql.= " t.status,";
-$sql.= " t.partner,";
-$sql.= " t.total_invoiced,";
-$sql.= " t.total_payed,";
-$sql.= " t.tms,";
-$sql.= " t.hostname_web,";
-$sql.= " t.username_web,";
-$sql.= " t.password_web,";
-$sql.= " t.hostname_db,";
-$sql.= " t.database_db,";
-$sql.= " t.port_db,";
-$sql.= " t.username_db,";
-$sql.= " t.password_db,";
-$sql.= " t.lastcheck,";
-$sql.= " t.nbofusers,";
-$sql.= " t.lastlogin,";
-$sql.= " t.lastpass,";
-$sql.= " t.date_lastlogin,";
-$sql.= " t.modulesenabled,";
-$sql.= " p.price_instance,";
-$sql.= " p.price_user,";
-$sql.= " p.price_gb";
-$sql.= " FROM ".MAIN_DB_PREFIX."dolicloud_customers as t";
-$sql.= " LEFT JOIN ".MAIN_DB_PREFIX."c_dolicloud_plans as p ON t.plan = p.code";
-//$sql.= $db->order($sortfield,$sortorder);
-//$sql.= $db->plimit($conf->liste_limit +1, $offset);
-
-$totalusers=0;
-$totalcustomers=0;
-$totalcustomerspaying=0;
-$totalcommissions=0;
-$total=0;
-
-$var=false;
-
-dol_syslog($script_file." sql=".$sql, LOG_DEBUG);
-$resql=$db->query($sql);
-if ($resql)
-{
-    $num = $db->num_rows($resql);
-    $i = 0;
-    if ($num)
-    {
-        while ($i < $num)
-        {
-            $obj = $db->fetch_object($resql);
-            if ($obj)
-            {
-				//print $price."=".$obj->price_instance." + (".$obj->nbofusers." * ".$obj->price_user.")<br>\n";
-                $price=$obj->price_instance + ($obj->nbofusers * $obj->price_user);
-                $totalcustomers++;
-				$totalusers+=$obj->nbofusers;
-                if ($obj->status != 'ACTIVE')
-                {
-                }
-                else
-              {
-                	$totalcustomerspaying++;
-                	$total+=$price;
-                	if (! empty($obj->partner))
-                	{
-                		$totalcommissions+=price2num($price * 0.2);
-                	}
-                }
-            }
-            $i++;
-        }
-    }
-}
-else
-{
-    $error++;
-    dol_print_error($db);
-}
-
-// Show totals
 $serverlocation=140;	// Price dollar
 $dollareuro=0.78;		// Price euro
 $serverprice=price2num($serverlocation * $dollareuro, 'MT');
 $part=0.3;	// 30%
 
+$total=0;
+$totalusers=0;
+$totalcustomers=0;
+$totalcustomerspaying=0;
+$totalcommissions=0;
+
+$rep=dolicloud_calculate_stats($db);
+
+$total=$rep['total'];
+$totalcommissions=$rep['totalcommissions'];
+$totalcustomerspaying=$rep['totalcustomerspaying'];
+$totalcustomers=$rep['totalcustomers'];
+$totalusers=$rep['totalusers'];
+$benefit=($total * (1 - $part) - $serverprice - $totalcommissions);
+
+// Show totals
 $var=false;
 print '<table class="noborder" width="100%">';
 print '<tr class="liste_titre">';
@@ -254,7 +186,7 @@ print '<br>(';
 //print price($total,1).' - '.($part*100).'% - '.price($serverlocation).'$= ';
 print price($total,1).' - '.($part*100).'% - '.price($serverprice).'€ - '.price($totalcommissions).'€ = '.price($total * (1 - $part)).'€ - '.price($serverprice).'€ - '.price($totalcommissions).'€';
 print ')</td><td align="right">';
-print '<font size="+2">'.price(($total * (1 - $part) - $serverprice - $totalcommissions),1).' </font>';
+print '<font size="+2">'.price($benefit,1).' </font>';
 print '</td></tr>';
 print '</table>';
 

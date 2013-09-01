@@ -47,6 +47,7 @@ if (! $res && file_exists("../../master.inc.php")) $res=@include("../../master.i
 if (! $res && file_exists("../../../master.inc.php")) $res=@include("../../../master.inc.php");
 if (! $res) die ("Failed to include master.inc.php file\n");
 // After this $db, $mysoc, $langs and $conf->entity are defined. Opened handler to database will be closed at end of file.
+dol_include_once("/nltechno/dolicloud/lib/refresh.lib.php");
 
 //$langs->setDefaultLang('en_US'); 	// To change default language of $langs
 $langs->load("main");				// To load language file for default language
@@ -115,7 +116,7 @@ else
 	$nboferrors++;
 	dol_print_error($db);
 }
-print "Found ".count($instances)." instances\n";
+print "Found ".count($instances)." instances.\n";
 
 
 //print "----- Start loop for backup_instance\n";
@@ -232,6 +233,90 @@ if ($action == 'updatedatabase')
 				$nboferrors++;
 				print 'KO. '.join(',',$errors)."\n";
 				$db->rollback();
+			}
+		}
+	}
+
+
+	$stats=array();
+
+	// Get list of stats
+	$sql ="SELECT name, x, y";
+	$sql.=" FROM ".MAIN_DB_PREFIX."dolicloud_stats";
+
+	dol_syslog($script_file." sql=".$sql, LOG_DEBUG);
+	$resql=$db->query($sql);
+	if ($resql)
+	{
+		$num = $db->num_rows($resql);
+		$i = 0;
+		if ($num)
+		{
+			while ($i < $num)
+			{
+				$obj = $db->fetch_object($resql);
+				if ($obj)
+				{
+					$stats[$obj->name][$obj->x]=$obj->y;
+					print "Found stats for ".$obj->name." x=".$obj->x." y=".$obj->y."\n";
+				}
+				$i++;
+			}
+		}
+	}
+	else
+	{
+		$error++;
+		$nboferrors++;
+		dol_print_error($db);
+	}
+	//print "Found already existing stats entries.\n";
+
+	$today=dol_now();
+
+	// Update all stats
+	for($year = 2012; $year <= 2013; $year++)
+	{
+		for($m = 1; $m <= 12; $m++)
+		{
+			$datelim=dol_get_last_day($year, $m, 1);
+			if ($datelim >= $today) continue;
+
+			$x=sprintf("%04d%02d",$year,$m);
+
+			$statkeylist=array('total','totalcommissions','totalcustomerspaying','totalcustomers','totalusers','benefit');
+			foreach($statkeylist as $statkey)
+			{
+				if (! isset($stats[$statkey][$x]))
+				{
+					// Calculate stats fro this key
+					print "Calculate and update stats for ".$statkey." x=".$x;
+
+					$rep=dolicloud_calculate_stats($db,$datelim);
+
+					$total=$rep['total'];
+					$totalcommissions=$rep['totalcommissions'];
+					$totalcustomerspaying=$rep['totalcustomerspaying'];
+					$totalcustomers=$rep['totalcustomers'];
+					$totalusers=$rep['totalusers'];
+					$benefit=($total * (1 - $part) - $serverprice - $totalcommissions);
+
+					$y=0;
+					if ($statkey == 'total') $y=$total;
+					if ($statkey == 'totalcommissions') $y=$totalcommissions;
+					if ($statkey == 'totalcustomerspaying') $y=$totalcustomerspaying;
+					if ($statkey == 'totalcustomers') $y=$totalcustomers;
+					if ($statkey == 'totalusers') $y=$totalusers;
+					if ($statkey == 'benefit') $y=$benefit;
+
+					print " -> ".$y."\n";
+
+					$sql ="INSERT INTO ".MAIN_DB_PREFIX."dolicloud_stats(name, x, y)";
+					$sql.=" VALUES('".$statkey."', '".$x."', ".$y.")";
+					dol_syslog("sql=".$sql);
+					$resql=$db->query($sql);
+					if (! $resql) dol_print_error($db,'');
+				}
 			}
 		}
 	}
