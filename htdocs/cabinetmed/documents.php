@@ -171,22 +171,17 @@ if ($action == 'builddoc')  // En get ou en post
         // Define output language
         $outputlangs = $langs;
         $newlang='';
-        if ($conf->global->MAIN_MULTILANGS && empty($newlang) && ! empty($_REQUEST['lang_id'])) $newlang=$_REQUEST['lang_id'];
+        if ($conf->global->MAIN_MULTILANGS && empty($newlang) && GETPOST('lang_id')) $newlang=GETPOST('lang_id');
         //if ($conf->global->MAIN_MULTILANGS && empty($newlang)) $newlang=$fac->client->default_lang;
         if (! empty($newlang))
         {
             $outputlangs = new Translate("",$conf);
             $outputlangs->setDefaultLang($newlang);
         }
-        $result=thirdparty_doc_create($db, $soc, '', $_REQUEST['model'], $outputlangs);
+        $result=thirdparty_doc_create($db, $soc, '', GETPOST('model','alpha'), $outputlangs);
         if ($result <= 0)
         {
             dol_print_error($db,$result);
-            exit;
-        }
-        else
-        {
-            Header('Location: '.$_SERVER["PHP_SELF"].'?socid='.$soc->id.(empty($conf->global->MAIN_JUMP_TAG)?'':'#builddoc'));
             exit;
         }
     }
