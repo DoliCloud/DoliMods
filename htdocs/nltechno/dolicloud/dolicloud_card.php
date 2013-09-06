@@ -721,7 +721,8 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 	print '<table class="border" width="100%">';
 
 	// SFTP
-	print '<tr><td width="20%">'.$langs->trans("SFTP Server").'</td><td colspan="3">'.$object->hostname_web.'</td>';
+	print '<tr><td width="20%">'.$langs->trans("SFTP Server").'</td><td>'.$object->hostname_web.'</td>';
+	print '<td>'.$langs->trans("FsPath").'</td><td>/home/jail/home/'.$object->username_web.'/'.(preg_replace('/_([a-zA-Z0-9]+)$/','',$object->database_db)).'</td>';
 	print '</tr>';
 	// Login/Pass
 	print '<tr>';
