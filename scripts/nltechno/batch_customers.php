@@ -279,20 +279,21 @@ if ($action == 'updatedatabase')
 	{
 		for($m = 1; $m <= 12; $m++)
 		{
-			$datelim=dol_get_last_day($year, $m, 1);
-			if ($datelim >= $today) continue;
+			$datefirstday=dol_get_first_day($year, $m, 1);
+			$datelastday=dol_get_last_day($year, $m, 1);
+			if ($datefirstday > $today) continue;
 
 			$x=sprintf("%04d%02d",$year,$m);
 
 			$statkeylist=array('total','totalcommissions','totalcustomerspaying','totalcustomers','totalusers','benefit');
 			foreach($statkeylist as $statkey)
 			{
-				if (! isset($stats[$statkey][$x]))
+				if (! isset($stats[$statkey][$x]) || ($today <= $datelastday))
 				{
 					// Calculate stats fro this key
 					print "Calculate and update stats for ".$statkey." x=".$x;
 
-					$rep=dolicloud_calculate_stats($db,$datelim);
+					$rep=dolicloud_calculate_stats($db,$datelastday);
 
 					$total=$rep['total'];
 					$totalcommissions=$rep['totalcommissions'];
@@ -310,6 +311,15 @@ if ($action == 'updatedatabase')
 					if ($statkey == 'benefit') $y=$benefit;
 
 					print " -> ".$y."\n";
+
+					if ($today <= $datelastday)
+					{
+						$sql ="DELETE FROM ".MAIN_DB_PREFIX."dolicloud_stats";
+						$sql.=" WHERE name = '".$statkey."'";
+						dol_syslog("sql=".$sql);
+						$resql=$db->query($sql);
+						if (! $resql) dol_print_error($db,'');
+					}
 
 					$sql ="INSERT INTO ".MAIN_DB_PREFIX."dolicloud_stats(name, x, y)";
 					$sql.=" VALUES('".$statkey."', '".$x."', ".$y.")";

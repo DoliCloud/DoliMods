@@ -291,8 +291,8 @@ else dol_print_error($db);
 
 //$WIDTH=DolGraph::getDefaultGraphSizeForStats('width');
 //$HEIGHT=DolGraph::getDefaultGraphSizeForStats('height');
-$WIDTH=800;
-$HEIGHT=300;
+$WIDTH=600;
+$HEIGHT=260;
 
 // Show graph
 $px1 = new DolGraph();
@@ -357,11 +357,12 @@ print '<div class="fichecenter"><br></div>';
 //print '<hr>';
 print '<div class="fichecenter liste_titre" style="height: 20px;">'.$langs->trans("Graphics").'</div>';
 
-print '<div class="fichecenter"><div class="fichehalfleft impair">';
+print '<div class="fichecenter"><div class="impair"><center>';
 print $px1->show();
-print '</div><div class="fichehalfright"><div class="ficheaddleft impair">';
+print '</center></div></div>';
+print '<div class="fichecenter"><div class="impair"><center>';
 print $px2->show();
-print '</div></div></div>';
+print '</center></div></div>';
 
 
 // End of page
