@@ -236,13 +236,14 @@ function dolicloud_database_refresh($conf, $db, &$object, &$errors)
 
 
 /**
- * Calculate stats
+ * Calculate stats ('total', 'totalcommissions', 'totalcustomerspaying' (nbclients 'ACTIVE'), 'totalcustomers' (nb clients), 'totalusers')
+ * at date datelim.
  *
  * @param	Database	$db			Database handler
  * @param	date		$datelim	Date limit
  * @return	array					Array of data
  */
-function dolicloud_calculate_stats($db, $datelim=0)
+function dolicloud_calculate_stats($db, $datelim)
 {
 	$sql = "SELECT";
 	$sql.= " t.rowid,";
@@ -276,10 +277,8 @@ function dolicloud_calculate_stats($db, $datelim=0)
 	$sql.= " p.price_gb";
 	$sql.= " FROM ".MAIN_DB_PREFIX."dolicloud_customers as t";
 	$sql.= " LEFT JOIN ".MAIN_DB_PREFIX."c_dolicloud_plans as p ON t.plan = p.code";
-	if ($datelim)
-	{
-		$sql.= " WHERE t.date_endfreeperiod < '".$db->idate($datelim)."'";
-	}
+	$sql.= " WHERE t.date_endfreeperiod < '".$db->idate($datelim)."'";
+	$sql.= " AND t.status <> 'TRIAL'";
 	//$sql.= $db->order($sortfield,$sortorder);
 	//$sql.= $db->plimit($conf->liste_limit +1, $offset);
 

@@ -190,6 +190,8 @@ if ($action == 'backup' || $action == 'backuptestrsync' || $action == 'backuptes
 
 print "----- Start updatedatabase\n";
 
+$today=dol_now();
+
 $error=''; $errors=array();
 
 if ($action == 'updatedatabase')
@@ -199,7 +201,6 @@ if ($action == 'updatedatabase')
 	{
 		foreach($instances as $instance)
 		{
-			$now=dol_now();
 			$return_val=0;
 			$error=0; $errors=array();
 
@@ -270,8 +271,6 @@ if ($action == 'updatedatabase')
 	}
 	//print "Found already existing stats entries.\n";
 
-	$today=dol_now();
-
 	// Update all stats
 	for($year = 2012; $year <= 2013; $year++)
 	{
@@ -289,7 +288,7 @@ if ($action == 'updatedatabase')
 				if (! isset($stats[$statkey][$x]) || ($today <= $datelastday))
 				{
 					// Calculate stats fro this key
-					print "Calculate and update stats for ".$statkey." x=".$x;
+					print "Calculate and update stats for ".$statkey." x=".$x.' datelastday='.dol_print_date($datelastday, 'dayhour', 'gmt');
 
 					$rep=dolicloud_calculate_stats($db,$datelastday);
 

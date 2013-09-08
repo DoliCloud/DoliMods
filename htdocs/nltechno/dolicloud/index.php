@@ -96,6 +96,14 @@ llxHeader('',$langs->transnoentitiesnoconv('DoliCloudCustomers'),'');
 
 print_fiche_titre($langs->trans("DoliCloudArea"));
 
+$tmparray=dol_getdate(dol_now());
+
+
+$endyear=$tmparray['year'];
+$endmonth=$tmparray['mon'];
+$startyear=$endyear-2;
+$datelastday=dol_get_last_day($endyear, $endmonth, 1);
+
 
 print '<div class="fichecenter"><div class="fichethirdleft">';
 
@@ -125,7 +133,7 @@ $totalcustomers=0;
 $totalcustomerspaying=0;
 $totalcommissions=0;
 
-$rep=dolicloud_calculate_stats($db);
+$rep=dolicloud_calculate_stats($db,$datelastday);
 
 $total=$rep['total'];
 $totalcommissions=$rep['totalcommissions'];
@@ -188,8 +196,6 @@ print '</table>';
 
 print '</div></div></div>';
 
-$endyear=2013;
-$startyear=$endyear-2;
 
 // array(array(0=>'labelxA',1=>yA1,...,n=>yAn), array('labelxB',yB1,...yBn))
 $data1 = array();
