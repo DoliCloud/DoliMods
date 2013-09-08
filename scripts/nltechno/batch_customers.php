@@ -315,7 +315,7 @@ if ($action == 'updatedatabase')
 					if ($today <= $datelastday)
 					{
 						$sql ="DELETE FROM ".MAIN_DB_PREFIX."dolicloud_stats";
-						$sql.=" WHERE name = '".$statkey."'";
+						$sql.=" WHERE name = '".$statkey."' AND x='".$x."'";
 						dol_syslog("sql=".$sql);
 						$resql=$db->query($sql);
 						if (! $resql) dol_print_error($db,'');
