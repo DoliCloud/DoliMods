@@ -120,11 +120,6 @@ print "</table></form><br>";
 print '</div><div class="fichetwothirdright"><div class="ficheaddleft">';
 
 
-$serverlocation=140;	// Price dollar
-$dollareuro=0.78;		// Price euro
-$serverprice=price2num($serverlocation * $dollareuro, 'MT');
-$part=0.3;	// 30%
-
 $total=0;
 $totalusers=0;
 $totalcustomers=0;
