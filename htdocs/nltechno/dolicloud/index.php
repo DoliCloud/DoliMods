@@ -43,6 +43,7 @@ if (! $res && file_exists("../../../../../dolibarr/htdocs/main.inc.php")) $res=@
 if (! $res) die("Include of main fails");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/company.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/class/dolgraph.class.php");
+dol_include_once('/nltechno/class/dolicloudcustomer.class.php');
 include_once dol_buildpath("/nltechno/dolicloud/lib/refresh.lib.php");		// do not use dol_buildpth to keep global declaration working
 
 // Load traductions files requiredby by page
