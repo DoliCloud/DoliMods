@@ -47,7 +47,7 @@ if (! $res && file_exists("../../master.inc.php")) $res=@include("../../master.i
 if (! $res && file_exists("../../../master.inc.php")) $res=@include("../../../master.inc.php");
 if (! $res) die ("Failed to include master.inc.php file\n");
 // After this $db, $mysoc, $langs and $conf->entity are defined. Opened handler to database will be closed at end of file.
-dol_include_once("/nltechno/dolicloud/lib/refresh.lib.php");
+include_once dol_buildpath("/nltechno/dolicloud/lib/refresh.lib.php");		// do not use dol_buildpth to keep global declaration working
 
 //$langs->setDefaultLang('en_US'); 	// To change default language of $langs
 $langs->load("main");				// To load language file for default language
@@ -191,8 +191,6 @@ if ($action == 'backup' || $action == 'backuptestrsync' || $action == 'backuptes
 print "----- Start updatedatabase\n";
 
 $error=''; $errors=array();
-
-dol_include_once('/nltechno/dolicloud/lib/refresh.lib.php');
 
 if ($action == 'updatedatabase')
 {
