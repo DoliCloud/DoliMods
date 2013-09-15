@@ -68,7 +68,7 @@ if (substr($_SERVER["PATH_INFO"],-7) == '/scrape')
 
 		while ($row = mysql_fetch_row($query))
 		{
-			$hash = hex2bin($row[0]);
+			$hash = bt_hex2bin($row[0]);
 			echo "20:".$hash."d";
 			echo "8:completei".$row[1]."e";
 			echo "10:downloadedi".$row[3]."e";
@@ -247,7 +247,7 @@ function start($info_hash, $ip, $port, $peer_id, $left)
 	$GLOBALS["trackerid"] = mysql_insert_id();
 
 	$compact = mysql_escape_string(pack('Nn', ip2long($ip), $port));
-	$peerid = mysql_escape_string('2:ip' . strlen($ip) . ':' . $ip . '7:peer id20:' . hex2bin($peer_id) . "4:porti{$port}e");
+	$peerid = mysql_escape_string('2:ip' . strlen($ip) . ':' . $ip . '7:peer id20:' . bt_hex2bin($peer_id) . "4:porti{$port}e");
 	$no_peerid = mysql_escape_string('2:ip' . strlen($ip) . ':' . $ip . "4:porti{$port}e");
 	mysql_query("INSERT INTO ".$prefix."y$info_hash SET sequence=\"{$GLOBALS["trackerid"]}\", compact=\"$compact\", with_peerid=\"$peerid\", without_peerid=\"$no_peerid\"");
 	// Let's just assume success... :/

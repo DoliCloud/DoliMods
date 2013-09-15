@@ -125,7 +125,7 @@ while ($row = mysql_fetch_row($results))
 		while ($row = mysql_fetch_assoc($query))
 		{
 			$compact = mysql_escape_string(pack('Nn', ip2long($row["ip"]), $row["port"]));
-				$peerid = mysql_escape_string('2:ip' . strlen($row["ip"]) . ':' . $row["ip"] . '7:peer id20:' . hex2bin($row["peer_id"]) . "4:porti{$row["port"]}e");
+				$peerid = mysql_escape_string('2:ip' . strlen($row["ip"]) . ':' . $row["ip"] . '7:peer id20:' . bt_hex2bin($row["peer_id"]) . "4:porti{$row["port"]}e");
 			$no_peerid = mysql_escape_string('2:ip' . strlen($row["ip"]) . ':' . $row["ip"] . "4:porti{$row["port"]}e");
 			mysql_query("INSERT INTO ".$prefix."y$hash SET sequence=\"{$row["sequence"]}\", compact=\"$compact\", with_peerid=\"$peerid\", without_peerid=\"$no_peerid\"");
 		}
