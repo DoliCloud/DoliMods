@@ -1,6 +1,6 @@
 <?php
 /* Copyright (C) 2003      Rodolphe Quiedeville <rodolphe@quiedeville.org>
- * Copyright (C) 2004-2008 Laurent Destailleur  <eldy@users.sourceforge.net>
+ * Copyright (C) 2004-2013 Laurent Destailleur  <eldy@users.sourceforge.net>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,13 +25,12 @@
  *      \file       htdocs/bittorrent/core/modules/modBitTorrent.class.php
  *      \ingroup    bittorrent
  *      \brief      Description and activation file for module MyModule
- *		\version	$Id: modBitTorrent.class.php,v 1.11 2011/08/17 16:43:26 eldy Exp $
  */
 include_once(DOL_DOCUMENT_ROOT ."/core/modules/DolibarrModules.class.php");
 
 
-/**     \class      modBitTorrent
- *      \brief      Description and activation class for module RiverBitTorrent
+/**
+ *		Description and activation class for module RiverBitTorrent
  */
 class modBitTorrent extends DolibarrModules
 {
@@ -60,7 +59,7 @@ class modBitTorrent extends DolibarrModules
 		// Module description, used if translation string 'ModuleXXXDesc' not found (where XXX is value of numeric property 'numero' of module)
 		$this->description = "Make your Dolibarr able to be a BitTorrent tracker (and serve .torrent files)";
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
-		$this->version = '3.4';
+		$this->version = '3.4.1';
 		// Key used in llx_const table to save module status enabled/disabled (where MYMODULE is value of property name of module in uppercase)
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
 		// Where to store the module in setup page (0=common,1=interface,2=others,3=very specific)
@@ -79,7 +78,7 @@ class modBitTorrent extends DolibarrModules
 		$this->depends = array();		// List of modules id that must be enabled if this module is enabled
 		$this->requiredby = array();	// List of modules id to disable if this one is disabled
 		$this->phpmin = array(4,3);					// Minimum version of PHP required by module
-		$this->need_dolibarr_version = array(2,9);	// Minimum version of Dolibarr required by module
+		$this->need_dolibarr_version = array(3,3);	// Minimum version of Dolibarr required by module
 		$this->langfiles = array("bittorrent");
 
 		// Constants

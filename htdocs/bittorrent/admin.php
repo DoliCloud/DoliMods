@@ -1,7 +1,7 @@
 <?php
 
 include("./pre.inc.php");
-require ("funcsv2.php");
+require_once("funcsv2.php");
 
 
 
