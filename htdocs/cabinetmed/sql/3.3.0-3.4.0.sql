@@ -27,4 +27,4 @@ DELETE from llx_const where name='MAIN_MENU_STANDARD_FORCED';
 -- + duplicate table llx_societe into llx_cabinetmed_societe
 -- CREATE TABLE llx_cabinetmed_societe SELECT * FROM llx_societe;
 CREATE TABLE llx_cabinetmed_societe LIKE llx_societe;
-INSERT INTO llx_cabinetmed_societe SELECT * FROM llx_societe;
+--INSERT INTO llx_cabinetmed_societe SELECT * FROM llx_societe;

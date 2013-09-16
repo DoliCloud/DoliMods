@@ -19,11 +19,10 @@
  */
 
 /**
-		\file   	htdocs/filemanager/pre.inc.php
-		\ingroup    compta
-		\brief  	Fichier gestionnaire du menu filemanager
-		\version	$Id: pre.inc.php,v 1.7 2011/07/04 11:33:10 eldy Exp $
-*/
+ *		\file   	htdocs/filemanager/pre.inc.php
+ *		\ingroup    filemanager
+ *		\brief  	File for menu of module filemanager
+ */
 
 $res=0;
 if (! $res && file_exists("../main.inc.php")) $res=@include("../main.inc.php");
@@ -61,7 +60,8 @@ function llxHeader($head = '', $title='', $help_url='', $target='', $disablejs=0
 	}
 
 
-	$menu = new Menu();
+	require_once DOL_DOCUMENT_ROOT.'/core/class/menu.class.php';
+    $menu=new Menu();
 
 	$numr=0;
 

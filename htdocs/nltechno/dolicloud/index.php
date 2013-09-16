@@ -43,9 +43,8 @@ if (! $res && file_exists("../../../../../dolibarr/htdocs/main.inc.php")) $res=@
 if (! $res) die("Include of main fails");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/company.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/class/dolgraph.class.php");
-// Change this following line to use the correct relative path from htdocs (do not remove DOL_DOCUMENT_ROOT)
-dol_include_once("/nltechno/class/dolicloudcustomer.class.php");
-dol_include_once("/nltechno/dolicloud/lib/refresh.lib.php");
+dol_include_once('/nltechno/class/dolicloudcustomer.class.php');
+include_once dol_buildpath("/nltechno/dolicloud/lib/refresh.lib.php");		// do not use dol_buildpth to keep global declaration working
 
 // Load traductions files requiredby by page
 $langs->load("companies");
@@ -97,6 +96,14 @@ llxHeader('',$langs->transnoentitiesnoconv('DoliCloudCustomers'),'');
 
 print_fiche_titre($langs->trans("DoliCloudArea"));
 
+$tmparray=dol_getdate(dol_now());
+
+
+$endyear=$tmparray['year'];
+$endmonth=$tmparray['mon'];
+$startyear=$endyear-2;
+$datelastday=dol_get_last_day($endyear, $endmonth, 1);
+
 
 print '<div class="fichecenter"><div class="fichethirdleft">';
 
@@ -120,18 +127,13 @@ print "</table></form><br>";
 print '</div><div class="fichetwothirdright"><div class="ficheaddleft">';
 
 
-$serverlocation=140;	// Price dollar
-$dollareuro=0.78;		// Price euro
-$serverprice=price2num($serverlocation * $dollareuro, 'MT');
-$part=0.3;	// 30%
-
 $total=0;
 $totalusers=0;
 $totalcustomers=0;
 $totalcustomerspaying=0;
 $totalcommissions=0;
 
-$rep=dolicloud_calculate_stats($db);
+$rep=dolicloud_calculate_stats($db,$datelastday);
 
 $total=$rep['total'];
 $totalcommissions=$rep['totalcommissions'];
@@ -194,8 +196,6 @@ print '</table>';
 
 print '</div></div></div>';
 
-$endyear=2013;
-$startyear=$endyear-2;
 
 // array(array(0=>'labelxA',1=>yA1,...,n=>yAn), array('labelxB',yB1,...yBn))
 $data1 = array();
@@ -291,8 +291,8 @@ else dol_print_error($db);
 
 //$WIDTH=DolGraph::getDefaultGraphSizeForStats('width');
 //$HEIGHT=DolGraph::getDefaultGraphSizeForStats('height');
-$WIDTH=800;
-$HEIGHT=300;
+$WIDTH=600;
+$HEIGHT=260;
 
 // Show graph
 $px1 = new DolGraph();
@@ -357,11 +357,12 @@ print '<div class="fichecenter"><br></div>';
 //print '<hr>';
 print '<div class="fichecenter liste_titre" style="height: 20px;">'.$langs->trans("Graphics").'</div>';
 
-print '<div class="fichecenter"><div class="fichehalfleft impair">';
+print '<div class="fichecenter"><div class="impair"><center>';
 print $px1->show();
-print '</div><div class="fichehalfright"><div class="ficheaddleft impair">';
+print '</center></div></div>';
+print '<div class="fichecenter"><div class="impair"><center>';
 print $px2->show();
-print '</div></div></div>';
+print '</center></div></div>';
 
 
 // End of page

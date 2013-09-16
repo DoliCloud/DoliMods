@@ -47,7 +47,8 @@ if (! $res && file_exists("../../master.inc.php")) $res=@include("../../master.i
 if (! $res && file_exists("../../../master.inc.php")) $res=@include("../../../master.inc.php");
 if (! $res) die ("Failed to include master.inc.php file\n");
 // After this $db, $mysoc, $langs and $conf->entity are defined. Opened handler to database will be closed at end of file.
-dol_include_once("/nltechno/dolicloud/lib/refresh.lib.php");
+dol_include_once('/nltechno/class/dolicloudcustomer.class.php');
+include_once dol_buildpath("/nltechno/dolicloud/lib/refresh.lib.php");		// do not use dol_buildpth to keep global declaration working
 
 //$langs->setDefaultLang('en_US'); 	// To change default language of $langs
 $langs->load("main");				// To load language file for default language
@@ -79,7 +80,6 @@ $nbofok=0;
 $nboferrors=0;
 
 
-dol_include_once('/nltechno/class/dolicloudcustomer.class.php');
 $object=new Dolicloudcustomer($db);
 
 
@@ -190,9 +190,9 @@ if ($action == 'backup' || $action == 'backuptestrsync' || $action == 'backuptes
 
 print "----- Start updatedatabase\n";
 
-$error=''; $errors=array();
+$today=dol_now();
 
-dol_include_once('/nltechno/dolicloud/lib/refresh.lib.php');
+$error=''; $errors=array();
 
 if ($action == 'updatedatabase')
 {
@@ -201,7 +201,6 @@ if ($action == 'updatedatabase')
 	{
 		foreach($instances as $instance)
 		{
-			$now=dol_now();
 			$return_val=0;
 			$error=0; $errors=array();
 
@@ -272,27 +271,26 @@ if ($action == 'updatedatabase')
 	}
 	//print "Found already existing stats entries.\n";
 
-	$today=dol_now();
-
 	// Update all stats
 	for($year = 2012; $year <= 2013; $year++)
 	{
 		for($m = 1; $m <= 12; $m++)
 		{
-			$datelim=dol_get_last_day($year, $m, 1);
-			if ($datelim >= $today) continue;
+			$datefirstday=dol_get_first_day($year, $m, 1);
+			$datelastday=dol_get_last_day($year, $m, 1);
+			if ($datefirstday > $today) continue;
 
 			$x=sprintf("%04d%02d",$year,$m);
 
 			$statkeylist=array('total','totalcommissions','totalcustomerspaying','totalcustomers','totalusers','benefit');
 			foreach($statkeylist as $statkey)
 			{
-				if (! isset($stats[$statkey][$x]))
+				if (! isset($stats[$statkey][$x]) || ($today <= $datelastday))
 				{
 					// Calculate stats fro this key
-					print "Calculate and update stats for ".$statkey." x=".$x;
+					print "Calculate and update stats for ".$statkey." x=".$x.' datelastday='.dol_print_date($datelastday, 'dayhour', 'gmt');
 
-					$rep=dolicloud_calculate_stats($db,$datelim);
+					$rep=dolicloud_calculate_stats($db,$datelastday);
 
 					$total=$rep['total'];
 					$totalcommissions=$rep['totalcommissions'];
@@ -310,6 +308,15 @@ if ($action == 'updatedatabase')
 					if ($statkey == 'benefit') $y=$benefit;
 
 					print " -> ".$y."\n";
+
+					if ($today <= $datelastday)
+					{
+						$sql ="DELETE FROM ".MAIN_DB_PREFIX."dolicloud_stats";
+						$sql.=" WHERE name = '".$statkey."' AND x='".$x."'";
+						dol_syslog("sql=".$sql);
+						$resql=$db->query($sql);
+						if (! $resql) dol_print_error($db,'');
+					}
 
 					$sql ="INSERT INTO ".MAIN_DB_PREFIX."dolicloud_stats(name, x, y)";
 					$sql.=" VALUES('".$statkey."', '".$x."', ".$y.")";

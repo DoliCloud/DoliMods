@@ -13,7 +13,7 @@ if (strlen($_GET['hash']) != 40)
   	exit();
 }
 
-require_once ("funcsv2.php"); //required for errorMessage()
+require_once("funcsv2.php"); //required for errorMessage()
 
 
 //connect to database and turn hash value into a filename

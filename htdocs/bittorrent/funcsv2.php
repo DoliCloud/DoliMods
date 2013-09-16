@@ -72,7 +72,7 @@ function quickQuery($query)
 	return true;
 }
 
-function hex2bin ($input, $assume_safe=true)
+function bt_hex2bin ($input, $assume_safe=true)
 {
 	if ($assume_safe !== true && ! ((strlen($input) % 2) === 0 || preg_match ('/^[0-9a-f]+$/i', $input)))
 		return "";
@@ -312,7 +312,7 @@ function sendPeerList($peers)
 		{
 			echo "d2:ip".strlen($peers[$i]["ip"]).":".$peers[$i]["ip"];
 			if (isset($peers[$i]["peer_id"]))
-				echo "7:peer id20:".hex2bin($peers[$i]["peer_id"]);
+				echo "7:peer id20:".bt_hex2bin($peers[$i]["peer_id"]);
 			echo "4:porti".$peers[$i]["port"]."ee";
 		}
 		echo "e";
@@ -482,8 +482,8 @@ function isFireWalled($hash, $peerid, $ip, $port)
 		return true;
 
 	stream_set_timeout($fd, 5, 0);
-	fwrite($fd, chr(strlen($protocol_name)).$protocol_name.hex2bin("0000000000000000").
-		hex2bin($hash));
+	fwrite($fd, chr(strlen($protocol_name)).$protocol_name.bt_hex2bin("0000000000000000").
+		bt_hex2bin($hash));
 
 	$data = fread($fd, strlen($protocol_name)+1+20+20+8); // ideally...
 
@@ -503,13 +503,13 @@ function isFireWalled($hash, $peerid, $ip, $port)
 	$offset += 8;
 
 	// Download ID (hash)
-	if (substr($data, $offset, 20) != hex2bin($hash))
+	if (substr($data, $offset, 20) != bt_hex2bin($hash))
 		return true;
 
 	$offset+=20;
 
 	// Peer ID
-	if (substr($data, $offset, 20) != hex2bin($peerid))
+	if (substr($data, $offset, 20) != bt_hex2bin($peerid))
 		return true;
 
 

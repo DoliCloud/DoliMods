@@ -18,19 +18,17 @@
 /**
  *		\defgroup   FileManager     Module FileManager
  *      \brief      Module to get a file browser and manager into Dolibarr
- *		\brief		$Id: modFileManager.class.php,v 1.11 2011/06/15 11:35:08 eldy Exp $
  */
 
 /**
  *      \file       htdocs/filemanager/core/modules/modFileManager.class.php
- *      \ingroup    FileManager
+ *      \ingroup    filemanager
  *      \brief      Fichier de description et activation du module FileManager
  */
 include_once(DOL_DOCUMENT_ROOT ."/core/modules/DolibarrModules.class.php");
 
 /**
- *      \class      modFileManager
- *      \brief      Classe de description et activation du module Adherent
+ *		Class to describe moule filemanager
  */
 class modFileManager extends DolibarrModules
 {
@@ -49,7 +47,7 @@ class modFileManager extends DolibarrModules
 		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'numero' of module)
 		$this->name = preg_replace('/^mod/i','',get_class($this));
 		$this->description = "A file manager";
-		$this->version = '3.4';                        // 'experimental' or 'dolibarr' or version
+		$this->version = '3.4.1';                        // 'experimental' or 'dolibarr' or version
 		// Key used in llx_const table to save module status enabled/disabled (where MYMODULE is value of property name of module in uppercase)
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
 		$this->special = 0;
