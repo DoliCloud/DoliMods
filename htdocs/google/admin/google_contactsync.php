@@ -81,11 +81,11 @@ if ($action == 'save')
     {
     	$db->begin();
 
-    	$res=dolibarr_set_const($db,'GOOGLE_DUPLICATE_INTO_THIRDPARTIES'.$i,trim(GETPOST("GOOGLE_DUPLICATE_INTO_THIRDPARTIES")),'chaine',0);
+    	$res=dolibarr_set_const($db,'GOOGLE_DUPLICATE_INTO_THIRDPARTIES',trim(GETPOST("GOOGLE_DUPLICATE_INTO_THIRDPARTIES")),'chaine',0);
 	    if (! $res > 0) $error++;
-	    $res=dolibarr_set_const($db,'GOOGLE_DUPLICATE_INTO_CONTACTS'.$i,trim(GETPOST("GOOGLE_DUPLICATE_INTO_CONTACTS")),'chaine',0);
+	    $res=dolibarr_set_const($db,'GOOGLE_DUPLICATE_INTO_CONTACTS',trim(GETPOST("GOOGLE_DUPLICATE_INTO_CONTACTS")),'chaine',0);
 	    if (! $res > 0) $error++;
-	    $res=dolibarr_set_const($db,'GOOGLE_DUPLICATE_INTO_MEMBERS'.$i,trim(GETPOST("GOOGLE_DUPLICATE_INTO_MEMBERS")),'chaine',0);
+	    $res=dolibarr_set_const($db,'GOOGLE_DUPLICATE_INTO_MEMBERS',trim(GETPOST("GOOGLE_DUPLICATE_INTO_MEMBERS")),'chaine',0);
 	    if (! $res > 0) $error++;
 	    $res=dolibarr_set_const($db,'GOOGLE_CONTACT_LOGIN',trim(GETPOST("GOOGLE_CONTACT_LOGIN")),'chaine',0);
 	    if (! $res > 0) $error++;
