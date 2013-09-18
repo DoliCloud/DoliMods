@@ -106,6 +106,11 @@ $picto='';
 $type='';
 if (empty($mode) || $mode=='thirdparty')
 {
+	$socid = GETPOST('socid','int');
+	if ($user->societe_id) $socid=$user->societe_id;
+
+	$search_sale=empty($conf->global->GOOGLE_MAPS_FORCE_FILTER_BY_SALE_REPRESENTATIVES)?0:1;
+
 	$title=$langs->trans("MapOfThirdparties");
 	$picto='company';
 	$type='company';
@@ -115,7 +120,11 @@ if (empty($mode) || $mode=='thirdparty')
 	$sql.= " FROM ".MAIN_DB_PREFIX."societe as s";
 	$sql.= " LEFT JOIN ".MAIN_DB_PREFIX."c_pays as c ON s.fk_pays = c.rowid";
 	$sql.= " LEFT JOIN ".MAIN_DB_PREFIX."google_maps as g ON s.rowid = g.fk_object and g.type_object='".$type."'";
+	if ($search_sale || (!$user->rights->societe->client->voir && !$socid)) $sql.= ", ".MAIN_DB_PREFIX."societe_commerciaux as sc";
 	$sql.= " WHERE s.status = 1";
+	$sql.= " AND s.entity IN (".getEntity('societe', 1).")";
+	if ($search_sale || (! $user->rights->societe->client->voir && ! $socid))	$sql.= " AND s.rowid = sc.fk_soc AND sc.fk_user = " .$user->id;
+	if ($socid) $sql.= " AND s.rowid = ".$socid;	// protect for external user
 	$sql.= " ORDER BY s.rowid";
 }
 else if ($mode=='contact')
@@ -129,6 +138,7 @@ else if ($mode=='contact')
 	$sql.= " FROM ".MAIN_DB_PREFIX."socpeople as s";
 	$sql.= " LEFT JOIN ".MAIN_DB_PREFIX."c_pays as c ON s.fk_pays = c.rowid";
 	$sql.= " LEFT JOIN ".MAIN_DB_PREFIX."google_maps as g ON s.rowid = g.fk_object and g.type_object='".$type."'";
+	$sql.= " WHERE s.entity IN (".getEntity('societe', 1).")";
 	//$sql.= " WHERE s.status = 1";
 	$sql.= " ORDER BY s.rowid";
 }
@@ -144,6 +154,7 @@ else if ($mode=='member')
 	$sql.= " LEFT JOIN ".MAIN_DB_PREFIX."c_pays as c ON s.country = c.rowid";
 	$sql.= " LEFT JOIN ".MAIN_DB_PREFIX."google_maps as g ON s.rowid = g.fk_object and g.type_object='".$type."'";
 	$sql.= " WHERE s.statut = 1";
+	$sql.= " AND s.entity IN (".getEntity('adherent', 1).")";
 	$sql.= " ORDER BY s.rowid";
 }
 else if ($mode=='patient')
@@ -158,6 +169,7 @@ else if ($mode=='patient')
 	$sql.= " LEFT JOIN ".MAIN_DB_PREFIX."c_pays as c ON s.fk_pays = c.rowid";
 	$sql.= " LEFT JOIN ".MAIN_DB_PREFIX."google_maps as g ON s.rowid = g.fk_object and g.type_object='".$type."'";
 	$sql.= " WHERE s.canvas='patient@cabinetmed'";
+	$sql.= " AND s.entity IN (".getEntity('societe', 1).")";
 	$sql.= " ORDER BY s.rowid";
 }
 //print $sql;
