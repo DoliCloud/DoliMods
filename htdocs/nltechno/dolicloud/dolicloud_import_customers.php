@@ -169,6 +169,7 @@ if ($action == 'import' || $action == 'create')
 			$total_invoiced=$data[4];
 			$total_payed=$data[5];
 			$status=$data[6];
+			//if ($status == 'ACTIVE' && $total_payed < $total_invoiced) $status='ACTIVE_PAYEMENT_ERROR';
 			if ($status == 'CLOSURE_REQUESTED') $status='CLOSE_QUEUED';		// TODO Use CLOSURE_REQUESTED into database
 			if ($status == 'CLOSED') $status='UNDEPLOYED';
 			if ($organization == 'Organization') continue;	// Discard first line
@@ -180,7 +181,7 @@ if ($action == 'import' || $action == 'create')
 			$result=$dolicloudcustomer->fetch('','',$organization);
 			if ($result <= 0)
 			{
-				if ($status != 'UNDEPLOYED') $importresult.='<span style="color: red">';
+				if ($status != 'UNDEPLOYED' && $status != 'SUSPENDED') $importresult.='<span style="color: red">';
 				else $importresult.='<span style="color: yellow">';
 				$importresult.='Organization "'.$organization.'" not found. ';
 				$importresult.='</span>';
