@@ -91,7 +91,7 @@ $instances=array();
 // Get list of instance
 $sql = "SELECT c.rowid, c.instance, c.status, c.lastrsync";
 $sql.= " FROM ".MAIN_DB_PREFIX."dolicloud_customers as c";
-//$sql.= " WHERE status NOT IN ('CLOSED', 'CLOSE_QUEUED', 'UNDEPLOYED')";
+//$sql.= " WHERE status NOT IN ('CLOSED', 'CLOSE_QUEUED', 'UNDEPLOYED', 'TRIAL')";
 
 dol_syslog($script_file." sql=".$sql, LOG_DEBUG);
 $resql=$db->query($sql);
@@ -106,8 +106,9 @@ if ($resql)
 			$obj = $db->fetch_object($resql);
 			if ($obj)
 			{
-				$nbofalltime++;
-				if (! in_array($obj->status,array('CLOSED','CLOSE_QUEUED','UNDEPLOYED')))
+				if (! in_array($obj->status,array('TRIAL'))) $nbofalltime++;
+
+				if (! in_array($obj->status,array('CLOSED','CLOSE_QUEUED','UNDEPLOYED','TRIAL')))
 				{
 					$nbofactive++;
 					$instances[]=$obj->instance;

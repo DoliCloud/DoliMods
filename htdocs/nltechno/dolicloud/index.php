@@ -97,12 +97,10 @@ llxHeader('',$langs->transnoentitiesnoconv('DoliCloudCustomers'),'');
 print_fiche_titre($langs->trans("DoliCloudArea"));
 
 $tmparray=dol_getdate(dol_now());
-
-
 $endyear=$tmparray['year'];
 $endmonth=$tmparray['mon'];
-$startyear=$endyear-2;
 $datelastday=dol_get_last_day($endyear, $endmonth, 1);
+$startyear=$endyear-2;
 
 
 print '<div class="fichecenter"><div class="fichethirdleft">';
