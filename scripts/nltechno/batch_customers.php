@@ -79,6 +79,7 @@ $action=$argv[1];
 $nbofko=0;
 $nbofok=0;
 $nbofactive=0;
+$nbofactivesusp=0;
 $nbofalltime=0;
 $nboferrors=0;
 
@@ -106,11 +107,13 @@ if ($resql)
 			$obj = $db->fetch_object($resql);
 			if ($obj)
 			{
+				// Count
 				if (! in_array($obj->status,array('TRIAL'))) $nbofalltime++;
-
+				if (! in_array($obj->status,array('CLOSED','CLOSE_QUEUED','UNDEPLOYED','TRIAL'))) $nbofactivesusp++;
+				if (! in_array($obj->status,array('CLOSED','CLOSE_QUEUED','UNDEPLOYED','TRIAL','SUSPENDED','ACTIVE_PAYMENT_ERROR'))) $nbofactive++;
+				// Select instance for backup or update ?
 				if (! in_array($obj->status,array('CLOSED','CLOSE_QUEUED','UNDEPLOYED','TRIAL')))
 				{
-					$nbofactive++;
 					$instances[]=$obj->instance;
 					print "Found instance ".$obj->instance." with status = ".$obj->status."\n";
 				}
@@ -345,8 +348,9 @@ print "----- Start calculate amount\n";
 
 
 // Result
-print "Nb of instances (active): ".$nbofactive."\n";
 print "Nb of instances (all time): ".$nbofalltime."\n";
+print "Nb of instances (active): ".$nbofactive."\n";
+print "Nb of instances (active or suspended): ".$nbofactivesusp."\n";
 print "Nb of instances (active or suspended) updated ok: ".$nbofok."\n";
 print "Nb of instances (active or suspended) updated ko: ".$nboferrors."\n";
 if (! $nboferrors)
