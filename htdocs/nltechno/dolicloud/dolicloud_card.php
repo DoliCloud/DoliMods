@@ -34,6 +34,7 @@ require_once(DOL_DOCUMENT_ROOT."/contact/class/contact.class.php");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/company.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/date.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/class/html.formcompany.class.php");
+require_once(DOL_DOCUMENT_ROOT."/core/class/html.formother.class.php");
 dol_include_once("/nltechno/core/lib/dolicloud.lib.php");
 dol_include_once('/nltechno/class/dolicloudcustomer.class.php');
 dol_include_once('/nltechno/class/cdolicloudplans.class.php');
@@ -249,6 +250,7 @@ $help_url='';
 llxHeader('',$langs->trans("DoliCloudCustomers"),$help_url);
 
 $form = new Form($db);
+$formother = new FormOther($db);
 $formcompany = new FormCompany($db);
 
 $countrynotdefined=$langs->trans("ErrorSetACountryFirst").' ('.$langs->trans("SeeAbove").')';
@@ -346,7 +348,9 @@ if ($user->rights->nltechno->dolicloud->write)
 		print '<tr><td class="fieldrequired">'.$langs->trans("Email").'</td><td colspan="3"><input name="email" type="email" size="50" maxlength="80" value="'.(GETPOST("email")?GETPOST("email"):$object->email).'"></td></tr>';
 
 		// Plan
-		print '<tr><td class="fieldrequired">'.$langs->trans("Plan").'</td><td colspan="3"><input name="plan" type="text" size="20" maxlength="80" value="'.(isset($_POST["plan"])?$_POST["plan"]:($object->plan?$object->plan:'Basic')).'"></td></tr>';
+		print '<tr><td class="fieldrequired">'.$langs->trans("Plan").'</td><td colspan="3">';
+		print $formother->select_dictionnary('plan', 'c_dolicloud_plans', 'code', 'code', (GETPOST('plan')?GETPOST('plan'):($object->plan?$object->plan:'Dolibarr ERP & CRM Basic')));
+		print '</td></tr>';
 
 		// Partner
 		print '<tr><td>'.$langs->trans("Partner").'</td><td><input name="partner" type="text" size="20" maxlength="80" value="'.(isset($_POST["partner"])?$_POST["partner"]:($object->partner?$object->partner:'')).'"></td>';
