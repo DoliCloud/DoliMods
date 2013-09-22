@@ -76,7 +76,10 @@ print '--- start'."\n";
  */
 
 $action=$argv[1];
+$nbofko=0;
 $nbofok=0;
+$nbofactive=0;
+$nbofalltime=0;
 $nboferrors=0;
 
 
@@ -88,7 +91,7 @@ $instances=array();
 // Get list of instance
 $sql = "SELECT c.rowid, c.instance, c.status, c.lastrsync";
 $sql.= " FROM ".MAIN_DB_PREFIX."dolicloud_customers as c";
-$sql.= " WHERE status NOT IN ('CLOSE_QUEUED', 'UNDEPLOYED')";
+//$sql.= " WHERE status NOT IN ('CLOSED', 'CLOSE_QUEUED', 'UNDEPLOYED')";
 
 dol_syslog($script_file." sql=".$sql, LOG_DEBUG);
 $resql=$db->query($sql);
@@ -103,8 +106,13 @@ if ($resql)
 			$obj = $db->fetch_object($resql);
 			if ($obj)
 			{
-				$instances[]=$obj->instance;
-				print "Found instance ".$obj->instance."\n";
+				$nbofalltime++;
+				if (! in_array($obj->status,array('CLOSED','CLOSE_QUEUED','UNDEPLOYED')))
+				{
+					$nbofactive++;
+					$instances[]=$obj->instance;
+					print "Found instance ".$obj->instance." with status = ".$obj->status."\n";
+				}
 			}
 			$i++;
 		}
@@ -336,8 +344,10 @@ print "----- Start calculate amount\n";
 
 
 // Result
-print "Nb of instances ok: ".$nbofok."\n";
-print "Nb of instances ko: ".$nboferrors."\n";
+print "Nb of instances (active): ".$nbofactive."\n";
+print "Nb of instances (all time): ".$nbofalltime."\n";
+print "Nb of instances (active or suspended) updated ok: ".$nbofok."\n";
+print "Nb of instances (active or suspended) updated ko: ".$nboferrors."\n";
 if (! $nboferrors)
 {
 	print '--- end ok - '.strftime("%Y%m%d-%H%M%S")."\n";
