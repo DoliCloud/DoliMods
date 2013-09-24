@@ -21,6 +21,6 @@ CREATE TABLE llx_dolicloud_emailstemplates
 	rowid integer AUTO_INCREMENT PRIMARY KEY,
 	emailtype varchar(128) NOT NULL,
 	lang varchar(12) NOT NULL,
-	topic varchar(256) NOT NULL,
+	topic varchar(255) NOT NULL,
 	content text NOT NULL
 ) ENGINE = innodb;
