@@ -56,7 +56,7 @@ $object = new DoliCloudCustomer($db);
 
 if (empty($dirroot) || empty($instance) || empty($mode))
 {
-	print "Usage: $script_file dolibarr_root_dir dolicloud_instance (test|confirm|confirmunlock)\n";
+	print "Usage: $script_file dolibarr_root_dir dolicloud_instance (test|confirm|confirmunlock|diff|diffadd|diffchange)\n";
 	print "Return code: 0 if success, <>0 if error\n";
 	exit(-1);
 }
@@ -94,9 +94,10 @@ print 'SFTP password '.$object->password_web."\n";
 
 $command="rsync";
 $param=array();
-if ($mode != 'confirm' && $mode != 'confirmunlock') $param[]="-n";
+if (! in_array($mode,array('confirm','confirmunlock'))) $param[]="-n";
 //$param[]="-a";
-$param[]="-rlt";
+if (! in_array($mode,array('diff','diffadd','diffchange'))) $param[]="-rlt";
+else { $param[]="-rlD"; $param[]="--modify-window=1000000000"; $param[]="--delete -n"; }
 $param[]="-v";
 $param[]="--exclude .buildpath";
 $param[]="--exclude .git";
@@ -112,7 +113,7 @@ $param[]="--exclude htdocs/conf/conf.php*";
 $param[]="--exclude htdocs/custom";
 $param[]="--exclude htdocs/customfields/";
 $param[]="--exclude htdocs/bootstrap/";
-$param[]="--stats";
+if (! in_array($mode,array('diff','diffadd','diffchange'))) $param[]="--stats";
 $param[]="-e 'ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no'";
 
 $param[]=$dirroot.'/';
