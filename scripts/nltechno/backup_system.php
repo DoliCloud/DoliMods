@@ -32,7 +32,9 @@ $error=0;
 
 $login=isset($argv[1])?$argv[1]:'';
 $password=isset($argv[2])?$argv[2]:'';
-$mode=isset($argv[3])?$argv[3]:'';
+$loginbase=isset($argv[3])?$argv[3]:'';
+$passwordbase=isset($argv[4])?$argv[4]:'';
+$mode=isset($argv[5])?$argv[5]:'';
 
 // Include Dolibarr environment
 $res=0;
@@ -54,7 +56,7 @@ include_once(DOL_DOCUMENT_ROOT.'/comm/action/class/actioncomm.class.php');
 
 if (empty($login) || empty($password) || empty($mode))
 {
-	print "Usage: $script_file login pass (test|confirm)\n";
+	print "Usage: $script_file login pass loginbase passbase (test|confirm)\n";
 	print "Return code: 0 if success, <>0 if error\n";
 	print "Warning, this script may take a long time.\n";
 	exit(-1);
@@ -122,14 +124,14 @@ print 'SFTP password '.$password."\n";
 			}
 
 			// TODO Now load backup locally
-			$fullcommand="bzip2 -d ".$targetdir.$filesys1.".bz2 | mysql -udolicloud -pdolicloud-do -D dolicloud_saasplex";
+			$fullcommand="bzip2 -d ".$targetdir.$filesys1.".bz2 | mysql -u".$loginbase." -p".$passwordbase." -D dolicloud_saasplex";
 			print "Load dump with ".$command."\n";
 			$output=array();
 			$return_var=0;
 			print strftime("%Y%m%d-%H%M%S").' '.$fullcommand."\n";
 			exec($fullcommand, $output, $return_var);
 
-			$fullcommand="bzip2 -d ".$targetdir.$filesys2.".bz2 | mysql -udolicloud -pdolicloud-do -D dolicloud_rm";
+			$fullcommand="bzip2 -d ".$targetdir.$filesys2.".bz2 | mysql -u".$loginbase." -p".$passwordbase." -D dolicloud_rm";
 			print "Load dump with ".$command."\n";
 			$output=array();
 			$return_var=0;
