@@ -25,8 +25,7 @@
 require_once(NUSOAP_PATH.'/nusoap.php');
 
 /**
- *      \class      OvhSms
- *      \brief      Use an OVH account to send SMS with Dolibarr
+ *		Use an OVH account to send SMS with Dolibarr
  */
 class OvhSms  extends CommonObject
 {
@@ -88,8 +87,7 @@ class OvhSms  extends CommonObject
 				$this->session = $this->soap->login($conf->global->OVHSMS_NICK, $conf->global->OVHSMS_PASS,$language,$multisession);
 				//if ($this->session) print '<div class="ok">'.$langs->trans("OvhSmsLoginSuccessFull").'</div><br>';
 				//else print '<div class="error">Error login did not return a session id</div><br>';
-				if (method_exists($this->soap,'__getLastRequest'))  dol_syslog(get_class($this).'::OvhSms REQUEST: ' . $this->soap->__getLastRequest());
-				if (method_exists($this->soap,'__getLastResponse')) dol_syslog(get_class($this).'::OvhSms RESPONSE: ' . $this->soap->__getLastResponse());
+				$this->soapDebug();
 
 				// On mémorise le compe sms associé
 				$this->account = empty($conf->global->OVHSMS_ACCOUNT)?'ErrorNotDefined':$conf->global->OVHSMS_ACCOUNT;
@@ -141,21 +139,17 @@ class OvhSms  extends CommonObject
 	 */
 	function SmsSend()
 	{
-		//telephonySmsSend
 		try
 		{
 			// print "$this->session, $this->account, $this->expe, $this->dest, $this->message, $this->validity, $this->class, $this->deferred, $this->priority";
 			$resultsend = $this->soap->telephonySmsSend($this->session, $this->account, $this->expe, $this->dest, $this->message, $this->validity, $this->class, $this->deferred, $this->priority, 2, 'Dolibarr');
-			if (method_exists($this->soap,'__getLastRequest'))  dol_syslog(get_class($this).'::OvhSms REQUEST: ' . $this->soap->__getLastRequest());
-			if (method_exists($this->soap,'__getLastResponse')) dol_syslog(get_class($this).'::OvhSms RESPONSE: ' . $this->soap->__getLastResponse());
-
+			$this->soapDebug();
 			return $resultsend;
 		}
 		catch(SoapFault $fault)
 		{
 			$errmsg="Error ".$fault->faultstring;
 			dol_syslog(get_class($this)."::SmsSend ".$errmsg, LOG_ERR);
-
 			$this->error.=($this->error?', '.$errmsg:$errmsg);
 		}
 		return -1;
@@ -183,8 +177,17 @@ class OvhSms  extends CommonObject
 	 */
 	function getSmsListAccount()
 	{
-		//telephonySmsAccountList
-		return $this->soap->telephonySmsAccountList($this->session);
+		try {
+			$returnList = $this->soap->telephonySmsAccountList($this->session);
+			$this->soapDebug();
+			return $returnList;
+		}
+		catch(SoapFault $fault) {
+			$errmsg="Error ".$fault->faultstring;
+			dol_syslog(get_class($this)."::SmsHistory ".$errmsg, LOG_ERR);
+			$this->error.=($this->error?', '.$errmsg:$errmsg);
+			return -1;
+		}
 	}
 
 	/**
@@ -194,7 +197,17 @@ class OvhSms  extends CommonObject
 	 */
 	function CreditLeft()
 	{
-		return $this->soap->telephonySmsCreditLeft($this->session, $this->account);
+		try {
+			$returnList = $this->soap->telephonySmsCreditLeft($this->session, $this->account);
+			$this->soapDebug();
+			return $returnList;
+		}
+		catch(SoapFault $fault) {
+			$errmsg="Error ".$fault->faultstring;
+			dol_syslog(get_class($this)."::SmsHistory ".$errmsg, LOG_ERR);
+			$this->error.=($this->error?', '.$errmsg:$errmsg);
+			return -1;
+		}
 	}
 
 	/**
@@ -204,7 +217,18 @@ class OvhSms  extends CommonObject
 	 */
 	function SmsHistory()
 	{
-		return $this->soap->telephonySmsHistory($this->session, $this->account, "");
+		try {
+			$returnList = $this->soap->telephonySmsHistory($this->session, $this->account, "");
+			$this->soapDebug();
+			return $returnList;
+		}
+		catch(SoapFault $fault) {
+			$errmsg="Error ".$fault->faultstring;
+			dol_syslog(get_class($this)."::SmsHistory ".$errmsg, LOG_ERR);
+			$this->error.=($this->error?', '.$errmsg:$errmsg);
+			return -1;
+		}
+		return -1;
 	}
 
 	/**
@@ -216,6 +240,7 @@ class OvhSms  extends CommonObject
 	{
 		try {
 			$telephonySmsSenderList = $this->soap->telephonySmsSenderList($this->session, $this->account);
+			$this->soapDebug();
 			return $telephonySmsSenderList;
 		}
 		catch(SoapFault $fault) {
@@ -227,5 +252,19 @@ class OvhSms  extends CommonObject
 		return -1;
 	}
 
+
+	/**
+	 * Call soapDebug method to output traces
+	 *
+	 * @return	void
+	 */
+	function soapDebug()
+	{
+		if (method_exists($this->soap,'__getLastRequestHeaders')) dol_syslog(get_class($this).'::OvhSms REQUEST HEADER: ' . $this->soap->__getLastRequestHeaders(), LOG_DEBUG, 0, '_ovhsms');
+		if (method_exists($this->soap,'__getLastRequest')) dol_syslog(get_class($this).'::OvhSms REQUEST: ' . $this->soap->__getLastRequest(), LOG_DEBUG, 0, '_ovhsms');
+
+		if (method_exists($this->soap,'__getLastResponseHeaders')) dol_syslog(get_class($this).'::OvhSms RESPONSE HEADER: ' . $this->soap->__getLastResponseHeaders(), LOG_DEBUG, 0, '_ovhsms');
+		if (method_exists($this->soap,'__getLastResponse')) dol_syslog(get_class($this).'::OvhSms RESPONSE: ' . $this->soap->__getLastResponse(), LOG_DEBUG, 0, '_ovhsms');
+	}
 }
 ?>
