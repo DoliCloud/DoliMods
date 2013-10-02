@@ -56,7 +56,7 @@ include_once(DOL_DOCUMENT_ROOT.'/comm/action/class/actioncomm.class.php');
 
 if (empty($login) || empty($password) || empty($mode))
 {
-	print "Usage: $script_file login pass loginbase passbase (test|confirm)\n";
+	print "Usage: $script_file login pass loginbase passbase (test|confirm|confirmsaasplex|confirmrm)\n";
 	print "Return code: 0 if success, <>0 if error\n";
 	print "Warning, this script may take a long time.\n";
 	exit(-1);
@@ -93,7 +93,7 @@ print 'SFTP password '.$password."\n";
 			//$stream = ssh2_exec($connection, '/usr/bin/php -i');
 
 			print "Generate dump ".$filesys1.'.bz2'."\n";
-			if ($mode == 'confirm')
+			if ($mode == 'confirm' || $mode == 'confirmsaasplex')
 			{
 				$stream = ssh2_exec($connection, "mysqldump -u debian-sys-maint -p4k9Blxl2snq4FHXY -h 127.0.0.1 --single-transaction -K --tables -c -e --hex-blob --default-character-set=utf8 saasplex | bzip2 -1 > ".$filesys1.'.bz2');
 				stream_set_blocking($stream, true);
@@ -102,7 +102,7 @@ print 'SFTP password '.$password."\n";
 			}
 
 			print "Generate dump ".$filesys2.'.bz2'."\n";
-			if ($mode == 'confirm')
+			if ($mode == 'confirm' || $mode == 'confirmrm')
 			{
 				$stream = ssh2_exec($connection, "mysqldump -u debian-sys-maint -p4k9Blxl2snq4FHXY -h 127.0.0.1 --single-transaction -K --tables -c -e --hex-blob --default-character-set=utf8 rm | bzip2 -1 > ".$filesys2.'.bz2');
 				stream_set_blocking($stream, true);
@@ -113,12 +113,12 @@ print 'SFTP password '.$password."\n";
   			$sftp = ssh2_sftp($connection);
 
 			print 'Get file '.$sourcedir.$filesys1.'.bz2 into '.$targetdir.$filesys1.'.bz2'."\n";
-  			if ($mode == 'confirm')
+  			if ($mode == 'confirm' || $mode == 'confirmsaasplex')
 			{
 				ssh2_scp_recv($connection, $sourcedir.$filesys1.'.bz2', $targetdir.$filesys1.'.bz2');
 			}
 			print 'Get file '.$sourcedir.$filesys2.'.bz2 into '.$targetdir.$filesys2.'.bz2'."\n";
-			if ($mode == 'confirm')
+			if ($mode == 'confirm' || $mode == 'confirmrm')
 			{
 	  			ssh2_scp_recv($connection, $sourcedir.$filesys2.'.bz2', $targetdir.$filesys2.'.bz2');
 			}
