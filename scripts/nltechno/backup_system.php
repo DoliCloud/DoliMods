@@ -125,7 +125,7 @@ print 'SFTP password '.$password."\n";
 			}
 
 			if ($mode == 'confirm' || $mode == 'confirmsaasplex') dol_delete_file($targetdir.$filesys1);
-			$fullcommand="bzip2 -d ".$targetdir.$filesys1.".bz2 | mysql -u".$loginbase." -p".$passwordbase." -D dolicloud_saasplex";
+			$fullcommand="bzip2 -c -d ".$targetdir.$filesys1.".bz2 | mysql -u".$loginbase." -p".$passwordbase." -D dolicloud_saasplex";
 			print "Load dump with ".$fullcommand."\n";
 			if ($mode == 'confirm' || $mode == 'confirmsaasplex')
 			{
@@ -137,7 +137,7 @@ print 'SFTP password '.$password."\n";
 			}
 
 			if ($mode == 'confirm' || $mode == 'confirmrm') dol_delete_file($targetdir.$filesys1);
-			$fullcommand="bzip2 -d ".$targetdir.$filesys2.".bz2 | mysql -u".$loginbase." -p".$passwordbase." -D dolicloud_rm";
+			$fullcommand="bzip2 -c -d ".$targetdir.$filesys2.".bz2 | mysql -u".$loginbase." -p".$passwordbase." -D dolicloud_rm";
 			print "Load dump with ".$fullcommand."\n";
 			if ($mode == 'confirm' || $mode == 'confirmrm')
 			{
