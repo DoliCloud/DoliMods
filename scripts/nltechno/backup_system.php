@@ -47,6 +47,7 @@ if (! $res) die ("Failed to include master.inc.php file\n");
 dol_include_once("/nltechno/core/lib/dolicloud.lib.php");
 dol_include_once('/nltechno/class/dolicloudcustomer.class.php');
 include_once(DOL_DOCUMENT_ROOT.'/comm/action/class/actioncomm.class.php');
+include_once(DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php');
 
 
 
