@@ -36,6 +36,7 @@ require_once(DOL_DOCUMENT_ROOT."/core/lib/date.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/class/html.formcompany.class.php");
 require_once(DOL_DOCUMENT_ROOT."/core/class/html.formother.class.php");
 dol_include_once("/nltechno/core/lib/dolicloud.lib.php");
+dol_include_once("/nltechno/core/dolicloud/lib/refresh.lib.php");
 dol_include_once('/nltechno/class/dolicloudcustomer.class.php');
 dol_include_once('/nltechno/class/cdolicloudplans.class.php');
 
@@ -338,11 +339,15 @@ if ($user->rights->nltechno->dolicloud->write)
 		print '<input type="hidden" name="backtopage" value="'.$backtopage.'">';
 		print '<table class="border" width="100%">';
 
+		$instancetoshow=(GETPOST("instance")?GETPOST("instance"):$object->instance);
+		$organizationtoshow=(GETPOST("organization")?GETPOST("organization"):$object->organization);
+		if (empty($instancetoshow)) $instancetoshow=preg_replace('/\.(.*)/','',getvalfromkey($db,'dolicloud_saasplex.app_instance.name',$organizationtoshow));
+
 		// Instance
-		print '<tr><td width="20%" class="fieldrequired">'.$langs->trans("Instance").'</td><td colspan="3"><input name="instance" id="instance" type="text" size="30" maxlength="80" value="'.(GETPOST("instance")?GETPOST("instance"):$object->instance).'"></td></tr>';
+		print '<tr><td width="20%" class="fieldrequired">'.$langs->trans("Instance").'</td><td colspan="3"><input name="instance" id="instance" type="text" size="30" maxlength="80" value="'.$instancetoshow.'"></td></tr>';
 
 		// Organization / Company
-		print '<tr><td width="20%" class="fieldrequired">'.$langs->trans("Organization").' / '.$langs->trans("Company").'</td><td colspan="3"><input name="organization" type="text" size="30" maxlength="80" value="'.(GETPOST("organization")?GETPOST("organization"):$object->organization).'"></td></tr>';
+		print '<tr><td width="20%" class="fieldrequired">'.$langs->trans("Organization").' / '.$langs->trans("Company").'</td><td colspan="3"><input name="organization" type="text" size="30" maxlength="80" value="'.$organizationtoshow.'"></td></tr>';
 
 		// EMail
 		print '<tr><td class="fieldrequired">'.$langs->trans("Email").'</td><td colspan="3"><input name="email" type="email" size="50" maxlength="80" value="'.(GETPOST("email")?GETPOST("email"):$object->email).'"></td></tr>';
@@ -357,25 +362,35 @@ if ($user->rights->nltechno->dolicloud->write)
 		print '<td>'.$langs->trans("Source").'</td><td><input name="source" type="text" size="20" maxlength="80" value="'.(isset($_POST["source"])?$_POST["source"]:($object->source?$object->source:'')).'"></td></tr>';
 
 		// Name
-		print '<tr><td width="20%">'.$langs->trans("Lastname").'</td><td width="30%"><input name="lastname" type="text" size="30" maxlength="80" value="'.(isset($_POST["lastname"])?$_POST["lastname"]:$object->lastname).'"></td>';
-		print '<td width="20%">'.$langs->trans("Firstname").'</td><td width="30%"><input name="firstname" type="text" size="30" maxlength="80" value="'.(isset($_POST["firstname"])?$_POST["firstname"]:$object->firstname).'"></td></tr>';
+		$lastnametoshow=(GETPOST("lastname")?GETPOST("lastname"):$object->lastname);
+		$firstnametoshow=(GETPOST("firstname")?GETPOST("firstname"):$object->firstname);
+		print '<tr><td width="20%">'.$langs->trans("Lastname").'</td><td width="30%"><input name="lastname" type="text" size="30" maxlength="80" value="'.$lastnametoshow.'"></td>';
+		print '<td width="20%">'.$langs->trans("Firstname").'</td><td width="30%"><input name="firstname" type="text" size="30" maxlength="80" value="'.$firstnametoshow.'"></td></tr>';
 
 		// Address
+		$addresstoshow=(isset($_POST["address"])?$_POST["address"]:$object->address);
+		if (empty($addresstoshow)) $addresstoshow=getvalfromkey($db,'dolicloud_saasplex.address.address_line1',$organizationtoshow);
 		if (($objsoc->typent_code == 'TE_PRIVATE' || ! empty($conf->global->CONTACT_USE_COMPANY_ADDRESS)) && dol_strlen(trim($object->address)) == 0) $object->address = $objsoc->address;	// Predefined with third party
-		print '<tr><td>'.$langs->trans("Address").'</td><td colspan="3"><textarea class="flat" name="address" cols="70">'.(isset($_POST["address"])?$_POST["address"]:$object->address).'</textarea></td>';
+		print '<tr><td>'.$langs->trans("Address").'</td><td colspan="3"><textarea class="flat" name="address" cols="70">'.$addresstoshow.'</textarea></td>';
 
 		// Zip / Town
 		if (($objsoc->typent_code == 'TE_PRIVATE' || ! empty($conf->global->CONTACT_USE_COMPANY_ADDRESS)) && dol_strlen(trim($object->zip)) == 0) $object->zip = $objsoc->zip;			// Predefined with third party
 		if (($objsoc->typent_code == 'TE_PRIVATE' || ! empty($conf->global->CONTACT_USE_COMPANY_ADDRESS)) && dol_strlen(trim($object->town)) == 0) $object->town = $objsoc->town;	// Predefined with third party
+		$ziptoshow=(isset($_POST["zipcode"])?$_POST["zipcode"]:$object->zip);
+		$citytoshow=(isset($_POST["town"])?$_POST["town"]:$object->town);
+		if (empty($citytoshow)) $citytoshow=getvalfromkey($db,'dolicloud_saasplex.address.city',$organizationtoshow);
+		if (empty($ziptoshow)) $ziptoshow=getvalfromkey($db,'dolicloud_saasplex.address.zip',$organizationtoshow);
 		print '<tr><td>'.$langs->trans("Zip").' / '.$langs->trans("Town").'</td><td colspan="3">';
-		print $formcompany->select_ziptown((isset($_POST["zipcode"])?$_POST["zipcode"]:$object->zip),'zipcode',array('town','selectcountry_id','state_id'),6).'&nbsp;';
-		print $formcompany->select_ziptown((isset($_POST["town"])?$_POST["town"]:$object->town),'town',array('zipcode','selectcountry_id','state_id'));
+		print $formcompany->select_ziptown($ziptoshow,'zipcode',array('town','selectcountry_id','state_id'),6).'&nbsp;';
+		print $formcompany->select_ziptown($citytoshow,'town',array('zipcode','selectcountry_id','state_id'));
 		print '</td></tr>';
 
 		// Country
+		$countrytoshow=(isset($_POST["country_id"])?$_POST["country_id"]:0);
+		if (empty($countrytoshow)) $countrytoshow=getCountry(getvalfromkey($db,'dolicloud_saasplex.country_region.alpha2',$organizationtoshow), 3);
 		if (dol_strlen(trim($object->fk_pays)) == 0) $object->fk_pays = $objsoc->country_id;	// Predefined with third party
 		print '<tr><td>'.$langs->trans("Country").'</td><td colspan="3">';
-		print $form->select_country((isset($_POST["country_id"])?$_POST["country_id"]:$object->country_id),'country_id');
+		print $form->select_country($countrytoshow,'country_id');
 		if ($user->admin) print info_admin($langs->trans("YouCanChangeValuesForThisListFromDictionnarySetup"),1);
 		print '</td></tr>';
 
@@ -399,7 +414,9 @@ if ($user->rights->nltechno->dolicloud->write)
 		print '</tr>';
 
 		// Phone
-		print '<tr><td>'.$langs->trans("PhonePro").'</td><td colspan="3"><input name="phone" type="text" size="18" maxlength="80" value="'.(isset($_POST["phone"])?$_POST["phone"]:$object->phone).'"></td>';
+		$phonetoshow=(isset($_POST["phone"])?$_POST["phone"]:$object->phone);
+		if (empty($phonetoshow)) $phonetoshow=getvalfromkey($db,'dolicloud_saasplex.customer_account.tel',$organizationtoshow);
+		print '<tr><td>'.$langs->trans("PhonePro").'</td><td colspan="3"><input name="phone" type="text" size="18" maxlength="80" value="'.$phonetoshow.'"></td>';
 		print '</tr>';
 
 		// Note
@@ -418,6 +435,8 @@ if ($user->rights->nltechno->dolicloud->write)
 		print '</tr>';
 
 		// Date end of trial
+		if (empty($date_registration)) $date_registration=getvalfromkey($db,'dolicloud_saasplex.customer_account.aquired_date',$organizationtoshow);
+		if (empty($date_endfreeperiod)) $date_endfreeperiod=getvalfromkey($db,'dolicloud_saasplex.customer_account.tel',$organizationtoshow);
 		print '<tr id="hideendfreetrial">';
 		print '<td>'.$langs->trans("DateRegistration").'</td><td>';
 		print $form->select_date($date_registration?$date_registration:-1, 'date_registration', 0, 0, 1, '', 1, 1);
@@ -427,23 +446,38 @@ if ($user->rights->nltechno->dolicloud->write)
 		print '</td>';
 		print '<tr>';
 
+		$hostname_web_toshow=(isset($_POST["hostname_web"])?$_POST["hostname_web"]:$object->hostname_web);
+		$username_web_toshow=(isset($_POST["username_web"])?$_POST["username_web"]:$object->username_web);
+		$password_web_toshow=(isset($_POST["password_web"])?$_POST["password_web"]:$object->password_web);
+		$hostname_db_toshow=(isset($_POST["hostname_db"])?$_POST["hostname_db"]:$object->hostname_db);
+		$database_db_toshow=(isset($_POST["database_db"])?$_POST["database_db"]:$object->database_db);
+		$username_db_toshow=(isset($_POST["username_db"])?$_POST["username_db"]:$object->username_db);
+		$password_db_toshow=(isset($_POST["password_db"])?$_POST["password_db"]:$object->password_db);
+		if (empty($hostname_web_toshow)) $hostname_web_toshow=getvalfromkey($db,'dolicloud_saasplex.app_instance.name',$organizationtoshow);
+		if (empty($username_web_toshow)) $username_web_toshow=getvalfromkey($db,'dolicloud_saasplex.app_instance.os_username',$organizationtoshow);
+		if (empty($password_web_toshow)) $password_web_toshow=getvalfromkey($db,'dolicloud_saasplex.app_instance.os_password',$organizationtoshow);
+		if (empty($hostname_db_toshow))  $hostname_db_toshow=getvalfromkey($db,'dolicloud_saasplex.app_instance.name',$organizationtoshow);
+		if (empty($database_db_toshow))  $database_db_toshow=getvalfromkey($db,'dolicloud_saasplex.app_instance.db_name',$organizationtoshow);
+		if (empty($username_db_toshow))  $username_db_toshow=getvalfromkey($db,'dolicloud_saasplex.app_instance.db_username',$organizationtoshow);
+		if (empty($password_db_toshow))  $password_db_toshow=getvalfromkey($db,'dolicloud_saasplex.app_instance.db_password',$organizationtoshow);
+
 		// SFTP
-		print '<tr><td width="20%">'.$langs->trans("SFTP Server").'</td><td colspan="3"><input name="hostname_web" id="hostname_web" type="text" size="18" maxlength="80" value="'.(isset($_POST["hostname_web"])?$_POST["hostname_web"]:$object->hostname_web).'"></td>';
+		print '<tr><td width="20%">'.$langs->trans("SFTP Server").'</td><td colspan="3"><input name="hostname_web" id="hostname_web" type="text" size="18" maxlength="80" value="'.$hostname_web_toshow.'"></td>';
 		print '</tr>';
 		// Login/Pass
 		print '<tr>';
-		print '<td>'.$langs->trans("SFTPLogin").'</td><td><input name="username_web" type="text" size="18" maxlength="80" value="'.(isset($_POST["username_web"])?$_POST["username_web"]:$object->username_web).'"></td>';
-		print '<td>'.$langs->trans("Password").'</td><td><input name="password_web" type="text" size="18" maxlength="80" value="'.(isset($_POST["password_web"])?$_POST["password_web"]:$object->password_web).'"></td>';
+		print '<td>'.$langs->trans("SFTPLogin").'</td><td><input name="username_web" type="text" size="18" maxlength="80" value="'.$username_web_toshow.'"></td>';
+		print '<td>'.$langs->trans("Password").'</td><td><input name="password_web" type="text" size="18" maxlength="80" value="'.$password_web_toshow.'"></td>';
 		print '</tr>';
 
 		// Database
-		print '<tr><td>'.$langs->trans("DatabaseServer").'</td><td><input name="hostname_db" id="hostname_db" type="text" size="18" maxlength="80" value="'.(isset($_POST["hostname_db"])?$_POST["hostname_db"]:$object->hostname_db).'"></td>';
-		print '<td>'.$langs->trans("DatabaseName").'</td><td><input name="database_db" type="text" size="18" maxlength="80" value="'.(isset($_POST["database_db"])?$_POST["database_db"]:$object->database_db).'"></td>';
+		print '<tr><td>'.$langs->trans("DatabaseServer").'</td><td><input name="hostname_db" id="hostname_db" type="text" size="18" maxlength="80" value="'.$hostname_db_toshow.'"></td>';
+		print '<td>'.$langs->trans("DatabaseName").'</td><td><input name="database_db" type="text" size="18" maxlength="80" value="'.$database_db_toshow.'"></td>';
 		print '</tr>';
 		// Login/Pass
 		print '<tr>';
-		print '<td>'.$langs->trans("DatabaseLogin").'</td><td><input name="username_db" type="text" size="18" maxlength="80" value="'.(isset($_POST["username_db"])?$_POST["username_db"]:$object->username_db).'"></td>';
-		print '<td>'.$langs->trans("Password").'</td><td><input name="password_db" type="text" size="18" maxlength="80" value="'.(isset($_POST["password_db"])?$_POST["password_db"]:$object->password_db).'"></td>';
+		print '<td>'.$langs->trans("DatabaseLogin").'</td><td><input name="username_db" type="text" size="18" maxlength="80" value="'.$username_db_toshow.'"></td>';
+		print '<td>'.$langs->trans("Password").'</td><td><input name="password_db" type="text" size="18" maxlength="80" value="'.$password_db_toshow.'"></td>';
 		print '</tr>';
 
 		print "</table>";
