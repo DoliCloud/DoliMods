@@ -125,18 +125,26 @@ print 'SFTP password '.$password."\n";
 
 			// TODO Now load backup locally
 			$fullcommand="bzip2 -d ".$targetdir.$filesys1.".bz2 | mysql -u".$loginbase." -p".$passwordbase." -D dolicloud_saasplex";
-			print "Load dump with ".$command."\n";
-			$output=array();
-			$return_var=0;
-			print strftime("%Y%m%d-%H%M%S").' '.$fullcommand."\n";
-			exec($fullcommand, $output, $return_var);
+			print "Load dump with ".$fullcommand."\n";
+			if ($mode == 'confirm' || $mode == 'confirmsaasplex')
+			{
+				$output=array();
+				$return_var=0;
+				print strftime("%Y%m%d-%H%M%S").' '.$fullcommand."\n";
+				exec($fullcommand, $output, $return_var);
+				print $output."\n";
+			}
 
 			$fullcommand="bzip2 -d ".$targetdir.$filesys2.".bz2 | mysql -u".$loginbase." -p".$passwordbase." -D dolicloud_rm";
-			print "Load dump with ".$command."\n";
-			$output=array();
-			$return_var=0;
-			print strftime("%Y%m%d-%H%M%S").' '.$fullcommand."\n";
-			exec($fullcommand, $output, $return_var);
+			print "Load dump with ".$fullcommand."\n";
+			if ($mode == 'confirm' || $mode == 'confirmrm')
+			{
+				$output=array();
+				$return_var=0;
+				print strftime("%Y%m%d-%H%M%S").' '.$fullcommand."\n";
+				exec($fullcommand, $output, $return_var);
+				print $output."\n";
+			}
 
 			//ssh2_sftp_unlink($sftp, $fileinstalllock);
   			//print $output;
