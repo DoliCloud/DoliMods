@@ -68,6 +68,7 @@ function getClientLoginHttpClientContact($user, $pass, $service)
 	$client=null;
 
 	try {
+		dol_syslog("getClientLoginHttpClientContact user=".$user." pass=".preg_replace('/./','*',$pass)." service=".$service, LOG_DEBUG);
 		$client = Zend_Gdata_ClientLogin::getHttpClient($user, $pass, $service);
 	}
 	catch(Exception $e)

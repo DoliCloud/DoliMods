@@ -145,6 +145,11 @@ class InterfaceGoogleContactSynchro
 			{
 				dol_syslog("Failed to login to Google for login ".$user, LOG_ERR);
 				$this->error='Failed to login to Google for login '.$user;
+				// Show warning message
+				$urlhelp='http://wiki.dolibarr.org/index.php/Module_Google_EN';
+				if (preg_match('/^es/i',$langs->defaultlang)) $urlhelp='http://wiki.dolibarr.org/index.php/M%C3%B3dulo_Google';
+		        if (preg_match('/^fr/i',$langs->defaultlang)) $urlhelp='http://wiki.dolibarr.org/index.php/Module_Google';
+				$this->error.='<br>If you are sure your login/pass is correct, take a look at warnings visible onto page <a href="'.$urlhelp.'" target="new">'.$urlhelp.'</a>';
 				$this->errors[]=$this->error;
 				return -1;
 			}
