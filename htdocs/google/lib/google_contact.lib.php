@@ -173,6 +173,25 @@ function googleCreateContact($client, $object)
 			$address->appendChild($formattedaddress);
 			*/
 
+		if ($object->element == 'contact')
+		{
+			// Company
+			$company = $doc->createElement('gd:organization');
+			$company->setAttribute('rel', 'http://schemas.google.com/g/2005#other');
+			$entry->appendChild($company);
+
+			$object->fetch_thirdparty();
+			if (! empty($object->thirdparty->name) || ! empty($object->poste))
+			{
+				$thirdpartyname=$object->thirdparty->name;
+
+				$orgName = $doc->createElement('gd:orgName', $thirdpartyname);
+				if (! empty($thirdpartyname)) $company->appendChild($orgName);
+				$orgTitle = $doc->createElement('gd:orgTitle', $object->poste);
+				if (! empty($object->poste)) $company->appendChild($orgTitle);
+			}
+		}
+
 		// Birthday
 		if (! empty($object->birthday))
 		{
@@ -312,7 +331,7 @@ function googleUpdateContact($client, $contactId, $object)
 
 	try {
 		$xml = simplexml_load_string($entryResult->getXML());
-
+//var_dump($xml);
 		if ($object->element != 'societe' && $object->element != 'thirdparty')
 		{
 			$fullNameToUse = $object->getFullName($langs);
@@ -336,6 +355,20 @@ function googleUpdateContact($client, $contactId, $object)
 		if (! empty($object->zip)) $xml->structuredPostalAddress->postcode=$object->zip;
 		if ($object->country_id > 0) $xml->structuredPostalAddress->country=($object->country_id>0?getCountry($object->country_id):'');
 		if ($object->state_id > 0) $xml->structuredPostalAddress->state=($object->state_id>0?getState($object->state_id):'');
+
+		if ($object->element == 'contact')
+		{
+			unset($xml->organization->orgName);
+			unset($xml->organization->orgTitle);
+			$object->fetch_thirdparty();
+			if (! empty($object->thirdparty->name) || ! empty($object->poste))
+			{
+				$thirdpartyname=$object->thirdparty->name;
+				$xml->organization['rel']="http://schemas.google.com/g/2005#other";
+				if (! empty($object->thirdparty->name)) $xml->organization->orgName=$thirdpartyname;
+				if (! empty($object->poste)) $xml->organization->orgTitle=$object->poste;
+			}
+		}
 
 		// Phone
 		/*
