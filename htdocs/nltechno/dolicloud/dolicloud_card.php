@@ -435,7 +435,7 @@ if ($user->rights->nltechno->dolicloud->write)
 		print '</tr>';
 
 		// Date end of trial
-		if (empty($date_registration)) $date_registration=getvalfromkey($db,'dolicloud_saasplex.customer_account.aquired_date',$organizationtoshow);
+		if (empty($date_registration)) $date_registration=getvalfromkey($db,'dolicloud_saasplex.customer_account.acquired_date',$organizationtoshow);
 		if (empty($date_endfreeperiod)) $date_endfreeperiod=getvalfromkey($db,'dolicloud_saasplex.customer_account.tel',$organizationtoshow);
 		print '<tr id="hideendfreetrial">';
 		print '<td>'.$langs->trans("DateRegistration").'</td><td>';
