@@ -240,6 +240,12 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 		$sql ="SELECT login, name as lastname, firstname, admin, email, pass, pass_crypted, datec, tms as datem, datelastlogin, fk_societe, fk_socpeople, fk_member, entity, statut";
 		$sql.=" FROM llx_user ORDER BY statut DESC";
 		$resql=$newdb->query($sql);
+		if (empty($resql))	// Alternative for 3.4+
+		{
+			$sql ="SELECT login, lastname as lastname, firstname, admin, email, pass, pass_crypted, datec, tms as datem, datelastlogin, fk_societe, fk_socpeople, fk_member, entity, statut";
+			$sql.=" FROM llx_user ORDER BY statut DESC";
+			$resql=$newdb->query($sql);
+		}
 		if ($resql)
 		{
 			$var=false;
