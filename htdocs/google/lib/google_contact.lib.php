@@ -173,6 +173,7 @@ function googleCreateContact($client, $object)
 			$address->appendChild($formattedaddress);
 			*/
 
+		// Company - Function
 		if ($object->element == 'contact')
 		{
 			// Company
@@ -189,6 +190,24 @@ function googleCreateContact($client, $object)
 				if (! empty($thirdpartyname)) $company->appendChild($orgName);
 				$orgTitle = $doc->createElement('gd:orgTitle', $object->poste);
 				if (! empty($object->poste)) $company->appendChild($orgTitle);
+			}
+		}
+		if ($object->element == 'member')
+		{
+			// Company
+			$company = $doc->createElement('gd:organization');
+			$company->setAttribute('rel', 'http://schemas.google.com/g/2005#other');
+			$entry->appendChild($company);
+
+			//$object->fetch_thirdparty();
+			if (! empty($object->company))
+			{
+				$thirdpartyname=$object->company;
+
+				$orgName = $doc->createElement('gd:orgName', $thirdpartyname);
+				if (! empty($thirdpartyname)) $company->appendChild($orgName);
+				//$orgTitle = $doc->createElement('gd:orgTitle', $object->poste);
+				//if (! empty($object->poste)) $company->appendChild($orgTitle);
 			}
 		}
 
@@ -331,7 +350,8 @@ function googleUpdateContact($client, $contactId, $object)
 
 	try {
 		$xml = simplexml_load_string($entryResult->getXML());
-//var_dump($xml);
+		//var_dump($xml);
+
 		if ($object->element != 'societe' && $object->element != 'thirdparty')
 		{
 			$fullNameToUse = $object->getFullName($langs);
@@ -356,6 +376,7 @@ function googleUpdateContact($client, $contactId, $object)
 		if ($object->country_id > 0) $xml->structuredPostalAddress->country=($object->country_id>0?getCountry($object->country_id):'');
 		if ($object->state_id > 0) $xml->structuredPostalAddress->state=($object->state_id>0?getState($object->state_id):'');
 
+		// Company + Function
 		if ($object->element == 'contact')
 		{
 			unset($xml->organization->orgName);
@@ -367,6 +388,17 @@ function googleUpdateContact($client, $contactId, $object)
 				$xml->organization['rel']="http://schemas.google.com/g/2005#other";
 				if (! empty($object->thirdparty->name)) $xml->organization->orgName=$thirdpartyname;
 				if (! empty($object->poste)) $xml->organization->orgTitle=$object->poste;
+			}
+		}
+		if ($object->element == 'member')
+		{
+			unset($xml->organization->orgName);
+			unset($xml->organization->orgTitle);
+			if (! empty($object->company))
+			{
+				$thirdpartyname=$object->company;
+				$xml->organization['rel']="http://schemas.google.com/g/2005#other";
+				if (! empty($object->company)) $xml->organization->orgName=$thirdpartyname;
 			}
 		}
 
@@ -459,9 +491,10 @@ function googleDeleteContactByRef($client, $ref)
  *
  * @param 	Mixed	$gdata			Handler of Gdata connexion
  * @param 	array 	$gContacts		Array of object GContact
+ * @param	Mixed	$objectstatic	Object static to update ref_ext of records if success
  * @return	int						>0 if OK, 'error string' if error
  */
-function insertGContactsEntries($gdata, $gContacts)
+function insertGContactsEntries($gdata, $gContacts, $objectstatic)
 {
 	global $conf;
 
@@ -485,7 +518,8 @@ function insertGContactsEntries($gdata, $gContacts)
 		$feed->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:batch', 'http://schemas.google.com/gdata/batch');
 		$feed->appendChild($doc->createElement("title", "The batch title: insert contacts"));
 		$doc->appendChild($feed);
-		foreach ($firstContacts as $gContact) {
+		foreach ($firstContacts as $gContact)
+		{
 			$entry = $gContact->atomEntry;
 			$entry = $doc->importNode($entry, true);
 			$entry->setAttribute("gdata:etag", "*");
@@ -496,6 +530,8 @@ function insertGContactsEntries($gdata, $gContacts)
 		}
 
 		$xmlStr = $doc->saveXML();
+		//var_dump($xmlStr);exit;
+
 		// uncomment for debugging :
 		file_put_contents(DOL_DATA_ROOT . "/dolibarr_google_massinsert.xml", $xmlStr);
 		@chmod(DOL_DATA_ROOT . "/dolibarr_google_massinsert.xml", octdec(empty($conf->global->MAIN_UMASK)?'0664':$conf->global->MAIN_UMASK));
@@ -548,7 +584,7 @@ $xmlStr = google_html_convert_entities($xmlStr);
 			@chmod(DOL_DATA_ROOT . "/dolibarr_google_massinsert_response.xml", octdec(empty($conf->global->MAIN_UMASK)?'0664':$conf->global->MAIN_UMASK));
 			// you can view this file with 'xmlstarlet fo dolibarr_google_massinsert_response.xml' command
 			$res=parseResponse($responseXml);
-			if($res->count != count($firstContacts) || $res->nbOfErrors)
+			if ($res->count != count($firstContacts) || $res->nbOfErrors)
 			{
 				dol_syslog("Failed to batch insert nb of errors=".$res->nbOfErrors." lasterror=".$res->lastError, LOG_ERR);
 				return sprintf("Google error : %s", $res->lastError);
@@ -556,9 +592,33 @@ $xmlStr = google_html_convert_entities($xmlStr);
 			else
 			{
 				dol_syslog(sprintf("Inserting %d google contacts", count($firstContacts)));
+
+				// Now update each record into database with external ref
+				if (is_object($objectstatic))
+				{
+					$doctoparse = new DOMDocument("1.0", "utf-8");
+					$doctoparse->loadXML($responseXml);
+					$contentNodes = $doctoparse->getElementsByTagName("entry");
+					foreach ($contentNodes as $node)
+					{
+						$titlenode = $node->getElementsByTagName("title"); $title=$titlenode->item(0)->textContent;
+						$idnode = $node->getElementsByTagName("id"); $id=$idnode->item(0)->textContent;
+						$userdefinednode = $node->getElementsByTagName("userDefinedField");
+						$userdefined=$userdefinednode->item(0)->getAttribute('value');
+						if (! empty($idnode) && preg_match('/^(\d+)\/(.*)/',$userdefined,$reg))
+						{
+							if (! empty($reg[2]))
+							{
+								$objectstatic->id=$reg[1];
+								$objectstatic->update_ref_ext($id);
+							}
+						}
+					}
+				}
 			}
 		}
-		catch (Exception $e) {
+		catch (Exception $e)
+		{
 			dol_syslog("Problem while inserting contact ".$e->getMessage(), LOG_ERR);
 		}
 	}
@@ -581,7 +641,9 @@ function parseResponse($xmlStr)
 	$res = new stdClass();
 	$res->count = $contentNodes->length;
 	$res->nbOfErrors=0;
-	foreach ($contentNodes as $node) {
+
+	foreach ($contentNodes as $node)
+	{
 		$title = $node->getElementsByTagName("title");
 		if ($title->length==1 && ($title->item(0)->textContent=='Error' || $title->item(0)->textContent=='Fatal Error'))
 		{
