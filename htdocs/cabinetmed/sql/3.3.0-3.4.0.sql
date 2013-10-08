@@ -22,6 +22,10 @@ DELETE from llx_const where name='MAIN_MENUFRONT_STANDARD_FORCED';
 DELETE from llx_const where name='MAIN_MENU_SMARTPHONE_FORCED';
 DELETE from llx_const where name='MAIN_MENU_STANDARD_FORCED';
 
+DELETE from llx_const where name='SOCIETE_DISABLE_BUILDDOC';
+DELETE from llx_const where name='SOCIETE_DISABLE_BANKACCOUNT';
+DELETE from llx_const where name='SOCIETE_DISABLE_CONTACTS';
+DELETE from llx_const where name='SOCIETE_DISABLE_PARENTCOMPANY';
 
 
 -- + duplicate table llx_societe into llx_cabinetmed_societe
