@@ -375,8 +375,11 @@ class GoogleMapAPI
 
 	public function addMarkerByCoords($lat, $lng, $title, $html = '', $category = '', $icon = '')
 	{
-		if ($icon == '') {
-			$icon = 'http://maps.gstatic.com/intl/fr_ALL/mapfiles/markers/marker_sprite.png';
+		if (empty($icon)) 
+		{
+			// Detect if we use https
+			$sforhttps=(((empty($_SERVER["HTTPS"]) || $_SERVER["HTTPS"] != 'on') && (empty($_SERVER["SERVER_PORT"])||$_SERVER["SERVER_PORT"]!=443))?'':'s');
+			$icon = 'http'.$sforhttps.'://maps.gstatic.com/intl/fr_ALL/mapfiles/markers/marker_sprite.png';
 		}
 
 		// Save the lat/lon to enable the automatic center/zoom
@@ -421,14 +424,20 @@ class GoogleMapAPI
 	public function addArrayMarker($tabAddresses, $langs, $mode)
 	{
 		$this->langs = $langs;
-		foreach ($tabAddresses as $address) {
-			/*if($address->client == 1)
-				$icon = "http://www.google.com/intl/en_us/mapfiles/ms/micons/green-dot.png";
-			else
-				$icon = "http://www.google.com/intl/en_us/mapfiles/ms/micons/red-dot.png";
+		
+		// Detect if we use https
+		$sforhttps=(((empty($_SERVER["HTTPS"]) || $_SERVER["HTTPS"] != 'on') && (empty($_SERVER["SERVER_PORT"])||$_SERVER["SERVER_PORT"]!=443))?'':'s');
+
+		
+		foreach ($tabAddresses as $address) 
+		{
+			/*if($address->client == 1) $icon = "http://www.google.com/intl/en_us/mapfiles/ms/micons/green-dot.png";
+			else $icon = "http://www.google.com/intl/en_us/mapfiles/ms/micons/red-dot.png";
+			if ($sforhttps) $icon=preg_replace('/^http:/','https:',$icon);
 			*/
+			
 			$addPropre = $this->dol_escape_js($this->no_special_character_v2($address->address));
-			$lienGmaps = ' <a href=\"http://maps.google.fr/maps?q='.urlencode($this->withoutSpecialChars($address->address)).'\" style=\"font-weight:normal\" class=\"button\" >Google Maps</a>';
+			$lienGmaps = ' <a href=\"http'.$sforhttps.'://maps.google.fr/maps?q='.urlencode($this->withoutSpecialChars($address->address)).'\" style=\"font-weight:normal\" class=\"button\" >Google Maps</a>';
 
 			$html='';
 			if ($mode == 'company') $html.= '<a href=\"'.DOL_URL_ROOT.'/societe/soc.php?socid='.$address->id.'\">';
@@ -563,14 +572,21 @@ class GoogleMapAPI
 			$this->content .= "\t" . '<div id="' . $this->googleMapId . '"></div>' . "\n";
 		}
 
+		// Detect if we use https
+		$sforhttps=(((empty($_SERVER["HTTPS"]) || $_SERVER["HTTPS"] != 'on') && (empty($_SERVER["SERVER_PORT"])||$_SERVER["SERVER_PORT"]!=443))?'':'s');
 
 		// Google map JS
-		$this->content .= '<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&language=' . $this->lang . '">';
+		$jsgmapapi='http://maps.google.com/maps/api/js';
+		if ($sforhttps) $jsgmapapi=preg_replace('/^http:/','https:',$jsgmapapi);
+		$this->content .= '<script type="text/javascript" src="'.$jsgmapapi.'?sensor=false&language=' . $this->lang . '">';
 		$this->content .= '</script>' . "\n";
 
 		// Clusterer JS
-		if ($this->useClusterer == true) {
-			$this->content .= '<script src="' . $this->clustererLibraryPath . '" type="text/javascript"></script>' . "\n";
+		if ($this->useClusterer == true)
+		{
+			$jsgmapculster=$this->clustererLibraryPath;
+			if ($sforhttps) $jsgmapculster=preg_replace('/http:/','https:',$jsgmapculster);			
+			$this->content .= '<script src="'.$jsgmapculster.'" type="text/javascript"></script>' . "\n";
 		}
 
 		$this->content .= '<script type="text/javascript">' . "\n";
