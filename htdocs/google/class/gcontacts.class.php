@@ -375,7 +375,8 @@ class GContact
     	$this->lastname = $dolContact->lastname;
         $this->fullName = $dolContact->getFullName($langs);
     	$this->email = ($dolContact->email?$dolContact->email:($this->fullName.'@noemail.com'));
-    	if(!(empty($dolContact->address)&&empty($dolContact->zip)&&empty($dolContact->town)&&empty($dolContact->state)&&empty($dolContact->country))) {
+    	if(!(empty($dolContact->address)&&empty($dolContact->zip)&&empty($dolContact->town)&&empty($dolContact->state)&&empty($dolContact->country)))
+    	{
     		$this->addr = new GCaddr();
     		$this->addr->street = $dolContact->address;
     		$this->addr->zip = $dolContact->zip;
@@ -394,21 +395,6 @@ class GContact
     		$result=$company->fetch($dolContact->socid);
     		if ($result <=0) throw new Exception($company->$error);
     		$this->orgName=$company->name;
-    		/*$this->company->tel=$company->tel;
-    		$this->company->fax=$company->fax;
-    		$this->company->email=$company->email;
-    		$this->company->url=$company->url;
-    		if(!(empty($company->address)&&empty($company->zip)&&empty($company->town)&&empty($company->state)&&empty($company->country))) {
-    			$this->company->addr = new GCaddr();
-    			$this->company->addr->street = $company->address;
-    			$this->company->addr->zip = $company->zip;
-    			$this->company->addr->town = $company->town;
-    			$this->company->addr->state = $company->state;
-    			$this->company->addr->country = $company->country;
-    		}
-    		if($company->typent_code != 'TE_PRIVATE') $this->orgName = $company->nom;
-    		$this->company->groups = self::getGroups($this->socid);
-    		*/
     	}
     	$this->poste= $dolContact->poste;
 
@@ -426,7 +412,7 @@ class GContact
     	$this->atomEntry->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:gdata', 'http://schemas.google.com/g/2005');
     	$this->atomEntry->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:gcontact', 'http://schemas.google.com/contact/2008');
 
-    	// add name element
+    	// Add name element
     	$el = $this->doc->createElement('gdata:name');
     	$this->appendTextElement($el, 'gdata:givenName', $this->firstname);
     	$this->appendTextElement($el, 'gdata:familyName', $this->lastname);
@@ -436,6 +422,16 @@ class GContact
 
         $elfullName = $this->doc->createElement('gdata:fullName', $this->fullName);
         $el->appendChild($elfullName);
+
+    	// Add organization element (company + function)
+    	if (! empty($this->orgName) && ! empty($this->poste))
+    	{
+	    	$elorg = $this->doc->createElement('gdata:organization');
+	    	$elorg->setAttribute('rel', 'http://schemas.google.com/g/2005#other');
+	    	if (! empty($this->orgName)) $this->appendTextElement($elorg, 'gdata:orgName', $this->orgName);
+	    	if (! empty($this->poste))   $this->appendTextElement($elorg, 'gdata:orgTitle', $this->poste);
+	    	$this->atomEntry->appendChild($elorg);
+    	}
 
         // Note as comment and a custom field
     	$this->atomEntry->appendChild($this->doc->createElement('atom:content', $this->note_private));
@@ -493,7 +489,8 @@ class GContact
     	$this->fullName = $dolContact->getFullName($langs);
     	if (empty($this->fullName)) $this->fullName=$dolContact->company;
     	$this->email = ($dolContact->email?$dolContact->email:($this->fullName.'@noemail.com'));
-    	if(!(empty($dolContact->address)&&empty($dolContact->zip)&&empty($dolContact->town)&&empty($dolContact->state)&&empty($dolContact->country))) {
+    	if(!(empty($dolContact->address)&&empty($dolContact->zip)&&empty($dolContact->town)&&empty($dolContact->state)&&empty($dolContact->country)))
+    	{
     		$this->addr = new GCaddr();
     		$this->addr->street = $dolContact->address;
     		$this->addr->zip = $dolContact->zip;
@@ -521,7 +518,7 @@ class GContact
     	$this->atomEntry->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:gdata', 'http://schemas.google.com/g/2005');
     	$this->atomEntry->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:gcontact', 'http://schemas.google.com/contact/2008');
 
-    	// add name element
+    	// Add name element
     	$el = $this->doc->createElement('gdata:name');
     	$this->appendTextElement($el, 'gdata:givenName', $this->firstname);
     	$this->appendTextElement($el, 'gdata:familyName', $this->lastname);
@@ -531,6 +528,15 @@ class GContact
 
     	$elfullName = $this->doc->createElement('gdata:fullName', $this->fullName);
     	$el->appendChild($elfullName);
+
+       	// Add organization element (company + function)
+    	if (! empty($this->orgName))
+    	{
+	    	$elorg = $this->doc->createElement('gdata:organization');
+	    	$elorg->setAttribute('rel', 'http://schemas.google.com/g/2005#other');
+	    	if (! empty($this->orgName)) $this->appendTextElement($elorg, 'gdata:orgName', $this->orgName);
+	    	$this->atomEntry->appendChild($elorg);
+    	}
 
     	// Note as comment and a custom field
     	$this->atomEntry->appendChild($this->doc->createElement('atom:content', $this->note_private));

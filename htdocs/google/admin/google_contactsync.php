@@ -219,6 +219,8 @@ if (preg_match('/^test/',$action))
 
 if ($action == 'pushallthirdparties')
 {
+	$objectstatic=new Societe($db);
+
 	$googleuser = empty($conf->global->GOOGLE_CONTACT_LOGIN)?'':$conf->global->GOOGLE_CONTACT_LOGIN;
 	$googlepwd  = empty($conf->global->GOOGLE_CONTACT_PASSWORD)?'':$conf->global->GOOGLE_CONTACT_PASSWORD;
 
@@ -257,7 +259,7 @@ if ($action == 'pushallthirdparties')
 		}
 
 		$result=0;
-		if (count($gContacts)) $result=insertGContactsEntries($gdata, $gContacts);
+		if (count($gContacts)) $result=insertGContactsEntries($gdata, $gContacts, $objectstatic);
 
 		if (is_numeric($result) && $result >= 0)
 		{
@@ -273,6 +275,8 @@ if ($action == 'pushallthirdparties')
 
 if ($action == 'pushallcontacts')
 {
+	$objectstatic=new Contact($db);
+
 	$googleuser = empty($conf->global->GOOGLE_CONTACT_LOGIN)?'':$conf->global->GOOGLE_CONTACT_LOGIN;
 	$googlepwd  = empty($conf->global->GOOGLE_CONTACT_PASSWORD)?'':$conf->global->GOOGLE_CONTACT_PASSWORD;
 
@@ -311,7 +315,7 @@ if ($action == 'pushallcontacts')
 		}
 
 		$result=0;
-		if (count($gContacts)) $result=insertGContactsEntries($gdata, $gContacts);
+		if (count($gContacts)) $result=insertGContactsEntries($gdata, $gContacts, $objectstatic);
 
 		if (is_numeric($result) && $result >= 0)
 		{
@@ -327,6 +331,8 @@ if ($action == 'pushallcontacts')
 
 if ($action == 'pushallmembers')
 {
+	$objectstatic=new Adherent($db);
+
 	$googleuser = empty($conf->global->GOOGLE_CONTACT_LOGIN)?'':$conf->global->GOOGLE_CONTACT_LOGIN;
 	$googlepwd  = empty($conf->global->GOOGLE_CONTACT_PASSWORD)?'':$conf->global->GOOGLE_CONTACT_PASSWORD;
 
@@ -365,7 +371,7 @@ if ($action == 'pushallmembers')
 		}
 
 		$result=0;
-		if (count($gContacts)) $result=insertGContactsEntries($gdata, $gContacts);
+		if (count($gContacts)) $result=insertGContactsEntries($gdata, $gContacts, $objectstatic);
 
 		if (is_numeric($result) && $result >= 0)
 		{
