@@ -50,8 +50,8 @@ if ($action == 'save')
     $db->begin();
 
     $res=dolibarr_set_const($db,'GOOGLE_ENABLE_AGENDA',trim($_POST["GOOGLE_ENABLE_AGENDA"]),'chaine',0,'',$conf->entity);
-    $res=dolibarr_set_const($db,'GOOGLE_AGENDA_CLIENT_ID'.$i,trim($_POST["GOOGLE_AGENDA_CLIENT_ID".$i]),'chaine',0,'',$conf->entity);
-    $res=dolibarr_set_const($db,'GOOGLE_AGENDA_CLIENT_SECRET'.$i,trim($_POST["GOOGLE_AGENDA_CLIENT_SECRET".$i]),'chaine',0,'',$conf->entity);
+    $res=dolibarr_set_const($db,'GOOGLE_AGENDA_CLIENT_ID',trim($_POST["GOOGLE_AGENDA_CLIENT_ID"]),'chaine',0,'',$conf->entity);
+    $res=dolibarr_set_const($db,'GOOGLE_AGENDA_CLIENT_SECRET',trim($_POST["GOOGLE_AGENDA_CLIENT_SECRET"]),'chaine',0,'',$conf->entity);
 
 	$i=1;
 	$error=0;
