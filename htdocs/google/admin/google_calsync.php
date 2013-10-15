@@ -53,7 +53,7 @@ if ($action == 'save')
     $db->begin();
 
     //print 'color='.$color;
-    $res=dolibarr_set_const($db,'GOOGLE_DUPLICATE_INTO_GCAL'.$i,trim($_POST["GOOGLE_DUPLICATE_INTO_GCAL"]),'chaine',0);
+    $res=dolibarr_set_const($db,'GOOGLE_DUPLICATE_INTO_GCAL',trim($_POST["GOOGLE_DUPLICATE_INTO_GCAL"]),'chaine',0);
     if (! $res > 0) $error++;
     $res=dolibarr_set_const($db,'GOOGLE_LOGIN',trim($_POST["GOOGLE_LOGIN"]),'chaine',0);
     if (! $res > 0) $error++;
