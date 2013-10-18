@@ -176,10 +176,10 @@ class Patient extends Societe
         $this->town=trim($this->ville);
         $this->country_id=trim($this->country_id);
         $this->state_id=trim($this->state_id);
-        $this->tel=trim($this->tel);
+        $this->phone=trim($this->phone);
         $this->fax=trim($this->fax);
-        $this->tel = preg_replace("/\s/","",$this->tel);
-        $this->tel = preg_replace("/\./","",$this->tel);
+        $this->phone = preg_replace("/\s/","",$this->phone);
+        $this->phone = preg_replace("/\./","",$this->phone);
         $this->fax = preg_replace("/\s/","",$this->fax);
         $this->fax = preg_replace("/\./","",$this->fax);
         $this->email=trim($this->email);
@@ -240,7 +240,7 @@ class Patient extends Societe
             $sql .= ",fk_departement = '" . ($this->state_id?$this->state_id:'0') ."'";
             $sql .= ",fk_pays = '" . ($this->country_id?$this->country_id:'0') ."'";
 
-            $sql .= ",phone = ".($this->tel?"'".addslashes($this->tel)."'":"null");
+            $sql .= ",phone = ".($this->phone?"'".addslashes($this->phone)."'":"null");
             $sql .= ",fax = ".($this->fax?"'".addslashes($this->fax)."'":"null");
             $sql .= ",email = ".($this->email?"'".addslashes($this->email)."'":"null");
             $sql .= ",url = ".($this->url?"'".addslashes($this->url)."'":"null");
@@ -446,8 +446,7 @@ class Patient extends Societe
 
                 $this->email = $obj->email;
                 $this->url = $obj->url;
-                $this->tel = $obj->tel; // TODO obsolete
-                $this->phone = $obj->tel;
+                $this->phone = $obj->phone;
                 $this->fax = $obj->fax;
 
                 $this->parent    = $obj->parent;

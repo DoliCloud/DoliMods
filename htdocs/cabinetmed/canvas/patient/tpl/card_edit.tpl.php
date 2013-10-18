@@ -188,7 +188,7 @@ if (empty($conf->global->SOCIETE_DISABLE_STATE))
 }
 
 // Phone / Fax
-print '<tr><td>'.$langs->trans('PhonePerso').'</td><td><input type="text" name="phone" value="'.$soc->tel.'"></td>';
+print '<tr><td>'.$langs->trans('PhonePerso').'</td><td><input type="text" name="phone" value="'.$soc->phone.'"></td>';
 print '<td>'.$langs->trans('PhoneMobile').'</td><td><input type="text" name="fax" value="'.$soc->fax.'"></td></tr>';
 
 // EMail / Web

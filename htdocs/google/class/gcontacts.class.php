@@ -325,8 +325,8 @@ class GContact
                 $norm_phone_pro = preg_replace("/\./","",$norm_phone_pro);
                 $norm_phone_perso = preg_replace("/\s/","",$this->phone_perso);
                 $norm_phone_perso = preg_replace("/\./","",$norm_phone_perso);
-                if ($norm_phone_pro != $this->company->tel && $norm_phone_perso != $this->company->tel)
-                    $this->appendPhoneNumber(null, $this->company->tel,false, $this->orgName);
+                if ($norm_phone_pro != $this->company->phone && $norm_phone_perso != $this->company->phone)
+                    $this->appendPhoneNumber(null, $this->company->phone,false, $this->orgName);
                 $norm_fax = preg_replace("/\s/","",$this->fax);
                 $norm_fax = preg_replace("/\./","",$norm_fax);
                 if ($norm_fax != $this->company->fax)
