@@ -5,6 +5,7 @@
  * Copyright (C) 2012		Regis Houssin		<regis@dolibarr.fr>
  * Copyright (C) 2013		Christophe Battarel	<christophe.battarel@altairis.fr>
  * Copyright (C) 2011-2012 Alexandre Spangaro	  <alexandre.spangaro@gmail.com>
+ * Copyright (C) 2013       Florian Henry	  <florian.henry@open-concept.pro>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,11 +26,21 @@
  *		\ingroup    societe, facture
  *		\brief      Page with sells journal
  */
-require("../../../main.inc.php");
+// Dolibarr environment
+$res=@include("../main.inc.php");
+if (! $res && file_exists("../main.inc.php")) $res=@include("../main.inc.php");
+if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.php");
+if (! $res && file_exists("../../../main.inc.php")) $res=@include("../../../main.inc.php");
+if (! $res) die("Include of main fails");
+		
+		
 require_once(DOL_DOCUMENT_ROOT."/core/lib/report.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/date.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/compta/facture/class/facture.class.php");
 require_once DOL_DOCUMENT_ROOT.'/societe/class/client.class.php';
+
+dol_include_once('/ventilation/compta/class/comptacompte.class.php');
+dol_include_once('/ventilation/compta/class/bookkeeping.class.php');
 
 $langs->load("companies");
 $langs->load("other");
@@ -59,9 +70,7 @@ if (! empty($conf->accounting->enabled)) $result=restrictedArea($user,'accountin
  * View
  */
 
-$form=new Form($db);
 
-llxHeader('',$langs->trans("SellsJournal"),'');
 
 $year_current = strftime("%Y",dol_now());
 $pastmonth = strftime("%m",dol_now()) - 1;
@@ -81,24 +90,15 @@ if (empty($date_start) || empty($date_end)) // We define date_start and date_end
 	$date_start=dol_get_first_day($pastmonthyear,$pastmonth,false); $date_end=dol_get_last_day($pastmonthyear,$pastmonth,false);
 }
 
-$nom=$langs->trans("SellsJournal");
-$nomlink='';
-$periodlink='';
-$exportlink='';
-$builddate=time();
-$description=$langs->trans("DescSellsJournal").'<br>';
-if (! empty($conf->global->FACTURE_DEPOSITS_ARE_JUST_PAYMENTS)) $description.= $langs->trans("DepositsAreNotIncluded");
-else  $description.= $langs->trans("DepositsAreIncluded");
-$period=$form->select_date($date_start,'date_start',0,0,0,'',1,0,1).' - '.$form->select_date($date_end,'date_end',0,0,0,'',1,0,1);
-report_header($nom,$nomlink,$period,$periodlink,$description,$builddate,$exportlink);
 
-$p = explode(":", $conf->global->MAIN_INFO_SOCIETE_PAYS);
+
+$p = explode(":", $conf->global->MAIN_INFO_SOCIETE_COUNTRY);
 $idpays = $p[0];
 
 $sql = "SELECT f.rowid, f.facnumber, f.type, f.datef as df, f.ref_client,";
-$sql.= " fd.product_type, fd.total_ht, fd.total_tva, fd.tva_tx, fd.total_ttc,";
-$sql.= " s.rowid as socid, s.nom as name, s.code_compta, s.client,";
-$sql.= " p.rowid as pid, p.ref as pref, p.accountancy_code_sell, ccg.numero as compte, ccg.intitule as libelle, ";
+$sql.= " fd.rowid as fdid, fd.product_type, fd.total_ht, fd.total_tva, fd.tva_tx, fd.total_ttc,";
+$sql.= " s.rowid as socid, s.nom as name, s.code_compta, s.code_client,";
+$sql.= " p.rowid as pid, p.ref as pref, p.accountancy_code_sell, ccg.rowid as fk_compte, ccg.numero as compte, ccg.intitule as label_compte, ";
 $sql.= " ct.accountancy_code_sell as account_tva";
 $sql.= " FROM ".MAIN_DB_PREFIX."facturedet fd";
 $sql.= " LEFT JOIN ".MAIN_DB_PREFIX."product p ON p.rowid = fd.fk_product";
@@ -107,6 +107,7 @@ $sql.= " JOIN ".MAIN_DB_PREFIX."facture f ON f.rowid = fd.fk_facture";
 $sql.= " JOIN ".MAIN_DB_PREFIX."societe s ON s.rowid = f.fk_soc";
 $sql.= " LEFT JOIN ".MAIN_DB_PREFIX."c_tva ct ON fd.tva_tx = ct.taux AND ct.fk_pays = '".$idpays."'";
 $sql.= " WHERE f.entity = ".$conf->entity;
+$sql.= " AND fd.fk_code_ventilation > 0";
 $sql.= " AND f.fk_statut > 0";
 if (! empty($conf->global->FACTURE_DEPOSITS_ARE_JUST_PAYMENTS)) $sql.= " AND f.type IN (0,1,2)";
 else $sql.= " AND f.type IN (0,1,2,3)";
@@ -121,8 +122,7 @@ if ($result)
 	$tabht = array();
 	$tabtva = array();
 	$tabttc = array();
-  $tabcompany = array();
-  $tablibelle = array();
+	$tabcompany = array();
 
 	$num = $db->num_rows($result);
    	$i=0;
@@ -136,7 +136,6 @@ if ($result)
 		
 		
 		$compta_prod = $obj->compte;
-		$compte_libe = $obj->libelle;
 		if (empty($compta_prod))
 		{
 			if($obj->product_type == 0) $compta_prod = (! empty($conf->global->COMPTA_PRODUCT_SOLD_ACCOUNT))?$conf->global->COMPTA_PRODUCT_SOLD_ACCOUNT:$langs->trans("CodeNotDef");
@@ -146,17 +145,17 @@ if ($result)
 		$compta_tva = (! empty($obj->account_tva)?$obj->account_tva:$cpttva);
 
     	//la ligne facture
-   		$tabfac[$obj->rowid]["date"] = dol_print_date($db->jdate($obj->df),'day');
+   		$tabfac[$obj->rowid]["date"] = $obj->df;
    		$tabfac[$obj->rowid]["ref"] = $obj->facnumber;
    		$tabfac[$obj->rowid]["type"] = $obj->type;
+   		$tabfac[$obj->rowid]["fk_facturedet"] = $obj->fdid;
    		if (! isset($tabttc[$obj->rowid][$compta_soc])) $tabttc[$obj->rowid][$compta_soc]=0;
    		if (! isset($tabht[$obj->rowid][$compta_prod])) $tabht[$obj->rowid][$compta_prod]=0;
    		if (! isset($tabtva[$obj->rowid][$compta_tva])) $tabtva[$obj->rowid][$compta_tva]=0;
    		$tabttc[$obj->rowid][$compta_soc] += $obj->total_ttc;
    		$tabht[$obj->rowid][$compta_prod] += $obj->total_ht;
    		$tabtva[$obj->rowid][$compta_tva] += $obj->total_tva;
-   		$tabcompany[$obj->rowid]=array('id'=>$obj->socid, 'name'=>$obj->name, 'client'=>$obj->client);
-   		$tablibelle[$obj->rowid]["libelle"] = $obj->libelle;
+   		$tabcompany[$obj->rowid]=array('id'=>$obj->socid, 'name'=>$obj->name, 'code_client'=>$obj->code_compta);
 
    		$i++;
    	}
@@ -164,14 +163,94 @@ if ($result)
 else {
     dol_print_error($db);
 }
+//write bookkeeping
+if (GETPOST('action') == 'writeBookKeeping')
+{
+	foreach ($tabfac as $key => $val)
+	{
+		foreach ($tabttc[$key] as $k => $mt)
+		{
+		    $bookkeeping = new BookKeeping($db);
+		    $bookkeeping->doc_date = $val["date"];
+		    $bookkeeping->doc_ref = $val["ref"];
+		    $bookkeeping->doc_type = 'facture_client';
+		    $bookkeeping->fk_doc = $key;
+		    $bookkeeping->fk_docdet = $val["fk_facturedet"];
+		    $bookkeeping->code_tiers = $tabcompany[$key]['code_client'];
+		    $bookkeeping->numero_compte = $conf->global->COMPTA_ACCOUNT_CUSTOMER;
+		    $bookkeeping->label_compte = $tabcompany[$key]['name'];
+		    $bookkeeping->montant = $mt;
+		    $bookkeeping->sens = ($mt >= 0)?'D':'C';
+		    $bookkeeping->debit = ($mt >= 0)?$mt:0;
+		    $bookkeeping->credit = ($mt < 0)?$mt:0;
+		    $bookkeeping->code_journal = $conf->global->VENTILATION_SELL_JOURNAL;
 
+		    $bookkeeping->create();
+		}
+		// product
+		foreach ($tabht[$key] as $k => $mt)
+		{
+			if ($mt)
+			{
+			    // get compte id and label
+			    $compte = new ComptaCompte($db);
+			    if ($compte->fetch(null, $k))
+			    {
+				    $bookkeeping = new BookKeeping($db);
+				    $bookkeeping->doc_date = $val["date"];
+				    $bookkeeping->doc_ref = $val["ref"];
+				    $bookkeeping->doc_type = 'facture_client';
+				    $bookkeeping->fk_doc = $key;
+				    $bookkeeping->fk_docdet = $val["fk_facturedet"];
+		    		$bookkeeping->code_tiers = '';
+				    $bookkeeping->numero_compte = $k;
+				    $bookkeeping->label_compte = $compte->intitule;
+				    $bookkeeping->montant = $mt;
+				    $bookkeeping->sens = ($mt < 0)?'D':'C';
+				    $bookkeeping->debit = ($mt < 0)?$mt:0;
+				    $bookkeeping->credit = ($mt >= 0)?$mt:0;
+				    $bookkeeping->code_journal = $conf->global->VENTILATION_SELL_JOURNAL;
+
+				    $bookkeeping->create();
+			    }
+			}
+		}
+		// vat
+		//var_dump($tabtva);
+		foreach ($tabtva[$key] as $k => $mt)
+		{
+		    if ($mt)
+		    {
+			    $bookkeeping = new BookKeeping($db);
+			    $bookkeeping->doc_date = $val["date"];
+			    $bookkeeping->doc_ref = $val["ref"];
+			    $bookkeeping->doc_type = 'facture_client';
+			    $bookkeeping->fk_doc = $key;
+			    $bookkeeping->fk_docdet = $val["fk_facturedet"];
+			    $bookkeeping->fk_compte = $compte->id;
+	    		$bookkeeping->code_tiers = '';
+			    $bookkeeping->numero_compte = $k;
+			    $bookkeeping->label_compte = 'TVA';
+			    $bookkeeping->montant = $mt;
+			    $bookkeeping->sens = ($mt < 0)?'D':'C';
+			    $bookkeeping->debit = ($mt < 0)?$mt:0;
+			    $bookkeeping->credit = ($mt >= 0)?$mt:0;
+			    $bookkeeping->code_journal = $conf->global->VENTILATION_SELL_JOURNAL;
+
+			    $bookkeeping->create();
+			}
+		}
+	}
+}
+// export csv
 if (GETPOST('action') == 'export_csv')
 {
     header( 'Content-Type: text/csv' );
     header( 'Content-Disposition: attachment;filename=journal_ventes.csv');
 	foreach ($tabfac as $key => $val)
 	{
-		print '"'.$val["date"].'",';
+	    $date = dol_print_date($db->jdate($val["date"]),'day');
+		print '"'.$date.'",';
 		print '"'.$val["ref"].'",';
 		foreach ($tabttc[$key] as $k => $mt)
 		{
@@ -183,7 +262,7 @@ if (GETPOST('action') == 'export_csv')
 		{
 			if ($mt)
 			{
-				print '"'.$val["date"].'",';
+				print '"'.$date.'",';
 				print '"'.$val["ref"].'",';
 				print '"'.html_entity_decode($k).'","'.$langs->trans("Products").'","'.($mt<0?price(-$mt):'').'","'.($mt>=0?price($mt):'').'"';
 				print "\n";
@@ -195,7 +274,7 @@ if (GETPOST('action') == 'export_csv')
 		{
 		    if ($mt)
 		    {
-				print '"'.$val["date"].'",';
+				print '"'.$date.'",';
 				print '"'.$val["ref"].'",';
 				print '"'.html_entity_decode($k).'","'.$langs->trans("VAT").'","'.($mt<0?price(-$mt):'').'","'.($mt>=0?price($mt):'').'"';
 				print "\n";
@@ -205,24 +284,37 @@ if (GETPOST('action') == 'export_csv')
 }
 else
 {
-//	llxHeader('','','');
 
-//	$form=new Form($db);
+$form=new Form($db);
 
-//	$nom=$langs->trans("SellsJournal");
-//	$nomlink=;
-//  $builddate=time();
-//	$description=$langs->trans("DescSellsJournal");
-//	$period=$form->select_date($date_start,'date_start',0,0,0,'',1,0,1).' - '.$form->select_date($date_end,'date_end',0,0,0,'',1,0,1);
+llxHeader('',$langs->trans("SellsJournal"),'');
 
-//  report_header($nom,$nomlink,$period,$periodlink,$description,$builddate,$exportlink, array('action'=>''));
+$nom=$langs->trans("SellsJournal");
+$nomlink='';
+$periodlink='';
+$exportlink='';
+$builddate=time();
+$description=$langs->trans("DescSellsJournal").'<br>';
+if (! empty($conf->global->FACTURE_DEPOSITS_ARE_JUST_PAYMENTS)) $description.= $langs->trans("DepositsAreNotIncluded");
+else  $description.= $langs->trans("DepositsAreIncluded");
+$period=$form->select_date($date_start,'date_start',0,0,0,'',1,0,1).' - '.$form->select_date($date_end,'date_end',0,0,0,'',1,0,1);
+report_header($nom,$nomlink,$period,$periodlink,$description,$builddate,$exportlink, array('action'=>'') );
+
+
 	
 	print '<input type="button" class="button" style="float: right;" value="Export CSV" onclick="launch_export();" />';
+	
+	print '<input type="button" class="button" value="'.$langs->trans("WriteBookKeeping").'" onclick="writeBookKeeping();" />';
 	
 	print '
 	<script type="text/javascript">
 		function launch_export() {
 		    $("div.fiche div.tabBar form input[name=\"action\"]").val("export_csv");
+			$("div.fiche div.tabBar form input[type=\"submit\"]").click();
+		    $("div.fiche div.tabBar form input[name=\"action\"]").val("");
+		}
+		function writeBookKeeping() {
+		    $("div.fiche div.tabBar form input[name=\"action\"]").val("writeBookKeeping");
 			$("div.fiche div.tabBar form input[type=\"submit\"]").click();
 		    $("div.fiche div.tabBar form input[name=\"action\"]").val("");
 		}
@@ -253,19 +345,19 @@ else
 		$invoicestatic->ref=$val["ref"];
 		$invoicestatic->type=$val["type"];
 
-
+	    $date = dol_print_date($db->jdate($val["date"]),'day');
 
 		print "<tr ".$bc[$var].">";
 		// third party
 		//print "<td>".$conf->global->COMPTA_JOURNAL_SELL."</td>";
-		print "<td>".$val["date"]."</td>";
+		print "<td>".$date."</td>";
 		print "<td>".$invoicestatic->getNomUrl(1)."</td>";
 		foreach ($tabttc[$key] as $k => $mt)
 		{
 			$companystatic->id=$tabcompany[$key]['id'];
-    	$companystatic->name=$tabcompany[$key]['name'];
-    	$companystatic->client=$tabcompany[$key]['client'];
-    print "<td>".$k;
+	    	$companystatic->name=$tabcompany[$key]['name'];
+	    	$companystatic->client=$tabcompany[$key]['code_client'];
+	    print "<td>".$k;
 		print "</td><td>".$langs->trans("ThirdParty");
 		print ' ('.$companystatic->getNomUrl(0,'customer',16).')';
 		print "</td><td align='right'>".($mt>=0?price($mt):'')."</td><td align='right'>".($mt<0?price(-$mt):'')."</td>";
@@ -278,7 +370,7 @@ else
 			{
 				print "<tr ".$bc[$var].">";
 				//print "<td>".$conf->global->COMPTA_JOURNAL_SELL."</td>";
-				print "<td>".$val["date"]."</td>";
+				print "<td>".$date."</td>";
 				print "<td>".$invoicestatic->getNomUrl(1)."</td>";
 				print "<td>".$k."</td><td>".$val["compte"]."</td><td align='right'>".($mt<0?price(-$mt):'')."</td><td align='right'>".($mt>=0?price($mt):'')."</td></tr>";
 			}
@@ -291,7 +383,7 @@ else
 		    {
 	    		print "<tr ".$bc[$var].">";
 	    		//print "<td>".$conf->global->COMPTA_JOURNAL_SELL."</td>";
-				print "<td>".$val["date"]."</td>";
+				print "<td>".$date."</td>";
 	    		print "<td>".$invoicestatic->getNomUrl(1)."</td>";
 	    		print "<td>".$k."</td><td>".$langs->trans("VAT")."</td><td align='right'>".($mt<0?price(-$mt):'')."</td><td align='right'>".($mt>=0?price($mt):'')."</td></tr>";
 		    }

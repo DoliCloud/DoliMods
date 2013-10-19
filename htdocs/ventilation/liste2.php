@@ -25,9 +25,11 @@
  * 		\ingroup    compta
  * 		\brief      Page de ventilation des lignes de facture
  */
-
-$res=@include("../main.inc.php");						// For root directory
-if (! $res) $res=@include("../../main.inc.php");		// For "custom" directory
+$res=@include("../main.inc.php");
+if (! $res && file_exists("../main.inc.php")) $res=@include("../main.inc.php");
+if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.php");
+if (! $res && file_exists("../../../main.inc.php")) $res=@include("../../../main.inc.php");
+if (! $res) die("Include of main fails");
 
 require_once(DOL_DOCUMENT_ROOT."/compta/facture/class/facture.class.php");
 require_once(DOL_DOCUMENT_ROOT."/product/class/product.class.php");
@@ -35,6 +37,7 @@ require_once(DOL_DOCUMENT_ROOT."/product/class/product.class.php");
 
 $langs->load("compta");
 $langs->load("bills");
+$langs->load("main");
 $langs->load("ventilation@ventilation");
 
 if (!$user->rights->facture->lire) accessforbidden();
@@ -44,49 +47,51 @@ if (!$user->rights->compta->ventilation->creer) accessforbidden();
 if ($user->societe_id > 0) accessforbidden();
 
 
-llxHeader('','Ventilation');
+llxHeader('',$langs->trans("Ventilation"));
 
 if($_POST["action"] == 'ventil')
-  {
-  print '<div><font color="red">Debut du traitement... </font></div>';
-  if($_POST['codeventil'] && $_POST["mesCasesCochees"])
-  {
-    print '<div><font color="red">'.count($_POST["mesCasesCochees"])." Lignes selectionnees</font></div>";
-    $mesLignesCochees=$_POST['mesCasesCochees'];
-    $mesCodesVentilChoisis = $_POST['codeventil'];
-    $cpt = 0;
-    foreach($mesLignesCochees as $maLigneCochee) 
-      {
-      //print '<div><font color="red">id selectionnee : '.$monChoix."</font></div>";
-      $maLigneCourante = split("_", $maLigneCochee);
-      $monId = $maLigneCourante[0];
-      $monNumLigne = $maLigneCourante[1];
-      $monCompte = $mesCodesVentilChoisis[$monNumLigne];
+{
+	print '<div><font color="red">'.$langs->trans("Processing").'...</font></div>';
+	if($_POST['codeventil'] && $_POST["mesCasesCochees"])
+	{
+		print '<div><font color="red">'.count($_POST["mesCasesCochees"]).' '.$langs->trans("SelectedLines").'</font></div>';
+		$mesLignesCochees=$_POST['mesCasesCochees'];
+		$mesCodesVentilChoisis = $_POST['codeventil'];
+		$cpt = 0;
+		foreach($mesLignesCochees as $maLigneCochee) 
+		{
+			//print '<div><font color="red">id selectionnee : '.$monChoix."</font></div>";
+			$maLigneCourante = split("_", $maLigneCochee);
+			$monId = $maLigneCourante[0];
+			$monNumLigne = $maLigneCourante[1];
+			$monCompte = $mesCodesVentilChoisis[$monNumLigne];
   
-      $sql = " UPDATE ".MAIN_DB_PREFIX."facturedet";
-      $sql .= " SET fk_code_ventilation = ".$monCompte;
-      $sql .= " WHERE rowid = ".$monId;
+			$sql = " UPDATE ".MAIN_DB_PREFIX."facturedet";
+			$sql .= " SET fk_code_ventilation = ".$monCompte;
+			$sql .= " WHERE rowid = ".$monId;
 
-      if($db->query($sql))
-      {
-            print '<div><font color="green"> Ligne de facture '.$monId.' ventilee <b>avec succes</b> dans le compte : '.$monCompte.'</font></div>';
-      }
-      else 
-      {
-           print '<div><font color="red">Erreur BD : Ligne de facture '.$monId.' nom ventilee dans le compte : '.$monCompte.'<br/> <pre>'.$sql.'</pre></font></div>';
-      }
+			if($db->query($sql))
+			{
+				print '<div><font color="green">'.$langs->trans("Line of invoice").' '.$monId.' '.$langs->trans("VentilatedinAccount").' : '.$monCompte.'</font></div>';
+			}
+			else 
+			{
+				print '<div><font color="red">'.$langs->trans("ErrorDB").' : '.$langs->trans("Line of invoice").' '.$monId.' '.$langs->trans("NotVentilatedinAccount").' : '.$monCompte.'<br/> <pre>'.$sql.'</pre></font></div>';
+			}
   
-      $cpt++; 
+			$cpt++; 
   
-      }
-    }
-    else
-    {
-      print '<div><font color="red">Aucune ligne à ventiler</font></div>';
-    }
-    print '<div><font color="red">Traitement termine </font></div>';
-  }
-/* Liste des comptes
+		}
+	}
+	else
+	{
+		print '<div><font color="red">'.$langs->trans("AnyLineVentilate").'</font></div>';
+	}
+	print '<div><font color="red">'.$langs->trans("EndProcessing").'</font></div>';
+}
+
+/* 
+ * Liste des comptes
 */
 
 $sqlCompte = "SELECT rowid, numero, intitule";
@@ -98,16 +103,16 @@ $cgs = array();
 $cgn = array();
 if ($resultCompte)
 {
-  $numCompte = $db->num_rows($resultCompte);
-  $iCompte = 0; 
+	$numCompte = $db->num_rows($resultCompte);
+	$iCompte = 0; 
   
-  while ($iCompte < $numCompte)
-    {
-      $rowCompte = $db->fetch_row($resultCompte);
-      $cgs[$rowCompte[0]] = $rowCompte[1] . ' ' . $rowCompte[2];
-      $cgn[$rowCompte[1]] = $rowCompte[0];
-      $iCompte++;
-    }
+	while ($iCompte < $numCompte)
+	{
+		$rowCompte = $db->fetch_row($resultCompte);
+		$cgs[$rowCompte[0]] = $rowCompte[1] . ' ' . $rowCompte[2];
+		$cgn[$rowCompte[1]] = $rowCompte[0];
+		$iCompte++;
+	}
 }
 
 /*
@@ -132,22 +137,19 @@ if ($result)
 {
 	$num_lignes = $db->num_rows($result);
 	$i = 0;
-	print_barre_liste("Lignes de facture &agrave; ventiler",$page,"liste.php","",$sortfield,$sortorder,'',$num_lignes);
+	print_barre_liste($langs->trans("InvoiceLines"),$page,"liste.php","",$sortfield,$sortorder,'',$num_lignes);
 
-    	
-	
-	
 
 	print '<table class="noborder" width="100%">';
 	print '<tr class="liste_titre"><td>'.$langs->trans("Invoice").'</td>';
 	print '<td>'.$langs->trans("Ref").'</td>';
 	print '<td>'.$langs->trans("Label").'</td>';
 	print '<td>'.$langs->trans("Description").'</td>';
-	print '<td align="right">'.$langs->trans("Montant").'</td>';
+	print '<td align="right">'.$langs->trans("Amount").'</td>';
 	print '<td align="right">'.$langs->trans("Account").'</td>';
-	print '<td align="center">Dans le compte</td>';
-       print '<td align="center">Ventiler</td>';
-	print "</tr>\n";
+	print '<td align="center">'.$langs->trans("IntoAccount").'</td>';
+  print '<td align="center">'.$langs->trans("Ventilate").'</td>';
+	print '</tr>';
 
 	$facture_static=new Facture($db);
 	$product_static=new Product($db);
@@ -198,13 +200,13 @@ if ($result)
 		print '<input type="checkbox" name="mesCasesCochees[]" value="'.$objp->rowid."_".$i.'"'.($objp->code_sell?"checked":"").'/>';
 		print '</td>';
 
-		print "</tr>";
+		print '</tr>';
 		$i++;
 	}
 
-	print '<tr><td colspan="8">&nbsp;</td></tr><tr><td colspan="8" align="center"><input type="submit" class="butAction" value="'.$langs->trans("Ventiler").'"></td></tr>';
+	print '<tr><td colspan="8">&nbsp;</td></tr><tr><td colspan="8" align="center"><input type="submit" class="butAction" value="'.$langs->trans("Ventilate").'"></td></tr>';
 
-	print "</table>";
+	print '</table>';
 	print '</form>';
 }
 else

@@ -16,16 +16,4 @@
 --
 -- ============================================================================
 
-CREATE TABLE llx_compta_compte_generaux 
-(
-  rowid				int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  date_creation		datetime DEFAULT NULL,
-  numero			varchar(50) DEFAULT NULL,
-  intitule			varchar(255) DEFAULT NULL,
-  sellsjournal		varchar(1) DEFAULT 'N'
-  fk_user_author	int(11) DEFAULT NULL,
-  note				text,
-  libelle		    varchar(255) DEFAULT NULL,
-) ENGINE=innodb;
-
-ALTER TABLE llx_compta_compte_generaux ADD sellsjournal VARCHAR(1) DEFAULT 'N';
+ALTER TABLE llx_c_chargesociales add column accountancy_code varchar(15) ;

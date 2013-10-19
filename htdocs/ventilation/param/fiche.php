@@ -2,6 +2,7 @@
 /* Copyright (C) 2001-2005 Rodolphe Quiedeville <rodolphe@quiedeville.org>
  * Copyright (C) 2004-2005 Laurent Destailleur  <eldy@users.sourceforge.net>
  * Copyright (C) 2013 Olivier Geffroy  <jeff@jeffinfo.com>
+ * Copyright (C) 2013 Florian Henry	  <florian.henry@open-concept.pro>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -27,8 +28,14 @@
         \version    $Revision: 1.14 $
 */
 
-require("../../../main.inc.php");
-dol_buildpath("/ventilation/compta/class/comptacompte.class.php");
+// Dolibarr environment
+$res=@include("../main.inc.php");
+if (! $res && file_exists("../main.inc.php")) $res=@include("../main.inc.php");
+if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.php");
+if (! $res && file_exists("../../../main.inc.php")) $res=@include("../../../main.inc.php");
+if (! $res) die("Include of main fails");
+
+dol_include_once("/ventilation/compta/class/comptacompte.class.php");
 
 $langs->load("ventilation@ventilation");
 
@@ -41,6 +48,9 @@ if (GETPOST("action") == 'add' && $user->rights->compta->ventilation->parametrer
 
   $compte->numero   = GETPOST("numero");
   $compte->intitule = GETPOST("intitule");
+
+  // exemple traitement case à cocher journal de vente
+  $compte->sellsjournal = (GETPOST("sellsjournal") == 'on')?'O':'N';
 
   $e_compte = $compte;
 
@@ -70,6 +80,9 @@ elseif (GETPOST("action") == 'maj' && $user->rights->compta->ventilation->parame
 
   $compte->numero   = GETPOST("numero");
   $compte->intitule = GETPOST("intitule");
+  
+  // exemple traitement case à cocher journal de vente
+  $compte->sellsjournal = (GETPOST("sellsjournal") == 'on')?'O':'N';
 
   $e_compte = $compte;
 
@@ -117,6 +130,10 @@ if ($action == 'create' && $user->rights->compta->ventilation->parametrer)
     print '</td></tr>';
     print '<tr><td>'.$langs->trans("Label").'</td><td><input name="intitule" size="40" value="'.$compte->intitule.'"></td></tr>';
 
+  	// exemple case à cocher journal de vente
+    $checked = ($compte->sellsjournal == 'O')?' checked=checked':'';
+    print '<tr><td>'.$langs->trans("SellsJournal").'</td><td><input type="checkbox" name="sellsjournal"'.$checked .'/></td></tr>';
+
     print '<tr><td>&nbsp;</td><td><input type="submit" class="button" value="'.$langs->trans("Create").'"></td></tr>';
     print '</table>';
     print '</form>';
@@ -129,7 +146,7 @@ elseif ($action == 'update' && $user->rights->compta->ventilation->parametrer)
     $nbligne=0;
 
     $compte = new ComptaCompte($db, GETPOST('id'));
-
+    
     print_fiche_titre($langs->trans("UpdateAccount"));
 
     print '<form action="fiche.php" method="post">';
@@ -143,6 +160,10 @@ elseif ($action == 'update' && $user->rights->compta->ventilation->parametrer)
     print '<td>'.$langs->trans("AccountNumber").'</td><td><input name="numero" size="20" value="'.$compte->numero.'"></td></tr>';
     print '<tr><td>'.$langs->trans("Label").'</td><td><input name="intitule" size="40" value="'.$compte->intitule.'"></td></tr>';
 
+  	// exemple case à cocher journal de vente
+    $checked = ($compte->sellsjournal == 'O')?' checked=checked':'';
+    print '<tr><td>'.$langs->trans("SellsJournal").'</td><td><input type="checkbox" name="sellsjournal"'.$checked .'/></td></tr>';
+
     print '<tr><td>&nbsp;</td><td><input type="submit" class="button" value="'.$langs->trans("Update").'"></td></tr>';
     print '</table>';
     print '</form>';
@@ -150,5 +171,5 @@ elseif ($action == 'update' && $user->rights->compta->ventilation->parametrer)
 
 $db->close();
 
-llxFooter();
+llxFooter('$Date: 2011/07/31 22:23:31 $ - $Revision: 1.14 $');
 ?>

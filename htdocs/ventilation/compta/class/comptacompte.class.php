@@ -32,8 +32,12 @@ class ComptaCompte
   var $db ;
 
   var $id ;
+  var $rowid ;
   var $numero;
   var $intitule;
+  
+  // exmple journal de vente
+  var $sellsjournal;
 
   /**
    *    \brief  Constructeur de la classe
@@ -46,11 +50,13 @@ class ComptaCompte
 		$this->db = $db;
 		if ($rowid != '') return $this->fetch($rowid);
 	}
-	function fetch($rowid='')
+	function fetch($rowid=null,$num_compte=null)
 	{
-		if ($rowid != '')
+		if ($rowid || $num_compte)
 		{
-			$sql = "SELECT * FROM ".MAIN_DB_PREFIX."compta_compte_generaux WHERE rowid = '".$rowid."'";
+			$sql = "SELECT * FROM ".MAIN_DB_PREFIX."compta_compte_generaux WHERE ";
+			if ($rowid) $sql.= " rowid = '".$rowid."'";
+			elseif ($num_compte) $sql.= " numero = '".$num_compte."'";
 			$result = $this->db->query($sql);
 			if ($result)
 			{
@@ -58,11 +64,13 @@ class ComptaCompte
 			}
 			else return null;
 		}
+		$this->id = $obj->rowid;
 		$this->rowid = $obj->rowid;
 		$this->intitule = stripslashes($obj->intitule);
 		$this->numero = $obj->numero;
+		$this->sellsjournal = $obj->sellsjournal;
 
-		return 0;
+		return $obj->rowid;
 	}
 
   /**
@@ -85,8 +93,8 @@ class ComptaCompte
 	      $row = $this->db->fetch_array($resql);
 	      if ($row[0] == 0)
 		{
-		  $sql = "INSERT INTO ".MAIN_DB_PREFIX."compta_compte_generaux (date_creation, fk_user_author, numero,intitule)";
-		  $sql .= " VALUES (".$this->db->idate(mktime()).",".$user->id.",'".$this->numero."','".$this->intitule."')";
+		  $sql = "INSERT INTO ".MAIN_DB_PREFIX."compta_compte_generaux (date_creation, fk_user_author, numero,intitule,sellsjournal)";
+		  $sql .= " VALUES (".$this->db->idate(mktime()).",".$user->id.",'".$this->numero."','".$this->intitule."','".$this->sellsjournal."')";
 
 		  $resql = $this->db->query($sql);
 		  if ( $resql )
@@ -133,7 +141,7 @@ class ComptaCompte
     
 	function update()
 	{
-		$sql = "UPDATE ".MAIN_DB_PREFIX."compta_compte_generaux SET numero = '".addslashes($this->numero)."', intitule = '".addslashes($this->intitule)."' WHERE rowid = '".$this->rowid."'";
+		$sql = "UPDATE ".MAIN_DB_PREFIX."compta_compte_generaux SET numero = '".addslashes($this->numero)."', intitule = '".addslashes($this->intitule)."', sellsjournal = '".addslashes($this->sellsjournal)."' WHERE rowid = '".$this->rowid."'";
 		if ( $this->db->query($sql) ) {
 			return $this->rowid;
 		}

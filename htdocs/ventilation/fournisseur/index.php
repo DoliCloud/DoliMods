@@ -25,8 +25,12 @@
  *      \brief      Page accueil ventilation
  */
 
-$res=@include("../../main.inc.php");						// For root directory
-if (! $res) $res=@include("../../../main.inc.php");			// For "custom" directory
+// Dolibarr environment
+$res=@include("../main.inc.php");
+if (! $res && file_exists("../main.inc.php")) $res=@include("../main.inc.php");
+if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.php");
+if (! $res && file_exists("../../../main.inc.php")) $res=@include("../../../main.inc.php");
+if (! $res) die("Include of main fails");
 
 require_once(DOL_DOCUMENT_ROOT."/core/lib/date.lib.php");
 
@@ -57,7 +61,7 @@ $textprevyear="<a href=\"index.php?year=" . ($year_current-1) . "\">".img_previo
 $textnextyear=" <a href=\"index.php?year=" . ($year_current+1) . "\">".img_next()."</a>";
 
 
-print_fiche_titre("Ventilation Fournisseur $textprevyear ".$langs->trans("Year")." $year_start $textnextyear");
+print_fiche_titre($langs->trans("VentilationComptableSupplier")." ".$textprevyear." ".$langs->trans("Year")." ".$year_start." ".$textnextyear);
 
 
 
@@ -67,48 +71,31 @@ print '<tr><td valign="top" width="30%" class="notopnoleft">';
 
 
 
-$sql = "SELECT count(*) FROM ".MAIN_DB_PREFIX."facture_fourn_det";
-$sql .= " WHERE fk_code_ventilation = 0";
-$result = $db->query($sql);
-if ($result)
-{
-  $row = $db->fetch_row($result);
-  $nbfacfourn = $row[0];
-
-  $db->free($result);
-}
-
-/*$sql = "SELECT count(*) FROM ".MAIN_DB_PREFIX."facture_fourn";
-$sql .= " WHERE fk_export_compta = 0";
-
-$result = $db->query($sql);
-if ($result)
-{
-  $row = $db->fetch_row($result);
-  $nbpfourn = $row[0];
-
-  $db->free($result);
-}*/
-
-print '<table class="noborder" width="100%">';
-print '<tr class="liste_titre"><td colspan="2">Lignes a ventiler</tr>';
-print '<tr class="liste_titre"><td>Type</td><td align="center">Nb</td></tr>';
-print '<tr><td>Factures fournisseurs</td><td align="center">'.$nbfacfourn.'</td></tr>';
-print '<tr><td>Paiements fournisseurs</td><td align="center">'.$nbpfourn.'</td></tr>';
-print "</table>\n";
-
 $y = $year_current ;
 
 
 $var=true;
 
 
-print '</td><td valign="top" width="70%" class="notopnoleftnoright"></td>';
-
-print '</tr><tr><td colspan=2>';
-
 print '<table class="noborder" width="100%">';
-print '<tr class="liste_titre"><td width=150>Intitule</td><td align="center">Janvier</td><td align="center">Fevrier</td><td align="center">Mars</td><td align="center">Avril</td><td align="center">Mai</td><td align="center">Juin</td><td align="center">Juillet</td><td align="center">Aout</td><td align="center">Septembre</td><td align="center">Octobre</td><td align="center">Novembre</td><td align="center">Decembre</td><td align="center"><b>Total</b></td></tr>';
+print "</table>\n";
+print '</td><td valign="top" width="70%" class="notopnoleftnoright"></td>';
+print '</tr><tr><td colspan=2>';
+print '<table class="noborder" width="100%">';
+print '<tr class="liste_titre"><td width=150>'.$langs->trans("Intitule").'</td>';
+print '<td align="center">'.$langs->trans("January").'</td>';
+print '<td align="center">'.$langs->trans("February").'</td>';
+print '<td align="center">'.$langs->trans("March").'</td>';
+print '<td align="center">'.$langs->trans("April").'</td>';
+print '<td align="center">'.$langs->trans("May").'</td>';
+print '<td align="center">'.$langs->trans("June").'</td>';
+print '<td align="center">'.$langs->trans("July").'</td>';
+print '<td align="center">'.$langs->trans("August").'</td>';
+print '<td align="center">'.$langs->trans("September").'</td>';
+print '<td align="center">'.$langs->trans("October").'</td>';
+print '<td align="center">'.$langs->trans("November").'</td>';
+print '<td align="center">'.$langs->trans("December").'</td>';
+print '<td align="center"><b>'.$langs->trans("Total").'</b></td></tr>';
 
 $sql = "SELECT IF(ccg.intitule IS NULL, 'Non pointe', ccg.intitule) AS 'Intitulé',";
 $sql .= "  ROUND(SUM(IF(MONTH(ff.datef)=1,ffd.total_ht,0)),2) AS 'Janvier',";
@@ -163,26 +150,29 @@ if ($resql)
 }else {
 	print $db->lasterror(); // affiche la derniere erreur sql
 }
+
 print "</table>\n";
-
-print '<table class="noborder" width="100%">';
-print "</table>\n";
-
-print '<table class="noborder" width="100%">';
-print "</table>\n";
-
-
 print '</td><td valign="top" width="70%" class="notopnoleftnoright">';
-
-
 print '</td><td valign="top" width="70%" class="notopnoleftnoright"></td>';
-
 print '</tr><tr><td colspan=2>';
-
+print "\n<br>\n";
 print '<table class="noborder" width="100%">';
-print '<tr class="liste_titre"><td width=150>Total</td><td align="center">Janvier</td><td align="center">Fevrier</td><td align="center">Mars</td><td align="center">Avril</td><td align="center">Mai</td><td align="center">Juin</td><td align="center">Juillet</td><td align="center">Aout</td><td align="center">Septembre</td><td align="center">Octobre</td><td align="center">Novembre</td><td align="center">Decembre</td><td align="center"><b>Total</b></td></tr>';
+print '<tr class="liste_titre"><td width=150>'.$langs->trans("Total").'</td>';
+print '<td align="center">'.$langs->trans("January").'</td>';
+print '<td align="center">'.$langs->trans("February").'</td>';
+print '<td align="center">'.$langs->trans("March").'</td>';
+print '<td align="center">'.$langs->trans("April").'</td>';
+print '<td align="center">'.$langs->trans("May").'</td>';
+print '<td align="center">'.$langs->trans("June").'</td>';
+print '<td align="center">'.$langs->trans("July").'</td>';
+print '<td align="center">'.$langs->trans("August").'</td>';
+print '<td align="center">'.$langs->trans("September").'</td>';
+print '<td align="center">'.$langs->trans("October").'</td>';
+print '<td align="center">'.$langs->trans("November").'</td>';
+print '<td align="center">'.$langs->trans("December").'</td>';
+print '<td align="center"><b>'.$langs->trans("Total").'</b></td></tr>';
 
-$sql = "SELECT 'Total Achat Fournisseur HT' AS 'Total',";
+$sql = "SELECT '".$langs->trans("CAHTF")."' AS 'Total',";
 $sql .= "  ROUND(SUM(IF(MONTH(ff.datef)=1,ffd.total_ht,0)),2) AS 'Janvier',";
 $sql .= "  ROUND(SUM(IF(MONTH(ff.datef)=2,ffd.total_ht,0)),2) AS 'Fevrier',";
 $sql .= "  ROUND(SUM(IF(MONTH(ff.datef)=3,ffd.total_ht,0)),2) AS 'Mars',";

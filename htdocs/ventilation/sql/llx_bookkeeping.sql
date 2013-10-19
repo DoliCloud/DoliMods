@@ -16,16 +16,23 @@
 --
 -- ============================================================================
 
-CREATE TABLE llx_compta_compte_generaux 
+CREATE TABLE llx_bookkeeping 
 (
-  rowid				int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  date_creation		datetime DEFAULT NULL,
-  numero			varchar(50) DEFAULT NULL,
-  intitule			varchar(255) DEFAULT NULL,
-  sellsjournal		varchar(1) DEFAULT 'N'
-  fk_user_author	int(11) DEFAULT NULL,
-  note				text,
-  libelle		    varchar(255) DEFAULT NULL,
+  rowid				integer NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  doc_date			date NOT NULL,
+  doc_type			varchar(30) NOT NULL,	-- facture_client/reglement_client/facture_fournisseur/reglement_fournisseur
+  doc_ref			varchar(30) NOT NULL,	-- facture_client/reglement_client/... reference number
+  fk_doc			integer NOT NULL,		-- facture_client/reglement_client/... rowid
+  fk_docdet			integer NOT NULL,		-- facture_client/reglement_client/... line rowid
+  code_tiers		varchar(24),			-- code tiers
+  numero_compte		varchar(50) DEFAULT NULL,
+  label_compte		varchar(128) NOT NULL,
+  debit				double NOT NULL,
+  credit			double NOT NULL,
+  montant			double NOT NULL,
+  sens				varchar(1) DEFAULT NULL,
+  fk_user_author	integer NOT NULL,
+  import_key		varchar(14),
+  code_journal		varchar(10) DEFAULT NULL,
+  piece_num		integer NOT NULL
 ) ENGINE=innodb;
-
-ALTER TABLE llx_compta_compte_generaux ADD sellsjournal VARCHAR(1) DEFAULT 'N';

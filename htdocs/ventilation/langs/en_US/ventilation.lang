@@ -1,38 +1,37 @@
-﻿# Dolibarr language file - fr_FR - ventilation
+﻿# Dolibarr language file - en_US - ventilation
 CHARSET=UTF-8
 
 Module61000Name= Ventilation
 Module61000Desc= Gestion des ventilations et des marges
 
 Ventilation=Ventilation
-ToDispatch=A effectuer
-Dispatched=Effectuée
+ToDispatch=To dispatch
+Dispatched=Dispatched
 
 CustomersVentilation=Ventilation clients
 SuppliersVentilation=Ventilation fournisseurs
-TradeMargin=Marge commerciale
-ByCustomerInvoice=Par factures clients
-ByMonth=Par mois
-Account=Compte comptable
-NewAccount=Nouveau compte comptable
-Update=Mettre à jour
-List=Liste
-Create=Créer
-UpdateAccount=Modification d'un compte
-UpdateMvts=Modification d'un mouvement
+TradeMargin=Trade margin
+ByCustomerInvoice=By customer invoice
+ByMonth=By month
+Account=Account
+NewAccount=New account
+Update=Update
+List=List
+Create=Create
+UpdateAccount=Update account
 WriteBookKeeping=Comptabiliser les écritures dans le grand livre
-Bookkeeping=Grand livre
+Bookkeeping=book Keeping
 
 VentilationComptable=Ventilation comptable
 VentilationComptableSupplier=Ventilation comptable fournisseur
-Intitule=Intitulé
-Line=Ligne
+Intitule=Label
+Line=Line
 
 CAHT=Total Chiffre Affaires HT
 CAHTF=Total Achat Fournisseur HT
 InvoiceLines=Lignes de facture à ventiler
 InvoiceLinesDone=Lignes de facture ventilées
-IntoAccount=Dans le compte
+IntoAccount=Into account
 
 Ventilate=Ventiler
 VentilationAuto=Ventilation automatique
@@ -54,22 +53,18 @@ VENTILATION_ACCOUNT_SUSPENSE=Compte d'attente
 Doctype=Type de document
 Docdate=Date
 Docref=Référence
-Numerocompte=Compte
+Numerocompte=Account
 Code_tiers=Tiers
 Labelcompte=Libellé compte
 Debit=Débit
 Credit=Crédit
-Amount=Montant
+Amount=Amount
 Sens=Sens
 Codejournal=Journal
 
 DelBookKeeping=Supprimer les écritures du grand livre
 
-BankJournal=Journal de banque
-DescBankJournal=Journal de banque
+BankJournal=Bank journal
+DescBankJournal=Bank Journal
 
-ThirdPartyAccount=Compte Tiers
-
-NumMvts = Numero de mouvement 
-ListeMvts = Liste du mouvement 
-ErrorDebitCredit=Debit et Credit ne peuvent avoir une valeur en même temps
+ThirdPartyAccount=Third Party Account

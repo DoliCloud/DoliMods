@@ -25,9 +25,11 @@
  * 		\ingroup    compta
  * 		\brief      Page de ventilation des lignes de facture
  */
-
-$res=@include("../main.inc.php");						// For root directory
-if (! $res) $res=@include("../../main.inc.php");		// For "custom" directory
+$res=@include("../main.inc.php");
+if (! $res && file_exists("../main.inc.php")) $res=@include("../main.inc.php");
+if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.php");
+if (! $res && file_exists("../../../main.inc.php")) $res=@include("../../../main.inc.php");
+if (! $res) die("Include of main fails");
 
 require_once(DOL_DOCUMENT_ROOT."/compta/facture/class/facture.class.php");
 require_once(DOL_DOCUMENT_ROOT."/product/class/product.class.php");
@@ -43,7 +45,7 @@ if (!$user->rights->compta->ventilation->creer) accessforbidden();
 if ($user->societe_id > 0) accessforbidden();
 
 
-llxHeader('','Ventilation');
+llxHeader('',$langs->trans("Ventilation"));
 
 /*
 * Lignes de factures
@@ -69,7 +71,7 @@ if ($result)
 	$i = 0;
 	print '<table>';
 	print '<tr>';
-	print '<a class="butAction" href="liste2.php">Ventilation Automatique</a>';
+	print '<a class="butAction" href="liste2.php">'.$langs->trans("VentilationAuto").'</a>';
 	print '</tr>';
 	print '<tr>';
 	print '</tr>';
@@ -86,7 +88,7 @@ if ($result)
 	print '<td>'.$langs->trans("Account").'</td>';
 	print '<td>'.$langs->trans("Label").'</td>';
 	print '<td>'.$langs->trans("Description").'</td>';
-	print '<td align="right">'.$langs->trans("Montant").'</td>';
+	print '<td align="right">'.$langs->trans("Amount").'</td>';
 	print '<td>&nbsp;</td>';
 	print "</tr>\n";
 

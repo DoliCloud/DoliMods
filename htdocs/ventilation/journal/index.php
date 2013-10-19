@@ -16,7 +16,12 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-require("../../../main.inc.php");
+// Dolibarr environment
+$res=@include("../main.inc.php");
+if (! $res && file_exists("../main.inc.php")) $res=@include("../main.inc.php");
+if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.php");
+if (! $res && file_exists("../../../main.inc.php")) $res=@include("../../../main.inc.php");
+if (! $res) die("Include of main fails");
 
 
 $langs->load("companies");
