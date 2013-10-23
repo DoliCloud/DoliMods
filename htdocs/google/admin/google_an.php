@@ -42,7 +42,7 @@ if ($actionsave)
 {
     $db->begin();
 
-	$res=dolibarr_set_const($db,'MAIN_GOOGLE_AN_ID',trim($_POST["MAIN_GOOGLE_AN_ID"]),'chaine',0);
+	$res=dolibarr_set_const($db,'MAIN_GOOGLE_AN_ID',trim($_POST["MAIN_GOOGLE_AN_ID"]),'chaine',0,'',$conf->entity);
 
     if (! $error)
     {

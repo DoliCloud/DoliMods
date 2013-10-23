@@ -43,10 +43,10 @@ if ($actionsave)
 {
     $db->begin();
 
-	$res=dolibarr_set_const($db,'MAIN_GOOGLE_AD_CLIENT',trim($_POST["MAIN_GOOGLE_AD_CLIENT"]),'chaine',0);
-	$res=dolibarr_set_const($db,'MAIN_GOOGLE_AD_SLOT',trim($_POST["MAIN_GOOGLE_AD_SLOT"]),'chaine',0);
-	$res=dolibarr_set_const($db,'MAIN_GOOGLE_AD_WIDTH',trim($_POST["MAIN_GOOGLE_AD_WIDTH"]),'chaine',0);
-	$res=dolibarr_set_const($db,'MAIN_GOOGLE_AD_HEIGHT',trim($_POST["MAIN_GOOGLE_AD_HEIGHT"]),'chaine',0);
+	$res=dolibarr_set_const($db,'MAIN_GOOGLE_AD_CLIENT',trim($_POST["MAIN_GOOGLE_AD_CLIENT"]),'chaine',0,'',0);	// Param for all env
+	$res=dolibarr_set_const($db,'MAIN_GOOGLE_AD_SLOT',trim($_POST["MAIN_GOOGLE_AD_SLOT"]),'chaine',0,'',0);	// Param for all env
+	$res=dolibarr_set_const($db,'MAIN_GOOGLE_AD_WIDTH',trim($_POST["MAIN_GOOGLE_AD_WIDTH"]),'chaine',0,'',0);	// Param for all env
+	$res=dolibarr_set_const($db,'MAIN_GOOGLE_AD_HEIGHT',trim($_POST["MAIN_GOOGLE_AD_HEIGHT"]),'chaine',0,'',0);	// Param for all env
 
     if (! $error)
     {
