@@ -57,7 +57,8 @@ include_once(DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php');
 
 if (empty($login) || empty($password) || empty($mode))
 {
-	print "Usage: $script_file login pass loginbase passbase (test|confirm|confirmsaasplex|confirmrm)\n";
+	print "Usage:   $script_file login pass loginbase passbase (test|confirm|confirmsaasplex|confirmrm)\n";
+	print "Example: $script_file laurent ************ dolicloud ************ confirm\n";
 	print "Return code: 0 if success, <>0 if error\n";
 	print "Warning, this script may take a long time.\n";
 	exit(-1);
