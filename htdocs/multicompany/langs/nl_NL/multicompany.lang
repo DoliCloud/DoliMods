@@ -1,0 +1,25 @@
+# Dolibarr language file - nl_NL - multicompany
+CHARSET=UTF-8
+
+MasterEntity = Hoofdbedrijfsentiteit
+MasterEntityDesc = De hoofdbedrijfsentiteit, kan niet worden verwijderd.
+EntitiesManagement = Beheren van bedrijfsentiteiten
+ListOfEntities = Lijst van bedrijfsentiteiten
+AddEntity = Voeg een bedrijfsentiteit toe
+EditEntity = Bewerk een bedrijfsentiteit
+EntityName = Naam van de bedrijfsentiteit
+DeleteAnEntity = Verwijder een bedrijfsentiteit
+ConfirmDeleteEntity = Bent u zeker dat u deze bedrijfsentiteit wilt verwijderen?
+ErrorEntityLabelAlreadyExist = Dit label wordt al door een andere bedrijfsentiteit gebruikt.
+ErrorEntityIsNotValid = Deze bedrijfsentiteit is niet geldig.
+ErrorNotDeleteMasterEntity = De hoofdbedrijfsentiteit kan niet worden verwijderd.
+DefaultLanguageShort = Standaard taal
+ConfirmedEntityDeleted = De bedrijfsentiteit is verwijderd.
+HideLoginCombobox = Toon deze bedrijfsentiteit niet in de lijst op de inlogpagina
+GroupModeTransversal = Transversale modus
+SwitchToAnotherEntity = Omschakelen naar een andere bedrijfsentiteit
+SelectAnEntity = Selecteer een bedrijfsentiteit
+AllEntities = Alle bedrijfsentiteiten
+AddAll = Voeg allemaal toe
+RemoveAll = Verwijder allemaal
+ItemsCount = Aantal geselecteerde items
