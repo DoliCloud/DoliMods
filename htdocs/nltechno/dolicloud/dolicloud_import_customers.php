@@ -156,6 +156,16 @@ if ($action == 'import' || $action == 'create')
 		$dolicloudcustomer=new Dolicloudcustomer($db);
 		while(($data = fgetcsv($handle, 1000, ",")) !== FALSE)
 		{
+			// data[0] = organization
+			// data[1] = email
+			// data[2] = registered date
+			// data[3] = acquired date
+			// data[4] = plan
+			// data[5] = total_invoiced
+			// data[6] = total_payed
+			// data[7] = customer status
+			// data[8] = payment status
+
 			$i++;
 			$organization=$data[0];
 			$email=$data[1];
@@ -165,11 +175,12 @@ if ($action == 'import' || $action == 'create')
 				$date_acquired=dol_stringtotime($tmp);
 			}
 			else $date_acquired=dol_stringtotime($data[2]);
-			$plan=$data[3];
-			$total_invoiced=$data[4];
-			$total_payed=$data[5];
-			$status=$data[6];
-			//if ($status == 'ACTIVE' && $total_payed < $total_invoiced) $status='ACTIVE_PAYEMENT_ERROR';
+			$plan=$data[4];
+			$total_invoiced=$data[5];
+			$total_payed=$data[6];
+			$status=$data[7];
+			$statuspayment=$data[8];
+			if ($status == 'ACTIVE' && $statuspayment == 'FAILURE' && $total_payed < $total_invoiced) $status='ACTIVE_PAYEMENT_ERROR';
 			if ($status == 'CLOSURE_REQUESTED') $status='CLOSE_QUEUED';		// TODO Use CLOSURE_REQUESTED into database
 			if ($status == 'CLOSED') $status='UNDEPLOYED';
 			if ($organization == 'Organization') continue;	// Discard first line
