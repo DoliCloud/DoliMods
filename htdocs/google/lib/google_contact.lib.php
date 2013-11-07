@@ -749,6 +749,8 @@ function getContactGroupsXml($gdata)
 		// you can view this file with 'xmlstarlet fo dolibarr_google_groups.xml' command
 	} catch (Exception $e) {
 		dol_syslog(sprintf("Error while feed xml groups : %s", $e->getMessage()), LOG_ERR);
+		file_put_contents(DOL_DATA_ROOT . "/dolibarr_google_groups_response.xml", $e->getMessage());
+		@chmod(DOL_DATA_ROOT . "/dolibarr_google_groups_response.xml", octdec(empty($conf->global->MAIN_UMASK)?'0664':$conf->global->MAIN_UMASK));
 	}
 	return($xmlStr);
 }
