@@ -759,7 +759,7 @@ class Zend_Http_Client
             'ctype'    => $ctype,
             'data'     => $data
         );
-        
+
         $this->body_field_order[$formname] = self::VTYPE_FILE;
 
         return $this;
@@ -1069,6 +1069,17 @@ class Zend_Http_Client
                 }
             }
 
+            // DOL_CHANGE_LDR
+            global $cpt,$conf;
+            if (empty($cpt)) $cpt=0;
+
+            if (! empty($conf->global->MODULE_GOOGLE_DEBUG))
+            {
+            	$cpt++;
+            	file_put_contents(DOL_DATA_ROOT . "/dolibarr_google_client_request_".$cpt.".xml", $this->method." uri=".$uri." httpversion=".$this->config['httpversion']." headers=".join(',',$headers)." body=".$body);
+				@chmod(DOL_DATA_ROOT . "/dolibarr_google_client_request.xml", octdec(empty($conf->global->MAIN_UMASK)?'0664':$conf->global->MAIN_UMASK));
+            }
+
             $this->last_request = $this->adapter->write($this->method,
                 $uri, $this->config['httpversion'], $headers, $body);
 
@@ -1077,6 +1088,13 @@ class Zend_Http_Client
                 /** @see Zend_Http_Client_Exception */
                 require_once 'Zend/Http/Client/Exception.php';
                 throw new Zend_Http_Client_Exception('Unable to read response, or response is empty');
+            }
+
+            // DOL_CHANGE_LDR
+            if (! empty($conf->global->MODULE_GOOGLE_DEBUG))
+            {
+            	file_put_contents(DOL_DATA_ROOT . "/dolibarr_google_client_response_".$cpt.".xml", $response);
+				@chmod(DOL_DATA_ROOT . "/dolibarr_google_client_response.xml", octdec(empty($conf->global->MAIN_UMASK)?'0664':$conf->global->MAIN_UMASK));
             }
 
             if($this->config['output_stream']) {
