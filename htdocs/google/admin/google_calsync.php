@@ -82,9 +82,22 @@ if ($action == 'save')
 if ($action == 'testcreate')
 {
     include_once(DOL_DOCUMENT_ROOT.'/comm/action/class/actioncomm.class.php');
+    include_once(DOL_DOCUMENT_ROOT.'/contact/class/contact.class.php');
+    include_once(DOL_DOCUMENT_ROOT.'/societe/class/societe.class.php');
 
     $object=new ActionComm($db);
     $result=$object->initAsSpecimen();
+
+    $tmpcontact=new Contact($db);
+    $tmpcontact->initAsSpecimen();
+	$object->contact=$tmpcontact;
+
+	if ($tmpcontact->socid > 0)
+	{
+		$tmpsoc=new Societe($db);
+    	$tmpsoc->fetch($tmpcontact->socid);
+    	$object->societe=$tmpsoc;
+	}
 
     $result=$object->add($user);
 

@@ -1,5 +1,5 @@
 <?php
-/* Copyright (C) 2008-2011 Laurent Destailleur  <eldy@users.sourceforge.net>
+/* Copyright (C) 2008-2013 Laurent Destailleur  <eldy@users.sourceforge.net>
  *
  * Licensed under the GNU GPL v3 or higher (See file gpl-3.0.html)
  */
@@ -44,7 +44,7 @@ class modGoogle extends DolibarrModules
 		// Module description used if translation string 'ModuleXXXDesc' not found (XXX is value MyModule)
 		$this->description = "Module to integrate Google tools in dolibarr";
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
-		$this->version = '3.4.3';
+		$this->version = '3.4.4';
 		// Key used in llx_const table to save module status enabled/disabled (where MYMODULE is value of property name of module in uppercase)
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
 		// Where to store the module in setup page (0=common,1=interface,2=others,3=very specific)
