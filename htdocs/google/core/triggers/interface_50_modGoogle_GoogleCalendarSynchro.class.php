@@ -168,11 +168,15 @@ class InterfaceGoogleCalendarSynchro
 					$societe = new Societe($this->db);
 					$societe->fetch($object->societe->id);
 					$eventlabel .= ' - '.$societe->name;
+					$tmpadd=$societe->getFullAddress(0);
+					if ($tmpadd && ! empty($conf->global->GOOGLE_ADD_ADDRESS_INTO_DESC)) $object->note.="\n".$societe->getFullAddress(1);
 				}
 				if (! empty($object->contact->id) && $object->contact->id > 0 && empty($conf->global->GOOGLE_DISABLE_EVENT_LABEL_INC_CONTACT)) {
 					$contact = new Contact($this->db);
 					$contact->fetch($object->contact->id);
 					$eventlabel .= ' - '.$contact->getFullName($langs, 1);
+					$tmpadd=$contact->getFullAddress(0);
+					if ($tmpadd && ! empty($conf->global->GOOGLE_ADD_ADDRESS_INTO_DESC)) $object->note.="\n".$contact->getFullAddress(1);
 				}
 
 				$object->label = $eventlabel;
