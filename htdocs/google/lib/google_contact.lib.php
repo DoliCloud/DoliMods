@@ -15,9 +15,12 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  * or see http://www.gnu.org/
  *
+ * Documentation API v3 (Connect method used is "ClientLogin"):
+ * https://developers.google.com/google-apps/contacts/v3/
+ *
  * Tutorial: http://25labs.com/import-gmail-or-google-contacts-using-google-contacts-data-api-3-0-and-oauth-2-0-in-php/
  * Tutorial: http://www.ibm.com/developerworks/library/x-phpgooglecontact/index.html
- * Tutorial: https://developers.google.com/google-apps/contacts/v3/
+ *
  */
 
 $path = dol_buildpath('/google/includes/zendgdata');

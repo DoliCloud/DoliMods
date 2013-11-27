@@ -16,9 +16,8 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  * or see http://www.gnu.org/
  *
- * Google doc is:
+ * Documentation API v2 (Connect method used is "ClientLogin"):
  * https://developers.google.com/google-apps/calendar/v2/developers_guide_protocol
- * Connect method used is "ClientLogin".
  *
  * Rem:
  * To get event:  https://www.google.com/calendar/feeds/default/private/full?start-min=2013-03-16T00:00:00&start-max=2014-03-24T23:59:59
