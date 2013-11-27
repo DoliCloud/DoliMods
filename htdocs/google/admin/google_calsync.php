@@ -78,8 +78,8 @@ if ($action == 'save')
     }
 }
 
-// This is a hidden action to allow to test creation of event once synchro with Calendar has been enabled.
-if ($action == 'testcreate')
+// This is a test action to allow to test creation of event once synchro with Calendar has been enabled.
+if (preg_match('/^test/',$action))
 {
     include_once(DOL_DOCUMENT_ROOT.'/comm/action/class/actioncomm.class.php');
     include_once(DOL_DOCUMENT_ROOT.'/contact/class/contact.class.php');
@@ -109,7 +109,10 @@ if ($action == 'testcreate')
 
     $result=$object->update($user);
 
-    $result=$object->delete();
+    if ($action == 'testall')
+    {
+	    $result=$object->delete();
+    }
 
     if ($result > 0)
     {
@@ -268,10 +271,14 @@ print '<div class="tabsActions">';
 if (empty($conf->global->GOOGLE_LOGIN) || empty($conf->global->GOOGLE_LOGIN) || empty($conf->global->GOOGLE_DUPLICATE_INTO_GCAL))
 {
 	print '<a class="butActionRefused" href="#">'.$langs->trans("TestCreateUpdateDelete")."</a>";
+
+	print '<a class="butActionRefused" href="#">'.$langs->trans("TestCreateUpdate")."</a>";
 }
 else
 {
-	print '<a class="butAction" href="'.$_SERVER['PHP_SELF'].'?action=testcreate">'.$langs->trans("TestCreateUpdateDelete")."</a>";
+	print '<a class="butAction" href="'.$_SERVER['PHP_SELF'].'?action=testall">'.$langs->trans("TestCreateUpdateDelete")."</a>";
+
+	print '<a class="butAction" href="'.$_SERVER['PHP_SELF'].'?action=testcreate">'.$langs->trans("TestCreate")."</a>";
 }
 print '</div>';
 

@@ -113,7 +113,7 @@ if ($action == 'save')
     }
 }
 
-// This is a hidden action to allow to test creation of event once synchro with Calendar has been enabled.
+// This is a test action to allow to test creation of contact once synchro with Contact has been enabled.
 if (preg_match('/^test/',$action))
 {
     if ($action == 'testcreatethirdparties' || $action == 'testallthirdparties') $object=new Societe($db);
@@ -167,7 +167,7 @@ if (preg_match('/^test/',$action))
 	    $object->email='newemail@newemail.com';
 	    $object->url='www.newspecimen.com';
 	    $object->note_private='New private note with special char é and entity eacute &eacute; and html tag <strong>strong</strong>';
-	    $object->street='New stree';
+	    $object->street='New street';
 	    $object->town='New town';
 	    $result=$object->update($object->id, $user);
 
@@ -183,7 +183,7 @@ if (preg_match('/^test/',$action))
     	$object->email='newemail@newemail.com';
 	    $object->url='www.newspecimen.com';
     	$object->note_private='New private note with special char é and entity eacute &eacute; and html tag <strong>strong</strong>';
-	    $object->street='New stree';
+	    $object->street='New street';
 	    $object->town='New town';
     	$result=$object->update($object->id, $user);
 
@@ -199,7 +199,7 @@ if (preg_match('/^test/',$action))
     	$object->email='newemail@newemail.com';
     	$object->url='www.newspecimen.com';
     	$object->note_private='New private note with special char é and entity eacute &eacute; and html tag <strong>strong</strong>';
-    	$object->street='New stree';
+    	$object->street='New street';
     	$object->town='New town';
     	$result=$object->update($user);
 
