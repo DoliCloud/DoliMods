@@ -1,5 +1,5 @@
 <?php
-/* Copyright (C) 2008-2011 Laurent Destailleur  <eldy@users.sourceforge.net>
+/* Copyright (C) 2008-2013 Laurent Destailleur  <eldy@users.sourceforge.net>
  *
  * Licensed under the GNU GPL v3 or higher (See file gpl-3.0.html)
  */
