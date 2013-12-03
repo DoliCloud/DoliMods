@@ -44,7 +44,7 @@ class modGoogle extends DolibarrModules
 		// Module description used if translation string 'ModuleXXXDesc' not found (XXX is value MyModule)
 		$this->description = "Module to integrate Google tools in dolibarr";
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
-		$this->version = '3.4.3';
+		$this->version = '3.4.4';
 		// Key used in llx_const table to save module status enabled/disabled (where MYMODULE is value of property name of module in uppercase)
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
 		// Where to store the module in setup page (0=common,1=interface,2=others,3=very specific)
@@ -69,7 +69,7 @@ class modGoogle extends DolibarrModules
 		$this->depends = array();		// List of modules id that must be enabled if this module is enabled
 		$this->requiredby = array();	// List of modules id to disable if this one is disabled
 		$this->phpmin = array(4,1);					// Minimum version of PHP required by module
-		$this->need_dolibarr_version = array(3,1,-2);	// Minimum version of Dolibarr required by module
+		$this->need_dolibarr_version = array(3,4,1);	// Minimum version of Dolibarr required by module
 		$this->langfiles = array("google@google");
 
 		// Constants

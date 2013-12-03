@@ -197,7 +197,7 @@ $var=false;
 print "<table class=\"noborder\" width=\"100%\">";
 
 print "<tr class=\"liste_titre\">";
-print '<td width="25%">'.$langs->trans("Parameter").' ('.$langs->trans("ParametersForGoogleAPIv2Usage").')'."</td>";
+print '<td width="25%">'.$langs->trans("Parameter").' ('.$langs->trans("ParametersForGoogleAPIv2Usage","Calendar").')'."</td>";
 print "<td>".$langs->trans("Value")."</td>";
 print "</tr>";
 // Google login
