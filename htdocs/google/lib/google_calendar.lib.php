@@ -1,5 +1,6 @@
 <?php
-/* Copyright (C) 2011 Regis Houssin	<regis@dolibarr.fr>
+/* Copyright (C) 2011      Regis Houssin
+ * Copyright (C) 2010-2013 Laurent Destailleur  <eldy@users.sourceforge.net>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,6 +15,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  * or see http://www.gnu.org/
+ *
+ * Documentation API v2 (Connect method used is "ClientLogin"):
+ * https://developers.google.com/google-apps/calendar/v2/developers_guide_protocol
+ *
+ * Rem:
+ * To get event:  https://www.google.com/calendar/feeds/default/private/full?start-min=2013-03-16T00:00:00&start-max=2014-03-24T23:59:59
+ * To get list of calendar: https://www.google.com/calendar/feeds/default/allcalendars/full
  */
 
 $path = dol_buildpath('/google/includes/zendgdata');
@@ -37,97 +45,6 @@ $_authSubKeyFile = null; // Example value for secure use: 'mykey.pem'
 $_authSubKeyFilePassphrase = null;
 
 
-
-/**
- * Returns the full URL of the current page, based upon env variables
- *
- * Env variables used:
- * $_SERVER['HTTPS'] = (on|off|)
- * $_SERVER['HTTP_HOST'] = value of the Host: header
- * $_SERVER['SERVER_PORT'] = port number (only used if not http/80,https/443)
- * $_SERVER['REQUEST_URI'] = the URI after the method of the HTTP request
- *
- * @return string Current URL
- */
-/*
-function getCurrentUrl()
-{
-	global $_SERVER;
-
-	$php_request_uri = htmlentities(substr($_SERVER['REQUEST_URI'], 0, strcspn($_SERVER['REQUEST_URI'], "\n\r")), ENT_QUOTES);
-
-	if (isset($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) == 'on') {
-		$protocol = 'https://';
-	} else {
-		$protocol = 'http://';
-	}
-
-	$host = $_SERVER['HTTP_HOST'];
-
-	if ($_SERVER['SERVER_PORT'] != '' &&
-	(($protocol == 'http://' && $_SERVER['SERVER_PORT'] != '80') ||
-	($protocol == 'https://' && $_SERVER['SERVER_PORT'] != '443'))) {
-		$port = ':' . $_SERVER['SERVER_PORT'];
-	} else {
-		$port = '';
-	}
-
-	return $protocol . $host . $port . $php_request_uri;
-}
-*/
-/**
- * Returns the AuthSub URL which the user must visit to authenticate requests
- * from this application.
- *
- * Uses getCurrentUrl() to get the next URL which the user will be redirected
- * to after successfully authenticating with the Google service.
- *
- * @return string AuthSub URL
- */
-/*
-function getAuthSubUrl()
-{
-	global $_authSubKeyFile;
-	$next = getCurrentUrl();
-	$scope = 'http://www.google.com/calendar/feeds/';
-	$session = true;
-	if ($_authSubKeyFile != null) {
-		$secure = true;
-	} else {
-		$secure = false;
-	}
-	return Zend_Gdata_AuthSub::getAuthSubTokenUri($next, $scope, $secure, $session);
-}
-*/
-
-/**
- * Returns a HTTP client object with the appropriate headers for communicating
- * with Google using AuthSub authentication.
- *
- * Uses the $_SESSION['sessionToken'] to store the AuthSub session token after
- * it is obtained.  The single use token supplied in the URL when redirected
- * after the user succesfully authenticated to Google is retrieved from the
- * $_GET['token'] variable.
- *
- * @return Zend_Http_Client
- */
-/*
-function getAuthSubHttpClient()
-{
-	global $_SESSION, $_GET, $_authSubKeyFile, $_authSubKeyFilePassphrase;
-
-	$client = new Zend_Gdata_HttpClient();
-	if ($_authSubKeyFile != null) {
-		// set the AuthSub key
-		$client->setAuthSubPrivateKeyFile($_authSubKeyFile, $_authSubKeyFilePassphrase, true);
-	}
-	if (! isset($_SESSION['sessionToken']) && isset($_GET['token'])) {
-		$_SESSION['sessionToken'] = Zend_Gdata_AuthSub::getAuthSubSessionToken($_GET['token'], $client);
-	}
-	$client->setAuthSubToken($_SESSION['sessionToken']);
-	return $client;
-}
-*/
 
 /**
  * Returns a HTTP client object with the appropriate headers for communicating
@@ -325,7 +242,7 @@ function createEvent($client, $object)
 	$newEntry->title = $gc->newTitle(trim($object->label));
 	$newEntry->where  = array($gc->newWhere($object->location));
 
-	$newEntry->content = $gc->newContent(dol_string_nohtmltag($object->note));
+	$newEntry->content = $gc->newContent(dol_string_nohtmltag($object->note, 0));
 	$newEntry->content->type = 'text';
 
 	$tzfix=0;
@@ -364,6 +281,7 @@ function createEvent($client, $object)
  * @param  string           $quickAddText The QuickAdd text for the event
  * @return string The ID URL for the event
  */
+/*
 function createQuickAddEvent ($client, $quickAddText)
 {
 	$gdataCal = new Zend_Gdata_Calendar($client);
@@ -374,7 +292,7 @@ function createQuickAddEvent ($client, $quickAddText)
 	$newEvent = $gdataCal->insertEvent($event);
 	return $newEvent->id->text;
 }
-
+*/
 /**
  * Creates a new web content event on the authenticated user's default
  * calendar with the specified event details. For simplicity, the event
@@ -391,6 +309,7 @@ function createQuickAddEvent ($client, $quickAddText)
  * @param  string           $type      The MIME type of the web content.
  * @return string The ID URL for the event.
  */
+/*
 function createWebContentEvent ($client, $title, $startDate, $endDate, $icon, $url, $height = '120', $width = '276', $type = 'image/gif')
 {
 	$gc = new Zend_Gdata_Calendar($client);
@@ -419,6 +338,7 @@ function createWebContentEvent ($client, $title, $startDate, $endDate, $icon, $u
 	$createdEntry = $gc->insertEvent($newEntry);
 	return $createdEntry->id->text;
 }
+*/
 
 /**
  * Creates a recurring event on the authenticated user's default calendar with
@@ -505,7 +425,7 @@ function updateEvent($client, $eventId, $object)
 	    $eventOld->title = $gdataCal->newTitle($object->label);
 	    $eventOld->where = array($gdataCal->newWhere($object->location));
 
-	    $eventOld->content = $gdataCal->newContent(dol_string_nohtmltag($object->note));
+	    $eventOld->content = $gdataCal->newContent(dol_string_nohtmltag($object->note, 0));
 	    $eventOld->content->type = 'text';
 
 	    $tzfix=0;

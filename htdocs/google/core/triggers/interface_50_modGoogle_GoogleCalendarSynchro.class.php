@@ -1,6 +1,5 @@
 <?php
-/* Copyright (C) 2011 Regis Houssin	            <regis@dolibarr.fr>
- * Copyright (C) 2008-2012 Laurent Destailleur  <eldy@users.sourceforge.net>
+/* Copyright (C) 2008-2013 Laurent Destailleur  <eldy@users.sourceforge.net>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -165,15 +164,19 @@ class InterfaceGoogleCalendarSynchro
 				// Event label can now include company and / or contact info, see configuration
 				$eventlabel = trim($object->label);
 
-				if (! empty($object->societe->id) && $object->societe->id > 0 && ! empty($conf->GOOGLE_DISABLE_EVENT_LABEL_INC_SOCIETE)) {
+				if (! empty($object->societe->id) && $object->societe->id > 0 && empty($conf->global->GOOGLE_DISABLE_EVENT_LABEL_INC_SOCIETE)) {
 					$societe = new Societe($this->db);
 					$societe->fetch($object->societe->id);
 					$eventlabel .= ' - '.$societe->name;
+					$tmpadd=$societe->getFullAddress(0);
+					if ($tmpadd && ! empty($conf->global->GOOGLE_ADD_ADDRESS_INTO_DESC)) $object->note.="\n\n".$societe->getFullAddress(1);
 				}
-				if (! empty($object->contact->id) && $object->contact->id > 0 && ! empty($conf->GOOGLE_DISABLE_EVENT_LABEL_INC_CONTACT)) {
+				if (! empty($object->contact->id) && $object->contact->id > 0 && empty($conf->global->GOOGLE_DISABLE_EVENT_LABEL_INC_CONTACT)) {
 					$contact = new Contact($this->db);
 					$contact->fetch($object->contact->id);
 					$eventlabel .= ' - '.$contact->getFullName($langs, 1);
+					$tmpadd=$contact->getFullAddress(0);
+					if ($tmpadd && ! empty($conf->global->GOOGLE_ADD_ADDRESS_INTO_DESC)) $object->note.="\n\n".$contact->getFullAddress(1);
 				}
 
 				$object->label = $eventlabel;
