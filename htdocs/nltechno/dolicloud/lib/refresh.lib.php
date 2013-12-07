@@ -2,7 +2,7 @@
 // Files with some lib
 
 // Show totals
-$serverlocation=140;	// Price dollar
+$serverlocation=185.9;	// Price dollar
 $dollareuro=0.78;		// Price euro
 $serverprice=price2num($serverlocation * $dollareuro, 'MT');
 $part=0.3;	// 30%
