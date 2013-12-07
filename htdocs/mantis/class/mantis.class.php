@@ -1,6 +1,6 @@
 <?php
 /* Copyright (C) 2002-2003 Rodolphe Quiedeville <rodolphe@quiedeville.org>
- * Copyright (C) 2004-2008 Laurent Destailleur  <eldy@users.sourceforge.net>
+ * Copyright (C) 2004-2013 Laurent Destailleur  <eldy@users.sourceforge.net>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,15 +21,12 @@
  *      \file       htdocs/mantis/class/mantis.class.php
  *      \ingroup    mantis
  *      \brief      Ensemble des fonctions permettant d'acceder a la database mantis.
- *      \author     Laurent Destailleur.
  */
 
 
 /**
- *     \class      Mantis
- *     \brief      Classe permettant d'acceder a la database mantis
+ *	Classe permettant d'acceder a la database mantis
  */
-
 class Mantis {
 
     var $localdb;
@@ -43,8 +40,8 @@ class Mantis {
 
 
     /**
-    		\brief      Constructeur de la classe d'interface a mantisendar
-    */
+     *	Constructeur de la classe d'interface a mantis
+     */
     function Mantis()
     {
         global $conf;
@@ -60,8 +57,7 @@ class Mantis {
         $mantisname=preg_replace('/__dolibarr_main_db_name__/i',$dolibarr_main_db_name,$conf->mantis->db->name);
 
         // On initie la connexion a la base mantisendar
-        require_once (DOL_DOCUMENT_ROOT ."/core/db/".$mantistype.".class.php");
-        $this->localdb = new DoliDb($mantistype,$mantishost,$mantisuser,$mantispass,$mantisname,$mantisport);
+        $this->localdb = getDoliDBInstance($mantistype,$mantishost,$mantisuser,$mantispass,$mantisname,$mantisport);
     }
 
 }

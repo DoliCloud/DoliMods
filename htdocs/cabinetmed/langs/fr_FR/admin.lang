@@ -9,7 +9,6 @@ CompanyTZ= Time Zone cabinet
 CompanyHour= Heure cabinet
 ModuleFamilyCrm= Gestion contacts
 GenericMaskCodes2= <b>{cccc}</b> le code patient sur n lettres<br><b>{cccc000}</b> le code client sur n lettres est suivi d'un compteur propre au client sans offset, complété par des zéros pour en avoir autant que dans le masque, et remis à zéro en même temps que le compteur global.<br><b>{tttt}</b> Le code type entreprise sur n caractères (voir dictionnaires-types de patient).<br>
-HideThirdPartiesMenu=Cacher le menu Tiers (pas d'autres clients que des patients)
 
 # Modules= undefined
 Module1Name= Tiers/Patient

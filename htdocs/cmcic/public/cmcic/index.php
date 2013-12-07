@@ -16,14 +16,18 @@
  */
 
 /**
- *     	\file       htdocs/public/cmcic/index.php
+ *     	\file       htdocs/cmic/public/cmcic/index.php
  *		\ingroup    core
  *		\brief      A redirect page to an error
  *		\author	    Laurent Destailleur
- *		\version    $Id: index.php,v 1.2 2011/07/31 23:23:20 eldy Exp $
  */
 
-require("../../master.inc.php");
+if (! $res && file_exists("../main.inc.php")) $res=@include("../main.inc.php");
+if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.php");
+if (! $res && file_exists("../../../main.inc.php")) $res=@include("../../../main.inc.php");
+if (! $res && file_exists("../../../../main.inc.php")) $res=@include("../../../../main.inc.php");
+if (! $res && file_exists("../../../../../main.inc.php")) $res=@include("../../../../../main.inc.php");
+if (! $res && preg_match('/\/nltechno([^\/]*)\//',$_SERVER["PHP_SELF"],$reg)) $res=@include("../../../../dolibarr".$reg[1]."/htdocs/main.inc.php"); // Used on dev env only
 
 header("Location: ".DOL_URL_ROOT.'/public/error-404.php');
 

@@ -38,10 +38,12 @@ $error=0;
 $res=0;
 if (! $res && file_exists($path."../../master.inc.php")) $res=@include($path."../../master.inc.php");
 if (! $res && file_exists($path."../../htdocs/master.inc.php")) $res=@include($path."../../htdocs/master.inc.php");
-if (! $res && file_exists($path."../../../dolibarr/htdocs/master.inc.php")) $res=@include($path."../../../dolibarr/htdocs/master.inc.php");
 if (! $res && file_exists("../master.inc.php")) $res=@include("../master.inc.php");
 if (! $res && file_exists("../../master.inc.php")) $res=@include("../../master.inc.php");
 if (! $res && file_exists("../../../master.inc.php")) $res=@include("../../../master.inc.php");
+if (! $res && preg_match('/\/nltechno([^\/]*)\//',$_SERVER["PHP_SELF"],$reg)) $res=@include($path."../../../dolibarr".$reg[1]."/htdocs/main.inc.php"); // Used on dev env only
+if (! $res && preg_match('/\/nltechno([^\/]*)\//',$_SERVER["PHP_SELF"],$reg)) $res=@include("../../../dolibarr".$reg[1]."/htdocs/main.inc.php"); // Used on dev env only
+if (! $res) die ("Failed to include master.inc.php file\n");
 require_once(DOL_DOCUMENT_ROOT ."/adherents/class/adherent.class.php");
 require_once(DOL_DOCUMENT_ROOT ."/adherents/class/cotisation.class.php");
 require_once(DOL_DOCUMENT_ROOT ."/core/lib/company.lib.php");
@@ -98,29 +100,29 @@ $nbmemberfailed=0;
 $nbsubadded=0;
 $nbsubupdated=0;
 $nbsubfailed=0;
-while (($buffer = fgets($filehandle, 4096)) !== false) 
+while (($buffer = fgets($filehandle, 4096)) !== false)
 {
 	$error=0;
-	
+
 	$nbline++;
 	print "Process line ".$nbline.": ";
-	if ($nbline == 1) 
+	if ($nbline == 1)
 	{
 		print "Title of fields. Ignored.\n";
 		$nbignored++;
-		continue; 
+		continue;
 	}
 
 	$fields=explode(';',$buffer);
-	if (count($fields) < 10) 
+	if (count($fields) < 10)
 	{
 		print "Not correct number of fields on this line\n";
 		$nbignored++;
 		continue;
 	}
-	
+
 	$typepayment=array('paiement en_ligne'=>'CB');
-	
+
 	$datepaiement=$fields[0];
 	$member_ref_ext=$fields[1];
 	$sub_ref_ext=$fields[2];
@@ -153,30 +155,30 @@ while (($buffer = fgets($filehandle, 4096)) !== false)
 	$declahonneur=$fields[44];
 	$option=$fields[45];
 	$datecrea=dol_stringtotime($fields[46],1);
-	
+
 	$member_name=dolGetFirstLastname($firstname, $lastname);
 	print $member_name." (".$buffer.")\n";
-	
+
 	// Check parameters
 	if (empty($paymenttype_code))
 	{
 		print 'Do not understand field "'.$paymenttype_label.'" as payment type'."\n";
 		$nbmemberfailed++;
-		continue;	
+		continue;
 	}
-	
+
 	$memberfound=0;
 	$subfound=0;
-	
+
 	// Search member
 	$memberstatic->id=0;
 	$res=$memberstatic->fetch(0, '', '', $member_ref_ext);
 	if ($res < 0) $memberstatic->fetch_name($firstname, $lastname);
-	
+
 	if ($memberstatic->id)
 	{
 		$memberfound=1;
-		
+
 		// Update member
 		$memberstatic->xx='ee';
 		$memberstatic->email=$email;
@@ -187,7 +189,7 @@ while (($buffer = fgets($filehandle, 4096)) !== false)
 		$tmparray=getCountry('','all',$db,'',0,($country?$country:$country2));
 		$memberstatic->country_code=$tmparray['code'];
 		$memberstatic->country_id=$tmparray['id'];
-		
+
 		$res=$memberstatic->update($user);
 		if ($res >= 0) { $error++; $nbmemberupdated++; print "Record update success\n"; }
 		else { $error++; $nbmemberfailed++; print "Record update failed: ".$memberstatic->errorsToString()."\n"; }
@@ -195,9 +197,9 @@ while (($buffer = fgets($filehandle, 4096)) !== false)
 	else
 	{
 		// Add warning if renew was checked
-		if ($renew) 
+		if ($renew)
 		{
-			print "Warning: Line should be a renew but member ".$member_name." was not found\n"; 
+			print "Warning: Line should be a renew but member ".$member_name." was not found\n";
 		}
 
 		// Add member
@@ -231,7 +233,7 @@ while (($buffer = fgets($filehandle, 4096)) !== false)
 				if ($val->dateh == $datecrea) $subfound++;
 			}
 		}
-		
+
 		// Add subscription
 		if (! $subfound)
 		{
@@ -241,7 +243,7 @@ while (($buffer = fgets($filehandle, 4096)) !== false)
 		}
 	}
 
-	
+
 }
 if (!feof($filehandle)) {
 	echo "Erreur: fgets() a échoué\n";

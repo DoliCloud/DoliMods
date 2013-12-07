@@ -26,8 +26,7 @@
 
 
 /**
- *	\class      InterfaceActionsCabinetmed
- *  \brief      Class of triggered functions for cabinetmed module
+ *  Class of triggered functions for cabinetmed module
  */
 class InterfaceActionsCabinetmed
 {

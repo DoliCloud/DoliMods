@@ -31,12 +31,12 @@
 define('NOCSRFCHECK',1);
 
 $res=0;
-if (! $res && file_exists("../master.inc.php")) $res=@include("../master.inc.php");
-if (! $res && file_exists("../../master.inc.php")) $res=@include("../../master.inc.php");
-if (! $res && file_exists("../../../master.inc.php")) $res=@include("../../../master.inc.php");
-if (! $res && file_exists("../../../dolibarr/htdocs/master.inc.php")) $res=@include("../../../dolibarr/htdocs/master.inc.php");     // Used on dev env only
-if (! $res && file_exists("../../../../dolibarr/htdocs/master.inc.php")) $res=@include("../../../../dolibarr/htdocs/master.inc.php");   // Used on dev env only
-if (! $res && file_exists("../../../../../dolibarr/htdocs/master.inc.php")) $res=@include("../../../../../dolibarr/htdocs/master.inc.php");   // Used on dev env only
+if (! $res && file_exists("../main.inc.php")) $res=@include("../main.inc.php");
+if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.php");
+if (! $res && file_exists("../../../main.inc.php")) $res=@include("../../../main.inc.php");
+if (! $res && file_exists("../../../../main.inc.php")) $res=@include("../../../../main.inc.php");
+if (! $res && file_exists("../../../../../main.inc.php")) $res=@include("../../../../../main.inc.php");
+if (! $res && preg_match('/\/nltechno([^\/]*)\//',$_SERVER["PHP_SELF"],$reg)) $res=@include("../../../dolibarr".$reg[1]."/htdocs/main.inc.php"); // Used on dev env only
 if (! $res) die("Include of main fails");
 
 $search=GETPOST("search");
@@ -48,7 +48,7 @@ $search=GETPOST("search");
  */
 
 // Check parameters
-if (! $search)
+if (empty($search) && $search == '')
 {
 	dol_print_error($db,'Parameter "search" not provided');
 	exit;
@@ -62,10 +62,11 @@ if (empty($conf->thomsonphonebook->enabled))
 }
 
 //$sql = "select p.name,p.firstname,p.phone from llx_socpeople as p,llx_societe as s WHERE p.fk_soc=s.rowid AND (p.name LIKE '%$search' OR p.firstname LIKE '%$search');";
-$sql = "select p.name,p.firstname,p.phone from llx_socpeople as p,llx_societe as s WHERE p.fk_soc=s.rowid AND (p.name LIKE '".$db->escape($search)."%' OR p.firstname LIKE '".$db->escape($search)."%')";
-if (! empty($conf->global->THOMSONPHONEBOOK_DOSEARCH_ANYWHERE)) $sql = "select p.name,p.firstname,p.phone from llx_socpeople as p,llx_societe as s WHERE p.fk_soc=s.rowid AND (p.name LIKE '%".$db->escape($search)."%' OR p.firstname LIKE '%".$db->escape($search)."%')";
+$sql = "select p.lastname,p.firstname,p.phone from llx_socpeople as p,llx_societe as s WHERE p.fk_soc=s.rowid AND (p.lastname LIKE '".$db->escape($search)."%' OR p.firstname LIKE '".$db->escape($search)."%')";
+if (! empty($conf->global->THOMSONPHONEBOOK_DOSEARCH_ANYWHERE)) $sql = "select p.lastname,p.firstname,p.phone from llx_socpeople as p,llx_societe as s WHERE p.fk_soc=s.rowid AND (p.lastname LIKE '%".$db->escape($search)."%' OR p.firstname LIKE '%".$db->escape($search)."%')";
 
 //print $sql;
+dol_syslog("thomsonphonebook sql=".$sql);
 $resql=$db->query($sql);
 if ($resql)
 {
@@ -79,7 +80,7 @@ if ($resql)
 		//var_dump($obj);
 		print("<DirectoryEntry>\n");
 		print("\t<Name>");
-		print($obj->name.", ".$obj->firstname );
+		print($obj->lastname.", ".$obj->firstname );
 		print("</Name>\n");
 		print("\t<Telephone>");
 		print($obj->phone);
@@ -90,5 +91,7 @@ if ($resql)
 	print("</ThomsonPhoneBook>\n");
 	$db->free($result);
 }
+else dol_print_error($db);
 
+$db->close();
 ?>

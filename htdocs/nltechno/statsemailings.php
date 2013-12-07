@@ -15,7 +15,6 @@ include_once('./pre.inc.php');
 // Load config
 $CALLFORCONFIG=1;
 include_once('index.php');
-
 require_once(DOL_DOCUMENT_ROOT."/core/class/dolgraph.class.php");
 require_once DOL_DOCUMENT_ROOT.'/comm/mailing/class/mailing.class.php';
 
