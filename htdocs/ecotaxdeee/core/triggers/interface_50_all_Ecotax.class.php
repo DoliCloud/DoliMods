@@ -142,45 +142,71 @@ class InterfaceEcotaxdee
 	 */
 	function _add_replace_ecotax($action,$object,$user,$langs,$conf)
 	{
+		global $mysoc;
+		
 		// The next 3 parameters can be replaced at will:
-		$desc = "Ecotax"; // the description on line
-		$ecocat = "Ecotax"; // the category products must be in for ecotax to apply
+		$desc = $langs->trans("Ecotax"); // the description on line
+		//$ecocat = empty($conf->global->ECOTAXDEEE_CATEGORY_REF)?"Ecotax":$conf->global->ECOTAXDEEE_CATEGORY_REF; // the category products must be in, for ecotax to apply
 
 		// Add a line EcoTax automatically
 		dol_syslog("Trigger '".$this->name."' for action '$action' launched by ".__FILE__.". id=".$object->fk_commande);
 
 		/*
-		 * Calculate the ecotax.
+		 * Calculate the ecotax deee.
 		 */
+		$ecoamount = 0;
 		$fieldid=$object->fk_element;
 		$parentid=$object->$fieldid;
 
-		$sql = "SELECT fd.total_ht, fd.qty, fd.fk_product, fd.info_bits";
+		$lines=$object->lines;
+		foreach($lines as $line)
+		{
+			var_dump($line);
+			if ($line->special_code != 1 && $line->special_code != 2)	// Discard shipping line and ecotax lines
+			{
+				$tmpproduct=new Product($this->db);
+				$tmpproduct->fetch($line->fk_product);
+				
+				if (1 == 1)
+				{
+					// If version <= 3.5.0, get eco tax deee amount from extra field
+					$optionsArray=array();
+					$tmpproduct->fetch_optionals($line->fk_product, $optionsArray);
+				
+					var_dump($optionsArray);
+					$ecoamount += $optionsArray['ecotax'];
+				}
+				else
+				{
+					// Get it from product desc
+					$ecoamount += $tmpproduct->weee;
+				}
+			}
+		}
+
+		/*
+		$sql = "SELECT fd.qty, fd.subprice as pu, fd.remise_percent as remise_percent_line, fd.product_type, fd.fk_product, fd.info_bits,";
+		$sql.= " fd.tva_tx, fd.localtax1_tx, fd.localtax1_type, fd.localtax2_tx, fd.localtax2_type,";
+		$sql.= " fd.total_ht, fd.total_ttc";
 		$sql.= " FROM ".MAIN_DB_PREFIX.$object->table_element_line." as fd";
 		$sql.= " WHERE fd.".$object->fk_element." = '".$parentid."'";
-		$sql.= " AND special_code = 0";
+		$sql.= " AND special_code NOT INT (1,2)";	// Discard shipping line and ecotax lines 
 
+		dol_syslog(get_class($this).'::_add_replace_ecotax', LOG_DEBUG);
 		$resql = $this->db->query($sql) ;
 
-		$eco = 0;
 		if ($resql)
 		{
-			while ( $row = $this->db->fetch_row($resql) )
+			while ( $obj = $this->db->fetch_object($resql) )
 			{
-				$price=$row[0];
-				$qty=$row[1];
-				$prod_id=$row[2];
-				$info_bits=$row[3];
-				if ($this->_is_in_cat($ecocat,$prod_id))
+				$tmparray=calcul_price_total($obj->qty, $obj->pu, $obj->remise_percent_line, $obj->txt_tx, $obj->localtax1_rate, $obj->localtax2_rate, 'HT', $obj->info_bits, $obj->product_type);
+				$prod_id=$obj->fk_product;
+
+				if ($this->_is_in_cat($ecocat, $prod_id))
 				{
-					// TODO Calculate ecotax
-					if ($price<=100) {
-						$eco+=5*$qty;
-					} elseif ($price>100 && $price<=300) {
-						$eco+=10*$qty;
-					} else {
-						$eco+=15*$qty;
-					}
+					//$total_withtax_withoutdiscount=$tmparray[8];
+					
+					$eco += 10;
 				}
 			}
 		}
@@ -188,83 +214,107 @@ class InterfaceEcotaxdee
 		{
 			dol_syslog("Trigger '".$this->name."' in action '$action' [2] SQL ERROR ");
 		}
-
+		*/
 
 		/*
 		 * Detect if line already exists
 		 */
+		$exists=0;
+		$idline=0;
+		
 		$sql = "SELECT rowid FROM ".MAIN_DB_PREFIX.$object->table_element_line;
 		$sql.= " WHERE ".$object->fk_element." = '".$parentid."'";
 		$sql.= " AND special_code = 2";
 
+		dol_syslog(get_class($this).'::_add_replace_ecotax', LOG_DEBUG);
 		$resql = $this->db->query($sql) ;
 
 		if ($resql)
 		{
 			$exists = $this->db->num_rows($resql);
+			if ($exists)
+			{
+				$obj=$this->db->fetch_object($resql);
+				$idline=$obj->rowid;
+			}
 			$this->db->free($resql);
 		}
 		else
 		{
-			dol_syslog("Trigger '".$this->name."' in action '$action' [3] SQL ERROR $sql");
+			$this->error = $this->db->lasterror;
+			$this->errors[] = $this->error;
+			dol_syslog("Trigger '".$this->name."' in action '$action' [3] SQL ERROR ".$this->error, LOG_ERR);
 		}
 
-		/*
-		 * Nombre de ligne de commande
-		 */
-		/*
-		$sql = "SELECT MAX(rang) FROM ".MAIN_DB_PREFIX.$object->table_element_line;
-		$sql.= " WHERE ".$object->fk_element."=".$parentid;
-
-		$resql = $this->db->query($sql) ;
-		$num_lignes=0;
-		if ($resql)
+		// Update/insert ecotax
+		$tmpobject=null;
+		if ($object->table_element == 'facture')
 		{
-			while ( $row = $this->db->fetch_row($resql) )
+			$tmpobject=new FactureLigne($db);
+		}
+		if ($object->table_element == 'commande')
+		{
+			$tmpobject=new OrderLine($db);
+		}
+		if ($object->table_element == 'propal')
+		{
+			$tmpobject=new PropaleLigne($db);
+		}
+		if ($idline > 0)
+		{
+			$result=0;
+			$tmpobject->fetch($idline);
+			if ($ecoamount)
 			{
-				$num_lignes = $row[0];
-			}
-		}
-		else
-		{
-			dol_syslog("Trigger '".$this->name."' in action '$action' [4] SQL ERROR ");
-		}
-		*/
-
-
-		/*
-		 * Calcul les ecotax
-		 */
-		$rang = $num_lignes + 1;
-
-		if ($exists > 0)
-		{
-			// Update line
-			// TODO Call the class line $object->class_element_line;
-
-
-			if ($result)
-			{
-				return 2;
+				// Update line
+				$tmpobject->qty=1;
+				$tmpobject->subprice=$ecoamount;
+			
+				if ($object->table_element == 'facture') $result=$tmpobject->update($user,0);
+				if ($object->table_element == 'commande') $result=$tmpobject->update(0);
+				if ($object->table_element == 'propal') $result=$tmpobject->update(0);
 			}
 			else
 			{
-				dol_syslog("Trigger '".$this->name."' in action '$action' [5] ERROR $resql");
+				$result=$tmpobject->delete();
 			}
-		}
-		else
-		{
-			// Insert line
-			// TODO Call the class line $object->class_element_line;
-
-
-			if ($result)
+			
+			if ($result > 0)
 			{
 				return 1;
 			}
 			else
 			{
-				dol_syslog("Trigger '".$this->name."' in action '$action' [5] ERROR $result");
+				$this->error = 'eee';
+				$this->errors[] = $this->error;
+				dol_syslog("Trigger '".$this->name."' in action '$action' [4] ERROR ".$this->error, LOG_ERR);
+				return -1;
+			}
+		}
+		else
+		{
+			$seller=$mysoc;
+			$buyer=new Societe($db);
+			$buyer->fetch($object->fk_soc);
+			
+			// Insert line
+			$rang = $exists + 1;
+			
+			$special_code = 2;
+			$txtva=get_default_tva($seller, $buyer, 0, 0);
+
+			$result=$object->addline($desc, $ecoamount, 1, $txtva, 0, 0, 0, 0, '', '', 0, 0, '', 'HT', 0, 1, $rang, $special_code, '', 0, 0, null, 0, '', 0);
+
+			if ($result > 0)
+			{
+				return 2;
+			}
+			else
+			{
+				$this->error = 'eee';
+				$this->errors[] = $this->error;
+				dol_syslog("Trigger '".$this->name."' in action '$action' [5] ERROR ".$this->error, LOG_ERR);
+				return -2;
 			}
 		}
 	}
@@ -273,8 +323,11 @@ class InterfaceEcotaxdee
 	/**
 	 * See if the product is in the ecotax category.
 	 * Stop and return 0 if the product is not in it.
+	 * 
+	 * @param	string	$ecocat			Category
+	 * @param	int		$product_id		Product id
 	 */
-	function _is_in_cat($ecocat,$product_id)
+	function _is_in_cat($ecocat, $product_id)
 	{
 		require_once(DOL_DOCUMENT_ROOT."/categories/categorie.class.php");
 

@@ -2,8 +2,9 @@
 CHARSET=UTF-8
 EcoTaxDeee=Eco taxe DEEE
 EcoTaxDeeSetup=Configuration du module eco tax DEEE
-ECOTAXDEE_USE_ON_CUSTOMER_ORDER=Ajouter une ligne eco tax DEEE automatiquement sur les commandes clients
-ECOTAXDEE_USE_ON_PROPOSAL=Ajouter une ligne eco tax DEEE automatiquement sur les propositions commerciales
-ECOTAXDEE_USE_ON_CUSTOMER_INVOICE=Ajouter une ligne eco tax DEEE automatiquement sur les factures clients
+ECOTAXDEEE_USE_ON_CUSTOMER_ORDER=Ajouter une ligne eco tax DEEE automatiquement sur les commandes clients
+ECOTAXDEEE_USE_ON_PROPOSAL=Ajouter une ligne eco tax DEEE automatiquement sur les propositions commerciales
+ECOTAXDEEE_USE_ON_CUSTOMER_INVOICE=Ajouter une ligne eco tax DEEE automatiquement sur les factures clients
+ECOTAXDEEE_CATEGORY_REF=Réf de catégorie de produit à utiliser pour détecter qu'un produit a besoin d'appliquer une Eco taxe
 Module101380Name=Eco Taxe DEEE
 Module101380Desc=Module permettant d'ajouter automatiquement des lignes d'eco tax lors de l'édition de facture, commande ou propositions.

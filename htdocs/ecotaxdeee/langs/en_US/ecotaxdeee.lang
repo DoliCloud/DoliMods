@@ -2,8 +2,9 @@
 CHARSET=UTF-8
 EcoTaxDeee=Eco tax DEEE
 EcoTaxDeeSetup=Eco tax DEEE module setup
-ECOTAXDEE_USE_ON_CUSTOMER_ORDER=Add automatically an Eco tax DEEE on customer orders
-ECOTAXDEE_USE_ON_PROPOSAL=Add automatically an Eco tax DEEE on commercial proposals
-ECOTAXDEE_USE_ON_CUSTOMER_INVOICE=Add automatically an Eco tax DEEE on customer invoices
+ECOTAXDEEE_USE_ON_CUSTOMER_ORDER=Add automatically an Eco tax DEEE on customer orders
+ECOTAXDEEE_USE_ON_PROPOSAL=Add automatically an Eco tax DEEE on commercial proposals
+ECOTAXDEEE_USE_ON_CUSTOMER_INVOICE=Add automatically an Eco tax DEEE on customer invoices
+ECOTAXDEEE_CATEGORY_REF=Ref of product category to detect products that need Eco tax
 Module101380Name=Eco Tax DEEE
 Module101380Desc=Module to add ecotax lines automatically

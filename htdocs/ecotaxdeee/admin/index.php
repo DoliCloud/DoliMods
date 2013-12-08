@@ -41,10 +41,11 @@ if ($action == 'save')
 {
     $db->begin();
 
-    $res=dolibarr_set_const($db,'ECOTAXDEE_USE_ON_CUSTOMER_ORDER',trim($_POST["ECOTAXDEE_USE_ON_CUSTOMER_ORDER"]),'chaine',0,'',$conf->entity);
-    $res=dolibarr_set_const($db,'ECOTAXDEE_USE_ON_PROPOSAL',trim($_POST["ECOTAXDEE_USE_ON_PROPOSAL"]),'chaine',0,'',$conf->entity);
-    $res=dolibarr_set_const($db,'ECOTAXDEE_USE_ON_CUSTOMER_INVOICE',trim($_POST["ECOTAXDEE_USE_ON_CUSTOMER_INVOICE"]),'chaine',0,'',$conf->entity);
-
+    $res=dolibarr_set_const($db,'ECOTAXDEEE_USE_ON_CUSTOMER_ORDER',trim($_POST["ECOTAXDEEE_USE_ON_CUSTOMER_ORDER"]),'chaine',0,'',$conf->entity);
+    $res=dolibarr_set_const($db,'ECOTAXDEEE_USE_ON_PROPOSAL',trim($_POST["ECOTAXDEEE_USE_ON_PROPOSAL"]),'chaine',0,'',$conf->entity);
+    $res=dolibarr_set_const($db,'ECOTAXDEEE_USE_ON_CUSTOMER_INVOICE',trim($_POST["ECOTAXDEEE_USE_ON_CUSTOMER_INVOICE"]),'chaine',0,'',$conf->entity);
+    $res=dolibarr_set_const($db,'ECOTAXDEEE_CATEGORY_REF',trim($_POST["ECOTAXDEEE_CATEGORY_REF"]),'chaine',0,'',$conf->entity);
+    
     if (! $error)
     {
         $db->commit();
@@ -68,7 +69,7 @@ $form=new Form($db);
 $formadmin=new FormAdmin($db);
 $formother=new FormOther($db);
 
-$help_url='EN:Module_EcoTaxDee_EN|FR:Module_EcoTaxDee|ES:Modulo_EcoTaxDee';
+$help_url='EN:Module_EcoTaxDeee_En|FR:Module_EcoTaxDeee|ES:Modulo_EcoTaxDeee';
 //$arrayofjs=array('/includes/jquery/plugins/colorpicker/jquery.colorpicker.js');
 //$arrayofcss=array('/includes/jquery/plugins/colorpicker/jquery.colorpicker.css');
 $arrayofjs=array();
@@ -95,28 +96,38 @@ print "<tr class=\"liste_titre\">";
 print '<td>'.$langs->trans("Parameter")."</td>";
 print "<td>".$langs->trans("Value")."</td>";
 print "</tr>";
-// GETPOST("ECOTAXDEE_USE_ON_CUSTOMER_ORDER")
+// GETPOST("ECOTAXDEEE_USE_ON_CUSTOMER_ORDER")
 print "<tr ".$bc[$var].">";
-print "<td>".$langs->trans("ECOTAXDEE_USE_ON_CUSTOMER_ORDER")."</td>";
+print "<td>".$langs->trans("ECOTAXDEEE_USE_ON_CUSTOMER_ORDER")."</td>";
 print "<td>";
-$selectedvalue=$conf->global->GETPOST("ECOTAXDEE_USE_ON_CUSTOMER_ORDER");
-print $form->selectyesno("ECOTAXDEE_USE_ON_CUSTOMER_ORDER",GETPOST("ECOTAXDEE_USE_ON_CUSTOMER_ORDER"));
+$selectedvalue=$conf->global->ECOTAXDEEE_USE_ON_CUSTOMER_ORDER;
+print $form->selectyesno("ECOTAXDEEE_USE_ON_CUSTOMER_ORDER",$selectedvalue);
 print "</td>";
 print "</tr>";
-// GETPOST("ECOTAXDEE_USE_ON_PROPOSAL")
+// GETPOST("ECOTAXDEEE_USE_ON_PROPOSAL")
 print "<tr ".$bc[$var].">";
-print "<td>".$langs->trans("ECOTAXDEE_USE_ON_PROPOSAL")."</td>";
+print "<td>".$langs->trans("ECOTAXDEEE_USE_ON_PROPOSAL")."</td>";
 print "<td>";
-$selectedvalue=$conf->global->GETPOST("ECOTAXDEE_USE_ON_PROPOSAL");
-print $form->selectyesno("ECOTAXDEE_USE_ON_PROPOSAL",GETPOST("ECOTAXDEE_USE_ON_PROPOSAL"));
+$selectedvalue=$conf->global->ECOTAXDEEE_USE_ON_PROPOSAL;
+print $form->selectyesno("ECOTAXDEEE_USE_ON_PROPOSAL",$selectedvalue);
 print "</td>";
 print "</tr>";
-// GETPOST("ECOTAXDEE_USE_ON_CUSTOMER_INVOICE")
+// GETPOST("ECOTAXDEEE_USE_ON_CUSTOMER_INVOICE")
 print "<tr ".$bc[$var].">";
-print "<td>".$langs->trans("ECOTAXDEE_USE_ON_CUSTOMER_INVOICE")."</td>";
+print "<td>".$langs->trans("ECOTAXDEEE_USE_ON_CUSTOMER_INVOICE")."</td>";
 print "<td>";
-$selectedvalue=$conf->global->GETPOST("ECOTAXDEE_USE_ON_CUSTOMER_INVOICE");
-print $form->selectyesno("ECOTAXDEE_USE_ON_CUSTOMER_INVOICE",GETPOST("ECOTAXDEE_USE_ON_CUSTOMER_INVOICE"));
+$selectedvalue=$conf->global->ECOTAXDEEE_USE_ON_CUSTOMER_INVOICE;
+print $form->selectyesno("ECOTAXDEEE_USE_ON_CUSTOMER_INVOICE",$selectedvalue);
+print "</td>";
+print "</tr>";
+
+// GETPOST("ECOTAXDEEE_CATEGORY_REF")
+print "<tr ".$bc[$var].">";
+print "<td>".$langs->trans("ECOTAXDEEE_CATEGORY_REF")."</td>";
+print "<td>";
+$selectedvalue=$conf->global->ECOTAXDEEE_CATEGORY_REF;
+print '<input type="text" class="flat" name="ECOTAXDEEE_CATEGORY_REF" value="'.$selectedvalue.'">';
+// Add warning if category product does not exists 
 print "</td>";
 print "</tr>";
 
