@@ -49,7 +49,7 @@ class modEcoTaxDeee extends DolibarrModules
 		// Use here a free id (See in Home -> System information -> Dolibarr for list of used module id).
 		$this->numero = 101380;
 		// Key text used to identify module (for permission, menus, etc...)
-		$this->rights_class = 'ecotaxdee';
+		$this->rights_class = 'ecotaxdeee';
 
 		// Family can be 'crm','financial','hr','projects','product','ecm','technic','other'
 		// It is used to group modules in module setup page
@@ -82,7 +82,7 @@ class modEcoTaxDeee extends DolibarrModules
 		$this->requiredby = array();	// List of modules id to disable if this one is disabled
 		$this->phpmin = array(4,1);					// Minimum version of PHP required by module
 		$this->need_dolibarr_version = array(2,9);	// Minimum version of Dolibarr required by module
-		$this->langfiles = array("ecotax@ecotax");
+		$this->langfiles = array("ecotaxdeee@ecotaxdeee");
 
 		// Constants
 		// List of particular constants to add when module is enabled
