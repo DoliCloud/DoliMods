@@ -45,11 +45,13 @@ class ActionsConcatPdf
 
 
     /**
-     * Complete doc forms
+     * Complete doc forms (set this->resprint).
      *
      * @param	array	$parameters		Array of parameters
      * @param	object	$object			Object
-     * @return	string					HTML content to add by hook
+     * @return  int 		        	<0 if KO,
+     *                          		=0 if OK but we want to process standard actions too,
+     *  	                            >0 if OK and we want to replace standard actions.
      */
     function formBuilddocOptions($parameters,&$object)
     {
@@ -125,7 +127,9 @@ class ActionsConcatPdf
         	$out.='</td></tr>';
         }
 
-        return $out;
+        $this->resprints = $out;
+        
+        return 0;
     }
 
 
