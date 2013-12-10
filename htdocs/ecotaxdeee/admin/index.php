@@ -44,7 +44,7 @@ if ($action == 'save')
     $res=dolibarr_set_const($db,'ECOTAXDEEE_USE_ON_CUSTOMER_ORDER',trim($_POST["ECOTAXDEEE_USE_ON_CUSTOMER_ORDER"]),'chaine',0,'',$conf->entity);
     $res=dolibarr_set_const($db,'ECOTAXDEEE_USE_ON_PROPOSAL',trim($_POST["ECOTAXDEEE_USE_ON_PROPOSAL"]),'chaine',0,'',$conf->entity);
     $res=dolibarr_set_const($db,'ECOTAXDEEE_USE_ON_CUSTOMER_INVOICE',trim($_POST["ECOTAXDEEE_USE_ON_CUSTOMER_INVOICE"]),'chaine',0,'',$conf->entity);
-    $res=dolibarr_set_const($db,'ECOTAXDEEE_CATEGORY_REF',trim($_POST["ECOTAXDEEE_CATEGORY_REF"]),'chaine',0,'',$conf->entity);
+    //$res=dolibarr_set_const($db,'ECOTAXDEEE_CATEGORY_REF',trim($_POST["ECOTAXDEEE_CATEGORY_REF"]),'chaine',0,'',$conf->entity);
     
     if (! $error)
     {
@@ -122,7 +122,7 @@ print "</td>";
 print "</tr>";
 
 // GETPOST("ECOTAXDEEE_CATEGORY_REF")
-print "<tr ".$bc[$var].">";
+/*print "<tr ".$bc[$var].">";
 print "<td>".$langs->trans("ECOTAXDEEE_CATEGORY_REF")."</td>";
 print "<td>";
 $selectedvalue=$conf->global->ECOTAXDEEE_CATEGORY_REF;
@@ -130,7 +130,7 @@ print '<input type="text" class="flat" name="ECOTAXDEEE_CATEGORY_REF" value="'.$
 // Add warning if category product does not exists 
 print "</td>";
 print "</tr>";
-
+*/
 print '</table>';
 print '<br>';
 
