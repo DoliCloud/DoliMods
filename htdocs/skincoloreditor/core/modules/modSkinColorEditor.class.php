@@ -29,8 +29,8 @@
 include_once(DOL_DOCUMENT_ROOT ."/core/modules/DolibarrModules.class.php");
 
 
-/**     \class      modSkinColorEditor
- *      \brief      Description and activation class for module SkinColorEditor
+/**
+ * Description and activation class for module SkinColorEditor
  */
 class modSkinColorEditor extends DolibarrModules
 {
@@ -39,7 +39,7 @@ class modSkinColorEditor extends DolibarrModules
      *
      *  @param		DoliDB		$db		Database handler
      */
-    function modSkinColorEditor($db)
+    function __construct($db)
     {
         global $langs,$conf;
 

@@ -25,8 +25,7 @@ include_once(DOL_DOCUMENT_ROOT ."/core/modules/DolibarrModules.class.php");
 
 
 /**
- * 		\class      modCMCIC
- *      \brief      Description and activation class for module modCMCIC
+ *  Description and activation class for module modCMCIC
  */
 class modCMCIC extends DolibarrModules
 {

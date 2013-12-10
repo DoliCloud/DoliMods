@@ -40,7 +40,7 @@ class modScanner extends DolibarrModules
 	 *
 	 *   @param		DoliDB		$db		Database handler
 	 */
-	function modScanner($db)
+	function __construct($db)
 	{
 		$this->db = $db;
 

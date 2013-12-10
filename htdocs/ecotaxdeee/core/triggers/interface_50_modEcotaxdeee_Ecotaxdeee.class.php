@@ -23,9 +23,9 @@
 
 
 /**
- *  Classe des fonctions triggers des actions personalisees du module
+ *  Class of triggers for module Ecotaxdeee
  */
-class InterfaceEcotaxdee
+class InterfaceEcotaxdeee
 {
 	var $db;
 	var $error;
@@ -35,7 +35,7 @@ class InterfaceEcotaxdee
 	 *   
 	 *   @param	DoliDB	$db      Handler d'acces base
 	 */
-	function InterfaceEcotax($db)
+	function __construct($db)
 	{
 		$this->db = $db;
 
@@ -97,7 +97,7 @@ class InterfaceEcotaxdee
 		// Création / Mise à jour / Suppression d'un évènement dans Google contact
 
 		if (empty($conf->ecotaxdee->enabled)) return 0;
-
+var_dump($action);exit;
 		if (! empty($conf->global->ECOTAXDEE_USE_ON_CUSTOMER_ORDER))
 		{
 			if ($action == 'LINEORDER_INSERT')
@@ -173,7 +173,7 @@ class InterfaceEcotaxdee
 					$optionsArray=array();
 					$tmpproduct->fetch_optionals($line->fk_product, $optionsArray);
 				
-					var_dump($optionsArray);
+					var_dump($optionsArray);exit;
 					$ecoamount += $optionsArray['ecotax'];
 				}
 				else

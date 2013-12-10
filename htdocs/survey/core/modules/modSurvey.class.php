@@ -17,8 +17,8 @@
 include_once(DOL_DOCUMENT_ROOT ."/core/modules/DolibarrModules.class.php");
 
 
-/**		\class      modSurvey
- *      \brief      Description and activation class for module MyModule
+/**
+ * Description and activation class for module MyModule
  */
 class modSurvey extends DolibarrModules
 {
@@ -28,7 +28,7 @@ class modSurvey extends DolibarrModules
 	 *
 	 *   @param		DoliDB		$db		Database handler
      */
-	function modSurvey($db)
+	function __construct($db)
 	{
 		$this->db = $db;
 

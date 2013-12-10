@@ -17,8 +17,8 @@
 include_once(DOL_DOCUMENT_ROOT ."/core/modules/DolibarrModules.class.php");
 
 
-/**		\class      modWebMail
- *      \brief      Description and activation class for module WebMail
+/**
+ * Description and activation class for module WebMail
  */
 class modWebMail extends DolibarrModules
 {
@@ -28,7 +28,7 @@ class modWebMail extends DolibarrModules
 	 *
 	 *   @param		DoliDB		$db		Database handler
 	 */
-	function modWebMail($db)
+	function __construct($db)
 	{
 		$this->db = $db;
 

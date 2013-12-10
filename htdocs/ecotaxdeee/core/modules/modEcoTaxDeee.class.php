@@ -39,7 +39,7 @@ class modEcoTaxDeee extends DolibarrModules
 	 *   
 	 *   @param		DoliDB	$db		Database handler
 	 */
-	function modEcoTaxDeee($db)
+	function __construct($db)
 	{
 		global $conf;
 
@@ -68,7 +68,9 @@ class modEcoTaxDeee extends DolibarrModules
 		// Png file must be in theme/yourtheme/img directory under name object_pictovalue.png.
 		$this->picto='product';
 
-		// Data directories to create when module is enabled.
+        $this->module_parts = array('triggers' => 1);
+		
+        // Data directories to create when module is enabled.
 		$this->dirs = array();
 
 		// Relative path to module style sheet if exists. Example: '/Composition/mycss.css'.

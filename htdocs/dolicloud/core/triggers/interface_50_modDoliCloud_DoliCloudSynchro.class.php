@@ -27,8 +27,7 @@ dol_include_once('/google/lib/google_calendar.lib.php');
 
 
 /**
- *     \class      InterfaceDoliCloudSynchro
- *     \brief      Classe des fonctions triggers des actions google calendar
+ *  Classe des fonctions triggers des actions dolicloud
  */
 class InterfaceDoliCloudSynchro
 {
@@ -45,7 +44,7 @@ class InterfaceDoliCloudSynchro
      *
      *   @param		DoliDB		$db      Database handler
      */
-    function InterfaceDoliCloudSynchro($db)
+    function __construct($db)
     {
         $this->db = $db;
 

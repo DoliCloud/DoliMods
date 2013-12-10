@@ -26,7 +26,7 @@ class modOpenStreetMap extends DolibarrModules
 	 *
 	 *   @param		DoliDB		$db		Database handler
 	 */
-	function modOpenStreetMap($db)
+	function __construct($db)
 	{
 		$this->db = $db;
 

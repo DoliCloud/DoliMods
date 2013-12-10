@@ -31,8 +31,8 @@
 include_once(DOL_DOCUMENT_ROOT ."/core/modules/DolibarrModules.class.php");
 
 
-/**     \class      modPHPSysInfo
- *      \brief      Description and activation class for module PHPSysInfo
+/**
+ * Description and activation class for module PHPSysInfo
  */
 class modPHPSysInfo extends DolibarrModules
 {
@@ -41,7 +41,7 @@ class modPHPSysInfo extends DolibarrModules
 	 *
 	 *   @param		DoliDB		$db		Database handler
 	 */
-	function modPHPSysInfo($db)
+	function __construct($db)
 	{
 		$this->db = $db;
 

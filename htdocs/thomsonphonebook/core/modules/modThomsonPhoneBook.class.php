@@ -39,7 +39,7 @@ class modThomsonPhoneBook extends DolibarrModules
 	 *
 	 *   @param		DoliDB		$db		Database handler
      */
-    function modThomsonPhoneBook($db)
+    function __construct($db)
     {
         $this->db = $db;
 

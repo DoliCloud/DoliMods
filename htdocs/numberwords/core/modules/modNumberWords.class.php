@@ -27,7 +27,7 @@ class modNumberWords extends DolibarrModules
 	 *
 	 *   @param		DoliDB		$db		Database handler
 	 */
-	function modNumberWords($db)
+	function __construct($db)
 	{
 		$this->db = $db;
 

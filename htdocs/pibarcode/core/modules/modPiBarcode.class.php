@@ -38,7 +38,7 @@ class modPiBarcode extends DolibarrModules
 	 *
 	 *   @param		DoliDB		$db		Database handler
 	 */
-	function modPiBarcode($db)
+	function __construct($db)
 	{
 		$this->db = $db;
 

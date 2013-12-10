@@ -38,7 +38,7 @@ class modFileManager extends DolibarrModules
 	 *
 	 *   @param		DoliDB		$db		Database handler
 	 */
-	function modFileManager($db)
+	function __construct($db)
 	{
 		$this->db = $db;
 		$this->numero = 101200;

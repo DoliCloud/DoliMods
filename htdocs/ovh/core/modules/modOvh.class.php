@@ -30,8 +30,8 @@
 include_once(DOL_DOCUMENT_ROOT ."/core/modules/DolibarrModules.class.php");
 
 
-/**     \class      modOvh
- *      \brief      Description and activation class for module Ovh
+/**
+ *	Description and activation class for module Ovh
  */
 class modOvh extends DolibarrModules
 {
@@ -40,7 +40,7 @@ class modOvh extends DolibarrModules
 	 *
 	 *   @param		DoliDB		$db		Database handler
 	 */
-	function modOvh($db)
+	function __construct($db)
 	{
 		$this->db = $db;
 

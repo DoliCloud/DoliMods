@@ -38,7 +38,7 @@ class modMonitoring extends DolibarrModules
 	 *
 	 *   @param		DoliDB		$db		Database handler
 	 */
-	function modMonitoring($db)
+	function __construct($db)
 	{
 		$this->db = $db;
 

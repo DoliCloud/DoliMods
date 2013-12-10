@@ -33,8 +33,7 @@ include_once(DOL_DOCUMENT_ROOT ."/core/modules/DolibarrModules.class.php");
 
 
 /**
- *	\class 		modZipAutoFillFr
- *	\brief      Classe de description et activation du module Energie
+ * Classe de description et activation du module Energie
  */
 
 class modZipAutoFillFr extends DolibarrModules
@@ -45,7 +44,7 @@ class modZipAutoFillFr extends DolibarrModules
 	 *
 	 *   @param		DoliDB		$db		Database handler
 	 */
-	function modZipAutoFillFr($db)
+	function __construct($db)
 	{
         global $langs,$conf;
 

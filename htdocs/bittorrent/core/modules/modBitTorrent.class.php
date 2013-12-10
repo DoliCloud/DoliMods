@@ -39,7 +39,7 @@ class modBitTorrent extends DolibarrModules
 	 *
 	 *   @param		DoliDB		$db		Database handler
      */
-	function modBitTorrent($db)
+	function __construct($db)
 	{
 		global $user;
 

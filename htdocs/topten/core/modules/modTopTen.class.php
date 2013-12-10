@@ -9,8 +9,7 @@ include_once(DOL_DOCUMENT_ROOT ."/core/modules/DolibarrModules.class.php");
 
 
 /**
- * 		\class      modTopTen
- *      \brief      Muestra el top ten de clientes, productos y facturas
+ *	Muestra el top ten de clientes, productos y facturas
  */
 class modTopTen extends DolibarrModules
 {
@@ -19,7 +18,7 @@ class modTopTen extends DolibarrModules
 	 *
 	 *   @param		DoliDB		$db      Database handler
 	 */
-	function modTopTen($db)
+	function __construct($db)
 	{
 		$this->db = $db;
 

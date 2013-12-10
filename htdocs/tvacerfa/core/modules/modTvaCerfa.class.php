@@ -28,8 +28,7 @@ include_once(DOL_DOCUMENT_ROOT ."/core/modules/DolibarrModules.class.php");
 
 
 /**
- * 	\class      modTvaCerfa
- * 	\brief      Description and activation class for module TvaCerfa
+ * 	Description and activation class for module TvaCerfa
  */
 class modTvaCerfa extends DolibarrModules
 {

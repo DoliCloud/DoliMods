@@ -26,7 +26,7 @@ class modDoliCloud extends DolibarrModules
 	 *
 	 *   @param		DoliDB		$db		Database handler
 	 */
-	function modDoliCloud($db)
+	function __construct($db)
 	{
 		$this->db = $db;
 

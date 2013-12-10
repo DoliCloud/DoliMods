@@ -28,7 +28,7 @@ class modAWStats extends DolibarrModules
 	 *
 	 *   @param		DoliDB		$db		Database handler
 	 */
-	function modAWStats($db)
+	function __construct($db)
 	{
 		$this->db = $db;
 

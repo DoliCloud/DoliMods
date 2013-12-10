@@ -27,7 +27,7 @@ class modNumberingPack extends DolibarrModules
 	 *
 	 *   @param		DoliDB		$db		Database handler
 	 */
-	function modNumberingPack($db)
+	function __construct($db)
 	{
 		$this->db = $db;
 

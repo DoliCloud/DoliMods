@@ -39,7 +39,7 @@ class modMoreTemplates extends DolibarrModules
 	 *
 	 *   @param		DoliDB		$db		Database handler
      */
-	function modMoreTemplates($db)
+	function __construct($db)
 	{
 		$this->db = $db;
 

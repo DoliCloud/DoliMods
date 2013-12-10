@@ -28,8 +28,7 @@ include_once(DOL_DOCUMENT_ROOT ."/core/modules/DolibarrModules.class.php");
 
 
 /**
- * \class      modMantis
- * \brief      Description and activation class for module Mantis
+ * Description and activation class for module Mantis
  */
 
 class modMantis extends DolibarrModules
@@ -40,7 +39,7 @@ class modMantis extends DolibarrModules
 	 *
 	 *   @param		DoliDB		$db		Database handler
      */
-	function modMantis($db)
+	function __construct($db)
 	{
 		$this->db = $db;
 
