@@ -151,7 +151,7 @@ class InterfaceEcotaxdeee
 		//$ecocat = empty($conf->global->ECOTAXDEEE_CATEGORY_REF)?"Ecotax":$conf->global->ECOTAXDEEE_CATEGORY_REF; // the category products must be in, for ecotax to apply
 
 		// Add a line EcoTax automatically
-		dol_syslog("Trigger '".$this->name."' for action '$action' launched by ".__FILE__.". id=".$object->fk_commande);
+		dol_syslog("Trigger '".$this->name."' for action '$action' launched by ".__FILE__.". id=".$object->id);
 
 		$idlineecotax=0;
 		$keylineecotax=0;
@@ -186,6 +186,7 @@ class InterfaceEcotaxdeee
 		$parentid=$object->$fieldparentid;
 
 		$parentobject->fetch($parentid);	// TODO fetch_lines ?
+		
 		$lines=$parentobject->lines;
 
 		// To work with version <= 3.6.0, get eco tax deee amount from extra field
@@ -193,6 +194,7 @@ class InterfaceEcotaxdeee
         $extrafields = new ExtraFields($this->db);
         $optionsArray = $extrafields->fetch_name_optionals_label('product');
 
+        $nboflineswithoutecotax=0;
 		foreach($lines as $key => $line)
 		{
 			if ($line->special_code == 2) 
@@ -203,6 +205,8 @@ class InterfaceEcotaxdeee
 				continue;
 			}
 
+			$nboflineswithoutecotax++;
+			
 			if ($line->special_code != 1 && $line->special_code != 2)	// Discard shipping line and ecotax lines
 			{
 				$tmpproduct=new Product($this->db);
@@ -211,7 +215,7 @@ class InterfaceEcotaxdeee
 				if (1 == 1)
 				{
 					// If version <= 3.6.0, get eco tax deee amount from extra field
-					$tmpproduct->fetch_optionals($tmpproduct->id, $optionsArray);
+					$result=$tmpproduct->fetch_optionals($tmpproduct->id, $optionsArray);
 					$ecoamount += $tmpproduct->array_options['options_ecotaxdeee'];
 				}
 				else
@@ -221,9 +225,13 @@ class InterfaceEcotaxdeee
 				}
 			}
 		}
-		
+	
 		// Update/insert ecotax
-		if (is_object($tmpline) && $idlineecotax > 0)	// If ecotax line alreay exists
+		if ($nboflineswithoutecotax == 0)
+		{
+			// Do nothing	
+		}
+		else if (is_object($tmpline) && $idlineecotax > 0)	// If ecotax line already exists
 		{
 			$result=0;
 			if ($ecoamount)
@@ -265,7 +273,7 @@ class InterfaceEcotaxdeee
 			
 			$special_code = 2;
 			$txtva=get_default_tva($seller, $buyer, 0, 0);	// Get default VAT for generic product id=0 (highest vat rate)
-
+var_dump($txtva);exit;	
 			// addline($desc, $pu_ht, $qty, $txtva, $txlocaltax1=0, $txlocaltax2=0, $fk_product=0, $remise_percent=0, $date_start='', $date_end='', $ventil=0, $info_bits=0, $fk_remise_except='', $price_base_type='HT', $pu_ttc=0, $type=0, $rang=-1, $special_code=0, $origin='', $origin_id=0, $fk_parent_line=0, $fk_fournprice=null, $pa_ht=0, $label='',$array_option=0)
 			if ($parentobject->table_element == 'facture')  $result=$parentobject->addline($desc, $ecoamount, 1, $txtva, 0, 0, 0, 0, '', '', 0, 0, '', 'HT', 0, 1, $rang, $special_code, '', 0, 0, null, 0, '', 0);
 			// addline($desc, $pu_ht, $qty, $txtva, $txlocaltax1=0, $txlocaltax2=0, $fk_product=0, $remise_percent=0, $info_bits=0, $fk_remise_except=0, $price_base_type='HT', $pu_ttc=0, $date_start='', $date_end='', $type=0, $rang=-1, $special_code=0, $fk_parent_line=0, $fk_fournprice=null, $pa_ht=0, $label='',$array_option=0)
@@ -273,7 +281,7 @@ class InterfaceEcotaxdeee
 			// addline($desc, $pu_ht, $qty, $txtva, $txlocaltax1=0, $txlocaltax2=0, $fk_product=0, $remise_percent=0, $price_base_type='HT', $pu_ttc=0, $info_bits=0, $type=0, $rang=-1, $special_code=0, $fk_parent_line=0, $fk_fournprice=0, $pa_ht=0, $label='',$date_start='', $date_end='',$array_option=0)
 			if ($parentobject->table_element == 'propal')   $result=$parentobject->addline($desc, $ecoamount, 1, $txtva, 0, 0, 0, 0, 'HT', 0, 0, 1, $rang, $special_code, '', 0, 0, null, '', '', 0);
 
-			var_dump($result);exit;
+			//var_dump($result);exit;
 
 			if ($result > 0)
 			{
