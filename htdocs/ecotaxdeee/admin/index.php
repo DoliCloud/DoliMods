@@ -137,19 +137,21 @@ print "</td>";
 print "</tr>";
 
 // ECOTAXDEEE_DOC_FOOTER
-$var=!$var;
-print "<tr ".$bc[$var].">";
-print "<td>".$langs->trans("ECOTAXDEEE_DOC_FOOTER")."</td>";
-print "<td>";
-$selectedvalue=(empty($conf->global->ECOTAXDEEE_DOC_FOOTER)?'':$conf->global->ECOTAXDEEE_DOC_FOOTER);
-print '<textarea class="flat" name="ECOTAXDEEE_DOC_FOOTER" cols="80" rows="'.ROWS_3.'">'.$selectedvalue.'</textarea>';
-print '<br>';
-print $langs->trans("Example").":<br>\n";
-print $langs->trans("EcoTaxDeeDocFooterExample");
-// Add warning if category product does not exists
-print "</td>";
-print "</tr>";
-
+if (versioncompare(versiondolibarrarray(),array(3,6,0)) >= -3)	// We are 3.6.0 alpha or +
+{
+	$var=!$var;
+	print "<tr ".$bc[$var].">";
+	print "<td>".$langs->trans("ECOTAXDEEE_DOC_FOOTER")."</td>";
+	print "<td>";
+	$selectedvalue=(empty($conf->global->ECOTAXDEEE_DOC_FOOTER)?'':$conf->global->ECOTAXDEEE_DOC_FOOTER);
+	print '<textarea class="flat" name="ECOTAXDEEE_DOC_FOOTER" cols="80" rows="'.ROWS_3.'">'.$selectedvalue.'</textarea>';
+	print '<br>';
+	print $langs->trans("Example").":<br>\n";
+	print $langs->trans("EcoTaxDeeDocFooterExample");
+	// Add warning if category product does not exists
+	print "</td>";
+	print "</tr>";
+}
 
 print '</table>';
 print '<br>';
