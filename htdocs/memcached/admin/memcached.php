@@ -55,7 +55,7 @@ if ($action == 'set')
 {
 	$error=0;
 
-	if (! preg_match('/:/',GETPOST("MEMCACHED_SERVER")))
+	if (GETPOST("MEMCACHED_SERVER") && ! preg_match('/:/',GETPOST("MEMCACHED_SERVER")))
 	{
         $mesg='<div class="error">'.$langs->trans("ErrorBadParameters").'</div>';
         $error++;
