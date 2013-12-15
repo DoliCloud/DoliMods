@@ -141,7 +141,7 @@ print "</td>";
 print "</tr>";
 
 // ECOTAXDEEE_DOC_FOOTER
-if (versioncompare(versiondolibarrarray(),array(3,6,0)) >= -3)	// We are 3.6.0 alpha or +
+if (versioncompare(versiondolibarrarray(),array(3,6,-3)) >= 0)	// We are 3.6.0 alpha or +
 {
 	$var=!$var;
 	print "<tr ".$bc[$var].">";
