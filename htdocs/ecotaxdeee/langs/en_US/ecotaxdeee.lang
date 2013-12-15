@@ -16,3 +16,5 @@ MoreModules=Other modules of same author are available on the official DoliStore
 MoreModulesLink=<a target="_blank" href="http://www.dolistore.com/search.php?search_query=nltechno">Click here to see full list</a>  
 MoreCloudHosting=To use online Dolibarr, choose the secured hosting DoliCloud.
 MoreCloudHostingLink=<a target="_blank" href="http://www.dolicloud.com">Click here for more information</a>
+EcoTaxAddedIfDesc=An Eco tax WEEE line will be automaticaly calculated and added when products with an eco tax are added to following objects: <b>%s</b>.<br>Amount of Eco tax must be defined before into product card for each product.
+EcoTaxAddedIfDescOld=An Eco tax WEEE line will be automaticaly calculated and added when products with an eco tax are added to following objects: <b>%s</b>.<br>Amount of Eco tax must be defined before into product card for each product. For this, go into setup of module "Product" and add a complementary field with float format and with code "ecotaxdeee". You will then be able to enter Eco tax amount on each product.
