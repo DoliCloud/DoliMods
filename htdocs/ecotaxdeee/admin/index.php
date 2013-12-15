@@ -29,6 +29,9 @@ if (!$user->admin) accessforbidden();
 $langs->load("ecotaxdeee@ecotaxdeee");
 $langs->load("admin");
 $langs->load("other");
+$langs->load("orders");
+$langs->load("bills");
+$langs->load("propal");
 
 $def = array();
 $action=GETPOST("action");
@@ -86,6 +89,7 @@ $head=ecotaxdeee_prepare_head();
 
 dol_fiche_head($head, 'tabsetup', $langs->trans("EcoTaxDeee"));
 
+$elements='';
 
 print '<form name="ecotaxdeeeconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
 print '<input type="hidden" name="action" value="save">';
@@ -166,6 +170,23 @@ print "</center>";
 print "</form>\n";
 
 dol_fiche_end();
+
+$elements=array();
+if (! empty($conf->global->ECOTAXDEEE_USE_ON_CUSTOMER_ORDER) && $conf->global->ECOTAXDEEE_USE_ON_CUSTOMER_ORDER != 'no') $elements[]=$langs->trans("CustomersOrders");
+if (! empty($conf->global->ECOTAXDEEE_USE_ON_PROPOSAL) && $conf->global->ECOTAXDEEE_USE_ON_PROPOSAL != 'no') $elements[]=$langs->trans("Proposals");
+if (! empty($conf->global->ECOTAXDEEE_USE_ON_CUSTOMER_INVOICE) && $conf->global->ECOTAXDEEE_USE_ON_CUSTOMER_INVOICE != 'no') $elements[]=$langs->trans("BillsCustomers");
+if (count($elements))
+{
+	if (versioncompare(versiondolibarrarray(),array(3,6,0)) >= -3)	// We are 3.6.0 alpha or +
+	{
+		$text=$langs->trans("EcoTaxAddedIfDesc",join(', ',$elements));
+	}
+	else
+	{
+		$text=$langs->trans("EcoTaxAddedIfDescOld",join(',',$elements));
+	}
+	print info_admin($text);
+}
 
 
 dol_htmloutput_mesg($mesg);
