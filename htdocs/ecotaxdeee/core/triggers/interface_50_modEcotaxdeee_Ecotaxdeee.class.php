@@ -172,6 +172,7 @@ class InterfaceEcotaxdeee
 		$keylineecotax=array();
 		$tmpecotaxline=array();
 
+		if ($object->special_code == 2 && in_array($action,array('LINEORDER_DELETE','LINEPROPAL_DELETE','LINEBILL_DELETE'))) return 0;
 
 		/*
 		 * Calculate the EcoTax DEEE and try to find idlineecotax
@@ -332,7 +333,7 @@ class InterfaceEcotaxdeee
 					// addline($desc, $pu_ht, $qty, $txtva, $txlocaltax1=0, $txlocaltax2=0, $fk_product=0, $remise_percent=0, $price_base_type='HT', $pu_ttc=0, $info_bits=0, $type=0, $rang=-1, $special_code=0, $fk_parent_line=0, $fk_fournprice=0, $pa_ht=0, $label='',$date_start='', $date_end='',$array_option=0)
 					if ($parentobject->table_element == 'propal')   $result=$parentobject->addline($parentobject->id, $desc, $ecoamount[$ecocateg], 1, $txtva, 0, 0, 0, 0, 'HT', 0, 0, 1, $rang, $special_code, '', 0, 0, null, '', '', 0);
 				}
-				
+
 				//var_dump($result);exit;
 				if ($result <= 0)
 				{
