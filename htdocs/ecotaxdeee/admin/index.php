@@ -44,8 +44,9 @@ if ($action == 'save')
     $res=dolibarr_set_const($db,'ECOTAXDEEE_USE_ON_CUSTOMER_ORDER',trim($_POST["ECOTAXDEEE_USE_ON_CUSTOMER_ORDER"]),'chaine',0,'',$conf->entity);
     $res=dolibarr_set_const($db,'ECOTAXDEEE_USE_ON_PROPOSAL',trim($_POST["ECOTAXDEEE_USE_ON_PROPOSAL"]),'chaine',0,'',$conf->entity);
     $res=dolibarr_set_const($db,'ECOTAXDEEE_USE_ON_CUSTOMER_INVOICE',trim($_POST["ECOTAXDEEE_USE_ON_CUSTOMER_INVOICE"]),'chaine',0,'',$conf->entity);
-    //$res=dolibarr_set_const($db,'ECOTAXDEEE_CATEGORY_REF',trim($_POST["ECOTAXDEEE_CATEGORY_REF"]),'chaine',0,'',$conf->entity);
-    
+    $res=dolibarr_set_const($db,'ECOTAXDEEE_LABEL_LINE',trim($_POST["ECOTAXDEEE_LABEL_LINE"]),'chaine',0,'',$conf->entity);
+    $res=dolibarr_set_const($db,'ECOTAXDEEE_DOC_FOOTER',trim($_POST["ECOTAXDEEE_DOC_FOOTER"]),'chaine',0,'',$conf->entity);
+
     if (! $error)
     {
         $db->commit();
@@ -97,6 +98,7 @@ print '<td>'.$langs->trans("Parameter")."</td>";
 print "<td>".$langs->trans("Value")."</td>";
 print "</tr>";
 // GETPOST("ECOTAXDEEE_USE_ON_CUSTOMER_ORDER")
+$var=!$var;
 print "<tr ".$bc[$var].">";
 print "<td>".$langs->trans("ECOTAXDEEE_USE_ON_CUSTOMER_ORDER")."</td>";
 print "<td>";
@@ -105,6 +107,7 @@ print $form->selectyesno("ECOTAXDEEE_USE_ON_CUSTOMER_ORDER",$selectedvalue);
 print "</td>";
 print "</tr>";
 // GETPOST("ECOTAXDEEE_USE_ON_PROPOSAL")
+$var=!$var;
 print "<tr ".$bc[$var].">";
 print "<td>".$langs->trans("ECOTAXDEEE_USE_ON_PROPOSAL")."</td>";
 print "<td>";
@@ -113,6 +116,7 @@ print $form->selectyesno("ECOTAXDEEE_USE_ON_PROPOSAL",$selectedvalue);
 print "</td>";
 print "</tr>";
 // GETPOST("ECOTAXDEEE_USE_ON_CUSTOMER_INVOICE")
+$var=!$var;
 print "<tr ".$bc[$var].">";
 print "<td>".$langs->trans("ECOTAXDEEE_USE_ON_CUSTOMER_INVOICE")."</td>";
 print "<td>";
@@ -121,16 +125,32 @@ print $form->selectyesno("ECOTAXDEEE_USE_ON_CUSTOMER_INVOICE",$selectedvalue);
 print "</td>";
 print "</tr>";
 
-// GETPOST("ECOTAXDEEE_CATEGORY_REF")
-/*print "<tr ".$bc[$var].">";
-print "<td>".$langs->trans("ECOTAXDEEE_CATEGORY_REF")."</td>";
+// GETPOST("ECOTAXDEEE_LABEL_LINE")
+$var=!$var;
+print "<tr ".$bc[$var].">";
+print "<td>".$langs->trans("ECOTAXDEEE_LABEL_LINE")."</td>";
 print "<td>";
-$selectedvalue=$conf->global->ECOTAXDEEE_CATEGORY_REF;
-print '<input type="text" class="flat" name="ECOTAXDEEE_CATEGORY_REF" value="'.$selectedvalue.'">';
-// Add warning if category product does not exists 
+$selectedvalue=(empty($conf->global->ECOTAXDEEE_LABEL_LINE)?$langs->trans("EcoTaxDeee"):$conf->global->ECOTAXDEEE_LABEL_LINE);
+print '<input type="text" class="flat" name="ECOTAXDEEE_LABEL_LINE" value="'.$selectedvalue.'">';
+// Add warning if category product does not exists
 print "</td>";
 print "</tr>";
-*/
+
+// ECOTAXDEEE_DOC_FOOTER
+$var=!$var;
+print "<tr ".$bc[$var].">";
+print "<td>".$langs->trans("ECOTAXDEEE_DOC_FOOTER")."</td>";
+print "<td>";
+$selectedvalue=(empty($conf->global->ECOTAXDEEE_DOC_FOOTER)?'':$conf->global->ECOTAXDEEE_DOC_FOOTER);
+print '<textarea class="flat" name="ECOTAXDEEE_DOC_FOOTER" cols="80" rows="'.ROWS_3.'">'.$selectedvalue.'</textarea>';
+print '<br>';
+print $langs->trans("Example").":<br>\n";
+print $langs->trans("EcoTaxDeeDocFooterExample");
+// Add warning if category product does not exists
+print "</td>";
+print "</tr>";
+
+
 print '</table>';
 print '<br>';
 

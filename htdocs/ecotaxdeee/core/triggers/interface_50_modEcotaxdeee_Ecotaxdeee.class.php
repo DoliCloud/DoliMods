@@ -32,7 +32,7 @@ class InterfaceEcotaxdeee
 
 	/**
 	 *   Constructeur.
-	 *   
+	 *
 	 *   @param	DoliDB	$db      Handler d'acces base
 	 */
 	function __construct($db)
@@ -98,12 +98,16 @@ class InterfaceEcotaxdeee
 
 		if (empty($conf->ecotaxdeee->enabled)) return 0;
 		if ($object->special_code == 2) return 0;			// To avoid infinite loop
-		
+
 		if (! empty($conf->global->ECOTAXDEEE_USE_ON_CUSTOMER_ORDER))
 		{
 			if ($action == 'LINEORDER_INSERT')
 			{
 				return $this->_add_replace_ecotax($action,$object,$user,$langs,$conf);
+			}
+			if ($action == 'LINEORDER_UPDATE' || $action == 'LINEORDER_MODIFY')
+			{
+					return $this->_add_replace_ecotax($action,$object,$user,$langs,$conf);
 			}
 			if ($action == 'LINEORDER_DELETE')
 			{
@@ -116,6 +120,10 @@ class InterfaceEcotaxdeee
 			{
 				return $this->_add_replace_ecotax($action,$object,$user,$langs,$conf);
 			}
+			if ($action == 'LINEPROPAL_UPDATE' || $action == 'LINEPROPAL_MODIFY')
+			{
+				return $this->_add_replace_ecotax($action,$object,$user,$langs,$conf);
+			}
 			if ($action == 'LINEPROPAL_DELETE')
 			{
 				return $this->_add_replace_ecotax($action,$object,$user,$langs,$conf);
@@ -124,6 +132,10 @@ class InterfaceEcotaxdeee
 		if (! empty($conf->global->ECOTAXDEEE_USE_ON_CUSTOMER_INVOICE))
 		{
 			if ($action == 'LINEBILL_INSERT')
+			{
+				return $this->_add_replace_ecotax($action,$object,$user,$langs,$conf);
+			}
+			if ($action == 'LINEBILL_UPDATE' || $action == 'LINEBILL_MODIFY')
 			{
 				return $this->_add_replace_ecotax($action,$object,$user,$langs,$conf);
 			}
@@ -145,48 +157,52 @@ class InterfaceEcotaxdeee
 	function _add_replace_ecotax($action,$object,$user,$langs,$conf)
 	{
 		global $mysoc;
-		
+
 		// The next 3 parameters can be replaced at will:
-		$desc = $langs->trans("Ecotax"); // the description on line
+		$desc = empty($conf->global->ECOTAXDEEE_LABEL_LINE)?$langs->trans("EcoTaxDeee"):$conf->global->ECOTAXDEEE_LABEL_LINE; // label for ecotax
 		//$ecocat = empty($conf->global->ECOTAXDEEE_CATEGORY_REF)?"Ecotax":$conf->global->ECOTAXDEEE_CATEGORY_REF; // the category products must be in, for ecotax to apply
 
 		// Add a line EcoTax automatically
 		dol_syslog("Trigger '".$this->name."' for action '$action' launched by ".__FILE__.". id=".$object->id);
 
-		$idlineecotax=0;
-		$keylineecotax=0;
-		$tmpline=null;
-		
+		$idlineecotax=array();
+		$amountlineecotax_ht=array();
+		$amountlineecotax_ttc=array();
+		$amountlineecotax_vat=array();
+		$keylineecotax=array();
+		$tmpecotaxline=array();
+
+
 		/*
 		 * Calculate the EcoTax DEEE and try to find idlineecotax
 		 */
-		$ecoamount = 0;
+		$ecoamount = array();
 		$fieldparentid='';
 		$parentobject=null;
-		if ($object->element == 'facturedet')  
+		if ($object->element == 'facturedet')
 		{
 			$fieldparentid='fk_facture';
 			$parentobject=new Facture($this->db);
 		}
-		if ($object->element == 'propaldet')   
+		if ($object->element == 'propaldet')
 		{
 			$fieldparentid='fk_propal';
 			$parentobject=new Propal($this->db);
 		}
-		if ($object->element == 'commandedet') 
+		if ($object->element == 'commandedet')
 		{
 			$fieldparentid='fk_commande';
 			$parentobject=new Commande($this->db);
 		}
-		if (empty($fieldparentid)) 
-		{ 	
+		if (empty($fieldparentid))
+		{
 			dol_syslog('Object not supported', LOG_WARNING);
 			return;
 		}
 		$parentid=$object->$fieldparentid;
+		if (empty($parentid)) $parentid=$object->oldline->$fieldparentid;	// When trigger is LINEXXX_UPDATE, only new value are set into $object, rest of old line is into $object->oldline
+		$parentobject->fetch($parentid);	// fetch_lines included into fetch
 
-		$parentobject->fetch($parentid);	// TODO fetch_lines ?
-		
 		$lines=$parentobject->lines;
 
 		// To work with version <= 3.6.0, get eco tax deee amount from extra field
@@ -194,21 +210,28 @@ class InterfaceEcotaxdeee
         $extrafields = new ExtraFields($this->db);
         $optionsArray = $extrafields->fetch_name_optionals_label('product');
 
-        $nboflineswithoutecotax=0;
+        $nboflineswithpossibleecotax=0;
 		foreach($lines as $key => $line)
 		{
-			if ($line->special_code == 2) 
+			$ecocateg='NOCATEG';
+
+			if ($line->special_code == 2)				// This line is an already existing service line ecotax
 			{
-				$idlineecotax=$line->id;
-				$keylineecotax=$key;
-				$tmpline=$line;
+				$idlineecotax[$ecocateg]=$line->rowid;
+				$amountlineecotax_ht[$ecocateg]=$line->total_ht;
+				$amountlineecotax_ttc[$ecocateg]=$line->total_ttc;
+				$amountlineecotax_vat[$ecocateg]=$line->total_vat;
+				$keylineecotax[$ecocateg]=$key;
+				$tmpecotaxline[$ecocateg]=$line;
 				continue;
 			}
 
-			$nboflineswithoutecotax++;
-			
+			if (empty($line->fk_product)) continue;	// This line is not a predefined product, so we suppose there is no eco tax deee
+
 			if ($line->special_code != 1 && $line->special_code != 2)	// Discard shipping line and ecotax lines
 			{
+				$nboflineswithpossibleecotax++;
+
 				$tmpproduct=new Product($this->db);
 				$tmpproduct->fetch($line->fk_product);
 
@@ -216,84 +239,98 @@ class InterfaceEcotaxdeee
 				{
 					// If version <= 3.6.0, get eco tax deee amount from extra field
 					$result=$tmpproduct->fetch_optionals($tmpproduct->id, $optionsArray);
-					$ecoamount += $tmpproduct->array_options['options_ecotaxdeee'];
+					$ecoamount[$ecocateg] += ($tmpproduct->array_options['options_ecotaxdeee'] * $line->qty);
 				}
 				else
 				{
 					// Get it from product desc
-					$ecoamount += $tmpproduct->ecotaxdeee;
+					$ecoamount[$ecocateg] += ($tmpproduct->ecotaxdeee * $line->qty);
 				}
 			}
 		}
-	
+
 		// Update/insert ecotax
-		if ($nboflineswithoutecotax == 0)
+		$result=0;
+		$error='';
+		foreach ($ecoamount as $ecocateg => $value)
 		{
-			// Do nothing	
+			if ($nboflineswithpossibleecotax == 0)
+			{
+				// Do nothing
+				if (is_object($tmpecotaxline[$ecocateg])) $result=$tmpecotaxline[$ecocateg]->delete();
+			}
+			else if (is_object($tmpecotaxline[$ecocateg]) && $idlineecotax[$ecocateg] > 0)	// If ecotax line already exists for ecocateg
+			{
+				$seller=$mysoc;
+
+				if ($ecoamount[$ecocateg])
+				{
+					// Update line
+					$tmpecotaxline[$ecocateg]->oldline=dol_clone($tmpecotaxline[$ecocateg]);
+					$tmpecotaxline[$ecocateg]->qty=1;
+					$tmpecotaxline[$ecocateg]->subprice=$ecoamount[$ecocateg];
+					$remise_percent_ligne=0;
+
+					$localtaxarray=getLocalTaxesFromRate($tmpecotaxline[$ecocateg]->tva_tx, 0, $seller);
+					$tmparray=calcul_price_total($tmpecotaxline[$ecocateg]->qty, $tmpecotaxline[$ecocateg]->subprice, $tmpecotaxline[$ecocateg]->remise_percent, $tmpecotaxline[$ecocateg]->tva_tx, 0, 0, 0, 'HT', $tmpecotaxline[$ecocateg]->info_bits, $tmpecotaxline[$ecocateg]->type, $seller, $localtaxarray);
+
+					$tmpecotaxline[$ecocateg]->total_ht = $tmparray[0];
+					$tmpecotaxline[$ecocateg]->total_tva = $tmparray[1];
+					$tmpecotaxline[$ecocateg]->total_ttc = $tmparray[2];
+					$tmpecotaxline[$ecocateg]->total_localtax1 = $tmparray[9];
+					$tmpecotaxline[$ecocateg]->total_localtax2 = $tmparray[10];
+
+					if ($parentobject->table_element == 'facture')  $result=$tmpecotaxline[$ecocateg]->update($user,0);
+					if ($parentobject->table_element == 'commande') $result=$tmpecotaxline[$ecocateg]->update(0);
+					if ($parentobject->table_element == 'propal')   $result=$tmpecotaxline[$ecocateg]->update(0);
+				}
+				else
+				{
+					$result=$tmpecotaxline[$ecocateg]->delete();
+				}
+
+				if ($result <= 0)
+				{
+					$error = $tmpecotaxline[$ecocateg]->error;
+				}
+			}
+			else	// If ecotax line does not yet exists for ecocateg and we need it
+			{
+				$seller=$mysoc;
+
+				$buyer=new Societe($this->db);
+				$buyer->fetch($parentobject->socid);
+
+				// Insert line
+				$rang = count($lines) + 1;
+				$special_code = 2;
+				$txtva=get_default_tva($seller, $buyer, 0, 0);	// Get default VAT for generic product id=0 (highest vat rate)
+
+				// addline($desc, $pu_ht, $qty, $txtva, $txlocaltax1=0, $txlocaltax2=0, $fk_product=0, $remise_percent=0, $date_start='', $date_end='', $ventil=0, $info_bits=0, $fk_remise_except='', $price_base_type='HT', $pu_ttc=0, $type=0, $rang=-1, $special_code=0, $origin='', $origin_id=0, $fk_parent_line=0, $fk_fournprice=null, $pa_ht=0, $label='',$array_option=0)
+				if ($parentobject->table_element == 'facture')  $result=$parentobject->addline($desc, $ecoamount[$ecocateg], 1, $txtva, 0, 0, 0, 0, '', '', 0, 0, '', 'HT', 0, 1, $rang, $special_code, '', 0, 0, null, 0, '', 0);
+				// addline($desc, $pu_ht, $qty, $txtva, $txlocaltax1=0, $txlocaltax2=0, $fk_product=0, $remise_percent=0, $info_bits=0, $fk_remise_except=0, $price_base_type='HT', $pu_ttc=0, $date_start='', $date_end='', $type=0, $rang=-1, $special_code=0, $fk_parent_line=0, $fk_fournprice=null, $pa_ht=0, $label='',$array_option=0)
+				if ($parentobject->table_element == 'commande') $result=$parentobject->addline($desc, $ecoamount[$ecocateg], 1, $txtva, 0, 0, 0, 0, 0, 0, 'HT', '', '', '', 1, $rang, $special_code, '', 0, 0, null, 0, 0);
+				// addline($desc, $pu_ht, $qty, $txtva, $txlocaltax1=0, $txlocaltax2=0, $fk_product=0, $remise_percent=0, $price_base_type='HT', $pu_ttc=0, $info_bits=0, $type=0, $rang=-1, $special_code=0, $fk_parent_line=0, $fk_fournprice=0, $pa_ht=0, $label='',$date_start='', $date_end='',$array_option=0)
+				if ($parentobject->table_element == 'propal')   $result=$parentobject->addline($desc, $ecoamount[$ecocateg], 1, $txtva, 0, 0, 0, 0, 'HT', 0, 0, 1, $rang, $special_code, '', 0, 0, null, '', '', 0);
+
+				//var_dump($result);exit;
+				if ($result <= 0)
+				{
+					$error = $parentobject->error;
+				}
+			}
 		}
-		else if (is_object($tmpline) && $idlineecotax > 0)	// If ecotax line already exists
+
+		if (! $error)
 		{
-			$result=0;
-			if ($ecoamount)
-			{
-				// Update line
-				$tmpline->qty=1;
-				$tmpline->subprice=$ecoamount;
-			
-				if ($parentobject->table_element == 'facture')  $result=$tmpline->update($user,0);
-				if ($parentobject->table_element == 'commande') $result=$tmpline->update(0);
-				if ($parentobject->table_element == 'propal')   $result=$tmpline->update(0);
-			}
-			else
-			{
-				$result=$tmpline->delete();
-			}
-			
-			if ($result > 0)
-			{
-				return 1;
-			}
-			else
-			{
-				$this->error = $tmpline->lasterror;
-				$this->errors[] = $tmpline->lasterror;
-				dol_syslog("Trigger '".$this->name."' in action '$action' [4] ERROR ".$this->error, LOG_ERR);
-				return -1;
-			}
+			return 1;
 		}
 		else
 		{
-			$seller=$mysoc;
-			
-			$buyer=new Societe($db);
-			$buyer->fetch($parentobject->fk_soc);
-			
-			// Insert line
-			$rang = $exists + 1;
-			
-			$special_code = 2;
-			$txtva=get_default_tva($seller, $buyer, 0, 0);	// Get default VAT for generic product id=0 (highest vat rate)
-var_dump($txtva);exit;	
-			// addline($desc, $pu_ht, $qty, $txtva, $txlocaltax1=0, $txlocaltax2=0, $fk_product=0, $remise_percent=0, $date_start='', $date_end='', $ventil=0, $info_bits=0, $fk_remise_except='', $price_base_type='HT', $pu_ttc=0, $type=0, $rang=-1, $special_code=0, $origin='', $origin_id=0, $fk_parent_line=0, $fk_fournprice=null, $pa_ht=0, $label='',$array_option=0)
-			if ($parentobject->table_element == 'facture')  $result=$parentobject->addline($desc, $ecoamount, 1, $txtva, 0, 0, 0, 0, '', '', 0, 0, '', 'HT', 0, 1, $rang, $special_code, '', 0, 0, null, 0, '', 0);
-			// addline($desc, $pu_ht, $qty, $txtva, $txlocaltax1=0, $txlocaltax2=0, $fk_product=0, $remise_percent=0, $info_bits=0, $fk_remise_except=0, $price_base_type='HT', $pu_ttc=0, $date_start='', $date_end='', $type=0, $rang=-1, $special_code=0, $fk_parent_line=0, $fk_fournprice=null, $pa_ht=0, $label='',$array_option=0)
-			if ($parentobject->table_element == 'commande') $result=$parentobject->addline($desc, $ecoamount, 1, $txtva, 0, 0, 0, 0, 0, 0, 'HT', '', '', '', 1, $rang, $special_code, '', 0, 0, null, 0, 0);
-			// addline($desc, $pu_ht, $qty, $txtva, $txlocaltax1=0, $txlocaltax2=0, $fk_product=0, $remise_percent=0, $price_base_type='HT', $pu_ttc=0, $info_bits=0, $type=0, $rang=-1, $special_code=0, $fk_parent_line=0, $fk_fournprice=0, $pa_ht=0, $label='',$date_start='', $date_end='',$array_option=0)
-			if ($parentobject->table_element == 'propal')   $result=$parentobject->addline($desc, $ecoamount, 1, $txtva, 0, 0, 0, 0, 'HT', 0, 0, 1, $rang, $special_code, '', 0, 0, null, '', '', 0);
-
-			//var_dump($result);exit;
-
-			if ($result > 0)
-			{
-				return 2;
-			}
-			else
-			{
-				$this->error = $parentobject->error;
-				$this->errors[] = $parentobject->error;
-				dol_syslog("Trigger '".$this->name."' in action '$action' [5] ERROR ".$this->error, LOG_ERR);
-				return -2;
-			}
+			$this->error = $error;
+			$this->errors[] = $error;
+			dol_syslog("Trigger '".$this->name."' in action '".$action."' ERROR ".$error, LOG_ERR);
+			return -1;
 		}
 	}
 
@@ -301,7 +338,7 @@ var_dump($txtva);exit;
 	/**
 	 * See if the product is in the ecotax category.
 	 * Stop and return 0 if the product is not in it.
-	 * 
+	 *
 	 * @param	string	$ecocat			Category
 	 * @param	int		$product_id		Product id
 	 */

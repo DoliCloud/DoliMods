@@ -1,12 +1,15 @@
 # Dolibarr language file - en_US - ecotaxdeee
 CHARSET=UTF-8
-EcoTaxDeee=Eco tax DEEE
-EcoTaxDeeSetup=Eco tax DEEE module setup
-ECOTAXDEEE_USE_ON_CUSTOMER_ORDER=Add automatically an Eco tax DEEE on customer orders
-ECOTAXDEEE_USE_ON_PROPOSAL=Add automatically an Eco tax DEEE on commercial proposals
-ECOTAXDEEE_USE_ON_CUSTOMER_INVOICE=Add automatically an Eco tax DEEE on customer invoices
-ECOTAXDEEE_CATEGORY_REF=Ref of product category to detect products that need Eco tax
-Module101380Name=Eco Tax DEEE
+EcoTaxDeee=Eco tax WEEE
+EcoTaxDeeSetup=Eco tax WEEE module setup
+ECOTAXDEEE_USE_ON_CUSTOMER_ORDER=Add automatically an Eco tax WEEE on customer orders
+ECOTAXDEEE_USE_ON_PROPOSAL=Add automatically an Eco tax WEEE on commercial proposals
+ECOTAXDEEE_USE_ON_CUSTOMER_INVOICE=Add automatically an Eco tax WEEE on customer invoices
+ECOTAXDEEE_LABEL_LINE=Label to use for Eco tax line
+ECOTAXDEEE_DOC_FOOTER=Information to show into documents footer
+EcoTaxDeeDocFooterExample=Products have a unit WEEE tax of 0.01€ for category A, 0.02€ for category B...
+ECOTAXDEEE_CATEGORY_REF=Ref of product category to detect products that need Eco tax WEEE
+Module101380Name=Eco Tax WEEE
 Module101380Desc=Module to add ecotax lines automatically
 AboutInfo=This module is developped and distributed by Laurent Destailleur for NLTechno, <a href="http://www.nltechno.com">www.nltechno.com</a> (A Dolibarr Preferred Partner company).
 MoreModules=Other modules of same author are available on the official DoliStore market place...
