@@ -152,7 +152,7 @@ class InterfaceGoogleContactSynchro
 			{
 				if ($action == 'COMPANY_CREATE' || $action == 'CONTACT_CREATE' || $action == 'MEMBER_CREATE')
 				{
-					$ret = googleCreateContact($client, $object);
+					$ret = googleCreateContact($client, $object, 'default');
 
 					$object->update_ref_ext($ret);
 					// This is to store ref_ext to allow updates
@@ -164,12 +164,12 @@ class InterfaceGoogleContactSynchro
 					$gid = $object->ref_ext;
 					if ($gid && preg_match('/google/i', $object->ref_ext)) // This record is linked with Google Contact
 					{
-						$ret = googleUpdateContact($client, $gid, $object);
+						$ret = googleUpdateContact($client, $gid, $object, 'default');
 						//var_dump($ret); exit;
 
 						if ($ret == '0')// Fails to update because not found, we try to create
 						{
-							$ret = googleCreateContact($client, $object);
+							$ret = googleCreateContact($client, $object, 'default');
 							//var_dump($ret); exit;
 
 							$object->update_ref_ext($ret);
@@ -181,7 +181,7 @@ class InterfaceGoogleContactSynchro
 					}
 					else if ($gid == '')
 					{ // No google id
-						$ret = googleCreateContact($client, $object);
+						$ret = googleCreateContact($client, $object, 'default');
 						//var_dump($ret); exit;
 
 						$object->update_ref_ext($ret);
@@ -195,7 +195,7 @@ class InterfaceGoogleContactSynchro
 					$gid = $object->ref_ext;
 					if ($gid && preg_match('/google/i', $object->ref_ext)) // This record is linked with Google Calendar
 					{
-						$ret = googleDeleteContactByRef($client, $gid);
+						$ret = googleDeleteContactByRef($client, $gid, 'default');
 						if ($ret)
 						{
 							$this->error=$ret;
