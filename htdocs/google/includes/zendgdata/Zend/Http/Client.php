@@ -1070,14 +1070,15 @@ class Zend_Http_Client
             }
 
             // DOL_CHANGE_LDR
-            global $cpt,$conf;
-            if (empty($cpt)) $cpt=0;
+            global $cpt_debug,$tag_debug,$conf;
+            if (empty($cpt_debug)) $cpt=0;
+            if (empty($tag_debug)) $tag_debug='notag';
 
             if (! empty($conf->global->MODULE_GOOGLE_DEBUG))
             {
-            	$cpt++;
-            	file_put_contents(DOL_DATA_ROOT . "/dolibarr_google_client_request_".$cpt.".xml", $this->method." uri=".$uri." httpversion=".$this->config['httpversion']." headers=".join(',',$headers)." body=".$body);
-				@chmod(DOL_DATA_ROOT . "/dolibarr_google_client_request.xml", octdec(empty($conf->global->MAIN_UMASK)?'0664':$conf->global->MAIN_UMASK));
+            	$cpt_debug++;
+            	file_put_contents(DOL_DATA_ROOT . "/dolibarr_google_client_request_".$cpt_debug."_".$tag_debug.".xml", $this->method." uri=".$uri." httpversion=".$this->config['httpversion']." headers=".join(',',$headers)." body=".$body);
+				@chmod(DOL_DATA_ROOT . "/dolibarr_google_client_request_".$cpt_debug."_".$tag_debug.".xml", octdec(empty($conf->global->MAIN_UMASK)?'0664':$conf->global->MAIN_UMASK));
             }
 
             $this->last_request = $this->adapter->write($this->method,
@@ -1093,8 +1094,8 @@ class Zend_Http_Client
             // DOL_CHANGE_LDR
             if (! empty($conf->global->MODULE_GOOGLE_DEBUG))
             {
-            	file_put_contents(DOL_DATA_ROOT . "/dolibarr_google_client_response_".$cpt.".xml", $response);
-				@chmod(DOL_DATA_ROOT . "/dolibarr_google_client_response.xml", octdec(empty($conf->global->MAIN_UMASK)?'0664':$conf->global->MAIN_UMASK));
+            	file_put_contents(DOL_DATA_ROOT . "/dolibarr_google_client_response_".$cpt_debug."_".$tag_debug.".xml", $response);
+				@chmod(DOL_DATA_ROOT . "/dolibarr_google_client_response_".$cpt_debug."_".$tag_debug.".xml", octdec(empty($conf->global->MAIN_UMASK)?'0664':$conf->global->MAIN_UMASK));
             }
 
             if($this->config['output_stream']) {
