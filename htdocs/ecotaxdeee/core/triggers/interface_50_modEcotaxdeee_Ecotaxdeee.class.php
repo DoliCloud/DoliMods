@@ -204,6 +204,12 @@ class InterfaceEcotaxdeee
 		if (empty($parentid)) $parentid=$object->oldline->$fieldparentid;	// When trigger is LINEXXX_UPDATE, only new value are set into $object, rest of old line is into $object->oldline
 		$parentobject->fetch($parentid);	// fetch_lines included into fetch
 
+		// If we are creating an object from an other one, we forget adding eco tax.
+		if (! empty($_POST['origin']) && ! empty($_POST['originid']))
+		{
+			return 0;
+		}
+
 		$lines=$parentobject->lines;
 
 		// To work with version <= 3.6.0, get eco tax deee amount from extra field
