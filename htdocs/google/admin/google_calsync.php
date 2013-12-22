@@ -274,7 +274,7 @@ if (empty($conf->global->GOOGLE_LOGIN) || empty($conf->global->GOOGLE_LOGIN) || 
 {
 	print '<a class="butActionRefused" href="#">'.$langs->trans("TestCreateUpdateDelete")."</a>";
 
-	print '<a class="butActionRefused" href="#">'.$langs->trans("TestCreateUpdate")."</a>";
+	print '<a class="butActionRefused" href="#">'.$langs->trans("TestCreate")."</a>";
 }
 else
 {
