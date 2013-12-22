@@ -202,6 +202,7 @@ $head=googleadmin_prepare_head();
 dol_fiche_head($head, 'tabagendasync', $langs->trans("GoogleTools"));
 
 if (! function_exists("openssl_open")) print '<div class="warning">Warning: PHP Module \'openssl\' is not installed</div><br>';
+if (! class_exists('DOMDocument')) print '<div class="warning">Warning: PHP Module \'xml\' is not installed</div><br>';
 
 print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post" autocomplete="off">';
 print '<input type="hidden" name="action" value="save">';
