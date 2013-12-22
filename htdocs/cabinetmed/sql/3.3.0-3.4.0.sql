@@ -30,5 +30,5 @@ DELETE from llx_const where name='SOCIETE_DISABLE_PARENTCOMPANY';
 
 -- + duplicate table llx_societe into llx_cabinetmed_societe
 -- CREATE TABLE llx_cabinetmed_societe SELECT * FROM llx_societe;
-CREATE TABLE llx_cabinetmed_societe LIKE llx_societe;
+-- VMYSQL4.1 CREATE TABLE llx_cabinetmed_societe LIKE llx_societe;
 --INSERT INTO llx_cabinetmed_societe SELECT * FROM llx_societe;
