@@ -75,6 +75,7 @@ function getClientLoginHttpClientContact($user, $pass, $service)
 	$client=null;
 
 	try {
+		dol_syslog("getClientLoginHttpClientContact user=".$user." pass=".preg_replace('/./','*',$pass)." service=".$service, LOG_DEBUG);
 		$client = Zend_Gdata_ClientLogin::getHttpClient($user, $pass, $service);
 	}
 	catch(Exception $e)
@@ -173,7 +174,7 @@ function googleCreateContact($client, $object, $useremail='default')
 			/*$tmpstate=getState($object->state_id,0);
 			$region = $doc->createElement('gd:region', $tmpstate);
 			if ($tmpstate) $address->appendChild($region);*/
-			$tmpcountry=getCountry($object->country_id,0);
+			$tmpcountry=getCountry($object->country_id,0,'',$langs,0);
 			$country = $doc->createElement('gd:country', $tmpcountry);
 			if ($tmpcountry) $address->appendChild($country);
 			/*
@@ -387,7 +388,7 @@ function googleUpdateContact($client, $contactId, $object, $useremail='default')
 		if (! empty($object->address)) $xml->structuredPostalAddress->street=$object->address;
 		if (! empty($object->town)) $xml->structuredPostalAddress->city=$object->town;
 		if (! empty($object->zip)) $xml->structuredPostalAddress->postcode=$object->zip;
-		if ($object->country_id > 0) $xml->structuredPostalAddress->country=($object->country_id>0?getCountry($object->country_id):'');
+		if ($object->country_id > 0) $xml->structuredPostalAddress->country=($object->country_id>0?getCountry($object->country_id,0,'',$langs,0):'');
 		if ($object->state_id > 0) $xml->structuredPostalAddress->state=($object->state_id>0?getState($object->state_id):'');
 
 		// Company + Function
