@@ -149,6 +149,7 @@ if ($action == 'backup' || $action == 'backuptestrsync' || $action == 'backuptes
 		{
 			$now=dol_now();
 			$return_val=0;
+			$error='';		// No error by default into each loop
 
 			// Run backup
 			print "Process backup of instance ".$instance.' - '.strftime("%Y%m%d-%H%M%S")."\n";
