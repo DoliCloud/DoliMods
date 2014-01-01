@@ -189,7 +189,7 @@ if ($action == 'import' || $action == 'create')
 			if ($result <= 0)
 			{
 				if ($status != 'UNDEPLOYED' && $status != 'SUSPENDED') $importresult.='<span style="color: red">';
-				else $importresult.='<span style="color: yellow">';
+				else $importresult.='<span style="color: #DAA520">';
 				$importresult.='Organization "'.$organization.'" not found. ';
 				$importresult.='</span>';
 				$importresult.='We need to set it to status '.$status.'. ';
@@ -205,7 +205,7 @@ if ($action == 'import' || $action == 'create')
 			{
 				$listofid[$dolicloudcustomer->id]=$dolicloudcustomer->organization;
 
-				$importresult.='Organization "'.$organization.'" found.';
+				$importresult.='Organization "'.$organization.'" found'.($result>1 ? ' ('.$result.' instances)' : '').'.';
 
 				$partner=(preg_match('/2Byte/i',$plan)?'2Byte':'');		// TODO Not complete
 
@@ -242,7 +242,7 @@ if ($action == 'import' || $action == 'create')
 		// Test entries not into file
 		if (count($listofid) > 0)
 		{
-			$sql=" SELECT c.organization FROM ".MAIN_DB_PREFIX."dolicloud_customers as c";
+			$sql=" SELECT c.organization, c.instance, c.status FROM ".MAIN_DB_PREFIX."dolicloud_customers as c";
 			$sql.=" WHERE c.status = 'ACTIVE' AND c.rowid NOT IN (".join(',',array_keys($listofid)).")";
 			$resql=$db->query($sql);
 			if ($resql)
@@ -252,7 +252,19 @@ if ($action == 'import' || $action == 'create')
 				while($i < $num)
 				{
 					$obj=$db->fetch_object($resql);
-					$importresult.='<span style="color: red">Warning: Organization active into database and not into file: '.$obj->organization.'</span><br>'."\n";
+					$result=$dolicloudcustomer->fetch('','',$obj->organization);
+					if ($obj->status != $dolicloudcustomer->status)
+					{
+						$importresult.='<span style="color: red">Warning: Organization active into database and not into file: '.$obj->organization.' - '.$obj->instance;
+						$importresult.='. There is a record for instance '.$dolicloudcustomer->instance.' that match same organization name but with a status '.$dolicloudcustomer->status.' different of '.$obj->status.'.';
+						$importresult.='</span><br>'."\n";
+					}
+					else
+					{
+						$importresult.='<span style="color: #DAA520">Warning: Organization active into database and not into file: '.$obj->organization.' - '.$obj->instance;
+						$importresult.='. But found a record for instance '.$dolicloudcustomer->instance.' that match same organization name with same status.';
+						$importresult.='</span><br>'."\n";
+					}
 					$i++;
 				}
 			}
