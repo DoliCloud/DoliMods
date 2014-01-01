@@ -67,7 +67,7 @@ if (! isset($argv[1])) {	// Check parameters
     print "Usage: ".$script_file." (backuptestrsync|backuptestdatabase|backup|updatedatabase)\n";
     print "\n";
     print "backuptestrsync|backuptestdatabase|backup   creates backup\n";
-    print "updatedatabase   updates list and nb of users, modules and version\n";
+    print "updatedatabase   updates list and nb of users, modules and version and stats\n";
     exit;
 }
 print '--- start'."\n";
@@ -93,6 +93,8 @@ $object=new Dolicloudcustomer($db);
 
 
 $instances=array();
+$instancesbackuperror=array();
+$instancesupdateerror=array();
 
 // Get list of instance
 $sql = "SELECT c.rowid, c.instance, c.status, c.lastrsync";
@@ -194,19 +196,18 @@ if ($action == 'backup' || $action == 'backuptestrsync' || $action == 'backuptes
 			if (! $error)
 			{
 				$nbofok++;
-				print 'Process success'."\n";
+				print 'Process success for '.$instance."\n";
 			}
 			else
 			{
 				$nboferrors++;
-				print 'Process fails'."\n";
+				$instancesbackuperror[]=$instance;
+				print 'Process fails for '.$instance."\n";
 			}
 		}
 	}
 }
 
-
-print "----- Start updatedatabase\n";
 
 $today=dol_now();
 
@@ -214,6 +215,8 @@ $error=''; $errors=array();
 
 if ($action == 'updatedatabase')
 {
+	print "----- Start updatedatabase\n";
+
 	// Loop on each instance
 	if (! $error)
 	{
@@ -247,6 +250,7 @@ if ($action == 'updatedatabase')
 			else
 			{
 				$nboferrors++;
+				$instancesupdateerror[]=$instance;
 				print 'KO. '.join(',',$errors)."\n";
 				$db->rollback();
 			}
@@ -347,17 +351,20 @@ if ($action == 'updatedatabase')
 }
 
 
-print "----- Start calculate amount\n";
+//print "----- Start calculate amount\n";
 // TODO Add more batch here
 
 
 
 // Result
 print "Nb of instances (all time): ".$nbofalltime."\n";
-print "Nb of instances (active): ".$nbofactive."\n";
-print "Nb of instances (active or suspended): ".$nbofactivesusp."\n";
-print "Nb of instances (active or suspended) updated ok: ".$nbofok."\n";
-print "Nb of instances (active or suspended) updated ko: ".$nboferrors."\n";
+print "Nb of instances (active without payment error): ".$nbofactive."\n";
+print "Nb of instances (active with or without payment): ".$nbofactivesusp."\n";
+print "Nb of instances (active with or without payment) process ok: ".$nbofok."\n";
+print "Nb of instances (active with or without payment) process ko: ".$nboferrors;
+print (count($instancesbackuperror)?", error for backup on ".join(',',$instancesbackuperror):"");
+print (count($instancesupdateerror)?", error for update on ".join(',',$instancesupdateerror):"");
+print "\n";
 if (! $nboferrors)
 {
 	print '--- end ok - '.strftime("%Y%m%d-%H%M%S")."\n";
