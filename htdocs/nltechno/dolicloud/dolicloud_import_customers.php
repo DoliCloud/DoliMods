@@ -253,17 +253,22 @@ if ($action == 'import' || $action == 'create')
 				{
 					$obj=$db->fetch_object($resql);
 					$result=$dolicloudcustomer->fetch('','',$obj->organization);
-					if ($obj->status != $dolicloudcustomer->status)
+					if ($result > 0)
 					{
-						$importresult.='<span style="color: red">Warning: Organization active into database and not into file: '.$obj->organization.' - '.$obj->instance;
-						$importresult.='. There is a record for instance '.$dolicloudcustomer->instance.' that match same organization name but with a status '.$dolicloudcustomer->status.' different of '.$obj->status.'.';
-						$importresult.='</span><br>'."\n";
-					}
-					else
-					{
-						$importresult.='<span style="color: #DAA520">Warning: Organization active into database and not into file: '.$obj->organization.' - '.$obj->instance;
-						$importresult.='. But found a record for instance '.$dolicloudcustomer->instance.' that match same organization name with same status.';
-						$importresult.='</span><br>'."\n";
+						if ($obj->status != $dolicloudcustomer->status)
+						{
+							$importresult.='<span style="color: red">Warning: Organization active into database and not into file: '.$obj->organization.' - '.$obj->instance;
+							$importresult.='. There is a record for instance '.$dolicloudcustomer->instance.' that match same organization name but with a status '.$dolicloudcustomer->status.' different of '.$obj->status.'.';
+							$importresult.=' May be there is also other instances for this customer (found '.$result.' instances into database for this organization)';
+							$importresult.='</span><br>'."\n";
+						}
+						else
+						{
+							$importresult.='<span style="color: #DAA520">Warning: Organization active into database and not into file: '.$obj->organization.' - '.$obj->instance;
+							$importresult.='. But found a record for instance '.$dolicloudcustomer->instance.' that match same organization name with same status.';
+							$importresult.=' May be there is other instances for this customer (found '.$result.' instances into database for this organization)';
+							$importresult.='</span><br>'."\n";
+						}
 					}
 					$i++;
 				}
