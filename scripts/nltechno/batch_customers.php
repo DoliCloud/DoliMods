@@ -65,6 +65,9 @@ $langs->load("main");				// To load language file for default language
 print "***** ".$script_file." (".$version.") - ".strftime("%Y%m%d-%H%M%S")." *****\n";
 if (! isset($argv[1])) {	// Check parameters
     print "Usage: ".$script_file." (backuptestrsync|backuptestdatabase|backup|updatedatabase)\n";
+    print "\n";
+    print "backuptestrsync|backuptestdatabase|backup   creates backup\n";
+    print "updatedatabase   updates list and nb of users, modules and version\n";
     exit;
 }
 print '--- start'."\n";
@@ -148,8 +151,8 @@ if ($action == 'backup' || $action == 'backuptestrsync' || $action == 'backuptes
 		foreach($instances as $instance)
 		{
 			$now=dol_now();
-			$return_val=0;
-			$error='';		// No error by default into each loop
+
+			$return_val=0; $error=0; $errors=array();	// No error by default into each loop
 
 			// Run backup
 			print "Process backup of instance ".$instance.' - '.strftime("%Y%m%d-%H%M%S")."\n";
@@ -216,8 +219,7 @@ if ($action == 'updatedatabase')
 	{
 		foreach($instances as $instance)
 		{
-			$return_val=0;
-			$error=0; $errors=array();
+			$return_val=0; $error=0; $errors=array();
 
 			// Run database update
 			print "Process update database info of instance ".$instance.' - '.strftime("%Y%m%d-%H%M%S")."\n";
@@ -233,7 +235,7 @@ if ($action == 'updatedatabase')
 			//$ret=dolicloud_files_refresh($conf,$db,$object,$errors);
 
 			// Database refresh (also update lastcheck field)
-			$ret=dolicloud_database_refresh($conf,$db,$object,$errors);		// Update database (or not if error
+			$ret=dolicloud_database_refresh($conf,$db,$object,$errors);		// Update database (or not if error)
 
 			if (count($errors) == 0)
 			{
