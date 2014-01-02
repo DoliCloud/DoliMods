@@ -48,6 +48,7 @@ $outputlangs->setDefaultLang($langs->defaultlang);
 
 $action=GETPOST('action');
 $value=GETPOST('value');
+$level=GETPOST('level','int');
 
 if (empty($conf->numberwords->enabled))
 {
@@ -60,51 +61,6 @@ if (empty($conf->numberwords->enabled))
  * Actions
  */
 
-if ($action == 'setlevel')
-{
-	dolibarr_set_const($db,"SYSLOG_LEVEL",$_POST["level"],'chaine',0,'',0);
-	dol_syslog("admin/syslog: level ".$_POST["level"]);
-}
-
-if ($action == 'set')
-{
-	$optionlogoutput=$_POST["optionlogoutput"];
-	if ($optionlogoutput == "syslog")
-	{
-		if (defined($_POST["facility"]))
-		{
-			// Only LOG_USER supported on Windows
-			if (! empty($_SERVER["WINDIR"])) $_POST["facility"]='LOG_USER';
-
-			dolibarr_del_const($db,"SYSLOG_FILE",0);
-			dolibarr_set_const($db,"SYSLOG_FACILITY",$_POST["facility"],'chaine',0,'',0);
-			dol_syslog("admin/syslog: facility ".$_POST["facility"]);
-		}
-		else
-		{
-			print '<div class="error">'.$langs->trans("ErrorUnknownSyslogConstant",$_POST["facility"]).'</div>';
-		}
-	}
-
-	if ($optionlogoutput == "file")
-	{
-		$filelog=$_POST["filename"];
-		$filelog=preg_replace('/DOL_DATA_ROOT/i',DOL_DATA_ROOT,$filelog);
-		$file=fopen($filelog,"a+");
-		if ($file)
-		{
-			fclose($file);
-			dolibarr_del_const($db,"SYSLOG_FACILITY",0);
-			dolibarr_set_const($db,"SYSLOG_FILE",$_POST["filename"],'chaine',0,'',0);
-			dol_syslog("admin/syslog: file ".$_POST["filename"]);
-		}
-		else
-		{
-			print '<div class="error">'.$langs->trans("ErrorFailedToOpenFile",$_POST["filename"]).'</div>';
-		}
-	}
-}
-
 if ($action == 'test')
 {
 	if (trim($value) == '')
@@ -115,14 +71,14 @@ if ($action == 'test')
 	{
 		if ($_POST["lang_id"]) $outputlangs->setDefaultLang($_POST["lang_id"]);
 
-		if ($_POST["level"])
+		if ($level)
 		{
-			$object->total_ttc=price2num($_POST["value"]);
+			$object->total_ttc=price2num($value);
 			$source='__TOTAL_TTC_WORDS__';
 		}
 		else
 		{
-			$object->number=price2num($_POST["value"]);
+			$object->number=price2num($value);
 			$source='__NUMBER_WORDS__';
 		}
 
@@ -202,7 +158,7 @@ print '<td>'.$newval.'</td></tr>';
 
 $var=!$var;
 print '<tr '.$bc[$var].'>';
-$val=$_POST["level"];
+$val=$level;
 print '<td><select class="flat" name="level" '.$option.'>';
 print '<option value="0" '.($_POST["level"]=='0'?'SELECTED':'').'>'.$langs->trans("Number").'</option>';
 print '<option value="1" '.($_POST["level"]=='1'?'SELECTED':'').'>'.$langs->trans("Amount").'</option>';
@@ -213,7 +169,8 @@ print '<td>';
 print $htmlother->select_language($_POST["lang_id"]?$_POST["lang_id"]:$langs->defaultlang,'lang_id');
 print '</td>';
 print '<td><input type="submit" class="button" '.$option.' value="'.$langs->trans("ToTest").'"></td>';
-print '<td><strong>'.$newvaltest.'</strong></td>';
+print '<td><strong>'.$newvaltest.'</strong>';
+print '</td>';
 print '</tr>';
 
 print '</table>';
@@ -221,6 +178,22 @@ print '</table>';
 print "</form>\n";
 
 dol_fiche_end();
+
+// Warning on accurancy
+list($whole, $decimal) = explode('.', $value);
+if ($level)
+{
+	if (strlen($decimal) > $conf->global->MAIN_MAX_DECIMALS_TOT)
+	{
+		print '<font class="warning">'.$langs->trans("Note").': '.$langs->trans("MAIN_MAX_DECIMALS_TOT").': '.$conf->global->MAIN_MAX_DECIMALS_TOT.'</font>';
+		print ' - <a href="'.DOL_URL_ROOT.'/admin/limits.php">'.$langs->trans("SetupToChange").'</a>';
+	}
+	else
+	{
+		print '<font class="info">'.$langs->trans("Note").': '.$langs->trans("MAIN_MAX_DECIMALS_TOT").': '.$conf->global->MAIN_MAX_DECIMALS_TOT.'</font>';
+		print ' - <a href="'.DOL_URL_ROOT.'/admin/limits.php">'.$langs->trans("SetupToChange").'</a>';
+	}
+}
 
 
 llxFooter();
