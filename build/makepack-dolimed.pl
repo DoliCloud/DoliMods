@@ -2,7 +2,7 @@
 #----------------------------------------------------------------------------
 # \file         build/makepack-dolimed.pl
 # \brief        DoliMed package builder (tgz, zip, rpm, deb, exe, aps)
-# \author       (c)2004-2013 Laurent Destailleur  <eldy@users.sourceforge.net>
+# \author       (c)2004-2014 Laurent Destailleur  <eldy@users.sourceforge.net>
 #
 # This is list of constant you can set to have generated packages moved into a specific dir: 
 #DESTIBETARC='/media/HDDATA1_LD/Mes Sites/Web/Dolibarr/dolibarr.org/files/lastbuild'
@@ -19,8 +19,8 @@ $GROUP="ldestailleur";
 
 $PROJECT="dolimed";
 $MAJOR="3";
-$MINOR="4";
-$BUILD="2";				# Mettre x pour release, x-dev pour dev, x-beta pour beta, x-rc pour release candidate
+$MINOR="5";
+$BUILD="0";				# Mettre x pour release, x-dev pour dev, x-beta pour beta, x-rc pour release candidate
 $RPMSUBVERSION="auto";	# auto use value found into BUILD
 
 @LISTETARGET=("TGZ","ZIP","EXEDOLIWAMP","SNAPSHOT");   # Possible packages
@@ -71,7 +71,7 @@ $SOURCEMOD="$DIR/..";
 $SOURCEMOD1="$DIR/../htdocs/cabinetmed";
 $SOURCEMOD2="$DIR/../build/exe/dolimed";
 # Change SOURCEDOL to use another dolibarr source directory
-$SOURCEDOL="$DIR/../../dolibarr_3.4/.";	
+$SOURCEDOL="$DIR/../../dolibarr_3.5/.";	
 $DESTI="$DIR/../build";
 
 if (! -d $ENV{"DESTIDOLIMEDBETARC"} || ! -d $ENV{"DESTIDOLIMEDSTABLE"})
