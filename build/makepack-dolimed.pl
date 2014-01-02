@@ -1,29 +1,39 @@
 #!/usr/bin/perl
 #----------------------------------------------------------------------------
-# \file         build/makepack-dolibarr.pl
-# \brief        Dolibarr package builder (tgz, zip, rpm, deb, exe, aps)
+# \file         build/makepack-dolimed.pl
+# \brief        DoliMed package builder (tgz, zip, rpm, deb, exe, aps)
 # \author       (c)2004-2013 Laurent Destailleur  <eldy@users.sourceforge.net>
+#
+# This is list of constant you can set to have generated packages moved into a specific dir: 
+#DESTIBETARC='/media/HDDATA1_LD/Mes Sites/Web/Dolibarr/dolibarr.org/files/lastbuild'
+#DESTISTABLE='/media/HDDATA1_LD/Mes Sites/Web/Dolibarr/dolibarr.org/files/stable'
+#DESTIMODULES='/media/HDDATA1_LD/Mes Sites/Web/Admin1/wwwroot/files/modules'
+#DESTIDOLIMEDBETARC='/media/HDDATA1_LD/Mes Sites/Web/DoliCloud/dolimed.com/htdocs/files/lastbuild'
+#DESTIDOLIMEDMODULES='/media/HDDATA1_LD/Mes Sites/Web/DoliCloud/dolimed.com/htdocs/files/modules'
+#DESTIDOLIMEDSTABLE='/media/HDDATA1_LD/Mes Sites/Web/DoliCloud/dolimed.com/htdocs/files/stable'
 #----------------------------------------------------------------------------
 
 use Cwd;
+$OWNER="ldestailleur";
+$GROUP="ldestailleur";
 
 $PROJECT="dolimed";
 $MAJOR="3";
 $MINOR="4";
-$BUILD="0";				# Mettre x pour release, x-dev pour dev, x-beta pour beta, x-rc pour release candidate
+$BUILD="2";				# Mettre x pour release, x-dev pour dev, x-beta pour beta, x-rc pour release candidate
 $RPMSUBVERSION="auto";	# auto use value found into BUILD
 
-#@LISTETARGET=("TGZ","ZIP","RPM_GENERIC","RPM_FEDORA","RPM_MANDRIVA","RPM_OPENSUSE","DEB","APS","EXEDOLIWAMP","SNAPSHOT");   # Possible packages
 @LISTETARGET=("TGZ","ZIP","EXEDOLIWAMP","SNAPSHOT");   # Possible packages
 %REQUIREMENTTARGET=(                            # Tool requirement for each package
 "SNAPSHOT"=>"tar",
 "TGZ"=>"tar",
 "ZIP"=>"7z",
+"XZ"=>"xz",
 "RPM_GENERIC"=>"rpmbuild",
 "RPM_FEDORA"=>"rpmbuild",
 "RPM_MANDRIVA"=>"rpmbuild",
 "RPM_OPENSUSE"=>"rpmbuild",
-"DEB"=>"dpkg",
+"DEB"=>"dpkg dpatch",
 "APS"=>"zip",
 "EXEDOLIWAMP"=>"ISCC.exe"
 );
@@ -36,6 +46,7 @@ $FILENAME="$PROJECT";
 $FILENAMESNAPSHOT="$PROJECT-snapshot";
 $FILENAMETGZ="$PROJECT-$MAJOR.$MINOR.$BUILD";
 $FILENAMEZIP="$PROJECT-$MAJOR.$MINOR.$BUILD";
+$FILENAMEXZ="$PROJECT-$MAJOR.$MINOR.$BUILD";
 $FILENAMERPM="$PROJECT-$MAJOR.$MINOR.$BUILD-$RPMSUBVERSION";
 $FILENAMEDEB="${PROJECT}_${MAJOR}.${MINOR}.${BUILD}";
 $FILENAMEAPS="$PROJECT-$MAJOR.$MINOR.$BUILD.app";
@@ -46,7 +57,7 @@ if (-d "/usr/src/RPM")      { $RPMDIR="/usr/src/RPM"; } # mandrake
 
 
 use vars qw/ $REVISION $VERSION /;
-$VERSION="3.2";
+$VERSION="3.3";
 
 
 
@@ -63,13 +74,21 @@ $SOURCEMOD2="$DIR/../build/exe/dolimed";
 $SOURCEDOL="$DIR/../../dolibarr_3.4/.";	
 $DESTI="$DIR/../build";
 
+if (! -d $ENV{"DESTIDOLIMEDBETARC"} || ! -d $ENV{"DESTIDOLIMEDSTABLE"})
+{
+    print "Error: Directory of environment variable DESTIBETARC or DESTISTABLE does not exist.\n";
+	print "$PROG.$Extension aborted.\n";
+    sleep 2;
+	exit 1;
+}
+
 # Detect OS type
 # --------------
 if ("$^O" =~ /linux/i || (-d "/etc" && -d "/var" && "$^O" !~ /cygwin/i)) { $OS='linux'; $CR=''; }
 elsif (-d "/etc" && -d "/Users") { $OS='macosx'; $CR=''; }
 elsif ("$^O" =~ /cygwin/i || "$^O" =~ /win32/i) { $OS='windows'; $CR="\r"; }
 if (! $OS) {
-    print "$PROG.$Extension was not able to detect your OS.\n";
+    print "Error: Can't detect your OS.\n";
 	print "Can't continue.\n";
 	print "$PROG.$Extension aborted.\n";
     sleep 2;
@@ -108,7 +127,7 @@ for (0..@ARGV-1) {
     	$FILENAMESNAPSHOT.="-".$PREFIX; 
     }
 }
-if ($ENV{"DESTIDOLIMEDBETARC"} && $BUILD =~ /[a-z]/i)    { $DESTI = $ENV{"DESTIDOLIMEDBETARC"}; }		# Force output dir if env DESTI is defined
+if ($ENV{"DESTIDOLIMEDBETARC"} && $BUILD =~ /[a-z]/i)    { $DESTI = $ENV{"DESTIDOLIMEDBETARC"}; }	# Force output dir if env DESTI is defined
 if ($ENV{"DESTIDOLIMEDSTABLE"} && $BUILD =~ /^[0-9]+$/)  { $DESTI = $ENV{"DESTIDOLIMEDSTABLE"}; }	# Force output dir if env DESTI is defined
 
 
@@ -186,6 +205,7 @@ foreach my $target (keys %CHOOSEDTARGET) {
         print "Test requirement for target $target: Search '$req'... ";
         $newreq=$req; $newparam='';
         if ($newreq eq 'zip') { $newparam.='-h'; }
+        if ($newreq eq 'xz') { $newparam.='-h'; }
         $cmd="\"$newreq\" $newparam 2>&1";
         print "Test command ".$cmd."... ";
         $ret=`$cmd`;
@@ -204,7 +224,7 @@ foreach my $target (keys %CHOOSEDTARGET) {
             last;
         } else {
             # Pas erreur ou erreur autre que programme absent
-            print " Found ".$REQUIREMENTTARGET{$target}."\n";
+            print " Found ".$req."\n";
         }
     }
 }
@@ -215,17 +235,34 @@ print "\n";
 #----------------------------------------------
 $nboftargetok=0;
 $nboftargetneedbuildroot=0;
+$nboftargetneedcvs=0;
 foreach my $target (keys %CHOOSEDTARGET) {
     if ($CHOOSEDTARGET{$target} < 0) { next; }
 	#if ($target ne 'EXE' && $target ne 'EXEDOLIWAMP') 
 	#{
 		$nboftargetneedbuildroot++;
 	#}
+	#if ($target eq 'SNAPSHOT')
+	#{
+	#	$nboftargetneedcvs++;
+	#}
 	$nboftargetok++;
 }
 
 if ($nboftargetok) {
 
+    # Update CVS if required
+    #-----------------------
+    if ($nboftargetneedcvs)
+	{
+    	print "Go to directory $SOURCE\n";
+   		$olddir=getcwd();
+   		chdir("$SOURCE");
+    	print "Run cvs update -P -d\n";
+    	$ret=`cvs update -P -d 2>&1`;
+    	chdir("$olddir");
+	}
+	
     # Update buildroot if required
     #-----------------------------
     if ($nboftargetneedbuildroot)
@@ -265,6 +302,7 @@ if ($nboftargetok) {
         $ret=`rm -f  $BUILDROOT/$PROJECT/.gitignore`;
 	    $ret=`rm -fr $BUILDROOT/$PROJECT/.project`;
 	    $ret=`rm -fr $BUILDROOT/$PROJECT/.settings`;
+	    $ret=`rm -fr $BUILDROOT/$PROJECT/.tx`;
 	    $ret=`rm -f  $BUILDROOT/$PROJECT/build.xml`;
 	    $ret=`rm -f  $BUILDROOT/$PROJECT/quickbuild.xml`;
         $ret=`rm -f  $BUILDROOT/$PROJECT/pom.xml`;
@@ -280,6 +318,7 @@ if ($nboftargetok) {
         $ret=`rm -f  $BUILDROOT/$PROJECT/build/dolibarr-*.tar`;
         $ret=`rm -f  $BUILDROOT/$PROJECT/build/dolibarr-*.tar.gz`;
         $ret=`rm -f  $BUILDROOT/$PROJECT/build/dolibarr-*.tgz`;
+        $ret=`rm -f  $BUILDROOT/$PROJECT/build/dolibarr-*.xz`;
         $ret=`rm -f  $BUILDROOT/$PROJECT/build/dolibarr-*.zip`;
         $ret=`rm -f  $BUILDROOT/$PROJECT/build/doxygen/doxygen_warnings.log`;
         $ret=`rm -f  $BUILDROOT/$PROJECT/htdocs/cache.manifest`;
@@ -322,14 +361,14 @@ if ($nboftargetok) {
         $ret=`rm -f  $BUILDROOT/$PROJECT/doc/images/dolibarr_screenshot11.png`;
         $ret=`rm -f  $BUILDROOT/$PROJECT/doc/images/dolibarr_screenshot12.png`;
 
-	    $ret=`rm -fr $BUILDROOT/$PROJECT/documents`;
 	    $ret=`rm -fr $BUILDROOT/$PROJECT/document`;
-	    $ret=`rm -fr $BUILDROOT/$PROJECT/htdocs/documents`;
+	    $ret=`rm -fr $BUILDROOT/$PROJECT/documents`;
 	    $ret=`rm -fr $BUILDROOT/$PROJECT/htdocs/document`;
+	    $ret=`rm -fr $BUILDROOT/$PROJECT/htdocs/documents`;
 	    $ret=`rm -fr $BUILDROOT/$PROJECT/htdocs/bootstrap*`;
 	    $ret=`rm -fr $BUILDROOT/$PROJECT/htdocs/custom*`;
 	    $ret=`rm -fr $BUILDROOT/$PROJECT/htdocs/multicompany*`;
-	    $ret=`rm -fr $BUILDROOT/$PROJECT/htdocs/multiinstance*`;
+	    $ret=`rm -fr $BUILDROOT/$PROJECT/htdocs/nltechno*`;
 	    $ret=`rm -fr $BUILDROOT/$PROJECT/htdocs/pos*`;
 	    $ret=`rm -fr $BUILDROOT/$PROJECT/test`;
 	    $ret=`rm -fr $BUILDROOT/$PROJECT/Thumbs.db $BUILDROOT/$PROJECT/*/Thumbs.db $BUILDROOT/$PROJECT/*/*/Thumbs.db $BUILDROOT/$PROJECT/*/*/*/Thumbs.db $BUILDROOT/$PROJECT/*/*/*/*/Thumbs.db`;
@@ -340,6 +379,7 @@ if ($nboftargetok) {
         $ret=`rm -fr $BUILDROOT/$PROJECT/htdocs/includes/jquery/plugins/template`;  # Package not valid for most linux distributions (errors reported into compile.js). Package should be embed by modules to avoid problems.
         $ret=`rm -fr $BUILDROOT/$PROJECT/htdocs/includes/phpmailer`;                # Package not valid for most linux distributions (errors reported into file LICENSE). Package should be embed by modules to avoid problems.
    	    
+	    $ret=`rm -f  $BUILDROOT/$PROJECT/htdocs/includes/jquery/plugins/multiselect/MIT-LICENSE.txt`;
         $ret=`rm -fr $BUILDROOT/$PROJECT/htdocs/includes/nusoap/lib/Mail`;
         $ret=`rm -fr $BUILDROOT/$PROJECT/htdocs/includes/phpexcel/license.txt`;
         $ret=`rm -fr $BUILDROOT/$PROJECT/htdocs/includes/phpexcel/PHPExcel/Shared/PDF`;
@@ -374,7 +414,7 @@ if ($nboftargetok) {
 
     		print "Compress $BUILDROOT into $FILENAMESNAPSHOT.tgz...\n";
    		    #$cmd="tar --exclude \"$BUILDROOT/tgz/tar_exclude.txt\" --exclude .cache --exclude .settings --exclude conf.php --directory \"$BUILDROOT\" -czvf \"$FILENAMESNAPSHOT.tgz\" $FILENAMESNAPSHOT";
-   		    $cmd="tar --exclude doli*.tgz --exclude doli*.deb --exclude doli*.exe --exclude doli*.zip --exclude doli*.rpm --exclude .cache --exclude .settings --exclude conf.php --exclude conf.php.mysql --exclude conf.php.old --exclude conf.php.postgres --directory \"$BUILDROOT\" --mode=go-w --group=500 --owner=500 -czvf \"$FILENAMESNAPSHOT.tgz\" $FILENAMESNAPSHOT";
+   		    $cmd="tar --exclude doli*.tgz --exclude doli*.deb --exclude doli*.exe --exclude doli*.xz --exclude doli*.zip --exclude doli*.rpm --exclude .cache --exclude .settings --exclude conf.php --exclude conf.php.mysql --exclude conf.php.old --exclude conf.php.postgres --directory \"$BUILDROOT\" --mode=go-w --group=500 --owner=500 -czvf \"$FILENAMESNAPSHOT.tgz\" $FILENAMESNAPSHOT";
 			print $cmd."\n";
 			$ret=`$cmd`;
 
@@ -387,6 +427,7 @@ if ($nboftargetok) {
     	if ($target eq 'TGZ') 
     	{
     		$NEWDESTI=$DESTI;
+    		mkdir($DESTI.'/standard');
 			if (-d $DESTI.'/standard') { $NEWDESTI=$DESTI.'/standard'; } 
 
     		print "Remove target $FILENAMETGZ.tgz...\n";
@@ -410,9 +451,41 @@ if ($nboftargetok) {
     		next;
     	}
 
+    	if ($target eq 'XZ') 
+    	{
+    		$NEWDESTI=$DESTI;
+    		mkdir($DESTI.'/standard');
+			if (-d $DESTI.'/standard') { $NEWDESTI=$DESTI.'/standard'; } 
+
+    		print "Remove target $FILENAMEXZ.xz...\n";
+    		unlink("$NEWDESTI/$FILENAMEXZ.xz");
+
+            #rmdir "$BUILDROOT/$FILENAMEXZ";
+    		$ret=`rm -fr $BUILDROOT/$FILENAMEXZ`;
+            print "Copy $BUILDROOT/$PROJECT to $BUILDROOT/$FILENAMEXZ\n";
+    		$cmd="cp -pr \"$BUILDROOT/$PROJECT\" \"$BUILDROOT/$FILENAMEXZ\"";
+            $ret=`$cmd`;
+
+    		print "Compress $FILENAMEXZ into $FILENAMEXZ.xz...\n";
+ 
+            print "Go to directory $BUILDROOT\n";
+     		$olddir=getcwd();
+     		chdir("$BUILDROOT");
+    		$cmd= "xz -9 -r $BUILDROOT/$FILENAMEAPS.xz \*";
+			print $cmd."\n";
+			$ret= `$cmd`;
+            chdir("$olddir");
+
+    		# Move to final dir
+            print "Move $FILENAMEXZ.xz to $NEWDESTI/$FILENAMEXZ.xz\n";
+            $ret=`mv "$BUILDROOT/$FILENAMEXZ.xz" "$NEWDESTI/$FILENAMEXZ.xz"`;
+    		next;
+    	}
+    	
     	if ($target eq 'ZIP') 
     	{
     		$NEWDESTI=$DESTI;
+    		mkdir($DESTI.'/standard');
 			if (-d $DESTI.'/standard') { $NEWDESTI=$DESTI.'/standard'; } 
 
     		print "Remove target $FILENAMEZIP.zip...\n";
@@ -447,6 +520,7 @@ if ($nboftargetok) {
     		if ($target =~ /FEDO/i) { $subdir="package_rpm_redhat-fedora"; }
     		if ($target =~ /MAND/i) { $subdir="package_rpm_mandriva"; }
     		if ($target =~ /OPEN/i) { $subdir="package_rpm_opensuse"; }
+    		mkdir($DESTI.'/'.$subdir);
 			if (-d $DESTI.'/'.$subdir) { $NEWDESTI=$DESTI.'/'.$subdir; } 
 
     		$ARCH='noarch';
@@ -456,11 +530,12 @@ if ($nboftargetok) {
             $newbuild =~ s/(dev|alpha)/0.1.a/gi;			# dev
             $newbuild =~ s/beta/0.2.beta1/gi;				# beta
             $newbuild =~ s/rc./0.3.rc1/gi;					# rc
-            if ($newbuild !~ /-/) { $newbuild.='-3'; }		# finale
+            if ($newbuild !~ /-/) { $newbuild.='-0.3'; }	# finale
             #$newbuild =~ s/(dev|alpha)/0/gi;				# dev
             #$newbuild =~ s/beta/1/gi;						# beta
             #$newbuild =~ s/rc./2/gi;						# rc
             #if ($newbuild !~ /-/) { $newbuild.='-3'; }		# finale
+            #print "newbuild=".$newbuild."\n";exit;
             $REL1 = $newbuild; $REL1 =~ s/-.*$//gi;
             if ($RPMSUBVERSION eq 'auto') { $RPMSUBVERSION = $newbuild; $RPMSUBVERSION =~ s/^.*-//gi; }
             print "Version is $MAJOR.$MINOR.$REL1-$RPMSUBVERSION\n";
@@ -542,6 +617,7 @@ if ($nboftargetok) {
     	if ($target eq 'DEB') 
     	{
     		$NEWDESTI=$DESTI;
+    		mkdir($DESTI.'/package_debian-ubuntu');
 			if (-d $DESTI.'/package_debian-ubuntu') { $NEWDESTI=$DESTI.'/package_debian-ubuntu'; } 
 
             $olddir=getcwd();
@@ -556,7 +632,7 @@ if ($nboftargetok) {
             $build = $newbuild;
             $build =~ s/-.*$//g;
 			# now build is 0 for example
-			$build .= '+nmu1';
+			# $build .= '+nmu1';
 			# now build is 0+nmu1 for example
 			
     		print "Remove target ${FILENAMEDEB}_all.deb...\n";
@@ -573,6 +649,8 @@ if ($nboftargetok) {
     		
 			print "Copy $BUILDROOT/$PROJECT to $BUILDROOT/$PROJECT.tmp\n";
 			$cmd="cp -pr \"$BUILDROOT/$PROJECT\" \"$BUILDROOT/$PROJECT.tmp\"";
+			$ret=`$cmd`;
+			$cmd="cp -pr \"$BUILDROOT/$PROJECT/build/debian/apache/.htaccess\" \"$BUILDROOT/$PROJECT.tmp/build/debian/apache/.htaccess\"";
 			$ret=`$cmd`;
 
  			print "Remove other files\n";
@@ -636,11 +714,15 @@ if ($nboftargetok) {
             $ret=`cp -fr "$SOURCEDOL/build/debian/patches"        "$BUILDROOT/$PROJECT.tmp/debian"`;
             $ret=`cp -fr "$SOURCEDOL/build/debian/po"             "$BUILDROOT/$PROJECT.tmp/debian"`;
             $ret=`cp -fr "$SOURCEDOL/build/debian/source"         "$BUILDROOT/$PROJECT.tmp/debian"`;
+            $ret=`cp -fr "$SOURCEDOL/build/debian/apache"         "$BUILDROOT/$PROJECT.tmp/debian/apache"`;
+            $ret=`cp -f  "$SOURCEDOL/build/debian/apache/.htaccess" "$BUILDROOT/$PROJECT.tmp/debian/apache"`;
+            $ret=`cp -fr "$SOURCEDOL/build/debian/lighttpd"       "$BUILDROOT/$PROJECT.tmp/debian/lighttpd"`;
             # Add files also required to build binary package
             $ret=`cp -f  "$SOURCEDOL/build/debian/dolibarr.config"         "$BUILDROOT/$PROJECT.tmp/debian"`;
             $ret=`cp -f  "$SOURCEDOL/build/debian/dolibarr.postinst"       "$BUILDROOT/$PROJECT.tmp/debian"`;
             $ret=`cp -f  "$SOURCEDOL/build/debian/dolibarr.postrm"         "$BUILDROOT/$PROJECT.tmp/debian"`;
             $ret=`cp -f  "$SOURCEDOL/build/debian/dolibarr.templates"      "$BUILDROOT/$PROJECT.tmp/debian"`;
+            $ret=`cp -f  "$SOURCEDOL/build/debian/install.forced.php.install"      "$BUILDROOT/$PROJECT.tmp/debian"`;
             
 			# Set owners and permissions
             print "Set owners on files/dir\n";
@@ -665,6 +747,8 @@ if ($nboftargetok) {
             $ret=`chmod -R 644 $BUILDROOT/$PROJECT.tmp/dev/skeletons/skeleton_webservice_server.php`;
             $cmd="find $BUILDROOT/$PROJECT.tmp/scripts -name '*.php' -type f -exec chmod 755 {} \\; ";
             $ret=`$cmd`;
+            $cmd="find $BUILDROOT/$PROJECT.tmp/scripts -name '*.sh' -type f -exec chmod 755 {} \\; ";
+            $ret=`$cmd`;
             
           
             print "Rename directory $BUILDROOT/$PROJECT.tmp into $BUILDROOT/$PROJECT-$MAJOR.$MINOR.$build\n";
@@ -677,7 +761,7 @@ if ($nboftargetok) {
             #$cmd="dpkg-source -b $BUILDROOT/$PROJECT-$MAJOR.$MINOR.$build";
             $cmd="dpkg-buildpackage -us -uc";
             print "Launch DEB build ($cmd)\n";
-            $ret=`$cmd`;
+            $ret=`$cmd 2>&1 3>&1`;
             print $ret."\n";
 
             chdir("$olddir");
@@ -694,6 +778,7 @@ if ($nboftargetok) {
     	if ($target eq 'APS') 
     	{
 			$NEWDESTI=$DESTI;
+    		mkdir($DESTI.'/package_aps');
 			if (-d $DESTI.'/package_aps') { $NEWDESTI=$DESTI.'/package_aps'; } 
 			
             $newbuild = $BUILD;
@@ -778,6 +863,7 @@ if ($nboftargetok) {
     	if ($target eq 'EXEDOLIWAMP')
     	{
     		$NEWDESTI=$DESTI;
+    		mkdir($DESTI.'/package_windows');
 			if (-d $DESTI.'/package_windows') { $NEWDESTI=$DESTI.'/package_windows'; } 
     		
      		print "Remove target $FILENAMEEXEDOLIWAMP.exe...\n";
@@ -785,8 +871,6 @@ if ($nboftargetok) {
  
  			$SOURCEBACK=$SOURCEMOD;
  			$SOURCEBACK =~ s/\//\\/g;
-    		#print "Compil exe $FILENAMEEXEDOLIWAMP.exe file from iss file \"$SOURCEBACK\\build\\exe\\dolimed\\dolimed.iss\"\n";
-    		#$cmd= "ISCC.exe \"$SOURCEBACK\\build\\exe\\dolimed\\dolimed.iss\"";
     		print "Compil exe $FILENAMEEXEDOLIWAMP.exe file from iss file \"\\tmp\\buildroot\\build\\exe\\dolimed\\dolimed.iss\"\n";
     		$cmd= "ISCC.exe \"\\tmp\\buildroot\\$PROJECT\\build\\exe\\dolimed\\dolimed.iss\"";
 			print "$cmd\n";
