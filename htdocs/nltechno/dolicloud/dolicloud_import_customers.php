@@ -209,12 +209,12 @@ if ($action == 'import' || $action == 'create')
 
 				$partner=(preg_match('/2Byte/i',$plan)?'2Byte':'');		// TODO Not complete
 
-				//var_dump($dolicloudcustomer->plan.' '.$plan.' '.$dolicloudcustomer->partner.' '.$partner.' '.$dolicloudcustomer->date_registration.' '.$date_acquired);
+				//var_dump($organization.', '.$dolicloudcustomer->status.' - '.$status.', '.$dolicloudcustomer->plan.' - '.$plan.', '.$dolicloudcustomer->partner.' - '.$partner.', '.$dolicloudcustomer->date_registration.' - '.$date_acquired);
 				$change=false;
 				if ($dolicloudcustomer->plan!=$plan) $change=true;
 				if ($dolicloudcustomer->partner!=$partner) $change=true;
 				if ($dolicloudcustomer->date_registration!=$date_acquired) $change=true;
-				if ($dolicloudcustomer->status!=$status && ! preg_match('/'.$status.'/i',$dolicloudcustomer->status)) $change=true;
+				if ($dolicloudcustomer->status!=$status) $change=true;
 				if (! in_array($status,$arraystatus))
 				{
 					$importresult.=' <span style="color: red">Status '.$status.' is not recognized</span>.<br>';
@@ -224,14 +224,14 @@ if ($action == 'import' || $action == 'create')
 					$dolicloudcustomer->plan=$plan;
 					$dolicloudcustomer->partner=$partner;
 					$dolicloudcustomer->date_registration=$date_acquired;
-					if (! preg_match('/'.$status.'/',$dolicloudcustomer->status)) $dolicloudcustomer->status=$status;
+					$dolicloudcustomer->status=$status;
 
 					$result=$dolicloudcustomer->update($user,1);
 					$importresult.=' <span style="color: blue">We update record</span>. Status after is '.$dolicloudcustomer->status.'<br>';
 				}
 				else
 				{
-					$importresult.=' No need to update. Current status is '.$dolicloudcustomer->status.'<br>';
+					$importresult.=' No need to update. Current status is '.($dolicloudcustomer->status=='ACTIVE_PAYMENT_ERROR'?'<span style="color: #DAA520">'.$dolicloudcustomer->status.'</span>':$dolicloudcustomer->status).'<br>';
 				}
 			}
 
