@@ -292,8 +292,11 @@ if ($action == 'updatedatabase')
 	}
 	//print "Found already existing stats entries.\n";
 
+	$tmp=dol_getdate(dol_now('tzserver'));
+	$endyear=$tmp['year'];
+
 	// Update all stats
-	for($year = 2012; $year <= 2013; $year++)
+	for($year = 2012; $year <= $endyear; $year++)
 	{
 		for($m = 1; $m <= 12; $m++)
 		{
