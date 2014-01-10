@@ -43,6 +43,7 @@ if (empty($mode) || $mode=='thirdparty')
 	$object->id = $id;
 	$object->fetch($id);
 	$address = $object->getFullAddress(1,', ');
+	$url = $object->url;
 }
 if ($mode=='contact')
 {
@@ -52,6 +53,7 @@ if ($mode=='contact')
 	$object->id = $id;
 	$object->fetch($id);
 	$address = $object->getFullAddress(1,', ');
+	$url = '';
 }
 if ($mode=='member')
 {
@@ -61,6 +63,7 @@ if ($mode=='member')
 	$object->id = $id;
 	$object->fetch($id);
 	$address = $object->getFullAddress(1,', ');
+	$url = '';
 }
 
 
@@ -185,7 +188,7 @@ if ($address && $address != $object->country)
         });
 
 
-		var infowindow = new google.maps.InfoWindow({content: '<?php echo dol_escape_js($object->name); ?><br /><?php echo dol_escape_js(dol_string_nospecial($object->getFullAddress(1,', '),' ',array("\n","\r"))); ?>'});
+		var infowindow = new google.maps.InfoWindow({content: '<?php echo dol_escape_js($object->name); ?><br /><?php echo dol_escape_js(dol_string_nospecial($address.($url?', '.$url:''),' ',array("\n","\r"))); ?>'});
 
 			google.maps.event.addListener(marker, 'click', function() {
 				infowindow.open(map,marker);
