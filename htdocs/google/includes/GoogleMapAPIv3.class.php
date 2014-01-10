@@ -428,34 +428,38 @@ class GoogleMapAPI
 		// Detect if we use https
 		$sforhttps=(((empty($_SERVER["HTTPS"]) || $_SERVER["HTTPS"] != 'on') && (empty($_SERVER["SERVER_PORT"])||$_SERVER["SERVER_PORT"]!=443))?'':'s');
 
-		
-		foreach ($tabAddresses as $address) 
+		$i=0;
+		foreach ($tabAddresses as $elem) 
 		{
-			/*if($address->client == 1) $icon = "http://www.google.com/intl/en_us/mapfiles/ms/micons/green-dot.png";
+			$i++;
+			//if ($i != 9) continue;	// Output only eleme i = 9
+			
+			/*if($elem->client == 1) $icon = "http://www.google.com/intl/en_us/mapfiles/ms/micons/green-dot.png";
 			else $icon = "http://www.google.com/intl/en_us/mapfiles/ms/micons/red-dot.png";
 			if ($sforhttps) $icon=preg_replace('/^http:/','https:',$icon);
 			*/
+			$address=dol_string_nospecial($elem->address,', ',array("\r\n","\n","\r"));
 			
-			$addPropre = $this->dol_escape_js($this->no_special_character_v2($address->address));
-			$lienGmaps = ' <a href=\"http'.$sforhttps.'://maps.google.fr/maps?q='.urlencode($this->withoutSpecialChars($address->address)).'\" style=\"font-weight:normal\" class=\"button\" >Google Maps</a>';
+			$addPropre = $this->dol_escape_js($this->no_special_character_v2($address));
+			$lienGmaps = ' <a href=\"http'.$sforhttps.'://maps.google.fr/maps?q='.urlencode($this->withoutSpecialChars($address)).'\">Google Maps</a>';
 
 			$html='';
-			if ($mode == 'company') $html.= '<a href=\"'.DOL_URL_ROOT.'/societe/soc.php?socid='.$address->id.'\">';
-			elseif ($mode == 'contact') $html.= '<a href=\"'.DOL_URL_ROOT.'/contact/fiche.php?id='.$address->id.'\">';
-			elseif ($mode == 'member') $html.= '<a href=\"'.DOL_URL_ROOT.'/adherents/fiche.php?rowid='.$address->id.'\">';
-			elseif ($mode == 'patient') $html.= '<a href=\"'.DOL_URL_ROOT.'/societe/soc.php?socid='.$address->id.'\">';
+			if ($mode == 'company' || $mode == 'thirdparty') $html.= '<a href=\"'.DOL_URL_ROOT.'/societe/soc.php?socid='.$elem->id.'\">';
+			elseif ($mode == 'contact') $html.= '<a href=\"'.DOL_URL_ROOT.'/contact/fiche.php?id='.$elem->id.'\">';
+			elseif ($mode == 'member') $html.= '<a href=\"'.DOL_URL_ROOT.'/adherents/fiche.php?rowid='.$elem->id.'\">';
+			elseif ($mode == 'patient') $html.= '<a href=\"'.DOL_URL_ROOT.'/societe/soc.php?socid='.$elem->id.'\">';
 			else $html.='<a>';
-			$html.= '<b>'.$address->name.'</b>';
+			$html.= '<b>'.$elem->name.'</b>';
 			$html.= '</a>';
-			$html.= '<br/>'.$addPropre;
-			$html.= '<br/>';
-			$html.= '<br/>'.$lienGmaps.'<br/><br/>';
+			$html.= '<br/>'.$addPropre.'<br/>';
+			if (! empty($elem->url)) $html.= '<a href=\"'.$elem->url.'\">'.$elem->url.'</a><br/>';
+			$html.= '<br/>'.$lienGmaps.'<br/>';
 
-			if(isset($address->latitude) && isset($address->longitude)) {
-				$this->addMarkerByCoords($address->latitude, $address->longitude, $address->name, $html, '', $icon);
+			if(isset($elem->latitude) && isset($elem->longitude)) {
+				$this->addMarkerByCoords($elem->latitude, $elem->longitude, $elem->name, $html, '', $icon);
 			}
-			else if (isset($address->address)) {
-				//$this->addMarkerByAddress($address->address, $address->name, $html, '', $icon, $address->id);
+			else if (isset($elem->address)) {
+				//$this->addMarkerByAddress($elem->address, $elem->name, $html, '', $icon, $elem->id);
 			}
 		}
 	}
@@ -624,7 +628,7 @@ class GoogleMapAPI
 			$this->content .= "\t\t" . 'id_name = \'marker_\'+gmarkers.length;' . "\n";
 		}
 
-		$this->content .= "\t\t" . 'var html = \'<div style="float:left;text-align:left;width:' . $this->infoWindowWidth . ';">\'+content+\'</div>\'' . "\n";
+		$this->content .= "\t\t" . 'var html = \'<div style="float:left;text-align:left;width:' . $this->infoWindowWidth . ';height: 120px">\'+content+\'</div>\'' . "\n";
 		$this->content .= "\t\t" . 'google.maps.event.addListener(marker, "click", function() {' . "\n";
 		$this->content .= "\t\t\t" . 'if (infowindow) infowindow.close();' . "\n";
 		$this->content .= "\t\t\t" . 'infowindow = new google.maps.InfoWindow({content: html});' . "\n";
