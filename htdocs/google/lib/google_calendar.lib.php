@@ -257,7 +257,7 @@ function createEvent($client, $object)
     else
     {
         $when->startTime = dol_print_date(($tzfix*3600) + $object->datep,"dayrfc");
-        $when->endTime = dol_print_date(($tzfix*3600) + (empty($object->datef)?$object->datep:$object->datef),"dayrfc");
+        $when->endTime = dol_print_date(($tzfix*3600) + (empty($object->datef)?$object->datep:$object->datef) + 3600*24,"dayrfc");	// For fulldayevent, into XML data, endTime must be day after
     }
     $newEntry->when = array($when);
 
@@ -440,7 +440,7 @@ function updateEvent($client, $eventId, $object)
 	    else
 	    {
 	        $when->startTime = dol_print_date(($tzfix*3600) + $object->datep,"dayrfc");
-	        $when->endTime = dol_print_date(($tzfix*3600) + (empty($object->datef)?$object->datep:$object->datef),"dayrfc");
+	        $when->endTime = dol_print_date(($tzfix*3600) + (empty($object->datef)?$object->datep:$object->datef) + 3600*24,"dayrfc");	// For fulldayevent, into XML data, endTime must be day after
 	    }
 	    $eventOld->when = array($when);
 

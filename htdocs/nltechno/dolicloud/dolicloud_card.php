@@ -337,6 +337,12 @@ if ($user->rights->nltechno->dolicloud->write)
 		print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
 		print '<input type="hidden" name="action" value="add">';
 		print '<input type="hidden" name="backtopage" value="'.$backtopage.'">';
+
+
+		print "Si l'organisation est connue, essayer avec https://apollon1.nltechno.com/dolibarr/custom/nltechno/dolicloud/dolicloud_card.php?action=create&organization=NOM+ORGANISATION<br>";
+		print "Sinon, saisir manuellement tous les champs par recopie du dashboard DoliCloud.<br>\n";
+
+
 		print '<table class="border" width="100%">';
 
 		$instancetoshow=(GETPOST("instance")?GETPOST("instance"):$object->instance);

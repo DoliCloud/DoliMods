@@ -281,7 +281,7 @@ class Dolicloudcustomer extends CommonObject
      *  @param	int		$id    			Id
      *  @param	string	$ref   			Ref
      *  @param	string	$organization 	Organization
-     *  @return int         			<0 if KO, >0 if OK
+     *  @return int         			<0 if KO, 0=Not found, Number of line found if OK
      */
     function fetch($id,$ref='',$organization='')
     {
@@ -348,9 +348,11 @@ class Dolicloudcustomer extends CommonObject
         $resql=$this->db->query($sql);
         if ($resql)
         {
-            if ($this->db->num_rows($resql))
+        	$numfound=$this->db->num_rows($resql);
+
+            if ($numfound)
             {
-                $obj = $this->db->fetch_object($resql);
+                $obj = $this->db->fetch_object($resql);	// Take first onde
 
                 $this->id    = $obj->rowid;
 
@@ -416,7 +418,7 @@ class Dolicloudcustomer extends CommonObject
                 	$this->state_code=$tmp['code']; $this->state=$tmp['label'];
                 }
 
-                $ret=1;
+                $ret=$numfound;
             }
             else $ret=0;
 

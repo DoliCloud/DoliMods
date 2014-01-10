@@ -68,6 +68,10 @@ define('REL_WORK_FAX','http://schemas.google.com/g/2005#work_fax');
  */
 function getClientLoginHttpClientContact($user, $pass, $service)
 {
+	global $tag_debug;
+
+	$tag_debug='clientlogin';
+
 	$client=null;
 
 	try {
@@ -98,11 +102,13 @@ function getCommentIDTag()
  *
  * @param  Zend_Http_Client $client		The authenticated client object
  * @param  string			$object		Source object into Dolibarr
+ * @param  string			$useremail	User email
  * @return string 						The ID URL for the event.
  */
-function googleCreateContact($client, $object)
+function googleCreateContact($client, $object, $useremail='default')
 {
 	global $conf,$langs;
+	global $tag_debug;
 
 	include_once(DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php');
 
@@ -289,8 +295,10 @@ function googleCreateContact($client, $object)
 		$googleGroups=array();
 		$el = $doc->createElement("gcontact:groupMembershipInfo");
 		$el->setAttribute("deleted", "false");
-		$el->setAttribute("href", getGoogleGroupID($gdata, $groupName, $googleGroups));
+		$el->setAttribute("href", getGoogleGroupID($gdata, $groupName, $googleGroups, $useremail));
 		$entry->appendChild($el);
+
+		$tag_debug='createcontact';
 
 		//To list all existing field we can edit: var_dump($doc->saveXML());exit;
 		$xmlStr = $doc->saveXML();
@@ -300,7 +308,7 @@ function googleCreateContact($client, $object)
 		// you can view this file with 'xmlstarlet fo dolibarr_google_createcontact.xml' command
 
 		// insert entry
-		$entryResult = $gdata->insertEntry($xmlStr,	'http://www.google.com/m8/feeds/contacts/default/full');
+		$entryResult = $gdata->insertEntry($xmlStr,	'https://www.google.com/m8/feeds/contacts/'.$useremail.'/full');
 
 		//var_dump($doc->saveXML());exit;
 
@@ -322,11 +330,15 @@ function googleCreateContact($client, $object)
  * @param  Zend_Http_Client $client   		The authenticated client object
  * @param  string           $contactId  	The ref into Google contact
  * @param  Object           $object			Object
+ * @param  string			$useremail		User email
  * @return string							Zend_Gdata id, 0 if not found, <0 if error
  */
-function googleUpdateContact($client, $contactId, $object)
+function googleUpdateContact($client, $contactId, $object, $useremail='default')
 {
 	global $conf,$langs;
+	global $tag_debug;
+
+	$tag_debug='updatecontact';
 
 	dol_syslog('googleUpdateContact object->id='.$object->id.' type='.$object->element.' ref_ext='.$object->ref_ext);
 
@@ -339,7 +351,7 @@ function googleUpdateContact($client, $contactId, $object)
 		$gdata = new Zend_Gdata($client);
 		$gdata->setMajorProtocolVersion(3);
 
-		//$contactId='http://www.google.com/m8/feeds/contacts/eldy10%40gmail.com/base/4429b3590f5b343a';
+		//$contactId='https://www.google.com/m8/feeds/contacts/eldy10%40gmail.com/base/4429b3590f5b343a';
 		$query = new Zend_Gdata_Query($contactId);
 		//$entryResult = $gdata->getEntry($query,'Zend_Gdata_Contacts_ListEntry');
 		$entryResult = $gdata->getEntry($query);
@@ -457,10 +469,15 @@ function googleUpdateContact($client, $contactId, $object)
  *
  * @param  Zend_Http_Client $client  	The authenticated client object
  * @param  string           $ref		The ref string
+ * @param  string			$useremail	User email
  * @return string 						'' if OK, error message if KO
  */
-function googleDeleteContactByRef($client, $ref)
+function googleDeleteContactByRef($client, $ref, $useremail='default')
 {
+	global $tag_debug;
+
+	$tag_debug='deletecontactbyref';
+
 	dol_syslog('googleDeleteContactByRef Gcontact ref to delete='.$ref);
 
 	try
@@ -495,9 +512,10 @@ function googleDeleteContactByRef($client, $ref)
  * @param 	Mixed	$gdata			Handler of Gdata connexion
  * @param 	array 	$gContacts		Array of object GContact
  * @param	Mixed	$objectstatic	Object static to update ref_ext of records if success
+ * @param	string	$useremail		User email
  * @return	int						>0 if OK, 'error string' if error
  */
-function insertGContactsEntries($gdata, $gContacts, $objectstatic)
+function insertGContactsEntries($gdata, $gContacts, $objectstatic, $useremail='default')
 {
 	global $conf;
 
@@ -541,12 +559,12 @@ function insertGContactsEntries($gdata, $gContacts, $objectstatic)
 		// you can view this file with 'xmlstarlet fo dolibarr_google_massinsert.xml' command
 
 		/* Be aware that Google API has some kind of side effect when you use either
-		 * http://www.google.com/m8/feeds/contacts/default/base/...
-		* or
-		* http://www.google.com/m8/feeds/contacts/default/full/...
-		* Some Ids retrieved when accessing base may not be used with full and vice versa
-		* When using base, you may not change the group membership
-		*/
+		 * https://www.google.com/m8/feeds/contacts/default/base/...
+		 * or
+		 * https://www.google.com/m8/feeds/contacts/default/full/...
+		 * Some Ids retrieved when accessing base may not be used with full and vice versa
+		 * When using base, you may not change the group membership
+		 */
 		try {
 
 /* HERE AN EXAMPLE STRING
@@ -573,14 +591,14 @@ Text &eacute;
     </gdata:structuredPostalAddress>
     <gdata:email rel="http://schemas.google.com/g/2005#work" address="contact@email.com" primary="true"/>
     <gcontact:userDefinedField key="dolibarr-id" value="11/thirdparty"/>
-    <gcontact:groupMembershipInfo deleted="false" href="http://www.google.com/m8/feeds/groups/ecidfrance%40gmail.com/base/3709b8488903c095"/>
+    <gcontact:groupMembershipInfo deleted="false" href="https://www.google.com/m8/feeds/groups/ecidfrance%40gmail.com/base/3709b8488903c095"/>
     <batch:operation type="insert"/>
   </atom:entry>
 </atom:feed>
 END;
 $xmlStr = google_html_convert_entities($xmlStr);
 */
-			$response = $gdata->post($xmlStr, "http://www.google.com/m8/feeds/contacts/default/full/batch");
+			$response = $gdata->post($xmlStr, "https://www.google.com/m8/feeds/contacts/".$useremail."/full/batch");
 			$responseXml = $response->getBody();
 			// uncomment for debugging :
 			file_put_contents(DOL_DATA_ROOT . "/dolibarr_google_massinsert_response.xml", $responseXml);
@@ -694,9 +712,10 @@ function getTagLabel($s)
  * @param	Mixed	$gdata			GData handler
  * @param	string	$groupName		Group name
  * @param	array	&$googleGroups	Array of Google Group we know they already exists
+ * @param	string	$useremail		User email
  * @return 	string					Google Group ID for groupName.
  */
-function getGoogleGroupID($gdata, $groupName, &$googleGroups=array())
+function getGoogleGroupID($gdata, $groupName, &$googleGroups=array(), $useremail='default')
 {
 	global $conf;
 
@@ -704,7 +723,7 @@ function getGoogleGroupID($gdata, $groupName, &$googleGroups=array())
 	if (! is_array($googleGroups) || count($googleGroups) == 0)
 	{
 		$document = new DOMDocument("1.0", "utf-8");
-		$xmlStr = getContactGroupsXml($gdata);
+		$xmlStr = getContactGroupsXml($gdata, $useremail);
 		$document->loadXML($xmlStr);
 		$xmlStr = $document->saveXML();
 		$entries = $document->documentElement->getElementsByTagNameNS(constant('ATOM_NAME_SPACE'), "entry");
@@ -725,7 +744,7 @@ function getGoogleGroupID($gdata, $groupName, &$googleGroups=array())
 	// Create group if it not exists
 	if (!isset($googleGroups[$groupName]))
 	{
-		$newGroupID = insertGContactGroup($gdata, $groupName);
+		$newGroupID = insertGContactGroup($gdata, $groupName, $useremail);
 		$googleGroups[$groupName] = $newGroupID;
 	}
 	return $googleGroups[$groupName];
@@ -736,14 +755,18 @@ function getGoogleGroupID($gdata, $groupName, &$googleGroups=array())
  * Retreive a Xml feed of contacts groups from Google
  *
  * @param	Mixed	$gdata			GData handler
+ * @param	string	$useremail		User email
  * @return	string					XML string with all groups
  */
-function getContactGroupsXml($gdata)
+function getContactGroupsXml($gdata, $useremail='default')
 {
 	global $conf;
+	global $tag_debug;
+
+	$tag_debug='groupgroups';
 
 	try {
-		$query = new Zend_Gdata_Query('http://www.google.com/m8/feeds/groups/default/full?max-results=1000');
+		$query = new Zend_Gdata_Query('https://www.google.com/m8/feeds/groups/'.$useremail.'/full?max-results=1000');
 		$feed = $gdata->getFeed($query);
 		$xmlStr = $feed->getXML();
 		// uncomment for debugging :
@@ -765,10 +788,15 @@ function getContactGroupsXml($gdata)
  *
  * @param	Mixed	$gdata			GData handler
  * @param 	string 	$groupName		Group name to create into Google Contact
+ * @param	string	$useremail		User email
  * @return 	string					googlegroupID
  */
-function insertGContactGroup($gdata,$groupName)
+function insertGContactGroup($gdata,$groupName,$useremail='default')
 {
+	global $tag_debug;
+
+	$tag_debug='createcontact';
+
 	dol_syslog('insertGContactGroup create group '.$groupName.' into Google contact');
 
 	try {
@@ -790,7 +818,7 @@ function insertGContactGroup($gdata,$groupName)
 		$doc->formatOutput = true;
 		$xmlStr = $doc->saveXML();
 		// insert entry
-		$entryResult = $gdata->insertEntry($xmlStr, 'http://www.google.com/m8/feeds/groups/default/full');
+		$entryResult = $gdata->insertEntry($xmlStr, 'https://www.google.com/m8/feeds/groups/'.$useremail.'/full');
 		dol_syslog(sprintf("Inserting gContact group %s in google contacts for google ID = %s", $groupName, $entryResult->id));
 	} catch (Exception $e) {
 		dol_syslog(sprintf("Problem while inserting group %s : %s", $groupName, $e->getMessage()), LOG_ERR);

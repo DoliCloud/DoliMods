@@ -66,7 +66,7 @@ $head[$h][0] = $_SERVER["PHP_SELF"];
 $head[$h][1] = $langs->trans("About");
 $head[$h][2] = 'tababout';
 $h++;
-
+print $langs->trans("MoreModules");
 dol_fiche_head($head, 'tababout', '');
 
 print $langs->trans("AboutInfo").'<br>';

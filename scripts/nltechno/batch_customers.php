@@ -65,6 +65,9 @@ $langs->load("main");				// To load language file for default language
 print "***** ".$script_file." (".$version.") - ".strftime("%Y%m%d-%H%M%S")." *****\n";
 if (! isset($argv[1])) {	// Check parameters
     print "Usage: ".$script_file." (backuptestrsync|backuptestdatabase|backup|updatedatabase)\n";
+    print "\n";
+    print "backuptestrsync|backuptestdatabase|backup   creates backup\n";
+    print "updatedatabase   updates list and nb of users, modules and version and stats\n";
     exit;
 }
 print '--- start'."\n";
@@ -90,6 +93,8 @@ $object=new Dolicloudcustomer($db);
 
 
 $instances=array();
+$instancesbackuperror=array();
+$instancesupdateerror=array();
 
 // Get list of instance
 $sql = "SELECT c.rowid, c.instance, c.status, c.lastrsync";
@@ -148,7 +153,8 @@ if ($action == 'backup' || $action == 'backuptestrsync' || $action == 'backuptes
 		foreach($instances as $instance)
 		{
 			$now=dol_now();
-			$return_val=0;
+
+			$return_val=0; $error=0; $errors=array();	// No error by default into each loop
 
 			// Run backup
 			print "Process backup of instance ".$instance.' - '.strftime("%Y%m%d-%H%M%S")."\n";
@@ -190,19 +196,18 @@ if ($action == 'backup' || $action == 'backuptestrsync' || $action == 'backuptes
 			if (! $error)
 			{
 				$nbofok++;
-				print 'Process success'."\n";
+				print 'Process success for '.$instance."\n";
 			}
 			else
 			{
 				$nboferrors++;
-				print 'Process fails'."\n";
+				$instancesbackuperror[]=$instance;
+				print 'Process fails for '.$instance."\n";
 			}
 		}
 	}
 }
 
-
-print "----- Start updatedatabase\n";
 
 $today=dol_now();
 
@@ -210,13 +215,14 @@ $error=''; $errors=array();
 
 if ($action == 'updatedatabase')
 {
+	print "----- Start updatedatabase\n";
+
 	// Loop on each instance
 	if (! $error)
 	{
 		foreach($instances as $instance)
 		{
-			$return_val=0;
-			$error=0; $errors=array();
+			$return_val=0; $error=0; $errors=array();
 
 			// Run database update
 			print "Process update database info of instance ".$instance.' - '.strftime("%Y%m%d-%H%M%S")."\n";
@@ -232,7 +238,7 @@ if ($action == 'updatedatabase')
 			//$ret=dolicloud_files_refresh($conf,$db,$object,$errors);
 
 			// Database refresh (also update lastcheck field)
-			$ret=dolicloud_database_refresh($conf,$db,$object,$errors);		// Update database (or not if error
+			$ret=dolicloud_database_refresh($conf,$db,$object,$errors);		// Update database (or not if error)
 
 			if (count($errors) == 0)
 			{
@@ -244,6 +250,7 @@ if ($action == 'updatedatabase')
 			else
 			{
 				$nboferrors++;
+				$instancesupdateerror[]=$instance;
 				print 'KO. '.join(',',$errors)."\n";
 				$db->rollback();
 			}
@@ -285,8 +292,11 @@ if ($action == 'updatedatabase')
 	}
 	//print "Found already existing stats entries.\n";
 
+	$tmp=dol_getdate(dol_now('tzserver'));
+	$endyear=$tmp['year'];
+
 	// Update all stats
-	for($year = 2012; $year <= 2013; $year++)
+	for($year = 2012; $year <= $endyear; $year++)
 	{
 		for($m = 1; $m <= 12; $m++)
 		{
@@ -344,17 +354,20 @@ if ($action == 'updatedatabase')
 }
 
 
-print "----- Start calculate amount\n";
+//print "----- Start calculate amount\n";
 // TODO Add more batch here
 
 
 
 // Result
 print "Nb of instances (all time): ".$nbofalltime."\n";
-print "Nb of instances (active): ".$nbofactive."\n";
-print "Nb of instances (active or suspended): ".$nbofactivesusp."\n";
-print "Nb of instances (active or suspended) updated ok: ".$nbofok."\n";
-print "Nb of instances (active or suspended) updated ko: ".$nboferrors."\n";
+print "Nb of instances (active without payment error): ".$nbofactive."\n";
+print "Nb of instances (active with or without payment): ".$nbofactivesusp."\n";
+print "Nb of instances (active with or without payment) process ok: ".$nbofok."\n";
+print "Nb of instances (active with or without payment) process ko: ".$nboferrors;
+print (count($instancesbackuperror)?", error for backup on ".join(',',$instancesbackuperror):"");
+print (count($instancesupdateerror)?", error for update on ".join(',',$instancesupdateerror):"");
+print "\n";
 if (! $nboferrors)
 {
 	print '--- end ok - '.strftime("%Y%m%d-%H%M%S")."\n";

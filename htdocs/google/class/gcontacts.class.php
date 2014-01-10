@@ -582,7 +582,7 @@ class GContact
         $document = new DOMDocument("1.0", "utf-8");
 
 		// Get full list of contacts
-    	$queryString = 'http://www.google.com/m8/feeds/contacts/default/full?max-results=1000';
+    	$queryString = 'https://www.google.com/m8/feeds/contacts/default/full?max-results=1000';
         if (! empty($pattern)) $queryString .= '&q='.$pattern;
         $query = new Zend_Gdata_Query($queryString);
         $feed = $gdata->getFeed($query);
@@ -675,7 +675,7 @@ class GContact
             $doc->formatOutput = true;
             $xmlStr = $doc->saveXML();
             // insert entry
-            $entryResult = $gdata->insertEntry($xmlStr, 'http://www.google.com/m8/feeds/groups/default/full');
+            $entryResult = $gdata->insertEntry($xmlStr, 'https://www.google.com/m8/feeds/groups/default/full');
             dol_syslog(sprintf("Inserting gContact group %s in google contacts for user %s google ID = %s", $groupName, $googleUser, $entryResult->id));
         } catch (Exception $e) {
             dol_syslog("Problem while inserting group", LOG_ERR);
@@ -728,56 +728,6 @@ class GContact
     }
 
 
-    /*
-     * Rename all groups with a new prefix
-     * @params oldprefix
-     * @params newprefix
-     */
-    public static function renameGoogleGroups($oldPrefix, $newPrefix) {
-        $oldPrefix = trim($oldPrefix);
-        if(empty($oldPrefix))
-            throw new Exception("Internal Error : Empty old groupname");
-        $newPrefix = trim($newPrefix);
-        if(empty($newPrefix))
-            throw new Exception("Internal Error : Empty new groupname");
-        $document = new DOMDocument("1.0", "utf-8");
-        $xmlStr = self::getContactGroupsXml();
-        $document->loadXML($xmlStr);
-        $xmlStr = $document->saveXML();
-        $entries = $document->documentElement->getElementsByTagNameNS(self::ATOM_NAME_SPACE, "entry");
-        $n = $entries->length;
-        // Check that newPrefix didn't exist as group
-        foreach ($entries as $entry) {
-            $titleNode = $entry->getElementsByTagNameNS(self::ATOM_NAME_SPACE, "title");
-            if ($titleNode->length == 1) {
-                if($titleNode->item(0)->textContent==$newPrefix)
-                    throw new Exception("GContactsGroupAlreadyExists");
-            }
-        }
-        $headers['If-Match'] = '*';
-        foreach ($entries as $entry) {
-            $titleNode = $entry->getElementsByTagNameNS(self::ATOM_NAME_SPACE, "title");
-            if ($titleNode->length == 1) {
-                $title = $titleNode->item(0)->textContent;
-                if ($title==$oldPrefix || strncasecmp($title, $oldPrefix.'/', strlen($oldPrefix.'/')) == 0) {
-                    $gdata = self::googleDataConnection('If-Match: *');
-                    $googleIDNodes = $entry->getElementsByTagNameNS(self::ATOM_NAME_SPACE, "id");
-                    if ($googleIDNodes->length == 1) {
-                        $doc = new DOMDocument("1.0", "utf-8");
-                        $doc->formatOutput = true;
-                        $doc->saveXML();
-                        $node = $doc->importNode($entry, true);
-                        $doc->appendChild($node);
-                        $newXml = $doc->saveXML();
-                        $newXml=str_replace('<atom:title type="text">'.$oldPrefix, '<atom:title type="text">'.$newPrefix, $newXml);
-                        $googleID = $googleIDNodes->item(0)->textContent;
-                        $entryResult = $gdata->updateEntry($newXml, $googleID,null,$headers);
-                    }
-                }
-            }
-        }
-    }
-
     /**
      * Insert contacts into a google account
      *
@@ -823,14 +773,14 @@ class GContact
             // dump it with 'xmlstarlet fo gmail.contacts.xml' command
 
             /* Be aware that Google API has some kind of side effect when you use either
-             * http://www.google.com/m8/feeds/contacts/default/base/...
+             * https://www.google.com/m8/feeds/contacts/default/base/...
              * or
-             * http://www.google.com/m8/feeds/contacts/default/full/...
+             * https://www.google.com/m8/feeds/contacts/default/full/...
              * Some Ids retrieved when accessing base may not be used with full and vice versa
              * When using base, you may not change the group membership
              */
             try {
-                $response = $gdata->post($xmlStr, "http://www.google.com/m8/feeds/contacts/default/full/batch");
+                $response = $gdata->post($xmlStr, "https://www.google.com/m8/feeds/contacts/default/full/batch");
                 $responseXml = $response->getBody();
                 // uncomment for debugging :
                 file_put_contents(DOL_DATA_ROOT . "/gcontacts/temp/gmail.response.xml", $responseXml);
@@ -880,7 +830,7 @@ class GContact
     /*
      public static function getContactsGoogleDetails($queryArg='', $discardDolcontacts=false) {
         global $db;
-        $queryString = 'http://www.google.com/m8/feeds/contacts/default/full?max-results=1000';
+        $queryString = 'https://www.google.com/m8/feeds/contacts/default/full?max-results=1000';
         if(!empty($queryArg))
             $queryString .= '&'.$queryArg;   //Restrict the search to i.e OnelogMarker or a group
         $gdata=self::googleDataConnection();
@@ -1104,7 +1054,7 @@ class GContact
      				// uncomment for debugging :
      				file_put_contents(DOL_DATA_ROOT . "/dolibarr_google_massdelete.xml", $xmlStr);
      				@chmod(DOL_DATA_ROOT . "/dolibarr_google_massdelete.xml", octdec(empty($conf->global->MAIN_UMASK)?'0664':$conf->global->MAIN_UMASK));
-     				$response = $gdata->post($xmlStr, "http://www.google.com/m8/feeds/contacts/default/base/batch");
+     				$response = $gdata->post($xmlStr, "https://www.google.com/m8/feeds/contacts/default/base/batch");
      				$responseXml = $response->getBody();
      				file_put_contents(DOL_DATA_ROOT . "/dolibarr_google_massdelete.response.xml", $xmlStr);
      				@chmod(DOL_DATA_ROOT . "/dolibarr_google_massdelete.response.xml", octdec(empty($conf->global->MAIN_UMASK)?'0664':$conf->global->MAIN_UMASK));
@@ -1170,7 +1120,7 @@ class GContact
     {
         try {
         	// Get list of groups
-            $query = new Zend_Gdata_Query('http://www.google.com/m8/feeds/groups/default/full?max-results=1000');
+            $query = new Zend_Gdata_Query('https://www.google.com/m8/feeds/groups/default/full?max-results=1000');
             $feed = $gdata->getFeed($query);
             $xmlStr = $feed->getXML();
             // uncomment for debugging :

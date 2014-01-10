@@ -19,15 +19,14 @@
 /**
  *      \file       htdocs/includes/modules/barcode/pibarcode.modules.php
  *		\ingroup    facture
- *		\brief      Fichier contenant la classe du modele de generation code barre pibarcode
- *		\version    $Id: pibarcode.modules.php,v 1.9 2011/03/03 09:01:05 eldy Exp $
+ *		\brief      File of class to generate barcode images using pibarcode generator
  */
 
 require_once(DOL_DOCUMENT_ROOT ."/core/modules/barcode/modules_barcode.php");
 
 
 /**
- *	Classe du modele de generation code barre pibarcode
+ *	Class to generate barcode images using pibarcode generator
  */
 class modPibarcode extends ModeleBarCode
 {
