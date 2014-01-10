@@ -1,5 +1,7 @@
 # Dolibarr language file - en_US - admin
 CHARSET=UTF-8
+ExtraFieldsThirdParties=Complementary attributes (thirdparty/patient)
+ExtraFieldsContacts=Complementary attributes (contacts)
 UseSearchToSelectCompany= Use a field with autcompletion to select a patient (instead of a combo list).
 ActivityStateToSelectCompany= Add a filtering option to hide/show patients that are or not followed
 ViewFullDateActions= View full date of actions into patient card

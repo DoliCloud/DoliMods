@@ -17,9 +17,9 @@
  * or see http://www.gnu.org/
  */
 
-$soc=$GLOBALS['object'];
+$object=$GLOBALS['object'];
 
-global $db,$conf,$mysoc,$langs,$user;
+global $db,$conf,$mysoc,$langs,$user,$hookmanager,$extrafields;
 
 require_once(DOL_DOCUMENT_ROOT ."/core/class/html.formcompany.class.php");
 require_once(DOL_DOCUMENT_ROOT ."/core/class/html.formfile.class.php");
@@ -36,7 +36,7 @@ $formfile=new FormFile($GLOBALS['db']);
 
 <?php
 
-$head = societe_prepare_head($soc);
+$head = societe_prepare_head($object);
 $now=dol_now();
 
 /*foreach($head as $key => $val)
@@ -53,7 +53,7 @@ dol_htmloutput_errors($error,$errors);
 // Confirm delete third party
 if ($action == 'delete' || ($conf->use_javascript_ajax && empty($conf->dol_use_jmobile)))
 {
-    $ret=$form->form_confirm($_SERVER["PHP_SELF"]."?socid=".$soc->id,$langs->trans("DeleteACompany"),$langs->trans("ConfirmDeleteCompany"),"confirm_delete",'',0,"action-delete");
+    $ret=$form->form_confirm($_SERVER["PHP_SELF"]."?socid=".$object->id,$langs->trans("DeleteACompany"),$langs->trans("ConfirmDeleteCompany"),"confirm_delete",'',0,"action-delete");
     if ($ret == 'html') print '<br>';
 }
 
@@ -64,74 +64,74 @@ print '<table class="border" width="100%">';
 // Name
 print '<tr><td width="20%">'.$langs->trans('PatientName').'</td>';
 print '<td colspan="3">';
-print $form->showrefnav($soc,'socid','',($user->societe_id?0:1),'rowid','nom');
+print $form->showrefnav($object,'socid','',($user->societe_id?0:1),'rowid','nom');
 print '</td></tr>';
 
 if (! empty($conf->global->SOCIETE_USEPREFIX))  // Old not used prefix field
 {
-    print '<tr><td>'.$langs->trans('Prefix').'</td><td colspan="3">'.$soc->prefix_comm.'</td></tr>';
+    print '<tr><td>'.$langs->trans('Prefix').'</td><td colspan="3">'.$object->prefix_comm.'</td></tr>';
 }
 
-if ($soc->client)
+if ($object->client)
 {
     print '<tr><td>';
     print $langs->trans('PatientCode').'</td><td colspan="3">';
-    print $soc->code_client;
-    if ($soc->check_codeclient() <> 0) print ' <font class="error">('.$langs->trans("WrongPatientCode").')</font>';
+    print $object->code_client;
+    if ($object->check_codeclient() <> 0) print ' <font class="error">('.$langs->trans("WrongPatientCode").')</font>';
     print '</td></tr>';
 }
 
 // Barcode
 if ($conf->global->MAIN_MODULE_BARCODE)
 {
-    print '<tr><td>'.$langs->trans('Gencod').'</td><td colspan="3">'.$soc->barcode.'</td></tr>';
+    print '<tr><td>'.$langs->trans('Gencod').'</td><td colspan="3">'.$object->barcode.'</td></tr>';
 }
 
 // Address
 print "<tr><td valign=\"top\">".$langs->trans('Address')."</td><td colspan=\"3\">";
-dol_print_address($soc->address,'gmap','thirdparty',$soc->id);
+dol_print_address($object->address,'gmap','thirdparty',$object->id);
 print "</td></tr>";
 
-print '<tr><td width="25%">'.$langs->trans('Zip').'</td><td width="25%">'.$soc->zip."</td>";
-print '<td width="25%">'.$langs->trans('Town').'</td><td width="25%">'.$soc->town."</td></tr>";
+print '<tr><td width="25%">'.$langs->trans('Zip').'</td><td width="25%">'.$object->zip."</td>";
+print '<td width="25%">'.$langs->trans('Town').'</td><td width="25%">'.$object->town."</td></tr>";
 
 // Country
 print '<tr><td>'.$langs->trans("Country").'</td><td colspan="3" nowrap="nowrap">';
-$img=picto_from_langcode($soc->country_code);
-if ($soc->isInEEC()) print $form->textwithpicto(($img?$img.' ':'').$soc->country,$langs->trans("CountryIsInEEC"),1,0);
-else print ($img?$img.' ':'').$soc->country;
+$img=picto_from_langcode($object->country_code);
+if ($object->isInEEC()) print $form->textwithpicto(($img?$img.' ':'').$object->country,$langs->trans("CountryIsInEEC"),1,0);
+else print ($img?$img.' ':'').$object->country;
 print '</td></tr>';
 
 // State
-if (empty($conf->global->SOCIETE_DISABLE_STATE)) print '<tr><td>'.$langs->trans('State').'</td><td colspan="3">'.$soc->state.'</td>';
+if (empty($conf->global->SOCIETE_DISABLE_STATE)) print '<tr><td>'.$langs->trans('State').'</td><td colspan="3">'.$object->state.'</td>';
 
-print '<tr><td>'.$langs->trans('PhonePerso').'</td><td>'.dol_print_phone($soc->phone,$soc->country_code,0,$soc->id,'AC_TEL').'</td>';
-print '<td>'.$langs->trans('PhoneMobile').'</td><td>'.dol_print_phone($soc->fax,$soc->country_code,0,$soc->id,'AC_FAX').'</td></tr>';
+print '<tr><td>'.$langs->trans('PhonePerso').'</td><td>'.dol_print_phone($object->phone,$object->country_code,0,$object->id,'AC_TEL').'</td>';
+print '<td>'.$langs->trans('PhoneMobile').'</td><td>'.dol_print_phone($object->fax,$object->country_code,0,$object->id,'AC_FAX').'</td></tr>';
 
 // EMail
 print '<tr><td>'.$langs->trans('EMail').'</td><td colspan="3">';
-print dol_print_email($soc->email,0,$soc->id,'AC_EMAIL');
+print dol_print_email($object->email,0,$object->id,'AC_EMAIL');
 print '</td>';
 
 // Size
 $profid=$langs->trans('Size');
 print '<tr><td>'.$profid.'</td><td>';
-print $soc->idprof1;
+print $object->idprof1;
 print '</td>';
 // Weight
 $profid=$langs->trans('Weight');
 print '<td>'.$profid.'</td><td>';
-print $soc->idprof2;
+print $object->idprof2;
 print '</td></tr>';
 
 // Birthday
 $profid=$langs->trans('DateToBirth');
 print '<tr><td>'.$profid.'</td><td colspan="3">';
-print $soc->idprof3;
-if ($soc->idprof3)
+print $object->idprof3;
+if ($object->idprof3)
 {
     print ' &nbsp; ';
-    $birthdatearray=dol_cm_strptime($soc->idprof3,$conf->format_date_short);
+    $birthdatearray=dol_cm_strptime($object->idprof3,$conf->format_date_short);
     $birthdate=dol_mktime(0,0,0,$birthdatearray['tm_mon']+1,($birthdatearray['tm_mday']),($birthdatearray['tm_year']+1900),true);
     //var_dump($birthdatearray);
     $ageyear=convertSecondToTime($now-$birthdate,'year')-1970;
@@ -143,90 +143,14 @@ if ($soc->idprof3)
 print '</td>';
 print '</tr>';
 
-// Juridical status = Secteur activité
-print '<tr><td>'.$langs->trans('ActivityBranch').'</td><td>'.$soc->forme_juridique.'</td>';
-// Profession
-$profid=$langs->trans('Profession');
-print '<td>'.$profid.'</td><td>';
-print $soc->idprof4;
-print '</td></tr>';
-print '</tr>';
-
-// Type + Staff
-$arr = $formcompany->typent_array(1);
-$soc->typent= $arr[$soc->typent_code];
-print '<tr><td>'.$langs->trans("Gender").'</td><td colspan="3">'.$soc->typent.'</td>';
-//print '<td>'.$langs->trans("Staff").'</td><td>'.$soc->effectif.'</td>';
-print '</tr>';
-
-// Default language
-if ($conf->global->MAIN_MULTILANGS)
-{
-    require_once(DOL_DOCUMENT_ROOT."/core/lib/functions2.lib.php");
-    print '<tr><td>'.$langs->trans("DefaultLang").'</td><td colspan="3">';
-    //$s=picto_from_langcode($soc->default_lang);
-    //print ($s?$s.' ':'');
-    $langs->load("languages");
-    $labellang = ($soc->default_lang?$langs->trans('Language_'.$soc->default_lang):'');
-    print $labellang;
-    print '</td></tr>';
-}
-
-// Ban
-if (empty($conf->global->SOCIETE_DISABLE_BANKACCOUNT))
-{
-    print '<tr><td>';
-    print '<table width="100%" class="nobordernopadding"><tr><td>';
-    print $langs->trans('RIB');
-    print '<td><td align="right">';
-    if ($user->rights->societe->creer)
-    print '<a href="'.DOL_URL_ROOT.'/societe/rib.php?socid='.$soc->id.'">'.img_edit().'</a>';
-    else
-    print '&nbsp;';
-    print '</td></tr></table>';
-    print '</td>';
-    print '<td colspan="3">';
-    print $soc->display_rib();
-    print '</td></tr>';
-}
-
-// Parent company
-/*
-if (empty($conf->global->SOCIETE_DISABLE_PARENTCOMPANY))
-{
-    print '<tr><td>';
-    print '<table width="100%" class="nobordernopadding"><tr><td>';
-    print $langs->trans('ParentPatient');
-    print '<td><td align="right">';
-    if ($user->rights->societe->creer)
-    print '<a href="'.DOL_URL_ROOT.'/societe/lien.php?socid='.$soc->id.'">'.img_edit() .'</a>';
-    else
-    print '&nbsp;';
-    print '</td></tr></table>';
-    print '</td>';
-    print '<td colspan="3">';
-    if ($soc->parent)
-    {
-        $socm = new Societe($db);
-        $socm->fetch($soc->parent);
-        print $socm->getNomUrl(1).' '.($socm->code_client?"(".$socm->code_client.")":"");
-        print $socm->town?' - '.$socm->town:'';
-    }
-    else {
-        print $langs->trans("NoParentCompany");
-    }
-    print '</td></tr>';
-}
-*/
-
 // Num secu
 print '<tr>';
 print '<td class="nowrap">'.$langs->trans('PatientVATIntra').'</td><td colspan="3">';
-if ($soc->tva_intra)
+if ($object->tva_intra)
 {
     $s='';
-    $s.=$soc->tva_intra;
-    $s.='<input type="hidden" name="tva_intra" size="12" maxlength="20" value="'.$soc->tva_intra.'">';
+    $s.=$object->tva_intra;
+    $s.='<input type="hidden" name="tva_intra" size="12" maxlength="20" value="'.$object->tva_intra.'">';
 
     if (empty($conf->global->MAIN_DISABLEVATCHECK))
     {
@@ -246,7 +170,7 @@ if ($soc->tva_intra)
         }
         else
         {
-            $s.='<a href="'.$langs->transcountry("VATIntraCheckURL",$soc->id_pays).'" target="_blank">'.img_picto($langs->trans("VATIntraCheckableOnEUSite"),'help').'</a>';
+            $s.='<a href="'.$langs->transcountry("VATIntraCheckURL",$object->id_pays).'" target="_blank">'.img_picto($langs->trans("VATIntraCheckableOnEUSite"),'help').'</a>';
         }
     }
     print $s;
@@ -258,24 +182,109 @@ else
 print '</td>';
 print '</tr>';
 
+// Type + Staff => Genre
+$arr = $formcompany->typent_array(1);
+$object->typent= $arr[$object->typent_code];
+print '<tr><td>'.$langs->trans("Gender").'</td><td colspan="3">'.$object->typent.'</td>';
+//print '<td>'.$langs->trans("Staff").'</td><td>'.$object->effectif.'</td>';
+print '</tr>';
+
+// Juridical status => Secteur activité
+print '<tr><td>'.$langs->trans('ActivityBranch').'</td><td>'.$object->forme_juridique.'</td>';
+// Profession
+$profid=$langs->trans('Profession');
+print '<td>'.$profid.'</td><td>';
+print $object->idprof4;
+print '</td></tr>';
+print '</tr>';
+
+// Default language
+if ($conf->global->MAIN_MULTILANGS)
+{
+    require_once(DOL_DOCUMENT_ROOT."/core/lib/functions2.lib.php");
+    print '<tr><td>'.$langs->trans("DefaultLang").'</td><td colspan="3">';
+    //$s=picto_from_langcode($object->default_lang);
+    //print ($s?$s.' ':'');
+    $langs->load("languages");
+    $labellang = ($object->default_lang?$langs->trans('Language_'.$object->default_lang):'');
+    print $labellang;
+    print '</td></tr>';
+}
+
+// Other attributes
+$parameters=array('socid'=>$socid, 'colspan' => ' colspan="3"', 'colspanvalue' => '3');
+$reshook=$hookmanager->executeHooks('formObjectOptions',$parameters,$object,$action);    // Note that $action and $object may have been modified by hook
+print $hookmanager->resPrint;
+if (empty($reshook) && ! empty($extrafields->attribute_label))
+{
+  	print $object->showOptionals($extrafields);
+}
+
+// Ban
+if (empty($conf->global->SOCIETE_DISABLE_BANKACCOUNT))
+{
+    print '<tr><td>';
+    print '<table width="100%" class="nobordernopadding"><tr><td>';
+    print $langs->trans('RIB');
+    print '<td><td align="right">';
+    if ($user->rights->societe->creer)
+    print '<a href="'.DOL_URL_ROOT.'/societe/rib.php?socid='.$object->id.'">'.img_edit().'</a>';
+    else
+    print '&nbsp;';
+    print '</td></tr></table>';
+    print '</td>';
+    print '<td colspan="3">';
+    print $object->display_rib();
+    print '</td></tr>';
+}
+
+// Parent company
+/*
+if (empty($conf->global->SOCIETE_DISABLE_PARENTCOMPANY))
+{
+    print '<tr><td>';
+    print '<table width="100%" class="nobordernopadding"><tr><td>';
+    print $langs->trans('ParentPatient');
+    print '<td><td align="right">';
+    if ($user->rights->societe->creer)
+    print '<a href="'.DOL_URL_ROOT.'/societe/lien.php?socid='.$object->id.'">'.img_edit() .'</a>';
+    else
+    print '&nbsp;';
+    print '</td></tr></table>';
+    print '</td>';
+    print '<td colspan="3">';
+    if ($object->parent)
+    {
+        $objectm = new Societe($db);
+        $objectm->fetch($object->parent);
+        print $objectm->getNomUrl(1).' '.($objectm->code_client?"(".$objectm->code_client.")":"");
+        print $objectm->town?' - '.$objectm->town:'';
+    }
+    else {
+        print $langs->trans("NoParentCompany");
+    }
+    print '</td></tr>';
+}
+*/
+
 // Commercial
 print '<tr><td>';
 print '<table width="100%" class="nobordernopadding"><tr><td>';
 print $langs->trans('SalesRepresentatives');
 print '<td><td align="right">';
 if ($user->rights->societe->creer)
-print '<a href="'.DOL_URL_ROOT.'/societe/commerciaux.php?socid='.$soc->id.'">'.img_edit().'</a>';
+print '<a href="'.DOL_URL_ROOT.'/societe/commerciaux.php?socid='.$object->id.'">'.img_edit().'</a>';
 else
 print '&nbsp;';
 print '</td></tr></table>';
 print '</td>';
 print '<td colspan="3">';
 
-$listsalesrepresentatives=$soc->getSalesRepresentatives($user);
+$listsalesrepresentatives=$object->getSalesRepresentatives($user);
 $nbofsalesrepresentative=count($listsalesrepresentatives);
 if ($nbofsalesrepresentative > 3)   // We print only number
 {
-    print '<a href="'.DOL_URL_ROOT.'/societe/commerciaux.php?socid='.$soc->id.'">';
+    print '<a href="'.DOL_URL_ROOT.'/societe/commerciaux.php?socid='.$object->id.'">';
     print $nbofsalesrepresentative;
     print '</a>';
 }
@@ -308,7 +317,7 @@ print '<div class="tabsAction">'."\n";
 
 if ($user->rights->societe->creer)
 {
-    print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?socid='.$soc->id.'&amp;action=edit">'.$langs->trans("Modify").'</a>'."\n";
+    print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?socid='.$object->id.'&amp;action=edit">'.$langs->trans("Modify").'</a>'."\n";
 }
 
 if ($user->rights->societe->supprimer)
@@ -319,7 +328,7 @@ if ($user->rights->societe->supprimer)
     }
     else
     {
-        print '<a class="butActionDelete" href="'.$_SERVER["PHP_SELF"].'?socid='.$soc->id.'&amp;action=delete">'.$langs->trans('Delete').'</a>'."\n";
+        print '<a class="butActionDelete" href="'.$_SERVER["PHP_SELF"].'?socid='.$object->id.'&amp;action=delete">'.$langs->trans('Delete').'</a>'."\n";
     }
 }
 
@@ -330,14 +339,14 @@ print '<br>';
 print '<table width="100%"><tr><td valign="top" width="50%">';
 print '<a name="builddoc"></a>'; // ancre
 
-$filedir=$conf->societe->dir_output.'/'.$soc->id;
-$urlsource=$_SERVER["PHP_SELF"]."?socid=".$soc->id;
+$filedir=$conf->societe->dir_output.'/'.$object->id;
+$urlsource=$_SERVER["PHP_SELF"]."?socid=".$object->id;
 $genallowed=$user->rights->societe->creer;
 $delallowed=$user->rights->societe->supprimer;
 
 $var=true;
 
-$somethingshown=$formfile->show_documents('company',$soc->id,$filedir,$urlsource,$genallowed,$delallowed,'',0,0,0,28,0,'',0,'',$soc->default_lang);
+$somethingshown=$formfile->show_documents('company',$object->id,$filedir,$urlsource,$genallowed,$delallowed,'',0,0,0,28,0,'',0,'',$object->default_lang);
 
 print '</td>';
 print '<td>';
@@ -349,16 +358,16 @@ print '<br>';
 */
 
 // Subsidiaries list
-$result=show_subsidiaries($conf,$langs,$db,$soc);
+$result=show_subsidiaries($conf,$langs,$db,$object);
 
 // Contacts list
 if (empty($conf->global->SOCIETE_DISABLE_CONTACTS))
 {
-  $result=show_contacts($conf,$langs,$db,$soc);
+  $result=show_contacts($conf,$langs,$db,$object);
 }
 
 // Projects list
-$result=show_projects($conf,$langs,$db,$soc);
+$result=show_projects($conf,$langs,$db,$object);
 ?>
 
 <!-- END PHP TEMPLATE -->
