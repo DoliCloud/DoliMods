@@ -46,6 +46,7 @@ if (empty($mode) || $mode=='thirdparty')
 		$object->id = $id;
 		$object->fetch($id);
 		$address = $object->getFullAddress(1,', ');
+		$url = $object->url;
 	}
 }
 else if ($mode=='contact')
@@ -57,6 +58,7 @@ else if ($mode=='contact')
 		$object->id = $id;
 		$object->fetch($id);
 		$address = $object->getFullAddress(1,', ');
+		$url = '';
 	}
 }
 else if ($mode=='member')
@@ -68,6 +70,7 @@ else if ($mode=='member')
 		$object->id = $id;
 		$object->fetch($id);
 		$address = $object->getFullAddress(1,', ');
+		$url = '';
 	}
 }
 else if ($mode=='patient')
@@ -79,6 +82,7 @@ else if ($mode=='patient')
 		$object->id = $id;
 		$object->fetch($id);
 		$address = $object->getFullAddress(1,', ');
+		$url = '';
 	}
 }
 else
@@ -202,13 +206,14 @@ if ($resql)
 		$error='';
 
 		$addresstosearch=dol_format_address($obj,1," ");
+		$address=dol_format_address($obj,1,", ");	// address to show
 
 		$object=new stdClass();
 		$object->id=$obj->id;
 		$object->name=$obj->name?$obj->name:($obj->lastname.' '.$obj->firstname);
 		$object->latitude = $obj->latitude;
 		$object->longitude = $obj->longitude;
-		$object->address = $addresstosearch;
+		$object->address = $address;
 		$object->url = $obj->url;
 
 		$geoencodingtosearch=false;
@@ -225,7 +230,7 @@ if ($resql)
 
 			$countgeoencoding++;
 
-			$point = geocoding($object->address);
+			$point = geocoding($addresstosearch);
 			if (is_array($point))
 			{
 				$object->latitude=$point['lat'];

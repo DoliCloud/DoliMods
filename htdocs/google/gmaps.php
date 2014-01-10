@@ -178,7 +178,7 @@ if ($address && $address != $object->country)
 	}
 
   function codeAddress() {
-    var address = '<?php print dol_escape_js(dol_string_nospecial($address,' ',array("\n","\r"))); ?>';
+    var address = '<?php print dol_escape_js(dol_string_nospecial($address,', ',array("\r\n","\n","\r"))); ?>';
     geocoder.geocode( { 'address': address}, function(results, status) {
       if (status == google.maps.GeocoderStatus.OK) {
         map.setCenter(results[0].geometry.location);
@@ -187,12 +187,11 @@ if ($address && $address != $object->country)
             position: results[0].geometry.location
         });
 
+		var infowindow = new google.maps.InfoWindow({ content: '<div style="width:250px; height:80px;"><?php echo dol_escape_js($object->name); ?><br><?php echo dol_escape_js(dol_string_nospecial($address,'<br>',array("\r\n","\n","\r"))).(empty($url)?'':'<br><a href="'.$url.'">'.$url.'</a>'); ?></div>' });
 
-		var infowindow = new google.maps.InfoWindow({content: '<?php echo dol_escape_js($object->name); ?><br /><?php echo dol_escape_js(dol_string_nospecial($address.($url?', '.$url:''),' ',array("\n","\r"))); ?>'});
-
-			google.maps.event.addListener(marker, 'click', function() {
-				infowindow.open(map,marker);
-			});
+		google.maps.event.addListener(marker, 'click', function() {
+		  infowindow.open(map,marker);
+		});
 
 
       } else {
