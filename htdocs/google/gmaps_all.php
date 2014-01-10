@@ -114,7 +114,7 @@ if (empty($mode) || $mode=='thirdparty')
 	$title=$langs->trans("MapOfThirdparties");
 	$picto='company';
 	$type='company';
-	$sql="SELECT s.rowid as id, s.nom as name, s.address, s.zip, s.town,";
+	$sql="SELECT s.rowid as id, s.nom as name, s.address, s.zip, s.town, s.url,";
 	$sql.= " c.rowid as country_id, c.code as country_code, c.libelle as country,";
 	$sql.= " g.rowid as gid, g.fk_object, g.latitude, g.longitude, g.address as gaddress, g.result_code, g.result_label";
 	$sql.= " FROM ".MAIN_DB_PREFIX."societe as s";
@@ -132,7 +132,7 @@ else if ($mode=='contact')
 	$title=$langs->trans("MapOfContactsAddresses");
 	$picto='contact';
 	$type='contact';
-	$sql="SELECT s.rowid as id, s.lastname, s.firstname, s.address, s.zip, s.town,";
+	$sql="SELECT s.rowid as id, s.lastname, s.firstname, s.address, s.zip, s.town, '' as url,";
 	$sql.= " c.rowid as country_id, c.code as country_code, c.libelle as country,";
 	$sql.= " g.rowid as gid, g.fk_object, g.latitude, g.longitude, g.address as gaddress, g.result_code, g.result_label";
 	$sql.= " FROM ".MAIN_DB_PREFIX."socpeople as s";
@@ -147,7 +147,7 @@ else if ($mode=='member')
 	$title=$langs->trans("MapOfMembers");
 	$picto='user';
 	$type='member';
-	$sql="SELECT s.rowid as id, s.lastname, s.firstname, s.address, s.zip, s.town,";
+	$sql="SELECT s.rowid as id, s.lastname, s.firstname, s.address, s.zip, s.town, '' as url,";
 	$sql.= " c.rowid as country_id, c.code as country_code, c.libelle as country,";
 	$sql.= " g.rowid as gid, g.fk_object, g.latitude, g.longitude, g.address as gaddress, g.result_code, g.result_label";
 	$sql.= " FROM ".MAIN_DB_PREFIX."adherent as s";
@@ -163,7 +163,7 @@ else if ($mode=='patient')
 	$picto='user';
 	$type='patient';
 	$sql="SELECT s.rowid as id, s.nom as name, s.address, s.zip, s.town,";
-	$sql.= " c.rowid as country_id, c.code as country_code, c.libelle as country,";
+	$sql.= " c.rowid as country_id, c.code as country_code, c.libelle as country, s.url,";
 	$sql.= " g.rowid as gid, g.fk_object, g.latitude, g.longitude, g.address as gaddress, g.result_code, g.result_label";
 	$sql.= " FROM ".MAIN_DB_PREFIX."societe as s";
 	$sql.= " LEFT JOIN ".MAIN_DB_PREFIX."c_pays as c ON s.fk_pays = c.rowid";
@@ -209,7 +209,7 @@ if ($resql)
 		$object->latitude = $obj->latitude;
 		$object->longitude = $obj->longitude;
 		$object->address = $addresstosearch;
-		$object->error = '';
+		$object->url = $obj->url;
 
 		$geoencodingtosearch=false;
 		if ($obj->gaddress != $addresstosearch) $geoencodingtosearch=true;
@@ -346,6 +346,8 @@ $gmap->setSize('100%','500px');
 $gmap->setZoom(11);
 $gmap->setLang('fr');
 $gmap->setDefaultHideMarker(false);
+
+// Convert array of addresses into the output gmap string 
 $gmap->addArrayMarker($addresses, $langs, $mode);
 
 
