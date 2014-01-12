@@ -33,7 +33,7 @@ CREATE TABLE llx_cabinetmed_cons (
   traitementprescrit text,
   comment            text,
   typevisit          varchar(8) NOT NULL,
-  infiltration       varchar(256),
+  infiltration       varchar(255),
   codageccam         varchar(16),
   montant_cheque     double(24,8),
   montant_espece     double(24,8),
