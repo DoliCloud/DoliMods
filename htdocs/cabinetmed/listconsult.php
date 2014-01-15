@@ -79,6 +79,7 @@ $htmlother=new FormOther($db);
 $thirdpartystatic=new Societe($db);
 $consultstatic = new CabinetmedCons($db);
 
+$datecons=dol_mktime(0,0,0,GETPOST('consmonth'),GETPOST('consday'),GETPOST('consyear'));
 
 llxHeader();
 
@@ -97,6 +98,7 @@ if (GETPOST("button_removefilter_x"))
     $search_motifprinc='';
     $search_diaglesprinc='';
     $search_contactid='';
+    $datecons='';
 }
 
 $sql = "SELECT s.rowid, s.nom as name, s.client, s.town, st.libelle as stcomm, s.prefix_comm, s.code_client,";
@@ -112,6 +114,7 @@ if ($search_categ) $sql.= ", ".MAIN_DB_PREFIX."categorie_societe as cs";
 $sql.= " WHERE s.fk_stcomm = st.id AND c.fk_soc = s.rowid";
 $sql.= " AND s.client IN (1, 3)";
 $sql.= " AND s.entity = ".$conf->entity;
+if ($datecons > 0) $sql.=" AND c.datecons = '".$db->idate($datecons)."'";
 if ($search_motifprinc)
 {
 	$label= dol_getIdFromCode($db,$search_motifprinc,'cabinetmed_motifcons','code','label');
@@ -248,8 +251,9 @@ if ($result)
 	print '</td><td class="liste_titre">';
 	print '<input type="text" class="flat" size="8" name="search_code" value="'.$search_code.'">';
 	print '</td>';
-	print '<td class="liste_titre">';
-	print '&nbsp;';
+	// Date
+	print '<td class="liste_titre" align="center">';
+	print $form->select_date($datecons, 'cons', 0, 0, 1);
 	print '</td>';
     print '<td class="liste_titre">';
     $width='200';
