@@ -69,7 +69,7 @@ function cabinetmed_completesubstitutionarray(&$substitutionarray,$langs,$object
     if ($isother || $isbio) $substitutionarray['examshows']=$langs->transnoentitiesnoconv("ExamsShow");
     else $substitutionarray['examshows']='';
 
-    if ($isother)
+    if ($isother)	// An image exam was selected
     {
         $substitutionarray['examother_title']=$langs->transnoentitiesnoconv("BilanImage").':';
         $substitutionarray['examother_principal_and_conclusion']=$examother->examprinc.' : '.$examother->concprinc;
@@ -83,7 +83,7 @@ function cabinetmed_completesubstitutionarray(&$substitutionarray,$langs,$object
         $substitutionarray['examother_principal']='';
         $substitutionarray['examother_conclusion']='';
     }
-    if ($isbio)
+    if ($isbio)	// A bio exam was selected
     {
         if (! empty($exambio->conclusion)) $substitutionarray['exambio_title']=$langs->transnoentitiesnoconv("BilanBio").':';
         else $substitutionarray['exambio_title']='';
@@ -94,7 +94,7 @@ function cabinetmed_completesubstitutionarray(&$substitutionarray,$langs,$object
         $substitutionarray['exambio_title']='';
         $substitutionarray['exambio_conclusion']='';
     }
-	if ($isconsult)
+	if ($isconsult)	// A consult was selected
 	{
 	    $substitutionarray['outcome_date']=dol_print_date($outcome->datecons,'day');
 	    $substitutionarray['outcome_reason']=$outcome->motifconsprinc;
@@ -109,6 +109,11 @@ function cabinetmed_completesubstitutionarray(&$substitutionarray,$langs,$object
 	        $substitutionarray['treatment_title']='';
 	        $substitutionarray['outcome_treatment']='';
 	    }
+    	$substitutionarray['outcome_total_inctax_card']=$outcome->montant_carte;
+    	$substitutionarray['outcome_total_inctax_cheque']=$outcome->montant_cheque;
+    	$substitutionarray['outcome_total_inctax_cash']=$outcome->montant_espece;
+    	$substitutionarray['outcome_total_inctax_other']=$outcome->montant_tiers;
+    	$substitutionarray['outcome_total_ttc']=($outcome->montant_carte+$outcome->montant_cheque+$outcome->montant_espece+$outcome->montant_tiers);
 	}
 	else
 	{
@@ -117,6 +122,7 @@ function cabinetmed_completesubstitutionarray(&$substitutionarray,$langs,$object
 	}
 
     $substitutionarray['outcome_comment']=GETPOST('outcome_comment');
+
 
     // Patient
     //$patient=new Patient($db);
