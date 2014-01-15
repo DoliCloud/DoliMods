@@ -1,7 +1,7 @@
 <?php
 /* Copyright (C) 2001-2007 Rodolphe Quiedeville <rodolphe@quiedeville.org>
  * Copyright (C) 2003      Brian Fraval         <brian@fraval.org>
- * Copyright (C) 2004-2012 Laurent Destailleur  <eldy@users.sourceforge.net>
+ * Copyright (C) 2004-2013 Laurent Destailleur  <eldy@users.sourceforge.net>
  * Copyright (C) 2005      Eric Seigne          <eric.seigne@ryxeo.com>
  * Copyright (C) 2005-2012 Regis Houssin        <regis.houssin@capnetworks.com>
  * Copyright (C) 2008	   Patrick Raguin       <patrick.raguin@auguria.net>
@@ -58,6 +58,7 @@ $action		= (GETPOST('action') ? GETPOST('action') : 'view');
 $confirm	= GETPOST('confirm');
 $socid		= GETPOST('socid','int');
 if ($user->societe_id) $socid=$user->societe_id;
+if (empty($socid) && $action == 'view') $action='create';
 
 $object = new Societe($db);
 $extrafields = new ExtraFields($db);
@@ -136,7 +137,8 @@ if (empty($reshook))
         $object->zip                   = GETPOST('zipcode');
         $object->town                  = GETPOST('town');
         $object->country_id            = GETPOST('country_id');
-        $object->state_id              = GETPOST('departement_id');
+        $object->state_id              = GETPOST('state_id');
+        $object->skype                 = GETPOST('skype');
         $object->phone                 = GETPOST('phone');
         $object->fax                   = GETPOST('fax');
         $object->email                 = GETPOST('email');
@@ -165,7 +167,7 @@ if (empty($reshook))
         $object->effectif_id           = GETPOST('effectif_id');
         if (GETPOST("private") == 1)
         {
-            $object->typent_id         = 8; // TODO predict another method if the field "special" change of rowid
+            $object->typent_id         = dol_getIdFromCode($db,'TE_PRIVATE','c_typent');
         }
         else
         {
@@ -174,7 +176,6 @@ if (empty($reshook))
 
         $object->client                = GETPOST('client');
         $object->fournisseur           = GETPOST('fournisseur');
-        $object->fournisseur_categorie = GETPOST('fournisseur_categorie');
 
         $object->commercial_id         = GETPOST('commercial_id');
         $object->default_lang          = GETPOST('default_lang');
@@ -208,7 +209,7 @@ if (empty($reshook))
             }
 
             // We set country_id, country_code and country for the selected country
-            $object->country_id=GETPOST('country_id')?GETPOST('country_id'):$mysoc->country_id;
+            $object->country_id=GETPOST('country_id')!=''?GETPOST('country_id'):$mysoc->country_id;
             if ($object->country_id)
             {
             	$tmparray=getCountry($object->country_id,'all');
@@ -282,7 +283,7 @@ if (empty($reshook))
                         }
                     }
 
-                    // Gestion du logo de la société
+                    // Logo/Photo save
                     $dir     = $conf->societe->multidir_output[$conf->entity]."/".$object->id."/logos/";
                     $file_OK = is_uploaded_file($_FILES['photo']['tmp_name']);
                     if ($file_OK)
@@ -313,6 +314,19 @@ if (empty($reshook))
                             }
                         }
                     }
+                    else
+	              {
+						switch($_FILES['photo']['error'])
+						{
+						    case 1: //uploaded file exceeds the upload_max_filesize directive in php.ini
+						    case 2: //uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the html form
+						      $errors[] = "ErrorFileSizeTooLarge";
+						      break;
+	      					case 3: //uploaded file was only partially uploaded
+						      $errors[] = "ErrorFilePartiallyUploaded";
+						      break;
+						}
+	                }
                     // Gestion du logo de la société
                 }
                 else
@@ -356,7 +370,7 @@ if (empty($reshook))
                     $error = $object->error; $errors = $object->errors;
                 }
 
-                // Gestion du logo de la société
+                // Logo/Photo save
                 $dir     = $conf->societe->multidir_output[$object->entity]."/".$object->id."/logos";
                 $file_OK = is_uploaded_file($_FILES['photo']['tmp_name']);
                 if ($file_OK)
@@ -398,6 +412,19 @@ if (empty($reshook))
                     {
                         $errors[] = "ErrorBadImageFormat";
                     }
+                }
+                            else
+              {
+					switch($_FILES['photo']['error'])
+					{
+					    case 1: //uploaded file exceeds the upload_max_filesize directive in php.ini
+					    case 2: //uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the html form
+					      $errors[] = "ErrorFileSizeTooLarge";
+					      break;
+      					case 3: //uploaded file was only partially uploaded
+					      $errors[] = "ErrorFilePartiallyUploaded";
+					      break;
+					}
                 }
                 // Gestion du logo de la société
 
@@ -458,7 +485,14 @@ if (empty($reshook))
     }
 
 
-    /*
+    // Actions to send emails
+    $id=$socid;
+    $actiontypecode='AC_OTH_AUTO';
+    $paramname='socid';
+    include DOL_DOCUMENT_ROOT.'/core/actions_sendmails.inc.php';
+
+    
+	/*
      * Generate document
      */
     if ($action == 'builddoc')  // En get ou en post

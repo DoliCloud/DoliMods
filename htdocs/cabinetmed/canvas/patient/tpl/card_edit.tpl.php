@@ -16,9 +16,9 @@
  * or see http://www.gnu.org/
  */
 
-$soc=$GLOBALS['object'];
+$object=$GLOBALS['object'];
 
-global $db,$conf,$mysoc,$langs,$user;
+global $db,$conf,$mysoc,$langs,$user,$hookmanager,$extrafields;
 
 require_once(DOL_DOCUMENT_ROOT ."/core/class/html.formcompany.class.php");
 require_once(DOL_DOCUMENT_ROOT ."/core/class/html.formfile.class.php");
@@ -54,55 +54,55 @@ if ($modCodeClient->code_auto)
 
 if ($_POST["nom"])
 {
-    $soc->client=1;
+    $object->client=1;
 
-    $soc->lastname=$_POST["nom"];
-    $soc->firstname=$_POST["firstname"];
-    $soc->particulier=0;
-    $soc->prefix_comm=$_POST["prefix_comm"];
-    $soc->client=$_POST["client"]?$_POST["client"]:$soc->client;
-    $soc->code_client=$_POST["code_client"];
-    $soc->fournisseur=$_POST["fournisseur"]?$_POST["fournisseur"]:$soc->fournisseur;
-    $soc->code_fournisseur=$_POST["code_fournisseur"];
-    $soc->adresse=$_POST["address"]; // TODO obsolete
-    $soc->address=$_POST["address"];
-    $soc->zip=$_POST["zipcode"];
-    $soc->town=$_POST["town"];
-    $soc->state_id=$_POST["departement_id"];
-    $soc->phone=$_POST["phone"];
-    $soc->fax=$_POST["fax"];
-    $soc->email=$_POST["email"];
-    $soc->url=$_POST["url"];
-    $soc->capital=$_POST["capital"];
-    $soc->barcode=$_POST["barcode"];
-    $soc->idprof1=$_POST["idprof1"];
-    $soc->idprof2=$_POST["idprof2"];
-    $soc->idprof3=$_POST["idprof3"];
-    $soc->idprof4=$_POST["idprof4"];
-    $soc->typent_id=$_POST["typent_id"];
-    $soc->effectif_id=$_POST["effectif_id"];
+    $object->lastname=$_POST["nom"];
+    $object->firstname=$_POST["firstname"];
+    $object->particulier=0;
+    $object->prefix_comm=$_POST["prefix_comm"];
+    $object->client=$_POST["client"]?$_POST["client"]:$object->client;
+    $object->code_client=$_POST["code_client"];
+    $object->fournisseur=$_POST["fournisseur"]?$_POST["fournisseur"]:$object->fournisseur;
+    $object->code_fournisseur=$_POST["code_fournisseur"];
+    $object->adresse=$_POST["address"]; // TODO obsolete
+    $object->address=$_POST["address"];
+    $object->zip=$_POST["zipcode"];
+    $object->town=$_POST["town"];
+    $object->state_id=$_POST["departement_id"];
+    $object->phone=$_POST["phone"];
+    $object->fax=$_POST["fax"];
+    $object->email=$_POST["email"];
+    $object->url=$_POST["url"];
+    $object->capital=$_POST["capital"];
+    $object->barcode=$_POST["barcode"];
+    $object->idprof1=$_POST["idprof1"];
+    $object->idprof2=$_POST["idprof2"];
+    $object->idprof3=$_POST["idprof3"];
+    $object->idprof4=$_POST["idprof4"];
+    $object->typent_id=$_POST["typent_id"];
+    $object->effectif_id=$_POST["effectif_id"];
 
-    $soc->tva_assuj = $_POST["assujtva_value"];
-    $soc->status= $_POST["status"];
+    $object->tva_assuj = $_POST["assujtva_value"];
+    $object->status= $_POST["status"];
 
     //Local Taxes
-    $soc->localtax1_assuj       = $_POST["localtax1assuj_value"];
-    $soc->localtax2_assuj       = $_POST["localtax2assuj_value"];
+    $object->localtax1_assuj       = $_POST["localtax1assuj_value"];
+    $object->localtax2_assuj       = $_POST["localtax2assuj_value"];
 
-    $soc->tva_intra=$_POST["tva_intra"];
+    $object->tva_intra=$_POST["tva_intra"];
 
-    $soc->commercial_id=$_POST["commercial_id"];
-    $soc->default_lang=$_POST["default_lang"];
+    $object->commercial_id=$_POST["commercial_id"];
+    $object->default_lang=$_POST["default_lang"];
 
     // We set country_id, country_code and label for the selected country
-    $soc->country_id=$_POST["country_id"]?$_POST["country_id"]:$mysoc->country_id;
-    if ($soc->country_id)
+    $object->country_id=$_POST["country_id"]?$_POST["country_id"]:$mysoc->country_id;
+    if ($object->country_id)
     {
-        $tmparray=getCountry($soc->country_id,'all');
-        $soc->country_code=$tmparray['code'];
-        $soc->country     =$tmparray['label'];
+        $tmparray=getCountry($object->country_id,'all');
+        $object->country_code=$tmparray['code'];
+        $object->country     =$tmparray['label'];
     }
-    $soc->forme_juridique_code=$_POST['forme_juridique_code'];
+    $object->forme_juridique_code=$_POST['forme_juridique_code'];
 }
 
 ?>
@@ -114,41 +114,41 @@ print_fiche_titre($langs->trans("EditPatient"));
 
 dol_htmloutput_errors($GLOBALS['error'],$GLOBALS['errors']);
 
-print '<form action="'.$_SERVER["PHP_SELF"].'?socid='.$soc->id.'" method="post" name="formsoc">';
+print '<form action="'.$_SERVER["PHP_SELF"].'?socid='.$object->id.'" method="post" name="formsoc">';
 print '<input type="hidden" name="action" value="update">';
 print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
-print '<input type="hidden" name="socid" value="'.$soc->id.'">';
+print '<input type="hidden" name="socid" value="'.$object->id.'">';
 print '<input type="hidden" name="private" value="0">';
-print '<input type="hidden" name="status" value="'.$soc->status.'">';
-print '<input type="hidden" name="client" value="'.$soc->client.'">';
+print '<input type="hidden" name="status" value="'.$object->status.'">';
+print '<input type="hidden" name="client" value="'.$object->client.'">';
 if ($modCodeClient->code_auto || $modCodeFournisseur->code_auto) print '<input type="hidden" name="code_auto" value="1">';
 
 print '<table class="border" width="100%">';
 
 // Name
-print '<tr><td><span class="fieldrequired">'.$langs->trans('PatientName').'</span></td><td><input type="text" size="40" maxlength="60" name="nom" value="'.$soc->nom.'"></td>';
+print '<tr><td><span class="fieldrequired">'.$langs->trans('PatientName').'</span></td><td><input type="text" size="40" maxlength="60" name="nom" value="'.$object->nom.'"></td>';
 
 // Prospect/Customer
 print '<td width="25%">'.$langs->trans('PatientCode').'</td><td>';
 
 print '<table class="nobordernopadding"><tr><td>';
-if ((!$soc->code_client || $soc->code_client == -1) && $modCodeClient->code_auto)
+if ((!$object->code_client || $object->code_client == -1) && $modCodeClient->code_auto)
 {
-    $tmpcode=$soc->code_client;
-    if (empty($tmpcode) && $modCodeClient->code_auto) $tmpcode=$modCodeClient->getNextValue($soc,0);
+    $tmpcode=$object->code_client;
+    if (empty($tmpcode) && $modCodeClient->code_auto) $tmpcode=$modCodeClient->getNextValue($object,0);
     print '<input type="text" name="code_client" size="16" value="'.$tmpcode.'" maxlength="15">';
 }
-else if ($soc->codeclient_modifiable())
+else if ($object->codeclient_modifiable())
 {
-    print '<input type="text" name="code_client" size="16" value="'.$soc->code_client.'" maxlength="15">';
+    print '<input type="text" name="code_client" size="16" value="'.$object->code_client.'" maxlength="15">';
 }
 else
 {
-    print $soc->code_client;
-    print '<input type="hidden" name="code_client" value="'.$soc->code_client.'">';
+    print $object->code_client;
+    print '<input type="hidden" name="code_client" value="'.$object->code_client.'">';
 }
 print '</td><td>';
-$s=$modCodeClient->getToolTip($langs,$soc,0);
+$s=$modCodeClient->getToolTip($langs,$object,0);
 print $form->textwithpicto('',$s,1);
 print '</td></tr></table>';
 
@@ -157,25 +157,25 @@ print '</td></tr>';
 // Barcode
 if ($conf->global->MAIN_MODULE_BARCODE)
 {
-    print '<tr><td valign="top">'.$langs->trans('Gencod').'</td><td colspan="3"><input type="text" name="barcode" value="'.$soc->barcode.'">';
+    print '<tr><td valign="top">'.$langs->trans('Gencod').'</td><td colspan="3"><input type="text" name="barcode" value="'.$object->barcode.'">';
     print '</td></tr>';
 }
 
 // Address
 print '<tr><td valign="top">'.$langs->trans('Address').'</td><td colspan="3"><textarea name="address" cols="40" rows="3" wrap="soft">';
-print $soc->address;
+print $object->address;
 print '</textarea></td></tr>';
 
 // Zip / Town
 print '<tr><td>'.$langs->trans('Zip').'</td><td>';
-print $formcompany->select_ziptown($soc->zip,'zipcode',array('town','selectcountry_id','departement_id'),6);
+print $formcompany->select_ziptown($object->zip,'zipcode',array('town','selectcountry_id','departement_id'),6);
 print '</td><td>'.$langs->trans('Town').'</td><td>';
-print $formcompany->select_ziptown($soc->town,'town',array('zipcode','selectcountry_id','departement_id'));
+print $formcompany->select_ziptown($object->town,'town',array('zipcode','selectcountry_id','departement_id'));
 print '</td></tr>';
 
 // Country
 print '<tr><td>'.$langs->trans('Country').'</td><td colspan="3">';
-print $form->select_country($soc->country_id,'country_id');
+print $form->select_country($object->country_id,'country_id');
 if ($user->admin) print info_admin($langs->trans("YouCanChangeValuesForThisListFromDictionnarySetup"),1);
 print '</td></tr>';
 
@@ -183,94 +183,81 @@ print '</td></tr>';
 if (empty($conf->global->SOCIETE_DISABLE_STATE))
 {
     print '<tr><td>'.$langs->trans('State').'</td><td colspan="3">';
-    $formcompany->select_departement($soc->state_id,$soc->country_code);
+    $formcompany->select_departement($object->state_id,$object->country_code);
     print '</td></tr>';
 }
 
 // Phone / Fax
-print '<tr><td>'.$langs->trans('PhonePerso').'</td><td><input type="text" name="phone" value="'.$soc->phone.'"></td>';
-print '<td>'.$langs->trans('PhoneMobile').'</td><td><input type="text" name="fax" value="'.$soc->fax.'"></td></tr>';
+print '<tr><td>'.$langs->trans('PhonePerso').'</td><td><input type="text" name="phone" value="'.$object->phone.'"></td>';
+print '<td>'.$langs->trans('PhoneMobile').'</td><td><input type="text" name="fax" value="'.$object->fax.'"></td></tr>';
 
 // EMail / Web
-print '<tr><td>'.$langs->trans('EMail').($conf->global->SOCIETE_MAIL_REQUIRED?'*':'').'</td><td colspan="3"><input type="text" name="email" size="32" value="'.$soc->email.'"></td>';
+print '<tr><td>'.$langs->trans('EMail').($conf->global->SOCIETE_MAIL_REQUIRED?'*':'').'</td><td colspan="3"><input type="text" name="email" size="32" value="'.$object->email.'"></td>';
 print '</tr>';
 
 print '<tr>';
 // Size
 $idprof=$langs->trans('Size');
 print '<td>'.$idprof.'</td><td>';
-print '<input type="text" name="idprof1" size="6" maxlength="6" value="'.$soc->idprof1.'">';
+print '<input type="text" name="idprof1" size="6" maxlength="6" value="'.$object->idprof1.'">';
 print '</td>';
 // Weight
 $idprof=$langs->trans('Weight');
 print '<td>'.$idprof.'</td><td>';
-print '<input type="text" name="idprof2" size="6" maxlength="6" value="'.$soc->idprof2.'">';
+print '<input type="text" name="idprof2" size="6" maxlength="6" value="'.$object->idprof2.'">';
 print '</td>';
 print '</tr>';
 print '<tr>';
 // Date ot birth
 $idprof=$langs->trans('DateToBirth');
 print '<td>'.$idprof.'</td><td colspan="3">';
-print '<input type="text" name="idprof3" size="18" maxlength="32" value="'.$soc->idprof3.'"> ('.$conf->format_date_short_java.')';
+print '<input type="text" name="idprof3" size="18" maxlength="32" value="'.$object->idprof3.'"> ('.$conf->format_date_short_java.')';
 print '</td>';
-print '</tr>';
-
-// Sexe
-print '<tr><td>'.$langs->trans("Gender").'</td><td colspan="3">';
-print $form->selectarray("typent_id",$formcompany->typent_array(0, "AND code in ('TE_UNKNOWN', 'TE_HOMME', 'TE_FEMME')"), $soc->typent_id);
-if ($user->admin) print info_admin($langs->trans("YouCanChangeValuesForThisListFromDictionnarySetup"),1);
-print '</td>';
-print '</tr>';
-
-print '<tr><td>'.$langs->trans('ActivityBranch').'</td><td>';
-$formcompany->select_forme_juridique($soc->forme_juridique_code, $soc->country_code, "AND f.code > '100000'");
-print '</td>';
-// IdProf4 (NU for France)
-$idprof=$langs->trans('Profession');
-print '<td>'.$idprof.'</td>';
-print '<td><input type="text" name="idprof4" size="32" value="'.$soc->idprof4.'"></td>';
 print '</tr>';
 
 // Num secu
 print '<tr>';
 print '<td class="nowrap">'.$langs->trans('PatientVATIntra').'</td>';
 print '<td class="nowrap" colspan="3">';
-$s ='<input type="text" class="flat" name="tva_intra" size="12" maxlength="20" value="'.$soc->tva_intra.'">';
-
-if (empty($conf->global->MAIN_DISABLEVATCHECK))
-{
-    $s.=' &nbsp; ';
-
-    if ($conf->use_javascript_ajax)
-    {
-        print "\n";
-        print '<script language="JavaScript" type="text/javascript">';
-        print "function CheckVAT(a) {\n";
-        print "newpopup('".DOL_URL_ROOT."/societe/checkvat/checkVatPopup.php?vatNumber='+a,'".dol_escape_js($langs->trans("VATIntraCheckableOnEUSite"))."',500,285);\n";
-        print "}\n";
-        print '</script>';
-        print "\n";
-        $s.='<a href="#" onclick="javascript: CheckVAT(document.formsoc.tva_intra.value);">'.$langs->trans("VATIntraCheck").'</a>';
-        $s = $form->textwithpicto($s,$langs->trans("VATIntraCheckDesc",$langs->trans("VATIntraCheck")),1);
-    }
-    else
-    {
-        $s.='<a href="'.$langs->transcountry("VATIntraCheckURL",$soc->id_pays).'" target="_blank">'.img_picto($langs->trans("VATIntraCheckableOnEUSite"),'help').'</a>';
-    }
-}
-
+$s ='<input type="text" class="flat" name="tva_intra" size="18" maxlength="20" value="'.$object->tva_intra.'">';
 print $s;
+print '</td></tr>';
 
+// Sexe
+print '<tr><td>'.$langs->trans("Gender").'</td><td colspan="3">';
+print $form->selectarray("typent_id",$formcompany->typent_array(0, "AND code in ('TE_UNKNOWN', 'TE_HOMME', 'TE_FEMME')"), $object->typent_id);
+if ($user->admin) print info_admin($langs->trans("YouCanChangeValuesForThisListFromDictionnarySetup"),1);
 print '</td>';
 print '</tr>';
 
-if ($conf->global->MAIN_MULTILANGS)
+print '<tr><td>'.$langs->trans('ActivityBranch').'</td><td>';
+$formcompany->select_forme_juridique($object->forme_juridique_code, $object->country_code, "AND f.code > '100000'");
+print '</td>';
+// IdProf4 (NU for France)
+$idprof=$langs->trans('Profession');
+print '<td>'.$idprof.'</td>';
+print '<td><input type="text" name="idprof4" size="32" value="'.$object->idprof4.'"></td>';
+print '</tr>';
+
+// Default language
+if (! empty($conf->global->MAIN_MULTILANGS))
 {
-    print '<tr><td>'.$langs->trans("DefaultLang").'</td><td colspan="3">'."\n";
-    print $formadmin->select_language($soc->default_lang,'default_lang',0,0,1);
-    print '</td>';
-    print '</tr>';
+	print '<tr><td>'.$langs->trans("DefaultLang").'</td><td colspan="3">'."\n";
+	print $formadmin->select_language($object->default_lang,'default_lang',0,0,1);
+	print '</td>';
+	print '</tr>';
 }
+
+// Other attributes
+$parameters=array('colspan' => ' colspan="3"', 'colspanvalue' => '3');
+$reshook=$hookmanager->executeHooks('formObjectOptions',$parameters,$object,$action);    // Note that $action and $object may have been modified by hook
+if (empty($reshook) && ! empty($extrafields->attribute_label))
+{
+	print $object->showOptionals($extrafields,'edit');
+}
+
+print '</td>';
+print '</tr>';
 
 print '</table>';
 print '<br>';
