@@ -159,7 +159,7 @@ print '<div class="fichecenter"><div class="fichethirdleft">';
 // Show filter box
 print '<form name="stats" method="POST" action="'.$_SERVER["PHP_SELF"].'">';
 print '<table class="border" width="100%">';
-print '<tr><td class="liste_titre" colspan="2">'.$langs->trans("Filter").'</td></tr>';
+print '<tr class="liste_titre"><td class="liste_titre" colspan="2">'.$langs->trans("Filter").'</td></tr>';
 /*print '<tr><td>'.$langs->trans("ThirdParty").'</td><td>';
 if ($mode == 'customer') $filter='s.client in (1,2,3)';
 if ($mode == 'supplier') $filter='s.fournisseur = 1';
