@@ -402,8 +402,8 @@ class CabinetmedCons extends CommonObject
 		$sql.= " montant_espece=".(isset($this->montant_espece)?$this->montant_espece:"null").",";
 		$sql.= " montant_carte=".(isset($this->montant_carte)?$this->montant_carte:"null").",";
 		$sql.= " montant_tiers=".(isset($this->montant_tiers)?$this->montant_tiers:"null").",";
-		$sql.= " banque=".(isset($this->banque)?"'".addslashes($this->banque)."'":"null")."";
-		$sql.= " banque=".((! empty($this->fk_agenda))?"'".addslashes($this->fk_agenda)."'":"null")."";
+		$sql.= " banque=".(isset($this->banque)?"'".addslashes($this->banque)."'":"null").",";
+		$sql.= " fk_agenda=".((! empty($this->fk_agenda))?"'".addslashes($this->fk_agenda)."'":"null")."";
 
 
 		$sql.= " WHERE rowid=".$this->id;
