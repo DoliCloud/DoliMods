@@ -16,7 +16,7 @@
 -- -- VPGSQL8.2 DELETE FROM llx_usergroup_user      WHERE fk_user      NOT IN (SELECT rowid from llx_user);
 -- -- VMYSQL4.1 DELETE FROM llx_usergroup_user      WHERE fk_usergroup NOT IN (SELECT rowid from llx_usergroup);
 
-ALTER TABLE llx_const ADD COLUMN fk_agenda integer;
+ALTER TABLE llx_cabinetmed_cons ADD COLUMN fk_agenda integer;
 
 
 -- + duplicate table llx_societe into llx_cabinetmed_societe
