@@ -641,10 +641,11 @@ if ($socid > 0)
         print '<legend>'.$langs->trans("InfoGenerales");
         print '</legend>'."\n";
 
+        $fk_agenda=empty($fk_agenda)?$consult->fk_agenda:$fk_agenda;
 
+		if ($action=='edit' || $action=='update' || $fk_agenda) print '<table class="notopnoleftnoright" width="100%">';
         if ($action=='edit' || $action=='update')
         {
-	        print '<table class="notopnoleftnoright" width="100%">';
 			print '<tr><td width="160">'.$langs->trans('ConsultationNumero').'</td>';
 			print '<td>'.sprintf("%08d",$consult->id);
             if ($consult->fk_user > 0)
@@ -662,22 +663,22 @@ if ($socid > 0)
 	        }
 			print '</td>';
 			print '</tr>';
-            $fk_agenda=empty($fk_agenda)?$consult->fk_agenda:$fk_agenda;
-	        if ($fk_agenda)
-	        {
-	        	$actioncomm=new ActionComm($db);
-	        	$result=$actioncomm->fetch($fk_agenda);
-	        	if ($result > 0)
-	        	{
-		        	print '<tr style="height: 24px;"><td colspan="2">';
-	        		print $langs->trans("RecordCreatedFromRDV", $actioncomm->getNomUrl(1), dol_print_date($actioncomm->datep,'dayhour')).'<br>';
-	        		print '<input type="hidden" name="fk_agenda" value="'.$actioncomm->id.'">';
-	        		print '</td></tr>';
-	        	}
-	        }
-			print '</table>';
-        	print '<hr style="height:1px; color: #dddddd;">';
         }
+	    if ($fk_agenda)
+        {
+        	$actioncomm=new ActionComm($db);
+        	$result=$actioncomm->fetch($fk_agenda);
+        	if ($result > 0)
+        	{
+	        	print '<tr style="height: 24px;"><td colspan="2">';
+        		print $langs->trans("RecordCreatedFromRDV", $actioncomm->getNomUrl(1), dol_print_date($actioncomm->datep,'dayhour')).'<br>';
+        		print '<input type="hidden" name="fk_agenda" value="'.$actioncomm->id.'">';
+        		print '</td></tr>';
+        	}
+        }
+		if ($action=='edit' || $action=='update' || $fk_agenda) print '</table>';
+
+		if ($action=='edit' || $action=='update' || $fk_agenda) print '<hr style="height:1px; color: #dddddd;">';
 
         print '<div class="fichecenter"><div class="fichehalfleft">';
         print '<table class="notopnoleftnoright" width="100%">';
