@@ -64,6 +64,9 @@ class CabinetmedCons extends CommonObject
 	var $banque;
 	var $num_cheque;
 
+	var $date_c;
+	var $date_m;
+
 	var $fk_agenda;
 
 	var $bank;
@@ -248,6 +251,8 @@ class CabinetmedCons extends CommonObject
 		$sql.= " t.montant_tiers,";
 		$sql.= " t.banque,";
 		$sql.= " t.fk_agenda,";
+		$sql.= " t.date_c,";
+		$sql.= " t.tms as date_m,";
 		$sql.= " b.num_chq";
 		$sql.= " FROM ".MAIN_DB_PREFIX."cabinetmed_cons as t";
 		$sql.= " LEFT JOIN ".MAIN_DB_PREFIX."bank_url as bu ON bu.url_id = t.rowid AND bu.type='consultation'";
@@ -286,6 +291,8 @@ class CabinetmedCons extends CommonObject
 				$this->montant_tiers = $obj->montant_tiers;
 				$this->banque = $obj->banque;
 				$this->fk_agenda = $obj->fk_agenda;
+				$this->date_c = $this->db->jdate($obj->date_c);
+				$this->date_m = $this->db->jdate($obj->date_m);
 				$this->num_cheque = $obj->num_chq;
 			}
 			$this->db->free($resql);
@@ -404,7 +411,8 @@ class CabinetmedCons extends CommonObject
 		$sql.= " montant_tiers=".(isset($this->montant_tiers)?$this->montant_tiers:"null").",";
 		$sql.= " banque=".(isset($this->banque)?"'".addslashes($this->banque)."'":"null").",";
 		$sql.= " fk_agenda=".((! empty($this->fk_agenda))?"'".addslashes($this->fk_agenda)."'":"null")."";
-
+		// date_c must not be edited by an update
+		// tms is modified automatically
 
 		$sql.= " WHERE rowid=".$this->id;
 
@@ -603,8 +611,10 @@ class CabinetmedCons extends CommonObject
 	{
 		$this->id=0;
 
+		$now=dol_now();
+
 		$this->fk_soc='1';
-		$this->datecons=time();
+		$this->datecons=$now;
 		$this->typepriseencharge='CMU';
 		$this->motifconsprinc='AAAPRINC';
 		$this->diaglesprinc='AAAPRINC';
@@ -623,6 +633,8 @@ class CabinetmedCons extends CommonObject
 		$this->montant_tiers='';
 		$this->banque='Crédit agricol';
 		$this->fk_agenda=0;
+		$this->date_c=$now-3600*24;
+		$this->date_m=$now;
 	}
 
 

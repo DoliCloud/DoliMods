@@ -1,5 +1,5 @@
 <?php
-/* Copyright (C) 2004-2012      Laurent Destailleur  <eldy@users.sourceforge.net>
+/* Copyright (C) 2004-2014      Laurent Destailleur  <eldy@users.sourceforge.net>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -31,12 +31,14 @@ if (! $res && preg_match('/\/nltechno([^\/]*)\//',$_SERVER["PHP_SELF"],$reg)) $r
 if (! $res) die("Include of main fails");
 include_once(DOL_DOCUMENT_ROOT."/core/lib/company.lib.php");
 include_once(DOL_DOCUMENT_ROOT."/compta/bank/class/account.class.php");
+include_once(DOL_DOCUMENT_ROOT."/comm/action/class/actioncomm.class.php");
 include_once("./lib/cabinetmed.lib.php");
 include_once("./class/patient.class.php");
 include_once("./class/cabinetmedcons.class.php");
 
-$action = GETPOST("action");
+$action=GETPOST("action");
 $id=GETPOST('id','int');  // Id consultation
+$fk_agenda=GETPOST('fk_agenda','int');	// Id event if consultation is created from an event
 
 $langs->load("companies");
 $langs->load("bills");
@@ -153,6 +155,7 @@ if ($action == 'add' || $action == 'update')
         $consult->typevisit=GETPOST("typevisit");
         $consult->infiltration=trim(GETPOST("infiltration"));
         $consult->codageccam=trim(GETPOST("codageccam"));
+		$consult->fk_agenda=GETPOST("fk_agenda");
 
         //print "X".$_POST["montant_cheque"].'-'.$_POST["montant_espece"].'-'.$_POST["montant_carte"].'-'.$_POST["montant_tiers"]."Z";
         $nbnotempty=0;
@@ -611,27 +614,81 @@ if ($socid > 0)
         print '<input type="hidden" name="id" value="'.$id.'">';
         print '<input type="hidden" name="backtourl" value="'.GETPOST('backtourl').'">';
 
+
+        /*if ($action=='edit' || $action=='update')
+        {
+	        print '<table class="border" width="100%">';
+			print '<tr><td width="25%">'.$langs->trans('ConsultationNumero').'</td>';
+			print '<td>'.sprintf("%08d",$consult->id);
+            if ($consult->fk_user > 0)
+	        {
+	        	$fuser->fetch($consult->fk_user);
+	        	print ' - '.$langs->trans("CreatedBy").': <strong>'.$fuser->getFullName($langs).'</strong>';
+	        }
+	        if ($consult->date_c > 0)
+	        {
+	        	print ' - '.$langs->trans("DateCreation").': <strong>'.dol_print_date($consult->date_c, 'dayhour').'</strong>';
+	        }
+	        if ($consult->date_m > 0)
+	        {
+	        	print ' - '.$langs->trans("DateModificationShort").': <strong>'.dol_print_date($consult->date_m, 'dayhour').'</strong>';
+	        }
+			print '</td>';
+			print '</tr></table><br>';
+        }*/
+
         print '<fieldset id="fieldsetanalyse">';
         print '<legend>'.$langs->trans("InfoGenerales");
-        if ($action=='edit' || $action=='update')
-        {
-            print ' - '.$langs->trans("ConsultationNumero").': <strong>'.sprintf("%08d",$consult->id).'</strong>';
-        }
-        if ($consult->fk_user > 0)
-        {
-        	$fuser->fetch($consult->fk_user);
-        	print ' - '.$langs->trans("CreatedBy").': <strong>'.$fuser->getFullName($langs).'</strong>';
-        }
         print '</legend>'."\n";
 
+
+        if ($action=='edit' || $action=='update')
+        {
+	        print '<table class="notopnoleftnoright" width="100%">';
+			print '<tr><td width="160">'.$langs->trans('ConsultationNumero').'</td>';
+			print '<td>'.sprintf("%08d",$consult->id);
+            if ($consult->fk_user > 0)
+	        {
+	        	$fuser->fetch($consult->fk_user);
+	        	print ' - '.$langs->trans("CreatedBy").': <strong>'.$fuser->getFullName($langs).'</strong>';
+	        }
+	        if ($consult->date_c > 0)
+	        {
+	        	print ' - '.$langs->trans("DateCreation").': <strong>'.dol_print_date($consult->date_c, 'dayhour').'</strong>';
+	        }
+	        if ($consult->date_m > 0)
+	        {
+	        	print ' - '.$langs->trans("DateModificationShort").': <strong>'.dol_print_date($consult->date_m, 'dayhour').'</strong>';
+	        }
+			print '</td>';
+			print '</tr>';
+            $fk_agenda=empty($fk_agenda)?$consult->fk_agenda:$fk_agenda;
+	        if ($fk_agenda)
+	        {
+	        	$actioncomm=new ActionComm($db);
+	        	$result=$actioncomm->fetch($fk_agenda);
+	        	if ($result > 0)
+	        	{
+		        	print '<tr style="height: 24px;"><td colspan="2">';
+	        		print $langs->trans("RecordCreatedFromRDV", $actioncomm->getNomUrl(1), dol_print_date($actioncomm->datep,'dayhour')).'<br>';
+	        		print '<input type="hidden" name="fk_agenda" value="'.$actioncomm->id.'">';
+	        		print '</td></tr>';
+	        	}
+	        }
+			print '</table>';
+        	print '<hr style="height:1px; color: #dddddd;">';
+        }
+
         print '<div class="fichecenter"><div class="fichehalfleft">';
-        //print '<table class="notopnoleftnoright" width="100%">';
-        //print '<tr><td width="60%" class="fieldrequired">';
+        print '<table class="notopnoleftnoright" width="100%">';
 
+        print '<tr><td style="width: 160px" class="fieldrequired">';
         print $langs->trans("Date").': ';
+        print '</td><td align="left">';
         $form->select_date($consult->datecons,'cons');
+        print '</td></tr>';
+        print '</table>';
 
-        //print '</td><td>';
         print '</div><div class="fichehalfright"><div class="ficheaddleft">';
 
         if (! empty($conf->global->CABINETMED_FRENCH_PRISEENCHARGE))

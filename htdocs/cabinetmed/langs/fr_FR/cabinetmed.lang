@@ -156,3 +156,4 @@ MoreModulesLink=<a target="_blank" href="http://www.dolistore.com/search.php?sea
 MoreCloudHosting=Pour une utilisation en ligne de Dolibarr, optez pour l'hébergement sécurisé DoliCloud.
 MoreCloudHostingLink=<a target="_blank" href="http://www.dolicloud.com">Cliquez ici pour plus d'information</a>
 HideThirdPartiesMenu=Cacher le menu Tiers (pas d'autres clients que des patients)
+RecordCreatedFromRDV=Consultation créée suite au rendez-vous %s (%s)
