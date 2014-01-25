@@ -72,6 +72,7 @@ function listmotifcons($nboflines,$newwidth=0,$htmlname='motifcons',$selected=''
     print '<option value="0"></option>';
     $sql = 'SELECT s.rowid, s.code, s.label';
     $sql.= ' FROM '.MAIN_DB_PREFIX.'cabinetmed_motifcons as s';
+    $sql.= ' WHERE active = 1';
     $sql.= ' ORDER BY label';
     $resql=$db->query($sql);
     dol_syslog("consutlations sql=".$sql);
@@ -111,6 +112,7 @@ function listdiagles($nboflines,$newwidth=0,$htmlname='diagles',$selected='')
     $out.= '<option value="0"></option>';
     $sql = 'SELECT s.rowid, s.code, s.label';
     $sql.= ' FROM '.MAIN_DB_PREFIX.'cabinetmed_diaglec as s';
+    $sql.= ' WHERE active = 1';
     $sql.= ' ORDER BY label';
     $resql=$db->query($sql);
     dol_syslog("consutlations sql=".$sql);
@@ -152,7 +154,8 @@ function listexamen($nboflines,$newwidth=0,$type='',$showtype=0,$htmlname='exame
     print '<option value="0"></option>';
     $sql = 'SELECT s.rowid, s.code, s.label, s.biorad as type';
     $sql.= ' FROM '.MAIN_DB_PREFIX.'cabinetmed_examenprescrit as s';
-    if ($type) $sql.=" WHERE s.biorad in ('".$type."')";
+    $sql.= ' WHERE active = 1';
+    if ($type) $sql.=" AND s.biorad in ('".$type."')";
     $sql.= ' ORDER BY label';
     $resql=$db->query($sql);
     dol_syslog("consutlations sql=".$sql);
@@ -190,6 +193,7 @@ function listexamconclusion($nboflines,$newwidth=0,$htmlname='examconc')
     print '<option value="0"></option>';
     $sql = 'SELECT s.rowid, s.code, s.label';
     $sql.= ' FROM '.MAIN_DB_PREFIX.'cabinetmed_c_examconclusion as s';
+    $sql.= ' WHERE active = 1';
     $sql.= ' ORDER BY label';
     $resql=$db->query($sql);
     dol_syslog("consutlations sql=".$sql);
@@ -227,6 +231,7 @@ function listebanques($nboflines,$newwidth=0,$defaultvalue='',$htmlname='banque'
     print '<option value=""></option>';
     $sql = 'SELECT s.rowid, s.code, s.label';
     $sql.= ' FROM '.MAIN_DB_PREFIX.'cabinetmed_c_banques as s';
+    $sql.= ' WHERE active = 1';
     $sql.= ' ORDER BY label';
     $resql=$db->query($sql);
     dol_syslog("consutlations sql=".$sql);
@@ -267,6 +272,7 @@ function listcontacts($nboflines,$newwidth=0,$htmlname='diagles',$selected='')
 	$out.= '<option value="0"></option>';
 	$sql = 'SELECT s.rowid, s.code, s.label';
 	$sql.= ' FROM '.MAIN_DB_PREFIX.'cabinetmed_diaglec as s';
+    $sql.= ' WHERE active = 1';
 	$sql.= ' ORDER BY label';
 	$resql=$db->query($sql);
 	dol_syslog("consutlations sql=".$sql);

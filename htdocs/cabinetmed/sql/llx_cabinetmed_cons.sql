@@ -43,5 +43,6 @@ CREATE TABLE llx_cabinetmed_cons (
   date_c             datetime NOT NULL,
   tms                timestamp,
   fk_user            integer,
-  fk_user_m          integer
+  fk_user_m          integer,
+  fk_agenda			 integer
 ) ENGINE=innodb;
