@@ -66,6 +66,11 @@ function openstreetmapadmin_prepare_head()
 	}
 */
 
+	$head[$h][0] = 'about.php';
+	$head[$h][1] = $langs->trans("About");
+	$head[$h][2] = 'tababout';
+	$h++;
+
     return $head;
 }
 

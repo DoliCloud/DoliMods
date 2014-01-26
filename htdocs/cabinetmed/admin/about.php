@@ -81,7 +81,12 @@ print '<br>';
 print $langs->trans("MoreCloudHosting").'<br>';
 print '&nbsp; &nbsp; &nbsp; '.$langs->trans("MoreCloudHostingLink").'<br>';
 $url='http://www.dolicloud.com';
-print '<a href="'.$url.'" target="_blank"><img border="0" width="180" src="../img/dolicloud_logo.png"></a><br><br>';
+print '<a href="'.$url.'" target="_blank"><img border="0" width="180" src="../img/dolicloud_logo.png"></a><br><br><br>';
+
+print '<br>';
+print $langs->trans("CompatibleWithDoliDroid").'<br>';
+$url='https://play.google.com/store/apps/details?id=com.nltechno.dolidroidpro';
+print '<a href="'.$url.'" target="_blank"><img border="0" width="180" src="../img/dolidroid_512x512_en.png"></a><br><br>';
 
 print '<br>';
 
