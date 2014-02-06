@@ -64,7 +64,13 @@ function getClientLoginHttpClient($user, $pass, $service)
 	}
 	catch(Exception $e)
 	{
-
+       	// DOL_LDR_CHANGE
+       	global $conf;
+       	if (! empty($conf->global->MODULE_GOOGLE_DEBUG))
+        {
+           	file_put_contents(DOL_DATA_ROOT . "/dolibarr_google_client_login.log", $e->getMessage()." user=".$user." pass=".preg_replace('/./','*',$pass)." service=".$service);
+			@chmod(DOL_DATA_ROOT . "/dolibarr_google_client_login.log", octdec(empty($conf->global->MAIN_UMASK)?'0664':$conf->global->MAIN_UMASK));
+        }
 	}
 	return $client;
 }
