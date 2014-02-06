@@ -90,20 +90,46 @@ class ActionsConcatPdf
         	$modelpdf=glob($conf->concatpdf->dir_output."/supplier_invoices/pdf_*.modules.php");
         }
 
+        // Defined $preselected value
+        $preselected=(isset($object->extraparams['concatpdf'][0])?$object->extraparams['concatpdf'][0]:-1);	// string with preselected string
+        if ($preselected == -1 && ! empty($conf->global->CONCATPDF_PRESELECTED_MODELS))
+        {
+        	// $conf->global->CONCATPDF_PRESELECTED_MODELS may contains value of preselected model with format
+        	// propal:model1a,model1b;invoice:model2;...
+        	$tmparray=explode(';',$conf->global->CONCATPDF_PRESELECTED_MODELS);
+        	$tmparray2=array();
+        	foreach($tmparray as $val)
+        	{
+        		$tmp=explode(':',$val);
+        		if (! empty($tmp[1])) $tmparray2[$tmp[0]]=$tmp[1];
+        	}
+        	foreach($tmparray2 as $key => $val)
+        	{
+        		if ($parameters['modulepart'] == $key) $preselected=$val;
+        	}
+        }
+
         if (! empty($staticpdf))
         {
             foreach ($staticpdf as $filename)
             {
-            	$morefiles[] = basename($filename, ".pdf");
+            	$newfilekey=basename($filename, ".pdf");
+            	$newfilelabel=$newfilekey;
+        		if ($preselected && $newfilekey == $preselected) $newfilelabel.=' ('.$langs->trans("Default").')';
+            	$morefiles[$newfilekey] = $newfilelabel;
             }
         }
         if (! empty($modelpdf))
         {
         	foreach ($modelpdf as $filename)
         	{
-        		$morefiles[] = basename($filename, ".php");
+        		$newfilekey=basename($filename, ".php");
+            	$newfilelabel=$newfilekey;
+        		if ($preselected && $newfilekey == $preselected) $newfilelabel.=' ('.$langs->trans("Default").')';
+        		$morefiles[$newfilekey] = $newfilelabel;
         	}
         }
+
         if (empty($morefiles)) print "\n".'<!-- No files found for concat parameter[modulepart]='.$parameters['modulepart'].' -->'."\n";
         else
 		{
@@ -122,13 +148,14 @@ class ActionsConcatPdf
         	}
         	else
         	{
-        		$out.= $form->selectarray('concatpdffile',$morefiles,(isset($object->extraparams['concatpdf'][0])?$object->extraparams['concatpdf'][0]:-1),1,0,1);
+        		$out.= '<!-- preselected value is '.$preselected.' -->';
+        		$out.= $form->selectarray('concatpdffile',$morefiles,$preselected,1,0,0);
         	}
         	$out.='</td></tr>';
         }
 
         $this->resprints = $out;
-        
+
         return 0;
     }
 

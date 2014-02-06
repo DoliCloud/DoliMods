@@ -91,7 +91,7 @@ if (GETPOST("button_removefilter_x"))
 
 $sql = "SELECT s.rowid, s.nom as name, s.client, s.town, st.libelle as stcomm, s.prefix_comm, s.code_client,";
 $sql.= " s.datec, s.datea, s.canvas,";
-$sql.= " s.idprof4, MAX(c.datecons) as lastcons, COUNT(c.rowid) as nb";
+$sql.= " s.ape as idprof3, s.idprof4, MAX(c.datecons) as lastcons, COUNT(c.rowid) as nb";
 // We'll need these fields in order to filter by sale (including the case where the user can only see his prospects)
 if ($search_sale) $sql .= ", sc.fk_soc, sc.fk_user";
 // We'll need these fields in order to filter by categ
@@ -135,7 +135,7 @@ if ($socname)
 	$sortfield = "s.nom";
 	$sortorder = "ASC";
 }
-$sql.= " GROUP BY s.rowid, s.nom, s.client, s.town, st.libelle, s.prefix_comm, s.code_client, s.datec, s.datea, s.canvas, s.idprof4";
+$sql.= " GROUP BY s.rowid, s.nom, s.client, s.town, st.libelle, s.prefix_comm, s.code_client, s.datec, s.datea, s.canvas, s.ape, s.idprof4";
 if ($search_sale) $sql .= ", sc.fk_soc, sc.fk_user";
 if ($search_categ) $sql .= ", cs.fk_categorie, cs.fk_societe";
 
@@ -198,7 +198,8 @@ if ($result)
 	print '<tr class="liste_titre">';
 	print_liste_field_titre($langs->trans("Patient"),$_SERVER["PHP_SELF"],"s.nom","",$param,"",$sortfield,$sortorder);
     print_liste_field_titre($langs->trans("CustomerCode"),$_SERVER["PHP_SELF"],"s.code_client","",$param,"",$sortfield,$sortorder);
-	print_liste_field_titre($langs->trans("Town"),$_SERVER["PHP_SELF"],"s.town","",$param,"",$sortfield,$sortorder);
+	print_liste_field_titre($langs->trans("DateToBirth"),$_SERVER["PHP_SELF"],"s.idprof3","",$param,"",$sortfield,$sortorder);
+    print_liste_field_titre($langs->trans("Town"),$_SERVER["PHP_SELF"],"s.town","",$param,"",$sortfield,$sortorder);
     print_liste_field_titre($langs->trans("Profession"),$_SERVER["PHP_SELF"],"s.idprof4","",$param,"",$sortfield,$sortorder);
     print_liste_field_titre($langs->trans("NbConsult"),$_SERVER["PHP_SELF"],"nb","",$param,'align="right"',$sortfield,$sortorder);
     print_liste_field_titre($langs->trans("LastConsultShort"),$_SERVER["PHP_SELF"],"lastcons","",$param,'align="center"',$sortfield,$sortorder);
@@ -210,12 +211,15 @@ if ($result)
 	print '<input type="text" class="flat" size="8" name="search_nom" value="'.$search_nom.'">';
 	print '</td>';
     print '<td class="liste_titre">';
-    print '<input type="text" class="flat" size="8" name="search_code" value="'.$search_code.'">';
+    print '<input type="text" class="flat" size="6" name="search_code" value="'.$search_code.'">';
     print '</td>';
-	print '<td class="liste_titre">';
-	print '<input type="text" class="flat" size="8" name="search_ville" value="'.$search_ville.'">';
-	print '</td>';
     print '<td class="liste_titre">';
+    print '&nbsp;';
+    print '</td>';
+    print '<td class="liste_titre">';
+	print '<input type="text" class="flat" size="6" name="search_ville" value="'.$search_ville.'">';
+	print '</td>';
+	print '<td class="liste_titre">';
     print '&nbsp;';
     print '</td>';
     print '<td class="liste_titre">';
@@ -247,6 +251,12 @@ if ($result)
         print $thirdpartystatic->getNomUrl(1);
 		print '</td>';
         print '<td>'.$obj->code_client.'</td>';
+        print '<td>';
+	    $birthdatearray=dol_cm_strptime($obj->idprof3,$conf->format_date_short);
+	    $birthdate=dol_mktime(0,0,0,$birthdatearray['tm_mon']+1,($birthdatearray['tm_mday']),($birthdatearray['tm_year']+1900),true);
+	    //var_dump($birthdatearray);
+	    print dol_print_date($birthdate, 'day');
+        print '</td>';
 		print '<td>'.$obj->town.'</td>';
         print '<td>'.$obj->idprof4.'</td>';
         print '<td align="right">'.$obj->nb.'</td>';

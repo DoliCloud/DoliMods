@@ -231,6 +231,55 @@ class ActionsCabinetmed
         return 0;
     }
 
+    /**
+     * Complete card for events
+     *
+     * @param	array	$parameters		Array of parameters
+     * @param   mixed	&$object      	Object
+     * @param   string	&$action      	'add', 'update', 'view'
+     * @param   string	&$hookmanager  	'add', 'update', 'view'
+     * @return	string					HTML content to add by hook
+     */
+    function formObjectOptions($parameters, &$object, &$action, &$hookmanager)
+    {
+        global $langs, $user, $conf;
+
+        require_once(DOL_DOCUMENT_ROOT ."/core/lib/admin.lib.php");
+
+        $vercomp=versioncompare(versiondolibarrarray(), array(3,5,0));
+		if ($vercomp > -3 && $vercomp < 0)
+		{
+	        if (! empty($object->societe->id) && $object->societe->id > 0 && ! empty($object->societe->canvas) && $object->societe->canvas == 'patient@cabinetmed')
+	        {
+	    		print '<a href="'.dol_buildpath('/cabinetmed/consultations.php?socid='.$object->societe->id.'&action=create&fk_agenda='.$object->id, 1).'">';
+	    		print $langs->trans("NewConsult");
+	    		print '</a><br><br>';
+	        }
+		}
+    }
+
+
+    /**
+     * Complete card for events
+     *
+     * @param	array	$parameters		Array of parameters
+     * @param   mixed	&$object      	Object
+     * @param   string	&$action      	'add', 'update', 'view'
+     * @param   string	&$hookmanager  	'add', 'update', 'view'
+     * @return	string					HTML content to add by hook
+     */
+    function addMoreActionsButtons($parameters, &$object, &$action, &$hookmanager)
+    {
+        global $langs, $user, $conf;
+
+        if (! empty($object->societe->id) && $object->societe->id > 0 && ! empty($object->societe->canvas) && $object->societe->canvas == 'patient@cabinetmed')
+        {
+    		print '<div class="inline-block divButAction"><a class="butAction" href="'.dol_buildpath('/cabinetmed/consultations.php?socid='.$object->societe->id.'&action=create&fk_agenda='.$object->id, 1).'">';
+    		print $langs->trans("NewConsult");
+    		print '</a></div>';
+        }
+    }
+
 
     /**
      * Complete doc forms
