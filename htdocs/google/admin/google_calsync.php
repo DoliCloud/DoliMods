@@ -101,21 +101,27 @@ if (preg_match('/^test/',$action))
 	}
 
     $result=$object->add($user);
-
-    $object->label='New label';
-    $object->location='New location';
-    $object->note='New note';
-    $object->datep+=3600;
-    $object->datef+=3600;
-
-    $result=$object->update($user);
-
-    if ($action == 'testall')
+	if ($result < 0) $error++;
+    
+    if (! $error)
+    {
+	    $object->label='New label';
+	    $object->location='New location';
+	    $object->note='New note';
+	    $object->datep+=3600;
+	    $object->datef+=3600;
+	
+	    $result=$object->update($user);
+		if ($result < 0) $error++;
+    }
+    
+    if ($action == 'testall' && ! $error)
     {
 	    $result=$object->delete();
+		if ($result < 0) $error++;
     }
 
-    if ($result > 0)
+    if (! $error)
     {
         $mesg=$langs->trans("TestSuccessfull");
     }
