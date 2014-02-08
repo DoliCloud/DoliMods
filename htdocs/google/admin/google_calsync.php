@@ -95,8 +95,9 @@ if (preg_match('/^test/',$action))
 	if ($tmpcontact->socid > 0)
 	{
 		$tmpsoc=new Societe($db);
-    	$tmpsoc->fetch($tmpcontact->socid);
+    	$tmpsoc->fetch($tmpcontact->socid);	// Overwrite with value of an existing record
     	$object->societe=$tmpsoc;
+    	$object->thirdparty=$tmpsoc;
 	}
 
     $result=$object->add($user);

@@ -101,7 +101,9 @@ class InterfaceGoogleCalendarSynchro
 	 *      @param  Conf		$conf       Objet conf
 	 *      @return int         			<0 if KO, 0 if nothing is done, >0 if OK
 	 */
-	function run_trigger($action, $object, $user, $langs, $conf) {
+	function run_trigger($action, $object, $user, $langs, $conf)
+	{
+		global $dolibarr_main_url_root;
 
 		// Création / Mise à jour / Suppression d'un évènement dans Google Calendar
 
@@ -165,19 +167,35 @@ class InterfaceGoogleCalendarSynchro
 				// Event label can now include company and / or contact info, see configuration
 				$eventlabel = trim($object->label);
 
+				// Define $urlwithroot
+				$urlwithouturlroot=preg_replace('/'.preg_quote(DOL_URL_ROOT,'/').'$/i','',trim($dolibarr_main_url_root));
+				$urlwithroot=$urlwithouturlroot.DOL_URL_ROOT;		// This is to use external domain name found into config file
+				//$urlwithroot=DOL_MAIN_URL_ROOT;					// This is to use same domain name than current
+
+
 				if (! empty($object->societe->id) && $object->societe->id > 0 && empty($conf->global->GOOGLE_DISABLE_EVENT_LABEL_INC_SOCIETE)) {
 					$societe = new Societe($this->db);
 					$societe->fetch($object->societe->id);
 					$eventlabel .= ' - '.$societe->name;
 					$tmpadd=$societe->getFullAddress(0);
-					if ($tmpadd && ! empty($conf->global->GOOGLE_ADD_ADDRESS_INTO_DESC)) $object->note.="\n\n".$societe->getFullAddress(1);
+					if ($tmpadd && empty($conf->global->GOOGLE_DISABLE_ADD_ADDRESS_INTO_DESC)) $object->note.="\n\n".$societe->getFullAddress(1);
+					if (! empty($societe->phone)) $object->note.="\n".$langs->trans("Phone").': '.$societe->phone;
+
+					$urltoelem=$urlwithroot.'/societe/soc.ph?socid='.$societe->id;
+					$object->note.="\n".$langs->trans("LinkToThirdParty").': '.$urltoelem;
 				}
 				if (! empty($object->contact->id) && $object->contact->id > 0 && empty($conf->global->GOOGLE_DISABLE_EVENT_LABEL_INC_CONTACT)) {
 					$contact = new Contact($this->db);
 					$contact->fetch($object->contact->id);
 					$eventlabel .= ' - '.$contact->getFullName($langs, 1);
 					$tmpadd=$contact->getFullAddress(0);
-					if ($tmpadd && ! empty($conf->global->GOOGLE_ADD_ADDRESS_INTO_DESC)) $object->note.="\n\n".$contact->getFullAddress(1);
+					if ($tmpadd && empty($conf->global->GOOGLE_DISABLE_ADD_ADDRESS_INTO_DESC)) $object->note.="\n\n".$contact->getFullAddress(1);
+					if (! empty($contact->phone)) $object->note.="\n".$langs->trans("Phone").': '.$contact->phone;
+					if (! empty($contact->phone_perso)) $object->note.="\n".$langs->trans("PhonePerso").': '.$contact->phone_perso;
+					if (! empty($contact->phone_mobile)) $object->note.="\n".$langs->trans("PhoneMobile").': '.$contact->phone_mobile;
+
+					$urltoelem=$urlwithroot.'/contact/fiche.ph?id='.$contact->id;
+					$object->note.="\n".$langs->trans("LinkToContact").': '.$urltoelem;
 				}
 
 				$object->label = $eventlabel;
