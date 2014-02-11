@@ -1,8 +1,8 @@
--- Copyright (C) 2009-2012 Regis Houssin  <regis@dolibarr.fr>
+-- Copyright (C) 2009-2013 Regis Houssin  <regis.houssin@capnetworks.com>
 --
 -- This program is free software; you can redistribute it and/or modify
 -- it under the terms of the GNU General Public License as published by
--- the Free Software Foundation; either version 2 of the License, or
+-- the Free Software Foundation; either version 3 of the License, or
 -- (at your option) any later version.
 --
 -- This program is distributed in the hope that it will be useful,
@@ -29,10 +29,10 @@ insert into llx_const (name, value, type, note, visible, entity) values ('MAIN_M
 -- IHM
 --
 
-insert into llx_const (name, value, type, note, visible, entity) values ('MAIN_MENU_STANDARD','eldy_backoffice.php','chaine','Module de gestion de la barre de menu du haut pour utilisateurs internes',0,__ENTITY__);
-insert into llx_const (name, value, type, note, visible, entity) values ('MAIN_MENUFRONT_STANDARD','eldy_frontoffice.php','chaine','Module de gestion de la barre de menu du haut pour utilisateurs externes',0,__ENTITY__);
-insert into llx_const (name, value, type, note, visible, entity) values ('MAIN_MENU_SMARTPHONE','iphone_backoffice.php','chaine','Module de gestion de la barre de menu smartphone pour utilisateurs internes',0,__ENTITY__);
-insert into llx_const (name, value, type, note, visible, entity) values ('MAIN_MENUFRONT_SMARTPHONE','iphone_frontoffice.php','chaine','Module de gestion de la barre de menu smartphone pour utilisateurs externes',0,__ENTITY__);
+insert into llx_const (name, value, type, note, visible, entity) values ('MAIN_MENU_STANDARD','eldy_menu.php','chaine','Module de gestion de la barre de menu du haut pour utilisateurs internes',0,__ENTITY__);
+insert into llx_const (name, value, type, note, visible, entity) values ('MAIN_MENUFRONT_STANDARD','eldy_menu.php','chaine','Module de gestion de la barre de menu du haut pour utilisateurs externes',0,__ENTITY__);
+insert into llx_const (name, value, type, note, visible, entity) values ('MAIN_MENU_SMARTPHONE','eldy_menu.php','chaine','Module de gestion de la barre de menu smartphone pour utilisateurs internes',0,__ENTITY__);
+insert into llx_const (name, value, type, note, visible, entity) values ('MAIN_MENUFRONT_SMARTPHONE','eldy_menu.php','chaine','Module de gestion de la barre de menu smartphone pour utilisateurs externes',0,__ENTITY__);
 
 insert into llx_const (name, value, type, note, visible, entity) values ('MAIN_THEME','eldy','chaine','Default theme',0,__ENTITY__);
 

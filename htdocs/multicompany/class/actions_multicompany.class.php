@@ -1,10 +1,10 @@
 <?php
-/* Copyright (C) 2009-2012 Regis Houssin <regis@dolibarr.fr>
+/* Copyright (C) 2009-2013 Regis Houssin <regis.houssin@capnetworks.com>
  * Copyright (C) 2011      Herve Prot    <herve.prot@symeos.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -23,7 +23,7 @@
  *	\brief      File Class multicompany
  */
 
-require("dao_multicompany.class.php");
+require 'dao_multicompany.class.php';
 
 /**
  *	\class      ActionsMulticompany
@@ -104,13 +104,13 @@ class ActionsMulticompany
 			if (empty($label))
 			{
 				$error++;
-				array_push($this->errors, $langs->trans("ErrorFieldRequired",$langs->transnoentities("Label") ) );
+				setEventMessage($langs->trans("ErrorFieldRequired",$langs->transnoentities("Label")), 'errors');
 				$action = 'create';
 			}
 			else if (empty($name))
 			{
 				$error++;
-				array_push($this->errors, $langs->trans("ErrorFieldRequired",$langs->transnoentities("CompanyName") ) );
+				setEventMessage($langs->trans("ErrorFieldRequired",$langs->transnoentities("CompanyName")), 'errors');
 				$action = 'create';
 			}
 
@@ -126,7 +126,7 @@ class ActionsMulticompany
 					}
 					if ($error)
 					{
-						array_push($this->errors, $langs->trans("ErrorEntityLabelAlreadyExist") );
+						setEventMessage($langs->trans("ErrorEntityLabelAlreadyExist"), 'errors');
 						$action = 'create';
 					}
 				}
@@ -141,14 +141,18 @@ class ActionsMulticompany
 
         		$this->dao->options['referent']				= (GETPOST('referring_entity') ? GETPOST('referring_entity') : null);
         		$this->dao->options['sharings']['product']	= (GETPOST('product') ? GETPOST('product') : null);
+        		$this->dao->options['sharings']['productprice']	= (GETPOST('productprice') ? GETPOST('productprice') : null);
         		$this->dao->options['sharings']['societe']	= (GETPOST('societe') ? GETPOST('societe') : null);
         		$this->dao->options['sharings']['category']	= (GETPOST('category') ? GETPOST('category') : null);
+				$this->dao->options['sharings']['agenda']	= (GETPOST('agenda') ? GETPOST('agenda') : null);
+				$this->dao->options['sharings']['bank_account']	= (GETPOST('bank_account') ? GETPOST('bank_account') : null);
 
         		$id = $this->dao->create($user);
         		if ($id <= 0)
         		{
         			$error++;
         			$errors=($this->dao->error ? array($this->dao->error) : $this->dao->errors);
+        			setEventMessage($errors, 'errors');
         			$action = 'create';
         		}
 
@@ -158,12 +162,12 @@ class ActionsMulticompany
         			$country_code=getCountry($country_id,2);
         			$country_label=getCountry($country_id,0);
 
-        			dolibarr_set_const($this->db, "MAIN_INFO_SOCIETE_PAYS", $country_id.':'.$country_code.':'.$country_label,'chaine',0,'',$id);
+        			dolibarr_set_const($this->db, "MAIN_INFO_SOCIETE_COUNTRY", $country_id.':'.$country_code.':'.$country_label,'chaine',0,'',$id);
         			dolibarr_set_const($this->db, "MAIN_INFO_SOCIETE_NOM",$name,'chaine',0,'',$id);
-        			dolibarr_set_const($this->db, "MAIN_INFO_SOCIETE_ADRESSE",GETPOST("address"),'chaine',0,'',$id);
-        			dolibarr_set_const($this->db, "MAIN_INFO_SOCIETE_VILLE",GETPOST("town"),'chaine',0,'',$id);
-        			dolibarr_set_const($this->db, "MAIN_INFO_SOCIETE_CP",GETPOST("zipcode"),'chaine',0,'',$id);
-        			dolibarr_set_const($this->db, "MAIN_INFO_SOCIETE_DEPARTEMENT",GETPOST("departement_id"),'chaine',0,'',$id);
+        			dolibarr_set_const($this->db, "MAIN_INFO_SOCIETE_ADDRESS",GETPOST("address"),'chaine',0,'',$id);
+        			dolibarr_set_const($this->db, "MAIN_INFO_SOCIETE_TOWN",GETPOST("town"),'chaine',0,'',$id);
+        			dolibarr_set_const($this->db, "MAIN_INFO_SOCIETE_ZIP",GETPOST("zipcode"),'chaine',0,'',$id);
+        			dolibarr_set_const($this->db, "MAIN_INFO_SOCIETE_STATE",GETPOST("departement_id"),'chaine',0,'',$id);
         			dolibarr_set_const($this->db, "MAIN_MONNAIE",GETPOST("currency"),'chaine',0,'',$id);
         			dolibarr_set_const($this->db, "MAIN_LANG_DEFAULT",GETPOST("main_lang_default"),'chaine',0,'',$id);
 
@@ -197,7 +201,7 @@ class ActionsMulticompany
 			if ($this->dao->fetch($id) < 0)
 			{
 				$error++;
-				array_push($this->errors, $langs->trans("ErrorEntityIsNotValid"));
+				setEventMessage($langs->trans("ErrorEntityIsNotValid"), 'errors');
 				$action = '';
 			}
 		}
@@ -210,19 +214,19 @@ class ActionsMulticompany
 			if ($ret < 0)
 			{
 				$error++;
-				array_push($this->errors, $langs->trans("ErrorEntityIsNotValid"));
+				setEventMessage($langs->trans("ErrorEntityIsNotValid"), 'errors');
 				$action = '';
 			}
 			else if (empty($label))
 			{
 				$error++;
-				array_push($this->errors, $langs->trans("ErrorFieldRequired",$langs->transnoentities("Label") ) );
+				setEventMessage($langs->trans("ErrorFieldRequired",$langs->transnoentities("Label")), 'errors');
 				$action = 'edit';
 			}
 			else if (empty($name))
 			{
 				$error++;
-				array_push($this->errors, $langs->trans("ErrorFieldRequired",$langs->transnoentities("CompanyName") ) );
+				setEventMessage($langs->trans("ErrorFieldRequired",$langs->transnoentities("CompanyName")), 'errors');
 				$action = 'edit';
 			}
 
@@ -239,7 +243,7 @@ class ActionsMulticompany
 					}
 					if ($error)
 					{
-						array_push($this->errors, $langs->trans("ErrorEntityLabelAlreadyExist") );
+						setEventMessage($langs->trans("ErrorEntityLabelAlreadyExist"), 'errors');
 						$action = 'edit';
 					}
 				}
@@ -254,14 +258,18 @@ class ActionsMulticompany
 
         		$this->dao->options['referent']				= (GETPOST('referring_entity') ? GETPOST('referring_entity') : null);
         		$this->dao->options['sharings']['product']	= (GETPOST('product') ? GETPOST('product') : null);
+        		$this->dao->options['sharings']['productprice']	= (GETPOST('productprice') ? GETPOST('productprice') : null);
         		$this->dao->options['sharings']['societe']	= (GETPOST('societe') ? GETPOST('societe') : null);
         		$this->dao->options['sharings']['category']	= (GETPOST('category') ? GETPOST('category') : null);
+				$this->dao->options['sharings']['agenda']	= (GETPOST('agenda') ? GETPOST('agenda') : null);
+				$this->dao->options['sharings']['bank_account']	= (GETPOST('bank_account') ? GETPOST('bank_account') : null);
 
         		$ret = $this->dao->update($id,$user);
         		if ($ret <= 0)
         		{
         			$error++;
         			$errors=($this->dao->error ? array($this->dao->error) : $this->dao->errors);
+        			setEventMessage($errors, 'errors');
         			$action = 'edit';
         		}
 
@@ -271,12 +279,12 @@ class ActionsMulticompany
         			$country_code=getCountry($country_id,2);
         			$country_label=getCountry($country_id,0);
 
-        			dolibarr_set_const($this->db, "MAIN_INFO_SOCIETE_PAYS", $country_id.':'.$country_code.':'.$country_label,'chaine',0,'',$this->dao->id);
+        			dolibarr_set_const($this->db, "MAIN_INFO_SOCIETE_COUNTRY", $country_id.':'.$country_code.':'.$country_label,'chaine',0,'',$this->dao->id);
         			dolibarr_set_const($this->db, "MAIN_INFO_SOCIETE_NOM",$name,'chaine',0,'',$this->dao->id);
-        			dolibarr_set_const($this->db, "MAIN_INFO_SOCIETE_ADRESSE",GETPOST("address"),'chaine',0,'',$this->dao->id);
-        			dolibarr_set_const($this->db, "MAIN_INFO_SOCIETE_VILLE",GETPOST("town"),'chaine',0,'',$this->dao->id);
-        			dolibarr_set_const($this->db, "MAIN_INFO_SOCIETE_CP",GETPOST("zipcode"),'chaine',0,'',$this->dao->id);
-        			dolibarr_set_const($this->db, "MAIN_INFO_SOCIETE_DEPARTEMENT",GETPOST("departement_id"),'chaine',0,'',$this->dao->id);
+        			dolibarr_set_const($this->db, "MAIN_INFO_SOCIETE_ADDRESS",GETPOST("address"),'chaine',0,'',$this->dao->id);
+        			dolibarr_set_const($this->db, "MAIN_INFO_SOCIETE_TOWN",GETPOST("town"),'chaine',0,'',$this->dao->id);
+        			dolibarr_set_const($this->db, "MAIN_INFO_SOCIETE_ZIP",GETPOST("zipcode"),'chaine',0,'',$this->dao->id);
+        			dolibarr_set_const($this->db, "MAIN_INFO_SOCIETE_STATE",GETPOST("departement_id"),'chaine',0,'',$this->dao->id);
         			dolibarr_set_const($this->db, "MAIN_MONNAIE",GETPOST("currency"),'chaine',0,'',$this->dao->id);
         			dolibarr_set_const($this->db, "MAIN_LANG_DEFAULT",GETPOST("main_lang_default"),'chaine',0,'',$this->dao->id);
 
@@ -296,7 +304,7 @@ class ActionsMulticompany
 			if ($id == 1)
 			{
 				$error++;
-				array_push($this->errors, $langs->trans("ErrorNotDeleteMasterEntity") );
+				setEventMessage($langs->trans("ErrorNotDeleteMasterEntity"), 'errors');
 				$action = '';
 			}
 
@@ -306,11 +314,11 @@ class ActionsMulticompany
 				{
 					if ($this->dao->delete($id) > 0)
 					{
-						$this->mesg=$langs->trans('ConfirmedEntityDeleted');
+						setEventMessage($langs->trans('ConfirmedEntityDeleted'));
 					}
 					else
 					{
-						$this->error=$this->dao->error;
+						setEventMessage($this->dao->error, 'errors');
 						$action = '';
 					}
 				}
@@ -533,19 +541,19 @@ class ActionsMulticompany
 			$this->tpl['name'] = (GETPOST('name')?GETPOST('name'):$this->dao->MAIN_INFO_SOCIETE_NOM);
 
 			// Address
-			$this->tpl['address'] = (GETPOST('address')?GETPOST('address'):$this->dao->MAIN_INFO_SOCIETE_ADRESSE);
+			$this->tpl['address'] = (GETPOST('address')?GETPOST('address'):$this->dao->MAIN_INFO_SOCIETE_ADDRESS);
 
 			// Zip
-            $this->tpl['select_zip'] = $formcompany->select_ziptown((GETPOST('zipcode')?GETPOST('zipcode'):$this->dao->MAIN_INFO_SOCIETE_CP),'zipcode',array('town','selectcountry_id','departement_id'),6);
+            $this->tpl['select_zip'] = $formcompany->select_ziptown((GETPOST('zipcode')?GETPOST('zipcode'):$this->dao->MAIN_INFO_SOCIETE_ZIP),'zipcode',array('town','selectcountry_id','departement_id'),6);
 
             // Town
-            $this->tpl['select_town'] = $formcompany->select_ziptown((GETPOST('town')?GETPOST('town'):$this->dao->MAIN_INFO_SOCIETE_VILLE),'town',array('zipcode','selectcountry_id','departement_id'));
+            $this->tpl['select_town'] = $formcompany->select_ziptown((GETPOST('town')?GETPOST('town'):$this->dao->MAIN_INFO_SOCIETE_TOWN),'town',array('zipcode','selectcountry_id','departement_id'));
 
             if ($user->admin) $this->tpl['info_admin'] = info_admin($langs->trans("YouCanChangeValuesForThisListFromDictionnarySetup"),1);
 
 
 			// We define country_id, country_code and country_label
-			$country = (! empty($this->dao->MAIN_INFO_SOCIETE_PAYS)?$this->dao->MAIN_INFO_SOCIETE_PAYS:$conf->global->MAIN_INFO_SOCIETE_PAYS);
+			$country = (! empty($this->dao->MAIN_INFO_SOCIETE_COUNTRY)?$this->dao->MAIN_INFO_SOCIETE_COUNTRY:$conf->global->MAIN_INFO_SOCIETE_COUNTRY);
 			if (GETPOST('country_id'))
 			{
 				$country_id=GETPOST('country_id');
@@ -573,14 +581,17 @@ class ActionsMulticompany
 			}
 
 			$this->tpl['select_country'] = $form->select_country($country_id,'country_id');
-			$this->tpl['select_state'] = $formcompany->select_state((GETPOST('departement_id')?GETPOST('departement_id'):$this->dao->MAIN_INFO_SOCIETE_DEPARTEMENT),($country_code?$country_code:$country_id),'departement_id');
+			$this->tpl['select_state'] = $formcompany->select_state((GETPOST('departement_id')?GETPOST('departement_id'):$this->dao->MAIN_INFO_SOCIETE_STATE),($country_code?$country_code:$country_id),'departement_id');
 			$this->tpl['select_currency'] = $form->selectcurrency((GETPOST('currency')?GETPOST('currency'):($this->dao->MAIN_MONNAIE?$this->dao->MAIN_MONNAIE:$conf->currency)),"currency");
 			$this->tpl['select_language'] = $formadmin->select_language((GETPOST('main_lang_default')?GETPOST('main_lang_default'):($this->dao->MAIN_LANG_DEFAULT?$this->dao->MAIN_LANG_DEFAULT:$conf->global->MAIN_LANG_DEFAULT)),'main_lang_default',1);
 
 			$this->tpl['select_entity'] = $this->select_entities($this->dao->options['referent'], 'referring_entity');
 			$this->tpl['multiselect_shared_product'] = $this->multiselect_entities('product', $this->dao);
+			$this->tpl['multiselect_shared_productprice'] = $this->multiselect_entities('productprice', $this->dao);
 			$this->tpl['multiselect_shared_thirdparty'] = $this->multiselect_entities('societe', $this->dao);
 			$this->tpl['multiselect_shared_category'] = $this->multiselect_entities('category', $this->dao);
+			$this->tpl['multiselect_shared_agenda'] = $this->multiselect_entities('agenda', $this->dao);
+			$this->tpl['multiselect_shared_bank_account'] = $this->multiselect_entities('bank_account', $this->dao);
 		}
 		else
 		{
@@ -652,7 +663,10 @@ class ActionsMulticompany
 		$addzero = array('user', 'usergroup');
 		if (in_array($element, $addzero))
 		{
-			return '0,'.$conf->entity;
+			$out = '0,';
+			if (!empty($conf->multicompany->transverse_mode)) $out.= '1,';
+
+			return $out.$conf->entity;
 		}
 
 		if (! empty($element) && ! empty($this->entities[$element]))
@@ -711,7 +725,7 @@ class ActionsMulticompany
 	 */
 	function printTopRightMenu($parameters=false)
 	{
-		return $this->getTopRightMenu();
+		echo $this->getTopRightMenu();
 	}
 
 	/**
@@ -799,7 +813,18 @@ class ActionsMulticompany
 			foreach($this->sharings as $element => $ids)
 			{
 				$moduleSharingEnabled = 'MULTICOMPANY_'.strtoupper($element).'_SHARING_ENABLED';
-				if (! empty($conf->$element->enabled) && ! empty($conf->global->$moduleSharingEnabled))
+				$module = $element;
+
+				$module = ($element == 'bank_account' ? 'banque' : $module);
+				if ($element == 'productprice') {
+					$module = 'product';
+				} else if ($element == 'bank_account') {
+					$module = 'banque';
+				} else if ($element == 'product' && empty($conf->product->enabled) && !empty($conf->service->enabled)) {
+					$module = 'service';
+				}
+
+				if (! empty($conf->$module->enabled) && ! empty($conf->global->$moduleSharingEnabled))
 				{
 					$entities=array();
 
@@ -827,6 +852,7 @@ class ActionsMulticompany
 				}
 			}
 		}
+		//var_dump($this->entities);
 	}
 
 	/**

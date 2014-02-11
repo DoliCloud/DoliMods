@@ -3,23 +3,52 @@ CHARSET=UTF-8
 
 MasterEntity=Master entity
 MasterEntityDesc=Master entity, can not be deleted
+SwitchToAnotherEntity=Switch to another entity
+SelectAnEntity=Select an entity
+AllEntities=All entities
+
+# Admin parameters tab
+AddAll=Add all
+RemoveAll=Remove all
+ItemsCount=Items Selected
 EntitiesManagement=Entities management
 ListOfEntities=List of entities
 AddEntity=Add an entity
 EditEntity=Edit an entity
 EntityName=Entity name
+DefaultLanguageShort=Default language
+CommonParameters=Common parameters for shares
+ReferringEntity=Referring entity for configuration values
+ThirdpartySharing=Sharing thirdparties and contacts
+ThirdpartySharingDescription=Selection of entities that share their database thirdparties/contacts with the entity. 
+ProductSharing=Share of products/services
+ProductSharingDescription=Selection of entities that share their database products/services with this entity.
+CategorySharing=Sharing categories
+CategorySharingDescription=Selection of entities that share categories with this entity.
+AgendaSharing=Calendar sharing
+AgendaSharingDescription=Selection of entities that share the calendar with this entity.
+BankSharing=Bank account sharing
+BankSharingDescription=Selection of entities that share bank accounts with this entity.
 DeleteAnEntity=Delete an entity
 ConfirmDeleteEntity=Are you sure you want to delete this entity?
+ConfirmedEntityDeleted=The entity has been deleted.
+
+# Admin options tab
+GroupModeTransversal=Transverse mode
+HideLoginCombobox=Hide the choice of entity in the login page
+EnableCookieLogin=Store the user name and the number of the entity in a cookie
+EnableGlobalSharings=Enable features shared between entities
+ShareProductsAndServices=Enable sharing of products/services
+ShareProductsAndServicesPrices=Enable sharing of products/services prices
+ShareThirdpartiesAndContacts=Enable sharing of thirdparties and contacts
+ShareCategories=Enable sharing categories
+ShareAgenda=Enable sharing calendars
+ShareStock=Enable sharing of stocks
+ShareBank=Enable sharing of bank accounts
+GlobalSharings=Sharing features
+GlobalSharingsInfo=Once sharing options enabled, you will need to configure each unit to allow sharing between entities.
+
+# Errors
 ErrorEntityLabelAlreadyExist=The label of that entity already exists.
 ErrorEntityIsNotValid=This entity is not valid.
 ErrorNotDeleteMasterEntity=Can not delete the master entity.
-DefaultLanguageShort=Default language
-ConfirmedEntityDeleted=The entity has been deleted.
-HideLoginCombobox=Hide the choice of entity in the login page
-GroupModeTransversal=Transverse mode
-SwitchToAnotherEntity=Switch to another entity
-SelectAnEntity=Select an entity
-AllEntities=Toutes les entités
-AddAll=Add all
-RemoveAll=Remove all
-ItemsCount=Items Selected

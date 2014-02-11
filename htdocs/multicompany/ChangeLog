@@ -2,6 +2,17 @@
 English Multi-Company ChangeLog
 --------------------------------------------------------------
 
+***** ChangeLog for 3.4.0 compared to 3.2.2 *****
+New: add bank sharing
+New: add product prices sharing
+New: add agenda sharing
+New: add stock sharing
+New: add Hungary translation
+Fix: compatibility with Dolibarr 3.4
+Fix: grant access for user card in transverse mode
+Fix: sharing services was not functional if the module product was not activated
+Fix: more bugs
+
 ***** ChangeLog for 3.2.2 compared to 3.2.1 *****
 New: add Netherland translation
 Fix: minor bugs and uniformize code
