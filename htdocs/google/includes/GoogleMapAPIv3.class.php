@@ -365,17 +365,17 @@ class GoogleMapAPI
 	/**
 	 * Add marker by his coord
 	 *
-	 * @param string $lat lat
-	 * @param string $lng lngs
-	 * @param string $html html code display in the info window
-	 * @param string $category marker category
-	 * @param string $icon an icon url
+	 * @param string $lat 			lat
+	 * @param string $lng 			lngs
+	 * @param string $html 			html code display in the info window
+	 * @param string $category 		marker category
+	 * @param string $icon 			an icon url
 	 * @return void
 	 */
 
 	public function addMarkerByCoords($lat, $lng, $title, $html = '', $category = '', $icon = '')
 	{
-		if (empty($icon)) 
+		if (empty($icon))
 		{
 			// Detect if we use https
 			$sforhttps=(((empty($_SERVER["HTTPS"]) || $_SERVER["HTTPS"] != 'on') && (empty($_SERVER["SERVER_PORT"])||$_SERVER["SERVER_PORT"]!=443))?'':'s');
@@ -390,7 +390,25 @@ class GoogleMapAPI
 		$this->centerLng = (float)($this->minLng + $this->maxLng) / 2;
 		$this->centerLat = (float)($this->minLat + $this->maxLat) / 2;
 
-		$this->contentMarker .= "\t" . 'addMarker(new google.maps.LatLng("' . $lat . '","' . $lng . '"),"' . $title . '","' . $html . '","' . $category . '","' . $icon . '");' . "\n";
+		$this->contentMarker .= "\t" . 'addMarker(new google.maps.LatLng("' . $lat . '","' . $lng . '"),"' . $this->g_dol_escape_js($title,2) . '","' . $this->g_dol_escape_js($html,2) . '","' . $this->g_dol_escape_js($category,2) . '","' . $icon . '");' . "\n";
+	}
+
+	/**
+	 *  Returns text escaped for inclusion into javascript code
+	 *
+	 *  @param      string		$stringtoescape		String to escape
+	 *  @param		string		$mode				0=Escape also ' and " into ', 1=Escape ' but not " for usage into 'string', 2=Escape " but not ' for usage into "string"
+	 *  @return     string     		 				Escaped string. Both ' and " are escaped into ' if they are escaped.
+	 */
+	private function g_dol_escape_js($stringtoescape, $mode=0)
+	{
+		// escape quotes and backslashes, newlines, etc.
+		$substitjs=array("&#039;"=>"\\'",'\\'=>'\\\\',"\r"=>'\\r',"\n"=>'\\n');
+		//$substitjs['</']='<\/';	// We removed this. Should be useless.
+		if (empty($mode)) { $substitjs["'"]="\\'"; $substitjs['"']="\\'"; }
+		else if ($mode == 1) $substitjs["'"]="\\'";
+		else if ($mode == 2) { $substitjs['"']='\\"'; }
+		return strtr($stringtoescape, $substitjs);
 	}
 
 	/**
@@ -409,7 +427,7 @@ class GoogleMapAPI
 		if ($point !== null) {
 			$this->addMarkerByCoords($point[2], $point[3], $title, $content, $category, $icon);
 		} else {
-			echo '<span style="font-size:9px">'.$this->langs->trans("CouldNotFindLatitudeLongitudeFor").' <a href=../societe/soc.php?socid='.$idSoc.'>'.$title.'</a></span><br/>';
+			echo '<span style="font-size:9px">'.$this->langs->trans("CouldNotFindLatitudeLongitudeFor").' <a href="'.DOL_URL_ROOT.'/societe/soc.php?socid='.$idSoc.'">'.$title.'</a></span><br/>';
 		}
 	}
 
@@ -424,35 +442,35 @@ class GoogleMapAPI
 	public function addArrayMarker($tabAddresses, $langs, $mode)
 	{
 		$this->langs = $langs;
-		
+
 		// Detect if we use https
 		$sforhttps=(((empty($_SERVER["HTTPS"]) || $_SERVER["HTTPS"] != 'on') && (empty($_SERVER["SERVER_PORT"])||$_SERVER["SERVER_PORT"]!=443))?'':'s');
 
 		$i=0;
-		foreach ($tabAddresses as $elem) 
+		foreach ($tabAddresses as $elem)
 		{
 			$i++;
 			//if ($i != 9) continue;	// Output only eleme i = 9
-			
+
 			/*if($elem->client == 1) $icon = "http://www.google.com/intl/en_us/mapfiles/ms/micons/green-dot.png";
 			else $icon = "http://www.google.com/intl/en_us/mapfiles/ms/micons/red-dot.png";
 			if ($sforhttps) $icon=preg_replace('/^http:/','https:',$icon);
 			*/
 			$address=dol_string_nospecial($elem->address,', ',array("\r\n","\n","\r"));
-			
-			$addPropre = $this->dol_escape_js($this->no_special_character_v2($address));
-			$lienGmaps = ' <a href=\"http'.$sforhttps.'://maps.google.fr/maps?q='.urlencode($this->withoutSpecialChars($address)).'\">Google Maps</a>';
+
+			$addPropre = $this->g_dol_escape_js($this->no_special_character_v2($address));
+			$lienGmaps = ' <a href="http'.$sforhttps.'://maps.google.fr/maps?q='.urlencode($this->withoutSpecialChars($address)).'">Google Maps</a>';
 
 			$html='';
-			if ($mode == 'company' || $mode == 'thirdparty') $html.= '<a href=\"'.DOL_URL_ROOT.'/societe/soc.php?socid='.$elem->id.'\">';
-			elseif ($mode == 'contact') $html.= '<a href=\"'.DOL_URL_ROOT.'/contact/fiche.php?id='.$elem->id.'\">';
-			elseif ($mode == 'member') $html.= '<a href=\"'.DOL_URL_ROOT.'/adherents/fiche.php?rowid='.$elem->id.'\">';
-			elseif ($mode == 'patient') $html.= '<a href=\"'.DOL_URL_ROOT.'/societe/soc.php?socid='.$elem->id.'\">';
+			if ($mode == 'company' || $mode == 'thirdparty') $html.= '<a href="'.DOL_URL_ROOT.'/societe/soc.php?socid='.$elem->id.'">';
+			elseif ($mode == 'contact') $html.= '<a href="'.DOL_URL_ROOT.'/contact/fiche.php?id='.$elem->id.'">';
+			elseif ($mode == 'member') $html.= '<a href="'.DOL_URL_ROOT.'/adherents/fiche.php?rowid='.$elem->id.'">';
+			elseif ($mode == 'patient') $html.= '<a href="'.DOL_URL_ROOT.'/societe/soc.php?socid='.$elem->id.'">';
 			else $html.='<a>';
 			$html.= '<b>'.$elem->name.'</b>';
 			$html.= '</a>';
 			$html.= '<br/>'.$addPropre.'<br/>';
-			if (! empty($elem->url)) $html.= '<a href=\"'.$elem->url.'\">'.$elem->url.'</a><br/>';
+			if (! empty($elem->url)) $html.= '<a href="'.$elem->url.'">'.$elem->url.'</a><br/>';
 			$html.= '<br/>'.$lienGmaps.'<br/>';
 
 			if(isset($elem->latitude) && isset($elem->longitude)) {
@@ -549,20 +567,6 @@ class GoogleMapAPI
 	}
 
 	/**
-	 *  Returns text escaped for inclusion into javascript code
-	 *
-	 *  @param       string		$stringtoescape		String to escape
-	 *  @return      string     		 			Escaped string
-	 */
-	function dol_escape_js($stringtoescape)
-	{
-		// escape quotes and backslashes, newlines, etc.
-		$substitjs=array("&#039;"=>"\\'",'\\'=>'\\\\',"'"=>"\\'",'"'=>"\\'","\r"=>'\\r',"\n"=>'\\n','</'=>'<\/');
-		return strtr($stringtoescape, $substitjs);
-	}
-
-
-	/**
 	 * Initialize the javascript code
 	 *
 	 * @return void
@@ -589,7 +593,7 @@ class GoogleMapAPI
 		if ($this->useClusterer == true)
 		{
 			$jsgmapculster=$this->clustererLibraryPath;
-			if ($sforhttps) $jsgmapculster=preg_replace('/http:/','https:',$jsgmapculster);			
+			if ($sforhttps) $jsgmapculster=preg_replace('/http:/','https:',$jsgmapculster);
 			$this->content .= '<script src="'.$jsgmapculster.'" type="text/javascript"></script>' . "\n";
 		}
 
