@@ -1,4 +1,4 @@
-# Dolibarr language file - es_ES - multicompany 
+# Dolibarr language file - es_ES - multicompany
 CHARSET=UTF-8
 
 MasterEntity=Entidad maestra
@@ -23,6 +23,10 @@ ThirdpartySharing=Intercambiar terceros y contactos
 ThirdpartySharingDescription=Selección de entidades que intercambian sus terceros/contactos con esta entidad.
 ProductSharing=Intercambiar productos/servicios
 ProductSharingDescription=Selección de entidades que intercambian sus productos/servicios con esta entidad.
+CategorySharing=Intercambiar categorías
+CategorySharingDescription=Selección de entidades que intercambian sus categorías con esta entidad.
+AgendaSharing=Intercambiar agendas
+AgendaSharingDescription=Selección de entidades que intercambian su agenda con esta entidad.
 DeleteAnEntity=Eliminar una entidad
 ConfirmDeleteEntity=¿Está seguro de querer eliminar esta entidad?
 ConfirmedEntityDeleted=La entidad ha sido eliminada.
@@ -34,6 +38,11 @@ EnableCookieLogin=Guardar el nombre de usuario y el número de la entidad en una
 EnableGlobalSharings=Activar las funciones de intercambio entre entidades
 ShareProductsAndServices=Activar el intercambio de productos/servicios
 ShareThirdpartiesAndContacts=Activar el intercambio de terceros y contactos
+ShareCategories=Activar el intercambio de categorías
+ShareAgenda=Activar el intercambio de la agenda
+ShareStock=Activar el intercambio de stocks
+GlobalSharings=Funcionalidades de intercambio
+GlobalSharingsInfo=Una vez se activen las opciones de intercambio, tendrá que configurar cada entidad para permitir los intercambios entre entidades.
 
 # Errors
 ErrorEntityLabelAlreadyExist=La etiqueta de esta entidad ya existe.

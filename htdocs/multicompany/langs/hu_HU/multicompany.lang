@@ -1,0 +1,32 @@
+# Dolibarr language file - hu_HU - multicompany
+CHARSET=UTF-8
+
+MasterEntity=Fő szervezet
+MasterEntityDesc=Fő szervezet, nem törölhető
+EntitiesManagement=Szervezet kezelés
+ListOfEntities=Szervezetek listája
+AddEntity=Hozzáadás
+EditEntity=Szerkesztés
+EntityName=Szervezet neve
+DeleteAnEntity=Törlés
+ConfirmDeleteEntity=Biztosan törölni akarja ezt a szervezetet?
+ErrorEntityLabelAlreadyExist=Ez a szervezetnév már foglalt.
+ErrorEntityIsNotValid=Nem érvényes szervezet.
+ErrorNotDeleteMasterEntity=Fő szervezet nem törölhető.
+DefaultLanguageShort=Alapértelmezett nyelv
+ConfirmedEntityDeleted=Szervezet törölve.
+HideLoginCombobox=Szervezet választó elrejtése a bejelentkezési ablakról
+GroupModeTransversal=Átjárható mód
+SwitchToAnotherEntity=Váltás másik szervezetre
+SelectAnEntity=Válasszon egy szervezetet
+AllEntities=Minden szervezet
+AddAll=Összes hozzáadása
+RemoveAll=Összes eltávolítása
+ItemsCount=Választott elemek
+EnableCookieLogin=Sütik engedélyezése bejelentkezéshez
+EnableGlobalSharings=Megosztások engedélyezése
+ShareProductsAndServices=Termékek és szolgáltatások megosztása
+ShareThirdpartiesAndContacts=Cégek és kapcsolatok megosztása
+ShareCategories=Kategóriák megosztása
+Visible=Látható
+Options=Beállítások

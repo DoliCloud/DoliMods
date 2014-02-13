@@ -1,9 +1,9 @@
 <?php
-/* Copyright (C) 2009-2012 Regis Houssin <regis@dolibarr.fr>
+/* Copyright (C) 2009-2013 Regis Houssin <regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -135,6 +135,18 @@ $(document).ready(function () {
 </tr>
 <?php } ?>
 
+<?php if (! empty($conf->global->MULTICOMPANY_PRODUCTPRICE_SHARING_ENABLED)) { ?>
+<tr class="liste_titre">
+	<td colspan="2"><?php echo $langs->trans("ProductPriceSharing"); ?></td>
+</tr>
+
+<?php $var=!$var; ?>
+<tr <?php echo $bc[$var]; ?>>
+	<td valign="top"><?php echo $langs->trans("ProductPriceSharingDescription"); ?></td>
+	<td><?php echo $this->tpl['multiselect_shared_productprice']; ?></td>
+</tr>
+<?php } ?>
+
 <?php if (! empty($conf->global->MULTICOMPANY_SOCIETE_SHARING_ENABLED)) { ?>
 <tr class="liste_titre">
 <td colspan="2"><?php echo $langs->trans("ThirdpartySharing"); ?></td>
@@ -157,7 +169,31 @@ $(document).ready(function () {
 	<td valign="top"><?php echo $langs->trans("CategorySharingDescription"); ?></td>
 	<td><?php echo $this->tpl['multiselect_shared_category']; ?></td>
 </tr>
+<?php } ?>
+
+<?php if (! empty($conf->global->MULTICOMPANY_AGENDA_SHARING_ENABLED)) { ?>
+<tr class="liste_titre">
+	<td colspan="2"><?php echo $langs->trans("AgendaSharing"); ?></td>
+</tr>
+
+<?php $var=!$var; ?>
+<tr <?php echo $bc[$var]; ?>>
+	<td valign="top"><?php echo $langs->trans("AgendaSharingDescription"); ?></td>
+	<td><?php echo $this->tpl['multiselect_shared_agenda']; ?></td>
+</tr>
 <?php } } ?>
+
+<?php if (! empty($conf->global->MULTICOMPANY_BANK_ACCOUNT_SHARING_ENABLED)) { ?>
+<tr class="liste_titre">
+	<td colspan="2"><?php echo $langs->trans("BankSharing"); ?></td>
+</tr>
+
+<?php $var=!$var; ?>
+<tr <?php echo $bc[$var]; ?>>
+	<td valign="top"><?php echo $langs->trans("BankSharingDescription"); ?></td>
+	<td><?php echo $this->tpl['multiselect_shared_bank_account']; ?></td>
+</tr>
+<?php } ?>
 
 </table>
 </div>

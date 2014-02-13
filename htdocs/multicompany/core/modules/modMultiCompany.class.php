@@ -1,10 +1,10 @@
 <?php
-/* Copyright (C) 2009-2012 Regis Houssin  <regis@dolibarr.fr>
+/* Copyright (C) 2009-2013 Regis Houssin  <regis.houssin@capnetworks.com>
  * Copyright (C) 2011      Herve Prot     <herve.prot@symeos.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -58,7 +58,7 @@ class modMultiCompany extends DolibarrModules
 		// Can be enabled / disabled only in the main company with superadmin account
 		$this->core_enabled = 1;
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
-		$this->version = '3.4.2';
+		$this->version = '3.4.0';
 		// Key used in llx_const table to save module status enabled/disabled (where MYMODULE is value of property name of module in uppercase)
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
 		// Where to store the module in setup page (0=common,1=interface,2=others,3=very specific)
@@ -92,7 +92,7 @@ class modMultiCompany extends DolibarrModules
 		$this->depends = array();		// List of modules id that must be enabled if this module is enabled
 		$this->requiredby = array();	// List of modules id to disable if this one is disabled
 		$this->phpmin = array(5,1);					// Minimum version of PHP required by module
-		$this->need_dolibarr_version = array(3,1);	// Minimum version of Dolibarr required by module
+		$this->need_dolibarr_version = array(3,4);	// Minimum version of Dolibarr required by module
 		$this->langfiles = array("multicompany@multicompany");
 
 		// Constants

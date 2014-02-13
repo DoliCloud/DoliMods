@@ -1,9 +1,9 @@
 <?php
-/* Copyright (C) 2011-2012 Regis Houssin  <regis@dolibarr.fr>
+/* Copyright (C) 2011-2013 Regis Houssin  <regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -23,11 +23,15 @@
  */
 
 $res=@include("../../main.inc.php");						// For root directory
+if (! $res && file_exists($_SERVER['DOCUMENT_ROOT']."/main.inc.php"))
+	$res=@include($_SERVER['DOCUMENT_ROOT']."/main.inc.php"); // Use on dev env only
 if (! $res) $res=@include("../../../main.inc.php");			// For "custom" directory
 
-require_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
-require_once("../class/actions_multicompany.class.php");
-require_once("../lib/multicompany.lib.php");
+require_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
+require '../lib/multicompany.lib.php';
+if (! class_exists('ActionsMulticompany')) {
+	require '../class/actions_multicompany.class.php';
+}
 
 $langs->load("admin");
 $langs->load('multicompany@multicompany');
@@ -104,21 +108,7 @@ print '<td>'.$langs->trans("EnableCookieLogin").'</td>';
 print '<td align="center" width="20">&nbsp;</td>';
 
 print '<td align="center" width="100">';
-if ($conf->use_javascript_ajax)
-{
-	print ajax_constantonoff('MULTICOMPANY_COOKIE_ENABLED','',0);
-}
-else
-{
-	if($conf->global->MULTICOMPANY_COOKIE_ENABLED == 0)
-	{
-		print '<a href="'.$_SERVER['PHP_SELF'].'?action=set_MULTICOMPANY_COOKIE_ENABLED">'.img_picto($langs->trans("Disabled"),'off').'</a>';
-	}
-	else if($conf->global->MULTICOMPANY_COOKIE_ENABLED == 1)
-	{
-		print '<a href="'.$_SERVER['PHP_SELF'].'?action=del_MULTICOMPANY_COOKIE_ENABLED">'.img_picto($langs->trans("Enabled"),'on').'</a>';
-	}
-}
+print ajax_constantonoff('MULTICOMPANY_COOKIE_ENABLED', '', 0);
 print '</td></tr>';
 
 // Login page combobox activation
@@ -128,119 +118,165 @@ print '<td>'.$langs->trans("HideLoginCombobox").'</td>';
 print '<td align="center" width="20">&nbsp;</td>';
 
 print '<td align="center" width="100">';
-if ($conf->use_javascript_ajax)
-{
-	print ajax_constantonoff('MULTICOMPANY_HIDE_LOGIN_COMBOBOX','',0);
-}
-else
-{
-	if($conf->global->MULTICOMPANY_HIDE_LOGIN_COMBOBOX == 0)
-	{
-		print '<a href="'.$_SERVER['PHP_SELF'].'?action=set_MULTICOMPANY_HIDE_LOGIN_COMBOBOX">'.img_picto($langs->trans("Disabled"),'off').'</a>';
-	}
-	else if($conf->global->MULTICOMPANY_HIDE_LOGIN_COMBOBOX == 1)
-	{
-		print '<a href="'.$_SERVER['PHP_SELF'].'?action=del_MULTICOMPANY_HIDE_LOGIN_COMBOBOX">'.img_picto($langs->trans("Enabled"),'on').'</a>';
-	}
-}
+print ajax_constantonoff('MULTICOMPANY_HIDE_LOGIN_COMBOBOX', '', 0);
 print '</td></tr>';
 
 // Enable global sharings
-$var=!$var;
-print '<tr '.$bc[$var].'>';
-print '<td>'.$langs->trans("EnableGlobalSharings").'</td>';
-print '<td align="center" width="20">&nbsp;</td>';
+if (! empty($conf->societe->enabled) || ! empty($conf->product->enabled) || ! empty($conf->service->enabled) || ! empty($conf->categorie->enabled))
+{
+	$var=!$var;
+	print '<tr '.$bc[$var].'>';
+	print '<td>'.$langs->trans("EnableGlobalSharings").'</td>';
+	print '<td align="center" width="20">&nbsp;</td>';
 
-print '<td align="center" width="100">';
-if ($conf->use_javascript_ajax)
-{
-	$input = array('showhide' => array('shareproduct','sharethirdparty','sharecategory'));
-	print ajax_constantonoff('MULTICOMPANY_SHARINGS_ENABLED',$input,0);
+	print '<td align="center" width="100">';
+	$input = array(
+			'alert' => array(
+					'set' => array(
+							'info' => true,
+							'yesButton' => $langs->trans('Ok'),
+							'title' => $langs->trans('GlobalSharings'),
+							'content' => img_info().' '.$langs->trans('GlobalSharingsInfo')
+					)
+			),
+			'showhide' => array(
+					'#shareproduct',
+					'#sharethirdparty',
+					'#sharecategory',
+					'#sharebank'
+			),
+			'hide' => array(
+					'#shareproduct',
+					'#shareproductprice',
+					'#sharestock',
+					'#sharethirdparty',
+					'#shareagenda',
+					'#sharecategory',
+					'#sharebank'
+			),
+			'del' => array(
+					'MULTICOMPANY_PRODUCT_SHARING_ENABLED',
+					'MULTICOMPANY_PRODUCTPRICE_SHARING_ENABLED',
+					'MULTICOMPANY_STOCK_SHARING_ENABLED',
+					'MULTICOMPANY_SOCIETE_SHARING_ENABLED',
+					'MULTICOMPANY_AGENDA_SHARING_ENABLED',
+					'MULTICOMPANY_CATEGORY_SHARING_ENABLED',
+					'MULTICOMPANY_BANK_ACCOUNT_SHARING_ENABLED'
+			)
+	);
+	print ajax_constantonoff('MULTICOMPANY_SHARINGS_ENABLED', $input, 0);
+	print '</td></tr>';
 }
-else
-{
-	if($conf->global->MULTICOMPANY_SHARINGS_ENABLED == 0)
-	{
-		print '<a href="'.$_SERVER['PHP_SELF'].'?action=set_MULTICOMPANY_SHARINGS_ENABLED">'.img_picto($langs->trans("Disabled"),'off').'</a>';
-	}
-	else if($conf->global->MULTICOMPANY_SHARINGS_ENABLED == 1)
-	{
-		print '<a href="'.$_SERVER['PHP_SELF'].'?action=del_MULTICOMPANY_SHARINGS_ENABLED">'.img_picto($langs->trans("Enabled"),'on').'</a>';
-	}
-}
-print '</td></tr>';
-
-// Share products/services
-$var=!$var;
-print '<tr id="shareproduct" '.$bc[$var].(empty($conf->global->MULTICOMPANY_SHARINGS_ENABLED) ? ' style="display:none;"' : '').'>';
-print '<td>'.$langs->trans("ShareProductsAndServices").'</td>';
-print '<td align="center" width="20">&nbsp;</td>';
-
-print '<td align="center" width="100">';
-if ($conf->use_javascript_ajax)
-{
-	print ajax_constantonoff('MULTICOMPANY_PRODUCT_SHARING_ENABLED','',0);
-}
-else
-{
-	if($conf->global->MULTICOMPANY_PRODUCT_SHARING_ENABLED == 0)
-	{
-		print '<a href="'.$_SERVER['PHP_SELF'].'?action=set_MULTICOMPANY_PRODUCT_SHARING_ENABLED">'.img_picto($langs->trans("Disabled"),'off').'</a>';
-	}
-	else if($conf->global->MULTICOMPANY_PRODUCT_SHARING_ENABLED == 1)
-	{
-		print '<a href="'.$_SERVER['PHP_SELF'].'?action=del_MULTICOMPANY_PRODUCT_SHARING_ENABLED">'.img_picto($langs->trans("Enabled"),'on').'</a>';
-	}
-}
-print '</td></tr>';
 
 // Share thirparties and contacts
-$var=!$var;
-print '<tr id="sharethirdparty" '.$bc[$var].(empty($conf->global->MULTICOMPANY_SHARINGS_ENABLED) ? ' style="display:none;"' : '').'>';
-print '<td>'.$langs->trans("ShareThirdpartiesAndContacts").'</td>';
-print '<td align="center" width="20">&nbsp;</td>';
+if (! empty($conf->societe->enabled))
+{
+	$var=!$var;
+	print '<tr id="sharethirdparty" '.$bc[$var].(empty($conf->global->MULTICOMPANY_SHARINGS_ENABLED) ? ' style="display:none;"' : '').'>';
+	print '<td>'.$langs->trans("ShareThirdpartiesAndContacts").'</td>';
+	print '<td align="center" width="20">&nbsp;</td>';
 
-print '<td align="center" width="100">';
-if ($conf->use_javascript_ajax)
-{
-	print ajax_constantonoff('MULTICOMPANY_SOCIETE_SHARING_ENABLED','',0);
+	print '<td align="center" width="100">';
+	$input = array(
+			'showhide' => array(
+					'#shareagenda'
+			),
+			'del' => array(
+					'MULTICOMPANY_AGENDA_SHARING_ENABLED'
+			)
+	);
+	print ajax_constantonoff('MULTICOMPANY_SOCIETE_SHARING_ENABLED', $input, 0);
+	print '</td></tr>';
 }
-else
+
+// Share agenda
+if (! empty($conf->agenda->enabled) && ! empty($conf->societe->enabled))
 {
-	if($conf->global->MULTICOMPANY_SOCIETE_SHARING_ENABLED == 0)
-	{
-		print '<a href="'.$_SERVER['PHP_SELF'].'?action=set_MULTICOMPANY_SOCIETE_SHARING_ENABLED">'.img_picto($langs->trans("Disabled"),'off').'</a>';
-	}
-	else if($conf->global->MULTICOMPANY_SOCIETE_SHARING_ENABLED == 1)
-	{
-		print '<a href="'.$_SERVER['PHP_SELF'].'?action=del_MULTICOMPANY_SOCIETE_SHARING_ENABLED">'.img_picto($langs->trans("Enabled"),'on').'</a>';
-	}
+	if (!empty($conf->global->MULTICOMPANY_SHARINGS_ENABLED) && !empty($conf->global->MULTICOMPANY_SOCIETE_SHARING_ENABLED))
+		$var=!$var;
+	$display=(empty($conf->global->MULTICOMPANY_SHARINGS_ENABLED) || empty($conf->global->MULTICOMPANY_SOCIETE_SHARING_ENABLED) ? ' style="display:none;"' : '');
+	print '<tr id="shareagenda" '.$bc[$var].$display.'>';
+	print '<td>'.$langs->trans("ShareAgenda").'</td>';
+	print '<td align="center" width="20">&nbsp;</td>';
+
+	print '<td align="center" width="100">';
+	print ajax_constantonoff('MULTICOMPANY_AGENDA_SHARING_ENABLED', '', 0);
+	print '</td></tr>';
 }
-print '</td></tr>';
+
+// Share products/services
+if (! empty($conf->product->enabled) || ! empty($conf->service->enabled))
+{
+	$var=!$var;
+	print '<tr id="shareproduct" '.$bc[$var].(empty($conf->global->MULTICOMPANY_SHARINGS_ENABLED) ? ' style="display:none;"' : '').'>';
+	print '<td>'.$langs->trans("ShareProductsAndServices").'</td>';
+	print '<td align="center" width="20">&nbsp;</td>';
+
+	print '<td align="center" width="100">';
+	$input = array(
+			'showhide' => array(
+					'#shareproductprice',
+					'#sharestock'
+			),
+			'del' => array(
+					'MULTICOMPANY_PRODUCTPRICE_SHARING_ENABLED',
+					'MULTICOMPANY_STOCK_SHARING_ENABLED'
+			)
+	);
+	print ajax_constantonoff('MULTICOMPANY_PRODUCT_SHARING_ENABLED', $input, 0);
+	print '</td></tr>';
+
+	if (!empty($conf->global->MULTICOMPANY_PRODUCT_SHARING_ENABLED))
+		$var=!$var;
+	print '<tr id="shareproductprice" '.$bc[$var].(empty($conf->global->MULTICOMPANY_PRODUCT_SHARING_ENABLED) ? ' style="display:none;"' : '').'>';
+	print '<td>'.$langs->trans("ShareProductsAndServicesPrices").'</td>';
+	print '<td align="center" width="20">&nbsp;</td>';
+
+	print '<td align="center" width="100">';
+	print ajax_constantonoff('MULTICOMPANY_PRODUCTPRICE_SHARING_ENABLED', '', 0);
+	print '</td></tr>';
+}
+
+// Share stock
+if (! empty($conf->stock->enabled) && (! empty($conf->product->enabled) || ! empty($conf->service->enabled)))
+{
+	$var=!$var;
+	$display=(empty($conf->global->MULTICOMPANY_SHARINGS_ENABLED) || empty($conf->global->MULTICOMPANY_PRODUCT_SHARING_ENABLED) ? ' style="display:none;"' : '');
+	print '<tr id="sharestock" '.$bc[$var].$display.'>';
+	print '<td>'.$langs->trans("ShareStock").'</td>';
+	print '<td align="center" width="20">&nbsp;</td>';
+
+	print '<td align="center" width="100">';
+	print ajax_constantonoff('MULTICOMPANY_STOCK_SHARING_ENABLED', '', 0);
+	print '</td></tr>';
+}
 
 // Share categories
-$var=!$var;
-print '<tr id="sharecategory" '.$bc[$var].(empty($conf->global->MULTICOMPANY_SHARINGS_ENABLED) ? ' style="display:none;"' : '').'>';
-print '<td>'.$langs->trans("ShareCategories").'</td>';
-print '<td align="center" width="20">&nbsp;</td>';
+if (! empty($conf->categorie->enabled))
+{
+	$var=!$var;
+	print '<tr id="sharecategory" '.$bc[$var].(empty($conf->global->MULTICOMPANY_SHARINGS_ENABLED) ? ' style="display:none;"' : '').'>';
+	print '<td>'.$langs->trans("ShareCategories").'</td>';
+	print '<td align="center" width="20">&nbsp;</td>';
 
-print '<td align="center" width="100">';
-if ($conf->use_javascript_ajax)
-{
-	print ajax_constantonoff('MULTICOMPANY_CATEGORY_SHARING_ENABLED','',0);
+	print '<td align="center" width="100">';
+	print ajax_constantonoff('MULTICOMPANY_CATEGORY_SHARING_ENABLED', '', 0);
+	print '</td></tr>';
 }
-else
+
+// Share bank
+if (! empty($conf->banque->enabled))
 {
-	if($conf->global->MULTICOMPANY_CATEGORY_SHARING_ENABLED == 0)
-	{
-		print '<a href="'.$_SERVER['PHP_SELF'].'?action=set_MULTICOMPANY_CATEGORY_SHARING_ENABLED">'.img_picto($langs->trans("Disabled"),'off').'</a>';
-	}
-	else if($conf->global->MULTICOMPANY_CATEGORY_SHARING_ENABLED == 1)
-	{
-		print '<a href="'.$_SERVER['PHP_SELF'].'?action=del_MULTICOMPANY_CATEGORY_SHARING_ENABLED">'.img_picto($langs->trans("Enabled"),'on').'</a>';
-	}
+	$var=!$var;
+	print '<tr id="sharebank" '.$bc[$var].(empty($conf->global->MULTICOMPANY_SHARINGS_ENABLED) ? ' style="display:none;"' : '').'>';
+	print '<td>'.$langs->trans("ShareBank").'</td>';
+	print '<td align="center" width="20">&nbsp;</td>';
+
+	print '<td align="center" width="100">';
+	print ajax_constantonoff('MULTICOMPANY_BANK_ACCOUNT_SHARING_ENABLED', '', 0);
+	print '</td></tr>';
 }
-print '</td></tr>';
+
 
 /* Mode de gestion des droits :
  * Mode Off : mode Off : pyramidale. Les droits et les groupes sont gérés dans chaque entité : les utilisateurs appartiennent au groupe de l'entity pour obtenir leurs droits
@@ -253,21 +289,7 @@ print '<td>'.$langs->trans("GroupModeTransversal").'</td>';
 print '<td align="center" width="20">&nbsp;</td>';
 
 print '<td align="center" width="100">';
-if ($conf->use_javascript_ajax)
-{
-	print ajax_constantonoff('MULTICOMPANY_TRANSVERSE_MODE');
-}
-else
-{
-	if($conf->global->MULTICOMPANY_TRANSVERSE_MODE == 0)
-	{
-		print '<a href="'.$_SERVER['PHP_SELF'].'?action=set_MULTICOMPANY_TRANSVERSE_MODE">'.img_picto($langs->trans("Disabled"),'off').'</a>';
-	}
-	else if($conf->global->MULTICOMPANY_TRANSVERSE_MODE == 1)
-	{
-		print '<a href="'.$_SERVER['PHP_SELF'].'?action=del_MULTICOMPANY_TRANSVERSE_MODE">'.img_picto($langs->trans("Enabled"),'on').'</a>';
-	}
-}
+print ajax_constantonoff('MULTICOMPANY_TRANSVERSE_MODE');
 print '</td></tr>';
 */
 print '</table>';

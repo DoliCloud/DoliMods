@@ -1,9 +1,9 @@
 <?php
-/* Copyright (C) 2009-2012 Regis Houssin  <regis@dolibarr.fr>
+/* Copyright (C) 2009-2013 Regis Houssin  <regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -23,6 +23,8 @@
  */
 
 $res=@include("../../main.inc.php");						// For root directory
+if (! $res && file_exists($_SERVER['DOCUMENT_ROOT']."/main.inc.php"))
+	$res=@include($_SERVER['DOCUMENT_ROOT']."/main.inc.php"); // Use on dev env only
 if (! $res) $res=@include("../../../main.inc.php");			// For "custom" directory
 
 require_once("../class/actions_multicompany.class.php");
@@ -52,6 +54,8 @@ $formcompany=new FormCompany($db);
 
 $object->doActions($action);
 
+//$test = new DaoMulticompany($db);
+//$test->deleteEntityRecords(4);
 
 /*
  * View
@@ -72,12 +76,6 @@ dol_fiche_head($head, 'entities', $object->getTitle(GETPOST("action")));
 
 // Assign template values
 $object->assign_values($action);
-
-// Show errors
-dol_htmloutput_errors($object->error,$object->errors);
-
-// Show messages
-dol_htmloutput_mesg($object->mesg,'','ok');
 
 // Show the template
 $object->display();

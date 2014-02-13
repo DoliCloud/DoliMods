@@ -1,10 +1,10 @@
 <?php
-/* Copyright (C) 2011 Regis Houssin  <regis@dolibarr.fr>
- * Copyright (C) 2011 Herve Prot     <herve.prot@symeos.com>
+/* Copyright (C) 2011-2013	Regis Houssin  <regis.houssin@capnetworks.com>
+ * Copyright (C) 2011		Herve Prot     <herve.prot@symeos.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -30,6 +30,8 @@ if (! defined('NOREQUIRESOC'))   define('NOREQUIRESOC','1');
 //if (! defined('NOREQUIRETRAN'))  define('NOREQUIRETRAN','1');
 
 $res=@include("../main.inc.php");						// For root directory
+if (! $res && file_exists($_SERVER['DOCUMENT_ROOT']."/main.inc.php"))
+	$res=@include($_SERVER['DOCUMENT_ROOT']."/main.inc.php"); // Use on dev env only
 if (! $res) $res=@include("../../main.inc.php");		// For "custom" directory
 
 dol_include_once("/multicompany/class/actions_multicompany.class.php");
