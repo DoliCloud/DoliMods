@@ -20,7 +20,6 @@
 /**
  *	\defgroup   zipautofill     Module ZiopAutoFill
  * 	\brief      Module to add zip codes
- *	\version	$Id: modZipAutoFillFr.class.php,v 1.6 2011/05/29 12:25:35 eldy Exp $
  */
 
 /**
