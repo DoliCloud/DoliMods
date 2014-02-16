@@ -158,6 +158,8 @@ class InterfaceEcotaxdeee
 	{
 		global $mysoc;
 
+		include_once DOL_DOCUMENT_ROOT.'/core/lib/price.lib.php';
+
 		// The next 3 parameters can be replaced at will:
 		$desc = empty($conf->global->ECOTAXDEEE_LABEL_LINE)?$langs->trans("EcoTaxDeee"):$conf->global->ECOTAXDEEE_LABEL_LINE; // label for ecotax
 		//$ecocat = empty($conf->global->ECOTAXDEEE_CATEGORY_REF)?"Ecotax":$conf->global->ECOTAXDEEE_CATEGORY_REF; // the category products must be in, for ecotax to apply
@@ -241,11 +243,11 @@ class InterfaceEcotaxdeee
 
 				$tmpproduct=new Product($this->db);
 				$tmpproduct->fetch($line->fk_product);
+				include_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
 
-				//if (versioncompare(versiondolibarrarray(),array(3,6,0)) >= -3)	// We are 3.6.0 alpha or +
-				if (1 == 1)
+				if (versioncompare(versiondolibarrarray(),array(3,6,-3)) < 0)	// We are 3.6.0 alpha or +
 				{
-					// If version <= 3.6.0, get eco tax deee amount from extra field
+					// If version < 3.6.0, get eco tax deee amount from extra field
 					$result=$tmpproduct->fetch_optionals($tmpproduct->id, $optionsArray);
 					$ecoamount[$ecocateg] += ($tmpproduct->array_options['options_ecotaxdeee'] * $line->qty);
 				}
@@ -319,7 +321,7 @@ class InterfaceEcotaxdeee
 				$special_code = 2;
 				$txtva=get_default_tva($seller, $buyer, 0, 0);	// Get default VAT for generic product id=0 (highest vat rate)
 
-							include_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
+				include_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
 
 				if (versioncompare(versiondolibarrarray(),array(3,5,-3)) >= 0)	// We are 3.5.0 alpha or +
 				{
