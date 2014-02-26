@@ -80,9 +80,11 @@ if ($action == 'set')
 		if (dol_is_dir($dir)) dolibarr_set_const($db,"DOLICLOUD_SCRIPTS_PATH",GETPOST("DOLICLOUD_SCRIPTS_PATH"),'chaine',0,'',$conf->entity);
 		else setEventMessage($langs->trans("ErrorDirNotFound",$dir),'errors');
 
-		$dir=GETPOST("DOLICLOUD_LASTSTABLEVERSION_DIR");
-		if (dol_is_dir($dir)) dolibarr_set_const($db,"DOLICLOUD_LASTSTABLEVERSION_DIR",GETPOST("DOLICLOUD_LASTSTABLEVERSION_DIR"),'chaine',0,'',$conf->entity);
-		else setEventMessage($langs->trans("ErrorDirNotFound",$dir),'errors');
+		dolibarr_set_const($db,"DOLICLOUD_DATABASE_HOST",GETPOST("DOLICLOUD_DATABASE_HOST"),'chaine',0,'',$conf->entity);
+		dolibarr_set_const($db,"DOLICLOUD_DATABASE_PORT",GETPOST("DOLICLOUD_DATABASE_PORT"),'chaine',0,'',$conf->entity);
+		dolibarr_set_const($db,"DOLICLOUD_DATABASE_NAME",GETPOST("DOLICLOUD_DATABASE_NAME"),'chaine',0,'',$conf->entity);
+		dolibarr_set_const($db,"DOLICLOUD_DATABASE_USER",GETPOST("DOLICLOUD_DATABASE_USER"),'chaine',0,'',$conf->entity);
+		dolibarr_set_const($db,"DOLICLOUD_DATABASE_PASS",GETPOST("DOLICLOUD_DATABASE_PASS"),'chaine',0,'',$conf->entity);
 	}
 }
 
@@ -183,6 +185,47 @@ print '<td>';
 print '<input size="40" type="text" name="DOLICLOUD_BACKUP_PATH" value="'.$conf->global->DOLICLOUD_BACKUP_PATH.'">';
 print '</td>';
 print '<td>/home/dolicloud/backup</td>';
+print '<td>&nbsp;</td>';
+print '</tr>';
+
+$var=!$var;
+print '<tr '.$bc[$var].'><td>'.$langs->trans("DatabaseServer").'</td>';
+print '<td>';
+print '<input size="40" type="text" name="DOLICLOUD_DATABASE_HOST" value="'.$conf->global->DOLICLOUD_DATABASE_HOST.'">';
+print '</td>';
+print '<td>www.dolicloud.com</td>';
+print '<td>&nbsp;</td>';
+print '</tr>';
+$var=!$var;
+print '<tr '.$bc[$var].'><td>'.$langs->trans("DatabasePort").'</td>';
+print '<td>';
+print '<input size="40" type="text" name="DOLICLOUD_DATABASE_PORT" value="'.$conf->global->DOLICLOUD_DATABASE_PORT.'">';
+print '</td>';
+print '<td>3306</td>';
+print '<td>&nbsp;</td>';
+print '</tr>';
+$var=!$var;
+print '<tr '.$bc[$var].'><td>'.$langs->trans("DatabaseName").'</td>';
+print '<td>';
+print '<input size="40" type="text" name="DOLICLOUD_DATABASE_NAME" value="'.$conf->global->DOLICLOUD_DATABASE_NAME.'">';
+print '</td>';
+print '<td>dolicloud_saasplex</td>';
+print '<td>&nbsp;</td>';
+print '</tr>';
+$var=!$var;
+print '<tr '.$bc[$var].'><td>'.$langs->trans("DatabaseUser").'</td>';
+print '<td>';
+print '<input size="40" type="text" name="DOLICLOUD_DATABASE_USER" value="'.$conf->global->DOLICLOUD_DATABASE_USER.'">';
+print '</td>';
+print '<td>dolicloud</td>';
+print '<td>&nbsp;</td>';
+print '</tr>';
+$var=!$var;
+print '<tr '.$bc[$var].'><td>'.$langs->trans("DatabasePassword").'</td>';
+print '<td>';
+print '<input size="40" type="text" name="DOLICLOUD_DATABASE_PASS" value="'.$conf->global->DOLICLOUD_DATABASE_PASS.'">';
+print '</td>';
+print '<td></td>';
 print '<td>&nbsp;</td>';
 print '</tr>';
 

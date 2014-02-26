@@ -212,13 +212,98 @@ class modNLTechno extends DolibarrModules
 								'user'=>0);
 		$r++;
 
-		// Example to declare a Left Menu entry:
+		// Left menu DoliCloud (old)
+		$this->menu[$r]=array( 'fk_menu'=>'r=0',        // Use r=value where r is index key used for the parent menu entry (higher parent must be a top menu entry)
+                				'type'=>'left',         // This is a Left menu entry
+                				'titre'=>'DoliCloud (old)',
+                				'mainmenu'=>'nltechno',
+                				'leftmenu'=>'dolicloudold',
+                				'url'=>'/nltechno/dolicloud/index.php',
+                				'langs'=>'nltechno@nltechno',  // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
+                				'position'=>300,
+                				'enabled'=>'$conf->nltechno->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
+							    'perms'=>'$user->rights->nltechno->dolicloud->read',           // Use 'perms'=>'$user->rights->NewsSubmitter->level1->level2' if you want your menu with a permission rules
+                                'target'=>'',
+                                 'user'=>0);             // 0=Menu for internal users, 1=external users, 2=both
+		$r++;
+
+		$this->menu[$r]=array(	'fk_menu'=>'fk_mainmenu=nltechno,fk_leftmenu=dolicloudold',
+								'type'=>'left',
+								'titre'=>'List',
+								'mainmenu'=>'nltechno',
+								'leftmenu'=>'dolicloudold_list',
+								'url'=>'/nltechno/dolicloud/dolicloud_list.php',
+								'langs'=>'',
+								'position'=>200,
+                				'enabled'=>'$conf->nltechno->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
+								'perms'=>'$user->rights->nltechno->dolicloud->read',
+								'target'=>'',
+								'user'=>0);
+		$r++;
+
+		$this->menu[$r]=array(	'fk_menu'=>'fk_mainmenu=nltechno,fk_leftmenu=dolicloudold',
+								'type'=>'left',
+								'titre'=>'New',
+								'mainmenu'=>'nltechno',
+								'leftmenu'=>'dolicloudold_create',
+								'url'=>'/nltechno/dolicloud/dolicloud_card.php?action=create',
+								'langs'=>'',
+								'position'=>210,
+                				'enabled'=>'$conf->nltechno->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
+								'perms'=>'$user->rights->nltechno->dolicloud->write',
+								'target'=>'',
+								'user'=>0);
+		$r++;
+
+		$this->menu[$r]=array(	'fk_menu'=>'fk_mainmenu=nltechno,fk_leftmenu=dolicloudold',
+								'type'=>'left',
+								'titre'=>'EMailsTemplates',
+								'mainmenu'=>'nltechno',
+								'leftmenu'=>'dolicloudold_emailstemplates',
+								'url'=>'/nltechno/dolicloud/dolicloudemailstemplates_page.php?action=list',
+								'langs'=>'nltechno@nltechno',
+								'position'=>220,
+                				'enabled'=>'$conf->nltechno->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
+								'perms'=>'$user->rights->nltechno->dolicloud->write',
+								'target'=>'',
+								'user'=>0);
+		$r++;
+
+		$this->menu[$r]=array(	'fk_menu'=>'fk_mainmenu=nltechno,fk_leftmenu=dolicloudold',
+								'type'=>'left',
+								'titre'=>'ImportCustomers',
+								'mainmenu'=>'nltechno',
+								'leftmenu'=>'dolicloudold_import_custmers',
+								'url'=>'/nltechno/dolicloud/dolicloud_import_customers.php',
+								'langs'=>'nltechno@nltechno',
+								'position'=>220,
+                				'enabled'=>'$conf->nltechno->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
+								'perms'=>'$user->rights->nltechno->dolicloud->write',
+								'target'=>'',
+								'user'=>0);
+		$r++;
+
+		$this->menu[$r]=array(	'fk_menu'=>'fk_mainmenu=nltechno,fk_leftmenu=dolicloudold',
+								'type'=>'left',
+								'titre'=>'ImportPayments',
+								'mainmenu'=>'nltechno',
+								'leftmenu'=>'dolicloudold_import_payments',
+								'url'=>'/nltechno/dolicloud/dolicloud_import_payments.php',
+								'langs'=>'nltechno@nltechno',
+								'position'=>220,
+                				'enabled'=>'$conf->nltechno->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
+								'perms'=>'$user->rights->nltechno->dolicloud->write',
+								'target'=>'',
+								'user'=>0);
+		$r++;
+
+		// New area
 		$this->menu[$r]=array( 'fk_menu'=>'r=0',        // Use r=value where r is index key used for the parent menu entry (higher parent must be a top menu entry)
                 				'type'=>'left',         // This is a Left menu entry
                 				'titre'=>'DoliCloud',
                 				'mainmenu'=>'nltechno',
                 				'leftmenu'=>'dolicloud',
-                				'url'=>'/nltechno/dolicloud/index.php',
+                				'url'=>'/nltechno/dolicloud/index_new.php',
                 				'langs'=>'nltechno@nltechno',  // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
                 				'position'=>300,
                 				'enabled'=>'$conf->nltechno->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
@@ -232,7 +317,7 @@ class modNLTechno extends DolibarrModules
 								'titre'=>'List',
 								'mainmenu'=>'nltechno',
 								'leftmenu'=>'dolicloud_list',
-								'url'=>'/nltechno/dolicloud/dolicloud_list.php',
+								'url'=>'/nltechno/dolicloud/dolicloud_list_new.php',
 								'langs'=>'',
 								'position'=>200,
                 				'enabled'=>'$conf->nltechno->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
@@ -243,52 +328,10 @@ class modNLTechno extends DolibarrModules
 
 		$this->menu[$r]=array(	'fk_menu'=>'fk_mainmenu=nltechno,fk_leftmenu=dolicloud',
 								'type'=>'left',
-								'titre'=>'New',
-								'mainmenu'=>'nltechno',
-								'leftmenu'=>'dolicloud_create',
-								'url'=>'/nltechno/dolicloud/dolicloud_card.php?action=create',
-								'langs'=>'',
-								'position'=>210,
-                				'enabled'=>'$conf->nltechno->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
-								'perms'=>'$user->rights->nltechno->dolicloud->write',
-								'target'=>'',
-								'user'=>0);
-		$r++;
-
-		$this->menu[$r]=array(	'fk_menu'=>'fk_mainmenu=nltechno,fk_leftmenu=dolicloud',
-								'type'=>'left',
 								'titre'=>'EMailsTemplates',
 								'mainmenu'=>'nltechno',
 								'leftmenu'=>'dolicloud_emailstemplates',
-								'url'=>'/nltechno/dolicloud/dolicloudemailstemplates_page.php?action=list',
-								'langs'=>'nltechno@nltechno',
-								'position'=>220,
-                				'enabled'=>'$conf->nltechno->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
-								'perms'=>'$user->rights->nltechno->dolicloud->write',
-								'target'=>'',
-								'user'=>0);
-		$r++;
-
-		$this->menu[$r]=array(	'fk_menu'=>'fk_mainmenu=nltechno,fk_leftmenu=dolicloud',
-								'type'=>'left',
-								'titre'=>'ImportCustomers',
-								'mainmenu'=>'nltechno',
-								'leftmenu'=>'dolicloud_import_custmers',
-								'url'=>'/nltechno/dolicloud/dolicloud_import_customers.php',
-								'langs'=>'nltechno@nltechno',
-								'position'=>220,
-                				'enabled'=>'$conf->nltechno->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
-								'perms'=>'$user->rights->nltechno->dolicloud->write',
-								'target'=>'',
-								'user'=>0);
-		$r++;
-
-		$this->menu[$r]=array(	'fk_menu'=>'fk_mainmenu=nltechno,fk_leftmenu=dolicloud',
-								'type'=>'left',
-								'titre'=>'ImportPayments',
-								'mainmenu'=>'nltechno',
-								'leftmenu'=>'dolicloud_import_payments',
-								'url'=>'/nltechno/dolicloud/dolicloud_import_payments.php',
+								'url'=>'/nltechno/dolicloud/dolicloudemailstemplates_page_new.php?action=list',
 								'langs'=>'nltechno@nltechno',
 								'position'=>220,
                 				'enabled'=>'$conf->nltechno->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
