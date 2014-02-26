@@ -98,7 +98,7 @@ if ($_GET["action"] == 'buildemailingchien')
 		$i++;
 	}
 	$j=rand(0,$i--);
-	$race_semaine=$LIB_RACES[$j]." (Origine : ".$ORIGINE_RACES[$j].")<br><br>D�couvrez cette race cette semaine avec ChiensDeRace.com.<br><a href='http://www.chiensderace.com/php/fiche_race.php?RACE=".$ID_RACES[$j]."'>Voir la fiche de race</a><br>";
+	$race_semaine=$LIB_RACES[$j]." (Origine : ".$ORIGINE_RACES[$j].")<br><br>Découvrez cette race cette semaine avec ChiensDeRace.com.<br><a href='http://www.chiensderace.com/php/fiche_race.php?RACE=".$ID_RACES[$j]."'>Voir la fiche de race</a><br>";
 
 	$file_in='newsletter_type_chien.html';
     $fichier= fopen($file_in, 'r');
@@ -147,15 +147,37 @@ $form=new Form($db);
 if ($msg) print $msg.'<br>';
 
 
-$dbann=getDoliDBInstance('mysqli', $dbhostchien, $dbuserchien, $dbpasswordchien, $dbdatabasechien, 3306);
-if (! $dbann->connected)
+$dbchien=getDoliDBInstance('mysqli', $dbhostchien, $dbuserchien, $dbpasswordchien, $dbdatabasechien, 3306);
+if (! $dbchien->connected)
 {
-	dol_print_error($dbann,"Can not connect to server ".$dbhostchien." with user ".$dbuserchien);
+	dol_print_error($dbchien,"Can not connect to server ".$dbhostchien." with user ".$dbuserchien);
 	exit;
 }
-if (! $dbann->database_selected)
+if (! $dbchien->database_selected)
 {
-	dol_print_error($dbann,"Database ".$dbdatabasechien." can not be selected");
+	dol_print_error($dbchien,"Database ".$dbdatabasechien." can not be selected");
+	exit;
+}
+$dbchat=getDoliDBInstance('mysqli', $dbhostchat, $dbuserchat, $dbpasswordchat, $dbdatabasechat, 3306);
+if (! $dbchat->connected)
+{
+	dol_print_error($dbchat,"Can not connect to server ".$dbhostchat." with user ".$dbuserchat);
+	exit;
+}
+if (! $dbchat->database_selected)
+{
+	dol_print_error($dbchat,"Database ".$dbdatabasechat." can not be selected");
+	exit;
+}
+$dbchatparlons=getDoliDBInstance('mysqli', $dbhostchatparlons, $dbuserchatparlons, $dbpasswordchatparlons, $dbdatabasechatparlons, 3306);
+if (! $dbchatparlons->connected)
+{
+	dol_print_error($dbchatparlons,"Can not connect to server ".$dbhostchatparlons." with user ".$dbuserchatparlons);
+	exit;
+}
+if (! $dbchatparlons->database_selected)
+{
+	dol_print_error($dbchatparlons,"Database ".$dbdatabasechatparlons." can not be selected");
 	exit;
 }
 
@@ -218,6 +240,8 @@ $relativepath=$dirtmp."statsannonces.png".$categ;
                     $classname = "mailing_".$modulename;
                     require_once($file);
 
+                    if (preg_match('/chiens/',$modulename)) $db=$dbchien;
+                    if (preg_match('/chat/',$modulename)) $db=$dbchat;
                     $obj = new $classname($db);
 
                     $qualified=1;
@@ -320,6 +344,8 @@ $relativepath=$dirtmp."statsannonces.png".$categ;
                     $classname = "mailing_".$modulename;
                     require_once($file);
 
+                    if (preg_match('/chiens/',$modulename)) $db=$dbchien;
+                    if (preg_match('/chat/',$modulename)) $db=$dbchatparlons;
                     $obj = new $classname($db);
 
                     $qualified=1;
@@ -444,7 +470,8 @@ $relativepath=$dirtmp."statsannonces.png".$categ;
 	print '<input type="submit" class="button" value="Generer newsletter brouillon"><br>';
 	print '</form>';
 
-$dbann->close();
+$dbchien->close();
+$dbchat->close();
 
 llxFooter();
 ?>
