@@ -102,7 +102,7 @@ if (preg_match('/^test/',$action))
 
     $result=$object->add($user);
 	if ($result < 0) $error++;
-    
+
     if (! $error)
     {
 	    $object->label='New label';
@@ -110,11 +110,11 @@ if (preg_match('/^test/',$action))
 	    $object->note='New note';
 	    $object->datep+=3600;
 	    $object->datef+=3600;
-	
+
 	    $result=$object->update($user);
 		if ($result < 0) $error++;
     }
-    
+
     if ($action == 'testall' && ! $error)
     {
 	    $result=$object->delete();
@@ -127,8 +127,8 @@ if (preg_match('/^test/',$action))
     }
     else
     {
-        $error='<div class="error">'.$object->error.'</div>';
-        $errors=$object->errors;
+        if ($object->errors) setEventMessage($object->errors,'errors');
+        else setEventMessage($object->error,'errors');
     }
 }
 

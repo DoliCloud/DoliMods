@@ -116,6 +116,8 @@ if ($action == 'save')
 // This is a test action to allow to test creation of contact once synchro with Contact has been enabled.
 if (preg_match('/^test/',$action))
 {
+	$db->begin();
+
     if ($action == 'testcreatethirdparties' || $action == 'testallthirdparties') $object=new Societe($db);
     if ($action == 'testcreatecontacts' || $action == 'testallcontacts') $object=new Contact($db);
     if ($action == 'testcreatemembers' || $action == 'testallmembers') $object=new Adherent($db);
@@ -157,63 +159,69 @@ if (preg_match('/^test/',$action))
     	$result=$object->create($user);
     }
 
-    if ($action == 'testallthirdparties')
+    if ($result >= 0)
     {
-    	$object->oldcopy = dol_clone($object);
+	    if ($action == 'testallthirdparties')
+	    {
+	    	$object->oldcopy = dol_clone($object);
 
-    	$object->name='Test Synchro new Thirdparty (can be deleted)';
-	    $object->lastname='Thirdparty (can be deleted)';
-	    $object->firstname='Test Synchro new';
-	    $object->email='newemail@newemail.com';
-	    $object->url='www.newspecimen.com';
-	    $object->note_private='New private note with special char é and entity eacute &eacute; and html tag <strong>strong</strong>';
-	    $object->street='New street';
-	    $object->town='New town';
-	    $result=$object->update($object->id, $user);
+	    	$object->name='Test Synchro new Thirdparty (can be deleted)';
+		    $object->lastname='Thirdparty (can be deleted)';
+		    $object->firstname='Test Synchro new';
+		    $object->email='newemail@newemail.com';
+		    $object->url='www.newspecimen.com';
+		    $object->note_private='New private note with special char é and entity eacute &eacute; and html tag <strong>strong</strong>';
+		    $object->street='New street';
+		    $object->town='New town';
+		    $result=$object->update($object->id, $user);
 
-	    $result=$object->delete($object->id);	// id of thirdparty to delete
+		    if ($result > 0) $result=$object->delete($object->id);	// id of thirdparty to delete
+	    }
+	    if ($action == 'testallcontacts')
+	    {
+	    	$object->oldcopy = dol_clone($object);
+
+	    	$object->name='Test Synchro new Contact (can be deleted)';
+	    	$object->lastname='Contact (can be deleted)';
+	    	$object->firstname='Test Synchro new';
+	    	$object->email='newemail@newemail.com';
+		    $object->url='www.newspecimen.com';
+	    	$object->note_private='New private note with special char é and entity eacute &eacute; and html tag <strong>strong</strong>';
+		    $object->street='New street';
+		    $object->town='New town';
+	    	$result=$object->update($object->id, $user);
+
+	    	if ($result > 0) $result=$object->delete(0);	// notrigger=0
+	    }
+	    if ($action == 'testallmembers')
+	    {
+	    	$object->oldcopy = dol_clone($object);
+
+	    	$object->name='Test Synchro new Member (can be deleted)';
+	    	$object->lastname='Member (can be deleted)';
+	    	$object->firstname='Test Synchro new';
+	    	$object->email='newemail@newemail.com';
+	    	$object->url='www.newspecimen.com';
+	    	$object->note_private='New private note with special char é and entity eacute &eacute; and html tag <strong>strong</strong>';
+	    	$object->street='New street';
+	    	$object->town='New town';
+	    	$result=$object->update($user);
+
+	    	if ($result > 0) $result=$object->delete(0);	// notrigger=0
+	    }
     }
-    if ($action == 'testallcontacts')
+
+    if ($result >= 0)
     {
-    	$object->oldcopy = dol_clone($object);
-
-    	$object->name='Test Synchro new Contact (can be deleted)';
-    	$object->lastname='Contact (can be deleted)';
-    	$object->firstname='Test Synchro new';
-    	$object->email='newemail@newemail.com';
-	    $object->url='www.newspecimen.com';
-    	$object->note_private='New private note with special char é and entity eacute &eacute; and html tag <strong>strong</strong>';
-	    $object->street='New street';
-	    $object->town='New town';
-    	$result=$object->update($object->id, $user);
-
-	    $result=$object->delete(0);	// notrigger=0
-    }
-    if ($action == 'testallmembers')
-    {
-    	$object->oldcopy = dol_clone($object);
-
-    	$object->name='Test Synchro new Member (can be deleted)';
-    	$object->lastname='Member (can be deleted)';
-    	$object->firstname='Test Synchro new';
-    	$object->email='newemail@newemail.com';
-    	$object->url='www.newspecimen.com';
-    	$object->note_private='New private note with special char é and entity eacute &eacute; and html tag <strong>strong</strong>';
-    	$object->street='New street';
-    	$object->town='New town';
-    	$result=$object->update($user);
-
-    	$result=$object->delete(0);	// notrigger=0
-    }
-
-    if ($result > 0)
-    {
+    	$db->rollback();	// It was a test, we rollback everything
         $mesg=$langs->trans("TestSuccessfull");
     }
     else
-    {
-        $error='<div class="error">'.$object->error.'</div>';
-        $errors=$object->errors;
+	{
+    	$db->rollback();	// It was a test, we rollback everything
+
+		if ($object->errors) setEventMessage($object->errors,'errors');
+        else setEventMessage($object->error,'errors');
     }
 }
 
