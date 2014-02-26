@@ -175,11 +175,14 @@ if ($action == 'add' || $action == 'update')
             $error++;
             $mesgarray[]=$langs->trans("ErrorFieldRequired",$langs->transnoentities("Amount"));
         }
-        /*if ($nbnotempty > 1)
-        {
-            $error++;
-            $mesgarray[]=$langs->trans("OnlyOneFieldIsPossible");
-        }*/
+		// If bank module enabled, bank account is required.
+		if ($conf->banque->enabled)
+		{
+			if (! empty($_POST["montant_cheque"]) && (! GETPOST('bankchequeto') || GETPOST('bankchequeto') < 0)) { $error++; $mesgarray[]=$langs->trans("ErrorFieldRequired",$langs->transnoentities("RecBank")); }
+			if (! empty($_POST["montant_carte"])  && (! GETPOST('bankcarteto')  || GETPOST('bankcarteto') < 0))  { $error++; $mesgarray[]=$langs->trans("ErrorFieldRequired",$langs->transnoentities("RecBank")); }
+			if (! empty($_POST["montant_espece"]) && (! GETPOST('bankespeceto') || GETPOST('bankespeceto') < 0)) { $error++; $mesgarray[]=$langs->trans("ErrorFieldRequired",$langs->transnoentities("RecBank")); }
+		}
+        // Other
         if (trim($_POST["montant_cheque"])!='' && ! empty($conf->global->CABINETMED_BANK_PATIENT_REQUIRED) && ! trim($_POST["banque"]))
         {
             $error++;
@@ -226,7 +229,7 @@ if ($action == 'add' || $action == 'update')
 
                     foreach(array('CHQ','CB','LIQ','VIR') as $key)
                     {
-                        if ($conf->banque->enabled && isset($banque[$key]))
+                        if ($conf->banque->enabled && isset($banque[$key]) && $banque[$key] > 0)
                         {
                             $bankaccount=new Account($db);
                             $result=$bankaccount->fetch($banque[$key]);
@@ -310,7 +313,7 @@ if ($action == 'add' || $action == 'update')
                                 $bankaccountline->delete($user);
                             }
 
-                            if ($conf->banque->enabled && $banque[$key])
+                            if ($conf->banque->enabled && isset($banque[$key]) && $banque[$key] > 0)
                             {
                                 $bankaccount=new Account($db);
                                 $result=$bankaccount->fetch($banque[$key]);
@@ -328,7 +331,7 @@ if ($action == 'add' || $action == 'update')
                     }
                 }
                 else
-                {
+				{
                     $error++;
                 }
             }
@@ -864,11 +867,12 @@ if ($socid > 0)
         print '<fieldset id="fieldsetanalyse">';
         print '<legend>'.$langs->trans("Paiement").'</legend>'."\n";
 
+        // Try to autodetect the default bank account to use. For this we search opened account with user name into label or owner
         $defaultbankaccountchq=0;
         $defaultbankaccountliq=0;
         $sql="SELECT rowid, label, bank, courant";
         $sql.= " FROM ".MAIN_DB_PREFIX."bank_account";
-        $sql.= " WHERE clos = '0'";
+        $sql.= " WHERE clos = 0";
         $sql.= " AND entity = ".$conf->entity;
         $sql.= " AND (proprio LIKE '%".$user->lastname."%' OR label LIKE '%".$user->lastname."%')";
         $sql.= " ORDER BY label";
@@ -901,7 +905,7 @@ if ($socid > 0)
         if ($conf->banque->enabled)
         {
         	print ' &nbsp; '.$langs->trans("RecBank").' ';
-            $form->select_comptes(($consult->bank['CHQ']['account_id']?$consult->bank['CHQ']['account_id']:$defaultbankaccountchq),'bankchequeto',0,'courant = 1',0);
+            $form->select_comptes(GETPOST('bankchequeto')?GETPOST('bankchequeto'):($consult->bank['CHQ']['account_id']?$consult->bank['CHQ']['account_id']:$defaultbankaccountchq),'bankchequeto',2,'courant = 1',1);
         }
         //print '</td><td>';
         print ' &nbsp; ';
@@ -924,7 +928,7 @@ if ($socid > 0)
         if ($conf->banque->enabled)
         {
             print ' &nbsp; '.$langs->trans("RecBank").' ';
-            $form->select_comptes(($consult->bank['CB']['account_id']?$consult->bank['CB']['account_id']:$defaultbankaccountchq),'bankcarteto',0,'courant = 1',0);
+            $form->select_comptes(GETPOST('bankcarteto')?GETPOST('bankcarteto'):($consult->bank['CB']['account_id']?$consult->bank['CB']['account_id']:$defaultbankaccountchq),'bankcarteto',2,'courant = 1',1);
         }
         print '</td></tr>';
         // Cash
@@ -934,7 +938,7 @@ if ($socid > 0)
         if ($conf->banque->enabled)
         {
             print ' &nbsp; '.$langs->trans("RecBank").' ';
-            $form->select_comptes(($consult->bank['LIQ']['account_id']?$consult->bank['LIQ']['account_id']:$defaultbankaccountliq),'bankespeceto',0,'courant = 2',0);
+            $form->select_comptes(GETPOST('bankespeceto')?GETPOST('bankespeceto'):($consult->bank['LIQ']['account_id']?$consult->bank['LIQ']['account_id']:$defaultbankaccountliq),'bankespeceto',2,'courant = 2',1);
         }
         print '</td></tr>';
         // Third party
@@ -1028,7 +1032,6 @@ if ($action == '' || $action == 'delete')
     print_liste_field_titre($langs->trans('ConsultActe'),$_SERVER['PHP_SELF'],'t.typevisit','',$param,'',$sortfield,$sortorder);
     print_liste_field_titre($langs->trans('MontantPaiement'),$_SERVER['PHP_SELF'],'','',$param,'',$sortfield,$sortorder);
     print_liste_field_titre($langs->trans('TypePaiement'),$_SERVER['PHP_SELF'],'','',$param,'',$sortfield,$sortorder);
-    //if ($conf->banque->enabled) print_liste_field_titre($langs->trans('Bank'),$_SERVER['PHP_SELF'],'','',$param,'',$sortfield,$sortorder);
     print '<td>&nbsp;</td>';
     print '</tr>';
 
