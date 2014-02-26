@@ -1,6 +1,7 @@
 <?php
 /* Copyright (C) 2005-2009 Laurent Destailleur  <eldy@users.sourceforge.net>
  * Copyright (C) 2005      Regis Houssin        <regis@dolibarr.fr>
+ * Copyright (C) 2014 	   Philippe Grand       <philippe.grand@atoo-net.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,12 +18,12 @@
  */
 
 /**
- *      \file       htdocs/includes/modules/barcode/pibarcode.modules.php
- *		\ingroup    facture
+ *      \file       pibarcode/core/modules/barcode/pibarcode.modules.php
+ *		\ingroup    other
  *		\brief      File of class to generate barcode images using pibarcode generator
  */
 
-require_once(DOL_DOCUMENT_ROOT ."/core/modules/barcode/modules_barcode.php");
+require_once(DOL_DOCUMENT_ROOT ."/core/modules/barcode/modules_barcode.class.php");
 
 
 /**
@@ -34,9 +35,9 @@ class modPibarcode extends ModeleBarCode
 	var $error='';
 
     /**
-     *	Renvoi la description du modele de numerotation
+     *	Return description of numbering model
      *
-     *  @return     string      Texte descripif
+     *  @return     string      Text with description
      */
     function info()
     {
