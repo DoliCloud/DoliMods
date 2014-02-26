@@ -76,13 +76,26 @@ $form=new Form($db);
 print_fiche_titre("NLTechno information");
 print '<br>';
 
-print '<form action="'.$_SERVER["PHP_SELF"].'" method="POST">';
-print '<input type="hidden" name="action" value="update">';
-$doleditor=new DolEditor('NLTECHNO_NOTE',$conf->global->NLTECHNO_NOTE,'',480,'Full');
-print $doleditor->Create(1);
-print '<br>';
-print '<input class="button" type="submit" name="'.$langs->trans("Save").'">';
-print '</form>';
+if ($action != 'edit')
+{
+	print dol_htmlcleanlastbr($conf->global->NLTECHNO_NOTE);
+
+	print '<div class="tabsAction">';
+
+	print '<div class="inline-block divButAction"><a class="butAction" href="'.$_SERVER["PHP_SELF"].'?action=edit">'.$langs->trans("Edit").'</a></div>';
+
+	print '</div>';
+}
+else
+{
+	print '<form action="'.$_SERVER["PHP_SELF"].'" method="POST">';
+	print '<input type="hidden" name="action" value="update">';
+	$doleditor=new DolEditor('NLTECHNO_NOTE',$conf->global->NLTECHNO_NOTE,'',480,'Full');
+	print $doleditor->Create(1);
+	print '<br>';
+	print '<input class="button" type="submit" name="'.$langs->trans("Save").'">';
+	print '</form>';
+}
 
 llxFooter();
 ?>
