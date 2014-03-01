@@ -172,9 +172,9 @@ print "</form>\n";
 dol_fiche_end();
 
 $elements=array();
-if (! empty($conf->global->ECOTAXDEEE_USE_ON_CUSTOMER_ORDER) && $conf->global->ECOTAXDEEE_USE_ON_CUSTOMER_ORDER != 'no') $elements[]=$langs->trans("CustomersOrders");
-if (! empty($conf->global->ECOTAXDEEE_USE_ON_PROPOSAL) && $conf->global->ECOTAXDEEE_USE_ON_PROPOSAL != 'no') $elements[]=$langs->trans("Proposals");
-if (! empty($conf->global->ECOTAXDEEE_USE_ON_CUSTOMER_INVOICE) && $conf->global->ECOTAXDEEE_USE_ON_CUSTOMER_INVOICE != 'no') $elements[]=$langs->trans("BillsCustomers");
+if (! empty($conf->global->ECOTAXDEEE_USE_ON_CUSTOMER_ORDER) && $conf->global->ECOTAXDEEE_USE_ON_CUSTOMER_ORDER != 'no') $elements[]=$langs->transnoentitiesnoconv("CustomersOrders");
+if (! empty($conf->global->ECOTAXDEEE_USE_ON_PROPOSAL) && $conf->global->ECOTAXDEEE_USE_ON_PROPOSAL != 'no') $elements[]=$langs->transnoentitiesnoconv("Proposals");
+if (! empty($conf->global->ECOTAXDEEE_USE_ON_CUSTOMER_INVOICE) && $conf->global->ECOTAXDEEE_USE_ON_CUSTOMER_INVOICE != 'no') $elements[]=$langs->transnoentitiesnoconv("BillsCustomers");
 if (count($elements))
 {
 	if (versioncompare(versiondolibarrarray(),array(3,6,0)) >= -3)	// We are 3.6.0 alpha or +
