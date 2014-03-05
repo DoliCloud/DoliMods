@@ -12,7 +12,6 @@
  *      \file       htdocs/awstats/core/modules/modAWStats.class.php
  *      \ingroup    awstats
  *      \brief      Description and activation file for module AWStats
- *		\version	$Id: modAWStats.class.php,v 1.22 2011/01/22 10:18:00 eldy Exp $
  */
 include_once(DOL_DOCUMENT_ROOT ."/core/modules/DolibarrModules.class.php");
 

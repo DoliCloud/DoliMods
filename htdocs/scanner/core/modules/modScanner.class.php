@@ -25,7 +25,6 @@
  *      \file       htdocs/scanner/core/modules/modScanner.class.php
  *      \ingroup    scanner
  *      \brief      Description and activation file for module Scanner
- *		\version	$Id: modScanner.class.php,v 1.7 2011/03/26 14:08:43 eldy Exp $
  */
 include_once(DOL_DOCUMENT_ROOT ."/core/modules/DolibarrModules.class.php");
 

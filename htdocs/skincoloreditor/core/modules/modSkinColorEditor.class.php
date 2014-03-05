@@ -24,7 +24,6 @@
  *      \file       htdocs/skincoloreditor/core/modules/modSkinColorEditor.class.php
  *      \ingroup    cabinetmed
  *      \brief      Description and activation file for module CabinetMed
- *      \version    $Id: modCabinetMed.class.php,v 1.46 2011/09/07 16:26:49 eldy Exp $
  */
 include_once(DOL_DOCUMENT_ROOT ."/core/modules/DolibarrModules.class.php");
 
@@ -110,7 +109,7 @@ class modSkinColorEditor extends DolibarrModules
 		// 'categories_x'	  to add a tab in category view (replace 'x' by type of category (0=product, 1=supplier, 2=customer, 3=member)
 
         // Dictionnaries
-        if (! isset($conf->skincoloreditor->enabled)) 
+        if (! isset($conf->skincoloreditor->enabled))
         {
         	$conf->skincoloreditor=new stdClass();
         	$conf->skincoloreditor->enabled=0;

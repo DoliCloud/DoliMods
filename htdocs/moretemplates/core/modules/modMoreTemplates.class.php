@@ -17,7 +17,6 @@
 
 /**     \defgroup   moretemplates		Module MoreTemplates
  *      \brief      Module for moretemplates server
- *		\version	$Id: modConcatPdf.class.php,v 1.1 2011/05/18 15:51:47 eldy Exp $
  */
 
 /**

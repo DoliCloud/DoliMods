@@ -12,7 +12,6 @@
  *      \file       htdocs/survey/core/modules/modSurvey.class.php
  *      \ingroup    survey
  *      \brief      Description and activation file for module Survey
- * 		\version	$Id: modSurvey.class.php,v 1.6 2011/01/22 10:18:00 eldy Exp $
  */
 include_once(DOL_DOCUMENT_ROOT ."/core/modules/DolibarrModules.class.php");
 

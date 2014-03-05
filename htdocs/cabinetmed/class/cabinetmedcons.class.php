@@ -19,9 +19,7 @@
 /**
  *      \file       htdocs/cabinetmed/class/cabinetmedcons.class.php
  *      \ingroup    cabinetmed
- *      \brief      This file is an example for a CRUD class file (Create/Read/Update/Delete)
- *		\version    $Id: cabinetmedcons.class.php,v 1.21 2011/09/11 18:41:48 eldy Exp $
- *		\remarks	Initialy built by build_class_from_table on 2011-02-02 22:30
+ *      \brief      Class is CRUD class file for consultations (Create/Read/Update/Delete)
  */
 
 // Put here all includes required by your class file

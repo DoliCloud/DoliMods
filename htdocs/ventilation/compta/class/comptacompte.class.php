@@ -19,7 +19,6 @@
  *	\file       htdocs/compta/class/comptacompte.class.php
  * 	\ingroup    compta
  * 	\brief      Fichier de la classe des comptes comptable
- * 	\version    $Id: comptacompte.class.php,v 1.3 2011/08/03 00:46:33 eldy Exp $
  */
 
 
@@ -35,7 +34,7 @@ class ComptaCompte
   var $rowid ;
   var $numero;
   var $intitule;
-  
+
   // exmple journal de vente
   var $sellsjournal;
 
@@ -138,7 +137,7 @@ class ComptaCompte
 
       return $result;
     }
-    
+
 	function update()
 	{
 		$sql = "UPDATE ".MAIN_DB_PREFIX."compta_compte_generaux SET numero = '".addslashes($this->numero)."', intitule = '".addslashes($this->intitule)."', sellsjournal = '".addslashes($this->sellsjournal)."' WHERE rowid = '".$this->rowid."'";

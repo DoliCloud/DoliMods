@@ -12,7 +12,6 @@
  *      \file       htdocs/webmail/core/modules/modWebMail.class.php
  *      \ingroup    webmail
  *      \brief      Description and activation file for module WebMail
- *		\version	$Id: modWebMail.class.php,v 1.8 2011/03/14 08:23:44 eldy Exp $
  */
 include_once(DOL_DOCUMENT_ROOT ."/core/modules/DolibarrModules.class.php");
 

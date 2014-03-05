@@ -249,12 +249,12 @@ class InterfaceEcotaxdeee
 				{
 					// If version < 3.6.0, get eco tax deee amount from extra field
 					$result=$tmpproduct->fetch_optionals($tmpproduct->id, $optionsArray);
-					$ecoamount[$ecocateg] += ($tmpproduct->array_options['options_ecotaxdeee'] * $line->qty);
+					if (! empty($tmpproduct->array_options['options_ecotaxdeee']) && $line->qty) $ecoamount[$ecocateg] += ($tmpproduct->array_options['options_ecotaxdeee'] * $line->qty);
 				}
 				else
 				{
 					// Get it from product desc
-					$ecoamount[$ecocateg] += ($tmpproduct->ecotaxdeee * $line->qty);
+					if (! empty($tmpproduct->ecotaxdeee) && $line->qty) $ecoamount[$ecocateg] += ($tmpproduct->ecotaxdeee * $line->qty);
 				}
 			}
 		}

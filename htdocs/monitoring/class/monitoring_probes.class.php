@@ -20,9 +20,6 @@
  *      \file       dev/skeletons/monitoring_probes.class.php
  *      \ingroup    mymodule othermodule1 othermodule2
  *      \brief      This file is an example for a CRUD class file (Create/Read/Update/Delete)
- *		\version    $Id: monitoring_probes.class.php,v 1.11 2011/09/11 18:41:56 eldy Exp $
- *		\author		Put author name here
- *		\remarks	Initialy built by build_class_from_table on 2011-03-08 23:24
  */
 
 // Put here all includes required by your class file
