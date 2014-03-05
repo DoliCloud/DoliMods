@@ -294,7 +294,13 @@ llxHeader('','DoliCloud',$linktohelp);
 print_fiche_titre($langs->trans("List customers"))."\n";
 print '<br>';
 
-$formfile->form_attach_new_file($_SERVER['PHP_SELF'], $langs->trans("ImportFileCustomers"), 0, 0, 1, 50, '', '', false);
+$formfile->form_attach_new_file($_SERVER['PHP_SELF'], $langs->trans("ImportFileCustomers"), 0, 0, 1, 50, '', '', false, '', 0);
+
+print_fiche_titre($langs->trans("Exclude customer"),'','')."<br>\n";
+print '<form name="exclude" action="'.$_SERVER["PHP_SELF"].'" method="POST">';
+print '<textarea name="excludelist" cols="120">'.$conf->global->NLTECHNO_DOLICLOUD_EXCLUDE_CUSTOMERS.'</textarea><br>';
+print '<input type="submit" class="button" name="'.$langs->trans("Save").'">';
+print '</form><br><br>'."\n";
 
 $sapi_type = php_sapi_name();
 $script_file = basename(__FILE__);
