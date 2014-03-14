@@ -204,6 +204,7 @@ class ActionsConcatPdf
         {
         	foreach($concatpdffile as $concatfile)
         	{
+        		// We find which second file to add (or generate if if file to add as a name starting with pdf___)
         		if (preg_match('/^pdf_(.*)+\.modules/', $concatfile))
         		{
         			require_once(DOL_DOCUMENT_ROOT."/core/lib/files.lib.php");
