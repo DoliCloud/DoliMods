@@ -107,7 +107,7 @@ print "<tr ".$bc[$var].">";
 print "<td>".$langs->trans("ECOTAXDEEE_USE_ON_CUSTOMER_ORDER")."</td>";
 print "<td>";
 $selectedvalue=$conf->global->ECOTAXDEEE_USE_ON_CUSTOMER_ORDER;
-print $form->selectyesno("ECOTAXDEEE_USE_ON_CUSTOMER_ORDER",$selectedvalue);
+print $form->selectyesno("ECOTAXDEEE_USE_ON_CUSTOMER_ORDER",$selectedvalue,1);
 print "</td>";
 print "</tr>";
 // GETPOST("ECOTAXDEEE_USE_ON_PROPOSAL")
@@ -116,7 +116,7 @@ print "<tr ".$bc[$var].">";
 print "<td>".$langs->trans("ECOTAXDEEE_USE_ON_PROPOSAL")."</td>";
 print "<td>";
 $selectedvalue=$conf->global->ECOTAXDEEE_USE_ON_PROPOSAL;
-print $form->selectyesno("ECOTAXDEEE_USE_ON_PROPOSAL",$selectedvalue);
+print $form->selectyesno("ECOTAXDEEE_USE_ON_PROPOSAL",$selectedvalue,1);
 print "</td>";
 print "</tr>";
 // GETPOST("ECOTAXDEEE_USE_ON_CUSTOMER_INVOICE")
@@ -125,7 +125,7 @@ print "<tr ".$bc[$var].">";
 print "<td>".$langs->trans("ECOTAXDEEE_USE_ON_CUSTOMER_INVOICE")."</td>";
 print "<td>";
 $selectedvalue=$conf->global->ECOTAXDEEE_USE_ON_CUSTOMER_INVOICE;
-print $form->selectyesno("ECOTAXDEEE_USE_ON_CUSTOMER_INVOICE",$selectedvalue);
+print $form->selectyesno("ECOTAXDEEE_USE_ON_CUSTOMER_INVOICE",$selectedvalue,1);
 print "</td>";
 print "</tr>";
 
