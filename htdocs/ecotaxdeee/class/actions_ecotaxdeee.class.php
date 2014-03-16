@@ -47,18 +47,28 @@ class ActionsEcotaxdeee
      * Execute action
      *
      * @param	array	$parameters		Array of parameters
-     * @param   Object	&$object    	Deprecated. This field is nto used
+     * @param   Object	&$pdfhandler  	PDF builder handler
      * @param   string	$action     	'add', 'update', 'view'
      * @return  int 		        	<0 if KO,
      *                          		=0 if OK but we want to process standard actions too,
      *  	                            >0 if OK and we want to replace standard actions.
      */
-    function afterPDFCreation($parameters,&$object,&$action)
+    function afterPDFCreation($parameters,&$pdfhandler,&$action)
     {
         global $langs,$conf,$user;
         global $hookmanager;
 
-        if (empty($conf->global->ECOTAXDEEE_DOC_FOOTER)) return '';
+        // If not text to add, we leave
+        if (empty($conf->global->ECOTAXDEEE_DOC_FOOTER)) return 0;
+
+        // If his is not a document we need ecotax
+        if (! in_array($parameters['object']->element, array('propal','invoice','order'))) return 0;
+
+        // If we build a document we don't want ecotax on, we leave
+        $element='';
+        if ($parameters['object']->element == 'propal' && empty($conf->global->ECOTAXDEEE_USE_ON_PROPOSAL)) return 0;
+        else if ($parameters['object']->element == 'invoice' && empty($conf->global->ECOTAXDEEE_USE_ON_CUSTOMER_INVOICE)) return 0;
+        else if ($parameters['object']->element == 'order' && empty($conf->global->ECOTAXDEEE_USE_ON_CUSTOMER_ORDER)) return 0;
 
         $outputlangs=$parameters['outputlangs'];
         $concatpdffile = 'tmpecotaxdeee'.(empty($user->id)?'':'_'.$user->id);
