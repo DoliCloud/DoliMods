@@ -68,7 +68,10 @@ class modEcoTaxDeee extends DolibarrModules
 		// Png file must be in theme/yourtheme/img directory under name object_pictovalue.png.
 		$this->picto='product';
 
-        $this->module_parts = array('triggers' => 1);
+        $this->module_parts = array(
+        						'triggers' => 1,
+        						'hooks' => array('pdfgeneration')
+        						);
 
         // Data directories to create when module is enabled.
 		$this->dirs = array();
