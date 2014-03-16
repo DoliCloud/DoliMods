@@ -53,12 +53,12 @@ if ($action == 'save')
     if (! $error)
     {
         $db->commit();
-        $mesg = "<font class=\"ok\">".$langs->trans("SetupSaved")."</font>";
+        setEventMessage($langs->trans("SetupSaved"));
     }
     else
     {
         $db->rollback();
-        $mesg = "<font class=\"error\">".$langs->trans("Error")."</font>";
+        setEventMessage($langs->trans("Error"));
     }
 }
 
@@ -67,7 +67,6 @@ if ($action == 'save')
 /*
  * View
  */
-
 
 $form=new Form($db);
 $formadmin=new FormAdmin($db);
@@ -141,14 +140,14 @@ print "</td>";
 print "</tr>";
 
 // ECOTAXDEEE_DOC_FOOTER
-if (versioncompare(versiondolibarrarray(),array(3,6,-3)) >= 0)	// We are 3.6.0 alpha or +
+if (versioncompare(versiondolibarrarray(),array(3,6,-3)) >= 999)	// >= 0 if we are 3.6.0 alpha or +
 {
 	$var=!$var;
 	print "<tr ".$bc[$var].">";
 	print "<td>".$langs->trans("ECOTAXDEEE_DOC_FOOTER")."</td>";
 	print "<td>";
 	$selectedvalue=(empty($conf->global->ECOTAXDEEE_DOC_FOOTER)?'':$conf->global->ECOTAXDEEE_DOC_FOOTER);
-	print '<textarea class="flat" name="ECOTAXDEEE_DOC_FOOTER" cols="80" rows="'.ROWS_3.'">'.$selectedvalue.'</textarea>';
+	print '<textarea class="flat" name="ECOTAXDEEE_DOC_FOOTER" cols="80" rows="'.ROWS_5.'">'.$selectedvalue.'</textarea>';
 	print '<br>';
 	print $langs->trans("Example").":<br>\n";
 	print $langs->trans("EcoTaxDeeDocFooterExample");
@@ -159,6 +158,29 @@ if (versioncompare(versiondolibarrarray(),array(3,6,-3)) >= 0)	// We are 3.6.0 a
 
 print '</table>';
 print '<br>';
+
+/*
+// Table of categories
+print $langs->trans("AddPageWithWEEEUnitPrices").'<br>';
+
+$var=false;
+print "<table class=\"noborder\" width=\"100%\">";
+
+print "<tr class=\"liste_titre\">";
+print '<td>'.$langs->trans("Label")."</td>";
+print "<td>".$langs->trans("UnitPrice")."</td>";
+print "</tr>";
+for ($i=0; $i < 8; $i++)
+{
+	$var=!$var;
+	print "<tr ".$bc[$var].">";
+	print '<td><input type="text" name="label'.$i.'" size="40"></td>';
+	print '<td><input type="text" name="value'.$i.'" size="5"></td>';
+	print "</tr>";
+}
+print '</table>';
+print '<br>';
+*/
 
 
 print '<center>';
@@ -188,8 +210,6 @@ if (count($elements))
 	print info_admin($text);
 }
 
-
-dol_htmloutput_mesg($mesg);
 
 
 // Show message

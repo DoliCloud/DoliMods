@@ -244,8 +244,7 @@ class InterfaceEcotaxdeee
 				$tmpproduct=new Product($this->db);
 				$tmpproduct->fetch($line->fk_product);
 				include_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
-
-				if (versioncompare(versiondolibarrarray(),array(3,6,-3)) < 0)	// We are 3.6.0 alpha or +
+				if (versioncompare(versiondolibarrarray(),array(3,6,-3)) < 999)	// <0 to test if we are 3.6.0 alpha or -
 				{
 					// If version < 3.6.0, get eco tax deee amount from extra field
 					$result=$tmpproduct->fetch_optionals($tmpproduct->id, $optionsArray);
