@@ -6,7 +6,7 @@ ECOTAXDEEE_USE_ON_CUSTOMER_ORDER=Add automatically an Eco tax WEEE on customer o
 ECOTAXDEEE_USE_ON_PROPOSAL=Add automatically an Eco tax WEEE on commercial proposals
 ECOTAXDEEE_USE_ON_CUSTOMER_INVOICE=Add automatically an Eco tax WEEE on customer invoices
 ECOTAXDEEE_LABEL_LINE=Label to use for Eco tax line
-ECOTAXDEEE_DOC_FOOTER=Information to show into documents footer
+ECOTAXDEEE_DOC_FOOTER=Content of new page to add (empty=no annex)
 EcoTaxDeeDocFooterExample=Products have a unit WEEE tax of 0.01€ for category A, 0.02€ for category B...
 ECOTAXDEEE_CATEGORY_REF=Ref of product category to detect products that need Eco tax WEEE
 Module101380Name=Eco Tax WEEE

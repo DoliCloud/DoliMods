@@ -22,6 +22,7 @@ require_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/date.lib.php");
 require_once(DOL_DOCUMENT_ROOT.'/core/class/html.formadmin.class.php');
 require_once(DOL_DOCUMENT_ROOT.'/core/class/html.formother.class.php');
+require_once(DOL_DOCUMENT_ROOT.'/core/class/doleditor.class.php');
 dol_include_once("/ecotaxdeee/lib/ecotaxdeee.lib.php");
 
 if (!$user->admin) accessforbidden();
@@ -140,21 +141,20 @@ print "</td>";
 print "</tr>";
 
 // ECOTAXDEEE_DOC_FOOTER
-if (versioncompare(versiondolibarrarray(),array(3,6,-3)) >= 999)	// >= 0 if we are 3.6.0 alpha or +
-{
-	$var=!$var;
-	print "<tr ".$bc[$var].">";
-	print "<td>".$langs->trans("ECOTAXDEEE_DOC_FOOTER")."</td>";
-	print "<td>";
-	$selectedvalue=(empty($conf->global->ECOTAXDEEE_DOC_FOOTER)?'':$conf->global->ECOTAXDEEE_DOC_FOOTER);
-	print '<textarea class="flat" name="ECOTAXDEEE_DOC_FOOTER" cols="80" rows="'.ROWS_5.'">'.$selectedvalue.'</textarea>';
-	print '<br>';
-	print $langs->trans("Example").":<br>\n";
-	print $langs->trans("EcoTaxDeeDocFooterExample");
-	// Add warning if category product does not exists
-	print "</td>";
-	print "</tr>";
-}
+$var=!$var;
+print "<tr ".$bc[$var].">";
+print "<td>".$langs->trans("ECOTAXDEEE_DOC_FOOTER")."</td>";
+print "<td>";
+$selectedvalue=(empty($conf->global->ECOTAXDEEE_DOC_FOOTER)?'':$conf->global->ECOTAXDEEE_DOC_FOOTER);
+$doleditor=new DolEditor("ECOTAXDEEE_DOC_FOOTER", $selectedvalue,'','300','dolibarr_details','In',1,1,1,ROWS_9,100);
+$doleditor->Create(0,''); 
+
+print '<br>';
+print $langs->trans("Example").":<br>\n";
+print $langs->trans("EcoTaxDeeDocFooterExample");
+// Add warning if category product does not exists
+print "</td>";
+print "</tr>";
 
 print '</table>';
 print '<br>';
@@ -199,7 +199,7 @@ if (! empty($conf->global->ECOTAXDEEE_USE_ON_PROPOSAL) && $conf->global->ECOTAXD
 if (! empty($conf->global->ECOTAXDEEE_USE_ON_CUSTOMER_INVOICE) && $conf->global->ECOTAXDEEE_USE_ON_CUSTOMER_INVOICE != 'no') $elements[]=$langs->transnoentitiesnoconv("BillsCustomers");
 if (count($elements))
 {
-	if (versioncompare(versiondolibarrarray(),array(3,6,0)) >= -3)	// We are 3.6.0 alpha or +
+	if (versioncompare(versiondolibarrarray(),array(3,6,-3)) >= 999)	// >= 0 if we are 3.6.0 alpha or +
 	{
 		$text=$langs->trans("EcoTaxAddedIfDesc",join(', ',$elements));
 	}

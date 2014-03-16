@@ -58,6 +58,8 @@ class ActionsEcotaxdeee
         global $langs,$conf,$user;
         global $hookmanager;
 
+        if (empty($conf->global->ECOTAXDEEE_DOC_FOOTER)) return '';
+
         $outputlangs=$parameters['outputlangs'];
         $concatpdffile = 'tmpecotaxdeee'.(empty($user->id)?'':'_'.$user->id);
 		$file=$conf->ecotaxdeee->dir_temp.'/'.$concatpdffile.'.pdf';        
@@ -108,7 +110,9 @@ class ActionsEcotaxdeee
         $pdf->AddPage();
         if (! empty($tplidx)) $pdf->useTemplate($tplidx);
 
-		$pdf->Close();
+        $pdf->writeHTMLCell($page_largeur - $marge_gauche - $marge_droite, $page_hauteur - $marge_haute - $marge_basse, $marge_gauche, $marge_haute, $conf->global->ECOTAXDEEE_DOC_FOOTER);
+		
+        $pdf->Close();
 
 		$pdf->Output($file,'F');
 
