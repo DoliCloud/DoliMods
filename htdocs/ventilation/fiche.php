@@ -95,7 +95,7 @@ if($_GET["id"])
 {
     $sql = "SELECT f.facnumber, f.rowid as facid, l.fk_product, l.description, l.price,";
     $sql .= " l.qty, l.rowid, l.tva_tx, l.remise_percent, l.subprice, p.accountancy_code_sell as code_sell,";
-    $sql .= " ".$db->idate("l.date_start")." as date_start, ".$db->idate("l.date_end")." as date_end,";
+    $sql .= " '".$db->idate("l.date_start")."' as date_start, '".$db->idate("l.date_end")."' as date_end,";
     $sql .= " l.fk_code_ventilation ";
     $sql .= " FROM ".MAIN_DB_PREFIX."facturedet as l";
 	  $sql.= " LEFT JOIN ".MAIN_DB_PREFIX."product as p ON p.rowid = l.fk_product";
