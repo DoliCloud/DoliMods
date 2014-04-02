@@ -284,7 +284,7 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 
 	$backupdir=$conf->global->DOLICLOUD_BACKUP_PATH;
 
-	$dirdb=preg_replace('/_dolibarr/','',$object->database_db);
+	$dirdb=preg_replace('/_([a-zA-Z0-9]+)/','',$object->database_db);
 	$login=$object->username_web;
 	$password=$object->password_web;
 	$server=$object->instance.'.on.dolicloud.com';

@@ -963,7 +963,7 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 
 	$backupdir=$conf->global->DOLICLOUD_BACKUP_PATH;
 
-	$dirdb=preg_replace('/_dolibarr/','',$object->database_db);
+	$dirdb=preg_replace('/_([a-zA-Z0-9]+)/','',$object->database_db);
 	$login=$object->username_web;
 	$password=$object->password_web;
 	$server=$object->instance.'.on.dolicloud.com';
@@ -1024,7 +1024,7 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 	print '<br>';
 
 	// SFTP
-	$sftpconnectstring=$object->username_web.':'.$object->password_web.'@'.$object->hostname_web.':'.$conf->global->DOLICLOUD_EXT_HOME.'/'.$object->username_web.'/'.preg_replace('/_dolibarr$/','',$object->database_db);
+	$sftpconnectstring=$object->username_web.':'.$object->password_web.'@'.$object->hostname_web.':'.$conf->global->DOLICLOUD_EXT_HOME.'/'.$object->username_web.'/'.preg_replace('/_([a-zA-Z0-9]+)$/','',$object->database_db);
 	print 'SFTP connect string<br>';
 	print '<input type="text" name="sftpconnectstring" value="'.$sftpconnectstring.'" size="120"><br>';
 	print '<br>';

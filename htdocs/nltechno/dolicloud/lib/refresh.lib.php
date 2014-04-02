@@ -39,7 +39,7 @@ function dolicloud_files_refresh($conf, $db, &$object, &$errors)
 			{
 				$sftp = ssh2_sftp($connection);
 
-				$dir=preg_replace('/_dolibarr$/','',$object->database_db);
+				$dir=preg_replace('/_([a-zA-Z0-9]+)$/','',$object->database_db);
 				$file="ssh2.sftp://".$sftp.$conf->global->DOLICLOUD_EXT_HOME.'/'.$object->username_web.'/'.$dir.'/htdocs/conf/conf.php';
 
 				//print $file;

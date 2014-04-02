@@ -95,7 +95,7 @@ if ($action == 'disable_instance')
 			$sftp = ssh2_sftp($connection);
 
 			// Check if install.lock exists
-			$dir=preg_replace('/_dolibarr$/','',$object->database_db);
+			$dir=preg_replace('/_([a-zA-Z0-9]+)$/','',$object->database_db);
 			$filedisabled="ssh2.sftp://".$sftp.$conf->global->DOLICLOUD_EXT_HOME.'/'.$object->username_web.'/'.$dir.'/htdocs/index.html';
 			$fstat=stat($filedisabled);
 			if (empty($fstat['atime']))
@@ -136,7 +136,7 @@ if ($action == 'enable_instance')
 			$sftp = ssh2_sftp($connection);
 
 			// Check if install.lock exists
-			$dir=preg_replace('/_dolibarr$/','',$object->database_db);
+			$dir=preg_replace('/_([a-zA-Z0-9]+)$/','',$object->database_db);
 			$filetodelete=$conf->global->DOLICLOUD_EXT_HOME.'/'.$object->username_web.'/'.$dir.'/htdocs/index.html';
 			$result=ssh2_sftp_unlink($sftp, $filetodelete);
 
@@ -170,7 +170,7 @@ if ($action == 'addinstalllock')
 			$sftp = ssh2_sftp($connection);
 
 			// Check if install.lock exists
-			$dir=preg_replace('/_dolibarr$/','',$object->database_db);
+			$dir=preg_replace('/_([a-zA-Z0-9]+)$/','',$object->database_db);
 			$fileinstalllock="ssh2.sftp://".$sftp.$conf->global->DOLICLOUD_EXT_HOME.'/'.$object->username_web.'/'.$dir.'/documents/install.lock';
 			$fstat=stat($fileinstalllock);
 			if (empty($fstat['atime']))
@@ -214,7 +214,7 @@ if ($action == 'delinstalllock')
 			$sftp = ssh2_sftp($connection);
 
 			// Check if install.lock exists
-			$dir=preg_replace('/_dolibarr$/','',$object->database_db);
+			$dir=preg_replace('/_([a-zA-Z0-9]+)$/','',$object->database_db);
 			$filetodelete=$conf->global->DOLICLOUD_EXT_HOME.'/'.$object->username_web.'/'.$dir.'/documents/install.lock';
 			$result=ssh2_sftp_unlink($sftp, $filetodelete);
 
