@@ -98,8 +98,6 @@ class modCMCIC extends DolibarrModules
 
         $this->tabs = array();
 
-        // Dictionnaries
-        $this->dictionnaries=array();
         // Boxes
 		// Add here list of php file(s) stored in includes/boxes that contains class to show a box.
         $this->boxes = array();			// List of boxes

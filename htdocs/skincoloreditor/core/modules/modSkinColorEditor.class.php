@@ -108,29 +108,6 @@ class modSkinColorEditor extends DolibarrModules
 		// 'contact'          to add a tab in contact view
 		// 'categories_x'	  to add a tab in category view (replace 'x' by type of category (0=product, 1=supplier, 2=customer, 3=member)
 
-        // Dictionnaries
-        if (! isset($conf->skincoloreditor->enabled))
-        {
-        	$conf->skincoloreditor=new stdClass();
-        	$conf->skincoloreditor->enabled=0;
-        }
-        $this->dictionnaries=array();
-        /* Example:
-        if (! isset($conf->cabinetmed->enabled)) $conf->cabinetmed->enabled=0;	// This is to avoid warnings
-        $this->dictionnaries=array(
-            'langs'=>'cabinetmed@cabinetmed',
-            'tabname'=>array(MAIN_DB_PREFIX."cabinetmed_diaglec",MAIN_DB_PREFIX."cabinetmed_examenprescrit",MAIN_DB_PREFIX."cabinetmed_motifcons"),		// List of tables we want dictonnary on
-            'tablib'=>array("DiagnostiqueLesionnel","ExamenPrescrit","MotifConsultation"),																// Label of tables
-            'tabsql'=>array('SELECT f.rowid as rowid, f.code, f.label, f.active FROM '.MAIN_DB_PREFIX.'cabinetmed_diaglec as f','SELECT f.rowid as rowid, f.code, f.label, f.active FROM '.MAIN_DB_PREFIX.'cabinetmed_examenprescrit as f','SELECT f.rowid as rowid, f.code, f.label, f.active FROM '.MAIN_DB_PREFIX.'cabinetmed_motifcons as f'),	// Request to select fields
-            'tabsqlsort'=>array("label ASC","label ASC","label ASC"),																					// Sort order
-            'tabfield'=>array("code,label","code,label","code,label"),																					// List of fields (result of select to show dictionnary)
-            'tabfieldvalue'=>array("code,label","code,label","code,label"),																				// List of fields (list of fields to edit a record)
-            'tabfieldinsert'=>array("code,label","code,label","code,label"),																			// List of fields (list of fields for insert)
-            'tabrowid'=>array("rowid","rowid","rowid"),																									// Name of columns with primary key (try to always name it 'rowid')
-            'tabcond'=>array($conf->cabinetmed->enabled,$conf->cabinetmed->enabled,$conf->cabinetmed->enabled)											// Condition to show each dictionnary
-        );
-        */
-
         // Boxes
         $this->boxes = array();         // List of boxes
         $r=0;
