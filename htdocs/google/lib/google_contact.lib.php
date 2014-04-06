@@ -733,10 +733,10 @@ function getGoogleGroupID($gdata, $groupName, &$googleGroups=array(), $useremail
 		foreach ($entries as $entry) {
 			$titleNodes = $entry->getElementsByTagNameNS(constant('ATOM_NAME_SPACE'), "title");
 			if ($titleNodes->length == 1) {
-				$title = $titleNodes->item(0)->textContent;
+				$title = $titleNodes->item(0)->textContent;	// We get <title> of group (For example: 'System Group: My Contacts', 'System Group: Friend', 'Dolibarr (Thirdparties)', ...)
 				$googleIDNodes = $entry->getElementsByTagNameNS(constant('ATOM_NAME_SPACE'), "id");
 				if ($googleIDNodes->length == 1) {
-					$googleGroups[$title] = $googleIDNodes->item(0)->textContent;
+					$googleGroups[$title] = $googleIDNodes->item(0)->textContent;	// We get <id> of group
 				}
 			}
 		}
