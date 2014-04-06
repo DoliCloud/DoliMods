@@ -146,6 +146,7 @@ function googleCreateContact($client, $object, $useremail='default')
 		if ($object->element != 'societe' && $object->element != 'thirdparty')
 		{
 			$fullName = $doc->createElement('gd:fullName', $object->getFullName($langs));
+			// TODO Add givenName and familyName
 		}
 		else
 		{
