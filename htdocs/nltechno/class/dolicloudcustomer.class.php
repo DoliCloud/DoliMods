@@ -92,6 +92,7 @@ class Dolicloudcustomer extends CommonObject
 	static $listOfStatus=array('TRIAL'=>'TRIAL','TRIAL_EXPIRED'=>'TRIAL_EXPIRED','ACTIVE'=>'ACTIVE','ACTIVE_PAYMENT_ERROR'=>'ACTIVE_PAYMENT_ERROR','SUSPENDED'=>'SUSPENDED','CLOSED_QUEUED'=>'CLOSE_QUEUED','UNDEPLOYED'=>'UNDEPLOYED');
 	static $listOfStatusShort=array('TRIAL'=>'TRIAL','TRIAL_EXPIRED'=>'TRIAL_EXP.','ACTIVE'=>'ACT.','ACTIVE_PAYMENT_ERROR'=>'ACT_PAY_ERR.','SUSPENDED'=>'SUSPENDED','CLOSED_QUEUED'=>'CLOSE_Q.','UNDEPLOYED'=>'UNDEP.');
 
+	static $listOfStatusNewShort=array('TRIALING'=>'TRIALING','TRIAL_EXPIRED'=>'TRIAL_EXP.','ACTIVE'=>'ACTIVE','ACTIVE_PAYMENT_ERROR'=>'ACTIVE_PAY_ERR.','SUSPENDED'=>'SUSPENDED','CLOSURE_REQUESTED'=>'CLOSURE_R.','CLOSED'=>'CLOSED');
 
     /**
      *  Constructor
@@ -629,13 +630,13 @@ class Dolicloudcustomer extends CommonObject
 	 *	@param		int			$maxlen			Max length of
 	 *	@return		string						String with URL
 	 */
-	function getNomUrl($withpicto=0,$option='',$maxlen=0)
+	function getNomUrl($withpicto=0,$option='',$maxlen=0,$prefixurl='')
 	{
 	    global $langs;
 
 	    $result='';
 
-	    $lien = '<a href="'.dol_buildpath('/nltechno/dolicloud/dolicloud_card.php',1).'?id='.$this->id.'">';
+	    $lien = '<a href="'.dol_buildpath('/nltechno/dolicloud/dolicloud_card'.$prefixurl.'.php',1).'?id='.$this->id.'">';
 	    $lienfin='</a>';
 
 	    if ($withpicto) $result.=($lien.img_object($langs->trans("ShowCustomer").': '.$this->ref,'generic').$lienfin.' ');

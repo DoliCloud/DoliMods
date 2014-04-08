@@ -248,7 +248,7 @@ if (empty($reshook))
  */
 
 $help_url='';
-llxHeader('',$langs->trans("DoliCloudCustomers"),$help_url);
+llxHeader('',$langs->trans("DoliCloudInstances"),$help_url);
 
 $form = new Form($db);
 $formother = new FormOther($db);
@@ -275,7 +275,7 @@ if ($id > 0 || $instance || $action == 'create')
 	// Show tabs
 	$head = dolicloud_prepare_head($object);
 
-	$title = $langs->trans("DoliCloudCustomers");
+	$title = $langs->trans("DoliCloudInstances");
 	dol_fiche_head($head, 'card', $title, 0, 'contact');
 }
 
