@@ -325,7 +325,7 @@ class modNLTechno extends DolibarrModules
 								'target'=>'',
 								'user'=>0);
 		$r++;
-
+/*
 		$this->menu[$r]=array(	'fk_menu'=>'fk_mainmenu=nltechno,fk_leftmenu=dolicloud',
 								'type'=>'left',
 								'titre'=>'EMailsTemplates',
@@ -338,6 +338,7 @@ class modNLTechno extends DolibarrModules
 								'perms'=>'$user->rights->nltechno->dolicloud->write',
 								'target'=>'',
 								'user'=>0);
+								*/
 		$r++;
 	}
 
