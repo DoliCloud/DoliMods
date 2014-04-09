@@ -735,7 +735,7 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 	// Country
 	print '<tr><td>'.$langs->trans("Country").'</td><td colspan="3">';
 	$img=picto_from_langcode($object->country_code);
-	if ($img) print $img.' ';
+	if ($object->country_code) print $img.' ';
 	print getCountry($object->country_code,0);
 	print '</td></tr>';
 

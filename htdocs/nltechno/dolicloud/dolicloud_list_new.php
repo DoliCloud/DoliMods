@@ -202,10 +202,14 @@ $sql.= " c.suspension_date,";
 $sql.= " c.payment_status,";
 
 $sql.= " per.username as email,";
+$sql.= " per.first_name as firstname,";
+$sql.= " per.last_name as lastname,";
 
 $sql.= " cp.org_name as partner";
 
-$sql.= " FROM app_instance as i, app_instance_meter as im, customer_account as c";
+$sql.= " FROM app_instance as i";
+$sql.= " LEFT JOIN app_instance_meter as im ON i.id = im.app_instance_id AND im.meter_id = 1,";	// meter_id = 1 = users
+$sql.= " customer_account as c";
 $sql.= " LEFT JOIN channel_partner_customer_account as cc ON cc.customer_account_id = c.id";
 $sql.= " LEFT JOIN channel_partner as cp ON cc.channel_partner_id = cp.id";
 $sql.= " LEFT JOIN person as per ON c.primary_contact_id = per.id,";
@@ -213,15 +217,14 @@ $sql.= " plan as pl";
 $sql.= " LEFT JOIN plan_add_on as pao ON pl.id=pao.plan_id and pao.meter_id = 1,";	// meter_id = 1 = users
 $sql.= " app_package as p";
 $sql.= " WHERE i.customer_account_id = c.id AND c.plan_id = pl.id AND pl.app_package_id = p.id";
-$sql.= " AND i.id = im.app_instance_id AND im.meter_id = 1";	// meter_id = 1 = users
 if ($search_dolicloud) $sql.='';
 if ($search_multi) $sql.=" AND (i.name LIKE '%".$db->escape($search_multi)."%' OR c.org_name LIKE '%".$db->escape($search_multi)."%' OR i.email LIKE '%".$db->escape($search_multi)."%')";
 if ($search_instance) $sql.=" AND i.name LIKE '%".$db->escape($search_instance)."%'";
 if ($search_organization) $sql.=" AND c.org_name LIKE '%".$db->escape($search_organization)."%'";
-if ($search_plan) $sql.=" AND i.email LIKE '%".$db->escape($search_plan)."%'";
+if ($search_plan) $sql.=" AND p.name LIKE '%".$db->escape($search_plan)."%'";
 if ($search_partner) $sql.=" AND cp.org_name LIKE '%".$db->escape($search_partner)."%'";
 if ($search_source) $sql.=" AND t.source LIKE '%".$db->escape($search_source)."%'";
-if ($search_email) $sql.=" AND i.email LIKE '%".$db->escape($search_email)."%'";
+if ($search_email) $sql.=" AND per.username LIKE '%".$db->escape($search_email)."%'";
 if ($search_lastlogin) $sql.=" AND i.last_login LIKE '%".$db->escape($search_lastlogin)."%'";
 if (! is_numeric($search_status))
 {
@@ -281,8 +284,8 @@ if ($resql)
     //print_liste_field_titre($langs->trans('Source'),$_SERVER['PHP_SELF'],'t.source','',$param,'',$sortfield,$sortorder);
     print_liste_field_titre($langs->trans('DateRegistration'),$_SERVER['PHP_SELF'],'t.date_registration','',$param,'',$sortfield,$sortorder);
     print_liste_field_titre($langs->trans('DateEndFreePeriod'),$_SERVER['PHP_SELF'],'c.next_billing_date','',$param,'',$sortfield,$sortorder);
-    print_liste_field_titre($langs->trans('DateLastCheck'),$_SERVER['PHP_SELF'],'t.lastcheck','',$param,'',$sortfield,$sortorder);
-    print_liste_field_titre($langs->trans('NbOfUsers'),$_SERVER['PHP_SELF'],'t.nbofusers','',$param,'align="right"',$sortfield,$sortorder);
+    print_liste_field_titre($langs->trans('DateLastCheck'),$_SERVER['PHP_SELF'],'im.last_updated','',$param,'',$sortfield,$sortorder);
+    print_liste_field_titre($langs->trans('NbOfUsers'),$_SERVER['PHP_SELF'],'im.value','',$param,'align="right"',$sortfield,$sortorder);
     //print_liste_field_titre($langs->trans('LastLogin'),$_SERVER['PHP_SELF'],'t.lastlogin','',$param,'align="center"',$sortfield,$sortorder);
     print_liste_field_titre($langs->trans('DateLastLogin'),$_SERVER['PHP_SELF'],'t.date_lastlogin','',$param,'align="center"',$sortfield,$sortorder);
     print_liste_field_titre($langs->trans('Revenue'),$_SERVER['PHP_SELF'],'','',$param,' align="right"',$sortfield,$sortorder);

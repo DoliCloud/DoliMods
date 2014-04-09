@@ -37,7 +37,7 @@ require_once(DOL_DOCUMENT_ROOT."/core/class/html.formcompany.class.php");
 require_once(DOL_DOCUMENT_ROOT."/core/class/html.formother.class.php");
 dol_include_once("/nltechno/core/lib/dolicloud.lib.php");
 dol_include_once("/nltechno/core/dolicloud/lib/refresh.lib.php");
-dol_include_once('/nltechno/class/dolicloudcustomer.class.php');
+dol_include_once('/nltechno/class/dolicloudcustomernew.class.php');
 dol_include_once('/nltechno/class/cdolicloudplans.class.php');
 
 $langs->load("admin");
@@ -60,7 +60,18 @@ if (empty($date_endfreeperiod) && ! empty($date_registration)) $date_endfreeperi
 
 $error = 0; $errors = array();
 
-$object = new DoliCloudCustomer($db);
+
+
+$db2=getDoliDBInstance('mysqli', $conf->global->DOLICLOUD_DATABASE_HOST, $conf->global->DOLICLOUD_DATABASE_USER, $conf->global->DOLICLOUD_DATABASE_PASS, $conf->global->DOLICLOUD_DATABASE_NAME, $conf->global->DOLICLOUD_DATABASE_PORT);
+if ($db2->error)
+{
+	dol_print_error($db2,"host=".$conf->db->host.", port=".$conf->db->port.", user=".$conf->db->user.", databasename=".$conf->db->name.", ".$db2->error);
+	exit;
+}
+
+
+
+$object = new DoliCloudCustomerNew($db,$db2);
 
 // Security check
 $user->rights->nltechno->dolicloud->delete = $user->rights->nltechno->dolicloud->write;
@@ -239,7 +250,7 @@ if (empty($reshook))
 	}
 
 	// Add action to create file, etc...
-	include 'refresh_action.inc.php';
+	include 'refresh_action_new.inc.php';
 }
 
 
@@ -251,11 +262,12 @@ $help_url='';
 llxHeader('',$langs->trans("DoliCloudInstances"),$help_url);
 
 $form = new Form($db);
+$form2 = new Form($db2);
 $formother = new FormOther($db);
 $formcompany = new FormCompany($db);
 
 $countrynotdefined=$langs->trans("ErrorSetACountryFirst").' ('.$langs->trans("SeeAbove").')';
-$arraystatus=Dolicloudcustomer::$listOfStatus;
+$arraystatus=Dolicloudcustomernew::$listOfStatus;
 
 
 // Confirm deleting object
@@ -273,7 +285,7 @@ if ($user->rights->nltechno->dolicloud->write)
 if ($id > 0 || $instance || $action == 'create')
 {
 	// Show tabs
-	$head = dolicloud_prepare_head($object);
+	$head = dolicloud_prepare_head($object,'_new');
 
 	$title = $langs->trans("DoliCloudInstances");
 	dol_fiche_head($head, 'card', $title, 0, 'contact');
@@ -396,6 +408,7 @@ if ($user->rights->nltechno->dolicloud->write)
 		if (empty($countrytoshow)) $countrytoshow=getCountry(getvalfromkey($db,'dolicloud_saasplex.country_region.alpha2',$organizationtoshow), 3);
 		if (dol_strlen(trim($object->fk_pays)) == 0) $object->fk_pays = $objsoc->country_id;	// Predefined with third party
 		print '<tr><td>'.$langs->trans("Country").'</td><td colspan="3">';
+
 		print $form->select_country($countrytoshow,'country_id');
 		if ($user->admin) print info_admin($langs->trans("YouCanChangeValuesForThisListFromDictionnarySetup"),1);
 		print '</td></tr>';
@@ -669,6 +682,8 @@ if ($user->rights->nltechno->dolicloud->write)
 	}
 }
 
+
+
 if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 {
 	/*
@@ -693,7 +708,10 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 
 	// Instance / Organization
 	print '<tr><td width="20%">'.$langs->trans("Instance").'</td><td colspan="3">';
-	print $form->showrefnav($object,'instance','',1,'instance','instance','');
+	$savdb=$object->db;
+	$object->db=$object->db2;	// To have ->db to point to db2 for showrefnav function
+	print $form2->showrefnav($object,'instance','',1,'name','instance','','',1);
+	$object->db=$savdb;
 	print '</td></tr>';
 	print '<tr><td>'.$langs->trans("Organization").'</td><td colspan="3">';
 	print $object->organization;
@@ -735,7 +753,7 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 	// Country
 	print '<tr><td>'.$langs->trans("Country").'</td><td colspan="3">';
 	$img=picto_from_langcode($object->country_code);
-	if ($img) print $img.' ';
+	if ($object->country_code) print $img.' ';
 	print getCountry($object->country_code,0);
 	print '</td></tr>';
 
@@ -798,7 +816,7 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 	// ----- DoliCloud instance -----
 	print '<strong>INSTANCE SERVEUR STRATUS5</strong>';
 	// Last refresh
-	print ' - '.$langs->trans("DateLastCheck").': '.($object->lastcheck?dol_print_date($object->lastcheck,'dayhour','tzuser'):$langs->trans("Never"));
+	print ' - '.$langs->trans("DateLastCheck").': '.($object->date_lastcheck?dol_print_date($object->date_lastcheck,'dayhour','tzuser'):$langs->trans("Never"));
 
 	if (! $object->user_id && $user->rights->nltechno->dolicloud->write)
 	{
@@ -809,7 +827,7 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 	print '<table class="border" width="100%">';
 
 	// Nb of users
-	print '<tr><td width="20%">'.$langs->trans("NbOfUsers").'</td><td colspan="3"><font size="+2">'.$object->nbofusers.'</font></td>';
+	print '<tr><td width="20%">'.$langs->trans("NbOfUsers").'</td><td colspan="3"><font size="+2">'.round($object->nbofusers).'</font></td>';
 	print '</tr>';
 
 	// Dates

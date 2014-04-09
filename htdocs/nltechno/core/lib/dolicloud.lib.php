@@ -57,36 +57,36 @@ function getvalfromkey($db,$param,$val)
  * @param   Object	$object		Object related to tabs
  * @return  array				Array of tabs to shoc
  */
-function dolicloud_prepare_head($object)
+function dolicloud_prepare_head($object,$prefix='')
 {
 	global $langs, $conf;
 
 	$h = 0;
 	$head = array();
 
-	$head[$h][0] = ($object->id?dol_buildpath('/nltechno/dolicloud/dolicloud_card.php',1).'?id='.$object->id:'');
+	$head[$h][0] = ($object->id?dol_buildpath('/nltechno/dolicloud/dolicloud_card'.$prefix.'.php',1).'?id='.$object->id:'');
 	$head[$h][1] = $langs->trans("Card");
 	$head[$h][2] = 'card';
 	$h++;
 
 	if ($object->id > 0)
 	{
-		$head[$h][0] = dol_buildpath('/nltechno/dolicloud/dolicloud_card_upgrade.php',1).'?id='.$object->id;
+		$head[$h][0] = dol_buildpath('/nltechno/dolicloud/dolicloud_card_upgrade'.$prefix.'.php',1).'?id='.$object->id;
 		$head[$h][1] = $langs->trans("Upgrade");
 		$head[$h][2] = 'upgrade';
 		$h++;
 
-		$head[$h][0] = dol_buildpath('/nltechno/dolicloud/dolicloud_card_backup.php',1).'?id='.$object->id;
+		$head[$h][0] = dol_buildpath('/nltechno/dolicloud/dolicloud_card_backup'.$prefix.'.php',1).'?id='.$object->id;
 		$head[$h][1] = $langs->trans("Backup");
 		$head[$h][2] = 'backup';
 		$h++;
 
-		$head[$h][0] = dol_buildpath('/nltechno/dolicloud/dolicloud_card_users.php',1).'?id='.$object->id;
+		$head[$h][0] = dol_buildpath('/nltechno/dolicloud/dolicloud_card_users'.$prefix.'.php',1).'?id='.$object->id;
 		$head[$h][1] = $langs->trans("Users");
 		$head[$h][2] = 'users';
 		$h++;
 
-		$head[$h][0] = dol_buildpath('/nltechno/dolicloud/dolicloud_card_payments.php',1).'?id='.$object->id;
+		$head[$h][0] = dol_buildpath('/nltechno/dolicloud/dolicloud_card_payments'.$prefix.'.php',1).'?id='.$object->id;
 		$head[$h][1] = $langs->trans("Payments");
 		$head[$h][2] = 'payments';
 		$h++;
