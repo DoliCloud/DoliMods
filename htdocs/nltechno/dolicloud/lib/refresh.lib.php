@@ -107,12 +107,14 @@ function dolicloud_database_refresh($conf, $db, &$object, &$errors)
 {
 	$newdb=getDoliDBInstance($conf->db->type, $object->instance.'.on.dolicloud.com', $object->username_db, $object->password_db, $object->database_db, 3306);
 
+	$ret=1;
+
 	if (is_object($newdb))
 	{
 		$error=0;
 		$done=0;
 
-		if ($newdb->connected)
+		if ($newdb->connected && $newdb->database_selected)
 		{
 			// Get user/pass of last admin user
 			if (! $error)
@@ -208,6 +210,7 @@ function dolicloud_database_refresh($conf, $db, &$object, &$errors)
 		else
 		{
 			$errors[]='Failed to connect '.$conf->db->type.' '.$object->instance.'.on.dolicloud.com '.$object->username_db.' '.$object->password_db.' '.$object->database_db.' 3306';
+			$ret=-1;
 		}
 
 		$newdb->close();
@@ -232,9 +235,10 @@ function dolicloud_database_refresh($conf, $db, &$object, &$errors)
 	else
 	{
 		$errors[]='Failed to connect '.$conf->db->type.' '.$object->instance.'.on.dolicloud.com '.$object->username_db.' '.$object->password_db.' '.$object->database_db.' 3306';
+		$ret=-1;
 	}
 
-	return 1;
+	return $ret;
 }
 
 

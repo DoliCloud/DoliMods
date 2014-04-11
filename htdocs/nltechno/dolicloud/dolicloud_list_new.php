@@ -43,6 +43,7 @@ if (! $res && preg_match('/\/nltechno([^\/]*)\//',$_SERVER["PHP_SELF"],$reg)) $r
 if (! $res) die("Include of main fails");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/company.lib.php");
 dol_include_once("/nltechno/class/dolicloudcustomer.class.php");
+dol_include_once("/nltechno/class/dolicloudcustomernew.class.php");
 
 
 $db2=getDoliDBInstance('mysqli', $conf->global->DOLICLOUD_DATABASE_HOST, $conf->global->DOLICLOUD_DATABASE_USER, $conf->global->DOLICLOUD_DATABASE_PASS, $conf->global->DOLICLOUD_DATABASE_NAME, $conf->global->DOLICLOUD_DATABASE_PORT);
@@ -128,12 +129,12 @@ if ($action == 'add')
 * Put here all code to build page
 ****************************************************/
 
-$arraystatus=Dolicloudcustomer::$listOfStatusNewShort;
+$arraystatus=Dolicloudcustomernew::$listOfStatusNewShort;
 
 llxHeader('',$langs->transnoentitiesnoconv('DoliCloudInstances'),'');
 
 $form=new Form($db);
-$dolicloudcustomerstatic = new Dolicloudcustomer($db);
+$dolicloudcustomerstaticnew = new Dolicloudcustomernew($db);
 
 $now=dol_now();
 
@@ -326,13 +327,18 @@ if ($resql)
                 $totalcustomers++;
 				$instance=preg_replace('/\.on\.dolicloud\.com$/', '', $obj->instance);
 
+                $dolicloudcustomerstaticnew->status = $obj->status;
+                $dolicloudcustomerstaticnew->instance_status = $obj->instance_status;
+                $dolicloudcustomerstaticnew->payment_status = $obj->payment_status;
+                $status=$dolicloudcustomerstaticnew->getLibStatut(1,$form);
+
                 $var=!$var;
                 // You can use here results
                 print '<tr '.$bc[$var].'><td align="left" nowrap="nowrap">';
-                $dolicloudcustomerstatic->id=$obj->id;
-                $dolicloudcustomerstatic->ref=$instance;
-                $dolicloudcustomerstatic->status=$obj->status;
-                print $dolicloudcustomerstatic->getNomUrl(1,'',0,'_new');
+                $dolicloudcustomerstaticnew->id=$obj->id;
+                $dolicloudcustomerstaticnew->ref=$instance;
+                $dolicloudcustomerstaticnew->status=$obj->status;
+                print $dolicloudcustomerstaticnew->getNomUrl(1,'',0,'_new');
                 print '</td><td>';
                 print $obj->organization;
                 print '</td><td>';
@@ -357,7 +363,8 @@ if ($resql)
 	            print '</td><td align="center">';
                 print ($obj->date_lastlogin?dol_print_date($db->jdate($obj->date_lastlogin),'dayhour','tzuser'):'');
                 print '</td><td align="right">';
-                if ($obj->status != 'ACTIVE')
+
+                if ($status != 'ACTIVE' && $status != 'OK')
                 {
                 	print '';
                 }
@@ -368,26 +375,9 @@ if ($resql)
                 	$totalcustomerspaying++;
                 	$total+=$price;
                 }
-                print '</td><td align="right">';
-
-				$st='';
-                if ($obj->status == 'CLOSED') $st='CLOSED';
-                else if ($obj->status == 'SUSPENDED') $st='SUSPENDED';
-                else if ($obj->status == 'CLOSURE_REQUESTED') $st='CLOSURE_REQUESTED';
-                else if ($obj->instance_status == 'UNDEPLOYED') $st='UNDEPLOYED';		// DEPLOYED/UNDEPLOYED
-                else if ($obj->payment_status == 'TRIALING') $st='TRIALING';
-                else if ($obj->payment_status == 'TRIAL_EXPIRED') $st='TRIAL_EXPIRED';
-                else if ($obj->status == 'ACTIVE' && $obj->instance_status == 'DEPLOYED') $st=$obj->payment_status?$obj->payment_status:'ACTIVE_PAY_ERR';
-                else
-				{
-	                print $obj->status;
-	                print '<br>'.$obj->instance_status;
-	                print '<br>'.$obj->payment_status;
-				}
-				$txt='Customer: '.$obj->status;
-				$txt.='<br>Instance: '.$obj->instance_status;
-	            $txt.='<br>Payment: '.$obj->payment_status;
-				print $form->textwithpicto($st, $txt);
+                print '</td>';
+                print '<td align="right">';
+                print $dolicloudcustomerstaticnew->getLibStatut(5,$form);;
                 print '</td>';
                 print '</tr>';
             }

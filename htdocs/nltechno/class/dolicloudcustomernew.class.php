@@ -92,7 +92,7 @@ class Dolicloudcustomernew extends CommonObject
 	static $listOfStatus=array('TRIAL'=>'TRIAL','TRIAL_EXPIRED'=>'TRIAL_EXPIRED','ACTIVE'=>'ACTIVE','ACTIVE_PAYMENT_ERROR'=>'ACTIVE_PAYMENT_ERROR','SUSPENDED'=>'SUSPENDED','CLOSED_QUEUED'=>'CLOSE_QUEUED','UNDEPLOYED'=>'UNDEPLOYED');
 	static $listOfStatusShort=array('TRIAL'=>'TRIAL','TRIAL_EXPIRED'=>'TRIAL_EXP.','ACTIVE'=>'ACT.','ACTIVE_PAYMENT_ERROR'=>'ACT_PAY_ERR.','SUSPENDED'=>'SUSPENDED','CLOSED_QUEUED'=>'CLOSE_Q.','UNDEPLOYED'=>'UNDEP.');
 
-	static $listOfStatusNewShort=array('TRIALING'=>'TRIALING','TRIAL_EXPIRED'=>'TRIAL_EXP.','ACTIVE'=>'ACTIVE','ACTIVE_PAYMENT_ERROR'=>'ACTIVE_PAY_ERR.','SUSPENDED'=>'SUSPENDED','UNDEPLOYED'=>'UNDEPLOYED','CLOSURE_REQUESTED'=>'CLOSURE_R.','CLOSED'=>'CLOSED');
+	static $listOfStatusNewShort=array('TRIALING'=>'TRIALING','TRIAL_EXPIRED'=>'TRIAL_EXP.','ACTIVE'=>'ACTIVE','ACTIVE_PAY_ERR'=>'ACTIVE_PAY_ERR','SUSPENDED'=>'SUSPENDED','UNDEPLOYED'=>'UNDEPLOYED','CLOSURE_REQUESTED'=>'CLOSURE_R.','CLOSED'=>'CLOSED');
 
     /**
      *  Constructor
@@ -558,6 +558,9 @@ class Dolicloudcustomernew extends CommonObject
                 $this->vat_number = $obj->vat_number;
                 $this->phone = $obj->phone;
 
+                $this->instance_status = $obj->instance_status;
+                $this->payment_status = $obj->payment_status;
+
                 $this->paymentmethod = $obj->paymentmethod;
                 $this->paymentinfo = $obj->paymentinfo;
                 $this->paymentstatus = $obj->paymentstatus;
@@ -957,9 +960,9 @@ class Dolicloudcustomernew extends CommonObject
 	 *    @param	int		$mode       0=libelle long, 1=libelle court, 2=Picto + Libelle court, 3=Picto, 4=Picto + Libelle long
 	 *    @return   string        		Libelle
 	 */
-	function getLibStatut($mode=0)
+	function getLibStatut($mode=0,$form='')
 	{
-		return $this->LibStatut($this->status,$mode);
+		return $this->LibStatut($this->status,$mode,$this->instance_status,$this->payment_status,$form);
 	}
 
 	/**
@@ -969,31 +972,57 @@ class Dolicloudcustomernew extends CommonObject
 	 *  @param	int		$mode           0=libelle long, 1=libelle court, 2=Picto + Libelle court, 3=Picto, 4=Picto + Libelle long, 5=Libelle court + Picto
 	 *  @return	string          		Libelle du statut
 	 */
-	function LibStatut($statut,$mode=0)
+	function LibStatut($status,$mode=0,$instance_status='',$payment_status='',$form='')
 	{
 		global $langs;
 		$langs->load('nltechno@nltechno');
 
-		if ($this->status == 'ACTIVE') $picto=img_picto($langs->trans("Active"),'statut4');
-		elseif ($this->status == 'CLOSED_QUEUED') $picto=img_picto($langs->trans("Disabled"),'statut6');
-		elseif ($this->status == 'UNDEPLOYED') $picto=img_picto($langs->trans("Undeployed"),'statut5');
-		elseif ($this->status == 'ACTIVE_PAYMENT_ERROR') $picto=img_picto($langs->trans("ActivePaymentError"),'statut3');
-		elseif ($this->status == 'SUSPENDED') $picto=img_picto($langs->trans("Suspended"),'statut3');
-		elseif ($this->status == 'TRIAL_EXPIRED') $picto=img_picto($langs->trans("Expired"),'statut1');
-		elseif ($this->status == 'TRIAL') $picto=img_picto($langs->trans("Trial"),'statut0');
+		$st=$status;
+		if (! empty($instance_status) && ! empty($payment_status) && is_object($form))
+		{
+            if ($status == 'CLOSED') $st='CLOSED';
+            else if ($status == 'SUSPENDED') $st='SUSPENDED';
+            else if ($status == 'CLOSURE_REQUESTED') $st='CLOSURE_REQUESTED';
+            else if ($instance_status == 'UNDEPLOYED') $st='UNDEPLOYED';		// DEPLOYED/UNDEPLOYED
+            else if ($payment_status == 'TRIALING') $st='TRIALING';
+            else if ($payment_status == 'TRIAL_EXPIRED') $st='TRIAL_EXPIRED';
+            else if ($status == 'ACTIVE' && $instance_status == 'DEPLOYED') $st=($payment_status && $payment_status == 'OK')?'ACTIVE':'ACTIVE_PAY_ERR';
+            else
+			{
+                $st.=$status;
+                $st.='<br>'.$instance_status;
+                $st.='<br>'.$payment_status;
+			}
+			$txt='Customer: '.$status;
+			$txt.='<br>Instance: '.$instance_status;
+            $txt.='<br>Payment: '.$payment_status;
+		}
+
+		if ($st == 'ACTIVE' || $st == 'OK') $picto=img_picto($langs->trans("Active"),'statut4');
+		elseif ($st == 'CLOSED_QUEUED' || $st == 'CLOSURE_REQUESTED') $picto=img_picto($langs->trans("Disabled"),'statut6');
+		elseif ($st == 'UNDEPLOYED' || $st == 'CLOSED') $picto=img_picto($langs->trans("Undeployed"),'statut5');
+		elseif ($st == 'ACTIVE_PAYMENT_ERROR' || $st == 'ACTIVE_PAY_ERR' || $st == 'FAILURE') $picto=img_picto($langs->trans("ActivePaymentError"),'statut3');
+		elseif ($st == 'SUSPENDED') $picto=img_picto($langs->trans("Suspended"),'statut3');
+		elseif ($st == 'TRIAL_EXPIRED') $picto=img_picto($langs->trans("Expired"),'statut1');
+		elseif ($st == 'TRIAL' || $st == 'TRIALING') $picto=img_picto($langs->trans("Trial"),'statut0');
 		else $picto=img_picto($langs->trans("Trial"),'statut0');
+
+		if (! empty($instance_status) && ! empty($payment_status) && is_object($form))	// New way
+		{
+			return ($mode==1?$st:$form->textwithpicto($st.' '.$picto, $txt));
+		}
 
 		if ($mode == 0)
 		{
-			return $this->status;
+			return $status;
 		}
 		if ($mode == 1)
 		{
-			return $this->status;
+			return $status;
 		}
 		if ($mode == 2)
 		{
-			return $picto.' '.$this->status;
+			return $picto.' '.$status;
 		}
 		if ($mode == 3)
 		{
@@ -1001,11 +1030,11 @@ class Dolicloudcustomernew extends CommonObject
 		}
 		if ($mode == 4)
 		{
-			return $picto.' '.$this->status;
+			return $picto.' '.$status;
 		}
 		if ($mode == 5)
 		{
-			return $this->status.' '.$picto;
+			return $status.' '.$picto;
 		}
 	}
 
