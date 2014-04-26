@@ -294,9 +294,15 @@ function googleCreateContact($client, $object, $useremail='default')
 
 		// Labels
 		$googleGroups=array();
+		$groupid = getGoogleGroupID($gdata, $groupName, $googleGroups, $useremail);
+		if (empty($groupid) || $groupid == 'ErrorFailedToGetGroups')
+		{
+			return 0;
+		}
+
 		$el = $doc->createElement("gcontact:groupMembershipInfo");
 		$el->setAttribute("deleted", "false");
-		$el->setAttribute("href", getGoogleGroupID($gdata, $groupName, $googleGroups, $useremail));
+		$el->setAttribute("href", $groupid);
 		$entry->appendChild($el);
 
 		$tag_debug='createcontact';
@@ -312,9 +318,7 @@ function googleCreateContact($client, $object, $useremail='default')
 		$entryResult = $gdata->insertEntry($xmlStr,	'https://www.google.com/m8/feeds/contacts/'.$useremail.'/full');
 
 		//var_dump($doc->saveXML());exit;
-
 		//echo 'The id of the new entry is: ' . $entryResult->getId().'<br>';
-		//var_dump($entryResult);exit;
 
 		return $entryResult->getId();
 	} catch (Exception $e) {
@@ -341,7 +345,7 @@ function googleUpdateContact($client, $contactId, $object, $useremail='default')
 
 	$tag_debug='updatecontact';
 
-	dol_syslog('googleUpdateContact object->id='.$object->id.' type='.$object->element.' ref_ext='.$object->ref_ext);
+	dol_syslog('googleUpdateContact object->id='.$object->id.' type='.$object->element.' ref_ext='.$object->ref_ext.' contactid='.$contactId);
 
 	$google_nltechno_tag=getCommentIDTag();
 
@@ -353,15 +357,31 @@ function googleUpdateContact($client, $contactId, $object, $useremail='default')
 		$gdata->setMajorProtocolVersion(3);
 
 		//$contactId='https://www.google.com/m8/feeds/contacts/eldy10%40gmail.com/base/4429b3590f5b343a';
+		//$contactId='https://www.google.com/m8/feeds/contacts/contact%40nltechno.com/base/ee6fc620dbab6d7';
 		$query = new Zend_Gdata_Query($contactId);
 		//$entryResult = $gdata->getEntry($query,'Zend_Gdata_Contacts_ListEntry');
 		$entryResult = $gdata->getEntry($query);
 	}
+	catch(Zend_Gdata_App_HttpException $e)
+	{
+		// Warning, with google apps, if link start with http instead of http it will fails too, but with error 401 !
+		if ($e->getResponse()->getStatus() == '404')
+		{
+			// Not found error.
+			dol_syslog('Failed to get record with ref='.$contactId.' '.$e->getMessage(), LOG_WARNING);
+			return 0;
+		}
+		else
+		{
+			dol_syslog('Failed to get record with ref='.$contactId.' '.$e->getMessage(), LOG_WARNING);
+			return -1;
+		}
+	}
 	catch(Exception $e)
 	{
-		// Not found error
-		dol_syslog('Failed to get record with ref='.$contactId,$e->getMessage(), LOG_WARNING);
-		return 0;
+		// Other error
+		dol_syslog('Failed to get record with ref='.$contactId.' '.$e->getMessage(), LOG_WARNING);
+		return -1;
 	}
 
 	try {
@@ -714,36 +734,46 @@ function getTagLabel($s)
  * @param	string	$groupName		Group name
  * @param	array	&$googleGroups	Array of Google Group we know they already exists
  * @param	string	$useremail		User email
- * @return 	string					Google Group ID for groupName.
+ * @return 	string					Google Group ID for groupName (also key in $googleGroups) or 'ErrorFailedToGetGroups'.
  */
 function getGoogleGroupID($gdata, $groupName, &$googleGroups=array(), $useremail='default')
 {
 	global $conf;
+
+	$error=0;
 
 	// Search existing groups
 	if (! is_array($googleGroups) || count($googleGroups) == 0)
 	{
 		$document = new DOMDocument("1.0", "utf-8");
 		$xmlStr = getContactGroupsXml($gdata, $useremail);
-		$document->loadXML($xmlStr);
-		$xmlStr = $document->saveXML();
-		$entries = $document->documentElement->getElementsByTagNameNS(constant('ATOM_NAME_SPACE'), "entry");
-		$n = $entries->length;
-		$googleGroups = array();
-		foreach ($entries as $entry) {
-			$titleNodes = $entry->getElementsByTagNameNS(constant('ATOM_NAME_SPACE'), "title");
-			if ($titleNodes->length == 1) {
-				$title = $titleNodes->item(0)->textContent;	// We get <title> of group (For example: 'System Group: My Contacts', 'System Group: Friend', 'Dolibarr (Thirdparties)', ...)
-				$googleIDNodes = $entry->getElementsByTagNameNS(constant('ATOM_NAME_SPACE'), "id");
-				if ($googleIDNodes->length == 1) {
-					$googleGroups[$title] = $googleIDNodes->item(0)->textContent;	// We get <id> of group
+		if (! empty($xmlStr))
+		{
+			$document->loadXML($xmlStr);
+			$xmlStr = $document->saveXML();
+			$entries = $document->documentElement->getElementsByTagNameNS(constant('ATOM_NAME_SPACE'), "entry");
+			$n = $entries->length;
+			$googleGroups = array();
+			foreach ($entries as $entry) {
+				$titleNodes = $entry->getElementsByTagNameNS(constant('ATOM_NAME_SPACE'), "title");
+				if ($titleNodes->length == 1) {
+					$title = $titleNodes->item(0)->textContent;	// We get <title> of group (For example: 'System Group: My Contacts', 'System Group: Friend', 'Dolibarr (Thirdparties)', ...)
+					$googleIDNodes = $entry->getElementsByTagNameNS(constant('ATOM_NAME_SPACE'), "id");
+					if ($googleIDNodes->length == 1) {
+						$googleGroups[$title] = $googleIDNodes->item(0)->textContent;	// We get <id> of group
+					}
 				}
 			}
+		}
+		else
+		{
+			$error++;
+			return 'ErrorFailedToGetGroups';
 		}
 	}
 
 	// Create group if it not exists
-	if (!isset($googleGroups[$groupName]))
+	if (! $error && !isset($googleGroups[$groupName]))
 	{
 		$newGroupID = insertGContactGroup($gdata, $groupName, $useremail);
 		$googleGroups[$groupName] = $newGroupID;
