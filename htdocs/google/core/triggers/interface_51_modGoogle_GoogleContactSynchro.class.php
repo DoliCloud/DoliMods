@@ -166,11 +166,10 @@ class InterfaceGoogleContactSynchro
 				}
 				if ($action == 'COMPANY_MODIFY' || $action == 'CONTACT_MODIFY' || $action == 'MEMBER_MODIFY')
 				{
-					$gid = $object->ref_ext;
+					$gid = preg_replace('/http:\/\//','https://',$object->ref_ext);
 					if ($gid && preg_match('/google/i', $object->ref_ext)) // This record is linked with Google Contact
 					{
 						$ret = googleUpdateContact($client, $gid, $object, 'default');
-						//var_dump($ret); exit;
 
 						if ($ret == '0')// Fails to update because not found, we try to create
 						{
@@ -197,7 +196,7 @@ class InterfaceGoogleContactSynchro
 				}
 				if ($action == 'COMPANY_DELETE' || $action == 'CONTACT_DELETE' || $action == 'MEMBER_DELETE')
 				{
-					$gid = $object->ref_ext;
+					$gid = preg_replace('/http:\/\//','https://',$object->ref_ext);
 					if ($gid && preg_match('/google/i', $object->ref_ext)) // This record is linked with Google Calendar
 					{
 						$ret = googleDeleteContactByRef($client, $gid, 'default');
