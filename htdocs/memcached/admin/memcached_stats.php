@@ -186,7 +186,15 @@ function getCacheItems()
  }
  return array('items'=>$serverItems,'counts'=>$totalItems);
 }
-function getMemcacheStats($total=true){
+
+/**
+ * getMemcacheStats
+ * 
+ * @param 	boolean	$total		Total or not
+ * @return	array				Array of statistics
+ */
+function getMemcacheStats($total=true)
+{
 	$resp = sendMemcacheCommands('stats');
 	if ($total){
 		$res = array();
@@ -805,7 +813,7 @@ EOB;
 			print '<td>'.$sets.'</td></tr>';
 			print '<tr '.$bc[1].'><td>'.$langs->trans("NumberOfCacheRead").'</td>';
 			print '<td>'.$hits.' / '.($hits+$misses).' &nbsp; '.sprintf(" (%.1f%%)",$hits*100/($hits+$misses)).'</td></tr>';
-			print '<tr '.$bc[0].'><td>Request Rate (hits, misses)</td><td>'.$req_rate.' cache requests/second</td></tr>';
+			print '<tr '.$bc[0].'><td>Request Rate (success hits + misses)</td><td>'.$req_rate.' cache requests/second</td></tr>';
 			print '<tr '.$bc[1].'><td>Hit Rate</td><td>'.$hit_rate.' cache requests/second</td></tr>';
 			print '<tr '.$bc[0].'><td>Miss Rate</td><td>'.$miss_rate.' cache requests/second</td></tr>';
 			print '<tr '.$bc[1].'><td>Set Rate</td><td>'.$set_rate.' cache requests/second</td></tr>';
