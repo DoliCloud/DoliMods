@@ -35,7 +35,7 @@ require_once(DOL_DOCUMENT_ROOT."/core/lib/company.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/date.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/class/html.formcompany.class.php");
 dol_include_once("/nltechno/core/lib/dolicloud.lib.php");
-dol_include_once('/nltechno/class/dolicloudcustomer.class.php');
+dol_include_once('/nltechno/class/dolicloudcustomernew.class.php');
 dol_include_once('/nltechno/class/cdolicloudplans.class.php');
 
 $langs->load("admin");
@@ -55,7 +55,18 @@ $instance   = GETPOST('instance');
 
 $error=0; $errors=array();
 
-$object = new DoliCloudCustomer($db);
+
+
+$db2=getDoliDBInstance('mysqli', $conf->global->DOLICLOUD_DATABASE_HOST, $conf->global->DOLICLOUD_DATABASE_USER, $conf->global->DOLICLOUD_DATABASE_PASS, $conf->global->DOLICLOUD_DATABASE_NAME, $conf->global->DOLICLOUD_DATABASE_PORT);
+if ($db2->error)
+{
+	dol_print_error($db2,"host=".$conf->db->host.", port=".$conf->db->port.", user=".$conf->db->user.", databasename=".$conf->db->name.", ".$db2->error);
+	exit;
+}
+
+
+
+$object = new DoliCloudCustomerNew($db,$db2);
 
 // Security check
 $result = restrictedArea($user, 'nltechno', 0, '','dolicloud');
@@ -71,7 +82,7 @@ if ($id > 0 || $instance)
 	if ($result < 0) dol_print_error($db,$object->error);
 }
 
-$backupstring=$conf->global->DOLICLOUD_SCRIPTS_PATH.'/nltechno/backup_instance.php '.$object->instance.' '.$conf->global->DOLICLOUD_INSTANCES_PATH;
+$upgradestring=$conf->global->DOLICLOUD_SCRIPTS_PATH.'/nltechno/rsync_instance.php '.$conf->global->DOLICLOUD_LASTSTABLEVERSION_DIR.' '.$object->instance;
 
 
 
@@ -91,7 +102,7 @@ if (empty($reshook))
 		exit;
 	}
 
-	include 'refresh_action.inc.php';
+	include 'refresh_action_new.inc.php';
 
 	$action = 'view';
 }
@@ -105,17 +116,19 @@ $help_url='';
 llxHeader('',$langs->trans("DoliCloudInstances"),$help_url);
 
 $form = new Form($db);
+$form2 = new Form($db2);
 $formcompany = new FormCompany($db);
 
 $countrynotdefined=$langs->trans("ErrorSetACountryFirst").' ('.$langs->trans("SeeAbove").')';
+$arraystatus=Dolicloudcustomernew::$listOfStatus;
 
 if ($id > 0 || $instance)
 {
 	// Show tabs
-	$head = dolicloud_prepare_head($object);
+	$head = dolicloud_prepare_head($object,'_new');
 
 	$title = $langs->trans("DoliCloudInstances");
-	dol_fiche_head($head, 'payments', $title, 0, 'contact');
+	dol_fiche_head($head, 'upgrade', $title, 0, 'contact');
 }
 
 if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
@@ -135,7 +148,6 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 		$lastloginadmin=$object->lastlogin_admin;
 		$lastpassadmin=$object->lastpass_admin;
 	}
-//	else print 'Error, failed to connect';
 
 	dol_htmloutput_errors($error,$errors);
 
@@ -144,7 +156,10 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 
 	// Instance / Organization
 	print '<tr><td width="20%">'.$langs->trans("Instance").'</td><td colspan="3">';
-	print $form->showrefnav($object,'instance','',1,'instance','instance','');
+	$savdb=$object->db;
+	$object->db=$object->db2;	// To have ->db to point to db2 for showrefnav function
+	print $form2->showrefnav($object,'instance','',1,'name','instance','','',1);
+	$object->db=$savdb;
 	print '</td></tr>';
 	print '<tr><td>'.$langs->trans("Organization").'</td><td colspan="3">';
 	print $object->organization;
@@ -195,29 +210,70 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 
 	// Status
 	print '<tr><td>'.$langs->trans("Status").'</td><td colspan="3">';
-	print $object->getLibStatut(2);
+	print $object->getLibStatut(4,$form);
 	print '</td>';
 	print '</tr>';
 
 	print "</table>";
-	//print '<br>';
+	print '<br>';
 
-	/*
+
+
+	// ----- DoliCloud instance -----
+	print '<strong>INSTANCE SERVEUR STRATUS5</strong>';
 	// Last refresh
-	print $langs->trans("DateLastCheck").': '.($object->lastcheck?dol_print_date($object->lastcheck,'dayhour','tzuser'):$langs->trans("Never"));
+	print ' - '.$langs->trans("DateLastCheck").': '.($object->date_lastcheck?dol_print_date($object->date_lastcheck,'dayhour','tzuser'):$langs->trans("Never"));
 
 	if (! $object->user_id && $user->rights->nltechno->dolicloud->write)
 	{
 		print ' <a href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&amp;action=refresh">'.img_picto($langs->trans("Refresh"),'refresh').'</a>';
-	}*/
-	print '<br><br>';
-
-
-	// ----- DoliCloud instance -----
-	print '<strong>INSTANCE SERVEUR STRATUS5</strong><br>';
+	}
+	print '<br>';
 
 	print '<table class="border" width="100%">';
 
+	// Nb of users
+	print '<tr><td width="20%">'.$langs->trans("NbOfUsers").'</td><td colspan="3"><font size="+2">'.round($object->nbofusers).'</font></td>';
+	print '</tr>';
+
+	// Dates
+	print '<tr><td width="20%">'.$langs->trans("DateRegistration").'</td><td width="30%">'.dol_print_date($object->date_registration,'dayhour');
+	//print ' (<a href="'.dol_buildpath('/nltechno/dolicloud_card.php',1).'?id='.$object->id.'&amp;action=setdate&amp;date=">'.$langs->trans("SetDate").'</a>)';
+	print '</td>';
+	print '<td width="20%">'.$langs->trans("DateEndFreePeriod").'</td><td width="30%">'.dol_print_date($object->date_endfreeperiod,'dayhour').'</td>';
+	print '</tr>';
+
+	/*
+	// Lastlogin
+	print '<tr>';
+	print '<td>'.$langs->trans("LastLogin").' / '.$langs->trans("Password").'</td><td>'.$object->lastlogin.' / '.$object->lastpass.'</td>';
+	print '<td>'.$langs->trans("DateLastLogin").'</td><td>'.($object->date_lastlogin?dol_print_date($object->date_lastlogin,'dayhour','tzuser'):'').'</td>';
+	print '</tr>';
+	*/
+	// Version
+	print '<tr>';
+	print '<td>'.$langs->trans("Version").'</td><td colspan="3">'.$object->version.'</td>';
+	print '</tr>';
+
+	// Modules
+	print '<tr>';
+	print '<td>'.$langs->trans("Modules").'</td><td colspan="3">'.join(', ',explode(',',$object->modulesenabled)).'</td>';
+	print '</tr>';
+
+	// Authorized key file
+	print '<tr>';
+	print '<td>'.$langs->trans("Authorized_keyInstalled").'</td><td colspan="3">'.($object->fileauthorizedkey?$langs->trans("Yes").' - '.dol_print_date($object->fileauthorizedkey,'%Y-%m-%d %H:%M:%S','tzuser'):$langs->trans("No"));
+	print ' &nbsp; (<a href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&action=addauthorizedkey">'.$langs->trans("Create").'</a>)';
+	print '</td>';
+	print '</tr>';
+
+	// Install.lock file
+	print '<tr>';
+	print '<td>'.$langs->trans("LockfileInstalled").'</td><td colspan="3">'.($object->filelock?$langs->trans("Yes").' - '.dol_print_date($object->filelock,'%Y-%m-%d %H:%M:%S','tzuser'):$langs->trans("No"));
+	print ' &nbsp; (<a href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&action=addinstalllock">'.$langs->trans("Create").'</a>)';
+	print ($object->filelock?' &nbsp; (<a href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&action=delinstalllock">'.$langs->trans("Delete").'</a>)':'');
+	print '</td>';
+	print '</tr>';
 
 	print "</table>";
 	print '<br>';
@@ -231,44 +287,19 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 	$server=$object->instance.'.on.dolicloud.com';
 
 	// ----- Backup instance -----
-	print '<strong>INSTANCE SERVEUR NLTECHNO</strong><br>';
+	print '<strong>INSTANCE BACKUP</strong><br>';
 	print '<table class="border" width="100%">';
 
-	// Nb of users
-	print '<tr class="liste_titre">';
-	print '<td>'.$langs->trans("Date").'</td>';
-	print '<td>'.$langs->trans("Amount").'</td>';
-	print '<td>'.$langs->trans("Status").'</td>';
+	// Last backup date
+	print '<tr>';
+	print '<td width="20%">'.$langs->trans("DateLastBackup").'</td>';
+	print '<td width="30%">'.($object->date_lastrsync?dol_print_date($object->date_lastrsync,'dayhour','tzuser'):'').'</td>';
+	print '<td>'.$langs->trans("BackupDir").'</td>';
+	print '<td>'.$backupdir.'/'.$login.'/'.$dirdb.'</td>';
 	print '</tr>';
 
-	if (is_object($newdb))
-	{
-		// Get user/pass of last admin user
-		$sql="SELECT xxx FROM llx_user ORDER BY statut DESC";
-		$resql=$newdb->query($sql);
-		if ($resql)
-		{
-			$var=false;
-			$num=$newdb->num_rows($resql);
-			while ($i < $num)
-			{
-				$var=!$var;
-				$obj = $newdb->fetch_object($resql);
-				print '<tr '.$bc[$var].'>';
-				print '<td>'.dol_print_date($newdb->jdate($obj->date),'dayhour').'</td>';
-				print '<td>'.$obj->amount.'</td>';
-				print '<td>'.$obj->status.'</td>';
-				print '</tr>';
-				$i++;
-			}
-		}
-		else
-		{
-			dol_print_error($newdb);
-		}
-	}
-
 	print "</table><br>";
+
 
 
 	print "</div>";
@@ -287,11 +318,11 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 	}
 */
 
-/*	// MySQL
-	$mysqlconnectstring='mysql -A -u '.$object->username_db.' -p\''.$object->password_db.'\' -h '.$object->hostname_db.' -D '.$object->database_db;
-	print 'Mysql connect string<br>';
-	print '<input type="text" name="mysqlconnectstring" value="'.$mysqlconnectstring.'" size="120"><br>';
-*/
+	// Upgrade link
+	$upgradestringtoshow=$upgradestring.' test';
+	print 'Upgrade command line string<br>';
+	print '<input type="text" name="upgradestring" value="'.$upgradestringtoshow.'" size="120"><br>';
+
 }
 
 

@@ -85,3 +85,4 @@ MoreCloudHostingLink=<a target="_blank" href="http://www.dolicloud.com">Cliquez 
 CompatibleWithDoliDroid=Ce module est aussi compatible avec DoliDroid, l'application Android pour Dolibarr.
 LinkToThirdParty=Lien vers le tiers
 LinkToContact=Lien vers le contact
+GoogleContactSyncInfo=Utilisez ici un libellé de groupe de votre choix. Le groupe sera créé dans Google Contact si il n'existe pas. Vous pouvez aussi utiliser un des libellés de groupes systèmes prédéfinis par Google comme:<br>"System Group: My Contacts", "System Group: Friend", "System Group: CoWorker", "System Group: Family"<br>Notez aussi que seul le groupe système prédéfini "System Group: My Contacts" est partagé par la fonction "Delegation de contacts" de Google contact (Google Apps Business/Pro).  

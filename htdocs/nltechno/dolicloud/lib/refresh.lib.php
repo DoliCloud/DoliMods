@@ -39,7 +39,7 @@ function dolicloud_files_refresh($conf, $db, &$object, &$errors)
 			{
 				$sftp = ssh2_sftp($connection);
 
-				$dir=preg_replace('/_dolibarr$/','',$object->database_db);
+				$dir=preg_replace('/_([a-zA-Z0-9]+)$/','',$object->database_db);
 				$file="ssh2.sftp://".$sftp.$conf->global->DOLICLOUD_EXT_HOME.'/'.$object->username_web.'/'.$dir.'/htdocs/conf/conf.php';
 
 				//print $file;
@@ -72,13 +72,13 @@ function dolicloud_files_refresh($conf, $db, &$object, &$errors)
 				$object->filelock=(empty($fstatlock['atime'])?'':$fstatlock['atime']);
 
 				// Define dates
-				if (empty($object->date_registration) || empty($object->date_endfreeperiod))
+				/*if (empty($object->date_registration) || empty($object->date_endfreeperiod))
 				{
 					// Overwrite only if not defined
 					$object->date_registration=$fstatlock['mtime'];
 					//$object->date_endfreeperiod=dol_time_plus_duree($object->date_registration,1,'m');
 					$object->date_endfreeperiod=($object->date_registration?dol_time_plus_duree($object->date_registration,15,'d'):'');
-				}
+				}*/
 			}
 		}
 		else {
@@ -106,12 +106,15 @@ function dolicloud_files_refresh($conf, $db, &$object, &$errors)
 function dolicloud_database_refresh($conf, $db, &$object, &$errors)
 {
 	$newdb=getDoliDBInstance($conf->db->type, $object->instance.'.on.dolicloud.com', $object->username_db, $object->password_db, $object->database_db, 3306);
+
+	$ret=1;
+
 	if (is_object($newdb))
 	{
 		$error=0;
 		$done=0;
 
-		if ($newdb->connected)
+		if ($newdb->connected && $newdb->database_selected)
 		{
 			// Get user/pass of last admin user
 			if (! $error)
@@ -207,6 +210,7 @@ function dolicloud_database_refresh($conf, $db, &$object, &$errors)
 		else
 		{
 			$errors[]='Failed to connect '.$conf->db->type.' '.$object->instance.'.on.dolicloud.com '.$object->username_db.' '.$object->password_db.' '.$object->database_db.' 3306';
+			$ret=-1;
 		}
 
 		$newdb->close();
@@ -214,9 +218,11 @@ function dolicloud_database_refresh($conf, $db, &$object, &$errors)
 		if (! $error && $done)
 		{
 			$now=dol_now();
-			$object->lastcheck=$now;
+			$object->date_lastcheck=$now;
+			$object->lastcheck=$now;	// For backward compatibility
 
 			$result = $object->update($user);	// persist
+			if (method_exists($object,'update_old')) $result = $object->update_old($user);	// persist
 
 			if ($result < 0)
 			{
@@ -229,9 +235,10 @@ function dolicloud_database_refresh($conf, $db, &$object, &$errors)
 	else
 	{
 		$errors[]='Failed to connect '.$conf->db->type.' '.$object->instance.'.on.dolicloud.com '.$object->username_db.' '.$object->password_db.' '.$object->database_db.' 3306';
+		$ret=-1;
 	}
 
-	return 1;
+	return $ret;
 }
 
 
@@ -326,4 +333,96 @@ function dolicloud_calculate_stats($db, $datelim)
 				   'totalcustomerspaying'=>(int) $totalcustomerspaying,'totalcustomers'=>(int) $totalcustomers, 'totalusers'=>(int) $totalusers);
 }
 
+
+/**
+ * Calculate stats ('total', 'totalcommissions', 'totalcustomerspaying' (nbclients 'ACTIVE'), 'totalcustomers' (nb clients), 'totalusers')
+ * at date datelim.
+ *
+ * @param	Database	$db			Database handler
+ * @param	date		$datelim	Date limit
+ * @return	array					Array of data
+ */
+function dolicloud_calculate_stats_new($db, $datelim)
+{
+	// TODO
+	$sql = "SELECT";
+	$sql.= " t.rowid,";
+	$sql.= " t.instance,";
+	$sql.= " t.organization,";
+	$sql.= " t.email,";
+	$sql.= " t.plan,";
+	$sql.= " t.date_registration,";
+	$sql.= " t.date_endfreeperiod,";
+	$sql.= " t.status,";
+	$sql.= " t.partner,";
+	$sql.= " t.total_invoiced,";
+	$sql.= " t.total_payed,";
+	$sql.= " t.tms,";
+	$sql.= " t.hostname_web,";
+	$sql.= " t.username_web,";
+	$sql.= " t.password_web,";
+	$sql.= " t.hostname_db,";
+	$sql.= " t.database_db,";
+	$sql.= " t.port_db,";
+	$sql.= " t.username_db,";
+	$sql.= " t.password_db,";
+	$sql.= " t.lastcheck,";
+	$sql.= " t.nbofusers,";
+	$sql.= " t.lastlogin,";
+	$sql.= " t.lastpass,";
+	$sql.= " t.date_lastlogin,";
+	$sql.= " t.modulesenabled,";
+	$sql.= " p.price_instance,";
+	$sql.= " p.price_user,";
+	$sql.= " p.price_gb";
+	$sql.= " FROM ".MAIN_DB_PREFIX."dolicloud_customers as t";
+	$sql.= " LEFT JOIN ".MAIN_DB_PREFIX."c_dolicloud_plans as p ON t.plan = p.code";
+	$sql.= " WHERE t.date_endfreeperiod < '".$db->idate($datelim)."'";
+	$sql.= " AND t.status <> 'TRIAL'";
+	//$sql.= $db->order($sortfield,$sortorder);
+	//$sql.= $db->plimit($conf->liste_limit +1, $offset);
+
+	dol_syslog($script_file." sql=".$sql, LOG_DEBUG);
+	$resql=$db->query($sql);
+	if ($resql)
+	{
+	    $num = $db->num_rows($resql);
+	    $i = 0;
+	    if ($num)
+	    {
+	        while ($i < $num)
+	        {
+	            $obj = $db->fetch_object($resql);
+	            if ($obj)
+	            {
+					//print $price."=".$obj->price_instance." + (".$obj->nbofusers." * ".$obj->price_user.")<br>\n";
+	                $price=$obj->price_instance + ($obj->nbofusers * $obj->price_user);
+	                $totalcustomers++;
+					$totalusers+=$obj->nbofusers;
+	                if ($obj->status != 'ACTIVE')
+	                {
+	                }
+	                else
+	              {
+	                	$totalcustomerspaying++;
+	                	$total+=$price;
+	                	if (! empty($obj->partner))
+	                	{
+	                		$totalcommissions+=price2num($price * 0.2);
+	                	}
+	                }
+	            }
+	            $i++;
+	        }
+	    }
+	}
+	else
+	{
+	    $error++;
+	    dol_print_error($db);
+	}
+
+	return array('total'=>(double) $total, 'totalcommissions'=>(double) $totalcommissions,
+				   'totalcustomerspaying'=>(int) $totalcustomerspaying,'totalcustomers'=>(int) $totalcustomers, 'totalusers'=>(int) $totalusers);
+}
 ?>

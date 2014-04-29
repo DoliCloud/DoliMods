@@ -37,7 +37,7 @@ require_once(DOL_DOCUMENT_ROOT."/core/class/html.formcompany.class.php");
 require_once(DOL_DOCUMENT_ROOT."/core/class/html.formother.class.php");
 dol_include_once("/nltechno/core/lib/dolicloud.lib.php");
 dol_include_once("/nltechno/core/dolicloud/lib/refresh.lib.php");
-dol_include_once('/nltechno/class/dolicloudcustomer.class.php');
+dol_include_once('/nltechno/class/dolicloudcustomernew.class.php');
 dol_include_once('/nltechno/class/cdolicloudplans.class.php');
 
 $langs->load("admin");
@@ -60,7 +60,18 @@ if (empty($date_endfreeperiod) && ! empty($date_registration)) $date_endfreeperi
 
 $error = 0; $errors = array();
 
-$object = new DoliCloudCustomer($db);
+
+
+$db2=getDoliDBInstance('mysqli', $conf->global->DOLICLOUD_DATABASE_HOST, $conf->global->DOLICLOUD_DATABASE_USER, $conf->global->DOLICLOUD_DATABASE_PASS, $conf->global->DOLICLOUD_DATABASE_NAME, $conf->global->DOLICLOUD_DATABASE_PORT);
+if ($db2->error)
+{
+	dol_print_error($db2,"host=".$conf->db->host.", port=".$conf->db->port.", user=".$conf->db->user.", databasename=".$conf->db->name.", ".$db2->error);
+	exit;
+}
+
+
+
+$object = new DoliCloudCustomerNew($db,$db2);
 
 // Security check
 $user->rights->nltechno->dolicloud->delete = $user->rights->nltechno->dolicloud->write;
@@ -239,7 +250,7 @@ if (empty($reshook))
 	}
 
 	// Add action to create file, etc...
-	include 'refresh_action.inc.php';
+	include 'refresh_action_new.inc.php';
 }
 
 
@@ -248,14 +259,15 @@ if (empty($reshook))
  */
 
 $help_url='';
-llxHeader('',$langs->trans("DoliCloudCustomers"),$help_url);
+llxHeader('',$langs->trans("DoliCloudInstances"),$help_url);
 
 $form = new Form($db);
+$form2 = new Form($db2);
 $formother = new FormOther($db);
 $formcompany = new FormCompany($db);
 
 $countrynotdefined=$langs->trans("ErrorSetACountryFirst").' ('.$langs->trans("SeeAbove").')';
-$arraystatus=Dolicloudcustomer::$listOfStatus;
+$arraystatus=Dolicloudcustomernew::$listOfStatus;
 
 
 // Confirm deleting object
@@ -273,9 +285,9 @@ if ($user->rights->nltechno->dolicloud->write)
 if ($id > 0 || $instance || $action == 'create')
 {
 	// Show tabs
-	$head = dolicloud_prepare_head($object);
+	$head = dolicloud_prepare_head($object,'_new');
 
-	$title = $langs->trans("DoliCloudCustomers");
+	$title = $langs->trans("DoliCloudInstances");
 	dol_fiche_head($head, 'card', $title, 0, 'contact');
 }
 
@@ -396,6 +408,7 @@ if ($user->rights->nltechno->dolicloud->write)
 		if (empty($countrytoshow)) $countrytoshow=getCountry(getvalfromkey($db,'dolicloud_saasplex.country_region.alpha2',$organizationtoshow), 3);
 		if (dol_strlen(trim($object->fk_pays)) == 0) $object->fk_pays = $objsoc->country_id;	// Predefined with third party
 		print '<tr><td>'.$langs->trans("Country").'</td><td colspan="3">';
+
 		print $form->select_country($countrytoshow,'country_id');
 		if ($user->admin) print info_admin($langs->trans("YouCanChangeValuesForThisListFromDictionnarySetup"),1);
 		print '</td></tr>';
@@ -669,6 +682,8 @@ if ($user->rights->nltechno->dolicloud->write)
 	}
 }
 
+
+
 if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 {
 	/*
@@ -693,7 +708,10 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 
 	// Instance / Organization
 	print '<tr><td width="20%">'.$langs->trans("Instance").'</td><td colspan="3">';
-	print $form->showrefnav($object,'instance','',1,'instance','instance','');
+	$savdb=$object->db;
+	$object->db=$object->db2;	// To have ->db to point to db2 for showrefnav function
+	print $form2->showrefnav($object,'instance','',1,'name','instance','','',1);
+	$object->db=$savdb;
 	print '</td></tr>';
 	print '<tr><td>'.$langs->trans("Organization").'</td><td colspan="3">';
 	print $object->organization;
@@ -735,7 +753,7 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 	// Country
 	print '<tr><td>'.$langs->trans("Country").'</td><td colspan="3">';
 	$img=picto_from_langcode($object->country_code);
-	if ($img) print $img.' ';
+	if ($object->country_code) print $img.' ';
 	print getCountry($object->country_code,0);
 	print '</td></tr>';
 
@@ -786,7 +804,7 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 
 	// Status
 	print '<tr><td>'.$langs->trans("Status").'</td><td colspan="3">';
-	print $object->getLibStatut(4);
+	print $object->getLibStatut(4,$form);
 	print '</td>';
 	print '</tr>';
 
@@ -794,11 +812,46 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 	print '<br>';
 
 
+	// Define links
+    $links='';
+
+	// Dolibarr instance login
+	$url='https://'.$object->instance.'.on.dolicloud.com?username='.$lastloginadmin.'&amp;password='.$lastpassadmin;
+	$link='<a href="'.$url.'" target="_blank">'.$url.'</a>';
+	$links.='Dolibarr link: ';
+	//print '<input type="text" name="dashboardconnectstring" value="'.dashboardconnectstring.'" size="100"><br>';
+	$links.=$link.'<br>';
+	//$links.='<br>';
+
+	// Dashboard
+	$url='https://www.on.dolicloud.com/signIn/index?email='.$object->email.'&amp;password='.$object->password_web;	// Note that password may have change and not being the one of dolibarr admin user
+	$link='<a href="'.$url.'" target="_blank">'.$url.'</a>';
+	$links.='Dashboard: ';
+	$links.=$link.'<br>';
+	$links.='<br>';
+
+	// SFTP
+	$sftpconnectstring=$object->username_web.':'.$object->password_web.'@'.$object->hostname_web.':'.$conf->global->DOLICLOUD_EXT_HOME.'/'.$object->username_web.'/'.preg_replace('/_([a-zA-Z0-9]+)$/','',$object->database_db);
+	$links.='SFTP connect string: ';
+	$links.='<input type="text" name="sftpconnectstring" value="'.$sftpconnectstring.'" size="110"><br>';
+	//$links.='<br>';
+
+	// MySQL
+	$mysqlconnectstring='mysql -A -u '.$object->username_db.' -p\''.$object->password_db.'\' -h '.$object->hostname_db.' -D '.$object->database_db;
+	$links.='Mysql connect string: ';
+	$links.='<input type="text" name="mysqlconnectstring" value="'.$mysqlconnectstring.'" size="110"><br>';
+
+	// JDBC
+	$jdbcconnectstring='jdbc:mysql://176.34.178.16/';
+	//$jdbcconnectstring.=$object->database_db;
+	$links.='JDBC connect string: ';
+	$links.='<input type="text" name="jdbcconnectstring" value="'.$jdbcconnectstring.'" size="110"><br>';
+
 
 	// ----- DoliCloud instance -----
 	print '<strong>INSTANCE SERVEUR STRATUS5</strong>';
 	// Last refresh
-	print ' - '.$langs->trans("DateLastCheck").': '.($object->lastcheck?dol_print_date($object->lastcheck,'dayhour','tzuser'):$langs->trans("Never"));
+	print ' - '.$langs->trans("DateLastCheck").': '.($object->date_lastcheck?dol_print_date($object->date_lastcheck,'dayhour','tzuser'):$langs->trans("Never"));
 
 	if (! $object->user_id && $user->rights->nltechno->dolicloud->write)
 	{
@@ -809,14 +862,17 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 	print '<table class="border" width="100%">';
 
 	// Nb of users
-	print '<tr><td width="20%">'.$langs->trans("NbOfUsers").'</td><td colspan="3"><font size="+2">'.$object->nbofusers.'</font></td>';
+	print '<tr><td width="20%">'.$langs->trans("NbOfUsers").'</td><td><font size="+2">'.round($object->nbofusers).'</font></td>';
+	print '<td rowspan="7" valign="middle">';
+	print $links;
+	print '</td>';
 	print '</tr>';
 
 	// Dates
 	print '<tr><td width="20%">'.$langs->trans("DateRegistration").'</td><td width="30%">'.dol_print_date($object->date_registration,'dayhour');
 	//print ' (<a href="'.dol_buildpath('/nltechno/dolicloud/dolicloud_card.php',1).'?id='.$object->id.'&amp;action=setdate&amp;date=">'.$langs->trans("SetDate").'</a>)';
-	print '</td>';
-	print '<td width="20%">'.$langs->trans("DateEndFreePeriod").'</td><td width="30%">'.dol_print_date($object->date_endfreeperiod,'dayhour').'</td>';
+	print '</td></tr>';
+	print '<tr><td width="20%">'.$langs->trans("DateEndFreePeriod").'</td><td width="30%">'.dol_print_date($object->date_endfreeperiod,'dayhour').'</td>';
 	print '</tr>';
 
 	/*
@@ -828,24 +884,24 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 	*/
 	// Version
 	print '<tr>';
-	print '<td>'.$langs->trans("Version").'</td><td colspan="3">'.$object->version.'</td>';
+	print '<td>'.$langs->trans("Version").'</td><td>'.$object->version.'</td>';
 	print '</tr>';
 
 	// Modules
 	print '<tr>';
-	print '<td>'.$langs->trans("Modules").'</td><td colspan="3">'.join(', ',explode(',',$object->modulesenabled)).'</td>';
+	print '<td>'.$langs->trans("Modules").'</td><td>'.join(', ',explode(',',$object->modulesenabled)).'</td>';
 	print '</tr>';
 
 	// Authorized key file
 	print '<tr>';
-	print '<td>'.$langs->trans("Authorized_keyInstalled").'</td><td colspan="3">'.($object->fileauthorizedkey?$langs->trans("Yes").' - '.dol_print_date($object->fileauthorizedkey,'%Y-%m-%d %H:%M:%S','tzuser'):$langs->trans("No"));
+	print '<td>'.$langs->trans("Authorized_keyInstalled").'</td><td>'.($object->fileauthorizedkey?$langs->trans("Yes").' - '.dol_print_date($object->fileauthorizedkey,'%Y-%m-%d %H:%M:%S','tzuser'):$langs->trans("No"));
 	print ' &nbsp; (<a href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&action=addauthorizedkey">'.$langs->trans("Create").'</a>)';
 	print '</td>';
 	print '</tr>';
 
 	// Install.lock file
 	print '<tr>';
-	print '<td>'.$langs->trans("LockfileInstalled").'</td><td colspan="3">'.($object->filelock?$langs->trans("Yes").' - '.dol_print_date($object->filelock,'%Y-%m-%d %H:%M:%S','tzuser'):$langs->trans("No"));
+	print '<td>'.$langs->trans("LockfileInstalled").'</td><td>'.($object->filelock?$langs->trans("Yes").' - '.dol_print_date($object->filelock,'%Y-%m-%d %H:%M:%S','tzuser'):$langs->trans("No"));
 	print ' &nbsp; (<a href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&action=addinstalllock">'.$langs->trans("Create").'</a>)';
 	print ($object->filelock?' &nbsp; (<a href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&action=delinstalllock">'.$langs->trans("Delete").'</a>)':'');
 	print '</td>';
@@ -963,7 +1019,7 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 
 	$backupdir=$conf->global->DOLICLOUD_BACKUP_PATH;
 
-	$dirdb=preg_replace('/_dolibarr/','',$object->database_db);
+	$dirdb=preg_replace('/_([a-zA-Z0-9]+)/','',$object->database_db);
 	$login=$object->username_web;
 	$password=$object->password_web;
 	$server=$object->instance.'.on.dolicloud.com';
@@ -1008,33 +1064,6 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 
     print '<table width="100%"><tr><td width="50%" valign="top">';
 
-	// Dolibarr instance login
-	$url='https://'.$object->instance.'.on.dolicloud.com?username='.$lastloginadmin.'&amp;password='.$lastpassadmin;
-	$link='<a href="'.$url.'" target="_blank">'.$url.'</a>';
-	print 'Dolibarr link<br>';
-	//print '<input type="text" name="dashboardconnectstring" value="'.dashboardconnectstring.'" size="100"><br>';
-	print $link.'<br>';
-	print '<br>';
-
-	// Dashboard
-	$url='https://www.on.dolicloud.com/signIn/index?email='.$object->email.'&amp;password='.$object->password_web;	// Note that password may have change and not being the one of dolibarr admin user
-	$link='<a href="'.$url.'" target="_blank">'.$url.'</a>';
-	print 'Dashboard<br>';
-	print $link.'<br>';
-	print '<br>';
-
-	// SFTP
-	$sftpconnectstring=$object->username_web.':'.$object->password_web.'@'.$object->hostname_web.':'.$conf->global->DOLICLOUD_EXT_HOME.'/'.$object->username_web.'/'.preg_replace('/_dolibarr$/','',$object->database_db);
-	print 'SFTP connect string<br>';
-	print '<input type="text" name="sftpconnectstring" value="'.$sftpconnectstring.'" size="120"><br>';
-	print '<br>';
-
-	// MySQL
-	$mysqlconnectstring='mysql -A -u '.$object->username_db.' -p\''.$object->password_db.'\' -h '.$object->hostname_db.' -D '.$object->database_db;
-	print 'Mysql connect string<br>';
-	print '<input type="text" name="mysqlconnectstring" value="'.$mysqlconnectstring.'" size="120"><br>';
-
-	print '<br>';
 
     print '</td><td valign="top" width="50%">';
 

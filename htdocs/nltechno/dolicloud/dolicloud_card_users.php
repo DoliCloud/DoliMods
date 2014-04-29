@@ -102,7 +102,7 @@ if (empty($reshook))
  */
 
 $help_url='';
-llxHeader('',$langs->trans("DoliCloudCustomers"),$help_url);
+llxHeader('',$langs->trans("DoliCloudInstances"),$help_url);
 
 $form = new Form($db);
 $formcompany = new FormCompany($db);
@@ -114,7 +114,7 @@ if ($id > 0 || $instance)
 	// Show tabs
 	$head = dolicloud_prepare_head($object);
 
-	$title = $langs->trans("DoliCloudCustomers");
+	$title = $langs->trans("DoliCloudInstances");
 	dol_fiche_head($head, 'users', $title, 0, 'contact');
 }
 
@@ -284,7 +284,7 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 
 	$backupdir=$conf->global->DOLICLOUD_BACKUP_PATH;
 
-	$dirdb=preg_replace('/_dolibarr/','',$object->database_db);
+	$dirdb=preg_replace('/_([a-zA-Z0-9]+)/','',$object->database_db);
 	$login=$object->username_web;
 	$password=$object->password_web;
 	$server=$object->instance.'.on.dolicloud.com';

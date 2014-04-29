@@ -248,7 +248,7 @@ if (empty($reshook))
  */
 
 $help_url='';
-llxHeader('',$langs->trans("DoliCloudCustomers"),$help_url);
+llxHeader('',$langs->trans("DoliCloudInstances"),$help_url);
 
 $form = new Form($db);
 $formother = new FormOther($db);
@@ -275,7 +275,7 @@ if ($id > 0 || $instance || $action == 'create')
 	// Show tabs
 	$head = dolicloud_prepare_head($object);
 
-	$title = $langs->trans("DoliCloudCustomers");
+	$title = $langs->trans("DoliCloudInstances");
 	dol_fiche_head($head, 'card', $title, 0, 'contact');
 }
 
@@ -735,7 +735,7 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 	// Country
 	print '<tr><td>'.$langs->trans("Country").'</td><td colspan="3">';
 	$img=picto_from_langcode($object->country_code);
-	if ($img) print $img.' ';
+	if ($object->country_code) print $img.' ';
 	print getCountry($object->country_code,0);
 	print '</td></tr>';
 
@@ -963,7 +963,7 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 
 	$backupdir=$conf->global->DOLICLOUD_BACKUP_PATH;
 
-	$dirdb=preg_replace('/_dolibarr/','',$object->database_db);
+	$dirdb=preg_replace('/_([a-zA-Z0-9]+)/','',$object->database_db);
 	$login=$object->username_web;
 	$password=$object->password_web;
 	$server=$object->instance.'.on.dolicloud.com';
@@ -1024,7 +1024,7 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 	print '<br>';
 
 	// SFTP
-	$sftpconnectstring=$object->username_web.':'.$object->password_web.'@'.$object->hostname_web.':'.$conf->global->DOLICLOUD_EXT_HOME.'/'.$object->username_web.'/'.preg_replace('/_dolibarr$/','',$object->database_db);
+	$sftpconnectstring=$object->username_web.':'.$object->password_web.'@'.$object->hostname_web.':'.$conf->global->DOLICLOUD_EXT_HOME.'/'.$object->username_web.'/'.preg_replace('/_([a-zA-Z0-9]+)$/','',$object->database_db);
 	print 'SFTP connect string<br>';
 	print '<input type="text" name="sftpconnectstring" value="'.$sftpconnectstring.'" size="120"><br>';
 	print '<br>';

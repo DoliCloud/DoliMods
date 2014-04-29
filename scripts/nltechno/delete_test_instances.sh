@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export vhostfile="/home/ldestailleur/git/nltechno/dolicloudimages/vhostHttps-dolibarr.template"
+export vhostfile="/home/ldestailleur/git/dolicloud/dolicloudimages/vhostHttps-dolibarr.template"
 export targetdir="/home/test"
 
 for i in {1..800}

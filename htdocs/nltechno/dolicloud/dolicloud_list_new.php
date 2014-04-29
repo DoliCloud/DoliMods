@@ -43,6 +43,15 @@ if (! $res && preg_match('/\/nltechno([^\/]*)\//',$_SERVER["PHP_SELF"],$reg)) $r
 if (! $res) die("Include of main fails");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/company.lib.php");
 dol_include_once("/nltechno/class/dolicloudcustomer.class.php");
+dol_include_once("/nltechno/class/dolicloudcustomernew.class.php");
+
+
+$db2=getDoliDBInstance('mysqli', $conf->global->DOLICLOUD_DATABASE_HOST, $conf->global->DOLICLOUD_DATABASE_USER, $conf->global->DOLICLOUD_DATABASE_PASS, $conf->global->DOLICLOUD_DATABASE_NAME, $conf->global->DOLICLOUD_DATABASE_PORT);
+if ($db2->error)
+{
+	dol_print_error($db2,"host=".$conf->db->host.", port=".$conf->db->port.", user=".$conf->db->user.", databasename=".$conf->db->name.", ".$db2->error);
+	exit;
+}
 
 
 // Load traductions files requiredby by page
@@ -74,7 +83,7 @@ if ($page == -1) {
 }
 $offset = $conf->liste_limit * $page;
 if (! $sortorder) $sortorder='DESC';
-if (! $sortfield) $sortfield='t.date_registration';
+if (! $sortfield) $sortfield='i.created_date';
 $limit = $conf->liste_limit;
 
 $pageprev = $page - 1;
@@ -120,12 +129,14 @@ if ($action == 'add')
 * Put here all code to build page
 ****************************************************/
 
-$arraystatus=Dolicloudcustomer::$listOfStatusShort;
+$arraystatus=Dolicloudcustomernew::$listOfStatusNewShort;
 
-llxHeader('',$langs->transnoentitiesnoconv('DoliCloudCustomers'),'');
+llxHeader('',$langs->transnoentitiesnoconv('DoliCloudInstances'),'');
 
 $form=new Form($db);
-$dolicloudcustomerstatic = new Dolicloudcustomer($db);
+$dolicloudcustomerstaticnew = new Dolicloudcustomernew($db);
+
+$now=dol_now();
 
 print '<script type="text/javascript" language="javascript">
 jQuery(document).ready(function() {
@@ -143,58 +154,92 @@ jQuery(document).ready(function() {
 
 
 $sql = "SELECT";
-$sql.= " t.rowid,";
+$sql.= " i.id,";
 
-$sql.= " t.instance,";
-$sql.= " t.organization,";
-$sql.= " t.email,";
-$sql.= " t.plan,";
-$sql.= " t.date_registration,";
-$sql.= " t.date_endfreeperiod,";
-$sql.= " t.status,";
-$sql.= " t.partner,";
-$sql.= " t.source,";
-$sql.= " t.total_invoiced,";
-$sql.= " t.total_payed,";
-$sql.= " t.tms,";
-$sql.= " t.hostname_web,";
-$sql.= " t.username_web,";
-$sql.= " t.password_web,";
-$sql.= " t.hostname_db,";
-$sql.= " t.database_db,";
-$sql.= " t.port_db,";
-$sql.= " t.username_db,";
-$sql.= " t.password_db,";
-$sql.= " t.lastcheck,";
-$sql.= " t.nbofusers,";
-$sql.= " t.lastlogin,";
-$sql.= " t.lastpass,";
-$sql.= " t.date_lastlogin,";
-$sql.= " t.modulesenabled,";
-$sql.= " p.rowid as planid,";
-$sql.= " p.price_instance,";
-$sql.= " p.price_user,";
-$sql.= " p.price_gb";
-$sql.= " FROM ".MAIN_DB_PREFIX."dolicloud_customers as t";
-$sql.= " LEFT JOIN ".MAIN_DB_PREFIX."c_dolicloud_plans as p ON t.plan = p.code";
-$sql.= " WHERE 1 = 1";
+$sql.= " i.version,";
+$sql.= " i.app_package_id,";
+$sql.= " i.created_date as date_registration,";
+$sql.= " i.customer_account_id,";
+$sql.= " i.db_name,";
+$sql.= " i.db_password,";
+$sql.= " i.db_port,";
+$sql.= " i.db_server,";
+$sql.= " i.db_username,";
+$sql.= " i.default_password,";
+$sql.= " i.deployed_date,";
+$sql.= " i.domain_id,";
+$sql.= " i.fs_path,";
+$sql.= " i.install_time,";
+$sql.= " i.ip_address,";
+$sql.= " i.last_login as date_lastlogin,";
+$sql.= " i.last_updated,";
+$sql.= " i.name as instance,";
+$sql.= " i.os_password,";
+$sql.= " i.os_username,";
+$sql.= " i.rm_install_url,";
+$sql.= " i.rm_web_app_name,";
+$sql.= " i.status as instance_status,";
+$sql.= " i.undeployed_date,";
+$sql.= " i.access_enabled,";
+$sql.= " i.default_username,";
+$sql.= " i.ssh_port,";
+
+$sql.= " p.id as planid,";
+$sql.= " p.name as plan,";
+
+$sql.= " im.value as nbofusers,";
+$sql.= " im.last_updated as lastcheck,";
+
+$sql.= " pao.amount as price_user,";
+$sql.= " pao.min_threshold as min_threshold,";
+
+$sql.= " pl.base_price as price_instance,";
+$sql.= " pl.meter_id as plan_meter_id,";
+
+$sql.= " c.org_name as organization,";
+$sql.= " c.status as status,";
+$sql.= " c.next_billing_date,";
+$sql.= " c.suspension_date,";
+$sql.= " c.payment_status,";
+
+$sql.= " per.username as email,";
+$sql.= " per.first_name as firstname,";
+$sql.= " per.last_name as lastname,";
+
+$sql.= " cp.org_name as partner";
+
+$sql.= " FROM app_instance as i";
+$sql.= " LEFT JOIN app_instance_meter as im ON i.id = im.app_instance_id AND im.meter_id = 1,";	// meter_id = 1 = users
+$sql.= " customer_account as c";
+$sql.= " LEFT JOIN channel_partner_customer_account as cc ON cc.customer_account_id = c.id";
+$sql.= " LEFT JOIN channel_partner as cp ON cc.channel_partner_id = cp.id";
+$sql.= " LEFT JOIN person as per ON c.primary_contact_id = per.id,";
+$sql.= " plan as pl";
+$sql.= " LEFT JOIN plan_add_on as pao ON pl.id=pao.plan_id and pao.meter_id = 1,";	// meter_id = 1 = users
+$sql.= " app_package as p";
+$sql.= " WHERE i.customer_account_id = c.id AND c.plan_id = pl.id AND pl.app_package_id = p.id";
 if ($search_dolicloud) $sql.='';
-if ($search_multi) $sql.=" AND (t.instance LIKE '%".$db->escape($search_multi)."%' OR t.organization LIKE '%".$db->escape($search_multi)."%' OR t.email LIKE '%".$db->escape($search_multi)."%')";
-if ($search_instance) $sql.=" AND t.instance LIKE '%".$db->escape($search_instance)."%'";
-if ($search_organization) $sql.=" AND t.organization LIKE '%".$db->escape($search_organization)."%'";
-if ($search_plan) $sql.=" AND t.email LIKE '%".$db->escape($search_plan)."%'";
-if ($search_partner) $sql.=" AND t.partner LIKE '%".$db->escape($search_partner)."%'";
+if ($search_multi) $sql.=" AND (i.name LIKE '%".$db->escape($search_multi)."%' OR c.org_name LIKE '%".$db->escape($search_multi)."%' OR i.email LIKE '%".$db->escape($search_multi)."%')";
+if ($search_instance) $sql.=" AND i.name LIKE '%".$db->escape($search_instance)."%'";
+if ($search_organization) $sql.=" AND c.org_name LIKE '%".$db->escape($search_organization)."%'";
+if ($search_plan) $sql.=" AND p.name LIKE '%".$db->escape($search_plan)."%'";
+if ($search_partner) $sql.=" AND cp.org_name LIKE '%".$db->escape($search_partner)."%'";
 if ($search_source) $sql.=" AND t.source LIKE '%".$db->escape($search_source)."%'";
-if ($search_email) $sql.=" AND t.email LIKE '%".$db->escape($search_email)."%'";
-if ($search_lastlogin) $sql.=" AND t.lastlogin LIKE '%".$db->escape($search_lastlogin)."%'";
-if (! is_numeric($search_status)) $sql.=" AND t.status LIKE '%".$db->escape($search_status)."%'";
+if ($search_email) $sql.=" AND per.username LIKE '%".$db->escape($search_email)."%'";
+if ($search_lastlogin) $sql.=" AND i.last_login LIKE '%".$db->escape($search_lastlogin)."%'";
+if (! is_numeric($search_status))
+{
+	//if ($search_status == 'UNDEPLOYED') $sql.=" AND i.status LIKE '%".$db->escape($search_status)."%'";
+	//else $sql.=" AND c.status LIKE '%".$db->escape($search_status)."%'";
+	$sql.=" AND c.status LIKE '%".$db->escape($search_status)."%'";
+}
 
 // Count total nb of records
 $nbtotalofrecords = 0;
 if (empty($conf->global->MAIN_DISABLE_FULL_SCANLIST))
 {
-	$result = $db->query($sql);
-	$nbtotalofrecords = $db->num_rows($result);
+	$result = $db2->query($sql);
+	$nbtotalofrecords = $db2->num_rows($result);
 }
 
 $sql.= $db->order($sortfield,$sortorder);
@@ -218,34 +263,34 @@ $totalcustomerspaying=0;
 $total=0;
 
 $var=false;
-
+//print $sql;
 dol_syslog($script_file." sql=".$sql, LOG_DEBUG);
-$resql=$db->query($sql);
+$resql=$db2->query($sql);
 if ($resql)
 {
-    $num = $db->num_rows($resql);
+    $num = $db2->num_rows($resql);
 
-    print_barre_liste($langs->trans('DoliCloudCustomers'),$page,$_SERVER["PHP_SELF"],$param,$sortfield,$sortorder,'',$num,$nbtotalofrecords);
+    print_barre_liste($langs->trans('DoliCloudInstances'),$page,$_SERVER["PHP_SELF"],$param,$sortfield,$sortorder,'',$num,$nbtotalofrecords);
 
     // Lignes des champs de filtre
     print '<form method="POST" action="'.$_SERVER["PHP_SELF"].'">';
 
     print '<table class="liste" width="100%">';
     print '<tr class="liste_titre">';
-    print_liste_field_titre($langs->trans('Instance'),$_SERVER['PHP_SELF'],'t.instance','',$param,'align="left"',$sortfield,$sortorder);
-    print_liste_field_titre($langs->trans('Organization'),$_SERVER['PHP_SELF'],'t.organization','',$param,'',$sortfield,$sortorder);
-    print_liste_field_titre($langs->trans('EMail'),$_SERVER['PHP_SELF'],'t.email','',$param,'',$sortfield,$sortorder);
-    print_liste_field_titre($langs->trans('Plan'),$_SERVER['PHP_SELF'],'t.plan','',$param,'',$sortfield,$sortorder);
-    print_liste_field_titre($langs->trans('Partner'),$_SERVER['PHP_SELF'],'t.partner','',$param,'',$sortfield,$sortorder);
-    print_liste_field_titre($langs->trans('Source'),$_SERVER['PHP_SELF'],'t.source','',$param,'',$sortfield,$sortorder);
+    print_liste_field_titre($langs->trans('Instance'),$_SERVER['PHP_SELF'],'i.instance','',$param,'align="left"',$sortfield,$sortorder);
+    print_liste_field_titre($langs->trans('Organization'),$_SERVER['PHP_SELF'],'c.organization','',$param,'',$sortfield,$sortorder);
+    print_liste_field_titre($langs->trans('EMail'),$_SERVER['PHP_SELF'],'per.email','',$param,'',$sortfield,$sortorder);
+    print_liste_field_titre($langs->trans('Plan'),$_SERVER['PHP_SELF'],'pl.plan','',$param,'',$sortfield,$sortorder);
+    print_liste_field_titre($langs->trans('Partner'),$_SERVER['PHP_SELF'],'cc.partner','',$param,'',$sortfield,$sortorder);
+    //print_liste_field_titre($langs->trans('Source'),$_SERVER['PHP_SELF'],'t.source','',$param,'',$sortfield,$sortorder);
     print_liste_field_titre($langs->trans('DateRegistration'),$_SERVER['PHP_SELF'],'t.date_registration','',$param,'',$sortfield,$sortorder);
-    print_liste_field_titre($langs->trans('DateEndFreePeriod'),$_SERVER['PHP_SELF'],'t.date_endfreeperiod','',$param,'',$sortfield,$sortorder);
-    print_liste_field_titre($langs->trans('DateLastCheck'),$_SERVER['PHP_SELF'],'t.lastcheck','',$param,'',$sortfield,$sortorder);
-    print_liste_field_titre($langs->trans('NbOfUsers'),$_SERVER['PHP_SELF'],'t.nbofusers','',$param,'align="right"',$sortfield,$sortorder);
-    print_liste_field_titre($langs->trans('LastLogin'),$_SERVER['PHP_SELF'],'t.lastlogin','',$param,'align="center"',$sortfield,$sortorder);
+    print_liste_field_titre($langs->trans('DateEndFreePeriod'),$_SERVER['PHP_SELF'],'c.next_billing_date','',$param,'',$sortfield,$sortorder);
+    print_liste_field_titre($langs->trans('DateLastCheck'),$_SERVER['PHP_SELF'],'im.last_updated','',$param,'',$sortfield,$sortorder);
+    print_liste_field_titre($langs->trans('NbOfUsers'),$_SERVER['PHP_SELF'],'im.value','',$param,'align="right"',$sortfield,$sortorder);
+    //print_liste_field_titre($langs->trans('LastLogin'),$_SERVER['PHP_SELF'],'t.lastlogin','',$param,'align="center"',$sortfield,$sortorder);
     print_liste_field_titre($langs->trans('DateLastLogin'),$_SERVER['PHP_SELF'],'t.date_lastlogin','',$param,'align="center"',$sortfield,$sortorder);
     print_liste_field_titre($langs->trans('Revenue'),$_SERVER['PHP_SELF'],'','',$param,' align="right"',$sortfield,$sortorder);
-    print_liste_field_titre($langs->trans('Status'),$_SERVER['PHP_SELF'],'t.status','',$param,'align="right"',$sortfield,$sortorder);
+    print_liste_field_titre($langs->trans('CustStatus'),$_SERVER['PHP_SELF'],'c.status','',$param,'align="right"',$sortfield,$sortorder);
     print '</tr>';
 
     print '<tr class="liste_titre">';
@@ -254,12 +299,12 @@ if ($resql)
     print '<td><input type="text" name="search_email" size="4" value="'.$search_email.'"></td>';
     print '<td><input type="text" name="search_plan" size="4" value="'.$search_plan.'"></td>';
     print '<td><input type="text" name="search_partner" size="4" value="'.$search_partner.'"></td>';
-    print '<td><input type="text" name="search_source" size="4" value="'.$search_source.'"></td>';
+    //print '<td><input type="text" name="search_source" size="4" value="'.$search_source.'"></td>';
     print '<td></td>';
     print '<td></td>';
     print '<td></td>';
     print '<td></td>';
-    print '<td align="center"><input type="text" name="search_lastlogin" size="4" value="'.$search_lastlogin.'"></td>';
+    //print '<td align="center"><input type="text" name="search_lastlogin" size="4" value="'.$search_lastlogin.'"></td>';
     print '<td></td>';
     print '<td></td>';
     print '<td align="right">';
@@ -274,19 +319,26 @@ if ($resql)
     {
         while ($i < min($num,$conf->liste_limit))
         {
-            $obj = $db->fetch_object($resql);
+            $obj = $db2->fetch_object($resql);
             if ($obj)
             {
-                $price=$obj->price_instance + ($obj->nbofusers * $obj->price_user);
+                $price=($obj->price_instance * ($obj->plan_meter_id == 1 ? $obj->nbofusers : 1)) + (max(0,($obj->nbofusers - $obj->min_threshold)) * $obj->price_user);
+            	//var_dump($obj->status);exit;
                 $totalcustomers++;
+				$instance=preg_replace('/\.on\.dolicloud\.com$/', '', $obj->instance);
+
+                $dolicloudcustomerstaticnew->status = $obj->status;
+                $dolicloudcustomerstaticnew->instance_status = $obj->instance_status;
+                $dolicloudcustomerstaticnew->payment_status = $obj->payment_status;
+                $status=$dolicloudcustomerstaticnew->getLibStatut(1,$form);
 
                 $var=!$var;
                 // You can use here results
                 print '<tr '.$bc[$var].'><td align="left" nowrap="nowrap">';
-                $dolicloudcustomerstatic->id=$obj->rowid;
-                $dolicloudcustomerstatic->ref=$obj->instance;
-                $dolicloudcustomerstatic->status=$obj->status;
-                print $dolicloudcustomerstatic->getNomUrl(1,'');
+                $dolicloudcustomerstaticnew->id=$obj->id;
+                $dolicloudcustomerstaticnew->ref=$instance;
+                $dolicloudcustomerstaticnew->status=$obj->status;
+                print $dolicloudcustomerstaticnew->getNomUrl(1,'',0,'_new');
                 print '</td><td>';
                 print $obj->organization;
                 print '</td><td>';
@@ -297,21 +349,22 @@ if ($resql)
                 print '</td><td>';
                 print $obj->partner;
                 print '</td><td>';
-                print $obj->source;
-                print '</td><td>';
+                //print $obj->source;
+                //print '</td><td>';
                 print dol_print_date($db->jdate($obj->date_registration),'dayhour','tzuser');
                 print '</td><td>';
-                print dol_print_date($db->jdate($obj->date_endfreeperiod),'day','tzuser');
+                print dol_print_date($db->jdate($obj->next_billing_date),'day','tzuser');
                 print '</td><td>';
-                print $obj->lastcheck;
+                print dol_print_date($db->jdate($obj->lastcheck), 'dayhour', 'tzuser');
                 print '</td><td align="right">';
                 print $obj->nbofusers;
-                print '</td><td align="center">';
-                print $obj->lastlogin;
+                //print '</td><td align="center">';
+                //print $obj->lastlogin;
 	            print '</td><td align="center">';
                 print ($obj->date_lastlogin?dol_print_date($db->jdate($obj->date_lastlogin),'dayhour','tzuser'):'');
                 print '</td><td align="right">';
-                if ($obj->status != 'ACTIVE')
+
+                if ($status != 'ACTIVE' && $status != 'OK')
                 {
                 	print '';
                 }
@@ -322,8 +375,9 @@ if ($resql)
                 	$totalcustomerspaying++;
                 	$total+=$price;
                 }
-                print '</td><td align="right">';
-                print $dolicloudcustomerstatic->getLibStatut(3);
+                print '</td>';
+                print '<td align="right">';
+                print $dolicloudcustomerstaticnew->getLibStatut(5,$form);;
                 print '</td>';
                 print '</tr>';
             }
@@ -339,7 +393,7 @@ if ($resql)
 else
 {
     $error++;
-    dol_print_error($db);
+    dol_print_error($db2);
 }
 
 

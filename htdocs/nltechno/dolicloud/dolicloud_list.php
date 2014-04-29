@@ -122,7 +122,7 @@ if ($action == 'add')
 
 $arraystatus=Dolicloudcustomer::$listOfStatusShort;
 
-llxHeader('',$langs->transnoentitiesnoconv('DoliCloudCustomers'),'');
+llxHeader('',$langs->transnoentitiesnoconv('DoliCloudInstances'),'');
 
 $form=new Form($db);
 $dolicloudcustomerstatic = new Dolicloudcustomer($db);
@@ -225,7 +225,7 @@ if ($resql)
 {
     $num = $db->num_rows($resql);
 
-    print_barre_liste($langs->trans('DoliCloudCustomers'),$page,$_SERVER["PHP_SELF"],$param,$sortfield,$sortorder,'',$num,$nbtotalofrecords);
+    print_barre_liste($langs->trans('DoliCloudInstances'),$page,$_SERVER["PHP_SELF"],$param,$sortfield,$sortorder,'',$num,$nbtotalofrecords);
 
     // Lignes des champs de filtre
     print '<form method="POST" action="'.$_SERVER["PHP_SELF"].'">';

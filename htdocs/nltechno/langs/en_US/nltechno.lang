@@ -1,6 +1,8 @@
 # Dolibarr language file - en_US - nltechno
 CHARSET=UTF-8
 DoliCloudCustomers=DoliCloud customers
+DoliCloudInstances=DoliCloud instances
+CustStatus=Cust. Status
 DateRegistration=Subscription date
 DateEndFreePeriod=End trial date
 DateLastCheck=Refresh

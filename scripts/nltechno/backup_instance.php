@@ -81,7 +81,7 @@ if (! is_dir($dirroot))
 	exit(-4);
 }
 
-$dirdb=preg_replace('/_dolibarr/','',$object->database_db);
+$dirdb=preg_replace('/_([a-zA-Z0-9]+)/','',$object->database_db);
 $login=$object->username_web;
 $password=$object->password_web;
 $sourcedir=$conf->global->DOLICLOUD_EXT_HOME.'/'.$login.'/'.$dirdb;

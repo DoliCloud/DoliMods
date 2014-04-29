@@ -1,5 +1,5 @@
 <?php
-/* Copyright (C) 2004-2012 Laurent Destailleur  <eldy@users.sourceforge.net>
+/* Copyright (C) 2004-2013 Laurent Destailleur  <eldy@users.sourceforge.net>
  *
 * This program is free software; you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
@@ -35,7 +35,7 @@ require_once(DOL_DOCUMENT_ROOT."/core/lib/company.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/date.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/class/html.formcompany.class.php");
 dol_include_once("/nltechno/core/lib/dolicloud.lib.php");
-dol_include_once('/nltechno/class/dolicloudcustomer.class.php');
+dol_include_once('/nltechno/class/dolicloudcustomernew.class.php');
 dol_include_once('/nltechno/class/cdolicloudplans.class.php');
 
 $langs->load("admin");
@@ -45,7 +45,7 @@ $langs->load("other");
 $langs->load("commercial");
 $langs->load("nltechno@nltechno");
 
-$mesg='';
+$mesg=''; $error=0; $errors=array();
 
 $action		= (GETPOST('action','alpha') ? GETPOST('action','alpha') : 'view');
 $confirm	= GETPOST('confirm','alpha');
@@ -53,9 +53,20 @@ $backtopage = GETPOST('backtopage','alpha');
 $id			= GETPOST('id','int');
 $instance   = GETPOST('instance');
 
-$error=0; $errors=array();
+$error = 0; $errors = array();
 
-$object = new DoliCloudCustomer($db);
+
+
+$db2=getDoliDBInstance('mysqli', $conf->global->DOLICLOUD_DATABASE_HOST, $conf->global->DOLICLOUD_DATABASE_USER, $conf->global->DOLICLOUD_DATABASE_PASS, $conf->global->DOLICLOUD_DATABASE_NAME, $conf->global->DOLICLOUD_DATABASE_PORT);
+if ($db2->error)
+{
+	dol_print_error($db2,"host=".$conf->db->host.", port=".$conf->db->port.", user=".$conf->db->user.", databasename=".$conf->db->name.", ".$db2->error);
+	exit;
+}
+
+
+
+$object = new DoliCloudCustomerNew($db,$db2);
 
 // Security check
 $result = restrictedArea($user, 'nltechno', 0, '','dolicloud');
@@ -91,7 +102,7 @@ if (empty($reshook))
 		exit;
 	}
 
-	include 'refresh_action.inc.php';
+	include 'refresh_action_new.inc.php';
 
 	$action = 'view';
 }
@@ -105,17 +116,19 @@ $help_url='';
 llxHeader('',$langs->trans("DoliCloudInstances"),$help_url);
 
 $form = new Form($db);
+$form2 = new Form($db2);
 $formcompany = new FormCompany($db);
 
 $countrynotdefined=$langs->trans("ErrorSetACountryFirst").' ('.$langs->trans("SeeAbove").')';
+$arraystatus=Dolicloudcustomernew::$listOfStatus;
 
 if ($id > 0 || $instance)
 {
 	// Show tabs
-	$head = dolicloud_prepare_head($object);
+	$head = dolicloud_prepare_head($object,'_new');
 
 	$title = $langs->trans("DoliCloudInstances");
-	dol_fiche_head($head, 'payments', $title, 0, 'contact');
+	dol_fiche_head($head, 'users', $title, 0, 'contact');
 }
 
 if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
@@ -144,7 +157,10 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 
 	// Instance / Organization
 	print '<tr><td width="20%">'.$langs->trans("Instance").'</td><td colspan="3">';
-	print $form->showrefnav($object,'instance','',1,'instance','instance','');
+	$savdb=$object->db;
+	$object->db=$object->db2;	// To have ->db to point to db2 for showrefnav function
+	print $form2->showrefnav($object,'instance','',1,'name','instance','','',1);
+	$object->db=$savdb;
 	print '</td></tr>';
 	print '<tr><td>'.$langs->trans("Organization").'</td><td colspan="3">';
 	print $object->organization;
@@ -195,7 +211,7 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 
 	// Status
 	print '<tr><td>'.$langs->trans("Status").'</td><td colspan="3">';
-	print $object->getLibStatut(2);
+	print $object->getLibStatut(4,$form);
 	print '</td>';
 	print '</tr>';
 
@@ -204,7 +220,7 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 
 	/*
 	// Last refresh
-	print $langs->trans("DateLastCheck").': '.($object->lastcheck?dol_print_date($object->lastcheck,'dayhour','tzuser'):$langs->trans("Never"));
+	print $langs->trans("DateLastCheck").': '.($object->date_lastcheck?dol_print_date($object->date_lastcheck,'dayhour','tzuser'):$langs->trans("Never"));
 
 	if (! $object->user_id && $user->rights->nltechno->dolicloud->write)
 	{
@@ -218,6 +234,65 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 
 	print '<table class="border" width="100%">';
 
+	// Nb of users
+	print '<tr class="liste_titre">';
+	print '<td>'.$langs->trans("Login").'</td>';
+	print '<td>'.$langs->trans("Lastname").'</td>';
+	print '<td>'.$langs->trans("Firstname").'</td>';
+	print '<td>'.$langs->trans("Admin").'</td>';
+	print '<td>'.$langs->trans("Email").'</td>';
+	print '<td>'.$langs->trans("Pass").'</td>';
+	print '<td>'.$langs->trans("DateCreation").'</td>';
+	print '<td>'.$langs->trans("DateChange").'</td>';
+	print '<td>'.$langs->trans("DateLastLogin").'</td>';
+	print '<td>'.$langs->trans("Entity").'</td>';
+	print '<td>'.$langs->trans("ParentsId").'</td>';
+	print '<td>'.$langs->trans("Status").'</td>';
+	print '</tr>';
+
+	if (is_object($newdb))
+	{
+		// Get user/pass of last admin user
+		$sql ="SELECT login, name as lastname, firstname, admin, email, pass, pass_crypted, datec, tms as datem, datelastlogin, fk_societe, fk_socpeople, fk_member, entity, statut";
+		$sql.=" FROM llx_user ORDER BY statut DESC";
+		$resql=$newdb->query($sql);
+		if (empty($resql))	// Alternative for 3.4+
+		{
+			$sql ="SELECT login, lastname as lastname, firstname, admin, email, pass, pass_crypted, datec, tms as datem, datelastlogin, fk_societe, fk_socpeople, fk_member, entity, statut";
+			$sql.=" FROM llx_user ORDER BY statut DESC";
+			$resql=$newdb->query($sql);
+		}
+		if ($resql)
+		{
+			$var=false;
+			$num=$newdb->num_rows($resql);
+			$i=0;
+			while ($i < $num)
+			{
+				$var=!$var;
+				$obj = $newdb->fetch_object($resql);
+				print '<tr '.$bc[$var].'>';
+				print '<td>'.$obj->login.'</td>';
+				print '<td>'.$obj->lastname.'</td>';
+				print '<td>'.$obj->firstname.'</td>';
+				print '<td>'.$obj->admin.'</td>';
+				print '<td>'.$obj->email.'</td>';
+				print '<td>'.$obj->pass.' ('.$obj->pass_crypted.')</td>';
+				print '<td>'.dol_print_date($newdb->jdate($obj->datec),'dayhour').'</td>';
+				print '<td>'.dol_print_date($newdb->jdate($obj->datem),'dayhour').'</td>';
+				print '<td>'.dol_print_date($newdb->jdate($obj->datelastlogin),'dayhour').'</td>';
+				print '<td>'.$obj->entity.'</td>';
+				print '<td>'.$obj->fk_societe.'/'.$obj->fk_socpeople.'/'.$obj->fk_member.'</td>';
+				print '<td align="right">'.$obj->statut.'</td>';
+				print '</tr>';
+				$i++;
+			}
+		}
+		else
+		{
+			dol_print_error($newdb);
+		}
+	}
 
 	print "</table>";
 	print '<br>';
@@ -234,39 +309,6 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 	print '<strong>INSTANCE SERVEUR NLTECHNO</strong><br>';
 	print '<table class="border" width="100%">';
 
-	// Nb of users
-	print '<tr class="liste_titre">';
-	print '<td>'.$langs->trans("Date").'</td>';
-	print '<td>'.$langs->trans("Amount").'</td>';
-	print '<td>'.$langs->trans("Status").'</td>';
-	print '</tr>';
-
-	if (is_object($newdb))
-	{
-		// Get user/pass of last admin user
-		$sql="SELECT xxx FROM llx_user ORDER BY statut DESC";
-		$resql=$newdb->query($sql);
-		if ($resql)
-		{
-			$var=false;
-			$num=$newdb->num_rows($resql);
-			while ($i < $num)
-			{
-				$var=!$var;
-				$obj = $newdb->fetch_object($resql);
-				print '<tr '.$bc[$var].'>';
-				print '<td>'.dol_print_date($newdb->jdate($obj->date),'dayhour').'</td>';
-				print '<td>'.$obj->amount.'</td>';
-				print '<td>'.$obj->status.'</td>';
-				print '</tr>';
-				$i++;
-			}
-		}
-		else
-		{
-			dol_print_error($newdb);
-		}
-	}
 
 	print "</table><br>";
 
@@ -287,11 +329,14 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 	}
 */
 
-/*	// MySQL
-	$mysqlconnectstring='mysql -A -u '.$object->username_db.' -p\''.$object->password_db.'\' -h '.$object->hostname_db.' -D '.$object->database_db;
-	print 'Mysql connect string<br>';
-	print '<input type="text" name="mysqlconnectstring" value="'.$mysqlconnectstring.'" size="120"><br>';
-*/
+	// Dolibarr instance login
+	$url='https://'.$object->instance.'.on.dolicloud.com?username='.$lastloginadmin.'&amp;password='.$lastpassadmin;
+	$link='<a href="'.$url.'" target="_blank">'.$url.'</a>';
+	print 'Dolibarr link<br>';
+	//print '<input type="text" name="dashboardconnectstring" value="'.dashboardconnectstring.'" size="100"><br>';
+	print $link.'<br>';
+	print '<br>';
+
 }
 
 

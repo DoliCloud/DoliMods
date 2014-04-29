@@ -1,5 +1,5 @@
 <?php
-/* Copyright (C) 2008-2013 Laurent Destailleur  <eldy@users.sourceforge.net>
+/* Copyright (C) 2008-2014 Laurent Destailleur  <eldy@users.sourceforge.net>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -649,8 +649,8 @@ if ($conf->adherent->enabled)
 	print "</tr>";
 }
 print "</table>";
-print "<br>";
-
+print $langs->trans("GoogleContactSyncInfo").'<br>';
+print '<br>';
 
 print '<center>';
 print "<input type=\"submit\" name=\"save\" class=\"button\" value=\"".$langs->trans("Save")."\">";
