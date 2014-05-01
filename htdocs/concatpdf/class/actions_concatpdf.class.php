@@ -55,10 +55,9 @@ class ActionsConcatPdf
      */
     function formBuilddocOptions($parameters,&$object)
     {
-        global $langs, $user, $conf;
+        global $langs, $user, $conf, $form;
 
         $langs->load("concatpdf@concatpdf");
-        $form=new Form($this->db);
 
         $out='';
 

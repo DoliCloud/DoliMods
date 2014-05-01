@@ -97,7 +97,7 @@ class InterfaceEcotaxdeee
 		// Création / Mise à jour / Suppression d'un évènement dans Google contact
 
 		if (empty($conf->ecotaxdeee->enabled)) return 0;
-		if ($object->special_code == 2) return 0;			// To avoid infinite loop
+		if (isset($object->special_code) && $object->special_code == 2) return 0;			// To avoid infinite loop
 
 		if (! empty($conf->global->ECOTAXDEEE_USE_ON_CUSTOMER_ORDER))
 		{

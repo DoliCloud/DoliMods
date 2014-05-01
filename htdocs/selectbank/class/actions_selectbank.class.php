@@ -53,11 +53,10 @@ class ActionsSelectBank
      */
     function formBuilddocOptions($parameters,&$object)
     {
-        global $langs, $user, $conf;
+        global $langs, $user, $conf, $form;
 		global $form;
 
         $langs->load("selectbank@selectbank");
-        $form=new Form($this->db);
 
         $out='';
 

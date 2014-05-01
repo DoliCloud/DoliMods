@@ -289,11 +289,9 @@ class ActionsCabinetmed
      */
     function formBuilddocOptions($parameters)
     {
-        global $langs, $user, $conf;
+        global $langs, $user, $conf, $form;
 
         if (empty($parameters['modulepart']) || $parameters['modulepart'] != 'company') return '';	// Add nothing
-
-        $htmlform=new Form($this->db);
 
         include_once(DOL_DOCUMENT_ROOT.'/core/modules/societe/modules_societe.class.php');
         $modellist=ModeleThirdPartyDoc::liste_modeles($this->db);
@@ -341,7 +339,7 @@ class ActionsCabinetmed
             }
         }
         else dol_print_error($this->db);
-        $out.=$htmlform->selectarray('idconsult',$array_consult,$firstid,1);
+        $out.=$form->selectarray('idconsult',$array_consult,$firstid,1);
         //print '</td>';
         //print '<td align="center">';
 
@@ -364,7 +362,7 @@ class ActionsCabinetmed
             }
         }
         else dol_print_error($this->db);
-        $out.=$htmlform->selectarray('idbio',$array_consult,GETPOST('idbio')?GETPOST('idbio'):'',1);
+        $out.=$form->selectarray('idbio',$array_consult,GETPOST('idbio')?GETPOST('idbio'):'',1);
         //$out.= '</td>';
         //$out.= '<td align="center">';
 
@@ -387,7 +385,7 @@ class ActionsCabinetmed
             }
         }
         else dol_print_error($this->db);
-        $out.=$htmlform->selectarray('idradio',$array_consult,GETPOST('idradio')?GETPOST('idradio'):'',1);
+        $out.=$form->selectarray('idradio',$array_consult,GETPOST('idradio')?GETPOST('idradio'):'',1);
 
         if (! is_array($modellist) || count($modellist) == 0)
         {
