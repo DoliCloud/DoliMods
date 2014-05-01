@@ -179,7 +179,7 @@ class InterfaceGoogleContactSynchro
 							$object->update_ref_ext($ret);
 							// This is to store ref_ext to allow updates
 						}
-						else if ($ret < 0)  return $ret;
+						else if (is_numeric($ret) && $ret < 0)  return $ret;
 
 						return 1;
 					}
