@@ -834,6 +834,8 @@ class ActionsMultiinstance
 	{
 		global $conf,$user,$langs;
 
+		include_once DOL_DOCUMENT_ROOT . '/core/lib/ajax.lib.php';
+		
 		$langs->load('multiinstance@multiinstance');
 
 		$out='';
