@@ -24,6 +24,8 @@
  * To get list of calendar: https://www.google.com/calendar/feeds/default/allcalendars/full
  */
 
+dol_include_once("/google/lib/google.lib.php");
+
 $path = dol_buildpath('/google/includes/zendgdata');
 set_include_path(get_include_path() . PATH_SEPARATOR . $path);
 
@@ -558,10 +560,11 @@ function deleteEventByUrl ($client, $url)
 
 
 /**
- * Mass insert of several contacts into a google account
+ * Mass insert of several events into a google account
  *
  * @param 	array 	$gCals			Array of object ActionComm
  * @return	int						>0 if OK, 'error string' if error
+ * @see		insertGContactsEntries 	(same function for contacts)
  */
 function insertGCalsEntries($gCals)
 {
@@ -578,6 +581,10 @@ function insertGCalsEntries($gCals)
 			$firstContacts = $remainingCals;
 			$remainingCals = array();
 		}
+
+		$doc = new DOMDocument("1.0", "utf-8");
+		$doc->formatOutput = true;
+		$feed = $doc->createElement("atom:feed");
 
 		foreach ($firstContacts as $gContact) {
 
@@ -628,7 +635,9 @@ function insertGCalsEntries($gCals)
 		}
 		*/
 
-		$xmlStr = '';
+		$xmlStr = $doc->saveXML();
+		//var_dump($xmlStr);exit;
+
 		// uncomment for debugging :
 		file_put_contents(DOL_DATA_ROOT . "/dolibarr_google_cal_massinsert.xml", $xmlStr);
 		@chmod(DOL_DATA_ROOT . "/dolibarr_google_cal_massinsert.xml", octdec(empty($conf->global->MAIN_UMASK)?'0664':$conf->global->MAIN_UMASK));
@@ -642,23 +651,53 @@ function insertGCalsEntries($gCals)
 		* When using base, you may not change the group membership
 		*/
 		try {
+
+			// Convert text entities into numeric entities
+			$xmlStr = google_html_convert_entities($xmlStr);
+
+
+
 			$responseXml = '';
 			// uncomment for debugging :
 			file_put_contents(DOL_DATA_ROOT . "/dolibarr_google_cal_massinsert_response.xml", $responseXml);
 			@chmod(DOL_DATA_ROOT . "/dolibarr_google_cal_massinsert_response.xml", octdec(empty($conf->global->MAIN_UMASK)?'0664':$conf->global->MAIN_UMASK));
 			// you can view this file with 'xmlstarlet fo dolibarr_google_massinsert_response.xml' command
-			//$res=parseResponse($responseXml);
+			$res=parseResponse($responseXml);
 			if($res->count != count($firstContacts) || $res->nbOfErrors)
 			{
-				dol_syslog("Failed to batch insert nb of errors=".$res->nbOfErrors." lasterror=".$res->lastError, LOG_ERR);
-				return sprintf("Google error : %s", $res->lastError);
+				dol_syslog("Failed to batch insert count=".$res->count.", count(firstContacts)=".count($firstContacts).", nb of errors=".$res->nbOfErrors.", lasterror=".$res->lastError, LOG_ERR);
+				return sprintf("Google error : Nb of records to insert = %s, nb inserted = %s, error label = %s", count($firstContacts), $res->count, $res->lastError);
 			}
 			else
 			{
 				dol_syslog(sprintf("Inserting %d google events", count($firstContacts)));
+
+				// Now update each record into database with external ref
+				if (is_object($objectstatic))
+				{
+					$doctoparse = new DOMDocument("1.0", "utf-8");
+					$doctoparse->loadXML($responseXml);
+					$contentNodes = $doctoparse->getElementsByTagName("entry");
+					foreach ($contentNodes as $node)
+					{
+						$titlenode = $node->getElementsByTagName("title"); $title=$titlenode->item(0)->textContent;
+						$idnode = $node->getElementsByTagName("id"); $id=$idnode->item(0)->textContent;
+						$userdefinednode = $node->getElementsByTagName("userDefinedField");
+						$userdefined=$userdefinednode->item(0)->getAttribute('value');
+						if (! empty($idnode) && preg_match('/^(\d+)\/(.*)/',$userdefined,$reg))
+						{
+							if (! empty($reg[2]))
+							{
+								$objectstatic->id=$reg[1];
+								$objectstatic->update_ref_ext($id);
+							}
+						}
+					}
+				}
 			}
 		}
-		catch (Exception $e) {
+		catch (Exception $e)
+		{
 			dol_syslog("Problem while inserting events ".$e->getMessage(), LOG_ERR);
 		}
 	}
