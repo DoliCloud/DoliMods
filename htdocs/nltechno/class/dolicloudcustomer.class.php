@@ -623,7 +623,7 @@ class Dolicloudcustomer extends CommonObject
 
 	/**
 	 *  Return name of contact with link (and eventually picto)
-	 *	Use $this->id, $this->name, $this->firstname, this->civilite_id
+	 *	Use $this->id, $this->name, $this->firstname, this->civility_id
 	 *
 	 *	@param		int			$withpicto		Include picto with link
 	 *	@param		string		$option			Where the link point to

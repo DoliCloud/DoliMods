@@ -124,7 +124,8 @@ if (empty($reshook))
             $object->particulier       = GETPOST("private");
 
             $object->name              = dolGetFirstLastname(GETPOST('firstname'),GETPOST('nom')?GETPOST('nom'):GETPOST('name'));
-            $object->civilite_id       = GETPOST('civilite_id');
+            $object->civilite_id       = GETPOST('civilite_id')?GETPOST('civilite_id'):GETPOST('civility_id');
+            $object->civility_id       = GETPOST('civilite_id')?GETPOST('civilite_id'):GETPOST('civility_id');
             // Add non official properties
             $object->name_bis          = GETPOST('name')?GETPOST('name'):GETPOST('nom');
             $object->firstname         = GETPOST('firstname');
@@ -261,15 +262,19 @@ if (empty($reshook))
                         dol_syslog("This thirdparty is a personal people",LOG_DEBUG);
                         $contact=new Contact($db);
 
-     					$contact->civilite_id		= $object->civilite_id;
-                        $contact->name				= $object->name_bis;
+     					$contact->civilite_id		= empty($object->civilite_id)?$object->civility_id:$object->civilite_id;
+     					$contact->civility_id		= empty($object->civilite_id)?$object->civility_id:$object->civilite_id;
+     					$contact->name				= $object->name_bis;
                         $contact->firstname			= $object->firstname;
                         $contact->address			= $object->address;
                         $contact->zip				= $object->zip;
                         $contact->town				= $object->town;
                         $contact->state_id      	= $object->state_id;
                         $contact->country_id		= $object->country_id;
-                        $contact->socid				= $object->id;	// fk_soc
+
+                        $contact->socid				= $object->id;
+                        $contact->fk_soc			= $object->id;
+
                         $contact->status			= 1;
                         $contact->email				= $object->email;
 						$contact->phone_pro			= $object->phone;
@@ -491,7 +496,7 @@ if (empty($reshook))
     $paramname='socid';
     include DOL_DOCUMENT_ROOT.'/core/actions_sendmails.inc.php';
 
-    
+
 	/*
      * Generate document
      */

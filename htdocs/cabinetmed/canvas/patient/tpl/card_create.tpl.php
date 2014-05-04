@@ -218,7 +218,7 @@ dol_htmloutput_errors($GOBALS['error'],$GLOBALS['errors']);
         print '<td>';
         if ($GLOBALS['mysoc']->country_id)
         {
-            $formcompany->select_forme_juridique($object->forme_juridique_code, $GLOBALS['mysoc']->country_code, "AND f.code > '100000'");
+            print $formcompany->select_juridicalstatus($object->forme_juridique_code, $GLOBALS['mysoc']->country_code, "AND f.code > '100000'");
         }
         else
         {

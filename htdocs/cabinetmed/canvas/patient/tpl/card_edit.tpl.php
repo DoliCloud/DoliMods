@@ -231,7 +231,7 @@ print '</td>';
 print '</tr>';
 
 print '<tr><td>'.$langs->trans('ActivityBranch').'</td><td>';
-$formcompany->select_forme_juridique($object->forme_juridique_code, $object->country_code, "AND f.code > '100000'");
+print $formcompany->select_juridicalstatus($object->forme_juridique_code, $object->country_code, "AND f.code > '100000'");
 print '</td>';
 // IdProf4 (NU for France)
 $idprof=$langs->trans('Profession');
