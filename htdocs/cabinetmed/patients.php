@@ -253,7 +253,7 @@ if ($result)
         print '<td>'.$obj->code_client.'</td>';
         print '<td>';
 	    $birthdatearray=dol_cm_strptime($obj->idprof3,$conf->format_date_short);
-	    $birthdate=dol_mktime(0,0,0,$birthdatearray['tm_mon']+1,($birthdatearray['tm_mday']),($birthdatearray['tm_year']+1900),true);
+	    $birthdate=dol_mktime(0,0,0,$birthdatearray['tm_month']+1,($birthdatearray['tm_mday']),($birthdatearray['tm_year']+1900),true);
 	    //var_dump($birthdatearray);
 	    print dol_print_date($birthdate, 'day');
         print '</td>';
