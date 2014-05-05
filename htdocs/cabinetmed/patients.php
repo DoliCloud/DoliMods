@@ -70,8 +70,11 @@ $search_diagles=GETPOST("search_diagles");
  * view
  */
 
+$form=new Form($db);
 $htmlother=new FormOther($db);
 $thirdpartystatic=new Societe($db);
+
+$datebirth=dol_mktime(0,0,0,GETPOST('birthmonth'),GETPOST('birthday'),GETPOST('birthyear'));
 
 llxHeader();
 
@@ -87,6 +90,7 @@ if (GETPOST("button_removefilter_x"))
     $search_idprof2='';
     $search_idprof3='';
     $search_idprof4='';
+    $datebirth='';
 }
 
 $sql = "SELECT s.rowid, s.nom as name, s.client, s.town, st.libelle as stcomm, s.prefix_comm, s.code_client,";
@@ -107,6 +111,7 @@ $sql.= ' WHERE s.entity IN ('.getEntity('societe', 1).')';
 $sql.= " AND s.canvas='patient@cabinetmed'";
 $sql.= " AND s.fk_stcomm = st.id";
 $sql.= " AND s.client IN (1, 3)";
+if ($datebirth > 0) $sql.=" AND (s.ape LIKE '%".dol_print_date($datebirth,'day')."%' OR s.ape LIKE '%".dol_print_date($datebirth,'dayxcard')."%' OR s.ape LIKE '%".dol_print_date($datebirth,'dayrfc')."%')";	// Date of birth are not saved into date format but with use string format
 if ($search_diagles)
 {
     $label= dol_getIdFromCode($db,$search_diagles,'cabinetmed_diaglec','code','label');
@@ -116,9 +121,9 @@ if (!$user->rights->societe->client->voir && ! $socid) $sql.= " AND s.rowid = sc
 if ($socid) $sql.= " AND s.rowid = ".$socid;
 if ($search_sale) $sql.= " AND s.rowid = sc.fk_soc";		// Join for the needed table to filter by sale
 if ($search_categ) $sql.= " AND s.rowid = cs.fk_societe";	// Join for the needed table to filter by categ
-if ($search_nom)   $sql.= " AND s.nom like '%".$db->escape(strtolower($search_nom))."%'";
-if ($search_ville) $sql.= " AND s.town like '%".$db->escape(strtolower($search_ville))."%'";
-if ($search_code)  $sql.= " AND s.code_client like '%".$db->escape(strtolower($search_code))."%'";
+if ($search_nom)   $sql.= " AND s.nom like '%".$db->escape($search_nom)."%'";
+if ($search_ville) $sql.= " AND s.town like '%".$db->escape($search_ville)."%'";
+if ($search_code)  $sql.= " AND s.code_client like '%".$db->escape($search_code)."%'";
 // Insert sale filter
 if ($search_sale)
 {
@@ -131,7 +136,7 @@ if ($search_categ)
 }
 if ($socname)
 {
-	$sql.= " AND s.nom like '%".$db->escape(strtolower($socname))."%'";
+	$sql.= " AND s.nom like '%".$db->escape($socname)."%'";
 	$sortfield = "s.nom";
 	$sortorder = "ASC";
 }
@@ -197,7 +202,7 @@ if ($result)
 
 	print '<tr class="liste_titre">';
 	print_liste_field_titre($langs->trans("Patient"),$_SERVER["PHP_SELF"],"s.nom","",$param,"",$sortfield,$sortorder);
-    print_liste_field_titre($langs->trans("CustomerCode"),$_SERVER["PHP_SELF"],"s.code_client","",$param,"",$sortfield,$sortorder);
+    print_liste_field_titre($langs->trans("PatientCode"),$_SERVER["PHP_SELF"],"s.code_client","",$param,"",$sortfield,$sortorder);
 	print_liste_field_titre($langs->trans("DateToBirth"),$_SERVER["PHP_SELF"],"s.idprof3","",$param,"",$sortfield,$sortorder);
     print_liste_field_titre($langs->trans("Town"),$_SERVER["PHP_SELF"],"s.town","",$param,"",$sortfield,$sortorder);
     print_liste_field_titre($langs->trans("Profession"),$_SERVER["PHP_SELF"],"s.idprof4","",$param,"",$sortfield,$sortorder);
@@ -214,7 +219,7 @@ if ($result)
     print '<input type="text" class="flat" size="6" name="search_code" value="'.$search_code.'">';
     print '</td>';
     print '<td class="liste_titre">';
-    print '&nbsp;';
+    print $form->select_date($datebirth, 'birth', 0, 0, 1);
     print '</td>';
     print '<td class="liste_titre">';
 	print '<input type="text" class="flat" size="6" name="search_ville" value="'.$search_ville.'">';

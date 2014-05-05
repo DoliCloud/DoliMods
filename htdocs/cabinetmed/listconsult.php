@@ -70,6 +70,7 @@ $search_motifprinc = GETPOST("search_motifprinc");
 $search_diaglesprinc = GETPOST("search_diaglesprinc");
 $search_contactid = GETPOST("search_contactid");
 
+
 /*
  * view
  */
