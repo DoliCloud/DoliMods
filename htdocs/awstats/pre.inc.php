@@ -31,6 +31,7 @@ function llxHeader($head = "", $title="", $help_url='')
 
 	top_menu($head, $title);
 
+	require_once DOL_DOCUMENT_ROOT.'/core/class/menu.class.php';
 	$menu = new Menu();
 
 	$menu->add("/awstats/index.php?mainmenu=awstats&idmenu=".$_SESSION["idmenu"], $langs->trans("AWStats"));
