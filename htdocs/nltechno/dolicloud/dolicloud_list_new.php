@@ -134,7 +134,7 @@ $arraystatus=Dolicloudcustomernew::$listOfStatusNewShort;
 llxHeader('',$langs->transnoentitiesnoconv('DoliCloudInstances'),'');
 
 $form=new Form($db);
-$dolicloudcustomerstaticnew = new Dolicloudcustomernew($db);
+$dolicloudcustomerstaticnew = new Dolicloudcustomernew($db,$db2);
 
 $now=dol_now();
 
