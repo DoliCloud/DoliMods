@@ -30,6 +30,7 @@ function llxHeader($head = "", $title="", $help_url='')
 
 	top_menu($head, $title);
 
+	require_once DOL_DOCUMENT_ROOT.'/core/class/menu.class.php';
 	$menu = new Menu();
 
 	left_menu($menu->liste, $help_url);
