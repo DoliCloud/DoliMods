@@ -372,7 +372,7 @@ if ($socid > 0)
         print ' '.img_picto('Ajouter motif secondaire','edit_add_s.png@cabinetmed');*/
         print ' <input type="button" class="button" id="addexamprinc" name="addexamprinc" value="+P">';
         print ' <input type="button" class="button" id="addexamsec" name="addexamsec" value="+S">';
-        if ($user->admin) print ' '.info_admin($langs->trans("YouCanChangeValuesForThisListFromDictionnarySetup"),1);
+        if ($user->admin) print ' '.info_admin($langs->trans("YouCanChangeValuesForThisListFromDictionarySetup"),1);
         print '</td></tr>';
         print '<tr><td class="fieldrequired">'.$langs->trans("Principal").':';
         print '</td><td>';
@@ -395,7 +395,7 @@ if ($socid > 0)
         listexamconclusion(1,$width,'examconc');
         print ' <input type="button" class="button" id="addexamconcprinc" name="addexamconcprinc" value="+P">';
         print ' <input type="button" class="button" id="addexamconcsec" name="addexamconcsec" value="+S">';
-        if ($user->admin) print ' '.info_admin($langs->trans("YouCanChangeValuesForThisListFromDictionnarySetup"),1);
+        if ($user->admin) print ' '.info_admin($langs->trans("YouCanChangeValuesForThisListFromDictionarySetup"),1);
         print '</td></tr>';
         print '<tr><td class="fieldrequired">'.$langs->trans("Principal").':';
         print '</td><td>';

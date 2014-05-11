@@ -230,7 +230,7 @@ if ($id > 0 || ! empty($ref))
 		print '</td>';
 		print '<td>';
 		$formcompany->selectTypeContact($societe, '', 'type','external','libelle',1);
-        //if ($user->admin) print info_admin($langs->trans("YouCanChangeValuesForThisListFromDictionnarySetup"),1);
+        //if ($user->admin) print info_admin($langs->trans("YouCanChangeValuesForThisListFromDictionarySetup"),1);
 		print '</td>';
 		print '<td align="center" colspan="3" ><input type="submit" class="button" value="'.$langs->trans("AddLink").'"';
 		if (! $nbofcontacts) print ' disabled="disabled"';

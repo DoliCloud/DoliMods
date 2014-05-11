@@ -739,7 +739,7 @@ if ($socid > 0)
         print ' '.img_picto('Ajouter motif secondaire','edit_add_s.png@cabinetmed');*/
         print ' <input type="button" class="button" id="addmotifprinc" name="addmotifprinc" value="+P" title="'.dol_escape_htmltag($langs->trans("ClickHereToSetPrimaryReason")).'">';
         print ' <input type="button" class="button" id="addmotifsec" name="addmotifsec" value="+S" title="'.dol_escape_htmltag($langs->trans("ClickHereToSetSecondaryReason")).'">';
-        if ($user->admin) print ' '.info_admin($langs->trans("YouCanChangeValuesForThisListFromDictionnarySetup"),1);
+        if ($user->admin) print ' '.info_admin($langs->trans("YouCanChangeValuesForThisListFromDictionarySetup"),1);
         print '</td></tr>';
         print '<tr><td class="fieldrequired">'.$langs->trans("Primary").':';
         print '</td><td>';
@@ -775,7 +775,7 @@ if ($socid > 0)
         print listdiagles(1,$width);
         print ' <input type="button" class="button" id="adddiaglesprinc" name="adddiaglesprinc" value="+P" title="'.dol_escape_htmltag($langs->trans("ClickHereToSetPrimaryDiagnostic")).'">';
         print ' <input type="button" class="button" id="adddiaglessec" name="adddiaglessec" value="+S" title="'.dol_escape_htmltag($langs->trans("ClickHereToSetSecondaryDiagnostic")).'">';
-        if ($user->admin) print ' '.info_admin($langs->trans("YouCanChangeValuesForThisListFromDictionnarySetup"),1);
+        if ($user->admin) print ' '.info_admin($langs->trans("YouCanChangeValuesForThisListFromDictionarySetup"),1);
         print '</td></tr>';
         print '<tr><td class="fieldrequired">'.$langs->trans("Primary").':';
         print '</td><td>';
@@ -820,7 +820,7 @@ if ($socid > 0)
         //print '<input type="text" size="3" class="flat" name="searchexamenprescrit" value="'.GETPOST("searchexamenprescrit").'" id="searchexamenprescrit">';
         listexamen(1,$width,'',0,'examenprescrit');
         print ' <input type="button" class="button" id="addexamenprescrit" name="addexamenprescrit" value="+">';
-        if ($user->admin) print ' '.info_admin($langs->trans("YouCanChangeValuesForThisListFromDictionnarySetup"),1);
+        if ($user->admin) print ' '.info_admin($langs->trans("YouCanChangeValuesForThisListFromDictionarySetup"),1);
         print '</td></tr>';
         print '<tr><td valign="top">';
         print '</td><td>';
@@ -913,7 +913,7 @@ if ($socid > 0)
         print $langs->trans("ChequeBank").' ';
         //print '<input type="text" class="flat" name="banque" id="banque" value="'.$consult->banque.'" size="18"'.($consult->montant_cheque?'':' disabled="disabled"').'>';
         listebanques(1,0,$consult->banque);
-        if ($user->admin) print info_admin($langs->trans("YouCanChangeValuesForThisListFromDictionnarySetup"),1);
+        if ($user->admin) print info_admin($langs->trans("YouCanChangeValuesForThisListFromDictionarySetup"),1);
         //print '</td></tr><tr><td></td><td>';
         if ($conf->banque->enabled)
         {

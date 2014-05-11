@@ -410,7 +410,7 @@ if ($user->rights->nltechno->dolicloud->write)
 		print '<tr><td>'.$langs->trans("Country").'</td><td colspan="3">';
 
 		print $form->select_country($countrytoshow,'country_id');
-		if ($user->admin) print info_admin($langs->trans("YouCanChangeValuesForThisListFromDictionnarySetup"),1);
+		if ($user->admin) print info_admin($langs->trans("YouCanChangeValuesForThisListFromDictionarySetup"),1);
 		print '</td></tr>';
 
 		// State
@@ -603,7 +603,7 @@ if ($user->rights->nltechno->dolicloud->write)
 		// Country
 		print '<tr><td>'.$langs->trans("Country").'</td><td colspan="3">';
 		print $form->select_country(isset($_POST["country_id"])?$_POST["country_id"]:$object->country_id,'country_id');
-		if ($user->admin) print info_admin($langs->trans("YouCanChangeValuesForThisListFromDictionnarySetup"),1);
+		if ($user->admin) print info_admin($langs->trans("YouCanChangeValuesForThisListFromDictionarySetup"),1);
 		print '</td></tr>';
 
 		// State

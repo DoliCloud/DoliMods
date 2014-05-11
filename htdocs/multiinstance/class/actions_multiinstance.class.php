@@ -539,7 +539,7 @@ class ActionsMultiinstance
             // Town
             $this->tpl['select_town'] = $formcompany->select_ziptown((GETPOST('town')?GETPOST('town'):$this->dao->MAIN_INFO_SOCIETE_VILLE),'town',array('zipcode','selectcountry_id','departement_id'));
 
-            if ($user->admin) $this->tpl['info_admin'] = info_admin($langs->trans("YouCanChangeValuesForThisListFromDictionnarySetup"),1);
+            if ($user->admin) $this->tpl['info_admin'] = info_admin($langs->trans("YouCanChangeValuesForThisListFromDictionarySetup"),1);
 
 
 			// We define country_id, country_code and country_label

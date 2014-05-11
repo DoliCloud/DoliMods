@@ -176,7 +176,7 @@ print '</td></tr>';
 // Country
 print '<tr><td>'.$langs->trans('Country').'</td><td colspan="3">';
 print $form->select_country($object->country_id,'country_id');
-if ($user->admin) print info_admin($langs->trans("YouCanChangeValuesForThisListFromDictionnarySetup"),1);
+if ($user->admin) print info_admin($langs->trans("YouCanChangeValuesForThisListFromDictionarySetup"),1);
 print '</td></tr>';
 
 // State
@@ -226,7 +226,7 @@ print '</td></tr>';
 // Sexe
 print '<tr><td>'.$langs->trans("Gender").'</td><td colspan="3">';
 print $form->selectarray("typent_id",$formcompany->typent_array(0, "AND code in ('TE_UNKNOWN', 'TE_HOMME', 'TE_FEMME')"), $object->typent_id);
-if ($user->admin) print info_admin($langs->trans("YouCanChangeValuesForThisListFromDictionnarySetup"),1);
+if ($user->admin) print info_admin($langs->trans("YouCanChangeValuesForThisListFromDictionarySetup"),1);
 print '</td>';
 print '</tr>';
 
