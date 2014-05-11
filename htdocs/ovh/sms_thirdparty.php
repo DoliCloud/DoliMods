@@ -79,22 +79,23 @@ if ($action == 'send' && ! $_POST['cancel'])
 
     if (empty($body))
     {
-        $mesg='<div class="error">'.$langs->trans("ErrorFieldRequired",$langs->transnoentities("Message")).'</div>';
+        setEventMessage($langs->trans("ErrorFieldRequired",$langs->transnoentities("Message")),'errors');
         $action='test';
         $error++;
     }
     if (empty($smsfrom) || ! str_replace('+','',$smsfrom))
     {
-        $mesg='<div class="error">'.$langs->trans("ErrorFieldRequired",$langs->transnoentities("SmsFrom")).'</div>';
+        setEventMessage($langs->trans("ErrorFieldRequired",$langs->transnoentities("SmsFrom")),'errors');
         $action='test';
         $error++;
     }
     if ((empty($sendto) || ! str_replace('+','',$sendto)) && (empty($receiver)))
     {
-        $mesg='<div class="error">'.$langs->trans("ErrorFieldRequired",$langs->transnoentities("SmsTo")).'</div>';
+        setEventMessage($langs->trans("ErrorFieldRequired",$langs->transnoentities("SmsTo")),'errors');
         $action='test';
         $error++;
     }
+
     if (! $error)
     {
         // Make substitutions into message
@@ -119,7 +120,7 @@ if ($action == 'send' && ! $_POST['cancel'])
         }
         else
         {
-            $mesg='<div class="error">'.$langs->trans("ResultKo").'<br>'.$smsfile->error.'</div>';
+            $mesg='<div class="error">'.$langs->trans("ResultKo").' (sms from'.$smsfrom.' to '.$sendto.')<br>'.$smsfile->error.'</div>';
         }
 
         $action='';
