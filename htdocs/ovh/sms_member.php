@@ -73,25 +73,21 @@ if ($action == 'send' && ! $_POST['cancel'])
     $class      = GETPOST('class');
     $errors_to  = GETPOST("errorstosms");
 
-    // Create form object
-    include_once(DOL_DOCUMENT_ROOT.'/core/class/html.formsms.class.php');
-    $formsms = new FormSms($db);
-
     if (empty($body))
     {
-        $mesg='<div class="error">'.$langs->trans("ErrorFieldRequired",$langs->transnoentities("Message")).'</div>';
+        setEventMessage($langs->trans("ErrorFieldRequired",$langs->transnoentities("Message")),'errors');
         $action='test';
         $error++;
     }
     if (empty($smsfrom) || ! str_replace('+','',$smsfrom))
     {
-        $mesg='<div class="error">'.$langs->trans("ErrorFieldRequired",$langs->transnoentities("SmsFrom")).'</div>';
+        setEventMessage($langs->trans("ErrorFieldRequired",$langs->transnoentities("SmsFrom")),'errors');
         $action='test';
         $error++;
     }
     if (empty($sendto) || ! str_replace('+','',$sendto))
     {
-        $mesg='<div class="error">'.$langs->trans("ErrorFieldRequired",$langs->transnoentities("SmsTo")).'</div>';
+        setEventMessage($langs->trans("ErrorFieldRequired",$langs->transnoentities("SmsTo")),'errors');
         $action='test';
         $error++;
     }
@@ -113,7 +109,7 @@ if ($action == 'send' && ! $_POST['cancel'])
         }
         else
         {
-            $mesg='<div class="error">'.$langs->trans("ResultKo").'<br>'.$smsfile->error.'</div>';
+            $mesg='<div class="error">'.$langs->trans("ResultKo").' (sms from'.$smsfrom.' to '.$sendto.')<br>'.$smsfile->error.'</div>';
         }
 
         $action='';
@@ -126,6 +122,8 @@ if ($action == 'send' && ! $_POST['cancel'])
 /***************************************************
  * View
  ****************************************************/
+
+$error=0;
 
 llxHeader('','Ovh','');
 

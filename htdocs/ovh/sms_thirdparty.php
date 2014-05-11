@@ -73,28 +73,35 @@ if ($action == 'send' && ! $_POST['cancel'])
     $class      = GETPOST('class');
     $errors_to  = GETPOST("errorstosms");
 
-    // Create form object
-    include_once(DOL_DOCUMENT_ROOT.'/core/class/html.formsms.class.php');
-    $formsms = new FormSms($db);
+    $thirdparty=new Societe($db);
+    $thirdparty->fetch($socid);
 
+    if ($receiver == 'thirdparty') $sendto=$thirdparty->phone;
+    if ((empty($sendto) || ! str_replace('+','',$sendto)) && (! empty($receiver) && $receiver != '-1'))
+    {
+        $sendto=$thirdparty->contact_get_property($receiver,'mobile');
+    }
+
+    // Test param
     if (empty($body))
     {
-        $mesg='<div class="error">'.$langs->trans("ErrorFieldRequired",$langs->transnoentities("Message")).'</div>';
+        setEventMessage($langs->trans("ErrorFieldRequired",$langs->transnoentities("Message")),'errors');
         $action='test';
         $error++;
     }
     if (empty($smsfrom) || ! str_replace('+','',$smsfrom))
     {
-        $mesg='<div class="error">'.$langs->trans("ErrorFieldRequired",$langs->transnoentities("SmsFrom")).'</div>';
+        setEventMessage($langs->trans("ErrorFieldRequired",$langs->transnoentities("SmsFrom")),'errors');
         $action='test';
         $error++;
     }
-    if ((empty($sendto) || ! str_replace('+','',$sendto)) && (empty($receiver)))
+    if ((empty($sendto) || ! str_replace('+','',$sendto)) && (empty($receiver) || $receiver == '-1'))
     {
-        $mesg='<div class="error">'.$langs->trans("ErrorFieldRequired",$langs->transnoentities("SmsTo")).'</div>';
+        setEventMessage($langs->trans("ErrorFieldRequired",$langs->transnoentities("SmsTo")),'errors');
         $action='test';
         $error++;
     }
+
     if (! $error)
     {
         // Make substitutions into message
@@ -103,12 +110,6 @@ if ($action == 'send' && ! $_POST['cancel'])
         $body=make_substitutions($body,$substitutionarrayfortest);
 
         require_once(DOL_DOCUMENT_ROOT."/core/class/CSMSFile.class.php");
-
-        if ((empty($sendto) || ! str_replace('+','',$sendto)) && ! empty($receiver) && $receiver != '-1')
-        {
-            $company_static=new Societe($db);
-            $sendto=$company_static->contact_get_property($receiver,'mobile');
-        }
 
         $smsfile = new CSMSFile($sendto, $smsfrom, $body, $deliveryreceipt, $deferred, $priority, $class);  // This define OvhSms->login, pass, session and account
         $result=$smsfile->sendfile(); // This send SMS
@@ -119,7 +120,7 @@ if ($action == 'send' && ! $_POST['cancel'])
         }
         else
         {
-            $mesg='<div class="error">'.$langs->trans("ResultKo").'<br>'.$smsfile->error.'</div>';
+            $mesg='<div class="error">'.$langs->trans("ResultKo").' (sms from'.$smsfrom.' to '.$sendto.')<br>'.$smsfile->error.'</div>';
         }
 
         $action='';
