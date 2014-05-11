@@ -103,7 +103,7 @@ if (GETPOST("button_removefilter_x"))
 }
 
 $sql = "SELECT s.rowid, s.nom as name, s.client, s.town, st.libelle as stcomm, s.prefix_comm, s.code_client,";
-$sql.= " s.datec, s.datea, s.canvas,";
+$sql.= " s.datec, s.canvas,";
 $sql.= " c.rowid as cid, c.datecons, c.typepriseencharge, c.typevisit, c.motifconsprinc, c.diaglesprinc, c.examenprescrit, c.traitementprescrit";
 // We'll need these fields in order to filter by categ
 if ($search_categ) $sql .= ", cs.fk_categorie, cs.fk_societe";

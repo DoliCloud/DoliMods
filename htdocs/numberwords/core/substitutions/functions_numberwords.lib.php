@@ -52,7 +52,7 @@ function numberwords_completesubstitutionarray(&$substitutionarray,$langs,$objec
 
 /**
  *  Return full text translated to language label for a key. Store key-label in a cache.
- *      
+ *
  *	@param		Langs	$langs		Language for output
  * 	@param		int		$number		Number to encode in full text
  * 	@param		int		$isamount	1=It's an amount, 0=it's just a number
@@ -70,7 +70,8 @@ function numberwords_getLabelFromNumber($langs,$number,$isamount=0)
 	$outlang=$langs->defaultlang;	// Output language we want
 	$outlangarray=explode('_',$outlang,2);
 	// If lang is xx_XX, then we use xx
-	if (strtolower($outlangarray[0]) == strtolower($outlangarray[1])) $outlang=$outlangarray[0];
+	if (strtolower($outlangarray[0]) == strtolower($outlangarray[1])
+		&& ! in_array($outlang, array('tr_TR','hu_HU'))) $outlang=$outlangarray[0];		// For turkish, we don't use short name.
 
 	$numberwords=$number;
 

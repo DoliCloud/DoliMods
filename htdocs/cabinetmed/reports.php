@@ -92,7 +92,7 @@ if (GETPOST("button_removefilter_x"))
 }
 
 $sql = "SELECT s.rowid, s.nom as name, s.client, s.town, st.libelle as stcomm, s.prefix_comm, s.code_client,";
-$sql.= " s.datec, s.datea, s.canvas,";
+$sql.= " s.datec, s.canvas,";
 $sql.= " c.rowid as cid, c.datecons, c.typepriseencharge, c.typevisit, c.motifconsprinc, c.diaglesprinc, c.examenprescrit, c.traitementprescrit";
 // We'll need these fields in order to filter by sale (including the case where the user can only see his prospects)
 if ($search_sale) $sql .= ", sc.fk_soc, sc.fk_user";
