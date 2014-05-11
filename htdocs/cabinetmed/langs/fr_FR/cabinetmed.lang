@@ -158,3 +158,4 @@ MoreCloudHostingLink=<a target="_blank" href="http://www.dolicloud.com">Cliquez 
 CompatibleWithDoliDroid=Ce module est aussi compatible avec DoliDroid, l'application Android pour Dolibarr.
 HideThirdPartiesMenu=Cacher le menu Tiers (pas d'autres clients que des patients)
 RecordCreatedFromRDV=Consultation créée suite au rendez-vous %s (%s)
+ConsultCreatedBy=Consultation créée par
