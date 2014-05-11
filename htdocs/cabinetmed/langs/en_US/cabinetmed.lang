@@ -159,3 +159,4 @@ CompatibleWithDoliDroid=This modules is also compatible with DoliDroid, the Andr
 HideThirdPartiesMenu=Hide thirdparty menu (all customers are patients)
 RecordCreatedFromRDV=Outcome created from rendez-vous %s (%s)
 ConsultCreatedBy=Consultation created by
+ConsultTooOld=Can't modify consultation. This one is older than <b>%s</b> days. Note: Option CABINETMED_DELAY_TO_LOCK_RECORD can be added/modified by a technical administrator to modify/remove this delay.
