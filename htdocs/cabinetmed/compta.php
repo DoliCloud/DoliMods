@@ -80,7 +80,7 @@ $period=$year_start." - ".$year_end;
 if ($user->rights->societe->client->voir || $socid)
 {
     $period.='<br>';
-    $period.=$langs->trans('SalesRepresentatives'). ': ';
+    $period.=$langs->trans('ConsultCreatedBy'). ': ';
     $period.=$htmlother->select_salesrepresentatives($search_sale,'search_sale',$user);
 }
 $periodlink=($year_start?"<a href='".$_SERVER["PHP_SELF"]."?year_start=".($year_start-1)."&search_sale=".$search_sale."'>".img_previous()."</a> <a href='".$_SERVER["PHP_SELF"]."?year_start=".($year_start+1)."&search_sale=".$search_sale."'>".img_next()."</a>":"");
