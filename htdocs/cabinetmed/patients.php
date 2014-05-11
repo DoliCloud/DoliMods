@@ -94,7 +94,7 @@ if (GETPOST("button_removefilter_x"))
 }
 
 $sql = "SELECT s.rowid, s.nom as name, s.client, s.town, st.libelle as stcomm, s.prefix_comm, s.code_client,";
-$sql.= " s.datec, s.datea, s.canvas,";
+$sql.= " s.datec, s.canvas,";
 $sql.= " s.ape as idprof3, s.idprof4, MAX(c.datecons) as lastcons, COUNT(c.rowid) as nb";
 // We'll need these fields in order to filter by sale (including the case where the user can only see his prospects)
 if ($search_sale) $sql .= ", sc.fk_soc, sc.fk_user";
@@ -140,7 +140,7 @@ if ($socname)
 	$sortfield = "s.nom";
 	$sortorder = "ASC";
 }
-$sql.= " GROUP BY s.rowid, s.nom, s.client, s.town, st.libelle, s.prefix_comm, s.code_client, s.datec, s.datea, s.canvas, s.ape, s.idprof4";
+$sql.= " GROUP BY s.rowid, s.nom, s.client, s.town, st.libelle, s.prefix_comm, s.code_client, s.datec, s.canvas, s.ape, s.idprof4";
 if ($search_sale) $sql .= ", sc.fk_soc, sc.fk_user";
 if ($search_categ) $sql .= ", cs.fk_categorie, cs.fk_societe";
 
