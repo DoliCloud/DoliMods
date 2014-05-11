@@ -303,7 +303,7 @@ if ($action == 'refresh')
 		    }
 	    }
 
-	    $arrayinvoice=dol_sort_array($arrayinvoice,'date');
+	    $arrayinvoice=dol_sort_array($arrayinvoice,'date',(empty($conf->global->OVH_IMPORT_SORTORDER)?'desc':$conf->global->OVH_IMPORT_SORTORDER));
 
 	    $nbfound=count($arrayinvoice);
 	    if (! $nbfound) print $langs->trans("NoRecordFound")."<br><br>\n";
