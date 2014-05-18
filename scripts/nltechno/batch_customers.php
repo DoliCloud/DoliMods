@@ -20,7 +20,10 @@
 /**
  *      \file       scripts/nltechno/batch_customers.php
  *		\ingroup    nltechno
- *      \brief      Main master Dolicloud batch (run rsync and database backup)
+ *      \brief      Main master Dolicloud batch
+ *      			backup_instance.php (payed customers rsync + databases backup)
+ *      			update database info for customer
+ *      			update stats
  */
 
 $sapi_type = php_sapi_name();
@@ -45,10 +48,11 @@ if (! $res && file_exists($path."../../htdocs/master.inc.php")) $res=@include($p
 if (! $res && file_exists("../master.inc.php")) $res=@include("../master.inc.php");
 if (! $res && file_exists("../../master.inc.php")) $res=@include("../../master.inc.php");
 if (! $res && file_exists("../../../master.inc.php")) $res=@include("../../../master.inc.php");
-if (! $res && preg_match('/\/nltechno([^\/]*)\//',$_SERVER["PHP_SELF"],$reg)) $res=@include($path."../../../dolibarr".$reg[1]."/htdocs/main.inc.php"); // Used on dev env only
-if (! $res && preg_match('/\/nltechno([^\/]*)\//',$_SERVER["PHP_SELF"],$reg)) $res=@include("../../../dolibarr".$reg[1]."/htdocs/main.inc.php"); // Used on dev env only
+if (! $res && preg_match('/\/nltechno([^\/]*)\//',$_SERVER["PHP_SELF"],$reg)) $res=@include($path."../../../dolibarr".$reg[1]."/htdocs/master.inc.php"); // Used on dev env only
+if (! $res && preg_match('/\/nltechno([^\/]*)\//',$_SERVER["PHP_SELF"],$reg)) $res=@include("../../../dolibarr".$reg[1]."/htdocs/master.inc.php"); // Used on dev env only
 if (! $res) die ("Failed to include master.inc.php file\n");
 // After this $db, $mysoc, $langs and $conf->entity are defined. Opened handler to database will be closed at end of file.
+
 dol_include_once('/nltechno/class/dolicloudcustomer.class.php');
 include_once dol_buildpath("/nltechno/dolicloud/lib/refresh.lib.php");		// do not use dol_buildpth to keep global declaration working
 
@@ -97,23 +101,26 @@ $instancesbackuperror=array();
 $instancesupdateerror=array();
 
 // Get list of instance
-$sql = "SELECT c.rowid, c.instance, c.status, c.lastrsync";
-$sql.= " FROM ".MAIN_DB_PREFIX."dolicloud_customers as c";
-//$sql.= " WHERE status NOT IN ('CLOSED', 'CLOSE_QUEUED', 'UNDEPLOYED', 'TRIAL')";
+//$sql = "SELECT c.rowid, c.instance, c.status, c.lastrsync";
+//$sql.= " FROM ".MAIN_DB_PREFIX."dolicloud_customers as c";
+$sql = "SELECT i.id, i.instance, c.status";
+$sql.= " FROM app_instance as i, customer_account as c";
+$sql.= " WHERE i.customer_account_id = c.id";
 
 dol_syslog($script_file." sql=".$sql, LOG_DEBUG);
-$resql=$db->query($sql);
+$resql=$db2->query($sql);
 if ($resql)
 {
-	$num = $db->num_rows($resql);
+	$num = $db2->num_rows($resql);
 	$i = 0;
 	if ($num)
 	{
 		while ($i < $num)
 		{
-			$obj = $db->fetch_object($resql);
+			$obj = $db2->fetch_object($resql);
 			if ($obj)
 			{
+				print $obj->status."\n";
 				// Count
 				if (! in_array($obj->status,array('TRIAL'))) $nbofalltime++;
 				if (! in_array($obj->status,array('CLOSED','CLOSE_QUEUED','UNDEPLOYED','TRIAL'))) $nbofactivesusp++;
@@ -133,7 +140,7 @@ else
 {
 	$error++;
 	$nboferrors++;
-	dol_print_error($db);
+	dol_print_error($db2);
 }
 print "Found ".count($instances)." instances.\n";
 
