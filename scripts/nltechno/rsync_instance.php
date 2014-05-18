@@ -15,6 +15,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  * or see http://www.gnu.org/
+ *
+ * Update an instance on stratus5 server with new ref version.
  */
 
 $sapi_type = php_sapi_name();
@@ -45,10 +47,19 @@ if (! $res && preg_match('/\/nltechno([^\/]*)\//',$_SERVER["PHP_SELF"],$reg)) $r
 if (! $res && preg_match('/\/nltechno([^\/]*)\//',$_SERVER["PHP_SELF"],$reg)) $res=@include("../../../dolibarr".$reg[1]."/htdocs/master.inc.php"); // Used on dev env only
 if (! $res) die ("Failed to include master.inc.php file\n");
 dol_include_once("/nltechno/core/lib/dolicloud.lib.php");
-dol_include_once('/nltechno/class/dolicloudcustomer.class.php');
+dol_include_once('/nltechno/class/dolicloudcustomernew.class.php');
 include_once(DOL_DOCUMENT_ROOT.'/comm/action/class/actioncomm.class.php');
 
-$object = new DoliCloudCustomer($db);
+
+$db2=getDoliDBInstance('mysqli', $conf->global->DOLICLOUD_DATABASE_HOST, $conf->global->DOLICLOUD_DATABASE_USER, $conf->global->DOLICLOUD_DATABASE_PASS, $conf->global->DOLICLOUD_DATABASE_NAME, $conf->global->DOLICLOUD_DATABASE_PORT);
+if ($db2->error)
+{
+	dol_print_error($db2,"host=".$conf->global->DOLICLOUD_DATABASE_HOST.", port=".$conf->global->DOLICLOUD_DATABASE_PORT.", user=".$conf->global->DOLICLOUD_DATABASE_USER.", databasename=".$conf->global->DOLICLOUD_DATABASE_NAME.", ".$db2->error);
+	exit;
+}
+
+
+$object = new DoliCloudCustomernew($db,$db2);
 
 
 
@@ -58,6 +69,7 @@ $object = new DoliCloudCustomer($db);
 
 if (empty($dirroot) || empty($instance) || empty($mode))
 {
+	print "Update an instance on stratus5 server with new ref version.\n";
 	print "Usage: $script_file dolibarr_root_dir dolicloud_instance (test|confirm|confirmunlock|diff|diffadd|diffchange)\n";
 	print "Return code: 0 if success, <>0 if error\n";
 	exit(-1);

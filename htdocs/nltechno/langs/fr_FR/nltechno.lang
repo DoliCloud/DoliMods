@@ -15,6 +15,7 @@ NeedRefresh=A rafraîchir
 RevenuePerMonth=Revenues par mois
 AverageRevenuePerCustomer=Revenues par client
 NbOfCustomersActive=Nb de clients actifs
+NbOfCustomersActivePaying=Nb de clients actifs payant
 NbOfCustomers=Nb de clients
 Authorized_keyInstalled=Fichier authorized_key installé
 LockfileInstalled=Fichier install.lock installé

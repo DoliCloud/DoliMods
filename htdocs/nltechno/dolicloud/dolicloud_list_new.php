@@ -49,7 +49,7 @@ dol_include_once("/nltechno/class/dolicloudcustomernew.class.php");
 $db2=getDoliDBInstance('mysqli', $conf->global->DOLICLOUD_DATABASE_HOST, $conf->global->DOLICLOUD_DATABASE_USER, $conf->global->DOLICLOUD_DATABASE_PASS, $conf->global->DOLICLOUD_DATABASE_NAME, $conf->global->DOLICLOUD_DATABASE_PORT);
 if ($db2->error)
 {
-	dol_print_error($db2,"host=".$conf->db->host.", port=".$conf->db->port.", user=".$conf->db->user.", databasename=".$conf->db->name.", ".$db2->error);
+	dol_print_error($db2,"host=".$conf->global->DOLICLOUD_DATABASE_HOST.", port=".$conf->global->DOLICLOUD_DATABASE_PORT.", user=".$conf->global->DOLICLOUD_DATABASE_USER.", databasename=".$conf->global->DOLICLOUD_DATABASE_NAME.", ".$db2->error);
 	exit;
 }
 
@@ -219,7 +219,7 @@ $sql.= " LEFT JOIN plan_add_on as pao ON pl.id=pao.plan_id and pao.meter_id = 1,
 $sql.= " app_package as p";
 $sql.= " WHERE i.customer_account_id = c.id AND c.plan_id = pl.id AND pl.app_package_id = p.id";
 if ($search_dolicloud) $sql.='';
-if ($search_multi) $sql.=" AND (i.name LIKE '%".$db->escape($search_multi)."%' OR c.org_name LIKE '%".$db->escape($search_multi)."%' OR i.email LIKE '%".$db->escape($search_multi)."%')";
+if ($search_multi) $sql.=" AND (i.name LIKE '%".$db->escape($search_multi)."%' OR c.org_name LIKE '%".$db->escape($search_multi)."%' OR per.username LIKE '%".$db->escape($search_multi)."%')";
 if ($search_instance) $sql.=" AND i.name LIKE '%".$db->escape($search_instance)."%'";
 if ($search_organization) $sql.=" AND c.org_name LIKE '%".$db->escape($search_organization)."%'";
 if ($search_plan) $sql.=" AND p.name LIKE '%".$db->escape($search_plan)."%'";
@@ -272,12 +272,14 @@ if ($resql)
 
     print_barre_liste($langs->trans('DoliCloudInstances'),$page,$_SERVER["PHP_SELF"],$param,$sortfield,$sortorder,'',$num,$nbtotalofrecords);
 
+    if ($search_multi) print $langs->trans("Search").': '.$search_multi.'<br><br>'."\n";
+
     // Lignes des champs de filtre
     print '<form method="POST" action="'.$_SERVER["PHP_SELF"].'">';
 
     print '<table class="liste" width="100%">';
     print '<tr class="liste_titre">';
-    print_liste_field_titre($langs->trans('Instance'),$_SERVER['PHP_SELF'],'i.instance','',$param,'align="left"',$sortfield,$sortorder);
+    print_liste_field_titre($langs->trans('Instance'),$_SERVER['PHP_SELF'],'i.name','',$param,'align="left"',$sortfield,$sortorder);
     print_liste_field_titre($langs->trans('Organization'),$_SERVER['PHP_SELF'],'c.organization','',$param,'',$sortfield,$sortorder);
     print_liste_field_titre($langs->trans('EMail'),$_SERVER['PHP_SELF'],'per.email','',$param,'',$sortfield,$sortorder);
     print_liste_field_titre($langs->trans('Plan'),$_SERVER['PHP_SELF'],'pl.plan','',$param,'',$sortfield,$sortorder);

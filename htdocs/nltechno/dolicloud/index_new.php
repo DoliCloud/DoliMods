@@ -43,8 +43,17 @@ if (! $res && preg_match('/\/nltechno([^\/]*)\//',$_SERVER["PHP_SELF"],$reg)) $r
 if (! $res) die("Include of main fails");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/company.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/class/dolgraph.class.php");
-dol_include_once('/nltechno/class/dolicloudcustomer.class.php');
+dol_include_once('/nltechno/class/dolicloudcustomernew.class.php');
 include_once dol_buildpath("/nltechno/dolicloud/lib/refresh.lib.php");		// do not use dol_buildpth to keep global declaration working
+
+
+$db2=getDoliDBInstance('mysqli', $conf->global->DOLICLOUD_DATABASE_HOST, $conf->global->DOLICLOUD_DATABASE_USER, $conf->global->DOLICLOUD_DATABASE_PASS, $conf->global->DOLICLOUD_DATABASE_NAME, $conf->global->DOLICLOUD_DATABASE_PORT);
+if ($db2->error)
+{
+	dol_print_error($db2,"host=".$conf->global->DOLICLOUD_DATABASE_HOST.", port=".$conf->global->DOLICLOUD_DATABASE_PORT.", user=".$conf->global->DOLICLOUD_DATABASE_USER.", databasename=".$conf->global->DOLICLOUD_DATABASE_NAME.", ".$db2->error);
+	exit;
+}
+
 
 // Load traductions files requiredby by page
 $langs->load("companies");
@@ -90,7 +99,7 @@ if ($user->societe_id > 0)
 ****************************************************/
 
 $form=new Form($db);
-$dolicloudcustomerstatic = new Dolicloudcustomer($db);
+$dolicloudcustomerstatic = new Dolicloudcustomernew($db,$db2);
 
 llxHeader('',$langs->transnoentitiesnoconv('DoliCloudCustomers'),'');
 
@@ -131,7 +140,7 @@ $totalcustomers=0;
 $totalcustomerspaying=0;
 $totalcommissions=0;
 
-$rep=dolicloud_calculate_stats($db,$datelastday);
+$rep=dolicloud_calculate_stats($db2,$datelastday);	// $datelastday is last day of current month
 
 $total=$rep['total'];
 $totalcommissions=$rep['totalcommissions'];
@@ -146,7 +155,7 @@ print '<table class="noborder" width="100%">';
 print '<tr class="liste_titre">';
 print '<td colspan="2">'.$langs->trans("Statistics").'</td></tr>';
 print '<tr '.$bc[$var].'><td>';
-print $langs->trans("NbOfCustomersActive").' / '.$langs->trans("NbOfCustomers").' ';
+print $langs->trans("NbOfCustomersActivePaying").' / '.$langs->trans("NbOfCustomers").' ';
 print '</td><td align="right">';
 print '<font size="+2">'.$totalcustomerspaying.' / '.$totalcustomers.'</font>';
 print '</td></tr>';

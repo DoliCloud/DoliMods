@@ -45,9 +45,18 @@ if (! $res && preg_match('/\/nltechno([^\/]*)\//',$_SERVER["PHP_SELF"],$reg)) $r
 if (! $res && preg_match('/\/nltechno([^\/]*)\//',$_SERVER["PHP_SELF"],$reg)) $res=@include("../../../dolibarr".$reg[1]."/htdocs/master.inc.php"); // Used on dev env only
 if (! $res) die ("Failed to include master.inc.php file\n");
 dol_include_once("/nltechno/core/lib/dolicloud.lib.php");
-dol_include_once('/nltechno/class/dolicloudcustomer.class.php');
+dol_include_once('/nltechno/class/dolicloudcustomernew.class.php');
 
-$object = new DoliCloudCustomer($db);
+
+$db2=getDoliDBInstance('mysqli', $conf->global->DOLICLOUD_DATABASE_HOST, $conf->global->DOLICLOUD_DATABASE_USER, $conf->global->DOLICLOUD_DATABASE_PASS, $conf->global->DOLICLOUD_DATABASE_NAME, $conf->global->DOLICLOUD_DATABASE_PORT);
+if ($db2->error)
+{
+	dol_print_error($db2,"host=".$conf->global->DOLICLOUD_DATABASE_HOST.", port=".$conf->global->DOLICLOUD_DATABASE_PORT.", user=".$conf->global->DOLICLOUD_DATABASE_USER.", databasename=".$conf->global->DOLICLOUD_DATABASE_NAME.", ".$db2->error);
+	exit;
+}
+
+
+$object = new Dolicloudcustomernew($db, $db2);
 
 
 
@@ -212,9 +221,12 @@ if ($mode == 'testdatabase' || $mode == 'confirmdatabase' || $mode == 'confirm')
 	}
 
 	// Add file tag
-	$handle=fopen($dirroot.'/'.$login.'/last_mysqldump_'.$instance.'.txt','w');
-	fwrite($handle,'File created after mysqldump of '.$instance."\n");
-	fclose($handle);
+	if ($mode == 'confirm' || $mode == 'confirmdatabase')
+	{
+		$handle=fopen($dirroot.'/'.$login.'/last_mysqldump_'.$instance.'.txt','w');
+		fwrite($handle,'File created after mysqldump of '.$instance."\n");
+		fclose($handle);
+	}
 }
 
 
