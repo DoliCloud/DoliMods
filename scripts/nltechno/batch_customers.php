@@ -169,7 +169,7 @@ else
 	$nboferrors++;
 	dol_print_error($db2);
 }
-print "Found ".count($instances)." instances.\n";
+print "Found ".count($instances)." actives instances.\n";
 
 
 //print "----- Start loop for backup_instance\n";
