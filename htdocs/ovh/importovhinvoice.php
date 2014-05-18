@@ -148,6 +148,9 @@ if ($action == 'import' && $ovhthirdparty->id > 0)
 			//billingInvoiceList
 			try {
 				$result = $soap->billingInvoiceList($session);
+
+				file_put_contents(DOL_DATA_ROOT . "/dolibarr_ovh_billingInvoiceList.xml", $soap->__getLastResponse());
+				@chmod(DOL_DATA_ROOT . "/dolibarr_ovh_billingInvoiceList.xml", octdec(empty($conf->global->MAIN_UMASK)?'0664':$conf->global->MAIN_UMASK));
 			}
 			catch(Exception $e)
 			{
@@ -178,6 +181,10 @@ if ($action == 'import' && $ovhthirdparty->id > 0)
 				$db->begin();
 
 				$result[$keyresult]->info=$soap->billingInvoiceInfo($session, $billnum, null, $billingcountry); //on recupere les details
+
+				file_put_contents(DOL_DATA_ROOT . "/dolibarr_ovh_billingInvoiceInfo.xml", $soap->__getLastResponse());
+				@chmod(DOL_DATA_ROOT . "/dolibarr_ovh_billingInvoiceInfo.xml", octdec(empty($conf->global->MAIN_UMASK)?'0664':$conf->global->MAIN_UMASK));
+
 				$r=$result[$keyresult];
 
 				if ($r->info->taxrate < 1) $vatrate=price2num($r->info->taxrate * 100);
@@ -292,6 +299,9 @@ if ($action == 'refresh')
 	    $result = $soap->billingInvoiceList($session);
 	    dol_syslog("billingInvoiceList successfull (".count($result)." invoices)");
 	    //var_dump($result[0]->date.' '.dol_print_date(dol_stringtotime($r->date,1),'day'));exit;
+
+		file_put_contents(DOL_DATA_ROOT . "/dolibarr_ovh_billingInvoiceList.xml", $soap->__getLastResponse());
+		@chmod(DOL_DATA_ROOT . "/dolibarr_ovh_billingInvoiceList.xml", octdec(empty($conf->global->MAIN_UMASK)?'0664':$conf->global->MAIN_UMASK));
 
 	    // Set qualified invoices into arrayinvoice
 	    $arrayinvoice=array();
