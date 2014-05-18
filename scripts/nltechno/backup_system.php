@@ -52,6 +52,13 @@ include_once(DOL_DOCUMENT_ROOT.'/comm/action/class/actioncomm.class.php');
 include_once(DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php');
 
 
+$db2=getDoliDBInstance('mysqli', $conf->global->DOLICLOUD_DATABASE_HOST, $conf->global->DOLICLOUD_DATABASE_USER, $conf->global->DOLICLOUD_DATABASE_PASS, $conf->global->DOLICLOUD_DATABASE_NAME, $conf->global->DOLICLOUD_DATABASE_PORT);
+if ($db2->error)
+{
+	dol_print_error($db2,"host=".$conf->global->DOLICLOUD_DATABASE_HOST.", port=".$conf->global->DOLICLOUD_DATABASE_PORT.", user=".$conf->global->DOLICLOUD_DATABASE_USER.", databasename=".$conf->global->DOLICLOUD_DATABASE_NAME.", ".$db2->error);
+	exit;
+}
+
 
 /*
  *	Main
@@ -78,88 +85,90 @@ print 'SFTP connect string : '.$sftpconnectstring."\n";
 print 'SFTP password '.$password."\n";
 
 
-	// SFTP connect
-	if (! function_exists("ssh2_connect")) { dol_print_error('','ssh2_connect function does not exists'); exit(1); }
+// SFTP connect
+if (! function_exists("ssh2_connect")) {
+	dol_print_error('','ssh2_connect function does not exists'); exit(1);
+}
 
-	$connection = ssh2_connect($server, 22);
-	if ($connection)
+$connection = ssh2_connect($server, 22);
+if ($connection)
+{
+	if (! @ssh2_auth_password($connection, $login, $password))
 	{
-		if (! @ssh2_auth_password($connection, $login, $password))
-		{
-			dol_syslog("Could not authenticate with username ".$login." . and password ".$password,LOG_ERR);
-			exit(-5);
-		}
-		else
-		{
-			$filesys1='dump_sys1.sql';
-			$filesys2='dump_sys2.sql';
-
-			//$stream = ssh2_exec($connection, '/usr/bin/php -i');
-
-			print "Generate dump ".$filesys1.'.bz2'."\n";
-			if ($mode == 'confirm' || $mode == 'confirmsaasplex')
-			{
-				$stream = ssh2_exec($connection, "mysqldump -u debian-sys-maint -p4k9Blxl2snq4FHXY -h 127.0.0.1 --single-transaction -K --tables -c -e --hex-blob --default-character-set=utf8 saasplex | bzip2 -1 > ".$filesys1.'.bz2');
-				stream_set_blocking($stream, true);
-				// The command may not finish properly if the stream is not read to end
-  				$output = stream_get_contents($stream);
-			}
-
-			print "Generate dump ".$filesys2.'.bz2'."\n";
-			if ($mode == 'confirm' || $mode == 'confirmrm')
-			{
-				$stream = ssh2_exec($connection, "mysqldump -u debian-sys-maint -p4k9Blxl2snq4FHXY -h 127.0.0.1 --single-transaction -K --tables -c -e --hex-blob --default-character-set=utf8 rm | bzip2 -1 > ".$filesys2.'.bz2');
-				stream_set_blocking($stream, true);
-				// The command may not finish properly if the stream is not read to end
-  				$output = stream_get_contents($stream);
-			}
-
-  			$sftp = ssh2_sftp($connection);
-
-			print 'Get file '.$sourcedir.$filesys1.'.bz2 into '.$targetdir.$filesys1.'.bz2'."\n";
-  			if ($mode == 'confirm' || $mode == 'confirmsaasplex')
-			{
-				ssh2_scp_recv($connection, $sourcedir.$filesys1.'.bz2', $targetdir.$filesys1.'.bz2');
-			}
-			print 'Get file '.$sourcedir.$filesys2.'.bz2 into '.$targetdir.$filesys2.'.bz2'."\n";
-			if ($mode == 'confirm' || $mode == 'confirmrm')
-			{
-	  			ssh2_scp_recv($connection, $sourcedir.$filesys2.'.bz2', $targetdir.$filesys2.'.bz2');
-			}
-
-			if ($mode == 'confirm' || $mode == 'confirmsaasplex') dol_delete_file($targetdir.$filesys1);
-			$fullcommand="bzip2 -c -d ".$targetdir.$filesys1.".bz2 | mysql -u".$loginbase." -p".$passwordbase." -D dolicloud_saasplex";
-			print "Load dump with ".$fullcommand."\n";
-			if ($mode == 'confirm' || $mode == 'confirmsaasplex')
-			{
-				$output=array();
-				$return_var=0;
-				print strftime("%Y%m%d-%H%M%S").' '.$fullcommand."\n";
-				exec($fullcommand, $output, $return_var);
-				foreach($output as $line) print $line."\n";
-			}
-
-			if ($mode == 'confirm' || $mode == 'confirmrm') dol_delete_file($targetdir.$filesys1);
-			$fullcommand="bzip2 -c -d ".$targetdir.$filesys2.".bz2 | mysql -u".$loginbase." -p".$passwordbase." -D dolicloud_rm";
-			print "Load dump with ".$fullcommand."\n";
-			if ($mode == 'confirm' || $mode == 'confirmrm')
-			{
-				$output=array();
-				$return_var=0;
-				print strftime("%Y%m%d-%H%M%S").' '.$fullcommand."\n";
-				exec($fullcommand, $output, $return_var);
-				foreach($output as $line) print $line."\n";
-			}
-
-			//ssh2_sftp_unlink($sftp, $fileinstalllock);
-  			//print $output;
-		}
+		dol_syslog("Could not authenticate with username ".$login." . and password ".$password,LOG_ERR);
+		exit(-5);
 	}
 	else
 	{
-		print 'Failed to connect to ssh2 to '.$server;
-		exit(-6);
+		$filesys1='dump_sys1.sql';
+		$filesys2='dump_sys2.sql';
+
+		//$stream = ssh2_exec($connection, '/usr/bin/php -i');
+
+		print "Generate dump ".$filesys1.'.bz2'."\n";
+		if ($mode == 'confirm' || $mode == 'confirmsaasplex')
+		{
+			$stream = ssh2_exec($connection, "mysqldump -u debian-sys-maint -p4k9Blxl2snq4FHXY -h 127.0.0.1 --single-transaction -K --tables -c -e --hex-blob --default-character-set=utf8 saasplex | bzip2 -1 > ".$filesys1.'.bz2');
+			stream_set_blocking($stream, true);
+			// The command may not finish properly if the stream is not read to end
+			$output = stream_get_contents($stream);
+		}
+
+		print "Generate dump ".$filesys2.'.bz2'."\n";
+		if ($mode == 'confirm' || $mode == 'confirmrm')
+		{
+			$stream = ssh2_exec($connection, "mysqldump -u debian-sys-maint -p4k9Blxl2snq4FHXY -h 127.0.0.1 --single-transaction -K --tables -c -e --hex-blob --default-character-set=utf8 rm | bzip2 -1 > ".$filesys2.'.bz2');
+			stream_set_blocking($stream, true);
+			// The command may not finish properly if the stream is not read to end
+			$output = stream_get_contents($stream);
+		}
+
+		$sftp = ssh2_sftp($connection);
+
+		print 'Get file '.$sourcedir.$filesys1.'.bz2 into '.$targetdir.$filesys1.'.bz2'."\n";
+		if ($mode == 'confirm' || $mode == 'confirmsaasplex')
+		{
+			ssh2_scp_recv($connection, $sourcedir.$filesys1.'.bz2', $targetdir.$filesys1.'.bz2');
+		}
+		print 'Get file '.$sourcedir.$filesys2.'.bz2 into '.$targetdir.$filesys2.'.bz2'."\n";
+		if ($mode == 'confirm' || $mode == 'confirmrm')
+		{
+			ssh2_scp_recv($connection, $sourcedir.$filesys2.'.bz2', $targetdir.$filesys2.'.bz2');
+		}
+
+		if ($mode == 'confirm' || $mode == 'confirmsaasplex') dol_delete_file($targetdir.$filesys1);
+		$fullcommand="bzip2 -c -d ".$targetdir.$filesys1.".bz2 | mysql -u".$loginbase." -p".$passwordbase." -D dolicloud_saasplex";
+		print "Load dump with ".$fullcommand."\n";
+		if ($mode == 'confirm' || $mode == 'confirmsaasplex')
+		{
+			$output=array();
+			$return_var=0;
+			print strftime("%Y%m%d-%H%M%S").' '.$fullcommand."\n";
+			exec($fullcommand, $output, $return_var);
+			foreach($output as $line) print $line."\n";
+		}
+
+		if ($mode == 'confirm' || $mode == 'confirmrm') dol_delete_file($targetdir.$filesys1);
+		$fullcommand="bzip2 -c -d ".$targetdir.$filesys2.".bz2 | mysql -u".$loginbase." -p".$passwordbase." -D dolicloud_rm";
+		print "Load dump with ".$fullcommand."\n";
+		if ($mode == 'confirm' || $mode == 'confirmrm')
+		{
+			$output=array();
+			$return_var=0;
+			print strftime("%Y%m%d-%H%M%S").' '.$fullcommand."\n";
+			exec($fullcommand, $output, $return_var);
+			foreach($output as $line) print $line."\n";
+		}
+
+		//ssh2_sftp_unlink($sftp, $fileinstalllock);
+		//print $output;
 	}
+}
+else
+{
+	print 'Failed to connect to ssh2 to '.$server;
+	exit(-6);
+}
 
 
 exit(0);

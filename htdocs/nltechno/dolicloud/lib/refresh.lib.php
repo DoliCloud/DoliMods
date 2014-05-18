@@ -243,7 +243,7 @@ function dolicloud_database_refresh($conf, $db, &$object, &$errors)
 
 
 /**
- * Calculate stats ('total', 'totalcommissions', 'totalcustomerspaying' (nbclients 'ACTIVE'), 'totalcustomers' (nb clients), 'totalusers')
+ * Calculate stats ('total', 'totalcommissions', 'totalcustomerspaying' (nbclients 'ACTIVE' not at trial), 'totalcustomers' (nb clients not at trial, include suspended), 'totalusers')
  * at date datelim.
  *
  * @param	Database	$db			Database handler
@@ -252,6 +252,76 @@ function dolicloud_database_refresh($conf, $db, &$object, &$errors)
  */
 function dolicloud_calculate_stats($db, $datelim)
 {
+	$total = $totalcommissions = $totalcustomerspaying = $totalcustomers = $totalusers = 0;
+
+	$sql = "SELECT";
+	$sql.= " i.id,";
+
+	$sql.= " i.version,";
+	$sql.= " i.app_package_id,";
+	$sql.= " i.created_date as date_registration,";
+	$sql.= " i.customer_account_id,";
+	$sql.= " i.db_name,";
+	$sql.= " i.db_password,";
+	$sql.= " i.db_port,";
+	$sql.= " i.db_server,";
+	$sql.= " i.db_username,";
+	$sql.= " i.default_password,";
+	$sql.= " i.deployed_date,";
+	$sql.= " i.domain_id,";
+	$sql.= " i.fs_path,";
+	$sql.= " i.install_time,";
+	$sql.= " i.ip_address,";
+	$sql.= " i.last_login as date_lastlogin,";
+	$sql.= " i.last_updated,";
+	$sql.= " i.name as instance,";
+	$sql.= " i.os_password,";
+	$sql.= " i.os_username,";
+	$sql.= " i.rm_install_url,";
+	$sql.= " i.rm_web_app_name,";
+	$sql.= " i.status as instance_status,";
+	$sql.= " i.undeployed_date,";
+	$sql.= " i.access_enabled,";
+	$sql.= " i.default_username,";
+	$sql.= " i.ssh_port,";
+
+	$sql.= " p.id as planid,";
+	$sql.= " p.name as plan,";
+
+	$sql.= " im.value as nbofusers,";
+	$sql.= " im.last_updated as lastcheck,";
+
+	$sql.= " pao.amount as price_user,";
+	$sql.= " pao.min_threshold as min_threshold,";
+
+	$sql.= " pl.base_price as price_instance,";
+	$sql.= " pl.meter_id as plan_meter_id,";
+
+	$sql.= " c.org_name as organization,";
+	$sql.= " c.status as status,";
+	$sql.= " c.next_billing_date,";
+	$sql.= " c.suspension_date,";
+	$sql.= " c.payment_status,";
+
+	$sql.= " per.username as email,";
+	$sql.= " per.first_name as firstname,";
+	$sql.= " per.last_name as lastname,";
+
+	$sql.= " cp.org_name as partner";
+
+	$sql.= " FROM app_instance as i";
+	$sql.= " LEFT JOIN app_instance_meter as im ON i.id = im.app_instance_id AND im.meter_id = 1,";	// meter_id = 1 = users
+	$sql.= " customer_account as c";
+	$sql.= " LEFT JOIN channel_partner_customer_account as cc ON cc.customer_account_id = c.id";
+	$sql.= " LEFT JOIN channel_partner as cp ON cc.channel_partner_id = cp.id";
+	$sql.= " LEFT JOIN person as per ON c.primary_contact_id = per.id,";
+	$sql.= " plan as pl";
+	$sql.= " LEFT JOIN plan_add_on as pao ON pl.id=pao.plan_id and pao.meter_id = 1,";	// meter_id = 1 = users
+	$sql.= " app_package as p";
+	$sql.= " WHERE i.customer_account_id = c.id AND c.plan_id = pl.id AND pl.app_package_id = p.id";
+	$sql.= " AND c.payment_status NOT IN ('TRIALING', 'TRIAL_EXPIRED')";
+	$sql.= " AND i.deployed_date <= '".$db->idate($datelim)."'";
+/*
 	$sql = "SELECT";
 	$sql.= " t.rowid,";
 	$sql.= " t.instance,";
@@ -288,7 +358,7 @@ function dolicloud_calculate_stats($db, $datelim)
 	$sql.= " AND t.status <> 'TRIAL'";
 	//$sql.= $db->order($sortfield,$sortorder);
 	//$sql.= $db->plimit($conf->liste_limit +1, $offset);
-
+*/
 	dol_syslog($script_file." sql=".$sql, LOG_DEBUG);
 	$resql=$db->query($sql);
 	if ($resql)
@@ -303,14 +373,22 @@ function dolicloud_calculate_stats($db, $datelim)
 	            if ($obj)
 	            {
 					//print $price."=".$obj->price_instance." + (".$obj->nbofusers." * ".$obj->price_user.")<br>\n";
-	                $price=$obj->price_instance + ($obj->nbofusers * $obj->price_user);
+					$price=($obj->price_instance * ($obj->plan_meter_id == 1 ? $obj->nbofusers : 1)) + (max(0,($obj->nbofusers - $obj->min_threshold)) * $obj->price_user);
 	                $totalcustomers++;
 					$totalusers+=$obj->nbofusers;
-	                if ($obj->status != 'ACTIVE')
+
+					$activepaying=1;
+					if (in_array($obj->status,array('SUSPENDED'))) $activepaying=0;
+					if (in_array($obj->status,array('CLOSED','CLOSE_QUEUED','CLOSURE_REQUESTED')) || in_array($obj->instance_status,array('UNDEPLOYED'))) $activepaying=0;
+					if (in_array($obj->payment_status,array('TRIALING','TRIAL_EXPIRED','FAILURE')) || in_array($obj->status,array('CLOSED','CLOSE_QUEUED','CLOSURE_REQUESTED')) || in_array($obj->instance_status,array('UNDEPLOYED'))) $activepaying=0;
+
+	                if (! $activepaying)
 	                {
+						//print "instance=".$obj->instance." status=".$obj->status." instance_status=".$obj->instance_status." payment_status=".$obj->payment_status." => Price = ".$obj->price_instance.' * '.($obj->plan_meter_id == 1 ? $obj->nbofusers : 1)." + ".max(0,($obj->nbofusers - $obj->min_threshold))." * ".$obj->price_user." = ".$price." -> 0<br>\n";
 	                }
 	                else
 	              {
+						//print "instance=".$obj->instance." status=".$obj->status." instance_status=".$obj->instance_status." payment_status=".$obj->payment_status." => Price = ".$obj->price_instance.' * '.($obj->plan_meter_id == 1 ? $obj->nbofusers : 1)." + ".max(0,($obj->nbofusers - $obj->min_threshold))." * ".$obj->price_user." = ".$price."<br>\n";
 	                	$totalcustomerspaying++;
 	                	$total+=$price;
 	                	if (! empty($obj->partner))

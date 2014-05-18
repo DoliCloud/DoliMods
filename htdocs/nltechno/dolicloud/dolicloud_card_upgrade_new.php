@@ -237,10 +237,9 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 	print '</tr>';
 
 	// Dates
-	print '<tr><td width="20%">'.$langs->trans("DateRegistration").'</td><td width="30%">'.dol_print_date($object->date_registration,'dayhour');
+	print '<tr><td width="20%">'.$langs->trans("DateDeployment").'</td><td colspan="3">'.dol_print_date($object->date_registration,'dayhour');
 	//print ' (<a href="'.dol_buildpath('/nltechno/dolicloud_card.php',1).'?id='.$object->id.'&amp;action=setdate&amp;date=">'.$langs->trans("SetDate").'</a>)';
 	print '</td>';
-	print '<td width="20%">'.$langs->trans("DateEndFreePeriod").'</td><td width="30%">'.dol_print_date($object->date_endfreeperiod,'dayhour').'</td>';
 	print '</tr>';
 
 	/*

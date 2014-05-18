@@ -457,11 +457,8 @@ if ($user->rights->nltechno->dolicloud->write)
 		if (empty($date_registration)) $date_registration=getvalfromkey($db,'dolicloud_saasplex.customer_account.acquired_date',$organizationtoshow);
 		if (empty($date_endfreeperiod)) $date_endfreeperiod=getvalfromkey($db,'dolicloud_saasplex.customer_account.tel',$organizationtoshow);
 		print '<tr id="hideendfreetrial">';
-		print '<td>'.$langs->trans("DateRegistration").'</td><td>';
+		print '<td>'.$langs->trans("DateRegistration").'</td><td colspan="3">';
 		print $form->select_date($date_registration?$date_registration:-1, 'date_registration', 0, 0, 1, '', 1, 1);
-		print '</td>';
-		print '<td>'.$langs->trans("DateEndFreePeriod").'</td><td>';
-		print $form->select_date($date_endfreeperiod?$date_endfreeperiod:-1, 'endfreeperiod', 0, 0, 1, '', 1, 1);
 		print '</td>';
 		print '<tr>';
 
@@ -641,11 +638,8 @@ if ($user->rights->nltechno->dolicloud->write)
 
 		// Date end of trial
 		print '<tr id="hideendfreetrial">';
-		print '<td>'.$langs->trans("DateRegistration").'</td><td>';
+		print '<td>'.$langs->trans("DateDeployment").'</td><td colspan="3">';
 		print $form->select_date($object->date_registration, 'date_registration', 0, 0, 1, '', 1, 0);
-		print '</td>';
-		print '<td>'.$langs->trans("DateEndFreePeriod").'</td><td>';
-		print $form->select_date($object->date_endfreeperiod, 'endfreeperiod', 0, 0, 1, '', 1, 0);
 		print '</td>';
 		print '<tr>';
 
@@ -863,17 +857,15 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 
 	// Nb of users
 	print '<tr><td width="20%">'.$langs->trans("NbOfUsers").'</td><td><font size="+2">'.round($object->nbofusers).'</font></td>';
-	print '<td rowspan="7" valign="middle">';
+	print '<td rowspan="6" valign="middle">';
 	print $links;
 	print '</td>';
 	print '</tr>';
 
 	// Dates
-	print '<tr><td width="20%">'.$langs->trans("DateRegistration").'</td><td width="30%">'.dol_print_date($object->date_registration,'dayhour');
+	print '<tr><td width="20%">'.$langs->trans("DateDeployment").'</td><td width="30%">'.dol_print_date($object->date_registration,'dayhour');
 	//print ' (<a href="'.dol_buildpath('/nltechno/dolicloud/dolicloud_card.php',1).'?id='.$object->id.'&amp;action=setdate&amp;date=">'.$langs->trans("SetDate").'</a>)';
 	print '</td></tr>';
-	print '<tr><td width="20%">'.$langs->trans("DateEndFreePeriod").'</td><td width="30%">'.dol_print_date($object->date_endfreeperiod,'dayhour').'</td>';
-	print '</tr>';
 
 	/*
 	// Lastlogin
@@ -933,10 +925,9 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 	print '</tr>';
 
 	// Dates
-	print '<tr><td width="20%">'.$langs->trans("DateRegistration").'</td><td width="30%">'.dol_print_date($object->date_registration,'dayhour');
+	print '<tr><td width="20%">'.$langs->trans("DateDeployment").'</td><td colspan="3">'.dol_print_date($object->date_registration,'dayhour');
 	//print ' (<a href="'.dol_buildpath('/nltechno/dolicloud/dolicloud_card.php',1).'?id='.$object->id.'&amp;action=setdate&amp;date=">'.$langs->trans("SetDate").'</a>)';
 	print '</td>';
-	print '<td width="20%">'.$langs->trans("DateEndFreePeriod").'</td><td width="30%">'.dol_print_date($object->date_endfreeperiod,'dayhour').'</td>';
 	print '</tr>';
 
 	// Lastlogin

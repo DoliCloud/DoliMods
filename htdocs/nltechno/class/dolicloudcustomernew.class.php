@@ -368,7 +368,7 @@ class Dolicloudcustomernew extends CommonObject
      *  Load object in memory from database
      *
      *  @param	int		$id    			Id
-     *  @param	string	$ref   			Ref
+     *  @param	string	$ref   			Ref of instance
      *  @param	string	$organization 	Organization
      *  @return int         			<0 if KO, 0=Not found, Number of line found if OK
      */
@@ -377,6 +377,9 @@ class Dolicloudcustomernew extends CommonObject
     	global $langs;
 
     	if (empty($id) && empty($ref) && empty($organization)) dol_print_error('','Bad parameters for fetch');
+
+    	// Add on.dolicloud.com to have a complete instance id
+    	if (! empty($ref) && ! preg_match('/\.on\.dolicloud\.com$/',$ref)) $ref=$ref.'.on.dolicloud.com';
 
 		$sql = "SELECT";
 		$sql.= " i.id,";

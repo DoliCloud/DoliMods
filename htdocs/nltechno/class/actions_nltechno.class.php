@@ -59,7 +59,7 @@ class ActionsNltechno
         {
             $langs->load("companies");
             $langs->load("nltechno@nltechno");
-            $searchform=printSearchForm(dol_buildpath('/nltechno/dolicloud/dolicloud_list.php',1), dol_buildpath('/nltechno/dolicloud/dolicloud_list.php',1), img_picto('','object_generic').' '.$langs->trans("InstanceDolicloud"), '', 'search_multi');
+            $searchform=printSearchForm(dol_buildpath('/nltechno/dolicloud/dolicloud_list_new.php',1), dol_buildpath('/nltechno/dolicloud/dolicloud_list_new.php',1), img_picto('','object_generic').' '.$langs->trans("InstanceDolicloud"), '', 'search_multi');
         }
 		$this->resprints = $searchform;
 

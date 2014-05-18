@@ -53,8 +53,17 @@ if (! $res && preg_match('/\/nltechno([^\/]*)\//',$_SERVER["PHP_SELF"],$reg)) $r
 if (! $res) die ("Failed to include master.inc.php file\n");
 // After this $db, $mysoc, $langs and $conf->entity are defined. Opened handler to database will be closed at end of file.
 
-dol_include_once('/nltechno/class/dolicloudcustomer.class.php');
+dol_include_once('/nltechno/class/dolicloudcustomernew.class.php');
 include_once dol_buildpath("/nltechno/dolicloud/lib/refresh.lib.php");		// do not use dol_buildpth to keep global declaration working
+
+
+$db2=getDoliDBInstance('mysqli', $conf->global->DOLICLOUD_DATABASE_HOST, $conf->global->DOLICLOUD_DATABASE_USER, $conf->global->DOLICLOUD_DATABASE_PASS, $conf->global->DOLICLOUD_DATABASE_NAME, $conf->global->DOLICLOUD_DATABASE_PORT);
+if ($db2->error)
+{
+	dol_print_error($db2,"host=".$conf->global->DOLICLOUD_DATABASE_HOST.", port=".$conf->global->DOLICLOUD_DATABASE_PORT.", user=".$conf->global->DOLICLOUD_DATABASE_USER.", databasename=".$conf->global->DOLICLOUD_DATABASE_NAME.", ".$db2->error);
+	exit;
+}
+
 
 //$langs->setDefaultLang('en_US'); 	// To change default language of $langs
 $langs->load("main");				// To load language file for default language
@@ -68,10 +77,11 @@ $langs->load("main");				// To load language file for default language
 
 print "***** ".$script_file." (".$version.") - ".strftime("%Y%m%d-%H%M%S")." *****\n";
 if (! isset($argv[1])) {	// Check parameters
-    print "Usage: ".$script_file." (backuptestrsync|backuptestdatabase|backup|updatedatabase)\n";
+    print "Usage: ".$script_file." (backuptestrsync|backuptestdatabase|backup|updatedatabase|updatestatsonly)\n";
     print "\n";
-    print "backuptestrsync|backuptestdatabase|backup   creates backup\n";
-    print "updatedatabase   updates list and nb of users, modules and version and stats\n";
+    print "- backuptestrsync|backuptestdatabase|backup   creates backup\n";
+    print "- updatedatabase   updates list and nb of users, modules and version and stats\n";
+    print "- updatedatabase   updates stats only\n";
     exit;
 }
 print '--- start'."\n";
@@ -93,7 +103,7 @@ $nbofalltime=0;
 $nboferrors=0;
 
 
-$object=new Dolicloudcustomer($db);
+$object=new Dolicloudcustomernew($db,$db2);
 
 
 $instances=array();
@@ -103,7 +113,9 @@ $instancesupdateerror=array();
 // Get list of instance
 //$sql = "SELECT c.rowid, c.instance, c.status, c.lastrsync";
 //$sql.= " FROM ".MAIN_DB_PREFIX."dolicloud_customers as c";
-$sql = "SELECT i.id, i.instance, c.status";
+$sql = "SELECT i.id, i.name as instance, i.status as instance_status,";
+$sql.= " c.status as status,";
+$sql.= " c.payment_status";
 $sql.= " FROM app_instance as i, customer_account as c";
 $sql.= " WHERE i.customer_account_id = c.id";
 
@@ -120,16 +132,17 @@ if ($resql)
 			$obj = $db2->fetch_object($resql);
 			if ($obj)
 			{
-				print $obj->status."\n";
+				//print "status=".$obj->status." instance_status=".$obj->instance_status." payment_status=".$obj->payment_status."\n";
 				// Count
-				if (! in_array($obj->status,array('TRIAL'))) $nbofalltime++;
-				if (! in_array($obj->status,array('CLOSED','CLOSE_QUEUED','UNDEPLOYED','TRIAL'))) $nbofactivesusp++;
-				if (! in_array($obj->status,array('CLOSED','CLOSE_QUEUED','UNDEPLOYED','TRIAL','SUSPENDED','ACTIVE_PAYMENT_ERROR'))) $nbofactive++;
+				if (! in_array($obj->payment_status,array('TRIALING','TRIAL_EXPIRED'))) $nbofalltime++;
+				if (in_array($obj->status,array('SUSPENDED'))) $nbofactivesusp++;
+				if (! in_array($obj->status,array('CLOSED','CLOSE_QUEUED','CLOSURE_REQUESTED')) && ! in_array($obj->instance_status,array('UNDEPLOYED'))) $nbofactive++; // suspended and not suspended
 				// Select instance for backup or update ?
-				if (! in_array($obj->status,array('CLOSED','CLOSE_QUEUED','UNDEPLOYED','TRIAL')))
+				if (! in_array($obj->payment_status,array('TRIALING','TRIAL_EXPIRED')) && ! in_array($obj->status,array('CLOSED')) && ! in_array($obj->instance_status,array('UNDEPLOYED')))
 				{
-					$instances[]=$obj->instance;
-					print "Found instance ".$obj->instance." with status = ".$obj->status."\n";
+					$instance=preg_replace('/\.on\.dolicloud\.com$/', '', $obj->instance);
+					$instances[]=$instance;
+					print "Found instance ".$obj->instance." with status=".$obj->status." instance_status=".$obj->instance_status." payment_status=".$obj->payment_status."\n";
 				}
 			}
 			$i++;
@@ -220,12 +233,12 @@ $today=dol_now();
 
 $error=''; $errors=array();
 
-if ($action == 'updatedatabase')
+if ($action == 'updatedatabase' || $action == 'updatestatsonly')
 {
 	print "----- Start updatedatabase\n";
 
 	// Loop on each instance
-	if (! $error)
+	if (! $error && $action != 'updatestatsonly')
 	{
 		foreach($instances as $instance)
 		{
@@ -267,7 +280,7 @@ if ($action == 'updatedatabase')
 
 	$stats=array();
 
-	// Get list of stats
+	// Get list of existing stats
 	$sql ="SELECT name, x, y";
 	$sql.=" FROM ".MAIN_DB_PREFIX."dolicloud_stats";
 
@@ -302,7 +315,7 @@ if ($action == 'updatedatabase')
 	$tmp=dol_getdate(dol_now('tzserver'));
 	$endyear=$tmp['year'];
 
-	// Update all stats
+	// Update all missing stats
 	for($year = 2012; $year <= $endyear; $year++)
 	{
 		for($m = 1; $m <= 12; $m++)
@@ -321,7 +334,7 @@ if ($action == 'updatedatabase')
 					// Calculate stats fro this key
 					print "Calculate and update stats for ".$statkey." x=".$x.' datelastday='.dol_print_date($datelastday, 'dayhour', 'gmt');
 
-					$rep=dolicloud_calculate_stats($db,$datelastday);
+					$rep=dolicloud_calculate_stats($db2,$datelastday);
 
 					$total=$rep['total'];
 					$totalcommissions=$rep['totalcommissions'];
