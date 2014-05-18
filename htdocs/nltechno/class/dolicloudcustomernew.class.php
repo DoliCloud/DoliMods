@@ -454,7 +454,6 @@ class Dolicloudcustomernew extends CommonObject
 		$sql.= " LEFT JOIN plan_add_on as pao ON pl.id=pao.plan_id and pao.meter_id = 1,";	// meter_id = 1 = users
 		$sql.= " app_package as p";
 		$sql.= " WHERE i.customer_account_id = c.id AND c.plan_id = pl.id AND pl.app_package_id = p.id";
-    	if ($ref || $organization) $sql.= " ORDER BY i.deployed_date DESC";
 
     	/*
         $sql = "SELECT";
@@ -511,6 +510,7 @@ class Dolicloudcustomernew extends CommonObject
         if ($ref) $sql.= " AND i.name = '".$this->db2->escape($ref)."'";
         elseif ($organization) $sql.= " AND c.organization = '".$this->db2->escape($organization)."'";
         else $sql.= " AND i.id = ".$id;
+    	if ($ref || $organization) $sql.= " ORDER BY i.deployed_date DESC";
 
     	dol_syslog(get_class($this)."::fetch sql=".$sql, LOG_DEBUG);
         $resql=$this->db2->query($sql);
