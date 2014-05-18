@@ -368,8 +368,8 @@ class Dolicloudcustomernew extends CommonObject
      *  Load object in memory from database
      *
      *  @param	int		$id    			Id
-     *  @param	string	$ref   			Ref of instance
-     *  @param	string	$organization 	Organization
+     *  @param	string	$ref   			Ref of instance (get last recent one when search is done on ref)
+     *  @param	string	$organization 	Organization (get last recent one when search is done on ref)
      *  @return int         			<0 if KO, 0=Not found, Number of line found if OK
      */
     function fetch($id,$ref='',$organization='')
@@ -454,6 +454,8 @@ class Dolicloudcustomernew extends CommonObject
 		$sql.= " LEFT JOIN plan_add_on as pao ON pl.id=pao.plan_id and pao.meter_id = 1,";	// meter_id = 1 = users
 		$sql.= " app_package as p";
 		$sql.= " WHERE i.customer_account_id = c.id AND c.plan_id = pl.id AND pl.app_package_id = p.id";
+    	if ($ref || $organization) $sql.= " ORDER BY i.deployed_date DESC";
+
     	/*
         $sql = "SELECT";
 		$sql.= " t.rowid,";
@@ -518,7 +520,7 @@ class Dolicloudcustomernew extends CommonObject
 
             if ($numfound)
             {
-                $obj = $this->db2->fetch_object($resql);	// Take first onde
+                $obj = $this->db2->fetch_object($resql);	// Take first one
 
                 $this->id    = $obj->id;
 
