@@ -102,6 +102,7 @@ $nbofko=0;
 $nbofok=0;
 $nbofactive=0;
 $nbofactivesusp=0;
+$nbofactiveclosurerequest=0;
 $nbofalltime=0;
 $nboferrors=0;
 $instancefilter=(isset($argv[2])?$argv[2]:'');
@@ -145,15 +146,17 @@ if ($resql)
 				if (! in_array($obj->payment_status,array('TRIALING','TRIAL_EXPIRED')))
 				{
 					$nbofalltime++;
-					if (in_array($obj->status,array('SUSPENDED'))) $nbofactivesusp++;
-					if (! in_array($obj->status,array('CLOSED','CLOSE_QUEUED','CLOSURE_REQUESTED')) && ! in_array($obj->instance_status,array('UNDEPLOYED'))) $nbofactive++; // suspended and not suspended
-				}
-				// Select instance for backup or update ?
-				if (! in_array($obj->payment_status,array('TRIALING','TRIAL_EXPIRED')) && ! in_array($obj->status,array('CLOSED')) && ! in_array($obj->instance_status,array('UNDEPLOYED')))
-				{
-					$instance=preg_replace('/\.on\.dolicloud\.com$/', '', $obj->instance);
-					$instances[]=$instance;
-					print "Found instance ".$obj->instance." with status=".$obj->status." instance_status=".$obj->instance_status." payment_status=".$obj->payment_status."\n";
+					if (! in_array($obj->status,array('CLOSED')) && ! in_array($obj->instance_status,array('UNDEPLOYED')))		// Nb of active
+					{
+						$nbofactive++;
+						if (in_array($obj->status,array('SUSPENDED'))) $nbofactivesusp++;
+						else if (in_array($obj->status,array('CLOSE_QUEUED','CLOSURE_REQUESTED')) ) $nbofactiveclosurerequest++;
+						else $nbofactiveok++; // not suspended, not close request
+
+						$instance=preg_replace('/\.on\.dolicloud\.com$/', '', $obj->instance);
+						$instances[]=$instance;
+						print "Found instance ".$obj->instance." with status=".$obj->status." instance_status=".$obj->instance_status." payment_status=".$obj->payment_status."\n";
+					}
 				}
 			}
 			$i++;
@@ -395,10 +398,11 @@ if ($action == 'updatedatabase' || $action == 'updatestatsonly' || $action == 'u
 
 // Result
 print "Nb of instances (all time): ".$nbofalltime."\n";
-print "Nb of instances (active without payment error): ".$nbofactive."\n";
-print "Nb of instances (suspended): ".$nbofactivesusp."\n";
-print "Nb of instances (active with or without payment) process ok: ".$nbofok."\n";
-print "Nb of instances (active with or without payment) process ko: ".$nboferrors;
+print "Nb of instances (active with or without payment error, close request or not): ".$nbofactive."\n";
+print "Nb of instances (active but suspended): ".$nbofactivesusp."\n";
+print "Nb of instances (active but close request): ".$nbofactiveclosurerequest."\n";
+print "Nb of instances process ok: ".$nbofok."\n";
+print "Nb of instances process ko: ".$nboferrors;
 print (count($instancesbackuperror)?", error for backup on ".join(',',$instancesbackuperror):"");
 print (count($instancesupdateerror)?", error for update on ".join(',',$instancesupdateerror):"");
 print "\n";
