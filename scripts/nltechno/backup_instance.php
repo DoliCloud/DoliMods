@@ -138,7 +138,7 @@ if ($mode == 'testrsync' || $mode == 'confirmrsync' || $mode == 'confirm')
 	$param=array();
 	if ($mode != 'confirm') $param[]="-n";
 	//$param[]="-a";
-	$param[]="-rlt";
+	$param[]="-rltz";
 	$param[]="-vv";
 	$param[]="--exclude .buildpath";
 	$param[]="--exclude .git";
