@@ -77,11 +77,14 @@ $langs->load("main");				// To load language file for default language
 
 print "***** ".$script_file." (".$version.") - ".strftime("%Y%m%d-%H%M%S")." *****\n";
 if (! isset($argv[1])) {	// Check parameters
-    print "Usage: ".$script_file." (backuptestrsync|backuptestdatabase|backup|updatedatabase|updatestatsonly)\n";
+    print "Usage: ".$script_file." (backuptestrsync|backuptestdatabase|backup|updatedatabase|updatestatsonly) [instancefilter]\n";
     print "\n";
-    print "- backuptestrsync|backuptestdatabase|backup   creates backup\n";
+    print "- backuptestrsync  	  test rsync backup\n";
+    print "- backuptestdatabase  test mysqldump backup\n";
+    print "- backup           creates backup (rsync + mysqldump)\n";
     print "- updatedatabase   updates list and nb of users, modules and version and stats\n";
-    print "- updatedatabase   updates stats only\n";
+    print "- updatestatsonly  updates stats only\n";
+    print "- updatecountsonly updates counters of instances only\n";
     exit;
 }
 print '--- start'."\n";
@@ -101,6 +104,10 @@ $nbofactive=0;
 $nbofactivesusp=0;
 $nbofalltime=0;
 $nboferrors=0;
+$instancefilter=(isset($argv[2])?$argv[2]:'');
+$instancefiltercomplete=$instancefilter;
+// Add on.dolicloud.com to have a complete instance id
+if (! empty($instancefiltercomplete) && ! preg_match('/\.on\.dolicloud\.com$/',$instancefiltercomplete)) $instancefiltercomplete=$instancefiltercomplete.'.on.dolicloud.com';
 
 
 $object=new Dolicloudcustomernew($db,$db2);
@@ -118,6 +125,7 @@ $sql.= " c.status as status,";
 $sql.= " c.payment_status";
 $sql.= " FROM app_instance as i, customer_account as c";
 $sql.= " WHERE i.customer_account_id = c.id";
+if ($instancefiltercomplete) $sql.= " AND i.name = '".$instancefiltercomplete."'";
 
 dol_syslog($script_file." sql=".$sql, LOG_DEBUG);
 $resql=$db2->query($sql);
@@ -134,9 +142,12 @@ if ($resql)
 			{
 				//print "status=".$obj->status." instance_status=".$obj->instance_status." payment_status=".$obj->payment_status."\n";
 				// Count
-				if (! in_array($obj->payment_status,array('TRIALING','TRIAL_EXPIRED'))) $nbofalltime++;
-				if (in_array($obj->status,array('SUSPENDED'))) $nbofactivesusp++;
-				if (! in_array($obj->status,array('CLOSED','CLOSE_QUEUED','CLOSURE_REQUESTED')) && ! in_array($obj->instance_status,array('UNDEPLOYED'))) $nbofactive++; // suspended and not suspended
+				if (! in_array($obj->payment_status,array('TRIALING','TRIAL_EXPIRED')))
+				{
+					$nbofalltime++;
+					if (in_array($obj->status,array('SUSPENDED'))) $nbofactivesusp++;
+					if (! in_array($obj->status,array('CLOSED','CLOSE_QUEUED','CLOSURE_REQUESTED')) && ! in_array($obj->instance_status,array('UNDEPLOYED'))) $nbofactive++; // suspended and not suspended
+				}
 				// Select instance for backup or update ?
 				if (! in_array($obj->payment_status,array('TRIALING','TRIAL_EXPIRED')) && ! in_array($obj->status,array('CLOSED')) && ! in_array($obj->instance_status,array('UNDEPLOYED')))
 				{
@@ -233,7 +244,7 @@ $today=dol_now();
 
 $error=''; $errors=array();
 
-if ($action == 'updatedatabase' || $action == 'updatestatsonly')
+if ($action == 'updatedatabase' || $action == 'updatestatsonly' || $action == 'updatecountsonly')
 {
 	print "----- Start updatedatabase\n";
 
@@ -278,95 +289,98 @@ if ($action == 'updatedatabase' || $action == 'updatestatsonly')
 	}
 
 
-	$stats=array();
-
-	// Get list of existing stats
-	$sql ="SELECT name, x, y";
-	$sql.=" FROM ".MAIN_DB_PREFIX."dolicloud_stats";
-
-	dol_syslog($script_file." sql=".$sql, LOG_DEBUG);
-	$resql=$db->query($sql);
-	if ($resql)
+	if (! $error && $action != 'updatecountsonly')
 	{
-		$num = $db->num_rows($resql);
-		$i = 0;
-		if ($num)
+		$stats=array();
+
+		// Get list of existing stats
+		$sql ="SELECT name, x, y";
+		$sql.=" FROM ".MAIN_DB_PREFIX."dolicloud_stats";
+
+		dol_syslog($script_file." sql=".$sql, LOG_DEBUG);
+		$resql=$db->query($sql);
+		if ($resql)
 		{
-			while ($i < $num)
+			$num = $db->num_rows($resql);
+			$i = 0;
+			if ($num)
 			{
-				$obj = $db->fetch_object($resql);
-				if ($obj)
+				while ($i < $num)
 				{
-					$stats[$obj->name][$obj->x]=$obj->y;
-					print "Found stats for ".$obj->name." x=".$obj->x." y=".$obj->y."\n";
+					$obj = $db->fetch_object($resql);
+					if ($obj)
+					{
+						$stats[$obj->name][$obj->x]=$obj->y;
+						print "Found stats for ".$obj->name." x=".$obj->x." y=".$obj->y."\n";
+					}
+					$i++;
 				}
-				$i++;
 			}
 		}
-	}
-	else
-	{
-		$error++;
-		$nboferrors++;
-		dol_print_error($db);
-	}
-	//print "Found already existing stats entries.\n";
-
-	$tmp=dol_getdate(dol_now('tzserver'));
-	$endyear=$tmp['year'];
-
-	// Update all missing stats
-	for($year = 2012; $year <= $endyear; $year++)
-	{
-		for($m = 1; $m <= 12; $m++)
+		else
 		{
-			$datefirstday=dol_get_first_day($year, $m, 1);
-			$datelastday=dol_get_last_day($year, $m, 1);
-			if ($datefirstday > $today) continue;
+			$error++;
+			$nboferrors++;
+			dol_print_error($db);
+		}
+		//print "Found already existing stats entries.\n";
 
-			$x=sprintf("%04d%02d",$year,$m);
+		$tmp=dol_getdate(dol_now('tzserver'));
+		$endyear=$tmp['year'];
 
-			$statkeylist=array('total','totalcommissions','totalcustomerspaying','totalcustomers','totalusers','benefit');
-			foreach($statkeylist as $statkey)
+		// Update all missing stats
+		for($year = 2012; $year <= $endyear; $year++)
+		{
+			for($m = 1; $m <= 12; $m++)
 			{
-				if (! isset($stats[$statkey][$x]) || ($today <= $datelastday))
+				$datefirstday=dol_get_first_day($year, $m, 1);
+				$datelastday=dol_get_last_day($year, $m, 1);
+				if ($datefirstday > $today) continue;
+
+				$x=sprintf("%04d%02d",$year,$m);
+
+				$statkeylist=array('total','totalcommissions','totalcustomerspaying','totalcustomers','totalusers','benefit');
+				foreach($statkeylist as $statkey)
 				{
-					// Calculate stats fro this key
-					print "Calculate and update stats for ".$statkey." x=".$x.' datelastday='.dol_print_date($datelastday, 'dayhour', 'gmt');
-
-					$rep=dolicloud_calculate_stats($db2,$datelastday);
-
-					$total=$rep['total'];
-					$totalcommissions=$rep['totalcommissions'];
-					$totalcustomerspaying=$rep['totalcustomerspaying'];
-					$totalcustomers=$rep['totalcustomers'];
-					$totalusers=$rep['totalusers'];
-					$benefit=($total * (1 - $part) - $serverprice - $totalcommissions);
-
-					$y=0;
-					if ($statkey == 'total') $y=$total;
-					if ($statkey == 'totalcommissions') $y=$totalcommissions;
-					if ($statkey == 'totalcustomerspaying') $y=$totalcustomerspaying;
-					if ($statkey == 'totalcustomers') $y=$totalcustomers;
-					if ($statkey == 'totalusers') $y=$totalusers;
-					if ($statkey == 'benefit') $y=$benefit;
-
-					print " -> ".$y."\n";
-
-					if ($today <= $datelastday)
+					if (! isset($stats[$statkey][$x]) || ($today <= $datelastday))
 					{
-						$sql ="DELETE FROM ".MAIN_DB_PREFIX."dolicloud_stats";
-						$sql.=" WHERE name = '".$statkey."' AND x='".$x."'";
+						// Calculate stats fro this key
+						print "Calculate and update stats for ".$statkey." x=".$x.' datelastday='.dol_print_date($datelastday, 'dayhour', 'gmt');
+
+						$rep=dolicloud_calculate_stats($db2,$datelastday);
+
+						$total=$rep['total'];
+						$totalcommissions=$rep['totalcommissions'];
+						$totalcustomerspaying=$rep['totalcustomerspaying'];
+						$totalcustomers=$rep['totalcustomers'];
+						$totalusers=$rep['totalusers'];
+						$benefit=($total * (1 - $part) - $serverprice - $totalcommissions);
+
+						$y=0;
+						if ($statkey == 'total') $y=$total;
+						if ($statkey == 'totalcommissions') $y=$totalcommissions;
+						if ($statkey == 'totalcustomerspaying') $y=$totalcustomerspaying;
+						if ($statkey == 'totalcustomers') $y=$totalcustomers;
+						if ($statkey == 'totalusers') $y=$totalusers;
+						if ($statkey == 'benefit') $y=$benefit;
+
+						print " -> ".$y."\n";
+
+						if ($today <= $datelastday)
+						{
+							$sql ="DELETE FROM ".MAIN_DB_PREFIX."dolicloud_stats";
+							$sql.=" WHERE name = '".$statkey."' AND x='".$x."'";
+							dol_syslog("sql=".$sql);
+							$resql=$db->query($sql);
+							if (! $resql) dol_print_error($db,'');
+						}
+
+						$sql ="INSERT INTO ".MAIN_DB_PREFIX."dolicloud_stats(name, x, y)";
+						$sql.=" VALUES('".$statkey."', '".$x."', ".$y.")";
 						dol_syslog("sql=".$sql);
 						$resql=$db->query($sql);
 						if (! $resql) dol_print_error($db,'');
 					}
-
-					$sql ="INSERT INTO ".MAIN_DB_PREFIX."dolicloud_stats(name, x, y)";
-					$sql.=" VALUES('".$statkey."', '".$x."', ".$y.")";
-					dol_syslog("sql=".$sql);
-					$resql=$db->query($sql);
-					if (! $resql) dol_print_error($db,'');
 				}
 			}
 		}
@@ -382,7 +396,7 @@ if ($action == 'updatedatabase' || $action == 'updatestatsonly')
 // Result
 print "Nb of instances (all time): ".$nbofalltime."\n";
 print "Nb of instances (active without payment error): ".$nbofactive."\n";
-print "Nb of instances (active with or without payment): ".$nbofactivesusp."\n";
+print "Nb of instances (suspended): ".$nbofactivesusp."\n";
 print "Nb of instances (active with or without payment) process ok: ".$nbofok."\n";
 print "Nb of instances (active with or without payment) process ko: ".$nboferrors;
 print (count($instancesbackuperror)?", error for backup on ".join(',',$instancesbackuperror):"");
