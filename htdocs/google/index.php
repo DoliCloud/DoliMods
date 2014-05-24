@@ -241,7 +241,7 @@ if (is_readable($color_file))
 	if (! empty($theme_bgcolor)) $bgcolor=dechex($theme_bgcolor[0]).dechex($theme_bgcolor[1]).dechex($theme_bgcolor[2]);
 }
 
-$frame ='<iframe src="http://www.google.com/calendar/embed?';
+$frame ='<iframe src="https://www.google.com/calendar/embed?';
 $frame.='showTitle=0';
 $frame.='&amp;height=600';
 // Define first day of week (wkst=1 for sunday, wkst=2 for monday, ...)
