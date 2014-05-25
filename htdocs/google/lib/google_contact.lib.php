@@ -499,8 +499,6 @@ function googleDeleteContactByRef($client, $ref, $useremail='default')
 {
 	global $tag_debug;
 
-	$tag_debug='deletecontactbyref';
-
 	dol_syslog('googleDeleteContactByRef Gcontact ref to delete='.$ref);
 
 	try
@@ -509,9 +507,14 @@ function googleDeleteContactByRef($client, $ref, $useremail='default')
 		$gdata = new Zend_Gdata($client);
 		$gdata->setMajorProtocolVersion(3);
 
+		$tag_debug='deletecontactbyrefgetentry';
+
 		$query = new Zend_Gdata_Query($ref);
 		//$entryResult = $gdata->getEntry($query,'Zend_Gdata_Contacts_ListEntry');
+		//var_dump($query);exit;
 		$entryResult = $gdata->getEntry($query);
+
+		$tag_debug='deletecontactbyrefdelete';
 
 		$extra_header = array('If-Match'=>$entryResult->getEtag());
 		$entryResult->delete($extra_header);

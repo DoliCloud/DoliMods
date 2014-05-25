@@ -594,7 +594,9 @@ class Zend_Gdata_App
     public function performHttpRequest($method, $url, $headers = null,
         $body = null, $contentType = null, $remainingRedirects = null)
     {
-        require_once 'Zend/Http/Client/Exception.php';
+    	global $tag_debug;
+
+    	require_once 'Zend/Http/Client/Exception.php';
         if ($remainingRedirects === null) {
             $remainingRedirects = self::getMaxRedirects();
         }
@@ -654,7 +656,6 @@ class Zend_Gdata_App
             $this->_httpClient->setParameterGet($name, $value);
         }
 
-
         $this->_httpClient->setConfig(array('maxredirects' => 0));
 
         // Set the proper adapter if we are handling a streaming upload
@@ -678,8 +679,10 @@ class Zend_Gdata_App
             $this->_httpClient->setRawData($body, $contentType);
         }
 
+
         try {
             $response = $this->_httpClient->request($method);
+
             // reset adapter
             if ($usingMimeStream) {
                 $this->_httpClient->setAdapter($oldHttpAdapter);

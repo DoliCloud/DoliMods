@@ -575,6 +575,8 @@ class GContact
      */
     public static function getDolibarrContactsGoogleIDS($gdata, $pattern, $type)
     {
+    	global $tag_debug;
+
         dol_syslog(get_class().'::getDolibarrContactsGoogleIDS');
 
         if (empty($type)) return array();
@@ -582,6 +584,7 @@ class GContact
         $document = new DOMDocument("1.0", "utf-8");
 
 		// Get full list of contacts
+		$tag_debug='getallcontacts';
     	$queryString = 'https://www.google.com/m8/feeds/contacts/default/full?max-results=1000';
         if (! empty($pattern)) $queryString .= '&q='.$pattern;
         $query = new Zend_Gdata_Query($queryString);
@@ -596,6 +599,7 @@ class GContact
         dol_syslog(get_class().'::getDolibarrContactsGoogleIDS '.$n.' contacts retrieved from google contacts');
 
         $tagtofind=getCommentIDTag();
+        dol_syslog(get_class().'::getDolibarrContactsGoogleIDS Now search if contacts contains /'.preg_quote($tagtofind).'([0-9]+)\/'.$type.'/ regex');
         $googleIDs = array();	// Nothing to delete by default
         foreach ($entries as $entry) {
         	// Try to qualify or not contact
@@ -998,19 +1002,18 @@ class GContact
       */
      public static function deleteEntries($gdata, array $googleIDs, $groupFlag)
      {
-     	global $conf;
+     	global $conf, $tag_debug;
 
      	if ($groupFlag)
      	{
+     		// Due to a bug in zend not correctly taking into account headers (in particular If-Match), we do the request by hand (performHttpRequest instead of using the $gdata->delete)
      		$headers = array();
-     		//Due to a bug in zend not correctly taking into account headers (in particular If-Match), we do the request by hand.
-     		//instead of using the $gdata->delete
      		$headers['If-Match'] = '*';
      		foreach ($googleIDs as $googleID) {
      			try {
+     				dol_syslog("Deleting contact or group ".$googleID." with mode no batch");
      				$requestData = $gdata->prepareRequest('DELETE', $googleID, $headers);
-     				$gdata->performHttpRequest($requestData['method'], $requestData['url'], $requestData['headers'], '', $requestData['contentType'], null/* remainingRedirects */);
-     				dol_syslog("Deleting contact or group $googleID for user $googleUser");
+     				$response = $gdata->performHttpRequest($requestData['method'], $requestData['url'], $requestData['headers'], '', $requestData['contentType'], null/* remainingRedirects */);
      				//$gdata->delete($googleID);
      			}  catch (Exception $e) {
      				dol_syslog("Problem while deleting one entry $googleID", LOG_ERR);
@@ -1039,7 +1042,10 @@ class GContact
      			$feed->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:batch', 'http://schemas.google.com/gdata/batch');
      			$feed->appendChild($doc->createElement("title", "The batch title: delete"));
      			$doc->appendChild($feed);
-     			foreach ($firstIDs as $googleID) {
+     			foreach ($firstIDs as $googleID)
+     			{
+     				//$googleID = preg_replace('/http:\/\//','https://',$googleID);	// Force https
+
      				$entry = $doc->createElement("atom:entry");
      				$entry->setAttribute("gdata:etag", "*");
      				$entry->appendChild($doc->createElement("atom:id", $googleID));
@@ -1049,15 +1055,23 @@ class GContact
      				$feed->appendChild($entry);
      			}
      			$xmlStr = $doc->saveXML();
+
      			dol_syslog(sprintf("Deleting %d google contacts for user %s", count($firstIDs), $googleUser));
      			try {
-     				// uncomment for debugging :
-     				file_put_contents(DOL_DATA_ROOT . "/dolibarr_google_massdelete.xml", $xmlStr);
-     				@chmod(DOL_DATA_ROOT . "/dolibarr_google_massdelete.xml", octdec(empty($conf->global->MAIN_UMASK)?'0664':$conf->global->MAIN_UMASK));
-     				$response = $gdata->post($xmlStr, "https://www.google.com/m8/feeds/contacts/default/base/batch");
+     				$tag_debug='massdelete';
+     				//file_put_contents(DOL_DATA_ROOT . "/dolibarr_google_massdelete.xml", $xmlStr);
+     				//@chmod(DOL_DATA_ROOT . "/dolibarr_google_massdelete.xml", octdec(empty($conf->global->MAIN_UMASK)?'0664':$conf->global->MAIN_UMASK));
+
+		     		// Due to a bug in zend not correctly taking into account headers (in particular If-Match), we do the request by hand (performHttpRequest instead of using the $gdata->post)
+     				$headers = array();
+     				$headers['If-Match'] = '*';
+    				$requestData = $gdata->prepareRequest('POST', "https://www.google.com/m8/feeds/contacts/default/base/batch", $headers);
+					$response = $gdata->performHttpRequest($requestData['method'], $requestData['url'], $requestData['headers'], $xmlStr, $requestData['contentType'], null/* remainingRedirects */);
+     				//$response = $gdata->post($xmlStr, "https://www.google.com/m8/feeds/contacts/default/base/batch");
      				$responseXml = $response->getBody();
-     				file_put_contents(DOL_DATA_ROOT . "/dolibarr_google_massdelete.response.xml", $xmlStr);
-     				@chmod(DOL_DATA_ROOT . "/dolibarr_google_massdelete.response.xml", octdec(empty($conf->global->MAIN_UMASK)?'0664':$conf->global->MAIN_UMASK));
+
+     				//file_put_contents(DOL_DATA_ROOT . "/dolibarr_google_massdelete.response.xml", $responseXml);
+     				//@chmod(DOL_DATA_ROOT . "/dolibarr_google_massdelete.response.xml", octdec(empty($conf->global->MAIN_UMASK)?'0664':$conf->global->MAIN_UMASK));
      			} catch (Exception $e) {
      				dol_syslog("Problem while deleting contacts", LOG_ERR);
      				throw new Exception(sprintf("Problem while deleting contacts : %s", $e->getMessage()));
