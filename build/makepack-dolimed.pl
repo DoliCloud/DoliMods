@@ -1,8 +1,8 @@
 #!/usr/bin/perl
 #----------------------------------------------------------------------------
 # \file         build/makepack-dolimed.pl
-# \brief        DoliMed package builder (tgz, zip, rpm, deb, exe, aps)
-# \author       (c)2004-2014 Laurent Destailleur  <eldy@users.sourceforge.net>
+# \brief        DoliMed package builder (tgz, zip, exe)
+# \author       (c)2005-2014 Laurent Destailleur  <eldy@users.sourceforge.net>
 #
 # This is list of constant you can set to have generated packages moved into a specific dir: 
 #DESTIBETARC='/media/HDDATA1_LD/Mes Sites/Web/Dolibarr/dolibarr.org/files/lastbuild'
@@ -17,24 +17,12 @@ use Cwd;
 $OWNER="ldestailleur";
 $GROUP="ldestailleur";
 
-$PROJECT="dolimed";
-$MAJOR="3";
-$MINOR="5";
-$BUILD="0";				# Mettre x pour release, x-dev pour dev, x-beta pour beta, x-rc pour release candidate
-$RPMSUBVERSION="auto";	# auto use value found into BUILD
 
-@LISTETARGET=("TGZ","ZIP","EXEDOLIWAMP","SNAPSHOT");   # Possible packages
-%REQUIREMENTTARGET=(                            # Tool requirement for each package
+@LISTETARGET=("TGZ","ZIP","EXEDOLIWAMP");   # Possible packages
+%REQUIREMENTTARGET=(                        # Tool requirement for each package
 "SNAPSHOT"=>"tar",
 "TGZ"=>"tar",
 "ZIP"=>"7z",
-"XZ"=>"xz",
-"RPM_GENERIC"=>"rpmbuild",
-"RPM_FEDORA"=>"rpmbuild",
-"RPM_MANDRIVA"=>"rpmbuild",
-"RPM_OPENSUSE"=>"rpmbuild",
-"DEB"=>"dpkg dpatch",
-"APS"=>"zip",
 "EXEDOLIWAMP"=>"ISCC.exe"
 );
 %ALTERNATEPATH=(
@@ -42,22 +30,10 @@ $RPMSUBVERSION="auto";	# auto use value found into BUILD
 "makensis.exe"=>"NSIS"
 );
 
-$FILENAME="$PROJECT";
-$FILENAMESNAPSHOT="$PROJECT-snapshot";
-$FILENAMETGZ="$PROJECT-$MAJOR.$MINOR.$BUILD";
-$FILENAMEZIP="$PROJECT-$MAJOR.$MINOR.$BUILD";
-$FILENAMEXZ="$PROJECT-$MAJOR.$MINOR.$BUILD";
-$FILENAMERPM="$PROJECT-$MAJOR.$MINOR.$BUILD-$RPMSUBVERSION";
-$FILENAMEDEB="${PROJECT}_${MAJOR}.${MINOR}.${BUILD}";
-$FILENAMEAPS="$PROJECT-$MAJOR.$MINOR.$BUILD.app";
-$FILENAMEEXEDOLIWAMP="DoliMed-$MAJOR.$MINOR.$BUILD";
-if (-d "/usr/src/redhat")   { $RPMDIR="/usr/src/redhat"; } # redhat
-if (-d "/usr/src/packages") { $RPMDIR="/usr/src/packages"; } # opensuse
-if (-d "/usr/src/RPM")      { $RPMDIR="/usr/src/RPM"; } # mandrake
-
 
 use vars qw/ $REVISION $VERSION /;
-$VERSION="3.3";
+$REVISION='1.0';
+$VERSION="3.5 (build $REVISION)";
 
 
 
@@ -67,28 +43,13 @@ $VERSION="3.3";
 ($DIR=$0) =~ s/([^\/\\]+)$//; ($PROG=$1) =~ s/\.([^\.]*)$//; $Extension=$1;
 $DIR||='.'; $DIR =~ s/([^\/\\])[\\\/]+$/$1/;
 
-$SOURCEMOD="$DIR/..";
-$SOURCEMOD1="$DIR/../htdocs/cabinetmed";
-$SOURCEMOD2="$DIR/../build/exe/dolimed";
-# Change SOURCEDOL to use another dolibarr source directory
-$SOURCEDOL="$DIR/../../dolibarr_3.5/.";	
-$DESTI="$DIR/../build";
-
-if (! -d $ENV{"DESTIDOLIMEDBETARC"} || ! -d $ENV{"DESTIDOLIMEDSTABLE"})
-{
-    print "Error: Directory of environment variable DESTIBETARC or DESTISTABLE does not exist.\n";
-	print "$PROG.$Extension aborted.\n";
-    sleep 2;
-	exit 1;
-}
-
 # Detect OS type
 # --------------
 if ("$^O" =~ /linux/i || (-d "/etc" && -d "/var" && "$^O" !~ /cygwin/i)) { $OS='linux'; $CR=''; }
 elsif (-d "/etc" && -d "/Users") { $OS='macosx'; $CR=''; }
 elsif ("$^O" =~ /cygwin/i || "$^O" =~ /win32/i) { $OS='windows'; $CR="\r"; }
 if (! $OS) {
-    print "Error: Can't detect your OS.\n";
+    print "$PROG.$Extension was not able to detect your OS.\n";
 	print "Can't continue.\n";
 	print "$PROG.$Extension aborted.\n";
     sleep 2;
@@ -127,17 +88,75 @@ for (0..@ARGV-1) {
     	$FILENAMESNAPSHOT.="-".$PREFIX; 
     }
 }
-if ($ENV{"DESTIDOLIMEDBETARC"} && $BUILD =~ /[a-z]/i)    { $DESTI = $ENV{"DESTIDOLIMEDBETARC"}; }	# Force output dir if env DESTI is defined
-if ($ENV{"DESTIDOLIMEDSTABLE"} && $BUILD =~ /^[0-9]+$/)  { $DESTI = $ENV{"DESTIDOLIMEDSTABLE"}; }	# Force output dir if env DESTI is defined
+
+$SOURCEMOD="$DIR/..";
+$SOURCEMOD1="$DIR/../htdocs/cabinetmed";
+$SOURCEMOD2="$DIR/../build/exe/dolimed";
+# Change SOURCEDOL to use another dolibarr source directory
+$SOURCEDOL="$DIR/../../dolibarr_3.5/.";	
+
+if (! -d $ENV{"DESTIDOLIMEDBETARC"} || ! -d $ENV{"DESTIDOLIMEDSTABLE"})
+{
+    print "Error: Directory of environment variable DESTIBETARC or DESTISTABLE does not exist.\n";
+	print "$PROG.$Extension aborted.\n";
+    sleep 2;
+	exit 1;
+}
 
 
 print "Makepack version $VERSION\n";
-print "Building package name: $PROJECT\n";
-print "Building package version: $MAJOR.$MINOR.$BUILD\n";
 print "Source directory cabinetmed (SOURCEMOD1): $SOURCEMOD1\n";
 print "Source directory cabinetmed (SOURCEMOD2): $SOURCEMOD2\n";
 print "Source directory dolibarr   (SOURCEDOL) : $SOURCEDOL\n";
-print "Target directory (DESTI) : $DESTI\n";
+
+
+$PROJECT="dolimed";
+$PROJECTBIS='CabinetMed';
+
+# Loop on each projects
+$PROJECTLC=lc($PROJECTBIS);
+	
+# Get version $MAJOR, $MINOR and $BUILD
+$result=open(IN,"<".$SOURCEMOD1."/core/modules/mod".$PROJECTBIS.".class.php");
+if (! $result) { die "Error: Can't open descriptor file ".$SOURCE."/htdocs/".$PROJECTLC."/core/modules/mod".$PROJECTBIS.".class.php for reading.\n"; }
+while(<IN>)
+{
+  	if ($_ =~ /this->version\s*=\s*'([\d\.]+)'/) { $PROJVERSION=$1; break; }
+}
+close IN;
+
+($MAJOR,$MINOR,$BUILD)=split(/\./,$PROJVERSION,3);
+if ($MINOR eq '')
+{
+    print "Enter value for minor version for module ".$PROJECT.": ";
+    $MINOR=<STDIN>;
+    chomp($MINOR);
+}
+	
+
+$DESTI="$DIR/../build";
+if ($ENV{"DESTIDOLIMEDBETARC"} && $BUILD =~ /[a-z]/i)    { $DESTI = $ENV{"DESTIDOLIMEDBETARC"}; }	# Force output dir if env DESTI is defined
+if ($ENV{"DESTIDOLIMEDSTABLE"} && $BUILD =~ /^[0-9]+$/)  { $DESTI = $ENV{"DESTIDOLIMEDSTABLE"}; }	# Force output dir if env DESTI is defined
+$NEWDESTI=$DESTI;
+print "Target directory: $NEWDESTI\n";
+	
+$FILENAME="$PROJECT";
+$FILENAMESNAPSHOT="$PROJECT-snapshot";
+$FILENAMETGZ="$PROJECT-$MAJOR.$MINOR.$BUILD";
+$FILENAMEZIP="$PROJECT-$MAJOR.$MINOR.$BUILD";
+$FILENAMEXZ="$PROJECT-$MAJOR.$MINOR.$BUILD";
+$FILENAMERPM="$PROJECT-$MAJOR.$MINOR.$BUILD-$RPMSUBVERSION";
+$FILENAMEDEB="${PROJECT}_${MAJOR}.${MINOR}.${BUILD}";
+$FILENAMEAPS="$PROJECT-$MAJOR.$MINOR.$BUILD.app";
+$FILENAMEEXEDOLIWAMP="DoliMed-$MAJOR.$MINOR.$BUILD";
+if (-d "/usr/src/redhat")   { $RPMDIR="/usr/src/redhat"; } # redhat
+if (-d "/usr/src/packages") { $RPMDIR="/usr/src/packages"; } # opensuse
+if (-d "/usr/src/RPM")      { $RPMDIR="/usr/src/RPM"; } # mandrake
+
+
+print "Building package name: $PROJECT\n";
+print "Building package version: $MAJOR.$MINOR.$BUILD\n";
+
 
 
 # Choose package targets
@@ -187,6 +206,7 @@ else {
     }
 }
 
+
 # Test if requirement is ok
 #--------------------------
 $atleastonerpm=0;
@@ -224,7 +244,7 @@ foreach my $target (keys %CHOOSEDTARGET) {
             last;
         } else {
             # Pas erreur ou erreur autre que programme absent
-            print " Found ".$req."\n";
+            print " Found ".$REQUIREMENTTARGET{$target}."\n";
         }
     }
 }
