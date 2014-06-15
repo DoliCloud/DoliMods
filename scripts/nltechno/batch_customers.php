@@ -125,7 +125,7 @@ $sql = "SELECT i.id, i.name as instance, i.status as instance_status,";
 $sql.= " c.status as status,";
 $sql.= " c.payment_status";
 $sql.= " FROM app_instance as i, customer_account as c";
-$sql.= " WHERE i.customer_account_id = c.id";
+$sql.= " WHERE i.customer_id = c.id";
 if ($instancefiltercomplete) $sql.= " AND i.name = '".$instancefiltercomplete."'";
 
 dol_syslog($script_file." sql=".$sql, LOG_DEBUG);
@@ -342,7 +342,7 @@ if ($action == 'updatedatabase' || $action == 'updatestatsonly' || $action == 'u
 
 				$x=sprintf("%04d%02d",$year,$m);
 
-				$statkeylist=array('total','totalcommissions','totalcustomerspaying','totalcustomers','totalusers','benefit');
+				$statkeylist=array('total','totalcommissions','totalinstancespaying','totalinstances','totalusers','benefit');
 				foreach($statkeylist as $statkey)
 				{
 					if (! isset($stats[$statkey][$x]) || ($today <= $datelastday))
@@ -354,16 +354,16 @@ if ($action == 'updatedatabase' || $action == 'updatestatsonly' || $action == 'u
 
 						$total=$rep['total'];
 						$totalcommissions=$rep['totalcommissions'];
-						$totalcustomerspaying=$rep['totalcustomerspaying'];
-						$totalcustomers=$rep['totalcustomers'];
+						$totalinstancespaying=$rep['totalinstancespaying'];
+						$totalinstances=$rep['totalinstances'];
 						$totalusers=$rep['totalusers'];
 						$benefit=($total * (1 - $part) - $serverprice - $totalcommissions);
 
 						$y=0;
 						if ($statkey == 'total') $y=$total;
 						if ($statkey == 'totalcommissions') $y=$totalcommissions;
-						if ($statkey == 'totalcustomerspaying') $y=$totalcustomerspaying;
-						if ($statkey == 'totalcustomers') $y=$totalcustomers;
+						if ($statkey == 'totalinstancespaying') $y=$totalinstancespaying;
+						if ($statkey == 'totalinstances') $y=$totalinstances;
 						if ($statkey == 'totalusers') $y=$totalusers;
 						if ($statkey == 'benefit') $y=$benefit;
 

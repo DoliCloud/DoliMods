@@ -159,7 +159,7 @@ $sql.= " i.id,";
 $sql.= " i.version,";
 $sql.= " i.app_package_id,";
 $sql.= " i.created_date as date_registration,";
-$sql.= " i.customer_account_id,";
+$sql.= " i.customer_id,";
 $sql.= " i.db_name,";
 $sql.= " i.db_password,";
 $sql.= " i.db_port,";
@@ -193,12 +193,12 @@ $sql.= " im.last_updated as lastcheck,";
 $sql.= " pao.amount as price_user,";
 $sql.= " pao.min_threshold as min_threshold,";
 
-$sql.= " pl.base_price as price_instance,";
+$sql.= " pl.amount as price_instance,";
 $sql.= " pl.meter_id as plan_meter_id,";
 
 $sql.= " c.org_name as organization,";
 $sql.= " c.status as status,";
-$sql.= " c.next_billing_date,";
+$sql.= " c.past_due_start,";
 $sql.= " c.suspension_date,";
 $sql.= " c.payment_status,";
 
@@ -210,14 +210,14 @@ $sql.= " cp.org_name as partner";
 
 $sql.= " FROM app_instance as i";
 $sql.= " LEFT JOIN app_instance_meter as im ON i.id = im.app_instance_id AND im.meter_id = 1,";	// meter_id = 1 = users
-$sql.= " customer_account as c";
-$sql.= " LEFT JOIN channel_partner_customer_account as cc ON cc.customer_account_id = c.id";
+$sql.= " customer as c";
+$sql.= " LEFT JOIN channel_partner_customer as cc ON cc.customer_id = c.id";
 $sql.= " LEFT JOIN channel_partner as cp ON cc.channel_partner_id = cp.id";
 $sql.= " LEFT JOIN person as per ON c.primary_contact_id = per.id,";
 $sql.= " plan as pl";
 $sql.= " LEFT JOIN plan_add_on as pao ON pl.id=pao.plan_id and pao.meter_id = 1,";	// meter_id = 1 = users
 $sql.= " app_package as p";
-$sql.= " WHERE i.customer_account_id = c.id AND c.plan_id = pl.id AND pl.app_package_id = p.id";
+$sql.= " WHERE i.customer_id = c.id AND c.plan_id = pl.id AND pl.app_package_id = p.id";
 if ($search_dolicloud) $sql.='';
 if ($search_multi) $sql.=" AND (i.name LIKE '%".$db->escape($search_multi)."%' OR c.org_name LIKE '%".$db->escape($search_multi)."%' OR per.username LIKE '%".$db->escape($search_multi)."%')";
 if ($search_instance) $sql.=" AND i.name LIKE '%".$db->escape($search_instance)."%'";
@@ -258,8 +258,8 @@ if ($search_lastlogin) 		$param.='&search_lastlogin='.urlencode($search_lastlogi
 if ($search_status)      	$param.='&search_status='.urlencode($search_status);
 
 
-$totalcustomers=0;
-$totalcustomerspaying=0;
+$totalinstances=0;
+$totalinstancespaying=0;
 $total=0;
 
 $var=false;
@@ -286,7 +286,7 @@ if ($resql)
     print_liste_field_titre($langs->trans('Partner'),$_SERVER['PHP_SELF'],'cc.partner','',$param,'',$sortfield,$sortorder);
     //print_liste_field_titre($langs->trans('Source'),$_SERVER['PHP_SELF'],'t.source','',$param,'',$sortfield,$sortorder);
     print_liste_field_titre($langs->trans('DateRegistration'),$_SERVER['PHP_SELF'],'t.date_registration','',$param,'',$sortfield,$sortorder);
-    print_liste_field_titre($langs->trans('DateNextBilling'),$_SERVER['PHP_SELF'],'c.next_billing_date','',$param,'',$sortfield,$sortorder);
+    print_liste_field_titre($langs->trans('DateNextBilling'),$_SERVER['PHP_SELF'],'c.past_due_start','',$param,'',$sortfield,$sortorder);
     print_liste_field_titre($langs->trans('DateLastCheck'),$_SERVER['PHP_SELF'],'im.last_updated','',$param,'',$sortfield,$sortorder);
     print_liste_field_titre($langs->trans('NbOfUsers'),$_SERVER['PHP_SELF'],'im.value','',$param,'align="right"',$sortfield,$sortorder);
     //print_liste_field_titre($langs->trans('LastLogin'),$_SERVER['PHP_SELF'],'t.lastlogin','',$param,'align="center"',$sortfield,$sortorder);
@@ -326,7 +326,7 @@ if ($resql)
             {
                 $price=($obj->price_instance * ($obj->plan_meter_id == 1 ? $obj->nbofusers : 1)) + (max(0,($obj->nbofusers - $obj->min_threshold)) * $obj->price_user);
             	//var_dump($obj->status);exit;
-                $totalcustomers++;
+                $totalinstances++;
 				$instance=preg_replace('/\.on\.dolicloud\.com$/', '', $obj->instance);
 
                 $dolicloudcustomerstaticnew->status = $obj->status;
@@ -355,7 +355,7 @@ if ($resql)
                 //print '</td><td>';
                 print dol_print_date($db->jdate($obj->date_registration),'dayhour','tzuser');
                 print '</td><td>';
-                print dol_print_date($db->jdate($obj->next_billing_date),'day','tzuser');
+                print dol_print_date($db->jdate($obj->past_due_start),'day','tzuser');
                 print '</td><td>';
                 print dol_print_date($db->jdate($obj->lastcheck), 'dayhour', 'tzuser');
                 print '</td><td align="right">';
@@ -374,7 +374,7 @@ if ($resql)
               {
                 	if (empty($obj->nbofusers)) print $langs->trans("NeedRefresh");
                 	else print price($price);
-                	$totalcustomerspaying++;
+                	$totalinstancespaying++;
                 	$total+=$price;
                 }
                 print '</td>';

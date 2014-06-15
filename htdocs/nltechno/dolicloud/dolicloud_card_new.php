@@ -434,7 +434,7 @@ if ($user->rights->nltechno->dolicloud->write)
 
 		// Phone
 		$phonetoshow=(isset($_POST["phone"])?$_POST["phone"]:$object->phone);
-		if (empty($phonetoshow)) $phonetoshow=getvalfromkey($db,'dolicloud_saasplex.customer_account.tel',$organizationtoshow);
+		if (empty($phonetoshow)) $phonetoshow=getvalfromkey($db,'dolicloud_saasplex.customer.tel',$organizationtoshow);
 		print '<tr><td>'.$langs->trans("PhonePro").'</td><td colspan="3"><input name="phone" type="text" size="18" maxlength="80" value="'.$phonetoshow.'"></td>';
 		print '</tr>';
 
@@ -454,8 +454,8 @@ if ($user->rights->nltechno->dolicloud->write)
 		print '</tr>';
 
 		// Date end of trial
-		if (empty($date_registration)) $date_registration=getvalfromkey($db,'dolicloud_saasplex.customer_account.acquired_date',$organizationtoshow);
-		if (empty($date_endfreeperiod)) $date_endfreeperiod=getvalfromkey($db,'dolicloud_saasplex.customer_account.tel',$organizationtoshow);
+		if (empty($date_registration)) $date_registration=getvalfromkey($db,'dolicloud_saasplex.customer.acquired_at',$organizationtoshow);
+		if (empty($date_endfreeperiod)) $date_endfreeperiod=getvalfromkey($db,'dolicloud_saasplex.customer.tel',$organizationtoshow);
 		print '<tr id="hideendfreetrial">';
 		print '<td>'.$langs->trans("DateRegistration").'</td><td colspan="3">';
 		print $form->select_date($date_registration?$date_registration:-1, 'date_registration', 0, 0, 1, '', 1, 1);

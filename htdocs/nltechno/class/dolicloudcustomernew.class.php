@@ -387,7 +387,7 @@ class Dolicloudcustomernew extends CommonObject
 		//$sql.= " i.version,";
 		$sql.= " i.app_package_id,";
 		$sql.= " i.created_date as date_registration,";
-		$sql.= " i.customer_account_id,";
+		$sql.= " i.customer_id,";
 		$sql.= " i.db_name as database_db,";
 		$sql.= " i.db_password as password_db,";
 		$sql.= " i.db_port,";
@@ -421,12 +421,12 @@ class Dolicloudcustomernew extends CommonObject
 		$sql.= " pao.amount as price_user,";
 		$sql.= " pao.min_threshold as min_threshold,";
 
-		$sql.= " pl.base_price as price_instance,";
+		$sql.= " pl.amount as price_instance,";
 		$sql.= " pl.meter_id as plan_meter_id,";
 
 		$sql.= " c.org_name as organization,";
 		$sql.= " c.status as status,";
-		$sql.= " c.next_billing_date,";
+		$sql.= " c.past_due_start,";
 		$sql.= " c.suspension_date,";
 		$sql.= " c.payment_status,";
 		$sql.= " c.tel as phone,";
@@ -445,15 +445,15 @@ class Dolicloudcustomernew extends CommonObject
 
 		$sql.= " FROM app_instance as i";
 		$sql.= " LEFT JOIN app_instance_meter as im ON i.id = im.app_instance_id AND im.meter_id = 1,";	// meter_id = 1 = users
-		$sql.= " customer_account as c";
+		$sql.= " customer as c";
 		$sql.= " LEFT JOIN address as a ON c.address_id = a.id LEFT JOIN country_region as co ON a.country_id = co.id";
-		$sql.= " LEFT JOIN channel_partner_customer_account as cc ON cc.customer_account_id = c.id";
+		$sql.= " LEFT JOIN channel_partner_customer as cc ON cc.customer_id = c.id";
 		$sql.= " LEFT JOIN channel_partner as cp ON cc.channel_partner_id = cp.id";
 		$sql.= " LEFT JOIN person as per ON c.primary_contact_id = per.id,";
 		$sql.= " plan as pl";
 		$sql.= " LEFT JOIN plan_add_on as pao ON pl.id=pao.plan_id and pao.meter_id = 1,";	// meter_id = 1 = users
 		$sql.= " app_package as p";
-		$sql.= " WHERE i.customer_account_id = c.id AND c.plan_id = pl.id AND pl.app_package_id = p.id";
+		$sql.= " WHERE i.customer_id = c.id AND c.plan_id = pl.id AND pl.app_package_id = p.id";
 
     	/*
         $sql = "SELECT";

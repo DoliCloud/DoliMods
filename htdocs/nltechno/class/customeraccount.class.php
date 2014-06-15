@@ -43,11 +43,11 @@ class Customeraccount extends CommonObject
     var $id;
 
 	var $version;
-	var $acquired_date='';
+	var $acquired_at='';
 	var $address_id;
 	var $channel_partner_id;
 	var $last_payment_failure_date='';
-	var $next_billing_date='';
+	var $past_due_start='';
 	var $org_name;
 	var $payment_error_start_date='';
 	var $payment_method_id;
@@ -111,14 +111,14 @@ class Customeraccount extends CommonObject
 		// Put here code to add control on parameters values
 
         // Insert request
-		$sql = "INSERT INTO ".MAIN_DB_PREFIX."customer_account(";
+		$sql = "INSERT INTO ".MAIN_DB_PREFIX."customer(";
 
 		$sql.= "version,";
-		$sql.= "acquired_date,";
+		$sql.= "acquired_at,";
 		$sql.= "address_id,";
 		$sql.= "channel_partner_id,";
 		$sql.= "last_payment_failure_date,";
-		$sql.= "next_billing_date,";
+		$sql.= "past_due_start,";
 		$sql.= "org_name,";
 		$sql.= "payment_error_start_date,";
 		$sql.= "payment_method_id,";
@@ -137,11 +137,11 @@ class Customeraccount extends CommonObject
         $sql.= ") VALUES (";
 
 		$sql.= " ".(! isset($this->version)?'NULL':"'".$this->version."'").",";
-		$sql.= " ".(! isset($this->acquired_date) || dol_strlen($this->acquired_date)==0?'NULL':$this->db->idate($this->acquired_date)).",";
+		$sql.= " ".(! isset($this->acquired_at) || dol_strlen($this->acquired_at)==0?'NULL':$this->db->idate($this->acquired_at)).",";
 		$sql.= " ".(! isset($this->address_id)?'NULL':"'".$this->address_id."'").",";
 		$sql.= " ".(! isset($this->channel_partner_id)?'NULL':"'".$this->channel_partner_id."'").",";
 		$sql.= " ".(! isset($this->last_payment_failure_date) || dol_strlen($this->last_payment_failure_date)==0?'NULL':$this->db->idate($this->last_payment_failure_date)).",";
-		$sql.= " ".(! isset($this->next_billing_date) || dol_strlen($this->next_billing_date)==0?'NULL':$this->db->idate($this->next_billing_date)).",";
+		$sql.= " ".(! isset($this->past_due_start) || dol_strlen($this->past_due_start)==0?'NULL':$this->db->idate($this->past_due_start)).",";
 		$sql.= " ".(! isset($this->org_name)?'NULL':"'".$this->db->escape($this->org_name)."'").",";
 		$sql.= " ".(! isset($this->payment_error_start_date) || dol_strlen($this->payment_error_start_date)==0?'NULL':$this->db->idate($this->payment_error_start_date)).",";
 		$sql.= " ".(! isset($this->payment_method_id)?'NULL':"'".$this->payment_method_id."'").",";
@@ -167,7 +167,7 @@ class Customeraccount extends CommonObject
 
 		if (! $error)
         {
-            $this->id = $this->db->last_insert_id(MAIN_DB_PREFIX."customer_account");
+            $this->id = $this->db->last_insert_id(MAIN_DB_PREFIX."customer");
 
 			if (! $notrigger)
 			{
@@ -215,11 +215,11 @@ class Customeraccount extends CommonObject
 
 		$sql.= " t.id,";
 		$sql.= " t.version,";
-		$sql.= " t.acquired_date,";
+		$sql.= " t.acquired_at,";
 		$sql.= " t.address_id,";
 		$sql.= " t.channel_partner_id,";
 		$sql.= " t.last_payment_failure_date,";
-		$sql.= " t.next_billing_date,";
+		$sql.= " t.past_due_start,";
 		$sql.= " t.org_name,";
 		$sql.= " t.payment_error_start_date,";
 		$sql.= " t.payment_method_id,";
@@ -235,7 +235,7 @@ class Customeraccount extends CommonObject
 		$sql.= " t.manual_collection";
 
 
-        $sql.= " FROM ".MAIN_DB_PREFIX."customer_account as t";
+        $sql.= " FROM ".MAIN_DB_PREFIX."customer as t";
         $sql.= " WHERE t.id = ".$id;
 
     	dol_syslog(get_class($this)."::fetch sql=".$sql, LOG_DEBUG);
@@ -249,11 +249,11 @@ class Customeraccount extends CommonObject
                 $this->id    = $obj->id;
 
 				$this->version = $obj->version;
-				$this->acquired_date = $this->db->jdate($obj->acquired_date);
+				$this->acquired_at = $this->db->jdate($obj->acquired_at);
 				$this->address_id = $obj->address_id;
 				$this->channel_partner_id = $obj->channel_partner_id;
 				$this->last_payment_failure_date = $this->db->jdate($obj->last_payment_failure_date);
-				$this->next_billing_date = $this->db->jdate($obj->next_billing_date);
+				$this->past_due_start = $this->db->jdate($obj->past_due_start);
 				$this->org_name = $obj->org_name;
 				$this->payment_error_start_date = $this->db->jdate($obj->payment_error_start_date);
 				$this->payment_method_id = $obj->payment_method_id;
@@ -317,14 +317,14 @@ class Customeraccount extends CommonObject
 		// Put here code to add a control on parameters values
 
         // Update request
-        $sql = "UPDATE ".MAIN_DB_PREFIX."customer_account SET";
+        $sql = "UPDATE ".MAIN_DB_PREFIX."customer SET";
 
 		$sql.= " version=".(isset($this->version)?$this->version:"null").",";
-		$sql.= " acquired_date=".(dol_strlen($this->acquired_date)!=0 ? "'".$this->db->idate($this->acquired_date)."'" : 'null').",";
+		$sql.= " acquired_at=".(dol_strlen($this->acquired_at)!=0 ? "'".$this->db->idate($this->acquired_at)."'" : 'null').",";
 		$sql.= " address_id=".(isset($this->address_id)?$this->address_id:"null").",";
 		$sql.= " channel_partner_id=".(isset($this->channel_partner_id)?$this->channel_partner_id:"null").",";
 		$sql.= " last_payment_failure_date=".(dol_strlen($this->last_payment_failure_date)!=0 ? "'".$this->db->idate($this->last_payment_failure_date)."'" : 'null').",";
-		$sql.= " next_billing_date=".(dol_strlen($this->next_billing_date)!=0 ? "'".$this->db->idate($this->next_billing_date)."'" : 'null').",";
+		$sql.= " past_due_start=".(dol_strlen($this->past_due_start)!=0 ? "'".$this->db->idate($this->past_due_start)."'" : 'null').",";
 		$sql.= " org_name=".(isset($this->org_name)?"'".$this->db->escape($this->org_name)."'":"null").",";
 		$sql.= " payment_error_start_date=".(dol_strlen($this->payment_error_start_date)!=0 ? "'".$this->db->idate($this->payment_error_start_date)."'" : 'null').",";
 		$sql.= " payment_method_id=".(isset($this->payment_method_id)?$this->payment_method_id:"null").",";
@@ -415,7 +415,7 @@ class Customeraccount extends CommonObject
 
 		if (! $error)
 		{
-    		$sql = "DELETE FROM ".MAIN_DB_PREFIX."customer_account";
+    		$sql = "DELETE FROM ".MAIN_DB_PREFIX."customer";
     		$sql.= " WHERE id=".$this->id;
 
     		dol_syslog(get_class($this)."::delete sql=".$sql);
@@ -508,11 +508,11 @@ class Customeraccount extends CommonObject
 		$this->id=0;
 
 		$this->version='';
-		$this->acquired_date='';
+		$this->acquired_at='';
 		$this->address_id='';
 		$this->channel_partner_id='';
 		$this->last_payment_failure_date='';
-		$this->next_billing_date='';
+		$this->past_due_start='';
 		$this->org_name='';
 		$this->payment_error_start_date='';
 		$this->payment_method_id='';

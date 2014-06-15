@@ -33,9 +33,9 @@
  */
 function getvalfromkey($db,$param,$val)
 {
-	$sql ="select ".$param." as val from dolicloud_saasplex.app_instance, dolicloud_saasplex.customer_account, dolicloud_saasplex.address, dolicloud_saasplex.country_region";
+	$sql ="select ".$param." as val from dolicloud_saasplex.app_instance, dolicloud_saasplex.customer, dolicloud_saasplex.address, dolicloud_saasplex.country_region";
 	$sql.=" where dolicloud_saasplex.address.country_id=dolicloud_saasplex.country_region.id AND";
-	$sql.=" dolicloud_saasplex.customer_account.address_id=dolicloud_saasplex.address.id AND dolicloud_saasplex.app_instance.customer_account_id = dolicloud_saasplex.customer_account.id AND dolicloud_saasplex.customer_account.org_name = '".$db->escape($val)."'";
+	$sql.=" dolicloud_saasplex.customer.address_id=dolicloud_saasplex.address.id AND dolicloud_saasplex.app_instance.customer_id = dolicloud_saasplex.customer.id AND dolicloud_saasplex.customer.org_name = '".$db->escape($val)."'";
 	//print $sql;
 	$resql=$db->query($sql);
 	if ($resql)
