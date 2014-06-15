@@ -105,7 +105,7 @@ function dolicloud_files_refresh($conf, $db, &$object, &$errors)
  */
 function dolicloud_database_refresh($conf, $db, &$object, &$errors)
 {
-	$newdb=getDoliDBInstance($conf->db->type, $object->instance.'.on.dolicloud.com', $object->username_db, $object->password_db, $object->database_db, 3306);
+	$newdb=getDoliDBInstance('mysqli', $object->instance.'.on.dolicloud.com', $object->username_db, $object->password_db, $object->database_db, 3306);
 
 	$ret=1;
 

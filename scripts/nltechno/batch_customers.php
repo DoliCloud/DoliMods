@@ -124,7 +124,7 @@ $instancesupdateerror=array();
 $sql = "SELECT i.id, i.name as instance, i.status as instance_status,";
 $sql.= " c.status as status,";
 $sql.= " c.payment_status";
-$sql.= " FROM app_instance as i, customer_account as c";
+$sql.= " FROM app_instance as i, customer as c";
 $sql.= " WHERE i.customer_id = c.id";
 if ($instancefiltercomplete) $sql.= " AND i.name = '".$instancefiltercomplete."'";
 
