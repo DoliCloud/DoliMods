@@ -342,7 +342,7 @@ if (! $mesg)
 	$px2->SetPrecisionY(0);
 
 	$legend=array();
-	$legend[0]=$langs->trans("NbOfCustomersActive");
+	$legend[0]=$langs->trans("NbOfInstancesPaying");
 	$legend[1]=$langs->trans("NbOfUsers");
 
 	$px2->SetLegend($legend);
@@ -356,7 +356,7 @@ if (! $mesg)
 	$px2->SetCssPrefix("cssboxes");
 	$px2->SetType(array('lines','lines'));
 	$px2->mode='depth';
-	$px2->SetTitle($langs->trans("Customers").'/'.$langs->trans("Users"));
+	$px2->SetTitle($langs->trans("Instances").'/'.$langs->trans("Users"));
 
 	$px2->draw('dolicloudcustomersusers.png',$fileurlnb);
 }
