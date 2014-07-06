@@ -3,6 +3,7 @@
 - Add hidden option CABINETMED_DELAY_TO_LOCK_RECORD to lock edition of all 
   consultations older than CABINETMED_DELAY_TO_LOCK_RECORD days.
 - Add a button to create a consultation from an event linked to a patient.
+- Fix: Pb with textarea on small screen. 
 
 ***** 3.5 *****
 - Minor fixes into translation.
