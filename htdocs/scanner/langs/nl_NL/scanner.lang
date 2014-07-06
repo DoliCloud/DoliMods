@@ -1,0 +1,13 @@
+# Dolibarr language file - nl_NL - scanner
+# By Arjan ten Hoopen
+CHARSET= UTF-8
+ScannerSetup=Scanner module configuratie
+ScannerDesc=Defineer hier het volledige pad naar de commando regel tools op de Dolibarr/Dolimed server
+PHPSANE_SCANIMAGE=Scan commando (scanimage)
+PHPSANE_PNMTOJPEG=PNM naar JPG conversie tool (pnmtojpeg)
+PHPSANE_PNMTOTIFF=PNM naar TIF conversie tool (pnmtotiff)
+PHPSANE_OCR=OCR tool (gocr)
+ScanArea=Te scannen gebied
+ResolutionDPI=Resolutie in dpi (dots per inch)
+WarningWebServerUserMustBeAbleToRunCommands1=Let op: de webserver user (vaak wwwrun) moet voldoende rechten hebben om op commando regel commando's uit te voeren.<br>Zo niet, controleer de rechten op het bestandssyssteem. De webserver user behoeft niet in de groep <strong>scanner</strong> opgenomen te worden.
+WarningWebServerUserMustBeAbleToRunCommands2=Let op: PHP moet tevens toegang hebben om dergelijke commando's uit te voeren.<br>Controleer hiervoor PHP parameters zoals <strong>open_basedir, safe_dir</strong>.
