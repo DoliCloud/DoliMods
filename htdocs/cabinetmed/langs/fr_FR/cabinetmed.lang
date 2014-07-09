@@ -156,7 +156,7 @@ MoreModulesLink=<a target="_blank" href="http://www.dolistore.com/search.php?sea
 MoreCloudHosting=Pour une utilisation en ligne de Dolibarr, optez pour l'hébergement sécurisé DoliCloud.
 MoreCloudHostingLink=<a target="_blank" href="http://www.dolicloud.com">Cliquez ici pour plus d'information</a>
 CompatibleWithDoliDroid=Ce module est aussi compatible avec DoliDroid, l'application Android pour Dolibarr.
-HideThirdPartiesMenu=Cacher le menu Tiers (pas d'autres clients que des patients)
+HideThirdPartiesMenu=Cacher le menu Tiers (pas d'autres clients que des patients). Si vous gérez des fournisseurs (module Fournisseur actif), l'entrée de menu Tiers restera toutefois visible pour garder les fonctions fournisseurs accessibles.
 RecordCreatedFromRDV=Consultation créée suite au rendez-vous %s (%s)
 ConsultCreatedBy=Consultation créée par
 ConsultTooOld=Impossible de modifier la consultation, cette dernière est plus vieille que <b>%s</b> jours. Rem: L'option CABINETMED_DELAY_TO_LOCK_RECORD peut être modifier/ajouter par un administrateur informatique pour modifier/supprimer ce délai.

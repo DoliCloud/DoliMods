@@ -1,0 +1,14 @@
+
+***** 3.5.2 *****
+- Add hidden option CABINETMED_DELAY_TO_LOCK_RECORD to lock edition of all 
+  consultations older than CABINETMED_DELAY_TO_LOCK_RECORD days.
+- Add a button to create a consultation from an event linked to a patient.
+- Fix: Pb with textarea on small screen. 
+- Compatible with Dolibarr 3.5.* and 3.6.*
+
+***** 3.5.1 *****
+- Minor fixes into translation.
+- Prepare compatibility with Dolibarr 3.6.
+- Added filter on birthdate into list of patient.
+- Fix: Bug when you close an account. Closed account must appears into
+list.

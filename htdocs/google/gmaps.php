@@ -9,7 +9,6 @@
  *       \file       htdocs/google/gmaps.php
  *       \ingroup    google
  *       \brief      Main google area page
- *       \version    $Id: gmaps.php,v 1.13 2011/05/12 19:00:05 eldy Exp $
  *       \author     Laurent Destailleur
  */
 

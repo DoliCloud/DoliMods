@@ -136,16 +136,16 @@ print '</div><div class="fichetwothirdright"><div class="ficheaddleft">';
 
 $total=0;
 $totalusers=0;
-$totalcustomers=0;
-$totalcustomerspaying=0;
+$totalinstances=0;
+$totalinstancespaying=0;
 $totalcommissions=0;
 
-$rep=dolicloud_calculate_stats($db2,$datelastday);	// $datelastday is last day of current month
+$rep=dolicloud_calculate_stats($db2,'');	// $datelastday is last day of current month
 
 $total=$rep['total'];
 $totalcommissions=$rep['totalcommissions'];
-$totalcustomerspaying=$rep['totalcustomerspaying'];
-$totalcustomers=$rep['totalcustomers'];
+$totalinstancespaying=$rep['totalinstancespaying'];
+$totalinstances=$rep['totalinstances'];
 $totalusers=$rep['totalusers'];
 $benefit=($total * (1 - $part) - $serverprice - $totalcommissions);
 
@@ -155,9 +155,9 @@ print '<table class="noborder" width="100%">';
 print '<tr class="liste_titre">';
 print '<td colspan="2">'.$langs->trans("Statistics").'</td></tr>';
 print '<tr '.$bc[$var].'><td>';
-print $langs->trans("NbOfCustomersActivePaying").' / '.$langs->trans("NbOfCustomers").' ';
+print $langs->trans("NbOfInstancesActivePaying").' / '.$langs->trans("NbOfInstancesPaying").' ';
 print '</td><td align="right">';
-print '<font size="+2">'.$totalcustomerspaying.' / '.$totalcustomers.'</font>';
+print '<font size="+2">'.$totalinstancespaying.' / '.$totalinstances.'</font>';
 print '</td></tr>';
 $var=!$var;
 print '<tr '.$bc[$var].'><td>';
@@ -167,9 +167,9 @@ print '<font size="+2">'.$totalusers.'</font>';
 print '</td></tr>';
 $var=!$var;
 print '<tr '.$bc[$var].'><td>';
-print $langs->trans("AverageRevenuePerCustomer");
+print $langs->trans("AverageRevenuePerInstance");
 print '</td><td align="right">';
-print '<font size="+2">'.($totalcustomerspaying?price(price2num($total/$totalcustomerspaying,'MT'),1):'0').' </font>';
+print '<font size="+2">'.($totalinstancespaying?price(price2num($total/$totalinstancespaying,'MT'),1):'0').' </font>';
 print '</td></tr>';
 $var=!$var;
 print '<tr '.$bc[$var].'><td>';
@@ -255,7 +255,7 @@ else dol_print_error($db);
 
 $data2 = array();
 $sql ='SELECT name, x, y FROM '.MAIN_DB_PREFIX.'dolicloud_stats';
-$sql.=" WHERE name IN ('totalcustomerspaying', 'totalusers')";
+$sql.=" WHERE name IN ('totalinstancespaying', 'totalusers')";
 $resql=$db->query($sql);
 if ($resql)
 {
@@ -281,7 +281,7 @@ if ($resql)
 
 		$oldx=$obj->x;
 
-		if ($obj->name == 'totalcustomerspaying') $absice[1]=$obj->y;
+		if ($obj->name == 'totalinstancespaying') $absice[1]=$obj->y;
 		if ($obj->name == 'totalusers') $absice[2]=$obj->y;
 
 		$i++;
@@ -296,10 +296,12 @@ if ($resql)
 }
 else dol_print_error($db);
 
+
 //$WIDTH=DolGraph::getDefaultGraphSizeForStats('width');
 //$HEIGHT=DolGraph::getDefaultGraphSizeForStats('height');
 $WIDTH=600;
 $HEIGHT=260;
+
 
 // Show graph
 $px1 = new DolGraph();
@@ -340,7 +342,7 @@ if (! $mesg)
 	$px2->SetPrecisionY(0);
 
 	$legend=array();
-	$legend[0]=$langs->trans("NbOfCustomersActive");
+	$legend[0]=$langs->trans("NbOfInstancesPaying");
 	$legend[1]=$langs->trans("NbOfUsers");
 
 	$px2->SetLegend($legend);
@@ -354,7 +356,7 @@ if (! $mesg)
 	$px2->SetCssPrefix("cssboxes");
 	$px2->SetType(array('lines','lines'));
 	$px2->mode='depth';
-	$px2->SetTitle($langs->trans("Customers").'/'.$langs->trans("Users"));
+	$px2->SetTitle($langs->trans("Instances").'/'.$langs->trans("Users"));
 
 	$px2->draw('dolicloudcustomersusers.png',$fileurlnb);
 }

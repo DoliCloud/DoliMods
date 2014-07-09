@@ -45,7 +45,7 @@ class Appinstance extends CommonObject
 	var $version;
 	var $app_package_id;
 	var $created_date='';
-	var $customer_account_id;
+	var $customer_id;
 	var $db_name;
 	var $db_password;
 	var $db_port;
@@ -101,7 +101,7 @@ class Appinstance extends CommonObject
 
 		if (isset($this->version)) $this->version=trim($this->version);
 		if (isset($this->app_package_id)) $this->app_package_id=trim($this->app_package_id);
-		if (isset($this->customer_account_id)) $this->customer_account_id=trim($this->customer_account_id);
+		if (isset($this->customer_id)) $this->customer_id=trim($this->customer_id);
 		if (isset($this->db_name)) $this->db_name=trim($this->db_name);
 		if (isset($this->db_password)) $this->db_password=trim($this->db_password);
 		if (isset($this->db_port)) $this->db_port=trim($this->db_port);
@@ -133,7 +133,7 @@ class Appinstance extends CommonObject
 		$sql.= "version,";
 		$sql.= "app_package_id,";
 		$sql.= "created_date,";
-		$sql.= "customer_account_id,";
+		$sql.= "customer_id,";
 		$sql.= "db_name,";
 		$sql.= "db_password,";
 		$sql.= "db_port,";
@@ -164,7 +164,7 @@ class Appinstance extends CommonObject
 		$sql.= " ".(! isset($this->version)?'NULL':"'".$this->version."'").",";
 		$sql.= " ".(! isset($this->app_package_id)?'NULL':"'".$this->app_package_id."'").",";
 		$sql.= " ".(! isset($this->created_date) || dol_strlen($this->created_date)==0?'NULL':$this->db->idate($this->created_date)).",";
-		$sql.= " ".(! isset($this->customer_account_id)?'NULL':"'".$this->customer_account_id."'").",";
+		$sql.= " ".(! isset($this->customer_id)?'NULL':"'".$this->customer_id."'").",";
 		$sql.= " ".(! isset($this->db_name)?'NULL':"'".$this->db->escape($this->db_name)."'").",";
 		$sql.= " ".(! isset($this->db_password)?'NULL':"'".$this->db->escape($this->db_password)."'").",";
 		$sql.= " ".(! isset($this->db_port)?'NULL':"'".$this->db->escape($this->db_port)."'").",";
@@ -250,7 +250,7 @@ class Appinstance extends CommonObject
 		$sql.= " t.version,";
 		$sql.= " t.app_package_id,";
 		$sql.= " t.created_date,";
-		$sql.= " t.customer_account_id,";
+		$sql.= " t.customer_id,";
 		$sql.= " t.db_name,";
 		$sql.= " t.db_password,";
 		$sql.= " t.db_port,";
@@ -292,7 +292,7 @@ class Appinstance extends CommonObject
 				$this->version = $obj->version;
 				$this->app_package_id = $obj->app_package_id;
 				$this->created_date = $this->db->jdate($obj->created_date);
-				$this->customer_account_id = $obj->customer_account_id;
+				$this->customer_id = $obj->customer_id;
 				$this->db_name = $obj->db_name;
 				$this->db_password = $obj->db_password;
 				$this->db_port = $obj->db_port;
@@ -348,7 +348,7 @@ class Appinstance extends CommonObject
 
 		if (isset($this->version)) $this->version=trim($this->version);
 		if (isset($this->app_package_id)) $this->app_package_id=trim($this->app_package_id);
-		if (isset($this->customer_account_id)) $this->customer_account_id=trim($this->customer_account_id);
+		if (isset($this->customer_id)) $this->customer_id=trim($this->customer_id);
 		if (isset($this->db_name)) $this->db_name=trim($this->db_name);
 		if (isset($this->db_password)) $this->db_password=trim($this->db_password);
 		if (isset($this->db_port)) $this->db_port=trim($this->db_port);
@@ -380,7 +380,7 @@ class Appinstance extends CommonObject
 		$sql.= " version=".(isset($this->version)?$this->version:"null").",";
 		$sql.= " app_package_id=".(isset($this->app_package_id)?$this->app_package_id:"null").",";
 		$sql.= " created_date=".(dol_strlen($this->created_date)!=0 ? "'".$this->db->idate($this->created_date)."'" : 'null').",";
-		$sql.= " customer_account_id=".(isset($this->customer_account_id)?$this->customer_account_id:"null").",";
+		$sql.= " customer_id=".(isset($this->customer_id)?$this->customer_id:"null").",";
 		$sql.= " db_name=".(isset($this->db_name)?"'".$this->db->escape($this->db_name)."'":"null").",";
 		$sql.= " db_password=".(isset($this->db_password)?"'".$this->db->escape($this->db_password)."'":"null").",";
 		$sql.= " db_port=".(isset($this->db_port)?"'".$this->db->escape($this->db_port)."'":"null").",";
@@ -576,7 +576,7 @@ class Appinstance extends CommonObject
 		$this->version='';
 		$this->app_package_id='';
 		$this->created_date='';
-		$this->customer_account_id='';
+		$this->customer_id='';
 		$this->db_name='';
 		$this->db_password='';
 		$this->db_port='';

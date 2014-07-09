@@ -82,9 +82,9 @@ if (! isset($argv[1])) {	// Check parameters
     print "- backuptestrsync  	  test rsync backup\n";
     print "- backuptestdatabase  test mysqldump backup\n";
     print "- backup           creates backup (rsync + mysqldump)\n";
-    print "- updatedatabase   updates list and nb of users, modules and version and stats\n";
-    print "- updatestatsonly  updates stats only\n";
-    print "- updatecountsonly updates counters of instances only\n";
+    print "- updatedatabase   (=updatecountsonly+updatestatsonly) updates list and nb of users, modules and version and stats\n";
+    print "- updatecountsonly updates counters of instances only (only nb of user for instances)\n";
+    print "- updatestatsonly  updates stats only (only table dolicloud_stats)\n";
     exit;
 }
 print '--- start'."\n";
@@ -124,8 +124,8 @@ $instancesupdateerror=array();
 $sql = "SELECT i.id, i.name as instance, i.status as instance_status,";
 $sql.= " c.status as status,";
 $sql.= " c.payment_status";
-$sql.= " FROM app_instance as i, customer_account as c";
-$sql.= " WHERE i.customer_account_id = c.id";
+$sql.= " FROM app_instance as i, customer as c";
+$sql.= " WHERE i.customer_id = c.id";
 if ($instancefiltercomplete) $sql.= " AND i.name = '".$instancefiltercomplete."'";
 
 dol_syslog($script_file." sql=".$sql, LOG_DEBUG);
@@ -342,7 +342,7 @@ if ($action == 'updatedatabase' || $action == 'updatestatsonly' || $action == 'u
 
 				$x=sprintf("%04d%02d",$year,$m);
 
-				$statkeylist=array('total','totalcommissions','totalcustomerspaying','totalcustomers','totalusers','benefit');
+				$statkeylist=array('total','totalcommissions','totalinstancespaying','totalinstances','totalusers','benefit','totalcustomerspaying','totalcustomers');
 				foreach($statkeylist as $statkey)
 				{
 					if (! isset($stats[$statkey][$x]) || ($today <= $datelastday))
@@ -354,18 +354,22 @@ if ($action == 'updatedatabase' || $action == 'updatestatsonly' || $action == 'u
 
 						$total=$rep['total'];
 						$totalcommissions=$rep['totalcommissions'];
+						$totalinstancespaying=$rep['totalinstancespaying'];
+						$totalinstances=$rep['totalinstances'];
+						$totalusers=$rep['totalusers'];
 						$totalcustomerspaying=$rep['totalcustomerspaying'];
 						$totalcustomers=$rep['totalcustomers'];
-						$totalusers=$rep['totalusers'];
 						$benefit=($total * (1 - $part) - $serverprice - $totalcommissions);
 
 						$y=0;
 						if ($statkey == 'total') $y=$total;
 						if ($statkey == 'totalcommissions') $y=$totalcommissions;
-						if ($statkey == 'totalcustomerspaying') $y=$totalcustomerspaying;
-						if ($statkey == 'totalcustomers') $y=$totalcustomers;
+						if ($statkey == 'totalinstancespaying') $y=$totalinstancespaying;
+						if ($statkey == 'totalinstances') $y=$totalinstances;
 						if ($statkey == 'totalusers') $y=$totalusers;
 						if ($statkey == 'benefit') $y=$benefit;
+						if ($statkey == 'totalcustomerspaying') $y=$totalcustomerspaying;
+						if ($statkey == 'totalcustomers') $y=$totalcustomers;
 
 						print " -> ".$y."\n";
 

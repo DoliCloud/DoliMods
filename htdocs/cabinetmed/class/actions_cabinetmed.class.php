@@ -246,8 +246,9 @@ class ActionsCabinetmed
 
         require_once(DOL_DOCUMENT_ROOT ."/core/lib/admin.lib.php");
 
-        $vercomp=versioncompare(versiondolibarrarray(), array(3,5,0));
-		if ($vercomp > -3 && $vercomp < 0)
+        $vercomp=versioncompare(versiondolibarrarray(), array(3,5,-1));
+
+		if ($vercomp >= 0)
 		{
 	        if (! empty($object->societe->id) && $object->societe->id > 0 && ! empty($object->societe->canvas) && $object->societe->canvas == 'patient@cabinetmed')
 	        {

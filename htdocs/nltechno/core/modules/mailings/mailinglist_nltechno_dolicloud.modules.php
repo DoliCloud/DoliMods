@@ -9,7 +9,7 @@
  */
 
 include_once DOL_DOCUMENT_ROOT.'/core/modules/mailings/modules_mailings.php';
-dol_include_once("/nltechno/class/dolicloudcustomer.class.php");
+dol_include_once("/nltechno/class/dolicloudcustomernew.class.php");
 
 
 /**
@@ -77,7 +77,7 @@ class mailing_mailinglist_nltechno_dolicloud extends MailingTargets
 	 */
 	function url($id)
 	{
-		return '<a href="'.dol_buildpath('/nltechno/dolicloud/dolicloud_card.php',1).'?id='.$id.'">'.img_object('',"user").'</a>';
+		return '<a href="'.dol_buildpath('/nltechno/dolicloud/dolicloud_card_new.php',1).'?id='.$id.'">'.img_object('',"user").'</a>';
 	}
 
 

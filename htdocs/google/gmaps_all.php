@@ -352,7 +352,7 @@ $gmap->setZoom(11);
 $gmap->setLang('fr');
 $gmap->setDefaultHideMarker(false);
 
-// Convert array of addresses into the output gmap string 
+// Convert array of addresses into the output gmap string
 $gmap->addArrayMarker($addresses, $langs, $mode);
 
 
@@ -379,7 +379,8 @@ if (count($adderrors))
 	foreach($adderrors as $object)
 	{
 		$objectstatic->id=$object->id;
-		$objectstatic->name=$object->name;
+		$objectstatic->name=$object->name;	// Here $object is an array an 'name' is already a formatted string with firstname and lastname
+		$objectstatic->ref=$object->name;	// Here $object is an array an 'name' is already a formatted string with firstname and lastname
 		print $langs->trans("Name").": ".$objectstatic->getNomUrl(1).", ".$langs->trans("Address").": ".$object->address." -> ".$object->error."<br>\n";
 	}
 }

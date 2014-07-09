@@ -179,7 +179,7 @@ class Dolicloudcustomernew extends CommonObject
 		$sql.= "address,";
 		$sql.= "zip,";
 		$sql.= "town,";
-		$sql.= "country_id,";
+		//$sql.= "country_id,";
 		$sql.= "state_id,";
 		$sql.= "vat_number,";
 		$sql.= "phone,";
@@ -195,7 +195,7 @@ class Dolicloudcustomernew extends CommonObject
 		$sql.= " ".(! isset($this->email)?'NULL':"'".$this->db->escape($this->email)."'").",";
 		$sql.= " ".(! isset($this->plan)?'NULL':"'".$this->db->escape($this->plan)."'").",";
 		//$sql.= " ".(! isset($this->date_registration) || dol_strlen($this->date_registration)==0?'NULL':$this->db->idate($this->date_registration)).",";
-		$sql.= " ".(! isset($this->date_endfreeperiod) || dol_strlen($this->date_endfreeperiod)==0?'NULL':$this->db->idate($this->date_endfreeperiod)).",";
+		$sql.= " ".(! isset($this->date_endfreeperiod) || dol_strlen($this->date_endfreeperiod)==0?'NULL':"'".$this->db->idate($this->date_endfreeperiod)."'").",";
 		$sql.= " ".(! isset($this->status)?'NULL':"'".$this->status."'").",";
 		$sql.= " ".(! isset($this->partner)?'NULL':"'".$this->db->escape($this->partner)."'").",";
 		$sql.= " ".(! isset($this->source)?'NULL':"'".$this->db->escape($this->source)."'").",";
@@ -209,11 +209,11 @@ class Dolicloudcustomernew extends CommonObject
 		$sql.= " ".(! isset($this->port_db)?'NULL':"'".$this->port_db."'").",";
 		$sql.= " ".(! isset($this->username_db)?'NULL':"'".$this->db->escape($this->username_db)."'").",";
 		$sql.= " ".(! isset($this->password_db)?'NULL':"'".$this->db->escape($this->password_db)."'").",";
-		$sql.= " ".(! isset($this->date_lastcheck) || dol_strlen($this->date_lastcheck)==0?'NULL':$this->db->idate($this->date_lastcheck)).",";
+		$sql.= " ".(! isset($this->date_lastcheck) || dol_strlen($this->date_lastcheck)==0?'NULL':"'".$this->db->idate($this->date_lastcheck)."'").",";
 		$sql.= " ".(! isset($this->nbofusers)?'NULL':"'".$this->nbofusers."'").",";
 		$sql.= " ".(! isset($this->lastlogin) || dol_strlen($this->lastlogin)==0?'NULL':"'".$this->lastlogin."'").",";
 		$sql.= " ".(! isset($this->lastpass) || dol_strlen($this->lastpass)==0?'NULL':"'".$this->lastpass."'").",";
-		$sql.= " ".(! isset($this->date_lastlogin) || dol_strlen($this->date_lastlogin)==0?'NULL':$this->db->idate($this->date_lastlogin)).",";
+		$sql.= " ".(! isset($this->date_lastlogin) || dol_strlen($this->date_lastlogin)==0?'NULL':"'".$this->db->idate($this->date_lastlogin)."'").",";
 		$sql.= " ".(! isset($this->modulesenabled)?'NULL':"'".$this->db->escape($this->modulesenabled)."'").",";
 
 		$sql.= " ".(! isset($this->firstname)?'NULL':"'".$this->db->escape($this->firstname)."'").",";
@@ -221,22 +221,22 @@ class Dolicloudcustomernew extends CommonObject
 		$sql.= " ".(! isset($this->address)?'NULL':"'".$this->db->escape($this->address)."'").",";
 		$sql.= " ".(! isset($this->zip)?'NULL':"'".$this->db->escape($this->zip)."'").",";
 		$sql.= " ".(! isset($this->town)?'NULL':"'".$this->db->escape($this->town)."'").",";
-		$sql.= " ".(! isset($this->country_id)?'NULL':"'".$this->db->escape($this->country_id)."'").",";
+		//$sql.= " ".(! isset($this->country_id)?'NULL':"'".$this->db->escape($this->country_id)."'").",";
 		$sql.= " ".(! isset($this->state_id)?'NULL':"'".$this->db->escape($this->state_id)."'").",";
 		$sql.= " ".(! isset($this->vat_number)?'NULL':"'".$this->db->escape($this->vat_number)."'").",";
 		$sql.= " ".(! isset($this->phone)?'NULL':"'".$this->db->escape($this->phone)."'").",";
 
-		$sql.= " ".(! isset($this->fileauthorizedkey) || dol_strlen($this->fileauthorizedkey)==0?'NULL':$this->db->idate($this->fileauthorizedkey)).",";
+		$sql.= " ".(! isset($this->fileauthorizedkey) || dol_strlen($this->fileauthorizedkey)==0?'NULL':"'".$this->db->idate($this->fileauthorizedkey)."'").",";
 		$sql.= " ".(! isset($this->filelock) || dol_strlen($this->filelock)==0?'NULL':$this->db->idate($this->filelock)).",";
 
-		$sql.= " ".(! isset($this->date_lastrsync) || dol_strlen($this->date_lastrsync)==0?'NULL':$this->db->idate($this->date_lastrsync)).",";
-		$sql.= " ".(! isset($this->version)?'NULL':"'".$this->db->escape($this->version)."'");
+		$sql.= " ".(! isset($this->version)?'NULL':"'".$this->db->escape($this->version)."'").",";
+		$sql.= " ".(! isset($this->date_lastrsync) || dol_strlen($this->date_lastrsync)==0?'NULL':"'".$this->db->idate($this->date_lastrsync)."'");
 
 		$sql.= ")";
 
 		$this->db->begin();
 
-	   	dol_syslog(get_class($this)."::create sql=".$sql, LOG_DEBUG);
+	   	dol_syslog(get_class($this)."::create_old sql=".$sql, LOG_DEBUG);
         $resql=$this->db->query($sql);
     	if (! $resql) { $error++; $this->errors[]="Error ".$this->db->lasterror(); }
 
@@ -263,7 +263,7 @@ class Dolicloudcustomernew extends CommonObject
 		{
 			foreach($this->errors as $errmsg)
 			{
-	            dol_syslog(get_class($this)."::create ".$errmsg, LOG_ERR);
+	            dol_syslog(get_class($this)."::create_old ".$errmsg, LOG_ERR);
 	            $this->error.=($this->error?', '.$errmsg:$errmsg);
 			}
 			$this->db->rollback();
@@ -387,7 +387,7 @@ class Dolicloudcustomernew extends CommonObject
 		//$sql.= " i.version,";
 		$sql.= " i.app_package_id,";
 		$sql.= " i.created_date as date_registration,";
-		$sql.= " i.customer_account_id,";
+		$sql.= " i.customer_id,";
 		$sql.= " i.db_name as database_db,";
 		$sql.= " i.db_password as password_db,";
 		$sql.= " i.db_port,";
@@ -421,16 +421,16 @@ class Dolicloudcustomernew extends CommonObject
 		$sql.= " pao.amount as price_user,";
 		$sql.= " pao.min_threshold as min_threshold,";
 
-		$sql.= " pl.base_price as price_instance,";
+		$sql.= " pl.amount as price_instance,";
 		$sql.= " pl.meter_id as plan_meter_id,";
 
 		$sql.= " c.org_name as organization,";
 		$sql.= " c.status as status,";
-		$sql.= " c.next_billing_date,";
+		$sql.= " c.past_due_start,";
 		$sql.= " c.suspension_date,";
 		$sql.= " c.payment_status,";
 		$sql.= " c.tel as phone,";
-		$sql.= " c.tax_id as vat_number,";
+		$sql.= " c.tax_identification_number as vat_number,";
 
 		$sql.= " CONCAT(a.address_line1,'\n',a.address_line2) as address,";
 		$sql.= " a.city as town,";
@@ -445,67 +445,15 @@ class Dolicloudcustomernew extends CommonObject
 
 		$sql.= " FROM app_instance as i";
 		$sql.= " LEFT JOIN app_instance_meter as im ON i.id = im.app_instance_id AND im.meter_id = 1,";	// meter_id = 1 = users
-		$sql.= " customer_account as c";
+		$sql.= " customer as c";
 		$sql.= " LEFT JOIN address as a ON c.address_id = a.id LEFT JOIN country_region as co ON a.country_id = co.id";
-		$sql.= " LEFT JOIN channel_partner_customer_account as cc ON cc.customer_account_id = c.id";
+		$sql.= " LEFT JOIN channel_partner_customer as cc ON cc.customer_id = c.id";
 		$sql.= " LEFT JOIN channel_partner as cp ON cc.channel_partner_id = cp.id";
 		$sql.= " LEFT JOIN person as per ON c.primary_contact_id = per.id,";
 		$sql.= " plan as pl";
 		$sql.= " LEFT JOIN plan_add_on as pao ON pl.id=pao.plan_id and pao.meter_id = 1,";	// meter_id = 1 = users
 		$sql.= " app_package as p";
-		$sql.= " WHERE i.customer_account_id = c.id AND c.plan_id = pl.id AND pl.app_package_id = p.id";
-
-    	/*
-        $sql = "SELECT";
-		$sql.= " t.rowid,";
-
-		$sql.= " t.instance,";
-		$sql.= " t.organization,";
-		$sql.= " t.email,";
-		$sql.= " t.plan,";
-		$sql.= " t.date_registration,";
-		$sql.= " t.date_endfreeperiod,";
-		$sql.= " t.status,";
-		$sql.= " t.partner,";
-		$sql.= " t.source,";
-		$sql.= " t.total_invoiced,";
-		$sql.= " t.total_payed,";
-		$sql.= " t.tms,";
-		$sql.= " t.hostname_web,";
-		$sql.= " t.username_web,";
-		$sql.= " t.password_web,";
-		$sql.= " t.hostname_db,";
-		$sql.= " t.database_db,";
-		$sql.= " t.port_db,";
-		$sql.= " t.username_db,";
-		$sql.= " t.password_db,";
-		$sql.= " t.lastcheck as date_lastcheck,";
-		$sql.= " t.nbofusers,";
-		$sql.= " t.lastlogin,";
-		$sql.= " t.lastpass,";
-		$sql.= " t.date_lastlogin,";
-		$sql.= " t.modulesenabled,";
-		$sql.= " t.firstname,";
-		$sql.= " t.lastname,";
-		$sql.= " t.address,";
-		$sql.= " t.zip,";
-		$sql.= " t.town,";
-		$sql.= " t.country_id,";
-		$sql.= " t.state_id,";
-		$sql.= " t.vat_number,";
-		$sql.= " t.phone,";
-
-		$sql.= " t.paymentmethod,";
-		$sql.= " t.paymentinfo,";
-		$sql.= " t.paymentstatus,";
-		$sql.= " t.paymentnextbillingdate,";
-		$sql.= " t.paymentfrequency,";
-
-		$sql.= " t.fileauthorizedkey,";
-		$sql.= " t.filelock,";
-		$sql.= " t.lastrsync,";
-		$sql.= " t.version";
-*/
+		$sql.= " WHERE i.customer_id = c.id AND c.plan_id = pl.id AND pl.app_package_id = p.id";
 
         if ($ref) $sql.= " AND i.name = '".$this->db2->escape($ref)."'";
         elseif ($organization) $sql.= " AND c.organization = '".$this->db2->escape($organization)."'";
@@ -665,7 +613,7 @@ class Dolicloudcustomernew extends CommonObject
 		$sql.= " source=".(isset($this->source)?"'".$this->db->escape($this->source)."'":"null").",";
 		$sql.= " total_invoiced=".(isset($this->total_invoiced)?$this->total_invoiced:"null").",";
 		$sql.= " total_payed=".(isset($this->total_payed)?$this->total_payed:"null").",";
-		$sql.= " tms=".(dol_strlen($this->tms)!=0 ? "'".$this->db->idate($this->tms)."'" : 'null').",";
+		$sql.= dol_strlen($this->tms)!=0 ? " tms=".(dol_strlen($this->tms)!=0 ? "'".$this->db->idate($this->tms)."'" : 'null')."," : "";
 		$sql.= " hostname_web=".(isset($this->hostname_web)?"'".$this->db->escape($this->hostname_web)."'":"null").",";
 		$sql.= " username_web=".(isset($this->username_web)?"'".$this->db->escape($this->username_web)."'":"null").",";
 		$sql.= " password_web=".(isset($this->password_web)?"'".$this->db->escape($this->password_web)."'":"null").",";
@@ -685,7 +633,7 @@ class Dolicloudcustomernew extends CommonObject
 		$sql.= " address=".(isset($this->address)?"'".$this->db->escape($this->address)."'":"null").",";
 		$sql.= " zip=".(isset($this->zip)?"'".$this->db->escape($this->zip)."'":"null").",";
 		$sql.= " town=".(isset($this->town)?"'".$this->db->escape($this->town)."'":"null").",";
-		$sql.= " country_id=".(isset($this->country_id)?"'".$this->db->escape($this->country_id)."'":"null").",";
+		//$sql.= " country_id=".(isset($this->country_id)?"'".$this->db->escape($this->country_id)."'":"null").",";
 		$sql.= " state_id=".(isset($this->state_id)?"'".$this->db->escape($this->state_id)."'":"null").",";
 		$sql.= " phone=".(isset($this->phone)?"'".$this->db->escape($this->phone)."'":"null").",";
 		$sql.= " fileauthorizedkey=".(dol_strlen($this->fileauthorizedkey)!=0 ? "'".$this->db->idate($this->fileauthorizedkey)."'" : 'null').",";
@@ -698,7 +646,7 @@ class Dolicloudcustomernew extends CommonObject
 
 		$this->db->begin();
 
-		dol_syslog(get_class($this)."::update sql=".$sql, LOG_DEBUG);
+		dol_syslog(get_class($this)."::update_old sql=".$sql, LOG_DEBUG);
         $resql = $this->db->query($sql);
     	if (! $resql) { $error++; $this->errors[]="Error ".$this->db->lasterror(); }
 
@@ -723,7 +671,7 @@ class Dolicloudcustomernew extends CommonObject
 		{
 			foreach($this->errors as $errmsg)
 			{
-	            dol_syslog(get_class($this)."::update ".$errmsg, LOG_ERR);
+	            dol_syslog(get_class($this)."::update_old ".$errmsg, LOG_ERR);
 	            $this->error.=($this->error?', '.$errmsg:$errmsg);
 			}
 			$this->db->rollback();
@@ -805,7 +753,7 @@ class Dolicloudcustomernew extends CommonObject
 		$sql.= " source=".(isset($this->source)?"'".$this->db->escape($this->source)."'":"null").",";
 		$sql.= " total_invoiced=".(isset($this->total_invoiced)?$this->total_invoiced:"null").",";
 		$sql.= " total_payed=".(isset($this->total_payed)?$this->total_payed:"null").",";
-		$sql.= " tms=".(dol_strlen($this->tms)!=0 ? "'".$this->db->idate($this->tms)."'" : 'null').",";
+		$sql.= dol_strlen($this->tms)!=0 ? " tms=".(dol_strlen($this->tms)!=0 ? "'".$this->db->idate($this->tms)."'" : 'null')."," : "";
 		$sql.= " hostname_web=".(isset($this->hostname_web)?"'".$this->db->escape($this->hostname_web)."'":"null").",";
 		$sql.= " username_web=".(isset($this->username_web)?"'".$this->db->escape($this->username_web)."'":"null").",";
 		$sql.= " password_web=".(isset($this->password_web)?"'".$this->db->escape($this->password_web)."'":"null").",";
@@ -825,7 +773,7 @@ class Dolicloudcustomernew extends CommonObject
 		$sql.= " address=".(isset($this->address)?"'".$this->db->escape($this->address)."'":"null").",";
 		$sql.= " zip=".(isset($this->zip)?"'".$this->db->escape($this->zip)."'":"null").",";
 		$sql.= " town=".(isset($this->town)?"'".$this->db->escape($this->town)."'":"null").",";
-		$sql.= " country_id=".(isset($this->country_id)?"'".$this->db->escape($this->country_id)."'":"null").",";
+		//$sql.= " country_id=".(isset($this->country_id)?"'".$this->db->escape($this->country_id)."'":"null").",";
 		$sql.= " state_id=".(isset($this->state_id)?"'".$this->db->escape($this->state_id)."'":"null").",";
 		$sql.= " phone=".(isset($this->phone)?"'".$this->db->escape($this->phone)."'":"null").",";
 		$sql.= " fileauthorizedkey=".(dol_strlen($this->fileauthorizedkey)!=0 ? "'".$this->db->idate($this->fileauthorizedkey)."'" : 'null').",";
