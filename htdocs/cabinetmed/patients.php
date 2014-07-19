@@ -111,7 +111,7 @@ $sql.= ' WHERE s.entity IN ('.getEntity('societe', 1).')';
 $sql.= " AND s.canvas='patient@cabinetmed'";
 $sql.= " AND s.fk_stcomm = st.id";
 $sql.= " AND s.client IN (1, 3)";
-if ($datebirth > 0) $sql.=" AND (s.ape LIKE '%".dol_print_date($datebirth,'day')."%' OR s.ape LIKE '%".dol_print_date($datebirth,'dayxcard')."%' OR s.ape LIKE '%".dol_print_date($datebirth,'dayrfc')."%')";	// Date of birth are not saved into date format but with use string format
+if ($datebirth != '') $sql.=" AND (s.ape LIKE '%".dol_print_date($datebirth,'day')."%' OR s.ape LIKE '%".dol_print_date($datebirth,'dayxcard')."%' OR s.ape LIKE '%".dol_print_date($datebirth,'dayrfc')."%')";	// Date of birth are not saved into date format but with use string format
 if ($search_diagles)
 {
     $label= dol_getIdFromCode($db,$search_diagles,'cabinetmed_diaglec','code','label');
