@@ -406,9 +406,13 @@ if ($action == 'refresh')
 
 	                	$ref=dol_sanitizeFileName($facfou->ref);
 	                    $upload_dir = $conf->fournisseur->facture->dir_output.'/'.get_exdir($facfou->id,2).$ref;
-	                    $file_name=($upload_dir."/".$facfou->ref_supplier.".pdf");
 
-	                	if (file_exists($file_name))
+	                    $file_name=($upload_dir."/".$facfou->ref_supplier.".pdf");
+	                    $file_name_bis=($upload_dir."/".$facfou->ref.'_'.$facfou->ref_supplier.".pdf");
+
+	                    $file_name_to_use = (empty($conf->global->MAIN_DISABLE_SUGGEST_REF_AS_PREFIX) ? $file_name_bis : $file_name);
+
+	                	if (file_exists($file_name) || file_exists($file_name_bis))
 	                	{
 	                		print $langs->trans("InvoicePDFFoundIntoDolibarr",$facfou->getNomUrl(1))."\n";
 	                		//echo "<br>File ".dol_basename($file_name)." also already exists\n";
@@ -423,8 +427,8 @@ if ($action == 'refresh')
 	                            $r2=$result[$i];
 	                            $url=$url_pdf."?reference=".$r['billnum']."&passwd=".$r2->info->password;
 	                            //print "<br>Get ".$url."\n";
-                                file_put_contents($file_name,file_get_contents($url));
-                                print "<br>".$langs->trans("FileDownloadedAndAttached",basename($file_name))."\n";
+                                file_put_contents($file_name_to_use,file_get_contents($url));
+                                print "<br>".$langs->trans("FileDownloadedAndAttached",basename($file_name_to_use))."\n";
 	                        }
 	                    }
 	                    //$facfou->set_valid($fuser);
