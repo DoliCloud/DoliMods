@@ -17,10 +17,11 @@
 -- -- VMYSQL4.1 DELETE FROM llx_usergroup_user      WHERE fk_usergroup NOT IN (SELECT rowid from llx_usergroup);
 
 ALTER TABLE llx_cabinetmed_c_examconclusion ADD COLUMN position integer DEFAULT 10;
-ALTER TABLE llx_cabinetmed_examprescrit ADD COLUMN position integer DEFAULT 10;
+ALTER TABLE llx_cabinetmed_examenprescrit ADD COLUMN position integer DEFAULT 10;
 ALTER TABLE llx_cabinetmed_motifcons ADD COLUMN position integer DEFAULT 10;
 ALTER TABLE llx_cabinetmed_diagleg ADD COLUMN position integer DEFAULT 10;
 
+UPDATE llx_cabinetmed_examenprescrit SET position = 1 where code in ('AUTRE','OTHER');
 
 -- + duplicate table llx_societe into llx_cabinetmed_societe
 -- CREATE TABLE llx_cabinetmed_societe SELECT * FROM llx_societe;

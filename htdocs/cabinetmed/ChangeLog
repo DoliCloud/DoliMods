@@ -1,4 +1,7 @@
 
+***** 3.6.0 *****
+- Add position into databse for combo list.
+
 ***** 3.5.2 *****
 - Add hidden option CABINETMED_DELAY_TO_LOCK_RECORD to lock edition of all 
   consultations older than CABINETMED_DELAY_TO_LOCK_RECORD days.

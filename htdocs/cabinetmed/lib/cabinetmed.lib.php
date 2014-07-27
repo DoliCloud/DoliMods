@@ -72,7 +72,7 @@ function listmotifcons($nboflines,$newwidth=0,$htmlname='motifcons',$selected=''
     print '<option value="0"></option>';
     $sql = 'SELECT s.rowid, s.code, s.label';
     $sql.= ' FROM '.MAIN_DB_PREFIX.'cabinetmed_motifcons as s';
-    $sql.= ' WHERE active = 1';
+    $sql.= ' WHERE position, active = 1';
     $sql.= ' ORDER BY label';
     $resql=$db->query($sql);
     dol_syslog("consutlations sql=".$sql);
@@ -113,7 +113,7 @@ function listdiagles($nboflines,$newwidth=0,$htmlname='diagles',$selected='')
     $sql = 'SELECT s.rowid, s.code, s.label';
     $sql.= ' FROM '.MAIN_DB_PREFIX.'cabinetmed_diaglec as s';
     $sql.= ' WHERE active = 1';
-    $sql.= ' ORDER BY label';
+    $sql.= ' ORDER BY position, label';
     $resql=$db->query($sql);
     dol_syslog("consutlations sql=".$sql);
     if ($resql)
@@ -156,7 +156,7 @@ function listexamen($nboflines,$newwidth=0,$type='',$showtype=0,$htmlname='exame
     $sql.= ' FROM '.MAIN_DB_PREFIX.'cabinetmed_examenprescrit as s';
     $sql.= ' WHERE active = 1';
     if ($type) $sql.=" AND s.biorad in ('".$type."')";
-    $sql.= ' ORDER BY label';
+    $sql.= ' ORDER BY position, label';
     $resql=$db->query($sql);
     dol_syslog("consutlations sql=".$sql);
     if ($resql)
@@ -194,7 +194,7 @@ function listexamconclusion($nboflines,$newwidth=0,$htmlname='examconc')
     $sql = 'SELECT s.rowid, s.code, s.label';
     $sql.= ' FROM '.MAIN_DB_PREFIX.'cabinetmed_c_examconclusion as s';
     $sql.= ' WHERE active = 1';
-    $sql.= ' ORDER BY label';
+    $sql.= ' ORDER BY position, label';
     $resql=$db->query($sql);
     dol_syslog("consutlations sql=".$sql);
     if ($resql)
