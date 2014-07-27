@@ -99,6 +99,7 @@ class modCabinetMed extends DolibarrModules
 		// );
         $this->const = array(
            					 1=>array('MAIN_MENU_CHEQUE_DEPOSIT_ON','chaine','1','Enabled menu cheque deposit even if module invoice not enabled',1,'current',1),
+        					 2=>array('CABINETMED_DELAY_TO_LOCK_RECORD','chaine','0','Number of days before locking edit of consultation',1,'current',0),		// Visible, Do not remove if module removed
         					 8=>array('MAIN_DISABLEPROFIDRULES','chaine','1','Disable info/check links near professional id fields',1,'current',1),
                              9=>array('MAIN_FORCELANGDIR','chaine','/cabinetmed','Language files are searched into this dir first',1,'current',1),
                             10=>array('MAIN_OVERWRITE_THEME_RES','chaine','cabinetmed','Resource for themes (img) are searched into dir/theme/dir first',1,'current',1),
@@ -106,11 +107,11 @@ class modCabinetMed extends DolibarrModules
                             12=>array('MAIN_DISABLEDRAFTSTATUS','chaine','1','Disable draft status',1,'current',1),
                             17=>array('MAIN_SUPPORT_CONTACT_TYPE_FOR_THIRDPARTIES','chaine','1','Can add third party type of contact',1,'current',1),
                             18=>array('MAIN_APPLICATION_TITLE','chaine','DoliMed '.$this->version,'Change software title',1,'current',1),
-                            19=>array('CABINETMED_RHEUMATOLOGY_ON','chaine','0','Enable features for rheumatology',0),		// Do not remove if module removed
+                            19=>array('CABINETMED_RHEUMATOLOGY_ON','chaine','0','Enable features for rheumatology',0,'current',0),		// Not visible, Do not remove if module removed
         					20=>array('SOCIETE_DISABLE_CUSTOMERS','chaine','1','Hide customers',1,'current',1),
         					21=>array('SOCIETE_DISABLE_PROSPECTS','chaine','1','Hide prospects',1,'current',1),
         					22=>array('SOCIETE_DISABLE_PROSPECTS_STATS','chaine','1','Hide prospects stats on home',1,'current',1),
-        					23=>array('CABINETMED_HIDETHIRPARTIESMENU','chaine','1','Hide thirdparties',1,'current',1)
+        					23=>array('CABINETMED_HIDETHIRPARTIESMENU','chaine','1','Hide thirdparties',0,'current',1)					// Not visible
         );
 
         // Array to add new pages in new tabs
