@@ -100,7 +100,7 @@ class CabinetmedExamOther // extends CommonObject
         $sql.= ") VALUES (";
 		$sql.= " ".(! isset($this->fk_soc)?'NULL':"'".$this->fk_soc."'").",";
 		$sql.= " ".$user->id.",";
-		$sql.= " ".(! isset($this->dateexam) || dol_strlen($this->dateexam)==0?'NULL':$this->db->idate($this->dateexam)).",";
+		$sql.= " ".(! isset($this->dateexam) || dol_strlen($this->dateexam)==0?'NULL':"'".$this->db->idate($this->dateexam))."',";
 		$sql.= " ".(! isset($this->examprinc)?'NULL':"'".$this->db->escape($this->examprinc)."'").",";
 		$sql.= " ".(! isset($this->examsec)?'NULL':"'".$this->db->escape($this->examsec)."'").",";
 		$sql.= " ".(! isset($this->concprinc)?'NULL':"'".$this->db->escape($this->concprinc)."'").",";
@@ -415,8 +415,6 @@ class CabinetmedExamOther // extends CommonObject
 		$this->concprinc='';
 		$this->concsec='';
 		$this->tms='';
-
-
 	}
 
 }

@@ -180,7 +180,9 @@ class modCabinetMed extends DolibarrModules
             'tabfieldinsert'=>array("code,label","code,label,icd,lang","code,label,biorad","code,label","code,label"),
             'tabhelp'=>array(array(),array("icd"=>"http://en.wikipedia.org/wiki/International_Statistical_Classification_of_Diseases_and_Related_Health_Problems")),
             'tabrowid'=>array("rowid","rowid","rowid","rowid","rowid"),
-            'tabcond'=>array($conf->cabinetmed->enabled,$conf->cabinetmed->enabled,$conf->cabinetmed->enabled,$conf->cabinetmed->enabled,$conf->cabinetmed->enabled)
+            'tabcond'=>array($conf->cabinetmed->enabled,$conf->cabinetmed->enabled,$conf->cabinetmed->enabled,$conf->cabinetmed->enabled,$conf->cabinetmed->enabled),
+        	'tabhelp'=>array("","",array("biorad"=>"RADIO|BIO|OTHER")),
+        	'tabfieldcheck'=>array("","",array("biorad"=>"/(RADIO|BIO|AUTRE|OTHER)/"))
         );
 
         // Boxes

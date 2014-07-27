@@ -135,7 +135,7 @@ class CabinetmedExamBio // extends CommonObject
         $sql.= ") VALUES (";
 		$sql.= " ".(! isset($this->fk_soc)?'NULL':"'".$this->fk_soc."'").",";
 		$sql.= " ".$user->id.",";
-		$sql.= " ".(! isset($this->dateexam) || dol_strlen($this->dateexam)==0?'NULL':$this->db->idate($this->dateexam)).",";
+		$sql.= " ".(! isset($this->dateexam) || dol_strlen($this->dateexam)==0?'NULL':"'".$this->db->idate($this->dateexam))."',";
 		$sql.= " ".(! isset($this->resultat)?'NULL':"'".$this->db->escape($this->resultat)."'").",";
 		$sql.= " ".(! isset($this->conclusion)?'NULL':"'".$this->db->escape($this->conclusion)."'").",";
 		$sql.= " ".(! isset($this->comment)?'NULL':"'".$this->db->escape($this->comment)."'").",";

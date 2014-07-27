@@ -21,5 +21,6 @@ CREATE TABLE llx_cabinetmed_c_examconclusion (
   rowid             integer AUTO_INCREMENT PRIMARY KEY,
   code              varchar(8) NOT NULL,
   label             varchar(64) NOT NULL,
+  position          integer DEFAULT 10,  
   active            tinyint DEFAULT 1  NOT NULL
 ) ENGINE=innodb;

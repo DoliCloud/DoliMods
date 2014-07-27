@@ -139,8 +139,8 @@ function listdiagles($nboflines,$newwidth=0,$htmlname='diagles',$selected='')
  *
  *  @param	int		$nboflines       Max nb of lines
  *  @param  int     $newwidth        Force width
- *  @param  string  $type            To filter on a type
- *  @param	string	$showtype        Show type
+ *  @param  string  $type            To filter on a type (Ex: "RADIO" or "RADIO,OTHER")
+ *  @param	string	$showtype        1=Show type of line after label
  *  @param  string	$htmlname        Name of html select area
  *  @return	void
  */

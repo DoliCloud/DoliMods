@@ -94,19 +94,21 @@ function cabinetmed_completesubstitutionarray(&$substitutionarray,$langs,$object
         $substitutionarray['exambio_title']='';
         $substitutionarray['exambio_conclusion']='';
     }
-	if ($isconsult)	// A consult was selected
+	if ($isconsult)	// A consultation was selected
 	{
 	    $substitutionarray['outcome_date']=dol_print_date($outcome->datecons,'day');
 	    $substitutionarray['outcome_reason']=$outcome->motifconsprinc;
 	    $substitutionarray['outcome_diagnostic']=$outcome->diaglesprinc;
 	    if (! empty($outcome->traitementprescrit))
 	    {
-	        $substitutionarray['treatment_title']=$langs->transnoentitiesnoconv("TreatmentSugested");
+	        $substitutionarray['treatment_title']=$langs->transnoentitiesnoconv("TreatmentSugested"); // old string
+	        $substitutionarray['outcome_treatment_title']=$langs->transnoentitiesnoconv("TreatmentSugested");
 	        $substitutionarray['outcome_treatment']=$outcome->traitementprescrit;
 	    }
 	    else
 	    {
-	        $substitutionarray['treatment_title']='';
+	        $substitutionarray['treatment_title']='';	// old string
+	    	$substitutionarray['outcome_treatment_title']='';
 	        $substitutionarray['outcome_treatment']='';
 	    }
     	$substitutionarray['outcome_total_inctax_card']=$outcome->montant_carte;
@@ -117,7 +119,8 @@ function cabinetmed_completesubstitutionarray(&$substitutionarray,$langs,$object
 	}
 	else
 	{
-		$substitutionarray['treatment_title']='';
+		$substitutionarray['treatment_title']='';	// old string
+		$substitutionarray['outcome_treatment_title']='';	// old string
 		$substitutionarray['outcome_treatment']='';
 	}
 

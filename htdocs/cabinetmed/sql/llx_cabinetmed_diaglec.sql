@@ -23,5 +23,6 @@ CREATE TABLE llx_cabinetmed_diaglec (
   label             varchar(64) NOT NULL,
   active            tinyint DEFAULT 1  NOT NULL,
   icd			    varchar(12) NULL,
+  position          integer DEFAULT 10,  
   lang				varchar(12) NULL
 ) ENGINE=innodb;
