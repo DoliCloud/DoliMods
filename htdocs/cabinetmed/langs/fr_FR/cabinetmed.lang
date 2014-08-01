@@ -160,3 +160,4 @@ HideThirdPartiesMenu=Cacher le menu Tiers (pas d'autres clients que des patients
 RecordCreatedFromRDV=Consultation créée suite au rendez-vous %s (%s)
 ConsultCreatedBy=Consultation créée par
 ConsultTooOld=Impossible de modifier la consultation, cette dernière est plus vieille que <b>%s</b> jours. Rem: L'option CABINETMED_DELAY_TO_LOCK_RECORD peut être modifier/ajouter par un administrateur informatique pour modifier/supprimer ce délai.
+HeightPeople=Taille

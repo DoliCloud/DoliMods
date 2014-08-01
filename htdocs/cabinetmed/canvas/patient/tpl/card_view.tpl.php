@@ -113,8 +113,8 @@ print '<tr><td>'.$langs->trans('EMail').'</td><td colspan="3">';
 print dol_print_email($object->email,0,$object->id,'AC_EMAIL');
 print '</td>';
 
-// Size
-$profid=$langs->trans('Size');
+// Height
+$profid=$langs->trans('HeightPeople');
 print '<tr><td>'.$profid.'</td><td>';
 print $object->idprof1;
 print '</td>';

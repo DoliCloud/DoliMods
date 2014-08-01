@@ -178,8 +178,8 @@ dol_htmloutput_errors($GOBALS['error'],$GLOBALS['errors']);
 
 <?php
         print '<tr>';
-        // Size
-        $idprof=$langs->trans('Size');
+        // Height
+        $idprof=$langs->trans('HeightPeople');
         print '<td>'.$idprof.'</td><td>';
         print '<input type="text" name="idprof1" size="6" maxlength="6" value="'.$object->idprof1.'">';
         print '</td>';
