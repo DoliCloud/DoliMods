@@ -35,6 +35,7 @@ CustomerCodeModel=Template of patient code
 CompanyList=List of patients
 AddContact=Create contact
 Contact=Contact
+NoContactDefined=No contact defined
 DefaultContact=Default contact
 PatientCode=Patient code
 WrongPatientCode=Wrong patient code
