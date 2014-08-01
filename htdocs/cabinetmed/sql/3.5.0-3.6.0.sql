@@ -16,6 +16,12 @@
 -- -- VPGSQL8.2 DELETE FROM llx_usergroup_user      WHERE fk_user      NOT IN (SELECT rowid from llx_user);
 -- -- VMYSQL4.1 DELETE FROM llx_usergroup_user      WHERE fk_usergroup NOT IN (SELECT rowid from llx_usergroup);
 
+
+-- Field forgotten into 3.5 migration
+ALTER TABLE llx_cabinetmed_diaglec ADD COLUMN icd	 varchar(12) NULL;
+ALTER TABLE llx_cabinetmed_diaglec ADD COLUMN lang varchar(12) NULL;	
+
+
 ALTER TABLE llx_cabinetmed_c_examconclusion ADD COLUMN position integer DEFAULT 10;
 ALTER TABLE llx_cabinetmed_examenprescrit ADD COLUMN position integer DEFAULT 10;
 ALTER TABLE llx_cabinetmed_motifcons ADD COLUMN position integer DEFAULT 10;
