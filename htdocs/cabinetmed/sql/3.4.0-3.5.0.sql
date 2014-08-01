@@ -19,7 +19,7 @@
 ALTER TABLE llx_cabinetmed_cons ADD COLUMN fk_agenda integer;
 
 ALTER TABLE llx_cabinetmed_diaglec ADD COLUMN icd	 varchar(12) NULL;
-ALTER TABLE llx_cabinetmed_diaglec ADD COLUMN lang;	
+ALTER TABLE llx_cabinetmed_diaglec ADD COLUMN lang varchar(12) NULL;	
 
 -- + duplicate table llx_societe into llx_cabinetmed_societe
 -- CREATE TABLE llx_cabinetmed_societe SELECT * FROM llx_societe;
