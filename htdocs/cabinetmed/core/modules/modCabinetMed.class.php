@@ -1,6 +1,6 @@
 <?php
 /* Copyright (C) 2003      Rodolphe Quiedeville <rodolphe@quiedeville.org>
- * Copyright (C) 2004-2012 Laurent Destailleur  <eldy@users.sourceforge.net>
+ * Copyright (C) 2004-2014 Laurent Destailleur  <eldy@users.sourceforge.net>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -179,10 +179,9 @@ class modCabinetMed extends DolibarrModules
             'tabfield'=>array("code,label","code,label,icd,lang","code,label,biorad","code,label","code,label"), // Nom des champs en resultat de select pour affichage du dictionnaire
             'tabfieldvalue'=>array("code,label","code,label,icd,lang","code,label,biorad","code,label","code,label"),  // Nom des champs d'edition pour modification d'un enregistrement
             'tabfieldinsert'=>array("code,label","code,label,icd,lang","code,label,biorad","code,label","code,label"),
-            'tabhelp'=>array(array(),array("icd"=>"http://en.wikipedia.org/wiki/International_Statistical_Classification_of_Diseases_and_Related_Health_Problems")),
             'tabrowid'=>array("rowid","rowid","rowid","rowid","rowid"),
             'tabcond'=>array($conf->cabinetmed->enabled,$conf->cabinetmed->enabled,$conf->cabinetmed->enabled,$conf->cabinetmed->enabled,$conf->cabinetmed->enabled),
-        	'tabhelp'=>array("","",array("biorad"=>"RADIO|BIO|OTHER")),
+        	'tabhelp'=>array("",array("icd"=>'http://en.wikipedia.org/wiki/International_Statistical_Classification_of_Diseases_and_Related_Health_Problems'),array("biorad"=>"RADIO|BIO|OTHER")),
         	'tabfieldcheck'=>array("","",array("biorad"=>"/(RADIO|BIO|AUTRE|OTHER)/"))
         );
 

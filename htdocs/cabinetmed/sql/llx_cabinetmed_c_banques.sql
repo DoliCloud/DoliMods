@@ -13,8 +13,6 @@
 --
 -- You should have received a copy of the GNU General Public License
 -- along with this program. If not, see <http://www.gnu.org/licenses/>.
---
--- $Id: llx_cabinetmed_c_banques.sql,v 1.1 2011/04/04 22:13:55 eldy Exp $
 -- ===========================================================================
 
 CREATE TABLE llx_cabinetmed_c_banques (

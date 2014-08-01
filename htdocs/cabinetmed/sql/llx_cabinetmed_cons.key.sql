@@ -13,8 +13,6 @@
 --
 -- You should have received a copy of the GNU General Public License
 -- along with this program. If not, see <http://www.gnu.org/licenses/>.
---
--- $Id: llx_cabinetmed_cons.key.sql,v 1.2 2011/03/26 18:28:24 eldy Exp $
 -- ===================================================================
 
 

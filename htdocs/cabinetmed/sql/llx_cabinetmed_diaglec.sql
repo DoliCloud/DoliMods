@@ -13,8 +13,6 @@
 --
 -- You should have received a copy of the GNU General Public License
 -- along with this program. If not, see <http://www.gnu.org/licenses/>.
---
--- $Id: llx_cabinetmed_diaglec.sql,v 1.3 2011/01/23 21:26:28 eldy Exp $
 -- ===========================================================================
 
 CREATE TABLE llx_cabinetmed_diaglec (

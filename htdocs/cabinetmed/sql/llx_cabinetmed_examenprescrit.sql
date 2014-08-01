@@ -13,8 +13,6 @@
 --
 -- You should have received a copy of the GNU General Public License
 -- along with this program. If not, see <http://www.gnu.org/licenses/>.
---
--- $Id: llx_cabinetmed_examenprescrit.sql,v 1.5 2011/04/02 11:24:27 eldy Exp $
 -- ===========================================================================
 
 CREATE TABLE llx_cabinetmed_examenprescrit (

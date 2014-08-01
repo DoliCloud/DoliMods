@@ -13,8 +13,6 @@
 --
 -- You should have received a copy of the GNU General Public License
 -- along with this program. If not, see <http://www.gnu.org/licenses/>.
---
--- $Id: llx_cabinetmed_exambio.sql,v 1.5 2011/06/09 07:11:28 eldy Exp $
 -- ===========================================================================
 
 -- DROP TABLE llx_cabinetmed_exambio
