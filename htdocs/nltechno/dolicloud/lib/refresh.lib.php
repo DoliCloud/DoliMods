@@ -316,10 +316,10 @@ function dolicloud_calculate_stats($db, $datelim)
 	$sql.= " LEFT JOIN channel_partner_customer as cc ON cc.customer_id = c.id";
 	$sql.= " LEFT JOIN channel_partner as cp ON cc.channel_partner_id = cp.id";
 	$sql.= " LEFT JOIN person as per ON c.primary_contact_id = per.id,";
-	$sql.= " plan as pl";
+	$sql.= " subscription as s, plan as pl";
 	$sql.= " LEFT JOIN plan_add_on as pao ON pl.id=pao.plan_id and pao.meter_id = 1,";	// meter_id = 1 = users
 	$sql.= " app_package as p";
-	$sql.= " WHERE i.customer_id = c.id AND c.plan_id = pl.id AND pl.app_package_id = p.id";
+	$sql.= " WHERE i.customer_id = c.id AND c.id = s.customer_id AND s.plan_id = pl.id AND pl.app_package_id = p.id";
 	$sql.= " AND c.payment_status NOT IN ('TRIALING', 'TRIAL_EXPIRED')";	// We keep OK, FAILURE
 	if ($datelim) $sql.= " AND i.deployed_date <= '".$db->idate($datelim)."'";
 

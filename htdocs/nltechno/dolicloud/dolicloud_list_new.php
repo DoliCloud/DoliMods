@@ -1,5 +1,5 @@
 <?php
-/* Copyright (C) 2007-2013 Laurent Destailleur  <eldy@users.sourceforge.net>
+/* Copyright (C) 2007-2014 Laurent Destailleur  <eldy@users.sourceforge.net>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -214,10 +214,10 @@ $sql.= " customer as c";
 $sql.= " LEFT JOIN channel_partner_customer as cc ON cc.customer_id = c.id";
 $sql.= " LEFT JOIN channel_partner as cp ON cc.channel_partner_id = cp.id";
 $sql.= " LEFT JOIN person as per ON c.primary_contact_id = per.id,";
-$sql.= " plan as pl";
+$sql.= " subscription as s, plan as pl";
 $sql.= " LEFT JOIN plan_add_on as pao ON pl.id=pao.plan_id and pao.meter_id = 1,";	// meter_id = 1 = users
 $sql.= " app_package as p";
-$sql.= " WHERE i.customer_id = c.id AND c.plan_id = pl.id AND pl.app_package_id = p.id";
+$sql.= " WHERE i.customer_id = c.id AND c.id = s.customer_id AND s.plan_id = pl.id AND pl.app_package_id = p.id";
 if ($search_dolicloud) $sql.='';
 if ($search_multi) $sql.=" AND (i.name LIKE '%".$db->escape($search_multi)."%' OR c.org_name LIKE '%".$db->escape($search_multi)."%' OR per.username LIKE '%".$db->escape($search_multi)."%')";
 if ($search_instance) $sql.=" AND i.name LIKE '%".$db->escape($search_instance)."%'";
@@ -227,12 +227,13 @@ if ($search_partner) $sql.=" AND cp.org_name LIKE '%".$db->escape($search_partne
 if ($search_source) $sql.=" AND t.source LIKE '%".$db->escape($search_source)."%'";
 if ($search_email) $sql.=" AND per.username LIKE '%".$db->escape($search_email)."%'";
 if ($search_lastlogin) $sql.=" AND i.last_login LIKE '%".$db->escape($search_lastlogin)."%'";
-if (! is_numeric($search_status))
+if (! empty($search_status) && ! is_numeric($search_status))
 {
 	//if ($search_status == 'UNDEPLOYED') $sql.=" AND i.status LIKE '%".$db->escape($search_status)."%'";
 	//else $sql.=" AND c.status LIKE '%".$db->escape($search_status)."%'";
 	$sql.=" AND c.status LIKE '%".$db->escape($search_status)."%'";
 }
+//print $sql;
 
 // Count total nb of records
 $nbtotalofrecords = 0;
