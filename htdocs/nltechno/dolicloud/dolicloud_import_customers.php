@@ -176,7 +176,7 @@ if ($action == 'import' || $action == 'create')
 			$total_payed=$data[6];
 			$status=$data[7];
 			$statuspayment=$data[8];
-			if ($status == 'ACTIVE' && $statuspayment == 'FAILURE' && $total_payed < $total_invoiced) $status='ACTIVE_PAYMENT_ERROR';
+			if ($status == 'ACTIVE' && in_array($statuspayment, array('FAILURE','PAST_DUE')) && $total_payed < $total_invoiced) $status='ACTIVE_PAYMENT_ERROR';
 			if ($status == 'CLOSURE_REQUESTED') $status='CLOSE_QUEUED';		// TODO Use CLOSURE_REQUESTED into database
 			if ($status == 'CLOSED') $status='UNDEPLOYED';
 			if ($organization == 'Organization') continue;	// Discard first line

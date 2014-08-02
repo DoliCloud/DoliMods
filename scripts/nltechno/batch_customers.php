@@ -103,6 +103,7 @@ $nbofok=0;
 $nbofactive=0;
 $nbofactivesusp=0;
 $nbofactiveclosurerequest=0;
+$nbofactivepaymentko=0;
 $nbofalltime=0;
 $nboferrors=0;
 $instancefilter=(isset($argv[2])?$argv[2]:'');
@@ -152,6 +153,7 @@ if ($resql)
 						$nbofactive++;
 						if (in_array($obj->status,array('SUSPENDED'))) $nbofactivesusp++;
 						else if (in_array($obj->status,array('CLOSE_QUEUED','CLOSURE_REQUESTED')) ) $nbofactiveclosurerequest++;
+						else if (in_array($obj->payment_status,array('FAILURE','PAST_DUE'))) $nbofactivepaymentko++;
 						else $nbofactiveok++; // not suspended, not close request
 
 						$instance=preg_replace('/\.on\.dolicloud\.com$/', '', $obj->instance);
@@ -404,8 +406,9 @@ if ($action == 'updatedatabase' || $action == 'updatestatsonly' || $action == 'u
 // Result
 print "Nb of instances (all time): ".$nbofalltime."\n";
 print "Nb of instances (active with or without payment error, close request or not): ".$nbofactive."\n";
-print "Nb of instances (active but suspended): ".$nbofactivesusp."\n";
 print "Nb of instances (active but close request): ".$nbofactiveclosurerequest."\n";
+print "Nb of instances (active but suspended): ".$nbofactivesusp."\n";
+print "Nb of instances (active but payment ko, not yet suspended): ".$nbofactivepaymentko."\n";
 print "Nb of instances process ok: ".$nbofok."\n";
 print "Nb of instances process ko: ".$nboferrors;
 print (count($instancesbackuperror)?", error for backup on ".join(',',$instancesbackuperror):"");

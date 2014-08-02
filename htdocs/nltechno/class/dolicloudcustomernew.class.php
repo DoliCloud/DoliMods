@@ -959,7 +959,7 @@ class Dolicloudcustomernew extends CommonObject
 		if ($st == 'ACTIVE' || $st == 'OK' || $st == 'PAID') $picto=img_picto($langs->trans("Active"),'statut4');
 		elseif ($st == 'CLOSED_QUEUED' || $st == 'CLOSURE_REQUESTED') $picto=img_picto($langs->trans("Disabled"),'statut6');
 		elseif ($st == 'UNDEPLOYED' || $st == 'CLOSED') $picto=img_picto($langs->trans("Undeployed"),'statut5');
-		elseif ($st == 'ACTIVE_PAYMENT_ERROR' || $st == 'ACTIVE_PAY_ERR' || $st == 'FAILURE') $picto=img_picto($langs->trans("ActivePaymentError"),'statut3');
+		elseif ($st == 'ACTIVE_PAYMENT_ERROR' || $st == 'ACTIVE_PAY_ERR' || $st == 'FAILURE' || $st == 'PAST_DUE') $picto=img_picto($langs->trans("ActivePaymentError"),'statut3');
 		elseif ($st == 'SUSPENDED') $picto=img_picto($langs->trans("Suspended"),'statut3');
 		elseif ($st == 'TRIAL_EXPIRED') $picto=img_picto($langs->trans("Expired"),'statut1');
 		elseif ($st == 'TRIAL' || $st == 'TRIALING') $picto=img_picto($langs->trans("Trial"),'statut0');
