@@ -123,9 +123,10 @@ $instancesupdateerror=array();
 //$sql.= " FROM ".MAIN_DB_PREFIX."dolicloud_customers as c";
 $sql = "SELECT i.id, i.name as instance, i.status as instance_status,";
 $sql.= " c.status as status,";
-$sql.= " c.payment_status";
-$sql.= " FROM app_instance as i, customer as c";
-$sql.= " WHERE i.customer_id = c.id";
+$sql.= " s.payment_status,";
+$sql.= " s.status as subscription_status,";
+$sql.= " FROM app_instance as i, subscription as s, customer as c";
+$sql.= " WHERE i.customer_id = c.id AND c.id = s.customer.id";
 if ($instancefiltercomplete) $sql.= " AND i.name = '".$instancefiltercomplete."'";
 
 dol_syslog($script_file." sql=".$sql, LOG_DEBUG);
@@ -155,7 +156,7 @@ if ($resql)
 
 						$instance=preg_replace('/\.on\.dolicloud\.com$/', '', $obj->instance);
 						$instances[]=$instance;
-						print "Found instance ".$obj->instance." with status=".$obj->status." instance_status=".$obj->instance_status." payment_status=".$obj->payment_status."\n";
+						print "Found instance ".$obj->instance." with status=".$obj->status." instance_status=".$obj->instance_status." payment_status=".$obj->payment_status." subscription_status(not used)=".$obj->subscription_status."\n";
 					}
 				}
 			}
