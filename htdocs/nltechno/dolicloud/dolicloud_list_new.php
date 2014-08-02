@@ -371,7 +371,7 @@ if ($resql)
                 print ($obj->date_lastlogin?dol_print_date($db->jdate($obj->date_lastlogin),'dayhour','tzuser'):'');
                 print '</td><td align="right">';
 
-                if ($status != 'ACTIVE' && $status != 'OK')
+                if ($status != 'ACTIVE' && $status != 'OK' && $status != 'PAID')
                 {
                 	print '';
                 }

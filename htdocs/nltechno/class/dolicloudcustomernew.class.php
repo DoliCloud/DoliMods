@@ -943,7 +943,7 @@ class Dolicloudcustomernew extends CommonObject
             else if ($payment_status == 'TRIAL') $st='TRIALING';
             else if ($payment_status == 'TRIALING') $st='TRIALING';
             else if ($payment_status == 'TRIAL_EXPIRED') $st='TRIAL_EXPIRED';
-            else if ($status == 'ACTIVE' && $instance_status == 'DEPLOYED') $st=($payment_status && $payment_status == 'OK')?'ACTIVE':'ACTIVE_PAY_ERR';
+            else if ($status == 'ACTIVE' && $instance_status == 'DEPLOYED') $st=($payment_status && in_array($payment_status, array('OK','PAID')))?'ACTIVE':'ACTIVE_PAY_ERR';
             else
 			{
                 $st.=$status;
@@ -956,7 +956,7 @@ class Dolicloudcustomernew extends CommonObject
             $txt.='<br>Payment: '.$payment_status;
 		}
 
-		if ($st == 'ACTIVE' || $st == 'OK') $picto=img_picto($langs->trans("Active"),'statut4');
+		if ($st == 'ACTIVE' || $st == 'OK' || $st == 'PAID') $picto=img_picto($langs->trans("Active"),'statut4');
 		elseif ($st == 'CLOSED_QUEUED' || $st == 'CLOSURE_REQUESTED') $picto=img_picto($langs->trans("Disabled"),'statut6');
 		elseif ($st == 'UNDEPLOYED' || $st == 'CLOSED') $picto=img_picto($langs->trans("Undeployed"),'statut5');
 		elseif ($st == 'ACTIVE_PAYMENT_ERROR' || $st == 'ACTIVE_PAY_ERR' || $st == 'FAILURE') $picto=img_picto($langs->trans("ActivePaymentError"),'statut3');
