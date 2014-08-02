@@ -302,7 +302,8 @@ function dolicloud_calculate_stats($db, $datelim)
 	$sql.= " c.status as status,";
 	$sql.= " c.past_due_start,";
 	$sql.= " c.suspension_date,";
-	$sql.= " c.payment_status,";
+
+	$sql.= " s.payment_status,";
 
 	$sql.= " per.username as email,";
 	$sql.= " per.first_name as firstname,";
@@ -320,7 +321,7 @@ function dolicloud_calculate_stats($db, $datelim)
 	$sql.= " LEFT JOIN plan_add_on as pao ON pl.id=pao.plan_id and pao.meter_id = 1,";	// meter_id = 1 = users
 	$sql.= " app_package as p";
 	$sql.= " WHERE i.customer_id = c.id AND c.id = s.customer_id AND s.plan_id = pl.id AND pl.app_package_id = p.id";
-	$sql.= " AND c.payment_status NOT IN ('TRIALING', 'TRIAL_EXPIRED')";	// We keep OK, FAILURE
+	$sql.= " AND c.payment_status NOT IN ('TRIAL', 'TRIALING', 'TRIAL_EXPIRED')";	// We keep OK, FAILURE
 	if ($datelim) $sql.= " AND i.deployed_date <= '".$db->idate($datelim)."'";
 
 	dol_syslog($script_file." sql=".$sql, LOG_DEBUG);
@@ -344,7 +345,7 @@ function dolicloud_calculate_stats($db, $datelim)
 					$activepaying=1;
 					if (in_array($obj->status,array('SUSPENDED'))) $activepaying=0;
 					if (in_array($obj->status,array('CLOSED','CLOSE_QUEUED','CLOSURE_REQUESTED')) || in_array($obj->instance_status,array('UNDEPLOYED'))) $activepaying=0;
-					if (in_array($obj->payment_status,array('TRIALING','TRIAL_EXPIRED','FAILURE')) || in_array($obj->status,array('CLOSED','CLOSE_QUEUED','CLOSURE_REQUESTED')) || in_array($obj->instance_status,array('UNDEPLOYED'))) $activepaying=0;
+					if (in_array($obj->payment_status,array('TRIAL','TRIALING','TRIAL_EXPIRED','FAILURE')) || in_array($obj->status,array('CLOSED','CLOSE_QUEUED','CLOSURE_REQUESTED')) || in_array($obj->instance_status,array('UNDEPLOYED'))) $activepaying=0;
 
 	                if (! $activepaying)
 	                {

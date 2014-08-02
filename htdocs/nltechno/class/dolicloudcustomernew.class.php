@@ -79,9 +79,10 @@ class Dolicloudcustomernew extends CommonObject
 	var $vat_number;
 	var $phone;
 
+	var $subscription_status;
+	var $paymentstatus;
 	var $paymentmethod;
 	var $paymentinfo;
-	var $paymentstatus;
 	var $paymentnextbillingdate;
 	var $paymentfrequency;	// 'monthly' or 'yearly'
 
@@ -428,9 +429,10 @@ class Dolicloudcustomernew extends CommonObject
 		$sql.= " c.status as status,";
 		$sql.= " c.past_due_start,";
 		$sql.= " c.suspension_date,";
-		$sql.= " c.payment_status,";
 		$sql.= " c.tel as phone,";
 		$sql.= " c.tax_identification_number as vat_number,";
+
+		$sql.= " s.payment_status,";
 
 		$sql.= " CONCAT(a.address_line1,'\n',a.address_line2) as address,";
 		$sql.= " a.city as town,";
@@ -911,11 +913,12 @@ class Dolicloudcustomernew extends CommonObject
 	 *    Return label of status (activity, closed)
 	 *
 	 *    @param	int		$mode       0=libelle long, 1=libelle court, 2=Picto + Libelle court, 3=Picto, 4=Picto + Libelle long
+	 *    @param	Form	$form		Object form
 	 *    @return   string        		Libelle
 	 */
 	function getLibStatut($mode=0,$form='')
 	{
-		return $this->LibStatut($this->status,$mode,$this->instance_status,$this->payment_status,$form);
+		return $this->LibStatut($this->status,$mode,$this->instance_status,$this->payment_status,$form,$this->subscription_status);
 	}
 
 	/**
@@ -925,7 +928,7 @@ class Dolicloudcustomernew extends CommonObject
 	 *  @param	int		$mode           0=libelle long, 1=libelle court, 2=Picto + Libelle court, 3=Picto, 4=Picto + Libelle long, 5=Libelle court + Picto
 	 *  @return	string          		Libelle du statut
 	 */
-	function LibStatut($status,$mode=0,$instance_status='',$payment_status='',$form='')
+	function LibStatut($status,$mode=0,$instance_status='',$payment_status='',$form='',$subscription_status='')
 	{
 		global $langs;
 		$langs->load('nltechno@nltechno');
@@ -937,6 +940,7 @@ class Dolicloudcustomernew extends CommonObject
             else if ($status == 'SUSPENDED') $st='SUSPENDED';
             else if ($status == 'CLOSURE_REQUESTED') $st='CLOSURE_REQUESTED';
             else if ($instance_status == 'UNDEPLOYED') $st='UNDEPLOYED';		// DEPLOYED/UNDEPLOYED
+            else if ($payment_status == 'TRIAL') $st='TRIALING';
             else if ($payment_status == 'TRIALING') $st='TRIALING';
             else if ($payment_status == 'TRIAL_EXPIRED') $st='TRIAL_EXPIRED';
             else if ($status == 'ACTIVE' && $instance_status == 'DEPLOYED') $st=($payment_status && $payment_status == 'OK')?'ACTIVE':'ACTIVE_PAY_ERR';
@@ -948,6 +952,7 @@ class Dolicloudcustomernew extends CommonObject
 			}
 			$txt='Customer: '.$status;
 			$txt.='<br>Instance: '.$instance_status;
+			$txt.='<br>Subscription (not used): '.$subscription_status;
             $txt.='<br>Payment: '.$payment_status;
 		}
 

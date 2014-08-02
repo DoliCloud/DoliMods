@@ -675,6 +675,7 @@ class Dolicloudcustomer extends CommonObject
             else if ($status == 'SUSPENDED') $st='SUSPENDED';
             else if ($status == 'CLOSURE_REQUESTED') $st='CLOSURE_REQUESTED';
             else if ($instance_status == 'UNDEPLOYED') $st='UNDEPLOYED';		// DEPLOYED/UNDEPLOYED
+            else if ($payment_status == 'TRIAL') $st='TRIALING';
             else if ($payment_status == 'TRIALING') $st='TRIALING';
             else if ($payment_status == 'TRIAL_EXPIRED') $st='TRIAL_EXPIRED';
             else if ($status == 'ACTIVE' && $instance_status == 'DEPLOYED') $st=($payment_status && $payment_status == 'OK')?'ACTIVE':'ACTIVE_PAY_ERR';

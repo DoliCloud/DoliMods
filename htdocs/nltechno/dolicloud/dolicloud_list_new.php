@@ -200,7 +200,9 @@ $sql.= " c.org_name as organization,";
 $sql.= " c.status as status,";
 $sql.= " c.past_due_start,";
 $sql.= " c.suspension_date,";
-$sql.= " c.payment_status,";
+
+$sql.= " s.payment_status,";
+$sql.= " s.status as subscription_status,";
 
 $sql.= " per.username as email,";
 $sql.= " per.first_name as firstname,";
@@ -333,11 +335,13 @@ if ($resql)
                 $dolicloudcustomerstaticnew->status = $obj->status;
                 $dolicloudcustomerstaticnew->instance_status = $obj->instance_status;
                 $dolicloudcustomerstaticnew->payment_status = $obj->payment_status;
+                $dolicloudcustomerstaticnew->subscription_status = $obj->subscription_status;	// This is not used (info only)
                 $status=$dolicloudcustomerstaticnew->getLibStatut(1,$form);
 
                 $var=!$var;
                 // You can use here results
                 print '<tr '.$bc[$var].'><td align="left" nowrap="nowrap">';
+                //print $dolicloudcustomerstaticnew->status.'/'.$dolicloudcustomerstaticnew->instance_status.'/'.$dolicloudcustomerstaticnew->payment_status.'=>'.$status.'<br>';
                 $dolicloudcustomerstaticnew->id=$obj->id;
                 $dolicloudcustomerstaticnew->ref=$instance;
                 $dolicloudcustomerstaticnew->status=$obj->status;
@@ -380,7 +384,7 @@ if ($resql)
                 }
                 print '</td>';
                 print '<td align="right">';
-                print $dolicloudcustomerstaticnew->getLibStatut(5,$form);;
+                print $dolicloudcustomerstaticnew->getLibStatut(5,$form);
                 print '</td>';
                 print '</tr>';
             }

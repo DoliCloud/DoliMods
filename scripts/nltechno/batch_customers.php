@@ -143,7 +143,7 @@ if ($resql)
 			{
 				//print "status=".$obj->status." instance_status=".$obj->instance_status." payment_status=".$obj->payment_status."\n";
 				// Count
-				if (! in_array($obj->payment_status,array('TRIALING','TRIAL_EXPIRED')))
+				if (! in_array($obj->payment_status,array('TRIAL','TRIALING','TRIAL_EXPIRED')))
 				{
 					$nbofalltime++;
 					if (! in_array($obj->status,array('CLOSED')) && ! in_array($obj->instance_status,array('UNDEPLOYED')))		// Nb of active
