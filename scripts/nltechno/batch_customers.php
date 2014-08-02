@@ -124,9 +124,9 @@ $instancesupdateerror=array();
 $sql = "SELECT i.id, i.name as instance, i.status as instance_status,";
 $sql.= " c.status as status,";
 $sql.= " s.payment_status,";
-$sql.= " s.status as subscription_status,";
+$sql.= " s.status as subscription_status";
 $sql.= " FROM app_instance as i, subscription as s, customer as c";
-$sql.= " WHERE i.customer_id = c.id AND c.id = s.customer.id";
+$sql.= " WHERE i.customer_id = c.id AND c.id = s.customer_id";
 if ($instancefiltercomplete) $sql.= " AND i.name = '".$instancefiltercomplete."'";
 
 dol_syslog($script_file." sql=".$sql, LOG_DEBUG);
