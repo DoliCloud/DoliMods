@@ -445,12 +445,6 @@ function googleUpdateContact($client, $contactId, $object, $useremail='default')
 			//var_dump($oldvalue);
 		}*/
 
-		foreach ($xml->website as $key => $val) {
-			$oldvalue=(string) $val['href'];
-			$xml->website['href'] = $object->url;
-		}
-		//var_dump($xml);exit;
-
 		// userDefinedField
 		// We don't change this
 
@@ -459,10 +453,52 @@ function googleUpdateContact($client, $contactId, $object, $useremail='default')
 		if (strpos($tmpnote, $google_nltechno_tag) === false) $tmpnote.="\n\n".$google_nltechno_tag.$object->id.'/'.($object->element=='societe'?'thirdparty':$object->element);
 		$xml->content=google_html_convert_entities($tmpnote);
 
+		$xmlStr=$xml->saveXML();
+
+		// Convert xml into DOM so we can use dom function to add website element
+		$doc  = new DOMDocument("1.0", "utf-8");
+		$doc->loadXML($xmlStr);
+		$entries = $doc->getElementsByTagName('entry');
+
+		// URL
+		$oldurl='';
+		if (! empty($object->oldcopy->url)) $oldurl=$object->oldcopy->url;
+		// Removed old url
+		foreach($doc->getElementsByTagName('website') as $nodewebsite)
+		{
+			$linkurl = $nodewebsite->getAttribute('href');
+			$labelurl = $nodewebsite->getAttribute('label');
+			if ($linkurl == $oldurl)	// Delete only if value on google match old value into Dolibarr
+			{
+				$nodewebsite->parentNode->removeChild($nodewebsite);
+			}
+		}
+		// Add new url
+		if (! empty($object->url))
+		{
+			foreach($entries as $entry)	// We should have only one <entry>, loop is required to access first record of $entries.
+			{
+				$entry->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:gcontact', constant('GCONTACT_NAME_SPACE'));
+				$el = $doc->createElement('gcontact:website');
+				$el->setAttribute("label","URL");
+				$el->setAttribute("href", $object->url);
+				$entry->appendChild($el);
+			}
+		}
+		/* Old code used when using SimpleXML object (not working)
+			foreach ($xml->website as $key => $val) {	// $key='@attributes' $val is an array('href'=>,'label'=>), however to set href it we must do $xml->website['href'] (it's a SimpleXML object)
+				$oldvalue=(string) $val['href'];
+				if (! empty($object->url)) $xml->website['href'] = $object->url;
+				else unset($xml->website);
+			}
+		*/
+		//var_dump($xmlStr);exit;
+
+		$xmlStr=$doc->saveXML();
+		
 		//List of properties to set visible with var_dump($xml->saveXML());exit;
 		$extra_header = array('If-Match'=>'*');
 
-		$xmlStr=$xml->saveXML();
 		// uncomment for debugging :
 		file_put_contents(DOL_DATA_ROOT . "/dolibarr_google_updatecontact.xml", $xmlStr);
 		@chmod(DOL_DATA_ROOT . "/dolibarr_google_updatecontact.xml", octdec(empty($conf->global->MAIN_UMASK)?'0664':$conf->global->MAIN_UMASK));
@@ -472,7 +508,8 @@ function googleUpdateContact($client, $contactId, $object, $useremail='default')
 	}
 	catch(Exception $e)
 	{
-		dol_print_error('','Failed to update google '.$e->getMessage());
+		// Exemple: "Expected response code 200, got 400 GData invalid website link must not be empty"
+		dol_syslog('Failed to update google record: '.$e->getMessage(), LOG_ERR);
 		return -1;
 	}
 

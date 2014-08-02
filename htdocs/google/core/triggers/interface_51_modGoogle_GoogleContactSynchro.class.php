@@ -179,7 +179,12 @@ class InterfaceGoogleContactSynchro
 							$object->update_ref_ext($ret);
 							// This is to store ref_ext to allow updates
 						}
-						else if ($ret < 0)  return $ret;
+						else if (is_numeric($ret) && $ret < 0)
+						{
+							$this->error='Failed to update google record. Enable module "Log" and check your dolibarr log file.';
+							$this->errors[]=$this->error;
+							return $ret;
+						}
 
 						return 1;
 					}
