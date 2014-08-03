@@ -275,9 +275,12 @@ class ActionsCabinetmed
 
         if (! empty($object->societe->id) && $object->societe->id > 0 && ! empty($object->societe->canvas) && $object->societe->canvas == 'patient@cabinetmed')
         {
-    		print '<div class="inline-block divButAction"><a class="butAction" href="'.dol_buildpath('/cabinetmed/consultations.php?socid='.$object->societe->id.'&action=create&fk_agenda='.$object->id, 1).'">';
-    		print $langs->trans("NewConsult");
-    		print '</a></div>';
+        	if ($action != 'edit')
+        	{
+	    		print '<div class="inline-block divButAction"><a class="butAction" href="'.dol_buildpath('/cabinetmed/consultations.php?socid='.$object->societe->id.'&action=create&fk_agenda='.$object->id, 1).'">';
+	    		print $langs->trans("NewConsult");
+	    		print '</a></div>';
+        	}
         }
     }
 
