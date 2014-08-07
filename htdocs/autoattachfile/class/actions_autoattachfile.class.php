@@ -62,12 +62,12 @@ class ActionsAutoattachfile
 			$listofmimes = (! empty($_SESSION["listofmimes"])) ? explode(';',$_SESSION["listofmimes"]) : array();
 			if ($object->param['models'] == 'propal_send')
     		{
-    			$nbFiles += $this->_addFiles($listofpaths, $listofnames, $listofmimes, $conf->autoattachfile->dir_output.'/proposals');
+    			$nbFiles += $this->_addFiles($object, $listofpaths, $listofnames, $listofmimes, $conf->autoattachfile->dir_output.'/proposals');
     		}
     		
     	    if ($object->param['models'] == 'order_send')
     		{
-    			$nbFiles += $this->_addFiles($listofpaths, $listofnames, $listofmimes, $conf->autoattachfile->dir_output.'/orders');
+    			$nbFiles += $this->_addFiles($object, $listofpaths, $listofnames, $listofmimes, $conf->autoattachfile->dir_output.'/orders');
     		}
 
     	    if ($object->param['models'] == 'facture_send')
