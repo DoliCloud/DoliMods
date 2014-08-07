@@ -20,8 +20,8 @@
  */
 
 /**
- *       \file       htdocs/concatpdf/core/modules/modconcatpdf.class.php
- *       \ingroup    ftp
+ *       \file       htdocs/concatpdf/core/modules/modconcatPdf.class.php
+ *       \ingroup    concatpdf
  *       \brief      Description and activation file for module concatpdf
  */
 
