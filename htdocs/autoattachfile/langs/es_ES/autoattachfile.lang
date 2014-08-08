@@ -1,0 +1,10 @@
+# Dolibarr language file - es_ES - autoattachfile 
+CHARSET= UTF-8
+AutoAttachFileSetup=Configuración del módulo AutoAttachFile
+AutoAttachFileTakeFileFrom=El módulo AutoAttachFile permite concatenar:
+AutoAttachFileTakeFileFrom2=A <b>%s</b>, cualquier archivo encontrado en el directorio: <b>%s</b>
+AutoAttachFilePutFileManually=Los archivos PDF se pueden colocar manualmente con el administrador de archivos.
+NoPDFFileFound=Actualmente no existe ningún archivo PDF.
+ConcatFile=Concatenar el archivo PDF
+Module101400Name=Concat PDF
+Module101400Desc=Módulo para concatenar PDF (condiciones de ventas, por ejemplo) todos los PDF generados (facturas, pedidos o presupuestos)

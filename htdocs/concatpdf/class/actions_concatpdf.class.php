@@ -18,14 +18,14 @@
 
 /**
  *	\file       htdocs/concatpdf/class/actions_concatpdf.class.php
- *	\ingroup    societe
+ *	\ingroup    concatpdf
  *	\brief      File to control actions
  */
 require_once(DOL_DOCUMENT_ROOT."/core/class/commonobject.class.php");
 
 
 /**
- *	Class to manage hooks for module PartiPirate
+ *	Class to manage hooks for module ConcatPdf
  */
 class ActionsConcatPdf
 {

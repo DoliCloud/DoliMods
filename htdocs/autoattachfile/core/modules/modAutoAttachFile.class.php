@@ -15,23 +15,23 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**     \defgroup   concatpdf		Module ConcatPdf
- *      \brief      Module for concatpdf server
+/**     \defgroup   autoattachfile		Module autoattachfile
+ *      \brief      Module for autoattachfile
  */
 
 /**
- *       \file       htdocs/concatpdf/core/modules/modconcatPdf.class.php
- *       \ingroup    concatpdf
- *       \brief      Description and activation file for module concatpdf
+ *       \file       htdocs/autoattachfile/core/modules/modAutoAttachFile.class.php
+ *       \ingroup    autoattachfile
+ *       \brief      Description and activation file for module autoattachfile
  */
 
 include_once(DOL_DOCUMENT_ROOT ."/core/modules/DolibarrModules.class.php");
 
 
 /**
- * 	Description and activation class for module concatpdf
+ * 	Description and activation class for module autoattachfile
  */
-class modConcatPdf extends DolibarrModules
+class modAutoAttachFile extends DolibarrModules
 {
 
     /**
@@ -44,7 +44,7 @@ class modConcatPdf extends DolibarrModules
 		$this->db = $db;
 
 		// Id for module (must be unique).
-		$this->numero = 101400;
+		$this->numero = 101420;
 
 		// Family can be 'crm','financial','hr','projects','product','ecm','technic','other'
 		// It is used to sort modules in module setup page
@@ -52,7 +52,7 @@ class modConcatPdf extends DolibarrModules
 		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'numero' of module)
 		$this->name = preg_replace('/^mod/i','',get_class($this));
 		// Module description used if translation string 'ModuleXXXDesc' not found (XXX is id value)
-		$this->description = "Concat pdfs found into a directory to generated pdf files (proposals, orders, invoices)";
+		$this->description = "Automatically attach files to email form (proposals, orders, invoices)";
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
 		$this->version = '3.5';
 		// Key used in llx_const table to save module status enabled/disabled (XXX is id value)
@@ -73,22 +73,22 @@ class modConcatPdf extends DolibarrModules
 				//						'menus' => 0,                                    // Set this to 1 if module has its own menus handler directory
 				//						'barcode' => 0,                                  // Set this to 1 if module has its own barcode directory
 				//						'models' => 0,                                   // Set this to 1 if module has its own models directory
-				//						'css' => '/filemanager/css/concatpdf.css.php',   // Set this to relative path of css if module has its own css file
-										'hooks' => array('invoicecard','propalcard','ordercard','invoicesuppliercard','ordersuppliercard','pdfgeneration')  // Set here all hooks context managed by module
+				//						'css' => '/filemanager/css/autoattachfile.css.php',   // Set this to relative path of css if module has its own css file
+										'hooks' => array('formmail')  // Set here all hooks context managed by module
 		);
 
 		// Data directories to create when module is enabled
-		$this->dirs = array('/concatpdf/invoices','/concatpdf/orders','/concatpdf/proposals','/concatpdf/supplier_orders','/concatpdf/supplier_invoices','/concatpdf/temp');
+		$this->dirs = array('/autoattachfile/invoices','/autoattachfile/orders','/autoattachfile/proposals','/autoattachfile/supplier_orders','/autoattachfile/supplier_invoices','/autoattachfile/temp');
 
 		// Config pages. Put here list of php page names stored in admin directory used to setup module
-		$this->config_page_url = array('concatpdf.php@concatpdf');
+		$this->config_page_url = array('autoattachfile.php@autoattachfile');
 
 		// Dependencies
 		$this->depends = array();		// List of modules id that must be enabled if this module is enabled
 		$this->requiredby = array();	// List of modules id to disable if this one is disabled
         $this->phpmin = array(4,3);                 // Minimum version of PHP required by module
-        $this->need_dolibarr_version = array(3,2,-3);  // Minimum version of Dolibarr required by module
-        $this->langfiles = array("concatpdf@concatpdf");
+        $this->need_dolibarr_version = array(3,5,-3);  // Minimum version of Dolibarr required by module
+        $this->langfiles = array("autoattachfile@autoattachfile");
 
         // Constants
         // Example: $this->const=array(0=>array('MODULE_MY_NEW_CONST1','chaine','myvalue','This is a constant to add',1),
@@ -107,7 +107,7 @@ class modConcatPdf extends DolibarrModules
     	//$r++;
 
 		// Permissions
-		$this->rights_class = 'concatpdf';	// Permission key
+		$this->rights_class = 'autoattachfile';	// Permission key
 		$this->rights = array();		// Permission array used by this module
 
 
