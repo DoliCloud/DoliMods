@@ -21,7 +21,6 @@
 /**
  *		\file       htdocs/theme/bluelagoon/style.css.php
  *		\brief      Fichier de style CSS du theme Blue lagoon
- *		\version    $Id: style.css.php,v 1.3 2011/02/12 18:36:57 eldy Exp $
  */
 
 //if (! defined('NOREQUIREUSER')) define('NOREQUIREUSER','1');	// Not disabled cause need to load personalized language
@@ -37,7 +36,18 @@ if (! defined('NOREQUIREAJAX'))   define('NOREQUIREAJAX','1');
 
 session_cache_limiter( FALSE );
 
-require_once("../../master.inc.php");
+$res=0;
+if (! $res && file_exists("../main.inc.php")) $res=@include("../main.inc.php");
+if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.php");
+if (! $res && file_exists("../../../main.inc.php")) $res=@include("../../../main.inc.php");
+if (! $res && file_exists("../../../../main.inc.php")) $res=@include("../../../../main.inc.php");
+if (! $res && file_exists("../../../../../main.inc.php")) $res=@include("../../../../../main.inc.php");
+if (! $res && preg_match('/\/nltechno([^\/]*)\//',$_SERVER["PHP_SELF"],$reg)) $res=@include("../../../../../dolibarr".$reg[1]."/htdocs/main.inc.php"); // Used on dev env only
+if (! $res) die("Include of main fails");
+
+// Load user to have $user->conf loaded (not done into main because of NOLOGIN constant defined)
+if (empty($user->id) && ! empty($_SESSION['dol_login'])) $user->fetch('',$_SESSION['dol_login']);
+
 
 // Define css type
 header('Content-type: text/css');
