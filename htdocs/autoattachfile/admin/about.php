@@ -31,6 +31,7 @@ if (! $res && file_exists("../../../main.inc.php")) $res=@include("../../../main
 if (! $res && file_exists("../../../../main.inc.php")) $res=@include("../../../../main.inc.php");
 if (! $res && file_exists("../../../../../main.inc.php")) $res=@include("../../../../../main.inc.php");
 if (! $res && preg_match('/\/nltechno([^\/]*)\//',$_SERVER["PHP_SELF"],$reg)) $res=@include("../../../../dolibarr".$reg[1]."/htdocs/main.inc.php"); // Used on dev env only
+if (! $res && preg_match('/\/teclib([^\/]*)\//',$_SERVER["PHP_SELF"],$reg)) $res=@include("../../../../dolibarr".$reg[1]."/htdocs/main.inc.php"); // Used on dev env only
 if (! $res) die("Include of main fails");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
 
@@ -67,7 +68,7 @@ $h++;
 
 dol_fiche_head($head, 'tababout', '');
 
-print $langs->trans("AboutInfo").'<br>';
+print $langs->trans("AboutInfoTecLib").'<br>';
 print '<br>';
 $url='http://www.teclib.com';
 print '<a href="'.$url.'" target="_blank"><img border="0" width="180" src="../img/logo_teclib.png"></a><br><br>';
