@@ -2,3 +2,6 @@
 CHARSET=UTF-8
 Module101440Name=NLTechno Templates
 Module101440Desc=More templates (by NLTechno)
+ThisModuleHasMoreTemplatesIntoSomeModule=This module adds more documents templates into other modules. Once activated, new templates are visibles into setup of other modules (invoice, ...)
+MoreTemplateSetup=Setup of module MoreTemplates
+PDFTourteauDescription=PDF Tourteau template
