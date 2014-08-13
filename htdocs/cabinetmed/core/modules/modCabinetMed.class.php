@@ -105,8 +105,9 @@ class modCabinetMed extends DolibarrModules
                             10=>array('MAIN_OVERWRITE_THEME_RES','chaine','cabinetmed','Resource for themes (img) are searched into dir/theme/dir first',1,'current',1),
                             11=>array('MAIN_DISABLEVATCHECK','chaine','1','Disable link to VAT check',1,'current',1),
                             12=>array('MAIN_DISABLEDRAFTSTATUS','chaine','1','Disable draft status',1,'current',1),
-                            17=>array('MAIN_SUPPORT_CONTACT_TYPE_FOR_THIRDPARTIES','chaine','1','Can add third party type of contact',1,'current',1),
-                            18=>array('MAIN_APPLICATION_TITLE','chaine','DoliMed '.$this->version,'Change software title',1,'current',1),
+                            16=>array('MAIN_SUPPORT_SHARED_CONTACT_BETWEEN_THIRDPARTIES','chaine','1','Can add third party type of contact',1,'current',1),
+                            17=>array('MAIN_SUPPORT_CONTACT_TYPE_FOR_THIRDPARTIES','chaine','1','Can add third party type of contact',1,'current',1),	// old one. Replaced with MAIN_SUPPORT_SHARED_CONTACT_BETWEEN_THIRDPARTIES
+					        18=>array('MAIN_APPLICATION_TITLE','chaine','DoliMed '.$this->version,'Change software title',1,'current',1),
                             19=>array('CABINETMED_RHEUMATOLOGY_ON','chaine','0','Enable features for rheumatology',0,'current',0),		// Not visible, Do not remove if module removed
         					20=>array('SOCIETE_DISABLE_CUSTOMERS','chaine','1','Hide customers',1,'current',1),
         					21=>array('SOCIETE_DISABLE_PROSPECTS','chaine','1','Hide prospects',1,'current',1),

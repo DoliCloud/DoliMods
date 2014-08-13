@@ -1,5 +1,5 @@
 <?php
-/* Copyright (C) 2008-2011 Laurent Destailleur  <eldy@users.sourceforge.net>
+/* Copyright (C) 2008-2014 Laurent Destailleur  <eldy@users.sourceforge.net>
  *
  * Licensed under the GNU GPL v3 or higher (See file gpl-3.0.html)
  */
@@ -122,7 +122,7 @@ $form=new Form($db);
 
 $head = calendars_prepare_head('');
 
-dol_fiche_head($head, 'gcal', $langs->trans('Events'), 0, 'calendar');
+dol_fiche_head($head, 'gcal', $langs->trans('Agenda'), 0, 'action');
 
 $finaltext='';
 
