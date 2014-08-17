@@ -81,13 +81,13 @@ class modNLTechno extends DolibarrModules
 		// Constants
 		$this->const = array();			// List of parameters
 
-		// Dictionnaries
+		// Dictionaries
 	    if (! isset($conf->nltechno->enabled))
         {
         	$conf->nltechno=new stdClass();
         	$conf->nltechno->enabled=0;
         }
-        $this->dictionnaries=array(
+        /*$this->dictionaries=array(
 		'langs'=>'nltechno@nltechno',
 		'tabname'=>array(MAIN_DB_PREFIX."c_dolicloud_plans"),
 		'tablib'=>array("DoliCloud plans"),
@@ -98,7 +98,7 @@ class modNLTechno extends DolibarrModules
 		'tabfieldinsert'=>array("code,label,price_instance,price_user,price_gb"),
 		'tabrowid'=>array("rowid"),
 		'tabcond'=>array($conf->nltechno->enabled)
-		);
+		);*/
 
 		// Boxes
 		$this->boxes = array();			// List of boxes
