@@ -32,6 +32,7 @@ AddContact=Créer correspondant
 Contact=Correspondant
 NoContactDefined=Aucun correspondant défini
 DefaultContact=Correspondants par défaut
+CustomerCode=Code tiers/patient
 PatientCode=Code patient
 WrongPatientCode=Mauvais code patient
 CustomerCodeDesc=Code patient unique pour chaque patient

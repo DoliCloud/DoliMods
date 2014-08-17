@@ -8,6 +8,7 @@ SalesRepresentativeFollowUp=Doctors (referent)
 SalesRepresentativeSignature=Doctors (signature)
 NoSalesRepresentativeAffected=No particular doctor
 ShowPatient=Show patient
+ListOfCustomers=List of thirdparties/patients
 ListOfPatients=List of patients
 TasksHistoryForThisContact=Actions about this contact
 ActionAC_FAC=Send consultation by email
