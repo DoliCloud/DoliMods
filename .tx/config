@@ -1,0 +1,14 @@
+[main]
+host = https://www.transifex.com
+
+[dolimed.admin]
+file_filter = htdocs/cabinetmed/langs/<lang>/admin.lang
+source_file = htdocs/cabinetmed/langs/en_US/admin.lang
+source_lang = en_US
+type = MOZILLAPROPERTIES
+
+[dolimed.cabinetmed]
+file_filter = htdocs/cabinetmed/langs/<lang>/cabinetmed.lang
+source_file = htdocs/cabinetmed/langs/en_US/cabinetmed.lang
+source_lang = en_US
+type = MOZILLAPROPERTIES

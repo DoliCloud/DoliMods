@@ -1,0 +1,8 @@
+# Dolibarr language file - nl_NL - errors
+#ATH
+CHARSET=UTF-8
+ErrorThisContactIsAlreadyDefinedAsThisType=Deze correspondent is reeds gedefineerd als een correspondent van dit type
+ErrorBadPatientName=Foute patiënt naam
+ErrorBadCustomerCodeSyntax=Syntax voor patiënt code is niet correct
+ErrorCustomerCodeRequired=Patiënt code is verplicht
+ErrorCustomerCodeAlreadyUsed=Patiënt code bestaat al

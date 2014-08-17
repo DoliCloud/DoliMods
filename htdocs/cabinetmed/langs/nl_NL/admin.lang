@@ -1,0 +1,43 @@
+# Dolibarr language file - nl_NL - admin
+#ATH
+CHARSET=UTF-8
+ExtraFieldsThirdParties=Extra attributen (derden/patiënt)
+ExtraFieldsContacts=Extra attributen (contacten)
+UseSearchToSelectCompany= Gebruik een veld met automatisch aanvullen om een patiënt te selecteren (in plaats van een combo lijst).
+ActivityStateToSelectCompany= Voeg een filter optie toe om patiënten te verbergen/weer te geven die niet toegestaan zijn
+ViewFullDateActions= Geef de volledige datum weer bij acties op de aptiënt kaart
+DaylingSavingTime=Zomertijd (gebruiker)
+CurrentHour= PHP Uur (server)
+CompanyTZ= Tijdzone
+CompanyHour= Uur
+ModuleFamilyCrm= Contact beheer
+GenericMaskCodes2=<b>{cccc}</b> patient code als n karakters<br><b>{cccc000}</b> patient code als n karakters gevolgd door een teller gerelateerd aan de klant wordt gereset gelijktijdig met de globale teller.<br><b>{tttt}</b> De code voor een bedrijf via n karakters (zij bedrijfs types woordenboek).<br>
+#GenericMaskCodes2= <b>{cccc}</b> le code patiënt sur n lettres<br><b>{cccc000}</b> le code client sur n lettres est suivi d'un compteur propre au client sans offset, complété par des zéros pour en avoir autant que dans le masque, et remis à zéro en même temps que le compteur global.<br><b>{tttt}</b> Le code type entreprise sur n caractères (voir dictionnaires-types de patiënt).<br>
+# Modules= undefined
+Module1Name= Derden/Patiënt
+Module1Desc= Beheer patiënten en contacten
+Permission121= Consult patiënt
+Permission122= Creëer/wijzig patiënt (+consulten en onderzoeken)
+Permission125= Verwijder patiënten (+consulten en onderzoeken)
+Permission126= Exporteer patiënten
+Permission262= Breid toegang uit naar alle patiënten (niet alleen die toegewezen zijn aan de gebruiker). 
+Permission281= Consulteer alle contacten
+Permission282= Creëer/wijzig contact
+Permission283= Verwijder contacten
+Permission286= Exporteer contactcwens
+DictionnaryCompanyType= Geslacht
+DictionnaryCompanyJuridicalType=Soort beroep
+DictionnaryTypeContact= Contact type
+MotifConsultation=Reden van consult
+DiagnostiqueLesionnel=Diagnose
+Examens=Onderzoeken
+ExamenConclusion=Onderzoeks conclusie
+BankNameList=Lijst van banken
+SetupDescription3=Gegevens in menu <b>Configuratie -> Informatie</b> zijn verplicht voor een goede werking.
+
+CompanySetup= Configuratie van de Patiënten module
+CompanyCodeChecker= Sjabloon om patiënt code te genereren en te controleren
+CashDeskThirdPartyForSell= Generic patiënt for sells
+CashDeskBankAccountForSell= Te gebruiken bankrekening  voor contante betalingen
+CashDeskBankAccountForCheque= Te gebruiken bankrekening voor cheque betalingen
+CashDeskBankAccountForCB= Te gebruiken bankrekening voorcredit card betalingen

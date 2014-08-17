@@ -1,0 +1,16 @@
+# Dolibarr language file - nl_NL - boxes
+#ATH
+CHARSET=UTF-8
+BoxLastCustomers=Laatst gewijzigde patiënten
+BoxLastContacts=Laatste contacten
+BoxTotalUnpaidCustomerBills=Totaal van niet betaalde consulten
+BoxTitleNbOfCustomers=Aantal patiënten
+BoxTitleLastCustomers=Laatste %s gevonden patiënten
+BoxTitleLastModifiedCustomers=Laatste %s gewijzigde patiënten
+BoxTitleLastCustomersOrProspects=Laatste %s gewijzigde patiënten
+BoxTitleTotalUnpaidCustomerBills=Niet betaalde consulten
+BoxTitleLastModifiedContacts=Laatste %s gewijzigde contacten 
+NoRecordedCustomers=Geen patiënt gevonden
+NoRecordedContacts=Geen contact gevonden
+NoRecordedInvoices=Geen consultation gevonden
+NoUnpaidCustomerBills=Geen onbetaalde consulten

@@ -1,0 +1,4 @@
+# Dolibarr language file - nl_NL - banks
+#ATH
+CHARSET=UTF-8
+CustomerInvoicePayment=Betaling van patiënt

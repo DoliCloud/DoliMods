@@ -1,0 +1,6 @@
+# Dolibarr language file - nl_NL - mails
+#ATH
+CHARSET=UTF-8
+MailingModuleDescContactCompanies=Contacten van derden/patiënten (gesorteerd op type)
+MailingModuleDescContactsByCompanyCategory=Contacten of derden/patiënten (gesorteerd op categorie)
+MailingModuleDescContactsByFunction=Contacten of derden/patiënten (gesorteerd op specialisme)

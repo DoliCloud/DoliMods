@@ -1,0 +1,13 @@
+# Dolibarr language file - nl_NL - boutique
+#ATH
+CHARSET=UTF-8
+OSCommerce=Webwinkel
+OSCommerceShop=OSCommerce/Zen-Cart Webwinkel
+SalesTurnover=Omzet
+#ATH in the code a reference is made to Description although they mention Month, updated the code to transate Month
+Total=Totaal
+Orders=Orders
+LastOrders=Laatste orders
+En Attente=Wachtrij
+TreatmentInProgress=In behandeling
+Derniers clients=Laatste klanten
