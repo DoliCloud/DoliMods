@@ -69,15 +69,15 @@ if ($action == 'set')
 	if (! $error)
 	{
 		$dir=GETPOST("DOLICLOUD_INSTANCES_PATH");
-		if (! dol_is_dir($dir)) setEventMessage($langs->trans("ErrorDirNotFound",$dir),'warning');
+		if (! dol_is_dir($dir)) setEventMessage($langs->trans("ErrorDirNotFound",$dir),'warnings');
 		dolibarr_set_const($db,"DOLICLOUD_INSTANCES_PATH",GETPOST("DOLICLOUD_INSTANCES_PATH"),'chaine',0,'',$conf->entity);
 
 		$dir=GETPOST("DOLICLOUD_BACKUP_PATH");
-		if (! dol_is_dir($dir)) setEventMessage($langs->trans("ErrorDirNotFound",$dir),'warning');
+		if (! dol_is_dir($dir)) setEventMessage($langs->trans("ErrorDirNotFound",$dir),'warnings');
 		dolibarr_set_const($db,"DOLICLOUD_BACKUP_PATH",GETPOST("DOLICLOUD_BACKUP_PATH"),'chaine',0,'',$conf->entity);
 
 		$dir=GETPOST("DOLICLOUD_SCRIPTS_PATH");
-		if (! dol_is_dir($dir)) setEventMessage($langs->trans("ErrorDirNotFound",$dir),'warning');
+		if (! dol_is_dir($dir)) setEventMessage($langs->trans("ErrorDirNotFound",$dir),'warnings');
 		dolibarr_set_const($db,"DOLICLOUD_SCRIPTS_PATH",GETPOST("DOLICLOUD_SCRIPTS_PATH"),'chaine',0,'',$conf->entity);
 
 		dolibarr_set_const($db,"DOLICLOUD_DATABASE_HOST",GETPOST("DOLICLOUD_DATABASE_HOST"),'chaine',0,'',$conf->entity);
