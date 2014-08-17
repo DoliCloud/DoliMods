@@ -72,10 +72,10 @@ function listmotifcons($nboflines,$newwidth=0,$htmlname='motifcons',$selected=''
     print '<option value="0"></option>';
     $sql = 'SELECT s.rowid, s.code, s.label';
     $sql.= ' FROM '.MAIN_DB_PREFIX.'cabinetmed_motifcons as s';
-    $sql.= ' WHERE position, active = 1';
-    $sql.= ' ORDER BY label';
+    $sql.= ' WHERE active = 1';
+    $sql.= ' ORDER BY position, label';
     $resql=$db->query($sql);
-    dol_syslog("consutlations sql=".$sql);
+    dol_syslog("listmotifcons sql=".$sql);
     if ($resql)
     {
         $num=$db->num_rows($resql);

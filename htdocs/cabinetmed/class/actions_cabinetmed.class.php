@@ -294,7 +294,7 @@ class ActionsCabinetmed
     function formBuilddocOptions($parameters)
     {
         global $langs, $user, $conf, $form;
-
+var_dump($parameters['modulepart']);
         if (empty($parameters['modulepart']) || $parameters['modulepart'] != 'company') return '';	// Add nothing
 
         include_once(DOL_DOCUMENT_ROOT.'/core/modules/societe/modules_societe.class.php');
