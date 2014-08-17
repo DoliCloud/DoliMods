@@ -232,7 +232,7 @@ class ActionsCabinetmed
     }
 
     /**
-     * Complete card for events
+     * Add fields into tr form of objects
      *
      * @param	array	$parameters		Array of parameters
      * @param   mixed	&$object      	Object
@@ -244,24 +244,12 @@ class ActionsCabinetmed
     {
         global $langs, $user, $conf;
 
-        require_once(DOL_DOCUMENT_ROOT ."/core/lib/admin.lib.php");
 
-        $vercomp=versioncompare(versiondolibarrarray(), array(3,5,-1));
-
-		if ($vercomp >= 0)
-		{
-	        if (! empty($object->societe->id) && $object->societe->id > 0 && ! empty($object->societe->canvas) && $object->societe->canvas == 'patient@cabinetmed')
-	        {
-	    		print '<a href="'.dol_buildpath('/cabinetmed/consultations.php?socid='.$object->societe->id.'&action=create&fk_agenda='.$object->id, 1).'">';
-	    		print $langs->trans("NewConsult");
-	    		print '</a><br><br>';
-	        }
-		}
     }
 
 
     /**
-     * Complete card for events
+     * Add more actions buttons
      *
      * @param	array	$parameters		Array of parameters
      * @param   mixed	&$object      	Object
