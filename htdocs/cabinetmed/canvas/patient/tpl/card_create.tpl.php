@@ -218,7 +218,7 @@ dol_htmloutput_errors($GOBALS['error'],$GLOBALS['errors']);
         print '<td>';
         if ($GLOBALS['mysoc']->country_id)
         {
-            print $formcompany->select_juridicalstatus($object->forme_juridique_code, $GLOBALS['mysoc']->country_code, "AND f.code > '100000'");
+            print $formcompany->select_juridicalstatus($object->forme_juridique_code, $GLOBALS['mysoc']->country_code, "AND (f.module = 'cabinetmed' OR f.code > '100000')");	// > 100000 is the only way i found to not see other entries
         }
         else
         {
