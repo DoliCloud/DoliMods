@@ -9,7 +9,6 @@
  *       \file       htdocs/openstreetmap/gmaps.php
  *       \ingroup    openstreetmap
  *       \brief      Main openstreetmap area page
- *       \version    $Id: gmaps.php,v 1.13 2011/05/12 19:00:05 eldy Exp $
  *       \author     Laurent Destailleur
  */
 
@@ -152,52 +151,38 @@ if ($address && $address != $object->country)
 
     $url='http://nominatim.openstreetmap.org/search?format=json&polygon=1&addressdetails=1&q='.urlencode($address);
 
-    $ch = curl_init();
-    //turning off the server and peer verification(TrustManager Concept).
-    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
-    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
-
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
-    curl_setopt($ch, CURLOPT_FAILONERROR, 1);
-    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 0);
-    curl_setopt($ch, CURLOPT_FRESH_CONNECT, 0);
-
-    curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
-    if (! empty($conf->global->MAIN_PROXY_USE))
-    {
-        curl_setopt ($ch, CURLOPT_PROXY, $conf->global->MAIN_PROXY_HOST. ":" . $conf->global->MAIN_PROXY_PORT);
-        if (! empty($conf->global->MAIN_PROXY_USER)) curl_setopt ($ch, CURLOPT_PROXYUSERPWD, $conf->global->MAIN_PROXY_USER. ":" . $conf->global->MAIN_PROXY_PASS);
-    }
-
-    if (preg_match('/^tcp/i',$url))
-    {
-        $socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
-    }
-
     // Protocol HTTP or HTTPS
     if (preg_match('/^http/i',$url))
     {
-        curl_setopt($ch, CURLOPT_URL,$url);
-
         list($usec, $sec) = explode(" ", microtime());
         $micro_start_time=((float)$usec + (float)$sec);
 
-        $result = curl_exec($ch);
+        include_once DOL_DOCUMENT_ROOT.'/core/lib/geturl.lib.php';
+
+    	$result = getURLContent($url);
+
+        $delay=($micro_end_time-$micro_start_time);
 
         list($usec, $sec) = explode(" ", microtime());
         $micro_end_time=((float)$usec + (float)$sec);
         $end_time=((float)$sec);
 
-        $delay=($micro_end_time-$micro_start_time);
-
-        if (curl_error($ch))    // Test with no response
+    	if (! function_exists('json_decode'))    // Test with no response
         {
-            print 'Error';
+            print 'Error: function json_decode does not exists. Check PHP module json is loaded.';
+            $error++;
         }
-        else
+
+        if (! empty($result['curl_error_no']))
         {
-            //print $result;
-            $array = json_decode($result, true);
+			print 'Error result of getURLContent: '.$result['curl_error_no'];
+			$error++;
+        }
+
+        if (! $error)
+		{
+            //var_dump($result['content']);
+            $array = json_decode($result['content'], true);
             $lat=$array[0]['lat'];
             $lon=$array[0]['lon'];
             if ($lat && $lon)
@@ -247,8 +232,8 @@ if ($address && $address != $object->country)
                 //print '</iframe>';
             }
             else
-            {
-            	print $langs->trans('AddressNotFound');
+			{
+            	print $langs->trans('OpenStreetMapMapsAddressNotFound');
             }
         }
     }
