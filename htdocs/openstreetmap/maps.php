@@ -151,41 +151,11 @@ if ($address && $address != $object->country)
 
     $url='http://nominatim.openstreetmap.org/search?format=json&polygon=1&addressdetails=1&q='.urlencode($address);
 
-    /*
-    $ch = curl_init();
-    //turning off the server and peer verification(TrustManager Concept).
-    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
-    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
-
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
-    curl_setopt($ch, CURLOPT_FAILONERROR, 1);
-    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 0);
-    curl_setopt($ch, CURLOPT_FRESH_CONNECT, 0);
-
-    curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
-    if (! empty($conf->global->MAIN_PROXY_USE))
-    {
-        curl_setopt ($ch, CURLOPT_PROXY, $conf->global->MAIN_PROXY_HOST. ":" . $conf->global->MAIN_PROXY_PORT);
-        if (! empty($conf->global->MAIN_PROXY_USER)) curl_setopt ($ch, CURLOPT_PROXYUSERPWD, $conf->global->MAIN_PROXY_USER. ":" . $conf->global->MAIN_PROXY_PASS);
-    }
-
-    if (preg_match('/^tcp/i',$url))
-    {
-        $socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
-    }
-	*/
-
     // Protocol HTTP or HTTPS
     if (preg_match('/^http/i',$url))
     {
         list($usec, $sec) = explode(" ", microtime());
         $micro_start_time=((float)$usec + (float)$sec);
-
-    	/*
-        curl_setopt($ch, CURLOPT_URL,$url);
-
-        $result = curl_exec($ch);
-		*/
 
         include_once DOL_DOCUMENT_ROOT.'/core/lib/geturl.lib.php';
 
