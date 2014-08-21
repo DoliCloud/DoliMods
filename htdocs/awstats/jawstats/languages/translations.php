@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
   $g_aTranslation[] = array(
     "code" => "de-de",
