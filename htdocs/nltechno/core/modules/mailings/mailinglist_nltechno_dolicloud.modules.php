@@ -52,7 +52,7 @@ class mailing_mailinglist_nltechno_dolicloud extends MailingTargets
 
         $form=new Form($this->db);
 
-        $arraystatus=Dolicloudcustomer::$listOfStatus;
+        $arraystatus=Dolicloudcustomernew::$listOfStatus;
 
         $s='';
         $s.=$langs->trans("Status").': ';
