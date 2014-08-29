@@ -185,6 +185,7 @@ class modCabinetMed extends DolibarrModules
         	'tabhelp'=>array("",array("icd"=>'http://en.wikipedia.org/wiki/International_Statistical_Classification_of_Diseases_and_Related_Health_Problems'),array("biorad"=>"RADIO|BIO|OTHER")),
         	'tabfieldcheck'=>array("","",array("biorad"=>"/(RADIO|BIO|AUTRE|OTHER)/"))
         );
+		$this->dictionaries=$this->dictionnaries;
 
         // Boxes
         $this->boxes = array();         // List of boxes
