@@ -75,7 +75,7 @@ if (! empty($conf->global->MAIN_ENABLE_EXCEPTION))
 }
 
 //$urlexample='https://www.ovh.com/soapi/soapi-re-1.32.wsdl';
-$urlexample='http://www.ovh.com/soapi/soapi-re-latest.wsdl'
+$urlexample='http://www.ovh.com/soapi/soapi-re-latest.wsdl';
 
 
 /*
