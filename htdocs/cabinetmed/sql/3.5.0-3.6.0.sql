@@ -21,6 +21,7 @@
 ALTER TABLE llx_cabinetmed_diaglec ADD COLUMN icd	 varchar(12) NULL;
 ALTER TABLE llx_cabinetmed_diaglec ADD COLUMN lang varchar(12) NULL;	
 
+ALTER TABLE llx_cabinetmed_cons ADD COLUMN fk_agenda integer;
 
 ALTER TABLE llx_cabinetmed_c_examconclusion ADD COLUMN position integer DEFAULT 10;
 ALTER TABLE llx_cabinetmed_examenprescrit ADD COLUMN position integer DEFAULT 10;

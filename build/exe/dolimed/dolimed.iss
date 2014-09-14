@@ -16,12 +16,11 @@
 ; ----- Change this -----
 AppName=DoliMed
 ; DoliMed-x.x.x or DoliMed-x.x.x-dev or DoliMed-x.x.x-beta
-AppVerName=DoliMed-3.5.1
+AppVerName=DoliMed-3.6.0
 ; DoliMed-x.x x or DoliMed-x.x.x-dev or DoliMed-x.x.x-beta
-OutputBaseFilename=DoliMed-3.5.1
+OutputBaseFilename=DoliMed-3.6.0
 ; Define full path from wich all relative path are defined
 ; You must modify this to put here your dolibarr root directory
-;SourceDir=Z:\home\ldestailleur\git\dolibarrxxx
 SourceDir=..\..\..
 ; ----- End of change
 ;OutputManifestFile=build\dolimedbuild.log

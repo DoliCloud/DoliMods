@@ -10,3 +10,5 @@ ScanArea=Area to scan
 ResolutionDPI=DPI Resolution
 WarningWebServerUserMustBeAbleToRunCommands1=Warning, web server user must have permissions to execute commands (check from command line).<br>If not, check permission onto file system and check web server user does not need to be into group <strong>scanner</strong>.
 WarningWebServerUserMustBeAbleToRunCommands2=Warning, PHP must also have access to executer such commands.<br>If it fails, check PHP parameters like <strong>open_basedir, safe_dir</strong>.
+PageSize=Page size
+AutoDetect=Auto-Detect
