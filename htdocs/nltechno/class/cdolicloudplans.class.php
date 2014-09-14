@@ -177,7 +177,7 @@ class Cdolicloudplans // extends CommonObject
 		$sql.= " t.active";
 
         $sql.= " FROM ".MAIN_DB_PREFIX."c_dolicloud_plans as t";
-		if (! empty($ref)) $sql.= " WHERE t.code = '".$ref."'";
+		if (! empty($ref)) $sql.= " WHERE t.code = '".$this->db->escape($ref)."'";
         else $sql.= " WHERE t.rowid = ".$id;
 
     	dol_syslog(get_class($this)."::fetch sql=".$sql, LOG_DEBUG);
