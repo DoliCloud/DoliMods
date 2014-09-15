@@ -250,6 +250,7 @@ class Numbers_Words_en_IN extends Numbers_Words
       'ILS' => array(array('new sheqel','new sheqels'), array('agora','agorot')),
       // DOL_CHANGE
       'IND' => array(array('dollar','dollars'), array('paisa','paise')),
+      'INR' => array(array('dollar','dollars'), array('paisa','paise')),
       'ISK' => array(array('Icelandic krona'), array('aurar')),
       'JPY' => array(array('yen'), array('sen')),
       'LTL' => array(array('litas'), array('cent')),
