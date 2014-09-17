@@ -77,7 +77,7 @@ $sourcedir='/s5Home/laurent/';
 $targetdir=(empty($conf->global->DOLICLOUD_BACKUP_PATH)?'.':$conf->global->DOLICLOUD_BACKUP_PATH).'/';
 $server='www.on.dolicloud.com';
 
-print 'Synchro of files '.$dirroot.' to '.$targetdir."\n";
+print "Backup of database from stratus5 to localhost\n";
 
 $sftpconnectstring=$login.'@'.$server;
 print 'SFTP connect string : '.$sftpconnectstring."\n";
