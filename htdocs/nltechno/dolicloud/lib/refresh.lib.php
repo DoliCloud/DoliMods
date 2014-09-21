@@ -38,6 +38,12 @@ function dolicloud_files_refresh($conf, $db, &$object, &$errors)
 			else
 			{
 				$sftp = ssh2_sftp($connection);
+				if (! $sftp)
+				{
+					dol_syslog("Could not execute ssh2_sftp",LOG_ERR);
+					$errors[]='Failed to connect to ssh2 to '.$server;
+					return 1;
+				}
 
 				$dir=preg_replace('/_([a-zA-Z0-9]+)$/','',$object->database_db);
 				$file="ssh2.sftp://".$sftp.$conf->global->DOLICLOUD_EXT_HOME.'/'.$object->username_web.'/'.$dir.'/htdocs/conf/conf.php';

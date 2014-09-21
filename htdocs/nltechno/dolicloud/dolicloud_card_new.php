@@ -16,7 +16,7 @@
 */
 
 /**
- *       \file       htdocs/nltechno/dolicloud/dolicloud_card.php
+ *       \file       htdocs/nltechno/dolicloud/dolicloud_card_new.php
  *       \ingroup    societe
  *       \brief      Card of a contact
  */
@@ -68,7 +68,6 @@ if ($db2->error)
 	dol_print_error($db2,"host=".$conf->db->host.", port=".$conf->db->port.", user=".$conf->db->user.", databasename=".$conf->db->name.", ".$db2->error);
 	exit;
 }
-
 
 
 $object = new DoliCloudCustomerNew($db,$db2);
@@ -248,6 +247,7 @@ if (empty($reshook))
 			}
 		}
 	}
+
 
 	// Add action to create file, etc...
 	include 'refresh_action_new.inc.php';
