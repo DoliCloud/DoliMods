@@ -126,7 +126,7 @@ if ($modCodeClient->code_auto || $modCodeFournisseur->code_auto) print '<input t
 print '<table class="border" width="100%">';
 
 // Name
-print '<tr><td><span class="fieldrequired">'.$langs->trans('PatientName').'</span></td><td><input type="text" size="40" maxlength="60" name="nom" value="'.$object->nom.'"></td>';
+print '<tr><td><span class="fieldrequired">'.$langs->trans('PatientName').'</span></td><td><input type="text" size="40" maxlength="60" name="nom" value="'.$object->name.'"></td>';
 
 // Prospect/Customer
 print '<td width="25%">'.$langs->trans('PatientCode').'</td><td>';

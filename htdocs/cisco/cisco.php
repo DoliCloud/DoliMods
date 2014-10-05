@@ -21,11 +21,11 @@
  */
 
 /**
- *	\file       htdocs/thomsonphonebook/thomsonphonebook.php
- *  \ingroup    thomsonphonebook
+ *	\file       htdocs/cisco/cisco.php
+ *  \ingroup    cisco
  *	\brief      Recherche dans l'annuaire pour les telephones SIP Thomson
  *				You configure your phones to call URL
- *				http://mydolibarr/thomsonphonebook/thomsonphonebook.php?search=...
+ *				http://mydolibarr/cisco/cisco.php?search=...
  */
 
 define('NOCSRFCHECK',1);
@@ -48,32 +48,41 @@ $search=GETPOST("search");
  * View
  */
 
-// Check parameters
-if (empty($search) && $search == '')
-{
-	dol_print_error($db,'Parameter "search" not provided');
-	exit;
-}
-
-
-if (empty($conf->thomsonphonebook->enabled))
+if (empty($conf->cisco->enabled))
 {
 	dol_print_error($db,'Module was not enabled');
     exit;
 }
+
+// Check parameters
+/*if (empty($search) && $search == '')
+{
+	dol_print_error($db,'Parameter "search" not provided');
+	exit;
+}
+*/
+
+
+
+
+header("Content-type: text/xml");
+header("Connection: close");
+header("Expires: -1");
 
 //$sql = "select p.name,p.firstname,p.phone from llx_socpeople as p,llx_societe as s WHERE p.fk_soc=s.rowid AND (p.name LIKE '%$search' OR p.firstname LIKE '%$search');";
 $sql = "select p.lastname,p.firstname,p.phone from llx_socpeople as p,llx_societe as s WHERE p.fk_soc=s.rowid AND (p.lastname LIKE '".$db->escape($search)."%' OR p.firstname LIKE '".$db->escape($search)."%')";
 if (! empty($conf->global->THOMSONPHONEBOOK_DOSEARCH_ANYWHERE)) $sql = "select p.lastname,p.firstname,p.phone from llx_socpeople as p,llx_societe as s WHERE p.fk_soc=s.rowid AND (p.lastname LIKE '%".$db->escape($search)."%' OR p.firstname LIKE '%".$db->escape($search)."%')";
 
 //print $sql;
-dol_syslog("thomsonphonebook sql=".$sql);
+dol_syslog("cisco sql=".$sql);
 $resql=$db->query($sql);
 if ($resql)
 {
 	$num=$db->num_rows($resql);
 	$i = 0;
-	print("<ThomsonPhoneBook>\n");
+	print("<CiscoIPPhoneDirectory>\n");
+	print("<Title>Dolibarr Directory</Title>\n");
+	print("<Prompt>".$langs->trans("SelectTheUser")."</Prompt>\n");
 	while ($i < $num)
 	{
 		$obj = $db->fetch_object($resql);
@@ -89,7 +98,7 @@ if ($resql)
 		print("</DirectoryEntry>\n");
 		$i++;
 	}
-	print("</ThomsonPhoneBook>\n");
+	print("</CiscoIPPhoneDirectory>\n");
 	$db->free($result);
 }
 else dol_print_error($db);

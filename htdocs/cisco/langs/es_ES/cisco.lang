@@ -1,0 +1,4 @@
+# Dolibarr language file - es_ES - cisco
+CHARSET=UTF-8
+Module101110Name=Cisco Phonebook
+Module101110Desc=Añade un servicio que permite a un teléfono Cisco leer los contactos de Dolibarr para su libreta de direcciones
