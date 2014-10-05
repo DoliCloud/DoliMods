@@ -90,7 +90,7 @@ if ($resql)
 		$i++;
 	}
 	print("</ThomsonPhoneBook>\n");
-	$db->free($result);
+	$db->free($resql);
 }
 else dol_print_error($db);
 

@@ -44,6 +44,7 @@ $search=GETPOST("search");
 
 
 
+
 /*
  * View
  */
@@ -70,8 +71,11 @@ header("Connection: close");
 header("Expires: -1");
 
 //$sql = "select p.name,p.firstname,p.phone from llx_socpeople as p,llx_societe as s WHERE p.fk_soc=s.rowid AND (p.name LIKE '%$search' OR p.firstname LIKE '%$search');";
-$sql = "select p.lastname,p.firstname,p.phone from llx_socpeople as p,llx_societe as s WHERE p.fk_soc=s.rowid AND (p.lastname LIKE '".$db->escape($search)."%' OR p.firstname LIKE '".$db->escape($search)."%')";
-if (! empty($conf->global->THOMSONPHONEBOOK_DOSEARCH_ANYWHERE)) $sql = "select p.lastname,p.firstname,p.phone from llx_socpeople as p,llx_societe as s WHERE p.fk_soc=s.rowid AND (p.lastname LIKE '%".$db->escape($search)."%' OR p.firstname LIKE '%".$db->escape($search)."%')";
+$sql = "select p.lastname,p.firstname,p.phone";
+$sql.= " FROM llx_socpeople as p,llx_societe as s";
+$sql.= " WHERE p.fk_soc=s.rowid AND (p.lastname LIKE '".$db->escape($search)."%' OR p.firstname LIKE '".$db->escape($search)."%')";
+
+//if (! empty($conf->global->THOMSONPHONEBOOK_DOSEARCH_ANYWHERE)) $sql = "select p.lastname,p.firstname,p.phone from llx_socpeople as p,llx_societe as s WHERE p.fk_soc=s.rowid AND (p.lastname LIKE '%".$db->escape($search)."%' OR p.firstname LIKE '%".$db->escape($search)."%')";
 
 //print $sql;
 dol_syslog("cisco sql=".$sql);
@@ -99,7 +103,7 @@ if ($resql)
 		$i++;
 	}
 	print("</CiscoIPPhoneDirectory>\n");
-	$db->free($result);
+	$db->free($resql);
 }
 else dol_print_error($db);
 
