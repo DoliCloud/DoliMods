@@ -228,7 +228,7 @@ class modSkinColorEditor extends DolibarrModules
      */
     function remove($options='')
     {
-        $sql = array();
+        $sql = array("DELETE FROM ".MAIN_DB_PREFIX."const where name='THEME_ELDY_ENABLE_PERSONALIZED'");	// Disable personalized skin
 
         return $this->_remove($sql,$options);
     }
