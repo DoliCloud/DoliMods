@@ -188,7 +188,7 @@ class modCabinetMed extends DolibarrModules
 		$this->dictionaries=$this->dictionnaries;
 
         // Boxes
-        $this->boxes = array();         // List of boxes
+        $this->boxes = array(array('file' => "box_patients@cabinetmed", 'enabledbydefaulton' => 1));	// List of boxes
         $r=0;
 
         // Add here list of php file(s) stored in includes/boxes that contains class to show a box.
