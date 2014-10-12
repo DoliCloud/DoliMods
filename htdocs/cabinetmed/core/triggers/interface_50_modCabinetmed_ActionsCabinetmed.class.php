@@ -193,8 +193,7 @@ class InterfaceActionsCabinetmed
 			$actioncomm->contact     = $contactforaction;
 			$actioncomm->societe     = $societeforaction;
 			$actioncomm->author      = $user;   // User saving action
-			//$actioncomm->usertodo  = $user;	// User affected to action
-			$actioncomm->userdone    = $user;	// User doing action
+			$actioncomm->userownerid = $user->id;
 
 			$actioncomm->fk_element  = $object->id;
 			$actioncomm->elementtype = $object->element;
