@@ -59,7 +59,7 @@ class modEcoTaxDeee extends DolibarrModules
 		// Module description used if translation string 'ModuleXXXDesc' not found (where XXX is value of numeric property 'numero' of module)
 		$this->description = "Module to add ecotax lines automatically";
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
-		$this->version = '3.5.1';
+		$this->version = '3.5.2';
 		// Key used in llx_const table to save module status enabled/disabled
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
 		// Where to store the module in setup page (0=common,1=interface,2=other)
