@@ -62,17 +62,25 @@ class ActionsEcotaxdeee
         if (empty($conf->global->ECOTAXDEEE_DOC_FOOTER)) return 0;
 
         // If his is not a document we need ecotax
-        if (! in_array($parameters['object']->element, array('propal','invoice','order'))) return 0;
+        if (! in_array($parameters['object']->element, array('propal','order','invoice','propale','commande','facture'))) return 0;
 
         // If we build a document we don't want ecotax on, we leave
         $element='';
-        if ($parameters['object']->element == 'propal' && empty($conf->global->ECOTAXDEEE_USE_ON_PROPOSAL)) return 0;
-        else if ($parameters['object']->element == 'invoice' && empty($conf->global->ECOTAXDEEE_USE_ON_CUSTOMER_INVOICE)) return 0;
-        else if ($parameters['object']->element == 'order' && empty($conf->global->ECOTAXDEEE_USE_ON_CUSTOMER_ORDER)) return 0;
+        if (($parameters['object']->element == 'propal' || $parameters['object']->element == 'propale') && empty($conf->global->ECOTAXDEEE_USE_ON_PROPOSAL)) return 0;
+        else if (($parameters['object']->element == 'invoice' || $parameters['object']->element == 'facture') && empty($conf->global->ECOTAXDEEE_USE_ON_CUSTOMER_INVOICE)) return 0;
+        else if (($parameters['object']->element == 'order' || $parameters['object']->element == 'order') && empty($conf->global->ECOTAXDEEE_USE_ON_CUSTOMER_ORDER)) return 0;
+
+        // If there is no ecotax lines.
+        $noecotax=1;
+		foreach($parameters['object']->lines as $key => $line)
+		{
+			if ($line->special_code == 2) $noecotax=0;
+		}
+		if ($noecotax) return 0;
 
         $outputlangs=$parameters['outputlangs'];
         $concatpdffile = 'tmpecotaxdeee'.(empty($user->id)?'':'_'.$user->id);
-		$file=$conf->ecotaxdeee->dir_temp.'/'.$concatpdffile.'.pdf';        
+		$file=$conf->ecotaxdeee->dir_temp.'/'.$concatpdffile.'.pdf';
         dol_mkdir($conf->ecotaxdeee->dir_temp);
 
         $ret=0; $deltemp=array();
@@ -88,10 +96,10 @@ class ActionsEcotaxdeee
 		$marge_droite=isset($conf->global->MAIN_PDF_MARGIN_RIGHT)?$conf->global->MAIN_PDF_MARGIN_RIGHT:10;
 		$marge_haute =isset($conf->global->MAIN_PDF_MARGIN_TOP)?$conf->global->MAIN_PDF_MARGIN_TOP:10;
 		$marge_basse =isset($conf->global->MAIN_PDF_MARGIN_BOTTOM)?$conf->global->MAIN_PDF_MARGIN_BOTTOM:10;
-        
+
         // Generate new file and save it name into concatpdffile
         // into dir $conf->ecotaxdeee->dir_temp.'/'.$concatpdffile.'.pdf'
-        
+
         // Create pdf instance
         $pdf=pdf_getInstance($format);
         $default_font_size = pdf_getPDFFontSize($outputlangs);	// Must be after pdf_getInstance
@@ -116,19 +124,20 @@ class ActionsEcotaxdeee
         $pdf->Open();
         if (! empty($conf->global->MAIN_DISABLE_PDF_COMPRESSION)) $pdf->SetCompression(false);
         $pdf->SetMargins($marge_gauche, $marge_haute, $marge_droite);   // Left, Top, Right
+
         // New page
         $pdf->AddPage();
         if (! empty($tplidx)) $pdf->useTemplate($tplidx);
 
         $pdf->writeHTMLCell($page_largeur - $marge_gauche - $marge_droite, $page_hauteur - $marge_haute - $marge_basse, $marge_gauche, $marge_haute, $conf->global->ECOTAXDEEE_DOC_FOOTER);
-		
+
         $pdf->Close();
 
 		$pdf->Output($file,'F');
 
 		unset($pdf);
-		// Annexe file was generated        
-		
+		// Annexe file was generated
+
         $filetoconcat1=array($parameters['file']);
         $filetoconcat2=array($file);
         //var_dump($parameters['object']->element); exit;
@@ -138,7 +147,7 @@ class ActionsEcotaxdeee
         $filetoconcat = array_merge($filetoconcat1, $filetoconcat2);
 
         // Create empty PDF
-        $pdf=pdf_getInstance();
+        $pdf=pdf_getInstance($format);
         if (class_exists('TCPDF'))
         {
         	$pdf->setPrintHeader(false);
@@ -175,7 +184,7 @@ class ActionsEcotaxdeee
 
         $result=$parameters['object']->setExtraParameters();
         */
-        
+
         return $ret;
     }
 
