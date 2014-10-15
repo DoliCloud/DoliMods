@@ -131,7 +131,7 @@ if ($resql)
 			{
 				print "<DirectoryEntry>\n";
 				print "\t<Name>";
-				print $obj->rowid.'/'.$obj->contactid.' ';
+				//print $obj->rowid.'/'.$obj->contactid.' ';
 				print dolXMLEncodeipphone($obj->name);
 				print "</Name>\n";
 				print "\t<Telephone>";
@@ -145,7 +145,7 @@ if ($resql)
 		{
 			print "<DirectoryEntry>\n";
 			print "\t<Name>";
-			print $obj->rowid.'/'.$obj->contactid.' ';
+			//print $obj->rowid.'/'.$obj->contactid.' ';
 			print dolXMLEncodeipphone($obj->name." - ".dolGetFirstLastname($obj->firstname,$obj->lastname));
 			print "</Name>\n";
 			print "\t<Telephone>";
@@ -157,7 +157,7 @@ if ($resql)
 		{
 			print "<DirectoryEntry>\n";
 			print "\t<Name>";
-			print $obj->rowid.'/'.$obj->contactid.' ';
+			//print $obj->rowid.'/'.$obj->contactid.' ';
 			print dolXMLEncodeipphone($obj->name." - ".dolGetFirstLastname($obj->firstname,$obj->lastname));
 			print "</Name>\n";
 			print "\t<Telephone>";
