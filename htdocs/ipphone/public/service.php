@@ -21,15 +21,30 @@
  */
 
 /**
- *	\file       htdocs/cisco/cisco.php
- *  \ingroup    cisco
+ *	\file       htdocs/public/service.php
+ *  \ingroup    ipphone
  *	\brief      Recherche dans l'annuaire pour les telephones SIP Thomson
  *				You configure your phones to call URL
- *				http://mydolibarr/cisco/cisco.php?search=...
+ *				http://mydolibarr/ipphone/public/service.php?search=...
  */
 
 define('NOCSRFCHECK',1);
 define('NOLOGIN',1);
+
+// C'est un wrapper, donc header vierge
+/**
+ * Header function
+ *
+ * @return	void
+ */
+function llxHeaderVierge() { print ''; }
+/**
+ * Footer function
+ *
+ * @return	void
+ */
+function llxFooterVierge() { print ''; }
+
 
 $res=0;
 if (! $res && file_exists("../main.inc.php")) $res=@include("../main.inc.php");
@@ -37,11 +52,15 @@ if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.p
 if (! $res && file_exists("../../../main.inc.php")) $res=@include("../../../main.inc.php");
 if (! $res && file_exists("../../../../main.inc.php")) $res=@include("../../../../main.inc.php");
 if (! $res && file_exists("../../../../../main.inc.php")) $res=@include("../../../../../main.inc.php");
-if (! $res && preg_match('/\/nltechno([^\/]*)\//',$_SERVER["PHP_SELF"],$reg)) $res=@include("../../../dolibarr".$reg[1]."/htdocs/main.inc.php"); // Used on dev env only
+if (! $res && preg_match('/\/nltechno([^\/]*)\//',$_SERVER["PHP_SELF"],$reg)) $res=@include("../../../../dolibarr".$reg[1]."/htdocs/main.inc.php"); // Used on dev env only
 if (! $res) die("Include of main fails");
 
 $search=GETPOST("search");
+$key=GETPOST("key");
 
+if (empty($conf->ipphone->enabled)) accessforbidden('',1,1,1);
+
+$langs->load("ipphone@ipphone");
 
 
 
@@ -49,10 +68,18 @@ $search=GETPOST("search");
  * View
  */
 
-if (empty($conf->cisco->enabled))
+if (! empty($conf->global->IPPHONE_EXPORTKEY))
 {
-	dol_print_error($db,'Module was not enabled');
-    exit;
+	// Protection is on, we check key
+	if ($key != $conf->global->IPPHONE_EXPORTKEY)
+	{
+		$user->getrights();
+
+		llxHeaderVierge();
+		print '<div class="error">Bad value for key.</div>';
+		llxFooterVierge();
+		exit;
+	}
 }
 
 // Check parameters
@@ -71,41 +98,79 @@ header("Connection: close");
 header("Expires: -1");
 
 //$sql = "select p.name,p.firstname,p.phone from llx_socpeople as p,llx_societe as s WHERE p.fk_soc=s.rowid AND (p.name LIKE '%$search' OR p.firstname LIKE '%$search');";
-$sql = "select p.lastname,p.firstname,p.phone";
-$sql.= " FROM llx_socpeople as p,llx_societe as s";
-$sql.= " WHERE p.fk_soc=s.rowid AND (p.lastname LIKE '".$db->escape($search)."%' OR p.firstname LIKE '".$db->escape($search)."%')";
+$sql = "select s.nom as name, s.phone, p.lastname, p.firstname, p.phone as contactphone, phone_mobile as contactphonemobile";
+$sql.= " FROM ".MAIN_DB_PREFIX."societe as s LEFT JOIN ".MAIN_DB_PREFIX."socpeople as p ON p.fk_soc = s.rowid";
+$sql.= " WHERE p.rowid IS NULL or (p.lastname LIKE '".$db->escape($search)."%' OR p.firstname LIKE '".$db->escape($search)."%')";
 
 //if (! empty($conf->global->THOMSONPHONEBOOK_DOSEARCH_ANYWHERE)) $sql = "select p.lastname,p.firstname,p.phone from llx_socpeople as p,llx_societe as s WHERE p.fk_soc=s.rowid AND (p.lastname LIKE '%".$db->escape($search)."%' OR p.firstname LIKE '%".$db->escape($search)."%')";
 
+
+$phonetag='CiscoIPPhone';	// May be also 'Thompson'
+
+
 //print $sql;
-dol_syslog("cisco sql=".$sql);
+dol_syslog("ipphone sql=".$sql);
 $resql=$db->query($sql);
 if ($resql)
 {
 	$num=$db->num_rows($resql);
 	$i = 0;
-	print("<CiscoIPPhoneDirectory>\n");
+	print("<".$phonetag."Directory>\n");
 	print("<Title>Dolibarr Directory</Title>\n");
 	print("<Prompt>".$langs->trans("SelectTheUser")."</Prompt>\n");
+
 	while ($i < $num)
 	{
 		$obj = $db->fetch_object($resql);
 		//debug
 		//var_dump($obj);
-		print("<DirectoryEntry>\n");
-		print("\t<Name>");
-		print($obj->lastname.", ".$obj->firstname );
-		print("</Name>\n");
-		print("\t<Telephone>");
-		print($obj->phone);
-		print("</Telephone>\n");
-		print("</DirectoryEntry>\n");
+		if ($obj->phone || (! empty($conf->global->IPPHONE_SHOW_NO_PHONE) && empty($obj->contactphone) && empty($obj->contactphonemobile)))
+		{
+			print "<DirectoryEntry>\n";
+			print "\t<Name>";
+			print $obj->name;
+			print "</Name>\n";
+			print "\t<Telephone>";
+			print $obj->phone;
+			print "</Telephone>\n";
+			print "</DirectoryEntry>\n";
+		}
+		if ($obj->contactphone)
+		{
+			print "<DirectoryEntry>\n";
+			print "\t<Name>";
+			print $obj->name." - ".dolGetFirstLastname($obj->firstname,$obj->lastname);
+			print "</Name>\n";
+			print "\t<Telephone>";
+			print $obj->contactphone;
+			print "</Telephone>\n";
+			print "</DirectoryEntry>\n";
+		}
+		if ($obj->contactphonemobile)
+		{
+			print "<DirectoryEntry>\n";
+			print "\t<Name>";
+			print $obj->name." - ".dolGetFirstLastname($obj->firstname,$obj->lastname);
+			print "</Name>\n";
+			print "\t<Telephone>";
+			print $obj->contactphonemobile;
+			print "</Telephone>\n";
+			print "</DirectoryEntry>\n";
+		}
+
 		$i++;
 	}
-	print("</CiscoIPPhoneDirectory>\n");
+
+		print "<DirectoryEntry>\n";
+			print "\t<Name>";
+			print 'eee';
+			print "</Name>\n";
+			print "\t<Telephone></Telephone>\n";
+			print "</DirectoryEntry>\n";
+
+	print("</".$phonetag."Directory>\n");
 	$db->free($resql);
 }
 else dol_print_error($db);
 
 $db->close();
-?>

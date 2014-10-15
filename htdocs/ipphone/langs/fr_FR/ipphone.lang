@@ -1,0 +1,7 @@
+# Dolibarr language file - fr_FR - ipphone
+CHARSET=UTF-8
+Module101130Name=IP Phonebook (Cisco)
+Module101130Desc=Ajoute un service permettant à un téléphone IP (Cisco) de lire les contacts Dolibarr pour son carnet d'adresse
+IPPhoneSetup=Configuration du module Annuaire IP Phone (Cisco)
+PasswordToallowRead=Clé pour protéger l'URL
+SelectTheUser=Sélectionner le tiers ou contact

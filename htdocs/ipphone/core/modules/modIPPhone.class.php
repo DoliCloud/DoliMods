@@ -16,22 +16,22 @@
  * or see http://www.gnu.org/
  */
 
-/**     \defgroup   cisco     Module Cisco
- *      \brief      Cisco module descriptor.
+/**     \defgroup   ipphone     Module IPPhone
+ *      \brief      IPPhone module descriptor.
  */
 
 /**
- *      \file       htdocs/cisco/core/modules/modCisco.class.php
- *      \ingroup    cisco
- *      \brief      Description and activation file for module Cisco
+ *      \file       htdocs/ipphone/core/modules/modIPPhone.class.php
+ *      \ingroup    ipphone
+ *      \brief      Description and activation file for module IPPhone
  */
 include_once(DOL_DOCUMENT_ROOT ."/core/modules/DolibarrModules.class.php");
 
 
 /**
- *	Description and activation class for module Cisco
+ *	Description and activation class for module IPPhone
  */
-class modCisco extends DolibarrModules
+class modIPPhone extends DolibarrModules
 {
     /**
 	 *   Constructor. Define names, constants, directories, boxes, permissions
@@ -46,7 +46,7 @@ class modCisco extends DolibarrModules
         // Use here a free id (See in Home -> System information -> Dolibarr for list of used modules id).
         $this->numero = 101130;
         // Key text used to identify module (for permissions, menus, etc...)
-        $this->rights_class = 'cisco';
+        $this->rights_class = 'ipphone';
 
         // Family can be 'crm','financial','hr','projects','products','ecm','technic','other'
         // It is used to group modules in module setup page
@@ -54,7 +54,7 @@ class modCisco extends DolibarrModules
         // Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'numero' of module)
         $this->name = preg_replace('/^mod/i','',get_class($this));
         // Module description, used if translation string 'ModuleXXXDesc' not found (where XXX is value of numeric property 'numero' of module)
-        $this->description = "Make your Dolibarr able to answer a thomson phone request for annuary content";
+        $this->description = "Make your Dolibarr able to answer an IP Phone request for annuary content";
         // Possible values for version are: 'development', 'experimental', 'dolibarr' or version
         $this->version = '3.6.0';
         // Key used in llx_const table to save module status enabled/disabled (where MYMODULE is value of property name of module in uppercase)
@@ -69,14 +69,14 @@ class modCisco extends DolibarrModules
         $this->dirs = array();
 
         // Config pages. Put here list of php page names stored in admmin directory used to setup module.
-        $this->config_page_url = array('setup.php@cisco');
+        $this->config_page_url = array('setup.php@ipphone');
 
         // Dependencies
         $this->depends = array();		// List of modules id that must be enabled if this module is enabled
         $this->requiredby = array();	// List of modules id to disable if this one is disabled
         $this->phpmin = array(4,3);					// Minimum version of PHP required by module
         $this->need_dolibarr_version = array(3,6);	// Minimum version of Dolibarr required by module
-        $this->langfiles = array('cisco@cisco');
+        $this->langfiles = array('ipphone@ipphone');
 
         // Constants
         $this->const = array();			// List of particular constants to add when module is enabled
@@ -192,5 +192,3 @@ class modCisco extends DolibarrModules
         return $this->_load_tables('');
     }
 }
-
-?>
