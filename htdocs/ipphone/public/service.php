@@ -117,7 +117,7 @@ if ($resql)
 	$i = 0;
 	print("<".$phonetag."Directory>\n");
 	print("<Title>Dolibarr Directory</Title>\n");
-	print("<Prompt>".$langs->trans("SelectTheUser")."</Prompt>\n");
+	print("<Prompt>".$langs->transnoentitiesnoconv("SelectTheUser")."</Prompt>\n");
 
 	while ($i < $num)
 	{
