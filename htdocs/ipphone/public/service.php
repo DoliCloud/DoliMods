@@ -98,7 +98,7 @@ header("Connection: close");
 header("Expires: -1");
 
 //$sql = "select p.name,p.firstname,p.phone from llx_socpeople as p,llx_societe as s WHERE p.fk_soc=s.rowid AND (p.name LIKE '%$search' OR p.firstname LIKE '%$search');";
-$sql = "select s.nom as name, s.phone, p.lastname, p.firstname, p.phone as contactphone, phone_mobile as contactphonemobile";
+$sql = "select s.rowid, s.nom as name, s.phone, p.rowid as contactid, p.lastname, p.firstname, p.phone as contactphone, phone_mobile as contactphonemobile";
 $sql.= " FROM ".MAIN_DB_PREFIX."societe as s LEFT JOIN ".MAIN_DB_PREFIX."socpeople as p ON p.fk_soc = s.rowid";
 $sql.= " WHERE p.rowid IS NULL or (p.lastname LIKE '".$db->escape($search)."%' OR p.firstname LIKE '".$db->escape($search)."%')";
 
@@ -106,7 +106,7 @@ $sql.= " WHERE p.rowid IS NULL or (p.lastname LIKE '".$db->escape($search)."%' O
 
 
 $phonetag='CiscoIPPhone';	// May be also 'Thompson'
-
+$thirdpartyadded=array();
 
 //print $sql;
 dol_syslog("ipphone sql=".$sql);
@@ -117,28 +117,35 @@ if ($resql)
 	$i = 0;
 	print("<".$phonetag."Directory>\n");
 	print("<Title>Dolibarr Directory</Title>\n");
-	print("<Prompt>".$langs->transnoentitiesnoconv("SelectTheUser")."</Prompt>\n");
+	print("<Prompt>".dolXMLEncodeipphone($langs->transnoentitiesnoconv("SelectTheUser"))."</Prompt>\n");
 
 	while ($i < $num)
 	{
 		$obj = $db->fetch_object($resql);
 		//debug
 		//var_dump($obj);
-		if ($obj->phone || (! empty($conf->global->IPPHONE_SHOW_NO_PHONE) && empty($obj->contactphone) && empty($obj->contactphonemobile)))
+		if ($obj->phone || (! empty($conf->global->IPPHONE_SHOW_NO_PHONE) && (empty($obj->contactid) || (empty($obj->contactphone) && empty($obj->contactphonemobile)))))
 		{
-			print "<DirectoryEntry>\n";
-			print "\t<Name>";
-			print dolXMLEncodeipphone($obj->name);
-			print "</Name>\n";
-			print "\t<Telephone>";
-			print dolXMLEncodeipphone($obj->phone);
-			print "</Telephone>\n";
-			print "</DirectoryEntry>\n";
+			// Record for thirdparty (only if not already output)
+			if (empty($thirdpartyadded[$obj->rowid]))
+			{
+				print "<DirectoryEntry>\n";
+				print "\t<Name>";
+				print $obj->rowid.'/'.$obj->contactid.' ';
+				print dolXMLEncodeipphone($obj->name);
+				print "</Name>\n";
+				print "\t<Telephone>";
+				print dolXMLEncodeipphone($obj->phone);
+				print "</Telephone>\n";
+				print "</DirectoryEntry>\n";
+			}
+			$thirdpartyadded[$obj->rowid]=1;
 		}
 		if ($obj->contactphone)
 		{
 			print "<DirectoryEntry>\n";
 			print "\t<Name>";
+			print $obj->rowid.'/'.$obj->contactid.' ';
 			print dolXMLEncodeipphone($obj->name." - ".dolGetFirstLastname($obj->firstname,$obj->lastname));
 			print "</Name>\n";
 			print "\t<Telephone>";
@@ -150,6 +157,7 @@ if ($resql)
 		{
 			print "<DirectoryEntry>\n";
 			print "\t<Name>";
+			print $obj->rowid.'/'.$obj->contactid.' ';
 			print dolXMLEncodeipphone($obj->name." - ".dolGetFirstLastname($obj->firstname,$obj->lastname));
 			print "</Name>\n";
 			print "\t<Telephone>";
