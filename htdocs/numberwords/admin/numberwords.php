@@ -194,6 +194,9 @@ if ($level)
 		print ' - <a href="'.DOL_URL_ROOT.'/admin/limits.php">'.$langs->trans("SetupToChange").'</a>';
 	}
 }
+print '<br>';
+print '<font class="info">'.$langs->trans("Note").': '.$langs->trans("Currency").': '.$conf->currency.'</font>';
+print ' - <a href="'.DOL_URL_ROOT.'/admin/company.php">'.$langs->trans("SetupToChange").'</a>';
 
 
 llxFooter();
