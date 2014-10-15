@@ -75,7 +75,7 @@ class modIPPhone extends DolibarrModules
         $this->depends = array();		// List of modules id that must be enabled if this module is enabled
         $this->requiredby = array();	// List of modules id to disable if this one is disabled
         $this->phpmin = array(4,3);					// Minimum version of PHP required by module
-        $this->need_dolibarr_version = array(3,6);	// Minimum version of Dolibarr required by module
+        $this->need_dolibarr_version = array(3,5);	// Minimum version of Dolibarr required by module
         $this->langfiles = array('ipphone@ipphone');
 
         // Constants
