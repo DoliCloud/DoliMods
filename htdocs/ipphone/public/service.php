@@ -128,10 +128,10 @@ if ($resql)
 		{
 			print "<DirectoryEntry>\n";
 			print "\t<Name>";
-			print $obj->name;
+			print dolXMLEncodeipphone($obj->name);
 			print "</Name>\n";
 			print "\t<Telephone>";
-			print $obj->phone;
+			print dolXMLEncodeipphone($obj->phone);
 			print "</Telephone>\n";
 			print "</DirectoryEntry>\n";
 		}
@@ -139,10 +139,10 @@ if ($resql)
 		{
 			print "<DirectoryEntry>\n";
 			print "\t<Name>";
-			print $obj->name." - ".dolGetFirstLastname($obj->firstname,$obj->lastname);
+			print dolXMLEncodeipphone($obj->name." - ".dolGetFirstLastname($obj->firstname,$obj->lastname));
 			print "</Name>\n";
 			print "\t<Telephone>";
-			print $obj->contactphone;
+			print dolXMLEncodeipphone($obj->contactphone);
 			print "</Telephone>\n";
 			print "</DirectoryEntry>\n";
 		}
@@ -150,10 +150,10 @@ if ($resql)
 		{
 			print "<DirectoryEntry>\n";
 			print "\t<Name>";
-			print $obj->name." - ".dolGetFirstLastname($obj->firstname,$obj->lastname);
+			print dolXMLEncodeipphone($obj->name." - ".dolGetFirstLastname($obj->firstname,$obj->lastname));
 			print "</Name>\n";
 			print "\t<Telephone>";
-			print $obj->contactphonemobile;
+			print dolXMLEncodeipphone($obj->contactphonemobile);
 			print "</Telephone>\n";
 			print "</DirectoryEntry>\n";
 		}
@@ -161,12 +161,14 @@ if ($resql)
 		$i++;
 	}
 
-		print "<DirectoryEntry>\n";
+/*
+ 			print "<DirectoryEntry>\n";
 			print "\t<Name>";
 			print 'eee';
 			print "</Name>\n";
 			print "\t<Telephone></Telephone>\n";
 			print "</DirectoryEntry>\n";
+*/
 
 	print("</".$phonetag."Directory>\n");
 	$db->free($resql);
@@ -174,3 +176,15 @@ if ($resql)
 else dol_print_error($db);
 
 $db->close();
+
+
+/**
+ * Encode string for xml usage
+ *
+ * @param 	string	$string		String to encode
+ * @return	string				String encoded
+ */
+function dolXMLEncodeipphone($string)
+{
+	return strtr($string, array('\''=>'&apos;','"'=>'&quot;','&'=>'&amp;','<'=>'&lt;','>'=>'&gt;'));
+}
