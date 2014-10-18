@@ -98,7 +98,7 @@ class ActionsCabinetmed
             $month=((int) $birthdatearray['tm_month'] + 1);
             $year=((int) $birthdatearray['tm_year'] + 1900);
             $birthdate=dol_mktime(0,0,0,$month,$day,$year,true,true);
-            if (GETPOST('idprof3') && (empty($birthdatearray['tm_year']) || empty($birthdate) || ($day > 31) || ($month > 12) || ($year >( $arraytmp['year']+1))))
+            if (GETPOST('idprof3') && (empty($birthdatearray['tm_year']) || (empty($birthdate) && $birthdate != '0') || ($day > 31) || ($month > 12) || ($year >( $arraytmp['year']+1))))
             {
                 $langs->load("errors");
                 $this->errors[]=$langs->trans("ErrorBadDateFormat",$date);
@@ -143,7 +143,7 @@ class ActionsCabinetmed
                 else dol_print_error($this->db);
             }
 
-            if ($ret == 0) $backtopage=$_SERVER["PHP_SELF"]."?socid=__ID__";
+            if ($ret == 0 && $parameters['id'] > 0) $backtopage=$_SERVER["PHP_SELF"]."?socid=".$parameters['id'];
         }
 
         // Hook called when asking to update a record

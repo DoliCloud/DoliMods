@@ -118,7 +118,7 @@ class modCabinetMed extends DolibarrModules
         // Array to add new pages in new tabs
         $this->tabs = array(
         				//'thirdparty:+tabpatientcard:Patient:cabinetmed@cabinetmed:/cabinetmed/soc.php?socid=__ID__',
-        				'thirdparty:+tabcontacts:Correspondants:cabinetmed@cabinetmed:/cabinetmed/contact.php?socid=__ID__',
+        				'thirdparty:+tabpatientcontacts:Correspondants:cabinetmed@cabinetmed:/cabinetmed/contact.php?socid=__ID__',
                         'thirdparty:+tabantecedents:AntecedentsShort:cabinetmed@cabinetmed:/cabinetmed/antecedant.php?socid=__ID__',
                         //'thirdparty:+tabtraitetallergies:TraitEtAllergies:cabinetmed@cabinetmed:/cabinetmed/traitetallergies.php?socid=__ID__',
                         'thirdparty:+tabnotes:Notes:cabinetmed@cabinetmed:/cabinetmed/notes.php?socid=__ID__',
@@ -126,7 +126,7 @@ class modCabinetMed extends DolibarrModules
                         'thirdparty:+tabexambio:ResultExamBio:cabinetmed@cabinetmed:/cabinetmed/exambio.php?socid=__ID__',
                         'thirdparty:+tabexamautre:ResultExamAutre:cabinetmed@cabinetmed:/cabinetmed/examautre.php?socid=__ID__',
                         'thirdparty:+tabdocument:Courriers:cabinetmed@cabinetmed:/cabinetmed/documents.php?socid=__ID__',
-                        //'thirdparty:-card',
+                        'thirdparty:-contact',
                         'thirdparty:-document',
                         'thirdparty:-notify',
                         'thirdparty:-note',

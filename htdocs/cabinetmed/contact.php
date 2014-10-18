@@ -147,7 +147,7 @@ if ($id > 0 || ! empty($ref))
 
 
 	$head = societe_prepare_head($societe);
-    dol_fiche_head($head, 'tabcontacts', $langs->trans("Patient"),0,'company');
+    dol_fiche_head($head, 'tabpatientcontacts', $langs->trans("Patient"),0,'company');
 
     $width=300;
     print '
