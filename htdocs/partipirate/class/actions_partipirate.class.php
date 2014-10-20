@@ -252,7 +252,7 @@ class ActionsPartiPirate
         	unset($parameters['object']->extraparams['concatpdf']);
         }
 
-        $result=$parameters['object']->setExtraParameters();
+        if (is_object($parameters['object']) && method_exists($parameters['object'], 'setExtraParameters')) $result=$parameters['object']->setExtraParameters();
 
         return $ret;
     }

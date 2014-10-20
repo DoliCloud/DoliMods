@@ -177,14 +177,6 @@ class ActionsEcotaxdeee
         	}
         }
 
-        // Save selected files into extraparams
-        /*
-        $params['ecotaxdeee'] = $concatpdffile;
-        $parameters['object']->extraparams = array_merge($parameters['object']->extraparams, $params);
-
-        $result=$parameters['object']->setExtraParameters();
-        */
-
         return $ret;
     }
 
