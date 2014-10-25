@@ -244,7 +244,8 @@ if ($resql)
 
 		if ($geoencodingtosearch && (empty($MAXADDRESS) || $countgeoencoding < $MAXADDRESS))
 		{
-			if ($countgeoencoding && ($countgeoencoding % 10 == 0))
+			// Google limit usage of API to 5 requests per second
+			if ($countgeoencoding && ($countgeoencoding % 5 == 0))
 			{
 				dol_syslog("Add a delay of 1");
 				sleep(1);
@@ -300,15 +301,16 @@ if ($resql)
 				}
 				else
 				{
-					$googlemaps->result_code='ERROR';
-					$googlemaps->result_label=$error;
+					$googlemaps->result_code=$error;
+					$googlemaps->result_label='Geoencoding failed '.$error;
 				}
 
 				if ($googlemaps->id > 0) $result=$googlemaps->update();
 				else $result=$googlemaps->create($user);
 				if ($result < 0) dol_print_error('',$googlemaps->error);
 
-				$object->error=$error;
+				$object->error_code=$googlemaps->result_code;
+				$object->error=$googlemaps->result_label;
 				$adderrors[]=$object;
 
 				$countgeoencodedall++;
@@ -324,6 +326,7 @@ if ($resql)
 			else if (! empty($obj->result_code))	// An error
 			{
 				$error=$obj->result_label;
+				$object->error_code=$obj->result_code;
 				$object->error=$error;
 				$adderrors[]=$object;
 
@@ -403,7 +406,7 @@ if (count($adderrors))
 		$objectstatic->id=$object->id;
 		$objectstatic->name=$object->name;	// Here $object is an array an 'name' is already a formatted string with firstname and lastname
 		$objectstatic->ref=$object->name;	// Here $object is an array an 'name' is already a formatted string with firstname and lastname
-		print $langs->trans("Name").": ".$objectstatic->getNomUrl(1).", ".$langs->trans("Address").": ".$object->address." -> ".$object->error."<br>\n";
+		print $langs->trans("Name").": ".$objectstatic->getNomUrl(1).", ".$langs->trans("Address").": ".$object->address." -> ".$object->error." (error code = ".$object->error_code.")<br>\n";
 	}
 }
 
@@ -416,15 +419,31 @@ $db->close();
 
 /**
  * Geocoding an address (address -> lat,lng)
+ * Use API v3.
+ * See API doc: https://developers.google.com/maps/documentation/geocoding/#api_key
+ * To create a key:
+ * Visit the APIs console at https://code.google.com/apis/console and log in with your Google Account.
+ * Click "Enable an API" or the Services link from the left-hand menu in the APIs Console, then activate the Geocoding API service.
+ * Once the service has been activated, your API key is available from the API Access page, in the Simple API Access section. Geocoding API applications use the Key for server apps.
  *
  * @param 	string 	$address 	An address
  * @return 	mixed				Array(lat, lng) if OK, error message string if KO
  */
 function geocoding($address)
 {
+	global $conf;
+
 	$encodeAddress = urlencode(withoutSpecialChars($address));
 	//$url = "http://maps.google.com/maps/geo?q=".$encodeAddress."&output=csv";
-	$url = "http://maps.google.com/maps/api/geocode/json?address=".$encodeAddress."&sensor=false";
+	//$url = "http://maps.google.com/maps/api/geocode/json?address=".$encodeAddress."&sensor=false";
+	if ($conf->global->GOOGLE_API_SERVERKEY)
+	{
+		$url = "https://maps.googleapis.com/maps/api/geocode/json?address=".$encodeAddress.($conf->global->GOOGLE_API_SERVERKEY?"&key=".$conf->global->GOOGLE_API_SERVERKEY:"");
+	}
+	else
+	{
+		$url = "http://maps.googleapis.com/maps/api/geocode/json?address=".$encodeAddress;
+	}
 	ini_set("allow_url_open", "1");
 	$response = googlegetURLContent($url,'GET');
 
@@ -446,17 +465,20 @@ function geocoding($address)
 	else if ($data->status == "OVER_QUERY_LIMIT")
 	{
 		$returnstring='OVER_QUERY_LIMIT';
+		echo "\n<!-- geocoding : called url : ".dol_escape_htmltag($url)." -->\n";
 		echo "<!-- geocoding : failure to geocode : ".dol_escape_htmltag($encodeAddress)." => " . dol_escape_htmltag($returnstring) . " -->\n";
 		return $returnstring;
 	}
 	else if ($data->status == "ZERO_RESULTS")
 	{
 		$returnstring='ZERO_RESULTS';
+		echo "\n<!-- geocoding : called url : ".dol_escape_htmltag($url)." -->\n";
 		echo "<!-- geocoding : failure to geocode : ".dol_escape_htmltag($encodeAddress)." => " . dol_escape_htmltag($returnstring) . " -->\n";
 		return $returnstring;
 	}
 	else {
 		$returnstring='Failed to json_decode result '.$response['content'];
+		echo "\n<!-- geocoding : called url : ".dol_escape_htmltag($url)." -->\n";
 		echo "<!-- geocoding : failure to geocode : ".dol_escape_htmltag($encodeAddress)." => " . dol_escape_htmltag($returnstring) . " -->\n";
 		return $returnstring;
 	}
