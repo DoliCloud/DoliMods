@@ -190,8 +190,8 @@ class Dolicloudcustomernew extends CommonObject
 		$sql.= "fileauthorizedkey,";
 		$sql.= "filelock,";
 		$sql.= "version,";
-		$sql.= "lastrsync";
-
+		$sql.= "lastrsync,";
+		$sql.= "backup_status";
         $sql.= ") VALUES (";
 
 		$sql.= " ".(! isset($this->instance)?'NULL':"'".$this->db->escape($this->instance)."'").",";
