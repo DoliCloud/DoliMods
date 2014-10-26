@@ -234,7 +234,7 @@ class Dolicloudcustomernew extends CommonObject
 		$sql.= " ".(! isset($this->filelock) || dol_strlen($this->filelock)==0?'NULL':$this->db->idate($this->filelock)).",";
 
 		$sql.= " ".(! isset($this->version)?'NULL':"'".$this->db->escape($this->version)."'").",";
-		$sql.= " ".(! isset($this->date_lastrsync) || dol_strlen($this->date_lastrsync)==0?'NULL':"'".$this->db->idate($this->date_lastrsync)."',");
+		$sql.= " ".(! isset($this->date_lastrsync) || dol_strlen($this->date_lastrsync)==0?'NULL':"'".$this->db->idate($this->date_lastrsync)."'").",";
 
 		$sql.= " ".(! isset($this->backup_status) || dol_strlen($this->backup_status)==0?'NULL':"'".$this->backup_status."'");
 
