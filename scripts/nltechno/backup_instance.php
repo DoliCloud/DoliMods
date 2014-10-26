@@ -152,6 +152,7 @@ if ($mode == 'testrsync' || $mode == 'confirmrsync' || $mode == 'confirm')
 	$param[]="--exclude .gitignore";
 	$param[]="--exclude .settings";
 	$param[]="--exclude .project";
+	$param[]="--exclude '*.com*SSL'";
 	$param[]="--exclude '*.log'";
 	//$param[]="--exclude '*.old'";
 	$param[]="--exclude '*/build/'";
