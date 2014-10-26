@@ -46,3 +46,4 @@ ImportFilePayments=Import of payment file
 ImportFileCustomers=Import of customers
 ImportCustomers=Import customers
 ImportPayments=Import payments
+CurrentBackupStatus=Status last backup
