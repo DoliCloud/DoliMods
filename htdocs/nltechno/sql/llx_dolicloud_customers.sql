@@ -64,5 +64,6 @@ CREATE TABLE llx_dolicloud_customers
 	paymentfrequency varchar(32),
 	fileauthorizedkey datetime default NULL,
 	filelock datetime default NULL,
-    lastrsync datetime default NULL			-- date last rsync backup
+    lastrsync datetime default NULL,			-- date last rsync backup
+    backup_status varchar(32) default NULL
 ) ENGINE = innodb;

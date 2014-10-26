@@ -990,6 +990,14 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 	print '<td>'.$backupdir.'/'.$login.'/'.$dirdb.'</td>';
 	print '</tr>';
 
+	// Current backup status
+	print '<tr>';
+	print '<td width="20%">'.$langs->trans("CurrentBackupStatus").'</td>';
+	print '<td width="30%">'.$object->backup_status.'</td>';
+	print '<td></td>';
+	print '<td></td>';
+	print '</tr>';
+
 	print "</table><br>";
 
 
