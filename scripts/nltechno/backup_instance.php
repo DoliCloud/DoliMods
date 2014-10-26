@@ -143,7 +143,7 @@ if ($mode == 'testrsync' || $mode == 'confirmrsync' || $mode == 'confirm')
 {
 	$command="rsync";
 	$param=array();
-	if ($mode != 'confirm') $param[]="-n";
+	if ($mode != 'confirm' && $mode != 'confirmrsync') $param[]="-n";
 	//$param[]="-a";
 	$param[]="-rltz";
 	$param[]="-vv";
