@@ -331,6 +331,8 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 	print 'Rsync overwrite document dir (supprimer le -n pour exécuter réellement):<br>';
 	print '<input type="text" name="sftprestorestring" value="'.$sftprestorestring.'" size="160"><br>';
 
+	print '<br>';
+
 	// Deploy module
 	$sftpdeploystring='rsync -n -v -a dirmodulehtdocs/* '.$object->username_web.'@'.$object->hostname_web.':'.$object->fs_path.'/htdocs';
 	print 'Rsync overwrite module (supprimer le -n pour exécuter réellement):<br>';
