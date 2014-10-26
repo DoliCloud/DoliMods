@@ -327,9 +327,14 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 	print '<br>';
 
 	// Document restore
-	$sftprestorestring='rsync -n -a dolibarr_documents '.$object->username_web.':'.$object->password_web.'@'.$object->hostname_web.':'.$object->fs_path.'/documents';
-	print 'Rsync overwrite document dir (supprimer le -n pour exécuter réellementà:<br>';
+	$sftprestorestring='rsync -n -v -a dolibarr_documents/* '.$object->username_web.'@'.$object->hostname_web.':'.$object->fs_path.'/documents';
+	print 'Rsync overwrite document dir (supprimer le -n pour exécuter réellement):<br>';
 	print '<input type="text" name="sftprestorestring" value="'.$sftprestorestring.'" size="160"><br>';
+
+	// Deploy module
+	$sftpdeploystring='rsync -n -v -a dirmodulehtdocs/* '.$object->username_web.'@'.$object->hostname_web.':'.$object->fs_path.'/htdocs';
+	print 'Rsync overwrite module (supprimer le -n pour exécuter réellement):<br>';
+	print '<input type="text" name="sftpdeploystring" value="'.$sftpdeploystring.'" size="160"><br>';
 
 	print '<br>';
 
