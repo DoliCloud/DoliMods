@@ -322,21 +322,21 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 	// Upgrade link
 	$upgradestringtoshow=$upgradestring.' test';
 	print 'Upgrade version line string (remplacer "test" par "confirmunlock" pour exécuter réellement)<br>';
-	print '<input type="text" name="upgradestring" value="'.$upgradestringtoshow.'" size="140"><br>';
+	print '<input type="text" name="upgradestring" value="'.$upgradestringtoshow.'" size="160"><br>';
 
 	print '<br>';
 
 	// Document restore
 	$sftprestorestring='rsync -n -a dolibarr_documents '.$object->username_web.':'.$object->password_web.'@'.$object->hostname_web.':'.$object->fs_path.'/documents';
 	print 'Rsync overwrite document dir (supprimer le -n pour exécuter réellementà:<br>';
-	print '<input type="text" name="sftprestorestring" value="'.$sftprestorestring.'" size="140"><br>';
+	print '<input type="text" name="sftprestorestring" value="'.$sftprestorestring.'" size="160"><br>';
 
 	print '<br>';
 
 	// Mysql Restore
 	$mysqlresotrecommand='mysql -A -u '.$object->username_db.' -p\''.$object->password_db.'\' -h '.$object->hostname_db.' -D '.$object->database_db.' < filetorestore';
 	print 'Mysql overwrite database:<br>';
-	print '<input type="text" name="mysqlrestorecommand" value="'.$mysqlresotrecommand.'" size="140"><br>';
+	print '<input type="text" name="mysqlrestorecommand" value="'.$mysqlresotrecommand.'" size="160"><br>';
 
 
 }

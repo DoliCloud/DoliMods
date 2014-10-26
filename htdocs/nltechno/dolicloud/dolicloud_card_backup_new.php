@@ -320,7 +320,7 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 	// Upgrade link
 	$backupstringtoshow=$backupstring.' test';
 	print 'Backup command line string<br>';
-	print '<input type="text" name="backupstring" value="'.$backupstringtoshow.'" size="120"><br>';
+	print '<input type="text" name="backupstring" value="'.$backupstringtoshow.'" size="160"><br>';
 
 }
 
