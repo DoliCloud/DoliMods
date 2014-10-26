@@ -234,10 +234,13 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 
 	// Nb of users
 	print '<tr><td width="20%">'.$langs->trans("NbOfUsers").'</td><td colspan="3"><font size="+2">'.round($object->nbofusers).'</font></td>';
+	print '<td rowspan="6" valign="middle" width="50%">';
+	print getListOfLinks($object, $lastloginadmin, $lastpassadmin);
+	print '</td>';
 	print '</tr>';
 
 	// Dates
-	print '<tr><td width="20%">'.$langs->trans("DateDeployment").'</td><td colspan="3">'.dol_print_date($object->date_registration,'dayhour');
+	print '<tr><td width="20%">'.$langs->trans("DateDeployment").'</td><td>'.dol_print_date($object->date_registration,'dayhour');
 	//print ' (<a href="'.dol_buildpath('/nltechno/dolicloud_card.php',1).'?id='.$object->id.'&amp;action=setdate&amp;date=">'.$langs->trans("SetDate").'</a>)';
 	print '</td>';
 	print '</tr>';
@@ -251,24 +254,24 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 	*/
 	// Version
 	print '<tr>';
-	print '<td>'.$langs->trans("Version").'</td><td colspan="3">'.$object->version.'</td>';
+	print '<td>'.$langs->trans("Version").'</td><td>'.$object->version.'</td>';
 	print '</tr>';
 
 	// Modules
 	print '<tr>';
-	print '<td>'.$langs->trans("Modules").'</td><td colspan="3">'.join(', ',explode(',',$object->modulesenabled)).'</td>';
+	print '<td>'.$langs->trans("Modules").'</td><td>'.join(', ',explode(',',$object->modulesenabled)).'</td>';
 	print '</tr>';
 
 	// Authorized key file
 	print '<tr>';
-	print '<td>'.$langs->trans("Authorized_keyInstalled").'</td><td colspan="3">'.($object->fileauthorizedkey?$langs->trans("Yes").' - '.dol_print_date($object->fileauthorizedkey,'%Y-%m-%d %H:%M:%S','tzuser'):$langs->trans("No"));
+	print '<td>'.$langs->trans("Authorized_keyInstalled").'</td><td>'.($object->fileauthorizedkey?$langs->trans("Yes").' - '.dol_print_date($object->fileauthorizedkey,'%Y-%m-%d %H:%M:%S','tzuser'):$langs->trans("No"));
 	print ' &nbsp; (<a href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&action=addauthorizedkey">'.$langs->trans("Create").'</a>)';
 	print '</td>';
 	print '</tr>';
 
 	// Install.lock file
 	print '<tr>';
-	print '<td>'.$langs->trans("LockfileInstalled").'</td><td colspan="3">'.($object->filelock?$langs->trans("Yes").' - '.dol_print_date($object->filelock,'%Y-%m-%d %H:%M:%S','tzuser'):$langs->trans("No"));
+	print '<td>'.$langs->trans("LockfileInstalled").'</td><td>'.($object->filelock?$langs->trans("Yes").' - '.dol_print_date($object->filelock,'%Y-%m-%d %H:%M:%S','tzuser'):$langs->trans("No"));
 	print ' &nbsp; (<a href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&action=addinstalllock">'.$langs->trans("Create").'</a>)';
 	print ($object->filelock?' &nbsp; (<a href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&action=delinstalllock">'.$langs->trans("Delete").'</a>)':'');
 	print '</td>';
@@ -319,8 +322,23 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 
 	// Upgrade link
 	$upgradestringtoshow=$upgradestring.' test';
-	print 'Upgrade command line string<br>';
-	print '<input type="text" name="upgradestring" value="'.$upgradestringtoshow.'" size="120"><br>';
+	print 'Upgrade version line string (remplacer "test" par "confirmunlock" pour exécuter réellement)<br>';
+	print '<input type="text" name="upgradestring" value="'.$upgradestringtoshow.'" size="140"><br>';
+
+	print '<br>';
+
+	// Document restore
+	$sftprestorestring='rsync -n -a dolibarr_documents '.$object->username_web.':'.$object->password_web.'@'.$object->hostname_web.':'.$object->fs_path.'/documents';
+	print 'Rsync overwrite document dir (supprimer le -n pour exécuter réellementà:<br>';
+	print '<input type="text" name="sftprestorestring" value="'.$sftprestorestring.'" size="140"><br>';
+
+	print '<br>';
+
+	// Mysql Restore
+	$mysqlresotrecommand='mysql -A -u '.$object->username_db.' -p\''.$object->password_db.'\' -h '.$object->hostname_db.' -D '.$object->database_db.' < filetorestore';
+	print 'Mysql overwrite database:<br>';
+	print '<input type="text" name="mysqlrestorecommand" value="'.$mysqlresotrecommand.'" size="140"><br>';
+
 
 }
 

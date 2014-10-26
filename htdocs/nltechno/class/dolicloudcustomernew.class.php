@@ -69,6 +69,8 @@ class Dolicloudcustomernew extends CommonObject
 	var $modulesenabled;
 	var $version;
 
+	var $fs_path;
+
 	var $firstname;
 	var $lastname;
 	var $address;
@@ -540,6 +542,9 @@ class Dolicloudcustomernew extends CommonObject
                 	$tmp=getState($this->state_id,'all');
                 	$this->state_code=$tmp['code']; $this->state=$tmp['label'];
                 }
+
+                // Set path
+                $object->fs_path = '/home/jail/home/'.$object->username_web.'/'.(preg_replace('/_([a-zA-Z0-9]+)$/','',$object->database_db));
 
                 // Load other info from old table
                 $result=$this->fetch_old('',$this->instance);

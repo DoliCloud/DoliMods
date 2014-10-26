@@ -135,7 +135,7 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 {
 	/*
 	 * Fiche en mode visualisation
-	*/
+	 */
 	$newdb=getDoliDBInstance($conf->db->type, $object->instance.'.on.dolicloud.com', $object->username_db, $object->password_db, $object->database_db, 3306);
 	if (is_object($newdb))
 	{
@@ -230,7 +230,81 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 
 
 	// ----- DoliCloud instance -----
-	print '<strong>INSTANCE SERVEUR STRATUS5</strong><br>';
+	print '<strong>INSTANCE SERVEUR STRATUS5 ('.$newdb->database_host.')</strong><br>';
+
+	print_user_table($newdb);
+
+	print '<br>';
+
+	// ----- Backup instance -----
+	$backupdir=$conf->global->DOLICLOUD_BACKUP_PATH;
+
+	$dirdb=preg_replace('/_([a-zA-Z0-9]+)/','',$object->database_db);
+	$login=$object->username_web;
+	$password=$object->password_web;
+	$server=$object->instance.'.on.dolicloud.com';
+
+	$newdb2=getDoliDBInstance($db2->type, $conf->global->DOLICLOUD_DATABASE_HOST, $object->username_db, $object->password_db, $object->database_db, 3306);
+	if (is_object($newdb2))
+	{
+		// Get user/pass of last admin user
+		$sql="SELECT login, pass FROM llx_user WHERE admin = 1 ORDER BY statut DESC, datelastlogin DESC LIMIT 1";
+		$resql=$newdb->query($sql);
+		$obj = $newdb->fetch_object($resql);
+		$object->lastlogin_admin=$obj->login;
+		$object->lastpass_admin=$obj->pass;
+		$lastloginadmin=$object->lastlogin_admin;
+		$lastpassadmin=$object->lastpass_admin;
+	}
+
+	print '<strong>INSTANCE SERVEUR NLTECHNO ('.$newdb2->database_host.')</strong><br>';
+	print '<table class="border" width="100%">';
+
+	print_user_table($newdb2);
+
+	print "</table><br>";
+
+
+	print "</div>";
+
+	// Barre d'actions
+/*	if (! $user->societe_id)
+	{
+		print '<div class="tabsAction">';
+
+		if ($user->rights->nltechno->dolicloud->write)
+		{
+			print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&amp;action=upgrade">'.$langs->trans('Upgrade').'</a>';
+		}
+
+		print "</div><br>";
+	}
+*/
+
+	// Dolibarr instance login
+	$url='https://'.$object->instance.'.on.dolicloud.com?username='.$lastloginadmin.'&amp;password='.$lastpassadmin;
+	$link='<a href="'.$url.'" target="_blank">'.$url.'</a>';
+	print 'Dolibarr link<br>';
+	//print '<input type="text" name="dashboardconnectstring" value="'.dashboardconnectstring.'" size="100"><br>';
+	print $link.'<br>';
+	print '<br>';
+
+}
+
+
+llxFooter();
+
+$db->close();
+
+
+/**
+ * Print list of users
+ *
+ * @param unknown_type $newdb
+ */
+function print_user_table($newdb)
+{
+	global $langs;
 
 	print '<table class="border" width="100%">';
 
@@ -295,52 +369,4 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 	}
 
 	print "</table>";
-	print '<br>';
-
-
-	$backupdir=$conf->global->DOLICLOUD_BACKUP_PATH;
-
-	$dirdb=preg_replace('/_([a-zA-Z0-9]+)/','',$object->database_db);
-	$login=$object->username_web;
-	$password=$object->password_web;
-	$server=$object->instance.'.on.dolicloud.com';
-
-	// ----- Backup instance -----
-	print '<strong>INSTANCE SERVEUR NLTECHNO</strong><br>';
-	print '<table class="border" width="100%">';
-
-
-	print "</table><br>";
-
-
-	print "</div>";
-
-	// Barre d'actions
-/*	if (! $user->societe_id)
-	{
-		print '<div class="tabsAction">';
-
-		if ($user->rights->nltechno->dolicloud->write)
-		{
-			print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&amp;action=upgrade">'.$langs->trans('Upgrade').'</a>';
-		}
-
-		print "</div><br>";
-	}
-*/
-
-	// Dolibarr instance login
-	$url='https://'.$object->instance.'.on.dolicloud.com?username='.$lastloginadmin.'&amp;password='.$lastpassadmin;
-	$link='<a href="'.$url.'" target="_blank">'.$url.'</a>';
-	print 'Dolibarr link<br>';
-	//print '<input type="text" name="dashboardconnectstring" value="'.dashboardconnectstring.'" size="100"><br>';
-	print $link.'<br>';
-	print '<br>';
-
 }
-
-
-llxFooter();
-
-$db->close();
-?>
