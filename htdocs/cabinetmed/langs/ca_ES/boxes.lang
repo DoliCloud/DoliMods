@@ -33,7 +33,6 @@ BoxTitleLastCustomersOrProspects=Els %s darrers pacients o pacients potencials r
 BoxTitleLastPropals=Els %s darrers pressupostos registrats
 BoxTitleLastCustomerBills=Les %s últimes factures a pacients modificades
 BoxTitleLastSupplierBills=Les %s últimes factures de proveïdors modificades
-BoxTitleLastProspects=Els %s darrers pacients potencials registrats
 BoxTitleLastModifiedProspects=Els %s últims pacients potencials modificats
 BoxTitleLastProductsInContract=Els %s darrers productes/serveis contractats
 BoxTitleOldestUnpaidCustomerBills=Les %s factures més antigues a pacients pendents de cobrament
