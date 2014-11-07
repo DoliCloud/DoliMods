@@ -388,5 +388,3 @@ function dolicloud_calculate_stats($db, $datelim)
 				   'totalcustomerspaying'=>(int) count($listofcustomerspaying), 'totalcustomers'=>(int) count($listofcustomers)
 		);
 }
-
-?>

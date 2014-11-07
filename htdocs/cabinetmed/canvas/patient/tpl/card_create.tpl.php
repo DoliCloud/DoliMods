@@ -84,12 +84,21 @@ $object->tva_intra=$_POST["tva_intra"];
 $object->commercial_id=$_POST["commercial_id"];
 $object->default_lang=$_POST["default_lang"];
 
+$countrytable="c_pays";
+$fieldlabel='libelle';
+include_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
+if (versioncompare(versiondolibarrarray(),array(3,7,-3)) >= 0)
+{
+	$countrytable="c_country";
+	$fieldlabel='label';
+}
+
 // We set country_id, country_code and label for the selected country
 $object->country_id=$_POST["country_id"]?$_POST["country_id"]:$mysoc->country_id;
 if ($object->country_id)
 {
-    $sql = "SELECT code, libelle";
-    $sql.= " FROM ".MAIN_DB_PREFIX."c_pays";
+    $sql = "SELECT code, ".$fieldlabel." as label";
+    $sql.= " FROM ".MAIN_DB_PREFIX.$countrytable;
     $sql.= " WHERE rowid = ".$object->country_id;
     $resql=$db->query($sql);
     if ($resql)
@@ -101,7 +110,7 @@ if ($object->country_id)
         dol_print_error($db);
     }
     $object->country_code=$obj->code;
-    $object->country=$obj->libelle;
+    $object->country=$obj->label;
 }
 $object->forme_juridique_code=$_POST['forme_juridique_code'];
 
@@ -240,6 +249,7 @@ dol_htmloutput_errors($GOBALS['error'],$GLOBALS['errors']);
         // Other attributes
         $parameters=array('colspan' => ' colspan="3"', 'colspanvalue' => '3');
         $reshook=$hookmanager->executeHooks('formObjectOptions',$parameters,$object,$action);    // Note that $action and $object may have been modified by hook
+
         if (empty($reshook) && ! empty($extrafields->attribute_label))
         {
         	print $object->showOptionals($extrafields,'edit');

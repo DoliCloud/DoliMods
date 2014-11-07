@@ -69,6 +69,8 @@ class Dolicloudcustomernew extends CommonObject
 	var $modulesenabled;
 	var $version;
 
+	var $fs_path;
+
 	var $firstname;
 	var $lastname;
 	var $address;
@@ -88,7 +90,8 @@ class Dolicloudcustomernew extends CommonObject
 
 	var $fileauthorizedkey;
 	var $filelock;
-	var $date_lastrsync='';
+	var $date_lastrsync='';		// date last successfull backup rsync + mysqldump
+	var $backup_status;
 
 	static $listOfStatus=array('TRIAL'=>'TRIAL','TRIAL_EXPIRED'=>'TRIAL_EXPIRED','ACTIVE'=>'ACTIVE','ACTIVE_PAYMENT_ERROR'=>'ACTIVE_PAYMENT_ERROR','SUSPENDED'=>'SUSPENDED','CLOSED_QUEUED'=>'CLOSE_QUEUED','UNDEPLOYED'=>'UNDEPLOYED');
 	static $listOfStatusShort=array('TRIAL'=>'TRIAL','TRIAL_EXPIRED'=>'TRIAL_EXP.','ACTIVE'=>'ACT.','ACTIVE_PAYMENT_ERROR'=>'ACT_PAY_ERR.','SUSPENDED'=>'SUSPENDED','CLOSED_QUEUED'=>'CLOSE_Q.','UNDEPLOYED'=>'UNDEP.');
@@ -187,8 +190,8 @@ class Dolicloudcustomernew extends CommonObject
 		$sql.= "fileauthorizedkey,";
 		$sql.= "filelock,";
 		$sql.= "version,";
-		$sql.= "lastrsync";
-
+		$sql.= "lastrsync,";
+		$sql.= "backup_status";
         $sql.= ") VALUES (";
 
 		$sql.= " ".(! isset($this->instance)?'NULL':"'".$this->db->escape($this->instance)."'").",";
@@ -231,7 +234,9 @@ class Dolicloudcustomernew extends CommonObject
 		$sql.= " ".(! isset($this->filelock) || dol_strlen($this->filelock)==0?'NULL':$this->db->idate($this->filelock)).",";
 
 		$sql.= " ".(! isset($this->version)?'NULL':"'".$this->db->escape($this->version)."'").",";
-		$sql.= " ".(! isset($this->date_lastrsync) || dol_strlen($this->date_lastrsync)==0?'NULL':"'".$this->db->idate($this->date_lastrsync)."'");
+		$sql.= " ".(! isset($this->date_lastrsync) || dol_strlen($this->date_lastrsync)==0?'NULL':"'".$this->db->idate($this->date_lastrsync)."'").",";
+
+		$sql.= " ".(! isset($this->backup_status) || dol_strlen($this->backup_status)==0?'NULL':"'".$this->backup_status."'");
 
 		$sql.= ")";
 
@@ -305,6 +310,7 @@ class Dolicloudcustomernew extends CommonObject
 		$sql.= " t.fileauthorizedkey,";
 		$sql.= " t.filelock,";
 		$sql.= " t.lastrsync,";
+		$sql.= " t.backup_status,";
 		$sql.= " t.version";
 
         $sql.= " FROM ".MAIN_DB_PREFIX."dolicloud_customers as t";
@@ -335,6 +341,7 @@ class Dolicloudcustomernew extends CommonObject
                 $this->filelock = $this->db->jdate($obj->filelock);
 
                 $this->date_lastrsync = $this->db->jdate($obj->lastrsync);
+                $this->backup_status = $obj->backup_status;
                 $this->version = $obj->version;
 
                 /*include_once(DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php');
@@ -541,6 +548,9 @@ class Dolicloudcustomernew extends CommonObject
                 	$this->state_code=$tmp['code']; $this->state=$tmp['label'];
                 }
 
+                // Set path
+                $object->fs_path = '/home/jail/home/'.$object->username_web.'/'.(preg_replace('/_([a-zA-Z0-9]+)$/','',$object->database_db));
+
                 // Load other info from old table
                 $result=$this->fetch_old('',$this->instance);
 
@@ -641,6 +651,7 @@ class Dolicloudcustomernew extends CommonObject
 		$sql.= " fileauthorizedkey=".(dol_strlen($this->fileauthorizedkey)!=0 ? "'".$this->db->idate($this->fileauthorizedkey)."'" : 'null').",";
 		$sql.= " filelock=".(dol_strlen($this->filelock)!=0 ? "'".$this->db->idate($this->filelock)."'" : 'null').",";
 		$sql.= " lastrsync=".(dol_strlen($this->date_lastrsync)!=0 ? "'".$this->db->idate($this->date_lastrsync)."'" : 'null').",";
+		$sql.= " backup_status=".(isset($this->backup_status)?"'".$this->db->escape($this->backup_status)."'":"null").",";
 		$sql.= " version=".(isset($this->version)?"'".$this->db->escape($this->version)."'":"null").",";
 		$sql.= " vat_number=".(isset($this->vat_number)?"'".$this->db->escape($this->vat_number)."'":"null");
 
@@ -781,6 +792,7 @@ class Dolicloudcustomernew extends CommonObject
 		$sql.= " fileauthorizedkey=".(dol_strlen($this->fileauthorizedkey)!=0 ? "'".$this->db->idate($this->fileauthorizedkey)."'" : 'null').",";
 		$sql.= " filelock=".(dol_strlen($this->filelock)!=0 ? "'".$this->db->idate($this->filelock)."'" : 'null').",";
 		$sql.= " lastrsync=".(dol_strlen($this->date_lastrsync)!=0 ? "'".$this->db->idate($this->date_lastrsync)."'" : 'null').",";
+		$sql.= " backup_status=".(isset($this->backup_status)?"'".$this->db->escape($this->backup_status)."'":"null").",";
 		$sql.= " version=".(isset($this->version)?"'".$this->db->escape($this->version)."'":"null").",";
 		$sql.= " vat_number=".(isset($this->vat_number)?"'".$this->db->escape($this->vat_number)."'":"null");
 
@@ -1091,6 +1103,7 @@ class Dolicloudcustomernew extends CommonObject
 		$this->filelock='';
 		$this->version='3.0.0';
 		$this->date_lastrsync='2012-01-02';
+		$this->backup_status='';
 		$this->vat_number='FR123456';
 	}
 

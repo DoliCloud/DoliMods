@@ -26,7 +26,6 @@ if (! $res && file_exists("../main.inc.php")) $res=@include("../main.inc.php");
 if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.php");
 if (! $res && file_exists("../../../main.inc.php")) $res=@include("../../../main.inc.php");
 if (! $res && file_exists("../../../../main.inc.php")) $res=@include("../../../../main.inc.php");
-if (! $res && file_exists("../../../../../main.inc.php")) $res=@include("../../../../../main.inc.php");
 if (! $res && preg_match('/\/nltechno([^\/]*)\//',$_SERVER["PHP_SELF"],$reg)) $res=@include("../../../../dolibarr".$reg[1]."/htdocs/main.inc.php"); // Used on dev env only
 if (! $res) die("Include of main fails");
 require_once(DOL_DOCUMENT_ROOT."/comm/action/class/actioncomm.class.php");
@@ -778,7 +777,7 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 
 	// SFTP
 	print '<tr><td width="20%">'.$langs->trans("SFTP Server").'</td><td>'.$object->hostname_web.'</td>';
-	print '<td>'.$langs->trans("FsPath").'</td><td>/home/jail/home/'.$object->username_web.'/'.(preg_replace('/_([a-zA-Z0-9]+)$/','',$object->database_db)).'</td>';
+	print '<td>'.$langs->trans("FsPath").'</td><td>'.$object->fs_path.'</td>';
 	print '</tr>';
 	// Login/Pass
 	print '<tr>';
@@ -806,42 +805,6 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 	print '<br>';
 
 
-	// Define links
-    $links='';
-
-	// Dolibarr instance login
-	$url='https://'.$object->instance.'.on.dolicloud.com?username='.$lastloginadmin.'&amp;password='.$lastpassadmin;
-	$link='<a href="'.$url.'" target="_blank">'.$url.'</a>';
-	$links.='Dolibarr link: ';
-	//print '<input type="text" name="dashboardconnectstring" value="'.dashboardconnectstring.'" size="100"><br>';
-	$links.=$link.'<br>';
-	//$links.='<br>';
-
-	// Dashboard
-	$url='https://www.on.dolicloud.com/signIn/index?email='.$object->email.'&amp;password='.$object->password_web;	// Note that password may have change and not being the one of dolibarr admin user
-	$link='<a href="'.$url.'" target="_blank">'.$url.'</a>';
-	$links.='Dashboard: ';
-	$links.=$link.'<br>';
-	$links.='<br>';
-
-	// SFTP
-	$sftpconnectstring=$object->username_web.':'.$object->password_web.'@'.$object->hostname_web.':'.$conf->global->DOLICLOUD_EXT_HOME.'/'.$object->username_web.'/'.preg_replace('/_([a-zA-Z0-9]+)$/','',$object->database_db);
-	$links.='SFTP connect string: ';
-	$links.='<input type="text" name="sftpconnectstring" value="'.$sftpconnectstring.'" size="110"><br>';
-	//$links.='<br>';
-
-	// MySQL
-	$mysqlconnectstring='mysql -A -u '.$object->username_db.' -p\''.$object->password_db.'\' -h '.$object->hostname_db.' -D '.$object->database_db;
-	$links.='Mysql connect string: ';
-	$links.='<input type="text" name="mysqlconnectstring" value="'.$mysqlconnectstring.'" size="110"><br>';
-
-	// JDBC
-	$jdbcconnectstring='jdbc:mysql://176.34.178.16/';
-	//$jdbcconnectstring.=$object->database_db;
-	$links.='JDBC connect string: ';
-	$links.='<input type="text" name="jdbcconnectstring" value="'.$jdbcconnectstring.'" size="110"><br>';
-
-
 	// ----- DoliCloud instance -----
 	print '<strong>INSTANCE SERVEUR STRATUS5</strong>';
 	// Last refresh
@@ -857,8 +820,8 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 
 	// Nb of users
 	print '<tr><td width="20%">'.$langs->trans("NbOfUsers").'</td><td><font size="+2">'.round($object->nbofusers).'</font></td>';
-	print '<td rowspan="6" valign="middle">';
-	print $links;
+	print '<td rowspan="6" valign="middle" width="50%">';
+	print getListOfLinks($object, $lastloginadmin, $lastpassadmin);
 	print '</td>';
 	print '</tr>';
 
@@ -1025,6 +988,14 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 	print '<td width="30%">'.($object->date_lastrsync?dol_print_date($object->date_lastrsync,'dayhour','tzuser'):'').'</td>';
 	print '<td>'.$langs->trans("BackupDir").'</td>';
 	print '<td>'.$backupdir.'/'.$login.'/'.$dirdb.'</td>';
+	print '</tr>';
+
+	// Current backup status
+	print '<tr>';
+	print '<td width="20%">'.$langs->trans("CurrentBackupStatus").'</td>';
+	print '<td width="30%">'.$object->backup_status.'</td>';
+	print '<td></td>';
+	print '<td></td>';
 	print '</tr>';
 
 	print "</table><br>";

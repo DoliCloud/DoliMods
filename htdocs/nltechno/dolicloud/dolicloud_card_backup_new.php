@@ -26,7 +26,6 @@ if (! $res && file_exists("../main.inc.php")) $res=@include("../main.inc.php");
 if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.php");
 if (! $res && file_exists("../../../main.inc.php")) $res=@include("../../../main.inc.php");
 if (! $res && file_exists("../../../../main.inc.php")) $res=@include("../../../../main.inc.php");
-if (! $res && file_exists("../../../../../main.inc.php")) $res=@include("../../../../../main.inc.php");
 if (! $res && preg_match('/\/nltechno([^\/]*)\//',$_SERVER["PHP_SELF"],$reg)) $res=@include("../../../../dolibarr".$reg[1]."/htdocs/main.inc.php"); // Used on dev env only
 if (! $res) die("Include of main fails");
 require_once(DOL_DOCUMENT_ROOT."/comm/action/class/actioncomm.class.php");
@@ -232,11 +231,14 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 	print '<table class="border" width="100%">';
 
 	// Nb of users
-	print '<tr><td width="20%">'.$langs->trans("NbOfUsers").'</td><td colspan="3"><font size="+2">'.round($object->nbofusers).'</font></td>';
+	print '<tr><td width="20%">'.$langs->trans("NbOfUsers").'</td><td><font size="+2">'.round($object->nbofusers).'</font></td>';
+	print '<td rowspan="6" valign="middle" width="50%">';
+	print getListOfLinks($object, $lastloginadmin, $lastpassadmin);
+	print '</td>';
 	print '</tr>';
 
 	// Dates
-	print '<tr><td width="20%">'.$langs->trans("DateDeployment").'</td><td colspan="3">'.dol_print_date($object->date_registration,'dayhour');
+	print '<tr><td width="20%">'.$langs->trans("DateDeployment").'</td><td>'.dol_print_date($object->date_registration,'dayhour');
 	//print ' (<a href="'.dol_buildpath('/nltechno/dolicloud/dolicloud_card.php',1).'?id='.$object->id.'&amp;action=setdate&amp;date=">'.$langs->trans("SetDate").'</a>)';
 	print '</td>';
 	print '</tr>';
@@ -250,24 +252,24 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 	*/
 	// Version
 	print '<tr>';
-	print '<td>'.$langs->trans("Version").'</td><td colspan="3">'.$object->version.'</td>';
+	print '<td>'.$langs->trans("Version").'</td><td>'.$object->version.'</td>';
 	print '</tr>';
 
 	// Modules
 	print '<tr>';
-	print '<td>'.$langs->trans("Modules").'</td><td colspan="3">'.join(', ',explode(',',$object->modulesenabled)).'</td>';
+	print '<td>'.$langs->trans("Modules").'</td><td>'.join(', ',explode(',',$object->modulesenabled)).'</td>';
 	print '</tr>';
 
 	// Authorized key file
 	print '<tr>';
-	print '<td>'.$langs->trans("Authorized_keyInstalled").'</td><td colspan="3">'.($object->fileauthorizedkey?$langs->trans("Yes").' - '.dol_print_date($object->fileauthorizedkey,'%Y-%m-%d %H:%M:%S','tzuser'):$langs->trans("No"));
+	print '<td>'.$langs->trans("Authorized_keyInstalled").'</td><td>'.($object->fileauthorizedkey?$langs->trans("Yes").' - '.dol_print_date($object->fileauthorizedkey,'%Y-%m-%d %H:%M:%S','tzuser'):$langs->trans("No"));
 	print ' &nbsp; (<a href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&action=addauthorizedkey">'.$langs->trans("Create").'</a>)';
 	print '</td>';
 	print '</tr>';
 
 	// Install.lock file
 	print '<tr>';
-	print '<td>'.$langs->trans("LockfileInstalled").'</td><td colspan="3">'.($object->filelock?$langs->trans("Yes").' - '.dol_print_date($object->filelock,'%Y-%m-%d %H:%M:%S','tzuser'):$langs->trans("No"));
+	print '<td>'.$langs->trans("LockfileInstalled").'</td><td>'.($object->filelock?$langs->trans("Yes").' - '.dol_print_date($object->filelock,'%Y-%m-%d %H:%M:%S','tzuser'):$langs->trans("No"));
 	print ' &nbsp; (<a href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&action=addinstalllock">'.$langs->trans("Create").'</a>)';
 	print ($object->filelock?' &nbsp; (<a href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&action=delinstalllock">'.$langs->trans("Delete").'</a>)':'');
 	print '</td>';
@@ -296,6 +298,14 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 	print '<td>'.$backupdir.'/'.$login.'/'.$dirdb.'</td>';
 	print '</tr>';
 
+	// Current backup status
+	print '<tr>';
+	print '<td width="20%">'.$langs->trans("CurrentBackupStatus").'</td>';
+	print '<td width="30%">'.$object->backup_status.'</td>';
+	print '<td></td>';
+	print '<td></td>';
+	print '</tr>';
+
 	print "</table><br>";
 
 
@@ -316,9 +326,9 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 */
 
 	// Upgrade link
-	$backupstringtoshow=$backupstring.' test';
+	$backupstringtoshow=$backupstring.' testrsync|testdatabase';
 	print 'Backup command line string<br>';
-	print '<input type="text" name="backupstring" value="'.$backupstringtoshow.'" size="120"><br>';
+	print '<input type="text" name="backupstring" value="'.$backupstringtoshow.'" size="160"><br>';
 
 }
 
@@ -326,4 +336,4 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 llxFooter();
 
 $db->close();
-?>
+

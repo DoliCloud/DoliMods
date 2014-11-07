@@ -223,11 +223,28 @@ if ($action == 'backup' || $action == 'backuptestrsync' || $action == 'backuptes
 				if ($action == 'backup')
 				{
 					$object->date_lastrsync=$now;	// date last files and database rsync backup
+					$object->backup_status='OK';
 					$object->update();
 				}
 
 				$db->commit();
 			}
+			else
+			{
+				$db->begin();
+
+				$result=$object->fetch('',$instance);
+
+				if ($action == 'backup')
+				{
+					//$object->date_lastrsync=$now;	// date last files and database rsync backup
+					$object->backup_status='KO '.strftime("%Y%m%d-%H%M%S");
+					$object->update();
+				}
+
+				$db->commit();
+			}
+
 
 			//
 			if (! $error)

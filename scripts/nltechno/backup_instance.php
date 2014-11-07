@@ -15,6 +15,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  * or see http://www.gnu.org/
+ *
+ * Make a backup of files (rsync) or database (mysqdump) of instance. There is no
+ * report/tracking done into any database. This must be done by a parent script.
+ *
+ * ssh keys must be authorized to have testrsync and confirmrsync working
+ * no requirement for testdatabase or confirmdatabase
  */
 
 $sapi_type = php_sapi_name();
@@ -68,6 +74,7 @@ if (empty($dirroot) || empty($instance) || empty($mode))
 {
 	print "Usage:   $script_file instance    backup_dir  (testrsync|testdatabase|confirmrsync|confirmdatabase|confirm)\n";
 	print "Example: $script_file myinstance  ".$conf->global->DOLICLOUD_BACKUP_PATH."  testrsync\n";
+	print "Note:    ssh keys must be authorized to have testrsync and confirmrsync working\n";
 	print "Return code: 0 if success, <>0 if error\n";
 	exit(-1);
 }
@@ -136,7 +143,7 @@ if ($mode == 'testrsync' || $mode == 'confirmrsync' || $mode == 'confirm')
 {
 	$command="rsync";
 	$param=array();
-	if ($mode != 'confirm') $param[]="-n";
+	if ($mode != 'confirm' && $mode != 'confirmrsync') $param[]="-n";
 	//$param[]="-a";
 	$param[]="-rltz";
 	$param[]="-vv";
@@ -145,6 +152,7 @@ if ($mode == 'testrsync' || $mode == 'confirmrsync' || $mode == 'confirm')
 	$param[]="--exclude .gitignore";
 	$param[]="--exclude .settings";
 	$param[]="--exclude .project";
+	$param[]="--exclude '*.com*SSL'";
 	$param[]="--exclude '*.log'";
 	//$param[]="--exclude '*.old'";
 	$param[]="--exclude '*/build/'";
@@ -243,8 +251,9 @@ if (empty($return_var) && empty($return_varmysql))
 }
 else
 {
-	print "ERROR into backup process\n";
-	exit($return_var);
+	if (! empty($return_var)) print "ERROR into backup process of rsync: ".$return_var."\n";
+	if (! empty($return_varmysql)) print "ERROR into backup process of mysqldump: ".$return_varmysql."\n";
+	exit(1);
 }
 
 exit(0);

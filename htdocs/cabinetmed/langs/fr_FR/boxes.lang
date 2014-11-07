@@ -1,15 +1,14 @@
 # Dolibarr language file - fr_FR - boxes
 CHARSET=UTF-8
-BoxLastCustomers=Derniers patients modifiés
+BoxLastPatients=Derniers patients modifiés
 BoxLastContacts=Derniers correspondants
 BoxTotalUnpaidCustomerBills=Total des consultations patient clients impayées
-BoxTitleNbOfCustomers=Nombre de patients
-BoxTitleLastCustomers=Les %s derniers patients enregistrés
-BoxTitleLastModifiedCustomers=Les %s derniers patients modifiés
-BoxTitleLastCustomersOrProspects=Les %s derniers patients modifiés
+BoxTitleNbOfPatients=Nombre de patients
+BoxTitleLastPatients=Les %s derniers patients enregistrés
+BoxTitleLastModifiedPatients=Les %s derniers patients modifiés
 BoxTitleTotalUnpaidCustomerBills=Impayés patients
 BoxTitleLastModifiedContacts=Les %s derniers correspondants modifiés 
-NoRecordedCustomers=Pas de patient enregistré
+NoRecordedPatients=Pas de patient enregistré
 NoRecordedContacts=Pas de correspondant enregistré
 NoRecordedInvoices=Pas de facture patient enregistrée
 NoUnpaidCustomerBills=Pas de facture patient impayée

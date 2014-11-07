@@ -136,14 +136,12 @@ class ActionsConcatPdf
         	$out.='<td align="left" colspan="4" valign="top" class="formdoc">';
         	$out.=$langs->trans("ConcatFile").' ';
 
-        	if (! empty($conf->global->MAIN_USE_JQUERY_MULTISELECT) && ! empty($conf->global->CONCATPDF_MULTIPLE_CONCATENATION_ENABLED))
+        	if (! empty($conf->global->CONCATPDF_MULTIPLE_CONCATENATION_ENABLED))
         	{
         		$out.='</td></tr>';
 
-        		dol_include_once('/concatpdf/core/tpl/ajaxmultiselect.tpl.php');
-
         		$out.='<tr><td id="selectconcatpdf" colspan="4" valign="top">';
-        		$out.= $form->multiselectarray('concatpdffile', $morefiles, (! empty($object->extraparams['concatpdf'])?$object->extraparams['concatpdf']:''), 0, 1, '', 1);
+        		$out.= $form->multiselectarray('concatpdffile', $morefiles, (! empty($object->extraparams['concatpdf'])?$object->extraparams['concatpdf']:''), 0, 0, '', 1, 300);
         	}
         	else
         	{
@@ -181,10 +179,8 @@ class ActionsConcatPdf
         dol_syslog(get_class($this).'::executeHooks action='.$action);
 
         $check='alpha';
-        if (! empty($conf->global->MAIN_USE_JQUERY_MULTISELECT) && ! empty($conf->global->CONCATPDF_MULTIPLE_CONCATENATION_ENABLED))
-        {
-        	$check='array';
-        }
+        if (! empty($conf->global->CONCATPDF_MULTIPLE_CONCATENATION_ENABLED)) $check='array';
+
         $concatpdffile = GETPOST('concatpdffile',$check);
         if (! is_array($concatpdffile) && ! empty($concatpdffile)) $concatpdffile = array($concatpdffile);
 
@@ -283,7 +279,7 @@ class ActionsConcatPdf
         	unset($parameters['object']->extraparams['concatpdf']);
         }
 
-        $result=$parameters['object']->setExtraParameters();
+        if (is_object($parameters['object']) && method_exists($parameters['object'], 'setExtraParameters')) $result=$parameters['object']->setExtraParameters();
 
         return $ret;
     }

@@ -20,7 +20,6 @@
  *	\file			htdocs/core/modules/substitutions/functions_numberwords.lib.php
  *	\brief			A set of functions for Dolibarr
  *					This file contains functions for plugin numberwords.
- *	\version		$Id: functions_numberwords.lib.php,v 1.4 2011/06/08 20:47:38 eldy Exp $
  */
 
 
@@ -117,6 +116,8 @@ function numberwords_getLabelFromNumber($langs,$number,$isamount=0)
 		$labelcurrencycent=$langs->transnoentitiesnoconv("Currency".ucfirst($handle->labelcents).$conf->currency);
 		if ($labelcurrencycent && $labelcurrencycent !='Currency'.ucfirst($handle->labelcents).$conf->currency) $handle->labelcents=$labelcurrencycent;
 	}
+	//var_dump($handle->labelcurrency.'-'.$handle->labelcents);
+	//var_dump($labelcurrencycentsing.'-'.$labelcurrencycent);
 
 	// Call method of object handle to make convertion
 	if ($isamount)

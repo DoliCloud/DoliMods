@@ -135,6 +135,28 @@ print '</td></tr>';
 print '</table>';
 
 print '<br>';
+
+print "<table class=\"noborder\" width=\"100%\">";
+
+print "<tr class=\"liste_titre\">";
+print '<td width="25%">'.$langs->trans("Parameter").' ('.$langs->trans("ParametersForGoogleAPIv3Usage","Geocoding").')'."</td>";
+print "<td>".$langs->trans("Value")."</td>";
+print "<td>".$langs->trans("Note")."</td>";
+print "</tr>";
+// Google login
+print "<tr ".$bc[$var].">";
+print '<td>'.$langs->trans("GOOGLE_API_SERVERKEY")."</td>";
+print "<td>";
+print '<input class="flat" type="text" size="64" name="GOOGLE_API_SERVERKEY" value="'.$conf->global->GOOGLE_API_SERVERKEY.'">';
+print '</td>';
+print '<td>';
+print $langs->trans("KeepEmptyYoUsePublicQuotaOfAPI","Geocoding API");
+print "</td>";
+print "</tr>";
+
+print '</table>';
+
+print '<br>';
 print '<center>';
 //print "<input type=\"submit\" name=\"test\" class=\"button\" value=\"".$langs->trans("TestConnection")."\">";
 //print "&nbsp; &nbsp;";

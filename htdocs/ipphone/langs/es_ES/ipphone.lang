@@ -1,0 +1,4 @@
+# Dolibarr language file - es_ES - ipphone
+CHARSET=UTF-8
+Module101130Name=IPPhone Phonebook
+Module101130Desc=Añade un servicio que permite a un teléfono IPPhone leer los contactos de Dolibarr para su libreta de direcciones

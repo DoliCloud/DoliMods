@@ -46,6 +46,7 @@ class mod_codeclient_lion extends ModeleThirdPartyCode
     function mod_codeclient_lion()
     {
         $this->nom = "Lion";
+        $this->name = "Lion";
         $this->version = '$Revision: 1.5 $';
         $this->code_modifiable = 0;
         $this->code_modifiable_invalide = 1;

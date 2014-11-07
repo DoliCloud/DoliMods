@@ -88,7 +88,7 @@ if($conf->topten->enabled)
         $var=!$var;
         print "<tr $bc[$var]>";
         $thirdparty_static->id=$mejorclientedinero[$i][1]->id;
-        $thirdparty_static->nom=$mejorclientedinero[$i][1]->nom;
+        $thirdparty_static->name=$mejorclientedinero[$i][1]->name;
         $thirdparty_static->client=$mejorclientedinero[$i][1];
         print '<td class="nowrap">'.$thirdparty_static->getNomUrl(1,'',30).'</td>';
         print '<td>'.price($mejorclientedinero[$i][0]->total_gastado).'</td>';
@@ -128,7 +128,7 @@ if($conf->topten->enabled)
         $var=!$var;
         print "<tr $bc[$var]>";
         $thirdparty_static->id=$mejorclientefactura[$i][1]->id;
-        $thirdparty_static->nom=$mejorclientefactura[$i][1]->nom;
+        $thirdparty_static->name=$mejorclientefactura[$i][1]->name;
         $thirdparty_static->client=$mejorclientefactura[$i][1];
         print '<td class="nowrap">'.$thirdparty_static->getNomUrl(1,'',30).'</td>';
         print '<td>'.($mejorclientefactura[$i][0]->cantidad_facturas).'</td>';

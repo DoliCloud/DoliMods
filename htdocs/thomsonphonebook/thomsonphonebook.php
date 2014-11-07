@@ -29,6 +29,7 @@
  */
 
 define('NOCSRFCHECK',1);
+define('NOLOGIN',1);
 
 $res=0;
 if (! $res && file_exists("../main.inc.php")) $res=@include("../main.inc.php");
@@ -89,7 +90,7 @@ if ($resql)
 		$i++;
 	}
 	print("</ThomsonPhoneBook>\n");
-	$db->free($result);
+	$db->free($resql);
 }
 else dol_print_error($db);
 
