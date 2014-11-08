@@ -52,3 +52,6 @@ ImportFileCustomers=Import des fichiers clients
 ImportCustomers=Import clients
 ImportPayments=Import paiements
 CurrentBackupStatus=Status dernière sauvegarde
+FromLiveTables=Depuis table clients temps réel
+FromHistoryStatsTables=Depuis la table historique stats, mis à jour par script "batch_customers updatedatabase" 
+

@@ -152,7 +152,7 @@ $benefit=($total * (1 - $part) - $serverprice - $totalcommissions);
 $var=false;
 print '<table class="noborder" width="100%">';
 print '<tr class="liste_titre">';
-print '<td colspan="2">'.$langs->trans("Statistics").'</td></tr>';
+print '<td colspan="2">'.$langs->trans("Statistics").' ('.$langs->trans("FromLiveTables").')</td></tr>';
 print '<tr '.$bc[$var].'><td>';
 print $langs->trans("NbOfInstancesActivePaying").' / '.$langs->trans("NbOfInstancesPaying").' ';
 print '</td><td align="right">';
@@ -207,6 +207,7 @@ print '</div></div></div>';
 $data1 = array();
 $sql ='SELECT name, x, y FROM '.MAIN_DB_PREFIX.'dolicloud_stats';
 $sql.=" WHERE name IN ('total', 'totalcommissions')";
+$sql.=" ORDER BY x, name";
 $resql=$db->query($sql);
 if ($resql)
 {
@@ -255,6 +256,7 @@ else dol_print_error($db);
 $data2 = array();
 $sql ='SELECT name, x, y FROM '.MAIN_DB_PREFIX.'dolicloud_stats';
 $sql.=" WHERE name IN ('totalinstancespaying', 'totalusers')";
+$sql.=" ORDER BY x, name";
 $resql=$db->query($sql);
 if ($resql)
 {
@@ -363,7 +365,7 @@ if (! $mesg)
 print '<div class="fichecenter"><br></div>';
 
 //print '<hr>';
-print '<div class="fichecenter liste_titre" style="height: 20px;">'.$langs->trans("Graphics").'</div>';
+print '<div class="fichecenter liste_titre" style="height: 20px;">'.$langs->trans("Graphics").' ('.$langs->trans("FromHistoryStatsTables").')</div>';
 
 print '<div class="fichecenter"><div class="impair"><center>';
 print $px1->show();
