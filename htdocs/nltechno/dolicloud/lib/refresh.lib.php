@@ -117,15 +117,15 @@ function dolicloud_database_refresh($conf, $db, &$object, &$errors)
 
 	$ret=1;
 
-	unset($this->lastlogin);
-	unset($this->lastpass);
-	unset($this->date_lastlogin);
-	unset($this->date_lastcheck);
-	unset($this->lastlogin_admin);
-	unset($this->lastpass_admin);
-	unset($this->modulesenabled);
-	unset($this->version);
-	unset($this->nbofusers);
+	unset($object->lastlogin);
+	unset($object->lastpass);
+	unset($object->date_lastlogin);
+	unset($object->date_lastcheck);
+	unset($object->lastlogin_admin);
+	unset($object->lastpass_admin);
+	unset($object->modulesenabled);
+	unset($object->version);
+	unset($object->nbofusers);
 
 	if (is_object($newdb))
 	{
