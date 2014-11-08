@@ -279,7 +279,7 @@ if ($action == 'updatedatabase' || $action == 'updatestatsonly' || $action == 'u
 			$return_val=0; $error=0; $errors=array();
 
 			// Run database update
-			print "Process update database info of instance ".$instance.' - '.strftime("%Y%m%d-%H%M%S")."\n";
+			print "Process update database info (nb of user) of instance ".$instance.' - '.strftime("%Y%m%d-%H%M%S")."\n";
 
 			$db->begin();
 
@@ -296,7 +296,7 @@ if ($action == 'updatedatabase' || $action == 'updatestatsonly' || $action == 'u
 
 			if (count($errors) == 0)
 			{
-				print "OK.\n";
+				print "OK nbofusers=".$object->nbofusers."\n";
 
 				$nbofok++;
 				$db->commit();

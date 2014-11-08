@@ -102,6 +102,8 @@ function dolicloud_files_refresh($conf, $db, &$object, &$errors)
 /**
  * Process refresh of database for customer $object
  * This also update database field lastcheck.
+ * This set a lot of object->xxx properties (lastlogin_admin, lastpass_admin, nbofusers,
+ * modulesenabled, version, date_lastcheck, lastcheck)
  *
  * @param 	Conf				$conf		Conf
  * @param 	Database			$db			Database handler
@@ -114,6 +116,16 @@ function dolicloud_database_refresh($conf, $db, &$object, &$errors)
 	$newdb=getDoliDBInstance('mysqli', $object->instance.'.on.dolicloud.com', $object->username_db, $object->password_db, $object->database_db, 3306);
 
 	$ret=1;
+
+	unset($this->lastlogin);
+	unset($this->lastpass);
+	unset($this->date_lastlogin);
+	unset($this->date_lastcheck);
+	unset($this->lastlogin_admin);
+	unset($this->lastpass_admin);
+	unset($this->modulesenabled);
+	unset($this->version);
+	unset($this->nbofusers);
 
 	if (is_object($newdb))
 	{
