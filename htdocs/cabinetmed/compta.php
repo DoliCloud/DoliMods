@@ -23,7 +23,6 @@
  *       \brief       Page reporting resultat
  */
 
-
 $res=0;
 if (! $res && file_exists("../main.inc.php")) $res=@include("../main.inc.php");
 if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.php");
@@ -358,6 +357,7 @@ if ($search_sale > 0)
     print '<br><form action="'.dol_buildpath('/cabinetmed/export.php',1).'" method="POST">';
     print $langs->trans("ExportDetailsIntoFile").'<br>';
     print '<input type="hidden" name="search_sale" value="'.$search_sale.'">';
+    print $langs->trans("Month").': <input type="text" name="month" value="'.(GETPOST('month')?GETPOST('month'):dol_print_date(dol_now(),'%m')).'" size="6"> ';
     print $langs->trans("Year").': <input type="text" name="year" value="'.(GETPOST('year')?GETPOST('year'):dol_print_date(dol_now(),'%Y')).'" size="6"> ';
     print '<input type="submit" class="button" name="submit" value="'.($langs->trans("Export")).'">';
     print '</form>';

@@ -39,6 +39,7 @@ require_once(DOL_DOCUMENT_ROOT."/core/lib/files.lib.php");
 $langs->load("bills");
 
 $year=GETPOST("year");
+$month=GETPOST("month");
 $search_sale=GETPOST('search_sale');
 
 // Security check
@@ -76,7 +77,13 @@ $sql.= " FROM ".MAIN_DB_PREFIX."cabinetmed_cons as f, ".MAIN_DB_PREFIX."societe 
 $sql.= " WHERE f.fk_soc = s.rowid";
 if ($search_sale) $sql.= " AND f.fk_user = ".$search_sale;
 if ($socid)       $sql.= " AND f.fk_soc = ".$socid;
-if ($year)        $sql.= " AND f.datecons BETWEEN '".$db->idate(dol_get_first_day($year,1))."' AND '".$db->idate(dol_get_last_day($year,12))."'";
+if ($month && $year) $sql.= " AND f.datecons BETWEEN '".$db->idate(dol_get_first_day($year,$month))."' AND '".$db->idate(dol_get_last_day($year,$month))."'";
+else if ($year)        $sql.= " AND f.datecons BETWEEN '".$db->idate(dol_get_first_day($year,1))."' AND '".$db->idate(dol_get_last_day($year,12))."'";
+else if ($month)
+{
+	dol_print_error('',"Filter on month without year is not possible");
+	exit;
+}
 $sql.= " ORDER BY f.datecons, f.rowid";
 //print $sql;exit;
 
