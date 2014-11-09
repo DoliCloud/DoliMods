@@ -264,6 +264,15 @@ function dolicloud_database_refresh($conf, $db, &$object, &$errors)
  * Calculate stats ('total', 'totalcommissions', 'totalinstancespaying' (nbclients 'ACTIVE' not at trial), 'totalinstances' (nb clients not at trial, include suspended), 'totalusers')
  * at date datelim (or realtime if date is empty)
  *
+ * Rem: Comptage des users par status
+ * SELECT sum(im.value), c.status as customer_status, i.status as instance_status, s.payment_status
+ * FROM app_instance as i LEFT JOIN app_instance_meter as im ON i.id = im.app_instance_id AND im.meter_id = 1, customer as c
+ * LEFT JOIN channel_partner_customer as cc ON cc.customer_id = c.id LEFT JOIN channel_partner as cp ON cc.channel_partner_id = cp.id LEFT JOIN person as per ON c.primary_contact_id = per.id, subscription as s, plan as pl
+ * LEFT JOIN plan_add_on as pao ON pl.id=pao.plan_id and pao.meter_id = 1, app_package as p
+ * WHERE i.customer_id = c.id AND c.id = s.customer_id AND s.plan_id = pl.id AND pl.app_package_id = p.id AND s.payment_status NOT IN ('TRIAL', 'TRIALING', 'TRIAL_EXPIRED') AND i.deployed_date <= '20141201005959'
+ * group by c.status,  i.status, s.payment_status
+ * order by sum(im.value) desc
+ *
  * @param	Database	$db			Database handler
  * @param	date		$datelim	Date limit
  * @return	array					Array of data
@@ -340,10 +349,10 @@ function dolicloud_calculate_stats($db, $datelim)
 	$sql.= " LEFT JOIN plan_add_on as pao ON pl.id=pao.plan_id and pao.meter_id = 1,";	// meter_id = 1 = users
 	$sql.= " app_package as p";
 	$sql.= " WHERE i.customer_id = c.id AND c.id = s.customer_id AND s.plan_id = pl.id AND pl.app_package_id = p.id";
-	$sql.= " AND c.payment_status NOT IN ('TRIAL', 'TRIALING', 'TRIAL_EXPIRED')";	// We keep OK, FAILURE, PAST_DUE
+	$sql.= " AND s.payment_status NOT IN ('TRIAL', 'TRIALING', 'TRIAL_EXPIRED')";	// We keep OK, FAILURE, PAST_DUE
 	if ($datelim) $sql.= " AND i.deployed_date <= '".$db->idate($datelim)."'";
 
-	dol_syslog($script_file." sql=".$sql, LOG_DEBUG);
+	dol_syslog($script_file." dolicloud_calculate_stats sql=".$sql, LOG_DEBUG);
 	$resql=$db->query($sql);
 	if ($resql)
 	{

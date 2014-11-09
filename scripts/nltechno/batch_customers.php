@@ -393,7 +393,7 @@ if ($action == 'updatedatabase' || $action == 'updatestatsonly' || $action == 'u
 
 						print " -> ".$y."\n";
 
-						if ($today <= $datelastday)
+						if ($today <= $datelastday)	// Remove if current month
 						{
 							$sql ="DELETE FROM ".MAIN_DB_PREFIX."dolicloud_stats";
 							$sql.=" WHERE name = '".$statkey."' AND x='".$x."'";
