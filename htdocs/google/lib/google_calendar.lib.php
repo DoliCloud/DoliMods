@@ -18,6 +18,10 @@
  *
  * Documentation API v2 (Connect method used is "ClientLogin"):
  * https://developers.google.com/google-apps/calendar/v2/developers_guide_protocol
+ * => V3:
+ * https://developers.google.com/google-apps/calendar/migration
+ * https://developers.google.com/google-apps/calendar/firstapp
+ * https://developers.google.com/google-apps/calendar/v3/reference/
  *
  * Rem:
  * To get event:  https://www.google.com/calendar/feeds/default/private/full?start-min=2013-03-16T00:00:00&start-max=2014-03-24T23:59:59
@@ -231,6 +235,128 @@ function outputCalendarByFullTextQuery($client, $fullTextQuery)
 	echo "</ul>\n";
 }
 
+
+/**
+ * Get service
+ *
+ * @param	string		$clientid			Client ID
+ * @param	string		$clientsecret		Client secret
+ * @return				service
+ */
+function getTokenFromWebApp($clientid, $clientsecret)
+{
+	// If you've used composer to include the library, remove the following line
+	// and make sure to follow the standard composer autoloading.
+	// https://getcomposer.org/doc/01-basic-usage.md#autoloading
+	dol_include_once('/nltechno/google/includes/google-api-php-client/autoload.php');
+
+	$client = new Google_Client();
+	// OAuth2 client ID and secret can be found in the Google Developers Console.
+	$client->setClientId($clientid);
+	$client->setClientSecret($clientsecret);
+	$client->setRedirectUri('urn:ietf:wg:oauth:2.0:oob');
+	$client->addScope('https://www.googleapis.com/auth/calendar');
+	$client->addScope('https://www.googleapis.com/auth/calendar.readonly');
+
+	$service = new Google_Service_Calendar($client);
+
+	$authUrl = $client->createAuthUrl();
+/*
+	// Request authorization
+	print "Please visit:\n$authUrl\n\n";
+	print "Please enter the auth code:\n";
+	//$authCode = trim(fgets(STDIN));
+
+	// Exchange authorization code for access token
+	//$accessToken = $client->authenticate($authCode);
+	//$client->setAccessToken($accessToken);
+*/
+	return array('client'=>$client, 'service'=>$service, 'authUrl'=>$authUrl);
+}
+
+
+
+/**
+ * Get service
+ *
+ * @param	string		$clientid					Client ID
+ * @param	string		$service_account_name		Service account name
+ * @param	string		$key_file_location			Key file location
+ * @return				service
+ */
+function getTokenFromServiceAccount($clientid, $service_account_name, $key_file_location)
+{
+	$client_id            = '258042696143-s9klbbpj13fb40ac8k5qjajn4e9o1c49.apps.googleusercontent.com';
+	$service_account_name = '258042696143-s9klbbpj13fb40ac8k5qjajn4e9o1c49@developer.gserviceaccount.com'; //Email Address
+	$key_file_location    = 'API Project-69e4673ea29e.p12'; //key.p12
+
+	if (empty($client_id)) return 'ErrorNoClientId';
+	if (empty($service_account_name)) return 'ErrorNoServiceAccountName';
+	if (empty($key_file_location) || ! file_exists($key_file_location)) return 'ErrorKeyFileNotFound';
+
+	$client = new Google_Client();
+	$client->setApplicationName("Dolibarr");
+
+	/************************************************
+	  If we have an access token, we can carry on.
+	  Otherwise, we'll get one with the help of an
+	  assertion credential. In other examples the list
+	  of scopes was managed by the Client, but here
+	  we have to list them manually. We also supply
+	  the service account
+	 ************************************************/
+	if (isset($_SESSION['service_token'])) {
+	  $client->setAccessToken($_SESSION['service_token']);
+	}
+	$key = file_get_contents($key_file_location);
+
+/*
+	$service = new Google_Service_Books($client);
+
+	$cred = new Google_Auth_AssertionCredentials(
+	    $service_account_name,
+	    array('https://www.googleapis.com/auth/books'),
+	    $key
+	);
+
+
+	$client->setAssertionCredentials($cred);
+
+
+	if ($client->getAuth()->isAccessTokenExpired()) {
+		$client->getAuth()->refreshTokenWithAssertion($cred);
+	}
+
+	//var_dump($client->getAccessToken());
+*/
+
+	$cred = new Google_Auth_AssertionCredentials(
+	    $service_account_name,
+	    array('https://www.googleapis.com/auth/calendar','https://www.googleapis.com/auth/calendar.readonly'),
+	    $key
+	);
+
+	$client->setAssertionCredentials($cred);
+
+	try {
+		if ($client->getAuth()->isAccessTokenExpired()) {
+			$client->getAuth()->refreshTokenWithAssertion($cred);
+		}
+	}
+	catch(Exception $e)
+	{
+		var_dump($e);
+	}
+
+	var_dump($client->getAccessToken());
+
+	$_SESSION['service_token'] = $client->getAccessToken();
+
+	return array('client'=>$client, 'service_token'=>$_SESSION['service_token']);
+}
+
+
+
 /**
  * Creates an event on the authenticated user's default calendar with the
  * specified event details.
@@ -241,9 +367,14 @@ function outputCalendarByFullTextQuery($client, $fullTextQuery)
  */
 function createEvent($client, $object)
 {
-    // More examples on http://code.google.com/intl/fr/apis/calendar/data/1.0/developers_guide_php.html
 	global $conf;
 
+	$clientid = '258042696143.apps.googleusercontent.com';
+	$clientsecret = 'HdmLOMStzB9MBbAjCr87gz27';
+
+	$tmp=getService($clientid, $clientsecret);
+/*
+    // More examples on http://code.google.com/intl/fr/apis/calendar/data/1.0/developers_guide_php.html
 	$gc = new Zend_Gdata_Calendar($client, 'Dolibarr');
 
 	$newEntry = $gc->newEventEntry();
@@ -279,6 +410,30 @@ function createEvent($client, $object)
     if ($gid && $object->id) addExtendedProperty($client,$gid,'dol_id',$object->id);
 
 	return $createdEntry->getId();    // Return full URL with id
+	*/
+	print 'Please visit: <a href="'.$tmp['authUrl'].'">'.$tmp['authUrl'].'</a>'."\n\n";
+
+	//var_dump($tmp);
+exit;
+	$event = new Event();
+	$event->setSummary('Appointment');
+	$event->setLocation('Somewhere');
+	$start = new EventDateTime();
+	$start->setDateTime('2011-06-03T10:00:00.000-07:00');
+	$event->setStart($start);
+	$end = new EventDateTime();
+	$end->setDateTime('2011-06-03T10:25:00.000-07:00');
+	$event->setEnd($end);
+	$attendee1 = new EventAttendee();
+	$attendee1->setEmail('attendeeEmail');
+	// ...
+	$attendees = array($attendee1,
+	                   // ...
+	                  );
+	$event->attendees = $attendees;
+	$createdEvent = $service->events->insert('primary', $event);
+
+	echo $createdEvent->getId();
 }
 
 /**

@@ -40,7 +40,7 @@ class Googlemaps // extends CommonObject
 	//var $table_element='googlemaps';	//!< Name of table without prefix where object is stored
 
     var $id;
-    
+
 	var $fk_object;
 	var $type_object;
 	var $latitude;
@@ -48,12 +48,12 @@ class Googlemaps // extends CommonObject
 	var $address;
 	var $result_code;
 	var $result_label;
-    
+
 
 
     /**
      *      Constructor
-     *      
+     *
      *      @param      DB      Database handler
      */
     function Googlemaps($DB)
@@ -65,7 +65,7 @@ class Googlemaps // extends CommonObject
 
     /**
      *      Create object into database
-     *      
+     *
      *      @param      user        	User that create
      *      @param      notrigger	    0=launch triggers after, 1=disable triggers
      *      @return     int         	<0 if KO, Id of created object if OK
@@ -85,7 +85,7 @@ class Googlemaps // extends CommonObject
 
         // Insert request
 		$sql = "INSERT INTO ".MAIN_DB_PREFIX."google_maps(";
-		
+
 		$sql.= "fk_object, ";
 		$sql.= "type_object, ";
 		$sql.= "latitude, ";
@@ -93,7 +93,7 @@ class Googlemaps // extends CommonObject
 		$sql.= "address, ";
 		$sql.= "result_code, ";
 		$sql.= "result_label";
-		
+
         $sql.= ") VALUES (";
 
 		$sql.= " ".(! isset($this->fk_object)?'NULL':$this->fk_object).",";
@@ -151,7 +151,7 @@ class Googlemaps // extends CommonObject
 
     /**
      *    Load object in memory from database
-     *    
+     *
      *    @param      id          id object
      *    @return     int         <0 if KO, >0 if OK
      */
@@ -160,7 +160,7 @@ class Googlemaps // extends CommonObject
     	global $langs;
         $sql = "SELECT";
 		$sql.= " t.rowid,";
-		
+
 		$sql.= " t.fk_object,";
 		$sql.= " t.type_object,";
 		$sql.= " t.latitude,";
@@ -168,7 +168,7 @@ class Googlemaps // extends CommonObject
 		$sql.= " t.address,";
 		$sql.= " t.result_code,";
 		$sql.= " t.result_label";
-		
+
         $sql.= " FROM ".MAIN_DB_PREFIX."google_maps as t";
         $sql.= " WHERE t.fk_object = ".$id;
 
@@ -204,12 +204,12 @@ class Googlemaps // extends CommonObject
 
     /**
      *      Update object into database
-     *      
+     *
      *      @param      user        	User that modify
      *      @param      notrigger	    0=launch triggers after, 1=disable triggers
      *      @return     int         	<0 if KO, >0 if OK
      */
-    function update($user=0, $notrigger=0)
+    function update($user=null, $notrigger=0)
     {
     	global $conf, $langs;
 		$error=0;
@@ -225,7 +225,7 @@ class Googlemaps // extends CommonObject
 
         // Update request
         $sql = "UPDATE ".MAIN_DB_PREFIX."google_maps SET";
-        
+
 		$sql.= " fk_object=".$this->fk_object.",";
 		$sql.= " type_object='".$this->type_object."',";
 		$sql.= " latitude=".(isset($this->latitude)?"'".$this->latitude."'":"null").",";
@@ -233,7 +233,7 @@ class Googlemaps // extends CommonObject
 		$sql.= " address=".(isset($this->address)?"'".$this->db->escape($this->address)."'":"null").",";
 		$sql.= " result_code=".(isset($this->result_code)?"'".$this->db->escape($this->result_code)."'":"null").",";
 		$sql.= " result_label=".(isset($this->result_label)?"'".$this->db->escape($this->result_label)."'":"null")."";
-        
+
         $sql.= " WHERE rowid=".$this->id;
 
 		$this->db->begin();
@@ -279,7 +279,7 @@ class Googlemaps // extends CommonObject
 
  	/**
 	 *   Delete object in database
-	 *   
+	 *
      *	 @param     user        	User that delete
      *   @param     notrigger	    0=launch triggers after, 1=disable triggers
 	 *   @return	int				<0 if KO, >0 if OK
@@ -395,7 +395,7 @@ class Googlemaps // extends CommonObject
 	function initAsSpecimen()
 	{
 		$this->id=0;
-		
+
 		$this->fk_object='';
 		$this->type_object='company';
 		$this->latitude='';
