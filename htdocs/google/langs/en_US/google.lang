@@ -23,7 +23,7 @@ GoogleEnableSyncToMembers=Activate synchronization of members to Google GMail co
 AgendaView=View Google agenda
 AgendaSync=Sync to Google agenda
 ContactSync=Sync to Google contact
-GOOGLE_LOGIN=Login Google (myname@gmail.com)
+GOOGLE_LOGIN=Login Google
 GOOGLE_PASSWORD=Mot de passe
 GOOGLE_EVENT_LABEL_INC_SOCIETE=Add thirdparty name into event label for thirdparty events
 GOOGLE_EVENT_LABEL_INC_CONTACT=Add contact name into event label for contact events
@@ -33,16 +33,22 @@ Module101110Name=Google
 Module101110Desc=Module to integrate Google tools with Dolibarr
 GoogleCalendarSyncConf=GoogleCalendarSyncConf
 KeepEmptyYoUseLoginPassOfEventUser=Keep empty to use Google login/pass of user the event is affected to
-KeepEmptyYoUsePublicQuotaOfAPI=Keep empty to use the public quota of API (otherwise key can be created from page https://code.google.com/apis/console/, "API Access" to create a "Server key" and "Services" to activate API "%s")
+KeepEmptyYoUsePublicQuotaOfAPI=Keep empty to use the public quota of API.
+AllowGoogleToLoginWithKey=To use quota/statistics of your own Google account, you can create your own key from page <a href="%s" target="_blank">%s</a>, menu "API & Authentication" -> "Credentials" . Click on "Create a key" and choose "Server key" then "Create". You will get your server key.
+AllowGoogleToLoginWithServiceAccount=You can create your own service account from page <a href="%s" target="_blank">%s</a>, menu "API & Authentication" -> "Credentials" . Click on "Create a client ID" and choose "Service Account" then "Create". You will get your a new service account with a <strong>Service account client ID</strong> and a <strong>Service account EMail</strong>.
+EnableAPI=You must also enable the API for your Google account. For this go on page <a href="%s" target="_blank">%s</a>, menu "API & Authentication" -> "API". Click to enable API for "%s".  
 GOOGLE_API_SERVERKEY=API key (type "Server key")
 GoogleUserConf=Google setup
 GoogleSetupIsGlobal=Sync setup is done globally for all users to Google account <strong>%s</strong>. 
 TestCreateUpdateDelete=Test create-update-delete
+TestCreateUpdate=Test create-update (to remove manually)
 TestCreate=Test create (to remove manually)
 TestSuccessfull=Test successful
 DueToGoogleLimitYouNeedToLogin=For security reasons imposed by Google, the Google calendar view will display correctly only if you are logged in to Google (this will work however for only one agenda ID).
 AllowGoogleToLoginSetupKey=To integrate this Google login process into your software (not required), it is possible to configure a key to allow the application to offer the Google Logon if you are not connected.
-AllowGoogleToLoginProp=You will find information for this setup page by creating a key using this link <a href="%s" target="_blank">%s</a>: Select API Access and Create a client ID type Web Application, entering as url redirection (Redirect URI), the following url <strong>%s</strong> 
+AllowGoogleToLoginProp=You will find information for this setup page by creating a key using this link <a href="%s" target="_blank">%s</a>: Select API & Authentication, then Credentials. Then Click on "Create a client ID" and choose type "Web Application", entering as allowed redirect URL, the following URL <strong>%s</strong> 
+AllowGoogleToLoginWithAccountService=You will find information for this setup page by creating a key using this link <a href="%s" target="_blank">%s</a>: Select API & Authentication, then Credentials. Then Click on "Create a client ID" and choose type "account service".
+AllowGoogleToLoginWithServiceAccountP12=Once you have you created your service account (see not on previous fields), you can download your security p12 file from <a href="%s" target="_blank">%s</a>. Select API & Authentication, then Credentials. Then Click on "Generate a p12 key" to download the file on your desktop. Then submit it using this form. 
 ExportThirdpartiesToGoogle=Export all Dolibarr thirdparties to GMail contacts (warning, there is no check on duplicate record for mass export).
 ExportContactToGoogle=Export all Dolibarr contacts/addresses to GMail contacts (warning, there is no check on duplicate record for mass export).
 ExportMembersToGoogle=Export all Dolibarr members to GMail contacts (warning, there is no check on duplicate record for mass export).
@@ -77,6 +83,9 @@ ParametersForGoogleAPIv3Usage=For Google API %s V3
 GoogleClientId=Client ID
 GoogleClientSecret=Client secret
 GOOGLE_FIX_TZ=TimeZone fix
+GOOGLE_API_SERVICEACCOUNT_CLIENT_ID=Service account Client ID
+GOOGLE_API_SERVICEACCOUNT_EMAIL=Service account EMail (NOT your Google account Email)
+GOOGLE_API_SERVICEACCOUNT_P12KEY=Service account p12 file
 FillThisOnlyIfRequired=Example: +2 (fill only if problem experienced)
 AboutInfo=This module is developped and distributed by Laurent Destailleur for NLTechno, <a href="http://www.nltechno.com">www.nltechno.com</a> (A Dolibarr Preferred Partner company).
 MoreModules=Other modules of same author are available on the official DoliStore market place...

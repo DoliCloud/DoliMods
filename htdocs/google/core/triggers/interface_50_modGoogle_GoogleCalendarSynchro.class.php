@@ -144,21 +144,29 @@ class InterfaceGoogleCalendarSynchro
 
 			$langs->load("other");
 
-			if (empty($user) || empty($pwd))
+			if (empty($user))
 			{
 				dol_syslog("Setup to synchronize events into a Google calendar of ".$fuser->login." is on but can't find complete setup for login/password (nor global nor for user).", LOG_WARNING);
 				return 0;
 			}
 
-			// Create client object
-			$service= 'cl';		// cl = calendar, cp=contact, ... Search on AUTH_SERVICE_NAME into Zend API for full list
-			$client = getClientLoginHttpClient($user, $pwd, $service);
-			//var_dump($client); exit;
+			// Create client/token object
+			//$service= 'cl';		// cl = calendar, cp=contact, ... Search on AUTH_SERVICE_NAME into Zend API for full list
+			//$client = getClientLoginHttpClient($user, $pwd, $service);
+			$key_file_location = $conf->google->multidir_output[$conf->entity]."/".$conf->global->GOOGLE_API_SERVICEACCOUNT_P12KEY;
+			$force_do_not_use_session=(in_array(GETPOST('action'), array('testall','testcreate'))?true:false);	// false by default
+			$servicearray=getTokenFromServiceAccount($conf->global->GOOGLE_API_SERVICEACCOUNT_CLIENT_ID, $conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL, $key_file_location, $force_do_not_use_session);
 
-			if ($client == null)
+			if (! is_array($servicearray))
 			{
-				dol_syslog("Failed to login to Google for login ".$user, LOG_ERR);
-				$this->error='Failed to login to Google for login '.$user;
+				$this->errors[]=$servicearray;
+				return -1;
+			}
+
+			if ($servicearray == null)
+			{
+				$this->error="Failed to login to Google with credentials provided into setup page ".$conf->global->GOOGLE_API_SERVICEACCOUNT_CLIENT_ID.", ".$conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL.", ".$key_file_location;
+				dol_syslog($this->error, LOG_ERR);
 				$this->errors[]=$this->error;
 				return -1;
 			}
@@ -200,43 +208,73 @@ class InterfaceGoogleCalendarSynchro
 
 				$object->label = $eventlabel;
 
-				if ($action == 'ACTION_CREATE') {
-					$ret = createEvent($client, $object);
-					//var_dump($ret); exit;
-					$object->update_ref_ext($ret);
-					// This is to store ref_ext to allow updates
-
-					return 1;
+				if ($action == 'ACTION_CREATE')
+				{
+					$ret = createEvent($servicearray, $object, $user);
+					if (! preg_match('/ERROR/',$ret))
+					{
+						if (! preg_match('/google\.com/',$ret)) $ret='google:'.$ret;
+						$object->update_ref_ext($ret);
+						// This is to store ref_ext to allow updates
+						return 1;
+					}
+					else
+					{
+						$this->errors[]=$ret;
+						return -1;
+					}
 				}
-				if ($action == 'ACTION_MODIFY') {
+				if ($action == 'ACTION_MODIFY')
+				{
 					$gid = basename($object->ref_ext);
 					if ($gid && preg_match('/google/i', $object->ref_ext)) // This record is linked with Google Calendar
 					{
-						$ret = updateEvent($client, $gid, $object);
+						$ret = updateEvent($servicearray, $gid, $object, $user);
 						//var_dump($ret); exit;
 
-						if ($ret < 0)// Fails to update, we try to create
+						if (! is_numeric($ret) || $ret < 0)// Fails to update, we try to create
 						{
-							$ret = createEvent($client, $object);
+							$ret = createEvent($servicearray, $object, $user);
 							//var_dump($ret); exit;
 
-							$object->update_ref_ext($ret);
-							// This is to store ref_ext to allow updates
+							if (! preg_match('/ERROR/',$ret))
+							{
+								if (! preg_match('/google\.com/',$ret)) $ret='google:'.$ret;
+								$object->update_ref_ext($ret);
+								// This is to store ref_ext to allow updates
+								return 1;
+							}
+							else
+							{
+								$this->errors[]=$ret;
+								return -1;
+							}
 						}
 						return 1;
 					} else if ($gid == '') { // No google id, may be a reaffected event
-						$ret = createEvent($client, $object);
+						$ret = createEvent($servicearray, $object, $user);
 						//var_dump($ret); exit;
 
-						$object->update_ref_ext($ret);
-						// This is to store ref_ext to allow updates
+						if (! preg_match('/ERROR/',$ret))
+						{
+							if (! preg_match('/google\.com/',$ret)) $ret='google:'.$ret;
+							$object->update_ref_ext($ret);
+							// This is to store ref_ext to allow updates
+							return 1;
+						}
+						else
+						{
+							$this->errors[]=$ret;
+							return -1;
+						}
 					}
 				}
-				if ($action == 'ACTION_DELETE') {
+				if ($action == 'ACTION_DELETE')
+				{
 					$gid = basename($object->ref_ext);
 					if ($gid && preg_match('/google/i', $object->ref_ext)) // This record is linked with Google Calendar
 					{
-						$ret = deleteEventById($client, $gid);
+						$ret = deleteEventById($servicearray, $gid, $user);
 						//var_dump($ret); exit;
 
 						return 1;

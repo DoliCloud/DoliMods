@@ -33,25 +33,22 @@ function googleadmin_prepare_head()
 	$h = 0;
 	$head = array();
 
-	$head[$h][0] = dol_buildpath("/google/admin/google.php",1);
-	$head[$h][1] = $langs->trans("AgendaView");
-	$head[$h][2] = 'tabagenda';
-	$h++;
+    $head[$h][0] = dol_buildpath("/google/admin/google_contactsync.php",1);
+    $head[$h][1] = $langs->trans("ContactSync");
+    $head[$h][2] = 'tabcontactsync';
+    $h++;
 
     $head[$h][0] = dol_buildpath("/google/admin/google_calsync.php",1);
     $head[$h][1] = $langs->trans("AgendaSync");
     $head[$h][2] = 'tabagendasync';
     $h++;
 
-    //if (! empty($conf->global->MAIN_FEATURES_LEVEL))
-    //{
-	    $head[$h][0] = dol_buildpath("/google/admin/google_contactsync.php",1);
-	    $head[$h][1] = $langs->trans("ContactSync");
-	    $head[$h][2] = 'tabcontactsync';
-	    $h++;
-    //}
+    $head[$h][0] = dol_buildpath("/google/admin/google.php",1);
+	$head[$h][1] = $langs->trans("AgendaView");
+	$head[$h][2] = 'tabagenda';
+	$h++;
 
-    $head[$h][0] = dol_buildpath("/google/admin/google_gmaps.php",1);
+	$head[$h][0] = dol_buildpath("/google/admin/google_gmaps.php",1);
     $head[$h][1] = $langs->trans("GMaps");
     $head[$h][2] = 'tabgmaps';
     $h++;

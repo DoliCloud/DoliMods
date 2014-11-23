@@ -20,6 +20,7 @@ if (! $res && preg_match('/\/nltechno([^\/]*)\//',$_SERVER["PHP_SELF"],$reg)) $r
 if (! $res) die("Include of main fails");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/date.lib.php");
+require_once(DOL_DOCUMENT_ROOT."/core/lib/files.lib.php");
 require_once(DOL_DOCUMENT_ROOT.'/core/class/html.formadmin.class.php');
 require_once(DOL_DOCUMENT_ROOT.'/core/class/html.formother.class.php');
 require_once(DOL_DOCUMENT_ROOT.'/comm/action/class/actioncomm.class.php');
@@ -40,96 +41,142 @@ $MAXAGENDA=empty($conf->global->GOOGLE_AGENDA_NB)?5:$conf->global->GOOGLE_AGENDA
 
 // List of Google colors (A lot of colors are ignored by Google)
 $colorlist=array('7A367A','B1365F','5229A3','7A367A','29527A','2952A3','1B887A','28754E','0D7813','528800','88880E','AB8B00',
-                 'BE6D00','865A5A','705770','4E5D6C','5A6986','6E6E41','8D6F47','691426','5C1158','125A12','875509','754916',
-                 '5B123B','42104A','113F47','333333','711616','FFFFFF');
+'BE6D00','865A5A','705770','4E5D6C','5A6986','6E6E41','8D6F47','691426','5C1158','125A12','875509','754916',
+'5B123B','42104A','113F47','333333','711616','FFFFFF');
 
 
 /*
  * Actions
- */
+*/
 
 if ($action == 'save')
 {
-    $db->begin();
+	$db->begin();
 
-    //print 'color='.$color;
-    $res=dolibarr_set_const($db,'GOOGLE_DUPLICATE_INTO_GCAL',trim($_POST["GOOGLE_DUPLICATE_INTO_GCAL"]),'chaine',0,'',$conf->entity);
-    if (! $res > 0) $error++;
-    $res=dolibarr_set_const($db,'GOOGLE_LOGIN',trim($_POST["GOOGLE_LOGIN"]),'chaine',0,'',$conf->entity);
-    if (! $res > 0) $error++;
-    $res=dolibarr_set_const($db,'GOOGLE_PASSWORD',trim($_POST["GOOGLE_PASSWORD"]),'chaine',0,'',$conf->entity);
-    if (! $res > 0) $error++;
+	//print 'color='.$color;
+	$res=dolibarr_set_const($db,'GOOGLE_LOGIN',trim($_POST["GOOGLE_LOGIN"]),'chaine',0,'',$conf->entity);
+	if (! $res > 0) $error++;
+	$res=dolibarr_set_const($db,'GOOGLE_DUPLICATE_INTO_GCAL',trim($_POST["GOOGLE_DUPLICATE_INTO_GCAL"]),'chaine',0,'',$conf->entity);
+	if (! $res > 0) $error++;
+	$res=dolibarr_set_const($db,'GOOGLE_API_SERVICEACCOUNT_CLIENT_ID',trim($_POST["GOOGLE_API_SERVICEACCOUNT_CLIENT_ID"]),'chaine',0,'',$conf->entity);
+	if (! $res > 0) $error++;
+	$res=dolibarr_set_const($db,'GOOGLE_API_SERVICEACCOUNT_EMAIL',trim($_POST["GOOGLE_API_SERVICEACCOUNT_EMAIL"]),'chaine',0,'',$conf->entity);
+	if (! $res > 0) $error++;
 	$res=dolibarr_set_const($db,'GOOGLE_DISABLE_EVENT_LABEL_INC_SOCIETE',trim($_POST["GOOGLE_DISABLE_EVENT_LABEL_INC_SOCIETE"]),'chaine',0,'',$conf->entity);
-    if (! $res > 0) $error++;
+	if (! $res > 0) $error++;
 	$res=dolibarr_set_const($db,'GOOGLE_DISABLE_EVENT_LABEL_INC_CONTACT',trim($_POST["GOOGLE_DISABLE_EVENT_LABEL_INC_CONTACT"]),'chaine',0,'',$conf->entity);
-    if (! $res > 0) $error++;
+	if (! $res > 0) $error++;
 	$res=dolibarr_set_const($db,'GOOGLE_CAL_TZ_FIX',trim($_POST["GOOGLE_CAL_TZ_FIX"]),'chaine',0,'',$conf->entity);
-    if (! $res > 0) $error++;
+	if (! $res > 0) $error++;
 
-    if (! $error)
-    {
-        $db->commit();
-        $mesg = "<font class=\"ok\">".$langs->trans("SetupSaved")."</font>";
-    }
-    else
-    {
-        $db->rollback();
-        $mesg = "<font class=\"error\">".$langs->trans("Error")."</font>";
-    }
+	if (! empty($_FILES['GOOGLE_API_SERVICEACCOUNT_P12KEY_file']['tmp_name']))
+	{
+		$dir     = $conf->google->multidir_output[$conf->entity]."/";
+		$file_OK = is_uploaded_file($_FILES['GOOGLE_API_SERVICEACCOUNT_P12KEY_file']['tmp_name']);
+		if ($file_OK)
+		{
+			dol_mkdir($dir);
+
+			if (@is_dir($dir))
+			{
+				$newfile=$dir.'/'.dol_sanitizeFileName($_FILES['GOOGLE_API_SERVICEACCOUNT_P12KEY_file']['name']);
+				$result = dol_move_uploaded_file($_FILES['GOOGLE_API_SERVICEACCOUNT_P12KEY_file']['tmp_name'], $newfile, 1);
+				if (! ($result > 0))
+				{
+					$errors[] = "ErrorFailedToSaveFile";
+					$error++;
+				}
+				else
+				{
+					$res=dolibarr_set_const($db,'GOOGLE_API_SERVICEACCOUNT_P12KEY',trim($_FILES['GOOGLE_API_SERVICEACCOUNT_P12KEY_file']['name']),'chaine',0,'',$conf->entity);
+				}
+			}
+			else
+			{
+				$errors[] = "ErrorFailedToCreateDir";
+				$error++;
+			}
+		}
+		else
+		{
+			$error++;
+			switch($_FILES['GOOGLE_API_SERVICEACCOUNT_P12KEY_file']['error'])
+			{
+				case 1: //uploaded file exceeds the upload_max_filesize directive in php.ini
+				case 2: //uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the html form
+					$errors[] = "ErrorFileSizeTooLarge";
+					break;
+				case 3: //uploaded file was only partially uploaded
+					$errors[] = "ErrorFilePartiallyUploaded";
+					break;
+			}
+		}
+	}
+
+	if (! $error)
+	{
+		$db->commit();
+		setEventMessages($langs->trans("SetupSaved"), null);
+	}
+	else
+	{
+		$db->rollback();
+		setEventMessages('',$errors,'errors');
+	}
 }
 
 // This is a test action to allow to test creation of event once synchro with Calendar has been enabled.
 if (preg_match('/^test/',$action))
 {
-    include_once(DOL_DOCUMENT_ROOT.'/comm/action/class/actioncomm.class.php');
-    include_once(DOL_DOCUMENT_ROOT.'/contact/class/contact.class.php');
-    include_once(DOL_DOCUMENT_ROOT.'/societe/class/societe.class.php');
+	include_once(DOL_DOCUMENT_ROOT.'/comm/action/class/actioncomm.class.php');
+	include_once(DOL_DOCUMENT_ROOT.'/contact/class/contact.class.php');
+	include_once(DOL_DOCUMENT_ROOT.'/societe/class/societe.class.php');
 
-    $object=new ActionComm($db);
-    $result=$object->initAsSpecimen();
+	$object=new ActionComm($db);
+	$result=$object->initAsSpecimen();
 
-    $tmpcontact=new Contact($db);
-    $tmpcontact->initAsSpecimen();
+	$tmpcontact=new Contact($db);
+	$tmpcontact->initAsSpecimen();
 	$object->contact=$tmpcontact;
 
 	if ($tmpcontact->socid > 0)
 	{
 		$tmpsoc=new Societe($db);
-    	$tmpsoc->fetch($tmpcontact->socid);	// Overwrite with value of an existing record
-    	$object->societe=$tmpsoc;
-    	$object->thirdparty=$tmpsoc;
+		$tmpsoc->fetch($tmpcontact->socid);	// Overwrite with value of an existing record
+		$object->societe=$tmpsoc;
+		$object->thirdparty=$tmpsoc;
 	}
 
-    $result=$object->add($user);
+	$result=$object->add($user);
 	if ($result < 0) $error++;
 
-    if (! $error)
-    {
-	    $object->label='New label';
-	    $object->location='New location';
-	    $object->note='New note';
-	    $object->datep+=3600;
-	    $object->datef+=3600;
+	if (! $error)
+	{
+		$object->label='New label';
+		$object->location='New location';
+		$object->note='New note';
+		$object->datep+=3600;
+		$object->datef+=3600;
 
-	    $result=$object->update($user);
+		$result=$object->update($user);
 		if ($result < 0) $error++;
-    }
+	}
 
-    if ($action == 'testall' && ! $error)
-    {
-	    $result=$object->delete();
+	if ($action == 'testall' && ! $error)
+	{
+		$result=$object->delete();
 		if ($result < 0) $error++;
-    }
+	}
 
-    if (! $error)
-    {
-        $mesg=$langs->trans("TestSuccessfull");
-    }
-    else
-    {
-        if ($object->errors) setEventMessage($object->errors,'errors');
-        else setEventMessage($object->error,'errors');
-    }
+	if (! $error)
+	{
+		setEventMessage($langs->trans("TestSuccessfull"));
+	}
+	else
+	{
+		if ($object->errors) setEventMessage($object->errors,'errors');
+		else setEventMessage($object->error,'errors');
+	}
 }
 
 
@@ -171,12 +218,12 @@ if ($action == 'pushallevents')
 
 	if (is_numeric($result) && $result >= 0)
 	{
-		$mesg = $langs->trans("PushToGoogleSucess",count($gCals));
+		setEventMessages($langs->trans("PushToGoogleSucess",count($gCals)), null);
 	}
 	else
 	{
 		$error++;
-		$errors[] = $langs->trans("Error").' '.$result;
+		setEventMessages('', $langs->trans("Error").' '.$result, 'errors');
 	}
 }
 
@@ -184,7 +231,7 @@ if ($action == 'pushallevents')
 
 /*
  * View
- */
+*/
 
 
 $form=new Form($db);
@@ -203,53 +250,25 @@ print_fiche_titre($langs->trans("GoogleSetup"),$linkback,'setup');
 print '<br>';
 
 
-$head=googleadmin_prepare_head();
-
-
-dol_fiche_head($head, 'tabagendasync', $langs->trans("GoogleTools"));
-
 if (! function_exists("openssl_open")) print '<div class="warning">Warning: PHP Module \'openssl\' is not installed</div><br>';
 if (! class_exists('DOMDocument')) print '<div class="warning">Warning: PHP Module \'xml\' is not installed</div><br>';
 
-print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post" autocomplete="off">';
+
+print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="POST" autocomplete="off" enctype="multipart/form-data">';
 print '<input type="hidden" name="action" value="save">';
 
-print $langs->trans("GoogleEnableSyncToCalendar").' '.$form->selectyesno("GOOGLE_DUPLICATE_INTO_GCAL",isset($_POST["GOOGLE_DUPLICATE_INTO_GCAL"])?$_POST["GOOGLE_DUPLICATE_INTO_GCAL"]:$conf->global->GOOGLE_DUPLICATE_INTO_GCAL,1).'<br><br>';
+$head=googleadmin_prepare_head();
 
+dol_fiche_head($head, 'tabagendasync', $langs->trans("GoogleTools"));
+
+print $langs->trans("GoogleEnableSyncToCalendar").' '.$form->selectyesno("GOOGLE_DUPLICATE_INTO_GCAL",isset($_POST["GOOGLE_DUPLICATE_INTO_GCAL"])?$_POST["GOOGLE_DUPLICATE_INTO_GCAL"]:$conf->global->GOOGLE_DUPLICATE_INTO_GCAL,1).'<br><br>';
 
 $var=false;
 
 print "<table class=\"noborder\" width=\"100%\">";
 
 print "<tr class=\"liste_titre\">";
-print '<td width="25%">'.$langs->trans("Parameter").' ('.$langs->trans("ParametersForGoogleAPIv2Usage","Calendar").')'."</td>";
-print "<td>".$langs->trans("Value")."</td>";
-print "</tr>";
-// Google login
-print "<tr ".$bc[$var].">";
-print '<td class="fieldrequired">'.$langs->trans("GOOGLE_LOGIN")."</td>";
-print "<td>";
-print '<input class="flat" type="text" size="24" name="GOOGLE_LOGIN" value="'.$conf->global->GOOGLE_LOGIN.'">';
-print ' &nbsp; '.$langs->trans("KeepEmptyYoUseLoginPassOfEventUser");
-print "</td>";
-print "</tr>";
-// Google password
-$var=!$var;
-print "<tr ".$bc[$var].">";
-print '<td class="fieldrequired">'.$langs->trans("GOOGLE_PASSWORD")."</td>";
-print "<td>";
-print '<input class="flat" type="password" size="10" name="GOOGLE_PASSWORD" value="'.$conf->global->GOOGLE_PASSWORD.'">';
-print ' &nbsp; '.$langs->trans("KeepEmptyYoUseLoginPassOfEventUser");
-print "</td>";
-print "</tr>";
-
-print "</table>";
-print "<br>";
-
-print "<table class=\"noborder\" width=\"100%\">";
-
-print "<tr class=\"liste_titre\">";
-print '<td width="25%">'.$langs->trans("Parameter")."</td>";
+print '<td>'.$langs->trans("Parameter")."</td>";
 print "<td>".$langs->trans("Value")."</td>";
 print "</tr>";
 // Google login
@@ -263,21 +282,87 @@ print "</tr>";
 
 print '</table>';
 
+
 print '<br>';
 
-print '<center>';
-print "<input type=\"submit\" name=\"save\" class=\"button\" value=\"".$langs->trans("Save")."\">";
-print "</center>";
+$var=true;
 
-print "</form>\n";
+print "<table class=\"noborder\" width=\"100%\">";
+
+print "<tr class=\"liste_titre\">";
+print '<td class="nowrap">'.$langs->trans("Parameter").' ('.$langs->trans("ParametersForGoogleAPIv3Usage","Calendar").')'."</td>";
+print "<td>".$langs->trans("Value")."</td>";
+print "<td>".$langs->trans("Note")."</td>";
+print "</tr>";
+
+// Google login
+$var=!$var;
+print "<tr ".$bc[$var].">";
+print '<td class="fieldrequired">'.$langs->trans("GOOGLE_LOGIN")."</td>";
+print "<td>";
+print '<input class="flat" type="text" size="24" name="GOOGLE_LOGIN" autocomplete="off" value="'.$conf->global->GOOGLE_LOGIN.'">';
+//print ' &nbsp; '.$langs->trans("KeepEmptyYoUseLoginPassOfEventUser");
+print "</td>";
+print '<td>';
+print $langs->trans("Example").": yourlogin@gmail.com, email@mydomain.com, 'primary'";
+print '</td>';
+print "</tr>";
+
+/*
+$var=!$var;
+print "<tr ".$bc[$var].">";
+print '<td class="fieldrequired">'.$langs->trans("GOOGLE_API_SERVICEACCOUNT_CLIENT_ID")."</td>";
+print '<td>';
+print '<input class="flat" type="text" size="90" name="GOOGLE_API_SERVICEACCOUNT_CLIENT_ID" value="'.$conf->global->GOOGLE_API_SERVICEACCOUNT_CLIENT_ID.'">';
+print '</td>';
+print '<td>';
+print $langs->trans("AllowGoogleToLoginWithServiceAccount","https://code.google.com/apis/console/","https://code.google.com/apis/console/").'<br>';
+print '</td>';
+print '</tr>';
+*/
+
+$var=!$var;
+print "<tr ".$bc[$var].">";
+print '<td class="fieldrequired">'.$langs->trans("GOOGLE_API_SERVICEACCOUNT_EMAIL")."</td>";
+print '<td>';
+print '<input class="flat" type="text" size="90" name="GOOGLE_API_SERVICEACCOUNT_EMAIL" value="'.$conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL.'">';
+print '</td>';
+print '<td>';
+print $langs->trans("AllowGoogleToLoginWithServiceAccount","https://code.google.com/apis/console/","https://code.google.com/apis/console/").'<br>';
+print '</td>';
+print '</tr>';
+
+$var=!$var;
+print "<tr ".$bc[$var].">";
+print '<td class="fieldrequired">'.$langs->trans("GOOGLE_API_SERVICEACCOUNT_P12KEY")."</td>";
+print '<td>';
+if (! empty($conf->global->GOOGLE_API_SERVICEACCOUNT_P12KEY)) print $conf->global->GOOGLE_API_SERVICEACCOUNT_P12KEY.'<br>';
+print '<input type="file" name="GOOGLE_API_SERVICEACCOUNT_P12KEY_file">';
+print '</td>';
+print '<td>';
+print $langs->trans("AllowGoogleToLoginWithServiceAccountP12").'<br>';
+print '</td>';
+print '</tr>';
+
+print "</table>";
+
+print info_admin($langs->trans("EnableAPI","https://code.google.com/apis/console/","https://code.google.com/apis/console/","Calendar API"));
+
+print info_admin($langs->trans("ShareCalendarWithServiceAccount","https://code.google.com/apis/console/","https://code.google.com/apis/console/","Calendar API"));
 
 dol_fiche_end();
+
+print '<div align="center">';
+print "<input type=\"submit\" name=\"save\" class=\"button\" value=\"".$langs->trans("Save")."\">";
+print "</div>";
+
+print "</form>\n";
 
 print '<br>';
 
 
 print '<div class="tabsActions">';
-if (empty($conf->global->GOOGLE_LOGIN) || empty($conf->global->GOOGLE_LOGIN) || empty($conf->global->GOOGLE_DUPLICATE_INTO_GCAL))
+if (empty($conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL) || empty($conf->global->GOOGLE_DUPLICATE_INTO_GCAL))
 {
 	print '<a class="butActionRefused" href="#">'.$langs->trans("TestCreateUpdateDelete")."</a>";
 
@@ -287,7 +372,7 @@ else
 {
 	print '<a class="butAction" href="'.$_SERVER['PHP_SELF'].'?action=testall">'.$langs->trans("TestCreateUpdateDelete")."</a>";
 
-	print '<a class="butAction" href="'.$_SERVER['PHP_SELF'].'?action=testcreate">'.$langs->trans("TestCreate")."</a>";
+	print '<a class="butAction" href="'.$_SERVER['PHP_SELF'].'?action=testcreate">'.$langs->trans("TestCreateUpdate")."</a>";
 }
 print '</div>';
 
@@ -311,10 +396,6 @@ if ($conf->global->MAIN_FEATURES_LEVEL > 0 && ! empty($conf->global->GOOGLE_DUPL
 	print "</form>\n";
 }
 
-
-
-dol_htmloutput_mesg($mesg);
-dol_htmloutput_errors($error,$errors);
 
 
 

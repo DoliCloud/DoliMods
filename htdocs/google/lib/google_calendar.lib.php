@@ -30,9 +30,10 @@
 
 dol_include_once("/google/lib/google.lib.php");
 
+dol_include_once('/nltechno/google/includes/google-api-php-client/autoload.php');
+
 $path = dol_buildpath('/google/includes/zendgdata');
 set_include_path(get_include_path() . PATH_SEPARATOR . $path);
-
 require_once('Zend/Loader.php');
 Zend_Loader::loadClass('Zend_Gdata');
 Zend_Loader::loadClass('Zend_Gdata_AuthSub');
@@ -245,11 +246,6 @@ function outputCalendarByFullTextQuery($client, $fullTextQuery)
  */
 function getTokenFromWebApp($clientid, $clientsecret)
 {
-	// If you've used composer to include the library, remove the following line
-	// and make sure to follow the standard composer autoloading.
-	// https://getcomposer.org/doc/01-basic-usage.md#autoloading
-	dol_include_once('/nltechno/google/includes/google-api-php-client/autoload.php');
-
 	$client = new Google_Client();
 	// OAuth2 client ID and secret can be found in the Google Developers Console.
 	$client->setClientId($clientid);
@@ -279,18 +275,15 @@ function getTokenFromWebApp($clientid, $clientsecret)
 /**
  * Get service
  *
- * @param	string		$clientid					Client ID
- * @param	string		$service_account_name		Service account name
- * @param	string		$key_file_location			Key file location
- * @return				service
+ * @param	string			$client_id					Client ID (Example: '258042696143-s9klbbpj13fb40ac8k5qjajn4e9o1c49.apps.googleusercontent.com')
+ * @param	string			$service_account_name		Service account name (Example: '258042696143-s9klbbpj13fb40ac8k5qjajn4e9o1c49@developer.gserviceaccount.com')
+ * @param	string			$key_file_location			Key file location (Example: 'API Project-69e4673ea29e.p12')
+ * @param	int				$force_do_not_use_session	1=Do not get token from essions
+ * @return	array|string								Error message or array with token
  */
-function getTokenFromServiceAccount($clientid, $service_account_name, $key_file_location)
+function getTokenFromServiceAccount($client_id, $service_account_name, $key_file_location, $force_do_not_use_session=false)
 {
-	$client_id            = '258042696143-s9klbbpj13fb40ac8k5qjajn4e9o1c49.apps.googleusercontent.com';
-	$service_account_name = '258042696143-s9klbbpj13fb40ac8k5qjajn4e9o1c49@developer.gserviceaccount.com'; //Email Address
-	$key_file_location    = 'API Project-69e4673ea29e.p12'; //key.p12
-
-	if (empty($client_id)) return 'ErrorNoClientId';
+	//if (empty($client_id)) return 'ErrorNoClientId';
 	if (empty($service_account_name)) return 'ErrorNoServiceAccountName';
 	if (empty($key_file_location) || ! file_exists($key_file_location)) return 'ErrorKeyFileNotFound';
 
@@ -305,30 +298,12 @@ function getTokenFromServiceAccount($clientid, $service_account_name, $key_file_
 	  we have to list them manually. We also supply
 	  the service account
 	 ************************************************/
-	if (isset($_SESSION['service_token'])) {
-	  $client->setAccessToken($_SESSION['service_token']);
+	if (empty($force_do_not_use_session) && isset($_SESSION['service_token']))
+	{
+		dol_syslog("Get service token from session. service_token=".$_SESSION['service_token']);
+		$client->setAccessToken($_SESSION['service_token']);
 	}
 	$key = file_get_contents($key_file_location);
-
-/*
-	$service = new Google_Service_Books($client);
-
-	$cred = new Google_Auth_AssertionCredentials(
-	    $service_account_name,
-	    array('https://www.googleapis.com/auth/books'),
-	    $key
-	);
-
-
-	$client->setAssertionCredentials($cred);
-
-
-	if ($client->getAuth()->isAccessTokenExpired()) {
-		$client->getAuth()->refreshTokenWithAssertion($cred);
-	}
-
-	//var_dump($client->getAccessToken());
-*/
 
 	$cred = new Google_Auth_AssertionCredentials(
 	    $service_account_name,
@@ -345,10 +320,8 @@ function getTokenFromServiceAccount($clientid, $service_account_name, $key_file_
 	}
 	catch(Exception $e)
 	{
-		var_dump($e);
+		return $e->getMessage();
 	}
-
-	var_dump($client->getAccessToken());
 
 	$_SESSION['service_token'] = $client->getAccessToken();
 
@@ -361,18 +334,15 @@ function getTokenFromServiceAccount($clientid, $service_account_name, $key_file_
  * Creates an event on the authenticated user's default calendar with the
  * specified event details.
  *
- * @param  Zend_Http_Client $client    The authenticated client object
- * @param  string			$object	   Source object into Dolibarr
- * @return string The ID URL for the event.
+ * @param  array	$client   		Service array with authenticated client object
+ * @param  string	$object	   		Source object into Dolibarr
+ * @param  string	$login			CalendarId (login google or 'primary')
+ * @return string 					The ID URL for the event or 'ERROR xxx' if error.
  */
-function createEvent($client, $object)
+function createEvent($client, $object, $login='primary')
 {
 	global $conf;
 
-	$clientid = '258042696143.apps.googleusercontent.com';
-	$clientsecret = 'HdmLOMStzB9MBbAjCr87gz27';
-
-	$tmp=getService($clientid, $clientsecret);
 /*
     // More examples on http://code.google.com/intl/fr/apis/calendar/data/1.0/developers_guide_php.html
 	$gc = new Zend_Gdata_Calendar($client, 'Dolibarr');
@@ -411,29 +381,57 @@ function createEvent($client, $object)
 
 	return $createdEntry->getId();    // Return full URL with id
 	*/
-	print 'Please visit: <a href="'.$tmp['authUrl'].'">'.$tmp['authUrl'].'</a>'."\n\n";
 
-	//var_dump($tmp);
-exit;
-	$event = new Event();
-	$event->setSummary('Appointment');
-	$event->setLocation('Somewhere');
-	$start = new EventDateTime();
-	$start->setDateTime('2011-06-03T10:00:00.000-07:00');
+	$tzfix=0;
+	if (! empty($conf->global->GOOGLE_CAL_TZ_FIX) && is_numeric($conf->global->GOOGLE_CAL_TZ_FIX)) $tzfix=$conf->global->GOOGLE_CAL_TZ_FIX;
+    if (empty($object->fulldayevent))
+    {
+        $startTime = dol_print_date(($tzfix*3600) + $object->datep,"dayhourrfc",'gmt');
+        $endTime = dol_print_date(($tzfix*3600) + (empty($object->datef)?$object->datep:$object->datef),"dayhourrfc",'gmt');
+    }
+    else
+    {
+        $startTime = dol_print_date(($tzfix*3600) + $object->datep,"dayrfc");
+        $endTime = dol_print_date(($tzfix*3600) + (empty($object->datef)?$object->datep:$object->datef) + 3600*24,"dayrfc");	// For fulldayevent, into XML data, endTime must be day after
+    }
+
+	$event = new Google_Service_Calendar_Event();
+	$event->setSummary(trim($object->label));
+	$event->setLocation($object->location);
+	$event->setDescription(dol_string_nohtmltag($object->note, 0));
+
+	$start = new Google_Service_Calendar_EventDateTime();
+	$start->setDateTime($startTime);	// '2011-06-03T10:00:00.000-07:00'
 	$event->setStart($start);
-	$end = new EventDateTime();
-	$end->setDateTime('2011-06-03T10:25:00.000-07:00');
+	$end = new Google_Service_Calendar_EventDateTime();
+	$end->setDateTime($endTime);	// '2011-06-03T10:25:00.000-07:00'
 	$event->setEnd($end);
-	$attendee1 = new EventAttendee();
+
+	dol_syslog("createEvent for login=".$login.", label=".$object->label.", startTime=".$startTime.", endTime=".$endTime, LOG_DEBUG);
+
+	/*$attendee1 = new Google_Service_Calendar_EventAttendee();
 	$attendee1->setEmail('attendeeEmail');
 	// ...
 	$attendees = array($attendee1,
 	                   // ...
 	                  );
 	$event->attendees = $attendees;
-	$createdEvent = $service->events->insert('primary', $event);
+	*/
 
-	echo $createdEvent->getId();
+	try {
+		$service = new Google_Service_Calendar($client['client']);
+
+		$createdEvent = $service->events->insert($login, $event);
+
+		$ret=$createdEvent->getId();
+		dol_syslog("createEvent Id=".$ret, LOG_DEBUG);
+	}
+	catch(Exception $e)
+	{
+		return 'ERROR '.$e->getMessage();
+	}
+
+	return $ret;
 }
 
 /**
@@ -570,17 +568,29 @@ function getEvent($client, $eventId)
  * the title specified.  Also outputs the new and old title
  * with HTML br elements separating the lines
  *
- * @param  Zend_Http_Client $client   The authenticated client object
- * @param  string           $eventId  The event ID string
- * @param  string           $newTitle The new title to set on this event
- * @return Zend_Gdata_Calendar_EventEntry|null The updated entry
+ * @param  array	$client   		Service array with authenticated client object
+ * @param  string   $eventId        The event ID string
+ * @param  string	$object	   		Source object into Dolibarr
+ * @param  string	$login			CalendarId (login google or 'primary')
+ * @return
  */
-function updateEvent($client, $eventId, $object)
+function updateEvent($client, $eventId, $object, $login='primary')
 {
 	global $conf;
 
-	$gdataCal = new Zend_Gdata_Calendar($client);
+	//$gdataCal = new Zend_Gdata_Calendar($client);
 
+	$neweventId=$eventId;
+	if (preg_match('/google\.com/.*\/([^\/]+)$/',$eventId,$reg))
+	{
+		$neweventId=$reg[1];
+	}
+	if (preg_match('/google:([^\/]+)$/',$eventId,$reg))
+	{
+		$neweventId=$reg[1];
+	}
+
+	/*
 	$eventOld = getEvent($client, $eventId);
 	if ($eventOld)
 	{
@@ -622,7 +632,36 @@ function updateEvent($client, $eventId, $object)
 	{
 	    dol_syslog("Event with id ".$eventId." not found into Calendar. We must create it.");
 	    return -1;
+	}*/
+
+	dol_syslog("updateEvent Search for old record on Google calendar with login=".$login.", id=".$neweventId, LOG_DEBUG);
+
+	try {
+		$service = new Google_Service_Calendar($client['client']);
+
+		$eventOld = $service->events->get($login, $neweventId);
+
+		dol_syslog("updateEvent old record found", LOG_DEBUG);
+
+		/*
+		$event->setSummary('Appointment at Somewhere');
+
+		$updatedEvent = $service->events->update('primary', $event->getId(), $event);
+
+		// Print the updated date.
+		echo $updatedEvent->getUpdated();
+		*/
+
+		$ret = 1;
 	}
+	catch(Exception $e)
+	{
+		dol_syslog("updateEvent error in getting old record: ".$e->getMessage(), LOG_WARNING);
+
+		return 'ERROR '.$e->getMessage();
+	}
+
+	return $ret;
 }
 
 /**
