@@ -298,13 +298,14 @@ print "</tr>";
 // Google login
 $var=!$var;
 print "<tr ".$bc[$var].">";
-print '<td class="fieldrequired">'.$langs->trans("GOOGLE_LOGIN")."</td>";
+print '<td class="fieldrequired">'.$langs->trans("GoogleIDAgenda")."</td>";
 print "<td>";
 print '<input class="flat" type="text" size="24" name="GOOGLE_LOGIN" autocomplete="off" value="'.$conf->global->GOOGLE_LOGIN.'">';
 //print ' &nbsp; '.$langs->trans("KeepEmptyYoUseLoginPassOfEventUser");
 print "</td>";
 print '<td>';
-print $langs->trans("Example").": yourlogin@gmail.com, email@mydomain.com, 'primary'";
+print $langs->trans("Example").": yourlogin@gmail.com, email@mydomain.com, 'primary'<br>";
+print $langs->trans("GoogleSetupHelp");
 print '</td>';
 print "</tr>";
 
@@ -348,7 +349,7 @@ print "</table>";
 
 print info_admin($langs->trans("EnableAPI","https://code.google.com/apis/console/","https://code.google.com/apis/console/","Calendar API"));
 
-print info_admin($langs->trans("ShareCalendarWithServiceAccount","https://code.google.com/apis/console/","https://code.google.com/apis/console/","Calendar API"));
+print info_admin($langs->trans("ShareCalendarWithServiceAccount",$conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL,$langs->transnoentitiesnoconv("GoogleIDAgenda")));
 
 dol_fiche_end();
 
