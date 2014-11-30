@@ -93,15 +93,15 @@ print_fiche_titre($langs->trans("IPPhoneSetup"),$linkback,'setup');
 print '<br>';
 
 
-$head=array();
+print '<form name="agendasetupform" action="'.$_SERVER["PHP_SELF"].'" method="post">';
+print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
 
+$head=array();
 dol_fiche_head($head, '', '', 0, '');
 
 //print $langs->trans("IPPhoneSetupOtherDesc")."<br>\n";
 //print "<br>\n";
 
-print '<form name="agendasetupform" action="'.$_SERVER["PHP_SELF"].'" method="post">';
-print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
 print "<table class=\"noborder\" width=\"100%\">";
 
 print "<tr class=\"liste_titre\">";
@@ -122,13 +122,14 @@ print "</tr>";
 
 print '</table>';
 
-print '<br><center>';
+dol_fiche_end();
+
+print '<div class="center">';
 print "<input type=\"submit\" name=\"save\" class=\"button\" value=\"".$langs->trans("Save")."\">";
-print "</center>";
+print "</div>";
 
 print "</form>\n";
 
-dol_fiche_end();
 
 
 print "Module is enabled. To use it, you must setup your phone to call following URL:<br><br>\n";
