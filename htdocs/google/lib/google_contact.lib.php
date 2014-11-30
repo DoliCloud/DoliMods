@@ -440,13 +440,17 @@ function googleUpdateContact($client, $contactId, $object, $useremail='default')
 			}
 		}
 
-		// Phone
-		/*
+		$newphone=empty($object->phone)?$object->phone_pro:$object->phone;
+
+		// Phone(s)
+		//var_dump($xml->asXML());
+		//var_dump($xml);
 		unset($xml->phoneNumber);
-		foreach ($xml->phoneNumber as $key => $val) {
-			$oldvalue=(string) $val;
-			//var_dump($oldvalue);
-		}*/
+		if ($newphone) simplexml_merge($xml, new SimpleXMLElement('<atom:entry xmlns:atom="http://www.w3.org/2005/Atom"><phoneNumber xmlns="http://schemas.google.com/g/2005" rel="http://schemas.google.com/g/2005#work">'.$newphone.'</phoneNumber></atom:entry>'));
+		if ($object->fax) simplexml_merge($xml, new SimpleXMLElement('<atom:entry xmlns:atom="http://www.w3.org/2005/Atom"><phoneNumber xmlns="http://schemas.google.com/g/2005" rel="http://schemas.google.com/g/2005#work_fax">'.$object->fax.'</phoneNumber></atom:entry>'));
+		//var_dump($xml->asXML());
+		//var_dump($xml);
+		//exit;
 
 		// userDefinedField
 		// We don't change this
@@ -498,7 +502,7 @@ function googleUpdateContact($client, $contactId, $object, $useremail='default')
 		//var_dump($xmlStr);exit;
 
 		$xmlStr=$doc->saveXML();
-		
+
 		//List of properties to set visible with var_dump($xml->saveXML());exit;
 		$extra_header = array('If-Match'=>'*');
 
