@@ -109,32 +109,27 @@ class InterfaceGoogleCalendarSynchro
 
 		if (!$conf->google->enabled) return 0; // Module non actif
 
-		$fuser = new User($this->db);
-
 		//var_dump($object); exit;
-		$user = empty($conf->global->GOOGLE_LOGIN)?'':$conf->global->GOOGLE_LOGIN;
-		$pwd  = empty($conf->global->GOOGLE_PASSWORD)?'':$conf->global->GOOGLE_PASSWORD;
 
-		if (empty($user) || empty($pwd))	// We use setup of user
+		$userlogin = empty($conf->global->GOOGLE_LOGIN)?'':$conf->global->GOOGLE_LOGIN;
+		if (empty($userlogin))	// We use setup of user
 		{
 			// L'utilisateur concerné est l'utilisateur affecté à l'évènement dans Dolibarr
 			// TODO : à rendre configurable ? (choix entre créateur / affecté / réalisateur)
-			if (empty($object->userownerid)) return 0;
+			if (! empty($object->userownerid))
+			{
+				$fuser = new User($this->db);
+				$fuser->fetch($object->userownerid);
+				$userlogin = $fuser->conf->GOOGLE_LOGIN;
+			}
+			else return 0;
 
-			$fuser->fetch($object->userownerid);
-
-			$user = $fuser->conf->GOOGLE_LOGIN;
-			$pwd = $fuser->conf->GOOGLE_PASSWORD;
-
-			//if (empty($fuser->conf->GOOGLE_DUPLICATE_INTO_GCAL)) return 0;
 			if (empty($conf->global->GOOGLE_DUPLICATE_INTO_GCAL)) return 0;
 		}
 		else								// We use global setup
 		{
 			if (empty($conf->global->GOOGLE_DUPLICATE_INTO_GCAL)) return 0;
 		}
-		//print $action.' - '.$user.' - '.$pwd.' - '.$conf->global->GOOGLE_DUPLICATE_INTO_GCAL; exit;
-
 
 
 		// Actions
@@ -144,15 +139,13 @@ class InterfaceGoogleCalendarSynchro
 
 			$langs->load("other");
 
-			if (empty($user))
+			if (empty($userlogin))
 			{
-				dol_syslog("Setup to synchronize events into a Google calendar of ".$fuser->login." is on but can't find complete setup for login/password (nor global nor for user).", LOG_WARNING);
+				dol_syslog("Setup to synchronize events into a Google calendar of ".$userlogin." is on but can't find complete setup for login/password (nor global nor for user).", LOG_WARNING);
 				return 0;
 			}
 
 			// Create client/token object
-			//$service= 'cl';		// cl = calendar, cp=contact, ... Search on AUTH_SERVICE_NAME into Zend API for full list
-			//$client = getClientLoginHttpClient($user, $pwd, $service);
 			$key_file_location = $conf->google->multidir_output[$conf->entity]."/".$conf->global->GOOGLE_API_SERVICEACCOUNT_P12KEY;
 			$force_do_not_use_session=(in_array(GETPOST('action'), array('testall','testcreate'))?true:false);	// false by default
 			$servicearray=getTokenFromServiceAccount($conf->global->GOOGLE_API_SERVICEACCOUNT_CLIENT_ID, $conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL, $key_file_location, $force_do_not_use_session);
@@ -210,7 +203,7 @@ class InterfaceGoogleCalendarSynchro
 
 				if ($action == 'ACTION_CREATE')
 				{
-					$ret = createEvent($servicearray, $object, $user);
+					$ret = createEvent($servicearray, $object, $userlogin);
 					if (! preg_match('/ERROR/',$ret))
 					{
 						if (! preg_match('/google\.com/',$ret)) $ret='google:'.$ret;
@@ -229,12 +222,12 @@ class InterfaceGoogleCalendarSynchro
 					$gid = basename($object->ref_ext);
 					if ($gid && preg_match('/google/i', $object->ref_ext)) // This record is linked with Google Calendar
 					{
-						$ret = updateEvent($servicearray, $gid, $object, $user);
+						$ret = updateEvent($servicearray, $gid, $object, $userlogin);
 						//var_dump($ret); exit;
 
 						if (! is_numeric($ret) || $ret < 0)// Fails to update, we try to create
 						{
-							$ret = createEvent($servicearray, $object, $user);
+							$ret = createEvent($servicearray, $object, $userlogin);
 							//var_dump($ret); exit;
 
 							if (! preg_match('/ERROR/',$ret))
@@ -252,7 +245,7 @@ class InterfaceGoogleCalendarSynchro
 						}
 						return 1;
 					} else if ($gid == '') { // No google id, may be a reaffected event
-						$ret = createEvent($servicearray, $object, $user);
+						$ret = createEvent($servicearray, $object, $userlogin);
 						//var_dump($ret); exit;
 
 						if (! preg_match('/ERROR/',$ret))
@@ -274,7 +267,7 @@ class InterfaceGoogleCalendarSynchro
 					$gid = basename($object->ref_ext);
 					if ($gid && preg_match('/google/i', $object->ref_ext)) // This record is linked with Google Calendar
 					{
-						$ret = deleteEventById($servicearray, $gid, $user);
+						$ret = deleteEventById($servicearray, $gid, $userlogin);
 						//var_dump($ret); exit;
 
 						return 1;

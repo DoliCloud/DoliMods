@@ -180,11 +180,96 @@ if (preg_match('/^test/',$action))
 }
 
 
+if (GETPOST('cleanup'))
+{
+	$nbdeleted=0;
+
+	$userlogin = empty($conf->global->GOOGLE_LOGIN)?'':$conf->global->GOOGLE_LOGIN;
+	if (empty($userlogin))	// We use setup of user
+	{
+		// L'utilisateur concerné est l'utilisateur affecté à l'évènement dans Dolibarr
+		// TODO : à rendre configurable ? (choix entre créateur / affecté / réalisateur)
+		if (! empty($object->userownerid))
+		{
+			$fuser = new User($db);
+			$fuser->fetch($object->userownerid);
+			$userlogin = $fuser->conf->GOOGLE_LOGIN;
+		}
+	}
+
+	// Create client/token object
+	$key_file_location = $conf->google->multidir_output[$conf->entity]."/".$conf->global->GOOGLE_API_SERVICEACCOUNT_P12KEY;
+	$force_do_not_use_session=(in_array(GETPOST('action'), array('testall','testcreate'))?true:false);	// false by default
+	$servicearray=getTokenFromServiceAccount($conf->global->GOOGLE_API_SERVICEACCOUNT_CLIENT_ID, $conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL, $key_file_location, $force_do_not_use_session);
+
+	if (! is_array($servicearray))
+	{
+		$this->errors[]=$servicearray;
+		$error++;
+	}
+
+	if ($servicearray == null)
+	{
+		$this->error="Failed to login to Google with credentials provided into setup page ".$conf->global->GOOGLE_API_SERVICEACCOUNT_CLIENT_ID.", ".$conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL.", ".$key_file_location;
+		dol_syslog($this->error, LOG_ERR);
+		$this->errors[]=$this->error;
+		$error++;
+	}
+	else
+	{
+		try {
+			$service = new Google_Service_Calendar($servicearray['client']);
+			$events = $service->events->listEvents($userlogin);
+			while(true)
+			{
+				foreach ($events->getItems() as $event)
+				{
+					$dolibarr_id='';
+					$extendedProperties=$event->getExtendedProperties();
+					if (is_object($extendedProperties))
+					{
+						$shared=$extendedProperties->getShared();
+						$priv=$extendedProperties->getPrivate();
+						$dolibarr_id=($priv['dolibarr_id']?$priv['dolibarr_id']:$shared['dol_id']);
+					}
+					if ($dolibarr_id)
+					{
+						//echo 'This is a dolibarr event '.$dolibarr_id.' - '.$event->getSummary().'<br>'."\n";
+						deleteEventById($servicearray['client'], $event->getId(), $userlogin, $service);
+						$nbdeleted++;
+					}
+				}
+				$pageToken = $events->getNextPageToken();
+				if ($pageToken)
+				{
+					$optParams = array('pageToken' => $pageToken);
+					$events = $service->events->listEvents($userlogin, $optParams);
+				}
+				else
+				{
+					break;
+				}
+			}
+		}
+		catch(Exception $e)
+		{
+			$this->errors[] = 'ERROR '.$e->getMessage();
+			$error++;
+		}
+	}
+
+	if ($error)
+	{
+		setEventMessage($this->errors, 'errors');
+	}
+	else
+	{
+		setEventMessage($langs->trans("XRecordDeleted",$nbdeleted), 'mesgs');
+	}
+}
+
 if ($action == 'pushallevents')
 {
-	$googleuser = empty($conf->global->GOOGLE_CONTACT_LOGIN)?'':$conf->global->GOOGLE_CONTACT_LOGIN;
-	$googlepwd  = empty($conf->global->GOOGLE_CONTACT_PASSWORD)?'':$conf->global->GOOGLE_CONTACT_PASSWORD;
-
 	// Try to use V3 API
 	$sql = 'SELECT id, datep, datep2 as datef, code, label, transparency, priority, fulldayevent, punctual, percent';
 	$sql.= ' FROM '.MAIN_DB_PREFIX.'actioncomm';
@@ -273,7 +358,7 @@ print "<td>".$langs->trans("Value")."</td>";
 print "</tr>";
 // Google login
 print "<tr ".$bc[$var].">";
-print '<td class="fieldrequired">'.$langs->trans("GOOGLE_FIX_TZ")."</td>";
+print '<td>'.$langs->trans("GOOGLE_FIX_TZ")."</td>";
 print "<td>";
 print '<input class="flat" type="text" size="4" name="GOOGLE_CAL_TZ_FIX" value="'.$conf->global->GOOGLE_CAL_TZ_FIX.'">';
 print ' &nbsp; '.$langs->trans("FillThisOnlyIfRequired");
@@ -389,15 +474,16 @@ if ($conf->global->MAIN_FEATURES_LEVEL > 0 && ! empty($conf->global->GOOGLE_DUPL
 	print $langs->trans("ExportEventsToGoogle")." ";
 	print '<input type="submit" name="pushall" class="button" value="'.$langs->trans("Run").'">';
 	print "</form>\n";
+}
 
+if (! empty($conf->global->GOOGLE_DUPLICATE_INTO_GCAL))
+{
 	print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
 	print '<input type="hidden" name="action" value="deleteallevents">';
 	print $langs->trans("DeleteAllGoogleEvents")." ";
 	print '<input type="submit" name="cleanup" class="button" value="'.$langs->trans("Run").'">';
 	print "</form>\n";
 }
-
-
 
 
 llxFooter();
