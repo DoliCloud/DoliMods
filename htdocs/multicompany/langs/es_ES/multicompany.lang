@@ -1,12 +1,10 @@
 # Dolibarr language file - es_ES - multicompany
 CHARSET=UTF-8
-
 MasterEntity=Entidad maestra
 MasterEntityDesc=Entidad maestra, no puede ser eliminada
 SwitchToAnotherEntity=Cambiar de entidad
 SelectAnEntity=Seleccionar una entidad
 AllEntities=Todas las entidades
-
 # Admin parameters tab
 AddAll=Todo
 RemoveAll=Vaciar
@@ -27,23 +25,25 @@ CategorySharing=Intercambiar categorías
 CategorySharingDescription=Selección de entidades que intercambian sus categorías con esta entidad.
 AgendaSharing=Intercambiar agendas
 AgendaSharingDescription=Selección de entidades que intercambian su agenda con esta entidad.
+BankSharing=Intercambiar cuentas bancarias
+BankSharingDescription=Selección de entidades que intercambian sus cuentas bancarias con esta entidad
 DeleteAnEntity=Eliminar una entidad
 ConfirmDeleteEntity=¿Está seguro de querer eliminar esta entidad?
 ConfirmedEntityDeleted=La entidad ha sido eliminada.
-
 # Admin options tab
 GroupModeTransversal=Activar la gestión cruzada de grupos de usuarios
 HideLoginCombobox=Ocultar la selección de la entidad en la página de inicio
 EnableCookieLogin=Guardar el nombre de usuario y el número de la entidad en una cookie
 EnableGlobalSharings=Activar las funciones de intercambio entre entidades
 ShareProductsAndServices=Activar el intercambio de productos/servicios
+ShareProductsAndServicesPrices=Activar el intercambio de precios de productos/servicios
 ShareThirdpartiesAndContacts=Activar el intercambio de terceros y contactos
 ShareCategories=Activar el intercambio de categorías
 ShareAgenda=Activar el intercambio de la agenda
 ShareStock=Activar el intercambio de stocks
+ShareBank=Activar el intercambio de cuentas bancarias
 GlobalSharings=Funcionalidades de intercambio
 GlobalSharingsInfo=Una vez se activen las opciones de intercambio, tendrá que configurar cada entidad para permitir los intercambios entre entidades.
-
 # Errors
 ErrorEntityLabelAlreadyExist=La etiqueta de esta entidad ya existe.
 ErrorEntityIsNotValid=Esta entidad no es valida.

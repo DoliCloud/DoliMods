@@ -2,6 +2,15 @@
 English Multi-Company ChangeLog
 --------------------------------------------------------------
 
+***** ChangeLog for 3.6.0 compared to 3.5.0 *****
+Fix: compatibility with Dolibarr 3.6.x
+Fix: show entities combobox only in transverse mode or with admin users
+Fix: automatic connection to the entity of the user if the drop down list of entities is hidden (use different login strictly by entity)
+New: add multicompany function login
+
+***** ChangeLog for 3.5.0 compared to 3.4.0 *****
+Fix: compatibility with Dolibarr 3.5.0
+
 ***** ChangeLog for 3.4.0 compared to 3.2.2 *****
 New: add bank sharing
 New: add product prices sharing

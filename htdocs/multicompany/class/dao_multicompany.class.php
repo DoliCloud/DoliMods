@@ -1,5 +1,5 @@
 <?php
-/* Copyright (C) 2009-2013 Regis Houssin <regis.houssin@capnetworks.com>
+/* Copyright (C) 2009-2014 Regis Houssin <regis.houssin@capnetworks.com>
  * Copyright (C) 2011      Herve Prot    <herve.prot@symeos.com>
  *
  * This program is free software; you can redistribute it and/or modify
