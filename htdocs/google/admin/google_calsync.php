@@ -313,7 +313,7 @@ if ($action == 'pushallevents')
 			// Search all events
 			$sql = 'SELECT id, datep, datep2 as datef, code, label, transparency, priority, fulldayevent, punctual, percent, location, fk_soc, fk_contact, note';
 			$sql.= ' FROM '.MAIN_DB_PREFIX.'actioncomm';
-			$sql.=$db->order('datep');
+			$sql.=$db->order('datep','DESC');
 			$sql.=$db->plimit($max);
 
 			$resql = $db->query($sql);
