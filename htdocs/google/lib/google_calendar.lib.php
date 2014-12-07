@@ -32,8 +32,9 @@ include_once DOL_DOCUMENT_ROOT.'/societe/class/societe.class.php';
 include_once DOL_DOCUMENT_ROOT.'/contact/class/contact.class.php';
 
 dol_include_once("/google/lib/google.lib.php");
-dol_include_once('/nltechno/google/includes/google-api-php-client/autoload.php');
+$res=dol_include_once('/google/includes/google-api-php-client/autoload.php');
 
+if (! class_exists('Google_Client')) dol_print_error('','Failed to load library file /nltechno/google/includes/google-api-php-client/autoload.php');
 
 /**
  * @var string Location of AuthSub key file.  include_path is used to find this
@@ -150,7 +151,7 @@ function getTokenFromServiceAccount($client_id, $service_account_name, $key_file
  */
 function createEvent($client, $object, $login='primary')
 {
-	global $conf;
+	global $conf, $db, $trans;
 	global $dolibarr_main_url_root;
 	global $user;
 
@@ -218,16 +219,22 @@ function createEvent($client, $object, $login='primary')
 	$event->setGuestsCanInviteOthers(true);
 	$event->setGuestsCanSeeOtherGuests(true);
 
-	dol_syslog("createEvent for login=".$login.", label=".$object->label.", startTime=".$startTime.", endTime=".$endTime, LOG_DEBUG);
-
-	/*$attendee1 = new Google_Service_Calendar_EventAttendee();
-	$attendee1->setEmail('attendeeEmail');
-	// ...
-	$attendees = array($attendee1,
-	                   // ...
-	                  );
+	$attendees = array();
+	foreach($object->userassigned as $key => $val)
+	{
+		if ($key == $user->id) continue;	// ourself, not an attendee
+		$fuser=new User($db);
+		$fuser->fetch($key);
+		if ($fuser->id > 0 && $fuser->email)
+		{
+			$attendee = new Google_Service_Calendar_EventAttendee();
+			$attendee->setEmail($fuser->email);
+			$attendees[]=$attendee;
+		}
+	}
 	$event->attendees = $attendees;
-	*/
+
+	dol_syslog("createEvent for login=".$login.", label=".$object->label.", startTime=".$startTime.", endTime=".$endTime, LOG_DEBUG);
 
 	try {
 		$service = new Google_Service_Calendar($client['client']);
@@ -275,8 +282,6 @@ function updateEvent($client, $eventId, $object, $login='primary', $service=null
 	{
 		$oldeventId=$reg[1];
 	}
-
-	dol_syslog("updateEvent Update record on Google calendar with login=".$login.", id=".$oldeventId, LOG_DEBUG);
 
 	try {
 		if (empty($service)) $service = new Google_Service_Calendar($client['client']);
@@ -350,6 +355,23 @@ function updateEvent($client, $eventId, $object, $login='primary', $service=null
 		$event->setGuestsCanModify(false);
 		$event->setGuestsCanInviteOthers(true);
 		$event->setGuestsCanSeeOtherGuests(true);
+
+		$attendees = array();
+		foreach($object->userassigned as $key => $val)
+		{
+			if ($key == $user->id) continue;	// ourself, not an attendee
+			$fuser=new User($db);
+			$fuser->fetch($key);
+			if ($fuser->id > 0 && $fuser->email)
+			{
+				$attendee = new Google_Service_Calendar_EventAttendee();
+				$attendee->setEmail($fuser->email);
+				$attendees[]=$attendee;
+			}
+		}
+		$event->attendees = $attendees;
+
+		dol_syslog("updateEvent Update record on Google calendar with login=".$login.", id=".$oldeventId, LOG_DEBUG);
 
 		$updatedEvent = $service->events->update($login, $oldeventId, $event);
 

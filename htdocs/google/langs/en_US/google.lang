@@ -35,9 +35,9 @@ GoogleCalendarSyncConf=GoogleCalendarSyncConf
 KeepEmptyYoUseLoginPassOfEventUser=Keep empty to use Google login/pass of user the event is affected to
 KeepEmptyYoUsePublicQuotaOfAPI=Keep empty to use the public quota of API.
 AllowGoogleToLoginWithKey=To use quota/statistics of your own Google account, you can create your own key from page <a href="%s" target="_blank">%s</a>, menu "API & Authentication" -> "Credentials" . Click on "Create a key" and choose "Server key" then "Create". You will get your server key.
-AllowGoogleToLoginWithServiceAccount=You can create your own service account from page <a href="%s" target="_blank">%s</a>, menu "API & Authentication" -> "Credentials" . Click on "Create a client ID" and choose "Service Account" then "Create". You will get your a new service account with a <strong>Service account client ID</strong> and a <strong>Service account EMail</strong>.
+AllowGoogleToLoginWithServiceAccount=You can create your <strong>service account user/email</strong> from page <a href="%s" target="_blank">%s</a>, menu "API & Authentication" -> "Credentials" . Click on "Create a client ID" and choose "Service Account" then "Create". You will get your a new service account with a <strong>Service account client ID</strong> and a <strong>Service account EMail</strong>.
 EnableAPI=You must also enable the API for your Google account. For this go on page <a href="%s" target="_blank">%s</a>, menu "API & Authentication" -> "API". Click to enable API for "%s".  
-ShareCalendarWithServiceAccount=You must also share the agenda with all permission to the service account user %s. For this go into Google calendar, choose "Parameters" than tab "Agendas". Choose link "Share parameters" on the line of Agenda to update (It must be same Agenda that the agenda you choosed on parameter "%s")
+ShareCalendarWithServiceAccount=You must also share the agenda (all permissions) with the service account user <strong>%s</strong>. For this go into Google calendar, choose "Parameters" then tab "Agendas" (direct access with <a href="https://www.google.com/calendar/render?tab=mc#i">this link</a>). Click on link "Share parameters" at end of line of Agenda to update (It must be same Agenda than the one choosed on parameter "%s"). Then add the service account user into the email field, choose all permission and validate by clicking "add user". 
 GOOGLE_API_SERVERKEY=API key (type "Server key")
 GoogleUserConf=Google setup
 GoogleSetupIsGlobal=Sync setup is done globally for all users to Google account <strong>%s</strong>. 
@@ -48,8 +48,8 @@ TestSuccessfull=Test successful
 DueToGoogleLimitYouNeedToLogin=For security reasons imposed by Google, the Google calendar view will display correctly only if you are logged in to Google (this will work however for only one agenda ID).
 AllowGoogleToLoginSetupKey=To integrate this Google login process into your software (not required), it is possible to configure a key to allow the application to offer the Google Logon if you are not connected.
 AllowGoogleToLoginProp=You will find information for this setup page by creating a key using this link <a href="%s" target="_blank">%s</a>: Select API & Authentication, then Credentials. Then Click on "Create a client ID" and choose type "Web Application", entering as allowed redirect URL, the following URL <strong>%s</strong> 
-AllowGoogleToLoginWithAccountService=You will find information for this setup page by creating a key using this link <a href="%s" target="_blank">%s</a>: Select API & Authentication, then Credentials. Then Click on "Create a client ID" and choose type "account service".
-AllowGoogleToLoginWithServiceAccountP12=Once you have you created your service account (see not on previous fields), you can download your security p12 file from <a href="%s" target="_blank">%s</a>. Select API & Authentication, then Credentials. Then Click on "Generate a p12 key" to download the file on your desktop. Then submit it using this form. 
+AllowGoogleToLoginWithAccountService=You will find information for this setup page by creating a key using this link <a href="%s" target="_blank">%s</a>: Select "API & Authentication" -> "Credentials". Then Click on "Create a client ID" and choose type "account service".
+AllowGoogleToLoginWithServiceAccountP12=Once you have you created your service account user/email (see note on previous fields), you must download your <strong>security p12 file</strong>. Return on <a href="%s" target="_blank">%s</a> and select "API & Authentication" -> "Credentials". Then Click on "Generate a p12 key" to download the file on your desktop. Then submit it using this form. 
 ExportThirdpartiesToGoogle=Export all Dolibarr thirdparties to GMail contacts (warning, there is no check on duplicate record for mass export).
 ExportContactToGoogle=Export all Dolibarr contacts/addresses to GMail contacts (warning, there is no check on duplicate record for mass export).
 ExportMembersToGoogle=Export all Dolibarr members to GMail contacts (warning, there is no check on duplicate record for mass export).
@@ -85,7 +85,7 @@ GoogleClientId=Client ID
 GoogleClientSecret=Client secret
 GOOGLE_FIX_TZ=TimeZone fix
 GOOGLE_API_SERVICEACCOUNT_CLIENT_ID=Service account Client ID
-GOOGLE_API_SERVICEACCOUNT_EMAIL=Service account EMail (NOT your Google account Email)
+GOOGLE_API_SERVICEACCOUNT_EMAIL=Service account user/email à autoriser (NOT your Google account login/email)
 GOOGLE_API_SERVICEACCOUNT_P12KEY=Service account p12 file
 FillThisOnlyIfRequired=Example: +2 (fill only if problem experienced)
 AboutInfo=This module is developped and distributed by Laurent Destailleur for NLTechno, <a href="http://www.nltechno.com">www.nltechno.com</a> (A Dolibarr Preferred Partner company).

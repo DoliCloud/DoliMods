@@ -446,10 +446,10 @@ print "</tr>";
 // Google login
 $var=!$var;
 print "<tr ".$bc[$var].">";
-print '<td class="fieldrequired">'.$langs->trans("GoogleIDAgenda")."</td>";
+print '<td>'.$langs->trans("GoogleIDAgenda")."</td>";
 print "<td>";
 print '<input class="flat" type="text" size="24" name="GOOGLE_LOGIN" autocomplete="off" value="'.$conf->global->GOOGLE_LOGIN.'">';
-//print ' &nbsp; '.$langs->trans("KeepEmptyYoUseLoginPassOfEventUser");
+print '<br>'.$langs->trans("KeepEmptyYoUseLoginPassOfEventUser");
 print "</td>";
 print '<td>';
 print $langs->trans("Example").": yourlogin@gmail.com, email@mydomain.com, 'primary'<br>";
@@ -489,7 +489,7 @@ if (! empty($conf->global->GOOGLE_API_SERVICEACCOUNT_P12KEY)) print $conf->globa
 print '<input type="file" name="GOOGLE_API_SERVICEACCOUNT_P12KEY_file">';
 print '</td>';
 print '<td>';
-print $langs->trans("AllowGoogleToLoginWithServiceAccountP12").'<br>';
+print $langs->trans("AllowGoogleToLoginWithServiceAccountP12","https://code.google.com/apis/console/","https://code.google.com/apis/console/").'<br>';
 print '</td>';
 print '</tr>';
 
@@ -528,8 +528,9 @@ print '</div>';
 print '<br>';
 
 
-if ($conf->global->MAIN_FEATURES_LEVEL > 0 && ! empty($conf->global->GOOGLE_DUPLICATE_INTO_GCAL))
+if (! empty($conf->global->GOOGLE_DUPLICATE_INTO_GCAL))
 {
+	print '<br>';
 	print '<br>';
 
 	print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
