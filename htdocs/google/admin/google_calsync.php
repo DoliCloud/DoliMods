@@ -36,6 +36,8 @@ $langs->load("other");
 $def = array();
 $action=GETPOST("action");
 
+$max=50;
+
 if (empty($conf->global->GOOGLE_AGENDA_NB)) $conf->global->GOOGLE_AGENDA_NB=5;
 $MAXAGENDA=empty($conf->global->GOOGLE_AGENDA_NB)?5:$conf->global->GOOGLE_AGENDA_NB;
 
@@ -188,7 +190,7 @@ if (GETPOST('cleanup'))
 	if (empty($userlogin))	// We use setup of user
 	{
 		// L'utilisateur concerné est l'utilisateur affecté à l'évènement dans Dolibarr
-		// TODO : à rendre configurable ? (choix entre créateur / affecté / réalisateur)
+		// TODO : à rendre configurable ? (choix entre propriétaire / assigné)
 		if (! empty($object->userownerid))
 		{
 			$fuser = new User($db);
@@ -270,54 +272,115 @@ if (GETPOST('cleanup'))
 
 if ($action == 'pushallevents')
 {
-	// Try to use V3 API
-	$sql = 'SELECT id, datep, datep2 as datef, code, label, transparency, priority, fulldayevent, punctual, percent';
-	$sql.= ' FROM '.MAIN_DB_PREFIX.'actioncomm';
-	$resql = $db->query($sql);
-	if (! $resql)
-	{
-		dol_print_error($db);
-		exit;
-	}
-	$synclimit = 0;	// 0 = all
-	$i=0;
-	while (($obj = $db->fetch_object($resql)) && ($i < $synclimit || empty($synclimit)))
-	{
-		$event = new ActionComm($db);
-		$event->id=$obj->rowid;
-		$event->datep=$obj->datep;
-		$event->datef=$obj->datef;
-		$event->code=$obj->code;
-		$event->label=$obj->label;
-		$event->transparency=$obj->transparency;
-		$event->priority=$obj->priority;
-		$event->fulldayevent=$obj->fulldayevent;
-		$event->punctual=$obj->punctual;
-		$event->percent=$obj->percent;
-		$gCals[]=$event;
+	$nbinserted=0;
 
-		$i++;
-	}
-	$result=0;
-	if (count($gCals)) $result=insertGCalsEntries($gCals);
-
-	if (is_numeric($result) && $result >= 0)
+	$userlogin = empty($conf->global->GOOGLE_LOGIN)?'':$conf->global->GOOGLE_LOGIN;
+	if (empty($userlogin))	// We use setup of user
 	{
-		setEventMessages($langs->trans("PushToGoogleSucess",count($gCals)), null);
+		// L'utilisateur concerné est l'utilisateur affecté à l'évènement dans Dolibarr
+		// TODO : à rendre configurable ? (choix entre propriétaire / assigné)
+		if (! empty($object->userownerid))
+		{
+			$fuser = new User($db);
+			$fuser->fetch($object->userownerid);
+			$userlogin = $fuser->conf->GOOGLE_LOGIN;
+		}
+	}
+
+	// Create client/token object
+	$key_file_location = $conf->google->multidir_output[$conf->entity]."/".$conf->global->GOOGLE_API_SERVICEACCOUNT_P12KEY;
+	$force_do_not_use_session=(in_array(GETPOST('action'), array('testall','testcreate'))?true:false);	// false by default
+	$servicearray=getTokenFromServiceAccount($conf->global->GOOGLE_API_SERVICEACCOUNT_CLIENT_ID, $conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL, $key_file_location, $force_do_not_use_session);
+
+	if (! is_array($servicearray))
+	{
+		$this->errors[]=$servicearray;
+		$error++;
+	}
+
+	if ($servicearray == null)
+	{
+		$this->error="Failed to login to Google with credentials provided into setup page ".$conf->global->GOOGLE_API_SERVICEACCOUNT_CLIENT_ID.", ".$conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL.", ".$key_file_location;
+		dol_syslog($this->error, LOG_ERR);
+		$this->errors[]=$this->error;
+		$error++;
 	}
 	else
 	{
-		$error++;
-		setEventMessages('', $langs->trans("Error").' '.$result, 'errors');
+		try {
+			$service = new Google_Service_Calendar($servicearray['client']);
+
+			// Search all events
+			$sql = 'SELECT id, datep, datep2 as datef, code, label, transparency, priority, fulldayevent, punctual, percent, location, fk_soc, fk_contact, note';
+			$sql.= ' FROM '.MAIN_DB_PREFIX.'actioncomm';
+			$sql.=$db->order('datep');
+			$sql.=$db->plimit($max);
+
+			$resql = $db->query($sql);
+			if (! $resql)
+			{
+				dol_print_error($db);
+				exit;
+			}
+			$synclimit = 0;	// 0 = all
+			$i=0;
+			while (($obj = $db->fetch_object($resql)) && ($i < $synclimit || empty($synclimit)))
+			{
+				$object = new ActionComm($db);
+				$object->id=$obj->id;
+				$object->datep=$obj->datep;
+				$object->datef=$obj->datef;
+				$object->code=$obj->code;
+				$object->label=$obj->label;
+				$object->transparency=$obj->transparency;
+				$object->priority=$obj->priority;
+				$object->fulldayevent=$obj->fulldayevent;
+				$object->punctual=$obj->punctual;
+				$object->percent=$obj->percent;
+				$object->location=$obj->location;
+				$object->socid=$obj->fk_soc;
+				$object->contactid=$obj->fk_contact;
+				$object->note=$obj->note;
+
+				// Event label can now include company and / or contact info, see configuration
+				google_complete_label_and_note($object, $langs);
+
+				$ret = createEvent($servicearray, $object, $userlogin);
+				if (! preg_match('/ERROR/',$ret))
+				{
+					if (! preg_match('/google\.com/',$ret)) $ret='google:'.$ret;
+					$object->update_ref_ext($ret);	// This is to store ref_ext to allow updates
+					$nbinserted++;
+				}
+				else
+				{
+					$this->errors[]=$ret;
+					$error++;
+				}
+
+				$i++;
+			}
+		}
+		catch(Exception $e)
+		{
+			$this->errors[] = 'ERROR '.$e->getMessage();
+			$error++;
+		}
 	}
+
+	setEventMessage($langs->trans("PushToGoogleSucess",$nbinserted), 'mesgs');
+	if ($error)
+	{
+		setEventMessage($this->errors, 'errors');
+	}
+
 }
 
 
 
 /*
  * View
-*/
-
+ */
 
 $form=new Form($db);
 $formadmin=new FormAdmin($db);
@@ -471,7 +534,7 @@ if ($conf->global->MAIN_FEATURES_LEVEL > 0 && ! empty($conf->global->GOOGLE_DUPL
 
 	print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
 	print '<input type="hidden" name="action" value="pushallevents">';
-	print $langs->trans("ExportEventsToGoogle")." ";
+	print $langs->trans("ExportEventsToGoogle",$max)." ";
 	print '<input type="submit" name="pushall" class="button" value="'.$langs->trans("Run").'">';
 	print "</form>\n";
 }

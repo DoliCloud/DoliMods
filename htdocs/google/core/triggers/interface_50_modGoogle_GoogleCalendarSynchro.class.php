@@ -115,7 +115,7 @@ class InterfaceGoogleCalendarSynchro
 		if (empty($userlogin))	// We use setup of user
 		{
 			// L'utilisateur concerné est l'utilisateur affecté à l'évènement dans Dolibarr
-			// TODO : à rendre configurable ? (choix entre créateur / affecté / réalisateur)
+			// TODO : à rendre configurable ? (choix entre propriétaire / assigné)
 			if (! empty($object->userownerid))
 			{
 				$fuser = new User($this->db);
@@ -166,40 +166,7 @@ class InterfaceGoogleCalendarSynchro
 			else
 			{
 				// Event label can now include company and / or contact info, see configuration
-				$eventlabel = trim($object->label);
-
-				// Define $urlwithroot
-				$urlwithouturlroot=preg_replace('/'.preg_quote(DOL_URL_ROOT,'/').'$/i','',trim($dolibarr_main_url_root));
-				$urlwithroot=$urlwithouturlroot.DOL_URL_ROOT;		// This is to use external domain name found into config file
-				//$urlwithroot=DOL_MAIN_URL_ROOT;					// This is to use same domain name than current
-
-
-				if (! empty($object->societe->id) && $object->societe->id > 0 && empty($conf->global->GOOGLE_DISABLE_EVENT_LABEL_INC_SOCIETE)) {
-					$societe = new Societe($this->db);
-					$societe->fetch($object->societe->id);
-					$eventlabel .= ' - '.$societe->name;
-					$tmpadd=$societe->getFullAddress(0);
-					if ($tmpadd && empty($conf->global->GOOGLE_DISABLE_ADD_ADDRESS_INTO_DESC)) $object->note.="\n\n".$societe->getFullAddress(1);
-					if (! empty($societe->phone)) $object->note.="\n".$langs->trans("Phone").': '.$societe->phone;
-
-					$urltoelem=$urlwithroot.'/societe/soc.ph?socid='.$societe->id;
-					$object->note.="\n".$langs->trans("LinkToThirdParty").': '.$urltoelem;
-				}
-				if (! empty($object->contact->id) && $object->contact->id > 0 && empty($conf->global->GOOGLE_DISABLE_EVENT_LABEL_INC_CONTACT)) {
-					$contact = new Contact($this->db);
-					$contact->fetch($object->contact->id);
-					$eventlabel .= ' - '.$contact->getFullName($langs, 1);
-					$tmpadd=$contact->getFullAddress(0);
-					if ($tmpadd && empty($conf->global->GOOGLE_DISABLE_ADD_ADDRESS_INTO_DESC)) $object->note.="\n\n".$contact->getFullAddress(1);
-					if (! empty($contact->phone)) $object->note.="\n".$langs->trans("Phone").': '.$contact->phone;
-					if (! empty($contact->phone_perso)) $object->note.="\n".$langs->trans("PhonePerso").': '.$contact->phone_perso;
-					if (! empty($contact->phone_mobile)) $object->note.="\n".$langs->trans("PhoneMobile").': '.$contact->phone_mobile;
-
-					$urltoelem=$urlwithroot.'/contact/fiche.ph?id='.$contact->id;
-					$object->note.="\n".$langs->trans("LinkToContact").': '.$urltoelem;
-				}
-
-				$object->label = $eventlabel;
+				google_complete_label_and_note($object, $langs);
 
 				if ($action == 'ACTION_CREATE')
 				{
@@ -207,8 +174,7 @@ class InterfaceGoogleCalendarSynchro
 					if (! preg_match('/ERROR/',$ret))
 					{
 						if (! preg_match('/google\.com/',$ret)) $ret='google:'.$ret;
-						$object->update_ref_ext($ret);
-						// This is to store ref_ext to allow updates
+						$object->update_ref_ext($ret);	// This is to store ref_ext to allow updates
 						return 1;
 					}
 					else
@@ -233,8 +199,7 @@ class InterfaceGoogleCalendarSynchro
 							if (! preg_match('/ERROR/',$ret))
 							{
 								if (! preg_match('/google\.com/',$ret)) $ret='google:'.$ret;
-								$object->update_ref_ext($ret);
-								// This is to store ref_ext to allow updates
+								$object->update_ref_ext($ret);	// This is to store ref_ext to allow updates
 								return 1;
 							}
 							else
@@ -251,8 +216,7 @@ class InterfaceGoogleCalendarSynchro
 						if (! preg_match('/ERROR/',$ret))
 						{
 							if (! preg_match('/google\.com/',$ret)) $ret='google:'.$ret;
-							$object->update_ref_ext($ret);
-							// This is to store ref_ext to allow updates
+							$object->update_ref_ext($ret);	// This is to store ref_ext to allow updates
 							return 1;
 						}
 						else
