@@ -141,7 +141,11 @@ class FormFileCabinetmed
         }
         if ($nboffiles == 0)
         {
-            print '<tr '.$bc[$var].'><td colspan="4">';
+        	$colspan=5;
+        	if (empty($useinecm)) $colspan++;
+
+            $var=!$var;
+        	print '<tr '.$bc[$var].'><td colspan="'.$colspan.'">';
             if (empty($textifempty)) print $langs->trans("NoFileFound");
             else print $textifempty;
             print '</td></tr>';

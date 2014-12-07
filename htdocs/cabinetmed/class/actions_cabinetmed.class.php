@@ -67,7 +67,7 @@ class ActionsCabinetmed
         //print 'action='.$action;
         //var_dump($parameters);
         $cabinetmedcontext=0;
-        if (isset($parameters['id']) && isset($parameters['context']) && in_array($parameters['context'],array('agendathirdparty','categorycard','infothirdparty')) && empty($action))
+        if (isset($parameters['id']) && isset($parameters['context']) && in_array($parameters['context'],array('agendathirdparty','categorycard','infothirdparty','consumptionthirdparty')) && empty($action))
         {
         	$thirdparty=new Societe($db);
         	$thirdparty->fetch($parameters['id']);

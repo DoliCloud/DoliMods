@@ -360,11 +360,19 @@ print '<br>';
 // Subsidiaries list
 $result=show_subsidiaries($conf,$langs,$db,$object);
 
+/*
 // Contacts list
 if (empty($conf->global->SOCIETE_DISABLE_CONTACTS))
 {
-  $result=show_contacts($conf,$langs,$db,$object);
+	$result=show_contacts($conf,$langs,$db,$object,$_SERVER["PHP_SELF"].'?socid='.$object->id);
 }
+
+// Addresses list
+if (! empty($conf->global->SOCIETE_ADDRESSES_MANAGEMENT))
+{
+	$result=show_addresses($conf,$langs,$db,$object,$_SERVER["PHP_SELF"].'?socid='.$object->id);
+}
+ */
 
 // Projects list
 $result=show_projects($conf,$langs,$db,$object);
