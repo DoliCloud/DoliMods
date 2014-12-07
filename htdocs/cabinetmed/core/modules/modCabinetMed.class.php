@@ -420,7 +420,7 @@ class modCabinetMed extends DolibarrModules
         $this->export_label[$r]='ExportDataset_patient_1';
         $this->export_icon[$r]='company';
         $this->export_permission[$r]=array(array("societe","export"));
-        $this->export_fields_array[$r]=array('s.rowid'=>"Id",'s.nom'=>"Name",'s.datec'=>"DateCreation",'s.tms'=>"DateLastModification",'s.code_client'=>"CustomerCode",'s.address'=>"Address",'s.zip'=>"Zip",'s.town'=>"Town",'d.nom'=>'State','p.libelle'=>"Country",'p.code'=>"CountryCode",'s.phone'=>"Phone",'s.fax'=>"Mobile",'s.url'=>"Url",'s.email'=>"Email",'s.siret'=>"Taille",'s.siren'=>"Poids",'s.ape'=>"Date de naissance",'s.idprof4'=>"Profession",'s.tva_intra'=>"INSEE",'s.capital'=>"Tarif de base consultation",'s.note'=>"Note",'t.libelle'=>"ThirdPartyType",'ce.code'=>"Regime","cfj.libelle"=>"JuridicalStatus",
+        $this->export_fields_array[$r]=array('s.rowid'=>"Id",'s.nom'=>"Name",'s.datec'=>"DateCreation",'s.tms'=>"DateLastModification",'s.code_client'=>"CustomerCode",'s.address'=>"Address",'s.zip'=>"Zip",'s.town'=>"Town",'d.nom'=>'State','p.label'=>"Country",'p.code'=>"CountryCode",'s.phone'=>"Phone",'s.fax'=>"Mobile",'s.url'=>"Url",'s.email'=>"Email",'s.siret'=>"Taille",'s.siren'=>"Poids",'s.ape'=>"Date de naissance",'s.idprof4'=>"Profession",'s.tva_intra'=>"INSEE",'s.capital'=>"Tarif de base consultation",'s.note_public'=>"Note",'t.libelle'=>"ThirdPartyType",'ce.code'=>"Regime","cfj.libelle"=>"JuridicalStatus",
         'pa.note_antemed'=>'AntecedentsMed',
         'pa.note_antechirgen'=>'AntecedentsChirGene',
         'pa.note_antechirortho'=>'AntecedentsChirOrtho',
@@ -481,7 +481,7 @@ class modCabinetMed extends DolibarrModules
         $this->export_sql_end[$r] .=' LEFT JOIN '.MAIN_DB_PREFIX.'cabinetmed_patient as pa ON s.rowid = pa.rowid';
         $this->export_sql_end[$r] .=' LEFT JOIN '.MAIN_DB_PREFIX.'cabinetmed_cons as co ON s.rowid = co.fk_soc';
         $this->export_sql_end[$r] .=' LEFT JOIN '.MAIN_DB_PREFIX.'c_typent as t ON s.fk_typent = t.id';
-        $this->export_sql_end[$r] .=' LEFT JOIN '.MAIN_DB_PREFIX.'c_pays as p ON s.fk_pays = p.rowid';
+        $this->export_sql_end[$r] .=' LEFT JOIN '.MAIN_DB_PREFIX.'c_country as p ON s.fk_pays = p.rowid';
         $this->export_sql_end[$r] .=' LEFT JOIN '.MAIN_DB_PREFIX.'c_effectif as ce ON s.fk_effectif = ce.id';
         $this->export_sql_end[$r] .=' LEFT JOIN '.MAIN_DB_PREFIX.'c_forme_juridique as cfj ON s.fk_forme_juridique = cfj.code';
         $this->export_sql_end[$r] .=' LEFT JOIN '.MAIN_DB_PREFIX.'c_departements as d ON s.fk_departement = d.rowid';
