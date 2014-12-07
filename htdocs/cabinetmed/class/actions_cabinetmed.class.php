@@ -64,8 +64,7 @@ class ActionsCabinetmed
 
         $arraytmp=dol_getdate(dol_now());
 
-        //print 'action='.$action;
-        //var_dump($parameters);
+        // Define cabinetmed context
         $cabinetmedcontext=0;
         if (isset($parameters['id']) && isset($parameters['context']) && in_array($parameters['context'],array('agendathirdparty','categorycard','infothirdparty','consumptionthirdparty')) && empty($action))
         {
@@ -74,6 +73,7 @@ class ActionsCabinetmed
         	if ($thirdparty->canvas == 'patient@cabinetmed') $cabinetmedcontext++;
         }
 		if (GETPOST('canvas') == 'patient@cabinetmed') $cabinetmedcontext++;
+
         if ($cabinetmedcontext)
         {
        		$langs->tab_translate["ThirdParty"]=$langs->transnoentitiesnoconv("Patient");
@@ -277,9 +277,10 @@ class ActionsCabinetmed
      * Complete doc forms
      *
      * @param	array	$parameters		Array of parameters
+     * @param	Object	$object			Object
      * @return	string					HTML content to add by hook
      */
-    function formBuilddocOptions($parameters)
+    function formBuilddocOptions($parameters, $object)
     {
         global $langs, $user, $conf, $form;
 
@@ -287,6 +288,8 @@ class ActionsCabinetmed
 
         include_once(DOL_DOCUMENT_ROOT.'/core/modules/societe/modules_societe.class.php');
         $modellist=ModeleThirdPartyDoc::liste_modeles($this->db);
+
+		if ($object->canvas != 'patient@cabinetmed') return '';
 
         $out='';
         $out.='<tr>';

@@ -118,19 +118,19 @@ class modCabinetMed extends DolibarrModules
         // Array to add new pages in new tabs
         $this->tabs = array(
         				//'thirdparty:+tabpatientcard:Patient:cabinetmed@cabinetmed:/cabinetmed/soc.php?socid=__ID__',
-        				'thirdparty:+tabpatientcontacts:Correspondants:cabinetmed@cabinetmed:/cabinetmed/contact.php?socid=__ID__',
-                        'thirdparty:+tabantecedents:AntecedentsShort:cabinetmed@cabinetmed:/cabinetmed/antecedant.php?socid=__ID__',
+        				'thirdparty:+tabpatientcontacts:Correspondants:cabinetmed@cabinetmed:$user->rights->cabinetmed->read && $object->canvas=="patient@cabinetmed":/cabinetmed/contact.php?socid=__ID__',
+                        'thirdparty:+tabantecedents:AntecedentsShort:cabinetmed@cabinetmed:$user->rights->cabinetmed->read && $object->canvas=="patient@cabinetmed":/cabinetmed/antecedant.php?socid=__ID__',
                         //'thirdparty:+tabtraitetallergies:TraitEtAllergies:cabinetmed@cabinetmed:/cabinetmed/traitetallergies.php?socid=__ID__',
-                        'thirdparty:+tabnotes:Notes:cabinetmed@cabinetmed:/cabinetmed/notes.php?socid=__ID__',
-      					'thirdparty:+tabconsultations:ConsultationsShort:cabinetmed@cabinetmed:/cabinetmed/consultations.php?socid=__ID__',
-                        'thirdparty:+tabexambio:ResultExamBio:cabinetmed@cabinetmed:/cabinetmed/exambio.php?socid=__ID__',
-                        'thirdparty:+tabexamautre:ResultExamAutre:cabinetmed@cabinetmed:/cabinetmed/examautre.php?socid=__ID__',
-                        'thirdparty:+tabdocument:Courriers:cabinetmed@cabinetmed:/cabinetmed/documents.php?socid=__ID__',
-                        'thirdparty:-contact',
-                        'thirdparty:-document',
-                        'thirdparty:-notify',
-                        'thirdparty:-note',
-       					'contact:+tabpatient:Patients:cabinetmed@cabinetmed:/cabinetmed/patients_of_contact.php?id=__ID__'
+                        'thirdparty:+tabnotes:Notes:cabinetmed@cabinetmed:$user->rights->cabinetmed->read && $object->canvas=="patient@cabinetmed":/cabinetmed/notes.php?socid=__ID__',
+      					'thirdparty:+tabconsultations:ConsultationsShort:cabinetmed@cabinetmed:$user->rights->cabinetmed->read && $object->canvas=="patient@cabinetmed":/cabinetmed/consultations.php?socid=__ID__',
+                        'thirdparty:+tabexambio:ResultExamBio:cabinetmed@cabinetmed:$user->rights->cabinetmed->read && $object->canvas=="patient@cabinetmed":/cabinetmed/exambio.php?socid=__ID__',
+                        'thirdparty:+tabexamautre:ResultExamAutre:cabinetmed@cabinetmed:$user->rights->cabinetmed->read && $object->canvas=="patient@cabinetmed":/cabinetmed/examautre.php?socid=__ID__',
+                        'thirdparty:+tabdocument:Courriers:cabinetmed@cabinetmed:$user->rights->cabinetmed->read && $object->canvas=="patient@cabinetmed":/cabinetmed/documents.php?socid=__ID__',
+                        'thirdparty:-contact:$object->canvas=="patient@cabinetmed"',	// TODO Condition to disable is not supported by core
+                        'thirdparty:-document:$object->canvas=="patient@cabinetmed"',
+                        'thirdparty:-notify:$object->canvas=="patient@cabinetmed"',
+                        'thirdparty:-note:$object->canvas=="patient@cabinetmed"',
+       					'contact:+tabpatient:Patients:cabinetmed@cabinetmed:$user->rights->cabinetmed->read:/cabinetmed/patients_of_contact.php?id=__ID__'
                     );
         // where entity can be
 		// 'thirdparty'       to add a tab in third party view
