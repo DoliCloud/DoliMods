@@ -60,7 +60,7 @@ class modPartiPirate extends DolibarrModules
 		// Where to store the module in setup page (0=common,1=interface,2=others,3=very specific)
 		$this->special = 2;
 		// Name of png file (without png) used for this module
-		$this->picto='partipirate@partipirate';
+		$this->picto='partipirate@pp';
 
 		// Defined all module parts (triggers, login, substitutions, menus, css, etc...)
 		// for default path (eg: /mymodule/core/xxxxx) (0=disable, 1=enable)
@@ -81,14 +81,14 @@ class modPartiPirate extends DolibarrModules
 		$this->dirs = array('/partipirate/invoices','/partipirate/orders','/partipirate/proposals','/partipirate/supplier_orders','/partipirate/supplier_invoices','/partipirate/temp');
 
 		// Config pages. Put here list of php page names stored in admin directory used to setup module
-		$this->config_page_url = array('partipirate.php@partipirate');
+		$this->config_page_url = array('partipirate.php@pp');
 
 		// Dependencies
 		$this->depends = array();		// List of modules id that must be enabled if this module is enabled
 		$this->requiredby = array();	// List of modules id to disable if this one is disabled
         $this->phpmin = array(4,3);                 // Minimum version of PHP required by module
         $this->need_dolibarr_version = array(3,2,-3);  // Minimum version of Dolibarr required by module
-        $this->langfiles = array("partipirate@partipirate");
+        $this->langfiles = array("partipirate@pp");
 
         // Constants
         // Example: $this->const=array(0=>array('MODULE_MY_NEW_CONST1','chaine','myvalue','This is a constant to add',1),
@@ -110,7 +110,7 @@ class modPartiPirate extends DolibarrModules
 		$this->rights_class = 'partipirate';	// Permission key
 		$this->rights = array();		// Permission array used by this module
 		$r=0;
-		
+
 		// Add here list of permission defined by an id, a label, a boolean and two constant strings.
 		// Example:
 		$this->rights[$r][0] = 101481; 				// Permission id (must not be already used)
@@ -119,7 +119,7 @@ class modPartiPirate extends DolibarrModules
 		$this->rights[$r][4] = 'read';				// In php code, permission will be checked by test if ($user->rights->permkey->level1->level2)
 		//$this->rights[$r][5] = 'level2';				// In php code, permission will be checked by test if ($user->rights->permkey->level1->level2)
 		$r++;
-		
+
 		// Add here list of permission defined by an id, a label, a boolean and two constant strings.
 		// Example:
 		$this->rights[$r][0] = 101482; 				// Permission id (must not be already used)
@@ -128,7 +128,7 @@ class modPartiPirate extends DolibarrModules
 		$this->rights[$r][4] = 'write';				// In php code, permission will be checked by test if ($user->rights->permkey->level1->level2)
 		//$this->rights[$r][5] = 'level2';				// In php code, permission will be checked by test if ($user->rights->permkey->level1->level2)
 		$r++;
-		
+
 
 		// Menus
 		//------
@@ -141,7 +141,7 @@ class modPartiPirate extends DolibarrModules
 							  'titre'=>'PartiPirate',
 							  'mainmenu'=>'partipirate',
 							  'url'=>'/partipirate/index.php',
-							  'langs'=>'partipirate@partipirate',
+							  'langs'=>'partipirate@pp',
 							  'position'=>100,
 							  'perms'=>'$user->rights->partipirate->read || $user->rights->partipirate->write',
 							  'enabled'=>1,
