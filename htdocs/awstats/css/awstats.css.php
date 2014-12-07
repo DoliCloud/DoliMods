@@ -51,7 +51,6 @@ $fontlist='arial,tahoma,verdana,helvetica';
 ?>
 
 
-h1 { font-size: 16pt; color: black; }
 tr.header { background-color: #CCCCCC; }
 tr.first { background-color: #EEEEEE; } tr.second { background-color: #DCDCDC; }
 
@@ -77,7 +76,7 @@ h1,h2,div,img,span { border: 0; margin: 0; padding: 0; }
 
 div, img, span { border: 0; padding: 0; margin: 0; }
 
-h1 { color: #eee; font-size: 22px; font-weight: normal; }
+h1 { font-size: 22px; font-weight: normal; }
 h1 span { color: #cccc9f !important; font-size: 16px; }
 h1.modal { color: #33332d; font-size: 22px; font-weight: normal; }
 
