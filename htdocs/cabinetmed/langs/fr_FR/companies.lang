@@ -37,7 +37,6 @@ PatientCode=Code patient
 WrongPatientCode=Mauvais code patient
 CustomerCodeDesc=Code patient unique pour chaque patient
 RequiredIfCustomer=Requis si tiers est un patient
-CompanyDeleted=Le patient "%s" a été supprimée de la base.
 ListOfPatientsContacts=Liste des correspondants du patient
 ShowContact=Afficher correspondant
 ContactsAllShort=Tous (pas de filtre)

@@ -185,7 +185,7 @@ dol_fiche_head($head, $tab, $langs->trans("Consultations"), 0, 'generic');
 // Print title
 if ($mode && ! count($data))
 {
-    print $langs->trans("NoRecord").'<br>';
+    print $langs->trans("NoRecordFound").'<br>';
     print '<br>';
 }
 else

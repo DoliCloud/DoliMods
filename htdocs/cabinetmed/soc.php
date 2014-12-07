@@ -489,7 +489,8 @@ if (empty($reshook))
 
         if ($result > 0)
         {
-            header("Location: ".DOL_URL_ROOT."/societe/societe.php?delsoc=".urlencode($object->name));
+        	setEventMessage($langs->trans("PatientDeleted", $object->name));
+            header("Location: ".dol_buildpath("/cabinetmed/patients.php",1));
             exit;
         }
         else

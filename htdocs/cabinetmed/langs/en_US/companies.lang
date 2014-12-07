@@ -43,7 +43,6 @@ WrongPatientCode=Wrong patient code
 CustomerCode=Code thirdparty/patient
 CustomerCodeDesc=Code patient unique for each patient
 RequiredIfCustomer=Required if a third party is a patient
-CompanyDeleted=Patient "%s" was deleted from database.
 ShowContact=Show contact
 ContactsAllShort=All (no filter)
 ContactType=Type of contact
