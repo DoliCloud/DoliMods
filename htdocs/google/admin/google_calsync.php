@@ -449,11 +449,11 @@ print "<tr ".$bc[$var].">";
 print '<td>'.$langs->trans("GoogleIDAgenda")."</td>";
 print "<td>";
 print '<input class="flat" type="text" size="24" name="GOOGLE_LOGIN" autocomplete="off" value="'.$conf->global->GOOGLE_LOGIN.'">';
-print '<br>'.$langs->trans("KeepEmptyYoUseLoginPassOfEventUser");
 print "</td>";
 print '<td>';
 print $langs->trans("Example").": yourlogin@gmail.com, email@mydomain.com, 'primary'<br>";
-print $langs->trans("GoogleSetupHelp");
+print $langs->trans("GoogleSetupHelp").'<br>';
+print $langs->trans("KeepEmptyYoUseLoginPassOfEventUser");
 print '</td>';
 print "</tr>";
 

@@ -458,12 +458,13 @@ function google_complete_label_and_note(&$object, $langs)
 		{
 			$eventlabel .= ' - '.$thirdparty->name;
 			$tmpadd=$thirdparty->getFullAddress(0);
-			if ($tmpadd && empty($conf->global->GOOGLE_DISABLE_ADD_ADDRESS_INTO_DESC)) $object->note.="\n\n".$thirdparty->name."\n".$thirdparty->getFullAddress(1);
+			if ($tmpadd && empty($conf->global->GOOGLE_DISABLE_ADD_ADDRESS_INTO_DESC)) $object->note.="\n\n".$thirdparty->name."\n".$thirdparty->getFullAddress(1)."\n";
 			if (! empty($thirdparty->phone)) $object->note.="\n".$langs->trans("Phone").': '.$thirdparty->phone;
 			if (! empty($thirdparty->phone_pro)) $object->note.="\n".$langs->trans("Phone").': '.$thirdparty->phone_pro;
+			if (! empty($thirdparty->fax)) $object->note.="\n".$langs->trans("Fax").': '.$thirdparty->fax;
 
 			$urltoelem=$urlwithroot.'/societe/soc.ph?socid='.$thirdparty->id;
-			$object->note.="\n".$langs->trans("LinkToThirdPartyxx").': '.$urltoelem;
+			$object->note.="\n".$langs->trans("LinkToThirdParty").': '.$urltoelem;
 		}
 	}
 	if (($object->contactid > 0 || (! empty($object->contact->id) && $object->contact->id > 0)) && empty($conf->global->GOOGLE_DISABLE_EVENT_LABEL_INC_CONTACT)) {
@@ -473,11 +474,12 @@ function google_complete_label_and_note(&$object, $langs)
 		{
 			$eventlabel .= ' - '.$contact->getFullName($langs, 1);
 			$tmpadd=$contact->getFullAddress(0);
-			if ($tmpadd && empty($conf->global->GOOGLE_DISABLE_ADD_ADDRESS_INTO_DESC)) $object->note.="\n\n".$contact->name."\n".$contact->getFullAddress(1);
+			if ($tmpadd && empty($conf->global->GOOGLE_DISABLE_ADD_ADDRESS_INTO_DESC)) $object->note.="\n\n".$contact->name."\n".$contact->getFullAddress(1)."\n";
 			if (! empty($contact->phone)) $object->note.="\n".$langs->trans("Phone").': '.$contact->phone;
 			if (! empty($contact->phone_pro)) $object->note.="\n".$langs->trans("Phone").': '.$contact->phone_pro;
 			if (! empty($contact->phone_perso)) $object->note.="\n".$langs->trans("PhonePerso").': '.$contact->phone_perso;
 			if (! empty($contact->phone_mobile)) $object->note.="\n".$langs->trans("PhoneMobile").': '.$contact->phone_mobile;
+			if (! empty($contact->fax)) $object->note.="\n".$langs->trans("Fax").': '.$contact->fax;
 
 			$urltoelem=$urlwithroot.'/contact/fiche.ph?id='.$contact->id;
 			$object->note.="\n".$langs->trans("LinkToContact").': '.$urltoelem;

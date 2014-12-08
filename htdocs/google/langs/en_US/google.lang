@@ -98,5 +98,3 @@ LinkToThirdParty=Link to thirdparty
 LinkToContact=Link to contact
 GoogleContactSyncInfo=Use here any label of your choice. Group will be created into Google Contact if not exists. You can also use a label of one of any predefined Google system group like:<br>"System Group: My Contacts", "System Group: Friend", "System Group: CoWorker", "System Group: Family"<br>Note also that only the predefined system group "System Group: My Contacts" is shared by the "Delegate contacts" Google feature of Google contact (Google Apps Business/Pro).
 XRecordDeleted=<strong>%s</strong> records deleted
-LinkToThirdParty=Link to thirdparty
-LinkToContact=Lien to contact

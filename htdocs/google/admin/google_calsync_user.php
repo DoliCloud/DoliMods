@@ -173,12 +173,11 @@ print "</tr>\n";
 print '</table><br>';
 
 
-$user = $conf->global->GOOGLE_LOGIN;
-$pwd = $conf->global->GOOGLE_PASSWORD;
+$userlogin = $conf->global->GOOGLE_LOGIN;
 
-if (! empty($user))	// We use setup of user
+if (! empty($userlogin))	// We use setup of user
 {
-	print $langs->trans("GoogleSetupIsGlobal",$user);
+	print $langs->trans("GoogleSetupIsGlobal",$userlogin);
 }
 else
 {
@@ -249,11 +248,14 @@ else
 dol_fiche_end();
 
 
+if (empty($userlogin))	// We use setup of user
+{
 	print '<div class="center">';
 	//print "<input type=\"submit\" name=\"test\" class=\"button\" value=\"".$langs->trans("TestConnection")."\">";
 	//print "&nbsp; &nbsp;";
 	print "<input type=\"submit\" name=\"save\" class=\"button\" value=\"".$langs->trans("Save")."\">";
 	print "</div>";
+}
 
 
 print "</form>\n";
