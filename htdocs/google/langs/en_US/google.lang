@@ -40,7 +40,7 @@ EnableAPI=You must also enable the API for your Google account. For this go on p
 ShareCalendarWithServiceAccount=You must also share the agenda (all permissions) with the service account user <strong>%s</strong>. For this go into Google calendar, choose "Parameters" then tab "Agendas" (direct access with <a href="https://www.google.com/calendar/render?tab=mc#i">this link</a>). Click on link "Share parameters" at end of line of Agenda to update (It must be same Agenda than the one choosed on parameter "%s"). Then add the service account user into the email field, choose all permission and validate by clicking "add user". 
 GOOGLE_API_SERVERKEY=API key (type "Server key")
 GoogleUserConf=Google setup
-GoogleSetupIsGlobal=Sync setup is done globally for all users to Google account <strong>%s</strong>. 
+GoogleSetupIsGlobal=Sync setup is done globally for all users to agenda ID <strong>%s</strong>. 
 TestCreateUpdateDelete=Test create-update-delete
 TestCreateUpdate=Test create-update (to remove manually)
 TestCreate=Test create (to remove manually)

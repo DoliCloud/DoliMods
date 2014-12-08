@@ -41,7 +41,7 @@ EnableAPI=Vous devez aussi activer les API pour votre compte Google. Pour cela, 
 ShareCalendarWithServiceAccount=Vous devez aussi partager l'agenda (permissions complètesà avec le compte de service <strong>%s</strong>. Pour cela, aller dans Google calendar, choisir "Paramètres" puit l'onglet "Agendas" (accès direct via <a href="https://www.google.com/calendar/render?tab=mc#i">ce lien</a>). Cliquer sur le lien "Partagé: paramètres" à la fin de la ligne de l'Agenda à mettre à jour (Il doit s'agir du même ID d'agenda que celui renseigné au niveau du paramètre "%s"). Puis ajouter l'utilisateur/email du compte de service dans le champ Email, choisir les permissions les plus complètes et valider en cliquant "Ajouter utilisateur". 
 GOOGLE_API_SERVERKEY=Clé API (de type "Server key")
 GoogleUserConf=Configuration Google
-GoogleSetupIsGlobal=La synchronisation est faite de manière globale vers le compte Google <strong>%s</strong> pour tout le monde
+GoogleSetupIsGlobal=La synchronisation est faite de manière globale vers l'agenda <strong>%s</strong> pour tout le monde
 TestCreateUpdateDelete=Tester création-mise à jour-suppression
 TestCreate=Tester création (à supprimer à la main)
 TestSuccessfull=Test succès
