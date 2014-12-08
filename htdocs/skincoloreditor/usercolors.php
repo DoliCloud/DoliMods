@@ -93,9 +93,16 @@ if ($action == 'set')
 
 if ($action == 'setcolor')
 {
-    $tab['THEME_ELDY_RGB']=GETPOST('THEME_ELDY_RGB');
-    $tab['THEME_ELDY_FONT_SIZE1']=GETPOST('THEME_ELDY_FONT_SIZE1');
-    $tab['THEME_ELDY_USE_HOVER']=GETPOST('THEME_ELDY_USE_HOVER');
+    $tab['THEME_ELDY_RGB']=GETPOST('THEME_ELDY_RGB','alpha');
+    $tab['THEME_ELDY_FONT_SIZE1']=GETPOST('THEME_ELDY_FONT_SIZE1','alpha');
+    $tab['THEME_ELDY_USE_HOVER']=GETPOST('THEME_ELDY_USE_HOVER','alpha');
+
+    $listofkey=array('THEME_ELDY_BACKTABCARD1');
+    foreach($listofkey as $key)
+    {
+    	if (isset($_POST[$key])) $tab[$key]=GETPOST($key,'alpha');
+    }
+
     $res = dol_set_user_param($db, $conf, $fuser, $tab);
 
 	if (! $res > 0) $error++;
@@ -188,17 +195,17 @@ dol_htmloutput_mesg($mesg);
 
 if (! empty($fuser->conf->THEME_ELDY_ENABLE_PERSONALIZED))
 {
-    dol_fiche_head();
-
     print '<form name="formcolor" method="POST" action="'.$_SERVER["PHP_SELF"].'">';
     print '<input type="hidden" name="action" value="setcolor">';
     print '<input type="hidden" name="id" value="'.$fuser->id.'">';
+
+    dol_fiche_head();
+
+    // Color
     print $langs->trans("SelectMainColor").' ';
     $defcolor=$conf->global->THEME_ELDY_RGB;
     if (isset($fuser->conf->THEME_ELDY_RGB)) $defcolor=$fuser->conf->THEME_ELDY_RGB;
-
-    // Color
-    print $formother->selectColor($defcolor,'THEME_ELDY_RGB','formcolor',1).'<br><br>';
+    print $formother->selectColor($defcolor,'THEME_ELDY_RGB').'<br>';
 
     // Font size
     print $langs->trans("FontSize").': <input type="text" class="flat" name="THEME_ELDY_FONT_SIZE1" size="4" value="'.$fuser->conf->THEME_ELDY_FONT_SIZE1.'"><br>';
@@ -206,15 +213,28 @@ if (! empty($fuser->conf->THEME_ELDY_ENABLE_PERSONALIZED))
     // Use hover
     print $langs->trans("UseHoverOnLists").': <input type="checkbox" class="flat" name="THEME_ELDY_USE_HOVER" '.(empty($fuser->conf->THEME_ELDY_USE_HOVER)?'':' checked="checked"').'"><br>';
 
-    print '<br>';
-    print '<div align="center"><input type="submit" class="button" name="save" value="'.$langs->trans("Save").'"></div>';
-    print '</form>';
+    print '<br><br><br>';
+	print $langs->trans("ForceSpecificValue").':<br><br>';
+
+    // Force specific value
+    print $langs->trans("SelectTabColor2").' ';
+    $defcolor=$conf->global->THEME_ELDY_BACKTABCARD2;
+    if (isset($fuser->conf->THEME_ELDY_BACKTABCARD2)) $defcolor=$fuser->conf->THEME_ELDY_BACKTABCARD2;
+    print $formother->selectColor($defcolor,'THEME_ELDY_BACKTABCARD2').'<br>';
+	print $langs->trans("SelectTabColor1").' ';
+    $defcolor=$conf->global->THEME_ELDY_BACKTABCARD1;
+    if (isset($fuser->conf->THEME_ELDY_BACKTABCARD1)) $defcolor=$fuser->conf->THEME_ELDY_BACKTABCARD1;
+    print $formother->selectColor($defcolor,'THEME_ELDY_BACKTABCARD1').'<br>';
 
     dol_fiche_end();
+
+
+    print '<div align="center"><input type="submit" class="button" name="save" value="'.$langs->trans("Save").'"></div>';
+
+    print '</form>';
 }
 
 
 llxFooter();
 
 if (is_object($db)) $db->close();
-?>
