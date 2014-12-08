@@ -36,7 +36,7 @@ $langs->load("other");
 $def = array();
 $action=GETPOST("action");
 
-$max=50;
+$max=(empty($conf->global->GOOGLE_MAX_FOR_MASS_AGENDA_SYNC)?50:$conf->global->GOOGLE_MAX_FOR_MASS_AGENDA_SYNC);
 
 if (empty($conf->global->GOOGLE_AGENDA_NB)) $conf->global->GOOGLE_AGENDA_NB=5;
 $MAXAGENDA=empty($conf->global->GOOGLE_AGENDA_NB)?5:$conf->global->GOOGLE_AGENDA_NB;
@@ -118,12 +118,12 @@ if ($action == 'save')
 	if (! $error)
 	{
 		$db->commit();
-		setEventMessages($langs->trans("SetupSaved"), null);
+		setEventMessage($langs->trans("SetupSaved"));
 	}
 	else
 	{
 		$db->rollback();
-		setEventMessages('',$errors,'errors');
+		setEventMessage($errors,'errors');
 	}
 }
 
@@ -328,8 +328,8 @@ if ($action == 'pushallevents')
 			{
 				$object = new ActionComm($db);
 				$object->id=$obj->id;
-				$object->datep=$obj->datep;
-				$object->datef=$obj->datef;
+				$object->datep=$db->jdate($obj->datep);
+				$object->datef=$db->jdate($obj->datef);
 				$object->code=$obj->code;
 				$object->label=$obj->label;
 				$object->transparency=$obj->transparency;
@@ -411,7 +411,7 @@ dol_fiche_head($head, 'tabagendasync', $langs->trans("GoogleTools"));
 
 print $langs->trans("GoogleEnableSyncToCalendar").' '.$form->selectyesno("GOOGLE_DUPLICATE_INTO_GCAL",isset($_POST["GOOGLE_DUPLICATE_INTO_GCAL"])?$_POST["GOOGLE_DUPLICATE_INTO_GCAL"]:$conf->global->GOOGLE_DUPLICATE_INTO_GCAL,1).'<br><br>';
 
-$var=false;
+$var=true;
 
 print "<table class=\"noborder\" width=\"100%\">";
 
@@ -433,7 +433,7 @@ print '</table>';
 
 print '<br>';
 
-$var=true;
+$var=false;
 
 print "<table class=\"noborder\" width=\"100%\">";
 

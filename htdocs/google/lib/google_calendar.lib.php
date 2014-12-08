@@ -177,6 +177,7 @@ function createEvent($client, $object, $login='primary')
         $start->setDate($startTime);	// '2011-06-03'
 		$end->setDate($endTime);		// '2011-06-03'
     }
+
 	$event->setStart($start);
 	$event->setEnd($end);
 

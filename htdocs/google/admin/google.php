@@ -130,7 +130,7 @@ dol_fiche_head($head, 'tabagenda', $langs->trans("GoogleTools"));
 print $langs->trans("GoogleEnableThisTool").' '.$form->selectyesno("GOOGLE_ENABLE_AGENDA",isset($_POST["GOOGLE_ENABLE_AGENDA"])?$_POST["GOOGLE_ENABLE_AGENDA"]:$conf->global->GOOGLE_ENABLE_AGENDA,1).'<br><br>';
 
 
-$var=false;
+$var=true;
 print "<table class=\"noborder\" width=\"100%\">";
 
 print "<tr class=\"liste_titre\">";
@@ -172,7 +172,7 @@ print '<td class="nowrap" align="center">'.$langs->trans("Color")."</td>";
 print "</tr>";
 
 $i=1;
-$var=true;
+$var=false;
 while ($i <= $MAXAGENDA)
 {
 	$key=$i;
@@ -215,7 +215,7 @@ print "<td>".$langs->trans("Name")."</td>";
 print "</tr>";
 
 // Setup for Oauth
-print '<tr><td colspan="2">';
+print '<tr '.$bc[$var].'><td colspan="2">';
 $urltocreatekey='https://code.google.com/apis/console/';
 print $langs->trans("DueToGoogleLimitYouNeedToLogin").'<br>';
 print $langs->trans("AllowGoogleToLoginSetupKey").'<br>';
@@ -266,4 +266,3 @@ print info_admin($message);
 llxFooter();
 
 $db->close();
-?>
