@@ -16,10 +16,39 @@
  * or see http://www.gnu.org/
  */
 
+
 /**
  *	\file			htdocs/google/lib/google.lib.php
  *  \brief			Library of admin functions for google module
  */
+
+
+/**
+ * Pumps all child elements of second SimpleXML object into first one.
+ *
+ * @param    object      $xml1   SimpleXML object
+ * @param    object      $xml2   SimpleXML object
+ * @return   void
+ */
+function simplexml_merge(SimpleXMLElement &$xml1, SimpleXMLElement $xml2)
+{
+    // convert SimpleXML objects into DOM ones
+    $dom1 = new DomDocument();
+    $dom2 = new DomDocument();
+    $dom1->loadXML($xml1->asXML());
+    $dom2->loadXML($xml2->asXML());
+
+    // pull all child elements of second XML
+    $xpath = new domXPath($dom2);
+    $xpathQuery = $xpath->query('/*/*');
+    for ($i = 0; $i < $xpathQuery->length; $i++)
+    {
+        // and pump them into first one
+        $dom1->documentElement->appendChild(
+            $dom1->importNode($xpathQuery->item($i), true));
+    }
+    $xml1 = simplexml_import_dom($dom1);
+}
 
 
 /**
@@ -33,25 +62,22 @@ function googleadmin_prepare_head()
 	$h = 0;
 	$head = array();
 
-	$head[$h][0] = dol_buildpath("/google/admin/google.php",1);
-	$head[$h][1] = $langs->trans("AgendaView");
-	$head[$h][2] = 'tabagenda';
-	$h++;
+    $head[$h][0] = dol_buildpath("/google/admin/google_contactsync.php",1);
+    $head[$h][1] = $langs->trans("ContactSync");
+    $head[$h][2] = 'tabcontactsync';
+    $h++;
 
     $head[$h][0] = dol_buildpath("/google/admin/google_calsync.php",1);
     $head[$h][1] = $langs->trans("AgendaSync");
     $head[$h][2] = 'tabagendasync';
     $h++;
 
-    //if (! empty($conf->global->MAIN_FEATURES_LEVEL))
-    //{
-	    $head[$h][0] = dol_buildpath("/google/admin/google_contactsync.php",1);
-	    $head[$h][1] = $langs->trans("ContactSync");
-	    $head[$h][2] = 'tabcontactsync';
-	    $h++;
-    //}
+    $head[$h][0] = dol_buildpath("/google/admin/google.php",1);
+	$head[$h][1] = $langs->trans("AgendaView");
+	$head[$h][2] = 'tabagenda';
+	$h++;
 
-    $head[$h][0] = dol_buildpath("/google/admin/google_gmaps.php",1);
+	$head[$h][0] = dol_buildpath("/google/admin/google_gmaps.php",1);
     $head[$h][1] = $langs->trans("GMaps");
     $head[$h][2] = 'tabgmaps';
     $h++;

@@ -22,6 +22,7 @@ if (! $res) die("Include of main fails");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/company.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/contact.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/member.lib.php");
+require_once(DOL_DOCUMENT_ROOT."/core/class/html.formother.class.php");
 require_once(DOL_DOCUMENT_ROOT."/contact/class/contact.class.php");
 dol_include_once("/google/class/googlemaps.class.php");
 dol_include_once("/google/includes/GoogleMapAPIv3.class.php");
@@ -35,6 +36,7 @@ $mode=GETPOST('mode');
 $id = GETPOST('id','int');
 $MAXADDRESS=GETPOST('max','int')?GETPOST('max','int'):'25';	// Set packet size to 25 if no forced from url
 $address='';
+$socid = GETPOST('socid','int');
 
 // Load third party
 if (empty($mode) || $mode=='thirdparty')
@@ -96,9 +98,17 @@ else
  * View
  */
 
+$countrytable="c_pays";
+include_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
+if (versioncompare(versiondolibarrarray(),array(3,7,-3)) >= 0)
+{
+	$countrytable="c_country";
+}
+
 llxheader();
 
 $form=new Form($db);
+$formother = new FormOther($db);
 
 $content = "Default content";
 $act = "";
@@ -110,26 +120,27 @@ $picto='';
 $type='';
 if (empty($mode) || $mode=='thirdparty')
 {
-	$socid = GETPOST('socid','int');
 	if ($user->societe_id) $socid=$user->societe_id;
 
-	$search_sale=empty($conf->global->GOOGLE_MAPS_FORCE_FILTER_BY_SALE_REPRESENTATIVES)?0:1;
+	$search_sale=empty($conf->global->GOOGLE_MAPS_FORCE_FILTER_BY_SALE_REPRESENTATIVES)?GETPOST('search_sale'):-1;
 
 	$title=$langs->trans("MapOfThirdparties");
 	$picto='company';
 	$type='company';
 	$sql="SELECT s.rowid as id, s.nom as name, s.address, s.zip, s.town, s.url,";
-	$sql.= " c.rowid as country_id, c.code as country_code, c.libelle as country,";
+	$sql.= " c.rowid as country_id, c.code as country_code, c.label as country,";
 	$sql.= " g.rowid as gid, g.fk_object, g.latitude, g.longitude, g.address as gaddress, g.result_code, g.result_label";
 	$sql.= " FROM ".MAIN_DB_PREFIX."societe as s";
-	$sql.= " LEFT JOIN ".MAIN_DB_PREFIX."c_pays as c ON s.fk_pays = c.rowid";
+	$sql.= " LEFT JOIN ".MAIN_DB_PREFIX.$countrytable." as c ON s.fk_pays = c.rowid";
 	$sql.= " LEFT JOIN ".MAIN_DB_PREFIX."google_maps as g ON s.rowid = g.fk_object and g.type_object='".$type."'";
-	if ($search_sale || (!$user->rights->societe->client->voir && !$socid)) $sql.= ", ".MAIN_DB_PREFIX."societe_commerciaux as sc";
+	if ($search_sale || (!$user->rights->societe->client->voir && ! $socid)) $sql.= ", ".MAIN_DB_PREFIX."societe_commerciaux as sc";
 	$sql.= " WHERE s.status = 1";
 	$sql.= " AND s.entity IN (".getEntity('societe', 1).")";
-	if ($search_sale || (! $user->rights->societe->client->voir && ! $socid))	$sql.= " AND s.rowid = sc.fk_soc AND sc.fk_user = " .$user->id;
+	if ($search_sale == -1 || (! $user->rights->societe->client->voir && ! $socid))	$sql.= " AND s.rowid = sc.fk_soc AND sc.fk_user = " .$user->id;
+	if ($search_sale > 0) $sql.= " AND s.rowid = sc.fk_soc AND sc.fk_user = " .$search_sale;
 	if ($socid) $sql.= " AND s.rowid = ".$socid;	// protect for external user
 	$sql.= " ORDER BY s.rowid";
+	//print $search_sale.'-'.$sql;
 }
 else if ($mode=='contact')
 {
@@ -137,13 +148,12 @@ else if ($mode=='contact')
 	$picto='contact';
 	$type='contact';
 	$sql="SELECT s.rowid as id, s.lastname, s.firstname, s.address, s.zip, s.town, '' as url,";
-	$sql.= " c.rowid as country_id, c.code as country_code, c.libelle as country,";
+	$sql.= " c.rowid as country_id, c.code as country_code, c.label as country,";
 	$sql.= " g.rowid as gid, g.fk_object, g.latitude, g.longitude, g.address as gaddress, g.result_code, g.result_label";
 	$sql.= " FROM ".MAIN_DB_PREFIX."socpeople as s";
-	$sql.= " LEFT JOIN ".MAIN_DB_PREFIX."c_pays as c ON s.fk_pays = c.rowid";
+	$sql.= " LEFT JOIN ".MAIN_DB_PREFIX.$countrytable." as c ON s.fk_pays = c.rowid";
 	$sql.= " LEFT JOIN ".MAIN_DB_PREFIX."google_maps as g ON s.rowid = g.fk_object and g.type_object='".$type."'";
 	$sql.= " WHERE s.entity IN (".getEntity('societe', 1).")";
-	//$sql.= " WHERE s.status = 1";
 	$sql.= " ORDER BY s.rowid";
 }
 else if ($mode=='member')
@@ -152,10 +162,10 @@ else if ($mode=='member')
 	$picto='user';
 	$type='member';
 	$sql="SELECT s.rowid as id, s.lastname, s.firstname, s.address, s.zip, s.town, '' as url,";
-	$sql.= " c.rowid as country_id, c.code as country_code, c.libelle as country,";
+	$sql.= " c.rowid as country_id, c.code as country_code, c.label as country,";
 	$sql.= " g.rowid as gid, g.fk_object, g.latitude, g.longitude, g.address as gaddress, g.result_code, g.result_label";
 	$sql.= " FROM ".MAIN_DB_PREFIX."adherent as s";
-	$sql.= " LEFT JOIN ".MAIN_DB_PREFIX."c_pays as c ON s.country = c.rowid";
+	$sql.= " LEFT JOIN ".MAIN_DB_PREFIX.$countrytable." as c ON s.country = c.rowid";
 	$sql.= " LEFT JOIN ".MAIN_DB_PREFIX."google_maps as g ON s.rowid = g.fk_object and g.type_object='".$type."'";
 	$sql.= " WHERE s.statut = 1";
 	$sql.= " AND s.entity IN (".getEntity('adherent', 1).")";
@@ -167,10 +177,10 @@ else if ($mode=='patient')
 	$picto='user';
 	$type='patient';
 	$sql="SELECT s.rowid as id, s.nom as name, s.address, s.zip, s.town,";
-	$sql.= " c.rowid as country_id, c.code as country_code, c.libelle as country, s.url,";
+	$sql.= " c.rowid as country_id, c.code as country_code, c.label as country, s.url,";
 	$sql.= " g.rowid as gid, g.fk_object, g.latitude, g.longitude, g.address as gaddress, g.result_code, g.result_label";
 	$sql.= " FROM ".MAIN_DB_PREFIX."societe as s";
-	$sql.= " LEFT JOIN ".MAIN_DB_PREFIX."c_pays as c ON s.fk_pays = c.rowid";
+	$sql.= " LEFT JOIN ".MAIN_DB_PREFIX.$countrytable." as c ON s.fk_pays = c.rowid";
 	$sql.= " LEFT JOIN ".MAIN_DB_PREFIX."google_maps as g ON s.rowid = g.fk_object and g.type_object='".$type."'";
 	$sql.= " WHERE s.canvas='patient@cabinetmed'";
 	$sql.= " AND s.entity IN (".getEntity('societe', 1).")";
@@ -181,6 +191,18 @@ else if ($mode=='patient')
 print_fiche_titre($title);
 
 dol_fiche_head(array(), 'gmaps', '', 0);
+
+
+// If the user can view prospects other than his'
+if ($user->rights->societe->client->voir && empty($socid))
+{
+	$langs->load("commercial");
+	print '<form name="formsearch" method="POST" action="'.$_SERVER["PHP_SELF"].'">';
+	print $langs->trans('ThirdPartiesOfSaleRepresentative'). ': ';
+	print $formother->select_salesrepresentatives($search_sale,'search_sale',$user);
+	print ' <input type="submit" name="submit_search_sale" value="'.$langs->trans("Search").'" class="button"> &nbsp; &nbsp; &nbsp; ';
+	print '</form>';
+}
 
 
 // Fill array of contacts
@@ -222,7 +244,8 @@ if ($resql)
 
 		if ($geoencodingtosearch && (empty($MAXADDRESS) || $countgeoencoding < $MAXADDRESS))
 		{
-			if ($countgeoencoding && ($countgeoencoding % 10 == 0))
+			// Google limit usage of API to 5 requests per second
+			if ($countgeoencoding && ($countgeoencoding % 5 == 0))
 			{
 				dol_syslog("Add a delay of 1");
 				sleep(1);
@@ -278,15 +301,16 @@ if ($resql)
 				}
 				else
 				{
-					$googlemaps->result_code='ERROR';
-					$googlemaps->result_label=$error;
+					$googlemaps->result_code=$error;
+					$googlemaps->result_label='Geoencoding failed '.$error;
 				}
 
 				if ($googlemaps->id > 0) $result=$googlemaps->update();
 				else $result=$googlemaps->create($user);
 				if ($result < 0) dol_print_error('',$googlemaps->error);
 
-				$object->error=$error;
+				$object->error_code=$googlemaps->result_code;
+				$object->error=$googlemaps->result_label;
 				$adderrors[]=$object;
 
 				$countgeoencodedall++;
@@ -302,6 +326,7 @@ if ($resql)
 			else if (! empty($obj->result_code))	// An error
 			{
 				$error=$obj->result_label;
+				$object->error_code=$obj->result_code;
 				$object->error=$error;
 				$adderrors[]=$object;
 
@@ -381,7 +406,7 @@ if (count($adderrors))
 		$objectstatic->id=$object->id;
 		$objectstatic->name=$object->name;	// Here $object is an array an 'name' is already a formatted string with firstname and lastname
 		$objectstatic->ref=$object->name;	// Here $object is an array an 'name' is already a formatted string with firstname and lastname
-		print $langs->trans("Name").": ".$objectstatic->getNomUrl(1).", ".$langs->trans("Address").": ".$object->address." -> ".$object->error."<br>\n";
+		print $langs->trans("Name").": ".$objectstatic->getNomUrl(1).", ".$langs->trans("Address").": ".$object->address." -> ".$object->error." (error code = ".$object->error_code.")<br>\n";
 	}
 }
 
@@ -394,15 +419,31 @@ $db->close();
 
 /**
  * Geocoding an address (address -> lat,lng)
+ * Use API v3.
+ * See API doc: https://developers.google.com/maps/documentation/geocoding/#api_key
+ * To create a key:
+ * Visit the APIs console at https://code.google.com/apis/console and log in with your Google Account.
+ * Click "Enable an API" or the Services link from the left-hand menu in the APIs Console, then activate the Geocoding API service.
+ * Once the service has been activated, your API key is available from the API Access page, in the Simple API Access section. Geocoding API applications use the Key for server apps.
  *
  * @param 	string 	$address 	An address
  * @return 	mixed				Array(lat, lng) if OK, error message string if KO
  */
 function geocoding($address)
 {
+	global $conf;
+
 	$encodeAddress = urlencode(withoutSpecialChars($address));
 	//$url = "http://maps.google.com/maps/geo?q=".$encodeAddress."&output=csv";
-	$url = "http://maps.google.com/maps/api/geocode/json?address=".$encodeAddress."&sensor=false";
+	//$url = "http://maps.google.com/maps/api/geocode/json?address=".$encodeAddress."&sensor=false";
+	if ($conf->global->GOOGLE_API_SERVERKEY)
+	{
+		$url = "https://maps.googleapis.com/maps/api/geocode/json?address=".$encodeAddress.($conf->global->GOOGLE_API_SERVERKEY?"&key=".$conf->global->GOOGLE_API_SERVERKEY:"");
+	}
+	else
+	{
+		$url = "http://maps.googleapis.com/maps/api/geocode/json?address=".$encodeAddress;
+	}
 	ini_set("allow_url_open", "1");
 	$response = googlegetURLContent($url,'GET');
 
@@ -424,17 +465,20 @@ function geocoding($address)
 	else if ($data->status == "OVER_QUERY_LIMIT")
 	{
 		$returnstring='OVER_QUERY_LIMIT';
+		echo "\n<!-- geocoding : called url : ".dol_escape_htmltag($url)." -->\n";
 		echo "<!-- geocoding : failure to geocode : ".dol_escape_htmltag($encodeAddress)." => " . dol_escape_htmltag($returnstring) . " -->\n";
 		return $returnstring;
 	}
 	else if ($data->status == "ZERO_RESULTS")
 	{
 		$returnstring='ZERO_RESULTS';
+		echo "\n<!-- geocoding : called url : ".dol_escape_htmltag($url)." -->\n";
 		echo "<!-- geocoding : failure to geocode : ".dol_escape_htmltag($encodeAddress)." => " . dol_escape_htmltag($returnstring) . " -->\n";
 		return $returnstring;
 	}
 	else {
 		$returnstring='Failed to json_decode result '.$response['content'];
+		echo "\n<!-- geocoding : called url : ".dol_escape_htmltag($url)." -->\n";
 		echo "<!-- geocoding : failure to geocode : ".dol_escape_htmltag($encodeAddress)." => " . dol_escape_htmltag($returnstring) . " -->\n";
 		return $returnstring;
 	}

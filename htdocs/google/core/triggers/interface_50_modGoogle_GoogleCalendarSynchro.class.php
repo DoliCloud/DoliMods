@@ -109,32 +109,27 @@ class InterfaceGoogleCalendarSynchro
 
 		if (!$conf->google->enabled) return 0; // Module non actif
 
-		$fuser = new User($this->db);
-
 		//var_dump($object); exit;
-		$user = empty($conf->global->GOOGLE_LOGIN)?'':$conf->global->GOOGLE_LOGIN;
-		$pwd  = empty($conf->global->GOOGLE_PASSWORD)?'':$conf->global->GOOGLE_PASSWORD;
 
-		if (empty($user) || empty($pwd))	// We use setup of user
+		$userlogin = empty($conf->global->GOOGLE_LOGIN)?'':$conf->global->GOOGLE_LOGIN;
+		if (empty($userlogin))	// We use setup of user
 		{
 			// L'utilisateur concerné est l'utilisateur affecté à l'évènement dans Dolibarr
-			// TODO : à rendre configurable ? (choix entre créateur / affecté / réalisateur)
-			if(empty($object->usertodo->id)) return 0;
+			// TODO : à rendre configurable ? (choix entre propriétaire / assigné)
+			if (! empty($object->userownerid))
+			{
+				$fuser = new User($this->db);
+				$fuser->fetch($object->userownerid);
+				$userlogin = $fuser->conf->GOOGLE_LOGIN;
+			}
+			else return 0;
 
-			$fuser->fetch($object->usertodo->id);
-
-			$user = $fuser->conf->GOOGLE_LOGIN;
-			$pwd = $fuser->conf->GOOGLE_PASSWORD;
-
-			//if (empty($fuser->conf->GOOGLE_DUPLICATE_INTO_GCAL)) return 0;
 			if (empty($conf->global->GOOGLE_DUPLICATE_INTO_GCAL)) return 0;
 		}
 		else								// We use global setup
 		{
 			if (empty($conf->global->GOOGLE_DUPLICATE_INTO_GCAL)) return 0;
 		}
-		//print $action.' - '.$user.' - '.$pwd.' - '.$conf->global->GOOGLE_DUPLICATE_INTO_GCAL; exit;
-
 
 
 		// Actions
@@ -143,100 +138,101 @@ class InterfaceGoogleCalendarSynchro
 			dol_syslog("Trigger '" . $this->name . "' for action '$action' launched by " . __FILE__ . ". id=" . $object->id);
 
 			$langs->load("other");
+			$langs->load("google@google");
 
-			if (empty($user) || empty($pwd))
+			if (empty($userlogin))
 			{
-				dol_syslog("Setup to synchronize events into a Google calendar of ".$fuser->login." is on but can't find complete setup for login/password (nor global nor for user).", LOG_WARNING);
+				dol_syslog("Setup to synchronize events into a Google calendar of ".$userlogin." is on but can't find complete setup for login/password (nor global nor for user).", LOG_WARNING);
 				return 0;
 			}
 
-			// Create client object
-			$service= 'cl';		// cl = calendar, cp=contact, ... Search on AUTH_SERVICE_NAME into Zend API for full list
-			$client = getClientLoginHttpClient($user, $pwd, $service);
-			//var_dump($client); exit;
+			// Create client/token object
+			$key_file_location = $conf->google->multidir_output[$conf->entity]."/".$conf->global->GOOGLE_API_SERVICEACCOUNT_P12KEY;
+			$force_do_not_use_session=(in_array(GETPOST('action'), array('testall','testcreate'))?true:false);	// false by default
+			$servicearray=getTokenFromServiceAccount($conf->global->GOOGLE_API_SERVICEACCOUNT_CLIENT_ID, $conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL, $key_file_location, $force_do_not_use_session);
 
-			if ($client == null)
+			if (! is_array($servicearray))
 			{
-				dol_syslog("Failed to login to Google for login ".$user, LOG_ERR);
-				$this->error='Failed to login to Google for login '.$user;
+				$this->errors[]=$servicearray;
+				return -1;
+			}
+
+			if ($servicearray == null)
+			{
+				$this->error="Failed to login to Google with credentials provided into setup page ".$conf->global->GOOGLE_API_SERVICEACCOUNT_CLIENT_ID.", ".$conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL.", ".$key_file_location;
+				dol_syslog($this->error, LOG_ERR);
 				$this->errors[]=$this->error;
 				return -1;
 			}
 			else
 			{
 				// Event label can now include company and / or contact info, see configuration
-				$eventlabel = trim($object->label);
+				google_complete_label_and_note($object, $langs);
 
-				// Define $urlwithroot
-				$urlwithouturlroot=preg_replace('/'.preg_quote(DOL_URL_ROOT,'/').'$/i','',trim($dolibarr_main_url_root));
-				$urlwithroot=$urlwithouturlroot.DOL_URL_ROOT;		// This is to use external domain name found into config file
-				//$urlwithroot=DOL_MAIN_URL_ROOT;					// This is to use same domain name than current
-
-
-				if (! empty($object->societe->id) && $object->societe->id > 0 && empty($conf->global->GOOGLE_DISABLE_EVENT_LABEL_INC_SOCIETE)) {
-					$societe = new Societe($this->db);
-					$societe->fetch($object->societe->id);
-					$eventlabel .= ' - '.$societe->name;
-					$tmpadd=$societe->getFullAddress(0);
-					if ($tmpadd && empty($conf->global->GOOGLE_DISABLE_ADD_ADDRESS_INTO_DESC)) $object->note.="\n\n".$societe->getFullAddress(1);
-					if (! empty($societe->phone)) $object->note.="\n".$langs->trans("Phone").': '.$societe->phone;
-
-					$urltoelem=$urlwithroot.'/societe/soc.ph?socid='.$societe->id;
-					$object->note.="\n".$langs->trans("LinkToThirdParty").': '.$urltoelem;
+				if ($action == 'ACTION_CREATE')
+				{
+					$ret = createEvent($servicearray, $object, $userlogin);
+					if (! preg_match('/ERROR/',$ret))
+					{
+						if (! preg_match('/google\.com/',$ret)) $ret='google:'.$ret;
+						$object->update_ref_ext($ret);	// This is to store ref_ext to allow updates
+						return 1;
+					}
+					else
+					{
+						$this->errors[]=$ret;
+						return -1;
+					}
 				}
-				if (! empty($object->contact->id) && $object->contact->id > 0 && empty($conf->global->GOOGLE_DISABLE_EVENT_LABEL_INC_CONTACT)) {
-					$contact = new Contact($this->db);
-					$contact->fetch($object->contact->id);
-					$eventlabel .= ' - '.$contact->getFullName($langs, 1);
-					$tmpadd=$contact->getFullAddress(0);
-					if ($tmpadd && empty($conf->global->GOOGLE_DISABLE_ADD_ADDRESS_INTO_DESC)) $object->note.="\n\n".$contact->getFullAddress(1);
-					if (! empty($contact->phone)) $object->note.="\n".$langs->trans("Phone").': '.$contact->phone;
-					if (! empty($contact->phone_perso)) $object->note.="\n".$langs->trans("PhonePerso").': '.$contact->phone_perso;
-					if (! empty($contact->phone_mobile)) $object->note.="\n".$langs->trans("PhoneMobile").': '.$contact->phone_mobile;
-
-					$urltoelem=$urlwithroot.'/contact/fiche.ph?id='.$contact->id;
-					$object->note.="\n".$langs->trans("LinkToContact").': '.$urltoelem;
-				}
-
-				$object->label = $eventlabel;
-
-				if ($action == 'ACTION_CREATE') {
-					$ret = createEvent($client, $object);
-					//var_dump($ret); exit;
-					$object->update_ref_ext($ret);
-					// This is to store ref_ext to allow updates
-
-					return 1;
-				}
-				if ($action == 'ACTION_MODIFY') {
+				if ($action == 'ACTION_MODIFY')
+				{
 					$gid = basename($object->ref_ext);
 					if ($gid && preg_match('/google/i', $object->ref_ext)) // This record is linked with Google Calendar
 					{
-						$ret = updateEvent($client, $gid, $object);
+						$ret = updateEvent($servicearray, $gid, $object, $userlogin);
 						//var_dump($ret); exit;
 
-						if ($ret < 0)// Fails to update, we try to create
+						if (! is_numeric($ret) || $ret < 0)// Fails to update, we try to create
 						{
-							$ret = createEvent($client, $object);
+							$ret = createEvent($servicearray, $object, $userlogin);
 							//var_dump($ret); exit;
 
-							$object->update_ref_ext($ret);
-							// This is to store ref_ext to allow updates
+							if (! preg_match('/ERROR/',$ret))
+							{
+								if (! preg_match('/google\.com/',$ret)) $ret='google:'.$ret;
+								$object->update_ref_ext($ret);	// This is to store ref_ext to allow updates
+								return 1;
+							}
+							else
+							{
+								$this->errors[]=$ret;
+								return -1;
+							}
 						}
 						return 1;
 					} else if ($gid == '') { // No google id, may be a reaffected event
-						$ret = createEvent($client, $object);
+						$ret = createEvent($servicearray, $object, $userlogin);
 						//var_dump($ret); exit;
 
-						$object->update_ref_ext($ret);
-						// This is to store ref_ext to allow updates
+						if (! preg_match('/ERROR/',$ret))
+						{
+							if (! preg_match('/google\.com/',$ret)) $ret='google:'.$ret;
+							$object->update_ref_ext($ret);	// This is to store ref_ext to allow updates
+							return 1;
+						}
+						else
+						{
+							$this->errors[]=$ret;
+							return -1;
+						}
 					}
 				}
-				if ($action == 'ACTION_DELETE') {
+				if ($action == 'ACTION_DELETE')
+				{
 					$gid = basename($object->ref_ext);
 					if ($gid && preg_match('/google/i', $object->ref_ext)) // This record is linked with Google Calendar
 					{
-						$ret = deleteEventById($client, $gid);
+						$ret = deleteEventById($servicearray, $gid, $userlogin);
 						//var_dump($ret); exit;
 
 						return 1;

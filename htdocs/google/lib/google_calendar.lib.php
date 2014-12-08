@@ -18,23 +18,23 @@
  *
  * Documentation API v2 (Connect method used is "ClientLogin"):
  * https://developers.google.com/google-apps/calendar/v2/developers_guide_protocol
+ * => V3:
+ * https://developers.google.com/google-apps/calendar/migration
+ * https://developers.google.com/google-apps/calendar/firstapp
+ * https://developers.google.com/google-apps/calendar/v3/reference/
  *
  * Rem:
  * To get event:  https://www.google.com/calendar/feeds/default/private/full?start-min=2013-03-16T00:00:00&start-max=2014-03-24T23:59:59
  * To get list of calendar: https://www.google.com/calendar/feeds/default/allcalendars/full
  */
 
+include_once DOL_DOCUMENT_ROOT.'/societe/class/societe.class.php';
+include_once DOL_DOCUMENT_ROOT.'/contact/class/contact.class.php';
+
 dol_include_once("/google/lib/google.lib.php");
+$res=dol_include_once('/google/includes/google-api-php-client/autoload.php');
 
-$path = dol_buildpath('/google/includes/zendgdata');
-set_include_path(get_include_path() . PATH_SEPARATOR . $path);
-
-require_once('Zend/Loader.php');
-Zend_Loader::loadClass('Zend_Gdata');
-Zend_Loader::loadClass('Zend_Gdata_AuthSub');
-Zend_Loader::loadClass('Zend_Gdata_ClientLogin');
-Zend_Loader::loadClass('Zend_Gdata_HttpClient');
-Zend_Loader::loadClass('Zend_Gdata_Calendar');
+if (! class_exists('Google_Client')) dol_print_error('','Failed to load library file /nltechno/google/includes/google-api-php-client/autoload.php');
 
 /**
  * @var string Location of AuthSub key file.  include_path is used to find this
@@ -47,481 +47,348 @@ $_authSubKeyFile = null; // Example value for secure use: 'mykey.pem'
 $_authSubKeyFilePassphrase = null;
 
 
+/**
+ * Get service
+ *
+ * @param	string		$clientid			Client ID
+ * @param	string		$clientsecret		Client secret
+ * @return				service
+ */
+function getTokenFromWebApp($clientid, $clientsecret)
+{
+	$client = new Google_Client();
+	// OAuth2 client ID and secret can be found in the Google Developers Console.
+	$client->setClientId($clientid);
+	$client->setClientSecret($clientsecret);
+	$client->setRedirectUri('urn:ietf:wg:oauth:2.0:oob');
+	$client->addScope('https://www.googleapis.com/auth/calendar');
+	$client->addScope('https://www.googleapis.com/auth/calendar.readonly');
+
+	$service = new Google_Service_Calendar($client);
+
+	$authUrl = $client->createAuthUrl();
+/*
+	// Request authorization
+	print "Please visit:\n$authUrl\n\n";
+	print "Please enter the auth code:\n";
+	//$authCode = trim(fgets(STDIN));
+
+	// Exchange authorization code for access token
+	//$accessToken = $client->authenticate($authCode);
+	//$client->setAccessToken($accessToken);
+*/
+	return array('client'=>$client, 'service'=>$service, 'authUrl'=>$authUrl);
+}
+
+
 
 /**
- * Returns a HTTP client object with the appropriate headers for communicating
- * with Google using the ClientLogin credentials supplied.
+ * Get service
  *
- * @param  	string 	$user 		The username, in e-mail address format, to authenticate
- * @param  	string 	$pass 		The password for the user specified
- * @param	string	$service	The service to use (cp = calendar, cl=contact, ... Search on AUTH_SERVICE_NAME into Zend API for full list)
- * @return 	Zend_Http_Client
+ * @param	string			$client_id					Client ID (Example: '258042696143-s9klbbpj13fb40ac8k5qjajn4e9o1c49.apps.googleusercontent.com'). Not used.
+ * @param	string			$service_account_name		Service account name (Example: '258042696143-s9klbbpj13fb40ac8k5qjajn4e9o1c49@developer.gserviceaccount.com')
+ * @param	string			$key_file_location			Key file location (Example: 'API Project-69e4673ea29e.p12')
+ * @param	int				$force_do_not_use_session	1=Do not get token from essions
+ * @return	array|string								Error message or array with token
  */
-function getClientLoginHttpClient($user, $pass, $service)
+function getTokenFromServiceAccount($client_id, $service_account_name, $key_file_location, $force_do_not_use_session=false)
 {
-	$client=null;
+	if (empty($service_account_name)) return 'ErrorNoServiceAccountName';
+	if (empty($key_file_location) || ! file_exists($key_file_location)) return 'ErrorKeyFileNotFound';
+
+	$client = new Google_Client();
+	$client->setApplicationName("Dolibarr");
+
+	/************************************************
+	  If we have an access token, we can carry on.
+	  Otherwise, we'll get one with the help of an
+	  assertion credential. In other examples the list
+	  of scopes was managed by the Client, but here
+	  we have to list them manually. We also supply
+	  the service account
+	 ************************************************/
+	if (empty($force_do_not_use_session) && isset($_SESSION['service_token']))
+	{
+		dol_syslog("Get service token from session. service_token=".$_SESSION['service_token']);
+		$client->setAccessToken($_SESSION['service_token']);
+	}
+	$key = file_get_contents($key_file_location);
+
+	$cred = new Google_Auth_AssertionCredentials(
+	    $service_account_name,
+	    array('https://www.googleapis.com/auth/calendar','https://www.googleapis.com/auth/calendar.readonly'),
+	    $key
+	);
+
+	$client->setAssertionCredentials($cred);
 
 	try {
-		$client = Zend_Gdata_ClientLogin::getHttpClient($user, $pass, $service);
+		if ($client->getAuth()->isAccessTokenExpired())
+		{
+			$client->getAuth()->refreshTokenWithAssertion($cred);
+		}
 	}
 	catch(Exception $e)
 	{
-       	// DOL_LDR_CHANGE
-       	global $conf;
-       	if (! empty($conf->global->MODULE_GOOGLE_DEBUG))
-        {
-           	file_put_contents(DOL_DATA_ROOT . "/dolibarr_google_client_login.log", $e->getMessage()." user=".$user." pass=".preg_replace('/./','*',$pass)." service=".$service);
-			@chmod(DOL_DATA_ROOT . "/dolibarr_google_client_login.log", octdec(empty($conf->global->MAIN_UMASK)?'0664':$conf->global->MAIN_UMASK));
-        }
+		return $e->getMessage();
 	}
-	return $client;
+
+	$_SESSION['service_token'] = $client->getAccessToken();
+
+	return array('client'=>$client, 'service_token'=>$_SESSION['service_token']);
 }
 
-/**
- * Outputs an HTML unordered list (ul), with each list item representing an event
- * in the user's calendar.  The calendar is retrieved using the magic cookie
- * which allows read-only access to private calendar data using a special token
- * available from within the Calendar UI.
- *
- * @param  string $user        The username or address of the calendar to be retrieved.
- * @param  string $magicCookie The magic cookie token
- * @return void
- */
-function outputCalendarMagicCookie($user, $magicCookie)
-{
-	$gdataCal = new Zend_Gdata_Calendar();
-	$query = $gdataCal->newEventQuery();
-	$query->setUser($user);
-	$query->setVisibility('private-' . $magicCookie);
-	$query->setProjection('full');
-	$eventFeed = $gdataCal->getCalendarEventFeed($query);
-	echo "<ul>\n";
-	foreach ($eventFeed as $event) {
-		echo "\t<li>" . $event->title->text . "</li>\n";
-		$sl = $event->getLink('self')->href;
-	}
-	echo "</ul>\n";
-}
 
-/**
- * Outputs an HTML unordered list (ul), with each list item representing a
- * calendar in the authenticated user's calendar list.
- *
- * @param  Zend_Http_Client $client The authenticated client object
- * @return void
- */
-function outputCalendarList($client)
-{
-	$gdataCal = new Zend_Gdata_Calendar($client);
-	$calFeed = $gdataCal->getCalendarListFeed();
-	echo "<h1>" . $calFeed->title->text . "</h1>\n";
-	echo "<ul>\n";
-	foreach ($calFeed as $calendar) {
-		echo "\t<li>" . $calendar->title->text . "</li>\n";
-	}
-	echo "</ul>\n";
-}
-
-/**
- * Outputs an HTML unordered list (ul), with each list item representing an
- * event on the authenticated user's calendar.  Includes the start time and
- * event ID in the output.  Events are ordered by starttime and include only
- * events occurring in the future.
- *
- * @param  Zend_Http_Client $client The authenticated client object
- * @return void
- */
-function outputCalendar($client, $user='default', $visibility='private', $projection='full')
-{
-	$gdataCal = new Zend_Gdata_Calendar($client);
-	$query = $gdataCal->newEventQuery();
-
-	$query->setUser($user);
-	$query->setVisibility($visibility);
-	$query->setProjection($projection);
-	$query->setOrderby('starttime');
-	//$query->setFutureevents(true);
-
-	$eventFeed = $gdataCal->getCalendarEventFeed($query);
-	// option 2
-	// $eventFeed = $gdataCal->getCalendarEventFeed($query->getQueryUrl());
-	echo "<ul>\n";
-	foreach ($eventFeed as $event) {
-		echo "\t<li>" . $event->title->text .  " (" . $event->id->text . ")\n";
-		// Zend_Gdata_App_Extensions_Title->__toString() is defined, so the
-		// following will also work on PHP >= 5.2.0
-		//echo "\t<li>" . $event->title .  " (" . $event->id . ")\n";
-		echo "\t\t<ul>\n";
-		foreach ($event->when as $when) {
-			echo "\t\t\t<li>Starts: " . $when->startTime . "</li>\n";
-		}
-		echo "\t\t</ul>\n";
-		echo "\t</li>\n";
-	}
-	echo "</ul>\n";
-}
-
-/**
- * Outputs an HTML unordered list (ul), with each list item representing an
- * event on the authenticated user's calendar which occurs during the
- * specified date range.
- *
- * To query for all events occurring on 2006-12-24, you would query for
- * a startDate of '2006-12-24' and an endDate of '2006-12-25' as the upper
- * bound for date queries is exclusive.  See the 'query parameters reference':
- * http://code.google.com/apis/gdata/calendar.html#Parameters
- *
- * @param  Zend_Http_Client $client    The authenticated client object
- * @param  string           $startDate The start date in YYYY-MM-DD format
- * @param  string           $endDate   The end date in YYYY-MM-DD format
- * @return void
- */
-function outputCalendarByDateRange($client, $startDate, $endDate)
-{
-	$gdataCal = new Zend_Gdata_Calendar($client);
-	$query = $gdataCal->newEventQuery();
-	$query->setUser('default');
-	$query->setVisibility('private');
-	$query->setProjection('full');
-	$query->setOrderby('starttime');
-	$query->setStartMin($startDate);
-	$query->setStartMax($endDate);
-	$eventFeed = $gdataCal->getCalendarEventFeed($query);
-	echo "<ul>\n";
-	foreach ($eventFeed as $event) {
-		echo "\t<li>" . $event->title->text .  " (" . $event->id->text . ")\n";
-		echo "\t\t<ul>\n";
-		foreach ($event->when as $when) {
-			echo "\t\t\t<li>Starts: " . $when->startTime . "</li>\n";
-		}
-		echo "\t\t</ul>\n";
-		echo "\t</li>\n";
-	}
-	echo "</ul>\n";
-}
-
-/**
- * Outputs an HTML unordered list (ul), with each list item representing an
- * event on the authenticated user's calendar which matches the search string
- * specified as the $fullTextQuery parameter
- *
- * @param  Zend_Http_Client $client        The authenticated client object
- * @param  string           $fullTextQuery The string for which you are searching
- * @return void
- */
-function outputCalendarByFullTextQuery($client, $fullTextQuery)
-{
-	$gdataCal = new Zend_Gdata_Calendar($client);
-	$query = $gdataCal->newEventQuery();
-	$query->setUser('default');
-	$query->setVisibility('private');
-	$query->setProjection('full');
-	$query->setQuery($fullTextQuery);
-	$eventFeed = $gdataCal->getCalendarEventFeed($query);
-	echo "<ul>\n";
-	foreach ($eventFeed as $event) {
-		echo "\t<li>" . $event->title->text .  " (" . $event->id->text . ")\n";
-		echo "\t\t<ul>\n";
-		foreach ($event->when as $when) {
-			echo "\t\t\t<li>Starts: " . $when->startTime . "</li>\n";
-			echo "\t\t</ul>\n";
-			echo "\t</li>\n";
-		}
-	}
-	echo "</ul>\n";
-}
 
 /**
  * Creates an event on the authenticated user's default calendar with the
  * specified event details.
  *
- * @param  Zend_Http_Client $client    The authenticated client object
- * @param  string			$object	   Source object into Dolibarr
- * @return string The ID URL for the event.
+ * @param  array	$client   		Service array with authenticated client object
+ * @param  string	$object	   		Source object into Dolibarr
+ * @param  string	$login			CalendarId (login google or 'primary')
+ * @return string 					The ID URL for the event or 'ERROR xxx' if error.
  */
-function createEvent($client, $object)
+function createEvent($client, $object, $login='primary')
 {
-    // More examples on http://code.google.com/intl/fr/apis/calendar/data/1.0/developers_guide_php.html
-	global $conf;
+	global $conf, $db, $trans;
+	global $dolibarr_main_url_root;
+	global $user;
 
-	$gc = new Zend_Gdata_Calendar($client, 'Dolibarr');
-
-	$newEntry = $gc->newEventEntry();
-	$newEntry->title = $gc->newTitle(trim($object->label));
-	$newEntry->where  = array($gc->newWhere($object->location));
-
-	$newEntry->content = $gc->newContent(dol_string_nohtmltag($object->note, 0));
-	$newEntry->content->type = 'text';
+	$event = new Google_Service_Calendar_Event();
+	$start = new Google_Service_Calendar_EventDateTime();
+	$end = new Google_Service_Calendar_EventDateTime();
 
 	$tzfix=0;
 	if (! empty($conf->global->GOOGLE_CAL_TZ_FIX) && is_numeric($conf->global->GOOGLE_CAL_TZ_FIX)) $tzfix=$conf->global->GOOGLE_CAL_TZ_FIX;
-
-	$when = $gc->newWhen();
     if (empty($object->fulldayevent))
     {
-        $when->startTime = dol_print_date(($tzfix*3600) + $object->datep,"dayhourrfc",'gmt');
-        $when->endTime = dol_print_date(($tzfix*3600) + (empty($object->datef)?$object->datep:$object->datef),"dayhourrfc",'gmt');
+        $startTime = dol_print_date(($tzfix*3600) + $object->datep,"dayhourrfc",'gmt');
+        $endTime = dol_print_date(($tzfix*3600) + (empty($object->datef)?$object->datep:$object->datef),"dayhourrfc",'gmt');
+
+        $start->setDateTime($startTime);	// '2011-06-03T10:00:00.000-07:00'
+		$end->setDateTime($endTime);		// '2011-06-03T10:25:00.000-07:00'
     }
     else
     {
-        $when->startTime = dol_print_date(($tzfix*3600) + $object->datep,"dayrfc");
-        $when->endTime = dol_print_date(($tzfix*3600) + (empty($object->datef)?$object->datep:$object->datef) + 3600*24,"dayrfc");	// For fulldayevent, into XML data, endTime must be day after
+        $startTime = dol_print_date(($tzfix*3600) + $object->datep,"dayrfc");
+        $endTime = dol_print_date(($tzfix*3600) + (empty($object->datef)?$object->datep:$object->datef) + 3600*24,"dayrfc");	// For fulldayevent, into XML data, endTime must be day after
+
+        $start->setDate($startTime);	// '2011-06-03'
+		$end->setDate($endTime);		// '2011-06-03'
     }
-    $newEntry->when = array($when);
 
-	dol_syslog("startTime=".$when->startTime." endTime=".$when->endTime);
-	// Add Dolibarr action id into Google event properties
-	$createdEntry = $gc->insertEvent($newEntry);
-	$gid=basename($createdEntry->getId());
-    //print $gid." $object->id";
-    //$event = getEvent($client, $gid);
-    //var_dump($event->title->text);
-    if ($gid && $object->id) addExtendedProperty($client,$gid,'dol_id',$object->id);
+	$event->setStart($start);
+	$event->setEnd($end);
 
-	return $createdEntry->getId();    // Return full URL with id
-}
+	$event->setSummary(trim($object->label));
+	$event->setLocation($object->location);
+	$event->setDescription(dol_string_nohtmltag($object->note, 0));
 
-/**
- * Creates an event on the authenticated user's default calendar using
- * the specified QuickAdd string.
- *
- * @param  Zend_Http_Client $client       The authenticated client object
- * @param  string           $quickAddText The QuickAdd text for the event
- * @return string The ID URL for the event
- */
-/*
-function createQuickAddEvent ($client, $quickAddText)
-{
-	$gdataCal = new Zend_Gdata_Calendar($client);
-	$event = $gdataCal->newEventEntry();
-	$event->content = $gdataCal->newContent($quickAddText);
-	$event->quickAdd = $gdataCal->newQuickAdd(true);
+	$extendedProperties=new Google_Service_Calendar_EventExtendedProperties();
+	$extendedProperties->setPrivate(array('dolibarr_id'=>$object->id.'/event'));
+	$event->setExtendedProperties($extendedProperties);
 
-	$newEvent = $gdataCal->insertEvent($event);
-	return $newEvent->id->text;
-}
-*/
-/**
- * Creates a new web content event on the authenticated user's default
- * calendar with the specified event details. For simplicity, the event
- * is created as an all day event and does not include a description.
- *
- * @param  Zend_Http_Client $client    The authenticated client object
- * @param  string           $title     The event title
- * @param  string           $startDate The start date of the event in YYYY-MM-DD format
- * @param  string           $endDate   The end time of the event in HH:MM 24hr format
- * @param  string           $icon      URL pointing to a 16x16 px icon representing the event.
- * @param  string           $url       The URL containing the web content for the event.
- * @param  string           $height    The desired height of the web content pane.
- * @param  string           $width     The desired width of the web content pane.
- * @param  string           $type      The MIME type of the web content.
- * @return string The ID URL for the event.
- */
-/*
-function createWebContentEvent ($client, $title, $startDate, $endDate, $icon, $url, $height = '120', $width = '276', $type = 'image/gif')
-{
-	$gc = new Zend_Gdata_Calendar($client);
-	$newEntry = $gc->newEventEntry();
-	$newEntry->title = $gc->newTitle(trim($title));
+	// Transparency 0=available, 1=busy
+	$transparency=isset($object->userassigned[$user->id]['transparency'])?$object->userassigned[$user->id]['transparency']:0;
+	if ($transparency > 0) $event->setTransparency("opaque");
+	else $event->setTransparency("transparent");
 
-	$when = $gc->newWhen();
-	$when->startTime = $startDate;
-	$when->endTime = $endDate;
-	$newEntry->when = array($when);
+	// Define $urlwithroot
+	$urlwithouturlroot=preg_replace('/'.preg_quote(DOL_URL_ROOT,'/').'$/i','',trim($dolibarr_main_url_root));
+	$urlwithroot=$urlwithouturlroot.DOL_URL_ROOT;		// This is to use external domain name found into config file
+	//$urlwithroot=DOL_MAIN_URL_ROOT;					// This is to use same domain name than current
 
-	$wc = $gc->newWebContent();
-	$wc->url = $url;
-	$wc->height = $height;
-	$wc->width = $width;
+	$urlevent=$urlwithroot.'/comm/action/card.php?id='.$object->id;
+	$urlicon=$urlwithroot.'/favicon.ico';
 
-	$wcLink = $gc->newLink();
-	$wcLink->rel = "http://schemas.google.com/gCal/2005/webContent";
-	$wcLink->title = $title;
-	$wcLink->type = $type;
-	$wcLink->href = $icon;
+	$source=new Google_Service_Calendar_EventSource();
+	$source->setTitle($conf->global->MAIN_APPLICATION_TITLE);
+	$source->setUrl($urlevent);
 
-	$wcLink->webContent = $wc;
-	$newEntry->link = array($wcLink);
+	$event->setSource($source);
 
-	$createdEntry = $gc->insertEvent($newEntry);
-	return $createdEntry->id->text;
-}
-*/
+	/*$gadget=new Google_Service_Calendar_EventGadget();
+	$gadget->setLink($urlevent);
+	$gadget->setIconLink($urlicon);
+	$event->setGadget($gadget);*/
 
-/**
- * Creates a recurring event on the authenticated user's default calendar with
- * the specified event details.
- *
- * @param  Zend_Http_Client $client    The authenticated client object
- * @param  string           $title     The event title
- * @param  string           $desc      The detailed description of the event
- * @param  string           $where
- * @param  string           $recurData The iCalendar recurring event syntax (RFC2445)
- * @return void
- */
-function createRecurringEvent ($client, $title, $desc, $where, $recurData = null)
-{
-	$gc = new Zend_Gdata_Calendar($client);
-	$newEntry = $gc->newEventEntry();
+	$event->setStatus('confirmed');		// tentative, cancelled
+	$event->setVisibility('default');	// default, public, private (view by attendees only), confidential (do not use)
 
-	$newEntry->title			= $gc->newTitle(trim($title));
-	$newEntry->where			= array($gc->newWhere($where));
-	$newEntry->content			= $gc->newContent($desc);
-	$newEntry->content->type	= 'text';
+	$event->setGuestsCanModify(false);
+	$event->setGuestsCanInviteOthers(true);
+	$event->setGuestsCanSeeOtherGuests(true);
 
-	/**
-	 * Due to the length of this recurrence syntax, we did not specify
-	 * it as a default parameter value directly
-	 */
-	if ($recurData == null) {
-		$recurData =
-        "DTSTART;VALUE=DATE:20070501\r\n" .
-        "DTEND;VALUE=DATE:20070502\r\n" .
-        "RRULE:FREQ=WEEKLY;BYDAY=Tu;UNTIL=20070904\r\n";
-  }
+	$attendees = array();
+	foreach($object->userassigned as $key => $val)
+	{
+		if ($key == $user->id) continue;	// ourself, not an attendee
+		$fuser=new User($db);
+		$fuser->fetch($key);
+		if ($fuser->id > 0 && $fuser->email)
+		{
+			$attendee = new Google_Service_Calendar_EventAttendee();
+			$attendee->setEmail($fuser->email);
+			$attendees[]=$attendee;
+		}
+	}
+	$event->attendees = $attendees;
 
-  $newEntry->recurrence = $gc->newRecurrence($recurData);
-
-  $gc->post($newEntry->saveXML());
-}
-
-/**
- * Returns an entry object representing the event with the specified ID.
- *
- * @param  Zend_Http_Client $client  The authenticated client object
- * @param  string           $eventId The event ID string
- * @return Zend_Gdata_Calendar_EventEntry|null if the event is found, null if it's not
- */
-function getEvent($client, $eventId)
-{
-	$gdataCal = new Zend_Gdata_Calendar($client);
-	$query = $gdataCal->newEventQuery();
-	$query->setUser('default');
-	$query->setVisibility('private');
-	$query->setProjection('full');
-	$query->setEvent($eventId);
+	dol_syslog("createEvent for login=".$login.", label=".$object->label.", startTime=".$startTime.", endTime=".$endTime, LOG_DEBUG);
 
 	try {
-		$eventEntry = $gdataCal->getCalendarEventEntry($query);
-		return $eventEntry;
-	} catch (Zend_Gdata_App_Exception $e) {
-		dol_syslog("Error during getCalendarEventEntry", LOG_ERR);
-		return null;
+		$service = new Google_Service_Calendar($client['client']);
+
+		$createdEvent = $service->events->insert($login, $event);
+
+		$ret=$createdEvent->getId();
+		dol_syslog("createEvent Id=".$ret, LOG_DEBUG);
 	}
+	catch(Exception $e)
+	{
+		return 'ERROR '.$e->getMessage();
+	}
+
+	return $ret;
 }
+
 
 /**
  * Updates the title of the event with the specified ID to be
  * the title specified.  Also outputs the new and old title
  * with HTML br elements separating the lines
  *
- * @param  Zend_Http_Client $client   The authenticated client object
- * @param  string           $eventId  The event ID string
- * @param  string           $newTitle The new title to set on this event
- * @return Zend_Gdata_Calendar_EventEntry|null The updated entry
+ * @param  	array					$client   		Service array with authenticated client object (Not used if $service is provided)
+ * @param  	string   				$eventId        The event ID string
+ * @param  	string					$object	   		Source object into Dolibarr
+ * @param  	string					$login			CalendarId (login google or 'primary')
+ * @param	Google_Service_Calendar	$service		Object service (will be created if not provided)
+ * @return
  */
-function updateEvent($client, $eventId, $object)
+function updateEvent($client, $eventId, $object, $login='primary', $service=null)
 {
 	global $conf;
+	global $dolibarr_main_url_root;
+	global $user;
 
-	$gdataCal = new Zend_Gdata_Calendar($client);
+	//$gdataCal = new Zend_Gdata_Calendar($client);
 
-	$eventOld = getEvent($client, $eventId);
-	if ($eventOld)
+	$oldeventId=$eventId;
+	if (preg_match('/google\.com/.*\/([^\/]+)$/',$eventId,$reg))
 	{
-	    //echo "Old title: " . $eventOld->title->text . " -> ".$object->label."<br>\n"; exit;
-	    $eventOld->title = $gdataCal->newTitle($object->label);
-	    $eventOld->where = array($gdataCal->newWhere($object->location));
+		$oldeventId=$reg[1];
+	}
+	if (preg_match('/google:([^\/]+)$/',$eventId,$reg))
+	{
+		$oldeventId=$reg[1];
+	}
 
-	    $eventOld->content = $gdataCal->newContent(dol_string_nohtmltag($object->note, 0));
-	    $eventOld->content->type = 'text';
+	try {
+		if (empty($service)) $service = new Google_Service_Calendar($client['client']);
 
-	    $tzfix=0;
-	    if (! empty($conf->global->GOOGLE_CAL_TZ_FIX) && is_numeric($conf->global->GOOGLE_CAL_TZ_FIX)) $tzfix=$conf->global->GOOGLE_CAL_TZ_FIX;
+		//$event = new Google_Service_Calendar_Event();
+		$event = $service->events->get($login, $oldeventId);
+		if (is_object($event)) dol_syslog("updateEvent get old record id=".$event->getId()." found into google calendar", LOG_DEBUG);
 
-	    $when = $gdataCal->newWhen();
+		// Set new value of events
+		$start = new Google_Service_Calendar_EventDateTime();
+		$end = new Google_Service_Calendar_EventDateTime();
+
+		$tzfix=0;
+		if (! empty($conf->global->GOOGLE_CAL_TZ_FIX) && is_numeric($conf->global->GOOGLE_CAL_TZ_FIX)) $tzfix=$conf->global->GOOGLE_CAL_TZ_FIX;
 	    if (empty($object->fulldayevent))
 	    {
-	        $when->startTime = dol_print_date(($tzfix*3600) + $object->datep,"dayhourrfc",'gmt');
-	        $when->endTime = dol_print_date(($tzfix*3600) + (empty($object->datef)?$object->datep:$object->datef),"dayhourrfc",'gmt');
+	        $startTime = dol_print_date(($tzfix*3600) + $object->datep,"dayhourrfc",'gmt');
+	        $endTime = dol_print_date(($tzfix*3600) + (empty($object->datef)?$object->datep:$object->datef),"dayhourrfc",'gmt');
+
+	        $start->setDateTime($startTime);	// '2011-06-03T10:00:00.000-07:00'
+			$end->setDateTime($endTime);		// '2011-06-03T10:25:00.000-07:00'
 	    }
 	    else
 	    {
-	        $when->startTime = dol_print_date(($tzfix*3600) + $object->datep,"dayrfc");
-	        $when->endTime = dol_print_date(($tzfix*3600) + (empty($object->datef)?$object->datep:$object->datef) + 3600*24,"dayrfc");	// For fulldayevent, into XML data, endTime must be day after
+	        $startTime = dol_print_date(($tzfix*3600) + $object->datep,"dayrfc");
+	        $endTime = dol_print_date(($tzfix*3600) + (empty($object->datef)?$object->datep:$object->datef) + 3600*24,"dayrfc");	// For fulldayevent, into XML data, endTime must be day after
+
+	        $start->setDate($startTime);	// '2011-06-03'
+			$end->setDate($endTime);		// '2011-06-03'
 	    }
-	    $eventOld->when = array($when);
+		$event->setStart($start);
+		$event->setEnd($end);
 
-	    dol_syslog("startTime=".$when->startTime." endTime=".$when->endTime);
-	    try {
-			$eventOld->save();
-		} catch (Zend_Gdata_App_Exception $e) {
-			var_dump($e);
-			return null;
+		$event->setSummary(trim($object->label));
+		$event->setLocation($object->location);
+		$event->setDescription(dol_string_nohtmltag($object->note, 0));
+
+		/* Disabled for update
+		$extendedProperties=new Google_Service_Calendar_EventExtendedProperties();
+		$extendedProperties->setPrivate(array('dolibarr_id'=>$object->id.'/event'));
+		$event->setExtendedProperties($extendedProperties);
+		*/
+
+		// Transparency 0=available, 1=busy
+		$transparency=isset($object->userassigned[$user->id]['transparency'])?$object->userassigned[$user->id]['transparency']:0;
+		if ($transparency > 0) $event->setTransparency("opaque");
+		else $event->setTransparency("transparent");
+
+		// Define $urlwithroot
+		$urlwithouturlroot=preg_replace('/'.preg_quote(DOL_URL_ROOT,'/').'$/i','',trim($dolibarr_main_url_root));
+		$urlwithroot=$urlwithouturlroot.DOL_URL_ROOT;		// This is to use external domain name found into config file
+		//$urlwithroot=DOL_MAIN_URL_ROOT;					// This is to use same domain name than current
+
+		$urlevent=$urlwithroot.'/comm/action/card.php?id='.$object->id;
+		$urlicon=$urlwithroot.'/favicon.ico';
+
+		$source=new Google_Service_Calendar_EventSource();
+		$source->setTitle($conf->global->MAIN_APPLICATION_TITLE);
+		$source->setUrl($urlevent);
+
+		$event->setSource($source);
+
+		/*$gadget=new Google_Service_Calendar_EventGadget();
+		$gadget->setLink($urlevent);
+		$gadget->setIconLink($urlicon);
+		$event->setGadget($gadget);*/
+
+		$event->setStatus('confirmed');		// tentative, cancelled
+		$event->setVisibility('default');	// default, public, private (view by attendees only), confidential (do not use)
+
+		$event->setGuestsCanModify(false);
+		$event->setGuestsCanInviteOthers(true);
+		$event->setGuestsCanSeeOtherGuests(true);
+
+		$attendees = array();
+		foreach($object->userassigned as $key => $val)
+		{
+			if ($key == $user->id) continue;	// ourself, not an attendee
+			$fuser=new User($db);
+			$fuser->fetch($key);
+			if ($fuser->id > 0 && $fuser->email)
+			{
+				$attendee = new Google_Service_Calendar_EventAttendee();
+				$attendee->setEmail($fuser->email);
+				$attendees[]=$attendee;
+			}
 		}
-		//$eventNew = getEvent($client, $eventId);
-		//echo "New title: " . $eventNew->title->text . "<br>\n";
-		return $eventOld->getId();
+		$event->attendees = $attendees;
+
+		dol_syslog("updateEvent Update record on Google calendar with login=".$login.", id=".$oldeventId, LOG_DEBUG);
+
+		$updatedEvent = $service->events->update($login, $oldeventId, $event);
+
+		// Print the updated date.
+		//echo $updatedEvent->getUpdated();
+
+		$ret = 1;
 	}
-	else
+	catch(Exception $e)
 	{
-	    dol_syslog("Event with id ".$eventId." not found into Calendar. We must create it.");
-	    return -1;
-	}
-}
+		dol_syslog("updateEvent error in getting or updating record: ".$e->getMessage(), LOG_WARNING);
 
-/**
- * Adds an extended property to the event specified as a parameter.
- * An extended property is an arbitrary name/value pair that can be added
- * to an event and retrieved via the API.  It is not accessible from the
- * calendar web interface.
- *
- * @param  Zend_Http_Client $client  The authenticated client object
- * @param  string           $eventId The event ID string
- * @param  string           $name    The name of the extended property
- * @param  string           $value   The value of the extended property
- * @return Zend_Gdata_Calendar_EventEntry|null The updated entry
- */
-function addExtendedProperty ($client, $eventId, $name, $value)
-{
-	$gc = new Zend_Gdata_Calendar($client);
-	if ($event = getEvent($client, $eventId)) {
-		$extProp = $gc->newExtendedProperty($name, $value);
-		$extProps = array_merge($event->extendedProperty, array($extProp));
-		$event->extendedProperty = $extProps;
-		$eventNew = $event->save();
-		return $eventNew;
-	} else {
-		return null;
+		return 'ERROR '.$e->getMessage();
 	}
-}
 
-
-/**
- * Adds a reminder to the event specified as a parameter.
- *
- * @param  Zend_Http_Client $client  The authenticated client object
- * @param  string           $eventId The event ID string
- * @param  integer          $minutes Minutes before event to set reminder
- * @return Zend_Gdata_Calendar_EventEntry|null The updated entry
- */
-function setReminder($client, $eventId, $minutes=15)
-{
-	$gc = new Zend_Gdata_Calendar($client);
-	$method = "alert";
-	if ($event = getEvent($client, $eventId)) {
-		$times = $event->when;
-		foreach ($times as $when) {
-			$reminder = $gc->newReminder();
-			$reminder->setMinutes($minutes);
-			$reminder->setMethod($method);
-			$when->reminders = array($reminder);
-		}
-		$eventNew = $event->save();
-		return $eventNew;
-	} else {
-		return null;
-	}
+	return $ret;
 }
 
 /**
@@ -530,177 +397,94 @@ function setReminder($client, $eventId, $minutes=15)
  * example purposes only, as it is inefficient to retrieve the entire
  * atom entry only for the purposes of deleting it.
  *
- * @param  Zend_Http_Client $client  The authenticated client object
- * @param  string           $eventId The event ID string
- * @return void
+ * @param  	array					$client   		Service array with authenticated client object (Not used if $service is provided)
+ * @param  	string  				$eventId        The event ID string
+ * @param  	string					$login			CalendarId (login google or 'primary')
+ * @param	Google_Service_Calendar	$service		Object service (will be created if not provided)
+ * @return 	void
  */
-function deleteEventById ($client, $eventId)
+function deleteEventById ($client, $eventId, $login='primary', $service=null)
 {
-	dol_syslog("deleteEventById ".$eventId);
-    if ($eventOld = getEvent($client, $eventId))
-    {
-	    $eventOld->delete();
-    }
-}
-
-/**
- * Deletes the event specified by calling the Zend_Gdata::delete()
- * method.  The URL is typically in the format of:
- * http://www.google.com/calendar/feeds/default/private/full/<eventId>
- *
- * @param  Zend_Http_Client $client The authenticated client object
- * @param  string           $url    The url for the event to be deleted
- * @return void
- */
-function deleteEventByUrl ($client, $url)
-{
-	$gdataCal = new Zend_Gdata_Calendar($client);
-	$gdataCal->delete($url);
-}
-
-
-/**
- * Mass insert of several events into a google account
- *
- * @param 	array 	$gCals			Array of object ActionComm
- * @return	int						>0 if OK, 'error string' if error
- * @see		insertGContactsEntries 	(same function for contacts)
- */
-function insertGCalsEntries($gCals)
-{
-	global $conf;
-
-	$maxBatchLength = 98; //Google doc says max 100 entries.
-	$remainingCals = $gCals;
-	while (count($remainingCals) > 0)
+	$oldeventId=$eventId;
+	if (preg_match('/google\.com/.*\/([^\/]+)$/',$eventId,$reg))
 	{
-		if (count($remainingCals) > $maxBatchLength) {
-			$firstContacts = array_slice($remainingCals, 0, $maxBatchLength);
-			$remainingCals = array_slice($remainingCals, $maxBatchLength);
-		} else {
-			$firstContacts = $remainingCals;
-			$remainingCals = array();
-		}
-
-		$doc = new DOMDocument("1.0", "utf-8");
-		$doc->formatOutput = true;
-		$feed = $doc->createElement("atom:feed");
-
-		foreach ($firstContacts as $gContact) {
-
-		}
-
-		/*
-		$client_id='258042696143.apps.googleusercontent.com';
-		$client_secret='HdmLOMStzB9MBbAjCr87gz27';
-		$redirect_uri='http://localhost/dolibarrnew/custom/google/googlecallback.php';
-		$url='https://accounts.google.com/o/oauth2/auth?client_id='.$client_id.'&redirect_uri='.urlencode($redirect_uri).'&scope=https://www.google.com/m8/feeds/&response_type=code';
-
-		dol_include_once('/google/includes/google-api-php-client/src/Google_Client.php');
-		dol_include_once('/google/includes/google-api-php-client/src/contrib/Google_CalendarService.php');
-
-		$client = new Google_Client();
-		$client->setApplicationName("Google Calendar PHP Starter Application");
-
-		// Visit https://code.google.com/apis/console?api=calendar to generate your
-		// client id, client secret, and to register your redirect uri.
-		$client->setClientId($client_id);
-		$client->setClientSecret($client_secret);
-		$client->setRedirectUri($redirect_uri);
-		$client->setDeveloperKey('insert_your_developer_key');
-
-		$cal = new Google_CalendarService($client);
-		if (isset($_GET['logout'])) {
-			unset($_SESSION['google_oauth_token']);
-		}
-
-		if (isset($_GET['code'])) {
-			$client->authenticate($_GET['code']);
-			$_SESSION['google_oauth_token'] = $client->getAccessToken();
-			header('Location: http://' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF']);
-		}
-
-		if (isset($_SESSION['google_oauth_token'])) {
-			$client->setAccessToken($_SESSION['google_oauth_token']);
-		}
-
-		if ($client->getAccessToken()) {
-			$calList = $cal->calendarList->listCalendarList();
-			print "<h1>Calendar List</h1><pre>" . print_r($calList, true) . "</pre>";
-
-			$_SESSION['google_oauth_token'] = $client->getAccessToken();
-		} else {
-			$authUrl = $client->createAuthUrl();
-			print "<a class='login' href='$authUrl'>Connect Me!</a>";
-		}
-		*/
-
-		$xmlStr = $doc->saveXML();
-		//var_dump($xmlStr);exit;
-
-		// uncomment for debugging :
-		file_put_contents(DOL_DATA_ROOT . "/dolibarr_google_cal_massinsert.xml", $xmlStr);
-		@chmod(DOL_DATA_ROOT . "/dolibarr_google_cal_massinsert.xml", octdec(empty($conf->global->MAIN_UMASK)?'0664':$conf->global->MAIN_UMASK));
-		// you can view this file with 'xmlstarlet fo dolibarr_google_massinsert.xml' command
-
-		/* Be aware that Google API has some kind of side effect when you use either
-		 * http://www.google.com/m8/feeds/contacts/default/base/...
-		* or
-		* http://www.google.com/m8/feeds/contacts/default/full/...
-		* Some Ids retrieved when accessing base may not be used with full and vice versa
-		* When using base, you may not change the group membership
-		*/
-		try {
-
-			// Convert text entities into numeric entities
-			$xmlStr = google_html_convert_entities($xmlStr);
-
-
-
-			$responseXml = '';
-			// uncomment for debugging :
-			file_put_contents(DOL_DATA_ROOT . "/dolibarr_google_cal_massinsert_response.xml", $responseXml);
-			@chmod(DOL_DATA_ROOT . "/dolibarr_google_cal_massinsert_response.xml", octdec(empty($conf->global->MAIN_UMASK)?'0664':$conf->global->MAIN_UMASK));
-			// you can view this file with 'xmlstarlet fo dolibarr_google_massinsert_response.xml' command
-			$res=parseResponse($responseXml);
-			if($res->count != count($firstContacts) || $res->nbOfErrors)
-			{
-				dol_syslog("Failed to batch insert count=".$res->count.", count(firstContacts)=".count($firstContacts).", nb of errors=".$res->nbOfErrors.", lasterror=".$res->lastError, LOG_ERR);
-				return sprintf("Google error : Nb of records to insert = %s, nb inserted = %s, error label = %s", count($firstContacts), $res->count, $res->lastError);
-			}
-			else
-			{
-				dol_syslog(sprintf("Inserting %d google events", count($firstContacts)));
-
-				// Now update each record into database with external ref
-				if (is_object($objectstatic))
-				{
-					$doctoparse = new DOMDocument("1.0", "utf-8");
-					$doctoparse->loadXML($responseXml);
-					$contentNodes = $doctoparse->getElementsByTagName("entry");
-					foreach ($contentNodes as $node)
-					{
-						$titlenode = $node->getElementsByTagName("title"); $title=$titlenode->item(0)->textContent;
-						$idnode = $node->getElementsByTagName("id"); $id=$idnode->item(0)->textContent;
-						$userdefinednode = $node->getElementsByTagName("userDefinedField");
-						$userdefined=$userdefinednode->item(0)->getAttribute('value');
-						if (! empty($idnode) && preg_match('/^(\d+)\/(.*)/',$userdefined,$reg))
-						{
-							if (! empty($reg[2]))
-							{
-								$objectstatic->id=$reg[1];
-								$objectstatic->update_ref_ext($id);
-							}
-						}
-					}
-				}
-			}
-		}
-		catch (Exception $e)
-		{
-			dol_syslog("Problem while inserting events ".$e->getMessage(), LOG_ERR);
-		}
+		$oldeventId=$reg[1];
+	}
+	if (preg_match('/google:([^\/]+)$/',$eventId,$reg))
+	{
+		$oldeventId=$reg[1];
 	}
 
-	return 1;
+	dol_syslog("deleteEventById Delete old record on Google calendar with login=".$login.", id=".$oldeventId, LOG_DEBUG);
+
+	try {
+		if (empty($service)) $service = new Google_Service_Calendar($client['client']);
+
+		$service->events->delete($login, $oldeventId);
+
+		$ret = 1;
+	}
+	catch(Exception $e)
+	{
+		dol_syslog("deleteEventById error in getting or deleting old record: ".$e->getMessage(), LOG_WARNING);
+
+		return 'ERROR '.$e->getMessage();
+	}
+
+	return $ret;
+}
+
+
+/**
+ * Complete $object to change ->label and ->note before pushing event to Google Calendar.
+ *
+ * @param 	Object		$object		Object event to complete
+ * @param	Translate	$langs		Language object
+ * @return	void
+ */
+function google_complete_label_and_note(&$object, $langs)
+{
+	global $conf, $db;
+	global $dolibarr_main_url_root;
+
+	$eventlabel = trim($object->label);
+	// Define $urlwithroot
+	$urlwithouturlroot=preg_replace('/'.preg_quote(DOL_URL_ROOT,'/').'$/i','',trim($dolibarr_main_url_root));
+	$urlwithroot=$urlwithouturlroot.DOL_URL_ROOT;		// This is to use external domain name found into config file
+	//$urlwithroot=DOL_MAIN_URL_ROOT;					// This is to use same domain name than current
+	if (($object->socid > 0 || (! empty($object->thirdparty->id) && $object->thirdparty->id > 0)) && empty($conf->global->GOOGLE_DISABLE_EVENT_LABEL_INC_SOCIETE)) {
+		$thirdparty = new Societe($db);
+		$result=$thirdparty->fetch($object->socid?$object->socid:$object->thirdparty->id);
+		if ($result > 0)
+		{
+			$eventlabel .= ' - '.$thirdparty->name;
+			$tmpadd=$thirdparty->getFullAddress(0);
+			if ($tmpadd && empty($conf->global->GOOGLE_DISABLE_ADD_ADDRESS_INTO_DESC)) $object->note.="\n\n".$thirdparty->name."\n".$thirdparty->getFullAddress(1)."\n";
+			if (! empty($thirdparty->phone)) $object->note.="\n".$langs->trans("Phone").': '.$thirdparty->phone;
+			if (! empty($thirdparty->phone_pro)) $object->note.="\n".$langs->trans("Phone").': '.$thirdparty->phone_pro;
+			if (! empty($thirdparty->fax)) $object->note.="\n".$langs->trans("Fax").': '.$thirdparty->fax;
+
+			$urltoelem=$urlwithroot.'/societe/soc.ph?socid='.$thirdparty->id;
+			$object->note.="\n".$langs->trans("LinkToThirdParty").': '.$urltoelem;
+		}
+	}
+	if (($object->contactid > 0 || (! empty($object->contact->id) && $object->contact->id > 0)) && empty($conf->global->GOOGLE_DISABLE_EVENT_LABEL_INC_CONTACT)) {
+		$contact = new Contact($db);
+		$result=$contact->fetch($object->contactid?$object->contactid:$object->contact->id);
+		if ($result > 0)
+		{
+			$eventlabel .= ' - '.$contact->getFullName($langs, 1);
+			$tmpadd=$contact->getFullAddress(0);
+			if ($tmpadd && empty($conf->global->GOOGLE_DISABLE_ADD_ADDRESS_INTO_DESC)) $object->note.="\n\n".$contact->name."\n".$contact->getFullAddress(1)."\n";
+			if (! empty($contact->phone)) $object->note.="\n".$langs->trans("Phone").': '.$contact->phone;
+			if (! empty($contact->phone_pro)) $object->note.="\n".$langs->trans("Phone").': '.$contact->phone_pro;
+			if (! empty($contact->phone_perso)) $object->note.="\n".$langs->trans("PhonePerso").': '.$contact->phone_perso;
+			if (! empty($contact->phone_mobile)) $object->note.="\n".$langs->trans("PhoneMobile").': '.$contact->phone_mobile;
+			if (! empty($contact->fax)) $object->note.="\n".$langs->trans("Fax").': '.$contact->fax;
+
+			$urltoelem=$urlwithroot.'/contact/fiche.ph?id='.$contact->id;
+			$object->note.="\n".$langs->trans("LinkToContact").': '.$urltoelem;
+		}
+	}
+	$object->label = $eventlabel;
 }

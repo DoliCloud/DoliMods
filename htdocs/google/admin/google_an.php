@@ -38,6 +38,7 @@ $actionsave=$_POST["save"];
 /*
  * Actions
  */
+
 if ($actionsave)
 {
     $db->begin();
@@ -76,11 +77,11 @@ print_fiche_titre($langs->trans("GoogleSetup"),$linkback,'setup');
 print '<br>';
 
 
+print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
+
 $head=googleadmin_prepare_head();
 
 dol_fiche_head($head, 'tabanalytics', $langs->trans("GoogleTools"));
-
-print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
 
 print $langs->trans("GoogleAddAnalyticsOnLogonPage").'<br>';
 print '<br>';
@@ -104,23 +105,18 @@ print '<td>UA-9049390-3</td>';
 print "</tr>";
 
 print "</table>";
-print "<br>";
 
+dol_fiche_end();
 
-
-print '<center>';
-//print "<input type=\"submit\" name=\"test\" class=\"button\" value=\"".$langs->trans("TestConnection")."\">";
-//print "&nbsp; &nbsp;";
+print '<div align="center">';
 print "<input type=\"submit\" name=\"save\" class=\"button\" value=\"".$langs->trans("Save")."\">";
-print "</center>";
+print "</div>";
 
 print "</form>\n";
 
-dol_fiche_end();
 
 dol_htmloutput_mesg($mesg);
 
 llxFooter();
 
 $db->close();
-?>

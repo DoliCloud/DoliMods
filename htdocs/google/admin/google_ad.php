@@ -80,11 +80,12 @@ print_fiche_titre($langs->trans("GoogleSetup"),$linkback,'setup');
 print '<br>';
 
 
+print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
+
 $head=googleadmin_prepare_head();
 
 dol_fiche_head($head, 'tabadsense', $langs->trans("GoogleTools"));
 
-print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
 
 print $langs->trans("GoogleAddPubOnLogonPage").'<br>';
 print '<br>';
@@ -135,23 +136,17 @@ print '<td>60</td>';
 print "</tr>";
 
 print "</table>";
-print "<br>";
-
-
-
-print '<center>';
-//print "<input type=\"submit\" name=\"test\" class=\"button\" value=\"".$langs->trans("TestConnection")."\">";
-//print "&nbsp; &nbsp;";
-print "<input type=\"submit\" name=\"save\" class=\"button\" value=\"".$langs->trans("Save")."\">";
-print "</center>";
-
-print "</form>\n";
 
 dol_fiche_end();
+
+print '<div align="center">';
+print "<input type=\"submit\" name=\"save\" class=\"button\" value=\"".$langs->trans("Save")."\">";
+print "</div>";
+
+print "</form>\n";
 
 dol_htmloutput_mesg($mesg);
 
 llxFooter();
 
 $db->close();
-?>

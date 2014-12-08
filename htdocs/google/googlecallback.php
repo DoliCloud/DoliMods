@@ -31,10 +31,10 @@ $auth_code = GETPOST("code");
 
 /*
  * Actions
-*/
+ */
 
 // Ask token (possible only if inside an oauth google session)
-if (empty($_SESSION['google_oauth_token']) || $auth_code)		// We are not into a google session (oauth_token empty) or we come from a redirect of Google auth page
+if (empty($_SESSION['google_oauth_token']) || $auth_code)		// We are not into a google session (google_oauth_token empty) or we come from a redirect of Google auth page
 {
 	if (empty($auth_code))	// If we are not coming from oauth page, we make a redirect to it
 	{
@@ -56,6 +56,8 @@ if (empty($_SESSION['google_oauth_token']) || $auth_code)		// We are not into a 
 	}
 	$post = rtrim($post,'&');
 
+	var_dump($post);
+/*
 	$curl = curl_init();
 	curl_setopt($curl,CURLOPT_URL,'https://accounts.google.com/o/oauth2/token');
 	curl_setopt($curl,CURLOPT_POST,5);
@@ -68,6 +70,7 @@ if (empty($_SESSION['google_oauth_token']) || $auth_code)		// We are not into a 
 	$response =  json_decode($result);
 
 	$_SESSION['google_oauth_token']=$response->access_token;
+*/
 }
 
 

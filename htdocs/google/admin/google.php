@@ -118,18 +118,19 @@ print_fiche_titre($langs->trans("GoogleSetup"),$linkback,'setup');
 print '<br>';
 
 
+
+print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
+print '<input type="hidden" name="action" value="save">';
+
 $head=googleadmin_prepare_head();
 
 dol_fiche_head($head, 'tabagenda', $langs->trans("GoogleTools"));
 
 
-print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
-print '<input type="hidden" name="action" value="save">';
-
 print $langs->trans("GoogleEnableThisTool").' '.$form->selectyesno("GOOGLE_ENABLE_AGENDA",isset($_POST["GOOGLE_ENABLE_AGENDA"])?$_POST["GOOGLE_ENABLE_AGENDA"]:$conf->global->GOOGLE_ENABLE_AGENDA,1).'<br><br>';
 
 
-$var=false;
+$var=true;
 print "<table class=\"noborder\" width=\"100%\">";
 
 print "<tr class=\"liste_titre\">";
@@ -171,7 +172,7 @@ print '<td class="nowrap" align="center">'.$langs->trans("Color")."</td>";
 print "</tr>";
 
 $i=1;
-$var=true;
+$var=false;
 while ($i <= $MAXAGENDA)
 {
 	$key=$i;
@@ -214,11 +215,10 @@ print "<td>".$langs->trans("Name")."</td>";
 print "</tr>";
 
 // Setup for Oauth
-print '<tr><td colspan="2">';
+print '<tr '.$bc[$var].'><td colspan="2">';
 $urltocreatekey='https://code.google.com/apis/console/';
 print $langs->trans("DueToGoogleLimitYouNeedToLogin").'<br>';
 print $langs->trans("AllowGoogleToLoginSetupKey").'<br>';
-print $langs->trans("AllowGoogleToLoginProp",$urltocreatekey,$urltocreatekey,$redirect_uri).'<br>';
 print '</td></tr>';
 
 // Client ID
@@ -239,18 +239,18 @@ print "</td>";
 print "</tr>";
 
 print '</table>';
-print '<br>';
+
+print info_admin($langs->trans("AllowGoogleToLoginProp",$urltocreatekey,$urltocreatekey,$redirect_uri));
 
 
-print '<center>';
-//print "<input type=\"submit\" name=\"test\" class=\"button\" value=\"".$langs->trans("TestConnection")."\">";
-//print "&nbsp; &nbsp;";
+dol_fiche_end();
+
+print '<div align="center">';
 print "<input type=\"submit\" name=\"save\" class=\"button\" value=\"".$langs->trans("Save")."\">";
-print "</center>";
+print "</div>";
 
 print "</form>\n";
 
-dol_fiche_end();
 
 
 dol_htmloutput_mesg($mesg);
@@ -266,4 +266,3 @@ print info_admin($message);
 llxFooter();
 
 $db->close();
-?>

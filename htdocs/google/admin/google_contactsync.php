@@ -535,13 +535,16 @@ print_fiche_titre($langs->trans("GoogleSetup"),$linkback,'setup');
 print '<br>';
 
 
-$head=googleadmin_prepare_head();
-
-
-dol_fiche_head($head, 'tabcontactsync', $langs->trans("GoogleTools"));
-
 if (! function_exists("openssl_open")) print '<div class="warning">Warning: PHP Module \'openssl\' is not installed</div><br>';
 if (! class_exists('DOMDocument')) print '<div class="warning">Warning: PHP Module \'xml\' is not installed</div><br>';
+
+
+print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
+print '<input type="hidden" name="action" value="save">';
+
+$head=googleadmin_prepare_head();
+
+dol_fiche_head($head, 'tabcontactsync', $langs->trans("GoogleTools"));
 
 if ($conf->use_javascript_ajax)
 {
@@ -570,9 +573,6 @@ if ($conf->use_javascript_ajax)
 	print '</script>'."\n";
 }
 
-print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
-print '<input type="hidden" name="action" value="save">';
-
 if ($conf->societe->enabled) print $langs->trans("GoogleEnableSyncToThirdparties").' '.$form->selectyesno("GOOGLE_DUPLICATE_INTO_THIRDPARTIES",isset($_POST["GOOGLE_DUPLICATE_INTO_THIRDPARTIES"])?$_POST["GOOGLE_DUPLICATE_INTO_THIRDPARTIES"]:$conf->global->GOOGLE_DUPLICATE_INTO_THIRDPARTIES,1).'<br>';
 if ($conf->societe->enabled) print $langs->trans("GoogleEnableSyncToContacts").' '.$form->selectyesno("GOOGLE_DUPLICATE_INTO_CONTACTS",isset($_POST["GOOGLE_DUPLICATE_INTO_CONTACTS"])?$_POST["GOOGLE_DUPLICATE_INTO_CONTACTS"]:$conf->global->GOOGLE_DUPLICATE_INTO_CONTACTS,1).'<br>';
 if ($conf->adherent->enabled) print $langs->trans("GoogleEnableSyncToMembers").' '.$form->selectyesno("GOOGLE_DUPLICATE_INTO_MEMBERS",isset($_POST["GOOGLE_DUPLICATE_INTO_MEMBERS"])?$_POST["GOOGLE_DUPLICATE_INTO_MEMBERS"]:$conf->global->GOOGLE_DUPLICATE_INTO_MEMBERS,1).'<br>';
@@ -580,6 +580,55 @@ print '<br>';
 
 
 $var=false;
+print "<table class=\"noborder\" width=\"100%\">";
+
+print "<tr class=\"liste_titre\">";
+print '<td width="25%">'.$langs->trans("Parameter")."</td>";
+print "<td>".$langs->trans("Value")."</td>";
+print "</tr>";
+// Label to use for thirdparties
+if ($conf->societe->enabled)
+{
+	$var=!$var;
+	print '<tr '.$bc[$var].' id="syncthirdparties">';
+	print '<td class="fieldrequired">'.$langs->trans("GOOGLE_TAG_PREFIX")."<br /></td>";
+	print "<td>";
+	print '<input class="flat" type="text" size="28" name="GOOGLE_TAG_PREFIX" value="'.dol_escape_htmltag(getTagLabel('thirdparties')).'">';
+	print "</td>";
+	print "</tr>";
+}
+// Label to use for contacts
+if ($conf->societe->enabled)
+{
+	$var=!$var;
+	print '<tr '.$bc[$var].' id="synccontacts">';
+	print '<td class="fieldrequired">'.$langs->trans("GOOGLE_TAG_PREFIX_CONTACTS")."<br /></td>";
+	print "<td>";
+	print '<input class="flat" type="text" size="28" name="GOOGLE_TAG_PREFIX_CONTACTS" value="'.dol_escape_htmltag(getTagLabel('contacts')).'">';
+	print "</td>";
+	print "</tr>";
+}
+// Label to use for members
+if ($conf->adherent->enabled)
+{
+	$var=!$var;
+	print '<tr '.$bc[$var].' id="syncmembers">';
+	print '<td class="fieldrequired">'.$langs->trans("GOOGLE_TAG_PREFIX_MEMBERS")."<br /></td>";
+	print "<td>";
+	print '<input class="flat" type="text" size="28" name="GOOGLE_TAG_PREFIX_MEMBERS" value="'.dol_escape_htmltag(getTagLabel('members')).'">';
+	print "</td>";
+	print "</tr>";
+}
+print "</table>";
+print $langs->trans("GoogleContactSyncInfo").'<br>';
+
+
+print "<br>";
+print "<br>";
+
+
+
+$var=true;
 print "<table class=\"noborder\" width=\"100%\">";
 
 print "<tr class=\"liste_titre\">";
@@ -606,59 +655,17 @@ print "</td>";
 print "</tr>";
 
 print "</table>";
-print "<br>";
 
+print info_admin($langs->trans("EnableAPI","https://code.google.com/apis/console/","https://code.google.com/apis/console/","Contacts API"));
 
-$var=false;
-print "<table class=\"noborder\" width=\"100%\">";
-
-print "<tr class=\"liste_titre\">";
-print '<td width="25%">'.$langs->trans("Parameter")."</td>";
-print "<td>".$langs->trans("Value")."</td>";
-print "</tr>";
-// Label to use for thirdparties
-if ($conf->societe->enabled)
-{
-	$var=!$var;
-	print '<tr '.$bc[$var].' id="syncthirdparties">';
-	print '<td class="fieldrequired">'.$langs->trans("GOOGLE_TAG_PREFIX")."<br /></td>";
-	print "<td>";
-	print '<input class="flat" type="text" size="28" name="GOOGLE_TAG_PREFIX" value="'.dol_escape_htmltag(getTagLabel('thirdparties')).'">';
-	print "</td>";
-	print "</tr>";
-}
-// Label to use for contacts
-$var=!$var;
-if ($conf->societe->enabled)
-{
-	print '<tr '.$bc[$var].' id="synccontacts">';
-	print '<td class="fieldrequired">'.$langs->trans("GOOGLE_TAG_PREFIX_CONTACTS")."<br /></td>";
-	print "<td>";
-	print '<input class="flat" type="text" size="28" name="GOOGLE_TAG_PREFIX_CONTACTS" value="'.dol_escape_htmltag(getTagLabel('contacts')).'">';
-	print "</td>";
-	print "</tr>";
-}
-// Label to use for members
-if ($conf->adherent->enabled)
-{
-	print '<tr '.$bc[$var].' id="syncmembers">';
-	print '<td class="fieldrequired">'.$langs->trans("GOOGLE_TAG_PREFIX_MEMBERS")."<br /></td>";
-	print "<td>";
-	print '<input class="flat" type="text" size="28" name="GOOGLE_TAG_PREFIX_MEMBERS" value="'.dol_escape_htmltag(getTagLabel('members')).'">';
-	print "</td>";
-	print "</tr>";
-}
-print "</table>";
-print $langs->trans("GoogleContactSyncInfo").'<br>';
-print '<br>';
-
-print '<center>';
-print "<input type=\"submit\" name=\"save\" class=\"button\" value=\"".$langs->trans("Save")."\">";
-print "</center>";
-
-print "</form>\n";
 
 dol_fiche_end();
+
+print '<div align="center">';
+print "<input type=\"submit\" name=\"save\" class=\"button\" value=\"".$langs->trans("Save")."\">";
+print "</div>";
+
+print "</form>\n";
 
 print '<br>';
 
@@ -782,4 +789,4 @@ dol_htmloutput_errors((is_numeric($error)?'':$error),$errors);
 llxFooter();
 
 if (is_object($db)) $db->close();
-?>
+

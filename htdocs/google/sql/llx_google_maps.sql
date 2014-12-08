@@ -24,5 +24,6 @@ CREATE TABLE llx_google_maps (
 	longitude FLOAT NULL,
 	address varchar(255),
 	result_code varchar(16),
-	result_label varchar(255)
+	result_label varchar(255),
+	tms as timestamp
 ) ENGINE = InnoDB;

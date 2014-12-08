@@ -1188,8 +1188,15 @@ class GCaddr
         global $db,$langs;
         $langs->load("dict");
 
-        $sql = "SELECT rowid, code as code_iso, libelle as label";
-        $sql.= " FROM ".MAIN_DB_PREFIX."c_pays";
+		$countrytable="c_pays";
+		include_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
+	    if (versioncompare(versiondolibarrarray(),array(3,7,-3)) >= 0)
+		{
+			$countrytable="c_country";
+		}
+
+        $sql = "SELECT rowid, code as code_iso, label";
+        $sql.= " FROM ".MAIN_DB_PREFIX.$countrytable;
         $sql.= " WHERE active = 1";
         $resql=$db->query($sql);
         if (!$resql) throw new Exception($db->lasterror());
@@ -1213,7 +1220,7 @@ class GCaddr
         $langs->load("dict");
 
         $sql = "SELECT d.rowid, d.code_departement as stateCode , d.nom as stateLabel, p.rowid as countryID FROM";
-        $sql .= " ".MAIN_DB_PREFIX ."c_departements as d, ".MAIN_DB_PREFIX."c_regions as r,".MAIN_DB_PREFIX."c_pays as p";
+        $sql .= " ".MAIN_DB_PREFIX ."c_departements as d, ".MAIN_DB_PREFIX."c_regions as r,".MAIN_DB_PREFIX.$countrytable." as p";
         $sql .= " WHERE d.fk_region=r.code_region and r.fk_pays=p.rowid";
         $sql .= " AND d.active = 1 AND r.active = 1 AND p.active = 1";
         $sql .= " AND p.rowid = '".$this->country_id."'";

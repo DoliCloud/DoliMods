@@ -50,8 +50,9 @@ if ($actionsave)
 	$res+=dolibarr_set_const($db,'GOOGLE_ENABLE_GMAPS_CONTACTS',trim($_POST["GOOGLE_ENABLE_GMAPS_CONTACTS"]),'chaine',0,'',$conf->entity);
 	$res+=dolibarr_set_const($db,'GOOGLE_ENABLE_GMAPS_MEMBERS',trim($_POST["GOOGLE_ENABLE_GMAPS_MEMBERS"]),'chaine',0,'',$conf->entity);
 	$res+=dolibarr_set_const($db,'GOOGLE_GMAPS_ZOOM_LEVEL',trim($_POST["GOOGLE_GMAPS_ZOOM_LEVEL"]),'chaine',0,'',$conf->entity);
+	$res+=dolibarr_set_const($db,'GOOGLE_API_SERVERKEY',trim($_POST["GOOGLE_API_SERVERKEY"]),'chaine',0,'',$conf->entity);
 
-    if ($res == 4)
+    if ($res == 5)
     {
         $db->commit();
         $mesg = "<font class=\"ok\">".$langs->trans("SetupSaved")."</font>";
@@ -82,12 +83,11 @@ print_fiche_titre($langs->trans("GoogleSetup"),$linkback,'setup');
 print '<br>';
 
 
+print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
+
 $head=googleadmin_prepare_head();
 
 dol_fiche_head($head, 'tabgmaps', $langs->trans("GoogleTools"));
-
-
-print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
 
 print $langs->trans("GoogleEnableThisToolThirdParties").': ';
 if ($conf->societe->enabled)
@@ -119,11 +119,11 @@ print '<br>';
 print '<br>';
 
 
-$var=false;
+$var=true;
 print "<table class=\"noborder\" width=\"100%\">";
 
 print "<tr class=\"liste_titre\">";
-print '<td width="25%">'.$langs->trans("Parameter")."</td>";
+print '<td>'.$langs->trans("Parameter")."</td>";
 print "<td>".$langs->trans("Value")."</td>";
 print "</tr>";
 
@@ -135,15 +135,38 @@ print '</td></tr>';
 print '</table>';
 
 print '<br>';
-print '<center>';
-//print "<input type=\"submit\" name=\"test\" class=\"button\" value=\"".$langs->trans("TestConnection")."\">";
-//print "&nbsp; &nbsp;";
+
+print "<table class=\"noborder\" width=\"100%\">";
+
+print "<tr class=\"liste_titre\">";
+print '<td>'.$langs->trans("Parameter").' ('.$langs->trans("ParametersForGoogleAPIv3Usage","Geocoding").')'."</td>";
+print "<td>".$langs->trans("Value")."</td>";
+print "<td>".$langs->trans("Note")."</td>";
+print "</tr>";
+// Google login
+print "<tr ".$bc[$var].">";
+print '<td>'.$langs->trans("GOOGLE_API_SERVERKEY")."</td>";
+print "<td>";
+print '<input class="flat" type="text" size="64" name="GOOGLE_API_SERVERKEY" value="'.$conf->global->GOOGLE_API_SERVERKEY.'">';
+print '</td>';
+print '<td>';
+print $langs->trans("KeepEmptyYoUsePublicQuotaOfAPI").'<br>';
+print $langs->trans("AllowGoogleToLoginWithKey","https://code.google.com/apis/console/","https://code.google.com/apis/console/").'<br>';
+print "</td>";
+print "</tr>";
+
+print '</table>';
+
+print info_admin($langs->trans("EnableAPI","https://code.google.com/apis/console/","https://code.google.com/apis/console/","Geocoding API"));
+
+dol_fiche_end();
+
+print '<div align="center">';
 print "<input type=\"submit\" name=\"save\" class=\"button\" value=\"".$langs->trans("Save")."\">";
-print "</center>";
+print "</div>";
 
 print "</form>\n";
 
-dol_fiche_end();
 
 dol_htmloutput_mesg($mesg);
 
@@ -156,4 +179,3 @@ $message='';
 llxFooter();
 
 $db->close();
-?>

@@ -44,7 +44,7 @@ class modGoogle extends DolibarrModules
 		// Module description used if translation string 'ModuleXXXDesc' not found (XXX is value MyModule)
 		$this->description = "Module to integrate Google tools in dolibarr";
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
-		$this->version = '3.4.9';
+		$this->version = '3.7.0';
 		// Key used in llx_const table to save module status enabled/disabled (where MYMODULE is value of property name of module in uppercase)
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
 		// Where to store the module in setup page (0=common,1=interface,2=others,3=very specific)
@@ -55,7 +55,7 @@ class modGoogle extends DolibarrModules
 		$this->picto='google@google';
 
 		// Defined if the directory /mymodule/inc/triggers/ contains triggers or not
-        $this->module_parts = array('triggers' => 1, 'hooks' => array('toprightmenu'));
+        $this->module_parts = array('triggers' => 1);
 
 		// Data directories to create when module is enabled
 		$this->dirs = array();
@@ -63,7 +63,7 @@ class modGoogle extends DolibarrModules
 		//$this->dirs[1] = DOL_DATA_ROOT.'/mymodule/temp;
 
 		// Config pages. Put here list of php page names stored in admmin directory used to setup module
-		$this->config_page_url = array('google.php@google');
+		$this->config_page_url = array('google_contactsync.php@google');
 
 		// Dependencies
 		$this->depends = array();		// List of modules id that must be enabled if this module is enabled
