@@ -138,6 +138,7 @@ class InterfaceGoogleCalendarSynchro
 			dol_syslog("Trigger '" . $this->name . "' for action '$action' launched by " . __FILE__ . ". id=" . $object->id);
 
 			$langs->load("other");
+			$langs->load("google@google");
 
 			if (empty($userlogin))
 			{

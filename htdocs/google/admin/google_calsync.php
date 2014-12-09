@@ -36,7 +36,7 @@ $langs->load("other");
 $def = array();
 $action=GETPOST("action");
 
-$max=50;
+$max=(empty($conf->global->GOOGLE_MAX_FOR_MASS_AGENDA_SYNC)?50:$conf->global->GOOGLE_MAX_FOR_MASS_AGENDA_SYNC);
 
 if (empty($conf->global->GOOGLE_AGENDA_NB)) $conf->global->GOOGLE_AGENDA_NB=5;
 $MAXAGENDA=empty($conf->global->GOOGLE_AGENDA_NB)?5:$conf->global->GOOGLE_AGENDA_NB;
@@ -118,12 +118,12 @@ if ($action == 'save')
 	if (! $error)
 	{
 		$db->commit();
-		setEventMessages($langs->trans("SetupSaved"), null);
+		setEventMessage($langs->trans("SetupSaved"));
 	}
 	else
 	{
 		$db->rollback();
-		setEventMessages('',$errors,'errors');
+		setEventMessage($errors,'errors');
 	}
 }
 
@@ -328,8 +328,8 @@ if ($action == 'pushallevents')
 			{
 				$object = new ActionComm($db);
 				$object->id=$obj->id;
-				$object->datep=$obj->datep;
-				$object->datef=$obj->datef;
+				$object->datep=$db->jdate($obj->datep);
+				$object->datef=$db->jdate($obj->datef);
 				$object->code=$obj->code;
 				$object->label=$obj->label;
 				$object->transparency=$obj->transparency;
@@ -446,14 +446,14 @@ print "</tr>";
 // Google login
 $var=!$var;
 print "<tr ".$bc[$var].">";
-print '<td class="fieldrequired">'.$langs->trans("GoogleIDAgenda")."</td>";
+print '<td>'.$langs->trans("GoogleIDAgenda")."</td>";
 print "<td>";
 print '<input class="flat" type="text" size="24" name="GOOGLE_LOGIN" autocomplete="off" value="'.$conf->global->GOOGLE_LOGIN.'">';
-//print ' &nbsp; '.$langs->trans("KeepEmptyYoUseLoginPassOfEventUser");
 print "</td>";
 print '<td>';
 print $langs->trans("Example").": yourlogin@gmail.com, email@mydomain.com, 'primary'<br>";
-print $langs->trans("GoogleSetupHelp");
+print $langs->trans("GoogleSetupHelp").'<br>';
+print $langs->trans("KeepEmptyYoUseLoginPassOfEventUser");
 print '</td>';
 print "</tr>";
 
@@ -489,7 +489,7 @@ if (! empty($conf->global->GOOGLE_API_SERVICEACCOUNT_P12KEY)) print $conf->globa
 print '<input type="file" name="GOOGLE_API_SERVICEACCOUNT_P12KEY_file">';
 print '</td>';
 print '<td>';
-print $langs->trans("AllowGoogleToLoginWithServiceAccountP12").'<br>';
+print $langs->trans("AllowGoogleToLoginWithServiceAccountP12","https://code.google.com/apis/console/","https://code.google.com/apis/console/").'<br>';
 print '</td>';
 print '</tr>';
 
@@ -528,8 +528,9 @@ print '</div>';
 print '<br>';
 
 
-if ($conf->global->MAIN_FEATURES_LEVEL > 0 && ! empty($conf->global->GOOGLE_DUPLICATE_INTO_GCAL))
+if (! empty($conf->global->GOOGLE_DUPLICATE_INTO_GCAL))
 {
+	print '<br>';
 	print '<br>';
 
 	print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';

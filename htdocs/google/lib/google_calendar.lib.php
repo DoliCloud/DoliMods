@@ -32,8 +32,9 @@ include_once DOL_DOCUMENT_ROOT.'/societe/class/societe.class.php';
 include_once DOL_DOCUMENT_ROOT.'/contact/class/contact.class.php';
 
 dol_include_once("/google/lib/google.lib.php");
-dol_include_once('/nltechno/google/includes/google-api-php-client/autoload.php');
+$res=dol_include_once('/google/includes/google-api-php-client/autoload.php');
 
+if (! class_exists('Google_Client')) dol_print_error('','Failed to load library file /nltechno/google/includes/google-api-php-client/autoload.php');
 
 /**
  * @var string Location of AuthSub key file.  include_path is used to find this
@@ -150,7 +151,7 @@ function getTokenFromServiceAccount($client_id, $service_account_name, $key_file
  */
 function createEvent($client, $object, $login='primary')
 {
-	global $conf;
+	global $conf, $db, $trans;
 	global $dolibarr_main_url_root;
 	global $user;
 
@@ -176,6 +177,7 @@ function createEvent($client, $object, $login='primary')
         $start->setDate($startTime);	// '2011-06-03'
 		$end->setDate($endTime);		// '2011-06-03'
     }
+
 	$event->setStart($start);
 	$event->setEnd($end);
 
@@ -218,16 +220,22 @@ function createEvent($client, $object, $login='primary')
 	$event->setGuestsCanInviteOthers(true);
 	$event->setGuestsCanSeeOtherGuests(true);
 
-	dol_syslog("createEvent for login=".$login.", label=".$object->label.", startTime=".$startTime.", endTime=".$endTime, LOG_DEBUG);
-
-	/*$attendee1 = new Google_Service_Calendar_EventAttendee();
-	$attendee1->setEmail('attendeeEmail');
-	// ...
-	$attendees = array($attendee1,
-	                   // ...
-	                  );
+	$attendees = array();
+	foreach($object->userassigned as $key => $val)
+	{
+		if ($key == $user->id) continue;	// ourself, not an attendee
+		$fuser=new User($db);
+		$fuser->fetch($key);
+		if ($fuser->id > 0 && $fuser->email)
+		{
+			$attendee = new Google_Service_Calendar_EventAttendee();
+			$attendee->setEmail($fuser->email);
+			$attendees[]=$attendee;
+		}
+	}
 	$event->attendees = $attendees;
-	*/
+
+	dol_syslog("createEvent for login=".$login.", label=".$object->label.", startTime=".$startTime.", endTime=".$endTime, LOG_DEBUG);
 
 	try {
 		$service = new Google_Service_Calendar($client['client']);
@@ -275,8 +283,6 @@ function updateEvent($client, $eventId, $object, $login='primary', $service=null
 	{
 		$oldeventId=$reg[1];
 	}
-
-	dol_syslog("updateEvent Update record on Google calendar with login=".$login.", id=".$oldeventId, LOG_DEBUG);
 
 	try {
 		if (empty($service)) $service = new Google_Service_Calendar($client['client']);
@@ -350,6 +356,23 @@ function updateEvent($client, $eventId, $object, $login='primary', $service=null
 		$event->setGuestsCanModify(false);
 		$event->setGuestsCanInviteOthers(true);
 		$event->setGuestsCanSeeOtherGuests(true);
+
+		$attendees = array();
+		foreach($object->userassigned as $key => $val)
+		{
+			if ($key == $user->id) continue;	// ourself, not an attendee
+			$fuser=new User($db);
+			$fuser->fetch($key);
+			if ($fuser->id > 0 && $fuser->email)
+			{
+				$attendee = new Google_Service_Calendar_EventAttendee();
+				$attendee->setEmail($fuser->email);
+				$attendees[]=$attendee;
+			}
+		}
+		$event->attendees = $attendees;
+
+		dol_syslog("updateEvent Update record on Google calendar with login=".$login.", id=".$oldeventId, LOG_DEBUG);
 
 		$updatedEvent = $service->events->update($login, $oldeventId, $event);
 
@@ -436,12 +459,13 @@ function google_complete_label_and_note(&$object, $langs)
 		{
 			$eventlabel .= ' - '.$thirdparty->name;
 			$tmpadd=$thirdparty->getFullAddress(0);
-			if ($tmpadd && empty($conf->global->GOOGLE_DISABLE_ADD_ADDRESS_INTO_DESC)) $object->note.="\n\n".$thirdparty->name."\n".$thirdparty->getFullAddress(1);
+			if ($tmpadd && empty($conf->global->GOOGLE_DISABLE_ADD_ADDRESS_INTO_DESC)) $object->note.="\n\n".$thirdparty->name."\n".$thirdparty->getFullAddress(1)."\n";
 			if (! empty($thirdparty->phone)) $object->note.="\n".$langs->trans("Phone").': '.$thirdparty->phone;
 			if (! empty($thirdparty->phone_pro)) $object->note.="\n".$langs->trans("Phone").': '.$thirdparty->phone_pro;
+			if (! empty($thirdparty->fax)) $object->note.="\n".$langs->trans("Fax").': '.$thirdparty->fax;
 
 			$urltoelem=$urlwithroot.'/societe/soc.ph?socid='.$thirdparty->id;
-			$object->note.="\n".$langs->trans("LinkToThirdPartyxx").': '.$urltoelem;
+			$object->note.="\n".$langs->trans("LinkToThirdParty").': '.$urltoelem;
 		}
 	}
 	if (($object->contactid > 0 || (! empty($object->contact->id) && $object->contact->id > 0)) && empty($conf->global->GOOGLE_DISABLE_EVENT_LABEL_INC_CONTACT)) {
@@ -451,11 +475,12 @@ function google_complete_label_and_note(&$object, $langs)
 		{
 			$eventlabel .= ' - '.$contact->getFullName($langs, 1);
 			$tmpadd=$contact->getFullAddress(0);
-			if ($tmpadd && empty($conf->global->GOOGLE_DISABLE_ADD_ADDRESS_INTO_DESC)) $object->note.="\n\n".$contact->name."\n".$contact->getFullAddress(1);
+			if ($tmpadd && empty($conf->global->GOOGLE_DISABLE_ADD_ADDRESS_INTO_DESC)) $object->note.="\n\n".$contact->name."\n".$contact->getFullAddress(1)."\n";
 			if (! empty($contact->phone)) $object->note.="\n".$langs->trans("Phone").': '.$contact->phone;
 			if (! empty($contact->phone_pro)) $object->note.="\n".$langs->trans("Phone").': '.$contact->phone_pro;
 			if (! empty($contact->phone_perso)) $object->note.="\n".$langs->trans("PhonePerso").': '.$contact->phone_perso;
 			if (! empty($contact->phone_mobile)) $object->note.="\n".$langs->trans("PhoneMobile").': '.$contact->phone_mobile;
+			if (! empty($contact->fax)) $object->note.="\n".$langs->trans("Fax").': '.$contact->fax;
 
 			$urltoelem=$urlwithroot.'/contact/fiche.ph?id='.$contact->id;
 			$object->note.="\n".$langs->trans("LinkToContact").': '.$urltoelem;

@@ -789,4 +789,3 @@ dol_htmloutput_errors((is_numeric($error)?'':$error),$errors);
 llxFooter();
 
 if (is_object($db)) $db->close();
-?>

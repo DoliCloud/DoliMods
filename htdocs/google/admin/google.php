@@ -215,7 +215,7 @@ print "<td>".$langs->trans("Name")."</td>";
 print "</tr>";
 
 // Setup for Oauth
-print '<tr><td colspan="2">';
+print '<tr '.$bc[$var].'><td colspan="2">';
 $urltocreatekey='https://code.google.com/apis/console/';
 print $langs->trans("DueToGoogleLimitYouNeedToLogin").'<br>';
 print $langs->trans("AllowGoogleToLoginSetupKey").'<br>';
@@ -266,4 +266,3 @@ print info_admin($message);
 llxFooter();
 
 $db->close();
-?>
