@@ -130,7 +130,7 @@ dol_fiche_head($head, 'tabagenda', $langs->trans("GoogleTools"));
 print $langs->trans("GoogleEnableThisTool").' '.$form->selectyesno("GOOGLE_ENABLE_AGENDA",isset($_POST["GOOGLE_ENABLE_AGENDA"])?$_POST["GOOGLE_ENABLE_AGENDA"]:$conf->global->GOOGLE_ENABLE_AGENDA,1).'<br><br>';
 
 
-$var=true;
+$var=false;
 print "<table class=\"noborder\" width=\"100%\">";
 
 print "<tr class=\"liste_titre\">";
@@ -172,7 +172,7 @@ print '<td class="nowrap" align="center">'.$langs->trans("Color")."</td>";
 print "</tr>";
 
 $i=1;
-$var=false;
+$var=true;
 while ($i <= $MAXAGENDA)
 {
 	$key=$i;

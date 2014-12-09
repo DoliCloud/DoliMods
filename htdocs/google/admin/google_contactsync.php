@@ -632,55 +632,6 @@ $var=false;
 print "<table class=\"noborder\" width=\"100%\">";
 
 print "<tr class=\"liste_titre\">";
-print '<td width="25%">'.$langs->trans("Parameter")."</td>";
-print "<td>".$langs->trans("Value")."</td>";
-print "</tr>";
-// Label to use for thirdparties
-if ($conf->societe->enabled)
-{
-	$var=!$var;
-	print '<tr '.$bc[$var].' id="syncthirdparties">';
-	print '<td class="fieldrequired">'.$langs->trans("GOOGLE_TAG_PREFIX")."<br /></td>";
-	print "<td>";
-	print '<input class="flat" type="text" size="28" name="GOOGLE_TAG_PREFIX" value="'.dol_escape_htmltag(getTagLabel('thirdparties')).'">';
-	print "</td>";
-	print "</tr>";
-}
-// Label to use for contacts
-if ($conf->societe->enabled)
-{
-	$var=!$var;
-	print '<tr '.$bc[$var].' id="synccontacts">';
-	print '<td class="fieldrequired">'.$langs->trans("GOOGLE_TAG_PREFIX_CONTACTS")."<br /></td>";
-	print "<td>";
-	print '<input class="flat" type="text" size="28" name="GOOGLE_TAG_PREFIX_CONTACTS" value="'.dol_escape_htmltag(getTagLabel('contacts')).'">';
-	print "</td>";
-	print "</tr>";
-}
-// Label to use for members
-if ($conf->adherent->enabled)
-{
-	$var=!$var;
-	print '<tr '.$bc[$var].' id="syncmembers">';
-	print '<td class="fieldrequired">'.$langs->trans("GOOGLE_TAG_PREFIX_MEMBERS")."<br /></td>";
-	print "<td>";
-	print '<input class="flat" type="text" size="28" name="GOOGLE_TAG_PREFIX_MEMBERS" value="'.dol_escape_htmltag(getTagLabel('members')).'">';
-	print "</td>";
-	print "</tr>";
-}
-print "</table>";
-print $langs->trans("GoogleContactSyncInfo").'<br>';
-
-
-print "<br>";
-print "<br>";
-
-
-
-$var=true;
-print "<table class=\"noborder\" width=\"100%\">";
-
-print "<tr class=\"liste_titre\">";
 print '<td width="25%">'.$langs->trans("Parameter").' ('.$langs->trans("ParametersForGoogleAPIv3Usage", "Contact").')'."</td>";
 print "<td>".$langs->trans("Value")."</td>";
 print "</tr>";
@@ -709,12 +660,6 @@ print info_admin($langs->trans("EnableAPI","https://code.google.com/apis/console
 
 
 dol_fiche_end();
-
-print '<div align="center">';
-print "<input type=\"submit\" name=\"save\" class=\"button\" value=\"".$langs->trans("Save")."\">";
-print "</div>";
-
-print "</form>\n";
 
 print '<div align="center">';
 print "<input type=\"submit\" name=\"save\" class=\"button\" value=\"".$langs->trans("Save")."\">";
@@ -844,4 +789,3 @@ dol_htmloutput_errors((is_numeric($error)?'':$error),$errors);
 llxFooter();
 
 if (is_object($db)) $db->close();
-

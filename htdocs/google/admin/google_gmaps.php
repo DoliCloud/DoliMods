@@ -119,7 +119,7 @@ print '<br>';
 print '<br>';
 
 
-$var=true;
+$var=false;
 print "<table class=\"noborder\" width=\"100%\">";
 
 print "<tr class=\"liste_titre\">";
@@ -150,7 +150,7 @@ print "<td>";
 print '<input class="flat" type="text" size="64" name="GOOGLE_API_SERVERKEY" value="'.$conf->global->GOOGLE_API_SERVERKEY.'">';
 print '</td>';
 print '<td>';
-print $langs->trans("KeepEmptyYoUsePublicQuotaOfAPI").'<br>';
+print $langs->trans("KeepEmptyYoUsePublicQuotaOfAPI","Geocoding API").'<br>';
 print $langs->trans("AllowGoogleToLoginWithKey","https://code.google.com/apis/console/","https://code.google.com/apis/console/").'<br>';
 print "</td>";
 print "</tr>";

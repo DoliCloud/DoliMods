@@ -411,7 +411,7 @@ dol_fiche_head($head, 'tabagendasync', $langs->trans("GoogleTools"));
 
 print $langs->trans("GoogleEnableSyncToCalendar").' '.$form->selectyesno("GOOGLE_DUPLICATE_INTO_GCAL",isset($_POST["GOOGLE_DUPLICATE_INTO_GCAL"])?$_POST["GOOGLE_DUPLICATE_INTO_GCAL"]:$conf->global->GOOGLE_DUPLICATE_INTO_GCAL,1).'<br><br>';
 
-$var=true;
+$var=false;
 
 print "<table class=\"noborder\" width=\"100%\">";
 
@@ -433,7 +433,7 @@ print '</table>';
 
 print '<br>';
 
-$var=false;
+$var=true;
 
 print "<table class=\"noborder\" width=\"100%\">";
 
