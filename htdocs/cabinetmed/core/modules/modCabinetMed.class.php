@@ -339,7 +339,7 @@ class modCabinetMed extends DolibarrModules
 						        'titre'=>'NewCategory',
 						        'mainmenu'=>'patients',
 						        'leftmenu'=>'',
-						        'url'=>'/categories/fiche.php?action=create&type=2',
+						        'url'=>'/categories/card.php?action=create&type=2',
 						        'langs'=>'categories',  // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 						        'position'=>110,
 						        'enabled'=>'$conf->categorie->enabled',         // Define condition to show or hide menu entry. Use '$conf->voyage->enabled' if entry must be visible if module is enabled.
@@ -366,7 +366,7 @@ class modCabinetMed extends DolibarrModules
         'titre'=>'NewContact',
         'mainmenu'=>'contacts',
         'leftmenu'=>'',
-        'url'=>'/contact/fiche.php?leftmenu=contacts&amp;action=create',
+        'url'=>'/contact/card.php?leftmenu=contacts&amp;action=create',
         'langs'=>'companies',  // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
         'position'=>120,
         'enabled'=>'$user->rights->societe->contact->creer',         // Define condition to show or hide menu entry. Use '$conf->voyage->enabled' if entry must be visible if module is enabled.

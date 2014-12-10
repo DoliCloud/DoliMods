@@ -233,7 +233,7 @@ if ($id > 0 || ! empty($ref))
 		}
 		else
 		{
-	        print ' <a href="'.DOL_URL_ROOT.'/contact/fiche.php?leftmenu=contacts&action=create&backtopage='.urlencode($_SERVER["PHP_SELF"]).'?socid='.$socid.'">'.$langs->trans("Add").'</a>';
+	        print ' <a href="'.DOL_URL_ROOT.'/contact/card.php?leftmenu=contacts&action=create&backtopage='.urlencode($_SERVER["PHP_SELF"]).'?socid='.$socid.'">'.$langs->trans("Add").'</a>';
 		}
 		print '</td>';
 		print '<td>';

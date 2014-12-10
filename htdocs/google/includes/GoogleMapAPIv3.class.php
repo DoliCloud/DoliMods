@@ -463,8 +463,8 @@ class GoogleMapAPI
 
 			$html='';
 			if ($mode == 'company' || $mode == 'thirdparty') $html.= '<a href="'.DOL_URL_ROOT.'/societe/soc.php?socid='.$elem->id.'">';
-			elseif ($mode == 'contact') $html.= '<a href="'.DOL_URL_ROOT.'/contact/fiche.php?id='.$elem->id.'">';
-			elseif ($mode == 'member') $html.= '<a href="'.DOL_URL_ROOT.'/adherents/fiche.php?rowid='.$elem->id.'">';
+			elseif ($mode == 'contact') $html.= '<a href="'.DOL_URL_ROOT.'/contact/card.php?id='.$elem->id.'">';
+			elseif ($mode == 'member') $html.= '<a href="'.DOL_URL_ROOT.'/adherents/card.php?rowid='.$elem->id.'">';
 			elseif ($mode == 'patient') $html.= '<a href="'.DOL_URL_ROOT.'/societe/soc.php?socid='.$elem->id.'">';
 			else $html.='<a>';
 			$html.= '<b>'.$elem->name.'</b>';

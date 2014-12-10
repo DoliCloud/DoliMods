@@ -21,7 +21,7 @@
 
 
 /**
- * 		\file       htdocs/compta/ventilation/liste.php
+ * 		\file       htdocs/ventilation/liste2.php
  * 		\ingroup    compta
  * 		\brief      Page de ventilation des lignes de facture
  */
@@ -58,14 +58,14 @@ if($_POST["action"] == 'ventil')
 		$mesLignesCochees=$_POST['mesCasesCochees'];
 		$mesCodesVentilChoisis = $_POST['codeventil'];
 		$cpt = 0;
-		foreach($mesLignesCochees as $maLigneCochee) 
+		foreach($mesLignesCochees as $maLigneCochee)
 		{
 			//print '<div><font color="red">id selectionnee : '.$monChoix."</font></div>";
 			$maLigneCourante = split("_", $maLigneCochee);
 			$monId = $maLigneCourante[0];
 			$monNumLigne = $maLigneCourante[1];
 			$monCompte = $mesCodesVentilChoisis[$monNumLigne];
-  
+
 			$sql = " UPDATE ".MAIN_DB_PREFIX."facturedet";
 			$sql .= " SET fk_code_ventilation = ".$monCompte;
 			$sql .= " WHERE rowid = ".$monId;
@@ -74,13 +74,13 @@ if($_POST["action"] == 'ventil')
 			{
 				print '<div><font color="green">'.$langs->trans("Line of invoice").' '.$monId.' '.$langs->trans("VentilatedinAccount").' : '.$monCompte.'</font></div>';
 			}
-			else 
+			else
 			{
 				print '<div><font color="red">'.$langs->trans("ErrorDB").' : '.$langs->trans("Line of invoice").' '.$monId.' '.$langs->trans("NotVentilatedinAccount").' : '.$monCompte.'<br/> <pre>'.$sql.'</pre></font></div>';
 			}
-  
-			$cpt++; 
-  
+
+			$cpt++;
+
 		}
 	}
 	else
@@ -90,7 +90,7 @@ if($_POST["action"] == 'ventil')
 	print '<div><font color="red">'.$langs->trans("EndProcessing").'</font></div>';
 }
 
-/* 
+/*
  * Liste des comptes
 */
 
@@ -104,8 +104,8 @@ $cgn = array();
 if ($resultCompte)
 {
 	$numCompte = $db->num_rows($resultCompte);
-	$iCompte = 0; 
-  
+	$iCompte = 0;
+
 	while ($iCompte < $numCompte)
 	{
 		$rowCompte = $db->fetch_row($resultCompte);
@@ -178,18 +178,18 @@ if ($result)
 		if ($product_static->id) print $product_static->getNomUrl(1);
 		else print '&nbsp;';
 		print '</td>';
-		
+
 		print '<td>'.dol_trunc($objp->product_label,24).'</td>';
 		print '<td>'.nl2br(dol_trunc($objp->description,32)).'</td>';
 
 		print '<td align="right">';
 		print price($objp->total_ht);
 		print '</td>';
-		
+
 		print '<td align="right">';
 		print $objp->code_sell;
-		print '</td>';	
-		
+		print '</td>';
+
 
 		//Colonne choix du compte
 		print '<td align="center">';

@@ -19,7 +19,7 @@
  */
 
 /**
- *      \file       htdocs/compta/ventilation/fiche.php
+ *      \file       htdocs/ventilation/fiche.php
  *      \ingroup    compta
  *      \brief      Page fiche ventilation
  */
@@ -73,8 +73,8 @@ $result = $db->query($sql);
 if ($result)
 {
   $num = $db->num_rows($result);
-  $i = 0; 
-  
+  $i = 0;
+
   while ($i < $num)
     {
       $row = $db->fetch_row($result);
@@ -115,11 +115,11 @@ if($_GET["id"])
             $objp = $db->fetch_object($result);
 
 
-            
+
                 print '<form action="fiche.php?id='.$_GET["id"].'" method="post">'."\n";
                 print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
                 print '<input type="hidden" name="action" value="ventil">';
-            
+
 
 
             print_fiche_titre("Ventilation");
@@ -138,10 +138,10 @@ if($_GET["id"])
             print '<tr><td width="20%">'.$langs->trans("Account").'</td><td>';
             print $cgs[$objp->fk_code_ventilation];
             print '<tr><td width="20%">'.$langs->trans("NewAccount").'</td><td>';
-            print $form->selectarray("codeventil",$cgs, $cgn[$objp->code_sell]);            
+            print $form->selectarray("codeventil",$cgs, $cgn[$objp->code_sell]);
             print '</td></tr>';
             print '<tr><td>&nbsp;</td><td><input type="submit" class="button" value="'.$langs->trans("Update").'"></td></tr>';
-            
+
             print '</table>';
             print '</form>';
         }
