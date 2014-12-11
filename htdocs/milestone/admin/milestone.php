@@ -1,9 +1,9 @@
 <?php
-/* Copyright (C) 2011 Regis Houssin  <regis@dolibarr.fr>
+/* Copyright (C) 2011-2013 Regis Houssin  <regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -12,29 +12,31 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * or see http://www.gnu.org/
  */
 
 /**
- *  \file       /milestone/admin/parameters.php
+ *  \file       /milestone/admin/milestone.php
  *  \ingroup    milestone
- *  \brief      Page d'administration/configuration du module Milestone
+ *  \brief      Administration/configuration of Milestone module
  */
 
-$res=@include("../../main.inc.php");					// For root directory
-if (! $res) $res=@include("../../../main.inc.php");		// For "custom" directory
+$res=@include "../../main.inc.php";					// For root directory
+if (! $res && file_exists($_SERVER['DOCUMENT_ROOT']."/main.inc.php"))
+	$res=@include $_SERVER['DOCUMENT_ROOT']."/main.inc.php"; // Use on dev env only
+if (! $res) $res=@include "../../../main.inc.php";		// For "custom" directory
 
-require_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
-require_once("../lib/milestone.lib.php");
+require '../lib/milestone.lib.php';
 
 $langs->load("admin");
 $langs->load("milestone@milestone");
 
 // Security check
-if (! $user->admin) accessforbidden();
+if (! $user->admin)
+	accessforbidden();
 
-$action	= GETPOST('action');
+$action	= GETPOST('action', 'alpha');
 
 
 /*
@@ -75,7 +77,9 @@ if (preg_match('/del_(.*)/',$action,$reg))
 llxHeader('',$langs->trans("MilestoneSetup"));
 
 $linkback='<a href="'.DOL_URL_ROOT.'/admin/modules.php">'.$langs->trans("BackToModuleList").'</a>';
-print_fiche_titre($langs->trans("MilestoneSetup"),$linkback,'milestone@milestone');
+print_fiche_titre($langs->trans("MilestoneSetup"), $linkback, 'milestone@milestone');
+
+print '<br>';
 
 $head = milestoneadmin_prepare_head();
 
@@ -93,24 +97,24 @@ print '</tr>';
  * Formulaire parametres divers
  */
 
-// 
+// Hide product details inside milestone
 $var=!$var;
 print '<tr '.$bc[$var].'>';
 print '<td>'.$langs->trans("HideBydefaultProductDetailsInsideMilestone").'</td>';
 print '<td align="center" width="20">&nbsp;</td>';
 
 print '<td align="center" width="100">';
-if ($conf->use_javascript_ajax)
+if (! empty($conf->use_javascript_ajax))
 {
 	print ajax_constantonoff('MILESTONE_HIDE_PRODUCT_DETAILS');
 }
 else
 {
-	if($conf->global->MILESTONE_HIDE_PRODUCT_DETAILS == 0)
+	if (empty($conf->global->MILESTONE_HIDE_PRODUCT_DETAILS))
 	{
 		print '<a href="'.$_SERVER['PHP_SELF'].'?action=set_MILESTONE_HIDE_PRODUCT_DETAILS">'.img_picto($langs->trans("Disabled"),'off').'</a>';
 	}
-	else if($conf->global->MILESTONE_HIDE_PRODUCT_DETAILS == 1)
+	else
 	{
 		print '<a href="'.$_SERVER['PHP_SELF'].'?action=del_MILESTONE_HIDE_PRODUCT_DETAILS">'.img_picto($langs->trans("Enabled"),'on').'</a>';
 	}
@@ -124,26 +128,50 @@ print '<td>'.$langs->trans("HideByDefaultProductDescInsideMilestone").'</td>';
 print '<td align="center" width="20">&nbsp;</td>';
 
 print '<td align="center" width="100">';
-if ($conf->use_javascript_ajax)
+if (! empty($conf->use_javascript_ajax))
 {
 	print ajax_constantonoff('MILESTONE_HIDE_PRODUCT_DESC');
 }
 else
 {
-	if($conf->global->MILESTONE_HIDE_PRODUCT_DESC == 0)
+	if (empty($conf->global->MILESTONE_HIDE_PRODUCT_DESC))
 	{
 		print '<a href="'.$_SERVER['PHP_SELF'].'?action=set_MILESTONE_HIDE_PRODUCT_DESC">'.img_picto($langs->trans("Disabled"),'off').'</a>';
 	}
-	else if($conf->global->MILESTONE_HIDE_PRODUCT_DESC == 1)
+	else
 	{
 		print '<a href="'.$_SERVER['PHP_SELF'].'?action=del_MILESTONE_HIDE_PRODUCT_DESC">'.img_picto($langs->trans("Enabled"),'on').'</a>';
 	}
 }
 print '</td></tr>';
 
+// Hide milestone amount
+$var=!$var;
+print '<tr '.$bc[$var].'>';
+print '<td>'.$langs->trans("HideByDefaultMilestoneAmount").'</td>';
+print '<td align="center" width="20">&nbsp;</td>';
+
+print '<td align="center" width="100">';
+if (! empty($conf->use_javascript_ajax))
+{
+	print ajax_constantonoff('MILESTONE_HIDE_MILESTONE_AMOUNT');
+}
+else
+{
+	if (empty($conf->global->MILESTONE_HIDE_MILESTONE_AMOUNT))
+	{
+		print '<a href="'.$_SERVER['PHP_SELF'].'?action=set_MILESTONE_HIDE_MILESTONE_AMOUNT">'.img_picto($langs->trans("Disabled"),'off').'</a>';
+	}
+	else
+	{
+		print '<a href="'.$_SERVER['PHP_SELF'].'?action=del_MILESTONE_HIDE_MILESTONE_AMOUNT">'.img_picto($langs->trans("Enabled"),'on').'</a>';
+	}
+}
+print '</td></tr>';
+
 print '</table>';
 
-$db->close();
 
 llxFooter();
+$db->close();
 ?>
