@@ -21,7 +21,7 @@
 
 
 /**
- * 		\file       htdocs/compta/ventilation/liste.php
+ * 		\file       htdocs/ventilation/liste.php
  * 		\ingroup    compta
  * 		\brief      Page de ventilation des lignes de facture
  */
@@ -78,9 +78,9 @@ if ($result)
 	print '</table>';
 	print_barre_liste("Lignes de facture à ventiler",$page,"liste.php","",$sortfield,$sortorder,'',$num_lignes);
 
-    	
-	
-	
+
+
+
 
 	print '<table class="noborder" width="100%">';
 	print '<tr class="liste_titre"><td>'.$langs->trans("Invoice").'</td>';
@@ -115,11 +115,11 @@ if ($result)
 		if ($product_static->id) print $product_static->getNomUrl(1);
 		else print '&nbsp;';
 		print '</td>';
-		
+
 		print '<td align="left">';
 		print $objp->code_sell;
 		print '</td>';
-		
+
 		print '<td>'.dol_trunc($objp->product_label,24).'</td>';
 		print '<td>'.nl2br(dol_trunc($objp->description,32)).'</td>';
 

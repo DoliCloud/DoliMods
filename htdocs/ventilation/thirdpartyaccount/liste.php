@@ -14,15 +14,12 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
- *
- * $Id: liste.php,v 1.12 2011/07/31 22:23:31 eldy Exp $
  */
 
 /**
-        \file       htdocs/compta/param/comptes/liste.php
+        \file       htdocs/ventilation/thirdpartyaccount/liste.php
         \ingroup    compta
         \brief      Onglet de gestion de parametrages des ventilations
-        \version    $Revision: 1.12 $
 */
 
 // Dolibarr environment

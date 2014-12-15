@@ -20,7 +20,7 @@
  */
 
 /**
- * \file htdocs/compta/param/comptes/liste.php
+ * \file htdocs/ventilation/bookkeeping/liste.php
  * \ingroup compta
  * \brief Onglet de gestion de parametrages des ventilations
  * \version $Revision: 1.12 $
@@ -55,9 +55,9 @@ $formventilation = new FormVentilation ( $db );
  * Action
  */
 if ($action == 'delbookkeeping') {
-	
+
 	$import_key = GETPOST ( 'importkey', 'alpha' );
-	
+
 	if (! empty ( $import_key )) {
 		$object = new BookKeeping ( $db );
 		$result = $object->delete_by_importkey ( $import_key );
@@ -68,16 +68,16 @@ if ($action == 'delbookkeeping') {
 	}
 } // export csv
 else if ($action == 'export_csv') {
-	
+
 	header( 'Content-Type: text/csv' );
 	header( 'Content-Disposition: attachment;filename=export_csv.csv');
-	
+
 	$object = new BookKeeping ( $db );
 	$result = $object->export_bookkeping ('ebp');
 	if ($result < 0) {
 		setEventMessage ( $object->errors, 'errors' );
 	}
-	
+
 	foreach($object->linesexport as $line) {
 		print $line->id.',';
 		print '"'.dol_print_date($line->doc_date,'%d%m%Y').'",';
@@ -92,27 +92,27 @@ else if ($action == 'export_csv') {
 		print '"'.$conf->currency.'",';
 		print "\n";
 	}
-} 
+}
 
 else {
 
 llxHeader ( '', 'Compta - Grand Livre' );
-	
+
 /*
  * Mode Liste
  *
  *
  *
  */
-	
+
 	$sql = "SELECT bk.rowid, bk.doc_date, bk.doc_type, bk.doc_ref, bk.code_tiers, bk.numero_compte , bk.label_compte, bk.debit , bk.credit, bk.montant , bk.sens , bk.code_journal , bk.piece_num ";
-	
+
 	$sql .= " FROM " . MAIN_DB_PREFIX . "bookkeeping as bk";
-	
+
 	if (dol_strlen ( trim ( GETPOST ( "search_doc_type" ) ) )) {
-		
+
 		$sql .= " WHERE bk.doc_type LIKE '%" . GETPOST ( "search_doc_type" ) . "%'";
-		
+
 		if (dol_strlen ( trim ( GETPOST ( "search_doc_ref" ) ) )) {
 			$sql .= " AND bk.doc_ref LIKE '%" . GETPOST ( "search_doc_ref" ) . "%'";
 		}
@@ -123,40 +123,40 @@ llxHeader ( '', 'Compta - Grand Livre' );
 	if (dol_strlen ( trim ( GETPOST ( "search_compte" ) ) )) {
 		$sql .= " WHERE bk.numero_compte LIKE '%" . GETPOST ( "search_compte" ) . "%'";
 	}
-	
+
 	if (dol_strlen ( trim ( GETPOST ( "search_tiers" ) ) )) {
 		$sql .= " WHERE bk.code_tiers LIKE '%" . GETPOST ( "search_tiers" ) . "%'";
 	}
-	
+
 	$sql .= " ORDER BY $sortfield $sortorder " . $db->plimit ( $conf->liste_limit + 1, $offset );
-	
+
 	dol_syslog ( "bookkeping:liste:create sql=" . $sql, LOG_DEBUG );
 	$resql = $db->query ( $sql );
 	if ($resql) {
 		$num = $db->num_rows ( $resql );
 		$i = 0;
-		
+
 		print_barre_liste ( "Grand Livre", $page, "liste.php", "", $sortfield, $sortorder, '', $num );
-		
+
 		print '<form name="add" action="' . $_SERVER ["PHP_SELF"] . '" method="POST">';
 		print '<input type="hidden" name="token" value="' . $_SESSION ['newtoken'] . '">';
 		print '<input type="hidden" name="action" value="delbookkeeping">';
-		
+
 		print $formventilation->select_bookkeeping_importkey ( 'importkey', GETPOST ( 'importkey' ) );
-		
+
 		print '<div class="inline-block divButAction"><input type="submit" class="butAction" value="' . $langs->trans ( "DelBookKeeping" ) . '" /></div>';
-		
+
 		print '</form>';
-		
+
 		print '<a href="./fiche.php?action=create" class="butAction">Nouveau mouvement comptable</a>';
-		
+
 
 		print '<form name="add" action="' . $_SERVER ["PHP_SELF"] . '" method="POST">';
 		print '<input type="hidden" name="token" value="' . $_SESSION ['newtoken'] . '">';
 		print '<input type="hidden" name="action" value="export_csv">';
 		print '<input type="submit" class="button" style="float: right;" value="Export CSV" />';
 		print '</form>';
-		
+
 		print "<table class=\"noborder\" width=\"100%\">";
 		print '<tr class="liste_titre">';
 		print_liste_field_titre ( $langs->trans ( "Doctype" ), "liste.php", "bk.doc_type" );
@@ -171,7 +171,7 @@ llxHeader ( '', 'Compta - Grand Livre' );
 		print_liste_field_titre ( $langs->trans ( "Sens" ), "liste.php", "bk.sens" );
 		print_liste_field_titre ( $langs->trans ( "Codejournal" ), "liste.php", "bk.code_journal" );
 		print "</tr>\n";
-		
+
 		print '<tr class="liste_titre">';
 		print '<form action="liste.php" method="GET">';
 		print '<td><input type="text" name="search_doc_type" value="' . $_GET ["search_doc_type"] . '"></td>';
@@ -189,15 +189,15 @@ llxHeader ( '', 'Compta - Grand Livre' );
 		print '</td>';
 		print '</form>';
 		print '</tr>';
-		
+
 		$var = True;
-		
+
 		while ( $i < min ( $num, $conf->liste_limit ) ) {
 			$obj = $db->fetch_object ( $resql );
 			$var = ! $var;
-			
+
 			print "<tr $bc[$var]>";
-			
+
 			print '<td><a href="./fiche.php?piece_num=' . $obj->piece_num . '">';
 			print img_edit ();
 			print '</a>&nbsp;' . $obj->doc_type . '</td>' . "\n";
@@ -219,7 +219,7 @@ llxHeader ( '', 'Compta - Grand Livre' );
 	} else {
 		dol_print_error ( $db );
 	}
-	
+
 	llxFooter ( '' );
 }
 

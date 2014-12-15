@@ -22,7 +22,7 @@
 
 
 /**
-        \file       htdocs/custom/ventilation/param/comptes/fiche.php
+        \file       htdocs/ventilation/param/fiche.php
         \ingroup    ventilation compta
         \brief      Page de la fiche des comptes comptables
         \version    $Revision: 1.14 $
@@ -80,7 +80,7 @@ elseif (GETPOST("action") == 'maj' && $user->rights->compta->ventilation->parame
 
   $compte->numero   = GETPOST("numero");
   $compte->intitule = GETPOST("intitule");
-  
+
   // exemple traitement case à cocher journal de vente
   $compte->sellsjournal = (GETPOST("sellsjournal") == 'on')?'O':'N';
 
@@ -146,7 +146,7 @@ elseif ($action == 'update' && $user->rights->compta->ventilation->parametrer)
     $nbligne=0;
 
     $compte = new ComptaCompte($db, GETPOST('id'));
-    
+
     print_fiche_titre($langs->trans("UpdateAccount"));
 
     print '<form action="fiche.php" method="post">';
