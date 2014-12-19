@@ -1,9 +1,9 @@
 <?php
-/* Copyright (C) 2010-2012 Regis Houssin  <regis@dolibarr.fr>
+/* Copyright (C) 2010-2014 Regis Houssin  <regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -23,7 +23,7 @@
  *	\ingroup    milestone
  *	\brief      Fichier de description et activation du module Milestone
  */
-include_once(DOL_DOCUMENT_ROOT ."/core/modules/DolibarrModules.class.php");
+include_once DOL_DOCUMENT_ROOT ."/core/modules/DolibarrModules.class.php";
 
 
 /**
@@ -48,7 +48,7 @@ class modMilestone extends DolibarrModules
 		$this->description = "Gestion des jalons (projets, contrats, propales, ...)";
 
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
-		$this->version = '1.0.3.4';
+		$this->version = '1.0.6.2';
 
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
 		$this->special = 2;
@@ -63,10 +63,17 @@ class modMilestone extends DolibarrModules
 		// Config pages
 		$this->config_page_url = array('milestone.php@milestone');
 		$this->langfiles = array('milestone@milestone');
-		
+
 		// Defined all module parts (triggers, login, substitutions, menus, css, etc...)
 		$this->module_parts = array('triggers' => 1,
-									'hooks' => array('propalcard','ordercard','invoicecard'));
+									'hooks' => array(
+											'propalcard',
+											'ordercard',
+											'invoicecard'
+											//'ordersuppliercard',
+											//'invoicesuppliercard'
+											)
+									);
 
 		// Constantes
 		$this->const=array(1=>array('MAIN_FORCE_RELOAD_PAGE',"chaine",1,'',0));
@@ -114,7 +121,7 @@ class modMilestone extends DolibarrModules
 	function init()
 	{
 		$sql = array();
-		
+
 		$result=$this->load_tables();
 
 		return $this->_init($sql);
@@ -133,7 +140,7 @@ class modMilestone extends DolibarrModules
 
 		return $this->_remove($sql);
 	}
-	
+
 	/**
 	 *		Create tables and keys required by module
 	 *		This function is called by this->init.

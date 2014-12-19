@@ -161,3 +161,4 @@ RecordCreatedFromRDV=Outcome created from rendez-vous %s (%s)
 ConsultCreatedBy=Consultation created by
 ConsultTooOld=Can't modify consultation. This one is older than <b>%s</b> days. Note: Option CABINETMED_DELAY_TO_LOCK_RECORD can be added/modified by a technical administrator to modify/remove this delay.
 HeightPeople=Height
+PatientDeleted=Patient "%s" was deleted from database.

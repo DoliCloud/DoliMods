@@ -19,7 +19,7 @@
  */
 
 /**
-        \file       htdocs/compta/param/comptes/liste.php
+        \file       htdocs/ventilation/param/liste.php
         \ingroup    compta
         \brief      Onglet de gestion de parametrages des ventilations
         \version    $Revision: 1.12 $

@@ -33,6 +33,7 @@ if (! $res && preg_match('/\/nltechno([^\/]*)\//',$_SERVER["PHP_SELF"],$reg)) $r
 if (! $res) die("Include of main fails");
 include_once(DOL_DOCUMENT_ROOT."/core/lib/company.lib.php");
 include_once(DOL_DOCUMENT_ROOT."/core/lib/ajax.lib.php");
+include_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/contact/class/contact.class.php");
 require_once(DOL_DOCUMENT_ROOT.'/core/class/html.formcompany.class.php');
 include_once("./class/patient.class.php");
@@ -225,8 +226,15 @@ if ($id > 0 || ! empty($ref))
 		print '<td colspan="1">';
 		// $contactAlreadySelected = $commande->getListContactId('external');	// On ne doit pas desactiver un contact deja selectionner car on doit pouvoir le seclectionner une deuxieme fois pour un autre type
 		$nbofcontacts=$html->select_contacts(0, '', 'contactid', 1, '', '', 1);
-		if ($nbofcontacts == 0) print $langs->trans("NoContactDefined");
-        print ' <a href="'.DOL_URL_ROOT.'/contact/fiche.php?leftmenu=contacts&action=create&backtopage='.urlencode($_SERVER["PHP_SELF"]).'?socid='.$socid.'">'.$langs->trans("Add").'</a>';
+		//if ($nbofcontacts == 0) print $langs->trans("NoContactDefined");
+		if (versioncompare(versiondolibarrarray(),array(3,7,-3)) >= 0)
+		{
+	        print ' <a href="'.DOL_URL_ROOT.'/contact/card.php?leftmenu=contacts&action=create&backtopage='.urlencode($_SERVER["PHP_SELF"]).'?socid='.$socid.'">'.$langs->trans("Add").'</a>';
+		}
+		else
+		{
+	        print ' <a href="'.DOL_URL_ROOT.'/contact/card.php?leftmenu=contacts&action=create&backtopage='.urlencode($_SERVER["PHP_SELF"]).'?socid='.$socid.'">'.$langs->trans("Add").'</a>';
+		}
 		print '</td>';
 		print '<td>';
 		$formcompany->selectTypeContact($societe, '', 'type','external','libelle',1);
@@ -341,4 +349,3 @@ if ($id > 0 || ! empty($ref))
 llxFooter();
 
 $db->close();
-?>

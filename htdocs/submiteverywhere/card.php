@@ -136,7 +136,7 @@ if ($action == 'sendallconfirmed' && $confirm == 'yes')
 	$sql .= " FROM ".MAIN_DB_PREFIX."submitew_targets as mc";
 	$sql .= " WHERE mc.statut < 1 AND mc.fk_mailing = ".$id;
 
-	dol_syslog("fiche.php: select targets sql=".$sql, LOG_DEBUG);
+	dol_syslog("card.php: select targets sql=".$sql, LOG_DEBUG);
 	$resql=$db->query($sql);
 	if ($resql)
 	{
@@ -144,7 +144,7 @@ if ($action == 'sendallconfirmed' && $confirm == 'yes')
 
 		if ($num)
 		{
-			dol_syslog("comm/mailing/fiche.php: nb of targets = ".$num, LOG_DEBUG);
+			dol_syslog("comm/mailing/card.php: nb of targets = ".$num, LOG_DEBUG);
 
 			// Positionne date debut envoi
 			$sql="UPDATE ".MAIN_DB_PREFIX."mailing SET date_envoi=".$db->idate(gmmktime())." WHERE rowid=".$id;
@@ -230,7 +230,7 @@ if ($action == 'sendallconfirmed' && $confirm == 'yes')
 					// Mail successful
 					$nbok++;
 
-					dol_syslog("comm/mailing/fiche.php: ok for #".$i.($mail->error?' - '.$mail->error:''), LOG_DEBUG);
+					dol_syslog("comm/mailing/card.php: ok for #".$i.($mail->error?' - '.$mail->error:''), LOG_DEBUG);
 
 					$sql="UPDATE ".MAIN_DB_PREFIX."mailing_cibles";
 					$sql.=" SET statut=1, date_envoi=".$db->idate(gmmktime())." WHERE rowid=".$obj->rowid;
@@ -245,7 +245,7 @@ if ($action == 'sendallconfirmed' && $confirm == 'yes')
 					// Mail failed
 					$nbko++;
 
-					dol_syslog("comm/mailing/fiche.php: error for #".$i.($mail->error?' - '.$mail->error:''), LOG_WARNING);
+					dol_syslog("comm/mailing/card.php: error for #".$i.($mail->error?' - '.$mail->error:''), LOG_WARNING);
 
 					$sql="UPDATE ".MAIN_DB_PREFIX."mailing_cibles";
 					$sql.=" SET statut=-1, date_envoi=".$db->idate(gmmktime())." WHERE rowid=".$obj->rowid;
@@ -272,7 +272,7 @@ if ($action == 'sendallconfirmed' && $confirm == 'yes')
 		}
 
 		$sql="UPDATE ".MAIN_DB_PREFIX."mailing SET statut=".$statut." WHERE rowid=".$id;
-		dol_syslog("comm/mailing/fiche.php: update global status sql=".$sql, LOG_DEBUG);
+		dol_syslog("comm/mailing/card.php: update global status sql=".$sql, LOG_DEBUG);
 		$resql2=$db->query($sql);
 		if (! $resql2)
 		{
@@ -507,7 +507,7 @@ if ($action == 'confirm_valid')
 	}
 	else
 	{
-		Header("Location: fiche.php?id=".$_REQUEST["id"]);
+		Header("Location: card.php?id=".$_REQUEST["id"]);
 		exit;
 	}
 }
@@ -807,7 +807,7 @@ else
 					print '<a class="butAction" href="'.$_SERVER['PHP_SELF'].'?action=edit&amp;id='.$object->id.'">'.$langs->trans("EditMailing").'</a>';
 				}
 
-				//print '<a class="butAction" href="fiche.php?action=test&amp;id='.$object->id.'">'.$langs->trans("PreviewMailing").'</a>';
+				//print '<a class="butAction" href="card.php?action=test&amp;id='.$object->id.'">'.$langs->trans("PreviewMailing").'</a>';
 
 				print '<a class="butAction" href="'.$_SERVER['PHP_SELF'].'?action=test&amp;id='.$object->id.'">'.$langs->trans("TestMailing").'</a>';
 
@@ -885,7 +885,7 @@ else
 				$formmail->param["action"]="send";
 				$formmail->param["models"]="body";
 				$formmail->param["mailid"]=$object->id;
-				$formmail->param["returnurl"]=DOL_URL_ROOT."/comm/mailing/fiche.php?id=".$object->id;
+				$formmail->param["returnurl"]=DOL_URL_ROOT."/comm/mailing/card.php?id=".$object->id;
 
 				// Init list of files
 				if (! empty($_REQUEST["mode"]) && $_REQUEST["mode"]=='init')
@@ -984,7 +984,7 @@ else
 			print "</div>";
 
 			print "\n";
-			print '<form name="edit_mailing" action="fiche.php" method="post" enctype="multipart/form-data">'."\n";
+			print '<form name="edit_mailing" action="card.php" method="post" enctype="multipart/form-data">'."\n";
 			print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
 			print '<input type="hidden" name="action" value="update">';
 			print '<input type="hidden" name="id" value="'.$object->id.'">';

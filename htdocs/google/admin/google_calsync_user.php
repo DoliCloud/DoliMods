@@ -25,9 +25,8 @@ $res=0;
 if (! $res && file_exists("../main.inc.php")) $res=@include("../main.inc.php");
 if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.php");
 if (! $res && file_exists("../../../main.inc.php")) $res=@include("../../../main.inc.php");
-if (! $res && file_exists("../../../../main.inc.php")) $res=@include("../../../../main.inc.php");
-if (! $res && file_exists("../../../../../main.inc.php")) $res=@include("../../../../../main.inc.php");
-if (! $res && preg_match('/\/nltechno([^\/]*)\//',$_SERVER["PHP_SELF"],$reg)) $res=@include("../../../../dolibarr".$reg[1]."/htdocs/main.inc.php"); // Used on dev env only
+if (! $res && @file_exists("../../../../main.inc.php")) $res=@include("../../../../main.inc.php");
+if (! $res && preg_match('/\/(?:custom|nltechno)([^\/]*)\//',$_SERVER["PHP_SELF"],$reg)) $res=@include("../../../../dolibarr".$reg[1]."/htdocs/main.inc.php"); // Used on dev env only
 if (! $res) die("Include of main fails");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/functions2.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/usergroups.lib.php");
@@ -141,6 +140,13 @@ llxHeader();
 
 $head = user_prepare_head($fuser);
 
+
+print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post" autocomplete="off">';
+print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
+print '<input type="hidden" name="action" value="save">';
+print '<input type="hidden" name="id" value="'.$id.'">';
+
+
 $title = $langs->trans("User");
 dol_fiche_head($head, 'gsetup', $title, 0, 'user');
 
@@ -166,21 +172,15 @@ print "</tr>\n";
 print '</table><br>';
 
 
-$user = $conf->global->GOOGLE_LOGIN;
-$pwd = $conf->global->GOOGLE_PASSWORD;
+$userlogin = $conf->global->GOOGLE_LOGIN;
 
-if (! empty($user) && ! empty($pwd))	// We use setup of user
+if (! empty($userlogin))	// We use setup of user
 {
-	print $langs->trans("GoogleSetupIsGlobal",$user);
+	print $langs->trans("GoogleSetupIsGlobal",$userlogin);
 }
 else
 {
 	print_fiche_titre($langs->trans("AgendaSync"), '', '');
-
-	print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post" autocomplete="off">';
-	print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
-	print '<input type="hidden" name="action" value="save">';
-	print '<input type="hidden" name="id" value="'.$id.'">';
 
 	$var=false;
 	print "<table class=\"noborder\" width=\"100%\">";
@@ -202,21 +202,24 @@ else
 	// Google login
 	$var=!$var;
 	print "<tr ".$bc[$var].">";
-	print '<td class="fieldrequired">'.$langs->trans("GOOGLE_LOGIN")."</td>";
+	print '<td class="fieldrequired">'.$langs->trans("GoogleIDAgenda")."</td>";
 	print "<td>";
 	if (! empty($conf->global->GOOGLE_LOGIN)) print $conf->global->GOOGLE_LOGIN;
 	else print '<input class="flat" type="text" size="30" name="GOOGLE_LOGIN" value="'.$fuser->conf->GOOGLE_LOGIN.'">';
 	print "</td>";
 	print "</tr>";
-	// Google password
+
 	$var=!$var;
 	print "<tr ".$bc[$var].">";
-	print '<td class="fieldrequired">'.$langs->trans("GOOGLE_PASSWORD")."</td>";
-	print "<td>";
-	if (! empty($conf->global->GOOGLE_PASSWORD)) print $conf->global->GOOGLE_PASSWORD;
-	else print '<input class="flat" type="password" size="10" name="GOOGLE_PASSWORD" value="'.$fuser->conf->GOOGLE_PASSWORD.'">';
-	print "</td>";
-	print "</tr>";
+	print '<td class="fieldrequired">'.$langs->trans("GOOGLE_API_SERVICEACCOUNT_EMAIL")."</td>";
+	print '<td>';
+	print '<input class="flat" type="text" size="90" name="GOOGLE_API_SERVICEACCOUNT_EMAIL" value="'.$conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL.'" disabled="disabled">';
+	print '</td>';
+	/*print '<td>';
+	print $langs->trans("AllowGoogleToLoginWithServiceAccount","https://code.google.com/apis/console/","https://code.google.com/apis/console/").'<br>';
+	print '</td>';*/
+	print '</tr>';
+
 	/* Done by default
 	$var=!$var;
 	print "<tr ".$bc[$var].">";
@@ -235,19 +238,27 @@ else
 	*/
 
 	print "</table>";
-	print "<br>";
 
-	print '<center>';
-	//print "<input type=\"submit\" name=\"test\" class=\"button\" value=\"".$langs->trans("TestConnection")."\">";
-	//print "&nbsp; &nbsp;";
-	print "<input type=\"submit\" name=\"save\" class=\"button\" value=\"".$langs->trans("Save")."\">";
-	print "</center>";
+	print info_admin($langs->trans("EnableAPI","https://code.google.com/apis/console/","https://code.google.com/apis/console/","Calendar API"));
 
-	print "</form>\n";
+	print info_admin($langs->trans("ShareCalendarWithServiceAccount",$conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL,$langs->transnoentitiesnoconv("GoogleIDAgenda")));
 }
 
 dol_fiche_end();
 
+
+if (empty($userlogin))	// We use setup of user
+{
+	print '<div class="center">';
+	//print "<input type=\"submit\" name=\"test\" class=\"button\" value=\"".$langs->trans("TestConnection")."\">";
+	//print "&nbsp; &nbsp;";
+	print "<input type=\"submit\" name=\"save\" class=\"button\" value=\"".$langs->trans("Save")."\">";
+	print "</div>";
+}
+
+
+print "</form>\n";
+
 llxFooter();
 $db->close();
-?>
+

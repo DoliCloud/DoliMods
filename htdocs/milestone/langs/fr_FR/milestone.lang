@@ -1,25 +1,29 @@
 # Dolibarr language file - fr_FR - milestone
 CHARSET=UTF-8
 
-Module1790Name= Jalons
-Module1790Desc= Gestion des jalons (projets, contrats, propales, ...)
+Module1790Name= groupes de lignes
+Module1790Desc= Gestion des groupes de lignes (projets, contrats, propales, ...)
 
-Permission1791=Consulter les jalons
-Permission1792=Créer/modifier les jalons
-Permission1793=Supprimer les jalons
+Permission1791=Consulter les groupes de lignes
+Permission1792=Créer/modifier les groupes de lignes
+Permission1793=Supprimer les groupes de lignes
 
-Milestone=Jalon
-Milestones=Jalons
+Milestone=groupe de lignes
+Milestones=groupes de lignes
 MilestoneSetup=Configuration du module Milestone
-HideByDefaultProductDescInsideMilestone=Cacher par défaut la description des produits/services associés aux jalons
-HideBydefaultProductDetailsInsideMilestone=Cacher par défaut le détail des produits/services associés aux jalons
-NewMilestone=Nouveau jalon
-AddMilestone=Ajouter un jalon
+HideByDefaultProductDescInsideMilestone=Cacher par défaut la description des produits/services associés aux groupes de lignes
+HideBydefaultProductDetailsInsideMilestone=Cacher par défaut le détail des produits/services associés aux groupes de lignes
+HideByDefaultMilestoneAmount=Cacher par défaut le montant des groupes de lignes
+NewMilestone=Nouveau groupe de lignes
+AddMilestone=Ajouter un groupe de lignes
 AddTo=Ajouter à :
 MoveTo=Déplacer vers :
-NoMilestone=Pas de jalons
-DeleteMilestone=Supprimer un jalon
-ConfirmDeleteMilestone=Etes vous sûr de vouloir supprimer ce jalon ?
-HideDetails=Cacher le détail des produits/services associés aux jalons
-HideDescription=Cacher la description des produits/services associés aux jalons
-ErrorMilestoneFieldRequired=Le champ '%s' du jalon est obligatoire
+AddPageBreak=Effectuer un saut de page
+PageBreak=Saut de page
+NoMilestone=Pas de groupes de lignes
+DeleteMilestone=Supprimer un groupe de lignes
+ConfirmDeleteMilestone=Etes vous sûr de vouloir supprimer ce groupe de lignes ?
+HideDetails=Cacher le détail des produits/services associés aux groupes de lignes
+HideDescription=Cacher la description des produits/services associés aux groupes de lignes
+HideMilestoneAmount=Cacher le montant des groupes de lignes
+ErrorMilestoneFieldRequired=Le champ '%s' du groupe de lignes est obligatoire

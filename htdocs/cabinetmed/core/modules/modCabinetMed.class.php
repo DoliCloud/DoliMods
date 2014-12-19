@@ -59,7 +59,7 @@ class modCabinetMed extends DolibarrModules
         // Module description, used if translation string 'ModuleXXXDesc' not found (where XXX is value of numeric property 'numero' of module)
         $this->description = "Module CabinetMed";
         // Possible values for version are: 'development', 'experimental', 'dolibarr' or version
-        $this->version = '3.6.0';
+        $this->version = '3.7.0';
         // Key used in llx_const table to save module status enabled/disabled (where MYMODULE is value of property name of module in uppercase)
         $this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
         // Where to store the module in setup page (0=common,1=interface,2=others,3=very specific)
@@ -82,7 +82,7 @@ class modCabinetMed extends DolibarrModules
         							'substitutions' => 1,
         							'menus' => 1,
         							'css' => array('/cabinetmed/css/styles.css.php'),
-        							'hooks' => array('thirdpartycard','categorycard','contactcard','actioncard','agendathirdparty','infothirdparty','documentcabinetmed','searchform','demo'));
+        							'hooks' => array('thirdpartycard','categorycard','contactcard','actioncard','agendathirdparty','infothirdparty','consumptionthirdparty','documentcabinetmed','searchform','demo'));
 
         // Dependencies
         $this->depends = array('modSociete');       // List of modules id that must be enabled if this module is enabled
@@ -118,19 +118,19 @@ class modCabinetMed extends DolibarrModules
         // Array to add new pages in new tabs
         $this->tabs = array(
         				//'thirdparty:+tabpatientcard:Patient:cabinetmed@cabinetmed:/cabinetmed/soc.php?socid=__ID__',
-        				'thirdparty:+tabpatientcontacts:Correspondants:cabinetmed@cabinetmed:/cabinetmed/contact.php?socid=__ID__',
-                        'thirdparty:+tabantecedents:AntecedentsShort:cabinetmed@cabinetmed:/cabinetmed/antecedant.php?socid=__ID__',
+        				'thirdparty:+tabpatientcontacts:Correspondants:cabinetmed@cabinetmed:$user->rights->cabinetmed->read && $object->canvas=="patient@cabinetmed":/cabinetmed/contact.php?socid=__ID__',
+                        'thirdparty:+tabantecedents:AntecedentsShort:cabinetmed@cabinetmed:$user->rights->cabinetmed->read && $object->canvas=="patient@cabinetmed":/cabinetmed/antecedant.php?socid=__ID__',
                         //'thirdparty:+tabtraitetallergies:TraitEtAllergies:cabinetmed@cabinetmed:/cabinetmed/traitetallergies.php?socid=__ID__',
-                        'thirdparty:+tabnotes:Notes:cabinetmed@cabinetmed:/cabinetmed/notes.php?socid=__ID__',
-      					'thirdparty:+tabconsultations:ConsultationsShort:cabinetmed@cabinetmed:/cabinetmed/consultations.php?socid=__ID__',
-                        'thirdparty:+tabexambio:ResultExamBio:cabinetmed@cabinetmed:/cabinetmed/exambio.php?socid=__ID__',
-                        'thirdparty:+tabexamautre:ResultExamAutre:cabinetmed@cabinetmed:/cabinetmed/examautre.php?socid=__ID__',
-                        'thirdparty:+tabdocument:Courriers:cabinetmed@cabinetmed:/cabinetmed/documents.php?socid=__ID__',
-                        'thirdparty:-contact',
-                        'thirdparty:-document',
-                        'thirdparty:-notify',
-                        'thirdparty:-note',
-       					'contact:+tabpatient:Patients:cabinetmed@cabinetmed:/cabinetmed/patients_of_contact.php?id=__ID__'
+                        'thirdparty:+tabnotes:Notes:cabinetmed@cabinetmed:$user->rights->cabinetmed->read && $object->canvas=="patient@cabinetmed":/cabinetmed/notes.php?socid=__ID__',
+      					'thirdparty:+tabconsultations:ConsultationsShort:cabinetmed@cabinetmed:$user->rights->cabinetmed->read && $object->canvas=="patient@cabinetmed":/cabinetmed/consultations.php?socid=__ID__',
+                        'thirdparty:+tabexambio:ResultExamBio:cabinetmed@cabinetmed:$user->rights->cabinetmed->read && $object->canvas=="patient@cabinetmed":/cabinetmed/exambio.php?socid=__ID__',
+                        'thirdparty:+tabexamautre:ResultExamAutre:cabinetmed@cabinetmed:$user->rights->cabinetmed->read && $object->canvas=="patient@cabinetmed":/cabinetmed/examautre.php?socid=__ID__',
+                        'thirdparty:+tabdocument:Courriers:cabinetmed@cabinetmed:$user->rights->cabinetmed->read && $object->canvas=="patient@cabinetmed":/cabinetmed/documents.php?socid=__ID__',
+                        'thirdparty:-contact:$object->canvas=="patient@cabinetmed"',	// TODO Condition to disable is not supported by core
+                        'thirdparty:-document:$object->canvas=="patient@cabinetmed"',
+                        'thirdparty:-notify:$object->canvas=="patient@cabinetmed"',
+                        'thirdparty:-note:$object->canvas=="patient@cabinetmed"',
+       					'contact:+tabpatient:Patients:cabinetmed@cabinetmed:$user->rights->cabinetmed->read:/cabinetmed/patients_of_contact.php?id=__ID__'
                     );
         // where entity can be
 		// 'thirdparty'       to add a tab in third party view
@@ -339,7 +339,7 @@ class modCabinetMed extends DolibarrModules
 						        'titre'=>'NewCategory',
 						        'mainmenu'=>'patients',
 						        'leftmenu'=>'',
-						        'url'=>'/categories/fiche.php?action=create&type=2',
+						        'url'=>'/categories/card.php?action=create&type=2',
 						        'langs'=>'categories',  // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 						        'position'=>110,
 						        'enabled'=>'$conf->categorie->enabled',         // Define condition to show or hide menu entry. Use '$conf->voyage->enabled' if entry must be visible if module is enabled.
@@ -366,7 +366,7 @@ class modCabinetMed extends DolibarrModules
         'titre'=>'NewContact',
         'mainmenu'=>'contacts',
         'leftmenu'=>'',
-        'url'=>'/contact/fiche.php?leftmenu=contacts&amp;action=create',
+        'url'=>'/contact/card.php?leftmenu=contacts&amp;action=create',
         'langs'=>'companies',  // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
         'position'=>120,
         'enabled'=>'$user->rights->societe->contact->creer',         // Define condition to show or hide menu entry. Use '$conf->voyage->enabled' if entry must be visible if module is enabled.
@@ -420,7 +420,7 @@ class modCabinetMed extends DolibarrModules
         $this->export_label[$r]='ExportDataset_patient_1';
         $this->export_icon[$r]='company';
         $this->export_permission[$r]=array(array("societe","export"));
-        $this->export_fields_array[$r]=array('s.rowid'=>"Id",'s.nom'=>"Name",'s.datec'=>"DateCreation",'s.tms'=>"DateLastModification",'s.code_client'=>"CustomerCode",'s.address'=>"Address",'s.zip'=>"Zip",'s.town'=>"Town",'d.nom'=>'State','p.libelle'=>"Country",'p.code'=>"CountryCode",'s.phone'=>"Phone",'s.fax'=>"Mobile",'s.url'=>"Url",'s.email'=>"Email",'s.siret'=>"Taille",'s.siren'=>"Poids",'s.ape'=>"Date de naissance",'s.idprof4'=>"Profession",'s.tva_intra'=>"INSEE",'s.capital'=>"Tarif de base consultation",'s.note'=>"Note",'t.libelle'=>"ThirdPartyType",'ce.code'=>"Regime","cfj.libelle"=>"JuridicalStatus",
+        $this->export_fields_array[$r]=array('s.rowid'=>"Id",'s.nom'=>"Name",'s.datec'=>"DateCreation",'s.tms'=>"DateLastModification",'s.code_client'=>"CustomerCode",'s.address'=>"Address",'s.zip'=>"Zip",'s.town'=>"Town",'d.nom'=>'State','p.label'=>"Country",'p.code'=>"CountryCode",'s.phone'=>"Phone",'s.fax'=>"Mobile",'s.url'=>"Url",'s.email'=>"Email",'s.siret'=>"Taille",'s.siren'=>"Poids",'s.ape'=>"Date de naissance",'s.idprof4'=>"Profession",'s.tva_intra'=>"INSEE",'s.capital'=>"Tarif de base consultation",'s.note_public'=>"Note",'t.libelle'=>"ThirdPartyType",'ce.code'=>"Regime","cfj.libelle"=>"JuridicalStatus",
         'pa.note_antemed'=>'AntecedentsMed',
         'pa.note_antechirgen'=>'AntecedentsChirGene',
         'pa.note_antechirortho'=>'AntecedentsChirOrtho',
@@ -481,7 +481,7 @@ class modCabinetMed extends DolibarrModules
         $this->export_sql_end[$r] .=' LEFT JOIN '.MAIN_DB_PREFIX.'cabinetmed_patient as pa ON s.rowid = pa.rowid';
         $this->export_sql_end[$r] .=' LEFT JOIN '.MAIN_DB_PREFIX.'cabinetmed_cons as co ON s.rowid = co.fk_soc';
         $this->export_sql_end[$r] .=' LEFT JOIN '.MAIN_DB_PREFIX.'c_typent as t ON s.fk_typent = t.id';
-        $this->export_sql_end[$r] .=' LEFT JOIN '.MAIN_DB_PREFIX.'c_pays as p ON s.fk_pays = p.rowid';
+        $this->export_sql_end[$r] .=' LEFT JOIN '.MAIN_DB_PREFIX.'c_country as p ON s.fk_pays = p.rowid';
         $this->export_sql_end[$r] .=' LEFT JOIN '.MAIN_DB_PREFIX.'c_effectif as ce ON s.fk_effectif = ce.id';
         $this->export_sql_end[$r] .=' LEFT JOIN '.MAIN_DB_PREFIX.'c_forme_juridique as cfj ON s.fk_forme_juridique = cfj.code';
         $this->export_sql_end[$r] .=' LEFT JOIN '.MAIN_DB_PREFIX.'c_departements as d ON s.fk_departement = d.rowid';
@@ -532,7 +532,7 @@ class modCabinetMed extends DolibarrModules
         "UPDATE llx_c_typent          set active=1 where module = 'cabinetmed'",
         "UPDATE llx_c_forme_juridique set active=1 where module = 'cabinetmed'",
         "UPDATE llx_c_type_contact    set active=1 where module = 'cabinetmed'",
-        "UPDATE llx_c_typent          set active=0 where module != 'cabinetmed' OR module IS NULL",
+        "UPDATE llx_c_typent          set active=0 where (module != 'cabinetmed' OR module IS NULL) AND code != 'TE_UNKNOWN'",
         "UPDATE llx_c_forme_juridique set active=0 where module != 'cabinetmed' OR module IS NULL",
         "UPDATE llx_c_type_contact    set active=0 where element='societe' and source='external' and (module != 'cabinetmed' OR module IS NULL)"
         );

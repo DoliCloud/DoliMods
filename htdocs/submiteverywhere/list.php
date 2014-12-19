@@ -18,10 +18,9 @@
  */
 
 /**
- *       \file       htdocs/comm/mailing/liste.php
+ *       \file       htdocs/comm/mailing/list.php
  *       \ingroup    mailing
  *       \brief      Liste des mailings
- *       \version    $Id: liste.php,v 1.1 2011/06/20 22:08:22 eldy Exp $
  */
 
 $res=0;
@@ -154,7 +153,7 @@ if ($result)
 		$var=!$var;
 
 		print "<tr $bc[$var]>";
-		print '<td><a href="'.DOL_URL_ROOT.'/comm/mailing/fiche.php?id='.$obj->rowid.'">';
+		print '<td><a href="'.DOL_URL_ROOT.'/comm/mailing/card.php?id='.$obj->rowid.'">';
 		print img_object($langs->trans("ShowEMail"),"email").' '.stripslashes($obj->rowid).'</a></td>';
 		print '<td>'.$obj->titre.'</td>';
 		// Date creation

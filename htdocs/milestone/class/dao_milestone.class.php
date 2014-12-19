@@ -1,9 +1,9 @@
 <?php
-/* Copyright (C) 2010-2011 Regis Houssin  <regis@dolibarr.fr>
+/* Copyright (C) 2010-2014 Regis Houssin  <regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -22,7 +22,8 @@
  *	\brief      Fichier de la classe des jalons
  */
 
-include_once(DOL_DOCUMENT_ROOT.'/core/class/commonobject.class.php');
+if (!class_exists(CommonObject))
+	include DOL_DOCUMENT_ROOT . '/core/class/commonobject.class.php';
 
 
 /**
@@ -38,6 +39,7 @@ class DaoMilestone extends CommonObject
 	var $label;
 	var $description;
 	var $priority;
+	var $options=array();
 
 	var $objParent;
 	var $fk_element;
@@ -53,29 +55,28 @@ class DaoMilestone extends CommonObject
 
 	/**
 	 * 	Constructor
-	 * 	@param	DB		acces base de donnees
-	 * 	@param	id		milestone id
+	 *
+	 * 	@param	DoliDB	$db		Database handler
 	 */
-	function DaoMilestone($DB)
+	function __construct($db)
 	{
-		$this->db = $DB;
+		$this->db = $db;
 	}
 
 	/**
 	 * 	Charge le jalon
-	 * 	@param		object		Object line
+	 *
+	 * 	@param	int		$id			Object line id
+	 * 	@param	string	$element	Type of element
 	 */
-	function fetch($object,$line)
+	function fetch($id, $element)
 	{
-		$element = (is_object($object) ? $object->element : $object);
-		$lineid = (is_object($line) ? $line->rowid : $line);
-
-		$sql = "SELECT rowid, fk_element, elementtype, label, tms, priority, fk_user_modif";
+		$sql = "SELECT rowid, fk_element, elementtype, label, tms, options, priority, fk_user_modif";
 		$sql.= " FROM ".MAIN_DB_PREFIX."milestone";
-		$sql.= " WHERE fk_element = ".$lineid;
+		$sql.= " WHERE fk_element = ".$id;
 		$sql.= " AND elementtype = '".$element."'";
 
-		dol_syslog("Milestone::fetch sql=".$sql);
+		dol_syslog(get_class($this)."::fetch sql=".$sql, LOG_DEBUG);
 		$resql  = $this->db->query ($sql);
 		if ($resql)
 		{
@@ -87,6 +88,7 @@ class DaoMilestone extends CommonObject
 			$this->label	   		= $obj->label;
 			$this->priority			= $obj->priority;
 			$this->fk_user_modif 	= $obj->fk_user_modif;
+			$this->options			= json_decode($obj->options, true);
 
 			$this->db->free($resql);
 		}
@@ -103,26 +105,27 @@ class DaoMilestone extends CommonObject
 	 *          		-2 : nouvel ID inconnu
 	 *          		-3 : jalon invalide
 	 */
-	function create($user,$clone=0)
+	function create($user, $clone=0)
 	{
-		global $conf,$langs;
+		global $conf, $langs;
 
 		$langs->load('milestone');
 
 		// Clean parameters
 		$this->label=trim($this->label);
 		$this->description=trim($this->description);
+		$options = (! empty($this->options) ? json_encode($this->options) : null);
 
 		// TODO uniformiser
-		if ($this->objParent->element == 'propal') $fields = array($this->objParent->id,$this->description,0,0,0,0,0,0,0,"HT",0,0,$this->product_type,$this->rang,$this->special_code);
-		if ($this->objParent->element == 'commande') $fields = array($this->objParent->id,$this->description,0,0,0,0,0,0,0,0,0,'HT',0,$this->dateo,$this->datee,$this->product_type,$this->rang,$this->special_code);
-		if ($this->objParent->element == 'facture') $fields = array($this->objParent->id,$this->description,0,0,0,0,0,0,0,$this->dateo,$this->datee,0,0,0,'HT',0,$this->product_type,$this->rang,$this->special_code);
+		if ($this->objParent->element == 'propal') $fields = array($this->description,0,0,0,0,0,0,0,"HT",0,0,$this->product_type,$this->rang,$this->special_code);
+		if ($this->objParent->element == 'commande') $fields = array($this->description,0,0,0,0,0,0,0,0,0,'HT',0,$this->dateo,$this->datee,$this->product_type,$this->rang,$this->special_code);
+		if ($this->objParent->element == 'facture') $fields = array($this->description,0,0,0,0,0,0,0,$this->dateo,$this->datee,0,0,0,'HT',0,$this->product_type,$this->rang,$this->special_code);
 
 		$this->db->begin();
 
 		if (!$clone)
 		{
-			$result = $this->objParent->addline($fields[1],$fields[2],$fields[3],$fields[4],$fields[5],$fields[6],$fields[7],$fields[8],$fields[9],$fields[10],$fields[11],$fields[12],$fields[13],$fields[14],$fields[15],$fields[16],$fields[17],$fields[18]);
+			$result = $this->objParent->addline($fields[0],$fields[1],$fields[2],$fields[3],$fields[4],$fields[5],$fields[6],$fields[7],$fields[8],$fields[9],$fields[10],$fields[11],$fields[12],$fields[13],$fields[14],$fields[15],$fields[16],$fields[17],$fields[18]);
 		}
 		else
 		{
@@ -135,12 +138,15 @@ class DaoMilestone extends CommonObject
 			$sql.= "label";
 			$sql.= ", fk_element";
 			$sql.= ", elementtype";
+			$sql.= ", options";
 			$sql.= ") VALUES (";
-			$sql.= "'".addslashes($this->label)."'";
+			$sql.= "'".$this->db->escape($this->label)."'";
 			$sql.= ", ".$this->objParent->line->rowid;
-			$sql.= ", '".addslashes($this->objParent->element)."'";
+			$sql.= ", '".$this->db->escape($this->objParent->element)."'";
+			$sql.= ", ".(! empty($options) ? "'".$this->db->escape($options)."'" : "null");
 			$sql.= ")";
 
+			dol_syslog(get_class($this)."::create sql=".$sql, LOG_DEBUG);
 			$res  = $this->db->query ($sql);
 			if ($res)
 			{
@@ -161,7 +167,7 @@ class DaoMilestone extends CommonObject
 				else
 				{
 					$this->error=$this->db->error();
-					dol_syslog("Error sql=$sql, error=".$this->error,LOG_ERR);
+					dol_syslog(get_class($this).":: create Error sql=$sql, error=".$this->error,LOG_ERR);
 					$this->db->rollback();
 					return -1;
 				}
@@ -169,7 +175,7 @@ class DaoMilestone extends CommonObject
 			else
 			{
 				$this->error=$this->db->error();
-				dol_syslog("Error sql=$sql, error=".$this->error,LOG_ERR);
+				dol_syslog(get_class($this).":: create Error sql=$sql, error=".$this->error,LOG_ERR);
 				$this->db->rollback();
 				return -2;
 			}
@@ -184,29 +190,31 @@ class DaoMilestone extends CommonObject
 	 */
 	function update($user)
 	{
-		global $conf;
+		global $conf, $langs;
 
 		// Clean parameters
 		$this->label=trim($this->label);
 		$this->description=trim($this->description);
+		$options = (! empty($this->options) ? json_encode($this->options) : null);
 
 		// TODO uniformiser
-		if ($this->objParent->element == 'propal') $fields = array($this->id,0,0,0,0,0,0,$this->description,"HT",0,$this->special_code,0,1);
-		if ($this->objParent->element == 'commande') $fields = array($this->id,$this->description,0,0,0,0,0,0,'HT',0,$this->dateo,$this->datee,$this->product_type,0,1);
-		if ($this->objParent->element == 'facture') $fields = array($this->id,$this->description,0,0,0,$this->dateo,$this->datee,0,0,0,'HT',0,$this->product_type,0,1);
+		if ($this->objParent->element == 'propal') $fields = array($this->id,0,0,0,0,0,0,$this->description,"HT",0,$this->special_code,0,1,0,0,'',$this->product_type);
+		if ($this->objParent->element == 'commande') $fields = array($this->id,$this->description,0,0,0,0,0,0,'HT',0,$this->dateo,$this->datee,$this->product_type,0,1,null,0,'',$this->special_code);
+		if ($this->objParent->element == 'facture') $fields = array($this->id,$this->description,0,0,0,$this->dateo,$this->datee,0,0,0,'HT',0,$this->product_type,0,1,null,0,'',$this->special_code);
 
 		$this->db->begin();
 
-		$result = $this->objParent->updateline($fields[0],$fields[1],$fields[2],$fields[3],$fields[4],$fields[5],$fields[6],$fields[7],$fields[8],$fields[9],$fields[10],$fields[11],$fields[12],$fields[13],$fields[14]);
+		$result = $this->objParent->updateline($fields[0],$fields[1],$fields[2],$fields[3],$fields[4],$fields[5],$fields[6],$fields[7],$fields[8],$fields[9],$fields[10],$fields[11],$fields[12],$fields[13],$fields[14],$fields[15],$fields[16],$fields[17],$fields[18]);
 
 		if ($result >= 0)
 		{
 			$sql = "UPDATE ".MAIN_DB_PREFIX."milestone SET";
-			$sql.= " label = '".addslashes($this->label)."'";
+			$sql.= " label = '".$this->db->escape($this->label)."'";
+			$sql.= ", options = ".(! empty($options) ? "'".$this->db->escape($options)."'" : "null");
 			$sql.= " WHERE fk_element = ".$this->id;
 			$sql.= " AND elementtype = '".$this->objParent->element."'";
 
-			dol_syslog("Milestone::update sql=".$sql);
+			dol_syslog(get_class($this)."::update sql=".$sql, LOG_DEBUG);
 			if ($this->db->query($sql))
 			{
 				$this->db->commit();
@@ -232,7 +240,7 @@ class DaoMilestone extends CommonObject
 	/**
 	 * 	Delete milestone
 	 */
-	function delete($lineid,$element='',$delparent=true)
+	function delete($lineid, $element='', $delparent=true)
 	{
 		global $conf, $user, $langs;
 
@@ -249,6 +257,7 @@ class DaoMilestone extends CommonObject
 			$sql.= " WHERE fk_element = ".$lineid;
 			$sql.= " AND elementtype = '".$element."'";
 
+			dol_syslog(get_class($this)."::delete sql=".$sql, LOG_DEBUG);
 			if (!$this->db->query($sql))
 			{
 				$this->db->rollback();

@@ -352,8 +352,8 @@ if (empty($reshook))
                 	else
                 	{
                     	$url=$_SERVER["PHP_SELF"]."?socid=".$object->id;
-	                    /*if (($object->client == 1 || $object->client == 3) && empty($conf->global->SOCIETE_DISABLE_CUSTOMERS)) $url=DOL_URL_ROOT."/comm/fiche.php?socid=".$object->id;
-    	                else if ($object->fournisseur == 1) $url=DOL_URL_ROOT."/fourn/fiche.php?socid=".$object->id;*/
+	                    /*if (($object->client == 1 || $object->client == 3) && empty($conf->global->SOCIETE_DISABLE_CUSTOMERS)) $url=DOL_URL_ROOT."/comm/card.php?socid=".$object->id;
+    	                else if ($object->fournisseur == 1) $url=DOL_URL_ROOT."/fourn/card.php?socid=".$object->id;*/
 
                     	header("Location: ".$url);
             	        exit;
@@ -489,7 +489,8 @@ if (empty($reshook))
 
         if ($result > 0)
         {
-            header("Location: ".DOL_URL_ROOT."/societe/societe.php?delsoc=".urlencode($object->name));
+        	setEventMessage($langs->trans("PatientDeleted", $object->name));
+            header("Location: ".dol_buildpath("/cabinetmed/patients.php",1));
             exit;
         }
         else

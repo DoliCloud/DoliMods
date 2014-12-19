@@ -15,9 +15,9 @@ $res=0;
 if (! $res && file_exists("../main.inc.php")) $res=@include("../main.inc.php");
 if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.php");
 if (! $res && file_exists("../../../main.inc.php")) $res=@include("../../../main.inc.php");
-if (! $res && file_exists("../../../../main.inc.php")) $res=@include("../../../../main.inc.php");
-if (! $res && file_exists("../../../../../main.inc.php")) $res=@include("../../../../../main.inc.php");
-if (! $res && preg_match('/\/nltechno([^\/]*)\//',$_SERVER["PHP_SELF"],$reg)) $res=@include("../../../dolibarr".$reg[1]."/htdocs/main.inc.php"); // Used on dev env only
+if (! $res && @file_exists("../../../../main.inc.php")) $res=@include("../../../../main.inc.php");
+if (! $res && @file_exists("../../../../../main.inc.php")) $res=@include("../../../../../main.inc.php");
+if (! $res && preg_match('/\/(?:custom|nltechno)([^\/]*)\//',$_SERVER["PHP_SELF"],$reg)) $res=@include("../../../dolibarr".$reg[1]."/htdocs/main.inc.php"); // Used on dev env only
 if (! $res) die("Include of main fails");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/company.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/contact.lib.php");
@@ -99,10 +99,12 @@ else
  */
 
 $countrytable="c_pays";
+$countrylabelfield='libelle';
 include_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
 if (versioncompare(versiondolibarrarray(),array(3,7,-3)) >= 0)
 {
 	$countrytable="c_country";
+	$countrylabelfield='label';
 }
 
 llxheader();
@@ -128,7 +130,7 @@ if (empty($mode) || $mode=='thirdparty')
 	$picto='company';
 	$type='company';
 	$sql="SELECT s.rowid as id, s.nom as name, s.address, s.zip, s.town, s.url,";
-	$sql.= " c.rowid as country_id, c.code as country_code, c.label as country,";
+	$sql.= " c.rowid as country_id, c.code as country_code, c.".$countrylabelfield." as country,";
 	$sql.= " g.rowid as gid, g.fk_object, g.latitude, g.longitude, g.address as gaddress, g.result_code, g.result_label";
 	$sql.= " FROM ".MAIN_DB_PREFIX."societe as s";
 	$sql.= " LEFT JOIN ".MAIN_DB_PREFIX.$countrytable." as c ON s.fk_pays = c.rowid";
@@ -148,7 +150,7 @@ else if ($mode=='contact')
 	$picto='contact';
 	$type='contact';
 	$sql="SELECT s.rowid as id, s.lastname, s.firstname, s.address, s.zip, s.town, '' as url,";
-	$sql.= " c.rowid as country_id, c.code as country_code, c.label as country,";
+	$sql.= " c.rowid as country_id, c.code as country_code, c.".$countrylabelfield." as country,";
 	$sql.= " g.rowid as gid, g.fk_object, g.latitude, g.longitude, g.address as gaddress, g.result_code, g.result_label";
 	$sql.= " FROM ".MAIN_DB_PREFIX."socpeople as s";
 	$sql.= " LEFT JOIN ".MAIN_DB_PREFIX.$countrytable." as c ON s.fk_pays = c.rowid";
@@ -162,7 +164,7 @@ else if ($mode=='member')
 	$picto='user';
 	$type='member';
 	$sql="SELECT s.rowid as id, s.lastname, s.firstname, s.address, s.zip, s.town, '' as url,";
-	$sql.= " c.rowid as country_id, c.code as country_code, c.label as country,";
+	$sql.= " c.rowid as country_id, c.code as country_code, c.".$countrylabelfield." as country,";
 	$sql.= " g.rowid as gid, g.fk_object, g.latitude, g.longitude, g.address as gaddress, g.result_code, g.result_label";
 	$sql.= " FROM ".MAIN_DB_PREFIX."adherent as s";
 	$sql.= " LEFT JOIN ".MAIN_DB_PREFIX.$countrytable." as c ON s.country = c.rowid";
@@ -177,7 +179,7 @@ else if ($mode=='patient')
 	$picto='user';
 	$type='patient';
 	$sql="SELECT s.rowid as id, s.nom as name, s.address, s.zip, s.town,";
-	$sql.= " c.rowid as country_id, c.code as country_code, c.label as country, s.url,";
+	$sql.= " c.rowid as country_id, c.code as country_code, c.".$countrylabelfield." as country, s.url,";
 	$sql.= " g.rowid as gid, g.fk_object, g.latitude, g.longitude, g.address as gaddress, g.result_code, g.result_label";
 	$sql.= " FROM ".MAIN_DB_PREFIX."societe as s";
 	$sql.= " LEFT JOIN ".MAIN_DB_PREFIX.$countrytable." as c ON s.fk_pays = c.rowid";

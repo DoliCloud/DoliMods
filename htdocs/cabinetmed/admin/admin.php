@@ -115,13 +115,13 @@ $head[$h][1] = $langs->trans("About");
 $head[$h][2] = 'tababout';
 $h++;
 
-dol_fiche_head($head, 'tabsetup', '');
-
-
-$var=true;
 
 print '<form name="cabinetmed" action="'.$_SERVER["PHP_SELF"].'" method="POST">';
 print '<input type="hidden" name="action" value="update">';
+
+dol_fiche_head($head, 'tabsetup', '');
+
+$var=true;
 
 print '<table class="noborder" width="100%">';
 print '<tr class="liste_titre">';
@@ -146,10 +146,11 @@ print '</tr>';
 
 print '</table>';
 
-print '<center><br><input type="submit" name="save" value="'.$langs->trans("Save").'" class="button"></center>';
+dol_fiche_end();
+
+print '<div class="center"><input type="submit" name="save" value="'.$langs->trans("Save").'" class="button"></div>';
 print '</form>';
 
-dol_fiche_end();
 
 print '<br>';
 

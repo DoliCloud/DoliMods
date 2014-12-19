@@ -1,9 +1,9 @@
 <?php
-/* Copyright (C) 2010-2011 Regis Houssin <regis@dolibarr.fr>
+/* Copyright (C) 2010-2014 Regis Houssin <regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -19,17 +19,16 @@
 ?>
 
 <!-- BEGIN PHP TEMPLATE -->
-
 <script type="text/javascript">
-jQuery(document).ready(function () {
-	jQuery("#milestone_label").focus(function() {
+$(document).ready(function () {
+	$("#milestone_label").focus(function() {
 		hideMessage("milestone_label","<?php echo $langs->transnoentities('Label'); ?>");
     });
-    jQuery("#milestone_label").blur(function() {
+    $("#milestone_label").blur(function() {
         displayMessage("milestone_label","<?php echo $langs->transnoentities('Label'); ?>");
     });
 	displayMessage("milestone_label","<?php echo $langs->transnoentities('Label'); ?>");
-	jQuery("#milestone_label").css("color","grey");
+	$("#milestone_label").css("color","grey");
 })
 </script>
 
@@ -38,26 +37,22 @@ jQuery(document).ready(function () {
 	<td colspan="10">&nbsp;</td>
 </tr>
 
-<form name="addmilestone" id="addmilestone" action="<?php echo $_SERVER["PHP_SELF"].'?id='.$GLOBALS['object']->id; ?>" method="POST">
-<input type="hidden" name="token" value="<?php echo $_SESSION['newtoken']; ?>">
-<input type="hidden" name="action" value="addmilestone">
-<input type="hidden" name="id" value="<?php echo $GLOBALS['object']->id; ?>">
 <input type="hidden" name="special_code" value="1790">
 <input type="hidden" name="product_type" value="9">
 
 <tr <?php echo $GLOBALS['bcnd'][$GLOBALS['var']]; ?>>
-	<td colspan="5">
+	<td colspan="6">
 	<input size="30" type="text" id="milestone_label" name="milestone_label" value="<?php echo $_POST["milestone_label"]; ?>">
+	<input type="checkbox" name="pagebreak" value="1" /> <?php echo $langs->transnoentities('AddPageBreak'); ?>
 	</td>
-		
+
 	<td align="center" valign="middle" rowspan="2" colspan="4">
 	<input type="submit" class="button" value="<?php echo $langs->trans('Add'); ?>" name="addmilestone">
 	</td>
 </tr>
 
 <tr <?php echo $GLOBALS['bcnd'][$GLOBALS['var']]; ?>>
-	<td colspan="5">
-	
+	<td colspan="6">
 	<?php
 	require_once(DOL_DOCUMENT_ROOT."/core/class/doleditor.class.php");
     $nbrows=ROWS_2;
@@ -67,7 +62,4 @@ jQuery(document).ready(function () {
 	?>
 	</td>
 </tr>
-
-</form>
-
 <!-- END PHP TEMPLATE -->
