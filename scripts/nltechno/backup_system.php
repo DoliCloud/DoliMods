@@ -81,7 +81,7 @@ print "Backup of database from stratus5 to localhost\n";
 
 $sftpconnectstring=$login.'@'.$server;
 print 'SFTP connect string : '.$sftpconnectstring."\n";
-print 'SFTP password '.$password."\n";
+//print 'SFTP password '.$password."\n";
 
 
 // SFTP connect
