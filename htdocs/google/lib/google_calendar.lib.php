@@ -275,7 +275,7 @@ function updateEvent($client, $eventId, $object, $login='primary', $service=null
 	//$gdataCal = new Zend_Gdata_Calendar($client);
 
 	$oldeventId=$eventId;
-	if (preg_match('/google\.com/.*\/([^\/]+)$/',$eventId,$reg))
+	if (preg_match('/google\.com\/.*\/([^\/]+)$/',$eventId,$reg))
 	{
 		$oldeventId=$reg[1];
 	}
@@ -406,7 +406,7 @@ function updateEvent($client, $eventId, $object, $login='primary', $service=null
 function deleteEventById ($client, $eventId, $login='primary', $service=null)
 {
 	$oldeventId=$eventId;
-	if (preg_match('/google\.com/.*\/([^\/]+)$/',$eventId,$reg))
+	if (preg_match('/google\.com\/.*\/([^\/]+)$/',$eventId,$reg))
 	{
 		$oldeventId=$reg[1];
 	}
