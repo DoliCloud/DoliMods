@@ -576,9 +576,9 @@ function googleDeleteContactByRef($client, $ref, $useremail='default')
  * Mass insert of several contacts into a google account
  * Use API v2 batch
  *
- * @param 	Mixed	$gdata			Handler of Gdata connexion
+ * @param 	mixed	$gdata			Handler of Gdata connexion
  * @param 	array 	$gContacts		Array of object GContact
- * @param	Mixed	$objectstatic	Object static to update ref_ext of records if success
+ * @param	mixed	$objectstatic	Object static to update ref_ext of records if success
  * @param	string	$useremail		User email
  * @return	int						>0 if OK, 'error string' if error
  * @see		insertGCalsEntries 		(same function for contacts)
