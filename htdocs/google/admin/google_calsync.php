@@ -14,9 +14,8 @@ $res=0;
 if (! $res && file_exists("../main.inc.php")) $res=@include("../main.inc.php");
 if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.php");
 if (! $res && file_exists("../../../main.inc.php")) $res=@include("../../../main.inc.php");
-if (! $res && file_exists("../../../../main.inc.php")) $res=@include("../../../../main.inc.php");
-if (! $res && file_exists("../../../../../main.inc.php")) $res=@include("../../../../../main.inc.php");
-if (! $res && preg_match('/\/nltechno([^\/]*)\//',$_SERVER["PHP_SELF"],$reg)) $res=@include("../../../../dolibarr".$reg[1]."/htdocs/main.inc.php"); // Used on dev env only
+if (! $res && @file_exists("../../../../main.inc.php")) $res=@include("../../../../main.inc.php");
+if (! $res && preg_match('/\/(?:custom|nltechno)([^\/]*)\//',$_SERVER["PHP_SELF"],$reg)) $res=@include("../../../../dolibarr".$reg[1]."/htdocs/main.inc.php"); // Used on dev env only
 if (! $res) die("Include of main fails");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/date.lib.php");
@@ -187,17 +186,6 @@ if (GETPOST('cleanup'))
 	$nbdeleted=0;
 
 	$userlogin = empty($conf->global->GOOGLE_LOGIN)?'':$conf->global->GOOGLE_LOGIN;
-	if (empty($userlogin))	// We use setup of user
-	{
-		// L'utilisateur concerné est l'utilisateur affecté à l'évènement dans Dolibarr
-		// TODO : à rendre configurable ? (choix entre propriétaire / assigné)
-		if (! empty($object->userownerid))
-		{
-			$fuser = new User($db);
-			$fuser->fetch($object->userownerid);
-			$userlogin = $fuser->conf->GOOGLE_LOGIN;
-		}
-	}
 
 	// Create client/token object
 	$key_file_location = $conf->google->multidir_output[$conf->entity]."/".$conf->global->GOOGLE_API_SERVICEACCOUNT_P12KEY;
@@ -275,17 +263,6 @@ if ($action == 'pushallevents')
 	$nbinserted=0;
 
 	$userlogin = empty($conf->global->GOOGLE_LOGIN)?'':$conf->global->GOOGLE_LOGIN;
-	if (empty($userlogin))	// We use setup of user
-	{
-		// L'utilisateur concerné est l'utilisateur affecté à l'évènement dans Dolibarr
-		// TODO : à rendre configurable ? (choix entre propriétaire / assigné)
-		if (! empty($object->userownerid))
-		{
-			$fuser = new User($db);
-			$fuser->fetch($object->userownerid);
-			$userlogin = $fuser->conf->GOOGLE_LOGIN;
-		}
-	}
 
 	// Create client/token object
 	$key_file_location = $conf->google->multidir_output[$conf->entity]."/".$conf->global->GOOGLE_API_SERVICEACCOUNT_P12KEY;
@@ -409,9 +386,29 @@ $head=googleadmin_prepare_head();
 
 dol_fiche_head($head, 'tabagendasync', $langs->trans("GoogleTools"));
 
-print $langs->trans("GoogleEnableSyncToCalendar").' '.$form->selectyesno("GOOGLE_DUPLICATE_INTO_GCAL",isset($_POST["GOOGLE_DUPLICATE_INTO_GCAL"])?$_POST["GOOGLE_DUPLICATE_INTO_GCAL"]:$conf->global->GOOGLE_DUPLICATE_INTO_GCAL,1).'<br><br>';
+if ($conf->use_javascript_ajax)
+{
+	print "\n".'<script type="text/javascript" language="javascript">';
+	print 'jQuery(document).ready(function () {
+		function initfields()
+		{
+			if (jQuery("#GOOGLE_DUPLICATE_INTO_GCAL").val() > 0) jQuery(".synccal").show();
+			else jQuery(".synccal").hide();
+		}
+		initfields();
+		jQuery("#GOOGLE_DUPLICATE_INTO_GCAL").change(function() {
+			initfields();
+		});
+	})';
+	print '</script>'."\n";
+}
 
-$var=true;
+print $langs->trans("GoogleEnableSyncToCalendar").' '.$form->selectyesno("GOOGLE_DUPLICATE_INTO_GCAL",isset($_POST["GOOGLE_DUPLICATE_INTO_GCAL"])?$_POST["GOOGLE_DUPLICATE_INTO_GCAL"]:$conf->global->GOOGLE_DUPLICATE_INTO_GCAL,1).'<br>';
+
+$var=false;
+
+print '<div class="synccal">';
+print '<br>';
 
 print "<table class=\"noborder\" width=\"100%\">";
 
@@ -433,7 +430,7 @@ print '</table>';
 
 print '<br>';
 
-$var=false;
+$var=true;
 
 print "<table class=\"noborder\" width=\"100%\">";
 
@@ -499,6 +496,8 @@ print info_admin($langs->trans("EnableAPI","https://code.google.com/apis/console
 
 print info_admin($langs->trans("ShareCalendarWithServiceAccount",$conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL,$langs->transnoentitiesnoconv("GoogleIDAgenda")));
 
+print '</div>';
+
 dol_fiche_end();
 
 print '<div align="center">';
@@ -510,8 +509,12 @@ print "</form>\n";
 print '<br>';
 
 
+// Test area
+
 print '<div class="tabsActions">';
-if (empty($conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL) || empty($conf->global->GOOGLE_DUPLICATE_INTO_GCAL))
+
+print '<div class="synccal">';
+if (empty($conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL) || empty($conf->global->GOOGLE_DUPLICATE_INTO_GCAL) || empty($conf->global->GOOGLE_LOGIN))
 {
 	print '<a class="butActionRefused" href="#">'.$langs->trans("TestCreateUpdateDelete")."</a>";
 
@@ -525,8 +528,12 @@ else
 }
 print '</div>';
 
+print '</div>';
+
 print '<br>';
 
+
+print '<div class="synccal">';
 
 if (! empty($conf->global->GOOGLE_DUPLICATE_INTO_GCAL))
 {
@@ -535,8 +542,10 @@ if (! empty($conf->global->GOOGLE_DUPLICATE_INTO_GCAL))
 
 	print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
 	print '<input type="hidden" name="action" value="pushallevents">';
-	print $langs->trans("ExportEventsToGoogle",$max)." ";
-	print '<input type="submit" name="pushall" class="button" value="'.$langs->trans("Run").'">';
+	print $langs->trans("ExportEventsToGoogle",$max,$conf->global->GOOGLE_LOGIN)." ";
+	print '<input type="submit" name="pushall" class="button" value="'.$langs->trans("Run").'"';
+	if (empty($conf->global->GOOGLE_LOGIN)) print ' disabled="disabled"';
+	print '>';
 	print "</form>\n";
 }
 
@@ -544,11 +553,14 @@ if (! empty($conf->global->GOOGLE_DUPLICATE_INTO_GCAL))
 {
 	print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
 	print '<input type="hidden" name="action" value="deleteallevents">';
-	print $langs->trans("DeleteAllGoogleEvents")." ";
-	print '<input type="submit" name="cleanup" class="button" value="'.$langs->trans("Run").'">';
+	print $langs->trans("DeleteAllGoogleEvents",$conf->global->GOOGLE_LOGIN)." ";
+	print '<input type="submit" name="cleanup" class="button" value="'.$langs->trans("Run").'"';
+	if (empty($conf->global->GOOGLE_LOGIN)) print ' disabled="disabled"';
+	print '>';
 	print "</form>\n";
 }
 
+print '</div>';
 
 llxFooter();
 

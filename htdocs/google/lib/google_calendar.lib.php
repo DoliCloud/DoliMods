@@ -112,8 +112,9 @@ function getTokenFromServiceAccount($client_id, $service_account_name, $key_file
 		dol_syslog("Get service token from session. service_token=".$_SESSION['service_token']);
 		$client->setAccessToken($_SESSION['service_token']);
 	}
-	$key = file_get_contents($key_file_location);
 
+	dol_syslog("getTokenFromServiceAccount service_account_name=".$service_account_name." key_file_location=".$key_file_location." force_do_not_use_session=".$force_do_not_use_session, LOG_DEBUG);
+	$key = file_get_contents($key_file_location);
 	$cred = new Google_Auth_AssertionCredentials(
 	    $service_account_name,
 	    array('https://www.googleapis.com/auth/calendar','https://www.googleapis.com/auth/calendar.readonly'),
@@ -123,8 +124,10 @@ function getTokenFromServiceAccount($client_id, $service_account_name, $key_file
 	$client->setAssertionCredentials($cred);
 
 	try {
-		if ($client->getAuth()->isAccessTokenExpired())
+		$checktoken=$client->getAuth()->isAccessTokenExpired();
+		if ($checktoken)
 		{
+			dol_syslog("getTokenFromServiceAccount token seems to be expired, we refresh it", LOG_DEBUG);
 			$client->getAuth()->refreshTokenWithAssertion($cred);
 		}
 	}
@@ -275,7 +278,7 @@ function updateEvent($client, $eventId, $object, $login='primary', $service=null
 	//$gdataCal = new Zend_Gdata_Calendar($client);
 
 	$oldeventId=$eventId;
-	if (preg_match('/google\.com/.*\/([^\/]+)$/',$eventId,$reg))
+	if (preg_match('/google\.com\/.*\/([^\/]+)$/',$eventId,$reg))
 	{
 		$oldeventId=$reg[1];
 	}
@@ -406,7 +409,7 @@ function updateEvent($client, $eventId, $object, $login='primary', $service=null
 function deleteEventById ($client, $eventId, $login='primary', $service=null)
 {
 	$oldeventId=$eventId;
-	if (preg_match('/google\.com/.*\/([^\/]+)$/',$eventId,$reg))
+	if (preg_match('/google\.com\/.*\/([^\/]+)$/',$eventId,$reg))
 	{
 		$oldeventId=$reg[1];
 	}

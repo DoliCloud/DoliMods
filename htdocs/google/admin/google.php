@@ -14,9 +14,8 @@ $res=0;
 if (! $res && file_exists("../main.inc.php")) $res=@include("../main.inc.php");
 if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.php");
 if (! $res && file_exists("../../../main.inc.php")) $res=@include("../../../main.inc.php");
-if (! $res && file_exists("../../../../main.inc.php")) $res=@include("../../../../main.inc.php");
-if (! $res && file_exists("../../../../../main.inc.php")) $res=@include("../../../../../main.inc.php");
-if (! $res && preg_match('/\/nltechno([^\/]*)\//',$_SERVER["PHP_SELF"],$reg)) $res=@include("../../../../dolibarr".$reg[1]."/htdocs/main.inc.php"); // Used on dev env only
+if (! $res && @file_exists("../../../../main.inc.php")) $res=@include("../../../../main.inc.php");
+if (! $res && preg_match('/\/(?:custom|nltechno)([^\/]*)\//',$_SERVER["PHP_SELF"],$reg)) $res=@include("../../../../dolibarr".$reg[1]."/htdocs/main.inc.php"); // Used on dev env only
 if (! $res) die("Include of main fails");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/date.lib.php");
@@ -86,12 +85,12 @@ if ($action == 'save')
     if (! $error)
     {
         $db->commit();
-        $mesg = "<font class=\"ok\">".$langs->trans("SetupSaved")."</font>";
+        setEventMessage($langs->trans("SetupSaved"));
     }
     else
     {
         $db->rollback();
-        $mesg = "<font class=\"error\">".$langs->trans("Error")."</font>";
+        setEventMessage($langs->trans("Error"));
     }
 }
 
@@ -126,11 +125,30 @@ $head=googleadmin_prepare_head();
 
 dol_fiche_head($head, 'tabagenda', $langs->trans("GoogleTools"));
 
+if ($conf->use_javascript_ajax)
+{
+	print "\n".'<script type="text/javascript" language="javascript">';
+	print 'jQuery(document).ready(function () {
+		function initfields()
+		{
+			if (jQuery("#GOOGLE_ENABLE_AGENDA").val() > 0) jQuery(".viewagenda").show();
+			else jQuery(".viewagenda").hide();
+		}
+		initfields();
+		jQuery("#GOOGLE_ENABLE_AGENDA").change(function() {
+			initfields();
+		});
+	})';
+	print '</script>'."\n";
+}
 
-print $langs->trans("GoogleEnableThisTool").' '.$form->selectyesno("GOOGLE_ENABLE_AGENDA",isset($_POST["GOOGLE_ENABLE_AGENDA"])?$_POST["GOOGLE_ENABLE_AGENDA"]:$conf->global->GOOGLE_ENABLE_AGENDA,1).'<br><br>';
+print $langs->trans("GoogleEnableThisTool").' '.$form->selectyesno("GOOGLE_ENABLE_AGENDA",isset($_POST["GOOGLE_ENABLE_AGENDA"])?$_POST["GOOGLE_ENABLE_AGENDA"]:$conf->global->GOOGLE_ENABLE_AGENDA,1).'<br>';
 
 
-$var=true;
+print '<div class="viewagenda">';
+print '<br>';
+
+$var=false;
 print "<table class=\"noborder\" width=\"100%\">";
 
 print "<tr class=\"liste_titre\">";
@@ -172,7 +190,7 @@ print '<td class="nowrap" align="center">'.$langs->trans("Color")."</td>";
 print "</tr>";
 
 $i=1;
-$var=false;
+$var=true;
 while ($i <= $MAXAGENDA)
 {
 	$key=$i;
@@ -211,11 +229,11 @@ print "<table class=\"noborder\" width=\"100%\">";
 
 print "<tr class=\"liste_titre\">";
 print "<td>".$langs->trans("Parameter").' ('.$langs->trans("ParametersForGoogleOAuth").')'."</td>";
-print "<td>".$langs->trans("Name")."</td>";
+print '<td colspan="2">'.$langs->trans("Name").'</td>';
 print "</tr>";
 
 // Setup for Oauth
-print '<tr '.$bc[$var].'><td colspan="2">';
+print '<tr '.$bc[$var].'><td colspan="3">';
 $urltocreatekey='https://code.google.com/apis/console/';
 print $langs->trans("DueToGoogleLimitYouNeedToLogin").'<br>';
 print $langs->trans("AllowGoogleToLoginSetupKey").'<br>';
@@ -226,22 +244,26 @@ $var=!$var;
 print "<tr ".$bc[$var].">";
 print "<td>".$langs->trans("GoogleClientId")."</td>";
 print "<td>";
-print '<input class="flat" type="text" size="60" name="GOOGLE_AGENDA_CLIENT_ID" value="'.$conf->global->GOOGLE_AGENDA_CLIENT_ID.'">';
+print '<input class="flat" type="text" size="80" name="GOOGLE_AGENDA_CLIENT_ID" value="'.$conf->global->GOOGLE_AGENDA_CLIENT_ID.'">';
 print "</td>";
+
+print '<td rowspan="2">';
+print $langs->trans("AllowGoogleToLoginProp",$urltocreatekey,$urltocreatekey,$redirect_uri);
+print '</td>';
+
 print "</tr>";
 // Client Secret
-$var=!$var;
 print "<tr ".$bc[$var].">";
 print "<td>".$langs->trans("GoogleClientSecret")."</td>";
 print "<td>";
 print '<input class="flat" type="text" size="60" name="GOOGLE_AGENDA_CLIENT_SECRET" value="'.$conf->global->GOOGLE_AGENDA_CLIENT_SECRET.'">';
 print "</td>";
+
 print "</tr>";
 
 print '</table>';
 
-print info_admin($langs->trans("AllowGoogleToLoginProp",$urltocreatekey,$urltocreatekey,$redirect_uri));
-
+print '</div>';
 
 dol_fiche_end();
 
@@ -251,9 +273,6 @@ print "</div>";
 
 print "</form>\n";
 
-
-
-dol_htmloutput_mesg($mesg);
 
 
 // Show message

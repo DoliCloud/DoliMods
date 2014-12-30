@@ -31,9 +31,8 @@ $res=0;
 if (! $res && file_exists("../main.inc.php")) $res=@include("../main.inc.php");
 if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.php");
 if (! $res && file_exists("../../../main.inc.php")) $res=@include("../../../main.inc.php");
-if (! $res && file_exists("../../../../main.inc.php")) $res=@include("../../../../main.inc.php");
-if (! $res && file_exists("../../../../../main.inc.php")) $res=@include("../../../../../main.inc.php");
-if (! $res && preg_match('/\/nltechno([^\/]*)\//',$_SERVER["PHP_SELF"],$reg)) $res=@include("../../../../dolibarr".$reg[1]."/htdocs/main.inc.php"); // Used on dev env only
+if (! $res && @file_exists("../../../../main.inc.php")) $res=@include("../../../../main.inc.php");
+if (! $res && preg_match('/\/(?:custom|nltechno)([^\/]*)\//',$_SERVER["PHP_SELF"],$reg)) $res=@include("../../../../dolibarr".$reg[1]."/htdocs/main.inc.php"); // Used on dev env only
 if (! $res) die("Include of main fails");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/date.lib.php");
@@ -70,11 +69,17 @@ if ($action == 'save')
 		setEventMessage($langs->trans("ErrorLabelsMustDiffers"),'errors');
 		$error++;
 	}
-	if (! GETPOST('GOOGLE_CONTACT_LOGIN') || ! GETPOST('GOOGLE_CONTACT_PASSWORD'))
+	if (! GETPOST('GOOGLE_CONTACT_LOGIN'))
 	{
 		$langs->load("errors");
-		setEventMessage($langs->trans("ErrorFieldRequired"),'errors');
-		$error++;
+		dolibarr_del_const($db, 'GOOGLE_CONTACT_LOGIN');
+		setEventMessage($langs->trans("ErrorFieldRequired",$langs->transnoentitiesnoconv("GOOGLE_LOGIN")),'errors');
+	}
+	if (! GETPOST('GOOGLE_CONTACT_PASSWORD'))
+	{
+		$langs->load("errors");
+		dolibarr_del_const($db, 'GOOGLE_CONTACT_PASSWORD');
+		setEventMessage($langs->trans("ErrorFieldRequired",$langs->transnoentitiesnoconv("GOOGLE_PASSWORD")),'errors');
 	}
 
     if (! $error)
@@ -552,12 +557,16 @@ if ($conf->use_javascript_ajax)
 	print 'jQuery(document).ready(function () {
 		function initfields()
 		{
-			if (jQuery("#GOOGLE_DUPLICATE_INTO_THIRDPARTIES").val() > 0) jQuery("#syncthirdparties").show();
-			else jQuery("#syncthirdparties").hide();
-			if (jQuery("#GOOGLE_DUPLICATE_INTO_CONTACTS").val() > 0) jQuery("#synccontacts").show();
-			else jQuery("#synccontacts").hide();
-			if (jQuery("#GOOGLE_DUPLICATE_INTO_MEMBERS").val() > 0) jQuery("#syncmembers").show();
-			else jQuery("#syncmembers").hide();
+			if (jQuery("#GOOGLE_DUPLICATE_INTO_THIRDPARTIES").val() > 0 || jQuery("#GOOGLE_DUPLICATE_INTO_CONTACTS").val() > 0 || jQuery("#GOOGLE_DUPLICATE_INTO_MEMBERS").val() > 0) jQuery(".syncx").show();
+			else jQuery(".syncx").hide();
+
+			if (jQuery("#GOOGLE_DUPLICATE_INTO_THIRDPARTIES").val() > 0) jQuery(".syncthirdparties,#trsyncthirdparties").show();
+			else jQuery(".syncthirdparties,#trsyncthirdparties").hide();
+			if (jQuery("#GOOGLE_DUPLICATE_INTO_CONTACTS").val() > 0) jQuery(".synccontacts,#trsynccontacts").show();
+			else jQuery(".synccontacts,#trsynccontacts").hide();
+			if (jQuery("#GOOGLE_DUPLICATE_INTO_MEMBERS").val() > 0) jQuery(".syncmembers,#trsyncmembers").show();
+			else jQuery(".syncmembers,#trsyncmembers").hide();
+
 		}
 		initfields();
 		jQuery("#GOOGLE_DUPLICATE_INTO_THIRDPARTIES").change(function() {
@@ -576,10 +585,14 @@ if ($conf->use_javascript_ajax)
 if ($conf->societe->enabled) print $langs->trans("GoogleEnableSyncToThirdparties").' '.$form->selectyesno("GOOGLE_DUPLICATE_INTO_THIRDPARTIES",isset($_POST["GOOGLE_DUPLICATE_INTO_THIRDPARTIES"])?$_POST["GOOGLE_DUPLICATE_INTO_THIRDPARTIES"]:$conf->global->GOOGLE_DUPLICATE_INTO_THIRDPARTIES,1).'<br>';
 if ($conf->societe->enabled) print $langs->trans("GoogleEnableSyncToContacts").' '.$form->selectyesno("GOOGLE_DUPLICATE_INTO_CONTACTS",isset($_POST["GOOGLE_DUPLICATE_INTO_CONTACTS"])?$_POST["GOOGLE_DUPLICATE_INTO_CONTACTS"]:$conf->global->GOOGLE_DUPLICATE_INTO_CONTACTS,1).'<br>';
 if ($conf->adherent->enabled) print $langs->trans("GoogleEnableSyncToMembers").' '.$form->selectyesno("GOOGLE_DUPLICATE_INTO_MEMBERS",isset($_POST["GOOGLE_DUPLICATE_INTO_MEMBERS"])?$_POST["GOOGLE_DUPLICATE_INTO_MEMBERS"]:$conf->global->GOOGLE_DUPLICATE_INTO_MEMBERS,1).'<br>';
+
+
+print '<div class="syncx">';
+
 print '<br>';
 
 
-$var=false;
+$var=true;
 print "<table class=\"noborder\" width=\"100%\">";
 
 print "<tr class=\"liste_titre\">";
@@ -590,8 +603,8 @@ print "</tr>";
 if ($conf->societe->enabled)
 {
 	$var=!$var;
-	print '<tr '.$bc[$var].' id="syncthirdparties">';
-	print '<td class="fieldrequired">'.$langs->trans("GOOGLE_TAG_PREFIX")."<br /></td>";
+	print '<tr '.$bc[$var].' id="trsyncthirdparties">';
+	print '<td class="fieldrequired">'.$langs->trans("GOOGLE_TAG_PREFIX")."</td>";
 	print "<td>";
 	print '<input class="flat" type="text" size="28" name="GOOGLE_TAG_PREFIX" value="'.dol_escape_htmltag(getTagLabel('thirdparties')).'">';
 	print "</td>";
@@ -601,8 +614,8 @@ if ($conf->societe->enabled)
 if ($conf->societe->enabled)
 {
 	$var=!$var;
-	print '<tr '.$bc[$var].' id="synccontacts">';
-	print '<td class="fieldrequired">'.$langs->trans("GOOGLE_TAG_PREFIX_CONTACTS")."<br /></td>";
+	print '<tr '.$bc[$var].' id="trsynccontacts">';
+	print '<td class="fieldrequired">'.$langs->trans("GOOGLE_TAG_PREFIX_CONTACTS")."</td>";
 	print "<td>";
 	print '<input class="flat" type="text" size="28" name="GOOGLE_TAG_PREFIX_CONTACTS" value="'.dol_escape_htmltag(getTagLabel('contacts')).'">';
 	print "</td>";
@@ -612,8 +625,8 @@ if ($conf->societe->enabled)
 if ($conf->adherent->enabled)
 {
 	$var=!$var;
-	print '<tr '.$bc[$var].' id="syncmembers">';
-	print '<td class="fieldrequired">'.$langs->trans("GOOGLE_TAG_PREFIX_MEMBERS")."<br /></td>";
+	print '<tr '.$bc[$var].' id="trsyncmembers">';
+	print '<td class="fieldrequired">'.$langs->trans("GOOGLE_TAG_PREFIX_MEMBERS")."</td>";
 	print "<td>";
 	print '<input class="flat" type="text" size="28" name="GOOGLE_TAG_PREFIX_MEMBERS" value="'.dol_escape_htmltag(getTagLabel('members')).'">';
 	print "</td>";
@@ -628,7 +641,7 @@ print "<br>";
 
 
 
-$var=true;
+$var=false;
 print "<table class=\"noborder\" width=\"100%\">";
 
 print "<tr class=\"liste_titre\">";
@@ -658,6 +671,7 @@ print "</table>";
 
 print info_admin($langs->trans("EnableAPI","https://code.google.com/apis/console/","https://code.google.com/apis/console/","Contacts API"));
 
+print '</div>';
 
 dol_fiche_end();
 
@@ -672,9 +686,9 @@ print '<br>';
 
 if ($conf->societe->enabled)
 {
-	print '<div class="tabsActions">';
+	print '<div class="tabsActions syncthirdparties">';
 	// Thirdparties
-	if (empty($conf->global->GOOGLE_CONTACT_LOGIN) || empty($conf->global->GOOGLE_DUPLICATE_INTO_THIRDPARTIES))
+	if (empty($conf->global->GOOGLE_CONTACT_LOGIN))
 	{
 		print '<div class="inline-block divButAction"><font class="butActionRefused" href="#">'.$langs->trans("TestCreateUpdateDelete")." (".$langs->trans("ThirdParty").")</font></a></div>";
 
@@ -691,9 +705,9 @@ if ($conf->societe->enabled)
 
 if ($conf->societe->enabled)
 {
-	print '<div class="tabsActions">';
+	print '<div class="tabsActions synccontacts">';
 	// Contacts
-	if (empty($conf->global->GOOGLE_CONTACT_LOGIN) || empty($conf->global->GOOGLE_DUPLICATE_INTO_CONTACTS))
+	if (empty($conf->global->GOOGLE_CONTACT_LOGIN))
 	{
 		print '<div class="inline-block divButAction"><font class="butActionRefused" href="#">'.$langs->trans("TestCreateUpdateDelete")." (".$langs->trans("Contact").")</font></a></div>";
 
@@ -711,8 +725,8 @@ if ($conf->societe->enabled)
 // Members
 if ($conf->adherent->enabled)
 {
-	print '<div class="tabsActions">';
-	if (empty($conf->global->GOOGLE_CONTACT_LOGIN) || empty($conf->global->GOOGLE_DUPLICATE_INTO_MEMBERS))
+	print '<div class="tabsActions syncmembers">';
+	if (empty($conf->global->GOOGLE_CONTACT_LOGIN))
 	{
 		print '<div class="inline-block divButAction"><font class="butActionRefused" href="#">'.$langs->trans("TestCreateUpdateDelete")." (".$langs->trans("Member").")</font></a></div>";
 
@@ -732,6 +746,7 @@ print '<br><br>';
 
 if (! empty($conf->global->GOOGLE_DUPLICATE_INTO_THIRDPARTIES))
 {
+	print '<div class="tabsActions syncthirdparties">';
 	print '<br>';
 
 	print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
@@ -745,10 +760,12 @@ if (! empty($conf->global->GOOGLE_DUPLICATE_INTO_THIRDPARTIES))
 	print $langs->trans("DeleteAllGoogleThirdparties")." ";
 	print '<input type="submit" name="cleanup" class="button" value="'.$langs->trans("Run").'">';
 	print "</form>\n";
+	print '</div>';
 }
 
 if (! empty($conf->global->GOOGLE_DUPLICATE_INTO_CONTACTS))
 {
+	print '<div class="tabsActions synccontacts">';
 	print '<br>';
 
 	print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
@@ -762,10 +779,12 @@ if (! empty($conf->global->GOOGLE_DUPLICATE_INTO_CONTACTS))
 	print $langs->trans("DeleteAllGoogleContacts")." ";
 	print '<input type="submit" name="cleanup" class="button" value="'.$langs->trans("Run").'">';
 	print "</form>\n";
+	print '</div>';
 }
 
 if (! empty($conf->global->GOOGLE_DUPLICATE_INTO_MEMBERS))
 {
+	print '<div class="tabsActions syncmembers">';
 	print '<br>';
 
 	print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
@@ -779,6 +798,8 @@ if (! empty($conf->global->GOOGLE_DUPLICATE_INTO_MEMBERS))
 	print $langs->trans("DeleteAllGoogleMembers")." ";
 	print '<input type="submit" name="cleanup" class="button" value="'.$langs->trans("Run").'">';
 	print "</form>\n";
+
+	print '</div>';
 }
 
 dol_htmloutput_mesg($mesg);
@@ -789,4 +810,3 @@ dol_htmloutput_errors((is_numeric($error)?'':$error),$errors);
 llxFooter();
 
 if (is_object($db)) $db->close();
-

@@ -1,7 +1,7 @@
 # Dolibarr language file - es_ES - google
-CHARSET = UTF-8
-GoogleSetup=Configuración integración con Google tools
-GoogleSetupHelp=Ayuda a definir los parámetros que se encuentran con la URL de configuración de google %s 
+CHARSET=UTF-8
+GoogleSetup=Configuración del módulo Google
+GoogleSetupHelp=El ID de calendario es único para cada calendario y es visible en la página de configuración de Google Calendar. Este es un identificador que es similar a un e-mail.
 GoogleAgendaNb=Agenda nº %s 
 GoogleIDAgenda=ID Agenda
 GoogleNbOfAgenda=Número de agendas
@@ -10,16 +10,89 @@ GoogleEnableThisTool=Añadir la pestaña Google agenda en la vista de la agenda
 GoogleEnableThisToolThirdParties=Activar esta herramienta en los Terceros
 GoogleEnableThisToolContacts=Activar esta herramienta en los Contactos
 GoogleEnableThisToolMembers=Activar esta herramienta en los miembros
-GoogleAddPubOnLogonPage=Indicar información AdSense para añadir poblicidad en la página de login (de lo contrario dejar en blanco)
+GoogleAddPubOnLogonPage=Indicar información AdSense para añadir publicidad en la página de login (de lo contrario dejar en blanco)
 GoogleAddAnalyticsOnLogonPage=Indicar el id de Analytics para añadir la baliza Google Analytics en la página de login (de lo contrario dejar en blanco)
 GoogleZoomLevel=Nivel de zoom por defecto (1 a 10)
 GoogleAddressNotDefined=No hay dirección o no está lo bastante completa como para poder ser geolocalizada
 GoogleMapsAddressNotFound=No se ha podido encontrar la dirección.
 GoogleAgendaToShow=Agenda a mostrar
 GoogleEnableSyncToCalendar=Crear un evento Google en Google Calendar en la creación de un evento Dolibarr
-AgendaView=Vista Google agenda
-AgendaSync=Sincronizar a Google agenda
-GOOGLE_LOGIN=Login Google
+GoogleActivateSyncToCalendar=Activar la sincronización del calendario
+GoogleEnableSyncToThirdparties=Activar la sincronización de terceros a los contactos de GMail
+GoogleEnableSyncToContacts=Activar la sincronización de contactos/direcciones a los contactos de GMail
+GoogleEnableSyncToMembers=Activar la sincronización de los miembros a los contactos de GMail
+AgendaView=Vista Google Calendar
+AgendaSync=Sincronizar a Google Calendar
+ContactSync=Sincronización a Contactos de Google
+GOOGLE_LOGIN=Login Google (minombre@gmail.com)
 GOOGLE_PASSWORD=Contraseña
+GOOGLE_EVENT_LABEL_INC_SOCIETE=Incluir el nombre de la empresa en los eventos relacionados con un tercero
+GOOGLE_EVENT_LABEL_INC_CONTACT=Incluir el nombre del contacto en los eventos relacionados con un contacto
+GOOGLE_CONTACT_LABEL=Etiqueta para etiquetar los contactos
+MAIN_GOOGLE_AN_ID=ID Google analytics
 Module101110Name=Google
 Module101110Desc=Módulo para integrar las herramientas Google en Dolibarr
+GoogleCalendarSyncConf=Configuración de la sincronización del calendario
+KeepEmptyYoUseLoginPassOfEventUser=Dejar en blanco para usar el ID Google Calendar definido por el usuario propietario del evento (configurado en la ficha de cada usuario)
+KeepEmptyYoUsePublicQuotaOfAPI=Dejar en blanco para usar la cuota pública de esta API. (De lo contrario la clave puede crearse desde la página https://code.google.com/apis/console/. "API Access" para crear una "Server key" y "Services" para activar la API "%s")
+AllowGoogleToLoginWithKey=Para usar las cuotas de su propia cuenta Google, debe crear una clave desde la página <a href="%s" target="_blank">%s</a>, menú "API & Authentification" -> "Indentification". Hacer clic en "Crear una clave" y escoger "Clave de servidor" y seguidamente "Crear". Obtendrá su clave de servidor.
+AllowGoogleToLoginWithServiceAccount=Puede crear su <strong>cuenta de servicio usuario/email</strong> desde la página <a href="%s" target="_blank">%s</a>, menú "API & Authentification" -> "Identification" . Hacer clic en "Crear un ID de cliente" y escoger "Cuenta de servicio" seguidamente "Crear". Obtendrá su nueva cuenta de servicio con un <strong>ID cliente de cuenta de servicio</strong> y un <strong>Email de cuenta de servicio</strong>.
+EnableAPI=También debe habilitar la API para su cuenta de Google. Para ello, vaya a la página <a href="%s" target="_blank">%s</a>, menu "API & Authentification" -> "API". Haga clic en activar la API para "%s".
+ShareCalendarWithServiceAccount=También es necesario compartir el calendario (permisos completos con la cuenta de servicio <strong>%s</strong>. Para ello, vaya al calendario de Google, seleccione "Configuración" y  vaya a la pestaña "Calendarios" (acceso directo vía <a href="https://www.google.com/calendar/render?tab=mc#i">este enlace</a>). Haga clic en "compartidos: Ajustes" al final del calendario a actualizar (Este debe ser el mismo calendario que indicó en el ID de parámetro "%s".) a continuación, agregue la cuenta de servicio de usuario/email en el campo Email, seleccione los permisos más completos y confirme haciendo clic en "Añadir usuario".
+GOOGLE_API_SERVERKEY=
+GoogleUserConf=Configuración Google
+GoogleSetupIsGlobal=La sincronización se realiza a nivel global a el calendario <strong>%s</strong> para todo el mundo
+TestCreateUpdateDelete=Probar creación-actualización-eliminación
+TestCreate=Probar creación (eliminar a mano)
+TestSuccessfull=Prueba correcta
+DueToGoogleLimitYouNeedToLogin=Por razones de seguridad impuestas por Google, la vista de calendario de Google no se mostrará correctamente si se ha iniciado sesión en Google (sólo funciona para un ID de calendario).
+AllowGoogleToLoginSetupKey=Para integrar este proceso de acceso a Google en la aplicación (no es obligatorio), es posible configurar una clave para permitir a la aplicación ofrecer el inicio de sesión en Google, si no está conectado.
+AllowGoogleToLoginProp=Los datos a indicar aquí se obtienen creando una clave mediante este enlace <a href="%s" target="_blank">%s</a>: : Seleccione Acceso API y cree un ID de cliente del tipo Application Web, indicando como url de redirección (Redirect URI) la url <strong>%s</strong> 
+ExportThirdpartiesToGoogle=Exportar todos los terceros de Dolibarr a los contactos de GMail (Atención: No hay gestión de duplicidades en la exportación en masa).
+ExportContactToGoogle=Exportar todos los contactos/direcciones de Dolibarr a los contactos de GMail (Atención: No hay gestión de duplicidades en la exportación en masa).
+ExportMembersToGoogle=Exportar todos los miembros de Dolibarr a los contactos de GMail (Atención: No hay gestión de duplicidades en la exportación en masa).
+ExportEventsToGoogle=Exportar los %s últimos eventos de Dolibarr al calendario de GMail (Atención: No hay gestión de duplicidades en la exportación en masa).
+DeleteAllGoogleThirdparties=Eliminar todos los terceros provenientes de Dolibarr en GMail.
+DeleteAllGoogleContacts=Eliminar todos los contactos provenientes de Dolibarr en GMail.
+DeleteAllGoogleMembers=Eliminar todos los miembros provenientes de Dolibarr en GMail.
+DeleteAllGoogleEvents=Eliminar todos los eventos provenientes de Dolibarr en GMail.
+PushToGoogleSucess=Sincronización a los contactos de Google realizada, %sregistro(s).
+DeleteToGoogleSucess=%s contacto(s) eliminado(s) de los contactos de Google.
+GOOGLE_TAG_PREFIX=Etiqueta para marcar los terceros de Dolibarr en contactos de Google
+GOOGLE_TAG_PREFIX_CONTACTS=Etiqueta para marcar los contactos/direcciones de Dolibarr en contactos de Google
+GOOGLE_TAG_PREFIX_MEMBERS=Etiqueta para marcar los miembros de Dolibarr en contactos de Google
+ErrorLabelsMustDiffers=Error, los valores de las etiquetas deben de ser únicos
+BoxMaps=Listado de mapas disponibles
+MapOfThirdparties=Mapa de terceros
+MapOfContactsAddresses=Mapa de contactos/direcciones
+MapOfMembers=Mapa de miembros
+MapOfPatients=Mapa de pacientes
+NoAddressDefined=Ninguna dirección definida
+FollowingAddressCantBeLocalized=Las %s direcciones siguientes no se pueden localizar en el mapa
+OnlyXAddressesAmongYWereGeoencoded=Por razones de limitación de Google, la localización de direcciones se realizan por paquetes de %s, algunas direcciones no se representan porque aún no se han geocodificado
+CountGeoTotal=Total direcciones %s - %s aún no geocodificadas - %s en error=%s representadas
+ClickHereToIncludeXMore=Haga clic aquí para geocodificar más direcciones
+ListOfMaps=Listado de mapas disponibles
+By25=Por 25
+By50=Por 50
+By100=Por 100
+ParametersForGoogleOAuth=Para Google API OAuth 2.0
+ParametersForGoogleAPIv2Usage=Para Google API %s V2
+ParametersForGoogleAPIv3Usage=Pour Google API %s V3
+GoogleClientId=ID cliente
+GoogleClientSecret=Client secret
+GOOGLE_FIX_TZ=Corrección de TimeZone
+GOOGLE_API_SERVICEACCOUNT_CLIENT_ID=ID cliente de cuenta de servicio
+GOOGLE_API_SERVICEACCOUNT_EMAIL=Usuario/email de cuenta de servicio (NO es su cuenta login/email de Google)
+GOOGLE_API_SERVICEACCOUNT_P12KEY=Archivo de cuenta de servicio p12
+FillThisOnlyIfRequired=Ejemplo: +2 (indicar solamente si se experimentan problemas)
+AboutInfo=Este módulo ha sido desarrollado y distribuido por Laurent Destailleur para NLTechno,  <a target="_blank" href="http://www.nltechno.com">www.nltechno.com</a> (una empresa Dolibarr Preferred Partner).
+MoreModules=Más módulos del mismo autor se encuentran disponibles en la tienda oficial DoliStore...
+MoreModulesLink=<a target="_blank" href="http://www.dolistore.com/search.php?search_query=nltechno">Haga clic aquí para ver el listado</a>
+MoreCloudHosting=Para un uso en línea de Dolibarr, pruebe el hosting asegurado DoliCloud.
+MoreCloudHostingLink=<a target="_blank" href="http://www.dolicloud.com">Haga clic aquí para más información</a>
+CompatibleWithDoliDroid=Este módulo es compatible con DoliDroid, la app Android para Dolibarr.
+LinkToThirdParty=Enlace a terceros
+LinkToContact=Enlace a contactos
+GoogleContactSyncInfo=Use una etiqueta de grupo a su gusto. El grupo se creará en los contactos de Google si no existe. Puede usar una de las etiquetas de grupos predefinidas por Google, como: <br>"System Group: My Contacts", "System Group: Friend", "System Group: CoWorker", "System Group: Family"<br>Tenga en cuenta que solamente el grupo predefinido "System Group: My Contacts" es compartido por la función "Delegación de contactos" de contactos de Google (Google Apps Business/Pro).
+XRecordDeleted=<strong>%s</strong> registros eliminados
