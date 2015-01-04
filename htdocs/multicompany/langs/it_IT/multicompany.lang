@@ -1,16 +1,59 @@
 # Dolibarr language file - it_IT - multicompany
+# Author: Claudio Aschieri (c.aschieri@19.coop)
 CHARSET=UTF-8
 
-MasterEntity=Utente Principale
-MasterEntityDesc=L'utente principale non può essere cancellato
-ListOfEntities=elenco utenti
-AddEntity=Aggiungi un utente
-EditEntity=Modifica utente
-EntityName=Nome utente
-DeleteAnEntity=Cancella un utente
-ConfirmDeleteEntity=Sei sicuro di voler cancellare questo utente?
-ErrorEntityLabelAlreadyExist=Il nome per questo utente esiste già.
-ErrorEntityIsNotValid=Questo utente non è valido.
-ErrorNotDeleteMasterEntity=Non puoi cancellare l'utente principale.
+MasterEntity=Azienda Principale
+MasterEntityDesc=L'azienda principale non può essere cancellata
+SwitchToAnotherEntity=Cambia azienda
+SelectAnEntity=Seleziona un',azienda
+AllEntities=Tutte le aziende
+
+# Admin parameters tab
+AddAll=Aggiungi tutti
+RemoveAll=Rimuovi tutti
+ItemsCount=Elementi selezionati
+EntitiesManagement=Gestione aziende
+ListOfEntities=Elenco aziende
+AddEntity=Aggiungi un'azienda
+EditEntity=Modifica azienda
+EntityName=Nome azienda
 DefaultLanguageShort=Lingua predefinita
-ConfirmedEntityDeleted=L'utente è stato cancellato.
+CommonParameters=Parametri comuni da condividere
+ReferringEntity=Azienda di riferimento per la configurazione dei valori
+ThirdpartySharing=Condivisione soggetti terzi e contatti
+ThirdpartySharingDescription=Selezione delle aziende che condividono i loro database di soggetti terzi e contatti con l'azienda selezionata.
+ProductSharing=Condivisione prodotti/Servizi
+ProductSharingDescription=Selezione delle aziende che condividono i loro database di Prodotti/Servizi con l'azienda selezionata.
+ProductPriceSharing=Condivisione prezzi dei Serivizi/Prodotti
+ProductPriceSharingDescription=Selezione delle aziende che condividono i prezzi dei prodotti/servizi con l'azienda selezionata.
+CategorySharing=Condivisione categorie
+CategorySharingDescription=Selezione delle aziende che condividono le categorie con l'azienda selezionata.
+AgendaSharing=Condivisione Calendario
+AgendaSharingDescription=Selezione delle aziende che condividono il calendario con l'azienda selezionata.
+BankSharing=Condivisione Banche/Casse
+BankSharingDescription=Selezione delle aziende che condividono le banche/casse con l'azienda selezionata.
+DeleteAnEntity=Elimina un'azienda
+ConfirmDeleteEntity=Sei sicuro di voler eliminare questa azienda?
+ConfirmedEntityDeleted=L'azienda è stata cancellata.
+
+# Admin options tab
+Options=Opzioni
+GroupModeTransversal=Transverse mode
+HideLoginCombobox=Nascondi la scelta dell'azienda nella schermata di login
+EnableCookieLogin=Salva lo username e aggiungi il numero dell'azienda in un cookie
+EnableGlobalSharings=Attiva la condivisione di dati tra le aziende
+ShareProductsAndServices=Attiva la condivisione dei Prodotti/Servizi
+ShareProductsAndServicesPrices=Attiva la condivisione dei prezzi dei Prodotti/Servizi
+ShareThirdpartiesAndContacts=Attiva la condivisione dei dei soggetti terzi e dei contatti
+ShareCategories=Attiva la condivisione delle categorie
+ShareAgenda=Attiva la condivisione dei calendari
+ShareStock=Attiva la condivisione del magazzino
+ShareBank=Attiva la condivisione delle banche/casse
+GlobalSharings=Condivisione
+GlobalSharingsInfo=Quando avrai attivato la condivisione, sarà necessario configurare ogni singola unità per la condivisione tra le aziende
+
+
+# Errors
+ErrorEntityLabelAlreadyExist=Il nome per questa azienda esiste già.
+ErrorEntityIsNotValid=Questa azienda non è valida.
+ErrorNotDeleteMasterEntity=Non puoi eliminare l'azienda principale.

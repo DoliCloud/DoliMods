@@ -57,23 +57,23 @@ class ActionsCabinetmed
      */
     function doActions($parameters,&$object,&$action)
     {
-        global $db,$langs,$conf,$backtourl;
+        global $db,$langs,$conf,$backtopage;
 
         $ret=0;
         dol_syslog(get_class($this).'::executeHooks action='.$action);
 
         $arraytmp=dol_getdate(dol_now());
 
-        //print 'action='.$action;
-        //var_dump($parameters);
+        // Define cabinetmed context
         $cabinetmedcontext=0;
-        if (isset($parameters['id']) && isset($parameters['context']) && in_array($parameters['context'],array('agendathirdparty','categorycard','infothirdparty')) && empty($action))
+        if (isset($parameters['id']) && isset($parameters['context']) && in_array($parameters['context'],array('agendathirdparty','categorycard','infothirdparty','consumptionthirdparty')) && empty($action))
         {
         	$thirdparty=new Societe($db);
         	$thirdparty->fetch($parameters['id']);
         	if ($thirdparty->canvas == 'patient@cabinetmed') $cabinetmedcontext++;
         }
 		if (GETPOST('canvas') == 'patient@cabinetmed') $cabinetmedcontext++;
+
         if ($cabinetmedcontext)
         {
        		$langs->tab_translate["ThirdParty"]=$langs->transnoentitiesnoconv("Patient");
@@ -98,7 +98,7 @@ class ActionsCabinetmed
             $month=((int) $birthdatearray['tm_month'] + 1);
             $year=((int) $birthdatearray['tm_year'] + 1900);
             $birthdate=dol_mktime(0,0,0,$month,$day,$year,true,true);
-            if (GETPOST('idprof3') && (empty($birthdatearray['tm_year']) || empty($birthdate) || ($day > 31) || ($month > 12) || ($year >( $arraytmp['year']+1))))
+            if (GETPOST('idprof3') && (empty($birthdatearray['tm_year']) || (empty($birthdate) && $birthdate != '0') || ($day > 31) || ($month > 12) || ($year >( $arraytmp['year']+1))))
             {
                 $langs->load("errors");
                 $this->errors[]=$langs->trans("ErrorBadDateFormat",$date);
@@ -143,7 +143,7 @@ class ActionsCabinetmed
                 else dol_print_error($this->db);
             }
 
-            if ($ret == 0) $backtourl=$_SERVER["PHP_SELF"]."?socid=__ID__";
+            if ($ret == 0 && $parameters['id'] > 0) $backtopage=$_SERVER["PHP_SELF"]."?socid=".$parameters['id'];
         }
 
         // Hook called when asking to update a record
@@ -277,9 +277,10 @@ class ActionsCabinetmed
      * Complete doc forms
      *
      * @param	array	$parameters		Array of parameters
+     * @param	Object	$object			Object
      * @return	string					HTML content to add by hook
      */
-    function formBuilddocOptions($parameters)
+    function formBuilddocOptions($parameters, $object)
     {
         global $langs, $user, $conf, $form;
 
@@ -287,6 +288,8 @@ class ActionsCabinetmed
 
         include_once(DOL_DOCUMENT_ROOT.'/core/modules/societe/modules_societe.class.php');
         $modellist=ModeleThirdPartyDoc::liste_modeles($this->db);
+
+		if ($object->canvas != 'patient@cabinetmed') return '';
 
         $out='';
         $out.='<tr>';

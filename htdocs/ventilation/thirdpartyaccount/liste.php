@@ -14,15 +14,12 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
- *
- * $Id: liste.php,v 1.12 2011/07/31 22:23:31 eldy Exp $
  */
 
 /**
-        \file       htdocs/compta/param/comptes/liste.php
+        \file       htdocs/ventilation/thirdpartyaccount/liste.php
         \ingroup    compta
         \brief      Onglet de gestion de parametrages des ventilations
-        \version    $Revision: 1.12 $
 */
 
 // Dolibarr environment
@@ -53,28 +50,27 @@ else
  *
  *
  */
- 
- 
- 
+
+
+
 
 llxHeader('',$langs->trans("ThirdPartyAccount"));
 
 $textprevyear="<a href=\"liste.php?year=" . ($year_current-1) . "\">".img_previous()."</a>";
 $textnextyear=" <a href=\"liste.php?year=" . ($year_current+1) . "\">".img_next()."</a>";
 
- 
- 
- 
- 
 
-$sql = "SELECT so.rowid, so.nom , so.address, so.zip , so.town, so.code_compta , ";
-$sql .= " so.fk_forme_juridique , so.fk_pays , so.phone , so.fax ,   fa.datec , fa.fk_soc ";
-$sql .= " FROM ".MAIN_DB_PREFIX."facture as fa";
+
+
+
+
+$sql = "SELECT so.rowid, so.nom as name, so.address, so.zip, so.town, so.code_compta, ";
+$sql.= " so.fk_forme_juridique, so.fk_pays, so.phone, so.fax, fa.datec, fa.fk_soc";
+$sql.= " FROM ".MAIN_DB_PREFIX."facture as fa";
 $sql.= " JOIN ".MAIN_DB_PREFIX."societe so ON so.rowid = fa.fk_soc";
 //$sql .= " WHERE fa.datec >= '" . $db->idate ( dol_get_first_day ( $y, 1, false ) ) . "'";
 //$sql .= "  AND fa.datec <= '" . $db->idate ( dol_get_last_day ( $y, 12, false ) ) . "'";
 $sql .= " GROUP BY so.rowid";
-
 
 $resql = $db->query($sql);
 if ($resql)
@@ -110,7 +106,7 @@ print '<td align="center">'.$langs->trans("Fax").'</td></tr>';
  print '<td><a href="./fiche.php?action=update&id='.$obj->rowid.'">';
  print img_edit();
  print '</a>&nbsp;'.$obj->code_compta.'</td>'."\n";
- print '<td>'.$obj->nom.'</td>';
+ print '<td>'.$obj->name.'</td>';
  print '<td align="center">'.$obj->fk_forme_juridique.'</td>';
  print '<td align="center">'.$obj->address.'</td>';
  print '<td align="center">'.$obj->zip.'</td>';
@@ -119,7 +115,7 @@ print '<td align="center">'.$langs->trans("Fax").'</td></tr>';
  print '<td align="center"></td>';
  print '<td align="center">'.$obj->phone.'</td>';
  print '<td align="center">'.$obj->fax.'</td>';
-   
+
 
 
       print "</tr>\n";

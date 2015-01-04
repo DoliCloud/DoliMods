@@ -55,7 +55,7 @@ class modOpenStreetMap extends DolibarrModules
 		$this->picto='openstreetmap@openstreetmap';
 
 		// Defined if the directory /mymodule/inc/triggers/ contains triggers or not
-        $this->module_parts = array('triggers' => 1, 'hooks' => array('toprightmenu'));
+        $this->module_parts = array('triggers' => 1);
 
 		// Data directories to create when module is enabled
 		$this->dirs = array();

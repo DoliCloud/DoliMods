@@ -6,8 +6,8 @@ SkinColorEditorDescUser=This tab allows you to change colors of the skin Eldy wi
 WarningSkinMustBeEldy=Warning, change of colors works only with skin Eldy. You are using currently the skin %s.
 SkinColorEditorFastEditor=Editeur rapide
 SkinColorEditorAdvancedEditor=Editeur avancé
-Module101880Name= Skin Editor
-Module101880Desc= Allows to edit and personalise colors and font of skin Eldy
+Module101880Name=Skin Editor
+Module101880Desc=Allows to edit and personalise colors and font of skin Eldy
 SelectMainColor=Select main color
 ActivateColorPersonalizing=Activate possibility to personalize colors and font (globaly)
 ActivateColorPersonalizingUser=Activate possibility to personalize colors and font (for this user)
@@ -21,3 +21,6 @@ MoreModulesLink=<a target="_blank" href="http://www.dolistore.com/search.php?sea
 MoreCloudHosting=To use online Dolibarr, choose the secured hosting DoliCloud.
 MoreCloudHostingLink=<a target="_blank" href="http://www.dolicloud.com">Click here for more information</a>
 CompatibleWithDoliDroid=This modules is also compatible with DoliDroid, the Android application for Dolibarr.
+ForceSpecificValue=Force specific values
+SelectTabColor1=End-bottom gradient color for tabs
+SelectTabColor2=Start-top gradient color for tabs

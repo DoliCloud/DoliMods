@@ -55,6 +55,7 @@ if (! empty($conf->notification->enabled)) $langs->load("mails");
 $mesg=''; $error=0; $errors=array();
 
 $action		= (GETPOST('action') ? GETPOST('action') : 'view');
+$backtopage = GETPOST('backtopage','alpha');
 $confirm	= GETPOST('confirm');
 $socid		= GETPOST('socid','int');
 if ($user->societe_id) $socid=$user->societe_id;
@@ -69,7 +70,7 @@ $extralabels=$extrafields->fetch_name_optionals_label($object->table_element);
 // Get object canvas (By default, this is not defined, so standard usage of dolibarr)
 $object->getCanvas($socid);
 $canvas = $object->canvas?$object->canvas:GETPOST("canvas");
-$objcanvas='';
+$objcanvas=null;
 if (! empty($canvas))
 {
     require_once DOL_DOCUMENT_ROOT.'/core/class/canvas.class.php';
@@ -343,11 +344,20 @@ if (empty($reshook))
                 {
                     $db->commit();
 
-                    $url=$_SERVER["PHP_SELF"]."?socid=".$object->id;
-                    /*if (($object->client == 1 || $object->client == 3) && empty($conf->global->SOCIETE_DISABLE_CUSTOMERS)) $url=DOL_URL_ROOT."/comm/fiche.php?socid=".$object->id;
-                    else if ($object->fournisseur == 1) $url=DOL_URL_ROOT."/fourn/fiche.php?socid=".$object->id;*/
-                    header("Location: ".$url);
-                    exit;
+                	if (! empty($backtopage))
+                	{
+               		    header("Location: ".$backtopage);
+                    	exit;
+                	}
+                	else
+                	{
+                    	$url=$_SERVER["PHP_SELF"]."?socid=".$object->id;
+	                    /*if (($object->client == 1 || $object->client == 3) && empty($conf->global->SOCIETE_DISABLE_CUSTOMERS)) $url=DOL_URL_ROOT."/comm/card.php?socid=".$object->id;
+    	                else if ($object->fournisseur == 1) $url=DOL_URL_ROOT."/fourn/card.php?socid=".$object->id;*/
+
+                    	header("Location: ".$url);
+            	        exit;
+                	}
                 }
                 else
                 {
@@ -358,10 +368,18 @@ if (empty($reshook))
 
             if ($action == 'update')
             {
-                if ($_POST["cancel"])
+                if (GETPOST("cancel"))
                 {
-                    header("Location: ".$_SERVER["PHP_SELF"]."?socid=".$socid);
-                    exit;
+                	if (! empty($backtopage))
+                	{
+            	        header("Location: ".$backtopage);
+                        exit;
+	                }
+                  	else
+                	{
+               		    header("Location: ".$_SERVER["PHP_SELF"]."?socid=".$socid);
+                    	exit;
+                	}
                 }
 
                 // To not set code if third party is not concerned. But if it had values, we keep them.
@@ -440,7 +458,6 @@ if (empty($reshook))
 
                 	$sql = "UPDATE ".MAIN_DB_PREFIX."adherent";
                 	$sql.= " SET fk_soc = NULL WHERE fk_soc = " . $id;
-                	dol_syslog(get_class($this)."::delete sql=".$sql, LOG_DEBUG);
                 	if (! $this->db->query($sql))
                 	{
                 		$error++;
@@ -472,7 +489,8 @@ if (empty($reshook))
 
         if ($result > 0)
         {
-            header("Location: ".DOL_URL_ROOT."/societe/societe.php?delsoc=".urlencode($object->name));
+        	setEventMessage($langs->trans("PatientDeleted", $object->name));
+            header("Location: ".dol_buildpath("/cabinetmed/patients.php",1));
             exit;
         }
         else
@@ -576,7 +594,11 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action))
 	     $result=$object->fetch($socid);
 	     if ($result <= 0) dol_print_error('',$object->error);
  	}
-   	$objcanvas->assign_values($action, $object->id, $object->ref);	// Set value for templates
+
+	// Fill array 'array_options' with data from add or update form
+    $ret = $extrafields->setOptionalsFromPost($extralabels,$object);
+
+ 	$objcanvas->assign_values($action, $object->id, $object->ref);	// Set value for templates
     $objcanvas->display_canvas($action);		// Show template
 }
 else

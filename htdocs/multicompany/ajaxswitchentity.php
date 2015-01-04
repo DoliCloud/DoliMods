@@ -29,10 +29,13 @@ if (! defined('NOREQUIREAJAX'))  define('NOREQUIREAJAX','1');
 if (! defined('NOREQUIRESOC'))   define('NOREQUIRESOC','1');
 //if (! defined('NOREQUIRETRAN'))  define('NOREQUIRETRAN','1');
 
-$res=@include("../main.inc.php");						// For root directory
-if (! $res && file_exists($_SERVER['DOCUMENT_ROOT']."/main.inc.php"))
-	$res=@include($_SERVER['DOCUMENT_ROOT']."/main.inc.php"); // Use on dev env only
-if (! $res) $res=@include("../../main.inc.php");		// For "custom" directory
+if (! $res && file_exists("../main.inc.php")) $res=@include("../main.inc.php");
+if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.php");
+if (! $res && file_exists("../../../main.inc.php")) $res=@include("../../../main.inc.php");
+if (! $res && file_exists("../../../../main.inc.php")) $res=@include("../../../../main.inc.php");
+if (! $res && file_exists("../../../../../main.inc.php")) $res=@include("../../../../../main.inc.php");
+if (! $res && preg_match('/\/nltechno([^\/]*)\//',$_SERVER["PHP_SELF"],$reg)) $res=@include("../../../../dolibarr".$reg[1]."/htdocs/main.inc.php"); // Used on dev env only
+if (! $res) die("Include of main fails");
 
 dol_include_once("/multicompany/class/actions_multicompany.class.php");
 
@@ -59,7 +62,7 @@ if (! empty($action) && ! empty($entity))
 	if ($action == 'switchentity' && is_int($entity))
 	{
 		dol_syslog("AjaxSwitchEntity action=".$action." entity=".$entity, LOG_DEBUG);
-		
+
 		$object = new ActionsMulticompany($db);
 		$ret = $object->switchEntity($entity);
 	}

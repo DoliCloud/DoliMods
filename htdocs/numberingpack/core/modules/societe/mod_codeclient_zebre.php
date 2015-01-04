@@ -46,6 +46,7 @@ class mod_codeclient_zebre extends ModeleThirdPartyCode
     function mod_codeclient_zebre()
     {
         $this->nom = "Zebre";
+        $this->name = "Zebre";
         $this->version = '$Revision: 1.5 $';
         $this->code_modifiable = 0;				// Can be changed if valid
         $this->code_modifiable_invalide = 1;	// Can be changed if not valid

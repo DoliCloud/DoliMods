@@ -21,7 +21,7 @@
 
 
 /**
- *	\file       htdocs/compta/ventilation/liste.php
+ *	\file       htdocs/ventilation/fournisseur/liste.php
  *	\ingroup    compta
  *	\brief      Page de ventilation des lignes de facture
  */
@@ -55,14 +55,14 @@ if($_POST["action"] == 'ventil')
     $mesLignesCochees=$_POST['mesCasesCochees'];
     $mesCodesVentilChoisis = $_POST['codeventil'];
     $cpt = 0;
-    foreach($mesLignesCochees as $maLigneCochee) 
+    foreach($mesLignesCochees as $maLigneCochee)
       {
       //print '<div><font color="red">id selectionnee : '.$monChoix."</font></div>";
       $maLigneCourante = split("_", $maLigneCochee);
       $monId = $maLigneCourante[0];
       $monNumLigne = $maLigneCourante[1];
       $monCompte = $mesCodesVentilChoisis[$monNumLigne];
-  
+
       $sql = " UPDATE ".MAIN_DB_PREFIX."facture_fourn_det";
       $sql .= " SET fk_code_ventilation = ".$monCompte;
       $sql .= " WHERE rowid = ".$monId;
@@ -71,13 +71,13 @@ if($_POST["action"] == 'ventil')
       {
             print '<div><font color="green"> Ligne de facture '.$monId.' ventilee <b>avec succes</b> dans le compte : '.$monCompte.'</font></div>';
       }
-      else 
+      else
       {
            print '<div><font color="red">Erreur BD : Ligne de facture '.$monId.' nom ventilee dans le compte : '.$monCompte.'<br/> <pre>'.$sql.'</pre></font></div>';
       }
-  
-      $cpt++; 
-  
+
+      $cpt++;
+
       }
     }
     else
@@ -99,8 +99,8 @@ $cgn = array();
 if ($resultCompte)
 {
   $numCompte = $db->num_rows($resultCompte);
-  $iCompte = 0; 
-  
+  $iCompte = 0;
+
   while ($iCompte < $numCompte)
     {
       $rowCompte = $db->fetch_row($resultCompte);
@@ -133,12 +133,12 @@ $result = $db->query($sql);
 if ($result)
 {
   $num_lignes = $db->num_rows($result);
-  $i = 0; 
-  
+  $i = 0;
+
   print_barre_liste("Lignes de facture &agrave; ventiler",$page,"liste.php","",$sortfield,$sortorder,'',$num_lignes);
 
-	print '<form action="liste.php" method="post">'."\n";
-	print '<input type="hidden" name="action" value="ventil">';
+  print '<form action="liste.php" method="post">'."\n";
+  print '<input type="hidden" name="action" value="ventil">';
 
   print '<table class="noborder" width="100%">';
   print '<tr class="liste_titre"><td>Facture</td>';
@@ -150,7 +150,7 @@ if ($result)
   print '<td align="center">'.$langs->trans("IntoAccount").'</td>';
   print '<td align="center">'.$langs->trans("Ventilate").'</td>';
   print "</tr>\n";
-  
+
 
 	$form = new Form($db);
 
@@ -161,18 +161,18 @@ if ($result)
       $objp = $db->fetch_object($result);
       $var=!$var;
       print "<tr $bc[$var]>";
-      
-      print '<td><a href="'.DOL_URL_ROOT.'/fourn/facture/fiche.php?facid='.$objp->facid.'">'.$objp->facnumber.'</a></td>';
 
-      print '<td><a href="'.DOL_URL_ROOT.'/product/fiche.php?id='.$objp->product_id.'">'.$objp->product_ref.'</a></td>';
+      print '<td><a href="'.DOL_URL_ROOT.'/fourn/facture/card.php?facid='.$objp->facid.'">'.$objp->facnumber.'</a></td>';
+
+      print '<td><a href="'.DOL_URL_ROOT.'/product/card.php?id='.$objp->product_id.'">'.$objp->product_ref.'</a></td>';
       print '<td>'.dol_trunc($objp->product_label,24).'</td>';
 
-      print '<td>'.stripslashes(nl2br($objp->description)).'</td>';                       
+      print '<td>'.stripslashes(nl2br($objp->description)).'</td>';
 
       print '<td align="right">';
       print price($objp->price);
       print '</td>';
-      
+
       print '<td align="right">';
       print $objp->code_buy;
       print '</td>';
@@ -192,7 +192,7 @@ if ($result)
     }
 
 print '<tr><td colspan="8">&nbsp;</td></tr><tr><td colspan="8" align="center"><input type="submit" class="butAction" value="'.$langs->trans("Ventiler").'"></td></tr>';
-  
+
 print "</table>";
 
 	print '</form>';

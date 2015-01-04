@@ -136,6 +136,7 @@ if ($id > 0)
     print '<td width="20%">'.$langs->trans("Firstname").'</td><td width="30%">'.$object->firstname.'</td></tr>';
 
     // Company
+    /*
     if (empty($conf->global->SOCIETE_DISABLE_CONTACTS))
     {
         if ($object->socid > 0)
@@ -153,6 +154,7 @@ if ($id > 0)
             print '</td></tr>';
         }
     }
+	*/
 
     // Civility
     print '<tr><td>'.$langs->trans("UserTitle").'</td><td colspan="3">';
@@ -179,7 +181,8 @@ print_liste_field_titre($langs->trans('Name'),$_SERVER['PHP_SELF'],'s.nom','',$p
 print_liste_field_titre($langs->trans('CustomerCode'),$_SERVER['PHP_SELF'],'s.code_client','',$param,'',$sortfield,$sortorder);
 print_liste_field_titre($langs->trans('Zip'),$_SERVER['PHP_SELF'],'s.zip','',$param,'',$sortfield,$sortorder);
 print_liste_field_titre($langs->trans('Town'),$_SERVER['PHP_SELF'],'s.town','',$param,'',$sortfield,$sortorder);
-print_liste_field_titre($langs->trans('ProfId3'),$_SERVER['PHP_SELF'],'','',$param,'',$sortfield,$sortorder);
+print_liste_field_titre($langs->trans('DateToBirth'),$_SERVER['PHP_SELF'],'','',$param,'',$sortfield,$sortorder);
+print_liste_field_titre();
 print '</tr>';
 
 
@@ -190,7 +193,8 @@ $sql.= " s.nom as name,";
 $sql.= " s.code_client as customer_code,";
 $sql.= " s.zip as zip,";
 $sql.= " s.town as town,";
-$sql.= " s.ape";
+$sql.= " s.ape,";
+$sql.= " tc.code, tc.libelle as label_type";
 $sql.= " FROM ".MAIN_DB_PREFIX."societe as s,";
 $sql.= " ".MAIN_DB_PREFIX."element_contact as ec,";
 $sql.= " ".MAIN_DB_PREFIX."c_type_contact as tc";
@@ -233,6 +237,9 @@ if ($resql)
         print '</td>';
         print '<td>';
         print $obj->ape;
+        print '</td>';
+        print '<td>';
+        print $obj->label_type;
         print '</td>';
 
         print '</tr>';

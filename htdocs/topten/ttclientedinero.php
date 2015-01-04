@@ -187,7 +187,7 @@ print $langs->trans("TTtopten");
 	 print "<tr $bc[$var]>";
 
 		    $thirdparty_static->id=$listatoptenclientes[$i][1]->id;
-			$thirdparty_static->nom=$listatoptenclientes[$i][1]->nom;
+			$thirdparty_static->name=$listatoptenclientes[$i][1]->name;
 			$thirdparty_static->client=$listatoptenclientes[$i][1];
 
 		print '<td >'.($i+1).'</td>';

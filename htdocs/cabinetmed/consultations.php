@@ -616,7 +616,7 @@ if ($socid > 0)
         if ($action=='edit')   print '<input type="hidden" name="action" value="update">';
         print '<input type="hidden" name="socid" value="'.$socid.'">';
         print '<input type="hidden" name="id" value="'.$id.'">';
-        print '<input type="hidden" name="backtourl" value="'.GETPOST('backtourl').'">';
+        print '<input type="hidden" name="backtopage" value="'.GETPOST('backtopage').'">';
 
 
         /*if ($action=='edit' || $action=='update')

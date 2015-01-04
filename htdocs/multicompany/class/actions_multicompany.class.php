@@ -1,6 +1,7 @@
 <?php
-/* Copyright (C) 2009-2013 Regis Houssin <regis.houssin@capnetworks.com>
- * Copyright (C) 2011      Herve Prot    <herve.prot@symeos.com>
+/* Copyright (C) 2009-2014 Regis Houssin  <regis@dolibarr.fr>
+ * Copyright (C) 2011      Herve Prot     <herve.prot@symeos.com>
+ * Copyright (C) 2014      Philippe Grand <philippe.grand@atoo-net.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -54,6 +55,10 @@ class ActionsMulticompany
 	var $tpl=array();
 
 	private $config=array();
+
+	// For Hookmanager return
+	var $resprints;
+	var $results=array();
 
 
 	/**
@@ -452,7 +457,7 @@ class ActionsMulticompany
 	 *    Switch to another entity.
 	 *    @param	id		Id of the destination entity
 	 */
-	function switchEntity($id)
+	function switchEntity($id, $userid=null)
 	{
 		global $conf,$user;
 
@@ -461,7 +466,9 @@ class ActionsMulticompany
 		if ($this->dao->fetch($id) > 0)
 		{
 			// Controle des droits sur le changement
-			if ($this->dao->verifyRight($id, $user->id) || $user->admin)
+			if (!empty($conf->global->MULTICOMPANY_HIDE_LOGIN_COMBOBOX)
+			|| (!empty($conf->multicompany->transverse_mode) && $this->dao->verifyRight($id, $user->id))
+			|| $user->admin)
 			{
 				$_SESSION['dol_entity'] = $id;
 				$conf->entity = $id;
@@ -549,7 +556,7 @@ class ActionsMulticompany
             // Town
             $this->tpl['select_town'] = $formcompany->select_ziptown((GETPOST('town')?GETPOST('town'):$this->dao->MAIN_INFO_SOCIETE_TOWN),'town',array('zipcode','selectcountry_id','departement_id'));
 
-            if ($user->admin) $this->tpl['info_admin'] = info_admin($langs->trans("YouCanChangeValuesForThisListFromDictionarySetup"),1);
+            if ($user->admin) $this->tpl['info_admin'] = info_admin($langs->trans("YouCanChangeValuesForThisListFromDictionnarySetup"),1);
 
 
 			// We define country_id, country_code and country_label
@@ -696,7 +703,7 @@ class ActionsMulticompany
 		{
 			foreach($this->entities as $element => $shares)
 			{
-				if ($conf->$element->enabled && isset($conf->$element->multidir_output) && isset($conf->$element->multidir_temp))
+				if (!empty($conf->$element->enabled) && isset($conf->$element->multidir_output) && isset($conf->$element->multidir_temp))
 				{
 					$elementpath=$element;
 					if ($element == 'product') $elementpath='produit';
@@ -778,15 +785,17 @@ class ActionsMulticompany
 
 			$out['options']['div'] = $divformat;
 
-			$tableformat = '<tr><td valign="top" nowrap="nowrap"> &nbsp; <strong>'.$langs->trans('Entity').'</strong> &nbsp; </td>';
-			$tableformat.= '<td valign="top" nowrap="nowrap">';
+			$tableformat = '<tr><td valign="middle" class="loginfield nowrap"><strong><label for="entity">'.$langs->trans('Entity').'</label></strong></td>';
+			$tableformat.= '<td valign="middle" class="nowrap">';
 			$tableformat.= $select_entity;
 			$tableformat.= '</td></tr>';
 
 			$out['options']['table'] = $tableformat;
 		}
 
-		return $out;
+		$this->results = $out;
+
+		return 1;
 	}
 
 	/**
@@ -865,19 +874,22 @@ class ActionsMulticompany
 		$langs->load('multicompany@multicompany');
 
 		$out='';
-		$form=new Form($this->db);
 
-		$this->getInfo($conf->entity);
+		if (!empty($conf->multicompany->transverse_mode) || !empty($user->admin))
+		{
+			$form=new Form($this->db);
 
-		$text = img_object('', 'multicompany@multicompany','id="switchentity" class="entity linkobject"');
+			$this->getInfo($conf->entity);
 
-		$htmltext ='<u>'.$langs->trans("Entity").'</u>'."\n";
-		$htmltext.='<br><b>'.$langs->trans("Label").'</b>: '.$this->label."\n";
-		$htmltext.='<br><b>'.$langs->trans("Description").'</b>: '.$this->description."\n";
+			$text = img_picto('', 'object_multicompany@multicompany','id="switchentity" class="entity linkobject"');
 
-		$out.= $form->textwithtooltip('',$htmltext,2,1,$text,'',1);
+			$htmltext ='<u>'.$langs->trans("Entity").'</u>'."\n";
+			$htmltext.='<br><b>'.$langs->trans("Label").'</b>: '.$this->label."\n";
+			$htmltext.='<br><b>'.$langs->trans("Description").'</b>: '.$this->description."\n";
 
-		$out.= '<script type="text/javascript">
+			$out.= $form->textwithtooltip('',$htmltext,2,1,$text,'login_block_elem',2);
+
+			$out.= '<script type="text/javascript">
 			$( "#switchentity" ).click(function() {
 				$( "#dialog-switchentity" ).dialog({
 					modal: true,
@@ -907,13 +919,14 @@ class ActionsMulticompany
 			});
 			</script>';
 
-		$out.= '<div id="dialog-switchentity" class="hideobject" title="'.$langs->trans('SwitchToAnotherEntity').'">'."\n";
-		$out.= '<br>'.$langs->trans('SelectAnEntity').': ';
-		$out.= ajax_combobox('entity');
-		$out.= $this->select_entities($conf->entity)."\n";
-		$out.= '</div>'."\n";
+			$out.= '<div id="dialog-switchentity" class="hideobject" title="'.$langs->trans('SwitchToAnotherEntity').'">'."\n";
+			$out.= '<br>'.$langs->trans('SelectAnEntity').': ';
+			$out.= ajax_combobox('entity');
+			$out.= $this->select_entities($conf->entity)."\n";
+			$out.= '</div>'."\n";
+		}
 
-		return $out;
+		$this->resprints = $out;
 	}
 
 	/**

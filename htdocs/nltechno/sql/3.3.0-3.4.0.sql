@@ -13,6 +13,8 @@
 -- To make pk to be auto increment (mysql):   VMYSQL4.3 ALTER TABLE llx_c_shipment_mode CHANGE COLUMN rowid rowid INTEGER NOT NULL AUTO_INCREMENT;
 -- To make pk to be auto increment (postgres) VPGSQL8.2 ALTER TABLE llx_c_shipment_mode CHANGE COLUMN rowid INTEGER SERIAL PRIMARY KEY;
 
+alter table llx_dolicloud_customers add column backup_status varchar(32) default NULL;
+
 alter table llx_dolicloud_customers modify column status varchar(16);
 alter table llx_dolicloud_customers add column remind_trial_expired datetime default NULL;
 alter table llx_dolicloud_customers add column remind_trial_closed datetime default NULL;

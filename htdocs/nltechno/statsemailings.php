@@ -125,7 +125,7 @@ if ($_GET["action"] == 'buildemailingchien')
     $result = $mil->create($user);
     if ($result >= 0)
     {
-        Header("Location: ".DOL_URL_ROOT.'/comm/mailing/fiche.php?id='.$mil->id);
+        Header("Location: ".DOL_URL_ROOT.'/comm/mailing/card.php?id='.$mil->id);
         exit;
     }
     else

@@ -198,9 +198,10 @@ else
 
 
 
-if (!$err){
+if (!$err)
+{
     $customerEmail = $item->client->email;
-    $customerName = $item->client->nom;
+    $customerName = empty($item->client->nom)?$item->client->name:$item->client->nom;
 
     //Clean data
     $refTransaction = dol_string_unaccent($refTransaction);

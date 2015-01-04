@@ -55,3 +55,7 @@ img.entity {
 div.entityBox {
 	margin-top: 10px;
 }
+
+div#login_right {
+	min-width:0!important;
+}

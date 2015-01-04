@@ -41,13 +41,13 @@ class Dolicloudemailstemplates // extends CommonObject
 	//var $table_element='dolicloudemailstemplates';	//!< Name of table without prefix where object is stored
 
     var $id;
-    
+
 	var $emailtype;
 	var $lang;
 	var $topic;
 	var $content;
 
-    
+
 
 
     /**
@@ -75,34 +75,34 @@ class Dolicloudemailstemplates // extends CommonObject
 		$error=0;
 
 		// Clean parameters
-        
+
 		if (isset($this->emailtype)) $this->emailtype=trim($this->emailtype);
 		if (isset($this->lang)) $this->lang=trim($this->lang);
 		if (isset($this->topic)) $this->topic=trim($this->topic);
 		if (isset($this->content)) $this->content=trim($this->content);
 
-        
+
 
 		// Check parameters
 		// Put here code to add control on parameters values
 
         // Insert request
 		$sql = "INSERT INTO ".MAIN_DB_PREFIX."dolicloud_emailstemplates(";
-		
+
 		$sql.= "emailtype,";
 		$sql.= "lang,";
 		$sql.= "topic,";
 		$sql.= "content";
 
-		
+
         $sql.= ") VALUES (";
-        
+
 		$sql.= " ".(! isset($this->emailtype)?'NULL':"'".$this->db->escape($this->emailtype)."'").",";
 		$sql.= " ".(! isset($this->lang)?'NULL':"'".$this->db->escape($this->lang)."'").",";
 		$sql.= " ".(! isset($this->topic)?'NULL':"'".$this->db->escape($this->topic)."'").",";
 		$sql.= " ".(! isset($this->content)?'NULL':"'".$this->db->escape($this->content)."'")."";
 
-        
+
 		$sql.= ")";
 
 		$this->db->begin();
@@ -159,13 +159,13 @@ class Dolicloudemailstemplates // extends CommonObject
     	global $langs;
         $sql = "SELECT";
 		$sql.= " t.rowid,";
-		
+
 		$sql.= " t.emailtype,";
 		$sql.= " t.lang,";
 		$sql.= " t.topic,";
 		$sql.= " t.content";
 
-		
+
         $sql.= " FROM ".MAIN_DB_PREFIX."dolicloud_emailstemplates as t";
         $sql.= " WHERE t.rowid = ".$id;
 
@@ -178,13 +178,13 @@ class Dolicloudemailstemplates // extends CommonObject
                 $obj = $this->db->fetch_object($resql);
 
                 $this->id    = $obj->rowid;
-                
+
 				$this->emailtype = $obj->emailtype;
 				$this->lang = $obj->lang;
 				$this->topic = $obj->topic;
 				$this->content = $obj->content;
 
-                
+
             }
             $this->db->free($resql);
 
@@ -206,32 +206,32 @@ class Dolicloudemailstemplates // extends CommonObject
      *  @param  int		$notrigger	 0=launch triggers after, 1=disable triggers
      *  @return int     		   	 <0 if KO, >0 if OK
      */
-    function update($user=0, $notrigger=0)
+    function update($user=null, $notrigger=0)
     {
     	global $conf, $langs;
 		$error=0;
 
 		// Clean parameters
-        
+
 		if (isset($this->emailtype)) $this->emailtype=trim($this->emailtype);
 		if (isset($this->lang)) $this->lang=trim($this->lang);
 		if (isset($this->topic)) $this->topic=trim($this->topic);
 		if (isset($this->content)) $this->content=trim($this->content);
 
-        
+
 
 		// Check parameters
 		// Put here code to add a control on parameters values
 
         // Update request
         $sql = "UPDATE ".MAIN_DB_PREFIX."dolicloud_emailstemplates SET";
-        
+
 		$sql.= " emailtype=".(isset($this->emailtype)?"'".$this->db->escape($this->emailtype)."'":"null").",";
 		$sql.= " lang=".(isset($this->lang)?"'".$this->db->escape($this->lang)."'":"null").",";
 		$sql.= " topic=".(isset($this->topic)?"'".$this->db->escape($this->topic)."'":"null").",";
 		$sql.= " content=".(isset($this->content)?"'".$this->db->escape($this->content)."'":"null")."";
 
-        
+
         $sql.= " WHERE rowid=".$this->id;
 
 		$this->db->begin();
@@ -398,13 +398,13 @@ class Dolicloudemailstemplates // extends CommonObject
 	function initAsSpecimen()
 	{
 		$this->id=0;
-		
+
 		$this->emailtype='';
 		$this->lang='';
 		$this->topic='';
 		$this->content='';
 
-		
+
 	}
 
 }

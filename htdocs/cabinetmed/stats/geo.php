@@ -68,8 +68,18 @@ print_fiche_titre($title, $mesg);
 
 dol_mkdir($dir);
 
+$countrytable="c_pays";
+$fieldlabel='libelle';
+include_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
+if (versioncompare(versiondolibarrarray(),array(3,7,-3)) >= 0)
+{
+	$countrytable="c_country";
+	$fieldlabel="label";
+}
+
 if ($mode)
 {
+
     // Define sql
     if ($mode == 'cabinetmedbycountry')
     {
@@ -77,10 +87,10 @@ if ($mode)
         $tab='statscountry';
 
         $data = array();
-        $sql.="SELECT COUNT(d.rowid) as nb, MAX(d.datevalid) as lastdate, c.code, c.libelle as label";
-        $sql.=" FROM ".MAIN_DB_PREFIX."adherent as d LEFT JOIN ".MAIN_DB_PREFIX."c_pays as c on d.country = c.rowid";
+        $sql.="SELECT COUNT(d.rowid) as nb, MAX(d.datevalid) as lastdate, c.code, c.label";
+        $sql.=" FROM ".MAIN_DB_PREFIX."adherent as d LEFT JOIN ".MAIN_DB_PREFIX.$countrytable." as c on d.country = c.rowid";
         $sql.=" WHERE d.statut = 1";
-        $sql.=" GROUP BY c.libelle, c.code";
+        $sql.=" GROUP BY c.label, c.code";
         //print $sql;
     }
     if ($mode == 'cabinetmedbystate')
@@ -90,12 +100,12 @@ if ($mode)
         $tab='statsstate';
 
         $data = array();
-        $sql.="SELECT COUNT(d.rowid) as nb, MAX(d.datevalid) as lastdate, p.code, p.libelle as label, c.nom as label2";
+        $sql.="SELECT COUNT(d.rowid) as nb, MAX(d.datevalid) as lastdate, p.code, p.label, c.nom as label2";
         $sql.=" FROM ".MAIN_DB_PREFIX."adherent as d LEFT JOIN ".MAIN_DB_PREFIX."c_departements as c on d.fk_departement = c.rowid";
         $sql.=" LEFT JOIN ".MAIN_DB_PREFIX."c_regions as r on c.fk_region = r.code_region";
-        $sql.=" LEFT JOIN ".MAIN_DB_PREFIX."c_pays as p on d.country = p.rowid";
+        $sql.=" LEFT JOIN ".MAIN_DB_PREFIX.$countrytable." as p on d.country = p.rowid";
         $sql.=" WHERE d.statut = 1";
-        $sql.=" GROUP BY p.libelle, p.code, c.nom";
+        $sql.=" GROUP BY p.label, p.code, c.nom";
         //print $sql;
     }
     if ($mode == 'cabinetmedbytown')
@@ -105,11 +115,11 @@ if ($mode)
         $tab='statstown';
 
         $data = array();
-        $sql.="SELECT COUNT(d.rowid) as nb, MAX(d.datecons) as lastdate, p.code, p.libelle as label, s.town as label2";
+        $sql.="SELECT COUNT(d.rowid) as nb, MAX(d.datecons) as lastdate, p.code, p.label, s.town as label2";
         $sql.=" FROM ".MAIN_DB_PREFIX."cabinetmed_cons as d, ".MAIN_DB_PREFIX."societe as s";
-        $sql.=" LEFT JOIN ".MAIN_DB_PREFIX."c_pays as p on s.fk_pays = p.rowid";
+        $sql.=" LEFT JOIN ".MAIN_DB_PREFIX.$countrytable." as p on s.fk_pays = p.rowid";
         $sql.=" WHERE d.fk_soc = s.rowid";
-        $sql.=" GROUP BY p.libelle, p.code, s.town";
+        $sql.=" GROUP BY p.label, p.code, s.town";
         //print $sql;
     }
 
@@ -175,7 +185,7 @@ dol_fiche_head($head, $tab, $langs->trans("Consultations"), 0, 'generic');
 // Print title
 if ($mode && ! count($data))
 {
-    print $langs->trans("NoRecord").'<br>';
+    print $langs->trans("NoRecordFound").'<br>';
     print '<br>';
 }
 else

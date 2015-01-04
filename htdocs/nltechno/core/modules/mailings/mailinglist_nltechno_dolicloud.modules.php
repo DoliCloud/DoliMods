@@ -24,6 +24,7 @@ class mailing_mailinglist_nltechno_dolicloud extends MailingTargets
 	// CHANGE THIS: Set to 1 if selector is available for admin users only
 	var $require_admin=0;
 
+	var $enabled=0;
 	var $require_module=array();
 	var $picto='nltechno.gif@nltechno';
 	var $db;
@@ -36,7 +37,13 @@ class mailing_mailinglist_nltechno_dolicloud extends MailingTargets
      */
 	function __construct($db)
 	{
+		global $conf;
+
 		$this->db=$db;
+		if (is_array($conf->modules))
+		{
+			$this->enabled=in_array('nltechno',$conf->modules);
+		}
 	}
 
 

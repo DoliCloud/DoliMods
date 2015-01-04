@@ -1,5 +1,5 @@
 <?php
-/* Copyright (C) 2004-2011      Laurent Destailleur  <eldy@users.sourceforge.net>
+/* Copyright (C) 2004-2014      Laurent Destailleur  <eldy@users.sourceforge.net>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -41,7 +41,7 @@ include_once("./class/cabinetmedcons.class.php");
 include_once("./class/html.formfilecabinetmed.class.php");
 
 $action=GETPOST("action");
-$id=GETPOST('idconsult','int')?GETPOST('idconsult','int'):GETPOST('idconsult','int');  // Id consultation
+$idconsult=GETPOST('idconsult','int')?GETPOST('idconsult','int'):GETPOST('idconsult','int');  // Id consultation
 $confirm=GETPOST('confirm');
 $mesg=GETPOST('mesg');
 
@@ -52,7 +52,8 @@ $langs->load("other");
 $langs->load("cabinetmed@cabinetmed");
 
 // Security check
-$socid = GETPOST('socid','int');
+$id=(GETPOST('socid','int') ? GETPOST('socid','int') : GETPOST('id','int'));
+$socid=$id;
 if ($user->societe_id) $socid=$user->societe_id;
 $result = restrictedArea($user, 'societe', $socid);
 
@@ -77,7 +78,13 @@ $now=dol_now();
 $object = new Societe($db);
 $consult = new CabinetmedCons($db);
 
-$upload_dir = $conf->societe->dir_output . "/" . $socid ;
+if ($id > 0 || ! empty($ref))
+{
+	$result = $object->fetch($id, $ref);
+
+	$upload_dir = $conf->societe->multidir_output[$object->entity] . "/" . $object->id ;
+	$courrier_dir = $conf->societe->multidir_output[$object->entity] . "/courrier/" . get_exdir($object->id);
+}
 
 // Initialize technical object to manage hooks of thirdparties. Note that conf->hooks_modules contains array array
 include_once(DOL_DOCUMENT_ROOT.'/core/class/hookmanager.class.php');
@@ -90,63 +97,11 @@ $hookmanager->initHooks(array('documentcabinetmed'));
  * Actions
  */
 
-// Post file
-if ( $_POST["sendit"] && ! empty($conf->global->MAIN_UPLOAD_DOC))
-{
-    require_once(DOL_DOCUMENT_ROOT."/core/lib/files.lib.php");
-
-    if (dol_mkdir($upload_dir) >= 0)
-    {
-        $resupload=dol_move_uploaded_file($_FILES['userfile']['tmp_name'], $upload_dir . "/" . $_FILES['userfile']['name'],0,0,$_FILES['userfile']['error']);
-        if (is_numeric($resupload) && $resupload > 0)
-        {
-            if (image_format_supported($upload_dir . "/" . $_FILES['userfile']['name']) == 1)
-            {
-                // Create small thumbs for company (Ratio is near 16/9)
-                // Used on logon for example
-                $imgThumbSmall = vignette($upload_dir . "/" . $_FILES['userfile']['name'], $maxwidthsmall, $maxheightsmall, '_small', $quality, "thumbs");
-
-                // Create mini thumbs for company (Ratio is near 16/9)
-                // Used on menu or for setup page for example
-                $imgThumbMini = vignette($upload_dir . "/" . $_FILES['userfile']['name'], $maxwidthmini, $maxheightmini, '_mini', $quality, "thumbs");
-            }
-            $mesg = '<div class="ok">'.$langs->trans("FileTransferComplete").'</div>';
-        }
-        else
-        {
-            $langs->load("errors");
-            if (is_numeric($resupload) && $resupload < 0)   // Unknown error
-            {
-                $errors[] = '<div class="error">'.$langs->trans("ErrorFileNotUploaded").'</div>';
-            }
-            else if (preg_match('/ErrorFileIsInfectedWithAVirus/',$resupload))  // Files infected by a virus
-            {
-                $errors[] = '<div class="error">'.$langs->trans("ErrorFileIsInfectedWithAVirus").'</div>';
-            }
-            else    // Known error
-            {
-                $errors[] = '<div class="error">'.$langs->trans($resupload).'</div>';
-            }
-        }
-    }
-}
-
-// Delete file
-if ($action == 'confirm_deletefile' && $confirm == 'yes')
-{
-    if ($object->fetch($socid))
-    {
-        $langs->load("other");
-        $file = $upload_dir . "/" . GETPOST('urlfile');   // Do not use urldecode here ($_GET and $_REQUEST are already decoded by PHP).
-        dol_delete_file($file);
-        $mesg = '<div class="ok">'.$langs->trans("FileWasRemoved",GETPOST('urlfile')).'</div>';
-    }
-}
+include_once DOL_DOCUMENT_ROOT . '/core/tpl/document_actions_pre_headers.tpl.php';
 
 
-/*
- * Generate document
- */
+
+// Generate document
 if ($action == 'builddoc')  // En get ou en post
 {
     if (! GETPOST('model'))
@@ -166,7 +121,7 @@ if ($action == 'builddoc')  // En get ou en post
         $soc->fetch_thirdparty();
 
         $consult = new CabinetmedCons($db);
-        $consult->fetch($id);
+        $consult->fetch($idconsult);
 
         // Define output language
         $outputlangs = $langs;
@@ -385,13 +340,11 @@ $width="242";
 
 llxHeader('',$langs->trans("Courriers"));
 
-if ($socid > 0)
+if ($object->id)
 {
-    $object->fetch($socid);
-
-    if ($id && ! $consult->id)
+    if ($idconsult && ! $consult->id)
     {
-        $result=$consult->fetch($id);
+        $result=$consult->fetch($idconsult);
         if ($result < 0) dol_print_error($db,$consult->error);
 
         $result=$consult->fetch_bankid();
@@ -408,7 +361,7 @@ if ($socid > 0)
 
 
     // Construit liste des fichiers
-    $filearray=dol_dir_list($upload_dir,"files",0,'','\.meta$',$sortfield,(strtolower($sortorder)=='desc'?SORT_DESC:SORT_ASC),1);
+    $filearray=dol_dir_list($upload_dir,"files",0,'','(\.meta|_preview\.png)$',$sortfield,(strtolower($sortorder)=='desc'?SORT_DESC:SORT_ASC),1);
     $totalsize=0;
     foreach($filearray as $key => $file)
     {
@@ -424,6 +377,12 @@ if ($socid > 0)
     print '<td colspan="3">';
     print $form->showrefnav($object,'socid','',($user->societe_id?0:1),'rowid','nom');
     print '</td></tr>';
+
+	// Prefix
+	if (! empty($conf->global->SOCIETE_USEPREFIX))  // Old not used prefix field
+	{
+		print '<tr><td>'.$langs->trans('Prefix').'</td><td colspan="3">'.$object->prefix_comm.'</td></tr>';
+	}
 
     if ($object->client)
     {
@@ -447,28 +406,48 @@ if ($socid > 0)
     print '<tr><td>'.$langs->trans("NbOfAttachedFiles").'</td><td colspan="3">'.count($filearray).'</td></tr>';
 
     //Total taille
-    print '<tr><td>'.$langs->trans("TotalSizeOfAttachedFiles").'</td><td colspan="3">'.$totalsize.' '.$langs->trans("Bytes").'</td></tr>';
+    print '<tr><td>'.$langs->trans("TotalSizeOfAttachedFiles").'</td><td colspan="3">'.$totalsize.' '.$langs->trans("bytes").'</td></tr>';
 
-    print "</table>";
+    print '</table>';
 
     print '</form>';
 
     dol_fiche_end();
 
+	/*
+	$modulepart = 'societe';
+	$permission = $user->rights->societe->creer;
+	$param = '&id=' . $object->id;
+	include_once DOL_DOCUMENT_ROOT . '/core/tpl/document_actions_post_headers.tpl.php';
+	*/
+
     if ($mesg) dol_htmloutput_mesg($mesg);
     else dol_htmloutput_mesg($error,$errors,'error');
 
+    $param='';
+
     if ($action == 'delete')
     {
-        $ret=$form->form_confirm($_SERVER["PHP_SELF"].'?socid='.$socid.'&urlfile='.urldecode($_GET["urlfile"]), $langs->trans('DeleteFile'), $langs->trans('ConfirmDeleteFile'), 'confirm_deletefile', '', 0, 1);
-        if ($ret == 'html') print '<br>';
+		$langs->load("companies");	// Need for string DeleteFile+ConfirmDeleteFiles
+		$ret = $form->form_confirm(
+				$_SERVER["PHP_SELF"] . '?id=' . $object->id . '&urlfile=' . urlencode(GETPOST("urlfile")) . '&linkid=' . GETPOST('linkid', 'int') . (empty($param)?'':$param),
+				$langs->trans('DeleteFile'),
+				$langs->trans('ConfirmDeleteFile'),
+				'confirm_deletefile',
+				'',
+				0,
+				1
+		);
+		if ($ret == 'html') print '<br>';
     }
+
+
 
 
     // Affiche formulaire upload
     $formfile=new FormFile($db);
     $title=img_picto('','filenew').' '.$langs->trans("AttachANewFile");
-    $formfile->form_attach_new_file($_SERVER["PHP_SELF"].'?socid='.$socid,$title,0,0,$user->rights->societe->creer);
+    $formfile->form_attach_new_file($_SERVER["PHP_SELF"].'?socid='.$socid,$title,0,0,$user->rights->societe->creer, 40, $object, '', 1, '', 1);
 
 
     print '<table width="100%"><tr><td valign="top" width="100%">';
@@ -495,6 +474,10 @@ if ($socid > 0)
     $formfilecabinetmed=new FormFileCabinetmed($db);
     $formfilecabinetmed->list_of_documents($filearray,$object,'societe',$param);
 
+	print "<br>";
+
+	//List of links
+	$formfile->listOfLinks($object, $delallowed, $action, GETPOST('linkid', 'int'), $param);
 
     print '</td>';
     print '<td>';
@@ -589,4 +572,3 @@ if ($socid > 0)
 llxFooter();
 
 $db->close();
-?>
