@@ -12,6 +12,9 @@
  * @copyright      (c) 2013  Laurent Destailleur
  * @version        2013-07-23
  */
+
+require_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
+
 class GoogleMapAPI
 {
 	/** GoogleMap ID for the HTML DIV  **/
@@ -35,7 +38,7 @@ class GoogleMapAPI
 	/** Default zoom of the Infowindow **/
 	protected $infoWindowZoom = 3;
 	/** Lang of the gmap **/
-	protected $lang = 'fr';
+	protected $lang = 'en';
 	/**Center of the gmap **/
 	protected $center = '';
 	/** Content of the HTML generated **/
