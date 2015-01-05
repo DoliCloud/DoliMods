@@ -38,7 +38,7 @@ class GoogleMapAPI
 	/** Default zoom of the Infowindow **/
 	protected $infoWindowZoom = 3;
 	/** Lang of the gmap **/
-	protected $lang = 'fr';
+	protected $lang = 'en';
 	/**Center of the gmap **/
 	protected $center = '';
 	/** Content of the HTML generated **/
