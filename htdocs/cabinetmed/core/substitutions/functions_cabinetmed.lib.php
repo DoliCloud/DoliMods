@@ -17,7 +17,7 @@
  */
 
 /**
- *	\file			htdocs/cabinetmed/core/modules/substitutions/functions_cabinetmed.lib.php
+ *	\file			htdocs/cabinetmed/core/substitutions/substitutions/functions_cabinetmed.lib.php
  *	\brief			A set of functions for Dolibarr
  *					This file contains functions for plugin cabinetmed.
  */
