@@ -371,8 +371,8 @@ class Patient extends Societe
         $sql .= ', s.fk_forme_juridique as forme_juridique_code';
         $sql .= ', s.code_client, s.code_fournisseur, s.code_compta, s.code_compta_fournisseur, s.parent, s.barcode';
         $sql .= ', s.fk_departement, s.fk_pays, s.fk_stcomm, s.remise_client, s.mode_reglement, s.cond_reglement, s.tva_assuj';
-        $sql .= ', s.localtax1_assuj, s.localtax2_assuj, s.fk_prospectlevel, s.default_lang';
-        $sql .= ', s.import_key';
+        $sql .= ', s.mode_reglement_supplier, s.cond_reglement_supplier, s.localtax1_assuj, s.localtax1_value, s.localtax2_assuj, s.localtax2_value, s.fk_prospectlevel, s.default_lang, s.logo';
+        $sql .= ', s.outstanding_limit, s.import_key, s.canvas';
         $sql .= ', fj.libelle as forme_juridique';
         $sql .= ', e.libelle as effectif';
         $sql .= ', p.code as country_code, p.label as country';
@@ -418,6 +418,7 @@ class Patient extends Societe
 
                 $this->id           = $obj->rowid;
                 $this->entity       = $obj->entity;
+                $this->canvas		= $obj->canvas;
 
                 $this->ref          = $obj->rowid;
                 $this->nom 			= $obj->name; // deprecated

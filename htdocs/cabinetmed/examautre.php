@@ -186,6 +186,8 @@ if ($socid > 0)
     $societe = new Societe($db);
     $societe->fetch($socid);
 
+    $object = $societe;		// Use on test by module tabs declaration
+
     if ($id && ! $examother->id)
     {
         $result=$examother->fetch($id);
