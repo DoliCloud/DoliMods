@@ -146,6 +146,8 @@ if ($id > 0 || ! empty($ref))
 	$societe = new Societe($db);
 	$societe->fetch($id);
 
+	$object = $societe;		// Use on test by module tabs declaration
+
 
 	$head = societe_prepare_head($societe);
     dol_fiche_head($head, 'tabpatientcontacts', $langs->trans("Patient"),0,'company');
