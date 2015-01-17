@@ -191,6 +191,8 @@ if ($socid > 0)
     $societe = new Societe($db);
     $societe->fetch($socid);
 
+    $object = $societe;		// Use on test by module tabs declaration
+
     if ($id && ! $exambio->id)
     {
         $result=$exambio->fetch($id);
@@ -664,4 +666,4 @@ if ($action == '' || $action == 'delete')
 llxFooter();
 
 $db->close();
-?>
+

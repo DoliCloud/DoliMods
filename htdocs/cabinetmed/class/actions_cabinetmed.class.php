@@ -66,12 +66,13 @@ class ActionsCabinetmed
 
         // Define cabinetmed context
         $cabinetmedcontext=0;
-        if (isset($parameters['id']) && isset($parameters['context']) && in_array($parameters['context'],array('agendathirdparty','categorycard','infothirdparty','consumptionthirdparty')) && empty($action))
+        if (isset($parameters['id']) && isset($parameters['currentcontext']) && in_array($parameters['currentcontext'],array('agendathirdparty','categorycard','infothirdparty','consumptionthirdparty')) && empty($action))
         {
         	$thirdparty=new Societe($db);
         	$thirdparty->fetch($parameters['id']);
         	if ($thirdparty->canvas == 'patient@cabinetmed') $cabinetmedcontext++;
         }
+
 		if (GETPOST('canvas') == 'patient@cabinetmed') $cabinetmedcontext++;
 
         if ($cabinetmedcontext)
