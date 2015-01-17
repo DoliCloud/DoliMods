@@ -117,7 +117,6 @@ class modCabinetMed extends DolibarrModules
 
         // Array to add new pages in new tabs
         $this->tabs = array(
-        				//'thirdparty:+tabpatientcard:Patient:cabinetmed@cabinetmed:/cabinetmed/soc.php?socid=__ID__',
         				'thirdparty:+tabpatientcontacts:Correspondants:cabinetmed@cabinetmed:$user->rights->cabinetmed->read && $object->canvas=="patient@cabinetmed":/cabinetmed/contact.php?socid=__ID__',
                         'thirdparty:+tabantecedents:AntecedentsShort:cabinetmed@cabinetmed:$user->rights->cabinetmed->read && $object->canvas=="patient@cabinetmed":/cabinetmed/antecedant.php?socid=__ID__',
                         //'thirdparty:+tabtraitetallergies:TraitEtAllergies:cabinetmed@cabinetmed:/cabinetmed/traitetallergies.php?socid=__ID__',
@@ -277,7 +276,7 @@ class modCabinetMed extends DolibarrModules
 						        'titre'=>'MenuNewPatient',
 						        'mainmenu'=>'patients',
 						        'leftmenu'=>'',
-						        'url'=>'/cabinetmed/soc.php?action=create&canvas=patient@cabinetmed',
+						        'url'=>'/cabinetmed/card.php?action=create&canvas=patient@cabinetmed',
 						        'langs'=>'cabinetmed@cabinetmed',  // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 						        'position'=>110,
 						        'enabled'=>'$conf->cabinetmed->enabled',         // Define condition to show or hide menu entry. Use '$conf->voyage->enabled' if entry must be visible if module is enabled.
