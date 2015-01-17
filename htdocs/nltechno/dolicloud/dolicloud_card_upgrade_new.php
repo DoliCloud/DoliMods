@@ -189,7 +189,8 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 	print '<table class="border" width="100%">';
 
 	// SFTP
-	print '<tr><td width="20%">'.$langs->trans("SFTP Server").'</td><td colspan="3">'.$object->hostname_web.'</td>';
+	print '<tr><td width="20%">'.$langs->trans("SFTP Server").'</td><td>'.$object->hostname_web.'</td>';
+	print '<td>'.$langs->trans("FsPath").'</td><td>'.$object->fs_path.'</td>';
 	print '</tr>';
 	// Login/Pass
 	print '<tr>';
@@ -342,7 +343,7 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 	print '<br>';
 
 	// Deploy module
-	$sftpdeploystring='rsync -n -v -a dirmodulehtdocs/* '.$object->username_web.'@'.$object->hostname_web.':'.$object->fs_path.'/htdocs';
+	$sftpdeploystring='rsync -n -v -a pathtohtdocsmodule/* '.$object->username_web.'@'.$object->hostname_web.':'.$object->fs_path.'/htdocs/namemodule';
 	print 'Rsync to install or overwrite module (remove -n to execute really):<br>';
 	print '<input type="text" name="sftpdeploystring" value="'.$sftpdeploystring.'" size="160"><br>';
 
