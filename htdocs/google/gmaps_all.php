@@ -23,6 +23,7 @@ require_once(DOL_DOCUMENT_ROOT."/core/lib/company.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/contact.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/member.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/class/html.formother.class.php");
+require_once(DOL_DOCUMENT_ROOT."/core/class/html.formcompany.class.php");
 require_once(DOL_DOCUMENT_ROOT."/contact/class/contact.class.php");
 dol_include_once("/google/class/googlemaps.class.php");
 dol_include_once("/google/includes/GoogleMapAPIv3.class.php");
@@ -111,6 +112,7 @@ llxheader();
 
 $form=new Form($db);
 $formother = new FormOther($db);
+$formcompany = new FormCompany($db);
 
 $content = "Default content";
 $act = "";
@@ -125,6 +127,7 @@ if (empty($mode) || $mode=='thirdparty')
 	if ($user->societe_id) $socid=$user->societe_id;
 
 	$search_sale=empty($conf->global->GOOGLE_MAPS_FORCE_FILTER_BY_SALE_REPRESENTATIVES)?GETPOST('search_sale'):-1;
+	$search_departement = GETPOST("state_id","int");
 
 	$title=$langs->trans("MapOfThirdparties");
 	$picto='company';
@@ -136,10 +139,12 @@ if (empty($mode) || $mode=='thirdparty')
 	$sql.= " LEFT JOIN ".MAIN_DB_PREFIX.$countrytable." as c ON s.fk_pays = c.rowid";
 	$sql.= " LEFT JOIN ".MAIN_DB_PREFIX."google_maps as g ON s.rowid = g.fk_object and g.type_object='".$type."'";
 	if ($search_sale || (!$user->rights->societe->client->voir && ! $socid)) $sql.= ", ".MAIN_DB_PREFIX."societe_commerciaux as sc";
+    if ($search_departement != '' && $search_departement > 0) $sql.= ", ".MAIN_DB_PREFIX."c_departements as dp";
 	$sql.= " WHERE s.status = 1";
 	$sql.= " AND s.entity IN (".getEntity('societe', 1).")";
 	if ($search_sale == -1 || (! $user->rights->societe->client->voir && ! $socid))	$sql.= " AND s.rowid = sc.fk_soc AND sc.fk_user = " .$user->id;
-	if ($search_sale > 0) $sql.= " AND s.rowid = sc.fk_soc AND sc.fk_user = " .$search_sale;
+	if ($search_sale > 0)          $sql.= " AND s.rowid = sc.fk_soc AND sc.fk_user = " .$search_sale;
+	if ($search_departement != '' && $search_departement > 0) $sql.= " AND s.fk_departement = dp.rowid AND dp.rowid = ".$db->escape($search_departement);
 	if ($socid) $sql.= " AND s.rowid = ".$socid;	// protect for external user
 	$sql.= " ORDER BY s.rowid";
 	//print $search_sale.'-'.$sql;
@@ -202,6 +207,12 @@ if ($user->rights->societe->client->voir && empty($socid))
 	print '<form name="formsearch" method="POST" action="'.$_SERVER["PHP_SELF"].'">';
 	print $langs->trans('ThirdPartiesOfSaleRepresentative'). ': ';
 	print $formother->select_salesrepresentatives($search_sale,'search_sale',$user);
+	if (! empty($conf->global->GOOGLE_MAPS_SEARCH_ON_STATE))
+	{
+		print ' &nbsp; &nbsp; &nbsp; ';
+		print $langs->trans("State").': ';
+		print $formcompany->select_state($search_departement,0,'state_id');
+	}
 	print ' <input type="submit" name="submit_search_sale" value="'.$langs->trans("Search").'" class="button"> &nbsp; &nbsp; &nbsp; ';
 	print '</form>';
 }
