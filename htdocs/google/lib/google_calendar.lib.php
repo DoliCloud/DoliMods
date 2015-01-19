@@ -93,11 +93,14 @@ function getTokenFromWebApp($clientid, $clientsecret)
  */
 function getTokenFromServiceAccount($client_id, $service_account_name, $key_file_location, $force_do_not_use_session=false)
 {
+	global $conf;
+
 	if (empty($service_account_name)) return 'ErrorNoServiceAccountName';
 	if (empty($key_file_location) || ! file_exists($key_file_location)) return 'ErrorKeyFileNotFound';
 
 	$client = new Google_Client();
 	$client->setApplicationName("Dolibarr");
+	$client->setClassConfig('Google_Cache_File', 'directory', $conf->google->dir_temp);		// Force dir if cache used is Google_Cache_File
 
 	/************************************************
 	  If we have an access token, we can carry on.
