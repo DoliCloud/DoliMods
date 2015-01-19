@@ -141,6 +141,7 @@ function getTokenFromServiceAccount($client_id, $service_account_name, $key_file
 
 	$_SESSION['service_token'] = $client->getAccessToken();
 
+	dol_syslog("Return client name = ".$client->getApplicationName()." service_token = ".$_SESSION['service_token']);
 	return array('client'=>$client, 'service_token'=>$_SESSION['service_token']);
 }
 
@@ -253,6 +254,7 @@ function createEvent($client, $object, $login='primary')
 	}
 	catch(Exception $e)
 	{
+		dol_syslog("error ".$e->getMessage(), LOG_ERR);
 		return 'ERROR '.$e->getMessage();
 	}
 
