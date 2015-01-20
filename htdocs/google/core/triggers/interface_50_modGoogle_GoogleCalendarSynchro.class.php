@@ -114,12 +114,12 @@ class InterfaceGoogleCalendarSynchro
 		$userlogin = empty($conf->global->GOOGLE_LOGIN)?'':$conf->global->GOOGLE_LOGIN;
 		if (empty($userlogin))	// We use setup of user
 		{
-			// L'utilisateur concerné est l'utilisateur affecté à l'évènement dans Dolibarr
+			// L'utilisateur concerné est l'utilisateur propriétaire de l'évènement (proprio dans Dolibarr)
 			// TODO : à rendre configurable ? (choix entre propriétaire / assigné)
 			if (! empty($object->userownerid))
 			{
 				$fuser = new User($this->db);
-				$fuser->fetch($object->userownerid);
+				$fuser->fetch($object->userownerid, '', '', 1);		// 1 to be sure to load personal conf
 				$userlogin = $fuser->conf->GOOGLE_LOGIN;
 			}
 			else return 0;
@@ -142,7 +142,7 @@ class InterfaceGoogleCalendarSynchro
 
 			if (empty($userlogin))
 			{
-				dol_syslog("Setup to synchronize events into a Google calendar of ".$userlogin." is on but can't find complete setup for login/password (nor global nor for user).", LOG_WARNING);
+				dol_syslog("Setup to synchronize events into a Google calendar for user id ".$fuser->id.", login=".$fuser->login." is on but can't find complete setup for agenda id target (nor in global setup nor in user setup).", LOG_WARNING);
 				return 0;
 			}
 
