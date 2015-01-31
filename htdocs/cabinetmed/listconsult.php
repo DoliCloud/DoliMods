@@ -114,7 +114,7 @@ $sql.= " ".MAIN_DB_PREFIX."c_stcomm as st";
 if ($search_categ) $sql.= ", ".MAIN_DB_PREFIX."categorie_societe as cs";
 $sql.= " WHERE s.fk_stcomm = st.id AND c.fk_soc = s.rowid";
 $sql.= " AND s.client IN (1, 3)";
-$sql.= " AND s.entity = ".$conf->entity;
+$sql.= ' AND s.entity IN ('.getEntity('societe', 1).')';
 if ($datecons > 0) $sql.=" AND c.datecons = '".$db->idate($datecons)."'";
 if ($search_motifprinc)
 {
@@ -332,4 +332,3 @@ else
 llxFooter();
 
 $db->close();
-?>

@@ -204,4 +204,3 @@ dol_htmloutput_errors('',$errmesgs);
 llxFooter();
 
 $db->close();
-?>

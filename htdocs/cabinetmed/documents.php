@@ -589,4 +589,3 @@ if ($socid > 0)
 llxFooter();
 
 $db->close();
-?>

@@ -109,6 +109,7 @@ if ($mode)
         $sql.=" FROM ".MAIN_DB_PREFIX."cabinetmed_cons as d, ".MAIN_DB_PREFIX."societe as s";
         $sql.=" LEFT JOIN ".MAIN_DB_PREFIX."c_pays as p on s.fk_pays = p.rowid";
         $sql.=" WHERE d.fk_soc = s.rowid";
+        $sql.=' AND s.entity IN ('.getEntity('societe', 1).')';
         $sql.=" GROUP BY p.libelle, p.code, s.town";
         //print $sql;
     }
@@ -175,7 +176,7 @@ dol_fiche_head($head, $tab, $langs->trans("Consultations"), 0, 'generic');
 // Print title
 if ($mode && ! count($data))
 {
-    print $langs->trans("NoRecord").'<br>';
+    print $langs->trans("NoRecordFound").'<br>';
     print '<br>';
 }
 else
@@ -278,4 +279,4 @@ dol_fiche_end();
 llxFooter();
 
 $db->close();
-?>
+

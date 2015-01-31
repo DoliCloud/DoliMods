@@ -546,4 +546,3 @@ if ($action == '' || $action == 'delete')
 llxFooter();
 
 $db->close();
-?>

@@ -366,4 +366,3 @@ if ($search_sale > 0)
 llxFooter();
 
 $db->close();
-?>
