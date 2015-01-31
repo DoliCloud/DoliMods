@@ -122,6 +122,12 @@ class InterfaceGoogleCalendarSynchro
 				$fuser->fetch($object->userownerid);
 				$userlogin = $fuser->conf->GOOGLE_LOGIN;
 			}
+			else if (! empty($object->usertodo) && is_object($object->usertodo))	// For backward compatibility (3.6)
+			{
+				$fuser = new User($this->db);
+				$fuser->fetch($object->usertodo->id);
+				$userlogin = $fuser->conf->GOOGLE_LOGIN;
+			}
 			else return 0;
 
 			if (empty($conf->global->GOOGLE_DUPLICATE_INTO_GCAL)) return 0;
