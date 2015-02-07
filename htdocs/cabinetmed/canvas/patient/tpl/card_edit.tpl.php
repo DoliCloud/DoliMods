@@ -195,6 +195,35 @@ print '<td>'.$langs->trans('PhoneMobile').'</td><td><input type="text" name="fax
 print '<tr><td>'.$langs->trans('EMail').($conf->global->SOCIETE_MAIL_REQUIRED?'*':'').'</td><td colspan="3"><input type="text" name="email" size="32" value="'.$object->email.'"></td>';
 print '</tr>';
 
+// Prof ids
+$i=1; $j=0;
+while ($i <= 6)
+{
+    $key='CABINETMED_SHOW_PROFID'.$i;
+	if (empty($conf->global->$key)) { $i++; continue; }
+
+	$idprof=$langs->transcountry('ProfId'.$i,$object->country_code);
+	if ($idprof!='-')
+	{
+		$key='idprof'.$i;
+
+		if (($j % 2) == 0) print '<tr>';
+
+		$idprof_mandatory ='SOCIETE_IDPROF'.($i).'_MANDATORY';
+		if(empty($conf->global->$idprof_mandatory))
+			print '<td><label for="'.$key.'">'.$idprof.'</label></td><td>';
+		else
+			print '<td><span class="fieldrequired"><label for="'.$key.'">'.$idprof.'</label></td><td>';
+
+		print $formcompany->get_input_id_prof($i,$key,$object->$key,$object->country_code);
+		print '</td>';
+		if (($j % 2) == 1) print '</tr>';
+		$j++;
+	}
+	$i++;
+}
+if ($j % 2 == 1) print '<td colspan="2"></td></tr>';
+/*
 print '<tr>';
 // Height
 $idprof=$langs->trans('HeightPeople');
@@ -214,6 +243,7 @@ print '<td>'.$idprof.'</td><td colspan="3">';
 print '<input type="text" name="idprof3" size="18" maxlength="32" value="'.$object->idprof3.'"> ('.$conf->format_date_short_java.')';
 print '</td>';
 print '</tr>';
+*/
 
 // Num secu
 print '<tr>';
@@ -230,13 +260,9 @@ if ($user->admin) print info_admin($langs->trans("YouCanChangeValuesForThisListF
 print '</td>';
 print '</tr>';
 
-print '<tr><td>'.$langs->trans('ActivityBranch').'</td><td>';
+print '<tr><td>'.$langs->trans('ActivityBranch').'</td><td colspna="3">';
 print $formcompany->select_juridicalstatus($object->forme_juridique_code, $object->country_code, "AND (f.module = 'cabinetmed' OR f.code > '100000')");
 print '</td>';
-// IdProf4 (NU for France)
-$idprof=$langs->trans('Profession');
-print '<td>'.$idprof.'</td>';
-print '<td><input type="text" name="idprof4" size="32" value="'.$object->idprof4.'"></td>';
 print '</tr>';
 
 // Default language

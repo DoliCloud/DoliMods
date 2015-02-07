@@ -560,6 +560,15 @@ class modCabinetMed extends DolibarrModules
         "UPDATE llx_c_type_contact    set active=1 where element='societe' and source='external' and (module != 'cabinetmed' OR module IS NULL)"
         );
 
+    	// Create extrafields
+    	/*
+        include_once DOL_DOCUMENT_ROOT.'/core/class/extrafields.class.php';
+		$extrafields = new ExtraFields($this->db);
+		$result1=$extrafields->delete('prof', 'thirdparty');
+		$result2=$extrafields->delete('height', 'thirdparty');
+		$result3=$extrafields->delete('weight', 'thirdparty');
+		*/
+
         return $this->_remove($sql,$options);
     }
 
@@ -574,6 +583,19 @@ class modCabinetMed extends DolibarrModules
      */
     function load_tables()
     {
+    	global $langs;
+
+    	$langs->load("cabinetmed@cabinetmed");
+    	$langs->load("other");
+
+    	// Create extrafields
+    	include_once DOL_DOCUMENT_ROOT.'/core/class/extrafields.class.php';
+		$extrafields = new ExtraFields($this->db);
+		$result1=$extrafields->addExtraField('height', $langs->trans("HeightPeople"), 'varchar', 1, 128, 'thirdparty');
+		$result2=$extrafields->addExtraField('weight', $langs->trans("WeigthPeople"), 'varchar', 2, 128, 'thirdparty');
+		$result3=$extrafields->addExtraField('prof', $langs->trans("Profession"), 'varchar', 3, 128, 'thirdparty');
+		$result4=$extrafields->addExtraField('birthdate', $langs->trans("DateToBirth"), 'date', 4, 0, 'thirdparty');
+
         return $this->_load_tables('/cabinetmed/sql/');
     }
 }

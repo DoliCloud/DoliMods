@@ -112,8 +112,37 @@ print '<td>'.$langs->trans('PhoneMobile').'</td><td>'.dol_print_phone($object->f
 print '<tr><td>'.$langs->trans('EMail').'</td><td colspan="3">';
 print dol_print_email($object->email,0,$object->id,'AC_EMAIL');
 print '</td>';
+print '</tr>';
+
+// Prof ids
+$i=1; $j=0;
+while ($i <= 6)
+{
+    $key='CABINETMED_SHOW_PROFID'.$i;
+	if (empty($conf->global->$key)) { $i++; continue; }
+
+	$idprof=$langs->transcountry('ProfId'.$i,$object->country_code);
+	if ($idprof!='-')
+	{
+		if (($j % 2) == 0) print '<tr>';
+		print '<td>'.$idprof.'</td><td>';
+		$key='idprof'.$i;
+		print $object->$key;
+		if ($object->$key)
+		{
+			if ($object->id_prof_check($i,$object) > 0) print ' &nbsp; '.$object->id_prof_url($i,$object);
+			else print ' <font class="error">('.$langs->trans("ErrorWrongValue").')</font>';
+		}
+		print '</td>';
+		if (($j % 2) == 1) print '</tr>';
+		$j++;
+	}
+	$i++;
+}
+if ($j % 2 == 1)  print '<td colspan="2"></td></tr>';
 
 // Height
+/*
 $profid=$langs->trans('HeightPeople');
 print '<tr><td>'.$profid.'</td><td>';
 print $object->idprof1;
@@ -142,6 +171,7 @@ if ($object->idprof3)
 }
 print '</td>';
 print '</tr>';
+*/
 
 // Num secu
 print '<tr>';
@@ -190,12 +220,7 @@ print '<tr><td>'.$langs->trans("Gender").'</td><td colspan="3">'.$object->typent
 print '</tr>';
 
 // Juridical status => Secteur activité
-print '<tr><td>'.$langs->trans('ActivityBranch').'</td><td>'.$object->forme_juridique.'</td>';
-// Profession
-$profid=$langs->trans('Profession');
-print '<td>'.$profid.'</td><td>';
-print $object->idprof4;
-print '</td></tr>';
+print '<tr><td>'.$langs->trans('ActivityBranch').'</td><td colspan="3">'.$object->forme_juridique.'</td>';
 print '</tr>';
 
 // Default language
