@@ -215,7 +215,7 @@ dol_htmloutput_errors($GOBALS['error'],$GLOBALS['errors']);
 
         // Legal Form
         print '<tr><td>'.$langs->trans('ActivityBranch').'</td>';
-        print '<td>';
+        print '<td colspan="3">';
         if ($GLOBALS['mysoc']->country_id)
         {
             print $formcompany->select_juridicalstatus($object->forme_juridique_code, $GLOBALS['mysoc']->country_code, "AND (f.module = 'cabinetmed' OR f.code > '100000')");	// > 100000 is the only way i found to not see other entries
@@ -225,8 +225,6 @@ dol_htmloutput_errors($GOBALS['error'],$GLOBALS['errors']);
             print $GLOBALS['countrynotdefined'];
         }
         print '</td>';
-        print '<td>'.$langs->trans('Profession').'</td>';
-        print '<td><input type="text" name="idprof4" size="32" value="'.$object->idprof4.'"></td>';
         print '</tr>';
 
         if ($conf->global->MAIN_MULTILANGS)

@@ -230,14 +230,9 @@ if ($user->admin) print info_admin($langs->trans("YouCanChangeValuesForThisListF
 print '</td>';
 print '</tr>';
 
-print '<tr><td>'.$langs->trans('ActivityBranch').'</td><td>';
+print '<tr><td>'.$langs->trans('ActivityBranch').'</td><td colspan="3">';
 print $formcompany->select_juridicalstatus($object->forme_juridique_code, $object->country_code, "AND (f.module = 'cabinetmed' OR f.code > '100000')");
 print '</td>';
-// IdProf4 (NU for France)
-$idprof=$langs->trans('Profession');
-print '<td>'.$idprof.'</td>';
-print '<td><input type="text" name="idprof4" size="32" value="'.$object->idprof4.'"></td>';
-print '</tr>';
 
 // Default language
 if (! empty($conf->global->MAIN_MULTILANGS))

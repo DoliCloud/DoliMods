@@ -190,12 +190,7 @@ print '<tr><td>'.$langs->trans("Gender").'</td><td colspan="3">'.$object->typent
 print '</tr>';
 
 // Juridical status => Secteur activité
-print '<tr><td>'.$langs->trans('ActivityBranch').'</td><td>'.$object->forme_juridique.'</td>';
-// Profession
-$profid=$langs->trans('Profession');
-print '<td>'.$profid.'</td><td>';
-print $object->idprof4;
-print '</td></tr>';
+print '<tr><td>'.$langs->trans('ActivityBranch').'</td><td colspan="3">'.$object->forme_juridique.'</td>';
 print '</tr>';
 
 // Default language
