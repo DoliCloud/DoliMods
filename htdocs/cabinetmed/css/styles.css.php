@@ -43,8 +43,11 @@ header('Content-type: text/css');
 if (empty($dolibarr_nocache)) header('Cache-Control: max-age=3600, public, must-revalidate');
 else header('Cache-Control: no-cache');
 
-$path='/cabinetmed';    // This value may be used in future for external module to overwrite theme
-$theme='cabinetmed';
+//$path='/cabinetmed';    // This value may be used in future for external module to overwrite theme
+//$theme='cabinetmed';
+$path='';    	// This value may be used in future for external module to overwrite theme
+$theme='eldy';	// Value of theme
+if (! empty($conf->global->MAIN_OVERWRITE_THEME_RES)) { $path='/'.$conf->global->MAIN_OVERWRITE_THEME_RES; $theme=$conf->global->MAIN_OVERWRITE_THEME_RES; }
 
 // Define image path files
 $dol_hide_topmenu=$conf->dol_hide_topmenu;
@@ -65,7 +68,7 @@ div.mainmenu.patients {
 }
 
 div.mainmenu.contacts {
-	background-image: url(<?php echo dol_buildpath($path.'/theme/'.$theme.'/img/menus/stethoscope.png',1) ?>);
+	background-image: url(<?php echo dol_buildpath('/cabinetmed/img/menus/stethoscope.png',1) ?>);
 }
 
 div.mainmenu.accountancy2 {
