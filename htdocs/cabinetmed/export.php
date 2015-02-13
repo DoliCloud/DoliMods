@@ -384,4 +384,3 @@ $result=readfile($outputfile);
 if (! $result) print 'File '.$outputfile.' was empty.';
 
 $db->close();
-?>

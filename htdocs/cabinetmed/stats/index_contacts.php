@@ -198,6 +198,7 @@ $sql.= " WHERE ec.fk_socpeople = c.rowid";
 $sql.= " AND ec.element_id = s.rowid";
 $sql.= " AND ec.fk_c_type_contact = tc.rowid";
 $sql.= " AND tc.element = 'societe'";
+$sql.= ' AND s.entity IN ('.getEntity('societe', 1).')';
 $sql.= " GROUP BY c.rowid, c.lastname, c.firstname";
 $sql.= " ORDER BY ".$sortfield." ".$sortorder.", s.rowid DESC";
 
@@ -254,4 +255,4 @@ dol_fiche_end();
 llxFooter();
 
 $db->close();
-?>
+
