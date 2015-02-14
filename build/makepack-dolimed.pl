@@ -93,7 +93,7 @@ $SOURCEMOD="$DIR/..";
 $SOURCEMOD1="$DIR/../htdocs/cabinetmed";
 $SOURCEMOD2="$DIR/../build/exe/dolimed";
 # Change SOURCEDOL to use another dolibarr source directory
-$SOURCEDOL="$DIR/../../dolibarr_3.6/.";	
+$SOURCEDOL="$DIR/../../dolibarr_3.7/.";	
 
 if (! -d $ENV{"DESTIDOLIMEDBETARC"} || ! -d $ENV{"DESTIDOLIMEDSTABLE"})
 {
@@ -105,9 +105,9 @@ if (! -d $ENV{"DESTIDOLIMEDBETARC"} || ! -d $ENV{"DESTIDOLIMEDSTABLE"})
 
 
 print "Makepack version $VERSION\n";
+print "Source directory dolibarr   (SOURCEDOL) : $SOURCEDOL\n";
 print "Source directory cabinetmed (SOURCEMOD1): $SOURCEMOD1\n";
 print "Source directory cabinetmed (SOURCEMOD2): $SOURCEMOD2\n";
-print "Source directory dolibarr   (SOURCEDOL) : $SOURCEDOL\n";
 
 
 $PROJECT="dolimed";
@@ -298,12 +298,12 @@ if ($nboftargetok) {
 	    	mkdir "$BUILDROOT/$PROJECT/htdocs";
 	    	mkdir "$BUILDROOT/$PROJECT/build";
 	    	mkdir "$BUILDROOT/$PROJECT/build/exe";
+	    	print "Copy $SOURCEDOL into $BUILDROOT/$PROJECT\n";
+	    	$ret=`cp -pr "$SOURCEDOL" "$BUILDROOT/$PROJECT"`;
 	    	print "Copy $SOURCEMOD1 into $BUILDROOT/$PROJECT/htdocs\n";
 	    	$ret=`cp -pr "$SOURCEMOD1" "$BUILDROOT/$PROJECT/htdocs"`;
 	    	print "Copy $SOURCEMOD2 into $BUILDROOT/$PROJECT/build/exe\n";
 	    	$ret=`cp -pr "$SOURCEMOD2" "$BUILDROOT/$PROJECT/build/exe"`;
-	    	print "Copy $SOURCEDOL into $BUILDROOT/$PROJECT\n";
-	    	$ret=`cp -pr "$SOURCEDOL" "$BUILDROOT/$PROJECT"`;
 
 			# Specific to DoliMed
 	    	print "Copy $SOURCEMOD1/img/dolimed_logo.png into $BUILDROOT/$PROJECT/htdocs/theme/dolibarr_logo.png\n";
