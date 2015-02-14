@@ -889,10 +889,12 @@ if ($nboftargetok) {
      		print "Remove target $FILENAMEEXEDOLIWAMP.exe...\n";
     		unlink "$NEWDESTI/$FILENAMEEXEDOLIWAMP.exe";
  
+ 			print "Check that in your Wine setup, you create a Z: drive that point to your /tmp directory.\n";
+ 			
  			$SOURCEBACK=$SOURCEMOD;
  			$SOURCEBACK =~ s/\//\\/g;
-    		print "Compil exe $FILENAMEEXEDOLIWAMP.exe file from iss file \"\\tmp\\buildroot\\build\\exe\\dolimed\\dolimed.iss\"\n";
-    		$cmd= "ISCC.exe \"\\tmp\\buildroot\\$PROJECT\\build\\exe\\dolimed\\dolimed.iss\"";
+    		print "Compil exe $FILENAMEEXEDOLIWAMP.exe file from iss file \"Z:\\tmp\\buildroot\\build\\exe\\dolimed\\dolimed.iss\"\n";
+    		$cmd= "ISCC.exe \"Z:\\tmp\\buildroot\\$PROJECT\\build\\exe\\dolimed\\dolimed.iss\"";
 			print "$cmd\n";
 			$ret= `$cmd`;
 			#print "$ret\n";

@@ -439,8 +439,8 @@ begin
 //    		batFile := pathWithSlashes+'/UsedPort.exe';
 //    		MsgBox('batFile = '+batFile,mbConfirmation,MB_YESNO)
 //  	    Exec(batFile, '-s '+smtpServer+' -p 25', path+'\', SW_HIDE, ewWaitUntilTerminated, myResult);
-        //themessage := 'Le serveur '+smtpServer+' semble ne pas etre joignable pour l envoi de mail SMTP (port 25). Si vous avez un firewall, verifiez sa configuration. Sinon, revenez en arriere pour choisir une autre valeur pour le serveur SMTP sortant d envoi de mail (Cette information est doit etre fournie par votre fournisseur d acces Internet).';
-//        themessage := 'The server '+smtpServer+' seems to be unreachable to send outgoing SMTP emails (port 25). If you have a firewall, check its setup. Otherwise, go back to choose another value for the SMTP server (This information shoud be given by your Internet Service Provider) or click "No" to ignore error. Cancel choice to choose another value ?';
+        	//themessage := 'Le serveur '+smtpServer+' semble ne pas etre joignable pour l envoi de mail SMTP (port 25). Si vous avez un firewall, verifiez sa configuration. Sinon, revenez en arriere pour choisir une autre valeur pour le serveur SMTP sortant d envoi de mail (Cette information est doit etre fournie par votre fournisseur d acces Internet).';
+//        	themessage := 'The server '+smtpServer+' seems to be unreachable to send outgoing SMTP emails (port 25). If you have a firewall, check its setup. Otherwise, go back to choose another value for the SMTP server (This information shoud be given by your Internet Service Provider) or click "No" to ignore error. Cancel choice to choose another value ?';
 //  		  if ((IntToStr(myResult) <> '0') and (MsgBox(themessage,mbConfirmation,MB_YESNO) = IDYES)) then
 //        begin
 //  		    paramok := False;
@@ -467,8 +467,8 @@ begin
     		batFile := pathWithSlashes+'/UsedPort.exe';
     		//MsgBox('batFile = '+batFile,mbConfirmation,MB_YESNO)
     		Exec(batFile, '-s localhost -p '+myport, path+'\', SW_HIDE, ewWaitUntilTerminated, myResult);
-        //themessage := 'Le port '+myport+' semble deja pris. Revenez en arriere pour choisir une autre valeur pour le port MySQL.';
-        themessage := FmtMessage(CustomMessage('PortAlreadyInUse'),[myport,'MySql']);
+        	//themessage := 'Le port '+myport+' semble deja pris. Revenez en arriere pour choisir une autre valeur pour le port MySQL.';
+        	themessage := FmtMessage(CustomMessage('PortAlreadyInUse'),[myport,'MySql']);
     		if ((IntToStr(myResult) = '0') and (MsgBox(themessage,mbConfirmation,MB_YESNO) = IDYES)) then
     		begin
       		paramok := False;
