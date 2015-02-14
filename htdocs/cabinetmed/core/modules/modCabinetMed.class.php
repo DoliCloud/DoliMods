@@ -102,7 +102,6 @@ class modCabinetMed extends DolibarrModules
         					 2=>array('CABINETMED_DELAY_TO_LOCK_RECORD','chaine','0','Number of days before locking edit of consultation',1,'current',0),		// Visible, Do not remove if module removed
         					 8=>array('MAIN_DISABLEPROFIDRULES','chaine','1','Disable info/check links near professional id fields',1,'current',1),
                              9=>array('MAIN_FORCELANGDIR','chaine','/cabinetmed','Language files are searched into this dir first',1,'current',1),
-                            10=>array('MAIN_OVERWRITE_THEME_RES','chaine','cabinetmed','Resource for themes (img) are searched into dir/theme/dir first',1,'current',1),
                             11=>array('MAIN_DISABLEVATCHECK','chaine','1','Disable link to VAT check',1,'current',1),
                             12=>array('MAIN_DISABLEDRAFTSTATUS','chaine','1','Disable draft status',1,'current',1),
                             16=>array('MAIN_SUPPORT_SHARED_CONTACT_BETWEEN_THIRDPARTIES','chaine','1','Can add third party type of contact',1,'current',1),
@@ -559,6 +558,15 @@ class modCabinetMed extends DolibarrModules
         "UPDATE llx_c_type_contact    set active=1 where element='societe' and source='external' and (module != 'cabinetmed' OR module IS NULL)"
         );
 
+    	// Create extrafields
+    	/*
+        include_once DOL_DOCUMENT_ROOT.'/core/class/extrafields.class.php';
+		$extrafields = new ExtraFields($this->db);
+		$result1=$extrafields->delete('prof', 'thirdparty');
+		$result2=$extrafields->delete('height', 'thirdparty');
+		$result3=$extrafields->delete('weight', 'thirdparty');
+		*/
+
         return $this->_remove($sql,$options);
     }
 
@@ -573,6 +581,19 @@ class modCabinetMed extends DolibarrModules
      */
     function load_tables()
     {
+    	global $langs;
+
+    	$langs->load("cabinetmed@cabinetmed");
+    	$langs->load("other");
+
+    	// Create extrafields
+    	include_once DOL_DOCUMENT_ROOT.'/core/class/extrafields.class.php';
+		$extrafields = new ExtraFields($this->db);
+		$result1=$extrafields->addExtraField('height', $langs->trans("HeightPeople"), 'varchar', 1, 128, 'thirdparty');
+		$result2=$extrafields->addExtraField('weight', $langs->trans("WeigthPeople"), 'varchar', 2, 128, 'thirdparty');
+		$result3=$extrafields->addExtraField('prof', $langs->trans("Profession"), 'varchar', 3, 128, 'thirdparty');
+		$result4=$extrafields->addExtraField('birthdate', $langs->trans("DateToBirth"), 'date', 4, 0, 'thirdparty');
+
         return $this->_load_tables('/cabinetmed/sql/');
     }
 }

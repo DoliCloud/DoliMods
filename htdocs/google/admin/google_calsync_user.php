@@ -31,6 +31,7 @@ if (! $res) die("Include of main fails");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/functions2.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/usergroups.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/class/html.formadmin.class.php");
+require_once(DOL_DOCUMENT_ROOT."/comm/action/class/actioncomm.class.php");
 dol_include_once("/google/lib/google.lib.php");
 dol_include_once('/google/lib/google_calendar.lib.php');
 

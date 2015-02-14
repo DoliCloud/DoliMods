@@ -380,7 +380,7 @@ function updateEvent($client, $eventId, $object, $login='primary', $service=null
 		}
 		$event->attendees = $attendees;
 
-		dol_syslog("updateEvent Update record on Google calendar with login=".$login.", id=".$oldeventId, LOG_DEBUG);
+		dol_syslog("updateEvent for login=".$login.", id=".$oldeventId.", label=".$object->label.", startTime=".$startTime.", endTime=".$endTime, LOG_DEBUG);
 
 		$updatedEvent = $service->events->update($login, $oldeventId, $event);
 

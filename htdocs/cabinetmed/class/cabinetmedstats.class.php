@@ -85,9 +85,11 @@ class CabinetMedStats extends Stats
 	function getNbByYear()
 	{
 		$sql = "SELECT YEAR(datecons) as dm, COUNT(*)";
-		$sql.= " FROM ".$this->from;
+		$sql.= " FROM ".$this->from.", ".MAIN_DB_PREFIX."societe as s";
         $sql.= ($this->where?" WHERE ".$this->where:'');
-		$sql.= " GROUP BY dm";
+        $sql.= ($this->where?" AND ":" WHERE ");
+        $sql.= ' s.rowid = fk_soc AND s.entity IN ('.getEntity('societe', 1).')';
+        $sql.= " GROUP BY dm";
         $sql.= $this->db->order('dm','DESC');
 
 		return $this->_getNbByYear($sql);
@@ -103,9 +105,11 @@ class CabinetMedStats extends Stats
 	function getNbByMonth($year)
 	{
 		$sql = "SELECT MONTH(datecons) as dm, COUNT(*)";
-		$sql.= " FROM ".$this->from;
+		$sql.= " FROM ".$this->from.", ".MAIN_DB_PREFIX."societe as s";
 		$sql.= " WHERE datecons BETWEEN '".$this->db->idate(dol_get_first_day($year))."' AND '".$this->db->idate(dol_get_last_day($year))."'";
 		$sql.= ($this->where?" AND ".$this->where:'');
+        $sql.= ($this->where?" AND ":" WHERE ");
+        $sql.= ' s.rowid = fk_soc AND s.entity IN ('.getEntity('societe', 1).')';
 		$sql.= " GROUP BY dm";
         $sql.= $this->db->order('dm','DESC');
 
@@ -129,9 +133,11 @@ class CabinetMedStats extends Stats
 		$sql.=$this->db->ifsql('montant_espece IS NOT NULL','montant_espece','0').'+';
 	    $sql.=$this->db->ifsql('montant_carte IS NOT NULL','montant_carte','0').'+';
 	    $sql.=$this->db->ifsql('montant_tiers IS NOT NULL','montant_tiers','0').')';
-		$sql.= " FROM ".$this->from;
+		$sql.= " FROM ".$this->from.", ".MAIN_DB_PREFIX."societe as s";
 		$sql.= " WHERE date_format(datecons,'%Y') = '".$year."'";
         $sql.= ($this->where?" AND ".$this->where:'');
+        $sql.= ($this->where?" AND ":" WHERE ");
+        $sql.= ' s.rowid = fk_soc AND s.entity IN ('.getEntity('societe', 1).')';
         $sql.= " GROUP BY dm";
         $sql.= $this->db->order('dm','DESC');
 
@@ -154,9 +160,11 @@ class CabinetMedStats extends Stats
         $sql.=$this->db->ifsql('montant_espece IS NOT NULL','montant_espece','0').'+';
         $sql.=$this->db->ifsql('montant_carte IS NOT NULL','montant_carte','0').'+';
         $sql.=$this->db->ifsql('montant_tiers IS NOT NULL','montant_tiers','0').')';
-		$sql.= " FROM ".$this->from;
+		$sql.= " FROM ".$this->from.", ".MAIN_DB_PREFIX."societe as s";
         $sql.= " WHERE datecons BETWEEN '".$this->db->idate(dol_get_first_day($year))."' AND '".$this->db->idate(dol_get_last_day($year))."'";
         $sql.= ($this->where?" AND ".$this->where:'');
+        $sql.= ($this->where?" AND ":" WHERE ");
+        $sql.= ' s.rowid = fk_soc AND s.entity IN ('.getEntity('societe', 1).')';
         $sql.= " GROUP BY dm";
         $sql.= $this->db->order('dm','DESC');
 
@@ -181,8 +189,10 @@ class CabinetMedStats extends Stats
         $sql.=$this->db->ifsql('montant_espece IS NOT NULL','montant_espece','0').'+';
         $sql.=$this->db->ifsql('montant_carte IS NOT NULL','montant_carte','0').'+';
         $sql.=$this->db->ifsql('montant_tiers IS NOT NULL','montant_tiers','0').') as avg';
-		$sql.= " FROM ".$this->from;
+		$sql.= " FROM ".$this->from.", ".MAIN_DB_PREFIX."societe as s";
         $sql.= ($this->where?" WHERE ".$this->where:'');
+        $sql.= ($this->where?" AND ":" WHERE ");
+        $sql.= ' s.rowid = fk_soc AND s.entity IN ('.getEntity('societe', 1).')';
 		$sql.= " GROUP BY year";
         $sql.= $this->db->order('year','DESC');
 

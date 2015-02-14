@@ -119,6 +119,7 @@ if ($mode)
         $sql.=" FROM ".MAIN_DB_PREFIX."cabinetmed_cons as d, ".MAIN_DB_PREFIX."societe as s";
         $sql.=" LEFT JOIN ".MAIN_DB_PREFIX.$countrytable." as p on s.fk_pays = p.rowid";
         $sql.=" WHERE d.fk_soc = s.rowid";
+        $sql.=' AND s.entity IN ('.getEntity('societe', 1).')';
         $sql.=" GROUP BY p.label, p.code, s.town";
         //print $sql;
     }
@@ -288,4 +289,4 @@ dol_fiche_end();
 llxFooter();
 
 $db->close();
-?>
+

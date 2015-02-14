@@ -186,6 +186,7 @@ dol_htmloutput_errors($GOBALS['error'],$GLOBALS['errors']);
 </tr>
 
 <?php
+/*
         print '<tr>';
         // Height
         $idprof=$langs->trans('HeightPeople');
@@ -199,8 +200,38 @@ dol_htmloutput_errors($GOBALS['error'],$GLOBALS['errors']);
         print '</td>';
         print '</tr>';
         print '<tr>';
+*/
+       // Prof ids
+        $i=1; $j=0;
+        while ($i <= 6)
+        {
+        	$key='CABINETMED_SHOW_PROFID'.$i;
+        	if (empty($conf->global->$key)) { $i++; continue; }
 
-        // Birthday
+            $idprof=$langs->transcountry('ProfId'.$i,$object->country_code);
+            if ($idprof!='-')
+            {
+	            $key='idprof'.$i;
+
+                if (($j % 2) == 0) print '<tr>';
+
+                $idprof_mandatory ='SOCIETE_IDPROF'.($i).'_MANDATORY';
+               	if(empty($conf->global->$idprof_mandatory))
+                	print '<td><label for="'.$key.'">'.$idprof.'</label></td><td>';
+                else
+                    print '<td><span class="fieldrequired"><label for="'.$key.'">'.$idprof.'</label></td><td>';
+
+                print $formcompany->get_input_id_prof($i,$key,$object->$key,$object->country_code);
+                print '</td>';
+                if (($j % 2) == 1) print '</tr>';
+                $j++;
+            }
+            $i++;
+        }
+        if ($j % 2 == 1) print '<td colspan="2"></td></tr>';
+
+       	// Birthday
+/*
         $idprof=$langs->trans('DateToBirth');
         print '<td>'.$idprof.'</td><td colspan="3">';
 
@@ -209,7 +240,7 @@ dol_htmloutput_errors($GOBALS['error'],$GLOBALS['errors']);
         //print $form->select_date(-1,'birthdate');
         print '</td>';
         print '</tr>';
-
+*/
         print '<tr>';
         print '<td class="nowrap">'.$langs->trans('PatientVATIntra').'</td>';
         print '<td class="nowrap" colspan="3">';
@@ -224,7 +255,7 @@ dol_htmloutput_errors($GOBALS['error'],$GLOBALS['errors']);
 
         // Legal Form
         print '<tr><td>'.$langs->trans('ActivityBranch').'</td>';
-        print '<td>';
+        print '<td colspan="3">';
         if ($GLOBALS['mysoc']->country_id)
         {
             print $formcompany->select_juridicalstatus($object->forme_juridique_code, $GLOBALS['mysoc']->country_code, "AND (f.module = 'cabinetmed' OR f.code > '100000')");	// > 100000 is the only way i found to not see other entries
@@ -234,8 +265,6 @@ dol_htmloutput_errors($GOBALS['error'],$GLOBALS['errors']);
             print $GLOBALS['countrynotdefined'];
         }
         print '</td>';
-        print '<td>'.$langs->trans('Profession').'</td>';
-        print '<td><input type="text" name="idprof4" size="32" value="'.$object->idprof4.'"></td>';
         print '</tr>';
 
         if ($conf->global->MAIN_MULTILANGS)

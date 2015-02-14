@@ -38,6 +38,7 @@ $langs->load("companies");
 $langs->load("customers");
 $langs->load("suppliers");
 $langs->load("commercial");
+$langs->load("other");
 
 // Security check
 $socid = GETPOST('socid','int');
@@ -95,7 +96,7 @@ if (GETPOST("button_removefilter_x"))
 
 $sql = "SELECT s.rowid, s.nom as name, s.client, s.town, st.libelle as stcomm, s.prefix_comm, s.code_client,";
 $sql.= " s.datec, s.canvas,";
-$sql.= " s.ape as idprof3, s.idprof4, MAX(c.datecons) as lastcons, COUNT(c.rowid) as nb";
+$sql.= " se.birthdate, se.prof, MAX(c.datecons) as lastcons, COUNT(c.rowid) as nb";
 // We'll need these fields in order to filter by sale (including the case where the user can only see his prospects)
 if ($search_sale) $sql .= ", sc.fk_soc, sc.fk_user";
 // We'll need these fields in order to filter by categ
@@ -107,11 +108,12 @@ if ($search_sale || !$user->rights->societe->client->voir) $sql.= ", ".MAIN_DB_P
 if ($search_categ) $sql.= ", ".MAIN_DB_PREFIX."categorie_societe as cs";
 $sql.= ", ".MAIN_DB_PREFIX."societe as s";
 $sql.= ") LEFT JOIN ".MAIN_DB_PREFIX."cabinetmed_cons as c ON c.fk_soc = s.rowid";
+$sql.= " LEFT JOIN ".MAIN_DB_PREFIX."societe_extrafields as se ON se.fk_object = s.rowid";
 $sql.= ' WHERE s.entity IN ('.getEntity('societe', 1).')';
 $sql.= " AND s.canvas='patient@cabinetmed'";
 $sql.= " AND s.fk_stcomm = st.id";
 $sql.= " AND s.client IN (1, 3)";
-if ($datebirth != '') $sql.=" AND (s.ape LIKE '%".dol_print_date($datebirth,'day')."%' OR s.ape LIKE '%".dol_print_date($datebirth,'dayxcard')."%' OR s.ape LIKE '%".dol_print_date($datebirth,'dayrfc')."%')";	// Date of birth are not saved into date format but with use string format
+if ($datebirth != '') $sql.=" AND (se.birthdate LIKE '%".dol_print_date($datebirth,'day')."%' OR se.birthdate LIKE '%".dol_print_date($datebirth,'dayxcard')."%' OR se.birthdate LIKE '%".dol_print_date($datebirth,'dayrfc')."%')";	// Date of birth are not saved into date format but with use string format
 if ($search_diagles)
 {
     $label= dol_getIdFromCode($db,$search_diagles,'cabinetmed_diaglec','code','label');
@@ -140,7 +142,7 @@ if ($socname)
 	$sortfield = "s.nom";
 	$sortorder = "ASC";
 }
-$sql.= " GROUP BY s.rowid, s.nom, s.client, s.town, st.libelle, s.prefix_comm, s.code_client, s.datec, s.canvas, s.ape, s.idprof4";
+$sql.= " GROUP BY s.rowid, s.nom, s.client, s.town, st.libelle, s.prefix_comm, s.code_client, s.datec, s.canvas, se.birthdate, se.prof";
 if ($search_sale) $sql .= ", sc.fk_soc, sc.fk_user";
 if ($search_categ) $sql .= ", cs.fk_categorie, cs.fk_societe";
 
@@ -203,9 +205,9 @@ if ($result)
 	print '<tr class="liste_titre">';
 	print_liste_field_titre($langs->trans("Patient"),$_SERVER["PHP_SELF"],"s.nom","",$param,"",$sortfield,$sortorder);
     print_liste_field_titre($langs->trans("PatientCode"),$_SERVER["PHP_SELF"],"s.code_client","",$param,"",$sortfield,$sortorder);
-	print_liste_field_titre($langs->trans("DateToBirth"),$_SERVER["PHP_SELF"],"s.idprof3","",$param,"",$sortfield,$sortorder);
+	print_liste_field_titre($langs->trans("DateToBirth"),$_SERVER["PHP_SELF"],"se.birthdate","",$param,'align="center"',$sortfield,$sortorder);
     print_liste_field_titre($langs->trans("Town"),$_SERVER["PHP_SELF"],"s.town","",$param,"",$sortfield,$sortorder);
-    print_liste_field_titre($langs->trans("Profession"),$_SERVER["PHP_SELF"],"s.idprof4","",$param,"",$sortfield,$sortorder);
+    print_liste_field_titre($langs->trans("Profession"),$_SERVER["PHP_SELF"],"se.prof","",$param,"",$sortfield,$sortorder);
     print_liste_field_titre($langs->trans("NbConsult"),$_SERVER["PHP_SELF"],"nb","",$param,'align="right"',$sortfield,$sortorder);
     print_liste_field_titre($langs->trans("LastConsultShort"),$_SERVER["PHP_SELF"],"lastcons","",$param,'align="center"',$sortfield,$sortorder);
     print_liste_field_titre($langs->trans("DateCreation"),$_SERVER["PHP_SELF"],"datec","",$param,'align="right"',$sortfield,$sortorder);
@@ -218,7 +220,7 @@ if ($result)
     print '<td class="liste_titre">';
     print '<input type="text" class="flat" size="6" name="search_code" value="'.$search_code.'">';
     print '</td>';
-    print '<td class="liste_titre">';
+    print '<td class="liste_titre" align="center">';
     print $form->select_date($datebirth, 'birth', 0, 0, 1);
     print '</td>';
     print '<td class="liste_titre">';
@@ -256,14 +258,15 @@ if ($result)
         print $thirdpartystatic->getNomUrl(1);
 		print '</td>';
         print '<td>'.$obj->code_client.'</td>';
-        print '<td>';
-	    $birthdatearray=dol_cm_strptime($obj->idprof3,$conf->format_date_short);
-	    $birthdate=dol_mktime(0,0,0,$birthdatearray['tm_month']+1,($birthdatearray['tm_mday']),($birthdatearray['tm_year']+1900),true);
+        print '<td align="center">';
+	    //$birthdatearray=dol_cm_strptime($db->jdate($obj->birthdate),$conf->format_date_short);
+	    //$birthdate=dol_mktime(0,0,0,$birthdatearray['tm_month']+1,($birthdatearray['tm_mday']),($birthdatearray['tm_year']+1900),true);
+	    $birthdate=$db->jdate($obj->birthdate);
 	    //var_dump($birthdatearray);
 	    print dol_print_date($birthdate, 'day');
         print '</td>';
 		print '<td>'.$obj->town.'</td>';
-        print '<td>'.$obj->idprof4.'</td>';
+        print '<td>'.$obj->prof.'</td>';
         print '<td align="right">'.$obj->nb.'</td>';
         print '<td align="center">';
         print dol_print_date($db->jdate($obj->lastcons),'day');
@@ -286,4 +289,3 @@ else
 llxFooter();
 
 $db->close();
-?>
