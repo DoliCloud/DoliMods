@@ -338,69 +338,184 @@ dol_fiche_end();
 /*
  *  Actions
  */
-print '<div class="tabsAction">'."\n";
+        print '<div class="tabsAction">'."\n";
 
-if ($user->rights->societe->creer)
+		$parameters=array();
+		$reshook=$hookmanager->executeHooks('addMoreActionsButtons',$parameters,$object,$action);    // Note that $action and $object may have been modified by hook
+		if (empty($reshook))
+		{
+	        if (! empty($object->email))
+	        {
+	        	$langs->load("mails");
+	        	print '<div class="inline-block divButAction"><a class="butAction" href="'.$_SERVER['PHP_SELF'].'?socid='.$object->id.'&amp;action=presend&amp;mode=init">'.$langs->trans('SendMail').'</a></div>';
+	        }
+	        else
+			{
+	        	$langs->load("mails");
+	       		print '<div class="inline-block divButAction"><a class="butActionRefused" href="#" title="'.dol_escape_htmltag($langs->trans("NoEMail")).'">'.$langs->trans('SendMail').'</a></div>';
+	        }
+
+	        if ($user->rights->societe->creer)
+	        {
+	            print '<div class="inline-block divButAction"><a class="butAction" href="'.$_SERVER["PHP_SELF"].'?socid='.$object->id.'&amp;action=edit">'.$langs->trans("Modify").'</a></div>'."\n";
+	        }
+
+	        if ($user->rights->societe->supprimer)
+	        {
+	            if ($conf->use_javascript_ajax && empty($conf->dol_use_jmobile))	// We can't use preloaded confirm form with jmobile
+	            {
+	                print '<div class="inline-block divButAction"><span id="action-delete" class="butActionDelete">'.$langs->trans('Delete').'</span></div>'."\n";
+	            }
+	            else
+				{
+	                print '<div class="inline-block divButAction"><a class="butActionDelete" href="'.$_SERVER["PHP_SELF"].'?socid='.$object->id.'&amp;action=delete">'.$langs->trans('Delete').'</a></div>'."\n";
+	            }
+	        }
+		}
+
+        print '</div>'."\n";
+
+
+
+if ($action == 'presend')
 {
-    print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?socid='.$object->id.'&amp;action=edit">'.$langs->trans("Modify").'</a>'."\n";
+	/*
+	 * Affiche formulaire mail
+	*/
+
+	// By default if $action=='presend'
+	$titreform='SendMail';
+	$topicmail='';
+	$action='send';
+	$modelmail='thirdparty';
+
+	print '<br>';
+	print_titre($langs->trans($titreform));
+
+	// Define output language
+	$outputlangs = $langs;
+	$newlang = '';
+	if ($conf->global->MAIN_MULTILANGS && empty($newlang) && ! empty($_REQUEST['lang_id']))
+		$newlang = $_REQUEST['lang_id'];
+	if ($conf->global->MAIN_MULTILANGS && empty($newlang))
+		$newlang = $object->client->default_lang;
+
+	// Cree l'objet formulaire mail
+	include_once DOL_DOCUMENT_ROOT.'/core/class/html.formmail.class.php';
+	$formmail = new FormMail($db);
+	$formmail->param['langsmodels']=(empty($newlang)?$langs->defaultlang:$newlang);
+	$formmail->fromtype = 'user';
+	$formmail->fromid   = $user->id;
+	$formmail->fromname = $user->getFullName($langs);
+	$formmail->frommail = $user->email;
+	$formmail->withfrom=1;
+	$formmail->withtopic=1;
+	$liste=array();
+	foreach ($object->thirdparty_and_contact_email_array(1) as $key=>$value) $liste[$key]=$value;
+	$formmail->withto=GETPOST('sendto')?GETPOST('sendto'):$liste;
+	$formmail->withtofree=0;
+	$formmail->withtocc=$liste;
+	$formmail->withtoccc=$conf->global->MAIN_EMAIL_USECCC;
+	$formmail->withfile=2;
+	$formmail->withbody=1;
+	$formmail->withdeliveryreceipt=1;
+	$formmail->withcancel=1;
+	// Tableau des substitutions
+	$formmail->substit['__SIGNATURE__']=$user->signature;
+	$formmail->substit['__PERSONALIZED__']='';
+	$formmail->substit['__CONTACTCIVNAME__']='';
+
+	//Find the good contact adress
+	/*
+	$custcontact='';
+	$contactarr=array();
+	$contactarr=$object->liste_contact(-1,'external');
+
+	if (is_array($contactarr) && count($contactarr)>0)
+	{
+	foreach($contactarr as $contact)
+	{
+	if ($contact['libelle']==$langs->trans('TypeContact_facture_external_BILLING')) {
+
+	require_once DOL_DOCUMENT_ROOT . '/contact/class/contact.class.php';
+
+	$contactstatic=new Contact($db);
+	$contactstatic->fetch($contact['id']);
+	$custcontact=$contactstatic->getFullName($langs,1);
+	}
+	}
+
+	if (!empty($custcontact)) {
+	$formmail->substit['__CONTACTCIVNAME__']=$custcontact;
+	}
+	}*/
+
+
+	// Tableau des parametres complementaires du post
+	$formmail->param['action']=$action;
+	$formmail->param['models']=$modelmail;
+	$formmail->param['socid']=$object->id;
+	$formmail->param['returnurl']=$_SERVER["PHP_SELF"].'?socid='.$object->id;
+
+	// Init list of files
+	if (GETPOST("mode")=='init')
+	{
+		$formmail->clear_attached_files();
+		$formmail->add_attached_files($file,basename($file),dol_mimetype($file));
+	}
+
+	print $formmail->get_form();
+
+	print '<br>';
+}
+else
+{
+	print '<br>';
+
+
+	/*
+	print '<table width="100%"><tr><td valign="top" width="50%">';
+	print '<a name="builddoc"></a>'; // ancre
+
+	$filedir=$conf->societe->dir_output.'/'.$object->id;
+	$urlsource=$_SERVER["PHP_SELF"]."?socid=".$object->id;
+	$genallowed=$user->rights->societe->creer;
+	$delallowed=$user->rights->societe->supprimer;
+
+	$var=true;
+
+	$somethingshown=$formfile->show_documents('company',$object->id,$filedir,$urlsource,$genallowed,$delallowed,'',0,0,0,28,0,'',0,'',$object->default_lang);
+
+	print '</td>';
+	print '<td>';
+	print '</td>';
+	print '</tr>';
+	print '</table>';
+
+	print '<br>';
+	*/
+
+	// Subsidiaries list
+	$result=show_subsidiaries($conf,$langs,$db,$object);
+
+	/*
+	// Contacts list
+	if (empty($conf->global->SOCIETE_DISABLE_CONTACTS))
+	{
+		$result=show_contacts($conf,$langs,$db,$object,$_SERVER["PHP_SELF"].'?socid='.$object->id);
+	}
+
+	// Addresses list
+	if (! empty($conf->global->SOCIETE_ADDRESSES_MANAGEMENT))
+	{
+		$result=show_addresses($conf,$langs,$db,$object,$_SERVER["PHP_SELF"].'?socid='.$object->id);
+	}
+	 */
+
+	// Projects list
+	$result=show_projects($conf,$langs,$db,$object);
 }
 
-if ($user->rights->societe->supprimer)
-{
-    if ($conf->use_javascript_ajax && empty($conf->dol_use_jmobile))
-    {
-        print '<span id="action-delete" class="butActionDelete">'.$langs->trans('Delete').'</span>'."\n";
-    }
-    else
-    {
-        print '<a class="butActionDelete" href="'.$_SERVER["PHP_SELF"].'?socid='.$object->id.'&amp;action=delete">'.$langs->trans('Delete').'</a>'."\n";
-    }
-}
-
-print '</div>'."\n";
-print '<br>';
-
-/*
-print '<table width="100%"><tr><td valign="top" width="50%">';
-print '<a name="builddoc"></a>'; // ancre
-
-$filedir=$conf->societe->dir_output.'/'.$object->id;
-$urlsource=$_SERVER["PHP_SELF"]."?socid=".$object->id;
-$genallowed=$user->rights->societe->creer;
-$delallowed=$user->rights->societe->supprimer;
-
-$var=true;
-
-$somethingshown=$formfile->show_documents('company',$object->id,$filedir,$urlsource,$genallowed,$delallowed,'',0,0,0,28,0,'',0,'',$object->default_lang);
-
-print '</td>';
-print '<td>';
-print '</td>';
-print '</tr>';
-print '</table>';
-
-print '<br>';
-*/
-
-// Subsidiaries list
-$result=show_subsidiaries($conf,$langs,$db,$object);
-
-/*
-// Contacts list
-if (empty($conf->global->SOCIETE_DISABLE_CONTACTS))
-{
-	$result=show_contacts($conf,$langs,$db,$object,$_SERVER["PHP_SELF"].'?socid='.$object->id);
-}
-
-// Addresses list
-if (! empty($conf->global->SOCIETE_ADDRESSES_MANAGEMENT))
-{
-	$result=show_addresses($conf,$langs,$db,$object,$_SERVER["PHP_SELF"].'?socid='.$object->id);
-}
- */
-
-// Projects list
-$result=show_projects($conf,$langs,$db,$object);
 ?>
 
 <!-- END PHP TEMPLATE -->

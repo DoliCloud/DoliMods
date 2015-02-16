@@ -188,7 +188,7 @@ llxHeader('',$langs->trans("ResultExamBio"));
 
 if ($socid > 0)
 {
-    $societe = new Societe($db);
+    $societe = new Patient($db);
     $societe->fetch($socid);
 
     $object = $societe;		// Use on test by module tabs declaration

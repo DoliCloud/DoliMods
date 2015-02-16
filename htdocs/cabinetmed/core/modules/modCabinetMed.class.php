@@ -118,9 +118,9 @@ class modCabinetMed extends DolibarrModules
         $this->tabs = array(
         				//'thirdparty:+tabpatientcard:Patient:cabinetmed@cabinetmed:/cabinetmed/soc.php?socid=__ID__',
         				'thirdparty:+tabpatientcontacts:Correspondants:cabinetmed@cabinetmed:$user->rights->cabinetmed->read && ($object->canvas=="patient@cabinetmed" || $soc->canvas=="patient@cabinetmed"):/cabinetmed/contact.php?socid=__ID__',
-                        'thirdparty:+tabantecedents:AntecedentsShort:cabinetmed@cabinetmed:$user->rights->cabinetmed->read && ($object->canvas=="patient@cabinetmed" || $soc->canvas=="patient@cabinetmed"):/cabinetmed/antecedant.php?socid=__ID__',
+                        'thirdparty:+tabantecedents:SUBSTITUTION_TabAntecedentsShort:cabinetmed@cabinetmed:$user->rights->cabinetmed->read && ($object->canvas=="patient@cabinetmed" || $soc->canvas=="patient@cabinetmed"):/cabinetmed/antecedant.php?socid=__ID__',
                         //'thirdparty:+tabtraitetallergies:TraitEtAllergies:cabinetmed@cabinetmed:/cabinetmed/traitetallergies.php?socid=__ID__',
-                        'thirdparty:+tabnotes:Notes:cabinetmed@cabinetmed:$user->rights->cabinetmed->read && ($object->canvas=="patient@cabinetmed" || $soc->canvas=="patient@cabinetmed"):/cabinetmed/notes.php?socid=__ID__',
+                        'thirdparty:+tabnotes:SUBSTITUTION_NotesPatient:cabinetmed@cabinetmed:$user->rights->cabinetmed->read && ($object->canvas=="patient@cabinetmed" || $soc->canvas=="patient@cabinetmed"):/cabinetmed/notes.php?socid=__ID__',
       					'thirdparty:+tabconsultations:ConsultationsShort:cabinetmed@cabinetmed:$user->rights->cabinetmed->read && ($object->canvas=="patient@cabinetmed" || $soc->canvas=="patient@cabinetmed"):/cabinetmed/consultations.php?socid=__ID__',
                         'thirdparty:+tabexambio:ResultExamBio:cabinetmed@cabinetmed:$user->rights->cabinetmed->read && ($object->canvas=="patient@cabinetmed" || $soc->canvas=="patient@cabinetmed"):/cabinetmed/exambio.php?socid=__ID__',
                         'thirdparty:+tabexamautre:ResultExamAutre:cabinetmed@cabinetmed:$user->rights->cabinetmed->read && ($object->canvas=="patient@cabinetmed" || $soc->canvas=="patient@cabinetmed"):/cabinetmed/examautre.php?socid=__ID__',

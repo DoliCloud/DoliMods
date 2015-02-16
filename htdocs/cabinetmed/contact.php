@@ -143,7 +143,7 @@ $id = $_GET['socid'];
 $ref= $_GET['ref'];
 if ($id > 0 || ! empty($ref))
 {
-	$societe = new Societe($db);
+	$societe = new Patient($db);
 	$societe->fetch($id);
 
 	$object = $societe;		// Use on test by module tabs declaration
