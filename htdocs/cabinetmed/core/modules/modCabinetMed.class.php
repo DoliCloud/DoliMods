@@ -127,7 +127,7 @@ class modCabinetMed extends DolibarrModules
                         'thirdparty:+tabdocument:Courriers:cabinetmed@cabinetmed:$user->rights->cabinetmed->read && ($object->canvas=="patient@cabinetmed" || $soc->canvas=="patient@cabinetmed"):/cabinetmed/documents.php?socid=__ID__',
                         'thirdparty:-contact:($object->canvas=="patient@cabinetmed" || $soc->canvas=="patient@cabinetmed")',	// TODO Condition to disable is not supported by core
                         'thirdparty:-document:($object->canvas=="patient@cabinetmed" || $soc->canvas=="patient@cabinetmed")',
-                        'thirdparty:-notify:($object->canvas=="patient@cabinetmed" || $soc->canvas=="patient@cabinetmed")',
+                        //'thirdparty:-notify:($object->canvas=="patient@cabinetmed" || $soc->canvas=="patient@cabinetmed")',
                         'thirdparty:-note:($object->canvas=="patient@cabinetmed" || $soc->canvas=="patient@cabinetmed")',
        					'contact:+tabpatient:Patients:cabinetmed@cabinetmed:$user->rights->cabinetmed->read:/cabinetmed/patients_of_contact.php?id=__ID__'
                     );
