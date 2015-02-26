@@ -48,7 +48,7 @@ function cabinetmed_completesubstitutionarray(&$substitutionarray,$langs,$object
     $isother=0;
 
     // If $object is Societe and not extended Patient, we reload object Patient to have all information specific to patient.
-    if (get_class($object) == 'Societe' && $object->canvas == 'patient@cabinetmed')
+    if ($object && get_class($object) == 'Societe' && $object->canvas == 'patient@cabinetmed')
     {
     	$patientobj=new Patient($db);
     	$patientobj->fetch($object->id);
