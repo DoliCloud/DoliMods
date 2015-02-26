@@ -184,6 +184,7 @@ if (empty($reshook))
 
         // Fill array 'array_options' with data from add form
         $ret = $extrafields->setOptionalsFromPost($extralabels,$object);
+		if ($ret < 0) $error++;
 
         if (GETPOST('deletephoto')) $object->logo = '';
         else if (! empty($_FILES['photo']['name'])) $object->logo = dol_sanitizeFileName($_FILES['photo']['name']);
@@ -597,6 +598,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action))
 
 	// Fill array 'array_options' with data from add or update form
     $ret = $extrafields->setOptionalsFromPost($extralabels,$object);
+	if ($ret < 0) $error++;
 
  	$objcanvas->assign_values($action, $object->id, $object->ref);	// Set value for templates
     $objcanvas->display_canvas($action);		// Show template
