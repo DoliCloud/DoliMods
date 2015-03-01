@@ -101,7 +101,7 @@ if (GETPOST('sendit') && ! empty($conf->global->MAIN_UPLOAD_DOC))
 
 	if (! $error)
 	{
-		if (preg_match('/\.pdf$/', $_FILES['userfile']['name']))
+		if (preg_match('/\.pdf$/i', $_FILES['userfile']['name']))
 		{
 			$upload_dir = $conf->concatpdf->dir_output.'/'.GETPOST('module', 'alpha');
 
