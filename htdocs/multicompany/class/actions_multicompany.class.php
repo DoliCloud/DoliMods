@@ -919,6 +919,8 @@ class ActionsMulticompany
 			});
 			</script>';
 
+			include_once DOL_DOCUMENT_ROOT.'/core/lib/ajax.lib.php';
+
 			$out.= '<div id="dialog-switchentity" class="hideobject" title="'.$langs->trans('SwitchToAnotherEntity').'">'."\n";
 			$out.= '<br>'.$langs->trans('SelectAnEntity').': ';
 			$out.= ajax_combobox('entity');
