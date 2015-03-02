@@ -55,7 +55,7 @@ class modSelectBank extends DolibarrModules
 		// Module description used if translation string 'ModuleXXXDesc' not found (XXX is id value)
 		$this->description = "Allow to select bank account to show onto PDF generation";
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
-		$this->version = '3.4';
+		$this->version = '3.7';
 		// Key used in llx_const table to save module status enabled/disabled (XXX is id value)
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
 		// Where to store the module in setup page (0=common,1=interface,2=others,3=very specific)
@@ -75,7 +75,7 @@ class modSelectBank extends DolibarrModules
 				//						'barcode' => 0,                                  // Set this to 1 if module has its own barcode directory
 				//						'models' => 0,                                   // Set this to 1 if module has its own models directory
 				//						'css' => '/filemanager/css/concatpdf.css.php',   // Set this to relative path of css if module has its own css file
-										'hooks' => array('invoicecard','pdfgeneration')  // Set here all hooks context managed by module
+										'hooks' => array('propalcard','ordercard','invoicecard','pdfgeneration')  // Set here all hooks context managed by module
 		);
 
 		// Data directories to create when module is enabled
@@ -88,7 +88,7 @@ class modSelectBank extends DolibarrModules
 		$this->depends = array();		// List of modules id that must be enabled if this module is enabled
 		$this->requiredby = array();	// List of modules id to disable if this one is disabled
         $this->phpmin = array(4,3);                 // Minimum version of PHP required by module
-        $this->need_dolibarr_version = array(3,2,-3);  // Minimum version of Dolibarr required by module (3.2 backported or 3.3)
+        $this->need_dolibarr_version = array(3,7,-3);  // Minimum version of Dolibarr required by module (3.2 backported or 3.3)
         $this->langfiles = array("selectbank@selectbank");
 
         // Constants
