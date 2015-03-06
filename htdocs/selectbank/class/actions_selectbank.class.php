@@ -62,7 +62,6 @@ class ActionsSelectBank
 
         $morefiles=array();
 
-        var_dump($parameters['modulepart']);
         if (in_array($parameters['modulepart'], array('invoice','facture','propal','commande','order')) && ($object->mode_reglement_code == 'VIR' || empty($object->mode_reglement_code)))
         {
        		$selectedbank=empty($object->fk_bank)?(isset($_POST['fk_bank'])?$_POST['fk_bank']:$conf->global->FACTURE_RIB_NUMBER):$object->fk_bank;
