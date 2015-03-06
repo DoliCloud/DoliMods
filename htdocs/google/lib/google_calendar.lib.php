@@ -228,18 +228,21 @@ function createEvent($client, $object, $login='primary')
 	$event->setGuestsCanSeeOtherGuests(true);
 
 	$attendees = array();
-	foreach($object->userassigned as $key => $val)
-	{
-		if ($key == $user->id) continue;	// ourself, not an attendee
-		$fuser=new User($db);
-		$fuser->fetch($key);
-		if ($fuser->id > 0 && $fuser->email)
+	//if (is_array($object->userassigned))	// should not happen. If this occurs, this looks like a bug into caller. Must at least be assigned to owner.
+	//{
+		foreach($object->userassigned as $key => $val)
 		{
-			$attendee = new Google_Service_Calendar_EventAttendee();
-			$attendee->setEmail($fuser->email);
-			$attendees[]=$attendee;
+			if ($key == $user->id) continue;	// ourself, not an attendee
+			$fuser=new User($db);
+			$fuser->fetch($key);
+			if ($fuser->id > 0 && $fuser->email)
+			{
+				$attendee = new Google_Service_Calendar_EventAttendee();
+				$attendee->setEmail($fuser->email);
+				$attendees[]=$attendee;
+			}
 		}
-	}
+	//}
 	$event->attendees = $attendees;
 
 	dol_syslog("createEvent for login=".$login.", label=".$object->label.", startTime=".$startTime.", endTime=".$endTime, LOG_DEBUG);
