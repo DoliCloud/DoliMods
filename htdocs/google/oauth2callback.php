@@ -21,8 +21,8 @@ dol_include_once("/google/lib/google.lib.php");
 // You must allow Dolibarr to login to
 $client_id='258042696143.apps.googleusercontent.com';
 $client_secret='HdmLOMStzB9MBbAjCr87gz27';
-//$redirect_uri='http://localhost/dolibarrnew/custom/google/googlecallback.php?action=xxx'; // Does not work. Must be exact url
-$redirect_uri='http://localhost/dolibarrnew/custom/google/googlecallback.php';
+//$redirect_uri='http://localhost/dolibarrnew/custom/google/oauth2callback.php?action=xxx'; // Does not work. Must be exact url
+$redirect_uri='http://localhost/dolibarrnew/custom/google/oauth2callback.php';
 $url='https://accounts.google.com/o/oauth2/auth?client_id='.$client_id.'&redirect_uri='.urlencode($redirect_uri).'&scope=https://www.google.com/m8/feeds/&response_type=code';
 
 $auth_code = GETPOST("code");
