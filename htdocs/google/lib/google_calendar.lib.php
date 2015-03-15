@@ -101,7 +101,7 @@ function getTokenFromServiceAccount($client_id, $service_account_name, $key_file
 	$client = new Google_Client();
 	$client->setApplicationName("Dolibarr");
 	$client->setClassConfig('Google_Cache_File', 'directory', $conf->google->dir_temp);		// Force dir if cache used is Google_Cache_File
-	
+
 	/************************************************
 	  If we have an access token, we can carry on.
 	  Otherwise, we'll get one with the help of an
@@ -228,16 +228,19 @@ function createEvent($client, $object, $login='primary')
 	$event->setGuestsCanSeeOtherGuests(true);
 
 	$attendees = array();
-	foreach($object->userassigned as $key => $val)
+	if (! empty($object->userassigned))
 	{
-		if ($key == $user->id) continue;	// ourself, not an attendee
-		$fuser=new User($db);
-		$fuser->fetch($key);
-		if ($fuser->id > 0 && $fuser->email)
+		foreach($object->userassigned as $key => $val)
 		{
-			$attendee = new Google_Service_Calendar_EventAttendee();
-			$attendee->setEmail($fuser->email);
-			$attendees[]=$attendee;
+			if ($key == $user->id) continue;	// ourself, not an attendee
+			$fuser=new User($db);
+			$fuser->fetch($key);
+			if ($fuser->id > 0 && $fuser->email)
+			{
+				$attendee = new Google_Service_Calendar_EventAttendee();
+				$attendee->setEmail($fuser->email);
+				$attendees[]=$attendee;
+			}
 		}
 	}
 	$event->attendees = $attendees;
