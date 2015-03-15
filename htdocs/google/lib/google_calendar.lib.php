@@ -228,8 +228,8 @@ function createEvent($client, $object, $login='primary')
 	$event->setGuestsCanSeeOtherGuests(true);
 
 	$attendees = array();
-	//if (is_array($object->userassigned))	// should not happen. If this occurs, this looks like a bug into caller. Must at least be assigned to owner.
-	//{
+	if (! empty($object->userassigned))	// This can occurs with automatic events
+	{
 		foreach($object->userassigned as $key => $val)
 		{
 			if ($key == $user->id) continue;	// ourself, not an attendee
@@ -242,7 +242,7 @@ function createEvent($client, $object, $login='primary')
 				$attendees[]=$attendee;
 			}
 		}
-	//}
+	}
 	$event->attendees = $attendees;
 
 	dol_syslog("createEvent for login=".$login.", label=".$object->label.", startTime=".$startTime.", endTime=".$endTime, LOG_DEBUG);
