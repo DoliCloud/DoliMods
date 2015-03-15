@@ -65,27 +65,27 @@ class ActionsConcatPdf
 
         if ($parameters['modulepart'] == 'propal')
         {
-        	$staticpdf=glob($conf->concatpdf->dir_output."/proposals/*.pdf");
+        	$staticpdf=glob($conf->concatpdf->dir_output."/proposals/*.[pP][dD][fF]");
         	$modelpdf=glob($conf->concatpdf->dir_output."/proposals/pdf_*.modules.php");
         }
         if ($parameters['modulepart'] == 'order'   || $parameters['modulepart'] == 'commande')
         {
-        	$staticpdf=glob($conf->concatpdf->dir_output."/orders/*.pdf");
+        	$staticpdf=glob($conf->concatpdf->dir_output."/orders/*.[pP][dD][fF]");
         	$modelpdf=glob($conf->concatpdf->dir_output."/orders/pdf_*.modules.php");
         }
         if ($parameters['modulepart'] == 'invoice' || $parameters['modulepart'] == 'facture')
         {
-        	$staticpdf=glob($conf->concatpdf->dir_output."/invoices/*.pdf");
+        	$staticpdf=glob($conf->concatpdf->dir_output."/invoices/*.[pP][dD][fF]");
         	$modelpdf=glob($conf->concatpdf->dir_output."/invoices/pdf_*.modules.php");
         }
         if ($parameters['modulepart'] == 'supplier_order' || $parameters['modulepart'] == 'commande_fournisseur')
         {
-        	$staticpdf=glob($conf->concatpdf->dir_output."/supplier_orders/*.pdf");
+        	$staticpdf=glob($conf->concatpdf->dir_output."/supplier_orders/*.[pP][dD][fF]");
         	$modelpdf=glob($conf->concatpdf->dir_output."/supplier_orders/pdf_*.modules.php");
         }
         if ($parameters['modulepart'] == 'supplier_invoice' || $parameters['modulepart'] == 'facture_fournisseur')
         {
-        	$staticpdf=glob($conf->concatpdf->dir_output."/supplier_invoices/*.pdf");
+        	$staticpdf=glob($conf->concatpdf->dir_output."/supplier_invoices/*.[pP][dD][fF]");
         	$modelpdf=glob($conf->concatpdf->dir_output."/supplier_invoices/pdf_*.modules.php");
         }
 
@@ -112,7 +112,7 @@ class ActionsConcatPdf
         {
             foreach ($staticpdf as $filename)
             {
-            	$newfilekey=basename($filename, ".pdf");
+            	$newfilekey=basename($filename, ".pdf");	// We do not remove extensionif it is uppercase .PDF otherwise there is no way to retrieve file name later
             	$newfilelabel=$newfilekey;
         		if ($preselected && $newfilekey == $preselected) $newfilelabel.=' ('.$langs->trans("Default").')';
             	$morefiles[$newfilekey] = $newfilelabel;
@@ -221,13 +221,13 @@ class ActionsConcatPdf
 
         			$objectref = dol_sanitizeFileName($parameters['object']->ref);
         			$dir = $conf->concatpdf->dir_temp . "/" . $objectref;
-        			$filetoconcat2[] = $dir . "/" . $objectref . ".pdf";
+        			$filetoconcat2[] = $dir . "/" . $objectref . (preg_match('/\.PDF$/',$objectref)?'':".pdf");
 
         			$deltemp[] = $dir;
         		}
         		else
         		{
-        			$filetoconcat2[] = $conf->concatpdf->dir_output.'/'.$element.'/'.$concatfile.'.pdf';
+        			$filetoconcat2[] = $conf->concatpdf->dir_output.'/'.$element.'/'.$concatfile.(preg_match('/\.PDF$/',$concatfile)?'':".pdf");
         		}
         	}
 

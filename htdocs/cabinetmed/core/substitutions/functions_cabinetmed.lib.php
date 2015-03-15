@@ -37,14 +37,40 @@ function cabinetmed_completesubstitutionarray(&$substitutionarray,$langs,$object
 {
 	global $conf,$db;
 
+	dol_include_once('/cabinetmed/class/patient.class.php');
 	dol_include_once('/cabinetmed/class/cabinetmedcons.class.php');
-    dol_include_once('/cabinetmed/class/cabinetmedexambio.class.php');
+	dol_include_once('/cabinetmed/class/cabinetmedexambio.class.php');
     dol_include_once('/cabinetmed/class/cabinetmedexamother.class.php');
 
     $langs->load("cabinetmed@cabinetmed");
 
     $isbio=0;
     $isother=0;
+
+    // If $object is Societe and not extended Patient, we reload object Patient to have all information specific to patient.
+    if ($object && get_class($object) == 'Societe' && $object->canvas == 'patient@cabinetmed')
+    {
+    	$patientobj=new Patient($db);
+    	$patientobj->fetch($object->id);
+    	$object = $patientobj;
+    }
+
+    $substitutionarray['NotesPatient']=$langs->trans("Notes");
+   	$nbofnotes = ($object->note||$object->note_private)?1:0;
+    if ($nbofnotes > 0) $substitutionarray['NotesPatient']=$langs->trans("Notes").' <span class="badge">'.$nbofnotes.'</span>';
+
+    $substitutionarray['TabAntecedentsShort']=$langs->trans("AntecedentsShort");
+   	$nbofnotes = 0;
+   	if ($object->note_antemed) $nbofnotes++;
+   	if ($object->note_antechirgen) $nbofnotes++;
+   	if ($object->note_antechirortho) $nbofnotes++;
+   	if ($object->note_anterhum) $nbofnotes++;
+   	if ($object->note_traitallergie) $nbofnotes++;
+   	if ($object->note_traitclass) $nbofnotes++;
+   	if ($object->note_traitintol) $nbofnotes++;
+   	if ($object->note_traitspec) $nbofnotes++;
+    if ($nbofnotes > 0) $substitutionarray['TabAntecedentsShort']=$langs->trans("AntecedentsShort").' <span class="badge">'.$nbofnotes.'</span>';
+
 
     // Consultation + Exams
     if (GETPOST('idconsult') > 0)

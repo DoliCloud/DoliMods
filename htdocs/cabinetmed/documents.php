@@ -75,7 +75,7 @@ $limit = $conf->liste_limit;
 
 $now=dol_now();
 
-$object = new Societe($db);
+$object = new Patient($db);
 $consult = new CabinetmedCons($db);
 
 if ($id > 0 || ! empty($ref))

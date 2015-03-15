@@ -16,9 +16,9 @@
 ; ----- Change this -----
 AppName=DoliMed
 ; DoliMed-x.x.x or DoliMed-x.x.x-dev or DoliMed-x.x.x-beta
-AppVerName=DoliMed-3.6.0
+AppVerName=DoliMed-3.7.0
 ; DoliMed-x.x x or DoliMed-x.x.x-dev or DoliMed-x.x.x-beta
-OutputBaseFilename=DoliMed-3.6.0
+OutputBaseFilename=DoliMed-3.7.0
 ; Define full path from wich all relative path are defined
 ; You must modify this to put here your dolibarr root directory
 SourceDir=..\..\..
@@ -30,7 +30,7 @@ AppPublisherURL=http://www.nltechno.com
 AppSupportURL=http://www.dolibarr.org
 AppUpdatesURL=http://www.dolibarr.org
 AppComments=DoliMed includes Dolibarr, Apache, PHP and Mysql softwares, and medical module.
-AppCopyright=Copyright (C) 2008-2014 Laurent Destailleur, NLTechno
+AppCopyright=Copyright (C) 2008-2015 Laurent Destailleur, NLTechno
 DefaultDirName=c:\dolimed
 DefaultGroupName=DoliMed
 ;LicenseFile=COPYING
@@ -439,8 +439,8 @@ begin
 //    		batFile := pathWithSlashes+'/UsedPort.exe';
 //    		MsgBox('batFile = '+batFile,mbConfirmation,MB_YESNO)
 //  	    Exec(batFile, '-s '+smtpServer+' -p 25', path+'\', SW_HIDE, ewWaitUntilTerminated, myResult);
-        //themessage := 'Le serveur '+smtpServer+' semble ne pas etre joignable pour l envoi de mail SMTP (port 25). Si vous avez un firewall, verifiez sa configuration. Sinon, revenez en arriere pour choisir une autre valeur pour le serveur SMTP sortant d envoi de mail (Cette information est doit etre fournie par votre fournisseur d acces Internet).';
-//        themessage := 'The server '+smtpServer+' seems to be unreachable to send outgoing SMTP emails (port 25). If you have a firewall, check its setup. Otherwise, go back to choose another value for the SMTP server (This information shoud be given by your Internet Service Provider) or click "No" to ignore error. Cancel choice to choose another value ?';
+        	//themessage := 'Le serveur '+smtpServer+' semble ne pas etre joignable pour l envoi de mail SMTP (port 25). Si vous avez un firewall, verifiez sa configuration. Sinon, revenez en arriere pour choisir une autre valeur pour le serveur SMTP sortant d envoi de mail (Cette information est doit etre fournie par votre fournisseur d acces Internet).';
+//        	themessage := 'The server '+smtpServer+' seems to be unreachable to send outgoing SMTP emails (port 25). If you have a firewall, check its setup. Otherwise, go back to choose another value for the SMTP server (This information shoud be given by your Internet Service Provider) or click "No" to ignore error. Cancel choice to choose another value ?';
 //  		  if ((IntToStr(myResult) <> '0') and (MsgBox(themessage,mbConfirmation,MB_YESNO) = IDYES)) then
 //        begin
 //  		    paramok := False;
@@ -453,8 +453,8 @@ begin
     		batFile := pathWithSlashes+'/UsedPort.exe';
     		//MsgBox('batFile = '+batFile,mbConfirmation,MB_YESNO)
     		Exec(batFile, '-s localhost -p '+myporta, path+'\', SW_HIDE, ewWaitUntilTerminated, myResult);
-        //themessage := 'Le port '+myporta+' semble deja pris. Revenez en arriere pour choisir une autre valeur pour le port Apache.';
-        themessage := FmtMessage(CustomMessage('PortAlreadyInUse'),[myporta,'Apache']);
+        	//themessage := 'Le port '+myporta+' semble deja pris. Revenez en arriere pour choisir une autre valeur pour le port Apache.';
+        	themessage := FmtMessage(CustomMessage('PortAlreadyInUse'),[myporta,'Apache']);
     		if ((IntToStr(myResult) = '0') and (MsgBox(themessage,mbConfirmation,MB_YESNO) = IDYES)) then
         begin
     		  paramok := False;
@@ -467,8 +467,8 @@ begin
     		batFile := pathWithSlashes+'/UsedPort.exe';
     		//MsgBox('batFile = '+batFile,mbConfirmation,MB_YESNO)
     		Exec(batFile, '-s localhost -p '+myport, path+'\', SW_HIDE, ewWaitUntilTerminated, myResult);
-        //themessage := 'Le port '+myport+' semble deja pris. Revenez en arriere pour choisir une autre valeur pour le port MySQL.';
-        themessage := FmtMessage(CustomMessage('PortAlreadyInUse'),[myport,'MySql']);
+        	//themessage := 'Le port '+myport+' semble deja pris. Revenez en arriere pour choisir une autre valeur pour le port MySQL.';
+        	themessage := FmtMessage(CustomMessage('PortAlreadyInUse'),[myport,'MySql']);
     		if ((IntToStr(myResult) = '0') and (MsgBox(themessage,mbConfirmation,MB_YESNO) = IDYES)) then
     		begin
       		paramok := False;
