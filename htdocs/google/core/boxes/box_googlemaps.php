@@ -59,7 +59,7 @@ class box_googlemaps extends ModeleBoxes
 
 		// disable module for such cases
 		$listofmodulesforexternal=explode(',',$conf->global->MAIN_MODULES_FOR_EXTERNAL);
-		if (! in_array('adherent',$listofmodulesforexternal) && ! empty($user->societe_id)) $this->enabled=0;	// disabled for external users
+		if (! in_array('adherent',$listofmodulesforexternal) && ! in_array('societe',$listofmodulesforexternal) && ! empty($user->societe_id)) $this->enabled=0;	// disabled for external users
 	}
 
 	/**
