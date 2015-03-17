@@ -276,7 +276,7 @@ class ActionsConcatPdf
         else
        {
         	// Remove extraparams for concatpdf
-        	unset($parameters['object']->extraparams['concatpdf']);
+        	if (isset($parameters['object']->extraparams['concatpdf'])) unset($parameters['object']->extraparams['concatpdf']);
         }
 
         if (is_object($parameters['object']) && method_exists($parameters['object'], 'setExtraParameters')) $result=$parameters['object']->setExtraParameters();
