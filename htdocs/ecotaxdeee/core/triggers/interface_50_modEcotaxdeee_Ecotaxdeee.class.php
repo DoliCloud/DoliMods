@@ -277,6 +277,9 @@ class InterfaceEcotaxdeee
 			{
 				$seller=$mysoc;
 
+				$buyer=new Societe($this->db);
+				$buyer->fetch($parentobject->socid);
+
 				if ($ecoamount[$ecocateg])
 				{
 					// Update line
@@ -285,7 +288,7 @@ class InterfaceEcotaxdeee
 					$tmpecotaxline[$ecocateg]->subprice=$ecoamount[$ecocateg];
 					$remise_percent_ligne=0;
 
-					$localtaxarray=getLocalTaxesFromRate($tmpecotaxline[$ecocateg]->tva_tx, 0, $seller);
+					$localtaxarray=getLocalTaxesFromRate($tmpecotaxline[$ecocateg]->tva_tx, 0, $buyer, $seller);
 					$tmparray=calcul_price_total($tmpecotaxline[$ecocateg]->qty, $tmpecotaxline[$ecocateg]->subprice, $tmpecotaxline[$ecocateg]->remise_percent, $tmpecotaxline[$ecocateg]->tva_tx, 0, 0, 0, 'HT', $tmpecotaxline[$ecocateg]->info_bits, $tmpecotaxline[$ecocateg]->type, $seller, $localtaxarray);
 
 					$tmpecotaxline[$ecocateg]->total_ht = $tmparray[0];
