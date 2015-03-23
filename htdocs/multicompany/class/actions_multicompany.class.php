@@ -469,7 +469,7 @@ class ActionsMulticompany
 			// Controle des droits sur le changement
 			if (!empty($conf->global->MULTICOMPANY_HIDE_LOGIN_COMBOBOX)
 			|| (!empty($conf->multicompany->transverse_mode) && $this->dao->verifyRight($id, $user->id))
-			|| $user->admin)
+			|| $user->admin || empty($user->entity))
 			{
 				$_SESSION['dol_entity'] = $id;
 				$conf->entity = $id;
