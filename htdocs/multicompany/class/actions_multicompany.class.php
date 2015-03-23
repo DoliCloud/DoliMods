@@ -350,7 +350,7 @@ class ActionsMulticompany
 	 *	@param	int		$login		If use in login page or not
 	 *	@return	void
 	 */
-	function select_entities($selected='', $htmlname='entity', $option='', $login=0)
+	function select_entities($selected='', $htmlname='entity', $option='', $login=0, $addallent=0)
 	{
 		global $user,$langs;
 
@@ -376,6 +376,7 @@ class ActionsMulticompany
 				}
 			}
 		}
+		if ($addallent) $return.= '<option value="0"'.(($selected != '' && $selected == "0") ? ' selected="selected"':'').'>'.$langs->trans("AllEntities").'</option>';
 		$return.= '</select>';
 
 		return $return;
