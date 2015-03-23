@@ -876,7 +876,7 @@ class ActionsMulticompany
 
 		$out='';
 
-		if (!empty($conf->multicompany->transverse_mode) || !empty($user->admin))
+		if (!empty($conf->multicompany->transverse_mode) || ! empty($user->admin) || empty($user->entity))
 		{
 			$form=new Form($this->db);
 
