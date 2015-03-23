@@ -531,10 +531,15 @@ class DaoMulticompany
 		}
 		else
 		{
-			$sql = "SELECT entity as rowid";
+			// FIX LDR
+			/*$sql = "SELECT entity as rowid";
 			$sql.= " FROM ".MAIN_DB_PREFIX."usergroup_user";
 			$sql.= " WHERE fk_user=".$user->id;
 			$sql.= " ORDER by entity";
+			*/
+			$sql = "SELECT rowid";
+			$sql.= " FROM ".MAIN_DB_PREFIX."entity";
+			$sql.= " ORDER by rowid";
 		}
 
 		$result = $this->db->query($sql);
@@ -558,11 +563,14 @@ class DaoMulticompany
 	}
 
     /**
-	 *    Verify right
+	 *    Check user $userid belongs to at least one group created into entity $id
 	 */
 	function verifyRight($id, $userid)
 	{
 		global $conf;
+
+		// FIX LDR
+		return 1;
 
 		$sql = "SELECT count(rowid) as nb";
 		$sql.= " FROM ".MAIN_DB_PREFIX."usergroup_user";

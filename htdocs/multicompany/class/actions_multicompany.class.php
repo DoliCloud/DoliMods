@@ -430,7 +430,7 @@ class ActionsMulticompany
 	 *    @param	id		User id
 	 *    @param	entity	Entity id
 	 */
-	function checkRight($id, $entity)
+	function checkRight($id, $entity, $fuser)
 	{
 		global $conf;
 
@@ -439,7 +439,7 @@ class ActionsMulticompany
 		if ($this->dao->fetch($entity) > 0)
 		{
 			// Controle des droits sur le changement
-			if ($this->dao->verifyRight($entity, $id) || $user->admin)
+			if ($this->dao->verifyRight($entity, $id) || $fuser->admin)
 			{
 				return 1;
 			}
