@@ -156,7 +156,7 @@ class modSubmitEveryWhere extends DolibarrModules
 									'user'=>0);				// 0=Menu for internal users, 1=external users, 2=both
 		$r++;
 
-		$this->menu[$r]=array(	'fk_menu'=>'fk_mainmenu=tools,fk_leftmenu=submiteverywhere',		// Use r=value where r is index key used for the parent menu entry (higher parent must be a top menu entry)
+		$this->menu[$r]=array(	'fk_menu'=>'fk_mainmenu=tools,fk_leftmenu=submiteverywhere',
 									'type'=>'left',			// This is a Left menu entry
 									'titre'=>'NewMessage',
 									'url'=>'/submiteverywhere/card.php?action=create',
@@ -168,7 +168,7 @@ class modSubmitEveryWhere extends DolibarrModules
 									'user'=>0);				// 0=Menu for internal users, 1=external users, 2=both
 		$r++;
 
-		$this->menu[$r]=array(	'fk_menu'=>'fk_mainmenu=tools,fk_leftmenu=submiteverywhere',		// Use r=value where r is index key used for the parent menu entry (higher parent must be a top menu entry)
+		$this->menu[$r]=array(	'fk_menu'=>'fk_mainmenu=tools,fk_leftmenu=submiteverywhere',
 									'type'=>'left',			// This is a Left menu entry
 									'titre'=>'List',
 									'url'=>'/submiteverywhere/list.php',

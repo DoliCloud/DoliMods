@@ -257,7 +257,7 @@ class modCabinetMed extends DolibarrModules
         $r++;
 
         // Left Menu entry:
-        $this->menu[$r]=array(   'fk_menu'=>'fk_mainmenu=patients',       // Use r=value where r is index key used for the parent menu entry (higher parent must be a top menu entry)
+        $this->menu[$r]=array(   'fk_menu'=>'fk_mainmenu=patients',
                                   'type'=>'left',         // This is a Left menu entry
                                   'titre'=>'Patients',
                                   'mainmenu'=>'patients',
@@ -270,7 +270,7 @@ class modCabinetMed extends DolibarrModules
                                   'target'=>'',
                                   'user'=>2);             // 0=Menu for internal users, 1=external users, 2=both
         $r++;
-        $this->menu[$r]=array(   'fk_menu'=>'fk_mainmenu=patients,fk_leftmenu=patients',       // Use r=value where r is index key used for the parent menu entry (higher parent must be a top menu entry)
+        $this->menu[$r]=array(   'fk_menu'=>'fk_mainmenu=patients,fk_leftmenu=patients',
 						        'type'=>'left',         // This is a Left menu entry
 						        'titre'=>'MenuNewPatient',
 						        'mainmenu'=>'patients',
@@ -282,7 +282,7 @@ class modCabinetMed extends DolibarrModules
 						        'perms'=>'$user->rights->societe->creer',           // Use 'perms'=>'$user->rights->voyage->level1->level2' if you want your menu with a permission rules
 						        'user'=>2);             // 0=Menu for internal users, 1=external users, 2=both
         $r++;
-        $this->menu[$r]=array(   'fk_menu'=>'fk_mainmenu=patients,fk_leftmenu=patients',       // Use r=value where r is index key used for the parent menu entry (higher parent must be a top menu entry)
+        $this->menu[$r]=array(   'fk_menu'=>'fk_mainmenu=patients,fk_leftmenu=patients',
 						        'type'=>'left',         // This is a Left menu entry
 						        'titre'=>'ListPatient',
 						        'mainmenu'=>'patients',
@@ -294,7 +294,7 @@ class modCabinetMed extends DolibarrModules
 						        'perms'=>'1',           // Use 'perms'=>'$user->rights->voyage->level1->level2' if you want your menu with a permission rules
 						        'user'=>2);             // 0=Menu for internal users, 1=external users, 2=both
         $r++;
-        $this->menu[$r]=array(   'fk_menu'=>'fk_mainmenu=patients,fk_leftmenu=patients',       // Use r=value where r is index key used for the parent menu entry (higher parent must be a top menu entry)
+        $this->menu[$r]=array(   'fk_menu'=>'fk_mainmenu=patients,fk_leftmenu=patients',
 						        'type'=>'left',         // This is a Left menu entry
 						        'titre'=>'ListConsult',
 						        'mainmenu'=>'patients',
@@ -306,7 +306,7 @@ class modCabinetMed extends DolibarrModules
 						        'perms'=>'1',           // Use 'perms'=>'$user->rights->voyage->level1->level2' if you want your menu with a permission rules
 						        'user'=>2);             // 0=Menu for internal users, 1=external users, 2=both
         $r++;
-        $this->menu[$r]=array(   'fk_menu'=>'fk_mainmenu=patients,fk_leftmenu=patients',       // Use r=value where r is index key used for the parent menu entry (higher parent must be a top menu entry)
+        $this->menu[$r]=array(   'fk_menu'=>'fk_mainmenu=patients,fk_leftmenu=patients',
 						        'type'=>'left',         // This is a Left menu entry
 						        'titre'=>'Statistics',
 						        'mainmenu'=>'patients',
@@ -319,7 +319,7 @@ class modCabinetMed extends DolibarrModules
 						        'user'=>2);             // 0=Menu for internal users, 1=external users, 2=both
         $r++;
         // Categories
-        $this->menu[$r]=array(   'fk_menu'=>'fk_mainmenu=patients',       // Use r=value where r is index key used for the parent menu entry (higher parent must be a top menu entry)
+        $this->menu[$r]=array(   'fk_menu'=>'fk_mainmenu=patients',
 						        'type'=>'left',         // This is a Left menu entry
 						        'titre'=>'PatientsCategoriesShort',
 						        'mainmenu'=>'patients',
@@ -332,7 +332,7 @@ class modCabinetMed extends DolibarrModules
 						        'target'=>'',
 						        'user'=>2);             // 0=Menu for internal users, 1=external users, 2=both
         $r++;
-        $this->menu[$r]=array(   'fk_menu'=>'fk_mainmenu=patients,fk_leftmenu=categorypatients',       // Use r=value where r is index key used for the parent menu entry (higher parent must be a top menu entry)
+        $this->menu[$r]=array(   'fk_menu'=>'fk_mainmenu=patients,fk_leftmenu=categorypatients',
 						        'type'=>'left',         // This is a Left menu entry
 						        'titre'=>'NewCategory',
 						        'mainmenu'=>'patients',
@@ -347,7 +347,7 @@ class modCabinetMed extends DolibarrModules
         $r++;
 
         // Left menu contacts
-        $this->menu[$r]=array(   'fk_menu'=>'fk_mainmenu=contacts',       // Use r=value where r is index key used for the parent menu entry (higher parent must be a top menu entry)
+        $this->menu[$r]=array(   'fk_menu'=>'fk_mainmenu=contacts',
         'type'=>'left',         // This is a Left menu entry
         'titre'=>'Correspondants',
         'mainmenu'=>'contacts',
@@ -359,7 +359,7 @@ class modCabinetMed extends DolibarrModules
         'perms'=>'$user->rights->societe->contact->lire',           // Use 'perms'=>'$user->rights->voyage->level1->level2' if you want your menu with a permission rules
         'user'=>2);             // 0=Menu for internal users, 1=external users, 2=both
         $r++;
-        $this->menu[$r]=array(   'fk_menu'=>'fk_mainmenu=contacts,fk_leftmenu=contacts',       // Use r=value where r is index key used for the parent menu entry (higher parent must be a top menu entry)
+        $this->menu[$r]=array(   'fk_menu'=>'fk_mainmenu=contacts,fk_leftmenu=contacts',
         'type'=>'left',         // This is a Left menu entry
         'titre'=>'NewContact',
         'mainmenu'=>'contacts',
@@ -371,7 +371,7 @@ class modCabinetMed extends DolibarrModules
         'perms'=>'1',           // Use 'perms'=>'$user->rights->voyage->level1->level2' if you want your menu with a permission rules
         'user'=>2);             // 0=Menu for internal users, 1=external users, 2=both
         $r++;
-        $this->menu[$r]=array(   'fk_menu'=>'fk_mainmenu=contacts,fk_leftmenu=contacts',       // Use r=value where r is index key used for the parent menu entry (higher parent must be a top menu entry)
+        $this->menu[$r]=array(   'fk_menu'=>'fk_mainmenu=contacts,fk_leftmenu=contacts',
         'type'=>'left',         // This is a Left menu entry
         'titre'=>'List',
         'mainmenu'=>'contacts',
@@ -383,7 +383,7 @@ class modCabinetMed extends DolibarrModules
         'perms'=>'$user->rights->societe->contact->lire',           // Use 'perms'=>'$user->rights->voyage->level1->level2' if you want your menu with a permission rules
         'user'=>2);             // 0=Menu for internal users, 1=external users, 2=both
         $r++;
-        $this->menu[$r]=array(   'fk_menu'=>'fk_mainmenu=contacts,fk_leftmenu=contacts',       // Use r=value where r is index key used for the parent menu entry (higher parent must be a top menu entry)
+        $this->menu[$r]=array(   'fk_menu'=>'fk_mainmenu=contacts,fk_leftmenu=contacts',
         'type'=>'left',         // This is a Left menu entry
         'titre'=>'Statistics',
         'mainmenu'=>'contacts',
@@ -396,7 +396,7 @@ class modCabinetMed extends DolibarrModules
         'user'=>2);             // 0=Menu for internal users, 1=external users, 2=both
         $r++;
 		// Left menu financial
-        $this->menu[$r]=array(   'fk_menu'=>'fk_mainmenu=accountancy2',       // Use r=value where r is index key used for the parent menu entry (higher parent must be a top menu entry)
+        $this->menu[$r]=array(   'fk_menu'=>'fk_mainmenu=accountancy2',
         'type'=>'left',         // This is a Left menu entry
         'titre'=>'ReportingsMed',
         'mainmenu'=>'accountancy2',

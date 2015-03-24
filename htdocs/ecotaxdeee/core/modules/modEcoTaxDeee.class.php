@@ -158,7 +158,7 @@ class modEcoTaxDeee extends DolibarrModules
 		// $r++;
 		//
 		// This is to declare a Left Menu entry:
-		// $this->menu[$r]=array(	'fk_menu'=>'r=0',		// Use r=value where r is index key used for the top menu entry
+		// $this->menu[$r]=array(	'fk_menu'=>'r=0',		// Use r=value where r is index key used for the parent menu entry (higher parent must be a top menu entry)
 		//							'type'=>'left',			// This is a Left menu entry
 		//							'titre'=>'Title left menu',
 		//							'mainmenu'=>'Composition',
