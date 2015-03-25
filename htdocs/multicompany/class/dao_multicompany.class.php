@@ -565,25 +565,39 @@ class DaoMulticompany
     /**
 	 *    Check user $userid belongs to at least one group created into entity $id
 	 */
-	function verifyRight($id, $userid)
+	function verifyRight($entity, $userid)
 	{
-		global $conf;
+		global $db,$conf;
 
-		// FIX LDR
-		return 1;
+		$tmpuser=new User($db);
+		$tmpuser->fetch($userid);
 
-		$sql = "SELECT count(rowid) as nb";
-		$sql.= " FROM ".MAIN_DB_PREFIX."usergroup_user";
-		$sql.= " WHERE fk_user=".$userid;
-		$sql.= " AND entity=".$id;
-
-		dol_syslog(get_class($this)."::verifyRight sql=".$sql, LOG_DEBUG);
-		$result = $this->db->query($sql);
-		if ($result)
+		if ($tmpuser->id)
 		{
-			$obj = $this->db->fetch_object($result);
-			return $obj->nb;
+			if (empty($tmpuser->entity)) return 1;						// superadmin always allowed
+			if ($tmpuser->entity == $entity && $tmpuser->admin) return 1;	// entity admin allowed
+			if (empty($conf->multicompany->transverse_mode))
+			{
+				if 	($tmpuser->entity == $entity) return 1;					// user allowed if belong to entity
+			}
+			else
+			{
+				$sql = "SELECT count(rowid) as nb";
+				$sql.= " FROM ".MAIN_DB_PREFIX."usergroup_user";
+				$sql.= " WHERE fk_user=".$userid;
+				$sql.= " AND entity=".$entity;
+
+				dol_syslog(get_class($this)."::verifyRight sql=".$sql, LOG_DEBUG);
+				$result = $this->db->query($sql);
+				if ($result)
+				{
+					$obj = $this->db->fetch_object($result);
+					return $obj->nb;										// user allowed if at least in one group
+				}
+			}
 		}
+
+		return 0;
 	}
 
 	/**

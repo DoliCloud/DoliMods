@@ -344,7 +344,8 @@ class ActionsMulticompany
 
 	/**
 	 *	Return combo list of entities.
-	 *
+	 *  Fixed by LDR
+     *
 	 *	@param	int		$selected	Preselected entity
 	 *	@param	string	$option		Option
 	 *	@param	int		$login		If use in login page or not
@@ -426,11 +427,13 @@ class ActionsMulticompany
 
 	/**
 	 *    Switch to another entity.
+	 *    Fixed by LDR
 	 *
 	 *    @param	id		User id
 	 *    @param	entity	Entity id
+	 *    @return	int		1=OK, <0=KO
 	 */
-	function checkRight($id, $entity, $fuser)
+	function checkRight($id, $entity)
 	{
 		global $conf;
 
@@ -438,8 +441,8 @@ class ActionsMulticompany
 
 		if ($this->dao->fetch($entity) > 0)
 		{
-			// Controle des droits sur le changement
-			if ($this->dao->verifyRight($entity, $id) || $fuser->admin)
+			// Check permission of user $id on entity $entity
+			if ($this->dao->verifyRight($entity, $id))
 			{
 				return 1;
 			}
@@ -456,23 +459,26 @@ class ActionsMulticompany
 
 	/**
 	 *    Switch to another entity.
-	 *    @param	id		Id of the destination entity
+	 *    Fixed by LDR
+	 *
+	 *    @param	$entity		Id of the destination entity
 	 */
-	function switchEntity($id, $userid=null)
+	function switchEntity($entity)
 	{
 		global $conf,$user;
 
 		$this->getInstanceDao();
 
-		if ($this->dao->fetch($id) > 0)
+		if ($this->dao->fetch($entity) > 0)
 		{
 			// Controle des droits sur le changement
-			if (!empty($conf->global->MULTICOMPANY_HIDE_LOGIN_COMBOBOX)
-			|| (!empty($conf->multicompany->transverse_mode) && $this->dao->verifyRight($id, $user->id))
-			|| $user->admin || empty($user->entity))
+			if (
+				(!empty($conf->multicompany->transverse_mode) && $this->dao->verifyRight($entity, $user->id))
+				|| (empty($conf->multicompany->transverse_mode) && ($user->entity == $entity || empty($user->entity)))
+			)
 			{
-				$_SESSION['dol_entity'] = $id;
-				$conf->entity = $id;
+				$_SESSION['dol_entity'] = $entity;
+				$conf->entity = $entity;
 				return 1;
 			}
 			else
