@@ -38,6 +38,7 @@ require_once(DOL_DOCUMENT_ROOT.'/societe/class/societe.class.php');
 require_once(NUSOAP_PATH.'/nusoap.php');     // Include SOAP
 
 $langs->load("ovh@ovh");
+$langs->load("sms");
 
 $error=0;
 

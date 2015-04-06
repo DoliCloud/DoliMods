@@ -42,6 +42,7 @@ if (!$user->admin) accessforbidden();
 $langs->load("admin");
 $langs->load("other");
 $langs->load("ovh@ovh");
+$langs->load("sms");
 
 
 /**

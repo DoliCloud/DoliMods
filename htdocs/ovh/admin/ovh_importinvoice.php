@@ -23,6 +23,7 @@ require_once(NUSOAP_PATH.'/nusoap.php');     // Include SOAP
 $langs->load("ovh@ovh");
 $langs->load("admin");
 $langs->load("companies");
+$langs->load("sms");
 
 $error=0;
 

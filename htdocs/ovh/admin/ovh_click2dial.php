@@ -43,6 +43,7 @@ $action=GETPOST('action');
 $langs->load("admin");
 $langs->load("companies");
 $langs->load("ovh@ovh");
+$langs->load("sms");
 
 if (!$user->admin) accessforbidden();
 // Get parameters
