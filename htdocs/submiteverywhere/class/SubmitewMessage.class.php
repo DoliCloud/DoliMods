@@ -99,7 +99,7 @@ class SubmitewMessage // extends CommonObject
 
 		// Clean parameters
 
-		if (isset($this->statut)) $this->statut=trim($this->statut);
+		if (isset($this->statut)) $this->statut=(int) $this->statut;
 		if (isset($this->label)) $this->label=trim($this->label);
 		if (isset($this->title)) $this->title=trim($this->title);
 		if (isset($this->body)) $this->body=trim($this->body);
@@ -326,7 +326,7 @@ class SubmitewMessage // extends CommonObject
 
 		// Clean parameters
 
-		if (isset($this->statut)) $this->statut=trim($this->statut);
+		if (isset($this->statut)) $this->statut=(int) $this->statut;
 		if (isset($this->label)) $this->label=trim($this->label);
 		if (isset($this->entity)) $this->entity=trim($this->entity);
 		if (isset($this->title)) $this->title=trim($this->title);

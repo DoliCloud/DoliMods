@@ -45,7 +45,6 @@ $langs->load("bills");
 $langs->load("orders");
 $langs->load("ovh@ovh");
 
-//eregi_replace($script_file,'',$_SERVER["PHP_SELF"]);
 $url_pdf="https://www.ovh.com/cgi-bin/order/facture.pdf";
 
 $action=GETPOST('action');
