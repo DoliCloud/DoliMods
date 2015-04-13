@@ -475,7 +475,7 @@ function google_complete_label_and_note(&$object, $langs)
 			if (! empty($thirdparty->phone_pro)) $object->note.="\n".$langs->trans("Phone").': '.$thirdparty->phone_pro;
 			if (! empty($thirdparty->fax)) $object->note.="\n".$langs->trans("Fax").': '.$thirdparty->fax;
 
-			$urltoelem=$urlwithroot.'/societe/soc.ph?socid='.$thirdparty->id;
+			$urltoelem=$urlwithroot.'/societe/soc.php?socid='.$thirdparty->id;
 			$object->note.="\n".$langs->trans("LinkToThirdParty").': '.$urltoelem;
 		}
 	}
