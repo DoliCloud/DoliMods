@@ -88,6 +88,11 @@ class ActionsConcatPdf
         	$staticpdf=glob($conf->concatpdf->dir_output."/supplier_invoices/*.[pP][dD][fF]");
         	$modelpdf=glob($conf->concatpdf->dir_output."/supplier_invoices/pdf_*.modules.php");
         }
+        if ($parameters['modulepart'] == 'contract' || $parameters['modulepart'] == 'contract')
+        {
+        	$staticpdf=glob($conf->concatpdf->dir_output."/contracts/*.[pP][dD][fF]");
+        	$modelpdf=glob($conf->concatpdf->dir_output."/contracts/pdf_*.modules.php");
+        }
 
         // Defined $preselected value
         $preselected=(isset($object->extraparams['concatpdf'][0])?$object->extraparams['concatpdf'][0]:-1);	// string with preselected string
@@ -190,6 +195,7 @@ class ActionsConcatPdf
         if ($parameters['object']->element == 'invoice' || $parameters['object']->element == 'facture')  $element='invoices';
         if ($parameters['object']->element == 'order_supplier' || $parameters['object']->element == 'commande_fournisseur')  $element='supplier_orders';
         if ($parameters['object']->element == 'invoice_supplier' || $parameters['object']->element == 'facture_fournisseur')  $element='supplier_invoices';
+        if ($parameters['object']->element == 'contract' || $parameters['object']->element == 'contrat')  $element='contracts';
 
         $filetoconcat1=array($parameters['file']);
         $filetoconcat2=array();
