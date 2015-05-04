@@ -67,7 +67,7 @@ $formfile=new FormFile($db);
 llxHeader('','SelectBankSetup',$linktohelp);
 
 $linkback='<a href="'.DOL_URL_ROOT.'/admin/modules.php">'.$langs->trans("BackToModuleList").'</a>';
-print_fiche_titre($langs->trans("SelectBank"),$linkback,'setup');
+print_fiche_titre($langs->trans("SelectBankSetup"),$linkback,'setup');
 
 clearstatcache();
 
