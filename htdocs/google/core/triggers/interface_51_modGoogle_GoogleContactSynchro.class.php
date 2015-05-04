@@ -136,20 +136,21 @@ class InterfaceGoogleContactSynchro
 				return 0;
 			}
 
-			// Create client object
-			$service= 'cp';		// cl = calendar, cp=contact, ... Search on AUTH_SERVICE_NAME into Zend API for full list
-			$client = getClientLoginHttpClientContact($user, $pwd, $service);
-			//var_dump($client); exit;
+			// Create client/token object
+			$key_file_location = $conf->google->multidir_output[$conf->entity]."/".$conf->global->GOOGLE_API_SERVICEACCOUNT_P12KEY;
+			$force_do_not_use_session=(in_array(GETPOST('action'), array('testall','testcreate'))?true:false);	// false by default
+			$servicearray=getTokenFromServiceAccount($conf->global->GOOGLE_API_SERVICEACCOUNT_CLIENT_ID, $conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL, $key_file_location, $force_do_not_use_session);
 
-			if ($client == null)
+			if (! is_array($servicearray))
 			{
-				dol_syslog("Failed to login to Google for login ".$user, LOG_ERR);
-				$this->error='Failed to login to Google for login '.$user;
-				// Show warning message
-				$urlhelp='http://wiki.dolibarr.org/index.php/Module_Google_EN';
-				if (preg_match('/^es/i',$langs->defaultlang)) $urlhelp='http://wiki.dolibarr.org/index.php/M%C3%B3dulo_Google';
-		        if (preg_match('/^fr/i',$langs->defaultlang)) $urlhelp='http://wiki.dolibarr.org/index.php/Module_Google';
-				$this->error.='<br>If you are sure your login/pass is correct, take a look at warnings visible onto page <a href="'.$urlhelp.'" target="new">'.$urlhelp.'</a>';
+				$this->errors[]=$servicearray;
+				return -1;
+			}
+
+			if ($servicearray == null)
+			{
+				$this->error="Failed to login to Google with credentials provided into setup page ".$conf->global->GOOGLE_API_SERVICEACCOUNT_CLIENT_ID.", ".$conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL.", ".$key_file_location;
+				dol_syslog($this->error, LOG_ERR);
 				$this->errors[]=$this->error;
 				return -1;
 			}
@@ -157,18 +158,32 @@ class InterfaceGoogleContactSynchro
 			{
 				if ($action == 'COMPANY_CREATE' || $action == 'CONTACT_CREATE' || $action == 'MEMBER_CREATE')
 				{
+					$ret = createContact($servicearray, $object, $userlogin);
+					if (! preg_match('/ERROR/',$ret))
+					{
+						if (! preg_match('/google\.com/',$ret)) $ret='google:'.$ret;
+						$object->update_ref_ext($ret);	// This is to store ref_ext to allow updates
+						return 1;
+					}
+					else
+					{
+						$this->errors[]=$ret;
+						return -1;
+					}
+					/*
 					$ret = googleCreateContact($client, $object, 'default');
 
 					$object->update_ref_ext($ret);
 					// This is to store ref_ext to allow updates
 
-					return 1;
+					return 1;*/
 				}
 				if ($action == 'COMPANY_MODIFY' || $action == 'CONTACT_MODIFY' || $action == 'MEMBER_MODIFY')
 				{
 					$gid = preg_replace('/http:\/\//','https://',$object->ref_ext);
 					if ($gid && preg_match('/google/i', $object->ref_ext)) // This record is linked with Google Contact
 					{
+						/*
 						$ret = googleUpdateContact($client, $gid, $object, 'default');
 
 						if ($ret == '0')// Fails to update because not found, we try to create
@@ -186,21 +201,61 @@ class InterfaceGoogleContactSynchro
 							return $ret;
 						}
 
-						return 1;
+						return 1;*/
+						
+						$ret = updateContact($servicearray, $gid, $object, $userlogin);
+						//var_dump($ret); exit;
+
+						if (! is_numeric($ret) || $ret < 0)// Fails to update, we try to create
+						{
+							$ret = createContact($servicearray, $object, $userlogin);
+							//var_dump($ret); exit;
+
+							if (! preg_match('/ERROR/',$ret))
+							{
+								if (! preg_match('/google\.com/',$ret)) $ret='google:'.$ret;
+								$object->update_ref_ext($ret);	// This is to store ref_ext to allow updates
+								return 1;
+							}
+							else
+							{
+								$this->errors[]=$ret;
+								return -1;
+							}
+						}
+						return 1;						
 					}
 					else if ($gid == '')
-					{ // No google id
+					{ 	/*
+						// No google id
 						$ret = googleCreateContact($client, $object, 'default');
 						//var_dump($ret); exit;
 
 						$object->update_ref_ext($ret);
 						// This is to store ref_ext to allow updates
+						 */
+						
+						$ret = createContact($servicearray, $object, $userlogin);
+						//var_dump($ret); exit;
+
+						if (! preg_match('/ERROR/',$ret))
+						{
+							if (! preg_match('/google\.com/',$ret)) $ret='google:'.$ret;
+							$object->update_ref_ext($ret);	// This is to store ref_ext to allow updates
+							return 1;
+						}
+						else
+						{
+							$this->errors[]=$ret;
+							return -1;
+						}						
 					}
 
 					return 1;
 				}
 				if ($action == 'COMPANY_DELETE' || $action == 'CONTACT_DELETE' || $action == 'MEMBER_DELETE')
 				{
+					/*
 					$gid = preg_replace('/http:\/\//','https://',$object->ref_ext);
 					if ($gid && preg_match('/google/i', $object->ref_ext)) // This record is linked with Google Calendar
 					{
@@ -212,7 +267,16 @@ class InterfaceGoogleContactSynchro
 							return 0;	// We do not stop delete if error
 						}
 					}
-					return 1;
+					return 1;*/
+					$gid = basename($object->ref_ext);
+					if ($gid && preg_match('/google/i', $object->ref_ext)) // This record is linked with Google Calendar
+					{
+						$ret = deleteContactById($servicearray, $gid, $userlogin);
+						//var_dump($ret); exit;
+
+						return 1;
+					}
+					
 				}
 			}
 		}
