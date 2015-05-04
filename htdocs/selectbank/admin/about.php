@@ -51,8 +51,7 @@ $help_url='';
 llxHeader('','',$help_url);
 
 $linkback='<a href="'.DOL_URL_ROOT.'/admin/modules.php">'.$langs->trans("BackToModuleList").'</a>';
-print_fiche_titre($langs->trans("SelectBank"),$linkback,'setup');
-print '<br>';
+print_fiche_titre($langs->trans("SelectBankSetup"),$linkback,'setup');
 
 $h=0;
 $head[$h][0] = 'selectbank.php';

@@ -64,11 +64,10 @@ $modules = array('proposals','orders','invoices');
 $form=new Form($db);
 $formfile=new FormFile($db);
 
-llxHeader('','SelectBank',$linktohelp);
+llxHeader('','SelectBankSetup',$linktohelp);
 
 $linkback='<a href="'.DOL_URL_ROOT.'/admin/modules.php">'.$langs->trans("BackToModuleList").'</a>';
 print_fiche_titre($langs->trans("SelectBank"),$linkback,'setup');
-print '<br>';
 
 clearstatcache();
 

@@ -1,7 +1,8 @@
 # Dolibarr language file - fr_FR - selectbank 
 CHARSET= UTF-8
 Module101600Name=Selection banque
-SelectBank=Page de configuration du module Select Bank
+Module101600Desc=Permet la sélection du compte bancaire affiché sur les documents de factures générés
+SelectBankSetup=Page de configuration du module Select Bank
 SelectBankNothingToSetup=Aucune configuration particulière n'est requise. Une liste déroulante a du apparaitre au niveau des fiches factures, propositions, commandes, si le mode de paiment a été défini à virement ou s'il n'est pas défini.
 AboutInfo=Ce module est développé et diffusé par Laurent Destailleur pour NLTechno, <a target="_blank" href="http://www.nltechno.com">www.nltechno.com</a> (société labellisé Dolibarr Prefered Partner).
 MoreModules=D'autres modules du même auteur sont disponibles sur la place de marché officielle DoliStore...

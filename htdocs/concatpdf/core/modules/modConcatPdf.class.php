@@ -74,7 +74,7 @@ class modConcatPdf extends DolibarrModules
 				//						'barcode' => 0,                                  // Set this to 1 if module has its own barcode directory
 				//						'models' => 0,                                   // Set this to 1 if module has its own models directory
 				//						'css' => '/filemanager/css/concatpdf.css.php',   // Set this to relative path of css if module has its own css file
-										'hooks' => array('invoicecard','propalcard','ordercard','invoicesuppliercard','ordersuppliercard','pdfgeneration')  // Set here all hooks context managed by module
+										'hooks' => array('invoicecard','propalcard','ordercard','invoicesuppliercard','ordersuppliercard','contractcard','pdfgeneration')  // Set here all hooks context managed by module
 		);
 
 		// Data directories to create when module is enabled

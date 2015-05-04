@@ -1,5 +1,5 @@
 <?php
-/* Copyright (C) 2008-2013	Laurent Destailleur  <eldy@users.sourceforge.net>
+/* Copyright (C) 2008-2015	Laurent Destailleur  <eldy@users.sourceforge.net>
  * Copyright (C) 2012		Regis Houssin        <regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -55,6 +55,7 @@ if ($conf->commande->enabled) $modules['orders']='Orders';
 if ($conf->facture->enabled) $modules['invoices']='Invoices';
 if ($conf->fournisseur->enabled) $modules['supplier_orders']='SuppliersOrders';
 if ($conf->fournisseur->enabled) $modules['supplier_invoices']='SuppliersInvoices';
+if ($conf->contract->enabled) $modules['contracts']='Contracts';
 
 
 /*
