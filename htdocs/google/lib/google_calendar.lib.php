@@ -95,8 +95,8 @@ function getTokenFromServiceAccount($client_id, $service_account_name, $key_file
 {
 	global $conf;
 
-	if (empty($service_account_name)) return 'ErrorNoServiceAccountName';
-	if (empty($key_file_location) || ! file_exists($key_file_location)) return 'ErrorKeyFileNotFound';
+	if (empty($service_account_name)) return 'ErrorModuleGoogleNoServiceAccountName';
+	if (empty($key_file_location) || ! file_exists($key_file_location)) return 'ErrorModuleGoogleKeyFileNotFound';
 
 	$client = new Google_Client();
 	$client->setApplicationName("Dolibarr");
