@@ -1,5 +1,6 @@
 # Dolibarr language file - en_US - selectbank 
 CHARSET= UTF-8
+SelectBank=Select Bank
 Module101600Name=Select Bank
 Module101600Desc=Select Bank account to show on invoice generated documents
 SelectBankSetup=Setup page of module Select Bank

@@ -1,5 +1,6 @@
 # Dolibarr language file - fr_FR - selectbank 
 CHARSET= UTF-8
+SelectBank=Selection banque
 Module101600Name=Selection banque
 Module101600Desc=Permet la sélection du compte bancaire affiché sur les documents de factures générés
 SelectBankSetup=Page de configuration du module Select Bank
