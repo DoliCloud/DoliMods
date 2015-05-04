@@ -1,5 +1,6 @@
 # Dolibarr language file - fr_FR - cabinetmed
 CHARSET=UTF-8
+CabinetMed=Cabinet médical
 Module101700Name=Cabinet médical
 Module101700Desc=Module pour gérer un cabinet médical libéral (patients et consultations)
 LastHour=Last hour
