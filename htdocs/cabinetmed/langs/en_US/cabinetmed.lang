@@ -1,5 +1,6 @@
-# Dolibarr language file - fr_FR - cabinetmed
+# Dolibarr language file - en_US - cabinetmed
 CHARSET=UTF-8
+CabinetMed=Medical center
 Module101700Name=Medical center
 Module101700Desc=Module to manage a medical center (patients and consultations)
 LastHour=Last hour
