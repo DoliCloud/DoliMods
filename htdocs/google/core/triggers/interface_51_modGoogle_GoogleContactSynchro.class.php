@@ -102,7 +102,9 @@ class InterfaceGoogleContactSynchro
 	 *      @param  Conf		$conf       Objet conf
 	 *      @return int         			<0 if KO, 0 if nothing is done, >0 if OK
 	 */
-	function run_trigger($action, $object, $user, $langs, $conf) {
+	function run_trigger($action, $object, $user, $langs, $conf)
+	{
+		global $dolibarr_main_url_root;
 
 		// Création / Mise à jour / Suppression d'un évènement dans Google contact
 
