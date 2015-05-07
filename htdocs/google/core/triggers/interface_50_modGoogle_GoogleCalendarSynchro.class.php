@@ -172,7 +172,7 @@ class InterfaceGoogleCalendarSynchro
 			}
 			else
 			{
-				// Event label can now include company and / or contact info, see configuration
+				// Event label can now include company and / or contact info, and url link to thirdparty or contact, see configuration
 				google_complete_label_and_note($object, $langs);
 
 				if ($action == 'ACTION_CREATE')
