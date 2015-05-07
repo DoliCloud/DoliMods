@@ -398,8 +398,9 @@ class ActionsCabinetmed
         $out.='<input type="text" name="outcome_comment" size="90" value="'.(GETPOST('outcome_comment')?GETPOST('outcome_comment'):'').'">';
         $out.='</td></tr>';
 
-        return $out;
+        $this->resprints = $out;
+
+        return 0;
     }
 }
 
-?>
