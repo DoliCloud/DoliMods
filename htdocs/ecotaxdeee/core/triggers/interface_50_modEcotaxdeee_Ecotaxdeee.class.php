@@ -214,7 +214,7 @@ class InterfaceEcotaxdeee
 
 		$lines=$parentobject->lines;
 
-		// To work with version <= 3.6.0, get eco tax deee amount from extra field
+		// Get eco tax deee amount from extra field
 		require_once DOL_DOCUMENT_ROOT.'/core/class/extrafields.class.php';
         $extrafields = new ExtraFields($this->db);
         $optionsArray = $extrafields->fetch_name_optionals_label('product');
@@ -258,15 +258,19 @@ class InterfaceEcotaxdeee
 			}
 		}
 
-		// Delete ecotax
+		// Delete existing empty ecotax lines
 		foreach ($tmpecotaxline as $ecocateg => $value)
 		{
 			if (empty($ecoamount[$ecocateg]))
 			{
-				// Do nothing
 				if (is_object($tmpecotaxline[$ecocateg])) $result=$tmpecotaxline[$ecocateg]->delete();
 			}
 		}
+
+		$seller=$mysoc;
+
+		$buyer=new Societe($this->db);
+		$buyer->fetch($parentobject->socid);
 
 		// Update/insert ecotax
 		$result=0;
@@ -275,11 +279,6 @@ class InterfaceEcotaxdeee
 		{
 			if (is_object($tmpecotaxline[$ecocateg]) && $idlineecotax[$ecocateg] > 0)	// If ecotax line already exists for ecocateg
 			{
-				$seller=$mysoc;
-
-				$buyer=new Societe($this->db);
-				$buyer->fetch($parentobject->socid);
-
 				if ($ecoamount[$ecocateg])
 				{
 					// Update line
@@ -313,11 +312,6 @@ class InterfaceEcotaxdeee
 			}
 			else	// If ecotax line does not yet exists for ecocateg and we need it
 			{
-				$seller=$mysoc;
-
-				$buyer=new Societe($this->db);
-				$buyer->fetch($parentobject->socid);
-
 				// Insert line
 				$rang = count($lines) + 1;
 				$special_code = 2;
