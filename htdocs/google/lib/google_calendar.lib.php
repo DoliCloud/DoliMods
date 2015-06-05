@@ -88,10 +88,11 @@ function getTokenFromWebApp($clientid, $clientsecret)
  * @param	string			$client_id					Client ID (Example: '258042696143-s9klbbpj13fb40ac8k5qjajn4e9o1c49.apps.googleusercontent.com'). Not used.
  * @param	string			$service_account_name		Service account name (Example: '258042696143-s9klbbpj13fb40ac8k5qjajn4e9o1c49@developer.gserviceaccount.com')
  * @param	string			$key_file_location			Key file location (Example: 'API Project-69e4673ea29e.p12')
- * @param	int				$force_do_not_use_session	1=Do not get token from essions
+ * @param	int				$force_do_not_use_session	1=Do not get token from sessions $_SESSION['service_token'] or $_SESSION['web_token']
+ * @param	string			$mode						'service' or 'web' (Choose which token to use)
  * @return	array|string								Error message or array with token
  */
-function getTokenFromServiceAccount($client_id, $service_account_name, $key_file_location, $force_do_not_use_session=false)
+function getTokenFromServiceAccount($client_id, $service_account_name, $key_file_location, $force_do_not_use_session=false, $mode='service')
 {
 	global $conf;
 
@@ -102,29 +103,59 @@ function getTokenFromServiceAccount($client_id, $service_account_name, $key_file
 	$client->setApplicationName("Dolibarr");
 	$client->setClassConfig('Google_Cache_File', 'directory', $conf->google->dir_temp);		// Force dir if cache used is Google_Cache_File
 
-	/************************************************
-	  If we have an access token, we can carry on.
-	  Otherwise, we'll get one with the help of an
-	  assertion credential. In other examples the list
-	  of scopes was managed by the Client, but here
-	  we have to list them manually. We also supply
-	  the service account
-	 ************************************************/
-	if (empty($force_do_not_use_session) && isset($_SESSION['service_token']))
+	if ($mode == 'web')
 	{
-		dol_syslog("Get service token from session. service_token=".$_SESSION['service_token']);
-		$client->setAccessToken($_SESSION['service_token']);
+		if (empty($force_do_not_use_session) && isset($_SESSION['web_token']))
+		{
+			dol_syslog("Get service token from session. web_token=".$_SESSION['web_token']);
+			$client->setAccessToken($_SESSION['web_token']);
+		}
+		if (empty($force_do_not_use_session) && ! isset($_SESSION['web_token']))
+		{
+			// Look into database
+			//$web_token='{"access_token":"ya29.iQEPBPUAVLXeVq1-QnC6-SHydA9czPX3ySJ5SfYSo5ZIMfFEl5MTs62no8hZp5jUUsm3QVHTrBg7hw","expires_in":3600,"created":1433463453}';
+			$_SESSION['web_token'] = $conf->global->GOOGLE_WEB_TOKEN;
+		}
+
+		if (empty($_SESSION['web_token']))
+		{
+			return 'GoogleWebTokenNotDefinedDoALoginInitFirst';
+		}
+		else
+		{
+			dol_syslog("Get service token from session. web_token=".$_SESSION['web_token']);
+			$client->setAccessToken($_SESSION['web_token']);
+		}
 	}
+	if ($mode == 'service')
+	{
+		/************************************************
+		  If we have an access token, we can carry on.
+		  Otherwise, we'll get one with the help of an
+		  assertion credential. In other examples the list
+		  of scopes was managed by the Client, but here
+		  we have to list them manually. We also supply
+		  the service account
+		 ************************************************/
+		if (empty($force_do_not_use_session) && isset($_SESSION['service_token']))
+		{
+			dol_syslog("Get service token from session. service_token=".$_SESSION['service_token']);
+			$client->setAccessToken($_SESSION['service_token']);
+		}
 
-	dol_syslog("getTokenFromServiceAccount service_account_name=".$service_account_name." key_file_location=".$key_file_location." force_do_not_use_session=".$force_do_not_use_session, LOG_DEBUG);
-	$key = file_get_contents($key_file_location);
-	$cred = new Google_Auth_AssertionCredentials(
-	    $service_account_name,
-	    array('https://www.googleapis.com/auth/calendar','https://www.googleapis.com/auth/calendar.readonly'),
-	    $key
-	);
+		dol_syslog("getTokenFromServiceAccount service_account_name=".$service_account_name." key_file_location=".$key_file_location." force_do_not_use_session=".$force_do_not_use_session, LOG_DEBUG);
+		$key = file_get_contents($key_file_location);
+		$cred = new Google_Auth_AssertionCredentials(
+		    $service_account_name,
+		    array('https://www.googleapis.com/auth/contacts.readonly',
+		    'https://www.googleapis.com/auth/calendar','https://www.googleapis.com/auth/calendar.readonly',
+		    'https://www.google.com/m8/feeds',
+		    ),
+		    $key
+		);
 
-	$client->setAssertionCredentials($cred);
+		$client->setAssertionCredentials($cred);
+	}
 
 	try {
 		$checktoken=$client->getAuth()->isAccessTokenExpired();
@@ -139,10 +170,22 @@ function getTokenFromServiceAccount($client_id, $service_account_name, $key_file
 		return $e->getMessage();
 	}
 
-	$_SESSION['service_token'] = $client->getAccessToken();
+	if ($mode == 'web')
+	{
+		$_SESSION['web_token'] = $client->getAccessToken();
 
-	dol_syslog("Return client name = ".$client->getApplicationName()." service_token = ".$_SESSION['service_token']);
-	return array('client'=>$client, 'service_token'=>$_SESSION['service_token']);
+		dol_syslog("Return client name = ".$client->getApplicationName()." web_token = ".$_SESSION['web_token'], LOG_INFO);
+		dol_syslog("getBasePath = ".$client->getBasePath(), LOG_DEBUG);
+	}
+	if ($mode == 'service')
+	{
+		$_SESSION['service_token'] = $client->getAccessToken();
+
+		dol_syslog("Return client name = ".$client->getApplicationName()." service_token = ".$_SESSION['service_token'], LOG_INFO);
+		dol_syslog("getBasePath = ".$client->getBasePath(), LOG_DEBUG);
+	}
+
+	return array('client'=>$client, 'service_token'=>$_SESSION['service_token'], 'web_token'=>$_SESSION['web_token']);
 }
 
 

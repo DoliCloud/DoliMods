@@ -55,7 +55,7 @@ class Google_IO_Curl extends Google_IO_Abstract
     }
 
     curl_setopt($curl, CURLOPT_URL, $request->getUrl());
-    
+
     curl_setopt($curl, CURLOPT_CUSTOMREQUEST, $request->getRequestMethod());
     curl_setopt($curl, CURLOPT_USERAGENT, $request->getUserAgent());
 
@@ -65,6 +65,9 @@ class Google_IO_Curl extends Google_IO_Abstract
     curl_setopt($curl, CURLOPT_SSLVERSION, 1);
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($curl, CURLOPT_HEADER, true);
+
+    // DOL_LDR_CHANGE
+    curl_setopt($curl, CURLINFO_HEADER_OUT, true);	// To be able to retrieve request header and log it
 
     if ($request->canGzip()) {
       curl_setopt($curl, CURLOPT_ENCODING, 'gzip,deflate');
@@ -79,8 +82,14 @@ class Google_IO_Curl extends Google_IO_Abstract
     }
 
     $response = curl_exec($curl);
+
+    // DOL_LDR_CHANGE
+    $status = curl_getinfo($curl, CURLINFO_HEADER_OUT);	// Reading of request must be done after sending request
+    dol_syslog("executeRequest request=".$status);
+    dol_syslog("executeRequest response=".$response);
+
     if ($response === false) {
-      throw new Google_IO_Exception(curl_error($curl));
+    	throw new Google_IO_Exception(curl_error($curl));
     }
     $headerSize = curl_getinfo($curl, CURLINFO_HEADER_SIZE);
 

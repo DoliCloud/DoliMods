@@ -24,6 +24,7 @@
  */
 
 dol_include_once("/google/lib/google.lib.php");
+include_once DOL_DOCUMENT_ROOT.'/core/lib/geturl.lib.php';
 
 $path = dol_buildpath('/google/includes/zendgdata');
 set_include_path(get_include_path() . PATH_SEPARATOR . $path);
@@ -96,6 +97,255 @@ function getCommentIDTag()
 {
 	return	'--- (do not delete) --- dolibarr_id = ';
 }
+
+
+
+
+/**
+ * Creates an event on the authenticated user's default calendar with the
+ * specified event details.
+ *
+ * @param  array	$client   		Service array with authenticated client object
+ * @param  string	$object	   		Source object into Dolibarr
+ * @param  string	$useremail		User email
+ * @return string 					The ID URL for the contact or 'ERROR xxx' if error.
+ */
+function createContact($client, $object, $useremail='default')
+{
+	global $conf, $db, $trans;
+	global $dolibarr_main_url_root;
+	global $user;
+
+	global $conf,$langs;
+	global $tag_debug;
+
+	include_once(DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php');
+
+	dol_syslog('googleCreateContact object->id='.$object->id.' type='.$object->element);
+
+	$google_nltechno_tag=getCommentIDTag();
+
+	$doc  = new DOMDocument("1.0", "utf-8");
+	try {
+		// perform login and set protocol version to 3.0
+		//$gdata = new Zend_Gdata($client);
+		//$gdata->setMajorProtocolVersion(3);
+		$gdata=$client;
+
+		$idindolibarr=$object->id.'/'.($object->element=='societe'?'thirdparty':$object->element);
+		$paramtogettag=array('societe'=>'thirdparties','contact'=>'contacts','member'=>'members');
+		$groupName = getTagLabel($paramtogettag[$object->element]);
+		if ($groupName == 'UnknownType') return 'ErrorTypeOfObjectNotSupported';
+
+		// create new entry
+		$doc->formatOutput = true;
+		$entry = $doc->createElement('atom:entry');
+		$entry->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:atom',     constant('ATOM_NAME_SPACE'));
+		$entry->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:gd',       constant('GD_NAME_SPACE'));
+        $entry->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:gcontact', constant('GCONTACT_NAME_SPACE'));
+		$doc->appendChild($entry);
+
+
+		// Uncomment to test when all fields are empty
+		//$object->email='';	$object->url=''; $object->address=''; $object->zip=''; $object->town=''; $object->note=''; unset($object->country_id);
+
+
+		// Name
+		$name = $doc->createElement('gd:name');
+		$entry->appendChild($name);
+		if ($object->element != 'societe' && $object->element != 'thirdparty')
+		{
+			$fullName = $doc->createElement('gd:fullName', $object->getFullName($langs));
+			// TODO Add givenName and familyName
+		}
+		else
+		{
+			$fullName = $doc->createElement('gd:fullName', $object->name);
+		}
+		$name->appendChild($fullName);
+
+		// Element
+		$email = $doc->createElement('gd:email');
+		$email->setAttribute('address', ($object->email?$object->email:((empty($object->name)?$object->lastname.$object->firstname:$object->name).'@noemail.com')));
+		$email->setAttribute('rel', 'http://schemas.google.com/g/2005#home');
+		$entry->appendChild($email);
+
+		// Address
+		$address = $doc->createElement('gd:structuredPostalAddress');
+		$address->setAttribute('rel', 'http://schemas.google.com/g/2005#work');
+		$address->setAttribute('primary', 'true');
+		$entry->appendChild($address);
+
+			$city = $doc->createElement('gd:city', $object->town);
+			if (! empty($object->town))	$address->appendChild($city);
+			$street = $doc->createElement('gd:street', $object->address);
+			if (! empty($object->address)) $address->appendChild($street);
+			$postcode = $doc->createElement('gd:postcode', $object->zip);
+			if (! empty($object->zip))	    $address->appendChild($postcode);
+			/*$tmpstate=getState($object->state_id,0);
+			$region = $doc->createElement('gd:region', $tmpstate);
+			if ($tmpstate) $address->appendChild($region);*/
+			$tmpcountry=getCountry($object->country_id,0,'',$langs,0);
+			$country = $doc->createElement('gd:country', $tmpcountry);
+			if ($tmpcountry) $address->appendChild($country);
+			/*
+			$formattedaddress = $doc->createElement('gd:formattedAddress', 'eeeee');
+			$address->appendChild($formattedaddress);
+			*/
+
+		// Company - Function
+		if ($object->element == 'contact')
+		{
+			// Company
+			$company = $doc->createElement('gd:organization');
+			$company->setAttribute('rel', 'http://schemas.google.com/g/2005#other');
+			$entry->appendChild($company);
+
+			$object->fetch_thirdparty();
+			if (! empty($object->thirdparty->name) || ! empty($object->poste))
+			{
+				$thirdpartyname=$object->thirdparty->name;
+
+				$orgName = $doc->createElement('gd:orgName', $thirdpartyname);
+				if (! empty($thirdpartyname)) $company->appendChild($orgName);
+				$orgTitle = $doc->createElement('gd:orgTitle', $object->poste);
+				if (! empty($object->poste)) $company->appendChild($orgTitle);
+			}
+		}
+		if ($object->element == 'member')
+		{
+			// Company
+			$company = $doc->createElement('gd:organization');
+			$company->setAttribute('rel', 'http://schemas.google.com/g/2005#other');
+			$entry->appendChild($company);
+
+			//$object->fetch_thirdparty();
+			if (! empty($object->company))
+			{
+				$thirdpartyname=$object->company;
+
+				$orgName = $doc->createElement('gd:orgName', $thirdpartyname);
+				if (! empty($thirdpartyname)) $company->appendChild($orgName);
+				//$orgTitle = $doc->createElement('gd:orgTitle', $object->poste);
+				//if (! empty($object->poste)) $company->appendChild($orgTitle);
+			}
+		}
+
+		// Birthday
+		if (! empty($object->birthday))
+		{
+			/*
+			$birthday = $doc->createElement('gd:birthday');
+			$birthday->setAttribute('when' , dol_print_date($object->birthday,'dayrfc'));
+			$entry->appendChild($birthday);*/
+		}
+
+		// URL
+		if (! empty($object->url))
+		{
+			$el = $doc->createElement('gcontact:website');
+			$el->setAttribute("label","URL");
+			$el->setAttribute("href", $object->url);
+			$entry->appendChild($el);
+		}
+
+		// Phones
+		if (! empty($object->phone))
+		{
+			$el = $doc->createElement('gd:phoneNumber');
+			$el->setAttribute('rel', constant('REL_WORK'));
+			$el->appendChild($doc->createTextNode($object->phone));
+			$entry->appendChild($el);
+		}
+		if (! empty($object->phone_pro))
+		{
+			$el = $doc->createElement('gd:phoneNumber');
+			$el->setAttribute('rel', constant('REL_WORK'));
+			$el->appendChild($doc->createTextNode($object->phone_pro));
+			$entry->appendChild($el);
+		}
+		if (! empty($object->phone_perso))
+		{
+			$el = $doc->createElement('gd:phoneNumber');
+			$el->setAttribute('rel', constant('REL_HOME'));
+			$el->appendChild($doc->createTextNode($object->phone_perso));
+			$entry->appendChild($el);
+		}
+		if (! empty($object->phone_mobile))
+		{
+			$el = $doc->createElement('gd:phoneNumber');
+			$el->setAttribute('rel', constant('REL_MOBILE'));
+			$el->appendChild($doc->createTextNode($object->phone_mobile));
+			$entry->appendChild($el);
+		}
+		if (! empty($object->fax))
+		{
+			$el = $doc->createElement('gd:phoneNumber');
+			$el->setAttribute('rel', constant('REL_WORK_FAX'));
+			$el->appendChild($doc->createTextNode($object->fax));
+			$entry->appendChild($el);
+		}
+
+		// Id source
+		/*$extid = $doc->createElement('gcontact:externaleId');
+		$extid->setAttribute('name','dolibarr-id');
+		$extid->setAttribute('value',$idindolibarr);
+		$entry->appendChild($extid);*/
+		$userdefined = $doc->createElement('gcontact:userDefinedField');
+		$userdefined->setAttribute('key','dolibarr-id');
+		$userdefined->setAttribute('value',$idindolibarr);
+		$entry->appendChild($userdefined);
+
+		// Comment
+		$tmpnote=$object->note_private;
+		if (strpos($tmpnote,$google_nltechno_tag) === false) $tmpnote.="\n\n".$google_nltechno_tag.$idindolibarr;
+		$note = $doc->createElement('atom:content',google_html_convert_entities($tmpnote));
+		$entry->appendChild($note);
+
+		// Labels
+		$googleGroups=array();
+		$groupid = getGoogleGroupID($gdata, $groupName, $googleGroups, $useremail);
+		if (empty($groupid) || $groupid == 'ErrorFailedToGetGroups')
+		{
+			return 0;
+		}
+
+		$el = $doc->createElement("gcontact:groupMembershipInfo");
+		$el->setAttribute("deleted", "false");
+		$el->setAttribute("href", $groupid);
+		$entry->appendChild($el);
+
+		$tag_debug='createcontact';
+
+		//To list all existing field we can edit: var_dump($doc->saveXML());exit;
+		$xmlStr = $doc->saveXML();
+		// uncomment for debugging :
+		file_put_contents(DOL_DATA_ROOT . "/dolibarr_google_createcontact.xml", $xmlStr);
+		@chmod(DOL_DATA_ROOT . "/dolibarr_google_createcontact.xml", octdec(empty($conf->global->MAIN_UMASK)?'0664':$conf->global->MAIN_UMASK));
+		// you can view this file with 'xmlstarlet fo dolibarr_google_createcontact.xml' command
+
+		// insert entry
+		$entryResult = $gdata->insertEntry($xmlStr,	'https://www.google.com/m8/feeds/contacts/'.$useremail.'/full');
+
+		//var_dump($doc->saveXML());exit;
+		//echo 'The id of the new entry is: ' . $entryResult->getId().'<br>';
+
+		return $entryResult->getId();
+	} catch (Exception $e) {
+		die('ERROR:' . $e->getMessage());
+	}
+
+	return $ret;
+}
+
+
+
+
+
+
+
+
+
 
 
 /**
@@ -850,10 +1100,19 @@ function getContactGroupsXml($gdata, $useremail='default')
 
 	$tag_debug='groupgroups';
 
+	$xmlStr='';
 	try {
-		$query = new Zend_Gdata_Query('https://www.google.com/m8/feeds/groups/'.$useremail.'/full?max-results=1000');
-		$feed = $gdata->getFeed($query);
-		$xmlStr = $feed->getXML();
+		$tmp=json_decode($gdata['service_token']);
+		$access_token=$tmp->access_token;
+		$addheaders=array('authorization'=>'Bearer '.$access_token);
+		$useremail='default';
+		$request=new Google_Http_Request('https://www.google.com/m8/feeds/groups/'.urlencode($useremail).'/full?max-results=1000', 'GET', $addheaders, null);
+		$result=$gdata['client']->execute($request);	// Return json_decoded string. May return an exception.
+		//$query = getURLContent('https://www.google.com/m8/feeds/groups/'.$useremail.'/full?max-results=1000&access_token='.$access_token);
+		//$feed = $gdata->getFeed($query);
+		//$xmlStr = $feed->getXML();
+		$xmlStr=$result;
+		var_dump($xmlStr);exit;
 		// uncomment for debugging :
 		file_put_contents(DOL_DATA_ROOT . "/dolibarr_google_groups_response.xml", $xmlStr);
 		@chmod(DOL_DATA_ROOT . "/dolibarr_google_groups_response.xml", octdec(empty($conf->global->MAIN_UMASK)?'0664':$conf->global->MAIN_UMASK));

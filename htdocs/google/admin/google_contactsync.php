@@ -75,12 +75,12 @@ if ($action == 'save')
 		dolibarr_del_const($db, 'GOOGLE_CONTACT_LOGIN');
 		setEventMessage($langs->trans("ErrorFieldRequired",$langs->transnoentitiesnoconv("GOOGLE_LOGIN")),'errors');
 	}
-	if (! GETPOST('GOOGLE_CONTACT_PASSWORD'))
+	/*if (! GETPOST('GOOGLE_CONTACT_PASSWORD'))
 	{
 		$langs->load("errors");
 		dolibarr_del_const($db, 'GOOGLE_CONTACT_PASSWORD');
 		setEventMessage($langs->trans("ErrorFieldRequired",$langs->transnoentitiesnoconv("GOOGLE_PASSWORD")),'errors');
-	}
+	}*/
 
     if (! $error)
     {
@@ -647,7 +647,24 @@ print "<table class=\"noborder\" width=\"100%\">";
 print "<tr class=\"liste_titre\">";
 print '<td width="25%">'.$langs->trans("Parameter").' ('.$langs->trans("ParametersForGoogleAPIv3Usage", "Contact").')'."</td>";
 print "<td>".$langs->trans("Value")."</td>";
+print "<td>".$langs->trans("Note")."</td>";
 print "</tr>";
+
+// Google login
+$var=!$var;
+print "<tr ".$bc[$var].">";
+print '<td>'.$langs->trans("GoogleIDContact")."</td>";
+print "<td>";
+print '<input class="flat" type="text" size="24" name="GOOGLE_CONTACT_LOGIN" autocomplete="off" value="'.$conf->global->GOOGLE_CONTACT_LOGIN.'">';
+print "</td>";
+print '<td>';
+print $langs->trans("Example").": yourlogin@gmail.com, email@mydomain.com, 'primary'<br>";
+//print $langs->trans("GoogleSetupHelp").'<br>';
+//print $langs->trans("KeepEmptyYoUseLoginPassOfEventUser");
+print '</td>';
+print "</tr>";
+
+/*
 
 // Google login
 print "<tr ".$bc[$var].">";
@@ -670,6 +687,37 @@ print "</tr>";
 print "</table>";
 
 print info_admin($langs->trans("EnableAPI","https://code.google.com/apis/console/","https://code.google.com/apis/console/","Contacts API"));
+*/
+
+
+$var=!$var;
+print "<tr ".$bc[$var].">";
+print '<td class="fieldrequired">'.$langs->trans("GOOGLE_API_SERVICEACCOUNT_EMAIL")."</td>";
+print '<td>';
+print '<input class="flat" type="text" size="90" name="GOOGLE_API_SERVICEACCOUNT_EMAIL" value="'.$conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL.'">';
+print '</td>';
+print '<td>';
+print $langs->trans("AllowGoogleToLoginWithServiceAccount","https://code.google.com/apis/console/","https://code.google.com/apis/console/").'<br>';
+print '</td>';
+print '</tr>';
+
+$var=!$var;
+print "<tr ".$bc[$var].">";
+print '<td class="fieldrequired">'.$langs->trans("GOOGLE_API_SERVICEACCOUNT_P12KEY")."</td>";
+print '<td>';
+if (! empty($conf->global->GOOGLE_API_SERVICEACCOUNT_P12KEY)) print $conf->global->GOOGLE_API_SERVICEACCOUNT_P12KEY.'<br>';
+print '<input type="file" name="GOOGLE_API_SERVICEACCOUNT_P12KEY_file">';
+print '</td>';
+print '<td>';
+print $langs->trans("AllowGoogleToLoginWithServiceAccountP12","https://code.google.com/apis/console/","https://code.google.com/apis/console/").'<br>';
+print '</td>';
+print '</tr>';
+
+print "</table>";
+
+print info_admin($langs->trans("EnableAPI","https://code.google.com/apis/console/","https://code.google.com/apis/console/","Contact API"));
+
+print info_admin($langs->trans("ShareContactWithServiceAccount",$conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL,$langs->transnoentitiesnoconv("GoogleIDContact")));
 
 print '</div>';
 
