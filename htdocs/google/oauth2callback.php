@@ -33,7 +33,15 @@ $redirect_uri=dol_buildpath('/google/oauth2callback.php', 2);
 $jsallowed=preg_replace('/(https*:\/\/[^\/]+\/).*$/','\1',$redirect_uri);
 
 // This is used only if we want to login from this page for test purpose.
-$url='https://accounts.google.com/o/oauth2/auth?client_id='.$client_id.'&redirect_uri='.urlencode($redirect_uri).'&scope=https://www.google.com/m8/feeds/&response_type=code&sate=dolibarrtokenrequest-googleadmincontactsync';
+$completeoauthurl='https://accounts.google.com/o/oauth2/auth';
+$completeoauthurl.='?response_type=code&client_id='.urlencode($conf->global->GOOGLE_API_CLIENT_ID);
+$completeoauthurl.='&redirect_uri='.urlencode($redirect_uri);
+$completeoauthurl.='&scope='.urlencode('https://www.google.com/m8/feeds https://www.googleapis.com/auth/contacts.readonly');
+$completeoauthurl.='&state=dolibarrtokenrequest-oauth2callback';		// To know we are coming from this page
+$completeoauthurl.='&access_type=offline';
+$completeoauthurl.='&approval_prompt=force';
+$completeoauthurl.='&include_granted_scopes=true';
+$url=$completeoauthurl;
 
 
 $code = GETPOST("code");

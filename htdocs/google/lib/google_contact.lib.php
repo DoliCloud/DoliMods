@@ -110,13 +110,14 @@ function googleCreateContact($client, $object, $useremail='default')
 		}
 		else
 		{
-			$fullName = $doc->createElement('gd:fullName', $object->name);
+			var_dump($object->name);
+			$fullName = $doc->createElement('gd:fullName', dolEscapeXML($object->name));
 		}
 		$name->appendChild($fullName);
 
 		// Element
 		$email = $doc->createElement('gd:email');
-		$email->setAttribute('address', ($object->email?$object->email:((empty($object->name)?$object->lastname.$object->firstname:$object->name).'@noemail.com')));
+		$email->setAttribute('address', ($object->email?$object->email:(strtolower(preg_replace('/\s/','',(empty($object->name)?$object->lastname.$object->firstname:$object->name)).'@noemail.com'))));
 		$email->setAttribute('rel', 'http://schemas.google.com/g/2005#home');
 		$entry->appendChild($email);
 
@@ -126,17 +127,20 @@ function googleCreateContact($client, $object, $useremail='default')
 		$address->setAttribute('primary', 'true');
 		$entry->appendChild($address);
 
-			$city = $doc->createElement('gd:city', $object->town);
+			$city = $doc->createElement('gd:city', dolEscapeXML($object->town));
 			if (! empty($object->town))	$address->appendChild($city);
-			$street = $doc->createElement('gd:street', $object->address);
+			$street = $doc->createElement('gd:street', dolEscapeXML($object->address));
 			if (! empty($object->address)) $address->appendChild($street);
-			$postcode = $doc->createElement('gd:postcode', $object->zip);
+			$postcode = $doc->createElement('gd:postcode', dolEscapeXML($object->zip));
 			if (! empty($object->zip))	    $address->appendChild($postcode);
-			/*$tmpstate=getState($object->state_id,0);
-			$region = $doc->createElement('gd:region', $tmpstate);
-			if ($tmpstate) $address->appendChild($region);*/
+
+			$tmpstate=($object->state_id>0?getState($object->state_id):'');
+			$tmpstate=dol_html_entity_decode($tmpstate,ENT_QUOTES);	// Should not be required. It is here because some bugged version of getState return a string with entities instead of utf8 with no entities
+			$region = $doc->createElement('gd:region', dolEscapeXML($tmpstate));
+			if ($tmpstate) $address->appendChild($region);
+
 			$tmpcountry=getCountry($object->country_id,0,'',$langs,0);
-			$country = $doc->createElement('gd:country', $tmpcountry);
+			$country = $doc->createElement('gd:country', dolEscapeXML($tmpcountry));
 			if ($tmpcountry) $address->appendChild($country);
 			/*
 			$formattedaddress = $doc->createElement('gd:formattedAddress', 'eeeee');
@@ -278,7 +282,7 @@ function googleCreateContact($client, $object, $useremail='default')
 
 		$tmp=json_decode($gdata['google_web_token']);
 		$access_token=$tmp->access_token;
-		$addheaders=array('authorization'=>'Bearer '.$access_token);
+		$addheaders=array('GData-Version'=>'3.0', 'Authorization'=>'Bearer '.$access_token, 'Content-Type'=>'application/atom+xml');
 		$addheaderscurl=array('GData-Version: 3.0', 'Authorization: Bearer '.$access_token, 'Content-Type: application/atom+xml');
 
 		// insert entry
@@ -367,7 +371,7 @@ function googleUpdateContact($client, $contactId, $object, $useremail='default')
 
 		$tmp=json_decode($gdata['google_web_token']);
 		$access_token=$tmp->access_token;
-		$addheaders=array('authorization'=>'Bearer '.$access_token);
+		$addheaders=array('GData-Version'=>'3.0', 'Authorization'=>'Bearer '.$access_token);
 		$addheaderscurl=array('GData-Version: 3.0', 'Authorization: Bearer '.$access_token);
 		//$useremail='default';
 
@@ -446,7 +450,7 @@ function googleUpdateContact($client, $contactId, $object, $useremail='default')
 		//$xml->name->additionnalName = 'xxx';
 		//$xml->name->nameSuffix = 'xxx';
 		//$xml->formattedAddress;
-		$xml->email['address'] = ($object->email?$object->email:((empty($object->name)?$object->lastname.$object->firstname:$object->name).'@noemail.com'));
+		$xml->email['address'] = ($object->email?$object->email:(strtolower(preg_replace('/\s/','',(empty($object->name)?$object->lastname.$object->firstname:$object->name))).'@noemail.com'));
 
 		// Address
 		unset($xml->structuredPostalAddress->formattedAddress);
@@ -458,9 +462,8 @@ function googleUpdateContact($client, $contactId, $object, $useremail='default')
 		{
 			$tmpstate=($object->state_id>0?getState($object->state_id):'');
 			$tmpstate=dol_html_entity_decode($tmpstate,ENT_QUOTES);	// Should not be required. It is here because some bugged version of getState return a string with entities instead of utf8 with no entities
-			$xml->structuredPostalAddress->state=$tmpstate;
+			$xml->structuredPostalAddress->region=$tmpstate;
 		}
-
 		// Company + Function
 		if ($object->element == 'contact')
 		{
@@ -558,7 +561,7 @@ function googleUpdateContact($client, $contactId, $object, $useremail='default')
 
 		$tmp=json_decode($gdata['google_web_token']);
 		$access_token=$tmp->access_token;
-		$addheaders=array('authorization'=>'Bearer '.$access_token);
+		$addheaders=array('If-Match'=>'*', 'GData-Version'=>'3.0', 'Authorization'=>'Bearer '.$access_token, 'Content-Type'=>'application/atom+xml');
 		$addheaderscurl=array('If-Match: *', 'GData-Version: 3.0', 'Authorization: Bearer '.$access_token, 'Content-Type: application/atom+xml');
 
 		// update entry
@@ -641,7 +644,7 @@ function googleDeleteContactByRef($client, $ref, $useremail='default')
 	{
 		$tmp=json_decode($gdata['google_web_token']);
 		$access_token=$tmp->access_token;
-		$addheaders=array('If-Match: *', 'authorization'=>'Bearer '.$access_token);
+		$addheaders=array('GData-Version'=>'3.0', 'If-Match: *', 'Authorization'=>'Bearer '.$access_token);
 		$addheaderscurl=array('GData-Version: 3.0', 'If-Match: *', 'Authorization: Bearer '.$access_token);
 		//$useremail='default';
 
@@ -698,6 +701,7 @@ function insertGContactsEntries($gdata, $gContacts, $objectstatic, $useremail='d
 		$doc->appendChild($feed);
 		foreach ($firstContacts as $gContact)
 		{
+			//print_r($gContact);
 			$entry = $gContact->atomEntry;
 			$entry = $doc->importNode($entry, true);
 			$entry->setAttribute("gdata:etag", "*");
@@ -761,8 +765,35 @@ END;
 			// Convert text entities into numeric entities
 			$xmlStr = google_html_convert_entities($xmlStr);
 
-			$response = $gdata->post($xmlStr, "https://www.google.com/m8/feeds/contacts/".$useremail."/full/batch");
-			$responseXml = $response->getBody();
+			$tmp=json_decode($gdata['google_web_token']);
+			$access_token=$tmp->access_token;
+			$addheaders=array('GData-Version'=>'3.0', 'Authorization'=>'Bearer '.$access_token, 'If-Match'=>'*');
+			$addheaderscurl=array('GData-Version: 3.0', 'Authorization: Bearer '.$access_token, 'If-Match: *');
+
+			//$request=new Google_Http_Request('https://www.google.com/m8/feeds/contacts/default/base/batch', 'POST', $addheaders, $xmlStr);
+			//$requestData = $gdata['client']->execute($request);
+			$result = getURLContent('https://www.google.com/m8/feeds/contacts/'.$useremail.'/full/batch', 'POST', $xmlStr, 0, $addheaderscurl);
+			$xmlStr=$result['content'];
+			try {
+				$document = new DOMDocument("1.0", "utf-8");
+				$document->loadXml($result['content']);
+
+				$errorselem = $document->getElementsByTagName("errors");
+				//var_dump($errorselem);
+				//var_dump($errorselem->length);
+				//var_dump(count($errorselem));
+				if ($errorselem->length)
+				{
+					dol_syslog('ERROR:'.$result['content'], LOG_ERR);
+					return -1;
+				}
+			} catch (Exception $e) {
+				dol_syslog('ERROR:'.$e->getMessage(), LOG_ERR);
+				return -1;
+			}
+
+			$responseXml = $xmlStr;
+
 			// uncomment for debugging :
 			file_put_contents(DOL_DATA_ROOT . "/dolibarr_google_massinsert_response.xml", $responseXml);
 			@chmod(DOL_DATA_ROOT . "/dolibarr_google_massinsert_response.xml", octdec(empty($conf->global->MAIN_UMASK)?'0664':$conf->global->MAIN_UMASK));
@@ -948,7 +979,7 @@ function getContactGroupsXml($gdata, $useremail='default')
 
 		$tmp=json_decode($gdata['google_web_token']);
 		$access_token=$tmp->access_token;
-		$addheaders=array('authorization'=>'Bearer '.$access_token);
+		$addheaders=array('GData-Version'=>'3.0', 'Authorization'=>'Bearer '.$access_token);
 		$addheaderscurl=array('GData-Version: 3.0', 'Authorization: Bearer '.$access_token, 'Content-Type: application/atom+xml');
 		//$useremail='default';
 
@@ -958,6 +989,23 @@ function getContactGroupsXml($gdata, $useremail='default')
 
 		$result = getURLContent('https://www.google.com/m8/feeds/groups/'.urlencode($useremail).'/full?max-results=1000', 'GET', '', 0, $addheaderscurl);
 		$xmlStr=$result['content'];
+		try {
+			$document = new DOMDocument("1.0", "utf-8");
+			$document->loadXml($result['content']);
+
+			$errorselem = $document->getElementsByTagName("errors");
+			//var_dump($errorselem);
+			//var_dump($errorselem->length);
+			//var_dump(count($errorselem));
+			if ($errorselem->length)
+			{
+				dol_syslog('ERROR:'.$result['content'], LOG_ERR);
+				return '';
+			}
+		} catch (Exception $e) {
+			dol_syslog('ERROR:'.$e->getMessage(), LOG_ERR);
+			return '';
+		}
 
 		// uncomment for debugging :
 		file_put_contents(DOL_DATA_ROOT . "/dolibarr_google_groups_response.xml", $xmlStr);
@@ -1013,7 +1061,7 @@ function insertGContactGroup($gdata,$groupName,$useremail='default')
 
 		$tmp=json_decode($gdata['google_web_token']);
 		$access_token=$tmp->access_token;
-		$addheaders=array('authorization'=>'Bearer '.$access_token);
+		$addheaders=array('GData-Version'=>'3.0', 'Authorization'=>'Bearer '.$access_token);
 		$addheaderscurl=array('GData-Version: 3.0', 'Authorization: Bearer '.$access_token, 'Content-Type: application/atom+xml');
 
 		// insert entry
@@ -1166,4 +1214,16 @@ function getURLContentBis($url,$postorget='GET',$param='',$followlocation=1,$add
     return $rep;
 }
 
+
+
+/**
+ * Encode string for xml usage
+ *
+ * @param 	string	$string		String to encode
+ * @return	string				String encoded
+ */
+function dolEscapeXMLWithNoAnd($string)
+{
+	return strtr($string, array('\''=>'&apos;','"'=>'&quot;','&amp;'=>'-','&'=>'-','<'=>'&lt;','>'=>'&gt;'));
+}
 

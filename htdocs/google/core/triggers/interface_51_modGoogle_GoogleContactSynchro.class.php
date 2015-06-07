@@ -154,15 +154,9 @@ class InterfaceGoogleContactSynchro
 
 			$servicearray=getTokenFromServiceAccount($conf->global->GOOGLE_API_SERVICEACCOUNT_CLIENT_ID, $conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL, $key_file_location, $force_do_not_use_session, 'web');
 
-			if (! is_array($servicearray))
+			if (! is_array($servicearray) || $servicearray == null)
 			{
-				$this->errors[]=$servicearray;
-				return -1;
-			}
-
-			if ($servicearray == null)
-			{
-				$this->error="Failed to login to Google with credentials provided into setup page ".$conf->global->GOOGLE_API_SERVICEACCOUNT_CLIENT_ID.", ".$conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL.", ".$key_file_location;
+				$this->error="Failed to login to Google with current token";
 				dol_syslog($this->error, LOG_ERR);
 				$this->errors[]=$this->error;
 				return -1;

@@ -134,17 +134,19 @@ function getTokenFromServiceAccount($client_id, $service_account_name, $key_file
 		}
 
 		try {
+			dol_syslog("getTokenFromServiceAccount check isAccessTokenExpired", LOG_DEBUG);
 			$checktoken=$client->isAccessTokenExpired();
 			if ($checktoken)
 			{
 				$tmp=json_decode($conf->global->GOOGLE_WEB_TOKEN,true);
 				$refreshtoken=$tmp['refresh_token'];
 				if (empty($refreshtoken)) $refreshtoken=$tmp['access_token'];
-				dol_syslog("getTokenFromServiceAccount token seems to be expired, we refresh it with the refresh token = ".$refreshtoken, LOG_DEBUG);
+				dol_syslog("getTokenFromServiceAccount token seems to be expired, we refresh it with the refresh token = ".$refreshtoken);
 				$client->refreshToken($refreshtoken);
 				$_SESSION['google_web_token']= $client->getAccessToken();
 				dol_syslog("getTokenFromServiceAccount new token in session is now ".$_SESSION['google_web_token'], LOG_DEBUG);
 			}
+			else dol_syslog("getTokenFromServiceAccount token not expired", LOG_DEBUG);
 		}
 		catch(Exception $e)
 		{
@@ -349,8 +351,6 @@ function updateEvent($client, $eventId, $object, $login='primary', $service=null
 	global $dolibarr_main_url_root;
 	global $user;
 
-	//$gdataCal = new Zend_Gdata_Calendar($client);
-
 	$neweventid=$eventId;
 	if (preg_match('/google\.com\/.*\/([^\/]+)$/',$eventId,$reg))
 	{
@@ -470,7 +470,7 @@ function updateEvent($client, $eventId, $object, $login='primary', $service=null
 
 /**
  * Deletes the event specified by retrieving the atom entry object
- * and calling Zend_Feed_EntryAtom::delete() method.  This is for
+ * and calling delete() method.  This is for
  * example purposes only, as it is inefficient to retrieve the entire
  * atom entry only for the purposes of deleting it.
  *

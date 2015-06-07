@@ -43,6 +43,7 @@ require_once(DOL_DOCUMENT_ROOT.'/contact/class/contact.class.php');
 require_once(DOL_DOCUMENT_ROOT.'/adherents/class/adherent.class.php');
 dol_include_once("/google/lib/google.lib.php");
 dol_include_once('/google/lib/google_contact.lib.php');
+dol_include_once('/google/lib/google_calendar.lib.php');
 
 if (!$user->admin) accessforbidden();
 
@@ -255,19 +256,28 @@ if ($action == 'pushallthirdparties')
 	$googlepwd  = empty($conf->global->GOOGLE_CONTACT_PASSWORD)?'':$conf->global->GOOGLE_CONTACT_PASSWORD;
 
 	// Create client object
-	$service= 'cp';		// cl = calendar, cp=contact, ... Search on AUTH_SERVICE_NAME into Zend API for full list
-	$client = getClientLoginHttpClientContact($googleuser, $googlepwd, $service);
+	//$service= 'cp';		// cl = calendar, cp=contact, ... Search on AUTH_SERVICE_NAME into Zend API for full list
+	//$client = getClientLoginHttpClientContact($googleuser, $googlepwd, $service);
 	//var_dump($client); exit;
 
-	if ($client == null)
+	// Create client/token object
+	$key_file_location = $conf->google->multidir_output[$conf->entity]."/".$conf->global->GOOGLE_API_SERVICEACCOUNT_P12KEY;
+	$force_do_not_use_session=false; // by default
+	$servicearray=getTokenFromServiceAccount($conf->global->GOOGLE_API_SERVICEACCOUNT_CLIENT_ID, $conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL, $key_file_location, $force_do_not_use_session, 'web');
+
+	if (! is_array($servicearray) || $servicearray == null)
 	{
-		dol_syslog("Failed to login to Google for login ".$googleuser, LOG_ERR);
-		$error='Failed to login to Google for login '.$googleuser;
+		$this->error="Failed to login to Google with current token";
+		dol_syslog($this->error, LOG_ERR);
+		$this->errors[]=$this->error;
+		return -1;
 	}
 	else
 	{
-		$gdata = new Zend_Gdata($client);
-		$gdata->setMajorProtocolVersion(3);
+		//$gdata = new Zend_Gdata($client);
+		//$gdata->setMajorProtocolVersion(3);
+		$client = $servicearray;
+		$gdata = $client;
 
 		dol_include_once('/google/class/gcontacts.class.php');
 
@@ -311,19 +321,28 @@ if ($action == 'pushallcontacts')
 	$googlepwd  = empty($conf->global->GOOGLE_CONTACT_PASSWORD)?'':$conf->global->GOOGLE_CONTACT_PASSWORD;
 
 	// Create client object
-	$service= 'cp';		// cl = calendar, cp=contact, ... Search on AUTH_SERVICE_NAME into Zend API for full list
-	$client = getClientLoginHttpClientContact($googleuser, $googlepwd, $service);
+	//$service= 'cp';		// cl = calendar, cp=contact, ... Search on AUTH_SERVICE_NAME into Zend API for full list
+	//$client = getClientLoginHttpClientContact($googleuser, $googlepwd, $service);
 	//var_dump($client); exit;
 
-	if ($client == null)
+	// Create client/token object
+	$key_file_location = $conf->google->multidir_output[$conf->entity]."/".$conf->global->GOOGLE_API_SERVICEACCOUNT_P12KEY;
+	$force_do_not_use_session=false; // by default
+	$servicearray=getTokenFromServiceAccount($conf->global->GOOGLE_API_SERVICEACCOUNT_CLIENT_ID, $conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL, $key_file_location, $force_do_not_use_session, 'web');
+
+	if (! is_array($servicearray) || $servicearray == null)
 	{
-		dol_syslog("Failed to login to Google for login ".$googleuser, LOG_ERR);
-		$error='Failed to login to Google for login '.$googleuser;
+		$this->error="Failed to login to Google with current token";
+		dol_syslog($this->error, LOG_ERR);
+		$this->errors[]=$this->error;
+		return -1;
 	}
 	else
 	{
-		$gdata = new Zend_Gdata($client);
-		$gdata->setMajorProtocolVersion(3);
+		//$gdata = new Zend_Gdata($client);
+		//$gdata->setMajorProtocolVersion(3);
+		$client = $servicearray;
+		$gdata = $client;
 
 		dol_include_once('/google/class/gcontacts.class.php');
 
@@ -367,19 +386,28 @@ if ($action == 'pushallmembers')
 	$googlepwd  = empty($conf->global->GOOGLE_CONTACT_PASSWORD)?'':$conf->global->GOOGLE_CONTACT_PASSWORD;
 
 	// Create client object
-	$service= 'cp';		// cl = calendar, cp=contact, ... Search on AUTH_SERVICE_NAME into Zend API for full list
-	$client = getClientLoginHttpClientContact($googleuser, $googlepwd, $service);
+	//$service= 'cp';		// cl = calendar, cp=contact, ... Search on AUTH_SERVICE_NAME into Zend API for full list
+	//$client = getClientLoginHttpClientContact($googleuser, $googlepwd, $service);
 	//var_dump($client); exit;
 
-	if ($client == null)
+	// Create client/token object
+	$key_file_location = $conf->google->multidir_output[$conf->entity]."/".$conf->global->GOOGLE_API_SERVICEACCOUNT_P12KEY;
+	$force_do_not_use_session=false; // by default
+	$servicearray=getTokenFromServiceAccount($conf->global->GOOGLE_API_SERVICEACCOUNT_CLIENT_ID, $conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL, $key_file_location, $force_do_not_use_session, 'web');
+
+	if (! is_array($servicearray) || $servicearray == null)
 	{
-		dol_syslog("Failed to login to Google for login ".$googleuser, LOG_ERR);
-		$error='Failed to login to Google for login '.$googleuser;
+		$this->error="Failed to login to Google with current token";
+		dol_syslog($this->error, LOG_ERR);
+		$this->errors[]=$this->error;
+		return -1;
 	}
 	else
 	{
-		$gdata = new Zend_Gdata($client);
-		$gdata->setMajorProtocolVersion(3);
+		//$gdata = new Zend_Gdata($client);
+		//$gdata->setMajorProtocolVersion(3);
+		$client = $servicearray;
+		$gdata = $client;
 
 		dol_include_once('/google/class/gcontacts.class.php');
 
@@ -421,19 +449,28 @@ if ($action == 'deleteallthirdparties')
 	$googlepwd  = empty($conf->global->GOOGLE_CONTACT_PASSWORD)?'':$conf->global->GOOGLE_CONTACT_PASSWORD;
 
 	// Create client object
-	$service= 'cp';		// cl = calendar, cp=contact, ... Search on AUTH_SERVICE_NAME into Zend API for full list
-	$client = getClientLoginHttpClientContact($googleuser, $googlepwd, $service);
+	//$service= 'cp';		// cl = calendar, cp=contact, ... Search on AUTH_SERVICE_NAME into Zend API for full list
+	//$client = getClientLoginHttpClientContact($googleuser, $googlepwd, $service);
 	//var_dump($client); exit;
 
-	if ($client == null)
+	// Create client/token object
+	$key_file_location = $conf->google->multidir_output[$conf->entity]."/".$conf->global->GOOGLE_API_SERVICEACCOUNT_P12KEY;
+	$force_do_not_use_session=false; // by default
+	$servicearray=getTokenFromServiceAccount($conf->global->GOOGLE_API_SERVICEACCOUNT_CLIENT_ID, $conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL, $key_file_location, $force_do_not_use_session, 'web');
+
+	if (! is_array($servicearray) || $servicearray == null)
 	{
-		dol_syslog("Failed to login to Google for login ".$googleuser, LOG_ERR);
-		$error='Failed to login to Google for login '.$googleuser;
+		$this->error="Failed to login to Google with current token";
+		dol_syslog($this->error, LOG_ERR);
+		$this->errors[]=$this->error;
+		return -1;
 	}
 	else
 	{
-		$gdata = new Zend_Gdata($client);
-		$gdata->setMajorProtocolVersion(3);
+		//$gdata = new Zend_Gdata($client);
+		//$gdata->setMajorProtocolVersion(3);
+		$client = $servicearray;
+		$gdata = $client;
 
 		dol_include_once('/google/class/gcontacts.class.php');
 
@@ -461,19 +498,28 @@ if ($action == 'deleteallcontacts')
 	$googlepwd  = empty($conf->global->GOOGLE_CONTACT_PASSWORD)?'':$conf->global->GOOGLE_CONTACT_PASSWORD;
 
 	// Create client object
-	$service= 'cp';		// cl = calendar, cp=contact, ... Search on AUTH_SERVICE_NAME into Zend API for full list
-	$client = getClientLoginHttpClientContact($googleuser, $googlepwd, $service);
+	//$service= 'cp';		// cl = calendar, cp=contact, ... Search on AUTH_SERVICE_NAME into Zend API for full list
+	//$client = getClientLoginHttpClientContact($googleuser, $googlepwd, $service);
 	//var_dump($client); exit;
 
-	if ($client == null)
+	// Create client/token object
+	$key_file_location = $conf->google->multidir_output[$conf->entity]."/".$conf->global->GOOGLE_API_SERVICEACCOUNT_P12KEY;
+	$force_do_not_use_session=false; // by default
+	$servicearray=getTokenFromServiceAccount($conf->global->GOOGLE_API_SERVICEACCOUNT_CLIENT_ID, $conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL, $key_file_location, $force_do_not_use_session, 'web');
+
+	if (! is_array($servicearray) || $servicearray == null)
 	{
-		dol_syslog("Failed to login to Google for login ".$googleuser, LOG_ERR);
-		$error='Failed to login to Google for login '.$googleuser;
+		$this->error="Failed to login to Google with current token";
+		dol_syslog($this->error, LOG_ERR);
+		$this->errors[]=$this->error;
+		return -1;
 	}
 	else
 	{
-		$gdata = new Zend_Gdata($client);
-		$gdata->setMajorProtocolVersion(3);
+		//$gdata = new Zend_Gdata($client);
+		//$gdata->setMajorProtocolVersion(3);
+		$client = $servicearray;
+		$gdata = $client;
 
 		dol_include_once('/google/class/gcontacts.class.php');
 
@@ -501,19 +547,28 @@ if ($action == 'deleteallmembers')
 	$googlepwd  = empty($conf->global->GOOGLE_CONTACT_PASSWORD)?'':$conf->global->GOOGLE_CONTACT_PASSWORD;
 
 	// Create client object
-	$service= 'cp';		// cl = calendar, cp=contact, ... Search on AUTH_SERVICE_NAME into Zend API for full list
-	$client = getClientLoginHttpClientContact($googleuser, $googlepwd, $service);
+	//$service= 'cp';		// cl = calendar, cp=contact, ... Search on AUTH_SERVICE_NAME into Zend API for full list
+	//$client = getClientLoginHttpClientContact($googleuser, $googlepwd, $service);
 	//var_dump($client); exit;
 
-	if ($client == null)
+	// Create client/token object
+	$key_file_location = $conf->google->multidir_output[$conf->entity]."/".$conf->global->GOOGLE_API_SERVICEACCOUNT_P12KEY;
+	$force_do_not_use_session=false; // by default
+	$servicearray=getTokenFromServiceAccount($conf->global->GOOGLE_API_SERVICEACCOUNT_CLIENT_ID, $conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL, $key_file_location, $force_do_not_use_session, 'web');
+
+	if (! is_array($servicearray) || $servicearray == null)
 	{
-		dol_syslog("Failed to login to Google for login ".$googleuser, LOG_ERR);
-		$error='Failed to login to Google for login '.$googleuser;
+		$this->error="Failed to login to Google with current token";
+		dol_syslog($this->error, LOG_ERR);
+		$this->errors[]=$this->error;
+		return -1;
 	}
 	else
 	{
-		$gdata = new Zend_Gdata($client);
-		$gdata->setMajorProtocolVersion(3);
+		//$gdata = new Zend_Gdata($client);
+		//$gdata->setMajorProtocolVersion(3);
+		$client = $servicearray;
+		$gdata = $client;
 
 		dol_include_once('/google/class/gcontacts.class.php');
 
@@ -682,31 +737,6 @@ print '</td>';
 print "</tr>";
 
 /*
-
-// Google login
-print "<tr ".$bc[$var].">";
-print '<td class="fieldrequired">'.$langs->trans("GOOGLE_LOGIN")."</td>";
-print "<td>";
-print '<input class="flat" type="text" size="24" name="GOOGLE_CONTACT_LOGIN" autocomplete="off" value="'.$conf->global->GOOGLE_CONTACT_LOGIN.'">';
-//print ' &nbsp; '.$langs->trans("KeepEmptyYoUseLoginPassOfEventUser");
-print "</td>";
-print "</tr>";
-// Google password
-$var=!$var;
-print "<tr ".$bc[$var].">";
-print '<td class="fieldrequired">'.$langs->trans("GOOGLE_PASSWORD")."</td>";
-print "<td>";
-print '<input class="flat" type="password" size="10" name="GOOGLE_CONTACT_PASSWORD" autocomplete="off" value="'.$conf->global->GOOGLE_CONTACT_PASSWORD.'">';
-//print ' &nbsp; '.$langs->trans("KeepEmptyYoUseLoginPassOfEventUser");
-print "</td>";
-print "</tr>";
-
-print "</table>";
-
-print info_admin($langs->trans("EnableAPI","https://code.google.com/apis/console/","https://code.google.com/apis/console/","Contacts API"));
-*/
-
-/*
 $var=!$var;
 print "<tr ".$bc[$var].">";
 print '<td class="fieldrequired">'.$langs->trans("GOOGLE_API_SERVICEACCOUNT_EMAIL")."</td>";
@@ -768,7 +798,7 @@ $var=!$var;
 print "<tr ".$bc[$var].">";
 print '<td>'.$langs->trans("GOOGLE_WEB_TOKEN")."</td>";
 print '<td colspan="2">';
-if (empty($conf->global->GOOGLE_CONTACT_LOGIN) || empty($conf->global->GOOGLE_API_CLIENT_ID))
+if (empty($conf->global->GOOGLE_CONTACT_LOGIN) || empty($conf->global->GOOGLE_API_CLIENT_ID) || empty($conf->global->GOOGLE_API_CLIENT_SECRET))
 {
 	print $langs->trans("FillAndSaveGoogleAccount");
 }
@@ -779,7 +809,7 @@ else
 	$completeoauthurl.='&redirect_uri='.urlencode($redirect_uri);
 	$completeoauthurl.='&scope='.urlencode('https://www.google.com/m8/feeds https://www.googleapis.com/auth/contacts.readonly');
 	$completeoauthurl.='&state=dolibarrtokenrequest-googleadmincontactsync';		// To know we are coming from this page
-	//$completeoauthurl.='&access_type=online';
+	$completeoauthurl.='&access_type=offline';
 	$completeoauthurl.='&approval_prompt=force';
 	$completeoauthurl.='&login_hint='.urlencode($conf->global->GOOGLE_CONTACT_LOGIN);
 	$completeoauthurl.='&include_granted_scopes=true';
@@ -827,11 +857,12 @@ print "</form>\n";
 print '<br>';
 
 
+// Thirdparties
 if ($conf->societe->enabled)
 {
 	print '<div class="tabsActions syncthirdparties">';
-	// Thirdparties
-	if (empty($conf->global->GOOGLE_CONTACT_LOGIN) || empty($conf->global->GOOGLE_WEB_TOKEN))
+	//if (empty($conf->global->GOOGLE_CONTACT_LOGIN) || empty($conf->global->GOOGLE_WEB_TOKEN))
+	if (empty($conf->global->GOOGLE_CONTACT_LOGIN))
 	{
 		print '<div class="inline-block divButAction"><font class="butActionRefused" href="#">'.$langs->trans("TestCreateUpdateDelete")." (".$langs->trans("ThirdParty").")</font></a></div>";
 
@@ -846,11 +877,12 @@ if ($conf->societe->enabled)
 	print '</div>';
 }
 
+	// Contacts
 if ($conf->societe->enabled)
 {
 	print '<div class="tabsActions synccontacts">';
-	// Contacts
-	if (empty($conf->global->GOOGLE_CONTACT_LOGIN) || empty($conf->global->GOOGLE_WEB_TOKEN))
+	//if (empty($conf->global->GOOGLE_CONTACT_LOGIN) || empty($conf->global->GOOGLE_WEB_TOKEN))
+	if (empty($conf->global->GOOGLE_CONTACT_LOGIN))
 	{
 		print '<div class="inline-block divButAction"><font class="butActionRefused" href="#">'.$langs->trans("TestCreateUpdateDelete")." (".$langs->trans("Contact").")</font></a></div>";
 
@@ -869,7 +901,8 @@ if ($conf->societe->enabled)
 if ($conf->adherent->enabled)
 {
 	print '<div class="tabsActions syncmembers">';
-	if (empty($conf->global->GOOGLE_CONTACT_LOGIN) || empty($conf->global->GOOGLE_WEB_TOKEN))
+	//if (empty($conf->global->GOOGLE_CONTACT_LOGIN) || empty($conf->global->GOOGLE_WEB_TOKEN))
+	if (empty($conf->global->GOOGLE_CONTACT_LOGIN))
 	{
 		print '<div class="inline-block divButAction"><font class="butActionRefused" href="#">'.$langs->trans("TestCreateUpdateDelete")." (".$langs->trans("Member").")</font></a></div>";
 
