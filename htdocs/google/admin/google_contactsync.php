@@ -1,5 +1,5 @@
 <?php
-/* Copyright (C) 2008-2014 Laurent Destailleur  <eldy@users.sourceforge.net>
+/* Copyright (C) 2008-2015 Laurent Destailleur  <eldy@users.sourceforge.net>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -53,10 +53,21 @@ $langs->load("other");
 $def = array();
 $action=GETPOST("action");
 
+$oauthurl='https://accounts.google.com/o/oauth2/auth';
+
 
 /*
  * Actions
  */
+
+if ($action == 'deletetoken')
+{
+	$res=dolibarr_del_const($db,'GOOGLE_WEB_TOKEN');
+	unset($_SESSION['google_web_token']);
+	if (! $res > 0) $error++;
+
+	$action='';
+}
 
 if ($action == 'save')
 {
@@ -75,6 +86,12 @@ if ($action == 'save')
 		dolibarr_del_const($db, 'GOOGLE_CONTACT_LOGIN');
 		setEventMessage($langs->trans("ErrorFieldRequired",$langs->transnoentitiesnoconv("GOOGLE_LOGIN")),'errors');
 	}
+
+	$res=dolibarr_set_const($db,'GOOGLE_API_CLIENT_ID',trim(GETPOST("GOOGLE_API_CLIENT_ID")),'chaine',0);
+	if (! $res > 0) $error++;
+	$res=dolibarr_set_const($db,'GOOGLE_API_CLIENT_SECRET',trim(GETPOST("GOOGLE_API_CLIENT_SECRET")),'chaine',0);
+	if (! $res > 0) $error++;
+
 	/*if (! GETPOST('GOOGLE_CONTACT_PASSWORD'))
 	{
 		$langs->load("errors");
@@ -175,12 +192,12 @@ if (preg_match('/^test/',$action))
 		    $object->firstname='Test Synchro new';
 		    $object->email='newemail@newemail.com';
 		    $object->url='www.newspecimen.com';
-		    $object->note_private='New private note with special char é and entity eacute &eacute; and html tag <strong>strong</strong>';
+		    $object->note_private='New private note with special char é and entity eacute xxx and html tag <strong>strong</strong>';
 		    $object->street='New street';
 		    $object->town='New town';
 		    $result=$object->update($object->id, $user);
 
-		    if ($result > 0) $result=$object->delete($object->id);	// id of thirdparty to delete
+		    if ($result > 0) $result=$object->delete($object->id, $user);	// id of thirdparty to delete
 	    }
 	    if ($action == 'testallcontacts')
 	    {
@@ -196,7 +213,7 @@ if (preg_match('/^test/',$action))
 		    $object->town='New town';
 	    	$result=$object->update($object->id, $user);
 
-	    	if ($result > 0) $result=$object->delete(0);	// notrigger=0
+	    	if ($result > 0) $result=$object->delete(0, $user);	// notrigger=0
 	    }
 	    if ($action == 'testallmembers')
 	    {
@@ -212,7 +229,7 @@ if (preg_match('/^test/',$action))
 	    	$object->town='New town';
 	    	$result=$object->update($user);
 
-	    	if ($result > 0) $result=$object->delete(0);	// notrigger=0
+	    	if ($result > 0) $result=$object->delete(0, $user);	// notrigger=0
 	    }
     }
 
@@ -653,7 +670,7 @@ print "</tr>";
 // Google login
 $var=!$var;
 print "<tr ".$bc[$var].">";
-print '<td>'.$langs->trans("GoogleIDContact")."</td>";
+print '<td class="fieldrequired">'.$langs->trans("GoogleIDContact")."</td>";
 print "<td>";
 print '<input class="flat" type="text" size="24" name="GOOGLE_CONTACT_LOGIN" autocomplete="off" value="'.$conf->global->GOOGLE_CONTACT_LOGIN.'">';
 print "</td>";
@@ -689,7 +706,7 @@ print "</table>";
 print info_admin($langs->trans("EnableAPI","https://code.google.com/apis/console/","https://code.google.com/apis/console/","Contacts API"));
 */
 
-
+/*
 $var=!$var;
 print "<tr ".$bc[$var].">";
 print '<td class="fieldrequired">'.$langs->trans("GOOGLE_API_SERVICEACCOUNT_EMAIL")."</td>";
@@ -712,12 +729,90 @@ print '<td>';
 print $langs->trans("AllowGoogleToLoginWithServiceAccountP12","https://code.google.com/apis/console/","https://code.google.com/apis/console/").'<br>';
 print '</td>';
 print '</tr>';
+*/
+
+
+/*
+		// Define $urlwithroot
+		$urlwithouturlroot=preg_replace('/'.preg_quote(DOL_URL_ROOT,'/').'$/i','',trim($dolibarr_main_url_root));
+		$urlwithroot=$urlwithouturlroot.DOL_URL_ROOT;		// This is to use external domain name found into config file
+		//$urlwithroot=DOL_MAIN_URL_ROOT;					// This is to use same domain name than current
+*/
+$redirect_uri=dol_buildpath('/google/oauth2callback.php', 2);
+$jsallowed=preg_replace('/(https*:\/\/[^\/]+\/).*$/','\1',$redirect_uri);
+
+$var=!$var;
+print "<tr ".$bc[$var].">";
+print '<td class="fieldrequired">'.$langs->trans("GOOGLE_API_CLIENT_ID")."</td>";
+print '<td>';
+print '<input class="flat" type="text" size="90" name="GOOGLE_API_CLIENT_ID" value="'.$conf->global->GOOGLE_API_CLIENT_ID.'">';
+print '</td>';
+print '<td>';
+//print $langs->trans("AllowGoogleToLoginWithClientID","https://code.google.com/apis/console/","https://code.google.com/apis/console/", $jsallowed, $redirect_uri).'<br>';
+print $langs->trans("AllowGoogleToLoginWithClientID","https://code.google.com/apis/console/","https://code.google.com/apis/console/", $redirect_uri).'<br>';
+print '</td>';
+print '</tr>';
+
+$var=!$var;
+print "<tr ".$bc[$var].">";
+print '<td class="fieldrequired">'.$langs->trans("GOOGLE_API_CLIENT_SECRET")."</td>";
+print '<td>';
+print '<input class="flat" type="text" size="90" name="GOOGLE_API_CLIENT_SECRET" value="'.$conf->global->GOOGLE_API_CLIENT_SECRET.'">';
+print '</td>';
+print '<td>';
+print $langs->trans("AllowGoogleToLoginWithClientSecret").'<br>';
+print '</td>';
+print '</tr>';
+
+$var=!$var;
+print "<tr ".$bc[$var].">";
+print '<td>'.$langs->trans("GOOGLE_WEB_TOKEN")."</td>";
+print '<td colspan="2">';
+if (empty($conf->global->GOOGLE_CONTACT_LOGIN) || empty($conf->global->GOOGLE_API_CLIENT_ID))
+{
+	print $langs->trans("FillAndSaveGoogleAccount");
+}
+else
+{
+	$completeoauthurl=$oauthurl;
+	$completeoauthurl.='?response_type=code&client_id='.urlencode($conf->global->GOOGLE_API_CLIENT_ID);
+	$completeoauthurl.='&redirect_uri='.urlencode($redirect_uri);
+	$completeoauthurl.='&scope='.urlencode('https://www.google.com/m8/feeds https://www.googleapis.com/auth/contacts.readonly');
+	$completeoauthurl.='&state=dolibarrtokenrequest-googleadmincontactsync';		// To know we are coming from this page
+	//$completeoauthurl.='&access_type=online';
+	$completeoauthurl.='&approval_prompt=force';
+	$completeoauthurl.='&login_hint='.urlencode($conf->global->GOOGLE_CONTACT_LOGIN);
+	$completeoauthurl.='&include_granted_scopes=true';
+
+	if (! empty($conf->global->GOOGLE_WEB_TOKEN) || ! empty($_SESSION['google_web_token']))
+	{
+		print 'Database token: '.$conf->global->GOOGLE_WEB_TOKEN.'<br>';
+		print 'Current session token: '.$_SESSION['google_web_token'].'<br>';
+		print '<br>';
+		print $langs->trans("GoogleRecreateToken").'<br>';
+		//print '<a href="'.$completeoauthurl.'" target="_blank">'.$langs->trans("LinkToOAuthPage").'</a>';
+		print '<a href="'.$completeoauthurl.'">'.$langs->trans("LinkToOAuthPage").'</a>';
+		print '<br><br>';
+		print $langs->trans("GoogleDeleteToken").'<br>';
+		print '<a href="'.$_SERVER["PHP_SELF"].'?action=deletetoken" target="_blank">'.$langs->trans("ClickHere").'</a>';
+		print '<br><br>';
+		print $langs->trans("GoogleDeleteAuthorization").'<br>';
+		print '<a href="https://security.google.com/settings/security/permissions" target="_blank">https://security.google.com/settings/security/permissions</a>';
+	}
+	else {
+		print img_warning().' '.$langs->trans("GoogleNoTokenYet").'<br>';
+		//print '<a href="'.$completeoauthurl.'" target="_blank">'.$langs->trans("LinkToOAuthPage").'</a>';
+		print '<a href="'.$completeoauthurl.'">'.$langs->trans("LinkToOAuthPage").'</a>';
+	}
+}
+print '</td>';
+print '</tr>';
 
 print "</table>";
 
 print info_admin($langs->trans("EnableAPI","https://code.google.com/apis/console/","https://code.google.com/apis/console/","Contact API"));
 
-print info_admin($langs->trans("ShareContactWithServiceAccount",$conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL,$langs->transnoentitiesnoconv("GoogleIDContact")));
+//print info_admin($langs->trans("ShareContactWithServiceAccount",$conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL,$langs->transnoentitiesnoconv("GoogleIDContact")));
 
 print '</div>';
 
@@ -736,7 +831,7 @@ if ($conf->societe->enabled)
 {
 	print '<div class="tabsActions syncthirdparties">';
 	// Thirdparties
-	if (empty($conf->global->GOOGLE_CONTACT_LOGIN))
+	if (empty($conf->global->GOOGLE_CONTACT_LOGIN) || empty($conf->global->GOOGLE_WEB_TOKEN))
 	{
 		print '<div class="inline-block divButAction"><font class="butActionRefused" href="#">'.$langs->trans("TestCreateUpdateDelete")." (".$langs->trans("ThirdParty").")</font></a></div>";
 
@@ -755,7 +850,7 @@ if ($conf->societe->enabled)
 {
 	print '<div class="tabsActions synccontacts">';
 	// Contacts
-	if (empty($conf->global->GOOGLE_CONTACT_LOGIN))
+	if (empty($conf->global->GOOGLE_CONTACT_LOGIN) || empty($conf->global->GOOGLE_WEB_TOKEN))
 	{
 		print '<div class="inline-block divButAction"><font class="butActionRefused" href="#">'.$langs->trans("TestCreateUpdateDelete")." (".$langs->trans("Contact").")</font></a></div>";
 
@@ -774,7 +869,7 @@ if ($conf->societe->enabled)
 if ($conf->adherent->enabled)
 {
 	print '<div class="tabsActions syncmembers">';
-	if (empty($conf->global->GOOGLE_CONTACT_LOGIN))
+	if (empty($conf->global->GOOGLE_CONTACT_LOGIN) || empty($conf->global->GOOGLE_WEB_TOKEN))
 	{
 		print '<div class="inline-block divButAction"><font class="butActionRefused" href="#">'.$langs->trans("TestCreateUpdateDelete")." (".$langs->trans("Member").")</font></a></div>";
 
@@ -792,7 +887,7 @@ if ($conf->adherent->enabled)
 
 print '<br><br>';
 
-if (! empty($conf->global->GOOGLE_DUPLICATE_INTO_THIRDPARTIES))
+if (! empty($conf->global->GOOGLE_DUPLICATE_INTO_THIRDPARTIES) && ! empty($conf->global->GOOGLE_WEB_TOKEN))
 {
 	print '<div class="tabsActions syncthirdparties">';
 	print '<br>';
@@ -811,7 +906,7 @@ if (! empty($conf->global->GOOGLE_DUPLICATE_INTO_THIRDPARTIES))
 	print '</div>';
 }
 
-if (! empty($conf->global->GOOGLE_DUPLICATE_INTO_CONTACTS))
+if (! empty($conf->global->GOOGLE_DUPLICATE_INTO_CONTACTS) && ! empty($conf->global->GOOGLE_WEB_TOKEN))
 {
 	print '<div class="tabsActions synccontacts">';
 	print '<br>';
@@ -830,7 +925,7 @@ if (! empty($conf->global->GOOGLE_DUPLICATE_INTO_CONTACTS))
 	print '</div>';
 }
 
-if (! empty($conf->global->GOOGLE_DUPLICATE_INTO_MEMBERS))
+if (! empty($conf->global->GOOGLE_DUPLICATE_INTO_MEMBERS) && ! empty($conf->global->GOOGLE_WEB_TOKEN))
 {
 	print '<div class="tabsActions syncmembers">';
 	print '<br>';
@@ -852,7 +947,6 @@ if (! empty($conf->global->GOOGLE_DUPLICATE_INTO_MEMBERS))
 
 dol_htmloutput_mesg($mesg);
 dol_htmloutput_errors((is_numeric($error)?'':$error),$errors);
-
 
 
 llxFooter();

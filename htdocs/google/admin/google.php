@@ -224,6 +224,8 @@ $urlwithouturlroot=preg_replace('/'.preg_quote(DOL_URL_ROOT,'/').'$/i','',$urlwi
 
 $redirect_uri=$urlwithouturlroot.dol_buildpath('/google/index.php',1);		// Must be an url without parameters
 
+$urltocreatekey='https://code.google.com/apis/console/';
+
 
 print "<table class=\"noborder\" width=\"100%\">";
 
@@ -234,7 +236,6 @@ print "</tr>";
 
 // Setup for Oauth
 print '<tr '.$bc[$var].'><td colspan="3">';
-$urltocreatekey='https://code.google.com/apis/console/';
 print $langs->trans("DueToGoogleLimitYouNeedToLogin").'<br>';
 print $langs->trans("AllowGoogleToLoginSetupKey").'<br>';
 print '</td></tr>';
@@ -242,23 +243,27 @@ print '</td></tr>';
 // Client ID
 $var=!$var;
 print "<tr ".$bc[$var].">";
-print "<td>".$langs->trans("GoogleClientId")."</td>";
+print "<td>".$langs->trans("GOOGLE_API_CLIENT_ID")."</td>";
 print "<td>";
 print '<input class="flat" type="text" size="80" name="GOOGLE_AGENDA_CLIENT_ID" value="'.$conf->global->GOOGLE_AGENDA_CLIENT_ID.'">';
 print "</td>";
 
-print '<td rowspan="2">';
-print $langs->trans("AllowGoogleToLoginProp",$urltocreatekey,$urltocreatekey,$redirect_uri);
+print '<td>';
+//print $langs->trans("AllowGoogleToLoginWithClientID","https://code.google.com/apis/console/","https://code.google.com/apis/console/", $jsallowed, $redirect_uri).'<br>';
+print $langs->trans("AllowGoogleToLoginWithClientID", $urltocreatekey, $urltocreatekey, $redirect_uri).'<br>';
+//print $langs->trans("AllowGoogleToLoginProp",$urltocreatekey,$urltocreatekey,$redirect_uri);
 print '</td>';
 
 print "</tr>";
 // Client Secret
 print "<tr ".$bc[$var].">";
-print "<td>".$langs->trans("GoogleClientSecret")."</td>";
+print "<td>".$langs->trans("GOOGLE_API_CLIENT_SECRET")."</td>";
 print "<td>";
 print '<input class="flat" type="text" size="60" name="GOOGLE_AGENDA_CLIENT_SECRET" value="'.$conf->global->GOOGLE_AGENDA_CLIENT_SECRET.'">';
 print "</td>";
-
+print '<td>';
+print $langs->trans("AllowGoogleToLoginWithClientSecret").'<br>';
+print '</td>';
 print "</tr>";
 
 print '</table>';

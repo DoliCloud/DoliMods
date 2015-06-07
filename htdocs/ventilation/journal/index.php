@@ -53,21 +53,7 @@ llxHeader('','Journaux','');
 $form=new Form($db);
 
 
-// Put here content of your page
-// ...
-
-/***************************************************
-* LINKED OBJECT BLOCK
-*
-* Put here code to view linked object
-****************************************************/
-/*
- 
-$somethingshown=$myobject->showLinkedObjectBlock();
-
-*/
-
 // End of page
-$db->close();
 llxFooter();
-?>
+
+$db->close();

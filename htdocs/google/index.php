@@ -70,7 +70,7 @@ $auth_code = GETPOST("code");
 if (! empty($client_id))		// If we setup to use the oauth login
 {
 	// Ask token (possible only if inside an oauth google session)
-	if (empty($_SESSION['google_oauth_token']) || $auth_code)		// We are not into a google session (oauth_token empty) or we come from a redirect of Google auth page
+	if (empty($_SESSION['google_web_token']) || $auth_code)		// We are not into a google session (oauth_token empty) or we come from a redirect of Google auth page
 	{
 		if (empty($auth_code))	// If we are not coming from oauth page, we make a redirect to it
 		{
@@ -103,11 +103,11 @@ if (! empty($client_id))		// If we setup to use the oauth login
 
 		$response =  json_decode($result);
 
-		$_SESSION['google_oauth_token']=$response->access_token;
+		$_SESSION['google_web_token']=$response->access_token;
 	}
 
 
-	$oauth_token = $_SESSION['google_oauth_token'];
+	$oauth_token = $_SESSION['google_web_token'];
 }
 
 
