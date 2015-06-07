@@ -85,64 +85,132 @@ function getTokenFromWebApp($clientid, $clientsecret)
 /**
  * Get service
  *
- * @param	string			$client_id					Client ID (Example: '258042696143-s9klbbpj13fb40ac8k5qjajn4e9o1c49.apps.googleusercontent.com'). Not used.
+ * @param	string			$client_id					Client ID (Example: '258042696143-s9klbbpj13fb40ac8k5qjajn4e9o1c49.apps.googleusercontent.com'). Not used for authentication with service account.
  * @param	string			$service_account_name		Service account name (Example: '258042696143-s9klbbpj13fb40ac8k5qjajn4e9o1c49@developer.gserviceaccount.com')
  * @param	string			$key_file_location			Key file location (Example: 'API Project-69e4673ea29e.p12')
- * @param	int				$force_do_not_use_session	1=Do not get token from essions
+ * @param	int				$force_do_not_use_session	1=Do not get token from sessions $_SESSION['google_service_token'] or $_SESSION['google_web_token']
+ * @param	string			$mode						'service' or 'web' (Choose which token to use)
  * @return	array|string								Error message or array with token
  */
-function getTokenFromServiceAccount($client_id, $service_account_name, $key_file_location, $force_do_not_use_session=false)
+function getTokenFromServiceAccount($client_id, $service_account_name, $key_file_location, $force_do_not_use_session=false, $mode='service')
 {
 	global $conf;
 
-	if (empty($service_account_name)) return 'ErrorNoServiceAccountName';
-	if (empty($key_file_location) || ! file_exists($key_file_location)) return 'ErrorKeyFileNotFound';
+	if (empty($service_account_name)) return 'ErrorModuleGoogleNoServiceAccountName';
+	if (empty($key_file_location) || ! file_exists($key_file_location)) return 'ErrorModuleGoogleKeyFileNotFound';
 
 	$client = new Google_Client();
 	$client->setApplicationName("Dolibarr");
 	$client->setClassConfig('Google_Cache_File', 'directory', $conf->google->dir_temp);		// Force dir if cache used is Google_Cache_File
 
-	/************************************************
-	  If we have an access token, we can carry on.
-	  Otherwise, we'll get one with the help of an
-	  assertion credential. In other examples the list
-	  of scopes was managed by the Client, but here
-	  we have to list them manually. We also supply
-	  the service account
-	 ************************************************/
-	if (empty($force_do_not_use_session) && isset($_SESSION['service_token']))
+	if ($mode == 'web')
 	{
-		dol_syslog("Get service token from session. service_token=".$_SESSION['service_token']);
-		$client->setAccessToken($_SESSION['service_token']);
-	}
+		$client->setClientId($conf->global->GOOGLE_API_CLIENT_ID);
+		$client->setClientSecret($conf->global->GOOGLE_API_CLIENT_SECRET);
+		$client->setAccessType('offline');
 
-	dol_syslog("getTokenFromServiceAccount service_account_name=".$service_account_name." key_file_location=".$key_file_location." force_do_not_use_session=".$force_do_not_use_session, LOG_DEBUG);
-	$key = file_get_contents($key_file_location);
-	$cred = new Google_Auth_AssertionCredentials(
-	    $service_account_name,
-	    array('https://www.googleapis.com/auth/calendar','https://www.googleapis.com/auth/calendar.readonly'),
-	    $key
-	);
-
-	$client->setAssertionCredentials($cred);
-
-	try {
-		$checktoken=$client->getAuth()->isAccessTokenExpired();
-		if ($checktoken)
+		if (empty($force_do_not_use_session) && isset($_SESSION['google_web_token']))
 		{
-			dol_syslog("getTokenFromServiceAccount token seems to be expired, we refresh it", LOG_DEBUG);
-			$client->getAuth()->refreshTokenWithAssertion($cred);
+			dol_syslog("Get web token from session. google_web_token=".$_SESSION['google_web_token']);
+			$client->setAccessToken($_SESSION['google_web_token']);
+		}
+		if ((! isset($_SESSION['google_web_token']) || ! empty($force_do_not_use_session)) && ! empty($conf->global->GOOGLE_WEB_TOKEN))
+		{
+			// Look into database
+			// $conf->global->GOOGLE_WEB_TOKEN = '{"access_token":"ya29.iQEPBPUAVLXeVq1-QnC6-SHydA9czPX3ySJ5SjkSo5ZIMfFEl5MTs62no8hZp5jUUsm3QVHTrBg7hw","expires_in":3600,"created":1433463453}';
+			$_SESSION['google_web_token'] = $conf->global->GOOGLE_WEB_TOKEN;
+			dol_syslog("Get service token from database and save into session. google_web_token=".$_SESSION['google_web_token']);
+			$client->setAccessToken($_SESSION['google_web_token']);
+		}
+
+		if (empty($_SESSION['google_web_token']))
+		{
+			return 'GoogleWebTokenNotDefinedDoALoginInitFirst';
+		}
+		else
+		{
+			dol_syslog("getTokenFromServiceAccount set current token to ".$_SESSION['google_web_token'], LOG_DEBUG);
+			$client->setAccessToken($_SESSION['google_web_token']);
+		}
+
+		try {
+			dol_syslog("getTokenFromServiceAccount check isAccessTokenExpired", LOG_DEBUG);
+			$checktoken=$client->isAccessTokenExpired();
+			if ($checktoken)
+			{
+				$tmp=json_decode($conf->global->GOOGLE_WEB_TOKEN,true);
+				$refreshtoken=$tmp['refresh_token'];
+				if (empty($refreshtoken)) $refreshtoken=$tmp['access_token'];
+				dol_syslog("getTokenFromServiceAccount token seems to be expired, we refresh it with the refresh token = ".$refreshtoken);
+				$client->refreshToken($refreshtoken);
+				$_SESSION['google_web_token']= $client->getAccessToken();
+				dol_syslog("getTokenFromServiceAccount new token in session is now ".$_SESSION['google_web_token'], LOG_DEBUG);
+			}
+			else dol_syslog("getTokenFromServiceAccount token not expired", LOG_DEBUG);
+		}
+		catch(Exception $e)
+		{
+			return $e->getMessage();
 		}
 	}
-	catch(Exception $e)
+	if ($mode == 'service')
 	{
-		return $e->getMessage();
+		/************************************************
+		  If we have an access token, we can carry on.
+		  Otherwise, we'll get one with the help of an
+		  assertion credential. In other examples the list
+		  of scopes was managed by the Client, but here
+		  we have to list them manually. We also supply
+		  the service account
+		 ************************************************/
+		if (empty($force_do_not_use_session) && isset($_SESSION['google_service_token']))
+		{
+			dol_syslog("Get service token from session. service_token=".$_SESSION['google_service_token']);
+			$client->setAccessToken($_SESSION['google_service_token']);
+		}
+
+		dol_syslog("getTokenFromServiceAccount service_account_name=".$service_account_name." key_file_location=".$key_file_location." force_do_not_use_session=".$force_do_not_use_session, LOG_DEBUG);
+		$key = file_get_contents($key_file_location);
+		$cred = new Google_Auth_AssertionCredentials(
+		    $service_account_name,
+		    array('https://www.googleapis.com/auth/calendar','https://www.googleapis.com/auth/calendar.readonly'),
+		    $key
+		);
+
+		$client->setAssertionCredentials($cred);
+
+		try {
+			$checktoken=$client->getAuth()->isAccessTokenExpired();
+			if ($checktoken)
+			{
+				dol_syslog("getTokenFromServiceAccount token seems to be expired, we refresh it", LOG_DEBUG);
+				$client->getAuth()->refreshTokenWithAssertion($cred);
+			}
+		}
+		catch(Exception $e)
+		{
+			return $e->getMessage();
+		}
 	}
 
-	$_SESSION['service_token'] = $client->getAccessToken();
 
-	dol_syslog("Return client name = ".$client->getApplicationName()." service_token = ".$_SESSION['service_token']);
-	return array('client'=>$client, 'service_token'=>$_SESSION['service_token']);
+
+	if ($mode == 'web')
+	{
+		$_SESSION['google_web_token'] = $client->getAccessToken();	// Overwrite session with correct token
+
+		dol_syslog("getTokenFromServiceAccount Return client name = ".$client->getApplicationName()." google_web_token = ".$_SESSION['google_web_token'], LOG_INFO);
+		dol_syslog("getTokenFromServiceAccount getBasePath = ".$client->getBasePath(), LOG_DEBUG);
+	}
+	if ($mode == 'service')
+	{
+		$_SESSION['google_service_token'] = $client->getAccessToken();	// Overwrite session with correct token
+
+		dol_syslog("getTokenFromServiceAccount Return client name = ".$client->getApplicationName()." google_service_token = ".$_SESSION['google_service_token'], LOG_INFO);
+		dol_syslog("getTokenFromServiceAccount getBasePath = ".$client->getBasePath(), LOG_DEBUG);
+	}
+
+	return array('client'=>$client, 'google_service_token'=>$_SESSION['google_service_token'], 'google_web_token'=>$_SESSION['google_web_token']);
 }
 
 
@@ -158,7 +226,7 @@ function getTokenFromServiceAccount($client_id, $service_account_name, $key_file
  */
 function createEvent($client, $object, $login='primary')
 {
-	global $conf, $db, $trans;
+	global $conf, $db, $langs;
 	global $dolibarr_main_url_root;
 	global $user;
 
@@ -279,27 +347,25 @@ function createEvent($client, $object, $login='primary')
  */
 function updateEvent($client, $eventId, $object, $login='primary', $service=null)
 {
-	global $conf;
+	global $conf, $db, $langs;
 	global $dolibarr_main_url_root;
 	global $user;
 
-	//$gdataCal = new Zend_Gdata_Calendar($client);
-
-	$oldeventId=$eventId;
+	$neweventid=$eventId;
 	if (preg_match('/google\.com\/.*\/([^\/]+)$/',$eventId,$reg))
 	{
-		$oldeventId=$reg[1];
+		$neweventid=$reg[1];
 	}
 	if (preg_match('/google:([^\/]+)$/',$eventId,$reg))
 	{
-		$oldeventId=$reg[1];
+		$neweventid=$reg[1];
 	}
 
 	try {
 		if (empty($service)) $service = new Google_Service_Calendar($client['client']);
 
 		//$event = new Google_Service_Calendar_Event();
-		$event = $service->events->get($login, $oldeventId);
+		$event = $service->events->get($login, $neweventid);
 		if (is_object($event)) dol_syslog("updateEvent get old record id=".$event->getId()." found into google calendar", LOG_DEBUG);
 
 		// Set new value of events
@@ -383,9 +449,9 @@ function updateEvent($client, $eventId, $object, $login='primary', $service=null
 		}
 		$event->attendees = $attendees;
 
-		dol_syslog("updateEvent for login=".$login.", id=".$oldeventId.", label=".$object->label.", startTime=".$startTime.", endTime=".$endTime, LOG_DEBUG);
+		dol_syslog("updateEvent for login=".$login.", id=".$neweventid.", label=".$object->label.", startTime=".$startTime.", endTime=".$endTime, LOG_DEBUG);
 
-		$updatedEvent = $service->events->update($login, $oldeventId, $event);
+		$updatedEvent = $service->events->update($login, $neweventid, $event);
 
 		// Print the updated date.
 		//echo $updatedEvent->getUpdated();
@@ -404,7 +470,7 @@ function updateEvent($client, $eventId, $object, $login='primary', $service=null
 
 /**
  * Deletes the event specified by retrieving the atom entry object
- * and calling Zend_Feed_EntryAtom::delete() method.  This is for
+ * and calling delete() method.  This is for
  * example purposes only, as it is inefficient to retrieve the entire
  * atom entry only for the purposes of deleting it.
  *
@@ -416,22 +482,26 @@ function updateEvent($client, $eventId, $object, $login='primary', $service=null
  */
 function deleteEventById ($client, $eventId, $login='primary', $service=null)
 {
-	$oldeventId=$eventId;
+	global $conf, $db, $langs;
+	global $dolibarr_main_url_root;
+	global $user;
+
+	$neweventid=$eventId;
 	if (preg_match('/google\.com\/.*\/([^\/]+)$/',$eventId,$reg))
 	{
-		$oldeventId=$reg[1];
+		$neweventid=$reg[1];
 	}
 	if (preg_match('/google:([^\/]+)$/',$eventId,$reg))
 	{
-		$oldeventId=$reg[1];
+		$neweventid=$reg[1];
 	}
 
-	dol_syslog("deleteEventById Delete old record on Google calendar with login=".$login.", id=".$oldeventId, LOG_DEBUG);
+	dol_syslog("deleteEventById Delete old record on Google calendar with login=".$login.", id=".$neweventid, LOG_DEBUG);
 
 	try {
 		if (empty($service)) $service = new Google_Service_Calendar($client['client']);
 
-		$service->events->delete($login, $oldeventId);
+		$service->events->delete($login, $neweventid);
 
 		$ret = 1;
 	}
@@ -455,7 +525,7 @@ function deleteEventById ($client, $eventId, $login='primary', $service=null)
  */
 function google_complete_label_and_note(&$object, $langs)
 {
-	global $conf, $db;
+	global $conf, $db, $langs;
 	global $dolibarr_main_url_root;
 
 	$eventlabel = trim($object->label);

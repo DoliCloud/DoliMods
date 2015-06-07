@@ -21,15 +21,8 @@
  *  \ingroup    google
  *  \brief      class GContacts
  */
-$path = dol_buildpath('/google/includes/zendgdata');
-set_include_path(get_include_path() . PATH_SEPARATOR . $path);
 
-require_once 'Zend/Loader.php';
-Zend_Loader::loadClass('Zend_Gdata');
-Zend_Loader::loadClass('Zend_Gdata_ClientLogin');
-Zend_Loader::loadClass('Zend_Http_Client');
-Zend_Loader::loadClass('Zend_Gdata_Query');
-Zend_Loader::loadClass('Zend_Gdata_Feed');
+dol_include_once('/google/lib/google_contact.lib.php');
 
 
 /**
@@ -132,6 +125,7 @@ class GContact
      */
     private function appendTextElement(DOMElement $el, $elName, $text) {
         if(empty($text)) return;
+        //print_r(htmlspecialchars($text));
         $el->appendChild($this->doc->createElement($elName, htmlspecialchars($text)));
     }
 
@@ -154,7 +148,7 @@ class GContact
         self::appendTextElement($el, "gdata:street", $addr->street);
         self::appendTextElement($el, "gdata:postcode", $addr->zip);
         self::appendTextElement($el, "gdata:city", $addr->town);
-        self::appendTextElement($el, "gdata:region", $addr->state);
+        self::appendTextElement($el, "gdata:region", dolEscapeXMLWithNoAnd($addr->state));		// La region pose des pb si il y a &amp; dedans alors que ok pour le street. Note dans ce mode on retrouve du &#38 alors que &amp; en mode update simple dans le source xml. On les remplace par -.
         self::appendTextElement($el, "gdata:country", $addr->country);
         $this->atomEntry->appendChild($el);
     }
@@ -268,7 +262,8 @@ class GContact
         $this->name = $dolContact->name;
         $this->fullName = $dolContact->getFullName($langs);
         $this->email = $dolContact->email?$dolContact->email:($this->fullName.'@noemail.com');
-        if(!(empty($dolContact->address)&&empty($dolContact->zip)&&empty($dolContact->town)&&empty($dolContact->state)&&empty($dolContact->country))) {
+        if(!(empty($dolContact->address)&&empty($dolContact->zip)&&empty($dolContact->town)&&empty($dolContact->state)&&empty($dolContact->country)))
+        {
             $this->addr = new GCaddr();
             $this->addr->street = $dolContact->address;
             $this->addr->zip = $dolContact->zip;
@@ -375,9 +370,16 @@ class GContact
     	$this->lastname = $dolContact->lastname;
         $this->fullName = $dolContact->getFullName($langs);
     	$this->email = ($dolContact->email?$dolContact->email:($this->fullName.'@noemail.com'));
+
     	if(!(empty($dolContact->address)&&empty($dolContact->zip)&&empty($dolContact->town)&&empty($dolContact->state)&&empty($dolContact->country)))
     	{
     		$this->addr = new GCaddr();
+/*    		$this->addr->street = dolEscapeXMLWithNoAnd($dolContact->address);
+    		$this->addr->zip = dolEscapeXMLWithNoAnd($dolContact->zip);
+    		$this->addr->town = dolEscapeXMLWithNoAnd($dolContact->town);
+    		$this->addr->region = dolEscapeXMLWithNoAnd($dolContact->state);
+    		$this->addr->country = dolEscapeXMLWithNoAnd($dolContact->country);
+    		*/
     		$this->addr->street = $dolContact->address;
     		$this->addr->zip = $dolContact->zip;
     		$this->addr->town = $dolContact->town;
@@ -571,7 +573,7 @@ class GContact
      * @param	Gdata	$gdata		Gdata handler
      * @param 	string 	$pattern	Pattern to filter query
      * @param	string	$type		'thirdparty' or 'contact'
-     * @return 	string 				array of google contactsID
+     * @return 	string 				array of google contactsID, <0 if KO
      */
     public static function getDolibarrContactsGoogleIDS($gdata, $pattern, $type)
     {
@@ -585,11 +587,39 @@ class GContact
 
 		// Get full list of contacts
 		$tag_debug='getallcontacts';
-    	$queryString = 'https://www.google.com/m8/feeds/contacts/default/full?max-results=1000';
+    	/*
+		$queryString = 'https://www.google.com/m8/feeds/contacts/default/full?max-results=1000';
         if (! empty($pattern)) $queryString .= '&q='.$pattern;
         $query = new Zend_Gdata_Query($queryString);
         $feed = $gdata->getFeed($query);
         $xmlStr = $feed->getXML();
+		*/
+		$tmp=json_decode($gdata['google_web_token']);
+		$access_token=$tmp->access_token;
+		$addheaders=array('authorization'=>'Bearer '.$access_token);
+		$addheaderscurl=array('GData-Version: 3.0', 'Authorization: Bearer '.$access_token, 'Content-Type: application/atom+xml');
+		//$useremail='default';
+
+        $queryString = 'https://www.google.com/m8/feeds/contacts/default/full?max-results=1000';
+        if (! empty($pattern)) $queryString .= '&q='.$pattern;
+		$result = getURLContent($queryString, 'GET', '', 0, $addheaderscurl);
+		$xmlStr=$result['content'];
+
+    	if ($response['content'])
+		{
+			$document = new DOMDocument("1.0", "utf-8");
+			$document->loadXml($response['content']);
+
+			$errorselem = $document->getElementsByTagName("errors");
+			//var_dump($errorselem);
+			//var_dump($errorselem->length);
+			//var_dump(count($errorselem));
+			if ($errorselem->length)
+			{
+				dol_syslog($response['content'], LOG_ERR);
+				return -1;
+			}
+		}
 
         // Split answers into entries array
         $document->loadXML($xmlStr);
@@ -705,7 +735,7 @@ class GContact
     	if(!isset($googleGroups))
     	{
     		$document = new DOMDocument("1.0", "utf-8");
-    		$xmlStr = self::getContactGroupsXml($gdata);
+    		$xmlStr = getContactGroupsXml($gdata);
     		$document->loadXML($xmlStr);
     		$xmlStr = $document->saveXML();
     		$entries = $document->documentElement->getElementsByTagNameNS(self::ATOM_NAME_SPACE, "entry");
@@ -1007,12 +1037,12 @@ class GContact
      	if ($groupFlag)
      	{
      		// Due to a bug in zend not correctly taking into account headers (in particular If-Match), we do the request by hand (performHttpRequest instead of using the $gdata->delete)
-     		$headers = array();
-     		$headers['If-Match'] = '*';
+     		$addheaders = array();
+     		$addheaders['If-Match'] = '*';
      		foreach ($googleIDs as $googleID) {
      			try {
      				dol_syslog("Deleting contact or group ".$googleID." with mode no batch");
-     				$requestData = $gdata->prepareRequest('DELETE', $googleID, $headers);
+     				$requestData = $gdata->prepareRequest('DELETE', $googleID, $addheaders);
      				$response = $gdata->performHttpRequest($requestData['method'], $requestData['url'], $requestData['headers'], '', $requestData['contentType'], null/* remainingRedirects */);
      				//$gdata->delete($googleID);
      			}  catch (Exception $e) {
@@ -1062,13 +1092,34 @@ class GContact
      				//file_put_contents(DOL_DATA_ROOT . "/dolibarr_google_massdelete.xml", $xmlStr);
      				//@chmod(DOL_DATA_ROOT . "/dolibarr_google_massdelete.xml", octdec(empty($conf->global->MAIN_UMASK)?'0664':$conf->global->MAIN_UMASK));
 
-		     		// Due to a bug in zend not correctly taking into account headers (in particular If-Match), we do the request by hand (performHttpRequest instead of using the $gdata->post)
-     				$headers = array();
-     				$headers['If-Match'] = '*';
-    				$requestData = $gdata->prepareRequest('POST', "https://www.google.com/m8/feeds/contacts/default/base/batch", $headers);
-					$response = $gdata->performHttpRequest($requestData['method'], $requestData['url'], $requestData['headers'], $xmlStr, $requestData['contentType'], null/* remainingRedirects */);
-     				//$response = $gdata->post($xmlStr, "https://www.google.com/m8/feeds/contacts/default/base/batch");
-     				$responseXml = $response->getBody();
+					$tmp=json_decode($gdata['google_web_token']);
+					$access_token=$tmp->access_token;
+     				$addheaders=array('authorization'=>'Bearer '.$access_token, 'If-Match'=>'*');
+     				$addheaderscurl=array('authorization: Bearer '.$access_token, 'If-Match: *');
+
+     				//$request=new Google_Http_Request('https://www.google.com/m8/feeds/contacts/default/base/batch', 'POST', $addheaders, $xmlStr);
+     				//$requestData = $gdata['client']->execute($request);
+					$result = getURLContent('https://www.google.com/m8/feeds/contacts/default/base/batch', 'POST', $xmlStr, 0, $addheaderscurl);
+					$xmlStr=$result['content'];
+   					try {
+						$document = new DOMDocument("1.0", "utf-8");
+						$document->loadXml($result['content']);
+
+						$errorselem = $document->getElementsByTagName("errors");
+						//var_dump($errorselem);
+						//var_dump($errorselem->length);
+						//var_dump(count($errorselem));
+						if ($errorselem->length)
+						{
+							dol_syslog('ERROR:'.$result['content'], LOG_ERR);
+							return -1;
+						}
+					} catch (Exception $e) {
+						dol_syslog('ERROR:'.$e->getMessage(), LOG_ERR);
+						return -1;
+					}
+
+     				$responseXml = $xmlStr;
 
      				//file_put_contents(DOL_DATA_ROOT . "/dolibarr_google_massdelete.response.xml", $responseXml);
      				//@chmod(DOL_DATA_ROOT . "/dolibarr_google_massdelete.response.xml", octdec(empty($conf->global->MAIN_UMASK)?'0664':$conf->global->MAIN_UMASK));
@@ -1092,7 +1143,7 @@ class GContact
 
      	// Get list of groups
      	$document = new DOMDocument("1.0", "utf-8");
-     	$xmlStr = self::getContactGroupsXml($gdata);
+     	$xmlStr = getContactGroupsXml($gdata);
 
      	$document->loadXML($xmlStr);
      	$xmlStr = $document->saveXML();
@@ -1122,31 +1173,6 @@ class GContact
      	*/
      	return(count($googleIDs));
      }
-
-
-    /**
-     * Retreive a Xml feed of contactsGroups from Google
-     *
-     * @param	Gdata	$gdata		Gdata handler
-     * @return	string				Xml string with list of groups
-     */
-    private static function getContactGroupsXml($gdata)
-    {
-        try {
-        	// Get list of groups
-            $query = new Zend_Gdata_Query('https://www.google.com/m8/feeds/groups/default/full?max-results=1000');
-            $feed = $gdata->getFeed($query);
-            $xmlStr = $feed->getXML();
-            // uncomment for debugging :
-            // file_put_contents(DOL_DATA_ROOT . "/gcontacts/temp/gmail.groups.xml", $xmlStr);
-            // dump it with 'xmlstarlet fo gmail.groups.xml' command
-        } catch (Exception $e) {
-            dol_syslog("Error while feed xml groups", LOG_ERR);
-            throw new Exception(sprintf("Error while feed xml groups : %s", $e->getMessage()));
-        }
-        return($xmlStr);
-    }
-
 }
 
 
@@ -1230,10 +1256,12 @@ class GCaddr
         while ($obj=$db->fetch_object($resql))
         {
             $dbLabel = $obj->stateLabel;
-            if($langs->trans($obj->stateCode) != $obj->stateCode)
-                $dbLabel = $langs->trans($obj->stateCode); // If a translation exists, get it.
+            if($langs->transnoentitiesnoconv($obj->stateCode) != $obj->stateCode)
+                $dbLabel = $langs->transnoentitiesnoconv($obj->stateCode); // If a translation exists, get it.
             if($dbLabel == $this->state)
                 $this->state_id=$obj->rowid;
         }
     }
 }
+
+
