@@ -110,7 +110,6 @@ function googleCreateContact($client, $object, $useremail='default')
 		}
 		else
 		{
-			var_dump($object->name);
 			$fullName = $doc->createElement('gd:fullName', dolEscapeXML($object->name));
 		}
 		$name->appendChild($fullName);
