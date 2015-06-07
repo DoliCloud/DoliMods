@@ -192,7 +192,7 @@ if (preg_match('/^test/',$action))
 		    $object->firstname='Test Synchro new';
 		    $object->email='newemail@newemail.com';
 		    $object->url='www.newspecimen.com';
-		    $object->note_private='New private note with special char é and entity eacute xxx and html tag <strong>strong</strong>';
+		    $object->note_private='New private note with special char é and entity eacute &eacute; and html tag <strong>strong</strong>';
 		    $object->street='New street';
 		    $object->town='New town';
 		    $result=$object->update($object->id, $user);

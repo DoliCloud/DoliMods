@@ -980,7 +980,7 @@ function getContactGroupsXml($gdata, $useremail='default')
  * @param	array	$gdata			Array with tokens info
  * @param 	string 	$groupName		Group name to create into Google Contact
  * @param	string	$useremail		User email
- * @return 	string					googlegroupID
+ * @return 	string					Ful URL group ID (http://...xxx)
  */
 function insertGContactGroup($gdata,$groupName,$useremail='default')
 {
@@ -1037,12 +1037,12 @@ function insertGContactGroup($gdata,$groupName,$useremail='default')
 			$entries = $document->getElementsByTagName("id");
 			foreach ($entries as $entry)
 			{
-				$id = basename($entry->nodeValue);
+				$id = $entry->nodeValue;		// No basename here, we want full URL ID
 				break;
 			}
 		}
 
-		dol_syslog(sprintf("Inserting gContact group %s in google contacts for google ID = %s", $groupName, $id));
+		dol_syslog(sprintf("We have just created the google contact group '%s'. Its Full URL group ID is %s", $groupName, $id));
 	} catch (Exception $e) {
 		dol_syslog(sprintf("Problem while inserting group %s : %s", $groupName, $e->getMessage()), LOG_ERR);
 	}
