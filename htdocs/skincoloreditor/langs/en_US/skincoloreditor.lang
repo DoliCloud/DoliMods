@@ -24,3 +24,10 @@ CompatibleWithDoliDroid=This modules is also compatible with DoliDroid, the Andr
 ForceSpecificValue=Force specific values
 SelectTabColor1=End-bottom gradient color for tabs
 SelectTabColor2=Start-top gradient color for tabs
+BackgroundColor=Background color
+TopMenuBackgroundColor=Background color for Top menu
+LeftMenuBackgroundColor=Background color for Left menu
+BackgroundTableTitleColor=Background color for table title line
+BackgroundTableLineOddColor=Background color for odd table lines
+BackgroundTableLineEvenColor=Background color for even table lines
+
