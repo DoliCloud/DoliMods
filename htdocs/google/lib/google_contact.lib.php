@@ -78,8 +78,6 @@ function googleCreateContact($client, $object, $useremail='default')
 	$doc  = new DOMDocument("1.0", "utf-8");
 	try {
 		// perform login and set protocol version to 3.0
-		//$gdata = new Zend_Gdata($client);
-		//$gdata->setMajorProtocolVersion(3);
 		$gdata=$client;
 
 		$idindolibarr=$object->id.'/'.($object->element=='societe'?'thirdparty':$object->element);
@@ -365,9 +363,6 @@ function googleUpdateContact($client, $contactId, $object, $useremail='default')
 	$gdata=$client;
 
 	try {
-		//$gdata = new Zend_Gdata($client);
-		//$gdata->setMajorProtocolVersion(3);
-
 		$tmp=json_decode($gdata['google_web_token']);
 		$access_token=$tmp->access_token;
 		$addheaders=array('GData-Version'=>'3.0', 'Authorization'=>'Bearer '.$access_token);
@@ -383,9 +378,6 @@ function googleUpdateContact($client, $contactId, $object, $useremail='default')
 
 		//$contactId='https://www.google.com/m8/feeds/contacts/eldy10%40gmail.com/base/4429b3590f5b343a';
 		//$contactId='https://www.google.com/m8/feeds/contacts/contact%40nltechno.com/base/ee6fc620dbab6d7';
-		//$query = new Zend_Gdata_Query($contactId);
-		//$entryResult = $gdata->getEntry($query,'Zend_Gdata_Contacts_ListEntry');
-		//$entryResult = $gdata->getEntry($query);
 		try {
 			$document = new DOMDocument("1.0", "utf-8");
 			$document->loadXml($result['content']);

@@ -274,8 +274,6 @@ if ($action == 'pushallthirdparties')
 	}
 	else
 	{
-		//$gdata = new Zend_Gdata($client);
-		//$gdata->setMajorProtocolVersion(3);
 		$client = $servicearray;
 		$gdata = $client;
 
@@ -339,8 +337,6 @@ if ($action == 'pushallcontacts')
 	}
 	else
 	{
-		//$gdata = new Zend_Gdata($client);
-		//$gdata->setMajorProtocolVersion(3);
 		$client = $servicearray;
 		$gdata = $client;
 
@@ -404,14 +400,11 @@ if ($action == 'pushallmembers')
 	}
 	else
 	{
-		//$gdata = new Zend_Gdata($client);
-		//$gdata->setMajorProtocolVersion(3);
 		$client = $servicearray;
 		$gdata = $client;
 
 		dol_include_once('/google/class/gcontacts.class.php');
 
-		//	$res = GContact::deleteDolibarrContacts();
 		$sql = 'SELECT rowid FROM '.MAIN_DB_PREFIX.'adherent';
 		$resql = $db->query($sql);
 		if (! $resql)
@@ -467,8 +460,6 @@ if ($action == 'deleteallthirdparties')
 	}
 	else
 	{
-		//$gdata = new Zend_Gdata($client);
-		//$gdata->setMajorProtocolVersion(3);
 		$client = $servicearray;
 		$gdata = $client;
 
@@ -516,8 +507,6 @@ if ($action == 'deleteallcontacts')
 	}
 	else
 	{
-		//$gdata = new Zend_Gdata($client);
-		//$gdata->setMajorProtocolVersion(3);
 		$client = $servicearray;
 		$gdata = $client;
 
@@ -565,8 +554,6 @@ if ($action == 'deleteallmembers')
 	}
 	else
 	{
-		//$gdata = new Zend_Gdata($client);
-		//$gdata->setMajorProtocolVersion(3);
 		$client = $servicearray;
 		$gdata = $client;
 
