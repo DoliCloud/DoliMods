@@ -194,15 +194,15 @@ if (GETPOST('cleanup'))
 
 	if (! is_array($servicearray))
 	{
-		$this->errors[]=$servicearray;
+		$errors[]=$servicearray;
 		$error++;
 	}
 
 	if ($servicearray == null)
 	{
-		$this->error="Failed to login to Google with credentials provided into setup page ".$conf->global->GOOGLE_API_SERVICEACCOUNT_CLIENT_ID.", ".$conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL.", ".$key_file_location;
-		dol_syslog($this->error, LOG_ERR);
-		$this->errors[]=$this->error;
+		$txterror="Failed to login to Google with credentials provided into setup page ".$conf->global->GOOGLE_API_SERVICEACCOUNT_CLIENT_ID.", ".$conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL.", ".$key_file_location;
+		dol_syslog($txterror, LOG_ERR);
+		$errors[]=$txterror;
 		$error++;
 	}
 	else
@@ -243,14 +243,14 @@ if (GETPOST('cleanup'))
 		}
 		catch(Exception $e)
 		{
-			$this->errors[] = 'ERROR '.$e->getMessage();
+			$errors[] = 'ERROR '.$e->getMessage();
 			$error++;
 		}
 	}
 
 	if ($error)
 	{
-		setEventMessage($this->errors, 'errors');
+		setEventMessage($errors, 'errors');
 	}
 	else
 	{
@@ -271,15 +271,15 @@ if ($action == 'pushallevents')
 
 	if (! is_array($servicearray))
 	{
-		$this->errors[]=$servicearray;
+		$errors[]=$servicearray;
 		$error++;
 	}
 
 	if ($servicearray == null)
 	{
-		$this->error="Failed to login to Google with credentials provided into setup page ".$conf->global->GOOGLE_API_SERVICEACCOUNT_CLIENT_ID.", ".$conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL.", ".$key_file_location;
-		dol_syslog($this->error, LOG_ERR);
-		$this->errors[]=$this->error;
+		$txterror="Failed to login to Google with credentials provided into setup page ".$conf->global->GOOGLE_API_SERVICEACCOUNT_CLIENT_ID.", ".$conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL.", ".$key_file_location;
+		dol_syslog($txterror, LOG_ERR);
+		$errors[]=$txterror;
 		$error++;
 	}
 	else
@@ -331,7 +331,7 @@ if ($action == 'pushallevents')
 				}
 				else
 				{
-					$this->errors[]=$ret;
+					$errors[]=$ret;
 					$error++;
 				}
 
@@ -340,7 +340,7 @@ if ($action == 'pushallevents')
 		}
 		catch(Exception $e)
 		{
-			$this->errors[] = 'ERROR '.$e->getMessage();
+			$errors[] = 'ERROR '.$e->getMessage();
 			$error++;
 		}
 	}
@@ -348,7 +348,7 @@ if ($action == 'pushallevents')
 	setEventMessage($langs->trans("PushToGoogleSucess",$nbinserted), 'mesgs');
 	if ($error)
 	{
-		setEventMessage($this->errors, 'errors');
+		setEventMessage($errors, 'errors');
 	}
 
 }

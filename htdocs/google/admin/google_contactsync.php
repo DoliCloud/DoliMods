@@ -267,9 +267,9 @@ if ($action == 'pushallthirdparties')
 
 	if (! is_array($servicearray) || $servicearray == null)
 	{
-		$this->error="Failed to login to Google with current token";
-		dol_syslog($this->error, LOG_ERR);
-		$this->errors[]=$this->error;
+		$txterror="Failed to login to Google with current token";
+		dol_syslog($txterror, LOG_ERR);
+		$errors[]=$txterror;
 		return -1;
 	}
 	else
@@ -332,9 +332,9 @@ if ($action == 'pushallcontacts')
 
 	if (! is_array($servicearray) || $servicearray == null)
 	{
-		$this->error="Failed to login to Google with current token";
-		dol_syslog($this->error, LOG_ERR);
-		$this->errors[]=$this->error;
+		$txterror="Failed to login to Google with current token";
+		dol_syslog($txterror, LOG_ERR);
+		$errors[]=$txterror;
 		return -1;
 	}
 	else
@@ -397,9 +397,9 @@ if ($action == 'pushallmembers')
 
 	if (! is_array($servicearray) || $servicearray == null)
 	{
-		$this->error="Failed to login to Google with current token";
-		dol_syslog($this->error, LOG_ERR);
-		$this->errors[]=$this->error;
+		$txterror="Failed to login to Google with current token";
+		dol_syslog($txterror, LOG_ERR);
+		$errors[]=$txterror;
 		return -1;
 	}
 	else
@@ -460,9 +460,9 @@ if ($action == 'deleteallthirdparties')
 
 	if (! is_array($servicearray) || $servicearray == null)
 	{
-		$this->error="Failed to login to Google with current token";
-		dol_syslog($this->error, LOG_ERR);
-		$this->errors[]=$this->error;
+		$txterror="Failed to login to Google with current token";
+		dol_syslog($txterror, LOG_ERR);
+		$errors[]=$txterror;
 		return -1;
 	}
 	else
@@ -509,9 +509,9 @@ if ($action == 'deleteallcontacts')
 
 	if (! is_array($servicearray) || $servicearray == null)
 	{
-		$this->error="Failed to login to Google with current token";
-		dol_syslog($this->error, LOG_ERR);
-		$this->errors[]=$this->error;
+		$txterror="Failed to login to Google with current token";
+		dol_syslog($txterror, LOG_ERR);
+		$errors[]=$txterror;
 		return -1;
 	}
 	else
@@ -558,9 +558,9 @@ if ($action == 'deleteallmembers')
 
 	if (! is_array($servicearray) || $servicearray == null)
 	{
-		$this->error="Failed to login to Google with current token";
-		dol_syslog($this->error, LOG_ERR);
-		$this->errors[]=$this->error;
+		$txterror="Failed to login to Google with current token";
+		dol_syslog($txterror, LOG_ERR);
+		$errors[]=$txterror;
 		return -1;
 	}
 	else
