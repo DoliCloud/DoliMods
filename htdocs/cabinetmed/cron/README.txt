@@ -12,10 +12,10 @@ mysql -u root -p'mypassword' -h localhost -P 8889 -h 127.0.0.1
 rsync -a --delete --stats /Applications/MAMP/dolibarr* /Volumes/SCM34_OSX/Backups_Dolimed >/Applications/MAMP/dolibarr_logs/backup_dolimed.log 2>&1
 
 # This is example of command to synchronize with other servers
-# rsync -a --stats --exclude conf.php --exclude htdocs/index.html rhumato@apollon1.nltechno.com:/home/rhumato/wwwroot/dolibarr/* /Applications/MAMP/dolibarr 
-# rsync -a --stats /Applications/MAMP/dolibarr rhumato@apollon1.nltechno.com:/home/rhumato/backup_scm
-# rsync -a --stats /Applications/MAMP/dolibarrmodsf rhumato@apollon1.nltechno.com:/home/rhumato/backup_scm
-# rsync -a --stats /Applications/MAMP/dolibarr_documents rhumato@apollon1.nltechno.com:/home/rhumato/backup_scm
+# rsync -a --stats --exclude conf.php --exclude htdocs/index.html backup_user@apollon1.nltechno.com:/home/rhumato/wwwroot/dolibarr/* /Applications/MAMP/dolibarr 
+# rsync -a --stats /Applications/MAMP/dolibarr backup_user@apollon1.nltechno.com:/home/rhumato/backup_scm
+# rsync -a --stats /Applications/MAMP/dolibarrmodsf backup_user@apollon1.nltechno.com:/home/rhumato/backup_scm
+# rsync -a --stats /Applications/MAMP/dolibarr_documents backup_user@apollon1.nltechno.com:/home/rhumato/backup_scm
 
 # This is an example of command to make a mysql dump into a cron
 # 0 23 * * * /Applications/MAMP/Library/bin/mysqldump -h localhost -uroot -pmypassword -l --single-transaction -K --add-drop-table=TRUE --tables -c -e --hex-blob --default-character-set=utf8 -r /Applications/MAMP/dolibarr_documents/admin/backup/mysqldump_dolimed_auto_`date +%d`.sql dolimed >/Applications/MAMP/dolibarr_logs/mysqldump_dolimed.log 2>&1
