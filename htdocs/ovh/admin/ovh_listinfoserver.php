@@ -22,11 +22,11 @@
  *	 \brief		Setup page to edit dedicated ovh servers
  */
 $res=0;
+if (! $res && ! empty($_SERVER["CONTEXT_DOCUMENT_ROOT"])) $res=@include($_SERVER["CONTEXT_DOCUMENT_ROOT"]."/main.inc.php");
 if (! $res && file_exists("../main.inc.php")) $res=@include("../main.inc.php");
 if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.php");
 if (! $res && file_exists("../../../main.inc.php")) $res=@include("../../../main.inc.php");
 if (! $res && file_exists("../../../../main.inc.php")) $res=@include("../../../../main.inc.php");
-if (! $res && file_exists("../../../../../main.inc.php")) $res=@include("../../../../../main.inc.php");
 if (! $res && preg_match('/\/nltechno([^\/]*)\//',$_SERVER["PHP_SELF"],$reg)) $res=@include("../../../../dolibarr".$reg[1]."/htdocs/main.inc.php"); // Used on dev env only
 if (! $res) die("Include of main fails");
 dol_include_once('/ovh/class/ovh.class.php');
@@ -38,6 +38,7 @@ require_once(DOL_DOCUMENT_ROOT.'/societe/class/societe.class.php');
 require_once(NUSOAP_PATH.'/nusoap.php');     // Include SOAP
 
 $langs->load("ovh@ovh");
+$langs->load("sms");
 
 $error=0;
 

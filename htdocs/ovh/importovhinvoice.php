@@ -25,11 +25,10 @@
 
 // Include Dolibarr environment
 $res=0;
+if (! $res && ! empty($_SERVER["CONTEXT_DOCUMENT_ROOT"])) $res=@include($_SERVER["CONTEXT_DOCUMENT_ROOT"]."/main.inc.php");
 if (! $res && file_exists("../main.inc.php")) $res=@include("../main.inc.php");
 if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.php");
 if (! $res && file_exists("../../../main.inc.php")) $res=@include("../../../main.inc.php");
-if (! $res && file_exists("../../../../main.inc.php")) $res=@include("../../../../main.inc.php");
-if (! $res && file_exists("../../../../../main.inc.php")) $res=@include("../../../../../main.inc.php");
 if (! $res && preg_match('/\/nltechno([^\/]*)\//',$_SERVER["PHP_SELF"],$reg)) $res=@include("../../../dolibarr".$reg[1]."/htdocs/main.inc.php"); // Used on dev env only
 if (! $res) die("Include of main fails");
 require_once(DOL_DOCUMENT_ROOT."/user/class/user.class.php");
@@ -46,7 +45,6 @@ $langs->load("bills");
 $langs->load("orders");
 $langs->load("ovh@ovh");
 
-//eregi_replace($script_file,'',$_SERVER["PHP_SELF"]);
 $url_pdf="https://www.ovh.com/cgi-bin/order/facture.pdf";
 
 $action=GETPOST('action');
@@ -405,7 +403,7 @@ if ($action == 'refresh')
 	                	$facfou->fetch($facid);
 
 	                	$ref=dol_sanitizeFileName($facfou->ref);
-	                    $upload_dir = $conf->fournisseur->facture->dir_output.'/'.get_exdir($facfou->id,2).$ref;
+	                    $upload_dir = $conf->fournisseur->facture->dir_output.'/'.get_exdir($facfou->id,2,0,0,$facfou,'invoice_supplier').$ref;
 
 	                    $file_name=($upload_dir."/".$facfou->ref_supplier.".pdf");
 	                    $file_name_bis=($upload_dir."/".$facfou->ref.'_'.$facfou->ref_supplier.".pdf");

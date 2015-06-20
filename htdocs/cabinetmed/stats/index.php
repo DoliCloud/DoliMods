@@ -197,7 +197,7 @@ foreach ($data as $val)
 	{	// If we have empty year
 		$oldyear--;
 		print '<tr height="24">';
-		print '<td align="center"><a href="month.php?year='.$oldyear.'&amp;mode='.$mode.'">'.$oldyear.'</a></td>';
+		print '<td align="center">'.$oldyear.'</td>';
 		print '<td align="right">0</td>';
 		print '<td align="right">0</td>';
 		print '<td align="right">0</td>';

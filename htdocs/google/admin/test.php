@@ -32,7 +32,6 @@ $sql.= ", priority = '".$event->priority."'";
 $sql.= ", fulldayevent = '".$event->fulldayevent."'";
 $sql.= ", fk_user_mod = '".$user->id."'";
 $sql.= ", fk_user_action=2";
-$sql.= ", fk_user_done=".($event->userdone->id > 0 ? "'".$event->userdone->id."'":"null");
 $sql.= " WHERE id=".$event->id;
 
 if ($db->query($sql))

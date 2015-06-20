@@ -134,25 +134,6 @@ print '</form>';
 print '</div>';
 
 
-// Put here content of your page
-// ...
-
-
-/***************************************************
-* LINKED OBJECT BLOCK
-*
-* Put here code to view linked object
-****************************************************/
-/*$myobject->load_object_linked($myobject->id,$myobject->element);
-
-foreach($myobject->linked_object as $object => $objectid)
-{
-	if($conf->$object->enabled)
-	{
-		$somethingshown=$myobject->showLinkedObjectBlock($object,$objectid,$somethingshown);
-	}
-}*/
-
 // End of page
 $db->close();
 llxFooter('$Date: 2010/07/14 11:19:25 $ - $Revision: 1.13 $');

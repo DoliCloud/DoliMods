@@ -219,8 +219,8 @@ if ($resql)
 	while ($i < $num)
 	{
 		$obj=$db->fetch_object($resql);
-		if ($obj->x < $startyear."01") continue;
-		if ($obj->x > $endyear."12") continue;
+		if ($obj->x < $startyear."01") { $i++; continue; }
+		if ($obj->x > $endyear."12") { $i++; continue; }
 
 		if ($oldx && $oldx != $obj->x)
 		{
@@ -268,8 +268,9 @@ if ($resql)
 	while ($i < $num)
 	{
 		$obj=$db->fetch_object($resql);
-		if ($obj->x < $startyear."01") continue;
-		if ($obj->x > $endyear."12") continue;
+
+		if ($obj->x < $startyear."01") { $i++; continue; }
+		if ($obj->x > $endyear."12") { $i++; continue; }
 
 		if ($oldx && $oldx != $obj->x)
 		{
@@ -379,4 +380,4 @@ print '</center></div></div>';
 llxFooter();
 
 $db->close();
-?>
+

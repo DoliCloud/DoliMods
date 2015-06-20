@@ -1,11 +1,11 @@
 <?php
 
 $res=0;
+if (! $res && ! empty($_SERVER["CONTEXT_DOCUMENT_ROOT"])) $res=@include($_SERVER["CONTEXT_DOCUMENT_ROOT"]."/main.inc.php");
 if (! $res && file_exists("../main.inc.php")) $res=@include("../main.inc.php");
 if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.php");
 if (! $res && file_exists("../../../main.inc.php")) $res=@include("../../../main.inc.php");
 if (! $res && file_exists("../../../../main.inc.php")) $res=@include("../../../../main.inc.php");
-if (! $res && file_exists("../../../../../main.inc.php")) $res=@include("../../../../../main.inc.php");
 if (! $res && preg_match('/\/nltechno([^\/]*)\//',$_SERVER["PHP_SELF"],$reg)) $res=@include("../../../../dolibarr".$reg[1]."/htdocs/main.inc.php"); // Used on dev env only
 if (! $res) die("Include of main fails");
 dol_include_once('/ovh/class/ovh.class.php');
@@ -23,6 +23,7 @@ require_once(NUSOAP_PATH.'/nusoap.php');     // Include SOAP
 $langs->load("ovh@ovh");
 $langs->load("admin");
 $langs->load("companies");
+$langs->load("sms");
 
 $error=0;
 
@@ -245,7 +246,7 @@ if ($action == 'preimport')
                     if($facfou->fk_statut == 0)
                     {
                         $ref=dol_sanitizeFileName($facfou->ref);
-                        $upload_dir = $conf->fournisseur->facture->dir_output.'/'.get_exdir($facfou->id,2).$ref;
+                        $upload_dir = $conf->fournisseur->facture->dir_output.'/'.get_exdir($facfou->id,2,0,0,$facfou,'invoice_supplier').$ref;
 
                         if (! is_dir($upload_dir)) dol_mkdir($upload_dir);
 

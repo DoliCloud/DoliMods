@@ -52,7 +52,6 @@ include_once(DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php');
 
 
 
-
 /*
  *	Main
  */
