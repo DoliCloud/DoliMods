@@ -19,7 +19,7 @@
  */
 
 /**
- *	\file       htdocs/societe/societe.php
+ *	\file       htdocs/societe/list.php
  *	\ingroup    societe
  *	\brief      Page to show a third party
  */
@@ -175,7 +175,6 @@ if ($socname)
  */
 /*
  REM: Regle sur droits "Voir tous les clients"
- REM: Exemple, voir la page societe.php dans le mode liste.
  Utilisateur interne socid=0 + Droits voir tous clients        => Voit toute societe
  Utilisateur interne socid=0 + Pas de droits voir tous clients => Ne voit que les societes liees comme commercial
  Utilisateur externe socid=x + Droits voir tous clients        => Ne voit que lui meme
