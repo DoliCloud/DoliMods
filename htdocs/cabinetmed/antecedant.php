@@ -226,7 +226,10 @@ if ($socid > 0)
     print '<div class="fichecenter"><div class="fichehalfleft">';
     print '<table class="border" width="100%" style="margin-bottom: 2px !important;">';
 
-    $conf->fckeditor->enabled=false;	// Disable fckeditor
+    // Force disable fckeditor
+    if (! isset($conf->fckeditor)) $conf->fckeditor = new stdClass();
+    $conf->fckeditor->enabled=false;
+
     $height=120;
 
     print '<tr height="80"><td valign="top" width="25%">'.$langs->trans("AntecedentsMed");

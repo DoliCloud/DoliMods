@@ -45,4 +45,4 @@ if ($db->query($sql))
 	echo '</pre>';
 }
 
-?>
+

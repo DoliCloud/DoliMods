@@ -194,5 +194,3 @@ class modGoogle extends DolibarrModules
 		return $this->_load_tables('/google/sql/');
 	}
 }
-
-?>

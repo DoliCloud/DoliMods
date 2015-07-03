@@ -74,6 +74,8 @@ class box_googlemaps extends ModeleBoxes
 		$langs->load("boxes");
 		$langs->load("google@google");
 
+		$something = 0;
+
         $this->info_box_head = array('text' => $langs->trans("BoxMaps",$max));
 
         $i=0;
