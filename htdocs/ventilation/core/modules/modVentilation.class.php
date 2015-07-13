@@ -37,9 +37,9 @@ class modVentilation extends DolibarrModules
 	 *		\brief	Constructeur. definit les noms, constantes et boites
 	 * 		\param	DB	handler d'acces base
 	 */
-	function modVentilation ($DB)
+	function __construct ($db)
 	{
-		$this->db = $DB;
+		$this->db = $db;
 		$this->numero = 61000;
 
 		$this->family = "financial";
