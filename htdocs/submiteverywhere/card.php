@@ -107,7 +107,7 @@ if ($action == 'sendallconfirmed' && $confirm == 'yes')
 	$object=new SubmitewMessage($db);
 	$result=$object->fetch($id);
 
-	$upload_dir = $conf->submiteverywhere->dir_output . "/" . get_exdir($object->id,2,0,1);
+	$upload_dir = $conf->submiteverywhere->dir_output . "/" . get_exdir($object->id,2,0,1,$object,'submiteverywhere');
 
 	if ($object->statut == 0)
 	{
@@ -296,7 +296,7 @@ if ($action == 'send' && empty($_POST["cancel"]))
 
 	$error=0;
 
-	$upload_dir = $conf->mailing->dir_output . "/" . get_exdir($object->id,2,0,1);
+	$upload_dir = $conf->mailing->dir_output . "/" . get_exdir($object->id,2,0,1,$object,'submiteverywhere');
 
 	$object->sendto = $_POST["sendto"];
 	if (! $object->sendto)
@@ -393,7 +393,7 @@ if ($action == 'setdesc' || $action == 'setfrom' || $action == 'setreplyto' || $
 	$object = new SubmitewMessage($db);
 	$object->fetch($id);
 
-	$upload_dir = $conf->mailing->dir_output . "/" . get_exdir($object->id,2,0,1);
+	$upload_dir = $conf->mailing->dir_output . "/" . get_exdir($object->id,2,0,1,$object,'submiteverywhere');
 
 	if ($action == 'setdesc')     $object->label          = trim($_REQUEST["desc"]);
 	if ($action == 'setfrom')     $object->email_from     = trim($_REQUEST["from"]);
@@ -423,7 +423,7 @@ if (! empty($_POST["removedfileid"]))
 	$object = new SubmitewMessage($db);
 	$object->fetch($id);
 
-	$upload_dir = $conf->mailing->dir_output . "/" . get_exdir($object->id,2,0,1);
+	$upload_dir = $conf->mailing->dir_output . "/" . get_exdir($object->id,2,0,1,$object,'submiteverywhere');
 
 	$listofpaths=dol_dir_list($upload_dir,'all',0,'','','name',SORT_ASC,0);
 
@@ -451,7 +451,7 @@ if ($action == 'update' && empty($_POST["removedfile"]) && empty($_POST["cancel"
 	if (! empty($_POST["addfile"]) && ! empty($conf->global->MAIN_UPLOAD_DOC))
 	{
 		$isupload=1;
-		$upload_dir = $conf->mailing->dir_output."/".get_exdir($object->id,2,0,1);
+		$upload_dir = $conf->mailing->dir_output."/".get_exdir($object->id,2,0,1,$object,'submiteverywhere');
 
 		$mesg=dol_add_file_process($upload_dir,0,1);
 	}
@@ -653,7 +653,7 @@ else
 {
 	if ($object->fetch($id) >= 0)
 	{
-		$upload_dir = $conf->mailing->dir_output . "/" . get_exdir($object->id,2,0,1);
+		$upload_dir = $conf->mailing->dir_output . "/" . get_exdir($object->id,2,0,1,$object,'submiteverywhere');
 
 		$head = submitew_prepare_head($object);
 

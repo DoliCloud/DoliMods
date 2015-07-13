@@ -30,16 +30,23 @@ GOOGLE_EVENT_LABEL_INC_SOCIETE=Inclure le nom de la société dans les évèneme
 GOOGLE_EVENT_LABEL_INC_CONTACT=Inclure le nom du contact dans les évènements en rapport avec un contact
 GOOGLE_CONTACT_LABEL=Etiquette pour tagguer les contacts
 MAIN_GOOGLE_AN_ID=Google analytics ID
+GoogleIDContact=Google Compte
+GoogleNoTokenYet=Vous n'avez encore aucun jeton. Pour en créer un, authentifiez-vous sur Google avec le lien suivant:
+GoogleRecreateToken=Pour forcer la création d'un nouveau jeton, authentifiez-vous sur Google avec le lien suivant:
+GoogleDeleteToken=Pour effacer le jeton en cours:
+GoogleDeleteAuthorization=Pour supprimer les autorisations sauvées par Google:
 Module101110Name=Google
 Module101110Desc=Module pour intégrer les outils Google dans Dolibarr
 GoogleCalendarSyncConf=Configuration de la synchronisation de l'agenda
 KeepEmptyYoUseLoginPassOfEventUser=Laisser vide pour utiliser la configuration de synchronisation de l'utilisateur qui est le propriétaire de l'événement (configuré sur la fiche de chaque utilisateur). Dans ce cas, chaque évenement n'est synchronisé que vers un et un seul agenda qui sera celui du propriétaire de l'événement (pas de synchronisation si la configuration pour cet utilisateur n'est pas faite).
 KeepEmptyYoUsePublicQuotaOfAPI=Laisser vide pour utiliser le quota publique de cette API (sinon la clé peut être créée depuis la page https://code.google.com/apis/console/, "API Access" pour créer une "Server key" et "Services" pour activer l'API "%s")
 AllowGoogleToLoginWithKey=Pour utiliser le quotas de votre propre compte Google, vous devez créer une clé depuis la page <a href="%s" target="_blank">%s</a>, menu "API & Authentification" -> "Indentification" . Cliquer sur "Créer un clé" et choisir "Clé serveur" puis "Créer". Vous obtiendrez votre clé serveur.
+AllowGoogleToLoginWithClientID=Vous pouvez créer votre <strong>Google Client ID et Secret</strong> depuis la page <a href="%s" target="_blank">%s</a>, menu "API & Authentication" -> "Identifiants". Cliquer sur "Créer un client ID" et choisir "Web Application", positionner "Allowed Javascript origin" à vide et positionner "URI de Redirection" sur<br><strong>%s</strong><br>ensuite cliquer sur "Créer". Vou sobtiendrez un nouveau <strong>Client ID</strong>, <strong>Adresse email client</strong> et un <strong>Code secret du client</strong>. Vous devez entrer ici le <strong>Client ID</strong> et le <strong>Code secret client</strong> sur la ligne suivante.
+AllowGoogleToLoginWithClientSecret=Voir note précédente pour savoir comment obtenir un Google Secret client.
 AllowGoogleToLoginWithServiceAccount=Vous pouvez créer votre <strong>utilisateur/email compte de service</strong> depuis la page <a href="%s" target="_blank">%s</a>, menu "API & Authentification" -> "Identifiants" . Cliquer sur "Créer un client ID" et choisir "Compte de service" puis "Créer". Vous obtiendrez vote nouveau compte de service avec un <strong>ID client de compte de service</strong> et un <strong>Email de compte de service</strong>.
 AllowGoogleToLoginWithServiceAccountP12=Une fois que vous avez créez votre user/email compte de service (voir note précédente), vous devez télécharger votre <strong>fichier sécurité p12</strong>. Aller sur la page <a href="%s" target="_blank">%s</a> et sélectionnez "API & Authentification" -> "Identifiants". Cliquez sur "Génerer clé p12" pour télécharger le fichier sur votre bureau. Ensuite, soumettez le via le formulaire. 
 EnableAPI=Vous devez aussi activer les API pour votre compte Google. Pour cela, aller sur la page <a href="%s" target="_blank">%s</a>, menu "API & Authentification" -> "API". Cliquer sur activer API pour "%s".  
-ShareCalendarWithServiceAccount=Vous devez aussi partager l'agenda (permissions complètes, avec le compte de service <strong>%s</strong>. Pour cela, aller dans Google calendar, choisir "Paramètres" puis l'onglet "Agendas" (accès direct via <a href="https://www.google.com/calendar/render?tab=mc#i" target="_blank">ce lien</a>). Cliquer sur le lien "Partagé: paramètres" à la fin de la ligne de l'Agenda à mettre à jour (Il doit s'agir du même ID d'agenda que celui renseigné au niveau du paramètre "%s"). Puis ajouter l'utilisateur/email du compte de service dans le champ Email, choisir les permissions les plus complètes et valider en cliquant "Ajouter utilisateur". Avec <strong>Google Apps for work</strong> (non requis pour les comptes gmail standard), si les permissions sont forcés sur "Lecture seule" au lieu de "Editer", aller sur la page <a href="https://admin.google.com/AdminHome#AppDetails:service=Calendar&flyout=sharing">https://admin.google.com/AdminHome#AppDetails:service=Calendar&flyout=sharing</a> et vérifiez que l'option de partage de l'Application Agenda autorise le partage à des comptes externes. 
+ShareCalendarWithServiceAccount=Vous devez aussi partager l'agenda (permissions complètes, avec le compte de service <strong>%s</strong>. Pour cela, aller dans Google calendar, choisir "Paramètres" puis l'onglet "Agendas" (accès direct via <a href="https://www.google.com/calendar/render?tab=mc#i" target="_blank">ce lien</a>). Cliquer sur le lien "Partagé: paramètres" à la fin de la ligne de l'Agenda à mettre à jour (Il doit s'agir du même ID d'agenda que celui renseigné au niveau du paramètre "%s"). Puis ajouter l'utilisateur/email du compte de service dans le champ Email, choisir les permissions les plus complètes et valider en cliquant "Ajouter utilisateur". Avec <strong>Google Apps for work</strong> (non requis pour les comptes gmail standard), si les permissions sont forcés sur "Lecture seule" au lieu de "Editer", aller sur la page <a href="https://admin.google.com/AdminHome?pli=1&fral=1#AppDetails:service=Calendar&flyout=sharing" target="_blank">https://admin.google.com/AdminHome?pli=1&fral=1#AppDetails:service=Calendar&flyout=sharing</a> et vérifiez que l'option de partage de l'Application Agenda autorise le partage à des comptes externes. 
 GOOGLE_API_SERVERKEY=Clé API (de type "Server key")
 GoogleUserConf=Configuration Google
 GoogleSetupIsGlobal=La synchronisation est faite de manière globale vers l'agenda <strong>%s</strong> pour tout le monde
@@ -83,6 +90,7 @@ ParametersForGoogleAPIv2Usage=Pour Google API %s V2
 ParametersForGoogleAPIv3Usage=Pour Google API %s V3
 GoogleClientId=Client ID
 GoogleClientSecret=Client secret
+GOOGLE_WEB_TOKEN=Jeton en cours
 GOOGLE_FIX_TZ=Correctif du TimeZone
 GOOGLE_API_SERVICEACCOUNT_CLIENT_ID=ID client du compte de service
 GOOGLE_API_SERVICEACCOUNT_EMAIL=User/email du compte de service (PAS votre compte login/email Google)
@@ -99,3 +107,6 @@ LinkToContact=Lien vers le contact
 GoogleContactSyncInfo=Utilisez ici un libellé de groupe de votre choix. Le groupe sera créé dans Google Contact si il n'existe pas. Vous pouvez aussi utiliser un des libellés de groupes systèmes prédéfinis par Google comme:<br>"System Group: My Contacts", "System Group: Friend", "System Group: CoWorker", "System Group: Family"<br>Notez aussi que seul le groupe système prédéfini "System Group: My Contacts" est partagé par la fonction "Delegation de contacts" de Google contact (Google Apps Business/Pro).
 XRecordDeleted=<strong>%s</strong> enregistrements effacés
 ThisFieldIsAGlobalSetup=Ce champ est défini de manière global au module par l'administrateur
+FillAndSaveGoogleAccount=Remplissez et sauver le compte Google, le Google Client ID et le Google Secret d'abord
+LinkToOAuthPage=Lien vers la page d'authentification Google OAuth2
+GoogleWebTokenNotDefinedDoALoginInitFirst=Le jeton Google n'a jamais été généré. Demandez à votre administreur d'aller dans 'Accueil - Configuration - Modules - Google - Configuration de la page sync contact' et générer une fois pour toute le jeton de sécurité.  

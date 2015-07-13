@@ -26,8 +26,7 @@
 
 
 /**
- *	\class      FormFileCabinetmed
- *	\brief      Class to offer components to list and upload files
+ *	FormFileCabinetmed
  */
 class FormFileCabinetmed
 {

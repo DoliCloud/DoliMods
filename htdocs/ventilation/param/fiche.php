@@ -64,12 +64,12 @@ if (GETPOST("action") == 'add' && $user->rights->compta->ventilation->parametrer
     {
       if ($res == -3)
 		{
-		  $_error = 1;
+		  $error = 1;
 		  $action = "create";
 		}
 	      if ($res == -4)
 		{
-		  $_error = 2;
+		  $error = 2;
 		  $action = "create";
 		}
     }
@@ -119,11 +119,11 @@ if ($action == 'create' && $user->rights->compta->ventilation->parametrer)
     print '<table class="border" width="100%">';
     print '<tr>';
     print '<td>'.$langs->trans("AccountNumber").'</td><td><input name="numero" size="20" value="'.$compte->numero.'">';
-    if ($_error == 1)
+    if ($error == 1)
     {
-        print "Ce num�ro de compte existe d�j�";
+        print "Ce numero de compte existe deja";
     }
-    if ($_error == 2)
+    if ($error == 2)
     {
         print "Valeur(s) manquante(s)";
     }

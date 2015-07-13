@@ -34,6 +34,7 @@ if (! $res) die("Include of main fails");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
 require_once(DOL_DOCUMENT_ROOT.'/core/class/html.formadmin.class.php');
 require_once(DOL_DOCUMENT_ROOT.'/core/class/html.formother.class.php');
+require_once(DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php');
 
 
 if (!$user->admin) accessforbidden();
@@ -78,9 +79,18 @@ if ($action == 'set')
 
 if ($action == 'setcolor')
 {
-	$res = dolibarr_set_const($db, 'THEME_ELDY_RGB', GETPOST('THEME_ELDY_RGB'),'chaine',0,'',$conf->entity);
+	//$res = dolibarr_set_const($db, 'THEME_ELDY_RGB', GETPOST('THEME_ELDY_RGB'),'chaine',0,'',$conf->entity);
 	$res = dolibarr_set_const($db, 'THEME_ELDY_FONT_SIZE1', GETPOST('THEME_ELDY_FONT_SIZE1'),'chaine',0,'',$conf->entity);
 	$res = dolibarr_set_const($db, 'THEME_ELDY_USE_HOVER', GETPOST('THEME_ELDY_USE_HOVER'),'chaine',0,'',$conf->entity);
+
+    $res = dolibarr_set_const($db, 'THEME_ELDY_TOPMENU_BACK1', join(',',colorStringToArray(GETPOST('THEME_ELDY_TOPMENU_BACK1'),array())),'chaine',0,'',$conf->entity);
+    $res = dolibarr_set_const($db, 'THEME_ELDY_VERMENU_BACK1', join(',',colorStringToArray(GETPOST('THEME_ELDY_VERMENU_BACK1'),array())),'chaine',0,'',$conf->entity);
+    $res = dolibarr_set_const($db, 'THEME_ELDY_BACKBODY', join(',',colorStringToArray(GETPOST('THEME_ELDY_BACKBODY'),array())),'chaine',0,'',$conf->entity);
+
+    // Tables
+    $res = dolibarr_set_const($db, 'THEME_ELDY_BACKTITLE1', join(',',colorStringToArray(GETPOST('THEME_ELDY_BACKTITLE1'),array())),'chaine',0,'',$conf->entity);
+    $res = dolibarr_set_const($db, 'THEME_ELDY_LINEIMPAIR1', join(',',colorStringToArray(GETPOST('THEME_ELDY_LINEIMPAIR1'),array())),'chaine',0,'',$conf->entity);
+    $res = dolibarr_set_const($db, 'THEME_ELDY_LINEPAIR1', join(',',colorStringToArray(GETPOST('THEME_ELDY_LINEPAIR1'),array())),'chaine',0,'',$conf->entity);
 
 	if (! $res > 0) $error++;
  	if (! $error)
@@ -176,15 +186,39 @@ if (! empty($conf->global->THEME_ELDY_ENABLE_PERSONALIZED))
 
     print '<form name="formcolor" method="POST" action="'.$_SERVER["PHP_SELF"].'">';
     print '<input type="hidden" name="action" value="setcolor">';
-    print $langs->trans("SelectMainColor").' ';
-    $defcolor=dechex(235).dechex(235).dechex(235);
-    if (isset($conf->global->THEME_ELDY_RGB)) $defcolor=$conf->global->THEME_ELDY_RGB;
 
+    //print $langs->trans("SelectMainColor").' ';
+    //$defcolor=dechex(235).dechex(235).dechex(235);
+    //if (isset($conf->global->THEME_ELDY_RGB)) $defcolor=$conf->global->THEME_ELDY_RGB;
     // Color
-    print $formother->selectColor($defcolor,'THEME_ELDY_RGB','formcolor',1).'<br><br>';
+    //print $formother->selectColor($defcolor,'THEME_ELDY_RGB','formcolor',1).'<br><br>';
 
     // Font size
     print $langs->trans("FontSize").': <input type="text" class="flat" name="THEME_ELDY_FONT_SIZE1" size="4" value="'.$conf->global->THEME_ELDY_FONT_SIZE1.'"><br>';
+	print '<br>';
+
+    print $langs->trans("BackgroundColor").' ';
+    print $formother->selectColor(colorArrayToHex(colorStringToArray($conf->global->THEME_ELDY_BACKBODY,array()),''),'THEME_ELDY_BACKBODY','formcolor',1).'<br><br>';
+
+	print $langs->trans("TopMenuBackgroundColor").' ';
+    print $formother->selectColor(colorArrayToHex(colorStringToArray($conf->global->THEME_ELDY_TOPMENU_BACK1,array()),''),'THEME_ELDY_TOPMENU_BACK1','formcolor',1).'<br><br>';
+    //print $langs->trans("TopMenuFontColor").' ';
+    //print $formother->selectColor($conf->global->THEME_ELDY_TOPMENU_BACK1,'THEME_ELDY_TOPMENU_BACK1','formcolor',1).'<br><br>';
+
+    print $langs->trans("LeftMenuBackgroundColor").' ';
+    print $formother->selectColor(colorArrayToHex(colorStringToArray($conf->global->THEME_ELDY_VERMENU_BACK1,array()),''),'THEME_ELDY_VERMENU_BACK1','formcolor',1).'<br><br>';
+    //print $langs->trans("LeftMenuFontColor").' ';
+    //print $formother->selectColor($conf->global->THEME_ELDY_TOPMENU_BACK1,'THEME_ELDY_TOPMENU_BACK1','formcolor',1).'<br><br>';
+
+    print $langs->trans("BackgroundTableTitleColor").' ';
+    print $formother->selectColor(colorArrayToHex(colorStringToArray($conf->global->THEME_ELDY_BACKTITLE1,array()),''),'THEME_ELDY_BACKTITLE1','formcolor',1).'<br><br>';
+
+    print $langs->trans("BackgroundTableLineOddColor").' ';
+    print $formother->selectColor(colorArrayToHex(colorStringToArray($conf->global->THEME_ELDY_LINEIMPAIR1,array()),''),'THEME_ELDY_LINEIMPAIR1','formcolor',1).'<br><br>';
+
+    print $langs->trans("BackgroundTableLineEvenColor").' ';
+    print $formother->selectColor(colorArrayToHex(colorStringToArray($conf->global->THEME_ELDY_LINEPAIR1,array()),''),'THEME_ELDY_LINEPAIR1','formcolor',1).'<br><br>';
+
 
     // Use hover
     print $langs->trans("UseHoverOnLists").': <input type="checkbox" class="flat" name="THEME_ELDY_USE_HOVER" '.(empty($conf->global->THEME_ELDY_USE_HOVER)?'':' checked="checked"').'"><br>';
@@ -201,4 +235,3 @@ dol_fiche_end();
 llxFooter();
 
 if (is_object($db)) $db->close();
-?>

@@ -182,7 +182,7 @@ print_liste_field_titre($langs->trans('CustomerCode'),$_SERVER['PHP_SELF'],'s.co
 print_liste_field_titre($langs->trans('Zip'),$_SERVER['PHP_SELF'],'s.zip','',$param,'',$sortfield,$sortorder);
 print_liste_field_titre($langs->trans('Town'),$_SERVER['PHP_SELF'],'s.town','',$param,'',$sortfield,$sortorder);
 print_liste_field_titre($langs->trans('DateToBirth'),$_SERVER['PHP_SELF'],'','',$param,'',$sortfield,$sortorder);
-print_liste_field_titre();
+print_liste_field_titre('');
 print '</tr>';
 
 

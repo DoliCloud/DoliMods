@@ -63,7 +63,7 @@ print '<div class="fichecenter"><div class="fichethirdleft">';
  * Search area
  */
 $rowspan=2;
-print '<form method="post" action="'.DOL_URL_ROOT.'/societe/societe.php">';
+print '<form method="post" action="'.DOL_URL_ROOT.'/societe/list.php">';
 print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
 print '<table class="noborder" width="100%">';
 print '<tr class="liste_titre">';

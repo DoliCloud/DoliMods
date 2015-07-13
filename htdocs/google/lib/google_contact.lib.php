@@ -24,28 +24,7 @@
  */
 
 dol_include_once("/google/lib/google.lib.php");
-
-$path = dol_buildpath('/google/includes/zendgdata');
-set_include_path(get_include_path() . PATH_SEPARATOR . $path);
-
-require_once('Zend/Loader.php');
-Zend_Loader::loadClass('Zend_Gdata');
-Zend_Loader::loadClass('Zend_Gdata_AuthSub');
-Zend_Loader::loadClass('Zend_Gdata_ClientLogin');
-Zend_Loader::loadClass('Zend_Gdata_HttpClient');
-Zend_Loader::loadClass('Zend_Gdata_Contacts');
-Zend_Loader::loadClass('Zend_Gdata_Query');
-Zend_Loader::loadClass('Zend_Gdata_Feed');
-
-/**
- * @var string Location of AuthSub key file.  include_path is used to find this
- */
-$_authSubKeyFile = null; // Example value for secure use: 'mykey.pem'
-
-/**
- * @var string Passphrase for AuthSub key file.
- */
-$_authSubKeyFilePassphrase = null;
+include_once DOL_DOCUMENT_ROOT.'/core/lib/geturl.lib.php';
 
 
 define('ATOM_NAME_SPACE','http://www.w3.org/2005/Atom');
@@ -60,34 +39,6 @@ define('REL_WORK_FAX','http://schemas.google.com/g/2005#work_fax');
 
 
 /**
- * Returns a HTTP client object with the appropriate headers for communicating
- * with Google using the ClientLogin credentials supplied.
- *
- * @param  	string 	$user 		The username, in e-mail address format, to authenticate
- * @param  	string 	$pass 		The password for the user specified
- * @param	string	$service	The service to use (cp = calendar, cl=contact, ... Search on AUTH_SERVICE_NAME into Zend API for full list)
- * @return 	Zend_Http_Client
- */
-function getClientLoginHttpClientContact($user, $pass, $service)
-{
-	global $tag_debug;
-
-	$tag_debug='clientlogin';
-
-	$client=null;
-
-	try {
-		dol_syslog("getClientLoginHttpClientContact user=".$user." pass=".preg_replace('/./','*',$pass)." service=".$service, LOG_DEBUG);
-		$client = Zend_Gdata_ClientLogin::getHttpClient($user, $pass, $service);
-	}
-	catch(Exception $e)
-	{
-
-	}
-	return $client;
-}
-
-/**
  * Return value of tag to add at end of comment into Google comments
  *
  * @return	string		Value of tag
@@ -98,17 +49,23 @@ function getCommentIDTag()
 }
 
 
+
+
 /**
  * Creates an event on the authenticated user's default calendar with the
  * specified event details.
  *
- * @param  Zend_Http_Client $client		The authenticated client object
- * @param  string			$object		Source object into Dolibarr
- * @param  string			$useremail	User email
- * @return string 						The ID URL for the event.
+ * @param  array	$client   		Service array with authenticated client object
+ * @param  string	$object	   		Source object into Dolibarr
+ * @param  string	$useremail		User email
+ * @return string 					The ID URL for the contact or 'ERROR xxx' if error.
  */
 function googleCreateContact($client, $object, $useremail='default')
 {
+	global $conf, $db, $langs;
+	global $dolibarr_main_url_root;
+	global $user;
+
 	global $conf,$langs;
 	global $tag_debug;
 
@@ -121,8 +78,7 @@ function googleCreateContact($client, $object, $useremail='default')
 	$doc  = new DOMDocument("1.0", "utf-8");
 	try {
 		// perform login and set protocol version to 3.0
-		$gdata = new Zend_Gdata($client);
-		$gdata->setMajorProtocolVersion(3);
+		$gdata=$client;
 
 		$idindolibarr=$object->id.'/'.($object->element=='societe'?'thirdparty':$object->element);
 		$paramtogettag=array('societe'=>'thirdparties','contact'=>'contacts','member'=>'members');
@@ -152,13 +108,13 @@ function googleCreateContact($client, $object, $useremail='default')
 		}
 		else
 		{
-			$fullName = $doc->createElement('gd:fullName', $object->name);
+			$fullName = $doc->createElement('gd:fullName', dolEscapeXML($object->name));
 		}
 		$name->appendChild($fullName);
 
 		// Element
 		$email = $doc->createElement('gd:email');
-		$email->setAttribute('address', ($object->email?$object->email:((empty($object->name)?$object->lastname.$object->firstname:$object->name).'@noemail.com')));
+		$email->setAttribute('address', ($object->email?$object->email:(strtolower(preg_replace('/\s/','',(empty($object->name)?$object->lastname.$object->firstname:$object->name)).'@noemail.com'))));
 		$email->setAttribute('rel', 'http://schemas.google.com/g/2005#home');
 		$entry->appendChild($email);
 
@@ -168,17 +124,20 @@ function googleCreateContact($client, $object, $useremail='default')
 		$address->setAttribute('primary', 'true');
 		$entry->appendChild($address);
 
-			$city = $doc->createElement('gd:city', $object->town);
+			$city = $doc->createElement('gd:city', dolEscapeXML($object->town));
 			if (! empty($object->town))	$address->appendChild($city);
-			$street = $doc->createElement('gd:street', $object->address);
+			$street = $doc->createElement('gd:street', dolEscapeXML($object->address));
 			if (! empty($object->address)) $address->appendChild($street);
-			$postcode = $doc->createElement('gd:postcode', $object->zip);
+			$postcode = $doc->createElement('gd:postcode', dolEscapeXML($object->zip));
 			if (! empty($object->zip))	    $address->appendChild($postcode);
-			/*$tmpstate=getState($object->state_id,0);
-			$region = $doc->createElement('gd:region', $tmpstate);
-			if ($tmpstate) $address->appendChild($region);*/
+
+			$tmpstate=($object->state_id>0?getState($object->state_id):'');
+			$tmpstate=dol_html_entity_decode($tmpstate,ENT_QUOTES);	// Should not be required. It is here because some bugged version of getState return a string with entities instead of utf8 with no entities
+			$region = $doc->createElement('gd:region', dolEscapeXML($tmpstate));
+			if ($tmpstate) $address->appendChild($region);
+
 			$tmpcountry=getCountry($object->country_id,0,'',$langs,0);
-			$country = $doc->createElement('gd:country', $tmpcountry);
+			$country = $doc->createElement('gd:country', dolEscapeXML($tmpcountry));
 			if ($tmpcountry) $address->appendChild($country);
 			/*
 			$formattedaddress = $doc->createElement('gd:formattedAddress', 'eeeee');
@@ -316,17 +275,56 @@ function googleCreateContact($client, $object, $useremail='default')
 		@chmod(DOL_DATA_ROOT . "/dolibarr_google_createcontact.xml", octdec(empty($conf->global->MAIN_UMASK)?'0664':$conf->global->MAIN_UMASK));
 		// you can view this file with 'xmlstarlet fo dolibarr_google_createcontact.xml' command
 
+		$id = '';
+
+		$tmp=json_decode($gdata['google_web_token']);
+		$access_token=$tmp->access_token;
+		$addheaders=array('GData-Version'=>'3.0', 'Authorization'=>'Bearer '.$access_token, 'Content-Type'=>'application/atom+xml');
+		$addheaderscurl=array('GData-Version: 3.0', 'Authorization: Bearer '.$access_token, 'Content-Type: application/atom+xml');
+
 		// insert entry
-		$entryResult = $gdata->insertEntry($xmlStr,	'https://www.google.com/m8/feeds/contacts/'.$useremail.'/full');
+		//$entryResult = $gdata->insertEntry($xmlStr,	'https://www.google.com/m8/feeds/contacts/'.$useremail.'/full');
+		$response = getURLContent('https://www.google.com/m8/feeds/contacts/'.$useremail.'/full', 'POST', $xmlStr, 1, $addheaderscurl);
+		if ($response['content'] && $response['content'] != 'Not found')
+		{
+			try {
+				$document = new DOMDocument("1.0", "utf-8");
+				$document->loadXml($response['content']);
+
+				$errorselem = $document->getElementsByTagName("errors");
+				//var_dump($errorselem);
+				//var_dump($errorselem->length);
+				//var_dump(count($errorselem));
+				if ($errorselem->length)
+				{
+					dol_syslog($response['content'], LOG_ERR);
+					return 'ERROR: Creation of record on Google returns an error';
+				}
+
+				$entries = $document->getElementsByTagName("id");
+				foreach ($entries as $entry)
+				{
+					$id = basename($entry->nodeValue);
+					break;
+				}
+			} catch (Exception $e) {
+				die('ERROR:' . $e->getMessage());
+			}
+		}
+
 
 		//var_dump($doc->saveXML());exit;
 		//echo 'The id of the new entry is: ' . $entryResult->getId().'<br>';
 
-		return $entryResult->getId();
+		return $id;
 	} catch (Exception $e) {
 		die('ERROR:' . $e->getMessage());
 	}
+
+	return $ret;
 }
+
+
 
 
 /**
@@ -334,60 +332,99 @@ function googleCreateContact($client, $object, $useremail='default')
  * the title specified.  Also outputs the new and old title
  * with HTML br elements separating the lines
  *
- * @param  Zend_Http_Client $client   		The authenticated client object
- * @param  string           $contactId  	The ref into Google contact
- * @param  Object           $object			Object
- * @param  string			$useremail		User email
- * @return string							Zend_Gdata id, 0 if not found, <0 if error
+ * @param  array		$client   		Array with tokens informations
+ * @param  string       $contactId  	The ref into Google contact
+ * @param  Object       $object			Object
+ * @param  string		$useremail		User email
+ * @return string						Google ref ID if OK, 0 if not found, <0 if KO
  */
 function googleUpdateContact($client, $contactId, $object, $useremail='default')
 {
-	global $conf,$langs;
+	global $conf, $db, $langs;
 	global $tag_debug;
+
+	$newcontactid=$contactId;
+	if (preg_match('/google\.com\/.*\/([^\/]+)$/',$contactId,$reg))
+	{
+		$newcontactid=$reg[1];
+	}
+	if (preg_match('/google:([^\/]+)$/',$contactId,$reg))
+	{
+		$newcontactid=$reg[1];
+	}
 
 	$tag_debug='updatecontact';
 
-	dol_syslog('googleUpdateContact object->id='.$object->id.' type='.$object->element.' ref_ext='.$object->ref_ext.' contactid='.$contactId);
+	dol_syslog('googleUpdateContact object->id='.$object->id.' type='.$object->element.' ref_ext='.$object->ref_ext.' contactid='.$newcontactid);
 
 	$google_nltechno_tag=getCommentIDTag();
 
 	// Fields: http://tools.ietf.org/html/rfc4287
+	$gdata=$client;
 
-	//$gdata = new Zend_Gdata_Contacts($client);
 	try {
-		$gdata = new Zend_Gdata($client);
-		$gdata->setMajorProtocolVersion(3);
+		$tmp=json_decode($gdata['google_web_token']);
+		$access_token=$tmp->access_token;
+		$addheaders=array('GData-Version'=>'3.0', 'Authorization'=>'Bearer '.$access_token);
+		$addheaderscurl=array('GData-Version: 3.0', 'Authorization: Bearer '.$access_token);
+		//$useremail='default';
+
+		//$request=new Google_Http_Request('https://www.google.com/m8/feeds/groups/'.urlencode($useremail).'/full?max-results=1000', 'GET', $addheaders, null);
+		//$result=$gdata['client']->execute($request);	// Return json_decoded string. May return an exception.
+		//$xmlStr=$result;
+
+		$result = getURLContent('https://www.google.com/m8/feeds/contacts/'.urlencode($useremail).'/base/'.$newcontactid, 'GET', '', 0, $addheaderscurl);
+		$xmlStr=$result['content'];
 
 		//$contactId='https://www.google.com/m8/feeds/contacts/eldy10%40gmail.com/base/4429b3590f5b343a';
 		//$contactId='https://www.google.com/m8/feeds/contacts/contact%40nltechno.com/base/ee6fc620dbab6d7';
-		$query = new Zend_Gdata_Query($contactId);
-		//$entryResult = $gdata->getEntry($query,'Zend_Gdata_Contacts_ListEntry');
-		$entryResult = $gdata->getEntry($query);
-	}
-	catch(Zend_Gdata_App_HttpException $e)
-	{
-		// Warning, with google apps, if link start with http instead of http it will fails too, but with error 401 !
-		if ($e->getResponse()->getStatus() == '404')
-		{
-			// Not found error.
-			dol_syslog('Failed to get record with ref='.$contactId.' '.$e->getMessage(), LOG_WARNING);
-			return 0;
-		}
-		else
-		{
-			dol_syslog('Failed to get record with ref='.$contactId.' '.$e->getMessage(), LOG_WARNING);
+		try {
+			$document = new DOMDocument("1.0", "utf-8");
+			$document->loadXml($result['content']);
+
+			$errorselem = $document->getElementsByTagName("errors");
+			//var_dump($errorselem);
+			//var_dump($errorselem->length);
+			//var_dump(count($errorselem));
+			if ($errorselem->length)
+			{
+				if (preg_match('/<code>notFound<\/code>/',$result['content']))
+				{
+					dol_syslog('Google server return message '.$result['content'].' so we leave with code 0', LOG_DEBUG);
+					return 0;
+				}
+				//dol_syslog('ERROR: '.$errorselem->item(0)->nodeValue, LOG_ERR);
+				dol_syslog('ERROR:'.$result['content'], LOG_ERR);
+				return -1;
+			}
+		} catch (Exception $e) {
+			dol_syslog('ERROR:'.$e->getMessage(), LOG_ERR);
 			return -1;
 		}
 	}
 	catch(Exception $e)
 	{
-		// Other error
-		dol_syslog('Failed to get record with ref='.$contactId.' '.$e->getMessage(), LOG_WARNING);
+		dol_syslog('ERROR:'.$e->getMessage(), LOG_ERR);
 		return -1;
 	}
 
+	// Warning, with google apps, if link start with http instead of http it will fails too, but with error 401 !
+	if ($result['curl_error_no'] == '404')
+	{
+		// Not found error.
+		dol_syslog('Failed to get record with ref='.$newcontactid.' '.$result['curl_error_msg'], LOG_WARNING);
+		return 0;
+	}
+	elseif ($result['curl_error_no'])
+	{
+		dol_syslog('Failed to get record with ref='.$newcontactid.' '.$result['curl_error_msg'], LOG_WARNING);
+		return -1;
+	}
+
+	$id = '';
+
 	try {
-		$xml = simplexml_load_string($entryResult->getXML());
+		$xml = simplexml_load_string($xmlStr);
 		//var_dump($xml);
 
 		if ($object->element != 'societe' && $object->element != 'thirdparty')
@@ -404,7 +441,7 @@ function googleUpdateContact($client, $contactId, $object, $useremail='default')
 		//$xml->name->additionnalName = 'xxx';
 		//$xml->name->nameSuffix = 'xxx';
 		//$xml->formattedAddress;
-		$xml->email['address'] = ($object->email?$object->email:((empty($object->name)?$object->lastname.$object->firstname:$object->name).'@noemail.com'));
+		$xml->email['address'] = ($object->email?$object->email:(strtolower(preg_replace('/\s/','',(empty($object->name)?$object->lastname.$object->firstname:$object->name))).'@noemail.com'));
 
 		// Address
 		unset($xml->structuredPostalAddress->formattedAddress);
@@ -412,8 +449,12 @@ function googleUpdateContact($client, $contactId, $object, $useremail='default')
 		if (! empty($object->town)) $xml->structuredPostalAddress->city=$object->town;
 		if (! empty($object->zip)) $xml->structuredPostalAddress->postcode=$object->zip;
 		if ($object->country_id > 0) $xml->structuredPostalAddress->country=($object->country_id>0?getCountry($object->country_id,0,'',$langs,0):'');
-		if ($object->state_id > 0) $xml->structuredPostalAddress->state=($object->state_id>0?getState($object->state_id):'');
-
+		if ($object->state_id > 0)
+		{
+			$tmpstate=($object->state_id>0?getState($object->state_id):'');
+			$tmpstate=dol_html_entity_decode($tmpstate,ENT_QUOTES);	// Should not be required. It is here because some bugged version of getState return a string with entities instead of utf8 with no entities
+			$xml->structuredPostalAddress->region=$tmpstate;
+		}
 		// Company + Function
 		if ($object->element == 'contact')
 		{
@@ -456,7 +497,7 @@ function googleUpdateContact($client, $contactId, $object, $useremail='default')
 		// We don't change this
 
 		// Comment
-		$tmpnote=$object->note;
+		$tmpnote=$object->note_private;
 		if (strpos($tmpnote, $google_nltechno_tag) === false) $tmpnote.="\n\n".$google_nltechno_tag.$object->id.'/'.($object->element=='societe'?'thirdparty':$object->element);
 		$xml->content=google_html_convert_entities($tmpnote);
 
@@ -492,6 +533,7 @@ function googleUpdateContact($client, $contactId, $object, $useremail='default')
 				$entry->appendChild($el);
 			}
 		}
+
 		/* Old code used when using SimpleXML object (not working)
 			foreach ($xml->website as $key => $val) {	// $key='@attributes' $val is an array('href'=>,'label'=>), however to set href it we must do $xml->website['href'] (it's a SimpleXML object)
 				$oldvalue=(string) $val['href'];
@@ -500,18 +542,52 @@ function googleUpdateContact($client, $contactId, $object, $useremail='default')
 			}
 		*/
 		//var_dump($xmlStr);exit;
-
 		$xmlStr=$doc->saveXML();
 
-		//List of properties to set visible with var_dump($xml->saveXML());exit;
-		$extra_header = array('If-Match'=>'*');
 
 		// uncomment for debugging :
 		file_put_contents(DOL_DATA_ROOT . "/dolibarr_google_updatecontact.xml", $xmlStr);
 		@chmod(DOL_DATA_ROOT . "/dolibarr_google_updatecontact.xml", octdec(empty($conf->global->MAIN_UMASK)?'0664':$conf->global->MAIN_UMASK));
 		// you can view this file with 'xmlstarlet fo dolibarr_google_updatecontact.xml' command
 
-		$newentryResult = $gdata->updateEntry($xmlStr, $entryResult->getEditLink()->href, null, $extra_header);
+		$tmp=json_decode($gdata['google_web_token']);
+		$access_token=$tmp->access_token;
+		$addheaders=array('If-Match'=>'*', 'GData-Version'=>'3.0', 'Authorization'=>'Bearer '.$access_token, 'Content-Type'=>'application/atom+xml');
+		$addheaderscurl=array('If-Match: *', 'GData-Version: 3.0', 'Authorization: Bearer '.$access_token, 'Content-Type: application/atom+xml');
+
+		// update entry
+		$response = getURLContent('https://www.google.com/m8/feeds/contacts/'.urlencode($useremail).'/base/'.$newcontactid, 'PUT', $xmlStr, 1, $addheaderscurl);
+		if ($response['content'])
+		{
+			try {
+				$document = new DOMDocument("1.0", "utf-8");
+				$document->loadXml($response['content']);
+
+				$errorselem = $document->getElementsByTagName("errors");
+				//var_dump($errorselem);
+				//var_dump($errorselem->length);
+				//var_dump(count($errorselem));
+				if ($errorselem->length)
+				{
+					//dol_syslog('ERROR: '.$errorselem->item(0)->nodeValue, LOG_ERR);
+					dol_syslog('ERROR:'.$response['content'], LOG_ERR);
+					return -1;
+				}
+
+				$entries = $document->getElementsByTagName("id");
+				foreach ($entries as $entry)
+				{
+					$id = basename($entry->nodeValue);
+					break;
+				}
+			} catch (Exception $e) {
+				die('ERROR:' . $e->getMessage());
+			}
+		}
+
+		//List of properties to set visible with var_dump($xml->saveXML());exit;
+		//$extra_header = array('If-Match'=>'*');
+		//$newentryResult = $gdata->updateEntry($xmlStr, $entryResult->getEditLink()->href, null, $extra_header);
 	}
 	catch(Exception $e)
 	{
@@ -520,7 +596,7 @@ function googleUpdateContact($client, $contactId, $object, $useremail='default')
 		return -1;
 	}
 
-	return $entryResult->getId();
+	return $id;
 }
 
 
@@ -531,34 +607,40 @@ function googleUpdateContact($client, $contactId, $object, $useremail='default')
  * example purposes only, as it is inefficient to retrieve the entire
  * atom entry only for the purposes of deleting it.
  *
- * @param  Zend_Http_Client $client  	The authenticated client object
- * @param  string           $ref		The ref string
- * @param  string			$useremail	User email
+ * @param  array		$client   		Array with tokens informations
+ * @param  string       $ref			The ref string
+ * @param  string		$useremail		User email
  * @return string 						'' if OK, error message if KO
  */
 function googleDeleteContactByRef($client, $ref, $useremail='default')
 {
+	global $conf, $db, $langs;
 	global $tag_debug;
 
-	dol_syslog('googleDeleteContactByRef Gcontact ref to delete='.$ref);
+	$newcontactid=$ref;
+	if (preg_match('/google\.com\/.*\/([^\/]+)$/',$ref,$reg))
+	{
+		$newcontactid=$reg[1];
+	}
+	if (preg_match('/google:([^\/]+)$/',$ref,$reg))
+	{
+		$newcontactid=$reg[1];
+	}
+
+	dol_syslog('googleDeleteContactByRef Gcontact ref to delete='.$newcontactid);
+
+	$gdata=$client;
 
 	try
 	{
-		//$gdata = new Zend_Gdata_Contacts($client);
-		$gdata = new Zend_Gdata($client);
-		$gdata->setMajorProtocolVersion(3);
+		$tmp=json_decode($gdata['google_web_token']);
+		$access_token=$tmp->access_token;
+		$addheaders=array('GData-Version'=>'3.0', 'If-Match: *', 'Authorization'=>'Bearer '.$access_token);
+		$addheaderscurl=array('GData-Version: 3.0', 'If-Match: *', 'Authorization: Bearer '.$access_token);
+		//$useremail='default';
 
-		$tag_debug='deletecontactbyrefgetentry';
-
-		$query = new Zend_Gdata_Query($ref);
-		//$entryResult = $gdata->getEntry($query,'Zend_Gdata_Contacts_ListEntry');
-		//var_dump($query);exit;
-		$entryResult = $gdata->getEntry($query);
-
-		$tag_debug='deletecontactbyrefdelete';
-
-		$extra_header = array('If-Match'=>$entryResult->getEtag());
-		$entryResult->delete($extra_header);
+		$result = getURLContentBis('https://www.google.com/m8/feeds/contacts/'.urlencode($useremail).'/full/'.$newcontactid, 'DELETE', '', 0, $addheaderscurl);
+		$xmlStr=$result['content'];
 
 		return '';
 	}
@@ -610,6 +692,7 @@ function insertGContactsEntries($gdata, $gContacts, $objectstatic, $useremail='d
 		$doc->appendChild($feed);
 		foreach ($firstContacts as $gContact)
 		{
+			//print_r($gContact);
 			$entry = $gContact->atomEntry;
 			$entry = $doc->importNode($entry, true);
 			$entry->setAttribute("gdata:etag", "*");
@@ -673,8 +756,35 @@ END;
 			// Convert text entities into numeric entities
 			$xmlStr = google_html_convert_entities($xmlStr);
 
-			$response = $gdata->post($xmlStr, "https://www.google.com/m8/feeds/contacts/".$useremail."/full/batch");
-			$responseXml = $response->getBody();
+			$tmp=json_decode($gdata['google_web_token']);
+			$access_token=$tmp->access_token;
+			$addheaders=array('GData-Version'=>'3.0', 'Authorization'=>'Bearer '.$access_token, 'If-Match'=>'*');
+			$addheaderscurl=array('GData-Version: 3.0', 'Authorization: Bearer '.$access_token, 'If-Match: *');
+
+			//$request=new Google_Http_Request('https://www.google.com/m8/feeds/contacts/default/base/batch', 'POST', $addheaders, $xmlStr);
+			//$requestData = $gdata['client']->execute($request);
+			$result = getURLContent('https://www.google.com/m8/feeds/contacts/'.$useremail.'/full/batch', 'POST', $xmlStr, 0, $addheaderscurl);
+			$xmlStr=$result['content'];
+			try {
+				$document = new DOMDocument("1.0", "utf-8");
+				$document->loadXml($result['content']);
+
+				$errorselem = $document->getElementsByTagName("errors");
+				//var_dump($errorselem);
+				//var_dump($errorselem->length);
+				//var_dump(count($errorselem));
+				if ($errorselem->length)
+				{
+					dol_syslog('ERROR:'.$result['content'], LOG_ERR);
+					return -1;
+				}
+			} catch (Exception $e) {
+				dol_syslog('ERROR:'.$e->getMessage(), LOG_ERR);
+				return -1;
+			}
+
+			$responseXml = $xmlStr;
+
 			// uncomment for debugging :
 			file_put_contents(DOL_DATA_ROOT . "/dolibarr_google_massinsert_response.xml", $responseXml);
 			@chmod(DOL_DATA_ROOT . "/dolibarr_google_massinsert_response.xml", octdec(empty($conf->global->MAIN_UMASK)?'0664':$conf->global->MAIN_UMASK));
@@ -784,11 +894,11 @@ function getTagLabel($s)
  * Retreive a googleGroupID for a groupName.
  * If the groupName does not exist on Gmail account, it will be created as a side effect
  *
- * @param	Mixed	$gdata			GData handler
+ * @param	array	$gdata			Array with tokens info
  * @param	string	$groupName		Group name
  * @param	array	&$googleGroups	Array of Google Group we know they already exists
  * @param	string	$useremail		User email
- * @return 	string					Google Group ID for groupName (also key in $googleGroups) or 'ErrorFailedToGetGroups'.
+ * @return 	string					Google Group Full URL ID for groupName (also key in $googleGroups) or 'ErrorFailedToGetGroups'.
  */
 function getGoogleGroupID($gdata, $groupName, &$googleGroups=array(), $useremail='default')
 {
@@ -808,7 +918,8 @@ function getGoogleGroupID($gdata, $groupName, &$googleGroups=array(), $useremail
 			$entries = $document->documentElement->getElementsByTagNameNS(constant('ATOM_NAME_SPACE'), "entry");
 			$n = $entries->length;
 			$googleGroups = array();
-			foreach ($entries as $entry) {
+			foreach ($entries as $entry)
+			{
 				$titleNodes = $entry->getElementsByTagNameNS(constant('ATOM_NAME_SPACE'), "title");
 				if ($titleNodes->length == 1) {
 					$title = $titleNodes->item(0)->textContent;	// We get <title> of group (For example: 'System Group: My Contacts', 'System Group: Friend', 'Dolibarr (Thirdparties)', ...)
@@ -818,10 +929,12 @@ function getGoogleGroupID($gdata, $groupName, &$googleGroups=array(), $useremail
 					}
 				}
 			}
+			dol_syslog("We found ".count($googleGroups)." groups", LOG_DEBUG);
 		}
 		else
 		{
 			$error++;
+			dol_syslog("ErrorFailedToGetGroups", LOG_ERR);
 			return 'ErrorFailedToGetGroups';
 		}
 	}
@@ -832,6 +945,8 @@ function getGoogleGroupID($gdata, $groupName, &$googleGroups=array(), $useremail
 		$newGroupID = insertGContactGroup($gdata, $groupName, $useremail);
 		$googleGroups[$groupName] = $newGroupID;
 	}
+
+	dol_syslog("Full URL ID found for group ".$groupName." = ".$googleGroups[$groupName], LOG_DEBUG);
 	return $googleGroups[$groupName];
 }
 
@@ -839,9 +954,9 @@ function getGoogleGroupID($gdata, $groupName, &$googleGroups=array(), $useremail
 /**
  * Retreive a Xml feed of contacts groups from Google
  *
- * @param	Mixed	$gdata			GData handler
+ * @param	array	$gdata			Array with tokens info
  * @param	string	$useremail		User email
- * @return	string					XML string with all groups
+ * @return	string					XML string with all groups, '' if error
  */
 function getContactGroupsXml($gdata, $useremail='default')
 {
@@ -850,10 +965,39 @@ function getContactGroupsXml($gdata, $useremail='default')
 
 	$tag_debug='groupgroups';
 
+	$xmlStr='';
 	try {
-		$query = new Zend_Gdata_Query('https://www.google.com/m8/feeds/groups/'.$useremail.'/full?max-results=1000');
-		$feed = $gdata->getFeed($query);
-		$xmlStr = $feed->getXML();
+
+		$tmp=json_decode($gdata['google_web_token']);
+		$access_token=$tmp->access_token;
+		$addheaders=array('GData-Version'=>'3.0', 'Authorization'=>'Bearer '.$access_token);
+		$addheaderscurl=array('GData-Version: 3.0', 'Authorization: Bearer '.$access_token, 'Content-Type: application/atom+xml');
+		//$useremail='default';
+
+		//$request=new Google_Http_Request('https://www.google.com/m8/feeds/groups/'.urlencode($useremail).'/full?max-results=1000', 'GET', $addheaders, null);
+		//$result=$gdata['client']->execute($request);	// Return json_decoded string. May return an exception.
+		//$xmlStr=$result;
+
+		$result = getURLContent('https://www.google.com/m8/feeds/groups/'.urlencode($useremail).'/full?max-results=1000', 'GET', '', 0, $addheaderscurl);
+		$xmlStr=$result['content'];
+		try {
+			$document = new DOMDocument("1.0", "utf-8");
+			$document->loadXml($result['content']);
+
+			$errorselem = $document->getElementsByTagName("errors");
+			//var_dump($errorselem);
+			//var_dump($errorselem->length);
+			//var_dump(count($errorselem));
+			if ($errorselem->length)
+			{
+				dol_syslog('ERROR:'.$result['content'], LOG_ERR);
+				return '';
+			}
+		} catch (Exception $e) {
+			dol_syslog('ERROR:'.$e->getMessage(), LOG_ERR);
+			return '';
+		}
+
 		// uncomment for debugging :
 		file_put_contents(DOL_DATA_ROOT . "/dolibarr_google_groups_response.xml", $xmlStr);
 		@chmod(DOL_DATA_ROOT . "/dolibarr_google_groups_response.xml", octdec(empty($conf->global->MAIN_UMASK)?'0664':$conf->global->MAIN_UMASK));
@@ -863,6 +1007,7 @@ function getContactGroupsXml($gdata, $useremail='default')
 		file_put_contents(DOL_DATA_ROOT . "/dolibarr_google_groups_response.xml", $e->getMessage());
 		@chmod(DOL_DATA_ROOT . "/dolibarr_google_groups_response.xml", octdec(empty($conf->global->MAIN_UMASK)?'0664':$conf->global->MAIN_UMASK));
 	}
+
 	return($xmlStr);
 }
 
@@ -871,10 +1016,10 @@ function getContactGroupsXml($gdata, $useremail='default')
 /**
  * Create a group/label into Google contact
  *
- * @param	Mixed	$gdata			GData handler
+ * @param	array	$gdata			Array with tokens info
  * @param 	string 	$groupName		Group name to create into Google Contact
  * @param	string	$useremail		User email
- * @return 	string					googlegroupID
+ * @return 	string					Ful URL group ID (http://...xxx)
  */
 function insertGContactGroup($gdata,$groupName,$useremail='default')
 {
@@ -883,6 +1028,8 @@ function insertGContactGroup($gdata,$groupName,$useremail='default')
 	$tag_debug='createcontact';
 
 	dol_syslog('insertGContactGroup create group '.$groupName.' into Google contact');
+
+	$id='';
 
 	try {
 		$doc = new DOMDocument("1.0", 'utf-8');
@@ -902,13 +1049,172 @@ function insertGContactGroup($gdata,$groupName,$useremail='default')
 		$doc->appendChild($entry);
 		$doc->formatOutput = true;
 		$xmlStr = $doc->saveXML();
+
+		$tmp=json_decode($gdata['google_web_token']);
+		$access_token=$tmp->access_token;
+		$addheaders=array('GData-Version'=>'3.0', 'Authorization'=>'Bearer '.$access_token);
+		$addheaderscurl=array('GData-Version: 3.0', 'Authorization: Bearer '.$access_token, 'Content-Type: application/atom+xml');
+
 		// insert entry
-		$entryResult = $gdata->insertEntry($xmlStr, 'https://www.google.com/m8/feeds/groups/'.$useremail.'/full');
-		dol_syslog(sprintf("Inserting gContact group %s in google contacts for google ID = %s", $groupName, $entryResult->id));
+		//$entryResult = $gdata->insertEntry($xmlStr, 'https://www.google.com/m8/feeds/groups/'.$useremail.'/full');
+		$response = getURLContent('https://www.google.com/m8/feeds/groups/'.$useremail.'/full', 'POST', $xmlStr, 1, $addheaderscurl);
+		if ($response['content'])
+		{
+			$document = new DOMDocument("1.0", "utf-8");
+			$document->loadXml($response['content']);
+
+			$errorselem = $document->getElementsByTagName("errors");
+			//var_dump($errorselem);
+			//var_dump($errorselem->length);
+			//var_dump(count($errorselem));
+			if ($errorselem->length)
+			{
+				dol_syslog($response['content'], LOG_ERR);
+				return -1;
+			}
+
+			$entries = $document->getElementsByTagName("id");
+			foreach ($entries as $entry)
+			{
+				$id = $entry->nodeValue;		// No basename here, we want full URL ID
+				break;
+			}
+		}
+
+		dol_syslog(sprintf("We have just created the google contact group '%s'. Its Full URL group ID is %s", $groupName, $id));
 	} catch (Exception $e) {
 		dol_syslog(sprintf("Problem while inserting group %s : %s", $groupName, $e->getMessage()), LOG_ERR);
 	}
 
-	return($entryResult->id);
+	return($id);
+}
+
+
+
+
+
+/**
+ * Function get content from an URL (use proxy if proxy defined).
+ * This is a duplicate of function but adding the DELETE because DELETE was missing in 3.7.*
+ *
+ * @param	string	$url 				URL to call.
+ * @param	string	$postorget			'POST', 'GET', 'HEAD'
+ * @param	string	$param				Parameters of URL (x=value1&y=value2)
+ * @param	string	$followlocation		1=Follow location, 0=Do not follow
+ * @param	array	$addheaders			Array of string to add into header. Example: array('Accept: application/xrds+xml', ....)
+ * @return	array						Returns an associative array containing the response from the server array('content'=>response,'curl_error_no'=>errno,'curl_error_msg'=>errmsg...)
+ */
+function getURLContentBis($url,$postorget='GET',$param='',$followlocation=1,$addheaders=array())
+{
+    //declaring of global variables
+    global $conf, $langs;
+    $USE_PROXY=empty($conf->global->MAIN_PROXY_USE)?0:$conf->global->MAIN_PROXY_USE;
+    $PROXY_HOST=empty($conf->global->MAIN_PROXY_HOST)?0:$conf->global->MAIN_PROXY_HOST;
+    $PROXY_PORT=empty($conf->global->MAIN_PROXY_PORT)?0:$conf->global->MAIN_PROXY_PORT;
+    $PROXY_USER=empty($conf->global->MAIN_PROXY_USER)?0:$conf->global->MAIN_PROXY_USER;
+    $PROXY_PASS=empty($conf->global->MAIN_PROXY_PASS)?0:$conf->global->MAIN_PROXY_PASS;
+
+	dol_syslog("getURLContentBis postorget=".$postorget." URL=".$url." param=".$param);
+
+    //setting the curl parameters.
+    $ch = curl_init();
+
+    /*print $API_Endpoint."-".$API_version."-".$PAYPAL_API_USER."-".$PAYPAL_API_PASSWORD."-".$PAYPAL_API_SIGNATURE."<br>";
+     print $USE_PROXY."-".$gv_ApiErrorURL."<br>";
+     print $nvpStr;
+     exit;*/
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_VERBOSE, 1);
+	curl_setopt($ch, CURLOPT_USERAGENT, 'Dolibarr geturl function');
+
+	curl_setopt($ch, CURLOPT_FOLLOWLOCATION, ($followlocation?true:false));
+	if (count($addheaders)) curl_setopt($ch, CURLOPT_HTTPHEADER, $addheaders);
+	curl_setopt($ch, CURLINFO_HEADER_OUT, true);	// To be able to retrieve request header and log it
+
+    //turning off the server and peer verification(TrustManager Concept).
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
+
+    curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, empty($conf->global->MAIN_USE_CONNECT_TIMEOUT)?5:$conf->global->MAIN_USE_CONNECT_TIMEOUT);
+    curl_setopt($ch, CURLOPT_TIMEOUT, empty($conf->global->MAIN_USE_RESPONSE_TIMEOUT)?30:$conf->global->MAIN_USE_RESPONSE_TIMEOUT);
+
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);		// We want response
+    if ($postorget == 'POST')
+    {
+    	curl_setopt($ch, CURLOPT_POST, 1);	// POST
+    	curl_setopt($ch, CURLOPT_POSTFIELDS, $param);	// Setting param x=a&y=z as POST fields
+    }
+    else if ($postorget == 'PUT')
+    {
+    	curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PUT'); // HTTP request is 'PUT'
+    	curl_setopt($ch, CURLOPT_POSTFIELDS, $param);	// Setting param x=a&y=z as PUT fields
+    }
+    else if ($postorget == 'HEAD')
+    {
+    	curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'HEAD'); // HTTP request is 'HEAD'
+    	curl_setopt($ch, CURLOPT_NOBODY, true);
+    }
+    else if ($postorget == 'DELETE')
+    {
+    	curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'DELETE');	// POST
+    }
+    else
+    {
+    	curl_setopt($ch, CURLOPT_POST, 0);			// GET
+    }
+
+    //if USE_PROXY constant set to TRUE in Constants.php, then only proxy will be enabled.
+    if ($USE_PROXY)
+    {
+        dol_syslog("getURLContentBis set proxy to ".$PROXY_HOST. ":" . $PROXY_PORT." - ".$PROXY_USER. ":" . $PROXY_PASS);
+        //curl_setopt ($ch, CURLOPT_PROXYTYPE, CURLPROXY_HTTP); // Curl 7.10
+        curl_setopt($ch, CURLOPT_PROXY, $PROXY_HOST. ":" . $PROXY_PORT);
+        if ($PROXY_USER) curl_setopt($ch, CURLOPT_PROXYUSERPWD, $PROXY_USER. ":" . $PROXY_PASS);
+    }
+
+    //getting response from server
+    $response = curl_exec($ch);
+
+    $status = curl_getinfo($ch, CURLINFO_HEADER_OUT);	// Reading of request must be done after sending request
+    dol_syslog("getURLContentBis request=".$status);
+
+    dol_syslog("getURLContentBis response=".$response);
+
+    $rep=array();
+    $rep['content']=$response;
+    $rep['curl_error_no']='';
+    $rep['curl_error_msg']='';
+
+    if (curl_errno($ch))
+    {
+        // moving to display page to display curl errors
+		$rep['curl_error_no']=curl_errno($ch);
+        $rep['curl_error_msg']=curl_error($ch);
+
+		dol_syslog("getURLContentBis curl_error array is ".join(',',$rep));
+    }
+    else
+    {
+    	$info = curl_getinfo($ch);
+    	$rep['header_size']=$info['header_size'];
+
+    	//closing the curl
+        curl_close($ch);
+    }
+
+    return $rep;
+}
+
+
+
+/**
+ * Encode string for xml usage
+ *
+ * @param 	string	$string		String to encode
+ * @return	string				String encoded
+ */
+function dolEscapeXMLWithNoAnd($string)
+{
+	return strtr($string, array('\''=>'&apos;','"'=>'&quot;','&amp;'=>'-','&'=>'-','<'=>'&lt;','>'=>'&gt;'));
 }
 
