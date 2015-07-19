@@ -1218,3 +1218,17 @@ function dolEscapeXMLWithNoAnd($string)
 	return strtr($string, array('\''=>'&apos;','"'=>'&quot;','&amp;'=>'-','&'=>'-','<'=>'&lt;','>'=>'&gt;'));
 }
 
+
+if (! function_exists('dolEscapeXML'))
+{
+	/**
+	 * Encode string for xml usage
+	 *
+	 * @param 	string	$string		String to encode
+	 * @return	string				String encoded
+	 */
+	function dolEscapeXML($string)
+	{
+		return strtr($string, array('\''=>'&apos;','"'=>'&quot;','&'=>'&amp;','<'=>'&lt;','>'=>'&gt;'));
+	}
+}
