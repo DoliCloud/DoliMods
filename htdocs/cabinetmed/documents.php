@@ -521,8 +521,11 @@ if ($object->id)
 
         }
 
+		print '<div class="clearboth"></div>';
         print '<br>';
-        print_titre($langs->trans('SendOutcomeByEmail'));
+        print_fiche_titre($langs->trans('SendOutcomeByEmail'));
+
+        dol_fiche_head('');
 
         // Create form object
         include_once(DOL_DOCUMENT_ROOT.'/core/class/html.formmail.class.php');

@@ -221,7 +221,7 @@ if ($result)
     print '<input type="text" class="flat" size="6" name="search_code" value="'.$search_code.'">';
     print '</td>';
     print '<td class="liste_titre" align="center">';
-    print $form->select_date($datebirth, 'birth', 0, 0, 1);
+    print $form->select_date($datebirth, 'birth', 0, 0, 1, '',1,0,1);
     print '</td>';
     print '<td class="liste_titre">';
 	print '<input type="text" class="flat" size="6" name="search_ville" value="'.$search_ville.'">';

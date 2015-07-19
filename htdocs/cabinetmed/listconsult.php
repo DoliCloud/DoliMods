@@ -254,7 +254,7 @@ if ($result)
 	print '</td>';
 	// Date
 	print '<td class="liste_titre" align="center">';
-	print $form->select_date($datecons, 'cons', 0, 0, 1);
+	print $form->select_date($datecons, 'cons', 0, 0, 1, '',1,0,1);
 	print '</td>';
     print '<td class="liste_titre">';
     $width='200';
