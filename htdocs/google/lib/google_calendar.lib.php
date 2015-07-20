@@ -47,6 +47,8 @@ $_authSubKeyFile = null; // Example value for secure use: 'mykey.pem'
 $_authSubKeyFilePassphrase = null;
 
 
+
+
 /**
  * Get service
  *
@@ -238,7 +240,7 @@ function createEvent($client, $object, $login='primary')
 	if (! empty($conf->global->GOOGLE_CAL_TZ_FIX) && is_numeric($conf->global->GOOGLE_CAL_TZ_FIX)) $tzfix=$conf->global->GOOGLE_CAL_TZ_FIX;
     if (empty($object->fulldayevent))
     {
-        $startTime = dol_print_date(($tzfix*3600) + $object->datep,"dayhourrfc",'gmt');
+        $startTime = dol_print_date(($tzfix*3600) + $object->datep,"dayhourrfc",'gmt');	// Example '2015-07-30T08:00:00Z' if we ask hour 10:00 on a dolibarr with a TZ = +2
         $endTime = dol_print_date(($tzfix*3600) + (empty($object->datef)?$object->datep:$object->datef),"dayhourrfc",'gmt');
 
         $start->setDateTime($startTime);	// '2011-06-03T10:00:00.000-07:00'
@@ -259,10 +261,6 @@ function createEvent($client, $object, $login='primary')
 	$event->setSummary(trim($object->label));
 	$event->setLocation($object->location);
 	$event->setDescription(dol_string_nohtmltag($object->note, 0));
-
-	$extendedProperties=new Google_Service_Calendar_EventExtendedProperties();
-	$extendedProperties->setPrivate(array('dolibarr_id'=>$object->id.'/event'));
-	$event->setExtendedProperties($extendedProperties);
 
 	// Transparency 0=available, 1=busy
 	$transparency=isset($object->userassigned[$user->id]['transparency'])?$object->userassigned[$user->id]['transparency']:0;
@@ -295,6 +293,14 @@ function createEvent($client, $object, $login='primary')
 	$event->setGuestsCanInviteOthers(true);
 	$event->setGuestsCanSeeOtherGuests(true);
 
+	/*$organizer = new Google_Service_Calendar_EventOrganizer();
+	$organizer->setEmail($user->email);
+	$organizer->setDisplayName($user->getFullName($langs));
+	$event->setOrganizer($organizer);*/
+	$extendedProperties=new Google_Service_Calendar_EventExtendedProperties();
+	$extendedProperties->setPrivate(array('dolibarr_id'=>$object->id.'/event', 'dolibarr_user_id'=>$object->userownerid));
+	$event->setExtendedProperties($extendedProperties);
+
 	$attendees = array();
 	if (! empty($object->userassigned))	// This can occurs with automatic events
 	{
@@ -307,6 +313,7 @@ function createEvent($client, $object, $login='primary')
 			{
 				$attendee = new Google_Service_Calendar_EventAttendee();
 				$attendee->setEmail($fuser->email);
+				$attendee->setDisplayName($fuser->getFullName($langs));
 				$attendees[]=$attendee;
 			}
 		}
@@ -376,8 +383,8 @@ function updateEvent($client, $eventId, $object, $login='primary', $service=null
 		if (! empty($conf->global->GOOGLE_CAL_TZ_FIX) && is_numeric($conf->global->GOOGLE_CAL_TZ_FIX)) $tzfix=$conf->global->GOOGLE_CAL_TZ_FIX;
 	    if (empty($object->fulldayevent))
 	    {
-	        $startTime = dol_print_date(($tzfix*3600) + $object->datep,"dayhourrfc",'gmt');
-	        $endTime = dol_print_date(($tzfix*3600) + (empty($object->datef)?$object->datep:$object->datef),"dayhourrfc",'gmt');
+	        $startTime = dol_print_date(($tzfix*3600) + $object->datep,"dayhourrfc", 'gmt');	// we use gmt, tz is managed by the tzfix
+	        $endTime = dol_print_date(($tzfix*3600) + (empty($object->datef)?$object->datep:$object->datef),"dayhourrfc", 'gmt');	// we use gmt, tz is managed by the tzfix
 
 	        $start->setDateTime($startTime);	// '2011-06-03T10:00:00.000-07:00'
 			$end->setDateTime($endTime);		// '2011-06-03T10:25:00.000-07:00'
@@ -396,12 +403,6 @@ function updateEvent($client, $eventId, $object, $login='primary', $service=null
 		$event->setSummary(trim($object->label));
 		$event->setLocation($object->location);
 		$event->setDescription(dol_string_nohtmltag($object->note, 0));
-
-		/* Disabled for update
-		$extendedProperties=new Google_Service_Calendar_EventExtendedProperties();
-		$extendedProperties->setPrivate(array('dolibarr_id'=>$object->id.'/event'));
-		$event->setExtendedProperties($extendedProperties);
-		*/
 
 		// Transparency 0=available, 1=busy
 		$transparency=isset($object->userassigned[$user->id]['transparency'])?$object->userassigned[$user->id]['transparency']:0;
@@ -434,6 +435,14 @@ function updateEvent($client, $eventId, $object, $login='primary', $service=null
 		$event->setGuestsCanInviteOthers(true);
 		$event->setGuestsCanSeeOtherGuests(true);
 
+		/*$organizer = new Google_Service_Calendar_EventOrganizer();
+		$organizer->setEmail($user->email);
+		$organizer->setDisplayName($user->getFullName($langs));
+		$event->setOrganizer($organizer);*/
+		$extendedProperties=new Google_Service_Calendar_EventExtendedProperties();
+		$extendedProperties->setPrivate(array('dolibarr_id'=>$object->id.'/event','dolibarr_user_id'=>$object->userownerid));
+		$event->setExtendedProperties($extendedProperties);
+
 		$attendees = array();
 		foreach($object->userassigned as $key => $val)
 		{
@@ -444,6 +453,7 @@ function updateEvent($client, $eventId, $object, $login='primary', $service=null
 			{
 				$attendee = new Google_Service_Calendar_EventAttendee();
 				$attendee->setEmail($fuser->email);
+				$attendee->setDisplayName($fuser->getFullName($langs));
 				$attendees[]=$attendee;
 			}
 		}
@@ -480,7 +490,7 @@ function updateEvent($client, $eventId, $object, $login='primary', $service=null
  * @param	Google_Service_Calendar	$service		Object service (will be created if not provided)
  * @return 	void
  */
-function deleteEventById ($client, $eventId, $login='primary', $service=null)
+function deleteEventById($client, $eventId, $login='primary', $service=null)
 {
 	global $conf, $db, $langs;
 	global $dolibarr_main_url_root;
@@ -540,13 +550,14 @@ function google_complete_label_and_note(&$object, $langs)
 		{
 			$eventlabel .= ' - '.$thirdparty->name;
 			$tmpadd=$thirdparty->getFullAddress(0);
-			if ($tmpadd && empty($conf->global->GOOGLE_DISABLE_ADD_ADDRESS_INTO_DESC)) $object->note.="\n\n".$thirdparty->name."\n".$thirdparty->getFullAddress(1)."\n";
-			if (! empty($thirdparty->phone)) $object->note.="\n".$langs->trans("Phone").': '.$thirdparty->phone;
-			if (! empty($thirdparty->phone_pro)) $object->note.="\n".$langs->trans("Phone").': '.$thirdparty->phone_pro;
-			if (! empty($thirdparty->fax)) $object->note.="\n".$langs->trans("Fax").': '.$thirdparty->fax;
+			$more='';
+			if ($tmpadd && empty($conf->global->GOOGLE_DISABLE_ADD_ADDRESS_INTO_DESC)) $more.=$thirdparty->name."\n".$thirdparty->getFullAddress(1)."\n";
+			if (! empty($thirdparty->phone)) $more.="\n".$langs->trans("Phone").': '.$thirdparty->phone;
+			if (! empty($thirdparty->phone_pro)) $more.="\n".$langs->trans("Phone").': '.$thirdparty->phone_pro;
+			if (! empty($thirdparty->fax)) $more.="\n".$langs->trans("Fax").': '.$thirdparty->fax;
 
 			$urltoelem=$urlwithroot.'/societe/soc.php?socid='.$thirdparty->id;
-			$object->note.="\n".$langs->trans("LinkToThirdParty").': '.$urltoelem;
+			$object->note.="\n\n-----+++++-----\n".$more."\n".$langs->trans("LinkToThirdParty").': '.$urltoelem;
 		}
 	}
 	if (($object->contactid > 0 || (! empty($object->contact->id) && $object->contact->id > 0)) && empty($conf->global->GOOGLE_DISABLE_EVENT_LABEL_INC_CONTACT)) {
@@ -556,15 +567,16 @@ function google_complete_label_and_note(&$object, $langs)
 		{
 			$eventlabel .= ' - '.$contact->getFullName($langs, 1);
 			$tmpadd=$contact->getFullAddress(0);
-			if ($tmpadd && empty($conf->global->GOOGLE_DISABLE_ADD_ADDRESS_INTO_DESC)) $object->note.="\n\n".$contact->name."\n".$contact->getFullAddress(1)."\n";
-			if (! empty($contact->phone)) $object->note.="\n".$langs->trans("Phone").': '.$contact->phone;
-			if (! empty($contact->phone_pro)) $object->note.="\n".$langs->trans("Phone").': '.$contact->phone_pro;
-			if (! empty($contact->phone_perso)) $object->note.="\n".$langs->trans("PhonePerso").': '.$contact->phone_perso;
-			if (! empty($contact->phone_mobile)) $object->note.="\n".$langs->trans("PhoneMobile").': '.$contact->phone_mobile;
-			if (! empty($contact->fax)) $object->note.="\n".$langs->trans("Fax").': '.$contact->fax;
+			$more='';
+			if ($tmpadd && empty($conf->global->GOOGLE_DISABLE_ADD_ADDRESS_INTO_DESC)) $more.=$contact->name."\n".$contact->getFullAddress(1)."\n";
+			if (! empty($contact->phone)) $more.="\n".$langs->trans("Phone").': '.$contact->phone;
+			if (! empty($contact->phone_pro)) $more.="\n".$langs->trans("Phone").': '.$contact->phone_pro;
+			if (! empty($contact->phone_perso)) $more.="\n".$langs->trans("PhonePerso").': '.$contact->phone_perso;
+			if (! empty($contact->phone_mobile)) $more.="\n".$langs->trans("PhoneMobile").': '.$contact->phone_mobile;
+			if (! empty($contact->fax)) $more.="\n".$langs->trans("Fax").': '.$contact->fax;
 
 			$urltoelem=$urlwithroot.'/contact/fiche.ph?id='.$contact->id;
-			$object->note.="\n".$langs->trans("LinkToContact").': '.$urltoelem;
+			$object->note.="\n\n-----+++++-----\n".$more."\n".$langs->trans("LinkToContact").': '.$urltoelem;
 		}
 	}
 	$object->label = $eventlabel;
