@@ -30,6 +30,7 @@
 
 include_once DOL_DOCUMENT_ROOT.'/societe/class/societe.class.php';
 include_once DOL_DOCUMENT_ROOT.'/contact/class/contact.class.php';
+include_once DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php';
 
 dol_include_once("/google/lib/google.lib.php");
 $res=dol_include_once('/google/includes/google-api-php-client/autoload.php');
@@ -45,6 +46,10 @@ $_authSubKeyFile = null; // Example value for secure use: 'mykey.pem'
  * @var string Passphrase for AuthSub key file.
  */
 $_authSubKeyFilePassphrase = null;
+
+
+
+
 
 
 /**
@@ -238,7 +243,7 @@ function createEvent($client, $object, $login='primary')
 	if (! empty($conf->global->GOOGLE_CAL_TZ_FIX) && is_numeric($conf->global->GOOGLE_CAL_TZ_FIX)) $tzfix=$conf->global->GOOGLE_CAL_TZ_FIX;
     if (empty($object->fulldayevent))
     {
-        $startTime = dol_print_date(($tzfix*3600) + $object->datep,"dayhourrfc",'gmt');
+        $startTime = dol_print_date(($tzfix*3600) + $object->datep,"dayhourrfc",'gmt');	// Example '2015-07-30T08:00:00Z' if we ask hour 10:00 on a dolibarr with a TZ = +2
         $endTime = dol_print_date(($tzfix*3600) + (empty($object->datef)?$object->datep:$object->datef),"dayhourrfc",'gmt');
 
         $start->setDateTime($startTime);	// '2011-06-03T10:00:00.000-07:00'
@@ -259,10 +264,6 @@ function createEvent($client, $object, $login='primary')
 	$event->setSummary(trim($object->label));
 	$event->setLocation($object->location);
 	$event->setDescription(dol_string_nohtmltag($object->note, 0));
-
-	$extendedProperties=new Google_Service_Calendar_EventExtendedProperties();
-	$extendedProperties->setPrivate(array('dolibarr_id'=>$object->id.'/event'));
-	$event->setExtendedProperties($extendedProperties);
 
 	// Transparency 0=available, 1=busy
 	$transparency=isset($object->userassigned[$user->id]['transparency'])?$object->userassigned[$user->id]['transparency']:0;
@@ -295,6 +296,14 @@ function createEvent($client, $object, $login='primary')
 	$event->setGuestsCanInviteOthers(true);
 	$event->setGuestsCanSeeOtherGuests(true);
 
+	/*$organizer = new Google_Service_Calendar_EventOrganizer();
+	$organizer->setEmail($user->email);
+	$organizer->setDisplayName($user->getFullName($langs));
+	$event->setOrganizer($organizer);*/
+	$extendedProperties=new Google_Service_Calendar_EventExtendedProperties();
+	$extendedProperties->setPrivate(array('dolibarr_id'=>$object->id.'/event', 'dolibarr_user_id'=>$object->userownerid));
+	$event->setExtendedProperties($extendedProperties);
+
 	$attendees = array();
 	if (! empty($object->userassigned))	// This can occurs with automatic events
 	{
@@ -307,6 +316,7 @@ function createEvent($client, $object, $login='primary')
 			{
 				$attendee = new Google_Service_Calendar_EventAttendee();
 				$attendee->setEmail($fuser->email);
+				$attendee->setDisplayName($fuser->getFullName($langs));
 				$attendees[]=$attendee;
 			}
 		}
@@ -376,8 +386,8 @@ function updateEvent($client, $eventId, $object, $login='primary', $service=null
 		if (! empty($conf->global->GOOGLE_CAL_TZ_FIX) && is_numeric($conf->global->GOOGLE_CAL_TZ_FIX)) $tzfix=$conf->global->GOOGLE_CAL_TZ_FIX;
 	    if (empty($object->fulldayevent))
 	    {
-	        $startTime = dol_print_date(($tzfix*3600) + $object->datep,"dayhourrfc",'gmt');
-	        $endTime = dol_print_date(($tzfix*3600) + (empty($object->datef)?$object->datep:$object->datef),"dayhourrfc",'gmt');
+	        $startTime = dol_print_date(($tzfix*3600) + $object->datep,"dayhourrfc", 'gmt');	// we use gmt, tz is managed by the tzfix
+	        $endTime = dol_print_date(($tzfix*3600) + (empty($object->datef)?$object->datep:$object->datef),"dayhourrfc", 'gmt');	// we use gmt, tz is managed by the tzfix
 
 	        $start->setDateTime($startTime);	// '2011-06-03T10:00:00.000-07:00'
 			$end->setDateTime($endTime);		// '2011-06-03T10:25:00.000-07:00'
@@ -396,12 +406,6 @@ function updateEvent($client, $eventId, $object, $login='primary', $service=null
 		$event->setSummary(trim($object->label));
 		$event->setLocation($object->location);
 		$event->setDescription(dol_string_nohtmltag($object->note, 0));
-
-		/* Disabled for update
-		$extendedProperties=new Google_Service_Calendar_EventExtendedProperties();
-		$extendedProperties->setPrivate(array('dolibarr_id'=>$object->id.'/event'));
-		$event->setExtendedProperties($extendedProperties);
-		*/
 
 		// Transparency 0=available, 1=busy
 		$transparency=isset($object->userassigned[$user->id]['transparency'])?$object->userassigned[$user->id]['transparency']:0;
@@ -434,6 +438,14 @@ function updateEvent($client, $eventId, $object, $login='primary', $service=null
 		$event->setGuestsCanInviteOthers(true);
 		$event->setGuestsCanSeeOtherGuests(true);
 
+		/*$organizer = new Google_Service_Calendar_EventOrganizer();
+		$organizer->setEmail($user->email);
+		$organizer->setDisplayName($user->getFullName($langs));
+		$event->setOrganizer($organizer);*/
+		$extendedProperties=new Google_Service_Calendar_EventExtendedProperties();
+		$extendedProperties->setPrivate(array('dolibarr_id'=>$object->id.'/event','dolibarr_user_id'=>$object->userownerid));
+		$event->setExtendedProperties($extendedProperties);
+
 		$attendees = array();
 		foreach($object->userassigned as $key => $val)
 		{
@@ -444,6 +456,7 @@ function updateEvent($client, $eventId, $object, $login='primary', $service=null
 			{
 				$attendee = new Google_Service_Calendar_EventAttendee();
 				$attendee->setEmail($fuser->email);
+				$attendee->setDisplayName($fuser->getFullName($langs));
 				$attendees[]=$attendee;
 			}
 		}
@@ -480,7 +493,7 @@ function updateEvent($client, $eventId, $object, $login='primary', $service=null
  * @param	Google_Service_Calendar	$service		Object service (will be created if not provided)
  * @return 	void
  */
-function deleteEventById ($client, $eventId, $login='primary', $service=null)
+function deleteEventById($client, $eventId, $login='primary', $service=null)
 {
 	global $conf, $db, $langs;
 	global $dolibarr_main_url_root;
@@ -540,13 +553,14 @@ function google_complete_label_and_note(&$object, $langs)
 		{
 			$eventlabel .= ' - '.$thirdparty->name;
 			$tmpadd=$thirdparty->getFullAddress(0);
-			if ($tmpadd && empty($conf->global->GOOGLE_DISABLE_ADD_ADDRESS_INTO_DESC)) $object->note.="\n\n".$thirdparty->name."\n".$thirdparty->getFullAddress(1)."\n";
-			if (! empty($thirdparty->phone)) $object->note.="\n".$langs->trans("Phone").': '.$thirdparty->phone;
-			if (! empty($thirdparty->phone_pro)) $object->note.="\n".$langs->trans("Phone").': '.$thirdparty->phone_pro;
-			if (! empty($thirdparty->fax)) $object->note.="\n".$langs->trans("Fax").': '.$thirdparty->fax;
+			$more='';
+			if ($tmpadd && empty($conf->global->GOOGLE_DISABLE_ADD_ADDRESS_INTO_DESC)) $more.=$thirdparty->name."\n".$thirdparty->getFullAddress(1)."\n";
+			if (! empty($thirdparty->phone)) $more.="\n".$langs->trans("Phone").': '.$thirdparty->phone;
+			if (! empty($thirdparty->phone_pro)) $more.="\n".$langs->trans("Phone").': '.$thirdparty->phone_pro;
+			if (! empty($thirdparty->fax)) $more.="\n".$langs->trans("Fax").': '.$thirdparty->fax;
 
 			$urltoelem=$urlwithroot.'/societe/soc.php?socid='.$thirdparty->id;
-			$object->note.="\n".$langs->trans("LinkToThirdParty").': '.$urltoelem;
+			$object->note.="\n\n-----+++++-----\n".$more."\n".$langs->trans("LinkToThirdParty").': '.$urltoelem;
 		}
 	}
 	if (($object->contactid > 0 || (! empty($object->contact->id) && $object->contact->id > 0)) && empty($conf->global->GOOGLE_DISABLE_EVENT_LABEL_INC_CONTACT)) {
@@ -556,16 +570,437 @@ function google_complete_label_and_note(&$object, $langs)
 		{
 			$eventlabel .= ' - '.$contact->getFullName($langs, 1);
 			$tmpadd=$contact->getFullAddress(0);
-			if ($tmpadd && empty($conf->global->GOOGLE_DISABLE_ADD_ADDRESS_INTO_DESC)) $object->note.="\n\n".$contact->name."\n".$contact->getFullAddress(1)."\n";
-			if (! empty($contact->phone)) $object->note.="\n".$langs->trans("Phone").': '.$contact->phone;
-			if (! empty($contact->phone_pro)) $object->note.="\n".$langs->trans("Phone").': '.$contact->phone_pro;
-			if (! empty($contact->phone_perso)) $object->note.="\n".$langs->trans("PhonePerso").': '.$contact->phone_perso;
-			if (! empty($contact->phone_mobile)) $object->note.="\n".$langs->trans("PhoneMobile").': '.$contact->phone_mobile;
-			if (! empty($contact->fax)) $object->note.="\n".$langs->trans("Fax").': '.$contact->fax;
+			$more='';
+			if ($tmpadd && empty($conf->global->GOOGLE_DISABLE_ADD_ADDRESS_INTO_DESC)) $more.=$contact->name."\n".$contact->getFullAddress(1)."\n";
+			if (! empty($contact->phone)) $more.="\n".$langs->trans("Phone").': '.$contact->phone;
+			if (! empty($contact->phone_pro)) $more.="\n".$langs->trans("Phone").': '.$contact->phone_pro;
+			if (! empty($contact->phone_perso)) $more.="\n".$langs->trans("PhonePerso").': '.$contact->phone_perso;
+			if (! empty($contact->phone_mobile)) $more.="\n".$langs->trans("PhoneMobile").': '.$contact->phone_mobile;
+			if (! empty($contact->fax)) $more.="\n".$langs->trans("Fax").': '.$contact->fax;
 
 			$urltoelem=$urlwithroot.'/contact/fiche.ph?id='.$contact->id;
-			$object->note.="\n".$langs->trans("LinkToContact").': '.$urltoelem;
+			$object->note.="\n\n-----+++++-----\n".$more."\n".$langs->trans("LinkToContact").': '.$urltoelem;
 		}
 	}
 	$object->label = $eventlabel;
+}
+
+
+/**
+ * Execute sync
+ *
+ * @param	string		$userlogin	Name of calendar to sync
+ * @param 	User		$fuser		User making sync
+ * @param	int			$mindate	Minimum date
+ * @return	array					array('nbinserted'=>, 'nbupdated'=>, 'errors'=>)
+ */
+function syncEventsFromGoogleCalendar($userlogin, User $fuser, $mindate, $max=0)
+{
+	global $db, $langs, $conf;
+
+	$tzfix=0;
+	if (! empty($conf->global->GOOGLE_CAL_TZ_FIX) && is_numeric($conf->global->GOOGLE_CAL_TZ_FIX)) $tzfix=$conf->global->GOOGLE_CAL_TZ_FIX;
+
+	$nbinserted=0;
+	$nbupdated=0;
+	$nbdeleted=0;
+	$nbalreadydeleted=0;
+	$nbnotdeleted=0;		// Not eleed because option off
+
+	// Create client/token object
+	$key_file_location = $conf->google->multidir_output[$conf->entity]."/".$conf->global->GOOGLE_API_SERVICEACCOUNT_P12KEY;
+	$force_do_not_use_session=false;
+	$servicearray=getTokenFromServiceAccount($conf->global->GOOGLE_API_SERVICEACCOUNT_CLIENT_ID, $conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL, $key_file_location, $force_do_not_use_session);
+
+	if (! is_array($servicearray))
+	{
+		$errors[]=$servicearray;
+		$error++;
+	}
+
+	if ($servicearray == null)
+	{
+		$txterror="Failed to login to Google with credentials provided into setup page ".$conf->global->GOOGLE_API_SERVICEACCOUNT_CLIENT_ID.", ".$conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL.", ".$key_file_location;
+		dol_syslog($txterror, LOG_ERR);
+		$errors[]=$txterror;
+		$error++;
+	}
+	else
+	{
+		try {
+			$service = new Google_Service_Calendar($servicearray['client']);
+
+			// Get last 50 modified record (after mindate)
+			$optParams=array('showDeleted'=>True, 'orderBy'=>'updated', 'maxResults'=>$max, 'updatedMin'=>dol_print_date($mindate, 'dayhourrfc', 'gmt'));
+			//var_dump($optParams);exit;
+			//$optParams=array('maxResults'=>$max, 'orderBy'=>'updated', 'showDeleted'=>True);
+			$events = $service->events->listEvents($userlogin, $optParams);
+
+			$i=0;
+
+			while(true)
+			{
+				foreach ($events->getItems() as $event)
+				{
+					//$event = new Google_Service_Calendar_Event();
+					//var_dump($event);
+
+					$i++;
+
+					$status = $event->getStatus();		// 'cancelled', 'confirmed', ...
+
+					$dolibarr_user_id='';
+					$extendedProperties=$event->getExtendedProperties();
+					if (is_object($extendedProperties))
+					{
+						$priv=$extendedProperties->getPrivate();	// Private property dolibarr_id is set during google create. Not modified by update.
+						$dolibarr_user_id=$priv['dolibarr_user_id'];
+					}
+
+					$object = new ActionComm($db);
+					$result = $object->fetch(0, '', 'google:'.$event->getId());
+
+					if ($result > 0)	// Found into dolibarr
+					{
+						//$event = new Google_Service_Calendar_Event();
+
+						// Create into dolibarr
+						$ds=$event->getStart();
+						$de=$event->getEnd();
+						if ($ds) $dates=$ds->getDate();
+						if ($de) $datee=$de->getDate();
+						if ($ds) $datest=$ds->getDateTime();
+						if ($de) $dateet=$de->getDateTime();
+
+						$object->punctual=0;
+
+						if ($datest)
+						{
+							// $datest = '2015-07-29T10:00:00+02:00' means 2015-07-29T08:00:00
+							// We remove the TZ from string. tz will be managed by the ($tzfix*3600)
+							if (preg_match('/^([0-9]{4})-([0-9]{2})-([0-9]{2})T([0-9]{2}):([0-9]{2}):([0-9]{2})\+([0-9]{2})/i',$datest,$reg))
+							{
+								$datest = $reg[1].'-'.$reg[2].'-'.$reg[3].'T'.$reg[4].':'.$reg[5].':'.$reg[6];
+								$tzs=(int) $reg[7];
+							}
+							if (preg_match('/^([0-9]{4})-([0-9]{2})-([0-9]{2})T([0-9]{2}):([0-9]{2}):([0-9]{2})\+([0-9]{2})/i',$dateet,$reg))
+							{
+								$dateet = $reg[1].'-'.$reg[2].'-'.$reg[3].'T'.$reg[4].':'.$reg[5].':'.$reg[6];
+								$tze=(int) $reg[7];
+							}
+							$object->datep=(dol_stringtotime($datest,0) - ($tzfix*3600));
+							$object->datef=(dol_stringtotime($dateet,0) - ($tzfix*3600));
+							$object->fulldayevent=0;
+							if ($object->datep == $object->datef) $object->punctual=1;
+							//print dol_print_date($object->datep, 'dayhour', 'tzserver');
+						}
+						elseif ($dates)
+						{
+							$object->datep=$datest;
+							$object->datef=$dateet;
+							$object->fulldayevent=1;
+						}
+						//$object->type_code='AC_OTH';
+						//$object->code='AC_OTH';
+						$object->label=$event->getSummary();
+						$object->transparency=($event->getTransparency()=="opaque"?1:0);
+						//$object->priority=0;
+						//$object->percent=$obj->percent;
+						$object->location=$event->getLocation();
+						//$object->socid=$obj->fk_soc;
+						//$object->contactid=$obj->fk_contact;
+						$object->note=trim(preg_replace('/'.preg_quote('-----+++++-----','/').'.*$/s', '', $event->getDescription()));
+
+						// Organizer
+						/*$organizer=$event->getOrganizer();
+						if ($organizer)
+						{
+							$emailtmp = $organizer->getEmail();
+							print ' - organizer = '.$emailtmp;
+							if ($emailtmp)
+							{
+								// Get user
+								$sql = "SELECT u.rowid FROM ".MAIN_DB_PREFIX."user as u WHERE email = '".$db->escape($emailtmp)."'";
+								$result = $db->query($sql);
+								if ($result)
+								{
+									$obj = $db->fetch_object($result);
+									if ($obj)
+									{
+										$tmpid = $obj->rowid;
+										//$userstatic->fetch($tmpid)
+										$object->userassigned[$tmpid]=array('id'=>$tmpid);
+										print $tmpid;
+									}
+								}
+								else
+								{
+									dol_print_error($db);
+									exit;
+								}
+							}
+						}
+						else	// If organizer not set, we take current user (this should no happened)
+						{
+							print 'errror: organizer not set';
+							$object->userassigned[$fuser->id]=array('id'=>$fuser->id);
+						}*/
+
+						// Owner
+						if ($dolibarr_user_id)		// If owner were saved
+						{
+							$object->userassigned=array();
+							$object->userassigned[$dolibarr_user_id]=array('id'=>$dolibarr_user_id);
+							$object->userownerid=$dolibarr_user_id;
+						}
+						else						// If owner were not saved, we keep old one
+						{
+							$object->userassigned=array();
+							//$object->userownerid=$fuser->id;
+							$object->userassigned[$object->userownerid]=array('id'=>$object->userownerid);
+						}
+
+						// Attendees
+						$attendees = $event->getAttendees();
+						if (! empty($attendees))
+						{
+							foreach($attendees as $attendee)
+							{
+								//var_dump($attendee);
+								$emailtmp=$attendee->getEmail();
+								if ($emailtmp)
+								{
+									// Get user
+									$sql = "SELECT u.rowid FROM ".MAIN_DB_PREFIX."user as u WHERE email = '".$db->escape($emailtmp)."'";
+									$result = $db->query($sql);
+									if ($result)
+									{
+										$obj = $db->fetch_object($result);
+										if ($obj)
+										{
+											$tmpid = $obj->rowid;
+											//$userstatic->fetch($tmpid)
+											$object->userassigned[$tmpid]=array('id'=>$tmpid);
+										}
+									}
+									else
+									{
+										dol_print_error($db);
+										exit;
+									}
+								}
+							}
+						}
+
+						if ($status == 'cancelled')
+						{
+							//$conf->global->GOOGLE_DELETEODDOL_WHEN_DELETEDONGOOGLE=1;
+							if (! empty($conf->global->GOOGLE_DELETEODDOL_WHEN_DELETEDONGOOGLE))
+							{
+								$result=$object->delete(1);
+								if ($result > 0)
+								{
+									$nbdeleted++;
+								}
+								else
+								{
+									$nberror++;
+								}
+							}
+							else
+							{
+								$nbnotdeleted++;
+							}
+						}
+						else
+						{
+							$result=$object->update($fuser, 1);
+							if ($result > 0)
+							{
+								$nbupdated++;
+							}
+							else
+							{
+								$nberror++;
+							}
+						}
+					}
+					else // Not found into dolibarr
+					{
+						//$event = new Google_Service_Calendar_Event();
+
+						// Create into dolibarr
+						$ds=$event->getStart();
+						$de=$event->getEnd();
+						if ($ds) $dates=$ds->getDate();
+						if ($de) $datee=$de->getDate();
+						if ($ds) $datest=$ds->getDateTime();
+						if ($de) $dateet=$de->getDateTime();
+
+						$object->punctual=0;
+
+						if ($datest)
+						{
+							// $datest = '2015-07-29T10:00:00+02:00' means 2015-07-29T08:00:00
+							// We remove the TZ from string. tz will be managed by the ($tzfix*3600)
+							if (preg_match('/^([0-9]{4})-([0-9]{2})-([0-9]{2})T([0-9]{2}):([0-9]{2}):([0-9]{2})\+([0-9]{2})/i',$datest,$reg))
+							{
+								$datest = $reg[1].'-'.$reg[2].'-'.$reg[3].'T'.$reg[4].':'.$reg[5].':'.$reg[6];
+								$tzs=(int) $reg[7];
+							}
+							if (preg_match('/^([0-9]{4})-([0-9]{2})-([0-9]{2})T([0-9]{2}):([0-9]{2}):([0-9]{2})\+([0-9]{2})/i',$dateet,$reg))
+							{
+								$dateet = $reg[1].'-'.$reg[2].'-'.$reg[3].'T'.$reg[4].':'.$reg[5].':'.$reg[6];
+								$tze=(int) $reg[7];
+							}
+							$object->datep=(dol_stringtotime($datest,0) - ($tzfix*3600));
+							$object->datef=(dol_stringtotime($dateet,0) - ($tzfix*3600));
+							$object->fulldayevent=0;
+							if ($object->datep == $object->datef) $object->punctual=1;
+							//print dol_print_date($object->datep, 'dayhour', 'tzserver');
+						}
+						elseif ($dates)
+						{
+							$object->datep=$datest;
+							$object->datef=$dateet;
+							$object->fulldayevent=1;
+						}
+						$object->type_code='AC_OTH';
+						$object->code='AC_OTH';
+						$object->label=$event->getSummary();
+						$object->transparency=($event->getTransparency()=="opaque"?1:0);
+						$object->priority=0;
+						$object->percent=-1;
+						$object->location=$event->getLocation();
+						//$object->socid=$obj->fk_soc;
+						//$object->contactid=$obj->fk_contact;
+						$object->note=trim(preg_replace('/'.preg_quote('-----+++++-----','/m').'.*$/s', '', $event->getDescription()));
+
+						// Organizer
+						/*$organizer=$event->getOrganizer();
+						if ($organizer)
+						{
+							$emailtmp = $organizer->getEmail();
+							print ' - organizer = '.$emailtmp;
+							if ($emailtmp)
+							{
+								// Get user
+								$sql = "SELECT u.rowid FROM ".MAIN_DB_PREFIX."user as u WHERE email = '".$db->escape($emailtmp)."'";
+								$result = $db->query($sql);
+								if ($result)
+								{
+									$obj = $db->fetch_object($result);
+									if ($obj)
+									{
+										$tmpid = $obj->rowid;
+										//$userstatic->fetch($tmpid)
+										$object->userassigned[$tmpid]=array('id'=>$tmpid);
+										print $tmpid;
+									}
+								}
+								else
+								{
+									dol_print_error($db);
+									exit;
+								}
+							}
+						}
+						else	// If organizer not set, we take current user (this should no happened)
+						{
+							print 'errror: organizer not set';
+							$object->userassigned[$user->id]=array('id'=>$user->id);
+						}*/
+
+						// Owner
+						if ($dolibarr_user_id)		// If owner were saved
+						{
+							$object->userassigned=array();
+							$object->userassigned[$dolibarr_user_id]=array('id'=>$dolibarr_user_id);
+							$object->userownerid=$dolibarr_user_id;
+						}
+						else						// If owner were not saved, we keep old one
+						{
+							$object->userassigned=array();
+							$object->userownerid=$fuser->id;
+							$object->userassigned[$object->userownerid]=array('id'=>$object->userownerid);
+						}
+
+						// Attendees
+						$attendees = $event->getAttendees();
+						if (! empty($attendees))
+						{
+							foreach($attendees as $attendee)
+							{
+								$emailtmp=$attendee->getEmail();
+								if ($emailtmp)
+								{
+									// Get user
+									$sql = "SELECT u.rowid FROM ".MAIN_DB_PREFIX."user as u WHERE email = '".$db->escape($emailtmp)."'";
+									$result = $db->query($sql);
+									if ($result)
+									{
+										$obj = $db->fetch_object($result);
+										if ($obj)
+										{
+											$tmpid = $obj->rowid;
+											//$userstatic->fetch($tmpid)
+											$object->userassigned[$tmpid]=array('id'=>$tmpid);
+										}
+									}
+									else
+									{
+										dol_print_error($db);
+										exit;
+									}
+								}
+							}
+						}
+
+						//var_dump($object->userassigned);
+						if ($status == 'cancelled')
+						{
+							// It's ok. We wont' add it
+							$nbalreadydeleted++;
+						}
+						else
+						{
+							$result=$object->add($fuser, 1);
+							if ($result > 0)
+							{
+								$ret='google:'.$event->getId();
+								$object->update_ref_ext($ret);	// This is to store ref_ext to allow updates
+
+								$nbinserted++;
+							}
+							else
+							{
+								dol_print_error('',$object->error);
+								$nberror++;
+							}
+						}
+					}
+
+					unset($object);
+				}
+
+				$pageToken = $events->getNextPageToken();
+				if ($pageToken && ($i < max))
+				{
+					$optParams['pageToken'] = $pageToken;
+					$events = $service->events->listEvents($userlogin, $optParams);
+				}
+				else
+				{
+					break;
+				}
+			}
+		}
+		catch(Exception $e)
+		{
+			$errors[] = 'ERROR '.$e->getMessage();
+			$error++;
+		}
+	}
+
+	return array('nbinserted'=>$nbinserted, 'nbupdated'=>$nbupdated, 'nbdeleted'=>$nbdeleted, 'nbalreadydeleted'=>$nbalreadydeleted, 'nbnotdeleted'=>$nbnotdeleted, 'errors'=>$errors);
 }
