@@ -635,17 +635,6 @@ if (! empty($conf->global->GOOGLE_DUPLICATE_INTO_GCAL))
 	print "</form>\n";
 }
 
-if (! empty($conf->global->GOOGLE_DUPLICATE_INTO_GCAL))
-{
-	print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
-	print '<input type="hidden" name="action" value="syncfromgoogle">';
-	print $langs->trans("ImportEventsFromGoogle",$max,$conf->global->GOOGLE_LOGIN,$notolderforsync)." ";
-	print '<input type="submit" name="getall" class="button" value="'.$langs->trans("Run").'"';
-	if (empty($conf->global->GOOGLE_LOGIN)) print ' disabled="disabled"';
-	print '>';
-	print "</form>\n";
-}
-
 print '</div>';
 
 llxFooter();
