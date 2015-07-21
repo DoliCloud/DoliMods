@@ -1,5 +1,5 @@
 <?php
-/* Copyright (C) 2005-2013 Laurent Destailleur  <eldy@users.sourceforge.net>
+/* Copyright (C) 2005-2015 Laurent Destailleur  <eldy@users.sourceforge.net>
  * Copyright (C) 2010-2012 Regis Houssin        <regis@dolibarr.fr>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -34,6 +34,15 @@ require_once(DOL_DOCUMENT_ROOT."/core/class/html.formadmin.class.php");
 require_once(DOL_DOCUMENT_ROOT."/comm/action/class/actioncomm.class.php");
 dol_include_once("/google/lib/google.lib.php");
 dol_include_once('/google/lib/google_calendar.lib.php');
+
+
+// Define $max, $maxgoogle and $notolderforsync
+$max=(empty($conf->global->GOOGLE_MAX_FOR_MASS_AGENDA_SYNC)?50:$conf->global->GOOGLE_MAX_FOR_MASS_AGENDA_SYNC);
+$maxgoogle=2500;
+$notolderforsync=(empty($conf->global->GOOGLE_MAXOLDDAYS_FOR_MASS_AGENDA_SYNC)?10:$conf->global->GOOGLE_MAXOLDDAYS_FOR_MASS_AGENDA_SYNC);
+
+$dateminsync=dol_mktime(GETPOST('synchour'), GETPOST('syncmin'), 0, GETPOST('syncmonth'), GETPOST('syncday'), GETPOST('syncyear'), 0);
+//print dol_print_date($dateminsync, 'dayhour');
 
 $langs->load("google@google");
 $langs->load("admin");
@@ -330,6 +339,39 @@ if ($action == 'pushallevents')
 
 }
 
+if ($action == 'syncfromgoogle')
+{
+	//$fuser = $user;		// $fuser = user for synch
+	$userlogin = empty($fuser->conf->GOOGLE_LOGIN)?'':$fuser->conf->GOOGLE_LOGIN;
+
+	if (empty($dateminsync))
+	{
+		setEventMessage($langs->trans("ErrorBadValueForDate"), 'errors');
+		$error++;
+	}
+
+	if (! $error)
+	{
+		$resarray = syncEventsFromGoogleCalendar($userlogin, $fuser, $dateminsync, $max);
+
+		$errors=$resarray['errors'];
+		$nbinserted=$resarray['nbinserted'];
+		$nbupdated=$resarray['nbupdated'];
+		$nbdeleted=$resarray['nbdeleted'];
+		$nbalreadydeleted=$resarray['nbalreadydeleted'];
+
+		if (! empty($errors))
+		{
+			setEventMessage($errors, 'errors');
+		}
+		else
+		{
+			setEventMessage($langs->trans("GetFromGoogleSucess", $nbinserted, $nbupdated, $nbdeleted, $nbalreadydeleted), 'mesgs');
+			if ($nbalreadydeleted) setEventMessage($langs->trans("GetFromGoogleAlreadyDeleted", $nbalreadydeleted), 'mesgs');
+		}
+	}
+}
+
 
 
 /*
@@ -531,7 +573,22 @@ if (empty($userlogin))	// We use setup of user
 		print '<input type="hidden" name="action" value="deleteallevents">';
 		print '<input type="hidden" name="id" value="'.$id.'">';
 		print $langs->trans("DeleteAllGoogleEvents",$fuser->conf->GOOGLE_LOGIN)." ";
+		print '('.$langs->trans("OperationMayBeLong").') ';
 		print '<input type="submit" name="cleanup" class="button" value="'.$langs->trans("Run").'"';
+		if (empty($fuser->conf->GOOGLE_LOGIN)) print ' disabled="disabled"';
+		print '>';
+		print "</form>\n";
+	}
+
+	if (! empty($conf->global->GOOGLE_DUPLICATE_INTO_GCAL))
+	{
+		print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
+		print '<input type="hidden" name="action" value="syncfromgoogle">';
+		print '<input type="hidden" name="id" value="'.$id.'">';
+		print $langs->trans("ImportEventsFromGoogle",$max,$fuser->conf->GOOGLE_LOGIN)." ";
+		$now = dol_now() - ($notolderforsync * 24 * 3600);
+		print $form->select_date($dateminsync ? $dateminsync : $now, 'sync', 1, 1);
+		print '<input type="submit" name="getall" class="button" value="'.$langs->trans("Run").'"';
 		if (empty($fuser->conf->GOOGLE_LOGIN)) print ' disabled="disabled"';
 		print '>';
 		print "</form>\n";

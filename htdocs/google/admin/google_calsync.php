@@ -1,5 +1,22 @@
 <?php
-/* Copyright (C) 2008-2011 Laurent Destailleur  <eldy@users.sourceforge.net>
+/* Copyright (C) 2008-2015 Laurent Destailleur  <eldy@users.sourceforge.net>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Tutorial: http://25labs.com/import-gmail-or-google-contacts-using-google-contacts-data-api-3-0-and-oauth-2-0-in-php/
+ * Tutorial: http://www.ibm.com/developerworks/library/x-phpgooglecontact/index.html
+ * Tutorial: https://developers.google.com/google-apps/contacts/v3/
  */
 
 /**
@@ -26,6 +43,15 @@ require_once(DOL_DOCUMENT_ROOT.'/comm/action/class/actioncomm.class.php');
 dol_include_once("/google/lib/google.lib.php");
 dol_include_once('/google/lib/google_calendar.lib.php');
 
+
+// Define $max, $maxgoogle and $notolderforsync
+$max=(empty($conf->global->GOOGLE_MAX_FOR_MASS_AGENDA_SYNC)?50:$conf->global->GOOGLE_MAX_FOR_MASS_AGENDA_SYNC);
+$maxgoogle=2500;
+$notolderforsync=(empty($conf->global->GOOGLE_MAXOLDDAYS_FOR_MASS_AGENDA_SYNC)?10:$conf->global->GOOGLE_MAXOLDDAYS_FOR_MASS_AGENDA_SYNC);
+
+$dateminsync=dol_mktime(GETPOST('synchour'), GETPOST('syncmin'), 0, GETPOST('syncmonth'), GETPOST('syncday'), GETPOST('syncyear'));
+//print dol_print_date($dateminsync, 'dayhour');
+
 if (!$user->admin) accessforbidden();
 
 $langs->load("google@google");
@@ -35,7 +61,6 @@ $langs->load("other");
 $def = array();
 $action=GETPOST("action");
 
-$max=(empty($conf->global->GOOGLE_MAX_FOR_MASS_AGENDA_SYNC)?50:$conf->global->GOOGLE_MAX_FOR_MASS_AGENDA_SYNC);
 
 if (empty($conf->global->GOOGLE_AGENDA_NB)) $conf->global->GOOGLE_AGENDA_NB=5;
 $MAXAGENDA=empty($conf->global->GOOGLE_AGENDA_NB)?5:$conf->global->GOOGLE_AGENDA_NB;
@@ -218,8 +243,8 @@ if (GETPOST('cleanup'))
 					$extendedProperties=$event->getExtendedProperties();
 					if (is_object($extendedProperties))
 					{
-						$shared=$extendedProperties->getShared();
-						$priv=$extendedProperties->getPrivate();
+						$shared=$extendedProperties->getShared();	// Was set by old version of module Google
+						$priv=$extendedProperties->getPrivate();	// Private property dolibarr_id is set during google create. Not modified by update.
 						$dolibarr_id=($priv['dolibarr_id']?$priv['dolibarr_id']:$shared['dol_id']);
 					}
 					if ($dolibarr_id)
@@ -352,6 +377,40 @@ if ($action == 'pushallevents')
 	}
 
 }
+
+if ($action == 'syncfromgoogle')
+{
+	$fuser = $user;		// $fuser = user for synch
+	$userlogin = empty($conf->global->GOOGLE_LOGIN)?'':$conf->global->GOOGLE_LOGIN;
+
+	if (empty($dateminsync))
+	{
+		setEventMessage($langs->trans("ErrorBadValueForDate"), 'errors');
+		$error++;
+	}
+
+	if (! $error)
+	{
+		$resarray = syncEventsFromGoogleCalendar($userlogin, $fuser, $dateminsync, $max);
+
+		$errors=$resarray['errors'];
+		$nbinserted=$resarray['nbinserted'];
+		$nbupdated=$resarray['nbupdated'];
+		$nbdeleted=$resarray['nbdeleted'];
+		$nbalreadydeleted=$resarray['nbalreadydeleted'];
+
+		if (! empty($errors))
+		{
+			setEventMessage($errors, 'errors');
+		}
+		else
+		{
+			setEventMessage($langs->trans("GetFromGoogleSucess", $nbinserted, $nbupdated, $nbdeleted), 'mesgs');
+			if ($nbalreadydeleted) setEventMessage($langs->trans("GetFromGoogleAlreadyDeleted", $nbalreadydeleted), 'mesgs');
+		}
+	}
+}
+
 
 
 
@@ -554,7 +613,21 @@ if (! empty($conf->global->GOOGLE_DUPLICATE_INTO_GCAL))
 	print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
 	print '<input type="hidden" name="action" value="deleteallevents">';
 	print $langs->trans("DeleteAllGoogleEvents",$conf->global->GOOGLE_LOGIN)." ";
+	print '('.$langs->trans("OperationMayBeLong").') ';
 	print '<input type="submit" name="cleanup" class="button" value="'.$langs->trans("Run").'"';
+	if (empty($conf->global->GOOGLE_LOGIN)) print ' disabled="disabled"';
+	print '>';
+	print "</form>\n";
+}
+
+if (! empty($conf->global->GOOGLE_DUPLICATE_INTO_GCAL))
+{
+	print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
+	print '<input type="hidden" name="action" value="syncfromgoogle">';
+	print $langs->trans("ImportEventsFromGoogle",$max,$conf->global->GOOGLE_LOGIN)." ";
+	$now = dol_now() - ($notolderforsync * 24 * 3600);
+	print $form->select_date($dateminsync ? $dateminsync : $now, 'sync', 1, 1);
+	print '<input type="submit" name="getall" class="button" value="'.$langs->trans("Run").'"';
 	if (empty($conf->global->GOOGLE_LOGIN)) print ' disabled="disabled"';
 	print '>';
 	print "</form>\n";
@@ -565,4 +638,3 @@ print '</div>';
 llxFooter();
 
 if (is_object($db)) $db->close();
-?>
