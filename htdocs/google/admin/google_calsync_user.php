@@ -588,7 +588,7 @@ if (empty($userlogin))	// We use setup of user
 		print '<input type="hidden" name="id" value="'.$id.'">';
 		print $langs->trans("ImportEventsFromGoogle",$max,$fuser->conf->GOOGLE_LOGIN)." ";
 		$now = dol_now() - ($notolderforsync * 24 * 3600);
-		print $form->select_date($dateminsync ? $dateminsync : $now, 'sync', 1, 1);
+		print $form->select_date($dateminsync ? $dateminsync : $now, 'sync', 1, 1, 0, '', 1, 0, 0, empty($fuser->conf->GOOGLE_LOGIN)?1:0);
 		print '<input type="submit" name="getall" class="button" value="'.$langs->trans("Run").'"';
 		if (empty($fuser->conf->GOOGLE_LOGIN)) print ' disabled="disabled"';
 		print '>';

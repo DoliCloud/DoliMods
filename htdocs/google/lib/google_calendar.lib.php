@@ -592,11 +592,13 @@ function google_complete_label_and_note(&$object, $langs)
  * @param	string		$userlogin	Name of calendar to sync
  * @param 	User		$fuser		User making sync
  * @param	int			$mindate	Minimum date
+ * @param	int			$max		Max nb of records to sync
  * @return	array					array('nbinserted'=>, 'nbupdated'=>, 'errors'=>)
  */
 function syncEventsFromGoogleCalendar($userlogin, User $fuser, $mindate, $max=0)
 {
 	global $db, $langs, $conf;
+	global $dolibarr_main_url_root;
 
 	$tzfix=0;
 	if (! empty($conf->global->GOOGLE_CAL_TZ_FIX) && is_numeric($conf->global->GOOGLE_CAL_TZ_FIX)) $tzfix=$conf->global->GOOGLE_CAL_TZ_FIX;
@@ -618,7 +620,7 @@ function syncEventsFromGoogleCalendar($userlogin, User $fuser, $mindate, $max=0)
 		$error++;
 	}
 
-	if ($servicearray == null)
+	if ($error || $servicearray == null)
 	{
 		$txterror="Failed to login to Google with credentials provided into setup page ".$conf->global->GOOGLE_API_SERVICEACCOUNT_CLIENT_ID.", ".$conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL.", ".$key_file_location;
 		dol_syslog($txterror, LOG_ERR);
@@ -703,7 +705,7 @@ function syncEventsFromGoogleCalendar($userlogin, User $fuser, $mindate, $max=0)
 						//$object->type_code='AC_OTH';
 						//$object->code='AC_OTH';
 						$object->label=$event->getSummary();
-						$object->transparency=($event->getTransparency()=="opaque"?1:0);
+						$object->transparency=((empty($transtmp) || $transtmp == 'opaque')?1:0);		// null or 'opaque' = busy, 'transparent' = available
 						//$object->priority=0;
 						//$object->percent=$obj->percent;
 						$object->location=$event->getLocation();
@@ -794,7 +796,7 @@ function syncEventsFromGoogleCalendar($userlogin, User $fuser, $mindate, $max=0)
 
 						if ($status == 'cancelled')
 						{
-							//$conf->global->GOOGLE_DELETEODDOL_WHEN_DELETEDONGOOGLE=1;
+							$conf->global->GOOGLE_DELETEODDOL_WHEN_DELETEDONGOOGLE=1;
 							if (! empty($conf->global->GOOGLE_DELETEODDOL_WHEN_DELETEDONGOOGLE))
 							{
 								$result=$object->delete(1);
@@ -868,7 +870,8 @@ function syncEventsFromGoogleCalendar($userlogin, User $fuser, $mindate, $max=0)
 						$object->type_code='AC_OTH';
 						$object->code='AC_OTH';
 						$object->label=$event->getSummary();
-						$object->transparency=($event->getTransparency()=="opaque"?1:0);
+						$transtmp=$event->getTransparency();
+						$object->transparency=((empty($transtmp) || $transtmp == 'opaque')?1:0);		// null or 'opaque' = busy, 'transparent' = available
 						$object->priority=0;
 						$object->percent=-1;
 						$object->location=$event->getLocation();
@@ -968,7 +971,42 @@ function syncEventsFromGoogleCalendar($userlogin, User $fuser, $mindate, $max=0)
 							if ($result > 0)
 							{
 								$ret='google:'.$event->getId();
-								$object->update_ref_ext($ret);	// This is to store ref_ext to allow updates
+								$object->update_ref_ext($ret);	// This is to store ref_ext into Dolibarr to allow updates
+
+								// Update dolibarr_id and dolibarr_user_id into Google record
+								if (empty($extendedProperties))
+								{
+									$extendedProperties=new Google_Service_Calendar_EventExtendedProperties();
+									$extendedProperties->setPrivate(array('dolibarr_id'=>$object->id.'/event','dolibarr_user_id'=>$object->userownerid));
+									$event->setExtendedProperties($extendedProperties);
+								}
+								else
+								{
+									$arraytmp=$extendedProperties->getPrivate();
+									$arraytmp['dolibarr_id']=$object->id.'/event';
+									$extendedProperties->setPrivate($arraytmp);
+									$event->setExtendedProperties($extendedProperties);
+								}
+
+								/*
+								The source can only be modified by creator of event. It may differs from account used to login if event is a shared event
+
+								// Define $urlwithroot
+								$urlwithouturlroot=preg_replace('/'.preg_quote(DOL_URL_ROOT,'/').'$/i','',trim($dolibarr_main_url_root));
+								$urlwithroot=$urlwithouturlroot.DOL_URL_ROOT;		// This is to use external domain name found into config file
+								//$urlwithroot=DOL_MAIN_URL_ROOT;					// This is to use same domain name than current
+
+								$urlevent=$urlwithroot.'/comm/action/card.php?id='.$object->id;
+								$urlicon=$urlwithroot.'/favicon.ico';
+
+								$source=new Google_Service_Calendar_EventSource();
+								$source->setTitle($conf->global->MAIN_APPLICATION_TITLE);
+								$source->setUrl($urlevent);
+
+								$event->setSource($source);
+								*/
+
+								$updatedEvent = $service->events->update($userlogin, $event->getId(), $event);
 
 								$nbinserted++;
 							}
