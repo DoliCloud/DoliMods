@@ -40,6 +40,7 @@ require_once(DOL_DOCUMENT_ROOT."/core/lib/files.lib.php");
 require_once(DOL_DOCUMENT_ROOT.'/core/class/html.formadmin.class.php');
 require_once(DOL_DOCUMENT_ROOT.'/core/class/html.formother.class.php');
 require_once(DOL_DOCUMENT_ROOT.'/comm/action/class/actioncomm.class.php');
+
 dol_include_once("/google/lib/google.lib.php");
 dol_include_once('/google/lib/google_calendar.lib.php');
 
@@ -48,6 +49,7 @@ dol_include_once('/google/lib/google_calendar.lib.php');
 $max=(empty($conf->global->GOOGLE_MAX_FOR_MASS_AGENDA_SYNC)?50:$conf->global->GOOGLE_MAX_FOR_MASS_AGENDA_SYNC);
 $maxgoogle=2500;
 $notolderforsync=(empty($conf->global->GOOGLE_MAXOLDDAYS_FOR_MASS_AGENDA_SYNC)?10:$conf->global->GOOGLE_MAXOLDDAYS_FOR_MASS_AGENDA_SYNC);
+$testoffset=3600;
 
 $dateminsync=dol_mktime(GETPOST('synchour'), GETPOST('syncmin'), 0, GETPOST('syncmonth'), GETPOST('syncday'), GETPOST('syncyear'));
 //print dol_print_date($dateminsync, 'dayhour');
@@ -181,8 +183,8 @@ if (preg_match('/^test/',$action))
 		$object->label='New label';
 		$object->location='New location';
 		$object->note='New note';
-		$object->datep+=3600;
-		$object->datef+=3600;
+		$object->datep+=$testoffset;
+		$object->datef+=$testoffset;
 
 		$result=$object->update($user);
 		if ($result < 0) $error++;
@@ -583,7 +585,7 @@ else
 {
 	print '<a class="butAction" href="'.$_SERVER['PHP_SELF'].'?action=testall">'.$langs->trans("TestCreateUpdateDelete")."</a>";
 
-	print '<a class="butAction" href="'.$_SERVER['PHP_SELF'].'?action=testcreate">'.$langs->trans("TestCreateUpdate")."</a>";
+	print '<a class="butAction" title="Make a record at current date + '.$testoffset.'s" href="'.$_SERVER['PHP_SELF'].'?action=testcreate">'.$langs->trans("TestCreateUpdate")."</a>";
 }
 print '</div>';
 
@@ -626,7 +628,18 @@ if (! empty($conf->global->GOOGLE_DUPLICATE_INTO_GCAL))
 	print '<input type="hidden" name="action" value="syncfromgoogle">';
 	print $langs->trans("ImportEventsFromGoogle",$max,$conf->global->GOOGLE_LOGIN)." ";
 	$now = dol_now() - ($notolderforsync * 24 * 3600);
-	print $form->select_date($dateminsync ? $dateminsync : $now, 'sync', 1, 1);
+	print $form->select_date($dateminsync ? $dateminsync : $now, 'sync', 1, 1, 0, '', 1, 0, 0, empty($conf->global->GOOGLE_LOGIN)?1:0);
+	print '<input type="submit" name="getall" class="button" value="'.$langs->trans("Run").'"';
+	if (empty($conf->global->GOOGLE_LOGIN)) print ' disabled="disabled"';
+	print '>';
+	print "</form>\n";
+}
+
+if (! empty($conf->global->GOOGLE_DUPLICATE_INTO_GCAL))
+{
+	print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
+	print '<input type="hidden" name="action" value="syncfromgoogle">';
+	print $langs->trans("ImportEventsFromGoogle",$max,$conf->global->GOOGLE_LOGIN,$notolderforsync)." ";
 	print '<input type="submit" name="getall" class="button" value="'.$langs->trans("Run").'"';
 	if (empty($conf->global->GOOGLE_LOGIN)) print ' disabled="disabled"';
 	print '>';

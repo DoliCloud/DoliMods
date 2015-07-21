@@ -114,5 +114,5 @@ LinkToOAuthPage=Link to Google OAuth2 page
 GoogleWebTokenNotDefinedDoALoginInitFirst=Google token was never generated. Ask your administror to go onto 'Home - Setup - Modules - Google - Setup page of contact sync' and generated once a security token.
 ImportEventsFromGoogle=Import last <strong>%s</strong> modified Google events from Google calendar <strong>%s</strong> and modified after
 GetFromGoogleSucess=Sync from Google success. %s record(s) inserted into Dolibarr, %s record(s) updated into Dolibarr, %s record(s) deleted into Dolibarr.
-GetFromGoogleAlreadDeleted=%s record(s) deleted on Google and not found into Dolibarr.
+GetFromGoogleAlreadyDeleted=%s record(s) deleted on Google and not found into Dolibarr.
 OperationMayBeLong=operation may be long, restart if you epxerience timeout

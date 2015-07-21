@@ -40,6 +40,7 @@ dol_include_once('/google/lib/google_calendar.lib.php');
 $max=(empty($conf->global->GOOGLE_MAX_FOR_MASS_AGENDA_SYNC)?50:$conf->global->GOOGLE_MAX_FOR_MASS_AGENDA_SYNC);
 $maxgoogle=2500;
 $notolderforsync=(empty($conf->global->GOOGLE_MAXOLDDAYS_FOR_MASS_AGENDA_SYNC)?10:$conf->global->GOOGLE_MAXOLDDAYS_FOR_MASS_AGENDA_SYNC);
+$testoffset=3600;
 
 $dateminsync=dol_mktime(GETPOST('synchour'), GETPOST('syncmin'), 0, GETPOST('syncmonth'), GETPOST('syncday'), GETPOST('syncyear'), 0);
 //print dol_print_date($dateminsync, 'dayhour');
@@ -143,8 +144,8 @@ if (preg_match('/^test/',$action))
 		$object->label='New label';
 		$object->location='New location';
 		$object->note='New note';
-		$object->datep+=3600;
-		$object->datef+=3600;
+		$object->datep+=$testoffset;
+		$object->datef+=$testoffset;
 
 		$result=$object->update($user);
 		if ($result < 0) $error++;
@@ -541,7 +542,7 @@ if (empty($userlogin))	// We use setup of user
 	{
 		print '<a class="butAction" href="'.$_SERVER['PHP_SELF'].'?action=testall&id='.$id.'">'.$langs->trans("TestCreateUpdateDelete")."</a>";
 
-		print '<a class="butAction" href="'.$_SERVER['PHP_SELF'].'?action=testcreate&id='.$id.'">'.$langs->trans("TestCreateUpdate")."</a>";
+		print '<a class="butAction" title="Make a record at current date + '.$testoffset.'s" href="'.$_SERVER['PHP_SELF'].'?action=testcreate&id='.$id.'">'.$langs->trans("TestCreateUpdate")."</a>";
 	}
 	print '</div>';
 
