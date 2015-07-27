@@ -624,15 +624,18 @@ if (! empty($conf->global->GOOGLE_DUPLICATE_INTO_GCAL))
 
 if (! empty($conf->global->GOOGLE_DUPLICATE_INTO_GCAL))
 {
-	print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
-	print '<input type="hidden" name="action" value="syncfromgoogle">';
-	print $langs->trans("ImportEventsFromGoogle",$max,$conf->global->GOOGLE_LOGIN)." ";
-	$now = dol_now() - ($notolderforsync * 24 * 3600);
-	print $form->select_date($dateminsync ? $dateminsync : $now, 'sync', 1, 1, 0, '', 1, 0, 0, empty($conf->global->GOOGLE_LOGIN)?1:0);
-	print '<input type="submit" name="getall" class="button" value="'.$langs->trans("Run").'"';
-	if (empty($conf->global->GOOGLE_LOGIN)) print ' disabled="disabled"';
-	print '>';
-	print "</form>\n";
+	if (versioncompare(versiondolibarrarray(), array(3,7,2)) >= 0)
+	{
+		print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
+		print '<input type="hidden" name="action" value="syncfromgoogle">';
+		print $langs->trans("ImportEventsFromGoogle",$max,$conf->global->GOOGLE_LOGIN)." ";
+		$now = dol_now() - ($notolderforsync * 24 * 3600);
+		print $form->select_date($dateminsync ? $dateminsync : $now, 'sync', 1, 1, 0, '', 1, 0, 0, empty($conf->global->GOOGLE_LOGIN)?1:0);
+		print '<input type="submit" name="getall" class="button" value="'.$langs->trans("Run").'"';
+		if (empty($conf->global->GOOGLE_LOGIN)) print ' disabled="disabled"';
+		print '>';
+		print "</form>\n";
+	}
 }
 
 print '</div>';
