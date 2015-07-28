@@ -20,7 +20,7 @@
  */
 
 /**
- *	    \file       htdocs/google/admin/google.php
+ *	    \file       htdocs/google/admin/google_calsync.php
  *      \ingroup    google
  *      \brief      Setup page for google module (Calendar)
  */
