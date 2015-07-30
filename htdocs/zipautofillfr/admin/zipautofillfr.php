@@ -35,6 +35,7 @@ require_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
 require_once(DOL_DOCUMENT_ROOT.'/core/class/html.formadmin.class.php');
 require_once(DOL_DOCUMENT_ROOT.'/core/class/html.formother.class.php');
 
+$error = 0;
 
 if (!$user->admin) accessforbidden();
 
@@ -101,7 +102,7 @@ if ($action == 'setcolor')
 
 $formother=new FormOther($db);
 
-llxHeader('','ZipAutoFill',$linktohelp);
+llxHeader('','ZipAutoFill');
 
 $linkback='<a href="'.DOL_URL_ROOT.'/admin/modules.php">'.$langs->trans("BackToModuleList").'</a>';
 print_fiche_titre($langs->trans("ZipAutoFillSetup"),$linkback,'setup');
@@ -139,4 +140,4 @@ dol_fiche_end();
 llxFooter();
 
 if (is_object($db)) $db->close();
-?>
+

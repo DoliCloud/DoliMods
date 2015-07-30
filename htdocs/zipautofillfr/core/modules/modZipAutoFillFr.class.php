@@ -149,4 +149,4 @@ class modZipAutoFillFr extends DolibarrModules
 		return $this->_load_tables('/zipautofillfr/sql/');
 	}
 }
-?>
+
