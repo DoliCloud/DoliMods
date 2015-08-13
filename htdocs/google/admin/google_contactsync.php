@@ -155,7 +155,14 @@ if (preg_match('/^test/',$action))
 	    $object->note_private='New private note with special char é and entity eacute &eacute; and html tag <strong>strong</strong>';
 	    /*$object->code_client=-1;
 	    $object->code_fournisseur=-1;*/
+
+	    // Force a numbering rule with no check
+	    $savoption=$conf->global->SOCIETE_CODECLIENT_ADDON;
+	    $conf->global->SOCIETE_CODECLIENT_ADDON='mod_codeclient_leopard';
+
 	    $result=$object->create($user);
+
+	    $conf->global->SOCIETE_CODECLIENT_ADDON=$savoption;
     }
     if ($action == 'testcreatecontacts' || $action == 'testallcontacts')
     {
@@ -196,7 +203,14 @@ if (preg_match('/^test/',$action))
 		    $object->note_private='New private note with special char é and entity eacute &eacute; and html tag <strong>strong</strong>';
 		    $object->street='New street';
 		    $object->town='New town';
+
+		    // Force a numbering rule with no check
+		    $savoption=$conf->global->SOCIETE_CODECLIENT_ADDON;
+		    $conf->global->SOCIETE_CODECLIENT_ADDON='mod_codeclient_leopard';
+
 		    $result=$object->update($object->id, $user);
+
+		    $conf->global->SOCIETE_CODECLIENT_ADDON=$savoption;
 
 		    if ($result > 0) $result=$object->delete($object->id, $user);	// id of thirdparty to delete
 	    }
