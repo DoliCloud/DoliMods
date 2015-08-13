@@ -63,7 +63,7 @@ $oauthurl='https://accounts.google.com/o/oauth2/auth';
 
 if ($action == 'deletetoken')
 {
-	$res=dolibarr_del_const($db,'GOOGLE_WEB_TOKEN');
+	$res=dolibarr_del_const($db, 'GOOGLE_WEB_TOKEN', $conf->entity);
 	unset($_SESSION['google_web_token']);
 	if (! $res > 0) $error++;
 
@@ -84,19 +84,19 @@ if ($action == 'save')
 	if (! GETPOST('GOOGLE_CONTACT_LOGIN'))
 	{
 		$langs->load("errors");
-		dolibarr_del_const($db, 'GOOGLE_CONTACT_LOGIN');
+		dolibarr_del_const($db, 'GOOGLE_CONTACT_LOGIN', $conf->entity);
 		setEventMessage($langs->trans("ErrorFieldRequired",$langs->transnoentitiesnoconv("GOOGLE_LOGIN")),'errors');
 	}
 
-	$res=dolibarr_set_const($db,'GOOGLE_API_CLIENT_ID',trim(GETPOST("GOOGLE_API_CLIENT_ID")),'chaine',0);
+	$res=dolibarr_set_const($db,'GOOGLE_API_CLIENT_ID',trim(GETPOST("GOOGLE_API_CLIENT_ID")),'chaine',0, '', $conf->entity);
 	if (! $res > 0) $error++;
-	$res=dolibarr_set_const($db,'GOOGLE_API_CLIENT_SECRET',trim(GETPOST("GOOGLE_API_CLIENT_SECRET")),'chaine',0);
+	$res=dolibarr_set_const($db,'GOOGLE_API_CLIENT_SECRET',trim(GETPOST("GOOGLE_API_CLIENT_SECRET")),'chaine',0, '', $conf->entity);
 	if (! $res > 0) $error++;
 
 	/*if (! GETPOST('GOOGLE_CONTACT_PASSWORD'))
 	{
 		$langs->load("errors");
-		dolibarr_del_const($db, 'GOOGLE_CONTACT_PASSWORD');
+		dolibarr_del_const($db, 'GOOGLE_CONTACT_PASSWORD', $conf->entity);
 		setEventMessage($langs->trans("ErrorFieldRequired",$langs->transnoentitiesnoconv("GOOGLE_PASSWORD")),'errors');
 	}*/
 
@@ -104,23 +104,23 @@ if ($action == 'save')
     {
     	$db->begin();
 
-    	$res=dolibarr_set_const($db,'GOOGLE_DUPLICATE_INTO_THIRDPARTIES',trim(GETPOST("GOOGLE_DUPLICATE_INTO_THIRDPARTIES")),'chaine',0);
+    	$res=dolibarr_set_const($db,'GOOGLE_DUPLICATE_INTO_THIRDPARTIES',trim(GETPOST("GOOGLE_DUPLICATE_INTO_THIRDPARTIES")),'chaine',0, '', $conf->entity);
 	    if (! $res > 0) $error++;
-	    $res=dolibarr_set_const($db,'GOOGLE_DUPLICATE_INTO_CONTACTS',trim(GETPOST("GOOGLE_DUPLICATE_INTO_CONTACTS")),'chaine',0);
+	    $res=dolibarr_set_const($db,'GOOGLE_DUPLICATE_INTO_CONTACTS',trim(GETPOST("GOOGLE_DUPLICATE_INTO_CONTACTS")),'chaine',0, '', $conf->entity);
 	    if (! $res > 0) $error++;
-	    $res=dolibarr_set_const($db,'GOOGLE_DUPLICATE_INTO_MEMBERS',trim(GETPOST("GOOGLE_DUPLICATE_INTO_MEMBERS")),'chaine',0);
+	    $res=dolibarr_set_const($db,'GOOGLE_DUPLICATE_INTO_MEMBERS',trim(GETPOST("GOOGLE_DUPLICATE_INTO_MEMBERS")),'chaine',0, '', $conf->entity);
 	    if (! $res > 0) $error++;
-	    $res=dolibarr_set_const($db,'GOOGLE_CONTACT_LOGIN',trim(GETPOST("GOOGLE_CONTACT_LOGIN")),'chaine',0);
+	    $res=dolibarr_set_const($db,'GOOGLE_CONTACT_LOGIN',trim(GETPOST("GOOGLE_CONTACT_LOGIN")),'chaine',0, '', $conf->entity);
 	    if (! $res > 0) $error++;
-	    $res=dolibarr_set_const($db,'GOOGLE_CONTACT_PASSWORD',trim(GETPOST("GOOGLE_CONTACT_PASSWORD")),'chaine',0);
+	    $res=dolibarr_set_const($db,'GOOGLE_CONTACT_PASSWORD',trim(GETPOST("GOOGLE_CONTACT_PASSWORD")),'chaine',0, '', $conf->entity);
 	    if (! $res > 0) $error++;
-	    $res=dolibarr_set_const($db,'GOOGLE_CONTACT_LABEL',trim(GETPOST("GOOGLE_CONTACT_LABEL")),'chaine',0);
+	    $res=dolibarr_set_const($db,'GOOGLE_CONTACT_LABEL',trim(GETPOST("GOOGLE_CONTACT_LABEL")),'chaine',0, '', $conf->entity);
 	    if (! $res > 0) $error++;
-		$res=dolibarr_set_const($db,'GOOGLE_TAG_PREFIX',trim(GETPOST("GOOGLE_TAG_PREFIX")),'chaine',0);
+		$res=dolibarr_set_const($db,'GOOGLE_TAG_PREFIX',trim(GETPOST("GOOGLE_TAG_PREFIX")),'chaine',0, '', $conf->entity);
 	    if (! $res > 0) $error++;
-	    $res=dolibarr_set_const($db,'GOOGLE_TAG_PREFIX_CONTACTS',trim(GETPOST("GOOGLE_TAG_PREFIX_CONTACTS")),'chaine',0);
+	    $res=dolibarr_set_const($db,'GOOGLE_TAG_PREFIX_CONTACTS',trim(GETPOST("GOOGLE_TAG_PREFIX_CONTACTS")),'chaine',0, '', $conf->entity);
 	    if (! $res > 0) $error++;
-	    $res=dolibarr_set_const($db,'GOOGLE_TAG_PREFIX_MEMBERS',trim(GETPOST("GOOGLE_TAG_PREFIX_MEMBERS")),'chaine',0);
+	    $res=dolibarr_set_const($db,'GOOGLE_TAG_PREFIX_MEMBERS',trim(GETPOST("GOOGLE_TAG_PREFIX_MEMBERS")),'chaine',0, '', $conf->entity);
 	    if (! $res > 0) $error++;
 
 	    if (! $error)
@@ -803,8 +803,19 @@ else
 
 	if (! empty($conf->global->GOOGLE_WEB_TOKEN) || ! empty($_SESSION['google_web_token']))
 	{
-		print 'Database token: '.$conf->global->GOOGLE_WEB_TOKEN.'<br>';
-		print 'Current session token: '.$_SESSION['google_web_token'].'<br>';
+		print 'Database token:<br>'.$conf->global->GOOGLE_WEB_TOKEN;
+		$sql="SELECT tms as token_date_last_update, entity from ".MAIN_DB_PREFIX."const where name = 'GOOGLE_WEB_TOKEN' and value = '".$db->escape($conf->global->GOOGLE_WEB_TOKEN)."'";
+		$resql=$db->query($sql);
+		if ($resql)
+		{
+			$obj=$db->fetch_object($resql);
+			$token_date_last_update = $db->jdate($obj->token_date_last_update);
+			$token_entity = $obj->entity;
+			print ' - '.$langs->trans("DateCreation").': '.dol_print_date($token_date_last_update, 'dayhour').' - '.$langs->trans("Entity").': '.$token_entity;
+		}
+		else dol_print_error($db);
+		print '<br>';
+		print 'Current session token:<br>'.$_SESSION['google_web_token'].'<br>';
 		print '<br>';
 		print $langs->trans("GoogleRecreateToken").'<br>';
 		//print '<a href="'.$completeoauthurl.'" target="_blank">'.$langs->trans("LinkToOAuthPage").'</a>';
