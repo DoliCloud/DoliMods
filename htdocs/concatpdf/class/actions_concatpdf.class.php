@@ -188,6 +188,22 @@ class ActionsConcatPdf
 
         $concatpdffile = GETPOST('concatpdffile',$check);
         if (! is_array($concatpdffile) && ! empty($concatpdffile)) $concatpdffile = array($concatpdffile);
+        // Includes default models if no model selection
+        if (empty($concatpdffile) && ! isset($_POST['concatpdffile']) && ! empty($conf->global->CONCATPDF_PRESELECTED_MODELS)) {
+        	// $conf->global->CONCATPDF_PRESELECTED_MODELS may contains value of preselected model with format
+        	// propal:model1a,model1b;invoice:model2;...
+        	$tmparray=explode(';',$conf->global->CONCATPDF_PRESELECTED_MODELS);
+        	$tmparray2=array();
+        	foreach($tmparray as $val)
+        	{
+        		$tmp=explode(':',$val);
+        		if (! empty($tmp[1])) $tmparray2[$tmp[0]]=$tmp[1];
+        	}
+        	foreach($tmparray2 as $key => $val)
+        	{
+        		if ($parameters['object']->element == $key) $concatpdffile[]=$val;
+        	}
+        }
 
         $element='';
         if ($parameters['object']->element == 'propal')  $element='proposals';
