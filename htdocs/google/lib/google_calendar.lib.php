@@ -90,8 +90,8 @@ function getTokenFromWebApp($clientid, $clientsecret)
 /**
  * Get service
  *
- * @param	string			$client_id					Client ID (Example: '258042696143-s9klbbpj13fb40ac8k5qjajn4e9o1c49.apps.googleusercontent.com'). Not used for authentication with service account.
- * @param	string			$service_account_name		Service account name (Example: '258042696143-s9klbbpj13fb40ac8k5qjajn4e9o1c49@developer.gserviceaccount.com')
+ * @param	string			$client_id					Client ID (Example: '258042696143-s9klbbpj13fb40ac8k5qjajn4e9o1c49.apps.googleusercontent.com'). Not used for authentication with mode=service.
+ * @param	string			$service_account_name		Service account name (Example: '258042696143-s9klbbpj13fb40ac8k5qjajn4e9o1c49@developer.gserviceaccount.com'). Not used for authentication with mode=service.
  * @param	string			$key_file_location			Key file location (Example: 'API Project-69e4673ea29e.p12')
  * @param	int				$force_do_not_use_session	1=Do not get token from sessions $_SESSION['google_service_token'] or $_SESSION['google_web_token']
  * @param	string			$mode						'service' or 'web' (Choose which token to use)
