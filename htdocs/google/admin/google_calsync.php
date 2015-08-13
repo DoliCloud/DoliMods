@@ -75,7 +75,7 @@ $colorlist=array('7A367A','B1365F','5229A3','7A367A','29527A','2952A3','1B887A',
 
 /*
  * Actions
-*/
+ */
 
 if ($action == 'save')
 {
