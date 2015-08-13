@@ -803,7 +803,7 @@ else
 
 	if (! empty($conf->global->GOOGLE_WEB_TOKEN) || ! empty($_SESSION['google_web_token']))
 	{
-		print 'Database token:<br>'.$conf->global->GOOGLE_WEB_TOKEN;
+		print 'Database token';
 		$sql="SELECT tms as token_date_last_update, entity from ".MAIN_DB_PREFIX."const where name = 'GOOGLE_WEB_TOKEN' and value = '".$db->escape($conf->global->GOOGLE_WEB_TOKEN)."'";
 		$resql=$db->query($sql);
 		if ($resql)
@@ -811,9 +811,10 @@ else
 			$obj=$db->fetch_object($resql);
 			$token_date_last_update = $db->jdate($obj->token_date_last_update);
 			$token_entity = $obj->entity;
-			print ' - '.$langs->trans("DateCreation").': '.dol_print_date($token_date_last_update, 'dayhour').' - '.$langs->trans("Entity").': '.$token_entity;
+			print ' - '.$langs->trans("DateCreation").'='.dol_print_date($token_date_last_update, 'dayhour').' - '.$langs->trans("Entity").'='.$token_entity;
 		}
 		else dol_print_error($db);
+		print ':<br>'.$conf->global->GOOGLE_WEB_TOKEN;
 		print '<br>';
 		print 'Current session token:<br>'.$_SESSION['google_web_token'].'<br>';
 		print '<br>';
