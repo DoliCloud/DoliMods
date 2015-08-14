@@ -163,6 +163,10 @@ if (preg_match('/^test/',$action))
 	$object=new ActionComm($db);
 	$result=$object->initAsSpecimen();
 
+	$tmparray=dol_getdate(dol_now());
+	$object->datep=dol_mktime(12, 0, 0, $tmparray['mon'], $tmparray['mday'], $tmparray['year']);
+	$object->datef=$object->datep;
+
 	$tmpcontact=new Contact($db);
 	$tmpcontact->initAsSpecimen();
 	$object->contact=$tmpcontact;
@@ -183,8 +187,8 @@ if (preg_match('/^test/',$action))
 		$object->label='New label';
 		$object->location='New location';
 		$object->note='New note';
-		$object->datep+=$testoffset;
-		$object->datef+=$testoffset;
+		//$object->datep+=$testoffset;
+		//$object->datef+=$testoffset;
 
 		$result=$object->update($user);
 		if ($result < 0) $error++;
@@ -585,7 +589,8 @@ else
 {
 	print '<a class="butAction" href="'.$_SERVER['PHP_SELF'].'?action=testall">'.$langs->trans("TestCreateUpdateDelete")."</a>";
 
-	print '<a class="butAction" title="Make a record at current date + '.$testoffset.'s" href="'.$_SERVER['PHP_SELF'].'?action=testcreate">'.$langs->trans("TestCreateUpdate")."</a>";
+	//print '<a class="butAction" title="Make a record at current date + '.$testoffset.'s" href="'.$_SERVER['PHP_SELF'].'?action=testcreate">'.$langs->trans("TestCreateUpdate")."</a>";
+	print '<a class="butAction" title="Make a record at 12:00" href="'.$_SERVER['PHP_SELF'].'?action=testcreate">'.$langs->trans("TestCreateUpdate")."</a>";
 }
 print '</div>';
 
