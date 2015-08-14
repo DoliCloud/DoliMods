@@ -759,7 +759,7 @@ END;
 			$tmp=json_decode($gdata['google_web_token']);
 			$access_token=$tmp->access_token;
 			$addheaders=array('GData-Version'=>'3.0', 'Authorization'=>'Bearer '.$access_token, 'If-Match'=>'*');
-			$addheaderscurl=array('GData-Version: 3.0', 'Authorization: Bearer '.$access_token, 'If-Match: *');
+			$addheaderscurl=array('Content-Type: application/atom+xml','GData-Version: 3.0', 'Authorization: Bearer '.$access_token, 'If-Match: *');
 
 			//$request=new Google_Http_Request('https://www.google.com/m8/feeds/contacts/default/base/batch', 'POST', $addheaders, $xmlStr);
 			//$requestData = $gdata['client']->execute($request);
