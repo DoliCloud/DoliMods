@@ -55,12 +55,12 @@ $entity=GETPOST('entity','int');
 //top_htmlhead("", "", 1);  // Replaced with top_httphead. An ajax page does not need html header.
 top_httphead();
 
-print '<!-- Ajax page called with url '.$_SERVER["PHP_SELF"].'?'.$_SERVER["QUERY_STRING"].' -->'."\n";
+print '<!-- Ajax page called with url '.$_SERVER["PHP_SELF"].'?'.$_SERVER["QUERY_STRING"].' action='.$action.' entity='.$entity.' -->'."\n";
 
 // Registering the location of boxes
 if (! empty($action) && ! empty($entity))
 {
-	if ($action == 'switchentity' && is_int($entity))
+    if ($action == 'switchentity' && is_numeric($entity))
 	{
 		dol_syslog("AjaxSwitchEntity action=".$action." entity=".$entity, LOG_DEBUG);
 
