@@ -405,7 +405,7 @@ if ($action == 'refresh')
 	                	$facfou->fetch($facid);
 
 	                	$ref=dol_sanitizeFileName($facfou->ref);
-	                    $upload_dir = $conf->fournisseur->facture->dir_output.'/'.get_exdir($facfou->id,2).$ref;
+	                    $upload_dir = $conf->fournisseur->facture->dir_output.'/'.get_exdir($facfou->id,2,0,0,$facfou,'supplier_invoice').$ref;
 
 	                    $file_name=($upload_dir."/".$facfou->ref_supplier.".pdf");
 	                    $file_name_bis=($upload_dir."/".$facfou->ref.'_'.$facfou->ref_supplier.".pdf");
