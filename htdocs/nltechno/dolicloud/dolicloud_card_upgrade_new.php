@@ -361,4 +361,4 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 llxFooter();
 
 $db->close();
-?>
+

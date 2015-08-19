@@ -380,4 +380,3 @@ print '</center></div></div>';
 llxFooter();
 
 $db->close();
-

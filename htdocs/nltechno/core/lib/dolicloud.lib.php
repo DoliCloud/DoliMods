@@ -33,6 +33,8 @@
  */
 function getListOfLinks($object, $lastloginadmin, $lastpassadmin)
 {
+    global $conf;
+    
 	// Define links
     $links='';
 
@@ -55,8 +57,9 @@ function getListOfLinks($object, $lastloginadmin, $lastpassadmin)
 	$links.='<br>';
 
 	// SFTP
-	$sftpconnectstring=$object->username_web.':'.$object->password_web.'@'.$object->hostname_web.':'.$conf->global->DOLICLOUD_EXT_HOME.'/'.$object->username_web.'/'.preg_replace('/_([a-zA-Z0-9]+)$/','',$object->database_db);
-	$links.='SFTP connect string: ';
+	//$sftpconnectstring=$object->username_web.':'.$object->password_web.'@'.$object->hostname_web.':'.$conf->global->DOLICLOUD_EXT_HOME.'/'.$object->username_web.'/'.preg_replace('/_([a-zA-Z0-9]+)$/','',$object->database_db);
+    $sftpconnectstring='sftp://'.$object->username_web.'@'.$object->hostname_web.$conf->global->DOLICLOUD_EXT_HOME.'/'.$object->username_web.'/'.preg_replace('/_([a-zA-Z0-9]+)$/','',$object->database_db);
+    $links.='SFTP connect string: ';
 	$links.='<input type="text" name="sftpconnectstring" value="'.$sftpconnectstring.'" size="110"><br>';
 	//$links.='<br>';
 

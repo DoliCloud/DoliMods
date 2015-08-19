@@ -246,5 +246,3 @@ if ($action == 'refresh' || $action == 'setdate')
 
 	$action = 'view';
 }
-
-?>

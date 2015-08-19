@@ -1046,4 +1046,3 @@ if ($id > 0 || $instance || $action == 'create')
 llxFooter();
 
 $db->close();
-?>

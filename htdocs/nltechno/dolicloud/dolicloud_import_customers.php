@@ -318,4 +318,3 @@ if ($importresult)
 llxFooter();
 // Close database handler
 $db->close();
-?>
