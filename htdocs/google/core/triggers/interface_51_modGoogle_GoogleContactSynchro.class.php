@@ -230,6 +230,11 @@ class InterfaceGoogleContactSynchro
 								return -1;
 							}
 						}
+						if ($ret == -1)
+						{
+						    $this->errors[]=$object->error;
+						    return -1;
+						}
 						return 1;
 					}
 					else if ($gid == '')
