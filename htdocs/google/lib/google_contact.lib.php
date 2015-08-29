@@ -338,7 +338,7 @@ function googleCreateContact($client, $object, $useremail='default')
  * @param  string		$useremail		User email
  * @return string						Google ref ID if OK, 0 if not found, <0 if KO
  */
-function googleUpdateContact($client, $contactId, $object, $useremail='default')
+function googleUpdateContact($client, $contactId, &$object, $useremail='default')
 {
 	global $conf, $db, $langs;
 	global $tag_debug;
@@ -366,7 +366,7 @@ function googleUpdateContact($client, $contactId, $object, $useremail='default')
 		$tmp=json_decode($gdata['google_web_token']);
 		$access_token=$tmp->access_token;
 		$addheaders=array('GData-Version'=>'3.0', 'Authorization'=>'Bearer '.$access_token);
-		$addheaderscurl=array('GData-Version: 3.0', 'Authorization: Bearer '.$access_token);
+		$addheaderscurl=array('Content-Type: application/atom+xml','GData-Version: 3.0', 'Authorization: Bearer '.$access_token);
 		//$useremail='default';
 
 		//$request=new Google_Http_Request('https://www.google.com/m8/feeds/groups/'.urlencode($useremail).'/full?max-results=1000', 'GET', $addheaders, null);
@@ -395,10 +395,12 @@ function googleUpdateContact($client, $contactId, $object, $useremail='default')
 				}
 				//dol_syslog('ERROR: '.$errorselem->item(0)->nodeValue, LOG_ERR);
 				dol_syslog('ERROR:'.$result['content'], LOG_ERR);
+				$object->error = $result['content'];
 				return -1;
 			}
 		} catch (Exception $e) {
 			dol_syslog('ERROR:'.$e->getMessage(), LOG_ERR);
+			$object->error = $e->getMessage();
 			return -1;
 		}
 	}
@@ -542,6 +544,7 @@ function googleUpdateContact($client, $contactId, $object, $useremail='default')
 			}
 		*/
 		//var_dump($xmlStr);exit;
+		
 		$xmlStr=$doc->saveXML();
 
 
@@ -556,7 +559,7 @@ function googleUpdateContact($client, $contactId, $object, $useremail='default')
 		$addheaderscurl=array('If-Match: *', 'GData-Version: 3.0', 'Authorization: Bearer '.$access_token, 'Content-Type: application/atom+xml');
 
 		// update entry
-		$response = getURLContent('https://www.google.com/m8/feeds/contacts/'.urlencode($useremail).'/base/'.$newcontactid, 'PUT', $xmlStr, 1, $addheaderscurl);
+		$response = getURLContentBis('https://www.google.com/m8/feeds/contacts/'.urlencode($useremail).'/base/'.$newcontactid, 'PUT', $xmlStr, 1, $addheaderscurl);   // We must use getURLContentBis with PUT or getURLContent with PUTALREADYFORMATED with 3.7.2+
 		if ($response['content'])
 		{
 			try {
@@ -571,6 +574,7 @@ function googleUpdateContact($client, $contactId, $object, $useremail='default')
 				{
 					//dol_syslog('ERROR: '.$errorselem->item(0)->nodeValue, LOG_ERR);
 					dol_syslog('ERROR:'.$response['content'], LOG_ERR);
+					$object->error=$response['content'];
 					return -1;
 				}
 
