@@ -136,7 +136,7 @@ class InterfaceGoogleCalendarSynchro
 			}
 			else return 0;
 
-			if (empty($conf->global->GOOGLE_DUPLICATE_INTO_GCAL)) return 0;
+			if (empty($conf->global->GOOGLE_DUPLICATE_INTO_GCAL)) return 0;  // In a future this option may be overwrite per user
 		}
 		else								// We use global setup
 		{

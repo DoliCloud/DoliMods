@@ -1,7 +1,0 @@
-# Dolibarr language file - e_Es - errors
-CHARSET=UTF-8
-ErrorThisContactIsAlreadyDefinedAsThisType=Este corresponsal ya está definido como corresponsal para este tipo.
-ErrorBadPatientName=Nombre de paciente incorrecto
-ErrorBadCustomerCodeSyntax=La sintaxis del código de paciente es incorrecta
-ErrorCustomerCodeRequired=código de paciente obligatorio
-ErrorCustomerCodeAlreadyUsed=Código de paciente ya usado
