@@ -1,5 +1,0 @@
-# Dolibarr language file - ca_ES - withdrawals 
-CHARSET=UTF-8
-NoInvoiceToWithdraw=Cap factura a pacient amb mode de pagament 'Domiciliació' en espera. Anar a la pestanya 'Domiciliació' a la fitxa de la factura per fer una petició.
-ThirdPartyBankCode=Codi banc del pacient
-ThirdPartyDeskCode=Codi oficina del pacient
