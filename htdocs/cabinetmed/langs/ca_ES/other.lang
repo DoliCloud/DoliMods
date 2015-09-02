@@ -1,6 +1,0 @@
-# Dolibarr language file - ca_ES - other 
-CHARSET=UTF-8
-Notify_NOTIFY_VAL_FAC=Validació factura
-ProfIdShortDesc=<b>Prof Id %s </b> és una informació que depèn del país del pacient. <br>Per exemple, per al país <b>%s</b>, és el codi <b>%s</b>.
-NewCompanyToDolibarr=Empresa %s inserida en Dolibarr
-CustomerPaymentDoneInDolibarr=Pagament de pacient %s en Dolibarr

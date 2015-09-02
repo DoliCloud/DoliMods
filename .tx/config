@@ -1,14 +1,15 @@
 [main]
 host = https://www.transifex.com
 
-[dolimed.admin]
-file_filter = htdocs/cabinetmed/langs/<lang>/admin.lang
-source_file = htdocs/cabinetmed/langs/en_US/admin.lang
+[awstats.awstats]
+file_filter = htdocs/awstats/langs/<lang>/awstats.lang
+source_file = htdocs/awstats/langs/en_US/awstats.lang
 source_lang = en_US
 type = MOZILLAPROPERTIES
 
-[dolimed.cabinetmed]
-file_filter = htdocs/cabinetmed/langs/<lang>/cabinetmed.lang
-source_file = htdocs/cabinetmed/langs/en_US/cabinetmed.lang
+[google.google]
+file_filter = htdocs/google/langs/<lang>/google.lang
+source_file = htdocs/google/langs/en_US/google.lang
 source_lang = en_US
 type = MOZILLAPROPERTIES
+
