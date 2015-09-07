@@ -931,5 +931,3 @@ EOB;
 dol_fiche_end();
 
 echo getFooter();
-
-?>

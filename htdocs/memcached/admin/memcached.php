@@ -239,4 +239,4 @@ if (! $error)
 llxfooter();
 
 $db->close();
-?>
+

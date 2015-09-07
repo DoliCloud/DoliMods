@@ -65,5 +65,3 @@ function memcached_prepare_head()
 
 	return $head;
 }
-
-?>
