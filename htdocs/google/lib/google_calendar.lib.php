@@ -90,19 +90,15 @@ function getTokenFromWebApp($clientid, $clientsecret)
 /**
  * Get service
  *
- * @param	string			$client_id					Client ID (Example: '258042696143-s9klbbpj13fb40ac8k5qjajn4e9o1c49.apps.googleusercontent.com'). Not used for authentication with mode=service.
- * @param	string			$service_account_name		Service account name (Example: '258042696143-s9klbbpj13fb40ac8k5qjajn4e9o1c49@developer.gserviceaccount.com'). Not used for authentication with mode=service.
- * @param	string			$key_file_location			Key file location (Example: 'API Project-69e4673ea29e.p12')
+ * @param	string			$service_account_name		Service account name (Example: '258042696143-s9klbbpj13fb40ac8k5qjajn4e9o1c49@developer.gserviceaccount.com'). Not used for authentication with mode=web.
+ * @param	string			$key_file_location			Key file location (Example: 'API Project-69e4673ea29e.p12'). Not used for authentication with mode=web.
  * @param	int				$force_do_not_use_session	1=Do not get token from sessions $_SESSION['google_service_token'] or $_SESSION['google_web_token']
  * @param	string			$mode						'service' or 'web' (Choose which token to use)
  * @return	array|string								Error message or array with token
  */
-function getTokenFromServiceAccount($client_id, $service_account_name, $key_file_location, $force_do_not_use_session=false, $mode='service')
+function getTokenFromServiceAccount($service_account_name, $key_file_location, $force_do_not_use_session=false, $mode='service')
 {
 	global $conf;
-
-	if (empty($service_account_name)) return 'ErrorModuleGoogleNoServiceAccountName';
-	if (empty($key_file_location) || ! file_exists($key_file_location)) return 'ErrorModuleGoogleKeyFileNotFound';
 
 	$client = new Google_Client();
 	$client->setApplicationName("Dolibarr");
@@ -110,7 +106,10 @@ function getTokenFromServiceAccount($client_id, $service_account_name, $key_file
 
 	if ($mode == 'web')
 	{
-		$client->setClientId($conf->global->GOOGLE_API_CLIENT_ID);
+        if (empty($conf->global->GOOGLE_API_CLIENT_ID)) return 'ErrorModuleGoogleNoGoogleClientId';
+        if (empty($conf->global->GOOGLE_API_CLIENT_SECRET)) return 'ErrorModuleGoogleNoGoogleClientSecret';
+	    
+        $client->setClientId($conf->global->GOOGLE_API_CLIENT_ID);
 		$client->setClientSecret($conf->global->GOOGLE_API_CLIENT_SECRET);
 		$client->setAccessType('offline');
 
@@ -160,7 +159,10 @@ function getTokenFromServiceAccount($client_id, $service_account_name, $key_file
 	}
 	if ($mode == 'service')
 	{
-		/************************************************
+        if (empty($service_account_name)) return 'ErrorModuleGoogleNoServiceAccountName';
+        if (empty($key_file_location) || ! file_exists($key_file_location)) return 'ErrorModuleGoogleKeyFileNotFound';
+	   
+	    /************************************************
 		  If we have an access token, we can carry on.
 		  Otherwise, we'll get one with the help of an
 		  assertion credential. In other examples the list
@@ -622,7 +624,7 @@ function syncEventsFromGoogleCalendar($userlogin, User $fuser, $mindate, $max=0)
 
 	if ($error || $servicearray == null)
 	{
-		$txterror="Failed to login to Google with credentials provided into setup page ".$conf->global->GOOGLE_API_SERVICEACCOUNT_CLIENT_ID.", ".$conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL.", ".$key_file_location;
+		$txterror="Failed to login to Google with credentials provided into setup page ".$conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL.", ".$key_file_location;
 		dol_syslog($txterror, LOG_ERR);
 		$errors[]=$txterror;
 		$error++;

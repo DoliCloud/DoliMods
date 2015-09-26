@@ -152,7 +152,7 @@ class InterfaceGoogleContactSynchro
 			if (preg_match('/^testall/',GETPOST('action'))) $force_do_not_use_session=true;
 			if (preg_match('/^testcreate/',GETPOST('action'))) $force_do_not_use_session=true;
 
-			$servicearray=getTokenFromServiceAccount($conf->global->GOOGLE_API_SERVICEACCOUNT_CLIENT_ID, $conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL, $key_file_location, $force_do_not_use_session, 'web');
+			$servicearray=getTokenFromServiceAccount($conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL, $key_file_location, $force_do_not_use_session, 'web');
 
 			if (! is_array($servicearray) || $servicearray == null)
 			{
