@@ -71,6 +71,7 @@ if ($action == 'test')
 	{
 		if ($_POST["lang_id"]) $outputlangs->setDefaultLang($_POST["lang_id"]);
 
+		$object = new StdClass();
 		if ($level)
 		{
 			$object->total_ttc=price2num($value);

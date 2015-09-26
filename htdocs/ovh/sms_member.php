@@ -242,4 +242,3 @@ llxFooter();
 
 // End of page
 $db->close();
-?>

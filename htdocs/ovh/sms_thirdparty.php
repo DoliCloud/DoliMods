@@ -166,7 +166,7 @@ if ($socid)
 
 
 	/*
-	 * Affichage onglets
+	 * Show tabs
 	 */
 	$head = societe_prepare_head($soc);
 	dol_fiche_head($head, 'tabSMS', $langs->trans("ThirdParty"),0,'company');
@@ -247,4 +247,4 @@ llxFooter();
 
 // End of page
 $db->close();
-?>
+

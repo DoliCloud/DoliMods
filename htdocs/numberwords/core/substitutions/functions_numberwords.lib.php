@@ -42,9 +42,9 @@ function numberwords_completesubstitutionarray(&$substitutionarray,$langs,$objec
 		$substitutionarray['__TOTAL_TTC_WORDS__']=$numbertext;
 		$numbertext=$langs->getLabelFromNumber($object->total_ht,1);
 		$substitutionarray['__TOTAL_HT_WORDS__']=$numbertext;
-		$numbertext=$langs->getLabelFromNumber(($object->total_vat?$object->total_vat:$object->total_tva),1);
+		$numbertext=$langs->getLabelFromNumber(((! empty($object->total_vat))?$object->total_vat:$object->total_tva),1);
 		$substitutionarray['__TOTAL_VAT_WORDS__']=$numbertext;
-		$numbertext=$langs->getLabelFromNumber($object->number,0);
+		$numbertext=$langs->getLabelFromNumber((! empty($object->number))?$object->number:'',0);
 		$substitutionarray['__NUMBER_WORDS__']=$numbertext;
 	}
 }

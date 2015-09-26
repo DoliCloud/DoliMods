@@ -234,7 +234,7 @@ function endOutput()
 	</tr>
 	<tr><td colspan="2"><hr></td></tr>
 	<tr>
-	<td class="center" colspan="2"><input type="checkbox" name="getrightseed" value="enabled">Use GetRight HTTP seeding specification (optional but highly recommanded to avoid to have a client running as a seed)</td>
+	<td class="center" colspan="2"><input type="checkbox" name="getrightseed" checked="checked" value="enabled">Use GetRight HTTP seeding specification (optional but highly recommanded to avoid to have a client running as a seed)</td>
 	</tr>
 	<tr>
 	<td class="right" valign="top">FTP/HTTP URL of file or directory:<br>

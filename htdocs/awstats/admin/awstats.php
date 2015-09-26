@@ -108,10 +108,12 @@ $head[$h][1] = $langs->trans("About");
 $head[$h][2] = 'tababout';
 $h++;
 
+
+print '<form name="awstatsform" action="'.$_SERVER["PHP_SELF"].'" method="post">';
+
 dol_fiche_head($head, 'tabsetup', '');
 
 
-print '<form name="awstatsform" action="'.$_SERVER["PHP_SELF"].'" method="post">';
 print "<table class=\"noborder\" width=\"100%\">";
 $var=true;
 
@@ -141,7 +143,7 @@ $var=!$var;
 print "<tr ".$bc[$var].">";
 print "<td>".$langs->trans("AWSTATS_PROG_PATH")."</td>";
 print "<td><input type=\"text\" class=\"flat\" name=\"AWSTATS_PROG_PATH\" value=\"". ($_POST["AWSTATS_PROG_PATH"]?$_POST["AWSTATS_PROG_PATH"]:$conf->global->AWSTATS_PROG_PATH) . "\" size=\"50\"></td>";
-print "<td>/usr/local/awstats/wwwroot/cgi-bin/awstats.pl<br>c:\MyDir\awstats.pl";
+print "<td>/usr/local/awstats/wwwroot/cgi-bin/awstats.pl<br>/usr/lib/cgi-bin/awstats.pl<br>c:\MyDir\awstats.pl";
 print "</td>";
 print "</tr>";
 
@@ -154,16 +156,15 @@ print "</td>";
 print "</tr>";
 
 print "</table>";
-print "<br>";
 
-print '<br><center>';
+dol_fiche_end();
+
+print '<center>';
 print "<input type=\"submit\" name=\"save\" class=\"button\" value=\"".$langs->trans("Save")."\">";
 print "</center>";
 
 print "</form>\n";
 
-
-dol_fiche_end();
 
 clearstatcache();
 
@@ -173,4 +174,3 @@ dol_htmloutput_mesg($mesg);
 llxFooter();
 
 $db->close();
-?>

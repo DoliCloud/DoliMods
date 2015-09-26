@@ -84,10 +84,11 @@ print '<br>';
 
 $head=openstreetmapadmin_prepare_head();
 
-dol_fiche_head($head, 'maps', $langs->trans("OpenStreetMapTools"));
 
 
 print '<form name="openstreetmapconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
+
+dol_fiche_head($head, 'maps', $langs->trans("OpenStreetMapTools"));
 
 print $langs->trans("OpenStreetMapEnableThisToolThirdParties").': ';
 if ($conf->societe->enabled)
@@ -119,7 +120,8 @@ print '<br>';
 print $langs->trans("OpenStreetMapZoomLevel",2,18).': ';
 print '<input class="flat" name="OPENSTREETMAP_MAPS_ZOOM_LEVEL" id="OPENSTREETMAP_MAPS_ZOOM_LEVEL" value="'.(isset($_POST["OPENSTREETMAP_MAPS_ZOOM_LEVEL"])?$_POST["OPENSTREETMAP_MAPS_ZOOM_LEVEL"]:($conf->global->OPENSTREETMAP_MAPS_ZOOM_LEVEL?$conf->global->OPENSTREETMAP_MAPS_ZOOM_LEVEL:15)).'" size="2">';
 
-print '<br>';
+dol_fiche_end();
+
 print '<center>';
 //print "<input type=\"submit\" name=\"test\" class=\"button\" value=\"".$langs->trans("TestConnection")."\">";
 //print "&nbsp; &nbsp;";
@@ -127,8 +129,6 @@ print "<input type=\"submit\" name=\"save\" class=\"button\" value=\"".$langs->t
 print "</center>";
 
 print "</form>\n";
-
-dol_fiche_end();
 
 dol_htmloutput_mesg($mesg);
 
