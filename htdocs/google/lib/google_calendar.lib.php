@@ -624,7 +624,7 @@ function syncEventsFromGoogleCalendar($userlogin, User $fuser, $mindate, $max=0)
 
 	if ($error || $servicearray == null)
 	{
-		$txterror="Failed to login to Google with credentials provided into setup page ".$conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL.", ".$key_file_location;
+		$txterror="Failed to login to Google with credentials provided into setup page ".$conf->global->GOOGLE_API_SERVICEACCOUNT_CLIENT_ID.", ".$conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL.", ".$key_file_location;
 		dol_syslog($txterror, LOG_ERR);
 		$errors[]=$txterror;
 		$error++;
