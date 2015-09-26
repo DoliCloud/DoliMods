@@ -248,173 +248,80 @@ if ($type == 'directory')
     $upload_max_filesize		= $mul_upload_max_filesize * (int) $upload_max_filesize;
     // Max file size
     $max_file_size 				= (($post_max_size < $upload_max_filesize) ? $post_max_size : $upload_max_filesize);
+    
+    $langs->load("errors");
     ?>
 
     <!-- START PART FOR FILEUPLOAD -->
+    
     <script type="text/javascript">
     var nberror=0;
 
     window.locale = {
-    	"fileupload": {
-	    	"errors": {
-		    	"maxFileSize": "<?php echo dol_escape_js($langs->transnoentitiesnoconv('FileIsTooBig')); ?>",
-		    	"minFileSize": "<?php echo dol_escape_js($langs->transnoentitiesnoconv('FileIsTooSmall')); ?>",
-		    	"acceptFileTypes": "<?php echo dol_escape_js($langs->transnoentitiesnoconv('FileTypeNotAllowed')); ?>",
-		    	"maxNumberOfFiles": "<?php echo dol_escape_js($langs->transnoentitiesnoconv('MaxNumberOfFilesExceeded')); ?>",
-		    	"uploadedBytes": "<?php echo dol_escape_js($langs->transnoentitiesnoconv('UploadedBytesExceedFileSize')); ?>",
-		    	"emptyResult": "<?php echo dol_escape_js($langs->transnoentitiesnoconv('EmptyFileUploadResult')); ?>"
-	    	},
+		"fileUploaded": "<?php echo dol_escape_js($langs->transnoentitiesnoconv('FileUploaded')); ?>",
+        "maxFileSize": "<?php echo dol_escape_js($langs->transnoentitiesnoconv('FileIsTooBig')); ?>",
+    	"minFileSize": "<?php echo dol_escape_js($langs->transnoentitiesnoconv('FileIsTooSmall')); ?>",
+	   	"acceptFileTypes": "<?php echo dol_escape_js($langs->transnoentitiesnoconv('FileTypeNotAllowed')); ?>",
+	   	"maxNumberOfFiles": "<?php echo dol_escape_js($langs->transnoentitiesnoconv('MaxNumberOfFilesExceeded')); ?>",
+	   	"uploadedBytes": "<?php echo dol_escape_js($langs->transnoentitiesnoconv('UploadedBytesExceedFileSize')); ?>",
+	   	"emptyResult": "<?php echo dol_escape_js($langs->transnoentitiesnoconv('EmptyFileUploadResult')); ?>",
+	    "UnkownErrorDuringMove ErrorFileAlreadyExists": "<?php echo dol_escape_js($langs->transnoentitiesnoconv("ErrorFileAlreadyExists")); ?>",
+	    "ErrorFileManagerWebServerUserHasNotPermission": "<?php echo dol_escape_js($langs->transnoentitiesnoconv("ErrorFileManagerWebServerUserHasNotPermission")); ?>",
 	    "error": "<?php echo dol_escape_js($langs->transnoentitiesnoconv('Error')); ?>",
 	    "start": "<?php echo dol_escape_js($langs->transnoentitiesnoconv('Start')); ?>",
 	    "cancel": "<?php echo dol_escape_js($langs->transnoentitiesnoconv('Cancel')); ?>",
 	    "destroy": "<?php echo dol_escape_js($langs->transnoentitiesnoconv('Delete')); ?>"
-	    }
     };
 
+
     $(function () {
-    	'use strict';
-
-    	// Initialize the jQuery File Upload widget:
-    	$('#fileupload').fileupload();
-
-    	// Events
-    	$('#fileupload').fileupload({
-    		completed: function (e, data) {
-        		//console.log(nberror);
-        		if (nberror < 1)
-            	{
-        			alert('<?php echo dol_escape_js($langs->transnoentitiesnoconv("FileTransferComplete")); ?>');
-        			loadandshowpreview('<?php echo dol_escape_js($original_file); ?>', null);
-            	}
-        		else
-        		{
-					nberror=0;
-        		}
-    		},
-    		destroy: function (e, data) {
-    			var that = $(this).data('fileupload');
-    			$( "#confirm-delete" ).dialog({
-    				resizable: false,
-    				width: 400,
-    				modal: true,
-    				buttons: {
-    					"<?php echo dol_escape_js($langs->transnoentitiesnoconv('Ok')); ?>": function() {
-    					$( "#confirm-delete" ).dialog( "close" );
-    					if (data.url) {
-    						$.ajax(data)
-    						.success(function (data) {
-    							if (data) {
-    								that._adjustMaxNumberOfFiles(1);
-    								$(this).fadeOut(function () {
-    									$(this).remove();
-    									$.jnotify("<?php echo dol_escape_js($langs->transnoentitiesnoconv('FileIsDelete')); ?>");
-    								});
-    							} else {
-    								$.jnotify("<?php echo dol_escape_js($langs->transnoentitiesnoconv('ErrorFileNotDeleted')); ?>", "error", true);
-    							}
-    						});
-    					} else {
-    						data.context.fadeOut(function () {
-    							$(this).remove();
-    						});
-    					}
-    				},
-    				"<?php echo dol_escape_js($langs->transnoentitiesnoconv('Cancel')); ?>": function() {
-    				$( "#confirm-delete" ).dialog( "close" );
-    				}
-    				}
-    			});
-    		}
-    	});
+        $('#fileupload').on('submit', function (e) {
+            // On empêche le navigateur de soumettre le formulaire
+            e.preventDefault();
+     
+            var $form = $(this);
+            var formdata = (window.FormData) ? new FormData($form[0]) : null;
+            var data = (formdata !== null) ? formdata : $form.serialize();
+     
+            $.ajax({
+                url: $form.attr('action'),
+                type: $form.attr('method'),
+                contentType: false, // obligatoire pour de l'upload
+                processData: false, // obligatoire pour de l'upload
+                dataType: 'json', // selon le retour attendu
+                data: data,
+                success: function (response) {
+                    // La réponse du serveur
+                    console.log(response);
+                    if (response[0].error) 
+                    {
+                        mesg=response[0].error
+                        if (window.locale[mesg]) mesg=window.locale[mesg];
+                        alert(mesg);
+                    }
+                    else
+                    {
+                    	loadandshowpreview('<?php echo dol_escape_js($original_file); ?>', null);
+                    	/* alert(window.locale['fileUploaded']); */
+                    }
+                }
+            });
+        });
     });
+        
     </script>
+ 
 
-    <!-- The file upload form used as target for the file upload widget -->
-	<form id="fileupload" action="<?php echo dol_buildpath('/filemanager/ajaxfileuploader.php',1); ?>" method="POST" enctype="multipart/form-data">
-	<!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
-	<input type="hidden" name="upload_dir" value="<?php echo $original_file; ?>">
-	<div class="row fileupload-buttonbar">
-		<div class="divdolfileupload">
-			<!-- The fileinput-button span is used to style the file input field as button -->
-			<span class="btn btn-success fileinput-button largebutton">
-				<i class="icon-plus icon-white"></i>
-				<span><?php echo $langs->trans('AddFiles'); ?></span>
-				<input type="file" name="files[]" multiple>
-			</span>
-			<!--
-			<button type="submit" class="btn btn-primary start">
-				<i class="icon-upload icon-white"></i>
-				<span><?php echo $langs->trans('StartUpload'); ?></span>
-			</button>
-			<button type="reset" class="btn btn-warning cancel">
-				<i class="icon-ban-circle icon-white"></i>
-				<span><?php echo $langs->trans('CancelUpload'); ?></span>
-			</button>
-			<button type="button" class="btn btn-danger delete">
-				<i class="icon-trash icon-white"></i>
-				<span><?php echo $langs->trans('Delete'); ?></span>
-			</button>
-			<input type="checkbox" class="toggle">
-			-->
-		</div>
-		<!-- The global progress information -->
-		<div class="span5 fileupload-progress fade">
-			<!-- The extended global progress information -->
-			<div class="progress-extended">&nbsp;</div>
-		</div>
-	</div>
-	<!-- The loading indicator is shown during file processing -->
-	<div class="fileupload-loading"></div>
-	<br>
-	<!-- The table listing the files available for upload/download -->
-	<style type="text/css">
-	<!--
-		.template-upload {
-			height: 28px !important;
-		}
-	-->
-	</style>
-	<table role="presentation" class="table table-striped"><tbody class="files" data-toggle="modal-gallery" data-target="#modal-gallery"></tbody></table>
-	</form>
+    <form id="fileupload" method="post" action="<?php echo dol_buildpath('/filemanager/ajaxfileuploader.php',1); ?>" enctype="multipart/form-data">
+		<input type="hidden" name="upload_dir" value="<?php echo $original_file; ?>">
+        <input type="file" name="files">
+        <button type="submit">OK</button>
+    </form>
 
-	<!-- The template to display files available for upload -->
-	<!-- Warning id on script is not W3C compliant and is reported as error by phpcs but it is required by fileupload plugin -->
-	<script id="template-upload" type="text/x-tmpl">
-	{% for (var i=0, file; file=o.files[i]; i++) { %}
-    <tr class="template-upload fade">
-        <td class="preview"><span class="fade"></span></td>
-        <td class="name" style="min-width: 100px;"><span>{%=file.name%}</span></td>
-        <td class="size" style="padding-left: 4px;"><span>{%=o.formatFileSize(file.size)%}</span></td>
-        {% if (file.error) { %}
-            <td class="error tderror" colspan="2"><span class="label label-important">{%=locale.fileupload.error%}</span> {%=locale.fileupload.errors[file.error] || file.error%}</td>
-        {% } else if (o.files.valid && !i) { %}
-            <td>
-                <div class="progress progress-success progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="bar" style="width:0%;"></div></div>
-            </td>
-            <td class="start">{% if (!o.options.autoUpload) { %}
-                <button class="btn btn-primary">
-                    <i class="icon-upload icon-white"></i>
-                    <span>{%=locale.fileupload.start%}</span>
-                </button>
-            {% } %}</td>
-        {% } else { %}
-            <td colspan="2"></td>
-        {% } %}
-    </tr>
-	{% } %}
-	</script>
-	<!-- The template to display files available for download -->
-	<!-- Warning id on script is not W3C compliant and is reported as error by phpcs but it is required by jfilepload plugin -->
-	<script id="template-download" type="text/x-tmpl">
-	{% for (var i=0, file; file=o.files[i]; i++) { %}
-    <tr class="template-download fade">
-        {% if (file.error) { nberror++; %}
-            <td class="error tderror" nowrap="nowrap" colspan="5"><span class="label label-important">{%=locale.fileupload.error%}</span> {%=locale.fileupload.errors[file.error] || file.error%}</td>
-        {% } %}
-    </tr>
-	{% } %}
-	</script>
-	<!-- END FILE UPLOAD -->
+     
+ 
+ 
+ 
 	<?php
 
 
@@ -656,4 +563,4 @@ else {
 }
 
 if (is_object($db)) $db->close();
-?>
+

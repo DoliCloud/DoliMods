@@ -35,3 +35,4 @@ MoreModulesLink=<a target="_blank" href="http://www.dolistore.com/search.php?sea
 MoreCloudHosting=To use online Dolibarr, choose the secured hosting DoliCloud.
 MoreCloudHostingLink=<a target="_blank" href="http://www.dolicloud.com">Click here for more information</a>
 CompatibleWithDoliDroid=This modules is also compatible with DoliDroid, the Android application for Dolibarr.
+ErrorFileManagerWebServerUserHasNotPermission=The user account used by web server has no permission to write

@@ -205,6 +205,10 @@ ul.jqueryFileTree A:hover {
     color: #001166;
 }
 
+#fmeditor {
+	width: 95%;
+}
+
 <?php
 $db->close();
 ?>

@@ -128,18 +128,11 @@ $conf->global->MAIN_USE_JQUERY_FILEUPLOAD=1; 	// For compatibility with 3.2 (con
 
 $maxheightwin=(isset($_SESSION["dol_screenheight"]) && $_SESSION["dol_screenheight"] > 500)?($_SESSION["dol_screenheight"]-166):660;
 
-$morecss=array(
-"/includes/jquery/plugins/fileupload/css/jquery.fileupload-ui.css"
-);
+$morecss=array();
 $morejs=array(
 "/filemanager/includes/jqueryFileTree/jqueryFileTree.js",
-"/filemanager/includes/jquery/plugins/template/tmpl.min.js",
-"/filemanager/includes/jquery/plugins/fileupload/js/jquery.iframe-transport.js",
-"/filemanager/includes/jquery/plugins/fileupload/js/jquery.fileupload.js",
-"/filemanager/includes/jquery/plugins/fileupload/js/jquery.fileupload-fp.js",
-"/filemanager/includes/jquery/plugins/fileupload/js/jquery.fileupload-ui.js",
-"/filemanager/includes/jquery/plugins/fileupload/js/jquery.fileupload-jui.js"
 );
+
 $morehead="<style type=\"text/css\">
 	#containerlayout {
 		height:		".$maxheightwin."px;
@@ -563,4 +556,4 @@ print '</div>';
 llxFooter();
 
 if (is_object($db)) $db->close();
-?>
+

@@ -63,11 +63,21 @@ switch ($_SERVER['REQUEST_METHOD']) {
     case 'GET':
         break;
     case 'POST':
-    	if (isset($_REQUEST['_method']) && $_REQUEST['_method'] === 'DELETE') {
+    	if (isset($_REQUEST['_method']) && $_REQUEST['_method'] === 'DELETE') 
+    	{
 			// TODO delete file
     		echo dol_json_encode(array('success'=>1));
-        } else {
-			$result=dol_move_uploaded_file($_FILES['files']['tmp_name'][0], $upload_dir."/".dol_unescapefile($_FILES['files']['name'][0]), 0, 0, $_FILES['userfile']['error']);
+        } 
+        else 
+        {
+            //var_dump($_FILES);
+            if (! is_array($_FILES['files']))
+            {
+                echo dol_json_encode(array(0=>'ErrorPOSTFieldFilesIsNotProvided'));
+                break;
+            }
+            //var_dump($_FILES);
+			$result=dol_move_uploaded_file($_FILES['files']['tmp_name'], $upload_dir."/".dol_unescapefile($_FILES['files']['name']), 0, 0, $_FILES['userfile']['error']);
 
         	$file1 = new stdClass();
         	//$file1->url='http://uuu';
@@ -85,7 +95,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
         		if ($result == -3)
         		{
         			// Test permission
-        			if (! is_writable($upload_dir)) $file1->error='ErrorWebServerUserHasNotPermission';
+        			if (! is_writable($upload_dir)) $file1->error='ErrorFileManagerWebServerUserHasNotPermission';
         			else $file1->error='FailedToWriteFileToTargetDir';
         		}
         		else $file1->error='UnkownErrorDuringMove '.$result;
@@ -110,5 +120,3 @@ switch ($_SERVER['REQUEST_METHOD']) {
 }
 
 $db->close();
-
-?>
