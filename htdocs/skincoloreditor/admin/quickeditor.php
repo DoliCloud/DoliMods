@@ -87,6 +87,8 @@ if ($action == 'setcolor')
     $res = dolibarr_set_const($db, 'THEME_ELDY_VERMENU_BACK1', join(',',colorStringToArray(GETPOST('THEME_ELDY_VERMENU_BACK1'),array())),'chaine',0,'',$conf->entity);
     $res = dolibarr_set_const($db, 'THEME_ELDY_BACKBODY', join(',',colorStringToArray(GETPOST('THEME_ELDY_BACKBODY'),array())),'chaine',0,'',$conf->entity);
 
+    $res = dolibarr_set_const($db, 'THEME_ELDY_BACKTABCARD1', join(',',colorStringToArray(GETPOST('THEME_ELDY_BACKTABCARD1'),array())),'chaine',0,'',$conf->entity);
+    
     // Tables
     $res = dolibarr_set_const($db, 'THEME_ELDY_BACKTITLE1', join(',',colorStringToArray(GETPOST('THEME_ELDY_BACKTITLE1'),array())),'chaine',0,'',$conf->entity);
     $res = dolibarr_set_const($db, 'THEME_ELDY_LINEIMPAIR1', join(',',colorStringToArray(GETPOST('THEME_ELDY_LINEIMPAIR1'),array())),'chaine',0,'',$conf->entity);
@@ -197,6 +199,12 @@ if (! empty($conf->global->THEME_ELDY_ENABLE_PERSONALIZED))
     print $langs->trans("FontSize").': <input type="text" class="flat" name="THEME_ELDY_FONT_SIZE1" size="4" value="'.$conf->global->THEME_ELDY_FONT_SIZE1.'"><br>';
 	print '<br>';
 
+    if (versioncompare(versiondolibarrarray(),array(3,8,-3)) >= 0)
+    {
+    	print $langs->trans("SelectTabColor").' ';
+        print $formother->selectColor(colorArrayToHex(colorStringToArray($conf->global->THEME_ELDY_BACKTABCARD1,array()),''),'THEME_ELDY_BACKTABCARD1','formcolor',1).'<br><br>';
+    }
+	
     print $langs->trans("BackgroundColor").' ';
     print $formother->selectColor(colorArrayToHex(colorStringToArray($conf->global->THEME_ELDY_BACKBODY,array()),''),'THEME_ELDY_BACKBODY','formcolor',1).'<br><br>';
 

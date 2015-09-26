@@ -201,31 +201,48 @@ if (! empty($fuser->conf->THEME_ELDY_ENABLE_PERSONALIZED))
 
     dol_fiche_head();
 
+	print $langs->trans("ForceSpecificValue").':<br><br>';
+
     // Color
+    /*
     print $langs->trans("SelectMainColor").' ';
     $defcolor=$conf->global->THEME_ELDY_RGB;
     if (isset($fuser->conf->THEME_ELDY_RGB)) $defcolor=$fuser->conf->THEME_ELDY_RGB;
     print $formother->selectColor($defcolor,'THEME_ELDY_RGB').'<br>';
-
+    */
+    
     // Font size
-    print $langs->trans("FontSize").': <input type="text" class="flat" name="THEME_ELDY_FONT_SIZE1" size="4" value="'.$fuser->conf->THEME_ELDY_FONT_SIZE1.'"><br>';
+    print $langs->trans("FontSize").': <input type="text" class="flat" name="THEME_ELDY_FONT_SIZE1" size="4" value="'.$fuser->conf->THEME_ELDY_FONT_SIZE1.'"><br><br>';
 
-    // Use hover
-    print $langs->trans("UseHoverOnLists").': <input type="checkbox" class="flat" name="THEME_ELDY_USE_HOVER" '.(empty($fuser->conf->THEME_ELDY_USE_HOVER)?'':' checked="checked"').'"><br>';
-
-    print '<br><br><br>';
-	print $langs->trans("ForceSpecificValue").':<br><br>';
-
-    // Force specific value
-    print $langs->trans("SelectTabColor2").' ';
-    $defcolor=$conf->global->THEME_ELDY_BACKTABCARD2;
-    if (isset($fuser->conf->THEME_ELDY_BACKTABCARD2)) $defcolor=$fuser->conf->THEME_ELDY_BACKTABCARD2;
-    print $formother->selectColor($defcolor,'THEME_ELDY_BACKTABCARD2').'<br>';
-	print $langs->trans("SelectTabColor1").' ';
-    $defcolor=$conf->global->THEME_ELDY_BACKTABCARD1;
-    if (isset($fuser->conf->THEME_ELDY_BACKTABCARD1)) $defcolor=$fuser->conf->THEME_ELDY_BACKTABCARD1;
-    print $formother->selectColor($defcolor,'THEME_ELDY_BACKTABCARD1').'<br>';
-
+    if (versioncompare(versiondolibarrarray(),array(3,8,-3)) >= 0)
+    {
+    }
+    else
+    {
+        // Use hover
+        print $langs->trans("UseHoverOnLists").': <input type="checkbox" class="flat" name="THEME_ELDY_USE_HOVER" '.(empty($fuser->conf->THEME_ELDY_USE_HOVER)?'':' checked="checked"').'"><br><br>';
+    }
+    
+    if (versioncompare(versiondolibarrarray(),array(3,8,-3)) >= 0)
+    {
+    	print $langs->trans("SelectTabColor").' ';
+        $defcolor=$conf->global->THEME_ELDY_BACKTABCARD1;
+        if (isset($fuser->conf->THEME_ELDY_BACKTABCARD1)) $defcolor=$fuser->conf->THEME_ELDY_BACKTABCARD1;
+        print $formother->selectColor($defcolor,'THEME_ELDY_BACKTABCARD1').'<br><br>';
+    }
+    else
+    {
+        // Force specific value
+        print $langs->trans("SelectTabColor2").' ';
+        $defcolor=$conf->global->THEME_ELDY_BACKTABCARD2;
+        if (isset($fuser->conf->THEME_ELDY_BACKTABCARD2)) $defcolor=$fuser->conf->THEME_ELDY_BACKTABCARD2;
+        print $formother->selectColor($defcolor,'THEME_ELDY_BACKTABCARD2').'<br><br>';
+    	print $langs->trans("SelectTabColor1").' ';
+        $defcolor=$conf->global->THEME_ELDY_BACKTABCARD1;
+        if (isset($fuser->conf->THEME_ELDY_BACKTABCARD1)) $defcolor=$fuser->conf->THEME_ELDY_BACKTABCARD1;
+        print $formother->selectColor($defcolor,'THEME_ELDY_BACKTABCARD1').'<br><br>';
+    }
+    
     dol_fiche_end();
 
 

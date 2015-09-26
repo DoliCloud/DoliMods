@@ -22,6 +22,7 @@ MoreCloudHosting=To use online Dolibarr, choose the secured hosting DoliCloud.
 MoreCloudHostingLink=<a target="_blank" href="http://www.dolicloud.com">Click here for more information</a>
 CompatibleWithDoliDroid=This modules is also compatible with DoliDroid, the Android application for Dolibarr.
 ForceSpecificValue=Force specific values
+SelectTabColor=Color for tabs
 SelectTabColor1=End-bottom gradient color for tabs
 SelectTabColor2=Start-top gradient color for tabs
 BackgroundColor=Background color
