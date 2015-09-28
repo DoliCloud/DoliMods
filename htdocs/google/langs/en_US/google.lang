@@ -37,7 +37,10 @@ GoogleDeleteAuthorization=To delete saved authorization by Google:
 Module101110Name=Google
 Module101110Desc=Module to integrate Google tools with Dolibarr
 GoogleCalendarSyncConf=GoogleCalendarSyncConf
-KeepEmptyYoUseLoginPassOfEventUser=Keep empty to use the synchronize setup of the user the event is assigned to (setup done on each user account). In such case, each event will be synchronize into one and only one event, to the calendar fo the owner of event (no synchronization is done if setup for this user is not done).
+TargetUser=Target user
+KeepEmptyYoUseLoginPassOfEventUser=Keep empty to use the synchronize setup of the user.
+KeepEmptyYoUseLoginPassOfEventUserAssigned=The target user is the user the event is assigned to (setup done on each user account). In such case, each event will be synchronize into one and only one event, to the calendar fo the owner of event (no synchronization is done if setup for this user is not done).
+KeepEmptyYoUseLoginPassOfEventUserSaleRep=The target user si the first sale representative of thirdparty the event is linked to. If there is no thirdparty for event, nor sale representative for thirparty, no synchronization is done.
 KeepEmptyYoUsePublicQuotaOfAPI=Keep empty to use the public quota of API.
 AllowGoogleToLoginWithKey=To use quota/statistics of your own Google account, you can create your own key from page <a href="%s" target="_blank">%s</a>, menu "API & Authentication" -> "Credentials". Click on "Create a key" and choose "Server key" then "Create". You will get your server key.
 AllowGoogleToLoginWithClientID=You can create your <strong>Google Client ID and Secret</strong> from page <a href="%s" target="_blank">%s</a>, select a project or create one, then menu "API & Authentication" -> "Credentials". Click on "Create/Add a client ID OAuth 2.0" and choose "Web Application", set "Allowed Javascript origin" to empty and set "Redirect URI" to<br><strong>%s</strong><br>then click on button "Create". You will get a <strong>new client ID</strong> and a <strong>Secret code</strong>. You need here to enter the <strong>Client ID</strong> here and <strong>Client Secret</strong> on next line.

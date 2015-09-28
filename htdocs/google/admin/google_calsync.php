@@ -515,7 +515,19 @@ print "</td>";
 print '<td>';
 print $langs->trans("Example").": yourlogin@gmail.com, email@mydomain.com, 'primary'<br>";
 print $langs->trans("GoogleSetupHelp").'<br>';
-print $langs->trans("KeepEmptyYoUseLoginPassOfEventUser");
+print $langs->trans("KeepEmptyYoUseLoginPassOfEventUser").'<br>';
+if (empty($conf->global->GOOGLE_LOGIN))
+{
+    print '<u>'.$langs->trans("TargetUser").'</u>: ';
+    if (empty($conf->global->GOOGLE_SYNC_EVENT_TO_SALE_REPRESENTATIVE))
+    {
+        print $langs->trans("KeepEmptyYoUseLoginPassOfEventUserAssigned");
+    }
+    else
+    {
+        print $langs->trans("KeepEmptyYoUseLoginPassOfEventUserSaleRep");
+    }
+}
 print '</td>';
 print "</tr>";
 

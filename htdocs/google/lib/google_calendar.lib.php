@@ -104,7 +104,7 @@ function getTokenFromServiceAccount($service_account_name, $key_file_location, $
 	$client->setApplicationName("Dolibarr");
 	$client->setClassConfig('Google_Cache_File', 'directory', $conf->google->dir_temp);		// Force dir if cache used is Google_Cache_File
 
-	if ($mode == 'web')
+	if ($mode == 'web')    // use to synch contact
 	{
         if (empty($conf->global->GOOGLE_API_CLIENT_ID)) return 'ErrorModuleGoogleNoGoogleClientId';
         if (empty($conf->global->GOOGLE_API_CLIENT_SECRET)) return 'ErrorModuleGoogleNoGoogleClientSecret';
@@ -157,7 +157,7 @@ function getTokenFromServiceAccount($service_account_name, $key_file_location, $
 			return $e->getMessage();
 		}
 	}
-	if ($mode == 'service')
+	if ($mode == 'service')    // used to sync events-calendar
 	{
         if (empty($service_account_name)) return 'ErrorModuleGoogleNoServiceAccountName';
         if (empty($key_file_location) || ! file_exists($key_file_location)) return 'ErrorModuleGoogleKeyFileNotFound';

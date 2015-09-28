@@ -114,27 +114,49 @@ class InterfaceGoogleCalendarSynchro
 		$userlogin = empty($conf->global->GOOGLE_LOGIN)?'':$conf->global->GOOGLE_LOGIN;
 		if (empty($userlogin))	// We use setup of user
 		{
-			// L'utilisateur concerné est l'utilisateur propriétaire de l'évènement (proprio dans Dolibarr)
-			// TODO : à rendre configurable ? (choix entre propriétaire / assigné)
-			if (! empty($object->userownerid))
-			{
-				$fuser = new User($this->db);
-				$fuser->fetch($object->userownerid, '', '', 1);		// 1 to be sure to load personal conf
-				$userlogin = $fuser->conf->GOOGLE_LOGIN;
-			}
-			else if (! empty($object->usertodo) && is_object($object->usertodo))	// For backward compatibility (3.6)
-			{
-				$fuser = new User($this->db);
-				$fuser->fetch($object->usertodo->id);
-				$userlogin = $fuser->conf->GOOGLE_LOGIN;
-			}
-			else if (! empty($object->usertodo) && is_object($object->usertodo))	// For backward compatibility (3.6)
-			{
-				$fuser = new User($this->db);
-				$fuser->fetch($object->usertodo->id);
-				$userlogin = $fuser->conf->GOOGLE_LOGIN;
-			}
-			else return 0;
+		    if (empty($conf->global->GOOGLE_SYNC_EVENT_TO_SALE_REPRESENTATIVE))
+		    {
+    			// L'utilisateur concerné est l'utilisateur propriétaire de l'évènement (proprio dans Dolibarr)
+    			if (! empty($object->userownerid))
+    			{
+    				$fuser = new User($this->db);
+    				$fuser->fetch($object->userownerid, '', '', 1);		// 1 to be sure to load personal conf
+    				$userlogin = $fuser->conf->GOOGLE_LOGIN;
+    			}
+    			else if (! empty($object->usertodo) && is_object($object->usertodo))	// For backward compatibility (3.6)
+    			{
+    				$fuser = new User($this->db);
+    				$fuser->fetch($object->usertodo->id);
+    				$userlogin = $fuser->conf->GOOGLE_LOGIN;
+    			}
+    			else if (! empty($object->usertodo) && is_object($object->usertodo))	// For backward compatibility (3.6)
+    			{
+    				$fuser = new User($this->db);
+    				$fuser->fetch($object->usertodo->id);
+    				$userlogin = $fuser->conf->GOOGLE_LOGIN;
+    			}
+    			else 
+    			{
+    			    return 0;    // Should not occurs. This means there is no owner of event.
+    			}
+		    }
+		    else
+		    {
+		        // We want user that is first sale representative of company linked to event
+		        $salerep=$object->societe->getSalesRepresentatives($user);
+		        if (is_array($salerep) && count($salerep) > 0)
+		        {
+		            $idusersalerep=$salerep[0]['id'];
+    				$fuser = new User($this->db);
+    				$fuser->fetch($idusersalerep);
+    				$userlogin = $fuser->conf->GOOGLE_LOGIN;
+		        }
+		        else 
+		        {
+				    dol_syslog("Setup to synchronize events into a Google calendar is on but there is no sale representative linked to this event.", LOG_DEBUG);
+		            return 0;     // There is no sale representative
+		        }
+		    }
 
 			if (empty($conf->global->GOOGLE_DUPLICATE_INTO_GCAL)) return 0;  // In a future this option may be overwrite per user
 		}
