@@ -69,11 +69,11 @@ if ($action == 'set')
 	if (! $res > 0) $error++;
  	if (! $error)
     {
-        $mesg = "<font class=\"ok\">".$langs->trans("SetupSaved")."</font>";
+        setEventMessage($langs->trans("SetupSaved"));
     }
     else
     {
-        $mesg = "<font class=\"error\">".$langs->trans("Error")."</font>";
+        setEventMessage($langs->trans("Error"), 'errors');
     }
 }
 
@@ -97,11 +97,11 @@ if ($action == 'setcolor')
 	if (! $res > 0) $error++;
  	if (! $error)
     {
-        $mesg = "<font class=\"ok\">".$langs->trans("SetupSaved")."</font>";
+        setEventMessage($langs->trans("SetupSaved"));
     }
     else
     {
-        $mesg = "<font class=\"error\">".$langs->trans("Error")."</font>";
+        setEventMessage($langs->trans("Error"), 'errors');
     }
 }
 
@@ -121,6 +121,10 @@ print '<br>';
 
 print $langs->trans("SkinColorEditorDesc").'<br>';
 print '<br>';
+
+
+print '<form name="formcolor" method="POST" action="'.$_SERVER["PHP_SELF"].'">';
+print '<input type="hidden" name="action" value="setcolor">';
 
 
 $head=array();
@@ -173,7 +177,6 @@ else if (! empty($user->conf->THEME_ELDY_ENABLE_PERSONALIZED))
 }
 print '<br>';
 
-dol_htmloutput_mesg($mesg);
 
 
 if (! empty($conf->global->THEME_ELDY_ENABLE_PERSONALIZED))
@@ -185,9 +188,6 @@ if (! empty($conf->global->THEME_ELDY_ENABLE_PERSONALIZED))
     $h++;
 	*/
 
-
-    print '<form name="formcolor" method="POST" action="'.$_SERVER["PHP_SELF"].'">';
-    print '<input type="hidden" name="action" value="setcolor">';
 
     //print $langs->trans("SelectMainColor").' ';
     //$defcolor=dechex(235).dechex(235).dechex(235);
@@ -230,14 +230,14 @@ if (! empty($conf->global->THEME_ELDY_ENABLE_PERSONALIZED))
 
     // Use hover
     print $langs->trans("UseHoverOnLists").': <input type="checkbox" class="flat" name="THEME_ELDY_USE_HOVER" '.(empty($conf->global->THEME_ELDY_USE_HOVER)?'':' checked="checked"').'"><br>';
-
-    print '<br>';
-    print '<div align="center"><input type="submit" class="button" name="save" value="'.$langs->trans("Save").'"></div>';
-    print '</form>';
 }
 
 
 dol_fiche_end();
+
+
+print '<div align="center"><input type="submit" class="button" name="save" value="'.$langs->trans("Save").'"></div>';
+print '</form>';
 
 
 llxFooter();
