@@ -93,11 +93,18 @@ if ($action == 'set')
 
 if ($action == 'setcolor')
 {
-    $tab['THEME_ELDY_RGB']=GETPOST('THEME_ELDY_RGB','alpha');
-    $tab['THEME_ELDY_FONT_SIZE1']=GETPOST('THEME_ELDY_FONT_SIZE1','alpha');
+    /*$tab['THEME_ELDY_FONT_SIZE1']=GETPOST('THEME_ELDY_FONT_SIZE1','alpha');
     $tab['THEME_ELDY_USE_HOVER']=GETPOST('THEME_ELDY_USE_HOVER','alpha');
-
-    $listofkey=array('THEME_ELDY_BACKTABCARD1');
+    $tab['THEME_ELDY_BACKBODY']=GETPOST('THEME_ELDY_BACKBODY','alpha');
+    $tab['THEME_ELDY_BACKTABCARD1']=GETPOST('THEME_ELDY_BACKTABCARD1','alpha');
+    $tab['THEME_ELDY_BACKTABCARD2']=GETPOST('THEME_ELDY_BACKTABCARD2','alpha');
+    $tab['THEME_ELDY_TOPMENU_BACK1']=GETPOST('THEME_ELDY_USE_TOPMENU_BACK1','alpha');
+    $tab['THEME_ELDY_VERMENU_BACK1']=GETPOST('THEME_ELDY_USE_VERMENU_BACK1','alpha');
+    $tab['THEME_ELDY_BACKTITLE1']=GETPOST('THEME_ELDY_BACKTITLE1','alpha');
+    $tab['THEME_ELDY_LINEIMPAIR1']=GETPOST('THEME_ELDY_LINEIMPAIR1','alpha');
+    $tab['THEME_ELDY_LINEPAIR1']=GETPOST('THEME_ELDY_LINEPAIR1','alpha');*/
+    
+    $listofkey=array('THEME_ELDY_FONT_SIZE1','THEME_ELDY_USE_HOVER','THEME_ELDY_BACKBODY','THEME_ELDY_BACKTABCARD1','THEME_ELDY_BACKTABCARD2','THEME_ELDY_TOPMENU_BACK1','THEME_ELDY_VERMENU_BACK1','THEME_ELDY_BACKTITLE1','THEME_ELDY_LINEIMPAIR1','THEME_ELDY_LINEPAIR1');
     foreach($listofkey as $key)
     {
     	if (isset($_POST[$key])) $tab[$key]=GETPOST($key,'alpha');
@@ -203,32 +210,20 @@ if (! empty($fuser->conf->THEME_ELDY_ENABLE_PERSONALIZED))
 
 	print $langs->trans("ForceSpecificValue").':<br><br>';
 
-    // Color
-    /*
-    print $langs->trans("SelectMainColor").' ';
-    $defcolor=$conf->global->THEME_ELDY_RGB;
-    if (isset($fuser->conf->THEME_ELDY_RGB)) $defcolor=$fuser->conf->THEME_ELDY_RGB;
-    print $formother->selectColor($defcolor,'THEME_ELDY_RGB').'<br>';
-    */
-    
-    // Font size
-    print $langs->trans("FontSize").': <input type="text" class="flat" name="THEME_ELDY_FONT_SIZE1" size="4" value="'.$fuser->conf->THEME_ELDY_FONT_SIZE1.'"><br><br>';
 
-    if (versioncompare(versiondolibarrarray(),array(3,8,-3)) >= 0)
-    {
-    }
-    else
-    {
-        // Use hover
-        print $langs->trans("UseHoverOnLists").': <input type="checkbox" class="flat" name="THEME_ELDY_USE_HOVER" '.(empty($fuser->conf->THEME_ELDY_USE_HOVER)?'':' checked="checked"').'"><br><br>';
-    }
-    
+    // Font size
+    //$defvalue=$conf->global->THEME_ELDY_FONT_SIZE1;
+    //if (isset($fuser->conf->THEME_ELDY_FONT_SIZE1)) 
+    $defvalue=$fuser->conf->THEME_ELDY_FONT_SIZE1;
+    print $langs->trans("FontSize").': <input type="text" class="flat" name="THEME_ELDY_FONT_SIZE1" size="4" value="'.$defvalue.'"><br>';
+	print '<br>';
+
     if (versioncompare(versiondolibarrarray(),array(3,8,-3)) >= 0)
     {
     	print $langs->trans("SelectTabColor").' ';
         $defcolor=$conf->global->THEME_ELDY_BACKTABCARD1;
         if (isset($fuser->conf->THEME_ELDY_BACKTABCARD1)) $defcolor=$fuser->conf->THEME_ELDY_BACKTABCARD1;
-        print $formother->selectColor($defcolor,'THEME_ELDY_BACKTABCARD1').'<br><br>';
+        print $formother->selectColor(colorArrayToHex(colorStringToArray($defcolor,array()),''),'THEME_ELDY_BACKTABCARD1').'<br><br>';
     }
     else
     {
@@ -236,11 +231,57 @@ if (! empty($fuser->conf->THEME_ELDY_ENABLE_PERSONALIZED))
         print $langs->trans("SelectTabColor2").' ';
         $defcolor=$conf->global->THEME_ELDY_BACKTABCARD2;
         if (isset($fuser->conf->THEME_ELDY_BACKTABCARD2)) $defcolor=$fuser->conf->THEME_ELDY_BACKTABCARD2;
-        print $formother->selectColor($defcolor,'THEME_ELDY_BACKTABCARD2').'<br><br>';
+        print $formother->selectColor(colorArrayToHex(colorStringToArray($defcolor,array()),''),'THEME_ELDY_BACKTABCARD2').'<br><br>';
     	print $langs->trans("SelectTabColor1").' ';
         $defcolor=$conf->global->THEME_ELDY_BACKTABCARD1;
         if (isset($fuser->conf->THEME_ELDY_BACKTABCARD1)) $defcolor=$fuser->conf->THEME_ELDY_BACKTABCARD1;
-        print $formother->selectColor($defcolor,'THEME_ELDY_BACKTABCARD1').'<br><br>';
+        print $formother->selectColor(colorArrayToHex(colorStringToArray($defcolor,array()),''),'THEME_ELDY_BACKTABCARD1').'<br><br>';
+    }
+	
+    $defcolor=$conf->global->THEME_ELDY_BACKBODY;
+    if (isset($fuser->conf->THEME_ELDY_BACKBODY)) $defcolor=$fuser->conf->THEME_ELDY_BACKBODY;
+    print $langs->trans("BackgroundColor").' ';
+    print $formother->selectColor(colorArrayToHex(colorStringToArray($defcolor,array()),''),'THEME_ELDY_BACKBODY','formcolor',1).'<br><br>';
+
+    $defcolor=$conf->global->THEME_ELDY_TOPMENU_BACK1;
+    if (isset($fuser->conf->THEME_ELDY_TOPMENU_BACK1)) $defcolor=$fuser->conf->THEME_ELDY_TOPMENU_BACK1;
+    print $langs->trans("TopMenuBackgroundColor").' ';
+    print $formother->selectColor(colorArrayToHex(colorStringToArray($defcolor,array()),''),'THEME_ELDY_TOPMENU_BACK1','formcolor',1).'<br><br>';
+    //print $langs->trans("TopMenuFontColor").' ';
+    //print $formother->selectColor($conf->global->THEME_ELDY_TOPMENU_BACK1,'THEME_ELDY_TOPMENU_BACK1','formcolor',1).'<br><br>';
+
+    $defcolor=$conf->global->THEME_ELDY_VERMENU_BACK1;
+    if (isset($fuser->conf->THEME_ELDY_VERMENU_BACK1)) $defcolor=$fuser->conf->THEME_ELDY_VERMENU_BACK1;
+    print $langs->trans("LeftMenuBackgroundColor").' ';
+    print $formother->selectColor(colorArrayToHex(colorStringToArray($defcolor,array()),''),'THEME_ELDY_VERMENU_BACK1','formcolor',1).'<br><br>';
+    //print $langs->trans("LeftMenuFontColor").' ';
+    //print $formother->selectColor($conf->global->THEME_ELDY_TOPMENU_BACK1,'THEME_ELDY_TOPMENU_BACK1','formcolor',1).'<br><br>';
+
+    $defcolor=$conf->global->THEME_ELDY_BACKTITLE1;
+    if (isset($fuser->conf->THEME_ELDY_BACKTITLE1)) $defcolor=$fuser->conf->THEME_ELDY_BACKTITLE1;
+    print $langs->trans("BackgroundTableTitleColor").' ';
+    print $formother->selectColor(colorArrayToHex(colorStringToArray($defcolor,array()),''),'THEME_ELDY_BACKTITLE1','formcolor',1).'<br><br>';
+
+    $defcolor=$conf->global->THEME_ELDY_LINEIMPAIR1;
+    if (isset($fuser->conf->THEME_ELDY_LINEIMPAIR1)) $defcolor=$fuser->conf->THEME_ELDY_LINEIMPAIR1;
+    print $langs->trans("BackgroundTableLineOddColor").' ';
+    print $formother->selectColor(colorArrayToHex(colorStringToArray($defcolor,array()),''),'THEME_ELDY_LINEIMPAIR1','formcolor',1).'<br><br>';
+
+    $defcolor=$conf->global->THEME_ELDY_LINEPAIR1;
+    if (isset($fuser->conf->THEME_ELDY_LINEPAIR1)) $defcolor=$fuser->conf->THEME_ELDY_LINEPAIR1;
+    print $langs->trans("BackgroundTableLineEvenColor").' ';
+    print $formother->selectColor(colorArrayToHex(colorStringToArray($defcolor,array()),''),'THEME_ELDY_LINEPAIR1','formcolor',1).'<br><br>';
+
+    if (versioncompare(versiondolibarrarray(),array(3,9,-3)) >= 0)
+    {
+        // Use hover
+        print $langs->trans("UseHoverOnLists").' ';
+        print $formother->selectColor(colorArrayToHex(colorStringToArray($fuser->conf->THEME_ELDY_USE_HOVER,array()),''),'THEME_ELDY_USE_HOVER','formcolor',1).'<br><br>';
+    }
+    else
+    {
+        // Use hover
+        print $langs->trans("UseHoverOnLists").': <input type="checkbox" class="flat" name="THEME_ELDY_USE_HOVER" '.(empty($fuser->conf->THEME_ELDY_USE_HOVER)?'':' checked="checked"').'"><br>';
     }
     
     dol_fiche_end();
