@@ -131,7 +131,7 @@ $head=array();
 $h=0;
 
 $head[$h][0] = dol_buildpath("/skincoloreditor/admin/quickeditor.php",1);
-$head[$h][1] = $langs->trans("SkinColorEditorFastEditor");
+$head[$h][1] = $langs->trans("ColorEditor");
 $head[$h][2] = 'fasteditor';
 $h++;
 
@@ -165,15 +165,15 @@ print '<br>';
 
 if ($conf->theme != 'eldy')
 {
-	print '<br><br>';
-
+	print '<br>';
 	print '<div class="warning">'.img_warning().' '.$langs->trans("WarningSkinMustBeEldy",$conf->theme).'</div>';
+	print '<br>';
 }
 else if (! empty($user->conf->THEME_ELDY_ENABLE_PERSONALIZED))
 {
-	print '<br><br>';
-
+	print '<br>';
 	print '<div class="warning">'.img_warning().' '.$langs->trans("YourUseHasPersonalized",dol_buildpath('/skincoloreditor/usercolors.php',1).'?id='.$user->id,$langs->transnoentitiesnoconv("ColorEditor")).'</div>';
+	print '<br>';
 }
 print '<br>';
 
@@ -227,9 +227,17 @@ if (! empty($conf->global->THEME_ELDY_ENABLE_PERSONALIZED))
     print $langs->trans("BackgroundTableLineEvenColor").' ';
     print $formother->selectColor(colorArrayToHex(colorStringToArray($conf->global->THEME_ELDY_LINEPAIR1,array()),''),'THEME_ELDY_LINEPAIR1','formcolor',1).'<br><br>';
 
-
-    // Use hover
-    print $langs->trans("UseHoverOnLists").': <input type="checkbox" class="flat" name="THEME_ELDY_USE_HOVER" '.(empty($conf->global->THEME_ELDY_USE_HOVER)?'':' checked="checked"').'"><br>';
+    if (versioncompare(versiondolibarrarray(),array(3,9,-3)) >= 0)
+    {
+        // Use hover
+        print $langs->trans("UseHoverOnLists").' ';
+        print $formother->selectColor(colorArrayToHex(colorStringToArray($conf->global->THEME_ELDY_USE_HOVER,array()),''),'THEME_ELDY_USE_HOVER','formcolor',1).'<br><br>';
+    }
+    else
+    {
+        // Use hover
+        print $langs->trans("UseHoverOnLists").': <input type="checkbox" class="flat" name="THEME_ELDY_USE_HOVER" '.(empty($conf->global->THEME_ELDY_USE_HOVER)?'':' checked="checked"').'"><br>';
+    }
 }
 
 

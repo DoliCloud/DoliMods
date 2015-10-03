@@ -12,7 +12,7 @@ SelectMainColor=Select main color
 ActivateColorPersonalizing=Activate possibility to personalize colors and font (globaly)
 ActivateColorPersonalizingUser=Activate possibility to personalize colors and font (for this user)
 ColorEditor=Skin editor
-YourUseHasPersonalized=Current user has personalized its colors from its personal card (Tab <a href="%s">"%s"</a>). Tis personalisation will be used in priority so global setup will works only for users whose setup was not edited for themself.
+YourUseHasPersonalized=Current user has personalized its colors from its personal card (Tab <a href="%s">"%s"</a>). This personal setup will be used in priority so global setup will works only for users whose setup was not edited for themself.
 FontSize=Font size
 UseHoverOnLists=Highlight table lines on mouse over
 AboutInfo=This module is developped and distributed by Laurent Destailleur for NLTechno, <a href="http://www.nltechno.com">www.nltechno.com</a> (A Dolibarr Preferred Partner company).
