@@ -143,7 +143,7 @@ class InterfaceGoogleCalendarSynchro
 		    else
 		    {
 		        // We want user that is first sale representative of company linked to event
-		        if (is_object($object->societe))
+		        if (is_object($object->societe) && isset($object->societe->id))
 		        {
     		        $salerep=$object->societe->getSalesRepresentatives($user);
     		        if (is_array($salerep) && count($salerep) > 0)
