@@ -143,19 +143,27 @@ class InterfaceGoogleCalendarSynchro
 		    else
 		    {
 		        // We want user that is first sale representative of company linked to event
-		        $salerep=$object->societe->getSalesRepresentatives($user);
-		        if (is_array($salerep) && count($salerep) > 0)
+		        if (is_object($object->societe))
 		        {
-		            $idusersalerep=$salerep[0]['id'];
-    				$fuser = new User($this->db);
-    				$fuser->fetch($idusersalerep);
-    				$userlogin = $fuser->conf->GOOGLE_LOGIN;
+    		        $salerep=$object->societe->getSalesRepresentatives($user);
+    		        if (is_array($salerep) && count($salerep) > 0)
+    		        {
+    		            $idusersalerep=$salerep[0]['id'];
+        				$fuser = new User($this->db);
+        				$fuser->fetch($idusersalerep);
+        				$userlogin = $fuser->conf->GOOGLE_LOGIN;
+    		        }
+    		        else 
+    		        {
+    				    dol_syslog("Setup to synchronize events into a Google calendar is on but there is no sale representative linked to this event.", LOG_DEBUG);
+    		            return 0;     // There is no sale representative
+    		        }
 		        }
 		        else 
-		        {
-				    dol_syslog("Setup to synchronize events into a Google calendar is on but there is no sale representative linked to this event.", LOG_DEBUG);
-		            return 0;     // There is no sale representative
-		        }
+    		    {
+    			    dol_syslog("Setup to synchronize events into a Google calendar is on but there this event is no linked to a company no not linked to any sale representative", LOG_DEBUG);
+    		        return 0;     // There is no sale representative
+    		     }
 		    }
 
 			if (empty($conf->global->GOOGLE_DUPLICATE_INTO_GCAL)) return 0;  // In a future this option may be overwrite per user
