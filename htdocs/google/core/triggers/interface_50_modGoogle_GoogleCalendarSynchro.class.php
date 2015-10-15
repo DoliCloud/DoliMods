@@ -109,8 +109,11 @@ class InterfaceGoogleCalendarSynchro
 
 		if (!$conf->google->enabled) return 0; // Module non actif
 
-		//var_dump($object); exit;
-
+        if (empty($conf->global->GOOGLE_INCLUDE_AUTO_EVENT) && $object->type_code == 'AC_OTH_AUTO')
+        {
+            return 0;
+        }
+		
 		$userlogin = empty($conf->global->GOOGLE_LOGIN)?'':$conf->global->GOOGLE_LOGIN;
 		if (empty($userlogin))	// We use setup of user
 		{
