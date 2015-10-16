@@ -161,14 +161,14 @@ if ($socid)
 	 * Creation de l'objet client/fournisseur correspondant au socid
 	 */
 
-	$soc = new Societe($db);
-	$result = $soc->fetch($socid);
+	$object = new Societe($db);
+	$result = $object->fetch($socid);
 
 
 	/*
 	 * Show tabs
 	 */
-	$head = societe_prepare_head($soc);
+	$head = societe_prepare_head($object);
 	dol_fiche_head($head, 'tabSMS', $langs->trans("ThirdParty"),0,'company');
 
     if ($mesg)
@@ -181,38 +181,44 @@ if ($socid)
         }
     }
 
-    print '<table class="border" width="100%">';
-
-    print '<tr><td width="20%">'.$langs->trans('Name').'</td>';
-    print '<td colspan="3">';
-    print $form->showrefnav($soc,'socid','',($user->societe_id?0:1),'rowid','nom');
-    print '</td></tr>';
-
-    if (! empty($conf->global->SOCIETE_USEPREFIX))  // Old not used prefix field
+    if (function_exists('dol_banner_tab')) // 3.9+
     {
-        print '<tr><td>'.$langs->trans('Prefix').'</td><td colspan="3">'.$soc->prefix_comm.'</td></tr>';
+        dol_banner_tab($object,'id','',$user->rights->user->user->lire || $user->admin);
     }
-
-    if ($soc->client)
+    else
     {
-        print '<tr><td>';
-        print $langs->trans('CustomerCode').'</td><td colspan="3">';
-        print $soc->code_client;
-        if ($soc->check_codeclient() <> 0) print ' <font class="error">('.$langs->trans("WrongCustomerCode").')</font>';
+        print '<table class="border" width="100%">';
+        print '<tr><td width="20%">'.$langs->trans('Name').'</td>';
+        print '<td colspan="3">';
+        print $form->showrefnav($object,'socid','',($user->societe_id?0:1),'rowid','nom');
         print '</td></tr>';
+    
+        if (! empty($conf->global->SOCIETE_USEPREFIX))  // Old not used prefix field
+        {
+            print '<tr><td>'.$langs->trans('Prefix').'</td><td colspan="3">'.$object->prefix_comm.'</td></tr>';
+        }
+    
+        if ($object->client)
+        {
+            print '<tr><td>';
+            print $langs->trans('CustomerCode').'</td><td colspan="3">';
+            print $object->code_client;
+            if ($object->check_codeclient() <> 0) print ' <font class="error">('.$langs->trans("WrongCustomerCode").')</font>';
+            print '</td></tr>';
+        }
+    
+        if ($object->fournisseur)
+        {
+            print '<tr><td>';
+            print $langs->trans('SupplierCode').'</td><td colspan="3">';
+            print $object->code_fournisseur;
+            if ($object->check_codefournisseur() <> 0) print ' <font class="error">('.$langs->trans("WrongSupplierCode").')</font>';
+            print '</td></tr>';
+        }
+    
+        print '</table><br>';
     }
-
-    if ($soc->fournisseur)
-    {
-        print '<tr><td>';
-        print $langs->trans('SupplierCode').'</td><td colspan="3">';
-        print $soc->code_fournisseur;
-        if ($soc->check_codefournisseur() <> 0) print ' <font class="error">('.$langs->trans("WrongSupplierCode").')</font>';
-        print '</td></tr>';
-    }
-
-    print '</table><br>';
-
+    
     print_fiche_titre($langs->trans("Sms"),'','phone.png@ovh');
 
     // Cree l'objet formulaire mail
@@ -229,12 +235,12 @@ if ($socid)
     $formsms->withbody=1;
     $formsms->withcancel=0;
     // Tableau des substitutions
-    $formsms->substit['__THIRDPARTYREF__']=$soc->ref;
+    $formsms->substit['__THIRDPARTYREF__']=$object->ref;
     // Tableau des parametres complementaires du post
     $formsms->param['action']='send';
     $formsms->param['models']='';
-    $formsms->param['id']=$soc->id;
-    $formsms->param['returnurl']=$_SERVER["PHP_SELF"].'?id='.$soc->id;
+    $formsms->param['id']=$object->id;
+    $formsms->param['returnurl']=$_SERVER["PHP_SELF"].'?id='.$object->id;
 
     $formsms->show_form('20%');
 

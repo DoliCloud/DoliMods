@@ -143,18 +143,18 @@ if ($id)
 	 * Creation de l'objet adherent correspondant a id
 	 */
 
-	$member = new Adherent($db);
-	$result = $member->fetch($id);
+	$object = new Adherent($db);
+	$result = $object->fetch($id);
 
     $membert = new AdherentType($db);
-    $res=$membert->fetch($member->typeid);
+    $res=$membert->fetch($object->typeid);
     if ($res < 0) dol_print_error($db);
 
 	/*
 	 * Affichage onglets
 	 */
-	$head = member_prepare_head($member);
-	dol_fiche_head($head, 'sms', $langs->trans("Member"),0,'company');
+	$head = member_prepare_head($object);
+	dol_fiche_head($head, 'tabSMS', $langs->trans("Member"),0,'company');
 
     if ($mesg)
     {
@@ -166,48 +166,57 @@ if ($id)
         }
     }
 
-    print '<table class="border" width="100%">';
-
-    // Ref
-    print '<tr><td width="20%">'.$langs->trans("Ref").'</td>';
-    print '<td class="valeur" colspan="2">';
-    print $form->showrefnav($member,'id');
-    print '</td></tr>';
-
-    // Login
-    if (empty($conf->global->ADHERENT_LOGIN_NOT_REQUIRED))
+    if (function_exists('dol_banner_tab')) // 3.9+
     {
-        print '<tr><td>'.$langs->trans("Login").' / '.$langs->trans("Id").'</td><td class="valeur" colspan="2">'.$member->login.'&nbsp;</td>';
-        print '</tr>';
+        $linkback = '<a href="'.DOL_URL_ROOT.'/adherents/list.php">'.$langs->trans("BackToList").'</a>';
+        
+        dol_banner_tab($object, 'rowid', $linkback);
     }
-
-    // Morphy
-    print '<tr><td>'.$langs->trans("Nature").'</td><td class="valeur" >'.$member->getmorphylib().'</td>';
-    /*print '<td rowspan="'.$rowspan.'" align="center" valign="middle" width="25%">';
-    print $form->showphoto('memberphoto',$member);
-    print '</td>';*/
-    print '</tr>';
-
-    // Type
-    print '<tr><td>'.$langs->trans("Type").'</td><td class="valeur">'.$membert->getNomUrl(1)."</td></tr>\n";
-
-    // Company
-    print '<tr><td>'.$langs->trans("Company").'</td><td class="valeur">'.$member->societe.'</td></tr>';
-
-    // Civility
-    print '<tr><td>'.$langs->trans("UserTitle").'</td><td class="valeur">'.$member->getCivilityLabel().'&nbsp;</td>';
-    print '</tr>';
-
-    // Name
-    print '<tr><td>'.$langs->trans("Lastname").'</td><td class="valeur">'.$member->lastname.'&nbsp;</td>';
-    print '</tr>';
-
-    // Firstname
-    print '<tr><td>'.$langs->trans("Firstname").'</td><td class="valeur">'.$member->firstname.'&nbsp;</td></tr>';
-
-    print '</table>';
-
-    print '<br>';
+    else
+    {
+        print '<table class="border" width="100%">';
+    
+        // Ref
+        print '<tr><td width="20%">'.$langs->trans("Ref").'</td>';
+        print '<td class="valeur" colspan="2">';
+        print $form->showrefnav($object,'id');
+        print '</td></tr>';
+    
+        // Login
+        if (empty($conf->global->ADHERENT_LOGIN_NOT_REQUIRED))
+        {
+            print '<tr><td>'.$langs->trans("Login").' / '.$langs->trans("Id").'</td><td class="valeur" colspan="2">'.$object->login.'&nbsp;</td>';
+            print '</tr>';
+        }
+    
+        // Morphy
+        print '<tr><td>'.$langs->trans("Nature").'</td><td class="valeur" >'.$object->getmorphylib().'</td>';
+        /*print '<td rowspan="'.$rowspan.'" align="center" valign="middle" width="25%">';
+        print $form->showphoto('memberphoto',$object);
+        print '</td>';*/
+        print '</tr>';
+    
+        // Type
+        print '<tr><td>'.$langs->trans("Type").'</td><td class="valeur">'.$membert->getNomUrl(1)."</td></tr>\n";
+    
+        // Company
+        print '<tr><td>'.$langs->trans("Company").'</td><td class="valeur">'.$object->societe.'</td></tr>';
+    
+        // Civility
+        print '<tr><td>'.$langs->trans("UserTitle").'</td><td class="valeur">'.$object->getCivilityLabel().'&nbsp;</td>';
+        print '</tr>';
+    
+        // Name
+        print '<tr><td>'.$langs->trans("Lastname").'</td><td class="valeur">'.$object->lastname.'&nbsp;</td>';
+        print '</tr>';
+    
+        // Firstname
+        print '<tr><td>'.$langs->trans("Firstname").'</td><td class="valeur">'.$object->firstname.'&nbsp;</td></tr>';
+    
+        print '</table>';
+    
+        print '<br>';
+    }
 
     print_fiche_titre($langs->trans("Sms"),'','phone.png@ovh');
 
@@ -220,16 +229,16 @@ if ($id)
     $formsms->fromsms = $user->user_mobile;
     $formsms->withfrom=(empty($_POST['fromsms'])?1:$_POST['fromsms']);
     $formsms->withfromreadonly=0;
-    $formsms->withto=(empty($_POST["sendto"])?($member->phone_mobile?$member->phone_mobile:1):$_POST["sendto"]);
+    $formsms->withto=(empty($_POST["sendto"])?($object->phone_mobile?$object->phone_mobile:1):$_POST["sendto"]);
     $formsms->withbody=1;
     $formsms->withcancel=0;
     // Tableau des substitutions
-    $formsms->substit['__MEMBERREF__']=$member->ref;
+    $formsms->substit['__MEMBERREF__']=$object->ref;
     // Tableau des parametres complementaires du post
     $formsms->param['action']='send';
     $formsms->param['models']='';
-    $formsms->param['id']=$member->id;
-    $formsms->param['returnurl']=$_SERVER["PHP_SELF"].'?id='.$member->id;
+    $formsms->param['id']=$object->id;
+    $formsms->param['returnurl']=$_SERVER["PHP_SELF"].'?id='.$object->id;
 
     $formsms->show_form('20%');
 
