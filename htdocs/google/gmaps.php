@@ -102,48 +102,53 @@ if ($mode=='member')
 
 dol_fiche_head($head, 'gmaps', $title, 0, $picto);
 
-
-print '<table class="border" width="100%">';
-
-// Name
-print '<tr><td width="20%">'.$langs->trans('ThirdPartyName').'</td>';
-print '<td colspan="3">';
-print $form->showrefnav($object,'id','',($user->societe_id?0:1),'rowid','nom','','&mode='.$mode);
-print '</td>';
-print '</tr>';
-
-
-// Status
-print '<tr><td>'.$langs->trans("Status").'</td>';
-print '<td colspan="'.(2+(($showlogo || $showbarcode)?0:1)).'">';
-print $object->getLibStatut(2);
-print '</td>';
-print $htmllogobar; $htmllogobar='';
-print '</tr>';
-
-// Address
-print "<tr><td valign=\"top\">".$langs->trans('Address').'</td><td colspan="'.(2+(($showlogo || $showbarcode)?0:1)).'">';
-dol_print_address($object->address,'gmap',$mode,$object->id);
-print "</td></tr>";
-
-// Zip / Town
-print '<tr><td width="25%">'.$langs->trans('Zip').' / '.$langs->trans("Town").'</td><td colspan="'.(2+(($showlogo || $showbarcode)?0:1)).'">';
-print $object->zip.($object->zip && $object->town?" / ":"").$object->town;
-print "</td>";
-print '</tr>';
-
-// Country
-print '<tr><td>'.$langs->trans("Country").'</td><td colspan="'.(2+(($showlogo || $showbarcode)?0:1)).'" nowrap="nowrap">';
-$img=picto_from_langcode($object->country_code);
-if ($object->isInEEC()) print $form->textwithpicto(($img?$img.' ':'').$object->country,$langs->trans("CountryIsInEEC"),1,0);
-else print ($img?$img.' ':'').$object->country;
-print '</td></tr>';
-
-// State
-if (empty($conf->global->SOCIETE_DISABLE_STATE)) print '<tr><td>'.$langs->trans('State').'</td><td colspan="'.(2+(($showlogo || $showbarcode)?0:1)).'">'.$object->state.'</td>';
-
-print '</table>';
-
+if (function_exists('dol_banner_tab')) // 3.9+
+{
+    dol_banner_tab($object,'id','',$user->rights->user->user->lire || $user->admin);
+}
+else
+{
+    print '<table class="border" width="100%">';
+    
+    // Name
+    print '<tr><td width="20%">'.$langs->trans('ThirdPartyName').'</td>';
+    print '<td colspan="3">';
+    print $form->showrefnav($object,'id','',($user->societe_id?0:1),'rowid','nom','','&mode='.$mode);
+    print '</td>';
+    print '</tr>';
+    
+    
+    // Status
+    print '<tr><td>'.$langs->trans("Status").'</td>';
+    print '<td colspan="'.(2+(($showlogo || $showbarcode)?0:1)).'">';
+    print $object->getLibStatut(2);
+    print '</td>';
+    print $htmllogobar; $htmllogobar='';
+    print '</tr>';
+    
+    // Address
+    print "<tr><td valign=\"top\">".$langs->trans('Address').'</td><td colspan="'.(2+(($showlogo || $showbarcode)?0:1)).'">';
+    dol_print_address($object->address,'gmap',$mode,$object->id);
+    print "</td></tr>";
+    
+    // Zip / Town
+    print '<tr><td width="25%">'.$langs->trans('Zip').' / '.$langs->trans("Town").'</td><td colspan="'.(2+(($showlogo || $showbarcode)?0:1)).'">';
+    print $object->zip.($object->zip && $object->town?" / ":"").$object->town;
+    print "</td>";
+    print '</tr>';
+    
+    // Country
+    print '<tr><td>'.$langs->trans("Country").'</td><td colspan="'.(2+(($showlogo || $showbarcode)?0:1)).'" nowrap="nowrap">';
+    $img=picto_from_langcode($object->country_code);
+    if ($object->isInEEC()) print $form->textwithpicto(($img?$img.' ':'').$object->country,$langs->trans("CountryIsInEEC"),1,0);
+    else print ($img?$img.' ':'').$object->country;
+    print '</td></tr>';
+    
+    // State
+    if (empty($conf->global->SOCIETE_DISABLE_STATE)) print '<tr><td>'.$langs->trans('State').'</td><td colspan="'.(2+(($showlogo || $showbarcode)?0:1)).'">'.$object->state.'</td>';
+    
+    print '</table>';
+}
 
 // Show maps
 
