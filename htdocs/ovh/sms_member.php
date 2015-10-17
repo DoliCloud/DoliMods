@@ -154,7 +154,7 @@ if ($id)
 	 * Affichage onglets
 	 */
 	$head = member_prepare_head($object);
-	dol_fiche_head($head, 'tabSMS', $langs->trans("Member"),0,'company');
+	dol_fiche_head($head, 'tabSMS', $langs->trans("Member"),0,'user');
 
     if ($mesg)
     {
