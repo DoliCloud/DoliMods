@@ -96,7 +96,9 @@ if ($action == 'save')
 	if (! $res > 0) $error++;
 	$res=dolibarr_set_const($db,'GOOGLE_CAL_TZ_FIX',trim($_POST["GOOGLE_CAL_TZ_FIX"]),'chaine',0,'',$conf->entity);
 	if (! $res > 0) $error++;
-
+	$res=dolibarr_set_const($db,'GOOGLE_INCLUDE_AUTO_EVENT',trim($_POST["GOOGLE_INCLUDE_AUTO_EVENT"]),'chaine',0,'',$conf->entity);
+	if (! $res > 0) $error++;
+	
 	if (! empty($_FILES['GOOGLE_API_SERVICEACCOUNT_P12KEY_file']['tmp_name']))
 	{
 		$dir     = $conf->google->multidir_output[$conf->entity]."/";
@@ -481,12 +483,19 @@ print "<tr class=\"liste_titre\">";
 print '<td>'.$langs->trans("Parameter")."</td>";
 print "<td>".$langs->trans("Value")."</td>";
 print "</tr>";
-// Google login
+// Google TZ fix
 print "<tr ".$bc[$var].">";
 print '<td>'.$langs->trans("GOOGLE_FIX_TZ")."</td>";
 print "<td>";
 print '<input class="flat" type="text" size="4" name="GOOGLE_CAL_TZ_FIX" value="'.$conf->global->GOOGLE_CAL_TZ_FIX.'">';
 print ' &nbsp; '.$langs->trans("FillThisOnlyIfRequired");
+print "</td>";
+print "</tr>";
+// Include auto event
+print "<tr ".$bc[$var].">";
+print '<td>'.$langs->trans("GOOGLE_INCLUDE_AUTO_EVENT")."</td>";
+print "<td>";
+print $form->selectyesno("GOOGLE_INCLUDE_AUTO_EVENT", $conf->global->GOOGLE_INCLUDE_AUTO_EVENT, 1);
 print "</td>";
 print "</tr>";
 
