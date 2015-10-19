@@ -28,6 +28,7 @@ GOOGLE_PASSWORD=Mot de passe
 GOOGLE_EVENT_LABEL_INC_SOCIETE=Add thirdparty name into event label for thirdparty events
 GOOGLE_EVENT_LABEL_INC_CONTACT=Add contact name into event label for contact events
 GOOGLE_CONTACT_LABEL=Label to tag contacts
+GOOGLE_INCLUDE_AUTO_EVENT=Sync also for events automatically created by Dolibarr (see setup of module Agenda for list of automatic events). If no, only events entered manualy into agenda are syncrhonized. 
 MAIN_GOOGLE_AN_ID=Google analytics ID
 GoogleIDContact=Google Account
 GoogleNoTokenYet=You don't have any token yet. To create one, just authenticate to Google with the following link:
