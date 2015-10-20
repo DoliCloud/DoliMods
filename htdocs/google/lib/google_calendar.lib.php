@@ -58,6 +58,7 @@ $_authSubKeyFilePassphrase = null;
  * @param	string		$clientid			Client ID
  * @param	string		$clientsecret		Client secret
  * @return				service
+ * @deprecated Not used anymore ?
  */
 function getTokenFromWebApp($clientid, $clientsecret)
 {
@@ -613,8 +614,8 @@ function syncEventsFromGoogleCalendar($userlogin, User $fuser, $mindate, $max=0)
 
 	// Create client/token object
 	$key_file_location = $conf->google->multidir_output[$conf->entity]."/".$conf->global->GOOGLE_API_SERVICEACCOUNT_P12KEY;
-	$force_do_not_use_session=false;
-	$servicearray=getTokenFromServiceAccount($conf->global->GOOGLE_API_SERVICEACCOUNT_CLIENT_ID, $conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL, $key_file_location, $force_do_not_use_session);
+	$force_do_not_use_session=true;
+	$servicearray=getTokenFromServiceAccount($conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL, $key_file_location, $force_do_not_use_session);
 
 	if (! is_array($servicearray))
 	{
@@ -624,7 +625,7 @@ function syncEventsFromGoogleCalendar($userlogin, User $fuser, $mindate, $max=0)
 
 	if ($error || $servicearray == null)
 	{
-		$txterror="Failed to login to Google with credentials provided into setup page ".$conf->global->GOOGLE_API_SERVICEACCOUNT_CLIENT_ID.", ".$conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL.", ".$key_file_location;
+		$txterror="Failed to login to Google with credentials provided into setup page ".$conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL.", ".$key_file_location;
 		dol_syslog($txterror, LOG_ERR);
 		$errors[]=$txterror;
 		$error++;
