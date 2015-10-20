@@ -122,43 +122,43 @@ if (preg_match('/^test/',$action))
 	include_once(DOL_DOCUMENT_ROOT.'/contact/class/contact.class.php');
 	include_once(DOL_DOCUMENT_ROOT.'/societe/class/societe.class.php');
 
-	$object=new ActionComm($db);
-	$result=$object->initAsSpecimen();
+	$objectfortest=new ActionComm($db);
+	$result=$objectfortest->initAsSpecimen();
 
 	$tmparray=dol_getdate(dol_now());
-	$object->datep=dol_mktime(12, 0, 0, $tmparray['mon'], $tmparray['mday'], $tmparray['year']);
-	$object->datef=$object->datep;
+	$objectfortest->datep=dol_mktime(12, 0, 0, $tmparray['mon'], $tmparray['mday'], $tmparray['year']);
+	$objectfortest->datef=$objectfortest->datep;
 
 	$tmpcontact=new Contact($db);
 	$tmpcontact->initAsSpecimen();
-	$object->contact=$tmpcontact;
+	$objectfortest->contact=$tmpcontact;
 
 	if ($tmpcontact->socid > 0)
 	{
 		$tmpsoc=new Societe($db);
 		$tmpsoc->fetch($tmpcontact->socid);	// Overwrite with value of an existing record
-		$object->societe=$tmpsoc;
-		$object->thirdparty=$tmpsoc;
+		$objectfortest->societe=$tmpsoc;
+		$objectfortest->thirdparty=$tmpsoc;
 	}
 
-	$result=$object->add($user);
+	$result=$objectfortest->add($user);
 	if ($result < 0) $error++;
 
 	if (! $error)
 	{
-		$object->label='New label';
-		$object->location='New location';
-		$object->note='New note';
-		//$object->datep+=$testoffset;
-		//$object->datef+=$testoffset;
+		$objectfortest->label='New label';
+		$objectfortest->location='New location';
+		$objectfortest->note='New note';
+		//$objectfortest->datep+=$testoffset;
+		//$objectfortest->datef+=$testoffset;
 
-		$result=$object->update($user);
+		$result=$objectfortest->update($user);
 		if ($result < 0) $error++;
 	}
 
 	if ($action == 'testall' && ! $error)
 	{
-		$result=$object->delete();
+		$result=$objectfortest->delete();
 		if ($result < 0) $error++;
 	}
 
@@ -168,8 +168,8 @@ if (preg_match('/^test/',$action))
 	}
 	else
 	{
-		if ($object->errors) setEventMessage($object->errors,'errors');
-		else setEventMessage($object->error,'errors');
+		if ($objectfortest->errors) setEventMessage($objectfortest->errors,'errors');
+		else setEventMessage($objectfortest->error,'errors');
 	}
 }
 
@@ -295,30 +295,30 @@ if ($action == 'pushallevents')
 			$i=0;
 			while (($obj = $db->fetch_object($resql)) && ($i < $synclimit || empty($synclimit)))
 			{
-				$object = new ActionComm($db);
-				$object->id=$obj->id;
-				$object->datep=$db->jdate($obj->datep);
-				$object->datef=$db->jdate($obj->datef);
-				$object->code=$obj->code;
-				$object->label=$obj->label;
-				$object->transparency=$obj->transparency;
-				$object->priority=$obj->priority;
-				$object->fulldayevent=$obj->fulldayevent;
-				$object->punctual=$obj->punctual;
-				$object->percent=$obj->percent;
-				$object->location=$obj->location;
-				$object->socid=$obj->fk_soc;
-				$object->contactid=$obj->fk_contact;
-				$object->note=$obj->note;
+				$objecttmp = new ActionComm($db);
+				$objecttmp->id=$obj->id;
+				$objecttmp->datep=$db->jdate($obj->datep);
+				$objecttmp->datef=$db->jdate($obj->datef);
+				$objecttmp->code=$obj->code;
+				$objecttmp->label=$obj->label;
+				$objecttmp->transparency=$obj->transparency;
+				$objecttmp->priority=$obj->priority;
+				$objecttmp->fulldayevent=$obj->fulldayevent;
+				$objecttmp->punctual=$obj->punctual;
+				$objecttmp->percent=$obj->percent;
+				$objecttmp->location=$obj->location;
+				$objecttmp->socid=$obj->fk_soc;
+				$objecttmp->contactid=$obj->fk_contact;
+				$objecttmp->note=$obj->note;
 
 				// Event label can now include company and / or contact info, see configuration
-				google_complete_label_and_note($object, $langs);
+				google_complete_label_and_note($objecttmp, $langs);
 
-				$ret = createEvent($servicearray, $object, $userlogin);
+				$ret = createEvent($servicearray, $objecttmp, $userlogin);
 				if (! preg_match('/ERROR/',$ret))
 				{
 					if (! preg_match('/google\.com/',$ret)) $ret='google:'.$ret;
-					$object->update_ref_ext($ret);	// This is to store ref_ext to allow updates
+					$objecttmp->update_ref_ext($ret);	// This is to store ref_ext to allow updates
 					$nbinserted++;
 				}
 				else
@@ -345,6 +345,7 @@ if ($action == 'pushallevents')
 
 }
 
+// Import last 50 modified events
 if ($action == 'syncfromgoogle')
 {
 	//$object = $user;		// $object = user for synch
