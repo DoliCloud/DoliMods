@@ -185,6 +185,10 @@ if ($mode == 'confirmunlock')
 if ($mode != 'test')
 {
 	print "Create event into database\n";
+	
+	$user = new User($db);
+	$user->fetch('', 'ldestailleur');
+	
 	$actioncomm=new ActionComm($db);
 	$actioncomm->datep=dol_now('tzserver');
 	$actioncomm->percentage=100;
@@ -192,6 +196,7 @@ if ($mode != 'test')
 	$actioncomm->fk_element=$object->id;
 	$actioncomm->elementtype='dolicloudcustomers';
 	$actioncomm->type_code='AC_OTH_AUTO';
+	$actioncomm->userassigned[$user->id]=array('id'=>$user->id);
 	$actioncomm->add($user);
 }
 
