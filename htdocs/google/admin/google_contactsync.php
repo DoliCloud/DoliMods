@@ -74,34 +74,8 @@ if ($action == 'save')
 {
 	$error=0;
 
-	if (GETPOST("GOOGLE_TAG_PREFIX") == GETPOST("GOOGLE_TAG_PREFIX_CONTACTS")
-		|| GETPOST("GOOGLE_TAG_PREFIX") == GETPOST("GOOGLE_TAG_PREFIX_MEMBERS")
-		|| GETPOST("GOOGLE_TAG_PREFIX_CONTACTS") == GETPOST("GOOGLE_TAG_PREFIX_MEMBERS"))
+	if (! GETPOST('GOOGLE_DUPLICATE_INTO_THIRDPARTIES') && ! GETPOST('GOOGLE_DUPLICATE_INTO_CONTACTS') && ! GETPOST('GOOGLE_DUPLICATE_INTO_MEMBERS'))
 	{
-		setEventMessage($langs->trans("ErrorLabelsMustDiffers"),'errors');
-		$error++;
-	}
-	if (! GETPOST('GOOGLE_CONTACT_LOGIN'))
-	{
-		$langs->load("errors");
-		dolibarr_del_const($db, 'GOOGLE_CONTACT_LOGIN', $conf->entity);
-		setEventMessage($langs->trans("ErrorFieldRequired",$langs->transnoentitiesnoconv("GOOGLE_LOGIN")),'errors');
-	}
-
-	$res=dolibarr_set_const($db,'GOOGLE_API_CLIENT_ID',trim(GETPOST("GOOGLE_API_CLIENT_ID")),'chaine',0, '', $conf->entity);
-	if (! $res > 0) $error++;
-	$res=dolibarr_set_const($db,'GOOGLE_API_CLIENT_SECRET',trim(GETPOST("GOOGLE_API_CLIENT_SECRET")),'chaine',0, '', $conf->entity);
-	if (! $res > 0) $error++;
-
-	/*if (! GETPOST('GOOGLE_CONTACT_PASSWORD'))
-	{
-		$langs->load("errors");
-		dolibarr_del_const($db, 'GOOGLE_CONTACT_PASSWORD', $conf->entity);
-		setEventMessage($langs->trans("ErrorFieldRequired",$langs->transnoentitiesnoconv("GOOGLE_PASSWORD")),'errors');
-	}*/
-
-    if (! $error)
-    {
     	$db->begin();
 
     	$res=dolibarr_set_const($db,'GOOGLE_DUPLICATE_INTO_THIRDPARTIES',trim(GETPOST("GOOGLE_DUPLICATE_INTO_THIRDPARTIES")),'chaine',0, '', $conf->entity);
@@ -110,30 +84,72 @@ if ($action == 'save')
 	    if (! $res > 0) $error++;
 	    $res=dolibarr_set_const($db,'GOOGLE_DUPLICATE_INTO_MEMBERS',trim(GETPOST("GOOGLE_DUPLICATE_INTO_MEMBERS")),'chaine',0, '', $conf->entity);
 	    if (! $res > 0) $error++;
-	    $res=dolibarr_set_const($db,'GOOGLE_CONTACT_LOGIN',trim(GETPOST("GOOGLE_CONTACT_LOGIN")),'chaine',0, '', $conf->entity);
-	    if (! $res > 0) $error++;
-	    $res=dolibarr_set_const($db,'GOOGLE_CONTACT_PASSWORD',trim(GETPOST("GOOGLE_CONTACT_PASSWORD")),'chaine',0, '', $conf->entity);
-	    if (! $res > 0) $error++;
-	    $res=dolibarr_set_const($db,'GOOGLE_CONTACT_LABEL',trim(GETPOST("GOOGLE_CONTACT_LABEL")),'chaine',0, '', $conf->entity);
-	    if (! $res > 0) $error++;
-		$res=dolibarr_set_const($db,'GOOGLE_TAG_PREFIX',trim(GETPOST("GOOGLE_TAG_PREFIX")),'chaine',0, '', $conf->entity);
-	    if (! $res > 0) $error++;
-	    $res=dolibarr_set_const($db,'GOOGLE_TAG_PREFIX_CONTACTS',trim(GETPOST("GOOGLE_TAG_PREFIX_CONTACTS")),'chaine',0, '', $conf->entity);
-	    if (! $res > 0) $error++;
-	    $res=dolibarr_set_const($db,'GOOGLE_TAG_PREFIX_MEMBERS',trim(GETPOST("GOOGLE_TAG_PREFIX_MEMBERS")),'chaine',0, '', $conf->entity);
-	    if (! $res > 0) $error++;
-
-	    if (! $error)
-	    {
-	        $db->commit();
-	        $mesg = '<font class="ok">'.$langs->trans("SetupSaved")."</font>";
-	    }
-	    else
-	    {
-	        $db->rollback();
-	        $mesg = '<font class="error">'.$langs->trans("Error")."</font>";
-	    }
-    }
+	    
+        $db->commit();	    
+	}
+	else
+	{
+    	if (GETPOST("GOOGLE_TAG_PREFIX") == GETPOST("GOOGLE_TAG_PREFIX_CONTACTS")
+    		|| GETPOST("GOOGLE_TAG_PREFIX") == GETPOST("GOOGLE_TAG_PREFIX_MEMBERS")
+    		|| GETPOST("GOOGLE_TAG_PREFIX_CONTACTS") == GETPOST("GOOGLE_TAG_PREFIX_MEMBERS"))
+    	{
+    		setEventMessage($langs->trans("ErrorLabelsMustDiffers"),'errors');
+    		$error++;
+    	}
+        if (! GETPOST('GOOGLE_CONTACT_LOGIN'))
+       	{
+       		$langs->load("errors");
+       		dolibarr_del_const($db, 'GOOGLE_CONTACT_LOGIN', $conf->entity);
+       		setEventMessage($langs->trans("ErrorFieldRequired",$langs->transnoentitiesnoconv("GOOGLE_LOGIN")),'errors');
+    	}
+    	
+    	$res=dolibarr_set_const($db,'GOOGLE_API_CLIENT_ID',trim(GETPOST("GOOGLE_API_CLIENT_ID")),'chaine',0, '', $conf->entity);
+    	if (! $res > 0) $error++;
+    	$res=dolibarr_set_const($db,'GOOGLE_API_CLIENT_SECRET',trim(GETPOST("GOOGLE_API_CLIENT_SECRET")),'chaine',0, '', $conf->entity);
+    	if (! $res > 0) $error++;
+    
+    	/*if (! GETPOST('GOOGLE_CONTACT_PASSWORD'))
+    	{
+    		$langs->load("errors");
+    		dolibarr_del_const($db, 'GOOGLE_CONTACT_PASSWORD', $conf->entity);
+    		setEventMessage($langs->trans("ErrorFieldRequired",$langs->transnoentitiesnoconv("GOOGLE_PASSWORD")),'errors');
+    	}*/
+    
+        if (! $error)
+        {
+        	$db->begin();
+    
+        	$res=dolibarr_set_const($db,'GOOGLE_DUPLICATE_INTO_THIRDPARTIES',trim(GETPOST("GOOGLE_DUPLICATE_INTO_THIRDPARTIES")),'chaine',0, '', $conf->entity);
+    	    if (! $res > 0) $error++;
+    	    $res=dolibarr_set_const($db,'GOOGLE_DUPLICATE_INTO_CONTACTS',trim(GETPOST("GOOGLE_DUPLICATE_INTO_CONTACTS")),'chaine',0, '', $conf->entity);
+    	    if (! $res > 0) $error++;
+    	    $res=dolibarr_set_const($db,'GOOGLE_DUPLICATE_INTO_MEMBERS',trim(GETPOST("GOOGLE_DUPLICATE_INTO_MEMBERS")),'chaine',0, '', $conf->entity);
+    	    if (! $res > 0) $error++;
+    	    $res=dolibarr_set_const($db,'GOOGLE_CONTACT_LOGIN',trim(GETPOST("GOOGLE_CONTACT_LOGIN")),'chaine',0, '', $conf->entity);
+    	    if (! $res > 0) $error++;
+    	    $res=dolibarr_set_const($db,'GOOGLE_CONTACT_PASSWORD',trim(GETPOST("GOOGLE_CONTACT_PASSWORD")),'chaine',0, '', $conf->entity);
+    	    if (! $res > 0) $error++;
+    	    $res=dolibarr_set_const($db,'GOOGLE_CONTACT_LABEL',trim(GETPOST("GOOGLE_CONTACT_LABEL")),'chaine',0, '', $conf->entity);
+    	    if (! $res > 0) $error++;
+    		$res=dolibarr_set_const($db,'GOOGLE_TAG_PREFIX',trim(GETPOST("GOOGLE_TAG_PREFIX")),'chaine',0, '', $conf->entity);
+    	    if (! $res > 0) $error++;
+    	    $res=dolibarr_set_const($db,'GOOGLE_TAG_PREFIX_CONTACTS',trim(GETPOST("GOOGLE_TAG_PREFIX_CONTACTS")),'chaine',0, '', $conf->entity);
+    	    if (! $res > 0) $error++;
+    	    $res=dolibarr_set_const($db,'GOOGLE_TAG_PREFIX_MEMBERS',trim(GETPOST("GOOGLE_TAG_PREFIX_MEMBERS")),'chaine',0, '', $conf->entity);
+    	    if (! $res > 0) $error++;
+    
+    	    if (! $error)
+    	    {
+    	        $db->commit();
+    	        $mesg = '<font class="ok">'.$langs->trans("SetupSaved")."</font>";
+    	    }
+    	    else
+    	    {
+    	        $db->rollback();
+    	        $mesg = '<font class="error">'.$langs->trans("Error")."</font>";
+    	    }
+        }
+	}
 }
 
 // This is a test action to allow to test creation of contact once synchro with Contact has been enabled.
