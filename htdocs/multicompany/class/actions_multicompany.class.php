@@ -1,5 +1,5 @@
 <?php
-/* Copyright (C) 2009-2014 Regis Houssin  <regis@dolibarr.fr>
+/* Copyright (C) 2009-2015 Regis Houssin  <regis@dolibarr.fr>
  * Copyright (C) 2011      Herve Prot     <herve.prot@symeos.com>
  * Copyright (C) 2014      Philippe Grand <philippe.grand@atoo-net.com>
  *
@@ -144,13 +144,19 @@ class ActionsMulticompany
         		$this->dao->label = $label;
         		$this->dao->description = $description;
 
-        		$this->dao->options['referent']				= (GETPOST('referring_entity') ? GETPOST('referring_entity') : null);
-        		$this->dao->options['sharings']['product']	= (GETPOST('product') ? GETPOST('product') : null);
+        		$this->dao->options['referent']					= (GETPOST('referring_entity') ? GETPOST('referring_entity') : null);
+        		$this->dao->options['sharings']['product']		= (GETPOST('product') ? GETPOST('product') : null);
         		$this->dao->options['sharings']['productprice']	= (GETPOST('productprice') ? GETPOST('productprice') : null);
-        		$this->dao->options['sharings']['societe']	= (GETPOST('societe') ? GETPOST('societe') : null);
-        		$this->dao->options['sharings']['category']	= (GETPOST('category') ? GETPOST('category') : null);
-				$this->dao->options['sharings']['agenda']	= (GETPOST('agenda') ? GETPOST('agenda') : null);
+        		$this->dao->options['sharings']['stock']		= (GETPOST('stock') ? GETPOST('stock') : null);
+        		$this->dao->options['sharings']['societe']		= (GETPOST('societe') ? GETPOST('societe') : null);
+        		$this->dao->options['sharings']['invoicenumber']= (GETPOST('invoicenumber') ? GETPOST('invoicenumber') : null);
+        		$this->dao->options['sharings']['category']		= (GETPOST('category') ? GETPOST('category') : null);
+				$this->dao->options['sharings']['agenda']		= (GETPOST('agenda') ? GETPOST('agenda') : null);
 				$this->dao->options['sharings']['bank_account']	= (GETPOST('bank_account') ? GETPOST('bank_account') : null);
+
+				$extrafields = new ExtraFields($this->db);
+				$extralabels = $extrafields->fetch_name_optionals_label($this->dao->table_element, true);
+				$extrafields->setOptionalsFromPost($extralabels, $this->dao);
 
         		$id = $this->dao->create($user);
         		if ($id <= 0)
@@ -261,13 +267,19 @@ class ActionsMulticompany
         		$this->dao->label = $label;
         		$this->dao->description	= $description;
 
-        		$this->dao->options['referent']				= (GETPOST('referring_entity') ? GETPOST('referring_entity') : null);
-        		$this->dao->options['sharings']['product']	= (GETPOST('product') ? GETPOST('product') : null);
+        		$this->dao->options['referent']					= (GETPOST('referring_entity') ? GETPOST('referring_entity') : null);
+        		$this->dao->options['sharings']['product']		= (GETPOST('product') ? GETPOST('product') : null);
         		$this->dao->options['sharings']['productprice']	= (GETPOST('productprice') ? GETPOST('productprice') : null);
-        		$this->dao->options['sharings']['societe']	= (GETPOST('societe') ? GETPOST('societe') : null);
-        		$this->dao->options['sharings']['category']	= (GETPOST('category') ? GETPOST('category') : null);
-				$this->dao->options['sharings']['agenda']	= (GETPOST('agenda') ? GETPOST('agenda') : null);
+        		$this->dao->options['sharings']['stock']		= (GETPOST('stock') ? GETPOST('stock') : null);
+        		$this->dao->options['sharings']['societe']		= (GETPOST('societe') ? GETPOST('societe') : null);
+        		$this->dao->options['sharings']['invoicenumber']= (GETPOST('invoicenumber') ? GETPOST('invoicenumber') : null);
+        		$this->dao->options['sharings']['category']		= (GETPOST('category') ? GETPOST('category') : null);
+				$this->dao->options['sharings']['agenda']		= (GETPOST('agenda') ? GETPOST('agenda') : null);
 				$this->dao->options['sharings']['bank_account']	= (GETPOST('bank_account') ? GETPOST('bank_account') : null);
+
+				$extrafields = new ExtraFields($this->db);
+				$extralabels = $extrafields->fetch_name_optionals_label($this->dao->table_element, true);
+				$extrafields->setOptionalsFromPost($extralabels, $this->dao);
 
         		$ret = $this->dao->update($id,$user);
         		if ($ret <= 0)
@@ -344,14 +356,13 @@ class ActionsMulticompany
 
 	/**
 	 *	Return combo list of entities.
-	 *  Fixed by LDR
-     *
+	 *
 	 *	@param	int		$selected	Preselected entity
 	 *	@param	string	$option		Option
 	 *	@param	int		$login		If use in login page or not
 	 *	@return	void
 	 */
-	function select_entities($selected='', $htmlname='entity', $option='', $login=0, $addallent=0)
+	function select_entities($selected='', $htmlname='entity', $option='', $login=0)
 	{
 		global $user,$langs;
 
@@ -377,7 +388,6 @@ class ActionsMulticompany
 				}
 			}
 		}
-		if ($addallent) $return.= '<option value="0"'.(($selected != '' && $selected == "0") ? ' selected="selected"':'').'>'.$langs->trans("AllEntities").'</option>';
 		$return.= '</select>';
 
 		return $return;
@@ -427,11 +437,9 @@ class ActionsMulticompany
 
 	/**
 	 *    Switch to another entity.
-	 *    Fixed by LDR
 	 *
 	 *    @param	id		User id
 	 *    @param	entity	Entity id
-	 *    @return	int		1=OK, <0=KO
 	 */
 	function checkRight($id, $entity)
 	{
@@ -441,8 +449,8 @@ class ActionsMulticompany
 
 		if ($this->dao->fetch($entity) > 0)
 		{
-			// Check permission of user $id on entity $entity
-			if ($this->dao->verifyRight($entity, $id))
+			// Controle des droits sur le changement
+			if ($this->dao->verifyRight($entity, $id) || $user->admin)
 			{
 				return 1;
 			}
@@ -459,26 +467,23 @@ class ActionsMulticompany
 
 	/**
 	 *    Switch to another entity.
-	 *    Fixed by LDR
-	 *
-	 *    @param	$entity		Id of the destination entity
+	 *    @param	id		Id of the destination entity
 	 */
-	function switchEntity($entity)
+	function switchEntity($id, $userid=null)
 	{
-		global $conf,$user;
+		global $conf, $user;
 
 		$this->getInstanceDao();
 
-		if ($this->dao->fetch($entity) > 0)
+		if ($this->dao->fetch($id) > 0)
 		{
 			// Controle des droits sur le changement
-			if (
-				(!empty($conf->multicompany->transverse_mode) && $this->dao->verifyRight($entity, $user->id))
-				|| (empty($conf->multicompany->transverse_mode) && ($user->entity == $entity || empty($user->entity)))
-			)
+			if (!empty($conf->global->MULTICOMPANY_HIDE_LOGIN_COMBOBOX)
+			|| (!empty($conf->multicompany->transverse_mode) && $this->dao->verifyRight($id, $user->id))
+			|| $user->admin)
 			{
-				$_SESSION['dol_entity'] = $entity;
-				$conf->entity = $entity;
+				$_SESSION['dol_entity'] = $id;
+				$conf->entity = $id;
 				return 1;
 			}
 			else
@@ -527,6 +532,12 @@ class ActionsMulticompany
 	{
 		global $conf,$langs,$user;
 		global $form,$formcompany,$formadmin;
+
+		require_once (DOL_DOCUMENT_ROOT . '/core/class/extrafields.class.php');
+
+		$this->tpl['extrafields'] = new ExtraFields($this->db);
+		// fetch optionals attributes and labels
+		$this->tpl['extralabels'] = $this->tpl['extrafields']->fetch_name_optionals_label('entity');
 
 		$this->getInstanceDao();
 
@@ -602,7 +613,9 @@ class ActionsMulticompany
 			$this->tpl['select_entity'] = $this->select_entities($this->dao->options['referent'], 'referring_entity');
 			$this->tpl['multiselect_shared_product'] = $this->multiselect_entities('product', $this->dao);
 			$this->tpl['multiselect_shared_productprice'] = $this->multiselect_entities('productprice', $this->dao);
+			$this->tpl['multiselect_shared_stock'] = $this->multiselect_entities('stock', $this->dao);
 			$this->tpl['multiselect_shared_thirdparty'] = $this->multiselect_entities('societe', $this->dao);
+			$this->tpl['multiselect_shared_invoicenumber'] = $this->multiselect_entities('invoicenumber', $this->dao);
 			$this->tpl['multiselect_shared_category'] = $this->multiselect_entities('category', $this->dao);
 			$this->tpl['multiselect_shared_agenda'] = $this->multiselect_entities('agenda', $this->dao);
 			$this->tpl['multiselect_shared_bank_account'] = $this->multiselect_entities('bank_account', $this->dao);
@@ -683,11 +696,14 @@ class ActionsMulticompany
 			return $out.$conf->entity;
 		}
 
-		if (! empty($element) && ! empty($this->entities[$element]))
+		$elementkey = $element;
+		if ($element == 'facture') $elementkey = 'invoicenumber';
+
+		if (! empty($element) && ! empty($this->entities[$elementkey]))
 		{
 			if (! empty($shared))
 			{
-				return $this->entities[$element];
+				return $this->entities[$elementkey];
 			}
 			else if (! empty($this->sharings['referent']))
 			{
@@ -717,18 +733,21 @@ class ActionsMulticompany
 					if ($element == 'category') $elementpath='categorie';
 
 					$entities = explode(",", $shares);
+					$dir_output = array();
+					$dir_temp = array();
 					foreach($entities as $entity)
 					{
-						if ($entity != $conf->entity)
+						if (!array_key_exists($entity, $conf->$element->multidir_output))
 						{
 							$path = ($entity > 1 ? "/".$entity : '');
-							$dir_output	= array($entity => DOL_DATA_ROOT.$path."/".$elementpath);
-							$dir_temp	= array($entity => DOL_DATA_ROOT.$path."/".$elementpath."/temp");
+
+							$dir_output[$entity] 	= DOL_DATA_ROOT.$path."/".$elementpath;
+							$dir_temp[$entity] 		= DOL_DATA_ROOT.$path."/".$elementpath."/temp";
+
+							$conf->$element->multidir_output += $dir_output;
+							$conf->$element->multidir_temp += $dir_temp;
 						}
 					}
-
-					$conf->$element->multidir_output += $dir_output;
-					$conf->$element->multidir_temp += $dir_temp;
 				}
 			}
 		}
@@ -740,6 +759,50 @@ class ActionsMulticompany
 	function printTopRightMenu($parameters=false)
 	{
 		echo $this->getTopRightMenu();
+	}
+
+	/**
+	 *
+	 */
+	function afterLogin($parameters=false)
+	{
+		global $conf;
+
+		// Create entity cookie, just used for login page
+		if (! empty($conf->multicompany->enabled) && ! empty($conf->global->MULTICOMPANY_COOKIE_ENABLED) && isset($_POST["entity"]))
+		{
+			include_once DOL_DOCUMENT_ROOT.'/core/class/cookie.class.php';
+
+			$entity = $_SESSION["dol_login"].'|'.$_POST["entity"];
+
+			$prefix=dol_getprefix();
+			$entityCookieName = 'DOLENTITYID_'.$prefix;
+			// TTL : is defined in the config page multicompany
+			$ttl = (! empty($conf->global->MULTICOMPANY_COOKIE_TTL) ? dol_now()+$conf->global->MULTICOMPANY_COOKIE_TTL : dol_now()+60*60*8 );
+			// Cryptkey : will be created randomly in the config page multicompany
+			$cryptkey = (! empty($conf->file->cookie_cryptkey) ? $conf->file->cookie_cryptkey : '' );
+
+			$entityCookie = new DolCookie($cryptkey);
+			$entityCookie->setCookie($entityCookieName, $entity, $ttl);
+		}
+	}
+
+	/**
+	 *
+	 */
+	function updateSession($parameters=false)
+	{
+		global $conf;
+
+		// Switch to another entity
+		if (! empty($conf->multicompany->enabled) && GETPOST('action') == 'switchentity')
+		{
+			if ($this->switchEntity(GETPOST('entity','int')) > 0)
+			{
+				header("Location: ".DOL_URL_ROOT.'/');
+				exit;
+			}
+		}
 	}
 
 	/**
@@ -774,26 +837,24 @@ class ActionsMulticompany
 				$cryptkey = (! empty($conf->file->cookie_cryptkey) ? $conf->file->cookie_cryptkey : '' );
 
 				$entityCookie = new DolCookie($cryptkey);
-				$cookieValue = $entityCookie->_getCookie($entityCookieName);
+				$cookieValue = $entityCookie->getCookie($entityCookieName);
 				list($lastuser, $lastentity) = explode('|', $cookieValue);
 				$out['username'] = $lastuser;
 			}
 		}
 
 		// Entity combobox
-		$select_entity='';
 		if (empty($conf->global->MULTICOMPANY_HIDE_LOGIN_COMBOBOX))
 		{
 			$select_entity = $this->select_entities($lastentity, 'entity', ' tabindex="3"', 1);
 
-			$divformat = '<div class="entityBox"><strong><label for="entity">'.$langs->trans('Entity').'</label></strong>';
+			$divformat = '<div class="entityBox">';
 			$divformat.= $select_entity;
 			$divformat.= '</div>';
 
 			$out['options']['div'] = $divformat;
 
-			$tableformat = '<tr><td valign="middle" class="loginfield nowrap"><strong><label for="entity">'.$langs->trans('Entity').'</label></strong></td>';
-			$tableformat.= '<td valign="middle" class="nowrap">';
+			$tableformat = '<tr><td class="nowrap center valignmiddle">';
 			$tableformat.= $select_entity;
 			$tableformat.= '</td></tr>';
 
@@ -838,6 +899,8 @@ class ActionsMulticompany
 					$module = 'banque';
 				} else if ($element == 'product' && empty($conf->product->enabled) && !empty($conf->service->enabled)) {
 					$module = 'service';
+				} else if ($element == 'invoicenumber') {
+					$module = 'facture';
 				}
 
 				if (! empty($conf->$module->enabled) && ! empty($conf->global->$moduleSharingEnabled))
@@ -882,7 +945,7 @@ class ActionsMulticompany
 
 		$out='';
 
-		if (!empty($conf->multicompany->transverse_mode) || ! empty($user->admin) || empty($user->entity))
+		if (!empty($conf->multicompany->transverse_mode) || !empty($user->admin))
 		{
 			$form=new Form($this->db);
 
@@ -925,8 +988,6 @@ class ActionsMulticompany
 				});
 			});
 			</script>';
-
-			include_once DOL_DOCUMENT_ROOT.'/core/lib/ajax.lib.php';
 
 			$out.= '<div id="dialog-switchentity" class="hideobject" title="'.$langs->trans('SwitchToAnotherEntity').'">'."\n";
 			$out.= '<br>'.$langs->trans('SelectAnEntity').': ';

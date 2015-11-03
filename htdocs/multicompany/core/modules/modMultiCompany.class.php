@@ -1,5 +1,5 @@
 <?php
-/* Copyright (C) 2009-2014 Regis Houssin  <regis.houssin@capnetworks.com>
+/* Copyright (C) 2009-2015 Regis Houssin  <regis.houssin@capnetworks.com>
  * Copyright (C) 2011      Herve Prot     <herve.prot@symeos.com>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -58,7 +58,7 @@ class modMultiCompany extends DolibarrModules
 		// Can be enabled / disabled only in the main company with superadmin account
 		$this->core_enabled = 1;
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
-		$this->version = '3.6.0';
+		$this->version = '3.8.1';
 		// Key used in llx_const table to save module status enabled/disabled (where MYMODULE is value of property name of module in uppercase)
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
 		// Where to store the module in setup page (0=common,1=interface,2=others,3=very specific)
@@ -78,6 +78,8 @@ class modMultiCompany extends DolibarrModules
 				'login' => 1,
 				'hooks' => array(
 						'data' => array(
+								'login',
+								'main',
 								'mainloginpage',
 								'passwordforgottenpage',
 								'toprightmenu'

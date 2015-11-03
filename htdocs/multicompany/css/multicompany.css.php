@@ -1,5 +1,5 @@
 <?php
-/* Copyright (C) 2011-2013 Regis Houssin  <regis.houssin@capnetworks.com>
+/* Copyright (C) 2011-2015 Regis Houssin  <regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -58,4 +58,8 @@ div.entityBox {
 
 div#login_right {
 	min-width:0!important;
+}
+
+#entity {
+	width: 135px;
 }

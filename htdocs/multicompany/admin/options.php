@@ -1,5 +1,5 @@
 <?php
-/* Copyright (C) 2011-2014 Regis Houssin  <regis.houssin@capnetworks.com>
+/* Copyright (C) 2011-2015 Regis Houssin  <regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,14 +22,10 @@
  *  \brief      Page d'administration/configuration du module Multi-Company
  */
 
-$res=0;
-if (! $res && file_exists("../main.inc.php")) $res=@include("../main.inc.php");
-if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.php");
-if (! $res && file_exists("../../../main.inc.php")) $res=@include("../../../main.inc.php");
-if (! $res && file_exists("../../../../main.inc.php")) $res=@include("../../../../main.inc.php");
-if (! $res && file_exists("../../../../../main.inc.php")) $res=@include("../../../../../main.inc.php");
-if (! $res && preg_match('/\/nltechno([^\/]*)\//',$_SERVER["PHP_SELF"],$reg)) $res=@include("../../../../dolibarr".$reg[1]."/htdocs/main.inc.php"); // Used on dev env only
-if (! $res) die("Include of main fails");
+$res=@include("../../main.inc.php");						// For root directory
+if (! $res && file_exists($_SERVER['DOCUMENT_ROOT']."/main.inc.php"))
+	$res=@include($_SERVER['DOCUMENT_ROOT']."/main.inc.php"); // Use on dev env only
+if (! $res) $res=@include("../../../main.inc.php");			// For "custom" directory
 
 require_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
 require '../lib/multicompany.lib.php';
@@ -150,6 +146,8 @@ if (! empty($conf->societe->enabled) || ! empty($conf->product->enabled) || ! em
 					'#sharebank'
 			),
 			'hide' => array(
+					'#shareinvoice',
+					'#shareinvoicenumber',
 					'#shareproduct',
 					'#shareproductprice',
 					'#sharestock',
@@ -159,6 +157,8 @@ if (! empty($conf->societe->enabled) || ! empty($conf->product->enabled) || ! em
 					'#sharebank'
 			),
 			'del' => array(
+					'MULTICOMPANY_INVOICE_SHARING_ENABLED',
+					'MULTICOMPANY_INVOICENUMBER_SHARING_ENABLED',
 					'MULTICOMPANY_PRODUCT_SHARING_ENABLED',
 					'MULTICOMPANY_PRODUCTPRICE_SHARING_ENABLED',
 					'MULTICOMPANY_STOCK_SHARING_ENABLED',
@@ -183,13 +183,43 @@ if (! empty($conf->societe->enabled))
 	print '<td align="center" width="100">';
 	$input = array(
 			'showhide' => array(
+					'#shareinvoice',
+					'#shareinvoicenumber',
 					'#shareagenda'
 			),
 			'del' => array(
+					'MULTICOMPANY_INVOICE_SHARING_ENABLED',
+					'MULTICOMPANY_INVOICENUMBER_SHARING_ENABLED',
 					'MULTICOMPANY_AGENDA_SHARING_ENABLED'
 			)
 	);
 	print ajax_constantonoff('MULTICOMPANY_SOCIETE_SHARING_ENABLED', $input, 0);
+	print '</td></tr>';
+}
+
+// Share invoices and invoices number
+if (! empty($conf->facture->enabled) && ! empty($conf->societe->enabled))
+{
+	/*if (!empty($conf->global->MULTICOMPANY_SHARINGS_ENABLED) && !empty($conf->global->MULTICOMPANY_SOCIETE_SHARING_ENABLED))
+		$var=!$var;
+	$display=(empty($conf->global->MULTICOMPANY_SHARINGS_ENABLED) || empty($conf->global->MULTICOMPANY_SOCIETE_SHARING_ENABLED) ? ' style="display:none;"' : '');
+	print '<tr id="shareinvoice" '.$bc[$var].$display.'>';
+	print '<td>'.$langs->trans("ShareInvoices").'</td>';
+	print '<td align="center" width="20">&nbsp;</td>';
+
+	print '<td align="center" width="100">';
+	print ajax_constantonoff('MULTICOMPANY_INVOICE_SHARING_ENABLED', '', 0);
+	print '</td></tr>';*/
+
+	//if (!empty($conf->global->MULTICOMPANY_SHARINGS_ENABLED) && !empty($conf->global->MULTICOMPANY_SOCIETE_SHARING_ENABLED))
+		$var=!$var;
+	$display=(empty($conf->global->MULTICOMPANY_SHARINGS_ENABLED) || empty($conf->global->MULTICOMPANY_SOCIETE_SHARING_ENABLED) ? ' style="display:none;"' : '');
+	print '<tr id="shareinvoicenumber" '.$bc[$var].$display.'>';
+	print '<td>'.$langs->trans("ShareInvoicesNumber").'</td>';
+	print '<td align="center" width="20">&nbsp;</td>';
+
+	print '<td align="center" width="100">';
+	print ajax_constantonoff('MULTICOMPANY_INVOICENUMBER_SHARING_ENABLED', '', 0);
 	print '</td></tr>';
 }
 
@@ -211,7 +241,8 @@ if (! empty($conf->agenda->enabled) && ! empty($conf->societe->enabled))
 // Share products/services
 if (! empty($conf->product->enabled) || ! empty($conf->service->enabled))
 {
-	$var=!$var;
+	if (!empty($conf->global->MULTICOMPANY_SHARINGS_ENABLED))
+		$var=!$var;
 	print '<tr id="shareproduct" '.$bc[$var].(empty($conf->global->MULTICOMPANY_SHARINGS_ENABLED) ? ' style="display:none;"' : '').'>';
 	print '<td>'.$langs->trans("ShareProductsAndServices").'</td>';
 	print '<td align="center" width="20">&nbsp;</td>';
@@ -230,7 +261,7 @@ if (! empty($conf->product->enabled) || ! empty($conf->service->enabled))
 	print ajax_constantonoff('MULTICOMPANY_PRODUCT_SHARING_ENABLED', $input, 0);
 	print '</td></tr>';
 
-	if (!empty($conf->global->MULTICOMPANY_PRODUCT_SHARING_ENABLED))
+	if (!empty($conf->global->MULTICOMPANY_SHARINGS_ENABLED))
 		$var=!$var;
 	print '<tr id="shareproductprice" '.$bc[$var].(empty($conf->global->MULTICOMPANY_PRODUCT_SHARING_ENABLED) ? ' style="display:none;"' : '').'>';
 	print '<td>'.$langs->trans("ShareProductsAndServicesPrices").'</td>';
@@ -244,7 +275,8 @@ if (! empty($conf->product->enabled) || ! empty($conf->service->enabled))
 // Share stock
 if (! empty($conf->stock->enabled) && (! empty($conf->product->enabled) || ! empty($conf->service->enabled)))
 {
-	$var=!$var;
+	if (!empty($conf->global->MULTICOMPANY_SHARINGS_ENABLED))
+		$var=!$var;
 	$display=(empty($conf->global->MULTICOMPANY_SHARINGS_ENABLED) || empty($conf->global->MULTICOMPANY_PRODUCT_SHARING_ENABLED) ? ' style="display:none;"' : '');
 	print '<tr id="sharestock" '.$bc[$var].$display.'>';
 	print '<td>'.$langs->trans("ShareStock").'</td>';
@@ -258,7 +290,8 @@ if (! empty($conf->stock->enabled) && (! empty($conf->product->enabled) || ! emp
 // Share categories
 if (! empty($conf->categorie->enabled))
 {
-	$var=!$var;
+	if (!empty($conf->global->MULTICOMPANY_SHARINGS_ENABLED))
+		$var=!$var;
 	print '<tr id="sharecategory" '.$bc[$var].(empty($conf->global->MULTICOMPANY_SHARINGS_ENABLED) ? ' style="display:none;"' : '').'>';
 	print '<td>'.$langs->trans("ShareCategories").'</td>';
 	print '<td align="center" width="20">&nbsp;</td>';

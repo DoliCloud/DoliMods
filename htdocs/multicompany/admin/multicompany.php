@@ -1,5 +1,5 @@
 <?php
-/* Copyright (C) 2009-2013 Regis Houssin  <regis.houssin@capnetworks.com>
+/* Copyright (C) 2009-2015 Regis Houssin  <regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,14 +22,10 @@
  *	\brief      Page d'administration/configuration du module Multi-societe
  */
 
-$res=0;
-if (! $res && file_exists("../main.inc.php")) $res=@include("../main.inc.php");
-if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.php");
-if (! $res && file_exists("../../../main.inc.php")) $res=@include("../../../main.inc.php");
-if (! $res && file_exists("../../../../main.inc.php")) $res=@include("../../../../main.inc.php");
-if (! $res && file_exists("../../../../../main.inc.php")) $res=@include("../../../../../main.inc.php");
-if (! $res && preg_match('/\/nltechno([^\/]*)\//',$_SERVER["PHP_SELF"],$reg)) $res=@include("../../../../dolibarr".$reg[1]."/htdocs/main.inc.php"); // Used on dev env only
-if (! $res) die("Include of main fails");
+$res=@include("../../main.inc.php");						// For root directory
+if (! $res && file_exists($_SERVER['DOCUMENT_ROOT']."/main.inc.php"))
+	$res=@include($_SERVER['DOCUMENT_ROOT']."/main.inc.php"); // Use on dev env only
+if (! $res) $res=@include("../../../main.inc.php");			// For "custom" directory
 
 require_once("../class/actions_multicompany.class.php");
 require_once("../lib/multicompany.lib.php");
