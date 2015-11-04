@@ -25,6 +25,8 @@ $res=@include("../../main.inc.php");					// For root directory
 if (! $res && file_exists($_SERVER['DOCUMENT_ROOT']."/main.inc.php"))
 	$res=@include($_SERVER['DOCUMENT_ROOT']."/main.inc.php"); // Use on dev env only
 if (! $res) $res=@include("../../../main.inc.php");		// For "custom" directory
+if (! $res && preg_match('/\/nltechno([^\/]*)\//',$_SERVER["PHP_SELF"],$reg)) $res=@include("../../../../dolibarr".$reg[1]."/htdocs/main.inc.php"); // Used on dev env only
+if (! $res) die("Include of main fails");
 
 
 // Libraries
