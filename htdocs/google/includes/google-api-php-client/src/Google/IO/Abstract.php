@@ -118,7 +118,10 @@ abstract class Google_IO_Abstract
     if (array_key_exists($request->getRequestMethod(), self::$ENTITY_HTTP_METHODS)) {
       $request = $this->processEntityRequest($request);
     }
-
+    
+    // DOL_LDR
+    // dol_syslog("makeRequest ".$request->toBatchString($id));
+    
     list($responseData, $responseHeaders, $respHttpCode) = $this->executeRequest($request);
 
     if ($respHttpCode == 304 && $cached) {
