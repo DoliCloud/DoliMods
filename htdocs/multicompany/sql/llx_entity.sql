@@ -26,7 +26,7 @@ create table llx_entity
   datec				datetime,
   fk_user_creat		integer,
   options			text,
-  visible			tinyint DEFAULT 1 NOT NULL,
-  active			tinyint DEFAULT 1 NOT NULL
+  visible			smallint DEFAULT 1 NOT NULL,
+  active			smallint DEFAULT 1 NOT NULL
   
 ) ENGINE=innodb;
