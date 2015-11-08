@@ -1,5 +1,5 @@
 <?php
-/* Copyright (C) 2009-2013 Regis Houssin <regis.houssin@capnetworks.com>
+/* Copyright (C) 2009-2015 Regis Houssin <regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -110,6 +110,12 @@ $(document).ready(function () {
 	<td><textarea class="flat" name="description" cols="80" rows="<?php echo ROWS_3; ?>"><?php echo $this->tpl['description']; ?></textarea></td>
 </tr>
 
+<?php
+if (!empty($this->tpl['extrafields']->attribute_label)) {
+	print $this->dao->showOptionals($this->tpl['extrafields'], 'edit');
+}
+?>
+
 <?php if (! empty($conf->global->MULTICOMPANY_SHARINGS_ENABLED)) { ?>
 
 <?php if (! empty($conf->global->MULTICOMPANY_SOCIETE_SHARING_ENABLED)) { ?>
@@ -147,6 +153,18 @@ $(document).ready(function () {
 </tr>
 <?php } ?>
 
+<?php if (! empty($conf->global->MULTICOMPANY_STOCK_SHARING_ENABLED)) { ?>
+<tr class="liste_titre">
+	<td colspan="2"><?php echo $langs->trans("StockSharing"); ?></td>
+</tr>
+
+<?php $var=!$var; ?>
+<tr <?php echo $bc[$var]; ?>>
+	<td valign="top"><?php echo $langs->trans("StockSharingDescription"); ?></td>
+	<td><?php echo $this->tpl['multiselect_shared_stock']; ?></td>
+</tr>
+<?php } ?>
+
 <?php if (! empty($conf->global->MULTICOMPANY_SOCIETE_SHARING_ENABLED)) { ?>
 <tr class="liste_titre">
 <td colspan="2"><?php echo $langs->trans("ThirdpartySharing"); ?></td>
@@ -156,6 +174,18 @@ $(document).ready(function () {
 <tr <?php echo $bc[$var]; ?>>
 	<td valign="top"><?php echo $langs->trans("ThirdpartySharingDescription"); ?></td>
 	<td><?php echo $this->tpl['multiselect_shared_thirdparty']; ?></td>
+</tr>
+<?php } ?>
+
+<?php if (! empty($conf->global->MULTICOMPANY_INVOICENUMBER_SHARING_ENABLED)) { ?>
+<tr class="liste_titre">
+<td colspan="2"><?php echo $langs->trans("InvoiceNumberSharing"); ?></td>
+</tr>
+
+<?php $var=!$var; ?>
+<tr <?php echo $bc[$var]; ?>>
+	<td valign="top"><?php echo $langs->trans("InvoiceNumberSharingDescription"); ?></td>
+	<td><?php echo $this->tpl['multiselect_shared_invoicenumber']; ?></td>
 </tr>
 <?php } ?>
 

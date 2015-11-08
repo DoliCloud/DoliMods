@@ -1,5 +1,5 @@
 <?php
-/* Copyright (C) 2011-2013	Regis Houssin  <regis.houssin@capnetworks.com>
+/* Copyright (C) 2011-2015	Regis Houssin  <regis.houssin@capnetworks.com>
  * Copyright (C) 2011		Herve Prot     <herve.prot@symeos.com>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -29,12 +29,10 @@ if (! defined('NOREQUIREAJAX'))  define('NOREQUIREAJAX','1');
 if (! defined('NOREQUIRESOC'))   define('NOREQUIRESOC','1');
 //if (! defined('NOREQUIRETRAN'))  define('NOREQUIRETRAN','1');
 
-$res=0;
-if (! $res && file_exists("../main.inc.php")) $res=@include("../main.inc.php");
-if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.php");
-if (! $res && file_exists("../../../main.inc.php")) $res=@include("../../../main.inc.php");
-if (! $res && file_exists("../../../../main.inc.php")) $res=@include("../../../../main.inc.php");
-if (! $res && file_exists("../../../../../main.inc.php")) $res=@include("../../../../../main.inc.php");
+$res=@include("../main.inc.php");						// For root directory
+if (! $res && file_exists($_SERVER['DOCUMENT_ROOT']."/main.inc.php"))
+	$res=@include($_SERVER['DOCUMENT_ROOT']."/main.inc.php"); // Use on dev env only
+if (! $res) $res=@include("../../main.inc.php");		// For "custom" directory
 if (! $res && preg_match('/\/nltechno([^\/]*)\//',$_SERVER["PHP_SELF"],$reg)) $res=@include("../../../dolibarr".$reg[1]."/htdocs/main.inc.php"); // Used on dev env only
 if (! $res) die("Include of main fails");
 
@@ -55,12 +53,12 @@ $entity=GETPOST('entity','int');
 //top_htmlhead("", "", 1);  // Replaced with top_httphead. An ajax page does not need html header.
 top_httphead();
 
-print '<!-- Ajax page called with url '.$_SERVER["PHP_SELF"].'?'.$_SERVER["QUERY_STRING"].' action='.$action.' entity='.$entity.' -->'."\n";
+print '<!-- Ajax page called with url '.$_SERVER["PHP_SELF"].'?'.$_SERVER["QUERY_STRING"].' -->'."\n";
 
 // Registering the location of boxes
 if (! empty($action) && ! empty($entity))
 {
-    if ($action == 'switchentity' && is_numeric($entity))
+	if ($action == 'switchentity' && is_numeric($entity))
 	{
 		dol_syslog("AjaxSwitchEntity action=".$action." entity=".$entity, LOG_DEBUG);
 

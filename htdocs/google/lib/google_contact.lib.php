@@ -489,8 +489,10 @@ function googleUpdateContact($client, $contactId, &$object, $useremail='default'
 		//var_dump($xml->asXML());
 		//var_dump($xml);
 		unset($xml->phoneNumber);
-		if ($newphone) simplexml_merge($xml, new SimpleXMLElement('<atom:entry xmlns:atom="http://www.w3.org/2005/Atom"><phoneNumber xmlns="http://schemas.google.com/g/2005" rel="http://schemas.google.com/g/2005#work">'.$newphone.'</phoneNumber></atom:entry>'));
-		if ($object->fax) simplexml_merge($xml, new SimpleXMLElement('<atom:entry xmlns:atom="http://www.w3.org/2005/Atom"><phoneNumber xmlns="http://schemas.google.com/g/2005" rel="http://schemas.google.com/g/2005#work_fax">'.$object->fax.'</phoneNumber></atom:entry>'));
+		if ($newphone) simplexml_merge($xml, new SimpleXMLElement('<atom:entry xmlns:atom="http://www.w3.org/2005/Atom"><phoneNumber xmlns="http://schemas.google.com/g/2005" rel="'.constant('REL_WORK').'">'.$newphone.'</phoneNumber></atom:entry>'));
+		if ($object->phone_perso)  simplexml_merge($xml, new SimpleXMLElement('<atom:entry xmlns:atom="http://www.w3.org/2005/Atom"><phoneNumber xmlns="http://schemas.google.com/g/2005" rel="'.constant('REL_HOME').'">'.$object->phone_perso.'</phoneNumber></atom:entry>'));
+		if ($object->phone_mobile) simplexml_merge($xml, new SimpleXMLElement('<atom:entry xmlns:atom="http://www.w3.org/2005/Atom"><phoneNumber xmlns="http://schemas.google.com/g/2005" rel="'.constant('REL_MOBILE').'">'.$object->phone_mobile.'</phoneNumber></atom:entry>'));
+		if ($object->fax) simplexml_merge($xml, new SimpleXMLElement('<atom:entry xmlns:atom="http://www.w3.org/2005/Atom"><phoneNumber xmlns="http://schemas.google.com/g/2005" rel="'.constant('REL_WORK_FAX').'">'.$object->fax.'</phoneNumber></atom:entry>'));
 		//var_dump($xml->asXML());
 		//var_dump($xml);
 		//exit;

@@ -1,5 +1,7 @@
-# Dolibarr language file - ca_ES - multicompany 
+# Dolibarr language file - en_US - multicompany
 CHARSET=UTF-8
+Module5000Name=Multi-Company
+Module5000Desc=Multi-company management on a single installation
 
 MasterEntity=Entitat mestra
 MasterEntityDesc=Entitat mestra, no pot ser eliminada
@@ -23,17 +25,37 @@ ThirdpartySharing=Intercanviar tercers i contactes
 ThirdpartySharingDescription=Selecció d'entitats que intercanvien els seus tercers/contactes amb aquesta entitat.
 ProductSharing=Intercanviar productes/serveis
 ProductSharingDescription=Selecció d'entitats que intercanvien els seus productes/serveis amb aquesta entitat.
+ProductPriceSharing=Share prices of products/services
+ProductPriceSharingDescription=Selection of entities that share prices of products/services with this entity.
+CategorySharing=Sharing categories
+CategorySharingDescription=Selection of entities that share categories with this entity.
+AgendaSharing=Calendar sharing
+AgendaSharingDescription=Selection of entities that share the calendar with this entity.
+BankSharing=Bank account sharing
+BankSharingDescription=Selection of entities that share bank accounts with this entity.
+InvoiceNumberSharing=Partage de la numérotation des factures
+InvoiceNumberSharingDescription=Sélection des entités qui partagerons leurs numéros de factures avec cette entité.
 DeleteAnEntity=Eliminar una entitat
 ConfirmDeleteEntity=Esteu segur de voler eliminar aquesta entitat?
 ConfirmedEntityDeleted=L'entitat ha estat eliminada.
+MulticompanyMoreModules=D'autres modules du même auteur sont disponibles sur la place de marché officielle DoliStore...
 
 # Admin options tab
+Options=Options
 GroupModeTransversal=Activar la gestió creuada de grups d'usuaris
 HideLoginCombobox=Ocultar la selecció de l'entitat a la pàgina d'inici
 EnableCookieLogin=Guardar el nom d'usuari i el número de l'entitat en una cookie
 EnableGlobalSharings=Activar les funcions d'intercanvi entre entitats
 ShareProductsAndServices=Activar l'intercanvi de productes/serveis
+ShareProductsAndServicesPrices=Enable sharing of products/services prices
 ShareThirdpartiesAndContacts=Activar l'intercanvi de tercers i contactes
+ShareCategories=Enable sharing categories
+ShareAgenda=Enable sharing calendars
+ShareStock=Enable sharing of stocks
+ShareBank=Enable sharing of bank accounts
+ShareInvoicesNumber=Enable sharing of invoices number
+GlobalSharings=Sharing features
+GlobalSharingsInfo=Once sharing options enabled, you will need to configure each unit to allow sharing between entities.
 
 # Errors
 ErrorEntityLabelAlreadyExist=L'etiqueta d'aquesta entitat ja existeix.

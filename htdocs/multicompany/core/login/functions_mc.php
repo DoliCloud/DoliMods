@@ -1,5 +1,5 @@
 <?php
-/* Copyright (C) 2014	Regis Houssin	<regis.houssin@capnetworks.com>
+/* Copyright (C) 2014-2015	Regis Houssin	<regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -54,8 +54,7 @@ function check_user_password_mc($usertotest,$passwordtotest,$entitytotest=1)
 			$sql ='SELECT rowid, entity, pass, pass_crypted';
 			$sql.=' FROM '.$table;
 			$sql.=' WHERE '.$usernamecol." = '".$db->escape($usertotest)."'";
-			if (empty($conf->global->MULTICOMPANY_HIDE_LOGIN_COMBOBOX))
-				$sql.=' AND '.$entitycol." IN (0," . ($entity ? $entity : 1) . ")";
+			$sql.=' AND statut = 1';
 
 			dol_syslog("functions_dolibarr::check_user_password_dolibarr sql=".$sql);
 			$resql=$db->query($sql);
@@ -100,7 +99,7 @@ function check_user_password_mc($usertotest,$passwordtotest,$entitytotest=1)
 					{
 						if (!empty($conf->multicompany->transverse_mode))
 							$ret=$mc->checkRight($obj->rowid, $entitytotest);
-						else if (!empty($conf->global->MULTICOMPANY_HIDE_LOGIN_COMBOBOX))
+						else
 							$ret=$mc->switchEntity($obj->entity, $obj->rowid);
 
 						if ($ret < 0) $passok=false;

@@ -86,7 +86,13 @@ foreach ($this->tpl['entities'] as $entity) {
 	<td align="center" width="20">
 		<?php if ($entity->id > 1) echo '<a href="'.$_SERVER["PHP_SELF"].'?id='.$entity->id.'&amp;action=delete">'.$this->tpl['img_delete'].'</a>'; ?>
 	</td>
+	
 </tr>
+<?php 
+	if (empty($this->tpl['extrafields']->attribute_label)) {
+			print $this->dao->showOptionals($this->tpl['extrafields']);
+	}
+	?>
 <?php
 $var=!$var;
 } 

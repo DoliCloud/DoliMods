@@ -326,12 +326,12 @@ function print_user_table($newdb)
 	if (is_object($newdb))
 	{
 		// Get user/pass of last admin user
-		$sql ="SELECT login, name as lastname, firstname, admin, email, pass, pass_crypted, datec, tms as datem, datelastlogin, fk_societe, fk_socpeople, fk_member, entity, statut";
+		$sql ="SELECT login, lastname, firstname, admin, email, pass, pass_crypted, datec, tms as datem, datelastlogin, fk_soc, fk_socpeople, fk_member, entity, statut";
 		$sql.=" FROM llx_user ORDER BY statut DESC";
 		$resql=$newdb->query($sql);
 		if (empty($resql))	// Alternative for 3.4+
 		{
-			$sql ="SELECT login, lastname as lastname, firstname, admin, email, pass, pass_crypted, datec, tms as datem, datelastlogin, fk_societe, fk_socpeople, fk_member, entity, statut";
+			$sql ="SELECT login, lastname as lastname, firstname, admin, email, pass, pass_crypted, datec, tms as datem, datelastlogin, fk_soc, fk_socpeople, fk_member, entity, statut";
 			$sql.=" FROM llx_user ORDER BY statut DESC";
 			$resql=$newdb->query($sql);
 		}
@@ -355,7 +355,7 @@ function print_user_table($newdb)
 				print '<td>'.dol_print_date($newdb->jdate($obj->datem),'dayhour').'</td>';
 				print '<td>'.dol_print_date($newdb->jdate($obj->datelastlogin),'dayhour').'</td>';
 				print '<td>'.$obj->entity.'</td>';
-				print '<td>'.$obj->fk_societe.'/'.$obj->fk_socpeople.'/'.$obj->fk_member.'</td>';
+				print '<td>'.$obj->fk_soc.'/'.$obj->fk_socpeople.'/'.$obj->fk_member.'</td>';
 				print '<td align="right">'.$obj->statut.'</td>';
 				print '</tr>';
 				$i++;

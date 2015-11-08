@@ -109,6 +109,12 @@ $(document).ready(function () {
 	<td><textarea class="flat" name="description" cols="80" rows="<?php echo ROWS_3; ?>"><?php echo $this->tpl['description']; ?></textarea></td>
 </tr>
 
+<?php 
+if (!empty($this->tpl['extrafields']->attribute_label)) {
+		print $this->dao->showOptionals($this->tpl['extrafields'], 'edit');
+}
+?>
+
 <?php if (! empty($conf->global->MULTICOMPANY_SHARINGS_ENABLED)) { ?>
 <tr class="liste_titre">
 <td colspan="2"><?php echo $langs->trans("CommonParameters"); ?></td>

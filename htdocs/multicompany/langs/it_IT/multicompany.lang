@@ -1,6 +1,7 @@
-# Dolibarr language file - it_IT - multicompany
-# Author: Claudio Aschieri (c.aschieri@19.coop)
+# Dolibarr language file - en_US - multicompany
 CHARSET=UTF-8
+Module5000Name=Multi-Company
+Module5000Desc=Multi-company management on a single installation
 
 MasterEntity=Azienda Principale
 MasterEntityDesc=L'azienda principale non può essere cancellata
@@ -32,9 +33,12 @@ AgendaSharing=Condivisione Calendario
 AgendaSharingDescription=Selezione delle aziende che condividono il calendario con l'azienda selezionata.
 BankSharing=Condivisione Banche/Casse
 BankSharingDescription=Selezione delle aziende che condividono le banche/casse con l'azienda selezionata.
+InvoiceNumberSharing=Partage de la numérotation des factures
+InvoiceNumberSharingDescription=Sélection des entités qui partagerons leurs numéros de factures avec cette entité.
 DeleteAnEntity=Elimina un'azienda
 ConfirmDeleteEntity=Sei sicuro di voler eliminare questa azienda?
 ConfirmedEntityDeleted=L'azienda è stata cancellata.
+MulticompanyMoreModules=D'autres modules du même auteur sont disponibles sur la place de marché officielle DoliStore...
 
 # Admin options tab
 Options=Opzioni
@@ -49,9 +53,9 @@ ShareCategories=Attiva la condivisione delle categorie
 ShareAgenda=Attiva la condivisione dei calendari
 ShareStock=Attiva la condivisione del magazzino
 ShareBank=Attiva la condivisione delle banche/casse
+ShareInvoicesNumber=Attiva la condivisione della numerazione delle fatture
 GlobalSharings=Condivisione
 GlobalSharingsInfo=Quando avrai attivato la condivisione, sarà necessario configurare ogni singola unità per la condivisione tra le aziende
-
 
 # Errors
 ErrorEntityLabelAlreadyExist=Il nome per questa azienda esiste già.

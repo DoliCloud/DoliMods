@@ -2,6 +2,35 @@
 English Multi-Company ChangeLog
 --------------------------------------------------------------
 
+***** ChangeLog for 3.8.1 compared to 3.8.0 *****
+Fix: folder sharing was not working when more than 2 entities
+
+***** ChangeLog for 3.8.0 compared to 3.7.2 *****
+Fix: compatibility with Dolibarr 3.8.x
+
+***** ChangeLog for 3.7.3 compared to 3.7.2 *****
+Fix: folder sharing was not working when more than 2 entities
+
+***** ChangeLog for 3.7.2 compared to 3.7.1 *****
+New: add transifex management
+New: change the development platform
+
+***** ChangeLog for 3.7.1 compared to 3.7.0 *****
+New: add extrafields
+Fix: more bugs
+
+***** ChangeLog for 3.7.0 compared to 3.6.2 *****
+Fix: compatibility with Dolibarr 3.7.x
+New: add invoice number sharing
+New: add script to move master entity with another entity
+New: add about page
+
+***** ChangeLog for 3.6.2 compared to 3.6.1 *****
+Fix: folder sharing was not working when more than 2 entities
+
+***** ChangeLog for 3.6.1 compared to 3.6.0 *****
+Fix: add stock sharing parameters
+
 ***** ChangeLog for 3.6.0 compared to 3.5.0 *****
 Fix: compatibility with Dolibarr 3.6.x
 Fix: show entities combobox only in transverse mode or with admin users

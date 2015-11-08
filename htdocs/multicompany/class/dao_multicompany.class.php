@@ -1,5 +1,5 @@
 <?php
-/* Copyright (C) 2009-2014 Regis Houssin <regis.houssin@capnetworks.com>
+/* Copyright (C) 2009-2015 Regis Houssin <regis.houssin@capnetworks.com>
  * Copyright (C) 2011      Herve Prot    <herve.prot@symeos.com>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -22,13 +22,14 @@
  *		\ingroup    multicompany
  *		\brief      File Class multicompany
  */
-
+require_once (DOL_DOCUMENT_ROOT . "/core/class/commonobject.class.php");
+require_once (DOL_DOCUMENT_ROOT . '/core/class/extrafields.class.php');
 
 /**
  *		\class      DaoMulticompany
  *		\brief      Class of the module multicompany
  */
-class DaoMulticompany
+class DaoMulticompany extends CommonObject
 {
 	var $db;
 	var $error;
@@ -47,6 +48,9 @@ class DaoMulticompany
 	var $entities=array();
 
 	var $fk_tables=array();
+	
+	var $element = 'entity'; // !< Id that identify managed objects
+	var $table_element = 'entity'; // !< Name of table without prefix where object is stored
 
 
 	/**
@@ -181,6 +185,12 @@ class DaoMulticompany
 						}
 					}
 				}
+				
+				$extrafields = new ExtraFields($this->db);
+				$extralabels = $extrafields->fetch_name_optionals_label($this->table_element, true);
+				if (count($extralabels) > 0) {
+					$this->fetch_optionals($this->id, $extralabels);
+				}
 
 				return 1;
 			}
@@ -201,6 +211,8 @@ class DaoMulticompany
 	function create($user)
 	{
 		global $conf;
+		
+		$error=0;
 
 		// Clean parameters
 		$this->label 		= trim($this->label);
@@ -237,7 +249,21 @@ class DaoMulticompany
 		{
 			$this->id = $this->db->last_insert_id(MAIN_DB_PREFIX."entity");
 
+			
+			if (! $error) {
+			
+				if (empty($conf->global->MAIN_EXTRAFIELDS_DISABLED)) {
+					$result = $this->insertExtraFields();
+					if ($result < 0) {
+						$error ++;
+					}
+				}
+			}
+			
 			dol_syslog(get_class($this)."::Create success id=".$this->id);
+		}
+		
+		if (empty($error)) {
 			$this->db->commit();
             return $this->id;
 		}
@@ -247,6 +273,8 @@ class DaoMulticompany
 			$this->db->rollback();
 			return -1;
 		}
+		
+		
 	}
 
 	/**
@@ -255,6 +283,8 @@ class DaoMulticompany
 	function update($id, $user)
 	{
 		global $conf;
+		
+		$error=0;
 
 		// Clean parameters
 		$this->label 		= trim($this->label);
@@ -276,6 +306,20 @@ class DaoMulticompany
 		if ($result)
 		{
 			dol_syslog(get_class($this)."::Update success id=".$id);
+			
+			
+			if (! $error) {
+					
+				if (empty($conf->global->MAIN_EXTRAFIELDS_DISABLED)) {
+					$result = $this->insertExtraFields();
+					if ($result < 0) {
+						$error ++;
+					}
+				}
+			}
+		}
+
+		if (empty($error)) {
 			$this->db->commit();
             return 1;
 		}
@@ -319,6 +363,19 @@ class DaoMulticompany
 				$error++;
 				$this->error .= $this->db->lasterror();
 				dol_syslog(get_class($this)."::Delete erreur -1 ".$this->error, LOG_ERR);
+			}
+		}
+		
+		if (! $error) {
+			$sql = "DELETE FROM " . MAIN_DB_PREFIX . "entity_extrafields";
+			$sql .= " WHERE fk_object=" . $id;
+				
+			dol_syslog(get_class($this) . "::delete sql=" . $sql);
+			$resql = $this->db->query($sql);
+			if (! $resql) {
+				$error ++;
+				$this->error .= $this->db->lasterror();
+				dol_syslog(get_class($this)."::Delete erreur -2 ".$this->error, LOG_ERR);
 			}
 		}
 
@@ -531,15 +588,10 @@ class DaoMulticompany
 		}
 		else
 		{
-			// FIX LDR
-			/*$sql = "SELECT entity as rowid";
+			$sql = "SELECT entity as rowid";
 			$sql.= " FROM ".MAIN_DB_PREFIX."usergroup_user";
 			$sql.= " WHERE fk_user=".$user->id;
 			$sql.= " ORDER by entity";
-			*/
-			$sql = "SELECT rowid";
-			$sql.= " FROM ".MAIN_DB_PREFIX."entity";
-			$sql.= " ORDER by rowid";
 		}
 
 		$result = $this->db->query($sql);
@@ -562,7 +614,7 @@ class DaoMulticompany
 		}
 	}
 
-    /**
+	/**
 	 *    Check user $userid belongs to at least one group created into entity $id
 	 */
 	function verifyRight($entity, $userid)
@@ -574,11 +626,11 @@ class DaoMulticompany
 
 		if ($tmpuser->id)
 		{
-			if (empty($tmpuser->entity)) return 1;						// superadmin always allowed
-			if ($tmpuser->entity == $entity && $tmpuser->admin) return 1;	// entity admin allowed
+			if (empty($tmpuser->entity)) return 1;                      // superadmin always allowed
+			if ($tmpuser->entity == $entity && $tmpuser->admin) return 1;   // entity admin allowed
 			if (empty($conf->multicompany->transverse_mode))
 			{
-				if 	($tmpuser->entity == $entity) return 1;					// user allowed if belong to entity
+				if  ($tmpuser->entity == $entity) return 1;                 // user allowed if belong to entity
 			}
 			else
 			{
@@ -592,7 +644,7 @@ class DaoMulticompany
 				if ($result)
 				{
 					$obj = $this->db->fetch_object($result);
-					return $obj->nb;										// user allowed if at least in one group
+					return $obj->nb;                                        // user allowed if at least in one group
 				}
 			}
 		}

@@ -604,7 +604,7 @@ if (empty($conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL) || empty($conf->global
 {
 	print '<a class="butActionRefused" href="#">'.$langs->trans("TestCreateUpdateDelete")."</a>";
 
-	print '<a class="butActionRefused" href="#">'.$langs->trans("TestCreate")."</a>";
+	print '<a class="butActionRefused" href="#">'.$langs->trans("TestCreateUpdate")."</a>";
 }
 else
 {

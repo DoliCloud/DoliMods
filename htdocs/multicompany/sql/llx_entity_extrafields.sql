@@ -17,16 +17,10 @@
 --
 -- ===========================================================================
 
-create table llx_entity
+create table llx_entity_extrafields
 (
-  rowid				integer AUTO_INCREMENT PRIMARY KEY,
-  tms				timestamp,
-  label				varchar(255) NOT NULL,
-  description		text,
-  datec				datetime,
-  fk_user_creat		integer,
-  options			text,
-  visible			smallint DEFAULT 1 NOT NULL,
-  active			smallint DEFAULT 1 NOT NULL
-  
+  rowid                     integer AUTO_INCREMENT PRIMARY KEY,
+  tms                       timestamp,
+  fk_object                 integer NOT NULL,
+  import_key                varchar(14)                          		-- import key
 ) ENGINE=innodb;

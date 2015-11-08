@@ -1,5 +1,5 @@
 <?php
-/* Copyright (C) 2011 Regis Houssin  <regis.houssin@capnetworks.com>
+/* Copyright (C) 2011-2015 Regis Houssin  <regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -41,12 +41,22 @@ function multicompany_prepare_head()
 	$head[$h][1] = $langs->trans("Options");
 	$head[$h][2] = 'options';
 	$h++;
+	
+	$head[$h][0] = dol_buildpath("/multicompany/admin/multicompany_extrafields.php", 1);
+	$head[$h][1] = $langs->trans("ExtraFields");
+	$head[$h][2] = 'attributes';
+	$h ++;
 
     // Show more tabs from modules
     // Entries must be declared in modules descriptor with line
     // $this->tabs = array('entity:+tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to add new tab
     // $this->tabs = array('entity:-tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to remove a tab
     complete_head_from_modules($conf,$langs,$object,$head,$h,'multicompany');
+
+    $head[$h][0] = dol_buildpath("/multicompany/admin/about.php",1);
+    $head[$h][1] = $langs->trans("About");
+    $head[$h][2] = 'about';
+    $h++;
 
 	return $head;
 }
