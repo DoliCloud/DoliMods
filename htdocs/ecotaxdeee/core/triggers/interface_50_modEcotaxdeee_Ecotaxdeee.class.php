@@ -97,7 +97,7 @@ class InterfaceEcotaxdeee
 		// Création / Mise à jour / Suppression d'un évènement dans Google contact
 
 		if (empty($conf->ecotaxdeee->enabled)) return 0;
-		if (isset($object->special_code) && $object->special_code == 2) return 0;			// To avoid infinite loop
+		if (isset($object->special_code) && $object->special_code == 2) return 0;			// To avoid infinite loop. Line with special_code = 2 are not triggered
 
 		if (! empty($conf->global->ECOTAXDEEE_USE_ON_CUSTOMER_ORDER))
 		{
@@ -176,6 +176,13 @@ class InterfaceEcotaxdeee
 
 		if ($object->special_code == 2 && in_array($action,array('LINEORDER_DELETE','LINEPROPAL_DELETE','LINEBILL_DELETE'))) return 0;
 
+		// If we are creating an object from an other one, we forget adding eco tax.
+		if ((! empty($_POST['origin']) && (! empty($_POST['originid']) || ! empty($_POST['origin_id'])))
+		    || (! empty($object->context['origin']) && ! empty($object->context['origin_id'])))
+		{
+			return 0;
+		}
+
 		/*
 		 * Calculate the EcoTax DEEE and try to find idlineecotax
 		 */
@@ -205,12 +212,6 @@ class InterfaceEcotaxdeee
 		$parentid=$object->$fieldparentid;
 		if (empty($parentid)) $parentid=$object->oldline->$fieldparentid;	// When trigger is LINEXXX_UPDATE, only new value are set into $object, rest of old line is into $object->oldline
 		$parentobject->fetch($parentid);	// fetch_lines included into fetch
-
-		// If we are creating an object from an other one, we forget adding eco tax.
-		if (! empty($_POST['origin']) && ! empty($_POST['originid']))
-		{
-			return 0;
-		}
 
 		$lines=$parentobject->lines;
 
