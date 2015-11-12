@@ -198,6 +198,7 @@ if ($mode != 'test')
 	$actioncomm->elementtype='dolicloudcustomers';
 	$actioncomm->type_code='AC_OTH_AUTO';
 	$actioncomm->userassigned[$user->id]=array('id'=>$user->id);
+	$actioncomm->userownerid=$user->id;
 	$actioncomm->add($user);
 }
 
