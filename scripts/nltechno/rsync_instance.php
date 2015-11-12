@@ -185,6 +185,7 @@ if ($mode == 'confirmunlock')
 if ($mode != 'test')
 {
 	print "Create event into database\n";
+	dol_syslog("Add event into database");
 	
 	$user = new User($db);
 	$user->fetch('', 'ldestailleur');
