@@ -49,7 +49,7 @@ class modStat extends DolibarrModules
 
 		// Id for module (must be unique).
 		// Use here a free id (See in Home -> System information -> Dolibarr for list of used modules id).
-		$this->numero = 30000;
+		$this->numero = 130000;
 		// Key text used to identify module (for permissions, menus, etc...)
 		$this->rights_class = 'statistic';
 
@@ -61,7 +61,7 @@ class modStat extends DolibarrModules
 		// Module description, used if translation string 'ModuleXXXDesc' not found (where XXX is value of numeric property 'numero' of module)
 		$this->description = "Statistic Module";
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
-		$this->version = 'experimental';
+		$this->version = 'development';
 		// Key used in llx_const table to save module status enabled/disabled (where statistic is value of property name of module in uppercase)
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
 		// Where to store the module in setup page (0=common,1=interface,2=others,3=very specific)
