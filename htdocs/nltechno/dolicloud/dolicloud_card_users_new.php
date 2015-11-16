@@ -329,11 +329,17 @@ function print_user_table($newdb)
 		$sql ="SELECT login, lastname, firstname, admin, email, pass, pass_crypted, datec, tms as datem, datelastlogin, fk_soc, fk_socpeople, fk_member, entity, statut";
 		$sql.=" FROM llx_user ORDER BY statut DESC";
 		$resql=$newdb->query($sql);
-		if (empty($resql))	// Alternative for 3.4+
+		if (empty($resql))	// Alternative for 3.7-
 		{
-			$sql ="SELECT login, lastname as lastname, firstname, admin, email, pass, pass_crypted, datec, tms as datem, datelastlogin, fk_soc, fk_socpeople, fk_member, entity, statut";
+			$sql ="SELECT login, lastname as lastname, firstname, admin, email, pass, pass_crypted, datec, tms as datem, datelastlogin, fk_societe, fk_socpeople, fk_member, entity, statut";
 			$sql.=" FROM llx_user ORDER BY statut DESC";
 			$resql=$newdb->query($sql);
+			if (empty($resql))	// Alternative for 3.3-
+    		{
+    			$sql ="SELECT login, nom as lastname, prenom as firstname, admin, email, pass, pass_crypted, datec, tms as datem, datelastlogin, fk_societe, fk_socpeople, fk_member, entity, statut";
+    			$sql.=" FROM llx_user ORDER BY statut DESC";
+    			$resql=$newdb->query($sql);
+    		}
 		}
 		if ($resql)
 		{

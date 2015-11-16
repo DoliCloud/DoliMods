@@ -230,7 +230,7 @@ if (GETPOST('action') == 'writeBookKeeping')
 			    $bookkeeping->fk_compte = $compte->id;
 	    		$bookkeeping->code_tiers = '';
 			    $bookkeeping->numero_compte = $k;
-			    $bookkeeping->label_compte = 'TVA';
+			    $bookkeeping->label_compte = 'VAT';
 			    $bookkeeping->montant = $mt;
 			    $bookkeeping->sens = ($mt < 0)?'D':'C';
 			    $bookkeeping->debit = ($mt < 0)?$mt:0;
