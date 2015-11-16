@@ -271,9 +271,9 @@ class GContact
             $this->addr->state = $dolContact->state;
             $this->addr->country = $dolContact->country;
         }
-        $this->phone_pro= $dolContact->phone_pro;
-        $this->phone_perso= $dolContact->phone_perso;
-        $this->phone_mobile= $dolContact->phone_mobile;
+        $this->phone_pro= $dolContact->phone;               // For thirdparty, phone is phone and not phone_pro
+        $this->phone_perso= $dolContact->phone_perso;       // For thirdparty, should be useless
+        $this->phone_mobile= $dolContact->phone_mobile;     // For thirdparty, should be useless
         $this->fax= $dolContact->fax;
         $this->socid= $dolContact->socid;
 
