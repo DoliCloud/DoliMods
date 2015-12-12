@@ -206,7 +206,7 @@ if ($user->rights->societe->client->voir && empty($socid))
 	$langs->load("commercial");
 	print '<form name="formsearch" method="POST" action="'.$_SERVER["PHP_SELF"].'">';
 	print $langs->trans('ThirdPartiesOfSaleRepresentative'). ': ';
-	print $formother->select_salesrepresentatives($search_sale,'search_sale',$user);
+	print $formother->select_salesrepresentatives($search_sale,'search_sale',$user, 0, 1, 'maxwidth300');
 	if (! empty($conf->global->GOOGLE_MAPS_SEARCH_ON_STATE))
 	{
 		print ' &nbsp; &nbsp; &nbsp; ';
