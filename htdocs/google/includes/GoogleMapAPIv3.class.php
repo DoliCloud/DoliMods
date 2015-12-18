@@ -382,7 +382,6 @@ class GoogleMapAPI
 		{
 			// Detect if we use https
 			$sforhttps=(((empty($_SERVER["HTTPS"]) || $_SERVER["HTTPS"] != 'on') && (empty($_SERVER["SERVER_PORT"])||$_SERVER["SERVER_PORT"]!=443))?'':'s');
-			$icon = 'http'.$sforhttps.'://maps.gstatic.com/intl/fr_ALL/mapfiles/markers/marker_sprite.png';
 		}
 
 		// Save the lat/lon to enable the automatic center/zoom
@@ -455,6 +454,7 @@ class GoogleMapAPI
 			$i++;
 			//if ($i != 9) continue;	// Output only eleme i = 9
 
+			$icon='';
 			/*if($elem->client == 1) $icon = "http://www.google.com/intl/en_us/mapfiles/ms/micons/green-dot.png";
 			else $icon = "http://www.google.com/intl/en_us/mapfiles/ms/micons/red-dot.png";
 			if ($sforhttps) $icon=preg_replace('/^http:/','https:',$icon);
@@ -636,7 +636,8 @@ class GoogleMapAPI
 		$this->content .= "\t\t" . 'var marker = new google.maps.Marker({' . "\n";
 		$this->content .= "\t\t\t" . 'map: map,' . "\n";
 		$this->content .= "\t\t\t" . 'title : title,' . "\n";
-		$this->content .= "\t\t\t" . 'icon:  new google.maps.MarkerImage(icon, new google.maps.Size(' . $this->iconWidth . ',' . $this->iconHeight . ')),' . "\n";
+		// We do not use the marker with the shadow, if we do so, we must set position of the sprite we want to extract from the image
+		//$this->content .= "\t\t\t" . 'icon:  new google.maps.MarkerImage(icon, new google.maps.Size(' . $this->iconWidth . ',' . $this->iconHeight . ')),' . "\n";
 		$this->content .= "\t\t\t" . 'position: latlng' . "\n";
 		$this->content .= "\t\t" . '});' . "\n";
 
