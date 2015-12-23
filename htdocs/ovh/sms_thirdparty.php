@@ -33,6 +33,10 @@ require_once(DOL_DOCUMENT_ROOT."/societe/class/societe.class.php");
 require_once(DOL_DOCUMENT_ROOT."/contact/class/contact.class.php");
 dol_include_once("/ovh/class/ovhsms.class.php");
 
+require __DIR__ . '/includes/autoload.php';
+use \Ovh\Api;
+
+
 // Load traductions files requiredby by page
 $langs->load("companies");
 $langs->load("sms");

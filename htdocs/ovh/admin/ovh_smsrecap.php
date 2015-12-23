@@ -36,6 +36,10 @@ include_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
 dol_include_once("/ovh/class/ovhsms.class.php");
 require_once(NUSOAP_PATH.'/nusoap.php');     // Include SOAP
 
+require __DIR__ . '/../includes/autoload.php';
+use \Ovh\Api;
+
+
 // Load traductions files requiredby by page
 $langs->load("companies");
 $langs->load("ovh@ovh");
@@ -46,14 +50,21 @@ if (!$user->admin) accessforbidden();
 // Get parameters
 $account = GETPOST("account");
 
+$endpoint = empty($conf->global->OVH_ENDPOINT)?'ovh-eu':$conf->global->OVH_ENDPOINT;
 
 
-/***************************************************
- * PAGE
- *
- * Put here all code to build page
- ****************************************************/
 
+/*
+ * Actions
+ */
+
+// None
+
+
+
+/*
+ * View
+ */
 
 llxHeader('',$langs->trans('OvhSmsRecap'),'','');
 
@@ -182,11 +193,7 @@ if (! empty($sms))  // Do not use here sms > 0 as a constructor return an object
 }
 
 
-
-
-
-
 // End of page
-$db->close();
 llxFooter();
-?>
+
+$db->close();

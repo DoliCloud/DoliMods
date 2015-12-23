@@ -20,6 +20,10 @@ require_once(DOL_DOCUMENT_ROOT."/core/lib/files.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/class/html.formfile.class.php");
 require_once(NUSOAP_PATH.'/nusoap.php');     // Include SOAP
 
+require __DIR__ . '/../includes/autoload.php';
+use \Ovh\Api;
+
+
 $langs->load("ovh@ovh");
 $langs->load("admin");
 $langs->load("companies");
@@ -32,6 +36,7 @@ $action = GETPOST('action');
 // Protection if external user
 if ($user->societe_id > 0) accessforbidden();
 
+$endpoint = empty($conf->global->OVH_ENDPOINT)?'ovh-eu':$conf->global->OVH_ENDPOINT;
 
 
 
@@ -86,7 +91,7 @@ dol_htmloutput_mesg($mesg);
 
 dol_fiche_head($head, 'getinvoices', $langs->trans("Ovh"));
 
-if (empty($conf->global->OVHSMS_NICK) || empty($WS_DOL_URL))
+if (empty($conf->global->OVH_NEWAPI) && (empty($conf->global->OVHSMS_NICK) || empty($WS_DOL_URL)))
 {
     echo '<div class="warning">'.$langs->trans("OvhSmsNotConfigured").'</div>';
 }
@@ -297,7 +302,7 @@ if ($action == 'preimport')
 
 
         //logout
-        $soap->logout($session);
+        if (empty($conf->global->OVH_NEWAPI)) $soap->logout($session);
         echo "logout successfull\n";
 
     } catch(SoapFault $fault) {
@@ -311,4 +316,4 @@ dol_fiche_end();
 llxFooter();
 
 $db->close();
-?>
+

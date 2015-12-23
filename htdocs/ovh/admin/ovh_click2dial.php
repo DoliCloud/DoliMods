@@ -37,6 +37,10 @@ dol_include_once("/ovh/class/ovhsms.class.php");
 dol_include_once("/ovh/lib/ovh.lib.php");
 require_once(NUSOAP_PATH.'/nusoap.php');     // Include SOAP
 
+require __DIR__ . '/../includes/autoload.php';
+use \Ovh\Api;
+
+
 $action=GETPOST('action');
 
 // Load traductions files requiredby by page
@@ -54,6 +58,8 @@ if ($user->societe_id > 0)
 {
 	//accessforbidden();
 }
+
+$endpoint = empty($conf->global->OVH_ENDPOINT)?'ovh-eu':$conf->global->OVH_ENDPOINT;
 
 
 /*
@@ -128,7 +134,7 @@ if ($mesg)
 }
 
 
-if (empty($conf->global->OVHSMS_NICK) || empty($WS_DOL_URL))
+if (empty($conf->global->OVH_NEWAPI) && (empty($conf->global->OVHSMS_NICK) || empty($WS_DOL_URL)))
 {
     echo '<div class="warning">'.$langs->trans("OvhSmsNotConfigured").'</div>';
 }
@@ -151,4 +157,4 @@ dol_fiche_end();
 llxFooter();
 
 $db->close();
-?>
+

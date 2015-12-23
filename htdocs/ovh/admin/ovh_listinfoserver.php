@@ -37,6 +37,10 @@ require_once(DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php');
 require_once(DOL_DOCUMENT_ROOT.'/societe/class/societe.class.php');
 require_once(NUSOAP_PATH.'/nusoap.php');     // Include SOAP
 
+require __DIR__ . '/../includes/autoload.php';
+use \Ovh\Api;
+
+
 $langs->load("ovh@ovh");
 $langs->load("sms");
 
@@ -60,6 +64,8 @@ else
 
 // Protection if external user
 if ($user->societe_id > 0) accessforbidden();
+
+$endpoint = empty($conf->global->OVH_ENDPOINT)?'ovh-eu':$conf->global->OVH_ENDPOINT;
 
 
 /*
@@ -107,7 +113,7 @@ $head=ovhadmin_prepare_head();
 
 dol_fiche_head($head, 'listservers', $langs->trans("Ovh"));
 
-if (empty($conf->global->OVHSMS_NICK) || empty($WS_DOL_URL))
+if (empty($conf->global->OVH_NEWAPI) && (empty($conf->global->OVHSMS_NICK) || empty($WS_DOL_URL)))
 {
     echo '<div class="warning">'.$langs->trans("OvhSmsNotConfigured").'</div>';
 }
@@ -117,41 +123,74 @@ else
     $params=getSoapParams();
     ini_set('default_socket_timeout', $params['response_timeout']);
 
-    $soap = new SoapClient($WS_DOL_URL,$params);
-    try {
-        $language="en";
-        $multisession=false;
-
-        //login
-        $session = $soap->login($conf->global->OVHSMS_NICK, $conf->global->OVHSMS_PASS, $language, $multisession);
-        //if ($session) print '<div class="ok">'.$langs->trans("OvhSmsLoginSuccessFull").'</div><br>';
-        if (! $session) print '<div class="error">Error login did not return a session id</div><br>';
-
-        //logout
-        //$soap->logout($session);
-        //  echo "logout successfull\n";
-
-    }
-    catch(Exception $e)
+    if (empty($conf->global->OVH_NEWAPI))
     {
-        print '<div class="error">';
-        print 'Error '.$e->getMessage().'<br>';
-        print 'If this is an error to connect to OVH host, check your firewall does not block port required to reach OVH manager (for example port 1664).<br>';
-        print '</div>';
+        $soap = new SoapClient($WS_DOL_URL,$params);
+        try {
+            $language="en";
+            $multisession=false;
+    
+            //login
+            $session = $soap->login($conf->global->OVHSMS_NICK, $conf->global->OVHSMS_PASS, $language, $multisession);
+            //if ($session) print '<div class="ok">'.$langs->trans("OvhSmsLoginSuccessFull").'</div><br>';
+            if (! $session) print '<div class="error">Error login did not return a session id</div><br>';
+    
+            //logout
+            //$soap->logout($session);
+            //  echo "logout successfull\n";
+    
+        }
+        catch(Exception $e)
+        {
+            print '<div class="error">';
+            print 'Error '.$e->getMessage().'<br>';
+            print 'If this is an error to connect to OVH host, check your firewall does not block port required to reach OVH manager (for example port 1664).<br>';
+            print '</div>';
+        }
     }
-
+    
+    
     $serveur = GETPOST('server');
     if ($serveur)
     {
+        if (empty($conf->global->OVH_NEWAPI))
+        {
+        	$resultinfo = $soap->dedicatedInfo($session, $serveur);
+    
+        	$resultrev = $soap->dedicatedReverseList($session, $serveur);
+    
+        	$resultnetboot = $soap->dedicatedNetbootInfo($session, $serveur);
+    
+        	//$resultcapa = $soap->dedicatedCapabilitiesGet($session, $serveur);
+        }
+        else
+        {
+            try
+            {
+                // Get servers list
+                $conn = new Api($conf->global->OVHAPPKEY, $conf->global->OVHAPPSECRET, $endpoint, $conf->global->OVHCONSUMERKEY);
+                
+                $resultinfo = $conn->get('/dedicated/server/'.$serveur);
+                $resultinfo = dol_json_decode(dol_json_encode($resultinfo), false);
 
-    	$resultinfo = $soap->dedicatedInfo($session, $serveur);
+                $resultinfo2 = $conn->get('/dedicated/server/'.$serveur.'/specifications/network');
+                $resultinfo2 = dol_json_decode(dol_json_encode($resultinfo2), false);
+                
+                $resultrev = $conn->get('/ip/');
+                $resultrev = dol_json_decode(dol_json_encode($resultrev), false);
+                
+                $resultnetboot = $conn->get('/dedicated/server/'.$serveur.'/boot/'.$resultinfo->bootId);
+                $resultnetboot = dol_json_decode(dol_json_encode($resultnetboot), false);
 
-    	$resultrev = $soap->dedicatedReverseList($session, $serveur);
-
-    	$resultnetboot = $soap->dedicatedNetbootInfo($session, $serveur);
-
-    	$resultcapa = $soap->dedicatedCapabilitiesGet($session, $serveur);
-
+                /*$resultcapa = $conn->get('/ip/');
+                $resultcapa = dol_json_decode(dol_json_encode($resultcapa), false);*/
+            }
+            catch(Exception $e)
+            {
+                setEventMessages($e->getMessage(), null, 'errors');
+            }
+        }
+        
     	$typesrv = substr($serveur, 0, 1);
 
     	print_fiche_titre($serveur,'','');
@@ -200,8 +239,10 @@ else
     	else print $data;
 
     	print '</td></tr>';
+    	print '<tr><td>Rack </td><td> ' . $resultinfo->rack . '</td></tr>';
     	print '<tr><td>Distribution </td><td> ' . $resultinfo->os . '</td></tr>';
     	print '<tr><td>IP</td><td> ' . gethostbyname($serveur) . '</td></tr>';
+    	print '<tr><td>Rescue email</td><td> ' . $resultinfo->rescueMail . '</td></tr>';
     	print '</table>';
 
 
@@ -212,58 +253,72 @@ else
     	print '<tr><td  class="liste_titre" colspan="2">';
     	print '<strong>'.$langs->trans("Network").'</strong> </td></tr>';
 
-    	print '<tr><td>Ovh to Ovh </td><td> ';
-    	if ($resultinfo->network->bandwidthOvhToOvh == 100000)
-    	{
-    		print '100 Mbps';
-    	}
-    	else
-    	{
-    		if ($resultinfo->network->bandwidthOvhToOvh == 1000000)
-    		{
-    			print '1 Gbps';
-    		}
-    		else
-    		{
-    			print $resultinfo->network->bandwidthOvhToOvh . ' Kbps ';
-    		}
-    	}
-    	print '</td></tr>';
-    	print '<tr><td>Ovh to Internet </td><td> ';
-    	if ($resultinfo->network->bandwidthOvhToInternet == 100000)
-    	{
-    		print '100 Mbps';
-    	}
-    	else
-    	{
-    		if ($resultinfo->network->bandwidthOvhToInternet == 10000000)
-    		{
-    			print '1 Gbps';
-    		}
-    		else
-    		{
-    			print $resultinfo->network->bandwidthOvhToInternet . ' Kbps ';
-    		}
-    	}
-    	print '</td></tr>';
-    	print '<tr><td>Internet to Ovh </td><td>';
-    	if ($resultinfo->network->bandwidthInternetToOvh == 100000)
-    	{
-    		print '100 Mbps';
-    	}
-    	else
-    	{
-    		if ($resultinfo->network->bandwidthInternetToOvh == 1000000)
-    		{
-    			print '1 Gbps';
-    		}
-    		else
-    		{
-    			print $resultinfo->network->bandwidthInternetToOvh . ' Kbps ';
-    		}
-    	}
-    	print '</td></tr>';
-
+		if (empty($conf->global->OVH_NEWAPI))
+		{
+			print '<tr><td>Ovh to Ovh </td><td> ';
+		    if ($resultinfo->network->bandwidthOvhToOvh == 100000)
+		    {
+		        print '100 Mbps';
+		    }
+		    else
+		    {
+		        if ($resultinfo->network->bandwidthOvhToOvh == 1000000)
+		        {
+		            print '1 Gbps';
+		        }
+		        else
+		        {
+		            print $resultinfo->network->bandwidthOvhToOvh . ' Kbps ';
+		        }
+		    }
+		    print '</td></tr>';
+		    print '<tr><td>Ovh to Internet </td><td> ';
+		    if ($resultinfo->network->bandwidthOvhToInternet == 100000)
+		    {
+		        print '100 Mbps';
+		    }
+		    else
+		    {
+		        if ($resultinfo->network->bandwidthOvhToInternet == 10000000)
+		        {
+		            print '1 Gbps';
+		        }
+		        else
+		        {
+		            print $resultinfo->network->bandwidthOvhToInternet . ' Kbps ';
+		        }
+		    }
+		    print '</td></tr>';
+		    print '<tr><td>Internet to Ovh </td><td>';
+		    if ($resultinfo->network->bandwidthInternetToOvh == 100000)
+		    {
+		        print '100 Mbps';
+		    }
+		    else
+		    {
+		        if ($resultinfo->network->bandwidthInternetToOvh == 1000000)
+		        {
+		            print '1 Gbps';
+		        }
+		        else
+		        {
+		            print $resultinfo->network->bandwidthInternetToOvh . ' Kbps ';
+		        }
+		    }
+		    print '</td></tr>';
+		}
+		else
+		{
+		    print '<tr><td>Ovh to Ovh </td><td> ';
+        	print $resultinfo2->bandwidth['OvhToOvh']['value'].' '.$resultinfo2->bandwidth['OvhToOvh']['unit'];
+        	print '</td></tr>';
+        	print '<tr><td>Ovh to Internet </td><td> ';
+        	print $resultinfo2->bandwidth['OvhToInternet']['value'].' '.$resultinfo2->bandwidth['OvhToInternet']['unit'];
+        	print '</td></tr>';
+        	print '<tr><td>Internet to Ovh </td><td>';
+        	print $resultinfo2->bandwidth['InternetToOvh']['value'].' '.$resultinfo2->bandwidth['InternetToOvh']['unit'];
+        	print '</td></tr>';
+		}
     	print '</table>';
 
 
@@ -271,64 +326,84 @@ else
 
     	print '<td valign="top"><font size="2">';
 
-    	$lasteupdate = $resultinfo->network->traffic->lastUpdate;
-    	if (!empty($lasteupdate))
+    	if (empty($conf->global->OVH_NEWAPI))
     	{
-    		print '<table width="100%;">';
-    		print '<tr><td  class="liste_titre" colspan="2">';
-    		print '<strong>Quota Reseau</strong> </td></tr>';
-    		print '<tr><td>Last Update </td><td> ' . $resultinfo->network->traffic->lastUpdate . '</td></tr>';
-    		print '<tr><td>Quota In </td><td> ' . $resultinfo->network->traffic->monthlyTraffic->in . '</td></tr>';
-    		print '<tr><td>Quota Out </td><td> ' . $resultinfo->network->traffic->monthlyTraffic->out . '</td></tr>';
-    		print '</table>';
+        	$lasteupdate = $resultinfo->network->traffic->lastUpdate;
+        	if (!empty($lasteupdate))
+        	{
+        		print '<table width="100%;">';
+        		print '<tr><td  class="liste_titre" colspan="2">';
+        		print '<strong>Quota Reseau</strong> </td></tr>';
+        		print '<tr><td>Last Update </td><td> ' . $resultinfo->network->traffic->lastUpdate . '</td></tr>';
+        		print '<tr><td>Quota In </td><td> ' . $resultinfo->network->traffic->monthlyTraffic->in . '</td></tr>';
+        		print '<tr><td>Quota Out </td><td> ' . $resultinfo->network->traffic->monthlyTraffic->out . '</td></tr>';
+        		print '</table>';
+        	}
+    
+        	print '<table width="100%;">';
+        	print '<tr><td  class="liste_titre" colspan="2">';
+        	print '<strong>Interfaces</strong> </td></tr>';
+        	$i = 0;
+    	
+        	while ($resultinfo->network->interfaces[$i])
+        	{
+        		if ($i == 0)
+        		{
+        			print '<tr><td>Switch </td><td> ' . $resultinfo->network->interfaces[$i]->switch . '</td></tr>';
+        			print '<tr><td>Mac </td><td> ' . $resultinfo->network->interfaces[$i]->mac . '</td></tr>';
+        			print '<tr><td>IP </td><td> ' . $resultinfo->network->interfaces[$i]->ip . '</td></tr>';
+        		}
+    
+        		$i++;
+        		$nb = $i - 1;
+        	}
+    
+        	print '</table>';
+        	print 'Vous possedez ' . ($nb ? $nb : 0) . ' IP Failover';
     	}
-
-    	print '<table width="100%;">';
-    	print '<tr><td  class="liste_titre" colspan="2">';
-    	print '<strong>Interfaces</strong> </td></tr>';
-    	$i = 0;
-    	while ($resultinfo->network->interfaces[$i])
-    	{
-    		if ($i == 0)
-    		{
-    			print '<tr><td>Switch </td><td> ' . $resultinfo->network->interfaces[$i]->switch . '</td></tr>';
-    			print '<tr><td>Mac </td><td> ' . $resultinfo->network->interfaces[$i]->mac . '</td></tr>';
-    			print '<tr><td>IP </td><td> ' . $resultinfo->network->interfaces[$i]->ip . '</td></tr>';
-    		}
-
-    		$i++;
-    		$nb = $i - 1;
-    	}
-
-    	print '</table>';
-    	print 'Vous possedez ' . $nb . ' IP Failover';
-
 
     	print '</td></tr></table>';
 
-    	print '<br><br>';
-    	print '<div><a href="?server=' . $serveur . '&type=day">'.$langs->trans("Day").'</a> / <a href="?server=' . $serveur . '&type=week">'.$langs->trans("Week").'</a> / <a href="?server=' . $serveur . '&type=month">'.$langs->trans("Month").'</a> / <a href="?server=' . $serveur . '&type=year">'.$langs->trans("Year").'</a></div>';
-
-    	$ip = gethostbyname($serveur);
-    	$result = $soap->dedicatedMrtgInfo($session, $serveur, 'traffic', $type, $ip);
-    	print '<img src="' . $result->image . '"><br>';
-
-    	$image = $result->image;
-    	if (empty($image))
+    	if (empty($conf->global->OVH_NEWAPI))
     	{
-    		print 'vide';
+    	   print '<br><br>';
+    	   print '<div><a href="?server=' . $serveur . '&type=day">'.$langs->trans("Day").'</a> / <a href="?server=' . $serveur . '&type=week">'.$langs->trans("Week").'</a> / <a href="?server=' . $serveur . '&type=month">'.$langs->trans("Month").'</a> / <a href="?server=' . $serveur . '&type=year">'.$langs->trans("Year").'</a></div>';
+
+        	$ip = gethostbyname($serveur);
+        	$result = $soap->dedicatedMrtgInfo($session, $serveur, 'traffic', $type, $ip);
+        	print '<img src="' . $result->image . '"><br>';
+    
+        	$image = $result->image;
+        	if (empty($image))
+        	{
+        		print 'vide';
+        	}
+    	
+        	print 'Out Max : ' . $result->max->out . ' Moy : ' . $result->average->out . ' Cur : ' . $result->current->out . '<br>';
+        	print 'In Max : ' . $result->max->in . ' Moy : ' . $result->average->in . ' Cur : ' . $result->current->out;
     	}
-
-    	print 'Out Max : ' . $result->max->out . ' Moy : ' . $result->average->out . ' Cur : ' . $result->current->out . '<br>';
-    	print 'In Max : ' . $result->max->in . ' Moy : ' . $result->average->in . ' Cur : ' . $result->current->out;
-
     }
     else
     {
     	print_fiche_titre($langs->trans("ListOfDedicatedServers"),"","");
-    	//dedicatedList
-    	$result = $soap->dedicatedList($session);
 
+
+    	//dedicatedList
+    	if (empty($conf->global->OVH_NEWAPI))
+    	{    	
+    	   $result = $soap->dedicatedList($session);
+    	}
+    	else
+    	{
+    	    // Get servers list
+        	$conn = new Api(
+        	    $conf->global->OVHAPPKEY,
+        	    $conf->global->OVHAPPSECRET,
+        	    $endpoint,
+        	    $conf->global->OVHCONSUMERKEY);
+        	$result = $conn->get('/dedicated/server/');
+    	}    	    	
+    	
     	if (count($result))
     	{
         	print '<ul>';
@@ -345,7 +420,7 @@ else
     }
 
     //logout
-    $soap->logout($session);
+    if (empty($conf->global->OVH_NEWAPI)) $soap->logout($session);
 }
 
 
@@ -353,4 +428,3 @@ else
 llxFooter();
 
 $db->close();
-?>

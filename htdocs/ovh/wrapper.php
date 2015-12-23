@@ -60,6 +60,9 @@ if (! $res && preg_match('/\/nltechno([^\/]*)\//',$_SERVER["PHP_SELF"],$reg)) $r
 if (! $res) die("Include of main fails");
 include_once(DOL_DOCUMENT_ROOT."/core/lib/functions2.lib.php");
 
+require __DIR__ . '/includes/autoload.php';
+use \Ovh\Api;
+
 
 // Security check
 if (! $conf->clicktodial->enabled)
@@ -164,4 +167,3 @@ else {
 llxFooter();
 
 $db->close();
-?>

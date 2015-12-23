@@ -41,6 +41,10 @@ require_once(DOL_DOCUMENT_ROOT."/core/lib/files.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/class/html.formfile.class.php");
 
+require __DIR__ . '/includes/autoload.php';
+use \Ovh\Api;
+
+
 $langs->load("bills");
 $langs->load("orders");
 $langs->load("ovh@ovh");
@@ -442,7 +446,7 @@ if ($action == 'refresh')
 
 
 	    //logout
-	    $soap->logout($session);
+	    if (empty($conf->global->OVH_NEWAPI)) $soap->logout($session);
 
 
 	    // Submit form to launch import
@@ -464,4 +468,4 @@ print '<br><br>';
 llxFooter();
 
 $db->close();
-?>
+

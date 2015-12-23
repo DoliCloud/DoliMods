@@ -127,7 +127,9 @@ class OvhSms  extends CommonObject
 	 */
 	function logout()
 	{
-		$this->soap->logout($this->session);
+	    global $conf;
+	    
+		if (empty($conf->global->OVH_NEWAPI)) $this->soap->logout($this->session);
 		return 1;
 	}
 
