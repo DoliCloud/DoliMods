@@ -89,7 +89,12 @@ $head=ovhadmin_prepare_head();
 dol_htmloutput_mesg($mesg);
 
 
-dol_fiche_head($head, 'getinvoices', $langs->trans("Ovh"));
+
+// Formulaire d'ajout de compte SMS qui sera valable pour tout Dolibarr
+print '<form method="post" action="'.$_SERVER["PHP_SELF"].'">';
+print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
+print '<input type="hidden" name="action" value="setvalue">';
+
 
 if (empty($conf->global->OVH_NEWAPI) && (empty($conf->global->OVHSMS_NICK) || empty($WS_DOL_URL)))
 {
@@ -97,14 +102,11 @@ if (empty($conf->global->OVH_NEWAPI) && (empty($conf->global->OVHSMS_NICK) || em
 }
 else
 {
-    // Formulaire d'ajout de compte SMS qui sera valable pour tout Dolibarr
-    print '<form method="post" action="'.$_SERVER["PHP_SELF"].'">';
-    print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
-    print '<input type="hidden" name="action" value="setvalue">';
-
     $var=true;
 
-    print '<table class="nobordernopadding" width="100%">';
+    dol_fiche_head($head, 'getinvoices', $langs->trans("Ovh"));
+    
+    print '<table class="noborder" width="100%">';
     print '<tr class="liste_titre">';
     print '<td>'.$langs->trans("Parameter").'</td>';
     print '<td>'.$langs->trans("Value").'</td>';
@@ -127,11 +129,17 @@ else
     print '<td>';
     print '</td></tr>';
 
-    print '<tr><td colspan="3" align="center"><input type="submit" class="button" value="'.$langs->trans("Modify").'"></td></tr>';
-    print '</table></form>';
+    print '</table>';
+
+    dol_fiche_end();
+    
+    print '<div class="center"><input type="submit" class="button" value="'.$langs->trans("Modify").'"></div>';
 }
 
+print '</form>';
 
+
+/*
 if ($action == 'preimport')
 {
     $fuser = new User($db);
@@ -272,22 +280,6 @@ if ($action == 'preimport')
                                 file_put_contents($file_name,file_get_contents($url));
                             }
                             //print_r($r->info);
-                            /*
-                            if (dol_move_uploaded_file($_FILES['userfile']['tmp_name'],
-                            $upload_dir . '/' . $_FILES['userfile']['name'],0) > 0)
-                            {
-                            $mesg = '<div
-                            class="ok">'.$langs->trans('FileTransferComplete').'</div>';
-                            //print_r($_FILES);
-                            }
-                            else
-                            {
-                            // Echec transfert (fichier dépassant la limite ?)
-                            $mesg = '<div
-                            class="error">'.$langs->trans('ErrorFileNotUploaded').'</div>';
-                            // print_r($_FILES);
-                            }
-                            */
                         }
                     }
                     $facfou->set_valid($fuser);
@@ -311,7 +303,7 @@ if ($action == 'preimport')
 }
 
 dol_fiche_end();
-
+*/
 
 llxFooter();
 
