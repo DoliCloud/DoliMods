@@ -83,7 +83,7 @@ if ($page == -1) {
 $offset = $conf->liste_limit * $page;
 if (! $sortorder) $sortorder='DESC';
 if (! $sortfield) $sortfield='i.created_date';
-$limit = $conf->liste_limit;
+$limit = GETPOST('limit')?GETPOST('limit','int'):$conf->liste_limit;
 
 $pageprev = $page - 1;
 $pagenext = $page + 1;

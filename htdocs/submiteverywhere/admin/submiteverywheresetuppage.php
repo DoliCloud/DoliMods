@@ -71,7 +71,7 @@ $pagenext = $page + 1;
 if (! $sortfield) $sortfield="label";
 if (! $sortorder) $sortorder="ASC";
 
-$limit = $conf->liste_limit;
+$limit = GETPOST('limit')?GETPOST('limit','int'):$conf->liste_limit;
 
 
 

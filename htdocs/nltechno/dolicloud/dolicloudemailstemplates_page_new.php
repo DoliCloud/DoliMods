@@ -62,7 +62,7 @@ if ($page == -1) {
 $offset = $conf->liste_limit * $page;
 if (! $sortorder) $sortorder='ASC';
 if (! $sortfield) $sortfield='t.emailtype';
-$limit = $conf->liste_limit;
+$limit = GETPOST('limit')?GETPOST('limit','int'):$conf->liste_limit;
 
 // Protection if external user
 if ($user->societe_id > 0)
