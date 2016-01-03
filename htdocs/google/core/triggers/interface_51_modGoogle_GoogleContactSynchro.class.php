@@ -178,39 +178,12 @@ class InterfaceGoogleContactSynchro
 						$this->errors[]=$ret;
 						return -1;
 					}
-					/*
-					$ret = googleCreateContact($client, $object, 'default');
-
-					$object->update_ref_ext($ret);
-					// This is to store ref_ext to allow updates
-
-					return 1;*/
 				}
 				if ($action == 'COMPANY_MODIFY' || $action == 'CONTACT_MODIFY' || $action == 'MEMBER_MODIFY')
 				{
 					$gid = preg_replace('/http:\/\//','https://',$object->ref_ext);
 					if ($gid && preg_match('/google/i', $object->ref_ext)) // This record is linked with Google Contact
 					{
-						/*
-						$ret = googleUpdateContact($client, $gid, $object, 'default');
-
-						if ($ret == '0')// Fails to update because not found, we try to create
-						{
-							$ret = googleCreateContact($client, $object, 'default');
-							//var_dump($ret); exit;
-
-							$object->update_ref_ext($ret);
-							// This is to store ref_ext to allow updates
-						}
-						else if (is_numeric($ret) && $ret < 0)
-						{
-							$this->error='Failed to update google record. Enable module "Log" and check your dolibarr log file.';
-							$this->errors[]=$this->error;
-							return $ret;
-						}
-
-						return 1;*/
-
 						$ret = googleUpdateContact($servicearray, $gid, $object, $userlogin);
 						if ($ret == 0) // Fails to update because not found, we try to create
 						{
@@ -238,15 +211,7 @@ class InterfaceGoogleContactSynchro
 						return 1;
 					}
 					else if ($gid == '')
-					{ 	/*
-						// No google id
-						$ret = googleCreateContact($client, $object, 'default');
-						//var_dump($ret); exit;
-
-						$object->update_ref_ext($ret);
-						// This is to store ref_ext to allow updates
-						 */
-
+					{
 						$ret = googleCreateContact($servicearray, $object, $userlogin);
 						//var_dump($ret); exit;
 

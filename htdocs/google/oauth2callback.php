@@ -55,7 +55,7 @@ $scope = GETPOST('scope');
  */
 
 // Ask token (possible only if inside an oauth google session)
-if (empty($_SESSION['google_web_token']) || $code)		// We are not into a google session (google_web_token empty) or we come from a redirect of Google auth page
+if (empty($_SESSION['google_web_token_'.$conf->entity]) || $code)		// We are not into a google session (google_web_token empty) or we come from a redirect of Google auth page
 {
 	if (! $code)	// If we are not coming from oauth page, we make a redirect to it
 	{
@@ -113,8 +113,8 @@ if (empty($_SESSION['google_web_token']) || $code)		// We are not into a google 
 
 		// Save token into database
 		require_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
-		$res=dolibarr_set_const($db,'GOOGLE_WEB_TOKEN',trim($result['content']),'chaine',0);
-		$_SESSION['google_web_token']=trim($result['content']);
+		$res=dolibarr_set_const($db, 'GOOGLE_WEB_TOKEN', trim($result['content']), 'chaine', 0, '', $conf->entity);
+		$_SESSION['google_web_token_'.$conf->entity]=trim($result['content']);
 		if (! $res > 0) $error++;
 
 	}
@@ -126,7 +126,7 @@ if (empty($_SESSION['google_web_token']) || $code)		// We are not into a google 
 		exit;
 	}
 
-	//	$_SESSION['google_web_token']=$response->access_token;
+	//	$_SESSION['google_web_token_'.$conf->entity]=$response->access_token;
 }
 
 
@@ -138,7 +138,7 @@ if (empty($_SESSION['google_web_token']) || $code)		// We are not into a google 
  * View
  */
 
-$google_web_token = $_SESSION['google_web_token'];
+$google_web_token = $_SESSION['google_web_token_'.$conf->entity];
 
 $max_results = 10;
 

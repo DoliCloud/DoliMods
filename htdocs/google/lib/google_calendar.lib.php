@@ -93,7 +93,7 @@ function getTokenFromWebApp($clientid, $clientsecret)
  *
  * @param	string			$service_account_name		Service account name (Example: '258042696143-s9klbbpj13fb40ac8k5qjajn4e9o1c49@developer.gserviceaccount.com'). Not used for authentication with mode=web.
  * @param	string			$key_file_location			Key file location (Example: 'API Project-69e4673ea29e.p12'). Not used for authentication with mode=web.
- * @param	int				$force_do_not_use_session	1=Do not get token from sessions $_SESSION['google_service_token'] or $_SESSION['google_web_token']
+ * @param	int				$force_do_not_use_session	1=Do not get token from sessions $_SESSION['google_service_token_'.$conf->entity] or $_SESSION['google_web_token_'.$conf->entity]
  * @param	string			$mode						'service' or 'web' (Choose which token to use)
  * @return	array|string								Error message or array with token
  */
@@ -114,28 +114,28 @@ function getTokenFromServiceAccount($service_account_name, $key_file_location, $
 		$client->setClientSecret($conf->global->GOOGLE_API_CLIENT_SECRET);
 		$client->setAccessType('offline');
 
-		if (empty($force_do_not_use_session) && isset($_SESSION['google_web_token']))
+		if (empty($force_do_not_use_session) && isset($_SESSION['google_web_token_'.$conf->entity]))
 		{
-			dol_syslog("Get web token from session. google_web_token=".$_SESSION['google_web_token']);
-			$client->setAccessToken($_SESSION['google_web_token']);
+			dol_syslog("Get web token from session. google_web_token=".$_SESSION['google_web_token_'.$conf->entity]);
+			$client->setAccessToken($_SESSION['google_web_token_'.$conf->entity]);
 		}
-		if ((! isset($_SESSION['google_web_token']) || ! empty($force_do_not_use_session)) && ! empty($conf->global->GOOGLE_WEB_TOKEN))
+		if ((! isset($_SESSION['google_web_token_'.$conf->entity]) || ! empty($force_do_not_use_session)) && ! empty($conf->global->GOOGLE_WEB_TOKEN))
 		{
 			// Look into database
 			// $conf->global->GOOGLE_WEB_TOKEN = '{"access_token":"ya29.iQEPBPUAVLXeVq1-QnC6-SHydA9czPX3ySJ5SjkSo5ZIMfFEl5MTs62no8hZp5jUUsm3QVHTrBg7hw","expires_in":3600,"created":1433463453}';
-			$_SESSION['google_web_token'] = $conf->global->GOOGLE_WEB_TOKEN;
-			dol_syslog("Get service token from database and save into session. google_web_token=".$_SESSION['google_web_token']);
-			$client->setAccessToken($_SESSION['google_web_token']);
+			$_SESSION['google_web_token_'.$conf->entity] = $conf->global->GOOGLE_WEB_TOKEN;
+			dol_syslog("Get service token from database and save into session. google_web_token=".$_SESSION['google_web_token_'.$conf->entity]);
+			$client->setAccessToken($_SESSION['google_web_token_'.$conf->entity]);
 		}
 
-		if (empty($_SESSION['google_web_token']))
+		if (empty($_SESSION['google_web_token_'.$conf->entity]))
 		{
 			return 'GoogleWebTokenNotDefinedDoALoginInitFirst';
 		}
 		else
 		{
-			dol_syslog("getTokenFromServiceAccount set current token to ".$_SESSION['google_web_token'], LOG_DEBUG);
-			$client->setAccessToken($_SESSION['google_web_token']);
+			dol_syslog("getTokenFromServiceAccount set current token to ".$_SESSION['google_web_token_'.$conf->entity], LOG_DEBUG);
+			$client->setAccessToken($_SESSION['google_web_token_'.$conf->entity]);
 		}
 
 		try {
@@ -148,8 +148,8 @@ function getTokenFromServiceAccount($service_account_name, $key_file_location, $
 				if (empty($refreshtoken)) $refreshtoken=$tmp['access_token'];
 				dol_syslog("getTokenFromServiceAccount token seems to be expired, we refresh it with the refresh token = ".$refreshtoken);
 				$client->refreshToken($refreshtoken);
-				$_SESSION['google_web_token']= $client->getAccessToken();
-				dol_syslog("getTokenFromServiceAccount new token in session is now ".$_SESSION['google_web_token'], LOG_DEBUG);
+				$_SESSION['google_web_token_'.$conf->entity]= $client->getAccessToken();
+				dol_syslog("getTokenFromServiceAccount new token in session is now ".$_SESSION['google_web_token_'.$conf->entity], LOG_DEBUG);
 			}
 			else dol_syslog("getTokenFromServiceAccount token not expired", LOG_DEBUG);
 		}
@@ -171,10 +171,10 @@ function getTokenFromServiceAccount($service_account_name, $key_file_location, $
 		  we have to list them manually. We also supply
 		  the service account
 		 ************************************************/
-		if (empty($force_do_not_use_session) && isset($_SESSION['google_service_token']))
+		if (empty($force_do_not_use_session) && isset($_SESSION['google_service_token_'.$conf->entity]))
 		{
-			dol_syslog("Get service token from session. service_token=".$_SESSION['google_service_token']);
-			$client->setAccessToken($_SESSION['google_service_token']);
+			dol_syslog("Get service token from session. service_token=".$_SESSION['google_service_token_'.$conf->entity]);
+			$client->setAccessToken($_SESSION['google_service_token_'.$conf->entity]);
 		}
 
 		dol_syslog("getTokenFromServiceAccount service_account_name=".$service_account_name." key_file_location=".$key_file_location." force_do_not_use_session=".$force_do_not_use_session, LOG_DEBUG);
@@ -205,20 +205,20 @@ function getTokenFromServiceAccount($service_account_name, $key_file_location, $
 
 	if ($mode == 'web')
 	{
-		$_SESSION['google_web_token'] = $client->getAccessToken();	// Overwrite session with correct token
+		$_SESSION['google_web_token_'.$conf->entity] = $client->getAccessToken();	// Overwrite session with correct token
 
-		dol_syslog("getTokenFromServiceAccount Return client name = ".$client->getApplicationName()." google_web_token = ".$_SESSION['google_web_token'], LOG_INFO);
+		dol_syslog("getTokenFromServiceAccount Return client name = ".$client->getApplicationName()." google_web_token = ".$_SESSION['google_web_token_'.$conf->entity], LOG_INFO);
 		dol_syslog("getTokenFromServiceAccount getBasePath = ".$client->getBasePath(), LOG_DEBUG);
 	}
 	if ($mode == 'service')
 	{
-		$_SESSION['google_service_token'] = $client->getAccessToken();	// Overwrite session with correct token
+		$_SESSION['google_service_token_'.$conf->entity] = $client->getAccessToken();	// Overwrite session with correct token
 
-		dol_syslog("getTokenFromServiceAccount Return client name = ".$client->getApplicationName()." google_service_token = ".$_SESSION['google_service_token'], LOG_INFO);
+		dol_syslog("getTokenFromServiceAccount Return client name = ".$client->getApplicationName()." google_service_token = ".$_SESSION['google_service_token_'.$conf->entity], LOG_INFO);
 		dol_syslog("getTokenFromServiceAccount getBasePath = ".$client->getBasePath(), LOG_DEBUG);
 	}
 
-	return array('client'=>$client, 'google_service_token'=>$_SESSION['google_service_token'], 'google_web_token'=>$_SESSION['google_web_token']);
+	return array('client'=>$client, 'google_service_token'=>$_SESSION['google_service_token_'.$conf->entity], 'google_web_token'=>$_SESSION['google_web_token_'.$conf->entity]);
 }
 
 

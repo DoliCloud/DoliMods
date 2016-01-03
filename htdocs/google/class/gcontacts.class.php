@@ -577,7 +577,7 @@ class GContact
      */
     public static function getDolibarrContactsGoogleIDS($gdata, $pattern, $type)
     {
-    	global $tag_debug;
+    	global $conf, $tag_debug;
 
         dol_syslog(get_class().'::getDolibarrContactsGoogleIDS');
 
