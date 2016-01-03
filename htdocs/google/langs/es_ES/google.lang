@@ -94,5 +94,5 @@ MoreCloudHostingLink=<a target="_blank" href="http://www.dolicloud.com">Haga cli
 CompatibleWithDoliDroid=Este módulo es compatible con DoliDroid, la app Android para Dolibarr.
 LinkToThirdParty=Enlace a terceros
 LinkToContact=Enlace a contactos
-GoogleContactSyncInfo=Use una etiqueta de grupo a su gusto. El grupo se creará en los contactos de Google si no existe. Puede usar una de las etiquetas de grupos predefinidas por Google, como: <br>"System Group: My Contacts", "System Group: Friend", "System Group: CoWorker", "System Group: Family"<br>Tenga en cuenta que solamente el grupo predefinido "System Group: My Contacts" es compartido por la función "Delegación de contactos" de contactos de Google (Google Apps Business/Pro).
+GoogleContactSyncInfo=Use una etiqueta de grupo a su gusto. El grupo se creará en los contactos de Google si no existe. Puede usar una de las etiquetas de grupos predefinidas por Google, como: <br>"System Group: My Contacts", "System Group: Friend", "System Group: CoWorker", "System Group: Family"<br>Tenga en cuenta que solamente el grupo predefinido "System Group: My Contacts" es compartido por la función "Delegación de contactos" de contactos de Google (Google Apps for Work).
 XRecordDeleted=<strong>%s</strong> registros eliminados
