@@ -991,7 +991,7 @@ class ActionsMulticompany
 
 			$out.= '<div id="dialog-switchentity" class="hideobject" title="'.$langs->trans('SwitchToAnotherEntity').'">'."\n";
 			$out.= '<br>'.$langs->trans('SelectAnEntity').': ';
-			$out.= ajax_combobox('entity');
+			// FIX LDR $out.= ajax_combobox('entity');
 			$out.= $this->select_entities($conf->entity)."\n";
 			$out.= '</div>'."\n";
 		}
