@@ -19,7 +19,7 @@ include_once(DOL_DOCUMENT_ROOT ."/core/modules/DolibarrModules.class.php");
 /**
  * Description and activation class for module WebMail
  */
-class modWebMail extends DolibarrModules
+class modWebMailR extends DolibarrModules
 {
 
 	/**
@@ -65,7 +65,7 @@ class modWebMail extends DolibarrModules
 		//							'menus' => 0,                                    // Set this to 1 if module has its own menus handler directory
 		//							'barcode' => 0,                                  // Set this to 1 if module has its own barcode directory
 		//							'models' => 0,                                   // Set this to 1 if module has its own models directory
-									'css' => '/webmail/css/webmail.css.php',         // Set this to relative path of css if module has its own css file
+									'css' => '/webmailr/css/webmail.css.php',         // Set this to relative path of css if module has its own css file
 		//							'hooks' => array('hookcontext1','hookcontext2')  // Set here all hooks context managed by module
 		);
 
@@ -80,7 +80,7 @@ class modWebMail extends DolibarrModules
 		$this->requiredby = array();	// List of modules id to disable if this one is disabled
 		$this->phpmin = array(5,0);					// Minimum version of PHP required by module
 		$this->need_dolibarr_version = array(3,1,-2);	// Minimum version of Dolibarr required by module
-		$this->langfiles = array("webmail@webmail");
+		$this->langfiles = array("webmail@webmailr");
 
 		// Constants
 		$this->const = array();			// List of parameters
