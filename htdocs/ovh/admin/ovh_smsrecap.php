@@ -70,7 +70,7 @@ llxHeader('',$langs->trans('OvhSmsRecap'),'','');
 
 $linkback='<a href="'.dol_buildpath('/ovh/admin/ovh_sms_setup.php',1).'">'.$langs->trans("OvhSmsBackToAdmin").'</a>';
 print_fiche_titre($langs->trans("OvhSmsRecap"),$linkback,'setup');
-
+print '<br>';
 
 $var=true;
 
@@ -81,7 +81,7 @@ if (! empty($sms))  // Do not use here sms > 0 as a constructor return an object
     //telephonySmsAccountList
     $telephonySmsAccountList = $sms->getSmsListAccount($sms->session);
 
-    print '<table class="nobordernopadding" width="100%">';
+    print '<table class="liste     centpercent" width="100%">';
     print '<tr class="liste_titre"><td>'.$langs->trans("Account").'</td>';
     print '<td>'.$langs->trans("SendersAllowed").'</td>';
     print '<td align="right">'.$langs->trans("NbSmsLeft").'</td>';
@@ -96,7 +96,7 @@ if (! empty($sms))  // Do not use here sms > 0 as a constructor return an object
         print '</td>';
         print '<td>';
         $sms->account=$accountlisted;
-        $result=$sms->SmsSenderList($account);
+        $result=$sms->SmsSenderList();
         $i=0;
         foreach($result as $val)
         {
@@ -118,8 +118,7 @@ if (! empty($sms))  // Do not use here sms > 0 as a constructor return an object
 
     if (!empty($account))
     {
-        $nbenvoi = '29';
-        $nbenvoi2 = $nbenvoi+1;
+        // $stopafternbenvoi = 0;        
 
         //telephonySmsHistory
         print '<br>';
@@ -129,7 +128,7 @@ if (! empty($sms))  // Do not use here sms > 0 as a constructor return an object
         rsort($resulthistory);
         //print_r($resulthistory); // your code here ...
 
-        print '<table class="nobordernopadding">';
+        print '<table class="liste centpercent">';
         print '<tr class="liste_titre">';
         //echo '<td>ID</td>';
         echo '<th class="liste_titre">'.$langs->trans("Date").'</th>';
@@ -180,8 +179,8 @@ if (! empty($sms))  // Do not use here sms > 0 as a constructor return an object
             echo '</td>';
             echo '</tr>';
 
-            if ($i==$nbenvoi) {break;}
             $i++;
+            if ($i == $stopafternbenvoi) {break;}
         }
         print '</table>';
 

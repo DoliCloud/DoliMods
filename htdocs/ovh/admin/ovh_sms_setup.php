@@ -203,8 +203,6 @@ print_fiche_titre($langs->trans("OvhSmsSetup"),$linkback,'setup');
 
 $head=ovhadmin_prepare_head();
 
-dol_fiche_head($head, 'sms', $langs->trans("Ovh"));
-
 if (empty($conf->global->OVH_NEWAPI) && (empty($conf->global->OVHSMS_NICK) || empty($WS_DOL_URL)))
 {
     echo '<div class="warning">'.$langs->trans("OvhSmsNotConfigured").'</div>';
@@ -218,9 +216,12 @@ else
     print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
     print '<input type="hidden" name="action" value="setvalue_account">';
 
+    dol_fiche_head($head, 'sms', $langs->trans("Ovh"));
+    
     $var=true;
 
-    print '<table class="nobordernopadding" width="100%">';
+    print '<table class="noborder" width="100%">';
+    
     print '<tr class="liste_titre">';
     print '<td width="200px">'.$langs->trans("Parameter").'</td>';
     print '<td>'.$langs->trans("Value").'</td>';
@@ -237,12 +238,16 @@ else
 
     print '</td></tr>';
 
-    print '<tr><td colspan="3" align="center"><input type="submit" class="button" value="'.$langs->trans("Modify").'"></td></tr>';
-    print '</table></form>';
+    print '</table>';
 
     dol_fiche_end();
 
-
+    print '<div class="center"><input type="submit" class="button" value="'.$langs->trans("Modify").'"></div>';
+    
+    print '</form>';
+    
+    
+    
     if ($action != 'testsms')
     {
         print '<br>';

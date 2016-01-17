@@ -14,15 +14,20 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * 
+ * https://www.ovh.com/fr/soapi-to-apiv6-migration/
  */
 
 /**
  *      \file       ovh/class/ovhsms.class.php
  *      \ingroup    ovh
  *      \brief      This file allow to send sms with an OVH account
- *		\author		Jean-François FERRY
  */
 require_once(NUSOAP_PATH.'/nusoap.php');
+
+require __DIR__ . '/../includes/autoload.php';
+use \Ovh\Api;
+
 
 /**
  *		Use an OVH account to send SMS with Dolibarr
@@ -44,7 +49,10 @@ class OvhSms  extends CommonObject
 	var $class;
 	var $deferred;
 	var $priority;
-
+	
+	var $soap;         // Old API
+	var $conn;         // New API
+    var $endpoint;
 
 	/**
      *	Constructor
@@ -63,61 +71,89 @@ class OvhSms  extends CommonObject
 		$this->priority = '3';    // the priority of the message (0 to 3), default is 3
 		// Set the WebService URL
 		dol_syslog(get_class($this)."::OvhSms URL=".$conf->global->OVHSMS_SOAPURL);
-
-		if (! empty($conf->global->OVHSMS_SOAPURL))
+		if (empty($conf->global->OVH_NEWAPI))
 		{
-			require_once(DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php');
-			$params=getSoapParams();
-			ini_set('default_socket_timeout', $params['response_timeout']);
-
-			//if ($params['proxy_use']) print $langs->trans("TryToUseProxy").': '.$params['proxy_host'].':'.$params['proxy_port'].($params['proxy_login']?(' - '.$params['proxy_login'].':'.$params['proxy_password']):'').'<br>';
-			//print 'URL: '.$WS_DOL_URL.'<br>';
-			//print $langs->trans("ConnectionTimeout").': '.$params['connection_timeout'].'<br>';
-			//print $langs->trans("ResponseTimeout").': '.$params['response_timeout'].'<br>';
-
-			$err=error_reporting();
-			error_reporting(E_ALL);     // Enable all errors
-
-			try {
-				$this->soap = new SoapClient($conf->global->OVHSMS_SOAPURL,$params);
-
-				$language = "en";
-				$multisession = false;
-
-				$this->session = $this->soap->login($conf->global->OVHSMS_NICK, $conf->global->OVHSMS_PASS,$language,$multisession);
-				//if ($this->session) print '<div class="ok">'.$langs->trans("OvhSmsLoginSuccessFull").'</div><br>';
-				//else print '<div class="error">Error login did not return a session id</div><br>';
-				$this->soapDebug();
-
-				// On mémorise le compe sms associé
-				$this->account = empty($conf->global->OVHSMS_ACCOUNT)?'ErrorNotDefined':$conf->global->OVHSMS_ACCOUNT;
-
-				return 1;
-
-			}
-			catch(SoapFault $se) {
-				error_reporting($err);     // Restore default errors
-				dol_syslog(get_class($this).'::SoapFault: '.$se, LOG_ERR);
-				//var_dump('eeeeeeee');exit;
-				return 0;
-			}
-			catch (Exception $ex) {
-				error_reporting($err);     // Restore default errors
-				dol_syslog(get_class($this).'::SoapFault: '.$ex, LOG_ERR);
-				//var_dump('eeeeeeee');exit;
-				return 0;
-			}
-			catch (Error $e) {
-				error_reporting($err);     // Restore default errors
-				dol_syslog(get_class($this).'::SoapFault: '.$e, LOG_ERR);
-				//var_dump('eeeeeeee');exit;
-				return 0;
-			}
-			error_reporting($err);     // Restore default errors
-
-			return 1;
+		    if (! empty($conf->global->OVHSMS_SOAPURL))
+    		{
+        		require_once(DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php');
+        		$params=getSoapParams();
+        		ini_set('default_socket_timeout', $params['response_timeout']);
+    
+    		    //if ($params['proxy_use']) print $langs->trans("TryToUseProxy").': '.$params['proxy_host'].':'.$params['proxy_port'].($params['proxy_login']?(' - '.$params['proxy_login'].':'.$params['proxy_password']):'').'<br>';
+    			//print 'URL: '.$WS_DOL_URL.'<br>';
+    			//print $langs->trans("ConnectionTimeout").': '.$params['connection_timeout'].'<br>';
+    			//print $langs->trans("ResponseTimeout").': '.$params['response_timeout'].'<br>';
+    
+    			$err=error_reporting();
+    			error_reporting(E_ALL);     // Enable all errors
+    
+    			try {
+    				$this->soap = new SoapClient($conf->global->OVHSMS_SOAPURL,$params);
+    
+    				$language = "en";
+    				$multisession = false;
+    
+    				$this->session = $this->soap->login($conf->global->OVHSMS_NICK, $conf->global->OVHSMS_PASS,$language,$multisession);
+    				//if ($this->session) print '<div class="ok">'.$langs->trans("OvhSmsLoginSuccessFull").'</div><br>';
+    				//else print '<div class="error">Error login did not return a session id</div><br>';
+    				$this->soapDebug();
+    
+    				// We save known SMS account
+    				$this->account = empty($conf->global->OVHSMS_ACCOUNT)?'ErrorNotDefined':$conf->global->OVHSMS_ACCOUNT;
+    
+    				return 1;
+    
+    			}
+    			catch(SoapFault $se) {
+    				error_reporting($err);     // Restore default errors
+    				dol_syslog(get_class($this).'::SoapFault: '.$se, LOG_ERR);
+    				//var_dump('eeeeeeee');exit;
+    				return 0;
+    			}
+    			catch (Exception $ex) {
+    				error_reporting($err);     // Restore default errors
+    				dol_syslog(get_class($this).'::SoapFault: '.$ex, LOG_ERR);
+    				//var_dump('eeeeeeee');exit;
+    				return 0;
+    			}
+    			catch (Error $e) {
+    				error_reporting($err);     // Restore default errors
+    				dol_syslog(get_class($this).'::SoapFault: '.$e, LOG_ERR);
+    				//var_dump('eeeeeeee');exit;
+    				return 0;
+    			}
+    			error_reporting($err);     // Restore default errors
+    
+    			return 1;
+    		}
+    		else return 0;
 		}
-		else return 0;
+		else
+		{
+		    $endpoint = empty($conf->global->OVH_ENDPOINT)?'ovh-eu':$conf->global->OVH_ENDPOINT;
+		    $this->endpoint = $endpoint;
+		    
+        	require_once(DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php');
+        	$params=getSoapParams();
+        	ini_set('default_socket_timeout', $params['response_timeout']);
+        	 
+		    try
+		    {
+		        // Get servers list
+		        $this->conn = new Api($conf->global->OVHAPPKEY, $conf->global->OVHAPPSECRET, $endpoint, $conf->global->OVHCONSUMERKEY);
+
+    			// We save known SMS account
+    			$this->account = empty($conf->global->OVHSMS_ACCOUNT)?'ErrorNotDefined':$conf->global->OVHSMS_ACCOUNT;
+		    }
+		    catch(Exception $e)
+		    {
+		        $this->error=$e->getMessage();
+		        setEventMessages($this->error, null, 'errors');
+		        return 0;
+		    }
+		    
+		    return 1;
+	    }
 	}
 
 	/**
@@ -137,16 +173,81 @@ class OvhSms  extends CommonObject
 	/**
 	 * Send SMS
 	 *
-	 * @return	void
+	 * @return	int     <=0 if error, >0 if OK
 	 */
 	function SmsSend()
 	{
+	    global $conf;
+	    
 		try
 		{
-			// print "$this->session, $this->account, $this->expe, $this->dest, $this->message, $this->validity, $this->class, $this->deferred, $this->priority";
-			$resultsend = $this->soap->telephonySmsSend($this->session, $this->account, $this->expe, $this->dest, $this->message, $this->validity, $this->class, $this->deferred, $this->priority, 2, 'Dolibarr');
-			$this->soapDebug();
-			return $resultsend;
+		    if (empty($conf->global->OVH_NEWAPI))
+		    {
+    		    // print "$this->session, $this->account, $this->expe, $this->dest, $this->message, $this->validity, $this->class, $this->deferred, $this->priority";
+    			$resultsend = $this->soap->telephonySmsSend($this->session, $this->account, $this->expe, $this->dest, $this->message, $this->validity, $this->class, $this->deferred, $this->priority, 2, 'Dolibarr');
+    			$this->soapDebug();
+    			return $resultsend;
+		    }
+		    else
+		    {
+		        $priority=$this->priority;    // high
+		        if ($priority == '0') $priority='high';
+		        if ($priority == '1') $priority='medium';
+		        if ($priority == '2') $priority='low';
+		        if ($priority == '3') $priority='veryLow';
+		        
+		        $smsclass = $this->class;
+		        if ($smsclass == 0) $smsclass='flash';
+		        if ($smsclass == 1) $smsclass='phoneDisplay';
+		        if ($smsclass == 2) $smsclass='sim';
+		        if ($smsclass == 3) $smsclass='toolkit';
+		        
+		        $content = (object) array(
+		            "differedPeriod" => $this->deferred,  // time in minutes
+		            "charset"=> "UTF-8",
+		            "class"=> $smsclass,           // "phoneDisplay",
+		            "coding"=> "7bit",
+		            "message"=> $this->message,
+		            "noStopClause"=> false,
+		            "priority"=> $priority,
+		            "receivers"=> [ $this->dest ],   // [ "+3360000000" ]
+		            "sender"=> $this->expe,
+		            "senderForResponse"=> false,
+		            "validityPeriod"=> $this->validity    // 28800
+                );
+		        //var_dump($content);exit;
+		        try
+		        {
+		            //var_dump($content);
+    		        $resultPostJob = $this->conn->post('/sms/'. $this->account . '/jobs/', $content);
+    		        /*$resultPostJob = Array
+    		        (
+    		            [totalCreditsRemoved] => 1
+    		            [invalidReceivers] => Array
+    		            (
+    		                )
+    		        
+    		            [ids] => Array
+    		            (
+    		                [0] => 26929925
+    		                )
+    		        
+    		            [validReceivers] => Array
+    		            (
+    		                [0] => +3366204XXXX
+    		                )
+    		        
+    		            )*/
+    		        //var_dump($resultPostJob);
+    		        if ($resultPostJob['totalCreditsRemoved'] > 0) return 1;
+    		        else return -1;
+		        }
+		        catch(Exception $e)
+		        {
+		            $this->error=$e->getMessage();
+		            return -1;		            
+		        }
+		    }
 		}
 		catch(SoapFault $fault)
 		{
@@ -179,10 +280,22 @@ class OvhSms  extends CommonObject
 	 */
 	function getSmsListAccount()
 	{
+	    global $conf;
+	    
 		try {
-			$returnList = $this->soap->telephonySmsAccountList($this->session);
-			$this->soapDebug();
-			return $returnList;
+		    if (empty($conf->global->OVH_NEWAPI))
+		    {
+    		    $returnList = $this->soap->telephonySmsAccountList($this->session);
+    			$this->soapDebug();
+    			return $returnList;
+		    }
+		    else
+		    {
+		        //var_dump($this->conn);
+		        $resultinfo = $this->conn->get('/sms');
+		        $resultinfo = dol_json_decode(dol_json_encode($resultinfo), true);
+		        return $resultinfo;
+		    }
 		}
 		catch(SoapFault $fault) {
 			$errmsg="Error ".$fault->faultstring;
@@ -199,10 +312,22 @@ class OvhSms  extends CommonObject
 	 */
 	function CreditLeft()
 	{
+	    global $conf;
+	    
 		try {
-			$returnList = $this->soap->telephonySmsCreditLeft($this->session, $this->account);
-			$this->soapDebug();
-			return $returnList;
+		    if (empty($conf->global->OVH_NEWAPI))
+		    {
+    		    $returnList = $this->soap->telephonySmsCreditLeft($this->session, $this->account);
+    			$this->soapDebug();
+    			return $returnList;
+		    }
+		    else
+		    {
+		        //var_dump($this->conn);
+		        $resultinfo = $this->conn->get('/sms/'.$this->account);
+		        $resultinfo = dol_json_decode(dol_json_encode($resultinfo), false);
+		        return $resultinfo->creditsLeft;		        
+		    }
 		}
 		catch(SoapFault $fault) {
 			$errmsg="Error ".$fault->faultstring;
@@ -219,10 +344,21 @@ class OvhSms  extends CommonObject
 	 */
 	function SmsHistory()
 	{
+	    global $conf;
+	    
 		try {
-			$returnList = $this->soap->telephonySmsHistory($this->session, $this->account, "");
-			$this->soapDebug();
-			return $returnList;
+		    if (empty($conf->global->OVH_NEWAPI))
+		    {
+    		    $returnList = $this->soap->telephonySmsHistory($this->session, $this->account, "");
+    			$this->soapDebug();
+    			return $returnList;
+		    }
+		    else
+		    {
+		        $resultinfo = $this->conn->get('/sms/'.$this->account.'/outgoing');
+		        $resultinfo = dol_json_decode(dol_json_encode($resultinfo), true);
+		        return $resultinfo;		        
+		    }
 		}
 		catch(SoapFault $fault) {
 			$errmsg="Error ".$fault->faultstring;
@@ -236,14 +372,33 @@ class OvhSms  extends CommonObject
 	/**
 	 * Return list of possible SMS senders
 	 *
-	 * @return int	<0 if KO, >0 if OK
+	 * @return array|int	                    <0 if KO, array with list of available senders if OK
 	 */
 	function SmsSenderList()
 	{
+	    global $conf;
+	    
 		try {
-			$telephonySmsSenderList = $this->soap->telephonySmsSenderList($this->session, $this->account);
-			$this->soapDebug();
-			return $telephonySmsSenderList;
+		    if (empty($conf->global->OVH_NEWAPI))
+		    {
+    		    $telephonySmsSenderList = $this->soap->telephonySmsSenderList($this->session, $this->account);
+    			$this->soapDebug();
+    			return $telephonySmsSenderList;
+		    }
+		    else
+		    {
+		        $resultinfo = $this->conn->get('/sms/'.$this->account.'/senders');
+		        //var_dump($resultinfo);
+		        $i=0;
+		        $senderlist=array();
+		        foreach($resultinfo as $key => $val)
+		        {
+                    $senderlist[$i] = new stdClass();
+                    $senderlist[$i]->number=$val;
+                    $i++;
+		        }
+		        return $senderlist;		        
+		    }
 		}
 		catch(SoapFault $fault) {
 			$errmsg="Error ".$fault->faultstring;
@@ -269,4 +424,3 @@ class OvhSms  extends CommonObject
 		if (method_exists($this->soap,'__getLastResponse')) dol_syslog(get_class($this).'::OvhSms RESPONSE: ' . $this->soap->__getLastResponse(), LOG_DEBUG, 0, '_ovhsms');
 	}
 }
-?>

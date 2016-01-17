@@ -36,7 +36,7 @@ function ovhadmin_prepare_head()
 	$head = array();
 
 	$head[$h][0] = dol_buildpath("/ovh/admin/ovh_setup.php",1);
-	$head[$h][1] = $langs->trans("Common");
+	$head[$h][1] = $langs->trans("Authentication");
 	$head[$h][2] = 'common';
 	$h++;
 

@@ -213,7 +213,7 @@ if (! empty($conf->global->OVH_NEWAPI))
     print $langs->trans("ListOfExistingAPIApp", 'https://eu.api.ovh.com/console/#/me/api/application#GET', 'https://eu.api.ovh.com/console/#/me/api/application#GET').' (first log in on top right corner)<br><br>';
 }
 
-print '<table class="nobordernopadding" width="100%">';
+print '<table class="noborder" width="100%">';
 
 if (empty($conf->global->OVH_NEWAPI))
 {

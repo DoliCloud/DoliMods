@@ -187,7 +187,8 @@ else
             }
             catch(Exception $e)
             {
-                setEventMessages($e->getMessage(), null, 'errors');
+                $this->error=$e->getMessage();
+                setEventMessages($this->error, null, 'errors');
             }
         }
         
