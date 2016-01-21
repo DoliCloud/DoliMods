@@ -14,6 +14,8 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * 
+ * https://www.ovh.com/fr/soapi-to-apiv6-migration/
  */
 
 /**
@@ -66,30 +68,11 @@ $endpoint = empty($conf->global->OVH_ENDPOINT)?'ovh-eu':$conf->global->OVH_ENDPO
  * Actions
  */
 
-if ($action == 'setvalue' && $user->admin)
-{
-    //$result=dolibarr_set_const($db, "PAYBOX_IBS_DEVISE",$_POST["PAYBOX_IBS_DEVISE"],'chaine',0,'',$conf->entity);
-    $result=dolibarr_set_const($db, "OVHSMS_NICK",$_POST["OVHSMS_NICK"],'chaine',0,'',$conf->entity);
-    $result=dolibarr_set_const($db, "OVHSMS_PASS",$_POST["OVHSMS_PASS"],'chaine',0,'',$conf->entity);
-    $result=dolibarr_set_const($db, "OVHSMS_SOAPURL",$_POST["OVHSMS_SOAPURL"],'chaine',0,'',$conf->entity);
-
-
-    if ($result >= 0)
-    {
-        $mesg='<div class="ok">'.$langs->trans("SetupSaved").'</div>';
-    }
-    else
-    {
-        dol_print_error($db);
-    }
-}
-
-
-
 if ($action == 'setvalue_account' && $user->admin)
 {
-    $result=dolibarr_set_const($db, "OVHSMS_ACCOUNT",$_POST["OVHSMS_ACCOUNT"],'chaine',0,'',$conf->entity);
-
+    $result=dolibarr_set_const($db, "OVHC2C_ACCOUNT",$_POST["OVHC2C_ACCOUNT"],'chaine',0,'',$conf->entity);
+    $result=dolibarr_set_const($db, "OVHSN_ACCOUNT",$_POST["OVHSN_ACCOUNT"],'chaine',0,'',$conf->entity);
+    
     if ($result >= 0)
     {
         $mesg='<div class="ok">'.$langs->trans("SetupSaved").'</div>';
@@ -110,7 +93,7 @@ if ($action == 'setvalue_account' && $user->admin)
 $WS_DOL_URL = $conf->global->OVHSMS_SOAPURL;
 dol_syslog("Will use URL=".$WS_DOL_URL, LOG_DEBUG);
 
-$login = $conf->global->OVHSMS_NICK;
+$login = $conf->global->OVHC2C_ACCOUNT;
 $password = $conf->global->OVH_SMS_PASS;
 
 llxHeader('',$langs->trans('OvhSmsSetup'),'','');
@@ -121,37 +104,85 @@ print_fiche_titre($langs->trans("OvhSmsSetup"),$linkback,'setup');
 
 $head=ovhadmin_prepare_head();
 
-dol_fiche_head($head, 'click2dial', $langs->trans("Ovh"));
-
 if ($mesg)
 {
     if (preg_match('/class="error"/',$mesg)) dol_htmloutput_mesg($mesg,'','error');
     else
     {
-        dol_htmloutput_mesg($mesg,'','ok',1);
-        print '<br>';
+        setEventMessages($mesg,null,'mesgs');
     }
 }
 
 
-if (empty($conf->global->OVH_NEWAPI) && (empty($conf->global->OVHSMS_NICK) || empty($WS_DOL_URL)))
+if (empty($conf->global->OVH_NEWAPI) && (empty($conf->global->OVHC2C_ACCOUNT) || empty($WS_DOL_URL)))
 {
     echo '<div class="warning">'.$langs->trans("OvhSmsNotConfigured").'</div>';
 }
 else
 {
+   // Formulaire d'ajout de compte SMS qui sera valable pour tout Dolibarr
+    print '<form method="post" action="'.$_SERVER["PHP_SELF"].'">';
+    print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
+    print '<input type="hidden" name="action" value="setvalue_account">';
+    
+    
+    dol_fiche_head($head, 'click2dial', $langs->trans("Ovh"));
+   
+    
+    print '<table class="noborder" width="100%">';
+    
+    print '<tr class="liste_titre">';
+    print '<td width="200px">'.$langs->trans("Parameter").'</td>';
+    print '<td>'.$langs->trans("Value").'</td>';
+    print '<td>&nbsp;</td>';
+    print "</tr>\n";
+    
+    
+    $var=!$var;
+    print '<tr '.$bc[$var].'><td class="fieldrequired">';
+    print $langs->trans("OvhBillingAccount").'</td><td>';
+    print '<input size="64" type="text" name="OVHC2C_ACCOUNT" value="'.$conf->global->OVHC2C_ACCOUNT.'">';
+    print '<br>'.$langs->trans("Example").': nh123-ovh-1';
+    //print '<td>'.'<a href="ovh_smsrecap.php" target="_blank">'.$langs->trans("ListOfSmsAccountsForNH").'</a>';
+    print '</td></tr>';
+
+    $var=!$var;
+    print '<tr '.$bc[$var].'><td class="fieldrequired">';
+    print $langs->trans("OvhServiceName").'</td><td>';
+    print '<input size="64" type="text" name="OVHSN_ACCOUNT" value="'.$conf->global->OVHSN_ACCOUNT.'">';
+    //print '<br>'.$langs->trans("Example").': nh123-ovh-1';
+    //print '<td>'.'<a href="ovh_smsrecap.php" target="_blank">'.$langs->trans("ListOfSmsAccountsForNH").'</a>';
+    print '</td></tr>';
+    
+    print '</table>';    
+    
+    
     print '<br>';
 
     // Show message
     $message='';
-    $url='<a href="'.dol_buildpath('/ovh/wrapper.php?login=__LOGIN__&password=__PASS__&caller=__PHONEFROM__&called=__PHONETO__',2).'" target="_blank">'.dol_buildpath('/ovh/wrapper.php?login=__LOGIN__&password=__PASS__&caller=__PHONEFROM__&called=__PHONETO__',2).'</a>';
+    
+    $tmpurl='/ovh/wrapper.php?login=__LOGIN__&password=__PASS__&caller=__PHONEFROM__&called=__PHONETO__';
+    if (! empty($conf->global->OVH_NEWAPI)) 
+    {
+        $tmpurl.='&billingaccount='.$conf->global->OVHC2C_ACCOUNT.'&servicename='.$conf->global->OVHSN_ACCOUNT;
+    }
+        
+    $url='<a href="'.dol_buildpath($tmpurl,2).'" target="_blank">'.dol_buildpath($tmpurl,2).'</a>';
     $message.=img_picto('','object_globe.png').' '.$langs->trans("ClickToDialLink",'OVH',$url);
     $message.='<br>';
     $message.='<br>';
     print $message;
+
+    
+    dol_fiche_end();
+    
+    print '<div class="center"><input type="submit" class="button" value="'.$langs->trans("Modify").'"></div>';
+    
+    print '</form>';
+    
 }
 
-dol_fiche_end();
 
 
 llxFooter();

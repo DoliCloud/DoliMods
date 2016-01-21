@@ -13,6 +13,8 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * 
+ * https://www.ovh.com/fr/soapi-to-apiv6-migration/
  */
 
 /**
@@ -36,7 +38,7 @@ if (! defined('NOREQUIREAJAX'))   define('NOREQUIREAJAX','1');
 function llxHeader() {
     print '<html>'."\n";
     print '<head>'."\n";
-    print '<title>OVH redirection from Dolibarr...</title>'."\n";
+    print '<title>OVH redirection from Dolibarr - file ovh/wrapper.php ...</title>'."\n";
     print '</head>'."\n";
 }
 
@@ -79,13 +81,27 @@ $password = GETPOST('password');
 //$password=$conf->global->OVHSMS_PASS;
 $caller = str_replace(' ','',GETPOST('caller'));
 $called = str_replace(' ','',GETPOST('called'));
+$billingAccount = str_replace(' ','',GETPOST('billingaccount'));
+$serviceName = str_replace(' ','',GETPOST('servicename'));
 
-if (empty($conf->global->OVHSMS_SOAPURL))
+if (empty($conf->global->OVH_NEWAPI))
 {
-    $langs->load("errors");
-    $mesg='<div class="error">'.$langs->trans("ErrorModuleSetupNotComplete").'</div>';
+    if (empty($conf->global->OVHSMS_SOAPURL))
+    {
+        $langs->load("errors");
+        $mesg='<div class="error">'.$langs->trans("ErrorModuleSetupNotComplete").'</div>';
+    }
+    else $wsdlovh = $conf->global->OVHSMS_SOAPURL;
 }
-else $wsdlovh = $conf->global->OVHSMS_SOAPURL;
+else
+{
+    if (empty($conf->global->OVHCONSUMERKEY))
+    {
+        print '<div class="error">'.$langs->trans("ErrorModuleSetupNotComplete").'</div>';
+        llxFooter();
+        exit;
+    }
+}
 
 // Delai d'attente avant de raccrocher
 $strWaitTime = "30";
@@ -94,6 +110,8 @@ $strPriority = "1";
 // Nomber of try
 $strMaxRetry = "2";
 
+$endpoint = empty($conf->global->OVH_ENDPOINT)?'ovh-eu':$conf->global->OVH_ENDPOINT;
+
 
 /*
  * View
@@ -101,11 +119,14 @@ $strMaxRetry = "2";
 
 llxHeader();
 
-if (empty($login))
+if (empty($conf->global->OVH_NEWAPI))
 {
-    print '<div class="error">'.$langs->trans("ErrorClickToDialForUserNotDefined").'</div>';
-    llxFooter();
-    exit;
+    if (empty($login))
+    {
+        print '<div class="error">'.$langs->trans("ErrorClickToDialForUserNotDefined").'</div>';
+        llxFooter();
+        exit;
+    }
 }
 
 $number=strtolower($called);
@@ -120,18 +141,22 @@ if (! empty($number))
     $strCallerId = "Dolibarr <".strtolower($caller).">" ;
 
     try {
-        $soap = new SoapClient($wsdlovh);
-
-        $soap->telephonyClick2CallDo($login, $password, $caller, $number, $caller);
-
-        $txt="Call OVH SIP dialer for caller: ".$caller.", called: ".$called." clicktodiallogin: ".$login;
+        if (empty($conf->global->OVH_NEWAPI))
+        {
+            $soap = new SoapClient($wsdlovh);
+    
+            $soap->telephonyClick2CallDo($login, $password, $caller, $number, $caller);
+        }
+        else
+        {
+            $conn = new Api($conf->global->OVHAPPKEY, $conf->global->OVHAPPSECRET, $endpoint, $conf->global->OVHCONSUMERKEY);
+            $conn->post('/telephony/'.$billingAccount.'/line/'.$serviceName.'/click2Call');
+        }
+            
+        $txt="Call OVH SIP dialer for caller: ".$caller.", called: ".$called.", clicktodiallogin: ".$login.", password: ".preg_replace('/./','*',$password);
         dol_syslog($txt);
-        print '<body onload="javascript:history.go(-1);">'."\n";
-        print '<!-- '.$txt.' -->';
-        fputs($oSocket, "Username: $login\r\n");
-        fputs($oSocket, "Secret: $password\r\n\r\n");
-        fputs($oSocket, "Caller: $caller\r\n");
-        fputs($oSocket, "Called: ".$number."\r\n");
+        print '<body xonload="javascript:history.go(-1);">'."\n";
+        print '<!-- '.$txt.' -->'."\n";
         sleep(2);
         print '</body>'."\n";
     }
@@ -157,6 +182,11 @@ if (! empty($number))
             echo 'Unknown detail:'."\n";
             echo $fault;
         }
+    }
+    catch(Exception $e)
+    {
+        dol_syslog("Error: ".$e->getMessage());
+        echo 'Error: '.$e->getMessage()."\n";
     }
     endif;
 }
