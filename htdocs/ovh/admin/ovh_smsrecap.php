@@ -14,6 +14,8 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * 
+ * https://www.ovh.com/fr/soapi-to-apiv6-migration/
  */
 
 /**
@@ -100,7 +102,9 @@ if (! empty($sms))  // Do not use here sms > 0 as a constructor return an object
         $i=0;
         foreach($result as $val)
         {
-            print ($val->status=='enable'?'':'<strike>').$val->number.(empty($val->description)?'':' ('.$val->description.')').($val->status=='enable'?'':'</strike>');
+            if (empty($conf->global->OVH_NEWAPI)) print ($val->status=='enable'?'':'<strike>');
+            print $val->number.(empty($val->description)?'':' ('.$val->description.')');
+            if (empty($conf->global->OVH_NEWAPI)) print ($val->status=='enable'?'':'</strike>');
             $i++;
             if ($i < count($result)) print ', ';
         }

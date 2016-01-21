@@ -14,6 +14,8 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * 
+ * https://www.ovh.com/fr/soapi-to-apiv6-migration/
  */
 
 /**
@@ -195,7 +197,7 @@ print '<form method="post" action="'.$_SERVER["PHP_SELF"].'">';
 print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
 print '<input type="hidden" name="action" value="setvalue">';
 
-if (! empty($conf->global->OVH_NEWAPI))
+if (empty($conf->global->OVH_NEWAPI))
 {
     if (!extension_loaded('soap'))
     {

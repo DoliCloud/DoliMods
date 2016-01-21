@@ -3,6 +3,8 @@ CHARSET=UTF-8
 OvhSmsSetup=Setup of module Ovh
 OvhSmsRecap=Summary main account
 OvhSmsNick=Nick Handle for main account
+OvhBillingAccount=Nick handle for main account
+OvhServiceName=OVH service account
 OvhSmsPass=Password
 OvhSmsLabelAccount=SMS account to use
 OvhSmsLoginSuccessFull=Connection successfull!
@@ -57,3 +59,4 @@ GoOnPageToCreateYourAPIKey=First go on page <a href="%s" target="_blank">%s</a> 
 ListOfExistingAPIApp=Note: You can find list of already created application on page <a href="%s" target="_blank">%s</a>.
 ClickHereToLoginAndGetYourConsumerKey=Click <a href="%s"> here to login and get a new consumer key</a> (You must choose <strong>UNLIMITED</strong> validity)
 Authentication=Authentication
+FromThe=From the
