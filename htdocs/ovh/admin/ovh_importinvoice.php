@@ -96,7 +96,7 @@ print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
 print '<input type="hidden" name="action" value="setvalue">';
 
 
-if (empty($conf->global->OVH_NEWAPI) && (empty($conf->global->OVHSMS_NICK) || empty($WS_DOL_URL)))  // For old API
+if (! empty($conf->global->OVH_OLDAPI) && (empty($conf->global->OVHSMS_NICK) || empty($WS_DOL_URL)))  // For old API
 {
     echo '<div class="warning">'.$langs->trans("OvhSmsNotConfigured").'</div>';
 }
@@ -294,7 +294,7 @@ if ($action == 'preimport')
 
 
         //logout
-        if (empty($conf->global->OVH_NEWAPI)) $soap->logout($session);
+        if (! empty($conf->global->OVH_OLDAPI)) $soap->logout($session);
         echo "logout successfull\n";
 
     } catch(SoapFault $fault) {

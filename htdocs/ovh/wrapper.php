@@ -84,7 +84,7 @@ $called = str_replace(' ','',GETPOST('called'));
 $billingAccount = str_replace(' ','',GETPOST('billingaccount'));
 $serviceName = str_replace(' ','',GETPOST('servicename'));
 
-if (empty($conf->global->OVH_NEWAPI))
+if (! empty($conf->global->OVH_OLDAPI))
 {
     if (empty($conf->global->OVHSMS_SOAPURL))
     {
@@ -119,7 +119,7 @@ $endpoint = empty($conf->global->OVH_ENDPOINT)?'ovh-eu':$conf->global->OVH_ENDPO
 
 llxHeader();
 
-if (empty($conf->global->OVH_NEWAPI))
+if (! empty($conf->global->OVH_OLDAPI))
 {
     if (empty($login))
     {
@@ -141,7 +141,7 @@ if (! empty($number))
     $strCallerId = "Dolibarr <".strtolower($caller).">" ;
 
     try {
-        if (empty($conf->global->OVH_NEWAPI))
+        if (! empty($conf->global->OVH_OLDAPI))
         {
             $soap = new SoapClient($wsdlovh);
     

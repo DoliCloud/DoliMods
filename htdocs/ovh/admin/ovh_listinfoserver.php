@@ -115,7 +115,7 @@ $head=ovhadmin_prepare_head();
 
 dol_fiche_head($head, 'listservers', $langs->trans("Ovh"));
 
-if (empty($conf->global->OVH_NEWAPI) && (empty($conf->global->OVHSMS_NICK) || empty($WS_DOL_URL)))
+if (! empty($conf->global->OVH_OLDAPI) && (empty($conf->global->OVHSMS_NICK) || empty($WS_DOL_URL)))
 {
     echo '<div class="warning">'.$langs->trans("OvhSmsNotConfigured").'</div>';
 }
@@ -125,7 +125,7 @@ else
     $params=getSoapParams();
     ini_set('default_socket_timeout', $params['response_timeout']);
 
-    if (empty($conf->global->OVH_NEWAPI))
+    if (! empty($conf->global->OVH_OLDAPI))
     {
         $soap = new SoapClient($WS_DOL_URL,$params);
         try {
@@ -155,7 +155,7 @@ else
     $serveur = GETPOST('server');
     if ($serveur)
     {
-        if (empty($conf->global->OVH_NEWAPI))
+        if (! empty($conf->global->OVH_OLDAPI))
         {
         	$resultinfo = $soap->dedicatedInfo($session, $serveur);
     
@@ -256,7 +256,7 @@ else
     	print '<tr><td  class="liste_titre" colspan="2">';
     	print '<strong>'.$langs->trans("Network").'</strong> </td></tr>';
 
-		if (empty($conf->global->OVH_NEWAPI))
+		if (! empty($conf->global->OVH_OLDAPI))
 		{
 			print '<tr><td>Ovh to Ovh </td><td> ';
 		    if ($resultinfo->network->bandwidthOvhToOvh == 100000)
@@ -329,7 +329,7 @@ else
 
     	print '<td valign="top"><font size="2">';
 
-    	if (empty($conf->global->OVH_NEWAPI))
+    	if (! empty($conf->global->OVH_OLDAPI))
     	{
         	$lasteupdate = $resultinfo->network->traffic->lastUpdate;
         	if (!empty($lasteupdate))
@@ -367,7 +367,7 @@ else
 
     	print '</td></tr></table>';
 
-    	if (empty($conf->global->OVH_NEWAPI))
+    	if (! empty($conf->global->OVH_OLDAPI))
     	{
     	   print '<br><br>';
     	   print '<div><a href="?server=' . $serveur . '&type=day">'.$langs->trans("Day").'</a> / <a href="?server=' . $serveur . '&type=week">'.$langs->trans("Week").'</a> / <a href="?server=' . $serveur . '&type=month">'.$langs->trans("Month").'</a> / <a href="?server=' . $serveur . '&type=year">'.$langs->trans("Year").'</a></div>';
@@ -392,7 +392,7 @@ else
 
 
     	//dedicatedList
-    	if (empty($conf->global->OVH_NEWAPI))
+    	if (! empty($conf->global->OVH_OLDAPI))
     	{    	
     	   $result = $soap->dedicatedList($session);
     	}
@@ -423,7 +423,7 @@ else
     }
 
     //logout
-    if (empty($conf->global->OVH_NEWAPI)) $soap->logout($session);
+    if (! empty($conf->global->OVH_OLDAPI)) $soap->logout($session);
 }
 
 

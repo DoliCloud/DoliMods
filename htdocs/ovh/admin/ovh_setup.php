@@ -197,7 +197,7 @@ print '<form method="post" action="'.$_SERVER["PHP_SELF"].'">';
 print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
 print '<input type="hidden" name="action" value="setvalue">';
 
-if (empty($conf->global->OVH_NEWAPI))
+if (! empty($conf->global->OVH_OLDAPI))
 {
     if (!extension_loaded('soap'))
     {
@@ -209,7 +209,7 @@ $var=true;
 
 dol_fiche_head($head, 'common', $langs->trans("Ovh"));
 
-if (! empty($conf->global->OVH_NEWAPI))
+if (empty($conf->global->OVH_OLDAPI))
 {
     print $langs->trans("GoOnPageToCreateYourAPIKey", 'https://eu.api.ovh.com/createApp/', 'https://eu.api.ovh.com/createApp/').'<br>';
     print $langs->trans("ListOfExistingAPIApp", 'https://eu.api.ovh.com/console/#/me/api/application#GET', 'https://eu.api.ovh.com/console/#/me/api/application#GET').' (first log in on top right corner)<br><br>';
@@ -217,7 +217,7 @@ if (! empty($conf->global->OVH_NEWAPI))
 
 print '<table class="noborder" width="100%">';
 
-if (empty($conf->global->OVH_NEWAPI))
+if (! empty($conf->global->OVH_OLDAPI))
 {
     // Old API
     
@@ -312,7 +312,7 @@ dol_htmloutput_mesg($mesg);
 
 
 
-if (empty($conf->global->OVH_NEWAPI))
+if (! empty($conf->global->OVH_OLDAPI))
 {
     $WS_DOL_URL = $conf->global->OVHSMS_SOAPURL;
     dol_syslog("Will use URL=".$WS_DOL_URL, LOG_DEBUG);
@@ -361,7 +361,7 @@ if (empty($conf->global->OVH_NEWAPI))
                 else print '<div class="error">Error login did not return a session id</div><br>';
     
                 //logout
-                if (empty($conf->global->OVH_NEWAPI)) $soap->logout($session);
+                if (! empty($conf->global->OVH_OLDAPI)) $soap->logout($session);
                 //  echo "logout successfull\n";
     
             }

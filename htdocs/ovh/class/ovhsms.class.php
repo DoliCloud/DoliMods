@@ -71,7 +71,7 @@ class OvhSms  extends CommonObject
 		$this->priority = '3';    // the priority of the message (0 to 3), default is 3
 		// Set the WebService URL
 		dol_syslog(get_class($this)."::OvhSms URL=".$conf->global->OVHSMS_SOAPURL);
-		if (empty($conf->global->OVH_NEWAPI))
+		if (! empty($conf->global->OVH_OLDAPI))
 		{
 		    if (! empty($conf->global->OVHSMS_SOAPURL))
     		{
@@ -165,7 +165,7 @@ class OvhSms  extends CommonObject
 	{
 	    global $conf;
 	    
-		if (empty($conf->global->OVH_NEWAPI)) $this->soap->logout($this->session);
+		if (! empty($conf->global->OVH_OLDAPI)) $this->soap->logout($this->session);
 		return 1;
 	}
 
@@ -181,7 +181,7 @@ class OvhSms  extends CommonObject
 	    
 		try
 		{
-		    if (empty($conf->global->OVH_NEWAPI))
+		    if (! empty($conf->global->OVH_OLDAPI))
 		    {
     		    // print "$this->session, $this->account, $this->expe, $this->dest, $this->message, $this->validity, $this->class, $this->deferred, $this->priority";
     			$resultsend = $this->soap->telephonySmsSend($this->session, $this->account, $this->expe, $this->dest, $this->message, $this->validity, $this->class, $this->deferred, $this->priority, 2, 'Dolibarr');
@@ -283,7 +283,7 @@ class OvhSms  extends CommonObject
 	    global $conf;
 	    
 		try {
-		    if (empty($conf->global->OVH_NEWAPI))
+		    if (! empty($conf->global->OVH_OLDAPI))
 		    {
     		    $returnList = $this->soap->telephonySmsAccountList($this->session);
     			$this->soapDebug();
@@ -315,7 +315,7 @@ class OvhSms  extends CommonObject
 	    global $conf;
 	    
 		try {
-		    if (empty($conf->global->OVH_NEWAPI))
+		    if (! empty($conf->global->OVH_OLDAPI))
 		    {
     		    $returnList = $this->soap->telephonySmsCreditLeft($this->session, $this->account);
     			$this->soapDebug();
@@ -347,7 +347,7 @@ class OvhSms  extends CommonObject
 	    global $conf;
 	    
 		try {
-		    if (empty($conf->global->OVH_NEWAPI))
+		    if (! empty($conf->global->OVH_OLDAPI))
 		    {
     		    $returnList = $this->soap->telephonySmsHistory($this->session, $this->account, "");
     			$this->soapDebug();
@@ -379,7 +379,7 @@ class OvhSms  extends CommonObject
 	    global $conf;
 	    
 		try {
-		    if (empty($conf->global->OVH_NEWAPI))
+		    if (! empty($conf->global->OVH_OLDAPI))
 		    {
     		    $telephonySmsSenderList = $this->soap->telephonySmsSenderList($this->session, $this->account);
     			$this->soapDebug();

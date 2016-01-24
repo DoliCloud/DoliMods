@@ -205,7 +205,7 @@ print_fiche_titre($langs->trans("OvhSmsSetup"),$linkback,'setup');
 
 $head=ovhadmin_prepare_head();
 
-if (empty($conf->global->OVH_NEWAPI) && (empty($conf->global->OVHSMS_NICK) || empty($WS_DOL_URL)))
+if (! empty($conf->global->OVH_OLDAPI) && (empty($conf->global->OVHSMS_NICK) || empty($WS_DOL_URL)))
 {
     echo '<div class="warning">'.$langs->trans("OvhSmsNotConfigured").'</div>';
 }

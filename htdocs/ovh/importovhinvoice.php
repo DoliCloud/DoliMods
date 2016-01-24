@@ -80,7 +80,7 @@ if (! empty($action))
 		$params=getSoapParams();
 		ini_set('default_socket_timeout', $params['response_timeout']);
 		
-		if (empty($conf->global->OVH_NEWAPI))
+		if (! empty($conf->global->OVH_OLDAPI))
         {
     		if (empty($conf->global->OVHSMS_SOAPURL))
     		{
@@ -147,7 +147,7 @@ if ($action == 'import' && $ovhthirdparty->id > 0)
 		if (! $error)
 		{
 			//billingInvoiceList
-		    if (empty($conf->global->OVH_NEWAPI))
+		    if (! empty($conf->global->OVH_OLDAPI))
 		    {
     			try {
     				$result = $soap->billingInvoiceList($session);
@@ -170,7 +170,7 @@ if ($action == 'import' && $ovhthirdparty->id > 0)
 			{
 				$billnum=$val;
     			$keyresult=0;
-				if (empty($conf->global->OVH_NEWAPI))
+				if (! empty($conf->global->OVH_OLDAPI))
 				{
     				$billingcountry=$listofbillingcountry[$key];
     				//$vatrate=$listofvat[$key];
@@ -191,7 +191,7 @@ if ($action == 'import' && $ovhthirdparty->id > 0)
 				// Invoice does not exists
 				$db->begin();
 
-				if (empty($conf->global->OVH_NEWAPI))
+				if (! empty($conf->global->OVH_OLDAPI))
 				{
 				    $result[$keyresult]->info=$soap->billingInvoiceInfo($session, $billnum, null, $billingcountry); //on recupere les details
 
@@ -241,7 +241,7 @@ if ($action == 'import' && $ovhthirdparty->id > 0)
 				$r=$result[$keyresult];
 
 				$vatrate=0;
-				if (empty($conf->global->OVH_NEWAPI))
+				if (! empty($conf->global->OVH_OLDAPI))
 				{
 				    if ($r->info->taxrate < 1) $vatrate=price2num($r->info->taxrate * 100);
 				    else $vatrate=price2num(($r->info->taxrate - 1) * 100);
@@ -258,7 +258,7 @@ if ($action == 'import' && $ovhthirdparty->id > 0)
 				$facfou->ref_supplier  = $billnum;
 				$facfou->socid         = $idovhsupplier;
 				$facfou->libelle       = "OVH ".$billnum;
-				if (empty($conf->global->OVH_NEWAPI))
+				if (! empty($conf->global->OVH_OLDAPI))
 				{
     				$facfou->date          = dol_stringtotime($r->date,1);
     				$facfou->date_echeance = dol_stringtotime($r->date,1);
@@ -275,7 +275,7 @@ if ($action == 'import' && $ovhthirdparty->id > 0)
 				$facid = $facfou->create($fuser);
 				if ($facid > 0)
 				{
-    				if (empty($conf->global->OVH_NEWAPI))
+    				if (! empty($conf->global->OVH_OLDAPI))
     				{
     				    foreach($r->info->details as $d)
     					{
@@ -357,7 +357,7 @@ $form=new Form($db);
 
 llxHeader('',$langs->trans("OvhInvoiceImportShort"),'');
 
-if (empty($conf->global->OVH_NEWAPI))
+if (! empty($conf->global->OVH_OLDAPI))
 {
     if (empty($conf->global->OVHSMS_SOAPURL))
     {
@@ -414,7 +414,7 @@ if ($action == 'refresh')
 	try 
 	{
 	    $arrayinvoice=array();
-	    if (empty($conf->global->OVH_NEWAPI))
+	    if (! empty($conf->global->OVH_OLDAPI))
 	    {
     	    //billingInvoiceList
     	    $result = $soap->billingInvoiceList($session);
@@ -594,7 +594,7 @@ if ($action == 'refresh')
 	                  		if (! is_dir($upload_dir)) dol_mkdir($upload_dir);
 	                        if (is_dir($upload_dir))
 	                        {
-	                            if (empty($conf->global->OVH_NEWAPI))
+	                            if (! empty($conf->global->OVH_OLDAPI))
 	                            {
     	                            $result[$i]->info=$soap->billingInvoiceInfo($session, $r['billnum'], null, $r['billingCountry']); //on recupere les details
     	                            $r2=$result[$i];
@@ -623,7 +623,7 @@ if ($action == 'refresh')
 
 
 	    //logout
-	    if (empty($conf->global->OVH_NEWAPI)) $soap->logout($session);
+	    if (! empty($conf->global->OVH_OLDAPI)) $soap->logout($session);
 
 	    print '</form>';
 

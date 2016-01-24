@@ -114,7 +114,7 @@ if ($mesg)
 }
 
 
-if (empty($conf->global->OVH_NEWAPI) && (empty($conf->global->OVHC2C_ACCOUNT) || empty($WS_DOL_URL)))
+if (! empty($conf->global->OVH_OLDAPI) && (empty($conf->global->OVHC2C_ACCOUNT) || empty($WS_DOL_URL)))
 {
     echo '<div class="warning">'.$langs->trans("OvhSmsNotConfigured").'</div>';
 }
@@ -163,7 +163,7 @@ else
     $message='';
     
     $tmpurl='/ovh/wrapper.php?login=__LOGIN__&password=__PASS__&caller=__PHONEFROM__&called=__PHONETO__';
-    if (! empty($conf->global->OVH_NEWAPI)) 
+    if (empty($conf->global->OVH_OLDAPI)) 
     {
         $tmpurl.='&billingaccount='.$conf->global->OVHC2C_ACCOUNT.'&servicename='.$conf->global->OVHSN_ACCOUNT;
     }
