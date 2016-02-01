@@ -210,8 +210,8 @@ class Dolicloudcustomer extends CommonObject
 		$sql.= " ".(! isset($this->password_db)?'NULL':"'".$this->db->escape($this->password_db)."'").",";
 		$sql.= " ".(! isset($this->lastcheck) || dol_strlen($this->lastcheck)==0?'NULL':$this->db->idate($this->lastcheck)).",";
 		$sql.= " ".(! isset($this->nbofusers)?'NULL':"'".$this->nbofusers."'").",";
-		$sql.= " ".(! isset($this->lastlogin) || dol_strlen($this->lastlogin)==0?'NULL':"'".$this->lastlogin."'").",";
-		$sql.= " ".(! isset($this->lastpass) || dol_strlen($this->lastpass)==0?'NULL':"'".$this->lastpass."'").",";
+		$sql.= " ".(! isset($this->lastlogin) || dol_strlen($this->lastlogin)==0?'NULL':"'".$this->db->escape($this->lastlogin)."'").",";
+		$sql.= " ".(! isset($this->lastpass) || dol_strlen($this->lastpass)==0?'NULL':"'".$this->db->escape($this->lastpass)."'").",";
 		$sql.= " ".(! isset($this->date_lastlogin) || dol_strlen($this->date_lastlogin)==0?'NULL':$this->db->idate($this->date_lastlogin)).",";
 		$sql.= " ".(! isset($this->modulesenabled)?'NULL':"'".$this->db->escape($this->modulesenabled)."'").",";
 
@@ -501,8 +501,8 @@ class Dolicloudcustomer extends CommonObject
 		$sql.= " password_db=".(isset($this->password_db)?"'".$this->db->escape($this->password_db)."'":"null").",";
 		$sql.= " lastcheck=".(dol_strlen($this->lastcheck)!=0 ? "'".$this->db->idate($this->lastcheck)."'" : 'null').",";
 		$sql.= " nbofusers=".(isset($this->nbofusers)?$this->nbofusers:"null").",";
-		$sql.= " lastlogin=".(dol_strlen($this->lastlogin)!=0 ? "'".$this->lastlogin."'" : 'null').",";
-		$sql.= " lastpass=".(dol_strlen($this->lastpass)!=0 ? "'".$this->lastpass."'" : 'null').",";
+		$sql.= " lastlogin=".(dol_strlen($this->lastlogin)!=0 ? "'".$this->db->escape($this->lastlogin)."'" : 'null').",";
+		$sql.= " lastpass=".(dol_strlen($this->lastpass)!=0 ? "'".$this->db->escape($this->lastpass)."'" : 'null').",";
 		$sql.= " date_lastlogin=".(dol_strlen($this->date_lastlogin)!=0 ? "'".$this->db->idate($this->date_lastlogin)."'" : 'null').",";
 		$sql.= " modulesenabled=".(isset($this->modulesenabled)?"'".$this->db->escape($this->modulesenabled)."'":"null").",";
 		$sql.= " firstname=".(isset($this->firstname)?"'".$this->db->escape($this->firstname)."'":"null").",";
