@@ -18,9 +18,18 @@
  *	\version    $Id: index.php,v 1.23 2011/08/16 09:28:25 eldy Exp $
  */
 
-include("./pre.inc.php");
+$res=0;
+if (! $res && file_exists("../main.inc.php")) $res=@include("../main.inc.php");
+if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.php");
+if (! $res && file_exists("../../../main.inc.php")) $res=@include("../../../main.inc.php");
+if (! $res && file_exists("../../../../main.inc.php")) $res=@include("../../../../main.inc.php");
+if (! $res && preg_match('/\/nltechno([^\/]*)\//',$_SERVER["PHP_SELF"],$reg)) $res=@include("../../../dolibarr".$reg[1]."/htdocs/main.inc.php"); // Used on dev env only
+if (! $res) die("Include of main fails");
+
 include_once("./lib/awstats.lib.php");
 include_once(DOL_DOCUMENT_ROOT."/core/class/html.formfile.class.php");
+
+$user->getrights('awstats');
 
 $langs->load("awstats@awstats");
 $langs->load("others");
@@ -340,16 +349,6 @@ else
 <td width="'.$maxwidth.'" align="center">';
 			$output_table .= '<a href="'.$AWSTATS_CGI_PATH.($key?'config='.$key:'').'" alt="AWStats" title="AWStats" target="_blank">';
 			$output_table .= '<img src="'.dol_buildpath('/awstats/images/awstats_screen.png',1).'" border="0">';
-			if ($conf->global->MAIN_FEATURES_LEVEL > 0)
-			{
-				if ($key)
-				{
-					$output_table .= ' &nbsp; ';
-					$output_table .= '<a href="'.dol_buildpath('/awstats/jawstats/index.php',1).($key?'?config='.$key:'').'" alt="JAWStats" title="JAWStats" >';
-					$output_table .= '<img src="'.dol_buildpath('/awstats/images/jawstats_screen.png',1).'" border="0">';
-					$output_table .= '</a>';
-				}
-			}
 			$output_table .= '</td>';
 			$output_table .= '</tr>';
 			foreach($ddata as $key2 => $data)
