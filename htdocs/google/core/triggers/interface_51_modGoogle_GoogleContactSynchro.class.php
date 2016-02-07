@@ -157,7 +157,7 @@ class InterfaceGoogleContactSynchro
 			if (! is_array($servicearray) || $servicearray == null)
 			{
 				$this->error="Failed to login to Google with current token";
-				if ($servicearray) $this->error.=" - ".$servicearray;
+				if ($servicearray) $this->error.=" - ".$langs->trans($servicearray);
 				dol_syslog($this->error, LOG_ERR);
 				$this->errors[]=$this->error;
 				return -1;

@@ -57,7 +57,8 @@ class ActionsGoogle
     function addCalendarChoice($parameters, &$object, &$action, $hookmanager)
     {
     	global $conf, $langs, $user;
-
+        global $form;
+        
     	$error = 0;
 
     	if ($conf->google->enabled)
@@ -67,18 +68,19 @@ class ActionsGoogle
 				// Define $max, $maxgoogle and $notolderforsync
 				$max=(empty($conf->global->GOOGLE_MAX_FOR_MASS_AGENDA_SYNC)?50:$conf->global->GOOGLE_MAX_FOR_MASS_AGENDA_SYNC);
 				$maxgoogle=2500;
-				$notolderforsync=(empty($conf->global->GOOGLE_MAXOLDDAYS_FOR_MASS_AGENDA_SYNC)?10:$conf->global->GOOGLE_MAXOLDDAYS_FOR_MASS_AGENDA_SYNC);
+				$notolderforsync=(empty($conf->global->GOOGLE_MAXOLDDAYS_FOR_MASS_AGENDA_SYNC)?20:$conf->global->GOOGLE_MAXOLDDAYS_FOR_MASS_AGENDA_SYNC);   // nb days max
 				$testoffset=3600;
 
     			$fuser = $user;
-
+                $now = dol_now();
+                
     			$userlogin = empty($conf->global->GOOGLE_LOGIN)?'':$conf->global->GOOGLE_LOGIN;
 	    		if (empty($userlogin)) $userlogin = empty($fuser->conf->GOOGLE_LOGIN)?'':$fuser->conf->GOOGLE_LOGIN;
 
 				$keyparam='GOOGLE_AGENDA_LASTSYNC_'.$userlogin;
 				$valparam=$conf->global->$keyparam;
 				if ($valparam) $dateminsync=dol_stringtotime($valparam, 1);
-				if (empty($dateminsync)) $dateminsync=(dol_now() - ($notolderforsync * 24 * 3600));
+				if (empty($dateminsync) || $dateminsync < ($now - ($notolderforsync * 24 * 3600))) $dateminsync=($now - ($notolderforsync * 24 * 3600));
 
 	    		$actiongoogle = GETPOST('actiongoogle');
 
@@ -111,7 +113,7 @@ class ActionsGoogle
 							if ($nbalreadydeleted) setEventMessage($langs->trans("GetFromGoogleAlreadyDeleted", $nbalreadydeleted), 'mesgs');
 
 							include_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
-							dolibarr_set_const($this->db,$keyparam,dol_print_date(dol_now('gmt'), 'dayhourrfc', 'gmt'),'chaine',0,'',$conf->entity);
+							dolibarr_set_const($this->db,$keyparam,dol_print_date(dol_now('gmt'), 'dayhourrfc', 'gmt'),'chaine',1,'',$conf->entity);
 							$valparam=$conf->global->$keyparam;
 							$dateminsync=dol_stringtotime($valparam, 1);
 							//var_dump($keyparam);exit;
@@ -126,6 +128,7 @@ class ActionsGoogle
 	    		$this->resprints.= '<a href="'.$_SERVER["PHP_SELF"].'?'.$_SERVER['QUERY_STRING'].'&actiongoogle=refresh">';
 	    		$this->resprints.= $langs->trans("ClickToUpdateWithLastGoogleChanges", $userlogin);
 	    		$this->resprints.= ' '.dol_print_date($dateminsync, 'dayhour');
+	    		$this->resprints.= $form->textwithtooltip(img_help(),$langs->trans("GoogleLimitBackTime",$notolderforsync));
 	    		$this->resprints.= '</a></div>';
 
     		}

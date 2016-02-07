@@ -619,7 +619,7 @@ function syncEventsFromGoogleCalendar($userlogin, User $fuser, $mindate, $max=0)
 
 	if (! is_array($servicearray))
 	{
-		$errors[]=$servicearray;
+		$errors[]=$langs->trans($servicearray);
 		$error++;
 	}
 
