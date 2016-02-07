@@ -1,3 +1,0 @@
-add field in llx_facture_fourn_det :
-
-fk_code_ventilation integer DEFAULT 0 NOT NULL
