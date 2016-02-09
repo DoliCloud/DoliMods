@@ -95,6 +95,7 @@ class ActionsGoogle
 
 					if (! $error)
 					{
+						$dateminsync = strtotime('-1 day',$dateminsync);
 						$resarray = syncEventsFromGoogleCalendar($userlogin, $user, $dateminsync, $max);
 
 						$errors=$resarray['errors'];
