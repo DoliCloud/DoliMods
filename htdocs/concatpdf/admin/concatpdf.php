@@ -198,56 +198,59 @@ foreach ($modules as $module => $moduletranskey)
 	$outputdir=$conf->concatpdf->dir_output.'/'.$module;
 	print '* '.$langs->trans("ConcatPDfTakeFileFrom2",$langs->transnoentitiesnoconv($moduletranskey),$outputdir).'<br>';
 }
-print '<br><br>';
-
-if (! empty($conf->global->MAIN_USE_JQUERY_MULTISELECT))
-{
-	$form=new Form($db);
-	$var=true;
-	print '<table class="noborder" width="100%">';
-	print '<tr class="liste_titre">';
-	print '<td>'.$langs->trans("Parameters").'</td>'."\n";
-	print '<td align="center" width="20">&nbsp;</td>';
-	print '<td align="center" width="100">'.$langs->trans("Value").'</td>'."\n";
-	print '</tr>';
-
-	/*
-	 * Parameters form
-	 */
-
-	// Use multiple concatenation
-	$var=!$var;
-	print '<tr '.$bc[$var].'>';
-	print '<td>'.$langs->trans("EnableMultipleConcatenation").'</td>';
-	print '<td align="center" width="20">&nbsp;</td>';
-
-	print '<td align="center" width="100">';
-	if (! empty($conf->use_javascript_ajax))
-	{
-		print ajax_constantonoff('CONCATPDF_MULTIPLE_CONCATENATION_ENABLED','',0);
-	}
-	else
-	{
-		if (empty($conf->global->CONCATPDF_MULTIPLE_CONCATENATION_ENABLED))
-		{
-			print '<a href="'.$_SERVER['PHP_SELF'].'?action=set_CONCATPDF_MULTIPLE_CONCATENATION_ENABLED">'.img_picto($langs->trans("Disabled"),'off').'</a>';
-		}
-		else
-		{
-			print '<a href="'.$_SERVER['PHP_SELF'].'?action=del_CONCATPDF_MULTIPLE_CONCATENATION_ENABLED">'.img_picto($langs->trans("Enabled"),'on').'</a>';
-		}
-	}
-	print '</td></tr>';
-
-	print '</table>';
-
-	print '<br><br>';
-}
+print '<br>';
 
 
-
+// Show for to add a file
 $select_module=$form->selectarray('module', $modules, GETPOST('module'), 1, 0, 0, '', 1);
 $formfile->form_attach_new_file($_SERVER['PHP_SELF'], '', 0, 0, 1, 50, '', $select_module, false, '', 0);
+
+
+// Show option for CONCATPDF_MULTIPLE_CONCATENATION_ENABLED
+if (! empty($conf->global->MAIN_USE_JQUERY_MULTISELECT))
+{
+    print '<br>';
+    
+    $form=new Form($db);
+    $var=true;
+    print '<table class="noborder" width="100%">';
+    print '<tr class="liste_titre">';
+    print '<td>'.$langs->trans("Parameters").'</td>'."\n";
+    print '<td align="center" width="20">&nbsp;</td>';
+    print '<td align="center" width="100">'.$langs->trans("Value").'</td>'."\n";
+    print '</tr>';
+
+    /*
+     * Parameters form
+     */
+
+    // Use multiple concatenation
+    $var=!$var;
+    print '<tr '.$bc[$var].'>';
+    print '<td>'.$langs->trans("EnableMultipleConcatenation").'</td>';
+    print '<td align="center" width="20">&nbsp;</td>';
+
+    print '<td align="center" width="100">';
+    if (! empty($conf->use_javascript_ajax))
+    {
+        print ajax_constantonoff('CONCATPDF_MULTIPLE_CONCATENATION_ENABLED','',0);
+    }
+    else
+    {
+        if (empty($conf->global->CONCATPDF_MULTIPLE_CONCATENATION_ENABLED))
+        {
+            print '<a href="'.$_SERVER['PHP_SELF'].'?action=set_CONCATPDF_MULTIPLE_CONCATENATION_ENABLED">'.img_picto($langs->trans("Disabled"),'off').'</a>';
+        }
+        else
+        {
+            print '<a href="'.$_SERVER['PHP_SELF'].'?action=del_CONCATPDF_MULTIPLE_CONCATENATION_ENABLED">'.img_picto($langs->trans("Enabled"),'on').'</a>';
+        }
+    }
+    print '</td></tr>';
+
+    print '</table>';
+}
+
 
 dol_fiche_end();
 
