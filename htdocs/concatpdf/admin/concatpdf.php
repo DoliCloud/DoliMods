@@ -196,7 +196,7 @@ $langs->load("propal"); $langs->load("orders"); $langs->load("bills");
 foreach ($modules as $module => $moduletranskey)
 {
 	$outputdir=$conf->concatpdf->dir_output.'/'.$module;
-	print '* '.$langs->trans("ConcatPDfTakeFileFrom2",$langs->transnoentitiesnoconv($moduletranskey),$outputdir).'<br><br>';
+	print '* '.$langs->trans("ConcatPDfTakeFileFrom2",$langs->transnoentitiesnoconv($moduletranskey),$outputdir).'<br>';
 }
 print '<br><br>';
 
