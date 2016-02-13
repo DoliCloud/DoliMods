@@ -130,58 +130,81 @@ if (! empty($sms))  // Do not use here sms > 0 as a constructor return an object
 
         $resulthistory = $sms->SmsHistory($account);
         rsort($resulthistory);
-        //print_r($resulthistory); // your code here ...
 
         print '<table class="liste centpercent">';
         print '<tr class="liste_titre">';
-        //echo '<td>ID</td>';
+        if (empty($conf->global->OVH_OLDAPI)) echo '<th class="liste_titre">ID</th>';
         echo '<th class="liste_titre">'.$langs->trans("Date").'</th>';
         echo '<th class="liste_titre">'.$langs->trans("Sender").'</th>';
         echo '<th class="liste_titre">'.$langs->trans("Recipient").'</th>';
         echo '<th class="liste_titre">'.$langs->trans("Text").'</th>';
-        echo '<th class="liste_titre">'.$langs->trans("Status").'</th>';
+        if (! empty($conf->global->OVH_OLDAPI)) echo '<th class="liste_titre">'.$langs->trans("Status").'</th>';
         //echo '<td>Message</td>';
         //echo '<td>Etat</td>';
         echo '</tr>';
 
 
         $i=0;
-        while (isset($resulthistory[$i]))
+        while (isset($resulthistory[$i]) && $i < 50)
         {
             $var=!$var;
             print '<tr '.$bc[$var].'>';
 
-            //echo '<td>'.$resulthistory[$i]->smsId.'</td>';
-            //date
-            $date = $resulthistory[$i]->date;
-            $an = substr($date,0,4);
-            $mois = substr($date,4,2);
-            $jour = substr($date,6,2);
-            $heure = substr($date,8,2);
-            $min = substr($date,10,2);
-            $sec = substr($date,12,2);
-
-            if (!empty($jour))
-            {
-                echo '<td>'.$date.'</td>';
+            if (! empty($conf->global->OVH_OLDAPI))
+            {            
+                //date
+                $date = $resulthistory[$i]->date;
+                $an = substr($date,0,4);
+                $mois = substr($date,4,2);
+                $jour = substr($date,6,2);
+                $heure = substr($date,8,2);
+                $min = substr($date,10,2);
+                $sec = substr($date,12,2);
+    
+                if (!empty($jour))
+                {
+                    echo '<td>'.$date.'</td>';
+                }
+                else
+                {
+                    echo '<td>NC</td>';
+                }
+                echo '<td>'.$resulthistory[$i]->numberFrom.'</td>';
+                echo '<td>'.$resulthistory[$i]->numberTo.'</td>';
+                echo '<td>'.$resulthistory[$i]->text.'</td>';
+                echo '<td>';
+                if ($resulthistory[$i]->status == "sent") { echo $langs->trans("OvhSmsStatutSent");}
+                if ($resulthistory[$i]->status == "submitted") { echo $langs->trans('OvhSmsStatutSubmitted');}
+                if ($resulthistory[$i]->status == "waiting") { echo $langs->trans('OvhSmsStatutWaiting');}
+                if ($resulthistory[$i]->status == "delivery failed") { echo $langs->trans('OvhSmsStatutFailed');}
+    
+                if ($resulthistory[$i]->status <> "sent" AND $resulthistory[$i]->status <> "submitted" AND $resulthistory[$i]->status <> "waiting" AND $resulthistory[$i]->status <> "delivery failed") {echo $resulthistory[$i]->status;}
+    
+                echo '</td>';
+                echo '</tr>';
             }
             else
             {
-                echo '<td>NC</td>';
+                print '<td>'.$resulthistory[$i].'</td>';
+            
+                $resultinfo = $sms->conn->get('/sms/'.$sms->account.'/outgoing/'.$resulthistory[$i]);
+                $resultinfo = dol_json_decode(dol_json_encode($resultinfo), true);
+                
+                echo '<td>'.$resultinfo['creationDatetime'].'</td>';
+                echo '<td>'.$resultinfo['sender'].'</td>';
+                echo '<td>'.$resultinfo['receiver'].'</td>';
+                echo '<td>'.$resultinfo['message'].'</td>';
+                /*echo '<td>';
+                if ($resulthistory[$i]->status == "sent") { echo $langs->trans("OvhSmsStatutSent");}
+                if ($resulthistory[$i]->status == "submitted") { echo $langs->trans('OvhSmsStatutSubmitted');}
+                if ($resulthistory[$i]->status == "waiting") { echo $langs->trans('OvhSmsStatutWaiting');}
+                if ($resulthistory[$i]->status == "delivery failed") { echo $langs->trans('OvhSmsStatutFailed');}
+                if ($resulthistory[$i]->status <> "sent" AND $resulthistory[$i]->status <> "submitted" AND $resulthistory[$i]->status <> "waiting" AND $resulthistory[$i]->status <> "delivery failed") {echo $resulthistory[$i]->status;}
+                echo '</td>';
+                */
+                echo '</tr>';
+                
             }
-            echo '<td>'.$resulthistory[$i]->numberFrom.'</td>';
-            echo '<td>'.$resulthistory[$i]->numberTo.'</td>';
-            echo '<td>'.$resulthistory[$i]->text.'</td>';
-            echo '<td>';
-            if ($resulthistory[$i]->status == "sent") { echo $langs->trans("OvhSmsStatutSent");}
-            if ($resulthistory[$i]->status == "submitted") { echo $langs->trans('OvhSmsStatutSubmitted');}
-            if ($resulthistory[$i]->status == "waiting") { echo $langs->trans('OvhSmsStatutWaiting');}
-            if ($resulthistory[$i]->status == "delivery failed") { echo $langs->trans('OvhSmsStatutFailed');}
-
-            if ($resulthistory[$i]->status <> "sent" AND $resulthistory[$i]->status <> "submitted" AND $resulthistory[$i]->status <> "waiting" AND $resulthistory[$i]->status <> "delivery failed") {echo $resulthistory[$i]->status;}
-
-            echo '</td>';
-            echo '</tr>';
 
             $i++;
             if ($i == $stopafternbenvoi) {break;}
