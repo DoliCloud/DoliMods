@@ -146,7 +146,7 @@ class ActionsConcatPdf
         		$out.='</td></tr>';
 
         		$out.='<tr><td id="selectconcatpdf" colspan="4" valign="top">';
-        		$out.= $form->multiselectarray('concatpdffile', $morefiles, (! empty($object->extraparams['concatpdf'])?$object->extraparams['concatpdf']:''), 0, 0, '', 1, 300);
+        		$out.= $form->multiselectarray('concatpdffile', $morefiles, (! empty($object->extraparams['concatpdf'])?$object->extraparams['concatpdf']:''), 0, 0, '', 1, '95%');
         	}
         	else
         	{

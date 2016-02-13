@@ -59,7 +59,8 @@ class Google_IO_Curl extends Google_IO_Abstract
     curl_setopt($curl, CURLOPT_CUSTOMREQUEST, $request->getRequestMethod());
     curl_setopt($curl, CURLOPT_USERAGENT, $request->getUserAgent());
 
-    curl_setopt($curl, CURLOPT_FOLLOWLOCATION, false);
+    @curl_setopt($curl, CURLOPT_FOLLOWLOCATION, false);
+    
     curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, true);
     // 1 is CURL_SSLVERSION_TLSv1, which is not always defined in PHP.
     curl_setopt($curl, CURLOPT_SSLVERSION, 1);
