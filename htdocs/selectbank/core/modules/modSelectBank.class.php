@@ -165,4 +165,3 @@ class modSelectBank extends DolibarrModules
 
 }
 
-?>

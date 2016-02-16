@@ -94,4 +94,4 @@ dol_fiche_end();
 llxFooter();
 // Close database handler
 $db->close();
-?>
+
