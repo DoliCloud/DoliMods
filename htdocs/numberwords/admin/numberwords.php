@@ -203,4 +203,3 @@ print ' - <a href="'.DOL_URL_ROOT.'/admin/company.php">'.$langs->trans("SetupToC
 llxFooter();
 
 $db->close();
-?>

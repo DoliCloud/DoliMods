@@ -205,4 +205,3 @@ class modNumberWords extends DolibarrModules
 	}
 
 }
-?>
