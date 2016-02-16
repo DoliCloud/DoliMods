@@ -46,5 +46,3 @@ function ecotaxdeee_prepare_head()
 
     return $head;
 }
-
-?>

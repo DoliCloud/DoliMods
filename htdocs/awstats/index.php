@@ -556,4 +556,4 @@ echo $statistics;
 
 llxFooter();
 
-?>
+$db->close();

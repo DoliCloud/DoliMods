@@ -4,14 +4,14 @@
  * Licensed under the GNU GPL v3 or higher (See file gpl-3.0.html)
  */
 
-/**     \defgroup   survey     Module Survey
- *      \brief      Module Survey
+/**     \defgroup   form     Module Form
+ *      \brief      Module Form
  */
 
 /**
- *      \file       htdocs/survey/core/modules/modSurvey.class.php
- *      \ingroup    survey
- *      \brief      Description and activation file for module Survey
+ *      \file       htdocs/form/core/modules/modForm.class.php
+ *      \ingroup    form
+ *      \brief      Description and activation file for module Form
  */
 include_once(DOL_DOCUMENT_ROOT ."/core/modules/DolibarrModules.class.php");
 
@@ -19,7 +19,7 @@ include_once(DOL_DOCUMENT_ROOT ."/core/modules/DolibarrModules.class.php");
 /**
  * Description and activation class for module MyModule
  */
-class modSurvey extends DolibarrModules
+class modForm extends DolibarrModules
 {
 
     /**
@@ -35,7 +35,7 @@ class modSurvey extends DolibarrModules
 		// Use here a free id (See in Home -> System information -> Dolibarr for list of used module id).
 		$this->numero = 101580;
 		// Key text used to identify module (for permission, menus, etc...)
-		$this->rights_class = 'survey';
+		$this->rights_class = 'form';
 
 		// Family can be 'crm','financial','hr','projects','product','technic','other'
 		// It is used to group modules in module setup page
@@ -43,7 +43,7 @@ class modSurvey extends DolibarrModules
 		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'numero' of module)
 		$this->name = preg_replace('/^mod/i','',get_class($this));
 		// Module description used if translation string 'ModuleXXXDesc' not found (XXX is value MyModule)
-		$this->description = "Module to manage and run surveys";
+		$this->description = "Module to manage and run forms";
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
 		$this->version = 'development';
 		// Key used in llx_const table to save module status enabled/disabled (where MYMODULE is value of property name of module in uppercase)
@@ -102,12 +102,12 @@ class modSurvey extends DolibarrModules
 
 		$this->menu[$r]=array(	'fk_menu'=>0,
 								'type'=>'top',
-								'titre'=>'MenuSurvey',
-								'mainmenu'=>'survey',
-								'url'=>'/survey/index.php',
-								'langs'=>'survey',
+								'titre'=>'MenuForm',
+								'mainmenu'=>'form',
+								'url'=>'/form/index.php',
+								'langs'=>'form',
 								'position'=>200,
-								'enabled'=>'$conf->survey->enabled',			// Define condition to show or hide menu entry. Use '$conf->mymodule->enabled' if entry must be visible if module is enabled.
+								'enabled'=>'$conf->form->enabled',			// Define condition to show or hide menu entry. Use '$conf->mymodule->enabled' if entry must be visible if module is enabled.
 								'perms'=>'',			// Use 'perms'=>'$user->rights->mymodule->level1->level2' if you want your menu with a permission rules
 								'target'=>'',
 								'user'=>0);
@@ -145,5 +145,3 @@ class modSurvey extends DolibarrModules
   	}
 
 }
-
-?>

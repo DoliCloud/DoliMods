@@ -218,4 +218,3 @@ class modFileManager extends DolibarrModules
 	}
 
 }
-?>

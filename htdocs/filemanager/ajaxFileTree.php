@@ -118,4 +118,3 @@ if( file_exists($selecteddir) )
 //print '</script>';
 
 if (is_object($db)) $db->close();
-?>

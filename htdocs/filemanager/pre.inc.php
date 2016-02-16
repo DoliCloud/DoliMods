@@ -105,4 +105,3 @@ function llxHeader($head = '', $title='', $help_url='', $target='', $disablejs=0
 
     main_area($title);
 }
-?>

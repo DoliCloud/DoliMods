@@ -215,5 +215,3 @@ class modEcoTaxDeee extends DolibarrModules
 		return $this->_load_tables('/ecotax/sql/');
 	}
 }
-
-?>

@@ -88,7 +88,7 @@ class InterfaceEcotaxdeee
 	 *      @param	string		$action     Code of event
 	 *      @param 	Action		$object     Objet concerne
 	 *      @param  User		$user       Objet user
-	 *      @param  Translate	$lang       Objet lang
+	 *      @param  Translate	$langs       Objet lang
 	 *      @param  Conf		$conf       Objet conf
 	 *      @return int         			<0 if KO, 0 if nothing is done, >0 if OK
 	 */
@@ -152,7 +152,12 @@ class InterfaceEcotaxdeee
 
 	/**
 	 * Calculate ecotax
-	 * $object is a line of object (->element, ->table_element must be defined)
+	 * 
+	 * @param  string  $action     Action
+	 * @param  Object  $object     Is a line of object (->element, ->table_element must be defined)
+	 * @param  User    $user       User
+	 * @param  Langs   $langs      Langs
+	 * @param  Conf    $conf       Conf 
 	 */
 	function _add_replace_ecotax($action,$object,$user,$langs,$conf)
 	{
@@ -381,7 +386,7 @@ class InterfaceEcotaxdeee
 		$cats = array();
 		$cats = $c->containing($product_id,0);
 		$found=0;
-		if (sizeof($cats)==0) return 0;
+		if (count($cats)==0) return 0;
 		foreach ($cats as $cat)
 		{
 			if ($cat->label===$ecocat)
@@ -395,4 +400,3 @@ class InterfaceEcotaxdeee
 		return 1;
 	}
 }
-?>

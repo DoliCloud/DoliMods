@@ -221,4 +221,3 @@ print info_admin($message);
 llxFooter();
 
 $db->close();
-?>

@@ -278,4 +278,3 @@ foreach ($modules as $module => $moduletrans)
 llxFooter();
 // Close database handler
 $db->close();
-?>

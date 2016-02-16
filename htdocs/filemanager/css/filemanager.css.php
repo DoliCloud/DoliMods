@@ -211,4 +211,3 @@ ul.jqueryFileTree A:hover {
 
 <?php
 $db->close();
-?>

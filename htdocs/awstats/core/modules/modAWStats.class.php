@@ -191,5 +191,3 @@ class modAWStats extends DolibarrModules
 	}
 
 }
-
-?>

@@ -163,5 +163,3 @@ class modConcatPdf extends DolibarrModules
   	}
 
 }
-
-?>

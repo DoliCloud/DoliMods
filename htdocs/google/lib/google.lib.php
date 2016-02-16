@@ -118,7 +118,7 @@ function googleadmin_prepare_head()
  */
 function google_html_convert_entities($string)
 {
-  	return preg_replace_callback('/&([a-zA-Z][a-zA-Z0-9]+);/S', '_google_convert_entity', $string);
+  	return preg_replace_callback('/&([a-zA-Z][a-zA-Z0-9]+);/S', 'dol_google_convert_entity', $string);
 }
 
 /**
@@ -130,7 +130,7 @@ function google_html_convert_entities($string)
  * @param	string	$matches	String to check and modify
  * @return	string				Modified string
  */
-function _google_convert_entity($matches)
+function dol_google_convert_entity($matches)
 {
 	static $table = array('quot'    => '&#34;',
                         'amp'      => '&#38;',
@@ -389,6 +389,3 @@ function _google_convert_entity($matches)
   // Entity not found? Destroy it.
   return isset($table[$matches[1]]) ? $table[$matches[1]] : '';
 }
-
-
-?>

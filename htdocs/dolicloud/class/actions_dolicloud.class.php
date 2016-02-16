@@ -64,5 +64,3 @@ class ActionsDoliCloud
         return 0;
     }
 }
-
-?>

@@ -248,4 +248,3 @@ print info_admin($langs->trans("NoteOnFileManagerPathLocation")).'<br>';
 
 
 llxFooter();
-?>

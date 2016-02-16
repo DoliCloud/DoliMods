@@ -23,5 +23,3 @@
  */
 
 $linktohelp='EN:Module_AWStats_En|FR:Module_AWStats|ES:Modulo_AWStats';
-
-?>

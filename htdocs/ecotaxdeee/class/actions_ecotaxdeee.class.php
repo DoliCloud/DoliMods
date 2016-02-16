@@ -47,7 +47,7 @@ class ActionsEcotaxdeee
      * Execute action
      *
      * @param	array	$parameters		Array of parameters
-     * @param   Object	&$pdfhandler  	PDF builder handler
+     * @param   Object	$pdfhandler  	PDF builder handler
      * @param   string	$action     	'add', 'update', 'view'
      * @return  int 		        	<0 if KO,
      *                          		=0 if OK but we want to process standard actions too,
@@ -181,9 +181,9 @@ class ActionsEcotaxdeee
     }
 
 	/**
-	 *
-	 * @param unknown_type $pdf
-	 * @param unknown_type $files
+	 * concat
+	 * @param unknown_type $pdf    Pdf
+	 * @param unknown_type $files  files
 	 */
 	function concat(&$pdf,$files)
 	{
@@ -203,5 +203,3 @@ class ActionsEcotaxdeee
 	}
 
 }
-
-?>

@@ -228,4 +228,3 @@ table.tablesorter .noborder { border: 0; }
 
 <?php
 $db->close();
-?>

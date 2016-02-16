@@ -254,4 +254,4 @@ else						// Open and return file
 }
 
 if (is_object($db)) $db->close();
-?>
+
