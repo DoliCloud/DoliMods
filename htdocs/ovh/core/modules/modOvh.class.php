@@ -137,18 +137,24 @@ class modOvh extends DolibarrModules
 		$this->rights[$r][3] = 0;
 		$this->rights[$r][4] = 'send';
 		$r++;
-
+		
+		$this->rights[$r][0] = 101332;
+		$this->rights[$r][1] = 'Import Invoice';
+		$this->rights[$r][3] = 0;
+		$this->rights[$r][4] = 'importinvoice';
+		$r++;
+		
 
 		// Main menu entries
 		$r=0;
-		$this->menu[$r]=array(	'fk_menu'=>'fk_mainmenu=home,fk_leftmenu=modulesadmintools',		    // Use 'fk_mainmenu=xxx' or 'fk_mainmenu=xxx,fk_leftmenu=yyy' where xxx is mainmenucode and yyy is a leftmenucode
+		$this->menu[$r]=array(	'fk_menu'=>'fk_mainmenu=tools',		    // Use 'fk_mainmenu=xxx' or 'fk_mainmenu=xxx,fk_leftmenu=yyy' where xxx is mainmenucode and yyy is a leftmenucode
 									'type'=>'left',			                // This is a Left menu entry
 									'titre'=>'OvhInvoiceImportShort',
 									'url'=>'/ovh/importovhinvoice.php',
 									'langs'=>'ovh@ovh',	        // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
-									'position'=>100,
-									'enabled'=>'$leftmenu==\'modulesadmintools\'',  // Define condition to show or hide menu entry. Use '$conf->mymodule->enabled' if entry must be visible if module is enabled. Use '$leftmenu==\'system\'' to show if leftmenu system is selected.
-									'perms'=>'1',			                // Use 'perms'=>'$user->rights->mymodule->level1->level2' if you want your menu with a permission rules
+									'position'=>500,
+									'enabled'=>'$conf->ovh->enabled',  // Define condition to show or hide menu entry. Use '$conf->mymodule->enabled' if entry must be visible if module is enabled. Use '$leftmenu==\'system\'' to show if leftmenu system is selected.
+									'perms'=>'$user->rights->ovh->importinvoice',	// Use 'perms'=>'$user->rights->mymodule->level1->level2' if you want your menu with a permission rules
 									'target'=>'',
 									'user'=>2);				                // 0=Menu for internal users, 1=external users, 2=both
 		$r++;
@@ -207,4 +213,3 @@ class modOvh extends DolibarrModules
 
 }
 
-?>
