@@ -227,4 +227,3 @@ class modMonitoring extends DolibarrModules
 
 }
 
-?>

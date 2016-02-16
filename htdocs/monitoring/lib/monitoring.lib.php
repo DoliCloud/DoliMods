@@ -509,5 +509,3 @@ if (! function_exists('rrd_create'))
 	}
 }
 
-
-?>

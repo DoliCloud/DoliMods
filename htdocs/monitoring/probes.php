@@ -511,4 +511,4 @@ else
 llxFooter();
 
 $db->close();
-?>
+

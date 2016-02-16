@@ -311,4 +311,4 @@ if (dol_is_file($conf->monitoring->dir_temp."/".$fileimage[0]))
 $db->close();
 
 llxFooter();
-?>
+
