@@ -219,5 +219,3 @@ class mod_codeclient_lion extends ModeleThirdPartyCode
     }
 
 }
-
-?>

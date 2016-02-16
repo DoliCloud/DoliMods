@@ -32,15 +32,3 @@ if (! $res) die("Include of main fails");
 
 top_htmlhead("","");
 top_menu("","","_top");
-
-?>
-
-
-
-
-
-
-
-
-
-

@@ -20,5 +20,3 @@
  *	\file			htdocs/tvacerfa/lib/tvacerfa.lib.php
  *  \brief			Library of tvacerfa functions
  */
-
-?>

@@ -299,7 +299,7 @@ $db->close();
 /**
  * Print list of users
  *
- * @param unknown_type $newdb
+ * @param unknown_type $newdb   New db
  */
 function print_user_table($newdb)
 {

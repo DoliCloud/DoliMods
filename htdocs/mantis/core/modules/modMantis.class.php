@@ -134,4 +134,3 @@ class modMantis extends DolibarrModules
 
 }
 
-?>

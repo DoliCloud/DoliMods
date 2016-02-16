@@ -35,4 +35,3 @@ function llxHeader($head = "", $title="", $help_url='')
 
 	left_menu($menu->liste, $help_url);
 }
-?>

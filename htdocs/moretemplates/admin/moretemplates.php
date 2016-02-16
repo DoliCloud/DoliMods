@@ -68,4 +68,3 @@ print $langs->trans("ThisModuleHasMoreTemplatesIntoSomeModule").'<br>';
 llxFooter();
 
 $db->close();
-?>

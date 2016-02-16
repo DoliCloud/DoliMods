@@ -195,5 +195,3 @@ class modPHPSysInfo extends DolibarrModules
 		return $this->_load_tables('/phpsysinfo/sql/');
 	}
 }
-
-?>

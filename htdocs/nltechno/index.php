@@ -98,5 +98,5 @@ else
 }
 
 llxFooter();
-?>
 
+$db->close();

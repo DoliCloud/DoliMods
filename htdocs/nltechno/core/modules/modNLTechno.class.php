@@ -389,5 +389,3 @@ class modNLTechno extends DolibarrModules
 	    return $this->_load_tables('/nltechno/sql/');
 	}
 }
-
-?>

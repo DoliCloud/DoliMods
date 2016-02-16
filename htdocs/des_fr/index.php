@@ -149,4 +149,4 @@ $des .= '</table>';
 
 llxFooter();
 
-?>
+$db->close();

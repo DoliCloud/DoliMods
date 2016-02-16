@@ -40,14 +40,3 @@ top_htmlhead("","");
 top_menu("","","_top");
 
 $db->close();
-?>
-
-
-
-
-
-
-
-
-
-

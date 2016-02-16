@@ -27,8 +27,8 @@
 /**
  *	Classe permettant d'acceder a la database mantis
  */
-class Mantis {
-
+class Mantis
+{
     var $localdb;
 
     var $date;
@@ -61,4 +61,3 @@ class Mantis {
     }
 
 }
-?>

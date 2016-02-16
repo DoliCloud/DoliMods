@@ -167,5 +167,3 @@ function dolicloud_prepare_head($object,$prefix='')
 
 	return $head;
 }
-
-?>

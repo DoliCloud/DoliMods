@@ -132,12 +132,12 @@ class ModeleNumRefStats
 /**
  *  Cree une propale sur disque en fonction du modele de PROPALE_ADDON_PDF
  *  
- *  \param	    db  			objet base de donnee
- *  \param	    id				id de la propale a creer
- *  \param	    date			force le modele a utiliser ('' to not force)
- *  \param	    modele			force le modele a utiliser ('' to not force)
- *  \param		outputlangs		objet lang a utiliser pour traduction
- *  \return     int         	0 si KO, 1 si OK
+ *  @param	    DB       $db  			    objet base de donnee
+ *  @param	    int      $id				id de la propale a creer
+ *  @param	    date     $date			    force le modele a utiliser ('' to not force)
+ *  @param	    string   $modele			force le modele a utiliser ('' to not force)
+ *  @param		Langs    $outputlangs	    objet lang a utiliser pour traduction
+ *  @return     int         	            0 si KO, 1 si OK
  */
 function statistic_pdf_create($db, $id, $date, $modele, $outputlangs)
 {
@@ -215,10 +215,11 @@ function statistic_pdf_create($db, $id, $date, $modele, $outputlangs)
 }
 
 /**
- *  \brief      Supprime l'image de previsualitation, pour le cas de regeneration de propal
- *  \param	    db  		objet base de donnee
- *  \param	    propalid	id des stats a effacer
- *  \param     statref reference des stats si besoin
+ *  Supprime l'image de previsualitation, pour le cas de regeneration de propal
+ *  
+ *  @param	   DoliDB   $db  		objet base de donnee
+ *  @param	   int      $propalid	id des stats a effacer
+ *  @param     string   $statref    reference des stats si besoin
  */
 function statistic_delete_preview($db, $propalid, $statref='test')
 {

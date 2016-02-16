@@ -152,5 +152,3 @@ class modMoreTemplates extends DolibarrModules
   	}
 
 }
-
-?>

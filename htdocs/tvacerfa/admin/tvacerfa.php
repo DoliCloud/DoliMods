@@ -69,4 +69,3 @@ print $langs->trans("NoNeedToSetup");
 llxfooter();
 
 $db->close();
-?>

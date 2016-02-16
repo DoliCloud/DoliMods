@@ -474,5 +474,3 @@ $dbchien->close();
 $dbchat->close();
 
 llxFooter();
-?>
-

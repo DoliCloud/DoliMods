@@ -169,5 +169,3 @@ class modLightbox extends DolibarrModules
   	}
 
 }
-
-?>

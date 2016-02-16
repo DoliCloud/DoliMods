@@ -42,8 +42,8 @@ class pdf_statistic_test extends ModelePDFStats
 
 
 	/**
-	 *	\brief      Constructeur
-	 *	\param	    db		Handler acces base de donnee
+	 *	Constructeur
+	 *	@param  DoliDB  $db		Handler acces base de donnee
 	 */
 	function pdf_statistic_test($db)
 	{
@@ -82,7 +82,8 @@ class pdf_statistic_test extends ModelePDFStats
 	}
 
 	/**
-	 *	\brief      Fonction generant la propale sur le disque
+	 *	Fonction generant la propale sur le disque
+	 *
 	 *	\param	    propale			Objet propal a generer (ou id si ancienne methode)
 	 *	\param		outputlangs		Lang object for output language
 	 *	\return	    int     		1=ok, 0=ko
@@ -471,11 +472,12 @@ class pdf_statistic_test extends ModelePDFStats
 	}
 
 	/**
-	 *   	\brief      Show footer of page
-	 *   	\param      pdf     		PDF factory
-	 * 		\param		object			Object invoice
-	 *      \param      outputlangs		Object lang for output
-	 * 		\remarks	Need this->emetteur object
+	 *   	Show footer of page
+	 *   
+	 *   	@param      PDF        $pdf     		PDF factory
+	 * 		@param		Object     $object			Object invoice
+	 *      @param      Langs      $outputlangs		Object lang for output
+	 * 		@remarks	Need this->emetteur object
 	 */
 	function _pagefoot(&$pdf,$object,$outputlangs)
 	{

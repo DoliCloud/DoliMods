@@ -632,7 +632,6 @@ else
 }
 echo '</table>';
 
-$db->close();
-
 llxFooter();
-?>
+
+$db->close();

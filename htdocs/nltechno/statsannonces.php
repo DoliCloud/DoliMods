@@ -286,5 +286,3 @@ print '<br>';
 $dbann->close();
 
 llxFooter();
-?>
-

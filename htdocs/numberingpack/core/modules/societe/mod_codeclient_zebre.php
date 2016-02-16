@@ -268,5 +268,3 @@ class mod_codeclient_zebre extends ModeleThirdPartyCode
     }
 
 }
-
-?>

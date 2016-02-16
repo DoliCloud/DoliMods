@@ -206,7 +206,6 @@ clearstatcache();
 if ($mesg) print "<br>$mesg<br>";
 print "<br>";
 
-$db->close();
-
 llxFooter();
-?>
+
+$db->close();
