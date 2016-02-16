@@ -171,5 +171,3 @@ class modOpenStreetMap extends DolibarrModules
 	}
 
 }
-
-?>

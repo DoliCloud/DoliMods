@@ -155,7 +155,7 @@ if ($address && $address != $object->country)
     if (preg_match('/^http/i',$url))
     {
         list($usec, $sec) = explode(" ", microtime());
-        $micro_start_time=((float)$usec + (float)$sec);
+        $micro_start_time=((float) $usec + (float) $sec);
 
         include_once DOL_DOCUMENT_ROOT.'/core/lib/geturl.lib.php';
 
@@ -164,8 +164,8 @@ if ($address && $address != $object->country)
         $delay=($micro_end_time-$micro_start_time);
 
         list($usec, $sec) = explode(" ", microtime());
-        $micro_end_time=((float)$usec + (float)$sec);
-        $end_time=((float)$sec);
+        $micro_end_time=((float) $usec + (float) $sec);
+        $end_time=((float) $sec);
 
     	if (! function_exists('json_decode'))    // Test with no response
         {
@@ -251,4 +251,3 @@ dol_fiche_end();
 llxfooter();
 
 $db->close();
-?>

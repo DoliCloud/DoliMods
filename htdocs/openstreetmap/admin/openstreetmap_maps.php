@@ -142,4 +142,3 @@ $message='';
 llxFooter();
 
 $db->close();
-?>
