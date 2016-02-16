@@ -583,16 +583,16 @@ if (isset($_GET['IMG'])){
 	/**
 	 * fill_arc
 	 *
-	 * @param int $im
-	 * @param int $centerX
-	 * @param int $centerY
-	 * @param int $diameter
-	 * @param int $start
-	 * @param int $end
-	 * @param int $color1
-	 * @param int $color2
-	 * @param int $text
-	 * @param int $placeindex
+	 * @param int $im          Im
+	 * @param int $centerX     centerX
+	 * @param int $centerY     centerY
+	 * @param int $diameter    diameter
+	 * @param int $start       start
+	 * @param int $end         end
+	 * @param int $color1      color1
+	 * @param int $color2      color2
+	 * @param int $text        text    
+	 * @param int $placeindex  placeindex
 	 */
     function fill_arc($im, $centerX, $centerY, $diameter, $start, $end, $color1,$color2,$text='',$placeindex=0)
     {
@@ -658,7 +658,7 @@ if (isset($_GET['IMG'])){
     			// draw used
         			$angle_to = ($used*360)/$tsize;
         			$perc =sprintf("%.2f%%", ($used *100) / $tsize);
-        			fill_arc($image,$x,$y,$size,$angle_from,$angle_from + $angle_to ,$col_black,$col_red, '('.$perc.')' );
+        			fill_arc($image,$x,$y,$size,$angle_from,$angle_from + $angle_to, $col_black, $col_red, '('.$perc.')');
                     $angle_from = $angle_from+ $angle_to;
     			}
     			}
@@ -915,14 +915,14 @@ EOB;
 			break;
         }
         $theKey = htmlentities(base64_decode($_GET['key']));
-		$theserver = $MEMCACHE_SERVERS[(int)$_GET['server']];
+		$theserver = $MEMCACHE_SERVERS[(int) $_GET['server']];
 		list($h,$p) = explode(':',$theserver);
         $r = sendMemcacheCommand($h,$p,'delete '.$theKey);
         echo 'Deleting '.$theKey.':'.$r;
 	break;
 
    case 6: // flush server
-        $theserver = $MEMCACHE_SERVERS[(int)$_GET['server']];
+        $theserver = $MEMCACHE_SERVERS[(int) $_GET['server']];
         $r = flushServer($theserver);
         echo 'Flush  '.$theserver.":".$r;
    break;

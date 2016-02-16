@@ -146,5 +146,3 @@ class modMemcached extends DolibarrModules
   	}
 
 }
-
-?>
