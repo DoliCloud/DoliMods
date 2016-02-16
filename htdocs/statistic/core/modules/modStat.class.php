@@ -34,18 +34,18 @@ include_once(DOL_DOCUMENT_ROOT ."/core/modules/DolibarrModules.class.php");
 
 
 /**
- * 		\class      modStat
- *      \brief      Description and activation class for module statistic
+ *      Description and activation class for module statistic
  */
 class modStat extends DolibarrModules
 {
 	/**
-	 *   \brief      Constructor. Define names, constants, directories, boxes, permissions
-	 *   \param      DB      Database handler
+	 *   Constructor. Define names, constants, directories, boxes, permissions
+	 *   
+	 *   @param      DoliDB    $db      Database handler
 	 */
-	function __construct($DB)
+	function __construct($db)
 	{
-		$this->db = $DB;
+		$this->db = $db;
 
 		// Id for module (must be unique).
 		// Use here a free id (See in Home -> System information -> Dolibarr for list of used modules id).
@@ -247,4 +247,3 @@ class modStat extends DolibarrModules
 	}
 }
 
-?>

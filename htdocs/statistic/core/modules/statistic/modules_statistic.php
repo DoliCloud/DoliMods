@@ -40,8 +40,9 @@ class ModelePDFStats
 
 
 	/**
-	 *      \brief      Return list of active generation modules
-	 * 		\param		$db		Database handler
+	 *      Return list of active generation modules
+	 *      
+	 * 		@param    DoliDB	$db		Database handler
 	 */
 	function liste_modeles($db)
 	{
@@ -129,12 +130,14 @@ class ModeleNumRefStats
 
 
 /**
- \brief      Cree une propale sur disque en fonction du modele de PROPALE_ADDON_PDF
- \param	    db  			objet base de donnee
- \param	    id				id de la propale � creer
- \param	    modele			force le modele � utiliser ('' to not force)
- \param		outputlangs		objet lang a utiliser pour traduction
- \return     int         	0 si KO, 1 si OK
+ *  Cree une propale sur disque en fonction du modele de PROPALE_ADDON_PDF
+ *  
+ *  \param	    db  			objet base de donnee
+ *  \param	    id				id de la propale a creer
+ *  \param	    date			force le modele a utiliser ('' to not force)
+ *  \param	    modele			force le modele a utiliser ('' to not force)
+ *  \param		outputlangs		objet lang a utiliser pour traduction
+ *  \return     int         	0 si KO, 1 si OK
  */
 function statistic_pdf_create($db, $id, $date, $modele, $outputlangs)
 {
@@ -212,10 +215,10 @@ function statistic_pdf_create($db, $id, $date, $modele, $outputlangs)
 }
 
 /**
- \brief      Supprime l'image de previsualitation, pour le cas de regeneration de propal
- \param	    db  		objet base de donnee
- \param	    propalid	id des stats a effacer
- \param     statref reference des stats si besoin
+ *  \brief      Supprime l'image de previsualitation, pour le cas de regeneration de propal
+ *  \param	    db  		objet base de donnee
+ *  \param	    propalid	id des stats a effacer
+ *  \param     statref reference des stats si besoin
  */
 function statistic_delete_preview($db, $propalid, $statref='test')
 {
@@ -254,4 +257,4 @@ function statistic_delete_preview($db, $propalid, $statref='test')
 
 	return 1;
 }
-?>
+

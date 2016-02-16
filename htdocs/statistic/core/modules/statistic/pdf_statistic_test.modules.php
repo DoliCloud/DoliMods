@@ -367,8 +367,8 @@ class pdf_statistic_test extends ModelePDFStats
 	}
 
 	/**
-	 *   \brief      Affiche la grille des lignes de propales
-	 *   \param      pdf     objet PDF
+	 *   Affiche la grille des lignes de propales
+	 *   
 	 */
 	function _tableau(&$pdf, $tab_top, $tab_height, $nexY, $outputlangs)
 	{
@@ -484,4 +484,3 @@ class pdf_statistic_test extends ModelePDFStats
 
 }
 
-?>

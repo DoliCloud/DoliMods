@@ -18,9 +18,9 @@
  */
 
 /**
- *   	\file       dev/skeletons/skeleton_page.php
- *		\ingroup    mymodule othermodule1 othermodule2
- *		\brief      This file is an example of a php page
+ *   	\file       statistics/index.php
+ *		\ingroup    statistics
+ *		\brief      Module statistics
  */
 
 //if (! defined('NOREQUIREUSER'))  define('NOREQUIREUSER','1');
@@ -35,7 +35,14 @@
 //if (! defined("NOLOGIN"))        define("NOLOGIN",'1');		// If this page is public (can be called outside logged session)
 
 // Change this following line to use the correct relative path (../, ../../, etc)
-require("../main.inc.php");
+$res=0;
+if (! $res && file_exists("../main.inc.php")) $res=@include("../main.inc.php");
+if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.php");
+if (! $res && file_exists("../../../main.inc.php")) $res=@include("../../../main.inc.php");
+if (! $res && file_exists("../../../../main.inc.php")) $res=@include("../../../../main.inc.php");
+if (! $res && @file_exists("../../../../../main.inc.php")) $res=@include("../../../../../main.inc.php");
+if (! $res && preg_match('/\/(?:custom|nltechno)([^\/]*)\//',$_SERVER["PHP_SELF"],$reg)) $res=@include("../../../dolibarr".$reg[1]."/htdocs/main.inc.php"); // Used on dev env only
+if (! $res) die("Include of main fails");
 dol_include_once("/statistics/core/modules/statistic/modules_statistic.php");
 //require_once(DOL_DOCUMENT_ROOT."/includes/modules/propale/modules_propale.php");
 
@@ -57,11 +64,9 @@ if ($user->societe_id > 0)
 
 
 
-/*******************************************************************
-* ACTIONS
-*
-* Put here all code to do according to value of "action" parameter
-********************************************************************/
+/*
+ * Actions
+ */
 
 if ($_REQUEST["action"] == 'add')
 {
@@ -79,11 +84,10 @@ if ($_REQUEST["action"] == 'add')
 	}
 }
 
-/***************************************************
-* PAGE
-*
-* Put here all code to build page
-****************************************************/
+
+/*
+ * View
+ */
 
 llxHeader('','Statistic','');
 
@@ -99,7 +103,7 @@ $h++;
 
 $title=$langs->trans("Statistics");
 
-dol_fiche_head($head, 'stock', $title, 0, 'statistics');
+dol_fiche_head($head, 'stock', $title, 0, 'accounting');
 
 print '<form method="post" action="stock.php">';
 
@@ -131,10 +135,9 @@ print '<input style="margin-left:20px" type="submit" value="G&eacute;n&eacute;re
 
 print '</form>';
 
-print '</div>';
+dol_fiche_end();
 
+llxFooter();
 
-// End of page
 $db->close();
-llxFooter('$Date: 2010/07/14 11:19:25 $ - $Revision: 1.13 $');
-?>
+

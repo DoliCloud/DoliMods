@@ -18,12 +18,9 @@
  */
 
 /**
- *   	\file       dev/skeletons/skeleton_page.php
- *		\ingroup    mymodule othermodule1 othermodule2
- *		\brief      This file is an example of a php page
- *		\version    $Id: skeleton_page.php,v 1.13 2010/07/14 11:19:25 eldy Exp $
- *		\author		Put author name here
- *		\remarks	Put here some comments
+ *   	\file       htdocs/statistics/stock.php
+ *		\ingroup    statistics
+ *		\brief      File of statistics module
  */
 
 //if (! defined('NOREQUIREUSER'))  define('NOREQUIREUSER','1');
@@ -38,7 +35,14 @@
 //if (! defined("NOLOGIN"))        define("NOLOGIN",'1');		// If this page is public (can be called outside logged session)
 
 // Change this following line to use the correct relative path (../, ../../, etc)
-require("../main.inc.php");
+$res=0;
+if (! $res && file_exists("../main.inc.php")) $res=@include("../main.inc.php");
+if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.php");
+if (! $res && file_exists("../../../main.inc.php")) $res=@include("../../../main.inc.php");
+if (! $res && file_exists("../../../../main.inc.php")) $res=@include("../../../../main.inc.php");
+if (! $res && @file_exists("../../../../../main.inc.php")) $res=@include("../../../../../main.inc.php");
+if (! $res && preg_match('/\/(?:custom|nltechno)([^\/]*)\//',$_SERVER["PHP_SELF"],$reg)) $res=@include("../../../dolibarr".$reg[1]."/htdocs/main.inc.php"); // Used on dev env only
+if (! $res) die("Include of main fails");
 dol_include_once("/statistic/core/modules/statistic/modules_statistic.php");
 //require_once(DOL_DOCUMENT_ROOT."/includes/modules/propale/modules_propale.php");
 
