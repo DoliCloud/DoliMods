@@ -247,5 +247,3 @@ class modSkinColorEditor extends DolibarrModules
         return $this->_load_tables('/skincoloreditor/sql/');
     }
 }
-
-?>

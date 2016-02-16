@@ -144,4 +144,4 @@ if (! empty($conf->global->THEME_ELDY_ENABLE_PERSONALIZED))
 llxFooter();
 
 if (is_object($db)) $db->close();
-?>
+
