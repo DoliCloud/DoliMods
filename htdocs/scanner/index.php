@@ -485,4 +485,3 @@ print  "</script>\n";
 llxFooter();
 
 $db->close();
-?>

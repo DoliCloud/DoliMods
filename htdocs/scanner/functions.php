@@ -89,5 +89,3 @@ function html_selectbox($name, $values, $selected=NULL, $attributes=array())
 
 	return $output;
 }
-
-?>

@@ -242,5 +242,3 @@ else
 
 
 $scan_ausgabe=$scan_name."&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Device = ".$scanner;
-
-?>

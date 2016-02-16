@@ -225,5 +225,3 @@ class modScanner extends DolibarrModules
 		return $this->_load_tables('/scanner/sql/');
 	}
 }
-
-?>
