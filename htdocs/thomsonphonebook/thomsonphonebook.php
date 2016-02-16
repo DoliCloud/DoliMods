@@ -95,4 +95,3 @@ if ($resql)
 else dol_print_error($db);
 
 $db->close();
-?>

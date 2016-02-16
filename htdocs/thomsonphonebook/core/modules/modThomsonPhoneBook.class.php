@@ -181,5 +181,3 @@ class modThomsonPhoneBook extends DolibarrModules
         return $this->_load_tables('');
     }
 }
-
-?>

@@ -62,4 +62,3 @@ print '<a href="'.$url.'">'.$url."<br>\n";
 llxFooter();
 
 $db->close();
-?>
