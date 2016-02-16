@@ -443,4 +443,3 @@ else
 $db->close();	// Close database opened handler
 
 exit($nboferrors);
-?>

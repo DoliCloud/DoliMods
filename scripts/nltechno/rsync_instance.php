@@ -203,4 +203,3 @@ if ($mode != 'test')
 }
 
 exit($return_var);
-?>

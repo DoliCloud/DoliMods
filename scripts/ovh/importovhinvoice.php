@@ -287,5 +287,3 @@ catch(SoapFault $fault)
 }
 
 print "End of import.\n";
-
-?>

@@ -174,6 +174,3 @@ function finElement($parser, $name)
   global $depth;
   $depth[$parser]--;
 }
-
-
-?>

@@ -259,4 +259,3 @@ else $db->rollback();
 print 'Resume: '.$nbline." lines, ".$nbignored." ignored\n";
 print "Adherents: ".$nbmemberadded." added, ".$nbmemberupdated." updated, ".$nbmemberfailed." failed\n";
 print "Adhesions: ".$nbmemberadded." added, ".$nbmemberupdated." updated, ".$nbmemberfailed." failed\n";
-?>

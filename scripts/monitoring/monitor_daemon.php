@@ -271,7 +271,7 @@ exit(0);
 /**
  *	Process a probe
  *
- *	@param	mixed	&$object	Object
+ *	@param	mixed	$object	Object
  *	@param	int		$maxloops	End after maxloops
  *	@return void
  */
@@ -438,4 +438,3 @@ function process_probe_x(&$object,$maxloops=0)
 
     return array('nbok'=>$nbok,'nbko'=>$nbko);
 }
-

@@ -95,5 +95,3 @@ else
 	print '--- end error code='.$result."\n";
 	$db->rollback();
 }
-
-?>
