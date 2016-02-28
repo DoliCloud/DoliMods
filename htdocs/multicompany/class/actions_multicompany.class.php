@@ -759,6 +759,7 @@ class ActionsMulticompany
 	function printTopRightMenu($parameters=false)
 	{
 		echo $this->getTopRightMenu();
+		return 0;
 	}
 
 	/**
