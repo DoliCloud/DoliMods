@@ -206,7 +206,7 @@ if ($user->rights->societe->client->voir && empty($socid))
 	$langs->load("commercial");
 	print '<form name="formsearch" method="POST" action="'.$_SERVER["PHP_SELF"].'">';
 	print $langs->trans('ThirdPartiesOfSaleRepresentative'). ': ';
-	print $formother->select_salesrepresentatives($search_sale,'search_sale',$user);
+	print $formother->select_salesrepresentatives($search_sale,'search_sale',$user, 0, 1, 'maxwidth300');
 	if (! empty($conf->global->GOOGLE_MAPS_SEARCH_ON_STATE))
 	{
 		print ' &nbsp; &nbsp; &nbsp; ';
@@ -468,6 +468,7 @@ function geocoding($address)
 	}
 
 	$data = json_decode($response['content']);
+	//$data = json_decode($response['content'], false, 0, JSON_BIGINT_AS_STRING);
 	if ($data->status == "OK")
 	{
 		$return=array();
@@ -500,8 +501,8 @@ function geocoding($address)
 /**
  * Remove accentued characters
  *
- * @param string $chaine		The string to treat
- * @param string $remplace_par	The replacement character
+ * @param string $str		The string to treat
+ * @param string $replaceBy	The replacement character
  * @return string
  */
 function withoutSpecialChars($str, $replaceBy = '_')
@@ -525,6 +526,7 @@ function withoutSpecialChars($str, $replaceBy = '_')
  *
  * @param	string	$url 			URL to call.
  * @param	string	$postorget		'post' = POST, 'get='GET'
+ * @param   string  $param          Params
  * @return	array					returns an associtive array containing the response from the server.
  */
 function googlegetURLContent($url,$postorget='GET',$param='')
@@ -599,4 +601,4 @@ function googlegetURLContent($url,$postorget='GET',$param='')
 
 	return $rep;
 }
-?>
+

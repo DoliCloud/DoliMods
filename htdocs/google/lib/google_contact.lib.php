@@ -902,7 +902,7 @@ function getTagLabel($s)
  *
  * @param	array	$gdata			Array with tokens info
  * @param	string	$groupName		Group name
- * @param	array	&$googleGroups	Array of Google Group we know they already exists
+ * @param	array	$googleGroups	Array of Google Group we know they already exists
  * @param	string	$useremail		User email
  * @return 	string					Google Group Full URL ID for groupName (also key in $googleGroups) or 'ErrorFailedToGetGroups'.
  */

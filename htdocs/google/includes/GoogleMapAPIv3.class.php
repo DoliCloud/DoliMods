@@ -79,7 +79,6 @@ class GoogleMapAPI
 	 *
 	 * @return void
 	 */
-
 	public function __construct()
 	{
 
@@ -94,7 +93,6 @@ class GoogleMapAPI
 	 * @param int $clustererLibraryPath clustererLibraryPath
 	 * @return void
 	 */
-
 	public function setClusterer($useClusterer, $gridSize = 100, $maxZoom = 9, $clustererLibraryPath = '')
 	{
 		$this->useClusterer = $useClusterer;
@@ -107,7 +105,7 @@ class GoogleMapAPI
 	 * Set the type of map, can be :
 	 * HYBRID, TERRAIN, ROADMAP, SATELLITE
 	 *
-	 * @param string $type
+	 * @param  string  $type   Type
 	 * @return void
 	 */
 	public function setMapType($type)
@@ -127,7 +125,6 @@ class GoogleMapAPI
 	 * @param string $googleMapId the google div ID
 	 * @return void
 	 */
-
 	public function setDivId($googleMapId)
 	{
 		$this->googleMapId = $googleMapId;
@@ -139,7 +136,6 @@ class GoogleMapAPI
 	 * @param string $googleMapDirectionId GoogleMap  Direction ID for the HTML DIV
 	 * @return void
 	 */
-
 	public function setDirectionDivId($googleMapDirectionId)
 	{
 		$this->googleMapDirectionId = $googleMapDirectionId;
@@ -152,7 +148,6 @@ class GoogleMapAPI
 	 * @param int $height GoogleMap  height
 	 * @return void
 	 */
-
 	public function setSize($width, $height)
 	{
 		$this->width = $width;
@@ -165,7 +160,6 @@ class GoogleMapAPI
 	 * @param int $infoWindowWidth GoogleMap  info window width
 	 * @return void
 	 */
-
 	public function setInfoWindowWidth($infoWindowWidth)
 	{
 		$this->infoWindowWidth = $infoWindowWidth;
@@ -178,7 +172,6 @@ class GoogleMapAPI
 	 * @param int $iconHeight GoogleMap  marker icon height
 	 * @return void
 	 */
-
 	public function setIconSize($iconWidth, $iconHeight)
 	{
 		$this->iconWidth = $iconWidth;
@@ -191,7 +184,6 @@ class GoogleMapAPI
 	 * @param string $lang GoogleMap  lang : fr,en,..
 	 * @return void
 	 */
-
 	public function setLang($lang)
 	{
 		$this->lang = $lang;
@@ -203,7 +195,6 @@ class GoogleMapAPI
 	 * @param int $zoom GoogleMap  zoom.
 	 * @return void
 	 */
-
 	public function setZoom($zoom)
 	{
 		$this->zoom = $zoom;
@@ -212,10 +203,9 @@ class GoogleMapAPI
 	/**
 	 * Set the zoom of the infowindow
 	 *
-	 * @param int $zoom GoogleMap  zoom.
+	 * @param int $infoWindowZoom  GoogleMap  zoom.
 	 * @return void
 	 */
-
 	public function setInfoWindowZoom($infoWindowZoom)
 	{
 		$this->infoWindowZoom = $infoWindowZoom;
@@ -224,10 +214,9 @@ class GoogleMapAPI
 	/**
 	 * Enable the zoom on the marker when you click on it
 	 *
-	 * @param int $zoom GoogleMap  zoom.
+	 * @param int $enableWindowZoom    GoogleMap  zoom.
 	 * @return void
 	 */
-
 	public function setEnableWindowZoom($enableWindowZoom)
 	{
 		$this->enableWindowZoom = $enableWindowZoom;
@@ -236,10 +225,9 @@ class GoogleMapAPI
 	/**
 	 * Enable theautomatic center/zoom at the gmap load
 	 *
-	 * @param int $zoom GoogleMap  zoom.
+	 * @param int $enableAutomaticCenterZoom   GoogleMap  zoom.
 	 * @return void
 	 */
-
 	public function setEnableAutomaticCenterZoom($enableAutomaticCenterZoom)
 	{
 		$this->enableAutomaticCenterZoom = $enableAutomaticCenterZoom;
@@ -251,7 +239,6 @@ class GoogleMapAPI
 	 * @param string $center GoogleMap  center (an address)
 	 * @return void
 	 */
-
 	public function setCenter($center)
 	{
 		$this->center = $center;
@@ -263,7 +250,6 @@ class GoogleMapAPI
 	 * @param boolean $displayDirectionFields display directions or not in the info window
 	 * @return void
 	 */
-
 	public function setDisplayDirectionFields($displayDirectionFields)
 	{
 		$this->displayDirectionFields = $displayDirectionFields;
@@ -275,7 +261,6 @@ class GoogleMapAPI
 	 * @param boolean $defaultHideMarker hide all the markers on the map by default
 	 * @return void
 	 */
-
 	public function setDefaultHideMarker($defaultHideMarker)
 	{
 		$this->defaultHideMarker = $defaultHideMarker;
@@ -286,7 +271,6 @@ class GoogleMapAPI
 	 *
 	 * @return string the google map html code
 	 */
-
 	public function getGoogleMap()
 	{
 		return $this->content;
@@ -300,7 +284,6 @@ class GoogleMapAPI
 	 *
 	 * @todo add proxy settings
 	 */
-
 	public function getContent($url)
 	{
 		$curl = curl_init();
@@ -316,8 +299,8 @@ class GoogleMapAPI
 	/**
 	 * Remove accentued characters
 	 *
-	 * @param string $chaine		The string to treat
-	 * @param string $remplace_par	The replacement character
+	 * @param string $str		   The string to treat
+	 * @param string $replaceBy    The replacement character
 	 * @return string
 	 */
 	public function withoutSpecialChars($str, $replaceBy = '_')
@@ -370,12 +353,12 @@ class GoogleMapAPI
 	 *
 	 * @param string $lat 			lat
 	 * @param string $lng 			lngs
+	 * @param string $title         Title
 	 * @param string $html 			html code display in the info window
 	 * @param string $category 		marker category
 	 * @param string $icon 			an icon url
 	 * @return void
 	 */
-
 	public function addMarkerByCoords($lat, $lng, $title, $html = '', $category = '', $icon = '')
 	{
 		if (empty($icon))
@@ -385,12 +368,12 @@ class GoogleMapAPI
 		}
 
 		// Save the lat/lon to enable the automatic center/zoom
-		$this->maxLng = (float)max((float)$lng, $this->maxLng);
-		$this->minLng = (float)min((float)$lng, $this->minLng);
-		$this->maxLat = (float)max((float)$lat, $this->maxLat);
-		$this->minLat = (float)min((float)$lat, $this->minLat);
-		$this->centerLng = (float)($this->minLng + $this->maxLng) / 2;
-		$this->centerLat = (float)($this->minLat + $this->maxLat) / 2;
+		$this->maxLng = (float) max((float) $lng, $this->maxLng);
+		$this->minLng = (float) min((float) $lng, $this->minLng);
+		$this->maxLat = (float) max((float) $lat, $this->maxLat);
+		$this->minLat = (float) min((float) $lat, $this->minLat);
+		$this->centerLng = (float) ($this->minLng + $this->maxLng) / 2;
+		$this->centerLat = (float) ($this->minLat + $this->maxLat) / 2;
 
 		$this->contentMarker .= "\t" . 'addMarker(new google.maps.LatLng("' . $lat . '","' . $lng . '"),"' . $this->g_dol_escape_js($title,2) . '","' . $this->g_dol_escape_js($html,2) . '","' . $this->g_dol_escape_js($category,2) . '","' . $icon . '");' . "\n";
 	}
@@ -416,13 +399,14 @@ class GoogleMapAPI
 	/**
 	 * Add marker by his address
 	 *
-	 * @param string $address an ddress
-	 * @param string $content html code display in the info window
-	 * @param string $category marker category
-	 * @param string $icon an icon url
+	 * @param  string  $address    An ddress
+	 * @param  string  $title      Title
+	 * @param  string  $content    html code display in the info window
+	 * @param  string  $category   marker category
+	 * @param  string  $icon       an icon url
+	 * @param  string  $idSoc      Id of thirdparty
 	 * @return void
 	 */
-
 	public function addMarkerByAddress($address, $title = '', $content = '', $category = '', $icon = '',$idSoc = '')
 	{
 		$point = $this->geocoding($address);
@@ -436,7 +420,7 @@ class GoogleMapAPI
 	/**
 	 * Add marker by an array
 	 *
-	 * @param string $tabAddresss 	An array of address
+	 * @param string $tabAddresses 	An array of address
 	 * @param string $langs 		Language
 	 * @param string $mode 			Mode
 	 * @return void

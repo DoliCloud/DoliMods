@@ -54,6 +54,16 @@ class Google_Http_REST
     $body = $response->getResponseBody();
     $decoded = null;
 
+    // DOL_LDR
+    global $conf;
+    if (! empty($conf->global->GOOGLE_DEBUG) || 1 == 1)
+    {
+        $dates=dol_print_date(dol_now(), 'dayhourlog');
+        $h=fopen(DOL_DATA_ROOT.'/dolibarr_google_'.$dates.'.log', 'w+');
+        fwrite($h, $body);
+        fclose($h);
+    }
+
     if ((intVal($code)) >= 300) {
       $decoded = json_decode($body, true);
       $err = 'Error calling ' . $response->getRequestMethod() . ' ' . $response->getUrl();

@@ -356,7 +356,7 @@ function createEvent($client, $object, $login='primary')
  * @param  	string					$object	   		Source object into Dolibarr
  * @param  	string					$login			CalendarId (login google or 'primary')
  * @param	Google_Service_Calendar	$service		Object service (will be created if not provided)
- * @return
+ * @return  int                                     1
  */
 function updateEvent($client, $eventId, $object, $login='primary', $service=null)
 {
@@ -701,8 +701,8 @@ function syncEventsFromGoogleCalendar($userlogin, User $fuser, $mindate, $max=0)
 						}
 						elseif ($dates)
 						{
-							$object->datep=$datest;
-							$object->datef=$dateet;
+							$object->datep=(dol_stringtotime($dates,0));
+							$object->datef=(dol_stringtotime($datee,0) - 1);
 							$object->fulldayevent=1;
 						}
 						//$object->type_code='AC_OTH';
@@ -866,8 +866,8 @@ function syncEventsFromGoogleCalendar($userlogin, User $fuser, $mindate, $max=0)
 						}
 						elseif ($dates)
 						{
-							$object->datep=$datest;
-							$object->datef=$dateet;
+							$object->datep=(dol_stringtotime($dates,0));
+							$object->datef=(dol_stringtotime($datee,0) - 1);
 							$object->fulldayevent=1;
 						}
 						$object->type_code='AC_OTH';

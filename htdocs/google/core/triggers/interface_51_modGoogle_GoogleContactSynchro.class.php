@@ -98,7 +98,7 @@ class InterfaceGoogleContactSynchro
 	 *      @param	string		$action     Code of event
 	 *      @param 	Action		$object     Objet concerne
 	 *      @param  User		$user       Objet user
-	 *      @param  Translate	$lang       Objet lang
+	 *      @param  Translate	$langs      Objet lang
 	 *      @param  Conf		$conf       Objet conf
 	 *      @return int         			<0 if KO, 0 if nothing is done, >0 if OK
 	 */

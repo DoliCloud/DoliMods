@@ -164,5 +164,3 @@ class box_googlemaps extends ModeleBoxes
 	}
 
 }
-
-?>
