@@ -56,10 +56,10 @@ class Google_Http_REST
 
     // DOL_LDR
     global $conf;
-    if (! empty($conf->global->GOOGLE_DEBUG) || 1 == 1)
+    if (! empty($conf->global->GOOGLE_DEBUG))
     {
         $dates=dol_print_date(dol_now(), 'dayhourlog');
-        $h=fopen(DOL_DATA_ROOT.'/dolibarr_google_'.$dates.'.log', 'w+');
+        $h=fopen(DOL_DATA_ROOT.'/dolibarr_google_response_'.$dates.'.log', 'w+');
         fwrite($h, $body);
         fclose($h);
     }
