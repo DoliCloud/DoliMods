@@ -134,7 +134,7 @@ if (empty($mode) || $mode=='thirdparty')
 	$type='company';
 	$sql="SELECT s.rowid as id, s.nom as name, s.address, s.zip, s.town, s.url,";
 	$sql.= " c.rowid as country_id, c.code as country_code, c.".$countrylabelfield." as country,";
-	$sql.= " g.rowid as gid, g.fk_object, g.latitude, g.longitude, g.address as gaddress, g.result_code, g.result_label";
+	$sql.= " g.rowid as gid, g.fk_object, g.latitude, g.longitude, g.address as gaddress, g.result_code, g.result_label, g.tms";
 	$sql.= " FROM ".MAIN_DB_PREFIX."societe as s";
 	$sql.= " LEFT JOIN ".MAIN_DB_PREFIX.$countrytable." as c ON s.fk_pays = c.rowid";
 	$sql.= " LEFT JOIN ".MAIN_DB_PREFIX."google_maps as g ON s.rowid = g.fk_object and g.type_object='".$type."'";
@@ -146,7 +146,7 @@ if (empty($mode) || $mode=='thirdparty')
 	if ($search_sale > 0)          $sql.= " AND s.rowid = sc.fk_soc AND sc.fk_user = " .$search_sale;
 	if ($search_departement != '' && $search_departement > 0) $sql.= " AND s.fk_departement = dp.rowid AND dp.rowid = ".$db->escape($search_departement);
 	if ($socid) $sql.= " AND s.rowid = ".$socid;	// protect for external user
-	$sql.= " ORDER BY s.rowid";
+	$sql.= " ORDER BY g.tms ASC, s.rowid ASC";
 	//print $search_sale.'-'.$sql;
 }
 else if ($mode=='contact')
@@ -156,12 +156,12 @@ else if ($mode=='contact')
 	$type='contact';
 	$sql="SELECT s.rowid as id, s.lastname, s.firstname, s.address, s.zip, s.town, '' as url,";
 	$sql.= " c.rowid as country_id, c.code as country_code, c.".$countrylabelfield." as country,";
-	$sql.= " g.rowid as gid, g.fk_object, g.latitude, g.longitude, g.address as gaddress, g.result_code, g.result_label";
+	$sql.= " g.rowid as gid, g.fk_object, g.latitude, g.longitude, g.address as gaddress, g.result_code, g.result_label, g.tms";
 	$sql.= " FROM ".MAIN_DB_PREFIX."socpeople as s";
 	$sql.= " LEFT JOIN ".MAIN_DB_PREFIX.$countrytable." as c ON s.fk_pays = c.rowid";
 	$sql.= " LEFT JOIN ".MAIN_DB_PREFIX."google_maps as g ON s.rowid = g.fk_object and g.type_object='".$type."'";
 	$sql.= " WHERE s.entity IN (".getEntity('societe', 1).")";
-	$sql.= " ORDER BY s.rowid";
+	$sql.= " ORDER BY g.tms ASC, s.rowid ASC";
 }
 else if ($mode=='member')
 {
@@ -170,13 +170,13 @@ else if ($mode=='member')
 	$type='member';
 	$sql="SELECT s.rowid as id, s.lastname, s.firstname, s.address, s.zip, s.town, '' as url,";
 	$sql.= " c.rowid as country_id, c.code as country_code, c.".$countrylabelfield." as country,";
-	$sql.= " g.rowid as gid, g.fk_object, g.latitude, g.longitude, g.address as gaddress, g.result_code, g.result_label";
+	$sql.= " g.rowid as gid, g.fk_object, g.latitude, g.longitude, g.address as gaddress, g.result_code, g.result_label, g.tms";
 	$sql.= " FROM ".MAIN_DB_PREFIX."adherent as s";
 	$sql.= " LEFT JOIN ".MAIN_DB_PREFIX.$countrytable." as c ON s.country = c.rowid";
 	$sql.= " LEFT JOIN ".MAIN_DB_PREFIX."google_maps as g ON s.rowid = g.fk_object and g.type_object='".$type."'";
 	$sql.= " WHERE s.statut = 1";
 	$sql.= " AND s.entity IN (".getEntity('adherent', 1).")";
-	$sql.= " ORDER BY s.rowid";
+	$sql.= " ORDER BY g.tms ASC, s.rowid ASC";
 }
 else if ($mode=='patient')
 {
@@ -185,13 +185,13 @@ else if ($mode=='patient')
 	$type='patient';
 	$sql="SELECT s.rowid as id, s.nom as name, s.address, s.zip, s.town,";
 	$sql.= " c.rowid as country_id, c.code as country_code, c.".$countrylabelfield." as country, s.url,";
-	$sql.= " g.rowid as gid, g.fk_object, g.latitude, g.longitude, g.address as gaddress, g.result_code, g.result_label";
+	$sql.= " g.rowid as gid, g.fk_object, g.latitude, g.longitude, g.address as gaddress, g.result_code, g.result_label, g.tms";
 	$sql.= " FROM ".MAIN_DB_PREFIX."societe as s";
 	$sql.= " LEFT JOIN ".MAIN_DB_PREFIX.$countrytable." as c ON s.fk_pays = c.rowid";
 	$sql.= " LEFT JOIN ".MAIN_DB_PREFIX."google_maps as g ON s.rowid = g.fk_object and g.type_object='".$type."'";
 	$sql.= " WHERE s.canvas='patient@cabinetmed'";
 	$sql.= " AND s.entity IN (".getEntity('societe', 1).")";
-	$sql.= " ORDER BY s.rowid";
+	$sql.= " ORDER BY g.tms ASC, s.rowid ASC";
 }
 //print $sql;
 
@@ -253,7 +253,8 @@ if ($resql)
 
 		$geoencodingtosearch=false;
 		if ($obj->gaddress != $addresstosearch) $geoencodingtosearch=true;
-		else if ((empty($object->latitude) || empty($object->longitude)) && (empty($obj->result_code) || in_array($obj->result_code, array('OK','OVER_QUERY_LIMIT')))) $geoencodingtosearch=true;
+		else if ((empty($object->latitude) || empty($object->longitude)) 
+		    && (empty($obj->result_code) || in_array($obj->result_code, array('OK','OVER_QUERY_LIMIT','REQUEST_DENIED')))) $geoencodingtosearch=true;
 
 		if ($geoencodingtosearch && (empty($MAXADDRESS) || $countgeoencoding < $MAXADDRESS))
 		{
@@ -315,7 +316,7 @@ if ($resql)
 				else
 				{
 					$googlemaps->result_code=$error;
-					$googlemaps->result_label='Geoencoding failed '.$error;
+					$googlemaps->result_label='Geoencoding failed: '.$error;
 				}
 
 				if ($googlemaps->id > 0) $result=$googlemaps->update();
@@ -476,16 +477,9 @@ function geocoding($address)
 		$return['lng']=$data->results[0]->geometry->location->lng;
 		return $return;
 	}
-	else if ($data->status == "OVER_QUERY_LIMIT")
+	else if (in_array($data->status, array("OVER_QUERY_LIMIT", "ZERO_RESULTS", "INVALID_RESULT", "REQUEST_DENIED")))
 	{
-		$returnstring='OVER_QUERY_LIMIT';
-		echo "\n<!-- geocoding : called url : ".dol_escape_htmltag($url)." -->\n";
-		echo "<!-- geocoding : failure to geocode : ".dol_escape_htmltag($encodeAddress)." => " . dol_escape_htmltag($returnstring) . " -->\n";
-		return $returnstring;
-	}
-	else if ($data->status == "ZERO_RESULTS")
-	{
-		$returnstring='ZERO_RESULTS';
+		$returnstring=$data->status;
 		echo "\n<!-- geocoding : called url : ".dol_escape_htmltag($url)." -->\n";
 		echo "<!-- geocoding : failure to geocode : ".dol_escape_htmltag($encodeAddress)." => " . dol_escape_htmltag($returnstring) . " -->\n";
 		return $returnstring;
