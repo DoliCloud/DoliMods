@@ -379,6 +379,7 @@ function updateEvent($client, $eventId, $object, $login='primary', $service=null
 
 		//$event = new Google_Service_Calendar_Event();
 		$event = $service->events->get($login, $neweventid);
+		
 		if (is_object($event)) dol_syslog("updateEvent get old record id=".$event->getId()." found into google calendar", LOG_DEBUG);
 
 		// Set new value of events
@@ -423,17 +424,23 @@ function updateEvent($client, $eventId, $object, $login='primary', $service=null
 		$urlevent=$urlwithroot.'/comm/action/card.php?id='.$object->id;
 		$urlicon=$urlwithroot.'/favicon.ico';
 
-		$source=new Google_Service_Calendar_EventSource();
-		$source->setTitle($conf->global->MAIN_APPLICATION_TITLE);
-		$source->setUrl($urlevent);
-
-		$event->setSource($source);
+		// The source can be set only by the creator. And creator may be calendar owner and updater the service account
+		//var_dump($login);
+		//var_dump($conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL);
+		//var_dump($event->getCreator()->getEmail());
+		/*if ($conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL == $event->getCreator()->getEmail())
+		{
+    		$source=new Google_Service_Calendar_EventSource();
+    		$source->setTitle($conf->global->MAIN_APPLICATION_TITLE);
+    		$source->setUrl($urlevent);
+            $event->setSource($source);
+		}*/
 
 		/*$gadget=new Google_Service_Calendar_EventGadget();
 		$gadget->setLink($urlevent);
 		$gadget->setIconLink($urlicon);
 		$event->setGadget($gadget);*/
-
+		
 		$event->setStatus('confirmed');		// tentative, cancelled
 		$event->setVisibility('default');	// default, public, private (view by attendees only), confidential (do not use)
 
@@ -701,8 +708,8 @@ function syncEventsFromGoogleCalendar($userlogin, User $fuser, $mindate, $max=0)
 						}
 						elseif ($dates)
 						{
-							$object->datep=$datest;
-							$object->datef=$dateet;
+							$object->datep=(dol_stringtotime($dates,0));
+							$object->datef=(dol_stringtotime($datee,0) - 1);
 							$object->fulldayevent=1;
 						}
 						//$object->type_code='AC_OTH';
@@ -866,8 +873,8 @@ function syncEventsFromGoogleCalendar($userlogin, User $fuser, $mindate, $max=0)
 						}
 						elseif ($dates)
 						{
-							$object->datep=$datest;
-							$object->datef=$dateet;
+							$object->datep=(dol_stringtotime($dates,0));
+							$object->datef=(dol_stringtotime($datee,0) - 1);
 							$object->fulldayevent=1;
 						}
 						$object->type_code='AC_OTH';
@@ -1008,7 +1015,8 @@ function syncEventsFromGoogleCalendar($userlogin, User $fuser, $mindate, $max=0)
 
 								$event->setSource($source);
 								*/
-
+                                
+								dol_syslog("Update google record to set the extended property");
 								$updatedEvent = $service->events->update($userlogin, $event->getId(), $event);
 
 								$nbinserted++;

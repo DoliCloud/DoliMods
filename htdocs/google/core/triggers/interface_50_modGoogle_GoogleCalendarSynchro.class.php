@@ -226,13 +226,21 @@ class InterfaceGoogleCalendarSynchro
 				if ($action == 'ACTION_MODIFY')
 				{
 					$gid = basename($object->ref_ext);
+					
 					if ($gid && preg_match('/google/i', $object->ref_ext)) // This record is linked with Google Calendar
 					{
 						$ret = updateEvent($servicearray, $gid, $object, $userlogin);
-						//var_dump($ret); exit;
 
-						if (! is_numeric($ret) || $ret < 0)// Fails to update, we try to create
+						if (! is_numeric($ret) || $ret < 0)// Fails to update
 						{
+						    dol_syslog("ret=".$ret);
+						    if (preg_match('/\(403\)/',$ret))
+						    {
+						        $this->errors[]=$ret;
+						        return -1;
+						    }
+						    
+						    // We suppose update failed because record was not found, we try to create it
 							$ret = createEvent($servicearray, $object, $userlogin);
 							//var_dump($ret); exit;
 

@@ -81,12 +81,13 @@ class ActionsGoogle
 				$valparam=$conf->global->$keyparam;
 				if ($valparam) $dateminsync=dol_stringtotime($valparam, 1);
 				if (empty($dateminsync) || $dateminsync < ($now - ($notolderforsync * 24 * 3600))) $dateminsync=($now - ($notolderforsync * 24 * 3600));
-
+				$dateminsync = strtotime('-1 day',$dateminsync);
+				
 	    		$actiongoogle = GETPOST('actiongoogle');
 
 	    		$_SERVER['QUERY_STRING'] = preg_replace('/&*actiongoogle=refresh/','',$_SERVER['QUERY_STRING']);
 
-
+	    		 
 	    		// Action sync
 	    		if ($actiongoogle == 'refresh')
 	    		{
@@ -95,7 +96,6 @@ class ActionsGoogle
 
 					if (! $error)
 					{
-						$dateminsync = strtotime('-1 day',$dateminsync);
 						$resarray = syncEventsFromGoogleCalendar($userlogin, $user, $dateminsync, $max);
 
 						$errors=$resarray['errors'];
@@ -128,7 +128,7 @@ class ActionsGoogle
 	    		$this->resprints = '<div class="clearboth"></div><div class="googlerefreshcal">';
 	    		$this->resprints.= '<a href="'.$_SERVER["PHP_SELF"].'?'.$_SERVER['QUERY_STRING'].'&actiongoogle=refresh">';
 	    		$this->resprints.= $langs->trans("ClickToUpdateWithLastGoogleChanges", $userlogin);
-	    		$this->resprints.= ' '.dol_print_date($dateminsync, 'dayhour');
+	    		$this->resprints.= ' '.dol_print_date($dateminsync, 'dayhour', 'tzserver', $langs);
 	    		$this->resprints.= $form->textwithtooltip(img_help(),$langs->trans("GoogleLimitBackTime",$notolderforsync));
 	    		$this->resprints.= '</a></div>';
 

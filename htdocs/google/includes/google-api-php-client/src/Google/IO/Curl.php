@@ -86,7 +86,8 @@ class Google_IO_Curl extends Google_IO_Abstract
 
     // DOL_LDR_CHANGE
     $status = curl_getinfo($curl, CURLINFO_HEADER_OUT);	// Reading of request must be done after sending request
-    dol_syslog("executeRequest request=".$status);
+    dol_syslog("executeRequest request=".$request->getUrl());
+    dol_syslog("executeRequest post body=".$request->getPostBody());
     dol_syslog("executeRequest response=".$response);
 
     if ($response === false) {
