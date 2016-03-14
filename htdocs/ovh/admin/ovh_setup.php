@@ -93,14 +93,19 @@ $endpoint = empty($conf->global->OVH_ENDPOINT)?'ovh-eu':$conf->global->OVH_ENDPO
 if ($action == 'setvalue' && $user->admin)
 {
     //$result=dolibarr_set_const($db, "PAYBOX_IBS_DEVISE",$_POST["PAYBOX_IBS_DEVISE"],'chaine',0,'',$conf->entity);
-    $result=dolibarr_set_const($db, "OVHSMS_NICK",trim(GETPOST("OVHSMS_NICK")),'chaine',0,'',$conf->entity);
-    $result=dolibarr_set_const($db, "OVHSMS_PASS",trim(GETPOST("OVHSMS_PASS")),'chaine',0,'',$conf->entity);
-    $result=dolibarr_set_const($db, "OVHSMS_SOAPURL",trim(GETPOST("OVHSMS_SOAPURL")),'chaine',0,'',$conf->entity);
-
-    $result=dolibarr_set_const($db, "OVHAPPNAME",trim(GETPOST("OVHAPPNAME")),'chaine',0,'',$conf->entity);
-    $result=dolibarr_set_const($db, "OVHAPPDESC",trim(GETPOST("OVHAPPDESC")),'chaine',0,'',$conf->entity);
-    $result=dolibarr_set_const($db, "OVHAPPKEY",trim(GETPOST("OVHAPPKEY")),'chaine',0,'',$conf->entity);
-    $result=dolibarr_set_const($db, "OVHAPPSECRET",trim(GETPOST("OVHAPPSECRET")),'chaine',0,'',$conf->entity);
+    if (! empty($conf->global->OVH_OLDAPI))
+    {
+        $result=dolibarr_set_const($db, "OVHSMS_NICK",trim(GETPOST("OVHSMS_NICK")),'chaine',0,'',$conf->entity);
+        $result=dolibarr_set_const($db, "OVHSMS_PASS",trim(GETPOST("OVHSMS_PASS")),'chaine',0,'',$conf->entity);
+        $result=dolibarr_set_const($db, "OVHSMS_SOAPURL",trim(GETPOST("OVHSMS_SOAPURL")),'chaine',0,'',$conf->entity);
+    }
+    else
+    {
+        $result=dolibarr_set_const($db, "OVHAPPNAME",trim(GETPOST("OVHAPPNAME")),'chaine',0,'',$conf->entity);
+        $result=dolibarr_set_const($db, "OVHAPPDESC",trim(GETPOST("OVHAPPDESC")),'chaine',0,'',$conf->entity);
+        $result=dolibarr_set_const($db, "OVHAPPKEY",trim(GETPOST("OVHAPPKEY")),'chaine',0,'',$conf->entity);
+        $result=dolibarr_set_const($db, "OVHAPPSECRET",trim(GETPOST("OVHAPPSECRET")),'chaine',0,'',$conf->entity);
+    }
     
     if ($result >= 0)
     {
@@ -407,10 +412,10 @@ $db->close();
 /**
  * Function to trap FATAL errors
  *
- * @param string	$no
- * @param string	$str
- * @param string	$file
- * @param string	$line
+ * @param string	$no        No 
+ * @param string	$str       Str
+ * @param string	$file      File
+ * @param string	$line      Line
  */
 function my_error_handler($no,$str,$file,$line)
 {

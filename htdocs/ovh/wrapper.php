@@ -141,7 +141,7 @@ if (! empty($number))
     $strCallerId = "Dolibarr <".strtolower($caller).">" ;
 
     try {
-        if (! empty($conf->global->OVH_OLDAPI))
+        if (! empty($conf->global->OVH_OLDAPI) || ! empty($conf->global->OVH_OLDAPI_FORCLICK2DIAL))
         {
             $soap = new SoapClient($wsdlovh);
     

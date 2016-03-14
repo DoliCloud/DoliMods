@@ -61,7 +61,11 @@ if ($user->societe_id > 0)
 	//accessforbidden();
 }
 
+$urlexample='http://www.ovh.com/soapi/soapi-re-latest.wsdl';
+
 $endpoint = empty($conf->global->OVH_ENDPOINT)?'ovh-eu':$conf->global->OVH_ENDPOINT;
+
+//$conf->global->OVH_OLDAPI =1;
 
 
 /*
@@ -70,9 +74,17 @@ $endpoint = empty($conf->global->OVH_ENDPOINT)?'ovh-eu':$conf->global->OVH_ENDPO
 
 if ($action == 'setvalue_account' && $user->admin)
 {
-    $result=dolibarr_set_const($db, "OVHC2C_ACCOUNT",$_POST["OVHC2C_ACCOUNT"],'chaine',0,'',$conf->entity);
-    $result=dolibarr_set_const($db, "OVHSN_ACCOUNT",$_POST["OVHSN_ACCOUNT"],'chaine',0,'',$conf->entity);
-    
+    if (! empty($conf->global->OVH_OLDAPI))
+    {
+        $result=dolibarr_set_const($db, "OVHSMS_NICK",trim(GETPOST("OVHSMS_NICK")),'chaine',0,'',$conf->entity);
+        $result=dolibarr_set_const($db, "OVHSMS_PASS",trim(GETPOST("OVHSMS_PASS")),'chaine',0,'',$conf->entity);
+        $result=dolibarr_set_const($db, "OVHSMS_SOAPURL",trim(GETPOST("OVHSMS_SOAPURL")),'chaine',0,'',$conf->entity);
+    }
+    else
+    {
+        $result=dolibarr_set_const($db, "OVHC2C_ACCOUNT",$_POST["OVHC2C_ACCOUNT"],'chaine',0,'',$conf->entity);
+        $result=dolibarr_set_const($db, "OVHSN_ACCOUNT",$_POST["OVHSN_ACCOUNT"],'chaine',0,'',$conf->entity);
+    }
     if ($result >= 0)
     {
         $mesg='<div class="ok">'.$langs->trans("SetupSaved").'</div>';
@@ -96,11 +108,11 @@ dol_syslog("Will use URL=".$WS_DOL_URL, LOG_DEBUG);
 $login = $conf->global->OVHC2C_ACCOUNT;
 $password = $conf->global->OVH_SMS_PASS;
 
-llxHeader('',$langs->trans('OvhSmsSetup'),'','');
+llxHeader('',$langs->trans('OvhClick2dialSetup'),'','');
 
 $linkback='<a href="'.DOL_URL_ROOT.'/admin/modules.php">'.$langs->trans("BackToModuleList").'</a>';
 
-print_fiche_titre($langs->trans("OvhSmsSetup"),$linkback,'setup');
+print_fiche_titre($langs->trans("OvhClick2dialSetup"),$linkback,'setup');
 
 $head=ovhadmin_prepare_head();
 
@@ -114,13 +126,13 @@ if ($mesg)
 }
 
 
-if (! empty($conf->global->OVH_OLDAPI) && (empty($conf->global->OVHC2C_ACCOUNT) || empty($WS_DOL_URL)))
+/*if (! empty($conf->global->OVH_OLDAPI) && (empty($conf->global->OVHC2C_ACCOUNT) || empty($WS_DOL_URL)))
 {
     echo '<div class="warning">'.$langs->trans("OvhSmsNotConfigured").'</div>';
 }
 else
-{
-   // Formulaire d'ajout de compte SMS qui sera valable pour tout Dolibarr
+{*/
+   // Formulaire d'ajout de compte qui sera valable pour le click2dial
     print '<form method="post" action="'.$_SERVER["PHP_SELF"].'">';
     print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
     print '<input type="hidden" name="action" value="setvalue_account">';
@@ -138,21 +150,46 @@ else
     print "</tr>\n";
     
     
-    $var=!$var;
-    print '<tr '.$bc[$var].'><td class="fieldrequired">';
-    print $langs->trans("OvhBillingAccount").'</td><td>';
-    print '<input size="64" type="text" name="OVHC2C_ACCOUNT" value="'.$conf->global->OVHC2C_ACCOUNT.'">';
-    print '<br>'.$langs->trans("Example").': nh123-ovh-1';
-    //print '<td>'.'<a href="ovh_smsrecap.php" target="_blank">'.$langs->trans("ListOfSmsAccountsForNH").'</a>';
-    print '</td></tr>';
-
-    $var=!$var;
-    print '<tr '.$bc[$var].'><td class="fieldrequired">';
-    print $langs->trans("OvhServiceName").'</td><td>';
-    print '<input size="64" type="text" name="OVHSN_ACCOUNT" value="'.$conf->global->OVHSN_ACCOUNT.'">';
-    //print '<br>'.$langs->trans("Example").': nh123-ovh-1';
-    //print '<td>'.'<a href="ovh_smsrecap.php" target="_blank">'.$langs->trans("ListOfSmsAccountsForNH").'</a>';
-    print '</td></tr>';
+    if (! empty($conf->global->OVH_OLDAPI) || ! empty($conf->global->OVH_OLDAPI_FORCLICK2DIAL))
+    {
+        $var=!$var;
+        print '<tr '.$bc[$var].'><td width="200px" class="fieldrequired">';
+        print $langs->trans("OvhSmsNick").'</td><td>';
+        print '<input size="64" type="text" name="OVHSMS_NICK" value="'.$conf->global->OVHSMS_NICK.'">';
+        print '</td><td>'.$langs->trans("Example").': AA123-OVH';
+        print '</td></tr>';
+        
+        $var=!$var;
+        print '<tr '.$bc[$var].'><td class="fieldrequired">';
+        print $langs->trans("OvhSmsPass").'</td><td>';
+        print '<input size="64" type="password" name="OVHSMS_PASS" value="'.$conf->global->OVHSMS_PASS.'">';
+        print '</td><td></td></tr>';
+        
+        $var=!$var;
+        print '<tr '.$bc[$var].'><td class="fieldrequired">';
+        print $langs->trans("OvhSmsSoapUrl").'</td><td>';
+        print '<input size="64" type="text" name="OVHSMS_SOAPURL" value="'.$conf->global->OVHSMS_SOAPURL.'">';
+        print '</td><td>'.$langs->trans("Example").': '.$urlexample;
+        print '</td></tr>';        
+    }
+    else
+    {
+        $var=!$var;
+        print '<tr '.$bc[$var].'><td class="fieldrequired">';
+        print $langs->trans("OvhBillingAccount").'</td><td>';
+        print '<input size="64" type="text" name="OVHC2C_ACCOUNT" value="'.$conf->global->OVHC2C_ACCOUNT.'">';
+        print '<br>'.$langs->trans("Example").': nh123-ovh-1';
+        //print '<td>'.'<a href="ovh_smsrecap.php" target="_blank">'.$langs->trans("ListOfSmsAccountsForNH").'</a>';
+        print '</td><td></td></tr>';
+    
+        $var=!$var;
+        print '<tr '.$bc[$var].'><td class="fieldrequired">';
+        print $langs->trans("OvhServiceName").'</td><td>';
+        print '<input size="64" type="text" name="OVHSN_ACCOUNT" value="'.$conf->global->OVHSN_ACCOUNT.'">';
+        //print '<br>'.$langs->trans("Example").': nh123-ovh-1';
+        //print '<td>'.'<a href="ovh_smsrecap.php" target="_blank">'.$langs->trans("ListOfSmsAccountsForNH").'</a>';
+        print '</td><td></td></tr>';
+    }
     
     print '</table>';    
     
@@ -181,7 +218,7 @@ else
     
     print '</form>';
     
-}
+//}
 
 
 

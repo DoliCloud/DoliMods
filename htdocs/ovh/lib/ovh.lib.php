@@ -67,6 +67,3 @@ function ovhadmin_prepare_head()
 
 	return $head;
 }
-
-
-?>
