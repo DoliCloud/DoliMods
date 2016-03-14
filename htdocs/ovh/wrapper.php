@@ -150,7 +150,11 @@ if (! empty($number))
         else
         {
             $conn = new Api($conf->global->OVHAPPKEY, $conf->global->OVHAPPSECRET, $endpoint, $conf->global->OVHCONSUMERKEY);
-            $conn->post('/telephony/'.$billingAccount.'/line/'.$serviceName.'/click2Call');
+            $content = (object) array(
+                "calledNumber" => $called,  // who is called
+                "callingNumber"=> $caller   // who calls
+                );
+            $conn->post('/telephony/'.$billingAccount.'/line/'.$serviceName.'/click2Call', $content);
         }
             
         $txt="Call OVH SIP dialer for caller: ".$caller.", called: ".$called.", clicktodiallogin: ".$login.", password: ".preg_replace('/./','*',$password);
