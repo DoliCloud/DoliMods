@@ -1,6 +1,6 @@
 <?php
-/* Copyright (C) 2007 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2010 Jean-François FERRY  <jfefe@aternatik.fr>
+/* Copyright (C) 2007-2016 Laurent Destailleur  <eldy@users.sourceforge.net>
+ * Copyright (C) 2010      Jean-François FERRY  <jfefe@aternatik.fr>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -179,15 +179,13 @@ else
         print $langs->trans("OvhBillingAccount").'</td><td>';
         print '<input size="64" type="text" name="OVHC2C_ACCOUNT" value="'.$conf->global->OVHC2C_ACCOUNT.'">';
         print '<br>'.$langs->trans("Example").': nh123-ovh-1';
-        //print '<td>'.'<a href="ovh_smsrecap.php" target="_blank">'.$langs->trans("ListOfSmsAccountsForNH").'</a>';
         print '</td><td></td></tr>';
     
         $var=!$var;
         print '<tr '.$bc[$var].'><td class="fieldrequired">';
         print $langs->trans("OvhServiceName").'</td><td>';
         print '<input size="64" type="text" name="OVHSN_ACCOUNT" value="'.$conf->global->OVHSN_ACCOUNT.'">';
-        //print '<br>'.$langs->trans("Example").': nh123-ovh-1';
-        //print '<td>'.'<a href="ovh_smsrecap.php" target="_blank">'.$langs->trans("ListOfSmsAccountsForNH").'</a>';
+        print '<br>'.$langs->trans("Example").': 00331234567';
         print '</td><td></td></tr>';
     }
     
@@ -199,10 +197,14 @@ else
     // Show message
     $message='';
     
-    $tmpurl='/ovh/wrapper.php?login=__LOGIN__&password=__PASS__&caller=__PHONEFROM__&called=__PHONETO__';
+    $tmpurl='/ovh/wrapper.php?caller=__PHONEFROM__&called=__PHONETO__';
     if (empty($conf->global->OVH_OLDAPI)) 
     {
         $tmpurl.='&billingaccount='.$conf->global->OVHC2C_ACCOUNT.'&servicename='.$conf->global->OVHSN_ACCOUNT;
+    }
+    else
+    {
+        $tmpurl.='&login=__LOGIN__&password=__PASS__';
     }
         
     $url='<a href="'.dol_buildpath($tmpurl,2).'" target="_blank">'.dol_buildpath($tmpurl,2).'</a>';
