@@ -150,13 +150,18 @@ if (! empty($number))
         else
         {
             $conn = new Api($conf->global->OVHAPPKEY, $conf->global->OVHAPPSECRET, $endpoint, $conf->global->OVHCONSUMERKEY);
-            $conn->post('/telephony/'.$billingAccount.'/line/'.$serviceName.'/click2Call');
+            $content = (object) array(
+                "calledNumber" => $called,  // who is called
+                "callingNumber"=> $caller   // who calls
+                );
+            $result = $conn->post('/telephony/'.$billingAccount.'/line/'.$serviceName.'/click2Call', $content);
         }
             
         $txt="Call OVH SIP dialer for caller: ".$caller.", called: ".$called.", clicktodiallogin: ".$login.", password: ".preg_replace('/./','*',$password);
         dol_syslog($txt);
-        print '<body xonload="javascript:history.go(-1);">'."\n";
+        print '<body '.(empty($conf->global->OVH_DISABLE_HISTORYGOBACK) ? '' : 'x').'onload="javascript:history.go(-1);">'."\n";
         print '<!-- '.$txt.' -->'."\n";
+        print '<!-- result = '.$result.' -->'."\n";
         sleep(2);
         print '</body>'."\n";
     }
