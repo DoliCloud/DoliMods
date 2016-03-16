@@ -445,7 +445,7 @@ class GoogleMapAPI
 			*/
 			$address=dol_string_nospecial($elem->address,', ',array("\r\n","\n","\r"));
 
-			$addPropre = $this->g_dol_escape_js($this->no_special_character_v2($address));
+			$addresscleaned = $this->g_dol_escape_js($this->no_special_character_v2($address));
 			$lienGmaps = ' <a href="http'.$sforhttps.'://maps.google.fr/maps?q='.urlencode($this->withoutSpecialChars($address)).'">Google Maps</a>';
 
 			$html='';
@@ -467,8 +467,10 @@ class GoogleMapAPI
 			}
 			$html.= '<b>'.$elem->name.'</b>';
 			$html.= '</a>';
-			$html.= '<br/>'.$addPropre.'<br/>';
+			$html.= '<br/>'.$addresscleaned.'<br/>';
 			if (! empty($elem->url)) $html.= '<a href="'.$elem->url.'">'.$elem->url.'</a><br/>';
+			if (! empty($elem->phone)) $html.= $elem->phone.'<br/>';
+			if (! empty($elem->email)) $html.= $elem->email.'<br/>';
 			$html.= '<br/>'.$lienGmaps.'<br/>';
 
 			if(isset($elem->latitude) && isset($elem->longitude)) {
