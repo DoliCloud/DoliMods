@@ -1,11 +1,11 @@
 <?php
-/* Copyright (C) 2011 Laurent Destailleur  <eldy@users.sourceforge.net>
+/* Copyright (C) 2011-2016 Laurent Destailleur  <eldy@users.sourceforge.net>
  *
  * Licensed under the GNU GPL v3 or higher (See file gpl-3.0.html)
  */
 
 /**
- *       \file       htdocs/google/gmaps.php
+ *       \file       htdocs/google/gmaps_all.php
  *       \ingroup    google
  *       \brief      Page to show a map
  *       \author     Laurent Destailleur
@@ -29,6 +29,7 @@ dol_include_once("/google/class/googlemaps.class.php");
 dol_include_once("/google/includes/GoogleMapAPIv3.class.php");
 
 $langs->load("google@google");
+$langs->load("categories");
 
 // url is:  gmaps.php?mode=thirdparty|contact|member&id=id&max=max
 
@@ -127,12 +128,14 @@ if (empty($mode) || $mode=='thirdparty')
 	if ($user->societe_id) $socid=$user->societe_id;
 
 	$search_sale=empty($conf->global->GOOGLE_MAPS_FORCE_FILTER_BY_SALE_REPRESENTATIVES)?GETPOST('search_sale'):-1;
+	$search_tag_customer=GETPOST('search_tag_customer');
+	$search_tag_supplier=GETPOST('search_tag_supplier');
 	$search_departement = GETPOST("state_id","int");
 
 	$title=$langs->trans("MapOfThirdparties");
 	$picto='company';
 	$type='company';
-	$sql="SELECT s.rowid as id, s.nom as name, s.address, s.zip, s.town, s.url,";
+	$sql="SELECT s.rowid as id, s.nom as name, s.address, s.zip, s.town, s.url, s.email, s.phone,";
 	$sql.= " c.rowid as country_id, c.code as country_code, c.".$countrylabelfield." as country,";
 	$sql.= " g.rowid as gid, g.fk_object, g.latitude, g.longitude, g.address as gaddress, g.result_code, g.result_label, g.tms";
 	$sql.= " FROM ".MAIN_DB_PREFIX."societe as s";
@@ -146,6 +149,8 @@ if (empty($mode) || $mode=='thirdparty')
 	if ($search_sale > 0)          $sql.= " AND s.rowid = sc.fk_soc AND sc.fk_user = " .$search_sale;
 	if ($search_departement != '' && $search_departement > 0) $sql.= " AND s.fk_departement = dp.rowid AND dp.rowid = ".$db->escape($search_departement);
 	if ($socid) $sql.= " AND s.rowid = ".$socid;	// protect for external user
+	if ($search_tag_customer > 0)           $sql.= " AND s.rowid IN (SELECT fk_soc FROM ".MAIN_DB_PREFIX."categorie_societe as cs WHERE fk_categorie = ".$search_tag_customer.")";
+	if ($search_tag_supplier > 0)           $sql.= " AND s.rowid IN (SELECT fk_soc FROM ".MAIN_DB_PREFIX."categorie_fournisseur as cs WHERE fk_categorie = ".$search_tag_supplier.")";
 	$sql.= " ORDER BY g.tms ASC, s.rowid ASC";
 	//print $search_sale.'-'.$sql;
 }
@@ -154,7 +159,7 @@ else if ($mode=='contact')
 	$title=$langs->trans("MapOfContactsAddresses");
 	$picto='contact';
 	$type='contact';
-	$sql="SELECT s.rowid as id, s.lastname, s.firstname, s.address, s.zip, s.town, '' as url,";
+	$sql="SELECT s.rowid as id, s.lastname, s.firstname, s.address, s.zip, s.town, '' as url, s.email, s.phone,";
 	$sql.= " c.rowid as country_id, c.code as country_code, c.".$countrylabelfield." as country,";
 	$sql.= " g.rowid as gid, g.fk_object, g.latitude, g.longitude, g.address as gaddress, g.result_code, g.result_label, g.tms";
 	$sql.= " FROM ".MAIN_DB_PREFIX."socpeople as s";
@@ -168,7 +173,7 @@ else if ($mode=='member')
 	$title=$langs->trans("MapOfMembers");
 	$picto='user';
 	$type='member';
-	$sql="SELECT s.rowid as id, s.lastname, s.firstname, s.address, s.zip, s.town, '' as url,";
+	$sql="SELECT s.rowid as id, s.lastname, s.firstname, s.address, s.zip, s.town, '' as url, s.email, s.phone, s.phone_perso, s.phone_mobile, s.societe,";
 	$sql.= " c.rowid as country_id, c.code as country_code, c.".$countrylabelfield." as country,";
 	$sql.= " g.rowid as gid, g.fk_object, g.latitude, g.longitude, g.address as gaddress, g.result_code, g.result_label, g.tms";
 	$sql.= " FROM ".MAIN_DB_PREFIX."adherent as s";
@@ -180,17 +185,30 @@ else if ($mode=='member')
 }
 else if ($mode=='patient')
 {
+	$search_sale=empty($conf->global->GOOGLE_MAPS_FORCE_FILTER_BY_SALE_REPRESENTATIVES)?GETPOST('search_sale'):-1;
+	$search_tag_customer=GETPOST('search_tag_customer');
+	$search_tag_supplier=GETPOST('search_tag_supplier');
+	$search_departement = GETPOST("state_id","int");
+    
 	$title=$langs->trans("MapOfPatients");
 	$picto='user';
 	$type='patient';
 	$sql="SELECT s.rowid as id, s.nom as name, s.address, s.zip, s.town,";
-	$sql.= " c.rowid as country_id, c.code as country_code, c.".$countrylabelfield." as country, s.url,";
+	$sql.= " c.rowid as country_id, c.code as country_code, c.".$countrylabelfield." as country, s.url, s.phone, s.email,";
 	$sql.= " g.rowid as gid, g.fk_object, g.latitude, g.longitude, g.address as gaddress, g.result_code, g.result_label, g.tms";
 	$sql.= " FROM ".MAIN_DB_PREFIX."societe as s";
 	$sql.= " LEFT JOIN ".MAIN_DB_PREFIX.$countrytable." as c ON s.fk_pays = c.rowid";
 	$sql.= " LEFT JOIN ".MAIN_DB_PREFIX."google_maps as g ON s.rowid = g.fk_object and g.type_object='".$type."'";
 	$sql.= " WHERE s.canvas='patient@cabinetmed'";
+	if ($search_sale || (!$user->rights->societe->client->voir && ! $socid)) $sql.= ", ".MAIN_DB_PREFIX."societe_commerciaux as sc";
+    if ($search_departement != '' && $search_departement > 0) $sql.= ", ".MAIN_DB_PREFIX."c_departements as dp";
 	$sql.= " AND s.entity IN (".getEntity('societe', 1).")";
+	if ($search_sale == -1 || (! $user->rights->societe->client->voir && ! $socid))	$sql.= " AND s.rowid = sc.fk_soc AND sc.fk_user = " .$user->id;
+	if ($search_sale > 0)          $sql.= " AND s.rowid = sc.fk_soc AND sc.fk_user = " .$search_sale;
+	if ($search_departement != '' && $search_departement > 0) $sql.= " AND s.fk_departement = dp.rowid AND dp.rowid = ".$db->escape($search_departement);
+	if ($socid) $sql.= " AND s.rowid = ".$socid;	// protect for external user
+	if ($search_tag_customer > 0)           $sql.= " AND s.rowid IN (SELECT fk_soc FROM ".MAIN_DB_PREFIX."categorie_societe as cs WHERE fk_categorie = ".$search_tag_customer.")";
+	if ($search_tag_supplier > 0)           $sql.= " AND s.rowid IN (SELECT fk_soc FROM ".MAIN_DB_PREFIX."categorie_fournisseur as cs WHERE fk_categorie = ".$search_tag_supplier.")";
 	$sql.= " ORDER BY g.tms ASC, s.rowid ASC";
 }
 //print $sql;
@@ -203,18 +221,37 @@ dol_fiche_head(array(), 'gmaps', '', 0);
 // If the user can view prospects other than his'
 if ($user->rights->societe->client->voir && empty($socid))
 {
-	$langs->load("commercial");
-	print '<form name="formsearch" method="POST" action="'.$_SERVER["PHP_SELF"].'">';
-	print $langs->trans('ThirdPartiesOfSaleRepresentative'). ': ';
-	print $formother->select_salesrepresentatives($search_sale,'search_sale',$user, 0, 1, 'maxwidth300');
-	if (! empty($conf->global->GOOGLE_MAPS_SEARCH_ON_STATE))
-	{
+    if (empty($mode) || $mode=='thirdparty' || $mode=='patient')
+    {
+    	$langs->load("commercial");
+    	print '<form name="formsearch" method="POST" action="'.$_SERVER["PHP_SELF"].'">';
+    	
+    	print $langs->trans('ThirdPartiesOfSaleRepresentative'). ': ';
+    	print $formother->select_salesrepresentatives($search_sale,'search_sale',$user, 0, 1, 'maxwidth300');
+
+    	if (! empty($conf->global->GOOGLE_MAPS_SEARCH_ON_STATE))
+    	{
+    		print ' &nbsp; &nbsp; &nbsp; ';
+    		print $langs->trans("State").': ';
+    		print $formcompany->select_state($search_departement,0,'state_id');
+    	}
+
 		print ' &nbsp; &nbsp; &nbsp; ';
-		print $langs->trans("State").': ';
-		print $formcompany->select_state($search_departement,0,'state_id');
-	}
-	print ' <input type="submit" name="submit_search_sale" value="'.$langs->trans("Search").'" class="button"> &nbsp; &nbsp; &nbsp; ';
-	print '</form>';
+		print $langs->trans("CustomersCategoriesShort").': ';
+		print $formother->select_categories(2, $search_tag_customer, 'search_tag_customer');
+
+		if (empty($mode) || $mode=='thirdparty')
+		{
+    		print ' &nbsp; &nbsp; &nbsp; ';
+    		print $langs->trans("SuppliersCategoriesShort").': ';
+    		print $formother->select_categories(1, $search_tag_supplier, 'search_tag_supplier');
+		}
+		
+    	print ' &nbsp; &nbsp; &nbsp; ';
+    	
+		print ' <input type="submit" name="submit_search_sale" value="'.$langs->trans("Search").'" class="button"> &nbsp; &nbsp; &nbsp; ';
+    	print '</form>';
+    }
 }
 
 
@@ -250,7 +287,9 @@ if ($resql)
 		$object->longitude = $obj->longitude;
 		$object->address = $address;
 		$object->url = $obj->url;
-
+		$object->email = $obj->email;
+		$object->phone = $obj->phone;
+		
 		$geoencodingtosearch=false;
 		if ($obj->gaddress != $addresstosearch) $geoencodingtosearch=true;
 		else if ((empty($object->latitude) || empty($object->longitude)) 
@@ -361,8 +400,10 @@ if ($resql)
 	}
 
 	// Summary of data represented
+	print '<div class="resultgeoencoding" style="padding-top: 8px;">';
 	if ($num > $countgeoencodedall) print $langs->trans("OnlyXAddressesAmongYWereGeoencoded",$MAXADDRESS,$countgeoencodedok).'<br>'."\n";
 	print $langs->trans("CountGeoTotal",$num,($num-$countgeoencodedall),($countgeoencodedall-$countgeoencodedok),$countgeoencodedok).'<br>'."\n";
+	print '</div>';
 	if ($num > $countgeoencodedall)
 	{
 		print $langs->trans("ClickHereToIncludeXMore").': &nbsp;';
@@ -388,7 +429,7 @@ $gmap->setDisplayDirectionFields(false);
 $gmap->setClusterer(true);
 $gmap->setSize('100%','500px');
 $gmap->setZoom(11);
-$gmap->setLang('fr');
+$gmap->setLang($user->lang);
 $gmap->setDefaultHideMarker(false);
 
 // Convert array of addresses into the output gmap string
