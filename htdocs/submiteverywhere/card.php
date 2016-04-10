@@ -867,6 +867,12 @@ else
 				$formmail = new FormMail($db);
 				$formmail->fromname = $object->email_from;
 				$formmail->frommail = $object->email_from;
+			    $formmail->trackid='testsubmiteverwhere'.$object->id;
+				if (! empty($conf->global->MAIN_EMAIL_ADD_TRACK_ID) && ($conf->global->MAIN_EMAIL_ADD_TRACK_ID & 2))	// If bit 2 is set
+				{
+				    include DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php';
+				    $formmail->frommail=dolAddEmailTrackId($formmail->frommail, 'testsubmiteverwhere'.$object->id);
+				}
 				$formmail->withsubstit=1;
 				$formmail->withfrom=0;
 				$formmail->withto=$user->email?$user->email:1;
