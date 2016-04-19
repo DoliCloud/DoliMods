@@ -158,7 +158,8 @@ if ($action == 'newdir')   // Create a dir
     clearstatcache();
 
     $original_dir=dirname($original_file);
-    $newdir=$original_dir.'/new_dir';
+    //$newdir=$original_dir.'/new_dir';
+    $newdir=$original_file;
 
     //print 'original_dir='.$orignal_dir.' newdir='.$newdir;
     dol_syslog(__FILE__." newdir ".$newdir." ", LOG_DEBUG);
@@ -201,7 +202,8 @@ if ($action == 'newfile')   // Create a file
     clearstatcache();
 
     $original_dir=dirname($original_file);
-    $newfile=$original_dir.'/new_file.txt';
+    //$newfile=$original_dir.'/new_file.txt';
+    $newfile=$original_file;
 
     //print 'original_dir='.$orignal_dir.' newfile='.$newfile;
     dol_syslog(__FILE__." newfile ".$newfile." ", LOG_DEBUG);

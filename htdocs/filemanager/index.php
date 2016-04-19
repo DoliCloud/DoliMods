@@ -66,7 +66,7 @@ if (GETPOST('action')=='deletefile')
 {
     if (empty($user->rights->filemanager->create))
     {
-        $mesg='<div class="error">'.$langs->trans("NotEnoughPermissions").'</div>';
+        setEventMessages($langs->trans("NotEnoughPermissions"), null, 'errors');
     }
     else
     {
@@ -74,17 +74,17 @@ if (GETPOST('action')=='deletefile')
         if (! dol_is_file($filetodelete))
         {
             $langs->load("errors");
-            $mesg='<div class="error">'.$langs->trans("ErrorFileNotFound",$filtetodelete).'</div>';
+            setEventMessages($langs->trans("ErrorFileNotFound",$filtetodelete), null, 'errors');
         }
         else
         {
             $langs->load("other");
             $result=dol_delete_file($filetodelete,0,1);
-            if ($result) $mesg='<div class="ok">'.$langs->trans("FileWasRemoved",$filetodelete).'</div>';
+            if ($result) setEventMessages($langs->trans("FileWasRemoved",$filetodelete), null, 'mesgs');
             else
             {
                 $langs->load("errors");
-                $mesg='<div class="error">'.$langs->trans("ErrorFailToDeleteFile",$filetodelete).'</div>';
+                setEventMessages($langs->trans("ErrorFailToDeleteFile",$filetodelete), null, 'errors');
             }
         }
     }
@@ -94,7 +94,7 @@ if (GETPOST('action')=='deletedir')
 {
     if (empty($user->rights->filemanager->create))
     {
-        $mesg='<div class="error">'.$langs->trans("NotEnoughPermissions").'</div>';
+        setEventMessages($langs->trans("NotEnoughPermissions"), null, 'errors');
     }
     else
     {
@@ -102,16 +102,16 @@ if (GETPOST('action')=='deletedir')
         if (! dol_is_dir($dirtodelete))
         {
             $langs->load("errors");
-            $mesg='<div class="error">'.$langs->trans("ErrorDirNotFound",$dirtodelete).'</div>';
+            setEventMessages($langs->trans("ErrorDirNotFound",$dirtodelete), null, 'errors');
         }
         else
         {
             $result=dol_delete_dir($dirtodelete,1);
-            if ($result) $mesg='<div class="ok">'.$langs->trans("DirWasRemoved",$dirtodelete).'</div>';
+            if ($result) setEventMessages($langs->trans("DirWasRemoved",$dirtodelete), null, 'mesgs');
             else
             {
                 $langs->load("errors");
-                $mesg='<div class="error">'.$langs->trans("ErrorFailToDeleteDir",$dirtodelete).'</div>';
+                setEventMessages($langs->trans("ErrorFailToDeleteDir",$dirtodelete), null, 'errors');
             }
         }
     }
@@ -238,37 +238,110 @@ if ($filemanagerroots->rootpath)
     var filediractive='<?php echo $filemanagerroots->rootpath; ?>';
     var filetypeactive='';
 
-    function newdir(newdir)
+    function newdir()
     {
         dirname=filediractive;
-        //alert(content);
-        url='<?php echo dol_buildpath('/filemanager/ajaxfileactions.php',1); ?>?action=newdir&rootpath=<?php echo $filemanagerroots->id ?>&modulepart=filemanager&type=auto&file='+urlencode(dirname+'/'+newdir);
-        // jQuery.post("test.php", $("#testform").serialize());
-        jQuery.post(url,
-            function(data) {
-            jQuery('#mesg').show();
-            jQuery('#mesg').replaceWith('<div id="mesg">'+data+'</div>');
-            }
-        );
+		<?php
+        // New code using jQuery only
+        $formconfirm= '
+            var choice=\'ko\';
+            jQuery("#dialog-confirm").attr("title", \''.dol_escape_js($langs->trans("NewDir")).'\');
+            jQuery("#dialog-confirm").empty();
+            jQuery("#dialog-confirm").append(\''.img_help('','').' '.dol_escape_js($langs->trans("AddDirName")).' <input type="text" id="confirmdirname" name="dirname" value="\'+dirname+\'newdir">\');
+            jQuery("#dialog-confirm").append(\'<br>'.dol_escape_js($langs->trans("ServerMustHavePermission",dol_getwebuser('user'),dol_getwebuser('group'))).'\');
+            jQuery("#dialog-confirm").dialog({
+                autoOpen: true,
+                resizable: false,
+                height:160,
+                width:580,
+                modal: true,
+                closeOnEscape: false,
+                close: function(event, ui) {
+                         if (choice == \'ok\') {
+                            /* location.href=\''.$_SERVER["PHP_SELF"].'?action=adddir&id='.$id.'&dir=\'+jQuery("#confirmdirname").val(); */
+                            url=\''.dol_buildpath('/filemanager/ajaxfileactions.php',1).'?action=newdir&rootpath='.$filemanagerroots->id.'&modulepart=filemanager&type=auto&file=\'+urlencode(jQuery("#confirmdirname").val());
+                            console.log(\'url=\'+url);
+                            jQuery.post(url,
+                                function(data) {
+                                jQuery(\'#mesg\').show();
+                                jQuery(\'#mesg\').replaceWith(\'<div id="mesg">\'+data+\'</div>\');
+                                }
+                            );
+                         }
+                         if (choice == \'ko\') { }
+                  },
+                buttons: {
+                    \''.dol_escape_js($langs->transnoentities("Yes")).'\': function() {
+                         choice=\'ok\';
+                        jQuery(this).dialog(\'close\');
+                    },
+                    \''.dol_escape_js($langs->transnoentities("No")).'\': function() {
+                         choice=\'ko\';
+                        jQuery(this).dialog(\'close\');
+                    }
+                }
+            });
+        ';
+
+        $formconfirm.= "\n";
+        print $formconfirm;
+        ?>
     }
 
     function newfile()
     {
         //if (filetypeactive == 'directory')
         //{
-            dirname=filediractive;
-            //alert(content);
-            url='<?php echo dol_buildpath('/filemanager/ajaxfileactions.php',1); ?>?action=newfile&rootpath=<?php echo $filemanagerroots->id ?>&modulepart=filemanager&type=auto&file='+urlencode(dirname+'/newfile.txt');
-            // jQuery.post("test.php", $("#testform").serialize());
-            jQuery.post(url,
-                function(data) {
-                jQuery('#mesg').show();
-                jQuery('#mesg').replaceWith('<div id="mesg">'+data+'</div>');
-                }
-            );
+            filename=filediractive;
+    		<?php
+    		        // New code using jQuery only
+    		        $formconfirm= '
+    		            var choice=\'ko\';
+    		            jQuery("#dialog-confirm").attr("title", \''.dol_escape_js($langs->trans("NewFile")).'\');
+    		            jQuery("#dialog-confirm").empty();
+    		            jQuery("#dialog-confirm").append(\''.img_help('','').' '.dol_escape_js($langs->trans("AddFileName")).' <input type="text" id="confirmfilename" name="filename" value="\'+filename+\'newfile.txt">\');
+    		            jQuery("#dialog-confirm").append(\'<br>'.dol_escape_js($langs->trans("ServerMustHavePermission",dol_getwebuser('user'),dol_getwebuser('group'))).'\');
+    		            jQuery("#dialog-confirm").dialog({
+    		                autoOpen: true,
+    		                resizable: false,
+    		                height:160,
+    		                width:580,
+    		                modal: true,
+    		                closeOnEscape: false,
+    		                close: function(event, ui) {
+    		                         if (choice == \'ok\') {
+    		                            /* location.href=\''.$_SERVER["PHP_SELF"].'?action=addfile&id='.$id.'&dir=\'+jQuery("#confirmfilename").val(); */
+    		                            url=\''.dol_buildpath('/filemanager/ajaxfileactions.php',1).'?action=newfile&rootpath='.$filemanagerroots->id.'&modulepart=filemanager&type=auto&file=\'+urlencode(jQuery("#confirmfilename").val());
+    		                            console.log(\'url=\'+url);
+    		                            jQuery.post(url,
+    		                                function(data) {
+    		                                jQuery(\'#mesg\').show();
+    		                                jQuery(\'#mesg\').replaceWith(\'<div id="mesg">\'+data+\'</div>\');
+    		                                }
+    		                            );
+    		                         }
+    		                         if (choice == \'ko\') { }
+    		                  },
+    		                buttons: {
+    		                    \''.dol_escape_js($langs->transnoentities("Yes")).'\': function() {
+    		                         choice=\'ok\';
+    		                        jQuery(this).dialog(\'close\');
+    		                    },
+    		                    \''.dol_escape_js($langs->transnoentities("No")).'\': function() {
+    		                         choice=\'ko\';
+    		                        jQuery(this).dialog(\'close\');
+    		                    }
+    		                }
+    		            });
+    		        ';
+
+    		        $formconfirm.= "\n";
+    		        print $formconfirm;
+    		?>
         //}
     }
 
+    // js function to ask confirm to delete dir
     function deletedir()
     {
         if (filetypeactive == 'directory')
@@ -448,12 +521,14 @@ if ($filemanagerroots->rootpath)
     // --------------------
     jQuery(document).ready( function() {
         <?php if ($filemanagerroots->rootpath) { ?>
-        jQuery('#filetree').fileTree(
+	        jQuery('#filetree').fileTree(
                 		{ root: '<?php echo dol_escape_js($filemanagerroots->rootpath); ?>',
 						script: 'ajaxFileTree.php?openeddir=<?php echo urlencode($openeddir); ?>',		// Called when we click onto a dir (loadandshowpreview is on the onClick of the a tag of dir)
 						folderEvent: 'click',
 						multiFolder: false },
-						function(file) {}																// Called when we click onto a file
+						function(file) {																// Called when we click onto a file
+							console.log("We click on a file");
+						}																
 			);
         <?php } ?>
 
@@ -476,22 +551,29 @@ if ($filemanagerroots->rootpath)
         {
         ?>
         jQuery("#anewdir").click(function() {
-            res=confirm('<?php echo dol_escape_js($langs->transnoentitiesnoconv("CreateNewDir")); ?>: '+filediractive+'/newdir');
-       		if (res) newdir('newdir');
+        	console.log("anewdir click");
+            //res=confirm('<?php echo dol_escape_js($langs->transnoentitiesnoconv("CreateNewDir")); ?>: '+filediractive+'/newdir');
+       		//if (res) newdir('newdir');
+       		newdir();
         });
         jQuery("#adeletedir").click(function() {
+        	console.log("adeletedir click");
             deletedir();
         });
         jQuery("#anewfile").click(function() {
+        	console.log("anewfiler click");
             newfile();
         });
         jQuery("#asavefile").click(function() {
+        	console.log("asavefile click");
             savefile();
         });
         jQuery("#aloadandeditcontent").click(function() {
+        	console.log("aloadandeditcontent click");
         	loadandeditcontent();
         });
         jQuery("#adeletefile").click(function() {
+        	console.log("adeletefile click");
         	deletefile();
         });
         <?php
