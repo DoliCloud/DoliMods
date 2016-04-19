@@ -44,6 +44,8 @@ class modAWStats extends DolibarrModules
 		$this->name = preg_replace('/^mod/i','',get_class($this));
 		// Module description used if translation string 'ModuleXXXDesc' not found (XXX is value MyModule)
 		$this->description = "Module to integrate AWStats statistics reports into Dolibarr";
+        $this->editor_name = 'NLTechno';
+        $this->editor_url = 'http://www.nltechno.com';
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
 		$this->version = '3.4';
 		$this->editor_name = 'NLTechno';
