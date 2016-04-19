@@ -132,7 +132,7 @@ class ActionsPartiPirate
      * Execute action
      *
      * @param	array	$parameters		Array of parameters
-     * @param   Object	&$object    	Deprecated. This field is nto used
+     * @param   Object	$object    	    Deprecated. This field is nto used
      * @param   string	$action     	'add', 'update', 'view'
      * @return  int 		        	<0 if KO,
      *                          		=0 if OK but we want to process standard actions too,
@@ -257,8 +257,8 @@ class ActionsPartiPirate
 
 	/**
 	 *
-	 * @param unknown_type $pdf
-	 * @param unknown_type $files
+	 * @param unknown_type $pdf        Pdf
+	 * @param unknown_type $files      Files
 	 */
 	function concat(&$pdf,$files)
 	{
@@ -279,4 +279,3 @@ class ActionsPartiPirate
 
 }
 
-?>

@@ -1614,4 +1614,3 @@ a.cke_dialog_ui_button
 
 <?php
 if (is_object($db)) $db->close();
-?>

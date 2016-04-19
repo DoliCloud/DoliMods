@@ -132,5 +132,3 @@ require_once('tpl/config_form.php');
 
 $db->close();
 
-
-?>

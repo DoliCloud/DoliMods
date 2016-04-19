@@ -29,4 +29,3 @@ $theme_datacolor = array(array(160,140,120), array(140,160,130), array(190,190,2
 $theme_bgcolor = array(hexdec('F4'),hexdec('F4'),hexdec('F4'));
 $theme_bgcoloronglet = array(hexdec('DC'),hexdec('DC'),hexdec('D3'));
 
-?>

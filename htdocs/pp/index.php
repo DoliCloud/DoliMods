@@ -169,4 +169,4 @@ print $formfile->showdocuments('partipirate_temp', '', $conf->partipirate->dir_t
 llxFooter();
 // Close database handler
 $db->close();
-?>
+

@@ -570,4 +570,4 @@ class SubmitewMessage // extends CommonObject
 	}
 
 }
-?>
+

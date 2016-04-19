@@ -150,4 +150,3 @@ class modCMCIC extends DolibarrModules
 	}
 }
 
-?>

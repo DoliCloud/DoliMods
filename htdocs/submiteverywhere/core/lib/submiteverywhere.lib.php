@@ -69,5 +69,3 @@ function submitew_prepare_head($object)
 
     return $head;
 }
-
-?>

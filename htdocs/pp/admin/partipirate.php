@@ -164,4 +164,4 @@ print '<br>';
 llxFooter();
 // Close database handler
 $db->close();
-?>
+

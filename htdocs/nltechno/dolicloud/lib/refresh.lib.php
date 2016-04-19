@@ -17,8 +17,8 @@ include_once(DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php');
  *
  * @param 	Conf				$conf		Conf
  * @param 	Database			$db			Database handler
- * @param 	DoliCloudCustomer 	&$object	Customer (can modify caller)
- * @param	array				&$errors	Array of errors
+ * @param 	DoliCloudCustomer 	$object	    Customer (can modify caller)
+ * @param	array				$errors	    Array of errors
  * @return	int								1
  */
 function dolicloud_files_refresh($conf, $db, &$object, &$errors)
@@ -107,8 +107,8 @@ function dolicloud_files_refresh($conf, $db, &$object, &$errors)
  *
  * @param 	Conf				$conf		Conf
  * @param 	Database			$db			Database handler
- * @param 	DoliCloudCustomer 	&$object	Customer (can modify caller)
- * @param	array				&$errors	Array of errors
+ * @param 	DoliCloudCustomer 	$object	    Customer (can modify caller)
+ * @param	array				$errors	    Array of errors
  * @return	int								1
  */
 function dolicloud_database_refresh($conf, $db, &$object, &$errors)

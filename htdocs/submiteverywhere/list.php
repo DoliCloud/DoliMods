@@ -206,4 +206,4 @@ else
 llxFooter();
 
 $db->close();
-?>
+
