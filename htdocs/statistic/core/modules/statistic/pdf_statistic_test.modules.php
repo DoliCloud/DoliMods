@@ -84,9 +84,10 @@ class pdf_statistic_test extends ModelePDFStats
 	/**
 	 *	Fonction generant la propale sur le disque
 	 *
-	 *	\param	    propale			Objet propal a generer (ou id si ancienne methode)
-	 *	\param		outputlangs		Lang object for output language
-	 *	\return	    int     		1=ok, 0=ko
+	 *	@param	    Propale     $propale			Objet propal a generer (ou id si ancienne methode)
+	 *	@param		Translate   $outputlangs		Lang object for output language
+	 *  @param      timestamp   $date               Date
+	 *	@return	    int                     		1=ok, 0=ko
 	 */
 	function write_file($propale,$outputlangs, $date)
 	{
@@ -368,8 +369,13 @@ class pdf_statistic_test extends ModelePDFStats
 	}
 
 	/**
-	 *   Affiche la grille des lignes de propales
-	 *   
+	 * Affiche la grille des lignes de propales
+	 * 
+	 * @param unknown $pdf             PDF
+	 * @param unknown $tab_top         Tab top
+	 * @param unknown $tab_height      Tab height
+	 * @param unknown $nexY            Nexy
+	 * @param unknown $outputlangs     Outputlangs
 	 */
 	function _tableau(&$pdf, $tab_top, $tab_height, $nexY, $outputlangs)
 	{
@@ -425,14 +431,16 @@ class pdf_statistic_test extends ModelePDFStats
 
 	}
 
-	/*
-	 *   	\brief      Affiche en-tete propale
-	 *   	\param      pdf     		Objet PDF
-	 *   	\param      object			Objet propale
-	 *      \param      showaddress     0=no, 1=yes
-	 *      \param      outputlang		Objet lang cible
+	/**
+	 *  Affiche en-tete propale
+	 *  
+	 *  @param      PDF      $pdf     		Objet PDF
+	 *  @param      Propale  $object			Objet propale
+	 *  @param      int      $showaddress     0=no, 1=yes
+	 *  @param      Translate  $outputlangs		Objet lang cible
+	 *  @return    void
 	 */
-	function _pagehead(&$pdf, $object, $showaddress=1, $outputlangs)
+	function _pagehead(&$pdf, $object, $showaddress, $outputlangs)
 	{
 		global $conf,$langs;
 
