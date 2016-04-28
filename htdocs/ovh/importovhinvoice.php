@@ -289,7 +289,7 @@ if ($action == 'import' && $ovhthirdparty->id > 0)
     						$price_base='HT';
     						$tauxtva=vatrate($vatrate);
     						$remise_percent=0;
-    						$fk_product=null;
+    						$fk_product=($conf->global->OVH_IMPORT_SUPPLIER_INVOICE_PRODUCT_ID > 0 ? $conf->global->OVH_IMPORT_SUPPLIER_INVOICE_PRODUCT_ID : null);
     						$ret=$facfou->addline($label, $amount, $tauxtva, 0, 0, $qty, $fk_product, $remise_percent, '', '', '', 0, $price_base);
     						if ($ret < 0)
     						{
@@ -315,7 +315,7 @@ if ($action == 'import' && $ovhthirdparty->id > 0)
     				        $price_base='HT';
     				        $tauxtva=vatrate($vatrate);
     				        $remise_percent=0;
-    				        $fk_product=null;
+    						$fk_product=($conf->global->OVH_IMPORT_SUPPLIER_INVOICE_PRODUCT_ID > 0 ? $conf->global->OVH_IMPORT_SUPPLIER_INVOICE_PRODUCT_ID : null);
     				        $ret=$facfou->addline($label, $amount, $tauxtva, 0, 0, $qty, $fk_product, $remise_percent, '', '', '', 0, $price_base);
     				        if ($ret < 0)
     				        {
@@ -388,9 +388,25 @@ print_fiche_titre($langs->trans("OvhInvoiceImportShort"));
 
 print $langs->trans("OvhInvoiceImportDesc").'<br><br>';
 print $langs->trans("OvhSmsNick").': <strong>'.$conf->global->OVHSMS_NICK.'</strong><br>';
+
+// Thirdparty to import on
 print $langs->trans("SupplierToUseForImport").': ';
 if ($ovhthirdparty->id > 0) print $ovhthirdparty->getNomUrl(1,'supplier');
 else print '<strong>'.$langs->trans("NotDefined").'</strong>';
+print '<br>';
+// Product to import on
+print $langs->trans("ProductGenericToUseForImport").': ';
+if ($conf->global->OVH_IMPORT_SUPPLIER_INVOICE_PRODUCT_ID > 0)
+{
+    $producttmp=new Product($db);
+    $producttmp->fetch($conf->global->OVH_IMPORT_SUPPLIER_INVOICE_PRODUCT_ID);
+    print $producttmp->getNomUrl(1);
+}
+else
+{
+    print '<strong>'.$langs->trans("NotDefined").'</strong>';
+}
+
 print '<br><br>';
 
 print '<form name="refresh" action="'.$_SERVER["PHP_SELF"].'" method="POST">';
