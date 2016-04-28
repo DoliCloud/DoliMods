@@ -265,12 +265,12 @@ if ($action == 'import' && $ovhthirdparty->id > 0)
 				}
 				else
 				{
-				    $facfou->date          = dol_stringtotime($r['date'],1);
-				    $facfou->date_echeance = dol_stringtotime($r['date'],1);
+				    $facfou->date          = is_numeric($r['date'])?$r['date']:dol_stringtotime($r['date'],1);
+				    $facfou->date_echeance = is_numeric($r['date'])?$r['date']:dol_stringtotime($r['date'],1);
 				}
 				$facfou->note_public   = '';
 
-				//var_dump($billnum.' '.$r->date.' '.dol_print_date($facfou->date,'dayhour'));exit;
+				//var_dump($billnum.' - '.$facfou->date.' - '.dol_print_date($facfou->date,'dayhour'));exit;
 
 				$facid = $facfou->create($fuser);
 				if ($facid > 0)
