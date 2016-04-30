@@ -107,7 +107,8 @@ if (empty($reshook))
 	    if (is_object($newdb))
 	    {
 	        // Get user/pass of last admin user
-	        $sql="INSERT INTO llx_user(login, admin, pass, pass_crypted) VALUES('supportdolicloud', 1, 'supportdolicloud', MD5('supportdolicloud'))";
+	        $password_crypted = dol_hash($password);
+	        $sql="INSERT INTO llx_user(login, admin, pass, pass_crypted) VALUES('supportdolicloud', 1, 'supportdolicloud', '".$newdb->escape($password_crypted)."')";
 	        $resql=$newdb->query($sql);
 	        if (! $resql) dol_print_error($newdb);
 	    }
