@@ -159,7 +159,7 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 	 * Fiche en mode visualisation
 	 */
 	$newdb=getDoliDBInstance($conf->db->type, $object->instance.'.on.dolicloud.com', $object->username_db, $object->password_db, $object->database_db, 3306);
-	if (is_object($newdb))
+	if (is_object($newdb) && $newdb->connected)
 	{
 		// Get user/pass of last admin user
 		$sql="SELECT login, pass FROM llx_user WHERE admin = 1 ORDER BY statut DESC, datelastlogin DESC LIMIT 1";
@@ -281,12 +281,12 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 	$server=$object->instance.'.on.dolicloud.com';
 
 	$newdb2=getDoliDBInstance($db2->type, $conf->global->DOLICLOUD_DATABASE_HOST, $object->username_db, $object->password_db, $object->database_db, 3306);
-	if (is_object($newdb2))
+	if (is_object($newdb2) && $newdb2->connected)
 	{
-		// Get user/pass of last admin user
+        // Get user/pass of last admin user
 		$sql="SELECT login, pass FROM llx_user WHERE admin = 1 ORDER BY statut DESC, datelastlogin DESC LIMIT 1";
 		$resql=$newdb2->query($sql);
-		$obj = $newdb2->fetch_object($resql);
+        $obj = $newdb2->fetch_object($resql);
 		$object->lastlogin_admin=$obj->login;
 		$object->lastpass_admin=$obj->pass;
 		$lastloginadmin=$object->lastlogin_admin;
