@@ -549,7 +549,7 @@ class Dolicloudcustomernew extends CommonObject
                 }
 
                 // Set path
-                $object->fs_path = '/home/jail/home/'.$object->username_web.'/'.(preg_replace('/_([a-zA-Z0-9]+)$/','',$object->database_db));
+                $this->fs_path = '/home/jail/home/'.$this->username_web.'/'.(preg_replace('/_([a-zA-Z0-9]+)$/','',$this->database_db));
 
                 // Load other info from old table
                 $result=$this->fetch_old('',$this->instance);

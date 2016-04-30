@@ -101,6 +101,29 @@ if (empty($reshook))
 		exit;
 	}
 
+	if ($action == "createsupportdolicloud")
+	{
+	    $newdb=getDoliDBInstance($conf->db->type, $object->instance.'.on.dolicloud.com', $object->username_db, $object->password_db, $object->database_db, 3306);
+	    if (is_object($newdb))
+	    {
+	        // Get user/pass of last admin user
+	        $sql="INSERT INTO llx_user(login, admin, pass, pass_crypted) VALUES('supportdolicloud', 1, 'supportdolicloud', MD5('supportdolicloud'))";
+	        $resql=$newdb->query($sql);
+	        if (! $resql) dol_print_error($newdb);
+	    }
+	}
+	if ($action == "deletesupportdolicloud")
+	{
+	    $newdb=getDoliDBInstance($conf->db->type, $object->instance.'.on.dolicloud.com', $object->username_db, $object->password_db, $object->database_db, 3306);
+	    if (is_object($newdb))
+	    {
+	        // Get user/pass of last admin user
+	        $sql="DELETE FROM llx_user WHERE login = 'supportdolicloud'";
+	        $resql=$newdb->query($sql);
+	        if (! $resql) dol_print_error($newdb);
+	    }
+	}
+	
 	include 'refresh_action_new.inc.php';
 
 	$action = 'view';
@@ -233,6 +256,20 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 
 	print_user_table($newdb);
 
+	// Barre d'actions
+	if (! $user->societe_id)
+	{
+	    print '<div class="tabsAction">';
+	
+	    if ($user->rights->nltechno->dolicloud->write)
+	    {
+	        print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&amp;action=createsupportdolicloud">'.$langs->trans('CreateSupportUser').'</a>';
+	        print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&amp;action=deletesupportdolicloud">'.$langs->trans('DeleteSupportUser').'</a>';
+	    }
+	
+	    print "</div><br>";
+	}
+	
 	print '<br>';
 
 	// ----- Backup instance -----
@@ -248,8 +285,8 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 	{
 		// Get user/pass of last admin user
 		$sql="SELECT login, pass FROM llx_user WHERE admin = 1 ORDER BY statut DESC, datelastlogin DESC LIMIT 1";
-		$resql=$newdb->query($sql);
-		$obj = $newdb->fetch_object($resql);
+		$resql=$newdb2->query($sql);
+		$obj = $newdb2->fetch_object($resql);
 		$object->lastlogin_admin=$obj->login;
 		$object->lastpass_admin=$obj->pass;
 		$lastloginadmin=$object->lastlogin_admin;
@@ -267,18 +304,19 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 	print "</div>";
 
 	// Barre d'actions
-/*	if (! $user->societe_id)
+	/*
+	if (! $user->societe_id)
 	{
 		print '<div class="tabsAction">';
 
 		if ($user->rights->nltechno->dolicloud->write)
 		{
-			print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&amp;action=upgrade">'.$langs->trans('Upgrade').'</a>';
+			print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&amp;action=createadmin">'.$langs->trans('CreateAdmin').'</a>';
 		}
 
 		print "</div><br>";
-	}
-*/
+	}*/
+
 
 	// Dolibarr instance login
 	$url='https://'.$object->instance.'.on.dolicloud.com?username='.$lastloginadmin.'&amp;password='.$lastpassadmin;
