@@ -45,11 +45,12 @@ class ActionsNltechno
 
 
     /**
-     * Complete search forms
+     * Complete search forms (old form)
      *
      * @param	array	$parameters		Array of parameters
      * @return	string					HTML content to add by hook
      */
+    /*
     function printSearchForm($parameters)
     {
         global $langs, $user, $conf;
@@ -65,7 +66,25 @@ class ActionsNltechno
 
         return 0;
     }
-
+    */
+    
+    /**
+     * Complete search forms
+     *
+     * @param	array	$parameters		Array of parameters
+     * @return	string					HTML content to add by hook
+     */
+    function addSearchEntry($parameters)
+    {
+        global $langs;
+        
+        $langs->load("nltechno@nltechno");
+        $search_boxvalue = $parameters['search_boxvalue'];
+        
+        $this->results['searchintodolicloud']=array('text'=>img_picto('','object_generic').' '.$langs->trans("InstanceDolicloud", $search_boxvalue), 'url'=>dol_buildpath('/nltechno/dolicloud/dolicloud_list_new.php',1).'?search_multi='.urlencode($search_boxvalue));
+        
+        return 0;
+    }
 }
 
-?>
+

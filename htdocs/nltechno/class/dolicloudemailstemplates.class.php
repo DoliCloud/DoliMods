@@ -408,4 +408,4 @@ class Dolicloudemailstemplates // extends CommonObject
 	}
 
 }
-?>
+

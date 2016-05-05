@@ -531,4 +531,3 @@ class Customeraccount extends CommonObject
 	}
 
 }
-?>

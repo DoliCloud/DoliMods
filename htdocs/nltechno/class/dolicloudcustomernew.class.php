@@ -102,6 +102,7 @@ class Dolicloudcustomernew extends CommonObject
      *  Constructor
      *
      *  @param	DoliDb		$db      Database handler
+     *  @param	DoliDb		$db2     Database handler
      */
     function __construct($db, $db2)
     {
@@ -1108,4 +1109,4 @@ class Dolicloudcustomernew extends CommonObject
 	}
 
 }
-?>
+

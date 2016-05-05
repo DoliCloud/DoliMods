@@ -829,4 +829,4 @@ class Dolicloudcustomer extends CommonObject
 	}
 
 }
-?>
+
