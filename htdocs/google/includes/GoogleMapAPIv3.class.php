@@ -468,7 +468,9 @@ class GoogleMapAPI
 			$html.= '<b>'.$elem->name.'</b>';
 			$html.= '</a>';
 			$html.= '<br/>'.$addresscleaned.'<br/>';
-			if (! empty($elem->url)) $html.= '<a href="'.$elem->url.'">'.$elem->url.'</a><br/>';
+			$urlforlink=$elem->url;
+			if (! preg_match('/^http/i',$urlforlink)) $urlforlink='http://'.$urlforlink;
+			if (! empty($elem->url)) $html.= '<a href="'.$urlforlink.'">'.$elem->url.'</a><br/>';
 			if (! empty($elem->phone)) $html.= $elem->phone.'<br/>';
 			if (! empty($elem->email)) $html.= $elem->email.'<br/>';
 			$html.= '<br/>'.$lienGmaps.'<br/>';
