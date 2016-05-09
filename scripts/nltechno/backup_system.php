@@ -97,10 +97,16 @@ if ($connection)
 
 		//$stream = ssh2_exec($connection, '/usr/bin/php -i');
 
+		$mysqluser='debian-sys-maint';
+		//$mysqlpassword='4k9Blxl2snq4FHXY';
+		$mysqlpassword='EB7ostKIDJrBZeiF';
+
 		print "Generate dump ".$filesys1.'.bz2'."\n";
 		if ($mode == 'confirm' || $mode == 'confirmsaasplex')
 		{
-			$stream = ssh2_exec($connection, "mysqldump -u debian-sys-maint -p4k9Blxl2snq4FHXY -h 127.0.0.1 --single-transaction -K --tables -c -e --hex-blob --default-character-set=utf8 saasplex | bzip2 -1 > ".$filesys1.'.bz2');
+			$mysqldumpcommand="mysqldump -u $mysqluser -p$mysqlpassword -h 127.0.0.1 --single-transaction -K --tables -c -e --hex-blob --default-character-set=utf8 saasplex";
+			echo $mysqldumpcommand."\n";
+			$stream = ssh2_exec($connection, "$mysqldumpcommand | bzip2 -1 > ".$filesys1.'.bz2');
 			stream_set_blocking($stream, true);
 			// The command may not finish properly if the stream is not read to end
 			$output = stream_get_contents($stream);
@@ -109,7 +115,9 @@ if ($connection)
 		print "Generate dump ".$filesys2.'.bz2'."\n";
 		if ($mode == 'confirm' || $mode == 'confirmrm')
 		{
-			$stream = ssh2_exec($connection, "mysqldump -u debian-sys-maint -p4k9Blxl2snq4FHXY -h 127.0.0.1 --single-transaction -K --tables -c -e --hex-blob --default-character-set=utf8 rm | bzip2 -1 > ".$filesys2.'.bz2');
+			$mysqldumpcommand="mysqldump -u $mysqluser -p$mysqlpassword -h 127.0.0.1 --single-transaction -K --tables -c -e --hex-blob --default-character-set=utf8 rm";
+			echo $mysqldumpcommand."\n";
+			$stream = ssh2_exec($connection, "$mysqldumpcommand | bzip2 -1 > ".$filesys2.'.bz2');
 			stream_set_blocking($stream, true);
 			// The command may not finish properly if the stream is not read to end
 			$output = stream_get_contents($stream);
