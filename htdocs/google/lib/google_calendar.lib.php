@@ -35,7 +35,7 @@ include_once DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php';
 dol_include_once("/google/lib/google.lib.php");
 $res=dol_include_once('/google/includes/google-api-php-client/autoload.php');
 
-if (! class_exists('Google_Client')) dol_print_error('','Failed to load library file /nltechno/google/includes/google-api-php-client/autoload.php');
+//if (! class_exists('Google_Client')) dol_print_error('','Failed to load library file /nltechno/google/includes/google-api-php-client/autoload.php');
 
 /**
  * @var string Location of AuthSub key file.  include_path is used to find this
