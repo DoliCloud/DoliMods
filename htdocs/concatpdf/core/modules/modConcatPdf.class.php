@@ -76,11 +76,11 @@ class modConcatPdf extends DolibarrModules
 				//						'barcode' => 0,                                  // Set this to 1 if module has its own barcode directory
 				//						'models' => 0,                                   // Set this to 1 if module has its own models directory
 				//						'css' => '/filemanager/css/concatpdf.css.php',   // Set this to relative path of css if module has its own css file
-										'hooks' => array('invoicecard','propalcard','ordercard','invoicesuppliercard','ordersuppliercard','contractcard','pdfgeneration')  // Set here all hooks context managed by module
+										'hooks' => array('invoicecard','propalcard','ordercard','invoicesuppliercard','ordersuppliercard','supplier_proposalcard','contractcard','pdfgeneration')  // Set here all hooks context managed by module
 		);
 
 		// Data directories to create when module is enabled
-		$this->dirs = array('/concatpdf/invoices','/concatpdf/orders','/concatpdf/proposals','/concatpdf/supplier_orders','/concatpdf/supplier_invoices','/concatpdf/temp');
+		$this->dirs = array('/concatpdf/proposals','/concatpdf/orders','/concatpdf/invoices','/concatpdf/supplier_proposals','/concatpdf/supplier_orders','/concatpdf/supplier_invoices','/concatpdf/contracts','/concatpdf/temp');
 
 		// Config pages. Put here list of php page names stored in admin directory used to setup module
 		$this->config_page_url = array('concatpdf.php@concatpdf');
