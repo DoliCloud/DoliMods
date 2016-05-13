@@ -58,6 +58,7 @@ div.mainmenu.filemanager {
 	background: #FFF;
 	padding-left: 2px;
 	font-weight: normal;
+	overflow: auto;
 }
 
 .fileview {
@@ -67,6 +68,7 @@ div.mainmenu.filemanager {
 	padding-left: 2px;
 	padding-top: 4px;
 	font-weight: normal;
+	overflow: auto;
 }
 
 div.filedirelem {
