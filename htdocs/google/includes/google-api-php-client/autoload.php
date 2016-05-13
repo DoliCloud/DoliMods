@@ -25,9 +25,13 @@ function google_api_php_client_autoload($className) {
     $classPath = array_slice($classPath, 0, 3);
   }
   $filePath = dirname(__FILE__) . '/src/' . implode('/', $classPath) . '.php';
+  //print 'Do the require_once on file '.$filePath."\n";
   if (file_exists($filePath)) {
     require_once($filePath);
   }
 }
 
-spl_autoload_register('google_api_php_client_autoload');
+spl_autoload_register('google_api_php_client_autoload', true, true);
+
+// List all autoloader activated
+//var_dump(spl_autoload_functions());
