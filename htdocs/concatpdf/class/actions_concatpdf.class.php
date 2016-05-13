@@ -78,6 +78,11 @@ class ActionsConcatPdf
         	$staticpdf=glob($conf->concatpdf->dir_output."/invoices/*.[pP][dD][fF]");
         	$modelpdf=glob($conf->concatpdf->dir_output."/invoices/pdf_*.modules.php");
         }
+        if ($parameters['modulepart'] == 'supplier_proposal')
+        {
+        	$staticpdf=glob($conf->concatpdf->dir_output."/supplier_proposals/*.[pP][dD][fF]");
+        	$modelpdf=glob($conf->concatpdf->dir_output."/supplier_proposals/pdf_*.modules.php");
+        }
         if ($parameters['modulepart'] == 'supplier_order' || $parameters['modulepart'] == 'commande_fournisseur')
         {
         	$staticpdf=glob($conf->concatpdf->dir_output."/supplier_orders/*.[pP][dD][fF]");
@@ -209,6 +214,7 @@ class ActionsConcatPdf
         if ($parameters['object']->element == 'propal')  $element='proposals';
         if ($parameters['object']->element == 'order'   || $parameters['object']->element == 'commande') $element='orders';
         if ($parameters['object']->element == 'invoice' || $parameters['object']->element == 'facture')  $element='invoices';
+        if ($parameters['object']->element == 'proposal_supplier' || $parameters['object']->element == 'supplier_proposal')  $element='supplier_proposals';
         if ($parameters['object']->element == 'order_supplier' || $parameters['object']->element == 'commande_fournisseur')  $element='supplier_orders';
         if ($parameters['object']->element == 'invoice_supplier' || $parameters['object']->element == 'facture_fournisseur')  $element='supplier_invoices';
         if ($parameters['object']->element == 'contract' || $parameters['object']->element == 'contrat')  $element='contracts';

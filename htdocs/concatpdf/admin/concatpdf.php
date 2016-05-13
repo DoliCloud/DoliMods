@@ -55,6 +55,7 @@ if ($conf->commande->enabled) $modules['orders']='Orders';
 if ($conf->facture->enabled) $modules['invoices']='Invoices';
 if ($conf->fournisseur->enabled) $modules['supplier_orders']='SuppliersOrders';
 if ($conf->fournisseur->enabled) $modules['supplier_invoices']='SuppliersInvoices';
+if ($conf->supplier_proposal->enabled) $modules['supplier_proposals']='SupplierProposals';
 if ($conf->contract->enabled) $modules['contracts']='Contracts';
 
 
