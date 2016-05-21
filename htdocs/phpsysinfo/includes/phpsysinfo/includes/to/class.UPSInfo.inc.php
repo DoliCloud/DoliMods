@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * MBInfo TO class
  *
@@ -9,7 +9,7 @@
  * @author    Michael Cramer <BigMichi1@users.sourceforge.net>
  * @copyright 2009 phpSysInfo
  * @license   http://opensource.org/licenses/gpl-2.0.php GNU General Public License
- * @version   SVN: $Id: class.UPSInfo.inc.php,v 1.1 2011/08/01 19:28:37 eldy Exp $
+ * @version   SVN: $Id: class.UPSInfo.inc.php 329 2009-09-07 11:21:44Z bigmichi1 $
  * @link      http://phpsysinfo.sourceforge.net
  */
  /**
@@ -33,7 +33,7 @@ class UPSInfo
      * @var Array
      */
     private $_upsDevices = array();
-    
+
     /**
      * Returns $_upsDevices.
      *
@@ -45,7 +45,7 @@ class UPSInfo
     {
         return $this->_upsDevices;
     }
-    
+
     /**
      * Sets $_upsDevices.
      *
@@ -60,4 +60,3 @@ class UPSInfo
         array_push($this->_upsDevices, $upsDevices);
     }
 }
-?>

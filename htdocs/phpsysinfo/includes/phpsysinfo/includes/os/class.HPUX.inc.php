@@ -1,15 +1,15 @@
-<?php 
+<?php
 /**
  * HP-UX System Class
  *
  * PHP version 5
  *
  * @category  PHP
- * @package   PSI_OS
+ * @package   PSI HPUX OS class
  * @author    Michael Cramer <BigMichi1@users.sourceforge.net>
  * @copyright 2009 phpSysInfo
  * @license   http://opensource.org/licenses/gpl-2.0.php GNU General Public License
- * @version   SVN: $Id: class.HPUX.inc.php,v 1.1 2011/08/01 19:28:31 eldy Exp $
+ * @version   SVN: $Id: class.HPUX.inc.php 596 2012-07-05 19:37:48Z namiltd $
  * @link      http://phpsysinfo.sourceforge.net
  */
  /**
@@ -17,7 +17,7 @@
  * get all the required information from HP-UX system
  *
  * @category  PHP
- * @package   PSI_OS
+ * @package   PSI HPUX OS class
  * @author    Michael Cramer <BigMichi1@users.sourceforge.net>
  * @copyright 2009 phpSysInfo
  * @license   http://opensource.org/licenses/gpl-2.0.php GNU General Public License
@@ -41,25 +41,7 @@ class HPUX extends OS
             }
         }
     }
-    
-    /**
-     * IP of the Virtual Host Name
-     *
-     *  @return void
-     */
-    private function _ip()
-    {
-        if (PSI_USE_VHOST === true) {
-            $this->sys->setIp(gethostbyname($this->_hostname()));
-        } else {
-            if (!($result = getenv('SERVER_ADDR'))) {
-                $this->sys->setIp(gethostbyname($this->_hostname()));
-            } else {
-                $this->sys->setIp($result);
-            }
-        }
-    }
-    
+
     /**
      * HP-UX Version
      *
@@ -71,7 +53,7 @@ class HPUX extends OS
             $this->sys->setKernel($ret);
         }
     }
-    
+
     /**
      * UpTime
      * time the system is running
@@ -89,20 +71,7 @@ class HPUX extends OS
             }
         }
     }
-    
-    /**
-     * Number of Users
-     *
-     * @return void
-     */
-    private function _users()
-    {
-        if (CommonFunctions::executeProgram('who', '-q', $ret)) {
-            $who = preg_split('/=/', $ret, -1, PREG_SPLIT_NO_EMPTY);
-            $this->sys->setUsers($who[1]);
-        }
-    }
-    
+
     /**
      * Processor Load
      * optionally create a loadbar
@@ -117,7 +86,7 @@ class HPUX extends OS
             }
         }
     }
-    
+
     /**
      * CPU information
      * All of the tags here are highly architecture dependant
@@ -163,7 +132,7 @@ class HPUX extends OS
             }
         }
     }
-    
+
     /**
      * PCI devices
      *
@@ -174,23 +143,28 @@ class HPUX extends OS
         if (CommonFunctions::rfts('/proc/pci', $bufr)) {
             $bufe = preg_split("/\n/", $bufr, -1, PREG_SPLIT_NO_EMPTY);
             foreach ($bufe as $buf) {
-                if (preg_match('/Bus/', $buf)) {
+                if (preg_match('/^\s*Bus\s/', $buf)) {
                     $device = true;
                     continue;
                 }
                 if ($device) {
+                    $dev = new HWDevice();
+                    $dev->setName(preg_replace('/\([^\)]+\)\.$/', '', trim($buf)));
+                    $this->sys->setPciDevices($dev);
+/*
                     list($key, $value) = preg_split('/: /', $buf, 2);
                     if (!preg_match('/bridge/i', $key) && !preg_match('/USB/i', $key)) {
                         $dev = new HWDevice();
                         $dev->setName(preg_replace('/\([^\)]+\)\.$/', '', trim($value)));
                         $this->sys->setPciDevices($dev);
                     }
+*/
                     $device = false;
                 }
             }
         }
     }
-    
+
     /**
      * IDE devices
      *
@@ -214,7 +188,7 @@ class HPUX extends OS
             }
         }
     }
-    
+
     /**
      * SCSI devices
      *
@@ -240,7 +214,7 @@ class HPUX extends OS
             }
         }
     }
-    
+
     /**
      * USB devices
      *
@@ -269,7 +243,7 @@ class HPUX extends OS
             }
         }
     }
-    
+
     /**
      * Network devices
      * includes also rx/tx bytes
@@ -294,7 +268,7 @@ class HPUX extends OS
             }
         }
     }
-    
+
     /**
      * Physical memory information and Swap Space information
      *
@@ -332,7 +306,7 @@ class HPUX extends OS
             }
         }
     }
-    
+
     /**
      * filesystem information
      *
@@ -364,7 +338,7 @@ class HPUX extends OS
             }
         }
     }
-    
+
     /**
      * Distribution
      *
@@ -373,9 +347,9 @@ class HPUX extends OS
     private function _distro()
     {
         $this->sys->setDistribution('HP-UX');
+        $this->sys->setDistributionIcon('HPUX.png');
     }
 
-    
     /**
      * get the information
      *
@@ -383,10 +357,9 @@ class HPUX extends OS
      *
      * @return Void
      */
-    function build()
+    public function build()
     {
         $this->_distro();
-        $this->_ip();
         $this->_hostname();
         $this->_kernel();
         $this->_uptime();
@@ -402,4 +375,3 @@ class HPUX extends OS
         $this->_filesystems();
     }
 }
-?>

@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * Basic OS Functions
  *
@@ -9,7 +9,7 @@
  * @author    Michael Cramer <BigMichi1@users.sourceforge.net>
  * @copyright 2009 phpSysInfo
  * @license   http://opensource.org/licenses/gpl-2.0.php GNU General Public License
- * @version   SVN: $Id: class.PSI_Interface_OS.inc.php,v 1.1 2011/08/01 19:28:42 eldy Exp $
+ * @version   SVN: $Id: class.PSI_Interface_OS.inc.php 263 2009-06-22 13:01:52Z bigmichi1 $
  * @link      http://phpsysinfo.sourceforge.net
  */
  /**
@@ -32,20 +32,19 @@ interface PSI_Interface_OS
      *
      * @return string
      */
-    function getEncoding();
-    
+    public function getEncoding();
+
     /**
      * build the os information
      *
      * @return void
      */
-    function build();
-    
+    public function build();
+
     /**
      * get the filled or unfilled (with default values) system object
      *
      * @return System
      */
-    function getSys();
+    public function getSys();
 }
-?>

@@ -1,5 +1,5 @@
 /*
- $Id: phpsysinfo.css,v 1.1 2011/08/01 19:28:35 eldy Exp $
+ $Id: phpsysinfo.css 589 2012-07-01 09:58:44Z namiltd $
  */
 a {
     text-decoration: none;
@@ -13,14 +13,19 @@ a:hover {
     padding: 0;
 }
 
+wbr {
+    display: inline-block;
+}
+
 html {
     height: 100%;
-    background: url("../gfx/html.gif");
+    /*background: url("../gfx/html.gif");*/
 }
 
 body {
     position: relative;
     width: 940px;
+    _width: 945px; /* ie6 */
     min-height: 100%;
     overflow: auto;
     margin: 0 auto;
@@ -28,10 +33,12 @@ body {
     font: 0.75em arial, tahoma, helvetica, sans-serif;
     color: #000;
     background: #fff url("../gfx/body.gif") repeat-y;
+    _bac\kground: #fff; /* ie6 only */
 }
 
 h1 {
     margin: 0 10px;
+    _margin: 0 15px 0 10px; /* ie6 */
     padding: 10px 10px;
     border-top: 1px solid #8A6E5A;
     border-bottom: 1px solid #8A6E5A;
@@ -42,21 +49,19 @@ h1 {
 }
 
 #select {
-    position: absolute;
-    top: 30px;
-    right: 40px;
-    width: 370px;
     text-align: right;
+    padding: 10px;
 }
 
 #select select {
     width: 100px;
 }
 
-#vitals, #network, #memory, #filesystem, #hardware, #temp, #voltage, #fan, #ups {
+#vitals, #network, #memory, #filesystem, #hardware, #temp, #voltage, #fan, #power, #current, #ups {
     float: left;
     width: 451px;
     margin: 10px 0 0 10px;
+    _margin: 10px 5px 0 5px; /* ie6 */
     padding: 1px;
     border: 1px solid #5A7E8A;
 }
@@ -75,6 +80,20 @@ h2 {
 table {
     width: 100%;
 }
+
+.plugin {
+    float: left;
+    margin: 10px 0 0 10px;
+    _margin: 10px 5px 0 5px; /* ie6 */
+    padding: 1px;
+    border: 1px solid #5A7E8A;
+}
+
+.dataTables_wrapper{
+    margin: 0 0 0 0 !important;
+    border: 0px !important;
+}
+
 
 th, td, h3 {
     padding: 4px 10px 2px 10px;
@@ -106,6 +125,10 @@ h3 {
     background: #C1DC70 url("../gfx/html.gif");
 }
 
+.barwarn {
+    background: #DC8B70 url("../gfx/htmlwarn.gif");
+}
+
 p {
     padding: 4px 10px 2px 10px;
     line-height: 1.6;
@@ -118,6 +141,22 @@ p {
     padding-right: 20px;
 }
 
-#pciTable, #ideTable, #scsiTable, #usbTable {
+#pciTable, #ideTable, #scsiTable, #usbTable, #tbTable, #i2cTable {
     padding: 0px 30px;
+}
+
+.treeimg {
+    display: table-cell;
+    vertical-align: top;
+}
+
+.treespan {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.treespanbold {
+    font-weight: bold;
+    display: table-cell;
+    vertical-align: middle;
 }

@@ -1,5 +1,5 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-  <!-- $Id: translation.xsd,v 1.1 2011/08/01 19:28:35 eldy Exp $ -->
+<?xml version="1.0" encoding="UTF-8"?>
+  <!-- $Id: translation.xsd 150 2009-03-20 20:19:23Z bigmichi1 $ -->
 <schema targetNamespace="http://phpsysinfo.sourceforge.net/translation"
   xmlns:tns="http://phpsysinfo.sourceforge.net/translation" xmlns="http://www.w3.org/2001/XMLSchema">
   <complexType name="translationType">

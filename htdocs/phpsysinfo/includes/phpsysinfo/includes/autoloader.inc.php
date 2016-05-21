@@ -9,7 +9,7 @@
  * @author    Michael Cramer <BigMichi1@users.sourceforge.net>
  * @copyright 2009 phpSysInfo
  * @license   http://opensource.org/licenses/gpl-2.0.php GNU General Public License
- * @version   SVN: $Id: autoloader.inc.php,v 1.1 2011/08/01 19:28:47 eldy Exp $
+ * @version   SVN: $Id: autoloader.inc.php 660 2012-08-27 11:08:40Z namiltd $
  * @link      http://phpsysinfo.sourceforge.net
  */
 
@@ -24,17 +24,31 @@ error_reporting(E_ALL | E_STRICT);
  */
 function __autoload($class_name)
 {
-    $class_name = str_replace('-', '', $class_name);
-    $dirs = array('/plugins/'.$class_name.'/', '/includes/', '/includes/interface/', '/includes/to/', '/includes/to/device/', '/includes/os/', '/includes/mb/', '/includes/plugin/', '/includes/xml/', '/includes/web/', '/includes/error/', '/includes/js/', '/includes/output/', '/includes/ups/');
+    //$class_name = str_replace('-', '', $class_name);
+
+    /* case-insensitive folders */
+    $dirs = array('/plugins/'.strtolower($class_name).'/', '/includes/mb/', '/includes/ups/');
 
     foreach ($dirs as $dir) {
-        if (file_exists(APP_ROOT.$dir.'class.'.$class_name.'.inc.php')) {
-            include_once APP_ROOT.$dir.'class.'.$class_name.'.inc.php';
+        if (file_exists(APP_ROOT.$dir.'class.'.strtolower($class_name).'.inc.php')) {
+            include_once APP_ROOT.$dir.'class.'.strtolower($class_name).'.inc.php';
+
             return;
         }
     }
 
-    $error = Error::singleton();
+    /* case-sensitive folders */
+    $dirs = array('/includes/', '/includes/interface/', '/includes/to/', '/includes/to/device/', '/includes/os/', '/includes/plugin/', '/includes/xml/', '/includes/web/', '/includes/error/', '/includes/js/', '/includes/output/');
+
+    foreach ($dirs as $dir) {
+        if (file_exists(APP_ROOT.$dir.'class.'.$class_name.'.inc.php')) {
+            include_once APP_ROOT.$dir.'class.'.$class_name.'.inc.php';
+
+            return;
+        }
+    }
+
+    $error = PSI_Error::singleton();
 
     $error->addError("_autoload(\"".$class_name."\")", "autoloading of class file (class.".$class_name.".inc.php) failed!");
     $error->errorsAsXML();
@@ -52,11 +66,8 @@ function __autoload($class_name)
  */
 function errorHandlerPsi($level, $message, $file, $line)
 {
-    $error = Error::singleton();
+    $error = PSI_Error::singleton();
     $error->addPhpError("errorHandlerPsi : ", "Level : ".$level." Message : ".$message." File : ".$file." Line : ".$line);
 }
 
-// DOL_CHANGE LDR
-//set_error_handler('errorHandlerPsi');
-set_error_handler('errorHandlerPsi', E_ERROR | E_WARNING);
-?>
+set_error_handler('errorHandlerPsi');

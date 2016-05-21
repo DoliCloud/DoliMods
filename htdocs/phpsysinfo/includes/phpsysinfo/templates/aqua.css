@@ -13,6 +13,10 @@ a:hover {
     padding: 0;
 }
 
+wbr {
+    display: inline-block;
+}
+
 html {
     height: 100%;
     background: url("aqua/aq_background.gif");
@@ -21,6 +25,7 @@ html {
 body {
     position: relative;
     width: 940px;
+    _width: 945px; /* ie6 */
     min-height: 100%;
     overflow: auto;
     margin: 0 auto;
@@ -31,6 +36,7 @@ body {
 
 h1 {
     margin: 0 10px;
+    _margin: 0 15px 0 10px; /* ie6 */
     padding: 10px 10px;
     border-top: 1px solid #2971a7;
     border-bottom: 1px solid #2971a7;
@@ -41,21 +47,19 @@ h1 {
 }
 
 #select {
-    position: absolute;
-    top: 30px;
-    right: 40px;
-    width: 370px;
     text-align: right;
+    padding: 10px;
 }
 
 #select select {
     width: 100px;
 }
 
-#vitals, #network, #memory, #filesystem, #hardware, #temp, #voltage, #fan, #ups {
+#vitals, #network, #memory, #filesystem, #hardware, #temp, #voltage, #fan, #power, #current, #ups {
     float: left;
     width: 451px;
     margin: 10px 0 0 8px;
+    _margin: 10px 4px 0 4px; /* ie6 */
     padding: 1px;
     border: 2px solid #2971a7;
     background: #fff;
@@ -74,6 +78,21 @@ h2 {
 table {
     width: 100%;
     font-size: 1.2em;
+    background-color: #fff;
+}
+
+.plugin {
+    float: left;
+    margin: 10px 0 0 8px;
+    _margin: 10px 4px 0 4px; /* ie6 */
+    padding: 1px;
+    border: 2px solid #2971a7;
+    background: #fff;
+}
+
+.dataTables_wrapper{
+    margin: 0 0 0 0 !important;
+    border: 0px !important;
 }
 
 th, td, h3 {
@@ -86,17 +105,11 @@ h3 {
     font-size: 120%;
 }
 
-.odd {
-    background: #E4EBF3;
-}
 
 .even {
     background: #E4EBF3;
 }
 
-#filesystemTable .odd {
-    background: #fff;
-}
 
 #footer {
     clear: both;
@@ -123,6 +136,10 @@ h2 {
     background: #2971a7;
 }
 
+.barwarn {
+    background: #a72971;
+}
+
 p {
     padding: 4px 10px 2px 10px;
     line-height: 1.6;
@@ -131,9 +148,6 @@ p {
 }
 
 #filesystemTable thead tr .header {
-    background-image: url("../gfx/bg.gif");
-    background-position: right center;
-    background-repeat: no-repeat;
     cursor: pointer;
 }
 
@@ -141,21 +155,27 @@ table tfoot td {
     color: #2E2E2E;
 }
 
-#filesystemTable thead tr .headerSortUp {
-    background-image: url("../gfx/asc.gif");
-    color: #c03000;
-}
-
-#filesystemTable thead tr .headerSortDown {
-    background-image: url("../gfx/desc.gif");
-    color: #c03000;
-}
-
 .right {
     text-align: right;
     padding-right: 20px;
 }
 
-#pciTable, #ideTable, #scsiTable, #usbTable {
+#pciTable, #ideTable, #scsiTable, #usbTable, #tbTable, #i2cTable {
     padding: 0px 30px;
+}
+
+.treeimg {
+    display: table-cell;
+    vertical-align: top;
+}
+
+.treespan {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.treespanbold {
+    font-weight: bold;
+    display: table-cell;
+    vertical-align: middle;
 }

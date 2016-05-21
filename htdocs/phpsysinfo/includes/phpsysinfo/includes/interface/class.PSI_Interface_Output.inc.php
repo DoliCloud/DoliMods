@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * Basic Output Functions
  *
@@ -9,7 +9,7 @@
  * @author    Michael Cramer <BigMichi1@users.sourceforge.net>
  * @copyright 2009 phpSysInfo
  * @license   http://opensource.org/licenses/gpl-2.0.php GNU General Public License
- * @version   SVN: $Id: class.PSI_Interface_Output.inc.php,v 1.1 2011/08/01 19:28:42 eldy Exp $
+ * @version   SVN: $Id: class.PSI_Interface_Output.inc.php 214 2009-05-25 08:32:40Z bigmichi1 $
  * @link      http://phpsysinfo.sourceforge.net
  */
  /**
@@ -31,6 +31,5 @@ interface PSI_Interface_Output
      *
      * @return void
      */
-    function run();
+    public function run();
 }
-?>

@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * start page for webaccess
  *
@@ -9,7 +9,7 @@
  * @author    Michael Cramer <BigMichi1@users.sourceforge.net>
  * @copyright 2009 phpSysInfo
  * @license   http://opensource.org/licenses/gpl-2.0.php GNU General Public License
- * @version   SVN: $Id: class.WebpageXSLT.inc.php,v 1.1 2011/08/01 19:28:48 eldy Exp $
+ * @version   SVN: $Id: class.WebpageXSLT.inc.php 569 2012-04-16 06:08:18Z namiltd $
  * @link      http://phpsysinfo.sourceforge.net
  */
  /**
@@ -32,7 +32,7 @@ class WebpageXSLT extends WebpageXML implements PSI_Interface_Output
     {
         parent::__construct(false, null);
     }
-    
+
     /**
      * generate the static page
      *
@@ -52,4 +52,3 @@ class WebpageXSLT extends WebpageXML implements PSI_Interface_Output
         echo $xsltproc->transformToXML($domxml);
     }
 }
-?>
