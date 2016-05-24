@@ -1,7 +1,7 @@
 # Dolibarr language file - en_US - externalbackup
 CHARSET=UTF-8
-Module101280Name=External Backup
-Module101280Desc=Make a backup of your Dolibarr data on any Cloud hosting service.
+Module101240Name=External Backup
+Module101240Desc=Make a backup of your Dolibarr data on any Cloud hosting service.
 externalbackupSetup=Setup of module externalbackup
 externalbackupDesc=This modules allows you to make backup of your Dolibarr data on any external support (a lot of Cloud services supported)
 externalbackupNoSetup=There is no specific things to setup. This module is immediatly available at activation.
@@ -12,3 +12,6 @@ MoreCloudHosting=To use online Dolibarr, choose the secured hosting DoliCloud.
 MoreCloudHostingLink=<a target="_blank" href="http://www.dolicloud.com">Click here for more information</a>
 CompatibleWithDoliDroid=This modules is also compatible with DoliDroid, the Android application for Dolibarr.
 EXTERNAL_BACKUP_RCLONE_PATH=Path to command rclone
+EXTERNAL_BACKUP_RCLONE_CONF_PATH=Path to config file to use for rclone
+EXTERNAL_BACKUP_RCLONE_TARGET=Target to use for backup
+EXTERNAL_BACKUP_RCLONE_TARGETDesc=Run <strong>rclone config</strong> from command line to create, setup and authorize a <strong>target</strong> destination for your backup. Enter here name of the target you created.

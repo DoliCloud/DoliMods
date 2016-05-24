@@ -48,7 +48,7 @@ class modExternalBackup extends DolibarrModules
         global $langs,$conf;
 
         $this->db = $db;
-		$this->numero = 101280;
+		$this->numero = 101240;
 
 		$this->family = "other";
 		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'numero' of module)
@@ -58,7 +58,7 @@ class modExternalBackup extends DolibarrModules
 		$this->editor_url = 'http://www.nltechno.com';
 		
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
-		$this->version = '3.8';
+		$this->version = '4.0';
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
 		$this->special = 2;
 		$this->picto='generic';
