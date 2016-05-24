@@ -95,7 +95,8 @@ $formadmin=new FormAdmin($db);
 
 /*
  * Actions
-*/
+ */
+
 if ($action == 'save' && ($caneditfield  || $user->admin))
 {
     if (! GETPOST("cancel"))
@@ -408,19 +409,19 @@ else
     print '<table class="border" width="100%">';
     
     // Ref
-    print '<tr><td width="25%" valign="top">'.$langs->trans("Ref").'</td>';
+    print '<tr><td class="titlefield">'.$langs->trans("Ref").'</td>';
     print '<td colspan="2">';
     print $form->showrefnav($object,'id','',$user->rights->user->user->lire || $user->admin);
     print '</td>';
     print '</tr>';
     
     // Lastname
-    print '<tr><td width="25%" valign="top">'.$langs->trans("LastName").'</td>';
+    print '<tr><td>'.$langs->trans("LastName").'</td>';
     print '<td colspan="2">'.$object->lastname.'</td>';
     print "</tr>\n";
     
     // Firstname
-    print '<tr><td width="25%" valign="top">'.$langs->trans("FirstName").'</td>';
+    print '<tr><td>'.$langs->trans("FirstName").'</td>';
     print '<td colspan="2">'.$object->firstname.'</td>';
     print "</tr>\n";
     
@@ -437,7 +438,7 @@ else
 {
 	print_fiche_titre($langs->trans("AgendaSync"), '', '');
 
-	$var=false;
+	$var=true;
 	print "<table class=\"noborder\" width=\"100%\">";
 
 	print "<tr class=\"liste_titre\">";
