@@ -311,7 +311,7 @@ else
         $formsms->withbody=1;
         $formsms->withcancel=1;
         // Tableau des substitutions
-        $formsms->substit['__FACREF__']=$object->ref;
+        $formsms->substit['__REF__']=$object->ref;
         // Tableau des parametres complementaires du post
         $formsms->param['action']=$action;
         $formsms->param['models']=$modelmail;
