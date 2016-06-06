@@ -28,7 +28,6 @@
  *      \file       htdocs/includes/modules/modStat.class.php
  *      \ingroup    statistic
  *      \brief      Description and activation file for module statistic
- *		\version	$Id: modStat.class.php,v 1.50 2010/07/29 16:27:30 eldy Exp $
  */
 include_once(DOL_DOCUMENT_ROOT ."/core/modules/DolibarrModules.class.php");
 
