@@ -131,35 +131,6 @@ class modEcoTaxDeee extends DolibarrModules
 		// Main menu entries
 		$this->menus = array();			// List of menus to add
 		$r=0;
-
-		// Example:
-		// This is to declare the Top Menu entry:
-		// $this->menu[$r]=array(	'fk_menu'=>0,			// Put 0 if this is a top menu
-		//							'type'=>'top',			// This is a Top menu entry
-		//							'titre'=>'Title top menu',
-		//							'mainmenu'=>'Composition',
-		//							'leftmenu'=>'1',		// Use 1 if you also want to add left menu entries using this descriptor. Use 0 if left menu entries are defined in a file pre.inc.php (old school).
-		//							'url'=>'/comm/action/index.php',
-		//							'langs'=>'mylangfile',	// Lang file to use (without .lang) by module
-		//							'position'=>100,
-		//							'perms'=>'$user->rights->Composition->level1->level2',		// Use 'perms'=>'1' if you want your menu with no permission rules
-		//							'target'=>'',
-		//							'user'=>0);				// 0=menu for all users
-		// $r++;
-		//
-		// This is to declare a Left Menu entry:
-		// $this->menu[$r]=array(	'fk_menu'=>'r=0',		// Use r=value where r is index key used for the parent menu entry (higher parent must be a top menu entry)
-		//							'type'=>'left',			// This is a Left menu entry
-		//							'titre'=>'Title left menu',
-		//							'mainmenu'=>'Composition',
-		//							'url'=>'/comm/action/index2.php',
-		//							'langs'=>'mylangfile',	// Lang file to use (without .lang) by module
-		//							'position'=>100,
-		//							'perms'=>'$user->rights->Composition->level1->level2',		// Use 'perms'=>'1' if you want your menu with no permission rules
-		//							'target'=>'',
-		//							'user'=>0);				// 0=menu for all users
-		// $r++;
-
 	}
 
 	/**
