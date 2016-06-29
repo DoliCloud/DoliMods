@@ -60,6 +60,6 @@ div#login_right {
 	min-width:0!important;
 }
 
-#entity {
+/*#entity {
 	width: 135px;
-}
+}*/
