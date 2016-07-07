@@ -1037,7 +1037,7 @@ class pdf_oursin extends ModelePDFFactures
 			$posy+=3;
 			$pdf->SetXY($this->marges['g'],$posy);
 			$pdf->SetFont('','', $default_font_size - 2);
-			$pdf->MultiCell(100, 3, $outputlangs->transnoentities("DateEcheance")." : " . dol_print_date($object->date_lim_reglement,"day",false,$outputlangs,true), '', 'L');
+			$pdf->MultiCell(100, 3, $outputlangs->transnoentities("DateDue")." : " . dol_print_date($object->date_lim_reglement,"day",false,$outputlangs,true), '', 'L');
 		}
 
 		if ($object->client->code_client)
