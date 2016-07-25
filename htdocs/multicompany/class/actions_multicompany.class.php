@@ -478,6 +478,7 @@ class ActionsMulticompany
 		if ($this->dao->fetch($id) > 0)
 		{
 			// Controle des droits sur le changement
+			// FIX LDR
 			if (!empty($conf->global->MULTICOMPANY_HIDE_LOGIN_COMBOBOX)
 			|| (!empty($conf->multicompany->transverse_mode) && $this->dao->verifyRight($id, $user->id))
 			|| $user->admin || 1 == 1)
@@ -946,6 +947,7 @@ class ActionsMulticompany
 
 		$out='';
 
+		// FIX LDR (ne tient pas compte des habilitations)
 		if (!empty($conf->multicompany->transverse_mode) || !empty($user->admin) || 1 == 1)
 		{
 			$form=new Form($this->db);
