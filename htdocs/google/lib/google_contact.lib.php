@@ -536,13 +536,13 @@ function googleUpdateContact($client, $contactId, &$object, $useremail='default'
 
 		
 		// Birthday (in namespace gdContact)
-		if (! $xmlgcontact->birthday->asXml())    // Not into current remote record, we add it
+		if (! $xmlgcontact->birthday->asXml() && $object->birthday)    // Not into current remote record, we add it if defined
 		{
     		foreach($entries as $entry)	// We should have only one <entry>, loop is required to access first record of $entries.
     		{
         		$entry->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:gcontact', constant('GCONTACT_NAME_SPACE'));
         		$birthday = $doc->createElement('gcontact:birthday');
-        		$birthday->setAttribute('when' , $object->birthday ? dol_print_date($object->birthday,'dayrfc') : '');
+        		$birthday->setAttribute('when' , dol_print_date($object->birthday,'dayrfc'));
         		$entry->appendChild($birthday);
     		}
 		}
