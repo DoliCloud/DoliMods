@@ -156,7 +156,7 @@ print "</tr>";
 
 print '</table>';
 
-print info_admin($langs->trans("EnableAPI","https://code.google.com/apis/console/","https://code.google.com/apis/console/","Geocoding API"));
+print info_admin($langs->trans("EnableAPI","https://console.developers.google.com/apis/library/","https://console.developers.google.com/apis/library/","Geocoding API"));
 
 dol_fiche_end();
 
