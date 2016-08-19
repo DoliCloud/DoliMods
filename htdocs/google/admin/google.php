@@ -224,7 +224,7 @@ $urlwithouturlroot=preg_replace('/'.preg_quote(DOL_URL_ROOT,'/').'$/i','',$urlwi
 
 $redirect_uri=$urlwithouturlroot.dol_buildpath('/google/index.php',1);		// Must be an url without parameters
 
-$urltocreatekey='https://code.google.com/apis/console/';
+$urltocreatekey='https://console.developers.google.com/apis/credentials';
 
 
 print "<table class=\"noborder\" width=\"100%\">";
@@ -249,7 +249,7 @@ print '<input class="flat" type="text" size="80" name="GOOGLE_AGENDA_CLIENT_ID" 
 print "</td>";
 
 print '<td>';
-//print $langs->trans("AllowGoogleToLoginWithClientID","https://code.google.com/apis/console/","https://code.google.com/apis/console/", $jsallowed, $redirect_uri).'<br>';
+//print $langs->trans("AllowGoogleToLoginWithClientID","https://console.developers.google.com/apis/credentials","https://console.developers.google.com/apis/credentials", $jsallowed, $redirect_uri).'<br>';
 print $langs->trans("AllowGoogleToLoginWithClientID", $urltocreatekey, $urltocreatekey, $redirect_uri).'<br>';
 //print $langs->trans("AllowGoogleToLoginProp",$urltocreatekey,$urltocreatekey,$redirect_uri);
 print '</td>';

@@ -150,7 +150,7 @@ print '<input class="flat" type="text" size="64" name="GOOGLE_API_SERVERKEY" val
 print '</td>';
 print '<td>';
 print $langs->trans("KeepEmptyYoUsePublicQuotaOfAPI","Geocoding API").'<br>';
-print $langs->trans("AllowGoogleToLoginWithKey","https://code.google.com/apis/console/","https://code.google.com/apis/console/").'<br>';
+print $langs->trans("AllowGoogleToLoginWithKey","https://console.developers.google.com/apis/credentials","https://console.developers.google.com/apis/credentials").'<br>';
 print "</td>";
 print "</tr>";
 
