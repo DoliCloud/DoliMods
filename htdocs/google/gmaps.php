@@ -156,16 +156,19 @@ if ($address && $address != $object->country)
 {
 
 	// Detect if we use https
-	$sforhttps=(((empty($_SERVER["HTTPS"]) || $_SERVER["HTTPS"] != 'on') && (empty($_SERVER["SERVER_PORT"])||$_SERVER["SERVER_PORT"]!=443))?'':'s');
+	//$sforhttps=(((empty($_SERVER["HTTPS"]) || $_SERVER["HTTPS"] != 'on') && (empty($_SERVER["SERVER_PORT"])||$_SERVER["SERVER_PORT"]!=443))?'':'s');
 
-	$jsgmapapi='http://maps.google.com/maps/api/js';
+	$jsgmapapi='https://maps.googleapis.com/maps/api/js';
+	//https://maps.google.com/maps/api/js
 	if (empty($conf->global->GOOGLE_API_SERVERKEY)) $jsgmapapi.="?sensor=true";
 	else $jsgmapapi.="?key=".$conf->global->GOOGLE_API_SERVERKEY;
 
-	if ($sforhttps) $jsgmapapi=preg_replace('/^http:/','https:',$jsgmapapi);
+	//if ($sforhttps) $jsgmapapi=preg_replace('/^http:/','https:',$jsgmapapi);
 
 ?>
-<script type="text/javascript" src="<?php echo $jsgmapapi; ?>?sensor=true"></script>
+
+<!-- Include Google map -->
+<script type="text/javascript" src="<?php echo $jsgmapapi; ?>"></script>
 
 <script type="text/javascript">
   var geocoder;

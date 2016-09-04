@@ -1221,7 +1221,10 @@ function getURLContentBis($url,$postorget='GET',$param='',$followlocation=1,$add
 	if (count($addheaders)) curl_setopt($ch, CURLOPT_HTTPHEADER, $addheaders);
 	curl_setopt($ch, CURLINFO_HEADER_OUT, true);	// To be able to retrieve request header and log it
 
-    //turning off the server and peer verification(TrustManager Concept).
+	// $conf->global->GOOGLE_SSLVERSION should be set to 1 to use TLSv1 by default or change to TLSv1.2 in module configuration
+	if (isset($conf->global->GOOGLE_SSLVERSION)) curl_setopt($ch, CURLOPT_SSLVERSION, $conf->global->GOOGLE_SSLVERSION);
+	
+	//turning off the server and peer verification(TrustManager Concept).
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
     curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
 

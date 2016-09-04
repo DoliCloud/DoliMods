@@ -580,8 +580,8 @@ function googlegetURLContent($url,$postorget='GET',$param='')
 	curl_setopt($ch, CURLOPT_VERBOSE, 1);
 	curl_setopt($ch, CURLOPT_USERAGENT, 'Dolibarr googlegeturlcontent function');
 
-	// TLSv1 by default or change to TLSv1.2 in module configuration
-    curl_setopt($ch, CURLOPT_SSLVERSION, (empty($conf->global->GOOGLE_SSLVERSION)?1:$conf->global->GOOGLE_SSLVERSION));
+	// $conf->global->GOOGLE_SSLVERSION should be set to 1 to use TLSv1 by default or change to TLSv1.2 in module configuration
+	if (isset($conf->global->GOOGLE_SSLVERSION)) curl_setopt($ch, CURLOPT_SSLVERSION, $conf->global->GOOGLE_SSLVERSION);
 
 	//turning off the server and peer verification(TrustManager Concept).
 	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);

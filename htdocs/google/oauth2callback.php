@@ -86,19 +86,7 @@ if (empty($_SESSION['google_web_token_'.$conf->entity]) || $code)		// We are not
 	$post = rtrim($post,'&');
 
 	$result = getURLContent('https://accounts.google.com/o/oauth2/token', 'POST', $post);
-	/*
-	$curl = curl_init();
-	curl_setopt($curl,CURLOPT_URL,'https://accounts.google.com/o/oauth2/token');
-	curl_setopt($curl,CURLOPT_POST,5);
-	curl_setopt($curl,CURLOPT_POSTFIELDS,$post);
-	curl_setopt($curl,CURLOPT_RETURNTRANSFER,TRUE);
-	curl_setopt($curl,CURLOPT_SSL_VERIFYPEER,FALSE);
-	$result = curl_exec($curl);
-	curl_close($curl);
 
-	dol_syslog("Call 'https://accounts.google.com/o/oauth2/token' and get response ".$result);
-	$response =  json_decode($result, true);
-	*/
 	$response=json_decode($result['content'], true);
 
 	// response should be an array like array('access_token' => , 'token_type' => 'Bearer', 'expires_in' => int 3600)
@@ -186,7 +174,9 @@ curl_setopt($curl,CURLOPT_URL,$urltocreate);
 curl_setopt($curl,CURLOPT_POST,0);
 //curl_setopt($curl,CURLOPT_POSTFIELDS,$post);
 curl_setopt($curl,CURLOPT_RETURNTRANSFER,TRUE);
-curl_setopt($curl,CURLOPT_SSL_VERIFYPEER,FALSE);
+//turning off the server and peer verification(TrustManager Concept).
+curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
 $result = curl_exec($curl);
 curl_close($curl);
 var_dump($result);

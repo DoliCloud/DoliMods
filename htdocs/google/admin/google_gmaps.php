@@ -144,12 +144,12 @@ print "<td>".$langs->trans("Note")."</td>";
 print "</tr>";
 // Google login
 print "<tr ".$bc[$var].">";
-print '<td>'.$langs->trans("GOOGLE_API_SERVERKEY")."</td>";
+print '<td class="fieldrequired">'.$langs->trans("GOOGLE_API_SERVERKEY")."</td>";
 print "<td>";
 print '<input class="flat" type="text" size="64" name="GOOGLE_API_SERVERKEY" value="'.$conf->global->GOOGLE_API_SERVERKEY.'">';
 print '</td>';
 print '<td>';
-print $langs->trans("KeepEmptyYoUsePublicQuotaOfAPI","Geocoding API").'<br>';
+//print $langs->trans("KeepEmptyYoUsePublicQuotaOfAPI","Geocoding API").'<br>';
 print $langs->trans("AllowGoogleToLoginWithKey","https://console.developers.google.com/apis/credentials","https://console.developers.google.com/apis/credentials").'<br>';
 print "</td>";
 print "</tr>";
