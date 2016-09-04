@@ -171,7 +171,7 @@ print "</tr>";
 
 print '</table>';
 
-print info_admin($langs->trans("EnableAPI","https://console.developers.google.com/apis/library/","https://console.developers.google.com/apis/library/","Geocoding API"));
+print info_admin($langs->trans("EnableAPI","https://console.developers.google.com/apis/library/","https://console.developers.google.com/apis/library/","Google Maps Geocoding API, Google Maps Javascript API"));
 
 dol_fiche_end();
 
