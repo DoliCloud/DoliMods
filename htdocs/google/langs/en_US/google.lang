@@ -123,3 +123,5 @@ OperationMayBeLong=operation may be long, restart if you epxerience timeout
 ErrorModuleGoogleKeyFileNotFound=Google key file %s was not found
 ClickToUpdateWithLastGoogleChanges=Click to refresh agenda database with last changes done on Google agenda %s since
 GoogleLimitBackTime=Due to a Google limit, requests are limited to %s days max in the past
+ResetGeoEncodingErrors=Reset geoencoding errors table
+RecordInGeoEncodingErrorDeleted=All records with geoencoding errors were reset for another geoencoding try.

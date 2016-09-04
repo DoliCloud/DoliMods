@@ -33,12 +33,27 @@ $langs->load("other");
 $def = array();
 $actiontest=$_POST["test"];
 $actionsave=$_POST["save"];
-
+$action=GETPOST('action');
 
 
 /*
  * Actions
  */
+
+if ($action == 'gmap_deleteerrors')
+{
+    $sql="DELETE FROM ".MAIN_DB_PREFIX."google_maps WHERE result_code <> 'OK'";
+    $result=$db->query($sql);
+    
+    if ($result)
+    {
+        setEventMessages($langs->trans("RecordInGeoEncodingErrorDeleted"), null);
+    }
+    else
+    {
+        setEventMessages("ErrorDeleting table goolg_maps with result_code <> 'OK'", null, 'errors');
+    }
+}
 
 if ($actionsave)
 {
@@ -165,6 +180,9 @@ print "<input type=\"submit\" name=\"save\" class=\"button\" value=\"".$langs->t
 print "</div>";
 
 print "</form>\n";
+
+
+print '<a href="'.$_SERVER["PHP_SELF"].'?action=gmap_deleteerrors">'.$langs->trans("ResetGeoEncodingErrors").'</a><br>';
 
 
 dol_htmloutput_mesg($mesg);
