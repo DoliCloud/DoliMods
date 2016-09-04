@@ -159,6 +159,9 @@ if ($address && $address != $object->country)
 	$sforhttps=(((empty($_SERVER["HTTPS"]) || $_SERVER["HTTPS"] != 'on') && (empty($_SERVER["SERVER_PORT"])||$_SERVER["SERVER_PORT"]!=443))?'':'s');
 
 	$jsgmapapi='http://maps.google.com/maps/api/js';
+	if (empty($conf->global->GOOGLE_API_SERVERKEY)) $jsgmapapi.="?sensor=true";
+	else $jsgmapapi.="?key=".$conf->global->GOOGLE_API_SERVERKEY;
+
 	if ($sforhttps) $jsgmapapi=preg_replace('/^http:/','https:',$jsgmapapi);
 
 ?>

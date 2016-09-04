@@ -322,13 +322,17 @@ class GoogleMapAPI
 	/**
 	 * Geocoding an address (address -> lat,lng)
 	 *
-	 * @param string $address an address
+	 * @param  string  $address        An address
 	 * @return array array with precision, lat & lng
 	 */
 	public function geocoding($address)
 	{
+	    global $conf;
+	    
 		$encodeAddress = urlencode($this->withoutSpecialChars($address));
-		$url = "http://maps.google.com/maps/api/geocode/json?address=".$encodeAddress."&sensor=false";
+		$url = "https://maps.googleapis.com/maps/api/geocode/json?address=".$encodeAddress;
+		if (! empty($conf->global->GOOGLE_API_SERVERKEY)) $url.="&key=".$conf->global->GOOGLE_API_SERVERKEY;
+	   
 		ini_set("allow_url_open", "1");
 		$data = file_get_contents($url);
 

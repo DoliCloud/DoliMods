@@ -489,16 +489,9 @@ function geocoding($address)
 	global $conf;
 
 	$encodeAddress = urlencode(withoutSpecialChars($address));
-	//$url = "http://maps.google.com/maps/geo?q=".$encodeAddress."&output=csv";
-	//$url = "http://maps.google.com/maps/api/geocode/json?address=".$encodeAddress."&sensor=false";
-	if ($conf->global->GOOGLE_API_SERVERKEY)
-	{
-		$url = "https://maps.googleapis.com/maps/api/geocode/json?address=".$encodeAddress.($conf->global->GOOGLE_API_SERVERKEY?"&key=".$conf->global->GOOGLE_API_SERVERKEY:"");
-	}
-	else
-	{
-		$url = "http://maps.googleapis.com/maps/api/geocode/json?address=".$encodeAddress;
-	}
+	$url = "https://maps.googleapis.com/maps/api/geocode/json?address=".$encodeAddress;
+	if (! empty($conf->global->GOOGLE_API_SERVERKEY)) $url.="&key=".$conf->global->GOOGLE_API_SERVERKEY; 
+
 	ini_set("allow_url_open", "1");
 	$response = googlegetURLContent($url,'GET');
 
