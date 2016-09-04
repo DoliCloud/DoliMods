@@ -426,7 +426,7 @@ $gmap->setDirectionDivId('route');
 $gmap->setEnableWindowZoom(true);
 $gmap->setEnableAutomaticCenterZoom(true);
 $gmap->setDisplayDirectionFields(false);
-$gmap->setClusterer(true);
+$gmap->setClusterer(empty($conf->global->GOOGLE_NOCLUSTERER));                  // For high number or record, we should use clusterer
 $gmap->setSize('100%','500px');
 $gmap->setZoom(11);
 $gmap->setLang($user->lang);
@@ -489,6 +489,7 @@ function geocoding($address)
 	global $conf;
 
 	$encodeAddress = urlencode(withoutSpecialChars($address));
+	// URL to geoencode
 	$url = "https://maps.googleapis.com/maps/api/geocode/json?address=".$encodeAddress;
 	if (! empty($conf->global->GOOGLE_API_SERVERKEY)) $url.="&key=".$conf->global->GOOGLE_API_SERVERKEY; 
 
