@@ -9,8 +9,6 @@
  *		\version    $Id: pre.inc.php,v 1.7 2011/03/29 23:17:22 eldy Exp $
  */
 
-define('NOCSRFCHECK',1);
-
 $res=0;
 if (! $res && file_exists("../main.inc.php")) $res=@include("../main.inc.php");
 if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.php");

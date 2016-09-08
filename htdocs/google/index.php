@@ -8,7 +8,6 @@
  *    	\file       htdocs/google/index.php
  *		\ingroup    google
  *		\brief      Main google area page
- *		\version    $Id: index.php,v 1.9 2011/08/29 07:45:09 eldy Exp $
  *		\author		Laurent Destailleur
  */
 

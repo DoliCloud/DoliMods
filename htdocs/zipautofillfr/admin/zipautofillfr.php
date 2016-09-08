@@ -21,8 +21,6 @@
  *      \brief      Page to setup module ZipAutoFill
  */
 
-define('NOCSRFCHECK',1);
-
 $res=0;
 if (! $res && file_exists("../main.inc.php")) $res=@include("../main.inc.php");
 if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.php");

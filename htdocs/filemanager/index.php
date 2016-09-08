@@ -25,17 +25,6 @@ if (! defined('REQUIRE_JQUERY_LAYOUT'))     define('REQUIRE_JQUERY_LAYOUT','1');
 if (! defined('REQUIRE_JQUERY_FILEUPLOAD')) define('REQUIRE_JQUERY_FILEUPLOAD','1');
 
 
-//if (! defined('NOREQUIREUSER'))  define('NOREQUIREUSER','1');
-//if (! defined('NOREQUIREDB'))    define('NOREQUIREDB','1');
-//if (! defined('NOREQUIRESOC'))   define('NOREQUIRESOC','1');
-//if (! defined('NOREQUIRETRAN'))  define('NOREQUIRETRAN','1');
-//if (! defined('NOCSRFCHECK'))    define('NOCSRFCHECK','1');
-//if (! defined('NOTOKENRENEWAL')) define('NOTOKENRENEWAL','1');
-//if (! defined('NOREQUIREMENU'))  define('NOREQUIREMENU','1');	// If there is no menu to show
-//if (! defined('NOREQUIREHTML'))  define('NOREQUIREHTML','1');	// If we don't need to load the html.form.class.php
-//if (! defined('NOREQUIREAJAX'))  define('NOREQUIREAJAX','1');
-//if (! defined("NOLOGIN"))        define("NOLOGIN",'1');		// If this page is public (can be called outside logged session)
-
 require_once("../filemanager/pre.inc.php");
 include_once(DOL_DOCUMENT_ROOT."/core/lib/files.lib.php");
 include_once(DOL_DOCUMENT_ROOT."/core/lib/security2.lib.php");
