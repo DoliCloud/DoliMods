@@ -360,9 +360,10 @@ class ActionsMulticompany
 	 *	@param	int		$selected	Preselected entity
 	 *	@param	string	$option		Option
 	 *	@param	int		$login		If use in login page or not
+	 *  @param  int     $showall    Add choice All
 	 *	@return	void
 	 */
-	function select_entities($selected='', $htmlname='entity', $option='', $login=0)
+	function select_entities($selected='', $htmlname='entity', $option='', $login=0, $showall=0)
 	{
 		global $user,$langs;
 
@@ -371,6 +372,7 @@ class ActionsMulticompany
 		$this->dao->getEntities($login);
 
 		$return = '<select class="flat" id="'.$htmlname.'" name="'.$htmlname.'"'.$option.'>';
+		if ($showall) $return.= '<option value="0">'.$langs->trans("AllEntities").'</option>';
 		if (is_array($this->dao->entities))
 		{
 			foreach ($this->dao->entities as $entity)
