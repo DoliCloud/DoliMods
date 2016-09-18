@@ -169,6 +169,12 @@ if ($socid)
 	$result = $object->fetch($socid);
 
 
+	if ((float) DOL_VERSION >= 5.0)	// For dolibarr 5.0.*
+	{
+	    print "<form method=\"POST\" name=\"smsform\" enctype=\"multipart/form-data\" action=\"".$_SERVER["PHP_SELF"].'?id='.$object->id."\">\n";
+	}
+	
+	    
 	/*
 	 * Show tabs
 	 */
@@ -246,10 +252,31 @@ if ($socid)
     $formsms->param['id']=$object->id;
     $formsms->param['returnurl']=$_SERVER["PHP_SELF"].'?id='.$object->id;
 
-    $formsms->show_form('20%');
-
-
+	if ((float) DOL_VERSION >= 5.0)	// For dolibarr 5.0.*
+    { 
+        $formsms->show_form('', 0);
+	}
+	else
+	{
+	    $formsms->show_form('20%');
+	}
+    
     dol_fiche_end();
+    
+    if ((float) DOL_VERSION >= 5.0)	// For dolibarr 5.0.*
+    {
+        print '<div class="center">';
+        print '<input class="button" type="submit" name="sendmail" value="'.dol_escape_htmltag($langs->trans("SendSms")).'">';
+        if ($formsms->withcancel)
+        {
+            print '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+            print '<input class="button" type="submit" name="cancel" value="'.dol_escape_htmltag($langs->trans("Cancel")).'">';
+        }
+        print '</div>';
+    
+        print "</form>\n";
+    }
+    
 }
 
 
