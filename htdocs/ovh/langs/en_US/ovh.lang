@@ -9,6 +9,7 @@ OvhSmsPass=Password
 OvhSmsLabelAccount=SMS account to use
 OvhSmsLoginSuccessFull=Connection successfull!
 OvhSmsNotConfigured=Module not configured
+OvhAuthenticationPartNotConfigured=Authentication data not configured. Go on tab "Authentication" first. 
 NbSmsLeft=Number of remaining SMS
 OvhSmsSoapUrl=URL of OVH SOAP service
 OvhSmsSend=Send SMS
@@ -62,3 +63,6 @@ ListOfExistingAPIApp=Note: You can find list of already created application on p
 ClickHereToLoginAndGetYourConsumerKey=Click <a href="%s"> here to login and get a new consumer key</a> (You must choose <strong>UNLIMITED</strong> validity)
 Authentication=Authentication
 FromThe=From the
+PleaseFillOtherFieldFirst=Please fill the other fields first...
+IfYouChangeHereChangeAlsoClickToDial=If you change data here, don't forget to update also the link into module ClickToDial
+ToGoOnClickToDialSetup=To go on ClickToDial module setup

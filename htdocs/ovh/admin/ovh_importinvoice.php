@@ -106,6 +106,11 @@ else
 
     dol_fiche_head($head, 'getinvoices', $langs->trans("Ovh"));
     
+    if (empty($conf->global->OVH_OLDAPI) && (empty($conf->global->OVHAPPKEY) || empty($conf->global->OVHAPPSECRET) || empty($conf->global->OVHCONSUMERKEY)))
+    {
+        echo '<div class="warning">'.$langs->trans("OvhAuthenticationPartNotConfigured").'</div>';
+    }
+        
     print '<table class="noborder" width="100%">';
     print '<tr class="liste_titre">';
     print '<td>'.$langs->trans("Parameter").'</td>';

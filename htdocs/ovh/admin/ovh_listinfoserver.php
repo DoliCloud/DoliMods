@@ -119,6 +119,10 @@ if (! empty($conf->global->OVH_OLDAPI) && (empty($conf->global->OVHSMS_NICK) || 
 {
     echo '<div class="warning">'.$langs->trans("OvhSmsNotConfigured").'</div>';
 }
+elseif (empty($conf->global->OVH_OLDAPI) && (empty($conf->global->OVHAPPKEY) || empty($conf->global->OVHAPPSECRET) || empty($conf->global->OVHCONSUMERKEY)))
+{
+    echo '<div class="warning">'.$langs->trans("OvhAuthenticationPartNotConfigured").'</div>';
+}
 else
 {
     require_once(DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php');

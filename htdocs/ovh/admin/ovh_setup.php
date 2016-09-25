@@ -158,7 +158,8 @@ if ($action == 'requestcredential')
         $credentials = $conn->requestCredentials($rights, $redirect_uri);
         
         $_SESSION['ovh_consumer_key']=$credentials["consumerKey"];
-        header('location: '. $credentials["validationUrl"]);
+        header('Location: '. $credentials["validationUrl"]);
+        exit;
     }
     catch(Exception $e)
     {
@@ -285,20 +286,24 @@ else
     print '</td></tr>';
     
     
+    $var=!$var;
+    print '<tr '.$bc[$var].'><td class="fieldrequired">';
+    print $langs->trans("OvhConsumerkey").'</td><td>';
     if (! empty($conf->global->OVHAPPNAME) && ! empty($conf->global->OVHAPPKEY) && ! empty($conf->global->OVHAPPSECRET))
     {
-        $var=!$var;
-        print '<tr '.$bc[$var].'><td class="fieldrequired">';
-        print $langs->trans("OvhConsumerkey").'</td><td>';
         print '<input size="64" type="text" name="OVHCONSUMERKEY" value="'.$conf->global->OVHCONSUMERKEY.'">';
-        print '</td><td>';
-        //if (empty($conf->global->OVHCONSUMERKEY))
-        //{
-            if (empty($conf->global->OVHCONSUMERKEY)) print img_warning().' ';
-            print $langs->trans("ClickHereToLoginAndGetYourConsumerKey", $_SERVER["PHP_SELF"].'?action=requestcredential');
-        //}
-        print '</td></tr>';
+    }
+    else
+    {
+        print $langs->trans("PleaseFillOtherFieldFirst");
+    }
+    print '</td><td>';
+    if (! empty($conf->global->OVHAPPNAME) && ! empty($conf->global->OVHAPPKEY) && ! empty($conf->global->OVHAPPSECRET))
+    {
+        if (empty($conf->global->OVHCONSUMERKEY)) print img_warning().' ';
+        print $langs->trans("ClickHereToLoginAndGetYourConsumerKey", $_SERVER["PHP_SELF"].'?action=requestcredential');
     }    
+    print '</td></tr>';
 }
 
 print '</table>';

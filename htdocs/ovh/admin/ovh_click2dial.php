@@ -205,12 +205,16 @@ else
         $tmpurl.='&login=__LOGIN__&password=__PASS__';
     }
         
+    print info_admin($langs->trans("IfYouChangeHereChangeAlsoClickToDial")).'<br>';
+    
     $url='<a href="'.dol_buildpath($tmpurl,2).'" target="_blank">'.dol_buildpath($tmpurl,2).'</a>';
-    $message.=img_picto('','object_globe.png').' '.$langs->trans("ClickToDialLink",'OVH',$url);
+    $message.=$langs->trans("ClickToDialLink",'OVH','').'<br>';
+    $message.=img_picto('','object_globe.png').' <input type="text" class="quatrevingtpercent" name="url" value="'.dol_escape_htmltag(dol_buildpath($tmpurl,2)).'">';
     $message.='<br>';
     $message.='<br>';
     print $message;
 
+    print $langs->trans("ToGoOnClickToDialSetup").': <a href="'.DOL_URL_ROOT.'/admin/clicktodial.php" target="setup">'.$langs->trans("ClickHere").'</a><br>';
     
     dol_fiche_end();
     

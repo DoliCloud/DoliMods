@@ -217,9 +217,14 @@ else
     print '<input type="hidden" name="action" value="setvalue_account">';
 
     dol_fiche_head($head, 'sms', $langs->trans("Ovh"));
+
+    if (empty($conf->global->OVH_OLDAPI) && (empty($conf->global->OVHAPPKEY) || empty($conf->global->OVHAPPSECRET) || empty($conf->global->OVHCONSUMERKEY)))
+    {
+        echo '<div class="warning">'.$langs->trans("OvhAuthenticationPartNotConfigured").'</div>';
+    }
     
     $var=true;
-
+    
     print '<table class="noborder" width="100%">';
     
     print '<tr class="liste_titre">';
