@@ -61,10 +61,11 @@ if ($actionsave)
     $res+=dolibarr_set_const($db,'GOOGLE_ENABLE_GMAPS',trim($_POST["GOOGLE_ENABLE_GMAPS"]),'chaine',0,'',$conf->entity);
 	$res+=dolibarr_set_const($db,'GOOGLE_ENABLE_GMAPS_CONTACTS',trim($_POST["GOOGLE_ENABLE_GMAPS_CONTACTS"]),'chaine',0,'',$conf->entity);
 	$res+=dolibarr_set_const($db,'GOOGLE_ENABLE_GMAPS_MEMBERS',trim($_POST["GOOGLE_ENABLE_GMAPS_MEMBERS"]),'chaine',0,'',$conf->entity);
+	$res+=dolibarr_set_const($db,'GOOGLE_ENABLE_GMAPS_TICON',trim($_POST["GOOGLE_ENABLE_GMAPS_TICON"]),'chaine',0,'',$conf->entity);
 	$res+=dolibarr_set_const($db,'GOOGLE_GMAPS_ZOOM_LEVEL',trim($_POST["GOOGLE_GMAPS_ZOOM_LEVEL"]),'chaine',0,'',$conf->entity);
 	$res+=dolibarr_set_const($db,'GOOGLE_API_SERVERKEY',trim($_POST["GOOGLE_API_SERVERKEY"]),'chaine',0,'',$conf->entity);
 
-    if ($res == 5)
+    if ($res == 6)
     {
         $db->commit();
         $mesg = "<font class=\"ok\">".$langs->trans("SetupSaved")."</font>";
@@ -127,7 +128,6 @@ if ($conf->adherent->enabled)
 else print $langs->trans("ModuleMustBeEnabledFirst",$langs->transnoentitiesnoconv("Module310Name"));
 print '<br>';
 
-
 print '<br>';
 
 
@@ -143,6 +143,16 @@ print "</tr>";
 print '<tr '.$bc[$var].'><td>'.$langs->trans("GoogleZoomLevel").'</td><td>';
 print '<input class="flat" name="GOOGLE_GMAPS_ZOOM_LEVEL" id="GOOGLE_GMAPS_ZOOM_LEVEL" value="'.(isset($_POST["GOOGLE_GMAPS_ZOOM_LEVEL"])?$_POST["GOOGLE_GMAPS_ZOOM_LEVEL"]:$conf->global->GOOGLE_GMAPS_ZOOM_LEVEL).'" size="2">';
 print '</td></tr>';
+
+//ajout de la gestion des icones de status des Tiers : prospects/clients
+if (! empty($conf->global->GOOGLE_CAN_USE_PROSPECT_ICONS) && ! empty($conf->societe->enabled))
+{
+	print '<tr '.$bc[$var].'><td>'.$langs->trans("IconTiers").'</td><td>';
+	print $form->selectyesno("GOOGLE_ENABLE_GMAPS_TICON",isset($_POST["GOOGLE_ENABLE_GMAPS_TICON"])?$_POST["GOOGLE_ENABLE_GMAPS_TICON"]:$conf->global->GOOGLE_ENABLE_GMAPS_TICON,1);
+	print '</td></tr>';
+}
+
+
 
 print '</table>';
 

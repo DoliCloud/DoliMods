@@ -451,6 +451,55 @@ class GoogleMapAPI
 			else $icon = "http://www.google.com/intl/en_us/mapfiles/ms/micons/red-dot.png";
 			if ($sforhttps) $icon=preg_replace('/^http:/','https:',$icon);
 			*/
+
+			// ajout de la modification des icones en fonction du tiers et de son status
+			if (! empty($conf->global->GOOGLE_CAN_USE_PROSPECT_ICONS))
+			{
+				if ((empty($mode) || $mode == 'company' || $mode == 'thirdparty') and (GOOGLE_ENABLE_GMAPS_TICON == 1))  {
+					switch ($elem->client) {
+						case 0:
+							$icon = DOL_URL_ROOT.'/custom/google/images/red-dot.png';
+							break;
+						case 1:
+							$icon = DOL_URL_ROOT.'/custom/google/images/green-dot.png';
+							break;
+						case 2:
+							switch ($elem->statusprospet) {
+								case -1:
+									$icon = DOL_URL_ROOT.'/custom/google/images/stcomm-1.png';
+									break;
+								case 0:
+									$icon = DOL_URL_ROOT.'/custom/google/images/stcomm0.png';
+									break;
+								case 1:
+									$icon = DOL_URL_ROOT.'/custom/google/images/stcomm1.png';
+									break;
+								case 2:
+									$icon = DOL_URL_ROOT.'/custom/google/images/stcomm2.png';
+									break;
+								case 3:
+									$icon = DOL_URL_ROOT.'/custom/google/images/stcomm3.png';
+									break;
+								case 4:
+									$icon = DOL_URL_ROOT.'/custom/google/images/stcomm4.png';
+									break;
+								default:
+									$icon = DOL_URL_ROOT.'/custom/google/images/stcomm0.png';
+									break;
+							}
+							break;
+						case 3:
+							$icon = DOL_URL_ROOT.'/custom/google/images/green-dot.png';
+							break;
+						default:
+							$icon = DOL_URL_ROOT.'/custom/google/images/red-dot.png';
+							break;
+					}
+				}
+				else $icon = DOL_URL_ROOT.'/custom/google/images/red-dot.png';
+				if ($sforhttps) $icon=preg_replace('/^http:/','https:',$icon);
+			}
+
 			$address=dol_string_nospecial($elem->address,', ',array("\r\n","\n","\r"));
 
 			$addresscleaned = $this->g_dol_escape_js($this->no_special_character_v2($address));
@@ -641,7 +690,12 @@ class GoogleMapAPI
 		$this->content .= "\t\t\t" . 'map: map,' . "\n";
 		$this->content .= "\t\t\t" . 'title : title,' . "\n";
 		// We do not use the marker with the shadow, if we do so, we must set position of the sprite we want to extract from the image
-		//$this->content .= "\t\t\t" . 'icon:  new google.maps.MarkerImage(icon, new google.maps.Size(' . $this->iconWidth . ',' . $this->iconHeight . ')),' . "\n";
+		if (! empty($conf->global->GOOGLE_CAN_USE_PROSPECT_ICONS))
+		{
+			if ((empty($mode) || $mode == 'company' || $mode == 'thirdparty') and (GOOGLE_ENABLE_GMAPS_TICON == 1))  {
+				//$this->content .= "\t\t\t" . 'icon:  new google.maps.MarkerImage(icon, new google.maps.Size(' . $this->iconWidth . ',' . $this->iconHeight . ')),' . "\n";
+			}
+		}
 		$this->content .= "\t\t\t" . 'position: latlng' . "\n";
 		$this->content .= "\t\t" . '});' . "\n";
 
