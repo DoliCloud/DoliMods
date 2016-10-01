@@ -96,7 +96,14 @@ if (! empty($client_id))		// If we setup to use the oauth login
 		curl_setopt($curl,CURLOPT_POST,5);
 		curl_setopt($curl,CURLOPT_POSTFIELDS,$post);
 		curl_setopt($curl,CURLOPT_RETURNTRANSFER,TRUE);
-		curl_setopt($curl,CURLOPT_SSL_VERIFYPEER,FALSE);
+		
+    	// $conf->global->GOOGLE_SSLVERSION should be set to 1 to use TLSv1 by default or change to TLSv1.2 in module configuration
+    	if (isset($conf->global->GOOGLE_SSLVERSION)) curl_setopt($curl, CURLOPT_SSLVERSION, $conf->global->GOOGLE_SSLVERSION);
+		
+    	//turning off the server and peer verification(TrustManager Concept).
+    	curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, FALSE);
+    	curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, FALSE);
+		
 		$result = curl_exec($curl);
 		curl_close($curl);
 

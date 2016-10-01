@@ -194,6 +194,8 @@ if ($socid)
     if (function_exists('dol_banner_tab')) // 3.9+
     {
         dol_banner_tab($object,'id','',$user->rights->user->user->lire || $user->admin);
+    
+        print '<div class="underbanner clearboth"></div>';
     }
     else
     {

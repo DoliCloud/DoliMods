@@ -31,12 +31,27 @@ $langs->load("other");
 $def = array();
 $actiontest=$_POST["test"];
 $actionsave=$_POST["save"];
-
+$action=GETPOST('action');
 
 
 /*
  * Actions
  */
+
+if ($action == 'gmap_deleteerrors')
+{
+    $sql="DELETE FROM ".MAIN_DB_PREFIX."google_maps WHERE result_code <> 'OK'";
+    $result=$db->query($sql);
+    
+    if ($result)
+    {
+        setEventMessages($langs->trans("RecordInGeoEncodingErrorDeleted"), null);
+    }
+    else
+    {
+        setEventMessages("ErrorDeleting table goolg_maps with result_code <> 'OK'", null, 'errors');
+    }
+}
 
 if ($actionsave)
 {
@@ -142,19 +157,19 @@ print "<td>".$langs->trans("Note")."</td>";
 print "</tr>";
 // Google login
 print "<tr ".$bc[$var].">";
-print '<td>'.$langs->trans("GOOGLE_API_SERVERKEY")."</td>";
+print '<td class="fieldrequired">'.$langs->trans("GOOGLE_API_SERVERKEY")."</td>";
 print "<td>";
 print '<input class="flat" type="text" size="64" name="GOOGLE_API_SERVERKEY" value="'.$conf->global->GOOGLE_API_SERVERKEY.'">';
 print '</td>';
 print '<td>';
-print $langs->trans("KeepEmptyYoUsePublicQuotaOfAPI","Geocoding API").'<br>';
-print $langs->trans("AllowGoogleToLoginWithKey","https://code.google.com/apis/console/","https://code.google.com/apis/console/").'<br>';
+//print $langs->trans("KeepEmptyYoUsePublicQuotaOfAPI","Geocoding API").'<br>';
+print $langs->trans("AllowGoogleToLoginWithKey","https://console.developers.google.com/apis/credentials","https://console.developers.google.com/apis/credentials").'<br>';
 print "</td>";
 print "</tr>";
 
 print '</table>';
 
-print info_admin($langs->trans("EnableAPI","https://code.google.com/apis/console/","https://code.google.com/apis/console/","Geocoding API"));
+print info_admin($langs->trans("EnableAPI","https://console.developers.google.com/apis/library/","https://console.developers.google.com/apis/library/","Google Maps Geocoding API, Google Maps Javascript API"));
 
 dol_fiche_end();
 
@@ -163,6 +178,9 @@ print "<input type=\"submit\" name=\"save\" class=\"button\" value=\"".$langs->t
 print "</div>";
 
 print "</form>\n";
+
+
+print '<a href="'.$_SERVER["PHP_SELF"].'?action=gmap_deleteerrors">'.$langs->trans("ResetGeoEncodingErrors").'</a><br>';
 
 
 dol_htmloutput_mesg($mesg);

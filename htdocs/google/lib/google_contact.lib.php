@@ -115,7 +115,7 @@ function googleCreateContact($client, $object, $useremail='default')
 		// Element
 		$email = $doc->createElement('gd:email');
 		$email->setAttribute('address', ($object->email?$object->email:(strtolower(preg_replace('/\s/','',(empty($object->name)?$object->lastname.$object->firstname:$object->name)).'@noemail.com'))));
-		$email->setAttribute('rel', 'http://schemas.google.com/g/2005#home');
+		$email->setAttribute('rel', constant('REL_WORK'));
 		$entry->appendChild($email);
 
 		// Address
@@ -153,7 +153,7 @@ function googleCreateContact($client, $object, $useremail='default')
 			$entry->appendChild($company);
 
 			$object->fetch_thirdparty();
-			if (! empty($object->thirdparty->name) || ! empty($object->poste))
+			if (! empty($object->thirdparty->name) || ! empty($object->poste))   // Job position and company name of contact
 			{
 				$thirdpartyname=$object->thirdparty->name;
 
@@ -185,10 +185,9 @@ function googleCreateContact($client, $object, $useremail='default')
 		// Birthday
 		if (! empty($object->birthday))
 		{
-			/*
-			$birthday = $doc->createElement('gd:birthday');
+			$birthday = $doc->createElement('gcontact:birthday');
 			$birthday->setAttribute('when' , dol_print_date($object->birthday,'dayrfc'));
-			$entry->appendChild($birthday);*/
+			$entry->appendChild($birthday);
 		}
 
 		// URL
@@ -247,6 +246,14 @@ function googleCreateContact($client, $object, $useremail='default')
 		$userdefined->setAttribute('value',$idindolibarr);
 		$entry->appendChild($userdefined);
 
+		$userdefined = $doc->createElement('gcontact:userDefinedField');
+		$userdefined->setAttribute('key','dolibarr-date-create');
+		$userdefined->setAttribute('value',dol_print_date(dol_now(), 'dayrfc'));
+		$entry->appendChild($userdefined);
+		
+		// TODO Add other dolibarr fields
+		//...
+		
 		// Comment
 		$tmpnote=$object->note_private;
 		if (strpos($tmpnote,$google_nltechno_tag) === false) $tmpnote.="\n\n".$google_nltechno_tag.$idindolibarr;
@@ -357,6 +364,8 @@ function googleUpdateContact($client, $contactId, &$object, $useremail='default'
 
 	dol_syslog('googleUpdateContact object->id='.$object->id.' type='.$object->element.' ref_ext='.$object->ref_ext.' contactid='.$newcontactid);
 
+	include_once(DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php');
+	
 	$google_nltechno_tag=getCommentIDTag();
 
 	// Fields: http://tools.ietf.org/html/rfc4287
@@ -426,9 +435,11 @@ function googleUpdateContact($client, $contactId, &$object, $useremail='default'
 	$id = '';
 
 	try {
+	    //var_dump($xmlStr);
+		$xmlgcontact = simplexml_load_string($xmlStr, null, 0, 'gContact', true);
+	    $xmlgd = simplexml_load_string($xmlStr, null, 0, 'gd', true);
 		$xml = simplexml_load_string($xmlStr);
 		//var_dump($xml);
-
 		if ($object->element != 'societe' && $object->element != 'thirdparty')
 		{
 			$fullNameToUse = $object->getFullName($langs);
@@ -447,47 +458,48 @@ function googleUpdateContact($client, $contactId, &$object, $useremail='default'
 
 		// Address
 		unset($xml->structuredPostalAddress->formattedAddress);
-		if (! empty($object->address)) $xml->structuredPostalAddress->street=$object->address;
-		if (! empty($object->town)) $xml->structuredPostalAddress->city=$object->town;
-		if (! empty($object->zip)) $xml->structuredPostalAddress->postcode=$object->zip;
-		if ($object->country_id > 0) $xml->structuredPostalAddress->country=($object->country_id>0?getCountry($object->country_id,0,'',$langs,0):'');
-		if ($object->state_id > 0)
-		{
-			$tmpstate=($object->state_id>0?getState($object->state_id):'');
-			$tmpstate=dol_html_entity_decode($tmpstate,ENT_QUOTES);	// Should not be required. It is here because some bugged version of getState return a string with entities instead of utf8 with no entities
-			$xml->structuredPostalAddress->region=$tmpstate;
-		}
+		$xml->structuredPostalAddress->street=$object->address;
+		$xml->structuredPostalAddress->city=$object->town;
+		$xml->structuredPostalAddress->postcode=$object->zip;
+		$xml->structuredPostalAddress->country=($object->country_id>0?getCountry($object->country_id,0,'',$langs,0):'');
+		$tmpstate=($object->state_id>0?getState($object->state_id):'');
+		$tmpstate=dol_html_entity_decode($tmpstate,ENT_QUOTES);	// Should not be required. It is here because some bugged version of getState return a string with entities instead of utf8 with no entities
+		$xml->structuredPostalAddress->region=$tmpstate;
+		//var_dump($xml->organization->asXml());    // $xml->organization is SimpleXMLElement but isset($xml->organization) and $xml->organization->asXml() may be set or not
 		// Company + Function
-		if ($object->element == 'contact')
+		if (isset($xml->organization))
 		{
-			unset($xml->organization->orgName);
-			unset($xml->organization->orgTitle);
-			$object->fetch_thirdparty();
-			if (! empty($object->thirdparty->name) || ! empty($object->poste))
-			{
-				$thirdpartyname=$object->thirdparty->name;
-				$xml->organization['rel']="http://schemas.google.com/g/2005#other";
-				if (! empty($object->thirdparty->name)) $xml->organization->orgName=$thirdpartyname;
-				if (! empty($object->poste)) $xml->organization->orgTitle=$object->poste;
-			}
+    		if ($object->element == 'contact')
+    		{
+    			unset($xml->organization->orgName);
+    			unset($xml->organization->orgTitle);
+    			$object->fetch_thirdparty();
+    			if (! empty($object->thirdparty->name) || ! empty($object->poste))
+    			{
+    				$thirdpartyname=$object->thirdparty->name;
+    				$xml->organization['rel']="http://schemas.google.com/g/2005#other";
+    				if (! empty($object->thirdparty->name)) $xml->organization->orgName=$thirdpartyname;
+    				if (! empty($object->poste)) $xml->organization->orgTitle=$object->poste;
+    			}
+    		}
+    		if ($object->element == 'member')
+    		{
+    			unset($xml->organization->orgName);
+    			unset($xml->organization->orgTitle);
+    			if (! empty($object->company))
+    			{
+    				$thirdpartyname=$object->company;
+    				$xml->organization['rel']="http://schemas.google.com/g/2005#other";
+    				if (! empty($object->company)) $xml->organization->orgName=$thirdpartyname;
+    			}
+    		}
 		}
-		if ($object->element == 'member')
-		{
-			unset($xml->organization->orgName);
-			unset($xml->organization->orgTitle);
-			if (! empty($object->company))
-			{
-				$thirdpartyname=$object->company;
-				$xml->organization['rel']="http://schemas.google.com/g/2005#other";
-				if (! empty($object->company)) $xml->organization->orgName=$thirdpartyname;
-			}
-		}
-
+		
 		$newphone=empty($object->phone)?$object->phone_pro:$object->phone;
 
 		// Phone(s)
 		//var_dump($xml->asXML());
-		//var_dump($xml);
+		//print_r($xml);
 		unset($xml->phoneNumber);
 		if ($newphone) simplexml_merge($xml, new SimpleXMLElement('<atom:entry xmlns:atom="http://www.w3.org/2005/Atom"><phoneNumber xmlns="http://schemas.google.com/g/2005" rel="'.constant('REL_WORK').'">'.$newphone.'</phoneNumber></atom:entry>'));
 		if ($object->phone_perso)  simplexml_merge($xml, new SimpleXMLElement('<atom:entry xmlns:atom="http://www.w3.org/2005/Atom"><phoneNumber xmlns="http://schemas.google.com/g/2005" rel="'.constant('REL_HOME').'">'.$object->phone_perso.'</phoneNumber></atom:entry>'));
@@ -500,18 +512,41 @@ function googleUpdateContact($client, $contactId, &$object, $useremail='default'
 		// userDefinedField
 		// We don't change this
 
+		// Birthday (in namespace gdContact)
+		if ($xmlgcontact->birthday->asXml())  // If entry found into current remote record, we can update it
+		{
+		    if ($object->birthday) $xml->birthday['when'] = dol_print_date($object->birthday,'dayrfc');
+		    else { unset($xml->birthday); }
+		}
+
 		// Comment
 		$tmpnote=$object->note_private;
 		if (strpos($tmpnote, $google_nltechno_tag) === false) $tmpnote.="\n\n".$google_nltechno_tag.$object->id.'/'.($object->element=='societe'?'thirdparty':$object->element);
 		$xml->content=google_html_convert_entities($tmpnote);
 
+		
 		$xmlStr=$xml->saveXML();
-
+		//print_r($xml);exit;
+		
+		
 		// Convert xml into DOM so we can use dom function to add website element
 		$doc  = new DOMDocument("1.0", "utf-8");
 		$doc->loadXML($xmlStr);
 		$entries = $doc->getElementsByTagName('entry');
 
+		
+		// Birthday (in namespace gdContact)
+		if (! $xmlgcontact->birthday->asXml() && $object->birthday)    // Not into current remote record, we add it if defined
+		{
+    		foreach($entries as $entry)	// We should have only one <entry>, loop is required to access first record of $entries.
+    		{
+        		$entry->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:gcontact', constant('GCONTACT_NAME_SPACE'));
+        		$birthday = $doc->createElement('gcontact:birthday');
+        		$birthday->setAttribute('when' , dol_print_date($object->birthday,'dayrfc'));
+        		$entry->appendChild($birthday);
+    		}
+		}
+		
 		// URL
 		$oldurl='';
 		if (! empty($object->oldcopy->url)) $oldurl=$object->oldcopy->url;
@@ -538,6 +573,54 @@ function googleUpdateContact($client, $contactId, &$object, $useremail='default'
 			}
 		}
 
+		// Add company if object organization did not exists (so it was not updated)
+		if (! isset($xml->organization))
+		{
+			// Company - Function
+    		if ($object->element == 'contact')
+    		{
+    			foreach($entries as $entry)	// We should have only one <entry>, loop is required to access first record of $entries.
+    			{
+        		    // Company
+        			$company = $doc->createElement('gd:organization');
+        			$company->setAttribute('rel', 'http://schemas.google.com/g/2005#other');
+        			$entry->appendChild($company);
+        
+        			$object->fetch_thirdparty();
+        			if (! empty($object->thirdparty->name) || ! empty($object->poste))   // Job position and company name of contact
+        			{
+        				$thirdpartyname=$object->thirdparty->name;
+        
+        				$orgName = $doc->createElement('gd:orgName', $thirdpartyname);
+        				if (! empty($thirdpartyname)) $company->appendChild($orgName);
+        				$orgTitle = $doc->createElement('gd:orgTitle', $object->poste);
+        				if (! empty($object->poste)) $company->appendChild($orgTitle);
+        			}
+    			}
+    		}
+    		if ($object->element == 'member')
+    		{
+    			foreach($entries as $entry)	// We should have only one <entry>, loop is required to access first record of $entries.
+    			{
+        		    // Company
+        			$company = $doc->createElement('gd:organization');
+        			$company->setAttribute('rel', 'http://schemas.google.com/g/2005#other');
+        			$entry->appendChild($company);
+        
+        			//$object->fetch_thirdparty();
+        			if (! empty($object->company))
+        			{
+        				$thirdpartyname=$object->company;
+        
+        				$orgName = $doc->createElement('gd:orgName', $thirdpartyname);
+        				if (! empty($thirdpartyname)) $company->appendChild($orgName);
+        				//$orgTitle = $doc->createElement('gd:orgTitle', $object->poste);
+        				//if (! empty($object->poste)) $company->appendChild($orgTitle);
+        			}
+    			}
+    		}		
+		}
+		
 		/* Old code used when using SimpleXML object (not working)
 			foreach ($xml->website as $key => $val) {	// $key='@attributes' $val is an array('href'=>,'label'=>), however to set href it we must do $xml->website['href'] (it's a SimpleXML object)
 				$oldvalue=(string) $val['href'];
@@ -1138,7 +1221,10 @@ function getURLContentBis($url,$postorget='GET',$param='',$followlocation=1,$add
 	if (count($addheaders)) curl_setopt($ch, CURLOPT_HTTPHEADER, $addheaders);
 	curl_setopt($ch, CURLINFO_HEADER_OUT, true);	// To be able to retrieve request header and log it
 
-    //turning off the server and peer verification(TrustManager Concept).
+	// $conf->global->GOOGLE_SSLVERSION should be set to 1 to use TLSv1 by default or change to TLSv1.2 in module configuration
+	if (isset($conf->global->GOOGLE_SSLVERSION)) curl_setopt($ch, CURLOPT_SSLVERSION, $conf->global->GOOGLE_SSLVERSION);
+	
+	//turning off the server and peer verification(TrustManager Concept).
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
     curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
 

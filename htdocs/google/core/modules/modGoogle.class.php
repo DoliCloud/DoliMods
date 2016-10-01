@@ -46,7 +46,7 @@ class modGoogle extends DolibarrModules
         $this->editor_name = 'NLTechno';
         $this->editor_url = 'http://www.nltechno.com';
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
-		$this->version = '3.7.6';
+		$this->version = '3.7.7';
 		// Key used in llx_const table to save module status enabled/disabled (where MYMODULE is value of property name of module in uppercase)
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
 		// Where to store the module in setup page (0=common,1=interface,2=others,3=very specific)
@@ -73,8 +73,8 @@ class modGoogle extends DolibarrModules
 		// Dependencies
 		$this->depends = array();		// List of modules id that must be enabled if this module is enabled
 		$this->requiredby = array();	// List of modules id to disable if this one is disabled
-		$this->phpmin = array(4,1);					// Minimum version of PHP required by module
-		$this->need_dolibarr_version = array(3,4,0);	// Minimum version of Dolibarr required by module
+		$this->phpmin = array(5,1);					// Minimum version of PHP required by module
+		$this->need_dolibarr_version = array(3,6,0);	// Minimum version of Dolibarr required by module
 		$this->langfiles = array("google@google");
 
 		// Constants

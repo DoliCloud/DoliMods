@@ -13,10 +13,12 @@
  * @version        2013-07-23
  */
 
+
 require_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
 
 class GoogleMapAPI
 {
+    protected $version = 3.7;
 	/** GoogleMap ID for the HTML DIV  **/
 	protected $googleMapId = 'googlemapapi';
 	/** GoogleMap  Direction ID for the HTML DIV **/
@@ -53,7 +55,7 @@ class GoogleMapAPI
 	protected $useClusterer = false;
 	protected $gridSize = 100;
 	protected $maxZoom = 9;
-	protected $clustererLibrarypath = 'http://google-maps-utility-library-v3.googlecode.com/svn/tags/markerclusterer/1.0/src/markerclusterer_packed.js';
+	protected $clustererLibrarypath = 'todefine';
 	/** Enable automatic center/zoom **/
 	protected $enableAutomaticCenterZoom = false;
 	/** maximum longitude of all markers **/
@@ -98,7 +100,8 @@ class GoogleMapAPI
 		$this->useClusterer = $useClusterer;
 		$this->gridSize = $gridSize;
 		$this->maxZoom = $maxZoom;
-		($clustererLibraryPath == '') ? $this->clustererLibraryPath = 'http://google-maps-utility-library-v3.googlecode.com/svn/tags/markerclusterer/1.0/src/markerclusterer_packed.js' : $clustererLibraryPath;
+		($clustererLibraryPath == '') ? $this->clustererLibraryPath = dol_buildpath('/google/includes/markerclusterer.js', 2) : $clustererLibraryPath;
+		//print 'clustererlib = '.$this->clustererLibraryPath;
 	}
 
 	/**
@@ -322,13 +325,18 @@ class GoogleMapAPI
 	/**
 	 * Geocoding an address (address -> lat,lng)
 	 *
-	 * @param string $address an address
+	 * @param  string  $address        An address
 	 * @return array array with precision, lat & lng
 	 */
 	public function geocoding($address)
 	{
+	    global $conf;
+	    
 		$encodeAddress = urlencode($this->withoutSpecialChars($address));
-		$url = "http://maps.google.com/maps/api/geocode/json?address=".$encodeAddress."&sensor=false";
+		// URL to geoencode
+		$url = "https://maps.googleapis.com/maps/api/geocode/json?address=".$encodeAddress;
+		if (! empty($conf->global->GOOGLE_API_SERVERKEY)) $url.="&key=".$conf->global->GOOGLE_API_SERVERKEY;
+	   
 		ini_set("allow_url_open", "1");
 		$data = file_get_contents($url);
 
@@ -446,7 +454,8 @@ class GoogleMapAPI
 			$address=dol_string_nospecial($elem->address,', ',array("\r\n","\n","\r"));
 
 			$addresscleaned = $this->g_dol_escape_js($this->no_special_character_v2($address));
-			$lienGmaps = ' <a href="http'.$sforhttps.'://maps.google.fr/maps?q='.urlencode($this->withoutSpecialChars($address)).'">Google Maps</a>';
+			//$lienGmaps = ' <a href="http'.$sforhttps.'://maps.google.com/maps?q='.urlencode($this->withoutSpecialChars($address)).'">Google Maps</a>';
+			$lienGmaps = ' <a href="https://maps.google.com/maps?q='.urlencode($this->withoutSpecialChars($address)).'">Google Maps</a>';
 
 			$html='';
 			if (versioncompare(versiondolibarrarray(),array(3,7,-3)) >= 0)	// >= 0 if we are 3.6.0 alpha or +
@@ -575,6 +584,8 @@ class GoogleMapAPI
 	 */
 	public function init()
 	{
+	    global $conf;
+	    
 		// Google map DIV
 		if (($this->width != '') && ($this->height != '')) {
 			$this->content .= "\t" . '<div id="' . $this->googleMapId . '" style="width:' . $this->width . ';height:' . $this->height . '"></div>' . "\n";
@@ -585,18 +596,23 @@ class GoogleMapAPI
 		// Detect if we use https
 		$sforhttps=(((empty($_SERVER["HTTPS"]) || $_SERVER["HTTPS"] != 'on') && (empty($_SERVER["SERVER_PORT"])||$_SERVER["SERVER_PORT"]!=443))?'':'s');
 
-		// Google map JS
-		$jsgmapapi='http://maps.google.com/maps/api/js';
-		if ($sforhttps) $jsgmapapi=preg_replace('/^http:/','https:',$jsgmapapi);
-		$this->content .= '<script type="text/javascript" src="'.$jsgmapapi.'?sensor=false&language=' . $this->lang . '">';
+		// URL to include javascript map
+		// https://developers.google.com/maps/documentation/javascript/tutorial?hl=fr
+		// http://code.google.com/apis/maps/documentation/javascript/reference.html
+		$url = "https://maps.googleapis.com/maps/api/js?language=" . $this->lang;
+		if (empty($conf->global->GOOGLE_API_SERVERKEY)) $url.="&sensor=true";
+		else $url.="&key=".$conf->global->GOOGLE_API_SERVERKEY;
+		
+		$this->content .= '<!-- GoogleMapAPIv3.init(): Include Google javascript map -->'."\n";
+		$this->content .= '<script type="text/javascript" src="'.$url.'">';
 		$this->content .= '</script>' . "\n";
 
-		// Clusterer JS
+		// Add library for clustering
 		if ($this->useClusterer == true)
 		{
 			$jsgmapculster=$this->clustererLibraryPath;
 			if ($sforhttps) $jsgmapculster=preg_replace('/http:/','https:',$jsgmapculster);
-			$this->content .= '<script src="'.$jsgmapculster.'" type="text/javascript"></script>' . "\n";
+			$this->content .= '<script src="'.$jsgmapculster.'?version='.$this->version.'" type="text/javascript"></script>' . "\n";
 		}
 
 		$this->content .= '<script type="text/javascript">' . "\n";
@@ -800,7 +816,7 @@ class GoogleMapAPI
 
 		// Clusterer JS
 		if ($this->useClusterer == true) {
-			$this->content .= "\t" . 'var markerCluster = new MarkerClusterer(map, gmarkers,{gridSize: ' . $this->gridSize . ', maxZoom: ' . $this->maxZoom . '});' . "\n";
+			$this->content .= "\t" . 'var markerCluster = new MarkerClusterer(map, gmarkers, {gridSize: ' . $this->gridSize . ', maxZoom: ' . $this->maxZoom . '});' . "\n";
 		}
 
 		$this->content .= '}' . "\n";

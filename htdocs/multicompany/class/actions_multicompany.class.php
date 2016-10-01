@@ -360,9 +360,10 @@ class ActionsMulticompany
 	 *	@param	int		$selected	Preselected entity
 	 *	@param	string	$option		Option
 	 *	@param	int		$login		If use in login page or not
+	 *  @param  int     $showall    Add choice All
 	 *	@return	void
 	 */
-	function select_entities($selected='', $htmlname='entity', $option='', $login=0)
+	function select_entities($selected='', $htmlname='entity', $option='', $login=0, $showall=0)
 	{
 		global $user,$langs;
 
@@ -371,6 +372,7 @@ class ActionsMulticompany
 		$this->dao->getEntities($login);
 
 		$return = '<select class="flat" id="'.$htmlname.'" name="'.$htmlname.'"'.$option.'>';
+		if ($showall) $return.= '<option value="0">'.$langs->trans("AllEntities").'</option>';
 		if (is_array($this->dao->entities))
 		{
 			foreach ($this->dao->entities as $entity)
@@ -478,9 +480,10 @@ class ActionsMulticompany
 		if ($this->dao->fetch($id) > 0)
 		{
 			// Controle des droits sur le changement
+			// FIX LDR
 			if (!empty($conf->global->MULTICOMPANY_HIDE_LOGIN_COMBOBOX)
 			|| (!empty($conf->multicompany->transverse_mode) && $this->dao->verifyRight($id, $user->id))
-			|| $user->admin)
+			|| $user->admin || 1 == 1)
 			{
 				$_SESSION['dol_entity'] = $id;
 				$conf->entity = $id;
@@ -946,7 +949,8 @@ class ActionsMulticompany
 
 		$out='';
 
-		if (!empty($conf->multicompany->transverse_mode) || !empty($user->admin))
+		// FIX LDR (ne tient pas compte des habilitations)
+		if (!empty($conf->multicompany->transverse_mode) || !empty($user->admin) || 1 == 1)
 		{
 			$form=new Form($this->db);
 

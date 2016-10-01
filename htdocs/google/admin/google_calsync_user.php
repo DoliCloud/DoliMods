@@ -477,7 +477,7 @@ else
 	print '</td>';
 	print '<td>';
 	print $langs->trans("ThisFieldIsAGlobalSetup").'<br>';
-	//print $langs->trans("AllowGoogleToLoginWithServiceAccount","https://code.google.com/apis/console/","https://code.google.com/apis/console/").'<br>';
+	//print $langs->trans("AllowGoogleToLoginWithServiceAccount","https://console.developers.google.com/apis/credentials","https://console.developers.google.com/apis/credentials").'<br>';
 	print '</td>';
 	print '</tr>';
 
@@ -490,7 +490,7 @@ else
 	print '</td>';
 	print '<td>';
 	print $langs->trans("ThisFieldIsAGlobalSetup").'<br>';
-	//print $langs->trans("AllowGoogleToLoginWithServiceAccountP12","https://code.google.com/apis/console/","https://code.google.com/apis/console/").'<br>';
+	//print $langs->trans("AllowGoogleToLoginWithServiceAccountP12","https://console.developers.google.com/apis/credentials","https://console.developers.google.com/apis/credentials").'<br>';
 	print '</td>';
 	print '</tr>';
 
@@ -513,7 +513,7 @@ else
 
 	print "</table>";
 
-	print info_admin($langs->trans("EnableAPI","https://code.google.com/apis/console/","https://code.google.com/apis/console/","Calendar API"));
+	print info_admin($langs->trans("EnableAPI","https://console.developers.google.com/apis/library/","https://console.developers.google.com/apis/library/","Calendar API"));
 
 	print info_admin($langs->trans("ShareCalendarWithServiceAccount",$conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL,$langs->transnoentitiesnoconv("GoogleIDAgenda")));
 }

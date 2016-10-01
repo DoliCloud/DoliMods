@@ -426,7 +426,7 @@ $gmap->setDirectionDivId('route');
 $gmap->setEnableWindowZoom(true);
 $gmap->setEnableAutomaticCenterZoom(true);
 $gmap->setDisplayDirectionFields(false);
-$gmap->setClusterer(true);
+$gmap->setClusterer(empty($conf->global->GOOGLE_NOCLUSTERER));                  // For high number or record, we should use clusterer
 $gmap->setSize('100%','500px');
 $gmap->setZoom(11);
 $gmap->setLang($user->lang);
@@ -489,16 +489,10 @@ function geocoding($address)
 	global $conf;
 
 	$encodeAddress = urlencode(withoutSpecialChars($address));
-	//$url = "http://maps.google.com/maps/geo?q=".$encodeAddress."&output=csv";
-	//$url = "http://maps.google.com/maps/api/geocode/json?address=".$encodeAddress."&sensor=false";
-	if ($conf->global->GOOGLE_API_SERVERKEY)
-	{
-		$url = "https://maps.googleapis.com/maps/api/geocode/json?address=".$encodeAddress.($conf->global->GOOGLE_API_SERVERKEY?"&key=".$conf->global->GOOGLE_API_SERVERKEY:"");
-	}
-	else
-	{
-		$url = "http://maps.googleapis.com/maps/api/geocode/json?address=".$encodeAddress;
-	}
+	// URL to geoencode
+	$url = "https://maps.googleapis.com/maps/api/geocode/json?address=".$encodeAddress;
+	if (! empty($conf->global->GOOGLE_API_SERVERKEY)) $url.="&key=".$conf->global->GOOGLE_API_SERVERKEY; 
+
 	ini_set("allow_url_open", "1");
 	$response = googlegetURLContent($url,'GET');
 
@@ -585,7 +579,10 @@ function googlegetURLContent($url,$postorget='GET',$param='')
 	exit;*/
 	curl_setopt($ch, CURLOPT_URL, $url);
 	curl_setopt($ch, CURLOPT_VERBOSE, 1);
-	curl_setopt($ch, CURLOPT_SSLVERSION, 3); // Force SSLv3
+	curl_setopt($ch, CURLOPT_USERAGENT, 'Dolibarr googlegeturlcontent function');
+
+	// $conf->global->GOOGLE_SSLVERSION should be set to 1 to use TLSv1 by default or change to TLSv1.2 in module configuration
+	if (isset($conf->global->GOOGLE_SSLVERSION)) curl_setopt($ch, CURLOPT_SSLVERSION, $conf->global->GOOGLE_SSLVERSION);
 
 	//turning off the server and peer verification(TrustManager Concept).
 	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);

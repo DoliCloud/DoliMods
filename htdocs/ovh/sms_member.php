@@ -176,6 +176,8 @@ if ($id)
         $linkback = '<a href="'.DOL_URL_ROOT.'/adherents/list.php">'.$langs->trans("BackToList").'</a>';
         
         dol_banner_tab($object, 'rowid', $linkback);
+    
+        print '<div class="underbanner clearboth"></div>';
     }
     else
     {

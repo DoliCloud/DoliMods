@@ -34,7 +34,7 @@ GoogleIDContact=Google Account
 GoogleNoTokenYet=You don't have any token yet. To create one, just authenticate to Google with the following link:
 GoogleRecreateToken=To force to recreate a new token, just authenticate to Google with the following link:
 GoogleDeleteToken=To delete current token:
-GoogleDeleteAuthorization=To delete saved authorization by Google:
+GoogleDeleteAuthorization=To read/delete saved authorization by Google:
 Module101110Name=Google
 Module101110Desc=Module to integrate Google tools with Dolibarr
 GoogleCalendarSyncConf=GoogleCalendarSyncConf
@@ -43,7 +43,7 @@ KeepEmptyYoUseLoginPassOfEventUser=Keep empty to use the synchronize setup of th
 KeepEmptyYoUseLoginPassOfEventUserAssigned=The targeted agenda is agenda of the user the event is assigned to (agenda setup is done on each user card). In such case, each event will be synchronize into one and only one event, to the calendar fo the owner of event (no synchronization is done if setup for this user is not done).
 KeepEmptyYoUseLoginPassOfEventUserSaleRep=The targeted agenda is agenda of the first sale representative of thirdparty the event is linked to. If there is no thirdparty for event, nor sale representative for thirparty, no synchronization is done.
 KeepEmptyYoUsePublicQuotaOfAPI=Keep empty to use the public quota of API.
-AllowGoogleToLoginWithKey=To use quota/statistics of your own Google account, you can create your own key from page <a href="%s" target="_blank">%s</a>, menu "API & Authentication" -> "Credentials". Click on "Create a key" and choose "Server key" then "Create". You will get your server key.
+AllowGoogleToLoginWithKey=You must have a Google account and create your own key from page <a href="%s" target="_blank">%s</a>, menu "API & Authentication" -> "Credentials". Click on "Create a key" and choose "Server key" then "Create". You will get your server key.
 AllowGoogleToLoginWithClientID=You can create your <strong>Google Client ID and Secret</strong> from page <a href="%s" target="_blank">%s</a>, select a project or create one, then menu "API & Authentication" -> "Credentials". Click on "Create/Add a client ID OAuth 2.0" and choose "Web Application", set "Allowed Javascript origin" to empty and set "Redirect URI" to<br><strong>%s</strong><br>then click on button "Create". You will get a <strong>new client ID</strong> and a <strong>Secret code</strong>. You need here to enter the <strong>Client ID</strong> here and <strong>Client Secret</strong> on next line.
 AllowGoogleToLoginWithClientSecret=See note on previous line to know how to get your Google Client Secret.
 AllowGoogleToLoginWithServiceAccount=You can create your <strong>service account user/email</strong> from page <a href="%s" target="_blank">%s</a>, select a project or create one, then menu "API & Authentication" -> "Credentials". Click on "Create/Add a client ID" and choose "Service Account" then "Create". You will get a new service account with a <strong>Service account client ID</strong> and a <strong>Service account EMail</strong>. You need here to enter the <strong>Service account EMail</strong>.
@@ -123,3 +123,5 @@ OperationMayBeLong=operation may be long, restart if you epxerience timeout
 ErrorModuleGoogleKeyFileNotFound=Google key file %s was not found
 ClickToUpdateWithLastGoogleChanges=Click to refresh agenda database with last changes done on Google agenda %s since
 GoogleLimitBackTime=Due to a Google limit, requests are limited to %s days max in the past
+ResetGeoEncodingErrors=Reset geoencoding errors table
+RecordInGeoEncodingErrorDeleted=All records with geoencoding errors were reset for another geoencoding try.

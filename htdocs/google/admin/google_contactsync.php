@@ -759,7 +759,7 @@ print '<td>';
 print '<input class="flat" type="text" size="90" name="GOOGLE_API_SERVICEACCOUNT_EMAIL" value="'.$conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL.'">';
 print '</td>';
 print '<td>';
-print $langs->trans("AllowGoogleToLoginWithServiceAccount","https://code.google.com/apis/console/","https://code.google.com/apis/console/").'<br>';
+print $langs->trans("AllowGoogleToLoginWithServiceAccount","https://console.developers.google.com/apis/credentials","https://console.developers.google.com/apis/credentials").'<br>';
 print '</td>';
 print '</tr>';
 
@@ -771,7 +771,7 @@ if (! empty($conf->global->GOOGLE_API_SERVICEACCOUNT_P12KEY)) print $conf->globa
 print '<input type="file" name="GOOGLE_API_SERVICEACCOUNT_P12KEY_file">';
 print '</td>';
 print '<td>';
-print $langs->trans("AllowGoogleToLoginWithServiceAccountP12","https://code.google.com/apis/console/","https://code.google.com/apis/console/").'<br>';
+print $langs->trans("AllowGoogleToLoginWithServiceAccountP12","https://console.developers.google.com/apis/credentials","https://console.developers.google.com/apis/credentials").'<br>';
 print '</td>';
 print '</tr>';
 */
@@ -783,8 +783,10 @@ print '</tr>';
 		$urlwithroot=$urlwithouturlroot.DOL_URL_ROOT;		// This is to use external domain name found into config file
 		//$urlwithroot=DOL_MAIN_URL_ROOT;					// This is to use same domain name than current
 */
-$redirect_uri=dol_buildpath('/google/oauth2callback.php', 2);
+$redirect_uri=dol_buildpath('/google/oauth2callback.php', ((float) DOL_VERSION >= 4.0)?3:2);
 $jsallowed=preg_replace('/(https*:\/\/[^\/]+\/).*$/','\1',$redirect_uri);
+
+$urltocreateidclientoauth = 'https://console.developers.google.com/apis/credentials';
 
 $var=!$var;
 print "<tr ".$bc[$var].">";
@@ -793,8 +795,7 @@ print '<td>';
 print '<input class="flat" type="text" size="90" name="GOOGLE_API_CLIENT_ID" value="'.$conf->global->GOOGLE_API_CLIENT_ID.'">';
 print '</td>';
 print '<td>';
-//print $langs->trans("AllowGoogleToLoginWithClientID","https://code.google.com/apis/console/","https://code.google.com/apis/console/", $jsallowed, $redirect_uri).'<br>';
-print $langs->trans("AllowGoogleToLoginWithClientID","https://code.google.com/apis/console/","https://code.google.com/apis/console/", $redirect_uri).'<br>';
+print $langs->trans("AllowGoogleToLoginWithClientID", $urltocreateidclientoauth, $urltocreateidclientoauth, $redirect_uri).'<br>';
 print '</td>';
 print '</tr>';
 
@@ -869,7 +870,7 @@ print '</tr>';
 
 print "</table>";
 
-print info_admin($langs->trans("EnableAPI","https://code.google.com/apis/console/","https://code.google.com/apis/console/","Contact API"));
+print info_admin($langs->trans("EnableAPI","https://console.developers.google.com/apis/library/","https://console.developers.google.com/apis/library/","Contact API"));
 
 //print info_admin($langs->trans("ShareContactWithServiceAccount",$conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL,$langs->transnoentitiesnoconv("GoogleIDContact")));
 
