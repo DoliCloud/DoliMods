@@ -91,12 +91,13 @@ print '<br>';
 
 $head=ecotaxdeee_prepare_head();
 
+print '<form name="ecotaxdeeeconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
+print '<input type="hidden" name="action" value="save">';
+
+
 dol_fiche_head($head, 'tabsetup', $langs->trans("EcoTaxDeee"));
 
 $elements='';
-
-print '<form name="ecotaxdeeeconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
-print '<input type="hidden" name="action" value="save">';
 
 $var=false;
 print "<table class=\"noborder\" width=\"100%\">";
@@ -196,6 +197,8 @@ print '<br>';
 */
 
 
+dol_fiche_end();
+
 print '<center>';
 //print "<input type=\"submit\" name=\"test\" class=\"button\" value=\"".$langs->trans("TestConnection")."\">";
 //print "&nbsp; &nbsp;";
@@ -203,8 +206,6 @@ print "<input type=\"submit\" name=\"save\" class=\"button\" value=\"".$langs->t
 print "</center>";
 
 print "</form>\n";
-
-dol_fiche_end();
 
 $elements=array();
 if (! empty($conf->global->ECOTAXDEEE_USE_ON_CUSTOMER_ORDER) && $conf->global->ECOTAXDEEE_USE_ON_CUSTOMER_ORDER != 'no') $elements[]=$langs->transnoentitiesnoconv("CustomersOrders");
