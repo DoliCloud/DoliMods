@@ -51,6 +51,10 @@ if ($action == 'save')
     $res=dolibarr_set_const($db,'ECOTAXDEEE_LABEL_LINE',trim($_POST["ECOTAXDEEE_LABEL_LINE"]),'chaine',0,'',$conf->entity);
     $res=dolibarr_set_const($db,'ECOTAXDEEE_DOC_FOOTER',trim($_POST["ECOTAXDEEE_DOC_FOOTER"]),'chaine',0,'',$conf->entity);
 
+    $product_wee=$_POST["WEEE_PRODUCT_ID"];
+    if ($product_wee < 0) $product_wee='';
+    $res=dolibarr_set_const($db,'WEEE_PRODUCT_ID',$product_wee,'chaine',0,'',$conf->entity);
+
     if (! $error)
     {
         $db->commit();
@@ -132,9 +136,19 @@ print "</tr>";
 // GETPOST("ECOTAXDEEE_LABEL_LINE")
 $var=!$var;
 print "<tr ".$bc[$var].">";
-print "<td>".$langs->trans("ECOTAXDEEE_LABEL_LINE")."</td>";
-print "<td>";
-$selectedvalue=(empty($conf->global->ECOTAXDEEE_LABEL_LINE)?$langs->trans("EcoTaxDeee"):$conf->global->ECOTAXDEEE_LABEL_LINE);
+if (! empty($conf->produit->enabled) || ! empty($conf->service->enabled))
+{
+    print "<td>".$langs->trans("ECOTAXDEEE_PRODUCT_OR_LABEL_LINE")."</td>";
+    print "<td>";
+    print $form->select_produits($conf->global->WEEE_PRODUCT_ID, 'WEEE_PRODUCT_ID', '');
+    print ' '.$langs->trans("OrLabelOfAFreeLine").' ';
+}
+else
+{
+    print "<td>".$langs->trans("ECOTAXDEEE_LABEL_LINE")."</td>";
+    print "<td>";
+}
+$selectedvalue=(empty($conf->global->ECOTAXDEEE_LABEL_LINE)?'':$conf->global->ECOTAXDEEE_LABEL_LINE);
 print '<input type="text" class="flat" name="ECOTAXDEEE_LABEL_LINE" value="'.$selectedvalue.'">';
 // Add warning if category product does not exists
 print "</td>";
