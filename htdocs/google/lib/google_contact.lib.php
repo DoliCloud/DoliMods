@@ -384,7 +384,12 @@ function googleUpdateContact($client, $contactId, &$object, $useremail='default'
 
 		$result = getURLContent('https://www.google.com/m8/feeds/contacts/'.urlencode($useremail).'/base/'.$newcontactid, 'GET', '', 0, $addheaderscurl);
 		$xmlStr=$result['content'];
-
+        
+        /*if (empty($xmlStr))
+        {
+            print "Something is wrong. The getURLContent to Google return an empty string\n";    
+        }*/
+        
 		//$contactId='https://www.google.com/m8/feeds/contacts/eldy10%40gmail.com/base/4429b3590f5b343a';
 		//$contactId='https://www.google.com/m8/feeds/contacts/contact%40nltechno.com/base/ee6fc620dbab6d7';
 		try {
