@@ -444,8 +444,7 @@ if ($cmd_device)
 }
 
 // Add list of scan files
-$nbrows=$formfile->show_documents('scanner_user_temp','',$conf->scanner->dir_temp.'/'.$user->id,$_SERVER["PHP_SELF"],0,1,'',0,1,0,0,1,'',$langs->trans("Files"));
-
+print $formfile->showdocuments('scanner_user_temp','',$conf->scanner->dir_temp.'/'.$user->id,$_SERVER["PHP_SELF"],0,1,'',0,1,0,0,1,'',$langs->trans("Files"));
 
 
 // Inline javascript functions, after form areas
