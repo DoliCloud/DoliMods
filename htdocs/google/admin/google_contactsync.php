@@ -847,9 +847,13 @@ else
 			print ' - '.$langs->trans("DateCreation").'='.dol_print_date($token_date_last_update, 'dayhour').' - '.$langs->trans("Entity").'='.$token_entity;
 		}
 		else dol_print_error($db);
-		print ':<br><div style="max-width: 800px; overflow: scroll;">'.$conf->global->GOOGLE_WEB_TOKEN.'</div>';
+		print ':<br>';
+		if (! empty($conf->global->GOOGLE_WEB_TOKEN)) print '<div style="max-width: 800px; overflow: scroll; border: 1px solid #aaa;">'.$conf->global->GOOGLE_WEB_TOKEN.'</div>';
 		print '<br>';
-		print 'Current session token:<br><div style="max-width: 800px; overflow: scroll;">'.$_SESSION['google_web_token_'.$conf->entity].'</div><br>';
+		print 'Current session token:<br>';
+		if (! empty($_SESSION['google_web_token_'.$conf->entity])) print '<div style="max-width: 800px; overflow: scroll; border: 1px solid #aaa;">'.$_SESSION['google_web_token_'.$conf->entity].'</div>';
+		else print $langs->trans("None");
+		print '<br>';
 		print '<br>';
 		print $langs->trans("GoogleRecreateToken").'<br>';
 		//print '<a href="'.$completeoauthurl.'" target="_blank">'.$langs->trans("LinkToOAuthPage").'</a>';
