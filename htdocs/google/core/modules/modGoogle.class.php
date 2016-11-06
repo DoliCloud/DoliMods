@@ -46,7 +46,7 @@ class modGoogle extends DolibarrModules
         $this->editor_name = 'NLTechno';
         $this->editor_url = 'http://www.nltechno.com';
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
-		$this->version = '3.7.7';
+		$this->version = '3.7.8';
 		// Key used in llx_const table to save module status enabled/disabled (where MYMODULE is value of property name of module in uppercase)
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
 		// Where to store the module in setup page (0=common,1=interface,2=others,3=very specific)
