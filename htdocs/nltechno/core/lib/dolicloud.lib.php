@@ -74,7 +74,7 @@ function getListOfLinks($object, $lastloginadmin, $lastpassadmin)
 	$links.='<input type="text" name="mysqlconnectstring" value="'.$mysqlconnectstring.'" size="110"><br>';*/
 
 	// JDBC
-	$jdbcconnectstring='jdbc:mysql://176.34.178.16/';
+	$jdbcconnectstring='jdbc:mysql://'.$object->hostname_db.'/';
 	//$jdbcconnectstring.=$object->database_db;
 	$links.='JDBC connect string: ';
 	$links.='<input type="text" name="jdbcconnectstring" value="'.$jdbcconnectstring.'" size="110"><br>';
