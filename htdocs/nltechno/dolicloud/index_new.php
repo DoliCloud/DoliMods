@@ -113,7 +113,7 @@ print '<table class="noborder nohover" width="100%">';
 print '<tr class="liste_titre">';
 print '<td colspan="3">'.$langs->trans("Search").'</td></tr>';
 print "<tr ".$bc[false]."><td>";
-print $langs->trans("Instance").':</td><td><input class="flat" type="text" size="14" name="search_instance"></td>';
+print $langs->trans("Instance").':</td><td><input class="flat inputsearch" type="text" name="search_instance"></td>';
 print '<td rowspan="'.$rowspan.'"><input type="submit" class="button" value="'.$langs->trans("Search").'"></td></tr>';
 
 print "</table></form><br>";
