@@ -6,7 +6,7 @@
  */
 
 /**
- *       \file       htdocs/openstreetmap/gmaps.php
+ *       \file       htdocs/openstreetmap/maps.php
  *       \ingroup    openstreetmap
  *       \brief      Main openstreetmap area page
  *       \author     Laurent Destailleur
@@ -34,7 +34,7 @@ $mode=GETPOST('mode');
 $address='';
 
 // Load third party
-if (empty($mode) || $mode=='thirdparty')
+if (empty($mode) || $mode=='societe' || $mode=='thirdparty')
 {
 	include_once(DOL_DOCUMENT_ROOT.'/societe/class/societe.class.php');
 	$id = GETPOST('id','int');
