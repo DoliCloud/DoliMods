@@ -57,7 +57,7 @@ class modOpenStreetMap extends DolibarrModules
 		$this->picto='openstreetmap@openstreetmap';
 
 		// Defined if the directory /mymodule/inc/triggers/ contains triggers or not
-        $this->module_parts = array('triggers' => 1);
+        $this->module_parts = array('triggers' => 0);
 
 		// Data directories to create when module is enabled
 		$this->dirs = array();
@@ -83,7 +83,6 @@ class modOpenStreetMap extends DolibarrModules
 							'contact:+gmaps:Maps:@openstreetmap:$conf->openstreetmap->enabled&&$conf->global->OPENSTREETMAP_ENABLE_MAPS_CONTACTS:/openstreetmap/gmaps.php?mode=contact&id=__ID__',
 							'member:+gmaps:Maps:@openstreetmap:$conf->openstreetmap->enabled&&$conf->global->OPENSTREETMAP_ENABLE_MAPS_MEMBERS:/openstreetmap/gmaps.php?mode=member&id=__ID__',
 						);*/
-        $this->tabs = array();
 
         // Boxes
 		$this->boxes = array();			// List of boxes

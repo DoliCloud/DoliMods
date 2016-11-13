@@ -19,14 +19,13 @@
 /**
  *	\file			htdocs/openstreetmap/lib/openstreetmap.lib.php
  *  \brief			Library of admin functions for openstreetmap module
- *  \version		$Id: openstreetmap.lib.php,v 1.5 2011/07/18 21:46:59 eldy Exp $
  */
 
 
 /**
- *  \brief      	Define head array for tabs of openstreetmap tools setup pages
- *  \return			Array of head
- *  \version    	$Id: openstreetmap.lib.php,v 1.5 2011/07/18 21:46:59 eldy Exp $
+ *  Define head array for tabs of openstreetmap tools setup pages
+ *
+ *  @return			Array of head
  */
 function openstreetmapadmin_prepare_head()
 {
