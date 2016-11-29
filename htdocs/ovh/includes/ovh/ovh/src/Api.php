@@ -203,6 +203,18 @@ class Api
     ) {
         $url = $this->endpoint . $path;
 
+        //DOL_LDR_CHANGE ignore ssl verification
+        //var_dump($this->http_client);           // To know which handler is used.
+        //exit;
+        //
+        //$options=array('verify'=>true);
+        /*$request = $this->http_client->createRequest(
+            $method,
+            $url,
+            $options
+            );
+        */
+        
         $request = $this->http_client->createRequest(
             $method,
             $url

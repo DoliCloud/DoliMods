@@ -156,6 +156,7 @@ if ($action == 'requestcredential')
     
     // Get credentials
     try {
+        //$conn = new Api($applicationKey, $applicationSecret, $endpoint, null, $http_client);  // We should choose the handler by setting a new for $http_client here
         $conn = new Api($applicationKey, $applicationSecret, $endpoint);
         $credentials = $conn->requestCredentials($rights, $redirect_uri);
         
