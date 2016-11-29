@@ -624,7 +624,7 @@ if ($action == 'create')
 	print '<td>';
 	// Editeur wysiwyg
 	require_once(DOL_DOCUMENT_ROOT."/core/class/doleditor.class.php");
-	$doleditor=new DolEditor('shortdesc',$_POST['shortdesc'],'',180,'dolibarr_mailings','',true,true,0 && $conf->fckeditor->enabled,5,120);
+	$doleditor=new DolEditor('shortdesc',$_POST['shortdesc'],'',180,'dolibarr_mailings','',true,true,0 && $conf->fckeditor->enabled,5,'90%');
 	$doleditor->Create();
 	print '</td></tr>';
 
@@ -639,7 +639,7 @@ if ($action == 'create')
 	print '<td>';
 	// Editeur wysiwyg
 	require_once(DOL_DOCUMENT_ROOT."/core/class/doleditor.class.php");
-	$doleditor=new DolEditor('longdesc',$_POST['longdesc'],'',260,'dolibarr_mailings','',true,true,0 && $conf->fckeditor->enabled,20,120);
+	$doleditor=new DolEditor('longdesc',$_POST['longdesc'],'',260,'dolibarr_mailings','',true,true,0 && $conf->fckeditor->enabled,20,'90%');
 	$doleditor->Create();
 	print '</td></tr>';
 
@@ -1058,7 +1058,7 @@ else
 			print '<td colspan="3">';
 			// Editeur wysiwyg
 			require_once(DOL_DOCUMENT_ROOT."/core/class/doleditor.class.php");
-			$doleditor=new DolEditor('body',$object->body,'',320,'dolibarr_mailings','',true,true,$conf->fckeditor->enabled && $conf->global->FCKEDITOR_ENABLE_MAILING,20,70);
+			$doleditor=new DolEditor('body',$object->body,'',320,'dolibarr_mailings','',true,true,$conf->fckeditor->enabled && $conf->global->FCKEDITOR_ENABLE_MAILING,20,'90%');
 			$doleditor->Create();
 			print '</td></tr>';
 

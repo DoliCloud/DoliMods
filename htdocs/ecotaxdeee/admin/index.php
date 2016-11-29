@@ -159,7 +159,7 @@ print "<tr ".$bc[$var].">";
 print "<td>".$langs->trans("ECOTAXDEEE_DOC_FOOTER")." (Dolibarr 3.6+)</td>";
 print "<td>";
 $selectedvalue=(empty($conf->global->ECOTAXDEEE_DOC_FOOTER)?'':$conf->global->ECOTAXDEEE_DOC_FOOTER);
-$doleditor=new DolEditor("ECOTAXDEEE_DOC_FOOTER", $selectedvalue,'','300','dolibarr_details','In',1,1,1,ROWS_9,100);
+$doleditor=new DolEditor("ECOTAXDEEE_DOC_FOOTER", $selectedvalue,'','300','dolibarr_details','In',1,1,1,ROWS_9,'90%');
 $doleditor->Create(0,'');
 print '<br>';
 print $langs->trans("Example").":<br>\n";

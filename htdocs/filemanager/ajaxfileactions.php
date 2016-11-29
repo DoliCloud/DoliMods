@@ -357,7 +357,7 @@ if ($action == 'edit')   // Return file content
         print '<br><br>'."\n";
 
         $okforextandededitor=false;
-        $doleditor=new DolEditor('fmeditor',$content,640,0,'dolibarr_notes','In',true,true,$okforextandededitor,36,100);
+        $doleditor=new DolEditor('fmeditor',$content,640,0,'dolibarr_notes','In',true,true,$okforextandededitor,36,'90%');
         $doleditor->Create();
 
         //print $content;
