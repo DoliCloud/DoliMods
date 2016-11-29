@@ -144,7 +144,39 @@ class InterfaceEcotaxdeee
 				return $this->_add_replace_ecotax($action,$object,$user,$langs,$conf);
 			}
 		}
-
+		/* TODO
+		if (! empty($conf->global->ECOTAXDEEE_USE_ON_SUPPLIER_ORDER))
+		{
+		    if ($action == 'LINEORDER_SUPPLIER_INSERT' || $action == 'LINEORDER_SUPPLIER_CREATE')
+		    {
+		        return $this->_add_replace_ecotax($action,$object,$user,$langs,$conf);
+		    }
+		    if ($action == 'LINEORDER_SUPPLIER_UPDATE' || $action == 'LINEORDER_SUPPLIER_MODIFY')
+		    {
+		        return $this->_add_replace_ecotax($action,$object,$user,$langs,$conf);
+		    }
+		    if ($action == 'LINEORDER_SUPPLIER_DELETE')
+		    {
+		        return $this->_add_replace_ecotax($action,$object,$user,$langs,$conf);
+		    }
+		}
+		if (! empty($conf->global->ECOTAXDEEE_USE_ON_SUPPLIER_INVOICE))
+		{
+		    if ($action == 'LINEBILL_SUPPLIER_INSERT' || $action == 'LINEBILL_SUPPLIER_CREATE')
+		    {
+		        return $this->_add_replace_ecotax($action,$object,$user,$langs,$conf);
+		    }
+		    if ($action == 'LINEBILL_SUPPLIER_UPDATE' || $action == 'LINEBILL_SUPPLIER_MODIFY')
+		    {
+		        return $this->_add_replace_ecotax($action,$object,$user,$langs,$conf);
+		    }
+		    if ($action == 'LINEBILL_SUPPLIER_DELETE')
+		    {
+		        return $this->_add_replace_ecotax($action,$object,$user,$langs,$conf);
+		    }
+		}
+		*/
+		
 		// Renvoi 0 car aucune action de faite
 		return 0;
 	}
@@ -179,7 +211,7 @@ class InterfaceEcotaxdeee
 		$keylineecotax=array();
 		$tmpecotaxline=array();
 
-		if ($object->special_code == 2 && in_array($action,array('LINEORDER_DELETE','LINEPROPAL_DELETE','LINEBILL_DELETE'))) return 0;
+		if ($object->special_code == 2 && in_array($action,array('LINEORDER_DELETE','LINEPROPAL_DELETE','LINEBILL_DELETE','LINEORDER_SUPPLIER_DELETE','LINEBILL_SUPPLIER_DELETE'))) return 0;
 
 		// If we are creating an object from an other one, we forget adding eco tax.
 		if ((! empty($_POST['origin']) && (! empty($_POST['originid']) || ! empty($_POST['origin_id'])))
@@ -211,7 +243,7 @@ class InterfaceEcotaxdeee
 		}
 		if (empty($fieldparentid))
 		{
-			dol_syslog('Object not supported', LOG_WARNING);
+			dol_syslog('Object '.$object->element.' not supported', LOG_WARNING);
 			return;
 		}
 		$parentid=$object->$fieldparentid;
@@ -305,6 +337,8 @@ class InterfaceEcotaxdeee
 					if ($parentobject->table_element == 'facture')  $result=$tmpecotaxline[$ecocateg]->update($user,0);
 					if ($parentobject->table_element == 'commande') $result=$tmpecotaxline[$ecocateg]->update(0);
 					if ($parentobject->table_element == 'propal')   $result=$tmpecotaxline[$ecocateg]->update(0);
+					//if ($parentobject->table_element == 'order_supplier')   $result=$tmpecotaxline[$ecocateg]->update(0);
+					if ($parentobject->table_element == 'invoice_supplier') $result=$tmpecotaxline[$ecocateg]->update(0);
 				}
 				else
 				{
@@ -334,7 +368,8 @@ class InterfaceEcotaxdeee
 				if ($parentobject->table_element == 'commande') $result=$parentobject->addline($desc, $ecoamount[$ecocateg], 1, $txtva, 0, 0, $product_id, 0, 0, 0, 'HT', '', '', '', 1, $rang, $special_code, '', 0, 0, null, 0, 0);
 				// addline($desc, $pu_ht, $qty, $txtva, $txlocaltax1=0, $txlocaltax2=0, $fk_product=0, $remise_percent=0, $price_base_type='HT', $pu_ttc=0, $info_bits=0, $type=0, $rang=-1, $special_code=0, $fk_parent_line=0, $fk_fournprice=0, $pa_ht=0, $label='',$date_start='', $date_end='',$array_options=0)
 				if ($parentobject->table_element == 'propal')   $result=$parentobject->addline($desc, $ecoamount[$ecocateg], 1, $txtva, 0, 0, $product_id, 0, 'HT', 0, 0, 1, $rang, $special_code, '', 0, 0, null, '', '', 0);
-
+                // TODO order_supplier and invoice_supplier
+				
 				//var_dump($result);exit;
 				if ($result <= 0)
 				{

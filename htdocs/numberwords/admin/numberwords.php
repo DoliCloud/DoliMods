@@ -97,6 +97,7 @@ if ($action == 'test')
 
 llxHeader();
 
+$object=new stdClass();
 $object->number='989';
 $object->total_ttc='989.99';
 $substitutionarray=array();
@@ -196,7 +197,7 @@ if ($level)
 	}
 }
 print '<br>';
-print '<font class="info">'.$langs->trans("Note").': '.$langs->trans("Currency").': '.$conf->currency.'</font>';
+print '<font class="info">'.$langs->trans("CompanyCurrency").': '.$conf->currency.'</font>';
 print ' - <a href="'.DOL_URL_ROOT.'/admin/company.php">'.$langs->trans("SetupToChange").'</a>';
 
 

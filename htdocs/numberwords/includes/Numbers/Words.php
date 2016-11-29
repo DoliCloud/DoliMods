@@ -48,6 +48,9 @@ class Numbers_Words
      */
     var $locale = 'en_US';
 
+    var $labelcurrencysing;
+    var $labelcurrency;
+    
     // }}}
     // {{{ toWords()
 
@@ -179,9 +182,9 @@ class Numbers_Words
 
         @$obj = new $classname;
 
-        // DOL_CHANGE
+        // DOL_CHANGE. SEt the _currency_names that will be used by toCurrencyWords
         global $conf;
-		$obj->_currency_names[$int_curr]=array(array($this->labelcurrency),array($this->labelcents));
+		$obj->_currency_names[$int_curr]=array(array($this->labelcurrencysing, $this->labelcurrency),array($this->labelcents));
         $rounding=$conf->global->MAIN_MAX_DECIMALS_TOT;
 
 		// round if a float is passed, use Math_BigInteger otherwise

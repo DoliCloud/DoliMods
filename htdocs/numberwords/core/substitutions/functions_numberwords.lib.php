@@ -98,15 +98,21 @@ function numberwords_getLabelFromNumber($langs,$number,$isamount=0)
 	$handle->labelcents='cent';				// By default (s is removed)
     if ($conf->global->MAIN_MAX_DECIMALS_TOT == 3) $handle->labelcents='thousandth'; // (s is removed)
 
-	// Overwrite label of currency to ours
+	// Overwrite label of currency with ours
 	$labelcurrencysing=$langs->transnoentitiesnoconv("CurrencySing".$conf->currency);
 	//print "CurrencySing".$conf->currency."=>".$labelcurrencysing;
-	if ($labelcurrencysing && $labelcurrencysing != -1 && $labelcurrencysing!='CurrencySing'.$conf->currency) $handle->labelcurrency=$labelcurrencysing;
-	else
+	if ($labelcurrencysing && $labelcurrencysing != -1 && $labelcurrencysing != 'CurrencySing'.$conf->currency) 
 	{
-		$labelcurrency=$langs->transnoentitiesnoconv("Currency".$conf->currency);
-		if ($labelcurrency && $labelcurrency !='Currency'.$conf->currency) $handle->labelcurrency=$labelcurrency;
+	    $handle->labelcurrencysing=$labelcurrencysing;
 	}
+	$labelcurrency=$langs->transnoentitiesnoconv("Currency".$conf->currency);
+	if ($labelcurrency && $labelcurrency != -1 && $labelcurrency !='Currency'.$conf->currency) 
+	{
+	    $handle->labelcurrency=$labelcurrency;
+	}
+	if (empty($handle->labelcurrencysing)) $handle->labelcurrencysing=$handle->labelcurrency;
+	if (empty($handle->labelcurrency)) $handle->labelcurrency=$handle->labelcurrencysing;
+	
 	// Overwrite label of decimals to ours
 	//print $langs->transnoentitiesnoconv("Currency".ucfirst($handle->labelcents)."Sing".$conf->currency);
 	$labelcurrencycentsing=$langs->transnoentitiesnoconv("Currency".ucfirst($handle->labelcents)."Sing".$conf->currency);
