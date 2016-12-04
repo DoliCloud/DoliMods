@@ -226,7 +226,7 @@ if (! empty($search_status) && ! is_numeric($search_status))
 //print $sql;
 
 // Count total nb of records
-$nbtotalofrecords = 0;
+$nbtotalofrecords = -1;
 if (empty($conf->global->MAIN_DISABLE_FULL_SCANLIST))
 {
 	$result = $db2->query($sql);
