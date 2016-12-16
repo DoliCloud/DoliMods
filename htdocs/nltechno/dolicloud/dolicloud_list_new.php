@@ -86,8 +86,8 @@ $fieldstosearchall = array(
     'i.name'=>'Instance',
     'c.org_name'=>'Orga',
     'per.username'=>'Email',
-    'per.firstname'=>'Firstname',
-    'per.lastname'=>'Lastname',
+    'per.first_name'=>'Firstname',
+    'per.last_name'=>'Lastname',
     'i.os_username'=>'OS user name'
 );
 
