@@ -63,19 +63,17 @@ $search_email = GETPOST("search_email");
 $search_lastlogin = GETPOST("search_lastlogin");
 $search_status = GETPOST('search_status');
 
-$sortfield = GETPOST("sortfield",'alpha');
-$sortorder = GETPOST("sortorder",'alpha');
-$page = GETPOST("page",'int');
-if ($page == -1) {
-    $page = 0;
-}
-$offset = $conf->liste_limit * $page;
-if (! $sortorder) $sortorder='DESC';
-if (! $sortfield) $sortfield='i.created_date';
-$limit = GETPOST('limit')?GETPOST('limit','int'):$conf->liste_limit;
-
+// Load variable for pagination
+$limit = GETPOST("limit")?GETPOST("limit","int"):$conf->liste_limit;
+$sortfield = GETPOST('sortfield','alpha');
+$sortorder = GETPOST('sortorder','alpha');
+$page = GETPOST('page','int');
+if ($page == -1) { $page = 0; }
+$offset = $limit * $page;
 $pageprev = $page - 1;
 $pagenext = $page + 1;
+if (! $sortorder) $sortorder='DESC';
+if (! $sortfield) $sortfield='i.created_date';
 
 // Protection if external user
 if ($user->societe_id > 0)
@@ -83,6 +81,15 @@ if ($user->societe_id > 0)
 	//accessforbidden();
 }
 
+// List of fields to search into when doing a "search in all"
+$fieldstosearchall = array(
+    'i.name'=>'Instance',
+    'c.org_name'=>'Orga',
+    'per.username'=>'Email',
+    'per.firstname'=>'Firstname',
+    'per.lastname'=>'Lastname',
+    'i.os_username'=>'OS user name'
+);
 
 
 /*******************************************************************
@@ -209,14 +216,14 @@ $sql.= " LEFT JOIN plan_add_on as pao ON pl.id=pao.plan_id and pao.meter_id = 1,
 $sql.= " app_package as p";
 $sql.= " WHERE i.customer_id = c.id AND c.id = s.customer_id AND s.plan_id = pl.id AND pl.app_package_id = p.id";
 if ($search_dolicloud) $sql.='';
-if ($search_multi) $sql.=" AND (i.name LIKE '%".$db->escape($search_multi)."%' OR c.org_name LIKE '%".$db->escape($search_multi)."%' OR per.username LIKE '%".$db->escape($search_multi)."%')";
-if ($search_instance) $sql.=" AND i.name LIKE '%".$db->escape($search_instance)."%'";
-if ($search_organization) $sql.=" AND c.org_name LIKE '%".$db->escape($search_organization)."%'";
-if ($search_plan) $sql.=" AND p.name LIKE '%".$db->escape($search_plan)."%'";
-if ($search_partner) $sql.=" AND cp.org_name LIKE '%".$db->escape($search_partner)."%'";
-if ($search_source) $sql.=" AND t.source LIKE '%".$db->escape($search_source)."%'";
-if ($search_email) $sql.=" AND per.username LIKE '%".$db->escape($search_email)."%'";
-if ($search_lastlogin) $sql.=" AND i.last_login LIKE '%".$db->escape($search_lastlogin)."%'";
+if ($search_multi) $sql.= natural_search(array_keys($fieldstosearchall), $search_multi);
+if ($search_instance) $sql.= natural_search("i.name", $search_instance);
+if ($search_organization) $sql.= natural_search("c.org_name", $search_organization);
+if ($search_plan) $sql.= natural_search("p.name", $search_plan);
+if ($search_partner) $sql.= natural_search("cp.org_name", $search_partner);
+if ($search_source) $sql.= natural_search("t.source", $search_source);
+if ($search_email) $sql.= natural_search("per.username" ,$search_email);
+if ($search_lastlogin) $sql.= natural_search("i.last_login", $search_lastlogin);
 if (! empty($search_status) && ! is_numeric($search_status))
 {
 	//if ($search_status == 'UNDEPLOYED') $sql.=" AND i.status LIKE '%".$db->escape($search_status)."%'";
@@ -224,21 +231,21 @@ if (! empty($search_status) && ! is_numeric($search_status))
 	$sql.=" AND c.status LIKE '%".$db->escape($search_status)."%'";
 }
 //print $sql;
+$sql.= $db->order($sortfield,$sortorder);
 
 // Count total nb of records
 $nbtotalofrecords = -1;
 if (empty($conf->global->MAIN_DISABLE_FULL_SCANLIST))
 {
-	$result = $db2->query($sql);
-	$nbtotalofrecords = $db2->num_rows($result);
+    $result = $db->query($sql);
+    $nbtotalofrecords = $db->num_rows($result);
 }
 
-$sql.= $db->order($sortfield,$sortorder);
-$sql.= $db->plimit($conf->liste_limit +1, $offset);
+$sql.= $db->plimit($limit +1, $offset);
 
 $param='';
-if ($month)              	$param.='&month='.$month;
-if ($year)               	$param.='&year=' .$year;
+if ($month)              	$param.='&month='.urlencode($month);
+if ($year)               	$param.='&year=' .urlencode($year);
 if ($search_instance)    	$param.='&search_instance='.urlencode($search_instance);
 if ($search_organization) 	$param.='&search_organization='.urlencode($search_organization);
 if ($search_plan) 			$param.='&search_plan='.urlencode($search_plan);
