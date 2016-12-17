@@ -270,8 +270,13 @@ if ($resql)
 
     print_barre_liste($langs->trans('DoliCloudInstances'),$page,$_SERVER["PHP_SELF"],$param,$sortfield,$sortorder,'',$num,$nbtotalofrecords);
 
-    if ($search_multi) print $langs->trans("Search").': '.$search_multi.'<br><br>'."\n";
-
+    if ($search_multi)
+    {
+        foreach($fieldstosearchall as $key => $val) $fieldstosearchall[$key]=$langs->trans($val);
+        print $langs->trans("FilterOnInto", $all) . join(', ',$fieldstosearchall);
+    }
+    
+    
     // Lignes des champs de filtre
     print '<form method="POST" action="'.$_SERVER["PHP_SELF"].'">';
 
