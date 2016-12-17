@@ -273,7 +273,7 @@ if ($resql)
     if ($search_multi)
     {
         foreach($fieldstosearchall as $key => $val) $fieldstosearchall[$key]=$langs->trans($val);
-        print $langs->trans("FilterOnInto", $all) . join(', ',$fieldstosearchall);
+        print $langs->trans("FilterOnInto", $search_multi) . join(', ',$fieldstosearchall);
     }
     
     
