@@ -97,6 +97,19 @@ $fieldstosearchall = array(
 *
 * Put here all code to do according to value of "action" parameter
 ********************************************************************/
+if (GETPOST("button_removefilter_x") || GETPOST("button_removefilter.x") ||GETPOST("button_removefilter")) // All test are required to be compatible with all browsers
+{
+	$search_dolicloud = '';
+	$search_multi = '';
+	$search_instance = '';
+	$search_organization = '';
+	$search_plan = '';
+	$search_partner = '';
+	$search_source = '';
+	$search_email = '';
+	$search_lastlogin = '';
+	$search_status = '';
+}
 
 if ($action == 'add')
 {
@@ -180,7 +193,7 @@ $sql.= " i.default_username,";
 $sql.= " i.ssh_port,";
 
 $sql.= " p.id as planid,";
-$sql.= " p.name as plan,";
+$sql.= " p.name as package,";
 
 $sql.= " im.value as nbofusers,";
 $sql.= " im.last_updated as lastcheck,";
@@ -190,6 +203,8 @@ $sql.= " pao.min_threshold as min_threshold,";
 
 $sql.= " pl.amount as price_instance,";
 $sql.= " pl.meter_id as plan_meter_id,";
+$sql.= " pl.name as plan,";
+$sql.= " pl.interval_unit as interval_unit,";
 
 $sql.= " c.org_name as organization,";
 $sql.= " c.status as status,";
@@ -228,20 +243,26 @@ if (! empty($search_status) && ! is_numeric($search_status))
 {
 	//if ($search_status == 'UNDEPLOYED') $sql.=" AND i.status LIKE '%".$db->escape($search_status)."%'";
 	//else $sql.=" AND c.status LIKE '%".$db->escape($search_status)."%'";
-	$sql.=" AND c.status LIKE '%".$db->escape($search_status)."%'";
+	
+	if ($search_status == 'TRIALING') $sql.=" AND s.payment_status = 'TRIAL'";
+	if ($search_status == 'TRIAL_EXPIRED') $sql.=" AND s.payment_status = 'TRIAL_EXPIRED'";
+	else
+	{
+		$sql.=" AND c.status LIKE '%".$db->escape($search_status)."%'";
+	}
 }
 //print $sql;
-$sql.= $db->order($sortfield,$sortorder);
+$sql.= $db2->order($sortfield,$sortorder);
 
 // Count total nb of records
 $nbtotalofrecords = -1;
 if (empty($conf->global->MAIN_DISABLE_FULL_SCANLIST))
 {
-    $result = $db->query($sql);
-    $nbtotalofrecords = $db->num_rows($result);
+    $result = $db2->query($sql);
+    $nbtotalofrecords = $db2->num_rows($result);
 }
 
-$sql.= $db->plimit($limit +1, $offset);
+$sql.= $db2->plimit($limit +1, $offset);
 
 $param='';
 if ($month)              	$param.='&month='.urlencode($month);
@@ -332,7 +353,9 @@ if ($resql)
             $obj = $db2->fetch_object($resql);
             if ($obj)
             {
-                $price=($obj->price_instance * ($obj->plan_meter_id == 1 ? $obj->nbofusers : 1)) + (max(0,($obj->nbofusers - $obj->min_threshold)) * $obj->price_user);
+				//print "($obj->price_instance * ($obj->plan_meter_id == 1 ? $obj->nbofusers : 1)) + (max(0,($obj->nbofusers - ($obj->min_threshold ? $obj->min_threshold : 0))) * $obj->price_user)";
+                $price=($obj->price_instance * ($obj->plan_meter_id == 1 ? $obj->nbofusers : 1)) + (max(0,($obj->nbofusers - ($obj->min_threshold ? $obj->min_threshold : 0))) * $obj->price_user);
+                if ($obj->interval_unit == 'Year') $price = $price / 12;
             	//var_dump($obj->status);exit;
                 $totalinstances++;
 				$instance=preg_replace('/\.on\.dolicloud\.com$/', '', $obj->instance);
