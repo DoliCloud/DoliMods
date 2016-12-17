@@ -296,25 +296,30 @@ if ($resql)
     print_liste_field_titre($langs->trans('DateLastLogin'),$_SERVER['PHP_SELF'],'t.date_lastlogin','',$param,'align="center"',$sortfield,$sortorder);
     print_liste_field_titre($langs->trans('Revenue'),$_SERVER['PHP_SELF'],'','',$param,' align="right"',$sortfield,$sortorder);
     print_liste_field_titre($langs->trans('CustStatus'),$_SERVER['PHP_SELF'],'c.status','',$param,'align="right"',$sortfield,$sortorder);
+    print_liste_field_titre('');
     print '</tr>';
 
     print '<tr class="liste_titre">';
-    print '<td><input type="text" name="search_instance" size="4" value="'.$search_instance.'"></td>';
-    print '<td><input type="text" name="search_organization" size="4" value="'.$search_organization.'"></td>';
-    print '<td><input type="text" name="search_email" size="4" value="'.$search_email.'"></td>';
-    print '<td><input type="text" name="search_plan" size="4" value="'.$search_plan.'"></td>';
-    print '<td><input type="text" name="search_partner" size="4" value="'.$search_partner.'"></td>';
-    //print '<td><input type="text" name="search_source" size="4" value="'.$search_source.'"></td>';
-    print '<td></td>';
-    print '<td></td>';
-    print '<td></td>';
-    print '<td></td>';
+    print '<td class="liste_titre"><input type="text" name="search_instance" size="4" value="'.$search_instance.'"></td>';
+    print '<td class="liste_titre"><input type="text" name="search_organization" size="4" value="'.$search_organization.'"></td>';
+    print '<td class="liste_titre"><input type="text" name="search_email" size="4" value="'.$search_email.'"></td>';
+    print '<td class="liste_titre"><input type="text" name="search_plan" size="4" value="'.$search_plan.'"></td>';
+    print '<td class="liste_titre"><input type="text" name="search_partner" size="4" value="'.$search_partner.'"></td>';
+    //print '<td class="liste_titre"><input type="text" name="search_source" size="4" value="'.$search_source.'"></td>';
+    print '<td class="liste_titre"></td>';
+    print '<td class="liste_titre"></td>';
+    print '<td class="liste_titre"></td>';
+    print '<td class="liste_titre"></td>';
     //print '<td align="center"><input type="text" name="search_lastlogin" size="4" value="'.$search_lastlogin.'"></td>';
-    print '<td></td>';
-    print '<td></td>';
-    print '<td align="right">';
+    print '<td class="liste_titre"></td>';
+    print '<td class="liste_titre"></td>';
+    print '<td class="liste_titre" align="right">';
     print $form->selectarray('search_status', $arraystatus, $search_status, 1);
-    print '<input type="image" class="liste_titre" name="button_search" src="'.DOL_URL_ROOT.'/theme/'.$conf->theme.'/img/search.png"  value="'.dol_escape_htmltag($langs->trans("Search")).'" title="'.dol_escape_htmltag($langs->trans("Search")).'">';
+    print '</td>';
+    // Action column
+    print '<td class="liste_titre" align="right">';
+    $searchpitco=$form->showFilterAndCheckAddButtons(0);
+    print $searchpitco;
     print '</td>';
     print '</tr>';
 
@@ -386,6 +391,7 @@ if ($resql)
                 print '<td align="right">';
                 print $dolicloudcustomerstaticnew->getLibStatut(5,$form);
                 print '</td>';
+                print '<td></td>';
                 print '</tr>';
             }
             $i++;
