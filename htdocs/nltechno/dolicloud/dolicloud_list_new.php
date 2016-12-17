@@ -354,8 +354,10 @@ if ($resql)
             if ($obj)
             {
 				//print "($obj->price_instance * ($obj->plan_meter_id == 1 ? $obj->nbofusers : 1)) + (max(0,($obj->nbofusers - ($obj->min_threshold ? $obj->min_threshold : 0))) * $obj->price_user)";
+                // Voir aussi refresh.lib.php
                 $price=($obj->price_instance * ($obj->plan_meter_id == 1 ? $obj->nbofusers : 1)) + (max(0,($obj->nbofusers - ($obj->min_threshold ? $obj->min_threshold : 0))) * $obj->price_user);
                 if ($obj->interval_unit == 'Year') $price = $price / 12;
+            	
             	//var_dump($obj->status);exit;
                 $totalinstances++;
 				$instance=preg_replace('/\.on\.dolicloud\.com$/', '', $obj->instance);

@@ -324,7 +324,9 @@ function dolicloud_calculate_stats($db, $datelim)
 
 	$sql.= " pl.amount as price_instance,";
 	$sql.= " pl.meter_id as plan_meter_id,";
-
+	$sql.= " pl.name as plan,";
+	$sql.= " pl.interval_unit as interval_unit,";
+	
 	$sql.= " c.org_name as organization,";
 	$sql.= " c.status as status,";
 	$sql.= " c.past_due_start,";
@@ -365,9 +367,12 @@ function dolicloud_calculate_stats($db, $datelim)
 	            $obj = $db->fetch_object($resql);
 	            if ($obj)
 	            {
-					//print $price."=".$obj->price_instance." + (".$obj->nbofusers." * ".$obj->price_user.")<br>\n";
-					$price=($obj->price_instance * ($obj->plan_meter_id == 1 ? $obj->nbofusers : 1)) + (max(0,($obj->nbofusers - $obj->min_threshold)) * $obj->price_user);
-	                $totalinstances++;
+    				//print "($obj->price_instance * ($obj->plan_meter_id == 1 ? $obj->nbofusers : 1)) + (max(0,($obj->nbofusers - ($obj->min_threshold ? $obj->min_threshold : 0))) * $obj->price_user)";
+                    // Voir aussi dolicloud_list_new.php
+                    $price=($obj->price_instance * ($obj->plan_meter_id == 1 ? $obj->nbofusers : 1)) + (max(0,($obj->nbofusers - ($obj->min_threshold ? $obj->min_threshold : 0))) * $obj->price_user);
+                    if ($obj->interval_unit == 'Year') $price = $price / 12;
+					
+					$totalinstances++;
 					$totalusers+=$obj->nbofusers;
 
 					$activepaying=1;
