@@ -236,8 +236,22 @@ class StreamHandler
                 'protocol_version' => isset($request['version']) ? $request['version'] : 1.1,
                 'ignore_errors'    => true,
                 'follow_location'  => 0,
+                //'proxy' => OVH does use the proxy only if ENV var "HTTP_PROXY" or "HTTPS_PROXY" is defined...
             ],
         ];
+
+        /* DOL_CHANGE LDR We may add this too to the context to solve SSL problem or PHP setup not complete
+         * if  
+        $context['ssl'] = array(
+                'cafile'        => __DIR__ . '/cacert.pem',
+                'verify_depth'  => 5,
+                'CN_match'      => 'secure.example.com'
+                'verify_peer' => true or false, // You could skip all of the trouble by changing this to false, but it's WAY uncool for security reasons.
+                'cafile' => '/etc/ssl/certs/cacert.pem',
+                //'CN_match' => 'example.com', // Change this to your certificates Common Name (or just comment this line out if not needed)
+                'ciphers' => 'HIGH:!SSLv2:!SSLv3',
+                'disable_compression' => true,
+        );*/
 
         $body = Core::body($request);
         if (isset($body)) {

@@ -153,7 +153,8 @@ class ActionsMulticompany
         		$this->dao->options['sharings']['category']		= (GETPOST('category') ? GETPOST('category') : null);
 				$this->dao->options['sharings']['agenda']		= (GETPOST('agenda') ? GETPOST('agenda') : null);
 				$this->dao->options['sharings']['bank_account']	= (GETPOST('bank_account') ? GETPOST('bank_account') : null);
-
+				$this->dao->options['sharings']['expensereport']= (GETPOST('expensereport') ? GETPOST('expensereport') : null);
+				
 				$extrafields = new ExtraFields($this->db);
 				$extralabels = $extrafields->fetch_name_optionals_label($this->dao->table_element, true);
 				$extrafields->setOptionalsFromPost($extralabels, $this->dao);
@@ -276,7 +277,8 @@ class ActionsMulticompany
         		$this->dao->options['sharings']['category']		= (GETPOST('category') ? GETPOST('category') : null);
 				$this->dao->options['sharings']['agenda']		= (GETPOST('agenda') ? GETPOST('agenda') : null);
 				$this->dao->options['sharings']['bank_account']	= (GETPOST('bank_account') ? GETPOST('bank_account') : null);
-
+				$this->dao->options['sharings']['expensereport']= (GETPOST('expensereport') ? GETPOST('expensereport') : null);
+				
 				$extrafields = new ExtraFields($this->db);
 				$extralabels = $extrafields->fetch_name_optionals_label($this->dao->table_element, true);
 				$extrafields->setOptionalsFromPost($extralabels, $this->dao);
@@ -622,6 +624,7 @@ class ActionsMulticompany
 			$this->tpl['multiselect_shared_category'] = $this->multiselect_entities('category', $this->dao);
 			$this->tpl['multiselect_shared_agenda'] = $this->multiselect_entities('agenda', $this->dao);
 			$this->tpl['multiselect_shared_bank_account'] = $this->multiselect_entities('bank_account', $this->dao);
+			$this->tpl['multiselect_shared_expensereport'] = $this->multiselect_entities('expensereport', $this->dao);
 		}
 		else
 		{

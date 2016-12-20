@@ -186,6 +186,18 @@ if (!empty($this->tpl['extrafields']->attribute_label)) {
 </tr>
 <?php } ?>
 
+<?php if (! empty($conf->global->MULTICOMPANY_EXPENSEREPORT_SHARING_ENABLED)) { ?>
+<tr class="liste_titre">
+	<td colspan="2"><?php echo $langs->trans("ExpenseReportSharing"); ?></td>
+</tr>
+
+<?php $var=!$var; ?>
+<tr <?php echo $bc[$var]; ?>>
+	<td valign="top"><?php echo $langs->trans("ExpenseReportSharingDescription"); ?></td>
+	<td><?php echo $this->tpl['multiselect_shared_expensereport']; ?></td>
+</tr>
+<?php } ?>
+
 </table>
 </div>
 

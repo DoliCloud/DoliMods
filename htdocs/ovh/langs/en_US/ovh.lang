@@ -58,7 +58,7 @@ OvhApplicationDescription=Application description
 OvhApplicationKey=Application key
 OvhApplicationSecret=Application secret
 OvhConsumerkey=Consumer key
-GoOnPageToCreateYourAPIKey=First go on page <a href="%s" target="_blank">%s</a> to create your OVH aplication entry and get its API key and secret, or create a new one if you prefer and lost it, then fill this page.
+GoOnPageToCreateYourAPIKey=First go on page <a href="%s" target="_blank">%s</a> to create your OVH application entry and get its API key and secret, or create a new one if you prefer and lost it, then fill this page.
 ListOfExistingAPIApp=Note: You can find list of already created application on page <a href="%s" target="_blank">%s</a>.
 ClickHereToLoginAndGetYourConsumerKey=Click <a href="%s"> here to login and get a new consumer key</a> (You must choose <strong>UNLIMITED</strong> validity)
 Authentication=Authentication
