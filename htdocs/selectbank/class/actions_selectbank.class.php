@@ -71,7 +71,7 @@ class ActionsSelectBank
        		$sql = "SELECT rowid, label, bank";
        		$sql.= " FROM ".MAIN_DB_PREFIX."bank_account";
        		$sql.= " WHERE clos = '".$statut."'";
-       		$sql.= " AND entity = ".$conf->entity;
+       		$sql.= " AND entity IN (".getEntity('bank_account', 1).")";
        		if ($filtre) $sql.=" AND ".$filtre;
        		$sql.= " ORDER BY label";
        		dol_syslog(get_class($this)."::formBuilddocOptions sql=".$sql);
