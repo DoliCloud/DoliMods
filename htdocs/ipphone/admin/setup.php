@@ -40,6 +40,7 @@ if (! $res) die("Include of main fails");
 
 include_once(DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php');
 
+$langs->load("admin");
 $langs->load("ipphone@ipphone");
 
 
