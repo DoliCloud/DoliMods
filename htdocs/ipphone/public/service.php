@@ -94,6 +94,7 @@ if (! empty($conf->global->IPPHONE_EXPORTKEY))
 
 
 header("Content-type: text/xml");
+header('Content-disposition: attachment; filename="phone_annuary.xml"');
 header("Connection: close");
 header("Expires: -1");
 
