@@ -1,6 +1,6 @@
---------------------------------------------------------------
-English Multi-Company ChangeLog
---------------------------------------------------------------
+#--------------------------------------------------------------
+# English Multi-Company ChangeLog
+#--------------------------------------------------------------
 
 ***** ChangeLog for 3.8.1 compared to 3.8.0 *****
 Fix: folder sharing was not working when more than 2 entities
