@@ -47,3 +47,4 @@ ImportFileCustomers=Import of customers
 ImportCustomers=Import customers
 ImportPayments=Import payments
 CurrentBackupStatus=Status last backup
+SearchIntoDoliCloud=DoliCloud
