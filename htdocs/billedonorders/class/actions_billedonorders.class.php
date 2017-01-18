@@ -83,22 +83,22 @@ class ActionsBilledOnOrders
         if (empty($conf->global->BILLEDONORDERS_DISABLE_BILLEDWOTAX)) 
         {
             //print '<td align="right"><input type="text" name="billedonorders_billed" style="max-width:50px" class="flat maxwidth50" value="'.GETPOST('billedonorders_billed').'"></td>';
-            print '<td align="right"></td>';
+            print '<td class="liste_titre" align="right"></td>';
         }
         if (empty($conf->global->BILLEDONORDERS_DISABLE_BILLED)) 
         {
             //print '<td align="right"><input type="text" name="billedonorders_billed" style="max-width:50px" class="flat maxwidth50" value="'.GETPOST('billedonorders_billed').'"></td>';
-            print '<td align="right"></td>';
+            print '<td class="liste_titre" align="right"></td>';
         }
         if (empty($conf->global->BILLEDONORDERS_DISABLE_PAYED)) 
         {
             //print '<td align="right"><input type="text" name="billedonorders_payed" style="max-width:50px" class="flat maxwidth50" value="'.GETPOST('billedonorders_payed').'"></td>';
-            print '<td align="right"></td>';
+            print '<td class="liste_titre" align="right"></td>';
         }
         if (empty($conf->global->BILLEDONORDERS_DISABLE_REMAINTOPAY)) 
         {
             //print '<td align="right"><input type="text" name="billedonorders_remaintopay" style="max-width:50px" class="flat maxwidth50" value="'.GETPOST('billedonorders_remaintopay').'"></td>';
-            print '<td align="right"></td>';
+            print '<td class="liste_titre" align="right"></td>';
         }
     
         return 0;
