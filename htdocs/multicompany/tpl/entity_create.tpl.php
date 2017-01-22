@@ -105,7 +105,7 @@ $(document).ready(function () {
 
 <?php $var=!$var; ?>
 <tr <?php echo $bc[$var]; ?>>
-	<td valign="top"><?php echo $langs->trans("Description"); ?></td>
+	<td class="tdtop"><?php echo $langs->trans("Description"); ?></td>
 	<td><textarea class="flat" name="description" cols="80" rows="<?php echo ROWS_3; ?>"><?php echo $this->tpl['description']; ?></textarea></td>
 </tr>
 
@@ -122,7 +122,7 @@ if (!empty($this->tpl['extrafields']->attribute_label)) {
 
 <?php $var=!$var; ?>
 <tr <?php echo $bc[$var]; ?>>
-	<td valign="top"><?php echo $langs->trans("ReferringEntity"); ?></td>
+	<td class="tdtop"><?php echo $langs->trans("ReferringEntity"); ?></td>
 	<td><?php echo $this->tpl['select_entity']; ?></td>
 </tr>
 
@@ -133,7 +133,7 @@ if (!empty($this->tpl['extrafields']->attribute_label)) {
 
 <?php $var=!$var; ?>
 <tr <?php echo $bc[$var]; ?>>
-	<td valign="top"><?php echo $langs->trans("ProductSharingDescription"); ?></td>
+	<td class="tdtop"><?php echo $langs->trans("ProductSharingDescription"); ?></td>
 	<td><?php echo $this->tpl['multiselect_shared_product']; ?></td>
 </tr>
 <?php } ?>
@@ -145,7 +145,7 @@ if (!empty($this->tpl['extrafields']->attribute_label)) {
 
 <?php $var=!$var; ?>
 <tr <?php echo $bc[$var]; ?>>
-	<td valign="top"><?php echo $langs->trans("ThirdpartySharingDescription"); ?></td>
+	<td class="tdtop"><?php echo $langs->trans("ThirdpartySharingDescription"); ?></td>
 	<td><?php echo $this->tpl['multiselect_shared_thirdparty']; ?></td>
 </tr>
 <?php } ?>
@@ -157,7 +157,7 @@ if (!empty($this->tpl['extrafields']->attribute_label)) {
 
 <?php $var=!$var; ?>
 <tr <?php echo $bc[$var]; ?>>
-	<td valign="top"><?php echo $langs->trans("CategorySharingDescription"); ?></td>
+	<td class="tdtop"><?php echo $langs->trans("CategorySharingDescription"); ?></td>
 	<td><?php echo $this->tpl['multiselect_shared_category']; ?></td>
 </tr>
 <?php } ?>
@@ -169,7 +169,7 @@ if (!empty($this->tpl['extrafields']->attribute_label)) {
 
 <?php $var=!$var; ?>
 <tr <?php echo $bc[$var]; ?>>
-	<td valign="top"><?php echo $langs->trans("AgendaSharingDescription"); ?></td>
+	<td class="tdtop"><?php echo $langs->trans("AgendaSharingDescription"); ?></td>
 	<td><?php echo $this->tpl['multiselect_shared_agenda']; ?></td>
 </tr>
 <?php } } ?>
@@ -181,7 +181,7 @@ if (!empty($this->tpl['extrafields']->attribute_label)) {
 
 <?php $var=!$var; ?>
 <tr <?php echo $bc[$var]; ?>>
-	<td valign="top"><?php echo $langs->trans("BankSharingDescription"); ?></td>
+	<td class="tdtop"><?php echo $langs->trans("BankSharingDescription"); ?></td>
 	<td><?php echo $this->tpl['multiselect_shared_bank_account']; ?></td>
 </tr>
 <?php } ?>
@@ -193,7 +193,7 @@ if (!empty($this->tpl['extrafields']->attribute_label)) {
 
 <?php $var=!$var; ?>
 <tr <?php echo $bc[$var]; ?>>
-	<td valign="top"><?php echo $langs->trans("ExpenseReportSharingDescription"); ?></td>
+	<td class="tdtop"><?php echo $langs->trans("ExpenseReportSharingDescription"); ?></td>
 	<td><?php echo $this->tpl['multiselect_shared_expensereport']; ?></td>
 </tr>
 <?php } ?>

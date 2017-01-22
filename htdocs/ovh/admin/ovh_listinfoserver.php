@@ -331,7 +331,7 @@ else
 
     	print '</td>';
 
-    	print '<td valign="top"><font size="2">';
+    	print '<td class="tdtop"><font size="2">';
 
     	if (! empty($conf->global->OVH_OLDAPI))
     	{

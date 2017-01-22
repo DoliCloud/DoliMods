@@ -942,7 +942,7 @@ else
             print '</td></tr>';*/
 
 		    // Message
-			print '<tr><td valign="top">'.$langs->trans("MailMessage").'</td>';
+			print '<tr><td class="tdtop">'.$langs->trans("MailMessage").'</td>';
 			print '<td colspan="3" bgcolor="'.($object->bgcolor?(preg_match('/^#/',$object->bgcolor)?'':'#').$object->bgcolor:'white').'">';
 			print dol_htmlentitiesbr($object->body);
 			print '</td>';
