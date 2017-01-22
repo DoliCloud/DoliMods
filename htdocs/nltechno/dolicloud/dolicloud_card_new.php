@@ -438,7 +438,7 @@ if ($user->rights->nltechno->dolicloud->write)
 		print '</tr>';
 
 		// Note
-		print '<tr><td valign="top">'.$langs->trans("Note").'</td><td colspan="3" valign="top"><textarea class="flat" name="note" cols="70" rows="'.ROWS_3.'">'.(isset($_POST["note"])?$_POST["note"]:$object->note).'</textarea></td></tr>';
+		print '<tr><td class="tdtop">'.$langs->trans("Note").'</td><td colspan="3" valign="top"><textarea class="flat" name="note" cols="70" rows="'.ROWS_3.'">'.(isset($_POST["note"])?$_POST["note"]:$object->note).'</textarea></td></tr>';
 
 		print "</table><br>";
 
@@ -618,7 +618,7 @@ if ($user->rights->nltechno->dolicloud->write)
 		print '<tr><td>'.$langs->trans("PhonePro").'</td><td colspan="3"><input name="phone" type="text" size="18" maxlength="80" value="'.(isset($_POST["phone"])?$_POST["phone"]:$object->phone).'"></td>';
 		print '</tr>';
 
-		print '<tr><td valign="top">'.$langs->trans("Note").'</td><td colspan="3">';
+		print '<tr><td class="tdtop">'.$langs->trans("Note").'</td><td colspan="3">';
 		print '<textarea name="note" cols="70" rows="'.ROWS_3.'">';
 		print isset($_POST["note"])?$_POST["note"]:$object->note;
 		print '</textarea></td></tr>';
@@ -765,7 +765,7 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 	print '</tr>';
 
 	// Note
-	print '<tr><td valign="top">'.$langs->trans("Note").'</td><td colspan="3">';
+	print '<tr><td class="tdtop">'.$langs->trans("Note").'</td><td colspan="3">';
 	print nl2br($object->note);
 	print '</td></tr>';
 

@@ -283,7 +283,7 @@ else
 {
     print  "<table class=\"nobordernopadding\">\n";
     print  "<tr>\n";
-    print  '<td valign="top">'."\n";
+    print  '<td class="tdtop">'."\n";
 
     print "<table class=\"tab_menu\">\n";
     print "<col width=\"50%\">\n";
