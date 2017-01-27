@@ -103,6 +103,9 @@ class ActionsConcatPdf
         $preselected=(isset($object->extraparams['concatpdf'][0])?$object->extraparams['concatpdf'][0]:-1);	// string with preselected string
         if ($preselected == -1 && ! empty($conf->global->CONCATPDF_PRESELECTED_MODELS))
         {
+            // List of value key into setup -> value for modulepart            
+            $altkey=array('proposal'=>'propal', 'order'=>'commande', 'invoice'=>'facture', 'supplier_order'=>'commande_fournisseur', 'invoice_order'=>'facture_fournisseur');
+            
         	// $conf->global->CONCATPDF_PRESELECTED_MODELS may contains value of preselected model with format
         	// propal:model1a,model1b;invoice:model2;...
         	$tmparray=explode(';',$conf->global->CONCATPDF_PRESELECTED_MODELS);
@@ -114,7 +117,7 @@ class ActionsConcatPdf
         	}
         	foreach($tmparray2 as $key => $val)
         	{
-        		if ($parameters['modulepart'] == $key) $preselected=$val;
+        		if ($parameters['modulepart'] == $key || $parameters['modulepart'] == $altkey[$key]) $preselected=$val;
         	}
         }
 
@@ -155,7 +158,7 @@ class ActionsConcatPdf
         	}
         	else
         	{
-        		$out.= '<!-- preselected value is '.$preselected.' -->';
+        		$out.= '<!-- preselected value is '.$preselected.' (key to set preselected value in CONCATPDF_PRESELECTED_MODELS is '.$parameters['modulepart'].') -->';
         		$out.= $form->selectarray('concatpdffile',$morefiles,$preselected,1,0,0);
         	}
         	$out.='</td></tr>';
