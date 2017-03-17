@@ -810,6 +810,7 @@ class ActionsMulticompany
 				exit;
 			}
 		}
+		return 0;
 	}
 
 	/**
