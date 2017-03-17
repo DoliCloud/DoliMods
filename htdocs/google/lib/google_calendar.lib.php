@@ -887,7 +887,7 @@ function syncEventsFromGoogleCalendar($userlogin, User $fuser, $mindate, $max=0)
 						$object->location=$event->getLocation();
 						//$object->socid=$obj->fk_soc;
 						//$object->contactid=$obj->fk_contact;
-						$object->note=trim(preg_replace('/'.preg_quote('-----+++++-----','/m').'.*$/s', '', $event->getDescription()));
+						$object->note=trim(preg_replace('/'.preg_quote('-----+++++-----','/').'.*$/s', '', $event->getDescription()));
 
 						// Organizer
 						/*$organizer=$event->getOrganizer();
