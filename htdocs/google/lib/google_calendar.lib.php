@@ -717,7 +717,7 @@ function syncEventsFromGoogleCalendar($userlogin, User $fuser, $mindate, $max=0)
 						$object->label=$event->getSummary();
 						$object->transparency=((empty($transtmp) || $transtmp == 'opaque')?1:0);		// null or 'opaque' = busy, 'transparent' = available
 						//$object->priority=0;
-						//$object->percent=$obj->percent;
+						//$object->percentage=-1;
 						$object->location=$event->getLocation();
 						//$object->socid=$obj->fk_soc;
 						//$object->contactid=$obj->fk_contact;
@@ -883,7 +883,7 @@ function syncEventsFromGoogleCalendar($userlogin, User $fuser, $mindate, $max=0)
 						$transtmp=$event->getTransparency();
 						$object->transparency=((empty($transtmp) || $transtmp == 'opaque')?1:0);		// null or 'opaque' = busy, 'transparent' = available
 						$object->priority=0;
-						$object->percent=(empty($conf->global->GOOGLE_NEW_EVENT_FROM_GOOGLE_STATUS)?-1:$conf->global->GOOGLE_NEW_EVENT_FROM_GOOGLE_STATUS);
+						$object->percentage=(empty($conf->global->GOOGLE_NEW_EVENT_FROM_GOOGLE_STATUS)?-1:$conf->global->GOOGLE_NEW_EVENT_FROM_GOOGLE_STATUS);
 						$object->location=$event->getLocation();
 						//$object->socid=$obj->fk_soc;
 						//$object->contactid=$obj->fk_contact;
