@@ -42,7 +42,8 @@ if ($action == 'addauthorizedkey')
 			}	// Creation fails or already exists
 
 			// Check if authorized_key exists
-			$filecert="ssh2.sftp://".$sftp.$conf->global->DOLICLOUD_EXT_HOME.'/'.$object->username_web.'/.ssh/authorized_keys';
+			//$filecert="ssh2.sftp://".$sftp.$conf->global->DOLICLOUD_EXT_HOME.'/'.$object->username_web.'/.ssh/authorized_keys';
+			$filecert="ssh2.sftp://".intval($sftp).$conf->global->DOLICLOUD_EXT_HOME.'/'.$object->username_web.'/.ssh/authorized_keys';  // With PHP 5.6.27+
 			$fstat=stat($filecert);
 
 			// Create authorized_keys file
@@ -98,7 +99,8 @@ if ($action == 'disable_instance')
 
 			// Check if install.lock exists
 			$dir=preg_replace('/_([a-zA-Z0-9]+)$/','',$object->database_db);
-			$filedisabled="ssh2.sftp://".$sftp.$conf->global->DOLICLOUD_EXT_HOME.'/'.$object->username_web.'/'.$dir.'/htdocs/index.html';
+			//$filedisabled="ssh2.sftp://".$sftp.$conf->global->DOLICLOUD_EXT_HOME.'/'.$object->username_web.'/'.$dir.'/htdocs/index.html';
+			$filedisabled="ssh2.sftp://".intval($sftp).$conf->global->DOLICLOUD_EXT_HOME.'/'.$object->username_web.'/'.$dir.'/htdocs/index.html';
 			$fstat=stat($filedisabled);
 			if (empty($fstat['atime']))
 			{
@@ -173,7 +175,8 @@ if ($action == 'addinstalllock')
 
 			// Check if install.lock exists
 			$dir=preg_replace('/_([a-zA-Z0-9]+)$/','',$object->database_db);
-			$fileinstalllock="ssh2.sftp://".$sftp.$conf->global->DOLICLOUD_EXT_HOME.'/'.$object->username_web.'/'.$dir.'/documents/install.lock';
+			//$fileinstalllock="ssh2.sftp://".$sftp.$conf->global->DOLICLOUD_EXT_HOME.'/'.$object->username_web.'/'.$dir.'/documents/install.lock';
+			$fileinstalllock="ssh2.sftp://".intval($sftp).$conf->global->DOLICLOUD_EXT_HOME.'/'.$object->username_web.'/'.$dir.'/documents/install.lock';
 			$fstat=stat($fileinstalllock);
 			if (empty($fstat['atime']))
 			{
