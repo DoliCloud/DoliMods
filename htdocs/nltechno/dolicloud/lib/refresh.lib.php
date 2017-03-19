@@ -46,7 +46,8 @@ function dolicloud_files_refresh($conf, $db, &$object, &$errors)
 				}
 
 				$dir=preg_replace('/_([a-zA-Z0-9]+)$/','',$object->database_db);
-				$file="ssh2.sftp://".$sftp.$conf->global->DOLICLOUD_EXT_HOME.'/'.$object->username_web.'/'.$dir.'/htdocs/conf/conf.php';
+				//$file="ssh2.sftp://".$sftp.$conf->global->DOLICLOUD_EXT_HOME.'/'.$object->username_web.'/'.$dir.'/htdocs/conf/conf.php';
+				$file="ssh2.sftp://".intval($sftp).$conf->global->DOLICLOUD_EXT_HOME.'/'.$object->username_web.'/'.$dir.'/htdocs/conf/conf.php';    // With PHP 5.6.27+
 
 				//print $file;
 				$stream = fopen($file, 'r');
@@ -59,7 +60,8 @@ function dolicloud_files_refresh($conf, $db, &$object, &$errors)
 				// File authorized_keys must have rw------- permissions
 
 				// Check if authorized_key exists
-				$filecert="ssh2.sftp://".$sftp.$conf->global->DOLICLOUD_EXT_HOME.'/'.$object->username_web.'/.ssh/authorized_keys';
+				//$filecert="ssh2.sftp://".$sftp.$conf->global->DOLICLOUD_EXT_HOME.'/'.$object->username_web.'/.ssh/authorized_keys';
+				$filecert="ssh2.sftp://".intval($sftp).$conf->global->DOLICLOUD_EXT_HOME.'/'.$object->username_web.'/.ssh/authorized_keys';
 				$fstat=stat($filecert);
 				// Create authorized_keys file
 				if (empty($fstat['atime']))
@@ -73,7 +75,8 @@ function dolicloud_files_refresh($conf, $db, &$object, &$errors)
 				$object->fileauthorizedkey=(empty($fstat['mtime'])?'':$fstat['mtime']);
 
 				// Check if install.lock exists
-				$fileinstalllock="ssh2.sftp://".$sftp.$conf->global->DOLICLOUD_EXT_HOME.'/'.$object->username_web.'/'.$dir.'/documents/install.lock';
+				//$fileinstalllock="ssh2.sftp://".$sftp.$conf->global->DOLICLOUD_EXT_HOME.'/'.$object->username_web.'/'.$dir.'/documents/install.lock';
+				$fileinstalllock="ssh2.sftp://".intval($sftp).$conf->global->DOLICLOUD_EXT_HOME.'/'.$object->username_web.'/'.$dir.'/documents/install.lock';
 				$fstatlock=stat($fileinstalllock);
 				$object->filelock=(empty($fstatlock['atime'])?'':$fstatlock['atime']);
 
