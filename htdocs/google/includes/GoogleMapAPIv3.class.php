@@ -421,7 +421,8 @@ class GoogleMapAPI
 		if ($point !== null) {
 			$this->addMarkerByCoords($point[2], $point[3], $title, $content, $category, $icon);
 		} else {
-			echo '<span style="font-size:9px">'.$this->langs->trans("CouldNotFindLatitudeLongitudeFor").' <a href="'.DOL_URL_ROOT.'/societe/soc.php?socid='.$idSoc.'">'.$title.'</a></span><br/>';
+			$pagename=(((float) DOL_VERSION >= 6.0)?'/societe/card.php':'/societe/soc.php');
+			echo '<span style="font-size:9px">'.$this->langs->trans("CouldNotFindLatitudeLongitudeFor").' <a href="'.DOL_URL_ROOT.$pagename.'?socid='.$idSoc.'">'.$title.'</a></span><br/>';
 		}
 	}
 
@@ -509,18 +510,22 @@ class GoogleMapAPI
 			$html='';
 			if (versioncompare(versiondolibarrarray(),array(3,7,-3)) >= 0)	// >= 0 if we are 3.6.0 alpha or +
 			{
-				if ($mode == 'company' || $mode == 'thirdparty') $html.= '<a href="'.DOL_URL_ROOT.'/societe/soc.php?socid='.$elem->id.'">';
+				$pagename=(((float) DOL_VERSION >= 6.0)?'/societe/card.php':'/societe/soc.php');
+				
+				if ($mode == 'company' || $mode == 'thirdparty') $html.= '<a href="'.DOL_URL_ROOT.$pagename.'?socid='.$elem->id.'">';
 				elseif ($mode == 'contact') $html.= '<a href="'.DOL_URL_ROOT.'/contact/card.php?id='.$elem->id.'">';
 				elseif ($mode == 'member') $html.= '<a href="'.DOL_URL_ROOT.'/adherents/card.php?rowid='.$elem->id.'">';
-				elseif ($mode == 'patient') $html.= '<a href="'.DOL_URL_ROOT.'/societe/soc.php?socid='.$elem->id.'">';
+				elseif ($mode == 'patient') $html.= '<a href="'.DOL_URL_ROOT.$pagename.'?socid='.$elem->id.'">';
 				else $html.='<a>';
 			}
 			else
 			{
-				if ($mode == 'company' || $mode == 'thirdparty') $html.= '<a href="'.DOL_URL_ROOT.'/societe/soc.php?socid='.$elem->id.'">';
+				$pagename=(((float) DOL_VERSION >= 6.0)?'/societe/card.php':'/societe/soc.php');
+				
+				if ($mode == 'company' || $mode == 'thirdparty') $html.= '<a href="'.DOL_URL_ROOT.$pagename.'?socid='.$elem->id.'">';
 				elseif ($mode == 'contact') $html.= '<a href="'.DOL_URL_ROOT.'/contact/fiche.php?id='.$elem->id.'">';
 				elseif ($mode == 'member') $html.= '<a href="'.DOL_URL_ROOT.'/adherents/fiche.php?rowid='.$elem->id.'">';
-				elseif ($mode == 'patient') $html.= '<a href="'.DOL_URL_ROOT.'/societe/soc.php?socid='.$elem->id.'">';
+				elseif ($mode == 'patient') $html.= '<a href="'.DOL_URL_ROOT.$pagename.'?socid='.$elem->id.'">';
 				else $html.='<a>';
 			}
 			$html.= '<b>'.$elem->name.'</b>';

@@ -569,7 +569,9 @@ function google_complete_label_and_note(&$object, $langs)
 			if (! empty($thirdparty->phone_pro)) $more.="\n".$langs->trans("Phone").': '.$thirdparty->phone_pro;
 			if (! empty($thirdparty->fax)) $more.="\n".$langs->trans("Fax").': '.$thirdparty->fax;
 
-			$urltoelem=$urlwithroot.'/societe/soc.php?socid='.$thirdparty->id;
+			$pagename=(((float) DOL_VERSION >= 6.0)?'/societe/card.php':'/societe/soc.php');
+			
+			$urltoelem=$urlwithroot.$pagename.'?socid='.$thirdparty->id;
 			$object->note.="\n\n-----+++++-----\n".$more."\n".$langs->trans("LinkToThirdParty").': '.$urltoelem;
 		}
 	}
@@ -588,7 +590,7 @@ function google_complete_label_and_note(&$object, $langs)
 			if (! empty($contact->phone_mobile)) $more.="\n".$langs->trans("PhoneMobile").': '.$contact->phone_mobile;
 			if (! empty($contact->fax)) $more.="\n".$langs->trans("Fax").': '.$contact->fax;
 
-			$urltoelem=$urlwithroot.'/contact/fiche.ph?id='.$contact->id;
+			$urltoelem=$urlwithroot.'/contact/card.ph?id='.$contact->id;
 			$object->note.="\n\n-----+++++-----\n".$more."\n".$langs->trans("LinkToContact").': '.$urltoelem;
 		}
 	}
