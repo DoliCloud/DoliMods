@@ -359,6 +359,11 @@ class modNLTechno extends DolibarrModules
 
 		$result=$this->load_tables();
 
+		// Create extrafields
+		include_once DOL_DOCUMENT_ROOT.'/core/class/extrafields.class.php';
+		$extrafields = new ExtraFields($this->db);
+		$result1=$extrafields->addExtraField('dolicloud', $langs->trans("DoliCloudCustomer"), 'varchar', 1, 3, 'thirdparty');
+		
 		return $this->_init($sql,$options);
 	}
 

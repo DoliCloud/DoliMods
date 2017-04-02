@@ -48,3 +48,6 @@ ImportCustomers=Import customers
 ImportPayments=Import payments
 CurrentBackupStatus=Status last backup
 SearchIntoDoliCloud=DoliCloud
+DoliCloudCustomer=DoliCloud customer
+FromLiveTables=From real time customer table
+FromHistoryStatsTables=From table of historic statistics, update with script "batch_customers updatedatabase" 
