@@ -78,7 +78,7 @@ class modNLTechno extends DolibarrModules
 									'substitutions' => 0,
 									'menus' => 0,
 									'css' => array(),
-									'hooks' => array('searchform'));
+									'hooks' => array('searchform','thirdpartylist','customerlist','prospectlist'));
 
 		// Constants
 		$this->const = array();			// List of parameters
@@ -364,7 +364,7 @@ class modNLTechno extends DolibarrModules
 		// Create extrafields
 		include_once DOL_DOCUMENT_ROOT.'/core/class/extrafields.class.php';
 		$extrafields = new ExtraFields($this->db);
-		$result1=$extrafields->addExtraField('dolicloud', $langs->trans("DoliCloudCustomer"), 'varchar', 1, 3, 'thirdparty');
+		$result1=$extrafields->addExtraField('dolicloud', "DoliCloudCustomer", 'boolean', 1, 3, 'thirdparty');
 		
 		return $this->_init($sql,$options);
 	}
