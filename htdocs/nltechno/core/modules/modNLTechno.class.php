@@ -355,6 +355,8 @@ class modNLTechno extends DolibarrModules
 	 */
 	function init($options='')
 	{
+	    global $langs;
+	    
 		$sql = array();
 
 		$result=$this->load_tables();
