@@ -45,28 +45,24 @@ class ActionsNltechno
 
 
     /**
-     * Complete search forms (old form)
+     *    Execute action
      *
-     * @param	array	$parameters		Array of parameters
-     * @return	string					HTML content to add by hook
+     *    @param	array	$parameters		Array of parameters
+     *    @param    mixed	$object      	Deprecated. This field is not used
+     *    @param    string	$action      	'add', 'update', 'view'
+     *    @return   int         			<0 if KO,
+     *                              		=0 if OK but we want to process standard actions too,
+     *                              		>0 if OK and we want to replace standard actions.
      */
-    /*
-    function printSearchForm($parameters)
+    function doActions($parameters,&$object,&$action)
     {
-        global $langs, $user, $conf;
+        global $db,$langs,$conf;
 
-        $searchform='';
-        if (! empty($conf->nltechno->enabled))
-        {
-            $langs->load("companies");
-            $langs->load("nltechno@nltechno");
-            $searchform=printSearchForm(dol_buildpath('/nltechno/dolicloud/dolicloud_list_new.php',1), dol_buildpath('/nltechno/dolicloud/dolicloud_list_new.php',1), img_picto('','object_generic').' '.$langs->trans("InstanceDolicloud"), '', 'search_multi');
-        }
-		$this->resprints = $searchform;
+        dol_syslog(get_class($this).'::executeHooks action='.$action);
+        $langs->load("nltechno@nltechno");
 
         return 0;
     }
-    */
     
     /**
      * Complete search forms
