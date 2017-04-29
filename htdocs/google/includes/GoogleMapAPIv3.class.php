@@ -840,6 +840,7 @@ class GoogleMapAPI
 		$this->content .= "\t" . 'var myOptions = {' . "\n";
 		$this->content .= "\t\t" . 'zoom: ' . $this->zoom . ',' . "\n";
 		//$this->content .= "\t\t" . 'center: myLatlng,' . "\n";
+		$this->content .= "\t\t" . 'fullscreenControl: true,' . "\n";
 		$this->content .= "\t\t" . 'mapTypeId: google.maps.MapTypeId.' . $this->mapType . "\n";
 		$this->content .= "\t" . '}' . "\n";
 
