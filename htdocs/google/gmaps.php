@@ -177,7 +177,13 @@ if ($address && $address != $object->country)
     var myOptions = {
       zoom: <?php echo ($conf->global->GOOGLE_GMAPS_ZOOM_LEVEL >= 1 && $conf->global->GOOGLE_GMAPS_ZOOM_LEVEL <= 10)?$conf->global->GOOGLE_GMAPS_ZOOM_LEVEL:8; ?>,
       center: latlng,
-      mapTypeId: google.maps.MapTypeId.ROADMAP  // ROADMAP, SATELLITE, HYBRID, TERRAIN
+      mapTypeId: google.maps.MapTypeId.ROADMAP,  // ROADMAP, SATELLITE, HYBRID, TERRAIN
+      fullscreenControl: true
+      /*zoomControl: true,
+      mapTypeControl: true,
+      scaleControl: true,
+      streetViewControl: true,
+      rotateControl: false */
     }
     map = new google.maps.Map(document.getElementById("map"), myOptions);
 	geocoder = new google.maps.Geocoder();
