@@ -182,8 +182,9 @@ else
         print '</td><td></td></tr>';
     
         $var=!$var;
-        print '<tr '.$bc[$var].'><td class="fieldrequired">';
-        print $langs->trans("OvhServiceName").'</td><td>';
+        print '<tr '.$bc[$var].'><td>';
+        $htmltext=$langs->trans("OvhServiceNameHelp");
+        print $form->textwithpicto($langs->trans("OvhServiceName"), $htmltext).'</td><td>';
         print '<input size="64" type="text" name="OVHSN_ACCOUNT" value="'.$conf->global->OVHSN_ACCOUNT.'">';
         print '<br>'.$langs->trans("Example").': 00331234567';
         print '</td><td></td></tr>';
@@ -200,7 +201,7 @@ else
     $tmpurl='/ovh/wrapper.php?caller=__PHONEFROM__&called=__PHONETO__';
     if (empty($conf->global->OVH_OLDAPI)) 
     {
-        $tmpurl.='&billingaccount='.$conf->global->OVHC2C_ACCOUNT.'&servicename='.$conf->global->OVHSN_ACCOUNT;
+        $tmpurl.='&billingaccount='.(empty($conf->global->OVHC2C_ACCOUNT)?'???':$conf->global->OVHC2C_ACCOUNT).'&servicename='.(empty($conf->global->OVHSN_ACCOUNT)?'SIPLineNumber':$conf->global->OVHSN_ACCOUNT);
     }
     else
     {

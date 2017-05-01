@@ -62,3 +62,4 @@ ListOfExistingAPIApp=Note: You can find list of already created application on p
 ClickHereToLoginAndGetYourConsumerKey=Click <a href="%s"> here to login and get a new consumer key</a> (You must choose <strong>UNLIMITED</strong> validity)
 Authentication=Authentication
 FromThe=From the
+OvhServiceNameHelp=Put here the SIP line number. Note, if you have several line numbers for different users, keep this field empty and change the value of "SIPLineNumber" into the URL you have to paste into the ClickToDial URL field on each user card (see lower)
