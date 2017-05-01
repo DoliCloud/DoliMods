@@ -104,7 +104,7 @@ else
 {
     $var=true;
 
-    dol_fiche_head($head, 'getinvoices', $langs->trans("Ovh"));
+    dol_fiche_head($head, 'getinvoices', $langs->trans("Ovh"), -1);
     
     if (empty($conf->global->OVH_OLDAPI) && (empty($conf->global->OVHAPPKEY) || empty($conf->global->OVHAPPSECRET) || empty($conf->global->OVHCONSUMERKEY)))
     {
