@@ -132,8 +132,7 @@ print '</tr>';
 // Country
 print '<tr><td>'.$langs->trans("Country").'</td><td colspan="'.(2+(($showlogo || $showbarcode)?0:1)).'" nowrap="nowrap">';
 $img=picto_from_langcode($object->country_code);
-if ($object->isInEEC()) print $form->textwithpicto(($img?$img.' ':'').$object->country,$langs->trans("CountryIsInEEC"),1,0);
-else print ($img?$img.' ':'').$object->country;
+print ($img?$img.' ':'').$object->country;
 print '</td></tr>';
 
 // State
