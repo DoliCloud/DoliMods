@@ -152,7 +152,8 @@ if (! empty($number))
             $conn = new Api($conf->global->OVHAPPKEY, $conf->global->OVHAPPSECRET, $endpoint, $conf->global->OVHCONSUMERKEY);
             $content = (object) array(
                 "calledNumber" => $called,  // who is called
-                "callingNumber"=> $caller   // who calls
+                "callingNumber"=> $caller,   // who calls
+                'intercom' => (empty($conf->global->OVH_CLICKTODIAL_NO_INTERCOM)?true:false)
                 );
             $result = $conn->post('/telephony/'.$billingAccount.'/line/'.$serviceName.'/click2Call', $content);
         }
