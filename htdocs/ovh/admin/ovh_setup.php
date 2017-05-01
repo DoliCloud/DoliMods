@@ -212,7 +212,7 @@ if (! empty($conf->global->OVH_OLDAPI))
 
 $var=true;
 
-dol_fiche_head($head, 'common', $langs->trans("Ovh"));
+dol_fiche_head($head, 'common', $langs->trans("Ovh"), -1);
 
 if (empty($conf->global->OVH_OLDAPI))
 {

@@ -113,7 +113,7 @@ print_fiche_titre($langs->trans('OvhSmsSetup'),$linkback,'setup');
 
 $head=ovhadmin_prepare_head();
 
-dol_fiche_head($head, 'listservers', $langs->trans("Ovh"));
+dol_fiche_head($head, 'listservers', $langs->trans("Ovh"), -1);
 
 if (! empty($conf->global->OVH_OLDAPI) && (empty($conf->global->OVHSMS_NICK) || empty($WS_DOL_URL)))
 {

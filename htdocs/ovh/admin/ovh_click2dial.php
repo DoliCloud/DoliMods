@@ -210,7 +210,8 @@ else
     
     $url='<a href="'.dol_buildpath($tmpurl,2).'" target="_blank">'.dol_buildpath($tmpurl,2).'</a>';
     $message.=$langs->trans("ClickToDialLink",'OVH','').'<br>';
-    $message.=img_picto('','object_globe.png').' <input type="text" class="quatrevingtpercent" name="url" value="'.dol_escape_htmltag(dol_buildpath($tmpurl,2)).'">';
+    $message.=img_picto('','object_globe.png').' <input type="text" class="quatrevingtpercent" id="url" name="url" value="'.dol_escape_htmltag(dol_buildpath($tmpurl,2)).'">';
+    $message.=ajax_autoselect('url');
     $message.='<br>';
     $message.='<br>';
     print $message;
