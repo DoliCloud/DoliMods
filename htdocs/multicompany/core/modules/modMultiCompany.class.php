@@ -131,12 +131,16 @@ class modMultiCompany extends DolibarrModules
   	}
 
 	/**
-     *		Function called when module is enabled.
-     *		The init function add constants, boxes, permissions and menus (defined in constructor) into Dolibarr database.
-     *		It also creates data directories.
-	 *      @return     int             1 if OK, 0 if KO
+	 * Function called when module is enabled.
+	 * The init function adds tabs, constants, boxes, permissions and menus (defined in constructor) into Dolibarr database.
+	 * It also creates data directories
+	 *
+	 * @param string $options   Options when enabling module ('', 'newboxdefonly', 'noboxes')
+     *                          'noboxes' = Do not insert boxes
+     *                          'newboxdefonly' = For boxes, insert def of boxes only and not boxes activation
+	 * @return int				1 if OK, 0 if KO
      */
-	function init()
+	function init($options = '')
 	{
 		$sql = array();
 
@@ -150,12 +154,14 @@ class modMultiCompany extends DolibarrModules
 	}
 
 	/**
-	 *		Function called when module is disabled.
- 	 *      Remove from database constants, boxes and permissions from Dolibarr database.
- 	 *		Data directories are not deleted.
-	 *      @return     int             1 if OK, 0 if KO
+	 * Function called when module is disabled.
+	 * The remove function removes tabs, constants, boxes, permissions and menus from Dolibarr database.
+	 * Data directories are not deleted
+	 *
+	 * @param      string	$options    Options when enabling module ('', 'noboxes')
+	 * @return     int             		1 if OK, 0 if KO
  	 */
-	function remove()
+	function remove($options = '')
 	{
 		$sql = array();
 
