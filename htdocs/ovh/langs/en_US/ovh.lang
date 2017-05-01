@@ -47,11 +47,11 @@ InvoiceFoundIntoDolibarr=Invoice found into Dolibarr: %s
 InvoicePDFFoundIntoDolibarr=Invoice+PDF found into Dolibarr: %s
 ConnectionParameters=Connection parameters
 TryToUseProxy=Using proxy server
-AboutInfo=This module is developped and distributed by Laurent Destailleur for NLTechno, <a href="http://www.nltechno.com">www.nltechno.com</a> (A Dolibarr Preferred Partner company).
+AboutInfo=This module is developped and distributed by Laurent Destailleur for NLTechno, <a href="https://www.nltechno.com">www.nltechno.com</a> (A Dolibarr Preferred Partner company).
 MoreModules=Other modules of same author are available on the official DoliStore market place...
-MoreModulesLink=<a target="_blank" href="http://www.dolistore.com/search.php?search_query=nltechno">Click here to see full list</a>  
+MoreModulesLink=<a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno">Click here to see full list</a>  
 MoreCloudHosting=To use online Dolibarr, choose the secured hosting DoliCloud.
-MoreCloudHostingLink=<a target="_blank" href="http://www.dolicloud.com">Click here for more information</a>
+MoreCloudHostingLink=<a target="_blank" href="https://www.dolicloud.com">Click here for more information</a>
 CompatibleWithDoliDroid=This modules is also compatible with DoliDroid, the Android application for Dolibarr.
 OvhApplicationName=Application name
 OvhApplicationDescription=Application description
@@ -67,3 +67,4 @@ PleaseFillOtherFieldFirst=Please fill the other fields first...
 IfYouChangeHereChangeAlsoClickToDial=If you change data here, don't forget to update also the link into module ClickToDial
 ToGoOnClickToDialSetup=To go on ClickToDial module setup
 OvhServiceNameHelp=Put here the SIP line number. Note, if you have several line numbers for different users, keep this field empty and change the value of "SIPLineNumber" into the URL you have to paste into the ClickToDial URL field on each user card (see lower)
+OVHURLMustNotBeLocal=Warning, URL you use for the application must NOT be a local URL but an URL you can access from internet to have this working.

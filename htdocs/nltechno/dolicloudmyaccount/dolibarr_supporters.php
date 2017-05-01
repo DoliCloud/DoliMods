@@ -100,7 +100,7 @@ $num=mysql_num_rows($resql);
 
 <a href="http://www.destailleur.fr" title="Laurent Destailleur" target="_blank">Destailleur.fr</a><br />
 
-<a href="http://www.nltechno.com" title="NLTechno" target="_blank">NLTechno</a><br />
+<a href="https://www.nltechno.com" title="NLTechno" target="_blank">NLTechno</a><br />
 
 <br />
 Thanks again...

@@ -41,6 +41,7 @@ require_once(NUSOAP_PATH.'/nusoap.php');     // Include SOAP
 
 require __DIR__ . '/../includes/autoload.php';
 use \Ovh\Api;
+use GuzzleHttp\Client as GClient;
 
 
 $langs->load("ovh@ovh");
@@ -155,7 +156,6 @@ else
         }
     }
     
-    
     $serveur = GETPOST('server');
     if ($serveur)
     {
@@ -173,8 +173,12 @@ else
         {
             try
             {
+                $http_client = new GClient();
+                $http_client->setDefaultOption('connect_timeout', empty($conf->global->MAIN_USE_CONNECT_TIMEOUT)?20:$conf->global->MAIN_USE_CONNECT_TIMEOUT);  // Timeout by default of OVH is 5 and it is not enough
+                $http_client->setDefaultOption('timeout', empty($conf->global->MAIN_USE_RESPONSE_TIMEOUT)?30:$conf->global->MAIN_USE_RESPONSE_TIMEOUT);
+         
                 // Get servers list
-                $conn = new Api($conf->global->OVHAPPKEY, $conf->global->OVHAPPSECRET, $endpoint, $conf->global->OVHCONSUMERKEY);
+                $conn = new Api($conf->global->OVHAPPKEY, $conf->global->OVHAPPSECRET, $endpoint, $conf->global->OVHCONSUMERKEY, $http_client);
                 
                 $resultinfo = $conn->get('/dedicated/server/'.$serveur);
                 $resultinfo = dol_json_decode(dol_json_encode($resultinfo), false);
@@ -402,12 +406,17 @@ else
     	}
     	else
     	{
+            $http_client = new GClient();
+            $http_client->setDefaultOption('connect_timeout', empty($conf->global->MAIN_USE_CONNECT_TIMEOUT)?20:$conf->global->MAIN_USE_CONNECT_TIMEOUT);  // Timeout by default of OVH is 5 and it is not enough
+            $http_client->setDefaultOption('timeout', empty($conf->global->MAIN_USE_RESPONSE_TIMEOUT)?30:$conf->global->MAIN_USE_RESPONSE_TIMEOUT);
+         
     	    // Get servers list
         	$conn = new Api(
         	    $conf->global->OVHAPPKEY,
         	    $conf->global->OVHAPPSECRET,
         	    $endpoint,
-        	    $conf->global->OVHCONSUMERKEY);
+        	    $conf->global->OVHCONSUMERKEY,
+        	    $http_client);
         	$result = $conn->get('/dedicated/server/');
     	}    	    	
     	

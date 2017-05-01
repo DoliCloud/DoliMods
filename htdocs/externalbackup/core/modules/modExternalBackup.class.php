@@ -55,7 +55,7 @@ class modExternalBackup extends DolibarrModules
 		$this->name = preg_replace('/^mod/i','',get_class($this));
 		$this->description = "Make external backup on any Cloud services";
 		$this->editor_name = 'NLTechno';
-		$this->editor_url = 'http://www.nltechno.com';
+		$this->editor_url = 'https://www.nltechno.com';
 		
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
 		$this->version = '4.0';

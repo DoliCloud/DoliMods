@@ -53,7 +53,7 @@ class modMemcached extends DolibarrModules
 		$this->name = preg_replace('/^mod/i','',get_class($this));
 		// Module description used if translation string 'ModuleXXXDesc' not found (XXX is id value)
         $this->editor_name = 'NLTechno';
-        $this->editor_url = 'http://www.nltechno.com';
+        $this->editor_url = 'https://www.nltechno.com';
 		$this->description = "Use a memcached server to increase Dolibarr speed (need PHP functions Memcached or Memcache)";
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
 		$this->version = '3.4';

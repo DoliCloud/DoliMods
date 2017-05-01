@@ -54,7 +54,7 @@ class modBilledOnOrders extends DolibarrModules
 		// Module description used if translation string 'ModuleXXXDesc' not found (XXX is id value)
 		$this->description = "Add columns in order list with total invoiced and remain to invoice";
         $this->editor_name = 'NLTechno';
-        $this->editor_url = 'http://www.nltechno.com';
+        $this->editor_url = 'https://www.nltechno.com';
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
 		$this->version = '4.0.0';
 		// Key used in llx_const table to save module status enabled/disabled (XXX is id value)
