@@ -114,7 +114,7 @@ class modTopTen extends DolibarrModules
 			'perms'=>'',			// Use 'perms'=>'$user->rights->mymodule->level1->level2' if you want your menu with a permission rules
 			'target'=>'',
 			'user'=>0);				// 0=Menu for internal users,1=external users, 2=both
-$r++;
+        $r++;
 		$this->menu[$r]=array(	'fk_menu'=>'r=1',		// Use r=value where r is index key used for the parent menu entry (higher parent must be a top menu entry)
 			'type'=>'left',			// This is a Left menu entry
 			'titre'=>'TTClienteDinero',
@@ -126,7 +126,7 @@ $r++;
 			'perms'=>'',			// Use 'perms'=>'$user->rights->mymodule->level1->level2' if you want your menu with a permission rules
 			'target'=>'',
 			'user'=>0);				// 0=Menu for internal users,1=external users, 2=both
-$r++;
+        $r++;
 		$this->menu[$r]=array(	'fk_menu'=>'r=1',		// Use r=value where r is index key used for the parent menu entry (higher parent must be a top menu entry)
 			'type'=>'left',			// This is a Left menu entry
 			'titre'=>'TTClienteFactura',
@@ -138,7 +138,7 @@ $r++;
 			'perms'=>'',			// Use 'perms'=>'$user->rights->mymodule->level1->level2' if you want your menu with a permission rules
 			'target'=>'',
 			'user'=>0);				// 0=Menu for internal users,1=external users, 2=both
-$r++;
+        $r++;
 
 		$this->menu[$r]=array(	'fk_menu'=>'r=0',		// Use r=value where r is index key used for the parent menu entry (higher parent must be a top menu entry)
 			'type'=>'left',			// This is a Left menu entry
@@ -151,7 +151,7 @@ $r++;
 			'perms'=>'',			// Use 'perms'=>'$user->rights->mymodule->level1->level2' if you want your menu with a permission rules
 			'target'=>'',
 			'user'=>0);				// 0=Menu for internal users,1=external users, 2=both
-$r++;
+        $r++;
 		$this->menu[$r]=array(	'fk_menu'=>'r=4',		// Use r=value where r is index key used for the parent menu entry (higher parent must be a top menu entry)
 			'type'=>'left',			// This is a Left menu entry
 			'titre'=>'TTProductoDinero',
@@ -163,7 +163,7 @@ $r++;
 			'perms'=>'',			// Use 'perms'=>'$user->rights->mymodule->level1->level2' if you want your menu with a permission rules
 			'target'=>'',
 			'user'=>0);				// 0=Menu for internal users,1=external users, 2=both
-$r++;
+        $r++;
 		$this->menu[$r]=array(	'fk_menu'=>'r=4',		// Use r=value where r is index key used for the parent menu entry (higher parent must be a top menu entry)
 			'type'=>'left',			// This is a Left menu entry
 			'titre'=>'TTProductoCantidad',
@@ -175,7 +175,7 @@ $r++;
 			'perms'=>'',			// Use 'perms'=>'$user->rights->mymodule->level1->level2' if you want your menu with a permission rules
 			'target'=>'',
 			'user'=>0);				// 0=Menu for internal users,1=external users, 2=both
-$r++;
+        $r++;
 		$this->menu[$r]=array(	'fk_menu'=>'r=0',		// Use r=value where r is index key used for the parent menu entry (higher parent must be a top menu entry)
 			'type'=>'left',			// This is a Left menu entry
 			'titre'=>'TTFactura',
@@ -187,7 +187,7 @@ $r++;
 			'perms'=>'',			// Use 'perms'=>'$user->rights->mymodule->level1->level2' if you want your menu with a permission rules
 			'target'=>'',
 			'user'=>0);				// 0=Menu for internal users,1=external users, 2=both
-$r++;
+        $r++;
 		$this->menu[$r]=array(	'fk_menu'=>'r=7',		// Use r=value where r is index key used for the parent menu entry (higher parent must be a top menu entry)
 			'type'=>'left',			// This is a Left menu entry
 			'titre'=>'TTFacturaDinero',
@@ -199,7 +199,7 @@ $r++;
 			'perms'=>'',			// Use 'perms'=>'$user->rights->mymodule->level1->level2' if you want your menu with a permission rules
 			'target'=>'',
 			'user'=>0);				// 0=Menu for internal users,1=external users, 2=both
-$r++;
+        $r++;
 		$this->menu[$r]=array(	'fk_menu'=>'r=7',		// Use r=value where r is index key used for the parent menu entry (higher parent must be a top menu entry)
 			'type'=>'left',			// This is a Left menu entry
 			'titre'=>'TTFacturaProducto',
@@ -211,16 +211,20 @@ $r++;
 			'perms'=>'',			// Use 'perms'=>'$user->rights->mymodule->level1->level2' if you want your menu with a permission rules
 			'target'=>'',
 			'user'=>0);				// 0=Menu for internal users,1=external users, 2=both
-$r++;
+        $r++;
 	}
 
 	/**
-	 *		\brief      Function called when module is enabled.
-	 *					The init function add constants, boxes, permissions and menus (defined in constructor) into Dolibarr database.
-	 *					It also creates data directories.
-	 *      \return     int             1 if OK, 0 if KO
+	 * Function called when module is enabled.
+	 * The init function adds tabs, constants, boxes, permissions and menus (defined in constructor) into Dolibarr database.
+	 * It also creates data directories
+	 *
+	 * @param string $options   Options when enabling module ('', 'newboxdefonly', 'noboxes')
+     *                          'noboxes' = Do not insert boxes
+     *                          'newboxdefonly' = For boxes, insert def of boxes only and not boxes activation
+	 * @return int				1 if OK, 0 if KO
 	 */
-	function init()
+	function init($options = '')
 	{
 		$sql = array();
 
@@ -230,12 +234,14 @@ $r++;
 	}
 
 	/**
-	 *		\brief		Function called when module is disabled.
-	 *              	Remove from database constants, boxes and permissions from Dolibarr database.
-	 *					Data directories are not deleted.
-	 *      \return     int             1 if OK, 0 if KO
+	 * Function called when module is disabled.
+	 * The remove function removes tabs, constants, boxes, permissions and menus from Dolibarr database.
+	 * Data directories are not deleted
+	 *
+	 * @param      string	$options    Options when enabling module ('', 'noboxes')
+	 * @return     int             		1 if OK, 0 if KO
 	 */
-	function remove()
+	function remove($options = '')
 	{
 		$sql = array();
 

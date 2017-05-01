@@ -66,3 +66,4 @@ FromThe=From the
 PleaseFillOtherFieldFirst=Please fill the other fields first...
 IfYouChangeHereChangeAlsoClickToDial=If you change data here, don't forget to update also the link into module ClickToDial
 ToGoOnClickToDialSetup=To go on ClickToDial module setup
+OvhServiceNameHelp=Put here the SIP line number. Note, if you have several line numbers for different users, keep this field empty and change the value of "SIPLineNumber" into the URL you have to paste into the ClickToDial URL field on each user card (see lower)
