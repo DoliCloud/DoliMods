@@ -1,5 +1,5 @@
 <?php
-/* Copyright (C) 2008-2013 Laurent Destailleur  <eldy@users.sourceforge.net>
+/* Copyright (C) 2008-2017 Laurent Destailleur  <eldy@users.sourceforge.net>
  *
  * Licensed under the GNU GPL v3 or higher (See file gpl-3.0.html)
  */
@@ -74,7 +74,7 @@ class modGoogle extends DolibarrModules
 		$this->depends = array();		// List of modules id that must be enabled if this module is enabled
 		$this->requiredby = array();	// List of modules id to disable if this one is disabled
 		$this->phpmin = array(5,1);					// Minimum version of PHP required by module
-		$this->need_dolibarr_version = array(3,6,0);	// Minimum version of Dolibarr required by module
+		$this->need_dolibarr_version = array(3,6,3);	// Minimum version of Dolibarr required by module
 		$this->langfiles = array("google@google");
 
 		// Constants
