@@ -70,19 +70,19 @@ dol_fiche_head($head, 'tababout', '');
 
 print $langs->trans("AboutInfo").'<br>';
 print '<br>';
-//$url='http://www.nltechno.com';
+//$url='https://www.nltechno.com';
 //print '<a href="'.$url.'" target="_blank"><img border="0" width="60" src="../img/nltechno.gif"></a><br><br>';
 print '<br>';
 
 print $langs->trans("MoreModules").'<br>';
 print '&nbsp; &nbsp; &nbsp; '.$langs->trans("MoreModulesLink").'<br>';
-$url='http://www.dolistore.com/search.php?search_query=nltechno';
+$url='https://www.dolistore.com/search.php?search_query=nltechno';
 print '<a href="'.$url.'" target="_blank"><img border="0" width="180" src="'.DOL_URL_ROOT.'/theme/dolistore_logo.png"></a><br><br><br>';
 
 print '<br>';
 print $langs->trans("MoreCloudHosting").'<br>';
 print '&nbsp; &nbsp; &nbsp; '.$langs->trans("MoreCloudHostingLink").'<br>';
-$url='http://www.dolicloud.com';
+$url='https://www.dolicloud.com';
 print '<a href="'.$url.'" target="_blank"><img border="0" width="180" src="../img/dolicloud_logo.png"></a><br><br><br>';
 
 print '<br>';

@@ -53,7 +53,7 @@ if ($_POST["action"] == 'getsources')
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-  <base href="http://www.nltechno.com/" />
+  <base href="https://www.nltechno.com/" />
   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
   <meta name="robots" content="index, follow" />
   <meta name="keywords" content="dolibarr, modules, update" />
@@ -62,14 +62,14 @@ if ($_POST["action"] == 'getsources')
   <meta name="generator" content="Joomla! 1.5 - Open Source Content Management" />
   <title>NLTechno, the OpenSource company</title>
   <link href="/favicon.ico" rel="shortcut icon" type="image/x-icon" />
-  <link rel="stylesheet" href="http://www.nltechno.com/modules/mod_socialmedialinks/style.css" type="text/css" />
-  <link rel="stylesheet" href="http://www.nltechno.com/modules/mod_jflanguageselection/tmpl/mod_jflanguageselection.css" type="text/css" />
+  <link rel="stylesheet" href="https://www.nltechno.com/modules/mod_socialmedialinks/style.css" type="text/css" />
+  <link rel="stylesheet" href="https://www.nltechno.com/modules/mod_jflanguageselection/tmpl/mod_jflanguageselection.css" type="text/css" />
 <meta http-equiv="Content-Type" content="text/html" charset=utf-8 />
 <meta name="Updowner-verification" content="1328821adac0666e174e84809a4cc72e" />
 <meta name="verify-v1" content="5uTEtcSaRHlZVnb3L4x4QrpRzdw3zMZ51+mJxf/4Cd8=" />
 <meta name="verify-v1" content="ygCOli7T1nnmmIz2ikasGV2Y+1DLmLcsblrDp+tSo/Q=" />
 <meta name="msvalidate.01" content="DE3DAF65CA33EDC146378EBA3E0CAA72" />
-<link rel="stylesheet" href="http://www.nltechno.com/templates/nltechno/css/template_css.css" type="text/css"/><!-- Google analytics -->
+<link rel="stylesheet" href="https://www.nltechno.com/templates/nltechno/css/template_css.css" type="text/css"/><!-- Google analytics -->
 </head>
 <body class="body">
 
@@ -159,7 +159,7 @@ if ($_POST["action"] == 'getsources')
 <div class="plusone">
 <!-- Plus one -->
 <!--
-<g:plusone size="small" href="http://www.dolicloud.com/"></g:plusone>
+<g:plusone size="small" href="https://www.dolicloud.com/"></g:plusone>
 <script type="text/javascript">
 (function() {
 var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
@@ -174,7 +174,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po
 			<table cellpadding="0" cellspacing="0" class="moduletablejflanguage">
 			<tr>
 			<td>
-				<div id="jflanguageselection"><div class="rawimages"><span><a href="http://www.nltechno.com/en"><img src="/media/com_joomfish/default/flags/en.gif" alt="English" title="English" /></a></span><span id="active_language"><a href="http://www.nltechno.com/fr"><img src="/media/com_joomfish/default/flags/fr.gif" alt="Français" title="Français" /></a></span></div></div><!--JoomFish V2.2.3 (Feng Huang)-->
+				<div id="jflanguageselection"><div class="rawimages"><span><a href="https://www.nltechno.com/en"><img src="/media/com_joomfish/default/flags/en.gif" alt="English" title="English" /></a></span><span id="active_language"><a href="https://www.nltechno.com/fr"><img src="/media/com_joomfish/default/flags/fr.gif" alt="Français" title="Français" /></a></span></div></div><!--JoomFish V2.2.3 (Feng Huang)-->
 <!-- &copy; 2003-2012 Think Network, released under the GPL. -->
 <!-- More information: at http://www.joomfish.net -->
 			</td>
@@ -245,7 +245,7 @@ for all modules and softwares provided by NLTechno
 <div style="clear: both">
 <br>
 To find and buy a module provided by NLTechno, go on: 
-<a href="http://www.dolistore.com/search.php?orderby=position&orderway=desc&search_query=nltechno">NLTechno modules in DoliStore</a> 
+<a href="https://www.dolistore.com/search.php?orderby=position&orderway=desc&search_query=nltechno">NLTechno modules in DoliStore</a> 
 </div>
 </div>
 
@@ -315,10 +315,10 @@ Enter here the <b>'Download key'</b> found into the menu "About" of application:
 
 <ul id="socialmedialinks" class="32">
 <li>
-<a href="https://plus.google.com/+NLTechno" target="_blank" rel="nofollow"><img src="http://www.nltechno.com/modules/mod_socialmedialinks/icons/32/google.png" width="32px" height="32px" alt="Follow us on Google"></a>
+<a href="https://plus.google.com/+NLTechno" target="_blank" rel="nofollow"><img src="https://www.nltechno.com/modules/mod_socialmedialinks/icons/32/google.png" width="32px" height="32px" alt="Follow us on Google"></a>
 </li>
 <li>
-<a href="https://twitter.com/nltechno_sarl" target="_blank"  rel="nofollow" ><img src="http://www.nltechno.com/modules/mod_socialmedialinks/icons/32/twitter.png" width="32px" height="32px" alt="Follow us on Twitter" /></a>
+<a href="https://twitter.com/nltechno_sarl" target="_blank"  rel="nofollow" ><img src="https://www.nltechno.com/modules/mod_socialmedialinks/icons/32/twitter.png" width="32px" height="32px" alt="Follow us on Twitter" /></a>
 </li>
 </ul>
 
@@ -369,7 +369,7 @@ Enter here the <b>'Download key'</b> found into the menu "About" of application:
 			<td>
 				<p>&nbsp;</p>
 <p>&nbsp;</p>
-<p><a href="http://www.dolicloud.com" target="_blank"><img style="display: block; margin-left: auto; margin-right: auto;" alt="DoliCloud ERP &amp; CRM hosting solution" height="37" width="120" src="/images/stories/dolicloud_logo_120x37.png" title="DoliCloud ERP &amp; CRM hosting solution" /></a></p>			</td>
+<p><a href="https://www.dolicloud.com" target="_blank"><img style="display: block; margin-left: auto; margin-right: auto;" alt="DoliCloud ERP &amp; CRM hosting solution" height="37" width="120" src="/images/stories/dolicloud_logo_120x37.png" title="DoliCloud ERP &amp; CRM hosting solution" /></a></p>			</td>
 		</tr>
 		</table>
 		</td>

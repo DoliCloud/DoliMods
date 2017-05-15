@@ -39,6 +39,7 @@ require_once(NUSOAP_PATH.'/nusoap.php');     // Include SOAP
 
 require __DIR__ . '/../includes/autoload.php';
 use \Ovh\Api;
+use GuzzleHttp\Client as GClient;
 
 
 $action=GETPOST('action');

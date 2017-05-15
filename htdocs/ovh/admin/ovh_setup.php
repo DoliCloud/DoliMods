@@ -39,6 +39,7 @@ require_once(NUSOAP_PATH.'/nusoap.php');     // Include SOAP
 
 require __DIR__ . '/../includes/autoload.php';
 use \Ovh\Api;
+use GuzzleHttp\Client as GClient;
 
 // Load traductions files requiredby by page
 $langs->load("admin");
@@ -154,8 +155,14 @@ if ($action == 'requestcredential')
     
     // Get credentials
     try {
-        //$conn = new Api($applicationKey, $applicationSecret, $endpoint, null, $http_client);  // We should choose the handler by setting a new for $http_client here
-        $conn = new Api($applicationKey, $applicationSecret, $endpoint);
+        dol_syslog("Request credential to endpoint ".$endpoint);
+        dol_syslog("applicationKey=".$applicationKey." applicationSecret=".$applicationKey);
+        
+        $http_client = new GClient();
+        $http_client->setDefaultOption('connect_timeout', empty($conf->global->MAIN_USE_CONNECT_TIMEOUT)?20:$conf->global->MAIN_USE_CONNECT_TIMEOUT);  // Timeout by default of OVH is 5 and it is not enough
+        $http_client->setDefaultOption('timeout', empty($conf->global->MAIN_USE_RESPONSE_TIMEOUT)?30:$conf->global->MAIN_USE_RESPONSE_TIMEOUT);
+        
+        $conn = new Api($applicationKey, $applicationSecret, $endpoint, null, $http_client);    // consumer_key is not set to force to get a new one
         $credentials = $conn->requestCredentials($rights, $redirect_uri);
         
         $_SESSION['ovh_consumer_key']=$credentials["consumerKey"];
@@ -303,6 +310,7 @@ else
     {
         if (empty($conf->global->OVHCONSUMERKEY)) print img_warning().' ';
         print $langs->trans("ClickHereToLoginAndGetYourConsumerKey", $_SERVER["PHP_SELF"].'?action=requestcredential');
+        //print '<br>'.info_admin($langs->trans('OVHURLMustNotBeLocal'));   Can work with a local URL.
     }    
     print '</td></tr>';
 }

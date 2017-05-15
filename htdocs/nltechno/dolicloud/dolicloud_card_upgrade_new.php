@@ -175,7 +175,7 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 	if ($plan->price_instance) print ' '.$plan->price_instance.' '.currency_name('EUR').'/instance';
 	if ($plan->price_user) print ' '.$plan->price_user.' '.currency_name('EUR').'/user';
 	if ($plan->price_gb) print ' '.$plan->price_gb.' '.currency_name('EUR').'/GB';
-	print ' <a href="http://www.dolicloud.com/fr/component/content/article/134-pricing" target="_blank">('.$langs->trans("Prices").')';
+	print ' <a href="https://www.dolicloud.com/fr/component/content/article/134-pricing" target="_blank">('.$langs->trans("Prices").')';
 	print '</td>';
 	print '</tr>';
 

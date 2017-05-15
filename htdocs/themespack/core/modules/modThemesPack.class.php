@@ -57,7 +57,7 @@ class modThemesPack extends DolibarrModules
 		// Module description, used if translation string 'ModuleXXXDesc' not found (where XXX is value of numeric property 'numero' of module)
 		$this->description = "Add more skins";
         $this->editor_name = 'NLTechno';
-        $this->editor_url = 'http://www.nltechno.com';
+        $this->editor_url = 'https://www.nltechno.com';
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
 		$this->version = '3.4';
 		// Key used in llx_const table to save module status enabled/disabled (where NewsSubmitter is value of property name of module in uppercase)
