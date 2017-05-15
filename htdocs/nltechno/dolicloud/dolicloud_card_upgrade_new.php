@@ -331,30 +331,29 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 	// Upgrade link
 	$upgradestringtoshow=$upgradestring.' test';
 	print 'Upgrade version line string (remplacer "test" par "confirmunlock" pour exécuter réellement)<br>';
-	print '<input type="text" name="upgradestring" value="'.$upgradestringtoshow.'" size="160"><br>';
-
+	print '<input type="text" id="upgradestring" name="upgradestring" value="'.$upgradestringtoshow.'" size="160"><br>';
+	//ajax_autoselect("upgradestring", 0);
 	print '<br>';
 
 	// Document restore
 	$sftprestorestring='rsync -n -v -a dolibarr_documents/* '.$object->username_web.'@'.$object->hostname_web.':'.$object->fs_path.'/documents';
 	print 'Rsync to copy/overwrite document dir (remove -n to execute really):<br>';
-	print '<input type="text" name="sftprestorestring" value="'.$sftprestorestring.'" size="160"><br>';
-
+	print '<input type="text" id="sftprestorestring" name="sftprestorestring" value="'.$sftprestorestring.'" size="160"><br>';
+	//ajax_autoselect("sftprestorestring", 0);
 	print '<br>';
 
 	// Deploy module
 	$sftpdeploystring='rsync -n -v -a pathtohtdocsmodule/* '.$object->username_web.'@'.$object->hostname_web.':'.$object->fs_path.'/htdocs/namemodule';
 	print 'Rsync to install or overwrite module (remove -n to execute really):<br>';
-	print '<input type="text" name="sftpdeploystring" value="'.$sftpdeploystring.'" size="160"><br>';
-
+	print '<input type="text" id="sftpdeploystring" name="sftpdeploystring" value="'.$sftpdeploystring.'" size="160"><br>';
+	//ajax_autoselect("sftpdeploystring", 0);
 	print '<br>';
 
 	// Mysql Restore
 	$mysqlresotrecommand='mysql -A -u '.$object->username_db.' -p\''.$object->password_db.'\' -h '.$object->hostname_db.' -D '.$object->database_db.' < filetorestore';
 	print 'Mysql overwrite database:<br>';
-	print '<input type="text" name="mysqlrestorecommand" value="'.$mysqlresotrecommand.'" size="160"><br>';
-
-
+	print '<input type="text" id="mysqlrestorecommand" name="mysqlrestorecommand" value="'.$mysqlresotrecommand.'" size="160"><br>';
+	//ajax_autoselect("mysqlrestorecommand", 0);
 }
 
 
