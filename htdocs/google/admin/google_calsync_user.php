@@ -177,6 +177,7 @@ if (preg_match('/^test/',$action))
 
 if (GETPOST('cleanup'))
 {
+    $error=0;
 	$nbdeleted=0;
 
 	$userlogin = empty($object->conf->GOOGLE_LOGIN)?'':$object->conf->GOOGLE_LOGIN;
@@ -199,7 +200,8 @@ if (GETPOST('cleanup'))
 		$errors[]=$txterror;
 		$error++;
 	}
-	else
+	
+	if (! $error)
 	{
 		try {
 			$service = new Google_Service_Calendar($servicearray['client']);
@@ -242,19 +244,17 @@ if (GETPOST('cleanup'))
 		}
 	}
 
+	setEventMessage($langs->trans("XRecordDeleted",$nbdeleted), 'mesgs');
 	if ($error)
 	{
 		setEventMessage($errors, 'errors');
-	}
-	else
-	{
-		setEventMessage($langs->trans("XRecordDeleted",$nbdeleted), 'mesgs');
 	}
 }
 
 if ($action == 'pushallevents')
 {
-	$nbinserted=0;
+    $error=0;
+    $nbinserted=0;
 
 	$userlogin = empty($object->conf->GOOGLE_LOGIN)?'':$object->conf->GOOGLE_LOGIN;
 
@@ -275,7 +275,8 @@ if ($action == 'pushallevents')
 		dol_syslog($txterror, LOG_ERR);
 		$error++;
 	}
-	else
+	
+	if (! $error)
 	{
 		try {
 			$service = new Google_Service_Calendar($servicearray['client']);
@@ -349,6 +350,8 @@ if ($action == 'pushallevents')
 // Import last 50 modified events
 if ($action == 'syncfromgoogle')
 {
+    $error=0;
+    
 	//$object = $user;		// $object = user for synch
 	$userlogin = empty($object->conf->GOOGLE_LOGIN)?'':$object->conf->GOOGLE_LOGIN;
 
