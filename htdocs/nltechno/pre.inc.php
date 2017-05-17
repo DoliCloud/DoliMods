@@ -26,6 +26,8 @@ function llxHeader($head = "", $title="", $help_url='')
 	global $conf,$langs;
 	$langs->load("agenda");
 
+    print '<body id="mainbody">' . "\n";
+
 	top_menu($head, $title);
 
 	require_once DOL_DOCUMENT_ROOT.'/core/class/menu.class.php';

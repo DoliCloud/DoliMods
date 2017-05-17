@@ -54,6 +54,8 @@ function llxHeader($head = '', $title='', $help_url='', $target='', $disablejs=0
 
 	top_htmlhead($head, $title, $disablejs, $disablehead, $arrayofjs, $arrayofcss);	// Show html headers
 
+    print '<body id="mainbody">' . "\n";
+
 	// top menu and left menu area
 	if (empty($conf->global->MAIN_HIDE_TOP_MENU))
 	{

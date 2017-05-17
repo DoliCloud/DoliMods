@@ -31,4 +31,11 @@ if (! $res && preg_match('/\/nltechno([^\/]*)\//',$_SERVER["PHP_SELF"],$reg)) $r
 if (! $res) die("Include of main fails");
 
 top_htmlhead("","");
+
+print '<body id="mainbody">' . "\n";
+
 top_menu("","","_top");
+
+print '</body>';
+
+$db->close();
