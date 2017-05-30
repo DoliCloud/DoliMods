@@ -45,10 +45,10 @@ function ovhadmin_prepare_head()
 	$head[$h][2] = 'sms';
 	$h++;
 
-	$head[$h][0] = dol_buildpath("/ovh/admin/ovh_listinfoserver.php",1);
+	/*$head[$h][0] = dol_buildpath("/ovh/admin/ovh_listinfoserver.php",1);
 	$head[$h][1] = $langs->trans("OvhDedicated");
 	$head[$h][2] = 'listservers';
-	$h++;
+	$h++;*/
 
    	$head[$h][0] = dol_buildpath("/ovh/admin/ovh_importinvoice.php",1);
    	$head[$h][1] = $langs->trans("OvhGetInvoices");
@@ -66,4 +66,29 @@ function ovhadmin_prepare_head()
 	$h++;
 
 	return $head;
+}
+
+
+/**
+ *  Define head array for tabs of ovh tools setup pages
+ *
+ *  @return			Array of head
+ */
+function ovhsysadmin_prepare_head()
+{
+    global $langs, $conf, $user;
+    $h = 0;
+    $head = array();
+
+    $head[$h][0] = dol_buildpath("/ovh/ovh_listinfoserver.php",1).'?mode=dedicated';
+    $head[$h][1] = $langs->trans("OvhDedicated");
+    $head[$h][2] = 'dedicated';
+    $h++;
+
+   	$head[$h][0] = dol_buildpath("/ovh/ovh_listinfoserver.php",1).'?mode=publiccloud';
+   	$head[$h][1] = $langs->trans("OvhPublicCloud");
+   	$head[$h][2] = 'publiccloud';
+   	$h++;
+
+   	return $head;
 }

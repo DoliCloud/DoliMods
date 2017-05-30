@@ -143,6 +143,7 @@ if ($action == 'requestcredential')
         (object) ['method'    => 'GET', 'path'      => '/sms*' ],
         (object) ['method'    => 'GET', 'path'      => '/telephony*' ],
         (object) ['method'    => 'GET', 'path'      => '/dedicated/server*' ],
+        (object) ['method'    => 'GET', 'path'      => '/cloud*' ],
         (object) ['method'    => 'GET', 'path'      => '/ip*' ],
         (object) ['method'    => 'POST', 'path'      => '/sms*' ],
         (object) ['method'    => 'POST', 'path'      => '/telephony*' ],
@@ -234,7 +235,7 @@ if (! empty($conf->global->OVH_OLDAPI))
     // Old API
     
     print '<tr class="liste_titre">';
-    print '<td>'.$langs->trans("Parameter").'</td>';
+    print '<td class="titlefield">'.$langs->trans("Parameter").'</td>';
     print '<td>'.$langs->trans("Value").'</td>';
     print '<td></td>';
     print "</tr>\n";
@@ -264,7 +265,7 @@ else
     // New API
     
     $var=!$var;
-    print '<tr '.$bc[$var].'><td width="200px" class="fieldrequired">';
+    print '<tr '.$bc[$var].'><td class="titlefield fieldrequired">';
     print $langs->trans("OvhApplicationName").'</td><td>';
     print '<input size="64" type="text" name="OVHAPPNAME" value="'.$conf->global->OVHAPPNAME.'">';
     print '</td><td>'.$langs->trans("Example").': My App';
