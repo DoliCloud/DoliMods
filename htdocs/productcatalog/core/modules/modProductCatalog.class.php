@@ -50,7 +50,7 @@ class modProductCatalog extends DolibarrModules
 
 		// Id for module (must be unique).
 		// Use here a free id (See in Home -> System information -> Dolibarr for list of used modules id).
-		$this->numero = 500000;		// TODO Go on page http://wiki.dolibarr.org/index.php/List_of_modules_id to reserve id number for your module
+		$this->numero = 101320;		// TODO Go on page http://wiki.dolibarr.org/index.php/List_of_modules_id to reserve id number for your module
 		// Key text used to identify module (for permissions, menus, etc...)
 		$this->rights_class = 'productcatalog';
 
@@ -69,7 +69,7 @@ class modProductCatalog extends DolibarrModules
 		$this->descriptionlong = "ProductCatalogDescription (Long)";
 		$this->editor_name = 'Editor name';
 		$this->editor_url = 'https://www.example.com';
-		
+
 		// Possible values for version are: 'development', 'experimental', 'dolibarr', 'dolibarr_deprecated' or a version string like 'x.y.z'
 		$this->version = '1.0';
 		// Key used in llx_const table to save module status enabled/disabled (where PRODUCTCATALOG is value of property name of module in uppercase)
@@ -93,8 +93,8 @@ class modProductCatalog extends DolibarrModules
 									'barcode' => 0,                                  	// Set this to 1 if module has its own barcode directory (core/modules/barcode)
 									'models' => 0,                                   	// Set this to 1 if module has its own models directory (core/modules/xxx)
 									'css' => array('/productcatalog/css/productcatalog.css.php'),	// Set this to relative path of css file if module has its own css file
-	 								'js' => array('/productcatalog/js/productcatalog.js'),          // Set this to relative path of js file if module must load a js on all pages
-									'hooks' => array('hookcontext1','hookcontext2') 	// Set here all hooks context managed by module. You can also set hook context 'all'
+	 								'js' => array('/productcatalog/js/productcatalog.js'),                // Set this to relative path of js file if module must load a js on all pages
+									'hooks' => array('productlist','servicelist','productservicelist') 	  // Set here all hooks context managed by module. You can also set hook context 'all'
 		                        );
 
 		// Data directories to create when module is enabled.
@@ -151,7 +151,7 @@ class modProductCatalog extends DolibarrModules
         	$conf->productcatalog=new stdClass();
         	$conf->productcatalog->enabled=0;
         }
-        
+
         // Dictionaries
 		$this->dictionaries=array();
         /* Example:

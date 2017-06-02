@@ -20,10 +20,10 @@
 
 # Module label 'ModuleXXXName'
 # (where XXX is value of numeric property 'numero' of module)
-Module500000Name = Mon module
+ModuleProductCatalogName = Catalogue produits
 # Module description 'ModuleXXXDesc'
 # (where XXX is value of numeric property 'numero' of module)
-Module500000Desc = Description de mon module
+ModuleProductCatalogDesc = Description de mon module
 
 #
 # Page d'administration
