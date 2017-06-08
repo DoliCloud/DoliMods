@@ -84,12 +84,14 @@ class modOvh extends DolibarrModules
 		$this->langfiles = array("ovh@ovh");
 
 		// Constants
+		// List of particular constants to add when module is enabled (key, 'chaine', value, desc, visible, 'current' or 'allentities', deleteonunactive)
+		// Example: $this->const=array(0=>array('MYMODULE_MYNEWCONST1','chaine','myvalue','This is a constant to add', 1, 'allentities', 1),
+		//                             1=>array('MYMODULE_MYNEWCONST2','chaine','myvalue','This is another constant to add', 0, 'current', 0)
 		$this->const = array(0=>array('MAIN_MODULE_OVH_SMS','chaine','ovh','This is to enable OVH SMS engine',0,'current',1),
-		                     1=>array('MAIN_SMS_SENDMODE','chaine','ovh','This is to enable OVH SMS engine',0),
-							 2=>array('MAIN_MENU_ENABLE_MODULETOOLS','chaine','ovh','To enable module tools entry',0,'allentities',1)
+		                     1=>array('MAIN_SMS_SENDMODE','chaine','ovh','This is to enable OVH SMS engine',0,'current',0),
+		                     2=>array('MAIN_SMS_DEBUG','chaine','ovh','This is to enable OVH SMS debug',0,'allentities',0),
+							 3=>array('MAIN_MENU_ENABLE_MODULETOOLS','chaine','ovh','To enable module tools entry',0,'allentities',1)
 		);			// List of particular constants to add when module is enabled
-		//Example: $this->const=array(0=>array('MYMODULE_MYNEWCONST1','chaine','myvalue','This is a constant to add',0),
-		//                            1=>array('MYMODULE_MYNEWCONST2','chaine','myvalue','This is another constant to add',0) );
 
 		// Array to add new pages in new tabs
 		// Example: $this->tabs = array('objecttype:+tabname1:Title1:langfile@mymodule:$user->rights->mymodule->read:/mymodule/mynewtab1.php?id=__ID__',  // To add a new tab identified by code tabname1
@@ -139,13 +141,18 @@ class modOvh extends DolibarrModules
 		$this->rights[$r][3] = 0;
 		$this->rights[$r][4] = 'send';
 		$r++;
-		
+
 		$this->rights[$r][0] = 101332;
 		$this->rights[$r][1] = 'Import Invoice';
 		$this->rights[$r][3] = 0;
 		$this->rights[$r][4] = 'importinvoice';
 		$r++;
-		
+
+		$this->rights[$r][0] = 101333;
+		$this->rights[$r][1] = 'Administration of OVH servers';
+		$this->rights[$r][3] = 0;
+		$this->rights[$r][4] = 'sysadmin';
+		$r++;
 
 		// Main menu entries
 		$r=0;
@@ -157,6 +164,18 @@ class modOvh extends DolibarrModules
 									'position'=>500,
 									'enabled'=>'$conf->ovh->enabled',  // Define condition to show or hide menu entry. Use '$conf->mymodule->enabled' if entry must be visible if module is enabled. Use '$leftmenu==\'system\'' to show if leftmenu system is selected.
 									'perms'=>'$user->rights->ovh->importinvoice',	// Use 'perms'=>'$user->rights->mymodule->level1->level2' if you want your menu with a permission rules
+									'target'=>'',
+									'user'=>2);				                // 0=Menu for internal users, 1=external users, 2=both
+		$r++;
+
+		$this->menu[$r]=array(	'fk_menu'=>'fk_mainmenu=tools',		    // Use 'fk_mainmenu=xxx' or 'fk_mainmenu=xxx,fk_leftmenu=yyy' where xxx is mainmenucode and yyy is a leftmenucode
+									'type'=>'left',			                // This is a Left menu entry
+									'titre'=>'OvhServers',
+									'url'=>'/ovh/ovh_listinfoserver.php',
+									'langs'=>'ovh@ovh',	        // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
+									'position'=>500,
+									'enabled'=>'$conf->ovh->enabled',  // Define condition to show or hide menu entry. Use '$conf->mymodule->enabled' if entry must be visible if module is enabled. Use '$leftmenu==\'system\'' to show if leftmenu system is selected.
+									'perms'=>'$user->rights->ovh->sysadmin',	// Use 'perms'=>'$user->rights->mymodule->level1->level2' if you want your menu with a permission rules
 									'target'=>'',
 									'user'=>2);				                // 0=Menu for internal users, 1=external users, 2=both
 		$r++;

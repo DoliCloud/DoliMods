@@ -39,11 +39,14 @@ function numberwords_completesubstitutionarray(&$substitutionarray,$langs,$objec
 	if (is_object($object))
 	{
 		$numbertext=$langs->getLabelFromNumber($object->total_ttc,1);
-		$substitutionarray['__TOTAL_TTC_WORDS__']=$numbertext;
+		$substitutionarray['__TOTAL_TTC_WORDS__']=$numbertext;    // deprecated
+		$substitutionarray['__AMOUNT_TEXT__']=$numbertext;
 		$numbertext=$langs->getLabelFromNumber($object->total_ht,1);
-		$substitutionarray['__TOTAL_HT_WORDS__']=$numbertext;
+		$substitutionarray['__TOTAL_HT_WORDS__']=$numbertext;    // deprecated
+		$substitutionarray['__AMOUNT_WO_TAX_TEXT__']=$numbertext;
 		$numbertext=$langs->getLabelFromNumber(((! empty($object->total_vat))?$object->total_vat:$object->total_tva),1);
-		$substitutionarray['__TOTAL_VAT_WORDS__']=$numbertext;
+		$substitutionarray['__TOTAL_VAT_WORDS__']=$numbertext;    // deprecated
+		$substitutionarray['__AMOUNT_VAT_TEXT__']=$numbertext;
 		$numbertext=$langs->getLabelFromNumber((! empty($object->number))?$object->number:'',0);
 		$substitutionarray['__NUMBER_WORDS__']=$numbertext;
 	}
@@ -101,18 +104,18 @@ function numberwords_getLabelFromNumber($langs,$number,$isamount=0)
 	// Overwrite label of currency with ours
 	$labelcurrencysing=$langs->transnoentitiesnoconv("CurrencySing".$conf->currency);
 	//print "CurrencySing".$conf->currency."=>".$labelcurrencysing;
-	if ($labelcurrencysing && $labelcurrencysing != -1 && $labelcurrencysing != 'CurrencySing'.$conf->currency) 
+	if ($labelcurrencysing && $labelcurrencysing != -1 && $labelcurrencysing != 'CurrencySing'.$conf->currency)
 	{
 	    $handle->labelcurrencysing=$labelcurrencysing;
 	}
 	$labelcurrency=$langs->transnoentitiesnoconv("Currency".$conf->currency);
-	if ($labelcurrency && $labelcurrency != -1 && $labelcurrency !='Currency'.$conf->currency) 
+	if ($labelcurrency && $labelcurrency != -1 && $labelcurrency !='Currency'.$conf->currency)
 	{
 	    $handle->labelcurrency=$labelcurrency;
 	}
 	if (empty($handle->labelcurrencysing)) $handle->labelcurrencysing=$handle->labelcurrency;
 	if (empty($handle->labelcurrency)) $handle->labelcurrency=$handle->labelcurrencysing;
-	
+
 	// Overwrite label of decimals to ours
 	//print $langs->transnoentitiesnoconv("Currency".ucfirst($handle->labelcents)."Sing".$conf->currency);
 	$labelcurrencycentsing=$langs->transnoentitiesnoconv("Currency".ucfirst($handle->labelcents)."Sing".$conf->currency);
