@@ -14,7 +14,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  * https://www.ovh.com/fr/soapi-to-apiv6-migration/
  */
 
@@ -134,7 +134,7 @@ elseif (empty($conf->global->OVH_OLDAPI) && (empty($conf->global->OVHAPPKEY) || 
 else
 {
     $serveur = GETPOST('server');
-    
+
     require_once(DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php');
     $params=getSoapParams();
     ini_set('default_socket_timeout', $params['response_timeout']);
@@ -145,16 +145,16 @@ else
         try {
             $language="en";
             $multisession=false;
-    
+
             //login
             $session = $soap->login($conf->global->OVHSMS_NICK, $conf->global->OVHSMS_PASS, $language, $multisession);
             //if ($session) print '<div class="ok">'.$langs->trans("OvhSmsLoginSuccessFull").'</div><br>';
             if (! $session) print '<div class="error">Error login did not return a session id</div><br>';
-    
+
             //logout
             //$soap->logout($session);
             //  echo "logout successfull\n";
-    
+
         }
         catch(Exception $e)
         {
@@ -164,17 +164,17 @@ else
             print '</div>';
         }
     }
-    
+
     if ($serveur)
     {
         if (! empty($conf->global->OVH_OLDAPI))
         {
         	$resultinfo = $soap->dedicatedInfo($session, $serveur);
-    
+
         	$resultrev = $soap->dedicatedReverseList($session, $serveur);
-    
+
         	$resultnetboot = $soap->dedicatedNetbootInfo($session, $serveur);
-    
+
         	//$resultcapa = $soap->dedicatedCapabilitiesGet($session, $serveur);
         }
         else
@@ -184,39 +184,39 @@ else
                 $http_client = new GClient();
                 $http_client->setDefaultOption('connect_timeout', empty($conf->global->MAIN_USE_CONNECT_TIMEOUT)?20:$conf->global->MAIN_USE_CONNECT_TIMEOUT);  // Timeout by default of OVH is 5 and it is not enough
                 $http_client->setDefaultOption('timeout', empty($conf->global->MAIN_USE_RESPONSE_TIMEOUT)?30:$conf->global->MAIN_USE_RESPONSE_TIMEOUT);
-         
+
                 // Get servers list
                 $conn = new Api($conf->global->OVHAPPKEY, $conf->global->OVHAPPSECRET, $endpoint, $conf->global->OVHCONSUMERKEY, $http_client);
-                
+
                 if ($mode == 'publiccloud')
                 {
                     $resultinfo = $conn->get('/cloud/project/'.$project.'/instance/'.$serveur);
-                    $resultinfo = dol_json_decode(dol_json_encode($resultinfo), false);
+                    $resultinfo = json_decode(json_encode($resultinfo), false);
                 }
                 else
                 {
                     $resultinfo = $conn->get('/dedicated/server/'.$serveur);
-                    $resultinfo = dol_json_decode(dol_json_encode($resultinfo), false);
-    
+                    $resultinfo = json_decode(json_encode($resultinfo), false);
+
                     $resultinfo2 = $conn->get('/dedicated/server/'.$serveur.'/specifications/network');
-                    $resultinfo2 = dol_json_decode(dol_json_encode($resultinfo2), false);
-                    
+                    $resultinfo2 = json_decode(json_encode($resultinfo2), false);
+
                     $resultrev = $conn->get('/ip/');
-                    $resultrev = dol_json_decode(dol_json_encode($resultrev), false);
-                    
+                    $resultrev = json_decode(json_encode($resultrev), false);
+
                     $resultnetboot = $conn->get('/dedicated/server/'.$serveur.'/boot/'.$resultinfo->bootId);
-                    $resultnetboot = dol_json_decode(dol_json_encode($resultnetboot), false);
+                    $resultnetboot = json_decode(json_encode($resultnetboot), false);
                 }
-                
+
                 /*$resultcapa = $conn->get('/ip/');
-                $resultcapa = dol_json_decode(dol_json_encode($resultcapa), false);*/
+                $resultcapa = json_decode(json_encode($resultcapa), false);*/
             }
             catch(Exception $e)
             {
                 setEventMessages($e->getMessage(), null, 'errors');
             }
         }
-        
+
     	$typesrv = substr($serveur, 0, 1);
 
     	print_fiche_titre($serveur,'','');
@@ -227,9 +227,9 @@ else
     	print '<tr><td>'.$langs->trans("Server").'</td><td> ' . $serveur . '</td></tr>';
 
     	if ($mode == 'publiccloud')
-    	{  
+    	{
             var_dump($resultinfo);
-    	    
+
     	}
     	else
     	{
@@ -246,10 +246,10 @@ else
         		print $resultnetboot->kernel;
         	}
         	print '</td></tr>';
-    
+
         	print '<tr><td>Datacenter </td><td> ';
         	$data = $resultinfo->datacenter;
-    
+
         	if ($data == 'p19')
         	{
         		print 'Paris';
@@ -267,22 +267,22 @@ else
         		print 'Roubaix 3';
         	}
         	else print $data;
-    
+
         	print '</td></tr>';
         	print '<tr><td>Rack </td><td> ' . $resultinfo->rack . '</td></tr>';
         	print '<tr><td>Distribution </td><td> ' . $resultinfo->os . '</td></tr>';
         	print '<tr><td>IP</td><td> ' . gethostbyname($serveur) . '</td></tr>';
         	print '<tr><td>Rescue email</td><td> ' . $resultinfo->rescueMail . '</td></tr>';
         	print '</table>';
-    
-    
+
+
         	/*
         	 * Network infos
         	 */
         	print '<table class="border" width="100%;">';
         	print '<tr><td class="titlefield liste_titre">';
         	print '<strong>'.$langs->trans("Network").'</strong> </td><td></td></tr>';
-    
+
     		if (! empty($conf->global->OVH_OLDAPI))
     		{
     			print '<tr><td>Ovh to Ovh </td><td> ';
@@ -366,12 +366,12 @@ else
         		print '<tr><td>Quota Out </td><td> ' . $resultinfo->network->traffic->monthlyTraffic->out . '</td></tr>';
         		print '</table>';
         	}
-    
+
         	print '<table width="100%;">';
         	print '<tr><td  class="liste_titre" colspan="2">';
         	print '<strong>Interfaces</strong> </td></tr>';
         	$i = 0;
-    	
+
         	while ($resultinfo->network->interfaces[$i])
         	{
         		if ($i == 0)
@@ -380,11 +380,11 @@ else
         			print '<tr><td>Mac </td><td> ' . $resultinfo->network->interfaces[$i]->mac . '</td></tr>';
         			print '<tr><td>IP </td><td> ' . $resultinfo->network->interfaces[$i]->ip . '</td></tr>';
         		}
-    
+
         		$i++;
         		$nb = $i - 1;
         	}
-    
+
         	print '</table>';
         	print 'Vous possedez ' . ($nb ? $nb : 0) . ' IP Failover';
     	}
@@ -398,13 +398,13 @@ else
         	$ip = gethostbyname($serveur);
         	$result = $soap->dedicatedMrtgInfo($session, $serveur, 'traffic', $type, $ip);
         	print '<img src="' . $result->image . '"><br>';
-    
+
         	$image = $result->image;
         	if (empty($image))
         	{
         		print 'vide';
         	}
-    	
+
         	print 'Out Max : ' . $result->max->out . ' Moy : ' . $result->average->out . ' Cur : ' . $result->current->out . '<br>';
         	print 'In Max : ' . $result->max->in . ' Moy : ' . $result->average->in . ' Cur : ' . $result->current->out;
     	}
@@ -413,13 +413,13 @@ else
     {
         $titlekey="ListOfDedicatedServers";
         if ($mode == 'publiccloud') $titlekey="ListOfPublicCloudServers";
-        
+
     	print_fiche_titre($langs->trans($titlekey),"","");
 
 
     	//dedicatedList
     	if (! empty($conf->global->OVH_OLDAPI))
-    	{    	
+    	{
     	   $result = $soap->dedicatedList($session);
     	}
     	else
@@ -427,7 +427,7 @@ else
             $http_client = new GClient();
             $http_client->setDefaultOption('connect_timeout', empty($conf->global->MAIN_USE_CONNECT_TIMEOUT)?20:$conf->global->MAIN_USE_CONNECT_TIMEOUT);  // Timeout by default of OVH is 5 and it is not enough
             $http_client->setDefaultOption('timeout', empty($conf->global->MAIN_USE_RESPONSE_TIMEOUT)?30:$conf->global->MAIN_USE_RESPONSE_TIMEOUT);
-         
+
     	    // Get servers list
         	$conn = new Api(
         	    $conf->global->OVHAPPKEY,
@@ -438,7 +438,7 @@ else
         	if ($mode == 'publiccloud')
         	{
         	    $result = $conn->get('/cloud/project');
-        	     
+
         	    if ($result[0])
         	    {
         	        $projectname=$result[0];
@@ -449,9 +449,9 @@ else
         	{
         	   $result = $conn->get('/dedicated/server/');
         	}
-        	
-    	}    	    	
-    	
+
+    	}
+
     	if (count($result))
     	{
         	print '<ul>';

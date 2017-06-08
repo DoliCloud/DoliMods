@@ -68,7 +68,7 @@ if (empty($_SESSION['google_web_token_'.$conf->entity]) || $code)		// We are not
 	// For success: state=security_token&code=....
 	// For error: error=access_denied
 	//var_dump($_GET);
-	dol_syslog('Return from Google oauth with $_GET = '.dol_json_encode($_GET));
+	dol_syslog('Return from Google oauth with $_GET = '.json_encode($_GET));
 
 	// Forge the url auth part for calling google services
 	$fields=array(

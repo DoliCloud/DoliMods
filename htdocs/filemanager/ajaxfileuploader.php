@@ -63,17 +63,17 @@ switch ($_SERVER['REQUEST_METHOD']) {
     case 'GET':
         break;
     case 'POST':
-    	if (isset($_REQUEST['_method']) && $_REQUEST['_method'] === 'DELETE') 
+    	if (isset($_REQUEST['_method']) && $_REQUEST['_method'] === 'DELETE')
     	{
 			// TODO delete file
-    		echo dol_json_encode(array('success'=>1));
-        } 
-        else 
+    		echo json_encode(array('success'=>1));
+        }
+        else
         {
             //var_dump($_FILES);
             if (! is_array($_FILES['files']))
             {
-                echo dol_json_encode(array(0=>'ErrorPOSTFieldFilesIsNotProvided'));
+                echo json_encode(array(0=>'ErrorPOSTFieldFilesIsNotProvided'));
                 break;
             }
             //var_dump($_FILES);
@@ -103,16 +103,16 @@ switch ($_SERVER['REQUEST_METHOD']) {
 
  	        // This json return format is ok with current version of jquery fileupload
  	        // 	 echo '[{"url":"http://jquery-file-upload.appspot.com/AMIfv95fcu6lggyE5W9TYM78sKEwUny89rCzk6fhT0B_rkp1cJPseoxG3-8eQ5GVYR_bsFUerIWsEWMx0kQ2aNNgg-xsh7_6gWv92YMk6wMl7Gs4fe72RzcCuu4I0JVrTaA9DTi8vGEOrX4PEAR8bfAzyxGZ26P1eA/Julien-Lavergne_reference_medium.jpg","thumbnail_url":"http://lh5.ggpht.com/cTSujaK0enHNYJCIxRnrClnu43eQcDcipY7adGKIJUgZjpPeOSVvuH5De50wGTawLS-thCx6bN0ulyqd4gu7wk1kwINBY4s=s80","name":"Julien-Lavergne_reference_medium.jpg","type":"image/jpeg","size":8738,"delete_url":"http://jquery-file-upload.appspot.com/AMIfv95fcu6lggyE5W9TYM78sKEwUny89rCzk6fhT0B_rkp1cJPseoxG3-8eQ5GVYR_bsFUerIWsEWMx0kQ2aNNgg-xsh7_6gWv92YMk6wMl7Gs4fe72RzcCuu4I0JVrTaA9DTi8vGEOrX4PEAR8bfAzyxGZ26P1eA/Julien-Lavergne_reference_medium.jpg?delete=true","delete_type":"DELETE"}]';
- 	        //   echo dol_json_encode(array($file1));
+ 	        //   echo json_encode(array($file1));
  	        // This json return format should be ok with more recent version:
  	        // 	 echo '{"files":[{"url":"http://jquery-file-upload.appspot.com/AMIfv95fcu6lggyE5W9TYM78sKEwUny89rCzk6fhT0B_rkp1cJPseoxG3-8eQ5GVYR_bsFUerIWsEWMx0kQ2aNNgg-xsh7_6gWv92YMk6wMl7Gs4fe72RzcCuu4I0JVrTaA9DTi8vGEOrX4PEAR8bfAzyxGZ26P1eA/Julien-Lavergne_reference_medium.jpg","thumbnail_url":"http://lh5.ggpht.com/cTSujaK0enHNYJCIxRnrClnu43eQcDcipY7adGKIJUgZjpPeOSVvuH5De50wGTawLS-thCx6bN0ulyqd4gu7wk1kwINBY4s=s80","name":"Julien-Lavergne_reference_medium.jpg","type":"image/jpeg","size":8738,"delete_url":"http://jquery-file-upload.appspot.com/AMIfv95fcu6lggyE5W9TYM78sKEwUny89rCzk6fhT0B_rkp1cJPseoxG3-8eQ5GVYR_bsFUerIWsEWMx0kQ2aNNgg-xsh7_6gWv92YMk6wMl7Gs4fe72RzcCuu4I0JVrTaA9DTi8vGEOrX4PEAR8bfAzyxGZ26P1eA/Julien-Lavergne_reference_medium.jpg?delete=true","delete_type":"DELETE"}]}';
- 	    	//   echo dol_json_encode(array('files'=>array($file1)));
- 	        echo dol_json_encode(array(0=>$file1));
+ 	    	//   echo json_encode(array('files'=>array($file1)));
+ 	        echo json_encode(array(0=>$file1));
         }
         break;
     case 'DELETE':
 		// TODO delete file
-    	echo dol_json_encode(array('success'=>1));
+    	echo json_encode(array('success'=>1));
         break;
     default:
         header('HTTP/1.0 405 Method Not Allowed');
