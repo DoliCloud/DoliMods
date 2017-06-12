@@ -70,7 +70,7 @@ $object = new DoliCloudCustomerNew($db,$db2);
 // Security check
 $result = restrictedArea($user, 'nltechno', 0, '','dolicloud');
 
-// Initialize technical object to manage hooks of thirdparties. Note that conf->hooks_modules contains array array
+// Initialize technical object to manage hooks of page. Note that conf->hooks_modules contains array array
 include_once(DOL_DOCUMENT_ROOT.'/core/class/hookmanager.class.php');
 $hookmanager=new HookManager($db);
 
