@@ -12,4 +12,4 @@ This module provides some Google integration into Dolibarr:
 * Can add a Google Analytics tag into any software pages.
 * Compatible with all standard Google Gmail account and with Google Apps for Work Gmail account
 
-More information <a href="https://wiki.dolibarr.org/index.php/Module_Google_EN" target="_new">this wiki page</a>.
+More information on <a href="https://wiki.dolibarr.org/index.php/Module_Google_EN" target="_new">this wiki page</a>.
