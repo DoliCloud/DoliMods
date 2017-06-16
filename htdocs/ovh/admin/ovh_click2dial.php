@@ -14,7 +14,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  * https://www.ovh.com/fr/soapi-to-apiv6-migration/
  */
 
@@ -135,20 +135,20 @@ else
     print '<form method="post" action="'.$_SERVER["PHP_SELF"].'">';
     print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
     print '<input type="hidden" name="action" value="setvalue_account">';
-    
-    
+
+
     dol_fiche_head($head, 'click2dial', $langs->trans("Ovh"));
-   
-    
+
+
     print '<table class="noborder" width="100%">';
-    
+
     print '<tr class="liste_titre">';
     print '<td width="200px">'.$langs->trans("Parameter").'</td>';
     print '<td>'.$langs->trans("Value").'</td>';
     print '<td>&nbsp;</td>';
     print "</tr>\n";
-    
-    
+
+
     if (! empty($conf->global->OVH_OLDAPI) || ! empty($conf->global->OVH_OLDAPI_FORCLICK2DIAL))
     {
         $var=!$var;
@@ -157,19 +157,19 @@ else
         print '<input size="64" type="text" name="OVHSMS_NICK" value="'.$conf->global->OVHSMS_NICK.'">';
         print '</td><td>'.$langs->trans("Example").': AA123-OVH';
         print '</td></tr>';
-        
+
         $var=!$var;
         print '<tr '.$bc[$var].'><td class="fieldrequired">';
         print $langs->trans("OvhSmsPass").'</td><td>';
         print '<input size="64" type="password" name="OVHSMS_PASS" value="'.$conf->global->OVHSMS_PASS.'">';
         print '</td><td></td></tr>';
-        
+
         $var=!$var;
         print '<tr '.$bc[$var].'><td class="fieldrequired">';
         print $langs->trans("OvhSmsSoapUrl").'</td><td>';
         print '<input size="64" type="text" name="OVHSMS_SOAPURL" value="'.$conf->global->OVHSMS_SOAPURL.'">';
         print '</td><td>'.$langs->trans("Example").': '.$urlexample;
-        print '</td></tr>';        
+        print '</td></tr>';
     }
     else
     {
@@ -179,7 +179,7 @@ else
         print '<input size="64" type="text" name="OVHC2C_ACCOUNT" value="'.$conf->global->OVHC2C_ACCOUNT.'">';
         print '<br>'.$langs->trans("Example").': nh123-ovh-1';
         print '</td><td></td></tr>';
-    
+
         $var=!$var;
         print '<tr '.$bc[$var].'><td>';
         $htmltext=$langs->trans("OvhServiceNameHelp");
@@ -188,17 +188,17 @@ else
         print '<br>'.$langs->trans("Example").': 00331234567';
         print '</td><td></td></tr>';
     }
-    
-    print '</table>';    
-    
-    
+
+    print '</table>';
+
+
     print '<br>';
 
     // Show message
     $message='';
-    
+
     $tmpurl='/ovh/wrapper.php?caller=__PHONEFROM__&called=__PHONETO__';
-    if (empty($conf->global->OVH_OLDAPI)) 
+    if (empty($conf->global->OVH_OLDAPI))
     {
         $tmpurl.='&billingaccount='.(empty($conf->global->OVHC2C_ACCOUNT)?'???':$conf->global->OVHC2C_ACCOUNT).'&servicename='.(empty($conf->global->OVHSN_ACCOUNT)?'SIPLineNumber':$conf->global->OVHSN_ACCOUNT);
     }
@@ -206,25 +206,28 @@ else
     {
         $tmpurl.='&login=__LOGIN__&password=__PASS__';
     }
-        
+
     print info_admin($langs->trans("IfYouChangeHereChangeAlsoClickToDial")).'<br>';
-    
+
     $url='<a href="'.dol_buildpath($tmpurl,2).'" target="_blank">'.dol_buildpath($tmpurl,2).'</a>';
     $message.=$langs->trans("ClickToDialLink",'OVH','').'<br>';
     $message.=img_picto('','object_globe.png').' <input type="text" class="quatrevingtpercent" id="url" name="url" value="'.dol_escape_htmltag(dol_buildpath($tmpurl,2)).'">';
-    $message.=ajax_autoselect('url');
+    if (function_exists('ajax_autoselect'))
+    {
+        $message.=ajax_autoselect('url');
+    }
     $message.='<br>';
     $message.='<br>';
     print $message;
 
     print $langs->trans("ToGoOnClickToDialSetup").': <a href="'.DOL_URL_ROOT.'/admin/clicktodial.php" target="setup">'.$langs->trans("ClickHere").'</a><br>';
-    
+
     dol_fiche_end();
-    
+
     print '<div class="center"><input type="submit" class="button" value="'.$langs->trans("Modify").'"></div>';
-    
+
     print '</form>';
-    
+
 //}
 
 
