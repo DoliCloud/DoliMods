@@ -608,7 +608,7 @@ if (! defined('NOLOGIN'))
         }
         else
 		{
-	       // Initialize technical object to manage hooks of thirdparties. Note that conf->hooks_modules contains array array
+	       // Initialize technical object to manage hooks of page. Note that conf->hooks_modules contains array array
 	       $hookmanager->initHooks(array('main'));
 
 	       if (! empty($_GET['save_lastsearch_values']))    // Keep $_GET here
