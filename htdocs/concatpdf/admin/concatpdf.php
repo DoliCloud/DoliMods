@@ -266,8 +266,11 @@ print '<br><br>';
 foreach ($modules as $module => $moduletrans)
 {
 	$outputdir=$conf->concatpdf->dir_output.'/'.$module;
-	$listoffiles=dol_dir_list($outputdir,'files');
-	if (count($listoffiles)) print $formfile->showdocuments('concatpdf',$module,$outputdir,$_SERVER["PHP_SELF"].'?module='.$module,0,$user->admin,'',0,0,0,0,0,'',$langs->trans("PathDirectory").' '.$outputdir);
+	$listoffiles=dol_dir_list($outputdir,'files',0,'',array('^SPECIMEN\.pdf$'));
+	if (count($listoffiles))
+	{
+	    print $formfile->showdocuments('concatpdf',$module,$outputdir,$_SERVER["PHP_SELF"].'?module='.$module,0,$user->admin,'',0,0,0,0,0,'',$langs->trans("PathDirectory").' '.$outputdir);
+	}
 	else
 	{
 		print '<div class="titre">'.$langs->trans("PathDirectory").' '.$outputdir.' :</div>';
