@@ -56,6 +56,8 @@ if ($conf->fournisseur->enabled) $modules['supplier_invoices']='SuppliersInvoice
 if ($conf->supplier_proposal->enabled) $modules['supplier_proposals']='SupplierProposals';
 if ($conf->contract->enabled) $modules['contracts']='Contracts';
 
+if (empty($conf->concatpdf->enabled)) accessforbidden();
+
 
 /*
  * Actions
@@ -104,7 +106,6 @@ if (GETPOST('sendit') && ! empty($conf->global->MAIN_UPLOAD_DOC))
 		if (preg_match('/\.pdf$/i', $_FILES['userfile']['name']))
 		{
 			$upload_dir = $conf->concatpdf->dir_output.'/'.GETPOST('module', 'alpha');
-
 			if (dol_mkdir($upload_dir) >= 0)
 			{
 				$resupload=dol_move_uploaded_file($_FILES['userfile']['tmp_name'], $upload_dir . "/" . $_FILES['userfile']['name'],0,0,$_FILES['userfile']['error']);
@@ -129,10 +130,15 @@ if (GETPOST('sendit') && ! empty($conf->global->MAIN_UPLOAD_DOC))
 					}
 				}
 			}
+			else
+			{
+			    $langs->load('errors');
+			    setEventMessage($langs->trans("ErrorFailToCreateDir",$upload_dir),'errors');
+			}
 		}
 		else
 		{
-			setEventMessage($langs->trans("ErrorFileMustBeAPdf"),'errors');
+		    setEventMessage($langs->trans("ErrorFileMustBeAPdf"),'errors');
 		}
 	}
 }
@@ -209,7 +215,7 @@ $formfile->form_attach_new_file($_SERVER['PHP_SELF'], '', 0, 0, 1, 50, '', $sele
 if (! empty($conf->global->MAIN_USE_JQUERY_MULTISELECT))
 {
     print '<br>';
-    
+
     $form=new Form($db);
     $var=true;
     print '<table class="noborder" width="100%">';
