@@ -3,4 +3,4 @@
 ## Features
 ProductCatalogDescription
 
-Other modules are available on <a href="https://www.dolistore.com target="_new">Dolistore.com</a>.
+Other modules are available on <a href="https://www.dolistore.com" target="_new">Dolistore.com</a>.
