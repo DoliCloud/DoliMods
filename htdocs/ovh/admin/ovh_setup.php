@@ -14,7 +14,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  * https://www.ovh.com/fr/soapi-to-apiv6-migration/
  */
 
@@ -24,14 +24,20 @@
  *		\brief      Setup of module OVH
  */
 
+// Load Dolibarr environment
 $res=0;
+// Try main.inc.php into web root known defined into CONTEXT_DOCUMENT_ROOT (not always defined)
 if (! $res && ! empty($_SERVER["CONTEXT_DOCUMENT_ROOT"])) $res=@include($_SERVER["CONTEXT_DOCUMENT_ROOT"]."/main.inc.php");
-if (! $res && file_exists("../main.inc.php")) $res=@include("../main.inc.php");
+// Try main.inc.php into web root detected using web root caluclated from SCRIPT_FILENAME
+$tmp=empty($_SERVER['SCRIPT_FILENAME'])?'':$_SERVER['SCRIPT_FILENAME'];$tmp2=realpath(__FILE__); $i=strlen($tmp)-1; $j=strlen($tmp2)-1;
+while($i > 0 && $j > 0 && isset($tmp[$i]) && isset($tmp2[$j]) && $tmp[$i]==$tmp2[$j]) { $i--; $j--; }
+if (! $res && $i > 0 && file_exists(substr($tmp, 0, ($i+1))."/main.inc.php")) $res=@include(substr($tmp, 0, ($i+1))."/main.inc.php");
+if (! $res && $i > 0 && file_exists(dirname(substr($tmp, 0, ($i+1)))."/main.inc.php")) $res=@include(dirname(substr($tmp, 0, ($i+1)))."/main.inc.php");
+// Try main.inc.php using relative path
 if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.php");
 if (! $res && file_exists("../../../main.inc.php")) $res=@include("../../../main.inc.php");
-if (! $res && file_exists("../../../../main.inc.php")) $res=@include("../../../../main.inc.php");
-if (! $res && preg_match('/\/nltechno([^\/]*)\//',$_SERVER["PHP_SELF"],$reg)) $res=@include("../../../../dolibarr".$reg[1]."/htdocs/main.inc.php"); // Used on dev env only
 if (! $res) die("Include of main fails");
+
 require_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
 dol_include_once("/ovh/class/ovhsms.class.php");
 dol_include_once("/ovh/lib/ovh.lib.php");
@@ -105,7 +111,7 @@ if ($action == 'setvalue' && $user->admin)
         $result=dolibarr_set_const($db, "OVHAPPKEY",trim(GETPOST("OVHAPPKEY")),'chaine',0,'',$conf->entity);
         $result=dolibarr_set_const($db, "OVHAPPSECRET",trim(GETPOST("OVHAPPSECRET")),'chaine',0,'',$conf->entity);
     }
-    
+
     if ($result >= 0)
     {
         $mesg='<div class="ok">'.$langs->trans("SetupSaved").'</div>';
@@ -153,19 +159,19 @@ if ($action == 'requestcredential')
         'method'    => 'GET',
         'path'      => '/me*'
     ]);*/
-    
+
     // Get credentials
     try {
         dol_syslog("Request credential to endpoint ".$endpoint);
         dol_syslog("applicationKey=".$applicationKey." applicationSecret=".$applicationKey);
-        
+
         $http_client = new GClient();
         $http_client->setDefaultOption('connect_timeout', empty($conf->global->MAIN_USE_CONNECT_TIMEOUT)?20:$conf->global->MAIN_USE_CONNECT_TIMEOUT);  // Timeout by default of OVH is 5 and it is not enough
         $http_client->setDefaultOption('timeout', empty($conf->global->MAIN_USE_RESPONSE_TIMEOUT)?30:$conf->global->MAIN_USE_RESPONSE_TIMEOUT);
-        
+
         $conn = new Api($applicationKey, $applicationSecret, $endpoint, null, $http_client);    // consumer_key is not set to force to get a new one
         $credentials = $conn->requestCredentials($rights, $redirect_uri);
-        
+
         $_SESSION['ovh_consumer_key']=$credentials["consumerKey"];
         header('Location: '. $credentials["validationUrl"]);
         exit;
@@ -179,7 +185,7 @@ if ($action == 'requestcredential')
 
 if ($action == 'backfromauth' && ! empty($_SESSION["ovh_consumer_key"]))
 {
-    // Save 
+    // Save
     $result=dolibarr_set_const($db, "OVHCONSUMERKEY",$_SESSION["ovh_consumer_key"],'chaine',0,'',$conf->entity);
 
     if ($result >= 0)
@@ -233,26 +239,26 @@ print '<table class="noborder" width="100%">';
 if (! empty($conf->global->OVH_OLDAPI))
 {
     // Old API
-    
+
     print '<tr class="liste_titre">';
     print '<td class="titlefield">'.$langs->trans("Parameter").'</td>';
     print '<td>'.$langs->trans("Value").'</td>';
     print '<td></td>';
     print "</tr>\n";
-    
+
     $var=!$var;
     print '<tr '.$bc[$var].'><td width="200px" class="fieldrequired">';
     print $langs->trans("OvhSmsNick").'</td><td>';
     print '<input size="64" type="text" name="OVHSMS_NICK" value="'.$conf->global->OVHSMS_NICK.'">';
     print '</td><td>'.$langs->trans("Example").': AA123-OVH';
     print '</td></tr>';
-    
+
     $var=!$var;
     print '<tr '.$bc[$var].'><td class="fieldrequired">';
     print $langs->trans("OvhSmsPass").'</td><td>';
     print '<input size="64" type="password" name="OVHSMS_PASS" value="'.$conf->global->OVHSMS_PASS.'">';
     print '</td><td></td></tr>';
-    
+
     $var=!$var;
     print '<tr '.$bc[$var].'><td class="fieldrequired">';
     print $langs->trans("OvhSmsSoapUrl").'</td><td>';
@@ -263,14 +269,14 @@ if (! empty($conf->global->OVH_OLDAPI))
 else
 {
     // New API
-    
+
     $var=!$var;
     print '<tr '.$bc[$var].'><td class="titlefield fieldrequired">';
     print $langs->trans("OvhApplicationName").'</td><td>';
     print '<input size="64" type="text" name="OVHAPPNAME" value="'.$conf->global->OVHAPPNAME.'">';
     print '</td><td>'.$langs->trans("Example").': My App';
     print '</td></tr>';
-    
+
     /*
     $var=!$var;
     print '<tr '.$bc[$var].'><td>';
@@ -279,25 +285,26 @@ else
     print '</td><td>'.$langs->trans("Example").': My App description';
     print '</td></tr>';
     */
-    
+
     $var=!$var;
     print '<tr '.$bc[$var].'><td class="fieldrequired">';
     print $langs->trans("OvhApplicationKey").'</td><td>';
     print '<input size="64" type="text" name="OVHAPPKEY" value="'.$conf->global->OVHAPPKEY.'">';
     print '</td><td>'.$langs->trans("Example").': Ld9GQ3AfaXDyZdsM';
     print '</td></tr>';
-    
+
     $var=!$var;
     print '<tr '.$bc[$var].'><td class="fieldrequired">';
     print $langs->trans("OvhApplicationSecret").'</td><td>';
     print '<input size="64" type="text" name="OVHAPPSECRET" value="'.$conf->global->OVHAPPSECRET.'">';
     print '</td><td>'.$langs->trans("Example").': V3dTtzY4PCMUYp2dURlGyIkI67C54S67';
     print '</td></tr>';
-    
-    
+
+
     $var=!$var;
     print '<tr '.$bc[$var].'><td class="fieldrequired">';
     print $langs->trans("OvhConsumerkey").'</td><td>';
+
     if (! empty($conf->global->OVHAPPNAME) && ! empty($conf->global->OVHAPPKEY) && ! empty($conf->global->OVHAPPSECRET))
     {
         print '<input size="64" type="text" name="OVHCONSUMERKEY" value="'.$conf->global->OVHCONSUMERKEY.'">';
@@ -312,7 +319,7 @@ else
         if (empty($conf->global->OVHCONSUMERKEY)) print img_warning().' ';
         print $langs->trans("ClickHereToLoginAndGetYourConsumerKey", $_SERVER["PHP_SELF"].'?action=requestcredential');
         //print '<br>'.info_admin($langs->trans('OVHURLMustNotBeLocal'));   Can work with a local URL.
-    }    
+    }
     print '</td></tr>';
 }
 
@@ -334,7 +341,7 @@ if (! empty($conf->global->OVH_OLDAPI))
 {
     $WS_DOL_URL = $conf->global->OVHSMS_SOAPURL;
     dol_syslog("Will use URL=".$WS_DOL_URL, LOG_DEBUG);
-    
+
     if (empty($conf->global->OVHSMS_NICK) || empty($WS_DOL_URL))
     {
         echo '<br>'.'<div class="warning">'.$langs->trans("OvhSmsNotConfigured").'</div>';
@@ -343,13 +350,13 @@ if (! empty($conf->global->OVH_OLDAPI))
     {
     	print '<br>';
         print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?action=test">'.$langs->trans("TestLoginToAPI").'</a><br><br>';
-    
+
         if ($action == 'test')
         {
             require_once(DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php');
             $params=getSoapParams();
             ini_set('default_socket_timeout', $params['response_timeout']);
-    
+
     		print $langs->trans("ConnectionParameters").':<br>';
             if ($params['proxy_use']) print $langs->trans("TryToUseProxy").': '.$params['proxy_host'].':'.$params['proxy_port'].($params['proxy_login']?(' - '.$params['proxy_login'].':'.$params['proxy_password']):'').'<br>';
             print 'URL: '.$WS_DOL_URL.'<br>';
@@ -363,25 +370,25 @@ if (! empty($conf->global->OVH_OLDAPI))
     			print $key.': '.($key == 'proxy_password'?preg_replace('/./','*',$val):$val);
     		}
     		print '<br><br>'."\n";
-    
+
     		// Set error handler to trap FATAL errors
     		set_error_handler('my_error_handler');
-    
+
     		try {
     			$soap = new SoapClient($WS_DOL_URL,$params);
-    
+
             	$language="en";
                 $multisession=false;
-    
+
                 //login
                 $session = $soap->login($conf->global->OVHSMS_NICK, $conf->global->OVHSMS_PASS, $language, $multisession);
                 if ($session) print '<div class="ok">'.$langs->trans("OvhSmsLoginSuccessFull").'</div><br>';
                 else print '<div class="error">Error login did not return a session id</div><br>';
-    
+
                 //logout
                 if (! empty($conf->global->OVH_OLDAPI)) $soap->logout($session);
                 //  echo "logout successfull\n";
-    
+
             }
             catch(Exception $e)
             {
@@ -389,7 +396,7 @@ if (! empty($conf->global->OVH_OLDAPI))
                 print 'Error '.$e->getMessage().'<br>';
                 print 'If this is an error to connect to OVH host, check your firewall does not block port required to reach OVH manager (for example port 1664).<br>';
                 print '</div>';
-    
+
                 // Write dump
     			if (@is_writeable($dolibarr_main_data_root))	// Avoid fatal error on fopen with open_basedir
     			{
@@ -410,7 +417,7 @@ if (! empty($conf->global->OVH_OLDAPI))
     			}
             }
         }
-    
+
         print '<br>';
     }
 }
@@ -425,7 +432,7 @@ $db->close();
 /**
  * Function to trap FATAL errors
  *
- * @param string	$no        No 
+ * @param string	$no        No
  * @param string	$str       Str
  * @param string	$file      File
  * @param string	$line      Line
