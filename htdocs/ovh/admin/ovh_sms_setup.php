@@ -14,7 +14,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  * https://www.ovh.com/fr/soapi-to-apiv6-migration/
  */
 
@@ -24,14 +24,20 @@
  *		\brief      Setup of SMS of module OVH
  */
 
+// Load Dolibarr environment
 $res=0;
+// Try main.inc.php into web root known defined into CONTEXT_DOCUMENT_ROOT (not always defined)
 if (! $res && ! empty($_SERVER["CONTEXT_DOCUMENT_ROOT"])) $res=@include($_SERVER["CONTEXT_DOCUMENT_ROOT"]."/main.inc.php");
-if (! $res && file_exists("../main.inc.php")) $res=@include("../main.inc.php");
+// Try main.inc.php into web root detected using web root caluclated from SCRIPT_FILENAME
+$tmp=empty($_SERVER['SCRIPT_FILENAME'])?'':$_SERVER['SCRIPT_FILENAME'];$tmp2=realpath(__FILE__); $i=strlen($tmp)-1; $j=strlen($tmp2)-1;
+while($i > 0 && $j > 0 && isset($tmp[$i]) && isset($tmp2[$j]) && $tmp[$i]==$tmp2[$j]) { $i--; $j--; }
+if (! $res && $i > 0 && file_exists(substr($tmp, 0, ($i+1))."/main.inc.php")) $res=@include(substr($tmp, 0, ($i+1))."/main.inc.php");
+if (! $res && $i > 0 && file_exists(dirname(substr($tmp, 0, ($i+1)))."/main.inc.php")) $res=@include(dirname(substr($tmp, 0, ($i+1)))."/main.inc.php");
+// Try main.inc.php using relative path
 if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.php");
 if (! $res && file_exists("../../../main.inc.php")) $res=@include("../../../main.inc.php");
-if (! $res && file_exists("../../../../main.inc.php")) $res=@include("../../../../main.inc.php");
-if (! $res && preg_match('/\/nltechno([^\/]*)\//',$_SERVER["PHP_SELF"],$reg)) $res=@include("../../../../dolibarr".$reg[1]."/htdocs/main.inc.php"); // Used on dev env only
 if (! $res) die("Include of main fails");
+
 require_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
 dol_include_once("/ovh/class/ovhsms.class.php");
 dol_include_once("/ovh/lib/ovh.lib.php");
@@ -223,11 +229,11 @@ else
     {
         echo '<div class="warning">'.$langs->trans("OvhAuthenticationPartNotConfigured").'</div>';
     }
-    
+
     $var=true;
-    
+
     print '<table class="noborder" width="100%">';
-    
+
     print '<tr class="liste_titre">';
     print '<td width="200px">'.$langs->trans("Parameter").'</td>';
     print '<td>'.$langs->trans("Value").'</td>';
@@ -249,11 +255,11 @@ else
     dol_fiche_end();
 
     print '<div class="center"><input type="submit" class="button" value="'.$langs->trans("Modify").'"></div>';
-    
+
     print '</form>';
-    
-    
-    
+
+
+
     if ($action != 'testsms')
     {
         print '<br>';

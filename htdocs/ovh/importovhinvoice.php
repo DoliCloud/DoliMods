@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  * or see http://www.gnu.org/
- * 
+ *
  * https://www.ovh.com/fr/soapi-to-apiv6-migration/
  */
 
@@ -25,14 +25,20 @@
  *	 \brief		 Page to import OVH invoices
  */
 
-// Include Dolibarr environment
+// Load Dolibarr environment
 $res=0;
+// Try main.inc.php into web root known defined into CONTEXT_DOCUMENT_ROOT (not always defined)
 if (! $res && ! empty($_SERVER["CONTEXT_DOCUMENT_ROOT"])) $res=@include($_SERVER["CONTEXT_DOCUMENT_ROOT"]."/main.inc.php");
-if (! $res && file_exists("../main.inc.php")) $res=@include("../main.inc.php");
+// Try main.inc.php into web root detected using web root caluclated from SCRIPT_FILENAME
+$tmp=empty($_SERVER['SCRIPT_FILENAME'])?'':$_SERVER['SCRIPT_FILENAME'];$tmp2=realpath(__FILE__); $i=strlen($tmp)-1; $j=strlen($tmp2)-1;
+while($i > 0 && $j > 0 && isset($tmp[$i]) && isset($tmp2[$j]) && $tmp[$i]==$tmp2[$j]) { $i--; $j--; }
+if (! $res && $i > 0 && file_exists(substr($tmp, 0, ($i+1))."/main.inc.php")) $res=@include(substr($tmp, 0, ($i+1))."/main.inc.php");
+if (! $res && $i > 0 && file_exists(dirname(substr($tmp, 0, ($i+1)))."/main.inc.php")) $res=@include(dirname(substr($tmp, 0, ($i+1)))."/main.inc.php");
+// Try main.inc.php using relative path
 if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.php");
 if (! $res && file_exists("../../../main.inc.php")) $res=@include("../../../main.inc.php");
-if (! $res && preg_match('/\/nltechno([^\/]*)\//',$_SERVER["PHP_SELF"],$reg)) $res=@include("../../../dolibarr".$reg[1]."/htdocs/main.inc.php"); // Used on dev env only
 if (! $res) die("Include of main fails");
+
 require_once(DOL_DOCUMENT_ROOT."/user/class/user.class.php");
 require_once(DOL_DOCUMENT_ROOT.'/fourn/class/paiementfourn.class.php');
 require_once(DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.facture.class.php');
@@ -79,7 +85,7 @@ if (! empty($action))
 
 		$params=getSoapParams();
 		ini_set('default_socket_timeout', $params['response_timeout']);
-		
+
 		if (! empty($conf->global->OVH_OLDAPI))
         {
     		if (empty($conf->global->OVHSMS_SOAPURL))
@@ -88,16 +94,16 @@ if (! empty($action))
     			exit;
     		}
     		//use_soap_error_handler(true);
-    
+
     		$soap = new SoapClient($conf->global->OVHSMS_SOAPURL,$params);
-    
+
     		$language = "en";
     		$multisession = false;
-    
+
     		//login
     		$session = $soap->login($conf->global->OVHSMS_NICK, $conf->global->OVHSMS_PASS,$language,$multisession);
     		dol_syslog("login successfull");
-    
+
     		$result = $soap->billingGetAccessByNic($session);
     		dol_syslog("billingGetAccessByNic successfull = ".join(',',$result));
     		//print "GetAccessByNic: ".join(',',$result)."<br>\n";
@@ -109,7 +115,7 @@ if (! empty($action))
                 print 'Error: '.$langs->trans("ModuleSetupNotComplete")."\n";
     			exit;
             }
-            
+
             $conn = new Api($conf->global->OVHAPPKEY, $conf->global->OVHAPPSECRET, $endpoint, $conf->global->OVHCONSUMERKEY);
         }
 	}
@@ -151,7 +157,7 @@ if ($action == 'import' && $ovhthirdparty->id > 0)
 		    {
     			try {
     				$result = $soap->billingInvoiceList($session);
-    
+
     				file_put_contents(DOL_DATA_ROOT . "/dolibarr_ovh_billingInvoiceList.xml", $soap->__getLastResponse());
     				@chmod(DOL_DATA_ROOT . "/dolibarr_ovh_billingInvoiceList.xml", octdec(empty($conf->global->MAIN_UMASK)?'0664':$conf->global->MAIN_UMASK));
     			}
@@ -165,7 +171,7 @@ if ($action == 'import' && $ovhthirdparty->id > 0)
 		    {
 		        $result=array();
 		    }
-		    
+
 			foreach($listofref as $key => $val)
 			{
 				$billnum=$val;
@@ -174,7 +180,7 @@ if ($action == 'import' && $ovhthirdparty->id > 0)
 				{
     				$billingcountry=$listofbillingcountry[$key];
     				//$vatrate=$listofvat[$key];
-    
+
     				// Search key into array $result for billnum $billnum
     				foreach($result as $i => $r)
     				{
@@ -185,7 +191,7 @@ if ($action == 'import' && $ovhthirdparty->id > 0)
     					}
     				}
 				}
-				
+
 				//print "We try to create supplier invoice billnum ".$billnum." ".$billingcountry.", key in listofref = ".$key.", key in result ".$keyresult." ...<br>\n";
 
 				// Invoice does not exists
@@ -221,19 +227,19 @@ if ($action == 'import' && $ovhthirdparty->id > 0)
 			            $pos++;
 			        }
 			        $result[$keyresult]=array(
-			            'id'=>$r['billId'], 
-			            'billnum'=>$r['billId'], 
-			            'date'=>dol_stringtotime($r['date'],1), 
-			            'vat'=>$r['tax']['value'], 
-			            'totalPrice'=>$r['priceWithoutTax']['value'], 
-			            'totalPriceWithVat'=>$r['priceWithTax']['value'], 
-			            'currency'=>$r['priceWithTax']['currencyCode'], 
+			            'id'=>$r['billId'],
+			            'billnum'=>$r['billId'],
+			            'date'=>dol_stringtotime($r['date'],1),
+			            'vat'=>$r['tax']['value'],
+			            'totalPrice'=>$r['priceWithoutTax']['value'],
+			            'totalPriceWithVat'=>$r['priceWithTax']['value'],
+			            'currency'=>$r['priceWithTax']['currencyCode'],
 			            'description'=>$description,
 			            'details'=>$details,
-			            'billingCountry'=>'???', 
-			            'ordernum'=>$r['orderId'], 
-			            'serialized'=>'???', 
-			            'url'=>$r['url'], 
+			            'billingCountry'=>'???',
+			            'ordernum'=>$r['orderId'],
+			            'serialized'=>'???',
+			            'url'=>$r['url'],
 			            'pdfUrl'=>$r['pdfUrl']
 			        );
 				}
@@ -427,7 +433,7 @@ print '<br>';
 
 if ($action == 'refresh')
 {
-	try 
+	try
 	{
 	    $arrayinvoice=array();
 	    if (! empty($conf->global->OVH_OLDAPI))
@@ -436,7 +442,7 @@ if ($action == 'refresh')
     	    $result = $soap->billingInvoiceList($session);
     	    dol_syslog("billingInvoiceList successfull (".count($result)." invoices)");
     	    //var_dump($result[0]->date.' '.dol_print_date(dol_stringtotime($r->date,1),'day'));exit;
-    
+
     		file_put_contents(DOL_DATA_ROOT . "/dolibarr_ovh_billingInvoiceList.xml", $soap->__getLastResponse());
     		@chmod(DOL_DATA_ROOT . "/dolibarr_ovh_billingInvoiceList.xml", octdec(empty($conf->global->MAIN_UMASK)?'0664':$conf->global->MAIN_UMASK));
 
@@ -460,7 +466,7 @@ if ($action == 'refresh')
 	        }
 	        $i=0;
 	        foreach ($result as $key => $val)
-	        {       
+	        {
 	            $r = $conn->get('/me/bill/'.$val);
     		    if (! $excludenullinvoice || ! empty($r['priceWithoutTax']['value']))
     		    {
@@ -473,13 +479,13 @@ if ($action == 'refresh')
                         $description.=$r2d['description']."<br>\n";
                     }
 	                $arrayinvoice[]=array('id'=>$r['billId'], 'billnum'=>$r['billId'], 'date'=>dol_stringtotime($r['date'],1), 'vat'=>$r['tax']['value'], 'totalPrice'=>$r['priceWithoutTax']['value'], 'totalPriceWithVat'=>$r['priceWithTax']['value'], 'currency'=>$r['priceWithTax']['currencyCode'], 'description'=>$description, 'billingCountry'=>'???', 'ordernum'=>$r['orderId'], 'serialized'=>'???', 'url'=>$r['url'], 'pdfUrl'=>$r['pdfUrl']);
-                    
+
 	                $i++;
     		    }
-    		    
+
     		    //if ($i > 5) break;
 	        }
-	    }	    
+	    }
 
 	    $arrayinvoice=dol_sort_array($arrayinvoice,'date',(empty($conf->global->OVH_IMPORT_SORTORDER)?'desc':$conf->global->OVH_IMPORT_SORTORDER));
 
@@ -500,9 +506,9 @@ if ($action == 'refresh')
 	    	print '<input type="hidden" id="excludenullinvoicehidden" name="excludenullinvoice" value="'.$excludenullinvoice.'">';
 	    	print ' <input type="submit" name="import" value="'.$langs->trans("ToImport").'" class="button">';
 	    	print '</div>';
-	    	
+
 	    	print '</div><div style="clear: both"></div><br>';
-	    	
+
 		    print '<table class="noborder" width="100%">';
 	    	print '<tr class="liste_titre">';
 	    	print '<td>'.$langs->trans("Invoice").' OVH</td>';
@@ -620,7 +626,7 @@ if ($action == 'refresh')
 	                            {
 	                                $url = $r['pdfUrl'];
 	                            }
-	                            
+
 	                            //print "<br>Get ".$url."\n";
                                 file_put_contents($file_name_to_use,file_get_contents($url));
                                 print "<br>".$langs->trans("FileDownloadedAndAttached",basename($file_name_to_use))."\n";
