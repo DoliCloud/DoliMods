@@ -14,7 +14,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  * https://www.ovh.com/fr/soapi-to-apiv6-migration/
  */
 
@@ -23,14 +23,21 @@
  *	 \ingroup   ovh
  *	 \brief		Setup page to edit dedicated ovh servers
  */
+
+// Load Dolibarr environment
 $res=0;
+// Try main.inc.php into web root known defined into CONTEXT_DOCUMENT_ROOT (not always defined)
 if (! $res && ! empty($_SERVER["CONTEXT_DOCUMENT_ROOT"])) $res=@include($_SERVER["CONTEXT_DOCUMENT_ROOT"]."/main.inc.php");
-if (! $res && file_exists("../main.inc.php")) $res=@include("../main.inc.php");
+// Try main.inc.php into web root detected using web root caluclated from SCRIPT_FILENAME
+$tmp=empty($_SERVER['SCRIPT_FILENAME'])?'':$_SERVER['SCRIPT_FILENAME'];$tmp2=realpath(__FILE__); $i=strlen($tmp)-1; $j=strlen($tmp2)-1;
+while($i > 0 && $j > 0 && isset($tmp[$i]) && isset($tmp2[$j]) && $tmp[$i]==$tmp2[$j]) { $i--; $j--; }
+if (! $res && $i > 0 && file_exists(substr($tmp, 0, ($i+1))."/main.inc.php")) $res=@include(substr($tmp, 0, ($i+1))."/main.inc.php");
+if (! $res && $i > 0 && file_exists(dirname(substr($tmp, 0, ($i+1)))."/main.inc.php")) $res=@include(dirname(substr($tmp, 0, ($i+1)))."/main.inc.php");
+// Try main.inc.php using relative path
 if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.php");
 if (! $res && file_exists("../../../main.inc.php")) $res=@include("../../../main.inc.php");
-if (! $res && file_exists("../../../../main.inc.php")) $res=@include("../../../../main.inc.php");
-if (! $res && preg_match('/\/nltechno([^\/]*)\//',$_SERVER["PHP_SELF"],$reg)) $res=@include("../../../../dolibarr".$reg[1]."/htdocs/main.inc.php"); // Used on dev env only
 if (! $res) die("Include of main fails");
+
 dol_include_once('/ovh/class/ovh.class.php');
 dol_include_once("/ovh/lib/ovh.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
@@ -131,16 +138,16 @@ else
         try {
             $language="en";
             $multisession=false;
-    
+
             //login
             $session = $soap->login($conf->global->OVHSMS_NICK, $conf->global->OVHSMS_PASS, $language, $multisession);
             //if ($session) print '<div class="ok">'.$langs->trans("OvhSmsLoginSuccessFull").'</div><br>';
             if (! $session) print '<div class="error">Error login did not return a session id</div><br>';
-    
+
             //logout
             //$soap->logout($session);
             //  echo "logout successfull\n";
-    
+
         }
         catch(Exception $e)
         {
@@ -150,19 +157,19 @@ else
             print '</div>';
         }
     }
-    
-    
+
+
     $serveur = GETPOST('server');
     if ($serveur)
     {
         if (! empty($conf->global->OVH_OLDAPI))
         {
         	$resultinfo = $soap->dedicatedInfo($session, $serveur);
-    
+
         	$resultrev = $soap->dedicatedReverseList($session, $serveur);
-    
+
         	$resultnetboot = $soap->dedicatedNetbootInfo($session, $serveur);
-    
+
         	//$resultcapa = $soap->dedicatedCapabilitiesGet($session, $serveur);
         }
         else
@@ -171,16 +178,16 @@ else
             {
                 // Get servers list
                 $conn = new Api($conf->global->OVHAPPKEY, $conf->global->OVHAPPSECRET, $endpoint, $conf->global->OVHCONSUMERKEY);
-                
+
                 $resultinfo = $conn->get('/dedicated/server/'.$serveur);
                 $resultinfo = dol_json_decode(dol_json_encode($resultinfo), false);
 
                 $resultinfo2 = $conn->get('/dedicated/server/'.$serveur.'/specifications/network');
                 $resultinfo2 = dol_json_decode(dol_json_encode($resultinfo2), false);
-                
+
                 $resultrev = $conn->get('/ip/');
                 $resultrev = dol_json_decode(dol_json_encode($resultrev), false);
-                
+
                 $resultnetboot = $conn->get('/dedicated/server/'.$serveur.'/boot/'.$resultinfo->bootId);
                 $resultnetboot = dol_json_decode(dol_json_encode($resultnetboot), false);
 
@@ -193,7 +200,7 @@ else
                 setEventMessages($this->error, null, 'errors');
             }
         }
-        
+
     	$typesrv = substr($serveur, 0, 1);
 
     	print_fiche_titre($serveur,'','');
@@ -342,12 +349,12 @@ else
         		print '<tr><td>Quota Out </td><td> ' . $resultinfo->network->traffic->monthlyTraffic->out . '</td></tr>';
         		print '</table>';
         	}
-    
+
         	print '<table width="100%;">';
         	print '<tr><td  class="liste_titre" colspan="2">';
         	print '<strong>Interfaces</strong> </td></tr>';
         	$i = 0;
-    	
+
         	while ($resultinfo->network->interfaces[$i])
         	{
         		if ($i == 0)
@@ -356,11 +363,11 @@ else
         			print '<tr><td>Mac </td><td> ' . $resultinfo->network->interfaces[$i]->mac . '</td></tr>';
         			print '<tr><td>IP </td><td> ' . $resultinfo->network->interfaces[$i]->ip . '</td></tr>';
         		}
-    
+
         		$i++;
         		$nb = $i - 1;
         	}
-    
+
         	print '</table>';
         	print 'Vous possedez ' . ($nb ? $nb : 0) . ' IP Failover';
     	}
@@ -375,13 +382,13 @@ else
         	$ip = gethostbyname($serveur);
         	$result = $soap->dedicatedMrtgInfo($session, $serveur, 'traffic', $type, $ip);
         	print '<img src="' . $result->image . '"><br>';
-    
+
         	$image = $result->image;
         	if (empty($image))
         	{
         		print 'vide';
         	}
-    	
+
         	print 'Out Max : ' . $result->max->out . ' Moy : ' . $result->average->out . ' Cur : ' . $result->current->out . '<br>';
         	print 'In Max : ' . $result->max->in . ' Moy : ' . $result->average->in . ' Cur : ' . $result->current->out;
     	}
@@ -393,7 +400,7 @@ else
 
     	//dedicatedList
     	if (! empty($conf->global->OVH_OLDAPI))
-    	{    	
+    	{
     	   $result = $soap->dedicatedList($session);
     	}
     	else
@@ -405,8 +412,8 @@ else
         	    $endpoint,
         	    $conf->global->OVHCONSUMERKEY);
         	$result = $conn->get('/dedicated/server/');
-    	}    	    	
-    	
+    	}
+
     	if (count($result))
     	{
         	print '<ul>';

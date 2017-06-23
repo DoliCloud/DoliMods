@@ -14,7 +14,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  * https://www.ovh.com/fr/soapi-to-apiv6-migration/
  */
 
@@ -26,14 +26,20 @@
 
 define('NOCSRFCHECK',1);
 
+// Load Dolibarr environment
 $res=0;
+// Try main.inc.php into web root known defined into CONTEXT_DOCUMENT_ROOT (not always defined)
 if (! $res && ! empty($_SERVER["CONTEXT_DOCUMENT_ROOT"])) $res=@include($_SERVER["CONTEXT_DOCUMENT_ROOT"]."/main.inc.php");
-if (! $res && file_exists("../main.inc.php")) $res=@include("../main.inc.php");
+// Try main.inc.php into web root detected using web root caluclated from SCRIPT_FILENAME
+$tmp=empty($_SERVER['SCRIPT_FILENAME'])?'':$_SERVER['SCRIPT_FILENAME'];$tmp2=realpath(__FILE__); $i=strlen($tmp)-1; $j=strlen($tmp2)-1;
+while($i > 0 && $j > 0 && isset($tmp[$i]) && isset($tmp2[$j]) && $tmp[$i]==$tmp2[$j]) { $i--; $j--; }
+if (! $res && $i > 0 && file_exists(substr($tmp, 0, ($i+1))."/main.inc.php")) $res=@include(substr($tmp, 0, ($i+1))."/main.inc.php");
+if (! $res && $i > 0 && file_exists(dirname(substr($tmp, 0, ($i+1)))."/main.inc.php")) $res=@include(dirname(substr($tmp, 0, ($i+1)))."/main.inc.php");
+// Try main.inc.php using relative path
 if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.php");
 if (! $res && file_exists("../../../main.inc.php")) $res=@include("../../../main.inc.php");
-if (! $res && file_exists("../../../../main.inc.php")) $res=@include("../../../../main.inc.php");
-if (! $res && preg_match('/\/nltechno([^\/]*)\//',$_SERVER["PHP_SELF"],$reg)) $res=@include("../../../../dolibarr".$reg[1]."/htdocs/main.inc.php"); // Used on dev env only
 if (! $res) die("Include of main fails");
+
 require_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
 dol_include_once("/ovh/class/ovhsms.class.php");
 dol_include_once("/ovh/lib/ovh.lib.php");
@@ -136,20 +142,20 @@ else
     print '<form method="post" action="'.$_SERVER["PHP_SELF"].'">';
     print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
     print '<input type="hidden" name="action" value="setvalue_account">';
-    
-    
+
+
     dol_fiche_head($head, 'click2dial', $langs->trans("Ovh"));
-   
-    
+
+
     print '<table class="noborder" width="100%">';
-    
+
     print '<tr class="liste_titre">';
     print '<td width="200px">'.$langs->trans("Parameter").'</td>';
     print '<td>'.$langs->trans("Value").'</td>';
     print '<td>&nbsp;</td>';
     print "</tr>\n";
-    
-    
+
+
     if (! empty($conf->global->OVH_OLDAPI) || ! empty($conf->global->OVH_OLDAPI_FORCLICK2DIAL))
     {
         $var=!$var;
@@ -158,19 +164,19 @@ else
         print '<input size="64" type="text" name="OVHSMS_NICK" value="'.$conf->global->OVHSMS_NICK.'">';
         print '</td><td>'.$langs->trans("Example").': AA123-OVH';
         print '</td></tr>';
-        
+
         $var=!$var;
         print '<tr '.$bc[$var].'><td class="fieldrequired">';
         print $langs->trans("OvhSmsPass").'</td><td>';
         print '<input size="64" type="password" name="OVHSMS_PASS" value="'.$conf->global->OVHSMS_PASS.'">';
         print '</td><td></td></tr>';
-        
+
         $var=!$var;
         print '<tr '.$bc[$var].'><td class="fieldrequired">';
         print $langs->trans("OvhSmsSoapUrl").'</td><td>';
         print '<input size="64" type="text" name="OVHSMS_SOAPURL" value="'.$conf->global->OVHSMS_SOAPURL.'">';
         print '</td><td>'.$langs->trans("Example").': '.$urlexample;
-        print '</td></tr>';        
+        print '</td></tr>';
     }
     else
     {
@@ -180,7 +186,7 @@ else
         print '<input size="64" type="text" name="OVHC2C_ACCOUNT" value="'.$conf->global->OVHC2C_ACCOUNT.'">';
         print '<br>'.$langs->trans("Example").': nh123-ovh-1';
         print '</td><td></td></tr>';
-    
+
         $var=!$var;
         print '<tr '.$bc[$var].'><td>';
         $htmltext=$langs->trans("OvhServiceNameHelp");
@@ -189,17 +195,17 @@ else
         print '<br>'.$langs->trans("Example").': 00331234567';
         print '</td><td></td></tr>';
     }
-    
-    print '</table>';    
-    
-    
+
+    print '</table>';
+
+
     print '<br>';
 
     // Show message
     $message='';
-    
+
     $tmpurl='/ovh/wrapper.php?caller=__PHONEFROM__&called=__PHONETO__';
-    if (empty($conf->global->OVH_OLDAPI)) 
+    if (empty($conf->global->OVH_OLDAPI))
     {
         $tmpurl.='&billingaccount='.(empty($conf->global->OVHC2C_ACCOUNT)?'???':$conf->global->OVHC2C_ACCOUNT).'&servicename='.(empty($conf->global->OVHSN_ACCOUNT)?'SIPLineNumber':$conf->global->OVHSN_ACCOUNT);
     }
@@ -207,20 +213,20 @@ else
     {
         $tmpurl.='&login=__LOGIN__&password=__PASS__';
     }
-        
+
     $url='<a href="'.dol_buildpath($tmpurl,2).'" target="_blank">'.dol_buildpath($tmpurl,2).'</a>';
     $message.=img_picto('','object_globe.png').' '.$langs->trans("ClickToDialLink",'OVH',$url);
     $message.='<br>';
     $message.='<br>';
     print $message;
 
-    
+
     dol_fiche_end();
-    
+
     print '<div class="center"><input type="submit" class="button" value="'.$langs->trans("Modify").'"></div>';
-    
+
     print '</form>';
-    
+
 //}
 
 
