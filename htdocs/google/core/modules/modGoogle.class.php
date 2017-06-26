@@ -78,7 +78,7 @@ class modGoogle extends DolibarrModules
 		$this->langfiles = array("google@google");
 
 		// Constants
-		$this->const = array(0=>array('GOOGLE_DEBUG','chaine','1','This is to enable Google debug',1,'allentities',1));
+		$this->const = array(0=>array('GOOGLE_DEBUG', 'chaine', '0', 'This is to enable Google debug', 1, 'allentities', 1));
 
 
 
