@@ -150,6 +150,7 @@ if ($action == 'requestcredential')
         (object) ['method'    => 'GET', 'path'      => '/telephony*' ],
         (object) ['method'    => 'GET', 'path'      => '/dedicated/server*' ],
         (object) ['method'    => 'GET', 'path'      => '/cloud*' ],
+        (object) ['method'    => 'POST', 'path'      => '/cloud/project/*/instance/*/snapshot' ],
         (object) ['method'    => 'GET', 'path'      => '/ip*' ],
         (object) ['method'    => 'POST', 'path'      => '/sms*' ],
         (object) ['method'    => 'POST', 'path'      => '/telephony*' ],
