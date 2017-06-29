@@ -189,7 +189,7 @@ else
 {
     // Define mime type
     $type = 'application/octet-stream';
-    if (GETPOST("type") != 'auto') $type=$_GET["type"];
+    if (GETPOST("type","alphanohtml") != 'auto') $type=GETPOST("type","alphanohtml");
     else $type=dol_mimetype($original_file,'text/plain');
     //print 'X'.$type.'-'.$original_file;exit;
 }
@@ -208,7 +208,7 @@ if (! file_exists($original_file_osencoded))
 
 print '<!-- TYPE='.$type.' -->'."\n";
 print '<!-- SIZE='.$sizeoffile.' -->'."\n";
-print '<!-- Ajax page called with url '.$_SERVER["PHP_SELF"].'?'.$_SERVER["QUERY_STRING"].' -->'."\n";
+print '<!-- Ajax page called with url '.dol_escape_htmltag($_SERVER["PHP_SELF"]).'?'.dol_escape_htmltag($_SERVER["QUERY_STRING"]).' -->'."\n";
 
 // Les drois sont ok et fichier trouve, et fichier texte, on l'envoie
 print '<b><font class="liste_titre">'.$langs->trans("Information").'</font></b><br>';
@@ -248,12 +248,12 @@ if ($type == 'directory')
     $upload_max_filesize		= $mul_upload_max_filesize * (int) $upload_max_filesize;
     // Max file size
     $max_file_size 				= (($post_max_size < $upload_max_filesize) ? $post_max_size : $upload_max_filesize);
-    
+
     $langs->load("errors");
     ?>
 
     <!-- START PART FOR FILEUPLOAD -->
-    
+
     <script type="text/javascript">
     var nberror=0;
 
@@ -278,11 +278,11 @@ if ($type == 'directory')
         $('#fileupload').on('submit', function (e) {
             // On empêche le navigateur de soumettre le formulaire
             e.preventDefault();
-     
+
             var $form = $(this);
             var formdata = (window.FormData) ? new FormData($form[0]) : null;
             var data = (formdata !== null) ? formdata : $form.serialize();
-     
+
             $.ajax({
                 url: $form.attr('action'),
                 type: $form.attr('method'),
@@ -293,7 +293,7 @@ if ($type == 'directory')
                 success: function (response) {
                     // La réponse du serveur
                     console.log(response);
-                    if (response[0].error) 
+                    if (response[0].error)
                     {
                         mesg=response[0].error
                         if (window.locale[mesg]) mesg=window.locale[mesg];
@@ -308,9 +308,9 @@ if ($type == 'directory')
             });
         });
     });
-        
+
     </script>
- 
+
 
     <form id="fileupload" method="post" action="<?php echo dol_buildpath('/filemanager/ajaxfileuploader.php',1); ?>" enctype="multipart/form-data">
 		<input type="hidden" name="upload_dir" value="<?php echo $original_file; ?>">
@@ -318,10 +318,10 @@ if ($type == 'directory')
         <button type="submit">OK</button>
     </form>
 
-     
- 
- 
- 
+
+
+
+
 	<?php
 
 

@@ -54,7 +54,7 @@ class Google_Http_REST
     $body = $response->getResponseBody();
     $decoded = null;
 
-    // DOL_LDR
+    // CHANGE DOL_LDR
     global $conf;
     if (! empty($conf->global->GOOGLE_DEBUG))
     {
