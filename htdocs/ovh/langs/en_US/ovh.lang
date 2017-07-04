@@ -71,3 +71,5 @@ IfYouChangeHereChangeAlsoClickToDial=If you change data here, don't forget to up
 ToGoOnClickToDialSetup=To go on ClickToDial module setup
 OvhServiceNameHelp=Put here the SIP line number. Note, if you have several line numbers for different users, keep this field empty and change the value of "SIPLineNumber" into the URL you have to paste into the ClickToDial URL field on each user card (see lower)
 OVHURLMustNotBeLocal=Warning, URL you use for the application must NOT be a local URL but an URL you can access from internet to have this working.
+CreateSnapshot=Create snapshot
+SnapshotRequestSent=Snapshot request under name '%s' was successfully sent.

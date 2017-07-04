@@ -65,6 +65,7 @@ $sendto = GETPOST("sendto") ? GETPOST('sendto') : '';
 $project = GETPOST('project','aZ09');
 $mode = GETPOST('mode','aZ09');
 if (empty($mode)) $mode='dedicated';
+$server = GETPOST('server','aZ09');
 
 // for bandwitch stats
 if (!empty($_GET['type']))
@@ -82,6 +83,17 @@ if ($user->societe_id > 0) accessforbidden();
 if (empty($user->rights->ovh->sysadmin)) accessforbidden();
 
 $endpoint = empty($conf->global->OVH_ENDPOINT)?'ovh-eu':$conf->global->OVH_ENDPOINT;
+
+$WS_DOL_URL = $conf->global->OVHSMS_SOAPURL;
+dol_syslog("Will use URL=".$WS_DOL_URL, LOG_DEBUG);
+
+$login = $conf->global->OVHSMS_NICK;
+$password = $conf->global->OVH_SMS_PASS;
+
+require_once(DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php');
+$params=getSoapParams();
+ini_set('default_socket_timeout', $params['response_timeout']);
+
 
 
 /*
@@ -106,17 +118,37 @@ if ($action == 'setvalue' && $user->admin)
     }
 }
 
+if ($action == 'createsnapshot' && $user->admin)
+{
+    $server=GETPOST('server','aZ09');
+
+    $http_client = new GClient();
+    $http_client->setDefaultOption('connect_timeout', empty($conf->global->MAIN_USE_CONNECT_TIMEOUT)?20:$conf->global->MAIN_USE_CONNECT_TIMEOUT);  // Timeout by default of OVH is 5 and it is not enough
+    $http_client->setDefaultOption('timeout', empty($conf->global->MAIN_USE_RESPONSE_TIMEOUT)?30:$conf->global->MAIN_USE_RESPONSE_TIMEOUT);
+
+    $conn = new Api($conf->global->OVHAPPKEY, $conf->global->OVHAPPSECRET, $endpoint, $conf->global->OVHCONSUMERKEY, $http_client);
+
+    $resultcreatesnapshot=null;
+    try {
+        $snapshotName='Snapshot from Dolibarr '.GETPOST('name','alpha').' '.dol_print_date(dol_now(), 'dayhour');
+        $content = (object) array('snapshotName'=>$snapshotName);
+        $resultcreatesnapshot = $conn->post('/cloud/project/'.$project.'/instance/'.$server.'/snapshot', $content);
+        $resultcreatesnapshot = json_decode(json_encode($resultcreatesnapshot), false);
+        setEventMessages($langs->trans("SnapshotRequestSent", $snapshotName), null);
+    }
+    catch(Exception $e)
+    {
+        setEventMessages('Error '.$e->getMessage().'<br>If this is an error to connect to OVH host, check your firewall does not block port required to reach OVH manager/api (for example port 1664 with old api, 443 for new api).', null, 'errors');
+    }
+
+    $action='';
+    $server='';
+}
 
 
 /*
  * View
  */
-
-$WS_DOL_URL = $conf->global->OVHSMS_SOAPURL;
-dol_syslog("Will use URL=".$WS_DOL_URL, LOG_DEBUG);
-
-$login = $conf->global->OVHSMS_NICK;
-$password = $conf->global->OVH_SMS_PASS;
 
 $morejs = '';
 llxHeader('', $langs->trans('OvhServers'), '', '', '', '', $morejs, '', 0, 0);
@@ -141,15 +173,9 @@ elseif (empty($conf->global->OVH_OLDAPI) && (empty($conf->global->OVHAPPKEY) || 
 }
 else
 {
-    $serveur = GETPOST('server');
-
-    require_once(DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php');
-    $params=getSoapParams();
-    ini_set('default_socket_timeout', $params['response_timeout']);
-
     if (! empty($conf->global->OVH_OLDAPI))
     {
-        $soap = new SoapClient($WS_DOL_URL,$params);
+        $soap = new SoapClient($WS_DOL_URL, $params);
         try {
             $language="en";
             $multisession=false;
@@ -173,17 +199,17 @@ else
         }
     }
 
-    if ($serveur)
+    if ($server)
     {
         if (! empty($conf->global->OVH_OLDAPI))
         {
-        	$resultinfo = $soap->dedicatedInfo($session, $serveur);
+        	$resultinfo = $soap->dedicatedInfo($session, $server);
 
-        	$resultrev = $soap->dedicatedReverseList($session, $serveur);
+        	$resultrev = $soap->dedicatedReverseList($session, $server);
 
-        	$resultnetboot = $soap->dedicatedNetbootInfo($session, $serveur);
+        	$resultnetboot = $soap->dedicatedNetbootInfo($session, $server);
 
-        	//$resultcapa = $soap->dedicatedCapabilitiesGet($session, $serveur);
+        	//$resultcapa = $soap->dedicatedCapabilitiesGet($session, $server);
         }
         else
         {
@@ -193,26 +219,29 @@ else
                 $http_client->setDefaultOption('connect_timeout', empty($conf->global->MAIN_USE_CONNECT_TIMEOUT)?20:$conf->global->MAIN_USE_CONNECT_TIMEOUT);  // Timeout by default of OVH is 5 and it is not enough
                 $http_client->setDefaultOption('timeout', empty($conf->global->MAIN_USE_RESPONSE_TIMEOUT)?30:$conf->global->MAIN_USE_RESPONSE_TIMEOUT);
 
-                // Get servers list
                 $conn = new Api($conf->global->OVHAPPKEY, $conf->global->OVHAPPSECRET, $endpoint, $conf->global->OVHCONSUMERKEY, $http_client);
 
+                // Get servers list
                 if ($mode == 'publiccloud')
                 {
-                    $resultinfo = $conn->get('/cloud/project/'.$project.'/instance/'.$serveur);
+                    $resultinfo = $conn->get('/cloud/project/'.$project.'/instance/'.$server);
                     $resultinfo = json_decode(json_encode($resultinfo), false);
+
+                    $resultinfosnapshot = $conn->get('/cloud/project/'.$project.'/snapshot');
+                    $resultinfosnapshot = json_decode(json_encode($resultinfosnapshot), false);
                 }
                 else
                 {
-                    $resultinfo = $conn->get('/dedicated/server/'.$serveur);
+                    $resultinfo = $conn->get('/dedicated/server/'.$server);
                     $resultinfo = json_decode(json_encode($resultinfo), false);
 
-                    $resultinfo2 = $conn->get('/dedicated/server/'.$serveur.'/specifications/network');
+                    $resultinfo2 = $conn->get('/dedicated/server/'.$server.'/specifications/network');
                     $resultinfo2 = json_decode(json_encode($resultinfo2), false);
 
                     $resultrev = $conn->get('/ip/');
                     $resultrev = json_decode(json_encode($resultrev), false);
 
-                    $resultnetboot = $conn->get('/dedicated/server/'.$serveur.'/boot/'.$resultinfo->bootId);
+                    $resultnetboot = $conn->get('/dedicated/server/'.$server.'/boot/'.$resultinfo->bootId);
                     $resultnetboot = json_decode(json_encode($resultnetboot), false);
                 }
 
@@ -225,24 +254,54 @@ else
             }
         }
 
-    	$typesrv = substr($serveur, 0, 1);
+    	$typesrv = substr($server, 0, 1);
 
-    	print_fiche_titre($serveur,'','');
+    	$title = empty($resultinfo->name)?$server:$resultinfo->name;
+    	print_fiche_titre($title,'','');
 
-    	print '<table class="border" width="100%;">';
-    	print '<tr><td class="titlefield liste_titre">';
-    	print '<strong>'.$langs->trans("Summary").'</strong> </td><td class="liste_titre"></td></tr>';
-    	print '<tr><td>'.$langs->trans("Server").'</td><td> ' . $serveur . '</td></tr>';
+    	print '<br>';
 
     	if ($mode == 'publiccloud')
     	{
-            var_dump($resultinfo);
+        	print '<table class="border centpercent">';
+        	print '<tr><td class="titlefield">'.$langs->trans("Id").'</td><td> ' . $server . '</td></tr>';
 
+    	    print '<tr><td>'.$langs->trans("Name").'</td><td>' . $resultinfo->name . '</td></tr>';
+            print '<tr><td>'.$langs->trans("Created").'</td><td>' . $resultinfo->created . '</td></tr>';
+            print '<tr><td>'.$langs->trans("Region").'</td><td>' . $resultinfo->flavor->region . '</td></tr>';
+            print '<tr><td>'.$langs->trans("Type").'</td><td>' . $resultinfo->flavor->name . '</td></tr>';
+            print '<tr><td>'.$langs->trans("OS").'</td><td>' . $resultinfo->flavor->osType . '</td></tr>';
+            print '<tr><td>'.$langs->trans("Created").'</td><td>' . $resultinfo->created . '</td></tr>';
+            print '<tr><td>'.$langs->trans("Vcpus").'</td><td>' . $resultinfo->flavor->vcpus . '</td></tr>';
+            print '<tr><td>'.$langs->trans("Disk").'</td><td>' . $resultinfo->flavor->disk . '</td></tr>';
+            print '<tr><td>'.$langs->trans("Ram").'</td><td>' . $resultinfo->flavor->ram . '</td></tr>';
+            print '<tr><td>'.$langs->trans("inboundBandwidth").'</td><td>' . $resultinfo->flavor->inboundBandwidth . '</td></tr>';
+            print '<tr><td>'.$langs->trans("outboundBandwidth").'</td><td>' . $resultinfo->flavor->outboundBandwidth . '</td></tr>';
+            print '<tr><td>'.$langs->trans("SSHKey").'</td><td>' . dol_trunc($resultinfo->sshKey->publicKey, 80, 'middle') . '</td></tr>';
+            print '<tr><td>'.$langs->trans("monthlyBilling").'</td><td>' . $resultinfo->monthlyBilling->status . ' ('.$resultinfo->monthlyBilling->since.')</td></tr>';
+            print '<tr><td>'.$langs->trans("IPAddresses").'</td><td>';
+   	        if (is_array($resultinfo->ipAddresses))
+            {
+    	        foreach ($resultinfo->ipAddresses as $val)
+    	        {
+    	            print '* '.$val->ip.' ('.$val->type.' '.$val->version.')<br>';
+    	            print $langs->trans("GatewayIp").' '.$val->gatewayIp;
+    	            print '<br>';
+    	        }
+            }
+            print '</td></tr>';
+            print '</table>';
+
+            var_dump($resultinfosnapshot);
     	}
     	else
     	{
-        	$reverse1 = gethostbyname($serveur);
+        	$reverse1 = gethostbyname($server);
         	$reverse = gethostbyaddr($reverse1);
+
+        	print '<table class="border centpercent">';
+        	print '<tr><td class="titlefield">'.$langs->trans("Server").'</td><td> ' . $server . '</td></tr>';
+
         	print '<tr><td>Reverse </td><td>  ' . $reverse . '</td></tr>';
         	print '<tr><td>NetBoot </td><td>  ';
         	if ($resultnetboot->kernel == 'hd')
@@ -279,21 +338,21 @@ else
         	print '</td></tr>';
         	print '<tr><td>Rack </td><td> ' . $resultinfo->rack . '</td></tr>';
         	print '<tr><td>Distribution </td><td> ' . $resultinfo->os . '</td></tr>';
-        	print '<tr><td>IP</td><td> ' . gethostbyname($serveur) . '</td></tr>';
+        	print '<tr><td>IP</td><td> ' . gethostbyname($server) . '</td></tr>';
         	print '<tr><td>Rescue email</td><td> ' . $resultinfo->rescueMail . '</td></tr>';
         	print '</table>';
 
 
-        	/*
-        	 * Network infos
-        	 */
-        	print '<table class="border" width="100%;">';
-        	print '<tr><td class="titlefield liste_titre">';
-        	print '<strong>'.$langs->trans("Network").'</strong> </td><td></td></tr>';
-
     		if (! empty($conf->global->OVH_OLDAPI))
     		{
-    			print '<tr><td>Ovh to Ovh </td><td> ';
+            	/*
+            	 * Network infos
+            	 */
+            	print '<table class="border" width="100%;">';
+            	print '<tr><td class="titlefield liste_titre">';
+            	print '<strong>'.$langs->trans("Network").'</strong> </td><td></td></tr>';
+
+    		    print '<tr><td>Ovh to Ovh </td><td> ';
     		    if ($resultinfo->network->bandwidthOvhToOvh == 100000)
     		    {
     		        print '100 Mbps';
@@ -344,21 +403,9 @@ else
     		        }
     		    }
     		    print '</td></tr>';
-    		}
-    		else
-    		{
-    		    print '<tr><td>Ovh to Ovh </td><td> ';
-            	print $resultinfo2->bandwidth['OvhToOvh']['value'].' '.$resultinfo2->bandwidth['OvhToOvh']['unit'];
-            	print '</td></tr>';
-            	print '<tr><td>Ovh to Internet </td><td> ';
-            	print $resultinfo2->bandwidth['OvhToInternet']['value'].' '.$resultinfo2->bandwidth['OvhToInternet']['unit'];
-            	print '</td></tr>';
-            	print '<tr><td>Internet to Ovh </td><td>';
-            	print $resultinfo2->bandwidth['InternetToOvh']['value'].' '.$resultinfo2->bandwidth['InternetToOvh']['unit'];
-            	print '</td></tr>';
+    		    print '</table>';
     		}
     	}
-    	print '</table>';
 
 
     	if (! empty($conf->global->OVH_OLDAPI))
@@ -401,10 +448,10 @@ else
     	if (! empty($conf->global->OVH_OLDAPI))
     	{
     	   print '<br><br>';
-    	   print '<div><a href="?server=' . $serveur . '&type=day">'.$langs->trans("Day").'</a> / <a href="?server=' . $serveur . '&type=week">'.$langs->trans("Week").'</a> / <a href="?server=' . $serveur . '&type=month">'.$langs->trans("Month").'</a> / <a href="?server=' . $serveur . '&type=year">'.$langs->trans("Year").'</a></div>';
+    	   print '<div><a href="?server=' . $server . '&type=day">'.$langs->trans("Day").'</a> / <a href="?server=' . $server . '&type=week">'.$langs->trans("Week").'</a> / <a href="?server=' . $server . '&type=month">'.$langs->trans("Month").'</a> / <a href="?server=' . $server . '&type=year">'.$langs->trans("Year").'</a></div>';
 
-        	$ip = gethostbyname($serveur);
-        	$result = $soap->dedicatedMrtgInfo($session, $serveur, 'traffic', $type, $ip);
+        	$ip = gethostbyname($server);
+        	$result = $soap->dedicatedMrtgInfo($session, $server, 'traffic', $type, $ip);
         	print '<img src="' . $result->image . '"><br>';
 
         	$image = $result->image;
@@ -424,6 +471,7 @@ else
 
     	print_fiche_titre($langs->trans($titlekey),"","");
 
+    	print '<br>';
 
     	//dedicatedList
     	if (! empty($conf->global->OVH_OLDAPI))
@@ -462,19 +510,43 @@ else
 
     	if (count($result))
     	{
-        	print '<ul>';
+        	print '<table class="border tableovh centpercent">';
         	foreach ($result as $serverobj)
         	{
         	    if ($mode == 'publiccloud')
         	    {
-        	        print '<li><a href="?mode=publiccloud&server=' . $serverobj['id'] . '&project='.$projectname.'">' . $serverobj['name'] . '</a>';
+        	        print '<tr>';
+        	        print '<td><a href="?mode=publiccloud&server=' . $serverobj['id'] . '&project='.$projectname.'">' . $serverobj['name'] . '</a>';
+        	        print '<br>'.$serverobj['region'];
+        	        print ' - '.$serverobj['id'];
+        	        print '</td>';
+        	        print '<td>';
+        	        if (is_array($serverobj['ipAddresses']))
+        	        {
+            	        foreach ($serverobj['ipAddresses'] as $val)
+            	        {
+            	            print '* '.$val['ip'].' ('.$val['type'].' '.$val['version'].')<br>';
+            	            print $langs->trans("GatewayIp").' '.$val['gatewayIp'];
+            	            print '<br>';
+            	        }
+        	        }
+        	        print '</td>';
+        	        print '<td class="center">';
+        	        print $serverobj['status'];
+        	        print '</td>';
+        	        print '<td class="center">';
+        	        print '<a href="?mode=publiccloud&server=' . $serverobj['id'] . '&project='.$projectname.'&action=createsnapshot&name='.urlencode($serverobj['name']).'">'.$langs->trans("CreateSnapshot").'</a>';
+        	        print '</td>';
+        	        print '</tr>';
         	    }
         	    else
         	    {
-        	        print '<li><a href="?server=' . $serverobj . '">' . $serverobj . '</a>';
+        	        print '<tr>';
+        	        print '<td><a href="?server=' . $serverobj . '">' . $serverobj . '</a></td>';
+        	        print '</tr>';
         	    }
         	}
-        	print '</ul>';
+        	print '</table>';
     	}
     	else
     	{

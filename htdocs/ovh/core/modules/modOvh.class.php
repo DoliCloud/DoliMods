@@ -68,6 +68,24 @@ class modOvh extends DolibarrModules
 		// If file is in module/img directory under name object_pictovalue.png, use this->picto='pictovalue@module'
 		$this->picto = 'ovh@ovh';
 
+		// Defined all module parts (triggers, login, substitutions, menus, css, etc...)
+		// for default path (eg: /mymodule/core/xxxxx) (0=disable, 1=enable)
+		// for specific path of parts (eg: /mymodule/core/modules/barcode)
+		// for specific css file (eg: /mymodule/css/mymodule.css.php)
+		$this->module_parts = array(
+		    'triggers' => 0,                                 	// Set this to 1 if module has its own trigger directory (core/triggers)
+		    'login' => 0,                                    	// Set this to 1 if module has its own login method directory (core/login)
+		    'substitutions' => 0,                            	// Set this to 1 if module has its own substitution function file (core/substitutions)
+		    'menus' => 0,                                    	// Set this to 1 if module has its own menus handler directory (core/menus)
+		    'theme' => 0,                                    	// Set this to 1 if module has its own theme directory (theme)
+		    'tpl' => 0,                                      	// Set this to 1 if module overwrite template dir (core/tpl)
+		    'barcode' => 0,                                  	// Set this to 1 if module has its own barcode directory (core/modules/barcode)
+		    'models' => 0,                                   	// Set this to 1 if module has its own models directory (core/modules/xxx)
+		    'css' => array('/ovh/css/ovh.css.php'),	            // Set this to relative path of css file if module has its own css file
+		    'js' => array(),                                    // Set this to relative path of js file if module must load a js on all pages
+		    'hooks' => array() 	                                // Set here all hooks context managed by module. You can also set hook context 'all'
+		);
+
 		// Data directories to create when module is enabled.
 		// Example: this->dirs = array("/mymodule/temp");
 		$this->dirs = array();
