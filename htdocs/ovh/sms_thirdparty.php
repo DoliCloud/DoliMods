@@ -52,7 +52,7 @@ $langs->load("ovh@ovh");
 
 // Get parameters
 $socid = GETPOST('socid','int')?GETPOST('socid','int'):GETPOST('id','int');
-$action = GETPOST('action');
+$action = GETPOST('action','aZ09');
 $mesg='';
 
 // Protection if external user

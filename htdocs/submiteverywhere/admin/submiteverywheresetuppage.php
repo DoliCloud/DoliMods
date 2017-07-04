@@ -58,7 +58,7 @@ $listoftargets=array(
 //'sms'=>array('label'=>$langs->trans("Email"),'titlelength'=>10,'descshortlength'=>140,'desclonglength'=>-1),
 );
 
-$action=GETPOST('action');
+$action=GETPOST('action','aZ09');
 $id=GETPOST('id','int');
 
 $sortfield = GETPOST("sortfield",'alpha');

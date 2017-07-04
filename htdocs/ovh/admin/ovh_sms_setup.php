@@ -58,7 +58,7 @@ if (!$user->admin)
 accessforbidden();
 // Get parameters
 
-$action=GETPOST('action');
+$action=GETPOST('action','aZ09');
 
 // Protection if external user
 if ($user->societe_id > 0)

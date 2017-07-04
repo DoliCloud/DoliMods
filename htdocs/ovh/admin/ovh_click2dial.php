@@ -48,7 +48,7 @@ use \Ovh\Api;
 use GuzzleHttp\Client as GClient;
 
 
-$action=GETPOST('action');
+$action=GETPOST('action','aZ09');
 
 // Load traductions files requiredby by page
 $langs->load("admin");

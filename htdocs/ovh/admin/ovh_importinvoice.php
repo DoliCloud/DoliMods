@@ -38,7 +38,7 @@ $langs->load("sms");
 
 $error=0;
 
-$action = GETPOST('action');
+$action = GETPOST('action','aZ09');
 
 // Protection if external user
 if ($user->societe_id > 0) accessforbidden();

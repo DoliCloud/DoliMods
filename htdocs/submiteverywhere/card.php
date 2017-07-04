@@ -38,7 +38,7 @@ dol_include_once("/submiteverywhere/core/lib/submiteverywhere.lib.php");
 dol_include_once("/submiteverywhere/class/SubmitewMessage.class.php");
 
 $id=GETPOST('id','int');
-$action=GETPOST('action');
+$action=GETPOST('action','aZ09');
 $confirm=GETPOST('confirm');
 
 $langs->load("mails");
@@ -798,7 +798,7 @@ else
 			 */
 
 			if (GETPOST("cancel") || GETPOST("confirm")=='no' || GETPOST("action") == ''
-			  || in_array(GETPOST('action'),array('valid','delete','sendall')))
+			  || in_array(GETPOST('action','aZ09'),array('valid','delete','sendall')))
 			{
 				print "\n\n<div class=\"tabsAction\">\n";
 

@@ -40,7 +40,7 @@ $langs->load("errors");
 $langs->load("install");
 $langs->load("tvacerfa@tvacerfa");
 
-$action=GETPOST('action');
+$action=GETPOST('action','aZ09');
 
 //exit;
 

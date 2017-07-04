@@ -46,7 +46,7 @@ $newvaltest='';
 $outputlangs=new Translate('',$conf);
 $outputlangs->setDefaultLang($langs->defaultlang);
 
-$action=GETPOST('action');
+$action=GETPOST('action','aZ09');
 $value=GETPOST('value');
 $level=GETPOST('level','int');
 

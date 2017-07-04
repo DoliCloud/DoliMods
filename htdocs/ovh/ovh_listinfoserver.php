@@ -59,7 +59,7 @@ $error=0;
 // Get parameters
 $socid = (GETPOST('id','int') ? GETPOST('id','int') : GETPOST('socid','int'));
 // For backward compatibility
-$action = GETPOST('action');
+$action = GETPOST('action','aZ09');
 $sendto = GETPOST("sendto") ? GETPOST('sendto') : '';
 
 $project = GETPOST('project','aZ09');

@@ -28,7 +28,7 @@ if (! $res) die("Include of main fails");
 include_once DOL_DOCUMENT_ROOT.'/core/class/doleditor.class.php';
 include_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
 
-$action=GETPOST('action');
+$action=GETPOST('action','aZ09');
 
 /*
  * Actions

@@ -62,7 +62,7 @@ $url_pdf="https://www.ovh.com/cgi-bin/order/facture.pdf";
 $endpoint = empty($conf->global->OVH_ENDPOINT)?'ovh-eu':$conf->global->OVH_ENDPOINT;
 
 
-$action=GETPOST('action');
+$action=GETPOST('action','aZ09');
 $excludenullinvoice=GETPOST('excludenullinvoice');
 //$idovhsupplier=GETPOST('idovhsupplier');
 $idovhsupplier=empty($conf->global->OVH_THIRDPARTY_IMPORT)?'':$conf->global->OVH_THIRDPARTY_IMPORT;
