@@ -49,7 +49,7 @@ class modFileManager extends DolibarrModules
 		$this->description = "A file manager";
         $this->editor_name = 'NLTechno';
         $this->editor_url = 'https://www.nltechno.com';
-		$this->version = '3.8.0';                        // 'experimental' or 'dolibarr' or version
+		$this->version = '6.0.0';                        // 'experimental' or 'dolibarr' or version
 		// Key used in llx_const table to save module status enabled/disabled (where MYMODULE is value of property name of module in uppercase)
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
 		$this->special = 0;
@@ -82,7 +82,7 @@ class modFileManager extends DolibarrModules
 		$this->depends = array();
 		$this->requiredby = array();
         $this->phpmin = array(4,1);                 // Minimum version of PHP required by module
-        $this->need_dolibarr_version = array(3,0,-2);  // Minimum version of Dolibarr required by module
+        $this->need_dolibarr_version = array(6,0,-2);  // Minimum version of Dolibarr required by module
 		$this->langfiles = array("companies","filemanager@filemanager");
 
 		// Constantes
@@ -195,7 +195,7 @@ class modFileManager extends DolibarrModules
 	/**
 	 *	Fonction appelee lors de la desactivation d'un module.
 	 *  Supprime de la base les constantes, boites et permissions du module.
-	 *  
+	 *
 	 *	@param	string	$options		Options when disabling module
 	 *	@return	void
 	 */

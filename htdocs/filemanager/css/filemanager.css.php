@@ -216,5 +216,201 @@ ul.jqueryFileTree A:hover {
 	width: 95%;
 }
 
+
+
+
+
+/* ============================================================================== */
+/* Panes for ECM or Filemanager                                                   */
+/* ============================================================================== */
+
+#containerlayout .layout-with-no-border {
+    border: 0 !important;
+    border-width: 0 !important;
+}
+
+#containerlayout .layout-padding {
+    padding: 2px !important;
+}
+
+/*
+ *  PANES and CONTENT-DIVs
+ */
+#containerlayout .ui-layout-pane { /* all 'panes' */
+    background: #FFF;
+    border:     1px solid #BBB;
+    /* DO NOT add scrolling (or padding) to 'panes' that have a content-div,
+       otherwise you may get double-scrollbars - on the pane AND on the content-div
+    */
+    padding:    0px;
+    overflow:   auto;
+}
+/* (scrolling) content-div inside pane allows for fixed header(s) and/or footer(s) */
+#containerlayout .ui-layout-content {
+	padding:    10px;
+	position:   relative; /* contain floated or positioned elements */
+	overflow:   auto; /* add scrolling to content-div */
+}
+
+
+/*
+ *  RESIZER-BARS
+ */
+.ui-layout-resizer  { /* all 'resizer-bars' */
+	width: <?php echo (empty($conf->dol_optimize_smallscreen)?'8':'24'); ?>px !important;
+}
+.ui-layout-resizer-hover    {   /* affects both open and closed states */
+}
+/* NOTE: It looks best when 'hover' and 'dragging' are set to the same color,
+    otherwise color shifts while dragging when bar can't keep up with mouse */
+/*.ui-layout-resizer-open-hover ,*/ /* hover-color to 'resize' */
+.ui-layout-resizer-dragging {   /* resizer beging 'dragging' */
+    background: #DDD;
+    width: <?php echo (empty($conf->dol_optimize_smallscreen)?'8':'24'); ?>px;
+}
+.ui-layout-resizer-dragging {   /* CLONED resizer being dragged */
+    border-left:  1px solid #BBB;
+    border-right: 1px solid #BBB;
+}
+/* NOTE: Add a 'dragging-limit' color to provide visual feedback when resizer hits min/max size limits */
+.ui-layout-resizer-dragging-limit { /* CLONED resizer at min or max size-limit */
+    background: #E1A4A4; /* red */
+}
+.ui-layout-resizer-closed {
+    background-color: #DDDDDD;
+}
+.ui-layout-resizer-closed:hover {
+    background-color: #EEDDDD;
+}
+.ui-layout-resizer-sliding {    /* resizer when pane is 'slid open' */
+    opacity: .10; /* show only a slight shadow */
+    filter:  alpha(opacity=10);
+}
+.ui-layout-resizer-sliding-hover {  /* sliding resizer - hover */
+    opacity: 1.00; /* on-hover, show the resizer-bar normally */
+    filter:  alpha(opacity=100);
+}
+/* sliding resizer - add 'outside-border' to resizer on-hover */
+/* this sample illustrates how to target specific panes and states */
+/*.ui-layout-resizer-north-sliding-hover  { border-bottom-width:  1px; }
+.ui-layout-resizer-south-sliding-hover  { border-top-width:     1px; }
+.ui-layout-resizer-west-sliding-hover   { border-right-width:   1px; }
+.ui-layout-resizer-east-sliding-hover   { border-left-width:    1px; }
+*/
+
+/*
+ *  TOGGLER-BUTTONS
+ */
+.ui-layout-toggler {
+    <?php if (empty($conf->dol_optimize_smallscreen)) { ?>
+    border-top: 1px solid #AAA; /* match pane-border */
+    border-right: 1px solid #AAA; /* match pane-border */
+    border-bottom: 1px solid #AAA; /* match pane-border */
+    background-color: #DDD;
+    top: 5px !important;
+	<?php } else { ?>
+	diplay: none;
+	<?php } ?>
+}
+.ui-layout-toggler-open {
+	height: 54px !important;
+	width: <?php echo (empty($conf->dol_optimize_smallscreen)?'7':'22'); ?>px !important;
+    -moz-border-radius:0px 10px 10px 0px;
+	-webkit-border-radius:0px 10px 10px 0px;
+	border-radius:0px 10px 10px 0px;
+}
+.ui-layout-toggler-closed {
+	height: <?php echo (empty($conf->dol_optimize_smallscreen)?'54':'2'); ?>px !important;
+	width: <?php echo (empty($conf->dol_optimize_smallscreen)?'7':'22'); ?>px !important;
+    -moz-border-radius:0px 10px 10px 0px;
+	-webkit-border-radius:0px 10px 10px 0px;
+	border-radius:0px 10px 10px 0px;
+}
+.ui-layout-toggler .content {	/* style the text we put INSIDE the togglers */
+    color:          #666;
+    font-size:      12px;
+    font-weight:    bold;
+    width:          100%;
+    padding-bottom: 0.35ex; /* to 'vertically center' text inside text-span */
+}
+
+/* hide the toggler-button when the pane is 'slid open' */
+.ui-layout-resizer-sliding .ui-layout-toggler {
+    display: none;
+}
+
+.ui-layout-north {
+	height: <?php print (empty($conf->dol_optimize_smallscreen)?'54':'21'); ?>px !important;
+}
+
+
+/* ECM */
+
+#containerlayout .ecm-layout-pane { /* all 'panes' */
+    background: #FFF;
+    border:     1px solid #BBB;
+    /* DO NOT add scrolling (or padding) to 'panes' that have a content-div,
+       otherwise you may get double-scrollbars - on the pane AND on the content-div
+    */
+    padding:    0px;
+    overflow:   auto;
+}
+/* (scrolling) content-div inside pane allows for fixed header(s) and/or footer(s) */
+#containerlayout .ecm-layout-content {
+	padding:    10px;
+	position:   relative; /* contain floated or positioned elements */
+	overflow:   auto; /* add scrolling to content-div */
+}
+
+.ecm-layout-toggler {
+    border-top: 1px solid #AAA; /* match pane-border */
+    border-right: 1px solid #AAA; /* match pane-border */
+    border-bottom: 1px solid #AAA; /* match pane-border */
+    background-color: #CCC;
+    }
+.ecm-layout-toggler-open {
+	height: 48px !important;
+	width: 6px !important;
+    -moz-border-radius:0px 10px 10px 0px;
+	-webkit-border-radius:0px 10px 10px 0px;
+	border-radius:0px 10px 10px 0px;
+}
+.ecm-layout-toggler-closed {
+	height: 48px !important;
+	width: 6px !important;
+}
+
+.ecm-layout-toggler .content {	/* style the text we put INSIDE the togglers */
+    color:          #666;
+    font-size:      12px;
+    font-weight:    bold;
+    width:          100%;
+    padding-bottom: 0.35ex; /* to 'vertically center' text inside text-span */
+}
+#ecm-layout-west-resizer {
+	width: 6px !important;
+}
+
+.ecm-layout-resizer  { /* all 'resizer-bars' */
+    border:         1px solid #BBB;
+    border-width:   0;
+    }
+.ecm-layout-resizer-closed {
+}
+
+.ecm-in-layout-center {
+    border-left: 1px !important;
+    border-right: 0px !important;
+    border-top: 0px !important;
+}
+
+.ecm-in-layout-south {
+    border-top: 0px !important;
+    border-left: 0px !important;
+    border-right: 0px !important;
+    border-bottom: 0px !important;
+    padding: 4px 0 4px 4px !important;
+}
+
 <?php
 $db->close();
