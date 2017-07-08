@@ -25,7 +25,95 @@ if (! defined('REQUIRE_JQUERY_LAYOUT'))     define('REQUIRE_JQUERY_LAYOUT','1');
 if (! defined('REQUIRE_JQUERY_FILEUPLOAD')) define('REQUIRE_JQUERY_FILEUPLOAD','1');
 
 
-require_once("../filemanager/pre.inc.php");
+/**
+ * llxHeader
+ *
+ * @param 	string		$head			Head
+ * @param 	string		$title			Title
+ * @param 	string		$help_url		Help url
+ * @param 	string		$target			Target
+ * @param 	int			$disablejs		Disablejs
+ * @param 	int			$disablehead	Disablehead
+ * @param 	array		$arrayofjs		Array of js
+ * @param 	array		$arrayofcss		Array of css
+ * @param	string		$morequerystring	Query string to add to the link "print" to get same parameters (use only if autodetect fails)
+ * @return	void
+ */
+function llxHeader($head = '', $title='', $help_url='', $target='', $disablejs=0, $disablehead=0, $arrayofjs='', $arrayofcss='', $morequerystring='')
+{
+    global $db, $user, $conf, $langs;
+
+    top_htmlhead($head, $title, $disablejs, $disablehead, $arrayofjs, $arrayofcss);	// Show html headers
+
+    print '<body id="mainbody">' . "\n";
+
+    // top menu and left menu area
+    if (empty($conf->global->MAIN_HIDE_TOP_MENU))
+    {
+        top_menu($head, $title, $target, $disablejs, $disablehead, $arrayofjs, $arrayofcss, $morequerystring);
+    }
+
+
+    require_once DOL_DOCUMENT_ROOT.'/core/class/menu.class.php';
+    $menu=new Menu();
+
+    $numr=0;
+
+    // Entry for each bank config
+    $sql = "SELECT rowid, rootlabel, rootpath";
+    $sql.= " FROM ".MAIN_DB_PREFIX."filemanager_roots";
+    $sql.= " WHERE entity = ".$conf->entity;
+    $sql.= " ORDER BY position";
+
+    $resql = $db->query($sql);
+    if ($resql)
+    {
+        $numr = $db->num_rows($resql);
+        $i = 0;
+
+        if ($numr == 0)
+        {
+            $langs->load("errors");
+            $menu->add('#',$langs->trans('ErrorModuleSetupNotComplete'),0,0);
+        }
+
+        while ($i < $numr)
+        {
+            $objp = $db->fetch_object($resql);
+            $menu->add('/filemanager/index.php?leftmenu=filemanager&id='.$objp->rowid,$objp->rootlabel,0,1);
+            $i++;
+        }
+    }
+    else
+    {
+        dol_print_error($db);
+    }
+    $db->free($resql);
+
+
+    if (empty($conf->global->MAIN_HIDE_LEFT_MENU))
+    {
+        left_menu('', $help_url, '', $menu->liste, 1, $title);
+    }
+
+    main_area($title);
+}
+
+
+// Load Dolibarr environment
+$res=0;
+// Try main.inc.php into web root known defined into CONTEXT_DOCUMENT_ROOT (not always defined)
+if (! $res && ! empty($_SERVER["CONTEXT_DOCUMENT_ROOT"])) $res=@include($_SERVER["CONTEXT_DOCUMENT_ROOT"]."/main.inc.php");
+// Try main.inc.php into web root detected using web root caluclated from SCRIPT_FILENAME
+$tmp=empty($_SERVER['SCRIPT_FILENAME'])?'':$_SERVER['SCRIPT_FILENAME'];$tmp2=realpath(__FILE__); $i=strlen($tmp)-1; $j=strlen($tmp2)-1;
+while($i > 0 && $j > 0 && isset($tmp[$i]) && isset($tmp2[$j]) && $tmp[$i]==$tmp2[$j]) { $i--; $j--; }
+if (! $res && $i > 0 && file_exists(substr($tmp, 0, ($i+1))."/main.inc.php")) $res=@include(substr($tmp, 0, ($i+1))."/main.inc.php");
+if (! $res && $i > 0 && file_exists(dirname(substr($tmp, 0, ($i+1)))."/main.inc.php")) $res=@include(dirname(substr($tmp, 0, ($i+1)))."/main.inc.php");
+// Try main.inc.php using relative path
+if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.php");
+if (! $res && file_exists("../../../main.inc.php")) $res=@include("../../../main.inc.php");
+if (! $res) die("Include of main fails");
+
 include_once(DOL_DOCUMENT_ROOT."/core/lib/files.lib.php");
 include_once(DOL_DOCUMENT_ROOT."/core/lib/security2.lib.php");
 dol_include_once("/filemanager/class/filemanagerroots.class.php");
@@ -119,6 +207,7 @@ $maxheightwin=(isset($_SESSION["dol_screenheight"]) && $_SESSION["dol_screenheig
 
 $morecss=array();
 $morejs=array(
+"/filemanager/includes/jquery/plugins/layout/jquery.layout.js",
 "/filemanager/includes/jqueryFileTree/jqueryFileTree.js",
 );
 
@@ -517,7 +606,7 @@ if ($filemanagerroots->rootpath)
 						multiFolder: false },
 						function(file) {																// Called when we click onto a file
 							console.log("We click on a file");
-						}																
+						}
 			);
         <?php } ?>
 
