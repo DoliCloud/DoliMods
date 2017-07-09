@@ -25,13 +25,20 @@
  *      \brief      Setup page for google module (Calendar)
  */
 
+// Load Dolibarr environment
 $res=0;
-if (! $res && file_exists("../main.inc.php")) $res=@include("../main.inc.php");
+// Try main.inc.php into web root known defined into CONTEXT_DOCUMENT_ROOT (not always defined)
+if (! $res && ! empty($_SERVER["CONTEXT_DOCUMENT_ROOT"])) $res=@include($_SERVER["CONTEXT_DOCUMENT_ROOT"]."/main.inc.php");
+// Try main.inc.php into web root detected using web root caluclated from SCRIPT_FILENAME
+$tmp=empty($_SERVER['SCRIPT_FILENAME'])?'':$_SERVER['SCRIPT_FILENAME'];$tmp2=realpath(__FILE__); $i=strlen($tmp)-1; $j=strlen($tmp2)-1;
+while($i > 0 && $j > 0 && isset($tmp[$i]) && isset($tmp2[$j]) && $tmp[$i]==$tmp2[$j]) { $i--; $j--; }
+if (! $res && $i > 0 && file_exists(substr($tmp, 0, ($i+1))."/main.inc.php")) $res=@include(substr($tmp, 0, ($i+1))."/main.inc.php");
+if (! $res && $i > 0 && file_exists(dirname(substr($tmp, 0, ($i+1)))."/main.inc.php")) $res=@include(dirname(substr($tmp, 0, ($i+1)))."/main.inc.php");
+// Try main.inc.php using relative path
 if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.php");
 if (! $res && file_exists("../../../main.inc.php")) $res=@include("../../../main.inc.php");
-if (! $res && @file_exists("../../../../main.inc.php")) $res=@include("../../../../main.inc.php");
-if (! $res && preg_match('/\/(?:custom|nltechno)([^\/]*)\//',$_SERVER["PHP_SELF"],$reg)) $res=@include("../../../../dolibarr".$reg[1]."/htdocs/main.inc.php"); // Used on dev env only
 if (! $res) die("Include of main fails");
+
 require_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/date.lib.php");
 require_once(DOL_DOCUMENT_ROOT.'/core/class/html.formadmin.class.php');
@@ -75,15 +82,15 @@ if ($action == 'save')
 	{
     	$db->begin();
     	//var_dump($conf->entity);
-    	 
+
     	$res=dolibarr_set_const($db,'GOOGLE_DUPLICATE_INTO_THIRDPARTIES',trim(GETPOST("GOOGLE_DUPLICATE_INTO_THIRDPARTIES")),'chaine',0, '', $conf->entity);
 	    if (! $res > 0) $error++;
 	    $res=dolibarr_set_const($db,'GOOGLE_DUPLICATE_INTO_CONTACTS',trim(GETPOST("GOOGLE_DUPLICATE_INTO_CONTACTS")),'chaine',0, '', $conf->entity);
 	    if (! $res > 0) $error++;
 	    $res=dolibarr_set_const($db,'GOOGLE_DUPLICATE_INTO_MEMBERS',trim(GETPOST("GOOGLE_DUPLICATE_INTO_MEMBERS")),'chaine',0, '', $conf->entity);
 	    if (! $res > 0) $error++;
-	    
-        $db->commit();	    
+
+        $db->commit();
 	}
 	else
 	{
@@ -100,23 +107,23 @@ if ($action == 'save')
        		dolibarr_del_const($db, 'GOOGLE_CONTACT_LOGIN', $conf->entity);
        		setEventMessage($langs->trans("ErrorFieldRequired",$langs->transnoentitiesnoconv("GOOGLE_LOGIN")),'errors');
     	}
-    	
+
     	$res=dolibarr_set_const($db,'GOOGLE_API_CLIENT_ID', trim(GETPOST("GOOGLE_API_CLIENT_ID")), 'chaine', 0, '', $conf->entity);
     	if (! $res > 0) $error++;
     	$res=dolibarr_set_const($db,'GOOGLE_API_CLIENT_SECRET', trim(GETPOST("GOOGLE_API_CLIENT_SECRET")), 'chaine', 0, '', $conf->entity);
     	if (! $res > 0) $error++;
-    
+
     	/*if (! GETPOST('GOOGLE_CONTACT_PASSWORD'))
     	{
     		$langs->load("errors");
     		dolibarr_del_const($db, 'GOOGLE_CONTACT_PASSWORD', $conf->entity);
     		setEventMessage($langs->trans("ErrorFieldRequired",$langs->transnoentitiesnoconv("GOOGLE_PASSWORD")),'errors');
     	}*/
-    
+
         if (! $error)
         {
         	$db->begin();
-    
+
         	$res=dolibarr_set_const($db,'GOOGLE_DUPLICATE_INTO_THIRDPARTIES',trim(GETPOST("GOOGLE_DUPLICATE_INTO_THIRDPARTIES")),'chaine',0, '', $conf->entity);
     	    if (! $res > 0) $error++;
     	    $res=dolibarr_set_const($db,'GOOGLE_DUPLICATE_INTO_CONTACTS',trim(GETPOST("GOOGLE_DUPLICATE_INTO_CONTACTS")),'chaine',0, '', $conf->entity);
@@ -135,7 +142,7 @@ if ($action == 'save')
     	    if (! $res > 0) $error++;
     	    $res=dolibarr_set_const($db,'GOOGLE_TAG_PREFIX_MEMBERS',trim(GETPOST("GOOGLE_TAG_PREFIX_MEMBERS")),'chaine',0, '', $conf->entity);
     	    if (! $res > 0) $error++;
-    
+
     	    if (! $error)
     	    {
     	        $db->commit();

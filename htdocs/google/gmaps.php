@@ -12,14 +12,20 @@
  *       \author     Laurent Destailleur
  */
 
+// Load Dolibarr environment
 $res=0;
-if (! $res && file_exists("../main.inc.php")) $res=@include("../main.inc.php");
+// Try main.inc.php into web root known defined into CONTEXT_DOCUMENT_ROOT (not always defined)
+if (! $res && ! empty($_SERVER["CONTEXT_DOCUMENT_ROOT"])) $res=@include($_SERVER["CONTEXT_DOCUMENT_ROOT"]."/main.inc.php");
+// Try main.inc.php into web root detected using web root caluclated from SCRIPT_FILENAME
+$tmp=empty($_SERVER['SCRIPT_FILENAME'])?'':$_SERVER['SCRIPT_FILENAME'];$tmp2=realpath(__FILE__); $i=strlen($tmp)-1; $j=strlen($tmp2)-1;
+while($i > 0 && $j > 0 && isset($tmp[$i]) && isset($tmp2[$j]) && $tmp[$i]==$tmp2[$j]) { $i--; $j--; }
+if (! $res && $i > 0 && file_exists(substr($tmp, 0, ($i+1))."/main.inc.php")) $res=@include(substr($tmp, 0, ($i+1))."/main.inc.php");
+if (! $res && $i > 0 && file_exists(dirname(substr($tmp, 0, ($i+1)))."/main.inc.php")) $res=@include(dirname(substr($tmp, 0, ($i+1)))."/main.inc.php");
+// Try main.inc.php using relative path
 if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.php");
 if (! $res && file_exists("../../../main.inc.php")) $res=@include("../../../main.inc.php");
-if (! $res && @file_exists("../../../../main.inc.php")) $res=@include("../../../../main.inc.php");
-if (! $res && @file_exists("../../../../../main.inc.php")) $res=@include("../../../../../main.inc.php");
-if (! $res && preg_match('/\/(?:custom|nltechno)([^\/]*)\//',$_SERVER["PHP_SELF"],$reg)) $res=@include("../../../dolibarr".$reg[1]."/htdocs/main.inc.php"); // Used on dev env only
 if (! $res) die("Include of main fails");
+
 require_once(DOL_DOCUMENT_ROOT."/core/lib/company.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/contact.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/member.lib.php");
@@ -109,15 +115,15 @@ if (function_exists('dol_banner_tab')) // 3.9+
 else
 {
     print '<table class="border" width="100%">';
-    
+
     // Name
     print '<tr><td class="titlefield">'.$langs->trans('ThirdPartyName').'</td>';
     print '<td colspan="3">';
     print $form->showrefnav($object,'id','',($user->societe_id?0:1),'rowid','nom','','&mode='.$mode);
     print '</td>';
     print '</tr>';
-    
-    
+
+
     // Status
     print '<tr><td>'.$langs->trans("Status").'</td>';
     print '<td colspan="'.(2+(($showlogo || $showbarcode)?0:1)).'">';
@@ -125,27 +131,27 @@ else
     print '</td>';
     print $htmllogobar; $htmllogobar='';
     print '</tr>';
-    
+
     // Address
     print "<tr><td class=\"tdtop\">".$langs->trans('Address').'</td><td colspan="'.(2+(($showlogo || $showbarcode)?0:1)).'">';
     dol_print_address($object->address,'gmap',$mode,$object->id);
     print "</td></tr>";
-    
+
     // Zip / Town
     print '<tr><td>'.$langs->trans('Zip').' / '.$langs->trans("Town").'</td><td colspan="'.(2+(($showlogo || $showbarcode)?0:1)).'">';
     print $object->zip.($object->zip && $object->town?" / ":"").$object->town;
     print "</td>";
     print '</tr>';
-    
+
     // Country
     print '<tr><td>'.$langs->trans("Country").'</td><td colspan="'.(2+(($showlogo || $showbarcode)?0:1)).'" nowrap="nowrap">';
     $img=picto_from_langcode($object->country_code);
     print ($img?$img.' ':'').$object->country;
     print '</td></tr>';
-    
+
     // State
     if (empty($conf->global->SOCIETE_DISABLE_STATE)) print '<tr><td>'.$langs->trans('State').'</td><td colspan="'.(2+(($showlogo || $showbarcode)?0:1)).'">'.$object->state.'</td>';
-    
+
     print '</table>';
 }
 

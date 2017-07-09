@@ -11,14 +11,20 @@
  *       \author     Laurent Destailleur
  */
 
+// Load Dolibarr environment
 $res=0;
-if (! $res && file_exists("../main.inc.php")) $res=@include("../main.inc.php");
+// Try main.inc.php into web root known defined into CONTEXT_DOCUMENT_ROOT (not always defined)
+if (! $res && ! empty($_SERVER["CONTEXT_DOCUMENT_ROOT"])) $res=@include($_SERVER["CONTEXT_DOCUMENT_ROOT"]."/main.inc.php");
+// Try main.inc.php into web root detected using web root caluclated from SCRIPT_FILENAME
+$tmp=empty($_SERVER['SCRIPT_FILENAME'])?'':$_SERVER['SCRIPT_FILENAME'];$tmp2=realpath(__FILE__); $i=strlen($tmp)-1; $j=strlen($tmp2)-1;
+while($i > 0 && $j > 0 && isset($tmp[$i]) && isset($tmp2[$j]) && $tmp[$i]==$tmp2[$j]) { $i--; $j--; }
+if (! $res && $i > 0 && file_exists(substr($tmp, 0, ($i+1))."/main.inc.php")) $res=@include(substr($tmp, 0, ($i+1))."/main.inc.php");
+if (! $res && $i > 0 && file_exists(dirname(substr($tmp, 0, ($i+1)))."/main.inc.php")) $res=@include(dirname(substr($tmp, 0, ($i+1)))."/main.inc.php");
+// Try main.inc.php using relative path
 if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.php");
 if (! $res && file_exists("../../../main.inc.php")) $res=@include("../../../main.inc.php");
-if (! $res && @file_exists("../../../../main.inc.php")) $res=@include("../../../../main.inc.php");
-if (! $res && @file_exists("../../../../../main.inc.php")) $res=@include("../../../../../main.inc.php");
-if (! $res && preg_match('/\/(?:custom|nltechno)([^\/]*)\//',$_SERVER["PHP_SELF"],$reg)) $res=@include("../../../dolibarr".$reg[1]."/htdocs/main.inc.php"); // Used on dev env only
 if (! $res) die("Include of main fails");
+
 require_once(DOL_DOCUMENT_ROOT."/core/lib/company.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/contact.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/member.lib.php");
@@ -189,7 +195,7 @@ else if ($mode=='patient')
 	$search_tag_customer=GETPOST('search_tag_customer');
 	$search_tag_supplier=GETPOST('search_tag_supplier');
 	$search_departement = GETPOST("state_id","int");
-    
+
 	$title=$langs->trans("MapOfPatients");
 	$picto='user';
 	$type='patient';
@@ -225,7 +231,7 @@ if ($user->rights->societe->client->voir && empty($socid))
     {
     	$langs->load("commercial");
     	print '<form name="formsearch" method="POST" action="'.$_SERVER["PHP_SELF"].'">';
-    	
+
     	print $langs->trans('ThirdPartiesOfSaleRepresentative'). ': ';
     	print $formother->select_salesrepresentatives($search_sale,'search_sale',$user, 0, 1, 'maxwidth300');
 
@@ -246,9 +252,9 @@ if ($user->rights->societe->client->voir && empty($socid))
     		print $langs->trans("SuppliersCategoriesShort").': ';
     		print $formother->select_categories(1, $search_tag_supplier, 'search_tag_supplier');
 		}
-		
+
     	print ' &nbsp; &nbsp; &nbsp; ';
-    	
+
 		print ' <input type="submit" name="submit_search_sale" value="'.$langs->trans("Search").'" class="button"> &nbsp; &nbsp; &nbsp; ';
     	print '</form>';
     }
@@ -289,10 +295,10 @@ if ($resql)
 		$object->url = $obj->url;
 		$object->email = $obj->email;
 		$object->phone = $obj->phone;
-		
+
 		$geoencodingtosearch=false;
 		if ($obj->gaddress != $addresstosearch) $geoencodingtosearch=true;
-		else if ((empty($object->latitude) || empty($object->longitude)) 
+		else if ((empty($object->latitude) || empty($object->longitude))
 		    && (empty($obj->result_code) || in_array($obj->result_code, array('OK','OVER_QUERY_LIMIT','REQUEST_DENIED')))) $geoencodingtosearch=true;
 
 		if ($geoencodingtosearch && (empty($MAXADDRESS) || $countgeoencoding < $MAXADDRESS))
@@ -491,7 +497,7 @@ function geocoding($address)
 	$encodeAddress = urlencode(withoutSpecialChars($address));
 	// URL to geoencode
 	$url = "https://maps.googleapis.com/maps/api/geocode/json?address=".$encodeAddress;
-	if (! empty($conf->global->GOOGLE_API_SERVERKEY)) $url.="&key=".$conf->global->GOOGLE_API_SERVERKEY; 
+	if (! empty($conf->global->GOOGLE_API_SERVERKEY)) $url.="&key=".$conf->global->GOOGLE_API_SERVERKEY;
 
 	ini_set("allow_url_open", "1");
 	$response = googlegetURLContent($url,'GET');

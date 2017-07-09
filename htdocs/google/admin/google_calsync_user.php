@@ -21,13 +21,20 @@
  *       \brief      Page to show user setup for display
  */
 
+// Load Dolibarr environment
 $res=0;
-if (! $res && file_exists("../main.inc.php")) $res=@include("../main.inc.php");
+// Try main.inc.php into web root known defined into CONTEXT_DOCUMENT_ROOT (not always defined)
+if (! $res && ! empty($_SERVER["CONTEXT_DOCUMENT_ROOT"])) $res=@include($_SERVER["CONTEXT_DOCUMENT_ROOT"]."/main.inc.php");
+// Try main.inc.php into web root detected using web root caluclated from SCRIPT_FILENAME
+$tmp=empty($_SERVER['SCRIPT_FILENAME'])?'':$_SERVER['SCRIPT_FILENAME'];$tmp2=realpath(__FILE__); $i=strlen($tmp)-1; $j=strlen($tmp2)-1;
+while($i > 0 && $j > 0 && isset($tmp[$i]) && isset($tmp2[$j]) && $tmp[$i]==$tmp2[$j]) { $i--; $j--; }
+if (! $res && $i > 0 && file_exists(substr($tmp, 0, ($i+1))."/main.inc.php")) $res=@include(substr($tmp, 0, ($i+1))."/main.inc.php");
+if (! $res && $i > 0 && file_exists(dirname(substr($tmp, 0, ($i+1)))."/main.inc.php")) $res=@include(dirname(substr($tmp, 0, ($i+1)))."/main.inc.php");
+// Try main.inc.php using relative path
 if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.php");
 if (! $res && file_exists("../../../main.inc.php")) $res=@include("../../../main.inc.php");
-if (! $res && @file_exists("../../../../main.inc.php")) $res=@include("../../../../main.inc.php");
-if (! $res && preg_match('/\/(?:custom|nltechno)([^\/]*)\//',$_SERVER["PHP_SELF"],$reg)) $res=@include("../../../../dolibarr".$reg[1]."/htdocs/main.inc.php"); // Used on dev env only
 if (! $res) die("Include of main fails");
+
 require_once(DOL_DOCUMENT_ROOT."/core/lib/functions2.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/usergroups.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/class/html.formadmin.class.php");
@@ -200,7 +207,7 @@ if (GETPOST('cleanup'))
 		$errors[]=$txterror;
 		$error++;
 	}
-	
+
 	if (! $error)
 	{
 		try {
@@ -275,7 +282,7 @@ if ($action == 'pushallevents')
 		dol_syslog($txterror, LOG_ERR);
 		$error++;
 	}
-	
+
 	if (! $error)
 	{
 		try {
@@ -351,7 +358,7 @@ if ($action == 'pushallevents')
 if ($action == 'syncfromgoogle')
 {
     $error=0;
-    
+
 	//$object = $user;		// $object = user for synch
 	$userlogin = empty($object->conf->GOOGLE_LOGIN)?'':$object->conf->GOOGLE_LOGIN;
 
@@ -410,24 +417,24 @@ if (function_exists('dol_banner_tab')) // 3.9+
 else
 {
     print '<table class="border" width="100%">';
-    
+
     // Ref
     print '<tr><td class="titlefield">'.$langs->trans("Ref").'</td>';
     print '<td colspan="2">';
     print $form->showrefnav($object,'id','',$user->rights->user->user->lire || $user->admin);
     print '</td>';
     print '</tr>';
-    
+
     // Lastname
     print '<tr><td>'.$langs->trans("LastName").'</td>';
     print '<td colspan="2">'.$object->lastname.'</td>';
     print "</tr>\n";
-    
+
     // Firstname
     print '<tr><td>'.$langs->trans("FirstName").'</td>';
     print '<td colspan="2">'.$object->firstname.'</td>';
     print "</tr>\n";
-    
+
     print '</table><br>';
 }
 
