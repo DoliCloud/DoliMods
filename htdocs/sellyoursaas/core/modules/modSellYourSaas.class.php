@@ -61,8 +61,9 @@ class modSellYourSaas extends DolibarrModules
 
 		// Data directories to create when module is enabled
 		$this->dirs = array();
-		//$this->dirs[0] = DOL_DATA_ROOT.'/mymodule;
-		//$this->dirs[1] = DOL_DATA_ROOT.'/mymodule/temp;
+		$this->dirs[0] = DOL_DATA_ROOT.'/sellyoursaas';
+		$this->dirs[1] = DOL_DATA_ROOT.'/sellyoursaas/temp';          // Temp dir
+		$this->dirs[2] = DOL_DATA_ROOT.'/sellyoursaas/git';           // Where to do the git clone. Read to deploy a package.
 
 		// Config pages. Put here list of php page names stored in admmin directory used to setup module
 		$this->config_page_url = array("setup.php@sellyoursaas");
@@ -407,7 +408,7 @@ class modSellYourSaas extends DolibarrModules
 
 		$sql = array();
 
-		$result=$this->load_tables();
+		$result=$this->_load_tables('/sellyoursaas/sql/');
 
 		// Create extrafields
 		include_once DOL_DOCUMENT_ROOT.'/core/class/extrafields.class.php';
@@ -432,17 +433,4 @@ class modSellYourSaas extends DolibarrModules
 		return $this->_remove($sql,$options);
 	}
 
-
-	/**
-	 *	Create tables and keys required by module
-	 * 	Files mymodule.sql and mymodule.key.sql with create table and create keys
-	 * 	commands must be stored in directory /mymodule/sql/
-	 *	This function is called by this->init.
-	 *
-	 * 	@return		int		<=0 if KO, >0 if OK
-	 */
-	function load_tables()
-	{
-	    return $this->_load_tables('/nltechno/sql/');
-	}
 }
