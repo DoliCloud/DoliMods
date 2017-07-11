@@ -1,4 +1,4 @@
-# Dolibarr language file - en_US - nltechno
+# Dolibarr language file - en_US - sellyoursaas
 CHARSET=UTF-8
 DoliCloudCustomers=DoliCloud customers
 DoliCloudInstances=DoliCloud instances
@@ -23,8 +23,8 @@ Authorized_keyInstalled=File authorized_key installed
 LockfileInstalled=File install.lock installed
 DoliCloudArea=DoliCloud area
 DateLastBackup=Date last backup (success rsync + success mysqldump)
-NLTechnoSetup=NLTechno module setup
-NLTechnoDesc=Miscellaneous setup of Techno module
+NLTechnoSetup=SellYouSaas module setup
+NLTechnoDesc=Miscellaneous setup of SellYourSaas module
 FileDeleted=File deleted
 FileCreated=File created
 EMailTemplate=EMail template

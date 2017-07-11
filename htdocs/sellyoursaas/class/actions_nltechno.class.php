@@ -59,7 +59,7 @@ class ActionsNltechno
         global $db,$langs,$conf;
 
         dol_syslog(get_class($this).'::executeHooks action='.$action);
-        $langs->load("nltechno@nltechno");
+        $langs->load("nltechno@sellyoursaas");
 
         return 0;
     }
@@ -74,7 +74,7 @@ class ActionsNltechno
     {
         global $langs;
         
-        $langs->load("nltechno@nltechno");
+        $langs->load("nltechno@sellyoursaas");
         $search_boxvalue = $parameters['search_boxvalue'];
         
         $this->results['searchintodolicloud']=array('img'=>'object_generic', 'label'=>$langs->trans("SearchIntoDoliCloud", $search_boxvalue), 'text'=>img_picto('','object_generic').' '.$langs->trans("InstanceDolicloud", $search_boxvalue), 'url'=>dol_buildpath('/nltechno/dolicloud/dolicloud_list_new.php',1).'?search_multi='.urlencode($search_boxvalue));

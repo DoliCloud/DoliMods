@@ -49,7 +49,7 @@ $langs->load("companies");
 $langs->load("users");
 $langs->load("other");
 $langs->load("commercial");
-$langs->load("nltechno@nltechno");
+$langs->load("nltechno@sellyoursaas");
 
 $mesg='';
 

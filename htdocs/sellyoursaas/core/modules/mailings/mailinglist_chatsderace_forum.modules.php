@@ -25,7 +25,7 @@ class mailing_mailinglist_chatsderace_forum extends MailingTargets
 
 	var $enabled=0;
 	var $require_module=array();
-	var $picto='nltechno.gif@nltechno';
+	var $picto='nltechno.gif@sellyoursaas';
 	var $db;
 
 

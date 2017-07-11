@@ -45,7 +45,7 @@ if (!$user->admin) accessforbidden();
 
 $langs->load("admin");
 $langs->load("other");
-$langs->load("nltechno@nltechno");
+$langs->load("nltechno@sellyoursaas");
 
 $def = array();
 $action=GETPOST('action', 'alpha');

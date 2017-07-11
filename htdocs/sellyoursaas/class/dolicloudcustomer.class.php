@@ -671,7 +671,7 @@ class Dolicloudcustomer extends CommonObject
 	function LibStatut($status,$mode=0,$instance_status='',$payment_status='',$form='')
 	{
 		global $langs;
-		$langs->load('nltechno@nltechno');
+		$langs->load('nltechno@sellyoursaas');
 
 		$st=$status;
 		if (! empty($instance_status) && ! empty($payment_status) && is_object($form))

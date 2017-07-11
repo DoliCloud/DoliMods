@@ -45,7 +45,7 @@ accessforbidden();
 $langs->load("admin");
 $langs->load("errors");
 $langs->load("install");
-$langs->load("nltechno@nltechno");
+$langs->load("nltechno@sellyoursaas");
 
 $action=GETPOST('action');
 
@@ -113,7 +113,7 @@ $linkback='<a href="'.DOL_URL_ROOT.'/admin/modules.php">'.$langs->trans("BackToM
 print_fiche_titre($langs->trans('NLTechnoSetup'),$linkback,'setup');
 
 $head=array();
-dol_fiche_head($head, 'serversetup', $langs->trans("NLTechno"));
+dol_fiche_head($head, 'serversetup', $langs->trans("SellYourSaas"), -1);
 
 print $langs->trans("NLTechnoDesc")."<br>\n";
 print "<br>\n";

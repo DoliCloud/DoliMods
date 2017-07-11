@@ -4,22 +4,22 @@
  * Licensed under the GNU GPL v3 or higher (See file gpl-3.0.html)
  */
 
-/**     \defgroup   nltechno     Module NLTechno
- *       \brief      Module to NLTechno tools integration.
+/**     \defgroup   sellyoursaas     Module SellYourSaas
+ *      \brief      Module SellYourSaas
  */
 
 /**
- *      \file       htdocs/nltechno/core/modules/modNLTechno.class.php
- *      \ingroup    nltechno
- *      \brief      Description and activation file for module NLTechno
+ *      \file       htdocs/sellyoursaas/core/modules/modSellYourSaas.class.php
+ *      \ingroup    sellyoursaas
+ *      \brief      Description and activation file for module SellYourSaas
  */
 include_once(DOL_DOCUMENT_ROOT ."/core/modules/DolibarrModules.class.php");
 
 
 /**
- * Description and activation class for module NLTechno
+ * Description and activation class for module SellYourSaas
  */
-class modNLTechno extends DolibarrModules
+class modSellYourSaas extends DolibarrModules
 {
 
 	/**
@@ -49,7 +49,7 @@ class modNLTechno extends DolibarrModules
         $this->editor_name = 'NLTechno';
         $this->editor_url = 'https://www.nltechno.com';
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
-		$this->version = '3.4';
+		$this->version = '6';
 		// Key used in llx_const table to save module status enabled/disabled (where MYMODULE is value of property name of module in uppercase)
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
 		// Where to store the module in setup page (0=common,1=interface,2=others,3=very specific)
@@ -65,13 +65,13 @@ class modNLTechno extends DolibarrModules
 		//$this->dirs[1] = DOL_DATA_ROOT.'/mymodule/temp;
 
 		// Config pages. Put here list of php page names stored in admmin directory used to setup module
-		$this->config_page_url = array("setup.php@nltechno");
+		$this->config_page_url = array("setup.php@sellyoursaas");
 
 		// Dependencies
 		$this->depends = array();		// List of modules id that must be enabled if this module is enabled
 		$this->requiredby = array();	// List of modules id to disable if this one is disabled
 		$this->phpmin = array(4,1);					// Minimum version of PHP required by module
-		$this->need_dolibarr_version = array(2,4);	// Minimum version of Dolibarr required by module
+		$this->need_dolibarr_version = array(6,0);	// Minimum version of Dolibarr required by module
 
 		// Defined all module parts (triggers, login, substitutions, menus, css, etc...)
 		$this->module_parts = array('triggers' => 0,
@@ -90,7 +90,7 @@ class modNLTechno extends DolibarrModules
         	$conf->nltechno->enabled=0;
         }
         /*$this->dictionaries=array(
-		'langs'=>'nltechno@nltechno',
+		'langs'=>'nltechno@sellyoursaaschno',
 		'tabname'=>array(MAIN_DB_PREFIX."c_dolicloud_plans"),
 		'tablib'=>array("DoliCloud plans"),
 		'tabsql'=>array('SELECT f.rowid as rowid, f.code, f.label, f.price_instance, f.price_user, f.price_gb, f.active FROM '.MAIN_DB_PREFIX.'c_dolicloud_plans as f'),
@@ -222,7 +222,7 @@ class modNLTechno extends DolibarrModules
                 				'mainmenu'=>'nltechno',
                 				'leftmenu'=>'dolicloudold',
                 				'url'=>'/nltechno/dolicloud/index.php',
-                				'langs'=>'nltechno@nltechno',  // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
+                				'langs'=>'nltechno@sellyoursaas',  // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
                 				'position'=>300,
                 				'enabled'=>'$conf->nltechno->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
 							    'perms'=>'$user->rights->nltechno->dolicloud->read',           // Use 'perms'=>'$user->rights->NewsSubmitter->level1->level2' if you want your menu with a permission rules
@@ -264,7 +264,7 @@ class modNLTechno extends DolibarrModules
 								'mainmenu'=>'nltechno',
 								'leftmenu'=>'dolicloudold_emailstemplates',
 								'url'=>'/nltechno/dolicloud/dolicloudemailstemplates_page.php?action=list',
-								'langs'=>'nltechno@nltechno',
+								'langs'=>'nltechno@sellyoursaas',
 								'position'=>220,
                 				'enabled'=>'$conf->nltechno->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
 								'perms'=>'$user->rights->nltechno->dolicloud->write',
@@ -278,7 +278,7 @@ class modNLTechno extends DolibarrModules
 								'mainmenu'=>'nltechno',
 								'leftmenu'=>'dolicloudold_import_custmers',
 								'url'=>'/nltechno/dolicloud/dolicloud_import_customers.php',
-								'langs'=>'nltechno@nltechno',
+								'langs'=>'nltechno@sellyoursaas',
 								'position'=>220,
                 				'enabled'=>'$conf->nltechno->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
 								'perms'=>'$user->rights->nltechno->dolicloud->write',
@@ -292,7 +292,7 @@ class modNLTechno extends DolibarrModules
 								'mainmenu'=>'nltechno',
 								'leftmenu'=>'dolicloudold_import_payments',
 								'url'=>'/nltechno/dolicloud/dolicloud_import_payments.php',
-								'langs'=>'nltechno@nltechno',
+								'langs'=>'nltechno@sellyoursaas',
 								'position'=>220,
                 				'enabled'=>'$conf->nltechno->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
 								'perms'=>'$user->rights->nltechno->dolicloud->write',
@@ -307,7 +307,7 @@ class modNLTechno extends DolibarrModules
                 				'mainmenu'=>'nltechno',
                 				'leftmenu'=>'dolicloud',
                 				'url'=>'/nltechno/dolicloud/index_new.php',
-                				'langs'=>'nltechno@nltechno',  // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
+                				'langs'=>'nltechno@sellyoursaas',  // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
                 				'position'=>300,
                 				'enabled'=>'$conf->nltechno->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
 							    'perms'=>'$user->rights->nltechno->dolicloud->read',           // Use 'perms'=>'$user->rights->NewsSubmitter->level1->level2' if you want your menu with a permission rules
@@ -335,7 +335,7 @@ class modNLTechno extends DolibarrModules
 								'mainmenu'=>'nltechno',
 								'leftmenu'=>'dolicloud_emailstemplates',
 								'url'=>'/nltechno/dolicloud/dolicloudemailstemplates_page_new.php?action=list',
-								'langs'=>'nltechno@nltechno',
+								'langs'=>'nltechno@sellyoursaas',
 								'position'=>220,
                 				'enabled'=>'$conf->nltechno->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
 								'perms'=>'$user->rights->nltechno->dolicloud->write',

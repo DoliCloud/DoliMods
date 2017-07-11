@@ -51,7 +51,7 @@ if ($db2->error)
 // Load traductions files requiredby by page
 $langs->load("companies");
 $langs->load("other");
-$langs->load("nltechno@nltechno");
+$langs->load("nltechno@sellyoursaas");
 
 // Get parameters
 $id			= GETPOST('id','int');

@@ -26,7 +26,7 @@ class mailing_mailinglist_nltechno_dolicloud extends MailingTargets
 
 	var $enabled=0;
 	var $require_module=array();
-	var $picto='nltechno.gif@nltechno';
+	var $picto='nltechno.gif@sellyoursaas';
 	var $db;
 
 
