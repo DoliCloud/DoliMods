@@ -23,14 +23,20 @@
 
 define('NOCSRFCHECK',1);
 
+// Load Dolibarr environment
 $res=0;
-if (! $res && file_exists("../main.inc.php")) $res=@include("../main.inc.php");
+// Try main.inc.php into web root known defined into CONTEXT_DOCUMENT_ROOT (not always defined)
+if (! $res && ! empty($_SERVER["CONTEXT_DOCUMENT_ROOT"])) $res=@include($_SERVER["CONTEXT_DOCUMENT_ROOT"]."/main.inc.php");
+// Try main.inc.php into web root detected using web root caluclated from SCRIPT_FILENAME
+$tmp=empty($_SERVER['SCRIPT_FILENAME'])?'':$_SERVER['SCRIPT_FILENAME'];$tmp2=realpath(__FILE__); $i=strlen($tmp)-1; $j=strlen($tmp2)-1;
+while($i > 0 && $j > 0 && isset($tmp[$i]) && isset($tmp2[$j]) && $tmp[$i]==$tmp2[$j]) { $i--; $j--; }
+if (! $res && $i > 0 && file_exists(substr($tmp, 0, ($i+1))."/main.inc.php")) $res=@include(substr($tmp, 0, ($i+1))."/main.inc.php");
+if (! $res && $i > 0 && file_exists(dirname(substr($tmp, 0, ($i+1)))."/main.inc.php")) $res=@include(dirname(substr($tmp, 0, ($i+1)))."/main.inc.php");
+// Try main.inc.php using relative path
 if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.php");
 if (! $res && file_exists("../../../main.inc.php")) $res=@include("../../../main.inc.php");
-if (! $res && file_exists("../../../../main.inc.php")) $res=@include("../../../../main.inc.php");
-if (! $res && @file_exists("../../../../../main.inc.php")) $res=@include("../../../../../main.inc.php");
-if (! $res && preg_match('/\/(?:custom|nltechno)([^\/]*)\//',$_SERVER["PHP_SELF"],$reg)) $res=@include("../../../../dolibarr".$reg[1]."/htdocs/main.inc.php"); // Used on dev env only
 if (! $res) die("Include of main fails");
+
 require_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
 require_once(DOL_DOCUMENT_ROOT.'/core/class/html.formadmin.class.php');
 require_once(DOL_DOCUMENT_ROOT.'/core/class/html.formother.class.php');
@@ -88,7 +94,7 @@ if ($action == 'setcolor')
     $res = dolibarr_set_const($db, 'THEME_ELDY_BACKBODY', join(',',colorStringToArray(GETPOST('THEME_ELDY_BACKBODY'),array())),'chaine',0,'',$conf->entity);
 
     $res = dolibarr_set_const($db, 'THEME_ELDY_BACKTABCARD1', join(',',colorStringToArray(GETPOST('THEME_ELDY_BACKTABCARD1'),array())),'chaine',0,'',$conf->entity);
-    
+
     // Tables
     $res = dolibarr_set_const($db, 'THEME_ELDY_BACKTITLE1', join(',',colorStringToArray(GETPOST('THEME_ELDY_BACKTITLE1'),array())),'chaine',0,'',$conf->entity);
     $res = dolibarr_set_const($db, 'THEME_ELDY_LINEIMPAIR1', join(',',colorStringToArray(GETPOST('THEME_ELDY_LINEIMPAIR1'),array())),'chaine',0,'',$conf->entity);
@@ -204,7 +210,7 @@ if (! empty($conf->global->THEME_ELDY_ENABLE_PERSONALIZED))
     	print $langs->trans("SelectTabColor").' ';
         print $formother->selectColor(colorArrayToHex(colorStringToArray($conf->global->THEME_ELDY_BACKTABCARD1,array()),''),'THEME_ELDY_BACKTABCARD1','formcolor',1).'<br><br>';
     }
-	
+
     print $langs->trans("BackgroundColor").' ';
     print $formother->selectColor(colorArrayToHex(colorStringToArray($conf->global->THEME_ELDY_BACKBODY,array()),''),'THEME_ELDY_BACKBODY','formcolor',1).'<br><br>';
 

@@ -160,8 +160,7 @@ $(document).ready(function () {
 
 <?php dol_fiche_end(); ?>
 
-<br />
+<br>
 
 <?php llxFooter();
-
 

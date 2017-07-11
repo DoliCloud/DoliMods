@@ -23,14 +23,20 @@
 
 define('NOCSRFCHECK',1);
 
+// Load Dolibarr environment
 $res=0;
-if (! $res && file_exists("../main.inc.php")) $res=@include("../main.inc.php");
+// Try main.inc.php into web root known defined into CONTEXT_DOCUMENT_ROOT (not always defined)
+if (! $res && ! empty($_SERVER["CONTEXT_DOCUMENT_ROOT"])) $res=@include($_SERVER["CONTEXT_DOCUMENT_ROOT"]."/main.inc.php");
+// Try main.inc.php into web root detected using web root caluclated from SCRIPT_FILENAME
+$tmp=empty($_SERVER['SCRIPT_FILENAME'])?'':$_SERVER['SCRIPT_FILENAME'];$tmp2=realpath(__FILE__); $i=strlen($tmp)-1; $j=strlen($tmp2)-1;
+while($i > 0 && $j > 0 && isset($tmp[$i]) && isset($tmp2[$j]) && $tmp[$i]==$tmp2[$j]) { $i--; $j--; }
+if (! $res && $i > 0 && file_exists(substr($tmp, 0, ($i+1))."/main.inc.php")) $res=@include(substr($tmp, 0, ($i+1))."/main.inc.php");
+if (! $res && $i > 0 && file_exists(dirname(substr($tmp, 0, ($i+1)))."/main.inc.php")) $res=@include(dirname(substr($tmp, 0, ($i+1)))."/main.inc.php");
+// Try main.inc.php using relative path
 if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.php");
 if (! $res && file_exists("../../../main.inc.php")) $res=@include("../../../main.inc.php");
-if (! $res && @file_exists("../../../../main.inc.php")) $res=@include("../../../../main.inc.php");
-if (! $res && @file_exists("../../../../../main.inc.php")) $res=@include("../../../../../main.inc.php");
-if (! $res && preg_match('/\/(?:custom|nltechno)([^\/]*)\//',$_SERVER["PHP_SELF"],$reg)) $res=@include("../../../dolibarr".$reg[1]."/htdocs/main.inc.php"); // Used on dev env only
 if (! $res) die("Include of main fails");
+
 require_once(DOL_DOCUMENT_ROOT."/core/lib/usergroups.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/functions2.lib.php");
@@ -103,7 +109,7 @@ if ($action == 'setcolor')
     $tab['THEME_ELDY_BACKTITLE1']=GETPOST('THEME_ELDY_BACKTITLE1','alpha');
     $tab['THEME_ELDY_LINEIMPAIR1']=GETPOST('THEME_ELDY_LINEIMPAIR1','alpha');
     $tab['THEME_ELDY_LINEPAIR1']=GETPOST('THEME_ELDY_LINEPAIR1','alpha');*/
-    
+
     $listofkey=array('THEME_ELDY_FONT_SIZE1','THEME_ELDY_USE_HOVER','THEME_ELDY_BACKBODY','THEME_ELDY_BACKTABCARD1','THEME_ELDY_BACKTABCARD2','THEME_ELDY_TOPMENU_BACK1','THEME_ELDY_VERMENU_BACK1','THEME_ELDY_BACKTITLE1','THEME_ELDY_LINEIMPAIR1','THEME_ELDY_LINEPAIR1');
     foreach($listofkey as $key)
     {
@@ -146,24 +152,24 @@ if (function_exists('dol_banner_tab'))  // 3.9+
 else
 {
     print '<table class="border" width="100%">';
-    
+
     // Ref
     print '<tr><td width="25%" valign="top">'.$langs->trans("Ref").'</td>';
     print '<td colspan="2">';
     print $form->showrefnav($object,'id','',$user->rights->user->user->lire || $user->admin);
     print '</td>';
     print '</tr>';
-    
+
     // LAstname
     print '<tr><td width="25%" valign="top">'.$langs->trans("LastName").'</td>';
     print '<td colspan="2">'.$object->lastname.'</td>';
     print "</tr>\n";
-    
+
     // Firstname
     print '<tr><td width="25%" valign="top">'.$langs->trans("FirstName").'</td>';
     print '<td colspan="2">'.$object->firstname.'</td>';
     print "</tr>\n";
-    
+
     print '</table>';
 }
 
@@ -220,7 +226,7 @@ if (! empty($object->conf->THEME_ELDY_ENABLE_PERSONALIZED))
 
     // Font size
     //$defvalue=$conf->global->THEME_ELDY_FONT_SIZE1;
-    //if (isset($object->conf->THEME_ELDY_FONT_SIZE1)) 
+    //if (isset($object->conf->THEME_ELDY_FONT_SIZE1))
     $defvalue=$object->conf->THEME_ELDY_FONT_SIZE1;
     print $langs->trans("FontSize").': <input type="text" class="flat" name="THEME_ELDY_FONT_SIZE1" size="4" value="'.$defvalue.'"><br>';
 	print '<br>';
@@ -244,7 +250,7 @@ if (! empty($object->conf->THEME_ELDY_ENABLE_PERSONALIZED))
         if (isset($object->conf->THEME_ELDY_BACKTABCARD1)) $defcolor=$object->conf->THEME_ELDY_BACKTABCARD1;
         print $formother->selectColor(colorArrayToHex(colorStringToArray($defcolor,array()),''),'THEME_ELDY_BACKTABCARD1').'<br><br>';
     }
-	
+
     $defcolor=$conf->global->THEME_ELDY_BACKBODY;
     if (isset($object->conf->THEME_ELDY_BACKBODY)) $defcolor=$object->conf->THEME_ELDY_BACKBODY;
     print $langs->trans("BackgroundColor").' ';
@@ -290,7 +296,7 @@ if (! empty($object->conf->THEME_ELDY_ENABLE_PERSONALIZED))
         // Use hover
         print $langs->trans("UseHoverOnLists").': <input type="checkbox" class="flat" name="THEME_ELDY_USE_HOVER" '.(empty($object->conf->THEME_ELDY_USE_HOVER)?'':' checked="checked"').'"><br>';
     }
-    
+
     dol_fiche_end();
 
 

@@ -14,15 +14,15 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
- 
+
 /**	    \file       htdocs/cmcic/lib/cmcic.inc.php
  *		\ingroup    cmcic
  *		\brief      cmcic toolkit library
  */
- 
-if (empty($conf->cmcic->enabled)) 
+
+if (empty($conf->cmcic->enabled))
     exit;
-    
+
 define("CMCIC_CTLHMAC","V1.04.sha1.php--[CtlHmac%s%s]-%s");
 define("CMCIC_CTLHMACSTR", "CtlHmac%s%s");
 define("CMCIC_CGI2_RECEIPT","version=2\ncdr=%s");
@@ -38,8 +38,8 @@ define("CMCIC_CGI1_FIELDS", "%s*%s*%s%s*%s*%s*%s*%s*%s*%s*%s*%s*%s*%s*%s*%s*%s*%
 *
 *****************************************************************************/
 
-class CMCIC_Tpe {
-
+class CMCIC_Tpe
+{
 
 	public $sVersion;	// Version du TPE - TPE Version (Ex : 3.0)
 	public $sNumero;	// Numero du TPE - TPE Number (Ex : 1234567)
@@ -50,14 +50,14 @@ class CMCIC_Tpe {
 	public $sUrlPaiement;	// Url du serveur de paiement - Payment Server URL (Ex : https://paiement.creditmutuel.fr/paiement.cgi)
 
 	private $_sCle;		// La cl� - The Key
-	
+
 
 	// ----------------------------------------------------------------------------
 	//
 	// Constructeur / Constructor
 	//
 	// ----------------------------------------------------------------------------
-	
+
 	function __construct($sVersion, $sKey, $sTpe, $sServer, $sSocieteCode, $sURLOK, $sURLKO, $sLangue = "FR") {
 
 		// contr�le de l'existence des constantes de param�trages.
@@ -115,7 +115,8 @@ class CMCIC_Tpe {
 *
 *****************************************************************************/
 
-class CMCIC_Hmac {
+class CMCIC_Hmac
+{
 
 	private $_sUsableKey;	// La cl� du TPE en format op�rationnel / The usable TPE key
 
@@ -126,7 +127,7 @@ class CMCIC_Hmac {
 	// ----------------------------------------------------------------------------
 
 	function __construct($oTpe) {
-		
+
 		$this->_sUsableKey = $this->_getUsableKey($oTpe);
 	}
 
@@ -143,15 +144,15 @@ class CMCIC_Hmac {
 
 		$hexStrKey  = substr($oTpe->getCle(), 0, 38);
 		$hexFinal   = "" . substr($oTpe->getCle(), 38, 2) . "00";
-    
-		$cca0=ord($hexFinal); 
 
-		if ($cca0>70 && $cca0<97) 
+		$cca0=ord($hexFinal);
+
+		if ($cca0>70 && $cca0<97)
 			$hexStrKey .= chr($cca0-23) . substr($hexFinal, 1, 1);
-		else { 
-			if (substr($hexFinal, 1, 1)=="M") 
-				$hexStrKey .= substr($hexFinal, 0, 1) . "0"; 
-			else 
+		else {
+			if (substr($hexFinal, 1, 1)=="M")
+				$hexStrKey .= substr($hexFinal, 0, 1) . "0";
+			else
 				$hexStrKey .= substr($hexFinal, 0, 2);
 		}
 
@@ -172,7 +173,7 @@ class CMCIC_Hmac {
 
 		return strtolower(hash_hmac("sha1", $sData, $this->_sUsableKey));
 
-		// If you don't have PHP 5 >= 5.1.2 and PECL hash >= 1.1 
+		// If you don't have PHP 5 >= 5.1.2 and PECL hash >= 1.1
 		// you may use the hmac_sha1 function defined below
 		//return strtolower($this->hmac_sha1($this->_sUsableKey, $sData));
 	}
@@ -191,8 +192,9 @@ class CMCIC_Hmac {
 	//
 	// ----------------------------------------------------------------------------
 
-	public function hmac_sha1 ($key, $data) {
-		
+	public function hmac_sha1 ($key, $data)
+	{
+
 		$length = 64; // block length for SHA1
 		if (strlen($key) > $length) { $key = pack("H*",sha1($key)); }
 		$key  = str_pad($key, $length, chr(0x00));
@@ -202,22 +204,22 @@ class CMCIC_Hmac {
 		$k_opad = $key ^ $opad;
 
 		return sha1($k_opad  . pack("H*",sha1($k_ipad . $data)));
-	}	
+	}
 
 }
 
 // ----------------------------------------------------------------------------
-// function getMethode 
+// function getMethode
 //
-// IN: 
+// IN:
 // OUT: Donn�es soumises par GET ou POST / Data sent by GET or POST
 // description: Renvoie le tableau des donn�es / Send back the data array
 // ----------------------------------------------------------------------------
 
 function getMethode()
 {
-    if ($_SERVER["REQUEST_METHOD"] == "GET")  
-        return $_GET; 
+    if ($_SERVER["REQUEST_METHOD"] == "GET")
+        return $_GET;
 
     if ($_SERVER["REQUEST_METHOD"] == "POST")
 	return $_POST;
@@ -250,7 +252,7 @@ function HtmlEncode ($data)
         }
         else
             $result .= $data{$i};
-            
+
     }
     return $result;
 }
