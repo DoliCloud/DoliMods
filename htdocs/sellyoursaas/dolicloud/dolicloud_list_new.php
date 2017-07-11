@@ -16,7 +16,7 @@
  */
 
 /**
- *   	\file       htdocs/nltechno/dolicloud/dolicloud_list.php
+ *   	\file       htdocs/sellyoursaas/dolicloud/dolicloud_list.php
  *		\ingroup    nltechno
  *		\brief      This file is an example of a php page
  */

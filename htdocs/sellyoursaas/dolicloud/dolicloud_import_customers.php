@@ -16,7 +16,7 @@
  */
 
 /**
- *	    \file       htdocs/nltechno/dolicloud/dolicloud_import_customers.php
+ *	    \file       htdocs/sellyoursaas/dolicloud/dolicloud_import_customers.php
  *      \ingroup    nltechno
  *      \brief      Page list payment
  */
@@ -40,7 +40,7 @@ require_once(DOL_DOCUMENT_ROOT."/core/lib/files.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/date.lib.php");
 require_once(DOL_DOCUMENT_ROOT.'/core/class/html.formadmin.class.php');
 require_once(DOL_DOCUMENT_ROOT.'/core/class/html.formfile.class.php');
-dol_include_once('/nltechno/class/dolicloudcustomer.class.php');
+dol_include_once('/sellyoursaas/class/dolicloudcustomer.class.php');
 
 if (!$user->admin) accessforbidden();
 

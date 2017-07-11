@@ -51,3 +51,4 @@ SearchIntoDoliCloud=DoliCloud
 DoliCloudCustomer=DoliCloud customer
 FromLiveTables=From real time customer table
 FromHistoryStatsTables=From table of historic statistics, update with script "batch_customers updatedatabase" 
+SellYourSaasHomePage=SellYourSaas Home page

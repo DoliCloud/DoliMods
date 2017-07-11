@@ -17,7 +17,7 @@
  */
 
 /**
- *  \file       htdocs/nltechno/class/cdolicloudplans.class.php
+ *  \file       htdocs/sellyoursaas/class/cdolicloudplans.class.php
  *  \ingroup    mymodule othermodule1 othermodule2
  *  \brief      This file is an example for a CRUD class file (Create/Read/Update/Delete)
  *				Initialy built by build_class_from_table on 2012-10-04 21:43

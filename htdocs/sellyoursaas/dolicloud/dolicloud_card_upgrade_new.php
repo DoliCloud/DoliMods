@@ -16,7 +16,7 @@
 */
 
 /**
- *       \file       htdocs/nltechno/dolicloud/dolicloud_card.php
+ *       \file       htdocs/sellyoursaas/dolicloud/dolicloud_card.php
  *       \ingroup    societe
  *       \brief      Card of a contact
  */
@@ -41,8 +41,8 @@ require_once(DOL_DOCUMENT_ROOT."/core/lib/company.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/date.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/class/html.formcompany.class.php");
 dol_include_once("/nltechno/core/lib/dolicloud.lib.php");
-dol_include_once('/nltechno/class/dolicloudcustomernew.class.php');
-dol_include_once('/nltechno/class/cdolicloudplans.class.php');
+dol_include_once('/sellyoursaas/class/dolicloudcustomernew.class.php');
+dol_include_once('/sellyoursaas/class/cdolicloudplans.class.php');
 
 $langs->load("admin");
 $langs->load("companies");

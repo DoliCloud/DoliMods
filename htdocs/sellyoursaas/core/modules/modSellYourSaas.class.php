@@ -49,7 +49,7 @@ class modSellYourSaas extends DolibarrModules
         $this->editor_name = 'NLTechno';
         $this->editor_url = 'https://www.nltechno.com';
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
-		$this->version = '6';
+		$this->version = '1.0';
 		// Key used in llx_const table to save module status enabled/disabled (where MYMODULE is value of property name of module in uppercase)
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
 		// Where to store the module in setup page (0=common,1=interface,2=others,3=very specific)
@@ -71,7 +71,7 @@ class modSellYourSaas extends DolibarrModules
 		$this->depends = array();		// List of modules id that must be enabled if this module is enabled
 		$this->requiredby = array();	// List of modules id to disable if this one is disabled
 		$this->phpmin = array(4,1);					// Minimum version of PHP required by module
-		$this->need_dolibarr_version = array(6,0);	// Minimum version of Dolibarr required by module
+		$this->need_dolibarr_version = array(6,0,-4);	// Minimum version of Dolibarr required by module
 
 		// Defined all module parts (triggers, login, substitutions, menus, css, etc...)
 		$this->module_parts = array('triggers' => 0,
@@ -81,13 +81,22 @@ class modSellYourSaas extends DolibarrModules
 									'hooks' => array('searchform','thirdpartylist','customerlist','prospectlist'));
 
 		// Constants
-		$this->const = array();			// List of parameters
+		// List of particular constants to add when module is enabled (key, 'chaine', value, desc, visible, 'current' or 'allentities', deleteonunactive)
+		// Example: $this->const=array(0=>array('MYMODULE_MYNEWCONST1','chaine','myvalue','This is a constant to add',1),
+		//                             1=>array('MYMODULE_MYNEWCONST2','chaine','myvalue','This is another constant to add',0, 'current', 1)
+		// );
+		$this->const = array(
+		    0=>array('NLTECHNO_NOTE', 'chaine',
+		        'Welcome on SellYourSaas Home page<br><br>
+		        Link to the specification: https://framagit.org/eldy/sell-your-saas<br><br>
+		        ...You can enter content on this page to save any notes/information of your choices.', 'This is another constant to add', 0, 'allentities', 0)
+		);
 
 		// Dictionaries
-	    if (! isset($conf->nltechno->enabled))
+	    if (! isset($conf->sellyoursaas->enabled))
         {
-        	$conf->nltechno=new stdClass();
-        	$conf->nltechno->enabled=0;
+        	$conf->sellyoursaas=new stdClass();
+        	$conf->sellyoursaas->enabled=0;
         }
         /*$this->dictionaries=array(
 		'langs'=>'nltechno@sellyoursaaschno',
@@ -99,7 +108,7 @@ class modSellYourSaas extends DolibarrModules
 		'tabfieldvalue'=>array("code,label,price_instance,price_user,price_gb"),  // Nom des champs d'edition pour modification d'un enregistrement
 		'tabfieldinsert'=>array("code,label,price_instance,price_user,price_gb"),
 		'tabrowid'=>array("rowid"),
-		'tabcond'=>array($conf->nltechno->enabled)
+		'tabcond'=>array($conf->sellyoursaas->enabled)
 		);*/
 
 		// Boxes
@@ -164,52 +173,26 @@ class modSellYourSaas extends DolibarrModules
 
 		$this->menu[$r]=array(	'fk_menu'=>0,
 								'type'=>'top',
-								'titre'=>'Admin NLTechno',
-								'mainmenu'=>'nltechno',
-								'url'=>'/nltechno/index.php',
+								'titre'=>'SellYourSaas',
+								'mainmenu'=>'sellyoursaas',
+								'url'=>'/sellyoursaas/index.php',
 								'langs'=>'',
 								'position'=>200,
-                				'enabled'=>'$conf->nltechno->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
+                				'enabled'=>'$conf->sellyoursaas->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
 								'perms'=>'$user->rights->nltechno->liens->voir||$user->rights->nltechno->annonces->voir||$user->rights->nltechno->emailings->voir',
 								'target'=>'',
 								'user'=>0);
 		$r++;
 
-		$this->menu[$r]=array(	'fk_menu'=>'r=0',
+		$this->menu[$r]=array(	'fk_menu'=>'fk_mainmenu=sellyoursaas',
 								'type'=>'left',
-								'titre'=>'Liens externes',
-								'mainmenu'=>'nltechno',
-								'url'=>'/nltechno/index.php',
+								'titre'=>'Home',
+								'mainmenu'=>'sellyoursaas',
+								'url'=>'/sellyoursaas/index.php',
 								'langs'=>'',
 								'position'=>200,
-                				'enabled'=>'$conf->nltechno->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
+                				'enabled'=>'$conf->sellyoursaas->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
 								'perms'=>'$user->rights->nltechno->liens->voir',
-								'target'=>'',
-								'user'=>0);
-		$r++;
-
-		$this->menu[$r]=array(	'fk_menu'=>'r=0',
-								'type'=>'left',
-								'titre'=>'Outils Petites annonces',
-								'mainmenu'=>'nltechno',
-								'url'=>'/nltechno/statsannonces.php',
-								'langs'=>'',
-								'position'=>201,
-                				'enabled'=>'$conf->nltechno->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
-								'perms'=>'$user->rights->nltechno->annonces->voir',
-								'target'=>'',
-								'user'=>0);
-		$r++;
-
-		$this->menu[$r]=array(	'fk_menu'=>'r=0',
-								'type'=>'left',
-								'titre'=>'Outils EMailings',
-								'mainmenu'=>'nltechno',
-								'url'=>'/nltechno/statsemailings.php',
-								'langs'=>'',
-								'position'=>202,
-                				'enabled'=>'$conf->nltechno->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
-								'perms'=>'$user->rights->nltechno->emailings->voir',
 								'target'=>'',
 								'user'=>0);
 		$r++;
@@ -219,12 +202,12 @@ class modSellYourSaas extends DolibarrModules
 		$this->menu[$r]=array( 'fk_menu'=>'r=0',        // Use r=value where r is index key used for the parent menu entry (higher parent must be a top menu entry)
                 				'type'=>'left',         // This is a Left menu entry
                 				'titre'=>'DoliCloud (old)',
-                				'mainmenu'=>'nltechno',
+                				'mainmenu'=>'sellyoursaas',
                 				'leftmenu'=>'dolicloudold',
-                				'url'=>'/nltechno/dolicloud/index.php',
+                				'url'=>'/sellyoursaas/dolicloud/index.php',
                 				'langs'=>'nltechno@sellyoursaas',  // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
                 				'position'=>300,
-                				'enabled'=>'$conf->nltechno->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
+                				'enabled'=>'$conf->sellyoursaas->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
 							    'perms'=>'$user->rights->nltechno->dolicloud->read',           // Use 'perms'=>'$user->rights->NewsSubmitter->level1->level2' if you want your menu with a permission rules
                                 'target'=>'',
                                  'user'=>0);             // 0=Menu for internal users, 1=external users, 2=both
@@ -233,12 +216,12 @@ class modSellYourSaas extends DolibarrModules
 		$this->menu[$r]=array(	'fk_menu'=>'fk_mainmenu=nltechno,fk_leftmenu=dolicloudold',
 								'type'=>'left',
 								'titre'=>'List',
-								'mainmenu'=>'nltechno',
+								'mainmenu'=>'sellyoursaas',
 								'leftmenu'=>'dolicloudold_list',
-								'url'=>'/nltechno/dolicloud/dolicloud_list.php',
+								'url'=>'/sellyoursaas/dolicloud/dolicloud_list.php',
 								'langs'=>'',
 								'position'=>200,
-                				'enabled'=>'$conf->nltechno->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
+                				'enabled'=>'$conf->sellyoursaas->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
 								'perms'=>'$user->rights->nltechno->dolicloud->read',
 								'target'=>'',
 								'user'=>0);
@@ -247,12 +230,12 @@ class modSellYourSaas extends DolibarrModules
 		$this->menu[$r]=array(	'fk_menu'=>'fk_mainmenu=nltechno,fk_leftmenu=dolicloudold',
 								'type'=>'left',
 								'titre'=>'New',
-								'mainmenu'=>'nltechno',
+								'mainmenu'=>'sellyoursaas',
 								'leftmenu'=>'dolicloudold_create',
-								'url'=>'/nltechno/dolicloud/dolicloud_card.php?action=create',
+								'url'=>'/sellyoursaas/dolicloud/dolicloud_card.php?action=create',
 								'langs'=>'',
 								'position'=>210,
-                				'enabled'=>'$conf->nltechno->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
+                				'enabled'=>'$conf->sellyoursaas->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
 								'perms'=>'$user->rights->nltechno->dolicloud->write',
 								'target'=>'',
 								'user'=>0);
@@ -261,12 +244,12 @@ class modSellYourSaas extends DolibarrModules
 		$this->menu[$r]=array(	'fk_menu'=>'fk_mainmenu=nltechno,fk_leftmenu=dolicloudold',
 								'type'=>'left',
 								'titre'=>'EMailsTemplates',
-								'mainmenu'=>'nltechno',
+								'mainmenu'=>'sellyoursaas',
 								'leftmenu'=>'dolicloudold_emailstemplates',
-								'url'=>'/nltechno/dolicloud/dolicloudemailstemplates_page.php?action=list',
+								'url'=>'/sellyoursaas/dolicloud/dolicloudemailstemplates_page.php?action=list',
 								'langs'=>'nltechno@sellyoursaas',
 								'position'=>220,
-                				'enabled'=>'$conf->nltechno->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
+                				'enabled'=>'$conf->sellyoursaas->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
 								'perms'=>'$user->rights->nltechno->dolicloud->write',
 								'target'=>'',
 								'user'=>0);
@@ -275,12 +258,12 @@ class modSellYourSaas extends DolibarrModules
 		$this->menu[$r]=array(	'fk_menu'=>'fk_mainmenu=nltechno,fk_leftmenu=dolicloudold',
 								'type'=>'left',
 								'titre'=>'ImportCustomers',
-								'mainmenu'=>'nltechno',
+								'mainmenu'=>'sellyoursaas',
 								'leftmenu'=>'dolicloudold_import_custmers',
-								'url'=>'/nltechno/dolicloud/dolicloud_import_customers.php',
+								'url'=>'/sellyoursaas/dolicloud/dolicloud_import_customers.php',
 								'langs'=>'nltechno@sellyoursaas',
 								'position'=>220,
-                				'enabled'=>'$conf->nltechno->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
+                				'enabled'=>'$conf->sellyoursaas->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
 								'perms'=>'$user->rights->nltechno->dolicloud->write',
 								'target'=>'',
 								'user'=>0);
@@ -289,41 +272,41 @@ class modSellYourSaas extends DolibarrModules
 		$this->menu[$r]=array(	'fk_menu'=>'fk_mainmenu=nltechno,fk_leftmenu=dolicloudold',
 								'type'=>'left',
 								'titre'=>'ImportPayments',
-								'mainmenu'=>'nltechno',
+								'mainmenu'=>'sellyoursaas',
 								'leftmenu'=>'dolicloudold_import_payments',
-								'url'=>'/nltechno/dolicloud/dolicloud_import_payments.php',
+								'url'=>'/sellyoursaas/dolicloud/dolicloud_import_payments.php',
 								'langs'=>'nltechno@sellyoursaas',
 								'position'=>220,
-                				'enabled'=>'$conf->nltechno->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
+                				'enabled'=>'$conf->sellyoursaas->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
 								'perms'=>'$user->rights->nltechno->dolicloud->write',
 								'target'=>'',
 								'user'=>0);
 		$r++;
 */
 		// New area
-		$this->menu[$r]=array( 'fk_menu'=>'r=0',        // Use r=value where r is index key used for the parent menu entry (higher parent must be a top menu entry)
+		$this->menu[$r]=array( 'fk_menu'=>'fk_mainmenu=sellyoursaas',        // Use r=value where r is index key used for the parent menu entry (higher parent must be a top menu entry)
                 				'type'=>'left',         // This is a Left menu entry
                 				'titre'=>'DoliCloud',
-                				'mainmenu'=>'nltechno',
+                				'mainmenu'=>'sellyoursaas',
                 				'leftmenu'=>'dolicloud',
-                				'url'=>'/nltechno/dolicloud/index_new.php',
+                				'url'=>'/sellyoursaas/dolicloud/index_new.php',
                 				'langs'=>'nltechno@sellyoursaas',  // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
                 				'position'=>300,
-                				'enabled'=>'$conf->nltechno->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
+                				'enabled'=>'$conf->sellyoursaas->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
 							    'perms'=>'$user->rights->nltechno->dolicloud->read',           // Use 'perms'=>'$user->rights->NewsSubmitter->level1->level2' if you want your menu with a permission rules
                                 'target'=>'',
                                  'user'=>0);             // 0=Menu for internal users, 1=external users, 2=both
 		$r++;
 
-		$this->menu[$r]=array(	'fk_menu'=>'fk_mainmenu=nltechno,fk_leftmenu=dolicloud',
+		$this->menu[$r]=array(	'fk_menu'=>'fk_mainmenu=sellyoursaas,fk_leftmenu=dolicloud',
 								'type'=>'left',
 								'titre'=>'List',
-								'mainmenu'=>'nltechno',
+								'mainmenu'=>'sellyoursaas',
 								'leftmenu'=>'dolicloud_list',
-								'url'=>'/nltechno/dolicloud/dolicloud_list_new.php',
+								'url'=>'/sellyoursaas/dolicloud/dolicloud_list_new.php',
 								'langs'=>'',
 								'position'=>200,
-                				'enabled'=>'$conf->nltechno->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
+                				'enabled'=>'$conf->sellyoursaas->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
 								'perms'=>'$user->rights->nltechno->dolicloud->read',
 								'target'=>'',
 								'user'=>0);
@@ -332,17 +315,46 @@ class modSellYourSaas extends DolibarrModules
 		$this->menu[$r]=array(	'fk_menu'=>'fk_mainmenu=nltechno,fk_leftmenu=dolicloud',
 								'type'=>'left',
 								'titre'=>'EMailsTemplates',
-								'mainmenu'=>'nltechno',
+								'mainmenu'=>'sellyoursaas',
 								'leftmenu'=>'dolicloud_emailstemplates',
-								'url'=>'/nltechno/dolicloud/dolicloudemailstemplates_page_new.php?action=list',
+								'url'=>'/sellyoursaas/dolicloud/dolicloudemailstemplates_page_new.php?action=list',
 								'langs'=>'nltechno@sellyoursaas',
 								'position'=>220,
-                				'enabled'=>'$conf->nltechno->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
+                				'enabled'=>'$conf->sellyoursaas->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
 								'perms'=>'$user->rights->nltechno->dolicloud->write',
 								'target'=>'',
 								'user'=>0);
-								*/
+		$r++;*/
+
+		/*
+		$this->menu[$r]=array(
+		    'fk_menu'=>'fk_mainmenu=sellyoursaas',
+		    'type'=>'left',
+		    'titre'=>'Outils Petites annonces',
+		    'mainmenu'=>'sellyoursaas',
+		    'url'=>'/sellyoursaas/statsannonces.php',
+		    'langs'=>'',
+		    'position'=>400,
+		    'enabled'=>'$conf->sellyoursaas->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
+		    'perms'=>'$user->rights->nltechno->annonces->voir',
+		    'target'=>'',
+		    'user'=>0);
 		$r++;
+
+		$this->menu[$r]=array(
+		    'fk_menu'=>'fk_mainmenu=sellyoursaas',
+		    'type'=>'left',
+		    'titre'=>'Outils EMailings',
+		    'mainmenu'=>'sellyoursaas',
+		    'url'=>'/sellyoursaas/statsemailings.php',
+		    'langs'=>'',
+		    'position'=>500,
+		    'enabled'=>'$conf->sellyoursaas->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
+		    'perms'=>'$user->rights->nltechno->emailings->voir',
+		    'target'=>'',
+		    'user'=>0);
+		$r++;
+        */
 	}
 
 	/**

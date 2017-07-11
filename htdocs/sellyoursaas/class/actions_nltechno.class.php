@@ -17,7 +17,7 @@
  */
 
 /**
- *	\file       htdocs/nltechno/class/actions_nltechno.class.php
+ *	\file       htdocs/sellyoursaas/class/actions_nltechno.class.php
  *	\ingroup    cabinetmed
  *	\brief      File to control actions
  */

@@ -16,7 +16,7 @@
  */
 
 /**
- *	    \file       htdocs/nltechno/dolicloud/dolicloud_import_payments.php
+ *	    \file       htdocs/sellyoursaas/dolicloud/dolicloud_import_payments.php
  *      \ingroup    nltechno
  *      \brief      Page list payment
  */

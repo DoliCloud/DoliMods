@@ -17,7 +17,7 @@
  */
 
 /**
- *   	\file       htdocs/nltechno/dolicloud/dolicloudemailstemplates_page.php
+ *   	\file       htdocs/sellyoursaas/dolicloud/dolicloudemailstemplates_page.php
  *		\ingroup    nltechno
  *		\brief      This file is an example of a php page
  */
@@ -37,7 +37,7 @@ if (! $res && file_exists("../../../main.inc.php")) $res=@include("../../../main
 if (! $res) die("Include of main fails");
 
 // Change this following line to use the correct relative path from htdocs
-dol_include_once('/nltechno/class/dolicloudemailstemplates.class.php');
+dol_include_once('/sellyoursaas/class/dolicloudemailstemplates.class.php');
 
 // Load traductions files requiredby by page
 $langs->load("companies");

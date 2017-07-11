@@ -3,7 +3,7 @@
  */
 
 /**
- *   	\file       htdocs/nltechno/index.php
+ *   	\file       htdocs/sellyoursaas/index.php
  *		\ingroup    google
  *		\brief      Main NLTechno area
  *		\author		Laurent Destailleur
@@ -12,10 +12,8 @@
 if (! empty($GLOBALS['CALLFORCONFIG']))
 {
 	include 'params.php';
-
 	return;
 }
-
 
 // Load Dolibarr environment
 $res=0;
@@ -35,6 +33,9 @@ include_once DOL_DOCUMENT_ROOT.'/core/class/doleditor.class.php';
 include_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
 
 $action=GETPOST('action','aZ09');
+
+$langs->load("nltechno@sellyoursaas");
+
 
 /*
  * Actions
@@ -79,7 +80,7 @@ llxHeader();
 
 $form=new Form($db);
 
-print_fiche_titre("NLTechno information");
+print_fiche_titre($langs->trans("SellYourSaasHomePage"));
 print '<br>';
 
 if ($action != 'edit')
