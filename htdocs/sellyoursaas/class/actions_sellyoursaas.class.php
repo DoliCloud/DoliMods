@@ -17,7 +17,7 @@
  */
 
 /**
- *	\file       htdocs/sellyoursaas/class/actions_nltechno.class.php
+ *	\file       htdocs/sellyoursaas/class/actions_sellyoursaas.class.php
  *	\ingroup    cabinetmed
  *	\brief      File to control actions
  */
@@ -25,9 +25,9 @@ require_once(DOL_DOCUMENT_ROOT."/core/class/commonobject.class.php");
 
 
 /**
- *	Class to manage hooks for module NLTechno
+ *	Class to manage hooks for module SellYourSaas
  */
-class ActionsNltechno
+class ActionsSellyoursaas
 {
     var $db;
     var $error;
@@ -63,7 +63,7 @@ class ActionsNltechno
 
         return 0;
     }
-    
+
     /**
      * Complete search forms
      *
@@ -73,12 +73,12 @@ class ActionsNltechno
     function addSearchEntry($parameters)
     {
         global $langs;
-        
+
         $langs->load("nltechno@sellyoursaas");
         $search_boxvalue = $parameters['search_boxvalue'];
-        
-        $this->results['searchintodolicloud']=array('img'=>'object_generic', 'label'=>$langs->trans("SearchIntoDoliCloud", $search_boxvalue), 'text'=>img_picto('','object_generic').' '.$langs->trans("InstanceDolicloud", $search_boxvalue), 'url'=>dol_buildpath('/nltechno/dolicloud/dolicloud_list_new.php',1).'?search_multi='.urlencode($search_boxvalue));
-        
+
+        $this->results['searchintodolicloud']=array('img'=>'object_generic', 'label'=>$langs->trans("SearchIntoDoliCloud", $search_boxvalue), 'text'=>img_picto('','object_generic').' '.$langs->trans("InstanceDolicloud", $search_boxvalue), 'url'=>dol_buildpath('/sellyoursaas/dolicloud/dolicloud_list_new.php',1).'?search_multi='.urlencode($search_boxvalue));
+
         return 0;
     }
 }

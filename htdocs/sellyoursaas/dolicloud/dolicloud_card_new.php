@@ -181,7 +181,7 @@ if (empty($reshook))
 		$result = $object->delete();
 		if ($result > 0)
 		{
-			Header("Location: ".dol_buildpath('/nltechno/dolicloud/dolicloud_list.php',1));
+			Header("Location: ".dol_buildpath('/sellyoursaas/dolicloud/dolicloud_list.php',1));
 			exit;
 		}
 		else
@@ -834,7 +834,7 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 
 	// Dates
 	print '<tr><td width="20%">'.$langs->trans("DateDeployment").'</td><td width="30%">'.dol_print_date($object->date_registration,'dayhour');
-	//print ' (<a href="'.dol_buildpath('/nltechno/dolicloud/dolicloud_card.php',1).'?id='.$object->id.'&amp;action=setdate&amp;date=">'.$langs->trans("SetDate").'</a>)';
+	//print ' (<a href="'.dol_buildpath('/sellyoursaas/dolicloud/dolicloud_card.php',1).'?id='.$object->id.'&amp;action=setdate&amp;date=">'.$langs->trans("SetDate").'</a>)';
 	print '</td></tr>';
 
 	/*
@@ -896,7 +896,7 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 
 	// Dates
 	print '<tr><td width="20%">'.$langs->trans("DateDeployment").'</td><td colspan="3">'.dol_print_date($object->date_registration,'dayhour');
-	//print ' (<a href="'.dol_buildpath('/nltechno/dolicloud/dolicloud_card.php',1).'?id='.$object->id.'&amp;action=setdate&amp;date=">'.$langs->trans("SetDate").'</a>)';
+	//print ' (<a href="'.dol_buildpath('/sellyoursaas/dolicloud/dolicloud_card.php',1).'?id='.$object->id.'&amp;action=setdate&amp;date=">'.$langs->trans("SetDate").'</a>)';
 	print '</td>';
 	print '</tr>';
 

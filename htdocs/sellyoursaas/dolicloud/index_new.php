@@ -117,7 +117,7 @@ print '<div class="fichecenter"><div class="fichethirdleft">';
  * Search area
  */
 $rowspan=2;
-print '<form method="post" action="'.dol_buildpath('/nltechno/dolicloud/dolicloud_list_new.php',1).'">';
+print '<form method="post" action="'.dol_buildpath('/sellyoursaas/dolicloud/dolicloud_list_new.php',1).'">';
 print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
 print '<table class="noborder nohover" width="100%">';
 print '<tr class="liste_titre">';

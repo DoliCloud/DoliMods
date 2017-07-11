@@ -246,7 +246,7 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 
 	// Dates
 	print '<tr><td width="20%">'.$langs->trans("DateDeployment").'</td><td>'.dol_print_date($object->date_registration,'dayhour');
-	//print ' (<a href="'.dol_buildpath('/nltechno/dolicloud/dolicloud_card.php',1).'?id='.$object->id.'&amp;action=setdate&amp;date=">'.$langs->trans("SetDate").'</a>)';
+	//print ' (<a href="'.dol_buildpath('/sellyoursaas/dolicloud/dolicloud_card.php',1).'?id='.$object->id.'&amp;action=setdate&amp;date=">'.$langs->trans("SetDate").'</a>)';
 	print '</td>';
 	print '</tr>';
 
