@@ -41,8 +41,8 @@ require_once(DOL_DOCUMENT_ROOT."/core/lib/company.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/date.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/class/html.formcompany.class.php");
 require_once(DOL_DOCUMENT_ROOT."/core/class/html.formother.class.php");
-dol_include_once("/nltechno/core/lib/dolicloud.lib.php");
-dol_include_once("/nltechno/core/dolicloud/lib/refresh.lib.php");
+dol_include_once("/sellyoursaas/core/lib/dolicloud.lib.php");
+dol_include_once("/sellyoursaas/core/dolicloud/lib/refresh.lib.php");
 dol_include_once('/sellyoursaas/class/dolicloudcustomernew.class.php');
 dol_include_once('/sellyoursaas/class/cdolicloudplans.class.php');
 

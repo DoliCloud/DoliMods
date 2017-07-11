@@ -36,8 +36,8 @@ if (! $res && file_exists("../../../main.inc.php")) $res=@include("../../../main
 if (! $res) die("Include of main fails");
 
 require_once(DOL_DOCUMENT_ROOT."/core/lib/company.lib.php");
-dol_include_once("/nltechno/class/dolicloudcustomer.class.php");
-dol_include_once("/nltechno/class/dolicloudcustomernew.class.php");
+dol_include_once("/sellyoursaas/class/dolicloudcustomer.class.php");
+dol_include_once("/sellyoursaas/class/dolicloudcustomernew.class.php");
 
 
 $db2=getDoliDBInstance('mysqli', $conf->global->DOLICLOUD_DATABASE_HOST, $conf->global->DOLICLOUD_DATABASE_USER, $conf->global->DOLICLOUD_DATABASE_PASS, $conf->global->DOLICLOUD_DATABASE_NAME, $conf->global->DOLICLOUD_DATABASE_PORT);
