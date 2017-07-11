@@ -384,7 +384,7 @@ class modSellYourSaas extends DolibarrModules
 		    'leftmenu'=>'dolicloud_list',
 		    'url'=>'/sellyoursaas/dolicloud/dolicloud_list_new.php',
 		    'langs'=>'',
-		    'position'=>200,
+		    'position'=>310,
 		    'enabled'=>'$conf->sellyoursaas->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
 		    'perms'=>'$user->rights->nltechno->dolicloud->read',
 		    'target'=>'',
