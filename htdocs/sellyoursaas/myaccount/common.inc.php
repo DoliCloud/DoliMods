@@ -27,7 +27,7 @@
  */
 
 /**
- *	\file       htdocs/main.inc.php
+ *	\file       htdocs/sellyoursaas/myaccount/common.inc.php
  *	\ingroup	core
  *	\brief      File that defines environment for Dolibarr GUI pages only (file not required by scripts)
  */
