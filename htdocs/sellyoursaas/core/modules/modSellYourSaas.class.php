@@ -127,14 +127,14 @@ class modSellYourSaas extends DolibarrModules
 		$r=0;
 
 		// Add here list of permission defined by an id, a label, a boolean and two constant strings.
-		// Example:
 		$this->rights[$r][0] = 101051; 				// Permission id (must not be already used)
-		$this->rights[$r][1] = 'Voir page liens';	// Permission label
+		$this->rights[$r][1] = 'See SellYourSaas Home area';	// Permission label
 		$this->rights[$r][2] = 'r'; 					// Permission by default for new user (0/1)
 		$this->rights[$r][3] = 0; 					// Permission by default for new user (0/1)
 		$this->rights[$r][4] = 'liens';				// In php code, permission will be checked by test if ($user->rights->permkey->level1->level2)
 		$this->rights[$r][5] = 'voir';				// In php code, permission will be checked by test if ($user->rights->permkey->level1->level2)
 		$r++;
+		/*
 		$this->rights[$r][0] = 101052; 				// Permission id (must not be already used)
 		$this->rights[$r][1] = 'Voir page annonces';	// Permission label
 		$this->rights[$r][2] = 'r'; 					// Permission by default for new user (0/1)
@@ -149,7 +149,7 @@ class modSellYourSaas extends DolibarrModules
 		$this->rights[$r][4] = 'emailings';				// In php code, permission will be checked by test if ($user->rights->permkey->level1->level2)
 		$this->rights[$r][5] = 'voir';				// In php code, permission will be checked by test if ($user->rights->permkey->level1->level2)
 		$r++;
-
+        */
 
 		// Add here list of permission defined by an id, a label, a boolean and two constant strings.
 		// Example:
