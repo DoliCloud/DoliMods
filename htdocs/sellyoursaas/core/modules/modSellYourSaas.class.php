@@ -60,10 +60,7 @@ class modSellYourSaas extends DolibarrModules
 		$this->picto='generic';
 
 		// Data directories to create when module is enabled
-		$this->dirs = array();
-		$this->dirs[0] = DOL_DATA_ROOT.'/sellyoursaas';
-		$this->dirs[1] = DOL_DATA_ROOT.'/sellyoursaas/temp';          // Temp dir
-		$this->dirs[2] = DOL_DATA_ROOT.'/sellyoursaas/git';           // Where to do the git clone. Read to deploy a package.
+		$this->dirs = array('/sellyoursaas/temp','/sellyoursaas/git');
 
 		// Config pages. Put here list of php page names stored in admmin directory used to setup module
 		$this->config_page_url = array("setup.php@sellyoursaas");
