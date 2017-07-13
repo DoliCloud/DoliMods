@@ -31,6 +31,7 @@ while($i > 0 && $j > 0 && isset($tmp[$i]) && isset($tmp2[$j]) && $tmp[$i]==$tmp2
 if (! $res && $i > 0 && file_exists(substr($tmp, 0, ($i+1))."/main.inc.php")) $res=@include(substr($tmp, 0, ($i+1))."/main.inc.php");
 if (! $res && $i > 0 && file_exists(dirname(substr($tmp, 0, ($i+1)))."/main.inc.php")) $res=@include(dirname(substr($tmp, 0, ($i+1)))."/main.inc.php");
 // Try main.inc.php using relative path
+if (! $res && file_exists("../main.inc.php")) $res=@include("../main.inc.php");
 if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.php");
 if (! $res && file_exists("../../../main.inc.php")) $res=@include("../../../main.inc.php");
 if (! $res) die("Include of main fails");
@@ -165,7 +166,7 @@ if ($id)
 	// Show tabs
 
     if ((float) DOL_VERSION >= 5.0) print "<form method=\"POST\" name=\"smsform\" enctype=\"multipart/form-data\" action=\"".$_SERVER["PHP_SELF"].'?id='.$object->id."\">\n";
-    
+
     $head = member_prepare_head($object);
 	dol_fiche_head($head, 'tabSMS', $langs->trans("Member"),0,'user');
 
@@ -255,9 +256,9 @@ if ($id)
     $formsms->param['id']=$object->id;
     $formsms->param['returnurl']=$_SERVER["PHP_SELF"].'?id='.$object->id;
 
-	
+
     if ((float) DOL_VERSION >= 5.0)	// For dolibarr 5.0.*
-    { 
+    {
         $formsms->show_form('', 0);
 	}
 	else
@@ -266,8 +267,8 @@ if ($id)
 	}
 
 	dol_fiche_end();
-	
-	if ((float) DOL_VERSION >= 5.0) 
+
+	if ((float) DOL_VERSION >= 5.0)
 	{
 	    print '<div class="center">';
 	    print '<input class="button" type="submit" name="sendmail" value="'.dol_escape_htmltag($langs->trans("SendSms")).'">';
@@ -277,12 +278,12 @@ if ($id)
 	        print '<input class="button" type="submit" name="cancel" value="'.dol_escape_htmltag($langs->trans("Cancel")).'">';
 	    }
 	    print '</div>';
-	    
+
 	    print "</form>\n";
 	}
-	
-	
-	
+
+
+
 }
 
 
