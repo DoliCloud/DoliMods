@@ -214,7 +214,7 @@ class Api
             $options
             );
         */
-        
+
         $request = $this->http_client->createRequest(
             $method,
             $url
@@ -252,8 +252,8 @@ class Api
                 $request->setHeader('X-Ovh-Signature', $signature);
             }
         }
-        
-        
+
+
         // DOL_LDR
         $logfile=DOL_DATA_ROOT.'/dolibarr_ovh.log';
         $filefd = fopen($logfile, 'a+');
@@ -264,9 +264,21 @@ class Api
 	   	    fclose($filefd);
 		    @chmod($logfile, octdec(empty($conf->global->MAIN_UMASK)?'0664':$conf->global->MAIN_UMASK));
         }
-			
-        
-        return $this->http_client->send($request)->json();
+
+        $result = $this->http_client->send($request)->json();
+
+        // CHANGE DOL_LDR
+        $logfile=DOL_DATA_ROOT.'/dolibarr_ovh.log';
+        $filefd = fopen($logfile, 'a+');
+        if ($filefd)
+        {
+            global $conf;
+            fwrite($filefd, "Response: ".json_encode($result)."\n");
+            fclose($filefd);
+            @chmod($logfile, octdec(empty($conf->global->MAIN_UMASK)?'0664':$conf->global->MAIN_UMASK));
+        }
+
+        return $result;
     }
 
     /**
