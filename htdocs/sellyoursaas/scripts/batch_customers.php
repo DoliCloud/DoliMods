@@ -41,16 +41,15 @@ $error=0;
 
 
 // -------------------- START OF YOUR CODE HERE --------------------
-// Include Dolibarr environment
-$res=0;
+@set_time_limit(0);							// No timeout for this script
+define('EVEN_IF_ONLY_LOGIN_ALLOWED',1);		// Set this define to 0 if you want to lock your script when dolibarr setup is "locked to admin user only".
+
+// Include and load Dolibarr environment variables
+if (! $res && file_exists($path."master.inc.php")) $res=@include($path."master.inc.php");
+if (! $res && file_exists($path."../master.inc.php")) $res=@include($path."../master.inc.php");
 if (! $res && file_exists($path."../../master.inc.php")) $res=@include($path."../../master.inc.php");
-if (! $res && file_exists($path."../../htdocs/master.inc.php")) $res=@include($path."../../htdocs/master.inc.php");
-if (! $res && file_exists("../master.inc.php")) $res=@include("../master.inc.php");
-if (! $res && file_exists("../../master.inc.php")) $res=@include("../../master.inc.php");
-if (! $res && file_exists("../../../master.inc.php")) $res=@include("../../../master.inc.php");
-if (! $res && preg_match('/\/nltechno([^\/]*)\//',$_SERVER["PHP_SELF"],$reg)) $res=@include($path."../../../dolibarr".$reg[1]."/htdocs/master.inc.php"); // Used on dev env only
-if (! $res && preg_match('/\/nltechno([^\/]*)\//',$_SERVER["PHP_SELF"],$reg)) $res=@include("../../../dolibarr".$reg[1]."/htdocs/master.inc.php"); // Used on dev env only
-if (! $res) die ("Failed to include master.inc.php file\n");
+if (! $res && file_exists($path."../../../master.inc.php")) $res=@include($path."../../../master.inc.php");
+if (! $res) die("Include of master fails");
 // After this $db, $mysoc, $langs and $conf->entity are defined. Opened handler to database will be closed at end of file.
 
 dol_include_once('/nltechno/class/dolicloudcustomernew.class.php');
