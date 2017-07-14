@@ -215,7 +215,7 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 	print '<tr><td width="20%">'.$langs->trans("Partner").'</td><td width="30%">'.$object->partner.'</td><td width="20%">'.$langs->trans("Source").'</td><td>'.($object->source?$object->source:$langs->trans("Unknown")).'</td></tr>';
 
 	print "</table>";
-	print '</div>';
+
 
 	print '<br>';
 

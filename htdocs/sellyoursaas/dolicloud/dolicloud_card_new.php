@@ -707,6 +707,7 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 
 	dol_htmloutput_errors($error,$errors);
 
+	print '<div class="fichecenter">';
 	print '<table class="border" width="100%">';
 
 	// Instance / Organization
@@ -1009,8 +1010,6 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 	print '</tr>';
 
 	print "</table><br>";
-
-
 
 	print "</div>";
 
