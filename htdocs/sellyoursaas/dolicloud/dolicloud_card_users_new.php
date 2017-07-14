@@ -182,7 +182,7 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 
 	dol_htmloutput_errors($error,$errors);
 
-
+	print '<div class="fichecenter">';
 	print '<table class="border" width="100%">';
 
 	// Instance / Organization
@@ -215,6 +215,7 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 	print '<tr><td width="20%">'.$langs->trans("Partner").'</td><td width="30%">'.$object->partner.'</td><td width="20%">'.$langs->trans("Source").'</td><td>'.($object->source?$object->source:$langs->trans("Unknown")).'</td></tr>';
 
 	print "</table>";
+	print '</div>';
 
 	print '<br>';
 
@@ -246,7 +247,7 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 	print '</tr>';
 
 	print "</table>";
-	//print '<br>';
+	print '</div>';
 
 	/*
 	// Last refresh

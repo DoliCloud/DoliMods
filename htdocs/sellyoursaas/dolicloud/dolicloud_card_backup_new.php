@@ -157,7 +157,7 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 
 	dol_htmloutput_errors($error,$errors);
 
-
+	print '<div class="fichecenter">';
 	print '<table class="border" width="100%">';
 
 	// Instance / Organization
@@ -331,13 +331,19 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 		print "</div><br>";
 	}
 */
-
-	// Upgrade link
-	$backupstringtoshow=$backupstring.' testrsync|testdatabase';
-	print 'Backup command line string<br>';
-	print '<input type="text" name="backupstring" value="'.$backupstringtoshow.'" size="160"><br>';
-
 }
+
+if ($id > 0 || $instance)
+{
+	dol_fiche_end();
+}
+
+
+// Upgrade link
+$backupstringtoshow=$backupstring.' testrsync|testdatabase';
+print 'Backup command line string<br>';
+print '<input type="text" name="backupstring" value="'.$backupstringtoshow.'" size="160"><br>';
+
 
 
 llxFooter();
