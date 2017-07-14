@@ -50,8 +50,8 @@ if (! $res && file_exists($path."../../master.inc.php")) $res=@include($path."..
 if (! $res && file_exists($path."../../../master.inc.php")) $res=@include($path."../../../master.inc.php");
 if (! $res) die("Include of master fails");
 
-dol_include_once("/nltechno/core/lib/dolicloud.lib.php");
-dol_include_once('/nltechno/class/dolicloudcustomernew.class.php');
+dol_include_once("/sellyoursaas/core/lib/dolicloud.lib.php");
+dol_include_once('/sellyoursaas/class/dolicloudcustomernew.class.php');
 
 
 $db2=getDoliDBInstance('mysqli', $conf->global->DOLICLOUD_DATABASE_HOST, $conf->global->DOLICLOUD_DATABASE_USER, $conf->global->DOLICLOUD_DATABASE_PASS, $conf->global->DOLICLOUD_DATABASE_NAME, $conf->global->DOLICLOUD_DATABASE_PORT);

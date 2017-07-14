@@ -88,7 +88,7 @@ if ($id > 0 || $instance)
 	if ($result < 0) dol_print_error($db,$object->error);
 }
 
-$backupstring=$conf->global->DOLICLOUD_SCRIPTS_PATH.'/nltechno/backup_instance.php '.$object->instance.' '.$conf->global->DOLICLOUD_INSTANCES_PATH;
+$backupstring=$conf->global->DOLICLOUD_SCRIPTS_PATH.'/backup_instance.php '.$object->instance.' '.$conf->global->DOLICLOUD_INSTANCES_PATH;
 
 
 

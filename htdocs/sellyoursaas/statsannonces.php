@@ -76,7 +76,7 @@ $WIDTH=800;
 $HEIGHT=160;
 
 // Create temp directory
-$dir = DOL_DATA_ROOT.'/nltechno/';
+$dir = DOL_DATA_ROOT.'/sellyoursaas/';
 $dirtmp = 'temp/';
 if (! file_exists($dir.$dirtmp))
 {

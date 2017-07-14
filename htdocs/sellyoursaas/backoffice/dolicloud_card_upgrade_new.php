@@ -88,7 +88,7 @@ if ($id > 0 || $instance)
 	if ($result < 0) dol_print_error($db,$object->error);
 }
 
-$upgradestring=$conf->global->DOLICLOUD_SCRIPTS_PATH.'/nltechno/rsync_instance.php '.$conf->global->DOLICLOUD_LASTSTABLEVERSION_DIR.' '.$object->instance;
+$upgradestring=$conf->global->DOLICLOUD_SCRIPTS_PATH.'/rsync_instance.php '.$conf->global->DOLICLOUD_LASTSTABLEVERSION_DIR.' '.$object->instance;
 
 
 

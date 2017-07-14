@@ -18,7 +18,7 @@
  */
 
 /**
- *      \file       scripts/nltechno/batch_customers.php
+ *      \file       sellyoursaas/scripts/batch_customers.php
  *		\ingroup    nltechno
  *      \brief      Main master Dolicloud batch
  *      			backup_instance.php (payed customers rsync + databases backup)
@@ -52,8 +52,8 @@ if (! $res && file_exists($path."../../../master.inc.php")) $res=@include($path.
 if (! $res) die("Include of master fails");
 // After this $db, $mysoc, $langs and $conf->entity are defined. Opened handler to database will be closed at end of file.
 
-dol_include_once('/nltechno/class/dolicloudcustomernew.class.php');
-include_once dol_buildpath("/nltechno/dolicloud/lib/refresh.lib.php");		// do not use dol_buildpth to keep global declaration working
+dol_include_once('/sellyoursaas/class/dolicloudcustomernew.class.php');
+include_once dol_buildpath("/sellyoursaas/dolicloud/lib/refresh.lib.php");		// do not use dol_buildpth to keep global declaration working
 
 
 $db2=getDoliDBInstance('mysqli', $conf->global->DOLICLOUD_DATABASE_HOST, $conf->global->DOLICLOUD_DATABASE_USER, $conf->global->DOLICLOUD_DATABASE_PASS, $conf->global->DOLICLOUD_DATABASE_NAME, $conf->global->DOLICLOUD_DATABASE_PORT);

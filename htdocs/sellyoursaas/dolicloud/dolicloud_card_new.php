@@ -357,7 +357,7 @@ if ($user->rights->nltechno->dolicloud->write)
 		print '<input type="hidden" name="backtopage" value="'.$backtopage.'">';
 
 
-		print "Si l'organisation est connue, essayer avec https://apollon1.nltechno.com/dolibarr/custom/nltechno/dolicloud/dolicloud_card.php?action=create&organization=NOM+ORGANISATION<br>";
+		print "Si l'organisation est connue, essayer avec https://apollon1.nltechno.com/dolibarr/custom/sellyoursaas/dolicloud/dolicloud_card.php?action=create&organization=NOM+ORGANISATION<br>";
 		print "Sinon, saisir manuellement tous les champs par recopie du dashboard DoliCloud.<br>\n";
 
 
