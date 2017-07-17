@@ -156,7 +156,7 @@ class Numbers_Words_en_SA extends Numbers_Words
       'HRK' => array(array('Croatian kuna'), array('lipa')),
       'HUF' => array(array('forint'), array('filler')),
       'ILS' => array(array('new sheqel','new sheqels'), array('agora','agorot')),
-        // DOL_CHANGE
+        // @CHANGE
       'IND' => array(array('dollar','dollars'), array('paisa','paise')),
       'ISK' => array(array('Icelandic krona'), array('aurar')),
       'JPY' => array(array('yen'), array('sen')),
