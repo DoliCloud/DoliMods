@@ -447,7 +447,7 @@ class Numbers_Words_fr extends Numbers_Words
     // }}}
 
 
-    // DOL_CHANGE. Add the toCurrencyWords found in lang.en_US
+    // @CHANGE. Add the toCurrencyWords found in lang.en_US
     /**
      * Converts a currency value to its word representation
      * (with monetary units) in English language

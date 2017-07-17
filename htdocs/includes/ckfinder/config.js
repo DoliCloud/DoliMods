@@ -9,7 +9,7 @@ CKFinder.customConfig = function( config )
 	// config.skin = 'v1';
 	// config.language = 'fr';
 
-	// DOL_CHANGE
+	// @CHANGE
 	config.removePlugins = 'basket';
 };
 
