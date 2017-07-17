@@ -567,6 +567,8 @@ if ($user->rights->nltechno->dolicloud->write)
 		print '<input type="hidden" name="contactid" value="'.$object->id.'">';
 		print '<input type="hidden" name="old_name" value="'.$object->name.'">';
 		print '<input type="hidden" name="old_firstname" value="'.$object->firstname.'">';
+
+		print '<div class="fichecenter">';
 		print '<table class="border" width="100%">';
 
 		// Instance
@@ -669,6 +671,7 @@ if ($user->rights->nltechno->dolicloud->write)
 		print '</tr>';
 
 		print "</table>";
+		print '</div>';
 
 		print '<br>';
 
@@ -704,6 +707,7 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 
 	dol_htmloutput_errors($error,$errors);
 
+	print '<div class="fichecenter">';
 	print '<table class="border" width="100%">';
 
 	// Instance / Organization
@@ -1006,8 +1010,6 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 	print '</tr>';
 
 	print "</table><br>";
-
-
 
 	print "</div>";
 

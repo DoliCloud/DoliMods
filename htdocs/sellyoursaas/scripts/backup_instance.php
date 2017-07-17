@@ -44,6 +44,7 @@ $mode=isset($argv[3])?$argv[3]:'';
 define('EVEN_IF_ONLY_LOGIN_ALLOWED',1);		// Set this define to 0 if you want to lock your script when dolibarr setup is "locked to admin user only".
 
 // Include and load Dolibarr environment variables
+$res=0;
 if (! $res && file_exists($path."master.inc.php")) $res=@include($path."master.inc.php");
 if (! $res && file_exists($path."../master.inc.php")) $res=@include($path."../master.inc.php");
 if (! $res && file_exists($path."../../master.inc.php")) $res=@include($path."../../master.inc.php");

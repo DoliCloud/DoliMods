@@ -182,7 +182,7 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 
 	dol_htmloutput_errors($error,$errors);
 
-
+	print '<div class="fichecenter">';
 	print '<table class="border" width="100%">';
 
 	// Instance / Organization
@@ -216,6 +216,7 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 
 	print "</table>";
 
+
 	print '<br>';
 
 	print '<table class="border" width="100%">';
@@ -246,7 +247,7 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 	print '</tr>';
 
 	print "</table>";
-	//print '<br>';
+	print '</div>';
 
 	/*
 	// Last refresh
