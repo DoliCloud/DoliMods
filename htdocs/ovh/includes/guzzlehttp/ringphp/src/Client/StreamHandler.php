@@ -240,7 +240,7 @@ class StreamHandler
             ],
         ];
 
-        /* DOL_CHANGE LDR We may add this too to the context to solve SSL problem or PHP setup not complete
+        /* @CHANGE LDR We may add this too to the context to solve SSL problem or PHP setup not complete
          * if  
         $context['ssl'] = array(
                 'cafile'        => __DIR__ . '/cacert.pem',
