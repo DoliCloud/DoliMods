@@ -9,7 +9,7 @@ $PNMTOJPEG  = "/usr/bin/pnmtojpeg";   //  eigenen
 $PNMTOTIFF  = "/usr/bin/pnmtotiff";   //  eigenen
 $OCR        = "/usr/bin/gocr";        //  Parametern
 
-// DOL_CHANGE LDR
+// @CHANGE LDR
 if (! empty($conf->global->PHPSANE_SCANIMAGE)) $SCANIMAGE=$conf->global->PHPSANE_SCANIMAGE;
 if (! empty($conf->global->PHPSANE_PNMTOJPEG)) $PNMTOJPEG=$conf->global->PHPSANE_PNMTOJPEG;
 if (! empty($conf->global->PHPSANE_PNMTOTIFF)) $PNMTOTIFF=$conf->global->PHPSANE_PNMTOTIFF;
