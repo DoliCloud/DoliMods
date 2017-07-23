@@ -200,7 +200,7 @@ if (empty($reshook))
 
 		if (! $error)
 		{
-			$object->oldcopy=dol_clone($object);
+			$object->oldcopy=dol_clone($object, 1);
 
 			$object->instance    	= $_POST["instance"];
 			$object->organization	= $_POST["organization"];

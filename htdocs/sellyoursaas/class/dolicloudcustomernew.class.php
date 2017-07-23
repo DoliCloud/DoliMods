@@ -741,7 +741,7 @@ class Dolicloudcustomernew extends CommonObject
 
         // Force creation into old database
         $this->db->begin();
-       		$tmpobject=dol_clone($this);	// To search if it exists without changing current object
+       		$tmpobject=dol_clone($this, 1);	// To search if it exists without changing current object
 			$result=$tmpobject->fetch_old($this->idold,$this->instance);
 			//var_dump($result.' '.$tmpobject->idold);
 			if (empty($result))

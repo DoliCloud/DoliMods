@@ -286,7 +286,7 @@ if ($action == 'updatedatabase' || $action == 'updatestatsonly' || $action == 'u
 			$result=$object->fetch('',$instance);
 			if ($result < 0) dol_print_error('',$object->error);
 
-			$object->oldcopy=dol_clone($object);
+			$object->oldcopy=dol_clone($object, 1);
 
 			// Files refresh (does not update lastcheck field)
 			//$ret=dolicloud_files_refresh($conf,$db,$object,$errors);
