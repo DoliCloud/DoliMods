@@ -80,15 +80,15 @@ function ovhsysadmin_prepare_head()
     $h = 0;
     $head = array();
 
-    $head[$h][0] = dol_buildpath("/ovh/ovh_listinfoserver.php",1).'?mode=dedicated';
-    $head[$h][1] = $langs->trans("OvhDedicated");
-    $head[$h][2] = 'dedicated';
-    $h++;
-
    	$head[$h][0] = dol_buildpath("/ovh/ovh_listinfoserver.php",1).'?mode=publiccloud';
    	$head[$h][1] = $langs->trans("OvhPublicCloud");
    	$head[$h][2] = 'publiccloud';
    	$h++;
+
+    $head[$h][0] = dol_buildpath("/ovh/ovh_listinfoserver.php",1).'?mode=dedicated';
+    $head[$h][1] = $langs->trans("OvhDedicated");
+    $head[$h][2] = 'dedicated';
+    $h++;
 
    	return $head;
 }

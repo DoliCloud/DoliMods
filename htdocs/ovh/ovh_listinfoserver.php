@@ -39,7 +39,7 @@ if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.p
 if (! $res && file_exists("../../../main.inc.php")) $res=@include("../../../main.inc.php");
 if (! $res) die("Include of main fails");
 
-dol_include_once('/ovh/class/ovh.class.php');
+dol_include_once('/ovh/class/ovhserver.class.php');
 dol_include_once("/ovh/lib/ovh.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
 require_once(DOL_DOCUMENT_ROOT.'/contact/class/contact.class.php');
@@ -65,7 +65,7 @@ $sendto = GETPOST("sendto") ? GETPOST('sendto') : '';
 
 $project = GETPOST('project','aZ09');
 $mode = GETPOST('mode','aZ09');
-if (empty($mode)) $mode='dedicated';
+if (empty($mode)) $mode='publiccloud';
 $server = GETPOST('server','aZ09');
 
 // for bandwitch stats
@@ -123,23 +123,16 @@ if ($action == 'createsnapshot' && $user->admin)
 {
     $server=GETPOST('server','aZ09');
 
-    $http_client = new GClient();
-    $http_client->setDefaultOption('connect_timeout', empty($conf->global->MAIN_USE_CONNECT_TIMEOUT)?20:$conf->global->MAIN_USE_CONNECT_TIMEOUT);  // Timeout by default of OVH is 5 and it is not enough
-    $http_client->setDefaultOption('timeout', empty($conf->global->MAIN_USE_RESPONSE_TIMEOUT)?30:$conf->global->MAIN_USE_RESPONSE_TIMEOUT);
+    $ovhserver=new OvhServer($db);
+    $result = $ovhserver->createSnapshot($project, $server);
 
-    $conn = new Api($conf->global->OVHAPPKEY, $conf->global->OVHAPPSECRET, $endpoint, $conf->global->OVHCONSUMERKEY, $http_client);
-
-    $resultcreatesnapshot=null;
-    try {
-        $snapshotName='Snapshot from Dolibarr '.GETPOST('name','alpha').' '.dol_print_date(dol_now(), 'dayhour');
-        $content = (object) array('snapshotName'=>$snapshotName);
-        $resultcreatesnapshot = $conn->post('/cloud/project/'.$project.'/instance/'.$server.'/snapshot', $content);
-        $resultcreatesnapshot = json_decode(json_encode($resultcreatesnapshot), false);
-        setEventMessages($langs->trans("SnapshotRequestSent", $snapshotName), null);
-    }
-    catch(Exception $e)
+    if ($result > 1)
     {
-        setEventMessages('Error '.$e->getMessage().'<br>If this is an error to connect to OVH host, check your firewall does not block port required to reach OVH manager/api (for example port 1664 with old api, 443 for new api).', null, 'errors');
+    	setEventMessages($ovhserver->msg, null);
+    }
+    else
+    {
+    	setEventMessages($ovhserver->error, $ovhserver->errors, 'errors');
     }
 
     $action='';
@@ -257,17 +250,23 @@ else
 
     	$typesrv = substr($server, 0, 1);
 
-    	$title = empty($resultinfo->name)?$server:$resultinfo->name;
-    	print_fiche_titre($title,'','');
-
-    	print '<br>';
-
     	if ($mode == 'publiccloud')
     	{
-        	print '<table class="border centpercent">';
+    		$object = new OvhServer($db);
+    		$object->id = $server;
+    		$object->ref = $resultinfo->name;
+
+    		$linkback = '<a href="' . dol_buildpath('/ovh/ovh_listinfoserver.php',1).'?mode=publiccloud' . '">' . $langs->trans("BackToList") . '</a>';
+
+    		dol_banner_tab($object, 'ref', $linkback, 1, 'none');
+
+    		print '<div class="fichecenter">';
+    		//print '<div class="fichehalfleft">';
+    		print '<div class="underbanner clearboth"></div>';
+    		print '<table class="border centpercent">'."\n";
         	print '<tr><td class="titlefield">'.$langs->trans("Id").'</td><td> ' . $server . '</td></tr>';
 
-    	    print '<tr><td>'.$langs->trans("Name").'</td><td>' . $resultinfo->name . '</td></tr>';
+    	    print '<tr><td>'.$langs->trans("Ref").'</td><td>' . $resultinfo->name . '</td></tr>';
             print '<tr><td>'.$langs->trans("Created").'</td><td>' . $resultinfo->created . '</td></tr>';
             print '<tr><td>'.$langs->trans("Region").'</td><td>' . $resultinfo->flavor->region . '</td></tr>';
             print '<tr><td>'.$langs->trans("Type").'</td><td>' . $resultinfo->flavor->name . '</td></tr>';
@@ -293,10 +292,41 @@ else
             print '</td></tr>';
             print '</table>';
 
-            var_dump($resultinfosnapshot);
+            print '</div>';
+
+            //print dol_fiche_end();
+
+            print '<br>';
+
+            //var_dump($resultinfosnapshot);
+            print '<table class="noborder centpercent">';
+            print '<tr><td class="titlefield">'.$langs->trans("Snapshot").'</td><td>'.$langs->trans("Date").'</td><td>'.$langs->trans("Region").'</td><td>'.$langs->trans("Size").'</td></tr>';
+            foreach($resultinfosnapshot as $val)
+            {
+            	 print '<tr>';
+            	 print '<td>';
+            	 print $val->name;
+            	 print '</td>';
+            	 print '<td>';
+            	 print $val->creationDate;
+            	 print '</td>';
+            	 print '<td>';
+            	 print $val->region;
+            	 print '</td>';
+            	 print '<td>';
+            	 print $val->size;
+            	 print '</td>';
+            	 print '</tr>';
+            }
+            print '</table>';
     	}
     	else
     	{
+    		$title = empty($resultinfo->name)?$server:$resultinfo->name;
+    		print_fiche_titre($title,'','');
+
+    		print '<br>';
+
         	$reverse1 = gethostbyname($server);
         	$reverse = gethostbyaddr($reverse1);
 
@@ -511,13 +541,20 @@ else
 
     	if (count($result))
     	{
-        	print '<table class="border tableovh centpercent">';
+        	print '<table class="noborder tableovh centpercent">';
         	foreach ($result as $serverobj)
         	{
         	    if ($mode == 'publiccloud')
         	    {
-        	        print '<tr>';
-        	        print '<td><a href="?mode=publiccloud&server=' . $serverobj['id'] . '&project='.$projectname.'">' . $serverobj['name'] . '</a>';
+        	        $ovhserver=new OvhServer($db);
+        	        $ovhserver->id = $serverobj['id'];
+        	        $ovhserver->ref = $serverobj['name'];
+        	        $ovhserver->projectname = $projectname;
+        	        $ovhserver->status = $serverobj['status'];
+
+        	        print '<tr class="oddeven">';
+        	        print '<td>';
+        	        print $ovhserver->getNomUrl(1);
         	        print '<br>'.$serverobj['region'];
         	        print ' - '.$serverobj['id'];
         	        print '</td>';
@@ -533,7 +570,7 @@ else
         	        }
         	        print '</td>';
         	        print '<td class="center">';
-        	        print $serverobj['status'];
+        	        print $ovhserver->getLibStatut(5);
         	        print '</td>';
         	        print '<td class="center">';
         	        print '<a href="?mode=publiccloud&server=' . $serverobj['id'] . '&project='.$projectname.'&action=createsnapshot&name='.urlencode($serverobj['name']).'">'.$langs->trans("CreateSnapshot").'</a>';
