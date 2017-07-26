@@ -263,13 +263,14 @@ class OvhServer extends CommonObject
 	}
 
 	/**
-	 * Launch creation of a snapsho
+	 * Launch creation of a snapshot
 	 *
 	 * @param	string	$project	Project
-	 * @param	string	$server		Server name
-	 * @return	int					>0 if OK, <0 if KO
+	 * @param	string	$server		Server ref
+	 * @param	string	$name		Server label
+	 * @return	int					<0 if KO, 0 if OK (This is standard for methods called by crons)
 	 */
-	public function createSnapshot($project, $server)
+	public function createSnapshot($project, $server, $name='')
 	{
 		global $conf, $langs;
 
@@ -283,12 +284,12 @@ class OvhServer extends CommonObject
 
 		$resultcreatesnapshot=null;
 		try {
-			$snapshotName='Snapshot from Dolibarr '.GETPOST('name','alpha').' '.dol_print_date(dol_now(), 'dayhour');
+			$snapshotName='Snapshot from Dolibarr '.($name?$name.' ':'').dol_print_date(dol_now(), 'dayhour');
 			$content = (object) array('snapshotName'=>$snapshotName);
 			$resultcreatesnapshot = $conn->post('/cloud/project/'.$project.'/instance/'.$server.'/snapshot', $content);
 			$resultcreatesnapshot = json_decode(json_encode($resultcreatesnapshot), false);
 			$this->msg = $langs->trans("SnapshotRequestSent", $snapshotName);
-			return 1;
+			return 0;
 		}
 		catch(Exception $e)
 		{

@@ -58,7 +58,7 @@ class modOvh extends DolibarrModules
         $this->editor_name = 'NLTechno';
         $this->editor_url = 'https://www.nltechno.com';
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
-		$this->version = '3.8.2';
+		$this->version = '3.8.3';
 		// Key used in llx_const table to save module status enabled/disabled (where MYMODULE is value of property name of module in uppercase)
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
 		// Where to store the module in setup page (0=common,1=interface,2=others,3=very specific)
@@ -148,6 +148,11 @@ class modOvh extends DolibarrModules
 		//$this->boxes[$r][1] = "myboxb.php";
 		//$r++;
 
+
+		// Cronjobs (List of cron jobs entries to add when module is enabled)
+		$this->cronjobs = array(
+			0=>array('label'=>'Snapshot OVH', 'jobtype'=>'method', 'class'=>'/ovh/class/ovhserver.class.php', 'objectname'=>'OvhServer', 'method'=>'createSnapshot', 'parameters'=>'projectid, serverid, serverlabel', 'comment'=>'Ask a snaspshot request of a server. "projectid" and "serverid" are defined by OVH. "serverlabel" is a free text. Warning: This increase your OVH monthly billing.', 'frequency'=>4, 'unitfrequency'=>604800, 'status'=>0, 'test'=>true)
+		);
 
 		// Permissions
 		$this->rights = array();		// Permission array used by this module
