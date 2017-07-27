@@ -122,11 +122,12 @@ if ($action == 'setvalue' && $user->admin)
 if ($action == 'createsnapshot' && $user->admin)
 {
     $server=GETPOST('server','aZ09');
+	$name=GETPOST('name', 'aZ09');
 
     $ovhserver=new OvhServer($db);
-    $result = $ovhserver->createSnapshot($project, $server);
+    $result = $ovhserver->createSnapshot($project, $server, $name);
 
-    if ($result > 1)
+    if ($result == 0)
     {
     	setEventMessages($ovhserver->msg, null);
     }
