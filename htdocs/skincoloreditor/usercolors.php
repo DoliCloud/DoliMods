@@ -60,7 +60,7 @@ if ($user->id == $id) $feature2=''; // A user can always read its own card
 $result = restrictedArea($user, 'user', $id, 'user&user', $feature2);
 
 $object = new User($db);
-$object->fetch($id);
+$object->fetch($id, '', '', 1);
 $object->getrights();
 
 $def = array();
@@ -161,7 +161,7 @@ else
     print '</td>';
     print '</tr>';
 
-    // LAstname
+    // Lastname
     print '<tr><td width="25%" valign="top">'.$langs->trans("LastName").'</td>';
     print '<td colspan="2">'.$object->lastname.'</td>';
     print "</tr>\n";

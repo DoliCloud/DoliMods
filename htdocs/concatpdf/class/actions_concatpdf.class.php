@@ -103,9 +103,9 @@ class ActionsConcatPdf
         $preselected=(isset($object->extraparams['concatpdf'][0])?$object->extraparams['concatpdf'][0]:-1);	// string with preselected string
         if ($preselected == -1 && ! empty($conf->global->CONCATPDF_PRESELECTED_MODELS))
         {
-            // List of value key into setup -> value for modulepart            
+            // List of value key into setup -> value for modulepart
             $altkey=array('proposal'=>'propal', 'order'=>'commande', 'invoice'=>'facture', 'supplier_order'=>'commande_fournisseur', 'invoice_order'=>'facture_fournisseur');
-            
+
         	// $conf->global->CONCATPDF_PRESELECTED_MODELS may contains value of preselected model with format
         	// propal:model1a,model1b;invoice:model2;...
         	$tmparray=explode(';',$conf->global->CONCATPDF_PRESELECTED_MODELS);
@@ -230,7 +230,7 @@ class ActionsConcatPdf
         {
         	foreach($concatpdffile as $concatfile)
         	{
-        		// We find which second file to add (or generate if if file to add as a name starting with pdf___)
+        		// We find which second file to add (or generate it if file to add as a name starting with pdf___)
         		if (preg_match('/^pdf_(.*)+\.modules/', $concatfile))
         		{
         			require_once(DOL_DOCUMENT_ROOT."/core/lib/files.lib.php");
@@ -262,7 +262,7 @@ class ActionsConcatPdf
         		}
         	}
 
-        	dol_syslog(get_class($this).'::afterPDFCreation '.$filetoconcat1.' - '.$filetoconcat2);
+        	dol_syslog(get_class($this).'::afterPDFCreation '.join(',',$filetoconcat1).' - '.join(',',$filetoconcat2));
 
         	if (! empty($filetoconcat2) && ! empty($concatpdffile) && $concatpdffile != '-1')
         	{
@@ -322,15 +322,24 @@ class ActionsConcatPdf
 	 */
 	function concat(&$pdf,$files)
 	{
+		$pagecount = 0;
 		foreach($files as $file)
 		{
-			$pagecount = $pdf->setSourceFile($file);
-			for ($i = 1; $i <= $pagecount; $i++)
+			$pagecounttmp = $pdf->setSourceFile($file);
+			if ($pagecounttmp)
 			{
-				$tplidx = $pdf->ImportPage($i);
-				$s = $pdf->getTemplatesize($tplidx);
-				$pdf->AddPage($s['h'] > $s['w'] ? 'P' : 'L');
-				$pdf->useTemplate($tplidx);
+				for ($i = 1; $i <= $pagecounttmp; $i++)
+				{
+					$tplidx = $pdf->ImportPage($i);
+					$s = $pdf->getTemplatesize($tplidx);
+					$pdf->AddPage($s['h'] > $s['w'] ? 'P' : 'L');
+					$pdf->useTemplate($tplidx);
+				}
+				$pagecount += $pagecounttmp;
+			}
+			else
+			{
+				dol_syslog("Error: Can't read PDF content with setSourceFile, for file ".$file, LOG_ERR);
 			}
 		}
 
