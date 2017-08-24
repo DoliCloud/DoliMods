@@ -54,3 +54,4 @@ FromHistoryStatsTables=From table of historic statistics, update with script "ba
 SellYourSaasHomePage=SellYourSaas Home page
 CreateSupportUser=Create support user
 DeleteSupportUser=Delete support user
+ListOfInstances=List of instances

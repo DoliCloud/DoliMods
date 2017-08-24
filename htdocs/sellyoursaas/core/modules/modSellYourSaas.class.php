@@ -392,7 +392,7 @@ class modSellYourSaas extends DolibarrModules
 		$this->menu[$r]=array(
 		    'fk_menu'=>'fk_mainmenu=sellyoursaas,fk_leftmenu=dolicloud',
 		    'type'=>'left',
-		    'titre'=>'List',
+		    'titre'=>'ListOfInstances',
 		    'mainmenu'=>'sellyoursaas',
 		    'leftmenu'=>'dolicloud_list',
 		    'url'=>'/sellyoursaas/dolicloud/dolicloud_list_new.php',
