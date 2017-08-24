@@ -59,7 +59,7 @@ class mailing_mailinglist_nltechno_dolicloudold extends MailingTargets
 
         $form=new Form($this->db);
 
-        $arraystatus=Dolicloudcustomernew::$listOfStatus;
+        $arraystatus=Dolicloudcustomernew::$listOfStatusNewShort;
 
         $s='';
         $s.=$langs->trans("Status").': ';
@@ -97,6 +97,8 @@ class mailing_mailinglist_nltechno_dolicloudold extends MailingTargets
 	 */
 	function add_to_target($mailing_id,$filtersarray=array())
 	{
+		global $conf;
+
 		$target = array();
 		$cibles = array();
 		$j = 0;
@@ -117,7 +119,7 @@ class mailing_mailinglist_nltechno_dolicloudold extends MailingTargets
 		$sql.= " per.first_name as firstname,";
 		$sql.= " per.last_name as lastname";
 		$sql.= " FROM app_instance as i, subscription as s, customer as c";
-		$sql.= " LEFT JOIN person as per ON c.primary_contact_id = per.id,";
+		$sql.= " LEFT JOIN person as per ON c.primary_contact_id = per.id";
 		$sql.= " WHERE i.customer_id = c.id AND c.id = s.customer_id";
 		$sql.= " AND per.username IS NOT NULL AND per.username != ''";
 		if (! empty($_POST['filter']) && $_POST['filter'] != 'none')
@@ -125,7 +127,7 @@ class mailing_mailinglist_nltechno_dolicloudold extends MailingTargets
 			if ($_POST['filter'] == 'ACTIVE') $sql.=" AND i.status = 'DEPLOYED' AND s.payment_status = 'PAID'";
 
 			if ($_POST['filter'] == 'TRIALING') $sql.=" AND s.payment_status = 'TRIAL' AND c.status LIKE '%ACTIVE%' AND s.status = 'ACTIVE'";
-			elseif ($_POST['filter'] == 'TRIAL_EXPIRED') $sql.=" AND s.payment_status = 'TRIAL_EXPIRED' AND c.status LIKE '%ACTIVE%' AND s.status = 'EXPIRED'";
+			elseif ($_POST['filter'] == 'TRIAL_EXPIRED') $sql.=" AND s.payment_status = 'TRIAL' AND c.status LIKE '%ACTIVE%' AND s.status = 'EXPIRED'";
 			elseif ($_POST['filter'] == 'ACTIVE_PAY_ERR') $sql.=" AND i.status = 'DEPLOYED' AND s.payment_status = 'PAST_DUE' AND c.status LIKE '%ACTIVE%'";
 			else
 			{
@@ -228,7 +230,7 @@ class mailing_mailinglist_nltechno_dolicloudold extends MailingTargets
 
 		$sql = "SELECT count(distinct(per.username)) as nb";
 		$sql.= " FROM app_instance as i, subscription as s, customer as c";
-		$sql.= " LEFT JOIN person as per ON c.primary_contact_id = per.id,";
+		$sql.= " LEFT JOIN person as per ON c.primary_contact_id = per.id";
 		$sql.= " WHERE i.customer_id = c.id AND c.id = s.customer_id";
 		$sql.= " AND per.username IS NOT NULL AND per.username != ''";
 		if (! empty($_POST['filter']) && $_POST['filter'] != 'none')
@@ -236,7 +238,7 @@ class mailing_mailinglist_nltechno_dolicloudold extends MailingTargets
 			if ($_POST['filter'] == 'ACTIVE') $sql.=" AND i.status = 'DEPLOYED' AND s.payment_status = 'PAID'";
 
 			if ($_POST['filter'] == 'TRIALING') $sql.=" AND s.payment_status = 'TRIAL' AND c.status LIKE '%ACTIVE%' AND s.status = 'ACTIVE'";
-			elseif ($_POST['filter'] == 'TRIAL_EXPIRED') $sql.=" AND s.payment_status = 'TRIAL_EXPIRED' AND c.status LIKE '%ACTIVE%' AND s.status = 'EXPIRED'";
+			elseif ($_POST['filter'] == 'TRIAL_EXPIRED') $sql.=" AND s.payment_status = 'TRIAL' AND c.status LIKE '%ACTIVE%' AND s.status = 'EXPIRED'";
 			elseif ($_POST['filter'] == 'ACTIVE_PAY_ERR') $sql.=" AND i.status = 'DEPLOYED' AND s.payment_status = 'PAST_DUE' AND c.status LIKE '%ACTIVE%'";
 			else
 			{
