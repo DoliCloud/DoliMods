@@ -437,8 +437,6 @@ class modSellYourSaas extends DolibarrModules
 	{
 	    global $langs;
 
-		$sql = array();
-
 		$result=$this->_load_tables('/sellyoursaas/sql/');
 
 		// Create extrafields
@@ -447,6 +445,8 @@ class modSellYourSaas extends DolibarrModules
 
 		$param=array('options'=>array('no'=>'No','yesv2'=>'V2','yesv1'=>'V1'));
 		$result1=$extrafields->addExtraField('dolicloud', "DoliCloudCustomer", 'select', 1, 3, 'thirdparty', 0, 1, '', $param, 1);
+
+		$sql = array();
 
 		return $this->_init($sql,$options);
 	}
