@@ -443,7 +443,7 @@ class modSellYourSaas extends DolibarrModules
 		include_once DOL_DOCUMENT_ROOT.'/core/class/extrafields.class.php';
 		$extrafields = new ExtraFields($this->db);
 
-		$param=array('options'=>array('no'=>'No','yesv2'=>'V2','yesv1'=>'V1'));
+		$param=array('options'=>array('no'=>'No','yesv1'=>'V1','yesv2'=>'V2'));
 		$result1=$extrafields->addExtraField('dolicloud', "DoliCloudCustomer", 'select', 1, 3, 'thirdparty', 0, 1, '', $param, 1);
 
 		$sql = array();

@@ -9,18 +9,18 @@
  */
 
 include_once DOL_DOCUMENT_ROOT.'/core/modules/mailings/modules_mailings.php';
-include_once DOL_DOCUMENT_ROOT.'/societe/class/societe.class.php';
+dol_include_once("/sellyoursaas/class/dolicloudcustomernew.class.php");
 
 
 /**
  * mailing_mailinglist_nltechno_dolicloud
  */
-class mailing_mailinglist_nltechno_dolicloud extends MailingTargets
+class mailing_mailinglist_nltechno_dolicloudold extends MailingTargets
 {
 	// CHANGE THIS: Put here a name not already used
-	var $name='mailinglist_nltechno_dolicloud';
+	var $name='mailinglist_nltechno_dolicloudold';
 	// CHANGE THIS: Put here a description of your selector module
-	var $desc='Clients DoliCloud';
+	var $desc='Clients DoliCloud V1';
 	// CHANGE THIS: Set to 1 if selector is available for admin users only
 	var $require_admin=0;
 
@@ -59,21 +59,9 @@ class mailing_mailinglist_nltechno_dolicloud extends MailingTargets
 
         $form=new Form($this->db);
 
-        $arraysource=array('yesv1'=>'V1','yesv2'=>'V2');
-        $arraystatus=array('TRIALING'=>'TRIALING','TRIAL_EXPIRED'=>'TRIAL_EXPIRED','ACTIVE'=>'ACTIVE','ACTIVE_PAY_ERR'=>'ACTIVE_PAY_ERR','SUSPENDED'=>'SUSPENDED','UNDEPLOYED'=>'UNDEPLOYED','CLOSURE_REQUESTED'=>'CLOSURE_REQUESTED','CLOSED'=>'CLOSED');
+        $arraystatus=Dolicloudcustomernew::$listOfStatus;
 
         $s='';
-        $s.=$langs->trans("Source").': ';
-        $s.='<select name="filter" class="flat">';
-        $s.='<option value="none">&nbsp;</option>';
-        foreach($arraysource as $status)
-        {
-	        $s.='<option value="'.$status.'">'.$status.'</option>';
-        }
-        $s.='</select>';
-
-        $s.=' ';
-
         $s.=$langs->trans("Status").': ';
         $s.='<select name="filter" class="flat">';
         $s.='<option value="none">&nbsp;</option>';
@@ -82,6 +70,7 @@ class mailing_mailinglist_nltechno_dolicloud extends MailingTargets
 	        $s.='<option value="'.$status.'">'.$status.'</option>';
         }
         $s.='</select>';
+        $s.='<br>';
 
         return $s;
     }
@@ -95,7 +84,7 @@ class mailing_mailinglist_nltechno_dolicloud extends MailingTargets
 	 */
 	function url($id)
 	{
-		return '<a href="'.DOL_URL_ROOT.'/societe/card.php?socid='.$id.'">'.img_object('',"company").'</a>';
+		return '<a href="'.dol_buildpath('/sellyoursaas/dolicloud/dolicloud_card_new.php',1).'?id='.$id.'">'.img_object('',"user").'</a>';
 	}
 
 
@@ -113,8 +102,8 @@ class mailing_mailinglist_nltechno_dolicloud extends MailingTargets
 		$j = 0;
 
 
-		$sql = " select s.rowid as id, email, nom as lastname, '' as firstname";
-		$sql.= " from ".MAIN_DB_PREFIX."societe as s LEFT JOIN ".MAIN_DB_PREFIX."societe_extrafields as se on se.fk_object = s.rowid";
+		$sql = " select rowid as id, email, firstname, lastname, plan, partner";
+		$sql.= " from ".MAIN_DB_PREFIX."dolicloud_customers";
 		$sql.= " where email IS NOT NULL AND email != ''";
 		if (! empty($_POST['filter']) && $_POST['filter'] != 'none') $sql.= " AND status = '".$this->db->escape($_POST['filter'])."'";
 		$sql.= " ORDER BY email";
@@ -126,7 +115,7 @@ class mailing_mailinglist_nltechno_dolicloud extends MailingTargets
 			$num = $this->db->num_rows($result);
 			$i = 0;
 
-			dol_syslog("mailinglist_nltechno_dolicloud.modules.php: mailing $num target found");
+			dol_syslog("mailinglist_nltechno_dolicloud.modules.php: mailing $num targets found");
 
 			$old = '';
 			while ($i < $num)
@@ -139,10 +128,10 @@ class mailing_mailinglist_nltechno_dolicloud extends MailingTargets
 						'lastname' => $obj->lastname,
 						'id' => $obj->id,
 						'firstname' => $obj->firstname,
-						'other' => '',
+						'other' => $obj->plan.';'.$obj->partner,
 						'source_url' => $this->url($obj->id),
 						'source_id' => $obj->id,
-						'source_type' => 'thirdparty'
+						'source_type' => 'dolicloud'
 					);
 					$old = $obj->email;
 					$j++;
@@ -201,7 +190,8 @@ class mailing_mailinglist_nltechno_dolicloud extends MailingTargets
 	 */
 	function getNbOfRecipients($filter=1,$option='')
 	{
-		$a=parent::getNbOfRecipients("select count(distinct(email)) as nb from ".MAIN_DB_PREFIX."societe as s LEFT JOIN ".MAIN_DB_PREFIX."societe_extrafields as se on se.fk_object = s.rowid where email IS NOT NULL AND email != ''");
+		$a=parent::getNbOfRecipients("select count(distinct(email)) as nb from ".MAIN_DB_PREFIX."dolicloud_customers as p where email IS NOT NULL AND email != ''");
+
 		if ($a < 0 || $b < 0) return -1;
 		if ($option == '') return $a;
 		return ($a+$b);
