@@ -254,6 +254,7 @@ if (! empty($search_status) && ! is_numeric($search_status))
 {
 	//if ($search_status == 'UNDEPLOYED') $sql.=" AND i.status LIKE '%".$db->escape($search_status)."%'";
 	//else $sql.=" AND c.status LIKE '%".$db->escape($search_status)."%'";
+	if ($search_status == 'ACTIVE') $sql.=" AND i.status = 'DEPLOYED' AND s.payment_status = 'PAID'";
 
 	if ($search_status == 'TRIALING') $sql.=" AND s.payment_status = 'TRIAL'";
 	if ($search_status == 'TRIAL_EXPIRED') $sql.=" AND s.payment_status = 'TRIAL_EXPIRED'";
@@ -262,7 +263,7 @@ if (! empty($search_status) && ! is_numeric($search_status))
 		$sql.=" AND c.status LIKE '%".$db->escape($search_status)."%'";
 	}
 }
-//print $sql;
+
 $sql.= $db2->order($sortfield,$sortorder);
 
 // Count total nb of records

@@ -108,6 +108,8 @@ class mailing_mailinglist_nltechno_dolicloud extends MailingTargets
 	 */
 	function add_to_target($mailing_id,$filtersarray=array())
 	{
+		global $conf;
+
 		$target = array();
 		$cibles = array();
 		$j = 0;
@@ -202,9 +204,8 @@ class mailing_mailinglist_nltechno_dolicloud extends MailingTargets
 	function getNbOfRecipients($filter=1,$option='')
 	{
 		$a=parent::getNbOfRecipients("select count(distinct(email)) as nb from ".MAIN_DB_PREFIX."societe as s LEFT JOIN ".MAIN_DB_PREFIX."societe_extrafields as se on se.fk_object = s.rowid where email IS NOT NULL AND email != ''");
-		if ($a < 0 || $b < 0) return -1;
-		if ($option == '') return $a;
-		return ($a+$b);
+		if ($a < 0) return -1;
+		return $a;
 	}
 
 }

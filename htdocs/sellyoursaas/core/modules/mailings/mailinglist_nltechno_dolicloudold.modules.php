@@ -102,17 +102,43 @@ class mailing_mailinglist_nltechno_dolicloudold extends MailingTargets
 		$j = 0;
 
 
-		$sql = " select rowid as id, email, firstname, lastname, plan, partner";
-		$sql.= " from ".MAIN_DB_PREFIX."dolicloud_customers";
-		$sql.= " where email IS NOT NULL AND email != ''";
-		if (! empty($_POST['filter']) && $_POST['filter'] != 'none') $sql.= " AND status = '".$this->db->escape($_POST['filter'])."'";
-		$sql.= " ORDER BY email";
+		$db2=getDoliDBInstance('mysqli', $conf->global->DOLICLOUD_DATABASE_HOST, $conf->global->DOLICLOUD_DATABASE_USER, $conf->global->DOLICLOUD_DATABASE_PASS, $conf->global->DOLICLOUD_DATABASE_NAME, $conf->global->DOLICLOUD_DATABASE_PORT);
+		if ($db2->error)
+		{
+			dol_print_error($db2,"host=".$conf->global->DOLICLOUD_DATABASE_HOST.", port=".$conf->global->DOLICLOUD_DATABASE_PORT.", user=".$conf->global->DOLICLOUD_DATABASE_USER.", databasename=".$conf->global->DOLICLOUD_DATABASE_NAME.", ".$db2->error);
+			exit;
+		}
+
+		$sql = "SELECT i.id, i.name as instance, i.status as instance_status,";
+		$sql.= " c.status as status,";
+		$sql.= " s.payment_status,";
+		$sql.= " s.status as subscription_status,";
+		$sql.= " per.username as email,";
+		$sql.= " per.first_name as firstname,";
+		$sql.= " per.last_name as lastname";
+		$sql.= " FROM app_instance as i, subscription as s, customer as c";
+		$sql.= " LEFT JOIN person as per ON c.primary_contact_id = per.id,";
+		$sql.= " WHERE i.customer_id = c.id AND c.id = s.customer_id";
+		$sql.= " AND per.username IS NOT NULL AND per.username != ''";
+		if (! empty($_POST['filter']) && $_POST['filter'] != 'none')
+		{
+			if ($_POST['filter'] == 'ACTIVE') $sql.=" AND i.status = 'DEPLOYED' AND s.payment_status = 'PAID'";
+
+			if ($_POST['filter'] == 'TRIALING') $sql.=" AND s.payment_status = 'TRIAL'";
+			if ($_POST['filter'] == 'TRIAL_EXPIRED') $sql.=" AND s.payment_status = 'TRIAL_EXPIRED'";
+			else
+			{
+				$sql.=" AND c.status LIKE '%".$db2->escape($_POST['filter'])."%'";
+			}
+		}
+		$sql.= " ORDER BY per.username";
 
 		// Stocke destinataires dans cibles
-		$result=$this->db->query($sql);
+		//$result=$this->db->query($sql);
+		$result=$db2->query($sql);
 		if ($result)
 		{
-			$num = $this->db->num_rows($result);
+			$num = $db2->num_rows($result);
 			$i = 0;
 
 			dol_syslog("mailinglist_nltechno_dolicloud.modules.php: mailing $num targets found");
@@ -120,7 +146,7 @@ class mailing_mailinglist_nltechno_dolicloudold extends MailingTargets
 			$old = '';
 			while ($i < $num)
 			{
-				$obj = $this->db->fetch_object($result);
+				$obj = $db2->fetch_object($result);
 				if ($old <> $obj->email)
 				{
 					$cibles[$j] = array(
@@ -128,7 +154,7 @@ class mailing_mailinglist_nltechno_dolicloudold extends MailingTargets
 						'lastname' => $obj->lastname,
 						'id' => $obj->id,
 						'firstname' => $obj->firstname,
-						'other' => $obj->plan.';'.$obj->partner,
+						'other' => $obj->instance,
 						'source_url' => $this->url($obj->id),
 						'source_id' => $obj->id,
 						'source_type' => 'dolicloud'
@@ -142,8 +168,8 @@ class mailing_mailinglist_nltechno_dolicloudold extends MailingTargets
 		}
 		else
 		{
-			dol_syslog($this->db->error());
-			$this->error=$this->db->error();
+			dol_syslog($db2->error());
+			$this->error=$db2->error();
 			return -1;
 		}
 
@@ -190,11 +216,46 @@ class mailing_mailinglist_nltechno_dolicloudold extends MailingTargets
 	 */
 	function getNbOfRecipients($filter=1,$option='')
 	{
-		$a=parent::getNbOfRecipients("select count(distinct(email)) as nb from ".MAIN_DB_PREFIX."dolicloud_customers as p where email IS NOT NULL AND email != ''");
+		global $conf;
 
-		if ($a < 0 || $b < 0) return -1;
-		if ($option == '') return $a;
-		return ($a+$b);
+		$db2=getDoliDBInstance('mysqli', $conf->global->DOLICLOUD_DATABASE_HOST, $conf->global->DOLICLOUD_DATABASE_USER, $conf->global->DOLICLOUD_DATABASE_PASS, $conf->global->DOLICLOUD_DATABASE_NAME, $conf->global->DOLICLOUD_DATABASE_PORT);
+		if ($db2->error)
+		{
+			dol_print_error($db2,"host=".$conf->global->DOLICLOUD_DATABASE_HOST.", port=".$conf->global->DOLICLOUD_DATABASE_PORT.", user=".$conf->global->DOLICLOUD_DATABASE_USER.", databasename=".$conf->global->DOLICLOUD_DATABASE_NAME.", ".$db2->error);
+			exit;
+		}
+
+		$sql = "SELECT count(distinct(per.username)) as nb";
+		$sql.= " FROM app_instance as i, subscription as s, customer as c";
+		$sql.= " LEFT JOIN person as per ON c.primary_contact_id = per.id,";
+		$sql.= " WHERE i.customer_id = c.id AND c.id = s.customer_id";
+		$sql.= " AND per.username IS NOT NULL AND per.username != ''";
+		if (! empty($_POST['filter']) && $_POST['filter'] != 'none')
+		{
+			if ($_POST['filter'] == 'ACTIVE') $sql.=" AND i.status = 'DEPLOYED' AND s.payment_status = 'PAID'";
+
+			if ($_POST['filter'] == 'TRIALING') $sql.=" AND s.payment_status = 'TRIAL'";
+			if ($_POST['filter'] == 'TRIAL_EXPIRED') $sql.=" AND s.payment_status = 'TRIAL_EXPIRED'";
+			else
+			{
+				$sql.=" AND c.status LIKE '%".$db2->escape($_POST['filter'])."%'";
+			}
+		}
+		$sql.= " ORDER BY per.username";
+
+		$result=$db2->query($sql);
+		if ($result)
+		{
+			$obj = $db2->fetch_object($result);
+			return $obj->nb;
+		}
+		else
+		{
+			$this->error=$db2->lasterror();
+			return -1;
+		}
+		if ($a < 0) return -1;
+		return $a;
 	}
 
 }
