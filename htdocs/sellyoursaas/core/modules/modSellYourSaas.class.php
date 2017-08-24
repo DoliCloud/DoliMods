@@ -120,6 +120,25 @@ class modSellYourSaas extends DolibarrModules
 		//$this->boxes[$r][1] = "myboxb.php";
 		//$r++;
 
+
+		// Cronjobs (List of cron jobs entries to add when module is enabled)
+		// unit_frequency must be 60 for minute, 3600 for hour, 86400 for day, 604800 for week
+		$this->cronjobs = array(
+			0=>array('label'=>'SendWelcomeMessage',                'jobtype'=>'method', 'class'=>'/sellyoursaas/class/sellyoursaasutils.class.php', 'objectname'=>'SellYourSaas', 'method'=>'doSendWelcomeMessage',                'parameters'=>'', 'comment'=>'Suspend expired services', 'frequency'=>1, 'unitfrequency'=>86400, 'status'=>0, 'test'=>true),
+			0=>array('label'=>'AlertSoftEndTrial',                 'jobtype'=>'method', 'class'=>'/sellyoursaas/class/sellyoursaasutils.class.php', 'objectname'=>'SellYourSaas', 'method'=>'doAlertSoftEndTrial',                 'parameters'=>'', 'comment'=>'Suspend expired services', 'frequency'=>1, 'unitfrequency'=>86400, 'status'=>0, 'test'=>true),
+			0=>array('label'=>'SuspendNotPaidTestInstances',       'jobtype'=>'method', 'class'=>'/sellyoursaas/class/sellyoursaasutils.class.php', 'objectname'=>'SellYourSaas', 'method'=>'doSuspendNotPaidTestInstances',       'parameters'=>'', 'comment'=>'Suspend expired services', 'frequency'=>1, 'unitfrequency'=>86400, 'status'=>0, 'test'=>true),
+			0=>array('label'=>'UndeployOldSuspendedTestInstances', 'jobtype'=>'method', 'class'=>'/sellyoursaas/class/sellyoursaasutils.class.php', 'objectname'=>'SellYourSaas', 'method'=>'doUndeployOldSuspendedTestInstances', 'parameters'=>'', 'comment'=>'Suspend expired services', 'frequency'=>1, 'unitfrequency'=>86400, 'status'=>0, 'test'=>true),
+			0=>array('label'=>'TakePaymentPaypal',                 'jobtype'=>'method', 'class'=>'/sellyoursaas/class/sellyoursaasutils.class.php', 'objectname'=>'SellYourSaas', 'method'=>'doTakePaymentPaypal',                 'parameters'=>'', 'comment'=>'Suspend expired services', 'frequency'=>1, 'unitfrequency'=>86400, 'status'=>0, 'test'=>true),
+			0=>array('label'=>'TakePaymentStripe',                 'jobtype'=>'method', 'class'=>'/sellyoursaas/class/sellyoursaasutils.class.php', 'objectname'=>'SellYourSaas', 'method'=>'doTakePaymentStripe',                 'parameters'=>'', 'comment'=>'Suspend expired services', 'frequency'=>1, 'unitfrequency'=>86400, 'status'=>0, 'test'=>true),
+			0=>array('label'=>'SuspendNotPaidRealInstances',       'jobtype'=>'method', 'class'=>'/sellyoursaas/class/sellyoursaasutils.class.php', 'objectname'=>'SellYourSaas', 'method'=>'doSuspendNotPaidRealInstances',       'parameters'=>'', 'comment'=>'Suspend expired services', 'frequency'=>1, 'unitfrequency'=>86400, 'status'=>0, 'test'=>true),
+			0=>array('label'=>'AlertCreditCardExpiration',         'jobtype'=>'method', 'class'=>'/sellyoursaas/class/sellyoursaasutils.class.php', 'objectname'=>'SellYourSaas', 'method'=>'doAlertCreditCardExpiration',         'parameters'=>'', 'comment'=>'Suspend expired services', 'frequency'=>1, 'unitfrequency'=>86400, 'status'=>0, 'test'=>true),
+			0=>array('label'=>'AlertPaypalExpiration',             'jobtype'=>'method', 'class'=>'/sellyoursaas/class/sellyoursaasutils.class.php', 'objectname'=>'SellYourSaas', 'method'=>'AdolertPaypalExpiration',             'parameters'=>'', 'comment'=>'Suspend expired services', 'frequency'=>1, 'unitfrequency'=>86400, 'status'=>0, 'test'=>true),
+		);
+		// Example: $this->cronjobs=array(0=>array('label'=>'My label', 'jobtype'=>'method', 'class'=>'/dir/class/file.class.php', 'objectname'=>'MyClass', 'method'=>'myMethod', 'parameters'=>'param1, param2', 'comment'=>'Comment', 'frequency'=>2, 'unitfrequency'=>3600, 'status'=>0, 'test'=>true),
+		//                                1=>array('label'=>'My label', 'jobtype'=>'command', 'command'=>'', 'parameters'=>'param1, param2', 'comment'=>'Comment', 'frequency'=>1, 'unitfrequency'=>3600*24, 'status'=>0, 'test'=>true)
+		// );
+
+
 		// Permissions
 		$this->rights = array();		// Permission array used by this module
 		$r=0;
@@ -425,6 +444,7 @@ class modSellYourSaas extends DolibarrModules
 		// Create extrafields
 		include_once DOL_DOCUMENT_ROOT.'/core/class/extrafields.class.php';
 		$extrafields = new ExtraFields($this->db);
+
 		$param=array('options'=>array('no'=>'No','yesv2'=>'V2','yesv1'=>'V1'));
 		$result1=$extrafields->addExtraField('dolicloud', "DoliCloudCustomer", 'select', 1, 3, 'thirdparty', 0, 1, '', $param, 1);
 
