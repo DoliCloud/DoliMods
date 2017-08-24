@@ -214,12 +214,27 @@ class modSellYourSaas extends DolibarrModules
 		$this->menu[$r]=array(
 		    'fk_menu'=>'fk_mainmenu=sellyoursaas,fk_leftmenu=mysaas',
 		    'type'=>'left',
-		    'titre'=>'List',
+		    'titre'=>'ListOfCustomers',
 		    'mainmenu'=>'sellyoursaas',
-		    'leftmenu'=>'mysaas_list',
-		    'url'=>'/sellyoursaas/backoffice/dolicloud_list_new.php',
+		    'leftmenu'=>'mysaas_customerlist',
+		    'url'=>'/societe/list.php?search_options_dolicloud=y',
 		    'langs'=>'',
 		    'position'=>210,
+		    'enabled'=>'$conf->sellyoursaas->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
+		    'perms'=>'$user->rights->nltechno->dolicloud->read',
+		    'target'=>'',
+		    'user'=>0);
+		$r++;
+
+		$this->menu[$r]=array(
+		    'fk_menu'=>'fk_mainmenu=sellyoursaas,fk_leftmenu=mysaas',
+		    'type'=>'left',
+		    'titre'=>'ListOfInstances',
+		    'mainmenu'=>'sellyoursaas',
+		    'leftmenu'=>'mysaas_list',
+		    'url'=>'/contrat/list.php?leftmenu=contracts&contextpage=dolicloudinstances&search_product_category=6',
+		    'langs'=>'',
+		    'position'=>211,
 		    'enabled'=>'$conf->sellyoursaas->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
 		    'perms'=>'$user->rights->nltechno->dolicloud->read',
 		    'target'=>'',
@@ -410,7 +425,8 @@ class modSellYourSaas extends DolibarrModules
 		// Create extrafields
 		include_once DOL_DOCUMENT_ROOT.'/core/class/extrafields.class.php';
 		$extrafields = new ExtraFields($this->db);
-		$result1=$extrafields->addExtraField('dolicloud', "DoliCloudCustomer", 'boolean', 1, 3, 'thirdparty');
+		$param=array('options'=>array('no'=>'No','yesv2'=>'V2','yesv1'=>'V1'));
+		$result1=$extrafields->addExtraField('dolicloud', "DoliCloudCustomer", 'select', 1, 3, 'thirdparty', 0, 1, '', $param, 1);
 
 		return $this->_init($sql,$options);
 	}
