@@ -115,7 +115,7 @@ if (empty($reshook))
 	    {
 	        // Get user/pass of last admin user
 	        $password_crypted = dol_hash($password);
-	        $sql="INSERT INTO llx_user(login, admin, pass, pass_crypted) VALUES('supportdolicloud', 1, 'supportdolicloud', '".$newdb->escape($password_crypted)."')";
+	        $sql="INSERT INTO llx_user(login, admin, pass, pass_crypted, note) VALUES('supportdolicloud', 1, 'supportdolicloud', '".$newdb->escape($password_crypted)."', 'This user is created by the support team to assist you. He is excluded for calculation of activated user used for the billing of the service.')";
 	        $resql=$newdb->query($sql);
 	        if (! $resql) dol_print_error($newdb);
 	    }
