@@ -124,8 +124,9 @@ class mailing_mailinglist_nltechno_dolicloudold extends MailingTargets
 		{
 			if ($_POST['filter'] == 'ACTIVE') $sql.=" AND i.status = 'DEPLOYED' AND s.payment_status = 'PAID'";
 
-			if ($_POST['filter'] == 'TRIALING') $sql.=" AND s.payment_status = 'TRIAL'";
-			if ($_POST['filter'] == 'TRIAL_EXPIRED') $sql.=" AND s.payment_status = 'TRIAL_EXPIRED'";
+			if ($_POST['filter'] == 'TRIALING') $sql.=" AND s.payment_status = 'TRIAL' AND c.status LIKE '%ACTIVE%' AND s.status = 'ACTIVE'";
+			elseif ($_POST['filter'] == 'TRIAL_EXPIRED') $sql.=" AND s.payment_status = 'TRIAL_EXPIRED' AND c.status LIKE '%ACTIVE%' AND s.status = 'EXPIRED'";
+			elseif ($_POST['filter'] == 'ACTIVE_PAY_ERR') $sql.=" AND i.status = 'DEPLOYED' AND s.payment_status = 'PAST_DUE' AND c.status LIKE '%ACTIVE%'";
 			else
 			{
 				$sql.=" AND c.status LIKE '%".$db2->escape($_POST['filter'])."%'";
@@ -234,8 +235,9 @@ class mailing_mailinglist_nltechno_dolicloudold extends MailingTargets
 		{
 			if ($_POST['filter'] == 'ACTIVE') $sql.=" AND i.status = 'DEPLOYED' AND s.payment_status = 'PAID'";
 
-			if ($_POST['filter'] == 'TRIALING') $sql.=" AND s.payment_status = 'TRIAL'";
-			if ($_POST['filter'] == 'TRIAL_EXPIRED') $sql.=" AND s.payment_status = 'TRIAL_EXPIRED'";
+			if ($_POST['filter'] == 'TRIALING') $sql.=" AND s.payment_status = 'TRIAL' AND c.status LIKE '%ACTIVE%' AND s.status = 'ACTIVE'";
+			elseif ($_POST['filter'] == 'TRIAL_EXPIRED') $sql.=" AND s.payment_status = 'TRIAL_EXPIRED' AND c.status LIKE '%ACTIVE%' AND s.status = 'EXPIRED'";
+			elseif ($_POST['filter'] == 'ACTIVE_PAY_ERR') $sql.=" AND i.status = 'DEPLOYED' AND s.payment_status = 'PAST_DUE' AND c.status LIKE '%ACTIVE%'";
 			else
 			{
 				$sql.=" AND c.status LIKE '%".$db2->escape($_POST['filter'])."%'";
