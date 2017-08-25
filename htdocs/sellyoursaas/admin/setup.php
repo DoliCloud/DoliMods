@@ -17,8 +17,8 @@
  */
 
 /**
- *     \file       htdocs/memcached/admin/memcached.php
- *     \brief      Page administration de memcached
+ *     \file       htdocs/sellyoursaas/admin/sellyoursaas.php
+ *     \brief      Page administration module SellYourSaas
  */
 
 // Load Dolibarr environment
@@ -74,6 +74,8 @@ if ($action == 'set')
 
 	if (! $error)
 	{
+		dolibarr_set_const($db,"SELLYOURSAAS_NAME",GETPOST("SELLYOURSAAS_NAME"),'chaine',0,'',$conf->entity);
+
 		$dir=GETPOST("DOLICLOUD_SCRIPTS_PATH");
 		if (! dol_is_dir($dir)) setEventMessage($langs->trans("ErrorDirNotFound",$dir),'warnings');
 		dolibarr_set_const($db,"DOLICLOUD_SCRIPTS_PATH",GETPOST("DOLICLOUD_SCRIPTS_PATH"),'chaine',0,'',$conf->entity);
@@ -107,60 +109,39 @@ if ($action == 'set')
 $html=new Form($db);
 
 $help_url="";
-llxHeader("",$langs->trans("NLTechnoSetup"),$help_url);
+llxHeader("",$langs->trans("SellYouSaasSetup"),$help_url);
 
 $linkback='<a href="'.DOL_URL_ROOT.'/admin/modules.php">'.$langs->trans("BackToModuleList").'</a>';
-print_fiche_titre($langs->trans('NLTechnoSetup'),$linkback,'setup');
+print_fiche_titre($langs->trans('SellYouSaasSetup'),$linkback,'setup');
 
 $head=array();
 dol_fiche_head($head, 'serversetup', $langs->trans("SellYourSaas"), -1);
 
-print $langs->trans("NLTechnoDesc")."<br>\n";
+print $langs->trans("SellYouSaasDesc")."<br>\n";
 print "<br>\n";
 
 $error=0;
 
 
-// Param
-$var=true;
 print '<form action="'.$_SERVER["PHP_SELF"].'" method="post">';
 print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
-print '<input type="hidden" name="action" value="setstratus5">';
+print '<input type="hidden" name="action" value="set">';
 
-print '<strong>STRATUS5</strong>';
 print '<table class="noborder" width="100%">';
 print '<tr class="liste_titre">';
-print '<td>'.$langs->trans("Parameter").'</td><td>'.$langs->trans("Value").'</td>';
+print '<td class="titlefield">'.$langs->trans("Parameter").'</td><td>'.$langs->trans("Value").'</td>';
 print '<td>'.$langs->trans("Examples").'</td>';
 print '<td align="right"><input type="submit" class="button" value="'.$langs->trans("Modify").'"></td>';
 print "</tr>\n";
 
 $var=!$var;
-print '<tr '.$bc[$var].'><td>'.$langs->trans("DirForDoliCloudInstances").'</td>';
+print '<tr '.$bc[$var].'><td>'.$langs->trans("SellYourSaasName").'</td>';
 print '<td>';
-print '<input size="40" type="text" name="DOLICLOUD_EXT_HOME" value="'.$conf->global->DOLICLOUD_EXT_HOME.'">';
+print '<input size="40" type="text" name="SELLYOURSAAS_NAME" value="'.$conf->global->SELLYOURSAAS_NAME.'">';
 print '</td>';
-print '<td>/home/jail/home</td>';
+print '<td>My SaaS service</td>';
 print '<td>&nbsp;</td>';
 print '</tr>';
-
-print '</table>';
-
-print '</form>';
-
-print '<br>';
-
-print '<form action="'.$_SERVER["PHP_SELF"].'" method="post">';
-print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
-print '<input type="hidden" name="action" value="set">';
-
-print '<strong>NLTECHNO</strong>';
-print '<table class="noborder" width="100%">';
-print '<tr class="liste_titre">';
-print '<td>'.$langs->trans("Parameter").'</td><td>'.$langs->trans("Value").'</td>';
-print '<td>'.$langs->trans("Examples").'</td>';
-print '<td align="right"><input type="submit" class="button" value="'.$langs->trans("Modify").'"></td>';
-print "</tr>\n";
 
 $var=!$var;
 print '<tr '.$bc[$var].'><td>'.$langs->trans("DirForScriptPath").'</td>';
@@ -195,6 +176,37 @@ print '<td>';
 print '<input size="40" type="text" name="DOLICLOUD_BACKUP_PATH" value="'.$conf->global->DOLICLOUD_BACKUP_PATH.'">';
 print '</td>';
 print '<td>/home/dolicloud/backup</td>';
+print '<td>&nbsp;</td>';
+print '</tr>';
+
+print '</table>';
+
+print "</form>\n";
+
+
+print "<br>";
+
+
+// Param
+$var=true;
+print '<form action="'.$_SERVER["PHP_SELF"].'" method="post">';
+print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
+print '<input type="hidden" name="action" value="setstratus5">';
+
+print '<strong>DoliCloud V1</strong>';
+print '<table class="noborder" width="100%">';
+print '<tr class="liste_titre">';
+print '<td class="titlefield">'.$langs->trans("Parameter").'</td><td>'.$langs->trans("Value").'</td>';
+print '<td>'.$langs->trans("Examples").'</td>';
+print '<td align="right"><input type="submit" class="button" value="'.$langs->trans("Modify").'"></td>';
+print "</tr>\n";
+
+$var=!$var;
+print '<tr '.$bc[$var].'><td>'.$langs->trans("DirForDoliCloudInstances").'</td>';
+print '<td>';
+print '<input size="40" type="text" name="DOLICLOUD_EXT_HOME" value="'.$conf->global->DOLICLOUD_EXT_HOME.'">';
+print '</td>';
+print '<td>/home/jail/home</td>';
 print '<td>&nbsp;</td>';
 print '</tr>';
 
@@ -241,7 +253,10 @@ print '</tr>';
 
 print '</table>';
 
-print "</form>\n";
+print '</form>';
+
+print '<br>';
+
 
 dol_fiche_end();
 

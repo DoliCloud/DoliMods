@@ -1,5 +1,6 @@
 # Dolibarr language file - en_US - sellyoursaas
 CHARSET=UTF-8
+SellYourSaasName=Name of your Saas service
 DoliCloudCustomers=DoliCloud customers
 DoliCloudInstances=DoliCloud instances
 CustStatus=Cust. Status
@@ -23,8 +24,8 @@ Authorized_keyInstalled=File authorized_key installed
 LockfileInstalled=File install.lock installed
 DoliCloudArea=DoliCloud area
 DateLastBackup=Date last backup (success rsync + success mysqldump)
-NLTechnoSetup=SellYouSaas module setup
-NLTechnoDesc=Miscellaneous setup of SellYourSaas module
+SellYouSaasSetup=SellYouSaas module setup
+SellYouSaasDesc=Miscellaneous setup of SellYourSaas module
 FileDeleted=File deleted
 FileCreated=File created
 EMailTemplate=EMail template
@@ -39,7 +40,7 @@ DirForScriptPath=Dir for tools
 DirForLastStableVersionOfDolibarr=Dir of Dolibarr maintenance version
 DirForDoliCloudBackupInstances=Dir for backups
 ErrorConnectOkButFailedToCreateFile=Connection SSH ok, but failed to create file
-MotD=Welcome on setup page of your software, enhanced by NLTechno modules.
+MotD=Welcome on setup page of your software, enhanced by SellYouSaas modules.
 CommissionPerMonth=Commission to distribute each month
 ChargePerMonth=Fee per month
 ImportFilePayments=Import of payment file
