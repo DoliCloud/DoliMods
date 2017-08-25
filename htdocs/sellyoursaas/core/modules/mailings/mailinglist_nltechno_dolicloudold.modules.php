@@ -10,6 +10,7 @@
 
 include_once DOL_DOCUMENT_ROOT.'/core/modules/mailings/modules_mailings.php';
 dol_include_once("/sellyoursaas/class/dolicloudcustomernew.class.php");
+include_once DOL_DOCUMENT_ROOT.'/core/class/html.formadmin.class.php';
 
 
 /**
@@ -70,7 +71,12 @@ class mailing_mailinglist_nltechno_dolicloudold extends MailingTargets
 	        $s.='<option value="'.$status.'">'.$status.'</option>';
         }
         $s.='</select>';
-        $s.='<br>';
+
+        $s.=' ';
+
+        $s.=$langs->trans("Language").': ';
+        $formother=new FormAdmin($db);
+        $s.=$formother->select_language('', 'lang_idv1', 0, 'null', 1);
 
         return $s;
     }
@@ -117,7 +123,8 @@ class mailing_mailinglist_nltechno_dolicloudold extends MailingTargets
 		$sql.= " s.status as subscription_status,";
 		$sql.= " per.username as email,";
 		$sql.= " per.first_name as firstname,";
-		$sql.= " per.last_name as lastname";
+		$sql.= " per.last_name as lastname,";
+		$sql.= " per.locale";
 		$sql.= " FROM app_instance as i, subscription as s, customer as c";
 		$sql.= " LEFT JOIN person as per ON c.primary_contact_id = per.id";
 		$sql.= " WHERE i.customer_id = c.id AND c.id = s.customer_id";
@@ -134,6 +141,8 @@ class mailing_mailinglist_nltechno_dolicloudold extends MailingTargets
 				$sql.=" AND c.status LIKE '%".$db2->escape($_POST['filter'])."%'";
 			}
 		}
+		$shortlocale = preg_replace('/_.*/','',$_POST['lang_idv1']);
+		if (! empty($_POST['lang_idv1']) && $_POST['lang_idv1'] != 'none') $sql.= " AND (locale = '".$this->db->escape($_POST['lang_idv1'])."' OR locale = '".$this->db->escape($shortlocale)."')";
 		$sql.= " ORDER BY per.username";
 
 		// Stocke destinataires dans cibles
@@ -157,7 +166,7 @@ class mailing_mailinglist_nltechno_dolicloudold extends MailingTargets
 						'lastname' => $obj->lastname,
 						'id' => $obj->id,
 						'firstname' => $obj->firstname,
-						'other' => $obj->instance,
+						'other' => $obj->instance.';'.$obj->locale,
 						'source_url' => $this->url($obj->id),
 						'source_id' => $obj->id,
 						'source_type' => 'dolicloud'

@@ -10,6 +10,7 @@
 
 include_once DOL_DOCUMENT_ROOT.'/core/modules/mailings/modules_mailings.php';
 include_once DOL_DOCUMENT_ROOT.'/societe/class/societe.class.php';
+include_once DOL_DOCUMENT_ROOT.'/core/class/html.formadmin.class.php';
 
 
 /**
@@ -83,6 +84,12 @@ class mailing_mailinglist_nltechno_dolicloud extends MailingTargets
         }
         $s.='</select>';
 
+        $s.=' ';
+
+        $s.=$langs->trans("Language").': ';
+        $formother=new FormAdmin($db);
+        $s.=$formother->select_language('', 'lang_id', 0, 'null', 1);
+
         return $s;
     }
 
@@ -119,6 +126,7 @@ class mailing_mailinglist_nltechno_dolicloud extends MailingTargets
 		$sql.= " from ".MAIN_DB_PREFIX."societe as s LEFT JOIN ".MAIN_DB_PREFIX."societe_extrafields as se on se.fk_object = s.rowid";
 		$sql.= " where email IS NOT NULL AND email != ''";
 		if (! empty($_POST['filter']) && $_POST['filter'] != 'none') $sql.= " AND status = '".$this->db->escape($_POST['filter'])."'";
+		if (! empty($_POST['lang_id']) && $_POST['lang_id'] != 'none') $sql.= " AND default_lang = '".$this->db->escape($_POST['lang_id'])."'";
 		$sql.= " ORDER BY email";
 
 		// Stocke destinataires dans cibles
