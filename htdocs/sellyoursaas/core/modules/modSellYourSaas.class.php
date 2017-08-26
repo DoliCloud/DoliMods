@@ -37,7 +37,7 @@ class modSellYourSaas extends DolibarrModules
 		// Use here a free id (See in Home -> System information -> Dolibarr for list of used module id).
 		$this->numero = 101050;
 		// Key text used to identify module (for permission, menus, etc...)
-		$this->rights_class = 'nltechno';
+		$this->rights_class = 'sellyoursaas';
 
 		// Family can be 'crm','financial','hr','projects','product','technic','other'
 		// It is used to group modules in module setup page
