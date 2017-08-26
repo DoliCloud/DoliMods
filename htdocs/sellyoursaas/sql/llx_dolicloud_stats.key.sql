@@ -15,4 +15,4 @@
 -- along with this program. If not, see <http://www.gnu.org/licenses/>.
 -- ===================================================================
 
-ALTER TABLE llx_dolicloud_stats ADD UNIQUE INDEX uk_dolicloud_customers(instance);
+ALTER TABLE llx_dolicloud_stats ADD INDEX uk_dolicloud_stats(x);
