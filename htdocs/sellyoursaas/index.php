@@ -5,7 +5,7 @@
 /**
  *   	\file       htdocs/sellyoursaas/index.php
  *		\ingroup    google
- *		\brief      Main NLTechno area
+ *		\brief      Main SellYourSaas area
  *		\author		Laurent Destailleur
  */
 
@@ -35,7 +35,7 @@ include_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
 
 $action=GETPOST('action','aZ09');
 
-$langs->load("nltechno@sellyoursaas");
+$langs->load("sellyoursaas@sellyoursaas");
 
 
 /*
@@ -55,7 +55,7 @@ if ($action == 'update')
 
 
 // Load traductions files
-//$langs->load("nltechno");
+//$langs->load("sellyoursaas");
 $langs->load("companies");
 $langs->load("other");
 
@@ -64,7 +64,7 @@ $langs->load("other");
 $socid = isset($_GET["socid"])?$_GET["socid"]:'';
 
 // Protection
-if (! $user->rights->nltechno->liens->voir)
+if (! $user->rights->sellyoursaas->liens->voir)
 {
 	accessforbidden();
 	exit;

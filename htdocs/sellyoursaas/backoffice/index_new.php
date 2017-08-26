@@ -17,7 +17,7 @@
 
 /**
  *   	\file       htdocs/sellyoursaas/dolicloud/index_new.php
- *		\ingroup    nltechno
+ *		\ingroup    sellyoursaas
  *		\brief      Home page of DoliCloud service
  */
 
@@ -45,7 +45,7 @@ include_once dol_buildpath("/sellyoursaas/dolicloud/lib/refresh.lib.php");		// d
 // Load traductions files requiredby by page
 $langs->load("companies");
 $langs->load("other");
-$langs->load("nltechno@sellyoursaas");
+$langs->load("sellyoursaas@sellyoursaas");
 
 // Get parameters
 $id			= GETPOST('id','int');

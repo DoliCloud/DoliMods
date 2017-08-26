@@ -51,7 +51,7 @@ $langs->load("companies");
 $langs->load("users");
 $langs->load("other");
 $langs->load("commercial");
-$langs->load("nltechno@sellyoursaas");
+$langs->load("sellyoursaas@sellyoursaas");
 
 $mesg=''; $error=0; $errors=array();
 
@@ -79,8 +79,8 @@ if ($db2->error)
 $object = new DoliCloudCustomerNew($db,$db2);
 
 // Security check
-$user->rights->nltechno->dolicloud->delete = $user->rights->nltechno->dolicloud->write;
-$result = restrictedArea($user, 'nltechno', 0, '','dolicloud');
+$user->rights->sellyoursaas->dolicloud->delete = $user->rights->sellyoursaas->dolicloud->write;
+$result = restrictedArea($user, 'sellyoursaas', 0, '','dolicloud');
 
 // Initialize technical object to manage hooks of page. Note that conf->hooks_modules contains array array
 include_once(DOL_DOCUMENT_ROOT.'/core/class/hookmanager.class.php');
@@ -110,7 +110,7 @@ if (empty($reshook))
 	}
 
 	// Add customer
-	if ($action == 'add' && $user->rights->nltechno->dolicloud->write)
+	if ($action == 'add' && $user->rights->sellyoursaas->dolicloud->write)
 	{
 		$db->begin();
 
@@ -174,7 +174,7 @@ if (empty($reshook))
 		}
 	}
 
-	if ($action == 'confirm_delete' && $confirm == 'yes' && $user->rights->nltechno->dolicloud->write)
+	if ($action == 'confirm_delete' && $confirm == 'yes' && $user->rights->sellyoursaas->dolicloud->write)
 	{
 		$result=$object->fetch($id);
 
@@ -190,7 +190,7 @@ if (empty($reshook))
 		}
 	}
 
-	if ($action == 'update' && ! $_POST["cancel"] && $user->rights->nltechno->dolicloud->write)
+	if ($action == 'update' && ! $_POST["cancel"] && $user->rights->sellyoursaas->dolicloud->write)
 	{
 		if (empty($_POST["organization"]) || empty($_POST["plan"]) || empty($_POST["email"]))
 		{
@@ -277,7 +277,7 @@ $arraystatus=Dolicloudcustomernew::$listOfStatus;
 
 
 // Confirm deleting object
-if ($user->rights->nltechno->dolicloud->write)
+if ($user->rights->sellyoursaas->dolicloud->write)
 {
 	if ($action == 'delete')
 	{
@@ -297,7 +297,7 @@ if ($id > 0 || $instance || $action == 'create')
 	dol_fiche_head($head, 'card', $title, 0, 'contact');
 }
 
-if ($user->rights->nltechno->dolicloud->write)
+if ($user->rights->sellyoursaas->dolicloud->write)
 {
 	if ($action == 'create')
 	{
@@ -812,75 +812,15 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 	print '<br>';
 
 
-	// ----- DoliCloud instance -----
-	print '<strong>INSTANCE SERVEUR STRATUS5</strong>';
-	// Last refresh
-	print ' - '.$langs->trans("DateLastCheck").': '.($object->date_lastcheck?dol_print_date($object->date_lastcheck,'dayhour','tzuser'):$langs->trans("Never"));
-
-	if (! $object->user_id && $user->rights->nltechno->dolicloud->write)
-	{
-		print ' <a href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&amp;action=refresh">'.img_picto($langs->trans("Refresh"),'refresh').'</a>';
-	}
-	print '<br>';
-
-	print '<table class="border" width="100%">';
-
-	// Nb of users
-	print '<tr><td width="20%">'.$langs->trans("NbOfUsers").'</td><td><font size="+2">'.round($object->nbofusers).'</font></td>';
-	print '<td rowspan="6" valign="middle" width="50%">';
-	print getListOfLinks($object, $lastloginadmin, $lastpassadmin);
-	print '</td>';
-	print '</tr>';
-
-	// Dates
-	print '<tr><td width="20%">'.$langs->trans("DateDeployment").'</td><td width="30%">'.dol_print_date($object->date_registration,'dayhour');
-	//print ' (<a href="'.dol_buildpath('/sellyoursaas/dolicloud/dolicloud_card.php',1).'?id='.$object->id.'&amp;action=setdate&amp;date=">'.$langs->trans("SetDate").'</a>)';
-	print '</td></tr>';
-
-	/*
-	// Lastlogin
-	print '<tr>';
-	print '<td>'.$langs->trans("LastLogin").' / '.$langs->trans("Password").'</td><td>'.$object->lastlogin.' / '.$object->lastpass.'</td>';
-	print '<td>'.$langs->trans("DateLastLogin").'</td><td>'.($object->date_lastlogin?dol_print_date($object->date_lastlogin,'dayhour','tzuser'):'').'</td>';
-	print '</tr>';
-	*/
-	// Version
-	print '<tr>';
-	print '<td>'.$langs->trans("Version").'</td><td>'.$object->version.'</td>';
-	print '</tr>';
-
-	// Modules
-	print '<tr>';
-	print '<td>'.$langs->trans("Modules").'</td><td>'.join(', ',explode(',',$object->modulesenabled)).'</td>';
-	print '</tr>';
-
-	// Authorized key file
-	print '<tr>';
-	print '<td>'.$langs->trans("Authorized_keyInstalled").'</td><td>'.($object->fileauthorizedkey?$langs->trans("Yes").' - '.dol_print_date($object->fileauthorizedkey,'%Y-%m-%d %H:%M:%S','tzuser'):$langs->trans("No"));
-	print ' &nbsp; (<a href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&action=addauthorizedkey">'.$langs->trans("Create").'</a>)';
-	print '</td>';
-	print '</tr>';
-
-	// Install.lock file
-	print '<tr>';
-	print '<td>'.$langs->trans("LockfileInstalled").'</td><td>'.($object->filelock?$langs->trans("Yes").' - '.dol_print_date($object->filelock,'%Y-%m-%d %H:%M:%S','tzuser'):$langs->trans("No"));
-	print ' &nbsp; (<a href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&action=addinstalllock">'.$langs->trans("Create").'</a>)';
-	print ($object->filelock?' &nbsp; (<a href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&action=delinstalllock">'.$langs->trans("Delete").'</a>)':'');
-	print '</td>';
-	print '</tr>';
-
-	print "</table><br>";
-
-
-	// ----- NLTechno instance -----
+	// ----- SellYourSaas instance -----
 	$DNS_ROOT=(empty($conf->global->NLTECHNO_DNS_ROOT)?'/etc/bind':$conf->global->NLTECHNO_DNS_ROOT);
 	$APACHE_ROOT=(empty($conf->global->NLTECHNO_APACHE_ROOT)?'/etc/apache2':$conf->global->NLTECHNO_APACHE_ROOT);
 
-	print '<strong>INSTANCE SERVEUR NLTECHNO</strong>';
+	print '<strong>INSTANCE '.$conf->global->SELLYOURSAAS_NAME.'</strong>';
 	/*
 	print ' - '.$langs->trans("DateLastCheck").': '.($object->lastcheck?dol_print_date($object->lastcheck,'dayhour','tzuser'):$langs->trans("Never"));
 
-	if (! $object->user_id && $user->rights->nltechno->dolicloud->write)
+	if (! $object->user_id && $user->rights->sellyoursaas->dolicloud->write)
 	{
 		print ' <a href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&amp;action=refresh">'.img_picto($langs->trans("Refresh"),'refresh').'</a>';
 	}
@@ -978,6 +918,68 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 	print '<br>';
 
 
+
+	// ----- DoliCloud instance -----
+	print '<strong>INSTANCE DOLICLOUD v1</strong>';
+	// Last refresh
+	print ' - '.$langs->trans("DateLastCheck").': '.($object->date_lastcheck?dol_print_date($object->date_lastcheck,'dayhour','tzuser'):$langs->trans("Never"));
+
+	if (! $object->user_id && $user->rights->sellyoursaas->dolicloud->write)
+	{
+		print ' <a href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&amp;action=refresh">'.img_picto($langs->trans("Refresh"),'refresh').'</a>';
+	}
+	print '<br>';
+
+	print '<table class="border" width="100%">';
+
+	// Nb of users
+	print '<tr><td width="20%">'.$langs->trans("NbOfUsers").'</td><td><font size="+2">'.round($object->nbofusers).'</font></td>';
+	print '<td rowspan="6" valign="middle" width="50%">';
+	print getListOfLinks($object, $lastloginadmin, $lastpassadmin);
+	print '</td>';
+	print '</tr>';
+
+	// Dates
+	print '<tr><td width="20%">'.$langs->trans("DateDeployment").'</td><td width="30%">'.dol_print_date($object->date_registration,'dayhour');
+	//print ' (<a href="'.dol_buildpath('/sellyoursaas/dolicloud/dolicloud_card.php',1).'?id='.$object->id.'&amp;action=setdate&amp;date=">'.$langs->trans("SetDate").'</a>)';
+	print '</td></tr>';
+
+	/*
+	 // Lastlogin
+	 print '<tr>';
+	 print '<td>'.$langs->trans("LastLogin").' / '.$langs->trans("Password").'</td><td>'.$object->lastlogin.' / '.$object->lastpass.'</td>';
+	 print '<td>'.$langs->trans("DateLastLogin").'</td><td>'.($object->date_lastlogin?dol_print_date($object->date_lastlogin,'dayhour','tzuser'):'').'</td>';
+	 print '</tr>';
+	 */
+	// Version
+	print '<tr>';
+	print '<td>'.$langs->trans("Version").'</td><td>'.$object->version.'</td>';
+	print '</tr>';
+
+	// Modules
+	print '<tr>';
+	print '<td>'.$langs->trans("Modules").'</td><td>'.join(', ',explode(',',$object->modulesenabled)).'</td>';
+	print '</tr>';
+
+	// Authorized key file
+	print '<tr>';
+	print '<td>'.$langs->trans("Authorized_keyInstalled").'</td><td>'.($object->fileauthorizedkey?$langs->trans("Yes").' - '.dol_print_date($object->fileauthorizedkey,'%Y-%m-%d %H:%M:%S','tzuser'):$langs->trans("No"));
+	print ' &nbsp; (<a href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&action=addauthorizedkey">'.$langs->trans("Create").'</a>)';
+	print '</td>';
+	print '</tr>';
+
+	// Install.lock file
+	print '<tr>';
+	print '<td>'.$langs->trans("LockfileInstalled").'</td><td>'.($object->filelock?$langs->trans("Yes").' - '.dol_print_date($object->filelock,'%Y-%m-%d %H:%M:%S','tzuser'):$langs->trans("No"));
+	print ' &nbsp; (<a href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&action=addinstalllock">'.$langs->trans("Create").'</a>)';
+	print ($object->filelock?' &nbsp; (<a href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&action=delinstalllock">'.$langs->trans("Delete").'</a>)':'');
+	print '</td>';
+	print '</tr>';
+
+	print "</table><br>";
+
+
+
 	$backupdir=$conf->global->DOLICLOUD_BACKUP_PATH;
 
 	$dirdb=preg_replace('/_([a-zA-Z0-9]+)/','',$object->database_db);
@@ -1017,12 +1019,12 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 	{
 		print '<div class="tabsAction">';
 
-		if ($user->rights->nltechno->dolicloud->write)
+		if ($user->rights->sellyoursaas->dolicloud->write)
 		{
 			print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&amp;action=edit">'.$langs->trans('Modify').'</a>';
 		}
 
-		if ($user->rights->nltechno->dolicloud->write)
+		if ($user->rights->sellyoursaas->dolicloud->write)
 		{
 			print '<a class="butActionDelete" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&amp;action=delete">'.$langs->trans('Delete').'</a>';
 		}

@@ -18,7 +18,7 @@
 
 /**
  *   	\file       htdocs/sellyoursaas/dolicloud/dolicloudemailstemplates_page.php
- *		\ingroup    nltechno
+ *		\ingroup    sellyoursaas
  *		\brief      This file is an example of a php page
  */
 

@@ -17,7 +17,7 @@
 
 /**
  *   	\file       htdocs/sellyoursaas/dolicloud/dolicloud_list.php
- *		\ingroup    nltechno
+ *		\ingroup    sellyoursaas
  *		\brief      This file is an example of a php page
  */
 
@@ -42,7 +42,7 @@ dol_include_once("/sellyoursaas/class/dolicloudcustomernew.class.php");
 // Load traductions files requiredby by page
 $langs->load("companies");
 $langs->load("other");
-$langs->load("nltechno@sellyoursaas");
+$langs->load("sellyoursaas@sellyoursaas");
 
 // Get parameters
 $id			= GETPOST('id','int');

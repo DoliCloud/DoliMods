@@ -19,7 +19,7 @@
 
 /**
  *      \file       sellyoursaas/scripts/batch_customers.php
- *		\ingroup    nltechno
+ *		\ingroup    sellyoursaas
  *      \brief      Main master Dolicloud batch
  *      			backup_instance.php (payed customers rsync + databases backup)
  *      			update database info for customer
@@ -180,7 +180,7 @@ if ($action == 'backup' || $action == 'backuptestrsync' || $action == 'backuptes
 {
 	if (empty($conf->global->DOLICLOUD_BACKUP_PATH))
 	{
-		print "Error: Setup of module NLTechno not complete. Path to backup not defined.\n";
+		print "Error: Setup of module SellYourSaas not complete. Path to backup not defined.\n";
 		exit -1;
 	}
 

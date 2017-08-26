@@ -4,7 +4,7 @@
 
 /**
  *    	\file       htdocs/sellyoursaas/statsemailings.php
- *		\ingroup    nltechno
+ *		\ingroup    sellyoursaas
  *		\brief      Page des stats
  *		\author		Laurent Destailleur
  */
@@ -33,7 +33,7 @@ require_once DOL_DOCUMENT_ROOT.'/comm/mailing/class/mailing.class.php';
 
 
 // Load traductions files
-//$langs->load("nltechno");
+//$langs->load("sellyoursaas");
 $langs->load("companies");
 $langs->load("other");
 
@@ -42,7 +42,7 @@ $langs->load("other");
 $socid = isset($_GET["socid"])?$_GET["socid"]:'';
 
 // Protection
-if (! $user->rights->nltechno->emailings->voir)
+if (! $user->rights->sellyoursaas->emailings->voir)
 {
 	accessforbidden();
 	exit;

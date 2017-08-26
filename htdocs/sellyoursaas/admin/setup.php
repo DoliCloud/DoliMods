@@ -45,7 +45,7 @@ accessforbidden();
 $langs->load("admin");
 $langs->load("errors");
 $langs->load("install");
-$langs->load("nltechno@sellyoursaas");
+$langs->load("sellyoursaas@sellyoursaas");
 
 $action=GETPOST('action');
 

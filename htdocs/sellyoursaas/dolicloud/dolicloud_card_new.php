@@ -51,7 +51,7 @@ $langs->load("companies");
 $langs->load("users");
 $langs->load("other");
 $langs->load("commercial");
-$langs->load("nltechno@sellyoursaas");
+$langs->load("sellyoursaas@sellyoursaas");
 
 $mesg=''; $error=0; $errors=array();
 
@@ -79,8 +79,8 @@ if ($db2->error)
 $object = new DoliCloudCustomerNew($db,$db2);
 
 // Security check
-$user->rights->nltechno->dolicloud->delete = $user->rights->nltechno->dolicloud->write;
-$result = restrictedArea($user, 'nltechno', 0, '','dolicloud');
+$user->rights->sellyoursaas->dolicloud->delete = $user->rights->sellyoursaas->dolicloud->write;
+$result = restrictedArea($user, 'sellyoursaas', 0, '','dolicloud');
 
 // Initialize technical object to manage hooks of page. Note that conf->hooks_modules contains array array
 include_once(DOL_DOCUMENT_ROOT.'/core/class/hookmanager.class.php');
@@ -110,7 +110,7 @@ if (empty($reshook))
 	}
 
 	// Add customer
-	if ($action == 'add' && $user->rights->nltechno->dolicloud->write)
+	if ($action == 'add' && $user->rights->sellyoursaas->dolicloud->write)
 	{
 		$db->begin();
 
@@ -174,7 +174,7 @@ if (empty($reshook))
 		}
 	}
 
-	if ($action == 'confirm_delete' && $confirm == 'yes' && $user->rights->nltechno->dolicloud->write)
+	if ($action == 'confirm_delete' && $confirm == 'yes' && $user->rights->sellyoursaas->dolicloud->write)
 	{
 		$result=$object->fetch($id);
 
@@ -190,7 +190,7 @@ if (empty($reshook))
 		}
 	}
 
-	if ($action == 'update' && ! $_POST["cancel"] && $user->rights->nltechno->dolicloud->write)
+	if ($action == 'update' && ! $_POST["cancel"] && $user->rights->sellyoursaas->dolicloud->write)
 	{
 		if (empty($_POST["organization"]) || empty($_POST["plan"]) || empty($_POST["email"]))
 		{
@@ -277,7 +277,7 @@ $arraystatus=Dolicloudcustomernew::$listOfStatus;
 
 
 // Confirm deleting object
-if ($user->rights->nltechno->dolicloud->write)
+if ($user->rights->sellyoursaas->dolicloud->write)
 {
 	if ($action == 'delete')
 	{
@@ -297,7 +297,7 @@ if ($id > 0 || $instance || $action == 'create')
 	dol_fiche_head($head, 'card', $title, 0, 'contact');
 }
 
-if ($user->rights->nltechno->dolicloud->write)
+if ($user->rights->sellyoursaas->dolicloud->write)
 {
 	if ($action == 'create')
 	{
@@ -821,7 +821,7 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 	// Last refresh
 	print ' - '.$langs->trans("DateLastCheck").': '.($object->date_lastcheck?dol_print_date($object->date_lastcheck,'dayhour','tzuser'):$langs->trans("Never"));
 
-	if (! $object->user_id && $user->rights->nltechno->dolicloud->write)
+	if (! $object->user_id && $user->rights->sellyoursaas->dolicloud->write)
 	{
 		print ' <a href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&amp;action=refresh">'.img_picto($langs->trans("Refresh"),'refresh').'</a>';
 	}
@@ -876,15 +876,15 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 	print "</table><br>";
 
 
-	// ----- NLTechno instance -----
+	// ----- SellYourSaas instance -----
 	$DNS_ROOT=(empty($conf->global->NLTECHNO_DNS_ROOT)?'/etc/bind':$conf->global->NLTECHNO_DNS_ROOT);
 	$APACHE_ROOT=(empty($conf->global->NLTECHNO_APACHE_ROOT)?'/etc/apache2':$conf->global->NLTECHNO_APACHE_ROOT);
 
-	print '<strong>INSTANCE SERVEUR NLTECHNO</strong>';
+	print '<strong>INSTANCE '.$conf->global->SELLYOURSAAS_NAME.'</strong>';
 	/*
 	print ' - '.$langs->trans("DateLastCheck").': '.($object->lastcheck?dol_print_date($object->lastcheck,'dayhour','tzuser'):$langs->trans("Never"));
 
-	if (! $object->user_id && $user->rights->nltechno->dolicloud->write)
+	if (! $object->user_id && $user->rights->sellyoursaas->dolicloud->write)
 	{
 		print ' <a href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&amp;action=refresh">'.img_picto($langs->trans("Refresh"),'refresh').'</a>';
 	}
@@ -1019,12 +1019,12 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 	{
 		print '<div class="tabsAction">';
 
-		if ($user->rights->nltechno->dolicloud->write)
+		if ($user->rights->sellyoursaas->dolicloud->write)
 		{
 			print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&amp;action=edit">'.$langs->trans('Modify').'</a>';
 		}
 
-		if ($user->rights->nltechno->dolicloud->write)
+		if ($user->rights->sellyoursaas->dolicloud->write)
 		{
 			print '<a class="butActionDelete" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&amp;action=delete">'.$langs->trans('Delete').'</a>';
 		}

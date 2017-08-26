@@ -25,7 +25,7 @@ class mailing_mailinglist_chiensderace extends MailingTargets
 
 	var $enabled=0;
 	var $require_module=array();
-	var $picto='nltechno.gif@sellyoursaas';
+	var $picto='sellyoursaas.gif@sellyoursaas';
 	var $db;
 
 	/**
@@ -40,7 +40,7 @@ class mailing_mailinglist_chiensderace extends MailingTargets
 		$this->db=$db;
 		if (is_array($conf->modules))
 		{
-			$this->enabled=in_array('nltechno',$conf->modules);
+			$this->enabled=in_array('sellyoursaas',$conf->modules);
 		}
 	}
 

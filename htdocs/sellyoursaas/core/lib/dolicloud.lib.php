@@ -18,7 +18,7 @@
 
 /**
  *	    \file       htdocs/core/lib/dolicloud.lib.php
- *		\brief      Ensemble de fonctions de base pour le module NLTechno, DoliCloud part
+ *		\brief      Ensemble de fonctions de base pour le module SellYourSaas, DoliCloud part
  */
 
 

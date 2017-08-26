@@ -17,7 +17,7 @@
 
 /**
  *	    \file       htdocs/sellyoursaas/dolicloud/dolicloud_import_payments.php
- *      \ingroup    nltechno
+ *      \ingroup    sellyoursaas
  *      \brief      Page list payment
  */
 
@@ -45,7 +45,7 @@ if (!$user->admin) accessforbidden();
 
 $langs->load("admin");
 $langs->load("other");
-$langs->load("nltechno@sellyoursaas");
+$langs->load("sellyoursaas@sellyoursaas");
 
 $def = array();
 $action=GETPOST('action', 'alpha');
@@ -54,7 +54,7 @@ $actionsave=GETPOST('save', 'alpha');
 $file=GETPOST('file');
 
 $modules = array();
-$upload_dir = $conf->nltechno->dir_temp.'/dolicloud';
+$upload_dir = $conf->sellyoursaas->dir_temp.'/dolicloud';
 
 
 /*
@@ -159,8 +159,8 @@ $sapi_type = php_sapi_name();
 $script_file = basename(__FILE__);
 $path=dirname(__FILE__).'/';
 
-$morehtml=' &nbsp; <a href="'.$_SERVER["PHP_SELF"].'?module=nltechno_temp&action=import&file=__FILENAMEURLENCODED__">'.$langs->trans("Import").'</a>';
-print $formfile->showdocuments('nltechno_temp', '/dolicloud', $conf->nltechno->dir_temp.'/dolicloud', $_SERVER["PHP_SELF"], 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, $morehtml);
+$morehtml=' &nbsp; <a href="'.$_SERVER["PHP_SELF"].'?module=sellyoursaas_temp&action=import&file=__FILENAMEURLENCODED__">'.$langs->trans("Import").'</a>';
+print $formfile->showdocuments('sellyoursaas_temp', '/dolicloud', $conf->sellyoursaas->dir_temp.'/dolicloud', $_SERVER["PHP_SELF"], 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, $morehtml);
 
 print $importresult;
 

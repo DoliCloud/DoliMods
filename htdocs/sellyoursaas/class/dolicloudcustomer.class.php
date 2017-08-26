@@ -16,8 +16,8 @@
  */
 
 /**
- *  \file       nltechno/class/dolicloudcustomer.class.php
- *  \ingroup    nltechno
+ *  \file       sellyoursaas/class/dolicloudcustomer.class.php
+ *  \ingroup    sellyoursaas
  *  \brief      This file is an example for a CRUD class file (Create/Read/Update/Delete)
  *				Initialy built by build_class_from_table on 2012-06-26 21:03
  */
@@ -671,7 +671,7 @@ class Dolicloudcustomer extends CommonObject
 	function LibStatut($status,$mode=0,$instance_status='',$payment_status='',$form='')
 	{
 		global $langs;
-		$langs->load('nltechno@sellyoursaas');
+		$langs->load('sellyoursaas@sellyoursaas');
 
 		$st=$status;
 		if (! empty($instance_status) && ! empty($payment_status) && is_object($form))

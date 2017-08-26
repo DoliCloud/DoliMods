@@ -49,7 +49,7 @@ $langs->load("companies");
 $langs->load("users");
 $langs->load("other");
 $langs->load("commercial");
-$langs->load("nltechno@sellyoursaas");
+$langs->load("sellyoursaas@sellyoursaas");
 
 $mesg='';
 
@@ -75,7 +75,7 @@ if ($db2->error)
 $object = new DoliCloudCustomerNew($db,$db2);
 
 // Security check
-$result = restrictedArea($user, 'nltechno', 0, '','dolicloud');
+$result = restrictedArea($user, 'sellyoursaas', 0, '','dolicloud');
 
 // Initialize technical object to manage hooks of page. Note that conf->hooks_modules contains array array
 include_once(DOL_DOCUMENT_ROOT.'/core/class/hookmanager.class.php');
@@ -228,7 +228,7 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 	// Last refresh
 	print $langs->trans("DateLastCheck").': '.($object->date_lastcheck?dol_print_date($object->date_lastcheck,'dayhour','tzuser'):$langs->trans("Never"));
 
-	if (! $object->user_id && $user->rights->nltechno->dolicloud->write)
+	if (! $object->user_id && $user->rights->sellyoursaas->dolicloud->write)
 	{
 		print ' <a href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&amp;action=refresh">'.img_picto($langs->trans("Refresh"),'refresh').'</a>';
 	}*/
@@ -253,7 +253,7 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 	$server=$object->instance.'.on.dolicloud.com';
 
 	// ----- Backup instance -----
-	print '<strong>INSTANCE SERVEUR NLTECHNO</strong><br>';
+	print '<strong>INSTANCE '.$conf->global->SELLYOURSAAS_NAME.'</strong><br>';
 	print '<table class="border" width="100%">';
 
 	// Nb of users
@@ -300,7 +300,7 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 	{
 		print '<div class="tabsAction">';
 
-		if ($user->rights->nltechno->dolicloud->write)
+		if ($user->rights->sellyoursaas->dolicloud->write)
 		{
 			print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&amp;action=upgrade">'.$langs->trans('Upgrade').'</a>';
 		}
