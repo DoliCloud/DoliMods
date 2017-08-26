@@ -216,7 +216,7 @@ print '<tr '.$bc[$var].'><td>'.$langs->trans("DatabaseServer").'</td>';
 print '<td>';
 print '<input size="40" type="text" name="DOLICLOUD_DATABASE_HOST" value="'.$conf->global->DOLICLOUD_DATABASE_HOST.'">';
 print '</td>';
-print '<td>www.dolicloud.com</td>';
+print '<td>localhost</td>';
 print '<td>&nbsp;</td>';
 print '</tr>';
 $var=!$var;
