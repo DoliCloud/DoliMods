@@ -56,18 +56,6 @@ $action=GETPOST('action');
  * Actions
  */
 
-if ($action == 'setstratus5')
-{
-	$error=0;
-
-	if (! $error)
-	{
-		$dir=GETPOST("DOLICLOUD_EXT_HOME");
-		dolibarr_set_const($db,"DOLICLOUD_EXT_HOME",GETPOST("DOLICLOUD_EXT_HOME"),'chaine',0,'',$conf->entity);
-		setEventMessage($langs->trans("Saved"),'mesgs');
-	}
-}
-
 if ($action == 'set')
 {
 	$error=0;
@@ -91,12 +79,25 @@ if ($action == 'set')
 		$dir=GETPOST("DOLICLOUD_BACKUP_PATH");
 		if (! dol_is_dir($dir)) setEventMessage($langs->trans("ErrorDirNotFound",$dir),'warnings');
 		dolibarr_set_const($db,"DOLICLOUD_BACKUP_PATH",GETPOST("DOLICLOUD_BACKUP_PATH"),'chaine',0,'',$conf->entity);
+	}
+}
+
+if ($action == 'setstratus5')
+{
+	$error=0;
+
+	if (! $error)
+	{
+		$dir=GETPOST("DOLICLOUD_EXT_HOME");
+		dolibarr_set_const($db,"DOLICLOUD_EXT_HOME",GETPOST("DOLICLOUD_EXT_HOME"),'chaine',0,'',$conf->entity);
 
 		dolibarr_set_const($db,"DOLICLOUD_DATABASE_HOST",GETPOST("DOLICLOUD_DATABASE_HOST"),'chaine',0,'',$conf->entity);
 		dolibarr_set_const($db,"DOLICLOUD_DATABASE_PORT",GETPOST("DOLICLOUD_DATABASE_PORT"),'chaine',0,'',$conf->entity);
 		dolibarr_set_const($db,"DOLICLOUD_DATABASE_NAME",GETPOST("DOLICLOUD_DATABASE_NAME"),'chaine',0,'',$conf->entity);
 		dolibarr_set_const($db,"DOLICLOUD_DATABASE_USER",GETPOST("DOLICLOUD_DATABASE_USER"),'chaine',0,'',$conf->entity);
 		dolibarr_set_const($db,"DOLICLOUD_DATABASE_PASS",GETPOST("DOLICLOUD_DATABASE_PASS"),'chaine',0,'',$conf->entity);
+
+		setEventMessage($langs->trans("Saved"),'mesgs');
 	}
 }
 
@@ -157,7 +158,7 @@ print '<tr '.$bc[$var].'><td>'.$langs->trans("DirForLastStableVersionOfDolibarr"
 print '<td>';
 print '<input size="40" type="text" name="DOLICLOUD_LASTSTABLEVERSION_DIR" value="'.$conf->global->DOLICLOUD_LASTSTABLEVERSION_DIR.'">';
 print '</td>';
-print '<td>/home/admin/wwwroot/dolibarr_old</td>';
+print '<td>/home/admin/wwwroot/dolibarr_documents/sellyoursaas/git/dolibarr_x.y</td>';
 print '<td>&nbsp;</td>';
 print '</tr>';
 
